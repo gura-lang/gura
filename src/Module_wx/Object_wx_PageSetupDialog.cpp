@@ -1,0 +1,156 @@
+//----------------------------------------------------------------------------
+// wxPageSetupDialog
+// extracted from pagedlg.tex
+//----------------------------------------------------------------------------
+#include "stdafx.h"
+
+Gura_BeginModule(wx)
+
+//----------------------------------------------------------------------------
+// Class derivation
+//----------------------------------------------------------------------------
+class wx_PageSetupDialog: public wxPageSetupDialog, public GuraObjectObserver {
+private:
+	Gura::Signal _sig;
+	Object_wx_PageSetupDialog *_pObj;
+public:
+	inline wx_PageSetupDialog(wxWindow* parent, wxPageSetupDialogData* data) : wxPageSetupDialog(parent, data), _sig(NULL), _pObj(NULL) {}
+	~wx_PageSetupDialog();
+	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PageSetupDialog *pObj) {
+		_sig = sig, _pObj = pObj;
+	}
+	// virtual function of GuraObjectObserver
+	virtual void GuraObjectDeleted();
+};
+
+wx_PageSetupDialog::~wx_PageSetupDialog()
+{
+	if (_pObj != NULL) _pObj->InvalidateEntity();
+}
+
+void wx_PageSetupDialog::GuraObjectDeleted()
+{
+	_pObj = NULL;
+}
+
+//----------------------------------------------------------------------------
+// Gura interfaces for wxPageSetupDialog
+//----------------------------------------------------------------------------
+Gura_DeclareFunction(PageSetupDialog)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetClassToConstruct(Gura_UserClass(wx_PageSetupDialog));
+	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
+	DeclareArg(env, "data", VTYPE_wx_PageSetupDialogData, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(PageSetupDialog)
+{
+	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxPageSetupDialogData *data = (wxPageSetupDialogData *)(NULL);
+	if (args.IsValid(1)) data = Object_wx_PageSetupDialogData::GetObject(args, 1)->GetEntity();
+	wx_PageSetupDialog *pEntity = new wx_PageSetupDialog(parent, data);
+	Object_wx_PageSetupDialog *pObj = Object_wx_PageSetupDialog::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_PageSetupDialog(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+Gura_DeclareMethod(wx_PageSetupDialog, GetPageSetupData)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_PageSetupDialog, GetPageSetupData)
+{
+	Object_wx_PageSetupDialog *pSelf = Object_wx_PageSetupDialog::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxPageSetupDialogData &rtn = pSelf->GetEntity()->GetPageSetupData();
+	return ReturnValue(env, sig, args, Value(new Object_wx_PageSetupDialogData(new wxPageSetupDialogData(rtn), NULL, OwnerTrue)));
+}
+
+Gura_DeclareMethod(wx_PageSetupDialog, IsOk)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_PageSetupDialog, IsOk)
+{
+#if 0
+	Object_wx_PageSetupDialog *pSelf = Object_wx_PageSetupDialog::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool rtn = pSelf->GetEntity()->IsOk();
+	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_PageSetupDialog, ShowModal)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_PageSetupDialog, ShowModal)
+{
+	Object_wx_PageSetupDialog *pSelf = Object_wx_PageSetupDialog::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->ShowModal();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+//----------------------------------------------------------------------------
+// Object implementation for wxPageSetupDialog
+//----------------------------------------------------------------------------
+Object_wx_PageSetupDialog::~Object_wx_PageSetupDialog()
+{
+}
+
+Object *Object_wx_PageSetupDialog::Clone() const
+{
+	return NULL;
+}
+
+String Object_wx_PageSetupDialog::ToString(Signal sig, bool exprFlag)
+{
+	String rtn("<wx.PageSetupDialog:");
+	if (GetEntity() == NULL) {
+		rtn += "invalid>";
+	} else {
+		char buff[64];
+		::sprintf(buff, "%p>", GetEntity());
+		rtn += buff;
+	}
+	return rtn;
+}
+
+void Object_wx_PageSetupDialog::OnModuleEntry(Environment &env, Signal sig)
+{
+	Gura_AssignFunction(PageSetupDialog);
+}
+
+//----------------------------------------------------------------------------
+// Class implementation for wxPageSetupDialog
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_PageSetupDialog)
+{
+	Gura_AssignMethod(wx_PageSetupDialog, GetPageSetupData);
+	Gura_AssignMethod(wx_PageSetupDialog, IsOk);
+	Gura_AssignMethod(wx_PageSetupDialog, ShowModal);
+}
+
+Gura_ImplementDescendantCreator(wx_PageSetupDialog)
+{
+	return new Object_wx_PageSetupDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+}
+
+}}

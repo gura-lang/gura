@@ -1,0 +1,199 @@
+#!/usr/bin/env gura
+# encoding: shift_jis
+import(tk)
+
+//tk.tclDump()
+
+tk.mainwindow() {|mw|
+	mw.wm$title('gura-tk test')
+	mw[`menu] = mw.Menu() {|m|
+		m.Cascade(label => 'File', underline => 0) {|m|
+			m.Cascade(label => 'Cascade') {|m|
+				m.Command(label => 'aaaa') {
+					println('aaaa')
+				}
+			}
+			m.Command(label => 'aaaa') {
+				println('aaaa')
+			}
+			m.Command(label => 'Save') {
+				mw.tk$GetSaveFile()
+			}
+			m.Command(label => 'Open') {
+				mw.tk$GetOpenFile()
+			}
+			m.Separator()
+			m.Command(label => 'Exit') {
+				mw.destroy()
+			}
+		}
+		m.Cascade(label => 'Tool', underline => 0) {|m|
+			m.Command(label => 'Option')
+			m.Command(label => 'Custom')
+		}
+	}
+	mw.ttk$Separator().grid(sticky => 'ew')
+	mw.Label(justify => 'left', font => tk.FixedFont) {|w|
+		w.grid(sticky => 'ew')
+		w[`text] = \
+			('tkLibrary:    %s\n' % tk.tkLibrary.string) + \
+			('tkPatchLevel: %s\n' % tk.tkPatchLevel.string) + \
+			('tkVersion:    %s' % tk.tkVersion.string)
+	}
+	function {
+		changeFont(w:tk.Widget, size:number) = {
+			w.configure(text => 'font test %d' % size,
+										font => tk.Font(size => size))
+		}
+		size = 16
+		mw.Label(relief => 'sunken', borderwidth => 1) {|w|
+			w.grid(sticky => 'ew', pady => [2, 0])
+			changeFont(w, size)
+			w.bind('<1>') {
+				size += 4
+				changeFont(w, size)
+			}
+			w.bind('<3>') {
+				size -= 4
+				changeFont(w, size)
+			}
+			mw.bind('<Left>') {
+				size -= 4
+				changeFont(w, size)
+			}
+			mw.bind('<Right>') {
+				size += 4
+				changeFont(w, size)
+			}
+		}
+	}()
+	textvar = tk.variable('hello world')
+	entry1 = mw.Entry(textvariable => textvar, validate => 'key') {|w|
+		w.grid(sticky => 'ew', pady => [2, 0])
+		w.bind(`validatecommand) {|edited:string, action:number, validate:string|
+			println(validate, ' ', edited, ' ', action)
+			edited != 'a'
+		}
+		w.bind('<Key>') {|keysym:string|
+			println('<Key> ', keysym)
+		}
+		w.bind('<ButtonPress>') {|x, y|
+			println('<ButtonPress> ', x, ' ', y)
+		}
+	}
+	mw.Button(text => '“ú–{Œê‚Ìƒ{ƒ^ƒ“') {|w|
+		w.grid(sticky => 'ew')
+		w.bind(`command) {
+		}
+	}
+	mw.Frame() {|f|
+		i = 0
+		f.grid(sticky => 'ew', pady => [2, 0])
+		f.Button(text => 'bindafter') {|w|
+			w.grid(sticky => 'ew', column => 0, row => 0)
+			w.bind(`command) {
+				w.bindafter(1000) {
+					textvar.string = format('‚ ‚¢‚¤‚¦‚¨ %d', i)
+					i += 1
+				}
+			}
+		}
+		f.Button(text => 'bindtimer') {|w|
+			w.grid(sticky => 'ew', column => 1, row => 0, padx => '4 0')
+			w.bind(`command) {
+				w.bindtimer(100, 100, 10) {
+					textvar.string = format('‚ ‚¢‚¤‚¦‚¨ %d', i)
+					i += 1
+				}
+			}
+		}
+		f.grid$columnconfigure(0..1, weight => 1):void
+	}
+	mw.Button(text => 'OK') {|w|
+		w.grid(sticky => 'ew', pady => [2, 0])
+		w.bind(`command) {
+			println('message: ', textvar.string)
+		}
+	}
+	mw.Frame() {|f|
+		f.grid(sticky => 'ew', pady => [2, 0])
+		f.Button(text => 'normal') {|w|
+			w.grid(sticky => 'ew', column => 0, row => 0)
+			w.bind(`command) {
+				entry1[`state] = 'normal'
+			}
+		}
+		f.Button(text => 'readonly') {|w|
+			w.grid(sticky => 'ew', column => 1, row => 0, padx => '4 0')
+			w.bind(`command) {
+				entry1[`state] = 'readonly'
+			}
+		}
+		f.grid$columnconfigure(0..1, weight => 1):void
+	}
+	tl = nil
+	mw.Button(text => 'toplevel') {|w|
+		w.grid(sticky => 'ew', pady => [2, 0])
+		w.bind(`command) {
+			if (tl && tl.winfo$exists() != 0) {
+				tl.wm$deiconify()
+				tl.raise()
+			} else {
+				tl:extern = mw.Toplevel() {|tl|
+					tl.wm$title('hello')
+					tl.Button(text => 'Close') {|w|
+						w.bind(`command) {
+							tl.wm$withdraw()
+						}
+						w.grid()
+					}
+				}
+			}
+		}
+	}
+	mw.Button(text => 'messageBox') {|w|
+		w.grid(sticky => 'ew', pady => [2, 0])
+		w.bind(`command) {
+			mw.tk$MessageBox(message => entry1.get() + ', you are here!')
+		}
+	}
+	mw.Button(text => 'dialog') {|w|
+		w.grid(sticky => 'ew', pady => [2, 0])
+		w.bind(`command) {
+			mw.tk$Dialog('dialog test', 'choose one', default => 2, strings => ['one', 'two', 'three'])
+		}
+	}
+	mw.Button(text => 'Exit this program', command => 'exit') {|w|
+		w.grid(sticky => 'ew', pady => [2, 0])
+	}
+	mw.Frame() {|f|
+		f.grid(sticky => 'ew', pady => [2, 0])
+		variable = tk.variable(0)
+		for ([text, value] in [['select1', 0], ['select2', 1], ['select3', 2]]) {|iCol|
+			f.Radiobutton(text => text, variable => variable, value => value) {|w|
+				w.grid(sticky => 'ew', column => iCol, row => 0)
+			}
+		}
+	}
+	mw.Frame() {|f|
+		f.grid(sticky => 'ew', pady => [2, 0])
+		variable = tk.variable(0)
+		for ([text, value] in [['select1', 0], ['select2', 1], ['select3', 2]]) {|iCol|
+			f.Radiobutton(text => text, variable => variable, value => value) {|w|
+				w.grid(sticky => 'ew', column => iCol, row => 0)
+			}
+		}
+	}
+	mw.Frame() {|f|
+		f.grid(sticky => 'ew', pady => [2, 0])
+		f.Label(text => 'hoge') {|w|
+			w.grid(sticky => 'ew', column => 0, row => 0)
+		}
+		f.Label(text => 'hoge') {|w|
+			w.grid(sticky => 'ew', column => 1, row => 0)
+		}
+		//f.grid$configure(0..1, pad => 4)
+	}
+	//mw.lower()
+}
+tk.mainloop()

@@ -1,0 +1,154 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+import(gif)
+
+log = nil
+I(filename:string) = image(path.join(sys.datadir, 'sample', 'resource', filename))
+
+img = I('kangaroo.gif')
+
+Panel = class(wx.Panel) {
+	__init__(parent:wx.Window) = {|parent|
+		outerBox = wx.BoxSizer(wx.VERTICAL)
+		self.SetSizer(outerBox)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		outerBox.Add(vbox, wx.SizerFlags().Border(wx.ALL, 4))
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4))
+			wx.Button(self, wx.ID_ANY, ['button1', 'button2', 'button3', 'button4']) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.RIGHT, 2))
+				ctrl.Bind(wx.EVT_SET_FOCUS) {|event|
+					log.WriteText('EVT_SET_FOCUS %s\n' % event.GetWindow())
+				}
+				ctrl.Bind(wx.EVT_BUTTON) {|event|
+					log.WriteText('%s %s %s\n' % [event.GetEventType(), event, ctrl.GetLabel()])
+				}
+			}
+		}
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4))
+			wx.Button(self, wx.ID_ANY, ['button1', 'button2', 'button3']) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.RIGHT, 2))
+				ctrl.SetFont(wx.Font(10, flags => wx.FONTFLAG_ITALIC | wx.FONTFLAG_BOLD))
+				ctrl.Bind(wx.EVT_SET_FOCUS) {|event|
+					log.WriteText('EVT_SET_FOCUS %s\n' % event.GetWindow())
+				}
+				ctrl.Bind(wx.EVT_BUTTON) {|event|
+					log.WriteText('EVT_BUTTON %s %s\n' % [event, ctrl.GetLabel()])
+				}
+			}
+		}
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4))
+			wx.RadioButton(self, wx.ID_ANY, 'radio1', style => wx.RB_GROUP) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags())
+				ctrl.Bind(wx.EVT_RADIOBUTTON) {|event|
+					log.WriteText('EVT_RADIOBUTTON %s\n' % event)
+				}
+			}
+			wx.RadioButton(self, wx.ID_ANY, 'radio2') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 8))
+				ctrl.Bind(wx.EVT_RADIOBUTTON) {|event|
+					log.WriteText('EVT_RADIOBUTTON %s\n' % event)
+				}
+			}
+			wx.RadioButton(self, wx.ID_ANY, 'radio3') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 8))
+				ctrl.Bind(wx.EVT_RADIOBUTTON) {|event|
+					log.WriteText('EVT_RADIOBUTTON %s\n' % event)
+				}
+			}
+		}
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4))
+			wx.CheckBox(self, wx.ID_ANY, 'check1') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags())
+				ctrl.Bind(wx.EVT_CHECKBOX) {|event|
+					log.WriteText('EVT_CHECKBOX %s\n' % event)
+				}
+			}
+			wx.CheckBox(self, wx.ID_ANY, 'check2') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 8))
+				ctrl.Bind(wx.EVT_CHECKBOX) {|event|
+					log.WriteText('EVT_CHECKBOX %s\n' % event)
+				}
+			}
+			wx.CheckBox(self, wx.ID_ANY, 'check3') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 8))
+				ctrl.Bind(wx.EVT_CHECKBOX) {|event|
+					log.WriteText('EVT_CHECKBOX %s\n' % event)
+				}
+			}
+		}
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4).Expand())
+			/*
+			wx.BitmapButton(self, wx.ID_ANY, img,
+											style => wx.BU_AUTODRAW) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags())
+			}
+			*/
+			wx.BitmapButton(self, wx.ID_ANY, wx.Bitmap(I('kangaroo.gif')),
+											style => wx.BU_AUTODRAW) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags())
+			}
+			wx.BitmapButton(self, wx.ID_ANY, wx.Bitmap(I('chicken-anim.gif')),
+											style => wx.BU_AUTODRAW) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 4))
+			}
+			wx.BitmapButton(self, wx.ID_ANY, wx.Bitmap(I('chicken-anim.gif').flip(`horz)),
+											style => wx.BU_AUTODRAW) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 4))
+			}
+		}
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4).Expand())
+ 			wx.RadioBox(self, wx.ID_ANY, 'choose one',
+								choices => ['apple', 'orange', 'grape']) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags(1).Expand())
+				ctrl.SetItemToolTip(0.., ["APPLE", "ORANGE", "GRAPE"])
+				ctrl.Bind(wx.EVT_RADIOBOX) {|event|
+					log.Printf('EVT_RADIOBOX %s\n', event)
+				}
+			}
+		}
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4))
+			wx.Choice(self, wx.ID_ANY, size => wx.Size(100, -1), choices => ['apple', 'orange', 'grape']) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags())
+				ctrl.Bind(wx.EVT_CHOICE) {|event|
+					log.Printf('EVT_CHOICE %s\n', event)
+				}
+			}
+		}
+		//wx.ToolTip.SetDelay(0)
+	}
+}
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0]),
+													size => wx.Size(400, 600)|
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		self.SetSizer(vbox)
+		vbox.Add(Panel(self), wx.SizerFlags().Expand())
+		wxutil.LogWindow(self) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand())
+			log:extern = ctrl
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		//println('OnInit')
+		frame = Frame(nil)
+		//wx.StatusBar(frame)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

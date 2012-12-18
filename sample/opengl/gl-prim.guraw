@@ -1,0 +1,398 @@
+#!/usr/bin/env gura
+
+// Orignal source file is written in C and is available from the site below.
+// http://www.sgi.com/products/software/opengl/examples/samples/
+// prim.c
+
+import(glu) {*}
+import(opengl) {*}
+
+PIXEL_CENTER(x) = (int(x) + 0.5)
+
+GAP = 10
+ROWS = 3
+COLS = 4
+
+OPENGL_WIDTH = 48
+OPENGL_HEIGHT = 13
+
+windW = 400, windH = 300
+boxW = (windW - (COLS + 1) * GAP) / COLS
+boxH = (windH - (ROWS + 1) * GAP) / ROWS
+rgb = true
+mode1 = true
+mode2 = true
+
+OpenGL_bits_Raw = @{
+   0x00, 0x03, 0x00, 0x00, 0x00, 0x00,
+   0x7f, 0xfb, 0xff, 0xff, 0xff, 0x01,
+   0x7f, 0xfb, 0xff, 0xff, 0xff, 0x01,
+   0x00, 0x03, 0x00, 0x00, 0x00, 0x00,
+   0x3e, 0x8f, 0xb7, 0xf9, 0xfc, 0x01,
+   0x63, 0xdb, 0xb0, 0x8d, 0x0d, 0x00,
+   0x63, 0xdb, 0xb7, 0x8d, 0x0d, 0x00,
+   0x63, 0xdb, 0xb6, 0x8d, 0x0d, 0x00,
+   0x63, 0x8f, 0xf3, 0xcc, 0x0d, 0x00,
+   0x63, 0x00, 0x00, 0x0c, 0x4c, 0x0a,
+   0x63, 0x00, 0x00, 0x0c, 0x4c, 0x0e,
+   0x63, 0x00, 0x00, 0x8c, 0xed, 0x0e,
+   0x3e, 0x00, 0x00, 0xf8, 0x0c, 0x00,
+}
+OpenGL_bits = OpenGL_bits_Raw.pack('%dB' % OpenGL_bits_Raw.len())
+
+rotation = 0
+
+RotateColorMask() = {
+	rotation = (rotation + 1) & 0x3
+	if (rotation == 0) {
+		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE)
+		glIndexMask(0xff)
+	} elsif (rotation == 1) {
+		glColorMask(GL_FALSE, GL_TRUE, GL_TRUE, GL_TRUE)
+		glIndexMask(0xFE)
+	} elsif (rotation == 2) {
+		glColorMask(GL_TRUE, GL_FALSE, GL_TRUE, GL_TRUE)
+		glIndexMask(0xFD)
+	} elsif (rotation == 3) {
+		glColorMask(GL_TRUE, GL_TRUE, GL_FALSE, GL_TRUE)
+		glIndexMask(0xFB)
+	}
+}
+
+SetColor(index:number) = {
+	if (rgb) {
+		color = @{
+			[0.0, 0.0, 0.0]
+			[1.0, 0.0, 0.0]
+			[0.0, 1.0, 0.0]
+			[1.0, 1.0, 0.0]
+			[0.0, 0.0, 1.0]
+			[1.0, 0.0, 1.0]
+			[0.0, 1.0, 1.0]
+			[1.0, 1.0, 1.0]
+		}[index]
+		glColor3fv(color)
+	} else {
+		glIndexi(index)
+	}
+}
+
+Viewport(row:number, column:number) = {
+	x = GAP + column * (boxW + GAP)
+	y = GAP + row * (boxH + GAP)
+	glViewport(x, y, boxW, boxH)
+	glMatrixMode(GL_PROJECTION)
+	glLoadIdentity()
+	glOrtho(-boxW / 2, boxW / 2, -boxH / 2, boxH / 2, 0.0, 1.0)
+	glMatrixMode(GL_MODELVIEW)
+	glEnable(GL_SCISSOR_TEST)
+	glScissor(x, y, boxW, boxH)
+}
+
+Point() = {
+	glBegin(GL_POINTS) {
+		for (i in range(1, 8)) {
+			j = i * 2
+			SetColor(i)
+			glVertex2i(-j, -j)
+			glVertex2i(-j, 0)
+			glVertex2i(-j, j)
+			glVertex2i(0, j)
+			glVertex2i(j, j)
+			glVertex2i(j, 0)
+			glVertex2i(j, -j)
+			glVertex2i(0, -j)
+		}
+	}
+}
+
+Lines() = {
+	glPushMatrix() {
+		glTranslatef(-12, 0, 0)
+		for (i in range(1, 8)) {
+			SetColor(i)
+			glBegin(GL_LINES) {
+				glVertex2i(-boxW / 4, -boxH / 4)
+				glVertex2i(boxW / 4, boxH / 4)
+			}
+			glTranslatef(4, 0, 0)
+		}
+	}
+	if (rgb) { glColor3f(1.0, 1.0, 1.0) } else { glIndexi(7); }
+	glBegin(GL_LINES) {
+		glVertex2i(0, 0)
+	}
+}
+
+LineStrip() = {
+	glBegin(GL_LINE_STRIP) {
+		SetColor(1)
+		glVertex2f(PIXEL_CENTER(-boxW / 4), PIXEL_CENTER(-boxH / 4))
+		SetColor(2)
+		glVertex2f(PIXEL_CENTER(-boxW / 4), PIXEL_CENTER(boxH / 4))
+		SetColor(3)
+		glVertex2f(PIXEL_CENTER(boxW / 4), PIXEL_CENTER(boxH / 4))
+		SetColor(4)
+		glVertex2f(PIXEL_CENTER(boxW / 4), PIXEL_CENTER(-boxH / 4))
+	}
+	if (rgb) { glColor3f(1.0, 1.0, 1.0) } else { glIndexi(7); }
+	glBegin(GL_LINE_STRIP) {
+		glVertex2i(0, 0)
+	}
+}
+
+LineLoop() = {
+	glBegin(GL_LINE_LOOP) {
+		SetColor(1)
+		glVertex2f(PIXEL_CENTER(-boxW / 4), PIXEL_CENTER(-boxH / 4))
+		SetColor(2)
+		glVertex2f(PIXEL_CENTER(-boxW / 4), PIXEL_CENTER(boxH / 4))
+		SetColor(3)
+		glVertex2f(PIXEL_CENTER(boxW / 4), PIXEL_CENTER(boxH / 4))
+		SetColor(4)
+		glVertex2f(PIXEL_CENTER(boxW / 4), PIXEL_CENTER(-boxH / 4))
+	}
+	glEnable(GL_LOGIC_OP)
+	glLogicOp(GL_XOR)
+	glEnable(GL_BLEND)
+	glBlendFunc(GL_ONE, GL_ONE)
+	SetColor(5)
+	glBegin(GL_LINE_LOOP) {
+		glVertex2f(PIXEL_CENTER(-boxW / 8), PIXEL_CENTER(-boxH / 8))
+		glVertex2f(PIXEL_CENTER(-boxW / 8), PIXEL_CENTER(boxH / 8))
+	}
+	glBegin(GL_LINE_LOOP) {
+		glVertex2f(PIXEL_CENTER(-boxW / 8), PIXEL_CENTER(boxH / 8 + 5))
+		glVertex2f(PIXEL_CENTER(boxW / 8), PIXEL_CENTER(boxH / 8 + 5))
+	}
+	glDisable(GL_LOGIC_OP)
+	glDisable(GL_BLEND)
+	SetColor(6)
+	glBegin(GL_POINTS) {
+		glVertex2i(0, 0)
+	}
+	if (rgb) { glColor3f(1.0, 1.0, 1.0) } else { glIndexi(7) }
+	glBegin(GL_LINE_LOOP) {
+		glVertex2i(0, 0)
+	}
+}
+
+Bitmap() = {
+	glBegin(GL_LINES) {
+		SetColor(1)
+		glVertex2i(-boxW / 2, 0)
+		glVertex2i(boxW / 2, 0)
+		glVertex2i(0, -boxH / 2)
+		glVertex2i(0, boxH / 2)
+		SetColor(2)
+		glVertex2i(0, -3)
+		glVertex2i(0, -3 + OPENGL_HEIGHT)
+		SetColor(3)
+		glVertex2i(0, -3)
+		glVertex2i(OPENGL_WIDTH, -3)
+	}
+	SetColor(4)
+	glPixelStorei(GL_UNPACK_LSB_FIRST, GL_TRUE)
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
+	glRasterPos2i(0, 0)
+	glBitmap(OPENGL_WIDTH, OPENGL_HEIGHT, 0, 3, 0.0, 0.0, OpenGL_bits)
+}
+
+Triangles() = {
+	glBegin(GL_TRIANGLES) {
+		SetColor(1); glVertex2i(-boxW / 4, -boxH / 4)
+		SetColor(2); glVertex2i(-boxW / 8, -boxH / 16)
+		SetColor(3); glVertex2i(boxW / 8, -boxH / 16)
+		SetColor(4); glVertex2i(-boxW / 4, boxH / 4)
+		SetColor(5); glVertex2i(-boxW / 8, boxH / 16)
+		SetColor(6); glVertex2i(boxW / 8, boxH / 16)
+	}
+	if (rgb) { glColor3f(1.0, 1.0, 1.0) } else { glIndexi(7) }
+	glBegin(GL_TRIANGLES) {
+		glVertex2i(0, 0)
+		glVertex2i(-100, 100)
+	}
+}
+
+TriangleStrip() = {
+	glBegin(GL_TRIANGLE_STRIP) {
+		SetColor(1); glVertex2i(-boxW / 4, -boxH / 4)
+		SetColor(2); glVertex2i(-boxW / 4, boxH / 4)
+		SetColor(3); glVertex2i(0, -boxH / 4)
+		SetColor(4); glVertex2i(0, boxH / 4)
+		SetColor(5); glVertex2i(boxW / 4, -boxH / 4)
+		SetColor(6); glVertex2i(boxW / 4, boxH / 4)
+	}
+	if (rgb) { glColor3f(1.0, 1.0, 1.0) } else { glIndexi(7) }
+	glBegin(GL_TRIANGLE_STRIP) {
+		glVertex2i(0, 0)
+		glVertex2i(-100, 100)
+	}
+}
+
+TriangleFan() = {
+	y0 = -boxH / 4
+	y1 = y0 + boxH / 2 / 3
+	y2 = y1 + boxH / 2 / 3
+	y3 = boxH / 4
+	x0 = -boxW / 4
+	x1 = x0 + boxW / 2 / 3
+	x2 = x1 + boxW / 2 / 3
+	x3 = boxW / 4
+	vx = @{
+		[x0, y1]
+		[x0, y2]
+		[x1, y3]
+		[x2, y3]
+		[x3, y2]
+		[x3, y1]
+		[x2, y0]
+		[x1, y0]
+	}
+	glBegin(GL_TRIANGLE_FAN) {
+		SetColor(7)
+		glVertex2i(0, 0)
+		for (v in vx) {|i|
+			SetColor(7 - i)
+			glVertex2iv(v)
+		}
+	}
+	if (rgb) { glColor3f(1.0, 1.0, 1.0) } else { glIndexi(7); }
+	glBegin(GL_TRIANGLE_FAN) {
+		glVertex2i(0, 0)
+		glVertex2i(-100, 100)
+	}
+}
+
+Rect() = {
+	if (rgb) { glColor3f(1.0, 0.0, 1.0) } else { glIndexi(5); }
+	glRecti(-boxW / 4, -boxH / 4, boxW / 4, boxH / 4)
+}
+
+Polygons() = {
+	y0 = -boxH / 4
+	y1 = y0 + boxH / 2 / 3
+	y2 = y1 + boxH / 2 / 3
+	y3 = boxH / 4
+	x0 = -boxW / 4
+	x1 = x0 + boxW / 2 / 3
+	x2 = x1 + boxW / 2 / 3
+	x3 = boxW / 4
+	vx = @{
+		[x0, y1]
+		[x0, y2]
+		[x1, y3]
+		[x2, y3]
+		[x3, y2]
+		[x3, y1]
+		[x2, y0]
+		[x1, y0]
+	}
+	glBegin(GL_POLYGON) {
+		for (v in vx) {|i|
+			SetColor(7 - i)
+			glVertex2iv(v)
+		}
+	}
+	if (rgb) { glColor3f(1.0, 1.0, 1.0) } else { glIndexi(7); }
+	glBegin(GL_POLYGON) {
+		glVertex2i(0, 0)
+		glVertex2i(100, 100)
+	}
+}
+
+Quads() = {
+	glBegin(GL_QUADS) {
+		SetColor(1); glVertex2i(-boxW / 4, -boxH / 4)
+		SetColor(2); glVertex2i(-boxW / 8, -boxH / 16)
+		SetColor(3); glVertex2i(boxW / 8, -boxH / 16)
+		SetColor(4); glVertex2i(boxW / 4, -boxH / 4)
+		SetColor(5); glVertex2i(-boxW / 4, boxH / 4)
+		SetColor(6); glVertex2i(-boxW / 8, boxH / 16)
+		SetColor(7); glVertex2i(boxW / 8, boxH / 16)
+		SetColor(0); glVertex2i(boxW / 4, boxH / 4)
+	}
+	if (rgb) { glColor3f(1.0, 1.0, 1.0) } else { glIndexi(7); }
+	glBegin(GL_QUADS) {
+		glVertex2i(0, 0)
+		glVertex2i(100, 100)
+		glVertex2i(-100, 100)
+	}
+}
+
+QuadStrip() = {
+	glBegin(GL_QUAD_STRIP) {
+		SetColor(1); glVertex2i(-boxW / 4, -boxH / 4)
+		SetColor(2); glVertex2i(-boxW / 4, boxH / 4)
+		SetColor(3); glVertex2i(0, -boxH / 4)
+		SetColor(4); glVertex2i(0, boxH / 4)
+		SetColor(5); glVertex2i(boxW / 4, -boxH / 4)
+		SetColor(6); glVertex2i(boxW / 4, boxH / 4)
+	}
+	if (rgb) { glColor3f(1.0, 1.0, 1.0) } else { glIndexi(7); }
+	glBegin(GL_QUAD_STRIP) {
+		glVertex2i(0, 0)
+		glVertex2i(100, 100)
+		glVertex2i(-100, 100)
+	}
+}
+
+Draw() = {
+	glViewport(0, 0, windW, windH)
+	glDisable(GL_SCISSOR_TEST)
+	glPushAttrib(GL_COLOR_BUFFER_BIT) {
+		glColorMask(1, 1, 1, 1)
+		glIndexMask(~0)
+		glClearColor(0.0, 0.0, 0.0, 0.0)
+		glClear(GL_COLOR_BUFFER_BIT)
+	}
+	if (mode1) {
+		glShadeModel(GL_SMOOTH)
+	} else {
+		glShadeModel(GL_FLAT)
+	}
+	if (mode2) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
+	} else {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
+	}
+	Viewport(0, 0); Point()
+	Viewport(0, 1); Lines()
+	Viewport(0, 2); LineStrip()
+	Viewport(0, 3); LineLoop()
+	Viewport(1, 0); Bitmap()
+	Viewport(1, 1); TriangleFan()
+	Viewport(1, 2); Triangles()
+	Viewport(1, 3); TriangleStrip()
+	Viewport(2, 0); Rect()
+	Viewport(2, 1); Polygons()
+	Viewport(2, 2); Quads()
+	Viewport(2, 3); QuadStrip()
+	glFlush()
+}
+
+scope {
+	import(gltester)
+	gltester.mainloop(400, 300, 0, `keydown) {
+		`onInit => function {
+		}
+		`onResize => function(width:number, height:number) {
+		}
+		`onDraw => function {
+			Draw()
+		}
+		`onKeyDown => %{
+			`num1 => function {
+				mode1 = !mode1
+			}
+			`num2 => function {
+				mode2 = !mode2
+			}
+			`num3 => function {
+				RotateColorMask()
+			}
+		}
+		`onKeyPoll => %{
+		}
+	}
+}

@@ -1,0 +1,389 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        calendar.cpp
+// Purpose:     wxCalendarCtrl sample
+// Author:      Vadim Zeitlin
+// Modified by:
+// Created:     02.01.00
+// RCS-ID:      $Id: calendar.cpp 43621 2006-11-24 09:20:15Z VZ $
+// Copyright:   (c) Vadim Zeitlin
+// Licence:     wxWindows licence
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+// ----------------------------------------------------------------------------
+// constants
+// ----------------------------------------------------------------------------
+
+// IDs for the controls and the menu commands
+// menu items
+Calendar_File_About = wx.ID_ABOUT
+Calendar_File_Quit = wx.ID_EXIT
+[Calendar_Cal_Monday,
+Calendar_Cal_Holidays,
+Calendar_Cal_Special,
+Calendar_Cal_Month,
+Calendar_Cal_Year,
+Calendar_Cal_SeqMonth,
+Calendar_Cal_SurroundWeeks,
+Calendar_Cal_SetDate,
+Calendar_Cal_Today,
+Calendar_Cal_Resizable] = 200..
+[Calendar_DatePicker_AskDate,
+Calendar_DatePicker_ShowCentury,
+Calendar_DatePicker_DropDown,
+Calendar_DatePicker_AllowNone,
+Calendar_DatePicker_StartWithNone] = 300..
+Calendar_CalCtrl = 1000
+
+// ----------------------------------------------------------------------------
+// the application class
+// ----------------------------------------------------------------------------
+MyApp = class(wx.App) {
+	OnInit() = {
+		// Create the main application window
+		frame = MyFrame('Calendar wxWidgets sample', wx.Point(50, 50), wx.Size(450, 340))
+		frame.Show()
+		// success: wxApp::OnRun() will be called which will enter the main message
+		// loop and the application will run. If we returned false here, the
+		// application would exit immediately.
+		true
+	}
+}
+
+// ----------------------------------------------------------------------------
+// main frame
+// ----------------------------------------------------------------------------
+MyFrame = class(wx.Frame) {
+	// frame constructor
+	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
+			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
+		self.EventTable()
+		// set the frame icon
+		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		// create a menu bar
+		menuFile = wx.Menu()
+		menuFile.Append(Calendar_File_About, '&About...\tCtrl-A', 'Show about dialog')
+		menuFile.AppendSeparator()
+		menuFile.Append(Calendar_File_Quit, 'E&xit\tAlt-X', 'Quit this program')
+		menuCal = wx.Menu()
+		menuCal.Append(Calendar_Cal_Monday,
+				'Monday &first weekday\tCtrl-F',
+				'Toggle between Mon and Sun as the first week day',
+				true)
+		menuCal.Append(Calendar_Cal_Holidays, 'Show &holidays\tCtrl-H',
+				'Toggle highlighting the holidays',
+				true)
+		menuCal.Append(Calendar_Cal_Special, 'Highlight &special dates\tCtrl-S',
+				'Test custom highlighting',
+				true)
+		menuCal.Append(Calendar_Cal_SurroundWeeks,
+				'Show s&urrounding weeks\tCtrl-W',
+				'Show the neighbouring weeks in the prev/next month',
+				true)
+		menuCal.AppendSeparator()
+		menuCal.Append(Calendar_Cal_SeqMonth,
+				'To&ggle month selector style\tCtrl-G',
+				'Use another style for the calendar controls',
+				true)
+		menuCal.Append(Calendar_Cal_Month, '&Month can be changed\tCtrl-M',
+				'Allow changing the month in the calendar',
+				true)
+		menuCal.Append(Calendar_Cal_Year, '&Year can be changed\tCtrl-Y',
+				'Allow changing the year in the calendar',
+				true)
+		menuCal.AppendSeparator()
+		menuCal.Append(Calendar_Cal_SetDate, 'Call &SetDate(2005-12-24)', 'Set date to 2005-12-24.')
+		menuCal.Append(Calendar_Cal_Today, 'Call &Today()', 'Set the current date.')
+		menuCal.AppendSeparator()
+		menuCal.AppendCheckItem(Calendar_Cal_Resizable, 'Make &resizable\tCtrl-R')
+		menuDate = wx.Menu()
+		menuDate.AppendCheckItem(Calendar_DatePicker_ShowCentury,
+				'Al&ways show century')
+		menuDate.AppendCheckItem(Calendar_DatePicker_DropDown,
+				'Use &drop down control')
+		menuDate.AppendCheckItem(Calendar_DatePicker_AllowNone,
+				'Allow &no date')
+		menuDate.AppendCheckItem(Calendar_DatePicker_StartWithNone,
+				'Start &with no date')
+		menuDate.AppendSeparator()
+		menuDate.Append(Calendar_DatePicker_AskDate,
+				'&Choose date...\tCtrl-D', 'Show dialog with wxDatePickerCtrl')
+		menuBar = wx.MenuBar()
+		menuBar.Append(menuFile, '&File')
+		menuBar.Append(menuCal, '&Calendar')
+		menuBar.Append(menuDate, '&Date picker')
+		menuBar.Check(Calendar_Cal_Monday, true)
+		menuBar.Check(Calendar_Cal_Holidays, true)
+		menuBar.Check(Calendar_Cal_Month, true)
+		menuBar.Check(Calendar_Cal_Year, true)
+		menuBar.Check(Calendar_DatePicker_ShowCentury, true)
+		self.SetMenuBar(menuBar)
+		self.m_panel = MyPanel(self)
+		// create a status bar just for fun (by default with 1 pane only)
+		self.CreateStatusBar(2)
+		self.SetStatusText('Welcome to wxWidgets!')
+	}
+	EventTable() = {
+		// bind event handlers
+		self.Bind(wx.EVT_MENU, Calendar_File_Quit) {|event| self.OnQuit(event) }
+		self.Bind(wx.EVT_MENU, Calendar_File_About) {|event| self.OnAbout(event) }
+		self.Bind(wx.EVT_MENU, Calendar_DatePicker_AskDate) {|event| self.OnAskDate(event) }
+		self.Bind(wx.EVT_UPDATE_UI, Calendar_DatePicker_StartWithNone) {|event| self.OnUpdateUIStartWithNone(event) }
+		self.Bind(wx.EVT_MENU, Calendar_Cal_Monday) {|event| self.OnCalMonday(event) }
+		self.Bind(wx.EVT_MENU, Calendar_Cal_Holidays) {|event| self.OnCalHolidays(event) }
+		self.Bind(wx.EVT_MENU, Calendar_Cal_Special) {|event| self.OnCalSpecial(event) }
+		self.Bind(wx.EVT_MENU, Calendar_Cal_Month) {|event| self.OnCalAllowMonth(event) }
+		self.Bind(wx.EVT_MENU, Calendar_Cal_Year) {|event| self.OnCalAllowYear(event) }
+		self.Bind(wx.EVT_MENU, Calendar_Cal_SeqMonth) {|event| self.OnCalSeqMonth(event) }
+		self.Bind(wx.EVT_MENU, Calendar_Cal_SurroundWeeks) {|event| self.OnCalSurrondingWeeks(event) }
+		self.Bind(wx.EVT_MENU, Calendar_Cal_SetDate) {|event| self.OnSetDate(event) }
+		self.Bind(wx.EVT_MENU, Calendar_Cal_Today) {|event| self.OnToday(event) }
+		self.Bind(wx.EVT_MENU, Calendar_Cal_Resizable) {|event| self.OnCalToggleResizable(event) }
+		self.Bind(wx.EVT_UPDATE_UI, Calendar_Cal_Year) {|event| self.OnAllowYearUpdate(event) }
+	}
+	OnQuit(event:wx.CommandEvent) = {
+		// true is to force the frame to close
+		self.Close(true)
+	}
+	OnAbout(event:wx.CommandEvent) = {
+		wx.MessageBox('wxCalendarCtrl sample\n(c) 2000 Vadim Zeitlin',
+					'About Calendar', wx.OK | wx.ICON_INFORMATION, self)
+	}
+	OnCalMonday(event:wx.CommandEvent) = {
+		enable = self.GetMenuBar().IsChecked(event.GetId())
+		self.m_panel.ToggleCalStyle(enable, wx.CAL_MONDAY_FIRST)
+	}
+	OnCalHolidays(event:wx.CommandEvent) = {
+		enable = self.GetMenuBar().IsChecked(event.GetId())
+		self.m_panel.GetCal().EnableHolidayDisplay(enable)
+	}
+	OnCalSpecial(event:wx.CommandEvent) = {
+		self.m_panel.HighlightSpecial(self.GetMenuBar().IsChecked(event.GetId()))
+	}
+	OnCalAllowMonth(event:wx.CommandEvent) = {
+		allow = self.GetMenuBar().IsChecked(event.GetId())
+		self.m_panel.GetCal().EnableMonthChange(allow)
+	}
+	OnCalAllowYear(event:wx.CommandEvent) = {
+		allow = self.GetMenuBar().IsChecked(event.GetId())
+		self.m_panel.GetCal().EnableYearChange(allow)
+	}
+	OnCalSeqMonth(event:wx.CommandEvent) = {
+		allow = self.GetMenuBar().IsChecked(event.GetId())
+		self.m_panel.ToggleCalStyle(allow, wx.CAL_SEQUENTIAL_MONTH_SELECTION)
+	}
+	OnCalShowSurroundingWeeks(event:wx.CommandEvent) = {
+		allow = self.GetMenuBar().IsChecked(event.GetId())
+		self.m_panel.ToggleCalStyle(allow, wx.CAL_SHOW_SURROUNDING_WEEKS)
+	}
+	OnAllowYearUpdate(event:wx.UpdateUIEvent) = {
+		event.Enable(self.GetMenuBar().IsChecked(Calendar_Cal_Month))
+	}
+	OnSetDate(event:wx.CommandEvent) = {
+		self.m_panel.SetDate()
+	}
+	OnToday(event:wx.CommandEvent) = {
+		self.m_panel.Today()
+	}
+	OnCalToggleResizable(event:wx.CommandEvent) = {
+		sizer = self.m_panel.GetSizer()
+		item = sizer.GetItem(self.m_panel.GetCal())
+		if (event.IsChecked()) {
+			item.SetProportion(1)
+			item.SetFlag(wx.EXPAND)
+		} else { // not resizable
+			item.SetProportion(0)
+			item.SetFlag(wx.ALIGN_CENTER)
+		}
+		sizer.Layout()
+	}
+	OnUpdateUIStartWithNone(event:wx.UpdateUIEvent) = {
+		// it only makes sense to start with invalid date if we can have no date
+		event.Enable(self.GetMenuBar().IsChecked(Calendar_DatePicker_AllowNone))
+	}
+	OnAskDate(event:wx.CommandEvent) = {
+		dt = self.m_panel.GetCal().GetDate()
+		style = wx.DP_DEFAULT
+		if (self.GetMenuBar().IsChecked(Calendar_DatePicker_ShowCentury)) {
+			style |= wx.DP_SHOWCENTURY
+		}
+		if (self.GetMenuBar().IsChecked(Calendar_DatePicker_DropDown)) {
+			style |= wx.DP_DROPDOWN
+		}
+		if (self.GetMenuBar().IsChecked(Calendar_DatePicker_AllowNone)) {
+			style |= wx.DP_ALLOWNONE
+		}
+		if (self.GetMenuBar().IsChecked(Calendar_DatePicker_StartWithNone)) {
+			dt = wx.DefaultDateTime
+		}
+		dlg = MyDialog(self, dt, style)
+		if (dlg.ShowModal() == wx.ID_OK) {
+			dt = dlg.GetDate()
+			if (dt.IsValid()) {
+				today = wx.DateTime.Today()
+				if (dt.GetDay() == today.GetDay() && dt.GetMonth() == today.GetMonth()) {
+					wx.MessageBox('Happy birthday!', 'Calendar Sample')
+				}
+				self.m_panel.GetCal().SetDate(dt)
+				wx.LogStatus('Changed the date to your input')
+			} else {
+				wx.LogStatus('No date entered')
+			}
+		}
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyPanel
+// ----------------------------------------------------------------------------
+MyPanel = class(wx.Panel) {
+	__init__(frame:wx.Frame) = {|frame|
+		self.EventTable()
+		date = format('Selected date: %s', wx.DateTime.Today().FormatISODate())
+		self.m_date = wx.StaticText(self, wx.ID_ANY, date)
+		self.m_calendar = wx.CalendarCtrl(self, Calendar_CalCtrl,
+									wx.DefaultDateTime,
+									wx.DefaultPosition,
+									wx.DefaultSize,
+									wx.CAL_MONDAY_FIRST | \
+									wx.CAL_SHOW_HOLIDAYS | \
+									wx.RAISED_BORDER)
+		// adjust to vertical/horizontal display, check mostly dedicated to WinCE
+		horizontal = (wx.SystemSettings.GetMetric(wx.SYS_SCREEN_X) > \
+						wx.SystemSettings.GetMetric(wx.SYS_SCREEN_Y))
+		self.m_sizer = wx.BoxSizer(if (horizontal) {wx.HORIZONTAL} else {wx.VERTICAL})
+		self.m_sizer.Add(self.m_date, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 10))
+		self.m_sizer.Add(self.m_calendar, wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
+		self.SetSizer(self.m_sizer)
+		self.m_sizer.SetSizeHints(self)
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_CALENDAR, Calendar_CalCtrl) {|event| self.OnCalendar(event) }
+		self.Bind(wx.EVT_CALENDAR_MONTH, Calendar_CalCtrl) {|event| self.OnCalMonthChange(event) }
+		self.Bind(wx.EVT_CALENDAR_YEAR, Calendar_CalCtrl) {|event| self.OnCalYearChange(event) }
+		self.Bind(wx.EVT_CALENDAR_SEL_CHANGED, Calendar_CalCtrl) {|event| self.OnCalendarChange(event) }
+		self.Bind(wx.EVT_CALENDAR_WEEKDAY_CLICKED, Calendar_CalCtrl) {|event| self.OnCalendarWeekDayClick(event) }
+	}
+	GetCal() = { self.m_calendar }
+	ToggleCalStyle(on:boolean, flag:number) = {
+		style = self.m_calendar.GetWindowStyle()
+		if (on) {
+			style |= flag
+		} else {
+			style &= ~flag
+		}
+		if (flag == wx.CAL_SEQUENTIAL_MONTH_SELECTION) {
+			// changing this style requires recreating the control
+			calendar = wx.CalendarCtrl(self, Calendar_CalCtrl,
+								self.m_calendar.GetDate(),
+								wx.DefaultPosition,
+								wx.DefaultSize,
+								style)
+			self.m_sizer.Replace(self.m_calendar, calendar)
+			self.m_calendar.Destroy()
+			self.m_calendar = calendar
+			self.m_sizer.Layout()
+		} else { // just changing the style is enough
+			self.m_calendar.SetWindowStyle(style)
+			self.m_calendar.Refresh()
+		}
+	}
+	HighlightSpecial(on:boolean) = {
+		if (on) {
+			attrRedCircle = wx.CalendarDateAttr(
+					border => wx.CAL_BORDER_ROUND, colText => wx.RED)
+			attrGreenSquare = wx.CalendarDateAttr(
+					border => wx.CAL_BORDER_SQUARE, colText => wx.GREEN)
+			attrHeaderLike = wx.CalendarDateAttr(
+					colText => wx.BLUE, colBack => wx.LIGHT_GREY)
+			self.m_calendar.SetAttr(17, attrRedCircle)
+			self.m_calendar.SetAttr(29, attrGreenSquare)
+			self.m_calendar.SetAttr(13, attrHeaderLike)
+		} else { // off
+			self.m_calendar.ResetAttr(17)
+			self.m_calendar.ResetAttr(29)
+			self.m_calendar.ResetAttr(13)
+		}
+		self.m_calendar.Refresh()
+	}
+	SetDate() = {
+		date = wx.DateTime()
+		date.Set(24, wx.DateTime.Dec, 2005, 23, 59, 59)
+		self.m_calendar.SetDate(date)
+	}
+	Today() = {
+		self.m_calendar.SetDate(wx.DateTime.Today())
+	}
+	OnCalendar(event:wx.CalendarEvent) = {
+		wx.LogMessage('Selected %s from calendar',
+						event.GetDate().FormatISODate())
+	}
+	OnCalendarChange(event:wx.CalendarEvent) = {
+		s = format('Selected date: %s', event.GetDate().FormatISODate())
+		self.m_date.SetLabel(s)
+	}
+	OnCalMonthChange(event:wx.CalendarEvent) = {
+		wx.LogStatus('Calendar month changed')
+	}
+	OnCalYearChange(event:wx.CalendarEvent) = {
+		wx.LogStatus('Calendar year changed')
+	}
+	OnCalendarWeekDayClick(event:wx.CalendarEvent) = {
+		wx.LogMessage('Clicked on %s',
+						wx.DateTime.GetWeekDayName(event.GetWeekDay()))
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyDialog
+// ----------------------------------------------------------------------------
+MyDialog = class(wx.Dialog) {
+	__init__(parent:wx.Window, dt:wx.DateTime, dtpStyle:number) = \
+							{|parent, wx.ID_ANY, 'Calendar: Choose a date'|
+		self.EventTable()
+		sizerBtns = wx.StdDialogButtonSizer()
+		sizerBtns.AddButton(wx.Button(self, wx.ID_OK))
+		sizerBtns.AddButton(wx.Button(self, wx.ID_CANCEL))
+		sizerBtns.Realize()
+		sizerText = wx.BoxSizer(wx.HORIZONTAL)
+		sizerText.Add(wx.StaticText(self, wx.ID_ANY, 'Date in ISO format: '),
+					wx.SizerFlags().Border().Align(wx.ALIGN_CENTRE_VERTICAL))
+		self.m_text = wx.TextCtrl(self, wx.ID_ANY)
+		sizerText.Add(self.m_text, wx.SizerFlags().\
+                        Expand().Border().Align(wx.ALIGN_CENTRE_VERTICAL))
+		sizerTop = wx.BoxSizer(wx.VERTICAL)
+		sizerTop.Add(wx.StaticText(self, wx.ID_ANY,
+				'Enter your birthday date (not before 20th century):'),
+				wx.SizerFlags().Border())
+		self.m_datePicker = wx.DatePickerCtrl(self, wx.ID_ANY, dt,
+										wx.DefaultPosition, wx.DefaultSize,
+										dtpStyle)
+		wx.DateTime() {|dtTmp|
+			dtTmp.Set(1, wx.DateTime.Jan, 1900)
+			self.m_datePicker.SetRange(dtTmp, wx.DefaultDateTime)
+		}
+		sizerTop.Add(self.m_datePicker, wx.SizerFlags().Expand().Border())
+		sizerTop.AddStretchSpacer(1)
+		sizerTop.Add(sizerText, wx.SizerFlags())
+		sizerTop.Add(sizerBtns, wx.SizerFlags().Centre().Border())
+		self.SetSizerAndFit(sizerTop)
+		self.Layout()
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_DATE_CHANGED) {|event| self.OnDateChange(event) }
+	}
+	OnDateChange(event:wx.DateEvent) = {
+		dt = event.GetDate()
+		if (dt.IsValid()) {
+			self.m_text.SetValue(dt.FormatISODate())
+		} else {
+			self.m_text.SetValue(wx.EmptyString)
+		}
+	}
+	GetDate() = { self.m_datePicker.GetValue() }
+}
+
+wx.IMPLEMENT_APP(MyApp)

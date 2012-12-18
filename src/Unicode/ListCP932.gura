@@ -1,0 +1,17 @@
+#!/usr/bin/env gura
+import(re)
+
+lines = open("CP932.TXT").readlines()
+open("result.txt", "w") {|fout|
+	for (m in lines:*match(r"^(0x\w+)\s+(0x\w+)").skipnil()) {|i|
+		code = m.group(1).tonumber()
+		if (code < 0x20) {
+			fout.printf(".")
+		} elsif (code < 0x100) {
+			fout.printf("%c", code)
+		} else {
+			fout.printf("%c%c", (code >> 8) & 0xff, code & 0xff)
+		}
+		((i + 1) % 32 == 0) && fout.println()
+	}
+}

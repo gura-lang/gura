@@ -1,0 +1,49 @@
+#!/usr/bin/env gura
+sys.echo(false)
+
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+
+scope {
+	// http://msdn.microsoft.com/ja-jp/library/bb308959.aspx
+	names = [
+		'Burke', 'Connor', 'Frank', 'Everett', 'Albert', 'George', 'Harris', 'David'
+	]
+	println(names.filter(&{$s.len() == 5}).sort():*upper())
+}
+scope {
+	tester(`(1..10).reduce(0) {|i, accum| accum += i})
+	tester(`[1..10].reduce(0) {|i, accum| accum += i})
+}
+scope {
+	x = [4, 1, 1, 3, 1, 4, 0, 2, 4, 3, 3, 1, 2, 2, 1,
+	     0, 1, 1, 4, 4, 2, 0, 1, 2, 0, 0, 0, 3, 2, 2]
+	tester(`x)
+	tester(`x.min())
+	tester(`x.min():index)
+	tester(`x.min():last_index)
+	tester(`(x.min():indices).tostring())
+	tester(`x.max())
+	tester(`x.max():index)
+	tester(`x.max():last_index)
+	tester(`(x.max():indices).tostring())
+}
+scope {
+	idx = [2, 1, 0, 1, 2, 0, 0, 1, 1, 0]
+	x = [52, 23, 62, 75, 46, 10, 86, 80, 19, 34]
+	y = [82, 86, 45, 29, 35, 30, 62, 98, 90, 78]
+	z = [10, 24, 28, 21, 28, 43, 72, 63, 43, 93]
+	tester(`idx)
+	tester(`x)
+	tester(`y)
+	tester(`z)
+	tester(`x.each().filter(&{$i % 2 == 0}):list)
+	tester(`x.each().filter(x % 2 == 0):list)
+	tester(`x.filter(&{$i % 2 == 0}):list)
+	tester(`x.filter(x % 2 == 0):list)
+	tester(`x.map(&{$i * 2}):list)
+	tester(`choose(idx, x, y, z))
+	tester(`min(x, 4))
+	tester(`max(x, 4))
+	tester(`min(x, y, z))
+	tester(`max(x, y, z))
+}

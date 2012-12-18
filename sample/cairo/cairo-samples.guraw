@@ -1,0 +1,515 @@
+#!/usr/bin/env gura
+import(wx)
+import(cairo)
+import(gif)
+import(jpeg)
+
+[wdCanvas, htCanvas] = [256, 256]
+
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+testList = @{
+	'tutorial - Stroke', function(cr:cairo.context) {
+		cr.scale(wdCanvas, htCanvas)
+		cr.set_line_width(0.1)
+		cr.set_source_rgb(0, 0, 0)
+		cr.rectangle(0.25, 0.25, 0.5, 0.5)
+		cr.stroke()
+	}
+	'tutorial - Fill', function(cr:cairo.context) {
+		cr.scale(wdCanvas, htCanvas)
+		cr.set_source_rgb(0, 0, 0)
+		cr.rectangle(0.25, 0.25, 0.5, 0.5)
+		cr.fill()
+	}
+	'tutorial - Show Text/Glyphs', function(cr:cairo.context) {
+		cr.scale(wdCanvas, htCanvas)
+		cr.set_source_rgb(0.0, 0.0, 0.0)
+		cr.select_font_face('Georgia', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+		cr.set_font_size(1.2)
+		te = cr.text_extents('a')
+		cr.move_to(0.5 - te.width / 2 - te.x_bearing,
+				    0.5 - te.height / 2 - te.y_bearing)
+		cr.show_text('a')
+	}
+	'tutorial - Paint', function(cr:cairo.context) {
+		cr.scale(wdCanvas, htCanvas)
+		cr.set_source_rgb(0.0, 0.0, 0.0)
+		cr.paint_with_alpha(0.5)
+	}
+	'tutorial - Mask', function(cr:cairo.context) {
+		cr.scale(wdCanvas, htCanvas)
+		linpat = cairo.pattern_create_linear(0, 0, 1, 1)
+		linpat.add_color_stop_rgb(0, 0, 0.3, 0.8)
+		linpat.add_color_stop_rgb(1, 0, 0.8, 0.3)
+		radpat = cairo.pattern_create_radial(0.5, 0.5, 0.25, 0.5, 0.5, 0.75)
+		radpat.add_color_stop_rgba(0, 0, 0, 0, 1)
+		radpat.add_color_stop_rgba(0.5, 0, 0, 0, 0)
+		cr.set_source(linpat)
+		cr.mask(radpat)
+	}
+	'tutorial - Source #1', function(cr:cairo.context) {
+		cr.scale(wdCanvas, htCanvas)
+		cr.set_source_rgb(0, 0, 0)
+		cr.move_to(0, 0)
+		cr.line_to(1, 1)
+		cr.move_to(1, 0)
+		cr.line_to(0, 1)
+		cr.set_line_width(0.2)
+		cr.stroke()
+		cr.rectangle(0, 0, 0.5, 0.5)
+		cr.set_source_rgba(1, 0, 0, 0.80)
+		cr.fill()
+		cr.rectangle(0, 0.5, 0.5, 0.5)
+		cr.set_source_rgba(0, 1, 0, 0.60)
+		cr.fill()
+		cr.rectangle(0.5, 0, 0.5, 0.5)
+		cr.set_source_rgba(0, 0, 1, 0.40)
+		cr.fill()
+	}
+	'tutorial - Source #2', function(cr:cairo.context) {
+		cr.scale(wdCanvas, htCanvas)
+		radial = cairo.pattern_create_radial(0.25, 0.25, 0.1,  0.5, 0.5, 0.5)
+		radial.add_color_stop_rgb(0,  1.0, 0.8, 0.8)
+		radial.add_color_stop_rgb(1,  0.9, 0.0, 0.0)
+		cross (i in 1..9, j in 1..9) {
+	    	cr.rectangle(i / 10.0 - 0.04, j / 10.0 - 0.04, 0.08, 0.08)
+		}
+		cr.set_source(radial)
+		cr.fill()
+		linear = cairo.pattern_create_linear(0.25, 0.35, 0.75, 0.65)
+		linear.add_color_stop_rgba(0.00,  1, 1, 1, 0)
+		linear.add_color_stop_rgba(0.25,  0, 1, 0, 0.5)
+		linear.add_color_stop_rgba(0.50,  1, 1, 1, 0)
+		linear.add_color_stop_rgba(0.75,  0, 0, 1, 0.5)
+		linear.add_color_stop_rgba(1.00,  1, 1, 1, 0)
+		cr.rectangle(0.0, 0.0, 1, 1)
+		cr.set_source(linear)
+		cr.fill()
+	}
+	'tutorial - Creating a Path', function(cr:cairo.context) {
+		Point = struct(x:number, y:number)
+		pts = []
+		cr.scale(wdCanvas, htCanvas)
+		cr.set_line_width(0.015)
+		cr.move_to(0.25, 0.25)
+		cr.line_to(0.5, 0.375)
+		cr.rel_line_to(0.25, -0.125)
+		pts.add(Point * cr.get_current_point())
+		cr.arc(0.5, 0.5, 0.25 * math.sqrt(2), -0.25 * math.pi, 0.25 * math.pi)
+		pts.add(Point * cr.get_current_point())
+		cr.rel_curve_to(-0.25, -0.125, -0.25, 0.125, -0.5, 0)
+		pts.add(Point * cr.get_current_point())
+		cr.close_path()
+		cr.set_source_color(`green)
+		cr.stroke()
+		function {
+			cr.set_source_color(`lime, .5)
+			cr.arc(0.25, 0.25, .03)
+			cr.fill()
+		}()
+		function {
+			cr.set_source_color(`purple, .5)
+			for (pt in pts) {
+				cr.arc(pt.x, pt.y, .03)
+				cr.fill()
+			}
+		}()
+	}
+	'arc', function(cr:cairo.context) {
+		[xc, yc] = [128.0, 128.0]
+		radius = 100.0
+		angle1 = 45.0 * (math.pi / 180)
+		angle2 = 180.0 * (math.pi/ 180)
+		cr.set_line_width(10.0)
+		cr.arc(xc, yc, radius, angle1, angle2)
+		cr.stroke()
+		cr.set_source_rgba(1, 0.2, 0.2, 0.6)
+		cr.set_line_width(6.0)
+		cr.arc(xc, yc, 10.0)
+		cr.fill()
+		cr.arc(xc, yc, radius, angle1, angle1)
+		cr.line_to(xc, yc)
+		cr.arc(xc, yc, radius, angle2, angle2)
+		cr.line_to(xc, yc)
+		cr.stroke()
+	}
+	'arc negative', function(cr:cairo.context) {
+		[xc, yc] = [128.0, 128.0]
+		radius = 100.0
+		angle1 = 45.0 * (math.pi / 180)
+		angle2 = 180.0 * (math.pi/ 180)
+		cr.set_line_width(10.0)
+		cr.arc_negative(xc, yc, radius, angle1, angle2)
+		cr.stroke()
+		cr.set_source_rgba(1, 0.2, 0.2, 0.6)
+		cr.set_line_width(6.0)
+		cr.arc(xc, yc, 10.0)
+		cr.fill()
+		cr.arc(xc, yc, radius, angle1, angle1)
+		cr.line_to(xc, yc)
+		cr.arc(xc, yc, radius, angle2, angle2)
+		cr.line_to(xc, yc)
+		cr.stroke()
+	}
+	'clip', function(cr:cairo.context) {
+		cr.arc(128.0, 128.0, 76.8)
+		cr.clip()
+		cr.new_path()
+		cr.rectangle(0, 0, 256, 256)
+		cr.fill()
+		cr.set_source_rgb(0, 1, 0)
+		cr.move_to(0, 0)
+		cr.line_to(256, 256)
+		cr.move_to(256, 0)
+		cr.line_to(0, 256)
+		cr.set_line_width(10.0)
+		cr.stroke()
+	}
+	'clip image', function(cr:cairo.context) {
+		cr.arc(128.0, 128.0, 76.8)
+		cr.clip()
+		cr.new_path()
+		img = image(I('Water_lilies.jpg'))
+		cr.scale(256.0 / img.width, 256.0 / img.height)
+		cr.set_source_surface(img, 0, 0)
+		cr.paint()
+	}
+	'curve rectangle', function(cr:cairo.context) {
+		curve_rectangle(cr:cairo.context, x:number, y:number,
+					rect_width:number, rect_height:number, radius:number) = {
+			if (rect_width == 0 || rect_height == 0) { return }
+			[x0, y0] = [x, y]
+			[x1, y1] = [x + rect_width, y0 + rect_height]
+			if (rect_width / 2 < radius) {
+				if (rect_height / 2 < radius) {
+					cr.move_to(x0, (y0 + y1) / 2)
+					cr.curve_to(x0 ,y0, x0, y0, (x0 + x1) / 2, y0)
+					cr.curve_to(x1, y0, x1, y0, x1, (y0 + y1) / 2)
+					cr.curve_to(x1, y1, x1, y1, (x1 + x0) / 2, y1)
+					cr.curve_to(x0, y1, x0, y1, x0, (y0 + y1) / 2)
+				} else {
+					cr.move_to(x0, y0 + radius)
+					cr.curve_to(x0 ,y0, x0, y0, (x0 + x1) / 2, y0)
+					cr.curve_to(x1, y0, x1, y0, x1, y0 + radius)
+					cr.line_to(x1 , y1 - radius)
+					cr.curve_to(x1, y1, x1, y1, (x1 + x0) / 2, y1)
+					cr.curve_to(x0, y1, x0, y1, x0, y1- radius)
+				}
+			} else {
+				if (rect_height / 2 < radius) {
+					cr.move_to(x0, (y0 + y1) / 2)
+					cr.curve_to(x0 , y0, x0 , y0, x0 + radius, y0)
+					cr.line_to(x1 - radius, y0)
+					cr.curve_to(x1, y0, x1, y0, x1, (y0 + y1) / 2)
+					cr.curve_to(x1, y1, x1, y1, x1 - radius, y1)
+					cr.line_to(x0 + radius, y1)
+					cr.curve_to(x0, y1, x0, y1, x0, (y0 + y1) / 2)
+				} else {
+					cr.move_to (x0, y0 + radius)
+					cr.curve_to(x0 , y0, x0 , y0, x0 + radius, y0)
+					cr.line_to(x1 - radius, y0)
+					cr.curve_to(x1, y0, x1, y0, x1, y0 + radius)
+					cr.line_to(x1 , y1 - radius)
+					cr.curve_to(x1, y1, x1, y1, x1 - radius, y1)
+					cr.line_to(x0 + radius, y1)
+					cr.curve_to(x0, y1, x0, y1, x0, y1 - radius)
+				}
+			}
+			cr.close_path()
+		}
+		curve_rectangle(cr, 25.6, 25.6, 204.8, 204.8, 102.4)
+		cr.set_source_rgb(0.5, 0.5, 1)
+		cr.fill_preserve()
+		cr.set_source_rgba(0.5, 0, 0, 0.5)
+		cr.set_line_width(10.0)
+		cr.stroke()
+	}
+	'curve to', function(cr:cairo.context) {
+		x = 25.6, y = 128.0
+		x1 = 102.4, y1 = 230.4,
+		x2 = 153.6, y2 = 25.6,
+		x3 = 230.4, y3 = 128.0
+		cr.move_to(x, y)
+		cr.curve_to(x1, y1, x2, y2, x3, y3)
+		cr.set_line_width(10.0)
+		cr.stroke()
+		cr.set_source_rgba(1, 0.2, 0.2, 0.6)
+		cr.set_line_width(6.0)
+		cr.move_to(x, y).line_to(x1, y1)
+		cr.move_to(x2, y2).line_to(x3, y3)
+		cr.stroke()
+	}
+	'dash', function(cr:cairo.context) {
+		dashes = [50.0, 10.0, 10.0, 10.0]
+		offset = -50.0
+		cr.set_dash(dashes, offset)
+		cr.set_line_width(10.0)
+		cr.move_to(128.0, 25.6)
+		cr.line_to(230.4, 230.4)
+		cr.rel_line_to(-102.4, 0.0)
+		cr.curve_to(51.2, 230.4, 51.2, 128.0, 128.0, 128.0)
+		cr.stroke()
+	}
+	'fill and stroke2', function(cr:cairo.context) {
+		cr.move_to(128.0, 25.6)
+		cr.line_to(230.4, 230.4)
+		cr.rel_line_to(-102.4, 0.0)
+		cr.curve_to(51.2, 230.4, 51.2, 128.0, 128.0, 128.0)
+		cr.close_path()
+		cr.move_to(64.0, 25.6)
+		cr.rel_line_to(51.2, 51.2)
+		cr.rel_line_to(-51.2, 51.2)
+		cr.rel_line_to(-51.2, -51.2)
+		cr.close_path()
+		cr.set_line_width(10.0)
+		cr.set_source_rgb(0, 0, 1)
+		cr.fill_preserve()
+		cr.set_source_rgb(0, 0, 0)
+		cr.stroke()
+	}
+	'fill style', function(cr:cairo.context) {
+		cr.set_line_width(6)
+		cr.rectangle(12, 12, 232, 70)
+		cr.new_sub_path().arc(64, 64, 40)
+		cr.new_sub_path().arc_negative(192, 64, 40, 0, -2 * math.pi)
+		cr.set_fill_rule(cairo.FILL_RULE_EVEN_ODD)
+		cr.set_source_rgb(0, 0.7, 0).fill_preserve()
+		cr.set_source_rgb(0, 0, 0).stroke()
+		cr.translate(0, 128)
+		cr.rectangle(12, 12, 232, 70)
+		cr.new_sub_path().arc(64, 64, 40)
+		cr.new_sub_path().arc_negative(192, 64, 40, 0, -2 * math.pi)
+		cr.set_fill_rule(cairo.FILL_RULE_WINDING)
+		cr.set_source_rgb(0, 0, 0.9).fill_preserve()
+		cr.set_source_rgb(0, 0, 0).stroke()
+	}
+	'gradient', function(cr:cairo.context) {
+		pat = cairo.pattern_create_linear(0.0, 0.0,  0.0, 256.0)
+		pat.add_color_stop_rgba(1, 0, 0, 0, 1)
+		pat.add_color_stop_rgba(0, 1, 1, 1, 1)
+		cr.rectangle(0, 0, 256, 256)
+		cr.set_source(pat)
+		cr.fill()
+		pat = cairo.pattern_create_radial(115.2, 102.4, 25.6, 102.4,  102.4, 128.0)
+		pat.add_color_stop_rgba(0, 1, 1, 1, 1)
+		pat.add_color_stop_rgba(1, 0, 0, 0, 1)
+		cr.set_source(pat)
+		cr.arc(128.0, 128.0, 76.8)
+		cr.fill()
+	}
+	'image', function(cr:cairo.context) {
+		img = image(I('Water_lilies.jpg'))
+		[w, h] = [img.width, img.height]
+		cr.translate(128.0, 128.0)
+		cr.rotate(45 * math.pi / 180)
+		cr.scale(256.0 / w, 256.0 / h)
+		cr.translate(-0.5 * w, -0.5 * h)
+		cr.set_source_surface(img, 0, 0)
+		cr.paint()
+	}
+	'image pattern', function(cr:cairo.context) {
+		img = image(I('Water_lilies.jpg'))
+		[w, h] = [img.width, img.height]
+		pattern = cairo.pattern_create_for_surface(img)
+		pattern.set_extend(cairo.EXTEND_REPEAT)
+		cr.translate(128.0, 128.0)
+		cr.rotate(math.pi / 4)
+		cr.scale(1 / math.sqrt(2), 1 / math.sqrt(2))
+		cr.translate(-128.0, -128.0)
+		mat = @@{{ w / 256.0 * 5.0, 0, 0 }, { 0, h / 256.0 * 5.0, 0 }, { 0, 0, 1 }}
+		pattern.set_matrix(mat)
+		cr.set_source(pattern)
+		cr.rectangle(0, 0, 256.0, 256.0)
+		cr.fill()
+	}
+	'multi segment caps', function(cr:cairo.context) {
+		cr.move_to(50.0, 75.0)
+		cr.line_to(200.0, 75.0)
+		cr.move_to(50.0, 125.0)
+		cr.line_to(200.0, 125.0)
+		cr.move_to(50.0, 175.0)
+		cr.line_to(200.0, 175.0)
+		cr.set_line_width(30.0)
+		cr.set_line_cap(cairo.LINE_CAP_ROUND)
+		cr.stroke()
+	}
+	'set line cap', function(cr:cairo.context) {
+		cr.set_line_width(30.0)
+		cr.set_line_cap(cairo.LINE_CAP_BUTT)
+		cr.move_to(64.0, 50.0).line_to(64.0, 200.0)
+		cr.stroke()
+		cr.set_line_cap(cairo.LINE_CAP_ROUND)
+		cr.move_to(128.0, 50.0).line_to(128.0, 200.0)
+		cr.stroke()
+		cr.set_line_cap(cairo.LINE_CAP_SQUARE)
+		cr.move_to(192.0, 50.0).line_to(192.0, 200.0)
+		cr.stroke()
+		cr.set_source_rgb(1, 0.2, 0.2)
+		cr.set_line_width(2.56)
+		cr.move_to(64.0, 50.0).line_to(64.0, 200.0)
+		cr.move_to(128.0, 50.0).line_to(128.0, 200.0)
+		cr.move_to(192.0, 50.0).line_to(192.0, 200.0)
+		cr.stroke()
+	}
+	'set line join', function(cr:cairo.context) {
+		cr.set_line_width(40.96)
+		cr.move_to(76.8, 84.48)
+		cr.rel_line_to(51.2, -51.2)
+		cr.rel_line_to(51.2, 51.2)
+		cr.set_line_join(cairo.LINE_JOIN_MITER)
+		cr.stroke()
+		cr.move_to(76.8, 161.28)
+		cr.rel_line_to(51.2, -51.2)
+		cr.rel_line_to(51.2, 51.2)
+		cr.set_line_join(cairo.LINE_JOIN_BEVEL)
+		cr.stroke()
+		cr.move_to(76.8, 238.08)
+		cr.rel_line_to(51.2, -51.2)
+		cr.rel_line_to(51.2, 51.2)
+		cr.set_line_join(cairo.LINE_JOIN_ROUND)
+		cr.stroke()
+	}
+	'text', function(cr:cairo.context) {
+		cr.select_font_face('Sans', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+		cr.set_font_size(90.0)
+		cr.move_to(10.0, 135.0)
+		cr.show_text('Hello')
+		cr.move_to(70.0, 165.0)
+		cr.text_path('void')
+		cr.set_source_rgb(0.5, 0.5, 1)
+		cr.fill_preserve()
+		cr.set_source_rgb(0, 0, 0)
+		cr.set_line_width(2.56)
+		cr.stroke()
+		cr.set_source_rgba(1, 0.2, 0.2, 0.6)
+		cr.arc(10.0, 135.0, 5.12)
+		cr.close_path()
+		cr.arc(70.0, 165.0, 5.12)
+		cr.fill()
+	}
+	'text extents', function(cr:cairo.context) {
+		utf8 = 'cairo'
+		cr.select_font_face('Sans', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+		cr.set_font_size(100.0)
+		extents = cr.text_extents(utf8)
+		x = 25.0
+		y = 150.0
+		cr.move_to(x, y)
+		cr.show_text(utf8)
+		cr.set_source_rgba(1, 0.2, 0.2, 0.6)
+		cr.set_line_width(6.0)
+		cr.arc(x, y, 10.0)
+		cr.fill()
+		cr.move_to(x, y)
+		cr.rel_line_to(0, -extents.height)
+		cr.rel_line_to(extents.width, 0)
+		cr.rel_line_to(extents.x_bearing, -extents.y_bearing)
+		cr.stroke()
+	}
+	'text align center', function(cr:cairo.context) {
+		utf8 = 'cairo'
+		cr.select_font_face('Sans', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+		cr.set_font_size(52.0)
+		extents = cr.text_extents(utf8)
+		x = 128.0 - (extents.width / 2 + extents.x_bearing)
+		y = 128.0 - (extents.height / 2 + extents.y_bearing)
+		cr.move_to(x, y)
+		cr.show_text(utf8)
+		cr.set_source_rgba(1, 0.2, 0.2, 0.6)
+		cr.set_line_width(6.0)
+		cr.arc(x, y, 10.0)
+		cr.fill()
+		cr.move_to(128.0, 0)
+		cr.rel_line_to(0, 256)
+		cr.move_to(0, 128.0)
+		cr.rel_line_to(256, 0)
+		cr.stroke()
+	}
+	'Line Width', function(cr:cairo.context) {
+		cr.scale(wdCanvas, htCanvas)
+		cr.set_line_width(0.1)
+		cr.save()
+		cr.scale(0.5, 1)
+		cr.arc(0.5, 0.5, 0.40)
+		cr.stroke()
+		cr.translate(1, 0)
+		cr.arc(0.5, 0.5, 0.40)
+		cr.restore()
+		cr.stroke()
+	}
+	'Text Alignment', function(cr:cairo.context) {
+		cr.scale(3, 3)
+		cr.select_font_face('Sans', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+		cr.set_font_size(1)
+		cr.scale(3, 3)
+		alphabet = 'AbCdEfGhIjKlMnOpQrStUvWxYz'
+		[x0, y0] = [0.5, 1]
+		for (letter in alphabet) {|i|
+			te = cr.text_extents(letter)
+			cr.move_to(x0 + i + 0.5 - te.x_bearing - te.width / 2,
+						y0 + 0.5 - te.y_bearing - te.height / 2)
+			cr.show_text(letter)
+		}
+	}
+}
+
+Canvas = class(wx.Panel) {
+	__init__(parent:tk.Window, style:number) = {|parent, style => style|
+		self.bmp = nil
+		self.Bind(wx.EVT_PAINT) {|event|
+			dc = wx.PaintDC(self)
+			self.bmp && dc.DrawBitmap(self.bmp, 0, 0, false)
+			dc = nil
+		}
+	}
+}
+
+Entry = struct(name:string, func:function)
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
+						path.filename(sys.argv[0]), size => wx.Size(300, 600)|
+		panel = wx.Panel(self)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		panel.SetSizer(vbox)
+		canvas = Canvas(panel, wx.BORDER_STATIC)
+		canvas.SetClientSize(wdCanvas, htCanvas)
+		vbox.Add(canvas, wx.SizerFlags().Centre())
+		entries = [Entry * testList.fold(2)]
+		wx.ListCtrl(panel, wx.ID_ANY, style => wx.LC_REPORT | wx.LC_SINGLE_SEL) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand())
+			ctrl.SetFont(wx.Font(10))
+			ctrl.InsertColumn(0, 'Id', width => 40)
+			ctrl.InsertColumn(1, 'Name', width => 200)
+			ctrl.InsertStringItem(0.., format('%d', 1..entries.len()))
+			ctrl.SetStringItem(0.., 1, entries:*name)
+			ctrl.Bind(wx.EVT_LIST_ITEM_SELECTED) {|event|
+				img = image(`rgba, wdCanvas, htCanvas)
+				func = entries[event.GetIndex()].func
+				img.cairo {|cr| func(cr) }
+				canvas.bmp = wx.Bitmap(img)
+				canvas.Refresh()
+				canvas.Update()
+			}
+			ctrl.SetItemState(0, wx.LIST_STATE_SELECTED, wx.LIST_STATE_SELECTED)
+			ctrl.SetFocus()
+		}
+		panel.Fit()
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		try {
+			frame = Frame(nil)
+			frame.Show()
+			self.SetTopWindow(frame)
+		} except {|e|
+			println(e.text)
+		}
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

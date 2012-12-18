@@ -1,0 +1,21 @@
+#!/usr/bin/env gura
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+MyApp = class(wx.App) {
+	OnInit() = {
+		frame = MyFrame('Simple')
+		frame.Show()
+		true
+	}
+}
+
+MyFrame = class(wx.Frame) {
+	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
+			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
+		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+	}
+}
+
+wx.IMPLEMENT_APP(MyApp)

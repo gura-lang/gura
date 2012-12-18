@@ -1,0 +1,972 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        samples/richtext/richtext.cpp
+// Purpose:     wxWidgets rich text editor sample
+// Author:      Julian Smart
+// Modified by:
+// Created:     2005-10-02
+// RCS-ID:      $Id: richtext.cpp 51739 2008-02-12 17:05:32Z JS $
+// Copyright:   (c) Julian Smart
+// Licence:     wxWindows licence
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+// menu items
+ID_Quit = wx.ID_EXIT
+ID_About = wx.ID_ABOUT
+
+[ID_FORMAT_BOLD
+ID_FORMAT_ITALIC
+ID_FORMAT_UNDERLINE
+ID_FORMAT_FONT
+ID_FORMAT_PARAGRAPH
+ID_FORMAT_CONTENT
+ID_RELOAD
+ID_INSERT_SYMBOL
+ID_INSERT_URL
+ID_FORMAT_ALIGN_LEFT
+ID_FORMAT_ALIGN_CENTRE
+ID_FORMAT_ALIGN_RIGHT
+ID_FORMAT_INDENT_MORE
+ID_FORMAT_INDENT_LESS
+ID_FORMAT_PARAGRAPH_SPACING_MORE
+ID_FORMAT_PARAGRAPH_SPACING_LESS
+ID_FORMAT_LINE_SPACING_HALF
+ID_FORMAT_LINE_SPACING_DOUBLE
+ID_FORMAT_LINE_SPACING_SINGLE
+ID_FORMAT_NUMBER_LIST
+ID_FORMAT_BULLETS_AND_NUMBERING
+ID_FORMAT_ITEMIZE_LIST
+ID_FORMAT_RENUMBER_LIST
+ID_FORMAT_PROMOTE_LIST
+ID_FORMAT_DEMOTE_LIST
+ID_FORMAT_CLEAR_LIST
+ID_VIEW_HTML
+ID_SWITCH_STYLE_SHEETS
+ID_MANAGE_STYLES
+ID_PRINT
+ID_PREVIEW
+ID_PAGE_SETUP
+ID_RICHTEXT_CTRL
+ID_RICHTEXT_STYLE_LIST
+ID_RICHTEXT_STYLE_COMBO] = 100..
+
+// Define a new application type, each program should derive a class from wx.App
+MyApp = class(wx.App) {
+	// 'Main program' equivalent: the program execution "starts" here
+	OnInit() = {
+		wx.HelpProvider.Set(wx.SimpleHelpProvider())
+		self.m_styleSheet = wx.RichTextStyleSheet()
+		self.m_printing = wx.RichTextPrinting('Test Document')
+		self.m_printing.SetFooterText('@TITLE@', wx.RICHTEXT_PAGE_ALL, wx.RICHTEXT_PAGE_CENTRE)
+		self.m_printing.SetFooterText('Page @PAGENUM@', wx.RICHTEXT_PAGE_ALL, wx.RICHTEXT_PAGE_RIGHT)
+		self.CreateStyles()
+		// Add extra handlers (plain text is automatically added)
+		wx.RichTextBuffer.AddHandler(wx.RichTextXMLHandler())
+		wx.RichTextBuffer.AddHandler(wx.RichTextHTMLHandler())
+		// Add image handlers
+		wx.Image.AddHandler(wx.PNGHandler())
+		wx.Image.AddHandler(wx.JPEGHandler())
+		wx.Image.AddHandler(wx.GIFHandler())
+		wx.FileSystem.AddHandler(wx.MemoryFSHandler())
+		// create the main application window
+		frame = MyFrame('wxRichTextCtrl Sample', wx.ID_ANY
+									wx.DefaultPosition, wx.Size(700, 600))
+		self.m_printing.SetParentWindow(frame)
+		// and show it (the frames, unlike simple controls, are not shown when
+		// created initially)
+		frame.Show(true)
+		// success: wxApp::OnRun() will be called which will enter the main message
+		// loop and the application will run. If we returned false here, the
+		// application would exit immediately.
+		true
+	}
+	CreateStyles() = {
+		// Paragraph styles
+		romanFont = wx.Font(12, wx.FONTFAMILY_ROMAN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
+		swissFont = wx.Font(12, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
+		normalPara = wx.RichTextParagraphStyleDefinition('Normal')
+		normalAttr = wx.RichTextAttr()
+		normalAttr.SetFontFaceName(romanFont.GetFaceName())
+		normalAttr.SetFontSize(12)
+		// Let's set all attributes for this style
+		normalAttr.SetFlags(wx.TEXT_ATTR_FONT | wx.TEXT_ATTR_BACKGROUND_COLOUR | wx.TEXT_ATTR_TEXT_COLOUR|wx.TEXT_ATTR_ALIGNMENT|wx.TEXT_ATTR_LEFT_INDENT|wx.TEXT_ATTR_RIGHT_INDENT|wx.TEXT_ATTR_TABS| \
+			wx.TEXT_ATTR_PARA_SPACING_BEFORE|wx.TEXT_ATTR_PARA_SPACING_AFTER|wx.TEXT_ATTR_LINE_SPACING| \
+			wx.TEXT_ATTR_BULLET_STYLE|wx.TEXT_ATTR_BULLET_NUMBER)
+		normalPara.SetStyle(normalAttr)
+		self.m_styleSheet.AddParagraphStyle(normalPara)
+
+		indentedPara = wx.RichTextParagraphStyleDefinition('Indented')
+		indentedAttr = wx.RichTextAttr()
+		indentedAttr.SetFontFaceName(romanFont.GetFaceName())
+		indentedAttr.SetFontSize(12)
+		indentedAttr.SetLeftIndent(100, 0)
+		// We only want to affect indentation
+		indentedAttr.SetFlags(wx.TEXT_ATTR_LEFT_INDENT|wx.TEXT_ATTR_RIGHT_INDENT)
+		indentedPara.SetStyle(indentedAttr)
+
+		self.m_styleSheet.AddParagraphStyle(indentedPara)
+
+		indentedPara2 = wx.RichTextParagraphStyleDefinition('Red Bold Indented')
+		indentedAttr2 = wx.RichTextAttr()
+		indentedAttr2.SetFontFaceName(romanFont.GetFaceName())
+		indentedAttr2.SetFontSize(12)
+		indentedAttr2.SetFontWeight(wx.FONTWEIGHT_BOLD)
+		indentedAttr2.SetTextColour(wx.RED)
+		indentedAttr2.SetFontSize(12)
+		indentedAttr2.SetLeftIndent(100, 0)
+		// We want to affect indentation, font and text colour
+		indentedAttr2.SetFlags(wx.TEXT_ATTR_LEFT_INDENT|wx.TEXT_ATTR_RIGHT_INDENT|wx.TEXT_ATTR_FONT|wx.TEXT_ATTR_TEXT_COLOUR)
+		indentedPara2.SetStyle(indentedAttr2)
+		self.m_styleSheet.AddParagraphStyle(indentedPara2)
+		flIndentedPara = wx.RichTextParagraphStyleDefinition('First Line Indented')
+		flIndentedAttr = wx.RichTextAttr()
+		flIndentedAttr.SetFontFaceName(swissFont.GetFaceName())
+		flIndentedAttr.SetFontSize(12)
+		flIndentedAttr.SetLeftIndent(100, -100)
+		// We only want to affect indentation
+		flIndentedAttr.SetFlags(wx.TEXT_ATTR_LEFT_INDENT|wx.TEXT_ATTR_RIGHT_INDENT)
+		flIndentedPara.SetStyle(flIndentedAttr)
+		// Character styles
+		boldDef = wx.RichTextCharacterStyleDefinition('Bold')
+		boldAttr = wx.RichTextAttr()
+		boldAttr.SetFontFaceName(romanFont.GetFaceName())
+		boldAttr.SetFontSize(12)
+		boldAttr.SetFontWeight(wx.FONTWEIGHT_BOLD)
+		// We only want to affect boldness
+		boldAttr.SetFlags(wx.TEXT_ATTR_FONT_WEIGHT)
+		boldDef.SetStyle(boldAttr)
+		self.m_styleSheet.AddCharacterStyle(boldDef)
+		italicDef = wx.RichTextCharacterStyleDefinition('Italic')
+		italicAttr = wx.RichTextAttr()
+		italicAttr.SetFontFaceName(romanFont.GetFaceName())
+		italicAttr.SetFontSize(12)
+		italicAttr.SetFontStyle(wx.FONTSTYLE_ITALIC)
+		// We only want to affect italics
+		italicAttr.SetFlags(wx.TEXT_ATTR_FONT_ITALIC)
+		italicDef.SetStyle(italicAttr)
+		self.m_styleSheet.AddCharacterStyle(italicDef)
+		redDef = wx.RichTextCharacterStyleDefinition('Red Bold')
+		redAttr = wx.RichTextAttr()
+		redAttr.SetFontFaceName(romanFont.GetFaceName())
+		redAttr.SetFontSize(12)
+		redAttr.SetFontWeight(wx.FONTWEIGHT_BOLD)
+		redAttr.SetTextColour(wx.RED)
+		// We only want to affect colour, weight and face
+		redAttr.SetFlags(wx.TEXT_ATTR_FONT_FACE|wx.TEXT_ATTR_FONT_WEIGHT|wx.TEXT_ATTR_TEXT_COLOUR)
+		redDef.SetStyle(redAttr)
+		self.m_styleSheet.AddCharacterStyle(redDef)
+		bulletList = wx.RichTextListStyleDefinition('Bullet List 1')
+		repeat (10) {|i|
+			bulletText = if (i == 0) {
+				'standard/circle'
+			} elsif (i == 1) {
+				'standard/square'
+			} elsif (i == 2) {
+				'standard/circle'
+			} elsif (i == 3) {
+				'standard/square'
+			} else {
+				'standard/circle'
+			}
+			attr = wx.RichTextAttr()
+			attr.SetLeftIndent((i + 1) * 60)
+			//attr.SetLeftSubIndent(60)
+			attr.SetBulletStyle(wx.TEXT_ATTR_BULLET_STYLE_STANDARD)
+			attr.SetBulletText(bulletText)
+			bulletList.SetLevelAttributes(i, attr)
+		}
+		self.m_styleSheet.AddListStyle(bulletList)
+		numberedList = wx.RichTextListStyleDefinition('Numbered List 1')
+		repeat (10) {|i|
+			numberStyle = if (i == 0) {
+				wx.TEXT_ATTR_BULLET_STYLE_ARABIC|wx.TEXT_ATTR_BULLET_STYLE_PERIOD
+			} elsif (i == 1) {
+			    wx.TEXT_ATTR_BULLET_STYLE_LETTERS_LOWER|wx.TEXT_ATTR_BULLET_STYLE_PARENTHESES
+			} elsif (i == 2) {
+				wx.TEXT_ATTR_BULLET_STYLE_ROMAN_LOWER|wx.TEXT_ATTR_BULLET_STYLE_PARENTHESES
+			} elsif (i == 3) {
+				wx.TEXT_ATTR_BULLET_STYLE_ROMAN_UPPER|wx.TEXT_ATTR_BULLET_STYLE_PARENTHESES
+			} else {
+			    wx.TEXT_ATTR_BULLET_STYLE_ARABIC|wx.TEXT_ATTR_BULLET_STYLE_PERIOD
+			}
+			numberStyle |= wx.TEXT_ATTR_BULLET_STYLE_ALIGN_RIGHT
+			attr = wx.RichTextAttr()
+			attr.SetLeftIndent((i + 1) * 60)
+			//attr.SetLeftSubIndent(60)
+			attr.SetBulletStyle(numberStyle)
+			numberedList.SetLevelAttributes(i, attr)
+	    }
+		self.m_styleSheet.AddListStyle(numberedList)
+
+		outlineList = wx.RichTextListStyleDefinition('Outline List 1')
+		repeat (10) {|i|
+			numberStyle = if (i < 4) {
+				wx.TEXT_ATTR_BULLET_STYLE_OUTLINE|wx.TEXT_ATTR_BULLET_STYLE_PERIOD
+			} else {
+				wx.TEXT_ATTR_BULLET_STYLE_ARABIC|wx.TEXT_ATTR_BULLET_STYLE_PERIOD
+			}
+			attr = wx.RichTextAttr()
+			attr.SetLeftIndent((i + 1) * 120)
+			//attr.SetLeftSubIndent(120)
+			attr.SetBulletStyle(numberStyle)
+			outlineList.SetLevelAttributes(i, attr)
+		}
+		self.m_styleSheet.AddListStyle(outlineList)
+	}
+	GetStyleSheet() = self.m_styleSheet
+}
+
+// Define a new frame type: this is going to be our main frame
+MyFrame = class(wx.Frame) {
+	// frame constructor
+	__init__(title:string, id:wx.WindowID, pos:wx.Point => wx.DefaultPosition
+			size:wx.Size => wx.DefaultSize, style => wx.DEFAULT_FRAME_STYLE) = \
+											{|nil, id, title, pos, size, style|
+		// set the frame icon
+		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		// create a menu bar
+		fileMenu = wx.Menu()
+		// the "About" item should be in the help menu
+		helpMenu = wx.Menu()
+		helpMenu.Append(ID_About, '&About...\tF1', 'Show about dialog')
+		fileMenu.Append(wx.ID_OPEN, '&Open\tCtrl+O', 'Open a file')
+		fileMenu.Append(wx.ID_SAVE, '&Save\tCtrl+S', 'Save a file')
+		fileMenu.Append(wx.ID_SAVEAS, '&Save As...\tF12', 'Save to a new file')
+		fileMenu.AppendSeparator()
+		fileMenu.Append(ID_RELOAD, '&Reload Text\tF2', 'Reload the initial text')
+		fileMenu.AppendSeparator()
+		fileMenu.Append(ID_PAGE_SETUP, 'Page Set&up...', 'Page setup')
+		fileMenu.Append(ID_PRINT, '&Print...\tCtrl+P', 'Print')
+		fileMenu.Append(ID_PREVIEW, 'Print Pre&view', 'Print preview')
+		fileMenu.AppendSeparator()
+		fileMenu.Append(ID_VIEW_HTML, '&View as HTML', 'View HTML')
+		fileMenu.AppendSeparator()
+		fileMenu.Append(ID_Quit, 'E&xit\tAlt+X', 'Quit this program')
+		editMenu = wx.Menu()
+		editMenu.Append(wx.ID_UNDO, '&Undo\tCtrl+Z')
+		editMenu.Append(wx.ID_REDO, '&Redo\tCtrl+Y')
+		editMenu.AppendSeparator()
+		editMenu.Append(wx.ID_CUT, 'Cu&t\tCtrl+X')
+		editMenu.Append(wx.ID_COPY, '&Copy\tCtrl+C')
+		editMenu.Append(wx.ID_PASTE, '&Paste\tCtrl+V')
+		editMenu.AppendSeparator()
+		editMenu.Append(wx.ID_SELECTALL, 'Select A&ll\tCtrl+A')
+		/*
+		editMenu.AppendSeparator()
+		editMenu.Append(wx.ID_FIND, '&Find...\tCtrl+F')
+		editMenu.Append(wx.ID_FIND_REPLACE, '&Replace...\tCtrl+R')
+		*/
+		editMenu = wx.Menu()
+		editMenu.Append(wx.ID_UNDO, '&Undo\tCtrl+Z')
+		editMenu.Append(wx.ID_REDO, '&Redo\tCtrl+Y')
+		editMenu.AppendSeparator()
+		editMenu.Append(wx.ID_CUT, 'Cu&t\tCtrl+X')
+		editMenu.Append(wx.ID_COPY, '&Copy\tCtrl+C')
+		editMenu.Append(wx.ID_PASTE, '&Paste\tCtrl+V')
+		editMenu.AppendSeparator()
+		editMenu.Append(wx.ID_SELECTALL, 'Select A&ll\tCtrl+A')
+		/*
+		editMenu.AppendSeparator()
+		editMenu.Append(wx.ID_FIND, '&Find...\tCtrl+F')
+		editMenu.Append(wx.ID_FIND_REPLACE, '&Replace...\tCtrl+R')
+		*/
+		formatMenu = wx.Menu()
+		formatMenu.AppendCheckItem(ID_FORMAT_BOLD, '&Bold\tCtrl+B')
+		formatMenu.AppendCheckItem(ID_FORMAT_ITALIC, '&Italic\tCtrl+I')
+		formatMenu.AppendCheckItem(ID_FORMAT_UNDERLINE, '&Underline\tCtrl+U')
+		formatMenu.AppendSeparator()
+		formatMenu.AppendCheckItem(ID_FORMAT_ALIGN_LEFT, 'L&eft Align')
+		formatMenu.AppendCheckItem(ID_FORMAT_ALIGN_RIGHT, '&Right Align')
+		formatMenu.AppendCheckItem(ID_FORMAT_ALIGN_CENTRE, '&Centre')
+		formatMenu.AppendSeparator()
+		formatMenu.Append(ID_FORMAT_INDENT_MORE, 'Indent &More')
+		formatMenu.Append(ID_FORMAT_INDENT_LESS, 'Indent &Less')
+		formatMenu.AppendSeparator()
+		formatMenu.Append(ID_FORMAT_PARAGRAPH_SPACING_MORE, 'Increase Paragraph &Spacing')
+		formatMenu.Append(ID_FORMAT_PARAGRAPH_SPACING_LESS, 'Decrease &Paragraph Spacing')
+		formatMenu.AppendSeparator()
+		formatMenu.Append(ID_FORMAT_LINE_SPACING_SINGLE, 'Normal Line Spacing')
+		formatMenu.Append(ID_FORMAT_LINE_SPACING_HALF, '1.5 Line Spacing')
+		formatMenu.Append(ID_FORMAT_LINE_SPACING_DOUBLE, 'Double Line Spacing')
+		formatMenu.AppendSeparator()
+		formatMenu.Append(ID_FORMAT_FONT, '&Font...')
+		formatMenu.Append(ID_FORMAT_PARAGRAPH, '&Paragraph...')
+		formatMenu.Append(ID_FORMAT_CONTENT, 'Font and Pa&ragraph...\tShift+Ctrl+F')
+		formatMenu.AppendSeparator()
+		formatMenu.Append(ID_SWITCH_STYLE_SHEETS, '&Switch Style Sheets')
+		formatMenu.Append(ID_MANAGE_STYLES, '&Manage Styles')
+		listsMenu = wx.Menu()
+		listsMenu.Append(ID_FORMAT_BULLETS_AND_NUMBERING, 'Bullets and &Numbering...')
+		listsMenu.AppendSeparator()
+		listsMenu.Append(ID_FORMAT_NUMBER_LIST, 'Number List')
+		listsMenu.Append(ID_FORMAT_ITEMIZE_LIST, 'Itemize List')
+		listsMenu.Append(ID_FORMAT_RENUMBER_LIST, 'Renumber List')
+		listsMenu.Append(ID_FORMAT_PROMOTE_LIST, 'Promote List Items')
+		listsMenu.Append(ID_FORMAT_DEMOTE_LIST, 'Demote List Items')
+		listsMenu.Append(ID_FORMAT_CLEAR_LIST, 'Clear List Formatting')
+		insertMenu = wx.Menu()
+		insertMenu.Append(ID_INSERT_SYMBOL, '&Symbol...\tCtrl+I')
+		insertMenu.Append(ID_INSERT_URL, '&URL...')
+		// now append the freshly created menu to the menu bar...
+		menuBar = wx.MenuBar()
+		menuBar.Append(fileMenu, '&File')
+		menuBar.Append(editMenu, '&Edit')
+		menuBar.Append(formatMenu, 'F&ormat')
+		menuBar.Append(listsMenu, '&Lists')
+		menuBar.Append(insertMenu, '&Insert')
+		menuBar.Append(helpMenu, '&Help')
+		// ... and attach this menu bar to the frame
+		self.SetMenuBar(menuBar)
+		// create a status bar just for fun (by default with 1 pane only)
+		// but don't create it on limited screen space (WinCE)
+		is_pda = (wx.SystemSettings.GetScreenType() <= wx.SYS_SCREEN_PDA)
+		if (!is_pda) {
+			self.CreateStatusBar(2)
+			self.SetStatusText('Welcome to wxRichTextCtrl!')
+		}
+	    toolBar = self.CreateToolBar()
+		toolBar.AddTool(wx.ID_OPEN, 'Open', wx.BitmapFromXPMData(resource.open_xpm), wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddTool(wx.ID_SAVEAS, 'Save', wx.BitmapFromXPMData(resource.save_xpm), wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddSeparator()
+		toolBar.AddTool(wx.ID_CUT, 'Cut', wx.BitmapFromXPMData(resource.cut_xpm), wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddTool(wx.ID_COPY, 'Copy', wx.BitmapFromXPMData(resource.copy_xpm), wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddTool(wx.ID_PASTE, 'Paste', wx.BitmapFromXPMData(resource.paste_xpm), wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddSeparator()
+		toolBar.AddTool(wx.ID_UNDO, 'Undo', wx.BitmapFromXPMData(resource.undo_xpm), wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddTool(wx.ID_REDO, 'Redo', wx.BitmapFromXPMData(resource.redo_xpm), wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddSeparator()
+		toolBar.AddTool(ID_FORMAT_BOLD, 'Bold', wx.BitmapFromXPMData(resource.bold_xpm), wx.NullBitmap, wx.ITEM_CHECK)
+		toolBar.AddTool(ID_FORMAT_ITALIC, 'Italic', wx.BitmapFromXPMData(resource.italic_xpm), wx.NullBitmap, wx.ITEM_CHECK)
+		toolBar.AddTool(ID_FORMAT_UNDERLINE, 'Underline', wx.BitmapFromXPMData(resource.underline_xpm), wx.NullBitmap, wx.ITEM_CHECK)
+		toolBar.AddSeparator()
+		toolBar.AddTool(ID_FORMAT_ALIGN_LEFT, 'Align Left', wx.BitmapFromXPMData(resource.alignleft_xpm), wx.NullBitmap, wx.ITEM_CHECK)
+		toolBar.AddTool(ID_FORMAT_ALIGN_CENTRE, 'Centre', wx.BitmapFromXPMData(resource.centre_xpm), wx.NullBitmap, wx.ITEM_CHECK)
+		toolBar.AddTool(ID_FORMAT_ALIGN_RIGHT, 'Align Right', wx.BitmapFromXPMData(resource.alignright_xpm), wx.NullBitmap, wx.ITEM_CHECK)
+		toolBar.AddSeparator()
+		toolBar.AddTool(ID_FORMAT_INDENT_LESS, 'Indent Less', wx.BitmapFromXPMData(resource.indentless_xpm), wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddTool(ID_FORMAT_INDENT_MORE, 'Indent More', wx.BitmapFromXPMData(resource.indentmore_xpm), wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddSeparator()
+		toolBar.AddTool(ID_FORMAT_FONT, 'Font', wx.BitmapFromXPMData(resource.font_xpm), wx.NullBitmap, wx.ITEM_NORMAL)
+		combo = wx.RichTextStyleComboCtrl(toolBar, ID_RICHTEXT_STYLE_COMBO, wx.DefaultPosition, wx.Size(200, -1))
+		self.m_styleCombo = combo
+		toolBar.AddControl(combo)
+		toolBar.Realize()
+		splitter = wx.SplitterWindow(self, wx.ID_ANY, wx.DefaultPosition, self.GetClientSize(), wx.SP_NO_XP_THEME|wx.SP_3D|wx.SP_LIVE_UPDATE)
+		textFont = wx.Font(12, wx.FONTFAMILY_ROMAN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
+		boldFont = wx.Font(12, wx.FONTFAMILY_ROMAN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
+		italicFont = wx.Font(12, wx.FONTFAMILY_ROMAN, wx.FONTSTYLE_ITALIC, wx.FONTWEIGHT_NORMAL)
+		self.m_richTextCtrl = wx.RichTextCtrl(splitter, ID_RICHTEXT_CTRL, wx.EmptyString, wx.DefaultPosition, wx.Size(200, 200), wx.VSCROLL|wx.HSCROLL|wx.NO_BORDER|wx.WANTS_CHARS)
+		font = wx.Font(12, wx.FONTFAMILY_ROMAN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
+		self.m_richTextCtrl.SetFont(font)
+		self.m_richTextCtrl.SetStyleSheet(wx.GetApp().GetStyleSheet())
+		combo.SetStyleSheet(wx.GetApp().GetStyleSheet())
+		combo.SetRichTextCtrl(self.m_richTextCtrl)
+		combo.UpdateStyles()
+		styleListCtrl = wx.RichTextStyleListCtrl(splitter, ID_RICHTEXT_STYLE_LIST)
+		self.m_styleList = styleListCtrl
+		display = wx.GetDisplaySize()
+		if (is_pda && (display.GetWidth() < display.GetHeight())) {
+			splitter.SplitHorizontally(self.m_richTextCtrl, styleListCtrl)
+		} else {
+			splitter.SplitVertically(self.m_richTextCtrl, styleListCtrl, 500)
+		}
+		splitter.UpdateSize()
+		styleListCtrl.SetStyleSheet(wx.GetApp().GetStyleSheet())
+		styleListCtrl.SetRichTextCtrl(self.m_richTextCtrl)
+		styleListCtrl.UpdateStyles()
+		self.WriteInitialText()
+		self.EventTable()
+	}
+	EventTable() = {
+		// bind event handlers
+		self.Bind(wx.EVT_MENU, ID_Quit) { self.OnQuit() }
+		self.Bind(wx.EVT_MENU, ID_About) { self.OnAbout() }
+		self.Bind(wx.EVT_MENU, wx.ID_OPEN) { self.OnOpen() }
+		self.Bind(wx.EVT_MENU, wx.ID_SAVE) { self.OnSave() }
+		self.Bind(wx.EVT_MENU, wx.ID_SAVEAS) { self.OnSaveAs() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_BOLD) { self.OnBold() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_ITALIC) { self.OnItalic() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_UNDERLINE) { self.OnUnderline() }
+		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_BOLD) {|event| self.OnUpdateBold(event) }
+		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_ITALIC) {|event| self.OnUpdateItalic(event) }
+		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_UNDERLINE) {|event| self.OnUpdateUnderline(event) }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_ALIGN_LEFT) { self.OnAlignLeft() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_ALIGN_CENTRE) { self.OnAlignCentre() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_ALIGN_RIGHT) { self.OnAlignRight() }
+		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_ALIGN_LEFT) {|event| self.OnUpdateAlignLeft(event) }
+		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_ALIGN_CENTRE) {|event| self.OnUpdateAlignCentre(event) }
+		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_ALIGN_RIGHT) {|event| self.OnUpdateAlignRight(event) }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_FONT) { self.OnFont() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_PARAGRAPH) { self.OnParagraph() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_CONTENT) { self.OnFormat() }
+		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_FONT) {|event| self.OnUpdateFormat(event) }
+		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_PARAGRAPH) {|event| self.OnUpdateFormat(event) }
+		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_CONTENT) {|event| self.OnUpdateFormat(event) }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_INDENT_MORE) { self.OnIndentMore() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_INDENT_LESS) { self.OnIndentLess() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_LINE_SPACING_HALF) { self.OnLineSpacingHalf() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_LINE_SPACING_SINGLE) { self.OnLineSpacingSingle() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_LINE_SPACING_DOUBLE) { self.OnLineSpacingDouble() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_PARAGRAPH_SPACING_MORE) { self.OnParagraphSpacingMore() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_PARAGRAPH_SPACING_LESS) { self.OnParagraphSpacingLess() }
+		self.Bind(wx.EVT_MENU, ID_RELOAD) { self.OnReload() }
+		self.Bind(wx.EVT_MENU, ID_INSERT_SYMBOL) { self.OnInsertSymbol() }
+		self.Bind(wx.EVT_MENU, ID_INSERT_URL) { self.OnInsertURL() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_NUMBER_LIST) { self.OnNumberList() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_BULLETS_AND_NUMBERING) { self.OnBulletsAndNumbering() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_ITEMIZE_LIST) { self.OnItemizeList() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_RENUMBER_LIST) { self.OnRenumberList() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_PROMOTE_LIST) { self.OnPromoteList() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_DEMOTE_LIST) { self.OnDemoteList() }
+		self.Bind(wx.EVT_MENU, ID_FORMAT_CLEAR_LIST) { self.OnClearList() }
+		self.Bind(wx.EVT_MENU, ID_VIEW_HTML) { self.OnViewHTML() }
+		self.Bind(wx.EVT_MENU, ID_SWITCH_STYLE_SHEETS) { self.OnSwitchStyleSheets() }
+		self.Bind(wx.EVT_MENU, ID_MANAGE_STYLES) { self.OnManageStyles() }
+		self.Bind(wx.EVT_MENU, ID_PRINT) { self.OnPrint() }
+		self.Bind(wx.EVT_MENU, ID_PREVIEW) { self.OnPreview() }
+		self.Bind(wx.EVT_MENU, ID_PAGE_SETUP) { self.OnPageSetup() }
+		self.Bind(wx.EVT_TEXT_URL, wx.ID_ANY) {|event| self.OnURL(event) }
+		self.Bind(wx.EVT_RICHTEXT_STYLESHEET_REPLACING, wx.ID_ANY) {|even| self.OnStyleSheetReplacing(event) }
+	}
+	// Write text
+	WriteInitialText() = {
+		r = self.m_richTextCtrl
+		r.SetDefaultStyle(wx.RichTextAttr())
+		r.BeginSuppressUndo()
+		r.BeginParagraphSpacing(0, 20)
+		r.BeginAlignment(wx.TEXT_ALIGNMENT_CENTRE)
+		r.BeginBold()
+		r.BeginFontSize(14)
+		lineBreak = '%c' % 29
+		r.WriteText('Welcome to wxRichTextCtrl, a wxWidgets control' + lineBreak + 'for editing and presenting styled text and images\n')
+		r.EndFontSize()
+		//r.Newline()
+		r.BeginItalic()
+		r.WriteText('by Julian Smart')
+		r.EndItalic()
+		r.EndBold()
+		r.Newline()
+		r.WriteBitmap(wx.BitmapFromXPMData(resource.zebra_xpm))
+		r.Newline()
+		r.Newline()
+		r.EndAlignment()
+		r.WriteText('What can you do with this thing? ')
+		r.WriteBitmap(wx.BitmapFromXPMData(resource.smiley_xpm))
+		r.WriteText(' Well, you can change text ')
+		r.BeginTextColour(wx.Colour(255, 0, 0))
+		r.WriteText('colour, like this red bit.')
+		r.EndTextColour()
+		backgroundColourAttr = wx.RichTextAttr()
+		backgroundColourAttr.SetBackgroundColour(wx.GREEN)
+		backgroundColourAttr.SetTextColour(wx.Colour(0, 0, 255))
+		r.BeginStyle(backgroundColourAttr)
+		r.WriteText(' And this blue on green bit.')
+		r.EndStyle()
+		r.WriteText(' Naturally you can make things ')
+		r.BeginBold()
+		r.WriteText('bold ')
+		r.EndBold()
+		r.BeginItalic()
+		r.WriteText('or italic ')
+		r.EndItalic()
+		r.BeginUnderline()
+		r.WriteText('or underlined.')
+		r.EndUnderline()
+		r.BeginFontSize(14)
+		r.WriteText(' Different font sizes on the same line is allowed, too.')
+		r.EndFontSize()
+		r.WriteText(' Next we\'ll show an indented paragraph.')
+		r.Newline()
+		r.BeginLeftIndent(60)
+		r.WriteText('It was in January, the most down-trodden month of an Edinburgh winter. An attractive woman came into the cafe, which is nothing remarkable.')
+		r.Newline()
+		r.EndLeftIndent()
+		r.WriteText('Next, we\'ll show a first-line indent, achieved using BeginLeftIndent(100, -40).')
+		r.Newline()
+		r.BeginLeftIndent(100, -40)
+		r.WriteText('It was in January, the most down-trodden month of an Edinburgh winter. An attractive woman came into the cafe, which is nothing remarkable.')
+		r.Newline()
+		r.EndLeftIndent()
+		r.WriteText('Numbered bullets are possible, again using subindents:')
+		r.Newline()
+		r.BeginNumberedBullet(1, 100, 60)
+		r.WriteText('This is my first item. Note that wxRichTextCtrl can apply numbering and bullets automatically based on list styles, but this list is formatted explicitly by setting indents.')
+		r.Newline()
+		r.EndNumberedBullet()
+		r.BeginNumberedBullet(2, 100, 60)
+		r.WriteText('This is my second item.')
+		r.Newline()
+		r.EndNumberedBullet()
+		r.WriteText('The following paragraph is right-indented:')
+		r.Newline()
+		r.BeginRightIndent(200)
+		r.WriteText('It was in January, the most down-trodden month of an Edinburgh winter. An attractive woman came into the cafe, which is nothing remarkable.')
+		r.Newline()
+		r.EndRightIndent()
+		r.WriteText('The following paragraph is right-aligned with 1.5 line spacing:')
+		r.Newline()
+		r.BeginAlignment(wx.TEXT_ALIGNMENT_RIGHT)
+		r.BeginLineSpacing(wx.TEXT_ATTR_LINE_SPACING_HALF)
+		r.WriteText('It was in January, the most down-trodden month of an Edinburgh winter. An attractive woman came into the cafe, which is nothing remarkable.')
+		r.Newline()
+		r.EndLineSpacing()
+		r.EndAlignment()
+		tabs = [400, 600, 800, 1000]
+		attr = wx.RichTextAttr()
+		attr.SetFlags(wx.TEXT_ATTR_TABS)
+		attr.SetTabs(tabs)
+		r.SetDefaultStyle(attr)
+		r.WriteText('This line contains tabs:\tFirst tab\tSecond tab\tThird tab')
+		r.Newline()
+		r.WriteText('Other notable features of wxRichTextCtrl include:')
+		r.Newline()
+		r.BeginSymbolBullet('*', 100, 60)
+		r.WriteText('Compatibility with wxTextCtrl API')
+		r.Newline()
+		r.EndSymbolBullet()
+		r.BeginSymbolBullet('*', 100, 60)
+		r.WriteText('Easy stack-based BeginXXX()...EndXXX() style setting in addition to SetStyle()')
+		r.Newline()
+		r.EndSymbolBullet()
+		r.BeginSymbolBullet('*', 100, 60)
+		r.WriteText('XML loading and saving')
+		r.Newline()
+		r.EndSymbolBullet()
+		r.BeginSymbolBullet('*', 100, 60)
+		r.WriteText('Undo/Redo, with batching option and Undo suppressing')
+		r.Newline()
+		r.EndSymbolBullet()
+		r.BeginSymbolBullet('*', 100, 60)
+		r.WriteText('Clipboard copy and paste')
+		r.Newline()
+		r.EndSymbolBullet()
+		r.BeginSymbolBullet('*', 100, 60)
+		r.WriteText('wxRichTextStyleSheet with named character and paragraph styles, and control for applying named styles')
+		r.Newline()
+		r.EndSymbolBullet()
+		r.BeginSymbolBullet('*', 100, 60)
+		r.WriteText('A design that can easily be extended to other content types, ultimately with text boxes, tables, controls, and so on')
+		r.Newline()
+		r.EndSymbolBullet()
+		// Make a style suitable for showing a URL
+		urlStyle = wx.RichTextAttr()
+		urlStyle.SetTextColour(wx.BLUE)
+		urlStyle.SetFontUnderlined(true)
+		r.WriteText('wxRichTextCtrl can also display URLs, such as this one: ')
+		r.BeginStyle(urlStyle)
+		r.BeginURL('http://www.wxwidgets.org')
+		r.WriteText('The wxWidgets Web Site')
+		r.EndURL()
+		r.EndStyle()
+		r.WriteText('. Click on the URL to generate an event.')
+		r.Newline()
+		r.WriteText('Note: this sample content was generated programmatically from within the MyFrame constructor in the demo. The images were loaded from inline XPMs. Enjoy wxRichTextCtrl!')
+		r.Newline()
+		r.EndParagraphSpacing()
+		r.EndSuppressUndo()
+	}
+	// event handlers (these functions should _not_ be virtual)
+	OnQuit() = {
+		// true is to force the frame to close
+		self.Close(true)
+	}
+	OnAbout() = {
+		msg = 'This is a demo for wxRichTextCtrl, a control for editing styled text.\n(c) Julian Smart, 2005'
+		wx.MessageBox(msg, 'About wxRichTextCtrl Sample', wx.OK | wx.ICON_INFORMATION, self)
+	}
+	OnOpen() = {
+		[filter, fileTypes] = wx.RichTextBuffer.GetExtWildcard(false, false)
+		if (!filter.isempty()) {
+			filter += '|'
+		}
+		filter += 'All files (*.*)|*.*'
+		path = ''
+		filename = ''
+		dialog = wx.FileDialog(self, 'Choose a filename',
+									path, filename, filter, wx.FD_OPEN)
+		if (dialog.ShowModal() == wx.ID_OK) {
+			path = dialog.GetPath()
+			if (!path.isempty()) {
+				filterIndex = dialog.GetFilterIndex()
+				fileType = if (filterIndex < fileTypes.len()) {
+					fileTypes[filterIndex]
+				} else {
+					wx.RICHTEXT_TYPE_TEXT
+				}
+			}
+			self.m_richTextCtrl.LoadFile(path, fileType)
+		}
+	}
+	OnSave() = {
+		if (self.m_richTextCtrl.GetFilename().isempty()) {
+			self.OnSaveAs()
+			return
+		}
+		self.m_richTextCtrl.SaveFile()
+	}
+	OnSaveAs() = {
+		[filter, fileTypes] = wx.RichTextBuffer.GetExtWildcard(false, true)
+		path = ''
+		filename = ''
+		dialog = wx.FileDialog(self, 'Choose a filename',
+									path, filename, filter, wx.FD_SAVE)
+		if (dialog.ShowModal() == wx.ID_OK) {
+			path = dialog.GetPath()
+			if (!path.isempty()) {
+				self.m_richTextCtrl.SaveFile(path)
+			}
+		}
+	}
+	OnBold() = {
+		self.m_richTextCtrl.ApplyBoldToSelection()
+	}
+	OnItalic() = {
+		self.m_richTextCtrl.ApplyItalicToSelection()
+	}
+	OnUnderline() = {
+		self.m_richTextCtrl.ApplyUnderlineToSelection()
+	}
+	OnUpdateBold(event:wx.UpdateUIEvent) = {
+		event.Check(self.m_richTextCtrl.IsSelectionBold())
+	}
+	OnUpdateItalic(event:wx.UpdateUIEvent) = {
+		event.Check(self.m_richTextCtrl.IsSelectionItalics())
+	}
+	OnUpdateUnderline(event:wx.UpdateUIEvent) = {
+		event.Check(self.m_richTextCtrl.IsSelectionUnderlined())
+	}
+	OnAlignLeft() = {
+		self.m_richTextCtrl.ApplyAlignmentToSelection(wx.TEXT_ALIGNMENT_LEFT)
+	}
+	OnAlignCentre() = {
+		self.m_richTextCtrl.ApplyAlignmentToSelection(wx.TEXT_ALIGNMENT_CENTRE)
+	}
+	OnAlignRight() = {
+		self.m_richTextCtrl.ApplyAlignmentToSelection(wx.TEXT_ALIGNMENT_RIGHT)
+	}
+	OnUpdateAlignLeft(event:wx.UpdateUIEvent) = {
+		event.Check(self.m_richTextCtrl.IsSelectionAligned(wx.TEXT_ALIGNMENT_LEFT))
+	}
+	OnUpdateAlignCentre(event:wx.UpdateUIEvent) = {
+		event.Check(self.m_richTextCtrl.IsSelectionAligned(wx.TEXT_ALIGNMENT_CENTRE))
+	}
+	OnUpdateAlignRight(event:wx.UpdateUIEvent) = {
+		event.Check(self.m_richTextCtrl.IsSelectionAligned(wx.TEXT_ALIGNMENT_RIGHT))
+	}
+	OnFont() = {
+		range = if (self.m_richTextCtrl.HasSelection()) {
+			self.m_richTextCtrl.GetSelectionRange()
+		} else {
+			wx.RichTextRange(0, self.m_richTextCtrl.GetLastPosition() + 1)
+		}
+		pages = wx.RICHTEXT_FORMAT_FONT
+		formatDlg = wx.RichTextFormattingDialog(pages, self)
+		formatDlg.GetStyle(self.m_richTextCtrl, range)
+		if (formatDlg.ShowModal() == wx.ID_OK) {
+			formatDlg.ApplyStyle(self.m_richTextCtrl, range, wx.RICHTEXT_SETSTYLE_WITH_UNDO|wx.RICHTEXT_SETSTYLE_OPTIMIZE|wx.RICHTEXT_SETSTYLE_CHARACTERS_ONLY)
+		}
+	}
+	OnParagraph() = {
+		range = if (self.m_richTextCtrl.HasSelection()) {
+			self.m_richTextCtrl.GetSelectionRange()
+		} else {
+			wx.RichTextRange(0, self.m_richTextCtrl.GetLastPosition() + 1)
+		}
+		pages = wx.RICHTEXT_FORMAT_INDENTS_SPACING|wx.RICHTEXT_FORMAT_TABS|wx.RICHTEXT_FORMAT_BULLETS
+		formatDlg = wx.RichTextFormattingDialog(pages, self)
+		formatDlg.GetStyle(self.m_richTextCtrl, range)
+		if (formatDlg.ShowModal() == wx.ID_OK) {
+			formatDlg.ApplyStyle(self.m_richTextCtrl, range)
+		}
+	}
+	OnFormat() = {
+		range = if (self.m_richTextCtrl.HasSelection()) {
+			self.m_richTextCtrl.GetSelectionRange()
+		} else {
+			wx.RichTextRange(0, self.m_richTextCtrl.GetLastPosition() + 1)
+		}
+		pages = wx.RICHTEXT_FORMAT_FONT|wx.RICHTEXT_FORMAT_INDENTS_SPACING|wx.RICHTEXT_FORMAT_TABS|wx.RICHTEXT_FORMAT_BULLETS
+		formatDlg = wx.RichTextFormattingDialog(pages, self)
+		formatDlg.GetStyle(self.m_richTextCtrl, range)
+		if (formatDlg.ShowModal() == wx.ID_OK) {
+			formatDlg.ApplyStyle(self.m_richTextCtrl, range)
+		}
+	}
+	OnUpdateFormat(event:wx.UpdateUIEvent) = {
+		event.Enable(self.m_richTextCtrl.HasSelection())
+	}
+	OnIndentMore() = {
+		attr = wx.TextAttrEx()
+		attr.SetFlags(wx.TEXT_ATTR_LEFT_INDENT)
+		if (self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)) {
+			range = wx.RichTextRange(self.m_richTextCtrl.GetInsertionPoint(), self.m_richTextCtrl.GetInsertionPoint())
+			if (self.m_richTextCtrl.HasSelection()) {
+				range = self.m_richTextCtrl.GetSelectionRange()
+			}
+			attr.SetLeftIndent(attr.GetLeftIndent() + 100)
+			attr.SetFlags(wx.TEXT_ATTR_LEFT_INDENT)
+			self.m_richTextCtrl.SetStyle(range, attr)
+		}
+    }
+	OnIndentLess() = {
+		attr = wx.TextAttrEx()
+		attr.SetFlags(wx.TEXT_ATTR_LEFT_INDENT)
+		if (self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)) {
+			range = wx.RichTextRange(self.m_richTextCtrl.GetInsertionPoint(), self.m_richTextCtrl.GetInsertionPoint())
+			if (self.m_richTextCtrl.HasSelection()) {
+				range = self.m_richTextCtrl.GetSelectionRange()
+			}
+			if (attr.GetLeftIndent() > 0) {
+				attr.SetLeftIndent(max(0, attr.GetLeftIndent() - 100))
+			}
+			self.m_richTextCtrl.SetStyle(range, attr)
+		}
+	}
+	OnLineSpacingHalf() = {
+		attr = wx.TextAttrEx()
+		attr.SetFlags(wx.TEXT_ATTR_LINE_SPACING)
+		if (self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)) {
+			range = wx.RichTextRange(self.m_richTextCtrl.GetInsertionPoint(), self.m_richTextCtrl.GetInsertionPoint())
+			if (self.m_richTextCtrl.HasSelection()) {
+				range = self.m_richTextCtrl.GetSelectionRange()
+			}
+			attr.SetFlags(wx.TEXT_ATTR_LINE_SPACING)
+			attr.SetLineSpacing(15)
+			self.m_richTextCtrl.SetStyle(range, attr)
+		}
+	}
+	OnLineSpacingDouble() = {
+		attr = wx.TextAttrEx()
+		attr.SetFlags(wx.TEXT_ATTR_LINE_SPACING)
+		if (self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)) {
+			range = wx.RichTextRange(self.m_richTextCtrl.GetInsertionPoint(), self.m_richTextCtrl.GetInsertionPoint())
+			if (self.m_richTextCtrl.HasSelection()) {
+				range = self.m_richTextCtrl.GetSelectionRange()
+			}
+			attr.SetFlags(wx.TEXT_ATTR_LINE_SPACING)
+			attr.SetLineSpacing(20)
+			self.m_richTextCtrl.SetStyle(range, attr)
+		}
+	}
+	OnLineSpacingSingle() = {
+		attr = wx.TextAttrEx()
+		attr.SetFlags(wx.TEXT_ATTR_LINE_SPACING)
+		if (self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)) {
+			range = wx.RichTextRange(self.m_richTextCtrl.GetInsertionPoint(), self.m_richTextCtrl.GetInsertionPoint())
+			if (self.m_richTextCtrl.HasSelection()) {
+				range = self.m_richTextCtrl.GetSelectionRange()
+			}
+			attr.SetFlags(wx.TEXT_ATTR_LINE_SPACING)
+			attr.SetLineSpacing(0) // Can also use 10
+			self.m_richTextCtrl.SetStyle(range, attr)
+		}
+    }
+	OnParagraphSpacingMore() = {
+		attr = wx.TextAttrEx()
+		attr.SetFlags(wx.TEXT_ATTR_PARA_SPACING_AFTER)
+		if (self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)) {
+			range = wx.RichTextRange(self.m_richTextCtrl.GetInsertionPoint(), self.m_richTextCtrl.GetInsertionPoint())
+			if (self.m_richTextCtrl.HasSelection()) {
+				range = self.m_richTextCtrl.GetSelectionRange()
+			}
+			attr.SetParagraphSpacingAfter(attr.GetParagraphSpacingAfter() + 20)
+			attr.SetFlags(wx.TEXT_ATTR_PARA_SPACING_AFTER)
+			self.m_richTextCtrl.SetStyle(range, attr)
+		}
+    }
+	OnParagraphSpacingLess() = {
+		attr = wx.TextAttrEx()
+		attr.SetFlags(wx.TEXT_ATTR_PARA_SPACING_AFTER)
+		if (self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)) {
+			range = wx.RichTextRange(self.m_richTextCtrl.GetInsertionPoint(), self.m_richTextCtrl.GetInsertionPoint())
+			if (self.m_richTextCtrl.HasSelection()) {
+				range = self.m_richTextCtrl.GetSelectionRange()
+			}
+			if (attr.GetParagraphSpacingAfter() >= 20) {
+				attr.SetParagraphSpacingAfter(attr.GetParagraphSpacingAfter() - 20)
+				attr.SetFlags(wx.TEXT_ATTR_PARA_SPACING_AFTER)
+				self.m_richTextCtrl.SetStyle(range, attr)
+			}
+		}
+    }
+	OnReload() = {
+		self.m_richTextCtrl.Clear()
+		self.WriteInitialText()
+	}
+	OnViewHTML() = {
+		dialog = wx.Dialog(self, wx.ID_ANY, 'HTML', wx.DefaultPosition, wx.Size(500, 400), wx.DEFAULT_DIALOG_STYLE)
+		boxSizer = wx.BoxSizer(wx.VERTICAL)
+		dialog.SetSizer(boxSizer)
+		win = wx.HtmlWindow(dialog, wx.ID_ANY, wx.DefaultPosition, wx.Size(500, 400), wx.SUNKEN_BORDER)
+		boxSizer.Add(win, wx.SizerFlags(1).Border(wx.ALL, 5))
+		cancelButton = wx.Button(dialog, wx.ID_CANCEL, '&Close')
+		boxSizer.Add(cancelButton, wx.SizerFlags(0).Border(wx.ALL, 5).Align(wx.ALIGN_CENTRE))
+		text = wx.String()
+		strStream = wx.StringOutputStream(text)
+		htmlHandler = wx.RichTextHTMLHandler()
+		htmlHandler.SetFlags(wx.RICHTEXT_HANDLER_SAVE_IMAGES_TO_MEMORY)
+		fontSizeMapping = [7, 9, 11, 12, 14, 22, 100]
+		htmlHandler.SetFontSizeMapping(fontSizeMapping)
+		println(text)
+		if (htmlHandler.SaveFile(self.m_richTextCtrl.GetBuffer(), strStream)) {
+			win.SetPage(text)
+		}
+		boxSizer.Fit(dialog)
+		dialog.ShowModal()
+		// Now delete the temporary in-memory images
+		htmlHandler.DeleteTemporaryImages()
+	}
+	// Demonstrates how you can change the style sheets and have the changes
+	// reflected in the control content without wiping out character formatting.
+	gs_AlternateStyleSheet = nil
+	OnSwitchStyleSheets() = {
+		//styleList = wx.DynamicCast(self.FindWindow(ID_RICHTEXT_STYLE_LIST), wx.RichTextStyleListCtrl)
+		//styleCombo = wx.DynamicCast(self.FindWindow(ID_RICHTEXT_STYLE_COMBO), wx.RichTextStyleComboCtrl)
+		styleList = self.m_styleList
+		styleCombo = self.m_styleCombo
+		sheet = self.m_richTextCtrl.GetStyleSheet()
+		// One-time creation of an alternate style sheet
+		if (!MyFrame.gs_AlternateStyleSheet) {
+			MyFrame.gs_AlternateStyleSheet = sheet.clone()
+			// Make some modifications
+			repeat (gs_AlternateStyleSheet.GetParagraphStyleCount()) {|i|
+				def = gs_AlternateStyleSheet.GetParagraphStyle(i)
+				if (def.GetStyle().HasTextColour()) {
+					def.GetStyle().SetTextColour(wx.BLUE)
+				}
+				if (def.GetStyle().HasAlignment()) {
+					if (def.GetStyle().GetAlignment() == wx.TEXT_ALIGNMENT_CENTRE) {
+						def.GetStyle().SetAlignment(wx.TEXT_ALIGNMENT_RIGHT)
+					} elsif (def.GetStyle().GetAlignment() == wx.TEXT_ALIGNMENT_LEFT) {
+						def.GetStyle().SetAlignment(wx.TEXT_ALIGNMENT_CENTRE)
+					}
+				}
+				if (def.GetStyle().HasLeftIndent()) {
+					def.GetStyle().SetLeftIndent(def.GetStyle().GetLeftIndent() * 2)
+				}
+			}
+		}
+		// Switch sheets
+		tmp = MyFrame.gs_AlternateStyleSheet
+		MyFrame.gs_AlternateStyleSheet = sheet
+		sheet = tmp
+		self.m_richTextCtrl.SetStyleSheet(sheet)
+		self.m_richTextCtrl.ApplyStyleSheet(sheet) // Makes the control reflect the new style definitions
+		styleList.SetStyleSheet(sheet)
+		styleList.UpdateStyles()
+		styleCombo.SetStyleSheet(sheet)
+		styleCombo.UpdateStyles()
+	}
+	OnManageStyles() = {
+		sheet = self.m_richTextCtrl.GetStyleSheet()
+		flags = wx.RICHTEXT_ORGANISER_CREATE_STYLES|wx.RICHTEXT_ORGANISER_EDIT_STYLES
+		dlg = wx.RichTextStyleOrganiserDialog(flags, sheet, nil, self, wx.ID_ANY, 'Style Manager')
+		dlg.ShowModal()
+	}
+	OnInsertSymbol() = {
+		attr = wx.TextAttrEx()
+		attr.SetFlags(wx.TEXT_ATTR_FONT)
+		self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)
+		if (attr.HasFont() && attr.GetFont().IsOk()) {
+			currentFontName = attr.GetFont().GetFaceName()
+		}
+		// Don't set the initial font in the dialog (so the user is choosing
+		// 'normal text', i.e. the current font) but do tell the dialog
+		// what 'normal text' is.
+		dlg = wx.SymbolPickerDialog('*', wx.EmptyString, currentFontName, self)
+		if (dlg.ShowModal() == wx.ID_OK) {
+			if (dlg.HasSelection()) {
+				insertionPoint = self.m_richTextCtrl.GetInsertionPoint()
+				self.m_richTextCtrl.WriteText(dlg.GetSymbol())
+				if (!dlg.UseNormalFont()) {
+					font = attr.GetFont().clone()
+					font.SetFaceName(dlg.GetFontName())
+					attr.SetFont(font)
+					self.m_richTextCtrl.SetStyle(insertionPoint, insertionPoint+1, attr)
+				}
+            }
+        }
+    }
+	OnNumberList() = {
+		if (self.m_richTextCtrl.HasSelection()) {
+			range = self.m_richTextCtrl.GetSelectionRange()
+			self.m_richTextCtrl.SetListStyle(range, 'Numbered List 1', wx.RICHTEXT_SETSTYLE_WITH_UNDO|wx.RICHTEXT_SETSTYLE_RENUMBER)
+		}
+	}
+	OnBulletsAndNumbering() = {
+		sheet = self.m_richTextCtrl.GetStyleSheet()
+		flags = wx.RICHTEXT_ORGANISER_BROWSE_NUMBERING
+		dlg = wxRichTextStyleOrganiserDialog(flags, sheet, m_richTextCtrl, self, wx.ID_ANY, 'Bullets and Numbering')
+		if (dlg.ShowModal() == wx.ID_OK) {
+			if (dlg.GetSelectedStyleDefinition()) {
+				dlg.ApplyStyle()
+			}
+		}
+	}
+	OnItemizeList() = {
+		if (self.m_richTextCtrl.HasSelection()) {
+			range = self.m_richTextCtrl.GetSelectionRange()
+			self.m_richTextCtrl.SetListStyle(range, 'Bullet List 1')
+		}
+	}
+	OnRenumberList() = {
+		if (self.m_richTextCtrl.HasSelection()) {
+			range = self.m_richTextCtrl.GetSelectionRange()
+			self.m_richTextCtrl.NumberList(range, nil, wx.RICHTEXT_SETSTYLE_WITH_UNDO|wx.RICHTEXT_SETSTYLE_RENUMBER)
+		}
+	}
+	OnPromoteList() = {
+		if (self.m_richTextCtrl.HasSelection()) {
+			range = self.m_richTextCtrl.GetSelectionRange()
+			self.m_richTextCtrl.PromoteList(1, range, nil)
+		}
+	}
+	OnDemoteList() = {
+		if (self.m_richTextCtrl.HasSelection()) {
+			range = self.m_richTextCtrl.GetSelectionRange()
+			self.m_richTextCtrl.PromoteList(-1, range, nil)
+		}
+	}
+	OnClearList() = {
+		if (self.m_richTextCtrl.HasSelection()) {
+			range = self.m_richTextCtrl.GetSelectionRange()
+			self.m_richTextCtrl.ClearListStyle(range)
+		}
+	}
+	OnInsertURL() = {
+		url = wx.GetTextFromUser('URL:', 'Insert URL')
+		if (!url.isempty()) {
+			// Make a style suitable for showing a URL
+			urlStyle = wx.RichTextAttr()
+			urlStyle.SetTextColour(wx.BLUE)
+			urlStyle.SetFontUnderlined(true)
+			self.m_richTextCtrl.BeginStyle(urlStyle)
+			self.m_richTextCtrl.BeginURL(url)
+			self.m_richTextCtrl.WriteText(url)
+			self.m_richTextCtrl.EndURL()
+			self.m_richTextCtrl.EndStyle()
+		}
+	}
+	OnURL(event:wx.TextUrlEvent) = {
+		wx.MessageBox(event.GetString())
+	}
+	// Veto style sheet replace events when loading from XML, since we want
+	// to keep the original style sheet.
+	OnStyleSheetReplacing(event:wx.RichTextEvent) = {
+		event.Veto()
+	}
+	OnPrint() = {
+		wx.GetApp().GetPrinting().PrintBuffer(self.m_richTextCtrl.GetBuffer())
+	}
+	OnPreview() = {
+		wx.GetApp().GetPrinting().PreviewBuffer(self.m_richTextCtrl.GetBuffer())
+	}
+	OnPageSetup() = {
+		wx.GetApp().GetPrinting().PageSetup()
+	}
+}
+
+wx.IMPLEMENT_APP(MyApp)

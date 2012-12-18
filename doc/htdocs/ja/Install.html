@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="../stylesheet.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<title>Gura Programming Language</title>
+<meta name="keywords" content="programming, language, interpreter, mapping, gura,
+implicit mapping, member mapping">
+</head>
+<body>
+<div>
+<a href="../index.html.ja"><img src="../images/banner.png" style="border: none" /></a>
+<a href="../en/Install.html" class="radio-off" style="margin-left: 1em">English</a> |
+<a href="../ja/Install.html" class="radio-on">Japanese</a>
+<span style="margin-left: 3em"><a href="http://sourceforge.jp/">
+<img src="http://sourceforge.jp/sflogo.php?group_id=5586&type=3" width="210" height="63" border="0" alt="SourceForge.JP" />
+</a></span>
+</div>
+
+<div style="color: white; background: #888888; margin-top: 1em; font-weight: bold">
+<span style="margin-left: 1em">Copyright (c) 2011-2012 <a href="mailto:pxn11432@nifty.com" style="color:white">Yutaka Saito</a></span>
+</div>
+<div style="height:.2em; background: #cccccc"></div>
+<table cellspacing="0" border="0" width="100%">
+<tr>
+<td valign="top" class="menu">
+<div class="menuitem"><a href="/" class="menuitem">トップページ</a></div>
+<div class="menuitem"><a href="Download.html" class="menuitem">ダウンロード</a></div>
+<div class="menuitem"><a href="Install.html" class="menuitem">インストール</a></div>
+<div class="menuitem"><a href="Gallery.html" class="menuitem">ギャラリー</a></div>
+<div class="menuitem"><a href="http://sourceforge.jp/forum/forum.php?forum_id=25531" class="menuitem">Gura 掲示板</a></div>
+</td>
+
+<td valign="top" class="description">
+<!-- ====================================================================== -->
+
+<h3>インストール方法</h3>
+
+<h4>Windows へのインストール方法</h4>
+
+<p>
+インストーラ
+<a href="http://sourceforge.jp/projects/gura/downloads/56617/gura-0.3.0-win32.msi/" class="link">gura-0.3.0-win32.msi</a>
+を実行してください。拡張子 .gura, .guraw, .gurc および .gurcw が実行ファイルに関連付けられます。
+</p>
+
+<h4>Linux へのインストール方法</h4>
+
+<p>
+Ubuntu や Fedora は、デフォルトでは C++ コンパイラや readline ライブラリが入っていないので、以下のようにパッケージをインストールしておきます。
+</p>
+
+<p>Ubuntu の場合:</p>
+
+<pre class="code">
+$ sudo apt-get install g++ libreadline5-dev
+</pre>
+
+<p>Fedora の場合:</p>
+
+<pre class="code">
+# yum install gcc gcc-c++ readline-devel
+</pre>
+
+<p>
+ソースパッケージ
+<a href="http://sourceforge.jp/projects/gura/downloads/56617/gura-0.3.0.tar.gz/" class="link">gura-0.3.0.tar.gz</a>
+をダウンロードし、以下の手順で Gura の本体をビルド・インストールします。
+</p>
+
+<pre class="code">
+$ tar xvfz gura-0.3.0.tar.gz
+$ cd gura-0.3.0/src
+$ ./configure
+$ make
+$ sudo make install
+$ sudo ldconfig     # 最初のインストールの時
+</pre>
+
+<p>
+続けて、以下の手順でモジュールファイルをビルド・インストールします。
+</p>
+
+<pre class="code">
+$ ./build_modules.gura
+$ sudo ./build_modules.gura install
+</pre>
+
+<p>
+エラーが出る場合は、モジュールに必要なライブラリがシステムにインストールされていない可能性があります。エラーメッセージにしたがって、パッケージをインストールしてください。 
+</p>
+
+<!-- ====================================================================== -->
+</td>
+</tr>
+
+</table>
+</body>
+</html>

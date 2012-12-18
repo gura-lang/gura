@@ -1,0 +1,8 @@
+plot-population.emf was generated
+plot-bezier1.emf was generated
+plot-bezier2.emf was generated
+plot-leastsquare.emf was generated
+plot-parabola.emf was generated
+plot-temperature.emf was generated
+plot-sin-1.emf was generated
+plot-sin-2.emf was generated

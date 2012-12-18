@@ -1,0 +1,6 @@
+import(zip)
+zip.writer('a.zip') {|z|
+	z.add('build.gura')
+	z.add('Module_zip.h')
+	z.add('Module_zip.cpp')
+}

@@ -1,0 +1,81 @@
+#!/usr/bin/env gura
+import(zip)
+import(tar)
+
+main() = {
+	if (sys.argv.len() < 3) {
+		sys.stderr.println('usage: gura archive.gura cmd file [args..]')
+		sys.exit(1)
+	}
+	[cmd, fileNameArc] = sys.argv[1, 2]
+	if (cmd == 'c') {
+		if (sys.argv.len() < 4) {
+			sys.stderr.println('specify files to append')
+			sys.exit(1)
+		}
+		DoCreate(fileNameArc, sys.argv[3..])
+	} elsif (cmd == 'x') {
+		DoExtract(fileNameArc)
+	} elsif (cmd == 'l') {
+		DoList(fileNameArc)
+	} else {
+		sys.stderr.println('unknown command ', cmd)
+	}
+}
+
+RegulateName(filename:string):map = {
+	filename.chop('/', '\\').replace('/', path.sep_file).replace('\\', path.sep_file)
+}
+
+DoCreate(fileNameArc:string, patterns[]:string) = {
+	writer = PrepareWriter(fileNameArc)
+	patterns.each() {|pattern|
+		fileNames = path.glob(pattern):file
+		fileNames.each {|fileName|
+			println(fileName)
+			writer.add(fileName, fileName)
+		}
+	}
+	writer.close()
+}
+
+DoExtract(fileNameArc:string) = {
+	streams = PrepareStreams(fileNameArc)
+	streams.each() {|stream|
+		println('Extracting  ', RegulateName(stream.stat.filename))
+		[dirName, fileName] = path.split(stream.stat.filename)
+		!path.exists(dirName) && fs.mkdir(dirName):tree
+		!fileName.isempty() && copy(stream, stream.stat.filename)
+	}
+}
+
+DoList(fileNameArc:string) = {
+	streams = PrepareStreams(fileNameArc)
+	println(RegulateName(streams:*stat:*filename))
+}
+
+PrepareStreams(fileNameArc:string) = {
+	if (fileNameArc.endswith(['.tar.gz', '.tar.bz2', '.tar']).or()) {
+		streams = tar.reader(fileNameArc).entries()
+	} elsif (fileNameArc.endswith('.zip')) {
+		streams = zip.reader(fileNameArc).entries()
+	} else {
+		sys.stderr.println('unknown archive type')
+		sys.exit(1)
+	}
+	streams
+}
+
+PrepareWriter(fileNameArc:string) = {
+	if (fileNameArc.endswith(['.tar.gz', '.tar.bz2', '.tar']).or()) {
+		writer = tar.writer(fileNameArc)
+	} elsif (fileNameArc.endswith('.zip')) {
+		writer = zip.writer(fileNameArc)
+	} else {
+		sys.stderr.println('unknown archive type')
+		sys.exit(1)
+	}
+	writer
+}
+
+main()

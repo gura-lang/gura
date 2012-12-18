@@ -1,0 +1,72 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        test.cpp
+// Purpose:     wxHtml testing example
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+MyApp = class(wx.App) {
+    // override base class virtuals
+    // ----------------------------
+    // this one is called on application startup and is a good place for the app
+    // initialization (doing it here and not in the ctor allows to have an error
+    // return: if OnInit() returns false, the application terminates)
+	OnInit() = {
+		// we use a PNG image in our HTML page
+		wx.Image.AddHandler(wx.PNGHandler())
+		// create and show the main application window
+		frame = MyFrame('wxHtmlWindow testing application')
+		frame.Show()
+		// success: wxApp::OnRun() will be called which will enter the main message
+		// loop and the application will run. If we returned false here, the
+		// application would exit immediately.
+		true
+	}
+}
+
+MyFrame = class(wx.Frame) {
+	// ctor(s)
+	__init__(title:string) = {|nil, wx.ID_ANY, title|
+		self.EventTable()
+		// create a menu bar
+		menuFile = wx.Menu()
+		menuFile.Append(wx.ID_ABOUT)
+		menuFile.Append(wx.ID_EXIT)
+		// now append the freshly created menu to the menu bar...
+		menuBar = wx.MenuBar()
+		menuBar.Append(menuFile, '&File')
+		// ... and attach this menu bar to the frame
+		self.SetMenuBar(menuBar)
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_MENU, wx.ID_ABOUT) {|event| self.OnAbout(event) }
+		self.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| self.OnQuit(event) }
+	}
+	// event handlers
+	OnQuit(event:wx.CommandEvent) = {
+		// true is to force the frame to close
+		self.Close(true)
+	}
+	OnAbout(event:wx.CommandEvent) = {
+		dlg = wx.Dialog(self, wx.ID_ANY, 'About')
+		topsizer = wx.BoxSizer(wx.VERTICAL)
+		html = wx.HtmlWindow(dlg, wx.ID_ANY, wx.DefaultPosition, wx.Size(380, 160), wx.HW_SCROLLBAR_NEVER)
+		html.SetBorders(0)
+		html.LoadPage('data/about.htm')
+		html.SetSizeWH(html.GetInternalRepresentation().GetWidth(),
+						html.GetInternalRepresentation().GetHeight())
+		topsizer.Add(html, wx.SizerFlags(1).Border(wx.ALL, 10))
+		topsizer.Add(wx.StaticLine(dlg, wx.ID_ANY),
+					wx.SizerFlags(0).Expand().Border(wx.LEFT | wx.RIGHT, 10))
+		bu1 = wx.Button(dlg, wx.ID_OK, 'OK')
+		bu1.SetDefault()
+		topsizer.Add(bu1, wx.SizerFlags(0).Border(wx.ALL, 15).Align(wx.ALIGN_RIGHT))
+		dlg.SetSizer(topsizer)
+		topsizer.Fit(dlg)
+		dlg.ShowModal()
+	}
+}
+
+wx.IMPLEMENT_APP(MyApp)

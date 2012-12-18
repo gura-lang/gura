@@ -1,0 +1,72 @@
+#!/usr/bin/env gura
+#------------------------------------------------------------------------------
+# MS-Excel simple interface
+#------------------------------------------------------------------------------
+import(mswin)
+
+progid = 'Excel.Application'
+
+reader(filename:string, sheetindex => 1) = {
+	app = mswin.ole(progid)
+	wb = app.Workbooks.Open(path.absname(filename))
+	ws = wb.WorkSheets(sheetindex)
+	lastCell = ws.Range('A1').SpecialCells(app.xlCellTypeLastCell)
+	[nCols, nRows] = [lastCell.Column, lastCell.Row]
+	iter = for (iRow in 1..nRows):iter {
+		for (iCol in 1..nCols):list {
+			ws.Cells(iRow, iCol).Value
+		}
+	}
+	iter
+}
+
+writer = class {
+	__init__(filename:string, sheetindex => 1, growvertFlag => true) = {
+		self.filename = filename
+		self.growvertFlag = growvertFlag
+		self.app = mswin.ole(progid)
+		self.wb = self.app.Workbooks.Add()
+		self.ws = self.wb.WorkSheets(sheetindex)
+		self.start(1, 1)
+	}
+	__del__() = {
+		self.close()
+	}
+	start(iRow:number => 1, iCol:number => 1) = {
+		[self.iRow, self.iCol] = [iRow, iCol]
+		self.nEntries = 0
+	}
+	start.help = 'Set start point to write values.'
+	write(fields+):map = {
+		if (self.growvertFlag) {
+			for (field in fields) {|idx|
+				self.ws.Cells(self.iRow + self.nEntries, self.iCol + idx).Value = field
+			}
+		} else {
+			for (field in fields) {|idx|
+				self.ws.Cells(self.iRow + idx, self.iCol + self.nEntries).Value = field
+			}
+		}
+		self.nEntries += 1
+	}
+	write.help = 'Append value of fields into Excel sheet.'
+	clear() = {
+		lastCell = self.ws.Range('A1').SpecialCells(self.app.xlCellTypeLastCell)
+		self.ws.Range(self.ws.Cells(1, 1), lastCell).ClearContents()
+		self.nEntries = 0
+	}
+	clear.help = 'Clear contents of Excel sheet.'
+	autofit() = {
+		lastCell = ws.Range('A1').SpecialCells(app.xlCellTypeLastCell)
+		for (iCol in 1..lastCell.Column) {
+			self.ws.Columns(iCol).EntireColumn().AutoFit()
+		}
+	}
+	autofit.help = 'Fits column width by calculating maximum width of each column.'
+	close() = {
+		self.wb.SaveAs(path.absname(self.filename))
+		self.wb.Close(0)
+		self.app.Quit()
+	}
+	close.help = 'Save file and exit Excel application.'
+}

@@ -1,0 +1,186 @@
+//----------------------------------------------------------------------------
+// wxSplashScreen
+// extracted from splash.tex
+//----------------------------------------------------------------------------
+#include "stdafx.h"
+
+Gura_BeginModule(wx)
+
+//----------------------------------------------------------------------------
+// Class derivation
+//----------------------------------------------------------------------------
+class wx_SplashScreen: public wxSplashScreen, public GuraObjectObserver {
+private:
+	Gura::Signal _sig;
+	Object_wx_SplashScreen *_pObj;
+public:
+	inline wx_SplashScreen(const wxBitmap& bitmap, long splashStyle, int milliseconds, wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxSplashScreen(bitmap, splashStyle, milliseconds, parent, id, pos, size, style), _sig(NULL), _pObj(NULL) {}
+	~wx_SplashScreen();
+	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SplashScreen *pObj) {
+		_sig = sig, _pObj = pObj;
+	}
+	// virtual function of GuraObjectObserver
+	virtual void GuraObjectDeleted();
+};
+
+wx_SplashScreen::~wx_SplashScreen()
+{
+	if (_pObj != NULL) _pObj->InvalidateEntity();
+}
+
+void wx_SplashScreen::GuraObjectDeleted()
+{
+	_pObj = NULL;
+}
+
+//----------------------------------------------------------------------------
+// Gura interfaces for wxSplashScreen
+//----------------------------------------------------------------------------
+Gura_DeclareFunction(SplashScreen)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetClassToConstruct(Gura_UserClass(wx_SplashScreen));
+	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
+	DeclareArg(env, "splashStyle", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
+	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(SplashScreen)
+{
+	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
+	long splashStyle = args.GetLong(1);
+	int milliseconds = args.GetInt(2);
+	wxWindow *parent = Object_wx_Window::GetObject(args, 3)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(args.GetInt(4));
+	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
+	if (args.IsValid(5)) pos = Object_wx_Point::GetObject(args, 5)->GetEntity();
+	wxSize *size = (wxSize *)(&wxDefaultSize);
+	if (args.IsValid(6)) size = Object_wx_Size::GetObject(args, 6)->GetEntity();
+	long style = wxSIMPLE_BORDER|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP;
+	if (args.IsValid(7)) style = args.GetLong(7);
+	wx_SplashScreen *pEntity = new wx_SplashScreen(*bitmap, splashStyle, milliseconds, parent, id, *pos, *size, style);
+	Object_wx_SplashScreen *pObj = Object_wx_SplashScreen::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_SplashScreen(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+Gura_DeclareMethod(wx_SplashScreen, OnCloseWindow)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "event", VTYPE_wx_CloseEvent, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_SplashScreen, OnCloseWindow)
+{
+	Object_wx_SplashScreen *pSelf = Object_wx_SplashScreen::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxCloseEvent *event = Object_wx_CloseEvent::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->OnCloseWindow(*event);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_SplashScreen, GetSplashStyle)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_SplashScreen, GetSplashStyle)
+{
+	Object_wx_SplashScreen *pSelf = Object_wx_SplashScreen::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	long rtn = pSelf->GetEntity()->GetSplashStyle();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_SplashScreen, GetSplashWindow)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_SplashScreen, GetSplashWindow)
+{
+#if 0
+	Object_wx_SplashScreen *pSelf = Object_wx_SplashScreen::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxSplashScreenWindow *rtn = (wxSplashScreenWindow *)pSelf->GetEntity()->GetSplashWindow();
+	return ReturnValue(env, sig, args, Value(new Object_wx_SplashScreenWindow(rtn, NULL, OwnerFalse)));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_SplashScreen, GetTimeout)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_SplashScreen, GetTimeout)
+{
+	Object_wx_SplashScreen *pSelf = Object_wx_SplashScreen::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetTimeout();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+//----------------------------------------------------------------------------
+// Object implementation for wxSplashScreen
+//----------------------------------------------------------------------------
+Object_wx_SplashScreen::~Object_wx_SplashScreen()
+{
+}
+
+Object *Object_wx_SplashScreen::Clone() const
+{
+	return NULL;
+}
+
+String Object_wx_SplashScreen::ToString(Signal sig, bool exprFlag)
+{
+	String rtn("<wx.SplashScreen:");
+	if (GetEntity() == NULL) {
+		rtn += "invalid>";
+	} else {
+		char buff[64];
+		::sprintf(buff, "%p>", GetEntity());
+		rtn += buff;
+	}
+	return rtn;
+}
+
+void Object_wx_SplashScreen::OnModuleEntry(Environment &env, Signal sig)
+{
+	Gura_AssignFunction(SplashScreen);
+}
+
+//----------------------------------------------------------------------------
+// Class implementation for wxSplashScreen
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_SplashScreen)
+{
+	Gura_AssignMethod(wx_SplashScreen, OnCloseWindow);
+	Gura_AssignMethod(wx_SplashScreen, GetSplashStyle);
+	Gura_AssignMethod(wx_SplashScreen, GetSplashWindow);
+	Gura_AssignMethod(wx_SplashScreen, GetTimeout);
+}
+
+Gura_ImplementDescendantCreator(wx_SplashScreen)
+{
+	return new Object_wx_SplashScreen((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+}
+
+}}

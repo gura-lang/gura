@@ -1,0 +1,265 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        sashtest.cpp
+// Purpose:     Layout/sash sample
+// Author:      Julian Smart
+// Modified by:
+// Created:     04/01/98
+// RCS-ID:      $Id: sashtest.cpp 35281 2005-08-23 15:54:39Z ABX $
+// Copyright:   (c) Julian Smart
+// Licence:     wxWindows license
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+SASHTEST_QUIT			= wx.ID_EXIT
+SASHTEST_NEW_WINDOW		= 2
+SASHTEST_REFRESH		= 3
+SASHTEST_CHILD_QUIT		= 4
+SASHTEST_ABOUT			= wx.ID_ABOUT
+SASHTEST_TOGGLE_WINDOW	= 6
+
+ID_WINDOW_TOP			= 100
+ID_WINDOW_LEFT1			= 101
+ID_WINDOW_LEFT2			= 102
+ID_WINDOW_BOTTOM		= 103
+
+frame = nil
+my_children = []
+
+// For drawing lines in a canvas
+xpos = -1
+ypos = -1
+
+winNumber = 1
+
+MyApp = class(wx.App) {
+	OnInit() = {
+		extern(frame)
+		// Create the main frame window
+		frame = MyFrame(nil, wx.ID_ANY, 'Sash Demo', wx.Point(0, 0), wx.Size(500, 400),
+						wx.DEFAULT_FRAME_STYLE | \
+						wx.NO_FULL_REPAINT_ON_RESIZE | \
+						wx.HSCROLL | wx.VSCROLL)
+		// Give it an icon
+		frame.SetIcon(wx.IconFromXPMData(resource.sashtest_xpm))
+		// Make a menubar
+		file_menu = wx.Menu()
+		file_menu.Append(SASHTEST_NEW_WINDOW, '&New window')
+		file_menu.Append(SASHTEST_TOGGLE_WINDOW, '&Toggle window')
+		file_menu.Append(SASHTEST_QUIT, '&Exit')
+		help_menu = wx.Menu()
+		help_menu.Append(SASHTEST_ABOUT, '&About')
+		menu_bar = wx.MenuBar()
+		menu_bar.Append(file_menu, '&File')
+		menu_bar.Append(help_menu, '&Help')
+		// Associate the menu bar with the frame
+		frame.SetMenuBar(menu_bar)
+		frame.CreateStatusBar()
+		frame.Show(true)
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+MyCanvas = class(wx.ScrolledWindow) {
+	__init__(parent:wx.Window, pos:wx.Point, size:wx.Size) = \
+		{|parent, wx.ID_ANY, pos, size, wx.SUNKEN_BORDER, wx.NO_FULL_REPAINT_ON_RESIZE|
+		self.EventTable()
+		self.SetBackgroundColour(wx.WHITE)
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_MOUSE_EVENTS) {|event| self.OnEvent(event) }
+	}
+	OnDraw(dc:wx.DC) = {
+		dc.SetFont(wx.SWISS_FONT)
+		dc.SetPen(wx.GREEN_PEN)
+		dc.DrawLine(0, 0, 200, 200)
+		dc.DrawLine(200, 0, 0, 200)
+		dc.SetBrush(wx.CYAN_BRUSH)
+		dc.SetPen(wx.RED_PEN)
+		dc.DrawRectangle(100, 100, 100, 50)
+		dc.DrawRoundedRectangle(150, 150, 100, 50, 20)
+		dc.DrawEllipse(250, 250, 100, 50)
+		dc.DrawSpline(wx.Point * [[50, 200], [50, 100], [200, 10]])
+		dc.DrawLine(50, 230, 200, 230)
+		dc.DrawText('This is a test string', 50, 230)
+		points = repeat(3):list {wx.Point()}
+		points[0].x = 200; points[0].y = 300
+		points[1].x = 100; points[1].y = 400
+		points[2].x = 300; points[2].y = 400
+		dc.DrawPolygon(points)
+	}
+	OnEvent(event:wx.MouseEvent) = {
+		extern(xpos, ypos)
+		dc = wx.ClientDC(self)
+		self.PrepareDC(dc)
+		pt = event.GetLogicalPosition(dc)
+		if (xpos > -1 && ypos > -1 && event.Dragging()) {
+			dc.SetPen(wx.BLACK_PEN)
+			dc.DrawLine(xpos, ypos, pt.x, pt.y)
+		}
+		xpos = pt.x
+		ypos = pt.y
+	}
+}
+
+MyFrame = class(wx.MDIParentFrame) {
+	__init__(parent:wx.Window, id:number, title:string, pos:wx.Point,
+			size:wx.Size, style:number) = {|parent, id, title, pos, size, style|
+		self.EventTable()
+		// Create some dummy layout windows
+		// A window like a toolbar
+		win = wx.SashLayoutWindow(self, ID_WINDOW_TOP,
+									wx.DefaultPosition, wx.Size(200, 30),
+									wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN)
+		win.SetDefaultSize(wx.Size(1000, 30))
+		win.SetOrientation(wx.LAYOUT_HORIZONTAL)
+		win.SetAlignment(wx.LAYOUT_TOP)
+		win.SetBackgroundColour(wx.Colour(255, 0, 0))
+		win.SetSashVisible(wx.SASH_BOTTOM, true)
+		self.m_topWindow = win
+		// A window like a statusbar
+		win = wx.SashLayoutWindow(self, ID_WINDOW_BOTTOM,
+									wx.DefaultPosition, wx.Size(200, 30),
+									wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN)
+		win.SetDefaultSize(wx.Size(1000, 30))
+		win.SetOrientation(wx.LAYOUT_HORIZONTAL)
+		win.SetAlignment(wx.LAYOUT_BOTTOM)
+		win.SetBackgroundColour(wx.Colour(0, 0, 255))
+		win.SetSashVisible(wx.SASH_TOP, true)
+		self.m_bottomWindow = win
+		// A window to the left of the client window
+		win = wx.SashLayoutWindow(self, ID_WINDOW_LEFT1,
+		                             wx.DefaultPosition, wx.Size(200, 30),
+		                             wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN)
+		win.SetDefaultSize(wx.Size(120, 1000))
+		win.SetOrientation(wx.LAYOUT_VERTICAL)
+		win.SetAlignment(wx.LAYOUT_LEFT)
+		win.SetBackgroundColour(wx.Colour(0, 255, 0))
+		win.SetSashVisible(wx.SASH_RIGHT, true)
+		win.SetExtraBorderSize(10)
+		textWindow = wx.TextCtrl(win, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize,
+					wx.TE_MULTILINE|wx.SUNKEN_BORDER)
+		//			wx.TE_MULTILINE|wx.NO_BORDER)
+		textWindow.SetValue('A help window')
+		self.m_leftWindow1 = win
+		// Another window to the left of the client window
+		win = wx.SashLayoutWindow(self, ID_WINDOW_LEFT2,
+		                             wx.DefaultPosition, wx.Size(200, 30),
+		                             wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN)
+		win.SetDefaultSize(wx.Size(120, 1000))
+		win.SetOrientation(wx.LAYOUT_VERTICAL)
+		win.SetAlignment(wx.LAYOUT_LEFT)
+		win.SetBackgroundColour(wx.Colour(0, 255, 255))
+		win.SetSashVisible(wx.SASH_RIGHT, true)
+		self.m_leftWindow2 = win
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_MENU, SASHTEST_ABOUT) {|event| self.OnAbout(event) }
+		self.Bind(wx.EVT_MENU, SASHTEST_NEW_WINDOW) {|event| self.OnNewWindow(event) }
+		self.Bind(wx.EVT_SIZE) {|event| self.OnSize(event) }
+		self.Bind(wx.EVT_MENU, SASHTEST_QUIT) {|event| self.OnQuit(event) }
+		self.Bind(wx.EVT_MENU, SASHTEST_TOGGLE_WINDOW) {|event| self.OnToggleWindow(event) }
+		self.Bind(wx.EVT_SASH_DRAGGED, ID_WINDOW_TOP, ID_WINDOW_BOTTOM) {|event| self.OnSashDrag(event) }
+	}
+	OnQuit(event:wx.CommandEvent) = {
+		self.Close(true)
+	}
+	OnAbout(event:wx.CommandEvent) = {
+		wx.MessageBox('wxWidgets 2.0 Sash Demo\nAuthor: Julian Smart (c) 1998', 'About Sash Demo')
+	}
+	OnToggleWindow(event:wx.CommandEvent) = {
+		if (self.m_leftWindow1.IsShown()) {
+			self.m_leftWindow1.Show(false)
+		} else {
+			self.m_leftWindow1.Show(true)
+		}
+		layout = wx.LayoutAlgorithm()
+		layout.LayoutMDIFrame(self)
+	}
+	OnSashDrag(event:wx.SashEvent) = {
+		if (event.GetDragStatus() == wx.SASH_STATUS_OUT_OF_RANGE) {
+			return
+		}
+		id = event.GetId()
+		if (id == ID_WINDOW_TOP) {
+			self.m_topWindow.SetDefaultSize(wx.Size(1000, event.GetDragRect().height))
+		} elsif (id == ID_WINDOW_LEFT1) {
+			self.m_leftWindow1.SetDefaultSize(wx.Size(event.GetDragRect().width, 1000))
+		} elsif (id == ID_WINDOW_LEFT2) {
+			self.m_leftWindow2.SetDefaultSize(wx.Size(event.GetDragRect().width, 1000))
+		} elsif (id == ID_WINDOW_BOTTOM) {
+			self.m_bottomWindow.SetDefaultSize(wx.Size(1000, event.GetDragRect().height))
+		}
+		layout = wx.LayoutAlgorithm()
+		layout.LayoutMDIFrame(self)
+		// Leaves bits of itself behind sometimes
+		self.GetClientWindow().Refresh()
+	}
+	OnNewWindow(event:wx.CommandEvent) = {
+		extern(winNumber, frame)
+		// Make another frame, containing a canvas
+		subframe = MyChild(frame, 'Canvas Frame',
+									wx.Point(10, 10), wx.Size(300, 300),
+									wx.DEFAULT_FRAME_STYLE | \
+									wx.NO_FULL_REPAINT_ON_RESIZE)
+		subframe.SetTitle(format('Canvas Frame %d', winNumber))
+		winNumber += 1
+		// Give it an icon (this is ignored in MDI mode: uses resources)
+		subframe.SetIcon(wx.IconFromXPMData(resource.sashtest_xpm))
+		// Give it a status line
+		subframe.CreateStatusBar()
+		// Make a menubar
+		file_menu = wx.Menu()
+		file_menu.Append(SASHTEST_NEW_WINDOW, '&New window')
+		file_menu.Append(SASHTEST_CHILD_QUIT, '&Close child')
+		file_menu.Append(SASHTEST_QUIT, '&Exit')
+		option_menu = wx.Menu()
+		// Dummy option
+		option_menu.Append(SASHTEST_REFRESH, '&Refresh picture')
+		help_menu = wx.Menu()
+		help_menu.Append(SASHTEST_ABOUT, '&About')
+		menu_bar = wx.MenuBar()
+		menu_bar.Append(file_menu, '&File')
+		menu_bar.Append(option_menu, '&Options')
+		menu_bar.Append(help_menu, '&Help')
+		// Associate the menu bar with the frame
+		subframe.SetMenuBar(menu_bar)
+		[width, height] = subframe.GetClientSizeWH()
+		canvas = MyCanvas(subframe, wx.Point(0, 0), wx.Size(width, height))
+		canvas.SetCursor(wx.StockCursor(wx.CURSOR_PENCIL))
+		subframe.canvas = canvas
+		// Give it scrollbars
+		canvas.SetScrollbars(20, 20, 50, 50)
+		subframe.Show(true)
+	}
+	OnSize(event:wx.SizeEvent) = {
+		layout = wx.LayoutAlgorithm()
+		layout.LayoutMDIFrame(self)
+	}
+}
+
+MyChild = class(wx.MDIChildFrame) {
+	__init__(parent:wx.MDIParentFrame, title:string, pos:wx.Point, size:wx.Size, style:number) = \
+										{|parent, wx.ID_ANY, title, pos, size, style|
+		self.EventTable()
+		extern(my_children)
+		self.canvas = nil
+		my_children.append(self)
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_MENU, SASHTEST_CHILD_QUIT) {|event| self.OnQuit(event)}
+	}
+	OnQuit(event:wx.CommandEvent) = {
+		self.Close(true)
+	}
+	OnActivate(event:wx.ActivateEvent) = {
+		if (event.GetActive() && self.canvas) {
+			self.canvas.SetFocus()
+		}
+	}
+}
+
+wx.IMPLEMENT_APP(MyApp)

@@ -1,0 +1,42 @@
+#!/usr/bin/env gura
+import(sdl)
+import(gif)
+
+gif.read(sys.argv[1], `rgba) {|g|
+	imgs = g.images::resize(300)
+	imgs:*delayTime = g.images:*gif$gctl:*DelayTime / 100
+}
+createHatchImage(width:number, height:number, wdHatch:number, htHatch:number) = {
+	colors = [color(`gray), color(`white)]
+	iCols = range(width / wdHatch + 1)
+	img = image(`rgb, width, height)
+	repeat (height / htHatch + 1) {|iRow|
+		img.fillrect(iCols * wdHatch, iRow * htHatch, wdHatch, htHatch,
+								colors.round().offset(iRow % 2))
+	}
+	img
+}
+
+imgHatch = createHatchImage(imgs[0].width, imgs[0].height, 8, 8)
+
+sdl.Init(sdl.INIT_EVERYTHING)
+screen = sdl.SetVideoMode(imgs[0].width, imgs[0].height, 16, sdl.SWSURFACE)
+imgIter = imgs.round()
+tickPrev = time.clock()
+delayTime = 0
+sdl.AddTimer(5) {
+	if (time.clock() - tickPrev > delayTime) {
+		screen.PutSurface(imgHatch)
+		img = imgIter.next()
+		screen.PutSurface(img, 0, screen.h - img.height)
+		screen.UpdateRect()
+		delayTime:extern = img.delayTime
+		tickPrev = time.clock()
+	}
+	true
+}
+repeat {
+	event = sdl.WaitEvent()
+	if (event.type == sdl.QUIT || \
+		(event.type == sdl.KEYDOWN && event.sym == sdl.K_ESCAPE)) { break }
+}

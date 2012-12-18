@@ -1,0 +1,67 @@
+#!/usr/bin/env gura
+import(tk)
+
+tk.mainwindow {|mw|
+	countrycodes = ['ar', 'au', 'be', 'br', 'ca', 'cn', 'dk', 'fi', 'fr', 'gr', 'in', 'it', 'jp', 'mx', 'nl', 'no', 'es', 'se', 'ch']
+	countrynames = ['Argentina', 'Australia', 'Belgium', 'Brazil', 'Canada', 'China', 'Denmark', \
+		'Finland', 'France', 'Greece', 'India', 'Italy', 'Japan', 'Mexico', 'Netherlands', 'Norway', 'Spain', \
+		'Sweden', 'Switzerland']
+	cnames = tk.variable(countrynames)
+	populations = %{'ar' => 41000000, 'au' => 21179211, 'be' => 10584534, 'br' => 185971537, \
+		'ca' => 33148682, 'cn' => 1323128240, 'dk' => 5457415, 'fi' => 5302000, 'fr' => 64102140, 'gr' => 11147000, \
+		'in' => 1131043000, 'it' => 59206382, 'jp' => 127718000, 'mx' => 106535000, 'nl' => 16402414, \
+		'no' => 4738085, 'es' => 45116894, 'se' => 9174082, 'ch' => 7508700}
+	gifts = %{'card' => 'Greeting card', 'flowers' => 'Flowers', 'nastygram' => 'Nastygram'}
+	gift = tk.variable()
+	sentmsg = tk.variable()
+	statusmsg = tk.variable()
+	showPopulation() = {
+		idx = lbox.curselection()
+		idx = int(idx)
+		code = countrycodes[idx]
+		name = countrynames[idx]
+		popn = populations[code]
+		statusmsg.string = 'The population of %s (%s) is %d' % (name, code, popn)
+		sentmsg.string = ''
+	}
+	sendGift() = {
+		idx = lbox.curselection()
+		idx = int(idx)
+		lbox.see(idx)
+		name = countrynames[idx]
+		sentmsg.string = 'Sent %s to leader of %s' % (gifts[gift.string], name)
+	}
+	mw.ttk$Frame(padding => '5 5 12 0') {|c|
+		c.grid(column => 0, row => 0, sticky => 'nwes')
+		lbox = c.Listbox(listvariable => cnames, height => 5)
+		lbl = c.ttk$Label(text => "Send to country's leader:")
+		g1 = c.ttk$Radiobutton(text => gifts['card'], variable => gift, value => 'card')
+		g2 = c.ttk$Radiobutton(text => gifts['flowers'], variable => gift, value => 'flowers')
+		g3 = c.ttk$Radiobutton(text => gifts['nastygram'], variable => gift, value => 'nastygram')
+		send = c.ttk$Button(text => 'Send Gift', command => sendGift, default => 'active')
+		sentlbl = c.ttk$Label(textvariable => sentmsg, anchor => 'center')
+		status = c.ttk$Label(textvariable => statusmsg, anchor => 'w')
+		lbox.grid(column => 0, row => 0, rowspan => 6, sticky => 'nsew')
+		lbl.grid(column => 1, row => 0, padx => 10, pady => 5)
+		g1.grid(column => 1, row => 1, sticky => 'w', padx => 20)
+		g2.grid(column => 1, row => 2, sticky => 'w', padx => 20)
+		g3.grid(column => 1, row => 3, sticky => 'w', padx => 20)
+		send.grid(column => 2, row => 4, sticky => 'e')
+		sentlbl.grid(column => 1, row => 5, columnspan => 2, sticky => 'n', pady => 5, padx => 5)
+		status.grid(column => 0, row => 6, columnspan => 2, sticky => 'we')
+		c.grid$columnconfigure(0, weight => 1)
+		c.grid$rowconfigure(5, weight => 1)
+		lbox.bind('<<ListboxSelect>>') { showPopulation() }
+		lbox.bind('<Double-1>') { sendGift() }
+		mw.bind('<Return>') { sendGift() }
+		lbox.itemconfigure(range(0, countrynames.len(), 2), background => '#f0f0ff'):void
+		gift.string = 'card'
+		sentmsg.string = ''
+		statusmsg.string = ''
+		lbox.selection$set(0)
+		showPopulation()
+	}
+	mw.grid$columnconfigure(0, weight => 1)
+	mw.grid$rowconfigure(0, weight => 1)
+}
+tk.mainloop()

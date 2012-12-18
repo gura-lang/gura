@@ -1,0 +1,355 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        statbar.cpp
+// Purpose:     wxStatusBar sample
+// Author:      Vadim Zeitlin
+// Modified by:
+// Created:     04.02.00
+// RCS-ID:      $Id: statbar.cpp 38638 2006-04-09 11:00:45Z VZ $
+// Copyright:   (c) Vadim Zeitlin
+// Licence:     wxWindows licence
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+// ----------------------------------------------------------------------------
+// constants
+// ----------------------------------------------------------------------------
+
+// IDs for the controls and the menu commands
+[
+	// menu items
+	StatusBar_Quit,
+	StatusBar_SetFields,
+	StatusBar_Recreate,
+	StatusBar_About,
+	StatusBar_Toggle,
+] = 1..
+[
+	StatusBar_Checkbox,
+	StatusBar_SetStyle,
+	StatusBar_SetStyleNormal,
+	StatusBar_SetStyleFlat,
+	StatusBar_SetStyleRaised
+] = 1000..
+
+BITMAP_SIZE_X = 32
+BITMAP_SIZE_Y = 15
+
+MyApp = class(wx.App) {
+	OnInit() = {
+		// create the main application window
+		frame = MyFrame('wxStatusBar sample', wx.Point(50, 50), wx.Size(450, 340))
+		// and show it (the frames, unlike simple controls, are not shown when
+		// created initially)
+		frame.Show()
+		// success: wxApp::OnRun() will be called which will enter the main message
+		// loop and the application will run. If we returned 'false' here, the
+		// application would exit immediately.
+		true
+	}
+}
+
+MyFrame = class(wx.Frame) {
+	[
+		StatBar_Default,
+		StatBar_Custom,
+		StatBar_Max
+	] = 0..
+	// ctor(s)
+	__init__(title:string, pos:wx.Point, size:wx.Size) = {|nil, wx.ID_ANY, title, pos, size|
+		self.EventTable()
+		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		self.m_statbarDefault = nil
+		self.m_statbarCustom = nil
+		self.m_statbarStyle = wx.SB_NORMAL
+		// create a menu bar
+		menuFile = wx.Menu()
+		menuFile.Append(StatusBar_Quit, 'E&xit\tAlt-X', 'Quit this program')
+		statbarMenu = wx.Menu()
+		statbarMenu.Append(StatusBar_SetFields, '&Set field count\tCtrl-C',
+							'Set the number of status bar fields')
+		statbarMenu.Append(StatusBar_Toggle, '&Toggle Status Bar',
+							'Toggle the status bar display', true)
+		statbarMenu.Append(StatusBar_Recreate, '&Recreate\tCtrl-R',
+							'Toggle status bar format')
+		statbarStyleMenu = wx.Menu()
+		statbarStyleMenu.Append(StatusBar_SetStyleNormal, '&Normal', 'Sets the style of the first field to normal (sunken) look', true)
+		statbarStyleMenu.Append(StatusBar_SetStyleFlat, '&Flat', 'Sets the style of the first field to flat look', true)
+		statbarStyleMenu.Append(StatusBar_SetStyleRaised, '&Raised', 'Sets the style of the first field to raised look', true)
+		statbarMenu.AppendMenu(StatusBar_SetStyle, 'Field style', statbarStyleMenu)
+		helpMenu = wx.Menu()
+		helpMenu.Append(StatusBar_About, '&About...\tCtrl-A', 'Show about dialog')
+		// now append the freshly created menu to the menu bar...
+		menuBar = wx.MenuBar()
+		menuBar.Append(menuFile, '&File')
+		menuBar.Append(statbarMenu, '&Status bar')
+		menuBar.Append(helpMenu, '&Help')
+		// ... and attach this menu bar to the frame
+		self.SetMenuBar(menuBar)
+		// create default status bar to start with
+		self.CreateStatusBar(2)
+		self.m_statbarKind = self.StatBar_Default
+		self.SetStatusText('Welcome to wxWidgets!')
+		self.m_statbarDefault = self.GetStatusBar()
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_MENU, StatusBar_Quit) {|event| self.OnQuit(event) }
+		self.Bind(wx.EVT_MENU, StatusBar_SetFields) {|event| self.OnSetStatusFields(event) }
+		self.Bind(wx.EVT_MENU, StatusBar_Recreate) {|event| self.OnRecreateStatusBar(event) }
+		self.Bind(wx.EVT_MENU, StatusBar_About) {|event| self.OnAbout(event) }
+		self.Bind(wx.EVT_MENU, StatusBar_Toggle) {|event| self.OnStatusBarToggle(event) }
+		self.Bind(wx.EVT_MENU, StatusBar_SetStyleNormal) {|event| self.OnSetStyleNormal(event) }
+		self.Bind(wx.EVT_MENU, StatusBar_SetStyleFlat) {|event| self.OnSetStyleFlat(event) }
+		self.Bind(wx.EVT_MENU, StatusBar_SetStyleRaised) {|event| self.OnSetStyleRaised(event) }
+		self.Bind(wx.EVT_UPDATE_UI, StatusBar_Toggle) {|event| self.OnUpdateStatusBarToggle(event) }
+		self.Bind(wx.EVT_UPDATE_UI, StatusBar_SetFields) {|event| self.OnUpdateSetStatusFields(event) }
+		self.Bind(wx.EVT_UPDATE_UI, StatusBar_SetStyleNormal) {|event| self.OnUpdateSetStyleNormal(event) }
+		self.Bind(wx.EVT_UPDATE_UI, StatusBar_SetStyleFlat) {|event| self.OnUpdateSetStyleFlat(event) }
+		self.Bind(wx.EVT_UPDATE_UI, StatusBar_SetStyleRaised) {|event| self.OnUpdateSetStyleRaised(event) }
+	}
+	DoCreateStatusBar(kind:number) = {
+		statbarOld = self.GetStatusBar()
+		if (statbarOld) {
+			statbarOld.Hide()
+		}
+		if (kind == self.StatBar_Default) {
+			self.SetStatusBar(self.m_statbarDefault)
+		} elsif (kind == self.StatBar_Custom) {
+			if (!self.m_statbarCustom) {
+				self.m_statbarCustom = MyStatusBar(self)
+			}
+			self.SetStatusBar(self.m_statbarCustom)
+		} else {
+			wx.FAIL_MSG('unknown stat bar kind')
+		}
+		self.ApplyStyle()
+		self.GetStatusBar().Show()
+		self.PositionStatusBar()
+		self.m_statbarKind = kind
+	}
+	// event handlers
+	OnUpdateSetStatusFields(event:wx.UpdateUIEvent) = {
+		// only allow the settings of the number of status fields for the default
+		// status bar
+		sb = self.GetStatusBar()
+		event.Enable(sb == self.m_statbarDefault)
+	}
+	OnSetStatusFields(event:wx.CommandEvent) = {
+		sb = self.GetStatusBar()
+		nFields = wx.GetNumberFromUser(
+						'Select the number of fields in the status bar',
+						'Fields:',
+						'wxWidgets statusbar sample',
+						sb.GetFieldsCount(),
+						1, 5,
+						self
+					)
+		// we don't check if the number changed at all on purpose: calling
+		// SetFieldsCount() with the same number of fields should be ok
+		if (nFields != -1) {
+			widthsFor2Fields = [ 200, -1 ]
+			widthsFor3Fields = [ -1, -2, -1 ]
+			widthsFor4Fields = [ 100, -1, 100, -2, 100 ]
+			widthsAll = [
+				nil,				// 1 field: default
+				widthsFor2Fields,	// 2 fields: 1 fixed, 1 var
+				widthsFor3Fields,	// 3 fields: 3 var
+				widthsFor4Fields,	// 4 fields: 3 fixed, 2 vars
+				nil					// 5 fields: default (all have same width)
+			]
+			widths = widthsAll[nFields - 1]
+			sb.SetFieldsCount(nFields)
+			widths && sb.SetStatusWidths(widths)
+			repeat(nFields) {|n|
+				if (widths) {
+					if (widths[n] > 0) {
+						s = format('fixed (%d)', widths[n])
+					} else {
+						s = format('variable (*%d)', -widths[n])
+					}
+				} else {
+					s = 'default'
+				}
+				self.SetStatusText(s, n)
+			}
+		} else {
+			wx.LogStatus(self, 'Cancelled')
+		}
+	}
+	OnUpdateStatusBarToggle(event:wx.UpdateUIEvent) = {
+		event.Check(self.GetStatusBar() != nil)
+	}
+	OnStatusBarToggle(event:wx.CommandEvent) = {
+		statbarOld = self.GetStatusBar()
+		if (statbarOld) {
+			statbarOld.Hide()
+			self.SetStatusBar(nil)
+		} else {
+			self.DoCreateStatusBar(self.m_statbarKind)
+		}
+	}
+	OnRecreateStatusBar(event:wx.CommandEvent) = {
+		self.DoCreateStatusBar(if (self.m_statbarKind == self.StatBar_Custom) {self.StatBar_Default} \
+								else {self.StatBar_Custom})
+	}
+	OnQuit(event:wx.CommandEvent) = {
+		// true is to force the frame to close
+		self.Close(true)
+	}
+	OnAbout(event:wx.CommandEvent) = {
+		dlg = MyAboutDialog(self)
+		dlg.ShowModal()
+	}
+	OnUpdateSetStyleNormal(event:wx.UpdateUIEvent) = {
+		event.Check(self.m_statbarStyle == wx.SB_NORMAL)
+	}
+	OnUpdateSetStyleFlat(event:wx.UpdateUIEvent) = {
+		event.Check(self.m_statbarStyle == wx.SB_FLAT)
+	}
+	OnUpdateSetStyleRaised(event:wx.UpdateUIEvent) = {
+		event.Check(self.m_statbarStyle == wx.SB_RAISED)
+	}
+	OnSetStyleNormal(event:wx.CommandEvent) = {
+		self.m_statbarStyle = wx.SB_NORMAL
+		self.ApplyStyle()
+	}
+	OnSetStyleFlat(event:wx.CommandEvent) = {
+		self.m_statbarStyle = wx.SB_FLAT
+		self.ApplyStyle()
+	}
+	OnSetStyleRaised(event:wx.CommandEvent) = {
+		self.m_statbarStyle = wx.SB_RAISED
+		self.ApplyStyle()
+	}
+	ApplyStyle() = {
+		sb = self.GetStatusBar()
+		fields = sb.GetFieldsCount()
+		styles = dim(fields) {wx.SB_NORMAL}
+		styles[0] = self.m_statbarStyle
+		sb.SetStatusStyles(styles)
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyAboutDialog
+// ----------------------------------------------------------------------------
+
+MyAboutDialog = class(wx.Dialog) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, 'About statbar',
+					wx.DefaultPosition, wx.DefaultSize,
+					(wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)|
+		text = wx.StaticText(self, wx.ID_ANY,
+								'wxStatusBar sample\n' \
+								'(c) 2000 Vadim Zeitlin')
+		btn = wx.Button(self, wx.ID_OK, '&Close')
+		// create the top status bar without the size grip (default style),
+		// otherwise it looks weird
+		statbarTop = wx.StatusBar(self, wx.ID_ANY, 0)
+		statbarTop.SetFieldsCount(3)
+		statbarTop.SetStatusText('This is a top status bar', 0)
+		statbarTop.SetStatusText('in a dialog', 1)
+		statbarTop.SetStatusText("Great, isn't it?", 2)
+		statbarBottom = wx.StatusBar(self, wx.ID_ANY)
+		statbarBottom.SetFieldsCount(2)
+		statbarBottom.SetStatusText('This is a bottom status bar', 0)
+		statbarBottom.SetStatusText('in a dialog', 1)
+		sizerTop = wx.BoxSizer(wx.VERTICAL)
+		sizerTop.Add(statbarTop, wx.SizerFlags(0).Expand())
+		sizerTop.AddSpacer(-1, 10, 1, wx.GROW)
+		sizerTop.Add(text, wx.SizerFlags(0).Align(wx.CENTRE).Border(wx.RIGHT | wx.LEFT, 20))
+		sizerTop.AddSpacer(-1, 10, 1, wx.GROW)
+		sizerTop.Add(btn, wx.SizerFlags(0).Align(wx.CENTRE).Border(wx.RIGHT | wx.LEFT, 20))
+		sizerTop.AddSpacer(-1, 10, 1, wx.GROW)
+		sizerTop.Add(statbarBottom, wx.SizerFlags(0).Expand())
+		self.SetSizer(sizerTop)
+		sizerTop.Fit(self)
+		sizerTop.SetSizeHints(self)
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyStatusBar
+// ----------------------------------------------------------------------------
+
+MyStatusBar = class(wx.StatusBar) {
+	[
+		Field_Text,
+		Field_Checkbox,
+		Field_Bitmap,
+		Field_Clock,
+		Field_Max
+	] = 0..
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY|
+		self.m_timer = wx.Timer(self)
+		self.m_checkbox = nil
+		self.EventTable()
+		widths = [ -1, 150, BITMAP_SIZE_X, 100 ]
+		self.SetFieldsCount(widths.len())
+		self.SetStatusWidths(widths)
+		self.m_checkbox = wx.CheckBox(self, StatusBar_Checkbox, '&Toggle clock')
+		self.m_checkbox.SetValue(true)
+		self.m_statbmp = wx.StaticBitmap(self, wx.ID_ANY, wx.IconFromXPMData(resource.green_xpm))
+		self.m_timer.Start(1000)
+		self.SetMinHeight(BITMAP_SIZE_Y)
+		self.UpdateClock()
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_SIZE) {|event| self.OnSize(event) }
+		self.Bind(wx.EVT_CHECKBOX, StatusBar_Checkbox) {|event| self.OnToggleClock(event) }
+		self.Bind(wx.EVT_BUTTON, wx.ID_ANY) {|event| self.OnButton(event) }
+		self.Bind(wx.EVT_TIMER, wx.ID_ANY) {|event| self.OnTimer(event) }
+	}
+	CreateBitmapForButton(on:boolean => false) = {
+		BMP_BUTTON_SIZE_X = 10
+		BMP_BUTTON_SIZE_Y = 9
+		bitmap = wx.BitmapWH(BMP_BUTTON_SIZE_X, BMP_BUTTON_SIZE_Y)
+		dc = wx.MemoryDC()
+		dc.SelectObject(bitmap)
+		dc.SetBrush(if (on) {wx.GREEN_BRUSH} else {wx.RED_BRUSH})
+		dc.SetBackground(wx.LIGHT_GREY_BRUSH)
+		dc.Clear()
+		dc.DrawEllipse(0, 0, BMP_BUTTON_SIZE_X, BMP_BUTTON_SIZE_Y)
+		dc.SelectObject(wxNullBitmap)
+		bitmap
+	}
+	OnSize(event:wx.SizeEvent) = {
+		if (!self.m_checkbox) {
+			return
+		}
+		rect = self.GetFieldRect(self.Field_Checkbox)
+		self.m_checkbox.SetDimensions(rect.x + 2, rect.y + 2, rect.width - 4, rect.height - 4)
+		rect = self.GetFieldRect(self.Field_Bitmap)
+		size = self.m_statbmp.GetSize()
+		self.m_statbmp.MoveXY(rect.x + (rect.width - size.x) / 2,
+						rect.y + (rect.height - size.y) / 2)
+		event.Skip()
+	}
+	OnButton(event:wx.CommandEvent) = {
+		self.m_checkbox.SetValue(!self.m_checkbox.GetValue())
+		self.DoToggle()
+	}
+	OnToggleClock(event:wx.CommandEvent) = {
+		self.DoToggle()
+	}
+	DoToggle() = {
+		if (self.m_checkbox.GetValue()) {
+			self.m_timer.Start(1000)
+			self.m_statbmp.SetIcon(wx.IconFromXPMData(resource.green_xpm))
+			self.UpdateClock()
+		} else { // don't show clock
+			self.m_timer.Stop()
+			self.m_statbmp.SetIcon(wx.IconFromXPMData(resource.red_xpm))
+			self.SetStatusText(wx.EmptyString, self.Field_Clock)
+		}
+	}
+	UpdateClock() = {
+		self.SetStatusText(wx.DateTime.Now().FormatTime(), self.Field_Clock)
+	}
+	OnTimer(event:wx.TimerEvent) = {
+		self.UpdateClock()
+	}
+}
+
+wx.IMPLEMENT_APP(MyApp)

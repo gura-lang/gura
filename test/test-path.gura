@@ -1,0 +1,72 @@
+#!/usr/bin/env gura
+print_func(func:function) = printf('%s = %s\n', func, func.expr())
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+
+scope {
+	patterns = @{
+		''
+		'a'
+		'a/b'
+		'a/b/c'
+		'a/b/c/d'
+		'a/..'
+		'a/../..'
+		'a/../../..'
+		'a/b/c'
+		'a/b/c/..'
+		'a/b/c/../..'
+		'a/b/c/../../..'
+		'a/b/c/../../../..'
+		'a/'
+		'/a'
+		'/a/'
+		'/a/..'
+		'/a/../..'
+		'a/b/c/'
+		'/a/b/c'
+		'/a/b/c/'
+		'c:'
+		'c:a/b/c'
+		'c:a/b/c/..'
+		'c:a/b/c/../..'
+		'c:a/b/c/../../..'
+		'c:a/b/c/../../../..'
+		'c:/'
+		'c:/a/b/c'
+		'c:/a/b/c/..'
+		'c:/a/b/c/../..'
+		'c:/a/b/c/../../..'
+		'c:/a/b/c/../../../..'
+		'a/b/c/./d/e/./f/g'
+		'dir1/dir2///dir3//dir4/'
+		'///dir1/dir2///dir3//dir4/'
+		'dir1/dir2/../dir3/../dir4/../'
+	}
+	printf('"%-*s" -> "%s"\n', patterns:*len().max(), patterns, path.regulate(patterns):uri)
+}
+scope {
+	patterns = [
+		''
+		'hoge/boke'
+		'hoge/boke/'
+		'hoge/boke.txt'
+		'hoge/aaaa/bbbb/ccc/boke.txt'
+		'hoge/aaaa/bbbb/ccc.tt/boke.txt'
+		'hoge/aaaa/bbbb/ccc/.boke'
+	]
+	patternsEx = '/' + patterns
+	printf('path.splitext(\'%s\') .. [%s]\n', patterns, path.splitext(patterns):*join(' + '))
+	printf('path.splitext(\'%s\') .. [%s]\n', patternsEx, path.splitext(patternsEx):*join(' + '))
+	printf('path.split(\'%s\') .. [%s]\n', patterns, path.split(patterns):*join(' + '))
+	printf('path.split(\'%s\') .. [%s]\n', patternsEx, path.split(patternsEx):*join(' + '))
+	printf('path.split(\'%s\'):bottom .. [%s]\n', patterns, (path.split(patterns):bottom):*join(' + '))
+	printf('path.split(\'%s\'):bottom .. [%s]\n', patternsEx, (path.split(patternsEx):bottom):*join(' + '))
+	printf('path.dirname(\'%s\') .. %s\n', patterns, path.dirname(patterns))
+	printf('path.dirname(\'%s\') .. %s\n', patternsEx, path.dirname(patternsEx))
+	printf('path.filename(\'%s\') .. %s\n', patterns, path.filename(patterns))
+	printf('path.filename(\'%s\') .. %s\n', patternsEx, path.filename(patternsEx))
+	printf('path.bottom(\'%s\') .. %s\n', patterns, path.bottom(patterns))
+	printf('path.bottom(\'%s\') .. %s\n', patternsEx, path.bottom(patternsEx))
+	printf('path.cutbottom(\'%s\') .. %s\n', patterns, path.cutbottom(patterns))
+	printf('path.cutbottom(\'%s\') .. %s\n', patternsEx, path.cutbottom(patternsEx))
+}

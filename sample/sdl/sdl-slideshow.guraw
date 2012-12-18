@@ -1,0 +1,35 @@
+#!/usr/bin/env gura
+import(sdl)
+import(jpeg)
+import(png)
+import(bmp)
+
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+bgColor = color(`green)
+fgFont = color(`white)
+[wdScreen, htScreen] = [640, 480]
+sdl.Init(sdl.INIT_EVERYTHING)
+screen = sdl.SetVideoMode(wdScreen, htScreen, 16, sdl.SWSURFACE)
+fileNames = (path.dir(I(''), '*.jpg', '*.png', '*.bmp'):icase).round()
+//font = sdl.OpenFont(path.join(os.getenv('SystemRoot'), 'Fonts', 'arial.ttf'), 32)
+screen.FillRect(sdl.Rect(0, 0, wdScreen, htScreen), bgColor)
+screen.UpdateRect()
+sdl.WM_SetCaption('Slideshow', '')
+sdl.AddTimer(1000) {
+	fileName = fileNames.next()
+	img = image(fileName).thumbnail(wdScreen, htScreen)
+	screen.FillRect(sdl.Rect(0, 0, wdScreen, htScreen), bgColor)
+	[x, y] = [(wdScreen - img.width) / 2, (htScreen - img.height) / 2]
+	screen.PutSurface(img, x, y)
+	//font.RenderText_Blended(path.filename(fileName), fgFont) {|surface|
+	//	screen.PutSurface(surface, 10, 10)
+	//}
+	screen.UpdateRect()
+	true
+}
+repeat {
+	event = sdl.WaitEvent()
+	if (event.type == sdl.QUIT || \
+		(event.type == sdl.KEYDOWN && event.sym == sdl.K_ESCAPE)) { break }
+}

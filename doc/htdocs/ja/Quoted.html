@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="../stylesheet.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<title>Gura Programming Language</title>
+<meta name="keywords" content="programming, language, interpreter, mapping, gura,
+implicit mapping, member mapping">
+</head>
+<body>
+<div>
+<a href="../index.html.ja"><img src="../images/banner.png" style="border: none" /></a>
+<a href="../en/Quoted.html" class="radio-off" style="margin-left: 1em">English</a> |
+<a href="../ja/Quoted.html" class="radio-on">Japanese</a>
+<span style="margin-left: 3em"><a href="http://sourceforge.jp/">
+<img src="http://sourceforge.jp/sflogo.php?group_id=5586&type=3" width="210" height="63" border="0" alt="SourceForge.JP" />
+</a></span>
+</div>
+
+<div style="color: white; background: #888888; margin-top: 1em; font-weight: bold">
+<span style="margin-left: 1em">Copyright (c) 2011-2012 <a href="mailto:pxn11432@nifty.com" style="color:white">Yutaka Saito</a></span>
+</div>
+<div style="height:.2em; background: #cccccc"></div>
+<table cellspacing="0" border="0" width="100%">
+<tr>
+<td valign="top" class="menu">
+<div class="menuitem"><a href="/" class="menuitem">トップページ</a></div>
+<div class="menuitem"><a href="Download.html" class="menuitem">ダウンロード</a></div>
+<div class="menuitem"><a href="Install.html" class="menuitem">インストール</a></div>
+<div class="menuitem"><a href="Gallery.html" class="menuitem">ギャラリー</a></div>
+<div class="menuitem"><a href="http://sourceforge.jp/forum/forum.php?forum_id=25531" class="menuitem">Gura 掲示板</a></div>
+</td>
+
+<td valign="top" class="description">
+<!-- ====================================================================== -->
+
+<h3>Quoted 値</h3>
+
+<p>
+引数として渡した式は通常、呼出の前に評価をして、その評価結果を関数に渡します。しかし、引数宣言のシンボル名の先頭にバッククオートをつけると、未評価の式 (Quoted 値) を値として渡すことができます。
+</p>
+<p>
+以下は、quoted value を使って、C の for ステートメントのような動作をする関数を作成している例です。
+</p>
+
+<pre class="code">
+c_like_for(`init, `cond, `next) {`block} = {
+    env = outers()
+    env.eval(init)
+    while (env.eval(cond)) {
+        env.eval(block)
+        env.eval(next)
+    }
+}
+
+n = 0
+c_like_for (i = 1, i &lt;= 10, i += 1) {
+    n += i
+}
+printf('i = %d, sum = %d\n', i, n)
+</pre>
+
+<!-- ====================================================================== -->
+</td>
+</tr>
+
+</table>
+</body>
+</html>

@@ -1,0 +1,86 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        minimal.cpp
+// Purpose:     Minimal wxWidgets sample
+// Author:      Julian Smart
+// Modified by:
+// Created:     04/01/98
+// RCS-ID:      $Id: minimal.cpp 43915 2006-12-11 09:33:34Z CE $
+// Copyright:   (c) Julian Smart
+// Licence:     wxWindows licence
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+Minimal_Quit = wx.ID_EXIT
+// it is important for the id corresponding to the "About" command to have
+// this standard value as otherwise it won't be handled properly under Mac
+// (where it is special and put into the "Apple" menu)
+Minimal_About = wx.ID_ABOUT
+
+MyApp = class(wx.App) {
+	OnInit() = {
+		// call the base class initialization method, currently it only parses a
+		// few common command-line options but it could be do more in the future
+		if (!super(self).OnInit()) {
+			return(false)
+		}
+		// create the main application window
+		frame = MyFrame('Minimal wxWidgets App')
+		// and show it (the frames, unlike simple controls, are not shown when
+		// created initially)
+		frame.Show(true)
+		// success: wxApp::OnRun() will be called which will enter the main message
+		// loop and the application will run. If we returned false here, the
+		// application would exit immediately.
+		true
+	}
+}
+
+MyFrame = class(wx.Frame) {
+	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
+			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
+		self.EventTable()
+		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		// create a menu bar
+		fileMenu = wx.Menu()
+		// the "About" item should be in the help menu
+		helpMenu = wx.Menu()
+		helpMenu.Append(Minimal_About, '&About...\tF1', 'Show about dialog')
+		fileMenu.Append(Minimal_Quit, 'E&xit\tAlt-X', 'Quit this program')
+		// now append the freshly created menu to the menu bar...
+		menuBar = wx.MenuBar()
+		menuBar.Append(fileMenu, '&File')
+		menuBar.Append(helpMenu, '&Help')
+		// ... and attach this menu bar to the frame
+		self.SetMenuBar(menuBar)
+		// create a status bar just for fun (by default with 1 pane only)
+		self.CreateStatusBar(2)
+		self.SetStatusText('Welcome to wxWidgets!')
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_MENU, Minimal_Quit) {|event| self.OnQuit(event) }
+		self.Bind(wx.EVT_MENU, Minimal_About) {|event| self.OnAbout(event) }
+	}
+	// event handlers
+	OnQuit(event:wx.CommandEvent) = {
+		// true is to force the frame to close
+		self.Close(true)
+	}
+	OnAbout(event:wx.CommandEvent) = {
+	wx.MessageBox(format(
+					'Welcome to %s!\n' \
+					'\n' \
+					'This is the minimal wxWidgets sample\n' \
+					'running under %s.',
+					wx.VERSION_STRING,
+					wx.GetOsDescription()
+				),
+				'About wxWidgets minimal sample',
+				wx.OK | wx.ICON_INFORMATION,
+				self)
+	}
+}
+
+wx.IMPLEMENT_APP(MyApp)

@@ -1,0 +1,32 @@
+#!/usr/bin/env gura
+import(mswin)
+
+println('converting DOC to PDF by using MS-Word...')
+fileNamesDOC = path.glob('*.docx')
+mswin.ole('Word.Application') {|app|
+	app.Visible = 0
+	fileNamesDOC.each {|fileNameDOC|
+		fileNamePDF = path.splitext(fileNameDOC)[0] + '.pdf'
+		(path.exists(fileNamePDF) && \
+			path.stat(fileNamePDF).mtime >= path.stat(fileNameDOC).mtime) && continue
+		println(fileNameDOC)
+		app.Documents.Open(path.absname(fileNameDOC))
+		app.ActiveDocument.ExportAsFixedFormat(
+			OutputFileName		=> path.absname(fileNamePDF)
+			ExportFormat		=> app.wdExportFormatPDF
+			OpenAfterExport		=> false
+			OptimizeFor			=> app.wdExportOptimizeForPrint
+			Range				=> app.wdExportAllDocument
+			From				=> 1
+			To					=> 1
+			Item				=> app.wdExportDocumentContent
+			IncludeDocProps		=> true
+			KeepIRM				=> true
+			CreateBookmarks		=> app.wdExportCreateNoBookmarks
+			DocStructureTags	=> true
+			BitmapMissingFonts	=> true
+			UseISO19005_1		=> false)
+		app.ActiveDocument.Close()
+	}
+	app.Quit()
+}

@@ -1,0 +1,293 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        internat.cpp
+// Purpose:     Demonstrates internationalisation (i18n) support
+// Author:      Vadim Zeitlin/Julian Smart
+// Modified by:
+// Created:     04/01/98
+// RCS-ID:      $Id: internat.cpp 41147 2006-09-10 23:28:20Z VZ $
+// Copyright:   (c) Julian Smart
+// Licence:     wxWindows license
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+import(re)
+
+_ = wx.GetTranslation
+
+// ----------------------------------------------------------------------------
+// constants
+// ----------------------------------------------------------------------------
+
+// ID for the menu commands
+[
+INTERNAT_TEST,
+INTERNAT_PLAY,
+INTERNAT_TEST_1,
+INTERNAT_TEST_2,
+INTERNAT_TEST_3
+] = (wx.ID_HIGHEST + 1)..
+
+// language data
+langIds = [
+	wx.LANGUAGE_DEFAULT,
+	wx.LANGUAGE_FRENCH,
+	wx.LANGUAGE_GERMAN,
+	wx.LANGUAGE_RUSSIAN,
+	wx.LANGUAGE_BULGARIAN,
+	wx.LANGUAGE_CZECH,
+	wx.LANGUAGE_POLISH,
+	wx.LANGUAGE_SWEDISH,
+/*
+#if wx.USE_UNICODE || defined(__wx.MOTIF__)
+	wx.LANGUAGE_JAPANESE,
+#endif
+#if wx.USE_UNICODE
+	wx.LANGUAGE_GEORGIAN,
+	wx.LANGUAGE_ENGLISH,
+	wx.LANGUAGE_ENGLISH_US,
+	wx.LANGUAGE_ARABIC,
+	wx.LANGUAGE_ARABIC_EGYPT
+#endif
+*/
+]
+
+// note that it makes no sense to translate these strings, they are
+// shown before we set the locale anyhow
+langNames = [
+	'System default',
+	'French',
+	'German',
+	'Russian',
+	'Bulgarian',
+	'Czech',
+	'Polish',
+	'Swedish',
+/*
+#if wxUSE_UNICODE || defined(__WXMOTIF__)
+	'Japanese',
+#endif
+#if wxUSE_UNICODE
+	'Georgian',
+	'English',
+	'English (U.S.)',
+	'Arabic',
+	'Arabic (Egypt)'
+#endif
+*/
+]
+
+// ============================================================================
+// implementation
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// MyApp
+// ----------------------------------------------------------------------------
+
+MyApp = class(wx.App) {
+	// `Main program' equivalent, creating windows and returning main app frame
+	OnInit() = {
+		self.m_locale = wx.Locale()
+		lng = -1
+		if (sys.argv.len() == 2) {
+			// the parameter must be the lang index
+			lng = int(sys.argv[1])
+		}
+		if (lng == -1) {
+			lng = wx.GetSingleChoiceIndex(
+					'Please choose language:',
+					'Language',
+					langNames)
+		}
+		if (lng != -1) {
+			// don't use wxLOCALE_LOAD_DEFAULT flag so that Init() doesn't return
+			// false just because it failed to load wxstd catalog
+			if (!self.m_locale.Init(langIds[lng], wx.LOCALE_CONV_ENCODING)) {
+				wx.LogError('This language is not supported by the system.')
+				return(false)
+			}
+		}
+		wx.Locale.AddCatalogLookupPathPrefix('./internat')
+		// Initialize the catalogs we'll be using
+		self.m_locale.AddCatalog('internat')
+		// Create the main frame window
+		frame = MyFrame(self.m_locale)
+		// Give it an icon
+		frame.SetIcon(wx.IconFromXPMData(resource.mondrian_xpm))
+		// Make a menubar
+		file_menu = wx.Menu()
+		file_menu.Append(INTERNAT_TEST, _("&Test locale availability...\tCtrl-T"))
+		file_menu.AppendSeparator()
+		file_menu.Append(wx.ID_ABOUT, _("&About..."))
+		file_menu.AppendSeparator()
+		file_menu.Append(wx.ID_EXIT, _("E&xit"))
+		test_menu = wx.Menu()
+		test_menu.Append(wx.ID_OPEN, _("&Open bogus file"))
+		test_menu.Append(INTERNAT_PLAY, _("&Play a game"))
+		test_menu.AppendSeparator()
+		test_menu.Append(INTERNAT_TEST_1, _("&1 _() (gettext)"))
+		test_menu.Append(INTERNAT_TEST_2, _("&2 _N() (ngettext)"))
+		test_menu.Append(INTERNAT_TEST_3, _("&3 wxTRANSLATE() (gettext_noop)"))
+		menu_bar = wx.MenuBar()
+		menu_bar.Append(file_menu, _("&File"))
+		menu_bar.Append(test_menu, _("&Test"))
+		frame.SetMenuBar(menu_bar)
+		// Show the frame
+		frame.Show(true)
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyFrame
+// ----------------------------------------------------------------------------
+
+MyFrame = class(wx.Frame) {
+	// main frame constructor
+	__init__(locale:wx.Locale) = {|nil, wx.ID_ANY, _("International wxWidgets App")|
+		self.m_locale = locale
+		self.EventTable()
+		// this demonstrates RTL layout mirroring for Arabic locales
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		sizer.Add(wx.StaticText(self, wx.ID_ANY, _("First")),
+					wx.SizerFlags().Border())
+		sizer.Add(wx.StaticText(self, wx.ID_ANY, _("Second")),
+					wx.SizerFlags().Border())
+		self.SetSizer(sizer)
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_MENU, INTERNAT_TEST) {|event| self.OnTestLocaleAvail(event) }
+		self.Bind(wx.EVT_MENU, wx.ID_ABOUT) {|event| self.OnAbout(event) }
+		self.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| self.OnQuit(event) }
+		self.Bind(wx.EVT_MENU, INTERNAT_PLAY) {|event| self.OnPlay(event) }
+		self.Bind(wx.EVT_MENU, wx.ID_OPEN) {|event| self.OnOpen(event) }
+		self.Bind(wx.EVT_MENU, INTERNAT_TEST_1) {|event| self.OnTest1(event) }
+		self.Bind(wx.EVT_MENU, INTERNAT_TEST_2) {|event| self.OnTest2(event) }
+		self.Bind(wx.EVT_MENU, INTERNAT_TEST_3) {|event| self.OnTest3(event) }
+	}
+	OnQuit(event:wx.CommandEvent) = {
+		self.Close(true)
+	}
+	OnAbout(event:wx.CommandEvent) = {
+		locale = self.m_locale.GetLocale()
+		sysname = self.m_locale.GetSysName()
+		canname = self.m_locale.GetCanonicalName()
+		localeInfo = format(_("Language: %s\nSystem locale name:\n%s\nCanonical locale name: %s\n"),
+			locale, sysname, canname)
+		dlg = wx.MessageDialog(
+					self,
+					_("I18n sample\n(c) 1998, 1999 Vadim Zeitlin and Julian Smart") \
+							+ '\n\n' \
+							+ localeInfo,
+					_("About Internat"),
+					wx.OK | wx.ICON_INFORMATION
+				)
+		dlg.ShowModal()
+	}
+	OnPlay(event:wx.CommandEvent) = {
+		str = wx.GetTextFromUser(
+						_("Enter your number:"),
+						_("Try to guess my number!"),
+						wx.EmptyString,
+						self)
+		if (str.isempty()) {
+			// cancelled
+			return
+		}
+		if (!(num = str.tonumber()) || num < 0) {
+			str = _("You've probably entered an invalid number.")
+		} elsif (num == 9) {
+			// this message is not translated (not in catalog) because we used _T()
+			// and not _() around it
+			str = "You've found a bug in this program!"
+		} elsif (num == 17) {
+			// string must be split in two -- otherwise the translation would't be
+			// found
+			str = _("Congratulations! you've won. Here is the magic phrase:") + \
+				_("cannot create fifo `%s'")
+		} else {
+			// this is a more implicit way to write _() but note that if you use it
+			// you must ensure that the strings get extracted in the message
+			// catalog as by default xgettext won't do it (it only knows of _(),
+			// not wxGetTranslation())
+			str = wx.GetTranslation('Bad luck! try again...')
+		}
+		wx.MessageBox(str, _("Result"), wx.OK | wx.ICON_INFORMATION)
+	}
+	s_locale = ''
+	OnTestLocaleAvail(event:wx.CommandEvent) = {
+		locale = wx.GetTextFromUser(
+							_("Enter the locale to test"),
+							wx.GetTextFromUserPromptStr,
+							self.s_locale,
+							self)
+		if (locale.isempty()) {
+			return
+		}
+		self.s_locale = locale
+		info = wx.Locale.FindLanguageInfo(self.s_locale)
+		if (!info) {
+			wx.LogError(_("Locale \"%s\" is unknown."), self.s_locale)
+			return
+		}
+		if (wx.Locale.IsAvailable(info.Language)) {
+			wx.LogMessage(_("Locale \"%s\" is available."), s_locale)
+		} else {
+			wx.LogWarning(_("Locale \"%s\" is not available."), s_locale)
+		}
+	}
+	OnOpen(event:wx.CommandEvent) = {
+		// open a bogus file -- the error message should be also translated if
+		// you've got wxstd.mo somewhere in the search path
+		file = wx.File('NOTEXIST.ING')
+	}
+	OnTest1(event:wx.CommandEvent) = {
+		title = _("Testing _() (gettext)")
+		d = wx.TextEntryDialog(self, _("Please enter text to translate"),
+			title, wx.TRANSLATE('default value'))
+		if (d.ShowModal() == wx.ID_OK) {
+			v = d.GetValue()
+			s = title
+			s += '\n' + v + ' -> ' \
+				+ wx.GetTranslation(v) + '\n'
+			wx.MessageBox(s)
+		}
+	}
+	OnTest2(event:wx.CommandEvent) = {
+		title = _("Testing _N() (ngettext)")
+		d = wx.TextEntryDialog(self,
+			_("Please enter range for plural forms of \"n files deleted\" phrase"),
+			title, '0-10')
+		if (d.ShowModal() == wx.ID_OK) {
+			m = d.GetValue().match(r'(\d+)-(\d+)')
+			first = m[1].tonumber()
+			last = m[2].tonumber()
+			s = title
+			s += '\n'
+			range(first, last + 1) {|n|
+				s += n + ' ' + \
+					wx.PLURAL("file deleted", "files deleted", n) + \
+					'\n'
+			}
+			wx.MessageBox(s)
+		}
+	}
+	OnTest3(event:wx.CommandEvent) = {
+		lines = [
+			wx.TRANSLATE('line 1'),
+			wx.TRANSLATE('line 2'),
+			wx.TRANSLATE('line 3'),
+		]
+		s = _("Testing wxTRANSLATE() (gettext_noop)")
+		s += '\n'
+		lines.each {|line|
+			s += line + ' -> ' + wx.GetTranslation(line) + '\n'
+		}
+		wx.MessageBox(s)
+	}
+}
+
+wx.IMPLEMENT_APP(MyApp)

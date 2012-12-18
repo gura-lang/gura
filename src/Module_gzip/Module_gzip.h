@@ -1,0 +1,20 @@
+//-----------------------------------------------------------------------------
+// Gura gzip module
+//-----------------------------------------------------------------------------
+#ifndef __MODULE_GZIP_H__
+#define __MODULE_GZIP_H__
+#include <gura.h>
+
+Gura_BeginModule(gzip)
+
+//-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
+Object_stream *GenerateDecompressor(Environment &env, Signal sig,
+								Stream *pStreamSrc, int windowBits);
+Object_stream *GenerateCompressor(Environment &env, Signal sig,
+								Stream *pStreamDst, int level, int windowBits);
+
+}}
+
+#endif

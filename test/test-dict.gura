@@ -1,0 +1,176 @@
+#!/usr/bin/env gura
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+
+scope {
+	d = %{'a' => 3, 'b' => 2, 'c' => 1}
+	tester(`d)
+	tester(`d.setdefault('a', 99))
+	tester(`d.setdefault('e', 99))
+	tester(`d)
+	d.set('f', 100).set('g', 200).set('h', 300)
+	tester(`d)
+}
+scope {
+	d = %{'a' => 3, 'b' => 2, 'c' => 1}
+	tester(`d)
+	d.store {'a' => 33, 'b' => 22, 'c' => 11}
+	tester(`d)
+	d.store():default {'a' => 333, 'b' => 222, 'c' => 111, 'd' => 444}
+	tester(`d)
+}
+scope {
+	d = dict():icase { 'apple' => 100, 'orange' => 80, 'grape' => 120 }
+	tester(`d['apple', 'orange', 'grape'])
+	tester(`d['Apple', 'Orange', 'Grape'])
+	try {
+		d = dict():icase { 'apple' => 100, 'Apple' => 80 }
+	} except {|e|
+		println('expected error occurs: ', e.text)
+	}
+	d = dict() { 'apple' => 100, 'orange' => 80, 'grape' => 120 }
+	tester(`d['apple', 'orange', 'grape'])
+	try {
+		tester(`d['Apple', 'Orange', 'Grape'])
+	} except {|e|
+		println('expected error occurs: ', e.text)
+	}
+}
+scope {
+	d = %{}
+	d[0..10] = 0..10
+	tester(`d)
+	d[0..10] = 'hello'
+	tester(`d)
+}
+scope {
+	d = %{
+		`hoge	=>	'aaaaaa'
+		`foo	=>	'bbbbb'
+	}
+	d.store {`bar => 'cccccc'}
+	tester(`d)
+	d.store {`hoge => 'AAAAAA'}
+	tester(`d)
+	d.store([`hoge1, 'ddddd', `hoge2, 'eeeee'])
+	tester(`d)
+	d.store([[`hoge3, 'fffff'], [`hoge4, 'ggggg']])
+	tester(`d)
+	d.store([`hoge1, 'DDDDD', `hoge2, 'EEEEE'])
+	tester(`d)
+	d.store([[`hoge3, 'FFFFF'], [`hoge4, 'GGGGG']])
+	tester(`d)
+	d.store(%{`hoge3 => '*FFFFF*', `hoge4 => '*GGGGG*'})
+	tester(`d)
+}
+scope {
+	d = %{
+		`hoge	=>	'aaaaaa'
+		`foo	=>	'bbbbb'
+		`aaaa	=>	'AAAAAAA'
+		`bbbb	=>	'BBBBBBB'
+		`cccc	=>	'CCCCCCC'
+		`dddd	=>	'DDDDDDD'
+		`eeee	=>	'EEEEEEE'
+		`ffff	=>	'FFFFFFF'
+	}
+	tester(`d.get([`hoge, `foo, `aaaa, `bbbb, `cccc, `dddd, `eeee, `ffff, `eee]))
+	tester(`d.get([`hoge, `foo, `aaaa, `bbbb, `cccc, `dddd, `eeee, `ffff, `eee], [1, 2, 3]))
+	tester(`d.gets([`hoge, `foo, `aaaa, `Hoge, `Foo, `Aaaa], [1, 2, 3, 1, 2, 3]))
+}
+scope {
+	d = %{}
+	d.set([1, 2, 3], [4, 5, 6])
+	tester(`d)
+	d = %{}
+	d.sets([1, 2, 3], [4, 5, 6])
+	tester(`d)
+}
+scope {
+	PrintDict(d) = {
+		println('items   = ', d.items():list):nomap
+		println('keys    = ', d.keys():list):nomap
+		println('values  = ', d.values():list):nomap
+		println('d[keys] = ', d[d.keys()]):nomap
+	}
+	d = %{
+		`hoge	=>	'aaaaaa'
+		`foo	=>	'bbbbb'
+		`aaaa	=>	'AAAAAAA'
+		`bbbb	=>	'BBBBBBB'
+		`cccc	=>	'CCCCCCC'
+		`dddd	=>	'DDDDDDD'
+		`eeee	=>	'EEEEEEE'
+		`ffff	=>	'FFFFFFF'
+	}
+	PrintDict(d)
+	try {
+		d = %{
+			`hoge	=>	'aaaaaa'
+			`foo	=>	'bbbbb'
+			`hoge	=>	'AAAA'		# causes error
+		}
+	} except(KeyError) {|e|
+		println('expected error occurs: ', e.text)
+	}
+	println('for loop')
+	for ([key, value] in d.items()) {
+		printf('%-10s %s\n', key, value)
+	}
+	println('implicit mapping with keys() and values()')
+	printf('%-10s %s\n', d.keys(), d.values())
+	println('member mapping with items()')
+	d.items().printf('%-10s %s\n')
+}
+scope {
+	nestedDict = %{
+		'key-1', %{
+			'key-1-1' => 'value of 1-1'
+			'key-1-2' => 'value of 1-2'
+			'key-1-3' => 'value of 1-3'
+			'key-1-4' => 'value of 1-4'
+			'key-1-5' => 'value of 1-5'
+			'key-1-6' => 'value of 1-6'
+		}
+		'key-2', %{
+			'key-2-1' => 'value of 2-1'
+			'key-2-2' => 'value of 2-2'
+			'key-2-3' => 'value of 2-3'
+			'key-2-4' => 'value of 2-4'
+			'key-2-5' => 'value of 2-5'
+		}
+		'key-3', %{
+			'key-3-1' => 'value of 3-1'
+			'key-3-2' => 'value of 3-2'
+			'key-3-3' => 'value of 3-3'
+			'key-3-4' => 'value of 3-4'
+			'key-3-5' => 'value of 3-5'
+			'key-3-6' => 'value of 3-6'
+			'key-3-7' => 'value of 3-7'
+			'key-3-8' => 'value of 3-8'
+			'key-3-9' => 'value of 3-9'
+		}
+	}
+	sys.echo(true)
+	for (test in (`nestedDict['key-1']['key-1-1'], `nestedDict['key-3']['key-3-1'])) {
+		print(test, ' .. ', eval(test), '\n')
+	}
+	println('--------')
+	for (d in nestedDict[nestedDict.keys()]) {
+		for (value in d[d.keys()]) { print(' ', value) }
+		println('')
+	}
+}
+scope {
+	d = %{
+		`key1 => 'value of key1'
+		`key2 => 'value of key2'
+		`key3 => 'value of key3'
+		`key4 => 'value of key4'
+		`key5 => 'value of key5'
+		`key6 => 'value of key6'
+		`key7 => 'value of key7'
+	}
+	print(d), println()
+	println(d.haskey(`key1, `key2, `key3, `key4, `key5,
+								`key6, `key7, `key0, `key8).join(' '))
+}

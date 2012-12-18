@@ -1,0 +1,33 @@
+#ifndef __GURA_STRUCTOBJECT_H__
+#define __GURA_STRUCTOBJECT_H__
+
+#include "Object.h"
+
+namespace Gura {
+
+//-----------------------------------------------------------------------------
+// StructClass / StructObject
+//-----------------------------------------------------------------------------
+class DLLDECLARE StructClass : public Class {
+public:
+	StructClass(Environment *pEnvOuter);
+	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
+	static void OnModuleEntry(Environment &env, Signal sig);
+};
+
+class DLLDECLARE StructObject : public Object {
+public:
+	Gura_DeclareObjectAccessorEx(StructObject)
+public:
+	inline StructObject(Class *pClass) : Object(pClass) {}
+	inline StructObject(Environment &env) : Object(env.LookupClass(VTYPE_Struct)) {}
+	StructObject(const StructObject &obj);
+	virtual ~StructObject();
+	virtual Object *Clone() const;
+	virtual String ToString(Signal sig, bool exprFlag);
+	const DeclarationList &GetDeclList() const;
+};
+
+}
+
+#endif

@@ -1,0 +1,88 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+import(gif)
+
+log = nil
+I(filename:string):map = path.join(sys.datadir, 'sample', 'resource', filename)
+
+Frame1 = class(wx.Frame) {
+	[
+		ID_TOOL1,
+	] = [1]
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+		wx.MenuBar() {|menuBar|
+			self.SetMenuBar(menuBar)
+			wx.Menu() {|menu|
+				menuBar.Append(menu, '&File')
+				//menu.Append(wx.ID_ANY, 'Save')
+				//menu.Append(wx.ID_ANY, 'Load')
+				//menu.Append(wx.ID_ANY, 'Exit')
+			}
+		}
+		wx.ToolBar(self, wx.ID_ANY) {|toolBar|
+			self.SetToolBar(toolBar)
+			toolBar.AddTool(1, 'tool-1', image(I('arrow-green-d.gif')))
+			toolBar.AddTool(2, 'tool-2', image(I('arrow-green-u.gif')))
+			toolBar.AddSeparator()
+			toolBar.AddCheckTool(3, 'check',
+					image(I('arrow-green-d.gif')), image(I('arrow-green-d.gif')))
+			toolBar.AddSeparator()
+			toolBar.AddRadioTool(4, 'radio',
+					image(I('arrow-green-u.gif')), image(I('arrow-green-u.gif')))
+			toolBar.AddRadioTool(5, 'radio',
+					image(I('arrow-green-d.gif')), image(I('arrow-green-d.gif')))
+			toolBar.AddRadioTool(6, 'radio',
+					image(I('arrow-green-l.gif')), image(I('arrow-green-l.gif')))
+			toolBar.AddRadioTool(7, 'radio',
+					image(I('arrow-green-r.gif')), image(I('arrow-green-r.gif')))
+			toolBar.AddSeparator()
+			toolBar.AddControl(wx.Button(toolBar, wx.ID_ANY, ['Button' + (1..2)]))
+			toolBar.AddSeparator()
+			toolBar.AddControl(wx.StaticText(toolBar, wx.ID_ANY, 'Label'))
+			toolBar.Realize() // this must be called after adding items
+		}
+		wx.StatusBar(self) {|statusBar|
+			self.SetStatusBar(statusBar)
+		}
+		log:extern = wxutil.LogWindow(self)
+	}
+}
+
+Frame2 = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+		wx.ToolBar(self, wx.ID_ANY, style => wx.TB_RIGHT) {|toolBar|
+			self.SetToolBar(toolBar)
+			toolBar.AddTool(1, 'tool-1', image(I('arrow-green-d.gif')))
+			toolBar.AddTool(2, 'tool-2', image(I('arrow-green-u.gif')))
+			toolBar.AddSeparator()
+			toolBar.AddCheckTool(3, 'check',
+					image(I('arrow-green-d.gif')), image(I('arrow-green-d.gif')))
+			toolBar.AddSeparator()
+			toolBar.AddRadioTool(4, 'radio',
+					image(I('arrow-green-u.gif')), image(I('arrow-green-u.gif')))
+			toolBar.AddRadioTool(5, 'radio',
+					image(I('arrow-green-d.gif')), image(I('arrow-green-d.gif')))
+			toolBar.AddRadioTool(6, 'radio',
+					image(I('arrow-green-l.gif')), image(I('arrow-green-l.gif')))
+			toolBar.AddRadioTool(7, 'radio',
+					image(I('arrow-green-r.gif')), image(I('arrow-green-r.gif')))
+			toolBar.Realize() // this must be called after adding items
+			wxutil.LogWindow(self)
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame1(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		frame = Frame2(nil)
+		frame.Show()
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

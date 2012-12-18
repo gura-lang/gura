@@ -1,0 +1,396 @@
+#!/usr/bin/env gura
+# encoding: utf-8
+
+//[langId, codePage] = ['1041', '932']	// jp-JP
+[langId, codePage] = ['1033', '1252']	// en-US
+
+textTemplate = R"""
+<?xml version='1.0' encoding="utf-8"?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+  <Product Id='${uuid.generate()}'
+           Name='Gura Programming Language'
+           Version="${version}" Manufacturer='Yutaka Saito'
+           Language='${langId}' Codepage='${codePage}'
+           UpgradeCode='52b7ca53-ff62-4cd0-9aff-56969145e4a1'>
+    <Package Description='Gura Installer package'
+             Comments='Gura Programming Language'
+             Manufacturer='Y.Saito' InstallerVersion='200' Compressed='yes'
+             Platform='x86' />
+    <Media Id='1' Cabinet='gura.cab' EmbedCab='yes' />
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Component Id='ComponentReg' Guid='${uuid.generate()}'>
+        <Environment Id='PATH' Name='PATH' Action='set'
+            Permanent='yes' System='yes' Part='last' Value='[INSTALLDIR]bin' />
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\Gura.ScriptFile' Action='createAndRemoveOnUninstall'>
+          <RegistryKey Key='Shell'>
+            <RegistryKey Key='Open'>
+              <RegistryKey Key='Command'>
+                <RegistryValue Value='&quot;[INSTALLDIR]bin\gura.exe&quot; &quot;%1&quot; %*' Type='string' KeyPath='yes' />
+              </RegistryKey>
+            </RegistryKey>
+          </RegistryKey>
+          <RegistryKey Key='DefaultIcon'>
+            <RegistryValue Value='[INSTALLDIR]bin\gura.ico' Type='string' />
+          </RegistryKey>
+        </RegistryKey>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\Gura.WinScriptFile' Action='createAndRemoveOnUninstall'>
+          <RegistryKey Key='Shell'>
+            <RegistryKey Key='Open'>
+              <RegistryKey Key='Command'>
+                <RegistryValue Value='&quot;[INSTALLDIR]bin\guraw.exe&quot; &quot;%1&quot; %*' Type='string' />
+              </RegistryKey>
+            </RegistryKey>
+          </RegistryKey>
+          <RegistryKey Key='DefaultIcon'>
+            <RegistryValue Value='[INSTALLDIR]bin\gura.ico' Type='string' />
+          </RegistryKey>
+        </RegistryKey>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\Gura.CompositeFile' Action='createAndRemoveOnUninstall'>
+          <RegistryKey Key='Shell'>
+            <RegistryKey Key='Open'>
+              <RegistryKey Key='Command'>
+                <RegistryValue Value='&quot;[INSTALLDIR]bin\gura.exe&quot; &quot;%1&quot; %*' Type='string' />
+              </RegistryKey>
+            </RegistryKey>
+          </RegistryKey>
+          <RegistryKey Key='DefaultIcon'>
+            <RegistryValue Value='[INSTALLDIR]bin\gura.ico' Type='string' />
+          </RegistryKey>
+        </RegistryKey>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\Gura.WinCompositeFile' Action='createAndRemoveOnUninstall'>
+          <RegistryKey Key='Shell'>
+            <RegistryKey Key='Open'>
+              <RegistryKey Key='Command'>
+                <RegistryValue Value='&quot;[INSTALLDIR]bin\guraw.exe&quot; &quot;%1&quot; %*' Type='string' />
+              </RegistryKey>
+            </RegistryKey>
+          </RegistryKey>
+          <RegistryKey Key='DefaultIcon'>
+            <RegistryValue Value='[INSTALLDIR]bin\gura.ico' Type='string' />
+          </RegistryKey>
+        </RegistryKey>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\.gura' Action='createAndRemoveOnUninstall'>
+          <RegistryValue Value='Gura.ScriptFile' Type='string' />
+          <RegistryValue Name='Content Type' Value='text/plain' Type='string' />
+        </RegistryKey>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\.guraw' Action='createAndRemoveOnUninstall'>
+          <RegistryValue Value='Gura.WinScriptFile' Type='string' />
+          <RegistryValue Name='Content Type' Value='text/plain' Type='string' />
+        </RegistryKey>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\.gurc' Action='createAndRemoveOnUninstall'>
+          <RegistryValue Value='Gura.CompositeFile' Type='string' />
+          <RegistryValue Name='Content Type' Value='text/plain' Type='string' />
+        </RegistryKey>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\.gurcw' Action='createAndRemoveOnUninstall'>
+          <RegistryValue Value='Gura.WinCompositeFile' Type='string' />
+          <RegistryValue Name='Content Type' Value='text/plain' Type='string' />
+        </RegistryKey>
+      </Component>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ProgramShortcutDir" Name="Gura"/>
+      </Directory>
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+        <Directory Id='INSTALLDIR' Name='Gura'>
+          ${dirRecRoot.GenerateText(0)}
+        </Directory>
+      </Directory>
+    </Directory>
+    <DirectoryRef Id="ProgramShortcutDir">
+      <Component Id="ApplicationShortcut" Guid="${uuid.generate()}">
+        <Shortcut Id="Shortcut1"
+                  Name="Gura Language Manual"
+                  Description="Gura Language Manual"
+                  Target="[INSTALLDIR]doc\gura-lang-j.pdf"
+                  WorkingDirectory="INSTALLDIR" />
+        <Shortcut Id="Shortcut2"
+                  Name="Gura Library Reference"
+                  Description="Gura Library Reference"
+                  Target="[INSTALLDIR]doc\gura-lib-j.pdf"
+                  WorkingDirectory="INSTALLDIR" />
+        <Shortcut Id="Shortcut3"
+                  Name="Gura Developers Manual"
+                  Description="Gura Developers Manual"
+                  Target="[INSTALLDIR]doc\gura-dev-j.pdf"
+                  WorkingDirectory="INSTALLDIR" />
+        <RemoveFolder Id="ProgramShortcutDir" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\Gura" Name="Installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <Feature Id='Feature1' Title='Program' Level='1'>
+      <ComponentRef Id="ApplicationShortcut" />
+      ${format("<ComponentRef Id='%s' />\n", components)}
+    </Feature>
+    <!-- <UIRef Id='WixUI_InstallDir' /> -->
+    <!--
+    following code has been originated from wix36-sources/src/ext/UIExtension/wixlib/
+    WixUI_InstallDir.wxs.
+    -->
+    <UI Id="WixUI_InstallDir">
+      <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+      <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
+      <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
+      <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+      <Property Id="WixUI_Mode" Value="InstallDir" />
+      <DialogRef Id="BrowseDlg" />
+      <DialogRef Id="DiskCostDlg" />
+      <DialogRef Id="ErrorDlg" />
+      <DialogRef Id="FatalError" />
+      <DialogRef Id="FilesInUse" />
+      <DialogRef Id="MsiRMFilesInUse" />
+      <DialogRef Id="PrepareDlg" />
+      <DialogRef Id="ProgressDlg" />
+      <DialogRef Id="ResumeDlg" />
+      <DialogRef Id="UserExit" />
+      <Publish Dialog="BrowseDlg" Control="OK" Event="DoAction" Value="WixUIValidatePath" Order="3">1</Publish>
+      <Publish Dialog="BrowseDlg" Control="OK" Event="SpawnDialog" Value="InvalidDirDlg" Order="4"><![CDATA[WIXUI_INSTALLDIR_VALID<>"1"]]></Publish>
+      <Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999">1</Publish>
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg">NOT Installed</Publish>
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">Installed AND PATCH</Publish>
+      <!--
+      <Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg">1</Publish>
+      <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg">LicenseAccepted = "1"</Publish>
+      -->
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Next" Event="SetTargetPath" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Next" Event="DoAction" Value="WixUIValidatePath" Order="2">NOT WIXUI_DONTVALIDATEPATH</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Next" Event="SpawnDialog" Value="InvalidDirDlg" Order="3"><![CDATA[NOT WIXUI_DONTVALIDATEPATH AND WIXUI_INSTALLDIR_VALID<>"1"]]></Publish>
+      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="4">WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1"</Publish>
+      <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Property="_BrowseProperty" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="ChangeFolder" Event="SpawnDialog" Value="BrowseDlg" Order="2">1</Publish>
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="InstallDirDlg" Order="1">NOT Installed</Publish>
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="2">Installed AND NOT PATCH</Publish>
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">Installed AND PATCH</Publish>
+      <Publish Dialog="MaintenanceWelcomeDlg" Control="Next" Event="NewDialog" Value="MaintenanceTypeDlg">1</Publish>
+      <Publish Dialog="MaintenanceTypeDlg" Control="RepairButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+      <Publish Dialog="MaintenanceTypeDlg" Control="RemoveButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+      <Publish Dialog="MaintenanceTypeDlg" Control="Back" Event="NewDialog" Value="MaintenanceWelcomeDlg">1</Publish>
+      <Property Id="ARPNOMODIFY" Value="1" />
+      <Property Id="ALLUSERS" Value="1"/> <!-- for per-machine installation -->
+    </UI>
+    <UIRef Id="WixUI_Common" />
+    <UIRef Id='WixUI_ErrorProgressText' />
+    <Property Id='WIXUI_INSTALLDIR' Value='INSTALLDIR' />
+    <!-- <WixVariable Id='WixUILicenseRtf' Value='..\src\COPYING.rtf' /> -->
+    <MajorUpgrade
+      AllowSameVersionUpgrades='yes'
+      DowngradeErrorMessage='A later version of [ProductName] is already installed. Setup will now exit.' />
+    <!--
+    <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg">1</Publish>
+    <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg">1</Publish>
+    -->
+  </Product>
+</Wix>
+"""
+
+dirnameScript = path.dirname(sys.argv[0])
+dirnameDst = path.join(dirnameScript, '..', 'release')
+filenameBase = 'gura-%s-win32' % [sys.version]
+
+gatherFiles() = {
+	fs.chdir(path.join(dirnameScript, '..'))
+	if (sys.build == `msc) {
+		filenames = [
+			'bin-x86\\gura.exe'
+			'bin-x86\\guraw.exe'
+			'bin-x86\\gura.ico'
+			//'bin-x86\\guraole.dll'
+			'bin-x86\\msvcp100.dll'
+			'bin-x86\\msvcr100.dll'
+			'bin-x86\\libgura-x86.dll'
+			'lib\\libgura-x86.lib'
+		]
+	}
+	filenames.append(path.glob(
+		'module/*.gura'
+		'module/*.gurd'
+		'module/net/*.gura'
+		'module/net/*.gurd'
+		'module/codecs/*.gura'
+		'module/codecs/*.gurd'
+		'module/site/readme.txt'
+		//----------------------------------
+		'doc/gura-*.pdf'
+		//----------------------------------
+		'test/test-*.gura'
+		'test/50records-en.csv'
+		'test/50records-jp.csv'
+		'test/temperature.txt'
+		'test/chars-cp932.txt'
+		'test/chars-eucjp.txt'
+		'test/chars-utf8-jp.txt'
+		'test/chars-jis.txt'
+		'test/ipss.go.jp-report-1.csv'
+		'test/testall.bat'
+		'test/result/test-*.sample.txt'
+		//----------------------------------
+		'application/getterphoto/*.gura'
+		'application/getterphoto/*.gurcw'
+		'application/getterphoto/*.guraw'
+		'application/getterphoto/*.ico'
+		'application/guraplot/*.gura'
+		'application/guraplot/*.gurcw'
+		'application/guraplot/*.guraw'
+		'application/guraplot/*.ico'
+		'application/makecalc/*.gura'
+		'application/makecalc/*.gurcw'
+		'application/makecalc/*.guraw'
+		'application/makecalc/*.ico'
+		//----------------------------------
+		'sample/cairo/cairo-*.gura'
+		'sample/cairo/cairo-*.guraw'
+		'sample/canvas/canvas-*.gura'
+		'sample/freetype/freetype-*.gura'
+		'sample/http/http-*.gura'
+		'sample/http/proxy_setting.sample.gura'
+		'sample/misc/*.gura'
+		'sample/opengl/gl-*.guraw'
+		'sample/opengl/*.rgb'
+		'sample/resource/readme.txt'
+		'sample/resource/*.ico'
+		'sample/resource/*.gif'
+		'sample/resource/*.jpg'
+		'sample/resource/*.bmp'
+		'sample/resource/*.png'
+		'sample/resource/*.ttf'
+		'sample/resource/*.zip'
+		'sample/scribble/*.gura'
+		'sample/sdl/sdl-*.guraw'
+		'sample/tk/tk-*.guraw'
+		'sample/mswin/mswin-*.gura'
+		'sample/wx/resource.gura'
+		'sample/wx/wx-*.guraw'
+		'sample/wx/original/wxutil.gura'
+		'sample/wx/original/wx-*.guraw'
+		//----------------------------------
+		'guest/lib.win32/*.dll'
+		//----------------------------------
+		'include/*.h'
+		'include/gura/*.h'
+	):list)
+	filenames.append(path.glob('guest/tcl/bin/*.dll'):list)
+	filenames.append(path.walk('guest/tcl/lib', nil):file)
+	filenames
+}
+
+//-----------------------------------------------------------------------------
+// ZIP file creator
+//-----------------------------------------------------------------------------
+createZip(filenames) = {
+	fs.chdir(path.join(dirnameScript, '..', '..'))
+	filenames = path.join('gura', filenames)
+	filenameZip = path.join(dirnameDst, filenameBase + '.zip')
+	filenameList = path.join(dirnameDst, filenameBase + '.list.txt')
+	open(filenameList, 'w', 'shift_jis').println(filenames)
+	try { fs.remove(filenameZip) } except {}
+	(os.exec('7z', 'a', '-r-', filenameZip, '@' + filenameList) != 0) && sys.exit(1)
+	printf('%s and %s were created\n', path.filename(filenameZip), path.filename(filenameList))
+}
+
+//-----------------------------------------------------------------------------
+// MS installer creator
+//-----------------------------------------------------------------------------
+createMsi(filenames) = {
+	import(uuid)
+	directoryId = 1
+	componentId = 0
+	fileId = 1
+	components = []
+	DirectoryRec = struct(dirRecs => %{}, filenames => []) {
+		GenerateText(indentLevel:number => 0) = {
+			text = ''
+			indent = '  ' * indentLevel
+			if (!self.filenames.isempty()) {
+				text += indent
+				component = format('Component%d', componentId)
+				components.add(component)
+				text += format("<Component Id='%s' Guid='%s'>\n",
+										component, uuid.generate())
+				keyPathFlag = true
+				for (filename in self.filenames) {
+					option = ''
+					if (keyPathFlag) {
+						option += " KeyPath='yes'"
+						keyPathFlag = false
+					}
+					//if (filename == 'bin\\guraole.dll') {
+					//	option += " SelfRegCost='1'"
+					//}
+					//if (path.match('*.ttf', filename)) {
+					//	option += " TrueType='yes'"
+					//}
+					text += indent
+					text += format("  <File Id='File%d' Name='%s' DiskId='1' Source='%s'%s />\n",
+										fileId, path.filename(filename), filename, option)
+					fileId += 1
+				}
+				text += indent
+				text += "</Component>\n"
+			}
+			componentId += 1
+			self.dirRecs.items() {|item|
+				[dirname, dirRec] = item
+				text += indent
+				dirname = dirname.replace('bin-x86', 'bin').replace('bin-x64', 'bin')
+				text += format("<Directory Id='Directory%d' Name='%s'>\n",
+														directoryId, dirname)
+				directoryId += 1
+				text += dirRec.GenerateText(indentLevel + 1)
+				text += indent
+				text += "</Directory>\n"
+			}
+			text
+		}
+	}
+	dirRecRoot = DirectoryRec()
+	for (filename in filenames) {
+		segs = filename.split(path.sep_file)
+		seg = segs.each()
+		dirRec = dirRecRoot
+		repeat (segs.len() - 1) {
+			dirname = seg.next()
+			dirRec.dirRecs.setdefault(dirname, DirectoryRec())
+			dirRec = dirRec.dirRecs[dirname]
+		}
+		dirRec.filenames.add(filename)
+	}
+	fs.chdir(path.join(dirnameScript, '..'))
+	version = sys.version
+	components.add('ComponentReg')
+	filenameWxs = path.join(dirnameDst, filenameBase + '.wxs')
+	filenameWixobj = path.join(dirnameDst, filenameBase + '.wixobj')
+	filenameMsi = path.join(dirnameDst, filenameBase + '.msi')
+	textTemplate.template(open(filenameWxs, 'w', 'utf-8'))
+	try {
+		(os.exec('candle', '-o', filenameWixobj, filenameWxs) != 0) && sys.exit(1)
+		(os.exec('light', '-ext', 'WixUIExtension', '-spdb'
+					'-o', filenameMsi, filenameWixobj) != 0) && sys.exit(1)
+	} except {
+		println('Failed to execute WiX tool. Make sure that WiX has been properly installed.')
+		sys.exit(1)
+	}
+	fs.remove(filenameWixobj)
+	printf('%s and %s were created\n',
+			path.filename(filenameMsi), path.filename(filenameWxs))
+}
+
+//-----------------------------------------------------------------------------
+// tar-ball creator
+//-----------------------------------------------------------------------------
+createTar() = {
+	dirnameSrc = 'gura-' + sys.version
+	filenameTar = path.join(dirnameDst, 'gura-' + sys.version + '.tar.gz')
+	printf('exporting source files managed under subversion\n');
+	(os.exec('svn', 'export', '..', dirnameSrc) != 0) && sys.exit(1)
+	printf('creating tarball')
+	(os.exec('tar', 'cvfz', filenameTar, dirnameSrc) != 0) && sys.exit(1)
+	printf('%s was created\n', path.filename(filenameTar))
+	(os.exec('rm', '-rf', dirnameSrc) != 0) && sys.exit(1)
+}
+
+if (sys.platform == `windows) {
+	filenames = gatherFiles()
+	createZip(filenames)
+	createMsi(filenames)
+} elsif (sys.platform == `linux) {
+	createTar()
+}

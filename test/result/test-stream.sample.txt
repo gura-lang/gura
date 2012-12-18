@@ -1,0 +1,209 @@
+tar compression: none
+entry1.bin   38009 OK
+entry2.bin   43643 OK
+entry3.bin   33517 OK
+entry4.bin   26822 OK
+entry5.bin     512 OK
+entry6.bin   28838 OK
+entry7.bin    2048 OK
+entry8.bin   24991 OK
+entry9.bin   38910 OK
+entry10.bin  56954 OK
+tar compression: gzip
+entry1.bin   38009 OK
+entry2.bin   43643 OK
+entry3.bin   33517 OK
+entry4.bin   26822 OK
+entry5.bin     512 OK
+entry6.bin   28838 OK
+entry7.bin    2048 OK
+entry8.bin   24991 OK
+entry9.bin   38910 OK
+entry10.bin  56954 OK
+tar compression: bzip2
+entry1.bin   38009 OK
+entry2.bin   43643 OK
+entry3.bin   33517 OK
+entry4.bin   26822 OK
+entry5.bin     512 OK
+entry6.bin   28838 OK
+entry7.bin    2048 OK
+entry8.bin   24991 OK
+entry9.bin   38910 OK
+entry10.bin  56954 OK
+zip compression: store
+entry1.bin   38009 OK
+entry2.bin   43643 OK
+entry3.bin   33517 OK
+entry4.bin   26822 OK
+entry5.bin     512 OK
+entry6.bin   28838 OK
+entry7.bin    2048 OK
+entry8.bin   24991 OK
+entry9.bin   38910 OK
+entry10.bin  56954 OK
+zip compression: deflate
+entry1.bin   38009 OK
+entry2.bin   43643 OK
+entry3.bin   33517 OK
+entry4.bin   26822 OK
+entry5.bin     512 OK
+entry6.bin   28838 OK
+entry7.bin    2048 OK
+entry8.bin   24991 OK
+entry9.bin   38910 OK
+entry10.bin  56954 OK
+zip compression: bzip2
+entry1.bin   38009 OK
+entry2.bin   43643 OK
+entry3.bin   33517 OK
+entry4.bin   26822 OK
+entry5.bin     512 OK
+entry6.bin   28838 OK
+entry7.bin    2048 OK
+entry8.bin   24991 OK
+entry9.bin   38910 OK
+entry10.bin  56954 OK
+82 b1 82 f1 82 c9 82 bf 82 cd 81 41 90 a2 8a 45  ...........A...E
+0d 0a                                            ..
+82 b1 82 f1 82 c9 82 bf 82 cd 81 41 90 a2 8a 45  ...........A...E
+0d 0a                                            ..
+82 b1 82 f1 82 c9 82 bf 82 cd 81 41 90 a2 8a 45  ...........A...E
+0d 0a                                            ..
+82 b1 82 f1 82 c9 82 bf 82 cd 81 41 90 a2 8a 45  ...........A...E
+0d 0a                                            ..
+82 b1 82 f1 82 c9 82 bf 82 cd 81 41 90 a2 8a 45  ...........A...E
+0d 0a                                            ..
+--------------------------------
+QUJDREVGRw==
+OK
+41 42 43 44 45 46 47                             ABCDEFG
+--------------------------------
+FPucA9l+
+OK
+14 fb 9c 03 d9 7e                                .....~
+--------------------------------
+FPucA9k=
+OK
+14 fb 9c 03 d9                                   .....
+--------------------------------
+FPucAw==
+OK
+14 fb 9c 03                                      ....
+--------------------------------
+gqA=
+OK
+82 a0                                            ..
+--------------------------------
+VGhpcyBpcyB0aGUgZGF0YSwgaW4gdGhlIGNsZWFyLg==
+OK
+54 68 69 73 20 69 73 20 74 68 65 20 64 61 74 61  This is the data
+2c 20 69 6e 20 74 68 65 20 63 6c 65 61 72 2e     , in the clear.
+--------------------------------
+YWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZGFiY2RhYmNkYWJjZA==
+OK
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+61 62 63 64 61 62 63 64 61 62 63 64 61 62 63 64  abcdabcdabcdabcd
+--------------------------------
+YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYQ==
+OK
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61                                      aaaa
+--------------------------------
+YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh
+YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWE=
+OK
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61        aaaaaaaaaaaaaa
+--------------------------------
+YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh
+YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh
+OK
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61     aaaaaaaaaaaaaaa
+--------------------------------
+YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh
+YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYQ==
+OK
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+--------------------------------
+YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh
+YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWE=
+OK
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61                                               a
+--------------------------------
+YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh
+YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh
+OK
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61                                            aa
+--------------------------------
+YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh
+YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh
+YQ==
+OK
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  aaaaaaaaaaaaaaaa
+61 61 61                                         aaa

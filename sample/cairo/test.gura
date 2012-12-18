@@ -1,0 +1,71 @@
+#!/usr/bin/env gura
+// coding: shift_jis
+import(tk)
+import(cairo)
+import(units)
+
+drawAlignR(cr:cairo.context, x:number, y:number, width:number, height:number, text:string) = {
+	extents = cr.text_extents(text)
+	cr.move_to(x + width - (extents.width + extents.x_bearing * 2), y)
+	cr.show_text(text)
+}
+drawAlignC(cr:cairo.context, x:number, y:number, width:number, height:number, text:string) = {
+	extents = cr.text_extents(text)
+	cr.move_to(x + width / 2 - (extents.width / 2 + extents.x_bearing), y)
+	cr.show_text(text)
+}
+drawAlignL(cr:cairo.context, x:number, y:number, width:number, height:number, text:string) = {
+	cr.move_to(x, y)
+	cr.show_text(text)
+}
+drawContent(cr:cairo.context) = {
+	cr.scale(2, 2)
+	cr.select_font_face('HGKyokashotai', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+	cr.set_font_size(10)
+	cr.set_line_width(.1)
+	cr.move_to(20, 20)
+	[x, y] = [20, 20]
+	for (ch in 'おじさんの家に遊びに行きます。あいうえお、かきくけこ。') {
+		extents = cr.text_extents(ch)
+		if (ch == '、' || ch == '。') {
+			cr.move_to(x + extents.width * 1.2, y + extents.y_bearing * 3)
+			y += -extents.y_bearing * 2
+		} else {
+			cr.move_to(x, y)
+			y += -extents.y_bearing * 1.3
+		}
+		cr.show_text(ch)
+	}
+	/*
+	repeat (15) {|i|
+		[x, y] = [10, 30 + i * 15]
+		text = format('%d + %d', rand(10) + 1, rand(10) + 1)
+		drawAlignC(cr, x, y, 20, 10, i + 1)
+		drawAlignC(cr, x + 20, y, 60, 10, text)
+		drawAlignL(cr, x + 80, y, 10, 10, '=')
+		//cr.rectangle(x, y - extents.height, extents.width + extents.x_bearing * 2, extents.height)
+		//cr.stroke()
+	}
+	*/
+	cr.show_page()
+}
+tk.mainwindow() {|mw|
+	[wdCanvas, htCanvas] = [210, 297] * 2
+	imgTk = nil
+	showGraphic() = {
+		imgTk && imgTk.delete()
+		img = image(`rgba, wdCanvas, htCanvas, `white)
+		img.cairo {|cr| drawContent(cr)}
+		imgTk = img.to_tk()
+		canvas.Image(wdCanvas / 2, htCanvas / 2, image => imgTk, anchor => 'c')
+	}
+	mw.Button(text => 'push') {|w|
+		w.pack(fill => 'both', expand => true)
+		w.bind(`command) {showGraphic()}
+	}
+	canvas = mw.Canvas(bg => 'gray', width => wdCanvas, height => htCanvas) {|w|
+		w.pack(fill => 'both', expand => true)
+	}
+	showGraphic()
+}
+tk.mainloop()

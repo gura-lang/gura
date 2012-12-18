@@ -1,0 +1,5 @@
+#!/usr/bin/env gura
+path.dir('', '*.cpp', '*.h', '*.gura', '*.guraw') {|file|
+	lines = readlines(file):list
+	open(file, 'w').dosmode(false).print(lines)
+}

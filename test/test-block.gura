@@ -1,0 +1,190 @@
+#!/usr/bin/env gura
+print_func(func:function) = printf('%s = %s\n', func, func.expr)
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+
+scope {
+	// chain of block delegation
+	e1 = `{|i| println('hello world ', i)}
+	e2 = `{|e1|}
+	e3 = `{|e2|}
+	e4 = `{|e3|}
+	e5 = `{|e4|}
+	e6 = `{|e5|}
+	repeat (3) {|e6|}
+}
+scope {
+	scope {
+		expr = `{x + y + z + 2}
+		f = expr.tofunction(x, y, z)
+		print_func(f)
+	}
+	scope {
+		expr = `{x + y + z + 2}
+		f = expr.tofunction(x:number, y:number, z:number)
+		print_func(f)
+	}
+	scope {
+		expr = `{|x, y, z| x + y + y + 2}
+		f = expr.tofunction()
+		print_func(f)
+	}
+	scope {
+		expr = `{|x:number, y:number, z:number| x + y + y + 2}
+		f = expr.tofunction()
+		print_func(f)
+	}
+	try {
+		expr = `{|x, y, z| x + y + y + 2}
+		f = expr.tofunction(x, y, z)
+		print_func(f)
+	} except(TypeError) {|e|
+		println('expected error occurs: ', e.text)
+	}
+}
+scope {
+	shortBool(flag:boolean) = cond(flag, 'y', 'n')
+	for (expr in [`(-x), `(`x), `(!!x), `(x*), `(x + y), `(x = y),
+	              `(x => y), `(x::y), `{}, `3, `[], `x[y], `x(y, z)]) {
+		printf('%-8s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n', expr.tostring(),
+				shortBool(expr.isunaryop()),
+				shortBool(expr.isquote()),
+				shortBool(expr.isforce()),
+				shortBool(expr.isprefix()),
+				shortBool(expr.issuffix()),
+				shortBool(expr.isbinaryop()),
+				shortBool(expr.isassign()),
+				shortBool(expr.isdictassign()),
+				shortBool(expr.ismember()),
+				shortBool(expr.isblockparam()),
+				shortBool(expr.isblock()),
+				shortBool(expr.islister()),
+				shortBool(expr.isvalue()),
+				shortBool(expr.issymbol()),
+				shortBool(expr.isindexer()),
+				shortBool(expr.iscaller()))
+	}
+}
+scope {
+	fileName = '50records-en.csv'
+	open(fileName) {|f|
+		repeat(10) {|i|
+			printf('%3d  %s\n', i + 1, f.readline():chop)
+		}
+	}
+}
+scope {
+	fileName = '50records-en.csv'
+	open(fileName) {|f|
+		lines = [f.readlines(10):chop]
+		lineNums = [1..lines.len()]
+		printf('%3d  %s\n', lineNums, lines)
+	}
+}
+scope {
+	fileName = '50records-en.csv'
+	for (line in open(fileName).readlines(10):chop) {|i|
+		printf('%3d  %s\n', i + 1, line)
+	}
+}
+scope {
+	fileName = '50records-en.csv'
+	colsPerLines = for (line in open(fileName).readlines():chop):list { line.len() }
+	printf('colsPerLines: %s\n', colsPerLines):nomap
+}
+scope {
+	fileName = '50records-en.csv'
+	nLines = 0
+	for (line in open(fileName).readlines():chop) {
+		nLines += 1		# this implementation is just for a test of scope
+	}
+	printf('lines of %s is %d\n', fileName, nLines)
+}
+scope {
+	c_like_for(`init, `cond, `next):dynamic_scope {block:inside_scope} = {
+		env = outers()
+		env.eval(init)
+		while (env.eval(cond)) {
+			block()
+			env.eval(next)
+		}
+	}
+	scope {
+		print_func(c_like_for)
+		c_like_for (i = 0, i < 20, i += 1) {
+			printf('%3d', i)
+		}
+		println()
+		c_like_for (i = 19, i >= 0, i -= 1) {
+			printf('%3d', i)
+		}
+		println()
+		hello = 'hello'
+		c_like_for (i = 0, i < 3, i += 1) {
+			printf('%s %3d\n', hello, i)
+		}
+		printf('i = %d\n', i)
+	}
+}
+scope {
+	repeat_delegate(n) {`block} = {
+		print('begin ')
+		repeat(n) {|block|}
+		println(' end')
+	}
+	println('block delegation test')
+	repeat_delegate(3) {|i| printf('%4d', i) }
+	block_var = `{|i| printf('%4d', i)}
+	repeat(10) {|block_var|}
+	println()
+	x = `{|a, b, c+| printf('a=%s, b=%s, c=%s\n', a, b, c):nomap}
+	f = x.tofunction()
+	f(2, 3, 4, 5, 6)
+}
+scope {
+	f(x) {block?} = {
+		if (block == nil) {
+			println('do nothing')
+		} else {
+			block(x * 2)
+		}
+	}
+	println(f.expr)
+	f(2)
+	f(2) {|n| printf('%d\n', n) }
+}
+scope {
+	f(a, b, c) {block} = {
+		block(a, b, c)
+		'******** bad signal processing in a block ********'
+	}
+	tester(`f(1, 2, 3) {|a, b, c| return('no problem') })
+}
+scope {
+	# this is just a test of block mechanism. use auto-mapping for actual programs.
+	f(n) {block} = { s = 0, for (i in 1..n) { s += block(i) }, s }
+	print_func(f)
+	tester(`f(10) {|x| x })
+	tester(`f(10) {|x| x * x })
+}
+scope {
+	select_with_index(list:list) {criteria} = {
+		for (i in (0..), x in list):xlist {
+			if (criteria(x)) { [x, i] }
+		}
+	}
+	t = [1, 3, 4, 5, 6]
+	tester(`t)
+	tester(`select_with_index(t) {|x| x % 2 == 0})
+}
+scope {
+	fib(num:number) {block} = {
+		[i, j] = [0, 1]
+		while (i <= num):list {
+			block(i)
+			[i, j] = [j, i + j]
+		}
+	}
+	printf('fibonacci generation using a block\n')
+	fib(1000):void {|i| printf('%4d', i) }
+	println()
+}

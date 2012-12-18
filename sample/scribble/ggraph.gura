@@ -1,0 +1,100 @@
+import(canvas)
+
+item = struct(x:iterator, y:iterator, style:symbol, color => 'black')
+
+draw(items+:item) {block?:inside_scope} = {
+	c = scribble
+	c.clear()
+	[wdScreen, htScreen] = scribble.getsize()
+	xCollect = items:*x:*each():list
+	yCollect = items:*y:*each():list
+	[xMax, xMin] = [xCollect::max().max(), xCollect::min().min()]
+	[yMax, yMin] = [yCollect::max().max(), yCollect::min().min()]
+	[wdMgn, htMgn] = [wdScreen * .1, htScreen * .05]
+	[wdGraph, htGraph] = [wdScreen - wdMgn * 2, htScreen - htMgn * 2]
+	[xOff, yOff] = [wdMgn, htMgn]
+	nScales = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000]
+	xRange = xMax - xMin
+	yRange = yMax - yMin
+	if (xRange == 0) { xRange = 1 }
+	if (yRange == 0) { yRange = 1 }
+	screen_x(x):map = (x - xMin) * wdGraph / xRange + xOff
+	screen_y(y):map = (y - yMin) * htGraph / yRange + yOff
+	DrawText(x, y, str) = c.text(screen_x(x), screen_y(y), str)
+	DrawTicks(tMin:number, tMax:number, tRange:number, DrawTick:function) = {
+		tStepBase = 10 ** (int(math.log10(tRange)) - 2)
+		for (nScale in nScales) {
+			tStep = tStepBase * nScale
+			if (tRange / tStep < 20) { break() }
+		}
+		if (tMin > 0) {
+			DrawTick(range(math.floor(tMin / tStep) * tStep, tMax, tStep))
+		} elsif (tMax < 0) {
+			DrawTick(range(math.floor(tMax / tStep) * tStep, tMin, -tStep))
+		} else {
+			if (tMax > 0) {
+				DrawTick(range(tStep, tMax, tStep))
+			}
+			if (tMin < 0) {
+				DrawTick(range(-tStep, tMin, -tStep))
+			}
+		}
+	}
+	DrawTickX(x:number, str:string => nil):map:void = {
+		if (str == nil) { str = x.tostring() }
+		c.text(screen_x(x), screen_y(0) - 1, str)
+		c.line(screen_x(x), screen_y(0) - 1, screen_x(x), screen_y(0) + 1)
+	}
+	DrawTickY(y:number, str:string => nil):map:void = {
+		if (str == nil) { str = y.tostring() }
+		c.text(screen_x(0) - 1, screen_y(y), str)
+		c.line(screen_x(0), screen_y(y), screen_x(0) + 1, screen_y(y))
+	}
+	DrawTicksX() = DrawTicks(xMin, xMax, xRange, DrawTickX)
+	DrawTicksY() = DrawTicks(yMin, yMax, yRange, DrawTickY)
+	DrawAxis() = {
+		c.setpen(`black, 1, `solid)
+		c.line(screen_x(0), yOff, screen_x(0), yOff + htGraph)
+		c.line(xOff, screen_y(0), xOff + wdGraph, screen_y(0))
+	}
+	for (item in items) {
+		if (item.style == `circle) {
+			c.setpen(nil)
+			c.setbrush(item.color, `solid)
+			for (x in item.x, y in item.y) {
+				c.ellipse(screen_x(x) - 1, screen_y(y) - 1, 2, 2)
+			}
+		} elsif (item.style == `box) {
+			c.setpen(nil)
+			c.setbrush(item.color, `solid)
+			for (x in item.x, y in item.y) {
+				c.rectangle(screen_x(x) - 1, screen_y(y) - 1, 2, 2)
+			}
+		} else {
+			c.setpen(item.color, 1, item.style)
+			c.lines(screen_x(item.x):list, screen_y(item.y):list)
+		}
+	}
+	c.setfont(htScreen / 40, family => `swiss)
+	if (block != nil) { block(c) }
+}
+draw.help('''\
+Draw dots or lines on a canvas for specified items. Each item contains
+x and y coordinates, style and color. style takes one of: `circle, `box,
+`solid, `dot, `dash and `dot_dash. color takes a list of RGB values, a string
+or a symbol, and they're like [128, 64, 255], '#8040ff' and `black.
+Symbols for colors are: `black, `blue, `green, `light_green, `red, `cyan,
+`yellow, `white and `grey.
+Example:
+graph.draw(c, item(x, y, `solid, `black))
+''')
+
+if (__name__ == '__main__') {
+	x = interval(0, 12 * math.pi, 1000)
+	draw(item(x, math.sin(x), `dot),
+			item(x, math.sin(x) * math.exp(-x / 20), `solid),
+			item(x, math.exp(-x / 20), `dot, 'red'),
+			item(x, -math.exp(-x / 20), `dot, 'red')) {
+		DrawAxis(), DrawTicksX(), DrawTicksY()
+	}
+}

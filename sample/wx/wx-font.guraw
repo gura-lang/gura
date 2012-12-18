@@ -1,0 +1,598 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        font.cpp
+// Purpose:     wxFont demo
+// Author:      Vadim Zeitlin
+// Modified by:
+// Created:     30.09.99
+// RCS-ID:      $Id: font.cpp 41145 2006-09-10 23:09:33Z VZ $
+// Copyright:   (c) 1999 Vadim Zeitlin
+// Licence:     wxWindows licence
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(re)
+import(resource)
+
+SAMPLE_TITLE = 'wxWidgets Font Sample'
+
+fontEnumerator = nil
+
+// ----------------------------------------------------------------------------
+// constants
+// ----------------------------------------------------------------------------
+
+// IDs for the controls and the menu commands
+// menu items
+[
+Font_Quit,
+Font_About,
+Font_ViewMsg,
+Font_TestTextValue,
+Font_IncSize,
+Font_DecSize,
+Font_Bold,
+Font_Italic,
+Font_Underlined,
+Font_wxNORMAL_FONT,
+Font_wxSMALL_FONT,
+Font_wxITALIC_FONT,
+Font_wxSWISS_FONT,
+Font_Standard,
+] = 1..
+[Font_Choose,
+Font_EnumFamiliesForEncoding,
+Font_EnumFamilies,
+Font_EnumFixedFamilies,
+Font_EnumEncodings,
+Font_SetNativeDesc,
+Font_SetNativeUserDesc,
+Font_SetFaceName,
+Font_SetEncoding,
+Font_Max
+] = 100..
+
+// ============================================================================
+// implementation
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// the application class
+// ----------------------------------------------------------------------------
+
+MyApp = class(wx.App) {
+	OnInit() = {
+		fontEnumerator:extern = MyFontEnumerator()
+		// Create the main application window
+		frame = MyFrame('Font wxWidgets demo',
+							 wx.Point(50, 50), wx.Size(600, 400))
+		// Show it and tell the application that it's our main window
+		frame.Show(true)
+		self.SetTopWindow(frame)
+		// success: wxApp::OnRun() will be called which will enter the main message
+		// loop and the application will run. If we returned 'false' here, the
+		// application would exit immediately.
+		true
+	}
+}
+
+// --------------------------------------------------------
+MyEncodingEnumerator = class(wx.FontEnumerator) {
+	__init__() = {
+		self.m_n = 0
+		self.m_text = ''
+	}
+	GetText() = {
+		self.m_text
+	}
+	OnFontEncoding(facename:string, encoding:string) = {
+		self.m_n += 1
+		text = format("Encoding %u: %s (available in facename '%s')\n",
+						self.m_n, encoding, facename)
+		self.m_text += text
+		true
+	}
+}
+
+// -------------------------------------------------------------
+
+MyFontEnumerator = class(wx.FontEnumerator) {
+	__init__() = {
+		self.m_facenames = []
+	}
+	GotAny() = {
+		!self.m_facenames.isempty()
+	}
+	GetFacenames() = {
+		self.m_facenames
+	}
+	OnFacename(facename:string) = {
+		self.m_facenames.add(facename)
+		true
+	}
+}
+
+// ----------------------------------------------------------------------------
+// main frame
+// ----------------------------------------------------------------------------
+
+MyFrame = class(wx.Frame) {
+	__init__(title:string, pos:wx.Point, size:wx.Size) = {|nil, wx.ID_ANY, title, pos, size|
+		self.EventTable()
+		self.m_textctrl = nil
+		self.m_fontSize = wx.NORMAL_FONT.GetPointSize()
+		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		// create a menu bar
+		menuFile = wx.Menu()
+		menuFile.Append(Font_TestTextValue, '&Test text value',
+						"Verify that getting and setting text value doesn't change it")
+		menuFile.Append(Font_ViewMsg, '&View...\tCtrl-V',
+						'View an email message file')
+		menuFile.AppendSeparator()
+		menuFile.Append(Font_About, '&About...\tCtrl-A', 'Show about dialog')
+		menuFile.AppendSeparator()
+		menuFile.Append(Font_Quit, 'E&xit\tAlt-X', 'Quit this program')
+		menuFont = wx.Menu()
+		menuFont.Append(Font_IncSize, '&Increase font size by 2 points\tCtrl-I')
+		menuFont.Append(Font_DecSize, '&Decrease font size by 2 points\tCtrl-D')
+		menuFont.AppendSeparator()
+		menuFont.AppendCheckItem(Font_Bold, '&Bold\tCtrl-B', 'Toggle bold state')
+		menuFont.AppendCheckItem(Font_Italic, '&Oblique\tCtrl-O', 'Toggle italic state')
+		menuFont.AppendCheckItem(Font_Underlined, '&Underlined\tCtrl-U',
+						'Toggle underlined state')
+		menuFont.AppendSeparator()
+		menuFont.Append(Font_SetNativeDesc,
+						'Set native font &description\tShift-Ctrl-D')
+		menuFont.Append(Font_SetNativeUserDesc,
+						'Set &user font description\tShift-Ctrl-U')
+		menuFont.Append(Font_SetFaceName, 'Check font face name')
+		menuFont.Append(Font_SetEncoding, 'Set font &encoding\tShift-Ctrl-E')
+		menuSelect = wx.Menu()
+		menuSelect.Append(Font_Choose, '&Select font...\tCtrl-S',
+						'Select a standard font')
+		menuStdFonts = wx.Menu()
+		menuStdFonts.Append(Font_wxNORMAL_FONT, 'wxNORMAL_FONT', 'Normal font used by wxWidgets')
+		menuStdFonts.Append(Font_wxSMALL_FONT,  'wxSMALL_FONT',  'Small font used by wxWidgets')
+		menuStdFonts.Append(Font_wxITALIC_FONT, 'wxITALIC_FONT', 'Italic font used by wxWidgets')
+		menuStdFonts.Append(Font_wxSWISS_FONT,  'wxSWISS_FONT',  'Swiss font used by wxWidgets')
+		menuSelect.AppendMenu(Font_Standard, 'Standar&d fonts', menuStdFonts)
+		menuSelect.AppendSeparator()
+		menuSelect.Append(Font_EnumFamilies, 'Enumerate font &families\tCtrl-F')
+		menuSelect.Append(Font_EnumFixedFamilies,
+						 'Enumerate fi&xed font families\tCtrl-X')
+		menuSelect.Append(Font_EnumEncodings,
+						 'Enumerate &encodings\tCtrl-E')
+		menuSelect.Append(Font_EnumFamiliesForEncoding,
+						 'Find font for en&coding...\tCtrl-C',
+						 'Find font families for given encoding')
+		// now append the freshly created menu to the menu bar...
+		menuBar = wx.MenuBar()
+		menuBar.Append(menuFile, '&File')
+		menuBar.Append(menuFont, 'F&ont')
+		menuBar.Append(menuSelect, '&Select')
+		// ... and attach this menu bar to the frame
+		self.SetMenuBar(menuBar)
+		splitter = wx.SplitterWindow(self)
+		self.m_textctrl = wx.TextCtrl(splitter, wx.ID_ANY,
+							'Paste text here to see how it looks\nlike in the given font',
+							wx.DefaultPosition, wx.DefaultSize,
+							wx.TE_MULTILINE)
+		self.m_canvas = MyCanvas(splitter)
+		splitter.SplitHorizontally(self.m_textctrl, self.m_canvas, 100)
+		// create a status bar just for fun (by default with 1 pane only)
+		self.CreateStatusBar()
+		self.SetStatusText('Welcome to wxWidgets font demo!')
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_MENU, Font_Quit) {|event| self.OnQuit(event) }
+		self.Bind(wx.EVT_MENU, Font_TestTextValue) {|event| self.OnTestTextValue(event) }
+		self.Bind(wx.EVT_MENU, Font_ViewMsg) {|event| self.OnViewMsg(event) }
+		self.Bind(wx.EVT_MENU, Font_About) {|event| self.OnAbout(event) }
+		self.Bind(wx.EVT_MENU, Font_IncSize) {|event| self.OnIncFont(event) }
+		self.Bind(wx.EVT_MENU, Font_DecSize) {|event| self.OnDecFont(event) }
+		self.Bind(wx.EVT_MENU, Font_Bold) {|event| self.OnBold(event) }
+		self.Bind(wx.EVT_MENU, Font_Italic) {|event| self.OnItalic(event) }
+		self.Bind(wx.EVT_MENU, Font_Underlined) {|event| self.OnUnderline(event) }
+		self.Bind(wx.EVT_MENU, Font_wxNORMAL_FONT) {|event| self.OnwxPointerFont(event) }
+		self.Bind(wx.EVT_MENU, Font_wxSMALL_FONT) {|event| self.OnwxPointerFont(event) }
+		self.Bind(wx.EVT_MENU, Font_wxITALIC_FONT) {|event| self.OnwxPointerFont(event) }
+		self.Bind(wx.EVT_MENU, Font_wxSWISS_FONT) {|event| self.OnwxPointerFont(event) }
+		self.Bind(wx.EVT_MENU, Font_SetNativeDesc) {|event| self.OnSetNativeDesc(event) }
+		self.Bind(wx.EVT_MENU, Font_SetNativeUserDesc) {|event| self.OnSetNativeUserDesc(event) }
+		self.Bind(wx.EVT_MENU, Font_SetFaceName) {|event| self.OnSetFaceName(event) }
+		self.Bind(wx.EVT_MENU, Font_SetEncoding) {|event| self.OnSetEncoding(event) }
+		self.Bind(wx.EVT_MENU, Font_Choose) {|event| self.OnSelectFont(event) }
+		self.Bind(wx.EVT_MENU, Font_EnumFamiliesForEncoding) {|event| self.OnEnumerateFamiliesForEncoding(event) }
+		self.Bind(wx.EVT_MENU, Font_EnumFamilies) {|event| self.OnEnumerateFamilies(event) }
+		self.Bind(wx.EVT_MENU, Font_EnumFixedFamilies) {|event| self.OnEnumerateFixedFamilies(event) }
+		self.Bind(wx.EVT_MENU, Font_EnumEncodings) {|event| self.OnEnumerateEncodings(event) }
+	}
+	// accessors
+	GetCanvas() = { self.m_canvas }
+	// event handlers (these functions should _not_ be virtual)
+	OnIncFont(event:wx.CommandEvent) = { self.DoResizeFont(+2) }
+	OnDecFont(event:wx.CommandEvent) = { self.DoResizeFont(-2) }
+	OnEnumerateFamiliesForEncoding(event:wx.CommandEvent) = {
+		enc = self.GetEncodingFromUser()
+		if (enc != wx.FONTENCODING_SYSTEM) {
+			self.DoEnumerateFamilies(false, enc)
+		}
+	}
+	OnEnumerateEncodings(event:wx.CommandEvent) = {
+		fontEnumerator = MyEncodingEnumerator()
+		fontEnumerator.EnumerateEncodings()
+		wx.LogMessage('Enumerating all available encodings:\n%s',
+					fontEnumerator.GetText())
+	}
+	OnEnumerateFamilies(event:wx.CommandEvent) = {
+		self.DoEnumerateFamilies(false)
+	}
+	OnEnumerateFixedFamilies(event:wx.CommandEvent) = {
+		self.DoEnumerateFamilies(true)
+	}
+	DoEnumerateFamilies(fixedWidthOnly:boolean,
+						encoding:wx.FontEncoding => wx.FONTENCODING_SYSTEM,
+						silent:boolean => false) = {
+		fontEnumerator = MyFontEnumerator()
+		fontEnumerator.EnumerateFacenames(encoding, fixedWidthOnly)
+		if (fontEnumerator.GotAny()) {
+			nFacenames = fontEnumerator.GetFacenames().len()
+			if (!silent) {
+				wx.LogStatus(self, 'Found %d %sfonts',
+					nFacenames, if (fixedWidthOnly) {'fixed width '} else {''})
+			}
+			facename = ''
+			if (silent) {
+				// choose the first
+				facename = fontEnumerator.GetFacenames()[0]
+			} else {
+				// let the user choose
+				facenames = fontEnumerator.GetFacenames()
+				n = wx.GetSingleChoiceIndex(
+						'Choose a facename',
+						SAMPLE_TITLE,
+						facenames,
+						self
+				)
+				if (n != -1) {
+					facename = facenames[n]
+				}
+			}
+			if (!facename.isempty()) {
+				font = wx.Font(wx.NORMAL_FONT.GetPointSize(),
+							wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL,
+							wx.FONTWEIGHT_NORMAL, false, facename, encoding)
+				self.DoChangeFont(font)
+			}
+			return(true)
+		} elsif (!silent) {
+			wx.LogWarning('No such fonts found.')
+		}
+		false
+	}
+	OnSetNativeDesc(event:wx.CommandEvent) = {
+		fontInfo = wx.GetTextFromUser(
+						'Enter native font string',
+						'Input font description',
+						self.m_canvas.GetTextFont().GetNativeFontInfoDesc(),
+						self
+		)
+		if (fontInfo.isempty()) {
+			return	 // user clicked "Cancel" - do nothing
+		}
+		font = wx.FontEmpty()
+		font.SetNativeFontInfo(fontInfo)
+		if (!font.Ok()) {
+			wx.LogError('Font info string "%s" is invalid.',
+					fontInfo)
+			return
+		}
+		self.DoChangeFont(font)
+	}
+	OnSetFaceName(event:wx.CommandEvent) = {
+		facename = self.GetCanvas().GetTextFont().GetFaceName()
+		newFaceName = wx.GetTextFromUser(
+				'Here you can edit current font face name.',
+				'Input font facename', facename,
+				self)
+		if (newFaceName.isempty()) {
+			return	 // user clicked "Cancel" - do nothing
+		}
+		font = self.GetCanvas().GetTextFont().clone()
+		if (font.SetFaceName(newFaceName)) { // change facename only
+			wx.ASSERT_MSG(!font.Ok(), 'The font should now be valid')
+			self.DoChangeFont(font)
+		} else {
+			wx.ASSERT_MSG(!font.Ok(), 'The font should now be invalid')
+			wx.MessageBox('There is no font with such face name...',
+						 'Invalid face name', wx.OK | wx.ICON_ERROR, self)
+		}
+	}
+	OnSetNativeUserDesc(event:wx.CommandEvent) = {
+		fontdesc = self.GetCanvas().GetTextFont().GetNativeFontInfoUserDesc()
+		fontUserInfo = wx.GetTextFromUser(
+				'Here you can edit current font description',
+				'Input font description', fontdesc,
+				self)
+		if (fontUserInfo.isempty()) {
+			return	 // user clicked "Cancel" - do nothing
+		}
+		font = wx.FontEmpty()
+		if (font.SetNativeFontInfoUserDesc(fontUserInfo)) {
+			wx.ASSERT_MSG(!font.Ok(), 'The font should now be valid')
+			self.DoChangeFont(font)
+		} else {
+			wx.ASSERT_MSG(!font.Ok(), 'The font should now be invalid')
+			wx.MessageBox('Error trying to create a font with such description...')
+		}
+	}
+	OnSetEncoding(event:wx.CommandEvent) = {
+		enc = self.GetEncodingFromUser()
+		if (enc == wx.FONTENCODING_SYSTEM) {
+			return
+		}
+		font = self.m_canvas.GetTextFont()
+		font.SetEncoding(enc)
+		self.DoChangeFont(font)
+	}
+	GetEncodingFromUser() = {
+		count = wx.FontMapper.GetSupportedEncodingsCount()
+		encodings = wx.FontMapper.GetEncoding(range(count)):list
+		names = wx.FontMapper.GetEncodingName(encodings)
+		i = wx.GetSingleChoiceIndex(
+					'Choose the encoding',
+					SAMPLE_TITLE,
+					names,
+					self
+		)
+		if (i == -1) {wx.FONTENCODING_SYSTEM} else {encodings[i]}
+	}
+	DoResizeFont(diff:number) = {
+		font = self.m_canvas.GetTextFont()
+		font.SetPointSize(font.GetPointSize() + diff)
+		self.DoChangeFont(font)
+	}
+	OnBold(event:wx.CommandEvent) = {
+		font = self.m_canvas.GetTextFont()
+		font.SetWeight(if (event.IsChecked()) {wx.FONTWEIGHT_BOLD} else {wx.FONTWEIGHT_NORMAL})
+		self.DoChangeFont(font)
+	}
+	OnItalic(event:wx.CommandEvent) = {
+		font = self.m_canvas.GetTextFont()
+		font.SetStyle(if (event.IsChecked()) {wx.FONTSTYLE_ITALIC} else {wx.FONTSTYLE_NORMAL})
+		self.DoChangeFont(font)
+	}
+	OnUnderline(event:wx.CommandEvent) = {
+		font = self.m_canvas.GetTextFont()
+		font.SetUnderlined(event.IsChecked())
+		self.DoChangeFont(font)
+	}
+	OnwxPointerFont(event:wx.CommandEvent) = {
+		id = event.GetId()
+		if (id == Font_wxNORMAL_FONT) {
+			font = wx.NORMAL_FONT
+		} elsif (id == Font_wxSMALL_FONT) {
+			font = wx.SMALL_FONT
+		} elsif (id == Font_wxITALIC_FONT) {
+			font = wx.ITALIC_FONT
+		} elsif (id == Font_wxSWISS_FONT) {
+			font = wx.SWISS_FONT
+		} else {
+			wx.FAIL_MSG( wxT("unknown standard font") )
+			return
+		}
+		self.DoChangeFont(font)
+	}
+	DoChangeFont(font:wx.Font, col:wx.Colour => wx.NullColour) = {
+		self.m_canvas.SetTextFont(font)
+		if (col.Ok()) {
+			self.m_canvas.SetColour(col)
+		}
+		self.m_canvas.Refresh()
+		self.m_textctrl.SetFont(font)
+		if (col.Ok()) {
+			self.m_textctrl.SetForegroundColour(col)
+		}
+		// update the state of the bold/italic/underlined menu items
+		mbar = self.GetMenuBar()
+		if (mbar) {
+			mbar.Check(Font_Bold, font.GetWeight() == wx.FONTWEIGHT_BOLD)
+			mbar.Check(Font_Italic, font.GetStyle() == wx.FONTSTYLE_ITALIC)
+			mbar.Check(Font_Underlined, font.GetUnderlined())
+		}
+	}
+	OnSelectFont(event:wx.CommandEvent) = {
+		data = wx.FontData()
+		data.SetInitialFont(self.m_canvas.GetTextFont())
+		data.SetColour(self.m_canvas.GetColour())
+		dialog = wx.FontDialog(self, data)
+		if (dialog.ShowModal() == wx.ID_OK) {
+			retData = dialog.GetFontData()
+			font = retData.GetChosenFont()
+			colour = retData.GetColour()
+			self.DoChangeFont(font, colour)
+		}
+	}
+	OnQuit(event:wx.CommandEvent) = {
+		// true is to force the frame to close
+		self.Close(true)
+	}
+	OnTestTextValue(event:wx.CommandEvent) = {
+		value = self.m_textctrl.GetValue()
+		self.m_textctrl.SetValue(value)
+		if (self.m_textctrl.GetValue() != value) {
+			wx.LogError('Text value changed after getting and setting it')
+		}
+	}
+	OnViewMsg(event:wx.CommandEvent) = {
+		// first, choose the file
+		s_dir = '', s_file = ''
+		dialog = wx.FileDialog(self, 'Open an email message file',
+							s_dir, s_file)
+		if (dialog.ShowModal() != wx.ID_OK) {
+			return
+		}
+		// save for the next time
+		s_dir = dialog.GetDirectory()
+		s_file = dialog.GetFilename()
+		filename = dialog.GetPath()
+		// load it and search for Content-Type header
+		file = wx.TextFile(filename)
+		if (!file.Open()) {
+			return
+		}
+		charset = ''
+		len = prefix.len()
+		count = file.GetLineCount()
+		repeat (count) {|n|
+			line = file[n]
+			if (m = line.match(r'Content-Type: text/plain; charset=(\w+)')) {
+				charset = m[1]
+				break
+			} elsif (m = line.match(r'Content-Type: text/plain; charset="(\w+)"')) {
+				charset = m[1]
+				break
+			}
+		}
+		if (charset.isempty()) {
+			wx.LogError("The file '%s' doesn't contain charset information.",
+					   filename)
+			return
+		}
+		// ok, now get the corresponding encoding
+		fontenc = wx.FontMapper.Get().CharsetToEncoding(charset)
+		if (fontenc == wx.FONTENCODING_SYSTEM) {
+			wx.LogError("Charset '%s' is unsupported.", charset)
+			return
+		}
+		sekf,m_textctrl.LoadFile(filename)
+		if (fontenc == wx.FONTENCODING_UTF8 || \
+				!wx.FontMapper.Get().IsEncodingAvailable(fontenc)) {
+			// try to find some similar encoding:
+			if (encAlt = wx.FontMapper.Get().GetAltForEncoding(fontenc)) {
+				conv = wx.EncodingConverter()
+				if (conv.Init(fontenc, encAlt)) {
+					fontenc = encAlt
+					self.m_textctrl.SetValue(conv.Convert(self.m_textctrl.GetValue()))
+				} else {
+					wx.LogWarning("Cannot convert from '%s' to '%s'.",
+						 wx.FontMapper.GetEncodingDescription(fontenc),
+						 wx.FontMapper.GetEncodingDescription(encAlt))
+				}
+			} else {
+				wx.LogWarning("No fonts for encoding '%s' on this system.",
+						 wx.FontMapper.GetEncodingDescription(fontenc))
+			}
+		}
+		// and now create the correct font
+		if (!self.DoEnumerateFamilies(false, fontenc, true /* silent */)) {
+			font = wx.Font(wx.NORMAL_FONT.GetPointSize(),
+						wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL,
+						wx.FONTWEIGHT_NORMAL, false /* !underlined */,
+						wx.EmptyString /* facename */, fontenc)
+			if (font.Ok()) {
+				self.DoChangeFont(font)
+			} else {
+				wx.LogWarning("No fonts for encoding '%s' on this system.",
+						 wx.FontMapper.GetEncodingDescription(fontenc))
+			}
+		}
+	}
+	OnAbout(event:wx.CommandEvent) = {
+		wx.MessageBox('wxWidgets font sample\n' \
+					'(c) 1999-2006 Vadim Zeitlin',
+					'About ' + SAMPLE_TITLE,
+					wx.OK | wx.ICON_INFORMATION, self)
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyCanvas
+// ----------------------------------------------------------------------------
+
+MyCanvas = class(wx.Window) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY|
+		self.EventTable()
+		self.m_colour = wx.RED
+		self.m_font = wx.NORMAL_FONT
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_PAINT) {|event| self.OnPaint(event) }
+	}
+	// accessors for the frame
+	GetTextFont() = { self.m_font }
+	GetColour() = { self.m_colour }
+	SetTextFont(font:wx.Font) = { self.m_font = font }
+	SetColour(colour:wx.Colour) = { self.m_colour = colour }
+	// event handlers
+	OnPaint(event:wx.PaintEvent) = {
+		dc = wx.PaintDC(self)
+		try {
+			//self.PrepareDC(dc)
+			// set background
+			dc.SetBackground(wx.Brush('white', wx.SOLID))
+			dc.Clear()
+			// one text line height
+			hLine = dc.GetCharHeight()
+			// the current text origin
+			x = 5,
+			y = 5
+			// output the font name/info
+			fontInfo = ''
+			fontInfo = format('Font size is %d points, family: %s, encoding: %s',
+					self.m_font.GetPointSize(),
+					self.m_font.GetFamilyString(),
+					wx.FontMapper.GetEncodingDescription(self.m_font.GetEncoding()))
+			dc.DrawText(fontInfo, x, y)
+			y += hLine
+			fontInfo = format('Style: %s, weight: %s, fixed width: %s',
+					self.m_font.GetStyleString(),
+					self.m_font.GetWeightString(),
+					if (self.m_font.IsFixedWidth()) {'yes'} else {'no'})
+			dc.DrawText(fontInfo, x, y)
+			y += hLine
+			if (self.m_font.Ok()) {
+				info = self.m_font.GetNativeFontInfo()
+				if (info) {
+					fontDesc = self.m_font.GetNativeFontInfoUserDesc()
+					fontInfo = format('Native font info: %s', fontDesc)
+					dc.DrawText(fontInfo, x, y)
+					y += hLine
+				}
+			}
+			y += hLine
+			// prepare to draw the font
+			dc.SetFont(self.m_font)
+			dc.SetTextForeground(self.m_colour)
+			// the size of one cell (Normally biggest char + small margin)
+			[maxCharWidth, maxCharHeight] = dc.GetTextExtent('W')
+			w = maxCharWidth + 5,
+			h = maxCharHeight + 4
+			// print all font symbols from 32 to 256 in 7 rows of 32 chars each
+			cross (i in 0..6, j in 0..31) {
+				c = chr(32 * (i + 1) + j)
+				[charWidth, charHeight] = dc.GetTextExtent(c)
+				dc.DrawText(
+					c,
+					x + w * j + (maxCharWidth - charWidth) / 2 + 1,
+					y + h * i + (maxCharHeight - charHeight) / 2
+				)
+			}
+			// draw the lines between them
+			dc.SetPen(wx.Pen(wx.NamedColour('blue'), 1, wx.SOLID))
+			l = 0..7
+			// horizontal
+			yl = y + h * l - 2
+			dc.DrawLine(x - 2, yl, x + 32 * w - 1, yl)
+			// and vertical
+			l = 0..32
+			xl = x + w * l - 2
+			dc.DrawLine(xl, y - 2, xl, y + 7 * h - 1)
+		} except {|error|
+			println(error.message)
+		}
+		dc = nil
+	}
+}
+
+wx.IMPLEMENT_APP(MyApp)

@@ -1,0 +1,12 @@
+import(testm)
+
+audobj = testm.audio()
+
+audobj.mml_in()
+audobj.sin_in()
+audobj.square_in()
+audobj.lamp_in()
+audobj.stream_in(stream)
+
+audobj.sdl_out()
+audobj.stream_out(stream)

@@ -1,0 +1,238 @@
+#!/usr/bin/env gura
+# extracts constant definitions and function declarations from gl.h and
+# generates a template for an Gura module
+import(re)
+
+if (sys.argv.len() < 2) {
+	sys.stderr.print(
+	"usage: gura ConvertHeader.gura [header]\n"
+	"The header file is named gl.h which is supposed to be stored in one of\n"
+	"the following directories.\n"
+	"- Microsoft Visual Studio X\\VC\\PlatformSDK\\Include\\gl\n"
+	"- BCC55\\Include\\Gl")
+	sys.exit(1)
+}
+funcnamesSkip = [
+	"glAreTexturesResident"
+	"glBegin"
+	"glBitmap"
+	"glCallLists"
+	"glColorPointer"
+	"glDeleteTextures"
+	"glDrawPixels"
+	"glFeedbackBuffer"
+	"glGenLists"
+	"glGenTextures"
+	"glGetBooleanv"
+	"glGetClipPlane"
+	"glGetDoublev"
+	"glGetError"
+	"glGetFloatv"
+	"glGetIntegerv"
+	"glGetLightfv"
+	"glGetLightiv"
+	"glGetMapdv"
+	"glGetMapfv"
+	"glGetMapiv"
+	"glGetMaterialfv"
+	"glGetMaterialiv"
+	"glGetPixelMapfv"
+	"glGetPixelMapuiv"
+	"glGetPixelMapusv"
+	"glGetPointerv"
+	"glGetPolygonStipple"
+	"glGetString"
+	"glGetTexEnvfv"
+	"glGetTexEnviv"
+	"glGetTexGendv"
+	"glGetTexGenfv"
+	"glGetTexGeniv"
+	"glGetTexImage"
+	"glGetTexLevelParameterfv"
+	"glGetTexLevelParameteriv"
+	"glGetTexParameterfv"
+	"glGetTexParameteriv"
+	"glIsEnabled"
+	"glIsList"
+	"glIsTexture"
+	"glNewList"
+	"glPrioritizeTextures"
+	"glPushAttrib"
+	"glPushClientAttrib"
+	"glPushMatrix"
+	"glPushName"
+	"glReadPixels"
+	"glRectdv"
+	"glRectfv"
+	"glRectiv"
+	"glRectsv"
+	"glRenderMode"
+	"glPolygonStipple"
+	"glSelectBuffer"
+	"glTexImage1D"
+	"glTexImage2D"
+	"glTexSubImage1D"
+	"glTexSubImage2D"
+]
+funcnamesErase = [
+	"glColorPointer"
+	"glEdgeFlagPointer"
+	"glIndexPointer"
+	"glInterleavedArrays"
+	"glNormalPointer"
+	"glTexCoordPointer"
+	"glVertexPointer"
+	"glDrawElements"
+]
+
+typemapInComment = %{
+	"GLboolean" => "boolean"
+}
+typemapInDecl = %{
+	"GLboolean" => "Boolean"
+}
+typemapInImpl = %{
+	"GLenum" => "GetUInt"
+	"GLboolean" => "GetBoolean"
+	"GLbitfield" => "GetUInt"
+	"GLbyte" => "GetChar"
+	"GLshort" => "GetShort"
+	"GLint" => "GetInt"
+	"GLsizei" => "GetInt"
+	"GLubyte" => "GetUChar"
+	"GLushort" => "GetUShort"
+	"GLuint" => "GetUInt"
+	"GLfloat" => "GetFloat"
+	"GLclampf" => "GetFloat"
+	"GLdouble" => "GetDouble"
+	"GLclampd" => "GetDouble"
+}
+lines = open(sys.argv[1]).readlines()
+file = open("Converted.cpp", "w").dosmode(false)
+consts = (re.match(r"^#define\s+(GL_\w+)", lines):xiter):*group(1)
+funcmatches = re.match(r"(\w+)[\s\*]+APIENTRY\s+(\w+)\s*\(([^\)]*)\)", lines):xiter
+funcnames = funcmatches:*group(2)
+arglists = funcmatches:*group(3)
+splitArg(arglist:string) = {
+	args = re.split(r"\s*,\s*", arglist):list
+	if (args.len() == 0 || args[0] == "void") { return }
+	matches = args::match(r"(\w+)[\s\*]+(\w+)$")
+	ptrflags = args:*find("*")
+	@{matches:*group(1), matches:*group(2), ptrflags}
+}
+isMappable(arglist:string):map = {
+	if (!islist(rtn = splitArg(arglist))) { return(false) }
+	//[typenames, varnames, ptrflags] = rtn
+	//!ptrflags.or()
+	true
+}
+makeArgComment(arglist:string):map = {
+	if (!islist(rtn = splitArg(arglist))) { return("") }
+	[typenames, varnames, ptrflags] = rtn
+	for (typename in typenames, varname in varnames, ptrflag in ptrflags):iter {
+		if (ptrflag) {
+			varname + "[]:" + typemapInComment.get(typename, "number")
+		} else {
+			varname + ":" + typemapInComment.get(typename, "number")
+		}
+	}.join(", ")
+}
+makeArgDecl(arglist:string):map = {
+	if (!islist(rtn = splitArg(arglist))) { return("") }
+	[typenames, varnames, ptrflags] = rtn
+	for (typename in typenames, varname in varnames, ptrflag in ptrflags):iter {
+		if (ptrflag) {
+			format("\n\tDeclareArg(env, \"%s\", VTYPE_%s, OCCUR_Once, FLAG_List);",
+						varname, typemapInDecl.get(typename, "Number"))
+		} else {
+			format("\n\tDeclareArg(env, \"%s\", VTYPE_%s);",
+						varname, typemapInDecl.get(typename, "Number"))
+		}
+	}.join()
+}
+makeArgImpl(funcname:string, arglist:string):map = {
+	if (!islist(rtn = splitArg(arglist))) { return(["", []]) }
+	[typenames, varnames, ptrflags] = rtn
+	m = funcname.match(r"([0-9])[a-z][a-z]?v$")
+	varnamesToDelete = []
+	argImpl = for (typename in typenames, varname in varnames, ptrflag in ptrflags):iter {|i|
+		if (ptrflag) {
+			if (m) {
+				format("\n\tDeclareArray(%s, %s, %s, %d);",
+						cond(typename == "GLvoid", "int", typename),
+						varname, m.group(1), i)
+			} else {
+				varnamesToDelete.add(varname)
+				format("\n\tDeclareNewArray(%s, %s, %d);",
+						cond(typename == "GLvoid", "int", typename),
+						varname, i)
+			}
+		} else {
+			format("\n\t%s %s = args.%s(%d)%s;",
+						cond(typename == "GLvoid", "int", typename),
+						varname, typemapInImpl.get(typename, "GetInt"),
+						i, cond(typename == "GLboolean", "? 1 : 0", ""))
+		}
+	}.join()
+	[argImpl, varnamesToDelete]
+}
+makeArgCall(arglist:string):map = {
+	if (!islist(rtn = splitArg(arglist))) { return("") }
+	[typenames, varnames, ptrflags] = rtn
+	varnames.join(", ")
+}
+padlen = consts:*len().max() + 1
+declareFormat = """\
+// opengl.%s(%s):void%s
+Gura_DeclareFunction(%s)
+{
+	SetMode(RSLTMODE_Void, FLAG_%s);%s
+}
+
+Gura_ImplementFunction(%s)
+{%s
+	// %s
+	%s::%s(%s);
+"""
+declareDone = """\
+	return Value::Null;
+}
+"""
+prefixInvalid = """\
+sig.SetError(ERR_SystemError, "not implemented");
+	//"""
+for (funcname in funcnames, arglist in arglists) {
+	eraseFlag = (funcname in funcnamesErase)
+	skipFlag = (funcname in funcnamesSkip)
+	invalidFlag = arglist.find("GLvoid")
+	mapFlag = isMappable(arglist)
+	if (eraseFlag || skipFlag || invalidFlag) {
+		sys.stderr.println(funcname, ":",
+				cond(eraseFlag, " erased", ""),
+				cond(skipFlag, " skipped", ""),
+				cond(invalidFlag, " invalidated", ""))
+	}
+	if (eraseFlag || skipFlag) { continue }
+	file.println()
+	skipFlag && file.println("#if 0")
+	[argImpl, varnamesToDelete] = makeArgImpl(funcname, arglist)
+	file.printf(declareFormat,
+			funcname, makeArgComment(arglist), cond(mapFlag, ":map", ""),
+			funcname, cond(mapFlag, "Map", "None"), makeArgDecl(arglist),
+			funcname, argImpl,
+			arglist.strip(), cond(invalidFlag, prefixInvalid, ""),
+			funcname, makeArgCall(arglist))
+	file.printf("\tdelete[] %s;\n", varnamesToDelete)
+	file.print(declareDone)
+	skipFlag && file.println("#endif")
+}
+file.printf("""
+// Module entry
+void ModuleEntrySub(Environment &env, Signal sig)
+{
+""")
+file.printf("\t// value assignment\n")
+file.printf("\tGura_AssignValue(%-*s Value(%s));\n", padlen, consts + ",", consts)
+file.printf("\t// function assignment\n")
+file.printf("\tGura_AssignFunction(%s);\n", funcnames.filter(!(funcnames in funcnamesErase)))
+file.printf("}\n")

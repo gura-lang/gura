@@ -1,0 +1,84 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+		panel = wx.Panel(self)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		panel.SetSizer(vbox)
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Expand())
+			wx.Button(panel, wx.ID_ANY, 'Up') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand())
+				ctrl.Bind(wx.EVT_BUTTON) {
+					panel.cntTick = 1
+					panel.timer.Start(10)
+				}
+			}
+			wx.Button(panel, wx.ID_ANY, 'Down') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 4))
+				ctrl.Bind(wx.EVT_BUTTON) {
+					panel.cntTick = -1
+					panel.timer.Start(10)
+				}
+			}
+			wx.StaticText(panel, wx.ID_ANY, '', size => wx.Size(50, -1),
+						style => wx.BORDER_STATIC | wx.ALIGN_CENTRE | wx.ST_NO_AUTORESIZE) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 4))
+				panel.indicator = ctrl
+			}
+		}
+		panel.gauges = []
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags(1).Expand().Border(wx.TOP, 4))
+			wx.Gauge(panel, wx.ID_ANY, 100, style => wx.GA_VERTICAL) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand())
+				panel.gauges.add(ctrl)
+			}
+			wx.Gauge(panel, wx.ID_ANY, 100, style => wx.GA_VERTICAL | wx.GA_SMOOTH) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand())
+				panel.gauges.add(ctrl)
+			}
+			wx.BoxSizer(wx.VERTICAL) {|vbox|
+				hbox.Add(vbox, wx.SizerFlags(1))
+				wx.Gauge(panel, wx.ID_ANY, 100, style => wx.GA_HORIZONTAL) {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags().Expand())
+					panel.gauges.add(ctrl)
+				}
+				wx.Gauge(panel, wx.ID_ANY, 100, style => wx.GA_HORIZONTAL | wx.GA_SMOOTH) {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags().Expand())
+					panel.gauges.add(ctrl)
+				}
+			}
+		}
+		panel.cnt = 0
+		panel.cntTick = 0
+		panel.timer = wx.Timer(panel)
+		panel.Bind(wx.EVT_TIMER) {|event|
+			panel.indicator.SetLabel(panel.cnt)
+			panel.gauges::SetValue(panel.cnt)
+			panel.cnt += panel.cntTick
+			if (panel.cnt > 100) {
+				panel.timer.Stop()
+				panel.cnt = 100
+			}
+			if (panel.cnt < 0) {
+				panel.timer.Stop()
+				panel.cnt = 0
+			}
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

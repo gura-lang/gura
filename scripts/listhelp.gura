@@ -1,0 +1,88 @@
+#!/usr/bin/env gura
+
+membersEliminate = dir(object())
+listMethods(type:expr):map = {
+	members = dir(classref(type))
+	members = members.filter(!(members in membersEliminate))
+	if (members) {
+		strs = format("classref(`%s).%s", tostring(type), members.sort())
+		strs:*parse()::eval()
+	}
+}
+
+listGlobalFunctions():map = {
+	for (word in dir().sort()):xlist {
+		if (word in ["break", "continue", "return"]) { continue }
+		value = locals().lookup(tosymbol(word))
+		if (isfunction(value)) { value }
+	}
+}
+
+listFunctions(m:module):map = {
+	for (word in dir(m).sort()):xlist {
+		value = locals(m).lookup(tosymbol(word))
+		if (isfunction(value)) { value }
+	}
+}
+
+import(net.http)
+import(hash)
+import(canvas)
+import(csv)
+import(re)
+import(sqlite3)
+import(mswin)
+import(xml)
+import(yaml)
+import(cairo)
+import(opengl)
+import(glu)
+import(freetype)
+funcs = list(
+	listFunctions(sqlite3):flat
+	listGlobalFunctions()
+//	listMethods(`sqlite3.sqlite3):flat
+/*
+	listMethods(`cairo.font_extents):flat
+	listMethods(`cairo.text_extents):flat
+	listMethods(`cairo.rectangle):flat
+	listMethods(`cairo.rectangle_int):flat
+	listMethods(`cairo.font_options):flat
+	listMethods(`cairo.device):flat
+	listMethods(`cairo.surface):flat
+	listMethods(`cairo.pattern):flat
+	listMethods(`cairo.region):flat
+	listMethods(`cairo.path):flat
+	listMethods(`cairo.glyph):flat
+	listMethods(`cairo.context):flat
+*/
+	listFunctions(freetype):flat
+//	listMethods(`win32.regkey):flat
+//	listFunctions(cairo):flat
+/*
+	listFunctions(math, os, path, string, sys, time):flat
+	listFunctions(canvas, csv, re, sqlite3, win32ole, xml):flat
+	listMethods(`binary, `binaryptr, `datetime, `dict, `environment, `error,
+		`expr, `stream, `function, `iterator, `list, `matrix,
+		`semaphore, `string, `struct, `uri):flat
+	listMethods(`canvas.canvas):flat
+	listMethods(`re.match, `re.pattern):flat
+	//listMethods(`net.socket):flat
+	listMethods(`sqlite3.sqlite3):flat
+	listMethods(`win32ole.ole):flat
+	listMethods(`xml.parser, `xml.element):flat
+*/
+)
+if (sys.argv.len() < 2) {
+	//printf("%s %s\n", cond(funcs:*help():*isempty(), " ", "*"), funcs)
+	printf("%s\n", funcs)
+	[cntDone, cnt] = [funcs:*help:*isempty().count(false), funcs.len()]
+	printf("progress of help implementation: %d/%d (%.1f%%)\n",
+									cntDone, cnt, cntDone / cnt * 100)
+} else {
+	text = sys.argv[1]
+	for (func in funcs.filter(funcs:*fullname():*find(text))) {
+		println()
+		help(func)
+	}
+}

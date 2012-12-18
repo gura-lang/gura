@@ -1,0 +1,422 @@
+#!/usr/bin/env gura
+sys.echo(false)
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+
+scope {
+	a = 0
+	for (a in 1..10) {}
+	println('for() with localized variable: a = ', a)
+	for (a:extern in 1..10) {}
+	println('for() with extenal variable: a = ', a)
+}
+scope {
+	tester(`dim(3))
+	tester(`dim(3) {|i| i})
+	tester(`dim(3, 4))
+	tester(`dim(3, 4) {|i, j| format('%d %d', i, j)})
+	tester(`dim(2, 3, 4) {|i, j, k| format('%d %d %d', i, j, k) })
+	tester(`dim(2, 2, 2, 2) {|i, j, k, l| format('%d %d %d %d', i, j, k, l) })
+	tester(`dim(2, 3, 4, 2) {|i, j, k, l| format('%d %d %d %d', i, j, k, l) })
+}
+scope {
+	scope {
+		iter = repeat (3):iter {|i|
+			repeat (3):iter {|j|
+				repeat (3):iter {|k|
+					[i, j, k]
+				}
+			}
+		}
+		println(iter.each():list):nomap
+	}
+	scope {
+		i = 0
+		iter = while (i < 3):iter {
+			j = 0
+			x = while (j < 3):iter {
+				k = 0
+				x = while (k < 3):iter {
+					x = [i, j, k]
+					k += 1
+					x
+				}
+				j += 1
+				x
+			}
+			i += 1
+			x
+		}
+		println(iter.each():list):nomap
+	}
+	scope {
+		iter = for (i in 0..2):iter {
+			for (j in 0..2):iter {
+				for (k in 0..2):iter {
+					[i, j, k]
+				}
+			}
+		}
+		println(iter.each():list):nomap
+	}
+	scope {
+		iter = cross (i in 0..2):iter {
+			cross (j in 0..2):iter {
+				cross (k in 0..2):iter {
+					[i, j, k]
+				}
+			}
+		}
+		println(iter.each():list):nomap
+	}
+	scope {
+		iter = cross (i in 0..2, j in 0..2):iter {
+			cross (k in 0..2):iter {
+				[i, j, k]
+			}
+		}
+		println(iter.each():list):nomap
+	}
+}
+scope {
+	primes() = {
+		p = []
+		for (n in 2..):xiter {
+			if (!(n % p == 0).or()) {
+				p.add(n)
+				n
+			}
+		}
+	}
+	println('primes: ', primes().head(100).format('%d').join(','))
+}
+scope {
+	repeat (3):iter {|i| repeat (3):iter {|j| repeat (3) {|k|}}}
+}
+scope {
+	i = repeat (10):iter {|i| i}
+	println(i.each():list):nomap
+	i = repeat (10):iter {|i| i * 2}
+	println(i.each():list):nomap
+	i = repeat (10):iter {|i| if (i == 4) { break }, i}
+	println(i.each():list):nomap
+	i = repeat (10):iter {|i| if (i % 2 == 0) { continue }, i}
+	println(i.each():list):nomap
+	i = repeat (10):xiter {|i| if (i % 2 == 0) { continue }, i}
+	println(i.each():list):nomap
+	fib() = {
+		a = b = 1
+		repeat ():iter {
+			e = a
+			[a, b] = [b, a + b]
+			e
+		}
+	}
+	println(fib().head(20).each():list):nomap
+}
+scope {
+	n = 0
+	i = while (n < 10):iter {|i| n += 1, i}
+	println(i.each():list):nomap
+	n = 0
+	i = while (n < 10):iter {|i| n += 1, i * 2}
+	println(i.each():list):nomap
+	n = 0
+	i = while (n < 10):iter {|i| if (n == 4) { break }, n += 1, n }
+	println(i.each():list):nomap
+	n = 0
+	i = while (n < 10):iter {|i| n += 1, if (n % 2 == 0) { continue }, n}
+	println(i.each():list):nomap
+	n = 0
+	i = while (n < 10):xiter {|i| n += 1, if (n % 2 == 0) { continue }, n}
+	println(i.each():list):nomap
+	fib() = {
+		a = b = 1
+		while (true):iter {
+			e = a
+			[a, b] = [b, a + b]
+			e
+		}
+	}
+	println(fib().head(20).each():list):nomap
+}
+scope {
+	for (i in 0..9) {}
+	try { i } except(ValueError) { println('expected error occurs') }
+	cross (j in 0..9) {}
+	try { j } except(ValueError) { println('expected error occurs') }
+}
+scope {
+	i = for (n in 0..9):iter {|i| i}
+	println(i.each():list):nomap
+	i = for (n in 0..9):iter {|i| i * 2}
+	println(i.each():list):nomap
+	i = for (n in 0..9):iter {|i| if (i == 4) { break }, i}
+	println(i.each():list):nomap
+	i = for (n in 0..9):iter {|i| if (i % 2 == 0) { continue }, i}
+	println(i.each():list):nomap
+	i = for (n in 0..9):xiter {|i| if (i % 2 == 0) { continue }, i}
+	println(i.each():list):nomap
+	i = for(i in 1..100, j in 10..1, k in interval(0, 10, 10)):iter {[i, j, k]}
+	println(i.each():list):nomap
+	fib() = {
+		a = b = 1
+		for (n in 1..):iter {
+			e = a
+			[a, b] = [b, a + b]
+			e
+		}
+	}
+	println(fib().head(20).each():list):nomap
+}
+scope {
+	i = cross (i in 1..3, j in 1..3):iter { [i, j] }
+	println(i.each():list):nomap
+	i = cross (i in 1..3, j in 1..3):iter { i * j }
+	println(i.each():list):nomap
+	i = cross (i in 1..3, j in 1..3):iter {|n| if (n == 4) { break }, [i, j] }
+	println(i.each():list):nomap
+	i = cross (i in 1..3, j in 1..3):iter {|n| if (n % 2 == 0) { continue }, [i, j] }
+	println(i.each():list):nomap
+	i = cross (i in 1..3, j in 1..3):xiter {|n| if (n % 2 == 0) { continue }, [i, j] }
+	println(i.each():list):nomap
+	i = cross (i in 1..3, j in 1..3, k in 1..3, l in 1..3):xiter { [i, j, k, l] }
+	println(i.each():list):nomap
+	fib() = {
+		a = b = 1
+		cross (n in 1..):iter {
+			e = a
+			[a, b] = [b, a + b]
+			e
+		}
+	}
+	println(fib().head(20).each():list):nomap
+}
+scope {
+	generate_binstr(nbits:number) = {
+		for (i in 0..2 ** nbits - 1):iter {
+			format('%0*b', nbits, i)
+		}
+	}
+	for (s in generate_binstr(4)) {
+		println(s)
+	}
+}
+scope {
+	for ([a, b, c*] in [[1..6], [11..16], [21..26]]) {
+		printf('a=%s, b=%s, c=%s\n', a, b, c):nomap
+	}
+	try {
+		for ([a, b, c+] in [[1..2]]) {
+		}
+	} except(ValueError) {
+		println('expected error occurs')
+	}
+}
+
+scope {
+	tester(`for ([x, y] in [[1, 3], [5, 7], [9, 11], [13, 15]]):list {
+		format('%d-%d', x, y)
+	}.join(' '))
+	tester(`cross ([x, y] in [[1, 3], [5, 7], [9, 11], [13, 15]]):list {
+		format('%d-%d', x, y)
+	}.join(' '))
+}
+scope {
+	tester(`cross (x in ['alpha', 'beta', 'gamm'], y in 0..2):list {|n, i, j|
+		if (y != j) {
+			printf('test failed\n')
+			sys.exit(1)
+		}
+		format('%d:%d-%s:%d', i, j, x, y)
+	})
+	tester(`cross (x in ['alpha', 'beta', 'gamm'], y in 0..2, z in 0..2):list {|n, i, j, k|
+		if (y != j || z != k) {
+			printf('test failed\n')
+			sys.exit(1)
+		}
+		format('%d:%d:%d-%s:%d:%d', i, j, k, x, y, z)
+	})
+	tester(`cross (x in ['alpha', 'beta', 'gamm'],
+							 y in 0..2, z in 0..2, w in 0..1):list {|n, i, j, k, l|
+		if (y != j || z != k || w != l) {
+			printf('test failed\n')
+			sys.exit(1)
+		}
+		format('%d:%d:%d:%d-%s:%d:%d:%d', i, j, k, l, x, y, z, w)
+	})
+}
+scope {
+	t = [0, 5, 2, 1, 5, 9, 9, 9, 9, 9, 1, nil, 9, 9, 9,
+	     1, 4, 7, 8, 2, 1, 0, nil, 1, 9, 6, 7, 8, 9, 5]
+	printf('t = %s\n', for (x in t):list { x }):nomap
+	printf('list:  %s\n', for (x in t):list { x }):nomap
+	printf('xlist: %s\n', for (x in t):xlist { x }):nomap
+	printf('set:   %s\n', for (x in t):set { x }):nomap
+	printf('xset:  %s\n', for (x in t):xset { x }):nomap
+}
+scope {
+	a = `(x * 2)
+	x = 1
+	println(eval(a))
+	x = 2
+	println(eval(a))
+	x = 3
+	println(eval(a))
+	tbl = [range(1, 11)]
+	tbl[0, [1, [2, 3, 4, [5, 6, 7]]]]
+	for (x in range(0, 11)) {
+		if (x < 0) {
+			print(x, ' is less than 0\n')
+		} elsif (x < 3) {
+			print(x, ' is less than 3\n')
+		} elsif (x < 6) {
+			print(x, ' is less than 6\n')
+		} else {
+			print(x, ' is greater than 5\n')
+		}
+	}
+}
+scope {
+	objs = @(struct(name, age) { Print() = print(self.name, ' ', self.age, '\n') }) {
+		['entry-1',	30],
+		['entry-2',	23],
+		['entry-3',	29],
+		['entry-4',	34],
+	}
+	for (obj in objs) { obj.Print() }
+	objs::Print()
+}
+scope {
+	i = 0
+	repeat(10) {
+		println('hello')
+		if (i > 3) { break }
+		i += 1
+	}
+	i = 0
+	println(repeat(10):list {
+		if (i > 3) { break }
+		i += 1
+		'hello'
+	}.tostring())
+	i = 0
+	println(repeat(10):list {
+		if (i % 2 == 1) { i += 1, continue('#') }
+		text = 'hello %d' % i
+		i += 1
+		text
+	}.tostring())
+}
+scope {
+	i = 0
+	while (i < 10) {
+		if (rand() < .5) { i += 1, continue }
+		print('%3d' % i)
+		i += 1
+	}
+	println('')
+	i = 0
+	println(while (i < 10):list {
+		if (rand() < .5) { i += 1, continue }
+		i += 1
+	}.tostring())
+	i = 0
+	println(while (i < 10):list {
+		if (rand() < .5) { i += 1, continue('#') }
+		i += 1
+	}.tostring())
+}
+scope {
+	for (i in 1..10) {
+		if (i % 2 == 0) { continue }
+		print('%3d' % i)
+	}
+	println('')
+	println(for (i in 1..10):list {
+		if (i % 3 == 0) { continue }
+		i
+	}.tostring())
+	println(for (i in 1..10):list {
+		if (i % 3 == 0) { continue('#') }
+		i
+	}.tostring())
+}
+scope {
+	f(x) = {
+		(x < 3) && return
+		return('here')
+	}
+	g(x) = {
+		if (x < 3) { return }
+		return('here')
+	}
+	h(x) = {
+		return
+	}
+	tester(`f(2))
+	tester(`f(3))
+	tester(`g(2))
+	tester(`g(3))
+	tester(`h(2))
+}
+scope {
+	f(x) = {
+		if (x < 3) {
+			return('x is less than three.')
+			error_occurs_here_if_return_function_incorrect
+		}
+		return('x is greater than or equal to three.')
+		error_occurs_here_if_return_function_incorrect
+	}
+	println(f(2))
+	println(f(8))
+}
+function(list:list) {
+	println('return test in a nested loop')
+	for (k in 0..4) {
+		for (j in 0..4) {
+			for (i in 0..4) {
+				for (elem in list) {|iElem|
+					if (iElem > 0) { print(', ') }
+					print('[%d,%d,%d,%d]' % [k, j, i, elem])
+					if (k == 1 && j == 2 && i == 2 && elem < 0) { return('quit') }
+				}
+				println()
+			}
+		}
+	}
+	'done'
+}([1, 3, -1, 2, 3, 4])
+println('')
+scope {
+	repeat(10) { print(' hello') }
+	println('')
+	println(repeat(20):list { 0 }.tostring())
+	println(repeat(20):list { rand(20) }.tostring())
+	for (x in 1..9, y in 1..9) { print(' ', x * y) }
+	println('')
+	for (x in 1..9) {
+		for (y in 1..9) {
+			print(' ', x * y)
+		}
+		println('')
+	}
+	for (x in 1..9) { for (y in 1..9) { print(' ', x * y) } }
+	println('')
+	println('--')
+	println(repeat(10):list { rand(10) }.tostring())
+}
+scope {
+	repeat_ten() {block} = {
+	    i = 0
+	    repeat (10) { block(), i += 1 }
+	}
+	printf('it\'s successful if you see an error below ;-)\n');
+	try {
+		repeat_ten() {
+			printf('**** scope problem happened if this message appears %d ****\n', i)
+		} // i must be invisible
+	} except(ValueError) {
+		printf('expected error happens\n')
+	}
+}

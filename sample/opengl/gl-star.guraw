@@ -1,0 +1,197 @@
+#!/usr/bin/env gura
+
+// Orignal source file is written in C and is available from the site below.
+// http://www.sgi.com/products/software/opengl/examples/samples/
+// samples.zip (star.c)
+
+import(glu) {*}
+import(opengl) {*}
+
+MAXSTARS = 40
+MAXPOS = 10000
+MAXWARP = 10
+MAXANGLES = 6000
+
+starRec = struct(type:symbol, x[]:number, y[]:number, z[]:number,
+		offsetX:number, offsetY:number, offsetR:number, rotation:number)
+
+windW = 300, windH = 300
+
+flag = `NORMAL
+starCount = MAXSTARS / 2
+speed = 1.0
+nitro = 0
+
+stars = nil
+sinTable = nil
+
+//Sin(angle:number) = sinTable[(int(angle) % MAXANGLES + MAXANGLE) % MAXANGLE]
+//Cos(angle:number) = sinTable[(int(angle) + (MAXANGLES / 4) + MAXANGLE) % MAXANGLES ]
+
+Sin(angle:number) = math.sin(angle * 2 * math.pi / MAXANGLES)
+Cos(angle:number) = math.cos(angle * 2 * math.pi / MAXANGLES)
+
+NewStar(d:number) = {
+    if (rand(4) == 0) {
+		type = `CIRCLE
+    } else {
+		type = `STREAK
+    }
+    x0 = rand(MAXPOS) - MAXPOS / 2
+    y0 = rand(MAXPOS) - MAXPOS / 2
+    z0 = rand(MAXPOS) + d
+    if (rand(4) == 0 && flag == `WEIRD) {
+		offsetX = rand(100) - 100 / 2
+		offsetY = rand(100) - 100 / 2
+		offsetR = rand(100) - 25 / 2
+    } else {
+		offsetX = 0.0
+		offsetY = 0.0
+		offsetR = 0.0
+    }
+	starRec(type, [x0, 0], [y0, 0], [z0, 0], offsetX, offsetY, offsetR, 0)
+}
+
+RotatePoint(x:number, y:number, rotation:number) = {
+	[x * Cos(rotation) - y * Sin(rotation), y * Cos(rotation) + x * Sin(rotation)]
+}
+
+MoveStars() = {
+	extern(stars)
+    offset = speed * 60.0
+	for (star in stars) {
+		star.x[1] = star.x[0]
+		star.y[1] = star.y[0]
+		star.z[1] = star.z[0]
+		star.x[0] += star.offsetX
+		star.y[0] += star.offsetY
+		star.z[0] -= offset
+        star.rotation += star.offsetR
+        if (star.rotation > MAXANGLES) {
+            star.rotation = 0.0
+		}
+	}
+}
+
+StarPoint(star:starRec) = {
+    x0 = star.x[0] * windW / star.z[0]
+    y0 = star.y[0] * windH / star.z[0]
+    [x0, y0] = RotatePoint(x0, y0, star.rotation)
+    x0 += windW / 2.0
+    y0 += windH / 2.0
+    if (x0 >= 0.0 && x0 < windW && y0 >= 0.0 && y0 < windH) {
+		if (star.type == `STREAK) {
+		    x1 = star.x[1] * windW / star.z[1]
+		    y1 = star.y[1] * windH / star.z[1]
+		    [x1, y1] = RotatePoint(x1, y1, star.rotation)
+		    x1 += windW / 2.0
+		    y1 += windH / 2.0
+		    glLineWidth(MAXPOS / 100.0 / star.z[0] + 1.0)
+		    glColor3f(1.0, (MAXWARP - speed) / MAXWARP, (MAXWARP - speed) / MAXWARP)
+		    if (math.abs(x0 - x1) < 1.0 && math.abs(y0 - y1) < 1.0) {
+				glBegin(GL_POINTS)
+				    glVertex2f(x0, y0)
+				glEnd()
+		    } else {
+				glBegin(GL_LINES)
+				    glVertex2f(x0, y0)
+				    glVertex2f(x1, y1)
+				glEnd()
+		    }
+		} else {
+		    width = MAXPOS / 10.0 / star.z[0] + 1.0
+		    glColor3f(1.0, 0.0, 0.0)
+		    glBegin(GL_POLYGON)
+			for (i in range(8)) {
+			    x = x0 + width * Cos(i * MAXANGLES / 8.0)
+			    y = y0 + width * Sin(i * MAXANGLES / 8.0)
+			    glVertex2f(x, y)
+			}
+		    glEnd()
+		}
+		true
+    } else {
+		false
+    }
+}
+
+ShowStars() = {
+    glClear(GL_COLOR_BUFFER_BIT)
+    for (star in stars) {|i|
+		if (star.z[0] > speed || (star.z[0] > 0.0 && speed < MAXWARP)) {
+		    if (!StarPoint(star)) {
+				stars[i] = NewStar(MAXPOS)
+		    }
+		} else {
+		    stars[i] = NewStar(MAXPOS)
+		}
+    }
+}
+
+Init() = {
+	extern(stars, sinTable)
+    stars = dim(MAXSTARS) { NewStar(100) }
+    angle = 0.0
+	sinTable = math.sin(interval(0, 2 * math.pi, MAXANGLES):open_r):list
+    glClearColor(0.0, 0.0, 0.0, 0.0)
+    glDisable(GL_DITHER)
+}
+
+Reshape(width:number, height:number) = {
+	extern(windW, windH)
+    windW = width
+    windH = height
+    glViewport(0, 0, windW, windH)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluOrtho2D(-0.5, windW + 0.5, -0.5, windH + 0.5)
+    glMatrixMode(GL_MODELVIEW)
+}
+
+Draw() = {
+	extern(speed, nitro)
+    MoveStars()
+    ShowStars()
+    if (nitro > 0) {
+		speed = (nitro / 10) + 1.0
+		if (speed > MAXWARP) {
+		    speed = MAXWARP
+		}
+		nitro += 1
+		if (nitro > MAXWARP * 10) {
+		    nitro = -nitro
+		}
+    } elsif (nitro < 0) {
+		nitro += 1
+		speed = (-nitro / 10) + 1.0
+		if (speed > MAXWARP) {
+		    speed = MAXWARP
+		}
+    }
+	glFlush()
+}
+
+scope {
+	import(gltester)
+	gltester.mainloop(windW, windH, 0, `idle) {
+		`onInit => function {
+			Init()
+		}
+		`onResize => function(width:number, height:number) {
+			Reshape(width, height)
+		}
+		`onDraw => function {
+			Draw()
+		}
+		`onKeyDown => %{
+			`space => function {
+				extern(flag)
+				flag = if (flag == `NORMAL) {`WEIRD} else {`NORMAL}
+			}
+			`t => function {
+				extern(nitro)
+				nitro = 1
+			}
+		}
+	}
+}

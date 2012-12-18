@@ -1,0 +1,792 @@
+#!/usr/bin/env gura
+//-----------------------------------------------------------------------------
+// Gura tk module
+// Tcl/Tk manual: http://www.tcl.tk/man/tcl8.5/
+// TkDocs: http://www.tkdocs.com/index.html
+//-----------------------------------------------------------------------------
+import(tcl)
+
+_interp = tcl.interp()
+_tclDumpFlag = false
+
+//-----------------------------------------------------------------------------
+// Helper functions
+//-----------------------------------------------------------------------------
+printArg(args+) = {
+	args = args.each():list {|arg|
+		if (islist(arg)) {
+			arg.tostring()
+		} else {
+			arg = arg.tostring()
+			if (arg.find(' ')) {
+				'{' + arg + '}'
+			} else {
+				arg
+			}
+		}
+	}
+	println('[', args.join(' '), ']')
+}
+
+// args opts
+tclEval(args*, opts%) = {
+	optsList = []
+	opts.items() {|item|
+		optsList.add('-' + item[0].tostring())
+		optsList.add(item[1])
+	}
+	_tclDumpFlag && printArg(args*, optsList*)
+	_interp.eval(args*, optsList*)
+}
+
+// cmds args opts
+genFunction(cmds+:string) = {
+	func(args*, opts%):map = {
+		tclEval(cmds*, args*, opts%)
+	}
+	func.name = cmds.join('$')
+	func
+}
+
+// cmds path args opts
+genMethod(cmds+:string) = {
+	func(args*, opts%):map = {
+		tclEval(cmds*, self, args*, opts%)
+	}
+	func.name = cmds.join('$')
+	func
+}
+
+// cmds path args opts
+genCommand(cmds+:string) = {
+	func(args*, opts%):map {block?} = {
+		tclEval(cmds*, self, args*, opts%)
+		block && block(self)
+		self
+	}
+	func.symbol = cmds.join('$')
+	func
+}
+
+// cmds pathChild args opts
+genWidgetCreator(constructor:function, cmds+:string) = {
+	func(args*, opts%):map {block?} = {
+		pathChild = self.makePathChild()
+		tclEval(cmds*, pathChild, args*, opts%)
+		w = constructor(pathChild)
+		block && block(w)
+		w
+	}
+	func.name = cmds.join('$')
+	func
+}
+
+// path cmds args opts
+genWidgetMethod(cmds+:string) = {
+	func(args*, opts%):map = {
+		tclEval(self, cmds*, args*, opts%)
+	}
+	func.name = cmds.join('$')
+	func
+}
+
+// container cmds id args opts
+genItemMethod(container, cmds+:string) = {
+	func(args*, opts%):map = {
+		tclEval(container, cmds*, self, args*, opts%)
+	}
+	func.name = cmds.join('$')
+	func
+}
+
+// container 'addtag' tag searchProc args opts
+genTagMethod(container, searchProc:string) = {
+	func(args*, opts%):map = {
+		tclEval(container, 'addtag', self, searchProc, args*, opts%)
+	}
+	func.name = ['addtag', searchProc].join('$')
+	func
+}
+
+makeBindScript(func:function) = {
+	args = func.args
+	cmdName = _interp.command(func)
+	elems = [cmdName]
+	elems.append('%' + bindSubstDict.gets(args, args:*tostring()))
+	elems.join(' ')
+}
+
+bindSubstDict = %{
+	`serial				=> '#'
+	`above				=> 'a'
+	`numbuttons			=> 'b'
+	`count				=> 'c'
+	`detail				=> 'd'
+	`user_data			=> 'd'
+	`focus				=> 'f'
+	`height				=> 'h'
+	`widget_num			=> 'i'
+	`keycode			=> 'k'
+	`mode				=> 'm'
+	`override_redirect	=> 'o'
+	`place				=> 'p'
+	`state				=> 's'
+	`time				=> 't'
+	`width				=> 'w'
+	`x					=> 'x'
+	`y					=> 'y'
+	`char				=> 'A'
+	`border_width		=> 'B'
+	`delta				=> 'D'
+	`send_event			=> 'E'
+	`keysym				=> 'K'
+	`keysym_num			=> 'N'
+	`root				=> 'R'
+	`subwidget			=> 'S'
+	`type				=> 'T'
+	`widget				=> 'W'
+	`x_root				=> 'X'
+	`y_root				=> 'Y'
+	// for validcommand
+	`action				=> 'd'
+	`index				=> 'i'
+	`wouldbe			=> 'P'
+	`current			=> 's'
+	`edited				=> 'S'
+	`validate			=> 'V'
+}
+
+//-----------------------------------------------------------------------------
+// Widget
+//-----------------------------------------------------------------------------
+Widget = class {
+	__init__(path:string):map = {
+		self._path = path
+		self._cntChildren = 0
+	}
+	__str__() = format('<widget:%s>', self.__tclname__())
+	__getprop__(symbol:symbol) = {
+		method = self.genDynamicMethod(symbol)
+		self.setprop!(symbol, method)
+		method
+	}
+	__setitem__(option:string, value) = {
+		tclEval(self, 'configure', '-' + option, value)
+	}
+	__getitem__(option:string) = {
+		tclEval(self, 'cget', '-' + option)
+	}
+	__tclname__() = self._path
+	genDynamicMethod(symbol:symbol) = {
+		str = symbol.tostring()
+		if (str.startswith('wm$')) {
+			method = genMethod('wm', str.mid(3))
+		} elsif (str.startswith('winfo$')) {
+			method = genMethod('winfo', str.mid(6))
+		} elsif (str.startswith('grid$')) {
+			method = genCommand('grid', str.mid(5))
+		} elsif (str.startswith('place$')) {
+			method = genCommand('place', str.mid(6))
+		} elsif (str.startswith('tk$')) {
+			method = genCommand('tk_' + str.mid(3))
+		} elsif (self.widgetCreatorDict.haskey(symbol)) {
+			[cmd, constructor] = self.widgetCreatorDict[symbol]
+			method = genWidgetCreator(eval(constructor), cmd)
+		} else {
+			method = genWidgetMethod(str.split('$'):list*)
+		}
+		method
+	}
+	makePathChild() = {
+		idx = self._cntChildren
+		self._cntChildren += 1
+		if (self._path == '.') {
+			format('.c%d', idx)
+		} else {
+			format('%s.c%d', self._path, idx)
+		}
+	}
+	widgetCreatorDict = %{
+		`Button				=> ['button',			`Widget]
+		`Canvas				=> ['canvas',			`Canvas]
+		`Checkbutton		=> ['checkbutton',		`Widget]
+		`Entry				=> ['entry',			`Widget]
+		`Frame				=> ['frame',			`Widget]
+		`Label				=> ['label',			`Widget]
+		`Labelframe			=> ['labelframe',		`Widget]
+		`Listbox			=> ['listbox',			`Widget]
+		`Menu				=> ['menu',				`Menu]
+		`Menubutton			=> ['menubutton',		`Widget]
+		`Message			=> ['message',			`Widget]
+		`Panedwindow		=> ['panedwindow',		`Widget]
+		`Place				=> ['place',			`Widget]
+		`Radiobutton		=> ['radiobutton',		`Widget]
+		`Scrollbar			=> ['scrollbar',		`Widget]
+		`Spinbox			=> ['spinbox',			`Widget]
+		`Text				=> ['text',				`Text]
+		`Toplevel			=> ['toplevel',			`Widget]
+		`ttk$Button			=> ['ttk::button',		`Widget]
+		`ttk$Checkbutton	=> ['ttk::checkbutton',	`Widget]
+		`ttk$Combobox		=> ['ttk::combobox',	`Widget]
+		`ttk$Entry			=> ['ttk::entry',		`Widget]
+		`ttk$Frame			=> ['ttk::frame',		`Widget]
+		`ttk$Intro			=> ['ttk::intro',		`Widget]
+		`ttk$Label			=> ['ttk::label',		`Widget]
+		`ttk$Labelframe		=> ['ttk::labelframe',	`Widget]
+		`ttk$Menubutton		=> ['ttk::menubutton',	`Widget]
+		`ttk$Notebook		=> ['ttk::notebook',	`Notebook]
+		`ttk$Panedwindow	=> ['ttk::panedwindow',	`Widget]
+		`ttk$Progressbar	=> ['ttk::progressbar',	`Widget]
+		`ttk$Radiobutton	=> ['ttk::radiobutton',	`Widget]
+		`ttk$Scale			=> ['ttk::scale',		`Widget]
+		`ttk$Scrollbar		=> ['ttk::scrollbar',	`Widget]
+		`ttk$Separator		=> ['ttk::separator',	`Widget]
+		`ttk$Sizegrip		=> ['ttk::sizegrip',	`Widget]
+		`ttk$Spinbox		=> ['ttk::spinbox',		`Widget]
+		`ttk$Style			=> ['ttk::style',		`Widget]
+		`ttk$Treeview		=> ['ttk::treeview',	`Treeview]
+		`ttk$Widget			=> ['ttk::widget',		`Widget]
+		`ttk$Image			=> ['ttk::image',		`Widget]
+		`ttk$Vsapi			=> ['ttk::vsapi',		`Widget]
+	}
+	winfo$children() = {
+		Widget(tclEval('winfo', 'children', self))
+	}
+	bind(trigger, func?:function) {block?} = {
+		func = func || block
+		if (issymbol(trigger)) {
+			// `command, `xscrollcommand, `yscrollcommand, `validatecommand
+			script = makeBindScript(func)
+			tclEval(self, 'configure', '-' + trigger.tostring(), script)
+		} elsif (isstring(trigger)) {
+			script = makeBindScript(func)
+			tclEval('bind', self, trigger, script)
+		} else {
+			raise(TypeError, 'symbol or string should specified for binding')
+		}
+	}
+	assoc(trigger:symbol, func?:function) {block?} = {
+		func = func || block
+		tclEval(self, 'configure', '-' + trigger.tostring(), func)
+	}
+	destroy				= genCommand('destroy')
+	focus				= genCommand('focus')
+	grid				= genCommand('grid')
+	lower				= genCommand('lower')
+	pack				= genCommand('pack')
+	place				= genCommand('place')
+	raise				= genCommand('raise')
+	tk$ChooseColor		= genFunction('tk_chooseColor')
+	tk$ChooseDirectory	= genFunction('tk_chooseDirectory')
+	tk$Dialog(title:string, text:string,
+				bitmap:string => '', default:number => -1, strings[]:string => []) = {
+		pathChild = self.makePathChild()
+		tclEval('tk_dialog', pathChild, title, text, bitmap, default, strings*)
+	}
+	tk$GetOpenFile		= genFunction('tk_getOpenFile')
+	tk$GetSaveFile		= genFunction('tk_getSaveFile')
+	tk$MessageBox		= genFunction('tk_messageBox')
+	bindafter(msec:number) {block} = {
+		timer = _interp.timer()
+		timer.start(msec, 0, 1) { block() }
+		timer
+	}
+	bindtimer(msec:number, args*) {block} = {
+		timer = _interp.timer()
+		timer.start(msec, args*) { block(timer) }
+		timer
+	}
+}
+
+Mainwindow = class(Widget) {
+	__init__() = {|'.'|
+	}
+}
+mainwindow = Mainwindow
+
+//-----------------------------------------------------------------------------
+// Menu
+//-----------------------------------------------------------------------------
+Menu = class(Widget) {
+	__init__(path:string) = {|path|
+	}
+	Separator(opts%)	= self.add('separator', opts%)
+	Cascade(opts%) {block?} = {
+		m = self.Menu(tearoff => false)
+		opts[`menu] = m
+		self.add('cascade', opts%)
+		block && block(m)
+		m
+	}
+	Command(opts%) {block?} = {
+		if (block) { opts[`command] = block }
+		self.add('command', opts%)
+	}
+	Checkbutton(opts%) {block?} = {
+		if (block) { opts[`command] = block }
+		self.add('checkbutton', opts%)
+	}
+	Radiobutton(opts%) {block?} = {
+		if (block) { opts[`command] = block }
+		self.add('radiobutton', opts%)
+	}
+	popup(x:number, y:number) = {
+		tclEval('tk_popup', self, x, y)
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Canvas
+//-----------------------------------------------------------------------------
+// path cmds args opts
+genCanvasItemCreator(cmds+:string) = {
+	func(args*, opts%):map {block?} = {
+		id = tclEval(self, 'create', cmds*, args*, opts%)
+		item = CanvasItem(self, id)
+		block && block(item)
+		item
+	}
+	func.name = cmds[0]
+	func
+}
+
+Canvas = class(Widget) {
+	__init__(path:string) = {|path|
+		self._cntTags = 0
+	}
+	__getprop__(symbol:symbol) = {
+		str = symbol.tostring()
+		if (self.itemCreatorDict.haskey(symbol)) {
+			method = genCanvasItemCreator(self.itemCreatorDict[symbol])
+		} else {
+			method = self.genDynamicMethod(symbol)
+		}
+		self.setprop!(symbol, method)
+		method
+	}
+	itemCreatorDict = %{
+		`Arc		=> 'arc'
+		`Bitmap		=> 'bitmap'
+		`Image		=> 'image'
+		`Line		=> 'line'
+		`Polygon	=> 'polygon'
+		`Rectangle	=> 'rectangle'
+		`Text		=> 'text'
+		`Window		=> 'window'
+	}
+	Tag() {block?} = {
+		tagName = 'tag' + self._cntTags
+		self._cntTags += 1
+		tag = CanvasTag(self, tagName)
+		block && block(tag)
+		tag
+	}
+}
+
+//-----------------------------------------------------------------------------
+// CanvasItem
+//-----------------------------------------------------------------------------
+CanvasItem = class {
+	__init__(canvas:Canvas, tagOrId) = {
+		self._canvas = canvas
+		self._tagOrId = tagOrId
+	}
+	__getprop__(symbol:symbol) = {
+		method = self.genDynamicMethod(symbol)
+		self.setprop!(symbol, method)
+		method
+	}
+	__setitem__(option:string, value) = {
+		tclEval(self._canvas, 'itemconfigure', self, '-' + option, value)
+	}
+	__getitem__(option:string) = {
+		tclEval(self._canvas, 'itemcget', self, '-' + option)
+	}
+	__tclname__() = self._tagOrId
+	__str__() = format('<canvasitem:%s>', self.__tclname__())
+	genDynamicMethod(symbol:symbol) = {
+		if (self.methodDict.haskey(symbol)) {
+			method = genItemMethod(self._canvas, self.methodDict[symbol])
+		} else {
+			method = genItemMethod(self._canvas, symbol)
+		}
+		method
+	}
+	bbox() = {
+		rtn = tclEval(self._canvas, 'bbox', self)
+		if (isstring(rtn)) {
+			rtn = rtn.split(' ')
+		}
+		rtn::tonumber()
+	}
+	bind(sequence:string, func?:function) {block?} = {
+		func = func || block
+		script = makeBindScript(func)
+		tclEval(self._canvas, 'bind', self, sequence, script)
+	}
+	methodDict = %{
+		`configure	=> 'itemconfigure'
+		`cget		=> 'itemcget'
+	}
+}
+
+//-----------------------------------------------------------------------------
+// CanvasTag
+//-----------------------------------------------------------------------------
+CanvasTag = class(CanvasItem) {
+	__init__(canvas:Canvas, tag) = {|canvas, tag|}
+	__getprop__(symbol:symbol) = {
+		if (self.searchProcDict.haskey(symbol)) {
+			method = genTagMethod(self._canvas, self.searchProcDict[symbol])
+		} else {
+			method = self.genDynamicMethod(symbol)
+		}
+		self.setprop!(symbol, method)
+		method
+	}
+	searchProcDict = %{
+		`add_above			=> 'above'
+		`add_all			=> 'all'
+		`add_below			=> 'below'
+		`add_closest		=> 'closest'
+		`add_enclosed		=> 'enclosed'
+		`add_overlapping	=> 'overlapping'
+		`add_withtag		=> 'withtag'
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Text
+//-----------------------------------------------------------------------------
+Text = class(Widget) {
+	__init__(path:string) = {|path|
+		self._cntTags = 0
+	}
+	MakeNewTag() = {
+		tagName = 'tag' + self._cntTags
+		self._cntTags += 1
+		TextTag(self, tagName)
+	}
+	Insert(args+) {block?} = {
+		if (args[0].istype(`TextTag)) {
+			tag = args.shift()
+		} else {
+			tag = self.MakeNewTag()
+		}
+		[index:string, chars:string] = args
+		tclEval(self, 'insert', index, chars, tag)
+		block && block(tag)
+		tag
+	}
+	Replace(args+) {block?} = {
+		if (args[0].istype(`TextTag)) {
+			tag = args.shift()
+		} else {
+			tag = self.MakeNewTag()
+		}
+		[index1:string, index2:string, chars:string] = args
+		tclEval(self, 'replace', index1, index2, chars, tag)
+		block && block(tag)
+		tag
+	}
+	Tag(args*):map {block?} = {
+		if (args.isempty()) {
+			tag = self.MakeNewTag()
+		} else {
+			if (args[0].istype(`TextTag)) {
+				tag = args.shift()
+			} else {
+				tag = self.MakeNewTag()
+			}
+			tclEval(self, 'tag', 'add', tag, args*)
+		}
+		block && block(tag)
+		tag
+	}
+}
+
+//-----------------------------------------------------------------------------
+// TextTag
+//-----------------------------------------------------------------------------
+TextTag = class {
+	__init__(text:Text, tagName:string) = {
+		self._text = text
+		self._tagName = tagName
+	}
+	__getprop__(symbol:symbol) = {
+		method = genItemMethod(self._text, 'tag', symbol)
+		self.setprop!(symbol, method)
+		method
+	}
+	__tclname__() = self._tagName
+	__str__() = format('<texttag:%s>', self.__tclname__())
+	bind(sequence:string, func?:function) {block?} = {
+		func = func || block
+		script = makeBindScript(func)
+		tclEval(self._text, 'tag', 'bind', self, sequence, script)
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Notebook
+//-----------------------------------------------------------------------------
+Notebook = class(Widget) {
+	__init__(path:string) = {|path|
+		self._cntTags = 0
+	}
+	enableTraversal() = {
+		tclEval('ttk::notebook::enableTraversal', self)
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Treeview
+//-----------------------------------------------------------------------------
+// path cmds args opts
+Treeview = class(Widget) {
+	__init__(path:string) = {|path|
+		self._cntTags = 0
+		self._itemDict = %{}
+	}
+	Item(index?:number, opts%) {block?} = {
+		id = tclEval(self, 'insert', '', index || 'end', opts%)
+		item = TreeviewItem(self, id)
+		block && block(item)
+		self._itemDict[id] = item
+		item
+	}
+	Children() = {
+		ids = tclEval(self, 'children', '')
+		ids.isempty() && return
+		TreeviewItem(self, ids)
+	}
+	Selection() = {
+		ids = tclEval(self, 'selection')
+		ids.isempty() && return
+		self._itemDict.gets(ids)
+	}
+	Tag() {block?} = {
+		tagName = 'tag' + self._cntTags
+		self._cntTags += 1
+		tag = TreeviewTag(self, tagName)
+		block && block(tag)
+		tag
+	}
+}
+
+//-----------------------------------------------------------------------------
+// TreeviewItem
+//-----------------------------------------------------------------------------
+TreeviewItem = class {
+	__init__(treeview:Treeview, id):map = {
+		self._treeview = treeview
+		self._id = id
+	}
+	__getprop__(symbol:symbol) = {
+		method = genItemMethod(self._treeview, symbol)
+		self.setprop!(symbol, method)
+		method
+	}
+	__setitem__(option:string, value) = {
+		tclEval(self._treeview, 'item', self, '-' + option, value)
+	}
+	__getitem__(option:string) = {
+		tclEval(self._treeview, 'item', self, '-' + option)
+	}
+	__tclname__() = self._id
+	__str__() = format('<treeviewitem:%s>', self.__tclname__())
+	Item(index?:number, opts%) {block?} = {
+		id = tclEval(self._treeview, 'insert', self, index || 'end', opts%)
+		item = TreeviewItem(self._treeview, id)
+		block && block(item)
+		self._treeview._itemDict[id] = item
+		item
+	}
+	Children() = {
+		ids = tclEval(self._treeview, 'children', self)
+		ids.isempty() && return
+		TreeviewItem(self._treeview, ids)
+	}
+	Parent() = {
+		id = tclEval(self._treeview, 'parent', self)
+		id.isempty() && return
+		TreeviewItem(self._treeview, id)
+	}
+	Next() = {
+		id = tclEval(self._treeview, 'next', self)
+		id.isempty() && return
+		TreeviewItem(self._treeview, id)
+	}
+	Prev() = {
+		id = tclEval(self._treeview, 'prev', self)
+		id.isempty() && return
+		TreeviewItem(self._treeview, id)
+	}
+	configure(opts%) = {
+		tclEval(self._treeview, 'item', self, opts%)
+	}
+	cget(option:string) = {
+		tclEval(self._treeview, 'item', self, '-' + option)
+	}
+}
+
+//-----------------------------------------------------------------------------
+// TreeviewTag
+//-----------------------------------------------------------------------------
+TreeviewTag = class {
+	__init__(treeview:Treeview, tagName:string):map = {
+		self._treeview = treeview
+		self._tagName = tagName
+	}
+	__getprop__(symbol:symbol) = {
+		method = genItemMethod(self._treeview, 'tag', symbol)
+		self.setprop!(symbol, method)
+		method
+	}
+	__setitem__(option:string, value) = {
+		tclEval(self._treeview, 'tag', 'configure', self, '-' + option, value)
+	}
+	__getitem__(option:string) = {
+		tclEval(self._treeview, 'tag', 'configure', self, '-' + option)
+	}
+	__tclname__() = self._tagName
+	__str__() = format('<treeviewtag:%s>', self.__tclname__())
+}
+
+//-----------------------------------------------------------------------------
+// FontT
+//-----------------------------------------------------------------------------
+FontT = class {
+	__init__(fontname:string) = {
+		self._fontname = fontname
+	}
+	__str__() = format('<font:%s>', self.__tclname__())
+	__tclname__() = self._fontname
+	configure	= genMethod('font', 'configure')
+	delete		= genMethod('font', 'delete')
+	measure		= genMethod('font', 'measure')
+	actual(args*, opts%) {`block?} = {
+		rtn = tclEval('font', 'actual', self._fontname, args*, opts%)
+		rtn = rtn.fold(2):list {|item|
+			[tosymbol(item[0].replace('-', '')), item[1]]
+		}
+		opts = dict(rtn)
+		block && opts.store {|block|}
+		opts
+	}
+	metrics(args*, opts%) = {
+		rtn = tclEval('font', 'metrics', self._fontname, args*, opts%)
+		if (isstring(rtn)) {
+			rtn = rtn.split(' ')
+		}
+		rtn = rtn.fold(2):list {|item|
+			[tosymbol(item[0].replace('-', '')), item[1].tonumber()]
+		}
+		dict(rtn)
+	}
+	customize(opts%) = Font(self.actual().store(opts)%)
+	families(args*, opts%):static = tclEval('font', 'families', args*, opts%)
+	names(args*, opts%):static = tclEval('font', 'names', args*, opts%)
+}
+
+Font(opts%)			= FontT(tclEval('font', 'create', opts%))
+
+DefaultFont			= FontT('TkDefaultFont')
+TextFont			= FontT('TkTextFont')
+FixedFont			= FontT('TkFixedFont')
+MenuFont			= FontT('TkMenuFont')
+HeadingFont			= FontT('TkHeadingFont')
+CaptionFont			= FontT('TkCaptionFont')
+SmallCaptionFont	= FontT('TkSmallCaptionFont')
+IconFont			= FontT('TkIconFont')
+TooltipFont			= FontT('TkTooltipFont')
+
+//-----------------------------------------------------------------------------
+// Image
+//-----------------------------------------------------------------------------
+Image = class {
+	__init__(type:string, opts%) = {
+		self._imagename = tclEval('image', 'create', type, opts%)
+	}
+	// Although you may think it would be convenient that destructor of Image
+	// automatically calls "image delete" Tcl command, it doesn't work correctly.
+	// Tcl/Tk doesn't increment a reference counter of image objects even when
+	// they are passed to a canvas object.
+	__str__() = format('<image:%s>', self.__tclname__())
+	__getprop__(symbol:symbol) = {
+		method = genWidgetMethod(symbol)
+		self.setprop!(symbol, method)
+		method
+	}
+	__tclname__() = self._imagename
+	delete	= genMethod('image', 'delete')
+	height	= genMethod('image', 'height')
+	inuse	= genMethod('image', 'inuse')
+	type	= genMethod('image', 'type')
+	width	= genMethod('image', 'width')
+	names():static = tclEval('image', 'names').split(' '):list
+	types():static = tclEval('image', 'types').split(' '):list
+}
+
+Bitmap(opts%) = Image('bitmap', opts%)
+Photo(opts%) = Image('photo', opts%)
+
+// expansion to image class
+classref(`root.image) {|ref|
+	ref.to_tk() = {
+		imgTk = tk.Photo()
+		self.writetcl(_interp, imgTk._imagename)
+		imgTk
+	}
+	ref.show() = {
+		mainwindow() {|mw|
+			[wdCanvas, htCanvas] = [640, 480]
+			img = self.thumbnail(wdCanvas, htCanvas).to_tk()
+			mw.Canvas(bg => 'gray', width => wdCanvas, height => htCanvas) {|w|
+				w.pack(fill => 'both', expand => true)
+				w.Image(wdCanvas / 2, htCanvas / 2, image => img, anchor => 'c')
+			}
+		}
+		mainloop()
+	}
+}
+
+//-----------------------------------------------------------------------------
+// other functions
+//-----------------------------------------------------------------------------
+bell					= genFunction('bell')
+bind					= genFunction('bind')
+bindtags				= genFunction('bindtags')
+tkerror					= genFunction('tkerror')
+update					= genFunction('update')
+
+winfo$atom				= genFunction('winfo', 'atom')
+winfo$atomname			= genFunction('winfo', 'atomname')
+winfo$containing		= genFunction('winfo', 'containing')
+winfo$interps			= genFunction('winfo', 'interps')
+winfo$pathname			= genFunction('winfo', 'pathname')
+
+variable				= _interp.variable
+
+tclLibrary				= variable(varName => 'tcl_library')
+tclVersion				= variable(varName => 'tcl_version')
+tclPatchLevel			= variable(varName => 'tcl_patchLevel')
+
+tkLibrary				= variable(varName => 'tk_library')
+tkVersion				= variable(varName => 'tk_version')
+tkPatchLevel			= variable(varName => 'tk_patchLevel')
+tkStrictMotif			= variable(varName => 'tk_strictMotif')
+tkTextRedraw			= variable(varName => 'tk_textRedraw')
+tkTextRelayout			= variable(varName => 'tk_textRelayout')
+
+tk$FocusFollowsMouse	= genFunction('tk_focusFollowsMouse')
+tk$SetPalette			= genFunction('tk_setPalette')
+tk$bisque				= genFunction('tk_bisque')
+
+tkwait$variable			= genFunction('tkwait', 'variable')
+tkwait$visibility		= genFunction('tkwait', 'visibility')
+tkwait$window			= genFunction('tkwait', 'window')
+
+mainloop				= tcl.Tk_MainLoop
+
+tclDump(flag:boolean => true) = { _tclDumpFlag:extern = flag }

@@ -1,0 +1,4 @@
+import(net.http)
+net.http.addproxy('xx.xx.xx.xx', 8080, 'userid', 'password') {|addr|
+	!addr.endswith('intranet.com')
+}

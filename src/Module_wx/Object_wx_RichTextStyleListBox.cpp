@@ -1,0 +1,388 @@
+//----------------------------------------------------------------------------
+// wxRichTextStyleListBox
+// extracted from richtextstylelistbox.tex
+//----------------------------------------------------------------------------
+#include "stdafx.h"
+
+Gura_BeginModule(wx)
+
+//----------------------------------------------------------------------------
+// Class derivation
+//----------------------------------------------------------------------------
+class wx_RichTextStyleListBox: public wxRichTextStyleListBox, public GuraObjectObserver {
+private:
+	Gura::Signal _sig;
+	Object_wx_RichTextStyleListBox *_pObj;
+public:
+	inline wx_RichTextStyleListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style) : wxRichTextStyleListBox(parent, id, pos, size, style), _sig(NULL), _pObj(NULL) {}
+	~wx_RichTextStyleListBox();
+	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextStyleListBox *pObj) {
+		_sig = sig, _pObj = pObj;
+	}
+	// virtual function of GuraObjectObserver
+	virtual void GuraObjectDeleted();
+};
+
+wx_RichTextStyleListBox::~wx_RichTextStyleListBox()
+{
+	if (_pObj != NULL) _pObj->InvalidateEntity();
+}
+
+void wx_RichTextStyleListBox::GuraObjectDeleted()
+{
+	_pObj = NULL;
+}
+
+//----------------------------------------------------------------------------
+// Gura interfaces for wxRichTextStyleListBox
+//----------------------------------------------------------------------------
+Gura_DeclareFunction(RichTextStyleListBox)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleListBox));
+	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
+	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(RichTextStyleListBox)
+{
+	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindowID id = wxID_ANY;
+	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
+	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
+	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
+	wxSize *size = (wxSize *)(&wxDefaultSize);
+	if (args.IsValid(3)) size = Object_wx_Size::GetObject(args, 3)->GetEntity();
+	long style = 0;
+	if (args.IsValid(4)) style = args.GetLong(4);
+	wx_RichTextStyleListBox *pEntity = new wx_RichTextStyleListBox(parent, id, *pos, *size, style);
+	Object_wx_RichTextStyleListBox *pObj = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_RichTextStyleListBox(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, ApplyStyle)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, ApplyStyle)
+{
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int i = args.GetInt(0);
+	pSelf->GetEntity()->ApplyStyle(i);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, ConvertTenthsMMToPixels)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
+	DeclareArg(env, "units", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, ConvertTenthsMMToPixels)
+{
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
+	int units = args.GetInt(1);
+	int rtn = pSelf->GetEntity()->ConvertTenthsMMToPixels(*dc, units);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, CreateHTML)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "def", VTYPE_wx_RichTextStyleDefinition, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, CreateHTML)
+{
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxRichTextStyleDefinition *def = Object_wx_RichTextStyleDefinition::GetObject(args, 0)->GetEntity();
+	wxString rtn = pSelf->GetEntity()->CreateHTML(def);
+	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, GetApplyOnSelection)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, GetApplyOnSelection)
+{
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool rtn = pSelf->GetEntity()->GetApplyOnSelection();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, GetRichTextCtrl)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, GetRichTextCtrl)
+{
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxRichTextCtrl *rtn = (wxRichTextCtrl *)pSelf->GetEntity()->GetRichTextCtrl();
+	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextCtrl(rtn, NULL, OwnerFalse)));
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, GetStyle)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, GetStyle)
+{
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	size_t i = args.GetSizeT(0);
+	wxRichTextStyleDefinition *rtn = (wxRichTextStyleDefinition *)pSelf->GetEntity()->GetStyle(i);
+	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextStyleDefinition(rtn, NULL, OwnerFalse)));
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, GetStyleSheet)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, GetStyleSheet)
+{
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxRichTextStyleSheet *rtn = (wxRichTextStyleSheet *)pSelf->GetEntity()->GetStyleSheet();
+	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextStyleSheet(rtn, NULL, OwnerFalse)));
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, GetStyleType)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, GetStyleType)
+{
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, OnGetItem)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+#if 0
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+#endif
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, OnGetItem)
+{
+#if 0
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	size_t n = args.GetSizeT(0);
+	wxString rtn = pSelf->GetEntity()->OnGetItem(n);
+	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, OnLeftDown)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "event", VTYPE_wx_MouseEvent, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, OnLeftDown)
+{
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxMouseEvent *event = Object_wx_MouseEvent::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->OnLeftDown(*event);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, OnSelect)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+#if 0
+	DeclareArg(env, "event", VTYPE_wx_CommandEvent, OCCUR_Once);
+#endif
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, OnSelect)
+{
+#if 0
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxCommandEvent *event = Object_wx_CommandEvent::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->OnSelect(*event);
+	return Value::Null;
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, SetApplyOnSelection)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "applyOnSelection", VTYPE_boolean, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, SetApplyOnSelection)
+{
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool applyOnSelection = args.GetBoolean(0);
+	pSelf->GetEntity()->SetApplyOnSelection(applyOnSelection);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, SetRichTextCtrl)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "ctrl", VTYPE_wx_RichTextCtrl, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, SetRichTextCtrl)
+{
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxRichTextCtrl *ctrl = Object_wx_RichTextCtrl::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->SetRichTextCtrl(ctrl);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, SetStyleSheet)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "styleSheet", VTYPE_wx_RichTextStyleSheet, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, SetStyleSheet)
+{
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxRichTextStyleSheet *styleSheet = Object_wx_RichTextStyleSheet::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->SetStyleSheet(styleSheet);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, SetStyleType)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+#if 0
+	DeclareArg(env, "styleType", VTYPE_wx_RichTextStyleListBox, OCCUR_Once);
+#endif
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, SetStyleType)
+{
+#if 0
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxRichTextStyleListBox *styleType = Object_wx_RichTextStyleListBox::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->SetStyleType(*styleType);
+	return Value::Null;
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RichTextStyleListBox, UpdateStyles)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_RichTextStyleListBox, UpdateStyles)
+{
+	Object_wx_RichTextStyleListBox *pSelf = Object_wx_RichTextStyleListBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->UpdateStyles();
+	return Value::Null;
+}
+
+//----------------------------------------------------------------------------
+// Object implementation for wxRichTextStyleListBox
+//----------------------------------------------------------------------------
+Object_wx_RichTextStyleListBox::~Object_wx_RichTextStyleListBox()
+{
+}
+
+Object *Object_wx_RichTextStyleListBox::Clone() const
+{
+	return NULL;
+}
+
+String Object_wx_RichTextStyleListBox::ToString(Signal sig, bool exprFlag)
+{
+	String rtn("<wx.RichTextStyleListBox:");
+	if (GetEntity() == NULL) {
+		rtn += "invalid>";
+	} else {
+		char buff[64];
+		::sprintf(buff, "%p>", GetEntity());
+		rtn += buff;
+	}
+	return rtn;
+}
+
+void Object_wx_RichTextStyleListBox::OnModuleEntry(Environment &env, Signal sig)
+{
+	Gura_AssignFunction(RichTextStyleListBox);
+}
+
+//----------------------------------------------------------------------------
+// Class implementation for wxRichTextStyleListBox
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_RichTextStyleListBox)
+{
+	Gura_AssignMethod(wx_RichTextStyleListBox, ApplyStyle);
+	Gura_AssignMethod(wx_RichTextStyleListBox, ConvertTenthsMMToPixels);
+	Gura_AssignMethod(wx_RichTextStyleListBox, CreateHTML);
+	Gura_AssignMethod(wx_RichTextStyleListBox, GetApplyOnSelection);
+	Gura_AssignMethod(wx_RichTextStyleListBox, GetRichTextCtrl);
+	Gura_AssignMethod(wx_RichTextStyleListBox, GetStyle);
+	Gura_AssignMethod(wx_RichTextStyleListBox, GetStyleSheet);
+	Gura_AssignMethod(wx_RichTextStyleListBox, GetStyleType);
+	Gura_AssignMethod(wx_RichTextStyleListBox, OnGetItem);
+	Gura_AssignMethod(wx_RichTextStyleListBox, OnLeftDown);
+	Gura_AssignMethod(wx_RichTextStyleListBox, OnSelect);
+	Gura_AssignMethod(wx_RichTextStyleListBox, SetApplyOnSelection);
+	Gura_AssignMethod(wx_RichTextStyleListBox, SetRichTextCtrl);
+	Gura_AssignMethod(wx_RichTextStyleListBox, SetStyleSheet);
+	Gura_AssignMethod(wx_RichTextStyleListBox, SetStyleType);
+	Gura_AssignMethod(wx_RichTextStyleListBox, UpdateStyles);
+}
+
+Gura_ImplementDescendantCreator(wx_RichTextStyleListBox)
+{
+	return new Object_wx_RichTextStyleListBox((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+}
+
+}}

@@ -1,0 +1,155 @@
+#!/usr/bin/env gura
+import(canvas)
+
+make_polygon(x:number, y:number, radius:number, nCorners:number, thetaStart:number, thetaStep:number) = {
+	repeat(nCorners):list {|i|
+		theta = i * thetaStep + thetaStart
+		[math.cos(theta) * radius + x, math.sin(theta) * radius + y]
+	}
+}
+canvas.create_emf('test-1.emf', 200, 200) {|c|
+	f(x) = 2
+	c.setfont(6)
+	c.text(0, 0, 'Hello world, Hello world')
+	c.setfont(8)
+	c.text(0, 10, 'Hello world, Hello world')
+	c.setfont(8)
+	c.setbrush(nil)
+	c.rectangle(15, 50, 20, 20):n
+	c.rectangle(15, 50, 20, 20):ne
+	c.rectangle(15, 50, 20, 20):e
+	c.rectangle(15, 50, 20, 20):se
+	c.rectangle(15, 50, 20, 20):s
+	c.rectangle(15, 50, 20, 20):sw
+	c.rectangle(15, 50, 20, 20):w
+	c.rectangle(15, 50, 20, 20):nw
+	c.rectangle(15, 50, 20, 20):c
+	c.text(15, 50, '0', 20, 20):n
+	c.text(15, 50, '1', 20, 20):ne
+	c.text(15, 50, '2', 20, 20):e
+	c.text(15, 50, '3', 20, 20):se
+	c.text(15, 50, '4', 20, 20):s
+	c.text(15, 50, '5', 20, 20):sw
+	c.text(15, 50, '6', 20, 20):w
+	c.text(15, 50, '7', 20, 20):nw
+	c.text(15, 50, '8', 20, 20):c
+	c.setbrush([128, 128, 128])
+	c.polyline([10, 50, 30, 10] + 110, [10, 30, 0, 10] + 100)
+	c.polygon([10, 50, 30, 10] + 110, [10, 30, 0, 10] + 110)
+	c.polylinep(make_polygon(140, 160, 20, 6, math.pi / 2, 2 * math.pi / 5 * 3))
+	c.polygonp(make_polygon(160, 160, 20, 5, math.pi / 2, 2 * math.pi / 5 * 3))
+	c.line(0, 0, 100, 100)
+	c.line(0, 100, 100, 0)
+	c.line(0, 0, 100, 0)
+	c.line(0, 0, 0, 100)
+	scope {
+		y = 10
+		c.setpen([255, 255, 255], 1, `dot).line(0, y, 100, y), y += 5
+		c.setpen([255, 0, 0], 1, `dot).line(0, y, 100, y), y += 5
+		c.setpen([255, 0, 0], 2, `dash).line(0, y, 100, y), y += 5
+		c.setpen([255, 0, 0], 2, `dot_dash).line(0, y, 100, y), y += 5
+		c.setpen([255, 0, 0], 10, `dash).line(0, y, 100, y), y += 5
+		c.setpen([255, 0, 0], 10, `dot).line(0, y, 100, y), y += 5
+		c.setpen(`green, 10, `solid).line(0, y, 100, y), y += 5
+		c.setpen(`cyan, 10, `solid).line(0, y, 100, y), y += 5
+		c.setpen(`red, 10, `solid).line(0, y, 100, y), y += 5
+	}
+	c.setpen(`black, 1)
+	for (size in range(4, 24)) {|i|
+		x = i * 10
+		y = 80
+		c.setfont(size)
+		c.text(x, y, 'A', 10)
+		c.line(x, y, x + 9, y)
+		c.line(x, y + size, x + 9, y + size)
+		c.setfont(6)
+		c.text(x, y - 10, size, 10)
+	}
+	c.line(10, 10, 30, 40)
+	c.setpen(`black, 1, `solid)
+	c.setbrush(nil)
+	c.rectangle(65, 65, 10, 10):n
+	c.rectangle(65, 65, 10, 10):e
+	c.rectangle(65, 65, 10, 10):w
+	c.rectangle(65, 65, 10, 10):s
+	c.rectangle(65, 65, 10, 10):c
+	c.setpen(`black, 1, `solid)
+	c.setbrush(nil)
+	c.ellipse(35, 35, 10, 10):n
+	c.ellipse(35, 35, 10, 10):e
+	c.ellipse(35, 35, 10, 10):w
+	c.ellipse(35, 35, 10, 10):s
+	c.ellipse(35, 35, 10, 10):c
+	c.pie(150, 50, 50, 50, 0, 90):c
+	c.pie(150, 50, 50, 50, 90, 120):c
+	c.pie(150, 50, 50, 50, 120, 270):c
+	c.pie(150, 50, 50, 50, 270, 300):c
+	c.pie(150, 50, 50, 50, 300, 360):c
+	c.rectangle(150, 50, 50, 50):c
+	c.setpen([192, 192, 192], 1)
+	c.setfont(6)
+	for (style in [`bdiagonal, `cross, `diagcross, `fdiagonal, `horizontal, `vertical]) {|i|
+		y = 100 + 15 * i
+		c.setbrush(`black, style).rectangle(30, y, 60, 10)
+		c.text(93, y, style.tostring(), nil, 10)
+	}
+	println('test-1.emf was generated')
+}
+canvas.create_emf('test-2.emf', 200, 150) {|c|
+	y = 10
+	c.setpen('#ff0000')
+	c.setbrush('#ff0000')
+	c.rectangle(120, y, 60, 8), y += 8
+	c.setpen('#00ff00')
+	c.setbrush('#00ff00')
+	c.rectangle(120, y, 60, 8), y += 8
+	c.setpen('#0000ff')
+	c.setbrush('#0000ff')
+	c.rectangle(120, y, 60, 8), y += 8
+	
+	y = 10, yStep = 8
+	
+	c.setfont(6, family => `default, style => `normal, weight => `normal)
+	c.text(10, y, 'default')
+	c.text(60, y, 'ABCDEFG abcdefg 01234567'), y += yStep
+	
+	c.setfont(6, family => `decorative, style => `normal, weight => `normal)
+	c.text(10, y, 'decorative')
+	c.text(60, y, 'ABCDEFG abcdefg 01234567'), y += yStep
+	
+	c.setfont(6, family => `roman, style => `normal, weight => `normal)
+	c.text(10, y, 'roman')
+	c.text(60, y, 'ABCDEFG abcdefg 01234567'), y += yStep
+	
+	c.setfont(6, family => `script, style => `normal, weight => `normal)
+	c.text(10, y, 'script')
+	c.text(60, y, 'ABCDEFG abcdefg 01234567'), y += yStep
+	
+	c.setfont(6, family => `swiss, style => `normal, weight => `normal)
+	c.text(10, y, 'swiss')
+	c.text(60, y, 'ABCDEFG abcdefg 01234567'), y += yStep
+	
+	c.setfont(6, family => `modern, style => `normal, weight => `normal)
+	c.text(10, y, 'modern')
+	c.text(60, y, 'ABCDEFG abcdefg 01234567'), y += yStep
+	
+	c.setfont(6, family => `teletype, style => `normal, weight => `normal)
+	c.text(10, y, 'teletype')
+	c.text(60, y, 'ABCDEFG abcdefg 01234567'), y += yStep
+	
+	c.setfont(6, family => `default, style => `italic, weight => `normal)
+	c.text(10, y, '[italic] ABCDEFG abcdefg 01234567'), y += yStep
+	
+	c.setfont(6, family => `default, style => `normal, weight => `bold)
+	c.text(10, y, '[bold] ABCDEFG abcdefg 01234567'), y += yStep
+	
+	c.setfont(6, family => `roman, style => `normal, weight => `normal)
+	repeat(8) {|i| c.textrot(20, 120, 'rotate', i * 45) }
+	c.setfont(6, family => `default, style => `normal, weight => `normal)
+	c.rectangle(20, 120, 1, 1):c
+	
+	for (color in [`black, `red, `blue, `green, `cyan, `light_blue, `yellow, `grey, `white]) {|i|
+		c.settextcolor(color).text(120, 70 + i * 8, color.tostring())
+	}
+	println('test-2.emf was generated')
+}

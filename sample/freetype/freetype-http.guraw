@@ -1,0 +1,15 @@
+# encoding: shift_jis
+import(tk)
+import(freetype)
+import(net.http)
+
+path.exists('proxy_setting.gura') && import(proxy_setting)
+
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+fontName = 'http://sourceforge.jp/projects/gura/svn/view/trunk/sample/resource/Kaufmann_Bold_BT.ttf'
+scope {
+	img = image(`rgb, 640, 480, `white)
+	face = freetype.face(fontName, 0).setheight(64).setcolor(`black)
+	img.drawtext(face, 0, (1..4) * face.height, 'What this font looks like')
+	img.show()
+}

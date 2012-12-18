@@ -1,0 +1,5 @@
+LIBRARY GURAOLE
+EXPORTS
+    DllRegisterServer private
+    DllUnregisterServer private
+    DllGetClassObject private

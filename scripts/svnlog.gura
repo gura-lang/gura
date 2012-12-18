@@ -1,0 +1,56 @@
+#!/usr/bin/env gura
+
+import(re)
+
+isSeparator(line:string) = re.match("-{72,}", line)
+isBlank(line:string) = re.match("^$", line)
+
+stat = `STAT_Start
+lineInfo = ""
+header = ""
+headerBlank = " " * 10
+uri = 'http://svn.sourceforge.jp/svnroot/gura/trunk'
+buff = binary()
+os.stdout = buff.stream()
+sys.stderr.println('accessing ', uri)
+os.exec('svn', 'log', uri)
+//buff = open('test.bin').read()
+buff.stream().dosmode(true).readlines() {|line|
+	line = line.strip()
+	if (stat == `STAT_Start) {
+		if (isSeparator(line)) {
+			stat = `STAT_Info
+		}
+	} elsif (stat == `STAT_Info) {
+		lineInfo = line
+		stat = `STAT_Comment
+	} elsif (stat == `STAT_Comment) {
+		if (isSeparator(line)) {
+			stat = `STAT_Info
+		} elsif (isBlank(line)) {
+			// nothing to do
+		} else {
+			fields = re.split(r" \| ", lineInfo):list
+			if (m = re.match(r"\d{4}-\d{2}-\d{2}", fields[2])) {
+				headerNew = m.group(0)
+				if (header == headerNew) {
+					println(headerBlank, " ", line)
+				} else {
+					header = headerNew
+					println(header, " ", line)
+				}
+			} else {
+				println(headerBlank, " ", line)
+			}
+			stat = `STAT_CommentCont
+		}
+	} elsif (stat == `STAT_CommentCont) {
+		if (isSeparator(line)) {
+			stat = `STAT_Info
+		} elsif (isBlank(line)) {
+			// nothing to do
+		} else {
+			println(headerBlank, " ", line)
+		}
+	}
+}

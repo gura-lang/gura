@@ -1,0 +1,23 @@
+#!/usr/bin/env gura
+# dump
+
+dump(fileName:string, nCols:number => 16) = {
+	tochar(num:number):map = {
+		if (0x20 <= num && num < 0x7f) { chr(num) } else { '.' }
+	}
+	wdAddr = 6
+	wdData = nCols * 3
+	open(fileName) {|f|
+		while (buff = f.read(nCols)) {|iRow|
+			addr = iRow * nCols
+			printf('%0*x  %-*s %s\n', wdAddr, addr, wdData,
+						format('%02x', buff.each()).join(' '),
+						tochar(buff.each()).join())
+		}
+	}
+}
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: gura dump.gura file')
+	sys.exit()
+}
+dump(sys.argv[1], 16)

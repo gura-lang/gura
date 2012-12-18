@@ -1,0 +1,51 @@
+#!/usr/bin/env gura
+import(tk)
+
+imgfile(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+tk.mainwindow {|mw|
+	img = tk.Photo(file => imgfile('arrow-green-r.gif'))
+	mw.ttk$Notebook {|n|
+		n.pack(fill => 'both', expand => true)
+		n.enableTraversal()
+		n.Frame {|f|
+			n.add(f, text => 'One', image => img, compound => 'left',
+							padding => 4, sticky => 'nwes')
+			repeat (5) {|i|
+				f.Button(text => 'Button #' + i) {|w|
+					w.pack(fill => 'x', pady => [2, 0])
+				}
+			}
+		}
+		n.Frame {|f|
+			n.add(f, text => 'Two', image => img, compound => 'left',
+							padding => 4, sticky => 'nwes')
+			repeat (5) {|i|
+				f.Frame {|f|
+					f.pack(fill => 'x', pady => [4, 0])
+					f.Label(text => 'Entry') {|w|
+						w.pack(side => 'left')
+					}
+					f.Entry {|w|
+						w.pack(fill => 'x', expand => true, side => 'left', padx => [8, 0])
+					}
+				}
+			}
+		}
+		n.Frame {|f|
+			n.add(f, text => 'Three', image => img, compound => 'left',
+							padding => 4, sticky => 'nwes')
+			f.Text(height => 10) {|w|
+				w.pack(fill => 'both', expand => true)
+			}
+		}
+		n.bind('<<NotebookTabChanged>>') {
+			logText.insert('end', '<<NotebookTabChanged>>\n')
+		}
+		n.focus()
+	}
+	logText = mw.Text(width => 20, height => 10) {|w|
+		w.pack(fill => 'x', pady => [4, 0])
+	}
+}
+tk.mainloop()

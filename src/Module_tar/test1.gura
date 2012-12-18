@@ -1,0 +1,7 @@
+import(tar)
+tar.reader('yaml-0.1.4.tar.gz').each() {|f, idx|
+	[dirName, fileName] = path.split(f.identifier)
+	!path.exists(dirName) && fs.mkdir(dirName)
+	println(f.identifier)
+	!fileName.isempty() && copy(f, f.identifier)
+}

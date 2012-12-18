@@ -1,0 +1,378 @@
+#!/usr/bin/env gura
+# -*- coding: utf-8 -*-
+sys.echo(false)
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+
+sys.stdout.setencoding('shift_jis')
+
+scope {
+	tester(`''.chop())
+	tester(`'abcdef'.chop())
+	tester(`'abcdef'.chop('f'))
+	tester(`'abcdef'.chop('g'))
+	tester(`'abcdef'.chop('F'))
+	tester(`'abcdef'.chop('F'):icase)
+	tester(`'abcdef'.chop():eol)
+	tester(`'abcdef\n'.chop():eol)
+	tester(`'abcdef\n'.chop('f'))
+	tester(`'abcdef\n'.chop('f'):eol)
+	tester(`'abcdef'.chop('f', 'g', 'h'))
+	tester(`'abcdeg'.chop('f', 'g', 'h'))
+	tester(`'abcdeh'.chop('f', 'g', 'h'))
+}
+scope {
+	println('漢字のテスト ${"スクリプト文字列"}'.template())
+}
+scope {
+	template = R'''
+${if (company) {R"""
+Company: ${company}
+""".template()} else {R"""
+(not defined)
+"""}}
+[Products]
+${R"""
+- %s
+""".format(products)}
+'''
+	scope {
+		company = 'hoge'
+		products = ['apple', 'grape', 'orange']
+		print(template.template())
+		company = nil
+		products = ['car', 'bicycle', 'boat']
+		print(template.template())
+	}
+}
+scope {
+	x = format('embedded #%d line\n', 1..4)
+	template = R'''
+space 1
+ ${x}
+space 2
+  ${x}
+space 3
+   ${x}
+space 4
+    ${x}
+tab 1
+	${x}
+tab 2
+		${x}
+not line top:  ${x}
+'''
+	println('** auto-indent **')
+	print(template.template())
+	print(template.reader().template())
+	println('** append last-eol **')
+	print(template.template():lasteol)
+	println('** no-indent **')
+	print(template.template():noindent)
+	println('** no-indent, append last-eol **')
+	print(template.template():noindent:lasteol)
+	x = 'single string'
+	print(template.template())
+}
+scope {
+	try {
+		'abcdefg${hoge}hijklmn'.template()
+	} except {|e|
+		println('expected error occurs: ', e.text)
+	}
+}
+scope {
+	println(chr(iterator(1, 1..0xff)).join().fold(16):*escapeuri())
+	println(chr(0x20..0x7e).join().fold(16):*escapeuri():*unescapeuri())
+}
+scope {
+	r'''
+1st line
+2nd line
+3rd line
+'''.binary().dump()
+	R'''
+1st line
+2nd line
+3rd line
+'''.binary().dump()
+	R'''a
+1st line
+2nd line
+3rd line
+'''.binary().dump()
+}
+scope {
+	text = '！“”゛″＃＄％＆’´′（）＊×＋、，ー－─。．／０１２３４５６７８９'
+	text += '：；＜〈＝＞〉？＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ'
+	text += '［〔￥］〕＾＿‘｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～￣'
+	println(text.zentohan())
+}
+scope {
+	textLower = 'ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ，．：；？！｀｜'
+	textUpper = 'ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ，．：；？！｀｜'
+	println(textUpper.upper())
+	println(textLower.upper())
+	println(textUpper.lower())
+	println(textLower.lower())
+}
+scope {
+	str = (0..9).join() * 10
+	tester(`str.fold(10):list)
+	tester(`str.fold(10, 5):list)
+	tester(`str.fold(5, 10):list)
+}
+scope {
+	tester(`'hello ${format("%d", 0..10).join(",")}'.template())
+}
+scope {
+	'あいうえお'.binary().dump()
+	codec('utf-8') {|c|
+		c.encode('あいうえお').dump()
+		c.decode('\xe3\x81\x82\xe3\x81\x84\xe3\x81\x86\xe3\x81\x88\xe3\x81\x8a').println()
+	}
+	codec('utf-16') {|c|
+		c.encode('あいうえお').dump()
+		c.decode('\x42\x30\x44\x30\x46\x30\x48\x30\x4a\x30').println()
+	}
+	codec('shift_jis') {|c|
+		c.encode('あいうえお').dump()
+		c.decode('\x82\xa0\x82\xa2\x82\xa4\x82\xa6\x82\xa8').println()
+	}
+	tester(`hex('あいうえおかきくけこさしすせそたちつてとなにぬねの'.each():utf8):list)
+	tester(`hex('あいうえおかきくけこさしすせそたちつてとなにぬねの'.each():utf32):list)
+}
+scope {
+	tester(`'x < 0 & y > 1'.escapehtml());
+	tester(`'x &lt; 0 &amp; y &gt; 1'.unescapehtml());
+	tester(`'&quot;hello world&quot;'.unescapehtml());
+}
+scope {
+	str = 'hello world'
+	tester(`str.align(16):center)
+	tester(`str.align(16):left)
+	tester(`str.align(16):right)
+	tester(`str.align(16, '*'):center)
+	tester(`str.align(16, '*'):left)
+	tester(`str.align(16, '*'):right)
+}
+scope {
+	str = ''
+	tester(`format('[%s]', str.strip():both))
+	tester(`format('[%s]', str.strip():left))
+	tester(`format('[%s]', str.strip():right))
+	str = '   '
+	tester(`format('[%s]', str.strip():both))
+	tester(`format('[%s]', str.strip():left))
+	tester(`format('[%s]', str.strip():right))
+	str = '   hello world   '
+	tester(`format('[%s]', str.strip():both))
+	tester(`format('[%s]', str.strip():left))
+	tester(`format('[%s]', str.strip():right))
+}
+scope {
+	var = 'HOGE'
+	tester(`'hello ${var} world'.template())
+	tester(`'hello ${var * 2} world'.template())
+	tester(`'''hello '${format('%8s', var)}' world'''.template())
+	var = 3.14
+	tester(`'hello ${var} world'.template())
+}
+scope {
+	print(open('chars-cp932.txt', 'r', 'shift_jis').readlines())
+	print(open('chars-utf8-jp.txt', 'r', 'utf-8').readlines())
+	print(open('chars-eucjp.txt', 'r', 'euc-jp').readlines())
+	print(open('chars-jis.txt', 'r', 'jis').readlines())
+}
+scope {
+	str = 'first line\nsecond line\nthird line\nfourth line\nfifth line\n'
+	tester(`str)
+	tester(`str.eachline():list)
+	tester(`str.eachline(2):list)
+	tester(`str.eachline():list:chop)
+	tester(`str.eachline(2):list:chop)
+	str = 'first line\r\nsecond line\r\nthird line\r\nfourth line\r\nfifth line\r\n'
+	tester(`str)
+	tester(`str.eachline():list)
+	tester(`str.eachline(2):list)
+	tester(`str.eachline():list:chop)
+	tester(`str.eachline(2):list:chop)
+}
+scope {
+	tester(`chr(0x00..0x7f):list)
+	tester(`ord(chr(0x00..0x7f)):list)
+	tester(`chr(ord('あいうえお'.split())):list)
+}
+scope {
+	str = 'あいうえお'
+	tester(`str)
+	tester(`str.len())
+	tester(`str.left(0))
+	tester(`str.left(1))
+	tester(`str.left(2))
+	tester(`str.left(3))
+	tester(`str.left(4))
+	tester(`str.left(5))
+	tester(`str.left(6))
+	tester(`str.left(10))
+	tester(`str.right(0))
+	tester(`str.right(1))
+	tester(`str.right(2))
+	tester(`str.right(3))
+	tester(`str.right(4))
+	tester(`str.right(5))
+	tester(`str.right(6))
+	tester(`str.right(10))
+	tester(`str.mid(2, 1))
+	tester(`str.mid(2, 2))
+	tester(`str.mid(2, 3))
+	tester(`str.mid(2, 4))
+	tester(`str.mid(1, 4))
+	tester(`str.mid(1, 10))
+	tester(`str.mid(pos => 1, len => 2))
+	tester(`str.mid(len => 2, pos => 1))
+	tester(`str.mid(len => 2))
+	tester(`str.mid(0))
+	tester(`str.mid(1))
+	tester(`str.mid(3))
+	tester(`str.mid(-6))
+	tester(`str.mid(-5))
+	tester(`str.mid(-4))
+	tester(`str.mid(-3))
+	tester(`str.mid(-2))
+	tester(`str.mid(-1))
+	tester(`str.startswith('あいう'))
+	tester(`str.startswith('かきく'))
+	tester(`str.endswith('うえお'))
+	tester(`str.endswith('くけこ'))
+	tester(`str.startswith('うえ', 2))
+	tester(`str.endswith('うえ', 4))
+	tester(`str.startswith('あいう'):rest)
+	tester(`str.startswith('かきく'):rest)
+	tester(`str.endswith('うえお'):rest)
+	tester(`str.endswith('くけこ'):rest)
+	tester(`str.startswith('うえ', 2):rest)
+	tester(`str.endswith('うえ', 4):rest)
+}
+scope {
+	str = 'abcdefghijklmn'
+	tester(`str)
+	tester(`str.startswith('abcd'))
+	tester(`str.startswith('abdd'))
+	tester(`str.startswith('ABCD'))
+	tester(`str.startswith('ABCD'):icase)
+	tester(`str.endswith('klmn'))
+	tester(`str.endswith('klmm'))
+	tester(`str.endswith('KLMN'))
+	tester(`str.endswith('KLMN'):icase)
+	tester(`str.startswith('defg', 3))
+	tester(`str.endswith('ghij', 10))
+	tester(`str.startswith('abcd'):rest)
+	tester(`str.startswith('abdd'):rest)
+	tester(`str.startswith('ABCD'):rest)
+	tester(`str.startswith('ABCD'):rest:icase)
+	tester(`str.endswith('klmn'):rest)
+	tester(`str.endswith('klmm'):rest)
+	tester(`str.endswith('KLMN'):rest)
+	tester(`str.endswith('KLMN'):rest:icase)
+	tester(`str.startswith('defg', 3):rest)
+	tester(`str.endswith('ghij', 10):rest)
+}
+scope {
+	tester(`'apple[sep]orange[sep]pear[sep]orange[sep]banana'.split('[sep]'):list)
+	tester(`'apple|orange|pear|orange|banana'.split('|'):list)
+	tester(`'|apple|orange||pear|orange|banana|'.split('|'):list)
+	tester(`''.split('|'):list)
+	tester(`['apple', 'orange', 'pear', 'orange', 'banana'].join(';'))
+}
+scope {
+	println('日本語SJISテスト')
+	println('構わない .. contains 0x5c (\\)')
+	println('芸能界 .. contains 0x5c (\\)')
+	println('''芸能界''')
+	print('''this is the first line
+2nd line
+3rd line
+4th line
+5th line
+6th line
+''')
+	print('''\
+this is the first line
+2nd line
+3rd line
+4th line
+5th line
+6th line
+''')
+	println(r'raw mode \n \t \r \\ \'')
+	println(R'raw mode \n \t \r \\ \'')
+	println(r'''raw mode \n \t \r \\ \'''')
+	println(R'''raw mode \n \t \r \\ \'''')
+	println(r'regular expression: (\w+)\((\w+)(\w+)\)')
+	println('string concatenation test: ' ' 1st' ' 2dn' ' 3rd' r' 4th' R' 5th' \
+			' 6th' ''' 7th''' r''' 8th''')
+}
+scope {
+	println('日本語SJISテスト')
+	println('構わない .. contains 0x5c (\\)')
+	println('芸能界 .. contains 0x5c (\\)')
+	println('''芸能界''')
+	print('''this is the first line
+2nd line
+3rd line
+4th line
+5th line
+6th line
+''')
+	print('''\
+this is the first line
+2nd line
+3rd line
+4th line
+5th line
+6th line
+''')
+	println(r'raw mode \n \t \r \\ \'')
+	println(R'raw mode \n \t \r \\ \'')
+	println(r'''raw mode \n \t \r \\ \'''')
+	println(R'''raw mode \n \t \r \\ \'''')
+	println(r'regular expression: (\w+)\((\w+)(\w+)\)')
+	println('string concatenation test: ' ' 1st' ' 2dn' ' 3rd' r' 4th' R' 5th' \
+			' 6th' ''' 7th''' r''' 8th''')
+}
+scope {
+	tester([`(math.sqrt * 2), `(math.sin * math.pi).roundoff(), `(math.cos * math.pi)])
+	tester(`'hello world hello hello'.find('llo'))
+	tester(`'hello world hello hello'.find('llo'):rev)
+	tester(`'hello world hello hello'.find('llo'):list)
+	tester(`'hello world hello hello'.find('Llo'))
+	tester(`'hello world hello hello'.find('Llo'):rev)
+	tester(`'hello world hello hello'.find('Llo'):list)
+	tester(`'hello world hello hello'.find('Llo'):icase)
+	tester(`'hello world hello hello'.find('Llo'):rev:icase)
+	tester(`'hello world hello hello'.find('Llo'):list:icase)
+}
+scope {
+	str = 'hello world'
+	tester(`str)
+	tester([`str.left(nil), `str.left(5)])
+	tester([`str.right(nil), `str.right(5)])
+	tester([`str.mid(nil, nil), `str.mid(2, nil), `str.mid(nil, 5), `str.mid(2, 3)])
+	tester(`str.replace('ll', 'LL'))
+	tester(`str.replace('o', '[O]'))
+	tester(`str.replace('o', '[O]', 0))
+	tester(`str.replace('o', '[O]', 1))
+	tester(`str.replace('', '*'))
+	tester(`str.replace('', '*', 0))
+	tester(`str.replace('', '*', 3))
+}
+scope {
+	x = @(struct(a, b, c, d, e):loose) {
+		[1, 2, 3, 4, 5],
+		[3, 4, 2, 1],
+		[2, 3, 4],
+		[1, 1],
+		[1]
+	}
+	function(x):map { printf('%d %d %d %d %d\n', x.a, x.b, x.c, x.d, x.e) }(x)
+}

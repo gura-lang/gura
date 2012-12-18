@@ -1,0 +1,71 @@
+#!/usr/bin/env gura
+import(wx)
+import(jpeg)
+import(gif)
+import(png)
+import(bmp)
+
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+Panel = class(wx.Panel) {
+	__init__(parent:wx.Window) = {|parent|
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		self.SetSizer(vbox)
+		self.pathNames = path.glob(I('*.jpg')).round()
+		self.image = nil
+		wx.StaticText(self, wx.ID_ANY, '', style => wx.BORDER_SUNKEN | wx.ST_NO_AUTORESIZE) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags().Expand())
+			self.indicator = ctrl
+		}
+		wx.Panel(self, style => wx.BORDER_SUNKEN) {|panel|
+			vbox.Add(panel, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+			panel.Bind(wx.EVT_ERASE_BACKGROUND) {} // nothing to do
+			panel.Bind(wx.EVT_PAINT) {|event|
+				try {
+					dc = wx.PaintDC(panel)
+					size = panel.GetClientSize()
+					if (self.image) {
+						img = self.image.thumbnail(size.GetWidth(), size.GetHeight())
+						dc.DrawBitmap(img,
+								(size.GetWidth() - img.width) / 2,
+								(size.GetHeight() - img.height) / 2, false)
+					}
+				} except {|e|
+					println(e)
+				}
+				dc = nil
+			}
+		}
+		self.Bind(wx.EVT_TIMER) {|event|
+			pathName = self.pathNames.next()
+			self.indicator.SetLabel(path.filename(pathName))
+			self.image = image(pathName)
+			self.Refresh()
+		}
+		self.timer = wx.Timer(self)
+		self.timer.Start(1000)
+	}
+}
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
+							path.filename(sys.argv[0]), size => wx.Size(800, 600)|
+		wx.Panel(self) {|panel|
+			wx.BoxSizer(wx.VERTICAL) {|vbox|
+				panel.SetSizer(vbox)
+				vbox.Add(Panel(panel), wx.SizerFlags(2).Expand())
+			}
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+wx.IMPLEMENT_APP(App)

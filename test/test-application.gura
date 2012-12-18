@@ -1,0 +1,207 @@
+#!/usr/bin/env gura
+sys.echo(false)
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+
+scope {
+	hanoi(n:number, from:string, to:string, via:string) = {
+		if (n == 1) {
+			printf('%s => %s\n', from, to)
+		} else {
+			hanoi(n - 1, from, via, to)
+			printf('%s => %s\n', from, to)
+			hanoi(n - 1, via, to, from)
+		}
+	}
+	hanoi(3, 'a', 'b', 'c')
+}
+scope {
+	x = 1..100
+	printf('[%d,%s%s]', x,
+			cond(x % 3 == 0, 'Fizz', ''), cond(x % 5 == 0, 'Buzz', ''))
+	println()
+}
+scope {
+	weekName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+	wdayAccum = 1
+	for (year in 1900..2500) {
+		printf('%04d', year)
+		weekdays = [wdayAccum]
+		for (month in 1..11) {
+			wdayAccum = (wdayAccum + time.monthdays(year, month)) % 7
+			weekdays.add(wdayAccum)
+		}
+		printf(' %s', cond((time.weekday(year, 1..12, 1):list == weekdays).and(), 'OK', 'NG'))
+		printf(' %d:%s', 1..12, weekName[time.weekday(year, 1..12, 1)])
+		println()
+		wdayAccum = (wdayAccum + time.monthdays(year, 12)) % 7
+	}
+}
+scope {
+	calOfMonth(year:number, month:number) = {
+		days = [fill(time.weekday(year, month, 1), '  '),
+		         (1..time.monthdays(year, month)).format('%2d')]
+		days.fold(7).align(6, []):*align(7, '  '):*join(' ')
+	}
+	monthNames = [
+		'', 'January', 'February', 'March', 'April', 'May', 'June',
+		'July', 'August', 'September', 'October', 'November', 'December',
+	]
+	sep = '  '
+	calendar(year:number, nCols:number) = {
+		printf('[%04d]\n', year)
+		repeat (math.ceil(12 / nCols)) {|iRow|
+			month = iRow * nCols + 1
+			nColsCur = min(nCols, 12 - month + 1)
+			months = [month..(month + nColsCur - 1)]
+			println(format('%-20s', format('%d %s', months, monthNames[months])).join(sep))
+			println(repeat(nColsCur):list { ' S  M  T  W  T  F  S' }.join(sep))
+			lines = repeat(6):list { '' }
+			repeat (nColsCur) {|iCol|
+				if (iCol > 0) { lines += sep }
+				lines += calOfMonth(year, month + iCol)
+			}
+			println(lines)
+			println()
+		}
+	}
+	calendar(2010, 1..4):map:void
+}
+function(nRange:number, nTrial:number) {
+	println('-- Histogram of regular distribution --')
+	item = struct(num:number, mark:string):map
+	printbar(numList+:number):map = {
+		itemList = item(numList, ['*', '+', '#', '-', '&'])
+		itemList = itemList.sort(&{$item1.num <=> $item2.num})
+		numPrev = 0
+		for (item in itemList) {
+			print(item.mark * (item.num - numPrev))
+			numPrev = item.num
+		}
+		println('')
+	}
+	regular_distrib(nSamples:number) = {
+		hist = repeat(nRange):list { 0 }
+		repeat(nTrial) {
+			x = (repeat(nSamples):list { rand(nRange) }).average()
+			hist[int(x)] += 1
+		}
+		hist
+	}
+	hist_5 = regular_distrib(5)
+	hist_10 = regular_distrib(10)
+	hist_30 = regular_distrib(30)
+	hist_50 = regular_distrib(50)
+	printbar(hist_5, hist_10, hist_30, hist_50)
+}(30, 300)
+scope {
+	fib(n:number) = {
+		[a, b] = [0, 1]
+		while (b < n):list { [a, b] = [b, a + b], a }
+	}
+	println('fibonacci series')
+	println(fib(2000).tostring())
+}
+scope {
+	foo(x) = if (x <= 0) { [] } else { [x, foo(x - 1)] }
+	println(foo(3).tostring())
+}
+scope {
+	primes(n:number) = for (i in 2..n):xlist {
+		for (j in 2..i-1) {
+			if (i % j == 0) { break } else { i }
+		}
+	}
+	n = 200
+	printf('prime numbers up to %d: ', n)
+	println(format('%d', primes(n)).join(', '))
+}
+scope {
+	Ackermann(m:number, n:number) = {
+		if (m == 0) {
+			n + 1
+		} elsif (n == 0) {
+			Ackermann(m - 1, 1)
+		} else {
+			Ackermann(m - 1, Ackermann(m, n - 1))
+		}
+	}
+	print(Ackermann(0, 0), ' ... should be 1\n')
+	print(Ackermann(1, 1), ' ... should be 3\n')
+	print(Ackermann(2, 3), ' ... should be 9\n')
+	//print(Ackermann(3, 4), ' ... should be 125\n')
+}
+scope {
+	quicksort(seq[]) = {
+		if (seq.len() < 1) {
+			return(seq)
+		} else {
+			pivot = seq[0]
+			left = (seq.filter(&{$x <= pivot}):list).erase(0)
+			right = seq.filter(&{$x > pivot}):list
+			left = quicksort(left)
+			right = quicksort(right)
+			list(left, [pivot], right)
+		}
+	}
+	repeat(10) {
+		println(quicksort(repeat(20):list { rand(10) })):nomap
+	}
+}
+scope {
+	// http://konohaotoshi.blog69.fc2.com/blog-category-22.html
+	birth_number(str:string) = {
+		if (str.len() <= 1) {
+			str
+		} else {
+			birth_number(str.split():*tonumber().sum().tostring())
+		}
+	}
+	tester(`birth_number('19981225'))
+	tester(`birth_number('19900101'))
+	tester(`format('0x%04x', [0..99] ** 2).join(', '))
+}
+scope {
+	convToNumber(str:string):map = if (str == ' ') { nil } else { str.tonumber():raise }
+	makeBoard(boardRaw:string) = convToNumber(boardRaw.split('\n')::split())
+	getBox(board, iRow:number, iCol:number) = {
+		iRow = int(iRow / 3) * 3, iCol = int(iCol / 3) * 3
+		list % board[iRow..(iRow + 2)]::get([iCol..(iCol + 2)]):list
+	}
+	solve(board, iCell:number) = {
+		repeat {
+			(iCell >= 9 * 9) && return(true)
+			[iRow, iCol] = [int(iCell / 9), iCell % 9]
+			(board[iRow][iCol] == nil) && break
+			iCell += 1
+		}
+		candidates = set(xset(1..9, board[iRow]):xor,
+					xset(1..9, board::get(iCol)):xor,
+					xset(1..9, getBox(board, iRow, iCol)):xor):and
+		(candidates.len() == 0) && return(false)
+		for (digit in candidates) {
+			board[iRow][iCol] = digit
+			solve(board, iCell + 1) && return(true)
+		}
+		board[iRow][iCol] = nil
+		false
+	}
+	printBoard(board) = {
+		println('+-----+-----+-----+')
+		for (line in board) {|i|
+			fields = [line[0..2], line[3..5], line[6..8]]::nilto(' ')
+			println('|', fields::join(' ').join('|'), '|')
+			((i + 1) % 3 == 0) && println('+-----+-----+-----+')
+		}
+	}
+	board = makeBoard(
+		'8   4  69\n'\
+		'24 5   1 \n'\
+		'  98 24  \n'\
+		'  8 1 64 \n'\
+		'7  4 8  5\n'\
+		' 23 9 8  \n'\
+		'  21 67  \n'\
+		' 1   4 23\n'\
+		'59  3   6')
+	solve(board, 0) && printBoard(board)
+}

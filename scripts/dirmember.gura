@@ -1,0 +1,22 @@
+#!/usr/bin/env gura
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: gura dirmember.gura class')
+	sys.exit(1)
+}
+type = sys.argv[1]
+try {
+	obj = type.parse().eval()
+} except {
+	obj = nil
+}
+if (ismodule(obj)) {
+	members = dir(obj).sort()
+	values = locals(obj).lookup(tosymbol(members))
+	println(type, '.', values.filter(isfunction(values):map))
+} else {
+	members = dir(classref(type.parse()))
+	membersToEliminate = dir(object())
+	members = members.filter(!(members in membersToEliminate))
+	strs = format("classref(`%s).%s", type, members.sort())
+	println(strs:*parse():*eval())
+}

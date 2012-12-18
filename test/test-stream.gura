@@ -1,0 +1,100 @@
+#!/usr/bin/env gura
+# -*- coding: utf-8 -*-
+import(tar)
+import(zip)
+import(gzip)
+import(bzip2)
+
+scope {
+	entries = [
+		b'a' * 38009
+		b'b' * 43643
+		b'c' * 33517
+		b'd' * 26822
+		b'e' * 512
+		b'f' * 28838
+		b'g' * 2048
+		b'h' * 24991
+		b'i' * 38910
+		b'j' * 56954
+	]
+	for (compress in [`none, `gzip, `bzip2]) {
+		buff = binary()
+		tar.writer(buff, compress).add(entries, 'entry' + (1..) + '.bin').close()
+		printf('tar compression: %s\n', compress)
+		for (entry in entries, stream in tar.reader(buff, compress).entries()) {
+			entryDec = stream.read()
+			printf('%-12s %5d %s\n', stream.identifier, stream.stat.size,
+										cond(entry == entryDec, 'OK', '*NG*'))
+		}
+	}
+	for (compress in [`store, `deflate, `bzip2]) {
+		buff = binary()
+		zip.writer(buff, compress).add(entries, 'entry' + (1..) + '.bin').close()
+		printf('zip compression: %s\n', compress)
+		for (entry in entries, stream in zip.reader(buff).entries()) {
+			entryDec = stream.read()
+			printf('%-12s %5d %s\n', stream.identifier, stream.stat.size,
+										cond(entry == entryDec, 'OK', '*NG*'))
+		}
+	}
+}
+scope {
+	buff = binary()
+	buff.writer().setencoding('shift_jis').println('こんにちは、世界')
+	buff.dump()
+}
+scope {
+	buff = binary()
+	gzip.writer(buff.writer().setencoding('shift_jis')).println('こんにちは、世界')
+	//buff.dump()
+	gzip.reader(buff).read().dump()
+}
+scope {
+	buff = binary()
+	gzip.writer(buff).setencoding('shift_jis').println('こんにちは、世界')
+	//buff.dump()
+	gzip.reader(buff).read().dump()
+}
+scope {
+	buff = binary()
+	bzip2.writer(buff.writer().setencoding('shift_jis')).println('こんにちは、世界')
+	//buff.dump()
+	bzip2.reader(buff).read().dump()
+}
+scope {
+	buff = binary()
+	bzip2.writer(buff).setencoding('shift_jis').println('こんにちは、世界')
+	//buff.dump()
+	bzip2.reader(buff).read().dump()
+}
+scope {
+	patterns = [
+		[b'ABCDEFG',							nil]
+		// examples in RFC2440
+		[b'\x14\xfb\x9c\x03\xd9\x7e',			nil]
+		[b'\x14\xfb\x9c\x03\xd9',				nil]
+		[b'\x14\xfb\x9c\x03',					nil]
+		// other test patterns
+		[b'\x82\xa0',							nil]
+		[b'This is the data, in the clear.',	nil]
+		[b'abcd' * 100,							nil]
+		[b'a' * 100,							nil]
+		[b'a' * 110,							76]
+		[b'a' * 111,							76]
+		[b'a' * 112,							76]
+		[b'a' * 113,							76]
+		[b'a' * 114,							76]
+		[b'a' * 115,							76]
+	]
+	for ([buffSrc, linelen] in patterns) {
+		println('-' * 32)
+		buff = binary()
+		base64.writer(buff, linelen).write(buffSrc).close()
+		print(buff.decode('us-ascii').replace('\r', ''))
+		!linelen && println()
+		buffDec = base64.reader(buff).read()
+		println(cond(buffSrc == buffDec, 'OK', '*NG*'))
+		buffDec.dump()
+	}
+}

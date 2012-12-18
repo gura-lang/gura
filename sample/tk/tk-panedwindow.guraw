@@ -1,0 +1,28 @@
+#!/usr/bin/env gura
+import(tk)
+
+tk.mainwindow {|mw|
+	mw.Panedwindow(sashwidth => 6) {|p|
+		p.pack(expand => true, fill => 'both')
+		p.Frame {|f|
+			p.add(f)
+			f.Text(width => 20) {|w|
+				w.pack(expand => true, fill => 'both')
+			}
+		}
+		p.Panedwindow(sashwidth => 6, orient => 'vertical') {|psub|
+			p.add(psub)
+			p = psub
+			repeat (3) {
+				p.Frame {|f|
+					p.add(f)
+					f.Text(width => 40, height => 10) {|w|
+						w.pack(expand => true, fill => 'both')
+					}
+				}
+			}
+		}
+	}
+	mw.ttk$Sizegrip().pack(side => 'right', anchor => 'se')
+}
+tk.mainloop()

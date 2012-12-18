@@ -1,0 +1,20 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+if (sys.build == `msc) {
+	builder.incDirs.append(path.join(modbuild.guestDir, 'include', 'SDL'))
+	builder.dlls.append('SDL.dll', 'SDL_image.dll', 'SDL_mixer.dll', 'SDL_ttf.dll')
+	builder.cflags.append('-D__DMC__')
+} elsif (sys.build == `gnuc) {
+	builder.libs.append('SDL', 'SDL_image', 'SDL_mixer')
+	builder.incDirs.append('/usr/include/SDL', '/usr/local/include/SDL')
+	builder.hint = '''\
+It seems necessary libraries have not been installed on your system.
+See the following step(s) to resolve this problem.
+- Install Debian package:
+  $ sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev
+- Install yum package:
+  # yum install SDL-devel SDL_image-devel SDL_mixer-devel
+'''
+}
+builder.build('sdl', ['Module_sdl.cpp'])

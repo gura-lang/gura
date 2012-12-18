@@ -1,0 +1,97 @@
+#!/usr/bin/env gura
+scope {
+	f = function
+	funcs = [
+		math.sin
+		math.cos
+		math.tan
+		math.exp
+		math.log
+		math.log10
+		math.asin
+		math.acos
+		math.atan
+		math.sqrt
+		f(x) { x ** 2 }
+		f(x) { x ** 3 }
+		f(x) { x ** 4 }
+		f(x) { a ** x }
+		f(x) { math.sin(x) }
+		f(x) { math.cos(x) }
+		f(x) { math.tan(x) }
+		f(x) { math.exp(x) }
+		f(x) { math.log(x) }
+		f(x) { math.log10(x) }
+		f(x) { math.asin(x) }
+		f(x) { math.acos(x) }
+		f(x) { math.atan(x) }
+		f(x) { math.sqrt(x) }
+		f(x) { (math.sin(x)) ** 2 }
+		f(x) { (math.sin(x**2)) }
+		f(x) { math.log(math.sin(x)) }
+		f(x) { x ** 2 * math.sin(x) }
+		f(x) { math.sin(x) / (x ** 2) }
+		f(x) { 3 ** (2 * x) }
+		f(x) { math.log(x ** 2 + 1) }
+		f(x) { ((x - 1) ** 2 * (x - 2) ** 3) / ((x - 5) ** 2) }
+		f(x) { math.sin(2 * x - 3) }
+		f(x) { math.cos(x) ** 2 }
+		f(x) { (2 * x - 1) ** 3 }
+		f(x) { math.sqrt(x ** 2 + 2 * x + 3) }
+		f(x) { 1 / x }
+		f(x) { math.exp(x) + math.exp(-x) }
+		f(x) { math.exp(x) - math.exp(-x) }
+		f(x) { (math.sin(x + 2) + x + 2) * (math.sin(x + 3) + x + 3) }
+		f(x) { math.sin(math.sin(x ** 2 / 3)) }
+	]
+	funcs.each {|func|
+		if (func.expr) {
+			printf('%s -> %s\n', func.expr, func.diff().expr)
+		} else {
+			printf('%s -> %s\n', func, func.diff().expr)
+		}
+	}
+}
+function {
+	list = List {
+		`(x ** 3)
+		`((x * 3 + (x ** 4)) + x * 2)
+		`(math.sin(x))
+		`(math.cos(x))
+		`(math.tan(x))
+		`(math.exp(x))
+		`(math.log(x))
+		`(math.asin(x))
+		`(math.acos(x))
+		`(math.atan(x))
+		`((math.sin(x)) ** 2)
+		`((math.sin(x**2)))
+		`(math.log(math.sin(x)))
+		`(x ** 2 * math.sin(x))
+		`(math.sin(x) / (x ** 2))
+		`(3 ** (2 * x))
+		`(math.log(x ** 2 + 1))
+		`(((x - 1) ** 2 * (x - 2) ** 3) / ((x - 5) ** 2))
+		`(math.sin(2 * x - 3))
+		`(math.cos(x) ** 2)
+		`((2 * x - 1) ** 3)
+		`(math.sqrt(x ** 2 + 2 * x + 3))
+		`(1 / x)
+		`(math.exp(x) + math.exp(-x))
+		`(math.exp(x) - math.exp(-x))
+		`(ff(x + 2) * ff(x + 3))
+		`((math.sin(x + 2) + x + 2) * (math.sin(x + 3) + x + 3))
+	}
+	#ff(x) = math.sin(x) + x
+	for (f in list) { print('%-32s %s\n' % (f.tostring(), math.diff(`x, f).tostring())) }
+	println('----')
+	my_diff(g) = math.diff(`x, g)
+	a = `(x ** 2 + x + 2)
+	println(a.tostring())
+	print(my_diff(a).tostring(), ' = ', math.diff(`x, a).tostring(), '\n')
+	println('----')
+	f(x) = x ** 3 + x ** 2 + x + 10
+	print('f(x)   = ', f.expr().tostring(), '\n')
+	print("f'(x)  = ", math.diff(`x, f.expr()).tostring(), '\n')
+	print("f''(x) = ", math.diff(`x, math.diff(`x, f.expr())).tostring(), '\n')
+}

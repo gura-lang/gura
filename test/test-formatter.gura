@@ -1,0 +1,165 @@
+#!/usr/bin/env gura
+sys.echo(false)
+println('======== formatter test ========')
+scope {
+	printf('%d\n', 0x7fffffff)
+	printf('%d\n', 0x80000000)
+	printf('%d\n', -0x7fffffff)
+	printf('%d\n', -0x80000000)
+}
+scope {
+	print('%e\n' % (math.pi * 1000000000))
+	print('%E\n' % (math.pi * 1000000000))
+	print('%e\n' % (math.pi * 100))
+	print('%E\n' % (math.pi * 100))
+	print('%f\n' % (math.pi))
+	print('%20f\n' % math.pi)
+	print('%.10f\n' % math.pi)
+	print('%g\n' % (math.pi * 100))
+	print('%g\n' % (math.pi * 1000000000))
+	print('%G\n' % (math.pi * 1000000000))
+}
+scope {
+	println('%d' % 1)
+	println('%d' % [1])
+	println('%d %d %d %d %d %d' % [1, 2, 3, 4, 5, 6])
+	println('%d %d %d %d' % [1000, [100, 200, 300, 400], [10, 20, 30, 40], [1, 2, 3, 4]])
+	println('%d %d %d %d' % [1000, [100, 200, 300, 400], [10, 20, 30, 40], [1, 2, 3]])
+	println('%d %d' % [[10, 20, 30, 40], [1, 2, 3]])
+	println('%d %d' % [1, 2, [1, 2, 3]])
+	println('%d %d' % @{1..5, 10..15})
+	println('%d %d %d' % @{1, 1..5, 10..15})
+}
+scope {
+	print('%d format\n')
+	testList = @{
+		'|%d|%d|'
+		'|%12d|%12d|'
+		'|%#12d|%#12d|'
+		'|%-12d|%-12d|'
+		'|%.12d|%.12d|'
+		'|%#.12d|%#.12d|'
+		'|%12.8d|%12.8d|'
+		'|%.4d|%.4d|'
+		'|%+d|%+d|'
+		'|% d|% d|'
+	}
+	for (test in testList) {
+		print('%-24s' % test)
+		println(test % [123456, -123456])
+	}
+}
+scope {
+	print('%u format\n')
+	testList = @{
+		'|%u|%u|'
+		'|%12u|%12u|'
+		'|%#12u|%#12u|'
+		'|%-12u|%-12u|'
+		'|%.12u|%.12u|'
+		'|%#.12u|%#.12u|'
+		'|%12.8u|%12.8u|'
+		'|%.4u|%.4u|'
+		'|%+u|%+u|'
+		'|% u|% u|'
+	}
+	for (test in testList) {
+		print('%-24s' % test)
+		println(test % [123456, -123456])
+	}
+}
+scope {
+	print('%b format\n')
+	testList = @{
+		'|%b|%b|'
+		'|%12b|%12b|'
+		'|%#12b|%#12b|'
+		'|%-12b|%-12b|'
+		'|%.12b|%.12b|'
+		'|%12.8b|%12.8b|'
+		'|%.4b|%.4b|'
+		'|%+b|%+b|'
+		'|% b|% b|'
+	}
+	for (test in testList) {
+		print('%-24s' % test)
+		println(test % [123, -123])
+	}
+}
+scope {
+	print('%o format\n')
+	testList = @{
+		'|%o|%o|'
+		'|%12o|%12o|'
+		'|%#12o|%#12o|'
+		'|%-12o|%-12o|'
+		'|%.12o|%.12o|'
+		'|%12.8o|%12.8o|'
+		'|%.4o|%.4o|'
+		'|%+o|%+o|'
+		'|% o|% o|'
+	}
+	for (test in testList) {
+		print('%-24s' % test)
+		println(test % [123456, -123456])
+	}
+}
+scope {
+	print('%x format\n')
+	testList = @{
+		'|%x|%x|'
+		'|%12x|%12x|'
+		'|%#12x|%#12x|'
+		'|%-12x|%-12x|'
+		'|%.12x|%.12x|'
+		'|%#.12x|%#.12x|'
+		'|%12.8x|%12.8x|'
+		'|%.4x|%.4x|'
+		'|%+x|%+x|'
+		'|% x|% x|'
+	}
+	for (test in testList) {
+		print('%-24s' % test)
+		println(test % [123456, -123456])
+	}
+}
+scope {
+	print('%X format\n')
+	testList = @{
+		'|%X|%X|'
+		'|%12X|%12X|'
+		'|%#12X|%#12X|'
+		'|%-12X|%-12X|'
+		'|%.12X|%.12X|'
+		'|%#.12X|%#.12X|'
+		'|%12.8X|%12.8X|'
+		'|%.4X|%.4X|'
+		'|%+X|%+X|'
+		'|% X|% X|'
+	}
+	for (test in testList) {
+		print('%-24s' % test)
+		println(test % [123456, -123456])
+	}
+}
+scope {
+	print('* format\n')
+	testList = @{
+		'|%*d|'
+		'|%*u|'
+		'|%*o|'
+		'|%*x|'
+		'|%*X|'
+	}
+	for (i in [-9, -8, -7, -6, -5, -4, 4, 5, 6, 7, 8, 9]) {
+		for (test in testList) {
+			print('%-24s' % test)
+			println(test % [i, 123456])
+		}
+		scope {
+			test = '|%*s|'
+			print('%-24s' % test)
+			println(test % [i, 'hello'])
+		}
+	}
+}

@@ -1,0 +1,372 @@
+#!/usr/bin/env gura
+import(tk)
+import(cairo)
+import(units)
+import(yaml)
+import(math) {*}
+
+classref(`cairo.context) {|ref|
+	ref.hline(x:number, y:number, width:number):map:reduce = {
+		self.move_to(x, y).rel_line_to(width, 0)
+	}
+	ref.vline(x:number, y:number, height:number):map:reduce = {
+		self.move_to(x, y).rel_line_to(0, height)
+	}
+}
+
+fileNameCfg = path.join(path.dirname(sys.argv[0]), 'guraplot.yml')
+try { cfg = yaml.read(fileNameCfg) } except { cfg = %{} }
+cfg.store():default {
+	'width' => 740
+	'height' => 480
+}
+
+//-----------------------------------------------------------------------------
+// Graph
+//-----------------------------------------------------------------------------
+Graph = class {
+	__init__() = {
+		self.funcs = []
+		self.plots = []
+		[self.xMin, self.xMax] = [-10, 10]
+		[self.yMin, self.yMax] = [-10, 10]
+		self.cntSamples = 100
+	}
+	coordX(x:number):map = {
+		self.xAxis + (x - self.xMin) * self.wdAxis / (self.xMax - self.xMin)
+	}
+	coordY(y:number):map = {
+		self.yAxis + self.htAxis - (y - self.yMin) * self.htAxis / (self.yMax - self.yMin)
+	}
+	coord(x:number, y:number) = [coordX(x), coordY(y)]
+	calcStep(tMin:number, tMax:number) = {
+		tRange = tMax - tMin
+		nScales = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000]
+		tStepBase = 10 ** (int(math.log10(tRange)) - 2)
+		tSteps = tStepBase * nScales
+		(tSteps.filter(tRange / tSteps >= 10):list).last()
+	}
+	draw(cr:cairo.context) = {
+		[self.wdAxis, self.htAxis] = [cr.width * .9, cr.height * .9]
+		[self.xAxis, self.yAxis] = [(cr.width - self.wdAxis) / 2, (cr.height - self.htAxis) / 2]
+		cr.set_line_width(1)
+		cr.save {
+			cr.set_antialias(cairo.ANTIALIAS_NONE)
+			cr.rectangle(self.xAxis, self.yAxis, self.wdAxis, self.htAxis)
+			cr.stroke()
+		}
+		cr.rectangle(self.xAxis, self.yAxis, self.wdAxis, self.htAxis)
+		cr.clip()
+		cr.save {
+			cr.set_antialias(cairo.ANTIALIAS_NONE)
+			cr.set_dash([], 0)
+			cr.vline(self.coordX(0), self.yAxis, self.htAxis)
+			cr.hline(self.xAxis, self.coordY(0), self.wdAxis)
+			cr.stroke()
+			cr.set_dash([2, 2], 0)
+			scope {
+				tStep = self.calcStep(self.xMin, self.xMax)
+				xs = (int(self.xMin / tStep) + \
+						(0 .. int((self.xMax - self.xMin) / tStep))) * tStep
+				cr.vline(self.coordX(xs), self.yAxis, self.htAxis)
+			}
+			scope {
+				tStep = self.calcStep(self.yMin, self.yMax)
+				ys = (int(self.yMin / tStep) + \
+						(0 .. int((self.yMax - self.yMin) / tStep))) * tStep
+				cr.hline(self.xAxis, self.coordY(ys), self.wdAxis)
+			}
+			cr.stroke()
+		}
+		cr.save {
+			x = interval(self.xMin, self.xMax, self.cntSamples)
+			y = interval(self.yMin, self.yMax, self.cntSamples)
+			cr.set_antialias(cairo.ANTIALIAS_DEFAULT)
+			for (func in self.funcs) {
+				syms = func.args
+				if (syms.len() != 1) {
+					raise(ValueError, 'wrong number of arguments')
+				}
+				sym = syms.first()
+				if (sym == `y) {
+					cr.line_to(self.coordX(func(y)), self.coordY(y))
+				} else {
+					cr.line_to(self.coordX(x), self.coordY(func(x)))
+				}
+				cr.stroke()
+			}
+		}
+		cr.save {
+			for (plot in self.plots) {
+				t = interval(plot.tMin, plot.tMax, self.cntSamples)
+				cr.line_to(self.coordX(eval(plot.x)), self.coordY(eval(plot.y)))
+				cr.stroke()
+			}
+		}
+	}
+	addFunc(func:function) = {
+		idx = (self.funcs::name == func.name).find()
+		idx && self.funcs.erase(idx)
+		self.funcs.add(func)
+	}
+}
+
+//-----------------------------------------------------------------------------
+// create a main window
+//-----------------------------------------------------------------------------
+tk.mainwindow() {|mw|
+	itemTitles = []
+	itemFocus = nil
+	history = []
+	graph = Graph()
+	canvas = nil
+	treeview = nil
+	entryCommand = nil
+	varCommand = tk.variable('')
+	varIndicator = tk.variable('')
+	imgGraphTk = nil
+	showGraphic() = {
+		imgGraphTk && imgGraphTk.delete()
+		wdCanvas = canvas.winfo$width()
+		htCanvas = canvas.winfo$height()
+		img = image(`rgba, wdCanvas, htCanvas, `white)
+		img.cairo {|cr|
+			try {
+				cr.save { graph.draw(cr) }
+			} except {|e|
+				varIndicator.string = e.text
+			}
+		}
+		imgGraphTk = img.to_tk()
+		canvas.Image(0, 0, image => imgGraphTk, anchor => 'nw')
+		itemTitles::raise()
+	}
+	mw.wm$geometry('%sx%s' % [cfg['width'], cfg['height']])
+	mw.wm$title('Gura Plot')
+	mw.bind('<Configure>') {|widget:string, width:number, height:number|
+		(widget == '.') && (cfg['width', 'height'] = [width, height])
+	}
+	mw[`menu] = mw.Menu() {|m|
+		m.Cascade(label => 'File', underline => 0) {|m|
+			m.Command(label => 'Open', underline => 0) {
+			}
+			m.Command(label => 'Create PDF', underline => 0) {
+				cairo.pdf_create('>cairo-pdf.pdf', units.mm$pt(100), units.mm$pt(100)) {|cr|
+					cr.scale(units.mm$pt(100) / 100, units.mm$pt(100) / 100)
+					try {
+						graph.draw(cr)
+					} except {|e|
+						varIndicator.string = e.text
+					}
+					cr.show_page()
+					varIndicator.string = 'graph.pdf'
+				}
+			}
+			m.Separator()
+			m.Command(label => 'Exit', underline => 1) {
+				mw.destroy()
+			}
+		}
+		m.Cascade(label => 'Window', underline => 0) {|m|
+		}
+	}
+	mw.Frame {|f|
+		f.pack(fill => 'x', side => 'left', anchor => 'n')
+		f.Button(text => 'Title', anchor => 'n', width => 10) {|w|
+			w.pack(side => 'top', pady => [2, 0])
+			w.bind(`command) {
+				varCommand.string = "title(100, 100, '')"
+				entryCommand.icursor(17)
+			}
+		}
+		f.Button(text => 'Function', width => 10) {|w|
+			w.pack(side => 'top', pady => [2, 0])
+			w.bind(`command) {
+				varCommand.string = 'f(x) = x'
+				entryCommand.icursor(7)
+			}
+		}
+		f.Button(text => 'Samples', width => 10) {|w|
+			w.pack(side => 'top', pady => [2, 0])
+			w.bind(`command) {
+				varCommand.string = 'samples(%d)' % graph.cntSamples
+				entryCommand.icursor(8)
+			}
+		}
+		f.Button(text => 'X range', width => 10) {|w|
+			w.pack(side => 'top', pady => [2, 0])
+			w.bind(`command) {
+				varCommand.string = 'xrange(%d, %d)' % [graph.xMin, graph.xMax]
+				entryCommand.icursor(7)
+			}
+		}
+		f.Button(text => 'Y range', width => 10) {|w|
+			w.pack(side => 'top', pady => [2, 0])
+			w.bind(`command) {
+				varCommand.string = 'yrange(%d, %d)' % [graph.yMin, graph.yMax]
+				entryCommand.icursor(7)
+			}
+		}
+		f.Button(text => 'PDF', width => 10) {|w|
+			w.pack(side => 'top', pady => [2, 0])
+			w.bind(`command) {
+				cairo.pdf_create('>graph.pdf', units.mm$pt(100), units.mm$pt(100)) {|cr|
+					cr.scale(units.mm$pt(100) / 100, units.mm$pt(100) / 100)
+					try {
+						graph.draw(cr)
+					} except {|e|
+						varIndicator.string = e.text
+					}
+					cr.show_page()
+					varIndicator.string = 'graph.pdf'
+				}
+			}
+		}
+	}
+	mw.Frame {|f|
+		f.pack(side => 'left', fill => 'both', expand => true)
+		f.Frame {|f|
+			f.pack(side => 'top', fill => 'both', expand => true)
+			canvas = f.Canvas(bg => 'white', width => 400, height => 400, border => 2, relief => `sunken) {|w|
+				w.pack(side => 'left', fill => 'both', expand => true)
+				flag:local = true
+				w.bind('<Configure>') {
+					if (flag) {
+						flag = false
+						w.bindafter(100) {
+							showGraphic()
+							flag:extern = true
+						}
+					}
+				}
+				w.bind('<Button-3>') {|X:number, Y:number|
+					w.Menu(tearoff => false) {|m|
+						m.Command(label => 'Copy as PNG', underline => 0) {
+						}
+						m.popup(X, Y)
+					}
+				}
+			}
+			treeview = f.ttk$Treeview(columns => ['Object', 'Type'],
+							show => [`headings], selectmode => `browse) {|w|
+				w.pack(fill => 'both', expand => true, pady => [2, 0])
+				w.heading('Object', text => 'Object')
+				w.heading('Type', text => 'Type')
+				w.column('Object', minwidth => 100, width => 150)
+				w.column('Type', minwidth => 60, width => 80)
+				w.bind('<<TreeviewSelect>>') {
+					items = w.Selection()
+					println(items::obj)
+				}
+				w.bind('<<TreeviewOpen>>') {
+				}
+			}
+		}
+		f.Frame {|f|
+			f.pack(fill => 'x')
+			entryCommand = f.Entry(textvariable => varCommand, font => tk.Font(size => 12)) {|w|
+				w.pack(fill => 'x')
+				w.bind('<Escape>') {
+					varCommand.string = ''
+				}
+				w.bind('<Up>') {
+					//println('a')
+				}
+				w.bind('<Down>') {
+					//println('b')
+				}
+				w.bind('<Return>') {
+					varIndicator.string = ''
+					try {
+						expr = varCommand.string.parse()
+						if (expr) {
+							rtn = eval(expr)
+							if (rtn.istype(`function)) {
+								graph.addFunc(rtn)
+								item = treeview.Item(values => [rtn.tostring(), 'function'])
+								item.obj = rtn
+							} elsif (rtn.istype(`number) || rtn.istype(`string)) {
+								varIndicator.string = rtn
+							} elsif (rtn.istype(`tk.CanvasItem)) {
+								item = treeview.Item(values => [rtn.text, 'text'])
+								item.obj = rtn
+							}
+							showGraphic()
+							//history.add(varCommand.string)
+							//varCommand.string = ''
+						}
+					} except {|e|
+						varIndicator.string = e.text
+					}
+				}
+				w.focus()
+			}
+			f.Entry(textvariable => varIndicator, font => tk.Font(size => 12), state => `readonly) {|w|
+				w.pack(fill => 'x', pady => [2, 0])
+			}
+		}
+	}
+	xrange(a:number, b:number) = {
+		if (a < b) {
+			[graph.xMin, graph.xMax] = [a, b]
+		} elsif (a > b) {
+			[graph.xMin, graph.xMax] = [b, a]
+		} else {
+			raise(ValueError, 'invalid range')
+		}
+	}
+	yrange(a:number, b:number) = {
+		if (a < b) {
+			[graph.yMin, graph.yMax] = [a, b]
+		} elsif (a > b) {
+			[graph.yMin, graph.yMax] = [b, a]
+		} else {
+			raise(ValueError, 'invalid range')
+		}
+	}
+	samples(cntSamples:number) = {
+		graph.cntSamples = cntSamples
+	}
+	Plot = struct(x:expr, y:expr, tMin:number, tMax:number)
+	xy(`x, `y, tMin, tMax) = {
+		graph.plots.add(Plot(x, y, tMin, tMax))
+	}
+	title(x:number, y:number, text:string) = {
+		fontName = 'MS Gothic'
+		fontSize = 20
+		image(`rgba, 100, 100) {|img:image|
+			img.cairo {|cr|
+				cr.select_font_face(fontName, `normal, `bold)
+				cr.set_font_size(fontSize)
+				extents = cr.text_extents(text)
+			}
+		}
+		if (extents.width == 0 || extents.height == 0) { return }
+		image(`rgba, extents.width, extents.height) {|img:image|
+			img.cairo {|cr|
+				cr.select_font_face(fontName, `normal, `bold)
+				cr.set_font_size(fontSize)
+				cr.move_to(0, extents.height).show_text(text)
+			}
+			item = canvas.Image(x, y, image => img.to_tk())
+		}
+		item.bind('<ButtonPress>') {
+			itemFocus:extern = item
+		}
+		item.bind('<Motion>') {|x:number, y:number|
+			if (itemFocus) {
+				itemFocus.coords(x, y)
+			}
+		}
+		item.bind('<ButtonRelease>') {
+			itemFocus:extern = nil
+		}
+		itemTitles.add(item)
+		item.text = text
+		item
+	}
+	tk.update()
+	showGraphic()
+}
+tk.mainloop()
+yaml.write(open(fileNameCfg, 'w'), cfg)

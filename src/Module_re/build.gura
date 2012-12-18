@@ -1,0 +1,23 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+if (sys.build == `msc) {
+	builder.incDirs.append(path.join(modbuild.guestDir, 'onig-5.9.2'))
+	builder.libs.append(path.join(modbuild.guestDir, 'onig-5.9.2', 'onig_s.lib'))
+	builder.cflags.append('-DONIG_EXTERN=extern')
+} elsif (sys.build == `gnuc) {
+	builder.libs.append('onig')
+	builder.hint = '''\
+It seems necessary libraries have not been installed on your system.
+See the following steps to resolve this problem.
+- Compile source code:
+  $ wget http://www.geocities.jp/kosako3/oniguruma/archive/onig-5.9.2.tar.gz
+  $ tar xfz onig-5.9.2.tar.gz
+  $ cd onig-5.9.2
+  $ ./configure
+  $ make
+  $ sudo make install
+  $ sudo ldconfig
+'''
+}
+builder.build('re', ['Module_re.cpp'])

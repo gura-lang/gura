@@ -1,0 +1,37 @@
+#==============================================================================
+# Makefile for Microsoft Visual C++
+#==============================================================================
+GURADIR = ..\..
+
+TARGET = $(GURADIR)\bin-x86\guraole.dll
+LIBS =
+CFLAGS = -I..\Module_mswin
+LDFLAGS =
+all: $(TARGET)
+#------------------------------------------------------------------------------
+LIBS = $(LIBS) $(GURADIR)\lib\libgura-x86.lib
+
+CFLAGS = $(CFLAGS) /GL /I $(GURADIR)\include /D "_MBCS" \
+/FD /EHsc /MD /W3 /nologo /Zi /TP /errorReport:prompt
+
+LDFLAGS = $(LDFLAGS) /INCREMENTAL:NO /NOLOGO /DLL \
+/DEBUG /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG \
+/DYNAMICBASE:NO /MACHINE:X86 /ERRORREPORT:PROMPT \
+ws2_32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib \
+comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib \
+uuid.lib odbc32.lib odbccp32.lib
+
+OBJS = MainOle.obj Module_mswin.obj
+
+$(TARGET): $(OBJS) $(LIBS)
+	@link $(LDFLAGS) /OUT:$(TARGET) /DEF:guraole.def $(OBJS) $(LIBS)
+	@echo $@ was created
+
+MainOle.obj: MainOle.cpp
+	@cl $(CFLAGS) /c MainOle.cpp
+
+Module_mswin.obj: ..\Module_mswin\Module_mswin.cpp
+	@cl $(CFLAGS) /DGURA_MODULE_MAIN /c ..\Module_mswin\Module_mswin.cpp
+
+clean:
+	@del $(TARGET) $(TARGET:.dll=.exp) $(TARGET:.dll=.lib) $(TARGET:.dll=.pdb) $(OBJS)

@@ -1,0 +1,23 @@
+#!/usr/bin/env gura
+import(modbuild)
+
+builder = modbuild.Builder()
+if (sys.build == `msc) {
+	builder.libs.append(
+		path.join(modbuild.guestDir, 'tcl', 'lib', 'tcl85.lib')
+		path.join(modbuild.guestDir, 'tcl', 'lib', 'tk85.lib'))
+	builder.incDirs.append(
+		path.join(modbuild.guestDir, 'tcl', 'include'))
+} elsif (sys.build == `gnuc) {
+	builder.libs.append('tcl8.5', 'tk8.5')
+	builder.incDirs.append('/usr/include/tcl8.5')
+	builder.hint = '''\
+It seems necessary libraries have not been installed on your system.
+See the following step(s) to resolve this problem.
+- Install Debian package:
+  $ sudo apt-get install tk8.5-dev
+- Install yum package:
+  # yum install tcl-devel tk-devel
+'''
+}
+builder.build('tcl', ['Module_tcl.cpp'])

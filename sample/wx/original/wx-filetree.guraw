@@ -1,0 +1,38 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+import(gif)
+
+log = nil
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+		panel = wx.Panel(self)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		panel.SetSizer(vbox)
+		imgList = wx.ImageList(18, 18)
+		imgList.Add(wx.ArtProvider.GetBitmap([wx.ART_FOLDER, wx.ART_NORMAL_FILE],
+									wx.ART_OTHER, wx.Size(18, 18)))
+		wx.TreeCtrl(panel, wx.ID_ANY, style => wx.TR_HIDE_ROOT) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand())
+			ctrl.AssignImageList(imgList)
+		}
+		wxutil.LogWindow(panel) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+			log:extern = ctrl
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

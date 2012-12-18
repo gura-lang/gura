@@ -1,0 +1,81 @@
+#!/usr/bin/env gura
+import(modbuild) {build, guestDir}
+
+dirLLVM = path.join(guestDir, 'llvm-2.8')
+hintLLVM = '''\
+It seems necessary libraries have not been installed on your system.
+See the following step(s) to resolve this problem.
+- Install Debian package:
+  $ sudo apt-get install llvm-2.8
+- Install yum package:
+  # yum install llvm-2.8 llvm-devel-2.8
+'''
+successFlag = true
+if (sys.build == `msc) {
+	cflagsLLVM = []
+	ldflagsLLVM = []
+	libsLLVM = [
+		'LLVMX86CodeGen.lib'
+		'LLVMX86AsmParser.lib'
+		'LLVMX86Disassembler.lib'
+		'LLVMBitReader.lib'
+		'LLVMAsmParser.lib'
+		'LLVMAsmPrinter.lib'
+		'LLVMSelectionDAG.lib'
+		'LLVMX86AsmPrinter.lib'
+		'LLVMX86Info.lib'
+		'LLVMMCParser.lib'
+		'LLVMCodeGen.lib'
+		'LLVMScalarOpts.lib'
+		'LLVMInstCombine.lib'
+		'LLVMTransformUtils.lib'
+		'LLVMipa.lib'
+		'LLVMAnalysis.lib'
+		'LLVMTarget.lib'
+		'LLVMCore.lib'
+		'LLVMMC.lib'
+		'LLVMSupport.lib'
+		'LLVMSystem.lib'
+		'LLVMAsmPrinter.lib'
+		'LLVMMCParser.lib'
+		'LLVMInterpreter.lib'
+		'LLVMLinker.lib'
+		'LLVMExecutionEngine.lib'
+		'LLVMJIT.lib'
+	]
+} elsif (sys.build == `gnuc) {
+	IsExist(filename:string) = {
+		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
+	}
+	if (IsExist('llvm-config-2.8')) {
+		llvm_config = 'llvm-config-2.8'
+	} elsif (IsExist('llvm-config')) {
+		llvm_config = 'llvm-config'
+	} else {
+		print(hintLLVM)
+ 		successFlag = false
+	}
+	if (successFlag) {
+		cflagsLLVM = (os.exec(llvm_config, '--cxxflags'):stdout).strip().split(' ')
+		cflagsLLVM = [cflagsLLVM.filter((cflagsLLVM != '') & (cflagsLLVM != '-fno-rtti'))]
+		ldflagsLLVM = (os.exec(llvm_config, '--ldflags'):stdout).strip().split(' '):list
+		ldflagsLLVM = [ldflagsLLVM.filter(ldflagsLLVM != '')]
+		libsLLVM = (os.exec(llvm_config, '--libnames'):stdout).strip().split(' '):list
+		libsLLVM = libsLLVM::replace('lib', '')::replace('.a', '')
+	}
+}
+successFlag && build('llvm', ['Module_llvm.cpp']) {
+	msc = %{
+		`incDirs => [
+			path.join(dirLLVM, 'include')
+			path.join(dirLLVM, 'build-msc', 'include')
+		]
+		`libs => path.join(dirLLVM, 'build-msc', 'lib', 'Release', libsLLVM)
+	}
+	gnuc = %{
+		`cflags => cflagsLLVM
+		`ldflags => ldflagsLLVM
+		`libs => libsLLVM
+		`hint => hintLLVM
+	}
+}

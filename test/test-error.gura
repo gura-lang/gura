@@ -1,0 +1,137 @@
+#!/usr/bin/env gura
+sys.echo(false)
+println('======== error test ========')
+stderrOrg = sys.stderr
+sys.stderr = sys.stdout
+scope {
+	f(err) = {
+		try {
+			repeat(3) {|i|
+				repeat(3) {|j|
+					repeat(3) {|k|
+						printf(' [%d,%d,%d]', i, j, k)
+						(err != nil && i == 2 && j == 0 && k == 2) && raise(err)
+					}
+				}
+			}
+		} except(IteratorError) {
+			println('except(IteratorError)')
+		} except {
+			println('except()')
+		} else {
+			println('else')
+		}
+		println('end-of-function')
+	}
+	f(IteratorError)
+	f(IOError)
+	f(nil)
+}
+scope {
+	f() = {
+		repeat(10) {|i|
+			try {
+				(i % 2 == 0) && continue()
+			} except {
+			}
+			printf('%3d', i)
+		}
+		println()
+		println('end-of-function')
+	}
+	f()
+}
+scope {
+	f() = {
+		repeat(10) {|i|
+			try {
+				printf('%3d', i)
+				(i == 8) && break()
+			} except {
+			}
+		}
+		println()
+		println('end-of-function')
+	}
+	f()
+}
+scope {
+	f() = {
+		try {
+			println('try')
+			return('hello')
+		} except {
+			println('except')
+		}
+		println('end-of-function')
+	}
+	f()
+}
+scope {
+	Person = class()
+	f(p:Person) = 3
+	people = repeat(3):list { Person() }
+	try {
+		f(people)
+	} except(TypeError) {|e|
+		println('expected error occurs: ', e.text)
+	}
+}
+scope {
+	b = [1]
+	try {
+		a
+	} except(ValueError) {|e|
+		println('ValueError detected: ', e.text)
+	} except {|e|
+		println('other error detected: ', e.text)
+	} else {
+		println('no error')
+	}
+	try {
+		b[2]
+	} except(ValueError) {|e|
+		println('ValueError detected: ', e.text)
+	} except {|e|
+		println('other error detected: ', e.text)
+	} else {
+		println('no error')
+	}
+	try {
+		b[0]
+	} except(ValueError) {|e|
+		println('ValueError detected: ', e.text)
+	} except {|e|
+		println('other error detected: ', e.text)
+	} else {
+		println('no error')
+	}
+}
+scope {
+	error_tester(err) = try {
+		if (err != nil) { raise(err, 'intentional error for handling test') }
+	} except(IndexError) {|e|
+		println('except(IndexError) .. ', e.text)
+	} except(ValueError) {|e|
+		println('except(ValueError) .. ', e.text)
+	} except(IOError) {|e|
+		println('except(IOError) .. ', e.text)
+	} except(SystemError, CodecError) {|e|
+		println('except(SystemError, CodecError) .. ', e.text)
+	} except {|e|
+		println('except() .. ', e.text)
+	} else {
+		println('else()')
+	}
+	error_tester(IndexError)
+	error_tester(ValueError)
+	error_tester(IOError)
+	error_tester(SystemError)
+	error_tester(CodecError)
+	error_tester(AttributeError)
+	error_tester(nil)
+}
+try {
+	raise(ValueError, 'unhandled error')
+}
+sys.stderr = stderrOrg

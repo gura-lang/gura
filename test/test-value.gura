@@ -1,0 +1,152 @@
+#!/usr/bin/env gura
+sys.echo(false)
+
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+
+scope {
+	[a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z] = 100..
+	println([a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z].join(', '))
+}
+scope {
+	a:string = 123
+	a += 4
+	tester(`a)
+	a:number = '123'
+	a += 4
+	tester(`a)
+	[a, b, c:string, d, e:string] = [1, 2, 3, 4, 5]
+	printf('%d, %d, %s, %d, %s\n', a, b, c, d, e)
+}
+scope {
+	a = 11, b = 12, c = 13, d = 14, e = 15, f = 16
+	printf('%d, %d, %d, %d, %d, %d\n', a, b, c, d, e, f)
+	f() = {
+		extern(a, b, c, e)
+		a = 1, b = 2, c = 3, d = 4, e = 5, f:extern = 6
+	}
+	f()
+	printf('%d, %d, %d, %d, %d, %d\n', a, b, c, d, e, f)
+}
+scope {
+	a = 11, b = 12, c = 13, d = 14, e = 15, f = 16
+	printf('%d, %d, %d, %d, %d, %d\n', a, b, c, d, e, f)
+	if (true) {
+		local(a, b, c, e)
+		a = 1, b = 2, c = 3, d = 4, e = 5, f:local = 6
+	}
+	printf('%d, %d, %d, %d, %d, %d\n', a, b, c, d, e, f)
+}
+scope {
+	a = 'A'
+	b = 'B'
+	c = 'C'
+	d = 'D'
+	println([a, b, c, d].join(' '))
+	undef(a, b, c, d)
+	try { a } except(ValueError) { printf('expected error occurs\n') }
+	try { b } except(ValueError) { printf('expected error occurs\n') }
+	try { c } except(ValueError) { printf('expected error occurs\n') }
+	try { d } except(ValueError) { printf('expected error occurs\n') }
+	hoge = module {
+		a = 'A'
+		b = 'B'
+		c = 'C'
+		d = 'D'
+	}
+	println([hoge.a, hoge.b, hoge.c, hoge.d].join(' '))
+	undef(hoge.a, hoge.b, hoge.c, hoge.d)
+	try { hoge.a } except(ValueError) { printf('expected error occurs\n') }
+	try { hoge.b } except(ValueError) { printf('expected error occurs\n') }
+	try { hoge.c } except(ValueError) { printf('expected error occurs\n') }
+	try { hoge.d } except(ValueError) { printf('expected error occurs\n') }
+	hoge = module {
+		foo = module {
+			a = 'A'
+			b = 'B'
+			c = 'C'
+			d = 'D'
+		}
+	}
+	println([hoge.foo.a, hoge.foo.b, hoge.foo.c, hoge.foo.d].join(' '))
+	undef(hoge.foo.a, hoge.foo.b, hoge.foo.c, hoge.foo.d)
+	try { hoge.foo.a } except(ValueError) { printf('expected error occurs\n') }
+	try { hoge.foo.b } except(ValueError) { printf('expected error occurs\n') }
+	try { hoge.foo.c } except(ValueError) { printf('expected error occurs\n') }
+	try { hoge.foo.d } except(ValueError) { printf('expected error occurs\n') }
+}
+scope {
+	println(format('%08x', 1 << [0..31]).join(', '))
+	println(format('%08x', 0x80000000 >> [0..31]).join(', '))
+}
+scope {
+	f(x) = math.sin(x / 180 * math.pi)
+	for (test in @{
+		`(-3 + 4)
+		`(-3 * 4)
+		`('3' * 4)
+		`(3 == 3)
+		`(3 < 4)
+		`(3 <= 4)
+		`(3 > 4)
+		`(3 >= 4)
+		`(3 + 2 + 4)
+		`(3 - 2 - 4)
+		`(3 * 2 * 4)
+		`(3 ** 2 ** 3)
+		`((3 ** 2) ** 3)
+		`(3 ** (2 ** 3))
+		`(3 ** 2 * 4)
+		`(3 ** (2 * 3))
+		`(f(30))
+		`(f(30))
+		`(f(90))
+		`(['aaa', 'bbbb', 'ccc'] + ['3', '4', '5'])
+		`((3 + 3j) * (3 - 3j))
+		`(math.conj(3 + 2j))
+		`(math.abs(3 + 2j))
+		`(math.sqrt(math.real(3 + 2j) * math.real(3 + 2j) + math.imag(3 + 2j) * math.imag(3 + 2j)))
+		`(math.norm(3 + 2j))
+		`(math.sqrt(math.norm(3 + 2j)))
+		`(math.arg(3 + 2j) * 180 / math.pi)
+		`(0 in [2, 3, 4])
+		`(2 in [2, 3, 4])
+		`(4 in [2, 3, 4])
+		`([0, 2, 3] in [2, 3, 4])
+		`([0, 2, 3, 4, 5] in [2, 3, 4])
+		`([0, 2, 3, 4, 5] in 5)
+		`['123456', '789012', '3.141', '123e+10', '0xabc', '0312', 'abcde', '123x']::tonumber()
+		`['123456', '789012', '3.141', '123e+10', '0xabc', '0312', 'abcde', '123x']::tonumber():zero
+		`['123456', '789012', '3.141', '123e+10', '0xabc', '0312', 'abcde', '123x']::tonumber():strict
+	}) {
+		printf('%s .. %s\n', test, eval(test)):nomap
+	}
+	a = 2
+	printf('a = %d\n', a)
+	for (test in [`(a += 3), `(a *= 3), `(a /= 3), `(a -= 3), `(a **= 3)]) {
+		printf('%s .. %s\n', test, eval(test)):nomap
+	}
+}
+scope {
+	tbl = [0, 3.14, 1 + 2j, true, sys, 'foo', [], %{}, &{}, `sym]
+	println((for (x in tbl):list { typename(x) }).join(' '))
+}
+scope {
+	shortBool(flag:boolean) = cond(flag, 'y', 'n')
+	printf('%-14s isdefined:%-6s %s\n', 'hoge', isdefined(hoge), typename(hoge))
+	printf('%-14s isdefined:%-6s %s\n', 'function', isdefined(function), typename(function))
+	printf('%-14s isdefined:%-6s %s\n', 'math.sin', isdefined(math.sin), typename(math.sin))
+	for (x in [0, 3.14, 1 + 2j, true, sys, 'foo', [], %{}, &{}, `sym, ]) {
+		printf('%-6s %-8s defined:%s symbol:%s boolean:%s' \
+			' number:%s complex:%s string:%s module:%s class:%s %s\n',
+					tostring(x), typename(x),
+					shortBool(isdefined(x)),
+					shortBool(issymbol(x)),
+					shortBool(isboolean(x)),
+					shortBool(isnumber(x)),
+					shortBool(iscomplex(x)),
+					shortBool(isstring(x)),
+					shortBool(ismodule(x)),
+					shortBool(isclass(x)),
+					shortBool(isinstance(x, `number)))
+	}
+}

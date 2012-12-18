@@ -1,0 +1,95 @@
+#!/usr/bin/env gura
+import(tk)
+
+//tk.tclDump()
+
+imgfile(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+Log(parent:tk.Widget, height:number => 10) = {
+	log = parent.Text(height => height) {|w|
+		w.pack(fill => 'x', pady => [2, 0])
+	}
+	log.println(text*:string) = {
+		self.insert('end', text.join() + '\n')
+		self.see('end')
+	}
+	log
+}
+
+tk.mainwindow {|mw|
+	img = tk.Photo(file => imgfile('arrow-green-r.gif'))
+	mw.Frame {|f|
+		f.pack(fill => 'x', pady => 2)
+		f.Button(text => 'push', width => 10) {|w|
+			w.pack(side => 'left')
+			//w.bind(`command) {
+			//	sels = tree.Selection()
+			//	if (sels) {
+			//		sels::configure(open => true)
+			//		println(sels::Children())
+			//	}
+			//}
+		}
+		f.Button(text => 'test', width => 10) {|w|
+			w.pack(side => 'left', padx => [4, 0])
+		}
+		f.Button(text => 'test', width => 10) {|w|
+			w.pack(side => 'left', padx => [4, 0])
+		}
+	}
+	makeIdStr(w:tk.Widget, item:string) = {
+		str = w.index(item)
+		item = w.parent(item)
+		while (!item.isempty()) {
+			str = w.index(item) + ' - ' + str
+			item = w.parent(item)
+		}
+		str
+	}
+	mw.ttk$Treeview(columns => ['#1', '#2'], show => [`tree, `headings]) {|w|
+		w.pack(fill => 'both', expand => true)
+		w.heading('#0', text => 'Tree')
+		w.heading('#1', text => 'Column1')
+		w.heading('#2', text => 'Column2')
+		tag = w.Tag()
+		for (label in ['root1', 'root2', 'root3', 'root4']) {
+			w.Item(text => label, values => [label + ' col1', label + ' col2'], tags => tag) {|item|
+				item[`image] = img
+				repeat (3) {|i|
+					item.Item(text => label + ' #' + i, values => ['aa a aa', 'bb b bb', 'cc cc'])
+				}
+			}
+		}
+		tag[`foreground] = 'red'
+		w.bind('<<TreeviewSelect>>') {|widget|
+			w = tk.Widget(widget)
+			log.println('TreeviewSelect ', makeIdStr(w, w.selection().first()))
+		}
+		w.bind('<<TreeviewOpen>>') {|widget|
+			w = tk.Widget(widget)
+			log.println('TreeviewOpen   ', makeIdStr(w, w.selection().first()))
+		}
+		w.bind('<<TreeviewClose>>') {|widget|
+			w = tk.Widget(widget)
+			log.println('TreeviewClose  ', makeIdStr(w, w.selection().first()))
+		}
+	}
+	mw.ttk$Treeview(columns => ['#1', '#2'], show => [`headings]) {|w|
+		w.pack(fill => 'both', expand => true)
+		w.heading('#1', text => 'Column1')
+		w.heading('#2', text => 'Column2')
+		tag = w.Tag()
+		for (label in ['root1', 'root2', 'root3', 'root4']) {
+			w.Item(values => [label + ' col1', label + ' col2'], tags => tag) {|item|
+				item[`image] = img
+			}
+		}
+		tag[`foreground] = 'red'
+		w.bind('<<TreeviewSelect>>') {|widget|
+			w = tk.Widget(widget)
+			log.println('TreeviewSelect ', makeIdStr(w, w.selection().first()))
+		}
+	}
+	log = Log(mw)
+}
+tk.mainloop()

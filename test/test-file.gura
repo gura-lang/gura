@@ -1,0 +1,44 @@
+#!/usr/bin/env gura
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+
+scope {
+	nLines = 0
+	open('test-file.gura').readlines():chop {|line|
+		println(line)
+		nLines += 1
+	}
+	printf('<nLines = %d>\n', nLines)
+}
+scope {
+	tester(`[path.glob('test-*.gura')])
+	tester(`path.glob('test-*.gura'):list {|filename|
+		filename.upper()
+	})
+	tester(`path.glob('test-*.gura'):xlist {|filename|
+		if (string.find(filename, 'op')) { filename }
+	})
+}
+scope {
+	import(re)
+	tester(`path.dir('.'):xlist {|filename|
+		if (m = filename.match(r'test-([^\.]*)')) { m[1] }
+	})
+}
+scope {
+	tester(`path.match('foo*', ['foo', 'FOObar', 'bar']))
+	tester(`path.match('foo*', ['foo', 'FOObar', 'bar']):icase)
+}
+scope {
+	println(path.dir() {|filename, i| '%3d %s' % [i, filename]})
+}
+scope {
+	stats = path.glob('test-*.gura'):list:stat
+	println('sort by name')
+	for (stat in stats.sort(&{$s1.filename <=> $s2.filename})) {
+		printf('%-32s %s\n', stat.filename, stat.mtime.format('%Y-%m-%d %H:%M:%S'))
+	}
+	println('sort by creation time')
+	for (stat in stats.sort(&{$s1.mtime <=> $s2.mtime})) {
+		printf('%-32s %s\n', stat.filename, stat.mtime.format('%Y-%m-%d %H:%M:%S'))
+	}
+}

@@ -1,0 +1,90 @@
+#!/bin/usr/env gura
+if (sys.argv.len() < 1) {
+	sys.stderr.println('module name needs to be specified')
+	sys.exit(1)
+}
+fields = path.filename(sys.argv[0]).split('.'):list
+dotName = fields.join('.')
+ubarName = fields.join('_')
+slashName = fields.join('/')
+localName = fields[-1]
+fileBuild = 'build.gura'
+fileHdr = 'Module_' + ubarName + '.h'
+fileSrc = 'Module_' + ubarName + '.cpp'
+incOnceMacroName = '__MODULE_' + ubarName.upper()  + '_H__'
+if (path.exists(fileBuild) || path.exists(fileHdr) || path.exists(fileSrc)) {
+	println('file already exists')
+	sys.exit(1)
+}
+R'''
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+builder.build('${slashName}', ['Module_${ubarName}.cpp'])
+'''.template(open(fileBuild, 'w').dosmode(false))
+fs.chmod('a+x', fileBuild)
+R'''
+//-----------------------------------------------------------------------------
+// Gura ${dotName} module
+//-----------------------------------------------------------------------------
+#ifndef ${incOnceMacroName}
+#define ${incOnceMacroName}
+#include <gura.h>
+
+Gura_BeginModule(${ubarName})
+}}
+
+#endif
+'''.template(open(fileHdr, 'w').dosmode(false))
+R'''
+//-----------------------------------------------------------------------------
+// Gura ${dotName} module
+//-----------------------------------------------------------------------------
+#include "${fileHdr}"
+
+Gura_BeginModule(${ubarName})
+
+//-----------------------------------------------------------------------------
+// Gura module functions: ${dotName}
+//-----------------------------------------------------------------------------
+// ${dotName}.test(num1:number, num2:number)
+Gura_DeclareFunction(test)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "num1", VTYPE_number);
+	DeclareArg(env, "num2", VTYPE_number);
+	SetHelp("adds two numbers and returns the result.");
+}
+
+Gura_ImplementFunction(test)
+{
+	return Value(args.GetNumber(0) + args.GetNumber(1));
+}
+
+//-----------------------------------------------------------------------------
+// Module entry
+//-----------------------------------------------------------------------------
+Gura_ModuleEntry()
+{
+	// function assignment
+	Gura_AssignFunction(test);
+}
+
+Gura_ModuleTerminate()
+{
+}
+
+Gura_EndModule(${ubarName}, ${localName})
+
+Gura_RegisterModule(${ubarName})
+'''.template(open(fileSrc, 'w').dosmode(false))
+
+println(fileBuild, ', ', fileHdr, ' and ', fileSrc, ' were created')
+/*
+print('''\
+To create a module binary file, execute the following command:
+  gura build.gura --here
+This would create the file in the current directory.
+'''.evalemb())
+*/
+sys.exit(0)

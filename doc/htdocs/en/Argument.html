@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="../stylesheet.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<title>Gura Programming Language</title>
+<meta name="keywords" content="programming, language, interpreter, mapping, gura,
+implicit mapping, member mapping">
+</head>
+<body>
+<div>
+<a href="../index.html.en"><img src="../images/banner.png" style="border: none" /></a>
+<a href="../en/Argument.html" class="radio-on" style="margin-left: 1em">English</a> |
+<a href="../ja/Argument.html" class="radio-off">Japanese</a>
+<span style="margin-left: 3em"><a href="http://sourceforge.jp/">
+<img src="http://sourceforge.jp/sflogo.php?group_id=5586&type=3" width="210" height="63" border="0" alt="SourceForge.JP" />
+</a></span>
+</div>
+
+<div style="color: white; background: #888888; margin-top: 1em; font-weight: bold">
+<span style="margin-left: 1em">Copyright (c) 2011-2012 <a href="mailto:pxn11432@nifty.com" style="color:white">Yutaka Saito</a></span>
+</div>
+<div style="height:.2em; background: #cccccc"></div>
+<table cellspacing="0" border="0" width="100%">
+<tr>
+<td valign="top" class="menu">
+<div class="menuitem"><a href="/" class="menuitem">Top Page</a></div>
+<div class="menuitem"><a href="Download.html" class="menuitem">Download</a></div>
+<div class="menuitem"><a href="Install.html" class="menuitem">Install</a></div>
+<div class="menuitem"><a href="Gallery.html" class="menuitem">Gallery</a></div>
+<div class="menuitem"><a href="http://sourceforge.jp/forum/forum.php?forum_id=25596" class="menuitem">Gura Forum</a></div>
+</td>
+
+<td valign="top" class="description">
+<!-- ====================================================================== -->
+
+<h3>Function Arguments</h3>
+
+<p>
+You can specify optional arguments, default values and variable-length arguments
+for function declarations.
+</p>
+
+<pre class="code">
+f1(a, b?, c?) = printf('%s, %s, %s\n', a, b, c)
+f1(2)                                # 2, nil, nil
+
+f2(a, b = 10, c =&gt; 'abc') = printf('%s, %s, %s\n', a, b, c)
+f2(2)                                # 2, 10, abc
+
+f3(a, b, c*) = printf('%s, %s, %s\n', a, b, c):nomap
+f3(2, 3, 4, 5, 6, 7)                 # 2, 3, [4, 5, 6, 7]
+f3(2, 3)                             # 2, 3, []
+
+f4(a, b, c+) = printf('%s, %s, %s\n', a, b, c):nomap
+f4(2, 3, 4, 5, 6, 7)                 # 2, 3, [4, 5, 6, 7].
+f4(2, 3)                             # error. c has to get at least one value.
+</pre>
+
+<p>
+When calling a function, you can specify each argument value by a keyword.
+A keyword shall be associated with its value with dictionary assignment operator
+=&gt;.
+</p>
+
+<pre class="code">
+g1(a, b, c) = printf('%s, %s, %s\n', a, b, c)
+g1(2, b =&gt; 3, c =&gt; 4)                # 2, 3, 4
+</pre>
+
+<p>
+If the argument declaration list contains a symbol suffixed by percent character (%),
+the symbol shall be assigned with a dictionary consisting of pairs of
+keywords and values that have not matched the argument list.
+</p>
+
+<pre class="code">
+g2(a, b, dict%) = printf('%s, %s, %s\n', a, b, dict)
+g2(2, b =&gt; 3, c =&gt; 4, d =&gt; 5)        # 2, 3, %{c =&gt; 4, d =&gt; 5}
+g2(2, 3, c =&gt; 4, d =&gt; 5)             # 2, 3, %{c =&gt; 4, d =&gt; 5}
+</pre>
+
+<!-- ====================================================================== -->
+</td>
+</tr>
+
+</table>
+</body>
+</html>

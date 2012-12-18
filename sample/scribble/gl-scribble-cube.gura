@@ -1,0 +1,62 @@
+// http://www.wakayama-u.ac.jp/~tokoi/opengl/libglut.html
+
+import(glu) {*}
+import(opengl) {*}
+
+vertex = [
+	[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]
+	[0, 0, 1], [1, 0, 1], [1, 1, 1], [0, 1, 1]
+]
+
+faces = [
+	[0, 1, 2, 3], [1, 5, 6, 2], [5, 4, 7, 6],
+	[4, 0, 3, 7], [4, 5, 1, 0], [3, 2, 6, 7]
+]
+
+normals = [
+	[0, 0,-1], [1, 0, 0], [0, 0, 1]
+	[-1,0, 0], [0,-1, 0], [0, 1, 0]
+]
+
+init(w:number, h:number) = {
+	glClearColor(1, 1, 1, 1)
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+	glEnable(GL_DEPTH_TEST, GL_CULL_FACE):map
+	glEnable(GL_LIGHTING, GL_LIGHT0, GL_LIGHT1):map
+	glCullFace(GL_FRONT)
+	glViewport(0, 0, w, h)
+	glMatrixMode(GL_PROJECTION)
+	glLoadIdentity()
+	gluPerspective(30, w / h, 1, 100)
+}
+
+display(degree:number) = {
+	glMatrixMode(GL_MODELVIEW)
+	glLoadIdentity()
+	gluLookAt(3, 4, 5, 0, 0, 0, 0, 1, 0)
+	glRotated(degree, 1, 1, 0)
+	glMaterialfv(GL_FRONT_AND_BACK,
+			GL_AMBIENT_AND_DIFFUSE, [0.7, 0.2, 0.2, 1])
+	glBegin(GL_QUADS)
+	for (face in faces, normal in normals) {
+		glNormal3dv(normal)
+		glVertex3dv(vertex[face]):map
+	}
+	glEnd()
+}
+
+degree = 0
+scribble.setfont(18)
+repeat {
+	scribble.burst {
+		scribble.glsection {
+			init(640, 480)
+			display(degree)
+			glFlush()
+		}
+		scribble.text(20, 40, 'push [<-] or [->] to rotate')
+		scribble.text(20, 70, 'angle = %d' % [degree])
+	}
+	if (scribble.iskey(scribble.WXK_LEFT)) { degree += 1 }
+	if (scribble.iskey(scribble.WXK_RIGHT)) { degree -= 1 }
+}

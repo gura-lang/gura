@@ -1,0 +1,238 @@
+#!/usr/bin/env gura
+
+//-----------------------------------------------------------------------------
+// BuilderBase
+//-----------------------------------------------------------------------------
+BuilderBase = class {
+	__init__() = {
+		self.hint = nil
+		self.skipErrorFlag = false
+		self.verboseFlag = (sys.argv == '--verbose').or()
+		self.debugFlag = (sys.argv == '--debug').or()
+		self.progressFlag = (sys.argv == '--progress').or()
+		if ((sys.argv == '--here').or()) {
+			self.outDir = '.'
+		}
+	}
+	build(target:string, srcs[]:string) = {
+		target = target.replace('/', path.sep_file)
+		if (!target.endswith('.gurd')) {
+			target = target + '.gurd'
+		}
+		if ((sys.argv == 'clean').or()) {
+			self.doClean(target)
+			return
+		}
+		if ((sys.argv == '--rebuild').or()) {
+			self.doClean(target)
+		}
+		outDir = path.join(self.outDir, path.dirname(target))
+		!path.exists(outDir) && fs.mkdir(outDir):tree
+		(self.precompile && !self.doPrecompile()) && self.printHint() && return(false)
+		srcs.each() {|src, idx|
+			!self.doCompile(src, idx, srcs.len()) && \
+				(self.skipErrorFlag || self.printHint() && return(false))
+		}
+		objs = self.makeObjName(srcs)
+		!self.doLink(target, objs) && self.printHint() && return(false)
+		(sys.argv == 'install').or() && self.doInstall(target, true)
+		(sys.argv == 'install-root').or() && self.doInstall(target, false)
+		true
+	}
+	execute(pathname:string, args*:string) = {
+		self.verboseFlag && println(pathname, ' ', args.join(' '))
+		buff = binary()
+		os.redirect(nil, buff) {
+			result = (os.exec(pathname, args*) == 0)
+			!result && sys.stderr.print(os.fromnative(buff))
+			result
+		}
+	}
+	printHint() = {
+		self.hint && print(self.hint)
+		true
+	}
+	doInstall(target:string, siteFlag:boolean) = {
+		if (siteFlag) {
+			targetPath = path.join(sys.libdir, 'site', target)
+		} else {
+			targetPath = path.join(sys.libdir, target)
+		}
+		dirName = path.dirname(targetPath)
+		!path.exists(dirName) && fs.mkdir(dirName):tree
+		copy(path.join(self.outDir, target), open(targetPath, 'w'))
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Builder
+//-----------------------------------------------------------------------------
+if (sys.build == `msc) {
+	guraDir:local = sys.datadir
+	guestDir = path.join(guraDir, 'guest')
+	Builder = class(BuilderBase) {
+		__init__() = {
+			self.outDir = 'msc'
+			self.incDirs = []
+			self.cflags = [
+				'/nologo', '/DGURA_MODULE_SEPARATED'
+				'/EHsc', '/MD'
+				'/I' + path.join(guraDir, 'include')
+				'/I' + path.join(guestDir, 'include')
+			]
+			self.ldflags = [
+				'/INCREMENTAL:NO', '/NOLOGO', '/DLL',
+				'/SUBSYSTEM:WINDOWS', '/OPT:REF', '/OPT:ICF', '/DYNAMICBASE:NO',
+				'/MACHINE:X86', '/ERRORREPORT:PROMPT'
+			]
+			self.libs = [
+				path.join(guraDir, 'lib', cond(self.debugFlag, 'libgurad-x86.lib', 'libgura-x86.lib')),
+				'kernel32.lib', 'user32.lib', 'gdi32.lib', 'winspool.lib', 'comdlg32.lib',
+				'advapi32.lib', 'shell32.lib', 'ole32.lib', 'oleaut32.lib', 'uuid.lib',
+				'odbc32.lib', 'odbccp32.lib', 'ws2_32.lib', 'opengl32.lib', 'glu32.lib',
+				'comctl32.lib', 'winmm.lib'
+			]
+			self.dlls = []
+			self.precompile = nil
+		}
+		makeObjName(src:string):map = {
+			path.join(self.outDir, path.filename(src).\
+				replace('.cpp', '.obj').replace('.c', '.obj').replace('.h', '.obj'))
+		}
+		makeLibPath(lib:string):map = {
+			if (lib.find('/') || lib.find('\\')) {
+				libPath = lib
+			} else {
+				candList = path.join(os.getenv('PATH').split(';'), lib)
+				candList = candList.filter(path.exists(candList)):list
+				if (candList.isempty()) {
+					sys.stderr.println(lib, ' has not been found in search paths\n')
+					sys.exit(1)
+				}
+				libPath = candList.first()
+			}
+			libPath
+		}
+		doPrecompile() = {
+			src = self.precompile.replace('.h', '.cpp')
+			obj = self.makeObjName(src)
+			cflags = []
+			cflags.append('/I' + self.incDirs)
+			cflags.append(self.cflags)
+			self.debugFlag && cflags.append('/ZI')
+			cflags.append('/Yc' + self.precompile)
+			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
+				self.progressFlag && println('compile: ', src)
+				!self.execute('cl', cflags*, '/Fo' + obj, '/c', src) && return(false)
+			}
+			true
+		}
+		doCompile(src:string, idx:number, cnt:number):map = {
+			firstFlag = (idx == 0)
+			obj = self.makeObjName(src)
+			cflags = []
+			cflags.append('/I' + self.incDirs)
+			cflags.append(self.cflags)
+			self.debugFlag && cflags.append('/ZI')
+			if (firstFlag) {
+				cflags.append('/DGURA_MODULE_MAIN')
+			} else {
+				self.precompile && cflags.append('/Yu' + self.precompile)
+			}
+			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
+				self.progressFlag && printf('compile %d/%d: %s\n', idx + 1, cnt, src)
+				!self.execute('cl', cflags*, '/Fo' + obj, '/c', src) && return(false)
+			}
+			true
+		}
+		doLink(target:string, objs[]:string) = {
+			target = path.join(self.outDir, target)
+			ldflags = self.ldflags.clone()
+			libs = self.libs.clone()
+			objsEx = []
+			self.precompile && objsEx.append(self.makeObjName(self.precompile))
+			libs.append(self.makeLibPath(self.dlls::replace('.dll', '.lib'):icase))
+			self.debugFlag && ldflags.append(['/DEBUG'])
+			if (!path.exists(target) || (path.stat(target).mtime < path.stat(objs):*mtime).or()) {
+				!self.execute('link', ldflags*,
+							'/OUT:' + target, objs*, objsEx*, libs*) && return(false)
+				println(target, ' was created')
+			}
+			true
+		}
+		doClean(target:string) = {
+			!path.exists(self.outDir) && return
+			for (fileName in path.dir(self.outDir, target, '*.obj', '*.exp', '*.lib')) {
+				fs.remove(fileName)
+				self.verboseFlag && println('deleted: ', fileName)
+			}
+			println('cleaned')
+		}
+	}
+} elsif (sys.build == `gnuc) {
+	Builder = class(BuilderBase) {
+		__init__() = {
+			self.outDir = 'gnuc'
+			self.incDirs = []
+			self.cflags = ['-DGURA_MODULE_SEPARATED', '-fPIC']
+			self.ldflags = ['-shared']
+			self.libs = []
+			self.precompile = nil
+		}
+		makeObjName(src:string):map = {
+			path.join(self.outDir, path.filename(src). \
+					  replace('.cpp', '.o').replace('.c', '.o'))
+		}
+		doPrecompile() = {
+			src = self.precompile
+			obj = src + '.gch'
+			cflags = self.cflags.clone()
+			cflags.append('-I' + self.incDirs)
+			self.debugFlag && cflags.append('-g')
+			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
+				self.progressFlag && println('compile: ', src)
+				!self.execute('gcc', cflags*, '-x', 'c++-header', src) && return(false)
+			}
+			true
+		}
+		doCompile(src:string, idx:number, cnt:number):map = {
+			firstFlag = (idx == 0)
+			obj = self.makeObjName(src)
+			cflags = self.cflags.clone()
+			cflags.append('-I' + self.incDirs)
+			self.debugFlag && cflags.append('-g')
+			firstFlag && cflags.append('-DGURA_MODULE_MAIN')
+			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
+				self.progressFlag && printf('compile %d/%d: %s\n', idx + 1, cnt, src)
+				!self.execute('gcc', cflags*, '-o', obj, '-c', src) && return(false)
+			}
+			true
+		}
+		doLink(target:string, objs[]:string) = {
+			target = path.join(self.outDir, target)
+			ldflags = self.ldflags.clone()
+			libs = '-l' + self.libs.clone()
+			objsEx = []
+			self.precompile && objsEx.append(self.makeObjName(self.precompile))
+			self.debugFlag && ldflags.append('-g')
+			if (!path.exists(target) || (path.stat(target).mtime < path.stat(objs):*mtime).or()) {
+				!self.execute('gcc', ldflags*, '-o', target, objs*, libs*) && return(false)
+				println(target, ' was created')
+			}
+			true
+		}
+		doClean(target:string) = {
+			!path.exists(self.outDir) && return
+			fileNames = path.dir(self.outDir, target, '*.o'):list
+			fileNames.append(path.dir('.', '*.gch'))
+			for (fileName in fileNames) {
+				fs.remove(fileName)
+				self.verboseFlag && println('deleted: ', fileName)
+			}
+			println('cleaned')
+		}
+	}
+} else {
+	sys.stderr.println('unsupported build system')
+	sys.exit(1)
+}

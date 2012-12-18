@@ -1,0 +1,74 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+import(gif)
+
+log = nil
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+		panel = wx.Panel(self)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		panel.SetSizer(vbox)
+		grid = wx.FlexGridSizer(nil, 2, 2, 8)
+		grid.AddGrowableCol(1, 1)
+		vbox.Add(grid, wx.SizerFlags().Expand())
+		wx.StaticText(panel, wx.ID_ANY, 'File Picker') {|ctrl|
+			grid.Add(ctrl, wx.SizerFlags().Align(wx.ALIGN_CENTER_VERTICAL))
+		}
+		wx.FilePickerCtrl(panel, wx.ID_ANY, style => wx.FLP_DEFAULT_STYLE) {|ctrl|
+			ctrl.SetInternalMargin(2)
+			grid.Add(ctrl, wx.SizerFlags().Expand())
+			ctrl.Bind(wx.EVT_FILEPICKER_CHANGED) {|event|
+				log.Printf('EVT_FILEPICKER_CHANGED: %s\n', event.GetPath())
+			}
+		}
+		wx.StaticText(panel, wx.ID_ANY, 'Dir Picker') {|ctrl|
+			grid.Add(ctrl, wx.SizerFlags().Align(wx.ALIGN_CENTER_VERTICAL))
+		}
+		wx.DirPickerCtrl(panel, wx.ID_ANY, style => wx.DIRP_DEFAULT_STYLE) {|ctrl|
+			ctrl.SetInternalMargin(2)
+			grid.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 4))
+			ctrl.Bind(wx.EVT_DIRPICKER_CHANGED) {|event|
+				log.Printf('EVT_DIRPICKER_CHANGED: %s\n', event.GetPath())
+			}
+		}
+		wx.StaticText(panel, wx.ID_ANY, 'Font Picker') {|ctrl|
+			grid.Add(ctrl, wx.SizerFlags().Align(wx.ALIGN_CENTER_VERTICAL))
+		}
+		wx.FontPickerCtrl(panel, wx.ID_ANY, style => wx.FNTP_DEFAULT_STYLE) {|ctrl|
+			ctrl.SetInternalMargin(2)
+			grid.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 4))
+			ctrl.Bind(wx.EVT_FONTPICKER_CHANGED) {|event|
+				log.Printf('EVT_FONTPICKER_CHANGED: %s\n', event.GetFont())
+			}
+		}
+		wx.StaticText(panel, wx.ID_ANY, 'Colour Picker') {|ctrl|
+			grid.Add(ctrl, wx.SizerFlags().Align(wx.ALIGN_CENTER_VERTICAL))
+		}
+		wx.ColourPickerCtrl(panel, wx.ID_ANY, style => wx.CLRP_DEFAULT_STYLE) {|ctrl|
+			ctrl.SetInternalMargin(2)
+			grid.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 4))
+			ctrl.Bind(wx.EVT_COLOURPICKER_CHANGED) {|event|
+				log.Printf('EVT_COLOURPICKER_CHANGED: %s\n', event.GetColour())
+			}
+		}
+		wxutil.LogWindow(panel) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+			log:extern = ctrl
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

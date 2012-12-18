@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="../stylesheet.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<title>Gura Programming Language</title>
+<meta name="keywords" content="programming, language, interpreter, mapping, gura,
+implicit mapping, member mapping">
+</head>
+<body>
+<div>
+<a href="../index.html.en"><img src="../images/banner.png" style="border: none" /></a>
+<a href="../en/MemberMapping.html" class="radio-on" style="margin-left: 1em">English</a> |
+<a href="../ja/MemberMapping.html" class="radio-off">Japanese</a>
+<span style="margin-left: 3em"><a href="http://sourceforge.jp/">
+<img src="http://sourceforge.jp/sflogo.php?group_id=5586&type=3" width="210" height="63" border="0" alt="SourceForge.JP" />
+</a></span>
+</div>
+
+<div style="color: white; background: #888888; margin-top: 1em; font-weight: bold">
+<span style="margin-left: 1em">Copyright (c) 2011-2012 <a href="mailto:pxn11432@nifty.com" style="color:white">Yutaka Saito</a></span>
+</div>
+<div style="height:.2em; background: #cccccc"></div>
+<table cellspacing="0" border="0" width="100%">
+<tr>
+<td valign="top" class="menu">
+<div class="menuitem"><a href="/" class="menuitem">Top Page</a></div>
+<div class="menuitem"><a href="Download.html" class="menuitem">Download</a></div>
+<div class="menuitem"><a href="Install.html" class="menuitem">Install</a></div>
+<div class="menuitem"><a href="Gallery.html" class="menuitem">Gallery</a></div>
+<div class="menuitem"><a href="http://sourceforge.jp/forum/forum.php?forum_id=25596" class="menuitem">Gura Forum</a></div>
+</td>
+
+<td valign="top" class="description">
+<!-- ====================================================================== -->
+
+<h3>Member-mapping</h3>
+
+<p>
+You might have faced cases that you have multiple instances of the same class
+and you want to execute a same method on them or refer to member variables in them.
+You can use Member-mapping for such a case.
+</p>
+
+<p>
+To see how Member-mapping works, we prepare a simple structure Fruit.
+</p>
+
+<pre class="code">
+Fruit = struct(name:string, price:number) {
+    Print() = printf('name:%s  price:%d\n', self.name, self.price)
+}
+</pre>
+
+<p>
+Function struct returns a constructor function of a structure
+that has both of member variables specified by arguments and
+member functions declared in the block expression.
+</p>
+
+<p>
+When you call this constructor function like follows it would create
+a instance of the structure.
+</p>
+
+<pre class="code">
+fruit = Fruit('apple', 100)
+</pre>
+
+<p>
+The following code shows an example of how to access members in an instance.
+</p>
+
+<pre class="code">
+printf('%s costs %d\n', fruit.name, fruit.price)
+fruit.Print()
+</pre>
+
+<p>
+Now, let's create a list of instances of Fruit structure.
+</p>
+
+<pre class="code">
+fruits = [
+    Fruit('apple', 100), Fruit('orange', 80), Fruit('grape', 120)
+]
+</pre>
+
+<p>
+Here's a question: How can we execute a method Print for each instance
+in the list? The first idea may be to extract a instance by repeating
+statement and then apply the method on each item.
+This approach can be realized as follows that use Gura's function for.
+</p>
+
+<pre class="code">
+for (fruit in fruits) {
+    fruit.Print()
+}
+</pre>
+
+<p>
+Using Member-mapping, the above process can be written like follows.
+</p>
+
+<pre class="code">
+fruits::Print()
+</pre>
+
+<p>
+Operator :: shows an operation of Member-mapping.
+In this case, it executes Print method for each item in the list fruits.
+</p>
+
+<p>
+It may not enough to make you recognize an advantage of a power of Member-mapping.
+Now then, the next question. Get a summation of prices of fruits.
+</p>
+
+<p>
+Using repeating process, this may be described like follows.
+</p>
+
+<pre class="code">
+priceSum = 0
+for (fruit in fruits) {
+    priceSum += fruit.price
+}
+</pre>
+
+<p>
+Using Member-mapping, this comes like follows.
+</p>
+
+<pre class="code">
+fruits::price.sum()
+</pre>
+
+<p>
+It's much simpler. After fruits::prices is evaluated, it returns a list
+that contains evaluation result of price member variable in each instance.
+The code above executes sum method for the list to get the summation.
+</p>
+
+<p>
+The next problem may be a little bit more complicated.
+How many characters are contained in the longest name among the Fruit instances?
+</p>
+
+<p>
+A solution using repeating statement comes as follows.
+</p>
+
+<pre class="code">
+lenMax = -1
+for (fruit in fruits) {
+    len = fruit.name.len()
+    if (lenMax &gt; len) {
+        lenMax = len
+    }
+}
+</pre>
+
+<p>
+Using Member-mapping, it can be described like follows.
+</p>
+
+<pre class="code">
+fruits::name::len().max()
+</pre>
+
+<p>
+An expression fruits::name means a list of names for the instances,
+and you can get a list of name length by applying len method to them.
+Then, evaluating max method to the whole list shall pick up the maximum
+length among them.
+</p>
+
+<p>
+It would be a big advantage that you can desribe such a process in a simple expression
+when you need to build up more complicated program.
+Using the process above, the following example shows how to print a list
+of names and prices after aligning name strings to the longest one.
+</p>
+
+<pre class="code">
+printf('%-*s %d\n', fruits::name::len().max(), fruits::name, fruits::price)
+</pre>
+
+<p>
+</p>
+By the way, as Member-mapping operator :: creates a list at each process,
+you would get a list at any time you evaluate name or len().
+This increases the number of lists created during the process depending on
+the number of Fruit instances, and causes a less performance
+in speed and memory consumption.
+</p>
+
+<p>
+To avoid the problem, there's another Member-mapping operator :*.
+Using this operator, the result shall be an iterator that
+delays the evaluation to the timing when the actual calculation is necessary.
+The example above can be described as follows.
+</p>
+
+<pre class="code">
+printf('%-*s %d\n', fruits:*name:*len().max(), fruits:*name, fruits:*price)
+</pre>
+
+<p>
+Let's take a look at a little more complicated program using Member-mapping.
+The following example performs some statistic calculation after reading
+a CSV file that records names, ages and other fields.
+Take notice that there's no repeating process any more,
+which has been necessary for multiple data handling.
+</p>
+
+<pre class="code">
+import(csv)
+
+Person = struct(name:string, email:string, gender:string, age:number, rest*)
+people = Person * csv.reader(open('50records-en.csv'))
+
+familyNames = (people:*name:*split(' '):list)::get(0).sort()
+familyNameSet = set(familyNames)
+
+println('== occurance counting ==')
+Stat = struct(name:string, occurance:number):map
+stats = Stat(familyNameSet, familyNames.count(familyNameSet):map)
+printf('%s(%d), ', stats:*name, stats:*occurance)
+println()
+stats = stats.sort(&{-($stat1.occurance &lt;=&gt; $stat2.occurance)}):stable
+printf('%s(%d), ', stats:*name, stats:*occurance)
+println()
+
+println('== some statistical information ==')
+genders = people::gender
+printf('all=%d male=%d female=%d\n', people.len(), genders.count('male'), genders.count('female'))
+ages = people::age
+printf('age &lt; 30        %d\n', ages.count(&{$age &lt; 30}))
+printf('30 &lt;= age &lt; 40  %d\n', ages.count(&{30 &lt;= $age && $age &lt; 40}))
+printf('40 &lt;= age &lt; 50  %d\n', ages.count(&{40 &lt;= $age && $age &lt; 50}))
+printf('50 &lt;= age &lt; 60  %d\n', ages.count(&{50 &lt;= $age && $age &lt; 60}))
+printf('60 &lt;= age &lt; 70  %d\n', ages.count(&{60 &lt;= $age && $age &lt; 70}))
+printf('70 &lt;= age       %d\n', ages.count(&{70 &lt;= $age}))
+</pre>
+
+<!-- ====================================================================== -->
+</td>
+</tr>
+
+</table>
+</body>
+</html>

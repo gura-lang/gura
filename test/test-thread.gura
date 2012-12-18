@@ -1,0 +1,13 @@
+sem = semaphore()
+f(indent:number, t:number):map = {
+	repeat {|i|
+		sem.wait()
+		printf('%*s%d\n', indent * 8, '', i)
+		sem.release()
+		time.sleep(t)
+	}
+}
+for (i in 0..10) {
+	f(i, .1 * (i + 1)):fork
+}
+time.sleep(100)

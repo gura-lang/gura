@@ -1,0 +1,315 @@
+//----------------------------------------------------------------------------
+// wxOwnerDrawnComboBox
+// extracted from odcbox.tex
+//----------------------------------------------------------------------------
+#include "stdafx.h"
+
+Gura_BeginModule(wx)
+
+//----------------------------------------------------------------------------
+// Class derivation
+//----------------------------------------------------------------------------
+class wx_OwnerDrawnComboBox: public wxOwnerDrawnComboBox, public GuraObjectObserver {
+private:
+	Gura::Signal _sig;
+	Object_wx_OwnerDrawnComboBox *_pObj;
+public:
+	inline wx_OwnerDrawnComboBox() : wxOwnerDrawnComboBox(), _sig(NULL), _pObj(NULL) {}
+	//inline wx_OwnerDrawnComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style, const wxValidator& validator, const wxString& name) : wxOwnerDrawnComboBox(parent, id, value, pos, size, n, choices[], style, validator, name), _sig(NULL), _pObj(NULL) {}
+	inline wx_OwnerDrawnComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style, const wxValidator& validator, const wxString& name) : wxOwnerDrawnComboBox(parent, id, value, pos, size, choices, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	~wx_OwnerDrawnComboBox();
+	inline void AssocWithGura(Gura::Signal &sig, Object_wx_OwnerDrawnComboBox *pObj) {
+		_sig = sig, _pObj = pObj;
+	}
+	// virtual function of GuraObjectObserver
+	virtual void GuraObjectDeleted();
+};
+
+wx_OwnerDrawnComboBox::~wx_OwnerDrawnComboBox()
+{
+	if (_pObj != NULL) _pObj->InvalidateEntity();
+}
+
+void wx_OwnerDrawnComboBox::GuraObjectDeleted()
+{
+	_pObj = NULL;
+}
+
+//----------------------------------------------------------------------------
+// Gura interfaces for wxOwnerDrawnComboBox
+//----------------------------------------------------------------------------
+Gura_DeclareFunction(OwnerDrawnComboBoxEmpty)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_OwnerDrawnComboBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(OwnerDrawnComboBoxEmpty)
+{
+	wx_OwnerDrawnComboBox *pEntity = new wx_OwnerDrawnComboBox();
+	Object_wx_OwnerDrawnComboBox *pObj = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_OwnerDrawnComboBox(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+Gura_DeclareFunction(OwnerDrawnComboBox)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetClassToConstruct(Gura_UserClass(wx_OwnerDrawnComboBox));
+	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
+	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_Once);
+	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
+	DeclareArg(env, "choices", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "validator", VTYPE_wx_Validator, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(OwnerDrawnComboBox)
+{
+	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxString value = wxString::FromUTF8(args.GetString(2));
+	wxPoint *pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
+	wxSize *size = Object_wx_Size::GetObject(args, 4)->GetEntity();
+	std::auto_ptr<wxArrayString> choices(CreateArrayString(args.GetList(5)));
+	long style = 0;
+	if (args.IsValid(6)) style = args.GetLong(6);
+	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
+	if (args.IsValid(7)) validator = Object_wx_Validator::GetObject(args, 7)->GetEntity();
+	wxString name = wxT("comboBox");
+	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
+	wx_OwnerDrawnComboBox *pEntity = new wx_OwnerDrawnComboBox(parent, id, value, *pos, *size, *choices, style, *validator, name);
+	Object_wx_OwnerDrawnComboBox *pObj = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_OwnerDrawnComboBox(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+Gura_DeclareMethod(wx_OwnerDrawnComboBox, Create)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
+	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_Once);
+	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
+	DeclareArg(env, "choices", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "validator", VTYPE_wx_Validator, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_OwnerDrawnComboBox, Create)
+{
+	Object_wx_OwnerDrawnComboBox *pSelf = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	wxString value = wxString::FromUTF8(args.GetString(2));
+	wxPoint *pos = Object_wx_Point::GetObject(args, 3)->GetEntity();
+	wxSize *size = Object_wx_Size::GetObject(args, 4)->GetEntity();
+	std::auto_ptr<wxArrayString> choices(CreateArrayString(args.GetList(5)));
+	long style = 0;
+	if (args.IsValid(6)) style = args.GetLong(6);
+	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
+	if (args.IsValid(7)) validator = Object_wx_Validator::GetObject(args, 7)->GetEntity();
+	wxString name = wxT("comboBox");
+	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
+	bool rtn = pSelf->GetEntity()->Create(parent, id, value, *pos, *size, *choices, style, *validator, name);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_OwnerDrawnComboBox, GetWidestItem)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_OwnerDrawnComboBox, GetWidestItem)
+{
+	Object_wx_OwnerDrawnComboBox *pSelf = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetWidestItem();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_OwnerDrawnComboBox, GetWidestItemWidth)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_OwnerDrawnComboBox, GetWidestItemWidth)
+{
+	Object_wx_OwnerDrawnComboBox *pSelf = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetWidestItemWidth();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_OwnerDrawnComboBox, OnDrawBackground)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+#if 0
+	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
+	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
+	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+#endif
+}
+
+Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnDrawBackground)
+{
+#if 0
+	Object_wx_OwnerDrawnComboBox *pSelf = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
+	wxRect *rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
+	int item = args.GetInt(2);
+	int flags = args.GetInt(3);
+	pSelf->GetEntity()->OnDrawBackground(*dc, *rect, item, flags);
+	return Value::Null;
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_OwnerDrawnComboBox, OnDrawItem)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+#if 0
+	DeclareArg(env, "dc", VTYPE_wx_DC, OCCUR_Once);
+	DeclareArg(env, "rect", VTYPE_wx_Rect, OCCUR_Once);
+	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+#endif
+}
+
+Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnDrawItem)
+{
+#if 0
+	Object_wx_OwnerDrawnComboBox *pSelf = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
+	wxRect *rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
+	int item = args.GetInt(2);
+	int flags = args.GetInt(3);
+	pSelf->GetEntity()->OnDrawItem(*dc, *rect, item, flags);
+	return Value::Null;
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_OwnerDrawnComboBox, OnMeasureItem)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+#if 0
+	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
+#endif
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnMeasureItem)
+{
+#if 0
+	Object_wx_OwnerDrawnComboBox *pSelf = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	size_t item = args.GetSizeT(0);
+	wxCoord rtn = pSelf->GetEntity()->OnMeasureItem(item);
+	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_OwnerDrawnComboBox, OnMeasureItemWidth)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+#if 0
+	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
+#endif
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnMeasureItemWidth)
+{
+#if 0
+	Object_wx_OwnerDrawnComboBox *pSelf = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	size_t item = args.GetSizeT(0);
+	wxCoord rtn = pSelf->GetEntity()->OnMeasureItemWidth(item);
+	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+//----------------------------------------------------------------------------
+// Object implementation for wxOwnerDrawnComboBox
+//----------------------------------------------------------------------------
+Object_wx_OwnerDrawnComboBox::~Object_wx_OwnerDrawnComboBox()
+{
+}
+
+Object *Object_wx_OwnerDrawnComboBox::Clone() const
+{
+	return NULL;
+}
+
+String Object_wx_OwnerDrawnComboBox::ToString(Signal sig, bool exprFlag)
+{
+	String rtn("<wx.OwnerDrawnComboBox:");
+	if (GetEntity() == NULL) {
+		rtn += "invalid>";
+	} else {
+		char buff[64];
+		::sprintf(buff, "%p>", GetEntity());
+		rtn += buff;
+	}
+	return rtn;
+}
+
+void Object_wx_OwnerDrawnComboBox::OnModuleEntry(Environment &env, Signal sig)
+{
+	Gura_AssignFunction(OwnerDrawnComboBoxEmpty);
+	Gura_AssignFunction(OwnerDrawnComboBox);
+}
+
+//----------------------------------------------------------------------------
+// Class implementation for wxOwnerDrawnComboBox
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_OwnerDrawnComboBox)
+{
+	Gura_AssignMethod(wx_OwnerDrawnComboBox, Create);
+	Gura_AssignMethod(wx_OwnerDrawnComboBox, GetWidestItem);
+	Gura_AssignMethod(wx_OwnerDrawnComboBox, GetWidestItemWidth);
+	Gura_AssignMethod(wx_OwnerDrawnComboBox, OnDrawBackground);
+	Gura_AssignMethod(wx_OwnerDrawnComboBox, OnDrawItem);
+	Gura_AssignMethod(wx_OwnerDrawnComboBox, OnMeasureItem);
+	Gura_AssignMethod(wx_OwnerDrawnComboBox, OnMeasureItemWidth);
+}
+
+Gura_ImplementDescendantCreator(wx_OwnerDrawnComboBox)
+{
+	return new Object_wx_OwnerDrawnComboBox((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+}
+
+}}

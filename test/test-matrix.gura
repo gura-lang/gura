@@ -1,0 +1,162 @@
+#!/usr/bin/env gura
+
+print_func(func:function) = printf('%s = %s\n', func, func.expr())
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+
+scope {
+	m = @@{
+		{8, 3, 3, 6, 3, 8, 0, 4, 8, 6},
+		{6, 3, 4, 5, 3, 1, 3, 3, 9, 9},
+		{4, 1, 2, 5, 1, 0, 0, 7, 5, 4},
+		{7, 5, 2, 5, 7, 3, 2, 5, 5, 0},
+		{5, 2, 6, 7, 4, 1, 8, 8, 1, 3},
+		{8, 8, 4, 2, 3, 3, 6, 9, 9, 7},
+		{1, 2, 2, 2, 2, 4, 7, 6, 4, 9},
+		{0, 2, 9, 8, 9, 6, 2, 9, 6, 0},
+		{4, 9, 4, 5, 2, 5, 7, 5, 5, 7},
+		{8, 9, 5, 3, 5, 1, 8, 4, 6, 6}
+	}
+	import(csv)
+	csv.writer(sys.stdout) {|writer|
+		m.eachrow().each() {|row| writer.write(row*)}
+	}
+	println()
+	csv.writer(sys.stdout) {|writer|
+		m.eachcol().each() {|col| writer.write(col*)}
+	}
+}
+scope {
+	f(x[]) = x
+	g(x:list) = x
+	tester(`f(@@{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}))
+	tester(`f(@@{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}))
+	tester(`g(@@{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}))
+	tester(`g(@@{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}))
+}
+scope {
+	a = @@{{2, 1, 0, 4}, {2, 3, -1, 1}, {0, 1, 4, -1}}
+	tester(`a)
+	tester(`a.each():list)
+	tester(`a.each():list:transpose)
+	tester(`a.tolist())
+	tester(`a.tolist():transpose)
+	tester(`a.eachrow():list)
+	tester(`a.eachcol():list)
+}
+scope {
+	a = @@{{2, 1, 0, 4}, {2, 3, -1, 1}, {0, 1, 4, -1}}
+	b = @@{{2, 0, 1, 2}, {-1, 1, 3, 1}, {0, -2, 1, -1}}
+	tester(`a)
+	tester(`b)
+	tester(`(a + b))
+	tester(`(a - 2 * b))
+	tester(`(-3 * a + 2 * b))
+}
+scope {
+	tester(`(@@{{3, 2, 1}} * [1, 0, -3]))
+	tester(`([-1, 1] * @@{{4, -3}, {-5, 2}}))
+	try {
+		tester(`(@@{{-1, 2, -3}, {0, 1, 4}} * @@{{3, 1}, {0, 2}}))
+	} except(ValueError) {
+		println('expected error occurs')
+	}
+	tester(`(@@{{-1, 2, 0}, {4, 0, -2}} * @@{{1, 2 ,0}, {-1, 1, 3}, {5, 1, -1}}))
+}
+scope {
+	mats = [
+		@@{{2, 5}, {1, 4}}
+		@@{{2, 5, -1}, {1, 3, 1}, {3, -1, -2}}
+		@@{{1, 1, 0}, {2, 3, -1}, {0, 1, 0}}
+		@@{{1, 3, 2}, {2, 8, 9}, {4, 13, 11}}
+		@@{{1, 3, 3}, {-1, 1, 4}, {1, 2, 1}}
+		@@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}		# not a regular matrix
+		@@{{2, 1, 3}, {4, 5, 4}, {3, 1, 5}}
+		@@{{1, 0, 1}, {2, 2, 3}, {1, -1, 1}}
+		@@{{2, 1, 0}, {1, -1, 2}, {-1, 0, -1}}
+		@@{{2, 3, 1}, {1, 1, 0}, {1, -1, -1}}
+		@@{{1, 2, 1, 2}, {-1, -1, 0, -1}, {-2, -1, 2, 0}, {2, 6, 1, 4}}
+		@@{{1, 0, -1, 2}, {2, 1, 1, 0}, {-1, -1, -1, 1}, {1, 2, 2, -2}}
+	]
+	for (mat in mats) {
+		tester(`mat)
+		try {
+			tester(`mat.inverse().roundoff())
+			tester(`(mat.inverse() * mat).roundoff())
+		} except(ValueError) {|e|
+			println('not a regular matrix')
+		}
+	}
+	tester(`(@@{{2, 1, 3}, {4, 5, 4}, {3, 1, 5}}.inverse() * [0, -2, 1]))
+}
+scope {
+	m = @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
+	tester(`m)
+	tester(`m.col(0, 1, 2))
+	tester(`m.row(0, 1, 2))
+}
+scope {
+	// http://brain.cc.kogakuin.ac.jp/~kanamaru/lecture/senkei/senkei03-ans.pdf
+	a = @@{{2, 1, 1}, {0, 2, -1}, {3, 0, 2}}
+	b = @@{{1, 1, 0}, {0, -1, 1}, {1, 0, -1}}
+	tester(`(-a))
+	tester(`(a + b))
+	tester(`(a - b))
+	tester(`(a * b))
+	scope {
+		[a_list, b_list] = [a.tolist(), b.tolist()]
+		tester(`repeat (3):list {|row|
+			repeat (3):list {|col|
+				(a_list[row] * b_list::get(col)).sum()
+			}
+		})
+	}
+	tester(`(2 * a + 3 * b))
+	a = @@{{1, 1, 0, 2}, {0, -1, 1, 1}, {1, 0, -1, 0}}
+	b = @@{{2, 0, 3}, {1, 1, -2}, {0, 3, 0}}
+	c = @@{{1, 3, 0}, {1, 0, 1}, {-1, 1, 0}, {0, 1, 2}}
+	try { tester(`(a * b)) } except(ValueError) { println('expected error occurs') }
+	try { tester(`(a * c)) } except(ValueError) { println('!! unexpected error occurs') }
+	try { tester(`(b * a)) } except(ValueError) { println('!! unexpected error occurs') }
+	try { tester(`(b * c)) } except(ValueError) { println('expected error occurs') }
+	try { tester(`(c * a)) } except(ValueError) { println('!! unexpected error occurs') }
+	matrix_rotate(theta) = @@{
+		{math.cos(theta), -math.sin(theta)},
+		{math.sin(theta), math.cos(theta)}
+	}
+	a = matrix_rotate(math.pi / 6)
+	b = matrix_rotate(math.pi / 3)
+	tester(`a)
+	tester(`b)
+	tester(`(b * a).roundoff())
+	tester(`(a * b).roundoff())
+}
+scope {
+	m = @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
+	tester(`m)
+	tester(`m[0])
+	tester(`m[1])
+	tester(`m[2])
+	tester(`m[0, 1, 2])
+	tester(`m[0..])
+	tester(`m[][0])
+	tester(`m[][1])
+	tester(`m[][2])
+	tester(`m[][0, 1, 2])
+	tester(`m[][0..])
+	tester(`m[0][0])
+	tester(`m[1][1])
+	tester(`m[2][2])
+	tester(`m.tolist())
+	tester(`m.tolist():transpose)
+	tester(`m.tolist():flat)
+	tester(`m.tolist():transpose:flat)
+	m = matrix(6, 6)
+	cross (iRow in range(m.rowsize()), iCol in range(m.colsize())) {|i|
+		m[iRow][iCol] = i % 10
+	}
+	tester(`m)
+	m.setrow(0, 1)
+	tester(`m)
+	m.setcol(1, 1)
+	tester(`m)
+}

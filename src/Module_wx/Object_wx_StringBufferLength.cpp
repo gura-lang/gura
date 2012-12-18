@@ -1,0 +1,125 @@
+//----------------------------------------------------------------------------
+// wxStringBufferLength
+// extracted from wxstring.tex
+//----------------------------------------------------------------------------
+#include "stdafx.h"
+
+Gura_BeginModule(wx)
+
+//----------------------------------------------------------------------------
+// Class derivation
+//----------------------------------------------------------------------------
+class wx_StringBufferLength: public wxStringBufferLength, public GuraObjectObserver {
+private:
+	Gura::Signal _sig;
+	Object_wx_StringBufferLength *_pObj;
+public:
+	inline wx_StringBufferLength(wxString& str, size_t len) : wxStringBufferLength(str, len), _sig(NULL), _pObj(NULL) {}
+	~wx_StringBufferLength();
+	inline void AssocWithGura(Gura::Signal &sig, Object_wx_StringBufferLength *pObj) {
+		_sig = sig, _pObj = pObj;
+	}
+	// virtual function of GuraObjectObserver
+	virtual void GuraObjectDeleted();
+};
+
+wx_StringBufferLength::~wx_StringBufferLength()
+{
+	if (_pObj != NULL) _pObj->InvalidateEntity();
+}
+
+void wx_StringBufferLength::GuraObjectDeleted()
+{
+	_pObj = NULL;
+}
+
+//----------------------------------------------------------------------------
+// Gura interfaces for wxStringBufferLength
+//----------------------------------------------------------------------------
+Gura_DeclareFunction(StringBufferLength)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetClassToConstruct(Gura_UserClass(wx_StringBufferLength));
+	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(StringBufferLength)
+{
+	wxString str = wxString::FromUTF8(args.GetString(0));
+	size_t len = args.GetSizeT(1);
+	wx_StringBufferLength *pEntity = new wx_StringBufferLength(str, len);
+	Object_wx_StringBufferLength *pObj = Object_wx_StringBufferLength::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_StringBufferLength(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+Gura_DeclareMethod(wx_StringBufferLength, SetLength)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "nLength", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StringBufferLength, SetLength)
+{
+	Object_wx_StringBufferLength *pSelf = Object_wx_StringBufferLength::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	size_t nLength = args.GetSizeT(0);
+	pSelf->GetEntity()->SetLength(nLength);
+	return Value::Null;
+}
+
+//----------------------------------------------------------------------------
+// Object implementation for wxStringBufferLength
+//----------------------------------------------------------------------------
+Object_wx_StringBufferLength::~Object_wx_StringBufferLength()
+{
+	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_ownerFlag) delete _pEntity;
+	_pEntity = NULL;
+}
+
+Object *Object_wx_StringBufferLength::Clone() const
+{
+	return NULL;
+}
+
+String Object_wx_StringBufferLength::ToString(Signal sig, bool exprFlag)
+{
+	String rtn("<wx.StringBufferLength:");
+	if (GetEntity() == NULL) {
+		rtn += "invalid>";
+	} else {
+		char buff[64];
+		::sprintf(buff, "%p>", GetEntity());
+		rtn += buff;
+	}
+	return rtn;
+}
+
+void Object_wx_StringBufferLength::OnModuleEntry(Environment &env, Signal sig)
+{
+	Gura_AssignFunction(StringBufferLength);
+}
+
+//----------------------------------------------------------------------------
+// Class implementation for wxStringBufferLength
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_StringBufferLength)
+{
+	Gura_AssignMethod(wx_StringBufferLength, SetLength);
+}
+
+Gura_ImplementDescendantCreator(wx_StringBufferLength)
+{
+	return new Object_wx_StringBufferLength((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+}
+
+}}

@@ -1,0 +1,64 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+
+log = nil
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
+						path.filename(sys.argv[0]), size => wx.Size(800, 600)|
+		panel = wx.Panel(self)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		panel.SetSizer(vbox)
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags(1).Expand())
+			wx.ListBox(panel, wx.ID_ANY, choices => ['apple', 'orange', 'grape']) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags(1).Expand())
+				ctrl.Bind(wx.EVT_LISTBOX) {|event|
+					log.Printf('selected\n')
+				}
+			}
+			wx.ListBox(panel, wx.ID_ANY) {|ctrl|
+				ctrl.Append(['apple', 'orange', 'grape'],
+									wx.ClientData([11111, 22222, 33333]))
+				hbox.Add(ctrl, wx.SizerFlags(1).Expand())
+				ctrl.Bind(wx.EVT_LISTBOX) {|event|
+					log.Printf('selected %s\n', event.GetClientObject().value)
+				}
+			}
+			wx.CheckListBox(panel, wx.ID_ANY, choices => ['apple', 'orange', 'grape']) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags(1).Expand())
+				ctrl.Bind(wx.EVT_CHECKLISTBOX) {|event|
+					log.Printf('toggled\n')
+				}
+			}
+			wx.ListCtrl(panel, wx.ID_ANY, style => wx.LC_REPORT | wx.LC_HRULES) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags(1).Expand())
+				//ctrl.SetFont(wx.Font(16))
+				ctrl.InsertColumn(0, 'fruit')
+				ctrl.InsertStringItem(0.., ['apple', 'orange', 'grape'])
+				ctrl.SetItemData(0.., [1, 2, 0])
+				ctrl.Bind(wx.EVT_LIST_ITEM_SELECTED) {|event|
+					log.Printf('selected\n')
+				}
+				ctrl.SortItems(&{$itemData1 <=> $itemData2})
+			}
+		}
+		wxutil.LogWindow(panel) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+			log:extern = ctrl
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

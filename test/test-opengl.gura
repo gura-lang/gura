@@ -1,0 +1,59 @@
+#!/usr/bin/env gura
+import(sdl)
+import(hash)
+import(bmp)
+import(opengl) {*}
+import(glu) {*}
+
+tester_image(image:image, comment:string):map:void = {
+	printf('%-20s %3dx%3d\n', comment, image.width, image.height)
+	sdl.Init(sdl.INIT_EVERYTHING)
+	screen = sdl.SetVideoMode(image.width, image.height, 16, sdl.SWSURFACE)
+	screen.PutSurface(image)
+	screen.UpdateRect()
+	repeat {
+		event = sdl.WaitEvent()
+		if (event.type == sdl.QUIT) { sys.exit() }
+		if (event.type == sdl.KEYDOWN && event.sym == sdl.K_SPACE) { break }
+	}
+}
+tester_image(image:image, comment:string):map:void = {
+	md5 = hash.md5()
+	image.bmpwrite(md5)
+	printf('%-20s %3dx%3d %s\n', comment, image.width, image.height, md5.hexdigest)
+}
+
+scope {
+	img = image(`rgb, 320, 320).opengl {
+		w = 320, h = 320
+		vertex = [
+			[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]
+			[0, 0, 1], [1, 0, 1], [1, 1, 1], [0, 1, 1]
+		]
+		glClearColor(1, 1, 1, 1)
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+		glEnable(GL_DEPTH_TEST, GL_CULL_FACE)
+		glEnable(GL_LIGHTING, GL_LIGHT0, GL_LIGHT1)
+		glCullFace(GL_FRONT)
+		glViewport(0, 0, w, h)
+		glMatrixMode(GL_PROJECTION)
+		glLoadIdentity()
+		gluPerspective(30, w / h, 1, 100)
+		degree = 10
+		glMatrixMode(GL_MODELVIEW)
+		glLoadIdentity()
+		gluLookAt(3, 4, 5, 0, 0, 0, 0, 1, 0)
+		glRotated(degree, 1, 1, 0)
+		glMaterialfv(GL_FRONT_AND_BACK,
+				GL_AMBIENT_AND_DIFFUSE, [0.8, 0.2, 0.2, 1])
+		glBegin(GL_QUADS) {
+			glNormal3dv([ 0,  0, -1]), glVertex3dv(vertex[0, 1, 2, 3])
+			glNormal3dv([ 1,  0,  0]), glVertex3dv(vertex[1, 5, 6, 2])
+			glNormal3dv([ 0,  0,  1]), glVertex3dv(vertex[5, 4, 7, 6])
+			glNormal3dv([-1,  0,  0]), glVertex3dv(vertex[4, 0, 3, 7])
+			glNormal3dv([ 0, -1,  0]), glVertex3dv(vertex[4, 5, 1, 0])
+			glNormal3dv([ 0,  1,  0]), glVertex3dv(vertex[3, 2, 6, 7])
+		}
+	}
+	tester_image(img, 'cube')
+}

@@ -1,0 +1,4 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+builder.build('wav', ['Module_wav.cpp'])

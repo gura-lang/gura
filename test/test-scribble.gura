@@ -1,0 +1,25 @@
+create_object() = {
+	[size, theta] = [rand(100) + 50, rand(2 * math.pi)]
+	[x, y] = [rand(400), rand(300)]
+	[x0, y0] = [x + size / 2, y + size / 2]
+	repeat ():iter {
+		x1 = x0 + math.cos(theta) * size / 2
+		y1 = y0 + math.sin(theta) * size / 2
+		scribble.setpen('green', 2)
+		scribble.ellipse(x, y, size, size)
+		scribble.setpen('black', 2)
+		scribble.line(x0, y0, x1, y1)
+		scribble.setpen('red')
+		scribble.setbrush('red')
+		scribble.rectangle(x1 - 5, y1 - 5, 10, 10):fill
+		theta += math.pi / 30
+	}
+}
+objs = repeat(10):list { create_object() }
+	repeat {
+		scribble.burst {
+		scribble.clear()
+		objs::next()
+	}
+	time.sleep(.01)
+}

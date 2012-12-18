@@ -1,0 +1,309 @@
+#!/usr/bin/env gura
+
+// Orignal source file is written in C and is available from the site below.
+// http://www.sgi.com/products/software/opengl/examples/samples/
+// wave.c
+
+import(glu) {*}
+import(opengl) {*}
+
+coord_t = struct(vertex[]:number => [0, 0, 0], normal[]:number => [0, 0, 0])
+
+facet_t = struct(color[]:number => [0, 0, 0], normal[]:number => [0, 0, 0])
+
+mesh_t = struct(widthX:number => 0, widthY:number => 0,
+				numFacets:number => 0, numCoords:number => 0, frames:number => 0,
+				coords[]:coord_t => [], facets[]:facet_t => []) {
+	GetCoord(frame:number, x:number, y:number):map = {
+		self.coords[frame * self.numCoords + x + y * self.widthX + 1]
+	}
+	GetFacet(frame:number, x:number, y:number):map = {
+		self.facets[frame * self.numFacets + x + y * self.widthX]
+	}
+}
+
+contourTexture1 = @{
+	255, 255, 255, 255,
+	255, 255, 255, 255,
+	255, 255, 255, 255,
+	127, 127, 127, 127,
+}
+
+contourTexture2 = @{
+	255, 255, 255, 255,
+	255, 127, 127, 127,
+	255, 127, 127, 127,
+	255, 127, 127, 127,
+}
+
+rgb = true
+
+colorIndexes1 = [0, 0, 0]
+colorIndexes2 = [0, 0, 0]
+clearMask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT
+
+smooth = false
+lighting = true
+depth = true
+stepMode = false
+spinMode = true
+contouring = 0
+
+widthX = 10
+widthY = 10
+checkerSize = 2
+height = 0.2
+
+frames = 10
+curFrame = 0
+nextFrame = 0
+
+mesh = mesh_t()
+
+Animate() = {
+	glClear(clearMask)
+	if (nextFrame || !stepMode) {
+		curFrame += 1
+	}
+	if (curFrame >= mesh.frames) {
+		curFrame = 0
+	}
+	if ((nextFrame || !stepMode) && spinMode) {
+		glRotatef(5.0, 0.0, 0.0, 1.0)
+	}
+	nextFrame = 0
+	repeat (mesh.widthX) {|i|
+		glBegin(GL_QUAD_STRIP)
+		lastColor = nil
+		repeat (mesh.widthY) {|j|
+			facet = mesh.GetFacet(curFrame, i, j)
+			if (!smooth && lighting) {
+				glNormal3fv(facet.normal)
+			}
+			if (lighting) {
+				if (rgb) {
+					thisColor = facet.color
+					glColor3fv(facet.color)
+				} else {
+					thisColor = facet.color
+					glMaterialfv(GL_FRONT_AND_BACK, GL_COLOR_INDEXES, 
+						 facet.color)
+				}
+			} else {
+				if (rgb) {
+					thisColor = facet.color
+					glColor3fv(facet.color)
+				} else {
+					thisColor = facet.color
+					glIndexf(facet.color[1])
+				}
+			}
+			if (!lastColor || (thisColor[0] != lastColor[0] && smooth)) {
+				if (lastColor) {
+					glEnd()
+					glBegin(GL_QUAD_STRIP)
+				}
+				coord = mesh.GetCoord(curFrame, i, j)
+				if (smooth && lighting) {
+					glNormal3fv(coord.normal)
+				}
+				glVertex3fv(coord.vertex)
+				coord = mesh.GetCoord(curFrame, i + 1, j)
+				if (smooth && lighting) {
+					glNormal3fv(coord.normal)
+				}
+				glVertex3fv(coord.vertex)
+			}
+			coord = mesh.GetCoord(curFrame, i, j+1)
+			if (smooth && lighting) {
+				glNormal3fv(coord.normal)
+			}
+			glVertex3fv(coord.vertex)
+			coord = mesh.GetCoord(curFrame, i + 1, j + 1)
+			if (smooth && lighting) {
+				glNormal3fv(coord.normal)
+			}
+			glVertex3fv(coord.vertex)
+			lastColor = thisColor
+		}
+		glEnd()
+	}
+	glFlush()
+}
+
+SetColorMap() = {
+	green = @{0.2, 1.0, 0.2}
+	red = @{1.0, 0.2, 0.2}
+	entries = glutGet(GLUT_WINDOW_COLORMAP_SIZE)
+	colorIndexes1 = [
+		1, 1 + int((entries - 1) * 0.3), int((entries - 1) * 0.5)
+	]
+	colorIndexes2 = [
+		1 + int((entries - 1) * 0.5), 1 + int((entries - 1) * 0.8, entries - 1)
+	]
+	for (i in range(2)) {
+		if (i == 0) {
+			color = green
+			indexes = colorIndexes1
+		} elsif (i == 1) {
+			color = red
+			indexes = colorIndexes2
+		}
+		for (j in range(indexes[0], indexes[1])) {
+			percent = 0.2 + 0.8 * (j - indexes[0]) / (indexes[1] - indexes[0])
+			glutSetColor(j, (percent * color)*)
+		}
+		for (j in range(indexes[1], indexes[2] + 1)) {
+			percent = (j - indexes[1]) / (indexes[2] - indexes[1])
+			glutSetColor(j, (percent * (1 - color) + color)*)
+		}
+	}
+}
+
+InitMesh() = {
+	dp1 = [0, 0, 0]
+	dp2 = [0, 0, 0]
+	mesh.widthX = widthX
+	mesh.widthY = widthY
+	mesh.frames = frames
+	mesh.numFacets = widthX * widthY
+	mesh.numCoords = (widthX + 1) * (widthY + 1)
+	mesh.coords = repeat (frames * mesh.numCoords):list { coord_t() }
+	mesh.facets = repeat (frames * mesh.numFacets):list { facet_t() }
+	for (frameNum in range(frames)) {
+		cross (i in range(widthX + 1), j in range(widthY + 1)) {
+			x = i / widthX
+			y = j / widthY
+			d = math.sqrt(x * x + y * y)
+			if (d == 0.0) {
+				d = 0.0001
+			}
+			angle = 2 * math.pi * d + (2 * math.pi / frames * frameNum)
+			coord = mesh.GetCoord(frameNum, i, j)
+			coord.vertex = [
+				x - 0.5,
+				y - 0.5,
+				(height - height * d) * math.cos(angle)
+			]
+			coord.normal = [
+				-(height / d) * x * ((1 - d) * 2 * math.pi * \
+										   math.sin(angle) + math.cos(angle)),
+				-(height / d) * y * ((1 - d) * 2 * math.pi * \
+										   math.sin(angle) + math.cos(angle)),
+				-1
+			]
+			d = 1.0 / math.sqrt( \
+						coord.normal[0] * coord.normal[0] + \
+						coord.normal[1] * coord.normal[1] + 1)
+			coord.normal *= d
+		}
+		cross (i in range(widthX), j in range(widthY)) {
+			facet = mesh.GetFacet(frameNum, i, j)
+			if (((i / checkerSize) % 2) ^ (j / checkerSize) % 2) {
+				if (rgb) {
+					facet.color = [1.0, 0.2, 0.2]
+				} else {
+					facet.color[0..2] = colorIndexes1[0..2]
+				}
+			} else {
+				if (rgb) {
+					facet.color = [0.2, 1.0, 0.2]
+				} else {
+					facet.color[0..2] = colorIndexes2[0..2]
+				}
+			}
+			pts = mesh.GetCoord(frameNum, [i, i, i + 1], [j, j + 1, j + 1])::vertex
+			dp1 = pts[1] - pts[0]
+			dp2 = pts[2] - pts[1]
+			facet.normal = [
+				dp1[1] * dp2[2] - dp1[2] * dp2[1],
+				dp1[2] * dp2[0] - dp1[0] * dp2[2],
+				dp1[0] * dp2[1] - dp1[1] * dp2[0]
+			]
+			d = 1.0 / math.sqrt( \
+						facet.normal[0] * facet.normal[0] + \
+						facet.normal[1] * facet.normal[1] + \
+						facet.normal[2] * facet.normal[2])
+			facet.normal *= d
+		}
+	}
+}
+
+InitMaterials() = {
+	ambient = @{0.1, 0.1, 0.1, 1.0}
+	diffuse = @{0.5, 1.0, 1.0, 1.0}
+	position = @{90.0, 90.0, 150.0, 0.0}
+	front_mat_shininess = @{60.0}
+	front_mat_specular = @{0.2, 0.2, 0.2, 1.0}
+	front_mat_diffuse = @{0.5, 0.28, 0.38, 1.0}
+	back_mat_shininess = @{60.0}
+	back_mat_specular = @{0.5, 0.5, 0.2, 1.0}
+	back_mat_diffuse = @{1.0, 1.0, 0.2, 1.0}
+	lmodel_ambient = @{1.0, 1.0, 1.0, 1.0}
+	lmodel_twoside = @{GL_TRUE}
+	glMatrixMode(GL_PROJECTION)
+	gluPerspective(450, 1.0, 0.5, 10.0)
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient)
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse)
+	glLightfv(GL_LIGHT0, GL_POSITION, position)
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient)
+	glLightModelfv(GL_LIGHT_MODEL_TWO_SIDE, lmodel_twoside)
+	glEnable(GL_LIGHTING)
+	glEnable(GL_LIGHT0)
+	glMaterialfv(GL_FRONT, GL_SHININESS, front_mat_shininess)
+	glMaterialfv(GL_FRONT, GL_SPECULAR, front_mat_specular)
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, front_mat_diffuse)
+	glMaterialfv(GL_BACK, GL_SHININESS, back_mat_shininess)
+	glMaterialfv(GL_BACK, GL_SPECULAR, back_mat_specular)
+	glMaterialfv(GL_BACK, GL_DIFFUSE, back_mat_diffuse)
+	if (rgb) {
+		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE)
+	}
+	if (rgb) {
+		glEnable(GL_COLOR_MATERIAL)
+	} else {
+		SetColorMap()
+	}
+}
+
+InitTexture() = {
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
+}
+
+Init() = {
+	glClearColor(0.0, 0.0, 0.0, 0.0)
+	glShadeModel(GL_FLAT)
+	glFrontFace(GL_CW)
+	glEnable(GL_DEPTH_TEST)
+	InitMaterials()
+	InitTexture()
+	InitMesh()
+	glMatrixMode(GL_MODELVIEW)
+	glTranslatef(0.0, 0.4, -1.8)
+	glScalef(2.0, 2.0, 2.0)
+	glRotatef(-35.0, 1.0, 0.0, 0.0)
+	glRotatef(35.0, 0.0, 0.0, 1.0)
+}
+
+Reshape(width:number, height:number) = {
+	glViewport(0, 0, width, height)
+}
+
+scope {
+	import(gltester)
+	gltester.mainloop(300, 300, 0, `idle) {
+		`onInit => function {
+			Init()
+		}
+		`onResize => function(width:number, height:number) {
+			Reshape(width, height)
+		}
+		`onDraw => function {
+			Animate()
+		}
+	}
+}

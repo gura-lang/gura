@@ -1,0 +1,59 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+
+log = nil
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+		panel = wx.Panel(self)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		panel.SetSizer(vbox)
+		panel.timer = wx.Timer(panel)
+		panel.Bind(wx.EVT_TIMER) {|event|
+			log.WriteText('EVT_TIMER %d\n' % event.GetId())
+		}
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags())
+			wx.TextCtrl(panel, wx.ID_ANY, '300',
+						style => wx.TE_CENTRE, size => wx.Size(60, -1)) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand())
+				panel.text = ctrl
+				//println(panel.text.GetValue())
+			}
+			wx.StaticText(panel, wx.ID_ANY, 'msec') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 4).Center())
+			}
+			wx.Button(panel, wx.ID_ANY, 'Start') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 12))
+				ctrl.Bind(wx.EVT_BUTTON) {|event|
+					msec = panel.text.GetValue().tonumber()
+					println(panel.text)
+					panel.timer.Start(msec)
+				}
+			}
+			wx.Button(panel, wx.ID_ANY, 'Stop') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
+				ctrl.Bind(wx.EVT_BUTTON) {|event|
+					panel.timer.Stop()
+				}
+			}
+		}
+		wxutil.LogWindow(panel) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+			log:extern = ctrl
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

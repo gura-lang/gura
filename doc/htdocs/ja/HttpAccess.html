@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="../stylesheet.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<title>Gura Programming Language</title>
+<meta name="keywords" content="programming, language, interpreter, mapping, gura,
+implicit mapping, member mapping">
+</head>
+<body>
+<div>
+<a href="../index.html.ja"><img src="../images/banner.png" style="border: none" /></a>
+<a href="../en/HttpAccess.html" class="radio-off" style="margin-left: 1em">English</a> |
+<a href="../ja/HttpAccess.html" class="radio-on">Japanese</a>
+<span style="margin-left: 3em"><a href="http://sourceforge.jp/">
+<img src="http://sourceforge.jp/sflogo.php?group_id=5586&type=3" width="210" height="63" border="0" alt="SourceForge.JP" />
+</a></span>
+</div>
+
+<div style="color: white; background: #888888; margin-top: 1em; font-weight: bold">
+<span style="margin-left: 1em">Copyright (c) 2011-2012 <a href="mailto:pxn11432@nifty.com" style="color:white">Yutaka Saito</a></span>
+</div>
+<div style="height:.2em; background: #cccccc"></div>
+<table cellspacing="0" border="0" width="100%">
+<tr>
+<td valign="top" class="menu">
+<div class="menuitem"><a href="/" class="menuitem">トップページ</a></div>
+<div class="menuitem"><a href="Download.html" class="menuitem">ダウンロード</a></div>
+<div class="menuitem"><a href="Install.html" class="menuitem">インストール</a></div>
+<div class="menuitem"><a href="Gallery.html" class="menuitem">ギャラリー</a></div>
+<div class="menuitem"><a href="http://sourceforge.jp/forum/forum.php?forum_id=25531" class="menuitem">Gura 掲示板</a></div>
+</td>
+
+<td valign="top" class="description">
+<!-- ====================================================================== -->
+
+<h3>HTTP アクセス</h3>
+<h4>HTTP 経由でファイルをダウンロード</h4>
+
+<p>
+汎用のストリームコピー関数 copy を使って、HTTP 経由のファイルダウンロードができます。
+</p>
+
+<pre class="code">
+import(net.http)
+copy('http://sourceforge.jp/', 'sf.html')
+</pre>
+
+<p>
+プロキシを通す場合は、以下のように net.http.addproxy() を使ってプロキシサーバの設定をしてください。
+</p>
+
+<pre class="code">
+import(net.http)
+net.http.addproxy('xx.xx.xx.xx', 8080, 'username', 'password')
+copy('http://sourceforge.jp/', 'sf.html')
+</pre>
+
+<h4>HTTP 経由で CSV ファイルを読み込んでデータ処理</h4>
+
+<p>
+SVN のレポジトリに格納されている CSV ファイルを HTTP プロトコル経由で読み込んで表示します。
+</p>
+
+<pre class="code">
+import(csv)
+import(net.http)
+uri = 'http://sourceforge.jp/projects/gura/svn/view/trunk/' \
+      'test/50records-en.csv?view=co&root=gura'
+Person = struct(name:string, email:string, gender:string, age:number, rest*)
+people = Person * csv.reader(uri):iter
+println(people)
+</pre>
+
+<p>
+CSV ファイルを読み込む関数 csv#read() そのものは、HTTP に関して何も知りません。言語本体が、パス名から適切なモジュール (上記の場合 net.http) のオープン関数を呼び出し、ストリームにして関数に渡しています。関数がストリームを引数として受け取るようにしておけば、HTTP などの通信プロトコルや、さまざまなデータ構造にアクセスできるようになります。
+</p>
+
+<h4>データベースアクセスと HTTP プロトコル</h4>
+
+<p>
+HTTP サーバとして動作します。日付と 3 個所の温度を記録した SQLite3 データベースファイル temperature.sqlite3 を読み込んでグラフ描画した結果を、クライアントに返します。
+</p>
+
+<p>
+スクリプトを実行すると、HTTP のリクエスト待ちになります。ブラウザから http://localhost/?site=0,1 のようにアクセスしてください。 Linux で動作させる場合は、ルート権限でスクリプトを実行するか、ポート番号を 1024 以上に書き直してください。
+</p>
+
+<pre class="code">
+import(re)
+import(cairo)
+import(net.http)
+import(png)
+import(sqlite3)
+
+makeGraph(iSites[]:number) = {
+    tbl = struct(day:number, temps*:number) * \
+        sqlite3.db('temperature.sqlite3').query('select * from sites')
+    img = image(`rgba, 320, 320, `white)
+    [wdAxis, htAxis] = [img.width * 0.9, img.height * 0.9]
+    [xAxis, yAxis] = [(img.width - wdAxis) / 2, (img.height - htAxis) / 2]
+    [dayMax, dayMin] = [tbl:*day.max(), tbl:*day.min()]
+    dayRange = dayMax - dayMin
+    [tempMax, tempMin] = [tbl:*temps:*max().max(), tbl:*temps:*min().min()]
+    tempRange = tempMax - tempMin
+    calcX(day) = xAxis + (day - dayMin) * wdAxis / dayRange
+    calcY(temp) = yAxis + htAxis - (temp - tempMin) * htAxis / tempRange
+    img.cairo {|cr|
+        cr.set_line_width(img.height / 300)
+        cr.rectangle(xAxis, yAxis, wdAxis, htAxis).stroke()
+        cr.save {
+            cr.set_dash([img.height / 200, img.height / 200], 0)
+            cr.move_to(xAxis, calcY(0)).line_to(xAxis + wdAxis, calcY(0))
+            cr.stroke()
+        }
+        for (iSite in iSites) {
+            func = cr.move_to
+            for (item in tbl) {
+                func(calcX(item.day), calcY(item.temps[iSite]))
+                func = cr.line_to
+            }
+            cr.stroke()
+        }
+    }
+    img
+}
+net.http.server(port =&gt; 80).wait {|req|
+    iSites = [0]
+	query = net.http.parsequery(req.query)
+    if (query.haskey('site')) {
+        iSites = tonumber(query['site'].split(','):list)
+    }
+    buff = binary()
+    makeGraph(iSites).pngwrite(buff)
+    req.response('200', nil, buff,
+        'Server' =&gt; 'Gura_HTTP_Server' 'Connection' =&gt; 'close')
+}
+</pre>
+
+<!-- ====================================================================== -->
+</td>
+</tr>
+
+</table>
+</body>
+</html>

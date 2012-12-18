@@ -1,0 +1,149 @@
+//----------------------------------------------------------------------------
+// wxDataViewSortedListModel
+// extracted from dataviewmodel.tex
+//----------------------------------------------------------------------------
+#include "stdafx.h"
+
+Gura_BeginModule(wx)
+
+//----------------------------------------------------------------------------
+// Class derivation
+//----------------------------------------------------------------------------
+class wx_DataViewSortedListModel: public wxDataViewSortedListModel, public GuraObjectObserver {
+private:
+	Gura::Signal _sig;
+	Object_wx_DataViewSortedListModel *_pObj;
+public:
+	inline wx_DataViewSortedListModel(wxDataViewListModel* child) : wxDataViewSortedListModel(child), _sig(NULL), _pObj(NULL) {}
+	~wx_DataViewSortedListModel();
+	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewSortedListModel *pObj) {
+		_sig = sig, _pObj = pObj;
+	}
+	// virtual function of GuraObjectObserver
+	virtual void GuraObjectDeleted();
+};
+
+wx_DataViewSortedListModel::~wx_DataViewSortedListModel()
+{
+	if (_pObj != NULL) _pObj->InvalidateEntity();
+}
+
+void wx_DataViewSortedListModel::GuraObjectDeleted()
+{
+	_pObj = NULL;
+}
+
+//----------------------------------------------------------------------------
+// Gura interfaces for wxDataViewSortedListModel
+//----------------------------------------------------------------------------
+Gura_DeclareFunction(DataViewSortedListModel)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewSortedListModel));
+	DeclareArg(env, "child", VTYPE_wx_DataViewListModel, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(DataViewSortedListModel)
+{
+	wxDataViewListModel *child = Object_wx_DataViewListModel::GetObject(args, 0)->GetEntity();
+	wx_DataViewSortedListModel *pEntity = new wx_DataViewSortedListModel(child);
+	Object_wx_DataViewSortedListModel *pObj = Object_wx_DataViewSortedListModel::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_DataViewSortedListModel(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+Gura_DeclareMethod(wx_DataViewSortedListModel, GetAscending)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_DataViewSortedListModel, GetAscending)
+{
+	Object_wx_DataViewSortedListModel *pSelf = Object_wx_DataViewSortedListModel::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool rtn = pSelf->GetEntity()->GetAscending();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_DataViewSortedListModel, Resort)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_DataViewSortedListModel, Resort)
+{
+	Object_wx_DataViewSortedListModel *pSelf = Object_wx_DataViewSortedListModel::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->Resort();
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_DataViewSortedListModel, SetAscending)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "ascending", VTYPE_boolean, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataViewSortedListModel, SetAscending)
+{
+	Object_wx_DataViewSortedListModel *pSelf = Object_wx_DataViewSortedListModel::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool ascending = args.GetBoolean(0);
+	pSelf->GetEntity()->SetAscending(ascending);
+	return Value::Null;
+}
+
+//----------------------------------------------------------------------------
+// Object implementation for wxDataViewSortedListModel
+//----------------------------------------------------------------------------
+Object_wx_DataViewSortedListModel::~Object_wx_DataViewSortedListModel()
+{
+}
+
+Object *Object_wx_DataViewSortedListModel::Clone() const
+{
+	return NULL;
+}
+
+String Object_wx_DataViewSortedListModel::ToString(Signal sig, bool exprFlag)
+{
+	String rtn("<wx.DataViewSortedListModel:");
+	if (GetEntity() == NULL) {
+		rtn += "invalid>";
+	} else {
+		char buff[64];
+		::sprintf(buff, "%p>", GetEntity());
+		rtn += buff;
+	}
+	return rtn;
+}
+
+void Object_wx_DataViewSortedListModel::OnModuleEntry(Environment &env, Signal sig)
+{
+	Gura_AssignFunction(DataViewSortedListModel);
+}
+
+//----------------------------------------------------------------------------
+// Class implementation for wxDataViewSortedListModel
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_DataViewSortedListModel)
+{
+	Gura_AssignMethod(wx_DataViewSortedListModel, GetAscending);
+	Gura_AssignMethod(wx_DataViewSortedListModel, Resort);
+	Gura_AssignMethod(wx_DataViewSortedListModel, SetAscending);
+}
+
+Gura_ImplementDescendantCreator(wx_DataViewSortedListModel)
+{
+	return new Object_wx_DataViewSortedListModel((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+}
+
+}}

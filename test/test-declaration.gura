@@ -1,0 +1,19 @@
+#!/usr/bin/env gura
+listSymbols(skipWords:list, indent:number => 0, m?:module) = {
+	skipWordsMap = %{
+		'sys' => ['stdin', 'stdout', 'stderr', 'path', 'argv',
+				'executable', 'build', 'platform',
+				'datadir', 'libdir', 'localdir', 'maindir']
+		'path' => ['sep_file']
+		'os' => ['stdin', 'stdout', 'stderr']
+	}
+	for (word in tostring(dir(m))) {
+		if (word in skipWords) { continue }
+		value = locals(m).lookup(tosymbol(word))
+		printf('%*s%s:%s = %s\n', indent * 2, '', word, typename(value), value)
+		if (ismodule(value)) {
+			listSymbols(skipWordsMap.get(word, []), indent + 1, value)
+		}
+	}
+}
+listSymbols(['break', 'return', 'continue', 'listSymbols', '*'])

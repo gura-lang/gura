@@ -1,0 +1,121 @@
+#!/usr/bin/env gura
+# encoding: utf-8
+import(re)
+
+version = '0.3.0'
+downloadId = '56617'
+
+MakeHeader(pathname:string) = {
+	siteFlag = pathname.find(path.sep_file)
+	if (siteFlag) {
+		siteName = path.dirname(pathname).chop('/', '\\')
+		prefixRoot = '../'
+		prefixImg = '../images/'
+		prefixSite = ''
+		filename = path.filename(pathname)
+		pathnameEn = '../en/' + filename
+		pathnameJa = '../ja/' + filename
+	} else {
+		[filename, siteName] = path.splitext(pathname)
+		prefixRoot = ''
+		prefixImg = 'images/'
+		prefixSite = siteName + '/'
+		pathnameEn = filename + '.en'
+		pathnameJa = filename + '.ja'
+	}
+	//println(siteName)
+	classEn = 'radio-on'
+	classJa = 'radio-off'
+	wordTopPage = 'Top Page'
+	wordDownload = 'Download'
+	wordInstall = 'Install'
+	wordGallery = 'Gallery'
+	wordForum = 'Gura Forum'
+	forumId = '25596'
+	if (siteName == 'ja') {
+		classEn = 'radio-off'
+		classJa = 'radio-on'
+		wordTopPage = 'トップページ'
+		wordDownload = 'ダウンロード'
+		wordInstall = 'インストール'
+		wordGallery = 'ギャラリー'
+		wordForum = 'Gura 掲示板'
+		forumId = '25531'
+	}
+	//-------------------------------------------------------------------------
+	'''\
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="${prefixRoot}stylesheet.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<title>Gura Programming Language</title>
+<meta name="keywords" content="programming, language, interpreter, mapping, gura,
+implicit mapping, member mapping">
+</head>
+<body>
+<div>
+<a href="${prefixRoot}index.html.${siteName}"><img src="${prefixImg}banner.png" style="border: none" /></a>
+<a href="${pathnameEn}" class="${classEn}" style="margin-left: 1em">English</a> |
+<a href="${pathnameJa}" class="${classJa}">Japanese</a>
+<span style="margin-left: 3em"><a href="http://sourceforge.jp/">
+<img src="http://sourceforge.jp/sflogo.php?group_id=5586&type=3" width="210" height="63" border="0" alt="SourceForge.JP" />
+</a></span>
+</div>
+
+<div style="color: white; background: #888888; margin-top: 1em; font-weight: bold">
+<span style="margin-left: 1em">Copyright (c) 2011-2012 <a href="mailto:pxn11432@nifty.com" style="color:white">Yutaka Saito</a></span>
+</div>
+<div style="height:.2em; background: #cccccc"></div>
+<table cellspacing="0" border="0" width="100%">
+<tr>
+<td valign="top" class="menu">
+<div class="menuitem"><a href="/" class="menuitem">${wordTopPage}</a></div>
+<div class="menuitem"><a href="${prefixSite}Download.html" class="menuitem">${wordDownload}</a></div>
+<div class="menuitem"><a href="${prefixSite}Install.html" class="menuitem">${wordInstall}</a></div>
+<div class="menuitem"><a href="${prefixSite}Gallery.html" class="menuitem">${wordGallery}</a></div>
+<div class="menuitem"><a href="http://sourceforge.jp/forum/forum.php?forum_id=${forumId}" class="menuitem">${wordForum}</a></div>
+</td>
+
+<td valign="top" class="description">
+'''.template()
+	//-------------------------------------------------------------------------
+}
+
+//-----------------------------------------------------------------------------
+footer = '''\
+</td>
+</tr>
+
+</table>
+</body>
+</html>
+'''
+//-----------------------------------------------------------------------------
+
+for (pathname in path.walk('', 1, '*.html', '*.html.ja', '*.html.en')) {
+	sys.stderr.println('updating ', pathname)
+	lines = open(pathname, 'r', 'utf-8').readlines():list
+	stat = `begin
+	f = open(pathname, 'w', 'utf-8')
+	f.print(MakeHeader(pathname))
+	for (line in lines) {
+		if (stat == `begin) {
+			if (line.match('^<!-- ========')) {
+				f.print(line)
+				stat = `output
+			}
+		} elsif (stat == `output) {
+			line = line.sub(r'gura-\d+\.\d+\.\d+', 'gura-' + version)
+			line = line.sub(r'projects/gura/downloads/\d+/',
+							'projects/gura/downloads/' + downloadId + '/')
+			f.print(line)
+			if (line.match('^<!-- ========')) {
+				break
+			}
+		}
+	}
+	f.print(footer)
+}

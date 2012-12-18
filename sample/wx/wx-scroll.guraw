@@ -1,0 +1,747 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        scroll.cpp
+// Purpose:     wxScrolledWindow sample
+// Author:      Robert Roebling
+// Modified by:
+// Created:
+// RCS-ID:      $Id: scroll.cpp 41547 2006-10-02 05:36:31Z PC $
+// Copyright:   (C) 1998 Robert Roebling, 2002 Ron Lee, 2003 Matt Gregory
+// Licence:     wxWindows license
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+ID_QUIT			= wx.ID_EXIT
+ID_ABOUT		= wx.ID_ABOUT
+ID_DELETE_ALL	= 100
+ID_INSERT_NEW	= 101
+
+[ID_ADDBUTTON,
+ID_DELBUTTON,
+ID_MOVEBUTTON,
+ID_SCROLLWIN,
+ID_QUERYPOS,
+ID_NEWBUTTON] = wx.NewIds()
+
+// ----------------------------------------------------------------------
+// a trivial example
+// ----------------------------------------------------------------------
+
+// MySimpleCanvas
+
+MySimpleCanvas = class(wx.ScrolledWindow) {
+	__init__(parent:wx.Window, id:number, pos:wx.Point, size:wx.Size) = \
+				{|parent, id, pos, size, wx.SUNKEN_BORDER, 'test canvas'|
+		self.SetScrollRate(10, 10)
+		self.SetVirtualSizeWH(92, 97)
+		self.SetBackgroundColour(wx.WHITE)
+		self.Bind(wx.EVT_PAINT) {|event| self.OnPaint(event) }
+	}
+	OnPaint(event:wx.PaintEvent) = {
+		wx.PaintDC(self) {|dc|
+			self.PrepareDC(dc)
+			dc.SetPen(wx.RED_PEN)
+			dc.SetBrush(wx.TRANSPARENT_BRUSH)
+			dc.DrawRectangle(0, 0, 92, 97)
+		}
+	}
+}
+
+// MySimpleFrame
+
+MySimpleFrame = class(wx.Frame) {
+	__init__() = {|nil, wx.ID_ANY, 'wxScrolledWindow sample'
+									wx.Point(120, 120), wx.Size(150, 150)|
+		file_menu = wx.Menu()
+		file_menu.Append(ID_QUIT, 'E&xit\tAlt-X')
+		menu_bar = wx.MenuBar()
+		menu_bar.Append(file_menu, '&File')
+		self.SetMenuBar(menu_bar)
+		self.m_canvas = MySimpleCanvas(self, wx.ID_ANY, wx.Point(0, 0), wx.Size(100, 100))
+		self.Bind(wx.EVT_MENU, ID_QUIT) {|event| self.OnQuit(event) }
+	}
+	OnQuit(event:wx.CommandEvent) = {
+		self.Close(true)
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyCanvas
+// ----------------------------------------------------------------------------
+
+MyCanvas = class(wx.ScrolledWindow) {
+	__init__(parent:wx.Window, id:number, pos:wx.Point, size:wx.Size) = \
+			{|parent, id, pos, size, (wx.SUNKEN_BORDER | wx.TAB_TRAVERSAL), 'test canvas'|
+		self.SetScrollRate(10, 10)
+		self.SetVirtualSizeWH(500, 1000)
+		wx.Button(self, ID_ADDBUTTON, 'add button', wx.Point(10, 10))
+		wx.Button(self, ID_DELBUTTON, 'del button', wx.Point(10, 40))
+		wx.Button(self, ID_MOVEBUTTON, 'move button', wx.Point(150, 10))
+		wx.Button(self, ID_SCROLLWIN, 'scroll win', wx.Point(250, 10))
+		test = wx.Panel(self, wx.ID_ANY, wx.Point(10, 110), wx.Size(130,50), wx.SIMPLE_BORDER | wx.TAB_TRAVERSAL)
+		test.SetBackgroundColour('WHEAT')
+		self.SetBackgroundColour('BLUE')
+		self.SetCursor(wx.StockCursor(wx.CURSOR_IBEAM))
+		// event handler
+		self.Bind(wx.EVT_PAINT) {|event| self.OnPaint(event) }
+		self.Bind(wx.EVT_RIGHT_DOWN) {|event| self.OnMouseRightDown(event) }
+		self.Bind(wx.EVT_MOUSEWHEEL) {|event| self.OnMouseWheel(event) }
+		self.Bind(wx.EVT_BUTTON, ID_QUERYPOS) {|event| self.OnQueryPosition(event) }
+		self.Bind(wx.EVT_BUTTON, ID_ADDBUTTON) {|event| self.OnAddButton(event) }
+		self.Bind(wx.EVT_BUTTON, ID_DELBUTTON) {|event| self.OnDeleteButton(event) }
+		self.Bind(wx.EVT_BUTTON, ID_MOVEBUTTON) {|event| self.OnMoveButton(event) }
+		self.Bind(wx.EVT_BUTTON, ID_SCROLLWIN) {|event| self.OnScrollWin(event) }
+	}
+	OnMouseRightDown(event:wx.MouseEvent) = {
+		pt = event.GetPosition()
+		[x, y] = self.CalcUnscrolledPosition(pt.x, pt.y)
+		wx.LogMessage('Mouse down event at: %d %d, scrolled: %d %d', pt.x, pt.y, x, y)
+	}
+	OnMouseWheel(event:wx.MouseEvent) = {
+		pt = event.GetPosition()
+		[x, y] = self.CalcUnscrolledPosition(pt.x, pt.y)
+		wx.LogMessage('Mouse wheel event at: %d %d, scrolled: %d %d\n' \
+				'Rotation: %d, delta = %d',
+				pt.x, pt.y, x, y,
+				event.GetWheelRotation(), event.GetWheelDelta())
+		event.Skip()
+	}
+	OnPaint(event:wx.PaintEvent) = {
+		wx.PaintDC(self) {|dc|
+			self.PrepareDC(dc)
+			dc.DrawText('Press mouse button to test calculations!', 160, 50)
+			dc.DrawText('Some text', 140, 140)
+			dc.DrawRectangle(100, 160, 200, 200)
+		}
+	}
+	OnQueryPosition(event:wx.CommandEvent) = {
+		pt = self.m_button.GetPosition()
+		wx.LogMessage('Position of "Query position" is %d %d', pt.x, pt.y )
+		pt = self.ClientToScreen(pt)
+		wx.LogMessage('Position of "Query position" on screen is %d %d', pt.x, pt.y )
+	}
+	OnAddButton(event:wx.CommandEvent) = {
+		wx.LogMessage('Inserting button at position 10,70...')
+		button = wx.Button(self, ID_NEWBUTTON, 'new button', wx.Point(10, 70), wx.Size(80, 25))
+		pt = button.GetPosition()
+		wx.LogMessage('-> Position after inserting %d %d', pt.x, pt.y)
+	}
+	OnDeleteButton(event:wx.CommandEvent) = {
+		wx.LogMessage('Deleting button inserted with "Add button"...')
+		win = self.FindWindowById(ID_NEWBUTTON)
+		if (win) {
+			win.Destroy()
+		} else {
+			wx.LogMessage('-> No window with id = ID_NEWBUTTON found.')
+		}
+	}
+	OnMoveButton(event:wx.CommandEvent) = {
+		wx.LogMessage('Moving button 10 pixels downward..')
+		win = self.FindWindowById(event.GetId())
+		pt = win.GetPosition()
+		wx.LogMessage('-> Position before move is %d %d', pt.x, pt.y)
+		win.MoveXY(wx.DefaultCoord, pt.y + 10)
+		pt = win.GetPosition()
+		wx.LogMessage('-> Position after move is %d %d', pt.x, pt.y)
+	}
+	OnScrollWin(event:wx.CommandEvent) = {
+		wx.LogMessage('Scrolling 2 units up.\nThe white square and the controls should move equally!')
+		[x, y] = self.GetViewStart()
+		self.Scroll(wx.DefaultCoord, y + 2)
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyAutoScrollWindow
+// ----------------------------------------------------------------------------
+
+ID_RESIZEBUTTON = wx.NewId()
+SMALL_BUTTON = wx.Size(100, 50)
+LARGE_BUTTON = wx.Size(300, 100)
+
+// this class uses the 'virtual' size attribute along with an internal
+// sizer to automatically set up scrollbars as needed
+
+MyAutoScrollWindow = class(wx.ScrolledWindow) {
+	__init__(parent:wx.Window) = \
+			{|parent, -1, wx.DefaultPosition, wx.DefaultSize,
+	    						(wx.SUNKEN_BORDER | wx.ScrolledWindowStyle)|
+		self.SetBackgroundColour(wx.NamedColour('GREEN'))
+		// Set the rate we'd like for scrolling.
+		self.SetScrollRate(5, 5)
+		// Populate a sizer with a 'resizing' button and some
+		// other static decoration
+		innersizer = wx.FlexGridSizer(nil, 2, 2, 0)
+		self.m_button = wx.Button(self,
+								ID_RESIZEBUTTON,
+								'Press me',
+								wx.DefaultPosition,
+								SMALL_BUTTON)
+		self.m_button.SetSizeWH(SMALL_BUTTON.GetWidth(), SMALL_BUTTON.GetHeight())
+		innersizer.Add(self.m_button,
+					wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 20))
+		innersizer.Add(wx.StaticText(self, wx.ID_ANY, 'This is just'),
+					wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
+		innersizer.Add(wx.StaticText(self, wx.ID_ANY, 'some decoration'),
+					wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
+		innersizer.Add(wx.StaticText(self, wx.ID_ANY, 'for you to scroll...'),
+					wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
+		// Then use the sizer to set the scrolled region size.
+		self.SetSizer(innersizer)
+		// event handler
+		self.Bind(wx.EVT_BUTTON, ID_RESIZEBUTTON) {|event| self.OnResizeClick(event) }
+	}
+	OnResizeClick(event:wx.CommandEvent) = {
+		// Arbitrarily resize the button to change the minimum size of
+		// the (scrolled) sizer.
+		if(self.m_button.GetSize() == SMALL_BUTTON) {
+			self.m_button.SetMinSize(LARGE_BUTTON)
+		} else {
+			self.m_button.SetMinSize(SMALL_BUTTON)
+		}
+		// Force update layout and scrollbars, since nothing we do here
+		// necessarily generates a size event which would do it for us.
+		self.FitInside()
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyFrame
+// ----------------------------------------------------------------------------
+
+MyFrame = class(wx.Frame) {
+	__init__() = {|nil, wx.ID_ANY, 'wxScrolledWindow sample', wx.Point(20, 20), wx.Size(800, 500)|
+		file_menu = wx.Menu()
+		file_menu.Append(ID_DELETE_ALL,	'Delete all')
+		file_menu.Append(ID_INSERT_NEW,	'Insert new')
+		file_menu.Append(ID_ABOUT,		'&About..')
+		file_menu.Append(ID_QUIT,		'E&xit\tAlt-X')
+		menu_bar = wx.MenuBar()
+		menu_bar.Append(file_menu, '&File')
+		self.SetMenuBar(menu_bar)
+		self.CreateStatusBar(2)
+		widths = [ -1, 100 ]
+		self.SetStatusWidths(widths)
+		topsizer = wx.BoxSizer(wx.HORIZONTAL)
+		// subsizer splits topsizer down the middle
+		subsizer = wx.BoxSizer(wx.VERTICAL)
+		// Setting an explicit size here is superfluous, it will be overridden
+		// by the sizer in any case.
+		self.m_canvas = MyCanvas(self, wx.ID_ANY, wx.Point(0, 0), wx.Size(100, 100))
+		// This is done with ScrollRate/VirtualSize in MyCanvas ctor now,
+		// both should produce identical results.
+		//m_canvas.SetScrollbars( 10, 10, 50, 100 )
+		subsizer.Add(self.m_canvas, wx.SizerFlags(1).Expand())
+		subsizer.Add(MyAutoScrollWindow(self), wx.SizerFlags(1).Expand())
+		sizerBtm = wx.BoxSizer(wx.HORIZONTAL)
+		sizerBtm.Add(MyScrolledWindowDumb(self), wx.SizerFlags(1).Expand())
+		sizerBtm.Add(MyScrolledWindowSmart(self), wx.SizerFlags(1).Expand())
+		subsizer.Add(sizerBtm, wx.SizerFlags(1).Expand())
+		topsizer.Add(subsizer, wx.SizerFlags(1).Expand())
+		topsizer.Add(MyAutoTimedScrollingWindow(self), wx.SizerFlags(1).Expand())
+		self.SetSizer(topsizer)
+		// event handler
+		self.Bind(wx.EVT_MENU, ID_DELETE_ALL) {|event| self.OnDeleteAll(event) }
+		self.Bind(wx.EVT_MENU, ID_INSERT_NEW) {|event| self.OnInsertNew(event) }
+		self.Bind(wx.EVT_MENU, ID_ABOUT) {|event| self.OnAbout(event) }
+		self.Bind(wx.EVT_MENU, ID_QUIT) {|event| self.OnQuit(event) }
+	}
+	OnDeleteAll(event:wx.CommandEvent) = {
+		self.m_canvas.DestroyChildren()
+	}
+	OnInsertNew(event:wx.CommandEvent) = {
+		wx.Button(self.m_canvas, wx.ID_ANY, 'Hello', wx.Point(100, 100))
+	}
+	OnQuit(event:wx.CommandEvent) = {
+		self.Close(true)
+	}
+	OnAbout(event:wx.CommandEvent) = {
+		wx.MessageBox('wxScroll demo\n' \
+						'Robert Roebling (c) 1998\n' \
+						'Autoscrolling examples\n' \
+						'Ron Lee (c) 2002\n' \
+						'Auto-timed-scrolling example\n' \
+						'Matt Gregory (c) 2003\n',
+						'About wxScroll Demo',
+						wx.ICON_INFORMATION | wx.OK)
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyApp
+// ----------------------------------------------------------------------------
+
+MyApp = class(wx.App) {
+	OnInit() = {
+		frame = MyFrame()
+		frame.Show(true)
+		frame = MySimpleFrame()
+		frame.Show()
+		true
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyScrolledWindow classes: examples of wxScrolledWindow usage
+// ----------------------------------------------------------------------------
+
+// base class for both of them
+MyScrolledWindowBase = class(wx.ScrolledWindow) {
+	__init__(parent:wx.Window) = {|parent|
+		self.m_nLines = 100
+		dc = wx.ClientDC(self)
+		[w, self.m_hLine] = dc.GetTextExtent('Line 17')
+	}
+	OnDraw(dc:wx.DC) = {
+		println('MyScrolledWindowBase.OnDraw')
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyScrolledWindowXXX
+// ----------------------------------------------------------------------------
+
+// this class does "stupid" redrawing - it redraws everything each time
+// and sets the scrollbar extent directly.
+
+MyScrolledWindowDumb = class(MyScrolledWindowBase) {
+	__init__(parent:wx.Window) = {|parent|
+		// no horz scrolling
+		self.SetScrollbars(0, self.m_hLine, 0, self.m_nLines + 1, 0, 0, true /* no refresh */)
+	}
+	s_redrawCount = 0
+	OnDraw(dc:wx.DC) = {
+		// this is useful to see which lines are redrawn
+		dc.SetTextForeground(if (self.s_redrawCount % 2 != 0) {wx.RED} else {wx.BLUE})
+		self.s_redrawCount += 1
+		y = 0
+		repeat(self.m_nLines) {|line|
+			[x, yPhys] = self.CalcScrolledPosition(0, y)
+			dc.DrawText(format('Line %u (logical %d, physical %d)',
+												line, y, yPhys), 0, y)
+			y += self.m_hLine
+		}
+	}
+}
+
+// this class does "smart" redrawing - only redraws the lines which must be
+// redrawn and sets the scroll rate and virtual size to affect the
+// scrollbars.
+//
+// Note that this class should produce identical results to the one above.
+
+MyScrolledWindowSmart = class(MyScrolledWindowBase) {
+	__init__(parent:wx.Window) = {|parent|
+		// no horz scrolling
+		self.SetScrollRate(0, self.m_hLine)
+		self.SetVirtualSizeWH(wx.DefaultCoord, (self.m_nLines + 1 ) * self.m_hLine)
+	}
+	s_redrawCount = 0
+	OnDraw(dc:wx.DC) = {
+		// this is useful to see which lines are redrawn
+		dc.SetTextForeground(if (self.s_redrawCount % 2 != 0) {wx.RED} else {wx.BLUE})
+		self.s_redrawCount += 1
+		// update region is always in device coords, translate to logical ones
+		rectUpdate = self.GetUpdateRegion().GetBox()
+		[rectUpdate.x, rectUpdate.y] = self.CalcUnscrolledPosition(rectUpdate.x, rectUpdate.y)
+		lineFrom = rectUpdate.y / self.m_hLine
+		lineTo = rectUpdate.GetBottom() / self.m_hLine
+		if (lineTo > self.m_nLines - 1) {
+			lineTo = self.m_nLines - 1
+		}
+		y = lineFrom * self.m_hLine
+		for (line in lineFrom .. lineTo) {
+			[xPhys, yPhys] = self.CalcScrolledPosition(0, y)
+			dc.DrawText(format('Line %u (logical %d, physical %d)',
+										 line, y, yPhys), 0, y)
+			y += self.m_hLine
+		}
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyAutoTimedScrollingWindow: implements a text viewer with simple blocksize
+//                             selection to test auto-scrolling functionality
+// ----------------------------------------------------------------------------
+
+MyAutoTimedScrollingWindow = class(wx.ScrolledWindow) {
+	// interface
+	__init__(parent:wx.Window) = \
+		{|parent, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize,
+								(wx.VSCROLL | wx.HSCROLL | wx.SUNKEN_BORDER)|
+		self.m_selStart = wx.Point(-1, -1), self.m_cursor = wx.Point(-1, -1)
+		self.m_font = wx.Font(9, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL,
+						wx.FONTWEIGHT_NORMAL)
+		dc = wx.ClientDC(self)
+		// query dc for text size
+		dc.SetFont(self.m_font)
+		[self.m_fontW, self.m_fontH] = dc.GetTextExtent('A')
+		// set up the virtual window
+		self.SetScrollbars(self.m_fontW, self.m_fontH, self.sm_lineLen, self.sm_lineCnt)
+		// event handler
+		self.Bind(wx.EVT_LEFT_DOWN) {|event| self.OnMouseLeftDown(event) }
+		self.Bind(wx.EVT_LEFT_UP) {|event| self.OnMouseLeftUp(event) }
+		self.Bind(wx.EVT_MOTION) {|event| self.OnMouseMove(event) }
+		self.Bind(wx.EVT_SCROLLWIN) {|event| self.OnScroll(event) }
+	}
+	DeviceCoordsToGraphicalChars(updRect:wx.Rect) = {
+		pos = updRect.GetPosition()
+		pos = self.DeviceCoordsToGraphicalChars(pos)
+		updRect.x = pos.x
+		updRect.y = pos.y
+		updRect.width /= self.m_fontW
+		updRect.height /= self.m_fontH
+		// the *CoordsToGraphicalChars() funcs round down to upper-left corner,
+		//   so an off-by-one correction is needed
+		updRect.width += 1 // kludge
+		updRect.height += 1 // kludge
+		updRect
+	}
+	DeviceCoordsToGraphicalChars(pos:wx.Point) = {
+		pos.x /= self.m_fontW
+		pos.y /= self.m_fontH
+		[vX, vY] = self.GetViewStart()
+		pos.x += vX
+		pos.y += vY
+		pos
+	}
+	GraphicalCharToDeviceCoords(pos:wx.Point) = {
+		[vX, vY] = self.GetViewStart()
+		pos.x -= vX
+		pos.y -= vY
+		pos.x *= self.m_fontW
+		pos.y *= self.m_fontH
+		pos
+	}
+	LogicalCoordsToGraphicalChars(updRect:wx.Rect) = {
+		pos = updRect.GetPosition()
+		pos = self.LogicalCoordsToGraphicalChars(pos)
+		updRect.x = pos.x
+		updRect.y = pos.y
+		updRect.width /= self.m_fontW
+		updRect.height /= self.m_fontH
+		// the *CoordsToGraphicalChars() funcs round down to upper-left corner,
+		//   so an off-by-one correction is needed
+		updRect.width += 1 // kludge
+		updRect.height += 1 // kludge
+		updRect
+	}
+	LogicalCoordsToGraphicalChars(pos:wx.Point) = {
+		pos.x /= self.m_fontW
+		pos.y /= self.m_fontH
+		pos
+	}
+	GraphicalCharToLogicalCoords(pos:wx.Point) = {
+		pos.x *= self.m_fontW
+		pos.y *= self.m_fontH
+		pos
+	}
+	lastSelStart = wx.Point(-1, -1)
+	lastCursor = wx.Point(-1, -1)
+	MyRefresh() = {
+		// refresh last selected area (to deselect previously selected text)
+		pt1 = self.GraphicalCharToDeviceCoords(self.lastSelStart)
+		pt2 = self.GraphicalCharToDeviceCoords(self.lastCursor)
+		lastUpdRect = wx.Rect(pt1.x, pt1.y, pt2.x - pt1.x, pt2.y - pt1.y)
+		// off-by-one corrections, necessary because it's not possible to know
+		//   when to round up until rect is normalized by lastUpdRect constructor
+		self.lastUpdRect.width += self.m_fontW // kludge
+		self.lastUpdRect.height += self.m_fontH // kludge
+		// refresh currently selected (to select previously unselected text)
+		pt1 = self.GraphicalCharToDeviceCoords(self.m_selStart)
+		pt2 = self.GraphicalCharToDeviceCoords(self.m_cursor)
+		updRect = wx.Rect(pt1.x, pt1.y, pt2.x - pt1.x, pt2.y - pt1.y)
+		// off-by-one corrections
+		updRect.width += self.m_fontW // kludge
+		updRect.height += self.m_fontH // kludge
+		// find necessary refresh areas
+		rx = lastUpdRect.x
+		ry = lastUpdRect.y
+		rw = updRect.x - lastUpdRect.x
+		rh = lastUpdRect.height
+		if (rw != 0 && rh != 0) {
+			self.RefreshRect(self.DCNormalize(rx, ry, rw, rh))
+		}
+		rx = updRect.x
+		ry = updRect.y + updRect.height
+		rw= updRect.width
+		rh = (lastUpdRect.y + lastUpdRect.height) - (updRect.y + updRect.height)
+		if (rw != 0 && rh != 0) {
+			self.RefreshRect(self.DCNormalize(rx, ry, rw, rh))
+		}
+		rx = updRect.x + updRect.width
+		ry = lastUpdRect.y
+		rw = (lastUpdRect.x + lastUpdRect.width) - (updRect.x + updRect.width)
+		rh = lastUpdRect.height
+		if (rw != 0 && rh != 0) {
+			self.RefreshRect(self.DCNormalize(rx, ry, rw, rh))
+		}
+		rx = updRect.x
+		ry = lastUpdRect.y
+		rw = updRect.width
+		rh = updRect.y - lastUpdRect.y
+		if (rw != 0 && rh != 0) {
+			self.RefreshRect(self.DCNormalize(rx, ry, rw, rh))
+		}
+		// update last
+		self.lastSelStart = m_selStart
+		self.lastCursor = m_cursor
+	}
+	IsSelected(chX:number, chY:number) = {
+		if (self.IsInside(chX, self.m_selStart.x, self.m_cursor.x) \
+				&& self.IsInside(chY, self.m_selStart.y, self.m_cursor.y)) {
+			return(true)
+		}
+		false
+	}
+	IsInside(k:number, bound1:number, bound2:number):static = {
+		if ((k >= bound1 && k <= bound2) || (k >= bound2 && k <= bound1)) {
+			return(true)
+		}
+		false
+	}
+	DCNormalize(x:number, y:number, w:number, h:number):static = {
+		// this is needed to get rid of the graphical remnants from the selection
+		// I think it's because DrawRectangle() excludes a pixel in either direction
+		kludge = 1
+		// make (x, y) the top-left corner
+		if (w < 0) {
+			w = -w + kludge
+			x -= w
+		} else {
+			x -= kludge
+			w += kludge
+		}
+		if (h < 0) {
+			h = -h + kludge
+			y -= h
+		} else {
+			y -= kludge
+			h += kludge
+		}
+		wx.Rect(x, y, w, h)
+	}
+	// event stuff
+	OnDraw(dc:wx.DC) = {
+		dc.SetFont(self.m_font)
+		normBrush = wx.Brush(wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW), wx.SOLID)
+		selBrush = wx.Brush(wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT), wx.SOLID)
+		dc.SetPen(wx.TRANSPARENT_PEN)
+		str = self.sm_testData
+		/*
+		// draw the characters
+		// 1. for each update region
+		upd = wx.RegionIterator(self.GetUpdateRegion())
+		while (upd.HaveRects()) {
+			updRect = upd.GetRect()
+			updRectInGChars = self.DeviceCoordsToGraphicalChars(updRect)
+			// 2. for each row of chars in the update region
+			for (chY in updRectInGChars.y..(updRectInGChars.y + updRectInGChars.height)) {
+				// 3. for each character in the row
+				for (chX in updRectInGChars.x..(updRectInGChars.x + updRectInGChars.width)) {
+					// 4. set up dc
+					if (self.IsSelected(chX, chY)) {
+						dc.SetBrush(selBrush)
+						dc.SetTextForeground(wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHTTEXT))
+					} else {
+						dc.SetBrush(normBrush)
+						dc.SetTextForeground(wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOWTEXT))
+					}
+					// 5. find position info
+					charPos = self.GraphicalCharToLogicalCoords(wx.Point(chX, chY))
+					// 6. draw!
+					dc.DrawRectangle(charPos.x, charPos.y, self.m_fontW, self.m_fontH)
+					charIndex = chY * self.sm_lineLen + chX
+					if (chY < self.sm_lineCnt && \
+						chX < self.sm_lineLen && \
+						charIndex < str.len()) {
+						dc.DrawText(str.mid(charIndex, 1),
+									charPos.x, charPos.y)
+					}
+				}
+			}
+			upd.Next()
+		}
+		*/
+	}
+	OnMouseLeftDown(event:wx.MouseEvent) = {
+		// initial press of mouse button sets the beginning of the selection
+		self.m_selStart = self.DeviceCoordsToGraphicalChars(event.GetPosition())
+		// set the cursor to the same position
+		self.m_cursor = self.m_selStart
+		// draw/erase selection
+		self.MyRefresh()
+	}
+	OnMouseLeftUp(event:wx.MouseEvent) = {
+		// this test is necessary
+		if (self.HasCapture()) {
+			// uncapture mouse
+			self.ReleaseMouse()
+		}
+	}
+	OnMouseMove(event:wx.MouseEvent) = {
+		// if user is dragging
+		if (event.Dragging() && event.LeftIsDown()) {
+			// set the new cursor position
+			self.m_cursor = self.DeviceCoordsToGraphicalChars(event.GetPosition())
+			// draw/erase selection
+			self.MyRefresh()
+			// capture mouse to activate auto-scrolling
+			if (!self.HasCapture()) {
+				self.CaptureMouse()
+			}
+		}
+	}
+	OnScroll(event:wx.ScrollWinEvent) = {
+		// need to move the cursor when autoscrolling
+		// FIXME: the cursor also moves when the scrollbar arrows are clicked
+		if (self.HasCapture()) {
+			if (event.GetOrientation() == wx.HORIZONTAL) {
+				if (event.GetEventType() == wx.EVT_SCROLLWIN_LINEUP) {
+					m_cursor.x -= 1
+				} elsif (event.GetEventType() == wx.EVT_SCROLLWIN_LINEDOWN) {
+					m_cursor.x += 1
+				}
+			} elsif (event.GetOrientation() == wx.VERTICAL) {
+				if (event.GetEventType() == wx.EVT_SCROLLWIN_LINEUP) {
+					m_cursor.y -= 1
+				} elsif (event.GetEventType() == wx.EVT_SCROLLWIN_LINEDOWN) {
+					m_cursor.y += 1
+				}
+			}
+		}
+		self.MyRefresh()
+		event.Skip()
+	}
+}
+
+MyAutoTimedScrollingWindow.sm_lineCnt = 125
+MyAutoTimedScrollingWindow.sm_lineLen = 79
+MyAutoTimedScrollingWindow.sm_testData = \
+"162 Cult of the genius out of vanity. Because we think well of ourselves, but " \
+"nonetheless never suppose ourselves capable of producing a painting like one of " \
+"Raphael's or a dramatic scene like one of Shakespeare's, we convince ourselves " \
+"that the capacity to do so is quite extraordinarily marvelous, a wholly " \
+"uncommon accident, or, if we are still religiously inclined, a mercy from on " \
+"high. Thus our vanity, our self-love, promotes the cult of the genius: for only " \
+"if we think of him as being very remote from us, as a miraculum, does he not " \
+"aggrieve us (even Goethe, who was without envy, called Shakespeare his star of " \
+"the most distant heights [\"William! Stern der schonsten Ferne\": from Goethe's, " \
+"\"Between Two Worlds\"]; in regard to which one might recall the lines: \"the " \
+"stars, these we do not desire\" [from Goethe's, \"Comfort in Tears\"]). But, aside " \
+"from these suggestions of our vanity, the activity of the genius seems in no " \
+"way fundamentally different from the activity of the inventor of machines, the " \
+"scholar of astronomy or history, the master of tactics. All these activities " \
+"are explicable if one pictures to oneself people whose thinking is active in " \
+"one direction, who employ everything as material, who always zealously observe " \
+"their own inner life and that of others, who perceive everywhere models and " \
+"incentives, who never tire of combining together the means available to them. " \
+"Genius too does nothing except learn first how to lay bricks then how to build, " \
+"except continually seek for material and continually form itself around it. " \
+"Every activity of man is amazingly complicated, not only that of the genius: " \
+"but none is a \"miracle.\" Whence, then, the belief that genius exists only in " \
+"the artist, orator and philosopher? that only they have \"intuition\"? (Whereby " \
+"they are supposed to possess a kind of miraculous eyeglass with which they can " \
+"see directly into \"the essence of the thing\"!) It is clear that people speak of " \
+"genius only where the effects of the great intellect are most pleasant to them " \
+"and where they have no desire to feel envious. To call someone \"divine\" means: " \
+"\"here there is no need for us to compete.\" Then, everything finished and " \
+"complete is regarded with admiration, everything still becoming is undervalued. " \
+"But no one can see in the work of the artist how it has become; that is its " \
+"advantage, for wherever one can see the act of becoming one grows somewhat " \
+"cool. The finished and perfect art of representation repulses all thinking as " \
+"to how it has become; it tyrannizes as present completeness and perfection. " \
+"That is why the masters of the art of representation count above all as gifted " \
+"with genius and why men of science do not. In reality, this evaluation of the " \
+"former and undervaluation of the latter is only a piece of childishness in the " \
+"realm of reason. " \
+"\n\n" \
+"163 The serious workman. Do not talk about giftedness, inborn talents! One can " \
+"name great men of all kinds who were very little gifted. The acquired " \
+"greatness, became \"geniuses\" (as we put it), through qualities the lack of " \
+"which no one who knew what they were would boast of: they all possessed that " \
+"seriousness of the efficient workman which first learns to construct the parts " \
+"properly before it ventures to fashion a great whole; they allowed themselves " \
+"time for it, because they took more pleasure in making the little, secondary " \
+"things well than in the effect of a dazzling whole. the recipe for becoming a " \
+"good novelist, for example, is easy to give, but to carry it out presupposes " \
+"qualities one is accustomed to overlook when one says \"I do not have enough " \
+"talent.\" One has only to make a hundred or so sketches for novels, none longer " \
+"than two pages but of such distinctness that every word in them is necessary; " \
+"one should write down anecdotes each day until one has learned how to give them " \
+"the most pregnant and effective form; one should be tireless in collecting and " \
+"describing human types and characters; one should above all relate things to " \
+"others and listen to others relate, keeping one's eyes and ears open for the " \
+"effect produced on those present, one should travel like a landscape painter or " \
+"costume designer; one should excerpt for oneself out of the individual sciences " \
+"everything that will produce an artistic effect when it is well described, one " \
+"should, finally, reflect on the motives of human actions, disdain no signpost " \
+"to instruction about them and be a collector of these things by day and night. " \
+"One should continue in this many-sided exercise some ten years: what is then " \
+"created in the workshop, however, will be fit to go out into the world. What, " \
+"however, do most people do? They begin, not with the parts, but with the whole. " \
+"Perhaps they chance to strike a right note, excite attention and from then on " \
+"strike worse and worse notes, for good, natural reasons. Sometimes, when the " \
+"character and intellect needed to formulate such a life-plan are lacking, fate " \
+"and need take their place and lead the future master step by step through all " \
+"the stipulations of his trade. " \
+"\n\n" \
+"164 Peril and profit in the cult of the genius. The belief in great, superior, " \
+"fruitful spirits is not necessarily, yet nonetheless is very frequently " \
+"associated with that religious or semi-religious superstition that these " \
+"spirits are of supra-human origin and possess certain miraculous abilities by " \
+"virtue of which they acquire their knowledge by quite other means than the rest " \
+"of mankind. One ascribes to them, it seems, a direct view of the nature of the " \
+"world, as it were a hole in the cloak of appearance, and believes that, by " \
+"virtue of this miraculous seer's vision, they are able to communicate something " \
+"conclusive and decisive about man and the world without the toil and " \
+"rigorousness required by science. As long as there continue to be those who " \
+"believe in the miraculous in the domain of knowledge one can perhaps concede " \
+"that these people themselves derive some benefit from their belief, inasmuch as " \
+"through their unconditional subjection to the great spirits they create for " \
+"their own spirit during its time of development the finest form of discipline " \
+"and schooling. On the other hand, it is at least questionable whether the " \
+"superstitious belief in genius, in its privileges and special abilities, is of " \
+"benefit to the genius himself if it takes root in him. It is in any event a " \
+"dangerous sign when a man is assailed by awe of himself, whether it be the " \
+"celebrated Caesar's awe of Caesar or the awe of one's own genius now under " \
+"consideration; when the sacrificial incense which is properly rendered only to " \
+"a god penetrates the brain of the genius, so that his head begins to swim and " \
+"he comes to regard himself as something supra-human. The consequences that " \
+"slowly result are: the feeling of irresponsibility, of exceptional rights, the " \
+"belief that he confers a favor by his mere presence, insane rage when anyone " \
+"attempts even to compare him with others, let alone to rate him beneath them, " \
+"or to draw attention to lapses in his work. Because he ceases to practice " \
+"criticism of himself, at last one pinion after the other falls out of his " \
+"plumage: that superstitious eats at the roots of his powers and perhaps even " \
+"turns him into a hypocrite after his powers have fled from him. For the great " \
+"spirits themselves it is therefore probably more beneficial if they acquire an " \
+"insight into the nature and origin of their powers, if they grasp, that is to " \
+"say, what purely human qualities have come together in them and what fortunate " \
+"circumstances attended them: in the first place undiminished energy, resolute " \
+"application to individual goals, great personal courage, then the good fortune " \
+"to receive an upbringing which offered in the early years the finest teachers, " \
+"models and methods. To be sure, when their goal is the production of the " \
+"greatest possible effect, unclarity with regard to oneself and that " \
+"semi-insanity superadded to it has always achieved much; for what has been " \
+"admired and envied at all times has been that power in them by virtue of which " \
+"they render men will-less and sweep them away into the delusion that the " \
+"leaders they are following are supra-natural. Indeed, it elevates and inspires " \
+"men to believe that someone is in possession of supra-natural powers: to this " \
+"extent Plato was right to say [Plato: Phaedrus, 244a] that madness has brought " \
+"the greatest of blessings upon mankind. In rare individual cases this portion " \
+"of madness may, indeed, actually have been the means by which such a nature, " \
+"excessive in all directions, was held firmly together: in the life of " \
+"individuals, too, illusions that are in themselves poisons often play the role " \
+"of healers; yet, in the end, in the case of every \"genius\" who believes in his " \
+"own divinity the poison shows itself to the same degree as his \"genius\" grows " \
+"old: one may recall, for example, the case of Napoleon, whose nature certainly " \
+"grew into the mighty unity that sets him apart from all men of modern times " \
+"precisely through his belief in himself and his star and through the contempt " \
+"for men that flowed from it; until in the end, however, this same belief went " \
+"over into an almost insane fatalism, robbed him of his acuteness and swiftness " \
+"of perception, and became the cause of his destruction."
+
+wx.IMPLEMENT_APP(MyApp)

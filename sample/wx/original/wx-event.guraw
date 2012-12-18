@@ -1,0 +1,46 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+import(gif)
+
+log = nil
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+		panel = wx.Panel(self)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		panel.SetSizer(vbox)
+		wxutil.LogWindow(panel) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+			log:extern = ctrl
+		}
+		accel = wx.AcceleratorTable([
+			wx.AcceleratorEntry(wx.ACCEL_CTRL, ord('N'), wx.ID_EXIT)
+		])
+		self.SetAcceleratorTable(accel)
+		self.Bind(wx.EVT_MENU, id => wx.ID_EXIT) {|event|
+			log.Printf('%s\n', event)
+		}
+		self.Bind(wx.EVT_SIZE) {|event|
+			log.Printf('%s\n', event)
+			event.Skip()
+		}
+		self.Bind(wx.EVT_MOVE) {|event|
+			log.Printf('%s\n', event)
+			event.Skip()
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

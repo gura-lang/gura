@@ -1,0 +1,160 @@
+apple    100 red
+orange   200 yellow
+grape    300 purple
+
+apple    100 red
+orange   200 yellow
+grape    300 purple
+
+apple    100 red
+orange   200 yellow
+grape    300 purple
+tbl::f() .. [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
+tbl::g() .. nil
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+1 1
+2 2
+3 3
+4 4
+5 5
+6 6
+7 7
+8 8
+9 9
+10 10
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+[]::x .. []
+[]::func() .. []
+abc 123
+def 123
+ghi 123
+jkl 123
+mno 123
+-----
+abc 123
+def 123
+ghi 123
+jkl 123
+mno 123
+-----
+abc 123
+def 123
+ghi 123
+jkl 123
+mno 123
+-----
+abc 123
+abc 456
+abc 789
+def 123
+def 456
+def 789
+ghi 123
+ghi 456
+ghi 789
+jkl 123
+jkl 456
+jkl 789
+mno 123
+mno 456
+mno 789
+-----
+abc 123
+abc 456
+abc 789
+def 123
+def 456
+def 789
+ghi 123
+ghi 456
+ghi 789
+jkl 123
+jkl 456
+jkl 789
+mno 123
+mno 456
+mno 789
+-----
+abc 123
+def 456
+ghi 789
+-----
+abc 123
+def 456
+ghi 789
+-----
+abc 123
+def 456
+ghi 789
+jkl 012
+mno 345
+-----
+abc 123
+def 456
+ghi 789
+jkl 012
+mno 345
+6,6,7,9,8,6,8
+6,6,7,9,8,6,8
+math.sin(interval(0, math.pi / 2, 20)):list .. [0, 0.0825793, 0.164595, 0.245485, 0.324699, 0.401695, 0.475947, 0.546948, 0.614213, 0.677282, 0.735724, 0.789141, 0.837166, 0.879474, 0.915773, 0.945817, 0.9694, 0.986361, 0.996584, 1]
+format('%.3f', math.sin(interval(0, math.pi / 2, 20)):list) .. ['0.000', '0.083', '0.165', '0.245', '0.325', '0.402', '0.476', '0.547', '0.614', '0.677', '0.736', '0.789', '0.837', '0.879', '0.916', '0.946', '0.969', '0.986', '0.997', '1.000']
+format('%d ** 2 = %d\n', [0 .. 10], [0 .. 10] ** 2) .. ['0 ** 2 = 0\n', '1 ** 2 = 1\n', '2 ** 2 = 4\n', '3 ** 2 = 9\n', '4 ** 2 = 16\n', '5 ** 2 = 25\n', '6 ** 2 = 36\n', '7 ** 2 = 49\n', '8 ** 2 = 64\n', '9 ** 2 = 81\n', '10 ** 2 = 100\n']
+'  fj,  jfkdjfd,  dkfjdkj  '.split(','):*strip().join(',') .. fj,jfkdjfd,dkfjdkj
+x              .. [nil, nil, 3, 1, 4, 1, nil, 5, nil, 9, 2, 6, 5, 3]
+ident(x)       .. [nil, nil, 3, 1, 4, 1, nil, 5, nil, 9, 2, 6, 5, 3]
+ident(x):list  .. [nil, nil, 3, 1, 4, 1, nil, 5, nil, 9, 2, 6, 5, 3]
+ident(x):xlist .. [3, 1, 4, 1, 5, 9, 2, 6, 5, 3]
+ident(x):set   .. [nil, 3, 1, 4, 5, 9, 2, 6]
+ident(x):xset  .. [3, 1, 4, 5, 9, 2, 6]
+[ident(x):iter] .. [nil, nil, 3, 1, 4, 1, nil, 5, nil, 9, 2, 6, 5, 3]
+[ident(x):xiter] .. [3, 1, 4, 1, 5, 9, 2, 6, 5, 3]
+x              .. [nil, nil, nil, nil, nil]
+ident(x)       .. nil
+ident(x):list  .. [nil, nil, nil, nil, nil]
+ident(x):xlist .. []
+ident(x):set   .. [nil]
+ident(x):xset  .. []
+[ident(x):iter] .. [nil, nil, nil, nil, nil]
+[ident(x):xiter] .. []
+x              .. [nil, nil, nil, nil, nil, 5]
+ident(x)       .. [nil, nil, nil, nil, nil, 5]
+ident(x):list  .. [nil, nil, nil, nil, nil, 5]
+ident(x):xlist .. [5]
+ident(x):set   .. [nil, 5]
+ident(x):xset  .. [5]
+[ident(x):iter] .. [nil, nil, nil, nil, nil, 5]
+[ident(x):xiter] .. [5]
+ident(x):flat  .. [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+ident(x):flat  .. [nil, nil, 3, 1, 4, 1, nil, 5, nil, 9, 2, 6, 5, 3]
+ident(x):list:flat .. [nil, nil, 3, 1, 4, 1, nil, 5, nil, 9, 2, 6, 5, 3]
+ident(x):xlist:flat .. [3, 1, 4, 1, 5, 9, 2, 6, 5, 3]
+ident(x):set:flat .. [nil, 3, 1, 4, 5, 9, 2, 6]
+ident(x):xset:flat .. [3, 1, 4, 5, 9, 2, 6]
+ident(x):flat  .. nil
+ident(x):list:flat .. [nil, nil, nil, nil, nil]
+ident(x):xlist:flat .. []
+ident(x):set:flat .. [nil]
+ident(x):xset:flat .. []
+ident(x):flat  .. [nil, nil, nil, nil, nil, 5]
+ident(x):list:flat .. [nil, nil, nil, nil, nil, 5]
+ident(x):xlist:flat .. [5]
+ident(x):set:flat .. [nil, 5]
+ident(x):xset:flat .. [5]

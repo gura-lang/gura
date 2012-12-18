@@ -1,0 +1,89 @@
+#!/usr/bin/env gura
+import(sdl)
+import(gif)
+
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+gif.content(I('kangaroo.gif'), `rgba) {|g|
+	symPacks = @{
+		[`Header, [
+			`Signature
+			`Version
+		]]
+		[`LogicalScreenDescriptor, [
+			`LogicalScreenWidth
+			`LogicalScreenHeight
+			`GlobalColorTableFlag
+			`ColorResolution
+			`SortFlag
+			`SizeOfGlobalColorTable
+			`BackgroundColorIndex
+			`PixelAspectRatio
+		]]
+		[`CommentExtension, [
+			`CommentData
+		]]
+		[`PlainTextExtension, [
+			`TextGridLeftPosition
+			`TextGridTopPosition
+			`TextGridWidth
+			`TextGridHeight
+			`CharacterCellWidth
+			`CharacterCellHeight
+			`TextForegroundColorIndex
+			`TextBackgroundColorIndex
+			`PlainTextData
+		]]
+		[`ApplicationExtension, [
+			`ApplicationIdentifier
+			`AuthenticationCode
+			`ApplicationData
+		]]
+	}
+	symsGctl = @{
+		`DisposalMethod
+		`UserInputFlag
+		`TransparentColorFlag
+		`DelayTime
+		`TransparentColorIndex
+	}
+	symsDesc = @{
+		`ImageLeftPosition
+		`ImageTopPosition
+		`ImageWidth
+		`ImageHeight
+		`LocalColorTableFlag
+		`InterlaceFlag
+		`SortFlag
+		`SizeOfLocalColorTable
+	}
+	for ([sym, symsSub] in symPacks) {
+		obj = g.getprop!(sym)
+		!obj && continue
+		printf("%-*s %s\n", symsSub:*tostring():*len().max(),
+							symsSub:*tostring(), obj.getprop!(symsSub, '(not defined)'))
+	}
+	for (img in g.images) {|i|
+		printf("image#%d\n", i)
+		printf("gif.GraphicControl.%-*s %s\n", symsGctl:*tostring():*len().max(),
+			symsGctl:*tostring(), img.gif.GraphicControl.getprop!(symsGctl, '(not defined)'))
+		printf("gif.ImageDescriptor.%-*s %s\n", symsDesc:*tostring():*len().max(),
+			symsDesc:*tostring(), img.gif.ImageDescriptor.getprop!(symsDesc, '(not defined)'))
+	}
+	g.ApplicationExtension.ApplicationIdentifier.dump()
+	g.ApplicationExtension.AuthenticationCode.dump()
+	g.ApplicationExtension.ApplicationData.dump()
+	g.write('a.gif')
+}
+sdl.Init(sdl.INIT_EVERYTHING)
+img = image(`rgba).gifread('a.gif').resize(400)
+//img = image(`rgba).gifread(I('kangaroo.gif')).resize(400)
+sdl.SetVideoMode(img.width, img.height, 16, sdl.SWSURFACE) {|screen|
+	screen.PutSurface(img, 0, 0)
+	screen.UpdateRect()
+}
+repeat {
+	event = sdl.WaitEvent()
+	if (event.type == sdl.QUIT || \
+		(event.type == sdl.KEYDOWN && event.sym == sdl.K_ESCAPE)) { break }
+}

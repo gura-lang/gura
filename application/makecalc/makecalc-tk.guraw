@@ -1,0 +1,1041 @@
+#!/usr/bin/env gura
+# encoding: utf-8
+import(tk)
+import(cairo)
+import(yaml)
+import(units)
+import(re)
+
+randseed(time.clock())
+
+//-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
+Question = class {
+	__init__(numLeft:number, numRight:number, answer, operator:string, opSizeFactor:number) = {
+		self.numLeft = numLeft
+		self.numRight = numRight
+		if (isnumber(answer)) {
+			self.numAnswer = answer
+			self.strAnswer = makeNumStr(answer)
+		} else {
+			self.numAnswer = 0
+			self.strAnswer = answer
+		}
+		self.operator = operator
+		self.opSizeFactor = opSizeFactor
+	}
+	makeText() = format('%d%s%d', self.numLeft, self.operator, self.numRight)
+}
+
+drawText(cr:cairo.context, x:number, y:number, width:number, height:number, text:string) = {
+	ext = cr.text_extents(text)
+	x += (width - ext.x_advance) / 2
+	ext = cr.font_extents()
+	y += (height + ext.height) / 2
+	cr.move_to(x, y).show_text(text)
+}
+
+if (sys.platform == `windows) {
+	OpenWithApp(filename:string) = {
+		import(win32)
+		[basename, extname] = path.splitext(filename)
+		keyName = win32.HKEY_CLASSES_ROOT.openkey('.' + extname,
+												[`query_value]).queryvalue('')
+		cmdline = win32.HKEY_CLASSES_ROOT.openkey(keyName + r'\Shell\Open\Command',
+												[`query_value]).queryvalue('')
+		progname = cmdline.match(r'^\"([^\"]+)\"')[1]
+		os.exec(progname, filename):fork
+	}
+} elsif (sys.platform == `linux) {
+	prognameDict = dict():icase
+	IsExist(filename:string):map = {
+		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
+	}
+	IsExist('evince') && { prognameDict['pdf'] = 'evince' }
+	OpenWithApp(filename:string) = {
+		[basename, extname] = path.splitext(filename)
+		prognameDict.haskey(extname) && os.exec(prognameDict[extname], filename):fork
+	}
+}
+
+//-----------------------------------------------------------------------------
+// QuestionGenerator
+//-----------------------------------------------------------------------------
+QuestionGenerator = class {
+	__init__(title:string, titleKanji:string, subtitle:string,
+								func:function, nQuestionsPerPage:number) = {
+		self.title = title
+		self.titleKanji = titleKanji
+		self.subtitle = subtitle
+		self.func = func
+		self.nQuestionsPerPage = nQuestionsPerPage
+		self.nPages = 1
+		self.pages = nil
+	}
+	updateQuestion() = {
+		self.pages = repeat (self.nPages):list {
+			textList = []
+			repeat (self.nQuestionsPerPage):list {
+				repeat {
+					question = self.func()
+					text = question.makeText()
+					!textList.find(text) && break
+				}
+				textList.add(text)
+				question
+			}
+		}
+	}
+	makePDF(filename:string, nPages:number, updateFlag:boolean,
+										kanjiFlag:boolean, answerFlag:boolean) = {
+		if (isnil(self.pages) || self.nPages != nPages || updateFlag) {
+			self.nPages = nPages
+			self.updateQuestion()
+		}
+		scale = units.mm$pt(210) / 210
+		cairo.pdf_create(open(filename, 'w'), units.mm$pt(210), units.mm$pt(297)) {|cr|
+			cr.scale(scale, scale)
+			for (questions in self.pages) {
+				self.doDraw(cr, questions, kanjiFlag, answerFlag)
+				cr.show_page()
+			}
+			cr.destroy()
+		}
+	}
+	draw(canvas:tk.Canvas, nPages:number, updateFlag:boolean, iPage:number,
+										kanjiFlag:boolean, answerFlag:boolean) = {
+		if (isnil(self.pages) || self.nPages != nPages || updateFlag) {
+			self.nPages = nPages
+			self.updateQuestion()
+		}
+		canvas.imgTk && canvas.imgTk.delete()
+		canvas.itemImage && canvas.itemImage.delete()
+		img = image(`rgba, canvas.wdImage, canvas.htImage, `white)
+		img.cairo {|cr|
+			cr.scale(canvas.wdImage / 210, canvas.htImage / 297)
+			self.doDraw(cr, self.pages[iPage], kanjiFlag, answerFlag)
+			cr.destroy()
+		}
+		canvas.imgTk = img.to_tk()
+		canvas.itemImage = canvas.Image(canvas.xImage, canvas.yImage,
+										image => canvas.imgTk, anchor => 'nw')
+		canvas.itemImage.grabFlag = false
+		canvas.itemImage.bind('<ButtonPress>') {|x:number, y:number|
+			canvas.itemImage.grabFlag = true
+			[xCur, yCur] = canvas.itemImage.coords()
+			[canvas.itemImage.xOffset, canvas.itemImage.yOffset] = [xCur - x, yCur - y]
+		}
+		canvas.itemImage.bind('<Motion>') {|x:number, y:number|
+			if (canvas.itemImage.grabFlag) {
+				canvas.xImage = x + canvas.itemImage.xOffset
+				canvas.yImage = y + canvas.itemImage.yOffset
+				adjustImagePos(canvas)
+				canvas.itemImage.coords(canvas.xImage, canvas.yImage)
+				updateScroll(canvas)
+			}
+		}
+		canvas.itemImage.bind('<ButtonRelease>') {
+			canvas.itemImage.grabFlag = false
+		}
+	}
+	drawTitle(cr:cairo.context, x:number, y:number, kanjiFlag:boolean) = {
+		//x = 10, y = 20
+		cr.set_font_size(10)
+		cr.move_to(x, y).show_text(if (kanjiFlag) {self.titleKanji} else {self.title})
+		extents = cr.text_extents(self.title)
+		x += extents.width + extents.x_bearing + 5
+		cr.set_font_size(3)
+		cr.move_to(x, y).show_text(self.subtitle)
+	}
+	drawNameField(cr:cairo.context, xLeft:number, xRight:number, y:number, kanjiFlag:boolean) = {
+		cr.set_font_size(4)
+		x = xLeft
+		x += 15
+		cr.move_to(x, y).show_text(if (kanjiFlag) {'年'} else {'ねん'})
+		x += 20
+		cr.move_to(x, y).show_text(if (kanjiFlag) {'組'} else {'くみ'})
+		x += 20
+		cr.move_to(x, y).show_text(if (kanjiFlag) {'番'} else {'ばん'})
+		x += 12
+		cr.move_to(x, y).show_text(if (kanjiFlag) {'名前'} else {'なまえ'})
+		x += 90
+		y += 3
+		cr.move_to(xLeft, y).line_to(x, y)
+	}
+}
+
+//-----------------------------------------------------------------------------
+// QGen_Equation
+//-----------------------------------------------------------------------------
+QGen_Equation = class(QuestionGenerator) {
+	__init__(title:string, titleKanji:string, subtitle:string, nQuestionsPerPage:number,
+			wdLeft:number, wdRight:number, wdAnswer:number, htQuestion:number, func:function) = \
+							{|title, titleKanji, subtitle, func, nQuestionsPerPage|
+		self.wdLeft = wdLeft
+		self.wdRight = wdRight
+		self.wdAnswer = wdAnswer
+		self.htQuestion = htQuestion
+		self.fontSize = 7
+	}
+	doDraw(cr:cairo.context, questions[]:Question, kanjiFlag:boolean, answerFlag:boolean) = {
+		cr.set_source_color('#444444')
+		cr.select_font_face('HGMaruGothicMPRO',
+						cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+		self.drawTitle(cr, 10, 20, kanjiFlag)
+		self.drawNameField(cr, 40, 200, 32, kanjiFlag)
+		x = [10, 210 / 2].get((0..1).round())
+		y = 40 + int((0..) / 2) * self.htQuestion
+		self.putOneQuestion(cr, x, y, questions, answerFlag)
+	}
+	putOneQuestion(cr:cairo.context, x:number, y:number,
+								question:Question, answerFlag:boolean):map:void = {
+		cr.set_source_color('#444444')
+		htLine = 10
+		cr.set_font_size(self.fontSize)
+		drawText(cr, x, y, self.wdLeft, htLine, makeNumStr(question.numLeft)), x += self.wdLeft
+		cr.set_font_size(self.fontSize * question.opSizeFactor)
+		drawText(cr, x, y, 10, htLine, question.operator), x += 10
+		cr.set_font_size(self.fontSize)
+		drawText(cr, x, y, self.wdRight, htLine, makeNumStr(question.numRight)), x += self.wdRight
+		cr.set_line_width(.1)
+		cr.set_font_size(self.fontSize * 1.2)
+		drawText(cr, x, y, 10, htLine, '='), x += 10
+		cr.rectangle(x, y, self.wdAnswer, htLine * 1.2)
+		cr.stroke()
+		cr.set_font_size(self.fontSize)
+		cr.set_source_color('#ff8888')
+		answerFlag && drawText(cr, x, y, self.wdAnswer, htLine, question.strAnswer)
+	}
+}
+
+//-----------------------------------------------------------------------------
+// QGen_CalcOnPaperBase
+//-----------------------------------------------------------------------------
+QGen_CalcOnPaperBase = class(QuestionGenerator) {
+	__init__(title:string, titleKanji:string, subtitle:string, func:function, nHorz:number, nVert:number,
+			wdQuestion:number, htQuestion:number, nDigitsMax:number) = \
+							{|title, titleKanji, subtitle, func, nHorz * nVert|
+		self.nHorz = nHorz
+		self.nVert = nVert
+		self.nDigitsMax = nDigitsMax
+		self.wdQuestion = wdQuestion
+		self.htQuestion = htQuestion
+		self.fontSize = 7
+		[self.wdCell, self.htCell] = [1.14, 1.71] * self.fontSize
+	}
+	doDraw(cr:cairo.context, questions[]:Question, kanjiFlag:boolean, answerFlag:boolean) = {
+		cr.set_source_color('#444444')
+		cr.select_font_face('HGMaruGothicMPRO',
+						cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+		/*
+		scope {
+			cr.set_font_size(50)
+			x = 100, y = 100
+			for (ch in '01234') {
+				ext = cr.text_extents(ch)
+				cr.move_to(x, y).show_text(ch)
+				cr.rectangle(x + ext.x_bearing, y + ext.y_bearing, ext.width, ext.height)
+				cr.rectangle(x, y, ext.x_advance, ext.height)
+				cr.stroke()
+				y += ext.height
+			}
+		}
+		*/
+		self.drawTitle(cr, 10, 20, kanjiFlag)
+		self.drawNameField(cr, 40, 200, 32, kanjiFlag)
+		x = 10 + (0..(self.nHorz - 1)).round() * self.wdQuestion
+		y = 40 + int((0..) / self.nHorz) * self.htQuestion
+		self.putOneQuestion(cr, x, y, questions, answerFlag)
+	}
+	putNumber(cr:cairo.context, x:number, y:number, num:number) = {
+		idx = self.nDigitsMax - 1
+		if (num == 0) {
+			drawText(cr, x + idx * self.wdCell, y, self.wdCell, self.htCell, makeNumStr(num))
+			return
+		}
+		while (num > 0) {
+			drawText(cr, x + idx * self.wdCell, y, self.wdCell, self.htCell, makeNumStr(num % 10))
+			num = int(num / 10)
+			idx -= 1
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// QGen_CalcOnPaper
+//-----------------------------------------------------------------------------
+QGen_CalcOnPaper = class(QGen_CalcOnPaperBase) {
+	__init__(title:string, titleKanji:string, subtitle:string, nHorz:number, nVert:number,
+			wdQuestion:number, htQuestion:number, nDigitsMax:number, func:function) = \
+		{|title, titleKanji, subtitle, func, nHorz, nVert, wdQuestion, htQuestion, nDigitsMax|
+	}
+	putOneQuestion(cr:cairo.context, x:number, y:number,
+								question:Question, answerFlag:boolean):map:void = {
+		cr.set_source_color('#444444')
+		wdMargin = 2
+		cr.set_font_size(self.fontSize)
+		self.putNumber(cr, x, y, question.numLeft)
+		self.putNumber(cr, x, y + self.htCell, question.numRight)
+		cr.set_font_size(self.fontSize * question.opSizeFactor)
+		drawText(cr, x - wdMargin, y + self.htCell, self.wdCell, self.htCell, question.operator)
+		cr.set_line_width(.1)
+		cr.move_to(x - wdMargin, y + self.htCell * 2).rel_line_to(self.wdCell * self.nDigitsMax + wdMargin, 0)
+		cr.stroke()
+		cr.set_source_color('#ff8888')
+		cr.set_font_size(self.fontSize)
+		answerFlag && {
+			self.putNumber(cr, x, y + self.htCell * 2, question.numAnswer)
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// QGen_CalcOnPaperDiv
+//-----------------------------------------------------------------------------
+QGen_CalcOnPaperDiv = class(QGen_CalcOnPaperBase) {
+	__init__(title:string, titleKanji:string, subtitle:string, nHorz:number, nVert:number,
+			wdQuestion:number, htQuestion:number, nDigitsMax:number, func:function) = \
+		{|title, titleKanji, subtitle, func, nHorz, nVert, wdQuestion, htQuestion, nDigitsMax|
+	}
+	putOneQuestion(cr:cairo.context, x:number, y:number,
+								question:Question, answerFlag:boolean):map:void = {
+		cr.set_source_color('#444444')
+		wdMargin = 3
+		cr.set_font_size(self.fontSize)
+		[x1, y1] = [x + self.wdCell * self.nDigitsMax, y + self.htCell]
+		self.putNumber(cr, x1 + wdMargin, y1, question.numLeft)
+		self.putNumber(cr, x - wdMargin, y + self.htCell, question.numRight)
+		cr.set_line_width(.1)
+		cr.move_to(x1, y1).rel_line_to(self.wdCell * self.nDigitsMax + wdMargin + wdMargin, 0)
+		cr.move_to(x1, y1).rel_curve_to(2, self.htCell / 3, 2, self.htCell / 3 * 2, 0, self.htCell)
+		cr.stroke()
+		cr.set_source_color('#ff8888')
+		cr.set_font_size(self.fontSize)
+		//answerFlag && self.putNumber(cr, x, y + self.htCell * 2, tonumber(question.strAnswer))
+	}
+}
+
+//-----------------------------------------------------------------------------
+// main
+//-----------------------------------------------------------------------------
+questionGenerator = nil
+
+digitDict = %{
+	'0' => '０'
+	'1' => '１'
+	'2' => '２'
+	'3' => '３'
+	'4' => '４'
+	'5' => '５'
+	'6' => '６'
+	'7' => '７'
+	'8' => '８'
+	'9' => '９'
+}
+makeNumStr(num:number) = digitDict[format('%d', num).each()].join()
+
+//-----------------------------------------------------------------------------
+image(`rgba, 20, 16) {|img|
+	img.cairo {|cr|
+		cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
+			pat.add_color_stop_rgb(0, 1, .6, .6)
+			pat.add_color_stop_rgb(1, .7, .3, .3)
+			cr.set_source(pat)
+		}
+		cr.rectangle(2, 2, 13, 13)
+		cr.fill()
+		cr.set_source_color(`white)
+		cr.move_to(4, 8).rel_line_to(8, 0)
+		cr.move_to(8, 4).rel_line_to(0, 8)
+		cr.set_line_width(3)
+		cr.stroke()
+	}
+	imgTk_PlusIcon = img.to_tk()
+}
+image(`rgba, 20, 16) {|img|
+	img.cairo {|cr|
+		cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
+			pat.add_color_stop_rgb(0, .6, .6, 1)
+			pat.add_color_stop_rgb(1, .3, .3, .7)
+			cr.set_source(pat)
+		}
+		cr.rectangle(2, 2, 13, 13)
+		cr.fill()
+		cr.set_source_color(`white)
+		cr.move_to(4, 8).rel_line_to(8, 0)
+		cr.set_line_width(3)
+		cr.stroke()
+	}
+	imgTk_MinusIcon = img.to_tk()
+}
+image(`rgba, 20, 16) {|img|
+	img.cairo {|cr|
+		cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
+			pat.add_color_stop_rgb(0, .4, .8, .4)
+			pat.add_color_stop_rgb(1, .1, .4, .1)
+			cr.set_source(pat)
+		}
+		cr.rectangle(2, 2, 13, 13)
+		cr.fill()
+		cr.set_source_color(`white)
+		cr.move_to(4, 4).rel_line_to(8, 8)
+		cr.move_to(12, 4).rel_line_to(-8, 8)
+		cr.set_line_width(3)
+		cr.stroke()
+	}
+	imgTk_MultiplyIcon = img.to_tk()
+}
+image(`rgba, 20, 16) {|img|
+	img.cairo {|cr|
+		cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
+			pat.add_color_stop_rgb(0, .8, .8, .4)
+			pat.add_color_stop_rgb(1, .4, .4, .1)
+			cr.set_source(pat)
+		}
+		cr.rectangle(2, 2, 13, 13)
+		cr.fill()
+		cr.set_source_color(`white)
+		cr.move_to(3, 8).rel_line_to(10, 0)
+		cr.set_line_width(3)
+		cr.stroke()
+		cr.arc(8, 4, 2)
+		cr.arc(8, 12, 2)
+		cr.fill()
+	}
+	imgTk_DivisionIcon = img.to_tk()
+}
+
+fileNameCfg = path.join(sys.localdir, 'makecalc.yml')
+try { cfg = yaml.read(fileNameCfg) } except { cfg = %{} }
+cfg.store():default {
+	'width' => 760
+	'height' => 600
+	'nPages' => 1
+	'kanjiFlag' => false
+	'answerFlag' => false
+	'filenamePDF' => path.join(sys.localdir, 'makecalc.pdf')
+	'selectionList' => []
+}
+
+tk.mainwindow {|mw|
+	iPage = 0
+	nPages = tonumber(cfg['nPages'])
+	selectionList = cfg['selectionList']
+	kanjiFlagVar = tk.variable(cfg['kanjiFlag'] == 'true')
+	answerFlagVar = tk.variable(cfg['answerFlag'] == 'true')
+	filenamePDFVar = tk.variable(cfg['filenamePDF'])
+	mw.wm$title('Make Calculation')
+	mw.wm$geometry('%sx%s' % [cfg['width'], cfg['height']])
+	//mw.wm$iconphoto(image(path.join(path.dirname(sys.argv[0]), 'makecalc.ico')).to_tk())
+	mw.bind('<Configure>') {|widget:string, width:number, height:number|
+		(widget == '.') && (cfg['width', 'height'] = [width, height])
+	}
+	mw.Frame() {|f|
+		f.pack(fill => 'x')
+		f.Button(text => 'PDF 出力', width => 10) {|w|
+			w.pack(side => 'left')
+			w.bind(`command) {
+				if (questionGenerator) {
+					try {
+						questionGenerator.makePDF(filenamePDFVar.string, nPages, false,
+									kanjiFlagVar.boolean, answerFlagVar.boolean)
+						OpenWithApp(filenamePDFVar.string)
+					} except {}
+				}
+			}
+		}
+		f.ttk$Entry(width => 20, textvariable => filenamePDFVar) {|w|
+			w.pack(side => 'left', padx => [4, 0], fill => 'both', expand => true)
+		}
+		f.Button(text => '...') {|w|
+			w.pack(side => 'left')
+			w.bind(`command) {
+				filename = w.tk$GetSaveFile(initialfile => filenamePDFVar.string,
+											filetypes => [['PDF', ['.pdf']]])
+				if (!filename.isempty()) {
+					filenamePDFVar.string = filename.replace('/', path.sep_file)
+				}
+			}
+		}
+		// ttk$Spinbox is not available in Linux
+		spinboxNPages = f.Spinbox(width => 2, justify => `center,
+								state => `readonly, from => 1, to => 99) {|w|
+			w.pack(side => 'left', padx => [4, 0], fill => 'y')
+			w.set(nPages)
+			w.bind(`command) {
+				iPage = 0
+				nPages = w.get().tonumber()
+				spinboxIPage.set(iPage + 1)
+				spinboxIPage.configure(to => nPages)
+				if (questionGenerator) {
+					questionGenerator.draw(canvas, nPages, false, iPage,
+								kanjiFlagVar.boolean, answerFlagVar.boolean)
+				}
+			}
+		}
+		f.Label(text => '枚') {|w|
+			w.pack(side => 'left', padx => [2, 0])
+		}
+		f.Checkbutton(text => '漢字', variable => kanjiFlagVar) {|w|
+			w.pack(side => 'left', padx => [4, 0])
+			w.bind(`command) {
+				if (questionGenerator) {
+					questionGenerator.draw(canvas, nPages, false, iPage,
+								kanjiFlagVar.boolean, answerFlagVar.boolean)
+				}
+			}
+		}
+		f.Checkbutton(text => '答え', variable => answerFlagVar) {|w|
+			w.pack(side => 'left', padx => [4, 0])
+			w.bind(`command) {
+				if (questionGenerator) {
+					questionGenerator.draw(canvas, nPages, false, iPage,
+								kanjiFlagVar.boolean, answerFlagVar.boolean)
+				}
+			}
+		}
+		f.Button(text => '新しい問題', width => 10) {|w|
+			w.pack(side => 'left', padx => [4, 0])
+			w.bind(`command) {
+				if (questionGenerator) {
+					questionGenerator.draw(canvas, nPages, true, iPage,
+								kanjiFlagVar.boolean, answerFlagVar.boolean)
+				}
+			}
+		}
+	}
+	mw.Panedwindow(sashwidth => 3) {|p|
+		p.pack(fill => 'both', expand => true)
+		treeview = p.ttk$Treeview(show => [`tree]) {|w|
+			p.add(w)
+			optItem = %{`image => imgTk_PlusIcon}
+			w.Item(text => 'たし算', optItem%) {|item|
+				item.questionGenerator = nil
+				item.Item(text => '1 桁 + 1 桁 (繰り上がりなし)', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('たしざん', 'たし算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 20, htQuestion:number => 16, func => &{
+						repeat {
+							[numLeft, numRight] = [rand(9) + 1, rand(9) + 1]
+							numAnswer = numLeft + numRight
+							(numAnswer < 10) && break
+						}
+						Question(numLeft, numRight, numAnswer, '+', 1.4)
+					})
+				}
+				item.Item(text => '1 桁 + 1 桁 (繰り上がりあり)', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('たしざん', 'たし算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 25, htQuestion:number => 16, func => &{
+						[numLeft, numRight] = [rand(9) + 1, rand(9) + 1]
+						numAnswer = numLeft + numRight
+						Question(numLeft, numRight, numAnswer, '+', 1.4)
+					})
+				}
+				item.Item(text => '2 桁 + 2 桁 (繰り上がりなし)', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('たしざん', 'たし算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 30, htQuestion:number => 16, func => &{
+						repeat {
+							[numLeft, numRight] = [rand(90) + 10, rand(90) + 10]
+							((numLeft % 10) + (numRight % 10) < 10 && \
+								int(numLeft / 10) + int(numRight / 10) < 10) && break
+						}
+						numAnswer = numLeft + numRight
+						Question(numLeft, numRight, numAnswer, '+', 1.4)
+					})
+				}
+				item.Item(text => '2 桁 + 2 桁 (一桁繰り上がり)', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('たしざん', 'たし算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 30, htQuestion:number => 16, func => &{
+						repeat {
+							[numLeft, numRight] = [rand(90) + 10, rand(90) + 10]
+							(numLeft + numRight < 100) && break
+						}
+						numAnswer = numLeft + numRight
+						Question(numLeft, numRight, numAnswer, '+', 1.4)
+					})
+				}
+				item.Item(text => '2 桁 + 2 桁', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('たしざん', 'たし算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 30, htQuestion:number => 16, func => &{
+						[numLeft, numRight] = [rand(90) + 10, rand(90) + 10]
+						numAnswer = numLeft + numRight
+						Question(numLeft, numRight, numAnswer, '+', 1.4)
+					})
+				}
+				item.Item(text => '3 桁 + 3 桁 (答え 3 桁以内)', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('たしざん', 'たし算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 30, htQuestion:number => 16, func => &{
+						repeat {
+							[numLeft, numRight] = [rand(900) + 100, rand(900) + 100]
+							numAnswer = numLeft + numRight
+							(numAnswer < 1000) && break
+						}
+						Question(numLeft, numRight, numAnswer, '+', 1.4)
+					})
+				}
+				item.Item(text => '3 桁 + 3 桁', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('たしざん', 'たし算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 30, htQuestion:number => 16, func => &{
+						[numLeft, numRight] = [rand(900) + 100, rand(900) + 100]
+						numAnswer = numLeft + numRight
+						Question(numLeft, numRight, numAnswer, '+', 1.4)
+					})
+				}
+			}
+			optItem = %{`image => imgTk_MinusIcon}
+			w.Item(text => 'ひき算', optItem%) {|item|
+				item.questionGenerator = nil
+				item.Item(text => '1 桁 - 1 桁', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('ひきざん', 'ひき算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 30, htQuestion:number => 16, func => &{
+						repeat {
+							[numLeft, numRight] = [rand(9) + 1, rand(9) + 1]
+							numAnswer = numLeft - numRight
+							(numAnswer > 0) && break
+						}
+						Question(numLeft, numRight, numAnswer, '-', 1.4)
+					})
+				}
+				item.Item(text => '2 桁 - 1 桁 (繰り下がりなし)', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('ひきざん', 'ひき算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 30, htQuestion:number => 16, func => &{
+						repeat {
+							[numLeft, numRight] = [rand(90) + 10, rand(9) + 1]
+							numAnswer = numLeft - numRight
+							(numAnswer > 0) && break
+						}
+						Question(numLeft, numRight, numAnswer, '-', 1.4)
+					})
+				}
+				item.Item(text => '2 桁 - 1 桁 (繰り下がりあり)', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('ひきざん', 'ひき算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 30, htQuestion:number => 16, func => &{
+						repeat {
+							[numLeft, numRight] = [rand(90) + 10, rand(9) + 1]
+							numAnswer = numLeft - numRight
+							(numAnswer > 0) && break
+						}
+						Question(numLeft, numRight, numAnswer, '-', 1.4)
+					})
+				}
+				item.Item(text => '2 桁 - 2 桁 (繰り下がりなし)', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('ひきざん', 'ひき算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 30, htQuestion:number => 16, func => &{
+						numLeft = rand(90) + 10
+						numRight = rand(int(numLeft / 10) % 10) * 10 + \
+									rand(numLeft % 10)
+						numAnswer = numLeft - numRight
+						Question(numLeft, numRight, numAnswer, '-', 1.4)
+					})
+				}
+				item.Item(text => '2 桁 - 2 桁', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('ひきざん', 'ひき算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 30, htQuestion:number => 16, func => &{
+						repeat {
+							[numLeft, numRight] = [rand(90) + 10, rand(90) + 10]
+							numAnswer = numLeft - numRight
+							(numAnswer > 0) && break
+						}
+						Question(numLeft, numRight, numAnswer, '-', 1.4)
+					})
+				}
+				item.Item(text => '3 桁 - 2 桁 (199 以下)', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('ひきざん', 'ひき算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 30, htQuestion:number => 16, func => &{
+						repeat {
+							[numLeft, numRight] = [rand(100) + 100, rand(99) + 1]
+							numAnswer = numLeft - numRight
+							(numAnswer > 0) && break
+						}
+						Question(numLeft, numRight, numAnswer, '-', 1.4)
+					})
+				}
+				/*
+				item.Item(text => '3 桁 - 3 桁 (繰り下がりなし)', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('ひきざん', 'ひき算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 30, htQuestion:number => 16) {
+						numLeft = rand(900) + 100
+						numRight = rand(int(numLeft / 100) % 10) * 100 + \
+									rand(int(numLeft / 10) % 10) * 10 + \
+									rand(numLeft % 10)
+						numAnswer = numLeft - numRight
+						Question(numLeft, numRight, numAnswer, '-', 1.4)
+					}
+				}
+				*/
+				item.Item(text => '3 桁 - 3 桁', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('ひきざん', 'ひき算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 30, htQuestion:number => 16, func => &{
+						repeat {
+							[numLeft, numRight] = [rand(900) + 100, rand(900) + 100]
+							numAnswer = numLeft - numRight
+							(numAnswer > 0) && break
+						}
+						Question(numLeft, numRight, numAnswer, '-', 1.4)
+					})
+				}
+			}
+			optItem = %{`image => imgTk_MultiplyIcon}
+			w.Item(text => 'かけ算', optItem%) {|item|
+				item.questionGenerator = nil
+				item.Item(text => '1 桁 × 1 桁', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('かけざん', 'かけ算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 25, htQuestion:number => 16, func => &{
+						[numLeft, numRight] = [rand(9) + 1, rand(9) + 1]
+						numAnswer = numLeft * numRight
+						Question(numLeft, numRight, numAnswer, '×', 1.0)
+					})
+				}
+				item.Item(text => '2 桁 × 1 桁', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('かけざん', 'かけ算', item[`text], 30,
+								wdLeft:number => 20, wdRight:number => 20,
+								wdAnswer:number => 30, htQuestion:number => 16, func => &{
+						[numLeft, numRight] = [rand(90) + 10, rand(9) + 1]
+						numAnswer = numLeft * numRight
+						Question(numLeft, numRight, numAnswer, '×', 1.0)
+					})
+				}
+			}
+			optItem = %{`image => imgTk_DivisionIcon}
+			w.Item(text => 'わり算', optItem%) {|item|
+				item.questionGenerator = nil
+				item.Item(text => '2 桁まで ÷ 1 桁 (余りなし)', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('わりざん', 'わり算', item[`text], 30,
+								wdLeft:number => 15, wdRight:number => 10,
+								wdAnswer:number => 45, htQuestion:number => 16, func => &{
+						numRight = rand(9) + 1
+						numLeft = numRight * (rand(9) + 1)
+						numAnswer = numLeft * numRight
+						Question(numLeft, numRight, numAnswer, '÷', 1.0)
+					})
+				}
+				item.Item(text => '2 桁まで ÷ 1 桁', optItem%) {|item|
+					item.questionGenerator = QGen_Equation('わりざん', 'わり算', item[`text], 30,
+								wdLeft:number => 15, wdRight:number => 10,
+								wdAnswer:number => 45, htQuestion:number => 16, func => &{
+						numRight = rand(9) + 1
+						numBase = numRight * (rand(9) + 1)
+						numMod = rand(numRight)
+						numLeft = numBase + numMod
+						if (numMod == 0) {
+							strAnswer = format('%d', numBase / numRight)
+						} else {
+							strAnswer = format('%d … %d', numBase / numRight, numMod)
+						}
+						Question(numLeft, numRight, strAnswer, '÷', 1.0)
+					})
+				}
+			}
+			optItem = %{`image => imgTk_PlusIcon}
+			w.Item(text => 'たし算 (筆算)', optItem%) {|item|
+				item.questionGenerator = nil
+				item.Item(text => '2 桁 + 2 桁', optItem%) {|item|
+					item.questionGenerator = QGen_CalcOnPaper('たしざん', 'たし算', item[`text],
+								nHorz => 4, nVert => 6,
+								wdQuestion => 50, htQuestion => 40, nDigitsMax => 3, func => &{
+						[numLeft, numRight] = [rand(99) + 1, rand(99) + 1]
+						numAnswer = numLeft + numRight
+						Question(numLeft, numRight, numAnswer, '+', 1.4)
+					})
+				}
+				item.Item(text => '3 桁 + 3 桁 (答え 3 桁以内)', optItem%) {|item|
+					item.questionGenerator = QGen_CalcOnPaper('たしざん', 'たし算', item[`text],
+								nHorz => 4, nVert => 6,
+								wdQuestion => 50, htQuestion => 40, nDigitsMax => 4, func => &{
+						repeat {
+							[numLeft, numRight] = [rand(900) + 100, rand(900) + 100]
+							numAnswer = numLeft + numRight
+							(numAnswer < 1000) && break
+						}
+						Question(numLeft, numRight, numAnswer, '+', 1.4)
+					})
+				}
+				item.Item(text => '3 桁 + 3 桁', optItem%) {|item|
+					item.questionGenerator = QGen_CalcOnPaper('たしざん', 'たし算', item[`text],
+								nHorz => 4, nVert => 6,
+								wdQuestion => 50, htQuestion => 40, nDigitsMax => 4, func => &{
+						[numLeft, numRight] = [rand(900) + 100, rand(900) + 100]
+						numAnswer = numLeft + numRight
+						Question(numLeft, numRight, numAnswer, '+', 1.4)
+					})
+				}
+			}
+			optItem = %{`image => imgTk_MinusIcon}
+			w.Item(text => 'ひき算 (筆算)', optItem%) {|item|
+				item.questionGenerator = nil
+				item.Item(text => '2 桁 - 2 桁', optItem%) {|item|
+					item.questionGenerator = QGen_CalcOnPaper('ひきざん', 'ひき算', item[`text],
+								nHorz => 4, nVert => 6,
+								wdQuestion => 50, htQuestion => 40, nDigitsMax => 3, func => &{
+						repeat {
+							[numLeft, numRight] = [rand(90) + 10, rand(90) + 10]
+							numAnswer = numLeft - numRight
+							(numAnswer > 0) && break
+						}
+						Question(numLeft, numRight, numAnswer, '-', 1.4)
+					})
+				}
+				item.Item(text => '3 桁 - 3 桁', optItem%) {|item|
+					item.questionGenerator = QGen_CalcOnPaper('ひきざん', 'ひき算', item[`text],
+								nHorz => 4, nVert => 6,
+								wdQuestion => 50, htQuestion => 40, nDigitsMax => 4, func => &{
+						repeat {
+							[numLeft, numRight] = [rand(900) + 100, rand(900) + 100]
+							numAnswer = numLeft - numRight
+							(numAnswer > 0) && break
+						}
+						Question(numLeft, numRight, numAnswer, '-', 1.4)
+					})
+				}
+			}
+			optItem = %{`image => imgTk_MultiplyIcon}
+			w.Item(text => 'かけ算 (筆算)', optItem%) {|item|
+				item.questionGenerator = nil
+				item.Item(text => '2 桁 × 1 桁', optItem%) {|item|
+					item.questionGenerator = QGen_CalcOnPaper('かけざん', 'かけ算', item[`text],
+								nHorz => 4, nVert => 6,
+								wdQuestion => 50, htQuestion => 40, nDigitsMax => 3, func => &{
+						[numLeft, numRight] = [rand(90) + 10, rand(8) + 2]
+						numAnswer = numLeft * numRight
+						Question(numLeft, numRight, numAnswer, '×', 1.0)
+					})
+				}
+				item.Item(text => '3 桁 × 1 桁', optItem%) {|item|
+					item.questionGenerator = QGen_CalcOnPaper('かけざん', 'かけ算', item[`text],
+								nHorz => 4, nVert => 6,
+								wdQuestion => 50, htQuestion => 40, nDigitsMax => 4, func => &{
+						[numLeft, numRight] = [rand(900) + 100, rand(8) + 2]
+						numAnswer = numLeft * numRight
+						Question(numLeft, numRight, numAnswer, '×', 1.0)
+					})
+				}
+				item.Item(text => '2 桁 × 2 桁', optItem%) {|item|
+					item.questionGenerator = QGen_CalcOnPaper('かけざん', 'かけ算', item[`text],
+								nHorz => 4, nVert => 4,
+								wdQuestion => 50, htQuestion => 60, nDigitsMax => 3, func => &{
+						[numLeft, numRight] = [rand(90) + 10, rand(90) + 10]
+						numAnswer = numLeft * numRight
+						Question(numLeft, numRight, numAnswer, '×', 1.0)
+					})
+				}
+			}
+			optItem = %{`image => imgTk_DivisionIcon}
+			w.Item(text => 'わり算 (筆算)', optItem%) {|item|
+				item.questionGenerator = nil
+				item.Item(text => '2 桁 ÷ 1 桁', optItem%) {|item|
+					item.questionGenerator = QGen_CalcOnPaperDiv('わりざん', 'わり算', item[`text],
+								nHorz => 4, nVert => 6,
+								wdQuestion => 50, htQuestion => 40, nDigitsMax => 2, func => &{
+						numRight = rand(9) + 1
+						numBase = numRight * (rand(9) + 1)
+						numMod = rand(numRight)
+						numLeft = numBase + numMod
+						if (numMod == 0) {
+							strAnswer = format('%d', numBase / numRight)
+						} else {
+							strAnswer = format('%d … %d', numBase / numRight, numMod)
+						}
+						Question(numLeft, numRight, strAnswer, '÷', 1.0)
+					})
+				}
+			}
+			w.bind('<<TreeviewSelect>>') {
+				item = w.Selection().first()
+				if (item.questionGenerator) {
+					questionGenerator = item.questionGenerator
+					questionGenerator.draw(canvas, nPages, false, iPage,
+								kanjiFlagVar.boolean, answerFlagVar.boolean)
+				}
+				selectionList:extern = while (item):list {
+					text = item.cget(`text)
+					item = item.Parent()
+					text
+				}.reverse():list
+				//println(textList):nomap
+			}
+		}
+		p.Frame() {|f|
+			p.add(f)
+			canvas = f.Canvas(bg => 'gray', relief => 'sunken',
+								borderwidth => 2, highlightthickness => 0) {|w|
+				[w.xImage, w.yImage] = [0, 0]
+				[w.wdImage, w.htImage] = [210, 297] * 2.0
+				w.imgTk = nil
+				w.itemImage = nil
+				w.grid(column => 0, row => 0, sticky => `news)
+				w.bind('<ButtonPress>') {
+					w.focus()
+				}
+				w.bind('<MouseWheel>') {|delta:number|
+					if (delta < 0) {
+						w.yImage -= w.htImage * 1 / 20
+					} elsif (delta > 0) {
+						w.yImage += w.htImage * 1 / 20
+					}
+					adjustImagePos(canvas)
+					w.itemImage.coords(w.xImage, w.yImage)
+					updateScroll(canvas)
+				}
+				w.bind('<KeyPress>') {|keysym:string|
+					if (keysym == 'Up') {
+						w.yImage += w.htImage * 1 / 20
+					} elsif (keysym == 'Down') {
+						w.yImage -= w.htImage * 1 / 20
+					} elsif (keysym == 'Left') {
+						w.xImage += w.wdImage * 1 / 20
+					} elsif (keysym == 'Right') {
+						w.xImage -= w.wdImage * 1 / 20
+					}
+					adjustImagePos(canvas)
+					w.itemImage.coords(w.xImage, w.yImage)
+					updateScroll(canvas)
+				}
+				w.bind('<Configure>') {|widget:string, width:number, height:number|
+					adjustImagePos(canvas)
+					w.itemImage.coords(w.xImage, w.yImage)
+					updateScroll(canvas)
+				}
+			}
+			scrollVert = f.ttk$Scrollbar(orient => `vertical) {|w|
+				w.grid(column => 1, row => 0, sticky => `ns)
+				w.assoc(`command) {|cmd:string, args*|
+					if (cmd == 'moveto') {
+						[fraction:number] = args
+						canvas.yImage = -canvas.htImage * fraction
+						adjustImagePos(canvas)
+						canvas.itemImage.coords(canvas.xImage, canvas.yImage)
+						updateScroll(canvas)
+					} elsif (cmd == 'scroll') {
+						[num:number, unit:string] = args
+						if (unit == 'units') {
+							canvas.yImage -= canvas.htImage * num / 20
+						} elsif (unit == 'pages') {
+							canvas.yImage -= canvas.htImage * num * 4 / 20
+						}
+						adjustImagePos(canvas)
+						canvas.itemImage.coords(canvas.xImage, canvas.yImage)
+						updateScroll(canvas)
+					}
+				}
+			}
+			scrollHorz = f.Scrollbar(orient => `horizontal) {|w|
+				w.grid(column => 0, row => 1, sticky => `ew)
+				w.assoc(`command) {|cmd:string, args*|
+					if (cmd == 'moveto') {
+						[fraction:number] = args
+						canvas.xImage = -w.wdImage * fraction
+						adjustImagePos(canvas)
+						canvas.itemImage.coords(canvas.xImage, canvas.yImage)
+						updateScroll(canvas)
+					} elsif (cmd == 'scroll') {
+						[num:number, unit:string] = args
+						if (unit == 'units') {
+							canvas.xImage -= canvas.wdImage * num / 20
+						} elsif (unit == 'pages') {
+							canvas.xImage -= canvas.wdImage * num * 4 / 20
+						}
+						adjustImagePos(canvas)
+						canvas.itemImage.coords(canvas.xImage, canvas.yImage)
+						updateScroll(canvas)
+					}
+				}
+			}
+			scrollVert.set(.2, .5)
+			f.grid$columnconfigure(0, weight => 1)
+			f.grid$rowconfigure(0, weight => 1)
+		}
+	}
+	mw.Frame() {|f|
+		f.pack(fill => 'x')
+		/*
+		f.Button(text => '拡大', width => 6) {|w|
+			w.pack(side => 'left')
+			w.bind(`command) {
+				if (questionGenerator) {
+					[canvas.wdImage, canvas.htImage] = [210, 297] * 4.0
+					questionGenerator.draw(canvas, nPages, false, iPage,
+								kanjiFlagVar.boolean, answerFlagVar.boolean)
+				}
+			}
+		}
+		f.Button(text => '縮小', width => 6) {|w|
+			w.pack(side => 'left', padx => [4, 0])
+			w.bind(`command) {
+				if (questionGenerator) {
+					[canvas.wdImage, canvas.htImage] = [210, 297] * 2.0
+					questionGenerator.draw(canvas, nPages, false, iPage,
+								kanjiFlagVar.boolean, answerFlagVar.boolean)
+				}
+			}
+		}
+		*/
+		spinboxIPage = f.Spinbox(width => 2, justify => `center,
+								state => `readonly, from => 1, to => nPages) {|w|
+			w.pack(side => 'left', padx => [4, 0], fill => 'y')
+			w.set(1)
+			w.bind(`command) {
+				iPage = w.get().tonumber() - 1
+				if (questionGenerator) {
+					questionGenerator.draw(canvas, nPages, false, iPage,
+								kanjiFlagVar.boolean, answerFlagVar.boolean)
+				}
+			}
+		}
+		f.Label(text => '枚目') {|w|
+			w.pack(side => 'left', padx => [4, 0])
+		}
+		f.ttk$Sizegrip().pack(side => 'right', anchor => 'se')
+	}
+}
+updateScroll(canvas:tk.Canvas) = {
+	[wdCanvas, htCanvas] = [canvas.winfo$width(), canvas.winfo$height()]
+	scrollVert.set(-canvas.yImage / canvas.htImage, (-canvas.yImage + htCanvas) / canvas.htImage)
+	scrollHorz.set(-canvas.xImage / canvas.wdImage, (-canvas.xImage + wdCanvas) / canvas.wdImage)
+}
+adjustImagePos(canvas:tk.Canvas) = {
+	[wdCanvas, htCanvas] = [canvas.winfo$width(), canvas.winfo$height()]
+	if (canvas.xImage + canvas.wdImage < wdCanvas) { canvas.xImage = wdCanvas - canvas.wdImage }
+	if (canvas.yImage + canvas.htImage < htCanvas) { canvas.yImage = htCanvas - canvas.htImage }
+	if (canvas.xImage > 0) { canvas.xImage = 0 }
+	if (canvas.yImage > 0) { canvas.yImage = 0 }
+}
+scope {
+	itemSel = nil
+	items = treeview.Children()
+	for (selection in selectionList) {
+		idx = items:*cget(`text).find(selection)
+		!idx && break
+		itemSel = items[idx]
+		items = itemSel.Children()
+	}
+	if (itemSel) {
+		itemSel.see()
+		treeview.selection$set(itemSel)
+	}
+}
+treeview.focus()
+tk.mainloop()
+scope {
+	cfg['nPages'] = nPages
+	cfg['selectionList'] = selectionList
+	cfg['kanjiFlag'] = kanjiFlagVar.boolean
+	cfg['answerFlag'] = answerFlagVar.boolean
+	cfg['filenamePDF'] = filenamePDFVar.string
+	yaml.write(open(fileNameCfg, 'w'), cfg)
+}

@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="../stylesheet.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<title>Gura Programming Language</title>
+<meta name="keywords" content="programming, language, interpreter, mapping, gura,
+implicit mapping, member mapping">
+</head>
+<body>
+<div>
+<a href="../index.html.ja"><img src="../images/banner.png" style="border: none" /></a>
+<a href="../en/MemberMapping.html" class="radio-off" style="margin-left: 1em">English</a> |
+<a href="../ja/MemberMapping.html" class="radio-on">Japanese</a>
+<span style="margin-left: 3em"><a href="http://sourceforge.jp/">
+<img src="http://sourceforge.jp/sflogo.php?group_id=5586&type=3" width="210" height="63" border="0" alt="SourceForge.JP" />
+</a></span>
+</div>
+
+<div style="color: white; background: #888888; margin-top: 1em; font-weight: bold">
+<span style="margin-left: 1em">Copyright (c) 2011-2012 <a href="mailto:pxn11432@nifty.com" style="color:white">Yutaka Saito</a></span>
+</div>
+<div style="height:.2em; background: #cccccc"></div>
+<table cellspacing="0" border="0" width="100%">
+<tr>
+<td valign="top" class="menu">
+<div class="menuitem"><a href="/" class="menuitem">トップページ</a></div>
+<div class="menuitem"><a href="Download.html" class="menuitem">ダウンロード</a></div>
+<div class="menuitem"><a href="Install.html" class="menuitem">インストール</a></div>
+<div class="menuitem"><a href="Gallery.html" class="menuitem">ギャラリー</a></div>
+<div class="menuitem"><a href="http://sourceforge.jp/forum/forum.php?forum_id=25531" class="menuitem">Gura 掲示板</a></div>
+</td>
+
+<td valign="top" class="description">
+<!-- ====================================================================== -->
+
+<h3>メンバマッピング</h3>
+
+<p>
+複数のインスタンスがあって、それらに対して同じメソッドを実行したり、メンバ変数を参照したい場合があります。これを可能にするのがメンバマッピングです。
+</p>
+<p>
+メンバマッピングがどのように働くのかを見るため、簡単な構造体 Fruit を作ります。
+</p>
+
+<pre class="code">
+Fruit = struct(name:string, price:number) {
+    Print() = printf('name:%s  price:%d\n', self.name, self.price)
+}
+</pre>
+
+<p>
+関数 struct は、引数で指定したメンバ変数とブロック式の中で定義したメンバ関数を持つ構造体を作り、そのコンストラクタ関数を返します。このコンストラクタ関数を:
+</p>
+
+<pre class="code">
+fruit = Fruit('apple', 100)
+</pre>
+
+<p>
+のように呼び出すとインスタンスをひとつ生成します。以下はインスタンスに対するメンバアクセスの例です。
+</p>
+
+<pre class="code">
+printf('%s costs %d\n', fruit.name, fruit.price)
+fruit.Print()
+</pre>
+
+<p>
+それでは、構造体 Fruit のインスタンスのリストを作ってみましょう。
+</p>
+
+<pre class="code">
+fruits = [
+    Fruit('apple', 100), Fruit('orange', 80), Fruit('grape', 120)
+]
+</pre>
+
+<p>
+このリスト中のインスタンスに対して、メソッド Print を実行するにはどうすればよいでしょうか。はじめに思いつくのは、繰り返し構文を使ってインスタンスをひとつずつとりだし、メソッドを実行する方法です。これは Gura の関数 for を使って以下のように書けます。
+</p>
+
+<pre class="code">
+for (fruit in fruits) {
+    fruit.Print()
+}
+</pre>
+
+<p>
+メンバマッピングを使うと、上の処理は以下のように記述できます。
+</p>
+
+<pre class="code">
+fruits::Print()
+</pre>
+
+<p>
+オペレータ :: がメンバマッピングの処理を表していて、この場合、リスト fruits の要素についてそれぞれメソッド Print を実行しています。
+</p>
+<p>
+この程度の表記の簡略化なら、あまりメリットを感じないかもしれません。では次の課題です。 fruits の値段の合計を求めてみましょう。
+</p>
+<p>
+繰り返しを使うと以下のように書けそうです。
+</p>
+
+<pre class="code">
+priceSum = 0
+for (fruit in fruits) {
+    priceSum += fruit.price
+}
+</pre>
+
+<p>
+メンバマッピングを使うと以下のようになります。
+</p>
+
+<pre class="code">
+fruits::price.sum()
+</pre>
+
+<p>
+ずいぶんと簡単に書くことができました。fruits::price を評価すると各インスタンスのメンバ変数 price の値を評価し、それらをまとめたリストを返します。そのリストに対してメソッド sum を実行し合計を求めています。
+</p>
+<p>
+次の課題はもう少し複雑です。名前のうち一番長いものは何文字でしょうか。
+</p>
+<p>
+繰り返しを使った解決法は以下のようになります。
+</p>
+
+<pre class="code">
+lenMax = -1
+for (fruit in fruits) {
+    len = fruit.name.len()
+    if (lenMax &gt; len) {
+        lenMax = len
+    }
+}
+</pre>
+
+<p>
+メンバマッピングを使うと、これが以下のように書けます。
+</p>
+
+<pre class="code">
+fruits::name::len().max()
+</pre>
+
+<p>
+fruits::name で名前のリストを得て、それに対してさらにメソッド len を実行して 名前の長さ のリストにします。そしてそのリスト全体に対してメソッド max を評価することで最長の長さを得られることになります。
+</p>
+<p>
+このような処理が簡単な記述で実現できることは、他の処理と組み合わせていく上で大変有利です。上の処理を使って、一番長い名前の長さにそろえて表示する例は以下のようになります。
+</p>
+
+<pre class="code">
+printf('%-*s %d\n', fruits::name::len().max(), fruits::name, fruits::price)
+</pre>
+
+<p>
+ところで、メンバマッピングオペレータ :: は逐次リストを生成しますので、 name や len() の処理結果もそのたびにリストを作ることになります。これですと fruits の数が多くなると作るリストの要素数も増えてしまい、速度効率やメモリ効率が悪くなります。
+</p>
+<p>
+これを解決するため、メンバマッピングオペレータ :* があります。このオペレータを使うと、その評価結果はイテレータになり、実際の演算が必要なときまで評価が先送りされます。上の例は以下のように記述することができます。
+</p>
+
+<pre class="code">
+printf('%-*s %d\n', fruits:*name:*len().max(), fruits:*name, fruits:*price)
+</pre>
+
+<p>
+メンバマッピングを使った少し長めのプログラムを見てみましょう。以下は、名前や年齢を記録した CSV ファイルを読み込んで簡単な統計処理をする例です。データ列を扱うための繰り返し処理がなくなっている点にご注目ください。
+</p>
+
+<pre class="code">
+import(csv)
+
+Person = struct(name:string, email:string, gender:string, age:number, rest*)
+people = Person * csv.reader(open('50records-en.csv'))
+
+familyNames = (people:*name:*split(' '):list)::get(0).sort()
+familyNameSet = set(familyNames)
+
+println('== occurance counting ==')
+Stat = struct(name:string, occurance:number):map
+stats = Stat(familyNameSet, familyNames.count(familyNameSet):map)
+printf('%s(%d), ', stats:*name, stats:*occurance)
+println()
+stats = stats.sort(&{-($stat1.occurance &lt;=&gt; $stat2.occurance)}):stable
+printf('%s(%d), ', stats:*name, stats:*occurance)
+println()
+
+println('== some statistical information ==')
+genders = people::gender
+printf('all=%d male=%d female=%d\n', people.len(), genders.count('male'), genders.count('female'))
+ages = people::age
+printf('age &lt; 30        %d\n', ages.count(&{$age &lt; 30}))
+printf('30 &lt;= age &lt; 40  %d\n', ages.count(&{30 &lt;= $age && $age &lt; 40}))
+printf('40 &lt;= age &lt; 50  %d\n', ages.count(&{40 &lt;= $age && $age &lt; 50}))
+printf('50 &lt;= age &lt; 60  %d\n', ages.count(&{50 &lt;= $age && $age &lt; 60}))
+printf('60 &lt;= age &lt; 70  %d\n', ages.count(&{60 &lt;= $age && $age &lt; 70}))
+printf('70 &lt;= age       %d\n', ages.count(&{70 &lt;= $age}))
+</pre>
+
+<!-- ====================================================================== -->
+</td>
+</tr>
+
+</table>
+</body>
+</html>

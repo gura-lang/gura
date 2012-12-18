@@ -1,0 +1,75 @@
+#!/usr/bin/env gura
+# -*- coding: shift_jis -*-
+import(mswin)
+
+mswin.ole('Excel.Application') {|app|
+	app.Visible = 1
+	workbook = app.Workbooks.Add()
+	worksheet = workbook.WorkSheets(1)
+	worksheet.Range('A1:D1')::Value = ['North', 'South', 'East', 'West']
+	//worksheet.Range('A1:D1')::Value = ['–k', '“ì', '“Œ', '¼']
+	worksheet.Range('A2:D2')::Value = [5.2, 10, 8, 20]
+	range = worksheet.Range('A1:D2')
+	for (edge in [app.xlEdgeRight, app.xlEdgeLeft,
+						app.xlEdgeTop, app.xlEdgeBottom,
+						app.xlInsideVertical, app.xlInsideHorizontal]) {
+		border = range.Borders(edge)
+		border.LineStyle = app.xlContinuous
+		border.Weight = app.xlThin
+		border.ColorIndex = app.xlAutomatic
+	}
+	range = worksheet.Range('A1:D1')
+	scope {
+		interior = range.Interior
+		interior.ColorIndex = 35
+		interior.Pattern = app.xlSolid
+		interior.PatternColorIndex = app.xlAutomatic
+	}
+	time.sleep(2)
+	worksheet.Range('A1:D2').Select()
+	chart = workbook.Charts.Add()
+	chart.Type = app.xl3DPie
+	//chart.ChartWizard(range)
+	//, app.xl3DPie, 7, app.xlRows, 1, 0, 2, 'Sales Percentages')
+	workbook.Saved = 1
+	time.sleep(2)
+	//workbook.SaveAs(path.absname('hoge.xls'))
+	app.ActiveWorkbook.Close(0)
+	app.Quit();
+}
+mswin.ole('Excel.Application') {|app|
+	app.Visible = 1
+	app.Workbooks.Add()
+	app.Range('a1').Value = 3
+	app.Range('a2').Value = 2
+	app.Range('a3').Value = 1
+	app.Range('a1:a3').Select()
+	chart = app.Charts.Add()
+	chart.Type = app.xl3DColumn
+	degree = 0
+	repeat(60) {
+		chart.Rotation = degree
+		degree = (degree + 10) % 360
+		time.sleep(.1)
+	}
+	time.sleep(2)
+	app.ActiveWorkbook.Close(0)
+	app.Quit()
+}
+function {
+	app = mswin.ole('Excel.Application')
+	workbook = app.Workbooks.Open(path.absname('test.xls'))
+	worksheet = workbook.WorkSheets(1)
+	printf('%-6s %s\n', worksheet.Range('A1:A10')::Address(), worksheet.Range('A1:A10')::Value)
+	/*
+	workbook = app.Workbooks.Add()
+	worksheet = workbook.WorkSheets(1)
+	for (cell in worksheet.Range(Cell1 => 'A1', Cell2 => 'D4')) {|i|
+		cell.Value = i * 2
+	}
+	printf('Count = %d\n', worksheet.Range('E1:E4').Count)
+	worksheet.Range('F1:F4')::Value = [1, 2, 3, 4]
+	println(worksheet.Range(Cell1 => 'A1', Cell2 => 'D4')::Value)
+	workbook.Saved = 1
+	*/
+}

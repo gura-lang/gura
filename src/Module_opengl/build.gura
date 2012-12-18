@@ -1,0 +1,15 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+if (sys.build == `msc) {
+} elsif (sys.build == `gnuc) {
+	builder.hint = '''\
+It seems necessary libraries have not been installed on your system.
+See the following step(s) to resolve this problem.
+- Install Debian package:
+  $ sudo apt-get install libgl1-mesa-dev libglu1-mesa-dev
+- Install yum package:
+  # yum install mesa-libGL-devel mesa-libGLU-devel
+'''
+}
+builder.build('opengl', ['Module_opengl.cpp'])

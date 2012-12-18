@@ -1,0 +1,56 @@
+#!/usr/bin/env gura
+import(tk)
+
+tk.mainwindow {|mw|
+	variable_x = tk.variable(0)
+	variable_y = tk.variable(0)
+	mw.Labelframe(text => 'Progressbar', padx => 4, pady => 4) {|f|
+		f.grid(sticky => 'news')
+		f.Frame {|f|
+			f.grid(column => 0, row => 0)
+			f.Label(textvariable => variable_y) {|w|
+				w.grid(column => 0, row => 0, columnspan => 2)
+			}
+			f.ttk$Progressbar(orient => 'vertical', mode => 'determinate') {|w|
+				w.grid(column => 0, row => 1)
+				w.configure(length => 200, variable => variable_y)
+			}
+			f.ttk$Progressbar(orient => 'vertical', mode => 'indeterminate') {|w|
+				w.grid(column => 1, row => 1, padx => [4, 0])
+				w.configure(length => 200, variable => variable_y)
+			}
+		}
+		f.Frame {|f|
+			f.grid(column => 1, row => 0, sticky => 'n', padx => [4, 0])
+			f.Label(textvariable => variable_x) {|w|
+				w.grid()
+			}
+			f.ttk$Progressbar(orient => 'horizontal', mode => 'determinate') {|w|
+				w.grid(sticky => 'we')
+				w.configure(variable => variable_x)
+			}
+			f.ttk$Progressbar(orient => 'horizontal', mode => 'indeterminate') {|w|
+				w.grid(sticky => 'we', pady => [4, 0])
+				w.configure(variable => variable_x)
+			}
+			f.Label(anchor => 'nw', justify => 'left') {|w|
+				w.grid(sticky => 'w', pady => [16, 0])
+				w[`text] = \
+					'push [left] and [right] to move horizontal bars\n\n' \
+					'push [up] and [down] to move vertical bars'
+			}
+		}
+	}
+	mw.bind('<Key>') {|keysym:string|
+		if (keysym == 'Left') {
+			variable_x.number -= 1
+		} elsif (keysym == 'Right') {
+			variable_x.number += 1
+		} elsif (keysym == 'Up') {
+			variable_y.number += 1
+		} elsif (keysym == 'Down') {
+			variable_y.number -= 1
+		}
+	}
+}
+tk.mainloop()

@@ -1,0 +1,267 @@
+//----------------------------------------------------------------------------
+// wxTextOutputStream
+// extracted from txtstrm.tex
+//----------------------------------------------------------------------------
+#include "stdafx.h"
+
+Gura_BeginModule(wx)
+
+Gura_DeclarePrivUserSymbol(WriteDouble);
+Gura_DeclarePrivUserSymbol(WriteString);
+
+//----------------------------------------------------------------------------
+// Class derivation
+//----------------------------------------------------------------------------
+class wx_TextOutputStream: public wxTextOutputStream, public GuraObjectObserver {
+private:
+	Gura::Signal _sig;
+	Object_wx_TextOutputStream *_pObj;
+public:
+	//inline wx_TextOutputStream(wxOutputStream& stream, wxEOL mode, wxMBConv& conv) : wxTextOutputStream(stream, mode, conv), _sig(NULL), _pObj(NULL) {}
+	//virtual void WriteDouble();
+	//virtual void WriteString();
+	~wx_TextOutputStream();
+	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextOutputStream *pObj) {
+		_sig = sig, _pObj = pObj;
+	}
+	// virtual function of GuraObjectObserver
+	virtual void GuraObjectDeleted();
+};
+
+wx_TextOutputStream::~wx_TextOutputStream()
+{
+	if (_pObj != NULL) _pObj->InvalidateEntity();
+}
+
+void wx_TextOutputStream::GuraObjectDeleted()
+{
+	_pObj = NULL;
+}
+
+//----------------------------------------------------------------------------
+// Gura interfaces for wxTextOutputStream
+//----------------------------------------------------------------------------
+Gura_DeclareFunction(TextOutputStream)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+#if 0
+	SetClassToConstruct(Gura_UserClass(wx_TextOutputStream));
+	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
+	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "conv", VTYPE_wx_MBConv, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+#endif
+}
+
+Gura_ImplementFunction(TextOutputStream)
+{
+#if 0
+	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
+	wxEOL mode = wxEOL_NATIVE;
+	if (args.IsValid(1)) mode = static_cast<wxEOL>(args.GetInt(1));
+	wxMBConv *conv = (wxMBConv *)(&wxConvUTF8);
+	if (args.IsValid(2)) conv = Object_wx_MBConv::GetObject(args, 2)->GetEntity();
+	wx_TextOutputStream *pEntity = new wx_TextOutputStream(*stream, mode, *conv);
+	Object_wx_TextOutputStream *pObj = Object_wx_TextOutputStream::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_TextOutputStream(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_TextOutputStream, GetMode)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_TextOutputStream, GetMode)
+{
+#if 0
+	Object_wx_TextOutputStream *pSelf = Object_wx_TextOutputStream::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxEOL rtn = pSelf->GetEntity()->GetMode();
+	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_TextOutputStream, PutChar)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextOutputStream, PutChar)
+{
+#if 0
+	Object_wx_TextOutputStream *pSelf = Object_wx_TextOutputStream::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->PutChar();
+	return Value::Null;
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_TextOutputStream, SetMode_)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextOutputStream, SetMode_)
+{
+	Object_wx_TextOutputStream *pSelf = Object_wx_TextOutputStream::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->SetMode();
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_TextOutputStream, Write8)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextOutputStream, Write8)
+{
+#if 0
+	Object_wx_TextOutputStream *pSelf = Object_wx_TextOutputStream::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->Write8();
+	return Value::Null;
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_TextOutputStream, Write16)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextOutputStream, Write16)
+{
+#if 0
+	Object_wx_TextOutputStream *pSelf = Object_wx_TextOutputStream::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->Write16();
+	return Value::Null;
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_TextOutputStream, Write32)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextOutputStream, Write32)
+{
+#if 0
+	Object_wx_TextOutputStream *pSelf = Object_wx_TextOutputStream::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->Write32();
+	return Value::Null;
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_TextOutputStream, WriteDouble)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextOutputStream, WriteDouble)
+{
+#if 0
+	Object_wx_TextOutputStream *pSelf = Object_wx_TextOutputStream::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->WriteDouble();
+	return Value::Null;
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_TextOutputStream, WriteString)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextOutputStream, WriteString)
+{
+#if 0
+	Object_wx_TextOutputStream *pSelf = Object_wx_TextOutputStream::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->WriteString();
+	return Value::Null;
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+//----------------------------------------------------------------------------
+// Object implementation for wxTextOutputStream
+//----------------------------------------------------------------------------
+Object_wx_TextOutputStream::~Object_wx_TextOutputStream()
+{
+	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_ownerFlag) delete _pEntity;
+	_pEntity = NULL;
+}
+
+Object *Object_wx_TextOutputStream::Clone() const
+{
+	return NULL;
+}
+
+String Object_wx_TextOutputStream::ToString(Signal sig, bool exprFlag)
+{
+	String rtn("<wx.TextOutputStream:");
+	if (GetEntity() == NULL) {
+		rtn += "invalid>";
+	} else {
+		char buff[64];
+		::sprintf(buff, "%p>", GetEntity());
+		rtn += buff;
+	}
+	return rtn;
+}
+
+void Object_wx_TextOutputStream::OnModuleEntry(Environment &env, Signal sig)
+{
+	Gura_RealizeUserSymbol(WriteDouble);
+	Gura_RealizeUserSymbol(WriteString);
+	Gura_AssignFunction(TextOutputStream);
+}
+
+//----------------------------------------------------------------------------
+// Class implementation for wxTextOutputStream
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_TextOutputStream)
+{
+	Gura_AssignMethod(wx_TextOutputStream, GetMode);
+	Gura_AssignMethod(wx_TextOutputStream, PutChar);
+	Gura_AssignMethodEx(wx_TextOutputStream, SetMode_, "SetMode");
+	Gura_AssignMethod(wx_TextOutputStream, Write8);
+	Gura_AssignMethod(wx_TextOutputStream, Write16);
+	Gura_AssignMethod(wx_TextOutputStream, Write32);
+	Gura_AssignMethod(wx_TextOutputStream, WriteDouble);
+	Gura_AssignMethod(wx_TextOutputStream, WriteString);
+}
+
+Gura_ImplementDescendantCreator(wx_TextOutputStream)
+{
+	return new Object_wx_TextOutputStream((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+}
+
+}}

@@ -1,0 +1,198 @@
+//----------------------------------------------------------------------------
+// wxSingleChoiceDialog
+// extracted from sngchdlg.tex
+//----------------------------------------------------------------------------
+#include "stdafx.h"
+
+Gura_BeginModule(wx)
+
+//----------------------------------------------------------------------------
+// Class derivation
+//----------------------------------------------------------------------------
+class wx_SingleChoiceDialog: public wxSingleChoiceDialog, public GuraObjectObserver {
+private:
+	Gura::Signal _sig;
+	Object_wx_SingleChoiceDialog *_pObj;
+public:
+	inline wx_SingleChoiceDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxArrayString& choices, char** clientData, long style, const wxPoint& pos) : wxSingleChoiceDialog(parent, message, caption, choices, clientData, style, pos), _sig(NULL), _pObj(NULL) {}
+	~wx_SingleChoiceDialog();
+	inline void AssocWithGura(Gura::Signal &sig, Object_wx_SingleChoiceDialog *pObj) {
+		_sig = sig, _pObj = pObj;
+	}
+	// virtual function of GuraObjectObserver
+	virtual void GuraObjectDeleted();
+};
+
+wx_SingleChoiceDialog::~wx_SingleChoiceDialog()
+{
+	if (_pObj != NULL) _pObj->InvalidateEntity();
+}
+
+void wx_SingleChoiceDialog::GuraObjectDeleted()
+{
+	_pObj = NULL;
+}
+
+//----------------------------------------------------------------------------
+// Gura interfaces for wxSingleChoiceDialog
+//----------------------------------------------------------------------------
+Gura_DeclareFunction(SingleChoiceDialog)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetClassToConstruct(Gura_UserClass(wx_SingleChoiceDialog));
+	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once, FLAG_Nil);
+	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "caption", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "choices", VTYPE_string, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(SingleChoiceDialog)
+{
+	wxWindow *parent = args.IsValid(0)?
+			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
+	wxString message = wxString::FromUTF8(args.GetString(1));
+	wxString caption = wxString::FromUTF8(args.GetString(2));
+	std::auto_ptr<wxArrayString> choices(CreateArrayString(args.GetList(3)));
+	char **clientData = NULL;
+	long style = wxCHOICEDLG_STYLE;
+	if (args.IsValid(4)) style = args.GetLong(4);
+	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
+	if (args.IsValid(5)) pos = Object_wx_Point::GetObject(args, 5)->GetEntity();
+	wx_SingleChoiceDialog *pEntity = new wx_SingleChoiceDialog(parent, message, caption, *choices, clientData, style, *pos);
+	Object_wx_SingleChoiceDialog *pObj = Object_wx_SingleChoiceDialog::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_SingleChoiceDialog(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+Gura_DeclareMethod(wx_SingleChoiceDialog, GetSelection)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_SingleChoiceDialog, GetSelection)
+{
+	Object_wx_SingleChoiceDialog *pSelf = Object_wx_SingleChoiceDialog::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetSelection();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_SingleChoiceDialog, GetSelectionClientData)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_SingleChoiceDialog, GetSelectionClientData)
+{
+#if 0
+	Object_wx_SingleChoiceDialog *pSelf = Object_wx_SingleChoiceDialog::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	char rtn = pSelf->GetEntity()->GetSelectionClientData();
+	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_SingleChoiceDialog, GetStringSelection)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_SingleChoiceDialog, GetStringSelection)
+{
+	Object_wx_SingleChoiceDialog *pSelf = Object_wx_SingleChoiceDialog::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pSelf->GetEntity()->GetStringSelection();
+	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+}
+
+Gura_DeclareMethod(wx_SingleChoiceDialog, SetSelection)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "selection", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_SingleChoiceDialog, SetSelection)
+{
+	Object_wx_SingleChoiceDialog *pSelf = Object_wx_SingleChoiceDialog::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int selection = args.GetInt(0);
+	pSelf->GetEntity()->SetSelection(selection);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_SingleChoiceDialog, ShowModal)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_SingleChoiceDialog, ShowModal)
+{
+	Object_wx_SingleChoiceDialog *pSelf = Object_wx_SingleChoiceDialog::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->ShowModal();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+//----------------------------------------------------------------------------
+// Object implementation for wxSingleChoiceDialog
+//----------------------------------------------------------------------------
+Object_wx_SingleChoiceDialog::~Object_wx_SingleChoiceDialog()
+{
+}
+
+Object *Object_wx_SingleChoiceDialog::Clone() const
+{
+	return NULL;
+}
+
+String Object_wx_SingleChoiceDialog::ToString(Signal sig, bool exprFlag)
+{
+	String rtn("<wx.SingleChoiceDialog:");
+	if (GetEntity() == NULL) {
+		rtn += "invalid>";
+	} else {
+		char buff[64];
+		::sprintf(buff, "%p>", GetEntity());
+		rtn += buff;
+	}
+	return rtn;
+}
+
+void Object_wx_SingleChoiceDialog::OnModuleEntry(Environment &env, Signal sig)
+{
+	Gura_AssignFunction(SingleChoiceDialog);
+}
+
+//----------------------------------------------------------------------------
+// Class implementation for wxSingleChoiceDialog
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_SingleChoiceDialog)
+{
+	Gura_AssignMethod(wx_SingleChoiceDialog, GetSelection);
+	Gura_AssignMethod(wx_SingleChoiceDialog, GetSelectionClientData);
+	Gura_AssignMethod(wx_SingleChoiceDialog, GetStringSelection);
+	Gura_AssignMethod(wx_SingleChoiceDialog, SetSelection);
+	Gura_AssignMethod(wx_SingleChoiceDialog, ShowModal);
+}
+
+Gura_ImplementDescendantCreator(wx_SingleChoiceDialog)
+{
+	return new Object_wx_SingleChoiceDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+}
+
+}}

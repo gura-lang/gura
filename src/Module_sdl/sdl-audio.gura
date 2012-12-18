@@ -1,0 +1,11 @@
+import(sdl)
+
+sdl.Init(sdl.INIT_AUDIO)
+callback(audio:audio) = {
+	audio.sinewave(0, 20)
+}
+desired = sdl.AudioSpec(callback => callback)
+sdl.OpenAudio(desired)
+sdl.PauseAudio(0)
+time.sleep(5)
+sdl.Quit()

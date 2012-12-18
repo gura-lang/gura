@@ -1,0 +1,13 @@
+#!/usr/bin/env gura
+import(wx)
+
+tester(test:expr):map:dynamic_scope = printf("%s .. %s\n", test, eval(test)):nomap
+
+scope {
+	x = wx.Colour(0, 0, 0)
+	println(x)
+	x:wx.Colour = '#ffffff'
+	println(x)
+	x:wx.Colour = 'black'
+	println(x)
+}

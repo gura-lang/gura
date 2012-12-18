@@ -1,0 +1,14 @@
+import(win32)
+
+win32.olecreate("ScriptControl") {|sc|
+	println('check1')
+	sc.Language = "Gura"
+	println('check2')
+	sc.ExecuteStatement('println("hello ", 100..110)')
+	sc.AddCode("println('Hello world ', 0..10)")
+	//sc.AddCode("println('Hello world ', 10..0)")
+	println('check3')
+	//rtn = sc.Run("Main")
+	println('check4')
+	//println(rtn)
+}

@@ -1,0 +1,65 @@
+#!/usr/bin/env gura
+import(sdl)
+import(png)
+
+imgfile(filename:string) = path.join(sys.datadir,
+									'sample', 'resource', filename)
+
+sdl.Init(sdl.INIT_EVERYTHING)
+screen = sdl.SetVideoMode(640, 480, 16, sdl.SWSURFACE) # | sdl.FULLSCREEN)
+try {
+	surfaceImg:local = sdl.LoadImage(sys.argv[1])
+	screen.PutSurface(surfaceImg, 0, 0)
+} except {
+	n = 32
+	i = 0..(n - 1)
+	colors = sdl.Color(128 * i / (n - 1), 128 * i / (n - 1), 255 * i / (n - 1))
+	rects = sdl.Rect(0, 480 * i / n, 640, 480 / n)
+	screen.FillRect(rects, colors)
+}
+/*
+font = sdl.OpenFont(path.join(os.getenv('SystemRoot'), 'Fonts', 'arial.ttf'), 32)
+screen.SolidText(text:string, x:number, y:number, fg:sdl.Color):map:void = {
+	surface = font.RenderText_Solid(text, fg)
+	self.PutSurface(surface, x, y)
+}
+screen.ShadedText(text:string, x:number, y:number, fg:sdl.Color, bg:sdl.Color):map:void = {
+	surface = font.RenderText_Shaded(text, fg, bg)
+	self.PutSurface(surface, x, y)
+}
+screen.BlendedText(text:string, x:number, y:number, fg:sdl.Color):map:void = {
+	surface = font.RenderText_Blended(text, fg)
+	self.PutSurface(surface, x, y)
+}
+screen.SolidText('hoge', 200, (0..3) * 40 + 10, color(`white))
+screen.ShadedText('hoge', 300, (0..3) * 40 + 10, color(`white), color(`gray))
+screen.BlendedText('hoge', 400, (0..3) * 40 + 10, color(`white))
+screen.SolidText('Hello world', 100, 160, color(`red))
+screen.ShadedText('Hello world', 100, 200, color(`red), color(`lime))
+screen.BlendedText('Hello world', 100, 240, color(`red))
+screen.SolidText('%dx%d %dbpp' % [screen.w, screen.h, screen.format.BitsPerPixel],
+										100, 280, color(`gray))
+*/
+scope {
+	img = image(`rgba, 64, 64)
+	img.fillrect(0, (0..) * 16, img.width, 16,
+		[color(255, 0, 0, 128), color(0, 255, 0, 128),
+		 color(0, 0, 255, 128), color(255, 255, 255, 128)])
+	screen.PutSurface(sdl.CreateRGBSurfaceFrom(img), 200, 100)
+}
+scope {
+	img = image(`rgb, 64, 64)
+	img.fillrect(0, (0..) * 16, img.width, 16,
+		[color(255, 0, 0), color(0, 255, 0), color(0, 0, 255), color(255, 255, 255)])
+	screen.PutSurface(sdl.CreateRGBSurfaceFrom(img), 100, 100)
+}
+scope {
+	img = image(`rgba).pngread(imgfile('kangaroo.png'))
+	screen.PutSurface(img, 70, 80)
+}
+screen.UpdateRect()
+repeat {
+	event = sdl.WaitEvent()
+	if (event.type == sdl.QUIT || \
+		(event.type == sdl.KEYDOWN && event.sym == sdl.K_ESCAPE)) { break }
+}

@@ -1,0 +1,96 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+import(gif)
+
+log = nil
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+down_bits = @{
+	255, 255, 255, 255, 31,
+	255, 255, 255, 31, 255, 255, 255, 31, 255, 255, 255,
+	31, 255, 255, 255, 31, 255, 255, 255, 31, 255, 255,
+	255, 31, 255, 255, 255, 31, 255, 255, 255, 25, 243,
+	255, 255, 19, 249, 255, 255, 7, 252, 255, 255, 15, 254,
+	255, 255, 31, 255, 255, 255, 191, 255, 255, 255, 255,
+	255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+	255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+	255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+	255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+	255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+	255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+	255
+}
+down_mask = @{
+	240, 1, 0, 0, 240, 1,
+	0, 0, 240, 1, 0, 0, 240, 1, 0, 0, 240, 1, 0, 0, 240, 1,
+	0, 0, 240, 1, 0, 0, 240, 1, 0, 0, 255, 31, 0, 0, 255,
+	31, 0, 0, 254, 15, 0, 0, 252, 7, 0, 0, 248, 3, 0, 0,
+	240, 1, 0, 0, 224, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0
+}
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+		panel = wx.Panel(self)
+		grid = wx.GridSizer(nil, 4, 1, 1)
+		panel.SetSizer(grid)
+		tbl = [
+			['ARROW',			wx.CURSOR_ARROW]
+			['RIGHT_ARROW',		wx.CURSOR_RIGHT_ARROW]
+			['BLANK',			wx.CURSOR_BLANK]
+			['BULLSEYE',		wx.CURSOR_BULLSEYE]
+			['CHAR',			wx.CURSOR_CHAR]
+			['CROSS',			wx.CURSOR_CROSS]
+			['HAND',			wx.CURSOR_HAND]
+			['IBEAM',			wx.CURSOR_IBEAM]
+			['LEFT_BUTTON',		wx.CURSOR_LEFT_BUTTON]
+			['MAGNIFIER',		wx.CURSOR_MAGNIFIER]
+
+			['PAINT_BRUSH',		wx.CURSOR_PAINT_BRUSH]
+			['PENCIL',			wx.CURSOR_PENCIL]
+			['POINT_LEFT',		wx.CURSOR_POINT_LEFT]
+			['POINT_RIGHT',		wx.CURSOR_POINT_RIGHT]
+			['QUESTION_ARROW',	wx.CURSOR_QUESTION_ARROW]
+			['RIGHT_BUTTON',	wx.CURSOR_RIGHT_BUTTON]
+			['SIZENESW',		wx.CURSOR_SIZENESW]
+			['SIZENS',			wx.CURSOR_SIZENS]
+			['SIZENWSE',		wx.CURSOR_SIZENWSE]
+			['SIZEWE',			wx.CURSOR_SIZEWE]
+			['SIZING',			wx.CURSOR_SIZING]
+			['SPRAYCAN',		wx.CURSOR_SPRAYCAN]
+			['WAIT',			wx.CURSOR_WAIT]
+			['WATCH',			wx.CURSOR_WATCH]
+			['ARROWWAIT',		wx.CURSOR_ARROWWAIT]
+		]
+		for ([text, cursorId] in tbl) {
+			wx.StaticText(panel, wx.ID_ANY, text,
+							style => wx.BORDER_STATIC | wx.ALIGN_CENTRE) {|ctrl|
+				grid.Add(ctrl, wx.SizerFlags(1).Expand())
+				ctrl.SetCursor(wx.StockCursor(cursorId))
+			}
+		}
+		self.cursor = wx.Cursor(down_bits.pack('128B'), 32, 32,
+										maskBits => down_mask.pack('128B'))
+		wx.StaticText(panel, wx.ID_ANY, 'custom',
+						style => wx.BORDER_STATIC | wx.ALIGN_CENTRE) {|ctrl|
+			grid.Add(ctrl, wx.SizerFlags(1).Expand())
+			ctrl.SetCursor(self.cursor)
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

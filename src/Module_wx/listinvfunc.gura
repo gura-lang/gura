@@ -1,0 +1,45 @@
+import(re)
+
+funcAppearedFlag = false
+search(fileName:string):map = {
+	disableAllFlag = false
+	stat = `start
+	readlines(fileName).each() {|line|
+		if (stat == `start) {
+			if (line.match(r'^#if\s+0')) {
+				if (!funcAppearedFlag) {
+					disableAllFlag = true
+				}
+			} elsif (m = line.match(r'Gura_Declare')) {
+				funcAppearedFlag = true
+			} elsif (m = line.match(r'Gura_ImplementFunction\((\w+)')) {
+				stat = `function
+			} elsif (m = line.match(r'Gura_ImplementMethod\((\w+),\s*(\w+)')) {
+				stat = `method
+			} elsif (m = line.match(r'Gura_ImplementClassMethod\((\w+),\s*(\w+)')) {
+				stat = `method
+			}
+		} elsif (stat == `function) {
+			if (disableAllFlag || line.match(r'^#if\s+0')) {
+				//printf("'%s'\n", m.group(1))
+				stat = `seek_rbrace
+			}
+			if (line.match(r'^}')) {
+				stat = `start
+			}
+		} elsif (stat == `method) {
+			if (disableAllFlag || line.match(r'^#if\s+0')) {
+				printf("'%s.%s'\n", m.group(1).replace('wx_', 'wx'), m.group(2))
+				stat = `seek_rbrace
+			}
+			if (line.match(r'^}')) {
+				stat = `start
+			}
+		} elsif (stat == `seek_rbrace) {
+			if (line.match(r'^}')) {
+				stat = `start
+			}
+		}
+	}
+}
+search(path.glob('*.cpp'))

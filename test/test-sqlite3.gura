@@ -1,0 +1,116 @@
+#!/usr/bin/env gura
+# -*- coding: utf-8 -*-
+import(csv)
+import(sqlite3)
+
+sys.stdout.setencoding('shift_jis')
+
+scope {
+	try {fs.remove('50records-en.sqlite3')} except {}
+	sqlite3.db('50records-en.sqlite3') {|db|
+		db.exec('''\
+			create table people (
+				name     text,
+				email    text,
+				gender   text,
+				age      integer,
+				birthday text,
+				mobile   text
+			)
+		''')
+		Person = struct(name:string, email:string,
+				gender:string, age:number, birthday:string, mobile:string)
+		people = Person * csv.reader('50records-en.csv')
+		db.transaction {
+			for (person in people) {
+				db.exec("insert into people values ('%s', '%s', '%s', %d, '%s', '%s')" % \
+					person.tolist())
+			}
+		}
+	}
+}
+scope {
+	Person = struct(name:string, email:string,
+				gender:string, age:number, birthday:string, mobile:string)
+	db = sqlite3.db('50records-en.sqlite3')
+	println()
+	println('column names: ', db.getcolnames('select * from people').join(', '))
+	println(Person * db.query('select * from people'))
+	db.close()
+}
+scope {
+	Person = struct(name:string, email:string,
+				gender:string, age:number, birthday:string, mobile:string)
+	sqlite3.db('50records-en.sqlite3') {|db|
+		println()
+		println('column names: ', db.getcolnames('select * from people').join(', '))
+		println(Person * db.query('select * from people'))
+	}
+}
+scope {
+	try {fs.remove('50records-jp.sqlite3')} except {}
+	sqlite3.db('50records-jp.sqlite3') {|db|
+		db.exec('''\
+			create table people (
+				名前       text,
+				ふりがな   text,
+				電子メール text,
+				性別       text,
+				年齢       integer,
+				誕生日     text,
+				結婚       text,
+				出身県     text,
+				携帯電話   text,
+				携帯会社   text,
+				くせ       text
+			)
+		''')
+		Person = struct(name:string, name_ruby:string, email:string,
+				gender:string, age:number, birthday:string,
+				married:string, prefecture:string, mobile:string,
+				mobile_career:string, habit:string)
+		people = Person * csv.reader(open('50records-jp.csv', 'r', 'shift_jis'))
+		db.transaction {
+			for (person in people) {
+				db.exec('insert into people values (' \
+					"'%s', '%s', '%s', '%s', %d, '%s', '%s', '%s', '%s', '%s', '%s')" % \
+					person.tolist())
+			}
+		}
+	}
+}
+scope {
+	Person = struct(name:string, name_ruby:string, email:string,
+			gender:string, age:number, birthday:string,
+			married:string, prefecture:string, mobile:string,
+			mobile_career:string, habit:string)
+	sqlite3.db('50records-jp.sqlite3') {|db|
+		println()
+		println('column names: ', db.getcolnames('select * from people').join(', '))
+		println(Person * \
+			db.query('select 名前, ふりがな, 電子メール, ' \
+					'性別, 年齢, 誕生日, 結婚, 出身県, ' \
+					'携帯電話, 携帯会社, くせ from people'))
+	}
+}
+function {
+	try {fs.remove('temperature.sqlite3')} except {}
+	sqlite3.db('temperature.sqlite3') {|db|
+		db.exec('''\
+			create table sites (
+				day      integer,
+				temp1    float,
+				temp2    float,
+				temp3    float
+			)
+		''')
+		items = struct(day:number, temps*:number) * \
+			re.split(r'\s+', (readlines('temperature.txt'):chop).offset(1)):list
+		db.transaction {
+			for (item in items) {
+				db.exec('insert into sites values (%d, %f, %f, %f)' % \
+					[item.day, item.temps[0], item.temps[1], item.temps[2]])
+			}
+		}
+	}
+}

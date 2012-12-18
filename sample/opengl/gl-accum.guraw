@@ -1,0 +1,66 @@
+#!/usr/bin/env gura
+
+// Orignal source file is written in C and is available from the site below.
+// http://www.sgi.com/products/software/opengl/examples/samples/
+// accum.c
+
+import(opengl) {*}
+
+Init() = {
+    glClearColor(0.0, 0.0, 0.0, 0.0)
+    glClearAccum(0.0, 0.0, 0.0, 0.0)
+    thing1 = glGenLists(1)
+    glNewList(thing1, GL_COMPILE) {
+	    glColor3f(1.0, 0.0, 0.0)
+	    glRectf(-1.0, -1.0, 1.0, 0.0)
+	}
+    thing2 = glGenLists(1)
+    glNewList(thing2, GL_COMPILE) {
+	    glColor3f(0.0, 1.0, 0.0)
+	    glRectf(0.0, -1.0, 1.0, 1.0)
+	}
+	[thing1, thing2]
+}
+
+Reshape(width:number, height:number) = {
+    glViewport(0, 0, width, height)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+}
+
+Draw(thing1:number, thing2:number) = {
+    glPushMatrix() {
+	    glScalef(0.8, 0.8, 1.0)
+	    glClear(GL_COLOR_BUFFER_BIT)
+	    glCallList(thing1)
+	    glAccum(GL_LOAD, 0.5)
+	    glClear(GL_COLOR_BUFFER_BIT)
+	    glCallList(thing2)
+	    glAccum(GL_ACCUM, 0.5)
+	    glAccum(GL_RETURN, 1.0)
+	}
+	glFlush()
+}
+
+scope {
+	thing1 = thing2 = nil
+	import(gltester)
+	gltester.mainloop(300, 300, 0, `none) {
+		`onInit => function {
+			extern(thing1, thing2)
+			[thing1, thing2] = Init()
+		}
+		`onResize => function(width:number, height:number) {
+			Reshape(width, height)
+		}
+		`onDraw => function {
+			Draw(thing1, thing2)
+		}
+		`onKeyDown => %{
+		}
+		`onKeyPoll => %{
+		}
+	}
+}

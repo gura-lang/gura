@@ -1,0 +1,138 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        propsize.cpp
+// Purpose:     wxWidgets propsize sample
+// Author:      Julian Smart
+// Modified by:
+// Created:     04/01/98
+// RCS-ID:      $Id: propsize.cpp 40587 2006-08-13 01:17:53Z VZ $
+// Copyright:   (c) Julian Smart
+// License:     wxWindows license
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+// ============================================================================
+// declarations
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// constants
+// ----------------------------------------------------------------------------
+
+// IDs for the controls and the menu commands
+// menu items
+Minimal_Quit = 1
+
+// ============================================================================
+// implementation
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// the application class
+// ----------------------------------------------------------------------------
+
+MyApp = class(wx.App) {
+	OnInit() = {
+		// Create the main application window
+		frame = MyFrame('Proportional resize',
+						 wx.Point(50, 50), wx.Size(450, 340))
+		// Show it and tell the application that it's our main window
+		// @@@ what does it do exactly, in fact? is it necessary here?
+		frame.Show(true)
+		self.SetTopWindow(frame)
+		// success: wxApp::OnRun() will be called which will enter the main message
+		// loop and the application will run. If we returned false here, the
+		// application would exit immediately.
+		true
+	}
+}
+
+// ----------------------------------------------------------------------------
+// main frame
+// ----------------------------------------------------------------------------
+
+MyFrame = class(wx.Frame) {
+	__init__(title:string, pos:wx.Point, size:wx.Size) = {|nil, wx.ID_ANY, title, pos, size|
+		self.EventTable()
+	    // set the frame icon
+		self.SetIcon(wx.IconFromXPMData(resource.mondrian_xpm))
+		// create a menu bar
+		menuFile = wx.Menu('', wx.MENU_TEAROFF)
+		menuFile.Append(wx.ID_ABOUT, '&About...\tCtrl-A', 'Show about dialog')
+		menuFile.AppendSeparator()
+		menuFile.Append(Minimal_Quit, 'E&xit\tAlt-X', 'Quit this program')
+		// now append the freshly created menu to the menu bar...
+		menuBar = wx.MenuBar()
+		menuBar.Append(menuFile, '&File')
+		// ... and attach this menu bar to the frame
+		self.SetMenuBar(menuBar)
+		// create a status bar just for fun (by default with 1 pane only)
+		self.CreateStatusBar(1)
+		self.SetStatusText('Resize the frame to see how controls react')
+		parent = self
+		classref(`wx.BoxSizer) {|ref|
+			ref.AddLine(orient) = self.Add(
+				wx.StaticLine(parent, wx.ID_ANY, wx.DefaultPosition, wx.Size(2, 2), orient),
+				wx.SizerFlags(0).Expand())
+			ref.AddButton(label, align) = self.Add(
+				wx.Button(parent, wx.ID_ANY, label, wx.DefaultPosition, wx.Size(100,50)),
+				wx.SizerFlags(1).Shaped().Align(align))
+		}
+		topsizer = wx.BoxSizer(wx.VERTICAL)
+		// top row -- top-aligned
+		hsizer1 = wx.BoxSizer(wx.HORIZONTAL)
+		hsizer1.AddButton('one', wx.ALIGN_LEFT | wx.ALIGN_TOP)
+		hsizer1.AddLine(wx.VERTICAL)
+		hsizer1.AddButton('two', wx.ALIGN_CENTER_HORIZONTAL | wx.ALIGN_TOP)
+		hsizer1.AddLine(wx.VERTICAL)
+		hsizer1.AddButton('three', wx.ALIGN_RIGHT | wx.ALIGN_TOP)
+		topsizer.Add(hsizer1, wx.SizerFlags(1).Expand())
+		topsizer.AddLine(wx.HORIZONTAL)
+		hsizer2 = wx.BoxSizer(wx.HORIZONTAL)
+		hsizer2.AddButton('four', wx.ALIGN_LEFT | wx.ALIGN_CENTER_VERTICAL)
+		hsizer2.AddLine(wx.VERTICAL)
+		// sizer that preserves it's shape
+		vsizer = wx.BoxSizer(wx.VERTICAL)
+		vsizer.Add(
+			wx.Button(self, wx.ID_ANY, 'up', wx.DefaultPosition, wx.Size(100, 25)),
+			wx.SizerFlags(1).Expand())
+		vsizer.Add(
+			wx.Button(self, wx.ID_ANY, 'down', wx.DefaultPosition, wx.Size(100, 25)),
+			wx.SizerFlags(1).Expand())
+		hsizer2.Add(vsizer, wx.SizerFlags(1).Shaped().Align(wx.ALIGN_CENTER))
+		hsizer2.AddLine(wx.VERTICAL)
+		hsizer2.AddButton('six', wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL)
+		topsizer.Add(hsizer2, wx.SizerFlags(1).Expand())
+		topsizer.AddLine(wx.HORIZONTAL)
+		hsizer3 = wx.BoxSizer(wx.HORIZONTAL)
+		hsizer3.AddButton('seven', wx.ALIGN_LEFT | wx.ALIGN_BOTTOM)
+		hsizer3.AddLine(wx.VERTICAL)
+		hsizer3.AddButton('eight', wx.ALIGN_CENTER_HORIZONTAL | wx.ALIGN_BOTTOM)
+		hsizer3.AddLine(wx.VERTICAL)
+		// wxEXPAND should have no effect
+		hsizer3.AddButton('nine', wx.EXPAND | wx.ALIGN_RIGHT | wx.ALIGN_BOTTOM)
+		topsizer.Add(hsizer3, wx.SizerFlags(1).Expand())
+		// set frame to minimum size
+		topsizer.Fit(self)
+		// don't allow frame to get smaller than what the sizers tell ye
+		// topsizer.SetSizeHints( this )
+		self.SetSizer(topsizer)
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_MENU, Minimal_Quit) {|event| self.OnQuit(event) }
+		self.Bind(wx.EVT_MENU, wx.ID_ABOUT) {|event| self.OnAbout(event) }
+	}
+	OnQuit(event:wx.CommandEvent) = {
+		// true is to force the frame to close
+		self.Close(true)
+	}
+	OnAbout(event:wx.CommandEvent) = {
+		msg = format('This is the about dialog of proportional sizer test.\n' \
+					'Welcome to %s', wx.VERSION_STRING)
+		wx.MessageBox(msg, 'About Shaped Sizer', wx.OK | wx.ICON_INFORMATION, self)
+	}
+}
+
+wx.IMPLEMENT_APP(MyApp)

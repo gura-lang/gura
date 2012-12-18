@@ -1,0 +1,1599 @@
+#!/usr/bin/env gura
+# encoding: utf-8
+//-----------------------------------------------------------------------------
+// makecalc
+// copyright (c) SAITO Yutaka
+//-----------------------------------------------------------------------------
+import(wx)
+import(re)
+import(gif)
+import(jpeg)
+import(yaml)
+import(cairo)
+import(units)
+
+//-----------------------------------------------------------------------------
+// Point
+//-----------------------------------------------------------------------------
+Point = struct(x:number, y:number) {
+	ToList() = [self.x, self.y]
+	Offset(xOff:number, yOff:number) = Point(self.x + xOff, self.y + yOff)
+}
+
+//-----------------------------------------------------------------------------
+// Fraction
+//-----------------------------------------------------------------------------
+Fraction = struct(num:number, denom:number) {
+	Reduce() = {
+		gcd = math.gcd(self.num, self.denom)
+		Fraction(self.num / gcd, self.denom / gcd)
+	}
+	ToText() = format('%d/%d', self.num, self.denom)
+}
+
+//-----------------------------------------------------------------------------
+// Rect
+//-----------------------------------------------------------------------------
+Rect = struct(x:number, y:number, width:number, height:number) {
+	ToList() = [self.x, self.y, self.width, self.height]
+	Center() = Point(self.x + self.width / 2, self.y + self.height / 2)
+	Left() = self.x
+	Right() = self.x + self.width
+	Top() = self.y
+	Bottom() = self.y + self.height
+	LeftTop() = Point(self.x, self.y)
+	RightTop() = Point(self.x + self.width, self.y)
+	LeftBottom() = Point(self.x, self.y + self.height)
+	RightBottom() = Point(self.x + self.width, self.y + self.height)
+	LeftVCenter() = Point(self.x, self.y + self.height / 2)
+	RightVCenter() = Point(self.x + self.width, self.y + self.height / 2)
+	HCenterTop() = Point(self.x + self.width / 2, self.y)
+	HCenterBottom() = Point(self.x + self.width / 2, self.y + self.height)
+}
+
+//-----------------------------------------------------------------------------
+// PaperInfo
+//-----------------------------------------------------------------------------
+PaperInfo = class {
+	__init__(wdPaper:number, htPaper:number, wdLeftMgn:number, wdRightMgn:number,
+									htTopMgn:number, htBottomMgn:number) = {
+		[self.wdPaper, self.htPaper] = [wdPaper, htPaper]
+		[self.wdLeftMgn, self.wdRightMgn] = [wdLeftMgn, wdRightMgn]
+		[self.htTopMgn, self.htBottomMgn] = [htTopMgn, htBottomMgn]
+	}
+	CalcPageRect() = Rect(self.wdLeftMgn, self.htTopMgn,
+			self.wdPaper - (self.wdLeftMgn + self.wdRightMgn),
+			self.htPaper - (self.htTopMgn + self.htBottomMgn))
+}
+
+//-----------------------------------------------------------------------------
+// main module
+//-----------------------------------------------------------------------------
+main = module {
+	paperInfo = PaperInfo(210, 297, 10, 10, 10, 15)
+	[wdCanvas, htCanvas] = [210, 297] * 2.0
+	htImage = 20
+	imgList = wx.ImageList(16, htImage)
+	image(`rgba, 16, htImage, `white) {|img|
+		img.cairo {|cr|
+			cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
+				pat.add_color_stop_rgb(0, .9, .9, .9)
+				pat.add_color_stop_rgb(1, 0, 0, 0)
+				cr.set_source(pat)
+			}
+			cr.move_to(3, 4).line_to(13, 9).line_to(3, 14).line_to(5, 9)
+			cr.fill()
+		}
+		IMG_History = imgList.Add(img)
+	}
+	image(`rgba, 16, htImage, `white) {|img|
+		img.cairo {|cr|
+			cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
+				pat.add_color_stop_rgb(0, 1, .6, .6)
+				pat.add_color_stop_rgb(1, .7, .3, .3)
+				cr.set_source(pat)
+			}
+			cr.rectangle(2, 2, 13, 13)
+			cr.fill()
+			cr.set_source_color(`white)
+			cr.move_to(4, 8).rel_line_to(8, 0)
+			cr.move_to(8, 4).rel_line_to(0, 8)
+			cr.set_line_width(3)
+			cr.stroke()
+		}
+		IMG_Plus = imgList.Add(img)
+	}
+	image(`rgba, 16, htImage, `white) {|img|
+		img.cairo {|cr|
+			cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
+				pat.add_color_stop_rgb(0, .6, .6, 1)
+				pat.add_color_stop_rgb(1, .3, .3, .7)
+				cr.set_source(pat)
+			}
+			cr.rectangle(2, 2, 13, 13)
+			cr.fill()
+			cr.set_source_color(`white)
+			cr.move_to(4, 8).rel_line_to(8, 0)
+			cr.set_line_width(3)
+			cr.stroke()
+		}
+		IMG_Minus = imgList.Add(img)
+	}
+	image(`rgba, 16, htImage, `white) {|img|
+		img.cairo {|cr|
+			cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
+				pat.add_color_stop_rgb(0, .4, .8, .4)
+				pat.add_color_stop_rgb(1, .1, .4, .1)
+				cr.set_source(pat)
+			}
+			cr.rectangle(2, 2, 13, 13)
+			cr.fill()
+			cr.set_source_color(`white)
+			cr.move_to(4, 4).rel_line_to(8, 8)
+			cr.move_to(12, 4).rel_line_to(-8, 8)
+			cr.set_line_width(3)
+			cr.stroke()
+		}
+		IMG_Multiply = imgList.Add(img)
+	}
+	image(`rgba, 16, htImage, `white) {|img|
+		img.cairo {|cr|
+			cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
+				pat.add_color_stop_rgb(0, .8, .8, .4)
+				pat.add_color_stop_rgb(1, .4, .4, .1)
+				cr.set_source(pat)
+			}
+			cr.rectangle(2, 2, 13, 13)
+			cr.fill()
+			cr.set_source_color(`white)
+			cr.move_to(3, 8).rel_line_to(10, 0)
+			cr.set_line_width(3)
+			cr.stroke()
+			cr.arc(8, 4, 2)
+			cr.arc(8, 12, 2)
+			cr.fill()
+		}
+		IMG_Divide = imgList.Add(img)
+	}
+	if (sys.argv.len() < 2) {
+		fileNameCfg = path.join(sys.localdir, 'makecalc.yml')
+	} else {
+		fileNameCfg = sys.argv[1]
+	}
+	try { cfg = yaml.read(fileNameCfg) } except { cfg = %{} }
+	if (sys.platform == `windows) {
+		OpenWithApp(filename:string) = {
+			import(mswin)
+			[basename, extname] = path.splitext(filename)
+			keyName = mswin.HKEY_CLASSES_ROOT.openkey(
+					'.' + extname, mswin.KEY_QUERY_VALUE).queryvalue('')
+			cmdline = mswin.HKEY_CLASSES_ROOT.openkey(
+				keyName + r'\Shell\Open\Command', mswin.KEY_QUERY_VALUE).queryvalue('')
+			progname = cmdline.match(r'^\"([^\"]+)\"')[1]
+			os.exec(progname, filename):fork
+		}
+	} elsif (sys.platform == `linux) {
+		prognameDict = dict():icase
+		IsExist(filename:string):map = {
+			path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
+		}
+		IsExist('evince') && { prognameDict['pdf'] = 'evince' }
+		OpenWithApp(filename:string) = {
+			[basename, extname] = path.splitext(filename)
+			prognameDict.haskey(extname) && os.exec(prognameDict[extname], filename):fork
+		}
+	}
+	main() = {
+		cfg.store():default {
+			'wdFrame'			=> 680
+			'htFrame'			=> 680
+			'wdNavi'			=> 200
+			'select'			=> %{
+				'category'		=> ''
+				'composerName'	=> ''
+			}
+			'composers'			=> []
+		}
+		try {
+			for (composer in composers) {
+				cfgsComposer = cfg['composers']
+				index = ((cfgsComposer:*get('category') == composer.category) & \
+				 		(cfgsComposer:*get('composerName') == composer.composerName)).find()
+				!index && continue
+				cfgComposer = cfgsComposer[index]
+				composer.attrsHist = ComposerAttr(cfgComposer['attrsHist'])
+				composer.attrCur = ComposerAttr(cfgComposer['attrCur'])
+				composer.attrCur.name = ''
+			}
+		} except {
+			fs.remove(fileNameCfg)
+			sys.exit(1)
+		}
+		wx.IMPLEMENT_APP(App)
+		cfg['composers'] = for (composer in composers):list {
+			%{
+				'category'		=> composer.category
+				'composerName'	=> composer.composerName
+				'attrsHist'		=> composer.attrsHist::Export()
+				'attrCur'		=> composer.attrCur.Export()
+			}
+		}
+		yaml.write(open(self.fileNameCfg, 'w'), cfg)
+	}
+}
+
+//-----------------------------------------------------------------------------
+// App
+//-----------------------------------------------------------------------------
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		//wx.StatusBar(frame)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+//-----------------------------------------------------------------------------
+// cairo.context extension
+//-----------------------------------------------------------------------------
+classref(`cairo.context) {|ref|
+	ref.Rectangle(rect:Rect) = {
+		self.rectangle(rect.ToList()*)
+	}
+	ref.ShowText(align:symbol, pt:Point, text:string):map = {
+		[x, y] = [pt.x, pt.y]
+		extText = self.text_extents(text)
+		extFont = self.font_extents()
+		yOffset = extFont.ascent / 2
+		if (align == `center) {
+			x -= extText.x_advance / 2
+			y += yOffset
+		} elsif (align == `east) {
+			y += yOffset
+		} elsif (align == `west) {
+			x -= extText.x_advance
+			y += yOffset
+		}
+		self.move_to(x, y).show_text(text)
+		extText
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Question
+//-----------------------------------------------------------------------------
+FractionQuestion = struct(fracL:Fraction, textOperator:string,
+						fracR:Fraction, fracAnswer:Fraction) {
+	ToText() = format('%s%s%s', self.fracL.ToText(),
+									self.textOperator, self.fracR.ToText())
+}
+
+LineQuestion = struct(numL:number, textOperator:string,
+						numR:number, numAnswer:number, textAnswer?:string) {
+	ToText() = format('%d%s%d', self.numL, self.textOperator, self.numR)
+}
+
+BoxQuestion = struct(numL:number, textOperator:string,
+						numR:number, numAnswer:number) {
+	ToText() = format('%d%s%d', self.numL, self.textOperator, self.numR)
+}
+
+BoxQuestionDiv = struct(numL:number, numR:number) {
+	ToText() = format('%d/%d', self.numL, self.numR)
+}
+
+//-----------------------------------------------------------------------------
+// Page
+//-----------------------------------------------------------------------------
+Page = struct(questions[] => [])
+
+//-----------------------------------------------------------------------------
+// ComposerAttr
+//-----------------------------------------------------------------------------
+ComposerAttr = class {
+	__init__(cfg?:dict):map = {
+		if (cfg) {
+			self.name			= cfg['name']
+			self.fileNamePDF	= cfg['fileNamePDF']
+			self.cntHorz		= int(cfg['cntHorz'])
+			self.cntVert		= int(cfg['cntVert'])
+			self.nPages			= int(cfg['nPages'])
+			self.kanjiFlag		= (cfg['kanjiFlag'] == 'true')
+			self.answerFlag		= (cfg['answerFlag'] == 'true')
+			self.scoreBoxFlag	= (cfg['scoreBoxFlag'] == 'true')
+			self.seed			= cfg['seed']
+		} else {
+			self.name			= ''
+			self.fileNamePDF	= path.join(sys.localdir, 'makecalc.pdf')
+			self.cntHorz		= 1
+			self.cntVert		= 1
+			self.nPages			= 10
+			self.kanjiFlag		= true
+			self.answerFlag		= false
+			self.scoreBoxFlag	= false
+			self.seed			= -1
+		}
+	}
+	HasSameValues(attr) = {
+		self.fileNamePDF	== attr.fileNamePDF && \
+		self.cntHorz		== attr.cntHorz && \
+		self.cntVert		== attr.cntVert && \
+		self.nPages			== attr.nPages && \
+		self.kanjiFlag		== attr.kanjiFlag && \
+		self.answerFlag		== attr.answerFlag && \
+		self.scoreBoxFlag	== attr.scoreBoxFlag && \
+		self.seed			== attr.seed
+	}
+	Export() = %{
+		'name'			=> self.name
+		'fileNamePDF'	=> self.fileNamePDF
+		'cntHorz'		=> self.cntHorz
+		'cntVert'		=> self.cntVert
+		'nPages'		=> self.nPages
+		'kanjiFlag'		=> self.kanjiFlag
+		'answerFlag'	=> self.answerFlag
+		'scoreBoxFlag'	=> self.scoreBoxFlag
+		'seed'			=> self.seed
+	}
+	Clone() = {
+		attr = ComposerAttr()
+		attr.name			= self.name
+		attr.fileNamePDF	= self.fileNamePDF
+		attr.cntHorz		= self.cntHorz
+		attr.cntVert		= self.cntVert
+		attr.nPages			= self.nPages
+		attr.kanjiFlag		= self.kanjiFlag
+		attr.answerFlag		= self.answerFlag
+		attr.scoreBoxFlag	= self.scoreBoxFlag
+		attr.seed			= self.seed
+		attr
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Composer
+//-----------------------------------------------------------------------------
+Composer = class {
+	wdScoreBox = 30
+	htTitle = 16
+	htName = 12
+	htSpace = 4
+	wideDict = %{
+		'0' => '０', '1' => '１', '2' => '２', '3' => '３', '4' => '４'
+		'5' => '５', '6' => '６', '7' => '７', '8' => '８', '9' => '９'
+	}
+	__init__(dir:symbol) = {
+		self.variableQuestionsHFlag = true
+		self.rcPage = main.paperInfo.CalcPageRect()
+		self.dir = dir
+		self.title = ['', '']
+		self.category = ''
+		self.composerName = ''
+		self.colorQuestion = '#444444'
+		self.colorAnswer = '#ff4444'
+		self.pages = []
+		self.iPageCur = 0
+		self.attrsHist = []
+		self.attrCur = ComposerAttr()
+	}
+	ClearPages() = {
+		self.attrCur.seed = -1
+		self.pages = []
+	}
+	MakeQuestions() = {
+		textList = []
+		repeat(self.attrCur.cntHorz * self.attrCur.cntVert):list {
+			repeat (1000) {
+				question = self.MakeQuestion()
+				text = question.ToText()
+				!textList.find(text) && break
+			}
+			textList.add(text)
+			question
+		}
+	}
+	CalcRectTitle() = {
+		Rect(self.rcPage.x, self.rcPage.y,
+					self.rcPage.width - self.wdScoreBox, self.htTitle)
+	}
+	CalcRectScoreBox() = {
+		Rect(self.rcPage.Right() - self.wdScoreBox - 10, self.rcPage.y,
+					self.wdScoreBox, self.htTitle)
+	}
+	CalcRectName() = {
+		[wdLeftMgn, wdRightMgn] = [5, 5]
+		Rect(self.rcPage.x + wdLeftMgn, self.rcPage.y + self.htTitle,
+					self.rcPage.width - (wdLeftMgn + wdRightMgn), self.htName)
+	}
+	CalcRectBounding(index:number):map = {
+		if (self.dir == `horizontal) {
+			[iHorz, iVert] = [index % self.attrCur.cntHorz,
+										int(index / self.attrCur.cntHorz)]
+		} else {
+			[iHorz, iVert] = [int(index / self.attrCur.cntVert),
+										index % self.attrCur.cntVert]
+		}
+		[wdQuestion, htQuestion] = [
+			self.rcPage.width / self.attrCur.cntHorz,
+			(self.rcPage.height - \
+				(self.htTitle + self.htName + self.htSpace)) / self.attrCur.cntVert
+		]
+		[x, y] = [
+			self.rcPage.x + iHorz * wdQuestion,
+			self.rcPage.y + self.htTitle + self.htName + \
+											self.htSpace + iVert * htQuestion
+		]
+		Rect(x, y, wdQuestion, htQuestion)
+	}
+	ComposePage(cr:cairo.context, iPage:number) = {
+		cr.select_font_face('HGMaruGothicMPRO',
+					cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+		cr.set_source_rgb(0, 0, 0)
+		rcTitle = self.CalcRectTitle()
+		rcScoreBox = self.CalcRectScoreBox()
+		rcName = self.CalcRectName()
+		if (self.attrCur.scoreBoxFlag) {
+			cr.set_line_width(.1)
+			cr.Rectangle(rcScoreBox)
+			cr.stroke()
+		}
+		scope {
+			pt = rcTitle.LeftVCenter()
+			cr.set_font_size(8)
+			pt.x += (cr.ShowText(`east, pt,
+				cond(self.attrCur.kanjiFlag, self.title[0], self.title[1]))).x_advance
+			pt.x += 10
+			cr.set_font_size(4)
+			cr.ShowText(`east, pt, self.composerName)
+		}
+		scope {
+			cr.set_font_size(4)
+			pt = rcName.LeftVCenter()
+			pt.x += 13
+			pt.x += (cr.ShowText(`east, pt,
+					cond(self.attrCur.kanjiFlag, '年', 'ねん'))).x_advance
+			pt.x += 13
+			pt.x += (cr.ShowText(`east, pt,
+					cond(self.attrCur.kanjiFlag, '組', 'くみ'))).x_advance
+			pt.x += 13
+			pt.x += (cr.ShowText(`east, pt,
+					cond(self.attrCur.kanjiFlag, '番', 'ばん'))).x_advance
+			pt.x += 8
+			cr.ShowText(`east, pt, cond(self.attrCur.kanjiFlag, '名前', 'なまえ'))
+			cr.set_line_width(.1)
+			cr.move_to(rcName.Left(), rcName.Bottom())
+			cr.line_to(rcName.Right(), rcName.Bottom())
+			cr.stroke()
+		}
+		self.ComposePageBody(cr, iPage)
+		cr.stroke()
+	}
+	UpdatePages() = {
+		if (self.attrCur.seed < 0) {
+			self.attrCur.seed = time.clock()
+		}
+		randseed(self.attrCur.seed)
+		self.pages = repeat (self.attrCur.nPages):list {
+			Page(self.MakeQuestions())
+		}
+		if (self.iPageCur >= self.attrCur.nPages) {
+			self.iPageCur = self.attrCur.nPages - 1
+		}
+	}
+	OutputImage(image:image) = {
+		self.UpdatePages()
+		image.fill(`white)
+		scale = 2
+		image.cairo {|cr|
+			cr.scale(scale, scale)
+			self.ComposePage(cr, self.iPageCur)
+		}
+	}
+	OutputPDF() = {
+		self.UpdatePages()
+		scale = units.mm$pt(210) / 210
+		cairo.pdf_create(open(self.attrCur.fileNamePDF, 'w'),
+								units.mm$pt(210), units.mm$pt(297)) {|cr|
+			cr.scale(scale, scale)
+			repeat (self.attrCur.nPages) {|iPage|
+				self.ComposePage(cr, iPage)
+				cr.show_page()
+			}
+			cr.destroy()
+		}
+	}
+	MakeNumWide(num:number) = self.wideDict[format('%d', num).each()].join()
+	MakeTextWide(text:string) = {
+		chars = text.each(), self.wideDict.gets(chars, chars).join()
+	}
+}
+
+//-----------------------------------------------------------------------------
+// LineComposer
+//-----------------------------------------------------------------------------
+LineComposer = class(Composer) {
+	__init__() = {|`vertical|
+		self.variableQuestionsHFlag = false
+		self.fontSize = 8
+		self.wdLeft = 17
+		self.wdOperator = 12
+		self.wdRight = 17
+		self.wdEqual = 12
+		self.wdAnswer = 30
+		self.alignAnswer = `center
+		self.Initialize()
+	}
+	ComposePageBody(cr:cairo.context, iPage:number) = {
+		cr.set_font_size(self.fontSize)
+		rects = self.CalcRectBounding(
+				range(self.attrCur.cntHorz * self.attrCur.cntVert))
+		self.DrawQuestion(cr, rects, self.pages[iPage].questions)
+	}
+	DrawQuestion(cr:cairo.context, rect:Rect, question:LineQuestion):map = {
+		cr.set_source_color(self.colorQuestion)
+		wdBody = self.wdLeft + self.wdOperator + \
+							self.wdRight + self.wdEqual + self.wdAnswer
+		htBox = min(rect.height * .9, self.fontSize * 1.5)
+		x = rect.x
+		yCenter = rect.y + rect.height / 2
+		cr.ShowText(`center, Point(x + self.wdLeft / 2, yCenter),
+									self.MakeNumWide(question.numL))
+		x += self.wdLeft
+		cr.ShowText(`center, Point(x + self.wdOperator / 2, yCenter),
+									question.textOperator)
+		x += self.wdOperator
+		cr.ShowText(`center, Point(x + self.wdRight / 2, yCenter),
+									self.MakeNumWide(question.numR))
+		x += self.wdRight
+		cr.ShowText(`center, Point(x + self.wdEqual / 2, yCenter), '＝')
+		x += self.wdEqual
+		rcAnswer = Rect(x, yCenter - htBox / 2, self.wdAnswer, htBox)
+		cr.Rectangle(rcAnswer)
+		cr.stroke()
+		if (self.attrCur.answerFlag) {
+			cr.set_source_color(self.colorAnswer)
+			text = if (question.textAnswer) {
+				self.MakeTextWide(question.textAnswer)
+			} else {
+				self.MakeNumWide(question.numAnswer)
+			}
+			if (self.alignAnswer == `center) {
+				cr.ShowText(`center, rcAnswer.Center(), text)
+			} elsif (self.alignAnswer == `left) {
+				cr.ShowText(`east, rcAnswer.LeftVCenter(), text)
+			}
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// BoxComposer
+//-----------------------------------------------------------------------------
+BoxComposer = class(Composer) {
+	__init__() = {|`horizontal|
+		self.wdLeftMgn = 2, self.wdRightMgn = 2
+		self.htTopMgn = 2, self.htBottomMgn = 2
+		[self.nCols, self.nRows] = [3, 3]
+		[self.wdColMax, self.htRowMax] = [12, 16]
+		self.wdTail = 2
+		self.Initialize()
+	}
+	ComposePageBody(cr:cairo.context, iPage:number) = {
+		rects = self.CalcRectQuestion(
+				range(self.attrCur.cntHorz * self.attrCur.cntVert))
+		cr.set_font_size(self.CalcRectCell(self.CalcRectQuestion(0), 0, 0).height * .6)
+		self.DrawQuestion(cr, rects, self.pages[iPage].questions)
+	}
+	CalcRectQuestion(index:number):map = {
+		rect = self.CalcRectBounding(index)
+		rect.x += 2
+		rect.width -= 2 * 2
+		width = rect.width - (self.wdLeftMgn + self.wdRightMgn)
+		height = rect.height - (self.htTopMgn + self.htBottomMgn)
+		[wdCol, htRow] = [width / self.nCols, height / self.nRows]
+		wdCol = min(wdCol, self.wdColMax)
+		htRow = min(htRow, self.htRowMax)
+		if (htRow > wdCol) { htRow = wdCol }
+		if (wdCol > htRow) { wdCol = htRow }
+		[width, height] = [wdCol * self.nCols, htRow * self.nRows]
+		Rect(rect.x + (rect.width - width) / 2,
+						rect.y + (rect.height - height) / 2, width, height)
+	}
+	CalcRectCell(rect:Rect, iRow:number, iCol:number):map = {
+		wdCol = rect.width / self.nCols
+		htRow = rect.height / self.nRows
+		x = rect.x + iCol * wdCol
+		y = rect.y + iRow * htRow
+		Rect(x, y, wdCol, htRow)
+	}
+	DrawQuestion(cr:cairo.context, rect:Rect, question):map = {
+		cr.set_source_color(self.colorQuestion)
+		textL = self.MakeNumWide(question.numL)
+		textR = self.MakeNumWide(question.numR)
+		iColL = self.nCols - max(textL.len(), textR.len()) - 1
+		if (question.istype(`BoxQuestionDiv)) {
+			iColR = self.nCols - 1
+			cr.ShowText(`center, self.CalcRectCell(rect, 1, iColR - (0..)):*Center(),
+												textL.each().reverse())
+			cr.ShowText(`center, self.CalcRectCell(rect, 1, iColL - (0..)):*Center():*Offset(-4, 0),
+												textR.each().reverse())
+			rcCellL = self.CalcRectCell(rect, 1, iColL)
+			rcCellR = self.CalcRectCell(rect, 1, iColR)
+			cr.move_to(rcCellR.Right() + self.wdTail, rcCellR.Top())
+			cr.line_to(rcCellL.Right() - self.wdTail, rcCellL.Top())
+			x = rcCellL.Right()
+			y1 = (rcCellL.Top() * 2 + rcCellL.Bottom() * 1) / 3
+			y2 = (rcCellL.Top() * 1 + rcCellL.Bottom() * 2) / 3
+			cr.curve_to(x, y1, x, y2,
+					rcCellL.Right() - self.wdTail, rcCellL.Bottom())
+			cr.stroke()
+			if (self.attrCur.answerFlag) {
+				cr.set_source_color(self.colorAnswer)
+				numAnswer = int(question.numL / question.numR)
+				numAlign = question.numR * numAnswer
+				numRest = question.numL - numAlign
+				textAnswer = self.MakeNumWide(numAnswer)
+				textAlign = self.MakeNumWide(numAlign)
+				textRest = self.MakeNumWide(numRest)
+				cr.ShowText(`center, self.CalcRectCell(rect, 0, iColR - (0..)):*Center(),
+												textAnswer.each().reverse())
+				cr.ShowText(`center, self.CalcRectCell(rect, 2, iColR - (0..)):*Center(),
+												textAlign.each().reverse())
+				cr.ShowText(`center, self.CalcRectCell(rect, 3, iColR - (0..)):*Center(),
+												textRest.each().reverse())
+				rcCellL = self.CalcRectCell(rect, 3, iColL)
+				rcCellR = self.CalcRectCell(rect, 3, iColR)
+				cr.move_to(rcCellR.Right() + self.wdTail, rcCellR.Top())
+				cr.line_to(rcCellL.Right() - self.wdTail, rcCellL.Top())
+				cr.stroke()
+			}
+		} else {
+			iColR = self.nCols - 1
+			cr.ShowText(`center, self.CalcRectCell(rect, 0, iColR - (0..)):*Center(),
+												textL.each().reverse())
+			cr.ShowText(`center, self.CalcRectCell(rect, 1, iColR - (0..)):*Center(),
+												textR.each().reverse())
+			cr.ShowText(`center, self.CalcRectCell(rect, 1, iColL).Center(),
+												question.textOperator)
+			rcCellL = self.CalcRectCell(rect, 2, iColL)
+			rcCellR = self.CalcRectCell(rect, 2, iColR)
+			cr.move_to(rcCellL.Left() - self.wdTail, rcCellL.Top())
+			cr.line_to(rcCellR.Right() + self.wdTail, rcCellR.Top())
+			cr.stroke()
+			if (self.attrCur.answerFlag) {
+				cr.set_source_color(self.colorAnswer)
+				textAnswer = self.MakeNumWide(question.numAnswer)
+				cr.ShowText(`center, self.CalcRectCell(rect, 2, iColR - (0..)):*Center(),
+												textAnswer.each().reverse())
+			}
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// FractionComposer
+//-----------------------------------------------------------------------------
+FractionComposer = class(Composer) {
+	__init__() = {|`vertical|
+		self.variableQuestionsHFlag = false
+		self.fontSize = 8
+		self.wdLeft = 20
+		self.wdOperator = 12
+		self.wdRight = 20
+		self.wdEqual = 12
+		self.wdAnswer = 25
+		self.alignAnswer = `center
+		self.Initialize()
+	}
+	ComposePageBody(cr:cairo.context, iPage:number) = {
+		cr.set_font_size(self.fontSize)
+		rects = self.CalcRectBounding(
+				range(self.attrCur.cntHorz * self.attrCur.cntVert))
+		self.DrawQuestion(cr, rects, self.pages[iPage].questions)
+	}
+	DrawQuestion(cr:cairo.context, rect:Rect, question:FractionQuestion):map = {
+		cr.set_source_color(self.colorQuestion)
+		wdBody = self.wdLeft + self.wdOperator + \
+							self.wdRight + self.wdEqual + self.wdAnswer
+		x = rect.x
+		yCenter = rect.y + rect.height / 2
+		scope {
+			xCenter = x + self.wdLeft / 2
+			cr.ShowText(`center, Point(xCenter, (rect.y + yCenter) / 2),
+									self.MakeNumWide(question.fracL.num))
+			cr.ShowText(`center, Point(xCenter, (rect.Bottom() + yCenter) / 2),
+									self.MakeNumWide(question.fracL.denom))
+			cr.move_to(x, yCenter)
+			cr.line_to(x + self.wdLeft, yCenter)
+		}
+		x += self.wdLeft
+		cr.ShowText(`center, Point(x + self.wdOperator / 2, yCenter),
+									question.textOperator)
+		x += self.wdOperator
+		scope {
+			xCenter = x + self.wdRight / 2
+			cr.ShowText(`center, Point(xCenter, (rect.y + yCenter) / 2),
+									self.MakeNumWide(question.fracR.num))
+			cr.ShowText(`center, Point(xCenter, (rect.Bottom() + yCenter) / 2),
+									self.MakeNumWide(question.fracR.denom))
+			cr.move_to(x, yCenter)
+			cr.line_to(x + self.wdRight, yCenter)
+		}
+		x += self.wdRight
+		cr.ShowText(`center, Point(x + self.wdEqual / 2, yCenter), '＝')
+		x += self.wdEqual
+		cr.stroke()
+		//cr.Rectangle(rect)
+		//cr.stroke()
+		if (self.attrCur.answerFlag) {
+			cr.set_source_color(self.colorAnswer)
+			xCenter = x + self.wdAnswer / 2
+			cr.ShowText(`center, Point(xCenter, (rect.y + yCenter) / 2),
+									self.MakeNumWide(question.fracAnswer.num))
+			cr.ShowText(`center, Point(xCenter, (rect.Bottom() + yCenter) / 2),
+									self.MakeNumWide(question.fracAnswer.denom))
+			cr.move_to(x, yCenter)
+			cr.line_to(x + self.wdAnswer, yCenter)
+			cr.stroke()
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Canvas
+//-----------------------------------------------------------------------------
+Canvas = class(wx.Panel) {
+	__init__(parent:wx.Window) = {|parent, style => wx.BORDER_SUNKEN|
+		self.img = image(`rgba, main.wdCanvas, main.htCanvas)
+		self.img.fill(`white)
+		self.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
+		self.Bind(wx.EVT_SCROLLWIN) {|event|
+			self.SetScrollPos(event.GetOrientation(), event.GetPosition())
+			self.Refresh()
+		}
+		self.Bind(wx.EVT_SIZE) {|event|
+			[wdClient, htClient] = self.GetClientSizeWH()
+			self.SetScrollbar(wx.HORIZONTAL, 0, wdClient, main.wdCanvas)
+			self.SetScrollbar(wx.VERTICAL, 0, htClient, main.htCanvas)
+			self.Refresh();
+			event.Skip()
+		}
+		self.Bind(wx.EVT_PAINT) {|event|
+			[wdClient, htClient] = self.GetClientSizeWH()
+			[xOffset, yOffset] = [-self.GetScrollPos(wx.HORIZONTAL),
+											-self.GetScrollPos(wx.VERTICAL)]
+			dc = wx.PaintDC(self)
+			dc.SetPen(wx.TRANSPARENT_PEN)
+			dc.SetBrush(wx.Brush(wx.Colour(192, 192, 192)))
+			if ((wdBack = wdClient - (self.img.width + xOffset)) > 0) {
+				dc.DrawRectangle(wdClient - wdBack, 0, wdBack, htClient);
+			}
+			if ((htBack = htClient - (self.img.height + yOffset)) > 0) {
+				dc.DrawRectangle(0, htClient - htBack, wdClient, htBack)
+			}
+			dc.DrawBitmap(self.img, xOffset, yOffset, false)
+			dc = nil
+		}
+	}
+	DrawContent(composer:Composer) = {
+		composer.OutputImage(self.img)
+		self.Refresh()
+	}
+}
+
+composerClasses = @{
+	class(FractionComposer) {
+		Initialize() = {
+			self.category = 'たし算'
+			self.title = ['たし算', 'たしざん']
+			self.composerName = '分数 ＋ 分数'
+			self.imgIcon = main.IMG_Plus
+			self.cntHorzMax = 2
+			self.cntVertMax = 15
+			self.attrCur.cntHorz = 2
+			self.attrCur.cntVert = 10
+			self.attrCur.kanjiFlag = false
+		}
+		MakeQuestion() = {
+			denom = rand(8) + 2
+			num = rand(denom - 2) + 1
+			fracL = Fraction(num, denom).Reduce()
+			denom = rand(8) + 2
+			num = rand(denom - 2) + 1
+			fracR = Fraction(num, denom).Reduce()
+			fracAnswer = Fraction(fracL.num * fracR.denom + fracR.num * fracL.denom,
+											fracL.denom * fracR.denom).Reduce()
+			FractionQuestion(fracL, '＋', fracR, fracAnswer)
+		}
+	}
+	class(LineComposer) {
+		Initialize() = {
+			self.category = 'たし算'
+			self.title = ['たし算', 'たしざん']
+			self.composerName = '1 桁 ＋ 1 桁 = 1 桁'
+			self.imgIcon = main.IMG_Plus
+			self.cntHorzMax = 2
+			self.cntVertMax = 15
+			self.attrCur.cntHorz = 2
+			self.attrCur.cntVert = 10
+			self.attrCur.kanjiFlag = false
+		}
+		MakeQuestion() = {
+			numL = rand(8) + 1
+			numR = rand(8 - numL) + 1
+			numAnswer = numL + numR
+			LineQuestion(numL, '＋', numR, numAnswer)
+		}
+	}
+	class(LineComposer) {
+		Initialize() = {
+			self.category = 'たし算'
+			self.title = ['たし算', 'たしざん']
+			self.composerName = '1 桁 ＋ 1 桁'
+			self.imgIcon = main.IMG_Plus
+			self.cntHorzMax = 2
+			self.cntVertMax = 15
+			self.attrCur.cntHorz = 2
+			self.attrCur.cntVert = 10
+			self.attrCur.kanjiFlag = false
+		}
+		MakeQuestion() = {
+			numL = rand(9) + 1
+			numR = rand(9) + 1
+			numAnswer = numL + numR
+			LineQuestion(numL, '＋', numR, numAnswer)
+		}
+	}
+	class(LineComposer) {
+		Initialize() = {
+			self.category = 'たし算'
+			self.title = ['たし算', 'たしざん']
+			self.composerName = '2 桁 ＋ 1 桁'
+			self.imgIcon = main.IMG_Plus
+			self.cntHorzMax = 2
+			self.cntVertMax = 15
+			self.attrCur.cntHorz = 2
+			self.attrCur.cntVert = 10
+			self.attrCur.kanjiFlag = false
+		}
+		MakeQuestion() = {
+			numL = rand(99) + 1
+			numR = rand(9) + 1
+			numAnswer = numL + numR
+			LineQuestion(numL, '＋', numR, numAnswer)
+		}
+	}
+	class(LineComposer) {
+		Initialize() = {
+			self.category = 'たし算'
+			self.title = ['たし算', 'たしざん']
+			self.composerName = '2 桁 ＋ 2 桁'
+			self.imgIcon = main.IMG_Plus
+			self.cntHorzMax = 2
+			self.cntVertMax = 15
+			self.attrCur.cntHorz = 2
+			self.attrCur.cntVert = 10
+		}
+		MakeQuestion() = {
+			numL = rand(99) + 1
+			numR = rand(99) + 1
+			numAnswer = numL + numR
+			LineQuestion(numL, '＋', numR, numAnswer)
+		}
+	}
+	class(LineComposer) {
+		Initialize() = {
+			self.category = 'ひき算'
+			self.title = ['ひき算', 'ひきざん']
+			self.composerName = '1 桁 － 1 桁'
+			self.imgIcon = main.IMG_Minus
+			self.cntHorzMax = 2
+			self.cntVertMax = 15
+			self.attrCur.cntHorz = 2
+			self.attrCur.cntVert = 10
+			self.attrCur.kanjiFlag = false
+		}
+		MakeQuestion() = {
+			numL = rand(8) + 2
+			numR = rand(numL - 2) + 1
+			numAnswer = numL - numR
+			LineQuestion(numL, '－', numR, numAnswer)
+		}
+	}
+	class(LineComposer) {
+		Initialize() = {
+			self.category = 'ひき算'
+			self.title = ['ひき算', 'ひきざん']
+			self.composerName = '2 桁 － 2 桁'
+			self.imgIcon = main.IMG_Minus
+			self.cntHorzMax = 2
+			self.cntVertMax = 15
+			self.attrCur.cntHorz = 2
+			self.attrCur.cntVert = 10
+		}
+		MakeQuestion() = {
+			numL = rand(90) + 10
+			numR = rand(numL - 2) + 1
+			numAnswer = numL - numR
+			LineQuestion(numL, '－', numR, numAnswer)
+		}
+	}
+	class(LineComposer) {
+		Initialize() = {
+			self.category = 'ひき算'
+			self.title = ['ひき算', 'ひきざん']
+			self.composerName = '3 桁 － 3 桁'
+			self.imgIcon = main.IMG_Minus
+			self.cntHorzMax = 2
+			self.cntVertMax = 15
+			self.attrCur.cntHorz = 2
+			self.attrCur.cntVert = 10
+			self.fontSize = 7
+		}
+		MakeQuestion() = {
+			numL = rand(900) + 100
+			numR = rand(numL - 2) + 1
+			numAnswer = numL - numR
+			LineQuestion(numL, '－', numR, numAnswer)
+		}
+	}
+	class(LineComposer) {
+		Initialize() = {
+			self.category = 'かけ算'
+			self.title = ['かけ算', 'かけざん']
+			self.composerName = '1 桁 × 1 桁'
+			self.imgIcon = main.IMG_Multiply
+			self.cntHorzMax = 2
+			self.cntVertMax = 15
+			self.attrCur.cntHorz = 2
+			self.attrCur.cntVert = 10
+		}
+		MakeQuestion() = {
+			numL = rand(9) + 1
+			numR = rand(9) + 1
+			numAnswer = numL * numR
+			LineQuestion(numL, '×', numR, numAnswer)
+		}
+	}
+	class(LineComposer) {
+		Initialize() = {
+			self.category = 'かけ算'
+			self.title = ['かけ算', 'かけざん']
+			self.composerName = '2 桁 × 1 桁'
+			self.imgIcon = main.IMG_Multiply
+			self.cntHorzMax = 2
+			self.cntVertMax = 15
+			self.attrCur.cntHorz = 2
+			self.attrCur.cntVert = 10
+		}
+		MakeQuestion() = {
+			numL = rand(99) + 1
+			numR = rand(9) + 1
+			numAnswer = numL * numR
+			LineQuestion(numL, '×', numR, numAnswer)
+		}
+	}
+	class(LineComposer) {
+		Initialize() = {
+			self.category = 'わり算'
+			self.title = ['わり算', 'わりざん']
+			self.composerName = '2 桁 ÷ 1 桁 = 1 桁 (余りなし)'
+			self.imgIcon = main.IMG_Divide
+			self.cntHorzMax = 2
+			self.cntVertMax = 15
+			self.attrCur.cntHorz = 2
+			self.attrCur.cntVert = 10
+		}
+		MakeQuestion() = {
+			numAnswer = rand(9) + 1
+			numR = rand(9) + 1
+			numL = numAnswer * numR
+			LineQuestion(numL, '÷', numR, numAnswer)
+		}
+	}
+	class(LineComposer) {
+		Initialize() = {
+			self.category = 'わり算'
+			self.title = ['わり算', 'わりざん']
+			self.composerName = '2 桁 ÷ 1 桁 = 1 桁'
+			self.imgIcon = main.IMG_Divide
+			self.cntHorzMax = 2
+			self.cntVertMax = 15
+			self.attrCur.cntHorz = 2
+			self.attrCur.cntVert = 10
+			self.alignAnswer = `left
+		}
+		MakeQuestion() = {
+			numAnswer = rand(9) + 1
+			numR = rand(9) + 1
+			numRest = rand(numR)
+			numL = numAnswer * numR + numRest
+			if (numRest == 0) {
+				LineQuestion(numL, '÷', numR, 0, format('%d', numAnswer))
+			} else {
+				LineQuestion(numL, '÷', numR, 0, format('%d … %d', numAnswer, numRest))
+			}
+		}
+	}
+	class(LineComposer) {
+		Initialize() = {
+			self.category = 'わり算'
+			self.title = ['わり算', 'わりざん']
+			self.composerName = '2 桁 ÷ 1 桁 = 2 桁'
+			self.imgIcon = main.IMG_Divide
+			self.cntHorzMax = 2
+			self.cntVertMax = 15
+			self.attrCur.cntHorz = 2
+			self.attrCur.cntVert = 10
+			self.alignAnswer = `left
+			self.wdLeft = 17
+			self.wdRight = 10
+			self.wdAnswer = 38
+		}
+		MakeQuestion() = {
+			numR = rand(8) + 2
+			numL = rand(100 - numR * 10) + numR * 10
+			numAnswer = math.floor(numL / numR)
+			numRest = numL - numR * numAnswer
+			if (numRest == 0) {
+				LineQuestion(numL, '÷', numR, 0, format('%d', numAnswer))
+			} else {
+				LineQuestion(numL, '÷', numR, 0, format('%d … %d', numAnswer, numRest))
+			}
+		}
+	}
+	class(BoxComposer) {
+		Initialize() = {
+			self.category = 'たし算 (筆算)'
+			self.title = ['たし算', 'たしざん']
+			self.composerName = '2 桁 ＋ 2 桁'
+			[self.nCols, self.nRows] = [3, 3]
+			self.imgIcon = main.IMG_Plus
+			self.cntHorzMax = 4
+			self.cntVertMax = 5
+			self.attrCur.cntHorz = 4
+			self.attrCur.cntVert = 5
+		}
+		MakeQuestion() = {
+			numL = rand(90) + 10
+			numR = rand(99) + 1
+			numAnswer = numL + numR
+			BoxQuestion(numL, '＋', numR, numAnswer)
+		}
+	}
+	class(BoxComposer) {
+		Initialize() = {
+			self.category = 'たし算 (筆算)'
+			self.title = ['たし算', 'たしざん']
+			self.composerName = '3 桁 ＋ 3 桁'
+			[self.nCols, self.nRows] = [4, 3]
+			self.imgIcon = main.IMG_Plus
+			self.cntHorzMax = 3
+			self.cntVertMax = 6
+			self.attrCur.cntHorz = 3
+			self.attrCur.cntVert = 6
+		}
+		MakeQuestion() = {
+			numL = rand(900) + 100
+			numR = rand(999) + 1
+			numAnswer = numL + numR
+			BoxQuestion(numL, '＋', numR, numAnswer)
+		}
+	}
+	class(BoxComposer) {
+		Initialize() = {
+			self.category = 'ひき算 (筆算)'
+			self.title = ['ひき算', 'ひきざん']
+			self.composerName = '2 桁 － 2 桁'
+			[self.nCols, self.nRows] = [3, 3]
+			self.imgIcon = main.IMG_Minus
+			self.cntHorzMax = 4
+			self.cntVertMax = 5
+			self.attrCur.cntHorz = 4
+			self.attrCur.cntVert = 5
+		}
+		MakeQuestion() = {
+			numL = rand(90) + 10
+			numR = rand(numL - 2) + 1
+			numAnswer = numL - numR
+			BoxQuestion(numL, '－', numR, numAnswer)
+		}
+	}
+	class(BoxComposer) {
+		Initialize() = {
+			self.category = 'ひき算 (筆算)'
+			self.title = ['ひき算', 'ひきざん']
+			self.composerName = '3 桁 － 3 桁'
+			[self.nCols, self.nRows] = [4, 3]
+			self.imgIcon = main.IMG_Minus
+			self.cntHorzMax = 3
+			self.cntVertMax = 6
+			self.attrCur.cntHorz = 3
+			self.attrCur.cntVert = 6
+		}
+		MakeQuestion() = {
+			numL = rand(900) + 100
+			numR = rand(numL - 2) + 1
+			numAnswer = numL - numR
+			BoxQuestion(numL, '－', numR, numAnswer)
+		}
+	}
+	class(BoxComposer) {
+		Initialize() = {
+			self.category = 'かけ算 (筆算)'
+			self.title = ['かけ算', 'かけざん']
+			self.composerName = '2 桁 × 1 桁'
+			[self.nCols, self.nRows] = [3, 3]
+			self.imgIcon = main.IMG_Multiply
+			self.cntHorzMax = 4
+			self.cntVertMax = 5
+			self.attrCur.cntHorz = 4
+			self.attrCur.cntVert = 5
+		}
+		MakeQuestion() = {
+			numL = rand(90) + 10
+			numR = rand(8) + 2
+			//if (rand() < .1) { [numL, numR] = [numR, numL] }
+			numAnswer = numL * numR
+			BoxQuestion(numL, '×', numR, numAnswer)
+		}
+	}
+	class(BoxComposer) {
+		Initialize() = {
+			self.category = 'かけ算 (筆算)'
+			self.title = ['かけ算', 'かけざん']
+			self.composerName = '3 桁 × 1 桁'
+			[self.nCols, self.nRows] = [4, 3]
+			self.imgIcon = main.IMG_Multiply
+			self.cntHorzMax = 3
+			self.cntVertMax = 5
+			self.attrCur.cntHorz = 3
+			self.attrCur.cntVert = 5
+		}
+		MakeQuestion() = {
+			numL = rand(900) + 100
+			numR = rand(8) + 2
+			numAnswer = numL * numR
+			BoxQuestion(numL, '×', numR, numAnswer)
+		}
+	}
+	class(BoxComposer) {
+		Initialize() = {
+			self.category = 'かけ算 (筆算)'
+			self.title = ['かけ算', 'かけざん']
+			self.composerName = '2 桁 × 2 桁'
+			[self.nCols, self.nRows] = [4, 5]
+			self.imgIcon = main.IMG_Multiply
+			self.cntHorzMax = 3
+			self.cntVertMax = 4
+			self.attrCur.cntHorz = 3
+			self.attrCur.cntVert = 4
+		}
+		MakeQuestion() = {
+			numL = rand(90) + 10
+			numR = rand(98) + 2
+			if (rand() < .5) {
+				[numL, numR] = [numR, numL]
+			}
+			numAnswer = numL * numR
+			BoxQuestion(numL, '×', numR, numAnswer)
+		}
+	}
+	class(BoxComposer) {
+		Initialize() = {
+			self.category = 'わり算 (筆算)'
+			self.title = ['わり算', 'わりざん']
+			self.composerName = '2 桁 ÷ 1 桁 = 2 桁'
+			[self.nCols, self.nRows] = [3, 6]
+			self.imgIcon = main.IMG_Divide
+			self.cntHorzMax = 3
+			self.cntVertMax = 4
+			self.attrCur.cntHorz = 3
+			self.attrCur.cntVert = 4
+		}
+		MakeQuestion() = {
+			numR = rand(8) + 2
+			numL = rand(100 - numR * 10) + numR * 10
+			BoxQuestionDiv(numL, numR)
+		}
+	}
+	class(BoxComposer) {
+		Initialize() = {
+			self.category = 'わり算 (筆算)'
+			self.title = ['わり算', 'わりざん']
+			self.composerName = '3 桁 ÷ 1 桁'
+			[self.nCols, self.nRows] = [4, 8]
+			self.imgIcon = main.IMG_Divide
+			self.cntHorzMax = 3
+			self.cntVertMax = 3
+			self.attrCur.cntHorz = 3
+			self.attrCur.cntVert = 3
+		}
+		MakeQuestion() = {
+			numL = rand(900) + 100
+			numR = rand(8) + 2
+			BoxQuestionDiv(numL, numR)
+		}
+	}
+	class(BoxComposer) {
+		Initialize() = {
+			self.category = 'わり算 (筆算)'
+			self.title = ['わり算', 'わりざん']
+			self.composerName = '4 桁 ÷ 1 桁'
+			[self.nCols, self.nRows] = [5, 10]
+			self.imgIcon = main.IMG_Divide
+			self.cntHorzMax = 3
+			self.cntVertMax = 3
+			self.attrCur.cntHorz = 3
+			self.attrCur.cntVert = 3
+		}
+		MakeQuestion() = {
+			numL = rand(9000) + 1000
+			numR = rand(8) + 2
+			BoxQuestionDiv(numL, numR)
+		}
+	}
+	class(BoxComposer) {
+		Initialize() = {
+			self.category = 'わり算 (筆算)'
+			self.title = ['わり算', 'わりざん']
+			self.composerName = '3 桁 ÷ 2 桁'
+			[self.nCols, self.nRows] = [5, 6]
+			self.imgIcon = main.IMG_Divide
+			self.cntHorzMax = 3
+			self.cntVertMax = 3
+			self.attrCur.cntHorz = 3
+			self.attrCur.cntVert = 3
+		}
+		MakeQuestion() = {
+			numL = rand(900) + 100
+			numR = rand(10) + 10
+			BoxQuestionDiv(numL, numR)
+		}
+	}
+}
+
+composers = for (composerClass in composerClasses):list { composerClass() }
+
+//-----------------------------------------------------------------------------
+// Panel
+//-----------------------------------------------------------------------------
+Panel = class(wx.Panel) {
+	__init__(parent:wx.Window) = {|parent|
+		self.composerCur = nil
+		outerBox = wx.BoxSizer(wx.VERTICAL)
+		self.SetSizer(outerBox)
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			outerBox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
+			wx.Button(self, wx.ID_ANY, '新しい問題') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand())
+				ctrl.Bind(wx.EVT_BUTTON) {|event|
+					if (self.composerCur) {
+						self.composerCur.ClearPages()
+						self.RefreshCanvas()
+					}
+				}
+			}
+			wx.Button(self, wx.ID_ANY, 'PDF 出力') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 4))
+				ctrl.Bind(wx.EVT_BUTTON) {|event|
+					composer = self.composerCur
+					if (composer) {
+						self.SetCursor(wx.StockCursor(wx.CURSOR_WAIT))
+						composer.OutputPDF()
+						self.SetCursor(wx.StockCursor(wx.CURSOR_ARROW))
+						self.treeCtrl.GetItemChildren(composer.itemComposer) {|item|
+							itemData = self.treeCtrl.GetGuraData(item)
+							if (!itemData) {
+								// nothing to do
+							} elsif (isinstance(itemData, `ComposerAttr)) {
+								attr = itemData
+								if (attr.HasSameValues(composer.attrCur)) {
+									self.treeCtrl.Delete(item)
+								}
+							}
+						}
+						attr = composer.attrCur.Clone()
+						stat = path.stat(composer.attrCur.fileNamePDF)
+						attr.name = stat.mtime.format('%Y-%m-%d %H:%M:%S')
+						composer.attrsHist.add(attr)
+						self.treeCtrl.AppendItem(composer.itemComposer,
+								attr.name, data => wx.TreeItemData(attr),
+								image => main.IMG_History)
+						main.OpenWithApp(composer.attrCur.fileNamePDF)
+					}
+				}
+			}
+			wx.TextCtrl(self, wx.ID_ANY) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.LEFT, 4))
+				self.textFileNamePDF = ctrl
+				ctrl.Bind(wx.EVT_TEXT) {|event|
+					if (self.composerCur) {
+						self.composerCur.attrCur.fileNamePDF = ctrl.GetValue()
+					}
+				}
+			}
+			wx.Button(self, wx.ID_ANY, '...', size => wx.Size(20, -1)) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand())
+			}
+			wx.StaticText(self, wx.ID_ANY, '作成する枚数') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().\
+							Border(wx.LEFT, 8).Align(wx.ALIGN_CENTRE_VERTICAL))
+			}
+			wx.SpinCtrl(self, wx.ID_ANY,
+						size => wx.Size(60, -1), min => 1, max => 40) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 4))
+				self.spinNPages = ctrl
+				ctrl.Bind(wx.EVT_SPINCTRL) {|event|
+					if (self.composerCur) {
+						self.composerCur.attrCur.nPages = ctrl.GetValue()
+						self.UpdateControls()
+					}
+				}
+			}
+		}
+		wx.StaticLine(self, wx.ID_ANY) {|ctrl|
+			outerBox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 2))
+		}
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			outerBox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
+			wx.StaticText(self, wx.ID_ANY, '一枚にのせる問題数') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Align(wx.ALIGN_CENTRE_VERTICAL))
+			}
+			wx.SpinCtrl(self, wx.ID_ANY,
+						size => wx.Size(50, -1), min => 1, max => 100) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 4))
+				self.spinCntHorz = ctrl
+				ctrl.Bind(wx.EVT_SPINCTRL) {|event|
+					composer = self.composerCur
+					if (composer) {
+						composer.attrCur.cntHorz = ctrl.GetValue()
+						composer.ClearPages()
+						self.RefreshCanvas()
+					}
+				}
+			}
+			wx.StaticText(self, wx.ID_ANY, '×') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().\
+						Align(wx.ALIGN_CENTRE_VERTICAL).Border(wx.LEFT, 2))
+			}
+			wx.SpinCtrl(self, wx.ID_ANY,
+						size => wx.Size(50, -1), min => 1, max => 100) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 2))
+				self.spinCntVert = ctrl
+				ctrl.Bind(wx.EVT_SPINCTRL) {|event|
+					composer = self.composerCur
+					if (composer) {
+						composer.attrCur.cntVert = ctrl.GetValue()
+						composer.ClearPages()
+						self.RefreshCanvas()
+					}
+				}
+			}
+			wx.CheckBox(self, wx.ID_ANY, 'タイトルなどに漢字を使う') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 8))
+				self.chkKanjiFlag = ctrl
+				ctrl.Bind(wx.EVT_CHECKBOX) {|event|
+					if (self.composerCur) {
+						self.composerCur.attrCur.kanjiFlag = ctrl.GetValue()
+						self.RefreshCanvas()
+					}
+				}
+			}
+			wx.CheckBox(self, wx.ID_ANY, '答えを作成する') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 8))
+				self.chkAnswerFlag = ctrl
+				ctrl.Bind(wx.EVT_CHECKBOX) {|event|
+					if (self.composerCur) {
+						self.composerCur.attrCur.answerFlag = ctrl.GetValue()
+						self.RefreshCanvas()
+					}
+				}
+			}
+			wx.CheckBox(self, wx.ID_ANY, '点数欄を追加する') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 8))
+				self.chkScoreBoxFlag = ctrl
+				ctrl.Bind(wx.EVT_CHECKBOX) {|event|
+					if (self.composerCur) {
+						self.composerCur.attrCur.scoreBoxFlag = ctrl.GetValue()
+						self.RefreshCanvas()
+					}
+				}
+			}
+			hbox.AddStretchSpacer(1)
+			wx.StaticText(self, wx.ID_ANY, '表示枚目') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Align(wx.ALIGN_CENTRE_VERTICAL))
+			}
+			wx.SpinCtrl(self, wx.ID_ANY,
+						size => wx.Size(60, -1), min => 1, max => 100) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 4))
+				self.spinIPage = ctrl
+				ctrl.Bind(wx.EVT_SPINCTRL) {|event|
+					if (self.composerCur) {
+						self.composerCur.iPageCur = ctrl.GetValue() - 1
+						self.RefreshCanvas()
+					}
+				}
+			}
+		}
+		wx.Panel(self) {|panel|
+			outerBox.Add(panel, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+			wx.SashLayoutWindow(panel, wx.ID_ANY,
+					style => wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN) {|sash|
+				sash.SetDefaultSize(wx.Size(main.cfg['wdNavi'], 1000));
+				sash.SetOrientation(wx.LAYOUT_VERTICAL);
+				sash.SetAlignment(wx.LAYOUT_LEFT);
+				sash.SetSashVisible(wx.SASH_RIGHT, true);
+				panel.sashLeft = sash
+			}
+			wx.Panel(panel.sashLeft) {|panelNavi|
+				outerBox = wx.BoxSizer(wx.VERTICAL)
+				panelNavi.SetSizer(outerBox)
+				wx.TreeCtrl(panelNavi, wx.ID_ANY, style => wx.TR_HIDE_ROOT | \
+								wx.TR_LINES_AT_ROOT | wx.TR_HAS_BUTTONS) {|ctrl|
+					outerBox.Add(ctrl, wx.SizerFlags(1).Expand())
+					ctrl.SetImageList(main.imgList)
+					itemRoot = ctrl.AddRoot('')
+					cfgSelect = main.cfg['select']
+					itemSelect = nil
+					composers.each() {|composer|
+						foundFlag = false
+						ctrl.GetItemChildren(itemRoot) {|itemCategory|
+							category = ctrl.GetItemText(itemCategory)
+							if (composer.category == category) {
+								foundFlag = true
+								break
+							}
+						}
+						if (!foundFlag) {
+							itemCategory = ctrl.AppendItem(itemRoot,
+										composer.category, image => composer.imgIcon)
+						}
+						itemComposer = ctrl.AppendItem(itemCategory, composer.composerName,
+								image => composer.imgIcon, data => wx.TreeItemData(composer))
+						ctrl.AppendItem(itemComposer, composer.attrsHist::name,
+								image => main.IMG_History,
+								data => wx.TreeItemData(composer.attrsHist))
+						composer.itemComposer = itemComposer
+						if (composer.category == cfgSelect['category'] && \
+								composer.composerName == cfgSelect['composerName']) {
+							itemSelect = itemComposer
+							self.composerCur = composer
+						}
+					}
+					itemSelect && ctrl.SelectItem(itemSelect)
+					ctrl.Bind(wx.EVT_TREE_SEL_CHANGED) {|event|
+						item = event.GetItem()
+						itemData = ctrl.GetGuraData(item)
+						composerSel = nil
+						if (!itemData) {
+							// nothing to do
+						} elsif (isinstance(itemData, `Composer)) {
+							composerSel = itemData
+						} elsif (isinstance(itemData, `ComposerAttr)) {
+							attr = itemData
+							itemParent = ctrl.GetItemParent(item)
+							if (itemParent) {
+								itemDataParent = ctrl.GetGuraData(itemParent)
+								if (!itemDataParent) {
+									// nothing to do
+								} elsif (isinstance(itemDataParent, `Composer)) {
+									composerSel = itemDataParent
+									composerSel.attrCur = attr.Clone()
+								}
+							}
+						}
+						if (composerSel) {
+							self.composerCur = composerSel
+							cfgSelect['category', 'composerName'] = \
+										[composerSel.category, composerSel.composerName]
+							self.UpdateControls()
+						}
+					}
+					self.treeCtrl = ctrl
+				}
+			}
+			self.canvas = Canvas(panel)
+			panel.Bind(wx.EVT_SIZE) {|event|
+				wx.LayoutAlgorithm().LayoutWindow(panel, self.canvas)
+			}
+			panel.Bind(wx.EVT_SASH_DRAGGED) {|event|
+				id = event.GetId()
+				if (id == panel.sashLeft.GetId()) {
+					wdNavi = event.GetDragRect().GetWidth() + 2
+					panel.sashLeft.SetDefaultSize(wx.Size(wdNavi, 1000))
+					main.cfg['wdNavi'] = wdNavi
+				}
+				wx.LayoutAlgorithm().LayoutWindow(panel, self.canvas)
+				self.canvas.Refresh()
+			}
+		}
+		self.UpdateControls()
+	}
+	UpdateControls() = {
+		composer = self.composerCur
+		!composer && return
+		self.RefreshCanvas() // this may have modified composer
+		self.textFileNamePDF.ChangeValue(composer.attrCur.fileNamePDF)
+		self.spinCntHorz.SetValue(composer.attrCur.cntHorz)
+		self.spinCntVert.SetValue(composer.attrCur.cntVert)
+		self.spinCntHorz.SetRange(1, composer.cntHorzMax)
+		self.spinCntVert.SetRange(1, composer.cntVertMax)
+		self.spinNPages.SetValue(composer.attrCur.nPages)
+		self.spinIPage.SetRange(1, composer.attrCur.nPages)
+		self.spinIPage.SetValue(composer.iPageCur + 1)
+		self.chkKanjiFlag.SetValue(composer.attrCur.kanjiFlag)
+		self.chkAnswerFlag.SetValue(composer.attrCur.answerFlag)
+		self.chkScoreBoxFlag.SetValue(composer.attrCur.scoreBoxFlag)
+	}
+	RefreshCanvas() = {
+		self.composerCur && self.canvas.DrawContent(self.composerCur)
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Frame
+//-----------------------------------------------------------------------------
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
+						path.filename(sys.argv[0]),
+						size => wx.Size(main.cfg['wdFrame', 'htFrame']*)|
+		self.SetIcon(wx.IconFromXPMData(sample_xpm))
+		Panel(self)
+		self.Bind(wx.EVT_SIZE) {|event|
+			size = event.GetSize()
+			main.cfg['wdFrame', 'htFrame'] = [size.GetWidth(), size.GetHeight()]
+			event.Skip()
+		}
+	}
+}
+
+sample_xpm = @{
+"32 32 6 1",
+"  c black",
+". c navy",
+"X c red",
+"o c yellow",
+"O c gray100",
+"+ c None",
+/* pixels */
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++              ++++++++++",
+"++++++++ ............ ++++++++++",
+"++++++++ ............ ++++++++++",
+"++++++++ .OO......... ++++++++++",
+"++++++++ .OO......... ++++++++++",
+"++++++++ .OO......... ++++++++++",
+"++++++++ .OO......              ",
+"++++++++ .OO...... oooooooooooo ",
+"         .OO...... oooooooooooo ",
+" XXXXXXX .OO...... oOOooooooooo ",
+" XXXXXXX .OO...... oOOooooooooo ",
+" XOOXXXX ......... oOOooooooooo ",
+" XOOXXXX ......... oOOooooooooo ",
+" XOOXXXX           oOOooooooooo ",
+" XOOXXXXXXXXX ++++ oOOooooooooo ",
+" XOOXXXXXXXXX ++++ oOOooooooooo ",
+" XOOXXXXXXXXX ++++ oOOooooooooo ",
+" XOOXXXXXXXXX ++++ oooooooooooo ",
+" XOOXXXXXXXXX ++++ oooooooooooo ",
+" XXXXXXXXXXXX ++++              ",
+" XXXXXXXXXXXX ++++++++++++++++++",
+"              ++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++"
+}
+
+//-----------------------------------------------------------------------------
+// main function call
+//-----------------------------------------------------------------------------
+main.main()

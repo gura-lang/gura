@@ -1,0 +1,35 @@
+Example 2.1 .. ['Mark McGwire', 'Sammy Sosa', 'Ken Griffey']
+Example 2.2 .. %{'avg' => '0.278', 'hr' => '65', 'rbi' => '147'}
+Example 2.3 .. %{'american' => ['Boston Red Sox', 'Detroit Tigers', 'New York Yankees'], 'national' => ['New York Mets', 'Chicago Cubs', 'Atlanta Braves']}
+Example 2.4 .. [%{'avg' => '0.278', 'hr' => '65', 'name' => 'Mark McGwire'}, %{'avg' => '0.288', 'hr' => '63', 'name' => 'Sammy Sosa'}]
+Example 2.5 .. [['name', 'hr', 'avg'], ['Mark McGwire', '65', '0.278'], ['Sammy Sosa', '63', '0.288']]
+Example 2.6 .. %{'Mark McGwire' => %{'avg' => '0.278', 'hr' => '65'}, 'Sammy Sosa' => %{'avg' => '0.288', 'hr' => '63'}}
+Example 2.7 .. ['Mark McGwire', 'Sammy Sosa', 'Ken Griffey']
+Example 2.8 .. %{'action' => 'strike (miss)', 'player' => 'Sammy Sosa', 'time' => '20:03:20'}
+Example 2.9 .. %{'hr' => ['Mark McGwire', 'Sammy Sosa'], 'rbi' => ['Sammy Sosa', 'Ken Griffey']}
+Example 2.10 .. %{'hr' => ['Mark McGwire', 'Sammy Sosa'], 'rbi' => ['Sammy Sosa', 'Ken Griffey']}
+Example 2.11 .. %{['Detroit Tigers', 'Chicago cubs'] => ['2001-07-23'], ['New York Yankees', 'Atlanta Braves'] => ['2001-07-02', '2001-08-12', '2001-08-14']}
+Example 2.12 .. [%{'item' => 'Super Hoop', 'quantity' => '1'}, %{'item' => 'Basketball', 'quantity' => '4'}, %{'item' => 'Big Shoes', 'quantity' => '1'}]
+Example 2.13 .. \//||\/||
+// ||  ||__
+
+Example 2.14 .. Mark McGwire's year was crippled by a knee injury.
+Example 2.15 .. Sammy Sosa completed another fine season with great stats.
+
+  63 Home Runs
+  0.288 Batting Average
+
+What a year!
+
+Example 2.16 .. %{'accomplishment' => 'Mark set a major league home run record in 1998.\n', 'name' => 'Mark McGwire', 'stats' => '65 Home Runs\n0.278 Batting Average\n'}
+Example 2.18 .. %{'plain' => 'This unquoted scalar spans many lines.', 'quoted' => 'So does this quoted scalar.\n'}
+Example 2.19 .. %{'canonical' => '12345', 'decimal' => '+12,345', 'hexadecimal' => '0xC', 'octal' => '014', 'sexagecimal' => '3:25:45'}
+Example 2.20 .. %{'canonical' => '1.23015e+3', 'exponential' => '12.3015e+02', 'fixed' => '1,230.15', 'negative infinity' => '-.inf', 'not a number' => '.NaN', 'sexagecimal' => '20:30.15'}
+Example 2.21 .. %{'false' => 'n', 'null' => '~', 'string' => '12345', 'true' => 'y'}
+Example 2.22 .. %{'canonical' => '2001-12-15T02:59:43.1Z', 'date' => '2002-12-14', 'iso8601' => '2001-12-14t21:59:43.10-05:00', 'spaced' => '2001-12-14 21:59:43.10 -5'}
+Example 2.23 .. %{'application specific tag' => 'The semantics of the tag\nabove may be different for\ndifferent documents.\n', 'not-date' => '2002-04-28', 'picture' => 'R0lGODlhDAAMAIQAAP//9/X\n17unp5WZmZgAAAOfn515eXv\nPz7Y6OjuDg4J+fn5OTk6enp\n56enmleECcgggoBADs=\n'}
+Example 2.24 .. [%{'center' => %{'x' => '73', 'y' => '129'}, 'radius' => '7'}, %{'finish' => %{'x' => '89', 'y' => '102'}, 'start' => %{'x' => '73', 'y' => '129'}}, %{'color' => '0xFFEEBB', 'start' => %{'x' => '73', 'y' => '129'}, 'text' => 'Pretty vector drawing.'}]
+Example 2.25 .. %{'Ken Griff' => '', 'Mark McGwire' => '', 'Sammy Sosa' => ''}
+Example 2.26 .. [%{'Mark McGwire' => '65'}, %{'Sammy Sosa' => '63'}, %{'Ken Griffy' => '58'}]
+Example 2.27 .. %{'bill-to' => %{'address' => %{'city' => 'Royal Oak', 'lines' => '458 Walkman Dr.\nSuite #292\n', 'postal' => '48046', 'state' => 'MI'}, 'family' => 'Dumars', 'given' => 'Chris'}, 'comments' => 'Late afternoon is best. Backup contact is Nancy Billsmer @ 338-4338.', 'date' => '2001-01-23', 'invoice' => '34843', 'product' => [%{'description' => 'Basketball', 'price' => '450.00', 'quantity' => '4', 'sku' => 'BL394D'}, %{'description' => 'Super Hoop', 'price' => '2392.00', 'quantity' => '1', 'sku' => 'BL4438H'}], 'ship-to' => %{'address' => %{'city' => 'Royal Oak', 'lines' => '458 Walkman Dr.\nSuite #292\n', 'postal' => '48046', 'state' => 'MI'}, 'family' => 'Dumars', 'given' => 'Chris'}, 'tax' => '251.42', 'total' => '4443.52'}
+Example 2.28 .. [%{'Time' => '2001-11-23 15:01:42 -5', 'User' => 'ed', 'Warning' => 'This is an error message for the log file'}, %{'Time' => '2001-11-23 15:02:31 -5', 'User' => 'ed', 'Warning' => 'A slightly different error message.'}, %{'Date' => '2001-11-23 15:03:17 -5', 'Fatal' => 'Unknown variable "bar"', 'Stack' => [%{'code' => 'x = MoreObject("345\\n")\n', 'file' => 'TopClass.py', 'line' => '23'}, %{'code' => 'foo = bar', 'file' => 'MoreClass.py', 'line' => '58'}], 'User' => 'ed'}]

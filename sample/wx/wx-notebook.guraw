@@ -1,0 +1,658 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        samples/notebook/notebook.cpp
+// Purpose:     a sample demonstrating notebook usage
+// Author:      Julian Smart
+// Modified by: Dimitri Schoolwerth
+// Created:     26/10/98
+// RCS-ID:      $Id: notebook.cpp 63098 2010-01-08 04:33:21Z PC $
+// Copyright:   (c) 1998-2002 wxWidgets team
+// License:     wxWindows license
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+[
+	// these should be in the same order as Type_XXX elements above
+	ID_BOOK_NOTEBOOK,
+	ID_BOOK_LISTBOOK,
+	ID_BOOK_CHOICEBOOK,
+	ID_BOOK_TREEBOOK,
+	ID_BOOK_TOOLBOOK,
+	ID_BOOK_MAX,
+	ID_ORIENT_DEFAULT,
+	ID_ORIENT_TOP,
+	ID_ORIENT_BOTTOM,
+	ID_ORIENT_LEFT,
+	ID_ORIENT_RIGHT,
+	ID_ORIENT_MAX,
+	ID_SHOW_IMAGES,
+	ID_MULTI,
+	ID_ADD_PAGE,
+	ID_ADD_PAGE_NO_SELECT,
+	ID_INSERT_PAGE,
+	ID_DELETE_CUR_PAGE,
+	ID_DELETE_LAST_PAGE,
+	ID_NEXT_PAGE,
+	ID_ADD_PAGE_BEFORE,
+	ID_ADD_SUB_PAGE,
+	ID_GO_HOME,
+	ID_CONTEXT_HELP,
+	ID_HITTEST
+] = wx.ID_HIGHEST..
+
+/*
+Name of each notebook page.
+Used as a label for a page, and used when cloning the notebook
+to decide what type of page it is.
+*/
+
+I_WAS_INSERTED_PAGE_NAME = 'Inserted'
+RADIOBUTTONS_PAGE_NAME = 'Radiobuttons'
+VETO_PAGE_NAME = 'Veto'
+MAXIMIZED_BUTTON_PAGE_NAME = 'Maximized button'
+
+// Pages that can be added by the user
+INSERTED_PAGE_NAME = 'Inserted '
+ADDED_PAGE_NAME = 'Added '
+ADDED_PAGE_NAME_BEFORE = ' Inserted before '
+ADDED_SUB_PAGE_NAME = ' Inserted sub-page '
+
+// Define a new application
+MyApp = class(wx.App) {
+	OnInit() = {
+		wx.HelpProvider.Set(wx.SimpleHelpProvider())
+		frame = MyFrame()
+		frame.Show()
+		true
+	}
+}
+
+CreateUserCreatedPage(parent:wx.BookCtrlBase) = {
+	panel = wx.Panel(parent)
+	panel.SetHelpText('Panel with a Button')
+	wx.Button(panel, wx.ID_ANY, 'Button',
+		wx.Point(10, 10), wx.DefaultSize)
+	panel
+}
+
+CreateRadioButtonsPage(parent:wx.BookCtrlBase) = {
+	panel = wx.Panel(parent)
+	panel.SetHelpText('Panel with some Radio Buttons')
+	animals = ['Fox', 'Hare', 'Rabbit',
+		'Sabre-toothed tiger', 'T Rex']
+	radiobox1 = wx.RadioBox(panel, wx.ID_ANY, 'Choose one',
+		wx.DefaultPosition, wx.DefaultSize, animals, 2, wx.RA_SPECIFY_ROWS)
+	computers = ['Amiga', 'Commodore 64', 'PET',
+		'Another']
+	radiobox2 = wx.RadioBox(panel, wx.ID_ANY,
+		'Choose your favourite', wx.DefaultPosition, wx.DefaultSize,
+		computers, 0, wx.RA_SPECIFY_COLS)
+	sizerPanel = wx.BoxSizer(wx.VERTICAL)
+	sizerPanel.Add(radiobox1, wx.SizerFlags(2).Expand())
+	sizerPanel.Add(radiobox2, wx.SizerFlags(1).Expand())
+	panel.SetSizer(sizerPanel)
+	panel
+}
+
+CreateVetoPage(parent:wx.BookCtrlBase) = {
+	panel = wx.Panel(parent)
+	panel.SetHelpText('An empty panel')
+	wx.StaticText(panel, wx.ID_ANY,
+		'This page intentionally left blank', wx.Point(10, 10))
+	panel
+}
+
+CreateBigButtonPage(parent:wx.BookCtrlBase) = {
+	panel = wx.Panel(parent)
+	panel.SetHelpText('Panel with a maximized button')
+	buttonBig = wx.Button(panel, wx.ID_ANY, 'Maximized button')
+	sizerPanel = wx.BoxSizer(wx.VERTICAL)
+	sizerPanel.Add(buttonBig, wx.SizerFlags(1).Expand())
+	panel.SetSizer(sizerPanel)
+	panel
+}
+
+CreateInsertPage(parent:wx.BookCtrlBase) = {
+	panel = wx.Panel(parent)
+	panel.SetHelpText('Maroon panel')
+	panel.SetBackgroundColour(wx.NamedColour('MAROON'))
+	wx.StaticText(panel, wx.ID_ANY,
+		'This page has been inserted, not added.', wx.Point(10, 10) )
+	panel
+}
+
+GetIconIndex(bookCtrl:wx.BookCtrlBase) = {
+	if (bookCtrl && bookCtrl.GetImageList()) {
+		nImages = bookCtrl.GetImageList().GetImageCount()
+		if (nImages > 0) {
+			return(bookCtrl.GetPageCount() % nImages)
+		}
+	}
+	-1
+}
+
+CreateInitialPages(parent:wx.BookCtrlBase) = {
+	// Create and add some panels to the notebook
+	panel = CreateRadioButtonsPage(parent)
+	parent.AddPage(panel, RADIOBUTTONS_PAGE_NAME, false, GetIconIndex(parent))
+	panel = CreateVetoPage(parent)
+	parent.AddPage(panel, VETO_PAGE_NAME, false, GetIconIndex(parent))
+	panel = CreateBigButtonPage(parent)
+	parent.AddPage(panel, MAXIMIZED_BUTTON_PAGE_NAME, false, GetIconIndex(parent))
+	panel = CreateInsertPage(parent)
+	parent.InsertPage(0, panel, I_WAS_INSERTED_PAGE_NAME, false, GetIconIndex(parent))
+	parent.SetSelection(1)
+}
+
+CreatePage(parent:wx.BookCtrlBase, pageName:string) = {
+	if (pageName.find(INSERTED_PAGE_NAME) || \
+			pageName.find(ADDED_PAGE_NAME) || \
+				pageName.find(ADDED_SUB_PAGE_NAME) || \
+					pageName.find(ADDED_PAGE_NAME_BEFORE)) {
+		return(CreateUserCreatedPage(parent))
+	}
+	if (pageName == I_WAS_INSERTED_PAGE_NAME) {
+		return(CreateInsertPage(parent))
+	}
+	if (pageName == VETO_PAGE_NAME) {
+		return(CreateVetoPage(parent))
+	}
+	if (pageName == RADIOBUTTONS_PAGE_NAME) {
+		return(CreateRadioButtonsPage(parent))
+	}
+	if (pageName == MAXIMIZED_BUTTON_PAGE_NAME) {
+		return(CreateBigButtonPage(parent))
+	}
+	wx.FAIL_MSG('unknown page name')
+	nil
+}
+
+MyFrame = class(wx.Frame) {
+	__init__() = {|nil, wx.ID_ANY, 'wxWidgets book controls sample'|
+		self.EventTable()
+		self.SetExtraStyle(wx.FRAME_EX_CONTEXTHELP)
+		self.m_type = self.Type_Notebook
+		self.m_orient = ID_ORIENT_DEFAULT
+		self.m_chkShowImages = true
+		self.m_multi = false
+		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		// menu of the sample
+		menuType = wx.Menu()
+		menuType.AppendRadioItem(ID_BOOK_NOTEBOOK,   '&Notebook\tCtrl-1')
+		menuType.AppendRadioItem(ID_BOOK_LISTBOOK,   '&Listbook\tCtrl-2')
+		menuType.AppendRadioItem(ID_BOOK_CHOICEBOOK, '&Choicebook\tCtrl-3')
+		menuType.AppendRadioItem(ID_BOOK_TREEBOOK,   '&Treebook\tCtrl-4')
+		menuType.AppendRadioItem(ID_BOOK_TOOLBOOK,   'T&oolbook\tCtrl-5')
+		menuType.Check(ID_BOOK_NOTEBOOK + self.m_type, true)
+		menuOrient = wx.Menu()
+		menuOrient.AppendRadioItem(ID_ORIENT_DEFAULT, '&Default\tCtrl-5')
+		menuOrient.AppendRadioItem(ID_ORIENT_TOP,	 '&Top\tCtrl-6')
+		menuOrient.AppendRadioItem(ID_ORIENT_BOTTOM,  '&Bottom\tCtrl-7')
+		menuOrient.AppendRadioItem(ID_ORIENT_LEFT,	'&Left\tCtrl-8')
+		menuOrient.AppendRadioItem(ID_ORIENT_RIGHT,   '&Right\tCtrl-9')
+		menuPageOperations = wx.Menu()
+		menuPageOperations.Append(ID_ADD_PAGE, '&Add page\tAlt-A')
+		menuPageOperations.Append(ID_ADD_PAGE_NO_SELECT, "&Add page (don't select)\tAlt-B")
+		menuPageOperations.Append(ID_INSERT_PAGE, '&Insert page\tAlt-I')
+		menuPageOperations.Append(ID_DELETE_CUR_PAGE, '&Delete current page\tAlt-D')
+		menuPageOperations.Append(ID_DELETE_LAST_PAGE, 'D&elete last page\tAlt-L')
+		menuPageOperations.Append(ID_NEXT_PAGE, '&Next page\tAlt-N')
+		menuPageOperations.AppendSeparator()
+		menuPageOperations.Append(ID_ADD_PAGE_BEFORE, 'Insert page &before\tAlt-B')
+		menuPageOperations.Append(ID_ADD_SUB_PAGE, 'Add s&ub page\tAlt-U')
+		menuPageOperations.AppendSeparator()
+		menuPageOperations.Append(ID_GO_HOME, 'Go to the first page\tCtrl-F')
+		menuOperations = wx.Menu()
+		menuOperations.Append(ID_CONTEXT_HELP, '&Context help\tCtrl-F1')
+		menuOperations.Append(ID_HITTEST, '&Hit test\tCtrl-H')
+		menuFile = wx.Menu()
+		menuFile.AppendMenu(wx.ID_ANY, '&Type', menuType, 'Type of control')
+		menuFile.AppendMenu(wx.ID_ANY, '&Orientation', menuOrient, 'Orientation of control')
+		menuFile.AppendCheckItem(ID_SHOW_IMAGES, '&Show images\tAlt-S')
+		menuFile.AppendCheckItem(ID_MULTI, '&Multiple lines\tAlt-M')
+		menuFile.AppendSeparator()
+		menuFile.Append(wx.ID_EXIT, 'E&xit', 'Quits the application')
+		menuFile.Check(ID_SHOW_IMAGES, self.m_chkShowImages)
+		menuFile.Check(ID_MULTI, self.m_multi)
+		menuBar = wx.MenuBar()
+		menuBar.Append(menuFile, '&File')
+		menuBar.Append(menuPageOperations, '&Pages')
+		menuBar.Append(menuOperations, '&Operations')
+		self.SetMenuBar(menuBar)
+		// books creation
+		self.m_panel	= nil
+		self.m_bookCtrl = nil
+		// create a dummy image list with a few icons
+		imageSize = wx.Size(32, 32)
+		self.m_imageList = wx.ImageList(imageSize.GetWidth(), imageSize.GetHeight())
+		self.m_imageList. \
+			Add(wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_OTHER, imageSize))
+		self.m_imageList. \
+			Add(wx.ArtProvider.GetBitmap(wx.ART_QUESTION, wx.ART_OTHER, imageSize))
+		self.m_imageList. \
+			Add(wx.ArtProvider.GetBitmap(wx.ART_WARNING, wx.ART_OTHER, imageSize))
+		self.m_imageList. \
+			Add(wx.ArtProvider.GetBitmap(wx.ART_ERROR, wx.ART_OTHER, imageSize))
+		self.m_panel = wx.Panel(self)
+		self.m_text = wx.TextCtrl(self.m_panel, wx.ID_ANY, wx.EmptyString,
+								wx.DefaultPosition, wx.DefaultSize,
+								wx.TE_MULTILINE | wx.TE_READONLY)
+		self.m_logTargetOld = wx.Log.SetActiveTarget(wx.LogTextCtrl(self.m_text))
+		// Set sizers
+		self.m_sizerFrame = wx.BoxSizer(wx.VERTICAL)
+		self.m_sizerFrame.Add(self.m_text, wx.SizerFlags(1).Expand())
+		self.RecreateBook()
+		self.m_panel.SetSizer(self.m_sizerFrame)
+		self.m_sizerFrame.Fit(self)
+		self.m_sizerFrame.SetSizeHints(self)
+		self.Centre(wx.BOTH)
+	}
+	EventTable() = {
+		// event handler
+		// File menu
+		self.Bind(wx.EVT_MENU_RANGE, ID_BOOK_NOTEBOOK, ID_BOOK_MAX) {|event| self.OnType(event) }
+		self.Bind(wx.EVT_MENU_RANGE, ID_ORIENT_DEFAULT, ID_ORIENT_MAX) {|event| self.OnOrient(event) }
+		self.Bind(wx.EVT_MENU, ID_SHOW_IMAGES) {|event| self.OnShowImages(event) }
+		self.Bind(wx.EVT_MENU, ID_MULTI) {|event| self.OnMulti(event) }
+		self.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| self.OnExit(event) }
+		// Operations menu
+		self.Bind(wx.EVT_MENU, ID_ADD_PAGE) {|event| self.OnAddPage(event) }
+		self.Bind(wx.EVT_MENU, ID_ADD_PAGE_NO_SELECT) {|event| self.OnAddPageNoSelect(event) }
+		self.Bind(wx.EVT_MENU, ID_INSERT_PAGE) {|event| self.OnInsertPage(event) }
+		self.Bind(wx.EVT_MENU, ID_DELETE_CUR_PAGE) {|event| self.OnDeleteCurPage(event) }
+		self.Bind(wx.EVT_MENU, ID_DELETE_LAST_PAGE) {|event| self.OnDeleteLastPage(event) }
+		self.Bind(wx.EVT_MENU, ID_NEXT_PAGE) {|event| self.OnNextPage(event) }
+		self.Bind(wx.EVT_MENU, ID_GO_HOME) {|event| self.OnGoHome(event) }
+		self.Bind(wx.EVT_MENU, ID_CONTEXT_HELP) {|event| self.OnContextHelp(event) }
+		self.Bind(wx.EVT_MENU, ID_HITTEST) {|event| self.OnHitTest(event) }
+		// Book controls
+		self.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, wx.ID_ANY) {|event| self.OnNotebook(event) }
+		self.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGING, wx.ID_ANY) {|event| self.OnNotebook(event) }
+		self.Bind(wx.EVT_LISTBOOK_PAGE_CHANGED, wx.ID_ANY) {|event| self.OnListbook(event) }
+		self.Bind(wx.EVT_LISTBOOK_PAGE_CHANGING, wx.ID_ANY) {|event| self.OnListbook(event) }
+		self.Bind(wx.EVT_CHOICEBOOK_PAGE_CHANGED, wx.ID_ANY) {|event| self.OnChoicebook(event) }
+		self.Bind(wx.EVT_CHOICEBOOK_PAGE_CHANGING, wx.ID_ANY) {|event| self.OnChoicebook(event) }
+		self.Bind(wx.EVT_TREEBOOK_PAGE_CHANGED, wx.ID_ANY) {|event| self.OnTreebook(event) }
+		self.Bind(wx.EVT_TREEBOOK_PAGE_CHANGING, wx.ID_ANY) {|event| self.OnTreebook(event) }
+		self.Bind(wx.EVT_MENU, ID_ADD_SUB_PAGE) {|event| self.OnAddSubPage(event) }
+		self.Bind(wx.EVT_MENU, ID_ADD_PAGE_BEFORE) {|event| self.OnAddPageBefore(event) }
+		self.Bind(wx.EVT_UPDATE_UI_RANGE, ID_ADD_PAGE_BEFORE, ID_ADD_SUB_PAGE) {|event| self.OnUpdateTreeMenu(event) }
+		self.Bind(wx.EVT_TOOLBOOK_PAGE_CHANGED, wx.ID_ANY) {|event| self.OnToolbook(event) }
+		self.Bind(wx.EVT_TOOLBOOK_PAGE_CHANGING, wx.ID_ANY) {|event| self.OnToolbook(event) }
+		// Update title in idle time
+		self.Bind(wx.EVT_IDLE) {|event| self.OnIdle(event) }
+	}
+	TranslateBookFlag(nb:number, lb:number, chb:number, tbk:number, toolbk:number) = {
+		flag = 0
+		if (self.m_type == self.Type_Notebook) {
+			flag = nb
+		} elsif (self.m_type == self.Type_Listbook) {
+			flag = lb
+		} elsif (self.m_type == self.Type_Choicebook) {
+			flag = chb
+		} elsif (self.m_type == self.Type_Treebook) {
+			flag = tbk
+		} elsif (self.m_type == self.Type_Toolbook) {
+			flag = toolbk
+		} else {
+			wx.FAIL_MSG('unknown book control type')
+		}
+		flag
+	}
+	RecreateBook() = {
+		if (self.m_orient == ID_ORIENT_TOP) {
+			flags = wx.BK_TOP
+		} elsif (self.m_orient == ID_ORIENT_BOTTOM) {
+			flags = wx.BK_BOTTOM
+		} elsif (self.m_orient == ID_ORIENT_LEFT) {
+			flags = wx.BK_LEFT
+		} elsif (self.m_orient == ID_ORIENT_RIGHT) {
+			flags = wx.BK_RIGHT
+		} else {
+			flags = wx.BK_DEFAULT
+		}
+		if (self.m_multi && self.m_type == self.Type_Notebook) {
+			flags |= wx.NB_MULTILINE
+		}
+		oldBook = self.m_bookCtrl
+		self.m_bookCtrl = nil
+		if (self.m_type == self.Type_Notebook) {
+			self.m_bookCtrl = wx.Notebook(self.m_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, flags)
+		} elsif (self.m_type == self.Type_Listbook) {
+			self.m_bookCtrl = wx.Listbook(self.m_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, flags)
+		} elsif (self.m_type == self.Type_Choicebook) {
+			self.m_bookCtrl = wx.Choicebook(self.m_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, flags)
+		} elsif (self.m_type == self.Type_Treebook) {
+			self.m_bookCtrl = wx.Treebook(self.m_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, flags)
+		} elsif (self.m_type == self.Type_Toolbook) {
+			self.m_bookCtrl = wx.Toolbook(self.m_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, flags)
+		} else {
+			wx.FAIL_MSG('unknown book control type')
+		}
+		if (!self.m_bookCtrl) {
+			return
+		}
+		self.m_bookCtrl.Hide()
+		if (self.m_chkShowImages) {
+			self.m_bookCtrl.SetImageList(self.m_imageList)
+		}
+		if (oldBook) {
+			count = oldBook.GetPageCount()
+			repeat(count) {|n|
+				image = GetIconIndex(self.m_bookCtrl)
+				str = oldBook.GetPageText(n)
+				page = CreatePage(self.m_bookCtrl, str)
+				// treebook complication: need to account for possible parent page
+				if (isinstance(oldBook, `wx.Treebook)) {
+					parent = oldBook.GetPageParent(n)
+					if (parent != wx.NOT_FOUND) {
+						self.m_bookCtrl. \
+							InsertSubPage(parent, page, str, false, image)
+						// skip adding it again below
+						continue
+					}
+				}
+				self.m_bookCtrl.AddPage(page, str, false, image)
+			}
+			sel = oldBook.GetSelection()
+			if (sel != wx.NOT_FOUND) {
+				self.m_bookCtrl.SetSelection(sel)
+			}
+			self.m_sizerFrame.Detach(oldBook)
+			oldBook.Destroy()
+		} else { // no old book
+			CreateInitialPages(self.m_bookCtrl)
+		}
+		self.m_sizerFrame.Insert(0, self.m_bookCtrl, wx.SizerFlags(5).Expand().Border())
+		self.m_sizerFrame.Show(self.m_bookCtrl)
+		self.m_sizerFrame.Layout()
+	}
+	OnContextHelp(event:wx.CommandEvent) = {
+		ch = wx.ContextHelp(self)
+	}
+	AddFlagStrIfFlagPresent(flagStr:string, flags:number, flag:number, flagName:string) = {
+		if ((flags & flag) == flag) {
+			if (!flagStr.isempty()) {
+				flagStr += ' | '
+			}
+			flagStr += flagName
+		}
+		flagStr
+	}
+	OnHitTest(event:wx.CommandEvent) = {
+		book = self.GetCurrentBook()
+		pt = wx.GetMousePosition()
+		[pagePos, flags] = book.HitTest(book.ScreenToClient(pt))
+		flagStr = ''
+		flagStr = self.AddFlagStrIfFlagPresent(flagStr, flags, wx.BK_HITTEST_NOWHERE, 'wxBK_HITTEST_NOWHERE')
+		flagStr = self.AddFlagStrIfFlagPresent(flagStr, flags, wx.BK_HITTEST_ONICON,  'wxBK_HITTEST_ONICON')
+		flagStr = self.AddFlagStrIfFlagPresent(flagStr, flags, wx.BK_HITTEST_ONLABEL, 'wxBK_HITTEST_ONLABEL')
+		flagStr = self.AddFlagStrIfFlagPresent(flagStr, flags, wx.BK_HITTEST_ONPAGE,  'wxBK_HITTEST_ONPAGE')
+		wx.LogMessage('HitTest at (%d,%d): %d: %s',
+					pt.x,
+					pt.y,
+					pagePos,
+					flagStr)
+	}
+	OnType(event:wx.CommandEvent) = {
+		self.m_type = event.GetId() - ID_BOOK_NOTEBOOK
+		if (self.m_bookCtrl) {
+			self.m_sizerFrame.Hide(self.m_bookCtrl)
+		}
+		self.RecreateBook()
+	}
+	OnUpdateTreeMenu(event:wx.UpdateUIEvent) = {
+		event.Enable(self.m_type == self.Type_Treebook)
+	}
+	OnOrient(event:wx.CommandEvent) = {
+		self.m_orient = event.GetId()
+		self.RecreateBook()
+		self.m_sizerFrame.Layout()
+	}
+	OnShowImages(event:wx.CommandEvent) = {
+		self.m_chkShowImages = event.IsChecked()
+		self.RecreateBook()
+		self.m_sizerFrame.Layout()
+	}
+	OnMulti(event:wx.CommandEvent) = {
+		self.m_multi = event.IsChecked()
+		self.RecreateBook()
+		self.m_sizerFrame.Layout()
+		wx.LogMessage('Multiline setting works only in wxNotebook.')
+	}
+	OnExit(event:wx.CommandEvent) = {
+		self.Close()
+	}
+	CreateNewPage() = {
+		panel = wx.Panel(self.m_bookCtrl, wx.ID_ANY)
+		panel.SetHelpText('Panel with "First" and "Second" buttons')
+		wx.Button(panel, wx.ID_ANY, 'First button', wx.Point(10, 10))
+		wx.Button(panel, wx.ID_ANY, 'Second button', wx.Point(50, 100))
+		panel
+	}
+	s_pageAdded1 = 0
+	OnAddPage(event:wx.CommandEvent) = {
+		currBook = self.GetCurrentBook()
+		if (currBook) {
+			self.s_pageAdded1 += 1
+			currBook.AddPage(self.CreateNewPage(),
+							format(ADDED_PAGE_NAME + '%u',
+								self.s_pageAdded1
+							),
+							true,
+							GetIconIndex(currBook))
+		}
+	}
+	s_pageAdded2 = 0
+	OnAddPageNoSelect(event:wx.CommandEvent) = {
+		currBook = self.GetCurrentBook()
+		if (currBook) {
+			self.s_pageAdded2 += 1
+			currBook.AddPage(self.CreateNewPage(),
+							format(ADDED_PAGE_NAME + '%u',
+								self.s_pageAdded2
+							),
+							false,
+							GetIconIndex(currBook))
+		}
+	}
+	s_subPageAdded1 = 0
+	OnAddSubPage(event:wx.CommandEvent) = {
+		currBook = self.GetCurrentBook()
+		if (isinstance(currBook, `wx.Treebook)) {
+			selPos = currBook.GetSelection()
+			if (selPos == wx.NOT_FOUND) {
+				wx.LogError('Select the parent page first!')
+				return
+			}
+			s_subPageAdded1 += 1
+			currBook.InsertSubPage(
+						selPos,
+						self.CreateNewPage(),
+						format(
+							ADDED_SUB_PAGE_NAME + '%u',
+							self.s_subPageAdded1
+						),
+						true,
+						GetIconIndex(currBook)
+					)
+		}
+	}
+	s_subPageAdded2 = 0
+	OnAddPageBefore(event:wx.CommandEvent) = {
+		currBook = self.GetCurrentBook()
+		if (isinstance(currBook, `wx.Treebook)) {
+			selPos = currBook.GetSelection()
+			if (selPos == wx.NOT_FOUND) {
+				wx.LogError('Select the parent page first!')
+				return
+			}
+			s_subPageAdded2 += 1
+			currBook.InsertPage(
+						selPos,
+						self.CreateNewPage(),
+						format(
+							ADDED_PAGE_NAME_BEFORE + '%u',
+							self.s_subPageAdded2
+						),
+						true,
+						GetIconIndex(currBook)
+					)
+		}
+	}
+	s_pageIns = 0
+	OnInsertPage(event:wx.CommandEvent) = {
+		currBook = self.GetCurrentBook()
+		if (currBook) {
+			panel = CreateUserCreatedPage(currBook)
+			s_pageIns += 1
+			currBook.InsertPage(0, panel,
+				format(INSERTED_PAGE_NAME + '%u', s_pageIns), false,
+				GetIconIndex(currBook))
+			currBook.SetSelection(0)
+		}
+	}
+	OnDeleteCurPage(event:wx.CommandEvent) = {
+		currBook = self.GetCurrentBook()
+		if (currBook) {
+			sel = currBook.GetSelection()
+			if (sel != wx.NOT_FOUND) {
+				currBook.DeletePage(sel)
+			}
+		}
+	}
+	OnDeleteLastPage(event:wx.CommandEvent) = {
+		currBook = self.GetCurrentBook()
+		if (currBook) {
+			page = currBook.GetPageCount()
+			if (page != 0) {
+				currBook.DeletePage(page - 1)
+			}
+		}
+	}
+	OnNextPage(event:wx.CommandEvent) = {
+		currBook = self.GetCurrentBook()
+		if (currBook) {
+			currBook.AdvanceSelection()
+		}
+	}
+	OnGoHome(event:wx.CommandEvent) = {
+		currBook = self.GetCurrentBook()
+		if (currBook) {
+			// ChangeSelection shouldn't send any events, SetSelection() should
+			currBook.ChangeSelection(0)
+			//currBook.SetSelection(0)
+		}
+	}
+	s_nPages = wx.NOT_FOUND
+	s_nSel = wx.NOT_FOUND
+	s_currBook = nil
+	OnIdle(event:wx.IdleEvent) = {
+		currBook = self.GetCurrentBook()
+		nPages = if (currBook) {currBook.GetPageCount()} else {0}
+		nSel = if (currBook) {currBook.GetSelection()} else {wx.NOT_FOUND}
+		if (nPages != self.s_nPages || nSel != self.s_nSel || self.s_currBook != currBook) {
+			self.s_nPages = nPages
+			self.s_nSel = nSel
+			self.s_currBook = currBook
+			if (nSel == wx.NOT_FOUND) {
+				selection = 'not found'
+			} else {
+				selection = nSel
+			}
+			title = format('Notebook and friends (%d pages, selection: %s)', nPages, selection)
+			self.SetTitle(title)
+		}
+	}
+	s_num = 0
+	OnBookCtrl(event:wx.BookCtrlBaseEvent) = {
+		EventInfo = struct(typeChanged:wx.EventFactory, typeChanging:wx.EventFactory, name:string)
+		events = @(EventInfo){
+			{
+				wx.EVT_NOTEBOOK_PAGE_CHANGED,
+				wx.EVT_NOTEBOOK_PAGE_CHANGING,
+				'wxNotebook'
+			},
+			{
+				wx.EVT_LISTBOOK_PAGE_CHANGED,
+				wx.EVT_LISTBOOK_PAGE_CHANGING,
+				'wxListbook'
+			},
+			{
+				wx.EVT_CHOICEBOOK_PAGE_CHANGED,
+				wx.EVT_CHOICEBOOK_PAGE_CHANGING,
+				'wxChoicebook'
+			},
+			{
+				wx.EVT_TREEBOOK_PAGE_CHANGED,
+				wx.EVT_TREEBOOK_PAGE_CHANGING,
+				'wxTreebook'
+			},
+			{
+				wx.EVT_TOOLBOOK_PAGE_CHANGED,
+				wx.EVT_TOOLBOOK_PAGE_CHANGING,
+				'wxToolbook'
+			},
+		}
+		nameEvent = ''
+		nameControl = ''
+		veto = ''
+		eventType = event.GetEventType()
+		events.each() {|ei|
+			if (eventType == ei.typeChanged.GetEventType()) {
+				nameEvent = 'Changed'
+			} elsif (eventType == ei.typeChanging.GetEventType()) {
+				idx = event.GetOldSelection()
+				// NB: can't use wxStaticCast here as wxBookCtrlBase is not in
+				//	 wxRTTI
+				book = self.m_bookCtrl
+				if (idx != wx.NOT_FOUND && \
+						book && book.GetPageText(idx) == VETO_PAGE_NAME) {
+					if (wx.MessageBox(
+							'Are you sure you want to leave this page?\n' \
+							'(This demonstrates veto-ing)',
+							'Notebook sample',
+							wx.ICON_QUESTION | wx.YES_NO,
+							self) != wx.YES) {
+						event.Veto()
+						veto = ' (vetoed)'
+					}
+				}
+				nameEvent = 'Changing'
+			} else { // skip end of the loop
+				continue
+			}
+			nameControl = ei.name
+			break
+		}
+		self.s_num += 1
+		wx.LogMessage('Event #%d: %s: %s (%d) new sel %d, old %d%s',
+					 self.s_num,
+					 nameControl,
+					 nameEvent,
+					 eventType,
+					 event.GetSelection(),
+					 event.GetOldSelection(),
+					 veto)
+		self.m_text.SetInsertionPointEnd()
+	}
+	OnNotebook(event:wx.NotebookEvent) = { self.OnBookCtrl(event) }
+	OnChoicebook(event:wx.ChoicebookEvent) = { self.OnBookCtrl(event) }
+	OnListbook(event:wx.ListbookEvent) = { self.OnBookCtrl(event) }
+	OnTreebook(event:wx.TreebookEvent) = { self.OnBookCtrl(event) }
+	OnToolbook(event:wx.ToolbookEvent) = { self.OnBookCtrl(event) }
+	GetCurrentBook() = { self.m_bookCtrl }
+	// Sample setup
+	[
+		Type_Notebook,
+		Type_Listbook,
+		Type_Choicebook,
+		Type_Treebook,
+		Type_Toolbook,
+		Type_Max
+	] = 0..
+}
+
+wx.IMPLEMENT_APP(MyApp)

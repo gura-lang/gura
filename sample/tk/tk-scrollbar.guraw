@@ -1,0 +1,21 @@
+#!/usr/bin/env gura
+import(tk)
+
+tk.tclDump()
+
+tk.mainwindow {|mw|
+	mw.Listbox(height => 5) {|l|
+		l.grid(column => 0, row => 0, sticky => 'nwes')
+		mw.ttk$Scrollbar(orient => 'vertical') {|s|
+			s.grid(column => 1, row => 0, sticky => 'ns')
+			s.assoc(`command) {|args*| l.yview(args*)}
+			l.assoc(`yscrollcommand) {|args*| s.set(args*)}
+		}
+		l.insert('end', format('Line %d of 100', 1..100)):void
+	}
+	mw.ttk$Sizegrip().grid(column => 1, row => 1, sticky => 'se')
+	mw.grid$columnconfigure(0, weight => 1)
+	mw.grid$rowconfigure(0, weight => 1)
+}
+tk.mainloop()
+ 

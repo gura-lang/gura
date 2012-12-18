@@ -1,0 +1,14 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+if (sys.build == `msc) {
+} elsif (sys.build == `gnuc) {
+	builder.libs.append('uuid')
+	builder.hint = '''\
+It seems necessary libraries have not been installed on your system.
+See the following step(s) to resolve this problem.
+- Install Debian package:
+  $ sudo apt-get install uuid-dev
+'''
+}
+builder.build('uuid', ['Module_uuid.cpp'])

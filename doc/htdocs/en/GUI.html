@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="../stylesheet.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<title>Gura Programming Language</title>
+<meta name="keywords" content="programming, language, interpreter, mapping, gura,
+implicit mapping, member mapping">
+</head>
+<body>
+<div>
+<a href="../index.html.en"><img src="../images/banner.png" style="border: none" /></a>
+<a href="../en/GUI.html" class="radio-on" style="margin-left: 1em">English</a> |
+<a href="../ja/GUI.html" class="radio-off">Japanese</a>
+<span style="margin-left: 3em"><a href="http://sourceforge.jp/">
+<img src="http://sourceforge.jp/sflogo.php?group_id=5586&type=3" width="210" height="63" border="0" alt="SourceForge.JP" />
+</a></span>
+</div>
+
+<div style="color: white; background: #888888; margin-top: 1em; font-weight: bold">
+<span style="margin-left: 1em">Copyright (c) 2011-2012 <a href="mailto:pxn11432@nifty.com" style="color:white">Yutaka Saito</a></span>
+</div>
+<div style="height:.2em; background: #cccccc"></div>
+<table cellspacing="0" border="0" width="100%">
+<tr>
+<td valign="top" class="menu">
+<div class="menuitem"><a href="/" class="menuitem">Top Page</a></div>
+<div class="menuitem"><a href="Download.html" class="menuitem">Download</a></div>
+<div class="menuitem"><a href="Install.html" class="menuitem">Install</a></div>
+<div class="menuitem"><a href="Gallery.html" class="menuitem">Gallery</a></div>
+<div class="menuitem"><a href="http://sourceforge.jp/forum/forum.php?forum_id=25596" class="menuitem">Gura Forum</a></div>
+</td>
+
+<td valign="top" class="description">
+<!-- ====================================================================== -->
+
+<h3>GUI Operation</h3>
+
+<p>
+Gura prepares an interface for Tcl/Tk aimed to build GUI applications.
+</p>
+
+<p>
+The following example creates a window that has one Button widget.
+</p>
+
+<pre class="code">
+import(tk)
+
+tk.mainwindow() {|mw|
+    mw.Button(text =&gt; 'Push me') {|w|
+        w.pack()
+        w.bind(`command) {
+            w.tk$MessageBox(title =&gt; 'event', message =&gt; 'hello')
+        }
+    }
+}
+tk.mainloop()
+</pre>
+
+<p>
+The code below is a drawing program. I have ported it from a sample in
+<a href="http://www.tkdocs.com/" class="link">TkDocs</a>.
+</p>
+
+<pre class="code">
+import(tk)
+
+tk.mainwindow() {|mw|
+    mw.Canvas(bg =&gt; 'white') {|c|
+        c.pack(fill =&gt; 'both', expand =&gt; true)
+        [lastx, lasty] = [0, 0]
+        color = 'black'
+        c.bind('&lt;1&gt;') {|x:number, y:number|
+            [lastx, lasty] = [x, y]
+        }
+        c.bind('&lt;B1-Motion&gt;') {|x:number, y:number|
+            addLine(x, y)
+        }
+        addLine(x:number, y:number) = {
+            extern(lastx, lasty)
+            c.Line(lastx, lasty, x, y, fill =&gt; color, width =&gt; 3)
+            [lastx, lasty] = [x, y]
+        }
+        setColor(colorNew:string) = {
+            color:extern = colorNew
+        }
+        function(color:string, y:number):map {
+            c.Rectangle(10, y, 30, y + 20, fill =&gt; color) {|item|
+                item.bind('&lt;1&gt;') { setColor(color) }
+            }
+        }(['red', 'blue', 'black'], 10 + (0..) * 25)
+    }
+}
+tk.mainloop()
+</pre>
+
+<p>
+Sample result.
+</p>
+
+<div><img src="../images/gui-demo.png" /></div>
+
+<!-- ====================================================================== -->
+</td>
+</tr>
+
+</table>
+</body>
+</html>

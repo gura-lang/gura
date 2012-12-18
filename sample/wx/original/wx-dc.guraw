@@ -1,0 +1,99 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+import(gif)
+import(jpeg)
+
+log = nil
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+Panel = class(wx.Panel) {
+	__init__(parent:wx.Window) = {|parent, style => wx.BORDER_SUNKEN|
+		self.bmp = image(I('kangaroo.gif'))
+		self.Bind(wx.EVT_PAINT) {|event|
+			wx.PaintDC(self) {|dc|
+				//dc.DrawBitmap(wx.Bitmap(I('Winter.jpg')), 0, 0, false)
+				dc.DrawBitmap(self.bmp, 10 + (0..4) * 50, 10 + (0..4) * 50, false)
+				dc.DrawBitmap(image(I('kangaroo.gif')), 10 + (0..4) * 50, 100 + (0..4) * 50, false)
+				dc.SetPen(wx.Pen('green', 10, wx.DOT))
+				//dc.SetPen(wx.BLACK_DASHED_PEN)
+				dc.DrawLine(0, 10, 300, 10)
+				dc.SetPen(wx.Pen('green', 4, wx.SOLID))
+				dc.DrawLines(wx.Point * [[0, 0], [40, 40], [80, 20]], 0, 30)
+				dc.DrawLines([wx.Point(0, 0), wx.Point(40, 40), wx.Point(80, 20)], 20, 30)
+				dc.SetFont(wx.Font(20))
+				dc.DrawText('Hello World', 100, 50)
+				dc.DrawRotatedText('Hello World', 400, 150, (0..11) * 30)
+				dc.DrawPolygon(wx.Point * [[0, 0], [40, 40], [80, 20]], 30, 200)
+				dc.DrawPolyPolygon([
+					wx.Point * [[0, 0], [40, 40], [80, 20]],
+					wx.Point * [[100, 0], [140, 40], [180, 20]],
+					wx.Point * [[0, 50], [40, 90], [80, 70]]], 100, 200, wx.ODDEVEN_RULE)
+				//dc = nil
+			}
+		}
+		self.Bind(wx.EVT_LEFT_DOWN) {|event|
+			log.WriteText('[%3d, %3d] EVT_LEFT_DOWN\n' % [event.GetX(), event.GetY()])
+		}
+		self.Bind(wx.EVT_LEFT_UP) {|event|
+			log.WriteText('[%3d, %3d] EVT_LEFT_UP\n' % [event.GetX(), event.GetY()])
+		}
+		self.Bind(wx.EVT_LEFT_DCLICK) {|event|
+			log.WriteText('[%3d, %3d] EVT_LEFT_DCLICK\n' % [event.GetX(), event.GetY()])
+		}
+		self.Bind(wx.EVT_MIDDLE_DOWN) {|event|
+			log.WriteText('[%3d, %3d] EVT_MIDDLE_DOWN\n' % [event.GetX(), event.GetY()])
+		}
+		self.Bind(wx.EVT_MIDDLE_UP) {|event|
+			log.WriteText('[%3d, %3d] EVT_MIDDLE_UP\n' % [event.GetX(), event.GetY()])
+		}
+		self.Bind(wx.EVT_MIDDLE_DCLICK) {|event|
+			log.WriteText('[%3d, %3d] EVT_MIDDLE_DCLICK\n' % [event.GetX(), event.GetY()])
+		}
+		self.Bind(wx.EVT_RIGHT_DOWN) {|event|
+			log.WriteText('[%3d, %3d] EVT_RIGHT_DOWN\n' % [event.GetX(), event.GetY()])
+		}
+		self.Bind(wx.EVT_RIGHT_UP) {|event|
+			log.WriteText('[%3d, %3d] EVT_RIGHT_UP\n' % [event.GetX(), event.GetY()])
+		}
+		self.Bind(wx.EVT_RIGHT_DCLICK) {|event|
+			log.WriteText('[%3d, %3d] EVT_RIGHT_DCLICK\n' % [event.GetX(), event.GetY()])
+		}
+		self.Bind(wx.EVT_MOTION) {|event|
+			log.WriteText('[%3d, %3d] EVT_MOTION\n' % [event.GetX(), event.GetY()])
+		}
+		self.Bind(wx.EVT_MOUSEWHEEL) {|event|
+			log.WriteText('[%3d, %3d] EVT_MOUSEWHEEL rotation:%d, delta:%d\n' % \
+					[event.GetX(), event.GetY(),
+							event.GetWheelRotation(), event.GetWheelDelta()])
+		}
+	}
+}
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
+						path.filename(sys.argv[0]), size => wx.Size(600, 600)|
+		wx.Panel(self) {|panel|
+			wx.BoxSizer(wx.VERTICAL) {|vbox|
+				panel.SetSizer(vbox)
+				vbox.Add(Panel(panel), wx.SizerFlags(2).Expand())
+				wxutil.LogWindow(panel) {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+					log:extern = ctrl
+				}
+			}
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

@@ -1,0 +1,4 @@
+inch$mm(inch:number):map = inch * 25.4
+mm$inch(mm:number):map = mm / 25.4
+mm$pt(mm:number):map = mm * 72 / 25.4
+pt$mm(pt:number):map = pt * 25.4 / 72

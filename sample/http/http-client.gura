@@ -1,0 +1,43 @@
+#!/usr/bin/env gura
+import(net.http)
+
+path.exists('proxy_setting.gura') && import(proxy_setting)
+
+net.http.client('www.nifty.com') {|c|
+	resp = c.get('/',
+		'Accept'			=> 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+		'Accept-Charset'	=> 'Shift_JIS,utf-8;q=0.7,*;q=0.7'
+		'Accept-Encoding'	=> 'gzip,deflate'
+		'Accept-Language'	=> 'ja,en-us;q=0.7,en;q=0.3'
+		'Connection'		=> 'keep-alive'
+		'Keep-Alive'		=> '300'
+		'User-Agent'		=> 'Gura')
+	println(resp.code, ' ', resp.version, ' ', resp.reason)
+	println('Connection    ', resp['Connection'])
+	println('Content-Type  ', resp['Content-Type'])
+	println('Date          ', resp['Date'])
+	println('ETag          ', resp['ETag'])
+	println('Last-Modified ', resp['Last-Modified'])
+	println('Via           ', resp['Via'])
+	println('Expires       ', resp['Expires'])
+	resp.body.copyto('nifty.html')
+}
+net.http.client('www.asahi.com') {|c|
+	resp = c.get('/',
+		'Accept'			=> 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+		'Accept-Charset'	=> 'Shift_JIS,utf-8;q=0.7,*;q=0.7'
+		'Accept-Encoding'	=> 'gzip,deflate'
+		'Accept-Language'	=> 'ja,en-us;q=0.7,en;q=0.3'
+		'Connection'		=> 'keep-alive'
+		'Keep-Alive'		=> '300'
+		'User-Agent'		=> 'Gura')
+	println(resp.code, ' ', resp.version, ' ', resp.reason)
+	println('Connection    ', resp['Connection'])
+	println('Content-Type  ', resp['Content-Type'])
+	println('Date          ', resp['Date'])
+	println('ETag          ', resp['ETag'])
+	println('Last-Modified ', resp['Last-Modified'])
+	println('Via           ', resp['Via'])
+	println('Expires       ', resp['Expires'])
+	resp.body.copyto('asahi.html')
+}

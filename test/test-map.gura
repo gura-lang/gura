@@ -1,0 +1,130 @@
+#!/usr/bin/env gura
+tester(test):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+
+scope {
+	f(name:string, price:number, color:string):map = printf('%-8s %3d %s\n', name, price, color)
+	names = ['apple', 'orange', 'grape']
+	prices = [100, 200, 300]
+	colors = ['red', 'yellow', 'purple']
+	f(names, prices, colors)
+	println()
+	f(names, price => prices, color => colors)
+	println()
+	f(names, prices, color => colors)
+}
+scope {
+	A = class {
+		f() = nil
+		g():void = nil
+	}
+	tbl = repeat(10):list {A()}
+	tester(`tbl::f())
+	tester(`tbl::g())
+}
+scope {
+	f(x) = println(x)
+	f(1..10)
+	g(x, y) = println(x, ' ', y)
+	g(1..10, 1..10)
+	f(1..10)
+	//Fruit = struct(name:string, price:number) {
+	//	Print() = println(self.name, ' costs ', self.price)
+	//}
+	//fruits = Fruit * [
+	//	['apple', 100], ['orage', 80], ['grape', 120]
+	//]
+	//fruits::Print()
+	//fruits:*Print()
+}
+scope {
+	tester(`[]::x)
+	tester(`[]::func())
+}
+scope {
+	A = class {
+		__init__(name:string) = { self.name = name }
+		func(str:string):map = println(self.name, ' ', str)
+	}
+	tbl = [A('abc'), A('def'), A('ghi'), A('jkl'), A('mno')]
+	tbl::func('123')
+	println('-----')
+	tbl:*func('123').each():list
+	println('-----')
+	tbl:&func('123')
+	println('-----')
+	tbl::func(['123', '456', '789'])
+	println('-----')
+	tbl:*func(['123', '456', '789']).each():list
+	println('-----')
+	tbl:&func(['123', '456', '789'])
+	println('-----')
+	tbl.each():&func(['123', '456', '789']).each():list
+	println('-----')
+	tbl:&func(['123', '456', '789', '012', '345', '678', '901'])
+	println('-----')
+	tbl.each():&func(['123', '456', '789', '012', '345', '678', '901']).each():list
+}
+scope {
+	strs = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+	strs:*x = strs:*len()
+	strs::y = strs:*len()
+	println(strs:*x.join(','))
+	println(strs:*y.join(','))
+}
+scope {
+	tester(`(math.sin(interval(0, math.pi / 2, 20)):list))
+	tester(`(format('%.3f', math.sin(interval(0, math.pi / 2, 20)):list)))
+	tester(`format('%d ** 2 = %d\n', [0..10], [0..10] ** 2))
+	tester(`'  fj,  jfkdjfd,  dkfjdkj  '.split(','):*strip().join(','))
+}
+scope {
+	tester(test):map = printf('%-14s .. %s\n', test, eval(test)):nomap
+	ident(x):map = x
+	x = [nil, nil, 3, 1, 4, 1, nil, 5, nil, 9, 2, 6, 5, 3]
+	tester(`x)
+	tester(`ident(x))
+	tester(`ident(x):list)
+	tester(`ident(x):xlist)
+	tester(`ident(x):set)
+	tester(`ident(x):xset)
+	tester(`[ident(x):iter])
+	tester(`[ident(x):xiter])
+	x = [nil, nil, nil, nil, nil]
+	tester(`x)
+	tester(`ident(x))
+	tester(`ident(x):list)
+	tester(`ident(x):xlist)
+	tester(`ident(x):set)
+	tester(`ident(x):xset)
+	tester(`[ident(x):iter])
+	tester(`[ident(x):xiter])
+	x = [nil, nil, nil, nil, nil, 5]
+	tester(`x)
+	tester(`ident(x))
+	tester(`ident(x):list)
+	tester(`ident(x):xlist)
+	tester(`ident(x):set)
+	tester(`ident(x):xset)
+	tester(`[ident(x):iter])
+	tester(`[ident(x):xiter])
+	x = [1, 2, [3, 4, [5, 6], 7, 8, [9, 10, [11, 12], 13, 14, 15]]]
+	tester(`ident(x):flat)
+	x = [nil, [nil, 3, [1, 4, 1, nil], 5, nil], 9, 2, 6, 5, 3]
+	tester(`ident(x):flat)
+	tester(`ident(x):flat:list)
+	tester(`ident(x):flat:xlist)
+	tester(`ident(x):flat:set)
+	tester(`ident(x):flat:xset)
+	x = [nil, nil, nil, nil, nil]
+	tester(`ident(x):flat)
+	tester(`ident(x):flat:list)
+	tester(`ident(x):flat:xlist)
+	tester(`ident(x):flat:set)
+	tester(`ident(x):flat:xset)
+	x = [nil, nil, nil, nil, nil, 5]
+	tester(`ident(x):flat)
+	tester(`ident(x):flat:list)
+	tester(`ident(x):flat:xlist)
+	tester(`ident(x):flat:set)
+	tester(`ident(x):flat:xset)
+}

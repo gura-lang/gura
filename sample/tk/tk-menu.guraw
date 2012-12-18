@@ -1,0 +1,91 @@
+#!/usr/bin/env gura
+# encoding: shift_jis
+import(tk)
+
+tk.mainwindow() {|mw|
+	mw.wm$title('gura-tk test')
+	mw[`menu] = mw.Menu() {|m|
+		m.Cascade(label => 'File', underline => 0) {|m|
+			m.Cascade(label => 'Cascade1') {|m|
+				m.Cascade(label => 'Cascade2') {|m|
+					m.Cascade(label => 'Cascade3') {|m|
+						repeat (5) {|i|
+							m.Command(label => 'menu #' + i) {
+								println('aaaa')
+							}
+						}
+					}
+					repeat (5) {|i|
+						m.Command(label => 'menu #' + i) {
+							println('aaaa')
+						}
+					}
+				}
+				repeat (5) {|i|
+					m.Command(label => 'menu #' + i) {
+						println('aaaa')
+					}
+				}
+			}
+			repeat (5) {|i|
+				m.Command(label => 'menu #' + i) {
+					println('aaaa')
+				}
+			}
+			m.Cascade(label => 'Cascade1') {|m|
+				m.Cascade(label => 'Cascade2') {|m|
+					m.Cascade(label => 'Cascade3') {|m|
+						repeat (5) {|i|
+							m.Command(label => 'menu #' + i) {
+								println('aaaa')
+							}
+						}
+					}
+					repeat (5) {|i|
+						m.Command(label => 'menu #' + i) {
+							println('aaaa')
+						}
+					}
+				}
+				repeat (5) {|i|
+					m.Command(label => 'menu #' + i) {
+						println('aaaa')
+					}
+				}
+			}
+			m.Separator()
+			m.Command(label => 'Exit') {
+				mw.destroy()
+			}
+		}
+		m.Cascade(label => 'Tool', underline => 0) {|m|
+			m.configure(foreground => 'grey40', activeforeground => 'red')
+			m.Command(label => 'Open', underline => 0) {
+				println('aaaa')
+			}
+			m.Separator()
+			checkAVar = tk.variable(true)
+			checkBVar = tk.variable(true)
+			m.Checkbutton(label => 'Check-A', underline => 6, variable => checkAVar)
+			m.Checkbutton(label => 'Check-B', underline => 6, variable => checkBVar)
+			m.Separator()
+			radioVar = tk.variable(0)
+			m.Radiobutton(label => 'Radio-X', underline => 6, value => 0, variable => radioVar)
+			m.Radiobutton(label => 'Radio-Y', underline => 6, value => 1, variable => radioVar)
+			m.Radiobutton(label => 'Radio-Z', underline => 6, value => 2, variable => radioVar)
+			m.Separator()
+			m.Cascade(label => 'cascade',
+					font => tk.MenuFont.customize(size => 18, slant => `italic),
+					underline => 0) {|m|
+				m.configure(activeforeground => 'red')
+				m.Command(label => 'sss', underline => 0)
+				m.Command(label => 'ttt', underline => 0)
+				m.Command(label => 'uuu', underline => 0)
+				m.Command(label => 'vvv', underline => 0)
+			}
+			m.Separator()
+			m.Command(label => 'Quit', underline => 0)
+		}
+	}
+}
+tk.mainloop()

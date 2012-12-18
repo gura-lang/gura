@@ -1,0 +1,632 @@
+//----------------------------------------------------------------------------
+// wxRegKey
+// extracted from regkey.tex
+//----------------------------------------------------------------------------
+#include "stdafx.h"
+
+Gura_BeginModule(wx)
+
+//----------------------------------------------------------------------------
+// Class derivation
+//----------------------------------------------------------------------------
+class wx_RegKey: public wxRegKey, public GuraObjectObserver {
+private:
+	Gura::Signal _sig;
+	Object_wx_RegKey *_pObj;
+public:
+	inline wx_RegKey() : wxRegKey(), _sig(NULL), _pObj(NULL) {}
+	inline wx_RegKey(const wxString& strKey) : wxRegKey(strKey), _sig(NULL), _pObj(NULL) {}
+	inline wx_RegKey(const wxRegKey& keyParent, const wxString& strKey) : wxRegKey(keyParent, strKey), _sig(NULL), _pObj(NULL) {}
+	~wx_RegKey();
+	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RegKey *pObj) {
+		_sig = sig, _pObj = pObj;
+	}
+	// virtual function of GuraObjectObserver
+	virtual void GuraObjectDeleted();
+};
+
+wx_RegKey::~wx_RegKey()
+{
+	if (_pObj != NULL) _pObj->InvalidateEntity();
+}
+
+void wx_RegKey::GuraObjectDeleted()
+{
+	_pObj = NULL;
+}
+
+//----------------------------------------------------------------------------
+// Gura interfaces for wxRegKey
+//----------------------------------------------------------------------------
+Gura_DeclareFunction(RegKeyEmpty)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RegKey));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(RegKeyEmpty)
+{
+	wx_RegKey *pEntity = new wx_RegKey();
+	Object_wx_RegKey *pObj = Object_wx_RegKey::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_RegKey(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+Gura_DeclareFunction(RegKey)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetClassToConstruct(Gura_UserClass(wx_RegKey));
+	DeclareArg(env, "strKey", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(RegKey)
+{
+	wxString strKey = wxString::FromUTF8(args.GetString(0));
+	wx_RegKey *pEntity = new wx_RegKey(strKey);
+	Object_wx_RegKey *pObj = Object_wx_RegKey::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_RegKey(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+Gura_DeclareFunction(RegKey_1)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetClassToConstruct(Gura_UserClass(wx_RegKey));
+	DeclareArg(env, "keyParent", VTYPE_wx_RegKey, OCCUR_Once);
+	DeclareArg(env, "strKey", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(RegKey_1)
+{
+	wxRegKey *keyParent = Object_wx_RegKey::GetObject(args, 0)->GetEntity();
+	wxString strKey = wxString::FromUTF8(args.GetString(1));
+	wx_RegKey *pEntity = new wx_RegKey(*keyParent, strKey);
+	Object_wx_RegKey *pObj = Object_wx_RegKey::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_RegKey(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+Gura_DeclareMethod(wx_RegKey, Close)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_RegKey, Close)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->Close();
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RegKey, Create)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "bOkIfExists", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, Create)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool bOkIfExists = true;
+	if (args.IsValid(0)) bOkIfExists = args.GetBoolean(0);
+	bool rtn = pSelf->GetEntity()->Create(bOkIfExists);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, DeleteSelf)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_RegKey, DeleteSelf)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->DeleteSelf();
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RegKey, DeleteKey)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "szKey", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_RegKey, DeleteKey)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString szKey = wxString::FromUTF8(args.GetString(0));
+	pSelf->GetEntity()->DeleteKey(szKey);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RegKey, DeleteValue)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "szKey", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_RegKey, DeleteValue)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString szKey = wxString::FromUTF8(args.GetString(0));
+	pSelf->GetEntity()->DeleteValue(szKey);
+	return Value::Null;
+}
+
+Gura_DeclareClassMethod(wx_RegKey, Exists)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(wx_RegKey, Exists)
+{
+#if 0
+	bool rtn = wxRegKey::Exists();
+	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RegKey, GetName)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "bShortPrefix", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, GetName)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool bShortPrefix = true;
+	if (args.IsValid(0)) bShortPrefix = args.GetBoolean(0);
+	wxString rtn = pSelf->GetEntity()->GetName(bShortPrefix);
+	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+}
+
+Gura_DeclareMethod(wx_RegKey, GetFirstKey)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "strKeyName", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "lIndex", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, GetFirstKey)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString strKeyName = wxString::FromUTF8(args.GetString(0));
+	long lIndex = args.GetLong(1);
+	bool rtn = pSelf->GetEntity()->GetFirstKey(strKeyName, lIndex);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, GetFirstValue)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "strValueName", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "lIndex", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, GetFirstValue)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString strValueName = wxString::FromUTF8(args.GetString(0));
+	long lIndex = args.GetLong(1);
+	bool rtn = pSelf->GetEntity()->GetFirstValue(strValueName, lIndex);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, Exists_1)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+#if 0
+	DeclareArg(env, "pnSubKeys", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "pnValues", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "pnMaxValueLen", VTYPE_number, OCCUR_Once);
+#endif
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, Exists_1)
+{
+#if 0
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	size_t pnSubKeys = args.GetSizeT(0);
+	size_t pnValues = args.GetSizeT(1);
+	size_t pnMaxValueLen = args.GetSizeT(2);
+	bool rtn = pSelf->GetEntity()->Exists(pnSubKeys, pnValues, pnMaxValueLen);
+	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RegKey, GetNextKey)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "strKeyName", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "lIndex", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, GetNextKey)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString strKeyName = wxString::FromUTF8(args.GetString(0));
+	long lIndex = args.GetLong(1);
+	bool rtn = pSelf->GetEntity()->GetNextKey(strKeyName, lIndex);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, GetNextValue)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "strValueName", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "lIndex", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, GetNextValue)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString strValueName = wxString::FromUTF8(args.GetString(0));
+	long lIndex = args.GetLong(1);
+	bool rtn = pSelf->GetEntity()->GetNextValue(strValueName, lIndex);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, HasValue)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "szValue", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, HasValue)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString szValue = wxString::FromUTF8(args.GetString(0));
+	bool rtn = pSelf->GetEntity()->HasValue(szValue);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, HasValues)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, HasValues)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool rtn = pSelf->GetEntity()->HasValues();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, HasSubKey)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "szKey", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, HasSubKey)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString szKey = wxString::FromUTF8(args.GetString(0));
+	bool rtn = pSelf->GetEntity()->HasSubKey(szKey);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, HasSubKeys)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, HasSubKeys)
+{
+#if 0
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool rtn = pSelf->GetEntity()->HasSubKeys();
+	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RegKey, IsEmpty)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, IsEmpty)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool rtn = pSelf->GetEntity()->IsEmpty();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, IsOpened)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, IsOpened)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool rtn = pSelf->GetEntity()->IsOpened();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, Open)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+#if 0
+	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
+#endif
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, Open)
+{
+#if 0
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxRegKey::AccessMode mode = Write;
+	if (args.IsValid(0)) mode = static_cast<wxRegKey::AccessMode>(args.GetInt(0));
+	bool rtn = pSelf->GetEntity()->Open(mode);
+	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RegKey, QueryValue)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "szValue", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "strValue", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, QueryValue)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString szValue = wxString::FromUTF8(args.GetString(0));
+	wxString strValue = wxString::FromUTF8(args.GetString(1));
+	bool rtn = pSelf->GetEntity()->QueryValue(szValue, strValue);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, QueryValue_1)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+#if 0
+	DeclareArg(env, "szValue", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "plValue", VTYPE_number, OCCUR_Once);
+#endif
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, QueryValue_1)
+{
+#if 0
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString szValue = wxString::FromUTF8(args.GetString(0));
+	long plValue = args.GetLong(1);
+	bool rtn = pSelf->GetEntity()->QueryValue(szValue, plValue);
+	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_RegKey, Rename)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "szNewName", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, Rename)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString szNewName = wxString::FromUTF8(args.GetString(0));
+	bool rtn = pSelf->GetEntity()->Rename(szNewName);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, RenameValue)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "szValueOld", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "szValueNew", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, RenameValue)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString szValueOld = wxString::FromUTF8(args.GetString(0));
+	wxString szValueNew = wxString::FromUTF8(args.GetString(1));
+	bool rtn = pSelf->GetEntity()->RenameValue(szValueOld, szValueNew);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, SetValue)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "szValue", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "lValue", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, SetValue)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString szValue = wxString::FromUTF8(args.GetString(0));
+	long lValue = args.GetLong(1);
+	bool rtn = pSelf->GetEntity()->SetValue(szValue, lValue);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, SetValue_1)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "szValue", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "strValue", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, SetValue_1)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString szValue = wxString::FromUTF8(args.GetString(0));
+	wxString strValue = wxString::FromUTF8(args.GetString(1));
+	bool rtn = pSelf->GetEntity()->SetValue(szValue, strValue);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_RegKey, SetValue_2)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "szValue", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "buf", VTYPE_wx_MemoryBuffer, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_RegKey, SetValue_2)
+{
+	Object_wx_RegKey *pSelf = Object_wx_RegKey::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString szValue = wxString::FromUTF8(args.GetString(0));
+	wxMemoryBuffer *buf = Object_wx_MemoryBuffer::GetObject(args, 1)->GetEntity();
+	bool rtn = pSelf->GetEntity()->SetValue(szValue, *buf);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+//----------------------------------------------------------------------------
+// Object implementation for wxRegKey
+//----------------------------------------------------------------------------
+Object_wx_RegKey::~Object_wx_RegKey()
+{
+	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_ownerFlag) delete _pEntity;
+	_pEntity = NULL;
+}
+
+Object *Object_wx_RegKey::Clone() const
+{
+	return NULL;
+}
+
+String Object_wx_RegKey::ToString(Signal sig, bool exprFlag)
+{
+	String rtn("<wx.RegKey:");
+	if (GetEntity() == NULL) {
+		rtn += "invalid>";
+	} else {
+		char buff[64];
+		::sprintf(buff, "%p>", GetEntity());
+		rtn += buff;
+	}
+	return rtn;
+}
+
+void Object_wx_RegKey::OnModuleEntry(Environment &env, Signal sig)
+{
+	Gura_AssignFunction(RegKeyEmpty);
+	Gura_AssignFunction(RegKey);
+	Gura_AssignFunction(RegKey_1);
+}
+
+//----------------------------------------------------------------------------
+// Class implementation for wxRegKey
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_RegKey)
+{
+	Gura_AssignMethod(wx_RegKey, Close);
+	Gura_AssignMethod(wx_RegKey, Create);
+	Gura_AssignMethod(wx_RegKey, DeleteSelf);
+	Gura_AssignMethod(wx_RegKey, DeleteKey);
+	Gura_AssignMethod(wx_RegKey, DeleteValue);
+	Gura_AssignMethod(wx_RegKey, Exists);
+	Gura_AssignMethod(wx_RegKey, GetName);
+	Gura_AssignMethod(wx_RegKey, GetFirstKey);
+	Gura_AssignMethod(wx_RegKey, GetFirstValue);
+	Gura_AssignMethod(wx_RegKey, Exists_1);
+	Gura_AssignMethod(wx_RegKey, GetNextKey);
+	Gura_AssignMethod(wx_RegKey, GetNextValue);
+	Gura_AssignMethod(wx_RegKey, HasValue);
+	Gura_AssignMethod(wx_RegKey, HasValues);
+	Gura_AssignMethod(wx_RegKey, HasSubKey);
+	Gura_AssignMethod(wx_RegKey, HasSubKeys);
+	Gura_AssignMethod(wx_RegKey, IsEmpty);
+	Gura_AssignMethod(wx_RegKey, IsOpened);
+	Gura_AssignMethod(wx_RegKey, Open);
+	Gura_AssignMethod(wx_RegKey, QueryValue);
+	Gura_AssignMethod(wx_RegKey, QueryValue_1);
+	Gura_AssignMethod(wx_RegKey, Rename);
+	Gura_AssignMethod(wx_RegKey, RenameValue);
+	Gura_AssignMethod(wx_RegKey, SetValue);
+	Gura_AssignMethod(wx_RegKey, SetValue_1);
+	Gura_AssignMethod(wx_RegKey, SetValue_2);
+}
+
+Gura_ImplementDescendantCreator(wx_RegKey)
+{
+	return new Object_wx_RegKey((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+}
+
+}}

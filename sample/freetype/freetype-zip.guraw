@@ -1,0 +1,15 @@
+import(tk)
+import(freetype)
+import(zip)
+
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+img = image(`rgb, 160, 120, `black)
+
+face = freetype.face(I('zippedfont.zip/Kaufmann_Bold_BT.ttf')).setheight(32).setcolor(`white)
+img.drawtext(face, 0, face.height, 'Hello world')
+
+face = freetype.face(I('Kaufmann_Bold_BT.ttf')).setheight(32).setcolor(`white)
+img.drawtext(face, 0, face.height * 2, 'Hello world')
+
+img.show()

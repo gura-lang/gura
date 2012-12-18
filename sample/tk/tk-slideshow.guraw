@@ -1,0 +1,31 @@
+#!/usr/bin/env gura
+import(tk)
+import(jpeg)
+
+imgfile(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+tk.mainwindow() {|mw|
+	fileNames = path.glob(imgfile('*.jpg')).round()
+	img = nil
+	fileNameVar = tk.variable('')
+	mw.Frame {|f|
+		f.pack(fill => 'x')
+		f.Label {|w|
+			w.pack(side => 'left', fill => 'x', expand => true)
+			w.configure(width => 20, textvariable => fileNameVar, anchor => 'w',
+				padx => 4, pady => 2, relief => 'sunken', borderwidth => 1,
+				font => tk.Font((tk.TextFont.actual {`size => 12, `weight => 'bold'})%))
+		}
+	}
+	[wdCanvas, htCanvas] = [640, 480]
+	mw.Canvas(bg => 'gray', width => wdCanvas, height => htCanvas) {|w|
+		w.pack(fill => 'both', expand => true)
+		w.bindtimer(0, 1000) {
+			img && img.delete()
+			fileName = fileNames.next()
+			fileNameVar.string = path.filename(fileName)
+			img = image(fileName, `rgb).thumbnail(wdCanvas, htCanvas).to_tk()
+			w.Image(wdCanvas / 2, htCanvas / 2, image => img, anchor => 'c')
+		}
+	}
+}
+tk.mainloop()

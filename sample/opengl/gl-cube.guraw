@@ -1,0 +1,56 @@
+#!/usr/bin/env gura
+
+// Orignal source file is written in C and is available from the site below.
+// http://www.wakayama-u.ac.jp/~tokoi/opengl/libglut.html
+
+import(glu) {*}
+import(opengl) {*}
+
+vertex = [
+	[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]
+	[0, 0, 1], [1, 0, 1], [1, 1, 1], [0, 1, 1]
+]
+
+init(w:number, h:number) = {
+	glClearColor(1, 1, 1, 1)
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+	glEnable(GL_DEPTH_TEST, GL_CULL_FACE)
+	glEnable(GL_LIGHTING, GL_LIGHT0, GL_LIGHT1)
+	glCullFace(GL_FRONT)
+	glViewport(0, 0, w, h)
+	glMatrixMode(GL_PROJECTION)
+	glLoadIdentity()
+	gluPerspective(30, w / h, 1, 100)
+}
+
+display(degree:number) = {
+	glMatrixMode(GL_MODELVIEW)
+	glLoadIdentity()
+	gluLookAt(3, 4, 5, 0, 0, 0, 0, 1, 0)
+	glRotated(degree, 1, 1, 0)
+	glMaterialfv(GL_FRONT_AND_BACK,
+			GL_AMBIENT_AND_DIFFUSE, [0.8, 0.2, 0.2, 1])
+	glBegin(GL_QUADS) {
+		glNormal3dv([ 0,  0, -1]), glVertex3dv(vertex[0, 1, 2, 3])
+		glNormal3dv([ 1,  0,  0]), glVertex3dv(vertex[1, 5, 6, 2])
+		glNormal3dv([ 0,  0,  1]), glVertex3dv(vertex[5, 4, 7, 6])
+		glNormal3dv([-1,  0,  0]), glVertex3dv(vertex[4, 0, 3, 7])
+		glNormal3dv([ 0, -1,  0]), glVertex3dv(vertex[4, 5, 1, 0])
+		glNormal3dv([ 0,  1,  0]), glVertex3dv(vertex[3, 2, 6, 7])
+	}
+}
+
+import(gltester)
+
+degree = 0
+[width, height] = [300, 300]
+gltester.mainloop(width, height, 0, `idle) {
+	`onDraw => function {
+		init(width, height)
+		display(degree)
+	}
+	`onKeyPoll => %{
+		`left => function { degree += 1 }
+		`right => function { degree -= 1 }
+	}
+}

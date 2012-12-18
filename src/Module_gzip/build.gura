@@ -1,0 +1,16 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+if (sys.build == `msc) {
+	builder.incDirs.append(path.join(modbuild.guestDir, 'zlib-1.2.7'))
+	builder.libs.append(path.join(modbuild.guestDir, 'zlib-1.2.7/zlib.lib'))
+} elsif (sys.build == `gnuc) {
+	builder.libs.append('z')
+	builder.hint = '''\
+It seems necessary libraries have not been installed on your system.
+See the following step(s) to resolve this problem.
+- Install Debian package:
+  $ sudo apt-get install zlib1g-dev
+'''
+}
+builder.build('gzip', ['Module_gzip.cpp'])

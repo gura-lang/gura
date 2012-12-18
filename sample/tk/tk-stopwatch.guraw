@@ -1,0 +1,61 @@
+#!/usr/bin/env gura
+import(tk)
+
+tk.mainwindow() {|mw|
+	mw.wm$title('Stopwatch')
+	timerVar = tk.variable()
+	timerVar.setValue(t:number) = {
+		t = int(t * 100)
+		self.string = format('%02d:%02d', int(t / 100), t % 100)
+	}
+	timerVar.setValue(0)
+	font = tk.FixedFont.customize(size => 24)
+	mw.Entry(font => font, width => 10, justify => 'center', textvariable => timerVar) {|w|
+		w.pack(fill => 'x')
+	}
+	mw.Frame {|f|
+		f.pack(pady => [4, 2])
+		timer = nil
+		clockOffset = 0
+		clockStart = nil
+		btnStart = f.Button(text => 'Start', width => 7) {|w|
+			w.pack(side => 'left')
+			w.bind(`command) {
+				clockStart = clockStart || time.clock()
+				timer:extern = w.bindtimer(10) {
+					timerVar.setValue(time.clock() - clockStart + clockOffset)
+				}
+				btnStart[`state] = 'disabled'
+				btnStop[`state] = 'normal'
+				btnReset[`state] = 'disabled'
+			}
+		}
+		btnStop = f.Button(text => 'Stop', width => 7) {|w|
+			w.pack(side => 'left', padx => [2, 0])
+			w.bind(`command) {
+				timer && timer.cancel()
+				timer = nil
+				clockOffset = time.clock() - clockStart + clockOffset
+				clockStart = nil
+				btnStart[`state] = 'normal'
+				btnStop[`state] = 'disabled'
+				btnReset[`state] = 'normal'
+			}
+			w[`state] = 'disabled'
+		}
+		btnReset = f.Button(text => 'Reset', width => 7) {|w|
+			w.pack(side => 'left', padx => [2, 0])
+			w.bind(`command) {
+				timerVar.setValue(0)
+				timer = nil
+				clockOffset = 0
+				clockStart = nil
+				btnStart[`state] = 'normal'
+				btnStop[`state] = 'disabled'
+				btnReset[`state] = 'disabled'
+			}
+			w[`state] = 'disabled'
+		}
+	}
+}
+tk.mainloop()

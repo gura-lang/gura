@@ -1,0 +1,800 @@
+#!/usr/bin/env gura
+
+// Orignal source file is written in C and is available from the site below.
+// http://www.sgi.com/products/software/opengl/examples/samples/
+// sphere.c
+
+import(glu) {*}
+import(opengl) {*}
+import(gltester)
+
+W = 400, H = 400
+
+try {
+	img = image(`rgb).rgbread('1.rgb')
+} except {
+	RD = color(0xA4,0x00,0x00,0xFF)
+	WT = color(0xFF,0xFF,0xFF,0xFF)
+	brickImageRaw = @{
+		RD, RD, RD, RD, RD, RD, RD, RD, RD, WT, RD, RD, RD, RD, RD, RD,
+		RD, RD, RD, RD, RD, RD, RD, RD, RD, WT, RD, RD, RD, RD, RD, RD,
+		RD, RD, RD, RD, RD, RD, RD, RD, RD, WT, RD, RD, RD, RD, RD, RD,
+		RD, RD, RD, RD, RD, RD, RD, RD, RD, WT, RD, RD, RD, RD, RD, RD,
+		WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT,
+		RD, RD, RD, WT, RD, RD, RD, RD, RD, RD, RD, RD, RD, WT, RD, RD,
+		RD, RD, RD, WT, RD, RD, RD, RD, RD, RD, RD, RD, RD, WT, RD, RD,
+		RD, RD, RD, WT, RD, RD, RD, RD, RD, RD, RD, RD, RD, WT, RD, RD,
+		RD, RD, RD, WT, RD, RD, RD, RD, RD, RD, RD, RD, RD, WT, RD, RD,
+		WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT,
+		RD, RD, RD, RD, RD, RD, RD, WT, RD, RD, RD, RD, RD, RD, RD, RD,
+		RD, RD, RD, RD, RD, RD, RD, WT, RD, RD, RD, RD, RD, RD, RD, RD,
+		RD, RD, RD, RD, RD, RD, RD, WT, RD, RD, RD, RD, RD, RD, RD, RD,
+		RD, RD, RD, RD, RD, RD, RD, WT, RD, RD, RD, RD, RD, RD, RD, RD,
+		WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT,
+		RD, RD, RD, RD, WT, RD, RD, RD, RD, RD, RD, RD, RD, RD, WT, RD
+	}
+	img = image(`rgba, 16, 16)
+	cross (y in range(16), x in range(16)) {|i|
+		img.putpixel(x, y, brickImageRaw[i])
+	}
+}
+
+numComponents = 3
+
+cube = nil
+cage = nil
+cylinder = nil
+torus = nil
+genericObject = nil
+xRotation = 0.0, yRotation = 0.0
+zTranslate = -4.0
+autoRotate = false
+isLit = true
+isFogged = false
+
+magFilter = [GL_NEAREST]
+minFilter = [GL_NEAREST]
+sWrapMode = [GL_REPEAT]
+tWrapMode = [GL_REPEAT]
+textureEnvironment = [GL_MODULATE]
+textureEnvironment = [GL_MODULATE]
+
+c = @{ // 6, 4, 4, 3
+	{
+	{
+		{
+		1.0, 1.0, -1.0
+		}, 
+		{
+		0.0, 1.0, -1.0
+		},
+		{
+		0.0, 0.0, -1.0
+		},
+		{
+		1.0, 0.0, -1.0
+		},
+	},
+	{
+		{
+		0.0, 1.0, -1.0
+		},
+		{
+		-1.0, 1.0, -1.0
+		}, 
+		{
+		-1.0, 0.0, -1.0
+		}, 
+		{
+		0.0, 0.0, -1.0
+		},
+	},
+	{
+		{
+		0.0,  0.0, -1.0
+		},
+		{
+		-1.0, 0.0, -1.0
+		},
+		{
+		-1.0, -1.0, -1.0
+		},
+		{
+		0.0, -1.0, -1.0
+		},
+	},
+	{
+		{
+		1.0, 0.0, -1.0
+		},
+		{
+		0.0, 0.0, -1.0
+		},
+		{
+		0.0, -1.0, -1.0
+		},
+		{
+		1.0, -1.0, -1.0
+		},
+	},
+	},
+	{
+	{
+		{
+		1.0, 1.0, 1.0
+		},
+		{
+		1.0, 1.0, 0.0
+		},
+		{
+		1.0, 0.0, 0.0
+		},
+		{
+		1.0, 0.0, 1.0
+		},
+	},
+	{
+		{
+		1.0, 1.0, 0.0
+		},
+		{
+		1.0, 1.0, -1.0
+		},
+		{
+		1.0, 0.0, -1.0
+		},
+		{
+		1.0, 0.0, 0.0
+		},
+	},
+	{
+		{
+		1.0, 0.0, -1.0
+		},
+		{
+		1.0, -1.0, -1.0
+		},
+		{
+		1.0, -1.0, 0.0
+		},
+		{
+		1.0, 0.0, 0.0
+		},
+	},
+	{
+		{
+		1.0, 0.0, 0.0
+		},
+		{
+		1.0, -1.0, 0.0
+		},
+		{
+		1.0, -1.0, 1.0
+		},
+		{
+		1.0, 0.0, 1.0
+		},
+	},
+	},
+	{
+	{
+		{
+		-1.0, 1.0, 1.0
+		},
+		{
+		0.0, 1.0, 1.0
+		},
+		{
+		0.0, 0.0, 1.0
+		},
+		{
+		-1.0, 0.0, 1.0
+		},
+	},
+	{
+		{
+		0.0, 1.0, 1.0
+		},
+		{
+		1.0, 1.0, 1.0
+		},
+		{
+		1.0, 0.0, 1.0
+		},
+		{
+		0.0, 0.0, 1.0
+		},
+	},
+	{
+		{
+		1.0, 0.0, 1.0
+		},
+		{
+		1.0, -1.0, 1.0
+		},
+		{
+		0.0, -1.0, 1.0
+		},
+		{
+		0.0, 0.0, 1.0
+		},
+	},
+	{
+		{
+		0.0, -1.0, 1.0
+		},
+		{
+		-1.0, -1.0, 1.0
+		},
+		{
+		-1.0, 0.0, 1.0
+		},
+		{
+		0.0, 0.0, 1.0
+		},
+	},
+	},
+	{
+	{
+		{
+		-1.0, 1.0, -1.0
+		},
+		{
+		-1.0, 1.0, 0.0
+		},
+		{
+		-1.0, 0.0, 0.0
+		},
+		{
+		-1.0, 0.0, -1.0
+		},
+	}, 
+	{
+		{
+		-1.0, 1.0, 0.0
+		},
+		{
+		-1.0, 1.0, 1.0
+		},
+		{
+		-1.0, 0.0, 1.0
+		},
+		{
+		-1.0, 0.0, 0.0
+		},
+	}, 
+	{
+		{
+		-1.0, 0.0, 1.0
+		},
+		{
+		-1.0, -1.0, 1.0
+		},
+		{
+		-1.0, -1.0, 0.0
+		},
+		{
+		-1.0, 0.0, 0.0
+		},
+	}, 
+	{
+		{
+		-1.0, -1.0, 0.0
+		},
+		{
+		-1.0, -1.0, -1.0
+		},
+		{
+		-1.0, 0.0, -1.0
+		},
+		{
+		-1.0, 0.0, 0.0
+		},
+	}, 
+	},
+	{
+	{
+		{
+		-1.0, 1.0, 1.0
+		},
+		{
+		-1.0, 1.0, 0.0
+		},
+		{
+		0.0, 1.0, 0.0
+		},
+		{
+		0.0, 1.0, 1.0
+		},
+	},
+	{
+		{
+		-1.0, 1.0, 0.0
+		},
+		{
+		-1.0, 1.0, -1.0
+		},
+		{
+		0.0, 1.0, -1.0
+		},
+		{
+		0.0, 1.0, 0.0
+		},
+	},
+	{
+		{
+		0.0, 1.0, -1.0
+		},
+		{
+		1.0, 1.0, -1.0
+		},
+		{
+		1.0, 1.0, 0.0
+		},
+		{
+		0.0, 1.0, 0.0
+		},
+	},
+	{
+		{
+		1.0, 1.0, 0.0
+		},
+		{
+		1.0, 1.0, 1.0
+		},
+		{
+		0.0, 1.0, 1.0
+		},
+		{
+		0.0, 1.0, 0.0
+		},
+	},
+	},
+	{
+	{
+		{
+		-1.0, -1.0, -1.0
+		},
+		{
+		-1.0, -1.0, 0.0
+		},
+		{
+		0.0, -1.0, 0.0
+		},
+		{
+		0.0, -1.0, -1.0
+		},
+	},
+	{
+		{
+		-1.0, -1.0, 0.0
+		},
+		{
+		-1.0, -1.0, 1.0
+		},
+		{
+		0.0, -1.0, 1.0
+		},
+		{
+		0.0, -1.0, 0.0
+		},
+	},
+	{
+		{
+		0.0, -1.0, 1.0
+		},
+		{
+		1.0, -1.0, 1.0
+		},
+		{
+		1.0, -1.0, 0.0
+		},
+		{
+		0.0, -1.0, 0.0
+		},
+	},
+	{
+		{
+		1.0, -1.0, 0.0
+		},
+		{
+		1.0, -1.0, -1.0
+		},
+		{
+		0.0, -1.0, -1.0
+		},
+		{
+		0.0, -1.0, 0.0
+		},
+	},
+	}
+}
+
+n = @{ // 6, 3
+	{
+	0.0, 0.0, -1.0
+	},
+	{
+	1.0, 0.0, 0.0
+	},
+	{
+	0.0, 0.0, 1.0
+	},
+	{
+	-1.0, 0.0, 0.0
+	},
+	{
+	0.0, 1.0, 0.0
+	},
+	{
+	0.0, -1.0, 0.0
+	}
+}
+
+BuildCage() = {
+	cage = glGenLists(2)
+	front  = 0.0
+	back   = -8.0
+	left   = -4.0
+	bottom = -4.0
+	right  = 4.0
+	top	= 4.0; 
+	inc = 2.0 * 4.0 * 0.1
+	glNewList(cage, GL_COMPILE) {
+		repeat (10) {|i|
+			// Back
+			glBegin(GL_LINES) {
+				glVertex3f(left+i*inc, top,	back)
+				glVertex3f(left+i*inc, bottom, back)
+			}
+			glBegin(GL_LINES) {
+				glVertex3f(right, bottom+i*inc, back)
+				glVertex3f(left,  bottom+i*inc, back)
+			}
+			// Front
+			glBegin(GL_LINES) {
+				glVertex3f(left+i*inc, top,	front)
+				glVertex3f(left+i*inc, bottom, front)
+			}
+			glBegin(GL_LINES) {
+				glVertex3f(right, bottom+i*inc, front)
+				glVertex3f(left,  bottom+i*inc, front)
+			}
+			// Left
+			glBegin(GL_LINES) {
+				glVertex3f(left, bottom+i*inc, front)
+				glVertex3f(left, bottom+i*inc, back)
+			}
+			glBegin(GL_LINES) {
+				glVertex3f(left, top,	back+i*inc)
+				glVertex3f(left, bottom, back+i*inc)
+			}
+			// Right
+			glBegin(GL_LINES) {
+				glVertex3f(right, top-i*inc, front)
+				glVertex3f(right, top-i*inc, back)
+			}
+			glBegin(GL_LINES) {
+				glVertex3f(right, top,	back+i*inc)
+				glVertex3f(right, bottom, back+i*inc)
+			}
+			// Top
+			glBegin(GL_LINES) {
+				glVertex3f(left+i*inc, top, front)
+				glVertex3f(left+i*inc, top, back)
+			}
+			glBegin(GL_LINES) {
+				glVertex3f(right, top, back+i*inc)
+				glVertex3f(left,  top, back+i*inc)
+			}
+			// Bottom
+			glBegin(GL_LINES) {
+				glVertex3f(right-i*inc, bottom, front)
+				glVertex3f(right-i*inc, bottom, back)
+			}
+			glBegin(GL_LINES) {
+				glVertex3f(right, bottom, back+i*inc)
+				glVertex3f(left,  bottom, back+i*inc)
+			}
+		}
+	}
+	cage
+}
+
+BuildCylinder(numEdges) = {
+	cylinder = glGenLists(3)
+	top = 1.0, bottom = -1.0
+	angle = interval(0, 2 * math.pi, numEdges + 1)
+	xs = math.cos(angle):list
+	ys = math.sin(angle):list
+	glNewList(cylinder, GL_COMPILE) {
+		glBegin(GL_TRIANGLE_STRIP) {
+			for (x in xs, y in ys) {
+				glNormal3f(x, y, 0.0)
+				glVertex3f(x, y, bottom)
+				glVertex3f(x, y, top)
+			}
+		}
+		glBegin(GL_TRIANGLE_FAN) {
+			glNormal3f(0.0, 0.0, 1.0)
+			glVertex3f(0.0, 0.0, top)
+			glVertex3f(xs, -ys, top)
+		}
+		glBegin(GL_TRIANGLE_FAN) {
+			glNormal3f(0.0, 0.0, -1.0)
+			glVertex3f(0.0, 0.0, bottom)
+			glVertex3f(xs, ys, bottom)
+		}
+	}
+	cylinder
+}
+
+BuildTorus(rc:number, numc:number, rt:number, numt:number) = {
+	torus = glGenLists(4)
+	twopi = 2.0 * math.pi
+	glNewList(torus, GL_COMPILE) {
+		for (i in range(numc)) {
+			glBegin(GL_QUAD_STRIP) {
+				cross (j in range(numt + 1), k in range(2)) {
+					s = (i + k) % numc + 0.5
+					t = j % numt
+					x = math.cos(t * twopi / numt) * math.cos(s * twopi / numc)
+					y = math.sin(t * twopi / numt) * math.cos(s * twopi / numc)
+					z = math.sin(s * twopi / numc)
+					glNormal3f(x, y, z)
+					x = (rt + rc * math.cos(s * twopi / numc)) * math.cos(t * twopi / numt)
+					y = (rt + rc * math.cos(s * twopi / numc)) * math.sin(t * twopi / numt)
+					z = rc * math.sin(s * twopi / numc)
+					glVertex3f(x, y, z)
+				}
+			}
+		}
+	}
+	torus
+}
+
+BuildCube() = {
+	cube = glGenLists(1)
+	glNewList(cube, GL_COMPILE) {
+		cross (i in range(6), j in range(4)) {
+			glNormal3fv(n[i]); 
+			glBegin(GL_POLYGON) {
+				glVertex3fv(c[i][j][0])
+				glVertex3fv(c[i][j][1])
+				glVertex3fv(c[i][j][2])
+				glVertex3fv(c[i][j][3])
+			}
+		}
+	}
+	cube
+}
+
+SetDeepestColor() = {
+	glGetIntegerv(GL_RED_BITS, &redBits)
+	glGetIntegerv(GL_GREEN_BITS, &greenBits)
+	glGetIntegerv(GL_BLUE_BITS, &blueBits)
+	//deepestColor = if (redBits >= greenBits) { GLUT_RED } else { GLUT_GREEN }
+	//deepestColor = if (deepestColor >= blueBits) { deepestColor } else { GLUT_BLUE }
+}
+
+Init() = {
+	//SetDeepestColor()
+	if (numComponents == 4) {
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
+		gluBuild2DMipmaps(GL_TEXTURE_2D, numComponents, img)
+	} else {
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
+		gluBuild2DMipmaps(GL_TEXTURE_2D, numComponents, img)
+	}
+	glFogf(GL_FOG_DENSITY, 0.125)
+	glFogi(GL_FOG_MODE, GL_LINEAR)
+	glFogf(GL_FOG_START, 4.0)
+	glFogf(GL_FOG_END, 9.0)
+	glFogfv(GL_FOG_COLOR, @{0.0, 0.0, 0.0, 1.0})
+	glLightfv(GL_LIGHT0, GL_AMBIENT, @{0.0, 0.0, 0.0, 1.0})
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, @{0.0, 1.0, 0.0, 1.0})
+	glLightfv(GL_LIGHT0, GL_SPECULAR, @{1.0, 1.0, 1.0, 1.0})
+	glLightfv(GL_LIGHT0, GL_POSITION, @{2.0, 2.0,  0.0, 1.0})
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, @{90.0})
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, @{1.0, 1.0, 1.0, 1.0})
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, @{1.0, 1.0, 1.0, 1.0})
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, @{0.0, 0.0, 0.0, 1.0})
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, @{0.0, 0.0, 0.0, 1.0})
+	glLightModelfv(GL_LIGHT_MODEL_TWO_SIDE, @{GL_TRUE})
+	glShadeModel(GL_SMOOTH)
+	glEnable(GL_LIGHTING)
+	glEnable(GL_LIGHT0)
+	glClearColor(0.0, 0.0, 0.0, 0.0)
+	glViewport(0, 0, W, H)
+	glEnable(GL_DEPTH_TEST)
+	glFrontFace(GL_CW)
+	glEnable(GL_CULL_FACE)
+	glCullFace(GL_BACK)
+	glEnable(GL_TEXTURE_2D)
+	glTexGeniv(GL_S, GL_TEXTURE_GEN_MODE, [GL_SPHERE_MAP])
+	glTexGeniv(GL_T, GL_TEXTURE_GEN_MODE, [GL_SPHERE_MAP])
+	glEnable(GL_TEXTURE_GEN_S)
+	glEnable(GL_TEXTURE_GEN_T)
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter)
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter)
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, sWrapMode)
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, tWrapMode)
+	glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, textureEnvironment)
+}
+
+ReInit() = {
+	glEnable(GL_DEPTH_TEST)
+	//if (genericObject == torus) {
+	//	glEnable(GL_DEPTH_TEST)
+	//} else  {
+	//	glDisable(GL_DEPTH_TEST)
+	//}
+	if (isFogged) {
+		textureEnvironment = [GL_MODULATE]
+	}
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter)
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter)
+	glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, textureEnvironment)
+}
+
+Draw(cage:number, genericObject:number) = {
+	glMatrixMode(GL_PROJECTION)
+	glLoadIdentity()
+	glFrustum(-0.2, 0.2, -0.2, 0.2, 0.15, 9.0)
+	glMatrixMode(GL_MODELVIEW)
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+	if (isFogged) {
+		glEnable(GL_FOG)
+	}
+	glColor3f(1.0, 1.0, 1.0)
+	glDisable(GL_LIGHTING)
+	glDisable(GL_LIGHT0)
+	glDisable(GL_TEXTURE_2D)
+	glCallList(cage)
+	glPushMatrix() {
+		glTranslatef(0.0, 0.0, zTranslate)
+		glRotatef(xRotation, 1, 0, 0)
+		glRotatef(yRotation, 0, 1, 0)
+		if (isLit) {
+			glEnable(GL_LIGHTING)
+			glEnable(GL_LIGHT0)
+		}
+		glEnable(GL_TEXTURE_2D)
+		if (isFogged) {
+			glDisable(GL_FOG)
+		}
+		glPolygonMode(GL_FRONT, GL_FILL)
+		glColor3f(1.0, 1.0, 1.0)
+		glCallList(genericObject)
+	}
+	glFlush()
+}
+
+Reshape(width:number, height:number) = {
+	extern(W, H)
+	W = width
+	H = height
+	ReInit()
+}
+
+env = locals()
+scope {
+	gltester.mainloop(300, 300, 0, `idle) {
+		`onInit => function {
+			extern(cage, cube, cylinder, torus, genericObject)
+			Init()
+			cage = BuildCage()
+			cube = BuildCube()
+			cylinder = BuildCylinder(60)
+			torus = BuildTorus(0.65, 20, .85, 65)
+			genericObject = cube //cylinder //torus //cylinder
+		}
+		`onResize => function(width:number, height:number) {
+			Reshape(width, height)
+		}
+		`onDraw => function {
+			Draw(cage, genericObject)
+		}
+		`onKeyDown => %{
+			`a => function {
+				autoRotate:extern = !autoRotate
+			}
+			`c => function {
+				genericObject:extern = \
+					if (genericObject == cube) {
+						cylinder
+					} elsif (genericObject == cylinder) {
+						torus
+					} elsif (genericObject == torus) {
+						cube
+					}
+			}
+			`d => function {
+				extern(textureEnvironment)
+				textureEnvironment = [GL_DECAL]
+				ReInit()
+			}
+			`m => function {
+				extern(textureEnvironment)
+				textureEnvironment = [GL_MODULATE]
+				ReInit()
+			}
+			`l => function {
+				extern(isLit)
+				isLit = !isLit
+				ReInit()
+			}
+			`f => function {
+				extern(isFogged)
+				isFogged = !isFogged
+				ReInit()
+			}
+			`num0 => function {
+				extern(magFilter)
+				magFilter = [GL_NEAREST]
+				ReInit()
+			}
+			`num1 => function {
+				extern(magFilter)
+				magFilter = [GL_LINEAR]
+				ReInit()
+			}
+			`num2 => function {
+				extern(minFilter)
+				minFilter = [GL_NEAREST]
+				ReInit()
+			}
+			`num3 => function {
+				extern(minFilter)
+				minFilter = [GL_LINEAR]
+				ReInit()
+			}
+			`num4 => function {
+				extern(minFilter)
+				minFilter = [GL_NEAREST_MIPMAP_NEAREST]
+				ReInit()
+			}
+			`num5 => function {
+				extern(minFilter)
+				minFilter = [GL_NEAREST_MIPMAP_LINEAR]
+				ReInit()
+			}
+			`num6 => function {
+				extern(minFilter)
+				minFilter = [GL_LINEAR_MIPMAP_NEAREST]
+				ReInit()
+			}
+			`num7 => function {
+				extern(minFilter)
+				minFilter = [GL_LINEAR_MIPMAP_LINEAR]
+				ReInit()
+			}
+		}
+		`onKeyPoll => %{
+			`left => function {
+				extern(yRotation, autoRotate)
+				yRotation -= 0.5
+				autoRotate = false
+				ReInit()
+			}
+			`right => function {
+				extern(yRotation, autoRotate)
+				yRotation += 0.5
+				autoRotate = false
+				ReInit()
+			}
+			`up => function {
+				extern(xRotation, autoRotate)
+				xRotation -= 0.5
+				autoRotate = false
+				ReInit()
+			}
+			`down => function {
+				extern(xRotation, autoRotate)
+				xRotation += 0.5
+				autoRotate = false
+				ReInit()
+			}
+		}
+	}
+}

@@ -1,0 +1,461 @@
+//----------------------------------------------------------------------------
+// wxFile
+// extracted from file.tex
+//----------------------------------------------------------------------------
+#include "stdafx.h"
+
+Gura_BeginModule(wx)
+
+//----------------------------------------------------------------------------
+// Class derivation
+//----------------------------------------------------------------------------
+class wx_File: public wxFile, public GuraObjectObserver {
+private:
+	Gura::Signal _sig;
+	Object_wx_File *_pObj;
+public:
+	inline wx_File() : wxFile(), _sig(NULL), _pObj(NULL) {}
+	inline wx_File(const wxString& filename, wxFile::OpenMode mode) : wxFile(filename, mode), _sig(NULL), _pObj(NULL) {}
+	//inline wx_File(int fd) : wxFile(fd), _sig(NULL), _pObj(NULL) {}
+	~wx_File();
+	inline void AssocWithGura(Gura::Signal &sig, Object_wx_File *pObj) {
+		_sig = sig, _pObj = pObj;
+	}
+	// virtual function of GuraObjectObserver
+	virtual void GuraObjectDeleted();
+};
+
+wx_File::~wx_File()
+{
+	if (_pObj != NULL) _pObj->InvalidateEntity();
+}
+
+void wx_File::GuraObjectDeleted()
+{
+	_pObj = NULL;
+}
+
+//----------------------------------------------------------------------------
+// Gura interfaces for wxFile
+//----------------------------------------------------------------------------
+Gura_DeclareFunction(File)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetClassToConstruct(Gura_UserClass(wx_File));
+	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "mode", VTYPE_wx_File, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(File)
+{
+	wx_File *pEntity = NULL;
+	if (args.IsValid(0)) {
+		wxString filename = wxString::FromUTF8(args.GetString(0));
+		wxFile::OpenMode mode = wxFile::read;
+		if (args.IsValid(1)) mode = static_cast<wxFile::OpenMode>(args.GetInt(1));
+		pEntity = new wx_File(filename, mode);
+	} else {
+		pEntity = new wx_File();
+	}
+	Object_wx_File *pObj = Object_wx_File::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_File(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+
+Gura_DeclareClassMethod(wx_File, Access)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(wx_File, Access)
+{
+	wxString name = wxString::FromUTF8(args.GetString(0));
+	wxFile::OpenMode mode = static_cast<wxFile::OpenMode>(args.GetInt(1));
+	bool rtn = wxFile::Access(name, mode);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_File, Attach)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+#if 0
+	DeclareArg(env, "fd", VTYPE_number, OCCUR_Once);
+#endif
+}
+
+Gura_ImplementMethod(wx_File, Attach)
+{
+#if 0
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int fd = args.GetInt(0);
+	pSelf->GetEntity()->Attach(fd);
+	return Value::Null;
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_File, Close)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_File, Close)
+{
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->Close();
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_File, Create)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "overwrite", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "access", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_File, Create)
+{
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString filename = wxString::FromUTF8(args.GetString(0));
+	bool overwrite = false;
+	if (args.IsValid(1)) overwrite = args.GetBoolean(1);
+	int access = wxS_DEFAULT;
+	if (args.IsValid(2)) access = args.GetInt(2);
+	bool rtn = pSelf->GetEntity()->Create(filename, overwrite, access);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_File, Detach)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_File, Detach)
+{
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->Detach();
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_File, fd)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_File, fd)
+{
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->fd();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_File, Eof)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_File, Eof)
+{
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool rtn = pSelf->GetEntity()->Eof();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareClassMethod(wx_File, Exists)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(wx_File, Exists)
+{
+	wxString filename = wxString::FromUTF8(args.GetString(0));
+	bool rtn = wxFile::Exists(filename);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_File, Flush)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_File, Flush)
+{
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool rtn = pSelf->GetEntity()->Flush();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_File, GetKind)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_File, GetKind)
+{
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxFileKind rtn = pSelf->GetEntity()->GetKind();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_File, IsOpened)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_File, IsOpened)
+{
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool rtn = pSelf->GetEntity()->IsOpened();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_File, Length)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_File, Length)
+{
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxFileOffset rtn = pSelf->GetEntity()->Length();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_File, Open)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "mode", VTYPE_wx_File, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_File, Open)
+{
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString filename = wxString::FromUTF8(args.GetString(0));
+	wxFile::OpenMode mode = wxFile::read;
+	if (args.IsValid(1)) mode = static_cast<wxFile::OpenMode>(args.GetInt(1));
+	bool rtn = pSelf->GetEntity()->Open(filename, mode);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_File, Read)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+#if 0
+	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
+#endif
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_File, Read)
+{
+#if 0
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int buffer = args.GetInt(0);
+	size_t count = args.GetSizeT(1);
+	size_t rtn = pSelf->GetEntity()->Read(buffer, count);
+	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_File, Seek)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "ofs", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "mode", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_File, Seek)
+{
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxFileOffset ofs = static_cast<wxFileOffset>(args.GetInt64(0));
+	wxSeekMode mode = wxFromStart;
+	if (args.IsValid(1)) mode = static_cast<wxSeekMode>(args.GetInt(1));
+	wxFileOffset rtn = pSelf->GetEntity()->Seek(ofs, mode);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_File, SeekEnd)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "ofs", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_File, SeekEnd)
+{
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxFileOffset ofs = 0;
+	if (args.IsValid(0)) ofs = static_cast<wxFileOffset>(args.GetInt64(0));
+	wxFileOffset rtn = pSelf->GetEntity()->SeekEnd(ofs);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_File, Tell)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_File, Tell)
+{
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxFileOffset rtn = pSelf->GetEntity()->Tell();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_File, Write)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "buffer", VTYPE_binary, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_File, Write)
+{
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	const Binary &binary = args.GetBinary(0);
+	const void *buffer = binary.data();
+	size_t count = binary.size();
+	size_t rtn = pSelf->GetEntity()->Write(buffer, count);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_File, Write_1)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+#if 0
+	DeclareArg(env, "s", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "conv", VTYPE_wx_MBConv, OCCUR_ZeroOrOnce);
+#endif
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_File, Write_1)
+{
+#if 0
+	Object_wx_File *pSelf = Object_wx_File::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString s = wxString::FromUTF8(args.GetString(0));
+	wxMBConv *conv = (wxMBConv *)(&wxConvUTF8);
+	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
+	bool rtn = pSelf->GetEntity()->Write(s, *conv);
+	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
+}
+
+//----------------------------------------------------------------------------
+// Object implementation for wxFile
+//----------------------------------------------------------------------------
+Object_wx_File::~Object_wx_File()
+{
+	if (_pEntity != NULL) NotifyGuraObjectDeleted();
+	if (_ownerFlag) delete _pEntity;
+	_pEntity = NULL;
+}
+
+Object *Object_wx_File::Clone() const
+{
+	return NULL;
+}
+
+String Object_wx_File::ToString(Signal sig, bool exprFlag)
+{
+	String rtn("<wx.File:");
+	if (GetEntity() == NULL) {
+		rtn += "invalid>";
+	} else {
+		char buff[64];
+		::sprintf(buff, "%p>", GetEntity());
+		rtn += buff;
+	}
+	return rtn;
+}
+
+void Object_wx_File::OnModuleEntry(Environment &env, Signal sig)
+{
+	Gura_AssignFunction(File);
+}
+
+//----------------------------------------------------------------------------
+// Class implementation for wxFile
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_File)
+{
+	Environment &env = *this;
+	Gura_AssignValue(read, wxFile::read);
+	Gura_AssignValue(write, wxFile::write);
+	Gura_AssignValue(read_write, wxFile::read_write);
+	Gura_AssignValue(write_append, wxFile::write_append);
+	Gura_AssignValue(write_excl, wxFile::write_excl);
+	Gura_AssignMethod(wx_File, Access);
+	Gura_AssignMethod(wx_File, Attach);
+	Gura_AssignMethod(wx_File, Close);
+	Gura_AssignMethod(wx_File, Create);
+	Gura_AssignMethod(wx_File, Detach);
+	Gura_AssignMethod(wx_File, fd);
+	Gura_AssignMethod(wx_File, Eof);
+	Gura_AssignMethod(wx_File, Exists);
+	Gura_AssignMethod(wx_File, Flush);
+	Gura_AssignMethod(wx_File, GetKind);
+	Gura_AssignMethod(wx_File, IsOpened);
+	Gura_AssignMethod(wx_File, Length);
+	Gura_AssignMethod(wx_File, Open);
+	Gura_AssignMethod(wx_File, Read);
+	Gura_AssignMethod(wx_File, Seek);
+	Gura_AssignMethod(wx_File, SeekEnd);
+	Gura_AssignMethod(wx_File, Tell);
+	Gura_AssignMethod(wx_File, Write);
+	Gura_AssignMethod(wx_File, Write_1);
+}
+
+Gura_ImplementDescendantCreator(wx_File)
+{
+	return new Object_wx_File((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+}
+
+}}

@@ -1,0 +1,52 @@
+#!/usr/bin/env gura
+import(wx)
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+		panel = wx.Panel(self)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		panel.SetSizer(vbox)
+		wx.Panel(panel) {|panel|
+			vbox.Add(panel, wx.SizerFlags(1).Expand())
+			grid = wx.GridSizer(nil, 2, 10, 10)
+			panel.SetSizer(grid)
+			grid.Add * [
+				[wx.Button(panel, wx.ID_ANY, 'top-left'),
+				 wx.SizerFlags(1).Expand().Border(wx.TOP | wx.LEFT, 8)]
+				[wx.Button(panel, wx.ID_ANY, 'top-right'),
+				 wx.SizerFlags(1).Expand().Border(wx.TOP | wx.RIGHT, 8)]
+				[wx.Button(panel, wx.ID_ANY, 'bottom-left'),
+				 wx.SizerFlags(1).Expand().Border(wx.BOTTOM | wx.LEFT, 8)]
+				[wx.Button(panel, wx.ID_ANY, 'bottom-right'),
+				 wx.SizerFlags(1).Expand().Border(wx.BOTTOM | wx.RIGHT, 8)]
+			]
+		}
+		wx.StaticLine(panel) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags().Expand())
+		}
+		wx.StaticBox(panel, wx.ID_ANY, label => 'static-box') {|box|
+			vboxIn = wx.StaticBoxSizer(box, wx.VERTICAL)
+			vbox.Add(vboxIn, wx.SizerFlags(1).Expand())
+			vboxIn.Add * [
+				[wx.Button(panel, wx.ID_ANY, 'button1'),
+				 wx.SizerFlags(1).Expand().Border(wx.TOP, 8)]
+				[wx.Button(panel, wx.ID_ANY, 'button2'),
+				 wx.SizerFlags(1).Expand().Border(wx.TOP, 8)]
+				[wx.Button(panel, wx.ID_ANY, 'button3'),
+				 wx.SizerFlags(1).Expand().Border(wx.TOP, 8)]
+			]
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

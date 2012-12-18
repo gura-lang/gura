@@ -1,0 +1,281 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        minimal.cpp
+// Purpose:     Popup wxWidgets sample
+// Author:      Robert Roebling
+// Modified by:
+// Created:     2005-02-04
+// RCS-ID:      $Id: popup.cpp 41547 2006-10-02 05:36:31Z PC $
+// Copyright:   (c) 2005 Robert Roebling
+// Licence:     wxWindows licence
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+// ----------------------------------------------------------------------------
+// constants
+// ----------------------------------------------------------------------------
+
+// IDs for the controls and the menu commands
+Minimal_Quit = wx.ID_EXIT,
+[Minimal_About,
+Minimal_TestDialog,
+Minimal_StartSimplePopup,
+Minimal_StartScrolledPopup,
+Minimal_LogWindow,
+Minimal_PopupButton,
+Minimal_PopupSpinctrl] = wx.ID_ABOUT..
+
+//----------------------------------------------------------------------------
+// SimpleTransientPopup
+//----------------------------------------------------------------------------
+SimpleTransientPopup = class(wx.PopupTransientWindow) {
+	__init__(parent:wx.Window) = {|parent|
+		self.m_panel = wx.ScrolledWindow(self, wx.ID_ANY)
+		self.m_panel.SetBackgroundColour(wx.LIGHT_GREY)
+		// Keep this code to verify if mouse events work, they're required if 
+		// you're making a control like a combobox where the items are highlighted
+		// under the cursor, the m_panel is set focus in the Popup() function
+		self.m_panel.Bind(wx.EVT_MOTION) {|event| self.OnMouse(event) }
+		text = wx.StaticText(self.m_panel, wx.ID_ANY,
+							'wx.PopupTransientWindow is a\n' \
+							'wx.PopupWindow which disappears\n' \
+							'automatically when the user\n' \
+							'clicks the mouse outside it or if it\n' \
+							'(or its first child) loses focus in \n' \
+							'any other way.')
+		self.m_button = wx.Button(self.m_panel, Minimal_PopupButton, 'Press Me')
+		self.m_spinCtrl = wx.SpinCtrl(self.m_panel, Minimal_PopupSpinctrl, 'Hello')
+		self.m_mouseText = wx.StaticText(self.m_panel, wx.ID_ANY, 
+									   '<- Test Mouse ->')
+		topSizer = wx.BoxSizer(wx.VERTICAL)
+		topSizer.Add(text, wx.SizerFlags(0).Border(wx.ALL, 5))
+		topSizer.Add(self.m_button, wx.SizerFlags(0).Border(wx.ALL, 5))
+		topSizer.Add(self.m_spinCtrl, wx.SizerFlags(0).Border(wx.ALL, 5))
+		topSizer.Add(self.m_mouseText, wx.SizerFlags(0).Centre().Border(wx.ALL, 5))
+		self.m_panel.SetAutoLayout(true)
+		self.m_panel.SetSizer(topSizer)
+		topSizer.Fit(self.m_panel)
+		topSizer.Fit(self)
+		self.EventTable()
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_MOUSE_EVENTS) {|event| self.OnMouse(event) }
+		self.Bind(wx.EVT_SIZE) {|event| self.OnSize(event) }
+		self.Bind(wx.EVT_SET_FOCUS) {|event| self.OnSetFocus(event) }
+		self.Bind(wx.EVT_KILL_FOCUS) {|event| self.OnKillFocus(event) }
+		self.Bind(wx.EVT_BUTTON, Minimal_PopupButton) {|event| self.OnButton(event) }
+		self.Bind(wx.EVT_SPINCTRL, Minimal_PopupSpinctrl) {|event| self.OnSpinCtrl(event) }
+	}
+	// wxPopupTransientWindow virtual methods are all overridden to log them
+	Popup(focus:wx.Window => nil) = {
+		wx.LogMessage('%s SimpleTransientPopup::Popup', self)
+		super(self).Popup(if (focus) {focus} else {self.m_panel})
+	}
+	OnDismiss() = {
+		wx.LogMessage('%s SimpleTransientPopup::OnDismiss', self)
+		super(self).OnDismiss()
+	}
+	ProcessLeftDown(event:wx.MouseEvent) = {
+	    wx.LogMessage('%s SimpleTransientPopup::ProcessLeftDown pos(%d, %d)', self, event.GetX(), event.GetY())
+		super(self).ProcessLeftDown(event)
+	}
+	Show(show:boolean => true) = {
+		wx.LogMessage('%s SimpleTransientPopup::Show %d', self, show)
+		super(self).Show(show)
+	}
+	OnSize(event:wx.SizeEvent) = {
+		wx.LogMessage('%s SimpleTransientPopup::OnSize', self)
+		event.Skip()
+	}
+	OnSetFocus(event:wx.FocusEvent) = {
+		wx.LogMessage('%s SimpleTransientPopup::OnSetFocus', self)
+		event.Skip()
+	}
+	OnKillFocus(event:wx.FocusEvent) = {
+		wx.LogMessage('%s SimpleTransientPopup::OnKillFocus', self)
+		event.Skip()
+	}
+	OnMouse(event:wx.MouseEvent) = {
+		rect = self.m_mouseText.GetRect().clone()
+		rect.SetX(-100000)
+		rect.SetWidth(1000000)
+		colour = wx.LIGHT_GREY
+		if (rect.Contains(event.GetPosition())) {
+			colour = wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT)
+			wx.LogMessage('%s SimpleTransientPopup::OnMouse pos(%d, %d)', event.GetEventObject(), event.GetX(), event.GetY())
+		}
+		if (colour != self.m_mouseText.GetBackgroundColour()) {
+			self.m_mouseText.SetBackgroundColour(colour)
+			self.m_mouseText.Refresh()
+		}
+		event.Skip()
+	}
+	OnButton(event:wx.CommandEvent) = {
+		wx.LogMessage('%s SimpleTransientPopup::OnButton ID %d', self, event.GetId())
+		button = self.m_button
+		if (button.GetLabel() == 'Press Me') {
+			button.SetLabel('Pressed')
+		} else {
+			button.SetLabel('Press Me')
+		}
+		event.Skip()
+	}
+	OnSpinCtrl(event:wx.SpinEvent) = {
+		wx.LogMessage('%s SimpleTransientPopup::OnSpinCtrl ID %d Value %d', self, event.GetId(), event.GetInt())
+		event.Skip()
+	}
+	GetChild() = { self.m_panel }
+}
+
+// ----------------------------------------------------------------------------
+// private classes
+// ----------------------------------------------------------------------------
+
+MyApp = class(wx.App) {
+	OnInit() = {
+		// create the main application window
+		self.m_frame = MyFrame('Popup wxWidgets App')
+		// and show it (the frames, unlike simple controls, are not shown when
+		// created initially)
+		self.m_frame.Show(true)
+		// success: wxApp::OnRun() will be called which will enter the main message
+		// loop and the application will run. If we returned false here, the
+		// application would exit immediately.
+		true
+	}
+}
+
+// ----------------------------------------------------------------------------
+// main frame
+// ----------------------------------------------------------------------------
+
+MyFrame = class(wx.Frame) {
+	__init__(title:string) = {|nil, wx.ID_ANY, title|
+		self.m_simplePopup = self.m_scrolledPopup = nil
+		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		menuFile = wx.Menu()
+		// the "About" item should be in the help menu
+		helpMenu = wx.Menu()
+		helpMenu.Append(Minimal_About, '&About...\tF1', 'Show about dialog')
+		menuFile.Append(Minimal_TestDialog, '&Test dialog\tAlt-T', 'Test dialog')
+		menuFile.Append(Minimal_Quit, 'E&xit\tAlt-X', 'Quit this program')
+		// now append the freshly created menu to the menu bar...
+		menuBar = wx.MenuBar()
+		menuBar.Append(menuFile, '&File')
+		menuBar.Append(helpMenu, '&Help')
+		// ... and attach this menu bar to the frame
+		self.SetMenuBar(menuBar)
+		// create a status bar just for fun (by default with 1 pane only)
+		self.CreateStatusBar(2)
+		self.SetStatusText('Welcome to wxWidgets!')
+		panel = wx.Panel(self, -1)
+		self.m_button1 = wx.Button(panel, Minimal_StartSimplePopup, 'Show simple popup', wx.Point(20,20))
+		self.m_button2 = wx.Button(panel, Minimal_StartScrolledPopup, 'Show scrolled popup', wx.Point(20,70))
+		self.m_logWin = wx.TextCtrl(panel, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition,
+								wx.DefaultSize, wx.TE_MULTILINE)
+		self.m_logWin.SetEditable(false)
+		logger = wx.LogTextCtrl(self.m_logWin)
+		self.m_logOld = wx.LogTextCtrl.SetActiveTarget(logger)
+		wx.LogTextCtrl.SetTimestamp(nil)
+		topSizer = wx.BoxSizer(wx.VERTICAL)
+		topSizer.Add(self.m_button1, wx.SizerFlags(0).Border(wx.ALL, 5))
+		topSizer.Add(self.m_button2, wx.SizerFlags(0).Border(wx.ALL, 5))
+		topSizer.Add(self.m_logWin, wx.SizerFlags(1).Expand().Border(wx.ALL, 5))
+		panel.SetAutoLayout(true)
+		panel.SetSizer(topSizer)
+		// event handler
+		self.Bind(wx.EVT_MENU, Minimal_Quit) {|event| self.OnQuit(event) }
+		self.Bind(wx.EVT_MENU, Minimal_About) {|event| self.OnAbout(event) }
+		self.Bind(wx.EVT_MENU, Minimal_TestDialog) {|event| self.OnTestDialog(event) }
+		self.Bind(wx.EVT_BUTTON, Minimal_StartSimplePopup) {|event| self.OnStartSimplePopup(event) }
+		self.Bind(wx.EVT_BUTTON, Minimal_StartScrolledPopup) {|event| self.OnStartScrolledPopup(event) }
+	}
+	OnStartSimplePopup(event:wx.CommandEvent) = {
+		wx.LogMessage('================================================')
+		self.m_simplePopup && self.m_simplePopup.Destroy()
+		self.m_simplePopup = SimpleTransientPopup(self)
+		btn = self.m_button1
+		pos = btn.ClientToScreen(wx.Point(0, 0))
+		sz = btn.GetSize()
+		self.m_simplePopup.Position(pos, sz)
+		wx.LogMessage('%s Simple Popup Shown pos(%d, %d) size(%d, %d)', self.m_simplePopup, pos.x, pos.y, sz.x, sz.y )
+		self.m_simplePopup.Popup()
+	}
+	OnStartScrolledPopup(event:wx.CommandEvent) = {
+		wx.LogMessage('================================================')
+		self.m_scrolledPopup && self.m_scrolledPopup.Destroy()
+		self.m_scrolledPopup = SimpleTransientPopup(self)
+		self.m_scrolledPopup.GetChild().SetScrollbars(1, 1, 1000, 1000)
+		btn = self.m_button2
+		pos = btn.ClientToScreen(wx.Point(0, 0))
+		sz = btn.GetSize()
+		self.m_scrolledPopup.Position(pos, sz)
+		wx.LogMessage('%s Scrolled Popup Shown pos(%d, %d) size(%d, %d)', self.m_scrolledPopup, pos.x, pos.y, sz.x, sz.y )
+		self.m_scrolledPopup.Popup()
+	}
+	OnTestDialog(event:wx.CommandEvent) = {
+		dialog = MyDialog(self, 'Test')
+		dialog.ShowModal()
+	}
+	OnQuit(event:wx.CommandEvent) = {
+		// true is to force the frame to close
+		self.Close(true)
+	}
+	OnAbout(event:wx.CommandEvent) = {
+		msg = format('This is the About dialog of the popup sample.\n' \
+					'Welcome to %s', wx.VERSION_STRING)
+		wx.MessageBox(msg, 'About Popup', wx.OK | wx.ICON_INFORMATION, self)
+	}
+}
+
+// ----------------------------------------------------------------------------
+// test dialog
+// ----------------------------------------------------------------------------
+
+MyDialog = class(wx.Dialog) {
+	__init__(parent:wx.Window, title:string) = {|parent, wx.ID_ANY, title, wx.Point(50, 50), wx.Size(400, 300)|
+		self.m_simplePopup = self.m_scrolledPopup = nil
+		panel = wx.Panel(self, -1)
+		self.m_button1 = wx.Button(panel, Minimal_StartSimplePopup, 'Show simple popup', wx.Point(20, 20))
+		self.m_button2 = wx.Button(panel, Minimal_StartScrolledPopup, 'Show scrolled popup', wx.Point(20, 60))
+		okButton = wx.Button(panel, wx.ID_OK, 'OK', wx.Point(20, 200))
+		topSizer = wx.BoxSizer(wx.VERTICAL)
+		topSizer.Add(self.m_button1, wx.SizerFlags(0).Border(wx.ALL, 5))
+		topSizer.Add(self.m_button2, wx.SizerFlags(0).Border(wx.ALL, 5))
+		topSizer.AddSpacer(40)
+		topSizer.Add(okButton, wx.SizerFlags(0).Border(wx.ALL, 5))
+		panel.SetAutoLayout(true)
+		panel.SetSizer(topSizer)
+		topSizer.Fit(self)
+		// event handler
+		self.Bind(wx.EVT_BUTTON, Minimal_StartSimplePopup) {|event| self.OnStartSimplePopup(event) }
+		self.Bind(wx.EVT_BUTTON, Minimal_StartScrolledPopup) {|event| self.OnStartScrolledPopup(event) }
+	}
+	OnStartSimplePopup(event:wx.CommandEvent) = {
+		wx.LogMessage('================================================')
+		self.m_simplePopup && self.m_simplePopup.Destroy()
+		self.m_simplePopup = SimpleTransientPopup(self)
+		btn = self.m_button1
+		pos = btn.ClientToScreen(wx.Point(0, 0))
+		sz = btn.GetSize()
+		self.m_simplePopup.Position(pos, sz)
+		wx.LogMessage('%s Dialog Simple Popup Shown pos(%d, %d) size(%d, %d)', self.m_simplePopup, pos.x, pos.y, sz.x, sz.y)
+		self.m_simplePopup.Popup()
+	}
+	OnStartScrolledPopup(event:wx.CommandEvent) = {
+		wx.LogMessage('================================================')
+		self.m_scrolledPopup && self.m_scrolledPopup.Destroy()
+		self.m_scrolledPopup = SimpleTransientPopup(self)
+		self.m_scrolledPopup.GetChild().SetScrollbars(1, 1, 1000, 1000)
+		btn = self.m_button2
+		pos = btn.ClientToScreen(wx.Point(0, 0))
+		sz = btn.GetSize()
+		self.m_scrolledPopup.Position(pos, sz)
+		wx.LogMessage('%s Dialog Scrolled Popup Shown pos(%d, %d) size(%d, %d)', self.m_scrolledPopup, pos.x, pos.y, sz.x, sz.y)
+		self.m_scrolledPopup.Popup()
+	}
+}
+
+wx.IMPLEMENT_APP(MyApp)

@@ -1,0 +1,487 @@
+//----------------------------------------------------------------------------
+// wxSlider
+// extracted from slider.tex
+//----------------------------------------------------------------------------
+#include "stdafx.h"
+
+Gura_BeginModule(wx)
+
+//----------------------------------------------------------------------------
+// Class derivation
+//----------------------------------------------------------------------------
+class wx_Slider: public wxSlider, public GuraObjectObserver {
+private:
+	Gura::Signal _sig;
+	Object_wx_Slider *_pObj;
+public:
+	inline wx_Slider() : wxSlider(), _sig(NULL), _pObj(NULL) {}
+	inline wx_Slider(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& point, const wxSize& size, long style, const wxValidator& validator, const wxString& name) : wxSlider(parent, id, value, minValue, maxValue, point, size, style, validator, name), _sig(NULL), _pObj(NULL) {}
+	~wx_Slider();
+	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Slider *pObj) {
+		_sig = sig, _pObj = pObj;
+	}
+	// virtual function of GuraObjectObserver
+	virtual void GuraObjectDeleted();
+};
+
+wx_Slider::~wx_Slider()
+{
+	if (_pObj != NULL) _pObj->InvalidateEntity();
+}
+
+void wx_Slider::GuraObjectDeleted()
+{
+	_pObj = NULL;
+}
+
+//----------------------------------------------------------------------------
+// Gura interfaces for wxSlider
+//----------------------------------------------------------------------------
+Gura_DeclareFunction(SliderEmpty)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Slider));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(SliderEmpty)
+{
+	wx_Slider *pEntity = new wx_Slider();
+	Object_wx_Slider *pObj = Object_wx_Slider::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_Slider(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+Gura_DeclareFunction(Slider)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetClassToConstruct(Gura_UserClass(wx_Slider));
+	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
+	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "minValue", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "maxValue", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "point", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "validator", VTYPE_wx_Validator, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(Slider)
+{
+	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	int value = args.GetInt(2);
+	int minValue = args.GetInt(3);
+	int maxValue = args.GetInt(4);
+	wxPoint *point = (wxPoint *)(&wxDefaultPosition);
+	if (args.IsValid(5)) point = Object_wx_Point::GetObject(args, 5)->GetEntity();
+	wxSize *size = (wxSize *)(&wxDefaultSize);
+	if (args.IsValid(6)) size = Object_wx_Size::GetObject(args, 6)->GetEntity();
+	long style = wxSL_HORIZONTAL;
+	if (args.IsValid(7)) style = args.GetLong(7);
+	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
+	if (args.IsValid(8)) validator = Object_wx_Validator::GetObject(args, 8)->GetEntity();
+	wxString name = wxT("slider");
+	if (args.IsValid(9)) name = wxString::FromUTF8(args.GetString(9));
+	wx_Slider *pEntity = new wx_Slider(parent, id, value, minValue, maxValue, *point, *size, style, *validator, name);
+	Object_wx_Slider *pObj = Object_wx_Slider::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_Slider(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+Gura_DeclareMethod(wx_Slider, ClearSel)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Slider, ClearSel)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->ClearSel();
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_Slider, ClearTicks)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Slider, ClearTicks)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->ClearTicks();
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_Slider, Create)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
+	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "minValue", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "maxValue", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "point", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "validator", VTYPE_wx_Validator, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Slider, Create)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
+	int value = args.GetInt(2);
+	int minValue = args.GetInt(3);
+	int maxValue = args.GetInt(4);
+	wxPoint *point = (wxPoint *)(&wxDefaultPosition);
+	if (args.IsValid(5)) point = Object_wx_Point::GetObject(args, 5)->GetEntity();
+	wxSize *size = (wxSize *)(&wxDefaultSize);
+	if (args.IsValid(6)) size = Object_wx_Size::GetObject(args, 6)->GetEntity();
+	long style = wxSL_HORIZONTAL;
+	if (args.IsValid(7)) style = args.GetLong(7);
+	wxValidator *validator = (wxValidator *)(&wxDefaultValidator);
+	if (args.IsValid(8)) validator = Object_wx_Validator::GetObject(args, 8)->GetEntity();
+	wxString name = wxT("slider");
+	if (args.IsValid(9)) name = wxString::FromUTF8(args.GetString(9));
+	bool rtn = pSelf->GetEntity()->Create(parent, id, value, minValue, maxValue, *point, *size, style, *validator, name);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_Slider, GetLineSize)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Slider, GetLineSize)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetLineSize();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_Slider, GetMax)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Slider, GetMax)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetMax();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_Slider, GetMin)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Slider, GetMin)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetMin();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_Slider, GetPageSize)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Slider, GetPageSize)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetPageSize();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_Slider, GetSelEnd)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Slider, GetSelEnd)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetSelEnd();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_Slider, GetSelStart)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Slider, GetSelStart)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetSelStart();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_Slider, GetThumbLength)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Slider, GetThumbLength)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetThumbLength();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_Slider, GetTickFreq)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Slider, GetTickFreq)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetTickFreq();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_Slider, GetValue)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Slider, GetValue)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetValue();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_Slider, SetLineSize)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "lineSize", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Slider, SetLineSize)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int lineSize = args.GetInt(0);
+	pSelf->GetEntity()->SetLineSize(lineSize);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_Slider, SetPageSize)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "pageSize", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Slider, SetPageSize)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int pageSize = args.GetInt(0);
+	pSelf->GetEntity()->SetPageSize(pageSize);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_Slider, SetRange)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "minValue", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "maxValue", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Slider, SetRange)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int minValue = args.GetInt(0);
+	int maxValue = args.GetInt(1);
+	pSelf->GetEntity()->SetRange(minValue, maxValue);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_Slider, SetSelection)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "startPos", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "endPos", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Slider, SetSelection)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int startPos = args.GetInt(0);
+	int endPos = args.GetInt(1);
+	pSelf->GetEntity()->SetSelection(startPos, endPos);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_Slider, SetThumbLength)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Slider, SetThumbLength)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int len = args.GetInt(0);
+	pSelf->GetEntity()->SetThumbLength(len);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_Slider, SetTick)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "tickPos", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Slider, SetTick)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int tickPos = args.GetInt(0);
+	pSelf->GetEntity()->SetTick(tickPos);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_Slider, SetTickFreq)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Slider, SetTickFreq)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int n = args.GetInt(0);
+	int pos = args.GetInt(1);
+	pSelf->GetEntity()->SetTickFreq(n, pos);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_Slider, SetValue)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Slider, SetValue)
+{
+	Object_wx_Slider *pSelf = Object_wx_Slider::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int value = args.GetInt(0);
+	pSelf->GetEntity()->SetValue(value);
+	return Value::Null;
+}
+
+//----------------------------------------------------------------------------
+// Object implementation for wxSlider
+//----------------------------------------------------------------------------
+Object_wx_Slider::~Object_wx_Slider()
+{
+}
+
+Object *Object_wx_Slider::Clone() const
+{
+	return NULL;
+}
+
+String Object_wx_Slider::ToString(Signal sig, bool exprFlag)
+{
+	String rtn("<wx.Slider:");
+	if (GetEntity() == NULL) {
+		rtn += "invalid>";
+	} else {
+		char buff[64];
+		::sprintf(buff, "%p>", GetEntity());
+		rtn += buff;
+	}
+	return rtn;
+}
+
+void Object_wx_Slider::OnModuleEntry(Environment &env, Signal sig)
+{
+	Gura_AssignFunction(SliderEmpty);
+	Gura_AssignFunction(Slider);
+}
+
+//----------------------------------------------------------------------------
+// Class implementation for wxSlider
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Slider)
+{
+	Gura_AssignMethod(wx_Slider, ClearSel);
+	Gura_AssignMethod(wx_Slider, ClearTicks);
+	Gura_AssignMethod(wx_Slider, Create);
+	Gura_AssignMethod(wx_Slider, GetLineSize);
+	Gura_AssignMethod(wx_Slider, GetMax);
+	Gura_AssignMethod(wx_Slider, GetMin);
+	Gura_AssignMethod(wx_Slider, GetPageSize);
+	Gura_AssignMethod(wx_Slider, GetSelEnd);
+	Gura_AssignMethod(wx_Slider, GetSelStart);
+	Gura_AssignMethod(wx_Slider, GetThumbLength);
+	Gura_AssignMethod(wx_Slider, GetTickFreq);
+	Gura_AssignMethod(wx_Slider, GetValue);
+	Gura_AssignMethod(wx_Slider, SetLineSize);
+	Gura_AssignMethod(wx_Slider, SetPageSize);
+	Gura_AssignMethod(wx_Slider, SetRange);
+	Gura_AssignMethod(wx_Slider, SetSelection);
+	Gura_AssignMethod(wx_Slider, SetThumbLength);
+	Gura_AssignMethod(wx_Slider, SetTick);
+	Gura_AssignMethod(wx_Slider, SetTickFreq);
+	Gura_AssignMethod(wx_Slider, SetValue);
+}
+
+Gura_ImplementDescendantCreator(wx_Slider)
+{
+	return new Object_wx_Slider((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+}
+
+}}

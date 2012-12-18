@@ -1,0 +1,220 @@
+#!/usr/bin/env gura
+
+scope {
+	Coord = struct(x:number, y:number) {
+		__str__() = format('(%d,%d)', self.x, self.y)
+	}
+	Piece = class {
+		__init__(id:number, patterns[]) = {
+			self.id = id
+			self.patterns = for (pattern in patterns):list { Coord * pattern }
+			self.resetPattern()
+		}
+		print():void = println(self.patterns):nomap
+		resetPattern():void = {
+			self.iterPattern = self.patterns.each()
+			self.patternCur = self.iterPattern.next()
+		}
+		getPattern() = self.patternCur
+		nextPattern() = {
+			self.patternCur = self.iterPattern.next()
+			self.patternCur.istype(`list)
+		}
+	}
+	Board = class {
+		__init__() = {
+			self.cells = repeat(8 * 8):list {nil}
+		}
+		getCell(x:number, y:number):map = {
+			if (0 <= x && x < 8 && 0 <= y && y < 8) {
+				self.cells[x + y * 8]
+			} else {
+				-1
+			}
+		}
+		putCell(x:number, y:number, id:number):map:void = {
+			if (0 <= x && x < 8 && 0 <= y && y < 8) {
+				self.cells[x + y * 8] = id
+			}
+		}
+		nextEmpty(iCell:number) = {
+			(!self.cells.offset(iCell)).find() + iCell
+		}
+		print():void = {
+			str = '+' + '--+' * 8
+			println(str)
+			repeat (8) {|y|
+				cells = self.getCell(0..7, y)
+				bordersX = (cells != self.getCell(1..8, y))
+				bordersY = (cells != self.getCell(0..7, y + 1))
+				str = '|' + cond(bordersX,
+							cond(cells, '  |', '..|'),
+							cond(cells, '   ', '...')).join()
+				println(str)
+				str = '+' + cond(bordersY, '--+',
+							cond(cells, '  +', '..+')).join()
+				println(str)
+			}
+		}
+		isPlacable(piece:Piece, x:number, y:number) = {
+			pattern = piece.getPattern()
+			!self.getCell(x + pattern:*x, y + pattern:*y).or()
+		}
+		place(piece:Piece, x:number, y:number):void = {
+			pattern = piece.getPattern()
+			self.putCell(x + pattern:*x, y + pattern:*y, piece.id)
+		}
+		remove(piece:Piece):void = {
+			self.cells = self.cells.replace(piece.id, nil):list
+		}
+	}
+	piecesOrg = [
+		// *****
+		Piece(0, [
+			[[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]],
+			[[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]],
+		]),
+		// ****
+		// *
+		Piece(1, [
+			[[0, 0], [0, 1], [0, 2], [0, 3], [1, 3]],
+			[[0, 0], [0, 1], [0, 2], [0, 3], [-1, 3]],
+			[[0, 0], [0, 1], [0, 2], [0, 3], [1, 0]],
+			[[0, 0], [1, 0], [1, 1], [1, 2], [1, 3]],
+			[[0, 0], [1, 0], [2, 0], [3, 0], [3, 1]],
+			[[0, 0], [1, 0], [2, 0], [3, 0], [0, 1]],
+			[[0, 0], [0, 1], [1, 1], [2, 1], [3, 1]],
+			[[0, 0], [-3, 1], [-2, 1], [-1, 1], [0, 1]],
+		]),
+		// ****
+		//  *
+		Piece(2, [
+			[[0, 0], [0, 1], [0, 2], [0, 3], [1, 2]],
+			[[0, 0], [0, 1], [0, 2], [0, 3], [-1, 2]],
+			[[0, 0], [0, 1], [0, 2], [0, 3], [1, 1]],
+			[[0, 0], [0, 1], [0, 2], [0, 3], [-1, 1]],
+			[[0, 0], [1, 0], [2, 0], [3, 0], [2, 1]],
+			[[0, 0], [1, 0], [2, 0], [3, 0], [1, 1]],
+			[[0, 0], [-1, 1], [0, 1], [1, 1], [2, 1]],
+			[[0, 0], [-2, 1], [-1, 1], [0, 1], [1, 1]],
+		]),
+		// ***
+		//  *
+		//  *
+		Piece(3, [
+			[[0, 0], [1, 0], [2, 0], [1, 1], [1, 2]],
+			[[0, 0], [0, 1], [1, 1], [2, 1], [0, 2]],
+			[[0, 0], [0, 1], [0, 2], [-1, 2], [1, 2]],
+			[[0, 0], [0, 1], [0, 2], [-1, 1], [-2, 1]],
+		]),
+		// *
+		// ***
+		//   *
+		Piece(4, [
+			[[0, 0], [0, 1], [1, 1], [2, 1], [2, 2]],
+			[[0, 0], [-2, 1], [-1, 1], [0, 1], [-2, 2]],
+			[[0, 0], [0, 1], [0, 2], [1, 0], [-1, 2]],
+			[[0, 0], [1, 0], [1, 1], [1, 2], [2, 2]],
+		]),
+		// *
+		// ***
+		//  *
+		Piece(5, [
+			[[0, 0], [0, 1], [1, 1], [2, 1], [1, 2]],
+			[[0, 0], [-2, 1], [-1, 1], [0, 1], [-1, 2]],
+			[[0, 0], [0, 1], [0, 2], [1, 0], [-1, 1]],
+			[[0, 0], [1, 0], [1, 1], [1, 2], [2, 1]],
+		]),
+		//  *
+		// ***
+		//  *
+		Piece(6, [
+			[[0, 0], [0, 1], [0, 2], [-1, 1], [1, 1]],
+		]),
+		// *
+		// **
+		// **
+		Piece(7, [
+			[[0, 0], [0, 1], [0, 2], [1, 1], [1, 2]],
+			[[0, 0], [0, 1], [0, 2], [-1, 1], [-1, 2]],
+			[[0, 0], [0, 1], [0, 2], [1, 0], [1, 1]],
+			[[0, 0], [0, 1], [1, 0], [1, 1], [1, 2]],
+			[[0, 0], [1, 0], [2, 0], [0, 1], [1, 1]],
+			[[0, 0], [1, 0], [2, 0], [1, 1], [2, 1]],
+			[[0, 0], [1, 0], [0, 1], [1, 1], [2, 1]],
+			[[0, 0], [1, 0], [-1, 1], [0, 1], [1, 1]],
+		]),
+		// * *
+		// ***
+		Piece(8, [
+			[[0, 0], [2, 0], [0, 1], [1, 1], [2, 1]],
+			[[0, 0], [1, 0], [2, 0], [0, 1], [2, 1]],
+			[[0, 0], [0, 2], [1, 0], [1, 1], [1, 2]],
+			[[0, 0], [0, 1], [0, 2], [1, 0], [1, 2]],
+		]),
+		// *
+		// *
+		// ***
+		Piece(9, [
+			[[0, 0], [0, 1], [0, 2], [1, 2], [2, 2]],
+			[[0, 0], [0, 1], [0, 2], [-2, 2], [-1, 2]],
+			[[0, 0], [0, 1], [0, 2], [1, 0], [2, 0]],
+			[[0, 0], [1, 0], [2, 0], [2, 1], [2, 2]],
+		]),
+		//   **
+		// ***
+		Piece(10, [
+			[[0, 0], [1, 0], [-2, 1], [-1, 1], [0, 1]],
+			[[0, 0], [1, 0], [1, 1], [2, 1], [3, 1]],
+			[[0, 0], [1, 0], [2, 0], [2, 1], [3, 1]],
+			[[0, 0], [1, 0], [2, 0], [-1, 1], [0, 1]],
+			[[0, 0], [0, 1], [1, 1], [1, 2], [1, 3]],
+			[[0, 0], [0, 1], [-1, 1], [-1, 2], [-1, 3]],
+			[[0, 0], [0, 1], [0, 2], [-1, 2], [-1, 3]],
+			[[0, 0], [0, 1], [0, 2], [1, 2], [1, 3]],
+		]),
+		// *
+		// **
+		//  **
+		Piece(11, [
+			[[0, 0], [0, 1], [1, 1], [1, 2], [2, 2]],
+			[[0, 0], [0, 1], [-1, 1], [-1, 2], [-2, 2]],
+			[[0, 0], [1, 0], [-1, 1], [0, 1], [-1, 2]],
+			[[0, 0], [1, 0], [1, 1], [2, 1], [2, 2]],
+		]),
+		// **
+		// **
+		Piece(12, [
+			[[0, 0], [1, 0], [0, 1], [1, 1]],
+		])
+	]
+	board = Board()
+	iCell = 0
+	doTry(iterPieces:iterator, iCell:number, iPiece:number) = {
+		piece = iterPieces.next()
+		!piece && return(true)
+		[x, y] = [iCell % 8, int(iCell / 8)]
+		repeat {
+			if (board.isPlacable(piece, x, y)) {
+				board.place(piece, x, y)
+				(iPiece == 10) && board.print()
+				doTry(iterPieces, board.nextEmpty(iCell), iPiece + 1) && return(true)
+				board.remove(piece)
+			}
+			if (!piece.nextPattern()) {
+				piece.resetPattern()
+				return(false)
+			}
+		}
+	}
+	//piecesOrg.shuffle().permutation {|pieces, idx|
+	repeat {
+		pieces = piecesOrg.shuffle()
+		//println(idx)
+		pieces::resetPattern()
+		doTry(pieces.each(), 0, 0) && {
+			println('**** completed ****')
+			board.print()
+		}
+	}
+}

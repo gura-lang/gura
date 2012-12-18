@@ -1,0 +1,1011 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        treetest.cpp
+// Purpose:     wxTreeCtrl sample
+// Author:      Julian Smart
+// Modified by:
+// Created:     04/01/98
+// RCS-ID:      $Id: treetest.cpp 52196 2008-02-29 19:51:05Z VZ $
+// Copyright:   (c) Julian Smart
+// Licence:     wxWindows license
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+CHECK_ITEM(item) = {
+	if (!item.IsOk()) {
+		wx.MessageBox('Please select some item first!',
+						'Tree sample error',
+						wx.OK | wx.ICON_EXCLAMATION,
+						self)
+		return(false)
+	}
+	true
+}
+
+// menu and control ids
+TreeTest_Quit = wx.ID_EXIT,
+TreeTest_About = wx.ID_ABOUT,
+[
+TreeTest_TogButtons,
+TreeTest_TogTwist,
+TreeTest_TogLines,
+TreeTest_TogEdit,
+TreeTest_TogHideRoot,
+TreeTest_TogRootLines,
+TreeTest_TogBorder,
+TreeTest_TogFullHighlight,
+TreeTest_SetFgColour,
+TreeTest_SetBgColour,
+TreeTest_ResetStyle,
+TreeTest_Highlight,
+TreeTest_Dump,
+TreeTest_DumpSelected,
+TreeTest_Count,
+TreeTest_CountRec,
+TreeTest_Sort,
+TreeTest_SortRev,
+TreeTest_SetBold,
+TreeTest_ClearBold,
+TreeTest_Rename,
+TreeTest_Delete,
+TreeTest_DeleteChildren,
+TreeTest_DeleteAll,
+TreeTest_Recreate,
+TreeTest_ToggleImages,
+TreeTest_ToggleButtons,
+TreeTest_SetImageSize,
+TreeTest_ToggleSel,
+TreeTest_CollapseAndReset,
+TreeTest_EnsureVisible,
+TreeTest_AddItem,
+TreeTest_InsertItem,
+TreeTest_IncIndent,
+TreeTest_DecIndent,
+TreeTest_IncSpacing,
+TreeTest_DecSpacing,
+TreeTest_ToggleIcon,
+TreeTest_Select,
+TreeTest_Unselect,
+TreeTest_SelectRoot,
+] = wx.ID_HIGHEST..
+TreeTest_Ctrl = 1000
+
+// Define a new application type
+MyApp = class(wx.App) {
+	__init__() = {
+		self.m_showImages = true
+		self.m_showButtons = false
+	}
+	OnInit() = {
+		// Create the main frame window
+		frame = MyFrame('wxTreeCtrl Test', 50, 50, 450, 600)
+		// Show the frame
+		frame.Show(true)
+		self.SetTopWindow(frame)
+		true
+	}
+	SetShowImages(show:boolean) = { m_showImages = show }
+	ShowImages() = self.m_showImages
+	SetShowButtons(show:boolean) = { self.m_showButtons = show }
+	ShowButtons() = self.m_showButtons
+}
+
+MyTreeItemData = class(wx.TreeItemData) {
+	ShowInfo(tree:wx.TreeCtrl) = {
+	}
+}
+
+[
+	TreeCtrlIcon_File,
+	TreeCtrlIcon_FileSelected,
+	TreeCtrlIcon_Folder,
+	TreeCtrlIcon_FolderSelected,
+	TreeCtrlIcon_FolderOpened
+] = 0..
+
+MyTreeCtrl = class(wx.TreeCtrl) {
+	__init__(parent:wx.Window, id:number, pos:wx.Point, size:wx.Size, style:number) = \
+												{|parent, id, pos, size, style|
+		self.EventTable()
+		self.m_reverseSort = false
+		self.CreateImageList()
+		// Add some items to the tree
+		self.AddTestItemsToTree(5, 2)
+	}
+	EventTable() = {
+		// event binding
+		self.Bind(wx.EVT_TREE_BEGIN_DRAG, TreeTest_Ctrl) {|event| self.OnBeginDrag(event) }
+		self.Bind(wx.EVT_TREE_BEGIN_RDRAG, TreeTest_Ctrl) {|event| self.OnBeginRDrag(event) }
+		self.Bind(wx.EVT_TREE_END_DRAG, TreeTest_Ctrl) {|event| self.OnEndDrag(event) }
+		self.Bind(wx.EVT_TREE_BEGIN_LABEL_EDIT, TreeTest_Ctrl) {|event| self.OnBeginLabelEdit(event) }
+		self.Bind(wx.EVT_TREE_END_LABEL_EDIT, TreeTest_Ctrl) {|event| self.OnEndLabelEdit(event) }
+		self.Bind(wx.EVT_TREE_DELETE_ITEM, TreeTest_Ctrl) {|event| self.OnDeleteItem(event) }
+		//self.Bind(wx.EVT_TREE_SET_INFO, TreeTest_Ctrl) {|event| self.OnSetInfo(event) }
+		self.Bind(wx.EVT_TREE_ITEM_EXPANDED, TreeTest_Ctrl) {|event| self.OnItemExpanded(event) }
+		self.Bind(wx.EVT_TREE_ITEM_EXPANDING, TreeTest_Ctrl) {|event| self.OnItemExpanding(event) }
+		self.Bind(wx.EVT_TREE_ITEM_COLLAPSED, TreeTest_Ctrl) {|event| self.OnItemCollapsed(event) }
+		self.Bind(wx.EVT_TREE_ITEM_COLLAPSING, TreeTest_Ctrl) {|event| self.OnItemCollapsing(event) }
+		self.Bind(wx.EVT_TREE_SEL_CHANGED, TreeTest_Ctrl) {|event| self.OnSelChanged(event) }
+		self.Bind(wx.EVT_TREE_SEL_CHANGING, TreeTest_Ctrl) {|event| self.OnSelChanging(event) }
+		self.Bind(wx.EVT_TREE_KEY_DOWN, TreeTest_Ctrl) {|event| self.OnTreeKeyDown(event) }
+		self.Bind(wx.EVT_TREE_ITEM_ACTIVATED, TreeTest_Ctrl) {|event| self.OnItemActivated(event) }
+		// so many differents ways to handle right mouse button clicks...
+		self.Bind(wx.EVT_CONTEXT_MENU) {|event| self.OnContextMenu(event) }
+		// EVT_TREE_ITEM_MENU is the preferred event for creating context menus
+		// on a tree control, because it includes the point of the click or item,
+		// meaning that no additional placement calculations are required.
+		self.Bind(wx.EVT_TREE_ITEM_MENU, TreeTest_Ctrl) {|event| self.OnItemMenu(event) }
+		self.Bind(wx.EVT_TREE_ITEM_RIGHT_CLICK, TreeTest_Ctrl) {|event| self.OnItemRClick(event) }
+		self.Bind(wx.EVT_RIGHT_DOWN) {|event| self.OnRMouseDown(event) }
+		self.Bind(wx.EVT_RIGHT_UP) {|event| self.OnRMouseUp(event) }
+		self.Bind(wx.EVT_RIGHT_DCLICK) {|event| self.OnRMouseDClick(event) }
+	}
+	CreateImageList(size:number => 16) = {
+		if (size == -1) {
+			self.SetImageList(nil)
+			return
+		}
+		if (size == 0) {
+			size = self.m_imageSize
+		} else {
+			self.m_imageSize = size
+		}
+		// Make an image list containing small icons
+		images = wx.ImageList(size, size, true)
+		// should correspond to TreeCtrlIcon_xxx enum
+		wx.BusyCursor {
+			icons = [
+				wx.IconFromXPMData(resource.icon1_xpm)
+				wx.IconFromXPMData(resource.icon2_xpm)
+				wx.IconFromXPMData(resource.icon3_xpm)
+				wx.IconFromXPMData(resource.icon4_xpm)
+				wx.IconFromXPMData(resource.icon5_xpm)
+			]
+			sizeOrig = icons[0].GetWidth()
+			icons.each() {|icon|
+				if (size == sizeOrig) {
+					images.Add(icon)
+				} else {
+					images.Add(wx.BitmapFromImage(wx.BitmapFromIcon(icon).ConvertToImage().Rescale(size, size)))
+				}
+			}
+			self.AssignImageList(images)
+		}
+	}
+	CreateButtonsImageList(size:number => 11) = {
+	}
+	OnCompareItems(item1:wx.TreeItemId, item2:wx.TreeItemId) = {
+		if (self.m_reverseSort) {
+			// just exchange 1st and 2nd items
+			super(self).OnCompareItems(item2, item1)
+		} else {
+			super(self).OnCompareItems(item1, item2)
+		}
+	}
+	AddItemsRecursively(idParent:wx.TreeItemId,
+						numChildren:number,
+						depth:number,
+						folder:number) = {
+		if (depth > 0) {
+			hasChildren = (depth > 1)
+			repeat (numChildren) {|n|
+				// at depth 1 elements won't have any more children
+				if (hasChildren) {
+					str = format('%s child %u', 'Folder', n + 1)
+				} else {
+					str = format('%s child %u.%u', 'File', folder, n + 1)
+				}
+				// here we pass to AppendItem() normal and selected item images (we
+				// suppose that selected image follows the normal one in the enum)
+				if (wx.GetApp().ShowImages()) {
+					image = if (depth == 1) {TreeCtrlIcon_File} else {TreeCtrlIcon_Folder}
+					imageSel = image + 1
+				} else {
+					image = imageSel = -1
+				}
+				id = self.AppendItem(idParent, str, image, imageSel,
+											MyTreeItemData(str))
+				// and now we also set the expanded one (only for the folders)
+				if (hasChildren && wx.GetApp().ShowImages()) {
+					self.SetItemImage(id, TreeCtrlIcon_FolderOpened,
+								wx.TreeItemIcon_Expanded)
+				}
+				// remember the last child for OnEnsureVisible()
+				if (!hasChildren && n == numChildren - 1) {
+					m_lastItem = id
+				}
+				self.AddItemsRecursively(id, numChildren, depth - 1, n + 1)
+			}
+		}
+		//else: done!
+	}
+	AddTestItemsToTree(numChildren:number, depth:number) = {
+		image = if (wx.GetApp().ShowImages()) {TreeCtrlIcon_Folder} else {-1}
+		rootId = self.AddRoot('Root',
+							image, image,
+							MyTreeItemData('Root item'))
+		if (!self.HasFlag(wx.TR_HIDE_ROOT) && image != -1) {
+			self.SetItemImage(rootId, TreeCtrlIcon_FolderOpened, wx.TreeItemIcon_Expanded)
+		}
+		self.AddItemsRecursively(rootId, numChildren, depth, 0)
+		// set some colours/fonts for testing
+		if (!self.HasFlag(wx.TR_HIDE_ROOT)) {
+			self.SetItemFont(rootId, wx.ITALIC_FONT)
+		}
+		[id, cookie] = self.GetFirstChild(rootId)
+		self.SetItemTextColour(id, wx.BLUE)
+		[id, cookie] = self.GetNextChild(rootId, cookie)
+		[id, cookie] = self.GetNextChild(rootId, cookie)
+		self.SetItemTextColour(id, wx.RED)
+		self.SetItemBackgroundColour(id, wx.LIGHT_GREY)
+	}
+	GetItemsRecursively(idParent:wx.TreeItemId, cookie => 0) = {
+		if (cookie == 0) {
+			[id, cookie] = self.GetFirstChild(idParent)
+		} else {
+			[id, cookie] = self.GetNextChild(idParent, cookie)
+		}
+		if (!id.IsOk()) {
+			return
+		}
+		text = self.GetItemText(id)
+		wx.LogMessage(text)
+		if (self.ItemHasChildren(id)) {
+			self.GetItemsRecursively(id)
+		}
+		self.GetItemsRecursively(idParent, cookie)
+	}
+	DoToggleIcon(item:wx.TreeItemId) = {
+		image = if (self.GetItemImage(item) == TreeCtrlIcon_Folder) {TreeCtrlIcon_File} else {TreeCtrlIcon_Folder}
+		self.SetItemImage(item, image, wx.TreeItemIcon_Normal)
+		image = if (self.GetItemImage(item) == TreeCtrlIcon_FolderSelected) {TreeCtrlIcon_FileSelected} else {TreeCtrlIcon_FolderSelected}
+		self.SetItemImage(item, image, wx.TreeItemIcon_Selected)
+	}
+	LogEvent(name:string, event:wx.TreeEvent) = {
+		item = event.GetItem()
+		text = ''
+		if (item.IsOk()) {
+			text += '"' + self.GetItemText(item) + '"'
+		} else {
+			text = 'invalid item'
+		}
+		wx.LogMessage('%s(%s)', name, text)
+	}
+	OnBeginRDrag(event:wx.TreeEvent) = {
+		self.LogEvent('OnBeginRDrag', event)
+		self.SetLastItem(wx.TreeItemId())
+		event.Skip()
+	}
+	OnDeleteItem(event:wx.TreeEvent) = {
+		self.LogEvent('OnDeleteItem', event)
+		self.SetLastItem(wx.TreeItemId())
+		event.Skip()
+	}
+	OnGetInfo(event:wx.TreeEvent) = {
+		self.LogEvent('OnGetInfo', event)
+		self.SetLastItem(wx.TreeItemId())
+		event.Skip()
+	}
+	OnSetInfo(event:wx.TreeEvent) = {
+		self.LogEvent('OnSetInfo', event)
+		self.SetLastItem(wx.TreeItemId())
+		event.Skip()
+	}
+	OnItemExpanded(event:wx.TreeEvent) = {
+		self.LogEvent('OnItemExpanded', event)
+		self.SetLastItem(wx.TreeItemId())
+		event.Skip()
+	}
+	OnItemExpanding(event:wx.TreeEvent) = {
+		self.LogEvent('OnItemExpanding', event)
+		self.SetLastItem(wx.TreeItemId())
+		event.Skip()
+	}
+	OnItemCollapsed(event:wx.TreeEvent) = {
+		self.LogEvent('OnItemCollapsed', event)
+		self.SetLastItem(wx.TreeItemId())
+		event.Skip()
+	}
+	OnSelChanged(event:wx.TreeEvent) = {
+		self.LogEvent('OnSelChanged', event)
+		self.SetLastItem(wx.TreeItemId())
+		event.Skip()
+	}
+	OnSelChanging(event:wx.TreeEvent) = {
+		self.LogEvent('OnSelChanging', event)
+		self.SetLastItem(wx.TreeItemId())
+		event.Skip()
+	}
+	OnTreeKeyDown(event:wx.TreeEvent) = {
+		LogKeyEvent('Tree key down ', event.GetKeyEvent())
+		event.Skip()
+	}
+	OnBeginDrag(event:wx.TreeEvent) = {
+		// need to explicitly allow drag
+		if (event.GetItem() != self.GetRootItem()) {
+			self.m_draggedItem = event.GetItem()
+			clientpt = event.GetPoint()
+			screenpt = self.ClientToScreen(clientpt)
+			wx.LogMessage('OnBeginDrag: started dragging %s at screen coords (%i,%i)',
+					self.GetItemText(self.m_draggedItem),
+					screenpt.x, screenpt.y)
+			event.Allow()
+		} else {
+			wx.LogMessage("OnBeginDrag: this item can't be dragged.")
+		}
+	}
+	OnEndDrag(event:wx.TreeEvent) = {
+		itemSrc = self.m_draggedItem
+		itemDst = event.GetItem()
+		self.m_draggedItem = nil
+		// where to copy the item?
+		if (itemDst.IsOk() && !self.ItemHasChildren(itemDst)) {
+			// copy to the parent then
+			itemDst = self.GetItemParent(itemDst)
+		}
+		if (!itemDst.IsOk()) {
+			wx.LogMessage("OnEndDrag: can't drop here.")
+			return
+		}
+		text = self.GetItemText(itemSrc)
+		wx.LogMessage("OnEndDrag: '%s' copied to '%s'.",
+									text, self.GetItemText(itemDst))
+		// just do append here - we could also insert it just before/after the item
+		// on which it was dropped, but this requires slightly more work... we also
+		// completely ignore the client data and icon of the old item but could
+		// copy them as well.
+		//
+		// Finally, we only copy one item here but we might copy the entire tree if
+		// we were dragging a folder.
+		image = if (wx.GetApp().ShowImages()) {TreeCtrlIcon_File} else {-1}
+		self.AppendItem(itemDst, text, image)
+	}
+	OnBeginLabelEdit(event:wx.TreeEvent) = {
+		wx.LogMessage('OnBeginLabelEdit')
+		// for testing, prevent this item's label editing
+		itemId = event.GetItem()
+		if (self.IsTestItem(itemId)) {
+			wx.MessageBox("You can't edit this item.")
+			event.Veto()
+		} elsif (itemId == self.GetRootItem()) {
+			// test that it is possible to change the text of the item being edited
+			self.SetItemText(itemId, 'Editing root item')
+		}
+	}
+	OnEndLabelEdit(event:wx.TreeEvent) = {
+		wx.LogMessage('OnEndLabelEdit')
+		// don't allow anything except letters in the labels
+		//if (!event.GetLabel().IsWord()) {
+		//	wx.MessageBox('The new label should be a single word.')
+		//	event.Veto()
+		//}
+	}
+	OnItemCollapsing(event:wx.TreeEvent) = {
+		wx.LogMessage('OnItemCollapsing')
+		// for testing, prevent the user from collapsing the first child folder
+		itemId = event.GetItem()
+		if (self.IsTestItem(itemId)) {
+			wx.MessageBox("You can't collapse this item.")
+			event.Veto()
+		}
+	}
+	OnItemActivated(event:wx.TreeEvent) = {
+		// show some info about this item
+		itemId = event.GetItem()
+		item = self.GetItemData(itemId)
+		if (item != nil) {
+			//item.ShowInfo(self)
+		}
+		wx.LogMessage('OnItemActivated')
+	}
+	OnItemMenu(event:wx.TreeEvent) = {
+		itemId = event.GetItem()
+		item = if (itemId.IsOk()) {self.GetItemData(itemId)} else {nil}
+		clientpt = event.GetPoint()
+		screenpt = self.ClientToScreen(clientpt)
+		wx.LogMessage('OnItemMenu for item "%s" at screen coords (%i, %i)', 
+				if (item) {item.GetData()} else {''}, screenpt.x, screenpt.y)
+		self.ShowMenu(itemId, clientpt)
+		event.Skip()
+	}
+	OnContextMenu(event:wx.ContextMenuEvent) = {
+		pt = event.GetPosition()
+		wx.LogMessage('OnContextMenu at screen coords (%i, %i)', pt.x, pt.y)
+	}
+	ShowMenu(id:wx.TreeItemId, pt:wx.Point) = {
+		if (id.IsOk()) {
+			title = 'Menu for ' + self.GetItemText(id)
+		} else {
+			title = 'Menu for no particular item'
+		}
+		menu = wx.Menu(title)
+		menu.Append(TreeTest_About, '&About...')
+		menu.AppendSeparator()
+		menu.Append(TreeTest_Highlight, '&Highlight item')
+		menu.Append(TreeTest_Dump, '&Dump')
+		self.PopupMenu(menu, pt)
+	}
+	OnItemRClick(event:wx.TreeEvent) = {
+		itemId = event.GetItem()
+		item = if (itemId.IsOk()) {self.GetItemData(itemId)} else {nil}
+		wx.LogMessage('Item "%s" right clicked', if (item) {item.GetData()} else {''})
+		event.Skip()
+	}
+	OnRMouseDown(event:wx.MouseEvent) = {
+		wx.LogMessage('Right mouse button down')
+		event.Skip()
+	}
+	OnRMouseUp(event:wx.MouseEvent) = {
+		wx.LogMessage('Right mouse button up')
+		event.Skip()
+	}
+	OnRMouseDClick(event:wx.MouseEvent) = {
+		id = self.HitTest(event.GetPosition())
+		if (!id) {
+			wx.LogMessage('No item under mouse')
+		} else {
+			item = self.GetItemData(id)
+			if (item) {
+				wx.LogMessage("Item '%s' under mouse", item.GetData())
+			}
+		}
+		event.Skip()
+	}
+	DoSortChildren(item:wx.TreeItemId, reverse:boolean => false) = {
+		self.m_reverseSort = reverse
+		self.SortChildren(item)
+	}
+	DoEnsureVisible() = {
+		if (self.m_lastItem.IsOk()) {
+			self.EnsureVisible(self.m_lastItem)
+		}
+	}
+	ImageSize() = self.m_imageSize
+	SetLastItem(id:wx.TreeItemId) = { self.m_lastItem = id }
+	// is this the test item which we use in several event handlers?
+	IsTestItem(item:wx.TreeItemId) = {
+		// the test item is the first child folder
+		self.GetItemParent(item) == self.GetRootItem() && !self.GetPrevSibling(item)
+	}
+}
+
+keycodeDict = %{
+wx.WXK_BACK => 'BACK'
+wx.WXK_TAB => 'TAB'
+wx.WXK_RETURN => 'RETURN'
+wx.WXK_ESCAPE => 'ESCAPE'
+wx.WXK_SPACE => 'SPACE'
+wx.WXK_DELETE => 'DELETE'
+wx.WXK_START => 'START'
+wx.WXK_LBUTTON => 'LBUTTON'
+wx.WXK_RBUTTON => 'RBUTTON'
+wx.WXK_CANCEL => 'CANCEL'
+wx.WXK_MBUTTON => 'MBUTTON'
+wx.WXK_CLEAR => 'CLEAR'
+wx.WXK_SHIFT => 'SHIFT'
+wx.WXK_ALT => 'ALT'
+wx.WXK_CONTROL => 'CONTROL'
+wx.WXK_MENU => 'MENU'
+wx.WXK_PAUSE => 'PAUSE'
+wx.WXK_CAPITAL => 'CAPITAL'
+wx.WXK_END => 'END'
+wx.WXK_HOME => 'HOME'
+wx.WXK_LEFT => 'LEFT'
+wx.WXK_UP => 'UP'
+wx.WXK_RIGHT => 'RIGHT'
+wx.WXK_DOWN => 'DOWN'
+wx.WXK_SELECT => 'SELECT'
+wx.WXK_PRINT => 'PRINT'
+wx.WXK_EXECUTE => 'EXECUTE'
+wx.WXK_SNAPSHOT => 'SNAPSHOT'
+wx.WXK_INSERT => 'INSERT'
+wx.WXK_HELP => 'HELP'
+wx.WXK_NUMPAD0 => 'NUMPAD0'
+wx.WXK_NUMPAD1 => 'NUMPAD1'
+wx.WXK_NUMPAD2 => 'NUMPAD2'
+wx.WXK_NUMPAD3 => 'NUMPAD3'
+wx.WXK_NUMPAD4 => 'NUMPAD4'
+wx.WXK_NUMPAD5 => 'NUMPAD5'
+wx.WXK_NUMPAD6 => 'NUMPAD6'
+wx.WXK_NUMPAD7 => 'NUMPAD7'
+wx.WXK_NUMPAD8 => 'NUMPAD8'
+wx.WXK_NUMPAD9 => 'NUMPAD9'
+wx.WXK_MULTIPLY => 'MULTIPLY'
+wx.WXK_ADD => 'ADD'
+wx.WXK_SEPARATOR => 'SEPARATOR'
+wx.WXK_SUBTRACT => 'SUBTRACT'
+wx.WXK_DECIMAL => 'DECIMAL'
+wx.WXK_DIVIDE => 'DIVIDE'
+wx.WXK_F1 => 'F1'
+wx.WXK_F2 => 'F2'
+wx.WXK_F3 => 'F3'
+wx.WXK_F4 => 'F4'
+wx.WXK_F5 => 'F5'
+wx.WXK_F6 => 'F6'
+wx.WXK_F7 => 'F7'
+wx.WXK_F8 => 'F8'
+wx.WXK_F9 => 'F9'
+wx.WXK_F10 => 'F10'
+wx.WXK_F11 => 'F11'
+wx.WXK_F12 => 'F12'
+wx.WXK_F13 => 'F13'
+wx.WXK_F14 => 'F14'
+wx.WXK_F15 => 'F15'
+wx.WXK_F16 => 'F16'
+wx.WXK_F17 => 'F17'
+wx.WXK_F18 => 'F18'
+wx.WXK_F19 => 'F19'
+wx.WXK_F20 => 'F20'
+wx.WXK_F21 => 'F21'
+wx.WXK_F22 => 'F22'
+wx.WXK_F23 => 'F23'
+wx.WXK_F24 => 'F24'
+wx.WXK_NUMLOCK => 'NUMLOCK'
+wx.WXK_SCROLL => 'SCROLL'
+wx.WXK_PAGEUP => 'PAGEUP'
+wx.WXK_PAGEDOWN => 'PAGEDOWN'
+wx.WXK_NUMPAD_SPACE => 'NUMPAD_SPACE'
+wx.WXK_NUMPAD_TAB => 'NUMPAD_TAB'
+wx.WXK_NUMPAD_ENTER => 'NUMPAD_ENTER'
+wx.WXK_NUMPAD_F1 => 'NUMPAD_F1'
+wx.WXK_NUMPAD_F2 => 'NUMPAD_F2'
+wx.WXK_NUMPAD_F3 => 'NUMPAD_F3'
+wx.WXK_NUMPAD_F4 => 'NUMPAD_F4'
+wx.WXK_NUMPAD_HOME => 'NUMPAD_HOME'
+wx.WXK_NUMPAD_LEFT => 'NUMPAD_LEFT'
+wx.WXK_NUMPAD_UP => 'NUMPAD_UP'
+wx.WXK_NUMPAD_RIGHT => 'NUMPAD_RIGHT'
+wx.WXK_NUMPAD_DOWN => 'NUMPAD_DOWN'
+wx.WXK_NUMPAD_PAGEUP => 'NUMPAD_PAGEUP'
+wx.WXK_NUMPAD_PAGEDOWN => 'NUMPAD_PAGEDOWN'
+wx.WXK_NUMPAD_END => 'NUMPAD_END'
+wx.WXK_NUMPAD_BEGIN => 'NUMPAD_BEGIN'
+wx.WXK_NUMPAD_INSERT => 'NUMPAD_INSERT'
+wx.WXK_NUMPAD_DELETE => 'NUMPAD_DELETE'
+wx.WXK_NUMPAD_EQUAL => 'NUMPAD_EQUAL'
+wx.WXK_NUMPAD_MULTIPLY => 'NUMPAD_MULTIPLY'
+wx.WXK_NUMPAD_ADD => 'NUMPAD_ADD'
+wx.WXK_NUMPAD_SEPARATOR => 'NUMPAD_SEPARATOR'
+wx.WXK_NUMPAD_SUBTRACT => 'NUMPAD_SUBTRACT'
+wx.WXK_NUMPAD_DECIMAL => 'NUMPAD_DECIMAL'
+}
+
+LogKeyEvent(name:string, event:wx.KeyEvent) = {
+	keycode = event.GetKeyCode()
+	key = keycodeDict.get(keycode)
+	if (!key) {
+		if (keycode < 128 && keycode >= 32) {
+			key = format("'%c'", keycode)
+		} elsif (keycode > 0 && keycode < 27) {
+			key = format('Ctrl-%c', ord('A') + keycode - 1)
+		} else {
+			key = format('unknown (%ld)', keycode)
+		}
+	}
+	wx.LogMessage('%s event: %s (flags = %s%s%s%s)',
+				name,
+				key,
+				if (event.ControlDown()) {'C'} else {'-'},
+				if (event.AltDown()) {'A'} else {'-'},
+				if (event.ShiftDown()) {'S'} else {'-'},
+				if (event.MetaDown()) {'M'} else {'-'})
+}
+
+// Define a new frame type
+MyFrame = class(wx.Frame) {
+	__init__(title:string, x:number, y:number, w:number, h:number) = \
+						{|nil, wx.ID_ANY, title, wx.Point(x, y), wx.Size(w, h)|
+		self.m_treeCtrl = nil
+		self.m_textCtrl = nil
+		self.EventTable()
+		// This reduces flicker effects - even better would be to define
+		// OnEraseBackground to do nothing. When the tree control's scrollbars are
+		// show or hidden, the frame is sent a background erase event.
+		self.SetBackgroundColour(wx.Colour(255, 255, 255))
+		// Give it an icon
+		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		// Make a menubar
+		file_menu = wx.Menu()
+		style_menu = wx.Menu()
+		tree_menu = wx.Menu()
+		item_menu = wx.Menu()
+		file_menu.Append(TreeTest_About, '&About...')
+		file_menu.AppendSeparator()
+		file_menu.Append(TreeTest_Quit, 'E&xit\tAlt-X')
+		style_menu.AppendCheckItem(TreeTest_TogButtons, 'Toggle &normal buttons')
+		style_menu.AppendCheckItem(TreeTest_TogTwist, 'Toggle &twister buttons')
+		style_menu.AppendCheckItem(TreeTest_ToggleButtons, 'Toggle image &buttons')
+		style_menu.AppendSeparator()
+		style_menu.AppendCheckItem(TreeTest_TogLines, 'Toggle &connecting lines')
+		style_menu.AppendCheckItem(TreeTest_TogRootLines, 'Toggle &lines at root')
+		style_menu.AppendCheckItem(TreeTest_TogHideRoot, 'Toggle &hidden root')
+		style_menu.AppendCheckItem(TreeTest_TogBorder, 'Toggle &item border')
+		style_menu.AppendCheckItem(TreeTest_TogFullHighlight, 'Toggle &full row highlight')
+		style_menu.AppendCheckItem(TreeTest_TogEdit, 'Toggle &edit mode')
+		style_menu.AppendCheckItem(TreeTest_ToggleSel, 'Toggle &selection mode')
+		style_menu.AppendCheckItem(TreeTest_ToggleImages, 'Toggle show ima&ges')
+		style_menu.Append(TreeTest_SetImageSize, 'Set image si&ze...')
+		style_menu.AppendSeparator()
+		style_menu.Append(TreeTest_SetFgColour, 'Set &foreground colour...')
+		style_menu.Append(TreeTest_SetBgColour, 'Set &background colour...')
+		style_menu.AppendSeparator()
+		style_menu.Append(TreeTest_ResetStyle, '&Reset to default\tF10')
+		tree_menu.Append(TreeTest_Recreate, '&Recreate the tree')
+		tree_menu.Append(TreeTest_CollapseAndReset, 'C&ollapse and reset')
+		tree_menu.AppendSeparator()
+		tree_menu.Append(TreeTest_AddItem, 'Append a &new item')
+		tree_menu.Append(TreeTest_InsertItem, '&Insert a new item')
+		tree_menu.Append(TreeTest_Delete, '&Delete this item')
+		tree_menu.Append(TreeTest_DeleteChildren, 'Delete &children')
+		tree_menu.Append(TreeTest_DeleteAll, 'Delete &all items')
+		tree_menu.Append(TreeTest_SelectRoot, 'Select root item')
+		tree_menu.AppendSeparator()
+		tree_menu.Append(TreeTest_Count, 'Count children of current item')
+		tree_menu.Append(TreeTest_CountRec, 'Recursively count children of current item')
+		tree_menu.AppendSeparator()
+		tree_menu.Append(TreeTest_Sort, 'Sort children of current item')
+		tree_menu.Append(TreeTest_SortRev, 'Sort in reversed order')
+		tree_menu.AppendSeparator()
+		tree_menu.Append(TreeTest_EnsureVisible, 'Make the last item &visible')
+		tree_menu.AppendSeparator()
+		tree_menu.Append(TreeTest_IncIndent, 'Add 5 points to indentation\tAlt-I')
+		tree_menu.Append(TreeTest_DecIndent, 'Reduce indentation by 5 points\tAlt-R')
+		tree_menu.AppendSeparator()
+		tree_menu.Append(TreeTest_IncSpacing, 'Add 5 points to spacing\tCtrl-I')
+		tree_menu.Append(TreeTest_DecSpacing, 'Reduce spacing by 5 points\tCtrl-R')
+		item_menu.Append(TreeTest_Dump, '&Dump item children')
+		item_menu.Append(TreeTest_Rename, '&Rename item...')
+		item_menu.AppendSeparator()
+		item_menu.Append(TreeTest_SetBold, 'Make item &bold')
+		item_menu.Append(TreeTest_ClearBold, 'Make item &not bold')
+		item_menu.AppendSeparator()
+		item_menu.Append(TreeTest_ToggleIcon, "Toggle the item's &icon")
+		item_menu.AppendSeparator()
+		item_menu.Append(TreeTest_DumpSelected, 'Dump selected items\tAlt-D')
+		item_menu.Append(TreeTest_Select, 'Select current item\tAlt-S')
+		item_menu.Append(TreeTest_Unselect, 'Unselect everything\tAlt-U')
+		menu_bar = wx.MenuBar()
+		menu_bar.Append(file_menu, '&File')
+		menu_bar.Append(style_menu, '&Style')
+		menu_bar.Append(tree_menu, '&Tree')
+		menu_bar.Append(item_menu, '&Item')
+		self.SetMenuBar(menu_bar)
+		self.m_panel = wx.Panel(self)
+		// create the controls
+		self.m_textCtrl = wx.TextCtrl(self.m_panel, wx.ID_ANY, '',
+								wx.DefaultPosition, wx.DefaultSize,
+								wx.TE_MULTILINE | wx.SUNKEN_BORDER)
+		self.CreateTreeWithDefStyle()
+		menu_bar.Check(TreeTest_ToggleImages, true)
+		// create a status bar
+		self.CreateStatusBar(2)
+		// set our text control as the log target
+		logWindow = wx.LogTextCtrl(self.m_textCtrl)
+		wx.Log.SetActiveTarget(logWindow)
+	}
+	EventTable() = {
+		// event binding
+		self.Bind(wx.EVT_IDLE) {|event| self.OnIdle(event) }
+		self.Bind(wx.EVT_SIZE) {|event| self.OnSize(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_Quit) {|event| self.OnQuit(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_About) {|event| self.OnAbout(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_TogButtons) {|event| self.OnTogButtons(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_TogTwist) {|event| self.OnTogTwist(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_TogLines) {|event| self.OnTogLines(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_TogEdit) {|event| self.OnTogEdit(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_TogHideRoot) {|event| self.OnTogHideRoot(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_TogRootLines) {|event| self.OnTogRootLines(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_TogBorder) {|event| self.OnTogBorder(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_TogFullHighlight) {|event| self.OnTogFullHighlight(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_SetFgColour) {|event| self.OnSetFgColour(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_SetBgColour) {|event| self.OnSetBgColour(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_ResetStyle) {|event| self.OnResetStyle(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_Highlight) {|event| self.OnHighlight(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_Dump) {|event| self.OnDump(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_DumpSelected) {|event| self.OnDumpSelected(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_Select) {|event| self.OnSelect(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_Unselect) {|event| self.OnUnselect(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_ToggleSel) {|event| self.OnToggleSel(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_Rename) {|event| self.OnRename(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_Count) {|event| self.OnCount(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_CountRec) {|event| self.OnCountRec(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_Sort) {|event| self.OnSort(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_SortRev) {|event| self.OnSortRev(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_SetBold) {|event| self.OnSetBold(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_ClearBold) {|event| self.OnClearBold(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_Delete) {|event| self.OnDelete(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_DeleteChildren) {|event| self.OnDeleteChildren(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_DeleteAll) {|event| self.OnDeleteAll(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_Recreate) {|event| self.OnRecreate(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_ToggleImages) {|event| self.OnToggleImages(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_ToggleButtons) {|event| self.OnToggleButtons(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_SetImageSize) {|event| self.OnSetImageSize(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_CollapseAndReset) {|event| self.OnCollapseAndReset(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_EnsureVisible) {|event| self.OnEnsureVisible(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_AddItem) {|event| self.OnAddItem(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_InsertItem) {|event| self.OnInsertItem(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_IncIndent) {|event| self.OnIncIndent(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_DecIndent) {|event| self.OnDecIndent(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_IncSpacing) {|event| self.OnIncSpacing(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_DecSpacing) {|event| self.OnDecSpacing(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_ToggleIcon) {|event| self.OnToggleIcon(event) }
+		self.Bind(wx.EVT_MENU, TreeTest_SelectRoot) {|event| self.OnSelectRoot(event) }
+	}
+	CreateTreeWithDefStyle() = {
+		style = wx.TR_DEFAULT_STYLE | \
+					wx.TR_HAS_VARIABLE_ROW_HEIGHT | \
+					wx.TR_EDIT_LABELS
+		self.CreateTree(style | wx.SUNKEN_BORDER)
+		// as we don't know what wxTR_DEFAULT_STYLE could contain, test for
+		// everything
+		mbar = self.GetMenuBar()
+		mbar.Check(TreeTest_TogButtons, (style & wx.TR_HAS_BUTTONS) != 0)
+		mbar.Check(TreeTest_TogButtons, (style & wx.TR_TWIST_BUTTONS) != 0)
+		mbar.Check(TreeTest_TogLines, (style & wx.TR_NO_LINES) == 0)
+		mbar.Check(TreeTest_TogRootLines, (style & wx.TR_LINES_AT_ROOT) != 0)
+		mbar.Check(TreeTest_TogHideRoot, (style & wx.TR_HIDE_ROOT) != 0)
+		mbar.Check(TreeTest_TogEdit, (style & wx.TR_EDIT_LABELS) != 0)
+		mbar.Check(TreeTest_TogBorder, (style & wx.TR_ROW_LINES) != 0)
+		mbar.Check(TreeTest_TogFullHighlight, (style & wx.TR_FULL_ROW_HIGHLIGHT) != 0)
+	}
+	CreateTree(style:number) = {
+		self.m_treeCtrl = MyTreeCtrl(self.m_panel, TreeTest_Ctrl,
+								wx.DefaultPosition, wx.DefaultSize,
+								style)
+		self.GetMenuBar().Enable(TreeTest_SelectRoot, (style & wx.TR_HIDE_ROOT) == 0)
+		self.Resize()
+	}
+	TogStyle(id:number, flag:number) = {
+		style = self.m_treeCtrl.GetWindowStyle() ^ flag
+		// most treectrl styles can't be changed on the fly using the native
+		// control and the tree must be recreated
+		//self.m_treeCtrl.Destroy()
+		//self.CreateTree(style)
+		self.m_treeCtrl.SetWindowStyle(style)
+		self.GetMenuBar().Check(id, (style & flag) != 0)
+	}
+	// menu callbacks
+	OnTogButtons(event:wx.CommandEvent) = {
+		self.TogStyle(event.GetId(), wx.TR_HAS_BUTTONS)
+	}
+	OnTogTwist(event:wx.CommandEvent) = {
+		self.TogStyle(event.GetId(), wx.TR_TWIST_BUTTONS)
+	}
+	OnTogLines(event:wx.CommandEvent) = {
+		self.TogStyle(event.GetId(), wx.TR_NO_LINES)
+	}
+	OnTogEdit(event:wx.CommandEvent) = {
+		self.TogStyle(event.GetId(), wx.TR_EDIT_LABELS)
+	}
+	OnTogHideRoot(event:wx.CommandEvent) = {
+		self.TogStyle(event.GetId(), wx.TR_HIDE_ROOT)
+	}
+	OnTogRootLines(event:wx.CommandEvent) = {
+		self.TogStyle(event.GetId(), wx.TR_LINES_AT_ROOT)
+	}
+	OnTogBorder(event:wx.CommandEvent) = {
+		self.TogStyle(event.GetId(), wx.TR_ROW_LINES)
+	}
+	OnTogFullHighlight(event:wx.CommandEvent) = {
+		self.TogStyle(event.GetId(), wx.TR_FULL_ROW_HIGHLIGHT)
+	}
+	OnResetStyle(event:wx.CommandEvent) = {
+		self.CreateTreeWithDefStyle()
+	}
+	OnIdle(event:wx.IdleEvent) = {
+		if (self.m_treeCtrl) {
+			idRoot = self.m_treeCtrl.GetRootItem()
+			if (idRoot.IsOk()) {
+				idLast = self.m_treeCtrl.GetLastChild(idRoot)
+				status = format(
+					'Root/last item is %svisible/%svisible',
+					if (self.m_treeCtrl.IsVisible(idRoot)) {''} else {'not '},
+					if (idLast.IsOk() && self.m_treeCtrl.IsVisible(idLast)) {''} else {'not '})
+			} else {
+				status = 'No root item'
+			}
+			self.SetStatusText(status, 1)
+		}
+		event.Skip()
+	}
+	OnSize(event:wx.SizeEvent) = {
+		if (self.m_treeCtrl && self.m_textCtrl) {
+			self.Resize()
+		} else {
+			event.Skip()
+		}
+	}
+	Resize() = {
+		size = self.GetClientSize()
+		self.m_treeCtrl.SetDimensions(0, 0, size.x, size.y * 2 / 3)
+		self.m_textCtrl.SetDimensions(0, 2 * size.y / 3, size.x, size.y / 3)
+	}
+	OnQuit(event:wx.CommandEvent) = {
+		self.Close(true)
+	}
+	OnAbout(event:wx.CommandEvent) = {
+		wx.MessageBox('Tree test sample\n' \
+				'(c) Julian Smart 1997, Vadim Zeitlin 1998',
+				'About tree test',
+				wx.OK | wx.ICON_INFORMATION, self)
+	}
+	OnRename(event:wx.CommandEvent) = {
+		item = self.m_treeCtrl.GetSelection()
+		!CHECK_ITEM(item) && return
+		// TODO demonstrate creating a custom edit control...
+		self.m_treeCtrl.EditLabel(item)
+	}
+	OnCount(event:wx.CommandEvent) = {
+		item = self.m_treeCtrl.GetSelection()
+		!CHECK_ITEM(item) && return
+		i = self.m_treeCtrl.GetChildrenCount(item, false)
+		wx.LogMessage('%d children', i)
+	}
+	OnCountRec(event:wx.CommandEvent) = {
+		item = self.m_treeCtrl.GetSelection()
+		!CHECK_ITEM(item) && return
+		i = self.m_treeCtrl.GetChildrenCount(item)
+		wx.LogMessage('%d children', i)
+	}
+	DoSort(reverse:boolean => false) = {
+		item = self.m_treeCtrl.GetSelection()
+		!CHECK_ITEM(item) && return
+		self.m_treeCtrl.DoSortChildren(item, reverse)
+	}
+	OnHighlight(event:wx.CommandEvent) = {
+		id = self.m_treeCtrl.GetSelection()
+		!CHECK_ITEM(id) && return
+		if (!(r = self.m_treeCtrl.GetBoundingRect(id, true /* text, not full row */))) {
+			wx.LogMessage('Failed to get bounding item rect')
+			return
+		}
+		dc = wx.ClientDC(self.m_treeCtrl)
+		dc.SetBrush(wx.Brush(wx.RED))
+		dc.SetPen(wx.TRANSPARENT_PEN)
+		dc.DrawRectangleRect(r)
+		self.m_treeCtrl.Update()
+	}
+	OnDump(event:wx.CommandEvent) = {
+		root = self.m_treeCtrl.GetSelection()
+		!CHECK_ITEM(root) && return
+		self.m_treeCtrl.GetItemsRecursively(root)
+	}
+	OnToggleSel(event:wx.CommandEvent) = {
+		self.TogStyle(event.GetId(), wx.TR_MULTIPLE)
+	}
+	OnDumpSelected(event:wx.CommandEvent) = {
+		array = self.m_treeCtrl.GetSelections()
+		wx.LogMessage('%u items selected', array.len())
+		wx.LogMessage('\t%s', self.m_treeCtrl.GetItemText(array))
+	}
+	OnSelect(event:wx.CommandEvent) = {
+		self.m_treeCtrl.SelectItem(self.m_treeCtrl.GetSelection())
+	}
+	OnSelectRoot(event:wx.CommandEvent) = {
+		if (!self.m_treeCtrl.HasFlag(wx.TR_HIDE_ROOT)) {
+			self.m_treeCtrl.SelectItem(self.m_treeCtrl.GetRootItem())
+		}
+	}
+	OnUnselect(event:wx.CommandEvent) = {
+		self.m_treeCtrl.UnselectAll()
+	}
+	DoSetBold(bold:boolean => true) = {
+		item = self.m_treeCtrl.GetSelection()
+		!CHECK_ITEM(item) && return
+		self.m_treeCtrl.SetItemBold(item, bold)
+	}
+	OnDelete(event:wx.CommandEvent) = {
+		item = self.m_treeCtrl.GetSelection()
+		!CHECK_ITEM(item) && return
+		self.m_treeCtrl.Delete(item)
+	}
+	OnDeleteChildren(event:wx.CommandEvent) = {
+		item = m_treeCtrl.GetSelection()
+		!CHECK_ITEM(item) && return
+		self.m_treeCtrl.DeleteChildren(item)
+	}
+	OnDeleteAll(event:wx.CommandEvent) = {
+		self.m_treeCtrl.DeleteAllItems()
+	}
+	OnRecreate(event:wx.CommandEvent) = {
+		self.OnDeleteAll(event)
+		self.m_treeCtrl.AddTestItemsToTree(5, 2)
+	}
+	OnSetImageSize(event:wx.CommandEvent) = {
+		size = wx.GetNumberFromUser('Enter the size for the images to use',
+									'Size: ',
+									'TreeCtrl sample',
+									self.m_treeCtrl.ImageSize())
+		if (size == -1) {
+			return
+		}
+		self.m_treeCtrl.CreateImageList(size)
+		wx.GetApp().SetShowImages(true)
+	}
+	OnToggleImages(event:wx.CommandEvent) = {
+		if (wx.GetApp().ShowImages()) {
+			self.m_treeCtrl.CreateImageList(-1)
+			wx.GetApp().SetShowImages(false)
+		} else {
+			self.m_treeCtrl.CreateImageList(0)
+			wx.GetApp().SetShowImages(true)
+		}
+	}
+	OnToggleButtons(event:wx.CommandEvent) = {
+	}
+	OnCollapseAndReset(event:wx.CommandEvent) = {
+		self.m_treeCtrl.CollapseAndReset(self.m_treeCtrl.GetRootItem())
+	}
+	OnEnsureVisible(event:wx.CommandEvent) = {
+		self.m_treeCtrl.DoEnsureVisible()
+	}
+	OnInsertItem(event:wx.CommandEvent) = {
+		image = if (wx.GetApp().ShowImages()) {TreeCtrlIcon_File} else {-1}
+		self.m_treeCtrl.InsertItemBefore(self.m_treeCtrl.GetRootItem(), 0, '2nd item', image)
+	}
+	s_num = 0
+	OnAddItem(event:wx.CommandEvent) = {
+		MyFrame.s_num += 1
+		text = format('Item #%d', MyFrame.s_num)
+		self.m_treeCtrl.AppendItem(self.m_treeCtrl.GetRootItem(),
+							text /*,
+							TreeCtrlIcon_File */ )
+	}
+	OnIncIndent(event:wx.CommandEvent) = {
+		indent = self.m_treeCtrl.GetIndent()
+		if (indent < 100) {
+			self.m_treeCtrl.SetIndent(indent + 5)
+		}
+	}
+	OnDecIndent(event:wx.CommandEvent) = {
+		indent = self.m_treeCtrl.GetIndent()
+		if (indent > 10) {
+			self.m_treeCtrl.SetIndent(indent - 5)
+		}
+	}
+	OnIncSpacing(event:wx.CommandEvent) = {
+		indent = self.m_treeCtrl.GetSpacing()
+		if (indent < 100) {
+			self.m_treeCtrl.SetSpacing(indent + 5)
+		}
+	}
+	OnDecSpacing(event:wx.CommandEvent) = {
+		indent = self.m_treeCtrl.GetSpacing()
+		if (indent > 10) {
+			self.m_treeCtrl.SetSpacing(indent - 5)
+		}
+	}
+	OnToggleIcon(event:wx.CommandEvent) = {
+		item = self.m_treeCtrl.GetSelection()
+		!CHECK_ITEM(item) && return
+		self.m_treeCtrl.DoToggleIcon(item)
+	}
+	OnSetFgColour(event:wx.CommandEvent) = {
+		col = wx.GetColourFromUser(self, self.m_treeCtrl.GetForegroundColour())
+		if (col.Ok()) {
+			self.m_treeCtrl.SetForegroundColour(col)
+		}
+	}
+	OnSetBgColour(event:wx.CommandEvent) = {
+		col = wx.GetColourFromUser(self, self.m_treeCtrl.GetBackgroundColour())
+		if (col.Ok()) {
+			self.m_treeCtrl.SetBackgroundColour(col)
+		}
+	}
+	OnSetBold(event:wx.CommandEvent) = {
+		self.DoSetBold(true)
+	}
+	OnClearBold(event:wx.CommandEvent) = {
+		self.DoSetBold(false)
+	}
+	OnSort(event:wx.CommandEvent) = {
+		self.DoSort()
+	}
+	OnSortRev(event:wx.CommandEvent) = {
+		self.DoSort(true)
+	}
+}
+
+wx.IMPLEMENT_APP(MyApp)

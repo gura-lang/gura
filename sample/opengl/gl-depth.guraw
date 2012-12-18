@@ -1,0 +1,101 @@
+#!/usr/bin/env gura
+
+// Orignal source file is written in C and is available from the site below.
+// http://www.sgi.com/products/software/opengl/examples/samples/
+// depth.c
+
+import(glu) {*}
+import(opengl) {*}
+
+antiAlias = false
+stipple = false
+
+stippleBits = @{
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+	0xAA, 0xAA, 0xAA, 0xAA, 0x55, 0x55, 0x55, 0x55,
+}.pack('%dB' % [32 * 4])
+
+Init() = {
+	glClearColor(0.0, 0.0, 0.0, 0.0)
+	glClearIndex(0.0)
+	glPolygonStipple(stippleBits)
+}
+
+Reshape(width:number, height:number) = {
+	glViewport(0, 0, width, height)
+	glMatrixMode(GL_PROJECTION)
+	glLoadIdentity()
+	glOrtho(-1.0, 1.0, -1.0, 1.0, -0.5, 1000.0)
+	glMatrixMode(GL_MODELVIEW)
+}
+
+Draw() = {
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+	if (antiAlias) {
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE)
+		glEnable(GL_BLEND)
+		glEnable(GL_POLYGON_SMOOTH)
+		glDisable(GL_DEPTH_TEST)
+	} else {
+		glDisable(GL_BLEND)
+		glDisable(GL_POLYGON_SMOOTH)
+		glEnable(GL_DEPTH_TEST)
+	}
+	if (stipple) {
+		glEnable(GL_POLYGON_STIPPLE)
+	} else {
+		glDisable(GL_POLYGON_STIPPLE)
+	}
+	glBegin(GL_TRIANGLES) {
+		glColor3f(0.0, 0.0, 1.0)
+		glVertex3f( 0.9, -0.9, -30.0)
+		glVertex3f( 0.9,  0.9, -30.0)
+		glVertex3f(-0.9,  0.0, -30.0)
+		glColor3f(0.0, 1.0, 0.0)
+		glVertex3f(-0.9, -0.9, -40.0)
+		glVertex3f(-0.9,  0.9, -40.0)
+		glVertex3f( 0.9,  0.0, -25.0)
+	}
+	glFlush()
+}
+
+scope {
+	import(gltester)
+	gltester.mainloop(300, 300, 0, `keydown) {
+		`onInit => function {
+			Init()
+		}
+		`onResize => function(width:number, height:number) {
+			Reshape(width, height)
+		}
+		`onDraw => function {
+			Draw()
+		}
+		`onKeyDown => %{
+			`num1 => function {
+				extern(antiAlias)
+				antiAlias = !antiAlias
+			}
+			`num2 => function {
+				extern(stipple)
+				stipple = !stipple
+			}
+		}
+		`onKeyPoll => %{
+		}
+	}
+}

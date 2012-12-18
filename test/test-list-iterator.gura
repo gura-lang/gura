@@ -1,0 +1,605 @@
+#!/usr/bin/env gura
+
+print_func(func:function) = printf('%s = %s\n', func, func.expr())
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+assign_tester(container):dynamic_scope {`block} = {
+	eval(block)
+	println(block, ' .. ', container):nomap
+	container.clear()
+}
+scope {
+	x = [1, 1, 1, 2, 2, 3, 3, 3, 3, 3, 4, 4]
+	tester(`x.runlength():list)
+	tester(`x.each().runlength():list)
+	x = ['a', 'a', 'a', 'b', 'b', 'c', 'c', 'c', 'c', 'c', 'd', 'd']
+	tester(`x.runlength():list)
+	tester(`x.each().runlength():list)
+	x = []
+	tester(`x.runlength():list)
+	tester(`x.each().runlength():list)
+	x = [1, 2, 3, 4, 5, 3, 2, 3, 4, 5]
+	tester(`(x < x.offset(1)).runlength():list)
+}
+scope {
+	scope {
+		x = repeat (20):iter {|i|
+			(i == 8) && break
+			i
+		}
+		println(x.join(', '))
+	}
+	scope {
+		x = repeat (20):xiter {|i|
+			(i % 2 == 0) && continue
+			i
+		}
+		println(x.join(', '))
+	}
+}
+scope {
+	x = [1..10]
+	tester(`x)
+	x.insert(0, -1, -2, -3)
+	tester(`x)
+	x = [1..10]
+	x.insert(4, -1, -2, -3)
+	tester(`x)
+	x = [1..10]
+	x.insert(9, -1, -2, -3)
+	tester(`x)
+	x = [1..10]
+	x.insert(10, -1, -2, -3)
+	tester(`x)
+}
+scope {
+	fruits = ['apple', 'orange', 'grape']
+	println(fruits.seek(fruits:*len() > 5))
+	println(fruits.seek(fruits:*len() > 6))
+	println(fruits.seek(fruits:*startswith('g')))
+	println(fruits.each().seek(fruits:*len() > 5))
+	println(fruits.each().seek(fruits:*len() > 6))
+	println(fruits.each().seek(fruits:*startswith('g')))
+}
+scope {
+	x = [1e-6, 1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12, 1e-13]
+	tester(`x.roundoff():list)
+	tester(`x.each().roundoff():list)
+	tester(`x.roundoff(1e-8):list)
+	tester(`x.each().roundoff(1e-8):list)
+}
+scope {
+	tester(`[].each().sort())
+	tester(`[].find(2))
+	tester(`[].find())
+	tester(`[3, 4, 1, 2, 5].find(2))
+	tester(`[3, 4, 1, 2, 5].each().find(2))
+	tester(`[3, 4, 1, 2, 5].find(6))
+	tester(`[3, 4, 1, 2, 5].each().find(6))
+	tester(`[false, false, true, false, true].find())
+	tester(`[false, false, true, false, true].each().find())
+	tester(`[false, false, false, false].find())
+	tester(`[false, false, false, false].each().find())
+}
+scope {
+	x = chr(ord('A')..ord('Z')):list
+	tester(`x)
+	tester(`x[0])
+	tester(`x[13])
+	tester(`x[25])
+	tester(`x[0..25])
+	tester(`x[0..])
+	tester(`x[13..])
+	tester(`x[[0, 1, 2, 3]])
+	tester(`x[0, 1, 2, 3, 22, 23, 24, 25])
+	tester(`x[0..3, 22..25])
+	tester(`x[[0, 1, 2, 3], [22, 23, 24, 25]])
+}
+scope {
+	x = %{}
+	assign_tester(x) {x[0] = 'A'}
+	assign_tester(x) {x[0] = ['A', 'B', 'C'], x[1] = ['D', 'E', 'F'], x[2] = ['G', 'H', 'I']}
+	assign_tester(x) {x[0, 1, 2, 3] = ['A', 'B', 'C', 'D']}
+	assign_tester(x) {x[0, 1, 2] = ['A', 'B', 'C', 'D']}
+	assign_tester(x) {x[0..3] = ['A', 'B', 'C', 'D']}
+	assign_tester(x) {x[0..10] = ['A', 'B', 'C', 'D']}
+	assign_tester(x) {x[0..3, 8..10] = ['A', 'B', 'C', 'D', 'E', 'F', 'G']}
+	assign_tester(x) {x[0..3, 8..9] = ['A', 'B', 'C', 'D', 'E', 'F', 'G']}
+	assign_tester(x) {x[0..3, 8..10] = ['A', 'B', 'C', 'D', 'E']}
+	assign_tester(x) {x[[0, 1, 2, 3], [8, 9, 10]] = ['A', 'B', 'C', 'D', 'E', 'F', 'G']}
+	assign_tester(x) {x[[0, 1, 2, 3], [8, 9]] = ['A', 'B', 'C', 'D', 'E', 'F', 'G']}
+	assign_tester(x) {x[[0, 1, 2, 3], [8, 9, 10]] = ['A', 'B', 'C', 'D', 'E']}
+	assign_tester(x) {x[0..3] = 'A'}
+	assign_tester(x) {x[0..3, 8..10] = 'A'}
+	assign_tester(x) {x[[0, 1, 2, 3]] = 'A'}
+	assign_tester(x) {x[[0, 1, 2, 3], [8, 9, 10]] = 'A'}
+}
+scope {
+	println(range(10):list {|i|
+		if (i == 5) { break }
+		i
+	}.join(','))
+	println(range(10):list {|i|
+		if (i == 5) { break('a') }
+		i
+	}.join(','))
+	println(range(10):list {|i|
+		if (i % 2 == 0) { continue }
+		i
+	}.join(','))
+	println(range(10):list {|i|
+		if (i % 2 == 0) { continue('a') }
+		i
+	}.join(','))
+	func() = {
+		range(10):list {|i|
+			if (i == 5) { return }
+			i
+		}.join(',')
+	}
+	println(func())
+	func() = {
+		range(10):list {|i|
+			if (i == 5) { return('return value') }
+			i
+		}.join(',')
+	}
+	println(func())
+}
+scope {
+	println(range(10).reduce('') {|i, accum:string|
+		i.tostring() + '-' + accum
+	})
+	println(range(10).reduce('') {|i, accum:string|
+		if (i == 5) { break }
+		i.tostring() + '-' + accum
+	})
+	println(range(10).reduce('') {|i, accum:string|
+		if (i == 5) { break('a') }
+		i.tostring() + '-' + accum
+	})
+	println(range(10).reduce('') {|i, accum:string|
+		if (i == 5) { continue }
+		i.tostring() + '-' + accum
+	})
+	println(range(10).reduce('') {|i, accum:string|
+		if (i == 5) { continue('xx') }
+		i.tostring() + '-' + accum
+	})
+	func() = {
+		println(range(10).reduce('') {|i, accum:string|
+			if (i == 5) { return }
+			i.tostring() + '-' + accum
+		})
+	}
+	println(func())
+	func() = {
+		println(range(10).reduce('') {|i, accum:string|
+			if (i == 5) { return('return value') }
+			i.tostring() + '-' + accum
+		})
+	}
+	println(func())
+}
+scope {
+	try {
+		[0..]
+	} except (IteratorError) {|e|
+		println('expected error occurs: ', e.text)
+	}
+	try {
+		[(0..) + 3]
+	} except (IteratorError) {|e|
+		println('expected error occurs: ', e.text)
+	}
+}
+scope {
+	x = 1..9
+	i = iterator(x, 0..-5, x, interval(0, 1, 5))
+	tester(`i.each():list)
+	tester(`x.each():list)
+	tester(`iterator(x, 0..-5, x, interval(0, 1, 5)).each():list {|m| m})
+	i = iterator('first', 'second', 'third', range(4), repeat(3):iter {|i| i * 3})
+	tester(`i.each():list)
+}
+scope {
+	x = 1..9
+	i = list(x, 0..-5, 99, 99, x, interval(0, 1, 5), 99)
+	tester(`i)
+	tester(`x.each():list)
+	tester(`list(x, 0..-5, x, interval(0, 1, 5)))
+	i = list('first', 'second', 'third', range(4), repeat(3):iter {|i| i * 3})
+	tester(`i)
+}
+scope {
+	x = [1..10]
+	while (i = x.shift()) {
+		printf('%3d', i)
+	}
+	println()
+	try {
+		x.shift():raise
+	} except(ValueError) {|e|
+		println('expected error occurs: ', e.text)
+	}
+}
+scope {
+	tester(`[[1, 2, 3, nil, 4, 5, nil, 6, 7].each():xiter])
+	tester(`[[1, 2, 3], 4, 5, [6, 7, [8, 9, [10, 11]]]].flat())
+	tester(`[1..10].sum())
+	tester(`(1..10).sum())
+	tester(`[1..10].average())
+	tester(`(1..10).average())
+	tester(`[true, true, true].and())
+	tester(`[true, true, true, false].and())
+	tester(`[true, true, true, false].or())
+	tester(`[false, false, false, false].or())
+	tester(`[nil, 1, 2, 3, nil, nil, 4, 5].nilto(9):list)
+	tester(`[4, 3, 6, 1, 2, 3, 5, 4, 4, 4, 0].replace(4, 9):list)
+	x = [4, 3, 6, 1, 2, 3, -1, 4, 4, 4, 0]
+	tester(`x.while(&{$i >= 0}):list)
+	tester(`x.while(x >= 0):list)
+	tester(`x.since(&{$i < 0}):list)
+	tester(`x.since(x < 0):list)
+	tester(`x.since(&{$i < 0}).offset(1):list)
+	tester(`x.since(x < 0).offset(1):list)
+	tester(`x.after(&{$i < 0}):list)
+	tester(`x.after(x < 0):list)
+	tester(`x.after(&{$i < 0}).offset(1):list)
+	tester(`x.after(x < 0).offset(1):list)
+	tester(`x.until(&{$i < 0}):list)
+	tester(`x.until(x < 0):list)
+	tester(`x.until(&{$i < 0}).offset(1):list)
+	tester(`x.until(x < 0).offset(1):list)
+	tester(`x.before(&{$i < 0}):list)
+	tester(`x.before(x < 0):list)
+	tester(`x.before(&{$i < 0}).offset(1):list)
+	tester(`x.before(x < 0).offset(1):list)
+	x = [1, 2, 3, -1, 3, 1, 2, 3, 4, -1, 2, 1, 2]
+	tester(`x.since(&{$i < 0}).offset(1).while(&{$i >= 0}):list)
+}
+scope {
+	func(samples[]) = {
+		printf('sum=%g average=%g variance=%g standard-deviation=%g\n',
+					samples.sum(), samples.average(),
+					samples.variance(), samples.stddev())
+		printf('sum=%g average=%g variance=%g standard-deviation=%g\n',
+					samples.each().sum(), samples.each().average(),
+					samples.each().variance(), samples.each().stddev())
+	}
+	func([80, 76, 59, 87, 66, 54, 40, 78, 94, 61])
+	func([80, 76, 59, 87, 66, 54, 40, 78, 94, 61] * 1j)
+	func([])
+}
+scope {
+	correlation1(x:iterator, y:iterator) = {
+		u_x = x.average(), u_y = y.average()
+		((x - u_x) * (y - u_y)).sum() / \
+					math.sqrt(((x - u_x) ** 2).sum() * ((y - u_y) ** 2).sum())
+	}
+	correlation2(x:iterator, y:iterator) = {
+		math.covariance(x, y) / math.sqrt(x.variance() * y.variance())
+	}
+	func(seqA[], seqB[]) = {
+		printf('calculation with explicit script:    %f\n', correlation1(seqA, seqB))
+		printf('calculation with built-in functions: %f\n', correlation2(seqA, seqB))
+	}
+	func(
+		[1.9, 4.2, 5.1, 6.2, 7.7, 8.6, 6.9, 3.3, 3.3, 6.3],
+		[3.1, 4.1, 4.8, 5.1, 6.5, 6.4, 5.9, 4.1, 3.6, 5.7])
+	func(
+		[4.5, 6.3, 5.9, 5.2, 3.8, 3.1, 3.1, 6.7, 7.2, 4.8],
+		[5.4, 4.1, 4.8, 4.7, 6.1, 6.0, 6.6, 3.5, 3.8, 6.0])
+	func(
+		[4.2, 5.0, 5.6, 6.5, 5.9, 4.6, 5.8, 5.1, 4.9, 5.2],
+		[5.8, 6.5, 6.2, 5.7, 5.1, 4.6, 4.5, 5.0, 5.5, 5.8])
+}
+scope {
+	(1..10).print()
+	println()
+	(1..10).println()
+	zipv(1..10, 10..1).printf('%3d%3d\n')
+	tester(`zipv(1..10, 1..10).format('%3d%3d'):list)
+	tester(`zipv(1, 2, 3, 'abc', 'def', 4, 5))
+}
+scope {
+	tester(`[0..10])
+	tester(`[fill(10, 2)])
+	tester(`[range(10)])
+	tester(`[interval(0, 1, 11)])
+	tester(`[0, 3..6, fill(3, 0), range(5), 4..0])
+}
+scope {
+	tbl = [0..255]
+	for (row in tbl.round(500).fold(16)) {|iRow|
+		printf('%06x', iRow * 16)
+		for (rowHalf in row.fold(8)) {
+			printf('  %s', hex(rowHalf, 2).join(' '))
+		}
+		println()
+	}
+}
+scope {
+	tbl = [49, 23, 23, 69]
+	tester(`tbl)
+	tester(`tbl.min())
+	tester(`tbl.min():index)
+	tester(`tbl.min():last_index)
+	tester(`tbl.min():indices)
+	tester(`tbl.max())
+	tester(`tbl.max():index)
+	tester(`tbl.max():last_index)
+	tester(`tbl.max():indices)
+}
+scope {
+	printf('%3d   %s\n', 1.., (['first', 'second', 'third', 'fourth'].permutation()):*join(', '))
+	printf('%3d   %s\n', 1.., (['1', '2', '3', '4'].permutation()):*join(', '))
+	printf('%3d   %s\n', 1.., (['1st', '2nd', '3rd', '4th'].permutation()):*join(', '))
+	printf('%3d   %s\n', 1.., ([1, 2, 3, 4].permutation()):*join(', '))
+	tbl = [1..4]
+	print_iterators(label:string, iters) = {
+		println(label, ' ', ('[' + iters:*join(',') + ']').join(', '))
+	}
+	print_iterators('permutation() ', tbl.permutation())
+	print_iterators('permutation(3)', tbl.permutation(3))
+	print_iterators('permutation(2)', tbl.permutation(2))
+	print_iterators('permutation(1)', tbl.permutation(1))
+	print_iterators('permutation(0)', tbl.permutation(0))
+	print_iterators('combination(4)', tbl.combination(4))
+	print_iterators('combination(3)', tbl.combination(3))
+	print_iterators('combination(2)', tbl.combination(2))
+	print_iterators('combination(1)', tbl.combination(1))
+	print_iterators('combination(0)', tbl.combination(0))
+}
+scope {
+	list = format('[%d]', 0..10):list
+	tester(`list)
+	tester(`list[0])
+	tester(`list[9])
+	tester(`list[0..3])
+	tester(`list[8..3])
+	tester(`list[5..])
+	tester(`list[2, 5..])
+	tester(`list[2, 5.., 3, 4])
+}
+scope {
+	list = ['the', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
+	tester(`list)
+	tester(`[list.reverse()].join(' '))
+	list = ['apple', 'orange', 'grape']
+	tester(`list)
+	tester(`[list.round(13)].join(' '))
+	tester(`[(0..10).offset(2)])
+	tester(`[(0..10).skip(1)])
+	tester(`[(0..10).offset(2).skip(1)])
+	tester(`[(0..5).align(10)])
+	tester(`[(0..5).align(3)])
+	tester(`[(0..5).align(10, 0)])
+	tester(`[(0..3).round(20)])
+	tester(`[(0..3).round().head(20)])
+	tester(`[(0..3).pingpong(20)])
+	tester(`[(0..3).pingpong(20):sticky])
+	tester(`[(0..3).pingpong(20):sticky_l:sticky_r])
+	tester(`[(0..3).pingpong().head(20)])
+	tester(`[(0..9).head(3)])
+	tester(`[(0..9).tail(3)])
+	tester(`[(0..9).reverse()])
+	tester(`[[1, 2, 3, nil, 4, 5, nil].skipnil()])
+	tester(`[[0..10].offset(2)])
+	tester(`[[0..10].skip(1)])
+	tester(`[[0..10].offset(2).skip(1)])
+	tester(`[[0..5].align(10)])
+	tester(`[[0..5].align(10, 0)])
+	tester(`[[0].round(10)])
+	tester(`[[0, 1].round(10)])
+	tester(`[[0..3].round(20)])
+	tester(`[[0..3].round().head(20)])
+	tester(`[[0].pingpong(10)])
+	tester(`[[0].pingpong(10):sticky])
+	tester(`[[0, 1].pingpong(10)])
+	tester(`[[0, 1].pingpong(10):sticky])
+	tester(`[[0..3].pingpong(20)])
+	tester(`[[0..3].pingpong(20):sticky])
+	tester(`[[0..3].pingpong(20):sticky_l:sticky_r])
+	tester(`[[0..3].pingpong().head(20)])
+	tester(`[[0..9].head(3)])
+	tester(`[[0..9].tail(3)])
+	tester(`[[0..9].reverse()])
+	tester(`[[1, 2, 3, nil, 4, 5, nil].each().skipnil()])
+	tester(`[0..21].fold(3).each():list)
+	tester(`[0..21].fold(3):list)
+	tester(`(0..21).fold(3).each():list)
+	tester(`(0..21).fold(3):list)
+}
+scope {
+	// stress test
+	repeat (100) { (1..9).tail(6).join() }
+	repeat (100) { (1..9).reverse().join() }
+	repeat (100) { (1..9).round(100).join() }
+	repeat (100) { (1..9).pingpong(100).join() }
+}
+scope {
+	list = @{
+		{1, 2, 3, {4, 5, 6, {7, 8, 9}, 10, 11}, 12}, 13, 14
+	}
+	println(list):nomap
+	list = @(struct(name:string, email:string, age:number)) {
+		{ 'hayasaka hiroko',	'hayasaka_hiroko@example.com',	33	},
+		{ 'hannda takashi',		'hannda_takashi@example.com',	75	},
+		{ 'honma masahiko',		'honma_masahiko@example.com',	46	},
+		{ 'kawahata nana',		'kawahata_nana@example.com',	47	},
+	}
+	println(list):nomap
+	Person = struct(name:string, email:string, age:number)
+	people = @(Person) {
+		{ 'hayasaka hiroko',	'hayasaka_hiroko@example.com',	33	},
+		{ 'hannda takashi',		'hannda_takashi@example.com',	75	},
+		{ 'honma masahiko',		'honma_masahiko@example.com',	46	},
+		{ 'kawahata nana',		'kawahata_nana@example.com',	47	},
+	}
+	println(people):nomap
+}
+scope {
+	freshfruit = ['  banana', '  loganberry ', 'passion fruit  ']
+	tester(`freshfruit)
+	tester(`for (weapon in freshfruit):list { weapon.strip() })
+	tester(`freshfruit::strip())
+	vec = [2, 4, 6, 3, 1, 4, 2]
+	tester(`vec)
+	tester(`(3 * vec))
+	tester(`(3 * vec.filter(&{$x > 3}):list))
+	tester(`(3 * vec.filter(&{$x < 2}):list))
+	tester(`(3 * vec.filter(vec > 3):list))
+	tester(`(3 * vec.filter(vec < 2):list))
+	tester(`(3 * vec.filter(vec.each() > 3):list))
+	tester(`(3 * vec.filter(vec.each() < 2):list))
+	tester(`zipv(vec, vec ** 2):list)
+	tester(`for (x in vec):list {[x, x ** 2]})
+	vec1 = [2, 4, 6]
+	vec2 = [4, 3, -9]
+	tester(`vec1)
+	tester(`vec2)
+	tester(`cross (x in vec1, y in vec2):list { x * y })
+	tester(`cross (x in vec1, y in vec2):list { x + y })
+	tester(`(vec1 * vec2))
+	tester(`set([1, 2, 3], [4, 5, 2], [1, 2, 8]):or)
+	tester(`set([1, 2, 3], [4, 5, 2], [1, 2, 8]):and)
+	tester(`set([1, 2, 3], [4, 5, 2], [1, 2, 8]):xor)
+	vec1 = [8, 3, 3, 6, 3, 8, 0, 4, 8, 6]
+	vec2 = [6, 3, 4, 5, 3, 1, 3, 3, 9, 9]
+	tester(`vec1)
+	tester(`vec2)
+	tester(`set(vec1, vec2):or)
+	tester(`set(vec1, vec2):and)
+	tester(`set(vec1, vec2):xor)
+}
+scope {
+	basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+	tester(`basket)
+	fruit = set(basket)
+	tester(`fruit)
+	tester(`('orange' in fruit))
+	tester(`('crabgrass' in fruit))
+	a = set('abracadabra'.split())
+	b = set('alacazam'.split())
+	tester(`a)
+	tester(`b)
+	tester(`set(a, b):or)
+	tester(`set(a, b):and)
+	tester(`set(a, b):xor)
+}
+scope {
+	mat = [
+	  [1, 2, 3]
+	  [4, 5, 6]
+	  [7, 8, 9]
+	]
+	println(mat):nomap
+	println(mat[1]):nomap
+	println(mat[0]):nomap
+	func(x) = {
+		print(math.sin(x))
+		print(' ' + math.cos(x))
+		print(' ' + math.sqrt(x))
+		print('\n')
+	}
+	func(3)
+}
+scope {
+	import(csv)
+	println('==== Test of list operation (1) ====')
+	t = [0..3]
+	tester(`t)
+	tester(`math.sin(t, t, t))
+	tester(`math.sin([t, [t, t], t]))
+	a = ['aaa', 'bbbb', 'ccc'] + ['3', '4', '5']
+	b = a * 4
+	tester(`a)
+	tester(`b)
+	x1 = [1..5]
+	x2 = [5..1]
+	tester(`x1)
+	tester(`x2)
+	for (test in [`(x1 == x2), `(x1 != x2), `(x1 < x2), `(x1 > x2), `(x1 <= x2), `(x1 >= x2)]) {
+		print(test, ' .. ', eval(test).tostring(), '\n')
+	}
+	for (x in ('Yamada', 'Sato')):list {
+		for (y in ['Taro', 'Yoshiko', 'Kenta']):list { x + ' ' + y }
+	}
+	for (x in 1..9):list {
+		for (y in 1..9):list { x * y }
+	}
+	for (x in 1..3) {
+		for (y in 1..3) { println(x * y) }
+	}
+	for (x in 1..4) {
+		for (y in 1..4) { rand() }
+	}
+	repeat(10):list { rand() }
+	x = [0..4]
+	y = [0..4]
+	for (x_i in x):list {
+		for (y_i in y):list { [x_i, y_i, x_i * y_i] }
+	}
+	for (v in -10..-1, w in -5..4, x in 1..10, y in 10..1, z in [1..10] ** 2) {
+		print('%d %d %d %d %d\n' % [v, w, x, y, z])
+	}
+	csv.writer(sys.stdout).write([1, 4, 7], [2, 5, 8], [3, 6, 9])
+	for (x in 1..9) {
+		list1 = []
+		for (x in 1..4) {
+			list2 = []
+			for (y in 5..8) { list2.add([x, y]) }
+		}
+		list1
+	}
+	repeat(20):list { rand(100) }
+	t = repeat(10):list { rand(10) }
+	printf('t = %s\n', t):nomap
+	printf('t.sort(ascend)  %s\n', t.sort(`ascend).join(' '))
+	printf('t.sort(descend) %s\n', t.sort(`descend).join(' '))
+	printf('t.rank(ascend)  %s\n', t.rank(`ascend).join(' '))
+	printf('t.rank(descend) %s\n', t.rank(`descend).join(' '))
+	printf('t.each().sort(ascend)  %s\n', t.each().sort(`ascend).join(' '))
+	printf('t.each().sort(descend) %s\n', t.each().sort(`descend).join(' '))
+	printf('t.each().rank(ascend)  %s\n', t.each().rank(`ascend).join(' '))
+	printf('t.each().rank(descend) %s\n', t.each().rank(`descend).join(' '))
+	a = repeat(10):list { rand(10) }
+	b = repeat(10):list { rand(10) }
+	list(a, b, ('hello',), a)
+	println('--------')
+	c = [0..9]
+	c.add(0)
+	c.add(0)
+	c.add(0)
+	c.add(0)
+	c.add((4, 4, 4))
+	c.append((4, 4, 4))
+	c.erase(3, 5, 0, 5, 3)
+	c.erase(3)
+	c.len()
+	c.clear()
+	println(dict({x = [0..90], zipv(x, math.sin(x * math.pi / 180)):list})):nomap
+	println(dict(for (x in 0..90):list { (x, math.sin(x * math.pi / 180)) })):nomap
+}
+scope {
+	println('==== Test of list operation (2) ====')
+	t = [range(0, 20)] * 2
+	t[3]
+	t[range(0, 4)]
+	t[range(9, 10)]
+	u = t[range(9, t.len())]
+	t[0, 2, range(9, t.len())]
+	u * 3
+	mat = [[range(1, 6)], [range(6, 11)], [range(11, 16)], [range(16, 21)]]
+	mat + mat + mat
+	mat * 3
+	t = mat[0]
+	t = mat[1]
+	t = mat[2]
+	t = mat[3]
+	t = [mat[0][0], mat[1][0], mat[2][0], mat[3][0]]
+	[range(3, 10)]
+	list = repeat(10):list { rand(10) }
+	list_of_list = repeat(5):list { repeat(5):list { rand(10) } }
+	list_of_list_of_list = repeat(3):list { repeat(5):list { repeat(5):list { rand(10) } } }
+}

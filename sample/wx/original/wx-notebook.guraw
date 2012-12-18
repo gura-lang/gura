@@ -1,0 +1,104 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+import(gif)
+
+log = nil
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+		panel = wx.Panel(self)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		panel.SetSizer(vbox)
+		imgList = wx.ImageList(18, 18)
+		imgList.Add(image(I('arrow-green-d.gif')))
+		imgList.Add(image(I('arrow-green-l.gif')))
+		imgList.Add(image(I('arrow-green-r.gif')))
+		imgList.Add(image(I('arrow-green-u.gif')))
+		wx.Notebook(panel, wx.ID_ANY) {|book|
+			vbox.Add(book, wx.SizerFlags(1).Expand())
+			book.SetImageList(imgList)
+			wx.Panel(book) {|panel|
+				book.AddPage(panel, 'Page1', imageId => 0)
+				vbox:local = wx.BoxSizer(wx.VERTICAL)
+				panel.SetSizer(vbox)
+				wx.TextCtrl(panel, wx.ID_ANY) {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags(1).Expand())
+				}
+			}
+			wx.Panel(book) {|panel|
+				book.AddPage(panel, 'Page2', imageId => 1)
+				vbox:local = wx.BoxSizer(wx.VERTICAL)
+				panel.SetSizer(vbox)
+			}
+			wx.Panel(book) {|panel|
+				book.AddPage(panel, 'Page3', imageId => 2)
+				vbox:local = wx.BoxSizer(wx.VERTICAL)
+				panel.SetSizer(vbox)
+			}
+			book.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGING) {|event|
+				log.Printf('changing %d -> %d\n', event.GetOldSelection(), event.GetSelection())
+			}
+			book.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED) {|event|
+				log.Printf('changed  %d -> %d\n', event.GetOldSelection(), event.GetSelection())
+			}
+			book.Bind(wx.EVT_LEFT_DOWN) {|event|
+				[index, flags] = book.HitTest(event.GetPosition())
+				log.Printf('index=%d, flags=%04x\n', index, flags)
+				event.Skip()
+			}
+		}
+		wx.Treebook(panel, wx.ID_ANY) {|book|
+			vbox.Add(book, wx.SizerFlags(1).Expand())
+			wx.Panel(book) {|panel|
+				book.AddPage(panel, 'Page1')
+				vbox:local = wx.BoxSizer(wx.VERTICAL)
+				panel.SetSizer(vbox)
+				wx.TextCtrl(panel, wx.ID_ANY) {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags(1).Expand())
+				}
+			}
+			wx.Panel(book) {|panel|
+				book.AddSubPage(panel, 'SubPage1')
+				vbox:local = wx.BoxSizer(wx.VERTICAL)
+				panel.SetSizer(vbox)
+				wx.TextCtrl(panel, wx.ID_ANY) {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags(1).Expand())
+				}
+			}
+			wx.Panel(book) {|panel|
+				book.AddPage(panel, 'Page2')
+				vbox:local = wx.BoxSizer(wx.VERTICAL)
+				panel.SetSizer(vbox)
+			}
+			wx.Panel(book) {|panel|
+				book.AddPage(panel, 'Page3')
+				vbox:local = wx.BoxSizer(wx.VERTICAL)
+				panel.SetSizer(vbox)
+			}
+			book.Bind(wx.EVT_TREEBOOK_PAGE_CHANGING) {|event|
+				log.Printf('%s\n', event)
+			}
+			book.Bind(wx.EVT_TREEBOOK_PAGE_CHANGED) {|event|
+				log.Printf('%s\n', event)
+			}
+		}
+		wxutil.LogWindow(panel) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+			log:extern = ctrl
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

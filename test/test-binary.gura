@@ -1,0 +1,251 @@
+#!/usr/bin/env gura
+
+sys.stdout.setencoding('shift_jis')
+
+dump(buff:binary) = {
+	tochar(num:number):map = {
+		if (0x20 <= num && num < 0x7f) { chr(num) } else { '.' }
+	}
+	buff.each().fold(16) {|line|
+		printf('%-48s %s\n', format('%02x', line).join(' '), tochar(line).join())
+	}
+}
+
+unpack(buff:binary, formatUnpack:string, formatPrint:string) = {
+	p = buff.pointer()
+	printf('unpack(%s): ', formatUnpack)
+	list = while (n = p.unpack(formatUnpack)):list {
+		format(formatPrint, n[0])
+	}
+	println(list.join(' '))
+}
+
+scope {
+	buff = binary()
+	buff.writer().write(b'0123456789012345678901234567890123456789')
+	buff.writer().write(b'0123456789012345678901234567890123456789')
+	buff.writer().write(b'0123456789012345678901234567890123456789')
+	buff.writer().write(b'0123456789012345678901234567890123456789')
+	buff.dump()
+}
+scope {
+	println([0..0xff].fold(16):*pack('16B'):*escapeuri())
+}
+scope {
+	buff = binary.pack('8i', 1, 2, 3, 4, 5, 6, 7, 8)
+	buff.unpacks('ii') {|nums| println(nums[0], ' ', nums[1])}
+	println(buff.unpacks('ii'):list {|nums| nums[0] + nums[1]})
+}
+scope {
+	buff = binary()
+	buff.store([0, 8, 16], b'xx').dump()
+	buff.add(b'abc', b'def').dump()
+	buff.add([b'abc', b'def']).dump()
+}
+scope {
+	buff = binary.pack('32B', [0..31]*)
+	buff.dump()
+	println('----')
+	stream = buff.reader()
+	stream.peek(4).dump()
+	stream.peek(6).dump()
+	stream.peek(8).dump()
+	stream.peek(2).dump()
+	stream.read(4).dump()
+	stream.read(4).dump()
+	stream.read(4).dump()
+	stream.peek(4).dump()
+	stream.read(8).dump()
+	println('----')
+	stream = buff.reader()
+	stream.peek(8).dump()
+	stream.seek(4, `cur)
+	stream.read(3).dump()
+	stream.read(3).dump()
+	println('----')
+	stream = buff.reader()
+	stream.peek(8).dump()
+	stream.seek(4, `cur)
+	stream.read(2).dump()
+	stream.seek(8, `cur)
+	stream.read(8).dump()
+	println('----')
+	stream = buff.reader()
+	stream.seek(8)
+	stream.peek(8).dump()
+	stream.seek(4)
+	stream.read(8).dump()
+	println('----')
+	stream = buff.reader()
+	stream.seek(8)
+	stream.peek(8).dump()
+	stream.seek(-4, `cur)
+	stream.read(8).dump()
+}
+scope {
+	values = [0..255]
+	binary.pack('256B', values*).dump()
+	binary.pack('248B', values*).dump()
+	binary.pack('128B', values*).dump():upper
+	binary.pack('127B', values*).dump()
+}
+scope {
+	buff = binary()
+	stream = buff.writer()
+	stream.write(b'abc\x00defghijklmn')
+	stream.write(b'abc\x00defghijklmn')
+	dump(buff)
+	stream.seek(3)
+	stream.write(b'ABCDE\x00FG')
+	dump(buff)
+	stream.seek(23)
+	stream.write(b'ABCDE\x00FG')
+	dump(buff)
+	stream.seek(8)
+	dump(stream.read(8))
+	stream.seek(8, `cur)
+	dump(stream.read())
+}
+scope {
+	buff = [0..255].each().pack('B').joinb()
+	dump(buff)
+	buff = [[0..4], [5..9], [10..14], [15..19], [20..24]].each().pack('<iiii').joinb()
+	dump(buff)
+	buff = [[0..4], [5..9], [10..14], [15..19], [20..24]].each().pack('>iiii').joinb()
+	dump(buff)
+}
+scope {
+	buff = binary()
+	p = buff.pointer()
+	repeat(16) {|i|
+		p.pack('<H', 0x1111 * i)
+	}
+	dump(buff)
+	println(buff.unpacks('<H'):*format('%04x').join(' '))
+	println(buff.pointer(8).unpacks('<H'):*format('%04x').join(' '))
+}
+
+scope {
+	pack_tester(fmt:string, text:string) = {
+		printf('format: %s\n', fmt)
+		buff = binary.pack(fmt, text)
+		tochar(num:number):map = {
+			if (0x20 <= num && num < 0x7f) { chr(num) } else { '.' }
+		}
+		buff.each().fold(16) {|line|
+			printf('%-48s %s\n', format('%02x', line).join(' '), tochar(line).join())
+		}
+		printf('unpacked: %s\n', buff.unpack(fmt)[0])
+		println()
+	}
+	text = 'あい構うえお漢字の試験'
+	pack_tester('{shift_jis}32s', text)
+	pack_tester('{shift_jis}13s', text)
+	pack_tester('{utf-16}32s', text)
+	pack_tester('{utf-16}13s', text)
+	pack_tester('{utf-8}32s', text)
+	pack_tester('{utf-8}13s', text)
+	pack_tester('{euc-jp}32s', text)
+	pack_tester('{euc-jp}13s', text)
+}
+scope {
+	buff = b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f' * 4
+	dump(buff)
+	println()
+	buffEx = b'\x00\x11\x22\x33\x44\x55\x66\x77\x88\x99\xaa\xbb\xcc\xdd\xee\xff'
+	buff.add(buffEx)
+	dump(buff)
+	println()
+	buff.store(16, buffEx)
+	dump(buff)
+	println()
+	buff.store(48, buffEx)
+	dump(buff)
+	println()
+	buff.store(72, buffEx)
+	dump(buff)
+	println()
+	buff.add(binary.pack('>hbbHl', 0x1234, 0x56, 0x78, 0x9abc, -1))
+	dump(buff)
+	println()
+	buff.store(16, binary.pack('>hbbHl', 0x1234, 0x56, 0x78, 0x9abc, -1))
+	dump(buff)
+	println()
+}
+scope {
+	scope {
+		line1 = [-128, -32768, -2147483648, -2147483648, -2147483648, -2147483648]
+		dump(buff = line1.pack('bhilfd'))
+		line2 = buff.unpack('bhilfd')
+		printf('unpacked: 0x%02x 0x%04x 0x%08x 0x%08x %f %f\n' % line2)
+	}
+	scope {
+		line1 = [127, 32767, 2147483647, 2147483647, 2147483647, 2147483647]
+		dump(buff = line1.pack('bhilfd'))
+		line2 = buff.unpack('bhilfd')
+		printf('unpacked: 0x%02x 0x%04x 0x%08x 0x%08x %f %f\n' % line2)
+	}
+	scope {
+		line1 = [0xff, 0xffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff]
+		dump(buff = line1.pack('BHILfd'))
+		line2 = buff.unpack('BHILfd')
+		printf('unpacked: 0x%02x 0x%04x 0x%08x 0x%08x %f %f\n' % line2)
+	}
+	for (i in range(-124, 128, 8)) {
+		line1 = [i, 0x0101 * i, 0x01010101 * i, 0x01010101 * i, i, i]
+		dump(buff = line1.pack('bhilfd'))
+		line2 = buff.unpack('bhilfd')
+		printf('unpacked: 0x%02x 0x%04x 0x%08x 0x%08x %f %f\n' % line2)
+	}
+	for (i in range(0, 256, 8)) {
+		line1 = [i, 0x0101 * i, 0x01010101 * i, 0x01010101 * i, i, i]
+		dump(buff = line1.pack('BHILfd'))
+		line2 = buff.unpack('BHILfd')
+		printf('unpacked: 0x%02x 0x%04x 0x%08x 0x%08x %f %f\n' % line2)
+	}
+}
+scope {
+	buff = b'\x12\x34\x56\x78\x12\x34\x56\x78'
+	println('%04x %04x %08x' % buff.unpack('<hhl'))
+	println('%04x %04x %08x' % buff.unpack('>hhl'))
+	dump(binary.pack('8b', 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77))
+	println()
+	dump(buff = binary.pack('16B',
+		0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77,
+		0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff))
+	unpack(buff, 'B', '%02x')
+	println()
+	dump(buff = binary.pack('*B', 16,
+		0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77,
+		0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff))
+	unpack(buff, 'B', '%02x')
+	println()
+	dump(buff = binary.pack('<8H',
+		0x0123, 0x4567, 0x89ab, 0xcdef, 0x0000, 0x1111, 0x2222, 0x3333))
+	unpack(buff, '<H', '%04x')
+	unpack(buff, '>H', '%04x')
+	println()
+	dump(buff = binary.pack('>8H',
+		0x0123, 0x4567, 0x89ab, 0xcdef, 0x0000, 0x1111, 0x2222, 0x3333))
+	println()
+	dump(buff = binary.pack('<8I', 0x01234567, 0x89abcdef, 0, 1, 2, 3, 4, 5))
+	unpack(buff, '<I', '%08x')
+	unpack(buff, '>I', '%08x')
+	println()
+	dump(buff = binary.pack('>8I', 0x01234567, 0x89abcdef, 0, 1, 2, 3, 4, 5))
+	println()
+	dump(buff = binary.pack('5f', 0, 1, 2, 3, 3.141592653))
+	unpack(buff, 'f', '%g')
+	println()
+	dump(buff = binary.pack('5d', 0, 1, 2, 3, 3.141592653))
+	unpack(buff, 'd', '%g')
+	println()
+	dump(buff = binary.pack('20s', 'Hello World'))
+	unpack(buff, '20s', '\'%s\'')
+	println()
+	dump(buff = binary.pack('20s', 'The quick brown fox jumps over the lazy dog'))
+	unpack(buff, '20s', '\'%s\'')
+	println()
+	dump(buff = binary.pack('48s', 'The quick brown fox jumps over the lazy dog'))
+	unpack(buff, '8s', '\'%s\'')
+}

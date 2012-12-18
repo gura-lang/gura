@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="stylesheet.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<title>Gura Programming Language</title>
+<meta name="keywords" content="programming, language, interpreter, mapping, gura,
+implicit mapping, member mapping">
+</head>
+<body>
+<div>
+<a href="index.html.ja"><img src="images/banner.png" style="border: none" /></a>
+<a href="index.html.en" class="radio-off" style="margin-left: 1em">English</a> |
+<a href="index.html.ja" class="radio-on">Japanese</a>
+<span style="margin-left: 3em"><a href="http://sourceforge.jp/">
+<img src="http://sourceforge.jp/sflogo.php?group_id=5586&type=3" width="210" height="63" border="0" alt="SourceForge.JP" />
+</a></span>
+</div>
+
+<div style="color: white; background: #888888; margin-top: 1em; font-weight: bold">
+<span style="margin-left: 1em">Copyright (c) 2011-2012 <a href="mailto:pxn11432@nifty.com" style="color:white">Yutaka Saito</a></span>
+</div>
+<div style="height:.2em; background: #cccccc"></div>
+<table cellspacing="0" border="0" width="100%">
+<tr>
+<td valign="top" class="menu">
+<div class="menuitem"><a href="/" class="menuitem">トップページ</a></div>
+<div class="menuitem"><a href="ja/Download.html" class="menuitem">ダウンロード</a></div>
+<div class="menuitem"><a href="ja/Install.html" class="menuitem">インストール</a></div>
+<div class="menuitem"><a href="ja/Gallery.html" class="menuitem">ギャラリー</a></div>
+<div class="menuitem"><a href="http://sourceforge.jp/forum/forum.php?forum_id=25531" class="menuitem">Gura 掲示板</a></div>
+</td>
+
+<td valign="top" class="description">
+<!-- ====================================================================== -->
+
+<p><b>Gura</b> は、機能強化されたイテレータを中心に計算やデータ処理を行う
+<b>イテレータ志向</b> のプログラミング言語です。
+いままで繰り返し構文を駆使して書いていた内容を、巧妙な記述でプログラミング
+することができます。 </p>
+
+<p>詳しくは
+<a href="ja/ImplicitMapping.html" class="link">暗黙的マッピング</a>
+と
+<a href="ja/MemberMapping.html" class="link">メンバマッピング</a>
+の記述をご覧ください。</p>
+
+<p><b>Gura</b> は、コンピュータを便利に使うための機能をいろいろ持っています。
+<a href="ja/ImageProcessing.html" class="link">グラフィックイメージ処理</a>・
+<a href="ja/GUI.html" class="link">GUI 操作</a>・
+<a href="ja/HttpAccess.html" class="link">HTTP アクセス</a>・
+<a href="ja/DatabaseAccess.html" class="link">データベースアクセス</a>・
+正規表現や CSV などのテキスト処理などなど。こういった機能でやりとりするデータを
+<a href="ja/ImplicitMapping.html" class="link">暗黙的マッピング</a>
+と
+<a href="ja/MemberMapping.html" class="link">メンバマッピング</a>
+が効果的に処理します。</p>
+
+<p><b>Gura</b> は、シンプルで容易に拡張できる文法を持っています。
+<a href="ja/Argument.html" class="link">可変長引数や名前つき引数</a>、
+<a href="ja/Block.html" class="link">ブロック式</a> を使った柔軟な引数の受け渡し。
+さらに <a href="ja/Quoted.html" class="link">Quoted 値</a> を使って評価前の式を渡すようにすれば制御構文さえも自作できます。
+すでにあるクラスやインスタンスに対してダイナミックにメンバを追加することもできます。
+メタプログラミングの醍醐味をお楽しみください。</p>
+
+<p><b>Gura</b> は、マルチプラットフォームに対応しています。
+Windows 用に書いた Gura のプログラムはそのまま Linux でも動きますし、その逆も可能です。
+インストール方法は <a href="ja/Install.html" class="link">こちら</a>。
+</p>
+
+<p><b>Gura</b> は、あなたの用途に応じて拡張できる言語です。
+足りない機能は C++ を使い、ネイティブで動くバイナリモジュールを作ってしまいましょう。
+これは、他の言語の類似の仕様を見てきたあなたが想像しているよりもずっと簡単なことなんです。
+具体的な作り方は <a href="ja/BinaryModule.html" class="link">こちら</a>。
+</p>
+
+<h3>さらに知りたい方のために</h3>
+
+<p>Gura の文法や詳細な仕様は
+<img src="images/pdf.png" /><a href="http://sourceforge.jp/projects/gura/wiki/FrontPage/attach/gura-lang-j.pdf" class="link">Gura 言語マニュアル</a>
+をご覧ください。</p>
+
+<p>Gura が提供する関数やクラスを知りたい場合は
+<img src="images/pdf.png" /><a href="http://sourceforge.jp/projects/gura/wiki/FrontPage/attach/gura-lib-j.pdf" class="link">Gura ライブラリリファレンス</a>
+をどうぞ。</p>
+
+<p>Gura のプログラムにインポートできる自作のバイナリモジュールを作成する手順を知りたい方は
+<img src="images/pdf.png" /><a href="http://sourceforge.jp/projects/gura/wiki/FrontPage/attach/gura-dev-j.pdf" class="link">Gura 開発者向けマニュアル</a>
+が参考になります。</p>
+
+<p>ご意見・ご感想は、
+<a href="http://sourceforge.jp/forum/forum.php?forum_id=25531" class="link">Gura 掲示板</a> か
+<a href="mailto:pxn11432@nifty.com" class="link">E-mail</a> までよろしくお願いします。</p>
+
+<h3>作者から</h3>
+
+<p>私の能力を買っていただける方との出会いを求めています。
+ご興味がございましたら <a href="mailto:pxn11432@nifty.com" class="link">E-mail</a> までご連絡ください。
+職務経歴書をお送りします (2012 年 11 月 4 日現在)。 </p>
+
+<!-- ====================================================================== -->
+</td>
+</tr>
+
+</table>
+</body>
+</html>

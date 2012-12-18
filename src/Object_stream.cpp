@@ -1,0 +1,791 @@
+//
+// Object_stream
+//
+
+#include "stdafx.h"
+
+namespace Gura {
+
+//-----------------------------------------------------------------------------
+// Object_stream
+//-----------------------------------------------------------------------------
+Object_stream::~Object_stream()
+{
+	Stream::Delete(_pStream);
+}
+
+bool Object_stream::DoPropDir(Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoPropDir(sig, symbols)) return false;
+	symbols.insert(Gura_Symbol(stat));
+	symbols.insert(Gura_Symbol(name));
+	symbols.insert(Gura_Symbol(identifier));
+	symbols.insert(Gura_Symbol(readable));
+	symbols.insert(Gura_Symbol(writable));
+	return true;
+}
+
+Value Object_stream::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+{
+	Environment &env = *this;
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(stat))) {
+		Object *pObj = GetStream().GetStatObj(sig);
+		if (pObj != NULL) return Value(pObj);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
+		return Value(env, GetStream().GetName());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(identifier))) {
+		const char *identifier = GetStream().GetIdentifier();
+		if (identifier == NULL) return Value::Null;
+		return Value(env, identifier);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(readable))) {
+		return Value(GetStream().IsReadable());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(writable))) {
+		return Value(GetStream().IsWritable());
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+Iterator *Object_stream::CreateIterator(Signal sig)
+{
+	return new IteratorLine(Object_stream::Reference(this), -1, true);
+}
+
+String Object_stream::ToString(Signal sig, bool exprFlag)
+{
+	String str;
+	Stream &stream = GetStream();
+	str += "<stream:";
+	if (stream.IsReadable()) str += "R";
+	if (stream.IsWritable()) str += "W";
+	if (stream.IsCodecInstalled()) {
+		str += ":";
+		str += stream.GetEncoding();
+		Codec_Encoder *pEncoder = stream.GetEncoder();
+		if (pEncoder != NULL && pEncoder->IsProcessEOL()) {
+			str += ":dosmode";
+		}
+	}
+	if (*stream.GetName() != '\0') {
+		str += ":";
+		str += stream.GetName();
+	}
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Global functions
+//-----------------------------------------------------------------------------
+// open(name:string, mode:string => "r", encoding:string => "utf-8"):map {block?}
+Gura_DeclareFunction(open)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "name", VTYPE_string);
+	DeclareArg(env, "mode", VTYPE_string, OCCUR_Once, FLAG_None,
+												new Expr_String("r"));
+	DeclareArg(env, "encoding", VTYPE_string, OCCUR_Once, FLAG_None,
+												new Expr_String("utf-8"));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(open)
+{
+	unsigned long attr = Stream::ATTR_None;
+	do {
+		const char *p = args.GetString(1);
+		if (*p == 'r') {
+			attr |= Stream::ATTR_Readable;
+		} else if (*p == 'w') {
+			attr |= Stream::ATTR_Writable;
+		} else if (*p == 'a') {
+			attr |= Stream::ATTR_Writable | Stream::ATTR_Append;
+		} else {
+			sig.SetError(ERR_IOError, "invalid open mode");
+			return Value::Null;
+		}
+		p++;
+		for ( ; *p != '\0'; p++) {
+			char ch = *p;
+			if (ch == '+') {
+				attr |= Stream::ATTR_Readable | Stream::ATTR_Writable;
+			} else {
+				sig.SetError(ERR_IOError, "invalid open mode");
+				return Value::Null;
+			}
+		}
+	} while (0);
+	Stream *pStream = Directory::OpenStream(env, sig,
+							args.GetString(0), attr, args.GetString(2));
+	if (sig.IsSignalled()) return Value::Null;
+	Value result(new Object_stream(env, pStream));
+	if (args.IsBlockSpecified()) {
+		const Function *pFuncBlock =
+						args.GetBlockFunc(env, sig, GetSymbolForBlock());
+		if (pFuncBlock == NULL) return Value::Null;
+		ValueList valListArg(result);
+		Args argsSub(valListArg);
+		pFuncBlock->Eval(env, sig, argsSub);
+		result = Value::Null;	// object is destroyed here
+	}
+	return result;
+}
+
+// copy(src:stream:r, dst:stream:w, bytesunit:number => 65536):map:void {block?}
+Gura_DeclareFunction(copy)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareArg(env, "bytesunit", VTYPE_number,
+					OCCUR_Once, FLAG_None, new Expr_Value(65536));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(copy)
+{
+	bool finalizeFlag = true;
+	Stream &streamSrc = args.GetStream(0);
+	Stream &streamDst = args.GetStream(1);
+	size_t bytesUnit = args.GetSizeT(2);
+	const Function *pFuncFilter =
+					args.GetBlockFunc(env, sig, GetSymbolForBlock());
+	if (sig.IsSignalled()) return Value::Null;
+	if (bytesUnit == 0 || bytesUnit > 1024 * 1024) {
+		sig.SetError(ERR_ValueError, "wrong value for bytesunit");
+		return Value::Null;
+	}
+	streamSrc.ReadToStream(env, sig, streamDst, bytesUnit, finalizeFlag, pFuncFilter);
+	return Value::Null;
+}
+
+// template(src:stream:r, dst?:stream:w):map:[noindent,lasteol]
+Gura_DeclareFunction(template_)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	DeclareArg(env, "dst", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareAttr(Gura_Symbol(noindent));
+	DeclareAttr(Gura_Symbol(lasteol));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(template_)
+{
+	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
+	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
+	Stream &streamSrc = args.GetStream(0);
+	if (args.IsStream(1)) {
+		Stream &streamDst = args.GetStream(1);
+		Parser().ParseTemplate(env, sig, streamSrc, streamDst,
+								autoIndentFlag, appendLastEOLFlag);
+		return Value::Null;
+	} else {
+		String strDst;
+		SimpleStream_StringWrite streamDst(strDst);
+		if (!Parser().ParseTemplate(env, sig, streamSrc, streamDst,
+					autoIndentFlag, appendLastEOLFlag)) return Value::Null;
+		return Value(env, strDst.c_str());
+	}
+}
+
+// readlines(stream?:stream:r):[chop] {block?}
+Gura_DeclareFunction(readlines)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
+	DeclareAttr(Gura_Symbol(chop));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(readlines)
+{
+	Object_stream *pObjStream = NULL;
+	if (args.IsStream(0)) {
+		pObjStream = args.GetStreamObj(0);
+	} else {
+		Module *pModuleSys = env.GetModule_sys();
+		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdin), false);
+		if (pValue == NULL) return Value::Null;
+		if (!pValue->IsStream()) return Value::Null;
+		pObjStream = pValue->GetStreamObj();
+	}
+	if (!pObjStream->GetStream().CheckReadable(sig)) return Value::Null;
+	bool includeEOLFlag = !args.IsSet(Gura_Symbol(chop));
+	Iterator *pIterator = new Object_stream::IteratorLine(
+				Object_stream::Reference(pObjStream), -1, includeEOLFlag);
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for Object_stream
+//-----------------------------------------------------------------------------
+// stream#close()
+Gura_DeclareMethod(stream, close)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(stream, close)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	stream.Close();
+	return Value::Null;
+}
+
+// stream#read(len?:number)
+Gura_DeclareMethod(stream, read)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(stream, read)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	if (!stream.CheckReadable(sig)) return Value::Null;
+	Value result;
+	if (args.IsNumber(0)) {
+		size_t len = static_cast<size_t>(args.GetNumber(0));
+		char *buff = new char [len];
+		size_t lenRead = stream.Read(sig, buff, len);
+		if (lenRead == 0) {
+			delete [] buff;
+			return Value::Null;
+		}
+		result.InitAsBinary(env, Binary(buff, lenRead), true);
+		delete [] buff;
+	} else if (stream.IsInfinite()) {
+		sig.SetError(ERR_IOError, "specify a reading size for infinite stream");
+		return Value::Null;
+	} else {
+		const int bytesBuff = 4096;
+		Object_binary *pObjBinary = result.InitAsBinary(env);
+		Binary &buff = pObjBinary->GetBinary();
+		OAL::Memory memory(bytesBuff);
+		char *buffSeg = reinterpret_cast<char *>(memory.GetPointer());
+		size_t lenRead = stream.Read(sig, buffSeg, bytesBuff);
+		if (lenRead == 0) {
+			return Value::Null;
+		}
+		do {
+			buff.append(buffSeg, lenRead);
+		} while ((lenRead = stream.Read(sig, buffSeg, bytesBuff)) > 0);
+		if (sig.IsSignalled()) return Value::Null;
+	}
+	return result;
+}
+
+// stream#peek(len:number)
+Gura_DeclareMethod(stream, peek)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(stream, peek)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	if (!stream.CheckReadable(sig)) return Value::Null;
+	Value result;
+	size_t len = static_cast<size_t>(args.GetNumber(0));
+	char *buff = new char [len];
+	size_t lenRead = stream.Peek(sig, buff, len);
+	if (lenRead == 0) {
+		delete [] buff;
+		return Value::Null;
+	}
+	result.InitAsBinary(env, Binary(buff, lenRead), true);
+	delete [] buff;
+	return result;
+}
+
+// stream#write(buff:binary, len?:number):reduce
+Gura_DeclareMethod(stream, write)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "buff", VTYPE_binary);
+	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(stream, write)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	if (!stream.CheckWritable(sig)) return Value::Null;
+	const Binary &binary = args.GetBinary(0);
+	size_t len = args.IsNumber(1)? args.GetSizeT(1) : binary.size();
+	if (len > binary.size()) {
+		sig.SetError(ERR_MemoryError, "too large length");
+		return Value::Null;
+	}
+	stream.Write(sig, binary.c_str(), binary.size());
+	return args.GetSelf();
+}
+
+// stream#seek(offset:number, origin?:symbol):reduce
+Gura_DeclareMethod(stream, seek)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "offset", VTYPE_number);
+	DeclareArg(env, "origin", VTYPE_symbol, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(stream, seek)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	Stream::SeekMode seekMode = Stream::SeekSet;
+	if (args.GetValue(1).IsSymbol()) {
+		const Symbol *pSymbol = args.GetSymbol(1);
+		if (pSymbol->IsIdentical(Gura_Symbol(set))) {
+			seekMode = Stream::SeekSet;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(cur))) {
+			seekMode = Stream::SeekCur;
+		} else {
+			sig.SetError(ERR_ValueError, "invalid seek mode %s", pSymbol->GetName());
+			return Value::Null;
+		}
+	}
+	stream.Seek(sig, args.GetLong(0), seekMode);
+	return args.GetSelf();
+}
+
+// stream#tell()
+Gura_DeclareMethod(stream, tell)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(stream, tell)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	return Value(static_cast<unsigned long>(stream.Tell()));
+}
+
+// stream#compare(stream:stream:r):map
+Gura_DeclareMethod(stream, compare)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+}
+
+Gura_ImplementMethod(stream, compare)
+{
+	Stream &stream1 = Object_stream::GetSelfObj(args)->GetStream();
+	Stream &stream2 = args.GetStream(0);
+	bool sameFlag = stream1.Compare(sig, stream2);
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(sameFlag);
+}
+
+// stream#copyto(stream:stream:w, bytesunit:number => 65536):map:reduce {block?}
+Gura_DeclareMethod(stream, copyto)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareArg(env, "bytesunit", VTYPE_number,
+					OCCUR_Once, FLAG_None, new Expr_Value(65536));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(stream, copyto)
+{
+	bool finalizeFlag = true;
+	Stream &streamSrc = Object_stream::GetSelfObj(args)->GetStream();
+	Stream &streamDst = args.GetStream(0);
+	size_t bytesUnit = args.GetSizeT(1);
+	const Function *pFuncFilter =
+					args.GetBlockFunc(env, sig, GetSymbolForBlock());
+	if (bytesUnit == 0 || bytesUnit > 1024 * 1024) {
+		sig.SetError(ERR_ValueError, "wrong value for bytesunit");
+		return Value::Null;
+	}
+	if (!streamSrc.ReadToStream(env, sig, streamDst, bytesUnit, finalizeFlag, pFuncFilter)) {
+		return Value::Null;
+	}
+	return args.GetSelf();
+}
+
+// stream#copyfrom(stream:stream:r, bytesunit:number => 65536):map:reduce {block?}
+Gura_DeclareMethod(stream, copyfrom)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	DeclareArg(env, "bytesunit", VTYPE_number,
+					OCCUR_Once, FLAG_None, new Expr_Value(65536));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(stream, copyfrom)
+{
+	bool finalizeFlag = true;
+	Stream &streamDst = Object_stream::GetSelfObj(args)->GetStream();
+	Stream &streamSrc = args.GetStream(0);
+	size_t bytesUnit = args.GetSizeT(1);
+	const Function *pFuncFilter =
+					args.GetBlockFunc(env, sig, GetSymbolForBlock());
+	if (bytesUnit == 0 || bytesUnit > 1024 * 1024) {
+		sig.SetError(ERR_ValueError, "wrong value for bytesunit");
+		return Value::Null;
+	}
+	if (!streamSrc.ReadToStream(env, sig, streamDst, bytesUnit, finalizeFlag, pFuncFilter)) {
+		return Value::Null;
+	}
+	return args.GetSelf();
+}
+
+// stream#setencoding(encoding:string, dos_flag?:boolean):reduce
+Gura_DeclareMethod(stream, setencoding)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "encoding", VTYPE_string);
+	DeclareArg(env, "dos_flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(stream, setencoding)
+{
+	Object_stream *pSelf = Object_stream::GetSelfObj(args);
+	const char *encoding = args.GetString(0);
+	bool processEOLFlag = args.IsBoolean(1)? args.GetBoolean(1) : true;
+	if (!pSelf->GetStream().InstallCodec(encoding, processEOLFlag)) {
+		sig.SetError(ERR_CodecError, "unsupported encoding '%s'", encoding);
+		return Value::Null;
+	}
+	return args.GetSelf();
+}
+
+// stream#dosmode(dos_flag?:boolean):reduce
+Gura_DeclareMethod(stream, dosmode)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "dos_flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(stream, dosmode)
+{
+	Object_stream *pSelf = Object_stream::GetSelfObj(args);
+	Codec_Encoder *pEncoder = pSelf->GetStream().GetEncoder();
+	if (pEncoder != NULL) {
+		pEncoder->SetProcessEOLFlag(args.IsValid(0)? args.GetBoolean(0) : true);
+	}
+	return args.GetSelf();
+}
+
+// stream#readline():[chop]
+Gura_DeclareMethod(stream, readline)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(chop));
+}
+
+Gura_ImplementMethod(stream, readline)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	if (!stream.CheckReadable(sig)) return Value::Null;
+	int cntChars = 4096;	// tentative
+	bool includeEOLFlag = !args.IsSet(Gura_Symbol(chop));
+	String str;
+	while (cntChars-- > 0) {
+		int ch = stream.GetChar(sig);
+		if (sig.IsSignalled()) return Value::Null;
+		if (ch < 0) break;
+		if (ch == '\n') {
+			if (includeEOLFlag) str += '\n';
+			return Value(env, str.c_str());
+		}
+		str += ch;
+	}
+	if (str.empty()) return Value::Null;
+	return Value(env, str.c_str());
+}
+
+// stream#readlines(nlines?:number):[chop] {block?}
+// conrresponding to string#splitlines()
+Gura_DeclareMethod(stream, readlines)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(chop));
+	DeclareArg(env, "nlines", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(stream, readlines)
+{
+	Object_stream *pSelf = Object_stream::GetSelfObj(args);
+	Stream &stream = pSelf->GetStream();
+	if (!stream.CheckReadable(sig)) return Value::Null;
+	int nLinesMax = args.IsNumber(0)? static_cast<int>(args.GetNumber(0)) : -1;
+	bool includeEOLFlag = !args.IsSet(Gura_Symbol(chop));
+	Iterator *pIterator = new Object_stream::IteratorLine(
+				Object_stream::Reference(pSelf), nLinesMax, includeEOLFlag);
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+// stream#readtext()
+Gura_DeclareMethod(stream, readtext)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(stream, readtext)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	if (!stream.CheckReadable(sig)) return Value::Null;
+	String str;
+	for (;;) {
+		int ch = stream.GetChar(sig);
+		if (sig.IsSignalled()) return Value::Null;
+		if (ch < 0) break;
+		str += ch;
+	}
+	return Value(env, str.c_str());
+}
+
+// stream#parse() {block?}
+Gura_DeclareMethod(stream, parse)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetHelp("Parse a content of a script stream and returns an expr object.");
+}
+
+Gura_ImplementMethod(stream, parse)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	Expr *pExpr = Parser().ParseStream(env, sig, stream);
+	if (pExpr == NULL) return Value::Null;
+	return ReturnValue(env, sig, args, Value(env, pExpr));
+}
+
+// stream#template(dst?:stream:w):map:[noindent,lasteol]
+Gura_DeclareMethod(stream, template_)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "dst", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareAttr(Gura_Symbol(noindent));
+	DeclareAttr(Gura_Symbol(lasteol));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(stream, template_)
+{
+	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
+	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
+	Stream &streamSrc = Object_stream::GetSelfObj(args)->GetStream();
+	if (args.IsStream(0)) {
+		Stream &streamDst = args.GetStream(0);
+		Parser().ParseTemplate(env, sig, streamSrc, streamDst,
+								autoIndentFlag, appendLastEOLFlag);
+		return Value::Null;
+	} else {
+		String strDst;
+		SimpleStream_StringWrite streamDst(strDst);
+		if (!Parser().ParseTemplate(env, sig, streamSrc, streamDst,
+					autoIndentFlag, appendLastEOLFlag)) return Value::Null;
+		return Value(env, strDst.c_str());
+	}
+}
+
+// stream#print(values*):map:void
+Gura_DeclareMethod(stream, print)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
+}
+
+Gura_ImplementMethod(stream, print)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	if (!stream.CheckWritable(sig)) return Value::Null;
+	foreach_const (ValueList, pValue, args.GetList(0)) {
+		String str(pValue->ToString(sig, false));
+		if (sig.IsSignalled()) break;
+		stream.Print(sig, str.c_str());
+		if (sig.IsSignalled()) break;
+	}
+	return Value::Null;
+}
+
+// stream#println(values*):map:void
+Gura_DeclareMethod(stream, println)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
+}
+
+Gura_ImplementMethod(stream, println)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	if (!stream.CheckWritable(sig)) return Value::Null;
+	foreach_const (ValueList, pValue, args.GetList(0)) {
+		String str(pValue->ToString(sig, false));
+		if (sig.IsSignalled()) break;
+		stream.Print(sig, str.c_str());
+		if (sig.IsSignalled()) break;
+	}
+	stream.Print(sig, "\n");
+	return Value::Null;
+}
+
+// stream#printf(format, values*):map:void
+Gura_DeclareMethod(stream, printf)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "format", VTYPE_string);
+	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
+}
+
+Gura_ImplementMethod(stream, printf)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	if (!stream.CheckWritable(sig)) return Value::Null;
+	stream.Printf(sig, args.GetString(0), args.GetList(1));
+	return Value::Null;
+}
+
+#if 0
+// stream#prefetch()
+Gura_DeclareMethod(stream, prefetch)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+}
+
+Gura_ImplementMethod(stream, prefetch)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	if (!stream.CheckReadable(sig)) return Value::Null;
+	Stream *pStream = Stream::Prefetch(sig, &stream, false);
+	return Value(env, pStream);
+}
+#endif
+
+// stream#__shl__(stream:stream, value)
+Gura_DeclareMethod(stream, __shl__)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once);
+	DeclareArg(env, "value", VTYPE_any, OCCUR_Once);
+}
+
+Gura_ImplementMethod(stream, __shl__)
+{
+	Stream &stream = args.GetStream(0);
+	if (!stream.CheckWritable(sig)) return Value::Null;
+	if (args.IsBinary(1)) {
+		const Binary &binary = args.GetBinary(1);
+		stream.Write(sig, binary.c_str(), binary.size());
+		if (sig.IsSignalled()) return Value::Null;
+	} else {
+		const Value &value = args.GetValue(1);
+		String str(value.ToString(sig, false));
+		if (sig.IsSignalled()) return Value::Null;
+		stream.Print(sig, str.c_str());
+		if (sig.IsSignalled()) return Value::Null;
+	}
+	return args.GetValue(0);
+}
+
+//-----------------------------------------------------------------------------
+// Classs implementation
+//-----------------------------------------------------------------------------
+Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stream)
+{
+	Gura_AssignMethod(stream, close);
+	Gura_AssignMethod(stream, read);
+	Gura_AssignMethod(stream, peek);
+	Gura_AssignMethod(stream, write);
+	Gura_AssignMethod(stream, seek);
+	Gura_AssignMethod(stream, tell);
+	Gura_AssignMethod(stream, compare);
+	Gura_AssignMethod(stream, copyto);
+	Gura_AssignMethod(stream, copyfrom);
+	Gura_AssignMethod(stream, setencoding);
+	Gura_AssignMethod(stream, dosmode);
+	Gura_AssignMethod(stream, readline);
+	Gura_AssignMethod(stream, readlines);
+	Gura_AssignMethod(stream, readtext);
+	Gura_AssignMethod(stream, parse);
+	Gura_AssignMethodEx(stream, template_, "template");
+	Gura_AssignMethod(stream, print);
+	Gura_AssignMethod(stream, println);
+	Gura_AssignMethod(stream, printf);
+	//Gura_AssignMethod(stream, prefetch);
+	Gura_AssignMethod(stream, __shl__);
+}
+
+bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+{
+	if (value.IsString()) {
+		unsigned long attr = Stream::ATTR_Readable;
+		if (pDecl != NULL) {
+			if (pDecl->GetWriteFlag()) attr = Stream::ATTR_Writable;
+			if (pDecl->GetReadFlag()) attr |= Stream::ATTR_Readable;
+		}
+		Stream *pStream = Directory::OpenStream(env, sig,
+									value.GetString(), attr, "utf-8");
+		if (sig.IsSignalled()) return false;
+		value = Value(new Object_stream(env, pStream));
+		return true;
+	} else if (value.IsBinary()) {
+		Object_binary *pObjBinary = Object_binary::Reference(
+						dynamic_cast<Object_binary *>(value.GetObject()));
+		bool seekEndFlag = pDecl->GetWriteFlag();
+		Object *pObj = new Object_stream(env,
+						new Stream_Binary(sig, pObjBinary, seekEndFlag));
+		value = Value(pObj);
+		return true;
+	}
+	return false;
+}
+
+Object *Class_stream::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+{
+	return NULL;
+}
+
+void Class_stream::OnModuleEntry(Environment &env, Signal sig)
+{
+	Gura_AssignFunction(open);
+	Gura_AssignFunction(copy);
+	Gura_AssignFunctionEx(template_, "template");
+	Gura_AssignFunction(readlines);
+}
+
+//-----------------------------------------------------------------------------
+// Object_stream::IteratorLine
+//-----------------------------------------------------------------------------
+Object_stream::IteratorLine::~IteratorLine()
+{
+	Object::Delete(_pObj);
+}
+
+bool Object_stream::IteratorLine::DoNext(Environment &env, Signal sig, Value &value)
+{
+	Stream &stream = _pObj->GetStream();
+	String str;
+	if (_nLines == _nLinesMax) return false;
+	int ch = stream.GetChar(sig);
+	if (ch < 0) return false;
+	for ( ; ch >= 0; ch = stream.GetChar(sig)) {
+		if (ch == '\n') {
+			if (_includeEOLFlag) str += '\n';
+			break;
+		}
+		str += ch;
+	}
+	if (sig.IsSignalled()) return false;
+	_nLines++;
+	value = Value(*_pObj, str.c_str());
+	return true;
+}
+
+String Object_stream::IteratorLine::ToString(Signal sig) const
+{
+	return String("<iterator:stream#readlines>");
+}
+
+void Object_stream::IteratorLine::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+}

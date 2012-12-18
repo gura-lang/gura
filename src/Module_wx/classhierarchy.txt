@@ -1,0 +1,586 @@
+wxAboutDialogInfo
+wxAcceleratorEntry
+wxAppTraits
+wxArchiveIterator
+wxArray
+  wxArrayString
+    wxPathList
+wxAuiDockArt
+wxAuiTabArt
+wxAuiPaneInfo
+wxList*
+  wxBrushList
+  wxFontList
+wxBusyCursor
+wxBusyInfo
+wxCalendarDateAttr
+wxCaret
+wxClassInfo
+wxClientData
+  wxStringClientData
+  wxTreeItemData
+wxClientDataContainer
+wxCmdLineParser
+wxColourDatabase
+wxComboPopup
+wxCondition
+wxConfigBase
+  wxFileConfig
+wxCriticalSection
+wxCriticalSectionLocker
+wxDataFormat
+wxDataInputStream
+wxDataObject
+  wxDataObjectComposite
+    wxURLDataObject
+  wxDataObjectSimple
+    wxBitmapDataObject
+    wxCustomDataObject
+    wxFileDataObject
+    wxTextDataObject
+wxDataOutputStream
+wxDateSpan
+wxDateTime
+wxDateTimeHolidayAuthority
+wxDateTimeWorkDays
+wxDb
+wxDbColDataPtr
+wxDbColDef
+wxDbColFor
+wxDbColInf
+wxDbConnectInf
+wxDbIdxDef
+wxDbInf
+wxDbTable
+wxDbTableInf
+wxDbGridColInfo
+wxDCClipper
+wxDebugContext
+wxDebugStreamBuf
+wxDebugReport
+  wxDebugReportCompress
+    wxDebugReportUpload
+wxDebugReportPreview
+  wxDebugReportPreviewStd
+wxDialUpManager
+wxDir
+wxDirTraverser
+wxDisplay
+wxDllLoader
+wxDropSource
+wxDropTarget
+  wxFileDropTarget
+  wxTextDropTarget
+wxDynamicLibrary
+wxDynamicLibraryDetails
+wxFFile
+wxFile
+wxFileName
+wxFileType
+wxFontEnumerator
+wxFontMapper
+wxGBPosition
+wxGBSpan
+wxGridCellAttr
+wxGridCellWorker*
+  wxGridCellEditor
+    wxGridCellBoolEditor
+    wxGridCellChoiceEditor
+    wxGridCellTextEditor
+      wxGridCellFloatEditor
+      wxGridCellNumberEditor
+  wxGridCellRenderer
+    wxGridCellBoolRenderer
+    wxGridCellStringRenderer
+      wxGridCellFloatRenderer
+wxGridellStringRenderer*
+  wxGridCellNumberRenderer
+wxHashMap
+wxHashSet
+wxHelpProvider
+  wxSimpleHelpProvider
+    wxHelpControllerHelpProvider
+wxHtmlModalHelp
+wxIconBundle
+wxIconLocation
+wxListItemAttr
+wxLocale
+wxLog
+  wxLogChain
+    wxLogPassThrough
+      wxLogWindow
+  wxLogGui
+  wxLogNull
+  wxLogStderr
+  wxLogStream
+  wxLogTextCtrl
+wxLongLong
+wxMBConv
+  wxCSConv
+  wxMBConvFile
+  wxMBConvUTF7
+  wxMBConvUTF8
+  wxMBConvUTF16
+  wxMBConvUTF32
+wxMemoryBuffer
+wxMimeTypesManager
+wxMutex
+wxMutexLocker
+wxNode
+wxObject
+  wxConnectionBase*							** corrected **
+    wxConnection							** corrected **
+    wxDDEConnection							** corrected **
+    wxTCPConnection							** corrected **
+  wxHelpControllerBase*						** corrected **
+    wxHelpController						** corrected **
+    wxHtmlHelpController					** corrected **
+  wxServerBase*								** corrected **
+    wxDDEServer								** corrected **
+    wxServer								** corrected **
+    wxTCPServer								** corrected **
+  wxClientBase*								** corrected **
+    wxClient								** corrected **
+    wxDDEClient								** corrected **
+    wxTCPClient								** corrected **
+  wxAcceleratorTable
+  wxAccessible
+  wxArchiveClassFactory
+    wxTarClassFactory
+    wxZipClassFactory
+  wxArchiveEntry
+    wxTarEntry
+    wxZipEntry
+  wxArtProvider
+  wxAutomationObject
+  wxBitmapHandler
+  wxClipboard
+  wxColour
+  wxColourData
+  wxCommand
+  wxCommandProcessor
+  wxContextHelp
+  wxDataViewColumn
+  wxDataViewListModelNotifier
+  wxDataViewModel
+    wxDataViewListModel
+      wxDataViewSortedListModel
+  wxDataViewRenderer
+    wxDataViewTextRenderer
+    wxDataViewProgressRenderer
+    wxDataViewToggleRenderer
+    wxDataViewBitmapRenderer
+    wxDataViewDateRenderer
+    wxDataViewCustomRenderer
+  wxDC
+    wxMemoryDC
+      wxBufferedDC
+        wxBufferedPaintDC
+          wxAutoBufferedPaintDC
+    wxMetafileDC
+    wxMirrorDC
+    wxPostScriptDC
+    wxPrinterDC
+    wxScreenDC
+    wxWindowDC
+      wxClientDC
+      wxPaintDC
+  wxDocTemplate
+  wxDragImage
+  wxEncodingConverter
+  wxEvent
+    wxActivateEvent
+    wxCalculateLayoutEvent
+    wxCloseEvent
+    wxCommandEvent
+      wxActiveXEvent
+      wxClipboardTextEvent
+      wxCollapsiblePaneEvent
+      wxColourPickerEvent
+      wxChildFocusEvent
+      wxContextMenuEvent
+      wxDateEvent
+        wxCalendarEvent
+      wxFileDirPickerEvent
+      wxFindDialogEvent
+      wxFontPickerEvent
+      wxHelpEvent
+      wxHtmlLinkEvent
+      wxHtmlCellEvent
+      wxHyperlinkEvent
+      wxNotifyEvent
+        wxBookCtrlBaseEvent*				** corrected **
+          wxTreebookEvent					** corrected **
+        wxDataViewEvent
+        wxGridEvent
+        wxGridRangeSelectEvent
+        wxGridSizeEvent
+        wxListEvent
+        wxMediaEvent
+        wxNotebookEvent
+        wxRichTextEvent
+        wxSpinEvent
+        wxSplitterEvent
+        wxTreeEvent
+        wxWizardEvent
+      wxSashEvent
+      wxScrollEvent
+      wxUpdateUIEvent
+      wxWindowCreateEvent
+      wxWindowDestroyEvent
+    wxDialUpEvent
+    wxDropFilesEvent
+    wxEraseEvent
+    wxFocusEvent
+    wxGridEditorCreatedEvent
+    wxIconizeEvent
+    wxIdleEvent
+    wxInitDialogEvent
+    wxJoystickEvent
+    wxKeyEvent
+    wxMaximizeEvent
+    wxMenuEvent
+    wxMouseCaptureChangedEvent
+    wxMouseCaptureLostEvent
+    wxMouseEvent
+    wxMoveEvent
+    wxPaintEvent
+    wxPowerEvent
+    wxProcessEvent
+    wxQueryLayoutInfoEvent
+    wxScrollWinEvent
+    wxSetCursorEvent
+    wxSizeEvent
+    wxSocketEvent
+    wxSysColourChangedEvent
+    wxTimerEvent
+  wxEvtHandler
+    wxApp
+    wxAuiManager
+    wxDocManager
+    wxDocument
+    wxMenu
+    wxProcess
+    wxTaskBarIcon
+    wxTimer
+    wxValidator
+      wxGenericValidator
+      wxTextValidator
+    wxView
+    wxWindow
+      wxPopupWindow*						** corrected **
+        wxPopupTransientWindow*				** corrected **
+          wxTipWindow						** corrected **
+      wxActiveXContainer
+      wxControl
+        wxTextCtrlBase*						** corrected **
+          wxRichTextCtrl					** corrected **
+        wxToolBarBase*						** corrected **
+          wxToolBar							** corrected **
+        wxBookCtrlBase*						** corrected **
+          wxChoicebook						** corrected **
+          wxToolbook						** corrected **
+          wxTreebook						** corrected **
+        wxAnimationCtrl
+        wxAuiNotebook
+        wxButton
+          wxBitmapButton
+            wxContextHelpButton
+        wxCalendarCtrl
+        wxCheckBox
+        wxCollapsiblePane
+        wxComboCtrl
+          wxOwnerDrawnComboBox
+            wxBitmapComboBox
+          wxRichTextStyleComboCtrl
+        wxControlWithItems
+          wxChoice
+          wxComboBox
+          wxListBox
+            wxCheckListBox
+        wxDataViewCtrl
+        wxDatePickerCtrl
+        wxGauge
+        wxGenericDirCtrl
+        wxHyperlinkCtrl
+        wxListbook
+        wxListCtrl
+          wxListView
+        wxMediaCtrl
+        wxNotebook
+        wxPickerBase
+          wxColourPickerCtrl
+          wxDirPickerCtrl
+          wxFilePickerCtrl
+          wxFontPickerCtrl
+        wxRadioBox
+        wxRadioButton
+        wxRichTextStyleListCtrl
+        wxScrollBar
+        wxSlider
+        wxSpinButton
+        wxSpinCtrl
+        wxStaticBitmap
+        wxStaticBox
+        wxStaticLine
+        wxStaticText
+        wxTextCtrl
+        wxToggleButton
+        wxTreeCtrl
+      wxGLCanvas
+      wxHtmlHelpDialog
+      wxHtmlHelpWindow
+      wxMDIClientWindow
+      wxMenuBar
+      wxPanel
+        wxPreviewControlBar
+        wxScrolledWindow
+          wxGrid
+          wxHtmlWindow
+          wxPreviewCanvas
+        wxVScrolledWindow
+          wxVListBox
+            wxHtmlListBox
+              wxSimpleHtmlListBox
+              wxRichTextStyleListBox
+        wxWizardPage
+          wxWizardPageSimple
+      wxSashWindow
+        wxSashLayoutWindow
+      wxSearchCtrl
+      wxSplitterWindow
+      wxStatusBar
+      wxTopLevelWindow
+        wxDialog
+          wxColourDialog
+          wxDirDialog
+          wxFileDialog
+          wxFindReplaceDialog
+          wxFontDialog
+          wxMessageDialog
+          wxMultiChoiceDialog
+          wxProgressDialog
+          wxPropertySheetDialog
+            wxRichTextFormattingDialog
+          wxRichTextStyleOrganiserDialog
+          wxSingleChoiceDialog
+          wxSymbolPickerDialog
+          wxTextEntryDialog
+            wxPasswordEntryDialog
+          wxWizard
+        wxFrame
+          wxDocChildFrame
+          wxDocParentFrame
+          wxHtmlHelpFrame
+          wxMDIChildFrame
+            wxDocMDIChildFrame
+          wxMDIParentFrame
+            wxDocMDIParentFrame
+          wxMiniFrame
+          wxPreviewFrame
+          wxSplashScreen
+  wxFileHistory
+  wxFileSystem
+  wxFileSystemHandler
+    wxMemoryFSHandler
+  wxFilterClassFactory
+  wxFindReplaceData
+  wxFontData
+  wxFSFile
+  wxGDIObject
+    wxAnimation
+    wxBitmap
+    wxBrush
+    wxCursor
+    wxFont
+    wxIcon
+    wxPalette
+    wxPen
+    wxRegion
+  wxGLContext
+  wxGraphicsObject
+    wxGraphicsBrush
+    wxGraphicsContext
+    wxGraphicsFont
+    wxGraphicsMatrix
+    wxGraphicsPath
+    wxGraphicsPen
+  wxGraphicsRenderer
+  wxGridTableBase
+    wxDbGridTableBase
+  wxHashTable
+  wxHtmlCell
+    wxHtmlColourCell
+    wxHtmlContainerCell
+    wxHtmlWidgetCell
+  wxHtmlDCRenderer
+  wxHtmlEasyPrinting
+  wxHtmlFilter
+  wxHtmlHelpData
+  wxHtmlLinkInfo
+  wxHtmlParser
+    wxHtmlWinParser
+  wxHtmlTag
+  wxHtmlTagHandler
+    wxHtmlWinTagHandler
+  wxImage
+  wxImageHandler
+  wxImageList
+  wxIndividualLayoutConstraint
+  wxJoystick
+  wxLayoutAlgorithm
+  wxLayoutConstraints
+  wxListItem
+  wxMask
+  wxMenuItem
+  wxMetafile
+  wxModule
+    wxHtmlTagsModule
+  wxPageSetupDialog
+  wxPageSetupDialogData
+  wxPrintData
+  wxPrintDialog
+  wxPrintDialogData
+  wxPrinter
+  wxPrintout
+    wxHtmlPrintout
+    wxRichTextPrintout
+  wxPrintPreview
+  wxQuantize
+  wxRegionIterator
+  wxRichTextFileHandler
+    wxRichTextHTMLHandler
+    wxRichTextXMLHandler
+  wxRichTextFormattingDialogFactory
+  wxRichTextHeaderFooterData
+  wxRichTextPrinting
+  wxRichTextStyleDefinition
+    wxRichTextCharacterStyleDefinition
+    wxRichTextParagraphStyleDefinition
+      wxRichTextListStyleDefinition
+  wxRichTextStyleSheet
+  wxSizer
+    wxBoxSizer
+      wxStaticBoxSizer
+      wxStdDialogButtonSizer
+    wxGridSizer
+      wxFlexGridSizer
+        wxGridBagSizer
+    wxNotebookSizer
+  wxSizerItem
+    wxGBSizerItem
+  wxSockAddress
+    wxIPaddress
+      wxIPV4address
+  wxSocketBase
+    wxDatagramSocket
+    wxSocketClient
+      wxProtocol
+        wxFTP
+        wxHTTP
+    wxSocketServer
+  wxSound
+  wxStringTokenizer
+  wxSystemOptions
+  wxToolTip
+  wxURI
+    wxURL
+  wxVariant
+  wxVariantData
+  wxXmlDocument
+  wxXmlResource
+  wxXmlResourceHandler
+wxObjectRefData
+wxPenList
+wxPlatformInfo
+wxPoint
+wxRealPoint
+wxRect
+wxRecursionGuard
+wxRecursionGuardFlag
+wxRegEx
+wxRegKey
+wxRendererNative
+  wxDelegateRendererNative
+wxRendererVersion
+wxRichTextAttr
+wxRichTextParagraphLayoutBox*
+  wxRichTextBuffer
+wxRichTextRange
+wxScopedArray
+wxScopedPtr
+  wxScopedTiedPtr
+wxSemaphore
+wxSingleInstanceChecker
+wxSize
+wxSizerFlags
+wxSplitterRenderParams
+wxStackFrame
+wxStackWalker
+wxStandardPaths
+wxStopWatch
+wxStreamBase
+  wxInputStream
+    wxFFileInputStream
+    wxFileInputStream
+    wxFilterInputStream
+      wxArchiveInputStream
+        wxTarInputStream
+        wxZipInputStream
+      wxBufferedInputStream
+    wxMemoryInputStream
+    wxSocketInputStream
+    wxStringInputStream
+  wxOutputStream
+    wxCountingOutputStream
+    wxFFileOutputStream
+      wxFFileStream
+    wxFileOutputStream
+      wxFileStream
+    wxFilterOutputStream
+      wxArchiveOutputStream*				** corrected **
+        wxTarOutputStream					** corrected **
+        wxZipOutputStream					** corrected **
+      wxBufferedOutputStream
+    wxMemoryOutputStream
+    wxSocketOutputStream
+    wxStringOutputStream
+    wxTempFileOutputStream
+wxStreamBuffer
+wxStreamToTextRedirector
+wxString
+wxStringBuffer
+wxStringBufferLength
+wxSystemSettings
+wxTempFile
+wxTextAttr
+  wxTextAttrEx
+wxTextFile
+wxTextInputStream
+wxTextOutputStream
+wxThread
+wxThreadHelper
+wxTimeSpan
+wxTipProvider
+wxTreeItemId
+wxWindowUpdateLocker
+wxWindowDisabler
+wxXmlNode
+wxXmlProperty
+wxZipNotifier
+wxNativeEncodingInfo
+wxFileTypeInfo
+wxArchiveNotifier
+wxArtClient
+wxAppConsole
+wxGridCellCoords
+wxGridCellAttrProvider
+wxPageSetupData
+wxToolBarToolBase
+wxHtmlWindowInterface
+wxHtmlTagsCache
+wxHtmlEntitiesParser
+wxRichTextObject
+wxRichTextImageBlock
+wxRichTextRenderer
+wxRichTextAction

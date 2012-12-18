@@ -1,0 +1,42 @@
+#!/usr/bin/env gura
+import(tk)
+
+tk.mainwindow {|mw|
+	feet = tk.variable()
+	meters = tk.variable()
+	calculate() = {
+		try {
+			value = feet.number
+			meters.number = (0.3048 * value * 10000.0 + 0.5) / 10000.0
+		} except {
+		}
+	}
+	mw.wm$title('Feet to Meters')
+	mw.ttk$Frame(padding => '3 3 12 12') {|c|
+		c.grid(column => 0, row => 0, sticky => 'nwes')
+		c.grid$columnconfigure(0, weight => 1)
+		c.grid$rowconfigure(0, weight => 1)
+		f = c.ttk$Entry(width => 7, textvariable => feet) {|w|
+			w.grid(column => 2, row => 1, sticky => 'we')
+		}
+		c.ttk$Label(textvariable => meters) {|w|
+			w.grid(column => 2, row => 2, sticky => 'we')
+		}
+		c.ttk$Button(text => 'Calculate', command => calculate) {|w|
+			w.grid(column => 3, row => 3, sticky => 'w')
+		}
+		c.ttk$Label(text => 'feet') {|w|
+			w.grid(column => 3, row => 1, sticky => 'w')
+		}
+		c.ttk$Label(text => 'is equivalent to') {|w|
+			w.grid(column => 1, row => 2, sticky => 'e')
+		}
+		c.ttk$Label(text => 'meters') {|w|
+			w.grid(column => 3, row => 2, sticky => 'w')
+		}
+		c.winfo$children()::grid$configure(padx => 5, pady => 5)
+		f.focus()
+	}
+	mw.bind('<Return>') { calculate() }
+}
+tk.mainloop()

@@ -1,0 +1,21 @@
+# encoding: shift_jis
+import(tk)
+import(jpeg)
+import(freetype)
+
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+scope {
+	img = image(I('Winter.jpg'))
+	//img = image(`rgb, 640, 480, `gray)
+	face = freetype.face(freetype.sysfontpath('msgothic.ttc'), 1).setheight(64).setcolor(`red)
+	img.drawtext(face, (0..10) * 50 - 100, (0 ..10) * 64 - 25, 'あいうえお Hello world')
+	face.setcolor(`white)
+	img.drawtext(face, 0, 200, 'ゴシック体文字重ね合わせ')
+	face.setcolor(`gray)
+	str = '重ね合わせ その2'
+	bbox = face.calcbbox(0, 260, str)
+	img.fillrect(bbox*, `white)
+	face.drawtext(img, 0, 260, str)
+	//img.write('>test.png')
+	img.show()
+}

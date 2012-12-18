@@ -1,0 +1,94 @@
+#!/usr/bin/env gura
+import(tk)
+import(cairo)
+import(png)
+import(msico)
+
+CreateImage(width:number, height:number) = {
+	colorBack = color(`white)
+	img = image(`rgba, width, height, colorBack)
+	img.setalpha(0)
+	cr = img.cairo()
+	cr.scale(width / 64, height / 64)
+	cr.set_antialias(cairo.ANTIALIAS_SUBPIXEL)
+	scope { // body
+		cr.move_to(32 - 26, 64)
+		cr.arc(32, 32, 24, math.pi, math.pi * 2)
+		cr.line_to(32 + 20, 64)
+		cairo.pattern_create_linear(4, 0, 60, 0) {|pat|
+			pat.add_color_stop_rgb(0, 1, .6, .6)
+			pat.add_color_stop_rgb(1, .7, .3, .3)
+			cr.set_source(pat)
+		}
+		cr.fill_preserve()
+		cr.set_line_width(3)
+		cr.set_source_rgb(.7, .3, .3)
+		cr.stroke()
+	}
+	scope { // helmet
+		cr.move_to(3, 16)
+		cr.line_to(60, 34)
+		cr.arc_negative(32, 32 - 4, 26, math.pi * 2, math.pi + .5)
+		cairo.pattern_create_linear(10, 0, 50, 20) {|pat|
+			pat.add_color_stop_rgb(0, .8, .8, .8)
+			pat.add_color_stop_rgb(1, .5, .5, 1)
+			cr.set_source(pat)
+		}
+		cr.fill_preserve()
+		cr.set_source_rgb(.5, .5, 1)
+		cr.set_line_width(3)
+		cr.arc(32, 32 - 4, 26, math.pi + .5, math.pi + .5)
+		cr.line_to(3, 16)
+		cr.stroke()
+		cr.set_line_width(6)
+		cr.set_source_rgb(0, .6, 0)
+		cr.move_to(24, 6).rel_line_to(-3, 15)
+		cr.stroke()
+		cr.move_to(15, 12).rel_line_to(16, 3)
+		cr.stroke()
+	}
+	scope { // nose
+		cr.set_line_width(3)
+		cr.arc(15, 44, 8, math.pi / 8, math.pi)
+		cr.set_source_rgb(.7, .3, .3)
+		cr.stroke()
+		cr.set_source_rgb(1, .3, .3)
+		cr.arc(10, 43, 5)
+		cr.fill_preserve()
+		cr.set_line_width(2)
+		cr.set_source_rgb(1, 0, 0)
+		cr.stroke()
+	}
+	/*
+	scope {	// adjust alpha value around object
+		cross (x in range(width), y in range(height)) {
+			color = img.getpixel(x, y)
+			if (color - colorBack < 100) {
+				color.alpha = 0
+				img.putpixel(x, y, color)
+			}
+		}
+	}
+	*/
+	scope { // eyes
+		draw(x, y) = {
+			cr.set_source_color(`white)
+			cr.arc(x, y, 7)
+			cr.fill()
+			cr.set_source_rgb(0, 0, 0)
+			cr.arc(x + 2, y, 4)
+			cr.fill()
+		}
+		draw(14, 32)
+		draw(30, 34)
+	}
+	img
+}
+image64 = CreateImage(64, 64)
+image32 = CreateImage(32, 32)
+image16 = CreateImage(16, 16)
+msico.content().addimage([image64, image32, image16]).write('gura.ico')
+println('gura.ico was created')
+//image64.show()
+CreateImage(256, 256).pngwrite('gura-icon-256.png')
+println('gura-icon-48.png was created')

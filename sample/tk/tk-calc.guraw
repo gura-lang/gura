@@ -1,0 +1,90 @@
+#!/usr/bin/env gura
+import(tk)
+
+tk.mainwindow {|mw|
+	entryVar = tk.variable('0')
+	entry = mw.Entry(textvariable => entryVar, justify => 'right', width => 8) {|w|
+		w.pack(fill => 'x')
+		w[`font] = tk.TextFont.customize(`size => 14)
+	}
+	[numLeft, numRight] = [0, nil]
+	funcOp = nil
+	clearedFlag = true
+	enterDigit(digit:string) = {
+		if (entryVar.string == '0' || clearedFlag) {
+			entryVar.string = digit
+		} else {
+			entryVar.string += digit
+		}
+		clearedFlag:extern = false
+	}
+	stackNumber() = {
+		if (funcOp) {
+			numRight:extern = entryVar.number
+			entryVar.number = funcOp(numLeft, numRight)
+		} else {
+			numLeft:extern = entryVar.number
+			numRight:extern = nil
+		}
+	}
+	keys = struct(label:string, func:function) * @{
+		{'7', &{enterDigit('7')}}
+		{'8', &{enterDigit('8')}}
+		{'9', &{enterDigit('9')}}
+		{'/', &{
+			stackNumber()
+			funcOp:extern = function(a, b) {a / b}
+			clearedFlag:extern = true
+		}}
+		{'4', &{enterDigit('4')}}
+		{'5', &{enterDigit('5')}}
+		{'6', &{enterDigit('6')}}
+		{'*', &{
+			stackNumber()
+			funcOp:extern = function(a, b) {a * b}
+			clearedFlag:extern = true
+		}}
+		{'1', &{enterDigit('1')}}
+		{'2', &{enterDigit('2')}}
+		{'3', &{enterDigit('3')}}
+		{'-', &{
+			stackNumber()
+			funcOp:extern = function(a, b) {a - b}
+			clearedFlag:extern = true
+		}}
+		{'0', &{enterDigit('0')}}
+		{'.', &{
+			if (!entryVar.string.find('.')) {
+				entryVar.string += '.'
+			}
+		}}
+		{'=', &{
+			if (funcOp) {
+				if (!numRight) {
+					numRight = entryVar.number
+				}
+				numLeft = funcOp(numLeft, numRight)
+				entryVar.number = numLeft
+			}
+			clearedFlag:extern = true
+		}}
+		{'+', &{
+			stackNumber()
+			funcOp:extern = function(a, b) {a + b}
+			clearedFlag:extern = true
+		}}
+	}
+	mw.Frame() {|f|
+		f.pack(fill => 'both', pady => [4, 0])
+		for (key in keys) {|i|
+			f.Button(text => key.label, width => 4, height => 2) {|w|
+				iCol = i % 4
+				w.grid(column => iCol, row => int(i / 4), sticky => 'ew')
+				function(func) {
+					w.bind(`command) { func() }
+				}(key.func)
+			}
+		}
+	}
+}
+tk.mainloop()

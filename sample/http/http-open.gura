@@ -1,0 +1,14 @@
+#!/usr/bin/env gura
+import(net.http)
+
+path.exists('proxy_setting.gura') && import(proxy_setting)
+
+open('http://www.asahi.com/').copyto('doc1.html')
+println('doc1.html was created')
+copy('http://www.asahi.com/', 'doc2.html')
+println('doc2.html was created')
+open('http://www.asahi.com/images/logo_happynews_top.gif').copyto('image1.gif')
+println('image1.gif was created')
+copy('http://www.asahi.com/images/logo_happynews_top.gif', 'image2.gif')
+println('image2.gif was created')
+//readlines('http://www.asahi.com/')::print()

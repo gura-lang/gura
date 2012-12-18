@@ -1,0 +1,19 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+srcs = ['Module_sqlite3.cpp']
+if (sys.build == `msc) {
+	builder.incDirs.append(path.join(modbuild.guestDir, 'sqlite-amalgamation-3071000'))
+	srcs.add(path.join('..', '..', 'guest', 'sqlite-amalgamation-3071000', 'sqlite3.c'))
+} elsif (sys.build == `gnuc) {
+	builder.libs.append('sqlite3')
+	builder.hint = '''\
+It seems necessary libraries have not been installed on your system.
+See the following step(s) to resolve this problem.
+- Install Debian package:
+  $ sudo apt-get install libsqlite3-dev
+- Install yum package:
+  # yum install libsqlite3-devel
+'''
+}
+builder.build('sqlite3', srcs)

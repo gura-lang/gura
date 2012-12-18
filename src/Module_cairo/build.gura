@@ -1,0 +1,34 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+if (sys.build == `msc) {
+	builder.dlls.append('libcairo-2.dll')
+	builder.incDirs.append(path.join(modbuild.guestDir, 'include', 'cairo'))
+} elsif (sys.build == `gnuc) {
+	builder.libs.append('cairo')
+	builder.incDirs.append('/usr/local/include/cairo', '/usr/include/cairo')
+	builder.hint = '''\
+It seems necessary libraries have not been installed on your system.
+See the one of the following step(s) to resolve this problem.
+- Install Debian package:
+  $ sudo apt-get install libcairo2-dev
+- Install yum package:
+  # yum install cairo-devel
+- Compile source code:
+  $ wget http://cairographics.org/releases/pixman-0.21.4.tar.gz
+  $ tar xvfz pixman-0.21.4.tar.gz
+  $ cd pixman-0.21.4
+  $ ./configure
+  $ make
+  $ sudo make install
+  $ cd ..
+  $ wget http://cairographics.org/releases/cairo-1.10.2.tar.gz
+  $ tar xvfz cairo-1.10.2.tar.gz
+  $ cd cairo-1.10.2
+  $ ./configure
+  $ make
+  $ sudo make install
+  $ sudo ldconfig
+'''
+}
+builder.build('cairo', ['Module_cairo.cpp'])

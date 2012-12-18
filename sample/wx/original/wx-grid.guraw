@@ -1,0 +1,66 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+import(gif)
+
+log = nil
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+MyGrid = class(wx.Grid) {
+	__init__(parent:wx.Window) {block?} = {|parent|
+		block && block(self)
+	}
+}
+GridTable = class(wx.GridTableBase) {
+	__init__() = {}
+	GetNumberRows() = 10
+	GetNumberCols() = 10
+	IsEmptyCell(row:number, col:number) = false
+	GetValue(row:number, col:number) = '%d,%d' % [row, col]
+	SetValue(row:number, col:number, value:string) = {}
+}
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
+				path.filename(sys.argv[0]), size => wx.Size(600, 400)|
+		panel = wx.Panel(self)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		panel.SetSizer(vbox)
+		imgList = wx.ImageList(18, 18)
+		imgList.Add(image(I('arrow-green-d.gif')))
+		imgList.Add(image(I('arrow-green-l.gif')))
+		imgList.Add(image(I('arrow-green-r.gif')))
+		imgList.Add(image(I('arrow-green-u.gif')))
+		wx.Grid(panel, wx.ID_ANY) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(2).Expand())
+			ctrl.SetColLabelSize(20)
+			ctrl.SetTable(GridTable())
+			/*
+			ctrl.CreateGrid(10, 10)
+			ctrl.SetRowLabelValue(0..9, 'row' + (0..9))
+			ctrl.SetColLabelValue(0..9, 'col' + (0..9))
+			ctrl.SetCellValue(0..9, 0, 'test' + (0..9))
+			*/
+			ctrl.Bind(wx.EVT_GRID_SELECT_CELL) {|event|
+				log.Printf('GRID_SELECT_CELL %d,%d\n', event.GetRow(), event.GetCol())
+				event.Skip()
+			}
+		}
+		wxutil.LogWindow(panel) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+			log:extern = ctrl
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

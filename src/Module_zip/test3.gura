@@ -1,0 +1,6 @@
+import(zip)
+
+zip.reader('test.zip').each() {|s|
+	println(s.name)
+	copy(s, path.join('tmp', s.name))
+}

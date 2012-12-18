@@ -1,0 +1,8 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+if (sys.build == `msc) {
+} elsif (sys.build == `gnuc) {
+	builder.libs.append('GLU')
+}
+builder.build('glu', ['Module_glu.cpp'])

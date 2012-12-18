@@ -1,0 +1,230 @@
+#!/usr/bin/env gura
+print_func(func:function) = printf('%s = %s\n', func, func.expr)
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+
+scope {
+	A = class {
+		__pos__(a) = println('__pos__')							// +a
+		__neg__(a) = println('__neg__')							// -a
+		__invert__(a) = println('__invert__')					// ~a
+		__not__(a) = println('__not__')							// !a
+		__add__(a1, a2) = println('__add__')					// a1 + a2
+		__sub__(a1, a2) = println('__sub__')					// a1 - a2
+		__mul__(a1, a2) = println('__mul__')					// a1 * a2
+		__div__(a1, a2) = println('__div__')					// a1 / a2
+		__eq__(a1, a2) = println('__eq__')						// a1 == a2
+		__ne__(a1, a2) = println('__ne__')						// a1 != a2
+		__ge__(a1, a2) = println('__ge__')						// a1 >= a2
+		__le__(a1, a2) = println('__le__')						// a1 <= a2
+		__cmp__(a1, a2) = println('__cmp__')					// a1 <=> a2
+		__or__(a1, a2) = println('__or__')						// a1 | a2
+		__and__(a1, a2) = println('__and__')					// a1 & a2
+		__xor__(a1, a2) = println('__xor__')					// a1 ^ a2
+		__shl__(a1, a2) = println('__shl__')					// a1 << a2
+		__shr__(a1, a2) = println('__shr__')					// a1 >> a2
+		//__oror__(a1, a2) = println('__oror__')
+		//__andand__(a1, a2) = println('__andand__')
+		__seq__(a1, a2) = println('__seq__')					// a1 .. a2
+		__seqinf__(a1) = println('__seqinf__')					// a1..
+		__getitem__(i) = println('__getitem__ ', i)				// a[i]
+		__getitemx__() = println('__getitemx__')				// a[]
+		__setitem__(i, v) = println('__setitem__ ', i, ' ', v)	// a[i] = v
+		__setitemx__(v) = println('__setitemx__ ', v)			// a[] = v
+		__getprop__(attr) = println('__getprop__ ', attr)		// a.attr
+		__setprop__(attr, v) = printf('__setprop__ %s %s\n', attr, v)	// a.attr = v
+		a = 3
+	}
+	a1 = A()
+	a2 = A()
+	+a1
+	-a1
+	~a1
+	!a1
+	a1 + a2
+	a1 - a2
+	a1 * a2
+	a1 / a2
+	a1 == a2
+	a1 != a2
+	a1 >= a2
+	a1 <= a2
+	a1 <=> a2
+	a1 | a2
+	a1 & a2
+	a1 ^ a2
+	a1 << a2
+	a1 >> a2
+	a1 .. a2
+	a1..
+	a1[3]
+	a1[]
+	a1[3] = 2
+	a1[] = 2
+	a1.a
+	a1.b
+	a1.b = 2
+}
+scope {
+	sys.stdout << 'hello world\n'
+	sys.stdout << 'hello world\n' << '2nd line\n' << '3rd line\n'
+	sys.stdout << b'hello world\n'
+}
+scope {
+	tester(`(nil | 3))
+	tester(`(3 | nil))
+	tester(`(nil | nil))
+	tester(`(nil & 3))
+	tester(`(3 & nil))
+	tester(`(nil & nil))
+}
+scope {
+	tester(`(2 in 2))
+	tester(`(2 in 3))
+	tester(`(2 in 0..10))
+	tester(`(2 in 4..10))
+	tester(`(2 in [0..10]))
+	tester(`(2 in [4..10]))
+	tester(`(0..10 in 4))
+	tester(`(0..10 in -2))
+	tester(`(0..10 in 0..5))
+	tester(`(0..10 in 4..8))
+	tester(`(0..10 in [0..5]))
+	tester(`(0..10 in [4..8]))
+	tester(`([0..10] in 4))
+	tester(`([0..10] in -2))
+	tester(`([0..10] in 0..5))
+	tester(`([0..10] in 4..8))
+	tester(`([0..10] in [0..5]))
+	tester(`([0..10] in [4..8]))
+}
+scope {
+	[a, b, c] = [1, 2, 3]
+	printf('a=%s, b=%s, c=%s\n', a, b, c):nomap
+	[a, b, c+] = [1, 2, 3, 4, 5]
+	printf('a=%s, b=%s, c=%s\n', a, b, c):nomap
+	[a, b, c*] = [1, 2, 3, 4, 5]
+	printf('a=%s, b=%s, c=%s\n', a, b, c):nomap
+	[a, b, c*] = [1, 2]
+	printf('a=%s, b=%s, c=%s\n', a, b, c):nomap
+}
+function {
+	println(-`(x + 2))
+	println(`(x + 2) + `(y + 3))
+	println(`(x + 2) - `(y + 3))
+	println(`(x + 2) * `(y + 3))
+	println(`(x + 2) / `(y + 3))
+	println(`(x + 2) ** `(y + 3))
+	println(sin(`(x + 2)))
+	f(x) = 3 * x ** 3 + x ** 2 + 3 * x + 2
+	println(f(`x))
+	println(f(`(t + 2)))
+}
+scope {
+	Fruit = class {
+		__init__(name:string) = { self.cnt = 0, self.name = name }
+		__str__() = format('name = %s, cnt = %d', self.name, self.cnt)
+		__neg__(v) = { format('__neg__(%s)', typename(v)):nomap }
+		__invert__(v) = { format('__invert__(%s)', typename(v)):nomap }
+		__not__(v) = { format('__not__(%s)', typename(v)):nomap }
+		__add__(v1, v2) = { format('__add__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__sub__(v1, v2) = { format('__sub__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__mul__(v1, v2) = { format('__mul__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__div__(v1, v2) = { format('__div__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__pow__(v1, v2) = { format('__pow__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__eq__(v1, v2) = { format('__eq__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__ne__(v1, v2) = { format('__ne__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__lt__(v1, v2) = { format('__lt__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__gt__(v1, v2) = { format('__gt__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__le__(v1, v2) = { format('__le__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__ge__(v1, v2) = { format('__ge__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__cmp__(v1, v2) = { format('__cmp__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__or__(v1, v2) = { format('__or__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__and__(v1, v2) = { format('__and__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__xor__(v1, v2) = { format('__xor__(%s, %s)', typename(v1), typename(v2)):nomap }
+		__seq__(v1, v2) = { format('__seq__(%s, %s)', typename(v1), typename(v2)):nomap }
+	}
+	fruit = Fruit('apple')
+	println(fruit)
+	println(fruit + 3)
+	println(fruit - 3)
+	println(fruit * 3)
+	println(fruit / 3)
+	println(fruit ** 3)
+	println(3 + fruit)
+	println(3 - fruit)
+	println(3 * fruit)
+	println(3 / fruit)
+	println(3 ** fruit)
+	println(fruit == 1)
+	println(fruit != 1)
+	println(fruit < 1)
+	println(fruit > 1)
+	println(fruit <= 1)
+	println(fruit >= 1)
+	println(fruit <=> 1)
+	println(fruit | 1)
+	println(fruit & 1)
+	println(fruit .. 1)
+}
+scope {
+	tester(`(false & false))
+	tester(`(false & true))
+	tester(`(true & false))
+	tester(`(true & true))
+	tester(`(false | false))
+	tester(`(false | true))
+	tester(`(true | false))
+	tester(`(true | true))
+	tester(`(false ^ false))
+	tester(`(false ^ true))
+	tester(`(true ^ false))
+	tester(`(true ^ true))
+	tester(`(false & false & false))
+	tester(`(false & false & true))
+	tester(`(false & true & false))
+	tester(`(false & true & true))
+	tester(`(true & false & false))
+	tester(`(true & false & true))
+	tester(`(true & true & false))
+	tester(`(true & true & true))
+	tester(`(false | false | false))
+	tester(`(false | false | true))
+	tester(`(false | true | false))
+	tester(`(false | true | true))
+	tester(`(true | false | false))
+	tester(`(true | false | true))
+	tester(`(true | true | false))
+	tester(`(true | true | true))
+	tester(`(false | true & false))
+	x = [true, false, false, true, false, true, false, false, true, true]
+	y = [true, false, false, true, false, false, false, false, true, true]
+	z = [false, false, false, true, false, false, false, true, true, false]
+	//x = choose(rands(10, 2), false, true):list
+	//y = choose(rands(10, 2), false, true):list
+	//z = choose(rands(10, 2), false, true):list
+	tester(`x)
+	tester(`y)
+	tester(`z)
+	tester(`(x | y))
+	tester(`(x & y))
+	tester(`(x ^ y))
+	tester(`(x | y | z))
+	tester(`(x & y & z))
+	tester(`(x ^ y ^ z))
+}
+scope {
+	f(a:number, b:number, c:number, d:number):map = format('%d-%d-%d-%d', a, b, c, d)
+	print_func(f)
+	tester(`(f % [1, 2, 3, 4]))
+	tester(`(f % [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]))
+	tester(`(f * [1, 2, 3, 4]))
+	tester(`(f * [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]]))
+}
+scope {
+	f(a:number, b:number, c:number, d:number):map = a + b + c + d
+	print_func(f)
+	tester(`(f % [1, 2, 3, 4]))
+	tester(`(f % [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]))
+	tester(`(f * [1, 2, 3, 4]))
+	tester(`(f * [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]]))
+}

@@ -1,0 +1,46 @@
+#!/usr/bin/env gura
+import(wx)
+
+Frame = class(wx.Frame) {
+	[ID_BTN_1, ID_BTN_2] = wx.NewIds()
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+		wx.Panel(self) {|panel|
+			vbox = wx.BoxSizer(wx.VERTICAL)
+			panel.SetSizer(vbox)
+			wx.Button(panel, self.ID_BTN_1, 'Push Me') {|ctrl|
+				vbox.Add(ctrl, wx.SizerFlags().Expand())
+			}
+			wx.Button(panel, self.ID_BTN_2, 'Push Me') {|ctrl|
+				vbox.Add(ctrl, wx.SizerFlags().Expand())
+			}
+			wx.Button(panel, wx.ID_ANY, 'Push Me') {|ctrl|
+				vbox.Add(ctrl, wx.SizerFlags().Expand())
+				ctrl.Connect(wx.EVT_BUTTON, self.OnButton)
+			}
+			wx.Button(panel, wx.ID_ANY, 'Push Me') {|ctrl|
+				vbox.Add(ctrl, wx.SizerFlags().Expand())
+				ctrl.Bind(wx.EVT_BUTTON) {|event|
+					printf('EVT_BUTTON Bind:direct #%d\n', event.GetId())
+				}
+			}
+		}
+		self.Bind(wx.EVT_BUTTON, self.ID_BTN_1, self.ID_BTN_2) {|event|
+			printf('EVT_BUTTON Bind:ID #%d\n', event.GetId())
+		}
+	}
+	OnButton(event:wx.Event) = {
+		printf('EVT_BUTTON Connect #%d\n', event.GetId())
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

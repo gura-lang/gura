@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link href="../stylesheet.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
+<title>Gura Programming Language</title>
+<meta name="keywords" content="programming, language, interpreter, mapping, gura,
+implicit mapping, member mapping">
+</head>
+<body>
+<div>
+<a href="../index.html.en"><img src="../images/banner.png" style="border: none" /></a>
+<a href="../en/ImageProcessing.html" class="radio-on" style="margin-left: 1em">English</a> |
+<a href="../ja/ImageProcessing.html" class="radio-off">Japanese</a>
+<span style="margin-left: 3em"><a href="http://sourceforge.jp/">
+<img src="http://sourceforge.jp/sflogo.php?group_id=5586&type=3" width="210" height="63" border="0" alt="SourceForge.JP" />
+</a></span>
+</div>
+
+<div style="color: white; background: #888888; margin-top: 1em; font-weight: bold">
+<span style="margin-left: 1em">Copyright (c) 2011-2012 <a href="mailto:pxn11432@nifty.com" style="color:white">Yutaka Saito</a></span>
+</div>
+<div style="height:.2em; background: #cccccc"></div>
+<table cellspacing="0" border="0" width="100%">
+<tr>
+<td valign="top" class="menu">
+<div class="menuitem"><a href="/" class="menuitem">Top Page</a></div>
+<div class="menuitem"><a href="Download.html" class="menuitem">Download</a></div>
+<div class="menuitem"><a href="Install.html" class="menuitem">Install</a></div>
+<div class="menuitem"><a href="Gallery.html" class="menuitem">Gallery</a></div>
+<div class="menuitem"><a href="http://sourceforge.jp/forum/forum.php?forum_id=25596" class="menuitem">Gura Forum</a></div>
+</td>
+
+<td valign="top" class="description">
+<!-- ====================================================================== -->
+
+<h3>Graphic Image Processing</h3>
+
+<h4>Reading File Image and Converting Format</h4>
+
+<p>
+The code below converts a JPEG file into a PNG.
+</p>
+
+<pre class="code">
+import(jpeg)
+import(png)
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+image(I('Winter.jpg')).write('Winter.png')
+</pre>
+
+<h4>Reading Image File and Writing after Drawing Graphic on It</h4>
+
+<p>
+The following is an example that performs reading a JPEG file,
+drawing something on it with Cairo APIs and writing it out as a JPEG file.
+</p>
+
+<pre class="code">
+import(jpeg)
+import(cairo)
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+img = image(I('Winter.jpg'))
+img.cairo {|cr|
+    repeat (10) {|i|
+        [x, y, r] = [128 + 30 * i, 128 + 30 * i, 60 - i * 4]
+        pat = cairo.pattern_create_radial(
+            x - r / 10, y - r / 6, r / 5, x - r / 6, y - r / 6, r * 1.2)
+        pat.add_color_stop_rgba(0, 1, 1, 1, 1)
+        pat.add_color_stop_rgba(1, 0, 0, 0, 1)
+        cr.set_source(pat)
+        cr.arc(x, y, r)
+        cr.fill()
+    }
+}
+img.write('result.jpg')
+</pre>
+
+<h4>Output Animation GIF File Combining Multiple Image Files</h4>
+
+<p>
+The following example will output an animation GIF file that combines
+several images from PNG files together.
+</p>
+
+<pre class="code">
+import(gif)
+import(png)
+gif.gif().addimage(['cell1.png', 'cell2.png', 'cell3.png'], 10).write('anim1.gif')
+</pre>
+
+<p>
+You can also create a GIF file that has a dynamically produced image.
+The example below shows how to output an animation GIF file that contains
+images created by Cairo APIs.
+</p>
+
+<pre class="code">
+import(cairo)
+import(gif)
+str = 'Hello'
+img = image(`rgba, 64, 64, `white)
+gifobj = gif.content()
+img.cairo {|cr|
+    cr.select_font_face('Georgia', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+    cr.set_font_size(64)
+    te = cr.text_extents(str)
+    cr.set_source_rgb(0.0, 0.0, 0.0)
+    for (x in interval(64, -te.width, 30)) {|i|
+        img.fill(`white)
+        cr.move_to(x, 50)
+        cr.show_text(str)
+        gifobj.addimage(img.clone(), 10)
+    }
+}
+gifobj.write('anim2.gif')
+</pre>
+
+<h4>OpenGL 3D Graphic</h4>
+
+<p>
+Gura supports APIs of OpenGL 1.1.
+As for the generated image, you can display it on your diplay using SDL
+(Simple Direct Layer) and output it directly as an image file in any format
+you like.
+The following example has been ported from one of the samples in
+<a href="http://www.wakayama-u.ac.jp/~tokoi/opengl/libglut.html" class="link">http://www.wakayama-u.ac.jp/~tokoi/opengl/libglut.html</a>.
+</p>
+
+<pre class="code">
+import(glu) {*}
+import(opengl) {*}
+import(gltester)
+
+vertex = [
+    [0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]
+    [0, 0, 1], [1, 0, 1], [1, 1, 1], [0, 1, 1]
+]
+
+init(w:number, h:number) = {
+    glClearColor(1, 1, 1, 1)
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glEnable(GL_DEPTH_TEST, GL_CULL_FACE)
+    glEnable(GL_LIGHTING, GL_LIGHT0, GL_LIGHT1)
+    glCullFace(GL_FRONT)
+    glViewport(0, 0, w, h)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(30, w / h, 1, 100)
+}
+
+display(degree:number) = {
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    gluLookAt(3, 4, 5, 0, 0, 0, 0, 1, 0)
+    glRotated(degree, 1, 1, 0)
+    glMaterialfv(GL_FRONT_AND_BACK,
+            GL_AMBIENT_AND_DIFFUSE, [0.8, 0.2, 0.2, 1])
+    glBegin(GL_QUADS) {
+        glNormal3dv([ 0,  0, -1]), glVertex3dv(vertex[0, 1, 2, 3])
+        glNormal3dv([ 1,  0,  0]), glVertex3dv(vertex[1, 5, 6, 2])
+        glNormal3dv([ 0,  0,  1]), glVertex3dv(vertex[5, 4, 7, 6])
+        glNormal3dv([-1,  0,  0]), glVertex3dv(vertex[4, 0, 3, 7])
+        glNormal3dv([ 0, -1,  0]), glVertex3dv(vertex[4, 5, 1, 0])
+        glNormal3dv([ 0,  1,  0]), glVertex3dv(vertex[3, 2, 6, 7])
+    }
+}
+
+degree = 0
+[width, height] = [300, 300]
+gltester.mainloop(width, height, 0, `idle) {
+    `onDraw =&gt; function {
+        init(width, height)
+        display(degree)
+    }
+    `onKeyPoll =&gt; %{
+        `left =&gt; function { degree += 1 }
+        `right =&gt; function { degree -= 1 }
+    }
+}
+</pre>
+
+<p>
+Execution result.
+</p>
+
+<div><img src="../images/gl-cube.png" /></div>
+
+<p>
+A directory in Gura package gura/sample/opengl contains samples that have been ported from
+<a href="http://www.sgi.com/products/software/opengl/examples/samples/" class="link">SGI</a>.
+</p>
+
+<!-- ====================================================================== -->
+</td>
+</tr>
+
+</table>
+</body>
+</html>

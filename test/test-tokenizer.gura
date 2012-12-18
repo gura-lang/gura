@@ -1,0 +1,43 @@
+#!/usr/bin/env gura
+import(tokenizer) {Tokenizer}
+
+text = r'''
+func(1, 2, 'abcdefg', 3, 4);
+aaaa()
+'''
+tokenizer = Tokenizer()
+tokenizer.SetRule {
+	r'[a-zA-Z]\w+' => {|context|
+		println('IDENTIFIER: ', context.match[0])
+	}
+	r'\d+' => {|context|
+		println('NUMBER: ', context.match[0])
+	}
+	r'\(' => {
+		println('LPAR')
+	}
+	r'\)' => {
+		println('RPAR')
+	}
+	r',' => {|context|
+		println('COMMA')
+	}
+	r';' => {|context|
+		println('SEMICOLON')
+	}
+	r'\s+' => {|context|
+	}
+	r'"' => {
+		tokenizer.SetMode(`string)
+	}
+	`string => {
+		r'[^"]+' => {|context|
+			println('STRING: ', context.match[0])
+		}
+		r'"' => {|context|
+			context.SetMode(`start)
+		}
+	}
+}
+tokenizer.Tokenize(binary(text))
+tokenizer.Tokenize(binary(text))

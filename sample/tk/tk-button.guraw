@@ -1,0 +1,83 @@
+#!/usr/bin/env gura
+import(tk)
+
+imgfile(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+tk.mainwindow {|mw|
+	imgs = %{}
+	elems:local = @{
+		['arrow-green-l', 'left'], ['arrow-green-r', 'right']
+		['arrow-green-u', 'top'], ['arrow-green-d', 'bottom']
+		['kangaroo', 'center']
+	}
+	for (name in ['arrow-green-l', 'arrow-green-r',
+					'arrow-green-u', 'arrow-green-d', 'kangaroo']) {
+		imgs[name] = tk.Photo(file => imgfile(name + '.gif'))
+	}
+	statusVar = tk.variable('')
+	radiobuttonVar = tk.variable(0)
+	radiobuttonHandler() = {
+		statusVar.string = 'checkbutton %d' % radiobuttonVar.number
+	}
+	items = @{
+		[`Label,		%{}]
+		[`Label,		%{`relief => 'raised'}]
+		[`Label,		%{`relief => 'solid'}]
+		[`Label,		%{`relief => 'sunken'}]
+		[`Label,		%{`relief => 'sunken', `borderwidth => 1}]
+		[`Button,		%{}]
+		[`Checkbutton,	%{`anchor => 'w'}]
+		[`Radiobutton,	%{`anchor => 'w', `command => radiobuttonHandler}]
+	}
+	mw.Frame {|f|
+		f.pack(fill => 'both', expand => true)
+		for ([type, opts] in items) {|iCol|
+			f.Labelframe(text => type, padx => 4, pady => 4) {|f|
+				f.grid(row => 0, column => iCol, sticky => 'ns')
+				value = 0
+				if (type == `Radiobutton) {
+					opts[`variable] = radiobuttonVar
+					opts[`value] = value
+					value += 1
+				}
+				f.call!(type, text => 'textonly', opts%) {|w|
+					w.grid(sticky => 'we', pady => [4, 0])
+				}
+				if (type == `Radiobutton) {
+					opts[`value] = value
+					value += 1
+				}
+				f.call!(type, text => 'bold', opts%) {|w|
+					w[`font] = tk.Font(weight => 'bold')
+					w.grid(sticky => 'we', pady => [4, 0])
+				}
+				if (type == `Radiobutton) {
+					opts[`value] = value
+					value += 1
+				}
+				f.call!(type, text => 'red', foreground => 'red', opts%) {|w|
+					w.grid(sticky => 'we', pady => [4, 0])
+				}
+				for ([imgName, place] in elems) {|i|
+					if (type == `Radiobutton) {
+						opts[`value] = i + value
+					}
+					f.call!(type, text => place, image => imgs[imgName],
+													compound => place, opts%) {|w|
+						w.grid(sticky => 'we', pady => [4, 0])
+					}
+				}
+			}
+		}
+	}
+	mw.Frame {|f|
+		f.pack(fill => 'x', pady => [4, 0])
+		f.Label {|w|
+			w.pack(fill => 'x', expand => true, side => 'left')
+			w.configure(`anchor => 'w', padx => 4, pady => 2,
+					relief => 'sunken', borderwidth => 1, textvariable => statusVar)
+		}
+		f.ttk$Sizegrip().pack(side => 'left', anchor => 'w')
+	}
+}
+tk.mainloop()

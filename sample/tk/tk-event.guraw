@@ -1,0 +1,25 @@
+#!/usr/bin/env gura
+import(tk)
+
+tk.mainwindow {|mw|
+	mw.wm$geometry('300x300')
+	mw.ttk$Label(text => 'Starting...', anchor => 'c') {|w|
+		w.pack(fill => 'both', expand => 1)
+		w.bind('<Enter>') {
+			w[`text] = 'Moved mouse inside'
+		}
+		w.bind('<Leave>') {
+			w[`text] = 'Moved mouse outside'
+		}
+		w.bind('<1>') {|x:number, y:number|
+			w[`text] = 'Clicked left mouse button %d. %d' % [x, y]
+		}
+		w.bind('<Double-1>') {|x:number, y:number|
+			w[`text] = 'Double clicked %d, %d' % [x, y]
+		}
+		w.bind('<B3-Motion>') {|x:number, y:number|
+			w[`text] = 'right button drag to %d %d' % [x, y]
+		}
+	}
+}
+tk.mainloop()

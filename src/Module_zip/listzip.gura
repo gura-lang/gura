@@ -1,0 +1,13 @@
+import(zip)
+stats = path.walk('test.zip/'):stat
+println('   Date      Time           Size    Compressed  Name')
+println('------------------- ------------  ------------  -------------------------')
+printf('%-19s %12d  %12d  %s\n', stats:*mtime:*format('%Y-%m-%d %H:%M:%S'),
+	stats:*size, stats:*compressed_size, stats:*filename
+)
+println('------------------- ------------  ------------  -------------------------')
+cntFiles = 0
+cntFolders = 0
+printf('%-19s %12d  %12d  %s\n', '',
+	stats:*size.sum(), stats:*compressed_size.sum(),
+	format('%d files, %d folders', cntFiles, cntFolders))

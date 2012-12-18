@@ -1,0 +1,79 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+
+log = nil
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+		wx.SashLayoutWindow(self, wx.ID_ANY,
+					style => wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN) {|sash|
+			sash.SetDefaultSize(wx.Size(1000, 100));
+			sash.SetOrientation(wx.LAYOUT_HORIZONTAL);
+			sash.SetAlignment(wx.LAYOUT_TOP);
+			sash.SetBackgroundColour(wx.Colour(255, 255, 0));
+			sash.SetSashVisible(wx.SASH_BOTTOM, true);
+			self.sashTop = sash
+		}
+		wx.SashLayoutWindow(self, wx.ID_ANY,
+					style => wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN) {|sash|
+			sash.SetDefaultSize(wx.Size(100, 1000));
+			sash.SetOrientation(wx.LAYOUT_VERTICAL);
+			sash.SetAlignment(wx.LAYOUT_RIGHT);
+			sash.SetBackgroundColour(wx.Colour(0, 0, 255));
+			sash.SetSashVisible(wx.SASH_LEFT, true);
+			self.sashRight = sash
+		}
+		wx.SashLayoutWindow(self, wx.ID_ANY,
+					style => wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN) {|sash|
+			sash.SetDefaultSize(wx.Size(1000, 100));
+			sash.SetOrientation(wx.LAYOUT_HORIZONTAL);
+			sash.SetAlignment(wx.LAYOUT_BOTTOM);
+			sash.SetBackgroundColour(wx.Colour(255, 0, 0));
+			sash.SetSashVisible(wx.SASH_TOP, true);
+			self.sashBottom = sash
+		}
+		wx.SashLayoutWindow(self, wx.ID_ANY,
+					style => wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN) {|sash|
+			sash.SetDefaultSize(wx.Size(100, 1000));
+			sash.SetOrientation(wx.LAYOUT_VERTICAL);
+			sash.SetAlignment(wx.LAYOUT_LEFT);
+			sash.SetBackgroundColour(wx.Colour(0, 255, 0));
+			sash.SetSashVisible(wx.SASH_RIGHT, true);
+			self.sashLeft = sash
+		}
+		wx.Panel(self, style => wx.BORDER_SUNKEN) {|panel|
+			self.remainingSpace = panel
+		}
+		self.Bind(wx.EVT_SIZE) {|event|
+			wx.LayoutAlgorithm().LayoutWindow(self, self.remainingSpace)
+		}
+		self.Bind(wx.EVT_SASH_DRAGGED) {|event|
+			(event.GetDragStatus() == wx.SASH_STATUS_OUT_OF_RANGE) && return
+			id = event.GetId()
+			if (id == self.sashLeft.GetId()) {
+				self.sashLeft.SetDefaultSize(wx.Size(event.GetDragRect().GetWidth(), 1000))
+			} elsif (id == self.sashRight.GetId()) {
+				self.sashRight.SetDefaultSize(wx.Size(event.GetDragRect().GetWidth(), 1000))
+			} elsif (id == self.sashTop.GetId()) {
+				self.sashTop.SetDefaultSize(wx.Size(1000, event.GetDragRect().GetHeight()))
+			} elsif (id == self.sashBottom.GetId()) {
+				self.sashBottom.SetDefaultSize(wx.Size(1000, event.GetDragRect().GetHeight()))
+			}
+			wx.LayoutAlgorithm().LayoutWindow(self, self.remainingSpace)
+			self.remainingSpace.Refresh()
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

@@ -1,0 +1,247 @@
+#!/usr/bin/env gura
+
+// Orignal source file is written in C and is available from the site below.
+// http://www.sgi.com/products/software/opengl/examples/samples/
+// nurb.c
+
+import(glu) {*}
+import(opengl) {*}
+
+S_NUMPOINTS = 13
+S_ORDER     = 3   
+S_NUMKNOTS  = (S_NUMPOINTS + S_ORDER)
+T_NUMPOINTS = 3
+T_ORDER     = 3
+T_NUMKNOTS  = (T_NUMPOINTS + T_ORDER)
+SQRT_TWO    = 1.41421356237309504880
+
+sknots = @{
+	-1.0, -1.0, -1.0, 0.0, 1.0, 2.0, 3.0, 4.0,
+	4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 9.0, 9.0
+}
+
+glutnots = @{
+	1.0, 1.0, 1.0, 2.0, 2.0, 2.0
+}
+
+ctlpoints = @{
+	{
+	{
+		4.0, 2.0, 2.0, 1.0
+	},
+	{
+		4.0, 1.6, 2.5, 1.0
+	},
+	{
+		4.0, 2.0, 3.0, 1.0
+	}
+	},
+	{
+	{
+		5.0, 4.0, 2.0, 1.0
+	},
+	{
+		5.0, 4.0, 2.5, 1.0
+	},
+	{
+		5.0, 4.0, 3.0, 1.0
+	}
+	},
+	{
+	{
+		6.0, 5.0, 2.0, 1.0
+	},
+	{
+		6.0, 5.0, 2.5, 1.0
+	},
+	{
+		6.0, 5.0, 3.0, 1.0
+	}
+	},
+	{
+	{
+		SQRT_TWO*6.0, SQRT_TWO*6.0, SQRT_TWO*2.0, SQRT_TWO
+	},
+	{
+		SQRT_TWO*6.0, SQRT_TWO*6.0, SQRT_TWO*2.5, SQRT_TWO
+	},
+	{
+		SQRT_TWO*6.0, SQRT_TWO*6.0, SQRT_TWO*3.0, SQRT_TWO
+	}  
+	},
+	{
+	{
+		5.2, 6.7, 2.0, 1.0
+	},
+	{
+		5.2, 6.7, 2.5, 1.0
+	},
+	{
+		5.2, 6.7, 3.0, 1.0
+	}
+	},
+	{
+	{
+		SQRT_TWO*4.0, SQRT_TWO*6.0, SQRT_TWO*2.0, SQRT_TWO
+	},
+	{
+		SQRT_TWO*4.0, SQRT_TWO*6.0, SQRT_TWO*2.5, SQRT_TWO
+	}, 
+	{
+		SQRT_TWO*4.0, SQRT_TWO*6.0, SQRT_TWO*3.0, SQRT_TWO
+	}  
+	}, 
+	{
+	{
+		4.0, 5.2, 2.0, 1.0
+	},
+	{
+		4.0, 4.6, 2.5, 1.0
+	},
+	{
+		4.0, 5.2, 3.0, 1.0
+	}  
+	},
+	{
+	{
+		SQRT_TWO*4.0, SQRT_TWO*6.0, SQRT_TWO*2.0, SQRT_TWO
+	},
+	{
+		SQRT_TWO*4.0, SQRT_TWO*6.0, SQRT_TWO*2.5, SQRT_TWO
+	},
+	{
+		SQRT_TWO*4.0, SQRT_TWO*6.0, SQRT_TWO*3.0, SQRT_TWO
+	}  
+	},
+	{
+	{
+		2.8, 6.7, 2.0, 1.0
+	},
+	{
+		2.8, 6.7, 2.5, 1.0
+	},
+	{
+		2.8, 6.7, 3.0, 1.0
+	}   
+	},
+	{
+	{
+		SQRT_TWO*2.0, SQRT_TWO*6.0, SQRT_TWO*2.0, SQRT_TWO
+	},
+	{
+		SQRT_TWO*2.0, SQRT_TWO*6.0, SQRT_TWO*2.5, SQRT_TWO
+	},
+	{
+		SQRT_TWO*2.0, SQRT_TWO*6.0, SQRT_TWO*3.0, SQRT_TWO
+	}  
+	},
+	{
+	{
+		2.0, 5.0, 2.0, 1.0
+	},
+	{
+		2.0, 5.0, 2.5, 1.0
+	},
+	{
+		2.0, 5.0, 3.0, 1.0
+	} 
+	},
+	{
+	{
+		3.0, 4.0, 2.0, 1.0
+	},
+	{
+		3.0, 4.0, 2.5, 1.0
+	},
+	{
+		3.0, 4.0, 3.0, 1.0
+	} 
+	},
+	{
+	{
+		4.0, 2.0, 2.0, 1.0
+	},
+	{
+		4.0, 1.6, 2.5, 1.0
+	},
+	{
+		4.0, 2.0, 3.0, 1.0
+	}	
+	}
+}
+
+Init() = {
+	theNurbs = gluNewNurbsRenderer()
+	//theNurbs.gluNurbsCallback(GLU_ERROR, ErrorCallback)
+	theNurbs.gluNurbsProperty(GLU_SAMPLING_TOLERANCE, 15.0)
+	theNurbs.gluNurbsProperty(GLU_DISPLAY_MODE, GLU_OUTLINE_PATCH)
+	expectedError = GLU_INVALID_ENUM
+	theNurbs.gluNurbsProperty(~0, 15.0)
+	expectedError = GLU_NURBS_ERROR13
+	theNurbs.gluEndSurface()
+	expectedError = 0
+	glColor3f(1.0, 1.0, 1.0)
+	theNurbs
+}
+
+Reshape(width:number, height:number) = {
+	glViewport(0, 0, width, height)
+	glMatrixMode(GL_PROJECTION)
+	glLoadIdentity()
+	glFrustum(-2.0, 2.0, -2.0, 2.0, 0.8, 10.0)
+	gluLookAt(7.0, 4.5, 4.0, 4.5, 4.5, 2.5, 6.0, -3.0, 2.0)
+	glMatrixMode(GL_MODELVIEW)
+}
+
+Draw(theNurbs, rotX, rotY) = {
+	glClear(GL_COLOR_BUFFER_BIT)
+	glPushMatrix() {
+		glTranslatef(4.0, 4.5, 2.5)
+		glRotatef(rotY, 1, 0, 0)
+		glRotatef(rotX, 0, 1, 0)
+		glTranslatef(-4.0, -4.5, -2.5)
+		theNurbs.gluBeginSurface() {
+			theNurbs.gluNurbsSurface(sknots, glutnots, 4 * T_NUMPOINTS, 4,
+					 ctlpoints.flat(), S_ORDER, T_ORDER, GL_MAP2_VERTEX_4)
+		}
+	}
+	glFlush()
+}
+
+scope {
+	import(gltester)
+	[rotX, rotY] = [40, 40]
+	theNurbs = nil
+	gltester.mainloop(300, 300, 0, `idle) {
+		`onInit => function {
+			extern(theNurbs)
+			theNurbs = Init()
+		}
+		`onResize => function(width:number, height:number) {
+			Reshape(width, height)
+		}
+		`onDraw => function {
+			Draw(theNurbs, rotX, rotY)
+		}
+		`onKeyDown => %{
+		}
+		`onKeyPoll => %{
+			`left => function {
+				extern(rotX)
+				rotX -= 1
+			}
+			`right => function {
+				extern(rotX)
+				rotX += 1
+			}
+			`up => function {
+				extern(rotY)
+				rotY -= 1
+			}
+			`down => function {
+				extern(rotY)
+				rotY += 1
+			}
+		}
+	}
+}

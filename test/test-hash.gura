@@ -1,0 +1,65 @@
+import(hash)
+
+scope {
+	println('CRC32')
+	crc32 = hash.crc32()
+	println(crc32.init().update(b'').hexdigest)
+	println(crc32.init().update(b'abc').hexdigest)
+	println(crc32.init().update(b'ABC').hexdigest)
+	println(crc32.init().update(b'This is a string').hexdigest)
+}
+scope {
+	println('MD5')
+	testCases = @{
+		[b'',
+		 'd41d8cd98f00b204e9800998ecf8427e']
+		[b'a',
+		 '0cc175b9c0f1b6a831c399e269772661']
+		[b'abc',
+		 '900150983cd24fb0d6963f7d28e17f72']
+		[b'message digest',
+		 'f96b697d7cb7938d525a2f31aaf161d0']
+		[b'abcdefghijklmnopqrstuvwxyz',
+		 'c3fcd3d76192e4007dfb496cca67e13b']
+		[b'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+		 'd174ab98d277d9f5a5611c2c9f419d9f']
+		[b'12345678901234567890123456789012345678901234567890123456789012345678901234567890',
+		 '57edf4a22be3c955ac49da2e2107b67a']
+		
+	}
+	md5 = hash.md5()
+	println(md5.init().hexdigest)
+	for ([buff, expected] in testCases) {
+		println(expected)
+		println(md5.init().update(buff).hexdigest)
+		println(md5.hexdigest)
+		println(hash.md5(buff).hexdigest)
+		println(hash.md5().copyfrom(buff).hexdigest)
+	}
+}
+scope {
+	println('SHA1')
+	testCases = @{
+		[b'abc', 1,
+		 'a9993e364706816aba3e25717850c26c9cd0d89d']
+		[b'abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq', 1,
+		 '84983e441c3bd26ebaae4aa1f95129e5e54670f1']
+		[b'a' * 100, 10000,
+		 '34aa973cd4c4daa4f61eeb2bdbad27316534016f']
+		[b'0123456701234567012345670123456701234567012345670123456701234567', 10,
+		 'dea356a2cddd90c7a7ecedc5ebb563934f460452']
+		[b'apple', 1,
+		 'd0be2dc421be4fcd0172e5afceea3970e2f3d940']
+	}
+	sha1 = hash.sha1()
+	for ([buff, cnt, expected] in testCases) {
+		println(expected)
+		scope {
+			sha1.init()
+			repeat (cnt) { sha1.update(buff) }
+			println(sha1.hexdigest)
+		}
+		println(hash.sha1(buff * cnt).hexdigest)
+		println(hash.sha1().copyfrom(buff * cnt).hexdigest)
+	}
+}

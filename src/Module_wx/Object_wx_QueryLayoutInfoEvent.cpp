@@ -1,0 +1,259 @@
+//----------------------------------------------------------------------------
+// wxQueryLayoutInfoEvent
+// extracted from qylayevt.tex
+//----------------------------------------------------------------------------
+#include "stdafx.h"
+
+Gura_BeginModule(wx)
+
+//----------------------------------------------------------------------------
+// Class derivation
+//----------------------------------------------------------------------------
+class wx_QueryLayoutInfoEvent: public wxQueryLayoutInfoEvent, public GuraObjectObserver {
+private:
+	Gura::Signal _sig;
+	Object_wx_QueryLayoutInfoEvent *_pObj;
+public:
+	inline wx_QueryLayoutInfoEvent(wxWindowID id) : wxQueryLayoutInfoEvent(id), _sig(NULL), _pObj(NULL) {}
+	~wx_QueryLayoutInfoEvent();
+	inline void AssocWithGura(Gura::Signal &sig, Object_wx_QueryLayoutInfoEvent *pObj) {
+		_sig = sig, _pObj = pObj;
+	}
+	// virtual function of GuraObjectObserver
+	virtual void GuraObjectDeleted();
+};
+
+wx_QueryLayoutInfoEvent::~wx_QueryLayoutInfoEvent()
+{
+	if (_pObj != NULL) _pObj->InvalidateEntity();
+}
+
+void wx_QueryLayoutInfoEvent::GuraObjectDeleted()
+{
+	_pObj = NULL;
+}
+
+//----------------------------------------------------------------------------
+// Gura interfaces for wxQueryLayoutInfoEvent
+//----------------------------------------------------------------------------
+Gura_DeclareFunction(QueryLayoutInfoEvent)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetClassToConstruct(Gura_UserClass(wx_QueryLayoutInfoEvent));
+	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(QueryLayoutInfoEvent)
+{
+	wxWindowID id = 0;
+	if (args.IsValid(0)) id = static_cast<wxWindowID>(args.GetInt(0));
+	wx_QueryLayoutInfoEvent *pEntity = new wx_QueryLayoutInfoEvent(id);
+	Object_wx_QueryLayoutInfoEvent *pObj = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
+	if (pObj == NULL) {
+		pObj = new Object_wx_QueryLayoutInfoEvent(pEntity, pEntity, OwnerFalse);
+		pEntity->AssocWithGura(sig, pObj);
+		return ReturnValue(env, sig, args, Value(pObj));
+	}
+	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pEntity->AssocWithGura(sig, pObj);
+	return ReturnValue(env, sig, args, args.GetSelf());
+}
+
+Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetAlignment)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetAlignment)
+{
+	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->GetAlignment();
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetFlags)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetFlags)
+{
+	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetFlags();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetOrientation)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetOrientation)
+{
+	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxLayoutOrientation rtn = pSelf->GetEntity()->GetOrientation();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetRequestedLength)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetRequestedLength)
+{
+	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetRequestedLength();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetSize)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetSize)
+{
+	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pSelf->GetEntity()->GetSize();
+	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
+}
+
+Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetAlignment)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_QueryLayoutInfoEvent, SetAlignment)
+{
+	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxLayoutAlignment alignment = static_cast<wxLayoutAlignment>(args.GetInt(0));
+	pSelf->GetEntity()->SetAlignment(alignment);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetFlags)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_QueryLayoutInfoEvent, SetFlags)
+{
+	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int flags = args.GetInt(0);
+	pSelf->GetEntity()->SetFlags(flags);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetOrientation)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_QueryLayoutInfoEvent, SetOrientation)
+{
+	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxLayoutOrientation orientation = static_cast<wxLayoutOrientation>(args.GetInt(0));
+	pSelf->GetEntity()->SetOrientation(orientation);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetRequestedLength)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "length", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_QueryLayoutInfoEvent, SetRequestedLength)
+{
+	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int length = args.GetInt(0);
+	pSelf->GetEntity()->SetRequestedLength(length);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetSize)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_QueryLayoutInfoEvent, SetSize)
+{
+	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->SetSize(*size);
+	return Value::Null;
+}
+
+//----------------------------------------------------------------------------
+// Object implementation for wxQueryLayoutInfoEvent
+//----------------------------------------------------------------------------
+Object_wx_QueryLayoutInfoEvent::~Object_wx_QueryLayoutInfoEvent()
+{
+}
+
+Object *Object_wx_QueryLayoutInfoEvent::Clone() const
+{
+	return NULL;
+}
+
+String Object_wx_QueryLayoutInfoEvent::ToString(Signal sig, bool exprFlag)
+{
+	String rtn("<wx.QueryLayoutInfoEvent:");
+	if (GetEntity() == NULL) {
+		rtn += "invalid>";
+	} else {
+		char buff[64];
+		::sprintf(buff, "%p>", GetEntity());
+		rtn += buff;
+	}
+	return rtn;
+}
+
+void Object_wx_QueryLayoutInfoEvent::OnModuleEntry(Environment &env, Signal sig)
+{
+	Gura_AssignFunction(QueryLayoutInfoEvent);
+}
+
+//----------------------------------------------------------------------------
+// Class implementation for wxQueryLayoutInfoEvent
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_QueryLayoutInfoEvent)
+{
+	Gura_AssignMethod(wx_QueryLayoutInfoEvent, GetAlignment);
+	Gura_AssignMethod(wx_QueryLayoutInfoEvent, GetFlags);
+	Gura_AssignMethod(wx_QueryLayoutInfoEvent, GetOrientation);
+	Gura_AssignMethod(wx_QueryLayoutInfoEvent, GetRequestedLength);
+	Gura_AssignMethod(wx_QueryLayoutInfoEvent, GetSize);
+	Gura_AssignMethod(wx_QueryLayoutInfoEvent, SetAlignment);
+	Gura_AssignMethod(wx_QueryLayoutInfoEvent, SetFlags);
+	Gura_AssignMethod(wx_QueryLayoutInfoEvent, SetOrientation);
+	Gura_AssignMethod(wx_QueryLayoutInfoEvent, SetRequestedLength);
+	Gura_AssignMethod(wx_QueryLayoutInfoEvent, SetSize);
+}
+
+Gura_ImplementDescendantCreator(wx_QueryLayoutInfoEvent)
+{
+	return new Object_wx_QueryLayoutInfoEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+}
+
+}}

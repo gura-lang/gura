@@ -1,0 +1,89 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+import(gif)
+
+log = nil
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+		panel = wx.Panel(self)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		panel.SetSizer(vbox)
+		imgList = wx.ImageList(18, 18)
+		imgList.Add(image(I('arrow-green-d.gif')))
+		imgList.Add(image(I('arrow-green-l.gif')))
+		imgList.Add(image(I('arrow-green-r.gif')))
+		imgList.Add(image(I('arrow-green-u.gif')))
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Expand())
+			wx.Button(panel, wx.ID_ANY, 'Push') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags())
+				ctrl.Bind(wx.EVT_BUTTON) {
+					self.PrintItems()
+				}
+			}
+		}
+		wx.TreeCtrl(panel, wx.ID_ANY, style => wx.TR_HIDE_ROOT) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 4))
+			self.tree = ctrl
+			//ctrl.SetFont(wx.Font(12))
+			ctrl.AssignImageList(imgList)
+			ctrl.AddRoot('', data => wx.TreeItemData(1)) {|itemParent|
+			//ctrl.AddRoot('') {|itemParent|
+				idx = 0
+				for (name in ['apple', 'orange', 'grape']) {
+					//item = ctrl.AppendItem(itemParent, name, image => 0,
+					//					data => wx.TreeItemData(3))
+					item = ctrl.AppendItem(itemParent, name, image => 0,
+											data => wx.TreeItemData(name))
+					ctrl.AppendItem(item, 'price', image => 1,
+								data => wx.TreeItemData('PRICE'))
+					ctrl.AppendItem(item, 'producer', image => 2,
+								data => wx.TreeItemData('PRODUCER'))
+				}
+			}
+			ctrl.Bind(wx.EVT_TREE_ITEM_ACTIVATED) {|event|
+				log.Printf('EVT_TREE_ITEM_ACTIVATED: %s\n',
+								ctrl.GetGuraData(event.GetItem()))
+				event.Skip()
+			}
+			ctrl.Bind(wx.EVT_TREE_ITEM_EXPANDED) {|event|
+				log.Printf('EVT_TREE_ITEM_EXPANDED: %s\n',
+								ctrl.GetGuraData(event.GetItem()))
+				event.Skip()
+			}
+			ctrl.Bind(wx.EVT_TREE_SEL_CHANGING) {|event|
+				log.Printf('EVT_TREE_SEL_CHANGING: %s\n',
+								ctrl.GetGuraData(event.GetItem()))
+				event.Skip()
+			}
+			ctrl.Bind(wx.EVT_TREE_SEL_CHANGED) {|event|
+				log.Printf('EVT_TREE_SEL_CHANGED: %s\n',
+								ctrl.GetGuraData(event.GetItem()))
+				event.Skip()
+			}
+		}
+		wxutil.LogWindow(panel) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+			log:extern = ctrl
+		}
+	}
+	PrintItems() = {
+		log.Printf('%s\n', self.tree.GetItemText(
+						self.tree.GetItemChildren(self.tree.GetRootItem())))
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

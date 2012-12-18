@@ -1,0 +1,133 @@
+#!/usr/bin/env gura
+
+// Orignal source file is written in C and is available from the site below.
+// http://www.sgi.com/products/software/opengl/examples/samples/
+// stretch.c
+
+import(glu) {*}
+import(opengl) {*}
+import(gltester)
+
+winW = 300, winH = 300;
+
+magFilter = [GL_NEAREST]
+minFilter = [GL_NEAREST]
+sWrapMode = [GL_REPEAT]
+tWrapMode = [GL_REPEAT]
+
+horizon = winH / 2
+texMinX = 0.25
+texMaxX = 0.75
+texMinY = 0.25
+texMaxY = 0.75
+
+skyImage = nil
+earthImage = nil
+
+skyList = nil
+earthList = nil
+
+Init() = {
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
+	glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, [GL_DECAL])
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter)
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter)
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, sWrapMode)
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, tWrapMode)
+	glEnable(GL_TEXTURE_2D)
+	glClearColor(1.0, 0.0, 0.0, 0.0)
+	skyList:extern = glGenLists(1)
+	glNewList(skyList, GL_COMPILE) {
+		gluBuild2DMipmaps(GL_TEXTURE_2D, 3, skyImage)
+	}
+	earthList:extern = glGenLists(1)
+	glNewList(earthList, GL_COMPILE) {
+		gluBuild2DMipmaps(GL_TEXTURE_2D, 3, earthImage)
+	}
+}
+
+Reshape(width:number, height:number) = {
+	glViewport(0, 0, width, height)
+	glMatrixMode(GL_PROJECTION)
+	glLoadIdentity()
+	gluOrtho2D(0, width, 0, height)
+	glMatrixMode(GL_MODELVIEW)
+}
+
+Draw() = {
+	glClear(GL_COLOR_BUFFER_BIT)
+	glPushMatrix() {
+		glCallList(skyList)
+		glBegin(GL_POLYGON) {
+			glTexCoord2f(texMinX, texMinY)
+			glVertex2i(0, horizon)
+			glTexCoord2f(texMaxX, texMinY)
+			glVertex2i(winW, horizon)
+			glTexCoord2f(texMaxX, texMaxY)
+			glVertex2i(winW, winH)
+			glTexCoord2f(texMinX, texMaxY)
+			glVertex2i(0, winH)
+		}
+		glCallList(earthList)
+		glBegin(GL_POLYGON) {
+			glTexCoord2f(0.0, 0.0)
+			glVertex2i(0, 0)
+			glTexCoord2f(1.0, 0.0)
+			glVertex2i(winW, 0)
+			glTexCoord2f(1.0, 1.0)
+			glVertex2i(winW, horizon)
+			glTexCoord2f(0.0, 1.0)
+			glVertex2i(0, horizon)
+		}
+	}
+	glFlush()
+}
+
+scope {
+	import(gltester)
+	earthImage:extern = image(`rgb)
+	earthImage.rgbread('1.rgb')
+	skyImage:extern = image(`rgb)
+	skyImage.rgbread('2.rgb')
+	gltester.mainloop(winW, winH, 0, `idle) {
+		`onInit => function {
+			Init()
+		}
+		`onResize => function(width:number, height:number) {
+			Reshape(width, height)
+		}
+		`onDraw => function {
+			Draw()
+		}
+		`onKeyPoll => %{
+			`num1 => function {
+				horizon:extern -= 5
+				texMinY:extern -= 5.0 / winH
+				texMinY:extern += 5.0 / winH
+				texMaxY:extern += 5.0 / winH
+			}
+			`num2 => function {
+				horizon:extern += 5
+				texMinY:extern += 5.0 / winH
+				texMinY:extern -= 5.0 / winH
+				texMaxY:extern -= 5.0 / winH
+			}
+			`left => function {
+				texMinX:extern -= 5.0 / winW
+				texMaxX:extern -= 5.0 / winW
+			}
+			`right => function {
+				texMinX:extern += 5.0 / winW
+				texMaxX:extern += 5.0 / winW
+			}
+			`up => function {
+				texMinY:extern += 5.0 / winH
+				texMaxY:extern += 5.0 / winH
+			}
+			`down => function {
+				texMinY:extern -= 5.0 / winH
+				texMaxY:extern -= 5.0 / winH
+			}
+		}
+	}
+}

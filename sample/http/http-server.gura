@@ -1,0 +1,96 @@
+#!/usr/bin/env gura
+# encoding: shift_jis
+import(re)
+import(net.http)
+
+port = cond(sys.platform == `windows, 80, 8000)
+println('server started on port ', port)
+
+generateHtml(addedLines:string) = {
+	R'''
+<html>
+<div>Š¿Žš‚ÌƒeƒXƒg</div>
+<body>
+<form method="post" action="hoge" id="form-A">
+  <div>field-1: <input type="text" name="field-1" /></div>
+  <div>field-2: <input type="text" name="field-2" /></div>
+  <div>field-3: <input type="text" name="field-3" /></div>
+  <div><input type="submit" value="Submit" /></div>
+</form>
+<form method="post" action="hoge" id="form-B">
+  <div>field-1: <input type="text" name="field-1" /></div>
+  <div>field-2: <input type="text" name="field-2" /></div>
+  <div>field-3: <input type="text" name="field-3" /></div>
+  <div><input type="submit" value="Submit" /></div>
+</form>
+${addedLines}
+</body>
+</html>
+'''.template()
+}
+
+headerCommon = %{
+	'Cache-Control'	=> 'private'
+	'Server'		=> 'Gura_HTTP_Server'
+}
+addedLines = ''
+// The following program has the same effect as below.
+//   net.http.server(port => 80) {|server|
+//       repeat {
+//           req = server.wait()
+//           ....
+//       }
+//   }
+net.http.server(port => port).wait {|req|
+	sessions = req.session.server.sessions
+	println('-' * 78)
+	printf('number of sessions: %d\n', sessions.len())
+	printf('%s %-20s %s\n', cond(sessions == req.session, '*', ' '),
+							sessions:*remote_ip, sessions:*date)
+	println('Remote IP       ', req.session.remote_ip)
+	println('Remote Host     ', req.session.remote_host)
+	println('Local IP        ', req.session.local_ip)
+	println('Local Host      ', req.session.local_host)
+	println(req.method, ' ', req.uri, ' ', req.version)
+	println(net.http.parsequery(req.query))
+	println('Accept          ', req['Accept'])
+	println('Accept-Charset  ', req['Accept-Charset'])
+	println('Accept-Encoding ', req['Accept-Encoding'])
+	println('Accept-Language ', req['Accept-Language'])
+	println('Connection      ', req['Connection'])
+	println('Host            ', req['Host'])
+	println('Keep-Alive      ', req['Keep-Alive'])
+	println('User-Agent      ', req['User-Agent'])
+	if (req.path == '/') {
+		html = generateHtml(addedLines)
+		req.response('200', nil, html.encode('utf-8'), headerCommon%,
+			'Connection'	=> 'Keep-Alive'
+			'Content-Type'	=> 'text/html; charset:utf-8')
+		//stream = req.respchunk('200', nil, headerCommon%,
+		//	'Connection'	=> 'Keep-Alive'
+		//	'Content-Type'	=> 'text/html; charset:utf-8')
+		//copy(html.encode('utf-8'), stream, 16)
+	} elsif (req.ismethod('POST')) {
+		println(net.http.parsequery(req.body.readline()))
+		req.response('301',
+			'Connection'	=> 'Keep-Alive'
+			'Location'		=> 'http://127.0.0.1/')
+		addedLines:extern += '<div>hello</div>\n'
+	} elsif (m = req.path.match(r'/image/(.+)')) {
+		try {
+			stream = open('../resource/' + m.group(1)),
+			req.response('200', nil, stream, headerCommon%,
+				'Connection'	=> 'Keep-Alive')
+		} except {
+			str = 'image not found: ' + m.group(1)
+			req.response('404', nil, str.encode('utf-8'), headerCommon%,
+				'Connection'	=> 'close'
+				'Content-Type'	=> 'text/html')
+		}
+	} else {
+		str = req.path
+		req.response('200', nil, binary(str), headerCommon%,
+			'Connection'	=> 'Keep-Alive'
+			'Content-Type'	=> 'text/html')
+	}
+}

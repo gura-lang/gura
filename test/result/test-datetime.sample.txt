@@ -1,0 +1,184 @@
+<timedelta:0days,0secs(00:00:00),0usecs>
+<timedelta:366days,0secs(00:00:00),0usecs>
+<timedelta:731days,0secs(00:00:00),0usecs>
+<timedelta:1096days,0secs(00:00:00),0usecs>
+<timedelta:1461days,0secs(00:00:00),0usecs>
+<timedelta:1827days,0secs(00:00:00),0usecs>
+<timedelta:2192days,0secs(00:00:00),0usecs>
+<timedelta:2557days,0secs(00:00:00),0usecs>
+<timedelta:2922days,0secs(00:00:00),0usecs>
+<timedelta:3288days,0secs(00:00:00),0usecs>
+time.datetime(2011, 1, 10, 8, 3, 0, 0).unixtime .. 1294614180
+time.datetime(2001, 9, 9, 1, 46, 40, 0).unixtime .. 999967600
+time.datetime(2009, 2, 13, 23, 31, 30, 0).unixtime .. 1234535490
+time.parse('Sun, 06 Nov 1994 08:49:37 -0900') .. <datetime:1994-11-06T08:49:37-09:00>
+time.parse('Sun, 06 Nov 1994 08:49:37 +0900') .. <datetime:1994-11-06T08:49:37+09:00>
+time.parse('Sun, 06 Nov 1994 08:49:37 +0845') .. <datetime:1994-11-06T08:49:37+08:45>
+time.parse('Sun, 06 Nov 1994 08:49:37 +1245') .. <datetime:1994-11-06T08:49:37+12:45>
+time.parse('Sun, 06 Nov 1994 08:49:37 -0930') .. <datetime:1994-11-06T08:49:37-09:30>
+time.parse('Sun, 06 Nov 1994 08:49:37 GMT') .. <datetime:1994-11-06T08:49:37Z>
+time.parse('Sunday, 06-Nov-94 08:49:37 GMT') .. <datetime:1994-11-06T08:49:37Z>
+time.parse('Sun Nov  6 08:49:37 1994') .. <datetime:1994-11-06T08:49:37>
+time.parse('Sat, 06 Nov 2010 08:49:37 GMT') .. <datetime:2010-11-06T08:49:37Z>
+time.parse('Saturday, 06-Nov-10 08:49:37 GMT') .. <datetime:2010-11-06T08:49:37Z>
+time.parse('Sat Nov  6 08:49:37 2010') .. <datetime:2010-11-06T08:49:37>
+time.parse('Wed, 06 Nov 2069 08:49:37 GMT') .. <datetime:2069-11-06T08:49:37Z>
+time.parse('Wednesday, 06-Nov-69 08:49:37 GMT') .. <datetime:2069-11-06T08:49:37Z>
+time.parse('Wed Nov  6 08:49:37 2069') .. <datetime:2069-11-06T08:49:37>
+time.parse('Thu, 06 Nov 2070 08:49:37 GMT') .. <datetime:2070-11-06T08:49:37Z>
+time.parse('Thursday, 06-Nov-70 08:49:37 GMT') .. <datetime:1970-11-06T08:49:37Z>
+time.parse('Sun Nov  6 08:49:37 2070') .. <datetime:2070-11-06T08:49:37>
+time.parse('Fri Dec 31 23:59:59 9999') .. <datetime:9999-12-31T23:59:59>
+time.parse('2010-11-06T08:49:37+09:00') .. <datetime:2010-11-06T08:49:37+09:00>
+time.parse('Tue Aug 31 23:54:46 +0000 2010') .. <datetime:2010-08-31T23:54:46Z>
+expected error occurs: FormatError: invalid time format
+expected error occurs: FormatError: invalid time format
+expected error occurs: FormatError: invalid time format
+expected error occurs: FormatError: invalid time format
+expected error occurs: FormatError: invalid time format
+operation of datetime .. OK
+3 * time.delta(1, 0, 0) .. <timedelta:3days,0secs(00:00:00),0usecs>
+time.delta(1, 0, 0) * 3 .. <timedelta:3days,0secs(00:00:00),0usecs>
+time.delta(0, 1, 0) * 3 .. <timedelta:0days,3secs(00:00:03),0usecs>
+time.delta(0, 0, 1) * 3 .. <timedelta:0days,0secs(00:00:00),3usecs>
+time.delta(0, 3600, 0) * 24 .. <timedelta:1days,0secs(00:00:00),0usecs>
+time.delta(0, 3600, 0) * 24 * 4 .. <timedelta:4days,0secs(00:00:00),0usecs>
+time.delta(0, 0, 100000) * 10 .. <timedelta:0days,1secs(00:00:01),0usecs>
+time.delta(0, 3600 * 24 - 1, 1000000) .. <timedelta:1days,0secs(00:00:00),0usecs>
+time.delta(0, 3600 * 24 - 1, 0) + time.delta(0, 1, 0) .. <timedelta:1days,0secs(00:00:00),0usecs>
+time.delta(3, 0, 0) + time.delta(5, 0, 0) .. <timedelta:8days,0secs(00:00:00),0usecs>
+time.delta(3, 0, 0) - time.delta(5, 0, 0) .. <timedelta:-2days,0secs(00:00:00),0usecs>
+time.delta(8, 1000, 1000) + time.delta(5, 300, 300) .. <timedelta:13days,1300secs(00:21:40),1300usecs>
+time.delta(8, 1000, 1000) - time.delta(5, 300, 300) .. <timedelta:3days,700secs(00:11:40),700usecs>
+time.delta(8, 0, 0) - time.delta(5, 300, 300) .. <timedelta:2days,86099secs(23:54:59),999700usecs>
+time.delta(5, 300, 300) + time.delta(2, 86099, 999700) .. <timedelta:8days,0secs(00:00:00),0usecs>
+--------------------
+2000-03-21 00:00
+time.datetime(year, month, day, hour, min) + time.delta(1) .. <datetime:2000-03-22T00:00:00+09:00>
+time.delta(1) + time.datetime(year, month, day) .. <datetime:2000-03-22T00:00:00+09:00>
+dt + time.delta(1) .. <datetime:2000-03-22T00:00:00Z>
+dt - (-time.delta(1)) .. <datetime:2000-03-22T00:00:00Z>
+dt - time.delta(1) .. <datetime:2000-03-20T00:00:00Z>
+dt + (-time.delta(1)) .. <datetime:2000-03-20T00:00:00Z>
+dt + time.delta(0, 3600) .. <datetime:2000-03-21T01:00:00Z>
+dt + time.delta(0, -3600) .. <datetime:2000-03-20T23:00:00Z>
+dt - time.delta(0, 3600) .. <datetime:2000-03-20T23:00:00Z>
+dt + (-time.delta(0, 3600)) .. <datetime:2000-03-20T23:00:00Z>
+dt + time.delta(0, 0, 1000000) .. <datetime:2000-03-21T00:00:01Z>
+dt - time.delta(0, 0, 1000000) .. <datetime:2000-03-20T23:59:59Z>
+dt + (-time.delta(0, 0, 1000000)) .. <datetime:2000-03-20T23:59:59Z>
+dt + time.delta(0, 0, 2000000) .. <datetime:2000-03-21T00:00:02Z>
+dt - time.delta(0, 0, 2000000) .. <datetime:2000-03-20T23:59:58Z>
+dt + (-time.delta(0, 0, 2000000)) .. <datetime:2000-03-20T23:59:58Z>
+--------------------
+2000-03-01 00:00
+time.datetime(year, month, day, hour, min) + time.delta(1) .. <datetime:2000-03-02T00:00:00+09:00>
+time.delta(1) + time.datetime(year, month, day) .. <datetime:2000-03-02T00:00:00+09:00>
+dt + time.delta(1) .. <datetime:2000-03-02T00:00:00Z>
+dt - (-time.delta(1)) .. <datetime:2000-03-02T00:00:00Z>
+dt - time.delta(1) .. <datetime:2000-02-29T00:00:00Z>
+dt + (-time.delta(1)) .. <datetime:2000-02-29T00:00:00Z>
+dt + time.delta(0, 3600) .. <datetime:2000-03-01T01:00:00Z>
+dt + time.delta(0, -3600) .. <datetime:2000-02-29T23:00:00Z>
+dt - time.delta(0, 3600) .. <datetime:2000-02-29T23:00:00Z>
+dt + (-time.delta(0, 3600)) .. <datetime:2000-02-29T23:00:00Z>
+dt + time.delta(0, 0, 1000000) .. <datetime:2000-03-01T00:00:01Z>
+dt - time.delta(0, 0, 1000000) .. <datetime:2000-02-29T23:59:59Z>
+dt + (-time.delta(0, 0, 1000000)) .. <datetime:2000-02-29T23:59:59Z>
+dt + time.delta(0, 0, 2000000) .. <datetime:2000-03-01T00:00:02Z>
+dt - time.delta(0, 0, 2000000) .. <datetime:2000-02-29T23:59:58Z>
+dt + (-time.delta(0, 0, 2000000)) .. <datetime:2000-02-29T23:59:58Z>
+--------------------
+2001-03-01 00:00
+time.datetime(year, month, day, hour, min) + time.delta(1) .. <datetime:2001-03-02T00:00:00+09:00>
+time.delta(1) + time.datetime(year, month, day) .. <datetime:2001-03-02T00:00:00+09:00>
+dt + time.delta(1) .. <datetime:2001-03-02T00:00:00Z>
+dt - (-time.delta(1)) .. <datetime:2001-03-02T00:00:00Z>
+dt - time.delta(1) .. <datetime:2001-02-28T00:00:00Z>
+dt + (-time.delta(1)) .. <datetime:2001-02-28T00:00:00Z>
+dt + time.delta(0, 3600) .. <datetime:2001-03-01T01:00:00Z>
+dt + time.delta(0, -3600) .. <datetime:2001-02-28T23:00:00Z>
+dt - time.delta(0, 3600) .. <datetime:2001-02-28T23:00:00Z>
+dt + (-time.delta(0, 3600)) .. <datetime:2001-02-28T23:00:00Z>
+dt + time.delta(0, 0, 1000000) .. <datetime:2001-03-01T00:00:01Z>
+dt - time.delta(0, 0, 1000000) .. <datetime:2001-02-28T23:59:59Z>
+dt + (-time.delta(0, 0, 1000000)) .. <datetime:2001-02-28T23:59:59Z>
+dt + time.delta(0, 0, 2000000) .. <datetime:2001-03-01T00:00:02Z>
+dt - time.delta(0, 0, 2000000) .. <datetime:2001-02-28T23:59:58Z>
+dt + (-time.delta(0, 0, 2000000)) .. <datetime:2001-02-28T23:59:58Z>
+--------------------
+2000-02-29 23:00
+time.datetime(year, month, day, hour, min) + time.delta(1) .. <datetime:2000-03-01T23:00:00+09:00>
+time.delta(1) + time.datetime(year, month, day) .. <datetime:2000-03-01T00:00:00+09:00>
+dt + time.delta(1) .. <datetime:2000-03-01T23:00:00Z>
+dt - (-time.delta(1)) .. <datetime:2000-03-01T23:00:00Z>
+dt - time.delta(1) .. <datetime:2000-02-28T23:00:00Z>
+dt + (-time.delta(1)) .. <datetime:2000-02-28T23:00:00Z>
+dt + time.delta(0, 3600) .. <datetime:2000-03-01T00:00:00Z>
+dt + time.delta(0, -3600) .. <datetime:2000-02-29T22:00:00Z>
+dt - time.delta(0, 3600) .. <datetime:2000-02-29T22:00:00Z>
+dt + (-time.delta(0, 3600)) .. <datetime:2000-02-29T22:00:00Z>
+dt + time.delta(0, 0, 1000000) .. <datetime:2000-02-29T23:00:01Z>
+dt - time.delta(0, 0, 1000000) .. <datetime:2000-02-29T22:59:59Z>
+dt + (-time.delta(0, 0, 1000000)) .. <datetime:2000-02-29T22:59:59Z>
+dt + time.delta(0, 0, 2000000) .. <datetime:2000-02-29T23:00:02Z>
+dt - time.delta(0, 0, 2000000) .. <datetime:2000-02-29T22:59:58Z>
+dt + (-time.delta(0, 0, 2000000)) .. <datetime:2000-02-29T22:59:58Z>
+--------------------
+2001-02-28 23:00
+time.datetime(year, month, day, hour, min) + time.delta(1) .. <datetime:2001-03-01T23:00:00+09:00>
+time.delta(1) + time.datetime(year, month, day) .. <datetime:2001-03-01T00:00:00+09:00>
+dt + time.delta(1) .. <datetime:2001-03-01T23:00:00Z>
+dt - (-time.delta(1)) .. <datetime:2001-03-01T23:00:00Z>
+dt - time.delta(1) .. <datetime:2001-02-27T23:00:00Z>
+dt + (-time.delta(1)) .. <datetime:2001-02-27T23:00:00Z>
+dt + time.delta(0, 3600) .. <datetime:2001-03-01T00:00:00Z>
+dt + time.delta(0, -3600) .. <datetime:2001-02-28T22:00:00Z>
+dt - time.delta(0, 3600) .. <datetime:2001-02-28T22:00:00Z>
+dt + (-time.delta(0, 3600)) .. <datetime:2001-02-28T22:00:00Z>
+dt + time.delta(0, 0, 1000000) .. <datetime:2001-02-28T23:00:01Z>
+dt - time.delta(0, 0, 1000000) .. <datetime:2001-02-28T22:59:59Z>
+dt + (-time.delta(0, 0, 1000000)) .. <datetime:2001-02-28T22:59:59Z>
+dt + time.delta(0, 0, 2000000) .. <datetime:2001-02-28T23:00:02Z>
+dt - time.delta(0, 0, 2000000) .. <datetime:2001-02-28T22:59:58Z>
+dt + (-time.delta(0, 0, 2000000)) .. <datetime:2001-02-28T22:59:58Z>
+--------------------
+2000-01-01 00:00
+time.datetime(year, month, day, hour, min) + time.delta(1) .. <datetime:2000-01-02T00:00:00+09:00>
+time.delta(1) + time.datetime(year, month, day) .. <datetime:2000-01-02T00:00:00+09:00>
+dt + time.delta(1) .. <datetime:2000-01-02T00:00:00Z>
+dt - (-time.delta(1)) .. <datetime:2000-01-02T00:00:00Z>
+dt - time.delta(1) .. <datetime:1999-12-31T00:00:00Z>
+dt + (-time.delta(1)) .. <datetime:1999-12-31T00:00:00Z>
+dt + time.delta(0, 3600) .. <datetime:2000-01-01T01:00:00Z>
+dt + time.delta(0, -3600) .. <datetime:1999-12-31T23:00:00Z>
+dt - time.delta(0, 3600) .. <datetime:1999-12-31T23:00:00Z>
+dt + (-time.delta(0, 3600)) .. <datetime:1999-12-31T23:00:00Z>
+dt + time.delta(0, 0, 1000000) .. <datetime:2000-01-01T00:00:01Z>
+dt - time.delta(0, 0, 1000000) .. <datetime:1999-12-31T23:59:59Z>
+dt + (-time.delta(0, 0, 1000000)) .. <datetime:1999-12-31T23:59:59Z>
+dt + time.delta(0, 0, 2000000) .. <datetime:2000-01-01T00:00:02Z>
+dt - time.delta(0, 0, 2000000) .. <datetime:1999-12-31T23:59:58Z>
+dt + (-time.delta(0, 0, 2000000)) .. <datetime:1999-12-31T23:59:58Z>
+--------------------
+2000-12-31 23:00
+time.datetime(year, month, day, hour, min) + time.delta(1) .. <datetime:2001-01-01T23:00:00+09:00>
+time.delta(1) + time.datetime(year, month, day) .. <datetime:2001-01-01T00:00:00+09:00>
+dt + time.delta(1) .. <datetime:2001-01-01T23:00:00Z>
+dt - (-time.delta(1)) .. <datetime:2001-01-01T23:00:00Z>
+dt - time.delta(1) .. <datetime:2000-12-30T23:00:00Z>
+dt + (-time.delta(1)) .. <datetime:2000-12-30T23:00:00Z>
+dt + time.delta(0, 3600) .. <datetime:2001-01-01T00:00:00Z>
+dt + time.delta(0, -3600) .. <datetime:2000-12-31T22:00:00Z>
+dt - time.delta(0, 3600) .. <datetime:2000-12-31T22:00:00Z>
+dt + (-time.delta(0, 3600)) .. <datetime:2000-12-31T22:00:00Z>
+dt + time.delta(0, 0, 1000000) .. <datetime:2000-12-31T23:00:01Z>
+dt - time.delta(0, 0, 1000000) .. <datetime:2000-12-31T22:59:59Z>
+dt + (-time.delta(0, 0, 1000000)) .. <datetime:2000-12-31T22:59:59Z>
+dt + time.delta(0, 0, 2000000) .. <datetime:2000-12-31T23:00:02Z>
+dt - time.delta(0, 0, 2000000) .. <datetime:2000-12-31T22:59:58Z>
+dt + (-time.delta(0, 0, 2000000)) .. <datetime:2000-12-31T22:59:58Z>
+cond(time.isleap(1800 .. 1899), '*', '.').join() .. ....*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...
+cond(time.isleap(1900 .. 1999), '*', '.').join() .. ....*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...
+cond(time.isleap(2000 .. 2099), '*', '.').join() .. *...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...
+cond(time.isleap(2100 .. 2199), '*', '.').join() .. ....*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...

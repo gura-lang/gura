@@ -1,0 +1,13 @@
+import(mswin)
+
+scope {
+	sc = mswin.ole('ScriptControl')
+	sc.Language = 'VBScript'
+	sc.AddCode(R'''
+Function Main()
+    Main = InputBox(prompt, title, default)
+End Function
+''')
+	rtn = sc.Run('Main')
+	println(rtn)
+}

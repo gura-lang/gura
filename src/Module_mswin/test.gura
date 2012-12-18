@@ -1,0 +1,15 @@
+#!/usr/bin/env gura
+#encoding: shift_jis
+import(mswin)
+
+hKey = mswin.HKEY_CURRENT_USER.openkey('Software').createkey('Gura')
+hKey.createkey('key' + (1..10))::setvalue('', 'hello1')
+hKey.createkey('Š¿š‚ÌƒL[:' + (1..10))::setvalue('', 'Š¿š‚Ì’l')
+println(hKey.enumkey().join(', '))
+hKey.deletekey('key' + (1..10).skip(1))
+println(hKey.enumkey().join(', '))
+hKey.setvalue * [
+	['name1', 'value1'], ['name2', 'value2'], ['name3', 9999], ['name4', ['hello', 'world']]
+]
+println(hKey.enumkey().join(', '))
+println(hKey.enumvalue().join(', '))

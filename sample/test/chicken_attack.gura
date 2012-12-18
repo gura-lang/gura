@@ -1,0 +1,136 @@
+#!/usr/bin/env gura
+import(sdl)
+import(gif)
+import(bmp)
+import(jpeg)
+
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+sdl.Init(sdl.INIT_EVERYTHING)
+[wdScreen, htScreen] = [1024, 768]
+screen = sdl.SetVideoMode(wdScreen, htScreen, 16, sdl.SWSURFACE)
+wdImage = 200
+imageBg = image(I('Winter.jpg'), `rgb).resize(wdScreen, htScreen)
+imagesL = gif.new(I('chicken-anim.gif'), `rgba).images::resize(wdImage)
+imagesR = imagesL::flip(`horz)
+imgBullet = imagesR.first().resize(64)
+imgBoyBody = image('boy_body.bmp')
+imgBoyBody = imgBoyBody.setalpha(0, imgBoyBody.getpixel(0, 0))
+imgBoyLHand0= image('boy_lefthand.bmp')
+imgBoyLHand0= imgBoyLHand0.setalpha(0, imgBoyLHand0.getpixel(0, 0))
+Hand = struct(image:image, xOffset:number, yOffset:number)
+hands = Hand * @{
+	[imgBoyLHand0.rotate(-60), -70, 30]
+	[imgBoyLHand0.rotate(-45), -60, 5]
+	[imgBoyLHand0.rotate(-30), -40, 0]
+	[imgBoyLHand0.rotate(-15), -30, 0]
+	[imgBoyLHand0, -10, 0]
+}
+hand = hands.first()
+handsIter = nil
+
+xStep = wdImage / 10
+squTbl = [interval(-1, 2, 60) ** 2 * 300]
+
+Bullet = class {
+	__init__(x:number, y:number) = {
+		[self.x, self.y] = [x, y]
+		self.squIter = squTbl.each()
+	}
+	doAction() = {
+		yOffset = self.squIter.next()
+		!yOffset && return(false)
+		y = self.y - squTbl[0] + yOffset
+		screen.PutSurface(imgBullet, self.x, y)
+		self.x += 12
+		true
+	}
+}
+Chicken = class {
+	__init__(x:number, y:number, dir:symbol) = {
+		[self.x, self.y] = [x, y]
+		if (dir == `right) {
+			self.xDir = xStep
+			self.imageIter = imagesR.round()
+		} else {
+			self.xDir = -xStep
+			self.imageIter = imagesL.round()
+		}
+	}
+	doAction() = {
+		image = self.imageIter.next()
+		screen.PutSurface(image, self.x, self.y - image.height)
+		self.x += self.xDir
+		if (self.x + wdImage > wdScreen) {
+			self.xDir = -xStep
+			self.imageIter = imagesL.round()
+		}
+		if (self.x < 0) {
+			self.xDir = xStep
+			self.imageIter = imagesR.round()
+		}
+	}
+}
+chickens = repeat(3):list {
+	x = rand(wdScreen - wdImage)
+	y = rand(100) + wdImage
+	dir = cond(rand() < .5, `left, `right)
+	Chicken(x, y, dir)
+}
+bullets = [
+]
+
+xBoy = 200
+yBoy = 400
+xdirBoy = 0
+//font = sdl.OpenFont(path.join(os.getenv('SystemRoot'), 'Fonts', 'arial.ttf'), 32)
+sdl.AddTimer(50) {
+	screen.PutSurface(imageBg, 0, 0)
+	text = 'Chickens: %d' % chickens.len()
+	//font.RenderText_Blended(text, color(`white)) {|surface|
+	//	screen.PutSurface(surface, 10, 10)
+	//}
+	
+	screen.PutSurface(imgBoyBody, xBoy, yBoy)
+	if (handsIter) {
+		hand = handsIter.next()
+		if (!hand) {
+			handsIter = nil
+			hand = hands.first()
+		}
+	} else {
+		screen.PutSurface(imgBullet, xBoy - 48, yBoy - 16)
+	}
+	screen.PutSurface(hand.image, xBoy + hand.xOffset, yBoy + hand.yOffset)
+ 	xBoy += xdirBoy
+	
+	chickens::doAction()
+	bullets::doAction()
+	
+	screen.UpdateRect()
+	true
+}
+repeat {
+	event = sdl.WaitEvent()
+	if (event.type == sdl.QUIT || \
+				(event.type == sdl.KEYDOWN && event.sym == sdl.K_ESCAPE)) {
+		break
+	} elsif (event.type == sdl.KEYDOWN) {
+		if (event.sym == sdl.K_LEFT) {
+			xdirBoy = -16
+		} elsif (event.sym == sdl.K_RIGHT) {
+			xdirBoy = +16
+		} elsif (event.sym == sdl.K_SPACE) {
+			bullets.add(Bullet(xBoy - 48, yBoy - 16))
+			handsIter = hands.each()
+		}
+	} elsif (event.type == sdl.KEYUP) {
+		if (event.sym == sdl.K_LEFT) {
+			xdirBoy = 0
+		} elsif (event.sym == sdl.K_RIGHT) {
+			xdirBoy = 0
+		}
+	} elsif (event.type == sdl.MOUSEBUTTONDOWN) {
+		dir = choose(event.button, `left, `left, `right, `right, `middle, `middle)
+		chickens.add(Chicken(event.x, event.y, dir))
+	}
+}

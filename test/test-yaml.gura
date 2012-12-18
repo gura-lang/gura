@@ -1,0 +1,326 @@
+#!/usr/bin/env gura
+import(yaml)
+
+tester(label:string, str:string) = {
+	println(label, ' .. ', str):nomap
+}
+tester('Example 2.1', yaml.parse('''
+- Mark McGwire
+- Sammy Sosa
+- Ken Griffey
+'''))
+
+tester('Example 2.2', yaml.parse('''
+hr:  65
+avg: 0.278
+rbi: 147
+'''))
+
+tester('Example 2.3', yaml.parse('''
+american:
+  - Boston Red Sox
+  - Detroit Tigers
+  - New York Yankees
+national:
+  - New York Mets
+  - Chicago Cubs
+  - Atlanta Braves
+'''))
+
+tester('Example 2.4', yaml.parse('''
+-
+  name: Mark McGwire
+  hr:   65
+  avg:  0.278
+-
+  name: Sammy Sosa
+  hr:   63
+  avg:  0.288
+'''))
+
+tester('Example 2.5', yaml.parse('''
+- [name        , hr, avg  ]
+- [Mark McGwire, 65, 0.278]
+- [Sammy Sosa  , 63, 0.288]
+
+'''))
+
+tester('Example 2.6', yaml.parse('''
+Mark McGwire: {hr: 65, avg: 0.278}
+Sammy Sosa: {
+    hr: 63,
+    avg: 0.288
+  }
+'''))
+
+tester('Example 2.7', yaml.parse('''
+# Ranking of 1998 home runs
+---
+- Mark McGwire
+- Sammy Sosa
+- Ken Griffey
+
+# Team ranking
+---
+- Chicago Cubs
+- St Louis Cardinals
+'''))
+
+tester('Example 2.8', yaml.parse('''
+---
+time: 20:03:20
+player: Sammy Sosa
+action: strike (miss)
+...
+---
+time: 20:03:47
+player: Sammy Sosa
+action: grand slam
+...
+'''))
+
+tester('Example 2.9', yaml.parse('''
+---
+hr: # 1998 hr ranking
+  - Mark McGwire
+  - Sammy Sosa
+rbi:
+  # 1998 rbi ranking
+  - Sammy Sosa
+  - Ken Griffey
+'''))
+
+tester('Example 2.10', yaml.parse('''
+---
+hr:
+  - Mark McGwire
+  # Following node labeled SS
+  - &SS Sammy Sosa
+rbi:
+  - *SS # Subsequent occurrence
+  - Ken Griffey
+'''))
+
+tester('Example 2.11', yaml.parse('''
+? - Detroit Tigers
+  - Chicago cubs
+:
+  - 2001-07-23
+
+? [ New York Yankees,
+    Atlanta Braves ]
+: [ 2001-07-02, 2001-08-12,
+    2001-08-14 ]
+'''))
+
+tester('Example 2.12', yaml.parse('''
+---
+# products purchased
+- item    : Super Hoop
+  quantity: 1
+- item    : Basketball
+  quantity: 4
+- item    : Big Shoes
+  quantity: 1
+
+'''))
+
+tester('Example 2.13', yaml.parse(r'''
+# ASCII Art
+--- |
+  \//||\/||
+  // ||  ||__
+'''))
+
+tester('Example 2.14', yaml.parse('''
+---
+  Mark McGwire's
+  year was crippled
+  by a knee injury.
+'''))
+
+tester('Example 2.15', yaml.parse('''
+>
+ Sammy Sosa completed another
+ fine season with great stats.
+
+   63 Home Runs
+   0.288 Batting Average
+
+ What a year!
+'''))
+
+tester('Example 2.16', yaml.parse('''
+name: Mark McGwire
+accomplishment: >
+  Mark set a major league
+  home run record in 1998.
+stats: |
+  65 Home Runs
+  0.278 Batting Average
+
+'''))
+/*
+tester('Example 2.17', yaml.parse('''
+unicode: "Sosa did fine.\\u263A"
+control: "\\b1998\\t1999\\t2000\\n"
+hexesc:  "\\x13\\x10 is \\r\\n"
+
+single: '"Howdy!" he cried.'
+quoted: ' # not a ''comment''.'
+tie-fighter: '|\\-*-/|'
+'''))
+*/
+tester('Example 2.18', yaml.parse('''
+plain:
+  This unquoted scalar
+  spans many lines.
+
+quoted: "So does this
+  quoted scalar.\\n"
+'''))
+
+tester('Example 2.19', yaml.parse('''
+canonical: 12345
+decimal: +12,345
+sexagecimal: 3:25:45
+octal: 014
+hexadecimal: 0xC
+'''))
+
+tester('Example 2.20', yaml.parse('''
+canonical: 1.23015e+3
+exponential: 12.3015e+02
+sexagecimal: 20:30.15
+fixed: 1,230.15
+negative infinity: -.inf
+not a number: .NaN
+'''))
+
+tester('Example 2.21', yaml.parse('''
+null: ~
+true: y
+false: n
+string: '12345'
+'''))
+
+tester('Example 2.22', yaml.parse('''
+canonical: 2001-12-15T02:59:43.1Z
+iso8601: 2001-12-14t21:59:43.10-05:00
+spaced: 2001-12-14 21:59:43.10 -5
+date: 2002-12-14
+'''))
+
+tester('Example 2.23', yaml.parse('''
+---
+not-date: !!str 2002-04-28
+
+picture: !!binary |
+ R0lGODlhDAAMAIQAAP//9/X
+ 17unp5WZmZgAAAOfn515eXv
+ Pz7Y6OjuDg4J+fn5OTk6enp
+ 56enmleECcgggoBADs=
+
+application specific tag: !something |
+ The semantics of the tag
+ above may be different for
+ different documents.
+'''))
+
+tester('Example 2.24', yaml.parse('''
+%TAG ! tag:clarkevans.com,2002:
+--- !shape
+  # Use the ! handle for presenting
+  # tag:clarkevans.com,2002:circle
+- !circle
+  center: &ORIGIN {x: 73, y: 129}
+  radius: 7
+- !line
+  start: *ORIGIN
+  finish: { x: 89, y: 102 }
+- !label
+  start: *ORIGIN
+  color: 0xFFEEBB
+  text: Pretty vector drawing.
+'''))
+
+tester('Example 2.25', yaml.parse('''
+# sets are represented as a
+# mapping where each key is
+# associated with the empty string
+--- !!set
+? Mark McGwire
+? Sammy Sosa
+? Ken Griff
+'''))
+
+tester('Example 2.26', yaml.parse('''
+# ordered maps are represented as
+# a sequence of mappings, with
+# each mapping having one key
+--- !!omap
+- Mark McGwire: 65
+- Sammy Sosa: 63
+- Ken Griffy: 58
+'''))
+
+tester('Example 2.27', yaml.parse('''
+--- !<tag:clarkevans.com,2002:invoice>
+invoice: 34843
+date   : 2001-01-23
+bill-to: &id001
+    given  : Chris
+    family : Dumars
+    address:
+        lines: |
+            458 Walkman Dr.
+            Suite #292
+        city    : Royal Oak
+        state   : MI
+        postal  : 48046
+ship-to: *id001
+product:
+    - sku         : BL394D
+      quantity    : 4
+      description : Basketball
+      price       : 450.00
+    - sku         : BL4438H
+      quantity    : 1
+      description : Super Hoop
+      price       : 2392.00
+tax  : 251.42
+total: 4443.52
+comments:
+    Late afternoon is best.
+    Backup contact is Nancy
+    Billsmer @ 338-4338.
+'''))
+
+tester('Example 2.28', yaml.parse('''
+---
+Time: 2001-11-23 15:01:42 -5
+User: ed
+Warning:
+  This is an error message
+  for the log file
+---
+Time: 2001-11-23 15:02:31 -5
+User: ed
+Warning:
+  A slightly different error
+  message.
+---
+Date: 2001-11-23 15:03:17 -5
+User: ed
+Fatal:
+  Unknown variable "bar"
+Stack:
+  - file: TopClass.py
+    line: 23
+    code: |
+      x = MoreObject("345\\n")
+  - file: MoreClass.py
+    line: 58
+    code: |-
+      foo = bar
+'''):list)

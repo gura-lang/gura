@@ -1,0 +1,43 @@
+#!/usr/bin/env gura
+import(tk)
+
+str = repeat(20):iter { chr(ord('a')..ord('z')).join() }.join('\n')
+tk.mainwindow {|mw|
+	mw.Button(text => 'Get Text') {|w|
+		w.grid(column => 0, row => 0, sticky => 'w')
+		w.bind(`command) {
+			print(text.get('1.0', 'end'))
+		}
+	}
+	text = mw.Text(width => 40, height => 24, wrap => 'none').grid() {|w|
+		w.grid(column => 0, row => 1)
+		w[`font] = tk.Font((tk.TextFont.actual {`size => 14})%)
+		w.insert('end', str)
+		w.Tag('4.0', '6.0') {|tag|
+			tag.configure(background => 'yellow')
+		}
+		tag1 = w.Insert('1.1', '[1.1]')
+		w.Insert(tag1, '3.0', '[3.0]')
+		w.Insert(tag1, '3.10', '[3.10]')
+		tag1.configure(background => 'red')
+		tag2 = w.Replace('8.3', '8.8', '*****')
+		w.Replace(tag2, '9.3', '9.8', '*****')
+		tag2.configure(background => 'blue')
+		w.insert('end', '\n')
+		w.Insert(tag1, 'end', 'this must be colored in red\n')
+		w.Insert(tag2, 'end', 'this must be colored in blue\n')
+		idx = 0
+		tag1.bind('<1>') {|x:number, y:number|
+			idx = (idx + 1) % 4
+			tag1.configure(background => ['red', 'blue', 'green', 'white'][idx])
+		}
+		w.Button(text => 'Get Text') {|b|
+			w.window$create('10.10', window => b)
+			b.bind(`command) {
+				print(text.get('1.0', 'end'))
+			}
+		}
+		w.window$create('12.10', window => w.Button(text => 'Push Me'))
+	}
+}
+tk.mainloop()

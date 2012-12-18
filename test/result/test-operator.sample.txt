@@ -1,0 +1,128 @@
+__pos__
+__neg__
+__invert__
+__not__
+__add__
+__sub__
+__mul__
+__div__
+__eq__
+__ne__
+__ge__
+__le__
+__cmp__
+__or__
+__and__
+__xor__
+__shl__
+__shr__
+__seq__
+__seqinf__
+__getitem__ 3
+__getitemx__
+__setitem__ 3 2
+__setitemx__ 2
+__getprop__ b
+__setprop__ b 2
+hello world
+hello world
+2nd line
+3rd line
+hello world
+nil | 3 .. 3
+3 | nil .. 3
+nil | nil .. nil
+nil & 3 .. nil
+3 & nil .. nil
+nil & nil .. nil
+2 in 2 .. true
+2 in 3 .. false
+2 in 0 .. 10 .. true
+2 in 4 .. 10 .. false
+2 in [0 .. 10] .. true
+2 in [4 .. 10] .. false
+0 .. 10 in 4 .. [false, false, false, false, true, false, false, false, false, false, false]
+0 .. 10 in (-2) .. [false, false, false, false, false, false, false, false, false, false, false]
+0 .. 10 in 0 .. 5 .. [true, true, true, true, true, true, false, false, false, false, false]
+0 .. 10 in 4 .. 8 .. [false, false, false, false, true, true, true, true, true, false, false]
+0 .. 10 in [0 .. 5] .. [true, true, true, true, true, true, false, false, false, false, false]
+0 .. 10 in [4 .. 8] .. [false, false, false, false, true, true, true, true, true, false, false]
+[0 .. 10] in 4 .. [false, false, false, false, true, false, false, false, false, false, false]
+[0 .. 10] in (-2) .. [false, false, false, false, false, false, false, false, false, false, false]
+[0 .. 10] in 0 .. 5 .. [true, true, true, true, true, true, false, false, false, false, false]
+[0 .. 10] in 4 .. 8 .. [false, false, false, false, true, true, true, true, true, false, false]
+[0 .. 10] in [0 .. 5] .. [true, true, true, true, true, true, false, false, false, false, false]
+[0 .. 10] in [4 .. 8] .. [false, false, false, false, true, true, true, true, true, false, false]
+a=1, b=2, c=3
+a=1, b=2, c=[3, 4, 5]
+a=1, b=2, c=[3, 4, 5]
+a=1, b=2, c=[]
+name = apple, cnt = 0
+__add__(Fruit, number)
+__sub__(Fruit, number)
+__mul__(Fruit, number)
+__div__(Fruit, number)
+__pow__(Fruit, number)
+__add__(number, Fruit)
+__sub__(number, Fruit)
+__mul__(number, Fruit)
+__div__(number, Fruit)
+__pow__(number, Fruit)
+__eq__(Fruit, number)
+__ne__(Fruit, number)
+__lt__(Fruit, number)
+__gt__(Fruit, number)
+__le__(Fruit, number)
+__ge__(Fruit, number)
+__cmp__(Fruit, number)
+__or__(Fruit, number)
+__and__(Fruit, number)
+__seq__(Fruit, number)
+false & false .. false
+false & true .. false
+true & false .. false
+true & true .. true
+false | false .. false
+false | true .. true
+true | false .. true
+true | true .. true
+false ^ false .. false
+false ^ true .. true
+true ^ false .. true
+true ^ true .. false
+false & false & false .. false
+false & false & true .. false
+false & true & false .. false
+false & true & true .. false
+true & false & false .. false
+true & false & true .. false
+true & true & false .. false
+true & true & true .. true
+false | false | false .. false
+false | false | true .. true
+false | true | false .. true
+false | true | true .. true
+true | false | false .. true
+true | false | true .. true
+true | true | false .. true
+true | true | true .. true
+false | true & false .. false
+x .. [true, false, false, true, false, true, false, false, true, true]
+y .. [true, false, false, true, false, false, false, false, true, true]
+z .. [false, false, false, true, false, false, false, true, true, false]
+x | y .. [true, false, false, true, false, true, false, false, true, true]
+x & y .. [true, false, false, true, false, false, false, false, true, true]
+x ^ y .. [false, false, false, false, false, true, false, false, false, false]
+x | y | z .. [true, false, false, true, false, true, false, true, true, true]
+x & y & z .. [false, false, false, true, false, false, false, false, true, false]
+x ^ y ^ z .. [false, false, false, true, false, true, false, true, true, false]
+f(a:number, b:number, c:number, d:number):map = format('%d-%d-%d-%d', a, b, c, d)
+f % [1, 2, 3, 4] .. 1-2-3-4
+f % [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]] .. ['1-4-7-10', '2-5-8-11', '3-6-9-12']
+f * [1, 2, 3, 4] .. 1-2-3-4
+f * [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]] .. ['1-2-3-4', '5-6-7-8', '9-10-11-12', '13-14-15-16', '17-18-19-20']
+f(a:number, b:number, c:number, d:number):map = a + b + c + d
+f % [1, 2, 3, 4] .. 10
+f % [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]] .. [22, 26, 30]
+f * [1, 2, 3, 4] .. 10
+f * [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]] .. [10, 26, 42, 58, 74]

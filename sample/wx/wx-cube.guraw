@@ -1,0 +1,323 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        cube.cpp
+// Purpose:     wxGLCanvas demo program
+// Author:      Julian Smart
+// Modified by:
+// Created:     04/01/98
+// RCS-ID:      $Id: cube.cpp 35650 2005-09-23 12:56:45Z MR $
+// Copyright:   (c) Julian Smart
+// Licence:     wxWindows licence
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+import(opengl) {*}
+
+ID_NEW_WINDOW = 10000
+ID_DEF_ROTATE_LEFT_KEY = 10001
+ID_DEF_ROTATE_RIGHT_KEY = 10002
+
+/*----------------------------------------------------------
+  Control to get a keycode
+  ----------------------------------------------------------*/
+ScanCodeCtrl = class(wx.TextCtrl) {
+	__init__(parent:wx.Window, id:number, code:number, pos:wx.Point, size:wx.Size) = \
+								{|parent, id, wx.EmptyString, pos, size|
+		self.EventTable()
+		self.SetValue(format('0x%04x', code))
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_CHAR) {|event| self.OnChar(event) }
+		self.Bind(wx.EVT_KEY_DOWN) {|event| self.OnKeyDown(event) }
+	}
+	OnChar(event:wx.KeyEvent) = {
+		// Do nothing
+	}
+	OnKeyDown(event:wx.KeyEvent) = {
+		self.SetValue(format('0x%04x', event.GetKeyCode()))
+	}
+}
+
+/*------------------------------------------------------------------
+ Dialog for defining a keypress
+-------------------------------------------------------------------*/
+
+ScanCodeDialog = class(wx.Dialog) {
+	__init__(parent:wx.Window, id:number, code:number, descr:string, title:string) = \
+			{|parent, id, title, wx.DefaultPosition, wx.Size(96 * 2, 76 * 2)|
+		wx.StaticText(self, wx.ID_ANY, 'Scancode', wx.Point(4 * 2, 3 * 2),
+			wx.Size(31 * 2, 12 * 2))
+		self.m_ScanCode = ScanCodeCtrl(self, wx.ID_ANY, code, wx.Point(37 * 2,6 * 2),
+			wx.Size(53 * 2, 14 * 2))
+		wx.StaticText(self, wx.ID_ANY, 'Description', wx.Point(4 * 2, 24 * 2),
+			wx.Size(32 * 2, 12 * 2))
+		self.m_Description = wx.TextCtrl(self, wx.ID_ANY, descr, wx.Point(37 * 2, 27 * 2),
+			wx.Size(53 * 2, 14 * 2))
+		wx.Button(self, wx.ID_OK, 'Ok', wx.Point(20 * 2, 50 * 2), wx.Size(20 * 2, 13 * 2))
+		wx.Button(self, wx.ID_CANCEL, 'Cancel', wx.Point(44 * 2,50 * 2),
+			wx.Size(25 * 2, 13 * 2))
+	}
+	GetValue() = {
+		buf = self.m_ScanCode.GetValue()
+		code = int(buf)
+		code
+	}
+}
+
+/*----------------------------------------------------------------
+  Implementation of Test-GLCanvas
+-----------------------------------------------------------------*/
+
+TestGLCanvas = class(wx.GLCanvas) {
+	__init__(parent:wx.Window,
+			id:number => wx.ID_ANY, pos:wx.Point => wx.DefaultPosition,
+			size:wx.Size => wx.DefaultSize, style:number => 0,
+			name:string => 'TestGLCanvas') = \
+		{|parent, id, pos, size, (style | wx.FULL_REPAINT_ON_RESIZE), name|
+		self.EventTable()
+		self.m_init = false
+		self.m_gllist = nil
+		self.m_rleft = wx.WXK_LEFT
+		self.m_rright = wx.WXK_RIGHT
+		self.m_TimeInitialized = 0
+		self.m_xsynct = 0
+		self.m_gsynct = 0
+		self.m_Key = 0
+		self.m_StartTime = 0
+		self.m_LastTime = 0
+		self.m_LastRedraw = 0
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_SIZE) {|event| self.OnSize(event) }
+		self.Bind(wx.EVT_PAINT) {|event| self.OnPaint(event) }
+		self.Bind(wx.EVT_ERASE_BACKGROUND) {|event| self.OnEraseBackground(event) }
+		self.Bind(wx.EVT_KEY_DOWN) {|event| self.OnKeyDown(event) }
+		self.Bind(wx.EVT_KEY_UP) {|event| self.OnKeyUp(event) }
+		self.Bind(wx.EVT_ENTER_WINDOW) {|event| self.OnEnterWindow(event) }
+	}
+	Render() = {
+		dc = wx.PaintDC(self)
+		if (!self.GetContext()) { dc = nil; return }
+		self.SetCurrent()
+		// Init OpenGL once, but after SetCurrent
+		if (!self.m_init) {
+			self.InitGL()
+			self.m_init = true
+		}
+		glMatrixMode(GL_PROJECTION)
+		glLoadIdentity()
+		glFrustum(-0.5, 0.5, -0.5, 0.5, 1.0, 3.0)
+		glMatrixMode(GL_MODELVIEW)
+		/* clear color and depth buffers */
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+		if (self.m_gllist == nil) {
+			self.m_gllist = glGenLists(1)
+			glNewList(self.m_gllist, GL_COMPILE_AND_EXECUTE )
+			/* draw six faces of a cube */
+			glBegin(GL_QUADS)
+			glNormal3f( 0.0, 0.0, 1.0)
+			glVertex3f( 0.5, 0.5, 0.5); glVertex3f(-0.5, 0.5, 0.5)
+			glVertex3f(-0.5,-0.5, 0.5); glVertex3f( 0.5,-0.5, 0.5)
+			glNormal3f( 0.0, 0.0,-1.0)
+			glVertex3f(-0.5,-0.5,-0.5); glVertex3f(-0.5, 0.5,-0.5)
+			glVertex3f( 0.5, 0.5,-0.5); glVertex3f( 0.5,-0.5,-0.5)
+			glNormal3f( 0.0, 1.0, 0.0)
+			glVertex3f( 0.5, 0.5, 0.5); glVertex3f( 0.5, 0.5,-0.5)
+			glVertex3f(-0.5, 0.5,-0.5); glVertex3f(-0.5, 0.5, 0.5)
+			glNormal3f( 0.0,-1.0, 0.0)
+			glVertex3f(-0.5,-0.5,-0.5); glVertex3f( 0.5,-0.5,-0.5)
+			glVertex3f( 0.5,-0.5, 0.5); glVertex3f(-0.5,-0.5, 0.5)
+			glNormal3f( 1.0, 0.0, 0.0)
+			glVertex3f( 0.5, 0.5, 0.5); glVertex3f( 0.5,-0.5, 0.5)
+			glVertex3f( 0.5,-0.5,-0.5); glVertex3f( 0.5, 0.5,-0.5)
+			glNormal3f(-1.0, 0.0, 0.0)
+			glVertex3f(-0.5,-0.5,-0.5); glVertex3f(-0.5,-0.5, 0.5)
+			glVertex3f(-0.5, 0.5, 0.5); glVertex3f(-0.5, 0.5,-0.5)
+			glEnd()
+			glEndList()
+		} else {
+			glCallList(self.m_gllist)
+		}
+		glFlush()
+		self.SwapBuffers()
+		dc = nil
+	}
+	OnEnterWindow(event:wx.MouseEvent) = {
+	}
+	OnPaint(event:wx.PaintEvent) = {
+		self.Render()
+	}
+	OnSize(event:wx.SizeEvent) = {
+		// set GL viewport (not called by wxGLCanvas::OnSize on all platforms...)
+		[w, h] = self.GetClientSizeWH()
+		if (self.GetContext()) {
+			self.SetCurrent()
+			glViewport(0, 0, w, h)
+		}
+	}
+	OnEraseBackground(event:wx.EraseEvent) = {
+		// Do nothing, to avoid flashing.
+	}
+	InitGL() = {
+		self.SetCurrent()
+		/* set viewing projection */
+		glMatrixMode(GL_PROJECTION)
+		glFrustum(-0.5, 0.5, -0.5, 0.5, 1.0, 3.0)
+		/* position viewer */
+		glMatrixMode(GL_MODELVIEW)
+		glTranslatef(0.0, 0.0, -2.0)
+		/* position object */
+		glRotatef(30.0, 1.0, 0.0, 0.0)
+		glRotatef(30.0, 0.0, 1.0, 0.0)
+		glEnable(GL_DEPTH_TEST)
+		glEnable(GL_LIGHTING)
+		glEnable(GL_LIGHT0)
+	}
+	CalcRotateSpeed(acceltime:number):static = {
+		t = acceltime / 1000.0
+		if (t < 0.5) {
+			v = t
+		} elsif (t < 1.0) {
+			v = t * (2.0 - t)
+		} else {
+			v = 0.75
+		}
+		v
+	}
+	CalcRotateAngle(lasttime:number, acceltime:number):static = {
+		t = (acceltime - lasttime) / 1000.0
+		s1 = self.CalcRotateSpeed(lasttime)
+		s2 = self.CalcRotateSpeed(acceltime)
+		t * (s1 + s2) * 135.0
+	}
+	Action(code:number, lasttime:number, acceltime:number) = {
+		angle = self.CalcRotateAngle(lasttime, acceltime)
+		if (code == self.m_rleft) {
+			self.Rotate(angle)
+		} elsif (code == self.m_rright) {
+			self.Rotate(-angle)
+		}
+	}
+	OnKeyDown(event:wx.KeyEvent) = {
+		evkey = event.GetKeyCode()
+		if (evkey == 0) { return }
+		if (!self.m_TimeInitialized) {
+			self.m_TimeInitialized = 1
+			self.m_xsynct = event.GetTimestamp()
+			self.m_gsynct = StopWatch(&m_secbase)
+			self.m_Key = evkey
+			self.m_StartTime = 0
+			self.m_LastTime = 0
+			self.m_LastRedraw = 0
+		}
+		currTime = event.GetTimestamp() - self.m_xsynct
+		if (evkey != self.m_Key) {
+			self.m_Key = evkey
+			self.m_LastRedraw = self.m_StartTime = self.m_LastTime = currTime
+		}
+		if (currTime >= self.m_LastRedraw) {	  // Redraw:
+			self.Action(self.m_Key, self.m_LastTime - self.m_StartTime, currTime - self.m_StartTime)
+			self.m_LastRedraw = currTime;
+			//m_LastRedraw = StopWatch(&m_secbase) - m_gsynct
+			self.m_LastTime = currTime
+		}
+		event.Skip()
+	}
+	OnKeyUp(event:wx.KeyEvent) = {
+		self.m_Key = 0
+		self.m_StartTime = 0
+		self.m_LastTime = 0
+		self.m_LastRedraw = 0
+		event.Skip()
+	}
+	Rotate(deg:number) = {
+		self.SetCurrent()
+		glMatrixMode(GL_MODELVIEW)
+		glRotatef(deg, 0.0, 0.0, 1.0)
+		self.Refresh(false)
+	}
+}
+
+/* -----------------------------------------------------------------------
+  Main Window
+-------------------------------------------------------------------------*/
+
+MyFrame = class(wx.Frame) {
+	__init__(parent:wx.Window, title:string, pos:wx.Point,
+			size:wx.Size, style:number => wx.DEFAULT_FRAME_STYLE) = \
+							{|parent, wx.ID_ANY, title, pos, size, style|
+		self.EventTable()
+		self.m_canvas = nil
+		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| self.OnExit(event) }
+		self.Bind(wx.EVT_MENU, ID_NEW_WINDOW) {|event| self.OnNewWindow(event) }
+		self.Bind(wx.EVT_MENU, ID_DEF_ROTATE_LEFT_KEY) {|event| self.OnDefRotateLeftKey(event) }
+		self.Bind(wx.EVT_MENU, ID_DEF_ROTATE_RIGHT_KEY) {|event| self.OnDefRotateRightKey(event) }
+	}
+	OnExit(event:wx.CommandEvent) = {
+		// true is to force the frame to close
+		self.Close(true)
+	}
+	Create(parentFrame:MyFrame:nil, isCloneWindow:boolean => false):static = {
+		str = 'wxWidgets OpenGL Cube Sample'
+		if (isCloneWindow) { str += ' - Clone' }
+		frame = MyFrame(nil, str, wx.DefaultPosition,
+			wx.Size(400, 300))
+		// Make a menubar
+		winMenu = wx.Menu()
+		winMenu.Append(wx.ID_EXIT, '&Close')
+		winMenu.Append(ID_NEW_WINDOW, '&New' )
+		menuBar = wx.MenuBar()
+		menuBar.Append(winMenu, '&Window')
+		winMenu = wx.Menu()
+		winMenu.Append(ID_DEF_ROTATE_LEFT_KEY, 'Rotate &left')
+		winMenu.Append(ID_DEF_ROTATE_RIGHT_KEY, 'Rotate &right')
+		menuBar.Append(winMenu, '&Key')
+		frame.SetMenuBar(menuBar)
+		frame.m_canvas = TestGLCanvas(frame, wx.ID_ANY,
+				wx.DefaultPosition, wx.DefaultSize)
+		if (parentFrame) {
+			frame.m_canvas.SetCurrent(parentFrame.m_canvas)
+			//frame.m_canvas.m_gllist = parentFrame.m_canvas.m_gllist
+		}
+		// Show the frame
+		frame.Show(true)
+		frame
+	}
+	OnNewWindow(event:wx.CommandEvent) = {
+		self.Create(self, true)
+	}
+	OnDefRotateLeftKey(event:wx.CommandEvent) = {
+		dial = ScanCodeDialog(self, wx.ID_ANY, self.m_canvas.m_rleft,
+					'Left', 'Define key')
+		result = dial.ShowModal()
+		if (result == wx.ID_OK) {
+			self.m_canvas.m_rleft = dial.GetValue()
+		}
+	}
+	OnDefRotateRightKey(event:wx.CommandEvent) = {
+		dial = ScanCodeDialog(self, wx.ID_ANY, self.m_canvas.m_rright,
+					'Right', 'Define key')
+		result = dial.ShowModal()
+		if (result == wx.ID_OK) {
+			self.m_canvas.m_rright = dial.GetValue()
+		}
+	}
+}
+
+/*------------------------------------------------------------------
+  Application object ( equivalent to main() )
+------------------------------------------------------------------ */
+
+MyApp = class(wx.App) {
+	OnInit() = {
+		// Create the main frame window
+		MyFrame.Create(nil)
+		true
+	}
+}
+
+wx.IMPLEMENT_APP(MyApp)

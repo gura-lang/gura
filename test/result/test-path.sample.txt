@@ -1,0 +1,135 @@
+"                             " -> ""
+"a                            " -> "a"
+"a/b                          " -> "a/b"
+"a/b/c                        " -> "a/b/c"
+"a/b/c/d                      " -> "a/b/c/d"
+"a/..                         " -> ""
+"a/../..                      " -> ".."
+"a/../../..                   " -> "../.."
+"a/b/c                        " -> "a/b/c"
+"a/b/c/..                     " -> "a/b"
+"a/b/c/../..                  " -> "a"
+"a/b/c/../../..               " -> ""
+"a/b/c/../../../..            " -> ".."
+"a/                           " -> "a/"
+"/a                           " -> "/a"
+"/a/                          " -> "/a/"
+"/a/..                        " -> "/"
+"/a/../..                     " -> "/"
+"a/b/c/                       " -> "a/b/c/"
+"/a/b/c                       " -> "/a/b/c"
+"/a/b/c/                      " -> "/a/b/c/"
+"c:                           " -> "c:"
+"c:a/b/c                      " -> "c:a/b/c"
+"c:a/b/c/..                   " -> "c:a/b"
+"c:a/b/c/../..                " -> "c:a"
+"c:a/b/c/../../..             " -> "c:"
+"c:a/b/c/../../../..          " -> "c:.."
+"c:/                          " -> "c:/"
+"c:/a/b/c                     " -> "c:/a/b/c"
+"c:/a/b/c/..                  " -> "c:/a/b"
+"c:/a/b/c/../..               " -> "c:/a"
+"c:/a/b/c/../../..            " -> "c:/"
+"c:/a/b/c/../../../..         " -> "c:/"
+"a/b/c/./d/e/./f/g            " -> "a/b/c/d/e/f/g"
+"dir1/dir2///dir3//dir4/      " -> "dir1/dir2/dir3/dir4/"
+"///dir1/dir2///dir3//dir4/   " -> "///dir1/dir2/dir3/dir4/"
+"dir1/dir2/../dir3/../dir4/../" -> "dir1/"
+path.splitext('') .. [ + ]
+path.splitext('hoge/boke') .. [hoge/boke + ]
+path.splitext('hoge/boke/') .. [hoge/boke/ + ]
+path.splitext('hoge/boke.txt') .. [hoge/boke + txt]
+path.splitext('hoge/aaaa/bbbb/ccc/boke.txt') .. [hoge/aaaa/bbbb/ccc/boke + txt]
+path.splitext('hoge/aaaa/bbbb/ccc.tt/boke.txt') .. [hoge/aaaa/bbbb/ccc.tt/boke + txt]
+path.splitext('hoge/aaaa/bbbb/ccc/.boke') .. [hoge/aaaa/bbbb/ccc/.boke + ]
+path.splitext('/') .. [/ + ]
+path.splitext('/hoge/boke') .. [/hoge/boke + ]
+path.splitext('/hoge/boke/') .. [/hoge/boke/ + ]
+path.splitext('/hoge/boke.txt') .. [/hoge/boke + txt]
+path.splitext('/hoge/aaaa/bbbb/ccc/boke.txt') .. [/hoge/aaaa/bbbb/ccc/boke + txt]
+path.splitext('/hoge/aaaa/bbbb/ccc.tt/boke.txt') .. [/hoge/aaaa/bbbb/ccc.tt/boke + txt]
+path.splitext('/hoge/aaaa/bbbb/ccc/.boke') .. [/hoge/aaaa/bbbb/ccc/.boke + ]
+path.split('') .. [ + ]
+path.split('hoge/boke') .. [hoge/ + boke]
+path.split('hoge/boke/') .. [hoge/boke/ + ]
+path.split('hoge/boke.txt') .. [hoge/ + boke.txt]
+path.split('hoge/aaaa/bbbb/ccc/boke.txt') .. [hoge/aaaa/bbbb/ccc/ + boke.txt]
+path.split('hoge/aaaa/bbbb/ccc.tt/boke.txt') .. [hoge/aaaa/bbbb/ccc.tt/ + boke.txt]
+path.split('hoge/aaaa/bbbb/ccc/.boke') .. [hoge/aaaa/bbbb/ccc/ + .boke]
+path.split('/') .. [/ + ]
+path.split('/hoge/boke') .. [/hoge/ + boke]
+path.split('/hoge/boke/') .. [/hoge/boke/ + ]
+path.split('/hoge/boke.txt') .. [/hoge/ + boke.txt]
+path.split('/hoge/aaaa/bbbb/ccc/boke.txt') .. [/hoge/aaaa/bbbb/ccc/ + boke.txt]
+path.split('/hoge/aaaa/bbbb/ccc.tt/boke.txt') .. [/hoge/aaaa/bbbb/ccc.tt/ + boke.txt]
+path.split('/hoge/aaaa/bbbb/ccc/.boke') .. [/hoge/aaaa/bbbb/ccc/ + .boke]
+path.split(''):bottom .. [ + ]
+path.split('hoge/boke'):bottom .. [hoge/ + boke]
+path.split('hoge/boke/'):bottom .. [hoge/ + boke]
+path.split('hoge/boke.txt'):bottom .. [hoge/ + boke.txt]
+path.split('hoge/aaaa/bbbb/ccc/boke.txt'):bottom .. [hoge/aaaa/bbbb/ccc/ + boke.txt]
+path.split('hoge/aaaa/bbbb/ccc.tt/boke.txt'):bottom .. [hoge/aaaa/bbbb/ccc.tt/ + boke.txt]
+path.split('hoge/aaaa/bbbb/ccc/.boke'):bottom .. [hoge/aaaa/bbbb/ccc/ + .boke]
+path.split('/'):bottom .. [ + ]
+path.split('/hoge/boke'):bottom .. [/hoge/ + boke]
+path.split('/hoge/boke/'):bottom .. [/hoge/ + boke]
+path.split('/hoge/boke.txt'):bottom .. [/hoge/ + boke.txt]
+path.split('/hoge/aaaa/bbbb/ccc/boke.txt'):bottom .. [/hoge/aaaa/bbbb/ccc/ + boke.txt]
+path.split('/hoge/aaaa/bbbb/ccc.tt/boke.txt'):bottom .. [/hoge/aaaa/bbbb/ccc.tt/ + boke.txt]
+path.split('/hoge/aaaa/bbbb/ccc/.boke'):bottom .. [/hoge/aaaa/bbbb/ccc/ + .boke]
+path.dirname('') .. 
+path.dirname('hoge/boke') .. hoge/
+path.dirname('hoge/boke/') .. hoge/boke/
+path.dirname('hoge/boke.txt') .. hoge/
+path.dirname('hoge/aaaa/bbbb/ccc/boke.txt') .. hoge/aaaa/bbbb/ccc/
+path.dirname('hoge/aaaa/bbbb/ccc.tt/boke.txt') .. hoge/aaaa/bbbb/ccc.tt/
+path.dirname('hoge/aaaa/bbbb/ccc/.boke') .. hoge/aaaa/bbbb/ccc/
+path.dirname('/') .. /
+path.dirname('/hoge/boke') .. /hoge/
+path.dirname('/hoge/boke/') .. /hoge/boke/
+path.dirname('/hoge/boke.txt') .. /hoge/
+path.dirname('/hoge/aaaa/bbbb/ccc/boke.txt') .. /hoge/aaaa/bbbb/ccc/
+path.dirname('/hoge/aaaa/bbbb/ccc.tt/boke.txt') .. /hoge/aaaa/bbbb/ccc.tt/
+path.dirname('/hoge/aaaa/bbbb/ccc/.boke') .. /hoge/aaaa/bbbb/ccc/
+path.filename('') .. 
+path.filename('hoge/boke') .. boke
+path.filename('hoge/boke/') .. 
+path.filename('hoge/boke.txt') .. boke.txt
+path.filename('hoge/aaaa/bbbb/ccc/boke.txt') .. boke.txt
+path.filename('hoge/aaaa/bbbb/ccc.tt/boke.txt') .. boke.txt
+path.filename('hoge/aaaa/bbbb/ccc/.boke') .. .boke
+path.filename('/') .. 
+path.filename('/hoge/boke') .. boke
+path.filename('/hoge/boke/') .. 
+path.filename('/hoge/boke.txt') .. boke.txt
+path.filename('/hoge/aaaa/bbbb/ccc/boke.txt') .. boke.txt
+path.filename('/hoge/aaaa/bbbb/ccc.tt/boke.txt') .. boke.txt
+path.filename('/hoge/aaaa/bbbb/ccc/.boke') .. .boke
+path.bottom('') .. 
+path.bottom('hoge/boke') .. boke
+path.bottom('hoge/boke/') .. boke
+path.bottom('hoge/boke.txt') .. boke.txt
+path.bottom('hoge/aaaa/bbbb/ccc/boke.txt') .. boke.txt
+path.bottom('hoge/aaaa/bbbb/ccc.tt/boke.txt') .. boke.txt
+path.bottom('hoge/aaaa/bbbb/ccc/.boke') .. .boke
+path.bottom('/') .. 
+path.bottom('/hoge/boke') .. boke
+path.bottom('/hoge/boke/') .. boke
+path.bottom('/hoge/boke.txt') .. boke.txt
+path.bottom('/hoge/aaaa/bbbb/ccc/boke.txt') .. boke.txt
+path.bottom('/hoge/aaaa/bbbb/ccc.tt/boke.txt') .. boke.txt
+path.bottom('/hoge/aaaa/bbbb/ccc/.boke') .. .boke
+path.cutbottom('') .. 
+path.cutbottom('hoge/boke') .. hoge/
+path.cutbottom('hoge/boke/') .. hoge/
+path.cutbottom('hoge/boke.txt') .. hoge/
+path.cutbottom('hoge/aaaa/bbbb/ccc/boke.txt') .. hoge/aaaa/bbbb/ccc/
+path.cutbottom('hoge/aaaa/bbbb/ccc.tt/boke.txt') .. hoge/aaaa/bbbb/ccc.tt/
+path.cutbottom('hoge/aaaa/bbbb/ccc/.boke') .. hoge/aaaa/bbbb/ccc/
+path.cutbottom('/') .. 
+path.cutbottom('/hoge/boke') .. /hoge/
+path.cutbottom('/hoge/boke/') .. /hoge/
+path.cutbottom('/hoge/boke.txt') .. /hoge/
+path.cutbottom('/hoge/aaaa/bbbb/ccc/boke.txt') .. /hoge/aaaa/bbbb/ccc/
+path.cutbottom('/hoge/aaaa/bbbb/ccc.tt/boke.txt') .. /hoge/aaaa/bbbb/ccc.tt/
+path.cutbottom('/hoge/aaaa/bbbb/ccc/.boke') .. /hoge/aaaa/bbbb/ccc/

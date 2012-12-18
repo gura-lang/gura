@@ -1,0 +1,25 @@
+import(zip)
+
+scope {
+	entries = [
+		b'a' * 8009
+		b'b' * 3643
+		b'c' * 3517
+		b'd' * 6822
+		b'e' * 3381
+		b'f' * 8838
+		b'g' * 985
+		b'h' * 4991
+		b'i' * 8910
+		b'j' * 6954
+	]
+	buff = binary()
+	//buff = 'b.zip'
+	zip.writer(buff, `store).add(entries, 'entry' + (1..) + '.bin').close()
+	printf('%dbytes\n', buff.len())
+	for (entry in entries, stream in zip.reader(buff).each()) {
+		entryDec = stream.read()
+		printf('%-12s %5d %s\n', stream.stat.filename, stream.stat.size,
+									cond(entry == entryDec, 'OK', '*NG*'))
+	}
+}

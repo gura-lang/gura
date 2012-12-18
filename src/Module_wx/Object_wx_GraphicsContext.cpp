@@ -1,0 +1,899 @@
+//----------------------------------------------------------------------------
+// wxGraphicsContext
+// extracted from graphicscontext.tex
+//----------------------------------------------------------------------------
+#include "stdafx.h"
+
+Gura_BeginModule(wx)
+
+//----------------------------------------------------------------------------
+// Class derivation
+//----------------------------------------------------------------------------
+class wx_GraphicsContext: public wxGraphicsContext, public GuraObjectObserver {
+private:
+	Gura::Signal _sig;
+	Object_wx_GraphicsContext *_pObj;
+public:
+	~wx_GraphicsContext();
+	inline void AssocWithGura(Gura::Signal &sig, Object_wx_GraphicsContext *pObj) {
+		_sig = sig, _pObj = pObj;
+	}
+	// virtual function of GuraObjectObserver
+	virtual void GuraObjectDeleted();
+};
+
+wx_GraphicsContext::~wx_GraphicsContext()
+{
+	if (_pObj != NULL) _pObj->InvalidateEntity();
+}
+
+void wx_GraphicsContext::GuraObjectDeleted()
+{
+	_pObj = NULL;
+}
+
+//----------------------------------------------------------------------------
+// Gura interfaces for wxGraphicsContext
+//----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_GraphicsContext, Create)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "dc", VTYPE_wx_WindowDC, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, Create)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxWindowDC *dc = Object_wx_WindowDC::GetObject(args, 0)->GetEntity();
+	wxGraphicsContext *rtn = (wxGraphicsContext *)pSelf->GetEntity()->Create(*dc);
+	return ReturnValue(env, sig, args, Value(new Object_wx_GraphicsContext(rtn, NULL, OwnerFalse)));
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, Create_1)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, Create_1)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	wxGraphicsContext *rtn = (wxGraphicsContext *)pSelf->GetEntity()->Create(window);
+	return ReturnValue(env, sig, args, Value(new Object_wx_GraphicsContext(rtn, NULL, OwnerFalse)));
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, CreateFromNative)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, CreateFromNative)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int context = args.GetInt(0);
+	wxGraphicsContext *rtn = (wxGraphicsContext *)pSelf->GetEntity()->CreateFromNative(context);
+	return ReturnValue(env, sig, args, Value(new Object_wx_GraphicsContext(rtn, NULL, OwnerFalse)));
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, CreateFromNativeWindow)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, CreateFromNativeWindow)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int window = args.GetInt(0);
+	wxGraphicsContext *rtn = (wxGraphicsContext *)pSelf->GetEntity()->CreateFromNativeWindow(window);
+	return ReturnValue(env, sig, args, Value(new Object_wx_GraphicsContext(rtn, NULL, OwnerFalse)));
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, CreatePen)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "pen", VTYPE_wx_Pen, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, CreatePen)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxPen *pen = Object_wx_Pen::GetObject(args, 0)->GetEntity();
+	wxGraphicsPen rtn = pSelf->GetEntity()->CreatePen(*pen);
+	return ReturnValue(env, sig, args, Value(new Object_wx_GraphicsPen(new wxGraphicsPen(rtn), NULL, OwnerTrue)));
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, CreateBrush)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "brush", VTYPE_wx_Brush, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, CreateBrush)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxBrush *brush = Object_wx_Brush::GetObject(args, 0)->GetEntity();
+	wxGraphicsBrush rtn = pSelf->GetEntity()->CreateBrush(*brush);
+	return ReturnValue(env, sig, args, Value(new Object_wx_GraphicsBrush(new wxGraphicsBrush(rtn), NULL, OwnerTrue)));
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, CreateRadialGradientBrush)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "xo", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "yo", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "xc", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "yc", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "radius", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "oColor", VTYPE_wx_Colour, OCCUR_Once);
+	DeclareArg(env, "cColor", VTYPE_wx_Colour, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, CreateRadialGradientBrush)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxDouble *xo = Object_wx_Double::GetObject(args, 0)->GetEntity();
+	wxDouble *yo = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	wxDouble *xc = Object_wx_Double::GetObject(args, 2)->GetEntity();
+	wxDouble *yc = Object_wx_Double::GetObject(args, 3)->GetEntity();
+	wxDouble *radius = Object_wx_Double::GetObject(args, 4)->GetEntity();
+	wxColour *oColor = Object_wx_Colour::GetObject(args, 5)->GetEntity();
+	wxColour *cColor = Object_wx_Colour::GetObject(args, 6)->GetEntity();
+	wxGraphicsBrush rtn = pSelf->GetEntity()->CreateRadialGradientBrush(*xo, *yo, *xc, *yc, *radius, *oColor, *cColor);
+	return ReturnValue(env, sig, args, Value(new Object_wx_GraphicsBrush(new wxGraphicsBrush(rtn), NULL, OwnerTrue)));
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, CreateLinearGradientBrush)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "x1", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "y1", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "x2", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "y2", VTYPE_wx_Double, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, CreateLinearGradientBrush)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxDouble *x1 = Object_wx_Double::GetObject(args, 0)->GetEntity();
+	wxDouble *y1 = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	wxDouble *x2 = Object_wx_Double::GetObject(args, 2)->GetEntity();
+	wxDouble *y2 = Object_wx_Double::GetObject(args, 3)->GetEntity();
+	wxGraphicsBrush rtn = pSelf->GetEntity()->CreateLinearGradientBrush(*x1, *y1, *x2, *y2, , );
+	return ReturnValue(env, sig, args, Value(new Object_wx_GraphicsBrush(new wxGraphicsBrush(rtn), NULL, OwnerTrue)));
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, CreateFont)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
+	DeclareArg(env, "col", VTYPE_wx_Colour, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, CreateFont)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
+	wxColour *col = (wxColour *)(&*wxBLACK);
+	if (args.IsValid(1)) col = Object_wx_Colour::GetObject(args, 1)->GetEntity();
+	wxGraphicsFont rtn = pSelf->GetEntity()->CreateFont(*font, *col);
+	return ReturnValue(env, sig, args, Value(new Object_wx_GraphicsFont(new wxGraphicsFont(rtn), NULL, OwnerTrue)));
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, CreateMatrix)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "a", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "b", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "c", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "d", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "tx", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "ty", VTYPE_wx_Double, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, CreateMatrix)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxDouble *a = (wxDouble *)(&1.0);
+	if (args.IsValid(0)) a = Object_wx_Double::GetObject(args, 0)->GetEntity();
+	wxDouble *b = (wxDouble *)(&0.0);
+	if (args.IsValid(1)) b = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	wxDouble *c = (wxDouble *)(&0.0);
+	if (args.IsValid(2)) c = Object_wx_Double::GetObject(args, 2)->GetEntity();
+	wxDouble *d = (wxDouble *)(&1.0);
+	if (args.IsValid(3)) d = Object_wx_Double::GetObject(args, 3)->GetEntity();
+	wxDouble *tx = (wxDouble *)(&0.0);
+	if (args.IsValid(4)) tx = Object_wx_Double::GetObject(args, 4)->GetEntity();
+	wxDouble *ty = (wxDouble *)(&0.0);
+	if (args.IsValid(5)) ty = Object_wx_Double::GetObject(args, 5)->GetEntity();
+	wxGraphicsMatrix rtn = pSelf->GetEntity()->CreateMatrix(*a, *b, *c, *d, *tx, *ty);
+	return ReturnValue(env, sig, args, Value(new Object_wx_GraphicsMatrix(new wxGraphicsMatrix(rtn), NULL, OwnerTrue)));
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, CreatePath)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, CreatePath)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxGraphicsPath rtn = pSelf->GetEntity()->CreatePath();
+	return ReturnValue(env, sig, args, Value(new Object_wx_GraphicsPath(new wxGraphicsPath(rtn), NULL, OwnerTrue)));
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, Clip)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "region", VTYPE_wx_Region, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, Clip)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxRegion *region = Object_wx_Region::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->Clip(*region);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, Clip_1)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "w", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "h", VTYPE_wx_Double, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, Clip_1)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
+	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	wxDouble *w = Object_wx_Double::GetObject(args, 2)->GetEntity();
+	wxDouble *h = Object_wx_Double::GetObject(args, 3)->GetEntity();
+	pSelf->GetEntity()->Clip(*x, *y, *w, *h);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, ResetClip)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, ResetClip)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->ResetClip();
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, DrawBitmap)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "bmp", VTYPE_wx_Bitmap, OCCUR_Once);
+	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "w", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "h", VTYPE_wx_Double, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, DrawBitmap)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxBitmap *bmp = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
+	wxDouble *x = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	wxDouble *y = Object_wx_Double::GetObject(args, 2)->GetEntity();
+	wxDouble *w = Object_wx_Double::GetObject(args, 3)->GetEntity();
+	wxDouble *h = Object_wx_Double::GetObject(args, 4)->GetEntity();
+	pSelf->GetEntity()->DrawBitmap(*bmp, *x, *y, *w, *h);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, DrawEllipse)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "w", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "h", VTYPE_wx_Double, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, DrawEllipse)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
+	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	wxDouble *w = Object_wx_Double::GetObject(args, 2)->GetEntity();
+	wxDouble *h = Object_wx_Double::GetObject(args, 3)->GetEntity();
+	pSelf->GetEntity()->DrawEllipse(*x, *y, *w, *h);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, DrawIcon)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "icon", VTYPE_wx_Icon, OCCUR_Once);
+	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "w", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "h", VTYPE_wx_Double, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, DrawIcon)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxIcon *icon = Object_wx_Icon::GetObject(args, 0)->GetEntity();
+	wxDouble *x = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	wxDouble *y = Object_wx_Double::GetObject(args, 2)->GetEntity();
+	wxDouble *w = Object_wx_Double::GetObject(args, 3)->GetEntity();
+	wxDouble *h = Object_wx_Double::GetObject(args, 4)->GetEntity();
+	pSelf->GetEntity()->DrawIcon(*icon, *x, *y, *w, *h);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, DrawLines)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "points", VTYPE_wx_Point2DDouble, OCCUR_Once);
+	DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, DrawLines)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	size_t n = args.GetSizeT(0);
+	wxPoint2DDouble *points = Object_wx_Point2DDouble::GetObject(args, 1)->GetEntity();
+	int fillStyle = wxODDEVEN_RULE;
+	if (args.IsValid(2)) fillStyle = args.GetInt(2);
+	pSelf->GetEntity()->DrawLines(n, points, fillStyle);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, DrawPath)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "path", VTYPE_wx_GraphicsPath, OCCUR_Once);
+	DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, DrawPath)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxGraphicsPath *path = Object_wx_GraphicsPath::GetObject(args, 0)->GetEntity();
+	int fillStyle = wxODDEVEN_RULE;
+	if (args.IsValid(1)) fillStyle = args.GetInt(1);
+	pSelf->GetEntity()->DrawPath(*path, fillStyle);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, DrawRectangle)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "w", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "h", VTYPE_wx_Double, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, DrawRectangle)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
+	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	wxDouble *w = Object_wx_Double::GetObject(args, 2)->GetEntity();
+	wxDouble *h = Object_wx_Double::GetObject(args, 3)->GetEntity();
+	pSelf->GetEntity()->DrawRectangle(*x, *y, *w, *h);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, DrawRoundedRectangle)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "w", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "h", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "radius", VTYPE_wx_Double, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, DrawRoundedRectangle)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
+	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	wxDouble *w = Object_wx_Double::GetObject(args, 2)->GetEntity();
+	wxDouble *h = Object_wx_Double::GetObject(args, 3)->GetEntity();
+	wxDouble *radius = Object_wx_Double::GetObject(args, 4)->GetEntity();
+	pSelf->GetEntity()->DrawRoundedRectangle(*x, *y, *w, *h, *radius);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, DrawText)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "angle", VTYPE_wx_Double, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, DrawText)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString str = wxString::FromUTF8(args.GetString(0));
+	wxDouble *x = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	wxDouble *y = Object_wx_Double::GetObject(args, 2)->GetEntity();
+	wxDouble *angle = Object_wx_Double::GetObject(args, 3)->GetEntity();
+	pSelf->GetEntity()->DrawText(str, *x, *y, *angle);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, DrawText_1)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "x", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "y", VTYPE_wx_Double, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, DrawText_1)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString str = wxString::FromUTF8(args.GetString(0));
+	wxDouble *x = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	wxDouble *y = Object_wx_Double::GetObject(args, 2)->GetEntity();
+	pSelf->GetEntity()->DrawText(str, *x, *y);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, FillPath)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "path", VTYPE_wx_GraphicsPath, OCCUR_Once);
+	DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, FillPath)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxGraphicsPath *path = Object_wx_GraphicsPath::GetObject(args, 0)->GetEntity();
+	int fillStyle = wxODDEVEN_RULE;
+	if (args.IsValid(1)) fillStyle = args.GetInt(1);
+	pSelf->GetEntity()->FillPath(*path, fillStyle);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, StrokePath)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "path", VTYPE_wx_GraphicsPath, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, StrokePath)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxGraphicsPath *path = Object_wx_GraphicsPath::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->StrokePath(*path);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, GetNativeContext)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, GetNativeContext)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->GetNativeContext();
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, GetPartialTextExtents)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "widths", VTYPE_wx_ArrayDouble, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, GetPartialTextExtents)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString text = wxString::FromUTF8(args.GetString(0));
+	wxArrayDouble *widths = Object_wx_ArrayDouble::GetObject(args, 1)->GetEntity();
+	pSelf->GetEntity()->GetPartialTextExtents(text, *widths);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, GetTextExtent)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "text", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "width", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "height", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "descent", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "externalLeading", VTYPE_wx_Double, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, GetTextExtent)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString text = wxString::FromUTF8(args.GetString(0));
+	wxDouble *width = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	wxDouble *height = Object_wx_Double::GetObject(args, 2)->GetEntity();
+	wxDouble *descent = Object_wx_Double::GetObject(args, 3)->GetEntity();
+	wxDouble *externalLeading = Object_wx_Double::GetObject(args, 4)->GetEntity();
+	pSelf->GetEntity()->GetTextExtent(text, width, height, descent, externalLeading);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, Rotate)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "angle", VTYPE_wx_Double, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, Rotate)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxDouble *angle = Object_wx_Double::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->Rotate(*angle);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, Scale)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "xScale", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "yScale", VTYPE_wx_Double, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, Scale)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxDouble *xScale = Object_wx_Double::GetObject(args, 0)->GetEntity();
+	wxDouble *yScale = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	pSelf->GetEntity()->Scale(*xScale, *yScale);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, Translate)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "dx", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "dy", VTYPE_wx_Double, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, Translate)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxDouble *dx = Object_wx_Double::GetObject(args, 0)->GetEntity();
+	wxDouble *dy = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	pSelf->GetEntity()->Translate(*dx, *dy);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, GetTransform)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, GetTransform)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxGraphicsMatrix rtn = pSelf->GetEntity()->GetTransform();
+	return ReturnValue(env, sig, args, Value(new Object_wx_GraphicsMatrix(new wxGraphicsMatrix(rtn), NULL, OwnerTrue)));
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, SetTransform)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "matrix", VTYPE_wx_GraphicsMatrix, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, SetTransform)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxGraphicsMatrix *matrix = Object_wx_GraphicsMatrix::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->SetTransform(*matrix);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, ConcatTransform)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "matrix", VTYPE_wx_GraphicsMatrix, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, ConcatTransform)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxGraphicsMatrix *matrix = Object_wx_GraphicsMatrix::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->ConcatTransform(*matrix);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, SetBrush)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "brush", VTYPE_wx_Brush, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, SetBrush)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxBrush *brush = Object_wx_Brush::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->SetBrush(*brush);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, SetBrush_1)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "brush", VTYPE_wx_GraphicsBrush, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, SetBrush_1)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxGraphicsBrush *brush = Object_wx_GraphicsBrush::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->SetBrush(*brush);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, SetFont)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "font", VTYPE_wx_Font, OCCUR_Once);
+	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, SetFont)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
+	wxColour *colour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
+	pSelf->GetEntity()->SetFont(*font, *colour);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, SetFont_1)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "font", VTYPE_wx_GraphicsFont, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, SetFont_1)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxGraphicsFont *font = Object_wx_GraphicsFont::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->SetFont(*font);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, SetPen)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "pen", VTYPE_wx_GraphicsPen, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, SetPen)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxGraphicsPen *pen = Object_wx_GraphicsPen::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->SetPen(*pen);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, SetPen_1)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "pen", VTYPE_wx_Pen, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, SetPen_1)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxPen *pen = Object_wx_Pen::GetObject(args, 0)->GetEntity();
+	pSelf->GetEntity()->SetPen(*pen);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, StrokeLine)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "x1", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "y1", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "x2", VTYPE_wx_Double, OCCUR_Once);
+	DeclareArg(env, "y2", VTYPE_wx_Double, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, StrokeLine)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxDouble *x1 = Object_wx_Double::GetObject(args, 0)->GetEntity();
+	wxDouble *y1 = Object_wx_Double::GetObject(args, 1)->GetEntity();
+	wxDouble *x2 = Object_wx_Double::GetObject(args, 2)->GetEntity();
+	wxDouble *y2 = Object_wx_Double::GetObject(args, 3)->GetEntity();
+	pSelf->GetEntity()->StrokeLine(*x1, *y1, *x2, *y2);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, StrokeLines)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "beginPoints", VTYPE_wx_Point2DDouble, OCCUR_Once);
+	DeclareArg(env, "endPoints", VTYPE_wx_Point2DDouble, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, StrokeLines)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	size_t n = args.GetSizeT(0);
+	wxPoint2DDouble *beginPoints = Object_wx_Point2DDouble::GetObject(args, 1)->GetEntity();
+	wxPoint2DDouble *endPoints = Object_wx_Point2DDouble::GetObject(args, 2)->GetEntity();
+	pSelf->GetEntity()->StrokeLines(n, beginPoints, endPoints);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_GraphicsContext, StrokeLines_1)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "points", VTYPE_wx_Point2DDouble, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsContext, StrokeLines_1)
+{
+	Object_wx_GraphicsContext *pSelf = Object_wx_GraphicsContext::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	size_t n = args.GetSizeT(0);
+	wxPoint2DDouble *points = Object_wx_Point2DDouble::GetObject(args, 1)->GetEntity();
+	pSelf->GetEntity()->StrokeLines(n, points);
+	return Value::Null;
+}
+
+//----------------------------------------------------------------------------
+// Object implementation for wxGraphicsContext
+//----------------------------------------------------------------------------
+Object_wx_GraphicsContext::~Object_wx_GraphicsContext()
+{
+}
+
+Object *Object_wx_GraphicsContext::Clone() const
+{
+	return NULL;
+}
+
+String Object_wx_GraphicsContext::ToString(Signal sig, bool exprFlag)
+{
+	String rtn("<wx.GraphicsContext:");
+	if (GetEntity() == NULL) {
+		rtn += "invalid>";
+	} else {
+		char buff[64];
+		::sprintf(buff, "%p>", GetEntity());
+		rtn += buff;
+	}
+	return rtn;
+}
+
+void Object_wx_GraphicsContext::OnModuleEntry(Environment &env, Signal sig)
+{
+}
+
+//----------------------------------------------------------------------------
+// Class implementation for wxGraphicsContext
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_GraphicsContext)
+{
+	Gura_AssignMethod(wx_GraphicsContext, Create);
+	Gura_AssignMethod(wx_GraphicsContext, Create_1);
+	Gura_AssignMethod(wx_GraphicsContext, CreateFromNative);
+	Gura_AssignMethod(wx_GraphicsContext, CreateFromNativeWindow);
+	Gura_AssignMethod(wx_GraphicsContext, CreatePen);
+	Gura_AssignMethod(wx_GraphicsContext, CreateBrush);
+	Gura_AssignMethod(wx_GraphicsContext, CreateRadialGradientBrush);
+	Gura_AssignMethod(wx_GraphicsContext, CreateLinearGradientBrush);
+	Gura_AssignMethod(wx_GraphicsContext, CreateFont);
+	Gura_AssignMethod(wx_GraphicsContext, CreateMatrix);
+	Gura_AssignMethod(wx_GraphicsContext, CreatePath);
+	Gura_AssignMethod(wx_GraphicsContext, Clip);
+	Gura_AssignMethod(wx_GraphicsContext, Clip_1);
+	Gura_AssignMethod(wx_GraphicsContext, ResetClip);
+	Gura_AssignMethod(wx_GraphicsContext, DrawBitmap);
+	Gura_AssignMethod(wx_GraphicsContext, DrawEllipse);
+	Gura_AssignMethod(wx_GraphicsContext, DrawIcon);
+	Gura_AssignMethod(wx_GraphicsContext, DrawLines);
+	Gura_AssignMethod(wx_GraphicsContext, DrawPath);
+	Gura_AssignMethod(wx_GraphicsContext, DrawRectangle);
+	Gura_AssignMethod(wx_GraphicsContext, DrawRoundedRectangle);
+	Gura_AssignMethod(wx_GraphicsContext, DrawText);
+	Gura_AssignMethod(wx_GraphicsContext, DrawText_1);
+	Gura_AssignMethod(wx_GraphicsContext, FillPath);
+	Gura_AssignMethod(wx_GraphicsContext, StrokePath);
+	Gura_AssignMethod(wx_GraphicsContext, GetNativeContext);
+	Gura_AssignMethod(wx_GraphicsContext, GetPartialTextExtents);
+	Gura_AssignMethod(wx_GraphicsContext, GetTextExtent);
+	Gura_AssignMethod(wx_GraphicsContext, Rotate);
+	Gura_AssignMethod(wx_GraphicsContext, Scale);
+	Gura_AssignMethod(wx_GraphicsContext, Translate);
+	Gura_AssignMethod(wx_GraphicsContext, GetTransform);
+	Gura_AssignMethod(wx_GraphicsContext, SetTransform);
+	Gura_AssignMethod(wx_GraphicsContext, ConcatTransform);
+	Gura_AssignMethod(wx_GraphicsContext, SetBrush);
+	Gura_AssignMethod(wx_GraphicsContext, SetBrush_1);
+	Gura_AssignMethod(wx_GraphicsContext, SetFont);
+	Gura_AssignMethod(wx_GraphicsContext, SetFont_1);
+	Gura_AssignMethod(wx_GraphicsContext, SetPen);
+	Gura_AssignMethod(wx_GraphicsContext, SetPen_1);
+	Gura_AssignMethod(wx_GraphicsContext, StrokeLine);
+	Gura_AssignMethod(wx_GraphicsContext, StrokeLines);
+	Gura_AssignMethod(wx_GraphicsContext, StrokeLines_1);
+}
+
+Gura_ImplementDescendantCreator(wx_GraphicsContext)
+{
+	return new Object_wx_GraphicsContext((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+}
+
+}}

@@ -1,0 +1,163 @@
+#!/usr/bin/env gura
+import(csv)
+
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+
+scope {
+patterns = @{
+//----------------------------------
+R'''
+aaa,bbb,ccc
+zzz,yyy,xxx
+'''
+//----------------------------------
+R'''
+aaa,bbb,ccc
+zzz,yyy,xxx'''
+//----------------------------------
+R'''
+field_name,field_name,field_name
+aaa,bbb,ccc
+zzz,yyy,xxx
+'''
+//----------------------------------
+R'''
+"aaa","b
+bb","ccc"
+zzz,yyy,xxx'''
+//----------------------------------
+R'''"aaa","b""bb","ccc"'''
+}
+	csv.parse(patterns)::each() {|line|
+		println(line):nomap
+	}
+}
+scope {
+	text = '''\
+Japan,Tokyo,127767944
+"Japan","Tokyo","127767944"
+"Japan","Tokyo",127767944
+'''
+	println(csv.parse(text):*join(' - '))
+}
+scope {
+	names_csv = '''\
+1,NTT
+2,KDDI
+3,Vodafone
+'''
+	match_csv = '''\
+2005,09,11,1,,D501
+2005,10,11,1,,P502
+2005,10,11,1,,P503
+2006,03,11,2,,A5518SA
+2006,03,11,4,,AAAAAAA
+'''
+	d = %{}
+	for ([key, v] in csv.parse(names_csv)) { d[key] = v }
+	writer = csv.writer(sys.stdout)
+	for ([year, month, day, key, blank, prop] in csv.parse(match_csv)) {
+		writer.write(year, month, day, key, d.get(key, ''), prop)
+	}
+}
+scope {
+	Person = struct(name:string, email:string, gender:string, age:number, rest*)
+	people = Person * csv.reader('50records-en.csv')
+	tester(`people::name.sort(`ascend):stable:list)
+	tester(`people::name.sort(`ascend, people::name):stable:list)
+	tester(`(people.sort(&{$p1.age <=> $p2.age}):stable)::name)
+	tester(`(people.sort(`ascend, people::age):stable)::name)
+	println()
+	tester(`people.filter(&{$p.age < 40})::name.sort():stable:list)
+	tester(`people.filter(people:*age < 40)::name.sort():stable:list)
+	println()
+	tester(`people.filter(&{$p.age < 40}):*name.sort():stable:list)
+	tester(`people.filter(people:*age < 40):*name.sort():stable:list)
+	println()
+	tester(`(people.filter(&{$p.age < 40}).map(function(p) {p.name}):list).sort():stable:list)
+	tester(`(people.filter(people:*age < 40).map(function(p) {p.name}):list).sort():stable:list)
+	println()
+	tester(`(people.filter(&{$p.age < 40}).map(&{$p.name}):list).sort():stable:list)
+	tester(`(people.filter(people:*age < 40).map(&{$p.name}):list).sort():stable:list)
+}
+scope {
+	#fit(f(x), x, y)
+	print_statinfo(x) = printf('len=%d, sum=%g, average=%g, min=%g, max=%g\n',
+							x.len(), x.sum(), x.average(), x.min(), x.max())
+	t = [range(0, 2, .1)]
+	print('average=', t.average(), '\n')
+	print_statinfo(t)
+	print_statinfo(math.abs(math.sin(t)))
+	f(x):map = math.sin(x) * math.sin(x)
+	writer = csv.writer(sys.stdout, '%f')
+	writer.write('t', 'rand', 'f', 't * t', 'sqrt')
+	scope {
+		rand_list = repeat(t.len()):list { rand() }
+		writer.write(t, rand_list, f(t), t * t, math.sqrt(t))
+	}
+	println('---------------------------')
+}
+scope {
+	f = open('50records-en.csv')
+	for (line in csv.reader(f)) {|i|
+		printf('%3d %s\n', i + 1, line):nomap
+	}
+}
+scope {
+	csv.reader('50records-en.csv') {|line, i|
+		printf('%3d %s\n', i + 1, line):nomap
+	}
+}
+scope {
+	Person = struct(name:string, email:string,
+					gender:string, age:string, birthday:string, mobile:string)
+	people = Person * csv.reader('50records-en.csv')
+	println(people)
+	csv.writer(sys.stdout).write(people:*name, people:*email,
+				people:*gender, people:*age, people:*birthday, people:*mobile)
+}
+scope {
+	Person = struct(name:string, email:string, rest*)
+	people = for (line in csv.reader('50records-en.csv')):iter { Person * line }
+	println(people)
+}
+scope {
+	Person = struct(name:string, email:string, gender:string, age:number, rest*)
+	people = Person * csv.reader('50records-en.csv')
+	familyNames = (people:*name:*split(' '):list)::get(0).sort():stable
+	familyNameSet = set(familyNames)
+	printf('%s(%d),', familyNameSet, familyNames.count(familyNameSet):map)
+	println()
+	Stat = struct(name:string, occurance:number):map
+	stats = Stat(familyNameSet, familyNames.count(familyNameSet):map)
+	stats = stats.sort(&{-($stat1.occurance <=> $stat2.occurance)}):stable
+	printf('%s(%d),', stats:*name, stats:*occurance)
+	println()
+	genders = people::gender
+	printf('all=%d male=%d female=%d\n', people.len(), genders.count('male'), genders.count('female'))
+	ages = people:*age
+	printf('age < 30        %d\n', ages.count(&{$age < 30}))
+	printf('30 <= age < 40  %d\n', ages.count(&{30 <= $age && $age < 40}))
+	printf('40 <= age < 50  %d\n', ages.count(&{40 <= $age && $age < 50}))
+	printf('50 <= age < 60  %d\n', ages.count(&{50 <= $age && $age < 60}))
+	printf('60 <= age < 70  %d\n', ages.count(&{60 <= $age && $age < 70}))
+	printf('70 <= age       %d\n', ages.count(&{70 <= $age}))
+	printf('age < 30        %d\n', (ages < 30).count(true))
+	printf('30 <= age < 40  %d\n', ((30 <= ages) & (ages < 40)).count(true))
+	printf('40 <= age < 50  %d\n', ((40 <= ages) & (ages < 50)).count(true))
+	printf('50 <= age < 60  %d\n', ((50 <= ages) & (ages < 60)).count(true))
+	printf('60 <= age < 70  %d\n', ((60 <= ages) & (ages < 70)).count(true))
+	printf('70 <= age       %d\n', (70 <= ages).count(true))
+}
+function {
+	Record1 = struct(yearj, year:number, total_mod:number, total:number,
+						X0_14:number, X15_64:number, X65_:number, rest*)
+	Record2 = struct(yearj, year:number, total:number,
+						X0_14:number, X15_64:number, X65_:number, rest*)
+	recs1 = Record1 * csv.reader('ipss.go.jp-report-1.csv')
+	recs2 = Record2 * csv.reader('ipss.go.jp-report-2.csv')
+	Record = struct(year:number, total:number, X0_14:number, X15_64:number, X65_:number)
+	recs = Record * list(
+		zipv(recs1::year, recs1::total, recs1::X0_14, recs1::X15_64, recs1::X65_),
+		zipv(recs2::year, recs2::total, recs2::X0_14, recs2::X15_64, recs2::X65_).offset(1))
+}

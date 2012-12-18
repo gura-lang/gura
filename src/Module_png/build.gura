@@ -1,0 +1,20 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+if (sys.build == `msc) {
+	//builder.dlls.append('libpng12-0.dll')
+	builder.incDirs.append(path.join(modbuild.guestDir, 'lpng1510'))
+	builder.libs.append(path.join(modbuild.guestDir,
+		'lpng1510/projects/vstudio/Release Library', ['libpng15.lib', 'zlib.lib']))
+} elsif (sys.build == `gnuc) {
+	builder.libs.append('png12')
+	builder.hint = '''\
+It seems necessary libraries have not been installed on your system.
+See the following step(s) to resolve this problem.
+- Install Debian package:
+  $ sudo apt-get install libpng12-dev
+- Install yum package:
+  # yum install libpng-devel zlib-devel
+'''
+}
+builder.build('png', ['Module_png.cpp'])

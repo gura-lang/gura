@@ -1,0 +1,94 @@
+#!/usr/bin/env gura
+import(wx)
+import(wxutil)
+import(gif)
+
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+log = nil
+
+Frame = class(wx.Frame) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+		panel = wx.Panel(self)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		panel.SetSizer(vbox)
+		nb = wx.Notebook(panel, wx.ID_ANY)
+		vbox.Add(nb, wx.SizerFlags(1).Expand())
+		wx.Panel(nb) {|panel|
+			nb.AddPage(panel, 'File Dialog')
+			vbox:local = wx.BoxSizer(wx.VERTICAL)
+			panel.SetSizer(vbox)
+			
+			wx.Button(panel, wx.ID_ANY, 'Open') {|ctrl|
+				vbox.Add(ctrl, wx.SizerFlags().Expand())
+				ctrl.Bind(wx.EVT_BUTTON) {
+					dlg = wx.FileDialog(nil, style => wx.FD_MULTIPLE)
+					rtn = dlg.ShowModal()
+					log.Printf('%d\n', rtn)
+					log.Printf('GetDirectory: %s\n', dlg.GetDirectory())
+					log.Printf('GetFilename:  %s\n', dlg.GetFilename())
+					log.Printf('GetFilenames: %s\n', dlg.GetFilenames().tostring())
+					log.Printf('GetPath:      %s\n', dlg.GetPath())
+					log.Printf('GetPaths:     %s\n', dlg.GetPaths().tostring())
+				}
+			}
+		}
+		wx.Panel(nb) {|panel|
+			nb.AddPage(panel, 'Dir Dialog')
+			vbox:local = wx.BoxSizer(wx.VERTICAL)
+			panel.SetSizer(vbox)
+			
+			wx.Button(panel, wx.ID_ANY, 'Open') {|ctrl|
+				vbox.Add(ctrl, wx.SizerFlags().Expand())
+				ctrl.Bind(wx.EVT_BUTTON) {
+					dlg = wx.DirDialog(nil)
+					rtn = dlg.ShowModal()
+					log.Printf('%d\n', rtn)
+					log.Printf('GetPath:  %s\n', dlg.GetPath())
+				}
+			}
+		}
+		wx.Panel(nb) {|panel|
+			nb.AddPage(panel, 'Font Dialog')
+			vbox:local = wx.BoxSizer(wx.VERTICAL)
+			panel.SetSizer(vbox)
+			wx.Button(panel, wx.ID_ANY, 'Open') {|ctrl|
+				vbox.Add(ctrl, wx.SizerFlags().Expand())
+				ctrl.Bind(wx.EVT_BUTTON) {
+					dlg = wx.FontDialog(nil)
+					rtn = dlg.ShowModal()
+				}
+			}
+		}
+		wx.Panel(nb) {|panel|
+			nb.AddPage(panel, 'Colour Dialog')
+			vbox:local = wx.BoxSizer(wx.VERTICAL)
+			panel.SetSizer(vbox)
+			wx.Button(panel, wx.ID_ANY, 'Open') {|ctrl|
+				vbox.Add(ctrl, wx.SizerFlags().Expand())
+				ctrl.Bind(wx.EVT_BUTTON) {
+					dlg = wx.ColourDialog(nil)
+					rtn = dlg.ShowModal()
+					log.Printf('%d\n', rtn)
+					colourData = dlg.GetColourData()
+					log.Printf('%s\n', colourData.GetColour())
+				}
+			}
+		}
+		wxutil.LogWindow(panel) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+			log:extern = ctrl
+		}
+	}
+}
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame(nil)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+app = App()
+app.MainLoop()

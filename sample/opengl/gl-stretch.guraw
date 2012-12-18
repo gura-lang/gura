@@ -1,0 +1,165 @@
+#!/usr/bin/env gura
+
+// Orignal source file is written in C and is available from the site below.
+// http://www.sgi.com/products/software/opengl/examples/samples/
+// stretch.c
+
+import(glu) {*}
+import(opengl) {*}
+import(gltester)
+
+cRec = struct(x:number, y:number)
+vertexRec = struct(x:number, y:number, dX:number, dY:number, tX:number, tY:number)
+
+widthScaled = nil
+heightScaled = nil
+STEPCOUNT = 40
+cStep = 0
+vList = nil
+cList = []
+op = `OP_DRAWIMAGE
+cIndex = [0, 0]
+img = nil
+
+DrawImage() = {
+    glRasterPos2i(0, 0)
+    glDrawPixels(img)
+	glFlush()
+    glRasterPos2i(0, 0)
+    glDrawPixels(img)
+}
+
+DrawPoint() = {
+    glColor3f(1.0, 0.0, 1.0)
+    glPointSize(3.0)
+    glBegin(GL_POINTS) {
+		glVertex2f(cList:*x, cList:*y)
+    }
+	glFlush()
+}
+
+Stretch() = {
+    glBegin(GL_TRIANGLES) {
+		glTexCoord2f(vList[0].tX, vList[0].tY)
+		glVertex2f(vList[0].x, vList[0].y)
+		glTexCoord2f(vList[1].tX, vList[1].tY)
+		glVertex2f(vList[1].x, vList[1].y)
+		glTexCoord2f(vList[4].tX, vList[4].tY)
+		glVertex2f(vList[4].x, vList[4].y)
+	}
+    glBegin(GL_TRIANGLES) {
+		glTexCoord2f(vList[1].tX, vList[1].tY)
+		glVertex2f(vList[1].x, vList[1].y)
+		glTexCoord2f(vList[2].tX, vList[2].tY)
+		glVertex2f(vList[2].x, vList[2].y)
+		glTexCoord2f(vList[4].tX, vList[4].tY)
+		glVertex2f(vList[4].x, vList[4].y)
+	}
+    glBegin(GL_TRIANGLES) {
+		glTexCoord2f(vList[2].tX, vList[2].tY)
+		glVertex2f(vList[2].x, vList[2].y)
+		glTexCoord2f(vList[3].tX, vList[3].tY)
+		glVertex2f(vList[3].x, vList[3].y)
+		glTexCoord2f(vList[4].tX, vList[4].tY)
+		glVertex2f(vList[4].x, vList[4].y)
+	}
+    glBegin(GL_TRIANGLES) {
+		glTexCoord2f(vList[3].tX, vList[3].tY)
+		glVertex2f(vList[3].x, vList[3].y)
+		glTexCoord2f(vList[0].tX, vList[0].tY)
+		glVertex2f(vList[0].x, vList[0].y)
+		glTexCoord2f(vList[4].tX, vList[4].tY)
+		glVertex2f(vList[4].x, vList[4].y)
+	}
+	glFlush()
+	cStep:extern += 1
+    if (cStep < STEPCOUNT) {
+		vList[4].x += vList[4].dX
+		vList[4].y += vList[4].dY
+    } else {
+		cIndex[0] = cIndex[1]
+		cIndex[1] = cIndex[1] + 1
+		if (cIndex[1] == cList.len()) {
+		    cIndex[1] = 0
+		}
+		vList[4].dX = (cList[cIndex[1]].x - cList[cIndex[0]].x) / STEPCOUNT
+		vList[4].dY = (cList[cIndex[1]].y - cList[cIndex[0]].y) / STEPCOUNT
+		cStep:extern = 0
+    }
+}
+
+Animate() = {
+	if (op == `OP_STRETCH) {
+		Stretch()
+	} elsif (op == `OP_DRAWPOINT) {
+		DrawPoint()
+	} elsif (op == `OP_DRAWIMAGE) {
+		DrawImage()
+	}
+}
+
+Init() = {
+    glViewport(0, 0, widthScaled, heightScaled)
+    gluOrtho2D(0, widthScaled, 0, heightScaled)
+    glClearColor(0.0, 0.0, 0.0, 0.0)
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
+    glPixelStorei(GL_PACK_ALIGNMENT, 1)
+    img:extern = gluScaleImage(img, widthScaled, heightScaled)
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+	println(img)
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, 0, img)
+}
+
+InitVList() = {
+	vList:extern = vertexRec * @{
+		{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+		{widthScaled, 0.0, 0.0, 0.0, 1.0, 0.0}
+		{widthScaled, heightScaled, 0.0, 0.0, 1.0, 1.0}
+		{0.0, heightScaled, 0.0, 0.0, 0.0, 1.0}
+		{cList[0].x, cList[0].y,
+		 (cList[1].x - cList[0].x) / STEPCOUNT, (cList[1].y - cList[0].y) / STEPCOUNT,
+	    	 cList[0].x / widthScaled, cList[0].y / heightScaled}
+	}
+}
+
+scope {
+	import(gltester)
+	img:extern = image(`rgb)
+	img.rgbread('1.rgb')
+	widthScaled:extern = 2 ** int(math.log(img.width) / math.log(2.0))
+	heightScaled:extern = 2 ** int(math.log(img.height) / math.log(2.0))
+	gltester.mainloop(widthScaled, heightScaled, 10, `idle) {
+		`onInit => function {
+			Init()
+		}
+		`onDraw => function {
+			Animate()
+		}
+		`onKeyDown => %{
+			`space => function {
+				if (cList.len() > 1) {
+					InitVList()
+				    cIndex[0] = 0
+				    cIndex[1] = 1
+				    cStep:extern = 0
+				    glEnable(GL_TEXTURE_2D)
+				    op:extern = `OP_STRETCH
+				}
+			}
+		}
+		`onMouseButtonDown => function(x:number, y:number) {
+			if (op == `OP_STRETCH) {
+			    glDisable(GL_TEXTURE_2D)
+			    cList:extern = []
+			    op:extern = `OP_DRAWIMAGE
+			} else {
+				cList.add(cRec(x, heightScaled - y))
+			    op:extern = `OP_DRAWPOINT
+			}
+		}
+	}
+}

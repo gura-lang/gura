@@ -1,0 +1,100 @@
+#!/usr/bin/env gura
+
+import(tk)
+import(png)
+//import(gif)
+
+//tk.tclDump()
+
+imgfile(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+img_kangaroo = image(`rgba).pngread(imgfile('kangaroo.png'))
+//imgs_chicken = gif.read(imgfile('chicken-anim.gif'), `rgba).images
+images = %{
+	`kangarooL => img_kangaroo.to_tk()
+	`kangarooR => img_kangaroo.flip(`horz).to_tk()
+	`kangarooHalfL => \
+		img_kangaroo.resize(img_kangaroo.width / 2, img_kangaroo.height).to_tk()
+	`kangarooHalfR => \
+		img_kangaroo.flip(`horz).resize(img_kangaroo.width / 2, img_kangaroo.height).to_tk()
+}
+imagesTurnR = images[`kangarooHalfR, `kangarooHalfL, `kangarooL]
+imagesTurnL = images[`kangarooHalfL, `kangarooHalfR, `kangarooR]
+
+squTbl = [((interval(-1, 1, 20):open_r) ** 2 - 1)]
+
+Kangaroo = class {
+	__init__(c:tk.Canvas, x:number, y:number, direction:symbol) = {
+		self._c = c
+		[self._x0, self._y0] = [x, y]
+		self._item = c.Image(x, y, anchor => 'c')
+		if (direction == `left) {
+			self._xdir = -5
+			self._item[`image] = images[`kangarooL]
+		} else {
+			self._xdir = 5
+			self._item[`image] = images[`kangarooR]
+		}
+	}
+	startJump(htJump:number) = {
+		[x1, y1, x2, y2] = self._item.bbox()
+		[wdItem, htItem] = [x2 - x1, y2 - y1]
+		[x, xdir] = [self._x0, self._xdir]
+		iter_y = squTbl.round() * htJump + self._y0
+		imageIter = nil
+		self._c.bindtimer(0, 40) {
+			wdCanvas = self._c.winfo$width()
+			y = iter_y.next()
+			self._item.coords(x, y)
+			x += xdir
+			if (x < wdItem / 2) {
+				imageIter = imagesTurnL.each()
+				xdir = 5
+			} elsif (x + wdItem / 2 > wdCanvas) {
+				imageIter = imagesTurnR.each()
+				xdir = -5
+			}
+			if (imageIter) {
+				image = imageIter.next()
+				if (image) {
+					self._item[`image] = image
+				} else {
+					imageIter = nil
+				}
+			}
+		}
+	}
+}
+
+tk.mainwindow() {|mw|
+	mw.wm$geometry('640x480')
+	mw.Canvas(bg => 'white') {|c|
+		c.pack(fill => 'both', expand => true)
+		Kangaroo(c, 150, 110, `left).startJump(50)
+		c.Text(10, 10, text => 'Left or Right click for new kangaroos',
+							anchor => 'nw', font => tk.Font(size => 20))
+		kangaroo = nil
+		c.bind('<1>') {|x:number, y:number|
+			if (!kangaroo) {
+				kangaroo = Kangaroo(c, x, y, `left)
+				tick = time.clock()
+			}
+		}
+		c.bind('<3>') {|x:number, y:number|
+			if (!kangaroo) {
+				kangaroo = Kangaroo(c, x, y, `right)
+				tick = time.clock()
+			}
+		}
+		c.bind('<ButtonRelease>') {
+			if (kangaroo) {
+				duration = time.clock() - tick
+				htJump = int(duration * 200)
+				htJump = min(max(htJump, 50), 200)
+				kangaroo.startJump(htJump)
+				kangaroo = nil
+			}
+		}
+	}
+}
+tk.mainloop()

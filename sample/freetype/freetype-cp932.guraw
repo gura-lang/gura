@@ -1,0 +1,16 @@
+# encoding: shift_jis
+import(tk)
+import(png)
+import(freetype)
+
+F(filename:string) = path.join(sys.datadir, 'test', filename)
+
+scope {
+	lines = (open(F('chars-cp932.txt'), 'r', 'cp932').readlines():chop):list
+	face = freetype.face(freetype.sysfontpath('msgothic.ttc'), 0).setheight(40).setcolor(`white)
+	img = image(`rgb, face.height * 32, lines.len() * face.height, `black)
+	img.drawtext(face, 0, (1..) * face.height, lines)
+	img.write('freetype-cp932.png')
+	println('freetype-cp932.png was created')
+	img.show()
+}

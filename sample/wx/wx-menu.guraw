@@ -1,0 +1,643 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        samples/menu.cpp
+// Purpose:     wxMenu/wxMenuBar sample
+// Author:      Vadim Zeitlin
+// Modified by:
+// Created:     01.11.99
+// RCS-ID:      $Id: menu.cpp 54183 2008-06-13 07:10:40Z JS $
+// Copyright:   (c) 1999 Vadim Zeitlin
+// Licence:     wxWindows licence
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+// ----------------------------------------------------------------------------
+// constants
+// ----------------------------------------------------------------------------
+
+Menu_File_Quit = wx.ID_EXIT,
+Menu_File_ClearLog = 100,
+[Menu_MenuBar_Toggle,
+Menu_MenuBar_Append,
+Menu_MenuBar_Insert,
+Menu_MenuBar_Delete,
+Menu_MenuBar_Enable,
+Menu_MenuBar_GetLabel,
+Menu_MenuBar_SetLabel,
+Menu_MenuBar_FindMenu] = 200..
+[Menu_Menu_Append
+Menu_Menu_AppendSub,
+Menu_Menu_Insert,
+Menu_Menu_Delete,
+Menu_Menu_Enable,
+Menu_Menu_Check,
+Menu_Menu_GetLabel,
+Menu_Menu_SetLabel,
+Menu_Menu_GetInfo,
+Menu_Menu_FindItem,] = 300..
+[Menu_Test_Normal,
+Menu_Test_Check,
+Menu_Test_Radio1,
+Menu_Test_Radio2,
+Menu_Test_Radio3,] = 400..
+[Menu_SubMenu,
+Menu_SubMenu_Normal,
+Menu_SubMenu_Check,
+Menu_SubMenu_Radio1,
+Menu_SubMenu_Radio2,
+Menu_SubMenu_Radio3,] = 450..
+[Menu_Dummy_First,
+Menu_Dummy_Second,
+Menu_Dummy_Third,
+Menu_Dummy_Fourth,
+Menu_Dummy_Last,] = 500..
+Menu_Help_About = wx.ID_ABOUT,
+[Menu_Popup_ToBeDeleted,
+Menu_Popup_ToBeGreyed,
+Menu_Popup_ToBeChecked,
+Menu_Popup_Submenu,
+Menu_Max] = 2000..
+
+// ----------------------------------------------------------------------------
+// MyApp
+// ----------------------------------------------------------------------------
+
+MyApp = class(wx.App) {
+	OnInit() = {
+		frame = MyFrame()
+		frame.Show(true)
+		frame.SetStatusText('Welcome to wxWidgets menu sample')
+		self.SetTopWindow(frame)
+		true
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyFrame
+// ----------------------------------------------------------------------------
+
+MyFrame = class(wx.Frame) {
+	__init__() = {|nil, wx.ID_ANY, 'wxWidgets menu sample'|
+		self.m_textctrl = nil
+		self.m_menu = nil
+		self.m_countDummy = 0
+		self.m_logOld = nil
+		self.EventTable()
+		self.CreateStatusBar()
+		// create the menubar
+		fileMenu = wx.Menu()
+		stockSubMenu = wx.Menu()
+		stockSubMenu.Append(wx.ID_ADD)
+		stockSubMenu.Append(wx.ID_APPLY)
+		stockSubMenu.Append(wx.ID_BOLD)
+		stockSubMenu.Append(wx.ID_CANCEL)
+		stockSubMenu.Append(wx.ID_CLEAR)
+		stockSubMenu.Append(wx.ID_CLOSE)
+		stockSubMenu.Append(wx.ID_COPY)
+		stockSubMenu.Append(wx.ID_CUT)
+		stockSubMenu.Append(wx.ID_DELETE)
+		stockSubMenu.Append(wx.ID_FIND)
+		stockSubMenu.Append(wx.ID_REPLACE)
+		stockSubMenu.Append(wx.ID_BACKWARD)
+		stockSubMenu.Append(wx.ID_DOWN)
+		stockSubMenu.Append(wx.ID_FORWARD)
+		stockSubMenu.Append(wx.ID_UP)
+		stockSubMenu.Append(wx.ID_HELP)
+		stockSubMenu.Append(wx.ID_HOME)
+		stockSubMenu.Append(wx.ID_INDENT)
+		stockSubMenu.Append(wx.ID_INDEX)
+		stockSubMenu.Append(wx.ID_ITALIC)
+		stockSubMenu.Append(wx.ID_JUSTIFY_CENTER)
+		stockSubMenu.Append(wx.ID_JUSTIFY_FILL)
+		stockSubMenu.Append(wx.ID_JUSTIFY_LEFT)
+		stockSubMenu.Append(wx.ID_JUSTIFY_RIGHT)
+		stockSubMenu.Append(wx.ID_NEW)
+		stockSubMenu.Append(wx.ID_NO)
+		stockSubMenu.Append(wx.ID_OK)
+		stockSubMenu.Append(wx.ID_OPEN)
+		stockSubMenu.Append(wx.ID_PASTE)
+		stockSubMenu.Append(wx.ID_PREFERENCES)
+		stockSubMenu.Append(wx.ID_PRINT)
+		stockSubMenu.Append(wx.ID_PREVIEW)
+		stockSubMenu.Append(wx.ID_PROPERTIES)
+		stockSubMenu.Append(wx.ID_EXIT)
+		stockSubMenu.Append(wx.ID_REDO)
+		stockSubMenu.Append(wx.ID_REFRESH)
+		stockSubMenu.Append(wx.ID_REMOVE)
+		stockSubMenu.Append(wx.ID_REVERT_TO_SAVED)
+		stockSubMenu.Append(wx.ID_SAVE)
+		stockSubMenu.Append(wx.ID_SAVEAS)
+		stockSubMenu.Append(wx.ID_STOP)
+		stockSubMenu.Append(wx.ID_UNDELETE)
+		stockSubMenu.Append(wx.ID_UNDERLINE)
+		stockSubMenu.Append(wx.ID_UNDO)
+		stockSubMenu.Append(wx.ID_UNINDENT)
+		stockSubMenu.Append(wx.ID_YES)
+		stockSubMenu.Append(wx.ID_ZOOM_100)
+		stockSubMenu.Append(wx.ID_ZOOM_FIT)
+		stockSubMenu.Append(wx.ID_ZOOM_IN)
+		stockSubMenu.Append(wx.ID_ZOOM_OUT)
+		fileMenu.AppendSubMenu(stockSubMenu, '&Standard items demo')
+		item = wx.MenuItem(fileMenu, Menu_File_ClearLog,
+										  'Clear &log\tCtrl-L')
+		item.SetBitmap(wx.BitmapFromXPMData(resource.copy_xpm))
+		fileMenu.AppendItem(item)
+		fileMenu.AppendSeparator()
+		fileMenu.Append(Menu_File_Quit, 'E&xit\tAlt-X', 'Quit menu sample')
+		menubarMenu = wx.Menu()
+		menubarMenu.Append(Menu_MenuBar_Append, '&Append menu\tCtrl-A',
+							'Append a menu to the menubar')
+		menubarMenu.Append(Menu_MenuBar_Insert, '&Insert menu\tCtrl-I',
+							'Insert a menu into the menubar')
+		menubarMenu.Append(Menu_MenuBar_Delete, '&Delete menu\tCtrl-D',
+							'Delete the last menu from the menubar')
+		menubarMenu.Append(Menu_MenuBar_Toggle, '&Toggle menu\tCtrl-T',
+							'Toggle the first menu in the menubar', true)
+		menubarMenu.AppendSeparator()
+		menubarMenu.Append(Menu_MenuBar_Enable, '&Enable menu\tCtrl-E',
+							'Enable or disable the last menu', true)
+		menubarMenu.AppendSeparator()
+		menubarMenu.Append(Menu_MenuBar_GetLabel, '&Get menu label\tCtrl-G',
+							'Get the label of the last menu')
+		menubarMenu.Append(Menu_MenuBar_SetLabel, '&Set menu label\tCtrl-S',
+							'Change the label of the last menu')
+		menubarMenu.AppendSeparator()
+		menubarMenu.Append(Menu_MenuBar_FindMenu, '&Find menu from label\tCtrl-F',
+							'Find a menu by searching for its label')
+		subMenu = wx.Menu()
+		subMenu.Append(Menu_SubMenu_Normal, '&Normal submenu item', 'Disabled submenu item')
+		subMenu.AppendCheckItem(Menu_SubMenu_Check, '&Check submenu item', 'Check submenu item')
+		subMenu.AppendRadioItem(Menu_SubMenu_Radio1, 'Radio item &1', 'Radio item')
+		subMenu.AppendRadioItem(Menu_SubMenu_Radio2, 'Radio item &2', 'Radio item')
+		subMenu.AppendRadioItem(Menu_SubMenu_Radio3, 'Radio item &3', 'Radio item')
+		menubarMenu.Append(Menu_SubMenu, 'Submenu', subMenu)
+		menuMenu = wx.Menu()
+		menuMenu.Append(Menu_Menu_Append, '&Append menu item\tAlt-A',
+						 'Append a menu item to the last menu')
+		menuMenu.Append(Menu_Menu_AppendSub, '&Append sub menu\tAlt-S',
+						 'Append a sub menu to the last menu')
+		menuMenu.Append(Menu_Menu_Insert, '&Insert menu item\tAlt-I',
+						 'Insert a menu item in head of the last menu')
+		menuMenu.Append(Menu_Menu_Delete, '&Delete menu item\tAlt-D',
+						 'Delete the last menu item from the last menu')
+		menuMenu.AppendSeparator()
+		menuMenu.Append(Menu_Menu_Enable, '&Enable menu item\tAlt-E',
+						 'Enable or disable the last menu item', true)
+		menuMenu.Append(Menu_Menu_Check, '&Check menu item\tAlt-C',
+						 'Check or uncheck the last menu item', true)
+		menuMenu.AppendSeparator()
+		menuMenu.Append(Menu_Menu_GetInfo, 'Get menu item in&fo\tAlt-F',
+						 'Show the state of the last menu item')
+		menuMenu.Append(Menu_Menu_SetLabel, 'Set menu item label\tAlt-L',
+						 'Set the label of a menu item')
+		menuMenu.AppendSeparator()
+		menuMenu.Append(Menu_Menu_FindItem, 'Find menu item from label',
+						 'Find a menu item by searching for its label')
+		testMenu = wx.Menu()
+		testMenu.Append(Menu_Test_Normal, '&Normal item')
+		testMenu.AppendSeparator()
+		testMenu.AppendCheckItem(Menu_Test_Check, '&Check item')
+		testMenu.AppendSeparator()
+		testMenu.AppendRadioItem(Menu_Test_Radio1, 'Radio item &1')
+		testMenu.AppendRadioItem(Menu_Test_Radio2, 'Radio item &2')
+		testMenu.AppendRadioItem(Menu_Test_Radio3, 'Radio item &3')
+		helpMenu = wx.Menu()
+		helpMenu.Append(Menu_Help_About, '&About\tF1', 'About menu sample')
+		menuBar = wx.MenuBar(wx.MB_DOCKABLE)
+		menuBar.Append(fileMenu, '&File')
+		menuBar.Append(menubarMenu, 'Menu&bar')
+		menuBar.Append(menuMenu, '&Menu')
+		menuBar.Append(testMenu, '&Test')
+		menuBar.Append(helpMenu, '&Help')
+		// these items should be initially checked
+		menuBar.Check(Menu_MenuBar_Toggle, true)
+		menuBar.Check(Menu_MenuBar_Enable, true)
+		menuBar.Check(Menu_Menu_Enable, true)
+		menuBar.Check(Menu_Menu_Check, false)
+		// associate the menu bar with the frame
+		self.SetMenuBar(menuBar)
+		// intercept all menu events and log them in this custom event handler
+		self.PushEventHandler(MyEvtHandler(self))
+		// create the log text window
+		self.m_textctrl = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString,
+									wx.DefaultPosition, wx.DefaultSize,
+									wx.TE_MULTILINE)
+		self.m_textctrl.SetEditable(false)
+		wx.Log.SetTimestamp(nil)
+		self.m_logOld = wx.Log.SetActiveTarget(wx.LogTextCtrl(self.m_textctrl))
+
+		wx.LogMessage('Brief explanations: the commands or the \"Menu\" menu ' \
+					 'append/insert/delete items to/from the last menu.\n' \
+					 'The commands from \"Menubar\" menu work with the ' \
+					 'menubar itself.\n\n' \
+					 'Right click the band below to test popup menus.\n')
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_MENU, Menu_File_Quit) {|event| self.OnQuit(event) }
+		self.Bind(wx.EVT_MENU, Menu_File_ClearLog) {|event| self.OnClearLog(event) }
+		self.Bind(wx.EVT_UPDATE_UI, Menu_File_ClearLog) {|event| self.OnClearLogUpdateUI(event) }
+		self.Bind(wx.EVT_MENU, Menu_Help_About) {|event| self.OnAbout(event) }
+		self.Bind(wx.EVT_MENU, Menu_MenuBar_Toggle) {|event| self.OnToggleMenu(event) }
+		self.Bind(wx.EVT_MENU, Menu_MenuBar_Append) {|event| self.OnAppendMenu(event) }
+		self.Bind(wx.EVT_MENU, Menu_MenuBar_Insert) {|event| self.OnInsertMenu(event) }
+		self.Bind(wx.EVT_MENU, Menu_MenuBar_Delete) {|event| self.OnDeleteMenu(event) }
+		self.Bind(wx.EVT_MENU, Menu_MenuBar_Enable) {|event| self.OnEnableMenu(event) }
+		self.Bind(wx.EVT_MENU, Menu_MenuBar_GetLabel) {|event| self.OnGetLabelMenu(event) }
+		self.Bind(wx.EVT_MENU, Menu_MenuBar_SetLabel) {|event| self.OnSetLabelMenu(event) }
+		self.Bind(wx.EVT_MENU, Menu_MenuBar_FindMenu) {|event| self.OnFindMenu(event) }
+		self.Bind(wx.EVT_MENU, Menu_Menu_Append) {|event| self.OnAppendMenuItem(event) }
+		self.Bind(wx.EVT_MENU, Menu_Menu_AppendSub) {|event| self.OnAppendSubMenu(event) }
+		self.Bind(wx.EVT_MENU, Menu_Menu_Insert) {|event| self.OnInsertMenuItem(event) }
+		self.Bind(wx.EVT_MENU, Menu_Menu_Delete) {|event| self.OnDeleteMenuItem(event) }
+		self.Bind(wx.EVT_MENU, Menu_Menu_Enable) {|event| self.OnEnableMenuItem(event) }
+		self.Bind(wx.EVT_MENU, Menu_Menu_Check) {|event| self.OnCheckMenuItem(event) }
+		self.Bind(wx.EVT_MENU, Menu_Menu_GetLabel) {|event| self.OnGetLabelMenuItem(event) }
+		self.Bind(wx.EVT_MENU, Menu_Menu_SetLabel) {|event| self.OnSetLabelMenuItem(event) }
+		self.Bind(wx.EVT_MENU, Menu_Menu_GetInfo) {|event| self.OnGetMenuItemInfo(event) }
+		self.Bind(wx.EVT_MENU, Menu_Menu_FindItem) {|event| self.OnFindMenuItem(event) }
+		self.Bind(wx.EVT_MENU, Menu_Test_Normal) {|event| self.OnTestNormal(event) }
+		self.Bind(wx.EVT_MENU, Menu_Test_Check) {|event| self.OnTestCheck(event) }
+		self.Bind(wx.EVT_MENU, Menu_Test_Radio1) {|event| self.OnTestRadio(event) }
+		self.Bind(wx.EVT_MENU, Menu_Test_Radio2) {|event| self.OnTestRadio(event) }
+		self.Bind(wx.EVT_MENU, Menu_Test_Radio3) {|event| self.OnTestRadio(event) }
+		self.Bind(wx.EVT_UPDATE_UI, Menu_SubMenu_Normal) {|event| self.OnUpdateSubMenuNormal(event) }
+		self.Bind(wx.EVT_UPDATE_UI, Menu_SubMenu_Check) {|event| self.OnUpdateSubMenuCheck(event) }
+		self.Bind(wx.EVT_UPDATE_UI, Menu_SubMenu_Radio1) {|event| self.OnUpdateSubMenuRadio(event) }
+		self.Bind(wx.EVT_UPDATE_UI, Menu_SubMenu_Radio2) {|event| self.OnUpdateSubMenuRadio(event) }
+		self.Bind(wx.EVT_UPDATE_UI, Menu_SubMenu_Radio3) {|event| self.OnUpdateSubMenuRadio(event) }
+		self.Bind(wx.EVT_MENU_RANGE, Menu_Dummy_First, Menu_Dummy_Last) {|event| self.OnDummy(event) }
+		self.Bind(wx.EVT_UPDATE_UI, Menu_Menu_Check) {|event| self.OnUpdateCheckMenuItemUI(event) }
+		self.Bind(wx.EVT_CONTEXT_MENU) {|event| self.OnContextMenu(event) }
+		self.Bind(wx.EVT_RIGHT_UP) {|event| self.OnRightUp(event) }
+		self.Bind(wx.EVT_MENU_OPEN) {|event| self.OnMenuOpen(event) }
+		self.Bind(wx.EVT_MENU_CLOSE) {|event| self.OnMenuClose(event) }
+		self.Bind(wx.EVT_SIZE) {|event| self.OnSize(event) }
+	}
+	CreateDummyMenu() = {
+		menu = wx.Menu()
+		menu.Append(Menu_Dummy_First, '&First item\tCtrl-F1')
+		menu.AppendSeparator()
+		menu.AppendCheckItem(Menu_Dummy_Second, '&Second item\tCtrl-F2')
+		title = ''
+		self.m_countDummy += 1
+		title = format('Dummy menu &%u', self.m_countDummy)
+		[menu, title]
+	}
+	GetLastMenuItem() = {
+		menubar = self.GetMenuBar()
+		menu = menubar.GetMenu(menubar.GetMenuCount() - 1)
+		menuItems = menu.GetMenuItems()
+		if (menuItems.isempty()) {
+			wx.LogWarning('No last item in the last menu!')
+			return(nil)
+		} else {
+			return(menuItems.last())
+		}
+	}
+	LogMenuEvent(event:wx.CommandEvent) = {
+		id = event.GetId()
+		msg = format('Menu command %d', id)
+		// catch all checkable menubar items and also the check item from the popup
+		// menu
+		item = GetMenuBar().FindItemById(id)
+		if ((item && item.IsCheckable()) || id == Menu_Popup_ToBeChecked ) {
+			msg += format(' (the item is currently %schecked)',
+									if (event.IsChecked()) {''} else {'not '})
+		}
+		wx.LogMessage(msg)
+	}
+	// ----------------------------------------------------------------------------
+	// menu callbacks
+	// ----------------------------------------------------------------------------
+	OnQuit(event:wx.CommandEvent) = {
+		self.Close(true)
+	}
+	OnClearLog(event:wx.CommandEvent) = {
+		self.m_textctrl.Clear()
+	}
+	OnClearLogUpdateUI(event:wx.UpdateUIEvent) = {
+		// if we only enable this item when the log window is empty, we never see
+		// it in the disable state as a message is logged whenever the menu is
+		// opened, so we disable it if there is not "much" text in the window
+		event.Enable(self.m_textctrl.GetNumberOfLines() > 5)
+	}
+	OnAbout(event:wx.CommandEvent) = {
+		wx.MessageBox('wxWidgets menu sample\n(c) 1999-2001 Vadim Zeitlin',
+							'About wxWidgets menu sample',
+							wx.ICON_INFORMATION)
+	}
+	OnDeleteMenu(event:wx.CommandEvent) = {
+		mbar = self.GetMenuBar()
+		count = mbar.GetMenuCount()
+		if (count == 2) {
+			// don't let delete the first 2 menus
+			wx.LogError("Can't delete any more menus")
+		} else {
+			mbar.Remove(count - 1)
+		}
+	}
+	OnInsertMenu(event:wx.CommandEvent) = {
+		[menu, title] = self.CreateDummyMenu()
+		self.GetMenuBar().Insert(0, menu, title)
+	}
+	OnAppendMenu(event:wx.CommandEvent) = {
+		[menu, title] = self.CreateDummyMenu()
+		self.GetMenuBar().Append(menu, title)
+	}
+	OnToggleMenu(event:wx.CommandEvent) = {
+		mbar = self.GetMenuBar()
+		if (!self.m_menu) {
+			// hide the menu
+			self.m_menu = mbar.Remove(0)
+		} else {
+			// restore it
+			mbar.Insert(0, self.m_menu, '&File')
+			self.m_menu = nil
+		}
+	}
+	OnEnableMenu(event:wx.CommandEvent) = {
+		mbar = self.GetMenuBar()
+		count = mbar.GetMenuCount()
+		mbar.EnableTop(count - 1, event.IsChecked())
+	}
+	OnGetLabelMenu(event:wx.CommandEvent) = {
+		mbar = self.GetMenuBar()
+		count = mbar.GetMenuCount()
+		//wxCHECK_RET(count, 'no last menu?')
+		wx.LogMessage("The label of the last menu item is '%s'",
+					mbar.GetLabelTop(count - 1))
+	}
+	OnSetLabelMenu(event:wx.CommandEvent) = {
+		mbar = self.GetMenuBar()
+		count = mbar.GetMenuCount()
+		//wxCHECK_RET(count, 'no last menu?')
+		label = wx.GetTextFromUser(
+							'Enter new label: ',
+							'Change last menu text',
+							mbar.GetLabelTop(count - 1),
+							self
+						 )
+		if (!label.isempty()) {
+			mbar.SetLabelTop(count - 1, label)
+		}
+	}
+	OnFindMenu(event:wx.CommandEvent) = {
+		mbar = self.GetMenuBar()
+		count = mbar.GetMenuCount()
+		//wxCHECK_RET(count, 'no last menu?')
+		label = wx.GetTextFromUser(
+							'Enter label to search for: ',
+							'Find menu',
+							wx.EmptyString,
+							self
+						 )
+
+		if (!label.isempty()) {
+			index = mbar.FindMenu(label)
+			if (index == wx.NOT_FOUND) {
+				wx.LogWarning("No menu with label '%s'", label)
+			} else {
+				wx.LogMessage("Menu %d has label '%s'", index, label)
+			}
+		}
+	}
+	OnDummy(event:wx.CommandEvent) = {
+		wx.LogMessage('Dummy item #%d', event.GetId() - Menu_Dummy_First + 1)
+	}
+	OnAppendMenuItem(event:wx.CommandEvent) = {
+		menubar = self.GetMenuBar()
+		menu = menubar.GetMenu(menubar.GetMenuCount() - 1)
+		menu.AppendSeparator()
+		menu.Append(Menu_Dummy_Third, '&Third dummy item\tCtrl-F3',
+					 'Checkable item', true)
+	}
+	OnAppendSubMenu(event:wx.CommandEvent) = {
+		menubar = self.GetMenuBar()
+		menu = menubar.GetMenu(menubar.GetMenuCount() - 2)
+		[menuSub, title] = self.CreateDummyMenu()
+		menu.AppendMenu(Menu_Dummy_Last, '&Dummy sub menu',
+					menuSub, 'Dummy sub menu help')
+	}
+	OnDeleteMenuItem(event:wx.CommandEvent) = {
+		menubar = self.GetMenuBar()
+		menu = menubar.GetMenu(menubar.GetMenuCount() - 1)
+		count = menu.GetMenuItemCount()
+		if (count == 0) {
+			wx.LogWarning('No items to delete!')
+		} else {
+			menu.DestroyItem(menu.GetMenuItems()[count - 1])
+		}
+	}
+	OnInsertMenuItem(event:wx.CommandEvent) = {
+		menubar = self.GetMenuBar()
+		menu = menubar.GetMenu(menubar.GetMenuCount() - 1)
+		menu.Insert(0, wx.MenuItem.New(menu, Menu_Dummy_Fourth,
+										'Fourth dummy item\tCtrl-F4'))
+		menu.Insert(1, wx.MenuItem(menu, wx.ID_SEPARATOR))
+	}
+	OnEnableMenuItem(event:wx.CommandEvent) = {
+		item = self.GetLastMenuItem()
+		if (item) {
+			item.Enable(!item.IsEnabled())
+		}
+	}
+	OnCheckMenuItem(event:wx.CommandEvent) = {
+		item = self.GetLastMenuItem()
+		item.Toggle()
+	}
+	OnUpdateCheckMenuItemUI(event:wx.UpdateUIEvent) = {
+		//wxLogNull nolog
+		item = self.GetLastMenuItem()
+		event.Enable(item && item.IsCheckable())
+	}
+	OnGetLabelMenuItem(event:wx.CommandEvent) = {
+		item = self.GetLastMenuItem()
+		if (item) {
+			label = item.GetItemLabelText()
+			wx.LogMessage("The label of the last menu item is '%s'",
+						 label)
+		}
+	}
+	OnSetLabelMenuItem(event:wx.CommandEvent) = {
+		item = self.GetLastMenuItem()
+		if (item) {
+			label = wx.GetTextFromUser(
+								'Enter new label: ',
+								'Change last menu item text',
+								item.GetItemLabelText(),
+								self
+							 )
+			label = label.replace('\\t', '\t')
+			if (!label.isempty()) {
+				item.SetItemLabel(label)
+			}
+		}
+	}
+	OnGetMenuItemInfo(event:wx.CommandEvent) = {
+		item = self.GetLastMenuItem()
+		if (item) {
+			msg = 'The item is ' + (if (item.IsEnabled()) {'enabled'} else {'disabled'}) + \
+				'\n'
+			if (item.IsCheckable()) {
+				msg += 'It is checkable and ' + (if (item.IsChecked()) {''} else {'un'}) + \
+					'checked\n'
+			}
+			accel = item.GetAccel()
+			if (accel) {
+				msg += 'Its accelerator is '
+				flags = accel.GetFlags()
+				if ((flags & wx.ACCEL_ALT) != 0) {
+					msg += 'Alt-'
+				}
+				if ((flags & wx.ACCEL_CTRL) != 0) {
+					msg += 'Ctrl-'
+				}
+				if ((flags & wx.ACCEL_SHIFT) != 0) {
+					msg += 'Shift-'
+				}
+				code = accel.GetKeyCode()
+				if (code in [wx.WXK_F1, wx.WXK_F2, wx.WXK_F3, wx.WXK_F4,
+						wx.WXK_F5, wx.WXK_F6, wx.WXK_F7, wx.WXK_F8,
+						wx.WXK_F9, wx.WXK_F10, wx.WXK_F11, wx.WXK_F12]) {
+					msg += 'F' + (code - wx.WXK_F1 + 1)
+				} else {
+					// if there are any other keys wxGetAccelFromString() may return,
+					// we should process them here
+					if (ord('a') <= code && code <= ord('z') || \
+							ord('A') <= code && code <= ord('Z') || \
+							ord('0') <= code && code <= ord('9')) {
+						msg += chr(code)
+					} else {
+						wx.FAIL_MSG( 'unknown keyboard accel' )
+					}
+				}
+			} else {
+				msg += "It doesn't have an accelerator"
+			}
+			wx.LogMessage(msg)
+		}
+	}
+	OnFindMenuItem(event:wx.CommandEvent) = {
+		mbar = self.GetMenuBar()
+		count = mbar.GetMenuCount()
+		//wxCHECK_RET( count, 'no last menu?") )
+		label = wx.GetTextFromUser(
+							'Enter label to search for: ',
+							'Find menu item',
+							wx.EmptyString,
+							self
+						 )
+		if (!label.isempty()) {
+			index = wx.NOT_FOUND
+			repeat(count) {|menuindex|
+				(index != wx.NOT_FOUND) && break
+				index = mbar.FindMenuItem(mbar.GetMenu(menuindex).GetTitle(), label)
+			}
+			if (index == wx.NOT_FOUND) {
+				wx.LogWarning("No menu item with label '%s'", label)
+			} else {
+				wx.LogMessage("Menu item %d in menu %lu has label '%s'",
+							 index, menuindex, label)
+			}
+		}
+	}
+	ShowContextMenu(pos:wx.Point) = {
+		menu = wx.Menu()
+		menu.Append(Menu_Help_About, '&About')
+		[menuSub, title] = self.CreateDummyMenu()
+		menu.AppendMenu(Menu_Popup_Submenu, '&Submenu', menuSub)
+		menu.Append(Menu_Popup_ToBeDeleted, 'To be &deleted')
+		menu.AppendCheckItem(Menu_Popup_ToBeChecked, 'To be &checked')
+		menu.Append(Menu_Popup_ToBeGreyed, 'To be &greyed',
+					'This menu item should be initially greyed out')
+		menu.AppendSeparator()
+		menu.Append(Menu_File_Quit, 'E&xit')
+		menu.Delete(Menu_Popup_ToBeDeleted)
+		menu.Check(Menu_Popup_ToBeChecked, true)
+		menu.Enable(Menu_Popup_ToBeGreyed, false)
+		self.PopupMenuXY(menu, pos.x, pos.y)
+	}
+	OnTestNormal(event:wx.CommandEvent) = {
+		wx.LogMessage('Normal item selected')
+	}
+	OnTestCheck(event:wx.CommandEvent) = {
+		wx.LogMessage('Check item %schecked',
+					 if (event.IsChecked()) {''} else {'un'})
+	}
+	OnTestRadio(event:wx.CommandEvent) = {
+		wx.LogMessage('Radio item %d selected',
+					 event.GetId() - Menu_Test_Radio1 + 1)
+	}
+	LogMenuOpenOrClose(event:wx.MenuEvent, what:string) = {
+		msg = 'A ' \
+			+ if (event.IsPopup()) {'popup '} else {''} \
+			+ 'menu has been ' \
+			+ what \
+			+ '.'
+		wx.LogStatus(msg)
+	}
+	OnUpdateSubMenuNormal(event:wx.UpdateUIEvent) = {
+		event.Enable(false)
+	}
+	OnUpdateSubMenuCheck(event:wx.UpdateUIEvent) = {
+		event.Enable(true)
+	}
+	OnUpdateSubMenuRadio(event:wx.UpdateUIEvent) = {
+		which = (event.GetId() - Menu_SubMenu_Radio1 + 1)
+		if (which == 2) {
+			event.Check(true)
+		} else {
+			event.Check(false)
+		}
+	}
+	OnContextMenu(event:wx.ContextMenuEvent) = {
+		point = event.GetPosition()
+		// If from keyboard
+		if (point.x == -1 && point.y == -1) {
+			size = GetSize()
+			point.x = size.x / 2
+			point.y = size.y / 2
+		} else {
+			point = self.ScreenToClient(point)
+		}
+		self.ShowContextMenu(point)
+	}
+	OnSize(event:wx.SizeEvent) = {
+		if (!self.m_textctrl) {
+			return
+		}
+		// leave a band below for popup menu testing
+		size = self.GetClientSize()
+		self.m_textctrl.SetDimensions(0, 0, size.x, (3 * size.y) / 4)
+		// this is really ugly but we have to do it as we can't just call
+		// event.Skip() because wxFrameBase would make the text control fill the
+		// entire frame then
+		//self.PositionMenuBar()
+	}
+	OnRightUp(event:wx.MouseEvent) = {
+		self.ShowContextMenu(event.GetPosition())
+	}
+	OnMenuOpen(event:wx.MenuEvent) = {
+		self.LogMenuOpenOrClose(event, 'opened')
+		event.Skip()
+	}
+	OnMenuClose(event:wx.MenuEvent) = {
+		self.LogMenuOpenOrClose(event, 'closed')
+		event.Skip()
+	}
+}
+
+// A small helper class which intercepts all menu events and logs them
+MyEvtHandler = class(wx.EvtHandler) {
+	__init__(frame:MyFrame) = {
+		self.m_frame = frame
+	}
+	OnMenuEvent(event:wx.CommandEvent) = {
+		self.m_frame.LogMenuEvent(event)
+		event.Skip()
+	}
+}
+
+wx.IMPLEMENT_APP(MyApp)

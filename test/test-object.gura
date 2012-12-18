@@ -1,0 +1,575 @@
+#!/usr/bin/env gura
+sys.echo(false)
+print_func(func:function) = printf('%s = %s\n', func, func.expr())
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+
+scope {
+	A = class {
+		f():static = println('A.f()')
+		g() = println('A#g()')
+	}
+	a = A()
+	a.f()
+	a.g()
+	A.f()
+	try {
+		A.g()
+	} except(ValueError) {
+		println('expected error occurs')
+	}
+}
+scope {
+	A = class {
+		func() = {
+			println('A.func()')
+		}
+	}
+	B = class(A) {
+		func() = {
+			println('B.func()')
+			super(self).func()
+		}
+	}
+	C = class(B) {
+		func() = {
+			println('C.func()')
+			super(self).func()
+		}
+	}
+	D = class(C) {
+		func() = {
+			println('D.func()')
+			super(self).func()
+		}
+	}
+	A().func()
+	println('----')
+	B().func()
+	println('----')
+	C().func()
+	println('----')
+	D().func()
+	println('----')
+	d = D()
+	super(d).func()
+	println('----')
+	super(super(d)).func()
+	println('----')
+	super(super(super(d))).func()
+}
+scope {
+	Person = class {
+		__init__(name:string => '(no name)', age:number => 0) = {
+			[self.name, self.age] = [name, age]
+		}
+		assign(person:Person) = {
+			[self.name, self.age] = [person.name, person.age]
+		}
+		HasSameName(person:Person) = (self.name == person.name)
+		IsAtSameAge(person:Person) = (self.age == person.age)
+		Print():void = printf('%-10s is %d years old.\n', self.name, self.age)
+	}
+	people = Person * [
+		['Inari', 23], ['Maruyama', 27], ['Akai', 23], ['Maruyama', 32]
+	]
+	people::Print()
+	person = Person()
+	person.Print()
+	person.assign(people[2])
+	person.Print()
+	cross (person1 in people, person2 in people) {|i, i1, i2|
+		(i1 == i2) && continue
+		printf('%-10s:%2d %-10s:%2d .. %-5s:%-5s\n',
+				person1.name, person1.age, person2.name, person2.age,
+				person1.HasSameName(person2), person1.IsAtSameAge(person2))
+	}
+}
+scope {
+	A = class {
+		__init__(x, y, z) = {
+			println(x, ' ', y, ' ', z)
+		}
+	}
+	B = class(A) {
+		__init__() = {|(1 | 2 | 4 | 8 | 16), (1 | 2 | 4), (1 | 2 | 4 | 8)|
+		}
+	}
+	B()
+}
+scope {
+	A = class {
+		__init__() = {
+			self.prop = 'property'
+		}
+		__getprop__(symbol:symbol) = {
+			function(args*) {
+				symbol.tostring() + ' OK (' + args.join(',') + ') ' + self.prop
+			}
+		}
+		func1(args*) = 'func1 OK (' + args.join(',') + ') ' + self.prop
+		func2(args*) = 'func2 OK (' + args.join(',') + ') ' + self.prop
+	}
+	a = A()
+	tester(`a.call!(`dynamic1, 1, 2, 3, 4))
+	tester(`a.call!(`dynamic2, 1, 2, 3, 4))
+	tester(`a.call!(`func1, 1, 2, 3, 4))
+	tester(`a.call!(`func2, 1, 2, 3, 4))
+}
+scope {
+	A = class {
+		__getitem__(index:string) = {
+			'indexed at ' + index
+		}
+		__setitem__(index:string, value) = {
+			println(index, ' = ', value)
+		}
+	}
+	a = A()
+	tester(`a['hello'])
+	tester(`a['hoge'])
+	tester(`a[[1, 2]])
+	a['foo'] = 'aaaaa'
+	a['bar'] = 'bbbbb'
+	a['aaa', 'bbb'] = 3
+}
+scope {
+	classref(`string) {|ref|
+		ref.len2() = self.len() * 2
+		ref.len3() = self.len() * 3
+	}
+	tester(`'hello world'.len())
+	tester(`'hello world'.len2())
+	tester(`'hello world'.len3())
+}
+scope {
+	A = class {
+		inst = nil
+		__init__(name:string) = {
+			self.name = name
+		}
+		getInst():static = {
+			self.inst = self.inst || A('hoge')
+			self.inst
+		}
+		print() = println(self.name)
+	}
+	a = A.getInst()
+	a.print()
+	a.name = 'mod-hoge'
+	b = A.getInst()
+	b.print()
+}
+scope {
+	A = class {
+		__setprop__(symbol:symbol, value) = {
+			printf('__setprop__: %s = %s\n', symbol, value)
+			true
+		}
+		__getprop__(symbol:symbol) = {
+			'symbol-' + symbol.tostring()
+		}
+	}
+	a = A()
+	a.hoge = 2
+	a.foo = 'hello world'
+	println(a.hoge)
+	println(a.foo)
+}
+scope {
+	A = class {
+		__getprop__(symbol:symbol) = {
+			function { println('symbol-' + symbol.tostring()) }
+		}
+	}
+	a = A()
+	a.func_hoge()
+	a.func_foo()
+}
+scope {
+	A = class {
+		func1(n:number) = {
+			if (n == 0) {
+				printf('%d is zero\n', n)
+			} else {
+				printf('%d is not zero\n', n)
+			}
+		}
+		func2(n:number):static = {
+			if (n == 0) {
+				printf('%d is zero\n', n)
+			} else {
+				printf('%d is not zero\n', n)
+			}
+		}
+	}
+	a = A()
+	a.func1(0)
+	a.func1(2)
+	A.func2(0)
+	A.func2(2)
+}
+scope {
+	obj = object()
+	syms = tosymbol(format('attr%02d', 0..99))
+	for (sym in syms) {|i| obj.setprop!(sym, i) }
+	println((syms::tostring() + '=' + obj.getprop!(syms)).join(','))
+}
+scope {
+	Person = struct(name:string, workplace:string)
+	Teacher = class(Person) {
+		__init__(name:string) = {|name, 'school'|}
+	}
+	Businessman = class(Person) {
+		__init__(name:string) = {|name, 'office'|}
+	}
+	Lawyer = class(Person) {
+		__init__(name:string) = {|name, 'court'|}
+	}
+	people = [ Teacher('Yamada'), Businessman('Honda'), Lawyer('Kimura') ]
+	println(people::tolist()::join(' works at '))
+}
+scope {
+	Person1 = class {
+		__init__(name:string, age:number) = {
+			self.name = name, self.age = age
+		}
+		__str__() = format('name: %s, age:%s', self.name, self.age)
+	}
+	p1 = Person1('yamada', 30)
+	printf('%s %s\n', typename(p1), p1)
+	Person2 = struct(name:string, age:number) {
+		__str__() = format('name: %s, age:%s', self.name, self.age)
+	}
+	p2 = Person2('yamada', 30)
+	printf('%s %s\n', typename(p2), p2)
+}
+scope {
+	B = class {
+		cntAll = 0
+		__init__() = {
+			self.n = self.cntAll
+			self.cntAll += 1
+		}
+		print() = printf('%d\n', self.n)
+	}
+	B().print()
+	B().print()
+	B().print()
+	B().print()
+	B().print()
+	B().print()
+	B().print()
+}
+scope {
+	Person = class {
+		__init__(name:string) = {
+			self.name = name
+		}
+		introduce() = format('my name is %s', self.name)
+		work() = 'do what?'
+	}
+	Student = class(Person) {
+		__init__(name:string) = {|name|}
+		work() = 'study'
+	}
+	Worker = class(Person) {
+		__init__(name:string, workplace:string) = {|name|
+			self.workplace = workplace
+		}
+		work() = format('work at %s', self.workplace)
+	}
+	Teacher = class(Worker) {
+		__init__(name:string) = {|name, 'school'|}
+	}
+	Businessman = class(Worker) {
+		__init__(name:string) = {|name, 'office'|}
+	}
+	f(p:Person):map = p.introduce()
+	people = [
+		Person('Hayasaka Hiroko')
+		Student('Kikuchi Takao')
+		Teacher('Nagao Erika')
+		Businessman('Kikuchi Shigeo')
+	]
+	tester(`f(people))
+	tester(`isinstance(people, `number))
+	tester(`isinstance(people, `string))
+	tester(`isinstance(people, `object))
+	tester(`isinstance(people, `Person))
+	tester(`isinstance(people, `Student))
+	tester(`isinstance(people, `Worker))
+	tester(`isinstance(people, `Businessman))
+	tester(`isinstance(people, `Teacher))
+	tester(`people::work())
+}
+scope {
+	Person = class {
+		__init__(job, name, age) = {
+			self.job = job, self.name = name, self.age = age
+		}
+		Print() = printf('job:%s, name:%s, age:%d\n', self.job, self.name, self.age)
+	}
+	Student = class(Person) {
+		__init__(name, age) = {|'student', name, age|
+		}
+	}
+	Teacher = class(Person) {
+		__init__(name, age) = {|'teacher', name, age|
+		}
+	}
+	list = [
+		Student('Hayasaka Hiroko',	14)
+		Teacher('Hannda Yumiko',	40)
+		Student('Honma Chise',		13)
+		Student('Kikuchi Takao',	15)
+		Teacher('Aoi Tatsuya',		30)
+	]
+	list::Print()
+}
+scope {
+	A = class {
+		nn = 0
+		__init__() = {
+			self.n = self.nn, self.nn += 1
+			printf('+created %d\n', self.n)
+		}
+		__del__() = {
+			printf('-deleted %d\n', self.n)
+		}
+		Print() = {
+			printf(' print   %d\n', self.n)
+		}
+	}
+	scope {
+		scope {
+			a = A()
+			a.Print()
+			a = A()
+			a.Print()
+			A().Print()
+			printf('----\n')
+		}
+		scope {
+			a = A()
+			a.Print()
+			a = A()
+			a.Print()
+			A().Print()
+			printf('----\n')
+		}
+		printf('done\n')
+	}
+	repeat(3) {
+		a = A()
+	}
+	printf('----\n')
+}
+scope {
+	Person = class {
+		__init__(name:string, age:number) = {
+			self.name = name
+			self.age = age
+		}
+		Print() = {
+			print(self.name, ' is ', self.age, ' years old.\n')
+		}
+	}
+	people = @(Person) {
+		['hoge',	15]		# comma at each end of line can be omitted
+		['aaaa',	18]
+		['saito',	19]
+		['tanaka',	20]
+		['sato',	17]
+	}
+	println('before sort')
+	people::Print()
+	println('sort by name')
+	people.sort(&{$person1.name <=> $person2.name})::Print()
+	println('sort by age')
+	people.sort(&{$person1.age <=> $person2.age})::Print()
+}
+scope {
+	Object = class()
+	obj = Object()
+	obj.a = 10
+	obj.b = 20
+	obj.func1(x) = math.sin(x)
+	obj.func2(x) = math.sqrt(x)
+	obj.func3() = math.sqrt(self.a)
+	print('obj.a + obj.b = ', obj.a + obj.b, '\n')
+	println(obj.func1(3))
+	println(obj.func2(2))
+	println(obj.func3())
+	println('--------')
+}
+scope {
+	Person = class {
+		name = 'aaa'
+		age = 10
+		__str__() = format('name: %s, age:%s', self.name, self.age)
+		Print() = {
+			print(self.name, ' is ', self.age, ' years old', '  pi=', math.pi, '\n')
+		}
+	}
+	a = Person()
+	println(a)
+	print('a.name = ', a.name, '\n')
+	print('a.age = ', a.age, '\n')
+	a.Print()
+	a.name = 'bbbb'
+	a.Print()
+	println('--------')
+}
+scope {
+	Person = class {
+		__init__(name) = {
+			print('Person constructor\n')
+			self.name = name
+			self.cnt = 0
+		}
+		__del__() = {
+			print('Person destructor\n')
+		}
+		func(n) = {
+			print('Person#func() cnt = ', self.cnt, '\n')
+			self.cnt = self.cnt + n
+		}
+		Print() = {
+			print('My name is ', self.name, '\n')
+		}
+	}
+	p = Person('Yutaka')
+	p.Print()
+	repeat (10) {
+		p.func(1)
+	}
+	#p.Print('hoge')
+}
+scope {
+	[A, B, C] = [class(), class(), class()]
+	println(A())
+	println(B())
+	println(C())
+}
+scope {
+	Axis = class {
+		__init__(title) = {
+			self.title = title
+			self.axis_step = 1
+			self.guide_step = 10
+			self.min = 0
+			self.max = 100
+			self.samples = 10
+		}
+		Print() = {
+			print(
+				'axis.title=',		self.title,
+				', axis_step=',		self.axis_step,
+				', guide_step=',	self.guide_step,
+				', min=',			self.min,
+				', max=',			self.max,
+				', samples=',		self.samples, '\n')
+			println([interval(self.min, self.max, self.samples)].tostring())
+		}
+	}
+	Graph = class {
+		__init__(title) = {
+			self.title = title
+			self.x = Axis('x-title')
+			self.y = Axis('y-title')
+			self.z = Axis('z-title')
+		}
+		Print() = {
+			print('title=', self.title, '\n')
+			self.x.Print()
+			self.y.Print()
+			self.z.Print()
+		}
+	}
+	g = Graph('hogehoge')
+	g.Print()
+	println('--------')
+}
+scope {
+	Graph = class {
+		Axis = class {
+			__init__(title) = {
+				self.title = title
+				self.axis_step = 1
+				self.guide_step = 10
+				self.min = 0
+				self.max = 100
+				self.samples = 10
+			}
+			Print() = {
+				print(
+					'axis.title=',		self.title,
+					', axis_step=',		self.axis_step,
+					', guide_step=',	self.guide_step,
+					', min=',			self.min,
+					', max=',			self.max,
+					', samples=',		self.samples, '\n')
+				println([interval(self.min, self.max, self.samples)].tostring())
+			}
+		}
+		__init__(title) = {
+			self.title = title
+			self.x = Graph.Axis('x-title')
+			self.y = Graph.Axis('y-title')
+			self.z = Graph.Axis('z-title')
+		}
+		Print() = {
+			print('title=', self.title, '\n')
+			self.x.Print()
+			self.y.Print()
+			self.z.Print()
+		}
+	}
+	g = Graph('hogehoge')
+	g.Print()
+	println('--------')
+}
+scope {
+	A = class {
+		func(x) = { print('A.func(', x, ')\n') }
+	}
+	a = A()
+	for (x in range(1, 5)) {
+		a.func(x)
+	}
+	println('--------')
+}
+function {
+	ListEx = class(List) {
+		__init__() = {
+			#super()
+			repeat(3) { self.add('init') }
+		}
+		__del__() = {
+			println('destroyed')
+		}
+	}
+	a = ListEx()
+	repeat(5) { a.add('1', '2', '3') }
+	println(a)
+}
+scope {
+	A = class {
+		val1 = 1
+		val2 = 'hello'
+		func1():static = { println(self.val1) }
+		func2() = { println(self.val2) }
+	}
+	A.func1()
+	A().func2()
+	A.hoge = 1
+	print(`A.hoge, ' = ', A.hoge, '\n')
+	A.hoge += 1
+	print(`A.hoge, ' = ', A.hoge, '\n')
+	try {
+		A.func2()
+	} except (ValueError) {
+		println('expected error occurs')
+	}
+}
+println('<<end of script>>')

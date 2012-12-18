@@ -1,0 +1,87 @@
+#!/usr/bin/env gura
+import(gif)
+
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+scope {
+	plt = palette(8)
+	plt[0..] = [`black, `blue, `lime, `aqua, `red, `fuchsia, `yellow, `white]
+	println(plt.each():*html().join(','))
+	plt[0..] = [`black, `blue, `lime, `aqua, `red, `fuchsia, `yellow, `white].reverse()
+	println(plt.each():*html().join(','))
+}
+scope {
+	tester(`palette(2).each():*html().join(','))
+	tester(`palette(4).each():*html().join(','))
+	tester(`palette(8).each():*html().join(','))
+	tester(`palette(16).each():*html().join(','))
+	tester(`palette(32).each():*html().join(','))
+	tester(`palette(64).each():*html().join(','))
+	tester(`palette(128).each():*html().join(','))
+	tester(`palette(256).each():*html().join(','))
+	tester(`palette(`basic).each():*html().join(','))
+	tester(`palette(`win256).each():*html().join(','))
+	tester(`palette(`websafe).each():*html().join(','))
+}
+scope {
+	try {
+		tester(`(color * [1]))
+	} except {|e|
+		println('expected error occurs: ', e.text)
+	}
+	try {
+		tester(`(color * [1, 2]))
+	} except {|e|
+		println('expected error occurs: ', e.text)
+	}
+	tester(`(color * [1, 2, 3]))
+	tester(`(color * [1, 2, 3, 4]))
+	try {
+		tester(`(color * [1, 2, 3, 4, 5]))
+	} except {|e|
+		println('expected error occurs: ', e.text)
+	}
+	tester(`(color * [[1, 2, 3], [4, 5, 6], [7, 8, 9], [13, 14, 15, 16]]))
+}
+scope {
+	plt = palette(256)
+	plt.updateby(palette(`basic))
+	println(plt.each():*html().join(','))
+	plt.updateby(palette(`win256))
+	println(plt.each():*html().join(','))
+	plt = palette(256)
+	plt.updateby(palette(`basic)):shrink:align
+	println(plt.each():*html().join(','))
+	plt = palette(256)
+	plt.updateby(image(I('kangaroo.gif'), `rgb))
+	println(plt.each():*html().join(','))
+	plt.shrink():align
+	println(plt.each():*html().join(','))
+	try {
+		plt = palette(16)
+		plt.updateby(image(I('kangaroo.gif'), `rgb))
+	} except {|e|
+		println('expected error occurs: ', e.text)
+	}
+	plt = palette(`win256)
+	plt2 = plt.clone()
+	plt2[0, 1, 2, 3] = color(`red)
+	println(plt.each():*html().join(','))
+	println(plt2.each():*html().join(','))
+}
+scope {
+	plt = palette(`basic)
+	tester(`plt.each()::tolist())
+	tester(`plt.each()::tolist():alpha)
+}
+scope {
+	plt = palette(`basic)
+	names = @{
+		`black, `maroon, `green, `olive, `navy, `purple, `teal, `gray,
+		`silver, `red, `lime, `yellow, `blue, `fuchsia, `aqua, `white,
+		'#ff0000', '#00ff00', '#0000ff', '#123456', '#123',
+	}
+	printf('%-*s %s %d\n', names:*tostring():*len().max(),
+						names, color(names), plt.nearest(color(names)):index)
+}

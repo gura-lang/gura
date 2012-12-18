@@ -1,0 +1,172 @@
+#!/usr/bin/env gura
+import(re)
+import(csv)
+import(graph)
+
+function(fileNameEmf:string) {
+	graph.create_emf(fileNameEmf, 150, 150) {|c|
+		Record = struct(year_j, year:number, total_n:number, total:number,
+						age_0_14:number, age_15_64:number, age_65_:number, rest*)
+		tbl = Record * csv.reader(open('ipss.go.jp-report-1.csv', 'r', 'shift_jis')):iter
+		graph.draw(c,
+				graph.item(tbl:*year, tbl:*age_0_14, `solid, `black)
+				graph.item(tbl:*year, tbl:*age_15_64, `solid, `green)
+				graph.item(tbl:*year, tbl:*age_65_, `solid, `red)) {
+			DrawAxis()
+			DrawTicksX()
+			DrawTicksY()
+		}
+	}
+	printf('%s was generated\n', fileNameEmf)
+}('plot-population.emf')
+function(fileNameEmf:string) {
+	point2d = struct(x:number, y:number)
+	bezier(xs[]:number, ys[]:number, nsamples:number):map = {
+		if (xs.len() != ys.len()) {
+			raise(ValueError, 'list of length mismatches')
+		}
+		if (xs.len() < 3) {
+			raise(ValueError, 'not enough control points for bezier')
+		}
+		function(t:number):map {
+			while ((len = xs.len()) > 1) {
+				xs = for (x1 in xs.head(len - 1), x2 in xs.offset(1)):list {
+					x1 * (1 - t) + x2 * t
+				}
+				ys = for (y1 in ys.head(len - 1), y2 in ys.offset(1)):list {
+					y1 * (1 - t) + y2 * t
+				}
+			}
+			[xs[0], ys[0]]
+		}(interval(0, 1, nsamples))
+	}
+	import(graph)
+	items = [
+		[@(point2d) {{0, 0}, {3, 2}, {7, 2}, {9, 1}}, `green]
+		[@(point2d) {{0, 0}, {2, 2}, {7, 2}, {9, 1}}, `red]
+		[@(point2d) {{0, 0}, {7, 2}, {6, 3}, {1, 4}}, `black]
+	]
+	graphItems = []
+	for ([ps, color] in items) {
+		p = point2d * bezier(ps::x, ps::y, 12)
+		graphItems.add(graph.item(ps:*x, ps:*y, `box, color))
+		graphItems.add(graph.item(p:*x, p:*y, `solid, color))
+	}
+	graph.create_emf(fileNameEmf, 150, 150) {|c|
+		graph.draw(c, graphItems*)
+	}
+	printf('%s was generated\n', fileNameEmf)
+}('plot-bezier1.emf')
+function(fileNameEmf:string) {
+	// position data is from http://www.geocities.jp/s2412502/bezier3H.html
+	[xOff, yOff] = [-20, 16]
+	[xs1, ys1] = [[6, 10, 16, 20] + xOff, -[12, 4, 6, 10] + yOff]
+	[xs2, ys2] = [[20, 24, 30, 34] + xOff, -[10, 6, 4, 12] + yOff]
+	[xs3, ys3] = [[34, 37, 22, 20] + xOff, -[12, 22, 30, 32] + yOff]
+	[xs4, ys4] = [[20, 18, 3, 6] + xOff, -[32, 30, 22, 12] + yOff]
+	[f1_x, f1_y] = math.bezier(xs1, ys1)
+	[f2_x, f2_y] = math.bezier(xs2, ys2)
+	[f3_x, f3_y] = math.bezier(xs3, ys3)
+	[f4_x, f4_y] = math.bezier(xs4, ys4)
+	t = interval(0, 1, 10)
+	graph.create_emf(fileNameEmf, 150, 150) {|c|
+		graph.draw(c,
+				graph.item(f1_x(t), f1_y(t), `solid, `red)
+				graph.item(f2_x(t), f2_y(t), `solid, `red)
+				graph.item(f3_x(t), f3_y(t), `solid, `red)
+				graph.item(f4_x(t), f4_y(t), `solid, `red)
+				graph.item(list(xs1, xs2, xs3, xs4),
+				           list(ys1, ys2, ys3, ys4), `box, `black)) {
+			DrawAxis()
+			DrawTicksX()
+			DrawTicksY()
+		}
+	}
+	printf('%s was generated\n', fileNameEmf)
+}('plot-bezier2.emf')
+function(fileNameEmf:string) {
+	xs = [8, 3.6, 3.5, 6.8, 3.3, 8.8, 0.9, 4.9, 8.9, 6.9,
+		6.2, 3.5, 4.7, 5.9, 3.9, 1.2, 3.4, 3.1, 9.8, 9.3]
+	ys = [75.2, 19.76, 19.25, 60.74, 17.59, 82.04, 4.31, 42.61, 93.01, 59.41,
+		56.34, 26.25, 29.89, 49.51, 32.51, 11.04, 18.96, 23.21, 110.44, 90.89]
+	x = interval(0, 10, 100)
+	f = math.least_square(xs, ys, 1)
+	g = math.least_square(xs, ys, 2)
+	graph.create_emf(fileNameEmf, 150, 150) {|c|
+		graph.draw(c,
+				graph.item(xs, ys, `box, `black)
+				graph.item(x, f(x), `solid, `green)
+				graph.item(x, g(x), `solid, `red)) {
+			DrawAxis()
+			DrawTicksX()
+			DrawTicksY()
+		}
+	}
+	printf('%s was generated\n', fileNameEmf)
+}('plot-leastsquare.emf')
+function(fileNameEmf:string) {
+	x = interval(-10, 10, 1000)
+	graph.create_emf(fileNameEmf, 150, 150) {|c|
+		graph.draw(c,
+				graph.item(x, x * x / 10, `solid)
+				graph.item(x, x * x * x / 100, `solid)) {
+			DrawAxis()
+			DrawTicksX()
+			DrawTicksY()
+		}
+	}
+	printf('%s was generated\n', fileNameEmf)
+}('plot-parabola.emf')
+function(fileNameEmf:string) {
+	read_table(filename:string, header:boolean => true) = {
+		lines = open(filename).readlines():chop
+		if (header) { lines.next() }
+		tonumber(re.split(r'\s+', lines)):list
+	}
+	graph.create_emf(fileNameEmf, 150, 150) {|c|
+		tbl = struct(day, Site01, Site02, Site03) * \
+							read_table('temperature.txt', header => true)
+		graph.draw(c,
+				graph.item(tbl:*day, tbl:*Site01, `solid)
+				graph.item(tbl:*day, tbl:*Site02, `solid)
+				graph.item(tbl:*day, tbl:*Site03, `solid)) {
+			DrawAxis()
+			DrawTicksX()
+			DrawTicksY()
+		}
+	}
+	printf('%s was generated\n', fileNameEmf)
+}('plot-temperature.emf')
+function(fileNameEmf:string) {
+	x = interval(0, 2 * math.pi * 6, 1000)
+	y1 = math.sin(x)
+	y2 = math.exp(-x / 10)
+	y3 = y1 * y2
+	graph.create_emf(fileNameEmf, 150, 150) {|c|
+		graph.draw(c,
+				graph.item(x, y1, `dot),
+				graph.item(x, y2, `dot),
+				graph.item(x, -y2, `dot_dash),
+				graph.item(x, y3, `solid)) {
+			DrawAxis()
+			DrawTicksX()
+			DrawTicksY()
+		}
+	}
+	printf('%s was generated\n', fileNameEmf)
+}('plot-sin-1.emf')
+function(fileNameEmf:string) {
+	graph.create_emf(fileNameEmf, 150, 150) {|c|
+		x = interval(0, 8 * math.pi, 1000)
+		graph.draw(c,
+				graph.item(x, math.sin(x) * math.exp(-x / 10), `solid)
+				graph.item(x, math.sin(x), `dot)
+				graph.item(x, math.exp(-x / 10), `dot)
+				graph.item(x, -math.exp(-x / 10), `dot)) {
+			DrawAxis()
+			DrawTicksX()
+			DrawTicksY()
+		}
+	}
+	printf('%s was generated\n', fileNameEmf)
+}('plot-sin-2.emf')

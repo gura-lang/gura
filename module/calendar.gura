@@ -1,0 +1,48 @@
+#!/usr/bin/env gura
+
+calendar(year:number, weekoffset:number => 0, ncols:number => 3) = {
+	calOfMonth(year:number, month:number) = {
+		offsetFirst = (time.weekday(year, month, 1) + 7 - weekoffset) % 7
+		days = [fill(offsetFirst, '  '),
+				(1..time.monthdays(year, month)).format('%2d')]
+		days.fold(7).align(6, []):*align(7, '  '):*join(' ')
+	}
+	monthNames = [
+		'', 'January', 'February', 'March', 'April', 'May', 'June',
+		'July', 'August', 'September', 'October', 'November', 'December',
+	]
+	weekAbbrs = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+	weekAbbrs = weekAbbrs.round(7 + weekoffset).offset(weekoffset):list
+	weekLine = weekAbbrs.join(' ')
+	wdPerMonth = 3 * 7 - 1
+	wdSep = 6
+	sep = ' ' * wdSep
+	rtn = []
+	rtn.add(format('%04d', year).align((wdPerMonth + wdSep) * ncols - wdSep):center)
+	rtn.add('')
+	repeat (math.ceil(12 / ncols)) {|iRow|
+		month = iRow * ncols + 1
+		ncolsCur = min(ncols, 12 - month + 1)
+		months = [month..(month + ncolsCur - 1)]
+		rtn.add((monthNames[months]:*align(wdPerMonth):center).join(sep))
+		rtn.add(repeat(ncolsCur):list { weekLine }.join(sep))
+		lines = repeat(6):list { '' }
+		repeat (ncolsCur) {|iCol|
+			if (iCol > 0) { lines += sep }
+			lines += calOfMonth(year, month + iCol)
+		}
+		rtn.add(lines)
+	}
+}
+calendar.help('''\
+
+''')
+
+if (__name__ == '__main__') {
+	year = if (sys.argv.len() < 2) {
+		time.today().year
+	} else {
+		sys.argv[1].tonumber()
+	}
+	println(calendar(year))
+}

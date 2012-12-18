@@ -1,0 +1,11 @@
+#!/usr/bin/env gura
+
+LogWindow = class(wx.TextCtrl) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, style => wx.TE_MULTILINE|
+		self.SetFont(wx.Font(9, wx.FONTFAMILY_TELETYPE,
+								wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
+	}
+	Printf(format:string, values*) = {
+		self.WriteText(format % values)
+	}
+}

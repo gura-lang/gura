@@ -1,0 +1,162 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        collpane.cpp
+// Purpose:     wxCollapsiblePane sample
+// Author:      Francesco Montorsi
+// Modified by:
+// Created:     14/10/06
+// RCS-ID:      $Id: collpane.cpp 42759 2006-10-30 20:08:17Z VZ $
+// Copyright:   (c) Francesco Montorsi
+// Licence:     wxWindows license
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+// ----------------------------------------------------------------------------
+// constants
+// ----------------------------------------------------------------------------
+// ID for the menu commands
+[
+PANE_COLLAPSE,
+PANE_EXPAND,
+PANE_SETLABEL,
+PANE_SHOWDLG] = 0..
+PANE_ABOUT = wx.ID_ABOUT,
+PANE_QUIT = wx.ID_EXIT
+
+// ----------------------------------------------------------------------------
+// MyApp
+// ----------------------------------------------------------------------------
+
+MyApp = class(wx.App) {
+	OnInit() = {
+		frame = MyFrame()
+		frame.Show()
+		true
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyFrame
+// ----------------------------------------------------------------------------
+
+MyFrame = class(wx.Frame) {
+	__init__() = {|nil, wx.ID_ANY, 'wxCollapsiblePane sample',
+					wx.DefaultPosition, wx.Size(420, 300),
+					(wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE)|
+		self.EventHandler()
+		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		self.CreateStatusBar(2)
+		// Make a menubar
+		paneMenu = wx.Menu()
+		paneMenu.Append(PANE_COLLAPSE, 'Collapse\tCtrl-C')
+		paneMenu.Append(PANE_EXPAND, 'Expand\tCtrl-E')
+		paneMenu.AppendSeparator()
+		paneMenu.Append(PANE_SETLABEL, 'Set label...\tCtrl-S')
+		paneMenu.AppendSeparator()
+		paneMenu.Append(PANE_SHOWDLG, 'Show dialog...\tCtrl-S')
+		paneMenu.AppendSeparator()
+		paneMenu.Append(PANE_QUIT)
+		helpMenu = wx.Menu()
+		helpMenu.Append(PANE_ABOUT)
+		menuBar = wx.MenuBar()
+		menuBar.Append(paneMenu, '&Pane')
+		menuBar.Append(helpMenu, '&Help')
+		self.SetMenuBar(menuBar)
+		self.m_collPane = wx.CollapsiblePane(self, -1, 'test!')
+		win = self.m_collPane.GetPane()
+		wx.StaticText(win, -1, 'Static control with absolute coords', wx.Point(10, 2))
+		wx.StaticText(win, -1, 'Yet another one!', wx.Point(30, 30))
+		wx.TextCtrl(win, -1, 'You can place anything you like inside a wxCollapsiblePane',
+					wx.Point(5, 60), wx.Size(300, -1))
+	}
+	EventHandler() = {
+		self.Bind(wx.EVT_MENU, PANE_COLLAPSE) {|event| self.OnCollapse(event) }
+		self.Bind(wx.EVT_MENU, PANE_EXPAND) {|event| self.OnExpand(event) }
+		self.Bind(wx.EVT_MENU, PANE_SETLABEL) {|event| self.OnSetLabel(event) }
+		self.Bind(wx.EVT_MENU, PANE_SHOWDLG) {|event| self.OnShowDialog(event) }
+		self.Bind(wx.EVT_MENU, PANE_ABOUT) {|event| self.OnAbout(event) }
+		self.Bind(wx.EVT_MENU, PANE_QUIT) {|event| self.Quit(event) }
+		self.Bind(wx.EVT_UPDATE_UI, wx.ID_ANY) {|event| self.UpdateUI(event) }
+	}
+	// Menu commands
+	Quit(event:wx.CommandEvent) = {
+		self.Close(true)
+	}
+	OnCollapse(event:wx.CommandEvent) = {
+		self.m_collPane.Collapse()
+	}
+	OnExpand(event:wx.CommandEvent) = {
+		self.m_collPane.Expand()
+	}
+	OnSetLabel(event:wx.CommandEvent) = {
+		text = wx.GetTextFromUser('Input the new label')
+		self.m_collPane.SetLabel(text)
+	}
+	OnShowDialog(event:wx.CommandEvent) = {
+		dlg = MyDialog(self)
+		dlg.ShowModal()
+	}
+	OnAbout(event:wx.CommandEvent) = {
+		info = wx.AboutDialogInfo()
+		info.SetName('wxCollapsiblePane sample')
+		info.SetDescription('This sample program demonstrates usage of wxCollapsiblePane')
+		info.SetCopyright('(C) 2006 Francesco Montorsi <frm@users.sourceforge.net>')
+		wx.AboutBox(info)
+	}
+	// Menu command update functions
+	UpdateUI(event:wx.UpdateUIEvent) = {
+		self.GetMenuBar().Enable(PANE_COLLAPSE, !self.m_collPane.IsCollapsed())
+		self.GetMenuBar().Enable(PANE_EXPAND, self.m_collPane.IsCollapsed())
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyDialog
+// ----------------------------------------------------------------------------
+
+PANEDLG_TOGGLESTATUS_BTN = wx.ID_HIGHEST
+
+MyDialog = class(wx.Dialog) {
+	__init__(parent:wx.Frame) = {|parent, wx.ID_ANY, 'Test dialog',
+						wx.DefaultPosition, wx.DefaultSize,
+						(wx.RESIZE_BORDER | wx.DEFAULT_DIALOG_STYLE)|
+		self.EventHandler()
+		sz = wx.BoxSizer(wx.VERTICAL)
+		sz.Add(wx.StaticText(self, -1,
+			'This dialog allows you to test the wxCollapsiblePane control'),
+			wx.SizerFlags(0).Expand().Border(wx.ALL, 5))
+		sz.Add(wx.Button(self, PANEDLG_TOGGLESTATUS_BTN, 'Change status'),
+			wx.SizerFlags(1).Expand().Border(wx.ALL, 5))
+		self.m_collPane = wx.CollapsiblePane(self, -1, 'Click here for a surprise')
+		sz.Add(self.m_collPane, wx.SizerFlags(0).Expand().Border(wx.ALL, 5))
+		sz.Add(wx.TextCtrl(self, -1, 'just a test'), wx.SizerFlags(0).Expand().Border(wx.ALL, 5))
+		sz.AddSpacer(10)
+		sz.Add(wx.Button(self, wx.ID_OK), wx.SizerFlags(0).Align(wx.ALIGN_RIGHT).Border(wx.ALL, 5))
+		// now add test controls in the collapsible pane
+		win = self.m_collPane.GetPane()
+		paneSz = wx.GridSizer(2, 2, 5, 5)
+		paneSz.Add(wx.ColourPickerCtrl(win, -1), wx.SizerFlags(1).Expand().Border(wx.ALL, 2))
+		paneSz.Add(wx.FontPickerCtrl(win, -1), wx.SizerFlags(1).Expand().Border(wx.ALL, 2))
+		paneSz.Add(wx.FilePickerCtrl(win, -1), wx.SizerFlags(1).Align(wx.ALIGN_CENTER).Border(wx.ALL, 2))
+		paneSz.Add(wx.DirPickerCtrl(win, -1), wx.SizerFlags(1).Align(wx.ALIGN_CENTER).Border(wx.ALL, 2))
+		win.SetSizer(paneSz)
+		paneSz.SetSizeHints(win)
+		self.SetSizer(sz)
+		sz.SetSizeHints(self)
+	}
+	EventHandler() = {
+		self.Bind(wx.EVT_BUTTON, PANEDLG_TOGGLESTATUS_BTN) {|event| self.OnToggleStatus(event) }
+		self.Bind(wx.EVT_COLLAPSIBLEPANE_CHANGED, wx.ID_ANY) {|event| self.OnPaneChanged(event) }
+	}
+	OnToggleStatus(event:wx.CommandEvent) = {
+		self.m_collPane.Collapse(!self.m_collPane.IsCollapsed())
+	}
+	OnPaneChanged(event:wx.CollapsiblePaneEvent) = {
+		wx.LogDebug('The pane has just been %s by the user',
+				if (event.GetCollapsed()) {'collapsed'} else {'expanded'})
+	}
+}
+
+wx.IMPLEMENT_APP(MyApp)

@@ -1,0 +1,35 @@
+database:
+  host:     localhost
+  port:     5432
+  user:     dbuser
+  passwd:   dbpasswd
+
+tables:
+
+  - name:   users
+    desc:   User master table
+    columns:
+      - name:     id
+        type:     integer
+        primary-key:  true
+      - name:     user
+        type:     varchar(32)
+        not-null: true
+        unique:   true
+      - name:     password
+        type:     varchar(32)
+        not-null: true
+      - name:     group_id
+        type:     integer
+        not-null: true
+
+  - name:   groups
+    desc:   Group master table
+    columns:
+      - name:     id
+        type:     integer
+        primary-key:  true
+      - name:     group
+        type:     varchar(32)
+        not-null: true
+        unique:   true
