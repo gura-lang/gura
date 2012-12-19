@@ -78,7 +78,6 @@ MyCustomRenderer = class(wx.DataViewCustomRenderer) {
 	}
 	SetValue(value:wx.Variant) = {
 		self.m_colour = value.GetString()
-		println(self.m_colour)
 		true
 	}
 	Render(rect:wx.Rect, dc:wx.DC, state:number) = {
