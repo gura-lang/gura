@@ -23,13 +23,13 @@ private:
 	Object_wx_DataViewRenderer *_pObj;
 public:
 	//inline wx_DataViewRenderer(const wxString& varianttype, wxDataViewCellMode mode) : wxDataViewRenderer(varianttype, mode), _sig(NULL), _pObj(NULL) {}
-	//virtual wxDataViewCellMode GetMode();
-	//virtual wxDataViewColumn* GetOwner();
-	//virtual bool GetValue(wxVariant& value);
-	//virtual wxString GetVariantType();
-	//virtual void SetOwner(wxDataViewColumn* owner);
-	//virtual bool SetValue(const wxVariant& value);
-	//virtual bool Validate(wxVariant& value);
+	virtual wxDataViewCellMode GetMode();
+	virtual wxDataViewColumn* GetOwner();
+	virtual bool GetValue(wxVariant& value);
+	virtual wxString GetVariantType();
+	virtual void SetOwner(wxDataViewColumn* owner);
+	virtual bool SetValue(const wxVariant& value);
+	virtual bool Validate(wxVariant& value);
 	~wx_DataViewRenderer();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_DataViewRenderer *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -46,6 +46,40 @@ wx_DataViewRenderer::~wx_DataViewRenderer()
 void wx_DataViewRenderer::GuraObjectDeleted()
 {
 	_pObj = NULL;
+}
+
+wxDataViewCellMode wx_DataViewRenderer::GetMode()
+{
+	return wxDATAVIEW_CELL_INERT;
+}
+
+wxDataViewColumn* wx_DataViewRenderer::GetOwner()
+{
+	return NULL;
+}
+
+bool wx_DataViewRenderer::GetValue(wxVariant& value)
+{
+	return false;
+}
+
+wxString wx_DataViewRenderer::GetVariantType()
+{
+	return wxEmptyString;
+}
+
+void wx_DataViewRenderer::SetOwner(wxDataViewColumn* owner)
+{
+}
+
+bool wx_DataViewRenderer::SetValue(const wxVariant& value)
+{
+	return false;
+}
+
+bool wx_DataViewRenderer::Validate(wxVariant& value)
+{
+	return false;
 }
 
 //----------------------------------------------------------------------------
@@ -91,14 +125,10 @@ Gura_DeclareMethod(wx_DataViewRenderer, GetMode)
 
 Gura_ImplementMethod(wx_DataViewRenderer, GetMode)
 {
-#if 0
 	Object_wx_DataViewRenderer *pSelf = Object_wx_DataViewRenderer::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxDataViewCellMode rtn = pSelf->GetEntity()->GetMode();
+	wxDataViewCellMode rtn = pSelf->GetEntity()->wxDataViewRenderer::GetMode();
 	return ReturnValue(env, sig, args, Value(rtn));
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
 }
 
 Gura_DeclareMethod(wx_DataViewRenderer, GetOwner)
@@ -109,36 +139,26 @@ Gura_DeclareMethod(wx_DataViewRenderer, GetOwner)
 
 Gura_ImplementMethod(wx_DataViewRenderer, GetOwner)
 {
-#if 0
 	Object_wx_DataViewRenderer *pSelf = Object_wx_DataViewRenderer::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxDataViewColumn *rtn = (wxDataViewColumn *)pSelf->GetEntity()->GetOwner();
+	wxDataViewColumn *rtn = (wxDataViewColumn *)pSelf->GetEntity()->wxDataViewRenderer::GetOwner();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DataViewColumn(rtn, NULL, OwnerFalse)));
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
 }
 
 Gura_DeclareMethod(wx_DataViewRenderer, GetValue)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-#if 0
 	DeclareArg(env, "value", VTYPE_wx_Variant, OCCUR_Once);
-#endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(wx_DataViewRenderer, GetValue)
 {
-#if 0
 	Object_wx_DataViewRenderer *pSelf = Object_wx_DataViewRenderer::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxVariant *value = Object_wx_Variant::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->GetValue(*value);
+	bool rtn = pSelf->GetEntity()->wxDataViewRenderer::GetValue(*value);
 	return ReturnValue(env, sig, args, Value(rtn));
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
 }
 
 Gura_DeclareMethod(wx_DataViewRenderer, GetVariantType)
@@ -149,79 +169,57 @@ Gura_DeclareMethod(wx_DataViewRenderer, GetVariantType)
 
 Gura_ImplementMethod(wx_DataViewRenderer, GetVariantType)
 {
-#if 0
 	Object_wx_DataViewRenderer *pSelf = Object_wx_DataViewRenderer::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetVariantType();
+	wxString rtn = pSelf->GetEntity()->wxDataViewRenderer::GetVariantType();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
 }
 
 Gura_DeclareMethod(wx_DataViewRenderer, SetOwner)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-#if 0
 	DeclareArg(env, "owner", VTYPE_wx_DataViewColumn, OCCUR_Once);
-#endif
 }
 
 Gura_ImplementMethod(wx_DataViewRenderer, SetOwner)
 {
-#if 0
 	Object_wx_DataViewRenderer *pSelf = Object_wx_DataViewRenderer::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxDataViewColumn *owner = Object_wx_DataViewColumn::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetOwner(owner);
-	return Value::Null;
-#endif
-	SetError_NotImplemented(sig);
+	pSelf->GetEntity()->wxDataViewRenderer::SetOwner(owner);
 	return Value::Null;
 }
 
 Gura_DeclareMethod(wx_DataViewRenderer, SetValue)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-#if 0
 	DeclareArg(env, "value", VTYPE_wx_Variant, OCCUR_Once);
-#endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(wx_DataViewRenderer, SetValue)
 {
-#if 0
 	Object_wx_DataViewRenderer *pSelf = Object_wx_DataViewRenderer::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxVariant *value = Object_wx_Variant::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->SetValue(*value);
+	bool rtn = pSelf->GetEntity()->wxDataViewRenderer::SetValue(*value);
 	return ReturnValue(env, sig, args, Value(rtn));
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
 }
 
 Gura_DeclareMethod(wx_DataViewRenderer, Validate)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-#if 0
 	DeclareArg(env, "value", VTYPE_wx_Variant, OCCUR_Once);
-#endif
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(wx_DataViewRenderer, Validate)
 {
-#if 0
 	Object_wx_DataViewRenderer *pSelf = Object_wx_DataViewRenderer::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxVariant *value = Object_wx_Variant::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Validate(*value);
+	bool rtn = pSelf->GetEntity()->wxDataViewRenderer::Validate(*value);
 	return ReturnValue(env, sig, args, Value(rtn));
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
 }
 
 //----------------------------------------------------------------------------

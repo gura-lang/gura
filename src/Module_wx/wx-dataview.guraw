@@ -78,6 +78,7 @@ MyCustomRenderer = class(wx.DataViewCustomRenderer) {
 	}
 	SetValue(value:wx.Variant) = {
 		self.m_colour = value.GetString()
+		println(self.m_colour)
 		true
 	}
 	Render(rect:wx.Rect, dc:wx.DC, state:number) = {
@@ -89,7 +90,7 @@ MyCustomRenderer = class(wx.DataViewCustomRenderer) {
 		} else {
 			dc.SetBrush(wx.BLACK_BRUSH)
 		}
-		dc.DrawRectangle(rect)
+		dc.DrawRectangleRect(rect)
 		true
 	}
 	GetSize() = {
@@ -169,8 +170,8 @@ MyApp = class(wx.App) {
 	OnInit() = {
 		frame = MyFrame(nil, 'wxDataViewCtrl feature test', 10, 10, 800, 340)
 		frame.Show(true)
-		frame2 = MySortingFrame(nil, 'wxDataViewCtrl sorting test', 10, 150, 600, 500)
-		frame2.Show(true)
+		//frame2 = MySortingFrame(nil, 'wxDataViewCtrl sorting test', 10, 150, 600, 500)
+		//frame2.Show(true)
 		self.SetTopWindow(frame)
 		true
 	}
