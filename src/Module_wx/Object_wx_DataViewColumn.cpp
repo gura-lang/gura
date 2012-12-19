@@ -41,7 +41,7 @@ Gura_DeclareFunction(DataViewColumn)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewColumn));
-	DeclareArg(env, "title", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "title", VTYPE_any, OCCUR_Once);
 	DeclareArg(env, "renderer", VTYPE_wx_DataViewRenderer, OCCUR_Once);
 	DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -51,47 +51,23 @@ Gura_DeclareFunction(DataViewColumn)
 
 Gura_ImplementFunction(DataViewColumn)
 {
-	wxString title = wxString::FromUTF8(args.GetString(0));
 	wxDataViewRenderer *renderer = Object_wx_DataViewRenderer::GetObject(args, 1)->GetEntity();
 	unsigned model_column = args.GetInt(2);
 	int width = 80;
 	if (args.IsValid(3)) width = args.GetInt(3);
 	int flags = wxDATAVIEW_COL_RESIZABLE;
 	if (args.IsValid(4)) flags = args.GetInt(4);
-	wx_DataViewColumn *pEntity = new wx_DataViewColumn(title, renderer, model_column, width, flags);
-	Object_wx_DataViewColumn *pObj = Object_wx_DataViewColumn::GetSelfObj(args);
-	if (pObj == NULL) {
-		pObj = new Object_wx_DataViewColumn(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
+	wx_DataViewColumn *pEntity = NULL;
+	if (args.IsString(0)) {
+		wxString title = wxString::FromUTF8(args.GetString(0));
+		pEntity = new wx_DataViewColumn(title, renderer, model_column, width, flags);
+	} else if (args.IsInstanceOf(0, VTYPE_wx_Bitmap)) {
+		wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
+		pEntity = new wx_DataViewColumn(*bitmap, renderer, model_column, width, flags);
+	} else {
+		SetError_ArgumentTypeByIndex(sig, args, 0);
+		return Value::Null;
 	}
-	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
-}
-
-Gura_DeclareFunction(DataViewColumn_1)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetClassToConstruct(Gura_UserClass(wx_DataViewColumn));
-	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
-	DeclareArg(env, "renderer", VTYPE_wx_DataViewRenderer, OCCUR_Once);
-	DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "flags", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(DataViewColumn_1)
-{
-	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	wxDataViewRenderer *renderer = Object_wx_DataViewRenderer::GetObject(args, 1)->GetEntity();
-	unsigned model_column = args.GetInt(2);
-	int width = 80;
-	if (args.IsValid(3)) width = args.GetInt(3);
-	int flags = wxDATAVIEW_COL_RESIZABLE;
-	if (args.IsValid(4)) flags = args.GetInt(4);
-	wx_DataViewColumn *pEntity = new wx_DataViewColumn(*bitmap, renderer, model_column, width, flags);
 	Object_wx_DataViewColumn *pObj = Object_wx_DataViewColumn::GetSelfObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DataViewColumn(pEntity, pEntity, OwnerFalse);
@@ -304,7 +280,6 @@ String Object_wx_DataViewColumn::ToString(Signal sig, bool exprFlag)
 void Object_wx_DataViewColumn::OnModuleEntry(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DataViewColumn);
-	Gura_AssignFunction(DataViewColumn_1);
 }
 
 //----------------------------------------------------------------------------
