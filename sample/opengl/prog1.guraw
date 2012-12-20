@@ -3,6 +3,9 @@
 import(glu) {*}
 import(opengl) {*}
 
+resize(width:number, height:number) = {
+}
+
 display() = {
 	glClear(GL_COLOR_BUFFER_BIT)
 	glBegin(GL_POLYGON)
@@ -26,8 +29,13 @@ import(gltester)
 
 [width, height] = [300, 300]
 gltester.mainloop(width, height, 0, `idle) {
-	`onDraw => function {
+	`onInit => function {
 		init()
+ 	}
+ 	`onResize => function(width:number, height:number) {
+		resize(width, height)
+	}
+	`onDraw => function {
 		display()
 	}
 }
