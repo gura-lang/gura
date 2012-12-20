@@ -1,0 +1,26 @@
+#!/usr/bin/env gura
+
+// Orignal source file is written in C and is available from the site below.
+// http://www.wakayama-u.ac.jp/~tokoi/opengl/libglut.html
+
+import(glu) {*}
+import(opengl) {*}
+
+display() = {
+	glClear(GL_COLOR_BUFFER_BIT)
+	glFlush()
+}
+
+init() = {
+	glClearColor(0.0, 0.0, 1.0, 1.0)
+}
+
+import(gltester)
+
+[width, height] = [300, 300]
+gltester.mainloop(width, height, 0, `idle) {
+	`onDraw => function {
+		init()
+		display()
+	}
+}
