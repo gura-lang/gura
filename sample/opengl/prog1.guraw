@@ -1,13 +1,20 @@
 #!/usr/bin/env gura
 
-// Orignal source file is written in C and is available from the site below.
-// http://www.wakayama-u.ac.jp/~tokoi/opengl/libglut.html
-
 import(glu) {*}
 import(opengl) {*}
 
 display() = {
 	glClear(GL_COLOR_BUFFER_BIT)
+	glBegin(GL_POLYGON)
+	glColor3d(1.0, 0.0, 0.0)
+	glVertex2d(-0.9, -0.9)
+	glColor3d(0.0, 1.0, 0.0)
+	glVertex2d(0.9, -0.9)
+	glColor3d(0.0, 0.0, 1.0)
+	glVertex2d(0.9, 0.9)
+	glColor3d(1.0, 1.0, 0.0)
+	glVertex2d(-0.9, 0.9)
+	glEnd()
 	glFlush()
 }
 
