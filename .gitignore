@@ -25,6 +25,7 @@
 /test/result/*.result.txt
 /test/50records-en.sqlite3
 /test/50records-jp.sqlite3
+/test/*.emf
 msc/
 Release/
 Release.*/
