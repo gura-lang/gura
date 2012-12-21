@@ -4,7 +4,6 @@
 #include <gura.h>
 #include "gura/ZLibHelper.h"
 #include <algorithm>
-#include "Module_net_http.h"
 
 #if defined(HAVE_WINDOWS_H)
 typedef int socklen_t;
@@ -17,6 +16,8 @@ typedef int socklen_t;
 
 inline void closesocket(int sock) { close(sock); }
 #endif
+
+#include "Module_net_http.h"
 
 Gura_BeginModule(net_http)
 
