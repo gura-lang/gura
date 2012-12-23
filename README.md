@@ -1,5 +1,5 @@
-Gura Programming Language
-=========================
+[image]: https://github.com/jxg/gura/blob/master/doc/htdocs/images/banner.png
+
 Gura is an iterator-oriented programming language
 that focuses on iterators with improved functions
 for calculation and data processing.
