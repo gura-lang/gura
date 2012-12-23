@@ -1,4 +1,4 @@
-[image]: https://github.com/jxg/gura/blob/master/doc/htdocs/images/banner.png
+[image]: https://github.com/jxg/gura/blob/master/doc/htdocs/images/banner.png "banner"
 
 Gura is an iterator-oriented programming language
 that focuses on iterators with improved functions
