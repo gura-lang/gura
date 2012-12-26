@@ -3,6 +3,7 @@ import(sdl)
 App = class {
 	MainLoop(width:number, height:number, flags:number) = {
 		sdl.Init(sdl.INIT_VIDEO)
+		self.OnInit()
 		bpp = sdl.GetVideoInfo().vfmt.BitsPerPixel
 		screen = sdl.SetVideoMode(width, height, bpp, flags)
 		openglFlag = ((flags | sdl.OPENGL) != 0)
@@ -12,7 +13,6 @@ App = class {
 				[sdl.GL_DEPTH_SIZE, 32], [sdl.GL_DOUBLEBUFFER, 0]
 			]
 		}
-		self.OnInit()
 		self.OnResize(width, height)
 		repeat {
 			event = sdl.PollEvent()
@@ -44,6 +44,7 @@ App = class {
 		}
 	}
 	SwapBuffers() = sdl.GL_SwapBuffers()
+	SetCaption(caption:string) = sdl.WM_SetCaption(caption, '')
 	OnInit() = {}
 	OnResize(width:number, height:number) = {}
 	OnDraw() = {}
@@ -57,7 +58,9 @@ App = class {
 if (__name__ == '__main__') {
 	import(opengl) {*}
 	AppEx = class(App) {
-		OnInit() = {}
+		OnInit() = {
+			self.SetCaption('selutil test')
+		}
 		OnResize(width:number, height:number) = {}
 		OnDraw() = {
 			glClearColor(0, 0, 1, 1)
