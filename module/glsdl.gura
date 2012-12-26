@@ -1,63 +1,17 @@
 import(sdl)
 
 App = class {
-	keycodeToSymbol = %{
-		sdl.K_ESCAPE	=> `escape
-		sdl.K_TAB		=> `tab
-		sdl.K_SPACE		=> `space
-		sdl.K_RETURN	=> `return
-		sdl.K_BACKSPACE	=> `backspace
-		sdl.K_LEFT		=> `left
-		sdl.K_RIGHT		=> `right
-		sdl.K_UP		=> `up
-		sdl.K_DOWN		=> `down
-		sdl.K_PRINT		=> `print
-		sdl.K_a			=> `a
-		sdl.K_b			=> `b
-		sdl.K_c			=> `c
-		sdl.K_d			=> `d
-		sdl.K_e			=> `e
-		sdl.K_f			=> `f
-		sdl.K_g			=> `g
-		sdl.K_h			=> `h
-		sdl.K_i			=> `i
-		sdl.K_j			=> `j
-		sdl.K_k			=> `k
-		sdl.K_l			=> `l
-		sdl.K_m			=> `m
-		sdl.K_n			=> `n
-		sdl.K_o			=> `o
-		sdl.K_p			=> `p
-		sdl.K_q			=> `q
-		sdl.K_r			=> `r
-		sdl.K_s			=> `s
-		sdl.K_t			=> `t
-		sdl.K_u			=> `u
-		sdl.K_v			=> `v
-		sdl.K_w			=> `w
-		sdl.K_x			=> `x
-		sdl.K_y			=> `y
-		sdl.K_z			=> `z
-		sdl.K_0			=> `num0
-		sdl.K_1			=> `num1
-		sdl.K_2			=> `num2
-		sdl.K_3			=> `num3
-		sdl.K_4			=> `num4
-		sdl.K_5			=> `num5
-		sdl.K_6			=> `num6
-		sdl.K_7			=> `num7
-		sdl.K_8			=> `num8
-		sdl.K_9			=> `num9
-	}
-	symbolToKeycode = dict(zipv(self.keycodeToSymbol.values(), self.keycodeToSymbol.keys()))
 	MainLoop(width:number, height:number, flags:number) = {
 		sdl.Init(sdl.INIT_VIDEO)
 		bpp = sdl.GetVideoInfo().vfmt.BitsPerPixel
-		screen = sdl.SetVideoMode(width, height, bpp, sdl.OPENGL | flags)
-		sdl.GL_SetAttribute * [
-			[sdl.GL_RED_SIZE, 5], [sdl.GL_GREEN_SIZE, 5], [sdl.GL_BLUE_SIZE, 5],
-			[sdl.GL_DEPTH_SIZE, 32], [sdl.GL_DOUBLEBUFFER, 0]
-		]
+		screen = sdl.SetVideoMode(width, height, bpp, flags)
+		openglFlag = ((flags | sdl.OPENGL) != 0)
+		if (openglFlag) {
+			sdl.GL_SetAttribute * [
+				[sdl.GL_RED_SIZE, 5], [sdl.GL_GREEN_SIZE, 5], [sdl.GL_BLUE_SIZE, 5],
+				[sdl.GL_DEPTH_SIZE, 32], [sdl.GL_DOUBLEBUFFER, 0]
+			]
+		}
 		self.OnInit()
 		self.OnResize(width, height)
 		repeat {
@@ -66,40 +20,67 @@ App = class {
 				// nothing to do
 			} elsif (event.type == sdl.VIDEOEXPOSE) {
 				self.OnDraw()
-				sdl.GL_SwapBuffers()
+				openglFlag && self.SwapBuffers()
 			} elsif (event.type == sdl.VIDEORESIZE) {
-				self.OnResize(event.width, event.height)
-				sdl.GL_SwapBuffers()
+				self.OnResize(event.w, event.h)
+				self.OnDraw()
+				openglFlag && self.SwapBuffers()
 			} elsif (event.type == sdl.QUIT) {
 				break
 			} elsif (event.type == sdl.KEYDOWN) {
 				if (event.sym == sdl.K_ESCAPE) {
 					break
 				}
-				self.OnKeyDown(self.keycodeToSymbol(event.sym))
+				self.OnKeyDown(event)
 			} elsif (event.type == sdl.KEYUP) {
-				self.OnKeyUp(self.keycodeToSymbol(event.sym))
+				self.OnKeyUp(event)
 			} elsif (event.type == sdl.MOUSEMOTION) {
-				self.OnMouseMotion(event.x, event.y)
+				self.OnMouseMotion(event)
 			} elsif (event.type == sdl.MOUSEBUTTONDOWN) {
-				self.OnMouseButtonDown(event.x, event.y)
+				self.OnMouseButtonDown(event)
 			} elsif (event.type == sdl.MOUSEBUTTONUP) {
-				self.OnMouseButtonUp(event.x, event.y)
+				self.OnMouseButtonUp(event)
 			}
 		}
 	}
+	SwapBuffers() = sdl.GL_SwapBuffers()
 	OnInit() = {}
 	OnResize(width:number, height:number) = {}
 	OnDraw() = {}
-	OnKeyDown(symbol:symbol) = {}
-	OnKeyUp(symbol:symbol) = {}
-	OnMouseMotion(x:number, y:number) = {}
-	OnMouseButtonDown(x:number, y:number) = {}
-	OnMouseButtonUp(x:number, y:number) = {}
+	OnKeyDown(event:sdl.Event) = {}
+	OnKeyUp(event:sdl.Event) = {}
+	OnMouseMotion(event:sdl.Event) = {}
+	OnMouseButtonDown(event:sdl.Event) = {}
+	OnMouseButtonUp(event:sdl.Event) = {}
 }
 
-AppEx = class(App) {
+if (__name__ == '__main__') {
+	import(opengl) {*}
+	AppEx = class(App) {
+		OnInit() = {}
+		OnResize(width:number, height:number) = {}
+		OnDraw() = {
+			glClearColor(0, 0, 1, 1)
+			glClear(GL_COLOR_BUFFER_BIT)
+			glFlush()
+		}
+		OnKeyDown(event:sdl.Event) = {
+			println(event)
+		}
+		OnKeyUp(event:sdl.Event) = {
+			println(event)
+		}
+		OnMouseMotion(event:sdl.Event) = {
+			println(event)
+		}
+		OnMouseButtonDown(event:sdl.Event) = {
+			println(event)
+		}
+		OnMouseButtonUp(event:sdl.Event) = {
+			println(event)
+		}
+	}
+	app = AppEx()
+	app.MainLoop(400, 300, sdl.OPENGL | sdl.RESIZABLE)
+	//sdl.Quit()
 }
-app = AppEx()
-app.MainLoop(400, 300, sdl.RESIZABLE)
-//sdl.Quit()
