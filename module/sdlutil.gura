@@ -1,9 +1,10 @@
 import(sdl)
 
 App = class {
-	MainLoop(width:number, height:number, flags:number) = {
+	MainLoop(caption:string, width:number, height:number, flags:number) = {
 		sdl.Init(sdl.INIT_VIDEO)
 		self.OnInit()
+		self.SetCaption(caption)
 		bpp = sdl.GetVideoInfo().vfmt.BitsPerPixel
 		screen = sdl.SetVideoMode(width, height, bpp, flags)
 		openglFlag = ((flags | sdl.OPENGL) != 0)
@@ -59,9 +60,9 @@ if (__name__ == '__main__') {
 	import(opengl) {*}
 	AppEx = class(App) {
 		OnInit() = {
-			self.SetCaption('selutil test')
 		}
-		OnResize(width:number, height:number) = {}
+		OnResize(width:number, height:number) = {
+		}
 		OnDraw() = {
 			glClearColor(0, 0, 1, 1)
 			glClear(GL_COLOR_BUFFER_BIT)
@@ -84,6 +85,6 @@ if (__name__ == '__main__') {
 		}
 	}
 	app = AppEx()
-	app.MainLoop(400, 300, sdl.OPENGL | sdl.RESIZABLE)
+	app.MainLoop('sdlutil', 400, 300, sdl.OPENGL | sdl.RESIZABLE)
 	//sdl.Quit()
 }
