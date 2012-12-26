@@ -142,6 +142,45 @@ Draw(teaList, rotX, rotY) = {
 }
 
 scope {
+	import(sdl)
+	import(sdlutil)
+	teaList = nil
+	[rotX, rotY] = [0, 0]
+	App = class(sdlutil.App) {
+		OnInit() = {
+			extern(teaList)
+			teaList = Init()
+		}
+		OnIdle() = {
+			if (self.CheckKeyState(sdl.K_LEFT)) {
+				rotX -= 1
+			}
+			if (self.CheckKeyState(sdl.K_RIGHT)) {
+				rotX += 1
+			}
+			if (self.CheckKeyState(sdl.K_UP)) {
+				rotY -= 1
+			}
+			if (self.CheckKeyState(sdl.K_DOWN)) {
+				rotY += 1
+			}
+			Draw(teaList, rotX, rotY)
+			self.SwapBuffers()
+		}
+		OnResize(width:number, height:number) = {
+			println('OnResize')
+			Reshape(width, height)
+		}
+		OnDraw() = {
+			printf('OnDraw %d %d\n', rotX, rotY)
+			Draw(teaList, rotX, rotY)
+		}
+	}
+	app = App()
+	app.MainLoop('teapot', 300, 300, sdl.OPENGL)
+}
+/*
+scope {
 	import(gltester)
 	teaList = nil
 	[rotX, rotY] = [0, 0]
@@ -178,3 +217,4 @@ scope {
 		}
 	}
 }
+*/
