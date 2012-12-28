@@ -141,19 +141,19 @@ MyUnsortedTextModel = class(wx.DataViewListModel) {
 		false
 	}
 	AppendRow(text:string) = {
-		self.m_list.Add(text)
+		self.m_list.add(text)
 		self.RowAppended()
 	}
 	PrependRow(text:string) = {
-		self.m_list.Insert(text, 0)
+		self.m_list.insert(0, text)
 		self.RowPrepended()
 	}
 	InsertRowAt1(text:string) = {
-		self.m_list.Insert(text, 1)
+		self.m_list.insert(1, text)
 		self.RowInserted(1)
 	}
 	DeleteRow(index:number) = {
-		self.m_list.RemoveAt(index)
+		self.m_list.erase(index)
 		self.RowDeleted(index)
 	}
 }
