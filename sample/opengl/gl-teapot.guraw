@@ -168,53 +168,12 @@ scope {
 			self.SwapBuffers()
 		}
 		OnResize(width:number, height:number) = {
-			println('OnResize')
 			Reshape(width, height)
 		}
 		OnDraw() = {
-			printf('OnDraw %d %d\n', rotX, rotY)
 			Draw(teaList, rotX, rotY)
 		}
 	}
 	app = App()
 	app.MainLoop('teapot', 300, 300, sdl.OPENGL)
 }
-/*
-scope {
-	import(gltester)
-	teaList = nil
-	[rotX, rotY] = [0, 0]
-	gltester.mainloop(300, 300, 0, `idle) {
-		`onInit => function {
-			extern(teaList)
-			teaList = Init()
-		}
-		`onResize => function(width:number, height:number) {
-			Reshape(width, height)
-		}
-		`onDraw => function {
-			Draw(teaList, rotX, rotY)
-		}
-		`onKeyDown => %{
-		}
-		`onKeyPoll => %{
-			`left => function {
-				extern(rotX)
-				rotX -= 1
-			}
-			`right => function {
-				extern(rotX)
-				rotX += 1
-			}
-			`up => function {
-				extern(rotY)
-				rotY -= 1
-			}
-			`down => function {
-				extern(rotY)
-				rotY += 1
-			}
-		}
-	}
-}
-*/
