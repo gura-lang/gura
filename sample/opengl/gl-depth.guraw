@@ -74,28 +74,35 @@ Draw() = {
 }
 
 scope {
-	import(gltester)
-	gltester.mainloop(300, 300, 0, `keydown) {
-		`onInit => function {
+	import(sdl)
+	import(sdlutil)
+	App = class(sdlutil.App) {
+		OnInit() = {
 			Init()
 		}
-		`onResize => function(width:number, height:number) {
+		OnResize(width:number, height:number) = {
 			Reshape(width, height)
 		}
-		`onDraw => function {
+		OnDraw() = {
 			Draw()
 		}
-		`onKeyDown => %{
-			`num1 => function {
+		OnMouseDown(event:sdl.Event) = {
+			extern(x, y)
+			x = event.x
+			y = event.y
+		}
+		OnKeyDown(event:sdl.Event) = {
+			if (event.sym == sdl.K_1) {
 				extern(antiAlias)
 				antiAlias = !antiAlias
-			}
-			`num2 => function {
+			} elsif (event.sym == sdl.K_2) {
 				extern(stipple)
 				stipple = !stipple
 			}
-		}
-		`onKeyPoll => %{
+			Draw()
+			self.SwapBuffers()
 		}
 	}
+	app = App()
+	app.MainLoop(nil, 300, 300, sdl.OPENGL)
 }

@@ -1,9 +1,13 @@
 import(sdl)
 
 App = class {
-	MainLoop(caption:string, width:number, height:number, flags:number) = {
+	MainLoop(caption:string:nil, width:number, height:number, flags:number) = {
 		sdl.Init(sdl.INIT_VIDEO)
-		self.SetCaption(caption)
+		if (caption) {
+			self.SetCaption(caption)
+		} else {
+			self.SetCaption(path.splitext(path.filename(sys.argv[0]))[0])
+		}
 		bpp = sdl.GetVideoInfo().vfmt.BitsPerPixel
 		screen = sdl.SetVideoMode(width, height, bpp, flags)
 		openglFlag = ((flags | sdl.OPENGL) != 0)

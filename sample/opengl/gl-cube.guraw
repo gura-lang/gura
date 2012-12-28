@@ -40,17 +40,32 @@ display(degree:number) = {
 	}
 }
 
-import(gltester)
-
-degree = 0
-[width, height] = [300, 300]
-gltester.mainloop(width, height, 0, `idle) {
-	`onDraw => function {
-		init(width, height)
-		display(degree)
+scope {
+	import(sdl)
+	import(sdlutil)
+	degree = 0
+	[width, height] = [300, 300]
+	App = class(sdlutil.App) {
+		OnInit() = {
+		}
+		OnResize(width:number, height:number) = {
+		}
+		OnDraw() = {
+			init(width, height)
+			display(degree)
+		}
+		OnIdle() = {
+			if (self.CheckKeyState(sdl.K_LEFT)) {
+				degree += 1
+			}
+			if (self.CheckKeyState(sdl.K_RIGHT)) {
+				degree -= 1
+			}
+			init(width, height)
+			display(degree)
+			self.SwapBuffers()
+		}
 	}
-	`onKeyPoll => %{
-		`left => function { degree += 1 }
-		`right => function { degree -= 1 }
-	}
+	app = App()
+	app.MainLoop(nil, width, height, sdl.OPENGL)
 }

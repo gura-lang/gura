@@ -45,22 +45,23 @@ Draw(thing1:number, thing2:number) = {
 }
 
 scope {
+	import(sdl)
+	import(sdlutil)
 	thing1 = thing2 = nil
-	import(gltester)
-	gltester.mainloop(300, 300, 0, `none) {
-		`onInit => function {
+	App = class(sdlutil.App) {
+		OnInit() = {
 			extern(thing1, thing2)
 			[thing1, thing2] = Init()
 		}
-		`onResize => function(width:number, height:number) {
+		OnResize(width:number, height:number) = {
 			Reshape(width, height)
 		}
-		`onDraw => function {
+		OnDraw() = {
 			Draw(thing1, thing2)
 		}
-		`onKeyDown => %{
-		}
-		`onKeyPoll => %{
+		OnIdle() = {
 		}
 	}
+	app = App()
+	app.MainLoop(nil, 300, 300, sdl.OPENGL)
 }

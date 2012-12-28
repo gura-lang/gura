@@ -4,7 +4,6 @@
 // http://www.sgi.com/products/software/opengl/examples/samples/
 // copy.c
 
-import(gltester)
 import(rgbread)
 import(glu) {*}
 import(opengl) {*}
@@ -46,32 +45,35 @@ Draw() = {
 }
 
 scope {
-	import(gltester)
-	gltester.mainloop(300, 300, 0, `idle) {
-		`onInit => function {
+	import(sdl)
+	import(sdlutil)
+	App = class(sdlutil.App) {
+		OnInit() = {
 			Init()
 		}
-		`onResize => function(width:number, height:number) {
+		OnResize(width:number, height:number) = {
 			Reshape(width, height)
 		}
-		`onDraw => function {
+		OnDraw() = {
 			Draw()
 		}
-		`onMouseButtonDown => function(x_new:number, y_new:number) {
+		OnMouseDown(event:sdl.Event) = {
 			extern(x, y)
-			x = x_new
-			y = y_new
+			x = event.x
+			y = event.y
 		}
-		`onKeyDown => %{
-			`up => function {
-				extern(zoom)
+		OnIdle() = {
+			if (self.CheckKeyState(sdl.K_UP)) {
 				zoom += 0.2
 			}
-			`down => function {
-				extern(zoom)
+			if (self.CheckKeyState(sdl.K_DOWN)) {
 				zoom -= 0.2
 				if (zoom < 0.2) { zoom = 0.2 }
 			}
+			Draw()
+			self.SwapBuffers()
 		}
 	}
+	app = App()
+	app.MainLoop(nil, 300, 300, sdl.OPENGL)
 }

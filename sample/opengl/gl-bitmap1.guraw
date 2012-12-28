@@ -122,16 +122,21 @@ Draw() = {
 }
 
 scope {
-	import(gltester)
-	gltester.mainloop(300, 300, 0, `none) {
-		`onInit => function {
+	import(sdl)
+	import(sdlutil)
+	App = class(sdlutil.App) {
+		OnInit() = {
 			Init()
 		}
-		`onResize => function(width:number, height:number) {
+		OnResize(width:number, height:number) = {
 			Reshape(width, height)
 		}
-		`onDraw => function {
+		OnDraw() = {
 			Draw()
 		}
+		OnIdle() = {
+		}
 	}
+	app = App()
+	app.MainLoop(nil, 300, 300, sdl.OPENGL)
 }

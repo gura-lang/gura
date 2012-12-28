@@ -151,6 +151,12 @@ scope {
 			extern(teaList)
 			teaList = Init()
 		}
+		OnResize(width:number, height:number) = {
+			Reshape(width, height)
+		}
+		OnDraw() = {
+			Draw(teaList, rotX, rotY)
+		}
 		OnIdle() = {
 			if (self.CheckKeyState(sdl.K_LEFT)) {
 				rotX -= 1
@@ -167,13 +173,7 @@ scope {
 			Draw(teaList, rotX, rotY)
 			self.SwapBuffers()
 		}
-		OnResize(width:number, height:number) = {
-			Reshape(width, height)
-		}
-		OnDraw() = {
-			Draw(teaList, rotX, rotY)
-		}
 	}
 	app = App()
-	app.MainLoop('teapot', 300, 300, sdl.OPENGL)
+	app.MainLoop(nil, 300, 300, sdl.OPENGL)
 }
