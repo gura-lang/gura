@@ -108,6 +108,18 @@ Gura_ImplementFunction(Variant)
 		pEntity = new wx_Variant(Object_wx_VariantData::GetObject(args, 0)->GetEntity(), name);
 	} else if (args.IsInstanceOf(0, VTYPE_wx_DateTime)) {
 		pEntity = new wx_Variant(*Object_wx_DateTime::GetObject(args, 0)->GetEntity(), name);
+	} else if (args.IsInstanceOf(0, VTYPE_wx_Colour)) {
+		pEntity = new wx_Variant();
+		(*pEntity) << *Object_wx_Colour::GetObject(args, 0)->GetEntity();
+	} else if (args.IsInstanceOf(0, VTYPE_wx_Image)) {
+		pEntity = new wx_Variant();
+		(*pEntity) << *Object_wx_Image::GetObject(args, 0)->GetEntity();
+	} else if (args.IsInstanceOf(0, VTYPE_wx_Icon)) {
+		pEntity = new wx_Variant();
+		(*pEntity) << *Object_wx_Icon::GetObject(args, 0)->GetEntity();
+	} else if (args.IsInstanceOf(0, VTYPE_wx_Bitmap)) {
+		pEntity = new wx_Variant();
+		(*pEntity) << *Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Object)) {
 		pEntity = new wx_Variant(new wxObject(*Object_wx_Object::GetObject(args, 0)->GetEntity()), name);
 	} else {
