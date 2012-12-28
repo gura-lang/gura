@@ -5,6 +5,7 @@
 // copy.c
 
 import(gltester)
+import(rgbread)
 import(glu) {*}
 import(opengl) {*}
 

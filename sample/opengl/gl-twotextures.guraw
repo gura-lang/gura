@@ -7,6 +7,7 @@
 import(glu) {*}
 import(opengl) {*}
 import(gltester)
+import(rgbread)
 
 winW = 300, winH = 300;
 
