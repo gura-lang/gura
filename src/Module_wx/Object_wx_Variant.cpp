@@ -109,7 +109,7 @@ Gura_ImplementFunction(Variant)
 	} else if (args.IsInstanceOf(0, VTYPE_wx_DateTime)) {
 		pEntity = new wx_Variant(*Object_wx_DateTime::GetObject(args, 0)->GetEntity(), name);
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Object)) {
-		pEntity = new wx_Variant(Object_wx_Object::GetObject(args, 0)->GetEntity(), name);
+		pEntity = new wx_Variant(new wxObject(*Object_wx_Object::GetObject(args, 0)->GetEntity()), name);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 		return Value::Null;
