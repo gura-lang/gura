@@ -74,7 +74,6 @@ Module_time/Module_time.cpp
 
 pkglib_DATA = \
 ../module/calendar.gura \
-../module/gltester.gura \
 ../module/graph.gura \
 ../module/modbuild.gura \
 ../module/gurcbuild.gura \
@@ -181,6 +180,9 @@ sample/resource/msnms.ico \
 sample/opengl/1.rgb \
 sample/opengl/2.rgb \
 sample/opengl/3.rgb \
+sample/opengl/rgbread.gura \
+sample/opengl/gltester.gura \
+sample/opengl/sdlutil.gura \
 sample/opengl/gl-prim.guraw \
 sample/opengl/gl-depth.guraw \
 sample/opengl/gl-twotextures.guraw \

@@ -1,0 +1,40 @@
+#!/usr/bin/env gura
+
+classref(`image).rgbread(stream:stream) = {
+	ImageHeader = struct(imagic:number, type:number, dim:number,
+						width:number, height:number, nElems:number)
+	buff = stream.read()
+	hdr = ImageHeader * buff.unpack('>HHHHHH')
+	self.allocbuff(hdr.width, hdr.height)
+	p = buff.pointer(512)
+	n = hdr.height * hdr.nElems
+	rowStart = p.unpack('>${n}I'.template())
+	getrow(y:number, iElem:number) = {
+		p = buff.pointer(rowStart[y + iElem * hdr.height])
+		repeat ():iter {
+			[pixel] = p.unpack('B')
+			count = pixel & 0x7f
+			if (count == 0) {
+				break
+			} elsif ((pixel & 0x80) == 0) {
+				[pixel] = p.unpack('B')
+				repeat (count):iter { pixel }
+			} else {
+				p.unpack('${count}B'.template()).each()
+			}
+		}
+	}
+	if (self.format == `rgb) {
+		repeat (hdr.height) {|y|
+			self.putpixel(0.., y, color(getrow(y, 0), getrow(y, 1), getrow(y, 2)))
+		}
+	} elsif (self.format == `rgba) {
+		repeat (hdr.height) {|y|
+			self.putpixel(0.., y, color(getrow(y, 0), getrow(y, 1), getrow(y, 2), 0))
+		}
+	} else {
+		raise(ValueError, 'unknown image format')
+	}
+	self
+}
+classref(`image).rgbread.help = '''Reads an image in RGB format'''
