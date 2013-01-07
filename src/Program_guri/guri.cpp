@@ -52,10 +52,10 @@ bool Main(int argc, const char *argv[])
 		return false;
 	}
 	fd_set fdsRead;
-	FD_ZERO(&fdsRead);
-	FD_SET(static_cast<unsigned int>(sockListen), &fdsRead);
 	int sockMax = sockListen;
 	for (;;) {
+		FD_ZERO(&fdsRead);
+		FD_SET(static_cast<unsigned int>(sockListen), &fdsRead);
 		::select(sockMax + 1, &fdsRead, NULL, NULL, NULL);
 		if (FD_ISSET(sockListen, &fdsRead)) {
 			FD_CLR(static_cast<unsigned int>(sockListen), &fdsRead);
@@ -63,7 +63,7 @@ bool Main(int argc, const char *argv[])
 			socklen_t bytesAddr = sizeof(saddrClient);
 			int sockClient = static_cast<int>(::accept(sockListen,
 							reinterpret_cast<sockaddr *>(&saddrClient), &bytesAddr));
-			
+			::printf("connected\n");
 		}
 	}
 	::closesocket(sockListen);
