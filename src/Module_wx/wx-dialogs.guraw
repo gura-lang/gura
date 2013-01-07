@@ -54,9 +54,83 @@ myCanvas = nil
 
 MyApp = class(wx.App) {
 	OnInit() = {
-		frame = MyFrame(nil, 'wxWidgets dialogs example')
-		frame.Show()
-		true
+		wx.InitAllImageHandlers();
+		self.m_canvasTextColour = wx.BLACK;
+		self.m_canvasFont = wx.NORMAL_FONT;
+		// Create the main frame window
+		frame = MyFrame(nil, 'wxWidgets dialogs example');
+		// Make a menubar
+		menuDlg = wx.Menu()
+		menuDlg.Append(DIALOGS_MESSAGE_BOX, '&Message box\tCtrl-M');
+		choices_menu = wx.Menu()
+		choices_menu.Append(DIALOGS_CHOOSE_COLOUR, '&Choose colour');
+		choices_menu.Append(DIALOGS_CHOOSE_FONT, 'Choose &font');
+		choices_menu.Append(DIALOGS_SINGLE_CHOICE,  '&Single choice\tCtrl-C');
+		choices_menu.Append(DIALOGS_MULTI_CHOICE,  'M&ultiple choice\tCtrl-U');
+		choices_menu.AppendSeparator();
+		choices_menu.Append(DIALOGS_CHOOSE_COLOUR_GENERIC, '&Choose colour (generic)');
+		choices_menu.Append(DIALOGS_CHOOSE_FONT_GENERIC, 'Choose &font (generic)');
+		menuDlg.Append(wx.ID_ANY,'&Choices and selectors',choices_menu);
+		entry_menu = wx.Menu()
+		entry_menu.Append(DIALOGS_TEXT_ENTRY,  'Text &entry\tCtrl-E');
+		entry_menu.Append(DIALOGS_PASSWORD_ENTRY,  '&Password entry\tCtrl-P');
+		entry_menu.Append(DIALOGS_NUM_ENTRY, '&Numeric entry\tCtrl-N');
+		menuDlg.Append(wx.ID_ANY,'&Entry dialogs',entry_menu);
+		filedlg_menu = wx.Menu()
+		filedlg_menu.Append(DIALOGS_FILE_OPEN,  '&Open file\tCtrl-O');
+		filedlg_menu.Append(DIALOGS_FILE_OPEN2,  '&Second open file\tCtrl-2');
+		filedlg_menu.Append(DIALOGS_FILES_OPEN,  'Open &files\tCtrl-Q');
+		filedlg_menu.Append(DIALOGS_FILE_SAVE,  'Sa&ve file\tCtrl-S');
+		filedlg_menu.AppendSeparator();
+		filedlg_menu.Append(DIALOGS_FILE_OPEN_GENERIC,  '&Open file (generic)');
+		filedlg_menu.Append(DIALOGS_FILES_OPEN_GENERIC,  'Open &files (generic)');
+		filedlg_menu.Append(DIALOGS_FILE_SAVE_GENERIC,  'Sa&ve file (generic)');
+		menuDlg.Append(wx.ID_ANY,'&File operations',filedlg_menu);
+		dir_menu = wx.Menu()
+		dir_menu.Append(DIALOGS_DIR_CHOOSE,  '&Choose a directory\tCtrl-D');
+		dir_menu.Append(DIALOGS_DIRNEW_CHOOSE,  'Choose a directory (with \"Ne&w\" button)\tShift-Ctrl-D');
+		menuDlg.Append(wx.ID_ANY, '&Directory operations', dir_menu);
+		dir_menu.AppendSeparator();
+		dir_menu.Append(DIALOGS_GENERIC_DIR_CHOOSE,  '&Choose a directory (generic)');
+		info_menu = wx.Menu()
+		info_menu.Append(DIALOGS_TIP,  '&Tip of the day\tCtrl-T');
+		info_menu.Append(DIALOGS_PROGRESS, 'Pro&gress dialog\tCtrl-G');
+		info_menu.Append(DIALOGS_BUSYINFO, '&Busy info dialog\tCtrl-B');
+		info_menu.Append(DIALOGS_LOG_DIALOG, '&Log dialog\tCtrl-L');
+		menuDlg.Append(wx.ID_ANY, '&Informative dialogs', info_menu);
+		find_menu = wx.Menu()
+		find_menu.AppendCheckItem(DIALOGS_FIND, '&Find dialog\tCtrl-F');
+		find_menu.AppendCheckItem(DIALOGS_REPLACE, 'Find and &replace dialog\tShift-Ctrl-F');
+		menuDlg.Append(wx.ID_ANY,'&Searching',find_menu);
+		dialogs_menu = wx.Menu()
+		dialogs_menu.Append(DIALOGS_MODAL, '&Modal dialog\tCtrl-W');
+		dialogs_menu.AppendCheckItem(DIALOGS_MODELESS, 'Mode&less dialog\tCtrl-Z');
+		dialogs_menu.Append(DIALOGS_CENTRE_SCREEN, 'Centered on &screen\tShift-Ctrl-1');
+		dialogs_menu.Append(DIALOGS_CENTRE_PARENT, 'Centered on &parent\tShift-Ctrl-2');
+		menuDlg.Append(wx.ID_ANY, '&Generic dialogs', dialogs_menu);
+		sheet_menu = wx.Menu()
+		sheet_menu.Append(DIALOGS_PROPERTY_SHEET, '&Standard property sheet\tShift-Ctrl-P');
+		sheet_menu.Append(DIALOGS_PROPERTY_SHEET_TOOLBOOK, '&Toolbook sheet\tShift-Ctrl-T');
+		menuDlg.Append(wx.ID_ANY, '&Property sheets', sheet_menu);
+		menuDlg.Append(DIALOGS_REQUEST, '&Request user attention\tCtrl-R');
+		menuDlg.AppendSeparator();
+		menuDlg.Append(wx.ID_EXIT, 'E&xit\tAlt-X');
+		menuHelp = wx.Menu()
+		menuHelp.Append(DIALOGS_ABOUTDLG_SIMPLE, '&About (simple)...\tF1');
+		menuHelp.Append(DIALOGS_ABOUTDLG_FANCY, 'About (&fancy)...\tShift-F1');
+		menuHelp.Append(DIALOGS_ABOUTDLG_FULL, 'About (f&ull)...\tCtrl-F1');
+		menuHelp.Append(DIALOGS_ABOUTDLG_CUSTOM, 'About (&custom)...\tCtrl-Shift-F1');
+		menubar = wx.MenuBar()
+		menubar.Append(menuDlg, '&Dialogs');
+		menubar.Append(menuHelp, '&Help');
+		frame.SetMenuBar(menubar);
+		myCanvas:extern = MyCanvas(frame);
+		myCanvas.SetBackgroundColour(wx.WHITE);
+		frame.Centre(wx.BOTH);
+		// Show the frame
+		frame.Show(true);
+		self.SetTopWindow(frame);
+		true;
 	}
 }
 
