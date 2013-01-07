@@ -48,14 +48,24 @@ bool Main(int argc, const char *argv[])
 		return false;
 	}
 	if (::listen(sockListen, 5) < 0) {
-		::fprintf(stderr, "failed to listen to port");
+		::fprintf(stderr, "failed to listen to port %d", port);
 		return false;
 	}
-	
-	
-	
-	
-	
+	fd_set fdsRead;
+	FD_ZERO(&fdsRead);
+	FD_SET(static_cast<unsigned int>(sockListen), &fdsRead);
+	int sockMax = sockListen;
+	for (;;) {
+		::select(sockMax + 1, &fdsRead, NULL, NULL, NULL);
+		if (FD_ISSET(sockListen, &fdsRead)) {
+			FD_CLR(static_cast<unsigned int>(sockListen), &fdsRead);
+			sockaddr_in saddrClient;
+			socklen_t bytesAddr = sizeof(saddrClient);
+			int sockClient = static_cast<int>(::accept(sockListen,
+							reinterpret_cast<sockaddr *>(&saddrClient), &bytesAddr));
+			
+		}
+	}
 	::closesocket(sockListen);
 	return true;
 }
