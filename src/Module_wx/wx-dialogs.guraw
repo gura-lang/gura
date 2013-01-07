@@ -169,9 +169,18 @@ MyFrame = class(wx.Frame) {
 		}
 		self.CreateStatusBar();
 	}
-	MessageBox(event:wx.CommandEvent) = {
-	}
 	ChooseColour(event:wx.CommandEvent) = {
+		self.m_clrData.SetColour(myCanvas.GetBackgroundColour());
+		dialog = wx.ColourDialog(self, self.m_clrData);
+		dialog.SetTitle('Choose the background colour');
+		if (dialog.ShowModal() == wx.ID_OK) {
+			self.m_clrData = dialog.GetColourData();
+			myCanvas.SetBackgroundColour(self.m_clrData.GetColour());
+			myCanvas.ClearBackground();
+			myCanvas.Refresh();
+		}
+	}
+	MessageBox(event:wx.CommandEvent) = {
 	}
 	ChooseFont(event:wx.CommandEvent) = {
 	}
