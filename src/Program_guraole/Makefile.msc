@@ -21,14 +21,14 @@ ws2_32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib \
 comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib \
 uuid.lib odbc32.lib odbccp32.lib
 
-OBJS = MainOle.obj Module_mswin.obj
+OBJS = guraole.obj Module_mswin.obj
 
 $(TARGET): $(OBJS) $(LIBS)
 	@link $(LDFLAGS) /OUT:$(TARGET) /DEF:guraole.def $(OBJS) $(LIBS)
 	@echo $@ was created
 
-MainOle.obj: MainOle.cpp
-	@cl $(CFLAGS) /c MainOle.cpp
+guraole.obj: guraole.cpp
+	@cl $(CFLAGS) /c guraole.cpp
 
 Module_mswin.obj: ..\Module_mswin\Module_mswin.cpp
 	@cl $(CFLAGS) /DGURA_MODULE_MAIN /c ..\Module_mswin\Module_mswin.cpp

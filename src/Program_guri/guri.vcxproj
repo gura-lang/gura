@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3F2FAADE-263B-4A90-A0F0-520354F49DF5}</ProjectGuid>
-    <RootNamespace>gurasvr</RootNamespace>
+    <RootNamespace>guri</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -88,7 +88,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>libgurad-x86.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)gurasvr.exe</OutputFile>
+      <OutputFile>$(OutDir)guri.exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -116,7 +116,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>libgurad-x64.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)gurasvr.exe</OutputFile>
+      <OutputFile>$(OutDir)guri.exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -140,7 +140,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>libgura-x86.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)gurasvr.exe</OutputFile>
+      <OutputFile>$(OutDir)guri.exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -167,7 +167,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>libgura-x64.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)gurasvr.exe</OutputFile>
+      <OutputFile>$(OutDir)guri.exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -183,7 +183,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MainSvr.cpp" />
+    <ClCompile Include="guri.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libgura.vcxproj">

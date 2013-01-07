@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
-// MainOle
+// guraole
 //-----------------------------------------------------------------------------
-#include "MainOle.h"
+#include "guraole.h"
 #include "Module_mswin.h"
 
 #define DBGPRINTF(x) printf##x

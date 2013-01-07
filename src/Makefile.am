@@ -12,7 +12,7 @@ gura_LDADD = libgura.la
 gura_LDFLAGS = -pthread
 gura_DEPENDENCIES = libgura.la
 gura_SOURCES = \
-Program_gura/Main.cpp
+Program_gura/gura.cpp
 
 BUILT_SOURCES = config_add.h stdafx.h.gch
 

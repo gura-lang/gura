@@ -183,7 +183,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="gura.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libgura.vcxproj">

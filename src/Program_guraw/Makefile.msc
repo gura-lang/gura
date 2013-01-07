@@ -3,7 +3,7 @@
 #==============================================================================
 GURADIR = ..\..
 
-SRCS = MainW.cpp
+SRCS = guraw.cpp
 TARGET = $(GURADIR)\bin-x86\guraw.exe
 LIBS =
 CFLAGS =

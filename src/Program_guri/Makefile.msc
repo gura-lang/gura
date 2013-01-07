@@ -3,8 +3,8 @@
 #==============================================================================
 GURADIR = ..\..
 
-SRCS = MainSvr.cpp
-TARGET = $(GURADIR)\bin-x86\gurasvr.exe
+SRCS = guri.cpp
+TARGET = $(GURADIR)\bin-x86\guri.exe
 LIBS =
 CFLAGS =
 LDFLAGS = /SUBSYSTEM:CONSOLE

@@ -11,7 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guraw", "src\Program_guraw\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "build_modules", "src\build_modules.vcxproj", "{EC848C55-B52D-4F07-BE3C-078966186BDD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gurasvr", "src\Program_gurasvr\gurasvr.vcxproj", "{3F2FAADE-263B-4A90-A0F0-520354F49DF5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guri", "src\Program_guri\guri.vcxproj", "{3F2FAADE-263B-4A90-A0F0-520354F49DF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -3,7 +3,7 @@
 #==============================================================================
 GURADIR = ..\..
 
-SRCS = Main.cpp
+SRCS = gura.cpp
 TARGET = $(GURADIR)\bin-x86\gura.exe
 LIBS =
 CFLAGS =

@@ -173,7 +173,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MainOle.cpp" />
+    <ClCompile Include="guraole.cpp" />
     <ClCompile Include="..\Module_mswin\Module_mswin.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">WIN32;NDEBUG;_WINDOWS;_USRDLL;GURAOLE_EXPORTS;GURA_MODULE_MAIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">WIN32;_DEBUG;_WINDOWS;_USRDLL;GURAOLE_EXPORTS;GURA_MODULE_MAIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -182,7 +182,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MainOle.h" />
+    <ClInclude Include="guraole.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libgura.vcxproj">
