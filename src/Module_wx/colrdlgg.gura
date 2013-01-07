@@ -1,0 +1,9 @@
+#!/usr/bin/env gura
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+
+wx.GenericColourDialog = class(wx.Dialog) {
+	__init__(parent:wx.Window, data:wx.ColourData) = {
+	}
+}

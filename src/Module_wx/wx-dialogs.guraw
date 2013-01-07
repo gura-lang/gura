@@ -1,0 +1,228 @@
+#!/usr/bin/env gura
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(resource)
+import(colrdlgg)
+import(dirdlgg)
+import(filedlgg)
+import(fontdlgg)
+
+// Menu IDs
+[
+	DIALOGS_CHOOSE_COLOUR,
+	DIALOGS_CHOOSE_COLOUR_GENERIC,
+	DIALOGS_CHOOSE_FONT,
+	DIALOGS_CHOOSE_FONT_GENERIC,
+	DIALOGS_MESSAGE_BOX,
+	DIALOGS_SINGLE_CHOICE,
+	DIALOGS_MULTI_CHOICE,
+	DIALOGS_TEXT_ENTRY,
+	DIALOGS_PASSWORD_ENTRY,
+	DIALOGS_FILE_OPEN,
+	DIALOGS_FILE_OPEN2,
+	DIALOGS_FILES_OPEN,
+	DIALOGS_FILE_SAVE,
+	DIALOGS_FILE_OPEN_GENERIC,
+	DIALOGS_FILES_OPEN_GENERIC,
+	DIALOGS_FILE_SAVE_GENERIC,
+	DIALOGS_DIR_CHOOSE,
+	DIALOGS_DIRNEW_CHOOSE,
+	DIALOGS_GENERIC_DIR_CHOOSE,
+	DIALOGS_TIP,
+	DIALOGS_NUM_ENTRY,
+	DIALOGS_LOG_DIALOG,
+	DIALOGS_MODAL,
+	DIALOGS_MODELESS,
+	DIALOGS_CENTRE_SCREEN,
+	DIALOGS_CENTRE_PARENT,
+	DIALOGS_MODELESS_BTN,
+	DIALOGS_PROGRESS,
+	DIALOGS_ABOUTDLG_SIMPLE,
+	DIALOGS_ABOUTDLG_FANCY,
+	DIALOGS_ABOUTDLG_FULL,
+	DIALOGS_ABOUTDLG_CUSTOM,
+	DIALOGS_BUSYINFO,
+	DIALOGS_FIND,
+	DIALOGS_REPLACE,
+	DIALOGS_REQUEST,
+	DIALOGS_PROPERTY_SHEET,
+	DIALOGS_PROPERTY_SHEET_TOOLBOOK,
+	DIALOGS_PROPERTY_SHEET_BUTTONTOOLBOOK
+] = wx.ID_HIGHEST..
+
+myCanvas = nil
+
+MyApp = class(wx.App) {
+	OnInit() = {
+		frame = MyFrame(nil, 'wxWidgets dialogs example')
+		frame.Show()
+		true
+	}
+}
+
+/*
+// a trivial example of a custom dialog class
+MyAboutDialog = class(wx.GenericAboutDialog) {
+	__init__(info:wx.AboutDialogInfo) = {
+		self.Create(info);
+	}
+	// add some custom controls
+	DoAddCustomControls() = {
+		self.AddControl(wx.StaticLine(self), wx.SizerFlags().Expand())
+		self.AddText('Some custom text')
+		self.AddControl(wx.StaticLine(self), wx.SizerFlags().Expand());
+	}
+};
+*/
+
+MyFrame = class(wx.Frame) {
+	__init__(parent:wx.Window:nil, title:string) = {|parent, wx.ID_ANY, title|
+		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		self.m_dialog = nil
+		self.m_findData = wx.FindReplaceData()
+		self.m_dlgFind = nil
+		self.m_dlgReplace = nil
+		self.m_clrData = wx.ColourData()
+	}
+	MessageBox(event:wx.CommandEvent) = {
+	}
+	ChooseColour(event:wx.CommandEvent) = {
+	}
+	ChooseFont(event:wx.CommandEvent) = {
+	}
+	LogDialog(event:wx.CommandEvent) = {
+	}
+	SingleChoice(event:wx.CommandEvent) = {
+	}
+	MultiChoice(event:wx.CommandEvent) = {
+	}
+	TextEntry(event:wx.CommandEvent) = {
+	}
+	PasswordEntry(event:wx.CommandEvent) = {
+	}
+	NumericEntry(event:wx.CommandEvent) = {
+	}
+	FileOpen(event:wx.CommandEvent) = {
+	}
+	FileOpen2(event:wx.CommandEvent) = {
+	}
+	FilesOpen(event:wx.CommandEvent) = {
+	}
+	FileSave(event:wx.CommandEvent) = {
+	}
+	FileOpenGeneric(event:wx.CommandEvent) = {
+	}
+	FilesOpenGeneric(event:wx.CommandEvent) = {
+	}
+	FileSaveGeneric(event:wx.CommandEvent) = {
+	}
+	DirChoose(event:wx.CommandEvent) = {
+	}
+	DirChooseNew(event:wx.CommandEvent) = {
+	}
+	GenericDirChoose(event:wx.CommandEvent) = {
+	}
+	ShowTip(event:wx.CommandEvent) = {
+	}
+	ModalDlg(event:wx.CommandEvent) = {
+	}
+	ModelessDlg(event:wx.CommandEvent) = {
+	}
+	DlgCenteredScreen(event:wx.CommandEvent) = {
+	}
+	DlgCenteredParent(event:wx.CommandEvent) = {
+	}
+	ShowProgress(event:wx.CommandEvent) = {
+	}
+	ShowSimpleAboutDialog(event:wx.CommandEvent) = {
+	}
+	ShowFancyAboutDialog(event:wx.CommandEvent) = {
+	}
+	ShowFullAboutDialog(event:wx.CommandEvent) = {
+	}
+	ShowCustomAboutDialog(event:wx.CommandEvent) = {
+	}
+	ShowBusyInfo(event:wx.CommandEvent) = {
+	}
+	ShowFindDialog(event:wx.CommandEvent) = {
+	}
+	ShowReplaceDialog(event:wx.CommandEvent) = {
+	}
+	OnFindDialog(event:wx.FindDialogEvent) = {
+	}
+	ChooseColourGeneric(event:wx.CommandEvent) = {
+	}
+	ChooseFontGeneric(event:wx.CommandEvent) = {
+	}
+	OnPropertySheet(event:wx.CommandEvent) = {
+	}
+	OnRequestUserAttention(event:wx.CommandEvent) = {
+	}
+	OnExit(event:wx.CommandEvent) = {
+	}
+	DoDirChoose(style:number) = {
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyCanvas
+// ----------------------------------------------------------------------------
+
+MyCanvas = class(wx.ScrolledWindow) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.NO_FULL_REPAINT_ON_RESIZE|
+	}
+	OnPaint(event:wx.PaintEvent) = {
+	}
+};
+
+// ----------------------------------------------------------------------------
+// MyModelessDialog
+// ----------------------------------------------------------------------------
+
+MyModelessDialog = class(wx.Dialog) {
+	__init__(parent:wx.Window) = {
+	}
+	OnButton(event:wx.CommandEvent) = {
+	}
+	OnClose(event:wx.CloseEvent) = {
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyModalDialog
+// ----------------------------------------------------------------------------
+
+MyModalDialog = class(wx.Dialog) {
+	__init__(parent:wx.Window) = {
+		self.m_btnModal = nil
+		self.m_btnModeless = nil
+		self.m_btnDelete = nil
+	}
+	OnButton(event:wx.CommandEvent) = {
+	}
+}
+
+// ----------------------------------------------------------------------------
+// SettingsDialog
+// ----------------------------------------------------------------------------
+
+SettingsDialog = class(wx.PropertySheetDialog) {
+	[
+		ID_SHOW_TOOLTIPS,
+		ID_AUTO_SAVE,
+		ID_AUTO_SAVE_MINS,
+		ID_LOAD_LAST_PROJECT,
+		ID_APPLY_SETTINGS_TO,
+		ID_BACKGROUND_STYLE,
+		ID_FONT_SIZE
+	] = 100..
+	__init__(parent:wx.Window, dialogType:number) = {
+		self.m_imageList = nil
+	}
+	CreateGeneralSettingsPage(parent:wx.Window) = {
+	}
+	CreateAestheticSettingsPage(parent:wx.Window) = {
+	}
+};
+
+wx.IMPLEMENT_APP(MyApp)
