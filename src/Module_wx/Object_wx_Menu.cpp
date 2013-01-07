@@ -94,7 +94,7 @@ Gura_DeclareMethod(wx_Menu, Append)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "item", VTYPE_string, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "helpString", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "helpString", VTYPE_string, OCCUR_ZeroOrOnce, FLAG_NoCast);
 	DeclareArg(env, "kind", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
