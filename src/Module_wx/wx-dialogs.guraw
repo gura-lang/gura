@@ -65,35 +65,35 @@ MyApp = class(wx.App) {
 		choices_menu = wx.Menu()
 		choices_menu.Append(DIALOGS_CHOOSE_COLOUR, '&Choose colour');
 		choices_menu.Append(DIALOGS_CHOOSE_FONT, 'Choose &font');
-		choices_menu.Append(DIALOGS_SINGLE_CHOICE,  '&Single choice\tCtrl-C');
-		choices_menu.Append(DIALOGS_MULTI_CHOICE,  'M&ultiple choice\tCtrl-U');
+		choices_menu.Append(DIALOGS_SINGLE_CHOICE, '&Single choice\tCtrl-C');
+		choices_menu.Append(DIALOGS_MULTI_CHOICE, 'M&ultiple choice\tCtrl-U');
 		choices_menu.AppendSeparator();
 		choices_menu.Append(DIALOGS_CHOOSE_COLOUR_GENERIC, '&Choose colour (generic)');
 		choices_menu.Append(DIALOGS_CHOOSE_FONT_GENERIC, 'Choose &font (generic)');
 		menuDlg.AppendMenu(wx.ID_ANY, '&Choices and selectors', choices_menu);
 		entry_menu = wx.Menu()
-		entry_menu.Append(DIALOGS_TEXT_ENTRY,  'Text &entry\tCtrl-E');
-		entry_menu.Append(DIALOGS_PASSWORD_ENTRY,  '&Password entry\tCtrl-P');
+		entry_menu.Append(DIALOGS_TEXT_ENTRY, 'Text &entry\tCtrl-E');
+		entry_menu.Append(DIALOGS_PASSWORD_ENTRY, '&Password entry\tCtrl-P');
 		entry_menu.Append(DIALOGS_NUM_ENTRY, '&Numeric entry\tCtrl-N');
 		menuDlg.AppendMenu(wx.ID_ANY, '&Entry dialogs', entry_menu);
 		filedlg_menu = wx.Menu()
-		filedlg_menu.Append(DIALOGS_FILE_OPEN,  '&Open file\tCtrl-O');
-		filedlg_menu.Append(DIALOGS_FILE_OPEN2,  '&Second open file\tCtrl-2');
-		filedlg_menu.Append(DIALOGS_FILES_OPEN,  'Open &files\tCtrl-Q');
-		filedlg_menu.Append(DIALOGS_FILE_SAVE,  'Sa&ve file\tCtrl-S');
+		filedlg_menu.Append(DIALOGS_FILE_OPEN, '&Open file\tCtrl-O');
+		filedlg_menu.Append(DIALOGS_FILE_OPEN2, '&Second open file\tCtrl-2');
+		filedlg_menu.Append(DIALOGS_FILES_OPEN, 'Open &files\tCtrl-Q');
+		filedlg_menu.Append(DIALOGS_FILE_SAVE, 'Sa&ve file\tCtrl-S');
 		filedlg_menu.AppendSeparator();
-		filedlg_menu.Append(DIALOGS_FILE_OPEN_GENERIC,  '&Open file (generic)');
-		filedlg_menu.Append(DIALOGS_FILES_OPEN_GENERIC,  'Open &files (generic)');
-		filedlg_menu.Append(DIALOGS_FILE_SAVE_GENERIC,  'Sa&ve file (generic)');
+		filedlg_menu.Append(DIALOGS_FILE_OPEN_GENERIC, '&Open file (generic)');
+		filedlg_menu.Append(DIALOGS_FILES_OPEN_GENERIC, 'Open &files (generic)');
+		filedlg_menu.Append(DIALOGS_FILE_SAVE_GENERIC, 'Sa&ve file (generic)');
 		menuDlg.AppendMenu(wx.ID_ANY, '&File operations', filedlg_menu);
 		dir_menu = wx.Menu()
-		dir_menu.Append(DIALOGS_DIR_CHOOSE,  '&Choose a directory\tCtrl-D');
-		dir_menu.Append(DIALOGS_DIRNEW_CHOOSE,  'Choose a directory (with \"Ne&w\" button)\tShift-Ctrl-D');
+		dir_menu.Append(DIALOGS_DIR_CHOOSE, '&Choose a directory\tCtrl-D');
+		dir_menu.Append(DIALOGS_DIRNEW_CHOOSE, 'Choose a directory (with \"Ne&w\" button)\tShift-Ctrl-D');
 		menuDlg.AppendMenu(wx.ID_ANY, '&Directory operations', dir_menu);
 		dir_menu.AppendSeparator();
 		dir_menu.Append(DIALOGS_GENERIC_DIR_CHOOSE, '&Choose a directory (generic)');
 		info_menu = wx.Menu()
-		info_menu.Append(DIALOGS_TIP,  '&Tip of the day\tCtrl-T');
+		info_menu.Append(DIALOGS_TIP, '&Tip of the day\tCtrl-T');
 		info_menu.Append(DIALOGS_PROGRESS, 'Pro&gress dialog\tCtrl-G');
 		info_menu.Append(DIALOGS_BUSYINFO, '&Busy info dialog\tCtrl-B');
 		info_menu.Append(DIALOGS_LOG_DIALOG, '&Log dialog\tCtrl-L');
@@ -151,12 +151,23 @@ MyAboutDialog = class(wx.GenericAboutDialog) {
 
 MyFrame = class(wx.Frame) {
 	__init__(parent:wx.Window:nil, title:string) = {|parent, wx.ID_ANY, title|
+		self.m_findData = wx.FindReplaceData()
+		self.m_clrData = wx.ColourData()
 		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 		self.m_dialog = nil
-		self.m_findData = wx.FindReplaceData()
-		self.m_dlgFind = nil
-		self.m_dlgReplace = nil
-		self.m_clrData = wx.ColourData()
+		self.m_dlgFind = self.m_dlgReplace = nil
+		self.m_clrData.SetChooseFull(true)
+		repeat(16) {|i|
+			self.m_clrData.SetCustomColour(
+				i,
+				wx.Colour(
+					i * 16,
+					i * 16,
+					i * 16
+				)
+			);
+		}
+		self.CreateStatusBar();
 	}
 	MessageBox(event:wx.CommandEvent) = {
 	}
