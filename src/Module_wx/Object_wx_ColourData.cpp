@@ -36,14 +36,14 @@ void wx_ColourData::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 // Gura interfaces for wxColourData
 //----------------------------------------------------------------------------
-Gura_DeclareFunction(ColourDataEmpty)
+Gura_DeclareFunction(ColourData)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ColourData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(ColourDataEmpty)
+Gura_ImplementFunction(ColourData)
 {
 	wx_ColourData *pEntity = new wx_ColourData();
 	Object_wx_ColourData *pObj = Object_wx_ColourData::GetSelfObj(args);
@@ -175,7 +175,7 @@ String Object_wx_ColourData::ToString(Signal sig, bool exprFlag)
 
 void Object_wx_ColourData::OnModuleEntry(Environment &env, Signal sig)
 {
-	Gura_AssignFunction(ColourDataEmpty);
+	Gura_AssignFunction(ColourData);
 }
 
 //----------------------------------------------------------------------------
