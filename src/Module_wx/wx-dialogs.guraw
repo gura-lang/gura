@@ -180,12 +180,88 @@ MyFrame = class(wx.Frame) {
 			myCanvas.Refresh();
 		}
 	}
-	MessageBox(event:wx.CommandEvent) = {
+	ChooseColourGeneric(event:wx.CommandEvent) = {
+		self.m_clrData.SetColour(myCanvas.GetBackgroundColour());
+		//FIXME:TODO:This has no effect...
+		self.m_clrData.SetChooseFull(true);
+		repeat(16) {|i|
+			colour = wx.Colour(
+				i * 16,
+				i * 16,
+				i * 16
+			)
+			self.m_clrData.SetCustomColour(i, colour);
+		}
+		dialog = wx.GenericColourDialog(self, self.m_clrData);
+		if (dialog.ShowModal() == wx.ID_OK) {
+			self.m_clrData = dialog.GetColourData();
+			myCanvas.SetBackgroundColour(self.m_clrData.GetColour());
+			myCanvas.ClearBackground();
+			myCanvas.Refresh();
+		}
+		dialog.Destroy();
 	}
 	ChooseFont(event:wx.CommandEvent) = {
+		data = wx.FontData()
+		data.SetInitialFont(wx.GetApp().m_canvasFont);
+		data.SetColour(wx.GetApp().m_canvasTextColour);
+		// you might also do this:
+		//
+		//  wxFontDialog dialog;
+		//  if ( !dialog.Create(this, data) { ... error ... }
+		//
+		dialog = wx.FontDialog(self, data);
+		if (dialog.ShowModal() == wx.ID_OK) {
+			retData = dialog.GetFontData();
+			wx.GetApp().m_canvasFont = retData.GetChosenFont();
+			wx.GetApp().m_canvasTextColour = retData.GetColour();
+			myCanvas.Refresh();
+		}
+		//else: cancelled by the user, don't change the font
+	}
+	ChooseFontGeneric(event:wx.CommandEvent) = {
+		data = wx.FontData()
+		data.SetInitialFont(wx.GetApp().m_canvasFont);
+		data.SetColour(wx.GetApp().m_canvasTextColour);
+		dialog = wx.GenericFontDialog(self, data);
+		if (dialog.ShowModal() == wx.ID_OK) {
+			retData = dialog.GetFontData();
+			wx.GetApp().m_canvasFont = retData.GetChosenFont();
+			wx.GetApp().m_canvasTextColour = retData.GetColour();
+			myCanvas.Refresh();
+		}
+		dialog.Destroy();
 	}
 	LogDialog(event:wx.CommandEvent) = {
+		// calling wxYield() (as ~wxBusyCursor does) shouldn't result in messages
+		// being flushed -- test it
+		wx.BusyCursor {
+			wx.LogMessage('This is some message - everything is ok so far.');
+			wx.LogMessage('Another message...\n... this one is on multiple lines');
+			wx.LogWarning('And then something went wrong!');
+			// and if ~wxBusyCursor doesn't do it, then call it manually
+			wx.Yield();
+		}
+		wx.LogError('Intermediary error handler decided to abort.');
+		wx.LogError('The top level caller detected an unrecoverable error.');
+		wx.Log.FlushActive();
+		wx.LogMessage('And this is the same dialog but with only one message.');
 	}
+	MessageBox(event:wx.CommandEvent) = {
+		dialog = wx.MessageDialog(nil, 'This is a message box\nA long, long string to test out the message box properly',
+			'Message box text', wx.NO_DEFAULT | wx.YES_NO | wx.CANCEL | wx.ICON_INFORMATION);
+		ret = dialog.ShowModa()
+		if (ret == wx.ID_YES) {
+			wxLogStatus('You pressed "Yes"');
+		} elsif(ret == wx.ID_NO) {
+			wxLogStatus('You pressed "No"');
+		} elsif(ret == wx.ID_CANCEL) {
+			wxLogStatus('You pressed "Cancel"');
+		} else {
+			wxLogError('Unexpected wxMessageDialog return code!');
+		}
+	}
+
 	SingleChoice(event:wx.CommandEvent) = {
 	}
 	MultiChoice(event:wx.CommandEvent) = {
@@ -243,10 +319,6 @@ MyFrame = class(wx.Frame) {
 	ShowReplaceDialog(event:wx.CommandEvent) = {
 	}
 	OnFindDialog(event:wx.FindDialogEvent) = {
-	}
-	ChooseColourGeneric(event:wx.CommandEvent) = {
-	}
-	ChooseFontGeneric(event:wx.CommandEvent) = {
 	}
 	OnPropertySheet(event:wx.CommandEvent) = {
 	}
