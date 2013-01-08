@@ -662,12 +662,49 @@ MyFrame = class(wx.Frame) {
 		wx.AboutBox(info);
 	}
 	ShowCustomAboutDialog(event:wx.CommandEvent) = {
+		info = wx.AboutDialogInfo()
+		InitAboutInfoAll(info);
+		dlg = MyAboutDialog(info);
+		dlg.ShowModal();
 	}
 	ShowBusyInfo(event:wx.CommandEvent) = {
-	}
-	ShowFindDialog(event:wx.CommandEvent) = {
+		disableAll = wx.WindowDisabler()
+		info = wx.BusyInfo('Working, please wait...', self);
+		repeat(18) {|i|
+			//wx.Usleep(100);
+			wx.GetApp().Yield();
+		}
+		wx.Sleep(2);
+		//wx.WakeUpIdle();
 	}
 	ShowReplaceDialog(event:wx.CommandEvent) = {
+		if (self.m_dlgReplace) {
+			self.m_dlgReplace.Destroy()
+			self.m_dlgReplace = nil
+		} else {
+			self.m_dlgReplace = wx.FindReplaceDialog(
+								self,
+								self.m_findData,
+								'Find and replace dialog',
+								wx.FR_REPLACEDIALOG
+							);
+			self.m_dlgReplace.Show(true);
+		}
+	}
+	ShowFindDialog(event:wx.CommandEvent) = {
+		if (self.m_dlgFind) {
+			self.m_dlgFind.Destroy()
+			self.m_dlgFind = nil
+		} else {
+			self.m_dlgFind = wx.FindReplaceDialog(
+								self,
+								self.m_findData,
+								'Find dialog',
+								// just for testing
+								wx.FR_NOWHOLEWORD
+							);
+			self.m_dlgFind.Show(true);
+		}
 	}
 	OnFindDialog(event:wx.FindDialogEvent) = {
 	}
