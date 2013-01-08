@@ -3707,6 +3707,11 @@ void InitializeObjects(Environment &env)
 		Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_ROW_ACTIVATED,		EVT_DATAVIEW_ROW_ACTIVATED,		DataViewEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_COLUMN_HEADER_CLICK, EVT_DATAVIEW_COLUMN_HEADER_CLICK, DataViewEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_COLUMN_HEADER_RIGHT_CLICK, EVT_DATAVIEW_COLUMN_HEADER_RIGHT_CLICK, DataViewEvent);
+		Gura_AssignWxEvent(EVT_COMMAND_FIND,						EVT_FIND,						FindDialogEvent);
+		Gura_AssignWxEvent(EVT_COMMAND_FIND_NEXT,					EVT_FIND_NEXT,					FindDialogEvent);
+		Gura_AssignWxEvent(EVT_COMMAND_FIND_REPLACE,				EVT_FIND_REPLACE,				FindDialogEvent);
+		Gura_AssignWxEvent(EVT_COMMAND_FIND_REPLACE_ALL,			EVT_FIND_REPLACE_ALL,			FindDialogEvent);
+		Gura_AssignWxEvent(EVT_COMMAND_FIND_CLOSE,					EVT_FIND_CLOSE,					FindDialogEvent);
 		Gura_AssignWxEventComplex(									EVT_JOYSTICK_EVENTS,			JoystickEvent);
 		Gura_AssignWxEventComplex(									EVT_SCROLL,						ScrollEvent);
 		Gura_AssignWxEventComplex(									EVT_SCROLLWIN,					ScrollWinEvent);
