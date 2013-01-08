@@ -36,14 +36,14 @@ void wx_AboutDialogInfo::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 // Gura interfaces for wxAboutDialogInfo
 //----------------------------------------------------------------------------
-Gura_DeclareFunction(AboutDialogInfoEmpty)
+Gura_DeclareFunction(AboutDialogInfo)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AboutDialogInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(AboutDialogInfoEmpty)
+Gura_ImplementFunction(AboutDialogInfo)
 {
 	wx_AboutDialogInfo *pEntity = new wx_AboutDialogInfo();
 	Object_wx_AboutDialogInfo *pObj = Object_wx_AboutDialogInfo::GetSelfObj(args);
@@ -330,7 +330,7 @@ String Object_wx_AboutDialogInfo::ToString(Signal sig, bool exprFlag)
 
 void Object_wx_AboutDialogInfo::OnModuleEntry(Environment &env, Signal sig)
 {
-	Gura_AssignFunction(AboutDialogInfoEmpty);
+	Gura_AssignFunction(AboutDialogInfo);
 }
 
 //----------------------------------------------------------------------------
