@@ -3477,6 +3477,11 @@ void InitializeObjects(Environment &env)
 		Gura_AssignWxStringValue(GRID_VALUE_DATETIME);
 	} while (0);
 	do {
+		Gura_AssignWxStringValue(FileDialogNameStr);
+		Gura_AssignWxStringValue(FileSelectorPromptStr);
+		Gura_AssignWxStringValue(FileSelectorDefaultWildcardStr);
+	} while (0);
+	do {
 		Gura_AssignValue(EmptyString,			Value(env, ""));
 		Gura_AssignWxStringValue(GetTextFromUserPromptStr);
 	} while (0);

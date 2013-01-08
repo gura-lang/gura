@@ -377,8 +377,47 @@ MyFrame = class(wx.Frame) {
 		//else: cancelled or nothing selected
 	}
 	FileOpen(event:wx.CommandEvent) = {
+		dialog = wx.FileDialog(
+						self,
+						'Testing open file dialog',
+						wx.EmptyString,
+						wx.EmptyString,
+						'C++ files (*.cpp;*.h)|*.cpp;*.h'
+					);
+		dialog.CentreOnParent();
+		dialog.SetDirectory(wx.GetHomeDir());
+		if (dialog.ShowModal() == wx.ID_OK) {
+			info = format('Full file name: %s\n' \
+						'Path: %s\n' \
+						'Name: %s',
+						dialog.GetPath(),
+						dialog.GetDirectory(),
+						dialog.GetFilename());
+			dialog2 = wx.MessageDialog(self, info, 'Selected file');
+			dialog2.ShowModal();
+		}
 	}
+	s_extDef = ''
 	FileOpen2(event:wx.CommandEvent) = {
+		res = wx.FileSelector(
+							'Select the file to load',
+							wx.EmptyString, wx.EmptyString,
+							self.s_extDef,
+							format(
+								'Waveform (*.wav)|*.wav|Plain text (*.txt)|*.txt|All files (%s)|%s',
+								wx.FileSelectorDefaultWildcardStr,
+								wx.FileSelectorDefaultWildcardStr
+							),
+							wx.FD_OPEN | wx.FD_CHANGE_DIR | wx.FD_PREVIEW,
+							self
+						);
+		if (!res) {
+			return;
+		}
+		// it is just a sample, would use wxSplitPath in real program
+		self.s_extDef = path.splitext(res)[1]
+		wx.LogMessage("You selected the file '%s', remembered extension '%s'",
+					res, self.s_extDef);
 	}
 	FilesOpen(event:wx.CommandEvent) = {
 	}
