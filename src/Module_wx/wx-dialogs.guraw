@@ -647,10 +647,19 @@ MyFrame = class(wx.Frame) {
 		}
 	}
 	ShowSimpleAboutDialog(event:wx.CommandEvent) = {
+		info = wx.AboutDialogInfo()
+		InitAboutInfoMinimal(info);
+		wx.AboutBox(info);
 	}
 	ShowFancyAboutDialog(event:wx.CommandEvent) = {
+		info = wx.AboutDialogInfo()
+		InitAboutInfoWebsite(info);
+		wx.AboutBox(info);
 	}
 	ShowFullAboutDialog(event:wx.CommandEvent) = {
+		info = wx.AboutDialogInfo()
+		InitAboutInfoAll(info);
+		wx.AboutBox(info);
 	}
 	ShowCustomAboutDialog(event:wx.CommandEvent) = {
 	}
@@ -662,6 +671,47 @@ MyFrame = class(wx.Frame) {
 	}
 	OnFindDialog(event:wx.FindDialogEvent) = {
 	}
+}
+
+InitAboutInfoMinimal(info:wx.AboutDialogInfo) = {
+	info.SetName('Dialogs Sample');
+	info.SetVersion(wx.VERSION_NUM_DOT_STRING);
+	info.SetDescription('This sample shows different wxWidgets dialogs');
+	info.SetCopyright('(C) 1998-2006 wxWidgets dev team');
+	info.AddDeveloper('Vadim Zeitlin');
+}
+
+InitAboutInfoWebsite(info:wx.AboutDialogInfo) = {
+	InitAboutInfoMinimal(info);
+	info.SetWebSite('http://www.wxwidgets.org/', 'wxWidgets web site');
+}
+
+InitAboutInfoAll(info:wx.AboutDialogInfo) = {
+	InitAboutInfoMinimal(info);
+	// we can add a second developer
+	info.AddDeveloper('A.N. Other');
+	// or we can add several persons at once like this
+	docwriters = [
+		'First D. Writer',
+		'Second One',
+	]
+	info.SetDocWriters(docwriters)
+	info.SetLicence(R'''
+				wxWindows Library Licence, Version 3.1
+				======================================
+
+  Copyright (c) 1998-2005 Julian Smart, Robert Roebling et al
+
+  Everyone is permitted to copy and distribute verbatim copies
+  of this licence document, but changing it is not allowed.
+
+					   WXWINDOWS LIBRARY LICENCE
+	 TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+					...and so on and so forth...
+'''
+	)
+	info.AddTranslator('Wun Ngo Wen (Martian)');
 }
 
 // ----------------------------------------------------------------------------
