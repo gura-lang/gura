@@ -297,15 +297,15 @@ MyFrame = class(wx.Frame) {
 	MessageBox(event:wx.CommandEvent) = {
 		dialog = wx.MessageDialog(nil, 'This is a message box\nA long, long string to test out the message box properly',
 			'Message box text', wx.NO_DEFAULT | wx.YES_NO | wx.CANCEL | wx.ICON_INFORMATION);
-		ret = dialog.ShowModa()
+		ret = dialog.ShowModal()
 		if (ret == wx.ID_YES) {
-			wxLogStatus('You pressed "Yes"');
+			wx.LogStatus('You pressed "Yes"');
 		} elsif(ret == wx.ID_NO) {
-			wxLogStatus('You pressed "No"');
+			wx.LogStatus('You pressed "No"');
 		} elsif(ret == wx.ID_CANCEL) {
-			wxLogStatus('You pressed "Cancel"');
+			wx.LogStatus('You pressed "Cancel"');
 		} else {
-			wxLogError('Unexpected wxMessageDialog return code!');
+			wx.LogError('Unexpected wxMessageDialog return code!');
 		}
 	}
 	NumericEntry(event:wx.CommandEvent) = {

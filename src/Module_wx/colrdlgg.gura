@@ -4,6 +4,6 @@ import(wx)
 import(resource)
 
 wx.GenericColourDialog = class(wx.Dialog) {
-	__init__(parent:wx.Window, data:wx.ColourData) = {
+	__init__(parent:wx.Window, data:wx.ColourData) = {|parent, wx.ID_ANY, ''|
 	}
 }
