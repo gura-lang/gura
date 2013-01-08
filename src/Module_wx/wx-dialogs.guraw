@@ -261,6 +261,20 @@ MyFrame = class(wx.Frame) {
 			wxLogError('Unexpected wxMessageDialog return code!');
 		}
 	}
+	NumericEntry(event:wx.CommandEvent) = {
+		res = wx.GetNumberFromUser('This is some text, actually a lot of text.\n' \
+									'Even two rows of text.',
+									'Enter a number:', 'Numeric input test',
+									50, 0, 100, self);
+		if (res == -1) {
+			msg = 'Invalid number entered or dialog cancelled.';
+			icon = wx.ICON_HAND;
+		} else {
+			msg = format("You've entered %lu", res);
+			icon = wx.ICON_INFORMATION;
+		}
+		wx.MessageBox(msg, 'Numeric test result', wx.OK | icon, self);
+	}
 
 	SingleChoice(event:wx.CommandEvent) = {
 	}
@@ -269,8 +283,6 @@ MyFrame = class(wx.Frame) {
 	TextEntry(event:wx.CommandEvent) = {
 	}
 	PasswordEntry(event:wx.CommandEvent) = {
-	}
-	NumericEntry(event:wx.CommandEvent) = {
 	}
 	FileOpen(event:wx.CommandEvent) = {
 	}
