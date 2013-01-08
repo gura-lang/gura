@@ -2909,6 +2909,15 @@ Gura_ModuleEntry()
 		Gura_AssignWxValue(RE_NOTEOL);
 	} while (0);
 	do {
+		Gura_AssignWxValue(FR_DOWN);
+		Gura_AssignWxValue(FR_WHOLEWORD);
+		Gura_AssignWxValue(FR_MATCHCASE);
+		Gura_AssignWxValue(FR_REPLACEDIALOG);
+		Gura_AssignWxValue(FR_NOUPDOWN);
+		Gura_AssignWxValue(FR_NOMATCHCASE);
+		Gura_AssignWxValue(FR_NOWHOLEWORD);
+	} while (0);
+	do {
 		Gura_AssignWxValue(MB_DOCKABLE);
 	} while (0);
 	do {
