@@ -51,19 +51,38 @@ bool Main(int argc, const char *argv[])
 		::fprintf(stderr, "failed to listen to port %d", port);
 		return false;
 	}
-	fd_set fdsRead;
-	int sockMax = sockListen;
+	int sockClient = -1;
 	for (;;) {
+		fd_set fdsRead;
 		FD_ZERO(&fdsRead);
 		FD_SET(static_cast<unsigned int>(sockListen), &fdsRead);
+		int sockMax = sockListen;
+		if (sockClient >= 0) {
+			FD_SET(static_cast<unsigned int>(sockClient), &fdsRead);
+			if (sockMax < sockClient) sockMax = sockClient;
+		}
 		::select(sockMax + 1, &fdsRead, NULL, NULL, NULL);
 		if (FD_ISSET(sockListen, &fdsRead)) {
 			FD_CLR(static_cast<unsigned int>(sockListen), &fdsRead);
 			sockaddr_in saddrClient;
 			socklen_t bytesAddr = sizeof(saddrClient);
-			int sockClient = static_cast<int>(::accept(sockListen,
+			sockClient = static_cast<int>(::accept(sockListen,
 							reinterpret_cast<sockaddr *>(&saddrClient), &bytesAddr));
-			::printf("connected\n");
+			String remoteIP = ::inet_ntoa(saddrClient.sin_addr);
+			String remoteHost(remoteIP);
+			const hostent *pHostEnt = ::gethostbyaddr(
+					reinterpret_cast<char *>(&saddrClient.sin_addr), 4, AF_INET);
+			if (pHostEnt != NULL) remoteHost = pHostEnt->h_name;
+			::printf("connected with %s\n", remoteHost.c_str());
+		} else if (sockClient >= 0 && FD_ISSET(sockClient, &fdsRead)) {
+			char buff[512];
+			int rtn = ::recv(sockClient, buff, sizeof(buff), 0);
+			if (rtn == 0) {
+				::printf("disconnected\n");
+				sockClient = -1;
+			} else {
+				::printf("%d bytes received\n", rtn);
+			}
 		}
 	}
 	::closesocket(sockListen);

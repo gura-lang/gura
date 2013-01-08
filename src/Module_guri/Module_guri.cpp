@@ -44,6 +44,7 @@ Gura_ImplementFunction(test)
 											addrToConnect, portToConnect);
 		return Value::Null;
 	}
+	::send(sock, "Hello world", 11, 0);
 	::closesocket(sock);
 	return Value::Null;
 }
