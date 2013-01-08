@@ -504,23 +504,147 @@ MyFrame = class(wx.Frame) {
 						 dialog.GetPath(), dialog.GetFilterIndex());
 		}
 	}
+	DoDirChoose(style:number) = {
+		// pass some initial dir to wxDirDialog
+		dirHome = wx.GetHomeDir();
+		dialog = wx.DirDialog(self, 'Testing directory picker', dirHome, style);
+		if (dialog.ShowModal() == wx.ID_OK) {
+			wx.LogMessage('Selected path: %s', dialog.GetPath());
+		}
+	}
 	DirChoose(event:wx.CommandEvent) = {
+		self.DoDirChoose(wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST);
 	}
 	DirChooseNew(event:wx.CommandEvent) = {
+		self.DoDirChoose(wx.DD_DEFAULT_STYLE & ~wx.DD_DIR_MUST_EXIST);
 	}
 	GenericDirChoose(event:wx.CommandEvent) = {
-	}
-	ShowTip(event:wx.CommandEvent) = {
+		// pass some initial dir to wxDirDialog
+		dirHome = wx.GetHomeDir();
+		dialog = wx.GenericDirDialog(self, 'Testing generic directory picker', dirHome);
+		if (dialog.ShowModal() == wx.ID_OK) {
+			dialog2 = wx.MessageDialog(self, dialog.GetPath(), 'Selected path');
+			dialog2.ShowModal();
+		}
 	}
 	ModalDlg(event:wx.CommandEvent) = {
+		dlg = MyModalDialog(self);
+		dlg.ShowModal();
 	}
 	ModelessDlg(event:wx.CommandEvent) = {
+		show = self.GetMenuBar().IsChecked(event.GetId());
+		if (show) {
+			if (!self.m_dialog) {
+				self.m_dialog = MyModelessDialog(self);
+			}
+			self.m_dialog.Show(true);
+		} else { // hide
+			// If m_dialog is NULL, then possibly the system
+			// didn't report the checked menu item status correctly.
+			// It should be true just after the menu item was selected,
+			// if there was no modeless dialog yet.
+			wx.ASSERT(self.m_dialog != nil);
+			if (self.m_dialog) {
+				self.m_dialog.Hide();
+			}
+		}
 	}
 	DlgCenteredScreen(event:wx.CommandEvent) = {
+		dlg = wx.Dialog(self, wx.ID_ANY, 'Dialog centered on screen',
+					wx.DefaultPosition, wx.Size(200, 100));
+		wx.Button(dlg, wx.ID_OK, 'Close').Centre();
+		dlg.CentreOnScreen();
+		dlg.ShowModal();
 	}
 	DlgCenteredParent(event:wx.CommandEvent) = {
+		dlg = wx.Dialog(self, wx.ID_ANY, 'Dialog centered on parent',
+					 wx.DefaultPosition, wx.Size(200, 100));
+		wx.Button(dlg, wx.ID_OK, 'Close').Centre();
+		dlg.CentreOnParent();
+		dlg.ShowModal();
 	}
+	s_index = -1
+	ShowTip(event:wx.CommandEvent) = {
+		if (self.s_index == -1) {
+			// this is completely bogus, we don't know how many lines are there
+			// in the file, but who cares, it's a demo only...
+			self.s_index = rand(5);
+		}
+		tipProvider = wx.CreateFileTipProvider('tips.txt', self.s_index);
+		showAtStartup = wx.ShowTip(self, tipProvider);
+		if (showAtStartup) {
+			wx.MessageBox('Will show tips on startup', 'Tips dialog',
+						wx.OK | wx.ICON_INFORMATION, self);
+		}
+		self.s_index = tipProvider.GetCurrentTip();
+		tipProvider = nil
+	}
+	OnPropertySheet(event:wx.CommandEvent) = {
+		dialog = SettingsDialog(self, event.GetId());
+		dialog.ShowModal();
+	}
+	OnRequestUserAttention(event:wx.CommandEvent) = {
+		wx.LogStatus('Sleeping for 3 seconds to allow you to switch to another window');
+		wx.Sleep(3);
+		self.RequestUserAttention(wx.USER_ATTENTION_ERROR);
+	}
+	OnExit(event:wx.CommandEvent) = {
+		self.Close(true)
+	}
+	max = 100
 	ShowProgress(event:wx.CommandEvent) = {
+		dialog = wx.ProgressDialog('Progress dialog example',
+								'An informative message',
+								self.max,	// range
+								self,		// parent
+								wx.PD_CAN_ABORT | \
+								wx.PD_CAN_SKIP | \
+								wx.PD_APP_MODAL | \
+								/* wxPD_AUTO_HIDE | -- try this as well */ \
+								wx.PD_ELAPSED_TIME | \
+								wx.PD_ESTIMATED_TIME | \
+								wx.PD_REMAINING_TIME \
+								| wx.PD_SMOOTH // - makes indeterminate mode bar on WinXP very small
+							);
+		cont = true;
+		repeat(self.max) {|i|
+			wx.MilliSleep(200);
+			// test both modes of wxProgressDialog behaviour: start in
+			// indeterminate mode but switch to the determinate one later
+			determinate = (i > self.max / 2);
+			if (i == self.max) {
+				msg = "That's all, folks!";
+			} elsif ( !determinate ) {
+				msg = 'Testing indeterminate mode';
+			} elsif ( determinate ) {
+				msg = 'Now in standard determinate mode';
+			}
+			// will be set to true if "Skip" button was pressed
+			skip = false;
+			if (determinate) {
+				[cont, skip] = dialog.Update(i, msg);
+			} else {
+				[cont, skip] = dialog.Pulse(msg);
+			}
+			// each skip will move progress about quarter forward
+			if (skip) {
+				i += self.max / 4;
+			}
+			if (!cont) {
+				if (wx.MessageBox('Do you really want to cancel?',
+								  'Progress dialog question',  // caption
+								  wx.YES_NO | wx.ICON_QUESTION) == wx.YES) {
+					break;
+				}
+				cont = true;
+				dialog.Resume();
+			}
+		}
+		if (!cont) {
+			wx.LogStatus('Progress dialog aborted!');
+		} else {
+			wx.LogStatus('Countdown from %d finished', self.max);
+		}
 	}
 	ShowSimpleAboutDialog(event:wx.CommandEvent) = {
 	}
@@ -537,14 +661,6 @@ MyFrame = class(wx.Frame) {
 	ShowReplaceDialog(event:wx.CommandEvent) = {
 	}
 	OnFindDialog(event:wx.FindDialogEvent) = {
-	}
-	OnPropertySheet(event:wx.CommandEvent) = {
-	}
-	OnRequestUserAttention(event:wx.CommandEvent) = {
-	}
-	OnExit(event:wx.CommandEvent) = {
-	}
-	DoDirChoose(style:number) = {
 	}
 }
 
