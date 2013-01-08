@@ -8,6 +8,13 @@
 #undef BLACK_BRUSH
 #undef WHITE_BRUSH
 #undef TRANSPARENT
+#undef FR_DOWN
+#undef FR_WHOLEWORD
+#undef FR_MATCHCASE
+#undef FR_REPLACEDIALOG
+#undef FR_NOUPDOWN
+#undef FR_NOMATCHCASE
+#undef FR_NOWHOLEWORD
 
 #define RealizeBaseClass(className) \
 Gura_RealizeUserClassExWithoutPrepare(wx_##className, #className, env.LookupClass(VTYPE_object))
