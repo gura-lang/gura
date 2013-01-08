@@ -411,7 +411,7 @@ MyFrame = class(wx.Frame) {
 							wx.FD_OPEN | wx.FD_CHANGE_DIR | wx.FD_PREVIEW,
 							self
 						);
-		if (!res) {
+		if (res.isempty()) {
 			return;
 		}
 		// it is just a sample, would use wxSplitPath in real program
@@ -420,8 +420,37 @@ MyFrame = class(wx.Frame) {
 					res, self.s_extDef);
 	}
 	FilesOpen(event:wx.CommandEvent) = {
+		wildcards = format(
+						'All files (%s)|%s|C++ files (*.cpp;*.h)|*.cpp;*.h',
+						wx.FileSelectorDefaultWildcardStr,
+						wx.FileSelectorDefaultWildcardStr
+					);
+		dialog = wx.FileDialog(self, 'Testing open multiple file dialog',
+						wx.EmptyString, wx.EmptyString, wildcards,
+						wx.FD_OPEN | wx.FD_MULTIPLE);
+		if (dialog.ShowModal() == wx.ID_OK) {
+			paths = dialog.GetPaths();
+			filenames = dialog.GetFilenames();
+			count = paths.len();
+			msg = format('File %d: %s (%s)\n', 0.., paths, filenames).join()
+			s = format('Filter index: %d', dialog.GetFilterIndex());
+			msg += s;
+			dialog2 = wx.MessageDialog(self, msg, 'Selected files');
+			dialog2.ShowModal();
+		}
 	}
 	FileSave(event:wx.CommandEvent) = {
+		dialog = wx.FileDialog(self,
+							'Testing save file dialog',
+							wx.EmptyString,
+							'myletter.doc',
+							'Text files (*.txt)|*.txt|Document files (*.doc)|*.doc',
+							wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT);
+		dialog.SetFilterIndex(1);
+		if (dialog.ShowModal() == wx.ID_OK) {
+			wx.LogMessage('%s, filter %d',
+						dialog.GetPath(), dialog.GetFilterIndex());
+		}
 	}
 	FileOpenGeneric(event:wx.CommandEvent) = {
 	}
