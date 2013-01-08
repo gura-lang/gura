@@ -453,8 +453,43 @@ MyFrame = class(wx.Frame) {
 		}
 	}
 	FileOpenGeneric(event:wx.CommandEvent) = {
+		dialog = wx.GenericFileDialog(self,
+	  						'Testing open file dialog',
+							wx.EmptyString,
+							wx.EmptyString,
+							'C++ files (*.cpp;*.h)|*.cpp;*.h'
+						 );
+		dialog.SetDirectory(wx.GetHomeDir());
+		if (dialog.ShowModal() == wx.ID_OK) {
+			info = format('Full file name: %s\n' \
+						'Path: %s\n' \
+						'Name: %s',
+						dialog.GetPath(),
+						dialog.GetDirectory(),
+						dialog.GetFilename());
+			dialog2 = wx.MessageDialog(self, info, 'Selected file');
+			dialog2.ShowModal();
+		}
 	}
 	FilesOpenGeneric(event:wx.CommandEvent) = {
+		// On PocketPC you can disable OK-only dialogs policy using system option
+		buttons = wx.SystemOptions.GetOptionInt('wince.dialog.real-ok-cancel');
+		wx.SystemOptions.SetOption('wince.dialog.real-ok-cancel', 1);
+		wildcards = 'All files (*.*)|*.*|C++ files (*.cpp;*.h)|*.cpp;*.h';
+		dialog = wx.GenericFileDialog(self, 'Testing open multiple file dialog',
+							wx.EmptyString, wx.EmptyString, wildcards,
+							wx.FD_MULTIPLE);
+		if (dialog.ShowModal() == wx.ID_OK) {
+			paths = dialog.GetPaths();
+			filenames = dialog.GetFilenames();
+			msg = format('File %d: %s (%s)\n', 0.., paths, filenames).join()
+			s = format('Filter index: %d', dialog.GetFilterIndex());
+			msg += s;
+			dialog2 = wx.MessageDialog(self, msg, 'Selected files');
+			dialog2.ShowModal();
+		}
+		// restore system option
+		wx.SystemOptions.SetOption('wince.dialog.real-ok-cancel', buttons);
 	}
 	FileSaveGeneric(event:wx.CommandEvent) = {
 	}
