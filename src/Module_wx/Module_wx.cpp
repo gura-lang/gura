@@ -3070,6 +3070,7 @@ Gura_ModuleEntry()
 		Gura_AssignWxValue(SUBRELEASE_NUMBER);
 		Gura_AssignWxValue(VERSION_NUMBER);
 		Gura_AssignValue(VERSION_STRING,			Value(env, wxString(wxVERSION_STRING).ToUTF8()));
+		Gura_AssignValue(VERSION_NUM_DOT_STRING,	Value(env, wxString(wxVERSION_NUM_DOT_STRING).ToUTF8()));
 	} while (0);
 	do {
 		Gura_AssignValue(RegKeyRead,				Value(wxRegKey::Read));
