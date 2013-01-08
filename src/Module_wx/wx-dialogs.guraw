@@ -358,15 +358,15 @@ MyFrame = class(wx.Frame) {
 	}
 	MultiChoice(event:wx.CommandEvent) = {
 		choices = [
-			_T("One"), _T("Two"), _T("Three"), _T("Four"), _T("Five"),
-			_T("Six"), _T("Seven"), _T("Eight"), _T("Nine"), _T("Ten"),
-			_T("Eleven"), _T("Twelve"), _T("Seventeen"),
+			'One', 'Two', 'Three', 'Four', 'Five',
+			'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+			'Eleven', 'Twelve', 'Seventeen',
 		]
-		selections = wxGetMultipleChoices(_T("This is a small sample\n")
-										_T("A multi-choice convenience dialog"),
-										_T("Please select a value"),
+		selections = wx.GetMultipleChoices('This is a small sample\n' \
+										'A multi-choice convenience dialog',
+										'Please select a value',
 										choices,
-										this);
+										self);
 		if (!selections.isempty()) {
 			msg = format('You selected %u items:\n', selections.len());
 			msg += format('\t%u: %u (%s)\n',
