@@ -5,6 +5,38 @@ tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nom
 
 scope {
 	A = class {
+		str = 'class variable'
+		test1() = {
+			println(str)
+		}
+		test2() = {
+			str = 'local variable'
+			println(str)
+		}
+		modify_1() = {
+			str:extern = 'modified class variable'
+		}
+		modify_2() = {
+			self.str = 'again, modified class variable'
+		}
+		modify_3() = {
+			str += ': added'
+		}
+	}
+	A().test1()
+	A().test2()
+	A().modify_1()
+	A().test1()
+	A().test2()
+	A().modify_2()
+	A().test1()
+	A().test2()
+	A().modify_3()
+	A().test1()
+	A().test2()
+}
+scope {
+	A = class {
 		f():static = println('A.f()')
 		g() = println('A#g()')
 	}

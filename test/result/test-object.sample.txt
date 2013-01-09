@@ -1,3 +1,11 @@
+class variable
+local variable
+modified class variable
+local variable
+modified class variable
+local variable
+modified class variable: added
+local variable
 A.f()
 A#g()
 A.f()
