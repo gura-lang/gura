@@ -200,20 +200,6 @@ Value *Environment::LookupValue(const Symbol *pSymbol, bool escalateFlag)
 				}
 			}
 		}
-#if 0
-	} else if (envType == ENVTYPE_instance || envType == ENVTYPE_class) {
-		foreach (FrameList, ppFrame, _frameList) {
-			Frame *pFrame = *ppFrame;
-			if (pFrame->IsType(ENVTYPE_instance) ||
-								pFrame->IsType(ENVTYPE_class)) {
-				Value *pValue = pFrame->LookupValue(pSymbol);
-				if (pValue != NULL) {
-					CacheFrame(pSymbol, pFrame);
-					return pValue;
-				}
-			}
-		}
-#endif
 	} else if (envType == ENVTYPE_instance || envType == ENVTYPE_class) {
 		int cntSuperSkip = _cntSuperSkip;
 		foreach (FrameList, ppFrame, _frameList) {
