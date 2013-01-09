@@ -191,13 +191,12 @@ Value *Environment::LookupValue(const Symbol *pSymbol, bool escalateFlag)
 	} else if (envType == ENVTYPE_method) {
 		foreach (FrameList, ppFrame, _frameList) {
 			Frame *pFrame = *ppFrame;
-			if (!(pFrame->IsType(ENVTYPE_instance) ||
-								pFrame->IsType(ENVTYPE_class))) {
-				Value *pValue = pFrame->LookupValue(pSymbol);
-				if (pValue != NULL) {
-					CacheFrame(pSymbol, pFrame);
-					return pValue;
-				}
+			if (pFrame->IsType(ENVTYPE_instance)) continue;
+			//if (pFrame->IsType(ENVTYPE_class)) continue;
+			Value *pValue = pFrame->LookupValue(pSymbol);
+			if (pValue != NULL) {
+				CacheFrame(pSymbol, pFrame);
+				return pValue;
 			}
 		}
 	} else if (envType == ENVTYPE_instance || envType == ENVTYPE_class) {
