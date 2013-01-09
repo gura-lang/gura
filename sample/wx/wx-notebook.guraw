@@ -436,10 +436,10 @@ MyFrame = class(wx.Frame) {
 	OnAddPage(event:wx.CommandEvent) = {
 		currBook = self.GetCurrentBook()
 		if (currBook) {
-			self.s_pageAdded1 += 1
+			s_pageAdded1 += 1
 			currBook.AddPage(self.CreateNewPage(),
 							format(ADDED_PAGE_NAME + '%u',
-								self.s_pageAdded1
+								s_pageAdded1
 							),
 							true,
 							GetIconIndex(currBook))
@@ -449,10 +449,10 @@ MyFrame = class(wx.Frame) {
 	OnAddPageNoSelect(event:wx.CommandEvent) = {
 		currBook = self.GetCurrentBook()
 		if (currBook) {
-			self.s_pageAdded2 += 1
+			s_pageAdded2 += 1
 			currBook.AddPage(self.CreateNewPage(),
 							format(ADDED_PAGE_NAME + '%u',
-								self.s_pageAdded2
+								s_pageAdded2
 							),
 							false,
 							GetIconIndex(currBook))
@@ -473,7 +473,7 @@ MyFrame = class(wx.Frame) {
 						self.CreateNewPage(),
 						format(
 							ADDED_SUB_PAGE_NAME + '%u',
-							self.s_subPageAdded1
+							s_subPageAdded1
 						),
 						true,
 						GetIconIndex(currBook)
@@ -495,7 +495,7 @@ MyFrame = class(wx.Frame) {
 						self.CreateNewPage(),
 						format(
 							ADDED_PAGE_NAME_BEFORE + '%u',
-							self.s_subPageAdded2
+							s_subPageAdded2
 						),
 						true,
 						GetIconIndex(currBook)
@@ -553,10 +553,10 @@ MyFrame = class(wx.Frame) {
 		currBook = self.GetCurrentBook()
 		nPages = if (currBook) {currBook.GetPageCount()} else {0}
 		nSel = if (currBook) {currBook.GetSelection()} else {wx.NOT_FOUND}
-		if (nPages != self.s_nPages || nSel != self.s_nSel || self.s_currBook != currBook) {
-			self.s_nPages = nPages
-			self.s_nSel = nSel
-			self.s_currBook = currBook
+		if (nPages != s_nPages || nSel != s_nSel || s_currBook != currBook) {
+			s_nPages = nPages
+			s_nSel = nSel
+			s_currBook = currBook
 			if (nSel == wx.NOT_FOUND) {
 				selection = 'not found'
 			} else {
@@ -627,9 +627,9 @@ MyFrame = class(wx.Frame) {
 			nameControl = ei.name
 			break
 		}
-		self.s_num += 1
+		s_num += 1
 		wx.LogMessage('Event #%d: %s: %s (%d) new sel %d, old %d%s',
-					 self.s_num,
+					 s_num,
 					 nameControl,
 					 nameEvent,
 					 eventType,
