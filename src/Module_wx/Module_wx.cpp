@@ -2283,6 +2283,7 @@ Gura_ModuleEntry()
 	do {
 		Gura_AssignWxValue(OK);
 		Gura_AssignWxValue(CANCEL);
+		Gura_AssignWxValue(HELP);
 		Gura_AssignWxValue(YES_NO);
 		Gura_AssignWxValue(YES_DEFAULT);
 		Gura_AssignWxValue(NO_DEFAULT);
