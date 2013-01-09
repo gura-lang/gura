@@ -747,6 +747,239 @@ MyFrame = class(wx.Frame) {
 	}
 }
 
+// ----------------------------------------------------------------------------
+// MyCanvas
+// ----------------------------------------------------------------------------
+
+MyCanvas = class(wx.ScrolledWindow) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.NO_FULL_REPAINT_ON_RESIZE|
+		self.EventTable()
+	}
+	EventTable() = {
+		//self.Bind(wx.EVT_PAINT) {|event| self.OnPaint(event) }
+	}
+	OnPaint(event:wx.PaintEvent) = {
+		wx.PaintDC(self) {|dc|
+			dc.SetFont(wx.GetApp().m_canvasFont);
+			dc.SetTextForeground(wx.GetApp().m_canvasTextColour);
+			dc.SetBackgroundMode(wx.TRANSPARENT);
+			dc.DrawText('wxWidgets common dialogs' \
+						' test application', 10, 10)
+		}
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyModelessDialog
+// ----------------------------------------------------------------------------
+
+MyModelessDialog = class(wx.Dialog) {
+	__init__(parent:wx.Window) = {
+		self.EventTable()
+		sizerTop = wx.BoxSizer(wx.VERTICAL);
+		btn = wx.Button(self, DIALOGS_MODELESS_BTN, 'Press me');
+		check = wx.CheckBox(self, wx.ID_ANY, 'Should be disabled');
+		check.Disable();
+		sizerTop.Add(btn, wx.SizerFlags(1).Expand().Border(wx.ALL, 5))
+		sizerTop.Add(check, wx.SizerFlags(1).Expand().Border(wx.ALL, 5))
+		self.SetSizer(sizerTop);
+		sizerTop.SetSizeHints(self);
+		sizerTop.Fit(self);
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_BUTTON, DIALOGS_MODELESS_BTN) {|event| self.OnButton(event) }
+		self.Bind(wx.EVT_CLOSE) {|event| self.OnClose(event) }
+	}
+	OnButton(event:wx.CommandEvent) = {
+		wx.MessageBox('Button pressed in modeless dialog', 'Info',
+						wx.OK | wx.ICON_INFORMATION, self);
+	}
+	OnClose(event:wx.CloseEvent) = {
+		if (event.CanVeto()) {
+			wx.MessageBox('Use the menu item to close this dialog',
+						'Modeless dialog',
+						wx.OK | wx.ICON_INFORMATION, self);
+			event.Veto();
+		}
+	}
+}
+
+// ----------------------------------------------------------------------------
+// MyModalDialog
+// ----------------------------------------------------------------------------
+
+MyModalDialog = class(wx.Dialog) {
+	__init__(parent:wx.Window) = {
+		self.EventTable()
+		sizerTop = wx.BoxSizer(wx.HORIZONTAL);
+		self.m_btnModal = wx.Button(self, wx.ID_ANY, '&Modal dialog...');
+		self.m_btnModeless = wx.Button(self, wx.ID_ANY, 'Mode&less dialog');
+		self.m_btnDelete = wx.Button(self, wx.ID_ANY, '&Delete button');
+		wxButton *btnOk = wx.Button(self, wx.ID_CANCEL, '&Close');
+		sizerTop.Add(self.m_btnModal, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5));
+		sizerTop.Add(self.m_btnModeless, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5));
+		sizerTop.Add(self.m_btnDelete, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5));
+		sizerTop.Add(btnOk, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5));
+		self.SetSizer(sizerTop);
+		sizerTop.SetSizeHints(self);
+		sizerTop.Fit(self);
+		self.m_btnModal.SetFocus();
+		self.m_btnModal.SetDefault();
+	}
+	EventTable() = {
+		self.Bind(wx.EVT_BUTTON) {|event| self.OnButton(event) }
+	}
+	OnButton(event:wx.CommandEvent) = {
+		if (event.GetEventObject() == self.m_btnDelete) {
+			self.m_btnModal.Destroy()
+			self.m_btnModal = nil
+			self.m_btnDelete.Disable();
+		} elsif (event.GetEventObject() == self.m_btnModal) {
+			wx.GetTextFromUser('Dummy prompt',
+							'Modal dialog called from dialog',
+							wx.EmptyString, self);
+		} elsif (event.GetEventObject() == self.m_btnModeless) {
+			MyModelessDialog(self).Show();
+		} else {
+			event.Skip();
+		}
+	}
+}
+
+// ----------------------------------------------------------------------------
+// SettingsDialog
+// ----------------------------------------------------------------------------
+
+SettingsDialog = class(wx.PropertySheetDialog) {
+	[
+		ID_SHOW_TOOLTIPS,
+		ID_AUTO_SAVE,
+		ID_AUTO_SAVE_MINS,
+		ID_LOAD_LAST_PROJECT,
+		ID_APPLY_SETTINGS_TO,
+		ID_BACKGROUND_STYLE,
+		ID_FONT_SIZE
+	] = 100..
+	__init__(parent:wx.Window, dialogType:number) = \
+			{|win, wx.ID_ANY, 'Preferences', wxDefaultPosition, wxDefaultSize,
+			  (wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)|
+		self.m_imageList = nil
+		self.SetExtraStyle(wxDIALOG_EX_CONTEXTHELP|wxWS_EX_VALIDATE_RECURSIVELY);
+		tabImage1 = -1;
+		tabImage2 = -1;
+		useToolBook = (dialogType == DIALOGS_PROPERTY_SHEET_TOOLBOOK || dialogType == DIALOGS_PROPERTY_SHEET_BUTTONTOOLBOOK);
+		resizeBorder = wx.RESIZE_BORDER;
+		if (useToolBook) {
+			resizeBorder = 0;
+			tabImage1 = 0;
+			tabImage2 = 1;
+			sheetStyle = wx.PROPSHEET_SHRINKTOFIT;
+			if (dialogType == DIALOGS_PROPERTY_SHEET_BUTTONTOOLBOOK) {
+				sheetStyle |= wx.PROPSHEET_BUTTONTOOLBOOK;
+			} else {
+				sheetStyle |= wx.PROPSHEET_TOOLBOOK;
+			}
+			self.SetSheetStyle(sheetStyle);
+			self.SetSheetInnerBorder(0);
+			self.SetSheetOuterBorder(0);
+			// create a dummy image list with a few icons
+			imageSize = wx.Size(32, 32);
+			self.m_imageList = wx.ImageList(imageSize.GetWidth(), imageSize.GetHeight());
+			self.m_imageList.Add(wx.ArtProvider.GetIcon(wx.ART_INFORMATION, wx.ART_OTHER, imageSize));
+			self.m_imageList.Add(wx.ArtProvider.GetIcon(wx.ART_QUESTION, wx.ART_OTHER, imageSize));
+			self.m_imageList.Add(wx.ArtProvider.GetIcon(wx.ART_WARNING, wx.ART_OTHER, imageSize));
+			self.m_imageList.Add(wx.ArtProvider.GetIcon(wx.ART_ERROR, wx.ART_OTHER, imageSize));
+		} else {
+			self.m_imageList = nil
+		}
+		// If using a toolbook, also follow Mac style and don't create buttons
+		if (!useToolBook) {
+			self.CreateButtons(wx.OK | wx.CANCEL | wx.HELP)
+		}
+		notebook = self.GetBookCtrl();
+		notebook.SetImageList(self.m_imageList);
+		generalSettings = self.CreateGeneralSettingsPage(notebook);
+		aestheticSettings = self.CreateAestheticSettingsPage(notebook);
+		notebook.AddPage(generalSettings, 'General', true, tabImage1);
+		notebook.AddPage(aestheticSettings, 'Aesthetics', false, tabImage2);
+		self.LayoutDialog();
+	}
+	CreateGeneralSettingsPage(parent:wx.Window) = {
+		panel = wx.Panel(parent, wx.ID_ANY);
+		topSizer = wx.BoxSizer(wx.VERTICAL);
+		item0 = wx.BoxSizer(wx.VERTICAL);
+		//// LOAD LAST FILE
+		temSizer3 = wx.BoxSizer(wx.HORIZONTAL);
+		checkBox3 = wx.CheckBox(panel, ID_LOAD_LAST_PROJECT, '&Load last project on startup', wx.DefaultPosition, wx.DefaultSize);
+		itemSizer3.Add(checkBox3, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.All, 5));
+		item0.Add(itemSizer3, wx.SizerFlags(0).Expand().Border(wx.ALL, 0));
+		//// AUTOSAVE
+		autoSaveLabel = '&Auto-save every';
+		minsLabel = 'mins';
+		itemSizer12 = wx.BoxSizer(wx.HORIZONTAL);
+		checkBox12 = wx.CheckBox(panel, ID_AUTO_SAVE, autoSaveLabel, wx.DefaultPosition, wx.DefaultSize);
+		spinCtrl12 = wx.SpinCtrl(panel, ID_AUTO_SAVE_MINS, wx.EmptyString,
+			wx.DefaultPosition, wx.Size(40, wx.DefaultCoord), wx.SP_ARROW_KEYS, 1, 60, 1);
+		itemSizer12.Add(checkBox12, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.All, 5));
+		itemSizer12.Add(spinCtrl12, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.All, 5));
+		itemSizer12.Add(wx.StaticText(panel, wx.ID_STATIC, minsLabel), wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.All, 5));
+		item0.Add(itemSizer12, wx.SizerFlags(0).Expand().Border(wx.ALL, 0));
+		//// TOOLTIPS
+		itemSizer8 = wx.BoxSizer(wx.HORIZONTAL);
+		checkBox6 = wx.CheckBox(panel, ID_SHOW_TOOLTIPS, 'Show &tooltips', wx.DefaultPosition, wx.DefaultSize);
+		itemSizer8.Add(checkBox6, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALl, 5));
+		item0.Add(itemSizer8, wx.SizerFlags(0).Expand().Border(wx.ALL, 0));
+		topSizer.Add(item0, wx.SizerFlags(1).Expand().Align(wx.ALIGN_CENTRE).Border(wx.ALL, 5))
+		panel.SetSizer(topSizer);
+		topSizer.Fit(panel);
+		panel;
+	}
+	CreateAestheticSettingsPage(parent:wx.Window) = {
+		panel = wx.Panel(parent, wx.ID_ANY);
+		topSizer = wx.BoxSizer(wx.VERTICAL);
+		item0 = wx.BoxSizer(wx.VERTICAL);
+		//// PROJECT OR GLOBAL
+		globalOrProjectChoices = [
+			'&New projects',
+			'&This project'
+		]
+		projectOrGlobal = wx.RadioBox(panel, ID_APPLY_SETTINGS_TO, '&Apply settings to:',
+			wx.DefaultPosition, wx.DefaultSize, globalOrProjectChoices);
+		item0.Add(projectOrGlobal, wx.SizerFlags(0).Expand().Border(wx.ALL, 5));
+		projectOrGlobal.SetSelection(0);
+		//// BACKGROUND STYLE
+		backgroundStyleChoices = [
+			'Colour',
+			'Image'
+		]
+		staticBox3 = wx.StaticBox(panel, wx.ID_ANY, 'Background style:');
+		styleSizer = wx.StaticBoxSizer(staticBox3, wx.VERTICAL);
+		item0.Add(styleSizer, wx.SizerFlags(0).Expand().Border(wx.ALL, 5));
+		itemSizer2 = wx.BoxSizer(wx.HORIZONTAL);
+		choice2 = wx.Choice(panel, ID_BACKGROUND_STYLE, wx.DefaultPosition, wx.DefaultSize, backgroundStyleChoices);
+		itemSizer2.Add(wx.StaticText(panel, wx.ID_ANY, '&Window:'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.All, 5));
+		itemSizer2.AddSpacer(5, 5, 1, wxALL, 0);
+		itemSizer2.Add(choice2, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.All, 5));
+		styleSizer.Add(itemSizer2, wx.SizerFlags(0).Expand().Border(wx.ALL, 5));
+		//// FONT SIZE SELECTION
+		staticBox1 = wx.StaticBox(panel, wx.ID_ANY, 'Tile font size:');
+		itemSizer5 = wx.StaticBoxSizer(staticBox1, wx.HORIZONTAL);
+		spinCtrl = wx.SpinCtrl(panel, ID_FONT_SIZE, wx.EmptyString, wx.DefaultPosition,
+			wx.Size(80, wx.DefaultCoord));
+		itemSizer5.Add(spinCtrl, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL).Border(wx.All, 5));
+		item0.Add(itemSizer5, wx.SizerFlags(0).Expand().Border(wx.LEFT | wx.RIGHT, 5));
+		topSizer.Add(item0, wx.SizerFlags(1).Expand().Align(wx.ALIGN_CENTRE).Border(wx.ALL, 5));
+		topSizer.AddSpacer(5);
+		panel.SetSizer(topSizer);
+		topSizer.Fit(panel);
+		panel;
+	}
+};
+
+// ----------------------------------------------------------------------------
+// utility functions
+// ----------------------------------------------------------------------------
+
 InitAboutInfoMinimal(info:wx.AboutDialogInfo) = {
 	info.SetName('Dialogs Sample');
 	info.SetVersion(wx.VERSION_NUM_DOT_STRING);
@@ -794,70 +1027,5 @@ DecodeFindDialogEventFlags(flags:number) = {
 	+ cond((flags & wx.FR_MATCHCASE) != 0, '', 'not ') \
 	+ 'case sensitive'
 }
-
-// ----------------------------------------------------------------------------
-// MyCanvas
-// ----------------------------------------------------------------------------
-
-MyCanvas = class(wx.ScrolledWindow) {
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.NO_FULL_REPAINT_ON_RESIZE|
-		self.EventTable()
-	}
-	EventTable() = {
-		//self.Bind(wx.EVT_PAINT) {|event| self.OnPaint(event) }
-	}
-	OnPaint(event:wx.PaintEvent) = {
-	}
-};
-
-// ----------------------------------------------------------------------------
-// MyModelessDialog
-// ----------------------------------------------------------------------------
-
-MyModelessDialog = class(wx.Dialog) {
-	__init__(parent:wx.Window) = {
-	}
-	OnButton(event:wx.CommandEvent) = {
-	}
-	OnClose(event:wx.CloseEvent) = {
-	}
-}
-
-// ----------------------------------------------------------------------------
-// MyModalDialog
-// ----------------------------------------------------------------------------
-
-MyModalDialog = class(wx.Dialog) {
-	__init__(parent:wx.Window) = {
-		self.m_btnModal = nil
-		self.m_btnModeless = nil
-		self.m_btnDelete = nil
-	}
-	OnButton(event:wx.CommandEvent) = {
-	}
-}
-
-// ----------------------------------------------------------------------------
-// SettingsDialog
-// ----------------------------------------------------------------------------
-
-SettingsDialog = class(wx.PropertySheetDialog) {
-	[
-		ID_SHOW_TOOLTIPS,
-		ID_AUTO_SAVE,
-		ID_AUTO_SAVE_MINS,
-		ID_LOAD_LAST_PROJECT,
-		ID_APPLY_SETTINGS_TO,
-		ID_BACKGROUND_STYLE,
-		ID_FONT_SIZE
-	] = 100..
-	__init__(parent:wx.Window, dialogType:number) = {
-		self.m_imageList = nil
-	}
-	CreateGeneralSettingsPage(parent:wx.Window) = {
-	}
-	CreateAestheticSettingsPage(parent:wx.Window) = {
-	}
-};
 
 wx.IMPLEMENT_APP(MyApp)
