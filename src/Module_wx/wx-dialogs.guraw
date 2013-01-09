@@ -402,7 +402,7 @@ MyFrame = class(wx.Frame) {
 		res = wx.FileSelector(
 							'Select the file to load',
 							wx.EmptyString, wx.EmptyString,
-							self.s_extDef,
+							s_extDef,
 							format(
 								'Waveform (*.wav)|*.wav|Plain text (*.txt)|*.txt|All files (%s)|%s',
 								wx.FileSelectorDefaultWildcardStr,
@@ -415,9 +415,9 @@ MyFrame = class(wx.Frame) {
 			return;
 		}
 		// it is just a sample, would use wxSplitPath in real program
-		self.s_extDef = path.splitext(res)[1]
+		s_extDef = path.splitext(res)[1]
 		wx.LogMessage("You selected the file '%s', remembered extension '%s'",
-					res, self.s_extDef);
+					res, s_extDef);
 	}
 	FilesOpen(event:wx.CommandEvent) = {
 		wildcards = format(
@@ -565,18 +565,18 @@ MyFrame = class(wx.Frame) {
 	}
 	s_index = -1
 	ShowTip(event:wx.CommandEvent) = {
-		if (self.s_index == -1) {
+		if (s_index == -1) {
 			// this is completely bogus, we don't know how many lines are there
 			// in the file, but who cares, it's a demo only...
-			self.s_index = rand(5);
+			s_index = rand(5);
 		}
-		tipProvider = wx.CreateFileTipProvider('tips.txt', self.s_index);
+		tipProvider = wx.CreateFileTipProvider('tips.txt', s_index);
 		showAtStartup = wx.ShowTip(self, tipProvider);
 		if (showAtStartup) {
 			wx.MessageBox('Will show tips on startup', 'Tips dialog',
 						wx.OK | wx.ICON_INFORMATION, self);
 		}
-		self.s_index = tipProvider.GetCurrentTip();
+		s_index = tipProvider.GetCurrentTip();
 		tipProvider = nil
 	}
 	OnPropertySheet(event:wx.CommandEvent) = {
@@ -908,9 +908,9 @@ SettingsDialog = class(wx.PropertySheetDialog) {
 		topSizer = wx.BoxSizer(wx.VERTICAL);
 		item0 = wx.BoxSizer(wx.VERTICAL);
 		//// LOAD LAST FILE
-		temSizer3 = wx.BoxSizer(wx.HORIZONTAL);
+		itemSizer3 = wx.BoxSizer(wx.HORIZONTAL);
 		checkBox3 = wx.CheckBox(panel, ID_LOAD_LAST_PROJECT, '&Load last project on startup', wx.DefaultPosition, wx.DefaultSize);
-		itemSizer3.Add(checkBox3, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.All, 5));
+		itemSizer3.Add(checkBox3, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
 		item0.Add(itemSizer3, wx.SizerFlags(0).Expand().Border(wx.ALL, 0));
 		//// AUTOSAVE
 		autoSaveLabel = '&Auto-save every';
@@ -919,14 +919,14 @@ SettingsDialog = class(wx.PropertySheetDialog) {
 		checkBox12 = wx.CheckBox(panel, ID_AUTO_SAVE, autoSaveLabel, wx.DefaultPosition, wx.DefaultSize);
 		spinCtrl12 = wx.SpinCtrl(panel, ID_AUTO_SAVE_MINS, wx.EmptyString,
 			wx.DefaultPosition, wx.Size(40, wx.DefaultCoord), wx.SP_ARROW_KEYS, 1, 60, 1);
-		itemSizer12.Add(checkBox12, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.All, 5));
-		itemSizer12.Add(spinCtrl12, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.All, 5));
-		itemSizer12.Add(wx.StaticText(panel, wx.ID_STATIC, minsLabel), wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.All, 5));
+		itemSizer12.Add(checkBox12, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
+		itemSizer12.Add(spinCtrl12, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
+		itemSizer12.Add(wx.StaticText(panel, wx.ID_STATIC, minsLabel), wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
 		item0.Add(itemSizer12, wx.SizerFlags(0).Expand().Border(wx.ALL, 0));
 		//// TOOLTIPS
 		itemSizer8 = wx.BoxSizer(wx.HORIZONTAL);
 		checkBox6 = wx.CheckBox(panel, ID_SHOW_TOOLTIPS, 'Show &tooltips', wx.DefaultPosition, wx.DefaultSize);
-		itemSizer8.Add(checkBox6, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALl, 5));
+		itemSizer8.Add(checkBox6, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
 		item0.Add(itemSizer8, wx.SizerFlags(0).Expand().Border(wx.ALL, 0));
 		topSizer.Add(item0, wx.SizerFlags(1).Expand().Align(wx.ALIGN_CENTRE).Border(wx.ALL, 5))
 		panel.SetSizer(topSizer);
@@ -956,16 +956,16 @@ SettingsDialog = class(wx.PropertySheetDialog) {
 		item0.Add(styleSizer, wx.SizerFlags(0).Expand().Border(wx.ALL, 5));
 		itemSizer2 = wx.BoxSizer(wx.HORIZONTAL);
 		choice2 = wx.Choice(panel, ID_BACKGROUND_STYLE, wx.DefaultPosition, wx.DefaultSize, backgroundStyleChoices);
-		itemSizer2.Add(wx.StaticText(panel, wx.ID_ANY, '&Window:'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.All, 5));
-		itemSizer2.AddSpacer(5, 5, 1, wxALL, 0);
-		itemSizer2.Add(choice2, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.All, 5));
+		itemSizer2.Add(wx.StaticText(panel, wx.ID_ANY, '&Window:'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
+		itemSizer2.AddSpacer(5, 5, 1, wx.ALL, 0);
+		itemSizer2.Add(choice2, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
 		styleSizer.Add(itemSizer2, wx.SizerFlags(0).Expand().Border(wx.ALL, 5));
 		//// FONT SIZE SELECTION
 		staticBox1 = wx.StaticBox(panel, wx.ID_ANY, 'Tile font size:');
 		itemSizer5 = wx.StaticBoxSizer(staticBox1, wx.HORIZONTAL);
 		spinCtrl = wx.SpinCtrl(panel, ID_FONT_SIZE, wx.EmptyString, wx.DefaultPosition,
 			wx.Size(80, wx.DefaultCoord));
-		itemSizer5.Add(spinCtrl, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL).Border(wx.All, 5));
+		itemSizer5.Add(spinCtrl, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_HORIZONTAL | wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
 		item0.Add(itemSizer5, wx.SizerFlags(0).Expand().Border(wx.LEFT | wx.RIGHT, 5));
 		topSizer.Add(item0, wx.SizerFlags(1).Expand().Align(wx.ALIGN_CENTRE).Border(wx.ALL, 5));
 		topSizer.AddSpacer(5);
