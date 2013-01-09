@@ -178,35 +178,35 @@ CheckListBoxFrame = class(wx.Frame) {
 	s_nItem1 = 0
 	OnInsertItemsStart(event:wx.CommandEvent) = {
 		items = [
-			format('New item %lu', (self.s_nItem1 += 1))
-			format('New item %lu', (self.s_nItem1 += 1))
-			format('New item %lu', (self.s_nItem1 += 1))
+			format('New item %lu', (s_nItem1 += 1))
+			format('New item %lu', (s_nItem1 += 1))
+			format('New item %lu', (s_nItem1 += 1))
 		]
 		self.m_pListBox.InsertItems(items, 0)
 	}
 	s_nItem2 = 0
 	OnInsertItemsMiddle(event:wx.CommandEvent) = {
 		items = [
-			format('New item %lu', (self.s_nItem2 += 1))
-			format('New item %lu', (self.s_nItem2 += 1))
-			format('New item %lu', (self.s_nItem2 += 1))
+			format('New item %lu', (s_nItem2 += 1))
+			format('New item %lu', (s_nItem2 += 1))
+			format('New item %lu', (s_nItem2 += 1))
 		]
 		self.m_pListBox.InsertItems(items, if (self.m_pListBox.GetCount() > 0) {1} else {0})
 	}
 	s_nItem3 = 0
 	OnInsertItemsEnd(event:wx.CommandEvent) = {
 		items = [
-			format('New item %lu', (self.s_nItem3 += 1))
-			format('New item %lu', (self.s_nItem3 += 1))
-			format('New item %lu', (self.s_nItem3 += 1))
+			format('New item %lu', (s_nItem3 += 1))
+			format('New item %lu', (s_nItem3 += 1))
+			format('New item %lu', (s_nItem3 += 1))
 		]
 		self.m_pListBox.InsertItems(items, self.m_pListBox.GetCount())
 	}
 	s_nItem4 = 0
 	OnAppendItems(event:wx.CommandEvent) = {
-		self.m_pListBox.Append(format('New item %lu', (self.s_nItem4 += 1)))
-		self.m_pListBox.Append(format('New item %lu', (self.s_nItem4 += 1)))
-		self.m_pListBox.Append(format('New item %lu', (self.s_nItem4 += 1)))
+		self.m_pListBox.Append(format('New item %lu', (s_nItem4 += 1)))
+		self.m_pListBox.Append(format('New item %lu', (s_nItem4 += 1)))
+		self.m_pListBox.Append(format('New item %lu', (s_nItem4 += 1)))
 	}
 	OnRemoveItems(event:wx.CommandEvent) = {
 		if (self.m_pListBox.GetCount() > 0) {
