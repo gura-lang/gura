@@ -314,8 +314,8 @@ MyScrolledWindowDumb = class(MyScrolledWindowBase) {
 	s_redrawCount = 0
 	OnDraw(dc:wx.DC) = {
 		// this is useful to see which lines are redrawn
-		dc.SetTextForeground(if (self.s_redrawCount % 2 != 0) {wx.RED} else {wx.BLUE})
-		self.s_redrawCount += 1
+		dc.SetTextForeground(if (s_redrawCount % 2 != 0) {wx.RED} else {wx.BLUE})
+		s_redrawCount += 1
 		y = 0
 		repeat(self.m_nLines) {|line|
 			[x, yPhys] = self.CalcScrolledPosition(0, y)
@@ -341,8 +341,8 @@ MyScrolledWindowSmart = class(MyScrolledWindowBase) {
 	s_redrawCount = 0
 	OnDraw(dc:wx.DC) = {
 		// this is useful to see which lines are redrawn
-		dc.SetTextForeground(if (self.s_redrawCount % 2 != 0) {wx.RED} else {wx.BLUE})
-		self.s_redrawCount += 1
+		dc.SetTextForeground(if (s_redrawCount % 2 != 0) {wx.RED} else {wx.BLUE})
+		s_redrawCount += 1
 		// update region is always in device coords, translate to logical ones
 		rectUpdate = self.GetUpdateRegion().GetBox()
 		[rectUpdate.x, rectUpdate.y] = self.CalcUnscrolledPosition(rectUpdate.x, rectUpdate.y)
