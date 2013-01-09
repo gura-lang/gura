@@ -222,15 +222,15 @@ MyFrame = class(wx.Frame) {
 		locale = wx.GetTextFromUser(
 							_("Enter the locale to test"),
 							wx.GetTextFromUserPromptStr,
-							self.s_locale,
+							s_locale,
 							self)
 		if (locale.isempty()) {
 			return
 		}
-		self.s_locale = locale
-		info = wx.Locale.FindLanguageInfo(self.s_locale)
+		s_locale:extern = locale
+		info = wx.Locale.FindLanguageInfo(s_locale)
 		if (!info) {
-			wx.LogError(_("Locale \"%s\" is unknown."), self.s_locale)
+			wx.LogError(_("Locale \"%s\" is unknown."), s_locale)
 			return
 		}
 		if (wx.Locale.IsAvailable(info.Language)) {

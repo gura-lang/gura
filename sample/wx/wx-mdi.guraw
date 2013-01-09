@@ -294,13 +294,13 @@ MyChild = class(wx.MDIChildFrame) {
 	OnChangeTitle(event:wx.CommandEvent) = {
 		title = wx.GetTextFromUser('Enter the new title for MDI child',
 										'MDI sample question',
-										self.s_title,
+										s_title,
 										self.GetParent().GetParent())
 		if (!title) {
 			return
 		}
-		self.s_title = title
-		self.SetTitle(self.s_title)
+		s_title = title
+		self.SetTitle(s_title)
 	}
 	OnActivate(event:wx.ActivateEvent) = {
 		if (event.GetActive() && self.canvas) {
