@@ -262,19 +262,6 @@ Function *Environment::LookupFunction(const Symbol *pSymbol, bool escalateFlag) 
 		if (pValue != NULL && pValue->IsFunction()) {
 			return pValue->GetFunction();
 		}
-#if 0
-	} else if (envType == ENVTYPE_instance || envType == ENVTYPE_class) {
-		foreach (FrameList, ppFrame, _frameList) {
-			Frame *pFrame = *ppFrame;
-			if (pFrame->IsType(ENVTYPE_instance) ||
-									pFrame->IsType(ENVTYPE_class)) {
-				Value *pValue = pFrame->LookupValue(pSymbol);
-				if (pValue != NULL && pValue->IsFunction()) {
-					return pValue->GetFunction();
-				}
-			}
-		}
-#endif
 	} else if (envType == ENVTYPE_instance || envType == ENVTYPE_class) {
 		int cntSuperSkip = _cntSuperSkip;
 		foreach_const (FrameList, ppFrame, _frameList) {
