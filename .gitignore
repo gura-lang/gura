@@ -34,6 +34,7 @@ Release.*/
 .libs/
 autom4te.cache/
 *.exe
+*.obj
 *.dll
 *.lib
 *.pdb
