@@ -1196,14 +1196,15 @@ Gura_ImplementMethod(wx_TreeCtrl, SetSpacing)
 Gura_DeclareMethod(wx_TreeCtrl, SetImageList)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once);
+	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once, FLAG_Nil);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, SetImageList)
 {
 	Object_wx_TreeCtrl *pSelf = Object_wx_TreeCtrl::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxImageList *imageList = Object_wx_ImageList::GetObject(args, 0)->GetEntity();
+	wxImageList *imageList = NULL;
+	if (args.IsValid(0)) imageList = Object_wx_ImageList::GetObject(args, 0)->GetEntity();
 	pSelf->GetEntity()->SetImageList(imageList);
 	return Value::Null;
 }

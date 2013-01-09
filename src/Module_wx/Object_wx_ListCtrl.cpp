@@ -1082,7 +1082,7 @@ Gura_ImplementMethod(wx_ListCtrl, SetColumnWidth)
 Gura_DeclareMethod(wx_ListCtrl, SetImageList)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once);
+	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "which", VTYPE_number, OCCUR_Once);
 }
 
@@ -1090,7 +1090,8 @@ Gura_ImplementMethod(wx_ListCtrl, SetImageList)
 {
 	Object_wx_ListCtrl *pSelf = Object_wx_ListCtrl::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxImageList *imageList = Object_wx_ImageList::GetObject(args, 0)->GetEntity();
+	wxImageList *imageList = NULL;
+	if (args.IsValid(0)) imageList = Object_wx_ImageList::GetObject(args, 0)->GetEntity();
 	int which = args.GetInt(1);
 	pSelf->GetEntity()->SetImageList(imageList, which);
 	return Value::Null;

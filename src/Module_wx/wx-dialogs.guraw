@@ -861,10 +861,9 @@ SettingsDialog = class(wx.PropertySheetDialog) {
 		ID_FONT_SIZE
 	] = 100..
 	__init__(parent:wx.Window, dialogType:number) = \
-			{|win, wx.ID_ANY, 'Preferences', wxDefaultPosition, wxDefaultSize,
+			{|parent, wx.ID_ANY, 'Preferences', wx.DefaultPosition, wx.DefaultSize,
 			  (wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)|
-		self.m_imageList = nil
-		self.SetExtraStyle(wxDIALOG_EX_CONTEXTHELP|wxWS_EX_VALIDATE_RECURSIVELY);
+		self.SetExtraStyle(wx.DIALOG_EX_CONTEXTHELP | wx.WS_EX_VALIDATE_RECURSIVELY);
 		tabImage1 = -1;
 		tabImage2 = -1;
 		useToolBook = (dialogType == DIALOGS_PROPERTY_SHEET_TOOLBOOK || dialogType == DIALOGS_PROPERTY_SHEET_BUTTONTOOLBOOK);

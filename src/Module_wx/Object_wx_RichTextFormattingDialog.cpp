@@ -333,14 +333,15 @@ Gura_ImplementMethod(wx_RichTextFormattingDialog, SetFormattingDialogFactory)
 Gura_DeclareMethod(wx_RichTextFormattingDialog, SetImageList)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once);
+	DeclareArg(env, "imageList", VTYPE_wx_ImageList, OCCUR_Once, FLAG_Nil);
 }
 
 Gura_ImplementMethod(wx_RichTextFormattingDialog, SetImageList)
 {
 	Object_wx_RichTextFormattingDialog *pSelf = Object_wx_RichTextFormattingDialog::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxImageList *imageList = Object_wx_ImageList::GetObject(args, 0)->GetEntity();
+	wxImageList *imageList = NULL;
+	if (args.IsValid(0)) imageList = Object_wx_ImageList::GetObject(args, 0)->GetEntity();
 	pSelf->GetEntity()->SetImageList(imageList);
 	return Value::Null;
 }
