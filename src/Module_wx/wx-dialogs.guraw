@@ -707,6 +707,43 @@ MyFrame = class(wx.Frame) {
 		}
 	}
 	OnFindDialog(event:wx.FindDialogEvent) = {
+		type = event.GetEventType();
+		if (type == wx.EVT_FIND.GetEventType() || \
+					type == wx.EVT_FIND_NEXT.GetEventType()) {
+			wx.LogMessage("Find %s'%s' (flags: %s)",
+						cond(type == wx.EVT_FIND_NEXT.GetEventType(), 'next ', ''),
+						event.GetFindString(),
+						DecodeFindDialogEventFlags(event.GetFlags()));
+		} elsif (type == wx.EVT_FIND_REPLACE.GetEventType() || \
+					type == wx.EVT_FIND_REPLACE_ALL.GetEventType()) {
+			wx.LogMessage("Replace %s'%s' with '%s' (flags: %s)",
+						cond(type == wx.EVT_FIND_REPLACE_ALL.GetEventType(), 'all ', ''),
+						event.GetFindString(),
+						event.GetReplaceString(),
+						DecodeFindDialogEventFlags(event.GetFlags()));
+		} elsif (type == wx.EVT_FIND_CLOSE.GetEventType()) {
+			dlg = event.GetDialog();
+			if (dlg == self.m_dlgFind ) {
+				txt = 'Find';
+				idMenu = DIALOGS_FIND;
+				self.m_dlgFind = nil;
+			} elsif (dlg == self.m_dlgReplace) {
+				txt = 'Replace';
+				idMenu = DIALOGS_REPLACE;
+				self.m_dlgReplace = nil;
+			} else {
+				txt = 'Unknown';
+				idMenu = wx.ID_ANY;
+				wx.FAIL_MSG('unexpected event');
+			}
+			wx.LogMessage('%s dialog is being closed.', txt);
+			if (idMenu != wx.ID_ANY) {
+				self.GetMenuBar().Check(idMenu, false);
+			}
+			dlg.Destroy();
+		} else {
+			wx.LogError('Unknown find dialog event!');
+		}
 	}
 }
 
@@ -749,6 +786,13 @@ InitAboutInfoAll(info:wx.AboutDialogInfo) = {
 '''
 	)
 	info.AddTranslator('Wun Ngo Wen (Martian)');
+}
+
+DecodeFindDialogEventFlags(flags:number) = {
+	cond((flags & wx.FR_DOWN) != 0, 'down', 'up') + ', ' \
+	+ cond((flags & wx.FR_WHOLEWORD) != 0, 'whole words only, ', '') \
+	+ cond((flags & wx.FR_MATCHCASE) != 0, '', 'not ') \
+	+ 'case sensitive'
 }
 
 // ----------------------------------------------------------------------------
