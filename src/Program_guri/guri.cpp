@@ -52,6 +52,7 @@ bool Main(int argc, const char *argv[])
 		return false;
 	}
 	int sockClient = -1;
+	::printf("service started at port %d\n", port);
 	for (;;) {
 		fd_set fdsRead;
 		FD_ZERO(&fdsRead);
