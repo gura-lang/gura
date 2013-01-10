@@ -41,23 +41,18 @@ Gura_DeclareFunction(WindowDisabler)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_WindowDisabler));
 	DeclareArg(env, "winToSkip", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_Once);
 }
 
 Gura_ImplementFunction(WindowDisabler)
 {
 	wxWindow *winToSkip = (wxWindow *)(NULL);
 	if (args.IsValid(0)) winToSkip = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wx_WindowDisabler *pEntity = new wx_WindowDisabler(winToSkip);
-	Object_wx_WindowDisabler *pObj = Object_wx_WindowDisabler::GetSelfObj(args);
-	if (pObj == NULL) {
-		pObj = new Object_wx_WindowDisabler(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
-	}
-	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	wx_WindowDisabler windowDisabler(winToSkip);
+	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	Value rtn = pExprBlock->Exec(env, sig);
+	return rtn;
 }
 
 //----------------------------------------------------------------------------
