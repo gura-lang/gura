@@ -685,14 +685,16 @@ MyFrame = class(wx.Frame) {
 		dlg.ShowModal();
 	}
 	ShowBusyInfo(event:wx.CommandEvent) = {
-		disableAll = wx.WindowDisabler()
-		info = wx.BusyInfo('Working, please wait...', self);
-		repeat(18) {|i|
-			//wx.Usleep(100);
-			wx.GetApp().Yield();
+		wx.WindowDisabler() {
+			wx.BusyInfo('Working, please wait...', self) {
+				repeat(18) {|i|
+					//wx.Usleep(100);
+					wx.GetApp().Yield();
+				}
+				wx.Sleep(2);
+				//wx.WakeUpIdle();
+			}
 		}
-		wx.Sleep(2);
-		//wx.WakeUpIdle();
 	}
 	ShowReplaceDialog(event:wx.CommandEvent) = {
 		if (self.m_dlgReplace) {
