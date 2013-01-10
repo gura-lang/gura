@@ -38,11 +38,11 @@ void wx_BusyInfo::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(BusyInfo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BusyInfo));
 	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_Once);
 }
 
 Gura_ImplementFunction(BusyInfo)
@@ -50,16 +50,11 @@ Gura_ImplementFunction(BusyInfo)
 	wxString msg = wxString::FromUTF8(args.GetString(0));
 	wxWindow *parent = (wxWindow *)(NULL);
 	if (args.IsValid(1)) parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
-	wx_BusyInfo *pEntity = new wx_BusyInfo(msg, parent);
-	Object_wx_BusyInfo *pObj = Object_wx_BusyInfo::GetSelfObj(args);
-	if (pObj == NULL) {
-		pObj = new Object_wx_BusyInfo(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
-	}
-	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	wx_BusyInfo busyInfo(msg, parent);
+	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	Value rtn = pExprBlock->Exec(env, sig);
+	return rtn;
 }
 
 //----------------------------------------------------------------------------
