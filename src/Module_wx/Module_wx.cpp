@@ -3436,6 +3436,15 @@ Gura_ModuleEntry()
 		Gura_AssignWxValue(DATAVIEW_CELL_INSENSITIVE);
 		Gura_AssignWxValue(DATAVIEW_CELL_FOCUSED);
 	} while (0);
+	do { // wxPropertySheetDialog::SetSheetStyle
+		Gura_AssignWxValue(PROPSHEET_DEFAULT);
+		Gura_AssignWxValue(PROPSHEET_NOTEBOOK);
+		Gura_AssignWxValue(PROPSHEET_TOOLBOOK);
+		Gura_AssignWxValue(PROPSHEET_CHOICEBOOK);
+		Gura_AssignWxValue(PROPSHEET_LISTBOOK);
+		Gura_AssignWxValue(PROPSHEET_TREEBOOK);
+		Gura_AssignWxValue(PROPSHEET_SHRINKTOFIT);
+	} while (0);
 }
 
 void InitializeObjects(Environment &env)
