@@ -560,7 +560,7 @@ MyFrame = class(wx.Frame) {
 			// didn't report the checked menu item status correctly.
 			// It should be true just after the menu item was selected,
 			// if there was no modeless dialog yet.
-			wx.ASSERT(self.m_dialog != nil);
+			//wx.ASSERT(self.m_dialog != nil);
 			if (self.m_dialog) {
 				self.m_dialog.Hide();
 			}
@@ -791,7 +791,7 @@ MyCanvas = class(wx.ScrolledWindow) {
 // ----------------------------------------------------------------------------
 
 MyModelessDialog = class(wx.Dialog) {
-	__init__(parent:wx.Window) = {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, 'Modeless dialog'|
 		self.EventTable()
 		sizerTop = wx.BoxSizer(wx.VERTICAL);
 		btn = wx.Button(self, DIALOGS_MODELESS_BTN, 'Press me');
@@ -826,13 +826,13 @@ MyModelessDialog = class(wx.Dialog) {
 // ----------------------------------------------------------------------------
 
 MyModalDialog = class(wx.Dialog) {
-	__init__(parent:wx.Window) = {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, 'Modal dialog'|
 		self.EventTable()
 		sizerTop = wx.BoxSizer(wx.HORIZONTAL);
 		self.m_btnModal = wx.Button(self, wx.ID_ANY, '&Modal dialog...');
 		self.m_btnModeless = wx.Button(self, wx.ID_ANY, 'Mode&less dialog');
 		self.m_btnDelete = wx.Button(self, wx.ID_ANY, '&Delete button');
-		wxButton *btnOk = wx.Button(self, wx.ID_CANCEL, '&Close');
+		btnOk = wx.Button(self, wx.ID_CANCEL, '&Close');
 		sizerTop.Add(self.m_btnModal, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5));
 		sizerTop.Add(self.m_btnModeless, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5));
 		sizerTop.Add(self.m_btnDelete, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5));
@@ -901,10 +901,10 @@ SettingsDialog = class(wx.PropertySheetDialog) {
 			// create a dummy image list with a few icons
 			imageSize = wx.Size(32, 32);
 			self.m_imageList = wx.ImageList(imageSize.GetWidth(), imageSize.GetHeight());
-			self.m_imageList.Add(wx.ArtProvider.GetIcon(wx.ART_INFORMATION, wx.ART_OTHER, imageSize));
-			self.m_imageList.Add(wx.ArtProvider.GetIcon(wx.ART_QUESTION, wx.ART_OTHER, imageSize));
-			self.m_imageList.Add(wx.ArtProvider.GetIcon(wx.ART_WARNING, wx.ART_OTHER, imageSize));
-			self.m_imageList.Add(wx.ArtProvider.GetIcon(wx.ART_ERROR, wx.ART_OTHER, imageSize));
+			self.m_imageList.Add(wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_OTHER, imageSize));
+			self.m_imageList.Add(wx.ArtProvider.GetBitmap(wx.ART_QUESTION, wx.ART_OTHER, imageSize));
+			self.m_imageList.Add(wx.ArtProvider.GetBitmap(wx.ART_WARNING, wx.ART_OTHER, imageSize));
+			self.m_imageList.Add(wx.ArtProvider.GetBitmap(wx.ART_ERROR, wx.ART_OTHER, imageSize));
 		} else {
 			self.m_imageList = nil
 		}
