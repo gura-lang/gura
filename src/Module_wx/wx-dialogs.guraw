@@ -1,4 +1,14 @@
 #!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        dialogs.cpp
+// Purpose:     Common dialogs demo
+// Author:      Julian Smart
+// Modified by: ABX (2004) - adjustements for conditional building + new menu
+// Created:     04/01/98
+// RCS-ID:      $Id: dialogs.cpp 43016 2006-11-04 10:57:24Z VZ $
+// Copyright:   (c) Julian Smart
+// Licence:     wxWindows license
+/////////////////////////////////////////////////////////////////////////////
 // This Gura script has been ported from the original above by Yutaka SAITO.
 import(wx)
 import(resource)
@@ -775,7 +785,7 @@ MyCanvas = class(wx.ScrolledWindow) {
 		self.EventTable()
 	}
 	EventTable() = {
-		//self.Bind(wx.EVT_PAINT) {|event| self.OnPaint(event) }
+		self.Bind(wx.EVT_PAINT) {|event| self.OnPaint(event) }
 	}
 	OnPaint(event:wx.PaintEvent) = {
 		wx.PaintDC(self) {|dc|
