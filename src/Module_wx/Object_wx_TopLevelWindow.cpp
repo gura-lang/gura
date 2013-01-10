@@ -64,6 +64,22 @@ Gura_ImplementMethod(wx_TopLevelWindow, CanSetTransparent)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+Gura_DeclareMethod(wx_TopLevelWindow, CentreOnScreen)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "direction", VTYPE_number, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_TopLevelWindow, CentreOnScreen)
+{
+	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int direction = wxBOTH;
+	if (args.IsValid(0)) direction = args.GetInt(0);
+	pSelf->GetEntity()->CentreOnScreen(direction);
+	return Value::Null;
+}
+
 Gura_DeclareMethod(wx_TopLevelWindow, EnableCloseButton)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -642,6 +658,7 @@ void Object_wx_TopLevelWindow::OnModuleEntry(Environment &env, Signal sig)
 Gura_ImplementUserInheritableClass(wx_TopLevelWindow)
 {
 	Gura_AssignMethod(wx_TopLevelWindow, CanSetTransparent);
+	Gura_AssignMethod(wx_TopLevelWindow, CentreOnScreen);
 	Gura_AssignMethod(wx_TopLevelWindow, EnableCloseButton);
 	Gura_AssignMethod(wx_TopLevelWindow, GetDefaultItem);
 	Gura_AssignMethod(wx_TopLevelWindow, GetIcon);

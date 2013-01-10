@@ -430,28 +430,6 @@ Gura_ImplementMethod(wx_Window, CentreOnParent)
 	return Value::Null;
 }
 
-Gura_DeclareMethod(wx_Window, CentreOnScreen)
-{
-	SetMode(RSLTMODE_Void, FLAG_Map);
-#if 0
-	DeclareArg(env, "direction", VTYPE_number, OCCUR_ZeroOrOnce);
-#endif
-}
-
-Gura_ImplementMethod(wx_Window, CentreOnScreen)
-{
-#if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int direction = wxBOTH;
-	if (args.IsValid(0)) direction = args.GetInt(0);
-	pSelf->GetEntity()->CentreOnScreen(direction);
-	return Value::Null;
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
-}
-
 Gura_DeclareMethod(wx_Window, ClearBackground)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3951,7 +3929,6 @@ Gura_ImplementUserInheritableClass(wx_Window)
 	Gura_AssignMethod(wx_Window, CenterOnScreen);
 	Gura_AssignMethod(wx_Window, Centre);
 	Gura_AssignMethod(wx_Window, CentreOnParent);
-	Gura_AssignMethod(wx_Window, CentreOnScreen);
 	Gura_AssignMethod(wx_Window, ClearBackground);
 	Gura_AssignMethod(wx_Window, ClientToScreenXY);
 	Gura_AssignMethod(wx_Window, ClientToScreen);
