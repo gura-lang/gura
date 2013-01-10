@@ -2,10 +2,6 @@
 // This Gura script has been ported from the original above by Yutaka SAITO.
 import(wx)
 import(resource)
-import(colrdlgg)
-import(dirdlgg)
-import(filedlgg)
-import(fontdlgg)
 
 // Menu IDs
 [
