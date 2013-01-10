@@ -66,6 +66,9 @@ MyApp = class(wx.App) {
 		choices_menu.AppendSeparator();
 		choices_menu.Append(DIALOGS_CHOOSE_COLOUR_GENERIC, '&Choose colour (generic)');
 		choices_menu.Append(DIALOGS_CHOOSE_FONT_GENERIC, 'Choose &font (generic)');
+		choices_menu.Enable([
+			DIALOGS_CHOOSE_COLOUR_GENERIC, DIALOGS_CHOOSE_FONT_GENERIC
+		], false)
 		menuDlg.AppendMenu(wx.ID_ANY, '&Choices and selectors', choices_menu);
 		entry_menu = wx.Menu()
 		entry_menu.Append(DIALOGS_TEXT_ENTRY, 'Text &entry\tCtrl-E');
@@ -81,6 +84,9 @@ MyApp = class(wx.App) {
 		filedlg_menu.Append(DIALOGS_FILE_OPEN_GENERIC, '&Open file (generic)');
 		filedlg_menu.Append(DIALOGS_FILES_OPEN_GENERIC, 'Open &files (generic)');
 		filedlg_menu.Append(DIALOGS_FILE_SAVE_GENERIC, 'Sa&ve file (generic)');
+		filedlg_menu.Enable([
+			DIALOGS_FILE_OPEN_GENERIC, DIALOGS_FILES_OPEN_GENERIC, DIALOGS_FILE_SAVE_GENERIC
+		], false)
 		menuDlg.AppendMenu(wx.ID_ANY, '&File operations', filedlg_menu);
 		dir_menu = wx.Menu()
 		dir_menu.Append(DIALOGS_DIR_CHOOSE, '&Choose a directory\tCtrl-D');
@@ -88,6 +94,9 @@ MyApp = class(wx.App) {
 		menuDlg.AppendMenu(wx.ID_ANY, '&Directory operations', dir_menu);
 		dir_menu.AppendSeparator();
 		dir_menu.Append(DIALOGS_GENERIC_DIR_CHOOSE, '&Choose a directory (generic)');
+		dir_menu.Enable([
+			DIALOGS_GENERIC_DIR_CHOOSE
+		], false)
 		info_menu = wx.Menu()
 		info_menu.Append(DIALOGS_TIP, '&Tip of the day\tCtrl-T');
 		info_menu.Append(DIALOGS_PROGRESS, 'Pro&gress dialog\tCtrl-G');
@@ -180,9 +189,9 @@ MyFrame = class(wx.Frame) {
 		self.Bind(wx.EVT_MENU, DIALOGS_FILE_OPEN2) {|event| self.FileOpen2(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_FILES_OPEN) {|event| self.FilesOpen(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_FILE_SAVE) {|event| self.FileSave(event) }
-		self.Bind(wx.EVT_MENU, DIALOGS_FILE_OPEN_GENERIC) {|event| self.FileOpenGeneric(event) }
-		self.Bind(wx.EVT_MENU, DIALOGS_FILES_OPEN_GENERIC) {|event| self.FilesOpenGeneric(event) }
-		self.Bind(wx.EVT_MENU, DIALOGS_FILE_SAVE_GENERIC) {|event| self.FileSaveGeneric(event) }
+		//self.Bind(wx.EVT_MENU, DIALOGS_FILE_OPEN_GENERIC) {|event| self.FileOpenGeneric(event) }
+		//self.Bind(wx.EVT_MENU, DIALOGS_FILES_OPEN_GENERIC) {|event| self.FilesOpenGeneric(event) }
+		//self.Bind(wx.EVT_MENU, DIALOGS_FILE_SAVE_GENERIC) {|event| self.FileSaveGeneric(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_DIR_CHOOSE) {|event| self.DirChoose(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_DIRNEW_CHOOSE) {|event| self.DirChooseNew(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_MODAL) {|event| self.ModalDlg(event) }
@@ -190,9 +199,9 @@ MyFrame = class(wx.Frame) {
 		self.Bind(wx.EVT_MENU, DIALOGS_CENTRE_SCREEN) {|event| self.DlgCenteredScreen(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_CENTRE_PARENT) {|event| self.DlgCenteredParent(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_TIP) {|event| self.ShowTip(event) }
-		self.Bind(wx.EVT_MENU, DIALOGS_CHOOSE_FONT_GENERIC) {|event| self.ChooseFontGeneric(event) }
-		self.Bind(wx.EVT_MENU, DIALOGS_GENERIC_DIR_CHOOSE) {|event| self.GenericDirChoose(event) }
-		self.Bind(wx.EVT_MENU, DIALOGS_CHOOSE_COLOUR_GENERIC) {|event| self.ChooseColourGeneric(event) }
+		//self.Bind(wx.EVT_MENU, DIALOGS_CHOOSE_FONT_GENERIC) {|event| self.ChooseFontGeneric(event) }
+		//self.Bind(wx.EVT_MENU, DIALOGS_GENERIC_DIR_CHOOSE) {|event| self.GenericDirChoose(event) }
+		//self.Bind(wx.EVT_MENU, DIALOGS_CHOOSE_COLOUR_GENERIC) {|event| self.ChooseColourGeneric(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_PROGRESS) {|event| self.ShowProgress(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_ABOUTDLG_SIMPLE) {|event| self.ShowSimpleAboutDialog(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_ABOUTDLG_FANCY) {|event| self.ShowFancyAboutDialog(event) }
@@ -223,6 +232,7 @@ MyFrame = class(wx.Frame) {
 			myCanvas.Refresh();
 		}
 	}
+	/*
 	ChooseColourGeneric(event:wx.CommandEvent) = {
 		self.m_clrData.SetColour(myCanvas.GetBackgroundColour());
 		//FIXME:TODO:This has no effect...
@@ -244,6 +254,7 @@ MyFrame = class(wx.Frame) {
 		}
 		dialog.Destroy();
 	}
+	*/
 	ChooseFont(event:wx.CommandEvent) = {
 		data = wx.FontData()
 		data.SetInitialFont(wx.GetApp().m_canvasFont);
@@ -262,6 +273,7 @@ MyFrame = class(wx.Frame) {
 		}
 		//else: cancelled by the user, don't change the font
 	}
+	/*
 	ChooseFontGeneric(event:wx.CommandEvent) = {
 		data = wx.FontData()
 		data.SetInitialFont(wx.GetApp().m_canvasFont);
@@ -275,6 +287,7 @@ MyFrame = class(wx.Frame) {
 		}
 		dialog.Destroy();
 	}
+	*/
 	LogDialog(event:wx.CommandEvent) = {
 		// calling wxYield() (as ~wxBusyCursor does) shouldn't result in messages
 		// being flushed -- test it
@@ -448,6 +461,7 @@ MyFrame = class(wx.Frame) {
 						dialog.GetPath(), dialog.GetFilterIndex());
 		}
 	}
+	/*
 	FileOpenGeneric(event:wx.CommandEvent) = {
 		dialog = wx.GenericFileDialog(self,
 	  						'Testing open file dialog',
@@ -467,6 +481,8 @@ MyFrame = class(wx.Frame) {
 			dialog2.ShowModal();
 		}
 	}
+	*/
+	/*
 	FilesOpenGeneric(event:wx.CommandEvent) = {
 		// On PocketPC you can disable OK-only dialogs policy using system option
 		buttons = wx.SystemOptions.GetOptionInt('wince.dialog.real-ok-cancel');
@@ -487,6 +503,8 @@ MyFrame = class(wx.Frame) {
 		// restore system option
 		wx.SystemOptions.SetOption('wince.dialog.real-ok-cancel', buttons);
 	}
+	*/
+	/*
 	FileSaveGeneric(event:wx.CommandEvent) = {
 		dialog = wx.GenericFileDialog(self,
 							'Testing save file dialog',
@@ -500,6 +518,7 @@ MyFrame = class(wx.Frame) {
 						 dialog.GetPath(), dialog.GetFilterIndex());
 		}
 	}
+	*/
 	DoDirChoose(style:number) = {
 		// pass some initial dir to wxDirDialog
 		dirHome = wx.GetHomeDir();
@@ -514,6 +533,7 @@ MyFrame = class(wx.Frame) {
 	DirChooseNew(event:wx.CommandEvent) = {
 		self.DoDirChoose(wx.DD_DEFAULT_STYLE & ~wx.DD_DIR_MUST_EXIST);
 	}
+	/*
 	GenericDirChoose(event:wx.CommandEvent) = {
 		// pass some initial dir to wxDirDialog
 		dirHome = wx.GetHomeDir();
@@ -523,6 +543,7 @@ MyFrame = class(wx.Frame) {
 			dialog2.ShowModal();
 		}
 	}
+	*/
 	ModalDlg(event:wx.CommandEvent) = {
 		dlg = MyModalDialog(self);
 		dlg.ShowModal();
