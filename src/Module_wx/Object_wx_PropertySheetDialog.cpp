@@ -268,6 +268,36 @@ Gura_ImplementMethod(wx_PropertySheetDialog, SetSheetStyle)
 	return Value::Null;
 }
 
+Gura_DeclareMethod(wx_PropertySheetDialog, SetSheetOuterBorder)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PropertySheetDialog, SetSheetOuterBorder)
+{
+	Object_wx_PropertySheetDialog *pSelf = Object_wx_PropertySheetDialog::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int border = args.GetInt(0);
+	pSelf->GetEntity()->SetSheetOuterBorder(border);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_PropertySheetDialog, SetSheetInnerBorder)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PropertySheetDialog, SetSheetInnerBorder)
+{
+	Object_wx_PropertySheetDialog *pSelf = Object_wx_PropertySheetDialog::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int border = args.GetInt(0);
+	pSelf->GetEntity()->SetSheetInnerBorder(border);
+	return Value::Null;
+}
+
 //----------------------------------------------------------------------------
 // Object implementation for wxPropertySheetDialog
 //----------------------------------------------------------------------------
@@ -316,6 +346,8 @@ Gura_ImplementUserInheritableClass(wx_PropertySheetDialog)
 	Gura_AssignMethod(wx_PropertySheetDialog, SetBookCtrl);
 	Gura_AssignMethod(wx_PropertySheetDialog, SetInnerSizer);
 	Gura_AssignMethod(wx_PropertySheetDialog, SetSheetStyle);
+	Gura_AssignMethod(wx_PropertySheetDialog, SetSheetOuterBorder);
+	Gura_AssignMethod(wx_PropertySheetDialog, SetSheetInnerBorder);
 }
 
 Gura_ImplementDescendantCreator(wx_PropertySheetDialog)
