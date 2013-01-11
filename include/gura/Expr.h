@@ -563,16 +563,16 @@ private:
 //-----------------------------------------------------------------------------
 class DLLDECLARE Expr_UnaryOp : public Expr_Unary {
 protected:
-	const Function &_func;
+	const Function *_pFunc;
 	bool _suffixSymbolFlag;
 public:
-	inline Expr_UnaryOp(const Function &func, Expr *pExprChild, bool suffixSymbolFlag) :
+	inline Expr_UnaryOp(const Function *pFunc, Expr *pExprChild, bool suffixSymbolFlag) :
 					Expr_Unary(EXPRTYPE_UnaryOp, pExprChild),
-					_func(func), _suffixSymbolFlag(suffixSymbolFlag) {}
+					_pFunc(pFunc), _suffixSymbolFlag(suffixSymbolFlag) {}
 	inline Expr_UnaryOp(const Expr_UnaryOp &expr) :
 					Expr_Unary(expr),
-					_func(expr._func), _suffixSymbolFlag(expr._suffixSymbolFlag) {}
-	inline const Function &GetFunction() const { return _func; }
+					_pFunc(expr._pFunc), _suffixSymbolFlag(expr._suffixSymbolFlag) {}
+	inline const Function &GetFunction() const { return *_pFunc; }
 	virtual ~Expr_UnaryOp();
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
@@ -590,13 +590,13 @@ public:
 //-----------------------------------------------------------------------------
 class DLLDECLARE Expr_BinaryOp : public Expr_Binary {
 protected:
-	const Function &_func;
+	const Function *_pFunc;
 public:
-	inline Expr_BinaryOp(const Function &func, Expr *pExprLeft, Expr *pExprRight) :
-					Expr_Binary(EXPRTYPE_BinaryOp, pExprLeft, pExprRight), _func(func) {}
+	inline Expr_BinaryOp(const Function *pFunc, Expr *pExprLeft, Expr *pExprRight) :
+					Expr_Binary(EXPRTYPE_BinaryOp, pExprLeft, pExprRight), _pFunc(pFunc) {}
 	inline Expr_BinaryOp(const Expr_BinaryOp &expr) :
-					Expr_Binary(expr), _func(expr._func) {}
-	inline const Function &GetFunction() const { return _func; }
+					Expr_Binary(expr), _pFunc(expr._pFunc) {}
+	inline const Function &GetFunction() const { return *_pFunc; }
 	virtual ~Expr_BinaryOp();
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;

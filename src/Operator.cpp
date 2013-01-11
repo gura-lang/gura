@@ -3,9 +3,9 @@
 namespace Gura {
 
 static Expr *OptimizeConst(Environment &env, Signal sig,
-						const Function &func, Expr *pExprChild);
+						const Function *func, Expr *pExprChild);
 static Expr *OptimizeConst(Environment &env, Signal sig,
-						const Function &func, Expr *pExprLeft, Expr *pExprRight);
+						const Function *func, Expr *pExprLeft, Expr *pExprRight);
 
 //-----------------------------------------------------------------------------
 // Operator assignment
@@ -1821,18 +1821,18 @@ Value Func_SequenceInf::DoEval(Environment &env, Signal sig, Args &args) const
 // utilities
 //-----------------------------------------------------------------------------
 Expr *OptimizeConst(Environment &env, Signal sig,
-									const Function &func, Expr *pExprChild)
+									const Function *pFunc, Expr *pExprChild)
 {
 	ValueList valListArg(dynamic_cast<Expr_Value *>(pExprChild)->GetValue());
 	Expr::Delete(pExprChild);
 	Args args(valListArg);
-	Value value = func.Eval(env, sig, args);
+	Value value = pFunc->Eval(env, sig, args);
 	if (sig.IsSignalled()) return NULL;
 	return new Expr_Value(value);
 }
 
 Expr *OptimizeConst(Environment &env, Signal sig,
-					const Function &func, Expr *pExprLeft, Expr *pExprRight)
+					const Function *pFunc, Expr *pExprLeft, Expr *pExprRight)
 {
 	ValueList valListArg(
 		dynamic_cast<Expr_Value *>(pExprLeft)->GetValue(),
@@ -1840,7 +1840,7 @@ Expr *OptimizeConst(Environment &env, Signal sig,
 	Expr::Delete(pExprLeft);
 	Expr::Delete(pExprRight);
 	Args args(valListArg);
-	Value value = func.Eval(env, sig, args);
+	Value value = pFunc->Eval(env, sig, args);
 	if (sig.IsSignalled()) return NULL;
 	return new Expr_Value(value);
 }

@@ -890,13 +890,13 @@ Gura_ImplementFunction(dot_product)
 		do {
 			ValueList valListArg(*pValue1, *pValue2);
 			Args args(valListArg);
-			value = env.GetFunc_Multiply().Eval(env, sig, args);
+			value = env.GetFunc_Multiply()->Eval(env, sig, args);
 			if (sig.IsSignalled()) return Value::Null;
 		} while (0);
 		do {
 			ValueList valListArg(valueSum, value);
 			Args args(valListArg);
-			valueSum = env.GetFunc_Plus().Eval(env, sig, args);
+			valueSum = env.GetFunc_Plus()->Eval(env, sig, args);
 			if (sig.IsSignalled()) return Value::Null;
 		} while (0);
 	}
@@ -957,21 +957,21 @@ Value CalcCrossElem(Environment &env, Signal sig,
 	do {
 		ValueList valListArg(ax, by);
 		Args args(valListArg);
-		valueLeft = env.GetFunc_Multiply().Eval(env, sig, args);
+		valueLeft = env.GetFunc_Multiply()->Eval(env, sig, args);
 		if (sig.IsSignalled()) return Value::Null;
 	} while (0);
 	Value valueRight;
 	do {
 		ValueList valListArg(ay, bx);
 		Args args(valListArg);
-		valueRight = env.GetFunc_Multiply().Eval(env, sig, args);
+		valueRight = env.GetFunc_Multiply()->Eval(env, sig, args);
 		if (sig.IsSignalled()) return Value::Null;
 	} while (0);
 	Value value;
 	do {
 		ValueList valListArg(valueLeft, valueRight);
 		Args args(valListArg);
-		value = env.GetFunc_Minus().Eval(env, sig, args);
+		value = env.GetFunc_Minus()->Eval(env, sig, args);
 		if (sig.IsSignalled()) return Value::Null;
 	} while (0);
 	return value;

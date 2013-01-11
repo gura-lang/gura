@@ -109,7 +109,7 @@ public:
 	Value Inverse(Environment &env, Signal sig);
 	static Value OperatorNeg(Environment &env, Signal sig,
 										const Object_matrix *pObjMat);
-	static Value OperatorPlusMinus(Environment &env, Signal sig, const Function &func,
+	static Value OperatorPlusMinus(Environment &env, Signal sig, const Function *pFunc,
 				const Object_matrix *pObjMat1, const Object_matrix *pObjMat2);
 	static Value OperatorMultiply(Environment &env, Signal sig,
 				const Object_matrix *pObjMat1, const Object_matrix *pObjMat2);

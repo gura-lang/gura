@@ -1662,7 +1662,7 @@ Expr *Expr_UnaryOp::Clone() const
 Value Expr_UnaryOp::Exec(Environment &env, Signal sig) const
 {
 	Args args(GetExprList());
-	Value result = _func.EvalExpr(env, sig, args);
+	Value result = _pFunc->EvalExpr(env, sig, args);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
@@ -1672,7 +1672,7 @@ Value Expr_UnaryOp::Exec(Environment &env, Signal sig) const
 
 Expr *Expr_UnaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
 {
-	return _func.DiffUnary(env, sig, GetChild(), pSymbol);
+	return _pFunc->DiffUnary(env, sig, GetChild(), pSymbol);
 }
 
 Expr *Expr_UnaryOp::MathOptimize(Environment &env, Signal sig) const
@@ -1682,7 +1682,7 @@ Expr *Expr_UnaryOp::MathOptimize(Environment &env, Signal sig) const
 		sig.AddExprCause(this);
 		return NULL;
 	}
-	return _func.OptimizeUnary(env, sig, pExprOpt);
+	return _pFunc->OptimizeUnary(env, sig, pExprOpt);
 }
 
 bool Expr_UnaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
@@ -1710,9 +1710,9 @@ String Expr_UnaryOp::ToString() const
 	}
 	String str;
 	if (needParenthesisFlag) str += "(";
-	if (!_suffixSymbolFlag) str += _func.GetMathSymbol();
+	if (!_suffixSymbolFlag) str += _pFunc->GetMathSymbol();
 	str += GetChild()->ToString();
-	if (_suffixSymbolFlag) str += _func.GetMathSymbol();
+	if (_suffixSymbolFlag) str += _pFunc->GetMathSymbol();
 	if (needParenthesisFlag) str += ")";
 	return str;
 }
@@ -1734,7 +1734,7 @@ Expr *Expr_BinaryOp::Clone() const
 Value Expr_BinaryOp::Exec(Environment &env, Signal sig) const
 {
 	Args args(GetExprList());
-	Value result = _func.EvalExpr(env, sig, args);
+	Value result = _pFunc->EvalExpr(env, sig, args);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
@@ -1744,7 +1744,7 @@ Value Expr_BinaryOp::Exec(Environment &env, Signal sig) const
 
 Expr *Expr_BinaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
 {
-	return _func.DiffBinary(env, sig, GetLeft(), GetRight(), pSymbol);
+	return _pFunc->DiffBinary(env, sig, GetLeft(), GetRight(), pSymbol);
 }
 
 Expr *Expr_BinaryOp::MathOptimize(Environment &env, Signal sig) const
@@ -1759,7 +1759,7 @@ Expr *Expr_BinaryOp::MathOptimize(Environment &env, Signal sig) const
 		sig.AddExprCause(this);
 		return NULL;
 	}
-	return _func.OptimizeBinary(env, sig, pExprOpt1.release(), pExprOpt2.release());
+	return _pFunc->OptimizeBinary(env, sig, pExprOpt1.release(), pExprOpt2.release());
 }
 
 bool Expr_BinaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
@@ -1800,7 +1800,7 @@ String Expr_BinaryOp::ToString() const
 	if (needParenthesisFlag) str += "(";
 	str += GetLeft()->ToString();
 	str += " ";
-	str += _func.GetMathSymbol();
+	str += _pFunc->GetMathSymbol();
 	str += " ";
 	str += GetRight()->ToString();
 	if (needParenthesisFlag) str += ")";
@@ -2528,7 +2528,53 @@ void ExprOwner::Clear()
 
 bool ExprOwner::DoDeserialize(Signal sig, Stream &stream)
 {
-	return false;
+	for (;;) {
+		unsigned char exprType = 0x00;
+		if (stream.Read(sig, &exprType, 1) < 1) break;
+		switch (exprType) {
+		case EXPRTYPE_UnaryOp:
+			break;
+		case EXPRTYPE_Quote:
+			break;
+		case EXPRTYPE_Force:
+			break;
+		case EXPRTYPE_Prefix:
+			break;
+		case EXPRTYPE_Suffix:
+			break;
+		case EXPRTYPE_BinaryOp:
+			break;
+		case EXPRTYPE_Assign:
+			break;
+		case EXPRTYPE_DictAssign:
+			break;
+		case EXPRTYPE_Member:
+			break;
+		case EXPRTYPE_Root:
+			break;
+		case EXPRTYPE_BlockParam:
+			break;
+		case EXPRTYPE_Block:
+			break;
+		case EXPRTYPE_Lister:
+			break;
+		case EXPRTYPE_Indexer:
+			break;
+		case EXPRTYPE_Caller:
+			break;
+		case EXPRTYPE_Value:
+			break;
+		case EXPRTYPE_Symbol:
+			break;
+		case EXPRTYPE_String:
+			break;
+		default:
+			sig.SetError(ERR_IOError, "unknown expr type %d", exprType);
+			return false;
+		}
+	}
+	
+	return sig.IsSignalled();
 }
 
 }

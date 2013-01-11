@@ -218,34 +218,34 @@ public:
 	inline Global *GetGlobal()					{ return GetTopFrame().GetGlobal();			}
 	inline Global *GetGlobal() const			{ return GetTopFrame().GetGlobal();			}
 	inline void SetSuperSkipCount(int cntSuperSkip) { _cntSuperSkip = cntSuperSkip; }
-	inline const Function &GetFunc_Pos()		{ return *GetGlobal()->_pFunc_Pos;			}
-	inline const Function &GetFunc_Neg()		{ return *GetGlobal()->_pFunc_Neg;			}
-	inline const Function &GetFunc_Invert()		{ return *GetGlobal()->_pFunc_Invert;		}
-	inline const Function &GetFunc_Not()		{ return *GetGlobal()->_pFunc_Not;			}
-	inline const Function &GetFunc_Plus()		{ return *GetGlobal()->_pFunc_Plus;			}
-	inline const Function &GetFunc_Minus()		{ return *GetGlobal()->_pFunc_Minus;		}
-	inline const Function &GetFunc_Multiply()	{ return *GetGlobal()->_pFunc_Multiply;		}
-	inline const Function &GetFunc_Divide()		{ return *GetGlobal()->_pFunc_Divide;		}
-	inline const Function &GetFunc_Modulo()		{ return *GetGlobal()->_pFunc_Modulo;		}
-	inline const Function &GetFunc_format()		{ return *GetGlobal()->_pFunc_format;		}
-	inline const Function &GetFunc_Power()		{ return *GetGlobal()->_pFunc_Power;		}
-	inline const Function &GetFunc_Equal()		{ return *GetGlobal()->_pFunc_Equal;		}
-	inline const Function &GetFunc_NotEqual()	{ return *GetGlobal()->_pFunc_NotEqual;		}
-	inline const Function &GetFunc_Greater()	{ return *GetGlobal()->_pFunc_Greater;		}
-	inline const Function &GetFunc_Less()		{ return *GetGlobal()->_pFunc_Less;			}
-	inline const Function &GetFunc_GreaterEq()	{ return *GetGlobal()->_pFunc_GreaterEq;	}
-	inline const Function &GetFunc_LessEq()		{ return *GetGlobal()->_pFunc_LessEq;		}
-	inline const Function &GetFunc_Compare()	{ return *GetGlobal()->_pFunc_Compare;		}
-	inline const Function &GetFunc_ContainCheck() { return *GetGlobal()->_pFunc_ContainCheck;	}
-	inline const Function &GetFunc_Or()			{ return *GetGlobal()->_pFunc_Or;			}
-	inline const Function &GetFunc_And()		{ return *GetGlobal()->_pFunc_And;			}
-	inline const Function &GetFunc_Xor()		{ return *GetGlobal()->_pFunc_Xor;			}
-	inline const Function &GetFunc_ShiftL()		{ return *GetGlobal()->_pFunc_ShiftL;		}
-	inline const Function &GetFunc_ShiftR()		{ return *GetGlobal()->_pFunc_ShiftR;		}
-	inline const Function &GetFunc_OrOr()		{ return *GetGlobal()->_pFunc_OrOr;			}
-	inline const Function &GetFunc_AndAnd()		{ return *GetGlobal()->_pFunc_AndAnd;		}
-	inline const Function &GetFunc_Sequence()	{ return *GetGlobal()->_pFunc_Sequence;		}
-	inline const Function &GetFunc_SequenceInf(){ return *GetGlobal()->_pFunc_SequenceInf;	}
+	inline const Function *GetFunc_Pos()		{ return GetGlobal()->_pFunc_Pos;			}
+	inline const Function *GetFunc_Neg()		{ return GetGlobal()->_pFunc_Neg;			}
+	inline const Function *GetFunc_Invert()		{ return GetGlobal()->_pFunc_Invert;		}
+	inline const Function *GetFunc_Not()		{ return GetGlobal()->_pFunc_Not;			}
+	inline const Function *GetFunc_Plus()		{ return GetGlobal()->_pFunc_Plus;			}
+	inline const Function *GetFunc_Minus()		{ return GetGlobal()->_pFunc_Minus;		}
+	inline const Function *GetFunc_Multiply()	{ return GetGlobal()->_pFunc_Multiply;		}
+	inline const Function *GetFunc_Divide()		{ return GetGlobal()->_pFunc_Divide;		}
+	inline const Function *GetFunc_Modulo()		{ return GetGlobal()->_pFunc_Modulo;		}
+	inline const Function *GetFunc_format()		{ return GetGlobal()->_pFunc_format;		}
+	inline const Function *GetFunc_Power()		{ return GetGlobal()->_pFunc_Power;		}
+	inline const Function *GetFunc_Equal()		{ return GetGlobal()->_pFunc_Equal;		}
+	inline const Function *GetFunc_NotEqual()	{ return GetGlobal()->_pFunc_NotEqual;		}
+	inline const Function *GetFunc_Greater()	{ return GetGlobal()->_pFunc_Greater;		}
+	inline const Function *GetFunc_Less()		{ return GetGlobal()->_pFunc_Less;			}
+	inline const Function *GetFunc_GreaterEq()	{ return GetGlobal()->_pFunc_GreaterEq;	}
+	inline const Function *GetFunc_LessEq()		{ return GetGlobal()->_pFunc_LessEq;		}
+	inline const Function *GetFunc_Compare()	{ return GetGlobal()->_pFunc_Compare;		}
+	inline const Function *GetFunc_ContainCheck() { return GetGlobal()->_pFunc_ContainCheck;	}
+	inline const Function *GetFunc_Or()			{ return GetGlobal()->_pFunc_Or;			}
+	inline const Function *GetFunc_And()		{ return GetGlobal()->_pFunc_And;			}
+	inline const Function *GetFunc_Xor()		{ return GetGlobal()->_pFunc_Xor;			}
+	inline const Function *GetFunc_ShiftL()		{ return GetGlobal()->_pFunc_ShiftL;		}
+	inline const Function *GetFunc_ShiftR()		{ return GetGlobal()->_pFunc_ShiftR;		}
+	inline const Function *GetFunc_OrOr()		{ return GetGlobal()->_pFunc_OrOr;			}
+	inline const Function *GetFunc_AndAnd()		{ return GetGlobal()->_pFunc_AndAnd;		}
+	inline const Function *GetFunc_Sequence()	{ return GetGlobal()->_pFunc_Sequence;		}
+	inline const Function *GetFunc_SequenceInf(){ return GetGlobal()->_pFunc_SequenceInf;	}
 	inline Module *GetModule_sys()				{ return GetGlobal()->_pModule_sys;			}
 	inline void SetEchoFlag(bool echoFlag)		{ GetGlobal()->_echoFlag = echoFlag;		}
 	inline bool GetEchoFlag() const				{ return GetGlobal()->_echoFlag;			}
