@@ -174,7 +174,7 @@ public:
 	bool IsOperatorPower() const;
 	bool IsOperatorSequence() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream) = 0;
+	virtual bool DoSerialize(Signal sig, Stream &stream) const = 0;
 	virtual bool DoDeserialize(Signal sig, Stream &stream) = 0;
 	virtual String ToString() const = 0;
 };
@@ -207,7 +207,7 @@ public:
 							bool flattenFlag, bool evalSymFuncFlag) const;
 	void IncRef() const;
 	bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	bool DoSerialize(Signal sig, Stream &stream);
+	bool DoSerialize(Signal sig, Stream &stream) const;
 	String ToString(const char *sep = ", ") const;
 	void Accept(ExprVisitor &visitor) const;
 	bool IsContained(const Expr *pExpr) const;
@@ -312,7 +312,7 @@ public:
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };
@@ -334,7 +334,7 @@ public:
 	virtual Value Exec(Environment &env, Signal sig) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };
@@ -370,7 +370,7 @@ public:
 	inline SymbolList &GetAttrFront() { return _attrFront; }
 	inline const SymbolList &GetAttrFront() const { return _attrFront; }
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };
@@ -392,7 +392,7 @@ public:
 	virtual const char *GetPathName() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };
@@ -409,7 +409,7 @@ public:
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };
@@ -430,7 +430,7 @@ public:
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 	inline void SetParam(Expr_BlockParam *pExprBlockParam) {
@@ -456,7 +456,7 @@ public:
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };
@@ -500,7 +500,7 @@ public:
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };
@@ -530,7 +530,7 @@ public:
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 	Value EvalEach(Environment &env, Signal sig, const Value &valueSelf,
@@ -580,7 +580,7 @@ public:
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual bool IsUnaryOp() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };
@@ -604,7 +604,7 @@ public:
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual bool IsBinaryOp() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };
@@ -622,7 +622,7 @@ public:
 	virtual const Expr *Unquote() const;
 	virtual bool IsQuote() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };
@@ -639,7 +639,7 @@ public:
 	virtual Value Exec(Environment &env, Signal sig) const;
 	virtual bool IsForce() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };
@@ -661,7 +661,7 @@ public:
 	virtual bool IsPrefix() const;
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };
@@ -684,7 +684,7 @@ public:
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	OccurPattern GetOccurPattern() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };
@@ -707,7 +707,7 @@ public:
 	virtual Expr *Clone() const;
 	virtual bool IsAssign() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };
@@ -725,7 +725,7 @@ public:
 	virtual Expr *Clone() const;
 	virtual bool IsDictAssign() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 	Value GetKey(Environment &env, Signal sig) const;
@@ -756,7 +756,7 @@ public:
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool IsMember() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool DoSerialize(Signal sig, Stream &stream);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual String ToString() const;
 };

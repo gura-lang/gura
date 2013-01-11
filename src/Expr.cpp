@@ -533,7 +533,7 @@ bool Expr_Value::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Value::DoSerialize(Signal sig, Stream &stream)
+bool Expr_Value::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -588,7 +588,7 @@ bool Expr_String::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_String::DoSerialize(Signal sig, Stream &stream)
+bool Expr_String::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -728,7 +728,7 @@ bool Expr_Symbol::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Symbol::DoSerialize(Signal sig, Stream &stream)
+bool Expr_Symbol::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -772,7 +772,7 @@ bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return _exprOwner.GenerateCode(env, sig, stream);
 }
 
-bool Expr_Root::DoSerialize(Signal sig, Stream &stream)
+bool Expr_Root::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -839,7 +839,7 @@ bool Expr_Block::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Block::DoSerialize(Signal sig, Stream &stream)
+bool Expr_Block::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -888,7 +888,7 @@ bool Expr_BlockParam::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_BlockParam::DoSerialize(Signal sig, Stream &stream)
+bool Expr_BlockParam::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -1047,7 +1047,7 @@ bool Expr_Lister::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Lister::DoSerialize(Signal sig, Stream &stream)
+bool Expr_Lister::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -1296,7 +1296,7 @@ bool Expr_Indexer::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Indexer::DoSerialize(Signal sig, Stream &stream)
+bool Expr_Indexer::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -1602,7 +1602,7 @@ bool Expr_Caller::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Caller::DoSerialize(Signal sig, Stream &stream)
+bool Expr_Caller::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -1691,7 +1691,7 @@ bool Expr_UnaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_UnaryOp::DoSerialize(Signal sig, Stream &stream)
+bool Expr_UnaryOp::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -1768,7 +1768,7 @@ bool Expr_BinaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_BinaryOp::DoSerialize(Signal sig, Stream &stream)
+bool Expr_BinaryOp::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -1845,7 +1845,7 @@ bool Expr_Quote::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Quote::DoSerialize(Signal sig, Stream &stream)
+bool Expr_Quote::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -1889,7 +1889,7 @@ bool Expr_Force::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Force::DoSerialize(Signal sig, Stream &stream)
+bool Expr_Force::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -1933,7 +1933,7 @@ bool Expr_Prefix::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Prefix::DoSerialize(Signal sig, Stream &stream)
+bool Expr_Prefix::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -1986,7 +1986,7 @@ bool Expr_Suffix::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Suffix::DoSerialize(Signal sig, Stream &stream)
+bool Expr_Suffix::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -2076,7 +2076,7 @@ bool Expr_Assign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Assign::DoSerialize(Signal sig, Stream &stream)
+bool Expr_Assign::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -2137,7 +2137,7 @@ bool Expr_DictAssign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_DictAssign::DoSerialize(Signal sig, Stream &stream)
+bool Expr_DictAssign::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -2315,7 +2315,7 @@ bool Expr_Member::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Member::DoSerialize(Signal sig, Stream &stream)
+bool Expr_Member::DoSerialize(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -2465,9 +2465,13 @@ bool ExprList::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool ExprList::DoSerialize(Signal sig, Stream &stream)
+bool ExprList::DoSerialize(Signal sig, Stream &stream) const
 {
-	return false;
+	foreach_const (ExprList, ppExpr, *this) {
+		const Expr *pExpr = *ppExpr;
+		if (!pExpr->DoSerialize(sig, stream)) return false;
+	}
+	return true;
 }
 
 String ExprList::ToString(const char *sep) const
@@ -2522,7 +2526,7 @@ void ExprOwner::Clear()
 	clear();
 }
 
-bool ExprList::DoDeserialize(Signal sig, Stream &stream)
+bool ExprOwner::DoDeserialize(Signal sig, Stream &stream)
 {
 	return false;
 }
