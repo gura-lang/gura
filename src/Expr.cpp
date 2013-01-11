@@ -330,6 +330,81 @@ bool Expr::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return false;
 }
 
+bool Expr::Serialize(Signal sig, Stream &stream) const
+{
+	unsigned char exprType = static_cast<unsigned char>(GetType());
+	if (stream.Write(sig, &exprType, 1) < 1) return false;
+	return DoSerialize(sig, stream);
+}
+
+Expr *Expr::Deserialize(Signal sig, Stream &stream)
+{
+	unsigned char exprType = 0x00;
+	if (stream.Read(sig, &exprType, 1) < 1) return NULL;
+	AutoPtr<Expr> pExpr;
+	switch (exprType) {
+	case EXPRTYPE_UnaryOp:
+		pExpr.reset(new Expr_UnaryOp(NULL, NULL, false));
+		break;
+	case EXPRTYPE_Quote:
+		pExpr.reset(new Expr_Quote(NULL));
+		break;
+	case EXPRTYPE_Force:
+		pExpr.reset(new Expr_Force(NULL));
+		break;
+	case EXPRTYPE_Prefix:
+		pExpr.reset(new Expr_Prefix(NULL, NULL));
+		break;
+	case EXPRTYPE_Suffix:
+		pExpr.reset(new Expr_Suffix(NULL, NULL));
+		break;
+	case EXPRTYPE_BinaryOp:
+		pExpr.reset(new Expr_BinaryOp(NULL, NULL, NULL));
+		break;
+	case EXPRTYPE_Assign:
+		pExpr.reset(new Expr_Assign(NULL, NULL, NULL));
+		break;
+	case EXPRTYPE_DictAssign:
+		pExpr.reset(new Expr_DictAssign(NULL, NULL));
+		break;
+	case EXPRTYPE_Member:
+		pExpr.reset(new Expr_Member(NULL, NULL));
+		break;
+	case EXPRTYPE_Root:
+		pExpr.reset(new Expr_Root(""));
+		break;
+	case EXPRTYPE_BlockParam:
+		pExpr.reset(new Expr_BlockParam());
+		break;
+	case EXPRTYPE_Block:
+		pExpr.reset(new Expr_Block());
+		break;
+	case EXPRTYPE_Lister:
+		pExpr.reset(new Expr_Lister());
+		break;
+	case EXPRTYPE_Indexer:
+		pExpr.reset(new Expr_Indexer(NULL, NULL));
+		break;
+	case EXPRTYPE_Caller:
+		pExpr.reset(new Expr_Caller(NULL, NULL, NULL));
+		break;
+	case EXPRTYPE_Value:
+		pExpr.reset(new Expr_Value(Value::Null));
+		break;
+	case EXPRTYPE_Symbol:
+		pExpr.reset(new Expr_Symbol(NULL));
+		break;
+	case EXPRTYPE_String:
+		pExpr.reset(new Expr_String(""));
+		break;
+	default:
+		sig.SetError(ERR_IOError, "unknown expr type %d", exprType);
+		return NULL;
+	}
+	if (pExpr->DoDeserialize(sig, stream)) return pExpr.release();
+	return NULL;
+}
+
 //-----------------------------------------------------------------------------
 // Expr::ExprVisitor_GatherSymbol
 //-----------------------------------------------------------------------------
@@ -774,6 +849,7 @@ bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
 
 bool Expr_Root::DoSerialize(Signal sig, Stream &stream) const
 {
+	
 	return false;
 }
 
@@ -2529,51 +2605,10 @@ void ExprOwner::Clear()
 bool ExprOwner::DoDeserialize(Signal sig, Stream &stream)
 {
 	for (;;) {
-		unsigned char exprType = 0x00;
-		if (stream.Read(sig, &exprType, 1) < 1) break;
-		switch (exprType) {
-		case EXPRTYPE_UnaryOp:
-			break;
-		case EXPRTYPE_Quote:
-			break;
-		case EXPRTYPE_Force:
-			break;
-		case EXPRTYPE_Prefix:
-			break;
-		case EXPRTYPE_Suffix:
-			break;
-		case EXPRTYPE_BinaryOp:
-			break;
-		case EXPRTYPE_Assign:
-			break;
-		case EXPRTYPE_DictAssign:
-			break;
-		case EXPRTYPE_Member:
-			break;
-		case EXPRTYPE_Root:
-			break;
-		case EXPRTYPE_BlockParam:
-			break;
-		case EXPRTYPE_Block:
-			break;
-		case EXPRTYPE_Lister:
-			break;
-		case EXPRTYPE_Indexer:
-			break;
-		case EXPRTYPE_Caller:
-			break;
-		case EXPRTYPE_Value:
-			break;
-		case EXPRTYPE_Symbol:
-			break;
-		case EXPRTYPE_String:
-			break;
-		default:
-			sig.SetError(ERR_IOError, "unknown expr type %d", exprType);
-			return false;
-		}
+		Expr *pExpr = Expr::Deserialize(sig, stream);
+		if (pExpr == NULL) return false;
+		push_back(pExpr);
 	}
-	
 	return sig.IsSignalled();
 }
 

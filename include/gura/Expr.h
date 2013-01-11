@@ -177,6 +177,8 @@ public:
 	virtual bool DoSerialize(Signal sig, Stream &stream) const = 0;
 	virtual bool DoDeserialize(Signal sig, Stream &stream) = 0;
 	virtual String ToString() const = 0;
+	bool Serialize(Signal sig, Stream &stream) const;
+	static Expr *Deserialize(Signal sig, Stream &stream);
 };
 
 //-----------------------------------------------------------------------------
