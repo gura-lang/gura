@@ -60,92 +60,92 @@ myCanvas = nil
 
 MyApp = class(wx.App) {
 	OnInit() = {
-		wx.InitAllImageHandlers();
-		self.m_canvasTextColour = wx.BLACK;
-		self.m_canvasFont = wx.NORMAL_FONT;
+		wx.InitAllImageHandlers()
+		self.m_canvasTextColour = wx.BLACK
+		self.m_canvasFont = wx.NORMAL_FONT
 		// Create the main frame window
-		frame = MyFrame(nil, 'wxWidgets dialogs example');
+		frame = MyFrame(nil, 'wxWidgets dialogs example')
 		// Make a menubar
 		menuDlg = wx.Menu()
-		menuDlg.Append(DIALOGS_MESSAGE_BOX, '&Message box\tCtrl-M');
+		menuDlg.Append(DIALOGS_MESSAGE_BOX, '&Message box\tCtrl-M')
 		choices_menu = wx.Menu()
-		choices_menu.Append(DIALOGS_CHOOSE_COLOUR, '&Choose colour');
-		choices_menu.Append(DIALOGS_CHOOSE_FONT, 'Choose &font');
-		choices_menu.Append(DIALOGS_SINGLE_CHOICE, '&Single choice\tCtrl-C');
-		choices_menu.Append(DIALOGS_MULTI_CHOICE, 'M&ultiple choice\tCtrl-U');
-		choices_menu.AppendSeparator();
-		choices_menu.Append(DIALOGS_CHOOSE_COLOUR_GENERIC, '&Choose colour (generic)');
-		choices_menu.Append(DIALOGS_CHOOSE_FONT_GENERIC, 'Choose &font (generic)');
+		choices_menu.Append(DIALOGS_CHOOSE_COLOUR, '&Choose colour')
+		choices_menu.Append(DIALOGS_CHOOSE_FONT, 'Choose &font')
+		choices_menu.Append(DIALOGS_SINGLE_CHOICE, '&Single choice\tCtrl-C')
+		choices_menu.Append(DIALOGS_MULTI_CHOICE, 'M&ultiple choice\tCtrl-U')
+		choices_menu.AppendSeparator()
+		choices_menu.Append(DIALOGS_CHOOSE_COLOUR_GENERIC, '&Choose colour (generic)')
+		choices_menu.Append(DIALOGS_CHOOSE_FONT_GENERIC, 'Choose &font (generic)')
 		choices_menu.Enable([
 			DIALOGS_CHOOSE_COLOUR_GENERIC, DIALOGS_CHOOSE_FONT_GENERIC
 		], false)
-		menuDlg.AppendMenu(wx.ID_ANY, '&Choices and selectors', choices_menu);
+		menuDlg.AppendMenu(wx.ID_ANY, '&Choices and selectors', choices_menu)
 		entry_menu = wx.Menu()
-		entry_menu.Append(DIALOGS_TEXT_ENTRY, 'Text &entry\tCtrl-E');
-		entry_menu.Append(DIALOGS_PASSWORD_ENTRY, '&Password entry\tCtrl-P');
-		entry_menu.Append(DIALOGS_NUM_ENTRY, '&Numeric entry\tCtrl-N');
-		menuDlg.AppendMenu(wx.ID_ANY, '&Entry dialogs', entry_menu);
+		entry_menu.Append(DIALOGS_TEXT_ENTRY, 'Text &entry\tCtrl-E')
+		entry_menu.Append(DIALOGS_PASSWORD_ENTRY, '&Password entry\tCtrl-P')
+		entry_menu.Append(DIALOGS_NUM_ENTRY, '&Numeric entry\tCtrl-N')
+		menuDlg.AppendMenu(wx.ID_ANY, '&Entry dialogs', entry_menu)
 		filedlg_menu = wx.Menu()
-		filedlg_menu.Append(DIALOGS_FILE_OPEN, '&Open file\tCtrl-O');
-		filedlg_menu.Append(DIALOGS_FILE_OPEN2, '&Second open file\tCtrl-2');
-		filedlg_menu.Append(DIALOGS_FILES_OPEN, 'Open &files\tCtrl-Q');
-		filedlg_menu.Append(DIALOGS_FILE_SAVE, 'Sa&ve file\tCtrl-S');
-		filedlg_menu.AppendSeparator();
-		filedlg_menu.Append(DIALOGS_FILE_OPEN_GENERIC, '&Open file (generic)');
-		filedlg_menu.Append(DIALOGS_FILES_OPEN_GENERIC, 'Open &files (generic)');
-		filedlg_menu.Append(DIALOGS_FILE_SAVE_GENERIC, 'Sa&ve file (generic)');
+		filedlg_menu.Append(DIALOGS_FILE_OPEN, '&Open file\tCtrl-O')
+		filedlg_menu.Append(DIALOGS_FILE_OPEN2, '&Second open file\tCtrl-2')
+		filedlg_menu.Append(DIALOGS_FILES_OPEN, 'Open &files\tCtrl-Q')
+		filedlg_menu.Append(DIALOGS_FILE_SAVE, 'Sa&ve file\tCtrl-S')
+		filedlg_menu.AppendSeparator()
+		filedlg_menu.Append(DIALOGS_FILE_OPEN_GENERIC, '&Open file (generic)')
+		filedlg_menu.Append(DIALOGS_FILES_OPEN_GENERIC, 'Open &files (generic)')
+		filedlg_menu.Append(DIALOGS_FILE_SAVE_GENERIC, 'Sa&ve file (generic)')
 		filedlg_menu.Enable([
 			DIALOGS_FILE_OPEN_GENERIC, DIALOGS_FILES_OPEN_GENERIC, DIALOGS_FILE_SAVE_GENERIC
 		], false)
-		menuDlg.AppendMenu(wx.ID_ANY, '&File operations', filedlg_menu);
+		menuDlg.AppendMenu(wx.ID_ANY, '&File operations', filedlg_menu)
 		dir_menu = wx.Menu()
-		dir_menu.Append(DIALOGS_DIR_CHOOSE, '&Choose a directory\tCtrl-D');
-		dir_menu.Append(DIALOGS_DIRNEW_CHOOSE, 'Choose a directory (with \"Ne&w\" button)\tShift-Ctrl-D');
-		menuDlg.AppendMenu(wx.ID_ANY, '&Directory operations', dir_menu);
-		dir_menu.AppendSeparator();
-		dir_menu.Append(DIALOGS_GENERIC_DIR_CHOOSE, '&Choose a directory (generic)');
+		dir_menu.Append(DIALOGS_DIR_CHOOSE, '&Choose a directory\tCtrl-D')
+		dir_menu.Append(DIALOGS_DIRNEW_CHOOSE, 'Choose a directory (with \"Ne&w\" button)\tShift-Ctrl-D')
+		menuDlg.AppendMenu(wx.ID_ANY, '&Directory operations', dir_menu)
+		dir_menu.AppendSeparator()
+		dir_menu.Append(DIALOGS_GENERIC_DIR_CHOOSE, '&Choose a directory (generic)')
 		dir_menu.Enable([
 			DIALOGS_GENERIC_DIR_CHOOSE
 		], false)
 		info_menu = wx.Menu()
-		info_menu.Append(DIALOGS_TIP, '&Tip of the day\tCtrl-T');
-		info_menu.Append(DIALOGS_PROGRESS, 'Pro&gress dialog\tCtrl-G');
-		info_menu.Append(DIALOGS_BUSYINFO, '&Busy info dialog\tCtrl-B');
-		info_menu.Append(DIALOGS_LOG_DIALOG, '&Log dialog\tCtrl-L');
-		menuDlg.AppendMenu(wx.ID_ANY, '&Informative dialogs', info_menu);
+		info_menu.Append(DIALOGS_TIP, '&Tip of the day\tCtrl-T')
+		info_menu.Append(DIALOGS_PROGRESS, 'Pro&gress dialog\tCtrl-G')
+		info_menu.Append(DIALOGS_BUSYINFO, '&Busy info dialog\tCtrl-B')
+		info_menu.Append(DIALOGS_LOG_DIALOG, '&Log dialog\tCtrl-L')
+		menuDlg.AppendMenu(wx.ID_ANY, '&Informative dialogs', info_menu)
 		find_menu = wx.Menu()
-		find_menu.AppendCheckItem(DIALOGS_FIND, '&Find dialog\tCtrl-F');
-		find_menu.AppendCheckItem(DIALOGS_REPLACE, 'Find and &replace dialog\tShift-Ctrl-F');
-		menuDlg.AppendMenu(wx.ID_ANY, '&Searching', find_menu);
+		find_menu.AppendCheckItem(DIALOGS_FIND, '&Find dialog\tCtrl-F')
+		find_menu.AppendCheckItem(DIALOGS_REPLACE, 'Find and &replace dialog\tShift-Ctrl-F')
+		menuDlg.AppendMenu(wx.ID_ANY, '&Searching', find_menu)
 		dialogs_menu = wx.Menu()
-		dialogs_menu.Append(DIALOGS_MODAL, '&Modal dialog\tCtrl-W');
-		dialogs_menu.AppendCheckItem(DIALOGS_MODELESS, 'Mode&less dialog\tCtrl-Z');
-		dialogs_menu.Append(DIALOGS_CENTRE_SCREEN, 'Centered on &screen\tShift-Ctrl-1');
-		dialogs_menu.Append(DIALOGS_CENTRE_PARENT, 'Centered on &parent\tShift-Ctrl-2');
-		menuDlg.AppendMenu(wx.ID_ANY, '&Generic dialogs', dialogs_menu);
+		dialogs_menu.Append(DIALOGS_MODAL, '&Modal dialog\tCtrl-W')
+		dialogs_menu.AppendCheckItem(DIALOGS_MODELESS, 'Mode&less dialog\tCtrl-Z')
+		dialogs_menu.Append(DIALOGS_CENTRE_SCREEN, 'Centered on &screen\tShift-Ctrl-1')
+		dialogs_menu.Append(DIALOGS_CENTRE_PARENT, 'Centered on &parent\tShift-Ctrl-2')
+		menuDlg.AppendMenu(wx.ID_ANY, '&Generic dialogs', dialogs_menu)
 		sheet_menu = wx.Menu()
-		sheet_menu.Append(DIALOGS_PROPERTY_SHEET, '&Standard property sheet\tShift-Ctrl-P');
-		sheet_menu.Append(DIALOGS_PROPERTY_SHEET_TOOLBOOK, '&Toolbook sheet\tShift-Ctrl-T');
-		menuDlg.AppendMenu(wx.ID_ANY, '&Property sheets', sheet_menu);
-		menuDlg.Append(DIALOGS_REQUEST, '&Request user attention\tCtrl-R');
-		menuDlg.AppendSeparator();
-		menuDlg.Append(wx.ID_EXIT, 'E&xit\tAlt-X');
+		sheet_menu.Append(DIALOGS_PROPERTY_SHEET, '&Standard property sheet\tShift-Ctrl-P')
+		sheet_menu.Append(DIALOGS_PROPERTY_SHEET_TOOLBOOK, '&Toolbook sheet\tShift-Ctrl-T')
+		menuDlg.AppendMenu(wx.ID_ANY, '&Property sheets', sheet_menu)
+		menuDlg.Append(DIALOGS_REQUEST, '&Request user attention\tCtrl-R')
+		menuDlg.AppendSeparator()
+		menuDlg.Append(wx.ID_EXIT, 'E&xit\tAlt-X')
 		menuHelp = wx.Menu()
-		menuHelp.Append(DIALOGS_ABOUTDLG_SIMPLE, '&About (simple)...\tF1');
-		menuHelp.Append(DIALOGS_ABOUTDLG_FANCY, 'About (&fancy)...\tShift-F1');
-		menuHelp.Append(DIALOGS_ABOUTDLG_FULL, 'About (f&ull)...\tCtrl-F1');
-		menuHelp.Append(DIALOGS_ABOUTDLG_CUSTOM, 'About (&custom)...\tCtrl-Shift-F1');
+		menuHelp.Append(DIALOGS_ABOUTDLG_SIMPLE, '&About (simple)...\tF1')
+		menuHelp.Append(DIALOGS_ABOUTDLG_FANCY, 'About (&fancy)...\tShift-F1')
+		menuHelp.Append(DIALOGS_ABOUTDLG_FULL, 'About (f&ull)...\tCtrl-F1')
+		menuHelp.Append(DIALOGS_ABOUTDLG_CUSTOM, 'About (&custom)...\tCtrl-Shift-F1')
 		menubar = wx.MenuBar()
-		menubar.Append(menuDlg, '&Dialogs');
-		menubar.Append(menuHelp, '&Help');
-		frame.SetMenuBar(menubar);
-		myCanvas:extern = MyCanvas(frame);
-		myCanvas.SetBackgroundColour(wx.WHITE);
-		frame.Centre(wx.BOTH);
+		menubar.Append(menuDlg, '&Dialogs')
+		menubar.Append(menuHelp, '&Help')
+		frame.SetMenuBar(menubar)
+		myCanvas:extern = MyCanvas(frame)
+		myCanvas.SetBackgroundColour(wx.WHITE)
+		frame.Centre(wx.BOTH)
 		// Show the frame
-		frame.Show(true);
-		self.SetTopWindow(frame);
-		true;
+		frame.Show(true)
+		self.SetTopWindow(frame)
+		true
 	}
 }
 
@@ -153,15 +153,15 @@ MyApp = class(wx.App) {
 // a trivial example of a custom dialog class
 MyAboutDialog = class(wx.GenericAboutDialog) {
 	__init__(info:wx.AboutDialogInfo) = {
-		self.Create(info);
+		self.Create(info)
 	}
 	// add some custom controls
 	DoAddCustomControls() = {
 		self.AddControl(wx.StaticLine(self), wx.SizerFlags().Expand())
 		self.AddText('Some custom text')
-		self.AddControl(wx.StaticLine(self), wx.SizerFlags().Expand());
+		self.AddControl(wx.StaticLine(self), wx.SizerFlags().Expand())
 	}
-};
+}
 */
 
 MyFrame = class(wx.Frame) {
@@ -181,9 +181,9 @@ MyFrame = class(wx.Frame) {
 					i * 16,
 					i * 16
 				)
-			);
+			)
 		}
-		self.CreateStatusBar();
+		self.CreateStatusBar()
 	}
 	EventTable() = {
 		self.Bind(wx.EVT_MENU, DIALOGS_MESSAGE_BOX) {|event| self.MessageBox(event) }
@@ -232,123 +232,123 @@ MyFrame = class(wx.Frame) {
 		self.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| self.OnExit(event) }
 	}
 	ChooseColour(event:wx.CommandEvent) = {
-		self.m_clrData.SetColour(myCanvas.GetBackgroundColour());
-		dialog = wx.ColourDialog(self, self.m_clrData);
-		dialog.SetTitle('Choose the background colour');
+		self.m_clrData.SetColour(myCanvas.GetBackgroundColour())
+		dialog = wx.ColourDialog(self, self.m_clrData)
+		dialog.SetTitle('Choose the background colour')
 		if (dialog.ShowModal() == wx.ID_OK) {
-			self.m_clrData = dialog.GetColourData();
-			myCanvas.SetBackgroundColour(self.m_clrData.GetColour());
-			myCanvas.ClearBackground();
-			myCanvas.Refresh();
+			self.m_clrData = dialog.GetColourData()
+			myCanvas.SetBackgroundColour(self.m_clrData.GetColour())
+			myCanvas.ClearBackground()
+			myCanvas.Refresh()
 		}
 	}
 	/*
 	ChooseColourGeneric(event:wx.CommandEvent) = {
-		self.m_clrData.SetColour(myCanvas.GetBackgroundColour());
+		self.m_clrData.SetColour(myCanvas.GetBackgroundColour())
 		//FIXME:TODO:This has no effect...
-		self.m_clrData.SetChooseFull(true);
+		self.m_clrData.SetChooseFull(true)
 		repeat(16) {|i|
 			colour = wx.Colour(
 				i * 16,
 				i * 16,
 				i * 16
 			)
-			self.m_clrData.SetCustomColour(i, colour);
+			self.m_clrData.SetCustomColour(i, colour)
 		}
-		dialog = wx.GenericColourDialog(self, self.m_clrData);
+		dialog = wx.GenericColourDialog(self, self.m_clrData)
 		if (dialog.ShowModal() == wx.ID_OK) {
-			self.m_clrData = dialog.GetColourData();
-			myCanvas.SetBackgroundColour(self.m_clrData.GetColour());
-			myCanvas.ClearBackground();
-			myCanvas.Refresh();
+			self.m_clrData = dialog.GetColourData()
+			myCanvas.SetBackgroundColour(self.m_clrData.GetColour())
+			myCanvas.ClearBackground()
+			myCanvas.Refresh()
 		}
-		dialog.Destroy();
+		dialog.Destroy()
 	}
 	*/
 	ChooseFont(event:wx.CommandEvent) = {
 		data = wx.FontData()
-		data.SetInitialFont(wx.GetApp().m_canvasFont);
-		data.SetColour(wx.GetApp().m_canvasTextColour);
+		data.SetInitialFont(wx.GetApp().m_canvasFont)
+		data.SetColour(wx.GetApp().m_canvasTextColour)
 		// you might also do this:
 		//
-		//  wxFontDialog dialog;
+		//  wxFontDialog dialog
 		//  if ( !dialog.Create(this, data) { ... error ... }
 		//
-		dialog = wx.FontDialog(self, data);
+		dialog = wx.FontDialog(self, data)
 		if (dialog.ShowModal() == wx.ID_OK) {
-			retData = dialog.GetFontData();
-			wx.GetApp().m_canvasFont = retData.GetChosenFont();
-			wx.GetApp().m_canvasTextColour = retData.GetColour();
-			myCanvas.Refresh();
+			retData = dialog.GetFontData()
+			wx.GetApp().m_canvasFont = retData.GetChosenFont()
+			wx.GetApp().m_canvasTextColour = retData.GetColour()
+			myCanvas.Refresh()
 		}
 		//else: cancelled by the user, don't change the font
 	}
 	/*
 	ChooseFontGeneric(event:wx.CommandEvent) = {
 		data = wx.FontData()
-		data.SetInitialFont(wx.GetApp().m_canvasFont);
-		data.SetColour(wx.GetApp().m_canvasTextColour);
-		dialog = wx.GenericFontDialog(self, data);
+		data.SetInitialFont(wx.GetApp().m_canvasFont)
+		data.SetColour(wx.GetApp().m_canvasTextColour)
+		dialog = wx.GenericFontDialog(self, data)
 		if (dialog.ShowModal() == wx.ID_OK) {
-			retData = dialog.GetFontData();
-			wx.GetApp().m_canvasFont = retData.GetChosenFont();
-			wx.GetApp().m_canvasTextColour = retData.GetColour();
-			myCanvas.Refresh();
+			retData = dialog.GetFontData()
+			wx.GetApp().m_canvasFont = retData.GetChosenFont()
+			wx.GetApp().m_canvasTextColour = retData.GetColour()
+			myCanvas.Refresh()
 		}
-		dialog.Destroy();
+		dialog.Destroy()
 	}
 	*/
 	LogDialog(event:wx.CommandEvent) = {
 		// calling wxYield() (as ~wxBusyCursor does) shouldn't result in messages
 		// being flushed -- test it
 		wx.BusyCursor {
-			wx.LogMessage('This is some message - everything is ok so far.');
-			wx.LogMessage('Another message...\n... this one is on multiple lines');
-			wx.LogWarning('And then something went wrong!');
+			wx.LogMessage('This is some message - everything is ok so far.')
+			wx.LogMessage('Another message...\n... this one is on multiple lines')
+			wx.LogWarning('And then something went wrong!')
 			// and if ~wxBusyCursor doesn't do it, then call it manually
-			wx.Yield();
+			wx.Yield()
 		}
-		wx.LogError('Intermediary error handler decided to abort.');
-		wx.LogError('The top level caller detected an unrecoverable error.');
-		wx.Log.FlushActive();
-		wx.LogMessage('And this is the same dialog but with only one message.');
+		wx.LogError('Intermediary error handler decided to abort.')
+		wx.LogError('The top level caller detected an unrecoverable error.')
+		wx.Log.FlushActive()
+		wx.LogMessage('And this is the same dialog but with only one message.')
 	}
 	MessageBox(event:wx.CommandEvent) = {
 		dialog = wx.MessageDialog(nil, 'This is a message box\nA long, long string to test out the message box properly',
-			'Message box text', wx.NO_DEFAULT | wx.YES_NO | wx.CANCEL | wx.ICON_INFORMATION);
+			'Message box text', wx.NO_DEFAULT | wx.YES_NO | wx.CANCEL | wx.ICON_INFORMATION)
 		ret = dialog.ShowModal()
 		if (ret == wx.ID_YES) {
-			wx.LogStatus('You pressed "Yes"');
+			wx.LogStatus('You pressed "Yes"')
 		} elsif(ret == wx.ID_NO) {
-			wx.LogStatus('You pressed "No"');
+			wx.LogStatus('You pressed "No"')
 		} elsif(ret == wx.ID_CANCEL) {
-			wx.LogStatus('You pressed "Cancel"');
+			wx.LogStatus('You pressed "Cancel"')
 		} else {
-			wx.LogError('Unexpected wxMessageDialog return code!');
+			wx.LogError('Unexpected wxMessageDialog return code!')
 		}
 	}
 	NumericEntry(event:wx.CommandEvent) = {
 		res = wx.GetNumberFromUser('This is some text, actually a lot of text.\n' \
 									'Even two rows of text.',
 									'Enter a number:', 'Numeric input test',
-									50, 0, 100, self);
+									50, 0, 100, self)
 		if (res == -1) {
-			msg = 'Invalid number entered or dialog cancelled.';
-			icon = wx.ICON_HAND;
+			msg = 'Invalid number entered or dialog cancelled.'
+			icon = wx.ICON_HAND
 		} else {
-			msg = format("You've entered %lu", res);
-			icon = wx.ICON_INFORMATION;
+			msg = format("You've entered %lu", res)
+			icon = wx.ICON_INFORMATION
 		}
-		wx.MessageBox(msg, 'Numeric test result', wx.OK | icon, self);
+		wx.MessageBox(msg, 'Numeric test result', wx.OK | icon, self)
 	}
 	PasswordEntry(event:wx.CommandEvent) = {
 		pwd = wx.GetPasswordFromUser('Enter password:',
 									'Password entry dialog',
 									wx.EmptyString,
-									self);
+									self)
 		if (!pwd.isempty()) {
 			wx.MessageBox(format("Your password is '%s'", pwd),
-						'Got password', wx.OK | wx.ICON_INFORMATION, self);
+						'Got password', wx.OK | wx.ICON_INFORMATION, self)
 		}
 	}
 	TextEntry(event:wx.CommandEvent) = {
@@ -357,9 +357,9 @@ MyFrame = class(wx.Frame) {
 								'A long, long string to test out the text entrybox',
 								'Please enter a string',
 								'Default value',
-								wx.OK | wx.CANCEL);
+								wx.OK | wx.CANCEL)
 		if (dialog.ShowModal() == wx.ID_OK) {
-			wx.MessageBox(dialog.GetValue(), 'Got string', wx.OK | wx.ICON_INFORMATION, self);
+			wx.MessageBox(dialog.GetValue(), 'Got string', wx.OK | wx.ICON_INFORMATION, self)
 		}
 	}
 	SingleChoice(event:wx.CommandEvent) = {
@@ -368,11 +368,11 @@ MyFrame = class(wx.Frame) {
 									'This is a small sample\n' \
 									'A single-choice convenience dialog',
 									'Please select a value',
-									choices);
-		dialog.SetSelection(2);
+									choices)
+		dialog.SetSelection(2)
 		if (dialog.ShowModal() == wx.ID_OK) {
-			dialog2 = wx.MessageDialog(self, dialog.GetStringSelection(), 'Got string');
-			dialog2.ShowModal();
+			dialog2 = wx.MessageDialog(self, dialog.GetStringSelection(), 'Got string')
+			dialog2.ShowModal()
 		}
 	}
 	MultiChoice(event:wx.CommandEvent) = {
@@ -385,13 +385,13 @@ MyFrame = class(wx.Frame) {
 										'A multi-choice convenience dialog',
 										'Please select a value',
 										choices,
-										self);
+										self)
 		if (!selections.isempty()) {
-			msg = format('You selected %u items:\n', selections.len());
+			msg = format('You selected %u items:\n', selections.len())
 			msg += format('\t%u: %u (%s)\n',
 							0.., selections,
 							choices[selections]).join()
-			wx.LogMessage(msg);
+			wx.LogMessage(msg)
 		}
 		//else: cancelled or nothing selected
 	}
@@ -402,18 +402,18 @@ MyFrame = class(wx.Frame) {
 						wx.EmptyString,
 						wx.EmptyString,
 						'C++ files (*.cpp;*.h)|*.cpp;*.h'
-					);
-		dialog.CentreOnParent();
-		dialog.SetDirectory(wx.GetHomeDir());
+					)
+		dialog.CentreOnParent()
+		dialog.SetDirectory(wx.GetHomeDir())
 		if (dialog.ShowModal() == wx.ID_OK) {
 			info = format('Full file name: %s\n' \
 						'Path: %s\n' \
 						'Name: %s',
 						dialog.GetPath(),
 						dialog.GetDirectory(),
-						dialog.GetFilename());
-			dialog2 = wx.MessageDialog(self, info, 'Selected file');
-			dialog2.ShowModal();
+						dialog.GetFilename())
+			dialog2 = wx.MessageDialog(self, info, 'Selected file')
+			dialog2.ShowModal()
 		}
 	}
 	s_extDef = ''
@@ -429,33 +429,33 @@ MyFrame = class(wx.Frame) {
 							),
 							wx.FD_OPEN | wx.FD_CHANGE_DIR | wx.FD_PREVIEW,
 							self
-						);
+						)
 		if (res.isempty()) {
-			return;
+			return
 		}
 		// it is just a sample, would use wxSplitPath in real program
 		s_extDef = path.splitext(res)[1]
 		wx.LogMessage("You selected the file '%s', remembered extension '%s'",
-					res, s_extDef);
+					res, s_extDef)
 	}
 	FilesOpen(event:wx.CommandEvent) = {
 		wildcards = format(
 						'All files (%s)|%s|C++ files (*.cpp;*.h)|*.cpp;*.h',
 						wx.FileSelectorDefaultWildcardStr,
 						wx.FileSelectorDefaultWildcardStr
-					);
+					)
 		dialog = wx.FileDialog(self, 'Testing open multiple file dialog',
 						wx.EmptyString, wx.EmptyString, wildcards,
-						wx.FD_OPEN | wx.FD_MULTIPLE);
+						wx.FD_OPEN | wx.FD_MULTIPLE)
 		if (dialog.ShowModal() == wx.ID_OK) {
-			paths = dialog.GetPaths();
-			filenames = dialog.GetFilenames();
-			count = paths.len();
+			paths = dialog.GetPaths()
+			filenames = dialog.GetFilenames()
+			count = paths.len()
 			msg = format('File %d: %s (%s)\n', 0.., paths, filenames).join()
-			s = format('Filter index: %d', dialog.GetFilterIndex());
-			msg += s;
-			dialog2 = wx.MessageDialog(self, msg, 'Selected files');
-			dialog2.ShowModal();
+			s = format('Filter index: %d', dialog.GetFilterIndex())
+			msg += s
+			dialog2 = wx.MessageDialog(self, msg, 'Selected files')
+			dialog2.ShowModal()
 		}
 	}
 	FileSave(event:wx.CommandEvent) = {
@@ -464,11 +464,11 @@ MyFrame = class(wx.Frame) {
 							wx.EmptyString,
 							'myletter.doc',
 							'Text files (*.txt)|*.txt|Document files (*.doc)|*.doc',
-							wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT);
-		dialog.SetFilterIndex(1);
+							wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
+		dialog.SetFilterIndex(1)
 		if (dialog.ShowModal() == wx.ID_OK) {
 			wx.LogMessage('%s, filter %d',
-						dialog.GetPath(), dialog.GetFilterIndex());
+						dialog.GetPath(), dialog.GetFilterIndex())
 		}
 	}
 	/*
@@ -478,40 +478,40 @@ MyFrame = class(wx.Frame) {
 							wx.EmptyString,
 							wx.EmptyString,
 							'C++ files (*.cpp;*.h)|*.cpp;*.h'
-						 );
-		dialog.SetDirectory(wx.GetHomeDir());
+						 )
+		dialog.SetDirectory(wx.GetHomeDir())
 		if (dialog.ShowModal() == wx.ID_OK) {
 			info = format('Full file name: %s\n' \
 						'Path: %s\n' \
 						'Name: %s',
 						dialog.GetPath(),
 						dialog.GetDirectory(),
-						dialog.GetFilename());
-			dialog2 = wx.MessageDialog(self, info, 'Selected file');
-			dialog2.ShowModal();
+						dialog.GetFilename())
+			dialog2 = wx.MessageDialog(self, info, 'Selected file')
+			dialog2.ShowModal()
 		}
 	}
 	*/
 	/*
 	FilesOpenGeneric(event:wx.CommandEvent) = {
 		// On PocketPC you can disable OK-only dialogs policy using system option
-		buttons = wx.SystemOptions.GetOptionInt('wince.dialog.real-ok-cancel');
-		wx.SystemOptions.SetOption('wince.dialog.real-ok-cancel', 1);
-		wildcards = 'All files (*.*)|*.*|C++ files (*.cpp;*.h)|*.cpp;*.h';
+		buttons = wx.SystemOptions.GetOptionInt('wince.dialog.real-ok-cancel')
+		wx.SystemOptions.SetOption('wince.dialog.real-ok-cancel', 1)
+		wildcards = 'All files (*.*)|*.*|C++ files (*.cpp;*.h)|*.cpp;*.h'
 		dialog = wx.GenericFileDialog(self, 'Testing open multiple file dialog',
 							wx.EmptyString, wx.EmptyString, wildcards,
-							wx.FD_MULTIPLE);
+							wx.FD_MULTIPLE)
 		if (dialog.ShowModal() == wx.ID_OK) {
-			paths = dialog.GetPaths();
-			filenames = dialog.GetFilenames();
+			paths = dialog.GetPaths()
+			filenames = dialog.GetFilenames()
 			msg = format('File %d: %s (%s)\n', 0.., paths, filenames).join()
-			s = format('Filter index: %d', dialog.GetFilterIndex());
-			msg += s;
-			dialog2 = wx.MessageDialog(self, msg, 'Selected files');
-			dialog2.ShowModal();
+			s = format('Filter index: %d', dialog.GetFilterIndex())
+			msg += s
+			dialog2 = wx.MessageDialog(self, msg, 'Selected files')
+			dialog2.ShowModal()
 		}
 		// restore system option
-		wx.SystemOptions.SetOption('wince.dialog.real-ok-cancel', buttons);
+		wx.SystemOptions.SetOption('wince.dialog.real-ok-cancel', buttons)
 	}
 	*/
 	/*
@@ -521,99 +521,99 @@ MyFrame = class(wx.Frame) {
 							wx.EmptyString,
 							'myletter.doc',
 							'Text files (*.txt)|*.txt|Document files (*.doc)|*.doc',
-							wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT);
-		dialog.SetFilterIndex(1);
+							wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
+		dialog.SetFilterIndex(1)
 		if (dialog.ShowModal() == wx.ID_OK) {
 			wx.LogMessage('%s, filter %d',
-						 dialog.GetPath(), dialog.GetFilterIndex());
+						 dialog.GetPath(), dialog.GetFilterIndex())
 		}
 	}
 	*/
 	DoDirChoose(style:number) = {
 		// pass some initial dir to wxDirDialog
-		dirHome = wx.GetHomeDir();
-		dialog = wx.DirDialog(self, 'Testing directory picker', dirHome, style);
+		dirHome = wx.GetHomeDir()
+		dialog = wx.DirDialog(self, 'Testing directory picker', dirHome, style)
 		if (dialog.ShowModal() == wx.ID_OK) {
-			wx.LogMessage('Selected path: %s', dialog.GetPath());
+			wx.LogMessage('Selected path: %s', dialog.GetPath())
 		}
 	}
 	DirChoose(event:wx.CommandEvent) = {
-		self.DoDirChoose(wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST);
+		self.DoDirChoose(wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST)
 	}
 	DirChooseNew(event:wx.CommandEvent) = {
-		self.DoDirChoose(wx.DD_DEFAULT_STYLE & ~wx.DD_DIR_MUST_EXIST);
+		self.DoDirChoose(wx.DD_DEFAULT_STYLE & ~wx.DD_DIR_MUST_EXIST)
 	}
 	/*
 	GenericDirChoose(event:wx.CommandEvent) = {
 		// pass some initial dir to wxDirDialog
-		dirHome = wx.GetHomeDir();
-		dialog = wx.GenericDirDialog(self, 'Testing generic directory picker', dirHome);
+		dirHome = wx.GetHomeDir()
+		dialog = wx.GenericDirDialog(self, 'Testing generic directory picker', dirHome)
 		if (dialog.ShowModal() == wx.ID_OK) {
-			dialog2 = wx.MessageDialog(self, dialog.GetPath(), 'Selected path');
-			dialog2.ShowModal();
+			dialog2 = wx.MessageDialog(self, dialog.GetPath(), 'Selected path')
+			dialog2.ShowModal()
 		}
 	}
 	*/
 	ModalDlg(event:wx.CommandEvent) = {
-		dlg = MyModalDialog(self);
-		dlg.ShowModal();
+		dlg = MyModalDialog(self)
+		dlg.ShowModal()
 	}
 	ModelessDlg(event:wx.CommandEvent) = {
-		show = self.GetMenuBar().IsChecked(event.GetId());
+		show = self.GetMenuBar().IsChecked(event.GetId())
 		if (show) {
 			if (!self.m_dialog) {
-				self.m_dialog = MyModelessDialog(self);
+				self.m_dialog = MyModelessDialog(self)
 			}
-			self.m_dialog.Show(true);
+			self.m_dialog.Show(true)
 		} else { // hide
 			// If m_dialog is NULL, then possibly the system
 			// didn't report the checked menu item status correctly.
 			// It should be true just after the menu item was selected,
 			// if there was no modeless dialog yet.
-			//wx.ASSERT(self.m_dialog != nil);
+			//wx.ASSERT(self.m_dialog != nil)
 			if (self.m_dialog) {
-				self.m_dialog.Hide();
+				self.m_dialog.Hide()
 			}
 		}
 	}
 	DlgCenteredScreen(event:wx.CommandEvent) = {
 		dlg = wx.Dialog(self, wx.ID_ANY, 'Dialog centered on screen',
-					wx.DefaultPosition, wx.Size(200, 100));
-		wx.Button(dlg, wx.ID_OK, 'Close').Centre();
-		dlg.CentreOnScreen();
-		dlg.ShowModal();
+					wx.DefaultPosition, wx.Size(200, 100))
+		wx.Button(dlg, wx.ID_OK, 'Close').Centre()
+		dlg.CentreOnScreen()
+		dlg.ShowModal()
 	}
 	DlgCenteredParent(event:wx.CommandEvent) = {
 		dlg = wx.Dialog(self, wx.ID_ANY, 'Dialog centered on parent',
-					 wx.DefaultPosition, wx.Size(200, 100));
-		wx.Button(dlg, wx.ID_OK, 'Close').Centre();
-		dlg.CentreOnParent();
-		dlg.ShowModal();
+					 wx.DefaultPosition, wx.Size(200, 100))
+		wx.Button(dlg, wx.ID_OK, 'Close').Centre()
+		dlg.CentreOnParent()
+		dlg.ShowModal()
 	}
 	s_index = -1
 	ShowTip(event:wx.CommandEvent) = {
 		if (s_index == -1) {
 			// this is completely bogus, we don't know how many lines are there
 			// in the file, but who cares, it's a demo only...
-			s_index = rand(5);
+			s_index = rand(5)
 		}
-		tipProvider = wx.CreateFileTipProvider('tips.txt', s_index);
-		showAtStartup = wx.ShowTip(self, tipProvider);
+		tipProvider = wx.CreateFileTipProvider('tips.txt', s_index)
+		showAtStartup = wx.ShowTip(self, tipProvider)
 		if (showAtStartup) {
 			wx.MessageBox('Will show tips on startup', 'Tips dialog',
-						wx.OK | wx.ICON_INFORMATION, self);
+						wx.OK | wx.ICON_INFORMATION, self)
 		}
-		s_index = tipProvider.GetCurrentTip();
+		s_index = tipProvider.GetCurrentTip()
 		tipProvider = nil
 	}
 	OnPropertySheet(event:wx.CommandEvent) = {
-		dialog = SettingsDialog(self, event.GetId());
-		dialog.ShowModal();
+		dialog = SettingsDialog(self, event.GetId())
+		dialog.ShowModal()
 	}
 	OnRequestUserAttention(event:wx.CommandEvent) = {
-		wx.LogStatus('Sleeping for 3 seconds to allow you to switch to another window');
-		wx.Sleep(3);
-		self.RequestUserAttention(wx.USER_ATTENTION_ERROR);
+		wx.LogStatus('Sleeping for 3 seconds to allow you to switch to another window')
+		wx.Sleep(3)
+		self.RequestUserAttention(wx.USER_ATTENTION_ERROR)
 	}
 	OnExit(event:wx.CommandEvent) = {
 		self.Close(true)
@@ -621,88 +621,91 @@ MyFrame = class(wx.Frame) {
 	max = 100
 	ShowProgress(event:wx.CommandEvent) = {
 		dialog = wx.ProgressDialog('Progress dialog example',
-								'An informative message',
-								self.max,	// range
-								self,		// parent
-								wx.PD_CAN_ABORT | \
-								wx.PD_CAN_SKIP | \
-								wx.PD_APP_MODAL | \
-								/* wxPD_AUTO_HIDE | -- try this as well */ \
-								wx.PD_ELAPSED_TIME | \
-								wx.PD_ESTIMATED_TIME | \
-								wx.PD_REMAINING_TIME \
-								| wx.PD_SMOOTH // - makes indeterminate mode bar on WinXP very small
-							);
-		cont = true;
-		repeat(self.max) {|i|
-			wx.MilliSleep(200);
+				'An informative message',
+				self.max,	// range
+				self,		// parent
+				wx.PD_CAN_ABORT | \
+				wx.PD_CAN_SKIP | \
+				wx.PD_APP_MODAL | \
+				/* wxPD_AUTO_HIDE | -- try this as well */ \
+				wx.PD_ELAPSED_TIME | \
+				wx.PD_ESTIMATED_TIME | \
+				wx.PD_REMAINING_TIME \
+				| wx.PD_SMOOTH // - makes indeterminate mode bar on WinXP very small
+			)
+		cont = true
+		i = 0
+		repeat(self.max) {
+			wx.MilliSleep(200)
 			// test both modes of wxProgressDialog behaviour: start in
 			// indeterminate mode but switch to the determinate one later
-			determinate = (i > self.max / 2);
+			determinate = (i > self.max / 2)
 			if (i == self.max) {
-				msg = "That's all, folks!";
-			} elsif ( !determinate ) {
-				msg = 'Testing indeterminate mode';
-			} elsif ( determinate ) {
-				msg = 'Now in standard determinate mode';
+				msg = "That's all, folks!"
+			} elsif (!determinate) {
+				msg = 'Testing indeterminate mode'
+			} elsif (determinate) {
+				msg = 'Now in standard determinate mode'
 			}
 			// will be set to true if "Skip" button was pressed
-			skip = false;
+			skip = false
 			if (determinate) {
-				[cont, skip] = dialog.Update(i, msg);
+				[cont, skip] = dialog.Update(i, msg)
 			} else {
-				[cont, skip] = dialog.Pulse(msg);
+				[cont, skip] = dialog.Pulse(msg)
 			}
 			// each skip will move progress about quarter forward
 			if (skip) {
-				i += self.max / 4;
+				i += self.max / 4
 			}
 			if (!cont) {
 				if (wx.MessageBox('Do you really want to cancel?',
 								  'Progress dialog question',  // caption
 								  wx.YES_NO | wx.ICON_QUESTION) == wx.YES) {
-					break;
+					break
 				}
-				cont = true;
-				dialog.Resume();
+				cont = true
+				dialog.Resume()
 			}
+			i += 1
 		}
 		if (!cont) {
-			wx.LogStatus('Progress dialog aborted!');
+			wx.LogStatus('Progress dialog aborted!')
 		} else {
-			wx.LogStatus('Countdown from %d finished', self.max);
+			wx.LogStatus('Countdown from %d finished', self.max)
 		}
+		dialog.Destroy()
 	}
 	ShowSimpleAboutDialog(event:wx.CommandEvent) = {
 		info = wx.AboutDialogInfo()
-		InitAboutInfoMinimal(info);
-		wx.AboutBox(info);
+		InitAboutInfoMinimal(info)
+		wx.AboutBox(info)
 	}
 	ShowFancyAboutDialog(event:wx.CommandEvent) = {
 		info = wx.AboutDialogInfo()
-		InitAboutInfoWebsite(info);
-		wx.AboutBox(info);
+		InitAboutInfoWebsite(info)
+		wx.AboutBox(info)
 	}
 	ShowFullAboutDialog(event:wx.CommandEvent) = {
 		info = wx.AboutDialogInfo()
-		InitAboutInfoAll(info);
-		wx.AboutBox(info);
+		InitAboutInfoAll(info)
+		wx.AboutBox(info)
 	}
 	ShowCustomAboutDialog(event:wx.CommandEvent) = {
 		info = wx.AboutDialogInfo()
-		InitAboutInfoAll(info);
-		dlg = MyAboutDialog(info);
-		dlg.ShowModal();
+		InitAboutInfoAll(info)
+		dlg = MyAboutDialog(info)
+		dlg.ShowModal()
 	}
 	ShowBusyInfo(event:wx.CommandEvent) = {
 		wx.WindowDisabler() {
 			wx.BusyInfo('Working, please wait...', self) {
 				repeat(18) {|i|
-					//wx.Usleep(100);
-					wx.GetApp().Yield();
+					//wx.Usleep(100)
+					wx.GetApp().Yield()
 				}
-				wx.Sleep(2);
-				//wx.WakeUpIdle();
+				wx.Sleep(2)
+				//wx.WakeUpIdle()
 			}
 		}
 	}
@@ -716,8 +719,8 @@ MyFrame = class(wx.Frame) {
 								self.m_findData,
 								'Find and replace dialog',
 								wx.FR_REPLACEDIALOG
-							);
-			self.m_dlgReplace.Show(true);
+							)
+			self.m_dlgReplace.Show(true)
 		}
 	}
 	ShowFindDialog(event:wx.CommandEvent) = {
@@ -731,47 +734,47 @@ MyFrame = class(wx.Frame) {
 								'Find dialog',
 								// just for testing
 								wx.FR_NOWHOLEWORD
-							);
-			self.m_dlgFind.Show(true);
+							)
+			self.m_dlgFind.Show(true)
 		}
 	}
 	OnFindDialog(event:wx.FindDialogEvent) = {
-		type = event.GetEventType();
+		type = event.GetEventType()
 		if (type == wx.EVT_FIND.GetEventType() || \
 					type == wx.EVT_FIND_NEXT.GetEventType()) {
 			wx.LogMessage("Find %s'%s' (flags: %s)",
 						cond(type == wx.EVT_FIND_NEXT.GetEventType(), 'next ', ''),
 						event.GetFindString(),
-						DecodeFindDialogEventFlags(event.GetFlags()));
+						DecodeFindDialogEventFlags(event.GetFlags()))
 		} elsif (type == wx.EVT_FIND_REPLACE.GetEventType() || \
 					type == wx.EVT_FIND_REPLACE_ALL.GetEventType()) {
 			wx.LogMessage("Replace %s'%s' with '%s' (flags: %s)",
 						cond(type == wx.EVT_FIND_REPLACE_ALL.GetEventType(), 'all ', ''),
 						event.GetFindString(),
 						event.GetReplaceString(),
-						DecodeFindDialogEventFlags(event.GetFlags()));
+						DecodeFindDialogEventFlags(event.GetFlags()))
 		} elsif (type == wx.EVT_FIND_CLOSE.GetEventType()) {
-			dlg = event.GetDialog();
+			dlg = event.GetDialog()
 			if (dlg == self.m_dlgFind ) {
-				txt = 'Find';
-				idMenu = DIALOGS_FIND;
-				self.m_dlgFind = nil;
+				txt = 'Find'
+				idMenu = DIALOGS_FIND
+				self.m_dlgFind = nil
 			} elsif (dlg == self.m_dlgReplace) {
-				txt = 'Replace';
-				idMenu = DIALOGS_REPLACE;
-				self.m_dlgReplace = nil;
+				txt = 'Replace'
+				idMenu = DIALOGS_REPLACE
+				self.m_dlgReplace = nil
 			} else {
-				txt = 'Unknown';
-				idMenu = wx.ID_ANY;
-				wx.FAIL_MSG('unexpected event');
+				txt = 'Unknown'
+				idMenu = wx.ID_ANY
+				wx.FAIL_MSG('unexpected event')
 			}
-			wx.LogMessage('%s dialog is being closed.', txt);
+			wx.LogMessage('%s dialog is being closed.', txt)
 			if (idMenu != wx.ID_ANY) {
-				self.GetMenuBar().Check(idMenu, false);
+				self.GetMenuBar().Check(idMenu, false)
 			}
-			dlg.Destroy();
+			dlg.Destroy()
 		} else {
-			wx.LogError('Unknown find dialog event!');
+			wx.LogError('Unknown find dialog event!')
 		}
 	}
 }
@@ -789,9 +792,9 @@ MyCanvas = class(wx.ScrolledWindow) {
 	}
 	OnPaint(event:wx.PaintEvent) = {
 		wx.PaintDC(self) {|dc|
-			dc.SetFont(wx.GetApp().m_canvasFont);
-			dc.SetTextForeground(wx.GetApp().m_canvasTextColour);
-			dc.SetBackgroundMode(wx.TRANSPARENT);
+			dc.SetFont(wx.GetApp().m_canvasFont)
+			dc.SetTextForeground(wx.GetApp().m_canvasTextColour)
+			dc.SetBackgroundMode(wx.TRANSPARENT)
 			dc.DrawText('wxWidgets common dialogs' \
 						' test application', 10, 10)
 		}
@@ -805,15 +808,15 @@ MyCanvas = class(wx.ScrolledWindow) {
 MyModelessDialog = class(wx.Dialog) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, 'Modeless dialog'|
 		self.EventTable()
-		sizerTop = wx.BoxSizer(wx.VERTICAL);
-		btn = wx.Button(self, DIALOGS_MODELESS_BTN, 'Press me');
-		check = wx.CheckBox(self, wx.ID_ANY, 'Should be disabled');
-		check.Disable();
+		sizerTop = wx.BoxSizer(wx.VERTICAL)
+		btn = wx.Button(self, DIALOGS_MODELESS_BTN, 'Press me')
+		check = wx.CheckBox(self, wx.ID_ANY, 'Should be disabled')
+		check.Disable()
 		sizerTop.Add(btn, wx.SizerFlags(1).Expand().Border(wx.ALL, 5))
 		sizerTop.Add(check, wx.SizerFlags(1).Expand().Border(wx.ALL, 5))
-		self.SetSizer(sizerTop);
-		sizerTop.SetSizeHints(self);
-		sizerTop.Fit(self);
+		self.SetSizer(sizerTop)
+		sizerTop.SetSizeHints(self)
+		sizerTop.Fit(self)
 	}
 	EventTable() = {
 		self.Bind(wx.EVT_BUTTON, DIALOGS_MODELESS_BTN) {|event| self.OnButton(event) }
@@ -821,14 +824,14 @@ MyModelessDialog = class(wx.Dialog) {
 	}
 	OnButton(event:wx.CommandEvent) = {
 		wx.MessageBox('Button pressed in modeless dialog', 'Info',
-						wx.OK | wx.ICON_INFORMATION, self);
+						wx.OK | wx.ICON_INFORMATION, self)
 	}
 	OnClose(event:wx.CloseEvent) = {
 		if (event.CanVeto()) {
 			wx.MessageBox('Use the menu item to close this dialog',
 						'Modeless dialog',
-						wx.OK | wx.ICON_INFORMATION, self);
-			event.Veto();
+						wx.OK | wx.ICON_INFORMATION, self)
+			event.Veto()
 		}
 	}
 }
@@ -840,20 +843,20 @@ MyModelessDialog = class(wx.Dialog) {
 MyModalDialog = class(wx.Dialog) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, 'Modal dialog'|
 		self.EventTable()
-		sizerTop = wx.BoxSizer(wx.HORIZONTAL);
-		self.m_btnModal = wx.Button(self, wx.ID_ANY, '&Modal dialog...');
-		self.m_btnModeless = wx.Button(self, wx.ID_ANY, 'Mode&less dialog');
-		self.m_btnDelete = wx.Button(self, wx.ID_ANY, '&Delete button');
-		btnOk = wx.Button(self, wx.ID_CANCEL, '&Close');
-		sizerTop.Add(self.m_btnModal, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5));
-		sizerTop.Add(self.m_btnModeless, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5));
-		sizerTop.Add(self.m_btnDelete, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5));
-		sizerTop.Add(btnOk, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5));
-		self.SetSizer(sizerTop);
-		sizerTop.SetSizeHints(self);
-		sizerTop.Fit(self);
-		self.m_btnModal.SetFocus();
-		self.m_btnModal.SetDefault();
+		sizerTop = wx.BoxSizer(wx.HORIZONTAL)
+		self.m_btnModal = wx.Button(self, wx.ID_ANY, '&Modal dialog...')
+		self.m_btnModeless = wx.Button(self, wx.ID_ANY, 'Mode&less dialog')
+		self.m_btnDelete = wx.Button(self, wx.ID_ANY, '&Delete button')
+		btnOk = wx.Button(self, wx.ID_CANCEL, '&Close')
+		sizerTop.Add(self.m_btnModal, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5))
+		sizerTop.Add(self.m_btnModeless, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5))
+		sizerTop.Add(self.m_btnDelete, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5))
+		sizerTop.Add(btnOk, wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 5))
+		self.SetSizer(sizerTop)
+		sizerTop.SetSizeHints(self)
+		sizerTop.Fit(self)
+		self.m_btnModal.SetFocus()
+		self.m_btnModal.SetDefault()
 	}
 	EventTable() = {
 		self.Bind(wx.EVT_BUTTON) {|event| self.OnButton(event) }
@@ -862,15 +865,15 @@ MyModalDialog = class(wx.Dialog) {
 		if (event.GetEventObject() == self.m_btnDelete) {
 			self.m_btnModal.Destroy()
 			self.m_btnModal = nil
-			self.m_btnDelete.Disable();
+			self.m_btnDelete.Disable()
 		} elsif (event.GetEventObject() == self.m_btnModal) {
 			wx.GetTextFromUser('Dummy prompt',
 							'Modal dialog called from dialog',
-							wx.EmptyString, self);
+							wx.EmptyString, self)
 		} elsif (event.GetEventObject() == self.m_btnModeless) {
-			MyModelessDialog(self).Show();
+			MyModelessDialog(self).Show()
 		} else {
-			event.Skip();
+			event.Skip()
 		}
 	}
 }
@@ -892,31 +895,31 @@ SettingsDialog = class(wx.PropertySheetDialog) {
 	__init__(parent:wx.Window, dialogType:number) = \
 			{|parent, wx.ID_ANY, 'Preferences', wx.DefaultPosition, wx.DefaultSize,
 			  (wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)|
-		self.SetExtraStyle(wx.DIALOG_EX_CONTEXTHELP | wx.WS_EX_VALIDATE_RECURSIVELY);
-		tabImage1 = -1;
-		tabImage2 = -1;
-		useToolBook = (dialogType == DIALOGS_PROPERTY_SHEET_TOOLBOOK || dialogType == DIALOGS_PROPERTY_SHEET_BUTTONTOOLBOOK);
-		resizeBorder = wx.RESIZE_BORDER;
+		self.SetExtraStyle(wx.DIALOG_EX_CONTEXTHELP | wx.WS_EX_VALIDATE_RECURSIVELY)
+		tabImage1 = -1
+		tabImage2 = -1
+		useToolBook = (dialogType == DIALOGS_PROPERTY_SHEET_TOOLBOOK || dialogType == DIALOGS_PROPERTY_SHEET_BUTTONTOOLBOOK)
+		resizeBorder = wx.RESIZE_BORDER
 		if (useToolBook) {
-			resizeBorder = 0;
-			tabImage1 = 0;
-			tabImage2 = 1;
-			sheetStyle = wx.PROPSHEET_SHRINKTOFIT;
+			resizeBorder = 0
+			tabImage1 = 0
+			tabImage2 = 1
+			sheetStyle = wx.PROPSHEET_SHRINKTOFIT
 			if (dialogType == DIALOGS_PROPERTY_SHEET_BUTTONTOOLBOOK) {
-				sheetStyle |= wx.PROPSHEET_BUTTONTOOLBOOK;
+				sheetStyle |= wx.PROPSHEET_BUTTONTOOLBOOK
 			} else {
-				sheetStyle |= wx.PROPSHEET_TOOLBOOK;
+				sheetStyle |= wx.PROPSHEET_TOOLBOOK
 			}
-			self.SetSheetStyle(sheetStyle);
-			self.SetSheetInnerBorder(0);
-			self.SetSheetOuterBorder(0);
+			self.SetSheetStyle(sheetStyle)
+			self.SetSheetInnerBorder(0)
+			self.SetSheetOuterBorder(0)
 			// create a dummy image list with a few icons
-			imageSize = wx.Size(32, 32);
-			self.m_imageList = wx.ImageList(imageSize.GetWidth(), imageSize.GetHeight());
-			self.m_imageList.Add(wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_OTHER, imageSize));
-			self.m_imageList.Add(wx.ArtProvider.GetBitmap(wx.ART_QUESTION, wx.ART_OTHER, imageSize));
-			self.m_imageList.Add(wx.ArtProvider.GetBitmap(wx.ART_WARNING, wx.ART_OTHER, imageSize));
-			self.m_imageList.Add(wx.ArtProvider.GetBitmap(wx.ART_ERROR, wx.ART_OTHER, imageSize));
+			imageSize = wx.Size(32, 32)
+			self.m_imageList = wx.ImageList(imageSize.GetWidth(), imageSize.GetHeight())
+			self.m_imageList.Add(wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_OTHER, imageSize))
+			self.m_imageList.Add(wx.ArtProvider.GetBitmap(wx.ART_QUESTION, wx.ART_OTHER, imageSize))
+			self.m_imageList.Add(wx.ArtProvider.GetBitmap(wx.ART_WARNING, wx.ART_OTHER, imageSize))
+			self.m_imageList.Add(wx.ArtProvider.GetBitmap(wx.ART_ERROR, wx.ART_OTHER, imageSize))
 		} else {
 			self.m_imageList = nil
 		}
@@ -924,107 +927,107 @@ SettingsDialog = class(wx.PropertySheetDialog) {
 		if (!useToolBook) {
 			self.CreateButtons(wx.OK | wx.CANCEL | wx.HELP)
 		}
-		notebook = self.GetBookCtrl();
-		notebook.SetImageList(self.m_imageList);
-		generalSettings = self.CreateGeneralSettingsPage(notebook);
-		aestheticSettings = self.CreateAestheticSettingsPage(notebook);
-		notebook.AddPage(generalSettings, 'General', true, tabImage1);
-		notebook.AddPage(aestheticSettings, 'Aesthetics', false, tabImage2);
-		self.LayoutDialog();
+		notebook = self.GetBookCtrl()
+		notebook.SetImageList(self.m_imageList)
+		generalSettings = self.CreateGeneralSettingsPage(notebook)
+		aestheticSettings = self.CreateAestheticSettingsPage(notebook)
+		notebook.AddPage(generalSettings, 'General', true, tabImage1)
+		notebook.AddPage(aestheticSettings, 'Aesthetics', false, tabImage2)
+		self.LayoutDialog()
 	}
 	CreateGeneralSettingsPage(parent:wx.Window) = {
-		panel = wx.Panel(parent, wx.ID_ANY);
-		topSizer = wx.BoxSizer(wx.VERTICAL);
-		item0 = wx.BoxSizer(wx.VERTICAL);
+		panel = wx.Panel(parent, wx.ID_ANY)
+		topSizer = wx.BoxSizer(wx.VERTICAL)
+		item0 = wx.BoxSizer(wx.VERTICAL)
 		//// LOAD LAST FILE
-		itemSizer3 = wx.BoxSizer(wx.HORIZONTAL);
-		checkBox3 = wx.CheckBox(panel, ID_LOAD_LAST_PROJECT, '&Load last project on startup', wx.DefaultPosition, wx.DefaultSize);
-		itemSizer3.Add(checkBox3, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
-		item0.Add(itemSizer3, wx.SizerFlags(0).Expand().Border(wx.ALL, 0));
+		itemSizer3 = wx.BoxSizer(wx.HORIZONTAL)
+		checkBox3 = wx.CheckBox(panel, ID_LOAD_LAST_PROJECT, '&Load last project on startup', wx.DefaultPosition, wx.DefaultSize)
+		itemSizer3.Add(checkBox3, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5))
+		item0.Add(itemSizer3, wx.SizerFlags(0).Expand().Border(wx.ALL, 0))
 		//// AUTOSAVE
-		autoSaveLabel = '&Auto-save every';
-		minsLabel = 'mins';
-		itemSizer12 = wx.BoxSizer(wx.HORIZONTAL);
-		checkBox12 = wx.CheckBox(panel, ID_AUTO_SAVE, autoSaveLabel, wx.DefaultPosition, wx.DefaultSize);
+		autoSaveLabel = '&Auto-save every'
+		minsLabel = 'mins'
+		itemSizer12 = wx.BoxSizer(wx.HORIZONTAL)
+		checkBox12 = wx.CheckBox(panel, ID_AUTO_SAVE, autoSaveLabel, wx.DefaultPosition, wx.DefaultSize)
 		spinCtrl12 = wx.SpinCtrl(panel, ID_AUTO_SAVE_MINS, wx.EmptyString,
-			wx.DefaultPosition, wx.Size(40, wx.DefaultCoord), wx.SP_ARROW_KEYS, 1, 60, 1);
-		itemSizer12.Add(checkBox12, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
-		itemSizer12.Add(spinCtrl12, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
-		itemSizer12.Add(wx.StaticText(panel, wx.ID_STATIC, minsLabel), wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
-		item0.Add(itemSizer12, wx.SizerFlags(0).Expand().Border(wx.ALL, 0));
+			wx.DefaultPosition, wx.Size(40, wx.DefaultCoord), wx.SP_ARROW_KEYS, 1, 60, 1)
+		itemSizer12.Add(checkBox12, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5))
+		itemSizer12.Add(spinCtrl12, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5))
+		itemSizer12.Add(wx.StaticText(panel, wx.ID_STATIC, minsLabel), wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5))
+		item0.Add(itemSizer12, wx.SizerFlags(0).Expand().Border(wx.ALL, 0))
 		//// TOOLTIPS
-		itemSizer8 = wx.BoxSizer(wx.HORIZONTAL);
-		checkBox6 = wx.CheckBox(panel, ID_SHOW_TOOLTIPS, 'Show &tooltips', wx.DefaultPosition, wx.DefaultSize);
-		itemSizer8.Add(checkBox6, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
-		item0.Add(itemSizer8, wx.SizerFlags(0).Expand().Border(wx.ALL, 0));
+		itemSizer8 = wx.BoxSizer(wx.HORIZONTAL)
+		checkBox6 = wx.CheckBox(panel, ID_SHOW_TOOLTIPS, 'Show &tooltips', wx.DefaultPosition, wx.DefaultSize)
+		itemSizer8.Add(checkBox6, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5))
+		item0.Add(itemSizer8, wx.SizerFlags(0).Expand().Border(wx.ALL, 0))
 		topSizer.Add(item0, wx.SizerFlags(1).Expand().Align(wx.ALIGN_CENTRE).Border(wx.ALL, 5))
-		panel.SetSizer(topSizer);
-		topSizer.Fit(panel);
-		panel;
+		panel.SetSizer(topSizer)
+		topSizer.Fit(panel)
+		panel
 	}
 	CreateAestheticSettingsPage(parent:wx.Window) = {
-		panel = wx.Panel(parent, wx.ID_ANY);
-		topSizer = wx.BoxSizer(wx.VERTICAL);
-		item0 = wx.BoxSizer(wx.VERTICAL);
+		panel = wx.Panel(parent, wx.ID_ANY)
+		topSizer = wx.BoxSizer(wx.VERTICAL)
+		item0 = wx.BoxSizer(wx.VERTICAL)
 		//// PROJECT OR GLOBAL
 		globalOrProjectChoices = [
 			'&New projects',
 			'&This project'
 		]
 		projectOrGlobal = wx.RadioBox(panel, ID_APPLY_SETTINGS_TO, '&Apply settings to:',
-			wx.DefaultPosition, wx.DefaultSize, globalOrProjectChoices);
-		item0.Add(projectOrGlobal, wx.SizerFlags(0).Expand().Border(wx.ALL, 5));
-		projectOrGlobal.SetSelection(0);
+			wx.DefaultPosition, wx.DefaultSize, globalOrProjectChoices)
+		item0.Add(projectOrGlobal, wx.SizerFlags(0).Expand().Border(wx.ALL, 5))
+		projectOrGlobal.SetSelection(0)
 		//// BACKGROUND STYLE
 		backgroundStyleChoices = [
 			'Colour',
 			'Image'
 		]
-		staticBox3 = wx.StaticBox(panel, wx.ID_ANY, 'Background style:');
-		styleSizer = wx.StaticBoxSizer(staticBox3, wx.VERTICAL);
-		item0.Add(styleSizer, wx.SizerFlags(0).Expand().Border(wx.ALL, 5));
-		itemSizer2 = wx.BoxSizer(wx.HORIZONTAL);
-		choice2 = wx.Choice(panel, ID_BACKGROUND_STYLE, wx.DefaultPosition, wx.DefaultSize, backgroundStyleChoices);
-		itemSizer2.Add(wx.StaticText(panel, wx.ID_ANY, '&Window:'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
-		itemSizer2.AddSpacer(5, 5, 1, wx.ALL, 0);
-		itemSizer2.Add(choice2, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
-		styleSizer.Add(itemSizer2, wx.SizerFlags(0).Expand().Border(wx.ALL, 5));
+		staticBox3 = wx.StaticBox(panel, wx.ID_ANY, 'Background style:')
+		styleSizer = wx.StaticBoxSizer(staticBox3, wx.VERTICAL)
+		item0.Add(styleSizer, wx.SizerFlags(0).Expand().Border(wx.ALL, 5))
+		itemSizer2 = wx.BoxSizer(wx.HORIZONTAL)
+		choice2 = wx.Choice(panel, ID_BACKGROUND_STYLE, wx.DefaultPosition, wx.DefaultSize, backgroundStyleChoices)
+		itemSizer2.Add(wx.StaticText(panel, wx.ID_ANY, '&Window:'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5))
+		itemSizer2.AddSpacer(5, 5, 1, wx.ALL, 0)
+		itemSizer2.Add(choice2, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5))
+		styleSizer.Add(itemSizer2, wx.SizerFlags(0).Expand().Border(wx.ALL, 5))
 		//// FONT SIZE SELECTION
-		staticBox1 = wx.StaticBox(panel, wx.ID_ANY, 'Tile font size:');
-		itemSizer5 = wx.StaticBoxSizer(staticBox1, wx.HORIZONTAL);
+		staticBox1 = wx.StaticBox(panel, wx.ID_ANY, 'Tile font size:')
+		itemSizer5 = wx.StaticBoxSizer(staticBox1, wx.HORIZONTAL)
 		spinCtrl = wx.SpinCtrl(panel, ID_FONT_SIZE, wx.EmptyString, wx.DefaultPosition,
-			wx.Size(80, wx.DefaultCoord));
-		itemSizer5.Add(spinCtrl, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_HORIZONTAL | wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5));
-		item0.Add(itemSizer5, wx.SizerFlags(0).Expand().Border(wx.LEFT | wx.RIGHT, 5));
-		topSizer.Add(item0, wx.SizerFlags(1).Expand().Align(wx.ALIGN_CENTRE).Border(wx.ALL, 5));
-		topSizer.AddSpacer(5);
-		panel.SetSizer(topSizer);
-		topSizer.Fit(panel);
-		panel;
+			wx.Size(80, wx.DefaultCoord))
+		itemSizer5.Add(spinCtrl, wx.SizerFlags(0).Align(wx.ALIGN_CENTER_HORIZONTAL | wx.ALIGN_CENTER_VERTICAL).Border(wx.ALL, 5))
+		item0.Add(itemSizer5, wx.SizerFlags(0).Expand().Border(wx.LEFT | wx.RIGHT, 5))
+		topSizer.Add(item0, wx.SizerFlags(1).Expand().Align(wx.ALIGN_CENTRE).Border(wx.ALL, 5))
+		topSizer.AddSpacer(5)
+		panel.SetSizer(topSizer)
+		topSizer.Fit(panel)
+		panel
 	}
-};
+}
 
 // ----------------------------------------------------------------------------
 // utility functions
 // ----------------------------------------------------------------------------
 
 InitAboutInfoMinimal(info:wx.AboutDialogInfo) = {
-	info.SetName('Dialogs Sample');
-	info.SetVersion(wx.VERSION_NUM_DOT_STRING);
-	info.SetDescription('This sample shows different wxWidgets dialogs');
-	info.SetCopyright('(C) 1998-2006 wxWidgets dev team');
-	info.AddDeveloper('Vadim Zeitlin');
+	info.SetName('Dialogs Sample')
+	info.SetVersion(wx.VERSION_NUM_DOT_STRING)
+	info.SetDescription('This sample shows different wxWidgets dialogs')
+	info.SetCopyright('(C) 1998-2006 wxWidgets dev team')
+	info.AddDeveloper('Vadim Zeitlin')
 }
 
 InitAboutInfoWebsite(info:wx.AboutDialogInfo) = {
-	InitAboutInfoMinimal(info);
-	info.SetWebSite('http://www.wxwidgets.org/', 'wxWidgets web site');
+	InitAboutInfoMinimal(info)
+	info.SetWebSite('http://www.wxwidgets.org/', 'wxWidgets web site')
 }
 
 InitAboutInfoAll(info:wx.AboutDialogInfo) = {
-	InitAboutInfoMinimal(info);
+	InitAboutInfoMinimal(info)
 	// we can add a second developer
-	info.AddDeveloper('A.N. Other');
+	info.AddDeveloper('A.N. Other')
 	// or we can add several persons at once like this
 	docwriters = [
 		'First D. Writer',
@@ -1046,7 +1049,7 @@ InitAboutInfoAll(info:wx.AboutDialogInfo) = {
 					...and so on and so forth...
 '''
 	)
-	info.AddTranslator('Wun Ngo Wen (Martian)');
+	info.AddTranslator('Wun Ngo Wen (Martian)')
 }
 
 DecodeFindDialogEventFlags(flags:number) = {
