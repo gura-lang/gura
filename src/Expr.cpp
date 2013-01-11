@@ -533,6 +533,16 @@ bool Expr_Value::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
+bool Expr_Value::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_Value::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 String Expr_Value::ToString() const
 {
 	Signal sig;
@@ -576,6 +586,16 @@ bool Expr_String::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "String");
 	return true;
+}
+
+bool Expr_String::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_String::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
 }
 
 String Expr_String::ToString() const
@@ -708,6 +728,16 @@ bool Expr_Symbol::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
+bool Expr_Symbol::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_Symbol::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 String Expr_Symbol::ToString() const
 {
 	return GetSymbol()->GetName();
@@ -740,6 +770,16 @@ Value Expr_Root::Exec(Environment &env, Signal sig) const
 bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	return _exprOwner.GenerateCode(env, sig, stream);
+}
+
+bool Expr_Root::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_Root::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
 }
 
 String Expr_Root::ToString() const
@@ -799,6 +839,16 @@ bool Expr_Block::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
+bool Expr_Block::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_Block::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 String Expr_Block::ToString() const
 {
 	String str;
@@ -836,6 +886,16 @@ bool Expr_BlockParam::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "BlockParam");
 	return true;
+}
+
+bool Expr_BlockParam::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_BlockParam::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
 }
 
 String Expr_BlockParam::ToString() const
@@ -985,6 +1045,16 @@ bool Expr_Lister::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "Lister");
 	return true;
+}
+
+bool Expr_Lister::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_Lister::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
 }
 
 String Expr_Lister::ToString() const
@@ -1224,6 +1294,16 @@ bool Expr_Indexer::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "Indexer");
 	return true;
+}
+
+bool Expr_Indexer::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_Indexer::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
 }
 
 String Expr_Indexer::ToString() const
@@ -1522,6 +1602,16 @@ bool Expr_Caller::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
+bool Expr_Caller::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_Caller::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 String Expr_Caller::ToString() const
 {
 	String str;
@@ -1601,6 +1691,16 @@ bool Expr_UnaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
+bool Expr_UnaryOp::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_UnaryOp::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 String Expr_UnaryOp::ToString() const
 {
 	bool needParenthesisFlag = false;
@@ -1666,6 +1766,16 @@ bool Expr_BinaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "BinaryOp");
 	return true;
+}
+
+bool Expr_BinaryOp::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_BinaryOp::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
 }
 
 String Expr_BinaryOp::ToString() const
@@ -1735,6 +1845,16 @@ bool Expr_Quote::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
+bool Expr_Quote::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_Quote::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 String Expr_Quote::ToString() const
 {
 	String str;
@@ -1769,6 +1889,16 @@ bool Expr_Force::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
+bool Expr_Force::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_Force::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 String Expr_Force::ToString() const
 {
 	String str;
@@ -1801,6 +1931,16 @@ bool Expr_Prefix::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "Prefix");
 	return true;
+}
+
+bool Expr_Prefix::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_Prefix::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
 }
 
 String Expr_Prefix::ToString() const
@@ -1844,6 +1984,16 @@ bool Expr_Suffix::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "Suffix");
 	return true;
+}
+
+bool Expr_Suffix::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_Suffix::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
 }
 
 String Expr_Suffix::ToString() const
@@ -1926,6 +2076,16 @@ bool Expr_Assign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
+bool Expr_Assign::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_Assign::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 String Expr_Assign::ToString() const
 {
 	String str;
@@ -1975,6 +2135,16 @@ bool Expr_DictAssign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "DictAssign");
 	return true;
+}
+
+bool Expr_DictAssign::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_DictAssign::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
 }
 
 String Expr_DictAssign::ToString() const
@@ -2145,6 +2315,16 @@ bool Expr_Member::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
+bool Expr_Member::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
+bool Expr_Member::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 String Expr_Member::ToString() const
 {
 	String str;
@@ -2285,6 +2465,11 @@ bool ExprList::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
+bool ExprList::DoSerialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 String ExprList::ToString(const char *sep) const
 {
 	String str;
@@ -2335,6 +2520,11 @@ void ExprOwner::Clear()
 		Expr::Delete(const_cast<Expr *>(*ppExpr));
 	}
 	clear();
+}
+
+bool ExprList::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
 }
 
 }
