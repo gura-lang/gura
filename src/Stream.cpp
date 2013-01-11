@@ -414,6 +414,26 @@ bool Stream::ReadToStream(Environment &env, Signal sig, Stream &streamDst,
 	return true;
 }
 
+bool Stream::SerializeString(Signal sig, const char *str)
+{
+	return false;
+}
+
+bool Stream::DeserializeString(Signal sig, String &str)
+{
+	return false;
+}
+
+bool Stream::SerializeBinary(Signal sig, const Binary &binary)
+{
+	return false;
+}
+
+bool Stream::DeserializeBinary(Signal sig, Binary &binary)
+{
+	return false;
+}
+
 Stream *Stream::Prefetch(Signal sig, Stream *pStreamSrc,
 										bool deleteSrcFlag, size_t bytesUnit)
 {

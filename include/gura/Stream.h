@@ -166,6 +166,10 @@ public:
 	bool ReadToStream(Environment &env, Signal sig, Stream &streamDst,
 					size_t bytesUnit = 0x10000, bool finalizeFlag = true,
 					const Function *pFuncFilter = NULL);
+	bool SerializeString(Signal sig, const char *str);
+	bool DeserializeString(Signal sig, String &str);
+	bool SerializeBinary(Signal sig, const Binary &binary);
+	bool DeserializeBinary(Signal sig, Binary &binary);
 public:
 	static Stream *Prefetch(Signal sig, Stream *pStreamSrc,
 							bool deleteSrcFlag, size_t bytesUnit = 0x10000);
