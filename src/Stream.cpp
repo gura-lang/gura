@@ -414,6 +414,46 @@ bool Stream::ReadToStream(Environment &env, Signal sig, Stream &streamDst,
 	return true;
 }
 
+bool Stream::SerializeUChar(Signal sig, unsigned char num)
+{
+	return false;
+}
+
+bool Stream::DeserializeUChar(Signal sig, unsigned char &num)
+{
+	return false;
+}
+
+bool Stream::SerializeUShort(Signal sig, unsigned short num)
+{
+	return false;
+}
+
+bool Stream::DeserializeUShort(Signal sig, unsigned short &num)
+{
+	return false;
+}
+
+bool Stream::SerializeULong(Signal sig, unsigned long num)
+{
+	return false;
+}
+
+bool Stream::DeserializeULong(Signal sig, unsigned long &num)
+{
+	return false;
+}
+
+bool Stream::SerializeUInt64(Signal sig, uint64 num)
+{
+	return false;
+}
+
+bool Stream::DeserializeUInt64(Signal sig, uint64 &num)
+{
+	return false;
+}
+
 bool Stream::SerializeString(Signal sig, const char *str)
 {
 	return false;

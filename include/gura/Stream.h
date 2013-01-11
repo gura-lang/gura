@@ -166,6 +166,14 @@ public:
 	bool ReadToStream(Environment &env, Signal sig, Stream &streamDst,
 					size_t bytesUnit = 0x10000, bool finalizeFlag = true,
 					const Function *pFuncFilter = NULL);
+	bool SerializeUChar(Signal sig, unsigned char num);
+	bool DeserializeUChar(Signal sig, unsigned char &num);
+	bool SerializeUShort(Signal sig, unsigned short num);
+	bool DeserializeUShort(Signal sig, unsigned short &num);
+	bool SerializeULong(Signal sig, unsigned long num);
+	bool DeserializeULong(Signal sig, unsigned long &num);
+	bool SerializeUInt64(Signal sig, uint64 num);
+	bool DeserializeUInt64(Signal sig, uint64 &num);
 	bool SerializeString(Signal sig, const char *str);
 	bool DeserializeString(Signal sig, String &str);
 	bool SerializeBinary(Signal sig, const Binary &binary);
