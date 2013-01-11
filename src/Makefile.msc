@@ -85,7 +85,7 @@ sfmt.obj: $(SFMTDIR)\sfmt.c
 	@cl /EHsc /MD /nologo /Fo$@ /c $**
 
 clean: clean_module clean_program
-	@del stdafx.obj
+	@del stdafx.obj stdafx.pch
 	@del $(OBJS) $(OBJS_EXTRA)
 	@del $(LIB_GURA_D) $(DLL_GURA)
 
