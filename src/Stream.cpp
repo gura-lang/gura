@@ -416,62 +416,152 @@ bool Stream::ReadToStream(Environment &env, Signal sig, Stream &streamDst,
 
 bool Stream::SerializeUChar(Signal sig, unsigned char num)
 {
-	return false;
+	return Write(sig, &num, sizeof(num)) == sizeof(num);
 }
 
 bool Stream::DeserializeUChar(Signal sig, unsigned char &num)
 {
-	return false;
+	return Read(sig, &num, sizeof(num)) == sizeof(num);
 }
 
 bool Stream::SerializeUShort(Signal sig, unsigned short num)
 {
-	return false;
+	unsigned char buff[2] = {
+		static_cast<unsigned char>((num >> 0) & 0xff),
+		static_cast<unsigned char>((num >> 8) & 0xff),
+	};
+	return Write(sig, buff, sizeof(buff)) == sizeof(buff);
 }
 
 bool Stream::DeserializeUShort(Signal sig, unsigned short &num)
 {
-	return false;
+	unsigned char buff[2];
+	if (Read(sig, buff, sizeof(buff)) != sizeof(buff)) return false;
+	num = (static_cast<unsigned short>(buff[0]) << 0) +
+		(static_cast<unsigned short>(buff[1]) << 8);
+	return true;
 }
 
 bool Stream::SerializeULong(Signal sig, unsigned long num)
 {
-	return false;
+	unsigned char buff[4] = {
+		static_cast<unsigned char>((num >> 0) & 0xff),
+		static_cast<unsigned char>((num >> 8) & 0xff),
+		static_cast<unsigned char>((num >> 16) & 0xff),
+		static_cast<unsigned char>((num >> 24) & 0xff),
+	};
+	return Write(sig, buff, sizeof(buff)) == sizeof(buff);
 }
 
 bool Stream::DeserializeULong(Signal sig, unsigned long &num)
 {
-	return false;
+	unsigned char buff[4];
+	if (Read(sig, buff, sizeof(buff)) != sizeof(buff)) return false;
+	num = (static_cast<unsigned long>(buff[0]) << 0) +
+		(static_cast<unsigned long>(buff[1]) << 8) +
+		(static_cast<unsigned long>(buff[2]) << 16) +
+		(static_cast<unsigned long>(buff[3]) << 24);
+	return true;
 }
 
 bool Stream::SerializeUInt64(Signal sig, uint64 num)
 {
-	return false;
+	unsigned char buff[8] = {
+		static_cast<unsigned char>((num >> 0) & 0xff),
+		static_cast<unsigned char>((num >> 8) & 0xff),
+		static_cast<unsigned char>((num >> 16) & 0xff),
+		static_cast<unsigned char>((num >> 24) & 0xff),
+		static_cast<unsigned char>((num >> 32) & 0xff),
+		static_cast<unsigned char>((num >> 40) & 0xff),
+		static_cast<unsigned char>((num >> 48) & 0xff),
+		static_cast<unsigned char>((num >> 56) & 0xff),
+	};
+	return Write(sig, buff, sizeof(buff)) == sizeof(buff);
 }
 
 bool Stream::DeserializeUInt64(Signal sig, uint64 &num)
 {
-	return false;
+	unsigned char buff[8];
+	if (Read(sig, buff, sizeof(buff)) != sizeof(buff)) return false;
+	num = (static_cast<uint64>(buff[0]) << 0) +
+		(static_cast<uint64>(buff[1]) << 8) +
+		(static_cast<uint64>(buff[2]) << 16) +
+		(static_cast<uint64>(buff[3]) << 24) +
+		(static_cast<uint64>(buff[4]) << 32) +
+		(static_cast<uint64>(buff[5]) << 40) +
+		(static_cast<uint64>(buff[6]) << 48) +
+		(static_cast<uint64>(buff[7]) << 56);
+	return true;
 }
 
 bool Stream::SerializeString(Signal sig, const char *str)
 {
-	return false;
+	unsigned long len = static_cast<unsigned long>(::strlen(str));
+	if (!SerializePackedULong(sig, len)) return false;
+	return Write(sig, str, len) == len;
 }
 
 bool Stream::DeserializeString(Signal sig, String &str)
 {
-	return false;
+	unsigned long len = 0;
+	if (!DeserializePackedULong(sig, len)) return false;
+	if (len == 0) {
+		str.clear();
+		return true;
+	}
+	char *buff = new char [len];
+	if (Read(sig, buff, len) != len) {
+		delete[] buff;
+		return false;
+	}
+	str = buff;
+	delete[] buff;
+	return true;
 }
 
 bool Stream::SerializeBinary(Signal sig, const Binary &binary)
 {
-	return false;
+	unsigned long len = static_cast<unsigned long>(binary.size());
+	if (!SerializePackedULong(sig, len)) return false;
+	return Write(sig, binary.data(), len) == len;
 }
 
 bool Stream::DeserializeBinary(Signal sig, Binary &binary)
 {
 	return false;
+}
+
+bool Stream::SerializePackedULong(Signal sig, unsigned long num)
+{
+	unsigned char buff[16];
+	size_t bytesBuff = 0;
+	if (num == 0) {
+		buff[bytesBuff++] = 0x00;
+	} else {
+		while (num > 0) {
+			unsigned char data = static_cast<unsigned char>(num & 0x7f);
+			num >>= 7;
+			if (num != 0) data |= 0x80;
+			buff[bytesBuff++] = data;
+		}
+	}
+	return Write(sig, buff, bytesBuff) == bytesBuff;
+}
+
+bool Stream::DeserializePackedULong(Signal sig, unsigned long &num)
+{
+	num = 0;
+	unsigned char data = 0x00;
+	for (size_t bytesBuff = 0; bytesBuff < 5; bytesBuff++) {
+		if (Read(sig, &data, sizeof(data)) != sizeof(data)) return false;
+		num = (num << 7) + (data & 0x7f);
+		if ((data & 0x80) == 0x00) break;
+	}
+	if (data & 0x80) {
+		sig.SetError(ERR_FormatError, "invalid format of packed ULong in serialized data");
+		return false;
+	}
+	return true;
 }
 
 Stream *Stream::Prefetch(Signal sig, Stream *pStreamSrc,

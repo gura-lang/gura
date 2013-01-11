@@ -178,6 +178,8 @@ public:
 	bool DeserializeString(Signal sig, String &str);
 	bool SerializeBinary(Signal sig, const Binary &binary);
 	bool DeserializeBinary(Signal sig, Binary &binary);
+	bool SerializePackedULong(Signal sig, unsigned long num);
+	bool DeserializePackedULong(Signal sig, unsigned long &num);
 public:
 	static Stream *Prefetch(Signal sig, Stream *pStreamSrc,
 							bool deleteSrcFlag, size_t bytesUnit = 0x10000);
