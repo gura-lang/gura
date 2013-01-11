@@ -718,11 +718,12 @@ Gura_DeclareFunction(mkdir)
 
 Gura_ImplementFunction(mkdir)
 {
+	const char *pathName = args.GetString(0);
 	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
-				OAL::MakeDirTree(args.GetString(0)) :
-				OAL::MakeDir(args.GetString(0));
+				OAL::MakeDirTree(pathName) :
+				OAL::MakeDir(pathName);
 	if (!rtn) {
-		sig.SetError(ERR_IOError, "failed to create a directory");
+		sig.SetError(ERR_IOError, "failed to create a directory %s", pathName);
 	}
 	return Value::Null;
 }
@@ -738,11 +739,12 @@ Gura_DeclareFunction(rmdir)
 
 Gura_ImplementFunction(rmdir)
 {
+	const char *pathName = args.GetString(0);
 	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
-				OAL::RemoveDirTree(args.GetString(0)) :
-				OAL::RemoveDir(args.GetString(0));
+				OAL::RemoveDirTree(pathName) :
+				OAL::RemoveDir(pathName);
 	if (!rtn) {
-		sig.SetError(ERR_IOError, "failed to remove a directory");
+		sig.SetError(ERR_IOError, "failed to remove a directory %s", pathName);
 	}
 	return Value::Null;
 }

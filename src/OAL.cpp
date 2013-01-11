@@ -318,9 +318,17 @@ bool RemoveDirTree(const char *dirName)
 		bool dirFlag = false;
 		String pathName;
 		while (dirLister.Next(NULL, pathName, &dirFlag)) {
-			if (!dirFlag) Remove(pathName.c_str());
+			if (dirFlag) {
+				// nothing to do
+			} else if (!Remove(pathName.c_str())) {
+				ChangeMode("u+w", pathName.c_str());
+				if (!Remove(pathName.c_str())) rtn = false;
+			}
 		}
-		if (!RemoveDir(dirNameIter)) rtn = false;
+		if (!RemoveDir(dirNameIter)) {
+			ChangeMode("u+w", dirNameIter);
+			if (!RemoveDir(dirNameIter)) rtn = false;
+		}
 	}
 	return rtn;
 }
