@@ -111,6 +111,8 @@ class DLLDECLARE Class_nil : public Class {
 public:
 	Class_nil(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -120,6 +122,8 @@ class DLLDECLARE Class_symbol : public Class {
 public:
 	Class_symbol(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -129,6 +133,8 @@ class DLLDECLARE Class_boolean : public Class {
 public:
 	Class_boolean(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -138,6 +144,8 @@ class DLLDECLARE Class_number : public Class {
 public:
 	Class_number(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -147,6 +155,8 @@ class DLLDECLARE Class_complex : public Class {
 public:
 	Class_complex(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;
 };
 
 //-----------------------------------------------------------------------------

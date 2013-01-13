@@ -534,6 +534,16 @@ bool Class_nil::CastFrom(Environment &env, Signal sig, Value &value, const Decla
 	return false;
 }
 
+bool Class_nil::Serialize(Signal sig, Stream &stream, const Value &value) const
+{
+	return false;
+}
+
+bool Class_nil::Deserialize(Signal sig, Stream &stream, Value &value) const
+{
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // Class_symbol
 //-----------------------------------------------------------------------------
@@ -547,6 +557,16 @@ bool Class_symbol::CastFrom(Environment &env, Signal sig, Value &value, const De
 		value = Value(Symbol::Add(value.GetString()));
 		return true;
 	}
+	return false;
+}
+
+bool Class_symbol::Serialize(Signal sig, Stream &stream, const Value &value) const
+{
+	return false;
+}
+
+bool Class_symbol::Deserialize(Signal sig, Stream &stream, Value &value) const
+{
 	return false;
 }
 
@@ -565,6 +585,16 @@ bool Class_boolean::CastFrom(Environment &env, Signal sig, Value &value, const D
 		value = Value(value.GetBoolean());
 		return true;
 	}
+}
+
+bool Class_boolean::Serialize(Signal sig, Stream &stream, const Value &value) const
+{
+	return false;
+}
+
+bool Class_boolean::Deserialize(Signal sig, Stream &stream, Value &value) const
+{
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -603,6 +633,16 @@ bool Class_number::CastFrom(Environment &env, Signal sig, Value &value, const De
 	return false;
 }
 
+bool Class_number::Serialize(Signal sig, Stream &stream, const Value &value) const
+{
+	return false;
+}
+
+bool Class_number::Deserialize(Signal sig, Stream &stream, Value &value) const
+{
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // Class_complex
 //-----------------------------------------------------------------------------
@@ -615,6 +655,16 @@ bool Class_complex::CastFrom(Environment &env, Signal sig, Value &value, const D
 	if (value.IsNumber()) {		// cast number to complex
 		return true;
 	}
+	return false;
+}
+
+bool Class_complex::Serialize(Signal sig, Stream &stream, const Value &value) const
+{
+	return false;
+}
+
+bool Class_complex::Deserialize(Signal sig, Stream &stream, Value &value) const
+{
 	return false;
 }
 

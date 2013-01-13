@@ -83,4 +83,14 @@ void CustomClass::OnModuleEntry(Environment &env, Signal sig)
 {
 }
 
+bool CustomClass::Serialize(Signal sig, Stream &stream, const Value &value) const
+{
+	return false;
+}
+
+bool CustomClass::Deserialize(Signal sig, Stream &stream, Value &value) const
+{
+	return false;
+}
+
 }
