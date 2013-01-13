@@ -960,6 +960,16 @@ Value Value::CreateAsList(Environment &env, const Value &v1, const Value &v2,
 	return rtn;
 }
 
+bool Value::Serialize(Signal sig, Stream &stream, const Value &value)
+{
+	return false;
+}
+
+bool Value::Deserialize(Signal sig, Stream &stream, Value &value, bool mustBeValidFlag)
+{
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // ValueList
 //-----------------------------------------------------------------------------

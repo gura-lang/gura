@@ -628,6 +628,8 @@ public:
 			const Value &v3, const Value &v4, const Value &v5);
 	static Value CreateAsList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3, const Value &v4, const Value &v5, const Value &v6);
+	static bool Serialize(Signal sig, Stream &stream, const Value &value);
+	static bool Deserialize(Signal sig, Stream &stream, Value &value, bool mustBeValidFlag);
 private:
 	void FreeResource();
 };

@@ -179,7 +179,7 @@ public:
 	virtual bool DoDeserialize(Signal sig, Stream &stream) = 0;
 	virtual String ToString() const = 0;
 	static bool Serialize(Signal sig, Stream &stream, const Expr *pExpr);
-	static bool Deserialize(Signal sig, Stream &stream, Expr **ppExpr, bool validateFlag);
+	static bool Deserialize(Signal sig, Stream &stream, Expr **ppExpr, bool mustBeValidFlag);
 };
 
 //-----------------------------------------------------------------------------

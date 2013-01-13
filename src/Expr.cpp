@@ -341,7 +341,7 @@ bool Expr::Serialize(Signal sig, Stream &stream, const Expr *pExpr)
 	return pExpr->DoSerialize(sig, stream);
 }
 
-bool Expr::Deserialize(Signal sig, Stream &stream, Expr **ppExpr, bool validateFlag)
+bool Expr::Deserialize(Signal sig, Stream &stream, Expr **ppExpr, bool mustBeValidFlag)
 {
 	*ppExpr = NULL;
 	unsigned char exprType = 0x00;
@@ -349,7 +349,7 @@ bool Expr::Deserialize(Signal sig, Stream &stream, Expr **ppExpr, bool validateF
 	AutoPtr<Expr> pExpr;
 	switch (exprType) {
 	case EXPRTYPE_None:
-		if (validateFlag) {
+		if (mustBeValidFlag) {
 			sig.SetError(ERR_IOError, "invalid expr in the stream");
 			return false;
 		}
