@@ -242,6 +242,16 @@ String Object::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
+bool Object::DoSerialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+bool Object::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object
 //-----------------------------------------------------------------------------
@@ -500,6 +510,16 @@ void Class::Prepare()
 	Gura_AssignMethodEx(Object, call_X,		"call!");
 	Gura_AssignMethod(Object, clone);
 	Gura_AssignMethod(Object, __iter__);
+}
+
+bool Class::Serialize(Signal sig, Stream &stream, const Value &value) const
+{
+	return false;
+}
+
+bool Class::Deserialize(Signal sig, Stream &stream, Value &value) const
+{
+	return false;
 }
 
 //-----------------------------------------------------------------------------
