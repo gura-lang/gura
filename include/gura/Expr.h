@@ -17,6 +17,7 @@ class ICallable;
 // ExprType
 //-----------------------------------------------------------------------------
 enum ExprType {
+	EXPRTYPE_None,
 	EXPRTYPE_UnaryOp,
 	EXPRTYPE_Quote,
 	EXPRTYPE_Force,
@@ -177,8 +178,8 @@ public:
 	virtual bool DoSerialize(Signal sig, Stream &stream) const = 0;
 	virtual bool DoDeserialize(Signal sig, Stream &stream) = 0;
 	virtual String ToString() const = 0;
-	bool Serialize(Signal sig, Stream &stream) const;
-	static Expr *Deserialize(Signal sig, Stream &stream);
+	static bool Serialize(Signal sig, Stream &stream, const Expr *pExpr);
+	static bool Deserialize(Signal sig, Stream &stream, Expr **ppExpr, bool validateFlag);
 };
 
 //-----------------------------------------------------------------------------

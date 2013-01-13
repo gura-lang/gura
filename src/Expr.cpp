@@ -330,19 +330,30 @@ bool Expr::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return false;
 }
 
-bool Expr::Serialize(Signal sig, Stream &stream) const
+bool Expr::Serialize(Signal sig, Stream &stream, const Expr *pExpr)
 {
-	unsigned char exprType = static_cast<unsigned char>(GetType());
+	if (pExpr == NULL) {
+		unsigned char exprType = static_cast<unsigned char>(EXPRTYPE_None);
+		return stream.Write(sig, &exprType, 1) == 1;
+	}
+	unsigned char exprType = static_cast<unsigned char>(pExpr->GetType());
 	if (stream.Write(sig, &exprType, 1) < 1) return false;
-	return DoSerialize(sig, stream);
+	return pExpr->DoSerialize(sig, stream);
 }
 
-Expr *Expr::Deserialize(Signal sig, Stream &stream)
+bool Expr::Deserialize(Signal sig, Stream &stream, Expr **ppExpr, bool validateFlag)
 {
+	*ppExpr = NULL;
 	unsigned char exprType = 0x00;
-	if (stream.Read(sig, &exprType, 1) < 1) return NULL;
+	if (stream.Read(sig, &exprType, 1) < 1) return false;
 	AutoPtr<Expr> pExpr;
 	switch (exprType) {
+	case EXPRTYPE_None:
+		if (validateFlag) {
+			sig.SetError(ERR_IOError, "invalid expr in the stream");
+			return false;
+		}
+		return true;
 	case EXPRTYPE_UnaryOp:
 		pExpr.reset(new Expr_UnaryOp(NULL, NULL, false));
 		break;
@@ -399,10 +410,13 @@ Expr *Expr::Deserialize(Signal sig, Stream &stream)
 		break;
 	default:
 		sig.SetError(ERR_IOError, "unknown expr type %d", exprType);
-		return NULL;
+		return false;
 	}
-	if (pExpr->DoDeserialize(sig, stream)) return pExpr.release();
-	return NULL;
+	if (pExpr->DoDeserialize(sig, stream)) {
+		*ppExpr = pExpr.release();
+		return true;
+	}
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -2605,8 +2619,8 @@ void ExprOwner::Clear()
 bool ExprOwner::DoDeserialize(Signal sig, Stream &stream)
 {
 	for (;;) {
-		Expr *pExpr = Expr::Deserialize(sig, stream);
-		if (pExpr == NULL) return false;
+		Expr *pExpr = NULL;
+		if (Expr::Deserialize(sig, stream, &pExpr, true)) return false;
 		push_back(pExpr);
 	}
 	return sig.IsSignalled();
