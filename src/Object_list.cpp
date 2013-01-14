@@ -87,6 +87,16 @@ String Object_list::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
+bool Object_list::DoSerialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+bool Object_list::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
 					const ValueList *pValListKey, bool rankFlag, bool stableFlag)
 {

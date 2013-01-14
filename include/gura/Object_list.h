@@ -194,6 +194,8 @@ public:
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal sig);
 	virtual String ToString(Signal sig, bool exprFlag);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
+	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	Object_list *SortRank(Signal sig, const Value &valDirective,
 					const ValueList *pValListKey, bool rankFlag, bool stableFlag);
 };

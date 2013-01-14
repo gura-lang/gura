@@ -67,6 +67,8 @@ public:
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal sig);
 	virtual String ToString(Signal sig, bool exprFlag);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
+	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	inline Binary &GetBinary() { return _binary; }
 	inline const Binary &GetBinary() const { return _binary; }
 	inline bool IsWritable() const { return _writableFlag; }

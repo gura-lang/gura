@@ -82,6 +82,8 @@ public:
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal sig);
 	virtual String ToString(Signal sig, bool exprFlag);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
+	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	const Value *Find(Signal sig, const Value &valueIdx) const;
 	static void SetError_KeyNotFound(Signal sig, const Value &valueIdx);
 };

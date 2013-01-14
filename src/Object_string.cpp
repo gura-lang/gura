@@ -61,6 +61,16 @@ String Object_string::ToString(Signal sig, const char *str, bool exprFlag)
 	return String(str);
 }
 
+bool Object_string::DoSerialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+bool Object_string::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // Object_string::IteratorEach
 //-----------------------------------------------------------------------------

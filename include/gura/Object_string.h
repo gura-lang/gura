@@ -92,6 +92,8 @@ public:
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual Iterator *CreateIterator(Signal sig);
 	virtual String ToString(Signal sig, bool exprFlag);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
+	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	static String ToString(Signal sig, const char *str, bool exprFlag);
 	inline const char *GetString() const { return _str.c_str(); }
 	inline String GetStringSTL() const { return _str; } // not a reference

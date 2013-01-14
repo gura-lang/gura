@@ -42,6 +42,8 @@ public:
 	inline String GetName() const { return _pFunc->GetName(); }
 	virtual String GetFullName(Signal sig);
 	virtual String ToString(Signal sig, bool exprFlag);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
+	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
 	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual Value DoPropSet(Signal sig, const Symbol *pSymbol, const Value &value, bool &evaluatedFlag);

@@ -181,6 +181,16 @@ String Object_matrix::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
+bool Object_matrix::DoSerialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+bool Object_matrix::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 void Object_matrix::ToList(ValueList &valList, bool transposeFlag, bool flattenFlag)
 {
 	Environment &env = *this;

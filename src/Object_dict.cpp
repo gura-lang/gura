@@ -63,6 +63,16 @@ String Object_dict::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
+bool Object_dict::DoSerialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+bool Object_dict::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 const Value *Object_dict::Find(Signal sig, const Value &valueIdx) const
 {
 	if (!ValueDict::IsValidKey(valueIdx)) {

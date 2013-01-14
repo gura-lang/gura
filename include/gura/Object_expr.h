@@ -50,6 +50,8 @@ public:
 	inline Expr *GetExpr() { return _pExpr; }
 	inline const Expr *GetExpr() const { return _pExpr; }
 	virtual String ToString(Signal sig, bool exprFlag);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
+	virtual bool DoDeserialize(Signal sig, Stream &stream);
 };
 
 }

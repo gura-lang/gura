@@ -136,6 +136,16 @@ String Object_function::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
+bool Object_function::DoSerialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+bool Object_function::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 void Object_function::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {

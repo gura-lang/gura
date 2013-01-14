@@ -80,6 +80,8 @@ public:
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	virtual String ToString(Signal sig, bool exprFlag);
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
+	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	void ToList(ValueList &valList, bool transposeFlag, bool flattenFlag);
 	inline size_t RowSize() const { return _nRows; }
 	inline size_t ColSize() const { return _nCols; }

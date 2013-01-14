@@ -107,6 +107,16 @@ String Object_binary::ToString(Signal sig, bool exprFlag)
 	return String(buff);
 }
 
+bool Object_binary::DoSerialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+bool Object_binary::DoDeserialize(Signal sig, Stream &stream)
+{
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // Object_binary::IteratorByte
 //-----------------------------------------------------------------------------
