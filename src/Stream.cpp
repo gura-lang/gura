@@ -437,7 +437,8 @@ bool Stream::DeserializeUShort(Signal sig, unsigned short &num)
 {
 	unsigned char buff[2];
 	if (Read(sig, buff, sizeof(buff)) != sizeof(buff)) return false;
-	num = (static_cast<unsigned short>(buff[0]) << 0) +
+	num =
+		(static_cast<unsigned short>(buff[0]) << 0) +
 		(static_cast<unsigned short>(buff[1]) << 8);
 	return true;
 }
@@ -457,7 +458,8 @@ bool Stream::DeserializeULong(Signal sig, unsigned long &num)
 {
 	unsigned char buff[4];
 	if (Read(sig, buff, sizeof(buff)) != sizeof(buff)) return false;
-	num = (static_cast<unsigned long>(buff[0]) << 0) +
+	num =
+		(static_cast<unsigned long>(buff[0]) << 0) +
 		(static_cast<unsigned long>(buff[1]) << 8) +
 		(static_cast<unsigned long>(buff[2]) << 16) +
 		(static_cast<unsigned long>(buff[3]) << 24);
@@ -483,7 +485,8 @@ bool Stream::DeserializeUInt64(Signal sig, uint64 &num)
 {
 	unsigned char buff[8];
 	if (Read(sig, buff, sizeof(buff)) != sizeof(buff)) return false;
-	num = (static_cast<uint64>(buff[0]) << 0) +
+	num =
+		(static_cast<uint64>(buff[0]) << 0) +
 		(static_cast<uint64>(buff[1]) << 8) +
 		(static_cast<uint64>(buff[2]) << 16) +
 		(static_cast<uint64>(buff[3]) << 24) +
@@ -492,6 +495,18 @@ bool Stream::DeserializeUInt64(Signal sig, uint64 &num)
 		(static_cast<uint64>(buff[6]) << 48) +
 		(static_cast<uint64>(buff[7]) << 56);
 	return true;
+}
+
+bool Stream::SerializeDouble(Signal sig, double num)
+{
+	unsigned char *buff = reinterpret_cast<unsigned char *>(&num);
+	return Write(sig, buff, sizeof(num)) == sizeof(num);
+}
+
+bool Stream::DeserializeDouble(Signal sig, double &num)
+{
+	unsigned char *buff = reinterpret_cast<unsigned char *>(&num);
+	return Read(sig, buff, sizeof(num)) == sizeof(num);
 }
 
 bool Stream::SerializeString(Signal sig, const char *str)

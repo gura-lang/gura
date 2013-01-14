@@ -174,6 +174,8 @@ public:
 	bool DeserializeULong(Signal sig, unsigned long &num);
 	bool SerializeUInt64(Signal sig, uint64 num);
 	bool DeserializeUInt64(Signal sig, uint64 &num);
+	bool SerializeDouble(Signal sig, double num);
+	bool DeserializeDouble(Signal sig, double &num);
 	bool SerializeString(Signal sig, const char *str);
 	bool DeserializeString(Signal sig, String &str);
 	bool SerializeBinary(Signal sig, const Binary &binary);
