@@ -109,12 +109,12 @@ String Object_binary::ToString(Signal sig, bool exprFlag)
 
 bool Object_binary::DoSerialize(Signal sig, Stream &stream) const
 {
-	return false;
+	return stream.SerializeBinary(sig, _binary);
 }
 
 bool Object_binary::DoDeserialize(Signal sig, Stream &stream)
 {
-	return false;
+	return stream.DeserializeBinary(sig, _binary);
 }
 
 //-----------------------------------------------------------------------------

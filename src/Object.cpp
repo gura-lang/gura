@@ -516,19 +516,13 @@ void Class::Prepare()
 
 bool Class::Serialize(Signal sig, Stream &stream, const Value &value) const
 {
-	if (value.IsObject()) {
-		return value.GetObject()->DoSerialize(sig, stream);
-	}
-	sig.SetError(ERR_IOError, "can't deserialize for the object");
+	sig.SetError(ERR_IOError, "can't serialize class or module");
 	return false;
 }
 
 bool Class::Deserialize(Signal sig, Stream &stream, Value &value) const
 {
-	if (value.IsObject()) {
-		return value.GetObject()->DoDeserialize(sig, stream);
-	}
-	sig.SetError(ERR_IOError, "can't deserialize for the object");
+	sig.SetError(ERR_IOError, "can't deserialize class or module");
 	return false;
 }
 

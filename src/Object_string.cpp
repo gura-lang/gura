@@ -63,12 +63,12 @@ String Object_string::ToString(Signal sig, const char *str, bool exprFlag)
 
 bool Object_string::DoSerialize(Signal sig, Stream &stream) const
 {
-	return false;
+	return stream.SerializeString(sig, _str.c_str());
 }
 
 bool Object_string::DoDeserialize(Signal sig, Stream &stream)
 {
-	return false;
+	return stream.DeserializeString(sig, _str);
 }
 
 //-----------------------------------------------------------------------------

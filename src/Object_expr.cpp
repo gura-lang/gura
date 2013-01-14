@@ -53,12 +53,16 @@ String Object_expr::ToString(Signal sig, bool exprFlag)
 
 bool Object_expr::DoSerialize(Signal sig, Stream &stream) const
 {
-	return false;
+	return Expr::Serialize(sig, stream, _pExpr);
 }
 
 bool Object_expr::DoDeserialize(Signal sig, Stream &stream)
 {
-	return false;
+	Expr *pExpr = NULL;
+	if (!Expr::Deserialize(sig, stream, &pExpr, true)) return false;
+	Expr::Delete(_pExpr);
+	_pExpr = pExpr;
+	return true;
 }
 
 //-----------------------------------------------------------------------------

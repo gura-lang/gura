@@ -643,6 +643,37 @@ Gura_ImplementMethod(stream, printf)
 	return Value::Null;
 }
 
+// stream#serialize(value):map:void
+Gura_DeclareMethod(stream, serialize)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "value", VTYPE_any);
+}
+
+Gura_ImplementMethod(stream, serialize)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	if (!stream.CheckWritable(sig)) return Value::Null;
+	const Value &value = args.GetValue(0);
+	Value::Serialize(sig, stream, value);
+	return Value::Null;
+}
+
+// stream#deserialize()
+Gura_DeclareMethod(stream, deserialize)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(stream, deserialize)
+{
+	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	if (!stream.CheckReadable(sig)) return Value::Null;
+	Value value;
+	if (!Value::Deserialize(sig, stream, value, false)) return Value::Null;
+	return value;
+}
+
 #if 0
 // stream#prefetch()
 Gura_DeclareMethod(stream, prefetch)
@@ -709,6 +740,8 @@ Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stre
 	Gura_AssignMethod(stream, print);
 	Gura_AssignMethod(stream, println);
 	Gura_AssignMethod(stream, printf);
+	Gura_AssignMethod(stream, serialize);
+	Gura_AssignMethod(stream, deserialize);
 	//Gura_AssignMethod(stream, prefetch);
 	Gura_AssignMethod(stream, __shl__);
 }

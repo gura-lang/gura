@@ -89,12 +89,13 @@ String Object_list::ToString(Signal sig, bool exprFlag)
 
 bool Object_list::DoSerialize(Signal sig, Stream &stream) const
 {
-	return false;
+	return _valList.Serialize(sig, stream);
 }
 
 bool Object_list::DoDeserialize(Signal sig, Stream &stream)
 {
-	return false;
+	_valList.clear();
+	return _valList.Deserialize(sig, stream);
 }
 
 Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,

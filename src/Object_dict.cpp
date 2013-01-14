@@ -65,12 +65,13 @@ String Object_dict::ToString(Signal sig, bool exprFlag)
 
 bool Object_dict::DoSerialize(Signal sig, Stream &stream) const
 {
-	return false;
+	return _valDict.Serialize(sig, stream);
 }
 
 bool Object_dict::DoDeserialize(Signal sig, Stream &stream)
 {
-	return false;
+	_valDict.clear();
+	return _valDict.Deserialize(sig, stream);
 }
 
 const Value *Object_dict::Find(Signal sig, const Value &valueIdx) const
