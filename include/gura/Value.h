@@ -523,6 +523,9 @@ public:
 	inline Complex GetComplex() const {
 		return IsComplex()? *_u.pComp : IsNumber()? Complex(GetNumber()) : _compZero;
 	}
+	inline const Complex *GetComplexPtr() const {
+		return _u.pComp;
+	}
 	// VTYPE_module
 	inline Module *GetModule() { return IsModule()? _u.pModule : NULL; }
 	inline const Module *GetModule() const { return IsModule()? _u.pModule : NULL; }
