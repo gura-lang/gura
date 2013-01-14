@@ -270,6 +270,7 @@ public:
 	inline const ValueTypeList &GetList() const { return _valueTypeList; }
 	ValueTypeInfo *Add(const Symbol *pSymbol);
 	ValueTypeInfo *Lookup(ValueType valType);
+	ValueTypeInfo *LookupWithCheck(ValueType valType);
 	static void OnModuleEntry(Environment &env, Signal sig);
 private:
 	void _Initialize(Environment &env);

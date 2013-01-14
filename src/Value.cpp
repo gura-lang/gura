@@ -222,6 +222,12 @@ ValueTypeInfo *ValueTypePool::Lookup(ValueType valType)
 	return _valueTypeList[valType];
 }
 
+ValueTypeInfo *ValueTypePool::LookupWithCheck(ValueType valType)
+{
+	if (valType >= _valueTypeList.size()) return NULL;
+	return _valueTypeList[valType];
+}
+
 ValueTypePool *ValueTypePool::GetInstance()
 {
 	return _pInst;
@@ -962,12 +968,28 @@ Value Value::CreateAsList(Environment &env, const Value &v1, const Value &v2,
 
 bool Value::Serialize(Signal sig, Stream &stream, const Value &value)
 {
-	return false;
+	const ValueTypeInfo *pValueTypeInfo =
+							ValueTypePool::GetInstance()->Lookup(value.GetType());
+	unsigned long valType = static_cast<unsigned long>(value.GetType());
+	if (!stream.SerializePackedULong(sig, valType)) return false;
+	return pValueTypeInfo->GetClass()->Serialize(sig, stream, value);
 }
 
 bool Value::Deserialize(Signal sig, Stream &stream, Value &value, bool mustBeValidFlag)
 {
-	return false;
+	unsigned long valType = static_cast<unsigned long>(VTYPE_nil);
+	if (!stream.DeserializePackedULong(sig, valType)) return false;
+	if (mustBeValidFlag && valType == VTYPE_nil) {
+		sig.SetError(ERR_IOError, "invalid value in the stream");
+		return false;
+	}
+	const ValueTypeInfo *pValueTypeInfo =
+			ValueTypePool::GetInstance()->LookupWithCheck(static_cast<ValueType>(valType));
+	if (pValueTypeInfo == NULL) {
+		sig.SetError(ERR_IOError, "invalid value type in the stream");
+		return false;
+	}
+	return pValueTypeInfo->GetClass()->Deserialize(sig, stream, value);
 }
 
 //-----------------------------------------------------------------------------
