@@ -668,6 +668,8 @@ public:
 	bool ToStringList(Signal sig, StringList &strList) const;
 	static bool AssumeSameLength(Signal sig,
 					const ValueList &valList1, const ValueList &valList2);
+	bool Serialize(Signal sig, Stream &stream) const;
+	bool Deserialize(Signal sig, Stream &stream);
 };
 
 //-----------------------------------------------------------------------------
@@ -720,6 +722,8 @@ public:
 	inline static bool IsValidKey(const Value &value) {
 		return value.IsNumber() || value.IsString() || value.IsSymbol();
 	}
+	bool Serialize(Signal sig, Stream &stream) const;
+	bool Deserialize(Signal sig, Stream &stream);
 };
 
 inline const char *GetNumberFormat() { return "%g"; }

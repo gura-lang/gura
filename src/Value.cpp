@@ -1085,6 +1085,29 @@ bool ValueList::ToStringList(Signal sig, StringList &strList) const
 	return true;
 }
 
+bool ValueList::Serialize(Signal sig, Stream &stream) const
+{
+	unsigned long num = static_cast<unsigned long>(size());
+	if (!stream.SerializePackedULong(sig, num)) return false;
+	foreach_const (ValueList, pValue, *this) {
+		if (!Value::Serialize(sig, stream, *pValue)) return false;
+	}
+	return true;
+}
+
+bool ValueList::Deserialize(Signal sig, Stream &stream)
+{
+	unsigned long num = 0;
+	if (!stream.DeserializePackedULong(sig, num)) return false;
+	reserve(num);
+	Value value;
+	while (num-- > 0) {
+		if (!Value::Deserialize(sig, stream, value, false)) return false;
+		push_back(value);
+	}
+	return true;
+}
+
 //-----------------------------------------------------------------------------
 // ValueMap
 //-----------------------------------------------------------------------------
@@ -1189,6 +1212,30 @@ bool ValueDict::Store(Signal sig, const Value &valueIdx, const Value &value, Sto
 	} else {
 		sig.SetError(ERR_KeyError, "duplicated key '%s'", valueIdx.ToString(sig).c_str());
 		return false;
+	}
+	return true;
+}
+
+bool ValueDict::Serialize(Signal sig, Stream &stream) const
+{
+	unsigned long num = static_cast<unsigned long>(size());
+	if (!stream.SerializePackedULong(sig, num)) return false;
+	foreach_const (ValueDict, iter, *this) {
+		if (!Value::Serialize(sig, stream, iter->first)) return false;
+		if (!Value::Serialize(sig, stream, iter->second)) return false;
+	}
+	return true;
+}
+
+bool ValueDict::Deserialize(Signal sig, Stream &stream)
+{
+	unsigned long num = 0;
+	if (!stream.DeserializePackedULong(sig, num)) return false;
+	Value valueIdx, value;
+	while (num-- > 0) {
+		if (!Value::Deserialize(sig, stream, valueIdx, false)) return false;
+		if (!Value::Deserialize(sig, stream, value, false)) return false;
+		insert(ValueDict::value_type(valueIdx, value));
 	}
 	return true;
 }
