@@ -210,7 +210,7 @@ public:
 							bool flattenFlag, bool evalSymFuncFlag) const;
 	void IncRef() const;
 	bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	bool DoSerialize(Signal sig, Stream &stream) const;
+	bool Serialize(Signal sig, Stream &stream) const;
 	String ToString(const char *sep = ", ") const;
 	void Accept(ExprVisitor &visitor) const;
 	bool IsContained(const Expr *pExpr) const;
@@ -229,7 +229,7 @@ public:
 	ExprOwner(const ExprOwner &exprOwner);
 	void Clear();
 	~ExprOwner();
-	bool DoDeserialize(Signal sig, Stream &stream);
+	bool Deserialize(Signal sig, Stream &stream);
 };
 
 //-----------------------------------------------------------------------------
@@ -246,6 +246,8 @@ public:
 	virtual Expr *IncRef() const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool IsParentOf(const Expr *pExpr) const;
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
+	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	inline Expr *GetChild() { return const_cast<Expr *>(_exprOwner[0]); }
 	inline const Expr *GetChild() const { return _exprOwner[0]; }
 	inline const ExprList &GetExprList() const { return _exprOwner; }
@@ -265,6 +267,8 @@ public:
 	virtual Expr *IncRef() const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool IsParentOf(const Expr *pExpr) const;
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
+	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	inline Expr *GetLeft() { return const_cast<Expr *>(_exprOwner[0]); }
 	inline Expr *GetRight() { return const_cast<Expr *>(_exprOwner[1]); }
 	inline const Expr *GetLeft() const { return _exprOwner[0]; }
@@ -286,6 +290,8 @@ public:
 	virtual Expr *IncRef() const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool IsParentOf(const Expr *pExpr) const;
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
+	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	inline void AddExpr(Expr *pExpr) {
 		_exprOwner.push_back(pExpr);
 		pExpr->SetParent(this);
@@ -478,6 +484,8 @@ public:
 	virtual bool IsCompound() const;
 	virtual Expr *IncRef() const;
 	virtual bool IsParentOf(const Expr *pExpr) const;
+	virtual bool DoSerialize(Signal sig, Stream &stream) const;
+	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	inline Expr *GetCar() { return _pExprCar.get(); }
 	inline const Expr *GetCar() const { return _pExprCar.get(); }
 	inline Expr_Lister *GetLister() { return _pExprLister.get(); }
@@ -744,6 +752,7 @@ public:
 		MODE_MapToList,		// foo::bar .. map-to-list
 		MODE_MapToIter,		// foo:*bar .. map-to-iterator
 		MODE_MapAlong,		// foo:&bar .. map-along
+		MODE_max,
 	};
 private:
 	Mode _mode;
