@@ -558,7 +558,82 @@ bool Stream::SerializeBinary(Signal sig, const Binary &binary)
 
 bool Stream::DeserializeBinary(Signal sig, Binary &binary)
 {
-	return false;
+	unsigned long len = 0;
+	if (!DeserializePackedULong(sig, len)) return false;
+	if (len == 0) {
+		binary.clear();
+		return true;
+	}
+	char *buff = new char [len];
+	if (Read(sig, buff, len) != len) {
+		delete[] buff;
+		return false;
+	}
+	binary = Binary(buff, len);
+	delete[] buff;
+	return true;
+}
+
+bool Stream::SerializeSymbol(Signal sig, const Symbol *pSymbol)
+{
+	return SerializeString(sig, pSymbol->GetName());
+}
+
+bool Stream::DeserializeSymbol(Signal sig, const Symbol **ppSymbol)
+{
+	String str;
+	if (!DeserializeString(sig, str)) return false;
+	*ppSymbol = Symbol::Add(str.c_str());
+	return true;
+}
+
+bool Stream::SerializeSymbolSet(Signal sig, const SymbolSet &symbolSet)
+{
+	unsigned long len = static_cast<unsigned long>(symbolSet.size());
+	if (!SerializePackedULong(sig, len)) return false;
+	foreach_const (SymbolSet, ppSymbol, symbolSet) {
+		if (!SerializeSymbol(sig, *ppSymbol)) return false;
+	}
+	return true;
+}
+
+bool Stream::DeserializeSymbolSet(Signal sig, SymbolSet &symbolSet)
+{
+	unsigned long len = 0;
+	if (!DeserializePackedULong(sig, len)) return false;
+	symbolSet.clear();
+	if (len == 0) return true;
+	const Symbol *pSymbol = NULL;
+	while (len-- > 0) {
+		if (!DeserializeSymbol(sig, &pSymbol)) return false;
+		symbolSet.insert(pSymbol);
+	}
+	return true;
+}
+
+bool Stream::SerializeSymbolList(Signal sig, const SymbolList &symbolList)
+{
+	unsigned long len = static_cast<unsigned long>(symbolList.size());
+	if (!SerializePackedULong(sig, len)) return false;
+	foreach_const (SymbolList, ppSymbol, symbolList) {
+		if (!SerializeSymbol(sig, *ppSymbol)) return false;
+	}
+	return true;
+}
+
+bool Stream::DeserializeSymbolList(Signal sig, SymbolList &symbolList)
+{
+	unsigned long len = 0;
+	if (!DeserializePackedULong(sig, len)) return false;
+	symbolList.clear();
+	if (len == 0) return true;
+	symbolList.reserve(len);
+	const Symbol *pSymbol = NULL;
+	while (len-- > 0) {
+		if (!DeserializeSymbol(sig, &pSymbol)) return false;
+		symbolList.push_back(pSymbol);
+	}
+	return true;
 }
 
 bool Stream::SerializePackedULong(Signal sig, unsigned long num)

@@ -182,6 +182,12 @@ public:
 	bool DeserializeString(Signal sig, String &str);
 	bool SerializeBinary(Signal sig, const Binary &binary);
 	bool DeserializeBinary(Signal sig, Binary &binary);
+	bool SerializeSymbol(Signal sig, const Symbol *pSymbol);
+	bool DeserializeSymbol(Signal sig, const Symbol **ppSymbol);
+	bool SerializeSymbolSet(Signal sig, const SymbolSet &symbolSet);
+	bool DeserializeSymbolSet(Signal sig, SymbolSet &symbolSet);
+	bool SerializeSymbolList(Signal sig, const SymbolList &symbolList);
+	bool DeserializeSymbolList(Signal sig, SymbolList &symbolList);
 	bool SerializePackedULong(Signal sig, unsigned long num);
 	bool DeserializePackedULong(Signal sig, unsigned long &num);
 public:

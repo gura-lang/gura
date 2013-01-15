@@ -555,14 +555,14 @@ bool Class_symbol::CastFrom(Environment &env, Signal sig, Value &value, const De
 
 bool Class_symbol::Serialize(Signal sig, Stream &stream, const Value &value) const
 {
-	return stream.SerializeString(sig, value.GetSymbol()->GetName());
+	return stream.SerializeSymbol(sig, value.GetSymbol());
 }
 
 bool Class_symbol::Deserialize(Signal sig, Stream &stream, Value &value)
 {
-	String str;
-	if (!stream.DeserializeString(sig, str)) return false;
-	value = Value(Symbol::Add(str.c_str()));
+	const Symbol *pSymbol = NULL;
+	if (!stream.DeserializeSymbol(sig, &pSymbol)) return false;
+	value = Value(pSymbol);
 	return true;
 }
 

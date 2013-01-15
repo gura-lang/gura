@@ -684,7 +684,7 @@ bool Expr_String::DoSerialize(Signal sig, Stream &stream) const
 
 bool Expr_String::DoDeserialize(Signal sig, Stream &stream)
 {
-	return false;
+	return stream.DeserializeString(sig, _str);
 }
 
 String Expr_String::ToString() const
@@ -819,12 +819,20 @@ bool Expr_Symbol::GenerateCode(Environment &env, Signal sig, Stream &stream)
 
 bool Expr_Symbol::DoSerialize(Signal sig, Stream &stream) const
 {
-	return false;
+	if (!stream.SerializeSymbol(sig, _pSymbol)) return false;
+	if (!stream.SerializeSymbolSet(sig, _attrs)) return false;
+	if (!stream.SerializeSymbolSet(sig, _attrsOpt)) return false;
+	if (!stream.SerializeSymbolList(sig, _attrFront)) return false;
+	return true;
 }
 
 bool Expr_Symbol::DoDeserialize(Signal sig, Stream &stream)
 {
-	return false;
+	if (!stream.DeserializeSymbol(sig, &_pSymbol)) return false;
+	if (!stream.DeserializeSymbolSet(sig, _attrs)) return false;
+	if (!stream.DeserializeSymbolSet(sig, _attrsOpt)) return false;
+	if (!stream.DeserializeSymbolList(sig, _attrFront)) return false;
+	return true;
 }
 
 String Expr_Symbol::ToString() const
