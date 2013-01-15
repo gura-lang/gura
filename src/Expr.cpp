@@ -1889,12 +1889,23 @@ bool Expr_UnaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_UnaryOp::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
 	if (!Expr_Unary::DoSerialize(env, sig, stream)) return false;
+	unsigned char opType = static_cast<unsigned char>(_pFunc->GetOpType());
+	if (!stream.SerializeUChar(sig, opType)) return false;
 	return true;
 }
 
 bool Expr_UnaryOp::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
 	if (!Expr_Unary::DoDeserialize(env, sig, stream)) return false;
+	unsigned char opTypeRaw = 0x00;
+	if (!stream.DeserializeUChar(sig, opTypeRaw)) return false;
+	OpType opType = static_cast<OpType>(opTypeRaw);
+	const Function *pFunc = env.GetOpFuncWithCheck(opType);
+	if (pFunc == NULL) {
+		sig.SetError(ERR_IOError, "invalid binary operator in the stream");
+		return false;
+	}
+	_pFunc = pFunc;
 	return true;
 }
 
@@ -1976,10 +1987,15 @@ bool Expr_BinaryOp::DoSerialize(Environment &env, Signal sig, Stream &stream) co
 bool Expr_BinaryOp::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
 	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
-	unsigned char opType = 0x00;
-	if (!stream.DeserializeUChar(sig, opType)) return false;
-	//const Function *pFunc = NULL;
-	
+	unsigned char opTypeRaw = 0x00;
+	if (!stream.DeserializeUChar(sig, opTypeRaw)) return false;
+	OpType opType = static_cast<OpType>(opTypeRaw);
+	const Function *pFunc = env.GetOpFuncWithCheck(opType);
+	if (pFunc == NULL) {
+		sig.SetError(ERR_IOError, "invalid binary operator in the stream");
+		return false;
+	}
+	_pFunc = pFunc;
 	return true;
 }
 
@@ -2296,16 +2312,27 @@ bool Expr_Assign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Assign::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
 	if (!Expr_Binary::DoSerialize(env, sig, stream)) return false;
-
-
+	OpType opType = (_pFuncToApply == NULL)? OPTYPE_None : _pFuncToApply->GetOpType();
+	unsigned char opTypeRaw = static_cast<unsigned char>(opType);
+	if (!stream.SerializeUChar(sig, opTypeRaw)) return false;
 	return true;
 }
 
 bool Expr_Assign::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
 	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
-
-
+	unsigned char opTypeRaw = 0x00;
+	if (!stream.DeserializeUChar(sig, opTypeRaw)) return false;
+	OpType opType = static_cast<OpType>(opTypeRaw);
+	const Function *pFuncToApply = NULL;
+	if (opType != OPTYPE_None) {
+		pFuncToApply = env.GetOpFuncWithCheck(opType);
+		if (pFuncToApply == NULL) {
+			sig.SetError(ERR_IOError, "invalid binary operator in the stream");
+			return false;
+		}
+	}
+	_pFuncToApply = pFuncToApply;
 	return true;
 }
 
