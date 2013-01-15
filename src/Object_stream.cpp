@@ -643,10 +643,10 @@ Gura_ImplementMethod(stream, printf)
 	return Value::Null;
 }
 
-// stream#serialize(value):map:void
+// stream#serialize(value):void
 Gura_DeclareMethod(stream, serialize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
 }
 
