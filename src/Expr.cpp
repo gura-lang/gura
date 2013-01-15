@@ -347,6 +347,7 @@ bool Expr::Deserialize(Signal sig, Stream &stream, Expr **ppExpr, bool mustBeVal
 	unsigned char exprType = 0x00;
 	if (stream.Read(sig, &exprType, 1) < 1) return false;
 	AutoPtr<Expr> pExpr;
+	//::printf("exprType = 0x%02x\n", exprType);
 	switch (exprType) {
 	case EXPRTYPE_None:
 		if (mustBeValidFlag) {
@@ -403,7 +404,7 @@ bool Expr::Deserialize(Signal sig, Stream &stream, Expr **ppExpr, bool mustBeVal
 		pExpr.reset(new Expr_Value(Value::Null));
 		break;
 	case EXPRTYPE_Symbol:
-		pExpr.reset(new Expr_Symbol(NULL));
+		pExpr.reset(new Expr_Symbol(Gura_Symbol(nil)));
 		break;
 	case EXPRTYPE_String:
 		pExpr.reset(new Expr_String(""));
@@ -1219,35 +1220,36 @@ bool Expr_Compound::IsCompound() const { return true; }
 Expr_Compound::Expr_Compound(ExprType exprType, Expr *pExprCar, Expr_Lister *pExprLister) :
 			Expr(exprType), _pExprCar(pExprCar), _pExprLister(pExprLister)
 {
-	_pExprCar->SetParent(this);
-	_pExprLister->SetParent(this);
+	if (!_pExprCar.IsNull()) _pExprCar->SetParent(this);
+	if (!_pExprLister.IsNull()) _pExprLister->SetParent(this);
 }
 
 Expr_Compound::Expr_Compound(const Expr_Compound &expr) : Expr(expr),
 			_pExprCar(expr._pExprCar->Clone()),
 			_pExprLister(dynamic_cast<Expr_Lister *>(expr._pExprLister->Clone()))
 {
-	_pExprCar->SetParent(this);
-	_pExprLister->SetParent(this);
+	if (!_pExprCar.IsNull()) _pExprCar->SetParent(this);
+	if (!_pExprLister.IsNull()) _pExprLister->SetParent(this);
 }
 
 Expr_Compound::~Expr_Compound()
 {
-	_pExprCar->SetParent(GetParent());
-	_pExprLister->SetParent(GetParent());
+	if (!_pExprCar.IsNull()) _pExprCar->SetParent(GetParent());
+	if (!_pExprLister.IsNull()) _pExprLister->SetParent(GetParent());
 }
 
 Expr *Expr_Compound::IncRef() const
 {
-	_pExprCar->IncRef();
-	_pExprLister->IncRef();
+	if (!_pExprCar.IsNull()) _pExprCar->IncRef();
+	if (!_pExprLister.IsNull()) _pExprLister->IncRef();
 	return Expr::IncRef();
 }
 
 bool Expr_Compound::IsParentOf(const Expr *pExpr) const
 {
 	return _pExprCar.get() == pExpr || _pExprLister.get() == pExpr ||
-			_pExprCar->IsParentOf(pExpr) || _pExprLister->IsParentOf(pExpr);
+			(!_pExprCar.IsNull() && _pExprCar->IsParentOf(pExpr)) ||
+			(!_pExprLister.IsNull() && _pExprLister->IsParentOf(pExpr));
 }
 
 bool Expr_Compound::DoSerialize(Signal sig, Stream &stream) const
@@ -1259,11 +1261,17 @@ bool Expr_Compound::DoSerialize(Signal sig, Stream &stream) const
 
 bool Expr_Compound::DoDeserialize(Signal sig, Stream &stream)
 {
-	Expr *pExprCar = NULL, *pExprList = NULL;
-	if (!Expr::Deserialize(sig, stream, &pExprCar, false)) return false;
-	if (!Expr::Deserialize(sig, stream, &pExprList, false)) return false;
+	Expr *pExprCar = NULL, *pExprLister = NULL;
+	if (!Expr::Deserialize(sig, stream, &pExprCar, true)) return false;
+	if (!Expr::Deserialize(sig, stream, &pExprLister, true)) return false;
+	if (!pExprLister->IsLister()) {
+		sig.SetError(ERR_IOError, "lister is expected in the stream");
+		return false;
+	}
 	_pExprCar.reset(pExprCar);
-	_pExprCar.reset(pExprList);
+	_pExprLister.reset(dynamic_cast<Expr_Lister *>(pExprLister));
+	_pExprCar->SetParent(this);
+	_pExprLister->SetParent(this);
 	return true;
 }
 
@@ -1787,7 +1795,7 @@ bool Expr_Caller::DoDeserialize(Signal sig, Stream &stream)
 		sig.SetError(ERR_IOError, "block is expected in the stream");
 		return false;
 	}
-	if (pExprCallerSucc != NULL && !pExprCallerSucc->IsBlock()) {
+	if (pExprCallerSucc != NULL && !pExprCallerSucc->IsCaller()) {
 		sig.SetError(ERR_IOError, "caller is expected in the stream");
 		return false;
 	}
@@ -2693,7 +2701,7 @@ bool ExprList::Serialize(Signal sig, Stream &stream) const
 	if (!stream.SerializePackedULong(sig, num)) return false;
 	foreach_const (ExprList, ppExpr, *this) {
 		const Expr *pExpr = *ppExpr;
-		if (!pExpr->DoSerialize(sig, stream)) return false;
+		if (!Expr::Serialize(sig, stream, pExpr)) return false;
 	}
 	return true;
 }
@@ -2758,10 +2766,10 @@ bool ExprOwner::Deserialize(Signal sig, Stream &stream)
 	reserve(num);
 	while (num-- > 0) {
 		Expr *pExpr = NULL;
-		if (Expr::Deserialize(sig, stream, &pExpr, true)) return false;
+		if (!Expr::Deserialize(sig, stream, &pExpr, true)) return false;
 		push_back(pExpr);
 	}
-	return sig.IsSignalled();
+	return true;
 }
 
 }

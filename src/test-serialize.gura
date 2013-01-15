@@ -1,4 +1,19 @@
 scope {
+	
+	buff = binary()
+	buff.writer() {|w|
+		x = `a('A', 'B', 1, 2) {} b(1, 2, 3) {}
+		w.serialize(x)
+		println(x)
+	}
+	buff.dump()
+	buff.reader() {|r|
+		x = r.deserialize()
+		println(x)
+	}
+}
+sys.exit()
+scope {
 	buff = binary()
 	buff.writer() {|w|
 		w.serialize('hello world')
@@ -12,7 +27,6 @@ scope {
 	buff.writer() {|w|
 		w.serialize(['hello world', 'line1', 'line2'])
 	}
-	buff.dump()
 	buff.reader() {|r|
 		println(r.deserialize()):nomap
 	}
