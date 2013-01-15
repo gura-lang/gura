@@ -538,11 +538,12 @@ bool Stream::DeserializeString(Signal sig, String &str)
 		str.clear();
 		return true;
 	}
-	char *buff = new char [len];
+	char *buff = new char [len + 1];
 	if (Read(sig, buff, len) != len) {
 		delete[] buff;
 		return false;
 	}
+	buff[len] = '\0';
 	str = buff;
 	delete[] buff;
 	return true;

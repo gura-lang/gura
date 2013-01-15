@@ -9,11 +9,12 @@ Gura_BeginModule(bzip2)
 //-----------------------------------------------------------------------------
 // Gura module functions: bzip2
 //-----------------------------------------------------------------------------
-// bzip2.reader(stream:stream:r)
+// bzip2.reader(stream:stream:r) {block?}
 Gura_DeclareFunction(reader)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(reader)
@@ -21,14 +22,15 @@ Gura_ImplementFunction(reader)
 	Stream &stream = args.GetStream(0);
 	Object_stream *pObjStream = GenerateDecompressor(env, sig, stream);
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(pObjStream);
+	return ReturnValue(env, sig, args, Value(pObjStream));
 }
 
-// bzip2.writer(stream:stream:w)
+// bzip2.writer(stream:stream:w) {block?}
 Gura_DeclareFunction(writer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(writer)
@@ -36,16 +38,17 @@ Gura_ImplementFunction(writer)
 	Stream &stream = args.GetStream(0);
 	Object_stream *pObjStream = GenerateCompressor(env, sig, stream);
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(pObjStream);
+	return ReturnValue(env, sig, args, Value(pObjStream));
 }
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_stream
 //-----------------------------------------------------------------------------
-// stream#bzip2reader()
+// stream#bzip2reader() {block?}
 Gura_DeclareMethod(stream, bzip2reader)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(stream, bzip2reader)
@@ -53,13 +56,14 @@ Gura_ImplementMethod(stream, bzip2reader)
 	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
 	Object_stream *pObjStream = GenerateDecompressor(env, sig, stream);
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(pObjStream);
+	return ReturnValue(env, sig, args, Value(pObjStream));
 }
 
-// stream#bzip2writer()
+// stream#bzip2writer() {block?}
 Gura_DeclareMethod(stream, bzip2writer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(stream, bzip2writer)
@@ -67,7 +71,7 @@ Gura_ImplementMethod(stream, bzip2writer)
 	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
 	Object_stream *pObjStream = GenerateCompressor(env, sig, stream);
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(pObjStream);
+	return ReturnValue(env, sig, args, Value(pObjStream));
 }
 
 // Module entry

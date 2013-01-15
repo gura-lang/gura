@@ -438,30 +438,32 @@ Gura_ImplementMethod(binary, store)
 	return args.GetSelf();
 }
 
-// binary#reader()
+// binary#reader() {block?}
 Gura_DeclareMethod(binary, reader)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(binary, reader)
 {
 	Object_binary *pSelf = Object_binary::GetSelfObj(args);
 	Stream *pStream = new Stream_Binary(sig, Object_binary::Reference(pSelf), false);
-	return Value(new Object_stream(env, pStream));
+	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
 }
 
-// binary#writer()
+// binary#writer() {block?}
 Gura_DeclareMethod(binary, writer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(binary, writer)
 {
 	Object_binary *pSelf = Object_binary::GetSelfObj(args);
 	Stream *pStream = new Stream_Binary(sig, Object_binary::Reference(pSelf), true);
-	return Value(new Object_stream(env, pStream));
+	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
 }
 
 // binary#decode(codec:codec)
