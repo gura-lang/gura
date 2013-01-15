@@ -759,37 +759,12 @@ bool Environment::IsObject() const { return false; }
 // Environment::Global
 //-----------------------------------------------------------------------------
 Environment::Global::Global() : _echoFlag(false),
-	_pFunc_Pos(NULL),
-	_pFunc_Neg(NULL),
-	_pFunc_Invert(NULL),
-	_pFunc_Not(NULL),
-	_pFunc_Plus(NULL),
-	_pFunc_Minus(NULL),
-	_pFunc_Multiply(NULL),
-	_pFunc_Divide(NULL),
-	_pFunc_Modulo(NULL),
-	_pFunc_format(NULL),
-	_pFunc_Power(NULL),
-	_pFunc_Equal(NULL),
-	_pFunc_NotEqual(NULL),
-	_pFunc_Greater(NULL),
-	_pFunc_Less(NULL),
-	_pFunc_GreaterEq(NULL),
-	_pFunc_LessEq(NULL),
-	_pFunc_Compare(NULL),
-	_pFunc_ContainCheck(NULL),
-	_pFunc_Or(NULL),
-	_pFunc_And(NULL),
-	_pFunc_Xor(NULL),
-	_pFunc_ShiftL(NULL),
-	_pFunc_ShiftR(NULL),
-	_pFunc_OrOr(NULL),
-	_pFunc_AndAnd(NULL),
-	_pFunc_Sequence(NULL),
-	_pFunc_SequenceInf(NULL),
 	_pConsole(NULL),
 	_pConsoleError(NULL)
 {
+	for (size_t i = 0; i < OPTYPE_max; i++) {
+		_pFuncTbl[i] = NULL;
+	}
 }
 
 Environment::Global::~Global()
@@ -797,34 +772,9 @@ Environment::Global::~Global()
 	foreach_const (SeparatedModuleMap, iter, _separatedModuleMap) {
 		delete iter->second;
 	}
-	Function::Delete(_pFunc_Pos);
-	Function::Delete(_pFunc_Neg);
-	Function::Delete(_pFunc_Invert);
-	Function::Delete(_pFunc_Not);
-	Function::Delete(_pFunc_Plus);
-	Function::Delete(_pFunc_Minus);
-	Function::Delete(_pFunc_Multiply);
-	Function::Delete(_pFunc_Divide);
-	Function::Delete(_pFunc_Modulo);
-	Function::Delete(_pFunc_format);
-	Function::Delete(_pFunc_Power);
-	Function::Delete(_pFunc_Equal);
-	Function::Delete(_pFunc_NotEqual);
-	Function::Delete(_pFunc_Greater);
-	Function::Delete(_pFunc_Less);
-	Function::Delete(_pFunc_GreaterEq);
-	Function::Delete(_pFunc_LessEq);
-	Function::Delete(_pFunc_Compare);
-	Function::Delete(_pFunc_ContainCheck);
-	Function::Delete(_pFunc_Or);
-	Function::Delete(_pFunc_And);
-	Function::Delete(_pFunc_Xor);
-	Function::Delete(_pFunc_ShiftL);
-	Function::Delete(_pFunc_ShiftR);
-	Function::Delete(_pFunc_OrOr);
-	Function::Delete(_pFunc_AndAnd);
-	Function::Delete(_pFunc_Sequence);
-	Function::Delete(_pFunc_SequenceInf);
+	for (size_t i = 0; i < OPTYPE_max; i++) {
+		Function::Delete(_pFuncTbl[i]);
+	}
 }
 
 void Environment::Global::Prepare()

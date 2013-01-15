@@ -13,34 +13,34 @@ static Expr *OptimizeConst(Environment &env, Signal sig,
 void AssignOperators(Environment &env)
 {
 	Environment::Global *pGlobal = env.GetGlobal();
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Pos		= new Func_Pos(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Neg		= new Func_Neg(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Invert	= new Func_Invert(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Not		= new Func_Not(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Plus		= new Func_Plus(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Minus	= new Func_Minus(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Multiply	= new Func_Multiply(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Divide	= new Func_Divide(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Modulo	= new Func_Modulo(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_format	= new Func_format(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Power	= new Func_Power(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Equal	= new Func_Equal(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_NotEqual	= new Func_NotEqual(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Greater	= new Func_Greater(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Less		= new Func_Less(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_GreaterEq= new Func_GreaterEq(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_LessEq	= new Func_LessEq(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Compare	= new Func_Compare(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_ContainCheck= new Func_ContainCheck(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Or		= new Func_Or(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_And		= new Func_And(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Xor		= new Func_Xor(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_ShiftL	= new Func_ShiftL(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_ShiftR	= new Func_ShiftR(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_OrOr		= new Func_OrOr(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_AndAnd	= new Func_AndAnd(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_Sequence	= new Func_Sequence(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFunc_SequenceInf = new Func_SequenceInf(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Pos]		= new Func_Pos(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Neg]		= new Func_Neg(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Invert]	= new Func_Invert(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Not]		= new Func_Not(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Plus]		= new Func_Plus(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Minus]		= new Func_Minus(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Multiply]	= new Func_Multiply(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Divide]	= new Func_Divide(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Modulo]	= new Func_Modulo(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_format]	= new Func_format(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Power]		= new Func_Power(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Equal]		= new Func_Equal(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_NotEqual]	= new Func_NotEqual(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Greater]	= new Func_Greater(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Less]		= new Func_Less(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_GreaterEq]	= new Func_GreaterEq(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_LessEq]	= new Func_LessEq(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Compare]	= new Func_Compare(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_ContainCheck] = new Func_ContainCheck(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Or]		= new Func_Or(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_And]		= new Func_And(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Xor]		= new Func_Xor(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_ShiftL]	= new Func_ShiftL(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_ShiftR]	= new Func_ShiftR(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_OrOr]		= new Func_OrOr(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_AndAnd]	= new Func_AndAnd(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Sequence]	= new Func_Sequence(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_SequenceInf] = new Func_SequenceInf(env)));
 }
 
 //-----------------------------------------------------------------------------
