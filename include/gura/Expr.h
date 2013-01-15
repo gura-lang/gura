@@ -299,7 +299,7 @@ public:
 //-----------------------------------------------------------------------------
 class DLLDECLARE Expr_Value : public Expr {
 protected:
-	const Value _value;
+	Value _value;
 public:
 	inline Expr_Value(Number num) : Expr(EXPRTYPE_Value), _value(num) {}
 	inline Expr_Value(const Complex &comp) : Expr(EXPRTYPE_Value), _value(comp) {}

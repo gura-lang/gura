@@ -624,12 +624,12 @@ bool Expr_Value::GenerateCode(Environment &env, Signal sig, Stream &stream)
 
 bool Expr_Value::DoSerialize(Signal sig, Stream &stream) const
 {
-	return false;
+	return Value::Serialize(sig, stream, _value);
 }
 
 bool Expr_Value::DoDeserialize(Signal sig, Stream &stream)
 {
-	return false;
+	return Value::Deserialize(sig, stream, _value, false);
 }
 
 String Expr_Value::ToString() const
@@ -679,7 +679,7 @@ bool Expr_String::GenerateCode(Environment &env, Signal sig, Stream &stream)
 
 bool Expr_String::DoSerialize(Signal sig, Stream &stream) const
 {
-	return false;
+	return stream.SerializeString(sig, _str.c_str());
 }
 
 bool Expr_String::DoDeserialize(Signal sig, Stream &stream)
