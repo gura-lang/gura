@@ -1952,12 +1952,13 @@ bool Class_list::CastFrom(Environment &env, Signal sig, Value &value, const Decl
 
 bool Class_list::Serialize(Signal sig, Stream &stream, const Value &value) const
 {
-	return false;
+	return value.GetList().Serialize(sig, stream);
 }
 
 bool Class_list::Deserialize(Signal sig, Stream &stream, Value &value)
 {
-	return false;
+	ValueList &valList = value.InitAsList(*this);
+	return valList.Deserialize(sig, stream);
 }
 
 Object *Class_list::CreateDescendant(Environment &env, Signal sig, Class *pClass)
