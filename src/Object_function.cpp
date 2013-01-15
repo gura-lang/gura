@@ -275,12 +275,12 @@ bool Class_function::CastFrom(Environment &env, Signal sig, Value &value, const 
 	return false;
 }
 
-bool Class_function::Serialize(Signal sig, Stream &stream, const Value &value) const
+bool Class_function::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
 	return false;
 }
 
-bool Class_function::Deserialize(Signal sig, Stream &stream, Value &value)
+bool Class_function::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
 	return false;
 }

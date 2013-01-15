@@ -330,7 +330,7 @@ bool Expr::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return false;
 }
 
-bool Expr::Serialize(Signal sig, Stream &stream, const Expr *pExpr)
+bool Expr::Serialize(Environment &env, Signal sig, Stream &stream, const Expr *pExpr)
 {
 	if (pExpr == NULL) {
 		unsigned char exprType = static_cast<unsigned char>(EXPRTYPE_None);
@@ -338,10 +338,10 @@ bool Expr::Serialize(Signal sig, Stream &stream, const Expr *pExpr)
 	}
 	unsigned char exprType = static_cast<unsigned char>(pExpr->GetType());
 	if (stream.Write(sig, &exprType, 1) < 1) return false;
-	return pExpr->DoSerialize(sig, stream);
+	return pExpr->DoSerialize(env, sig, stream);
 }
 
-bool Expr::Deserialize(Signal sig, Stream &stream, Expr **ppExpr, bool mustBeValidFlag)
+bool Expr::Deserialize(Environment &env, Signal sig, Stream &stream, Expr **ppExpr, bool mustBeValidFlag)
 {
 	*ppExpr = NULL;
 	unsigned char exprType = 0x00;
@@ -413,7 +413,7 @@ bool Expr::Deserialize(Signal sig, Stream &stream, Expr **ppExpr, bool mustBeVal
 		sig.SetError(ERR_IOError, "unknown expr type %d", exprType);
 		return false;
 	}
-	if (pExpr->DoDeserialize(sig, stream)) {
+	if (pExpr->DoDeserialize(env, sig, stream)) {
 		*ppExpr = pExpr.release();
 		return true;
 	}
@@ -499,14 +499,14 @@ bool Expr_Unary::IsParentOf(const Expr *pExpr) const
 	return _exprOwner.IsContained(pExpr);
 }
 
-bool Expr_Unary::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Unary::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	return _exprOwner.Serialize(sig, stream);
+	return _exprOwner.Serialize(env, sig, stream);
 }
 
-bool Expr_Unary::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Unary::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	return _exprOwner.Deserialize(sig, stream);
+	return _exprOwner.Deserialize(env, sig, stream);
 }
 
 //-----------------------------------------------------------------------------
@@ -551,14 +551,14 @@ bool Expr_Binary::IsParentOf(const Expr *pExpr) const
 	return _exprOwner.IsContained(pExpr);
 }
 
-bool Expr_Binary::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Binary::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	return _exprOwner.Serialize(sig, stream);
+	return _exprOwner.Serialize(env, sig, stream);
 }
 
-bool Expr_Binary::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Binary::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	return _exprOwner.Deserialize(sig, stream);
+	return _exprOwner.Deserialize(env, sig, stream);
 }
 
 //-----------------------------------------------------------------------------
@@ -594,14 +594,14 @@ bool Expr_Container::IsParentOf(const Expr *pExpr) const
 	return _exprOwner.IsContained(pExpr);
 }
 
-bool Expr_Container::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Container::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	return _exprOwner.Serialize(sig, stream);
+	return _exprOwner.Serialize(env, sig, stream);
 }
 
-bool Expr_Container::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Container::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	return _exprOwner.Deserialize(sig, stream);
+	return _exprOwner.Deserialize(env, sig, stream);
 }
 
 //-----------------------------------------------------------------------------
@@ -653,14 +653,14 @@ bool Expr_Value::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Value::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Value::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	return Value::Serialize(sig, stream, _value);
+	return Value::Serialize(env, sig, stream, _value);
 }
 
-bool Expr_Value::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Value::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	return Value::Deserialize(sig, stream, _value, false);
+	return Value::Deserialize(env, sig, stream, _value, false);
 }
 
 String Expr_Value::ToString() const
@@ -708,12 +708,12 @@ bool Expr_String::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_String::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_String::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
 	return stream.SerializeString(sig, _str.c_str());
 }
 
-bool Expr_String::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_String::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
 	return stream.DeserializeString(sig, _str);
 }
@@ -848,7 +848,7 @@ bool Expr_Symbol::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Symbol::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Symbol::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
 	if (!stream.SerializeSymbol(sig, _pSymbol)) return false;
 	if (!stream.SerializeSymbolSet(sig, _attrs)) return false;
@@ -857,7 +857,7 @@ bool Expr_Symbol::DoSerialize(Signal sig, Stream &stream) const
 	return true;
 }
 
-bool Expr_Symbol::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Symbol::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
 	if (!stream.DeserializeSymbol(sig, &_pSymbol)) return false;
 	if (!stream.DeserializeSymbolSet(sig, _attrs)) return false;
@@ -900,16 +900,16 @@ bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return _exprOwner.GenerateCode(env, sig, stream);
 }
 
-bool Expr_Root::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Root::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Container::DoSerialize(sig, stream)) return false;
+	if (!Expr_Container::DoSerialize(env, sig, stream)) return false;
 	if (!stream.SerializeString(sig, _pathName.c_str())) return false;
 	return true;
 }
 
-bool Expr_Root::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Root::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Container::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Container::DoDeserialize(env, sig, stream)) return false;
 	if (!stream.DeserializeString(sig, _pathName)) return false;
 	return true;
 }
@@ -971,18 +971,18 @@ bool Expr_Block::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Block::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Block::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Container::DoSerialize(sig, stream)) return false;
-	if (!Expr::Serialize(sig, stream, _pExprBlockParam.get())) return false;
+	if (!Expr_Container::DoSerialize(env, sig, stream)) return false;
+	if (!Expr::Serialize(env, sig, stream, _pExprBlockParam.get())) return false;
 	return true;
 }
 
-bool Expr_Block::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Block::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Container::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Container::DoDeserialize(env, sig, stream)) return false;
 	Expr *pExprBlockParam = NULL;
-	if (!Expr::Deserialize(sig, stream, &pExprBlockParam, false)) return false;
+	if (!Expr::Deserialize(env, sig, stream, &pExprBlockParam, false)) return false;
 	if (pExprBlockParam != NULL && pExprBlockParam->IsBlockParam()) {
 		sig.SetError(ERR_IOError, "block parameter is expected in the stream");
 		return false;
@@ -1030,15 +1030,15 @@ bool Expr_BlockParam::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_BlockParam::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_BlockParam::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Container::DoSerialize(sig, stream)) return false;
+	if (!Expr_Container::DoSerialize(env, sig, stream)) return false;
 	return true;
 }
 
-bool Expr_BlockParam::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_BlockParam::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Container::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Container::DoDeserialize(env, sig, stream)) return false;
 	return true;
 }
 
@@ -1191,15 +1191,15 @@ bool Expr_Lister::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Lister::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Lister::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Container::DoSerialize(sig, stream)) return false;
+	if (!Expr_Container::DoSerialize(env, sig, stream)) return false;
 	return true;
 }
 
-bool Expr_Lister::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Lister::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Container::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Container::DoDeserialize(env, sig, stream)) return false;
 	return true;
 }
 
@@ -1252,18 +1252,18 @@ bool Expr_Compound::IsParentOf(const Expr *pExpr) const
 			(!_pExprLister.IsNull() && _pExprLister->IsParentOf(pExpr));
 }
 
-bool Expr_Compound::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Compound::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr::Serialize(sig, stream, _pExprCar.get())) return false;
-	if (!Expr::Serialize(sig, stream, _pExprLister.get())) return false;
+	if (!Expr::Serialize(env, sig, stream, _pExprCar.get())) return false;
+	if (!Expr::Serialize(env, sig, stream, _pExprLister.get())) return false;
 	return true;
 }
 
-bool Expr_Compound::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Compound::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
 	Expr *pExprCar = NULL, *pExprLister = NULL;
-	if (!Expr::Deserialize(sig, stream, &pExprCar, true)) return false;
-	if (!Expr::Deserialize(sig, stream, &pExprLister, true)) return false;
+	if (!Expr::Deserialize(env, sig, stream, &pExprCar, true)) return false;
+	if (!Expr::Deserialize(env, sig, stream, &pExprLister, true)) return false;
 	if (!pExprLister->IsLister()) {
 		sig.SetError(ERR_IOError, "lister is expected in the stream");
 		return false;
@@ -1466,15 +1466,15 @@ bool Expr_Indexer::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Indexer::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Indexer::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Compound::DoSerialize(sig, stream)) return false;
+	if (!Expr_Compound::DoSerialize(env, sig, stream)) return false;
 	return true;
 }
 
-bool Expr_Indexer::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Indexer::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Compound::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Compound::DoDeserialize(env, sig, stream)) return false;
 	return true;
 }
 
@@ -1774,23 +1774,23 @@ bool Expr_Caller::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Caller::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Caller::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Compound::DoSerialize(sig, stream)) return false;
-	if (!Expr::Serialize(sig, stream, _pExprBlock.get())) return false;
-	if (!Expr::Serialize(sig, stream, _pExprCallerSucc.get())) return false;
+	if (!Expr_Compound::DoSerialize(env, sig, stream)) return false;
+	if (!Expr::Serialize(env, sig, stream, _pExprBlock.get())) return false;
+	if (!Expr::Serialize(env, sig, stream, _pExprCallerSucc.get())) return false;
 	if (!stream.SerializeSymbolSet(sig, _attrs)) return false;
 	if (!stream.SerializeSymbolSet(sig, _attrsOpt)) return false;
 	if (!stream.SerializeSymbolList(sig, _attrFront)) return false;
 	return true;
 }
 
-bool Expr_Caller::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Caller::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Compound::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Compound::DoDeserialize(env, sig, stream)) return false;
 	Expr *pExprBlock = NULL, *pExprCallerSucc = NULL;
-	if (!Expr::Deserialize(sig, stream, &pExprBlock, false)) return false;
-	if (!Expr::Deserialize(sig, stream, &pExprCallerSucc, false)) return false;
+	if (!Expr::Deserialize(env, sig, stream, &pExprBlock, false)) return false;
+	if (!Expr::Deserialize(env, sig, stream, &pExprCallerSucc, false)) return false;
 	if (pExprBlock != NULL && !pExprBlock->IsBlock()) {
 		sig.SetError(ERR_IOError, "block is expected in the stream");
 		return false;
@@ -1886,15 +1886,15 @@ bool Expr_UnaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_UnaryOp::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_UnaryOp::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Unary::DoSerialize(sig, stream)) return false;
+	if (!Expr_Unary::DoSerialize(env, sig, stream)) return false;
 	return true;
 }
 
-bool Expr_UnaryOp::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_UnaryOp::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Unary::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Unary::DoDeserialize(env, sig, stream)) return false;
 	return true;
 }
 
@@ -1965,15 +1965,21 @@ bool Expr_BinaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_BinaryOp::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_BinaryOp::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Binary::DoSerialize(sig, stream)) return false;
+	if (!Expr_Binary::DoSerialize(env, sig, stream)) return false;
+	unsigned char opType = static_cast<unsigned char>(_pFunc->GetOpType());
+	if (!stream.SerializeUChar(sig, opType)) return false;
 	return true;
 }
 
-bool Expr_BinaryOp::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_BinaryOp::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Binary::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
+	unsigned char opType = 0x00;
+	if (!stream.DeserializeUChar(sig, opType)) return false;
+	//const Function *pFunc = NULL;
+	
 	return true;
 }
 
@@ -2044,15 +2050,15 @@ bool Expr_Quote::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Quote::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Quote::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Unary::DoSerialize(sig, stream)) return false;
+	if (!Expr_Unary::DoSerialize(env, sig, stream)) return false;
 	return true;
 }
 
-bool Expr_Quote::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Quote::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Unary::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Unary::DoDeserialize(env, sig, stream)) return false;
 	return true;
 }
 
@@ -2090,15 +2096,15 @@ bool Expr_Force::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Force::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Force::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Unary::DoSerialize(sig, stream)) return false;
+	if (!Expr_Unary::DoSerialize(env, sig, stream)) return false;
 	return true;
 }
 
-bool Expr_Force::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Force::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Unary::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Unary::DoDeserialize(env, sig, stream)) return false;
 	return true;
 }
 
@@ -2136,16 +2142,16 @@ bool Expr_Prefix::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Prefix::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Prefix::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Unary::DoSerialize(sig, stream)) return false;
+	if (!Expr_Unary::DoSerialize(env, sig, stream)) return false;
 	if (stream.SerializeSymbol(sig, _pSymbol)) return false;
 	return true;
 }
 
-bool Expr_Prefix::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Prefix::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Unary::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Unary::DoDeserialize(env, sig, stream)) return false;
 	if (stream.DeserializeSymbol(sig, &_pSymbol)) return false;
 	return true;
 }
@@ -2193,16 +2199,16 @@ bool Expr_Suffix::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Suffix::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Suffix::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Unary::DoSerialize(sig, stream)) return false;
+	if (!Expr_Unary::DoSerialize(env, sig, stream)) return false;
 	if (stream.SerializeSymbol(sig, _pSymbol)) return false;
 	return true;
 }
 
-bool Expr_Suffix::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Suffix::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Unary::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Unary::DoDeserialize(env, sig, stream)) return false;
 	if (stream.DeserializeSymbol(sig, &_pSymbol)) return false;
 	return true;
 }
@@ -2287,17 +2293,17 @@ bool Expr_Assign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Assign::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Assign::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Binary::DoSerialize(sig, stream)) return false;
+	if (!Expr_Binary::DoSerialize(env, sig, stream)) return false;
 
 
 	return true;
 }
 
-bool Expr_Assign::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Assign::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Binary::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
 
 
 	return true;
@@ -2354,15 +2360,15 @@ bool Expr_DictAssign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_DictAssign::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_DictAssign::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Binary::DoSerialize(sig, stream)) return false;
+	if (!Expr_Binary::DoSerialize(env, sig, stream)) return false;
 	return true;
 }
 
-bool Expr_DictAssign::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_DictAssign::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Binary::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
 	return true;
 }
 
@@ -2534,17 +2540,17 @@ bool Expr_Member::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Member::DoSerialize(Signal sig, Stream &stream) const
+bool Expr_Member::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	if (!Expr_Binary::DoSerialize(sig, stream)) return false;
+	if (!Expr_Binary::DoSerialize(env, sig, stream)) return false;
 	unsigned char mode = static_cast<unsigned char>(_mode);
 	if (!stream.SerializeUChar(sig, mode)) return false;
 	return true;
 }
 
-bool Expr_Member::DoDeserialize(Signal sig, Stream &stream)
+bool Expr_Member::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Binary::DoDeserialize(sig, stream)) return false;
+	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
 	unsigned char mode = 0;
 	if (!stream.DeserializeUChar(sig, mode)) return false;
 	if (mode >= MODE_max) {
@@ -2695,13 +2701,13 @@ bool ExprList::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool ExprList::Serialize(Signal sig, Stream &stream) const
+bool ExprList::Serialize(Environment &env, Signal sig, Stream &stream) const
 {
 	unsigned long num = static_cast<unsigned long>(size());
 	if (!stream.SerializePackedULong(sig, num)) return false;
 	foreach_const (ExprList, ppExpr, *this) {
 		const Expr *pExpr = *ppExpr;
-		if (!Expr::Serialize(sig, stream, pExpr)) return false;
+		if (!Expr::Serialize(env, sig, stream, pExpr)) return false;
 	}
 	return true;
 }
@@ -2758,7 +2764,7 @@ void ExprOwner::Clear()
 	clear();
 }
 
-bool ExprOwner::Deserialize(Signal sig, Stream &stream)
+bool ExprOwner::Deserialize(Environment &env, Signal sig, Stream &stream)
 {
 	unsigned long num = 0;
 	if (!stream.DeserializePackedULong(sig, num)) return false;
@@ -2766,7 +2772,7 @@ bool ExprOwner::Deserialize(Signal sig, Stream &stream)
 	reserve(num);
 	while (num-- > 0) {
 		Expr *pExpr = NULL;
-		if (!Expr::Deserialize(sig, stream, &pExpr, true)) return false;
+		if (!Expr::Deserialize(env, sig, stream, &pExpr, true)) return false;
 		push_back(pExpr);
 	}
 	return true;

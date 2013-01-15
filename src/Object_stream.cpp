@@ -655,7 +655,7 @@ Gura_ImplementMethod(stream, serialize)
 	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Null;
 	const Value &value = args.GetValue(0);
-	Value::Serialize(sig, stream, value);
+	Value::Serialize(env, sig, stream, value);
 	return Value::Null;
 }
 
@@ -670,7 +670,7 @@ Gura_ImplementMethod(stream, deserialize)
 	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
 	if (!stream.CheckReadable(sig)) return Value::Null;
 	Value value;
-	if (!Value::Deserialize(sig, stream, value, false)) return Value::Null;
+	if (!Value::Deserialize(env, sig, stream, value, false)) return Value::Null;
 	return value;
 }
 

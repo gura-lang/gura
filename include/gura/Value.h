@@ -634,8 +634,8 @@ public:
 			const Value &v3, const Value &v4, const Value &v5);
 	static Value CreateAsList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3, const Value &v4, const Value &v5, const Value &v6);
-	static bool Serialize(Signal sig, Stream &stream, const Value &value);
-	static bool Deserialize(Signal sig, Stream &stream, Value &value, bool mustBeValidFlag);
+	static bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value);
+	static bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value, bool mustBeValidFlag);
 private:
 	void FreeResource();
 };
@@ -674,8 +674,8 @@ public:
 	bool ToStringList(Signal sig, StringList &strList) const;
 	static bool AssumeSameLength(Signal sig,
 					const ValueList &valList1, const ValueList &valList2);
-	bool Serialize(Signal sig, Stream &stream) const;
-	bool Deserialize(Signal sig, Stream &stream);
+	bool Serialize(Environment &env, Signal sig, Stream &stream) const;
+	bool Deserialize(Environment &env, Signal sig, Stream &stream);
 };
 
 //-----------------------------------------------------------------------------
@@ -728,8 +728,8 @@ public:
 	inline static bool IsValidKey(const Value &value) {
 		return value.IsNumber() || value.IsString() || value.IsSymbol();
 	}
-	bool Serialize(Signal sig, Stream &stream) const;
-	bool Deserialize(Signal sig, Stream &stream);
+	bool Serialize(Environment &env, Signal sig, Stream &stream) const;
+	bool Deserialize(Environment &env, Signal sig, Stream &stream);
 };
 
 inline const char *GetNumberFormat() { return "%g"; }

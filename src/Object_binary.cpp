@@ -534,12 +534,12 @@ bool Class_binary::CastFrom(Environment &env, Signal sig, Value &value, const De
 	return false;
 }
 
-bool Class_binary::Serialize(Signal sig, Stream &stream, const Value &value) const
+bool Class_binary::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
 	return false;
 }
 
-bool Class_binary::Deserialize(Signal sig, Stream &stream, Value &value)
+bool Class_binary::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
 	return false;
 }

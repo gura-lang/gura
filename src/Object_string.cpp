@@ -907,16 +907,16 @@ bool Class_string::CastFrom(Environment &env, Signal sig, Value &value, const De
 	return !sig.IsSignalled();
 }
 
-bool Class_string::Serialize(Signal sig, Stream &stream, const Value &value) const
+bool Class_string::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
 	return stream.SerializeString(sig, value.GetString());
 }
 
-bool Class_string::Deserialize(Signal sig, Stream &stream, Value &value)
+bool Class_string::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
 	String str;
 	if (!stream.DeserializeString(sig, str)) return false;
-	value = Value(*this, str.c_str());
+	value = Value(env, str.c_str());
 	return true;
 }
 

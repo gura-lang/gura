@@ -1950,15 +1950,15 @@ bool Class_list::CastFrom(Environment &env, Signal sig, Value &value, const Decl
 	return false;
 }
 
-bool Class_list::Serialize(Signal sig, Stream &stream, const Value &value) const
+bool Class_list::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
-	return value.GetList().Serialize(sig, stream);
+	return value.GetList().Serialize(env, sig, stream);
 }
 
-bool Class_list::Deserialize(Signal sig, Stream &stream, Value &value)
+bool Class_list::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
-	ValueList &valList = value.InitAsList(*this);
-	return valList.Deserialize(sig, stream);
+	ValueList &valList = value.InitAsList(env);
+	return valList.Deserialize(env, sig, stream);
 }
 
 Object *Class_list::CreateDescendant(Environment &env, Signal sig, Class *pClass)

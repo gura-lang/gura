@@ -976,16 +976,16 @@ Value Value::CreateAsList(Environment &env, const Value &v1, const Value &v2,
 	return rtn;
 }
 
-bool Value::Serialize(Signal sig, Stream &stream, const Value &value)
+bool Value::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value)
 {
 	const ValueTypeInfo *pValueTypeInfo =
 							ValueTypePool::GetInstance()->Lookup(value.GetType());
 	unsigned long valType = static_cast<unsigned long>(value.GetType());
 	if (!stream.SerializePackedULong(sig, valType)) return false;
-	return pValueTypeInfo->GetClass()->Serialize(sig, stream, value);
+	return pValueTypeInfo->GetClass()->Serialize(env, sig, stream, value);
 }
 
-bool Value::Deserialize(Signal sig, Stream &stream, Value &value, bool mustBeValidFlag)
+bool Value::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value, bool mustBeValidFlag)
 {
 	unsigned long valType = static_cast<unsigned long>(VTYPE_nil);
 	if (!stream.DeserializePackedULong(sig, valType)) return false;
@@ -999,7 +999,7 @@ bool Value::Deserialize(Signal sig, Stream &stream, Value &value, bool mustBeVal
 		sig.SetError(ERR_IOError, "invalid value type in the stream");
 		return false;
 	}
-	return pValueTypeInfo->GetClass()->Deserialize(sig, stream, value);
+	return pValueTypeInfo->GetClass()->Deserialize(env, sig, stream, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -1117,24 +1117,24 @@ bool ValueList::ToStringList(Signal sig, StringList &strList) const
 	return true;
 }
 
-bool ValueList::Serialize(Signal sig, Stream &stream) const
+bool ValueList::Serialize(Environment &env, Signal sig, Stream &stream) const
 {
 	unsigned long num = static_cast<unsigned long>(size());
 	if (!stream.SerializePackedULong(sig, num)) return false;
 	foreach_const (ValueList, pValue, *this) {
-		if (!Value::Serialize(sig, stream, *pValue)) return false;
+		if (!Value::Serialize(env, sig, stream, *pValue)) return false;
 	}
 	return true;
 }
 
-bool ValueList::Deserialize(Signal sig, Stream &stream)
+bool ValueList::Deserialize(Environment &env, Signal sig, Stream &stream)
 {
 	unsigned long num = 0;
 	if (!stream.DeserializePackedULong(sig, num)) return false;
 	reserve(num);
 	Value value;
 	while (num-- > 0) {
-		if (!Value::Deserialize(sig, stream, value, false)) return false;
+		if (!Value::Deserialize(env, sig, stream, value, false)) return false;
 		push_back(value);
 	}
 	return true;
@@ -1248,25 +1248,25 @@ bool ValueDict::Store(Signal sig, const Value &valueIdx, const Value &value, Sto
 	return true;
 }
 
-bool ValueDict::Serialize(Signal sig, Stream &stream) const
+bool ValueDict::Serialize(Environment &env, Signal sig, Stream &stream) const
 {
 	unsigned long num = static_cast<unsigned long>(size());
 	if (!stream.SerializePackedULong(sig, num)) return false;
 	foreach_const (ValueDict, iter, *this) {
-		if (!Value::Serialize(sig, stream, iter->first)) return false;
-		if (!Value::Serialize(sig, stream, iter->second)) return false;
+		if (!Value::Serialize(env, sig, stream, iter->first)) return false;
+		if (!Value::Serialize(env, sig, stream, iter->second)) return false;
 	}
 	return true;
 }
 
-bool ValueDict::Deserialize(Signal sig, Stream &stream)
+bool ValueDict::Deserialize(Environment &env, Signal sig, Stream &stream)
 {
 	unsigned long num = 0;
 	if (!stream.DeserializePackedULong(sig, num)) return false;
 	Value valueIdx, value;
 	while (num-- > 0) {
-		if (!Value::Deserialize(sig, stream, valueIdx, false)) return false;
-		if (!Value::Deserialize(sig, stream, value, false)) return false;
+		if (!Value::Deserialize(env, sig, stream, valueIdx, false)) return false;
+		if (!Value::Deserialize(env, sig, stream, value, false)) return false;
 		insert(ValueDict::value_type(valueIdx, value));
 	}
 	return true;

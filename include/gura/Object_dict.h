@@ -11,8 +11,8 @@ namespace Gura {
 class DLLDECLARE Class_dict : public Class {
 public:
 	Class_dict(Environment *pEnvOuter);
-	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Signal sig, Stream &stream, Value &value);
+	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	static void OnModuleEntry(Environment &env, Signal sig);
 };

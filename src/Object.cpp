@@ -502,13 +502,13 @@ void Class::Prepare()
 	Gura_AssignMethod(Object, __iter__);
 }
 
-bool Class::Serialize(Signal sig, Stream &stream, const Value &value) const
+bool Class::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
 	sig.SetError(ERR_IOError, "can't serialize class or module");
 	return false;
 }
 
-bool Class::Deserialize(Signal sig, Stream &stream, Value &value)
+bool Class::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
 	sig.SetError(ERR_IOError, "can't deserialize class or module");
 	return false;
@@ -526,12 +526,12 @@ bool Class_nil::CastFrom(Environment &env, Signal sig, Value &value, const Decla
 	return false;
 }
 
-bool Class_nil::Serialize(Signal sig, Stream &stream, const Value &value) const
+bool Class_nil::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
 	return true;
 }
 
-bool Class_nil::Deserialize(Signal sig, Stream &stream, Value &value)
+bool Class_nil::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
 	value = Value::Null;
 	return true;
@@ -553,12 +553,12 @@ bool Class_symbol::CastFrom(Environment &env, Signal sig, Value &value, const De
 	return false;
 }
 
-bool Class_symbol::Serialize(Signal sig, Stream &stream, const Value &value) const
+bool Class_symbol::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
 	return stream.SerializeSymbol(sig, value.GetSymbol());
 }
 
-bool Class_symbol::Deserialize(Signal sig, Stream &stream, Value &value)
+bool Class_symbol::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
 	const Symbol *pSymbol = NULL;
 	if (!stream.DeserializeSymbol(sig, &pSymbol)) return false;
@@ -583,12 +583,12 @@ bool Class_boolean::CastFrom(Environment &env, Signal sig, Value &value, const D
 	}
 }
 
-bool Class_boolean::Serialize(Signal sig, Stream &stream, const Value &value) const
+bool Class_boolean::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
 	return stream.SerializeUChar(sig, static_cast<unsigned char>(value.GetBoolean()));
 }
 
-bool Class_boolean::Deserialize(Signal sig, Stream &stream, Value &value)
+bool Class_boolean::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
 	unsigned char num = 0;
 	if (!stream.DeserializeUChar(sig, num)) return false;
@@ -632,12 +632,12 @@ bool Class_number::CastFrom(Environment &env, Signal sig, Value &value, const De
 	return false;
 }
 
-bool Class_number::Serialize(Signal sig, Stream &stream, const Value &value) const
+bool Class_number::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
 	return stream.SerializeDouble(sig, value.GetNumber());
 }
 
-bool Class_number::Deserialize(Signal sig, Stream &stream, Value &value)
+bool Class_number::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
 	double num = 0;
 	if (!stream.DeserializeDouble(sig, num)) return false;
@@ -660,7 +660,7 @@ bool Class_complex::CastFrom(Environment &env, Signal sig, Value &value, const D
 	return false;
 }
 
-bool Class_complex::Serialize(Signal sig, Stream &stream, const Value &value) const
+bool Class_complex::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
 	const Complex *pNum = value.GetComplexPtr();
 	if (!stream.SerializeDouble(sig, pNum->real())) return false;
@@ -668,7 +668,7 @@ bool Class_complex::Serialize(Signal sig, Stream &stream, const Value &value) co
 	return true;
 }
 
-bool Class_complex::Deserialize(Signal sig, Stream &stream, Value &value)
+bool Class_complex::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
 	double re = 0, im = 0;
 	if (!stream.DeserializeDouble(sig, re)) return false;

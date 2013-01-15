@@ -1164,12 +1164,12 @@ Class_matrix::Class_matrix(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_matr
 	Gura_AssignMethod(matrix, inverse);
 }
 
-bool Class_matrix::Serialize(Signal sig, Stream &stream, const Value &value) const
+bool Class_matrix::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
 	return false;
 }
 
-bool Class_matrix::Deserialize(Signal sig, Stream &stream, Value &value)
+bool Class_matrix::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
 	return false;
 }
