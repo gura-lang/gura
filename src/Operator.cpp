@@ -152,7 +152,7 @@ Expr *Func_Neg::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
 		return NULL;
 	}
 	if (pExprChild->IsValue()) {
-		return OptimizeConst(env, sig, env.GetFunc_Neg(), pExprChild);
+		return OptimizeConst(env, sig, env.GetFunc(OPTYPE_Neg), pExprChild);
 	} else if (pExprChild->IsOperatorNeg()) {
 		// -(-n) = n
 		Expr *pExpr =
@@ -160,7 +160,7 @@ Expr *Func_Neg::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
 		Expr::Delete(pExprChild);
 		return pExpr;
 	} else {
-		return new Expr_UnaryOp(env.GetFunc_Neg(), pExprChild, false);
+		return new Expr_UnaryOp(env.GetFunc(OPTYPE_Neg), pExprChild, false);
 	}
 }
 
@@ -241,7 +241,7 @@ Value Func_Plus::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetComplex(valueLeft.GetComplex() + valueRight.GetNumber());
 		return result;
 	} else if (valueLeft.IsMatrix() && valueRight.IsMatrix()) {
-		return Object_matrix::OperatorPlusMinus(env, sig, env.GetFunc_Plus(),
+		return Object_matrix::OperatorPlusMinus(env, sig, env.GetFunc(OPTYPE_Plus),
 						valueLeft.GetMatrixObj(), valueRight.GetMatrixObj());
 	} else if (valueLeft.IsDateTime() && valueRight.IsTimeDelta()) {
 		DateTime dateTime = valueLeft.GetDateTime();
@@ -335,7 +335,7 @@ Expr *Func_Plus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Ex
 		return NULL;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetFunc_Plus(), pExprLeft, pExprRight);
+		return OptimizeConst(env, sig, env.GetFunc(OPTYPE_Plus), pExprLeft, pExprRight);
 	} else if (pExprLeft->IsConstNumber(0)) {
 		// 0 + m = m
 		Expr::Delete(pExprLeft);
@@ -414,7 +414,7 @@ Expr *Func_Plus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Ex
 			}
 		}
 	}
-	return new Expr_BinaryOp(env.GetFunc_Plus(), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Plus), pExprLeft, pExprRight);
 }
 
 // n - m
@@ -447,7 +447,7 @@ Value Func_Minus::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetComplex(valueLeft.GetComplex() - valueRight.GetNumber());
 		return result;
 	} else if (valueLeft.IsMatrix() && valueRight.IsMatrix()) {
-		return Object_matrix::OperatorPlusMinus(env, sig, env.GetFunc_Minus(),
+		return Object_matrix::OperatorPlusMinus(env, sig, env.GetFunc(OPTYPE_Minus),
 						valueLeft.GetMatrixObj(), valueRight.GetMatrixObj());
 	} else if (valueLeft.IsDateTime() && valueRight.IsTimeDelta()) {
 		DateTime dateTime = valueLeft.GetDateTime();
@@ -530,7 +530,7 @@ Expr *Func_Minus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 		return NULL;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetFunc_Minus(), pExprLeft, pExprRight);
+		return OptimizeConst(env, sig, env.GetFunc(OPTYPE_Minus), pExprLeft, pExprRight);
 	} else if (pExprLeft->IsConstNumber(0)) {
 		// 0 - m = -m
 		Expr::Delete(pExprLeft);
@@ -610,7 +610,7 @@ Expr *Func_Minus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 			}
 		}
 	}
-	return new Expr_BinaryOp(env.GetFunc_Minus(), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Minus), pExprLeft, pExprRight);
 }
 
 // n * m
@@ -796,7 +796,7 @@ Expr *Func_Multiply::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft
 		return NULL;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetFunc_Multiply(), pExprLeft, pExprRight);
+		return OptimizeConst(env, sig, env.GetFunc(OPTYPE_Multiply), pExprLeft, pExprRight);
 	} else if (pExprLeft->IsConstNumber(0)) {
 		// n * 0 = 0
 		Expr::Delete(pExprRight);
@@ -908,7 +908,7 @@ Expr *Func_Multiply::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft
 			}
 		}
 	}
-	return new Expr_BinaryOp(env.GetFunc_Multiply(), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Multiply), pExprLeft, pExprRight);
 }
 
 // n / m
@@ -1103,7 +1103,7 @@ Expr *Func_Divide::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 			}
 		}
 	}
-	return new Expr_BinaryOp(env.GetFunc_Divide(), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Divide), pExprLeft, pExprRight);
 }
 
 // mod(n, m):map
@@ -1293,7 +1293,7 @@ Expr *Func_Power::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 		return NULL;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetFunc_Power(), pExprLeft, pExprRight);
+		return OptimizeConst(env, sig, env.GetFunc(OPTYPE_Power), pExprLeft, pExprRight);
 	} else if (pExprLeft->IsConstNumber(0)) {
 		// 0 ** m = 0
 		Expr::Delete(pExprRight);
@@ -1326,7 +1326,7 @@ Expr *Func_Power::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 	//	Expr::Delete(pExprRight);
 	//	return Gura_Module(math)::CreateFuncExpr("sqrt", pExprLeft);
 	}
-	return new Expr_BinaryOp(env.GetFunc_Power(), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Power), pExprLeft, pExprRight);
 }
 
 // n == m

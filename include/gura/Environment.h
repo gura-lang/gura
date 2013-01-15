@@ -224,35 +224,7 @@ public:
 	inline Global *GetGlobal()					{ return GetTopFrame().GetGlobal();			}
 	inline Global *GetGlobal() const			{ return GetTopFrame().GetGlobal();			}
 	inline void SetSuperSkipCount(int cntSuperSkip) { _cntSuperSkip = cntSuperSkip; }
-	inline const Function *GetFunc(OpType opType) { return GetGlobal()->_pFuncTbl[opType];			}
-	inline const Function *GetFunc_Pos()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Pos];		}
-	inline const Function *GetFunc_Neg()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Neg];		}
-	inline const Function *GetFunc_Invert()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Invert];		}
-	inline const Function *GetFunc_Not()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Not];		}
-	inline const Function *GetFunc_Plus()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Plus];		}
-	inline const Function *GetFunc_Minus()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Minus];		}
-	inline const Function *GetFunc_Multiply()	{ return GetGlobal()->_pFuncTbl[OPTYPE_Multiply];	}
-	inline const Function *GetFunc_Divide()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Divide];		}
-	inline const Function *GetFunc_Modulo()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Modulo];		}
-	inline const Function *GetFunc_format()		{ return GetGlobal()->_pFuncTbl[OPTYPE_format];		}
-	inline const Function *GetFunc_Power()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Power];		}
-	inline const Function *GetFunc_Equal()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Equal];		}
-	inline const Function *GetFunc_NotEqual()	{ return GetGlobal()->_pFuncTbl[OPTYPE_NotEqual];	}
-	inline const Function *GetFunc_Greater()	{ return GetGlobal()->_pFuncTbl[OPTYPE_Greater];	}
-	inline const Function *GetFunc_Less()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Less];		}
-	inline const Function *GetFunc_GreaterEq()	{ return GetGlobal()->_pFuncTbl[OPTYPE_GreaterEq];	}
-	inline const Function *GetFunc_LessEq()		{ return GetGlobal()->_pFuncTbl[OPTYPE_LessEq];		}
-	inline const Function *GetFunc_Compare()	{ return GetGlobal()->_pFuncTbl[OPTYPE_Compare];	}
-	inline const Function *GetFunc_ContainCheck() { return GetGlobal()->_pFuncTbl[OPTYPE_ContainCheck]; }
-	inline const Function *GetFunc_Or()			{ return GetGlobal()->_pFuncTbl[OPTYPE_Or];			}
-	inline const Function *GetFunc_And()		{ return GetGlobal()->_pFuncTbl[OPTYPE_And];		}
-	inline const Function *GetFunc_Xor()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Xor];		}
-	inline const Function *GetFunc_ShiftL()		{ return GetGlobal()->_pFuncTbl[OPTYPE_ShiftL];		}
-	inline const Function *GetFunc_ShiftR()		{ return GetGlobal()->_pFuncTbl[OPTYPE_ShiftR];		}
-	inline const Function *GetFunc_OrOr()		{ return GetGlobal()->_pFuncTbl[OPTYPE_OrOr];		}
-	inline const Function *GetFunc_AndAnd()		{ return GetGlobal()->_pFuncTbl[OPTYPE_AndAnd];		}
-	inline const Function *GetFunc_Sequence()	{ return GetGlobal()->_pFuncTbl[OPTYPE_Sequence];		}
-	inline const Function *GetFunc_SequenceInf(){ return GetGlobal()->_pFuncTbl[OPTYPE_SequenceInf];	}
+	inline const Function *GetFunc(OpType opType) { return GetGlobal()->_pFuncTbl[opType];	}
 	inline Module *GetModule_sys()				{ return GetGlobal()->_pModule_sys;			}
 	inline void SetEchoFlag(bool echoFlag)		{ GetGlobal()->_echoFlag = echoFlag;		}
 	inline bool GetEchoFlag() const				{ return GetGlobal()->_echoFlag;			}

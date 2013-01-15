@@ -123,6 +123,38 @@ Value ICallable::Call(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // Function
 //-----------------------------------------------------------------------------
+const char *Function::_mathSymbolTbl[] = {
+	"",		// OPTYPE_None
+	"+",	// OPTYPE_Pos
+	"-",	// OPTYPE_Neg
+	"~",	// OPTYPE_Invert
+	"!",	// OPTYPE_Not
+	"+",	// OPTYPE_Plus
+	"-",	// OPTYPE_Minus
+	"*",	// OPTYPE_Multiply
+	"/",	// OPTYPE_Divide
+	"%",	// OPTYPE_Modulo
+	"%",	// OPTYPE_format
+	"**",	// OPTYPE_Power
+	"==",	// OPTYPE_Equal
+	"!=",	// OPTYPE_NotEqual
+	">",	// OPTYPE_Greater
+	"<",	// OPTYPE_Less
+	">=",	// OPTYPE_GreaterEq
+	"<=",	// OPTYPE_LessEq
+	"<=>",	// OPTYPE_Compare
+	"in",	// OPTYPE_ContainCheck
+	"|",	// OPTYPE_Or
+	"&",	// OPTYPE_And
+	"^",	// OPTYPE_Xor
+	"<<",	// OPTYPE_ShiftL
+	">>",	// OPTYPE_ShiftR
+	"||",	// OPTYPE_OrOr
+	"&&",	// OPTYPE_AndAnd
+	"..",	// OPTYPE_Sequence
+	"..",	// OPTYPE_SequenceInf
+};
+
 bool Function::IsCustom() const			{ return false; }
 bool Function::IsPos() const			{ return false; }
 bool Function::IsNeg() const			{ return false; }

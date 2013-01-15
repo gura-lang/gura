@@ -483,7 +483,7 @@ Value Object_matrix::OperatorNeg(Environment &env, Signal sig,
 	Object_matrix *pObjMatRtn = new Object_matrix(env, nRows, nCols);
 	result.InitAsObject(pObjMatRtn);
 	ValueList &valList = pObjMatRtn->GetList();
-	const Function *pFunc = env.GetFunc_Neg();
+	const Function *pFunc = env.GetFunc(OPTYPE_Neg);
 	for (size_t iRow = 0; iRow < nRows; iRow++) {
 		ValueList::const_iterator pValueElem = pObjMat->GetPointer(iRow, 0);
 		for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
@@ -542,8 +542,8 @@ Value Object_matrix::OperatorMultiply(Environment &env, Signal sig,
 	Object_matrix *pObjMatRtn = new Object_matrix(env, nRows, nCols);
 	result.InitAsObject(pObjMatRtn);
 	ValueList &valList = pObjMatRtn->GetList();
-	const Function *pFuncMultiply = env.GetFunc_Multiply();
-	const Function *pFuncPlus = env.GetFunc_Plus();
+	const Function *pFuncMultiply = env.GetFunc(OPTYPE_Multiply);
+	const Function *pFuncPlus = env.GetFunc(OPTYPE_Plus);
 	for (size_t iRow = 0; iRow < nRows; iRow++) {
 		for (size_t iCol = 0; iCol < nCols; iCol++) {
 			ValueList::const_iterator pValueElem1 = pObjMat1->GetPointer(iRow, 0);
@@ -583,8 +583,8 @@ Value Object_matrix::OperatorMultiply(Environment &env, Signal sig,
 			SetError_MatrixSizeMismatch(sig);
 			return Value::Null;
 		}
-		const Function *pFuncMultiply = env.GetFunc_Multiply();
-		const Function *pFuncPlus = env.GetFunc_Plus();
+		const Function *pFuncMultiply = env.GetFunc(OPTYPE_Multiply);
+		const Function *pFuncPlus = env.GetFunc(OPTYPE_Plus);
 		ValueList &valListResult = result.InitAsList(env);
 		valListResult.reserve(nRows);
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
@@ -613,7 +613,7 @@ Value Object_matrix::OperatorMultiply(Environment &env, Signal sig,
 		Object_matrix *pObjMatRtn = new Object_matrix(env, nRows, nCols);
 		result.InitAsObject(pObjMatRtn);
 		ValueList &valListResult = pObjMatRtn->GetList();
-		const Function *pFunc = env.GetFunc_Multiply();
+		const Function *pFunc = env.GetFunc(OPTYPE_Multiply);
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pObjMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
@@ -641,8 +641,8 @@ Value Object_matrix::OperatorMultiply(Environment &env, Signal sig,
 			SetError_MatrixSizeMismatch(sig);
 			return Value::Null;
 		}
-		const Function *pFuncMultiply = env.GetFunc_Multiply();
-		const Function *pFuncPlus = env.GetFunc_Plus();
+		const Function *pFuncMultiply = env.GetFunc(OPTYPE_Multiply);
+		const Function *pFuncPlus = env.GetFunc(OPTYPE_Plus);
 		ValueList &valListResult = result.InitAsList(env);
 		valListResult.reserve(nCols);
 		for (size_t iCol = 0; iCol < nCols; iCol++) {
@@ -672,7 +672,7 @@ Value Object_matrix::OperatorMultiply(Environment &env, Signal sig,
 		Object_matrix *pObjMatRtn = new Object_matrix(env, nRows, nCols);
 		result.InitAsObject(pObjMatRtn);
 		ValueList &valListResult = pObjMatRtn->GetList();
-		const Function *pFunc = env.GetFunc_Multiply();
+		const Function *pFunc = env.GetFunc(OPTYPE_Multiply);
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pObjMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
@@ -696,7 +696,7 @@ Value Object_matrix::OperatorDivide(Environment &env, Signal sig,
 	Object_matrix *pObjMatRtn = new Object_matrix(env, nRows, nCols);
 	result.InitAsObject(pObjMatRtn);
 	ValueList &valList = pObjMatRtn->GetList();
-	const Function *pFunc = env.GetFunc_Divide();
+	const Function *pFunc = env.GetFunc(OPTYPE_Divide);
 	for (size_t iRow = 0; iRow < nRows; iRow++) {
 		ValueList::const_iterator pValueElem = pObjMat->GetPointer(iRow, 0);
 		for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {

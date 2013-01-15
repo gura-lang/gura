@@ -240,6 +240,7 @@ protected:
 		bool quoteFlag;	// don't create function object from block
 		const Symbol *pSymbol;
 	} _blockInfo;
+	static const char *_mathSymbolTbl[];
 public:
 	Function(const Function &func);
 	Function(Environment &envScope, const Symbol *pSymbol, FunctionType funcType);
