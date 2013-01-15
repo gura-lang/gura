@@ -518,7 +518,7 @@ Expr_Binary::Expr_Binary(ExprType exprType, Expr *pExprLeft, Expr *pExprRight) :
 {
 	_exprOwner.reserve(2);
 	_exprOwner.push_back(pExprLeft); _exprOwner.push_back(pExprRight);
-	_exprOwner.SetParent(this);
+	if (pExprLeft != NULL && pExprRight != NULL) _exprOwner.SetParent(this);
 }
 
 Expr_Binary::Expr_Binary(const Expr_Binary &expr) : Expr(expr), _exprOwner(expr._exprOwner)
@@ -558,7 +558,9 @@ bool Expr_Binary::DoSerialize(Environment &env, Signal sig, Stream &stream) cons
 
 bool Expr_Binary::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	return _exprOwner.Deserialize(env, sig, stream);
+	if (!_exprOwner.Deserialize(env, sig, stream)) return false;
+	_exprOwner.SetParent(this);
+	return true;
 }
 
 //-----------------------------------------------------------------------------
