@@ -135,6 +135,9 @@ MyApp = class(wx.App) {
 		menuHelp.Append(DIALOGS_ABOUTDLG_FANCY, 'About (&fancy)...\tShift-F1')
 		menuHelp.Append(DIALOGS_ABOUTDLG_FULL, 'About (f&ull)...\tCtrl-F1')
 		menuHelp.Append(DIALOGS_ABOUTDLG_CUSTOM, 'About (&custom)...\tCtrl-Shift-F1')
+		menuHelp.Enable([
+			DIALOGS_ABOUTDLG_CUSTOM
+		], false)
 		menubar = wx.MenuBar()
 		menubar.Append(menuDlg, '&Dialogs')
 		menubar.Append(menuHelp, '&Help')
@@ -216,7 +219,7 @@ MyFrame = class(wx.Frame) {
 		self.Bind(wx.EVT_MENU, DIALOGS_ABOUTDLG_SIMPLE) {|event| self.ShowSimpleAboutDialog(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_ABOUTDLG_FANCY) {|event| self.ShowFancyAboutDialog(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_ABOUTDLG_FULL) {|event| self.ShowFullAboutDialog(event) }
-		self.Bind(wx.EVT_MENU, DIALOGS_ABOUTDLG_CUSTOM) {|event| self.ShowCustomAboutDialog(event) }
+		//self.Bind(wx.EVT_MENU, DIALOGS_ABOUTDLG_CUSTOM) {|event| self.ShowCustomAboutDialog(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_BUSYINFO) {|event| self.ShowBusyInfo(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_FIND) {|event| self.ShowFindDialog(event) }
 		self.Bind(wx.EVT_MENU, DIALOGS_REPLACE) {|event| self.ShowReplaceDialog(event) }

@@ -21,7 +21,6 @@ scope {
 		println(r.deserialize())
 	}
 }
-sys.exit()
 scope {
 	buff = binary()
 	buff.writer() {|w|
