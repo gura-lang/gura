@@ -1169,7 +1169,7 @@ bool Class_matrix::Serialize(Signal sig, Stream &stream, const Value &value) con
 	return false;
 }
 
-bool Class_matrix::Deserialize(Signal sig, Stream &stream, Value &value) const
+bool Class_matrix::Deserialize(Signal sig, Stream &stream, Value &value)
 {
 	return false;
 }

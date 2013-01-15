@@ -508,7 +508,7 @@ bool Class::Serialize(Signal sig, Stream &stream, const Value &value) const
 	return false;
 }
 
-bool Class::Deserialize(Signal sig, Stream &stream, Value &value) const
+bool Class::Deserialize(Signal sig, Stream &stream, Value &value)
 {
 	sig.SetError(ERR_IOError, "can't deserialize class or module");
 	return false;
@@ -531,7 +531,7 @@ bool Class_nil::Serialize(Signal sig, Stream &stream, const Value &value) const
 	return true;
 }
 
-bool Class_nil::Deserialize(Signal sig, Stream &stream, Value &value) const
+bool Class_nil::Deserialize(Signal sig, Stream &stream, Value &value)
 {
 	value = Value::Null;
 	return true;
@@ -558,7 +558,7 @@ bool Class_symbol::Serialize(Signal sig, Stream &stream, const Value &value) con
 	return stream.SerializeString(sig, value.GetSymbol()->GetName());
 }
 
-bool Class_symbol::Deserialize(Signal sig, Stream &stream, Value &value) const
+bool Class_symbol::Deserialize(Signal sig, Stream &stream, Value &value)
 {
 	String str;
 	if (!stream.DeserializeString(sig, str)) return false;
@@ -588,7 +588,7 @@ bool Class_boolean::Serialize(Signal sig, Stream &stream, const Value &value) co
 	return stream.SerializeUChar(sig, static_cast<unsigned char>(value.GetBoolean()));
 }
 
-bool Class_boolean::Deserialize(Signal sig, Stream &stream, Value &value) const
+bool Class_boolean::Deserialize(Signal sig, Stream &stream, Value &value)
 {
 	unsigned char num = 0;
 	if (!stream.DeserializeUChar(sig, num)) return false;
@@ -637,7 +637,7 @@ bool Class_number::Serialize(Signal sig, Stream &stream, const Value &value) con
 	return stream.SerializeDouble(sig, value.GetNumber());
 }
 
-bool Class_number::Deserialize(Signal sig, Stream &stream, Value &value) const
+bool Class_number::Deserialize(Signal sig, Stream &stream, Value &value)
 {
 	double num = 0;
 	if (!stream.DeserializeDouble(sig, num)) return false;
@@ -668,7 +668,7 @@ bool Class_complex::Serialize(Signal sig, Stream &stream, const Value &value) co
 	return true;
 }
 
-bool Class_complex::Deserialize(Signal sig, Stream &stream, Value &value) const
+bool Class_complex::Deserialize(Signal sig, Stream &stream, Value &value)
 {
 	double re = 0, im = 0;
 	if (!stream.DeserializeDouble(sig, re)) return false;

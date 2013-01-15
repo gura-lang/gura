@@ -280,7 +280,7 @@ bool Class_function::Serialize(Signal sig, Stream &stream, const Value &value) c
 	return false;
 }
 
-bool Class_function::Deserialize(Signal sig, Stream &stream, Value &value) const
+bool Class_function::Deserialize(Signal sig, Stream &stream, Value &value)
 {
 	return false;
 }

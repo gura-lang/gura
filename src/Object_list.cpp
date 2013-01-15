@@ -1955,7 +1955,7 @@ bool Class_list::Serialize(Signal sig, Stream &stream, const Value &value) const
 	return false;
 }
 
-bool Class_list::Deserialize(Signal sig, Stream &stream, Value &value) const
+bool Class_list::Deserialize(Signal sig, Stream &stream, Value &value)
 {
 	return false;
 }

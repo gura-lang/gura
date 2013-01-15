@@ -518,7 +518,7 @@ bool Class_dict::Serialize(Signal sig, Stream &stream, const Value &value) const
 	return false;
 }
 
-bool Class_dict::Deserialize(Signal sig, Stream &stream, Value &value) const
+bool Class_dict::Deserialize(Signal sig, Stream &stream, Value &value)
 {
 	return false;
 }

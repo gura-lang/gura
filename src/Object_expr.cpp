@@ -405,7 +405,7 @@ bool Class_expr::Serialize(Signal sig, Stream &stream, const Value &value) const
 	return false;
 }
 
-bool Class_expr::Deserialize(Signal sig, Stream &stream, Value &value) const
+bool Class_expr::Deserialize(Signal sig, Stream &stream, Value &value)
 {
 	return false;
 }

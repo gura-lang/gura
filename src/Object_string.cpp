@@ -909,12 +909,15 @@ bool Class_string::CastFrom(Environment &env, Signal sig, Value &value, const De
 
 bool Class_string::Serialize(Signal sig, Stream &stream, const Value &value) const
 {
-	return false;
+	return stream.SerializeString(sig, value.GetString());
 }
 
-bool Class_string::Deserialize(Signal sig, Stream &stream, Value &value) const
+bool Class_string::Deserialize(Signal sig, Stream &stream, Value &value)
 {
-	return false;
+	String str;
+	if (!stream.DeserializeString(sig, str)) return false;
+	value = Value(*this, str.c_str());
+	return true;
 }
 
 Object *Class_string::CreateDescendant(Environment &env, Signal sig, Class *pClass)

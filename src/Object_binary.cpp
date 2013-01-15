@@ -537,7 +537,7 @@ bool Class_binary::Serialize(Signal sig, Stream &stream, const Value &value) con
 	return false;
 }
 
-bool Class_binary::Deserialize(Signal sig, Stream &stream, Value &value) const
+bool Class_binary::Deserialize(Signal sig, Stream &stream, Value &value)
 {
 	return false;
 }

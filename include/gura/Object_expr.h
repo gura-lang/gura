@@ -13,7 +13,7 @@ public:
 	Class_expr(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;
+	virtual bool Deserialize(Signal sig, Stream &stream, Value &value);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
