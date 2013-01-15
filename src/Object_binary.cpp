@@ -107,16 +107,6 @@ String Object_binary::ToString(Signal sig, bool exprFlag)
 	return String(buff);
 }
 
-bool Object_binary::DoSerialize(Signal sig, Stream &stream) const
-{
-	return stream.SerializeBinary(sig, _binary);
-}
-
-bool Object_binary::DoDeserialize(Signal sig, Stream &stream)
-{
-	return stream.DeserializeBinary(sig, _binary);
-}
-
 //-----------------------------------------------------------------------------
 // Object_binary::IteratorByte
 //-----------------------------------------------------------------------------
@@ -539,6 +529,16 @@ bool Class_binary::CastFrom(Environment &env, Signal sig, Value &value, const De
 		value = Value(pObjBinary);
 		return true;
 	}
+	return false;
+}
+
+bool Class_binary::Serialize(Signal sig, Stream &stream, const Value &value) const
+{
+	return false;
+}
+
+bool Class_binary::Deserialize(Signal sig, Stream &stream, Value &value) const
+{
 	return false;
 }
 

@@ -87,17 +87,6 @@ String Object_list::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
-bool Object_list::DoSerialize(Signal sig, Stream &stream) const
-{
-	return _valList.Serialize(sig, stream);
-}
-
-bool Object_list::DoDeserialize(Signal sig, Stream &stream)
-{
-	_valList.clear();
-	return _valList.Deserialize(sig, stream);
-}
-
 Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
 					const ValueList *pValListKey, bool rankFlag, bool stableFlag)
 {
@@ -1958,6 +1947,16 @@ bool Class_list::CastFrom(Environment &env, Signal sig, Value &value, const Decl
 		}
 		return true;
 	}
+	return false;
+}
+
+bool Class_list::Serialize(Signal sig, Stream &stream, const Value &value) const
+{
+	return false;
+}
+
+bool Class_list::Deserialize(Signal sig, Stream &stream, Value &value) const
+{
 	return false;
 }
 

@@ -199,8 +199,6 @@ public:
 	virtual Value DoPropSet(Signal sig,
 				const Symbol *pSymbol, const Value &value, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	virtual bool DoSerialize(Signal sig, Stream &stream) const;
-	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	Value EvalMethod(Signal sig, const Function *pFunc, const ValueList &valListArg);
 	Value EvalMethod(Signal sig, const Symbol *pSymbol,
 							const ValueList &valListArg, bool &evaluatedFlag);

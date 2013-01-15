@@ -242,18 +242,6 @@ String Object::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
-bool Object::DoSerialize(Signal sig, Stream &stream) const
-{
-	sig.SetError(ERR_IOError, "can't serialize for the object");
-	return false;
-}
-
-bool Object::DoDeserialize(Signal sig, Stream &stream)
-{
-	sig.SetError(ERR_IOError, "can't deserialize for the object");
-	return false;
-}
-
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object
 //-----------------------------------------------------------------------------

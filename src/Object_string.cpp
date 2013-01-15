@@ -61,16 +61,6 @@ String Object_string::ToString(Signal sig, const char *str, bool exprFlag)
 	return String(str);
 }
 
-bool Object_string::DoSerialize(Signal sig, Stream &stream) const
-{
-	return stream.SerializeString(sig, _str.c_str());
-}
-
-bool Object_string::DoDeserialize(Signal sig, Stream &stream)
-{
-	return stream.DeserializeString(sig, _str);
-}
-
 //-----------------------------------------------------------------------------
 // Object_string::IteratorEach
 //-----------------------------------------------------------------------------
@@ -915,6 +905,16 @@ bool Class_string::CastFrom(Environment &env, Signal sig, Value &value, const De
 {
 	value = Value(env, value.ToString(sig, false).c_str());
 	return !sig.IsSignalled();
+}
+
+bool Class_string::Serialize(Signal sig, Stream &stream, const Value &value) const
+{
+	return false;
+}
+
+bool Class_string::Deserialize(Signal sig, Stream &stream, Value &value) const
+{
+	return false;
 }
 
 Object *Class_string::CreateDescendant(Environment &env, Signal sig, Class *pClass)

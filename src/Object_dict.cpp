@@ -63,17 +63,6 @@ String Object_dict::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
-bool Object_dict::DoSerialize(Signal sig, Stream &stream) const
-{
-	return _valDict.Serialize(sig, stream);
-}
-
-bool Object_dict::DoDeserialize(Signal sig, Stream &stream)
-{
-	_valDict.clear();
-	return _valDict.Deserialize(sig, stream);
-}
-
 const Value *Object_dict::Find(Signal sig, const Value &valueIdx) const
 {
 	if (!ValueDict::IsValidKey(valueIdx)) {
@@ -522,6 +511,16 @@ Class_dict::Class_dict(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_dict)
 	Gura_AssignMethod(dict, items);
 	Gura_AssignMethod(dict, clear);
 	Gura_AssignMethod(dict, erase);
+}
+
+bool Class_dict::Serialize(Signal sig, Stream &stream, const Value &value) const
+{
+	return false;
+}
+
+bool Class_dict::Deserialize(Signal sig, Stream &stream, Value &value) const
+{
+	return false;
 }
 
 Object *Class_dict::CreateDescendant(Environment &env, Signal sig, Class *pClass)

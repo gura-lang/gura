@@ -136,16 +136,6 @@ String Object_function::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
-bool Object_function::DoSerialize(Signal sig, Stream &stream) const
-{
-	return false;
-}
-
-bool Object_function::DoDeserialize(Signal sig, Stream &stream)
-{
-	return false;
-}
-
 void Object_function::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
@@ -282,6 +272,16 @@ bool Class_function::CastFrom(Environment &env, Signal sig, Value &value, const 
 		value = Value(env, pFunc, Value::Null);
 		return true;
 	}
+	return false;
+}
+
+bool Class_function::Serialize(Signal sig, Stream &stream, const Value &value) const
+{
+	return false;
+}
+
+bool Class_function::Deserialize(Signal sig, Stream &stream, Value &value) const
+{
 	return false;
 }
 

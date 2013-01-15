@@ -12,6 +12,8 @@ class DLLDECLARE Class_list : public Class {
 public:
 	Class_list(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
@@ -194,8 +196,6 @@ public:
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal sig);
 	virtual String ToString(Signal sig, bool exprFlag);
-	virtual bool DoSerialize(Signal sig, Stream &stream) const;
-	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	Object_list *SortRank(Signal sig, const Value &valDirective,
 					const ValueList *pValListKey, bool rankFlag, bool stableFlag);
 };

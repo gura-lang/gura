@@ -51,20 +51,6 @@ String Object_expr::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
-bool Object_expr::DoSerialize(Signal sig, Stream &stream) const
-{
-	return Expr::Serialize(sig, stream, _pExpr);
-}
-
-bool Object_expr::DoDeserialize(Signal sig, Stream &stream)
-{
-	Expr *pExpr = NULL;
-	if (!Expr::Deserialize(sig, stream, &pExpr, true)) return false;
-	Expr::Delete(_pExpr);
-	_pExpr = pExpr;
-	return true;
-}
-
 //-----------------------------------------------------------------------------
 // Object_expr::Iterator_Each
 //-----------------------------------------------------------------------------
@@ -411,6 +397,16 @@ bool Class_expr::CastFrom(Environment &env, Signal sig, Value &value, const Decl
 		value.InitAsExpr(env, new Expr_Symbol(pSymbol));
 		return true;
 	}
+	return false;
+}
+
+bool Class_expr::Serialize(Signal sig, Stream &stream, const Value &value) const
+{
+	return false;
+}
+
+bool Class_expr::Deserialize(Signal sig, Stream &stream, Value &value) const
+{
 	return false;
 }
 

@@ -181,16 +181,6 @@ String Object_matrix::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-bool Object_matrix::DoSerialize(Signal sig, Stream &stream) const
-{
-	return false;
-}
-
-bool Object_matrix::DoDeserialize(Signal sig, Stream &stream)
-{
-	return false;
-}
-
 void Object_matrix::ToList(ValueList &valList, bool transposeFlag, bool flattenFlag)
 {
 	Environment &env = *this;
@@ -1172,6 +1162,16 @@ Class_matrix::Class_matrix(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_matr
 	Gura_AssignMethod(matrix, roundoff);
 	Gura_AssignMethod(matrix, transpose);
 	Gura_AssignMethod(matrix, inverse);
+}
+
+bool Class_matrix::Serialize(Signal sig, Stream &stream, const Value &value) const
+{
+	return false;
+}
+
+bool Class_matrix::Deserialize(Signal sig, Stream &stream, Value &value) const
+{
+	return false;
 }
 
 Object *Class_matrix::CreateDescendant(Environment &env, Signal sig, Class *pClass)

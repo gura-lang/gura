@@ -13,6 +13,8 @@ public:
 	Class_binary(Environment *pEnvOuter);
 	virtual void Prepare();
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
@@ -67,8 +69,6 @@ public:
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal sig);
 	virtual String ToString(Signal sig, bool exprFlag);
-	virtual bool DoSerialize(Signal sig, Stream &stream) const;
-	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	inline Binary &GetBinary() { return _binary; }
 	inline const Binary &GetBinary() const { return _binary; }
 	inline bool IsWritable() const { return _writableFlag; }

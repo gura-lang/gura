@@ -14,6 +14,8 @@ public:
 	Class_function(Environment *pEnvOuter);
 	virtual void Prepare();
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
@@ -42,8 +44,6 @@ public:
 	inline String GetName() const { return _pFunc->GetName(); }
 	virtual String GetFullName(Signal sig);
 	virtual String ToString(Signal sig, bool exprFlag);
-	virtual bool DoSerialize(Signal sig, Stream &stream) const;
-	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
 	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual Value DoPropSet(Signal sig, const Symbol *pSymbol, const Value &value, bool &evaluatedFlag);

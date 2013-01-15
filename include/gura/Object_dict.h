@@ -11,6 +11,8 @@ namespace Gura {
 class DLLDECLARE Class_dict : public Class {
 public:
 	Class_dict(Environment *pEnvOuter);
+	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
@@ -82,8 +84,6 @@ public:
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal sig);
 	virtual String ToString(Signal sig, bool exprFlag);
-	virtual bool DoSerialize(Signal sig, Stream &stream) const;
-	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	const Value *Find(Signal sig, const Value &valueIdx) const;
 	static void SetError_KeyNotFound(Signal sig, const Value &valueIdx);
 };

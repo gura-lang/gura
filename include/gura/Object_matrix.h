@@ -11,6 +11,8 @@ namespace Gura {
 class DLLDECLARE Class_matrix : public Class {
 public:
 	Class_matrix(Environment *pEnvOuter);
+	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
@@ -80,8 +82,6 @@ public:
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	virtual String ToString(Signal sig, bool exprFlag);
-	virtual bool DoSerialize(Signal sig, Stream &stream) const;
-	virtual bool DoDeserialize(Signal sig, Stream &stream);
 	void ToList(ValueList &valList, bool transposeFlag, bool flattenFlag);
 	inline size_t RowSize() const { return _nRows; }
 	inline size_t ColSize() const { return _nCols; }
