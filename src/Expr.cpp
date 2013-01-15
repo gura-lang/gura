@@ -468,7 +468,7 @@ Expr_Unary::Expr_Unary(ExprType exprType, Expr *pExprChild) : Expr(exprType)
 {
 	_exprOwner.reserve(1);
 	_exprOwner.push_back(pExprChild);
-	_exprOwner.SetParent(this);
+	if (pExprChild != NULL) _exprOwner.SetParent(this);
 }
 
 Expr_Unary::Expr_Unary(const Expr_Unary &expr) : Expr(expr), _exprOwner(expr._exprOwner)
@@ -506,7 +506,9 @@ bool Expr_Unary::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 
 bool Expr_Unary::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	return _exprOwner.Deserialize(env, sig, stream);
+	if (!_exprOwner.Deserialize(env, sig, stream)) return false;
+	_exprOwner.SetParent(this);
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -985,7 +987,7 @@ bool Expr_Block::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 	if (!Expr_Container::DoDeserialize(env, sig, stream)) return false;
 	Expr *pExprBlockParam = NULL;
 	if (!Expr::Deserialize(env, sig, stream, &pExprBlockParam, false)) return false;
-	if (pExprBlockParam != NULL && pExprBlockParam->IsBlockParam()) {
+	if (pExprBlockParam != NULL && !pExprBlockParam->IsBlockParam()) {
 		sig.SetError(ERR_IOError, "block parameter is expected in the stream");
 		return false;
 	}

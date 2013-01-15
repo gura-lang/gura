@@ -1,13 +1,5 @@
 f() = {
-	println(f.expr)
-	buff = binary()
-	buff.writer() {|w|
-		w.serialize(f.expr)
-	}
-	buff.dump()
-	buff.reader() {|r|
-		println(r.deserialize())
-	}
+	x = -3
 }
 scope {
 	println(f.expr)
