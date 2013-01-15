@@ -1,0 +1,29 @@
+scope {
+	buff = binary()
+	buff.writer() {|w|
+		w.serialize('hello world')
+	}
+	buff.reader() {|r|
+		println(r.deserialize())
+	}
+}
+scope {
+	buff = binary()
+	buff.writer() {|w|
+		w.serialize(['hello world', 'line1', 'line2'])
+	}
+	buff.dump()
+	buff.reader() {|r|
+		println(r.deserialize()):nomap
+	}
+}
+scope {
+	buff = binary()
+	buff.writer() {|w|
+		w.serialize([12345, 3.1415926, 'hello world', 3 + 2j])
+	}
+	buff.dump()
+	buff.reader() {|r|
+		println(r.deserialize()):nomap
+	}
+}
