@@ -763,7 +763,7 @@ Environment::Global::Global() : _echoFlag(false),
 	_pConsoleError(NULL)
 {
 	for (size_t i = 0; i < OPTYPE_max; i++) {
-		_pFuncTbl[i] = NULL;
+		_pOpFuncTbl[i] = NULL;
 	}
 }
 
@@ -773,7 +773,7 @@ Environment::Global::~Global()
 		delete iter->second;
 	}
 	for (size_t i = 0; i < OPTYPE_max; i++) {
-		Function::Delete(_pFuncTbl[i]);
+		Function::Delete(_pOpFuncTbl[i]);
 	}
 }
 

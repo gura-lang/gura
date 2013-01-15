@@ -13,34 +13,34 @@ static Expr *OptimizeConst(Environment &env, Signal sig,
 void AssignOperators(Environment &env)
 {
 	Environment::Global *pGlobal = env.GetGlobal();
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Pos]		= new Func_Pos(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Neg]		= new Func_Neg(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Invert]	= new Func_Invert(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Not]		= new Func_Not(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Plus]		= new Func_Plus(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Minus]		= new Func_Minus(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Multiply]	= new Func_Multiply(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Divide]	= new Func_Divide(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Modulo]	= new Func_Modulo(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_format]	= new Func_format(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Power]		= new Func_Power(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Equal]		= new Func_Equal(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_NotEqual]	= new Func_NotEqual(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Greater]	= new Func_Greater(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Less]		= new Func_Less(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_GreaterEq]	= new Func_GreaterEq(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_LessEq]	= new Func_LessEq(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Compare]	= new Func_Compare(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_ContainCheck] = new Func_ContainCheck(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Or]		= new Func_Or(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_And]		= new Func_And(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Xor]		= new Func_Xor(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_ShiftL]	= new Func_ShiftL(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_ShiftR]	= new Func_ShiftR(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_OrOr]		= new Func_OrOr(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_AndAnd]	= new Func_AndAnd(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_Sequence]	= new Func_Sequence(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pFuncTbl[OPTYPE_SequenceInf] = new Func_SequenceInf(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Pos]			= new Func_Pos(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Neg]			= new Func_Neg(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Invert]		= new Func_Invert(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Not]			= new Func_Not(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Plus]		= new Func_Plus(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Minus]		= new Func_Minus(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Multiply]	= new Func_Multiply(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Divide]		= new Func_Divide(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Modulo]		= new Func_Modulo(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_format]		= new Func_format(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Power]		= new Func_Power(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Equal]		= new Func_Equal(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_NotEqual]	= new Func_NotEqual(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Greater]		= new Func_Greater(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Less]		= new Func_Less(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_GreaterEq]	= new Func_GreaterEq(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_LessEq]		= new Func_LessEq(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Compare]		= new Func_Compare(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_ContainCheck] = new Func_ContainCheck(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Or]			= new Func_Or(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_And]			= new Func_And(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Xor]			= new Func_Xor(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_ShiftL]		= new Func_ShiftL(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_ShiftR]		= new Func_ShiftR(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_OrOr]		= new Func_OrOr(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_AndAnd]		= new Func_AndAnd(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Sequence]	= new Func_Sequence(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_SequenceInf] = new Func_SequenceInf(env)));
 }
 
 //-----------------------------------------------------------------------------
@@ -152,7 +152,7 @@ Expr *Func_Neg::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
 		return NULL;
 	}
 	if (pExprChild->IsValue()) {
-		return OptimizeConst(env, sig, env.GetFunc(OPTYPE_Neg), pExprChild);
+		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Neg), pExprChild);
 	} else if (pExprChild->IsOperatorNeg()) {
 		// -(-n) = n
 		Expr *pExpr =
@@ -160,7 +160,7 @@ Expr *Func_Neg::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
 		Expr::Delete(pExprChild);
 		return pExpr;
 	} else {
-		return new Expr_UnaryOp(env.GetFunc(OPTYPE_Neg), pExprChild, false);
+		return new Expr_UnaryOp(env.GetOpFunc(OPTYPE_Neg), pExprChild, false);
 	}
 }
 
@@ -241,7 +241,7 @@ Value Func_Plus::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetComplex(valueLeft.GetComplex() + valueRight.GetNumber());
 		return result;
 	} else if (valueLeft.IsMatrix() && valueRight.IsMatrix()) {
-		return Object_matrix::OperatorPlusMinus(env, sig, env.GetFunc(OPTYPE_Plus),
+		return Object_matrix::OperatorPlusMinus(env, sig, env.GetOpFunc(OPTYPE_Plus),
 						valueLeft.GetMatrixObj(), valueRight.GetMatrixObj());
 	} else if (valueLeft.IsDateTime() && valueRight.IsTimeDelta()) {
 		DateTime dateTime = valueLeft.GetDateTime();
@@ -335,7 +335,7 @@ Expr *Func_Plus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Ex
 		return NULL;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetFunc(OPTYPE_Plus), pExprLeft, pExprRight);
+		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Plus), pExprLeft, pExprRight);
 	} else if (pExprLeft->IsConstNumber(0)) {
 		// 0 + m = m
 		Expr::Delete(pExprLeft);
@@ -414,7 +414,7 @@ Expr *Func_Plus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Ex
 			}
 		}
 	}
-	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Plus), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Plus), pExprLeft, pExprRight);
 }
 
 // n - m
@@ -447,7 +447,7 @@ Value Func_Minus::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetComplex(valueLeft.GetComplex() - valueRight.GetNumber());
 		return result;
 	} else if (valueLeft.IsMatrix() && valueRight.IsMatrix()) {
-		return Object_matrix::OperatorPlusMinus(env, sig, env.GetFunc(OPTYPE_Minus),
+		return Object_matrix::OperatorPlusMinus(env, sig, env.GetOpFunc(OPTYPE_Minus),
 						valueLeft.GetMatrixObj(), valueRight.GetMatrixObj());
 	} else if (valueLeft.IsDateTime() && valueRight.IsTimeDelta()) {
 		DateTime dateTime = valueLeft.GetDateTime();
@@ -530,7 +530,7 @@ Expr *Func_Minus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 		return NULL;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetFunc(OPTYPE_Minus), pExprLeft, pExprRight);
+		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Minus), pExprLeft, pExprRight);
 	} else if (pExprLeft->IsConstNumber(0)) {
 		// 0 - m = -m
 		Expr::Delete(pExprLeft);
@@ -610,7 +610,7 @@ Expr *Func_Minus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 			}
 		}
 	}
-	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Minus), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Minus), pExprLeft, pExprRight);
 }
 
 // n * m
@@ -796,7 +796,7 @@ Expr *Func_Multiply::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft
 		return NULL;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetFunc(OPTYPE_Multiply), pExprLeft, pExprRight);
+		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Multiply), pExprLeft, pExprRight);
 	} else if (pExprLeft->IsConstNumber(0)) {
 		// n * 0 = 0
 		Expr::Delete(pExprRight);
@@ -908,7 +908,7 @@ Expr *Func_Multiply::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft
 			}
 		}
 	}
-	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Multiply), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Multiply), pExprLeft, pExprRight);
 }
 
 // n / m
@@ -1103,7 +1103,7 @@ Expr *Func_Divide::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 			}
 		}
 	}
-	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Divide), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Divide), pExprLeft, pExprRight);
 }
 
 // mod(n, m):map
@@ -1293,7 +1293,7 @@ Expr *Func_Power::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 		return NULL;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetFunc(OPTYPE_Power), pExprLeft, pExprRight);
+		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Power), pExprLeft, pExprRight);
 	} else if (pExprLeft->IsConstNumber(0)) {
 		// 0 ** m = 0
 		Expr::Delete(pExprRight);
@@ -1326,7 +1326,7 @@ Expr *Func_Power::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 	//	Expr::Delete(pExprRight);
 	//	return Gura_Module(math)::CreateFuncExpr("sqrt", pExprLeft);
 	}
-	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Power), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Power), pExprLeft, pExprRight);
 }
 
 // n == m

@@ -147,7 +147,7 @@ public:
 		SymbolPool			*_pSymbolPool;
 		ValueTypePool		*_pValueTypePool;
 		bool				_echoFlag;
-		Function			*_pFuncTbl[OPTYPE_max];
+		Function			*_pOpFuncTbl[OPTYPE_max];
 		Module				*_pModule_sys;
 		Stream				*_pConsole;
 		Stream				*_pConsoleError;
@@ -224,7 +224,10 @@ public:
 	inline Global *GetGlobal()					{ return GetTopFrame().GetGlobal();			}
 	inline Global *GetGlobal() const			{ return GetTopFrame().GetGlobal();			}
 	inline void SetSuperSkipCount(int cntSuperSkip) { _cntSuperSkip = cntSuperSkip; }
-	inline const Function *GetFunc(OpType opType) { return GetGlobal()->_pFuncTbl[opType];	}
+	inline const Function *GetOpFunc(OpType opType) { return GetGlobal()->_pOpFuncTbl[opType];	}
+	inline const Function *GetOpFuncWithCheck(OpType opType) {
+		return (opType < OPTYPE_max)? GetGlobal()->_pOpFuncTbl[opType] : NULL;
+	}
 	inline Module *GetModule_sys()				{ return GetGlobal()->_pModule_sys;			}
 	inline void SetEchoFlag(bool echoFlag)		{ GetGlobal()->_echoFlag = echoFlag;		}
 	inline bool GetEchoFlag() const				{ return GetGlobal()->_echoFlag;			}

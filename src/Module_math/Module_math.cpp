@@ -145,10 +145,10 @@ Gura_ImplementFunction(acos)
 Gura_ImplementDiffUnary(acos)
 {
 	// acos(x)' = -1 / sqrt(1 - x ** 2)
-	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Divide), new Expr_Value(-1),
-			CreateFuncExpr("sqrt", new Expr_BinaryOp(env.GetFunc(OPTYPE_Minus),
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Divide), new Expr_Value(-1),
+			CreateFuncExpr("sqrt", new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Minus),
 					new Expr_Value(1),
-					new Expr_BinaryOp(env.GetFunc(OPTYPE_Power),
+					new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Power),
 							pExprArg->IncRef(), new Expr_Value(2)))));
 }
 
@@ -175,10 +175,10 @@ Gura_ImplementFunction(asin)
 Gura_ImplementDiffUnary(asin)
 {
 	// asin(x)' = 1 / sqrt(1 - x ** 2)
-	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Divide), new Expr_Value(1),
-			CreateFuncExpr("sqrt", new Expr_BinaryOp(env.GetFunc(OPTYPE_Minus),
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Divide), new Expr_Value(1),
+			CreateFuncExpr("sqrt", new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Minus),
 					new Expr_Value(1),
-					new Expr_BinaryOp(env.GetFunc(OPTYPE_Power),
+					new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Power),
 							pExprArg->IncRef(), new Expr_Value(2)))));
 }
 
@@ -205,10 +205,10 @@ Gura_ImplementFunction(atan)
 Gura_ImplementDiffUnary(atan)
 {
 	// atan(x)' = 1 / (1 + x ** 2)
-	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Divide), new Expr_Value(1),
-			new Expr_BinaryOp(env.GetFunc(OPTYPE_Plus),
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Divide), new Expr_Value(1),
+			new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Plus),
 					new Expr_Value(1),
-					new Expr_BinaryOp(env.GetFunc(OPTYPE_Power),
+					new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Power),
 							pExprArg->IncRef(), new Expr_Value(2))));
 }
 
@@ -280,7 +280,7 @@ Gura_ImplementFunction(cos)
 Gura_ImplementDiffUnary(cos)
 {
 	// cos(x)' = -sin(x)
-	return new Expr_UnaryOp(env.GetFunc(OPTYPE_Neg),
+	return new Expr_UnaryOp(env.GetOpFunc(OPTYPE_Neg),
 					CreateFuncExpr("sin", pExprArg->IncRef()), false);
 }
 
@@ -406,7 +406,7 @@ Gura_ImplementFunction(log)
 Gura_ImplementDiffUnary(log)
 {
 	// log(x)' = 1 / x
-	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Divide),
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Divide),
 								new Expr_Value(1), pExprArg->IncRef());
 }
 
@@ -439,8 +439,8 @@ Gura_ImplementFunction(log10)
 Gura_ImplementDiffUnary(log10)
 {
 	// log10(x)' = 1 / (x * log(10))
-	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Divide), new Expr_Value(1),
-			new Expr_BinaryOp(env.GetFunc(OPTYPE_Multiply),
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Divide), new Expr_Value(1),
+			new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Multiply),
 				pExprArg->IncRef(), CreateFuncExpr("log", new Expr_Value(10))));
 }
 
@@ -523,8 +523,8 @@ Gura_ImplementFunction(sqrt)
 Gura_ImplementDiffUnary(sqrt)
 {
 	// sqrt(x)' = 1 / (2 * sqrt(x))
-	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Divide), new Expr_Value(1),
-			new Expr_BinaryOp(env.GetFunc(OPTYPE_Multiply),
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Divide), new Expr_Value(1),
+			new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Multiply),
 					new Expr_Value(2),
 					CreateFuncExpr("sqrt", pExprArg->IncRef())));
 }
@@ -554,8 +554,8 @@ Gura_ImplementFunction(tan)
 Gura_ImplementDiffUnary(tan)
 {
 	// tan(x)' = 1 / cos(x) ** 2
-	return new Expr_BinaryOp(env.GetFunc(OPTYPE_Divide), new Expr_Value(1),
-			new Expr_BinaryOp(env.GetFunc(OPTYPE_Power),
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Divide), new Expr_Value(1),
+			new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Power),
 					CreateFuncExpr("cos", pExprArg->IncRef()),
 					new Expr_Value(2)));
 }
@@ -680,19 +680,19 @@ Gura_ImplementFunction(least_square)
 		NumberList::iterator pAlpha = alphaList.begin();
 		Expr *pExpr = new Expr_Value(*pAlpha);
 		pAlpha++;
-		Expr *pExprLeft = new Expr_BinaryOp(env.GetFunc(OPTYPE_Multiply),
+		Expr *pExprLeft = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Multiply),
 			new Expr_Value(*pAlpha),
 			new Expr_Symbol(pSymbolVar));
 		pAlpha++;
-		pExpr = new Expr_BinaryOp(env.GetFunc(OPTYPE_Plus), pExpr, pExprLeft);
+		pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Plus), pExpr, pExprLeft);
 		for ( ; pAlpha != alphaList.end(); pAlpha++) {
 			size_t n = pAlpha - alphaList.begin();
-			pExprLeft = new Expr_BinaryOp(env.GetFunc(OPTYPE_Multiply),
+			pExprLeft = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Multiply),
 				new Expr_Value(*pAlpha),
-				new Expr_BinaryOp(env.GetFunc(OPTYPE_Power),
+				new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Power),
 					new Expr_Symbol(pSymbolVar),
 					new Expr_Value(n)));
-			pExpr = new Expr_BinaryOp(env.GetFunc(OPTYPE_Plus), pExpr, pExprLeft);
+			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Plus), pExpr, pExprLeft);
 		}
 		Function *pFunc = new FunctionCustom(env,
 							Gura_Symbol(_anonymous_), pExpr, FUNCTYPE_Function);
@@ -890,13 +890,13 @@ Gura_ImplementFunction(dot_product)
 		do {
 			ValueList valListArg(*pValue1, *pValue2);
 			Args args(valListArg);
-			value = env.GetFunc(OPTYPE_Multiply)->Eval(env, sig, args);
+			value = env.GetOpFunc(OPTYPE_Multiply)->Eval(env, sig, args);
 			if (sig.IsSignalled()) return Value::Null;
 		} while (0);
 		do {
 			ValueList valListArg(valueSum, value);
 			Args args(valListArg);
-			valueSum = env.GetFunc(OPTYPE_Plus)->Eval(env, sig, args);
+			valueSum = env.GetOpFunc(OPTYPE_Plus)->Eval(env, sig, args);
 			if (sig.IsSignalled()) return Value::Null;
 		} while (0);
 	}
@@ -957,21 +957,21 @@ Value CalcCrossElem(Environment &env, Signal sig,
 	do {
 		ValueList valListArg(ax, by);
 		Args args(valListArg);
-		valueLeft = env.GetFunc(OPTYPE_Multiply)->Eval(env, sig, args);
+		valueLeft = env.GetOpFunc(OPTYPE_Multiply)->Eval(env, sig, args);
 		if (sig.IsSignalled()) return Value::Null;
 	} while (0);
 	Value valueRight;
 	do {
 		ValueList valListArg(ay, bx);
 		Args args(valListArg);
-		valueRight = env.GetFunc(OPTYPE_Multiply)->Eval(env, sig, args);
+		valueRight = env.GetOpFunc(OPTYPE_Multiply)->Eval(env, sig, args);
 		if (sig.IsSignalled()) return Value::Null;
 	} while (0);
 	Value value;
 	do {
 		ValueList valListArg(valueLeft, valueRight);
 		Args args(valListArg);
-		value = env.GetFunc(OPTYPE_Minus)->Eval(env, sig, args);
+		value = env.GetOpFunc(OPTYPE_Minus)->Eval(env, sig, args);
 		if (sig.IsSignalled()) return Value::Null;
 	} while (0);
 	return value;
