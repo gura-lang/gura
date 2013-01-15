@@ -402,12 +402,15 @@ bool Class_expr::CastFrom(Environment &env, Signal sig, Value &value, const Decl
 
 bool Class_expr::Serialize(Signal sig, Stream &stream, const Value &value) const
 {
-	return false;
+	return Expr::Serialize(sig, stream, value.GetExpr());
 }
 
 bool Class_expr::Deserialize(Signal sig, Stream &stream, Value &value)
 {
-	return false;
+	Expr *pExpr = NULL;
+	if (!Expr::Deserialize(sig, stream, &pExpr, true)) return false;
+	value = Value(*this, pExpr);
+	return true;
 }
 
 Object *Class_expr::CreateDescendant(Environment &env, Signal sig, Class *pClass)
