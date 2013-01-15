@@ -190,7 +190,7 @@ protected:
 	virtual Value DoCall(Environment &env, Signal sig, Args &args) = 0;
 };
 
-//-----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 // Function
 //-----------------------------------------------------------------------------
 class DLLDECLARE Function {
@@ -228,7 +228,7 @@ protected:
 	Environment _envScope;
 	DeclarationOwner _declOwner;
 	Parser::ElemType _elemType;
-	String _mathSymbol;
+	OpType _opType;
 	FunctionType _funcType;
 	ResultMode _resultMode;
 	unsigned long _flags;
@@ -256,8 +256,8 @@ public:
 	inline static void Delete(Function *pFunc) {
 		if (pFunc != NULL && pFunc->DecRef() <= 0) delete pFunc;
 	}
-	inline void SetOperatorInfo(Parser::ElemType elemType, const char *mathSymbol) {
-		_elemType = elemType; _mathSymbol = mathSymbol;
+	inline void SetOperatorInfo(Parser::ElemType elemType, OpType opType) {
+		_elemType = elemType; _opType = opType;
 	}
 	inline Class *GetClassToConstruct() const { return _pClassToConstruct; }
 	inline void SetAsSymbolFunc() { _flags |= FLAG_SymbolFunc; }
@@ -268,7 +268,8 @@ public:
 	inline const Symbol *GetSymbolForBlock() const { return _blockInfo.pSymbol; }
 	inline const char *GetName() const { return _pSymbol->GetName(); }
 	inline Parser::ElemType GetElemType() const { return _elemType; }
-	inline const char *GetMathSymbol() const { return _mathSymbol.c_str(); }
+	inline OpType GetOpType() const { return _opType; }
+	inline const char *GetMathSymbol() const { return _mathSymbolTbl[_opType]; }
 	inline Environment &GetEnvScope() { return _envScope; }
 	inline Environment &GetEnvScope() const {
 		return const_cast<Function *>(this)->_envScope;

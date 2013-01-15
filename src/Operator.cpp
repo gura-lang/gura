@@ -53,7 +53,7 @@ Func_Pos::Func_Pos(Environment &env) :
 			Function(env, Symbol::Add("__pos__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Plus, "+");	// revise this later
+	SetOperatorInfo(Parser::ETYPE_Plus, OPTYPE_Plus);	// revise this later
 	DeclareArg(env, "n", VTYPE_any);
 }
 
@@ -104,7 +104,7 @@ Func_Neg::Func_Neg(Environment &env) :
 			Function(env, Symbol::Add("__neg__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Minus, "-");	// revise this later
+	SetOperatorInfo(Parser::ETYPE_Minus, OPTYPE_Minus);	// revise this later
 	DeclareArg(env, "n", VTYPE_any);
 }
 
@@ -169,7 +169,7 @@ Func_Invert::Func_Invert(Environment &env) :
 			Function(env, Symbol::Add("__invert__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Invert, "~");
+	SetOperatorInfo(Parser::ETYPE_Invert, OPTYPE_Invert);
 	DeclareArg(env, "n", VTYPE_any);
 }
 
@@ -195,7 +195,7 @@ Func_Not::Func_Not(Environment &env) :
 			Function(env, Symbol::Add("__not__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Not, "!");
+	SetOperatorInfo(Parser::ETYPE_Not, OPTYPE_Not);
 	DeclareArg(env, "flag", VTYPE_any);
 }
 
@@ -218,7 +218,7 @@ Func_Plus::Func_Plus(Environment &env) :
 			Function(env, Symbol::Add("__add__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Plus, "+");
+	SetOperatorInfo(Parser::ETYPE_Plus, OPTYPE_Plus);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -424,7 +424,7 @@ Func_Minus::Func_Minus(Environment &env) :
 			Function(env, Symbol::Add("__sub__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Minus, "-");
+	SetOperatorInfo(Parser::ETYPE_Minus, OPTYPE_Minus);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -620,7 +620,7 @@ Func_Multiply::Func_Multiply(Environment &env) :
 			Function(env, Symbol::Add("__mul__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Multiply, "*");
+	SetOperatorInfo(Parser::ETYPE_Multiply, OPTYPE_Multiply);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -918,7 +918,7 @@ Func_Divide::Func_Divide(Environment &env) :
 			Function(env, Symbol::Add("__div__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Divide, "/");
+	SetOperatorInfo(Parser::ETYPE_Divide, OPTYPE_Divide);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1113,7 +1113,7 @@ Func_Modulo::Func_Modulo(Environment &env) :
 			Function(env, Symbol::Add("mod"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Modulo, "%");
+	SetOperatorInfo(Parser::ETYPE_Modulo, OPTYPE_Modulo);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1224,7 +1224,7 @@ Func_Power::Func_Power(Environment &env) :
 			Function(env, Symbol::Add("__pow__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Power, "**");
+	SetOperatorInfo(Parser::ETYPE_Power, OPTYPE_Power);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1334,7 +1334,7 @@ Func_Equal::Func_Equal(Environment &env) :
 			Function(env, Symbol::Add("__eq__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Equal, "==");
+	SetOperatorInfo(Parser::ETYPE_Equal, OPTYPE_Equal);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1357,7 +1357,7 @@ Func_NotEqual::Func_NotEqual(Environment &env) :
 			Function(env, Symbol::Add("__ne__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_NotEqual, "!=");
+	SetOperatorInfo(Parser::ETYPE_NotEqual, OPTYPE_NotEqual);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1380,7 +1380,7 @@ Func_Greater::Func_Greater(Environment &env) :
 			Function(env, Symbol::Add("__gt__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Greater, ">");
+	SetOperatorInfo(Parser::ETYPE_Greater, OPTYPE_Greater);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1403,7 +1403,7 @@ Func_Less::Func_Less(Environment &env) :
 			Function(env, Symbol::Add("__lt__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Less, "<");
+	SetOperatorInfo(Parser::ETYPE_Less, OPTYPE_Less);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1426,7 +1426,7 @@ Func_GreaterEq::Func_GreaterEq(Environment &env) :
 			Function(env, Symbol::Add("__ge__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_GreaterEq, ">=");
+	SetOperatorInfo(Parser::ETYPE_GreaterEq, OPTYPE_GreaterEq);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1449,7 +1449,7 @@ Func_LessEq::Func_LessEq(Environment &env) :
 			Function(env, Symbol::Add("__le__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_LessEq, "<=");
+	SetOperatorInfo(Parser::ETYPE_LessEq, OPTYPE_LessEq);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1472,7 +1472,7 @@ Func_Compare::Func_Compare(Environment &env) :
 			Function(env, Symbol::Add("__cmp__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Compare, "<=>");
+	SetOperatorInfo(Parser::ETYPE_Compare, OPTYPE_Compare);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1494,7 +1494,7 @@ bool Func_ContainCheck::IsContainCheck() const { return true; }
 Func_ContainCheck::Func_ContainCheck(Environment &env) :
 			Function(env, Symbol::Add("in"), FUNCTYPE_Function)
 {
-	SetOperatorInfo(Parser::ETYPE_ContainCheck, "in");
+	SetOperatorInfo(Parser::ETYPE_ContainCheck, OPTYPE_ContainCheck);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1560,7 +1560,7 @@ Func_Or::Func_Or(Environment &env) :
 			Function(env, Symbol::Add("__or__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Or, "|");
+	SetOperatorInfo(Parser::ETYPE_Or, OPTYPE_Or);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1594,7 +1594,7 @@ Func_And::Func_And(Environment &env) :
 			Function(env, Symbol::Add("__and__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_And, "&");
+	SetOperatorInfo(Parser::ETYPE_And, OPTYPE_And);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1629,7 +1629,7 @@ Func_Xor::Func_Xor(Environment &env) :
 			Function(env, Symbol::Add("__xor__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Xor, "^");
+	SetOperatorInfo(Parser::ETYPE_Xor, OPTYPE_Xor);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1662,7 +1662,7 @@ Func_ShiftL::Func_ShiftL(Environment &env) :
 			Function(env, Symbol::Add("__shl__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_ShiftL, "<<");
+	SetOperatorInfo(Parser::ETYPE_ShiftL, OPTYPE_ShiftL);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1691,7 +1691,7 @@ Func_ShiftR::Func_ShiftR(Environment &env) :
 			Function(env, Symbol::Add("__shr__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_ShiftR, ">>");
+	SetOperatorInfo(Parser::ETYPE_ShiftR, OPTYPE_ShiftR);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1722,7 +1722,7 @@ Func_OrOr::Func_OrOr(Environment &env) :
 			Function(env, Symbol::Add("__oror__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_OrOr, "||");
+	SetOperatorInfo(Parser::ETYPE_OrOr, OPTYPE_OrOr);
 	DeclareArg(env, "n", VTYPE_quote);
 	DeclareArg(env, "m", VTYPE_quote);
 }
@@ -1745,7 +1745,7 @@ Func_AndAnd::Func_AndAnd(Environment &env) :
 			Function(env, Symbol::Add("__andand__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_AndAnd, "&&");
+	SetOperatorInfo(Parser::ETYPE_AndAnd, OPTYPE_AndAnd);
 	DeclareArg(env, "n", VTYPE_quote);
 	DeclareArg(env, "m", VTYPE_quote);
 }
@@ -1768,7 +1768,7 @@ Func_Sequence::Func_Sequence(Environment &env) :
 			Function(env, Symbol::Add("__seq__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Sequence, "..");
+	SetOperatorInfo(Parser::ETYPE_Sequence, OPTYPE_Sequence);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
@@ -1797,7 +1797,7 @@ Func_SequenceInf::Func_SequenceInf(Environment &env) :
 			Function(env, Symbol::Add("__seqinf__"), FUNCTYPE_Function)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Sequence, "..");
+	SetOperatorInfo(Parser::ETYPE_Sequence, OPTYPE_SequenceInf);
 	DeclareArg(env, "n", VTYPE_any);
 }
 

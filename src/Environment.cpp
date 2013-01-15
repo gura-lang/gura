@@ -133,11 +133,6 @@ Environment::~Environment()
 	}
 }
 
-OpType Environment::GetOpType(const Function *pFunc) const
-{
-	return OPTYPE_None;
-}
-
 void Environment::AddLackingFrame(Environment *pEnv)
 {
 	foreach (FrameList, ppFrame, pEnv->GetFrameList()) {

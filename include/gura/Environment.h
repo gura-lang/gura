@@ -228,7 +228,6 @@ public:
 	inline Module *GetModule_sys()				{ return GetGlobal()->_pModule_sys;			}
 	inline void SetEchoFlag(bool echoFlag)		{ GetGlobal()->_echoFlag = echoFlag;		}
 	inline bool GetEchoFlag() const				{ return GetGlobal()->_echoFlag;			}
-	OpType GetOpType(const Function *pFunc) const;
 	void AddLackingFrame(Environment *pEnv);
 	void CacheFrame(const Symbol *pSymbol, Frame *pFrame);
 	void AssignValue(const Symbol *pSymbol, const Value &value, bool escalateFlag);

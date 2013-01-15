@@ -171,7 +171,7 @@ bool Function::IsStructPrototype() const{ return false; }
 Function::Function(const Function &func) : _cntRef(1),
 	_pSymbol(func._pSymbol), _pClassToConstruct(func._pClassToConstruct),
 	_envScope(func._envScope), _declOwner(func._declOwner),
-	_elemType(func._elemType), _mathSymbol(func._mathSymbol),
+	_elemType(func._elemType), _opType(OPTYPE_None),
 	_funcType(func._funcType),
 	_resultMode(func._resultMode), _flags(func._flags),
 	_attrsOpt(func._attrsOpt), _blockInfo(func._blockInfo)
