@@ -573,6 +573,16 @@ const ValueDict &Value::GetDict() const
 		dynamic_cast<const Object_dict *>(_u.pObj)->GetDict() : ValueDict::Null;
 }
 
+Object_dict *Value::GetDictObj()
+{
+	return dynamic_cast<Object_dict *>(_u.pObj);
+}
+
+Object_dict *Value::GetDictObj() const
+{
+	return dynamic_cast<Object_dict *>(_u.pObj);
+}
+
 Iterator *Value::GetIterator() const
 {
 	return IsIterator()?

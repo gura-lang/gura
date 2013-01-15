@@ -414,6 +414,20 @@ bool Stream::ReadToStream(Environment &env, Signal sig, Stream &streamDst,
 	return true;
 }
 
+bool Stream::SerializeBoolean(Signal sig, bool num)
+{
+	unsigned char numRaw = static_cast<unsigned char>(num);
+	return Write(sig, &numRaw, sizeof(numRaw)) == sizeof(numRaw);
+}
+
+bool Stream::DeserializeBoolean(Signal sig, bool &num)
+{
+	unsigned char numRaw = 0;
+	if (!Read(sig, &numRaw, sizeof(numRaw)) == sizeof(numRaw)) return false;
+	num = (numRaw != 0);
+	return true;
+}
+
 bool Stream::SerializeUChar(Signal sig, unsigned char num)
 {
 	return Write(sig, &num, sizeof(num)) == sizeof(num);

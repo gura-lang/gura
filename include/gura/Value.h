@@ -559,6 +559,8 @@ public:
 	// VTYPE_dict
 	ValueDict &GetDict();
 	const ValueDict &GetDict() const;
+	Object_dict *GetDictObj();
+	Object_dict *GetDictObj() const;
 	// VTYPE_stream
 	Stream &GetStream() const;
 	Object_stream *GetStreamObj() const;

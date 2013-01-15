@@ -515,12 +515,17 @@ Class_dict::Class_dict(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_dict)
 
 bool Class_dict::Serialize(Signal sig, Stream &stream, const Value &value) const
 {
-	return false;
+	bool ignoreCaseFlag = value.GetDictObj()->GetIgnoreCaseFlag();
+	if (!stream.SerializeBoolean(sig, ignoreCaseFlag)) return false;
+	return value.GetDict().Serialize(sig, stream);
 }
 
 bool Class_dict::Deserialize(Signal sig, Stream &stream, Value &value)
 {
-	return false;
+	bool ignoreCaseFlag = false;
+	if (!stream.DeserializeBoolean(sig, ignoreCaseFlag)) return false;
+	ValueDict &valDict = value.InitAsDict(*this, ignoreCaseFlag);
+	return valDict.Deserialize(sig, stream);
 }
 
 Object *Class_dict::CreateDescendant(Environment &env, Signal sig, Class *pClass)
