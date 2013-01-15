@@ -45,6 +45,7 @@ enum EnvType {
 };
 
 enum OpType {
+	OPTYPE_None,
 	OPTYPE_Pos,
 	OPTYPE_Neg,
 	OPTYPE_Invert,
@@ -223,6 +224,7 @@ public:
 	inline Global *GetGlobal()					{ return GetTopFrame().GetGlobal();			}
 	inline Global *GetGlobal() const			{ return GetTopFrame().GetGlobal();			}
 	inline void SetSuperSkipCount(int cntSuperSkip) { _cntSuperSkip = cntSuperSkip; }
+	inline const Function *GetFunc(OpType opType) { return GetGlobal()->_pFuncTbl[opType];			}
 	inline const Function *GetFunc_Pos()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Pos];		}
 	inline const Function *GetFunc_Neg()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Neg];		}
 	inline const Function *GetFunc_Invert()		{ return GetGlobal()->_pFuncTbl[OPTYPE_Invert];		}
@@ -254,6 +256,7 @@ public:
 	inline Module *GetModule_sys()				{ return GetGlobal()->_pModule_sys;			}
 	inline void SetEchoFlag(bool echoFlag)		{ GetGlobal()->_echoFlag = echoFlag;		}
 	inline bool GetEchoFlag() const				{ return GetGlobal()->_echoFlag;			}
+	OpType GetOpType(const Function *pFunc) const;
 	void AddLackingFrame(Environment *pEnv);
 	void CacheFrame(const Symbol *pSymbol, Frame *pFrame);
 	void AssignValue(const Symbol *pSymbol, const Value &value, bool escalateFlag);
