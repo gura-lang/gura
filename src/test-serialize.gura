@@ -1,5 +1,14 @@
 f() = {
-	x = -3
+	buff = binary()
+	buff.writer() {|w|
+		x = `a('A', 'B', 1, 2) {} b(1, 2, 3) {}
+		w.serialize(x)
+		println(x)
+	}
+	buff.reader() {|r|
+		x = r.deserialize()
+		println(x)
+	}
 }
 scope {
 	println(f.expr)
