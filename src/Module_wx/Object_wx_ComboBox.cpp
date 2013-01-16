@@ -458,6 +458,299 @@ Gura_ImplementMethod(wx_ComboBox, Undo)
 	return Value::Null;
 }
 
+Gura_DeclareMethod(wx_ComboBox, Append)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "clientData", VTYPE_wx_ClientData, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_ComboBox, Append)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString item = wxString::FromUTF8(args.GetString(0));
+	int rtn = 0;
+	if (args.IsValid(1)) {
+		wx_ClientData *clientData = Object_wx_ClientData::GetObject(args, 1)->GetEntity();
+		rtn = pSelf->GetEntity()->Append(item, new wx_ClientData(*clientData));
+	} else {
+		rtn = pSelf->GetEntity()->Append(item);
+	}
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_ComboBox, Clear)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ComboBox, Clear)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	pSelf->GetEntity()->Clear();
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_ComboBox, Delete)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ComboBox, Delete)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	unsigned n = args.GetInt(0);
+	pSelf->GetEntity()->Delete(n);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_ComboBox, FindString)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "caseSensitive", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_ComboBox, FindString)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString string = wxString::FromUTF8(args.GetString(0));
+	bool caseSensitive = false;
+	if (args.IsValid(1)) caseSensitive = args.GetBoolean(1);
+	int rtn = pSelf->GetEntity()->FindString(string, caseSensitive);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_ComboBox, GetClientData)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ComboBox, GetClientData)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	unsigned n = args.GetInt(0);
+	pSelf->GetEntity()->GetClientData(n);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_ComboBox, GetClientObject)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_ComboBox, GetClientObject)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	unsigned n = args.GetInt(0);
+	wx_ClientData *rtn = dynamic_cast<wx_ClientData *>(pSelf->GetEntity()->GetClientObject(n));
+	if (rtn == NULL) return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_wx_ClientData(rtn, NULL, OwnerFalse)));
+}
+
+Gura_DeclareMethod(wx_ComboBox, GetCount)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_ComboBox, GetCount)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	unsigned rtn = pSelf->GetEntity()->GetCount();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_ComboBox, GetSelection)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_ComboBox, GetSelection)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int rtn = pSelf->GetEntity()->GetSelection();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_ComboBox, GetString)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_ComboBox, GetString)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	unsigned n = args.GetInt(0);
+	wxString rtn = pSelf->GetEntity()->GetString(n);
+	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+}
+
+Gura_DeclareMethod(wx_ComboBox, GetStrings)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_ComboBox, GetStrings)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxArrayString rtn = pSelf->GetEntity()->GetStrings();
+	return ReturnValue(env, sig, args, ArrayStringToValue(env, rtn));
+}
+
+Gura_DeclareMethod(wx_ComboBox, GetStringSelection)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_ComboBox, GetStringSelection)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pSelf->GetEntity()->GetStringSelection();
+	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+}
+
+Gura_DeclareMethod(wx_ComboBox, Insert)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "item", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "clientData", VTYPE_wx_ClientData, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_ComboBox, Insert)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString item = wxString::FromUTF8(args.GetString(0));
+	unsigned pos = args.GetInt(1);
+	int rtn = 0;
+	if (args.IsValid(2)) {
+		wx_ClientData *clientData = Object_wx_ClientData::GetObject(args, 2)->GetEntity();
+		rtn = pSelf->GetEntity()->Insert(item, pos, new wx_ClientData(clientData));
+	} else {
+		rtn = pSelf->GetEntity()->Insert(item, pos);
+	}
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_ComboBox, IsEmpty)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_ComboBox, IsEmpty)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	bool rtn = pSelf->GetEntity()->IsEmpty();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_ComboBox, Select)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ComboBox, Select)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int n = args.GetInt(0);
+	pSelf->GetEntity()->Select(n);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_ComboBox, SetClientObject)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "data", VTYPE_wx_ClientData, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ComboBox, SetClientObject)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	unsigned n = args.GetInt(0);
+	wx_ClientData *data = Object_wx_ClientData::GetObject(args, 1)->GetEntity();
+	pSelf->GetEntity()->SetClientObject(n, new wx_ClientData(*data));
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_ComboBox, SetSelection)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ComboBox, SetSelection)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	int n = args.GetInt(0);
+	pSelf->GetEntity()->SetSelection(n);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_ComboBox, SetString)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ComboBox, SetString)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	unsigned n = args.GetInt(0);
+	wxString string = wxString::FromUTF8(args.GetString(1));
+	pSelf->GetEntity()->SetString(n, string);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_ComboBox, SetStringSelection)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "string", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_ComboBox, SetStringSelection)
+{
+	Object_wx_ComboBox *pSelf = Object_wx_ComboBox::GetSelfObj(args);
+	if (pSelf->IsInvalid(sig)) return Value::Null;
+	wxString string = wxString::FromUTF8(args.GetString(0));
+	bool rtn = pSelf->GetEntity()->SetStringSelection(string);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
 //----------------------------------------------------------------------------
 // Object implementation for wxComboBox
 //----------------------------------------------------------------------------
@@ -518,6 +811,25 @@ Gura_ImplementUserInheritableClass(wx_ComboBox)
 	Gura_AssignMethod(wx_ComboBox, SetMark);
 	Gura_AssignMethod(wx_ComboBox, SetValue);
 	Gura_AssignMethod(wx_ComboBox, Undo);
+	// methods of ComboBox
+	Gura_AssignMethod(wx_ComboBox, Append);
+	Gura_AssignMethod(wx_ComboBox, Clear);
+	Gura_AssignMethod(wx_ComboBox, Delete);
+	Gura_AssignMethod(wx_ComboBox, FindString);
+	Gura_AssignMethod(wx_ComboBox, GetClientData);
+	Gura_AssignMethod(wx_ComboBox, GetClientObject);
+	Gura_AssignMethod(wx_ComboBox, GetCount);
+	Gura_AssignMethod(wx_ComboBox, GetSelection);
+	Gura_AssignMethod(wx_ComboBox, GetString);
+	Gura_AssignMethod(wx_ComboBox, GetStrings);
+	Gura_AssignMethod(wx_ComboBox, GetStringSelection);
+	Gura_AssignMethod(wx_ComboBox, Insert);
+	Gura_AssignMethod(wx_ComboBox, IsEmpty);
+	Gura_AssignMethod(wx_ComboBox, Select);
+	Gura_AssignMethod(wx_ComboBox, SetClientObject);
+	Gura_AssignMethod(wx_ComboBox, SetSelection);
+	Gura_AssignMethod(wx_ComboBox, SetString);
+	Gura_AssignMethod(wx_ComboBox, SetStringSelection);
 }
 
 Gura_ImplementDescendantCreator(wx_ComboBox)
