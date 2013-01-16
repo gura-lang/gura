@@ -137,7 +137,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // WriterToStream
 //-----------------------------------------------------------------------------
-int WriterToStream::WriteHandler(unsigned char *buffer, unsigned int size)
+int WriterToStream::WriteHandler(unsigned char *buffer, size_t size)
 {
 	_stream.Write(_sig, buffer, size);
 	return _sig.IsSignalled()? 0 : 1;
@@ -162,7 +162,7 @@ bool WriterToStream::Write(Environment &env, Signal sig, Stream &stream, const V
 //-----------------------------------------------------------------------------
 // WriterToString
 //-----------------------------------------------------------------------------
-int WriterToString::WriteHandler(unsigned char *buffer, unsigned int size)
+int WriterToString::WriteHandler(unsigned char *buffer, size_t size)
 {
 	for (char *p = reinterpret_cast<char *>(buffer); size > 0; size--, p++) {
 		_str += *p;
@@ -524,7 +524,7 @@ bool ExecEmitterSub(Environment &env, Signal sig,
 		yaml_scalar_style_t style = YAML_ANY_SCALAR_STYLE;
 		yaml_event_t event;
 		::yaml_scalar_event_initialize(&event,
-			anchor, tag, valueRaw, static_cast<int>(length), plain_implicit, quoted_implicit, style);
+			anchor, tag, valueRaw, length, plain_implicit, quoted_implicit, style);
 		if (!::yaml_emitter_emit(&emitter, &event)) {
 			sig.SetError(ERR_FormatError, "%s", GetErrorText(emitter.error));
 			return false;

@@ -24,7 +24,7 @@ private:
 	Stream &_stream;
 public:
 	inline WriterToStream(Signal sig, Stream &stream) : _sig(sig), _stream(stream) {}
-	int WriteHandler(unsigned char *buffer, unsigned int size);
+	int WriteHandler(unsigned char *buffer, size_t size);
 	static int WriteHandlerStub(void *ext, unsigned char *buffer, size_t size);
 public:
 	static bool Write(Environment &env, Signal sig, Stream &stream, const Value &value);
@@ -38,7 +38,7 @@ private:
 	String &_str;
 public:
 	inline WriterToString(String &str) : _str(str) {}
-	int WriteHandler(unsigned char *buffer, unsigned int size);
+	int WriteHandler(unsigned char *buffer, size_t size);
 	static int WriteHandlerStub(void *ext, unsigned char *buffer, size_t size);
 public:
 	static bool Write(Environment &env, Signal sig, String &str, const Value &value);
