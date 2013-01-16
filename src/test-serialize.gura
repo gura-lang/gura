@@ -10,7 +10,6 @@ scope {
 		println(x)
 	}
 }
-sys.exit()
 scope {
 	f() = {
 		buff = binary()
