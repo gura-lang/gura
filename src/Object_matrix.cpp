@@ -78,39 +78,39 @@ Value Object_matrix::IndexGet(Environment &env, Signal sig, const Value &valueId
 	}
 	size_t idx = valueIdx.GetSizeT();
 	if (_indexForColFlag) {
-		if (ColSize() == 1) {
-			if (idx >= RowSize()) {
+		if (GetCols() == 1) {
+			if (idx >= GetRows()) {
 				SetError_IndexOutOfRange(sig);
 				return Value::Null;
 			}
 			return *GetPointer(idx, 0);
 		} else {
-			if (idx >= ColSize()) {
+			if (idx >= GetCols()) {
 				SetError_IndexOutOfRange(sig);
 				return Value::Null;
 			}
-			if (RowSize() == 1) {
+			if (GetRows() == 1) {
 				return *GetPointer(0, idx);
 			} else {
-				return GetSub(0, idx, RowSize(), 1);
+				return GetSub(0, idx, GetRows(), 1);
 			}
 		}
 	} else {
-		if (RowSize() == 1) {
-			if (idx >= ColSize()) {
+		if (GetRows() == 1) {
+			if (idx >= GetCols()) {
 				SetError_IndexOutOfRange(sig);
 				return Value::Null;
 			}
 			return *GetPointer(0, idx);
 		} else {
-			if (idx >= RowSize()) {
+			if (idx >= GetRows()) {
 				SetError_IndexOutOfRange(sig);
 				return Value::Null;
 			}
-			if (ColSize() == 1) {
+			if (GetCols() == 1) {
 				return *GetPointer(idx, 0);
 			} else {
-				return GetSub(idx, 0, 1, ColSize());
+				return GetSub(idx, 0, 1, GetCols());
 			}
 		}
 	}
@@ -123,18 +123,18 @@ void Object_matrix::IndexSet(Environment &env, Signal sig, const Value &valueIdx
 		return;
 	}
 	size_t idx = valueIdx.GetSizeT();
-	if (RowSize() == 1) {
-		if (idx >= ColSize()) {
+	if (GetRows() == 1) {
+		if (idx >= GetCols()) {
 			SetError_IndexOutOfRange(sig);
 			return;
 		}
 		*GetPointer(0, idx) = value;
 	} else {
-		if (idx >= RowSize()) {
+		if (idx >= GetRows()) {
 			SetError_IndexOutOfRange(sig);
 			return;
 		}
-		if (ColSize() == 1) {
+		if (GetCols() == 1) {
 			*GetPointer(idx, 0) = value;
 		} else if (value.IsMatrix()) {
 			
@@ -159,7 +159,7 @@ String Object_matrix::ToString(Signal sig, bool exprFlag)
 		rtn += "@@{";
 		ValueList::const_iterator pValueElem = GetPointer(0, 0);
 		size_t offset = 0;
-		for (size_t iRow = 0; iRow < _nRows; iRow++, offset += FoldSize()) {
+		for (size_t iRow = 0; iRow < _nRows; iRow++, offset += GetFold()) {
 			if (iRow > 0) rtn += ", ";
 			rtn += (pValueElem + offset)->ToString(sig, exprFlag);
 		}
@@ -194,7 +194,7 @@ void Object_matrix::ToList(ValueList &valList, bool transposeFlag, bool flattenF
 		valList.reserve(_nRows);
 		ValueList::const_iterator pValueElem = GetPointer(0, 0);
 		size_t offset = 0;
-		for (size_t iRow = 0; iRow < _nRows; iRow++, offset += FoldSize()) {
+		for (size_t iRow = 0; iRow < _nRows; iRow++, offset += GetFold()) {
 			valList.push_back(*(pValueElem + offset));
 		}
 	} else if (transposeFlag) {
@@ -203,7 +203,7 @@ void Object_matrix::ToList(ValueList &valList, bool transposeFlag, bool flattenF
 			for (size_t iCol = 0; iCol < _nCols; iCol++) {
 				ValueList::const_iterator pValueElem = GetPointer(0, iCol);
 				size_t offset = 0;
-				for (size_t iRow = 0; iRow < _nRows; iRow++, offset += FoldSize()) {
+				for (size_t iRow = 0; iRow < _nRows; iRow++, offset += GetFold()) {
 					valList.push_back(*(pValueElem + offset));
 				}
 			}
@@ -215,7 +215,7 @@ void Object_matrix::ToList(ValueList &valList, bool transposeFlag, bool flattenF
 				ValueList &valListCol = valueCol.InitAsList(env);
 				valList.push_back(valueCol);
 				size_t offset = 0;
-				for (size_t iRow = 0; iRow < _nRows; iRow++, offset += FoldSize()) {
+				for (size_t iRow = 0; iRow < _nRows; iRow++, offset += GetFold()) {
 					valListCol.push_back(*(pValueElem + offset));
 				}
 			}
@@ -294,7 +294,7 @@ bool Object_matrix::SetCol(Environment &env, Signal sig, size_t iCol, Iterator &
 	ValueList::iterator pValueElem = GetPointer(0, iCol);
 	size_t offset = 0;
 	for (size_t iRow = 0; iRow < _nRows && iterator.Next(env, sig, value);
-												iRow++, offset += FoldSize()) {
+												iRow++, offset += GetFold()) {
 		*(pValueElem + offset) = value;
 	}
 	return true;
@@ -308,9 +308,9 @@ Value Object_matrix::GetRow(Environment &env, Signal sig, size_t iRow) const
 	}
 	Value result;
 	ValueList &valList = result.InitAsList(env);
-	valList.reserve(ColSize());
+	valList.reserve(GetCols());
 	ValueList::const_iterator pValueElem = GetPointer(iRow, 0);
-	for (size_t iCol = 0; iCol < ColSize(); iCol++, pValueElem++) {
+	for (size_t iCol = 0; iCol < GetCols(); iCol++, pValueElem++) {
 		valList.push_back(*pValueElem);
 	}
 	return result;
@@ -324,10 +324,10 @@ Value Object_matrix::GetCol(Environment &env, Signal sig, size_t iCol) const
 	}
 	Value result;
 	ValueList &valList = result.InitAsList(env);
-	valList.reserve(RowSize());
+	valList.reserve(GetRows());
 	ValueList::const_iterator pValueElem = GetPointer(0, iCol);
 	size_t offset = 0;
-	for (size_t iRow = 0; iRow < RowSize(); iRow++, offset += FoldSize()) {
+	for (size_t iRow = 0; iRow < GetRows(); iRow++, offset += GetFold()) {
 		valList.push_back(*(pValueElem + offset));
 	}
 	return result;
@@ -335,7 +335,7 @@ Value Object_matrix::GetCol(Environment &env, Signal sig, size_t iCol) const
 
 Value Object_matrix::RoundOff(Environment &env, Signal sig, Number threshold)
 {
-	size_t nRows = RowSize(), nCols = ColSize();
+	size_t nRows = GetRows(), nCols = GetCols();
 	Object_matrix *pObjMatRtn = new Object_matrix(env, nRows, nCols);
 	ValueList &valList = pObjMatRtn->GetList();
 	foreach_const (ValueList, pValue, GetList()) {
@@ -354,8 +354,8 @@ Value Object_matrix::RoundOff(Environment &env, Signal sig, Number threshold)
 Value Object_matrix::Transpose(Environment &env, Signal sig)
 {
 	Value result;
-	size_t nRows = RowSize(), nCols = ColSize();
-	size_t nFold = FoldSize();
+	size_t nRows = GetRows(), nCols = GetCols();
+	size_t nFold = GetFold();
 	Object_matrix *pObjMatRtn = new Object_matrix(env, nCols, nRows);
 	result.InitAsObject(pObjMatRtn);
 	ValueList &valList = pObjMatRtn->GetList();
@@ -371,7 +371,7 @@ Value Object_matrix::Transpose(Environment &env, Signal sig)
 
 Value Object_matrix::Inverse(Environment &env, Signal sig)
 {
-	size_t nCols = ColSize(), nRows = RowSize();
+	size_t nCols = GetCols(), nRows = GetRows();
 	if (nCols != nRows) {
 		sig.SetError(ERR_ValueError, "inversion can only be applied to square matrix");
 		return Value::Null;
@@ -479,7 +479,7 @@ Value Object_matrix::OperatorNeg(Environment &env, Signal sig,
 											const Object_matrix *pObjMat)
 {
 	Value result;
-	size_t nRows = pObjMat->RowSize(), nCols = pObjMat->ColSize();
+	size_t nRows = pObjMat->GetRows(), nCols = pObjMat->GetCols();
 	Object_matrix *pObjMatRtn = new Object_matrix(env, nRows, nCols);
 	result.InitAsObject(pObjMatRtn);
 	ValueList &valList = pObjMatRtn->GetList();
@@ -506,8 +506,8 @@ Value Object_matrix::OperatorPlusMinus(Environment &env, Signal sig, const Funct
 				const Object_matrix *pObjMat1, const Object_matrix *pObjMat2)
 {
 	Value result;
-	size_t nRows = pObjMat1->RowSize(), nCols = pObjMat1->ColSize();
-	if (!(nRows == pObjMat2->RowSize() && nCols == pObjMat2->ColSize())) {
+	size_t nRows = pObjMat1->GetRows(), nCols = pObjMat1->GetCols();
+	if (!(nRows == pObjMat2->GetRows() && nCols == pObjMat2->GetCols())) {
 		SetError_MatrixSizeMismatch(sig);
 		return Value::Null;
 	}
@@ -532,10 +532,10 @@ Value Object_matrix::OperatorMultiply(Environment &env, Signal sig,
 				const Object_matrix *pObjMat1, const Object_matrix *pObjMat2)
 {
 	Value result;
-	size_t nRows = pObjMat1->RowSize(), nCols = pObjMat2->ColSize();
-	size_t nElems = pObjMat1->ColSize();
-	size_t nFold = pObjMat2->FoldSize();
-	if (nElems != pObjMat2->RowSize()) {
+	size_t nRows = pObjMat1->GetRows(), nCols = pObjMat2->GetCols();
+	size_t nElems = pObjMat1->GetCols();
+	size_t nFold = pObjMat2->GetFold();
+	if (nElems != pObjMat2->GetRows()) {
 		SetError_MatrixSizeMismatch(sig);
 		return Value::Null;
 	}
@@ -576,7 +576,7 @@ Value Object_matrix::OperatorMultiply(Environment &env, Signal sig,
 							const Object_matrix *pObjMat, const Value &value)
 {
 	Value result;
-	size_t nRows = pObjMat->RowSize(), nCols = pObjMat->ColSize();
+	size_t nRows = pObjMat->GetRows(), nCols = pObjMat->GetCols();
 	if (value.IsList()) {
 		const ValueList &valList = value.GetList();
 		if (nCols != valList.size()) {
@@ -633,8 +633,8 @@ Value Object_matrix::OperatorMultiply(Environment &env, Signal sig,
 							const Value &value, const Object_matrix *pObjMat)
 {
 	Value result;
-	size_t nRows = pObjMat->RowSize(), nCols = pObjMat->ColSize();
-	size_t nFold = pObjMat->FoldSize();
+	size_t nRows = pObjMat->GetRows(), nCols = pObjMat->GetCols();
+	size_t nFold = pObjMat->GetFold();
 	if (value.IsList()) {
 		const ValueList &valList = value.GetList();
 		if (nRows != valList.size()) {
@@ -692,7 +692,7 @@ Value Object_matrix::OperatorDivide(Environment &env, Signal sig,
 							const Object_matrix *pObjMat, const Value &value)
 {
 	Value result;
-	size_t nRows = pObjMat->RowSize(), nCols = pObjMat->ColSize();
+	size_t nRows = pObjMat->GetRows(), nCols = pObjMat->GetCols();
 	Object_matrix *pObjMatRtn = new Object_matrix(env, nRows, nCols);
 	result.InitAsObject(pObjMatRtn);
 	ValueList &valList = pObjMatRtn->GetList();
@@ -713,7 +713,7 @@ Value Object_matrix::OperatorDivide(Environment &env, Signal sig,
 ValueType Object_matrix::CheckValueType() const
 {
 	ValueType valType = VTYPE_nil;
-	size_t nCols = ColSize(), nRows = RowSize();
+	size_t nCols = GetCols(), nRows = GetRows();
 	for (size_t iRow = 0; iRow < nRows; iRow++) {
 		ValueList::const_iterator pValueElem = GetPointer(iRow, 0);
 		for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
@@ -744,17 +744,17 @@ Object_matrix::IteratorEach::~IteratorEach()
 bool Object_matrix::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_transposeFlag) {
-		if (_iCol >= _pObj->ColSize()) return false;
+		if (_iCol >= _pObj->GetCols()) return false;
 		value = *_pObj->GetPointer(_iRow, _iCol);
 		_iRow++;
-		if (_iRow >= _pObj->RowSize()) {
+		if (_iRow >= _pObj->GetRows()) {
 			_iRow = 0, _iCol++;
 		}
 	} else {
-		if (_iRow >= _pObj->RowSize()) return false;
+		if (_iRow >= _pObj->GetRows()) return false;
 		value = *_pObj->GetPointer(_iRow, _iCol);
 		_iCol++;
-		if (_iCol >= _pObj->ColSize()) {
+		if (_iCol >= _pObj->GetCols()) {
 			_iCol = 0, _iRow++;
 		}
 	}
@@ -779,7 +779,7 @@ Object_matrix::IteratorEachRow::~IteratorEachRow()
 
 bool Object_matrix::IteratorEachRow::DoNext(Environment &env, Signal sig, Value &value)
 {
-	if (_iRow >= _pObj->RowSize()) return false;
+	if (_iRow >= _pObj->GetRows()) return false;
 	value = _pObj->GetRow(env, sig, _iRow);
 	_iRow++;
 	return true;
@@ -803,7 +803,7 @@ Object_matrix::IteratorEachCol::~IteratorEachCol()
 
 bool Object_matrix::IteratorEachCol::DoNext(Environment &env, Signal sig, Value &value)
 {
-	if (_iCol >= _pObj->ColSize()) return false;
+	if (_iCol >= _pObj->GetCols()) return false;
 	value = _pObj->GetCol(env, sig, _iCol);
 	_iCol++;
 	return true;
@@ -933,7 +933,7 @@ Gura_DeclareMethod(matrix, rowsize)
 Gura_ImplementMethod(matrix, rowsize)
 {
 	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
-	return Value(static_cast<unsigned int>(pSelf->RowSize()));
+	return Value(static_cast<unsigned int>(pSelf->GetRows()));
 }
 
 // matrix#colsize()
@@ -946,7 +946,7 @@ Gura_DeclareMethod(matrix, colsize)
 Gura_ImplementMethod(matrix, colsize)
 {
 	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
-	return Value(static_cast<unsigned int>(pSelf->ColSize()));
+	return Value(static_cast<unsigned int>(pSelf->GetCols()));
 }
 
 // matrix#issquare()
@@ -959,7 +959,7 @@ Gura_DeclareMethod(matrix, issquare)
 Gura_ImplementMethod(matrix, issquare)
 {
 	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
-	return Value(pSelf->RowSize() == pSelf->ColSize());
+	return Value(pSelf->GetRows() == pSelf->GetCols());
 }
 
 // matrix#submat(row:number, col:number, nrows:number, ncols:number):map
@@ -1166,12 +1166,42 @@ Class_matrix::Class_matrix(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_matr
 
 bool Class_matrix::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
-	return false;
+	Object_matrix *pObj = value.GetMatrixObj();
+	if (!pObj->GetList().Serialize(env, sig, stream)) return false;
+	if (!stream.SerializePackedULong(sig, static_cast<unsigned long>(pObj->GetRowOff()))) return false;
+	if (!stream.SerializePackedULong(sig, static_cast<unsigned long>(pObj->GetColOff()))) return false;
+	if (!stream.SerializePackedULong(sig, static_cast<unsigned long>(pObj->GetRows()))) return false;
+	if (!stream.SerializePackedULong(sig, static_cast<unsigned long>(pObj->GetCols()))) return false;
+	if (!stream.SerializePackedULong(sig, static_cast<unsigned long>(pObj->GetFold()))) return false;
+	if (!stream.SerializeBoolean(sig, pObj->GetIndexForColFlag())) return false;
+	return true;
 }
 
 bool Class_matrix::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
-	return false;
+	Object_list *pObjList = new Object_list(env);
+	if (!pObjList->GetList().Deserialize(env, sig, stream)) return false;
+	unsigned long iRowOff = 0, iColOff = 0;
+	unsigned long nRows = 0, nCols = 0;
+	unsigned long nFold = 0;
+	bool indexForColFlag = false;
+	if (!stream.DeserializePackedULong(sig, iRowOff)) return false;
+	if (!stream.DeserializePackedULong(sig, iColOff)) return false;
+	if (!stream.DeserializePackedULong(sig, nRows)) return false;
+	if (!stream.DeserializePackedULong(sig, nCols)) return false;
+	if (!stream.DeserializePackedULong(sig, nFold)) return false;
+	if (!stream.DeserializeBoolean(sig, indexForColFlag)) return false;
+	unsigned long nElems = static_cast<unsigned long>(pObjList->GetList().size());
+	//::printf("%d %d %d %d %d %d\n", nElems, iRowOff, iColOff, nRows, nCols, nFold);
+	if (nFold * nRows > nElems || iColOff + nCols > nFold) {
+		sig.SetError(ERR_ValueError, "invalid parameter for matrix");
+		return false;
+	}
+	value = Value(new Object_matrix(env, pObjList,
+			static_cast<size_t>(iRowOff), static_cast<size_t>(iColOff),
+			static_cast<size_t>(nRows), static_cast<size_t>(nCols),
+			static_cast<size_t>(nFold), indexForColFlag));
+	return true;
 }
 
 Object *Class_matrix::CreateDescendant(Environment &env, Signal sig, Class *pClass)

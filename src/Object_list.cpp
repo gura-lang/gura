@@ -1938,10 +1938,10 @@ bool Class_list::CastFrom(Environment &env, Signal sig, Value &value, const Decl
 		return true;
 	} else if (value.IsMatrix()) {
 		const Object_matrix *pObjMat = value.GetMatrixObj();
-		if (pObjMat->RowSize() == 1) {
+		if (pObjMat->GetRows() == 1) {
 			Value result = pObjMat->GetRow(env, sig, 0);
 			value = result;
-		} else if (pObjMat->ColSize() == 1) {
+		} else if (pObjMat->GetCols() == 1) {
 			Value result = pObjMat->GetCol(env, sig, 0);
 			value = result;
 		}

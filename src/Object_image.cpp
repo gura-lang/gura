@@ -209,7 +209,7 @@ void Object_image::GetPixel(const unsigned char *buff, Object_color *pObjColor)
 bool Object_image::Store(Signal sig, size_t x, size_t y, size_t width, size_t height,
 					const Symbol *pSymbol, const Object_matrix *pObjMat)
 {
-	if (pObjMat->RowSize() < height || pObjMat->ColSize() < width) {
+	if (pObjMat->GetRows() < height || pObjMat->GetCols() < width) {
 		sig.SetError(ERR_ValueError, "matrix size is too small");
 		return false;
 	}
@@ -252,7 +252,7 @@ bool Object_image::Store(Signal sig, size_t x, size_t y, size_t width, size_t he
 bool Object_image::Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
 					const Symbol *pSymbol, Object_matrix *pObjMat)
 {
-	if (pObjMat->RowSize() < height || pObjMat->ColSize() < width) {
+	if (pObjMat->GetRows() < height || pObjMat->GetCols() < width) {
 		sig.SetError(ERR_ValueError, "matrix size is too small");
 		return false;
 	}

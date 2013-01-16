@@ -83,9 +83,18 @@ public:
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	virtual String ToString(Signal sig, bool exprFlag);
 	void ToList(ValueList &valList, bool transposeFlag, bool flattenFlag);
-	inline size_t RowSize() const { return _nRows; }
-	inline size_t ColSize() const { return _nCols; }
-	inline size_t FoldSize() const { return _nFold; }
+	inline void SetRowOff(size_t iRowOff) { _iRowOff = iRowOff; }
+	inline void SetColOff(size_t iColOff) { _iColOff = iColOff; }
+	inline void SetRows(size_t nRows) { _nRows = nRows; }
+	inline void SetCols(size_t nCols) { _nCols = nCols; }
+	inline void SetFold(size_t nFold) { _nFold = nFold; }
+	inline void SetIndexForColFlag(bool indexForColFlag) { _indexForColFlag = indexForColFlag; }
+	inline size_t GetRowOff() const { return _iRowOff; }
+	inline size_t GetColOff() const { return _iColOff; }
+	inline size_t GetRows() const { return _nRows; }
+	inline size_t GetCols() const { return _nCols; }
+	inline size_t GetFold() const { return _nFold; }
+	inline bool GetIndexForColFlag() const { return _indexForColFlag; }
 	inline ValueList &GetList() { return _pObjList->GetList(); }
 	inline const ValueList &GetList() const { return _pObjList->GetList(); }
 	inline ValueList::iterator GetPointer(size_t iRow, size_t iCol) {

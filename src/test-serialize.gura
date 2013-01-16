@@ -1,7 +1,7 @@
-f() = {
+scope {
 	buff = binary()
 	buff.writer() {|w|
-		x = `a('A', 'B', 1, 2) {} b(1, 2, 3) {}
+		x = @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
 		w.serialize(x)
 		println(x)
 	}
@@ -10,7 +10,20 @@ f() = {
 		println(x)
 	}
 }
+sys.exit()
 scope {
+	f() = {
+		buff = binary()
+		buff.writer() {|w|
+			x = `a('A', 'B', 1, 2) {} b(1, 2, 3) {}
+			w.serialize(x)
+			println(x)
+		}
+		buff.reader() {|r|
+			x = r.deserialize()
+			println(x)
+		}
+	}
 	println(f.expr)
 	buff = binary()
 	buff.writer() {|w|

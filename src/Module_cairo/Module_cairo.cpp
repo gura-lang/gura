@@ -4334,7 +4334,7 @@ Object_matrix *CairoToMatrix(Environment &env, cairo_matrix_t &matrix)
 
 bool MatrixToCairo(Signal sig, cairo_matrix_t &matrix, Object_matrix *pObjMatrix)
 {
-	if (pObjMatrix->RowSize() != 3 || pObjMatrix->ColSize() != 3) {
+	if (pObjMatrix->GetRows() != 3 || pObjMatrix->GetCols() != 3) {
 		sig.SetError(ERR_ValueError, "matrix size must be 3x3");
 		return false;
 	}
