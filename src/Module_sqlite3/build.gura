@@ -13,7 +13,7 @@ See the following step(s) to resolve this problem.
 - Install Debian package:
   $ sudo apt-get install libsqlite3-dev
 - Install yum package:
-  # yum install libsqlite3-devel
+  # yum install sqlite-devel
 '''
 }
 builder.build('sqlite3', srcs)
