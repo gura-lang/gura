@@ -15,14 +15,14 @@ Gura_DeclareUserClass(wx_ComboBox);
 //----------------------------------------------------------------------------
 // Object declaration for wxComboBox
 //----------------------------------------------------------------------------
-class Object_wx_ComboBox : public Object_wx_ControlWithItems {
+class Object_wx_ComboBox : public Object_wx_Control {
 public:
 	Gura_DeclareObjectAccessor(wx_ComboBox)
 public:
 	inline Object_wx_ComboBox(wxComboBox *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object_wx_ControlWithItems(Gura_UserClass(wx_ComboBox), pEntity, pObserver, ownerFlag) {}
+				Object_wx_Control(Gura_UserClass(wx_ComboBox), pEntity, pObserver, ownerFlag) {}
 	inline Object_wx_ComboBox(Class *pClass, wxComboBox *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object_wx_ControlWithItems(pClass, pEntity, pObserver, ownerFlag) {}
+				Object_wx_Control(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_ComboBox();
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);

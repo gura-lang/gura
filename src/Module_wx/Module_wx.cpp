@@ -16,6 +16,12 @@
 #undef FR_NOMATCHCASE
 #undef FR_NOWHOLEWORD
 
+#if defined(__WXMSW__)
+#define _MS(x) x
+#else
+#define _MS(x)
+#endif
+
 #define RealizeBaseClass(className) \
 Gura_RealizeUserClassExWithoutPrepare(wx_##className, #className, env.LookupClass(VTYPE_object))
 
@@ -71,17 +77,17 @@ Gura_ModuleEntry()
 	RealizeDervClass(FileConfig,						ConfigBase);
 	RealizeBaseClass(CriticalSection);
 	RealizeBaseClass(CriticalSectionLocker);
-	RealizeBaseClass(DataFormat);
-	RealizeBaseClass(DataInputStream);
-	RealizeBaseClass(DataObject);
-	RealizeDervClass(DataObjectComposite,				DataObject);
-	RealizeDervClass(URLDataObject,						DataObjectComposite);
-	RealizeDervClass(DataObjectSimple,					DataObject);
-	RealizeDervClass(BitmapDataObject,					DataObjectSimple);
-	RealizeDervClass(CustomDataObject,					DataObjectSimple);
-	RealizeDervClass(FileDataObject,					DataObjectSimple);
-	RealizeDervClass(TextDataObject,					DataObjectSimple);
-	RealizeBaseClass(DataOutputStream);
+_MS(RealizeBaseClass(DataFormat));
+_MS(RealizeBaseClass(DataInputStream));
+_MS(RealizeBaseClass(DataObject));
+_MS(RealizeDervClass(DataObjectComposite,				DataObject));
+_MS(RealizeDervClass(URLDataObject,						DataObjectComposite));
+_MS(RealizeDervClass(DataObjectSimple,					DataObject));
+_MS(RealizeDervClass(BitmapDataObject,					DataObjectSimple));
+_MS(RealizeDervClass(CustomDataObject,					DataObjectSimple));
+_MS(RealizeDervClass(FileDataObject,					DataObjectSimple));
+_MS(RealizeDervClass(TextDataObject,					DataObjectSimple));
+_MS(RealizeBaseClass(DataOutputStream));
 	RealizeBaseClass(DateSpan);
 	RealizeBaseClass(DateTime);
 	RealizeBaseClass(DateTimeHolidayAuthority);
@@ -155,18 +161,18 @@ Gura_ModuleEntry()
 	RealizeBaseClass(Object);
 	RealizeDervClass(ConnectionBase,					Object);
 	RealizeDervClass(Connection,						ConnectionBase);
-	RealizeDervClass(DDEConnection,						ConnectionBase);
+_MS(RealizeDervClass(DDEConnection,						ConnectionBase));
 	RealizeDervClass(TCPConnection,						ConnectionBase);
 	RealizeDervClass(HelpControllerBase,				Object);
 	RealizeDervClass(HelpController,					HelpControllerBase);
 	RealizeDervClass(HtmlHelpController,				HelpControllerBase);
 	RealizeDervClass(ServerBase,						Object);
-	RealizeDervClass(DDEServer,							ServerBase);
+_MS(RealizeDervClass(DDEServer,							ServerBase));
 	RealizeDervClass(Server,							ServerBase);
 	RealizeDervClass(TCPServer,							ServerBase);
 	RealizeDervClass(ClientBase,						Object);
 	RealizeDervClass(Client,							ClientBase);
-	RealizeDervClass(DDEClient,							ClientBase);
+_MS(RealizeDervClass(DDEClient,							ClientBase));
 	RealizeDervClass(TCPClient,							ClientBase);
 	RealizeDervClass(AcceleratorTable,					Object);
 	RealizeDervClass(ArchiveClassFactory,				Object);
@@ -176,7 +182,7 @@ Gura_ModuleEntry()
 	RealizeDervClass(TarEntry,							ArchiveEntry);
 	RealizeDervClass(ZipEntry,							ArchiveEntry);
 	RealizeDervClass(ArtProvider,						Object);
-	RealizeDervClass(AutomationObject,					Object);
+_MS(RealizeDervClass(AutomationObject,					Object));
 	RealizeDervClass(BitmapHandler,						Object);
 	RealizeDervClass(Clipboard,							Object);
 	RealizeDervClass(Colour,							Object);
@@ -184,26 +190,26 @@ Gura_ModuleEntry()
 	RealizeDervClass(Command,							Object);
 	RealizeDervClass(CommandProcessor,					Object);
 	RealizeDervClass(ContextHelp,						Object);
-	RealizeDervClass(DataViewColumn,					Object);
-	RealizeDervClass(DataViewListModelNotifier,			Object);
-	RealizeDervClass(DataViewModel,						Object);
-	RealizeDervClass(DataViewListModel,					DataViewModel);
-	RealizeDervClass(DataViewSortedListModel,			DataViewListModel);
-	RealizeDervClass(DataViewRenderer,					Object);
-	RealizeDervClass(DataViewTextRenderer,				DataViewRenderer);
-	RealizeDervClass(DataViewProgressRenderer,			DataViewRenderer);
-	RealizeDervClass(DataViewToggleRenderer,			DataViewRenderer);
-	RealizeDervClass(DataViewBitmapRenderer,			DataViewRenderer);
-	RealizeDervClass(DataViewDateRenderer,				DataViewRenderer);
-	RealizeDervClass(DataViewCustomRenderer,			DataViewRenderer);
+_MS(RealizeDervClass(DataViewColumn,					Object));
+_MS(RealizeDervClass(DataViewListModelNotifier,			Object));
+_MS(RealizeDervClass(DataViewModel,						Object));
+_MS(RealizeDervClass(DataViewListModel,					DataViewModel));
+_MS(RealizeDervClass(DataViewSortedListModel,			DataViewListModel));
+_MS(RealizeDervClass(DataViewRenderer,					Object));
+_MS(RealizeDervClass(DataViewTextRenderer,				DataViewRenderer));
+_MS(RealizeDervClass(DataViewProgressRenderer,			DataViewRenderer));
+_MS(RealizeDervClass(DataViewToggleRenderer,			DataViewRenderer));
+_MS(RealizeDervClass(DataViewBitmapRenderer,			DataViewRenderer));
+_MS(RealizeDervClass(DataViewDateRenderer,				DataViewRenderer));
+_MS(RealizeDervClass(DataViewCustomRenderer,			DataViewRenderer));
 	RealizeDervClass(DC,								Object);
 	RealizeDervClass(MemoryDC,							DC);
 	RealizeDervClass(BufferedDC,						MemoryDC);
 	RealizeDervClass(BufferedPaintDC,					BufferedDC);
 	RealizeDervClass(AutoBufferedPaintDC,				BufferedPaintDC);
-	RealizeDervClass(MetafileDC,						DC);
+_MS(RealizeDervClass(MetafileDC,						DC));
 	RealizeDervClass(MirrorDC,							DC);
-	RealizeDervClass(PrinterDC,							DC);
+_MS(RealizeDervClass(PrinterDC,							DC));
 	RealizeDervClass(ScreenDC,							DC);
 	RealizeDervClass(WindowDC,							DC);
 	RealizeDervClass(ClientDC,							WindowDC);
@@ -216,7 +222,7 @@ Gura_ModuleEntry()
 	RealizeDervClass(CalculateLayoutEvent,				Event);
 	RealizeDervClass(CloseEvent,						Event);
 	RealizeDervClass(CommandEvent,						Event);
-	RealizeDervClass(ActiveXEvent,						CommandEvent);
+_MS(RealizeDervClass(ActiveXEvent,						CommandEvent));
 	RealizeDervClass(ClipboardTextEvent,				CommandEvent);
 	RealizeDervClass(CollapsiblePaneEvent,				CommandEvent);
 	RealizeDervClass(ColourPickerEvent,					CommandEvent);
@@ -234,12 +240,12 @@ Gura_ModuleEntry()
 	RealizeDervClass(NotifyEvent,						CommandEvent);
 	RealizeDervClass(BookCtrlBaseEvent,					NotifyEvent);
 	RealizeDervClass(TreebookEvent,						BookCtrlBaseEvent);
-	RealizeDervClass(DataViewEvent,						NotifyEvent);
+_MS(RealizeDervClass(DataViewEvent,						NotifyEvent));
 	RealizeDervClass(GridEvent,							NotifyEvent);
 	RealizeDervClass(GridRangeSelectEvent,				NotifyEvent);
 	RealizeDervClass(GridSizeEvent,						NotifyEvent);
 	RealizeDervClass(ListEvent,							NotifyEvent);
-	RealizeDervClass(MediaEvent,						NotifyEvent);
+_MS(RealizeDervClass(MediaEvent,						NotifyEvent));
 	RealizeDervClass(NotebookEvent,						BookCtrlBaseEvent);
 	RealizeDervClass(ListbookEvent,						BookCtrlBaseEvent);
 	RealizeDervClass(ChoicebookEvent,					BookCtrlBaseEvent);
@@ -271,7 +277,7 @@ Gura_ModuleEntry()
 	RealizeDervClass(MouseEvent,						Event);
 	RealizeDervClass(MoveEvent,							Event);
 	RealizeDervClass(PaintEvent,						Event);
-	RealizeDervClass(PowerEvent,						Event);
+_MS(RealizeDervClass(PowerEvent,						Event));
 	RealizeDervClass(ProcessEvent,						Event);
 	RealizeDervClass(QueryLayoutInfoEvent,				Event);
 	RealizeDervClass(ScrollWinEvent,					Event);
@@ -297,7 +303,7 @@ Gura_ModuleEntry()
 	RealizeDervClass(PopupWindow,						Window);
 	RealizeDervClass(PopupTransientWindow,				PopupWindow);
 	RealizeDervClass(TipWindow,							PopupTransientWindow);
-	RealizeDervClass(ActiveXContainer,					Window);
+_MS(RealizeDervClass(ActiveXContainer,					Window));
 	RealizeDervClass(Control,							Window);
 	RealizeDervClass(TextCtrlBase,						Control);
 	RealizeDervClass(RichTextCtrl,						TextCtrlBase);
@@ -324,7 +330,7 @@ Gura_ModuleEntry()
 	RealizeDervClass(ComboBox,							ControlWithItems);
 	RealizeDervClass(ListBox,							ControlWithItems);
 	RealizeDervClass(CheckListBox,						ListBox);
-	RealizeDervClass(DataViewCtrl,						Control);
+_MS(RealizeDervClass(DataViewCtrl,						Control));
 	RealizeDervClass(DatePickerCtrl,					Control);
 	RealizeDervClass(Gauge,								Control);
 	RealizeDervClass(GenericDirCtrl,					Control);
@@ -332,7 +338,7 @@ Gura_ModuleEntry()
 	RealizeDervClass(Listbook,							BookCtrlBase);
 	RealizeDervClass(ListCtrl,							Control);
 	RealizeDervClass(ListView,							ListCtrl);
-	RealizeDervClass(MediaCtrl,							Control);
+_MS(RealizeDervClass(MediaCtrl,							Control));
 	RealizeDervClass(Notebook,							BookCtrlBase);
 	RealizeDervClass(PickerBase,						Control);
 	RealizeDervClass(ColourPickerCtrl,					PickerBase);
@@ -450,7 +456,7 @@ Gura_ModuleEntry()
 	RealizeDervClass(ListItem,							Object);
 	RealizeDervClass(Mask,								Object);
 	RealizeDervClass(MenuItem,							Object);
-	RealizeDervClass(Metafile,							Object);
+_MS(RealizeDervClass(Metafile,							Object));
 	RealizeDervClass(Module,							Object);
 	RealizeDervClass(HtmlTagsModule,					Module);
 	RealizeDervClass(PageSetupDialog,					Object);
@@ -514,7 +520,7 @@ Gura_ModuleEntry()
 	RealizeBaseClass(Rect);
 	RealizeBaseClass(RecursionGuard);
 	RealizeBaseClass(RegEx);
-	RealizeBaseClass(RegKey);
+_MS(RealizeBaseClass(RegKey));
 	RealizeBaseClass(RendererNative);
 	RealizeDervClass(DelegateRendererNative,			RendererNative);
 	RealizeBaseClass(RendererVersion);
@@ -633,17 +639,17 @@ Gura_ModuleEntry()
 	PrepareClass(FileConfig);
 	PrepareClass(CriticalSection);
 	PrepareClass(CriticalSectionLocker);
-	PrepareClass(DataFormat);
-	PrepareClass(DataInputStream);
-	PrepareClass(DataObject);
-	PrepareClass(DataObjectComposite);
-	PrepareClass(URLDataObject);
-	PrepareClass(DataObjectSimple);
-	PrepareClass(BitmapDataObject);
-	PrepareClass(CustomDataObject);
-	PrepareClass(FileDataObject);
-	PrepareClass(TextDataObject);
-	PrepareClass(DataOutputStream);
+_MS(PrepareClass(DataFormat));
+_MS(PrepareClass(DataInputStream));
+_MS(PrepareClass(DataObject));
+_MS(PrepareClass(DataObjectComposite));
+_MS(PrepareClass(URLDataObject));
+_MS(PrepareClass(DataObjectSimple));
+_MS(PrepareClass(BitmapDataObject));
+_MS(PrepareClass(CustomDataObject));
+_MS(PrepareClass(FileDataObject));
+_MS(PrepareClass(TextDataObject));
+_MS(PrepareClass(DataOutputStream));
 	PrepareClass(DateSpan);
 	PrepareClass(DateTime);
 	PrepareClass(DateTimeHolidayAuthority);
@@ -717,13 +723,13 @@ Gura_ModuleEntry()
 	PrepareClass(Object);
 	PrepareClass(ConnectionBase);
 	PrepareClass(Connection);
-	PrepareClass(DDEConnection);
+_MS(PrepareClass(DDEConnection));
 	PrepareClass(TCPConnection);
 	PrepareClass(HelpControllerBase);
 	PrepareClass(HelpController);
 	PrepareClass(HtmlHelpController);
 	PrepareClass(ServerBase);
-	PrepareClass(DDEServer);
+_MS(PrepareClass(DDEServer));
 	PrepareClass(Server);
 	PrepareClass(TCPServer);
 	PrepareClass(AcceleratorTable);
@@ -734,7 +740,7 @@ Gura_ModuleEntry()
 	PrepareClass(TarEntry);
 	PrepareClass(ZipEntry);
 	PrepareClass(ArtProvider);
-	PrepareClass(AutomationObject);
+_MS(PrepareClass(AutomationObject));
 	PrepareClass(BitmapHandler);
 	PrepareClass(Clipboard);
 	PrepareClass(Colour);
@@ -742,26 +748,26 @@ Gura_ModuleEntry()
 	PrepareClass(Command);
 	PrepareClass(CommandProcessor);
 	PrepareClass(ContextHelp);
-	PrepareClass(DataViewColumn);
-	PrepareClass(DataViewListModelNotifier);
-	PrepareClass(DataViewModel);
-	PrepareClass(DataViewListModel);
-	PrepareClass(DataViewSortedListModel);
-	PrepareClass(DataViewRenderer);
-	PrepareClass(DataViewTextRenderer);
-	PrepareClass(DataViewProgressRenderer);
-	PrepareClass(DataViewToggleRenderer);
-	PrepareClass(DataViewBitmapRenderer);
-	PrepareClass(DataViewDateRenderer);
-	PrepareClass(DataViewCustomRenderer);
+_MS(PrepareClass(DataViewColumn));
+_MS(PrepareClass(DataViewListModelNotifier));
+_MS(PrepareClass(DataViewModel));
+_MS(PrepareClass(DataViewListModel));
+_MS(PrepareClass(DataViewSortedListModel));
+_MS(PrepareClass(DataViewRenderer));
+_MS(PrepareClass(DataViewTextRenderer));
+_MS(PrepareClass(DataViewProgressRenderer));
+_MS(PrepareClass(DataViewToggleRenderer));
+_MS(PrepareClass(DataViewBitmapRenderer));
+_MS(PrepareClass(DataViewDateRenderer));
+_MS(PrepareClass(DataViewCustomRenderer));
 	PrepareClass(DC);
 	PrepareClass(MemoryDC);
 	PrepareClass(BufferedDC);
 	PrepareClass(BufferedPaintDC);
 	PrepareClass(AutoBufferedPaintDC);
-	PrepareClass(MetafileDC);
+_MS(PrepareClass(MetafileDC));
 	PrepareClass(MirrorDC);
-	PrepareClass(PrinterDC);
+_MS(PrepareClass(PrinterDC));
 	PrepareClass(ScreenDC);
 	PrepareClass(WindowDC);
 	PrepareClass(ClientDC);
@@ -774,7 +780,7 @@ Gura_ModuleEntry()
 	PrepareClass(CalculateLayoutEvent);
 	PrepareClass(CloseEvent);
 	PrepareClass(CommandEvent);
-	PrepareClass(ActiveXEvent);
+_MS(PrepareClass(ActiveXEvent));
 	PrepareClass(ClipboardTextEvent);
 	PrepareClass(CollapsiblePaneEvent);
 	PrepareClass(ColourPickerEvent);
@@ -792,12 +798,12 @@ Gura_ModuleEntry()
 	PrepareClass(NotifyEvent);
 	PrepareClass(BookCtrlBaseEvent);
 	PrepareClass(TreebookEvent);
-	PrepareClass(DataViewEvent);
+_MS(PrepareClass(DataViewEvent));
 	PrepareClass(GridEvent);
 	PrepareClass(GridRangeSelectEvent);
 	PrepareClass(GridSizeEvent);
 	PrepareClass(ListEvent);
-	PrepareClass(MediaEvent);
+_MS(PrepareClass(MediaEvent));
 	PrepareClass(NotebookEvent);
 	PrepareClass(ListbookEvent);
 	PrepareClass(ChoicebookEvent);
@@ -829,7 +835,7 @@ Gura_ModuleEntry()
 	PrepareClass(MouseEvent);
 	PrepareClass(MoveEvent);
 	PrepareClass(PaintEvent);
-	PrepareClass(PowerEvent);
+_MS(PrepareClass(PowerEvent));
 	PrepareClass(ProcessEvent);
 	PrepareClass(QueryLayoutInfoEvent);
 	PrepareClass(ScrollWinEvent);
@@ -855,7 +861,7 @@ Gura_ModuleEntry()
 	PrepareClass(PopupWindow);
 	PrepareClass(PopupTransientWindow);
 	PrepareClass(TipWindow);
-	PrepareClass(ActiveXContainer);
+_MS(PrepareClass(ActiveXContainer));
 	PrepareClass(Control);
 	PrepareClass(TextCtrlBase);
 	PrepareClass(RichTextCtrl);
@@ -882,7 +888,7 @@ Gura_ModuleEntry()
 	PrepareClass(ComboBox);
 	PrepareClass(ListBox);
 	PrepareClass(CheckListBox);
-	PrepareClass(DataViewCtrl);
+_MS(PrepareClass(DataViewCtrl));
 	PrepareClass(DatePickerCtrl);
 	PrepareClass(Gauge);
 	PrepareClass(GenericDirCtrl);
@@ -890,7 +896,7 @@ Gura_ModuleEntry()
 	PrepareClass(Listbook);
 	PrepareClass(ListCtrl);
 	PrepareClass(ListView);
-	PrepareClass(MediaCtrl);
+_MS(PrepareClass(MediaCtrl));
 	PrepareClass(Notebook);
 	PrepareClass(PickerBase);
 	PrepareClass(ColourPickerCtrl);
@@ -1008,7 +1014,7 @@ Gura_ModuleEntry()
 	PrepareClass(ListItem);
 	PrepareClass(Mask);
 	PrepareClass(MenuItem);
-	PrepareClass(Metafile);
+_MS(PrepareClass(Metafile));
 	PrepareClass(Module);
 	PrepareClass(HtmlTagsModule);
 	PrepareClass(PageSetupDialog);
@@ -1067,7 +1073,7 @@ Gura_ModuleEntry()
 	PrepareClass(ObjectRefData);
 	PrepareClass(ClientBase);
 	PrepareClass(Client);
-	PrepareClass(DDEClient);
+_MS(PrepareClass(DDEClient));
 	PrepareClass(TCPClient);
 	PrepareClass(PenList);
 	PrepareClass(PlatformInfo);
@@ -1076,7 +1082,7 @@ Gura_ModuleEntry()
 	PrepareClass(Rect);
 	PrepareClass(RecursionGuard);
 	PrepareClass(RegEx);
-	PrepareClass(RegKey);
+_MS(PrepareClass(RegKey));
 	PrepareClass(RendererNative);
 	PrepareClass(DelegateRendererNative);
 	PrepareClass(RendererVersion);
@@ -1195,17 +1201,17 @@ Gura_ModuleEntry()
 	InitializeClass(FileConfig);
 	InitializeClass(CriticalSection);
 	InitializeClass(CriticalSectionLocker);
-	InitializeClass(DataFormat);
-	InitializeClass(DataInputStream);
-	InitializeClass(DataObject);
-	InitializeClass(DataObjectComposite);
-	InitializeClass(URLDataObject);
-	InitializeClass(DataObjectSimple);
-	InitializeClass(BitmapDataObject);
-	InitializeClass(CustomDataObject);
-	InitializeClass(FileDataObject);
-	InitializeClass(TextDataObject);
-	InitializeClass(DataOutputStream);
+_MS(InitializeClass(DataFormat));
+_MS(InitializeClass(DataInputStream));
+_MS(InitializeClass(DataObject));
+_MS(InitializeClass(DataObjectComposite));
+_MS(InitializeClass(URLDataObject));
+_MS(InitializeClass(DataObjectSimple));
+_MS(InitializeClass(BitmapDataObject));
+_MS(InitializeClass(CustomDataObject));
+_MS(InitializeClass(FileDataObject));
+_MS(InitializeClass(TextDataObject));
+_MS(InitializeClass(DataOutputStream));
 	InitializeClass(DateSpan);
 	InitializeClass(DateTime);
 	InitializeClass(DateTimeHolidayAuthority);
@@ -1279,18 +1285,18 @@ Gura_ModuleEntry()
 	InitializeClass(Object);
 	InitializeClass(ConnectionBase);
 	InitializeClass(Connection);
-	InitializeClass(DDEConnection);
+_MS(InitializeClass(DDEConnection));
 	InitializeClass(TCPConnection);
 	InitializeClass(HelpControllerBase);
 	InitializeClass(HelpController);
 	InitializeClass(HtmlHelpController);
 	InitializeClass(ServerBase);
-	InitializeClass(DDEServer);
+_MS(InitializeClass(DDEServer));
 	InitializeClass(Server);
 	InitializeClass(TCPServer);
 	InitializeClass(ClientBase);
 	InitializeClass(Client);
-	InitializeClass(DDEClient);
+_MS(InitializeClass(DDEClient));
 	InitializeClass(TCPClient);
 	InitializeClass(AcceleratorTable);
 	InitializeClass(ArchiveClassFactory);
@@ -1300,7 +1306,7 @@ Gura_ModuleEntry()
 	InitializeClass(TarEntry);
 	InitializeClass(ZipEntry);
 	InitializeClass(ArtProvider);
-	InitializeClass(AutomationObject);
+_MS(InitializeClass(AutomationObject));
 	InitializeClass(BitmapHandler);
 	InitializeClass(Clipboard);
 	InitializeClass(Colour);
@@ -1308,26 +1314,26 @@ Gura_ModuleEntry()
 	InitializeClass(Command);
 	InitializeClass(CommandProcessor);
 	InitializeClass(ContextHelp);
-	InitializeClass(DataViewColumn);
-	InitializeClass(DataViewListModelNotifier);
-	InitializeClass(DataViewModel);
-	InitializeClass(DataViewListModel);
-	InitializeClass(DataViewSortedListModel);
-	InitializeClass(DataViewRenderer);
-	InitializeClass(DataViewTextRenderer);
-	InitializeClass(DataViewProgressRenderer);
-	InitializeClass(DataViewToggleRenderer);
-	InitializeClass(DataViewBitmapRenderer);
-	InitializeClass(DataViewDateRenderer);
-	InitializeClass(DataViewCustomRenderer);
+_MS(InitializeClass(DataViewColumn));
+_MS(InitializeClass(DataViewListModelNotifier));
+_MS(InitializeClass(DataViewModel));
+_MS(InitializeClass(DataViewListModel));
+_MS(InitializeClass(DataViewSortedListModel));
+_MS(InitializeClass(DataViewRenderer));
+_MS(InitializeClass(DataViewTextRenderer));
+_MS(InitializeClass(DataViewProgressRenderer));
+_MS(InitializeClass(DataViewToggleRenderer));
+_MS(InitializeClass(DataViewBitmapRenderer));
+_MS(InitializeClass(DataViewDateRenderer));
+_MS(InitializeClass(DataViewCustomRenderer));
 	InitializeClass(DC);
 	InitializeClass(MemoryDC);
 	InitializeClass(BufferedDC);
 	InitializeClass(BufferedPaintDC);
 	InitializeClass(AutoBufferedPaintDC);
-	InitializeClass(MetafileDC);
+_MS(InitializeClass(MetafileDC));
 	InitializeClass(MirrorDC);
-	InitializeClass(PrinterDC);
+_MS(InitializeClass(PrinterDC));
 	InitializeClass(ScreenDC);
 	InitializeClass(WindowDC);
 	InitializeClass(ClientDC);
@@ -1340,7 +1346,7 @@ Gura_ModuleEntry()
 	InitializeClass(CalculateLayoutEvent);
 	InitializeClass(CloseEvent);
 	InitializeClass(CommandEvent);
-	InitializeClass(ActiveXEvent);
+_MS(InitializeClass(ActiveXEvent));
 	InitializeClass(ClipboardTextEvent);
 	InitializeClass(CollapsiblePaneEvent);
 	InitializeClass(ColourPickerEvent);
@@ -1358,12 +1364,12 @@ Gura_ModuleEntry()
 	InitializeClass(NotifyEvent);
 	InitializeClass(BookCtrlBaseEvent);
 	InitializeClass(TreebookEvent);
-	InitializeClass(DataViewEvent);
+_MS(InitializeClass(DataViewEvent));
 	InitializeClass(GridEvent);
 	InitializeClass(GridRangeSelectEvent);
 	InitializeClass(GridSizeEvent);
 	InitializeClass(ListEvent);
-	InitializeClass(MediaEvent);
+_MS(InitializeClass(MediaEvent));
 	InitializeClass(NotebookEvent);
 	InitializeClass(ListbookEvent);
 	InitializeClass(ChoicebookEvent);
@@ -1395,7 +1401,7 @@ Gura_ModuleEntry()
 	InitializeClass(MouseEvent);
 	InitializeClass(MoveEvent);
 	InitializeClass(PaintEvent);
-	InitializeClass(PowerEvent);
+_MS(InitializeClass(PowerEvent));
 	InitializeClass(ProcessEvent);
 	InitializeClass(QueryLayoutInfoEvent);
 	InitializeClass(ScrollWinEvent);
@@ -1421,7 +1427,7 @@ Gura_ModuleEntry()
 	InitializeClass(PopupWindow);
 	InitializeClass(PopupTransientWindow);
 	InitializeClass(TipWindow);
-	InitializeClass(ActiveXContainer);
+_MS(InitializeClass(ActiveXContainer));
 	InitializeClass(Control);
 	InitializeClass(TextCtrlBase);
 	InitializeClass(RichTextCtrl);
@@ -1448,7 +1454,7 @@ Gura_ModuleEntry()
 	InitializeClass(ComboBox);
 	InitializeClass(ListBox);
 	InitializeClass(CheckListBox);
-	InitializeClass(DataViewCtrl);
+_MS(InitializeClass(DataViewCtrl));
 	InitializeClass(DatePickerCtrl);
 	InitializeClass(Gauge);
 	InitializeClass(GenericDirCtrl);
@@ -1456,7 +1462,7 @@ Gura_ModuleEntry()
 	InitializeClass(Listbook);
 	InitializeClass(ListCtrl);
 	InitializeClass(ListView);
-	InitializeClass(MediaCtrl);
+_MS(InitializeClass(MediaCtrl));
 	InitializeClass(Notebook);
 	InitializeClass(PickerBase);
 	InitializeClass(ColourPickerCtrl);
@@ -1574,7 +1580,7 @@ Gura_ModuleEntry()
 	InitializeClass(ListItem);
 	InitializeClass(Mask);
 	InitializeClass(MenuItem);
-	InitializeClass(Metafile);
+_MS(InitializeClass(Metafile));
 	InitializeClass(Module);
 	InitializeClass(HtmlTagsModule);
 	InitializeClass(PageSetupDialog);
@@ -1638,7 +1644,7 @@ Gura_ModuleEntry()
 	InitializeClass(Rect);
 	InitializeClass(RecursionGuard);
 	InitializeClass(RegEx);
-	InitializeClass(RegKey);
+_MS(InitializeClass(RegKey));
 	InitializeClass(RendererNative);
 	InitializeClass(DelegateRendererNative);
 	InitializeClass(RendererVersion);
@@ -2517,7 +2523,7 @@ Gura_ModuleEntry()
 		Gura_AssignWxValue(SYS_COLOUR_APPWORKSPACE);
 		Gura_AssignWxValue(SYS_COLOUR_HIGHLIGHT);
 		Gura_AssignWxValue(SYS_COLOUR_HIGHLIGHTTEXT);
-		Gura_AssignWxValue(SYS_COLOUR_LISTBOXHIGHLIGHTTEXT);
+		_MS(Gura_AssignWxValue(SYS_COLOUR_LISTBOXHIGHLIGHTTEXT));
 		Gura_AssignWxValue(SYS_COLOUR_BTNFACE);
 		Gura_AssignWxValue(SYS_COLOUR_BTNSHADOW);
 		Gura_AssignWxValue(SYS_COLOUR_GRAYTEXT);
@@ -2700,8 +2706,8 @@ Gura_ModuleEntry()
 		Gura_AssignWxValue(DP_SPIN);
 	} while (0);
 	do {
-		Gura_AssignWxValue(DV_MULTIPLE);
-		Gura_AssignWxValue(DV_SINGLE);
+	_MS(Gura_AssignWxValue(DV_MULTIPLE));
+	_MS(Gura_AssignWxValue(DV_SINGLE));
 	} while (0);
 	do {
 		Gura_AssignWxValue(FLP_CHANGE_DIR);
@@ -3087,11 +3093,12 @@ Gura_ModuleEntry()
 		Gura_AssignWxValue(SUBRELEASE_NUMBER);
 		Gura_AssignWxValue(VERSION_NUMBER);
 		Gura_AssignValue(VERSION_STRING,			Value(env, wxString(wxVERSION_STRING).ToUTF8()));
-		Gura_AssignValue(VERSION_NUM_DOT_STRING,	Value(env, wxString(wxVERSION_NUM_DOT_STRING).ToUTF8()));
+		Gura_AssignValue(VERSION_NUM_DOT_STRING,	Value(env, wxVERSION_NUM_DOT_STRING));
+		//Gura_AssignValue(VERSION_NUM_DOT_STRING,	Value(env, wxString(wxVERSION_NUM_DOT_STRING).ToUTF8()));
 	} while (0);
 	do {
-		Gura_AssignValue(RegKeyRead,				Value(wxRegKey::Read));
-		Gura_AssignValue(RegKeyWrite,				Value(wxRegKey::Write));
+	_MS(Gura_AssignValue(RegKeyRead,				Value(wxRegKey::Read)));
+	_MS(Gura_AssignValue(RegKeyWrite,				Value(wxRegKey::Write)));
 	} while (0);
 	do {
 		Gura_AssignValue(RICHTEXT_STYLE_ALL,		Value(wxRichTextStyleListBox::wxRICHTEXT_STYLE_ALL));
@@ -3421,20 +3428,20 @@ Gura_ModuleEntry()
 		Gura_AssignWxValue(FromCurrent);
 	} while (0);
 	do {
-		Gura_AssignWxValue(DATAVIEW_COL_RESIZABLE);
-		Gura_AssignWxValue(DATAVIEW_COL_SORTABLE);
-		Gura_AssignWxValue(DATAVIEW_COL_HIDDEN);
+	_MS(Gura_AssignWxValue(DATAVIEW_COL_RESIZABLE));
+	_MS(Gura_AssignWxValue(DATAVIEW_COL_SORTABLE));
+	_MS(Gura_AssignWxValue(DATAVIEW_COL_HIDDEN));
 	} while (0);
 	do { // wxDataViewCellMode
-		Gura_AssignWxValue(DATAVIEW_CELL_INERT);
-		Gura_AssignWxValue(DATAVIEW_CELL_ACTIVATABLE);
-		Gura_AssignWxValue(DATAVIEW_CELL_EDITABLE);
+	_MS(Gura_AssignWxValue(DATAVIEW_CELL_INERT));
+	_MS(Gura_AssignWxValue(DATAVIEW_CELL_ACTIVATABLE));
+	_MS(Gura_AssignWxValue(DATAVIEW_CELL_EDITABLE));
 	} while (0);
 	do { // wxDataViewCellRenderState
-		Gura_AssignWxValue(DATAVIEW_CELL_SELECTED);
-		Gura_AssignWxValue(DATAVIEW_CELL_PRELIT);
-		Gura_AssignWxValue(DATAVIEW_CELL_INSENSITIVE);
-		Gura_AssignWxValue(DATAVIEW_CELL_FOCUSED);
+	_MS(Gura_AssignWxValue(DATAVIEW_CELL_SELECTED));
+	_MS(Gura_AssignWxValue(DATAVIEW_CELL_PRELIT));
+	_MS(Gura_AssignWxValue(DATAVIEW_CELL_INSENSITIVE));
+	_MS(Gura_AssignWxValue(DATAVIEW_CELL_FOCUSED));
 	} while (0);
 	do { // wxPropertySheetDialog::SetSheetStyle
 		Gura_AssignWxValue(PROPSHEET_DEFAULT);
@@ -3735,10 +3742,10 @@ void InitializeObjects(Environment &env)
 		Gura_AssignWxEvent(EVT_COMMAND_RICHTEXT_CONTENT_DELETED,	EVT_RICHTEXT_CONTENT_DELETED,	RichTextEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_RICHTEXT_BUFFER_RESET,		EVT_RICHTEXT_BUFFER_RESET,		RichTextEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_COLLPANE_CHANGED,			EVT_COLLAPSIBLEPANE_CHANGED,	CollapsiblePaneEvent);
-		Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_ROW_SELECTED,		EVT_DATAVIEW_ROW_SELECTED,		DataViewEvent);
-		Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_ROW_ACTIVATED,		EVT_DATAVIEW_ROW_ACTIVATED,		DataViewEvent);
-		Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_COLUMN_HEADER_CLICK, EVT_DATAVIEW_COLUMN_HEADER_CLICK, DataViewEvent);
-		Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_COLUMN_HEADER_RIGHT_CLICK, EVT_DATAVIEW_COLUMN_HEADER_RIGHT_CLICK, DataViewEvent);
+	_MS(Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_ROW_SELECTED,		EVT_DATAVIEW_ROW_SELECTED,		DataViewEvent));
+	_MS(Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_ROW_ACTIVATED,		EVT_DATAVIEW_ROW_ACTIVATED,		DataViewEvent));
+	_MS(Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_COLUMN_HEADER_CLICK, EVT_DATAVIEW_COLUMN_HEADER_CLICK, DataViewEvent));
+	_MS(Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_COLUMN_HEADER_RIGHT_CLICK, EVT_DATAVIEW_COLUMN_HEADER_RIGHT_CLICK, DataViewEvent));
 		Gura_AssignWxEvent(EVT_COMMAND_FIND,						EVT_FIND,						FindDialogEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_FIND_NEXT,					EVT_FIND_NEXT,					FindDialogEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_FIND_REPLACE,				EVT_FIND_REPLACE,				FindDialogEvent);
