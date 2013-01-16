@@ -392,7 +392,7 @@
 #include "Object_wx_MemoryDC.h"							// derived from wxDC
 #include "Object_wx_BufferedDC.h"						// derived from wxMemoryDC
 #include "Object_wx_BufferedPaintDC.h"					// derived from wxBufferedDC
-#include "Object_wx_AutoBufferedPaintDC.h"				// derived from wxBufferedPaintDC
+#include "Object_wx_AutoBufferedPaintDC.h"				// derived from wxDC (to keep compatibility between Windows and Linux)
 #include "Object_wx_MirrorDC.h"							// derived from wxDC
 #include "Object_wx_ScreenDC.h"							// derived from wxDC
 #include "Object_wx_WindowDC.h"							// derived from wxDC
