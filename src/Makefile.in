@@ -102,7 +102,7 @@ am_libgura_la_OBJECTS = Common.lo Parser.lo Expr.lo Value.lo \
 	Module_time.lo
 libgura_la_OBJECTS = $(am_libgura_la_OBJECTS)
 PROGRAMS = $(bin_PROGRAMS)
-am_gura_OBJECTS = Main.$(OBJEXT)
+am_gura_OBJECTS = gura.$(OBJEXT)
 gura_OBJECTS = $(am_gura_OBJECTS)
 gura_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
@@ -200,7 +200,6 @@ PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
 PACKAGE_NAME = @PACKAGE_NAME@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
-PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 POW_LIB = @POW_LIB@
@@ -271,7 +270,7 @@ gura_LDADD = libgura.la
 gura_LDFLAGS = -pthread
 gura_DEPENDENCIES = libgura.la
 gura_SOURCES = \
-Program_gura/Main.cpp
+Program_gura/gura.cpp
 
 BUILT_SOURCES = config_add.h stdafx.h.gch
 libgura_la_SOURCES = \
@@ -321,7 +320,6 @@ Module_time/Module_time.cpp
 
 pkglib_DATA = \
 ../module/calendar.gura \
-../module/gltester.gura \
 ../module/graph.gura \
 ../module/modbuild.gura \
 ../module/gurcbuild.gura \
@@ -428,6 +426,9 @@ sample/resource/msnms.ico \
 sample/opengl/1.rgb \
 sample/opengl/2.rgb \
 sample/opengl/3.rgb \
+sample/opengl/rgbread.gura \
+sample/opengl/gltester.gura \
+sample/opengl/sdlutil.gura \
 sample/opengl/gl-prim.guraw \
 sample/opengl/gl-depth.guraw \
 sample/opengl/gl-twotextures.guraw \
@@ -636,7 +637,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Function.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Image.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Iterator.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Module.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Module_base64.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Module_basement.Plo@am__quote@
@@ -682,6 +682,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/StructObject.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Symbol.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Value.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gura.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -802,19 +803,19 @@ Module_time.lo: Module_time/Module_time.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o Module_time.lo `test -f 'Module_time/Module_time.cpp' || echo '$(srcdir)/'`Module_time/Module_time.cpp
 
-Main.o: Program_gura/Main.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT Main.o -MD -MP -MF $(DEPDIR)/Main.Tpo -c -o Main.o `test -f 'Program_gura/Main.cpp' || echo '$(srcdir)/'`Program_gura/Main.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/Main.Tpo $(DEPDIR)/Main.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Program_gura/Main.cpp' object='Main.o' libtool=no @AMDEPBACKSLASH@
+gura.o: Program_gura/gura.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT gura.o -MD -MP -MF $(DEPDIR)/gura.Tpo -c -o gura.o `test -f 'Program_gura/gura.cpp' || echo '$(srcdir)/'`Program_gura/gura.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/gura.Tpo $(DEPDIR)/gura.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Program_gura/gura.cpp' object='gura.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o Main.o `test -f 'Program_gura/Main.cpp' || echo '$(srcdir)/'`Program_gura/Main.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o gura.o `test -f 'Program_gura/gura.cpp' || echo '$(srcdir)/'`Program_gura/gura.cpp
 
-Main.obj: Program_gura/Main.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT Main.obj -MD -MP -MF $(DEPDIR)/Main.Tpo -c -o Main.obj `if test -f 'Program_gura/Main.cpp'; then $(CYGPATH_W) 'Program_gura/Main.cpp'; else $(CYGPATH_W) '$(srcdir)/Program_gura/Main.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/Main.Tpo $(DEPDIR)/Main.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Program_gura/Main.cpp' object='Main.obj' libtool=no @AMDEPBACKSLASH@
+gura.obj: Program_gura/gura.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT gura.obj -MD -MP -MF $(DEPDIR)/gura.Tpo -c -o gura.obj `if test -f 'Program_gura/gura.cpp'; then $(CYGPATH_W) 'Program_gura/gura.cpp'; else $(CYGPATH_W) '$(srcdir)/Program_gura/gura.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/gura.Tpo $(DEPDIR)/gura.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Program_gura/gura.cpp' object='gura.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o Main.obj `if test -f 'Program_gura/Main.cpp'; then $(CYGPATH_W) 'Program_gura/Main.cpp'; else $(CYGPATH_W) '$(srcdir)/Program_gura/Main.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o gura.obj `if test -f 'Program_gura/gura.cpp'; then $(CYGPATH_W) 'Program_gura/gura.cpp'; else $(CYGPATH_W) '$(srcdir)/Program_gura/gura.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
