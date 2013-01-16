@@ -781,7 +781,7 @@ Gura_ImplementFunction(getcwd)
 // fs.chmod(mode, pathname:string):map:void
 Gura_DeclareFunction(chmod)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_any);
 	DeclareArg(env, "pathname", VTYPE_string);
 	SetHelp("Changes the access mode of a file.");
