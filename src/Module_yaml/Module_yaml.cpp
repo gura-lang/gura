@@ -143,7 +143,7 @@ int WriterToStream::WriteHandler(unsigned char *buffer, unsigned int size)
 	return _sig.IsSignalled()? 0 : 1;
 }
 
-int WriterToStream::WriteHandlerStub(void *ext, unsigned char *buffer, unsigned int size)
+int WriterToStream::WriteHandlerStub(void *ext, unsigned char *buffer, size_t size)
 {
 	return reinterpret_cast<WriterToStream *>(ext)->WriteHandler(buffer, size);
 }
@@ -170,7 +170,7 @@ int WriterToString::WriteHandler(unsigned char *buffer, unsigned int size)
 	return 1;
 }
 
-int WriterToString::WriteHandlerStub(void *ext, unsigned char *buffer, unsigned int size)
+int WriterToString::WriteHandlerStub(void *ext, unsigned char *buffer, size_t size)
 {
 	return reinterpret_cast<WriterToString *>(ext)->WriteHandler(buffer, size);
 }
@@ -250,14 +250,14 @@ void Iterator_FromStream::GatherFollower(Environment::Frame *pFrame, Environment
 {
 }
 
-int Iterator_FromStream::DoRead(unsigned char *buffer, unsigned int size, unsigned int *length)
+int Iterator_FromStream::DoRead(unsigned char *buffer, size_t size, size_t *length)
 {
-	*length = static_cast<unsigned int>(_pStream->Read(_sig, buffer, size));
+	*length = _pStream->Read(_sig, buffer, size);
 	return _sig.IsSignalled()? 0 : 1;
 }
 
 int Iterator_FromStream::ReadHandler(void *ext,
-		unsigned char *buffer, unsigned int size, unsigned int *length)
+		unsigned char *buffer, size_t size, size_t *length)
 {
 	return reinterpret_cast<Iterator_FromStream *>(ext)->DoRead(buffer, size, length);
 }

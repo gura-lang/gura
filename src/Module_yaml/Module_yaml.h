@@ -25,7 +25,7 @@ private:
 public:
 	inline WriterToStream(Signal sig, Stream &stream) : _sig(sig), _stream(stream) {}
 	int WriteHandler(unsigned char *buffer, unsigned int size);
-	static int WriteHandlerStub(void *ext, unsigned char *buffer, unsigned int size);
+	static int WriteHandlerStub(void *ext, unsigned char *buffer, size_t size);
 public:
 	static bool Write(Environment &env, Signal sig, Stream &stream, const Value &value);
 };
@@ -39,7 +39,7 @@ private:
 public:
 	inline WriterToString(String &str) : _str(str) {}
 	int WriteHandler(unsigned char *buffer, unsigned int size);
-	static int WriteHandlerStub(void *ext, unsigned char *buffer, unsigned int size);
+	static int WriteHandlerStub(void *ext, unsigned char *buffer, size_t size);
 public:
 	static bool Write(Environment &env, Signal sig, String &str, const Value &value);
 };
@@ -103,9 +103,9 @@ public:
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-	int DoRead(unsigned char *buffer, unsigned int size, unsigned int *length);
+	int DoRead(unsigned char *buffer, size_t size, size_t *length);
 	static int ReadHandler(void *ext, unsigned char *buffer,
-								unsigned int size, unsigned int *length);
+								size_t size, size_t *length);
 };
 
 //-----------------------------------------------------------------------------
@@ -122,9 +122,6 @@ public:
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-	int DoRead(unsigned char *buffer, unsigned int size, unsigned int *length);
-	static int ReadHandler(void *ext, unsigned char *buffer,
-								unsigned int size, unsigned int *length);
 };
 
 //-----------------------------------------------------------------------------
