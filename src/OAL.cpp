@@ -18,6 +18,7 @@ typedef int mode_t;
 #define S_IWOTH 0x0002
 #define S_IXOTH 0x0001
 #else
+#include <unistd.h>
 #include <dlfcn.h>
 #include <sys/time.h>
 #include <sys/wait.h>
