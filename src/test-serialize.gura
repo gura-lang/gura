@@ -1,6 +1,18 @@
 scope {
 	buff = binary()
 	buff.writer() {|w|
+		x = %{'apple' => 100, 'orange' => 120, 'grape' => 200}
+		w.serialize(x)
+		println(x)
+	}
+	buff.reader() {|r|
+		x = r.deserialize()
+		println(x)
+	}
+}
+scope {
+	buff = binary()
+	buff.writer() {|w|
 		x = @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
 		w.serialize(x)
 		println(x)
