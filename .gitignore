@@ -21,6 +21,7 @@
 /src/config.status
 /src/config_add.h
 /src/gura
+/src/guri
 /src/libtool
 /src/stamp-h1
 /test/result/*.result.txt
