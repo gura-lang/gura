@@ -172,7 +172,7 @@ MyFrame = class(wx.Frame) {
 		subMenu.AppendRadioItem(Menu_SubMenu_Radio1, 'Radio item &1', 'Radio item')
 		subMenu.AppendRadioItem(Menu_SubMenu_Radio2, 'Radio item &2', 'Radio item')
 		subMenu.AppendRadioItem(Menu_SubMenu_Radio3, 'Radio item &3', 'Radio item')
-		menubarMenu.Append(Menu_SubMenu, 'Submenu', subMenu)
+		menubarMenu.AppendMenu(Menu_SubMenu, 'Submenu', subMenu)
 		menuMenu = wx.Menu()
 		menuMenu.Append(Menu_Menu_Append, '&Append menu item\tAlt-A',
 						 'Append a menu item to the last menu')
@@ -225,7 +225,10 @@ MyFrame = class(wx.Frame) {
 									wx.DefaultPosition, wx.DefaultSize,
 									wx.TE_MULTILINE)
 		self.m_textctrl.SetEditable(false)
-		wx.Log.SetTimestamp(nil)
+		try {
+			// avoid error under gtk
+			wx.Log.SetTimestamp(nil)
+		} except {}
 		self.m_logOld = wx.Log.SetActiveTarget(wx.LogTextCtrl(self.m_textctrl))
 
 		wx.LogMessage('Brief explanations: the commands or the \"Menu\" menu ' \
