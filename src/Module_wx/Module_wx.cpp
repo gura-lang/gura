@@ -16,12 +16,6 @@
 #undef FR_NOMATCHCASE
 #undef FR_NOWHOLEWORD
 
-#if defined(__WXMSW__)
-#define _MS(x) x
-#else
-#define _MS(x)
-#endif
-
 #define RealizeBaseClass(className) \
 Gura_RealizeUserClassExWithoutPrepare(wx_##className, #className, env.LookupClass(VTYPE_object))
 
@@ -3848,6 +3842,11 @@ Gura_ModuleTerminate()
 void SetError_NotImplemented(Signal sig)
 {
 	sig.SetError(ERR_NotImplementedError, "sorry, not implemented yet");
+}
+
+void SetError_MSWOnly(Signal sig)
+{
+	sig.SetError(ERR_NotImplementedError, "this function is only implemented in MSW");
 }
 
 void SetError_InvalidWxObject(Signal sig, const char *name)

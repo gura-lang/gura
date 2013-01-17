@@ -246,10 +246,15 @@ Gura_DeclareFunction(HandleFatalExceptions)
 
 Gura_ImplementFunction(HandleFatalExceptions)
 {
+#if defined(__WXMSW__)
 	bool doIt = true;
 	if (args.IsValid(0)) doIt = args.GetBoolean(0);
 	bool rtn = wxHandleFatalExceptions(doIt);
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif
 }
 
 Gura_DeclareFunction(InitAllImageHandlers)
@@ -358,6 +363,7 @@ Gura_DeclareFunction(Execute_1)
 
 Gura_ImplementFunction(Execute_1)
 {
+#if 0
 	char argv = args.GetChar(0);
 	int flags = wxEXEC_ASYNC;
 	if (args.IsValid(1)) flags = args.GetInt(1);
@@ -365,6 +371,10 @@ Gura_ImplementFunction(Execute_1)
 	if (args.IsValid(2)) callback = Object_wx_Process::GetObject(args, 2)->GetEntity();
 	long rtn = wxExecute(argv, flags, callback);
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_NotImplemented(sig);
+	return Value::Null;
+#endif
 }
 
 Gura_DeclareFunction(Execute_2)
@@ -1561,9 +1571,13 @@ Gura_DeclareFunction(TRANSLATE)
 
 Gura_ImplementFunction(TRANSLATE)
 {
+#if defined(__WXMSW__)
 	wxString s = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = wxTRANSLATE(s);
 	return ReturnValue(env, sig, args, Value(env, rtn.ToUTF8()));
+#else
+	return ReturnValue(env, sig, args, args.GetValue(0));
+#endif	
 }
 
 Gura_DeclareFunction(Vsnprintf)
@@ -1602,7 +1616,8 @@ Gura_ImplementFunction(PLURAL)
 	wxString sing = wxString::FromUTF8(args.GetString(0));
 	wxString plur = wxString::FromUTF8(args.GetString(1));
 	size_t n = args.GetSizeT(2);
-	wxString rtn = wxPLURAL(sing, plur, n);
+	//wxString rtn = wxPLURAL(sing, plur, n);
+	wxString rtn = wxGetTranslation(sing, plur, n);
 	return ReturnValue(env, sig, args, Value(env, rtn.ToUTF8()));
 }
 
@@ -2667,8 +2682,13 @@ Gura_DeclareFunction(ClipboardOpen)
 
 Gura_ImplementFunction(ClipboardOpen)
 {
+#if defined(__WXMSW__)
 	bool rtn = wxClipboardOpen();
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareFunction(CloseClipboard)
@@ -2679,8 +2699,13 @@ Gura_DeclareFunction(CloseClipboard)
 
 Gura_ImplementFunction(CloseClipboard)
 {
+#if defined(__WXMSW__)
 	bool rtn = wxCloseClipboard();
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareFunction(EmptyClipboard)
@@ -2691,8 +2716,13 @@ Gura_DeclareFunction(EmptyClipboard)
 
 Gura_ImplementFunction(EmptyClipboard)
 {
+#if defined(__WXMSW__)
 	bool rtn = wxEmptyClipboard();
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareFunction(EnumClipboardFormats)
@@ -2704,9 +2734,14 @@ Gura_DeclareFunction(EnumClipboardFormats)
 
 Gura_ImplementFunction(EnumClipboardFormats)
 {
+#if defined(__WXMSW__)
 	int dataFormat = args.GetInt(0);
 	int rtn = wxEnumClipboardFormats(dataFormat);
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareFunction(GetClipboardData)
@@ -2718,9 +2753,14 @@ Gura_DeclareFunction(GetClipboardData)
 
 Gura_ImplementFunction(GetClipboardData)
 {
+#if defined(__WXMSW__)
 	int dataFormat = args.GetInt(0);
 	wxObject *rtn = (wxObject *)wxGetClipboardData(dataFormat);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Object(rtn, NULL, OwnerFalse)));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareFunction(GetClipboardFormatName_)
@@ -2734,6 +2774,7 @@ Gura_DeclareFunction(GetClipboardFormatName_)
 
 Gura_ImplementFunction(GetClipboardFormatName_)
 {
+#if defined(__WXMSW__)
 #if 0
 	int dataFormat = args.GetInt(0);
 	wxString formatName = wxString::FromUTF8(args.GetString(1));
@@ -2743,6 +2784,10 @@ Gura_ImplementFunction(GetClipboardFormatName_)
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareFunction(IsClipboardFormatAvailable)
@@ -2754,9 +2799,14 @@ Gura_DeclareFunction(IsClipboardFormatAvailable)
 
 Gura_ImplementFunction(IsClipboardFormatAvailable)
 {
+#if defined(__WXMSW__)
 	int dataFormat = args.GetInt(0);
 	bool rtn = wxIsClipboardFormatAvailable(dataFormat);
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareFunction(OpenClipboard)
@@ -2767,8 +2817,13 @@ Gura_DeclareFunction(OpenClipboard)
 
 Gura_ImplementFunction(OpenClipboard)
 {
+#if defined(__WXMSW__)
 	bool rtn = wxOpenClipboard();
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareFunction(RegisterClipboardFormat_)
@@ -2780,6 +2835,7 @@ Gura_DeclareFunction(RegisterClipboardFormat_)
 
 Gura_ImplementFunction(RegisterClipboardFormat_)
 {
+#if defined(__WXMSW__)
 #if 0
 	wxString formatName = wxString::FromUTF8(args.GetString(0));
 	int rtn = wxRegisterClipboardFormat(formatName);
@@ -2787,6 +2843,10 @@ Gura_ImplementFunction(RegisterClipboardFormat_)
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareFunction(SetClipboardData)
@@ -2801,12 +2861,17 @@ Gura_DeclareFunction(SetClipboardData)
 
 Gura_ImplementFunction(SetClipboardData)
 {
+#if defined(__WXMSW__)
 	int dataFormat = args.GetInt(0);
 	wxObject *data = Object_wx_Object::GetObject(args, 1)->GetEntity();
 	int width = args.GetInt(2);
 	int height = args.GetInt(3);
 	bool rtn = wxSetClipboardData(dataFormat, data, width, height);
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareFunction(CONCAT)
@@ -3003,8 +3068,13 @@ Gura_DeclareFunction(DDECleanUp)
 
 Gura_ImplementFunction(DDECleanUp)
 {
+#if defined(__WXMSW__)
 	wxDDECleanUp();
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareFunction(DDEInitialize)
@@ -3014,8 +3084,13 @@ Gura_DeclareFunction(DDEInitialize)
 
 Gura_ImplementFunction(DDEInitialize)
 {
+#if defined(__WXMSW__)
 	wxDDEInitialize();
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareFunction(EnableTopLevelWindows)
@@ -3346,11 +3421,16 @@ Gura_DeclareFunction(LoadUserResource)
 
 Gura_ImplementFunction(LoadUserResource)
 {
+#if defined(__WXMSW__)
 	wxString resourceName = wxString::FromUTF8(args.GetString(0));
 	wxString resourceType = wxT("TEXT");
 	if (args.IsValid(1)) resourceType = wxString::FromUTF8(args.GetString(1));
 	wxString rtn = wxLoadUserResource(resourceName, resourceType);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareFunction(PostDelete)

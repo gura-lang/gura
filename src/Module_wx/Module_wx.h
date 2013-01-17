@@ -4,6 +4,12 @@
 //-----------------------------------------------------------------------------
 // Macros
 //-----------------------------------------------------------------------------
+#if defined(__WXMSW__)
+#define _MS(x) x
+#else
+#define _MS(x)
+#endif
+
 #define Gura_AssignWxValue(name) \
 Gura_AssignValue(name, Value(static_cast<double>(wx##name)))
 
@@ -29,6 +35,7 @@ extern const bool OwnerTrue;
 //-----------------------------------------------------------------------------
 void InitializeObjects(Environment &env);
 void SetError_NotImplemented(Signal sig);
+void SetError_MSWOnly(Signal sig);
 void SetError_InvalidWxObject(Signal sig, const char *name);
 void SetLogError(const Signal &sig);
 wxArrayString *CreateArrayString(const ValueList &valList);
