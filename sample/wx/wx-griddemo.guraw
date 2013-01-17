@@ -170,7 +170,10 @@ GridFrame = class(wx.Frame) {
 				wx.Point(0, gridH + 20), wx.Size(logW, logH), wx.TE_MULTILINE)
 		logger = wx.LogTextCtrl(logWin)
 		self.m_logOld = wx.Log.SetActiveTarget(logger)
-		wx.Log.SetTimestamp(nil)
+		try {
+			// avoid error under gtk
+			wx.Log.SetTimestamp(nil)
+		} except {}
 		// this will create a grid and, by default, an associated grid
 		// table for strings
 		grid.CreateGrid(0, 0)
