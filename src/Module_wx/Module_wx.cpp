@@ -178,7 +178,7 @@ _MS(RealizeDervClass(DDEClient,							ClientBase));
 	RealizeDervClass(ArtProvider,						Object);
 _MS(RealizeDervClass(AutomationObject,					Object));
 	RealizeDervClass(BitmapHandler,						Object);
-	RealizeDervClass(Clipboard,							Object);
+_MS(RealizeDervClass(Clipboard,							Object));
 	RealizeDervClass(Colour,							Object);
 	RealizeDervClass(ColourData,						Object);
 	RealizeDervClass(Command,							Object);
@@ -736,7 +736,7 @@ _MS(PrepareClass(DDEServer));
 	PrepareClass(ArtProvider);
 _MS(PrepareClass(AutomationObject));
 	PrepareClass(BitmapHandler);
-	PrepareClass(Clipboard);
+_MS(PrepareClass(Clipboard));
 	PrepareClass(Colour);
 	PrepareClass(ColourData);
 	PrepareClass(Command);
@@ -1302,7 +1302,7 @@ _MS(InitializeClass(DDEClient));
 	InitializeClass(ArtProvider);
 _MS(InitializeClass(AutomationObject));
 	InitializeClass(BitmapHandler);
-	InitializeClass(Clipboard);
+_MS(InitializeClass(Clipboard));
 	InitializeClass(Colour);
 	InitializeClass(ColourData);
 	InitializeClass(Command);
@@ -3828,7 +3828,7 @@ void InitializeObjects(Environment &env)
 		Gura_AssignWxObjectEx(DefaultSpan,		GBSpan, &wxDefaultSpan);
 	} while (0);
 	do { // Predefined Objects of wxClipboard
-		Gura_AssignWxObject(TheClipboard,		Clipboard);
+	_MS(Gura_AssignWxObject(TheClipboard,		Clipboard));
 	} while (0);
 }
 

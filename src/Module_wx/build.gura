@@ -537,9 +537,11 @@ srcs = [
 	'Object_wx_RichTextRenderer.cpp'
 	'Object_wx_RichTextAction.cpp'
 	'Object_wx_EventFactory.cpp'
-	'Object_wx_Clipboard.cpp'
 ]
 srcs_MSW = [
+	// revise this later
+	'Object_wx_Clipboard.cpp'
+
 	'Object_wx_AutomationObject.cpp'
 	'Object_wx_PowerEvent.cpp'
 	'Object_wx_DataFormat.cpp'
