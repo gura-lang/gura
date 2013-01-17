@@ -618,7 +618,7 @@ if (sys.build == `msc) {
 It seems necessary libraries have not been installed on your system.
 See the following step(s) to resolve this problem.
 - Install Debian package:
-  $ sudo apt-get install libwxbase2.8-dev libwxgtk2.8-dev libgtk2.0
+  $ sudo apt-get install libwxbase2.8-dev libwxgtk2.8-dev
 - Install yum package:
   # yum install wxGTK-devel
 '''
