@@ -382,7 +382,6 @@
 #include "Object_wx_ZipEntry.h"							// derived from wxArchiveEntry
 #include "Object_wx_ArtProvider.h"						// derived from wxObject
 #include "Object_wx_BitmapHandler.h"					// derived from wxObject
-#include "Object_wx_Clipboard.h"						// derived from wxObject
 #include "Object_wx_Colour.h"							// derived from wxObject
 #include "Object_wx_ColourData.h"						// derived from wxObject
 #include "Object_wx_Command.h"							// derived from wxObject
@@ -790,6 +789,8 @@
 #include "Object_wx_RichTextAction.h"
 #include "Object_wx_EventFactory.h"
 #if defined(__WXMSW__)
+#include "Object_wx_Clipboard.h"						// derived from wxObject
+
 #include "Object_wx_AutomationObject.h"					// derived from wxObject
 #include "Object_wx_PowerEvent.h"						// derived from wxEvent
 #include "Object_wx_DataFormat.h"
