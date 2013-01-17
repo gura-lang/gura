@@ -131,7 +131,6 @@ srcs = [
 	'Object_wx_ZipEntry.cpp'
 	'Object_wx_ArtProvider.cpp'
 	'Object_wx_BitmapHandler.cpp'
-	'Object_wx_Clipboard.cpp'
 	'Object_wx_Colour.cpp'
 	'Object_wx_ColourData.cpp'
 	'Object_wx_Command.cpp'
@@ -172,7 +171,6 @@ srcs = [
 	'Object_wx_NotifyEvent.cpp'
 	'Object_wx_BookCtrlBaseEvent.cpp'
 	'Object_wx_TreebookEvent.cpp'
-	'Object_wx_DataViewEvent.cpp'
 	'Object_wx_GridEvent.cpp'
 	'Object_wx_GridRangeSelectEvent.cpp'
 	'Object_wx_GridSizeEvent.cpp'
@@ -540,6 +538,7 @@ srcs = [
 	'Object_wx_RichTextRenderer.cpp'
 	'Object_wx_RichTextAction.cpp'
 	'Object_wx_EventFactory.cpp'
+	'Object_wx_Clipboard.cpp'
 ]
 srcs_MSW = [
 	'Object_wx_AutomationObject.cpp'

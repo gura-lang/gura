@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert_3)
 Gura_DeclareMethod(wx_EncodingConverter, Convert_4)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "str", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert_4)
 {
 	Object_wx_EncodingConverter *pSelf = Object_wx_EncodingConverter::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
-	char str = args.GetChar(0);
+	wxString str = wxString::FromUTF8(args.GetString(0));
 	bool rtn = pSelf->GetEntity()->Convert(str);
 	return ReturnValue(env, sig, args, Value(rtn));
 }

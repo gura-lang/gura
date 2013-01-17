@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_ColourData, GetCustomColour)
 	Object_wx_ColourData *pSelf = Object_wx_ColourData::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	int i = args.GetInt(0);
-	wxColour &rtn = pSelf->GetEntity()->GetCustomColour(i);
+	const wxColour &rtn = pSelf->GetEntity()->GetCustomColour(i);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
 }
 

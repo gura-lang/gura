@@ -133,8 +133,13 @@ Gura_DeclareClassMethod(wx_DC, ClearCache)
 
 Gura_ImplementClassMethod(wx_DC, ClearCache)
 {
+#if defined(__WXMSW__)
 	wxDC::ClearCache();
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_DC, ComputeScaleAndOrigin)
