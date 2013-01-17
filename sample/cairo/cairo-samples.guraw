@@ -469,6 +469,7 @@ Entry = struct(name:string, func:function)
 Frame = class(wx.Frame) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
 						path.filename(sys.argv[0]), size => wx.Size(300, 600)|
+		self.SetIcon(wx.IconFromXPMData(sample_xpm))
 		panel = wx.Panel(self)
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		panel.SetSizer(vbox)
@@ -506,6 +507,49 @@ App = class(wx.App) {
 		self.SetTopWindow(frame)
 		true
 	}
+}
+
+sample_xpm = @{
+"32 32 6 1",
+"  c black",
+". c navy",
+"X c red",
+"o c yellow",
+"O c gray100",
+"+ c None",
+/* pixels */
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++              ++++++++++",
+"++++++++ ............ ++++++++++",
+"++++++++ ............ ++++++++++",
+"++++++++ .OO......... ++++++++++",
+"++++++++ .OO......... ++++++++++",
+"++++++++ .OO......... ++++++++++",
+"++++++++ .OO......              ",
+"++++++++ .OO...... oooooooooooo ",
+"         .OO...... oooooooooooo ",
+" XXXXXXX .OO...... oOOooooooooo ",
+" XXXXXXX .OO...... oOOooooooooo ",
+" XOOXXXX ......... oOOooooooooo ",
+" XOOXXXX ......... oOOooooooooo ",
+" XOOXXXX           oOOooooooooo ",
+" XOOXXXXXXXXX ++++ oOOooooooooo ",
+" XOOXXXXXXXXX ++++ oOOooooooooo ",
+" XOOXXXXXXXXX ++++ oOOooooooooo ",
+" XOOXXXXXXXXX ++++ oooooooooooo ",
+" XOOXXXXXXXXX ++++ oooooooooooo ",
+" XXXXXXXXXXXX ++++              ",
+" XXXXXXXXXXXX ++++++++++++++++++",
+"              ++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++",
+"++++++++++++++++++++++++++++++++"
 }
 
 wx.IMPLEMENT_APP(App)
