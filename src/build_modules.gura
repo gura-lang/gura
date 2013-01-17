@@ -43,6 +43,7 @@ dirInfos = struct(dirName:string, builds[]:symbol) * [
 	['Module_tar',			[`msc, `gnuc]]
 	['Module_net_http',		[`msc, `gnuc]]
 	['Module_wx',			[`msc, `gnuc]]
+	['Module_guri',			[`msc, `gnuc]]
 	['Module_uuid',			[`msc]]
 	['Module_canvas',		[`msc]]
 	['Module_mswin',		[`msc]]

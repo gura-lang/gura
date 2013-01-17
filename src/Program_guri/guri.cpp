@@ -22,7 +22,7 @@ bool Main(int argc, const char *argv[])
 	short port = 12345;
 	int sockListen = static_cast<int>(::socket(AF_INET, SOCK_STREAM, 0));
 	if (sockListen < 0) {
-		::fprintf(stderr, "failed to create a socket");
+		::fprintf(stderr, "failed to create a socket\n");
 		return false;
 	}
 	sockaddr_in saddrServer;
@@ -34,7 +34,7 @@ bool Main(int argc, const char *argv[])
 		if (addrNum == 0xffffffff) {
 			hostent *pHostEnt = ::gethostbyname(addr);
 			if (pHostEnt == NULL) {
-				::fprintf(stderr, "binding address not found: %s", addr);
+				::fprintf(stderr, "binding address not found: %s\n", addr);
 				return false;
 			}
 			saddrServer.sin_family = pHostEnt->h_addrtype;
@@ -44,11 +44,11 @@ bool Main(int argc, const char *argv[])
 	saddrServer.sin_addr.s_addr = addrNum;
 	saddrServer.sin_port = htons(port);
 	if (::bind(sockListen, reinterpret_cast<sockaddr *>(&saddrServer), sizeof(saddrServer)) < 0) {
-		::fprintf(stderr, "failed to bind address to socket");
+		::fprintf(stderr, "failed to bind address to socket\n");
 		return false;
 	}
 	if (::listen(sockListen, 5) < 0) {
-		::fprintf(stderr, "failed to listen to port %d", port);
+		::fprintf(stderr, "failed to listen to port %d\n", port);
 		return false;
 	}
 	int sockClient = -1;
