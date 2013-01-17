@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_GLCanvas, SetColour)
 {
 	Object_wx_GLCanvas *pSelf = Object_wx_GLCanvas::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const char *colour = args.GetString(0);
+	wxString colour = wxString::FromUTF8(args.GetString(0));
 	pSelf->GetEntity()->SetColour(colour);
 	return Value::Null;
 }

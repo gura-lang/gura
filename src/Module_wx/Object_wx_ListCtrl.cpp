@@ -623,6 +623,7 @@ Gura_DeclareMethod(wx_ListCtrl, GetSubItemRect)
 
 Gura_ImplementMethod(wx_ListCtrl, GetSubItemRect)
 {
+#if defined(__WXMSW__)
 	Object_wx_ListCtrl *pSelf = Object_wx_ListCtrl::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	long item = args.GetLong(0);
@@ -634,6 +635,10 @@ Gura_ImplementMethod(wx_ListCtrl, GetSubItemRect)
 	Value value;
 	if (rtn) value = Value(new Object_wx_Rect(new wxRect(rect), NULL, OwnerTrue));
 	return ReturnValue(env, sig, args, value);
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_ListCtrl, GetItemSpacing)

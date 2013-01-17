@@ -2608,6 +2608,7 @@ Gura_DeclareMethod(wx_Window, RegisterHotKey)
 
 Gura_ImplementMethod(wx_Window, RegisterHotKey)
 {
+#if defined(__WXMSW__)
 	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	int hotkeyId = args.GetInt(0);
@@ -2615,6 +2616,10 @@ Gura_ImplementMethod(wx_Window, RegisterHotKey)
 	int virtualKeyCode = args.GetInt(2);
 	bool rtn = pSelf->GetEntity()->RegisterHotKey(hotkeyId, modifiers, virtualKeyCode);
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_Window, ReleaseMouse)
@@ -3710,11 +3715,16 @@ Gura_DeclareMethod(wx_Window, UnregisterHotKey)
 
 Gura_ImplementMethod(wx_Window, UnregisterHotKey)
 {
+#if defined(__WXMSW__)
 	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	int hotkeyId = args.GetInt(0);
 	bool rtn = pSelf->GetEntity()->UnregisterHotKey(hotkeyId);
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_Window, Update)

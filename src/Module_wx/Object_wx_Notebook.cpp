@@ -415,11 +415,16 @@ Gura_DeclareMethod(wx_Notebook, OnSelChange)
 
 Gura_ImplementMethod(wx_Notebook, OnSelChange)
 {
+#if defined(__WXMSW__)
 	Object_wx_Notebook *pSelf = Object_wx_Notebook::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxNotebookEvent *event = Object_wx_NotebookEvent::GetObject(args, 0)->GetEntity();
 	pSelf->GetEntity()->OnSelChange(*event);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_Notebook, RemovePage)

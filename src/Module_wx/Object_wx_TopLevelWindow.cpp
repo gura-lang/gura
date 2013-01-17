@@ -163,12 +163,17 @@ Gura_DeclareMethod(wx_TopLevelWindow, HandleSettingChange)
 
 Gura_ImplementMethod(wx_TopLevelWindow, HandleSettingChange)
 {
+#if defined(__WXMSW__)
 	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	WXWPARAM wParam = static_cast<WXWPARAM>(args.GetULong(0));
 	WXLPARAM lParam = static_cast<WXLPARAM>(args.GetULong(1));
 	bool rtn = pSelf->GetEntity()->HandleSettingChange(wParam, lParam);
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_TopLevelWindow, IsActive)

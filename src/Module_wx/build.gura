@@ -257,7 +257,6 @@ srcs = [
 	'Object_wx_ComboBox.cpp'
 	'Object_wx_ListBox.cpp'
 	'Object_wx_CheckListBox.cpp'
-	'Object_wx_DataViewCtrl.cpp'
 	'Object_wx_DatePickerCtrl.cpp'
 	'Object_wx_Gauge.cpp'
 	'Object_wx_GenericDirCtrl.cpp'

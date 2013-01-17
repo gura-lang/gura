@@ -756,11 +756,16 @@ Gura_DeclareMethod(wx_ToolBar, SetMargins)
 
 Gura_ImplementMethod(wx_ToolBar, SetMargins)
 {
+#if defined(__WXMSW__)
 	Object_wx_ToolBar *pSelf = Object_wx_ToolBar::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	pSelf->GetEntity()->SetMargins(*size);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_ToolBar, SetMargins_1)

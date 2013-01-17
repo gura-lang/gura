@@ -547,11 +547,16 @@ Gura_DeclareMethod(wx_App, OnEndSession)
 
 Gura_ImplementMethod(wx_App, OnEndSession)
 {
+#if defined(__WXMSW__)
 	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxCloseEvent *event = Object_wx_CloseEvent::GetObject(args, 0)->GetEntity();
 	pSelf->GetEntity()->OnEndSession(*event);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_App, OnInit)
