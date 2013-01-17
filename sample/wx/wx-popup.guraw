@@ -178,7 +178,10 @@ MyFrame = class(wx.Frame) {
 		self.m_logWin.SetEditable(false)
 		logger = wx.LogTextCtrl(self.m_logWin)
 		self.m_logOld = wx.LogTextCtrl.SetActiveTarget(logger)
-		wx.LogTextCtrl.SetTimestamp(nil)
+		try {
+			// avoid error under gtk
+			wx.LogTextCtrl.SetTimestamp(nil)
+		} except {}
 		topSizer = wx.BoxSizer(wx.VERTICAL)
 		topSizer.Add(self.m_button1, wx.SizerFlags(0).Border(wx.ALL, 5))
 		topSizer.Add(self.m_button2, wx.SizerFlags(0).Border(wx.ALL, 5))
