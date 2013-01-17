@@ -634,12 +634,12 @@ See the following step(s) to resolve this problem.
 		os.fromnative(buff).strip().split(' '):list
 	}
 	builder.cflags.append(cflags.filter(cflags != ''))
-	builder.incDirs.append(
-		'/usr/include/gtk-2.0'
-		'/usr/include/glib-2.0'
-		'/usr/include/gdk-pixbuf-2.0'
-		'/usr/lib/glib-2.0/include'
-		'/usr/lib/i386-linux-gnu/glib-2.0/include')
+	//builder.incDirs.append(
+	//	'/usr/include/gtk-2.0'
+	//	'/usr/include/glib-2.0'
+	//	'/usr/include/gdk-pixbuf-2.0'
+	//	'/usr/lib/glib-2.0/include'
+	//	'/usr/lib/i386-linux-gnu/glib-2.0/include')
 	ldflags = scope {
 		buff = binary()
 		os.redirect(nil, buff) {
