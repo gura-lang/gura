@@ -1370,9 +1370,10 @@ bool DynamicLibrary::Open(Signal sig, const char *pathName)
 {
 	_hLibrary = dlopen(ToNativeString(pathName).c_str(), RTLD_LAZY);
 	if (_hLibrary == NULL) {
-		sig.SetError(ERR_ImportError, "can't open module file '%s'", pathName);
+		sig.SetError(ERR_ImportError, "%s", dlerror());
 		return false;
 	}
+	dlerror(); // clear any existing error
 	return true;
 }
 
