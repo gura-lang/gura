@@ -16,7 +16,9 @@ public:
 	inline wx_Font() : wxFont(), _pObj(NULL) {}
 	inline wx_Font(const wxFont& font) : wxFont(font), _pObj(NULL) {}
 	inline wx_Font(int pointSize, wxFontFamily family, int style, wxFontWeight weight, const bool underline, const wxString& faceName, wxFontEncoding encoding) : wxFont(pointSize, family, style, weight, underline, faceName, encoding), _pObj(NULL) {}
+#if defined(__WXMSW__)
 	inline wx_Font(const wxSize& pixelSize, wxFontFamily family, int style, wxFontWeight weight, const bool underline, const wxString& faceName, wxFontEncoding encoding) : wxFont(pixelSize, family, style, weight, underline, faceName, encoding), _pObj(NULL) {}
+#endif
 	~wx_Font();
 	inline void AssocWithGura(Object_wx_Font *pObj) {
 		_pObj = pObj;
@@ -113,6 +115,7 @@ Gura_DeclareFunction(FontEx)
 
 Gura_ImplementFunction(FontEx)
 {
+#if defined(__WXMSW__)
 	wxSize *pixelSize = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wxFontFamily family = static_cast<wxFontFamily>(args.GetInt(1));
 	int style = args.GetInt(2);
@@ -133,6 +136,10 @@ Gura_ImplementFunction(FontEx)
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(pObj);
 	return ReturnValue(env, sig, args, args.GetSelf());
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_Font, IsFixedWidth)

@@ -231,10 +231,15 @@ Gura_DeclareMethod(wx_HtmlWinParser, GetEncodingConverter)
 
 Gura_ImplementMethod(wx_HtmlWinParser, GetEncodingConverter)
 {
+#if defined(__WXMSW__)
 	Object_wx_HtmlWinParser *pSelf = Object_wx_HtmlWinParser::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxEncodingConverter *rtn = (wxEncodingConverter *)pSelf->GetEntity()->GetEncodingConverter();
 	return ReturnValue(env, sig, args, Value(new Object_wx_EncodingConverter(rtn, NULL, OwnerFalse)));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetFontBold)
@@ -329,10 +334,15 @@ Gura_DeclareMethod(wx_HtmlWinParser, GetInputEncoding)
 
 Gura_ImplementMethod(wx_HtmlWinParser, GetInputEncoding)
 {
+#if defined(__WXMSW__)
 	Object_wx_HtmlWinParser *pSelf = Object_wx_HtmlWinParser::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxFontEncoding rtn = pSelf->GetEntity()->GetInputEncoding();
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetLink)
@@ -371,10 +381,15 @@ Gura_DeclareMethod(wx_HtmlWinParser, GetOutputEncoding)
 
 Gura_ImplementMethod(wx_HtmlWinParser, GetOutputEncoding)
 {
+#if defined(__WXMSW__)
 	Object_wx_HtmlWinParser *pSelf = Object_wx_HtmlWinParser::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxFontEncoding rtn = pSelf->GetEntity()->GetOutputEncoding();
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetWindow)
@@ -599,11 +614,16 @@ Gura_DeclareMethod(wx_HtmlWinParser, SetInputEncoding)
 
 Gura_ImplementMethod(wx_HtmlWinParser, SetInputEncoding)
 {
+#if defined(__WXMSW__)
 	Object_wx_HtmlWinParser *pSelf = Object_wx_HtmlWinParser::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxFontEncoding enc = static_cast<wxFontEncoding>(args.GetInt(0));
 	pSelf->GetEntity()->SetInputEncoding(enc);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetLink)

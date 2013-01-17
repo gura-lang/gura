@@ -1976,9 +1976,8 @@ Object *Object_wx_String::Clone() const
 
 String Object_wx_String::ToString(Signal sig, bool exprFlag)
 {
-	String rtn = GetEntity()->ToUTF8();
-	if (exprFlag) return MakeQuotedString(rtn.c_str());
-	return rtn;
+	if (exprFlag) return MakeQuotedString(GetEntity()->ToUTF8());
+	return String(GetEntity()->ToUTF8());
 }
 
 void Object_wx_String::OnModuleEntry(Environment &env, Signal sig)

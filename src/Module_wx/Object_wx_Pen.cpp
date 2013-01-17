@@ -17,7 +17,9 @@ public:
 	inline wx_Pen() : wxPen(), _sig(NULL), _pObj(NULL) {}
 	inline wx_Pen(const wxColour& colour, int width, int style) : wxPen(colour, width, style), _sig(NULL), _pObj(NULL) {}
 	inline wx_Pen(const wxString& colourName, int width, int style) : wxPen(colourName, width, style), _sig(NULL), _pObj(NULL) {}
+#if defined(__WXMSW__)
 	inline wx_Pen(const wxBitmap& stipple, int width) : wxPen(stipple, width), _sig(NULL), _pObj(NULL) {}
+#endif
 	inline wx_Pen(const wxPen& pen) : wxPen(pen), _sig(NULL), _pObj(NULL) {}
 	~wx_Pen();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Pen *pObj) {
@@ -128,6 +130,7 @@ Gura_DeclareFunction(Pen_2)
 
 Gura_ImplementFunction(Pen_2)
 {
+#if defined(__WXMSW__)
 	wxBitmap *stipple = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	int width = args.GetInt(1);
 	wx_Pen *pEntity = new wx_Pen(*stipple, width);
@@ -140,6 +143,10 @@ Gura_ImplementFunction(Pen_2)
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
 	return ReturnValue(env, sig, args, args.GetSelf());
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareFunction(Pen_3)
@@ -236,10 +243,15 @@ Gura_DeclareMethod(wx_Pen, GetStipple)
 
 Gura_ImplementMethod(wx_Pen, GetStipple)
 {
+#if defined(__WXMSW__)
 	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxBitmap *rtn = (wxBitmap *)pSelf->GetEntity()->GetStipple();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(rtn, NULL, OwnerFalse)));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_Pen, GetStyle)
@@ -386,11 +398,16 @@ Gura_DeclareMethod(wx_Pen, SetStipple)
 
 Gura_ImplementMethod(wx_Pen, SetStipple)
 {
+#if defined(__WXMSW__)
 	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxBitmap *stipple = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	pSelf->GetEntity()->SetStipple(*stipple);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_Pen, SetStyle)

@@ -131,10 +131,15 @@ Gura_DeclareMethod(wx_MenuItem, GetBackgroundColour)
 
 Gura_ImplementMethod(wx_MenuItem, GetBackgroundColour)
 {
+#if defined(__WXMSW__)
 	Object_wx_MenuItem *pSelf = Object_wx_MenuItem::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxColour &rtn = pSelf->GetEntity()->GetBackgroundColour();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_MenuItem, GetBitmap)
@@ -146,12 +151,17 @@ Gura_DeclareMethod(wx_MenuItem, GetBitmap)
 
 Gura_ImplementMethod(wx_MenuItem, GetBitmap)
 {
+#if defined(__WXMSW__)
 	Object_wx_MenuItem *pSelf = Object_wx_MenuItem::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	bool checked = true;
 	if (args.IsValid(0)) checked = args.GetBoolean(0);
 	const wxBitmap &rtn = pSelf->GetEntity()->GetBitmap(checked);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_MenuItem, GetFont)
@@ -162,10 +172,15 @@ Gura_DeclareMethod(wx_MenuItem, GetFont)
 
 Gura_ImplementMethod(wx_MenuItem, GetFont)
 {
+#if defined(__WXMSW__)
 	Object_wx_MenuItem *pSelf = Object_wx_MenuItem::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxFont &rtn = pSelf->GetEntity()->GetFont();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), NULL, OwnerTrue)));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_MenuItem, GetHelp)
@@ -288,10 +303,15 @@ Gura_DeclareMethod(wx_MenuItem, GetMarginWidth)
 
 Gura_ImplementMethod(wx_MenuItem, GetMarginWidth)
 {
+#if defined(__WXMSW__)
 	Object_wx_MenuItem *pSelf = Object_wx_MenuItem::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	int rtn = pSelf->GetEntity()->GetMarginWidth();
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_MenuItem, GetMenu)
@@ -362,10 +382,15 @@ Gura_DeclareMethod(wx_MenuItem, GetTextColour)
 
 Gura_ImplementMethod(wx_MenuItem, GetTextColour)
 {
+#if defined(__WXMSW__)
 	Object_wx_MenuItem *pSelf = Object_wx_MenuItem::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxColour &rtn = pSelf->GetEntity()->GetTextColour();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_MenuItem, IsCheckable)
@@ -446,11 +471,16 @@ Gura_DeclareMethod(wx_MenuItem, SetBackgroundColour)
 
 Gura_ImplementMethod(wx_MenuItem, SetBackgroundColour)
 {
+#if defined(__WXMSW__)
 	Object_wx_MenuItem *pSelf = Object_wx_MenuItem::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	pSelf->GetEntity()->SetBackgroundColour(*colour);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_MenuItem, SetBitmap)
@@ -477,6 +507,7 @@ Gura_DeclareMethod(wx_MenuItem, SetBitmaps)
 
 Gura_ImplementMethod(wx_MenuItem, SetBitmaps)
 {
+#if defined(__WXMSW__)
 	Object_wx_MenuItem *pSelf = Object_wx_MenuItem::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxBitmap *checked = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
@@ -484,6 +515,10 @@ Gura_ImplementMethod(wx_MenuItem, SetBitmaps)
 	if (args.IsValid(1)) unchecked = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
 	pSelf->GetEntity()->SetBitmaps(*checked, *unchecked);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_MenuItem, SetFont)
@@ -494,11 +529,16 @@ Gura_DeclareMethod(wx_MenuItem, SetFont)
 
 Gura_ImplementMethod(wx_MenuItem, SetFont)
 {
+#if defined(__WXMSW__)
 	Object_wx_MenuItem *pSelf = Object_wx_MenuItem::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
 	pSelf->GetEntity()->SetFont(*font);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_MenuItem, SetHelp)
@@ -539,11 +579,16 @@ Gura_DeclareMethod(wx_MenuItem, SetMarginWidth)
 
 Gura_ImplementMethod(wx_MenuItem, SetMarginWidth)
 {
+#if defined(__WXMSW__)
 	Object_wx_MenuItem *pSelf = Object_wx_MenuItem::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);
 	pSelf->GetEntity()->SetMarginWidth(width);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_MenuItem, SetMenu)
@@ -599,11 +644,16 @@ Gura_DeclareMethod(wx_MenuItem, SetTextColour)
 
 Gura_ImplementMethod(wx_MenuItem, SetTextColour)
 {
+#if defined(__WXMSW__)
 	Object_wx_MenuItem *pSelf = Object_wx_MenuItem::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	pSelf->GetEntity()->SetTextColour(*colour);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_MenuItem, Toggle)

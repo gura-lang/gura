@@ -3,6 +3,8 @@
 // extracted from ilayout.tex
 //----------------------------------------------------------------------------
 #include "stdafx.h"
+#undef Above
+#undef Below
 
 Gura_BeginModule(wx)
 

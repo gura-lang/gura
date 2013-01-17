@@ -175,10 +175,15 @@ Gura_DeclareMethod(wx_XmlDocument, GetEncoding)
 
 Gura_ImplementMethod(wx_XmlDocument, GetEncoding)
 {
+#if defined(__WXMSW__)
 	Object_wx_XmlDocument *pSelf = Object_wx_XmlDocument::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pSelf->GetEntity()->GetEncoding();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_XmlDocument, GetFileEncoding)
@@ -327,11 +332,16 @@ Gura_DeclareMethod(wx_XmlDocument, SetEncoding)
 
 Gura_ImplementMethod(wx_XmlDocument, SetEncoding)
 {
+#if defined(__WXMSW__)
 	Object_wx_XmlDocument *pSelf = Object_wx_XmlDocument::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxString enc = wxString::FromUTF8(args.GetString(0));
 	pSelf->GetEntity()->SetEncoding(enc);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_XmlDocument, SetFileEncoding)

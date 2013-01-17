@@ -265,10 +265,15 @@ Gura_DeclareMethod(wx_MDIParentFrame, GetWindowMenu)
 
 Gura_ImplementMethod(wx_MDIParentFrame, GetWindowMenu)
 {
+#if defined(__WXMSW__)
 	Object_wx_MDIParentFrame *pSelf = Object_wx_MDIParentFrame::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxMenu *rtn = (wxMenu *)pSelf->GetEntity()->GetWindowMenu();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, NULL, OwnerFalse)));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_MDIParentFrame, OnCreateClient)
@@ -314,11 +319,16 @@ Gura_DeclareMethod(wx_MDIParentFrame, SetWindowMenu)
 
 Gura_ImplementMethod(wx_MDIParentFrame, SetWindowMenu)
 {
+#if defined(__WXMSW__)
 	Object_wx_MDIParentFrame *pSelf = Object_wx_MDIParentFrame::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxMenu *menu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
 	pSelf->GetEntity()->SetWindowMenu(menu);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_MDIParentFrame, Tile)
