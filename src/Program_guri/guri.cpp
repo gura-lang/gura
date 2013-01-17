@@ -27,7 +27,7 @@ bool Main(int argc, const char *argv[])
 	}
 	sockaddr_in saddrServer;
 	::memset(&saddrServer, 0x00, sizeof(saddrServer));
-	unsigned long addrNum = ::htonl(INADDR_ANY);
+	unsigned long addrNum = htonl(INADDR_ANY);
 	saddrServer.sin_family = AF_INET;
 	if (addr != NULL) {
 		addrNum = ::inet_addr(addr);
@@ -42,7 +42,7 @@ bool Main(int argc, const char *argv[])
 		}
 	}
 	saddrServer.sin_addr.s_addr = addrNum;
-	saddrServer.sin_port = ::htons(port);
+	saddrServer.sin_port = htons(port);
 	if (::bind(sockListen, reinterpret_cast<sockaddr *>(&saddrServer), sizeof(saddrServer)) < 0) {
 		::fprintf(stderr, "failed to bind address to socket");
 		return false;

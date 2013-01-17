@@ -2,7 +2,7 @@ ACLOCAL_AMFLAGS = -I m4
 
 DIR_SFMT = SFMT-src-1.3.3
 
-bin_PROGRAMS = gura
+bin_PROGRAMS = gura guri
 
 lib_LTLIBRARIES = libgura.la
 
@@ -13,6 +13,12 @@ gura_LDFLAGS = -pthread
 gura_DEPENDENCIES = libgura.la
 gura_SOURCES = \
 Program_gura/gura.cpp
+
+guri_LDADD = libgura.la
+guri_LDFLAGS = -pthread
+guri_DEPENDENCIES = libgura.la
+guri_SOURCES = \
+Program_guri/guri.cpp
 
 BUILT_SOURCES = config_add.h stdafx.h.gch
 

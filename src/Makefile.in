@@ -37,7 +37,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = gura$(EXEEXT)
+bin_PROGRAMS = gura$(EXEEXT) guri$(EXEEXT)
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(include_HEADERS) \
 	$(pkginclude_HEADERS) $(srcdir)/Makefile.am \
@@ -107,6 +107,11 @@ gura_OBJECTS = $(am_gura_OBJECTS)
 gura_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
 	$(gura_LDFLAGS) $(LDFLAGS) -o $@
+am_guri_OBJECTS = guri.$(OBJEXT)
+guri_OBJECTS = $(am_guri_OBJECTS)
+guri_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
+	$(guri_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -129,8 +134,8 @@ CXXLD = $(CXX)
 CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(libgura_la_SOURCES) $(gura_SOURCES)
-DIST_SOURCES = $(libgura_la_SOURCES) $(gura_SOURCES)
+SOURCES = $(libgura_la_SOURCES) $(gura_SOURCES) $(guri_SOURCES)
+DIST_SOURCES = $(libgura_la_SOURCES) $(gura_SOURCES) $(guri_SOURCES)
 DATA = $(nobase_pkgdata_DATA) $(pkglib_DATA)
 HEADERS = $(include_HEADERS) $(pkginclude_HEADERS)
 ETAGS = etags
@@ -272,6 +277,12 @@ gura_LDFLAGS = -pthread
 gura_DEPENDENCIES = libgura.la
 gura_SOURCES = \
 Program_gura/gura.cpp
+
+guri_LDADD = libgura.la
+guri_LDFLAGS = -pthread
+guri_DEPENDENCIES = libgura.la
+guri_SOURCES = \
+Program_guri/guri.cpp
 
 BUILT_SOURCES = config_add.h stdafx.h.gch
 libgura_la_SOURCES = \
@@ -616,6 +627,9 @@ clean-binPROGRAMS:
 gura$(EXEEXT): $(gura_OBJECTS) $(gura_DEPENDENCIES) 
 	@rm -f gura$(EXEEXT)
 	$(gura_LINK) $(gura_OBJECTS) $(gura_LDADD) $(LIBS)
+guri$(EXEEXT): $(guri_OBJECTS) $(guri_DEPENDENCIES) 
+	@rm -f guri$(EXEEXT)
+	$(guri_LINK) $(guri_OBJECTS) $(guri_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -684,6 +698,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Symbol.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Value.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gura.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/guri.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -817,6 +832,20 @@ gura.obj: Program_gura/gura.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Program_gura/gura.cpp' object='gura.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o gura.obj `if test -f 'Program_gura/gura.cpp'; then $(CYGPATH_W) 'Program_gura/gura.cpp'; else $(CYGPATH_W) '$(srcdir)/Program_gura/gura.cpp'; fi`
+
+guri.o: Program_guri/guri.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT guri.o -MD -MP -MF $(DEPDIR)/guri.Tpo -c -o guri.o `test -f 'Program_guri/guri.cpp' || echo '$(srcdir)/'`Program_guri/guri.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/guri.Tpo $(DEPDIR)/guri.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Program_guri/guri.cpp' object='guri.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o guri.o `test -f 'Program_guri/guri.cpp' || echo '$(srcdir)/'`Program_guri/guri.cpp
+
+guri.obj: Program_guri/guri.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT guri.obj -MD -MP -MF $(DEPDIR)/guri.Tpo -c -o guri.obj `if test -f 'Program_guri/guri.cpp'; then $(CYGPATH_W) 'Program_guri/guri.cpp'; else $(CYGPATH_W) '$(srcdir)/Program_guri/guri.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/guri.Tpo $(DEPDIR)/guri.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Program_guri/guri.cpp' object='guri.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o guri.obj `if test -f 'Program_guri/guri.cpp'; then $(CYGPATH_W) 'Program_guri/guri.cpp'; else $(CYGPATH_W) '$(srcdir)/Program_guri/guri.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
