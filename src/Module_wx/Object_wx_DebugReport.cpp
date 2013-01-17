@@ -112,10 +112,15 @@ Gura_DeclareMethod(wx_DebugReport, AddCurrentDump)
 
 Gura_ImplementMethod(wx_DebugReport, AddCurrentDump)
 {
+#if defined(__WXMSW__)
 	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	bool rtn = pSelf->GetEntity()->AddCurrentDump();
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_DebugReport, AddDump)
@@ -160,10 +165,15 @@ Gura_DeclareMethod(wx_DebugReport, AddExceptionDump)
 
 Gura_ImplementMethod(wx_DebugReport, AddExceptionDump)
 {
+#if defined(__WXMSW__)
 	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	bool rtn = pSelf->GetEntity()->AddExceptionDump();
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_DebugReport, AddFile)

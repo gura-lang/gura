@@ -123,6 +123,7 @@ Gura_DeclareMethod(wx_Locale, AddCatalog)
 
 Gura_ImplementMethod(wx_Locale, AddCatalog)
 {
+#if defined(__WXMSW__)
 	Object_wx_Locale *pSelf = Object_wx_Locale::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	bool rtn = false;
@@ -136,6 +137,10 @@ Gura_ImplementMethod(wx_Locale, AddCatalog)
 		rtn = pSelf->GetEntity()->AddCatalog(szDomain);
 	}
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareClassMethod(wx_Locale, AddCatalogLookupPathPrefix)
@@ -252,8 +257,8 @@ Gura_ImplementMethod(wx_Locale, GetLocale)
 {
 	Object_wx_Locale *pSelf = Object_wx_Locale::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const char *rtn = pSelf->GetEntity()->GetLocale();
-	return ReturnValue(env, sig, args, Value(rtn));
+	wxString rtn = wxString(pSelf->GetEntity()->GetLocale());
+	return ReturnValue(env, sig, args, Value(rtn.ToUTF8()));
 }
 
 Gura_DeclareMethod(wx_Locale, GetName)
@@ -334,6 +339,7 @@ Gura_DeclareMethod(wx_Locale, GetHeaderValue)
 
 Gura_ImplementMethod(wx_Locale, GetHeaderValue)
 {
+#if defined(__WXMSW__)
 	Object_wx_Locale *pSelf = Object_wx_Locale::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	const char *szHeader = args.GetString(0);
@@ -341,6 +347,10 @@ Gura_ImplementMethod(wx_Locale, GetHeaderValue)
 	if (args.IsValid(1)) szDomain = args.GetString(1);
 	wxString rtn = pSelf->GetEntity()->GetHeaderValue(szHeader, szDomain);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_Locale, GetSysName)
@@ -470,11 +480,16 @@ Gura_DeclareMethod(wx_Locale, IsLoaded)
 
 Gura_ImplementMethod(wx_Locale, IsLoaded)
 {
+#if defined(__WXMSW__)
 	Object_wx_Locale *pSelf = Object_wx_Locale::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	const char *domain = args.GetString(0);
 	bool rtn = pSelf->GetEntity()->IsLoaded(domain);
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareMethod(wx_Locale, IsOk)

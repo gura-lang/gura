@@ -17,7 +17,9 @@ public:
 	inline wx_AcceleratorTable() : wxAcceleratorTable(), _sig(NULL), _pObj(NULL) {}
 	inline wx_AcceleratorTable(const wxAcceleratorTable& table) : wxAcceleratorTable(table), _sig(NULL), _pObj(NULL) {}
 	inline wx_AcceleratorTable(int n, wxAcceleratorEntry entries[]) : wxAcceleratorTable(n, entries), _sig(NULL), _pObj(NULL) {}
+#if defined(__WXMSW__)
 	inline wx_AcceleratorTable(const wxString& resource) : wxAcceleratorTable(resource), _sig(NULL), _pObj(NULL) {}
+#endif
 	~wx_AcceleratorTable();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_AcceleratorTable *pObj) {
 		_sig = sig, _pObj = pObj;

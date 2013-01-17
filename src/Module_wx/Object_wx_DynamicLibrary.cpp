@@ -183,11 +183,16 @@ Gura_DeclareMethod(wx_DynamicLibrary, GetSymbolAorW)
 
 Gura_ImplementMethod(wx_DynamicLibrary, GetSymbolAorW)
 {
+#if defined(__WXMSW__)
 	Object_wx_DynamicLibrary *pSelf = Object_wx_DynamicLibrary::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	pSelf->GetEntity()->GetSymbolAorW(name);
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareClassMethod(wx_DynamicLibrary, GetProgramHandle)

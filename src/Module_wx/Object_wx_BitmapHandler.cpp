@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_BitmapHandler, SetType)
 	Object_wx_BitmapHandler *pSelf = Object_wx_BitmapHandler::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	long type = args.GetLong(0);
-	pSelf->GetEntity()->SetType(type);
+	pSelf->GetEntity()->SetType(static_cast<wxBitmapType>(type));
 	return Value::Null;
 }
 

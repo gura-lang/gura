@@ -32,7 +32,11 @@ private:
 	Gura::Signal _sig;
 	Object_wx_HelpController *_pObj;
 public:
+#if defined(__WXMSW__)
 	inline wx_HelpController(wxWindow* parentWindow) : wxHelpController(parentWindow), _sig(NULL), _pObj(NULL) {}
+#else
+	inline wx_HelpController(wxWindow* parentWindow) : wxHelpController(wxHF_DEFAULT_STYLE, parentWindow), _sig(NULL), _pObj(NULL) {}
+#endif
 	//virtual bool Initialize(const wxString& file);
 	//virtual bool Initialize(const wxString& file, int server);
 	//virtual bool DisplayBlock(long blockNo);

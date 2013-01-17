@@ -327,6 +327,7 @@ Gura_DeclareClassMethod(wx_Log, SetTimestamp)
 
 Gura_ImplementClassMethod(wx_Log, SetTimestamp)
 {
+#if defined(__WXMSW__)
 	if (args.IsValid(0)) {
 		const char *format = args.GetString(0);
 		wxLog::SetTimestamp(format);
@@ -334,6 +335,10 @@ Gura_ImplementClassMethod(wx_Log, SetTimestamp)
 		wxLog::SetTimestamp(NULL);
 	}
 	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
 }
 
 Gura_DeclareClassMethod(wx_Log, GetTimestamp)
@@ -344,8 +349,8 @@ Gura_DeclareClassMethod(wx_Log, GetTimestamp)
 
 Gura_ImplementClassMethod(wx_Log, GetTimestamp)
 {
-	const char *rtn = wxLog::GetTimestamp();
-	return ReturnValue(env, sig, args, Value(env, rtn));
+	wxString rtn = wxString(wxLog::GetTimestamp());
+	return ReturnValue(env, sig, args, Value(env, rtn.ToUTF8()));
 }
 
 Gura_DeclareClassMethod(wx_Log, SetTraceMask)

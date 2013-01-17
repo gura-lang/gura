@@ -73,7 +73,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, GetBitmap)
 {
 	wxArtID id = static_cast<wxArtID>(wxString::FromUTF8(args.GetString(0)));
 	wxArtClient client = wxART_OTHER;
-	if (args.IsValid(1)) client = static_cast<wxArtClient>(args.GetString(1));
+	if (args.IsValid(1)) client = static_cast<wxArtClient>(wxString::FromUTF8(args.GetString(1)));
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(2)) size = Object_wx_Size::GetObject(args, 2)->GetEntity();
 	wxBitmap rtn = wxArtProvider::GetBitmap(id, client, *size);
@@ -93,7 +93,7 @@ Gura_ImplementClassMethod(wx_ArtProvider, GetIcon)
 {
 	wxArtID id = static_cast<wxArtID>(wxString::FromUTF8(args.GetString(0)));
 	wxArtClient client = wxART_OTHER;
-	if (args.IsValid(1)) client = static_cast<wxArtClient>(args.GetString(1));
+	if (args.IsValid(1)) client = static_cast<wxArtClient>(wxString::FromUTF8(args.GetString(1)));
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(2)) size = Object_wx_Size::GetObject(args, 2)->GetEntity();
 	wxIcon rtn = wxArtProvider::GetIcon(id, client, *size);
