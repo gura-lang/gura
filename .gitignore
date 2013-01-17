@@ -29,6 +29,7 @@
 /test/*.emf
 /src/Program_*/*.obj
 msc/
+gnuc/
 Release/
 Release.*/
 .deps/
