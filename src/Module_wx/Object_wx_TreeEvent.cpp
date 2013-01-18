@@ -50,9 +50,9 @@ Gura_ImplementFunction(TreeEvent)
 {
 	wxEventType commandType = static_cast<wxEventType>(args.GetInt(0));
 	wxTreeCtrl *tree = Object_wx_TreeCtrl::GetObject(args, 1)->GetEntity();
-	wxTreeItemId *item = (wxTreeItemId *)(&wxTreeItemId());
-	if (args.IsValid(2)) item = Object_wx_TreeItemId::GetObject(args, 2)->GetEntity();
-	wx_TreeEvent *pEntity = new wx_TreeEvent(commandType, tree, *item);
+	wxTreeItemId item = wxTreeItemId();
+	if (args.IsValid(2)) item = *Object_wx_TreeItemId::GetObject(args, 2)->GetEntity();
+	wx_TreeEvent *pEntity = new wx_TreeEvent(commandType, tree, item);
 	Object_wx_TreeEvent *pObj = Object_wx_TreeEvent::GetSelfObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TreeEvent(pEntity, pEntity, OwnerFalse);
