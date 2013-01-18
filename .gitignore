@@ -36,6 +36,7 @@ Release.*/
 .deps/
 .libs/
 autom4te.cache/
+*~
 *.exe
 *.obj
 *.dll
