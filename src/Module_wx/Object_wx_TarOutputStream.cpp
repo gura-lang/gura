@@ -199,9 +199,9 @@ Gura_ImplementMethod(wx_TarOutputStream, PutNextDirEntry)
 	Object_wx_TarOutputStream *pSelf = Object_wx_TarOutputStream::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	wxDateTime *dt = (wxDateTime *)(&wxDateTime::Now());
-	if (args.IsValid(1)) dt = Object_wx_DateTime::GetObject(args, 1)->GetEntity();
-	bool rtn = pSelf->GetEntity()->PutNextDirEntry(name, *dt);
+	wxDateTime dt = wxDateTime::Now();
+	if (args.IsValid(1)) dt = *Object_wx_DateTime::GetObject(args, 1)->GetEntity();
+	bool rtn = pSelf->GetEntity()->PutNextDirEntry(name, dt);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -235,11 +235,11 @@ Gura_ImplementMethod(wx_TarOutputStream, PutNextEntry_1)
 	Object_wx_TarOutputStream *pSelf = Object_wx_TarOutputStream::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	wxDateTime *dt = (wxDateTime *)(&wxDateTime::Now());
-	if (args.IsValid(1)) dt = Object_wx_DateTime::GetObject(args, 1)->GetEntity();
+	wxDateTime dt = wxDateTime::Now();
+	if (args.IsValid(1)) dt = *Object_wx_DateTime::GetObject(args, 1)->GetEntity();
 	wxFileOffset size = wxInvalidOffset;
 	if (args.IsValid(2)) size = static_cast<wxFileOffset>(args.GetInt64(2));
-	bool rtn = pSelf->GetEntity()->PutNextEntry(name, *dt, size);
+	bool rtn = pSelf->GetEntity()->PutNextEntry(name, dt, size);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
