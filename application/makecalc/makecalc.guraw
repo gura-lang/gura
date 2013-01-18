@@ -2,7 +2,7 @@
 # encoding: utf-8
 //-----------------------------------------------------------------------------
 // makecalc
-// copyright (c) SAITO Yutaka
+// copyright (c) Yutaka SAITO
 //-----------------------------------------------------------------------------
 import(wx)
 import(re)
@@ -67,124 +67,102 @@ PaperInfo = class {
 }
 
 //-----------------------------------------------------------------------------
-// main module
+// App
 //-----------------------------------------------------------------------------
-main = module {
-	paperInfo = PaperInfo(210, 297, 10, 10, 10, 15)
-	[wdCanvas, htCanvas] = [210, 297] * 2.0
-	htImage = 20
-	imgList = wx.ImageList(16, htImage)
-	image(`rgba, 16, htImage, `white) {|img|
-		img.cairo {|cr|
-			cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
-				pat.add_color_stop_rgb(0, .9, .9, .9)
-				pat.add_color_stop_rgb(1, 0, 0, 0)
-				cr.set_source(pat)
+App = class(wx.App) {
+	OnInit() = {
+		self.paperInfo = PaperInfo(210, 297, 10, 10, 10, 15)
+		[self.wdCanvas, self.htCanvas] = [210, 297] * 2.0
+		htImage = 20
+		self.imgList = wx.ImageList(16, htImage)
+		image(`rgba, 16, htImage, `white) {|img|
+			img.cairo {|cr|
+				cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
+					pat.add_color_stop_rgb(0, .9, .9, .9)
+					pat.add_color_stop_rgb(1, 0, 0, 0)
+					cr.set_source(pat)
+				}
+				cr.move_to(3, 4).line_to(13, 9).line_to(3, 14).line_to(5, 9)
+				cr.fill()
 			}
-			cr.move_to(3, 4).line_to(13, 9).line_to(3, 14).line_to(5, 9)
-			cr.fill()
+			self.IMG_History = self.imgList.Add(img)
 		}
-		IMG_History = imgList.Add(img)
-	}
-	image(`rgba, 16, htImage, `white) {|img|
-		img.cairo {|cr|
-			cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
-				pat.add_color_stop_rgb(0, 1, .6, .6)
-				pat.add_color_stop_rgb(1, .7, .3, .3)
-				cr.set_source(pat)
+		image(`rgba, 16, htImage, `white) {|img|
+			img.cairo {|cr|
+				cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
+					pat.add_color_stop_rgb(0, 1, .6, .6)
+					pat.add_color_stop_rgb(1, .7, .3, .3)
+					cr.set_source(pat)
+				}
+				cr.rectangle(2, 2, 13, 13)
+				cr.fill()
+				cr.set_source_color(`white)
+				cr.move_to(4, 8).rel_line_to(8, 0)
+				cr.move_to(8, 4).rel_line_to(0, 8)
+				cr.set_line_width(3)
+				cr.stroke()
 			}
-			cr.rectangle(2, 2, 13, 13)
-			cr.fill()
-			cr.set_source_color(`white)
-			cr.move_to(4, 8).rel_line_to(8, 0)
-			cr.move_to(8, 4).rel_line_to(0, 8)
-			cr.set_line_width(3)
-			cr.stroke()
+			self.IMG_Plus = self.imgList.Add(img)
 		}
-		IMG_Plus = imgList.Add(img)
-	}
-	image(`rgba, 16, htImage, `white) {|img|
-		img.cairo {|cr|
-			cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
-				pat.add_color_stop_rgb(0, .6, .6, 1)
-				pat.add_color_stop_rgb(1, .3, .3, .7)
-				cr.set_source(pat)
+		image(`rgba, 16, htImage, `white) {|img|
+			img.cairo {|cr|
+				cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
+					pat.add_color_stop_rgb(0, .6, .6, 1)
+					pat.add_color_stop_rgb(1, .3, .3, .7)
+					cr.set_source(pat)
+				}
+				cr.rectangle(2, 2, 13, 13)
+				cr.fill()
+				cr.set_source_color(`white)
+				cr.move_to(4, 8).rel_line_to(8, 0)
+				cr.set_line_width(3)
+				cr.stroke()
 			}
-			cr.rectangle(2, 2, 13, 13)
-			cr.fill()
-			cr.set_source_color(`white)
-			cr.move_to(4, 8).rel_line_to(8, 0)
-			cr.set_line_width(3)
-			cr.stroke()
+			self.IMG_Minus = self.imgList.Add(img)
 		}
-		IMG_Minus = imgList.Add(img)
-	}
-	image(`rgba, 16, htImage, `white) {|img|
-		img.cairo {|cr|
-			cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
-				pat.add_color_stop_rgb(0, .4, .8, .4)
-				pat.add_color_stop_rgb(1, .1, .4, .1)
-				cr.set_source(pat)
+		image(`rgba, 16, htImage, `white) {|img|
+			img.cairo {|cr|
+				cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
+					pat.add_color_stop_rgb(0, .4, .8, .4)
+					pat.add_color_stop_rgb(1, .1, .4, .1)
+					cr.set_source(pat)
+				}
+				cr.rectangle(2, 2, 13, 13)
+				cr.fill()
+				cr.set_source_color(`white)
+				cr.move_to(4, 4).rel_line_to(8, 8)
+				cr.move_to(12, 4).rel_line_to(-8, 8)
+				cr.set_line_width(3)
+				cr.stroke()
 			}
-			cr.rectangle(2, 2, 13, 13)
-			cr.fill()
-			cr.set_source_color(`white)
-			cr.move_to(4, 4).rel_line_to(8, 8)
-			cr.move_to(12, 4).rel_line_to(-8, 8)
-			cr.set_line_width(3)
-			cr.stroke()
+			self.IMG_Multiply = self.imgList.Add(img)
 		}
-		IMG_Multiply = imgList.Add(img)
-	}
-	image(`rgba, 16, htImage, `white) {|img|
-		img.cairo {|cr|
-			cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
-				pat.add_color_stop_rgb(0, .8, .8, .4)
-				pat.add_color_stop_rgb(1, .4, .4, .1)
-				cr.set_source(pat)
+		image(`rgba, 16, htImage, `white) {|img|
+			img.cairo {|cr|
+				cairo.pattern_create_linear(0, 0, 16, 16) {|pat|
+					pat.add_color_stop_rgb(0, .8, .8, .4)
+					pat.add_color_stop_rgb(1, .4, .4, .1)
+					cr.set_source(pat)
+				}
+				cr.rectangle(2, 2, 13, 13)
+				cr.fill()
+				cr.set_source_color(`white)
+				cr.move_to(3, 8).rel_line_to(10, 0)
+				cr.set_line_width(3)
+				cr.stroke()
+				cr.arc(8, 4, 2)
+				cr.arc(8, 12, 2)
+				cr.fill()
 			}
-			cr.rectangle(2, 2, 13, 13)
-			cr.fill()
-			cr.set_source_color(`white)
-			cr.move_to(3, 8).rel_line_to(10, 0)
-			cr.set_line_width(3)
-			cr.stroke()
-			cr.arc(8, 4, 2)
-			cr.arc(8, 12, 2)
-			cr.fill()
+			self.IMG_Divide = self.imgList.Add(img)
 		}
-		IMG_Divide = imgList.Add(img)
-	}
-	if (sys.argv.len() < 2) {
-		fileNameCfg = path.join(sys.localdir, 'makecalc.yml')
-	} else {
-		fileNameCfg = sys.argv[1]
-	}
-	try { cfg = yaml.read(fileNameCfg) } except { cfg = %{} }
-	if (sys.platform == `windows) {
-		OpenWithApp(filename:string) = {
-			import(mswin)
-			[basename, extname] = path.splitext(filename)
-			keyName = mswin.HKEY_CLASSES_ROOT.openkey(
-					'.' + extname, mswin.KEY_QUERY_VALUE).queryvalue('')
-			cmdline = mswin.HKEY_CLASSES_ROOT.openkey(
-				keyName + r'\Shell\Open\Command', mswin.KEY_QUERY_VALUE).queryvalue('')
-			progname = cmdline.match(r'^\"([^\"]+)\"')[1]
-			os.exec(progname, filename):fork
+		if (sys.argv.len() < 2) {
+			fileNameCfg = path.join(sys.localdir, 'makecalc.yml')
+		} else {
+			fileNameCfg = sys.argv[1]
 		}
-	} elsif (sys.platform == `linux) {
-		prognameDict = dict():icase
-		IsExist(filename:string):map = {
-			path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
-		}
-		IsExist('evince') && { prognameDict['pdf'] = 'evince' }
-		OpenWithApp(filename:string) = {
-			[basename, extname] = path.splitext(filename)
-			prognameDict.haskey(extname) && os.exec(prognameDict[extname], filename):fork
-		}
-	}
-	main() = {
-		cfg.store():default {
+		try { self.cfg = yaml.read(fileNameCfg) } except { self.cfg = %{} }
+		self.cfg.store():default {
 			'wdFrame'			=> 680
 			'htFrame'			=> 680
 			'wdNavi'			=> 200
@@ -194,9 +172,10 @@ main = module {
 			}
 			'composers'			=> []
 		}
+		self.composers = for (composerClass in composerClasses):list { composerClass() }
 		try {
-			for (composer in composers) {
-				cfgsComposer = cfg['composers']
+			for (composer in self.composers) {
+				cfgsComposer = self.cfg['composers']
 				index = ((cfgsComposer:*get('category') == composer.category) & \
 				 		(cfgsComposer:*get('composerName') == composer.composerName)).find()
 				!index && continue
@@ -209,8 +188,15 @@ main = module {
 			fs.remove(fileNameCfg)
 			sys.exit(1)
 		}
-		wx.IMPLEMENT_APP(App)
-		cfg['composers'] = for (composer in composers):list {
+		frame = Frame(nil)
+		//wx.StatusBar(frame)
+		frame.Show()
+		self.SetTopWindow(frame)
+		true
+	}
+	OnExit() = {
+		println('check')
+		self.cfg['composers'] = for (composer in self.composers):list {
 			%{
 				'category'		=> composer.category
 				'composerName'	=> composer.composerName
@@ -218,20 +204,30 @@ main = module {
 				'attrCur'		=> composer.attrCur.Export()
 			}
 		}
-		yaml.write(open(self.fileNameCfg, 'w'), cfg)
+		yaml.write(open(self.fileNameCfg, 'w'), self.cfg)
 	}
 }
 
-//-----------------------------------------------------------------------------
-// App
-//-----------------------------------------------------------------------------
-App = class(wx.App) {
-	OnInit() = {
-		frame = Frame(nil)
-		//wx.StatusBar(frame)
-		frame.Show()
-		self.SetTopWindow(frame)
-		true
+if (sys.platform == `windows) {
+	OpenWithApp(filename:string) = {
+		import(mswin)
+		[basename, extname] = path.splitext(filename)
+		keyName = mswin.HKEY_CLASSES_ROOT.openkey(
+				'.' + extname, mswin.KEY_QUERY_VALUE).queryvalue('')
+		cmdline = mswin.HKEY_CLASSES_ROOT.openkey(
+			keyName + r'\Shell\Open\Command', mswin.KEY_QUERY_VALUE).queryvalue('')
+		progname = cmdline.match(r'^\"([^\"]+)\"')[1]
+		os.exec(progname, filename):fork
+	}
+} elsif (sys.platform == `linux) {
+	prognameDict = dict():icase
+	IsExist(filename:string):map = {
+		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
+	}
+	IsExist('evince') && { prognameDict['pdf'] = 'evince' }
+	OpenWithApp(filename:string) = {
+		[basename, extname] = path.splitext(filename)
+		prognameDict.haskey(extname) && os.exec(prognameDict[extname], filename):fork
 	}
 }
 
@@ -366,7 +362,7 @@ Composer = class {
 	}
 	__init__(dir:symbol) = {
 		self.variableQuestionsHFlag = true
-		self.rcPage = main.paperInfo.CalcPageRect()
+		self.rcPage = wx.GetApp().paperInfo.CalcPageRect()
 		self.dir = dir
 		self.title = ['', '']
 		self.category = ''
@@ -746,7 +742,7 @@ FractionComposer = class(Composer) {
 //-----------------------------------------------------------------------------
 Canvas = class(wx.Panel) {
 	__init__(parent:wx.Window) = {|parent, style => wx.BORDER_SUNKEN|
-		self.img = image(`rgba, main.wdCanvas, main.htCanvas)
+		self.img = image(`rgba, wx.GetApp().wdCanvas, wx.GetApp().htCanvas)
 		self.img.fill(`white)
 		self.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
 		self.Bind(wx.EVT_SCROLLWIN) {|event|
@@ -755,8 +751,8 @@ Canvas = class(wx.Panel) {
 		}
 		self.Bind(wx.EVT_SIZE) {|event|
 			[wdClient, htClient] = self.GetClientSizeWH()
-			self.SetScrollbar(wx.HORIZONTAL, 0, wdClient, main.wdCanvas)
-			self.SetScrollbar(wx.VERTICAL, 0, htClient, main.htCanvas)
+			self.SetScrollbar(wx.HORIZONTAL, 0, wdClient, wx.GetApp().wdCanvas)
+			self.SetScrollbar(wx.VERTICAL, 0, htClient, wx.GetApp().htCanvas)
 			self.Refresh();
 			event.Skip()
 		}
@@ -789,7 +785,7 @@ composerClasses = @{
 			self.category = 'たし算'
 			self.title = ['たし算', 'たしざん']
 			self.composerName = '分数 ＋ 分数'
-			self.imgIcon = main.IMG_Plus
+			self.imgIcon = wx.GetApp().IMG_Plus
 			self.cntHorzMax = 2
 			self.cntVertMax = 15
 			self.attrCur.cntHorz = 2
@@ -813,7 +809,7 @@ composerClasses = @{
 			self.category = 'たし算'
 			self.title = ['たし算', 'たしざん']
 			self.composerName = '1 桁 ＋ 1 桁 = 1 桁'
-			self.imgIcon = main.IMG_Plus
+			self.imgIcon = wx.GetApp().IMG_Plus
 			self.cntHorzMax = 2
 			self.cntVertMax = 15
 			self.attrCur.cntHorz = 2
@@ -832,7 +828,7 @@ composerClasses = @{
 			self.category = 'たし算'
 			self.title = ['たし算', 'たしざん']
 			self.composerName = '1 桁 ＋ 1 桁'
-			self.imgIcon = main.IMG_Plus
+			self.imgIcon = wx.GetApp().IMG_Plus
 			self.cntHorzMax = 2
 			self.cntVertMax = 15
 			self.attrCur.cntHorz = 2
@@ -851,7 +847,7 @@ composerClasses = @{
 			self.category = 'たし算'
 			self.title = ['たし算', 'たしざん']
 			self.composerName = '2 桁 ＋ 1 桁'
-			self.imgIcon = main.IMG_Plus
+			self.imgIcon = wx.GetApp().IMG_Plus
 			self.cntHorzMax = 2
 			self.cntVertMax = 15
 			self.attrCur.cntHorz = 2
@@ -870,7 +866,7 @@ composerClasses = @{
 			self.category = 'たし算'
 			self.title = ['たし算', 'たしざん']
 			self.composerName = '2 桁 ＋ 2 桁'
-			self.imgIcon = main.IMG_Plus
+			self.imgIcon = wx.GetApp().IMG_Plus
 			self.cntHorzMax = 2
 			self.cntVertMax = 15
 			self.attrCur.cntHorz = 2
@@ -888,7 +884,7 @@ composerClasses = @{
 			self.category = 'ひき算'
 			self.title = ['ひき算', 'ひきざん']
 			self.composerName = '1 桁 － 1 桁'
-			self.imgIcon = main.IMG_Minus
+			self.imgIcon = wx.GetApp().IMG_Minus
 			self.cntHorzMax = 2
 			self.cntVertMax = 15
 			self.attrCur.cntHorz = 2
@@ -907,7 +903,7 @@ composerClasses = @{
 			self.category = 'ひき算'
 			self.title = ['ひき算', 'ひきざん']
 			self.composerName = '2 桁 － 2 桁'
-			self.imgIcon = main.IMG_Minus
+			self.imgIcon = wx.GetApp().IMG_Minus
 			self.cntHorzMax = 2
 			self.cntVertMax = 15
 			self.attrCur.cntHorz = 2
@@ -925,7 +921,7 @@ composerClasses = @{
 			self.category = 'ひき算'
 			self.title = ['ひき算', 'ひきざん']
 			self.composerName = '3 桁 － 3 桁'
-			self.imgIcon = main.IMG_Minus
+			self.imgIcon = wx.GetApp().IMG_Minus
 			self.cntHorzMax = 2
 			self.cntVertMax = 15
 			self.attrCur.cntHorz = 2
@@ -944,7 +940,7 @@ composerClasses = @{
 			self.category = 'かけ算'
 			self.title = ['かけ算', 'かけざん']
 			self.composerName = '1 桁 × 1 桁'
-			self.imgIcon = main.IMG_Multiply
+			self.imgIcon = wx.GetApp().IMG_Multiply
 			self.cntHorzMax = 2
 			self.cntVertMax = 15
 			self.attrCur.cntHorz = 2
@@ -962,7 +958,7 @@ composerClasses = @{
 			self.category = 'かけ算'
 			self.title = ['かけ算', 'かけざん']
 			self.composerName = '2 桁 × 1 桁'
-			self.imgIcon = main.IMG_Multiply
+			self.imgIcon = wx.GetApp().IMG_Multiply
 			self.cntHorzMax = 2
 			self.cntVertMax = 15
 			self.attrCur.cntHorz = 2
@@ -980,7 +976,7 @@ composerClasses = @{
 			self.category = 'わり算'
 			self.title = ['わり算', 'わりざん']
 			self.composerName = '2 桁 ÷ 1 桁 = 1 桁 (余りなし)'
-			self.imgIcon = main.IMG_Divide
+			self.imgIcon = wx.GetApp().IMG_Divide
 			self.cntHorzMax = 2
 			self.cntVertMax = 15
 			self.attrCur.cntHorz = 2
@@ -998,7 +994,7 @@ composerClasses = @{
 			self.category = 'わり算'
 			self.title = ['わり算', 'わりざん']
 			self.composerName = '2 桁 ÷ 1 桁 = 1 桁'
-			self.imgIcon = main.IMG_Divide
+			self.imgIcon = wx.GetApp().IMG_Divide
 			self.cntHorzMax = 2
 			self.cntVertMax = 15
 			self.attrCur.cntHorz = 2
@@ -1022,7 +1018,7 @@ composerClasses = @{
 			self.category = 'わり算'
 			self.title = ['わり算', 'わりざん']
 			self.composerName = '2 桁 ÷ 1 桁 = 2 桁'
-			self.imgIcon = main.IMG_Divide
+			self.imgIcon = wx.GetApp().IMG_Divide
 			self.cntHorzMax = 2
 			self.cntVertMax = 15
 			self.attrCur.cntHorz = 2
@@ -1050,7 +1046,7 @@ composerClasses = @{
 			self.title = ['たし算', 'たしざん']
 			self.composerName = '2 桁 ＋ 2 桁'
 			[self.nCols, self.nRows] = [3, 3]
-			self.imgIcon = main.IMG_Plus
+			self.imgIcon = wx.GetApp().IMG_Plus
 			self.cntHorzMax = 4
 			self.cntVertMax = 5
 			self.attrCur.cntHorz = 4
@@ -1069,7 +1065,7 @@ composerClasses = @{
 			self.title = ['たし算', 'たしざん']
 			self.composerName = '3 桁 ＋ 3 桁'
 			[self.nCols, self.nRows] = [4, 3]
-			self.imgIcon = main.IMG_Plus
+			self.imgIcon = wx.GetApp().IMG_Plus
 			self.cntHorzMax = 3
 			self.cntVertMax = 6
 			self.attrCur.cntHorz = 3
@@ -1088,7 +1084,7 @@ composerClasses = @{
 			self.title = ['ひき算', 'ひきざん']
 			self.composerName = '2 桁 － 2 桁'
 			[self.nCols, self.nRows] = [3, 3]
-			self.imgIcon = main.IMG_Minus
+			self.imgIcon = wx.GetApp().IMG_Minus
 			self.cntHorzMax = 4
 			self.cntVertMax = 5
 			self.attrCur.cntHorz = 4
@@ -1107,7 +1103,7 @@ composerClasses = @{
 			self.title = ['ひき算', 'ひきざん']
 			self.composerName = '3 桁 － 3 桁'
 			[self.nCols, self.nRows] = [4, 3]
-			self.imgIcon = main.IMG_Minus
+			self.imgIcon = wx.GetApp().IMG_Minus
 			self.cntHorzMax = 3
 			self.cntVertMax = 6
 			self.attrCur.cntHorz = 3
@@ -1126,7 +1122,7 @@ composerClasses = @{
 			self.title = ['かけ算', 'かけざん']
 			self.composerName = '2 桁 × 1 桁'
 			[self.nCols, self.nRows] = [3, 3]
-			self.imgIcon = main.IMG_Multiply
+			self.imgIcon = wx.GetApp().IMG_Multiply
 			self.cntHorzMax = 4
 			self.cntVertMax = 5
 			self.attrCur.cntHorz = 4
@@ -1146,7 +1142,7 @@ composerClasses = @{
 			self.title = ['かけ算', 'かけざん']
 			self.composerName = '3 桁 × 1 桁'
 			[self.nCols, self.nRows] = [4, 3]
-			self.imgIcon = main.IMG_Multiply
+			self.imgIcon = wx.GetApp().IMG_Multiply
 			self.cntHorzMax = 3
 			self.cntVertMax = 5
 			self.attrCur.cntHorz = 3
@@ -1165,7 +1161,7 @@ composerClasses = @{
 			self.title = ['かけ算', 'かけざん']
 			self.composerName = '2 桁 × 2 桁'
 			[self.nCols, self.nRows] = [4, 5]
-			self.imgIcon = main.IMG_Multiply
+			self.imgIcon = wx.GetApp().IMG_Multiply
 			self.cntHorzMax = 3
 			self.cntVertMax = 4
 			self.attrCur.cntHorz = 3
@@ -1187,7 +1183,7 @@ composerClasses = @{
 			self.title = ['わり算', 'わりざん']
 			self.composerName = '2 桁 ÷ 1 桁 = 2 桁'
 			[self.nCols, self.nRows] = [3, 6]
-			self.imgIcon = main.IMG_Divide
+			self.imgIcon = wx.GetApp().IMG_Divide
 			self.cntHorzMax = 3
 			self.cntVertMax = 4
 			self.attrCur.cntHorz = 3
@@ -1205,7 +1201,7 @@ composerClasses = @{
 			self.title = ['わり算', 'わりざん']
 			self.composerName = '3 桁 ÷ 1 桁'
 			[self.nCols, self.nRows] = [4, 8]
-			self.imgIcon = main.IMG_Divide
+			self.imgIcon = wx.GetApp().IMG_Divide
 			self.cntHorzMax = 3
 			self.cntVertMax = 3
 			self.attrCur.cntHorz = 3
@@ -1223,7 +1219,7 @@ composerClasses = @{
 			self.title = ['わり算', 'わりざん']
 			self.composerName = '4 桁 ÷ 1 桁'
 			[self.nCols, self.nRows] = [5, 10]
-			self.imgIcon = main.IMG_Divide
+			self.imgIcon = wx.GetApp().IMG_Divide
 			self.cntHorzMax = 3
 			self.cntVertMax = 3
 			self.attrCur.cntHorz = 3
@@ -1241,7 +1237,7 @@ composerClasses = @{
 			self.title = ['わり算', 'わりざん']
 			self.composerName = '3 桁 ÷ 2 桁'
 			[self.nCols, self.nRows] = [5, 6]
-			self.imgIcon = main.IMG_Divide
+			self.imgIcon = wx.GetApp().IMG_Divide
 			self.cntHorzMax = 3
 			self.cntVertMax = 3
 			self.attrCur.cntHorz = 3
@@ -1254,8 +1250,6 @@ composerClasses = @{
 		}
 	}
 }
-
-composers = for (composerClass in composerClasses):list { composerClass() }
 
 //-----------------------------------------------------------------------------
 // Panel
@@ -1301,8 +1295,8 @@ Panel = class(wx.Panel) {
 						composer.attrsHist.add(attr)
 						self.treeCtrl.AppendItem(composer.itemComposer,
 								attr.name, data => wx.TreeItemData(attr),
-								image => main.IMG_History)
-						main.OpenWithApp(composer.attrCur.fileNamePDF)
+								image => wx.GetApp().IMG_History)
+						OpenWithApp(composer.attrCur.fileNamePDF)
 					}
 				}
 			}
@@ -1422,7 +1416,7 @@ Panel = class(wx.Panel) {
 			outerBox.Add(panel, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
 			wx.SashLayoutWindow(panel, wx.ID_ANY,
 					style => wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN) {|sash|
-				sash.SetDefaultSize(wx.Size(main.cfg['wdNavi'], 1000));
+				sash.SetDefaultSize(wx.Size(wx.GetApp().cfg['wdNavi'], 1000));
 				sash.SetOrientation(wx.LAYOUT_VERTICAL);
 				sash.SetAlignment(wx.LAYOUT_LEFT);
 				sash.SetSashVisible(wx.SASH_RIGHT, true);
@@ -1434,11 +1428,11 @@ Panel = class(wx.Panel) {
 				wx.TreeCtrl(panelNavi, wx.ID_ANY, style => wx.TR_HIDE_ROOT | \
 								wx.TR_LINES_AT_ROOT | wx.TR_HAS_BUTTONS) {|ctrl|
 					outerBox.Add(ctrl, wx.SizerFlags(1).Expand())
-					ctrl.SetImageList(main.imgList)
+					ctrl.SetImageList(wx.GetApp().imgList)
 					itemRoot = ctrl.AddRoot('')
-					cfgSelect = main.cfg['select']
+					cfgSelect = wx.GetApp().cfg['select']
 					itemSelect = nil
-					composers.each() {|composer|
+					wx.GetApp().composers.each() {|composer|
 						foundFlag = false
 						ctrl.GetItemChildren(itemRoot) {|itemCategory|
 							category = ctrl.GetItemText(itemCategory)
@@ -1454,7 +1448,7 @@ Panel = class(wx.Panel) {
 						itemComposer = ctrl.AppendItem(itemCategory, composer.composerName,
 								image => composer.imgIcon, data => wx.TreeItemData(composer))
 						ctrl.AppendItem(itemComposer, composer.attrsHist::name,
-								image => main.IMG_History,
+								image => wx.GetApp().IMG_History,
 								data => wx.TreeItemData(composer.attrsHist))
 						composer.itemComposer = itemComposer
 						if (composer.category == cfgSelect['category'] && \
@@ -1504,7 +1498,7 @@ Panel = class(wx.Panel) {
 				if (id == panel.sashLeft.GetId()) {
 					wdNavi = event.GetDragRect().GetWidth() + 2
 					panel.sashLeft.SetDefaultSize(wx.Size(wdNavi, 1000))
-					main.cfg['wdNavi'] = wdNavi
+					wx.GetApp().cfg['wdNavi'] = wdNavi
 				}
 				wx.LayoutAlgorithm().LayoutWindow(panel, self.canvas)
 				self.canvas.Refresh()
@@ -1539,12 +1533,12 @@ Panel = class(wx.Panel) {
 Frame = class(wx.Frame) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
 						path.filename(sys.argv[0]),
-						size => wx.Size(main.cfg['wdFrame', 'htFrame']*)|
+						size => wx.Size(wx.GetApp().cfg['wdFrame', 'htFrame']*)|
 		self.SetIcon(wx.IconFromXPMData(sample_xpm))
 		Panel(self)
 		self.Bind(wx.EVT_SIZE) {|event|
 			size = event.GetSize()
-			main.cfg['wdFrame', 'htFrame'] = [size.GetWidth(), size.GetHeight()]
+			wx.GetApp().cfg['wdFrame', 'htFrame'] = [size.GetWidth(), size.GetHeight()]
 			event.Skip()
 		}
 	}
@@ -1596,4 +1590,4 @@ sample_xpm = @{
 //-----------------------------------------------------------------------------
 // main function call
 //-----------------------------------------------------------------------------
-main.main()
+wx.IMPLEMENT_APP(App)
