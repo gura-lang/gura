@@ -157,11 +157,11 @@ App = class(wx.App) {
 			self.IMG_Divide = self.imgList.Add(img)
 		}
 		if (sys.argv.len() < 2) {
-			fileNameCfg = path.join(sys.localdir, 'makecalc.yml')
+			self.fileNameCfg = path.join(sys.localdir, 'makecalc.yml')
 		} else {
-			fileNameCfg = sys.argv[1]
+			self.fileNameCfg = sys.argv[1]
 		}
-		try { self.cfg = yaml.read(fileNameCfg) } except { self.cfg = %{} }
+		try { self.cfg = yaml.read(self.fileNameCfg) } except { self.cfg = %{} }
 		self.cfg.store():default {
 			'wdFrame'			=> 680
 			'htFrame'			=> 680
@@ -185,7 +185,7 @@ App = class(wx.App) {
 				composer.attrCur.name = ''
 			}
 		} except {
-			fs.remove(fileNameCfg)
+			fs.remove(self.fileNameCfg)
 			sys.exit(1)
 		}
 		frame = Frame(nil)
@@ -195,7 +195,6 @@ App = class(wx.App) {
 		true
 	}
 	OnExit() = {
-		println('check')
 		self.cfg['composers'] = for (composer in self.composers):list {
 			%{
 				'category'		=> composer.category
@@ -205,6 +204,7 @@ App = class(wx.App) {
 			}
 		}
 		yaml.write(open(self.fileNameCfg, 'w'), self.cfg)
+		0
 	}
 }
 

@@ -83,14 +83,22 @@ bool wx_App::OnInit()
 
 int wx_App::OnExit()
 {
-	//::printf("OnExit\n");
-	return wxApp::OnExit();
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnExit), true);
+	if (pFunc == NULL) return wxApp::OnExit();
+	Value rtn = _pObj->EvalMethod(_sig, pFunc, ValueList::Null);
+	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return 0;
+	return rtn.GetInt();
 }
 
 void wx_App::OnUnhandledException()
 {
-	//::printf("OnUnhandledException\n");
-	wxApp::OnUnhandledException();
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnUnhandledException), true);
+	if (pFunc == NULL) {
+		wxApp::OnUnhandledException();
+		return;
+	}
+	Value rtn = _pObj->EvalMethod(_sig, pFunc, ValueList::Null);
+	CheckMethodResult(_sig);
 }
 
 void wx_App::HandleEvent(wxEvtHandler *handler, wxEventFunction func, wxEvent& event)
