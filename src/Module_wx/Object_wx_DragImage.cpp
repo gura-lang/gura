@@ -83,9 +83,9 @@ Gura_ImplementFunction(DragImage)
 	wxBitmap *image = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wxCursor *cursor = (wxCursor *)(&wxNullCursor);
 	if (args.IsValid(1)) cursor = Object_wx_Cursor::GetObject(args, 1)->GetEntity();
-	wxPoint *cursorHotspot = (wxPoint *)(&wxPoint(0, 0));
-	if (args.IsValid(2)) cursorHotspot = Object_wx_Point::GetObject(args, 2)->GetEntity();
-	wx_DragImage *pEntity = new wx_DragImage(*image, *cursor, *cursorHotspot);
+	wxPoint cursorHotspot = wxPoint(0, 0);
+	if (args.IsValid(2)) cursorHotspot = *Object_wx_Point::GetObject(args, 2)->GetEntity();
+	wx_DragImage *pEntity = new wx_DragImage(*image, *cursor, cursorHotspot);
 	Object_wx_DragImage *pObj = Object_wx_DragImage::GetSelfObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
@@ -112,9 +112,9 @@ Gura_ImplementFunction(DragImage_1)
 	wxIcon *image = Object_wx_Icon::GetObject(args, 0)->GetEntity();
 	wxCursor *cursor = (wxCursor *)(&wxNullCursor);
 	if (args.IsValid(1)) cursor = Object_wx_Cursor::GetObject(args, 1)->GetEntity();
-	wxPoint *cursorHotspot = (wxPoint *)(&wxPoint(0, 0));
-	if (args.IsValid(2)) cursorHotspot = Object_wx_Point::GetObject(args, 2)->GetEntity();
-	wx_DragImage *pEntity = new wx_DragImage(*image, *cursor, *cursorHotspot);
+	wxPoint cursorHotspot = wxPoint(0, 0);
+	if (args.IsValid(2)) cursorHotspot = *Object_wx_Point::GetObject(args, 2)->GetEntity();
+	wx_DragImage *pEntity = new wx_DragImage(*image, *cursor, cursorHotspot);
 	Object_wx_DragImage *pObj = Object_wx_DragImage::GetSelfObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
@@ -141,9 +141,9 @@ Gura_ImplementFunction(DragImage_2)
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	wxCursor *cursor = (wxCursor *)(&wxNullCursor);
 	if (args.IsValid(1)) cursor = Object_wx_Cursor::GetObject(args, 1)->GetEntity();
-	wxPoint *cursorHotspot = (wxPoint *)(&wxPoint(0, 0));
-	if (args.IsValid(2)) cursorHotspot = Object_wx_Point::GetObject(args, 2)->GetEntity();
-	wx_DragImage *pEntity = new wx_DragImage(text, *cursor, *cursorHotspot);
+	wxPoint cursorHotspot = wxPoint(0, 0);
+	if (args.IsValid(2)) cursorHotspot = *Object_wx_Point::GetObject(args, 2)->GetEntity();
+	wx_DragImage *pEntity = new wx_DragImage(text, *cursor, cursorHotspot);
 	Object_wx_DragImage *pObj = Object_wx_DragImage::GetSelfObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
