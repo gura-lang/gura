@@ -209,6 +209,7 @@ App = class(wx.App) {
 }
 
 if (sys.platform == `windows) {
+	fontFamilyName = 'HGMaruGothicMPRO'
 	OpenWithApp(filename:string) = {
 		import(mswin)
 		[basename, extname] = path.splitext(filename)
@@ -220,6 +221,7 @@ if (sys.platform == `windows) {
 		os.exec(progname, filename):fork
 	}
 } elsif (sys.platform == `linux) {
+	fontFamilyName = 'VL Gothic'
 	prognameDict = dict():icase
 	IsExist(filename:string):map = {
 		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
@@ -424,7 +426,7 @@ Composer = class {
 		Rect(x, y, wdQuestion, htQuestion)
 	}
 	ComposePage(cr:cairo.context, iPage:number) = {
-		cr.select_font_face('HGMaruGothicMPRO',
+		cr.select_font_face(fontFamilyName,
 					cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 		cr.set_source_rgb(0, 0, 0)
 		rcTitle = self.CalcRectTitle()
