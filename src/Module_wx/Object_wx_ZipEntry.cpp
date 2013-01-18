@@ -51,11 +51,11 @@ Gura_ImplementFunction(ZipEntry)
 {
 	wxString name = wxEmptyString;
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
-	wxDateTime *dt = (wxDateTime *)(&wxDateTime::Now());
-	if (args.IsValid(1)) dt = Object_wx_DateTime::GetObject(args, 1)->GetEntity();
+	wxDateTime dt = wxDateTime::Now();
+	if (args.IsValid(1)) dt = *Object_wx_DateTime::GetObject(args, 1)->GetEntity();
 	off_t size = wxInvalidOffset;
 	if (args.IsValid(2)) size = static_cast<off_t>(args.GetLong(2));
-	wx_ZipEntry *pEntity = new wx_ZipEntry(name, *dt, size);
+	wx_ZipEntry *pEntity = new wx_ZipEntry(name, dt, size);
 	Object_wx_ZipEntry *pObj = Object_wx_ZipEntry::GetSelfObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ZipEntry(pEntity, pEntity, OwnerFalse);
