@@ -619,8 +619,10 @@ It seems necessary libraries have not been installed on your system.
 See the following step(s) to resolve this problem.
 - Install Debian package:
   $ sudo apt-get install libwxbase2.8-dev libwxgtk2.8-dev
+  $ sudo apt-get install libgl1-mesa-dev libglu1-mesa-dev
 - Install yum package:
   # yum install wxGTK-devel
+  # yum install mesa-libGL-devel mesa-libGLU-devel
 '''
 	if (!IsExist('wx-config')) {
 		print(hint)
