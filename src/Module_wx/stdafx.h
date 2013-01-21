@@ -751,8 +751,6 @@
 #include "Object_wx_TextFile.h"
 #include "Object_wx_TextInputStream.h"
 #include "Object_wx_TextOutputStream.h"
-#include "Object_wx_Thread.h"
-#include "Object_wx_ThreadHelper.h"
 #include "Object_wx_TimeSpan.h"
 #include "Object_wx_TipProvider.h"
 #include "Object_wx_TreeItemId.h"
@@ -790,6 +788,8 @@
 #include "Object_wx_EventFactory.h"
 #if defined(__WXMSW__)
 #include "Object_wx_Clipboard.h"						// derived from wxObject
+#include "Object_wx_Thread.h"
+#include "Object_wx_ThreadHelper.h"
 
 #include "Object_wx_AutomationObject.h"					// derived from wxObject
 #include "Object_wx_PowerEvent.h"						// derived from wxEvent
