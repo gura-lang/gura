@@ -500,6 +500,8 @@ srcs = [
 	'Object_wx_TextFile.cpp'
 	'Object_wx_TextInputStream.cpp'
 	'Object_wx_TextOutputStream.cpp'
+	'Object_wx_Thread.cpp'
+	'Object_wx_ThreadHelper.cpp'
 	'Object_wx_TimeSpan.cpp'
 	'Object_wx_TipProvider.cpp'
 	'Object_wx_TreeItemId.cpp'
@@ -539,8 +541,6 @@ srcs = [
 srcs_MSW = [
 	// revise this later
 	'Object_wx_Clipboard.cpp'
-	'Object_wx_Thread.cpp'
-	'Object_wx_ThreadHelper.cpp'
 
 	'Object_wx_AutomationObject.cpp'
 	'Object_wx_PowerEvent.cpp'

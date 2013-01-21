@@ -18,8 +18,8 @@ private:
 	Object_wx_Thread *_pObj;
 public:
 	//inline wx_Thread(wxThreadKind kind) : wxThread(kind), _sig(NULL), _pObj(NULL) {}
-	//virtual ExitCode Entry();
-	//virtual bool TestDestroy();
+	virtual ExitCode Entry();
+	virtual bool TestDestroy();
 	~wx_Thread();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Thread *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -36,6 +36,16 @@ wx_Thread::~wx_Thread()
 void wx_Thread::GuraObjectDeleted()
 {
 	_pObj = NULL;
+}
+
+wxThread::ExitCode wx_Thread::Entry()
+{
+	return 0;
+}
+
+bool wx_Thread::TestDestroy()
+{
+	return true;
 }
 
 //----------------------------------------------------------------------------
@@ -113,7 +123,7 @@ Gura_ImplementMethod(wx_Thread, Entry)
 #if 0
 	Object_wx_Thread *pSelf = Object_wx_Thread::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxThread::ExitCode rtn = pSelf->GetEntity()->Entry();
+	wxThread::ExitCode rtn = pSelf->GetEntity()->wxThread::Entry();
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -384,7 +394,7 @@ Gura_ImplementMethod(wx_Thread, TestDestroy)
 #if defined(__WXMSW__)
 	Object_wx_Thread *pSelf = Object_wx_Thread::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->TestDestroy();
+	bool rtn = pSelf->GetEntity()->wxThread::TestDestroy();
 	return ReturnValue(env, sig, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
