@@ -381,10 +381,15 @@ Gura_DeclareMethod(wx_Thread, TestDestroy)
 
 Gura_ImplementMethod(wx_Thread, TestDestroy)
 {
+#if defined(__WXMSW__)
 	Object_wx_Thread *pSelf = Object_wx_Thread::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	bool rtn = pSelf->GetEntity()->TestDestroy();
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif
 }
 
 Gura_DeclareClassMethod(wx_Thread, This)
