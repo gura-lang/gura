@@ -15,6 +15,10 @@ BuilderBase = class {
 		}
 	}
 	build(target:string, srcs[]:string) = {
+		if ((sys.argv == '--hint').or()) {
+			self.printHint()
+			return
+		}
 		target = target.replace('/', path.sep_file)
 		if (!target.endswith('.gurd')) {
 			target = target + '.gurd'
