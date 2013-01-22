@@ -50,7 +50,6 @@
 #include <wx/combobox.h>
 #include <wx/combo.h>
 #include <wx/cmdproc.h>
-#include <wx/thread.h>
 #include <wx/config.h>
 #include <wx/cshelp.h>
 #include <wx/control.h>
@@ -244,6 +243,7 @@
 #include <wx/xrc/xmlres.h>
 #include <wx/zipstrm.h>
 #if defined(__WXMSW__)
+#include <wx/thread.h>
 #include <wx/dde.h>
 #include <wx/msw/registry.h>
 #include <wx/msw/ole/activex.h>
@@ -751,8 +751,6 @@
 #include "Object_wx_TextFile.h"
 #include "Object_wx_TextInputStream.h"
 #include "Object_wx_TextOutputStream.h"
-#include "Object_wx_Thread.h"
-#include "Object_wx_ThreadHelper.h"
 #include "Object_wx_TimeSpan.h"
 #include "Object_wx_TipProvider.h"
 #include "Object_wx_TreeItemId.h"
@@ -790,6 +788,8 @@
 #include "Object_wx_EventFactory.h"
 #if defined(__WXMSW__)
 #include "Object_wx_Clipboard.h"						// derived from wxObject
+#include "Object_wx_Thread.h"
+#include "Object_wx_ThreadHelper.h"
 
 #include "Object_wx_AutomationObject.h"					// derived from wxObject
 #include "Object_wx_PowerEvent.h"						// derived from wxEvent
