@@ -587,8 +587,13 @@ Gura_DeclareFunction(IsMainThread)
 
 Gura_ImplementFunction(IsMainThread)
 {
+#if defined(__WXMSW__)
 	bool rtn = wxIsMainThread();
 	return ReturnValue(env, sig, args, Value(rtn));
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif
 }
 
 Gura_DeclareFunction(LEAVE_CRIT_SECT)
