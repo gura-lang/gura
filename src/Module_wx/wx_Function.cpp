@@ -78,6 +78,22 @@ Gura_ImplementFunction(CaretSuspend)
 	return rtn;
 }
 
+Gura_DeclareFunction(ClipboardLocker)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_Once);
+}
+
+Gura_ImplementFunction(ClipboardLocker)
+{
+	if (!CheckWxReady(sig)) return Value::Null;
+	wxClipboardLocker clipboardLocker;
+	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	Value rtn = pExprBlock->Exec(env, sig);
+	return rtn;
+}
+
 #if 0
 Gura_DeclareFunction(DynamicCast)
 {
@@ -5058,6 +5074,7 @@ void RegisterFunctions(Environment &env, Signal sig)
 	Gura_AssignFunction(IMPLEMENT_APP);
 	Gura_AssignFunction(BusyCursor);
 	Gura_AssignFunction(CaretSuspend);
+	Gura_AssignFunction(ClipboardLocker);
 	//Gura_AssignFunction(DynamicCast);
 	Gura_AssignFunction(CHECK_GCC_VERSION);
 	Gura_AssignFunction(CHECK_VERSION);
