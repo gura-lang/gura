@@ -340,10 +340,11 @@ MyChild = class(wx.MDIChildFrame) {
 		event.Skip()
 	}
 	OnPaste(event:wx.CommandEvent) = {
-		//wxClipboardLocker lock
-		data = wx.TextDataObject()
-		self.canvas.SetText(if (wx.TheClipboard.GetData(data)) \
+		wx.ClipboardLocker {
+			data = wx.TextDataObject()
+			self.canvas.SetText(if (wx.TheClipboard.GetData(data)) \
 							{ data.GetText() } else {'No text on clipboard'})
+		}
 	}
 	OnUpdatePaste(event:wx.UpdateUIEvent) = {
 		event.Enable(wx.TheClipboard.IsSupported(wx.DF_TEXT))
