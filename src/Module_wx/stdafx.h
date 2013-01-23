@@ -281,6 +281,11 @@
 #include "Object_wx_CriticalSectionLocker.h"
 #include "Object_wx_DataFormat.h"
 #include "Object_wx_DataObject.h"
+#include "Object_wx_DataObjectSimple.h"					// derived from wxDataObject
+#include "Object_wx_BitmapDataObject.h"					// derived from wxDataObjectSimple
+#include "Object_wx_CustomDataObject.h"					// derived from wxDataObjectSimple
+#include "Object_wx_FileDataObject.h"					// derived from wxDataObjectSimple
+#include "Object_wx_TextDataObject.h"					// derived from wxDataObjectSimple
 #include "Object_wx_DateSpan.h"
 #include "Object_wx_DateTime.h"
 #include "Object_wx_DateTimeHolidayAuthority.h"
@@ -798,11 +803,6 @@
 #include "Object_wx_DataInputStream.h"
 #include "Object_wx_DataObjectComposite.h"				// derived from wxDataObject
 #include "Object_wx_URLDataObject.h"					// derived from wxDataObjectComposite
-#include "Object_wx_DataObjectSimple.h"					// derived from wxDataObject
-#include "Object_wx_BitmapDataObject.h"					// derived from wxDataObjectSimple
-#include "Object_wx_CustomDataObject.h"					// derived from wxDataObjectSimple
-#include "Object_wx_FileDataObject.h"					// derived from wxDataObjectSimple
-#include "Object_wx_TextDataObject.h"					// derived from wxDataObjectSimple
 #include "Object_wx_DataOutputStream.h"
 #include "Object_wx_DataViewColumn.h"					// derived from wxObject
 #include "Object_wx_DataViewListModelNotifier.h"		// derived from wxObject

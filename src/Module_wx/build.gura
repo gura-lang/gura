@@ -31,6 +31,11 @@ srcs = [
 	'Object_wx_CriticalSectionLocker.cpp'
 	'Object_wx_DataFormat.cpp'
 	'Object_wx_DataObject.cpp'
+	'Object_wx_DataObjectSimple.cpp'
+	'Object_wx_BitmapDataObject.cpp'
+	'Object_wx_CustomDataObject.cpp'
+	'Object_wx_FileDataObject.cpp'
+	'Object_wx_TextDataObject.cpp'
 	'Object_wx_DateSpan.cpp'
 	'Object_wx_DateTime.cpp'
 	'Object_wx_DateTimeHolidayAuthority.cpp'
@@ -538,6 +543,7 @@ srcs = [
 	'Object_wx_RichTextRenderer.cpp'
 	'Object_wx_RichTextAction.cpp'
 	'Object_wx_EventFactory.cpp'
+
 ]
 srcs_MSW = [
 	// revise this later
@@ -549,11 +555,6 @@ srcs_MSW = [
 	'Object_wx_DataInputStream.cpp'
 	'Object_wx_DataObjectComposite.cpp'
 	'Object_wx_URLDataObject.cpp'
-	'Object_wx_DataObjectSimple.cpp'
-	'Object_wx_BitmapDataObject.cpp'
-	'Object_wx_CustomDataObject.cpp'
-	'Object_wx_FileDataObject.cpp'
-	'Object_wx_TextDataObject.cpp'
 	'Object_wx_DataOutputStream.cpp'
 	'Object_wx_DataViewColumn.cpp'
 	'Object_wx_DataViewListModelNotifier.cpp'
