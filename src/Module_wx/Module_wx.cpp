@@ -2121,14 +2121,6 @@ _MS(InitializeClass(ThreadHelper));
 		Gura_AssignWxValue(CURSOR_ARROWWAIT);
 	} while (0);
 	do {
-		Gura_AssignWxValue(DF_INVALID);
-		Gura_AssignWxValue(DF_TEXT);
-		Gura_AssignWxValue(DF_BITMAP);
-		Gura_AssignWxValue(DF_METAFILE);
-		Gura_AssignWxValue(DF_FILENAME);
-		Gura_AssignWxValue(DF_HTML);
-	} while (0);
-	do {
 		Gura_AssignWxValue(FD_DEFAULT_STYLE);
 		Gura_AssignWxValue(FD_OPEN);
 		Gura_AssignWxValue(FD_SAVE);
@@ -3830,7 +3822,15 @@ void InitializeObjects(Environment &env)
 		Gura_AssignWxObjectEx(DefaultSpan,		GBSpan, &wxDefaultSpan);
 	} while (0);
 	do { // Predefined Objects of wxClipboard
-	_MS(Gura_AssignWxObject(TheClipboard,		Clipboard));
+		Gura_AssignWxObject(TheClipboard,		Clipboard);
+	} while (0);
+	do { // Predefined Objects of wxDataFormat
+		Gura_AssignWxObjectEx(DF_INVALID,		DataFormat, new wxDataFormat(wxDF_INVALID));
+		Gura_AssignWxObjectEx(DF_TEXT,			DataFormat, new wxDataFormat(wxDF_TEXT));
+		Gura_AssignWxObjectEx(DF_BITMAP,		DataFormat, new wxDataFormat(wxDF_BITMAP));
+		Gura_AssignWxObjectEx(DF_METAFILE,		DataFormat, new wxDataFormat(wxDF_METAFILE));
+		Gura_AssignWxObjectEx(DF_FILENAME,		DataFormat, new wxDataFormat(wxDF_FILENAME));
+		Gura_AssignWxObjectEx(DF_HTML,			DataFormat, new wxDataFormat(wxDF_HTML));
 	} while (0);
 }
 
