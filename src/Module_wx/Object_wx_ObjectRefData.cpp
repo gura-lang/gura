@@ -46,6 +46,7 @@ Gura_DeclareFunction(ObjectRefDataEmpty)
 
 Gura_ImplementFunction(ObjectRefDataEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ObjectRefData *pEntity = new wx_ObjectRefData();
 	Object_wx_ObjectRefData *pObj = Object_wx_ObjectRefData::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -67,6 +68,7 @@ Gura_DeclareFunction(ObjectRefDataEmpty_1)
 
 Gura_ImplementFunction(ObjectRefDataEmpty_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ObjectRefData *pEntity = new wx_ObjectRefData();
 	Object_wx_ObjectRefData *pObj = Object_wx_ObjectRefData::GetSelfObj(args);
 	if (pObj == NULL) {

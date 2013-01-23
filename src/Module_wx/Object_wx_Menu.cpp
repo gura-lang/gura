@@ -50,6 +50,7 @@ Gura_DeclareFunction(Menu)
 
 Gura_ImplementFunction(Menu)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString title = wxT("");
 	if (args.IsValid(0)) title = wxString::FromUTF8(args.GetString(0));
 	long style = 0;
@@ -76,6 +77,7 @@ Gura_DeclareFunction(Menu_1)
 
 Gura_ImplementFunction(Menu_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	long style = args.GetLong(0);
 	wx_Menu *pEntity = new wx_Menu(style);
 	Object_wx_Menu *pObj = Object_wx_Menu::GetSelfObj(args);

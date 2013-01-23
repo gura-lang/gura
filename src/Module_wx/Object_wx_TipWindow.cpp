@@ -52,6 +52,7 @@ Gura_DeclareFunction(TipWindow)
 
 Gura_ImplementFunction(TipWindow)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxString text = wxString::FromUTF8(args.GetString(1));

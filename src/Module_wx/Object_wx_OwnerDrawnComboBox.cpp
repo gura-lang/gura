@@ -47,6 +47,7 @@ Gura_DeclareFunction(OwnerDrawnComboBoxEmpty)
 
 Gura_ImplementFunction(OwnerDrawnComboBoxEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_OwnerDrawnComboBox *pEntity = new wx_OwnerDrawnComboBox();
 	Object_wx_OwnerDrawnComboBox *pObj = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -77,6 +78,7 @@ Gura_DeclareFunction(OwnerDrawnComboBox)
 
 Gura_ImplementFunction(OwnerDrawnComboBox)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString value = wxString::FromUTF8(args.GetString(2));

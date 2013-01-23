@@ -47,6 +47,7 @@ Gura_DeclareFunction(AuiManager)
 
 Gura_ImplementFunction(AuiManager)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *managed_wnd = (wxWindow *)(NULL);
 	if (args.IsValid(0)) managed_wnd = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	unsigned flags = wxAUI_MGR_DEFAULT;
@@ -231,6 +232,7 @@ Gura_DeclareClassMethod(wx_AuiManager, GetManager)
 
 Gura_ImplementClassMethod(wx_AuiManager, GetManager)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxAuiManager *rtn = (wxAuiManager *)wxAuiManager::GetManager(window);
 	return ReturnValue(env, sig, args, Value(new Object_wx_AuiManager(rtn, NULL, OwnerFalse)));

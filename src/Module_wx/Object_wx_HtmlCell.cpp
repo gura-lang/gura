@@ -64,6 +64,7 @@ Gura_DeclareFunction(HtmlCellEmpty)
 
 Gura_ImplementFunction(HtmlCellEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HtmlCell *pEntity = new wx_HtmlCell();
 	Object_wx_HtmlCell *pObj = Object_wx_HtmlCell::GetSelfObj(args);
 	if (pObj == NULL) {

@@ -54,6 +54,7 @@ Gura_DeclareFunction(Validator)
 
 Gura_ImplementFunction(Validator)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Validator *pEntity = new wx_Validator();
 	Object_wx_Validator *pObj = Object_wx_Validator::GetSelfObj(args);
 	if (pObj == NULL) {

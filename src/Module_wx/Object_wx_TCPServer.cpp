@@ -48,6 +48,7 @@ Gura_DeclareFunction(TCPServerEmpty)
 
 Gura_ImplementFunction(TCPServerEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TCPServer *pEntity = new wx_TCPServer();
 	Object_wx_TCPServer *pObj = Object_wx_TCPServer::GetSelfObj(args);
 	if (pObj == NULL) {

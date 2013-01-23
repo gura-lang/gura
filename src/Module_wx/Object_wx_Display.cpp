@@ -46,6 +46,7 @@ Gura_DeclareFunction(Display)
 
 Gura_ImplementFunction(Display)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	unsigned index = 0;
 	if (args.IsValid(0)) index = args.GetInt(0);
 	wx_Display *pEntity = new wx_Display(index);
@@ -109,6 +110,7 @@ Gura_DeclareClassMethod(wx_Display, GetCount)
 
 Gura_ImplementClassMethod(wx_Display, GetCount)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	unsigned rtn = wxDisplay::GetCount();
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -164,6 +166,7 @@ Gura_DeclareClassMethod(wx_Display, GetFromPoint)
 
 Gura_ImplementClassMethod(wx_Display, GetFromPoint)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	int rtn = wxDisplay::GetFromPoint(*pt);
@@ -184,6 +187,7 @@ Gura_DeclareClassMethod(wx_Display, GetFromWindow)
 
 Gura_ImplementClassMethod(wx_Display, GetFromWindow)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	int rtn = wxDisplay::GetFromWindow(win);

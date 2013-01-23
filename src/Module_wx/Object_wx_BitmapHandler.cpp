@@ -48,6 +48,7 @@ Gura_DeclareFunction(BitmapHandlerEmpty)
 
 Gura_ImplementFunction(BitmapHandlerEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BitmapHandler *pEntity = new wx_BitmapHandler();
 	Object_wx_BitmapHandler *pObj = Object_wx_BitmapHandler::GetSelfObj(args);
 	if (pObj == NULL) {

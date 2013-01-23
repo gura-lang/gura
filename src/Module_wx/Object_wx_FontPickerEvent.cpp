@@ -48,6 +48,7 @@ Gura_DeclareFunction(FontPickerEvent)
 
 Gura_ImplementFunction(FontPickerEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxObject *generator = Object_wx_Object::GetObject(args, 0)->GetEntity();
 	int id = args.GetInt(1);
 	wxFont *font = Object_wx_Font::GetObject(args, 2)->GetEntity();

@@ -45,6 +45,7 @@ Gura_DeclareFunction(RichTextStyleSheet)
 
 Gura_ImplementFunction(RichTextStyleSheet)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RichTextStyleSheet *pEntity = new wx_RichTextStyleSheet();
 	Object_wx_RichTextStyleSheet *pObj = Object_wx_RichTextStyleSheet::GetSelfObj(args);
 	if (pObj == NULL) {

@@ -49,6 +49,7 @@ Gura_DeclareFunction(XmlResource)
 
 Gura_ImplementFunction(XmlResource)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString filemask = wxString::FromUTF8(args.GetString(0));
 	int flags = wxXRC_USE_LOCALE;
 	if (args.IsValid(1)) flags = args.GetInt(1);
@@ -77,6 +78,7 @@ Gura_DeclareFunction(XmlResource_1)
 
 Gura_ImplementFunction(XmlResource_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int flags = wxXRC_USE_LOCALE;
 	if (args.IsValid(0)) flags = args.GetInt(0);
 	wxString domain = wxEmptyString;

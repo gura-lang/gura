@@ -32,6 +32,7 @@ Gura_DeclareFunction(TreeItemData)
 
 Gura_ImplementFunction(TreeItemData)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TreeItemData *pEntity = new wx_TreeItemData(args.GetValue(0));
 	Object_wx_TreeItemData *pObj = Object_wx_TreeItemData::GetSelfObj(args);
 	if (pObj == NULL) {

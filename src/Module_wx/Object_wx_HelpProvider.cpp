@@ -56,6 +56,7 @@ Gura_DeclareFunction(HelpProvider)
 
 Gura_ImplementFunction(HelpProvider)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	return Value::Null;
 }
 
@@ -101,6 +102,7 @@ Gura_DeclareClassMethod(wx_HelpProvider, Get)
 
 Gura_ImplementClassMethod(wx_HelpProvider, Get)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxHelpProvider *rtn = (wxHelpProvider *)wxHelpProvider::Get();
 	return ReturnValue(env, sig, args, Value(new Object_wx_HelpProvider(rtn, NULL, OwnerFalse)));
 }
@@ -145,6 +147,7 @@ Gura_DeclareClassMethod(wx_HelpProvider, Set)
 
 Gura_ImplementClassMethod(wx_HelpProvider, Set)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxHelpProvider *helpProvider = Object_wx_HelpProvider::GetObject(args, 0)->GetEntity();
 	wxHelpProvider *rtn = (wxHelpProvider *)wxHelpProvider::Set(helpProvider);
 	return ReturnValue(env, sig, args, Value(new Object_wx_HelpProvider(rtn, NULL, OwnerFalse)));

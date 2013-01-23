@@ -46,6 +46,7 @@ Gura_DeclareFunction(SizeEmpty)
 
 Gura_ImplementFunction(SizeEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Size *pEntity = new wx_Size();
 	Object_wx_Size *pObj = Object_wx_Size::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -69,6 +70,7 @@ Gura_DeclareFunction(Size)
 
 Gura_ImplementFunction(Size)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
 	wx_Size *pEntity = new wx_Size(width, height);

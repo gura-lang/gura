@@ -49,6 +49,7 @@ Gura_DeclareFunction(StaticTextEmpty)
 
 Gura_ImplementFunction(StaticTextEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StaticText *pEntity = new wx_StaticText();
 	Object_wx_StaticText *pObj = Object_wx_StaticText::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -77,6 +78,7 @@ Gura_DeclareFunction(StaticText)
 
 Gura_ImplementFunction(StaticText)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString label = wxString::FromUTF8(args.GetString(2));

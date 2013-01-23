@@ -46,6 +46,7 @@ Gura_DeclareFunction(RichTextPrintout)
 
 Gura_ImplementFunction(RichTextPrintout)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString title = wxT("Printout");
 	if (args.IsValid(0)) title = wxString::FromUTF8(args.GetString(0));
 	wx_RichTextPrintout *pEntity = new wx_RichTextPrintout(title);

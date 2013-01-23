@@ -53,6 +53,7 @@ Gura_DeclareFunction(SplitterWindowEmpty)
 
 Gura_ImplementFunction(SplitterWindowEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SplitterWindow *pEntity = new wx_SplitterWindow();
 	Object_wx_SplitterWindow *pObj = Object_wx_SplitterWindow::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -80,6 +81,7 @@ Gura_DeclareFunction(SplitterWindow)
 
 Gura_ImplementFunction(SplitterWindow)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));

@@ -45,6 +45,7 @@ Gura_DeclareFunction(BrushListEmpty)
 
 Gura_ImplementFunction(BrushListEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BrushList *pEntity = new wx_BrushList();
 	Object_wx_BrushList *pObj = Object_wx_BrushList::GetSelfObj(args);
 	if (pObj == NULL) {

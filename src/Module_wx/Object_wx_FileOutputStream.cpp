@@ -48,6 +48,7 @@ Gura_DeclareFunction(FileOutputStream)
 
 Gura_ImplementFunction(FileOutputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString ofileName = wxString::FromUTF8(args.GetString(0));
 	wx_FileOutputStream *pEntity = new wx_FileOutputStream(ofileName);
 	Object_wx_FileOutputStream *pObj = Object_wx_FileOutputStream::GetSelfObj(args);
@@ -71,6 +72,7 @@ Gura_DeclareFunction(FileOutputStream_1)
 
 Gura_ImplementFunction(FileOutputStream_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxFile *file = Object_wx_File::GetObject(args, 0)->GetEntity();
 	wx_FileOutputStream *pEntity = new wx_FileOutputStream(*file);
 	Object_wx_FileOutputStream *pObj = Object_wx_FileOutputStream::GetSelfObj(args);
@@ -94,6 +96,7 @@ Gura_DeclareFunction(FileOutputStream_2)
 
 Gura_ImplementFunction(FileOutputStream_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int fd = args.GetInt(0);
 	wx_FileOutputStream *pEntity = new wx_FileOutputStream(fd);
 	Object_wx_FileOutputStream *pObj = Object_wx_FileOutputStream::GetSelfObj(args);

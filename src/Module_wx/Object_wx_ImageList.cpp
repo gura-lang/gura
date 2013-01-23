@@ -46,6 +46,7 @@ Gura_DeclareFunction(ImageListEmpty)
 
 Gura_ImplementFunction(ImageListEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ImageList *pEntity = new wx_ImageList();
 	Object_wx_ImageList *pObj = Object_wx_ImageList::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -71,6 +72,7 @@ Gura_DeclareFunction(ImageList)
 
 Gura_ImplementFunction(ImageList)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
 	bool mask = true;

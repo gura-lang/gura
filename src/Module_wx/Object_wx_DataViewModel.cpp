@@ -47,6 +47,7 @@ Gura_DeclareFunction(DataViewModelEmpty)
 
 Gura_ImplementFunction(DataViewModelEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_DataViewModel *pEntity = new wx_DataViewModel();
 	Object_wx_DataViewModel *pObj = Object_wx_DataViewModel::GetSelfObj(args);

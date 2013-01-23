@@ -50,6 +50,7 @@ Gura_DeclareFunction(RichTextFileHandler)
 
 Gura_ImplementFunction(RichTextFileHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString name = wxEmptyString;
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));

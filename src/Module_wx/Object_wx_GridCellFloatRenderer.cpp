@@ -47,6 +47,7 @@ Gura_DeclareFunction(GridCellFloatRenderer)
 
 Gura_ImplementFunction(GridCellFloatRenderer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int width = -1;
 	if (args.IsValid(0)) width = args.GetInt(0);
 	int precision = -1;

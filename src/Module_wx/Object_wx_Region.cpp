@@ -52,6 +52,7 @@ Gura_DeclareFunction(RegionEmpty)
 
 Gura_ImplementFunction(RegionEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Region *pEntity = new wx_Region();
 	Object_wx_Region *pObj = Object_wx_Region::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -77,6 +78,7 @@ Gura_DeclareFunction(Region)
 
 Gura_ImplementFunction(Region)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	wxCoord width = static_cast<wxCoord>(args.GetInt(2));
@@ -104,6 +106,7 @@ Gura_DeclareFunction(Region_1)
 
 Gura_ImplementFunction(Region_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPoint *topLeft = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxPoint *bottomRight = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	wx_Region *pEntity = new wx_Region(*topLeft, *bottomRight);
@@ -128,6 +131,7 @@ Gura_DeclareFunction(Region_2)
 
 Gura_ImplementFunction(Region_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	wx_Region *pEntity = new wx_Region(*rect);
 	Object_wx_Region *pObj = Object_wx_Region::GetSelfObj(args);
@@ -151,6 +155,7 @@ Gura_DeclareFunction(Region_3)
 
 Gura_ImplementFunction(Region_3)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRegion *region = Object_wx_Region::GetObject(args, 0)->GetEntity();
 	wx_Region *pEntity = new wx_Region(*region);
 	Object_wx_Region *pObj = Object_wx_Region::GetSelfObj(args);
@@ -178,6 +183,7 @@ Gura_DeclareFunction(Region_4)
 
 Gura_ImplementFunction(Region_4)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	size_t n = args.GetSizeT(0);
 	wxPoint **points = Object_wx_Point::GetObject(args, 1)->GetEntity();
@@ -208,6 +214,7 @@ Gura_DeclareFunction(Region_5)
 
 Gura_ImplementFunction(Region_5)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bmp = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_Region *pEntity = new wx_Region(*bmp);
 	Object_wx_Region *pObj = Object_wx_Region::GetSelfObj(args);
@@ -233,6 +240,7 @@ Gura_DeclareFunction(Region_6)
 
 Gura_ImplementFunction(Region_6)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bmp = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wxColour *transColour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
 	int tolerance = 0;

@@ -48,6 +48,7 @@ Gura_DeclareFunction(TreeEvent)
 
 Gura_ImplementFunction(TreeEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxEventType commandType = static_cast<wxEventType>(args.GetInt(0));
 	wxTreeCtrl *tree = Object_wx_TreeCtrl::GetObject(args, 1)->GetEntity();
 	wxTreeItemId item = wxTreeItemId();

@@ -47,6 +47,7 @@ Gura_DeclareFunction(DataFormat)
 
 Gura_ImplementFunction(DataFormat)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDataFormat::NativeFormat format = wxDF_INVALID;
 	if (args.IsValid(0)) format = static_cast<wxDataFormat::NativeFormat>(args.GetInt(0));
 	wx_DataFormat *pEntity = new wx_DataFormat(format);
@@ -73,6 +74,7 @@ Gura_DeclareFunction(DataFormat_1)
 
 Gura_ImplementFunction(DataFormat_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxChar *format = static_cast<wxChar>(args.GetInt(0));
 	wx_DataFormat *pEntity = new wx_DataFormat(*format);

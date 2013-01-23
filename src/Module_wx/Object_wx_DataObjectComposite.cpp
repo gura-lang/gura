@@ -45,6 +45,7 @@ Gura_DeclareFunction(DataObjectCompositeEmpty)
 
 Gura_ImplementFunction(DataObjectCompositeEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DataObjectComposite *pEntity = new wx_DataObjectComposite();
 	Object_wx_DataObjectComposite *pObj = Object_wx_DataObjectComposite::GetSelfObj(args);
 	if (pObj == NULL) {

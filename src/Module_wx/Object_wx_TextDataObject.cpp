@@ -53,6 +53,7 @@ Gura_DeclareFunction(TextDataObject)
 
 Gura_ImplementFunction(TextDataObject)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString text = wxEmptyString;
 	if (args.IsValid(0)) text = wxString::FromUTF8(args.GetString(0));
 	wx_TextDataObject *pEntity = new wx_TextDataObject(text);

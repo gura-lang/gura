@@ -46,6 +46,7 @@ Gura_DeclareFunction(ToolBarEmpty)
 
 Gura_ImplementFunction(ToolBarEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ToolBar *pEntity = new wx_ToolBar();
 	Object_wx_ToolBar *pObj = Object_wx_ToolBar::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -73,6 +74,7 @@ Gura_DeclareFunction(ToolBar)
 
 Gura_ImplementFunction(ToolBar)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

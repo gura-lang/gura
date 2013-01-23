@@ -46,6 +46,7 @@ Gura_DeclareFunction(DataViewSortedListModel)
 
 Gura_ImplementFunction(DataViewSortedListModel)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDataViewListModel *child = Object_wx_DataViewListModel::GetObject(args, 0)->GetEntity();
 	wx_DataViewSortedListModel *pEntity = new wx_DataViewSortedListModel(child);
 	Object_wx_DataViewSortedListModel *pObj = Object_wx_DataViewSortedListModel::GetSelfObj(args);

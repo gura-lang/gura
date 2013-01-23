@@ -46,6 +46,7 @@ Gura_DeclareFunction(GBSpanEmpty)
 
 Gura_ImplementFunction(GBSpanEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GBSpan *pEntity = new wx_GBSpan();
 	Object_wx_GBSpan *pObj = Object_wx_GBSpan::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -69,6 +70,7 @@ Gura_DeclareFunction(GBSpan)
 
 Gura_ImplementFunction(GBSpan)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int rowspan = args.GetInt(0);
 	int colspan = args.GetInt(1);
 	wx_GBSpan *pEntity = new wx_GBSpan(rowspan, colspan);

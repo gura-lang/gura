@@ -47,6 +47,7 @@ Gura_DeclareFunction(SocketServer)
 
 Gura_ImplementFunction(SocketServer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxSockAddress *address = Object_wx_SockAddress::GetObject(args, 0)->GetEntity();
 	wxSocketFlags flags = wxSOCKET_NONE;
 	if (args.IsValid(1)) flags = static_cast<wxSocketFlags>(args.GetInt(1));

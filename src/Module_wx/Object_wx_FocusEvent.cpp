@@ -47,6 +47,7 @@ Gura_DeclareFunction(FocusEvent)
 
 Gura_ImplementFunction(FocusEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	WXTYPE eventType = 0;
 	if (args.IsValid(0)) eventType = static_cast<WXTYPE>(args.GetInt(0));
 	int id = 0;

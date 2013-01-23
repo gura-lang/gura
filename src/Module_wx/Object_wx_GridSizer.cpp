@@ -50,6 +50,7 @@ Gura_DeclareFunction(GridSizer)
 
 Gura_ImplementFunction(GridSizer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int rows = 0;
 	int cols = args.GetInt(1);
 	int vgap = 0;

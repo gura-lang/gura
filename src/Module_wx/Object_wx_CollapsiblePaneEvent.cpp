@@ -48,6 +48,7 @@ Gura_DeclareFunction(CollapsiblePaneEvent)
 
 Gura_ImplementFunction(CollapsiblePaneEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxObject *generator = Object_wx_Object::GetObject(args, 0)->GetEntity();
 	int id = args.GetInt(1);
 	bool collapsed = args.GetBoolean(2);

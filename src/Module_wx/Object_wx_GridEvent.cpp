@@ -46,6 +46,7 @@ Gura_DeclareFunction(GridEventEmpty)
 
 Gura_ImplementFunction(GridEventEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridEvent *pEntity = new wx_GridEvent();
 	Object_wx_GridEvent *pObj = Object_wx_GridEvent::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -79,6 +80,7 @@ Gura_DeclareFunction(GridEvent)
 
 Gura_ImplementFunction(GridEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxEventType type = static_cast<wxEventType>(args.GetInt(1));
 	wxObject *obj = Object_wx_Object::GetObject(args, 2)->GetEntity();

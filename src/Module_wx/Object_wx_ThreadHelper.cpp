@@ -50,6 +50,7 @@ Gura_DeclareFunction(ThreadHelperEmpty)
 
 Gura_ImplementFunction(ThreadHelperEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_ThreadHelper *pEntity = new wx_ThreadHelper();
 	Object_wx_ThreadHelper *pObj = Object_wx_ThreadHelper::GetSelfObj(args);

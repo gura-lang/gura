@@ -55,6 +55,7 @@ Gura_DeclareFunction(DocTemplate)
 
 Gura_ImplementFunction(DocTemplate)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDocManager *manager = Object_wx_DocManager::GetObject(args, 0)->GetEntity();
 	wxString descr = wxString::FromUTF8(args.GetString(1));
 	wxString filter = wxString::FromUTF8(args.GetString(2));

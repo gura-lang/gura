@@ -57,6 +57,7 @@ Gura_DeclareFunction(HtmlListBox)
 
 Gura_ImplementFunction(HtmlListBox)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
@@ -95,6 +96,7 @@ Gura_DeclareFunction(HtmlListBoxEmpty)
 
 Gura_ImplementFunction(HtmlListBoxEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_HtmlListBox *pEntity = new wx_HtmlListBox();
 	Object_wx_HtmlListBox *pObj = Object_wx_HtmlListBox::GetSelfObj(args);

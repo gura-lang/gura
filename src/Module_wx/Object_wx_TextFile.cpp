@@ -46,6 +46,7 @@ Gura_DeclareFunction(TextFileEmpty)
 
 Gura_ImplementFunction(TextFileEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TextFile *pEntity = new wx_TextFile();
 	Object_wx_TextFile *pObj = Object_wx_TextFile::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -68,6 +69,7 @@ Gura_DeclareFunction(TextFile)
 
 Gura_ImplementFunction(TextFile)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString strFile = wxString::FromUTF8(args.GetString(0));
 	wx_TextFile *pEntity = new wx_TextFile(strFile);
 	Object_wx_TextFile *pObj = Object_wx_TextFile::GetSelfObj(args);
@@ -307,6 +309,7 @@ Gura_DeclareClassMethod(wx_TextFile, GetEOL)
 
 Gura_ImplementClassMethod(wx_TextFile, GetEOL)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxTextFileType *type = (wxTextFileType *)(&typeDefault);
 	if (args.IsValid(0)) type = Object_wx_TextFileType::GetObject(args, 0)->GetEntity();

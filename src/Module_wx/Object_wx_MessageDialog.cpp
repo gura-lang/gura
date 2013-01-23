@@ -50,6 +50,7 @@ Gura_DeclareFunction(MessageDialog)
 
 Gura_ImplementFunction(MessageDialog)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
 	wxString message = wxString::FromUTF8(args.GetString(1));

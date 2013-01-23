@@ -46,6 +46,7 @@ Gura_DeclareFunction(SocketClient)
 
 Gura_ImplementFunction(SocketClient)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxSocketFlags flags = wxSOCKET_NONE;
 	if (args.IsValid(0)) flags = static_cast<wxSocketFlags>(args.GetInt(0));
 	wx_SocketClient *pEntity = new wx_SocketClient(flags);

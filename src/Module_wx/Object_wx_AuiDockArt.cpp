@@ -76,6 +76,7 @@ Gura_DeclareFunction(AuiDockArtEmpty)
 
 Gura_ImplementFunction(AuiDockArtEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_AuiDockArt *pEntity = new wx_AuiDockArt();
 	Object_wx_AuiDockArt *pObj = Object_wx_AuiDockArt::GetSelfObj(args);

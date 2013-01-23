@@ -45,6 +45,7 @@ Gura_DeclareFunction(SystemOptions)
 
 Gura_ImplementFunction(SystemOptions)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SystemOptions *pEntity = new wx_SystemOptions();
 	Object_wx_SystemOptions *pObj = Object_wx_SystemOptions::GetSelfObj(args);
 	if (pObj == NULL) {

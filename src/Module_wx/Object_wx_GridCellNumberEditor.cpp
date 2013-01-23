@@ -55,6 +55,7 @@ Gura_DeclareFunction(GridCellNumberEditor)
 
 Gura_ImplementFunction(GridCellNumberEditor)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int min = -1;
 	if (args.IsValid(0)) min = args.GetInt(0);
 	int max = -1;

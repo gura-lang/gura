@@ -45,6 +45,7 @@ Gura_DeclareFunction(LogGuiEmpty)
 
 Gura_ImplementFunction(LogGuiEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_LogGui *pEntity = new wx_LogGui();
 	Object_wx_LogGui *pObj = Object_wx_LogGui::GetSelfObj(args);
 	if (pObj == NULL) {

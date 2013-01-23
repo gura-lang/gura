@@ -54,6 +54,7 @@ Gura_DeclareFunction(ImageEmpty)
 
 Gura_ImplementFunction(ImageEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Image *pEntity = new wx_Image();
 	Object_wx_Image *pObj = Object_wx_Image::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -76,6 +77,7 @@ Gura_DeclareFunction(Image)
 
 Gura_ImplementFunction(Image)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxImage *image = Object_wx_Image::GetObject(args, 0)->GetEntity();
 	wx_Image *pEntity = new wx_Image(*image);
 	Object_wx_Image *pObj = Object_wx_Image::GetSelfObj(args);
@@ -101,6 +103,7 @@ Gura_DeclareFunction(Image_1)
 
 Gura_ImplementFunction(Image_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_Image *pEntity = new wx_Image(*bitmap);
@@ -130,6 +133,7 @@ Gura_DeclareFunction(Image_2)
 
 Gura_ImplementFunction(Image_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
 	bool clear = true;
@@ -161,6 +165,7 @@ Gura_DeclareFunction(Image_3)
 
 Gura_ImplementFunction(Image_3)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
@@ -194,6 +199,7 @@ Gura_DeclareFunction(Image_4)
 
 Gura_ImplementFunction(Image_4)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	long type = wxBITMAP_TYPE_ANY;
 	if (args.IsValid(1)) type = args.GetLong(1);
@@ -223,6 +229,7 @@ Gura_DeclareFunction(Image_5)
 
 Gura_ImplementFunction(Image_5)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString mimetype = wxString::FromUTF8(args.GetString(1));
 	int index = -1;
@@ -251,6 +258,7 @@ Gura_DeclareFunction(Image_6)
 
 Gura_ImplementFunction(Image_6)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	long type = wxBITMAP_TYPE_ANY;
 	if (args.IsValid(1)) type = args.GetLong(1);
@@ -280,6 +288,7 @@ Gura_DeclareFunction(Image_7)
 
 Gura_ImplementFunction(Image_7)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxString mimetype = wxString::FromUTF8(args.GetString(1));
 	int index = -1;
@@ -306,6 +315,7 @@ Gura_DeclareFunction(Image_8)
 
 Gura_ImplementFunction(Image_8)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char xpmData = args.GetChar(0);
 	wx_Image *pEntity = new wx_Image(xpmData);
@@ -331,6 +341,7 @@ Gura_DeclareClassMethod(wx_Image, AddHandler)
 
 Gura_ImplementClassMethod(wx_Image, AddHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxImageHandler *handler = Object_wx_ImageHandler::GetObject(args, 0)->GetEntity();
 	wxImage::AddHandler(handler);
 	return Value::Null;
@@ -407,6 +418,7 @@ Gura_DeclareClassMethod(wx_Image, CleanUpHandlers)
 
 Gura_ImplementClassMethod(wx_Image, CleanUpHandlers)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxImage::CleanUpHandlers();
 	return Value::Null;
 }
@@ -585,6 +597,7 @@ Gura_DeclareClassMethod(wx_Image, FindHandler)
 
 Gura_ImplementClassMethod(wx_Image, FindHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxImageHandler *rtn = (wxImageHandler *)wxImage::FindHandler(name);
 	return ReturnValue(env, sig, args, Value(new Object_wx_ImageHandler(rtn, NULL, OwnerFalse)));
@@ -600,6 +613,7 @@ Gura_DeclareClassMethod(wx_Image, FindHandler_1)
 
 Gura_ImplementClassMethod(wx_Image, FindHandler_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString extension = wxString::FromUTF8(args.GetString(0));
 	long imageType = args.GetLong(1);
 	wxImageHandler *rtn = (wxImageHandler *)wxImage::FindHandler(extension, imageType);
@@ -615,6 +629,7 @@ Gura_DeclareClassMethod(wx_Image, FindHandler_2)
 
 Gura_ImplementClassMethod(wx_Image, FindHandler_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	long imageType = args.GetLong(0);
 	wxImageHandler *rtn = (wxImageHandler *)wxImage::FindHandler(imageType);
 	return ReturnValue(env, sig, args, Value(new Object_wx_ImageHandler(rtn, NULL, OwnerFalse)));
@@ -629,6 +644,7 @@ Gura_DeclareClassMethod(wx_Image, FindHandlerMime)
 
 Gura_ImplementClassMethod(wx_Image, FindHandlerMime)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString mimetype = wxString::FromUTF8(args.GetString(0));
 	wxImageHandler *rtn = (wxImageHandler *)wxImage::FindHandlerMime(mimetype);
 	return ReturnValue(env, sig, args, Value(new Object_wx_ImageHandler(rtn, NULL, OwnerFalse)));
@@ -642,6 +658,7 @@ Gura_DeclareClassMethod(wx_Image, GetImageExtWildcard)
 
 Gura_ImplementClassMethod(wx_Image, GetImageExtWildcard)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxImage::GetImageExtWildcard();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -746,6 +763,7 @@ Gura_DeclareClassMethod(wx_Image, GetImageCount)
 
 Gura_ImplementClassMethod(wx_Image, GetImageCount)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	long type = wxBITMAP_TYPE_ANY;
 	if (args.IsValid(1)) type = args.GetLong(1);
@@ -763,6 +781,7 @@ Gura_DeclareClassMethod(wx_Image, GetImageCount_1)
 
 Gura_ImplementClassMethod(wx_Image, GetImageCount_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	long type = wxBITMAP_TYPE_ANY;
 	if (args.IsValid(1)) type = args.GetLong(1);
@@ -778,6 +797,7 @@ Gura_DeclareClassMethod(wx_Image, GetHandlers)
 
 Gura_ImplementClassMethod(wx_Image, GetHandlers)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxList &rtn = wxImage::GetHandlers();
 	return ReturnValue(env, sig, args, Value(new Object_wx_List(new wxList(rtn), NULL, OwnerTrue)));
 }
@@ -1066,6 +1086,7 @@ Gura_DeclareClassMethod(wx_Image, InitStandardHandlers)
 
 Gura_ImplementClassMethod(wx_Image, InitStandardHandlers)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxImage::InitStandardHandlers();
 	return Value::Null;
 }
@@ -1078,6 +1099,7 @@ Gura_DeclareClassMethod(wx_Image, InsertHandler)
 
 Gura_ImplementClassMethod(wx_Image, InsertHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxImageHandler *handler = Object_wx_ImageHandler::GetObject(args, 0)->GetEntity();
 	wxImage::InsertHandler(handler);
 	return Value::Null;
@@ -1252,6 +1274,7 @@ Gura_DeclareClassMethod(wx_Image, RemoveHandler)
 
 Gura_ImplementClassMethod(wx_Image, RemoveHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxImage::RemoveHandler(name);
 	return ReturnValue(env, sig, args, Value(rtn));

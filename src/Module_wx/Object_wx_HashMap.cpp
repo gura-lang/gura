@@ -46,6 +46,7 @@ Gura_DeclareFunction(HashMap)
 
 Gura_ImplementFunction(HashMap)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HashMap *pEntity = new wx_HashMap();
 	Object_wx_HashMap *pObj = Object_wx_HashMap::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -68,6 +69,7 @@ Gura_DeclareFunction(HashMap_1)
 
 Gura_ImplementFunction(HashMap_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxHashMap *map = Object_wx_HashMap::GetObject(args, 0)->GetEntity();
 	wx_HashMap *pEntity = new wx_HashMap(*map);
 	Object_wx_HashMap *pObj = Object_wx_HashMap::GetSelfObj(args);

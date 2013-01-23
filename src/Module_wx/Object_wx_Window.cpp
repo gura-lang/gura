@@ -255,6 +255,7 @@ Gura_DeclareFunction(WindowEmpty)
 
 Gura_ImplementFunction(WindowEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Window *pEntity = new wx_Window();
 	Object_wx_Window *pObj = Object_wx_Window::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -282,6 +283,7 @@ Gura_DeclareFunction(Window)
 
 Gura_ImplementFunction(Window)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
@@ -687,6 +689,7 @@ Gura_DeclareClassMethod(wx_Window, FindFocus)
 
 Gura_ImplementClassMethod(wx_Window, FindFocus)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)wxWindow::FindFocus();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Window(rtn, NULL, OwnerFalse));
@@ -740,6 +743,7 @@ Gura_DeclareClassMethod(wx_Window, FindWindowById)
 
 Gura_ImplementClassMethod(wx_Window, FindWindowById)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	long id = args.GetLong(0);
 	wxWindow *parent = (wxWindow *)(NULL);
 	if (args.IsValid(1)) parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -760,6 +764,7 @@ Gura_DeclareClassMethod(wx_Window, FindWindowByLabel)
 
 Gura_ImplementClassMethod(wx_Window, FindWindowByLabel)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString label = wxString::FromUTF8(args.GetString(0));
 	wxWindow *parent = (wxWindow *)(NULL);
 	if (args.IsValid(1)) parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -780,6 +785,7 @@ Gura_DeclareClassMethod(wx_Window, FindWindowByName)
 
 Gura_ImplementClassMethod(wx_Window, FindWindowByName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxWindow *parent = (wxWindow *)(NULL);
 	if (args.IsValid(1)) parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
@@ -947,6 +953,7 @@ Gura_DeclareClassMethod(wx_Window, GetCapture)
 
 Gura_ImplementClassMethod(wx_Window, GetCapture)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *rtn = (wxWindow *)wxWindow::GetCapture();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Window(rtn, NULL, OwnerFalse));
@@ -1029,6 +1036,7 @@ Gura_DeclareClassMethod(wx_Window, GetClassDefaultAttributes)
 
 Gura_ImplementClassMethod(wx_Window, GetClassDefaultAttributes)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL;
 	if (args.IsValid(0)) variant = static_cast<wxWindowVariant>(args.GetInt(0));

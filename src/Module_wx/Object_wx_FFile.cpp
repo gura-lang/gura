@@ -49,6 +49,7 @@ Gura_DeclareFunction(FFileEmpty)
 
 Gura_ImplementFunction(FFileEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_FFile *pEntity = new wx_FFile();
 	Object_wx_FFile *pObj = Object_wx_FFile::GetSelfObj(args);
@@ -78,6 +79,7 @@ Gura_DeclareFunction(FFile)
 
 Gura_ImplementFunction(FFile)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char filename = args.GetChar(0);
 	char mode = wxT("r");
@@ -108,6 +110,7 @@ Gura_DeclareFunction(FFile_1)
 
 Gura_ImplementFunction(FFile_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_FFile *pEntity = new wx_FFile();
 	Object_wx_FFile *pObj = Object_wx_FFile::GetSelfObj(args);

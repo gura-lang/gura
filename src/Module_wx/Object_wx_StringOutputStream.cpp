@@ -46,6 +46,7 @@ Gura_DeclareFunction(StringOutputStream)
 
 Gura_ImplementFunction(StringOutputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString *str = NULL;
 	if (args.IsValid(0)) str = Object_wx_String::GetObject(args, 0)->GetEntity();
 	wx_StringOutputStream *pEntity = new wx_StringOutputStream(str);

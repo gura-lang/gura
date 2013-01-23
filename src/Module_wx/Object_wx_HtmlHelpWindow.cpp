@@ -50,6 +50,7 @@ Gura_DeclareFunction(HtmlHelpWindow)
 
 Gura_ImplementFunction(HtmlHelpWindow)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxHtmlHelpData *data = (wxHtmlHelpData *)(NULL);
 	if (args.IsValid(0)) data = Object_wx_HtmlHelpData::GetObject(args, 0)->GetEntity();
 	wx_HtmlHelpWindow *pEntity = new wx_HtmlHelpWindow(data);
@@ -80,6 +81,7 @@ Gura_DeclareFunction(HtmlHelpWindow_1)
 
 Gura_ImplementFunction(HtmlHelpWindow_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	int wxWindowID = args.GetInt(1);
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

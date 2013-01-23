@@ -47,6 +47,7 @@ Gura_DeclareFunction(PageSetupDialogDataEmpty)
 
 Gura_ImplementFunction(PageSetupDialogDataEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PageSetupDialogData *pEntity = new wx_PageSetupDialogData();
 	Object_wx_PageSetupDialogData *pObj = Object_wx_PageSetupDialogData::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -69,6 +70,7 @@ Gura_DeclareFunction(PageSetupDialogData)
 
 Gura_ImplementFunction(PageSetupDialogData)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPageSetupDialogData *data = Object_wx_PageSetupDialogData::GetObject(args, 0)->GetEntity();
 	wx_PageSetupDialogData *pEntity = new wx_PageSetupDialogData(*data);
 	Object_wx_PageSetupDialogData *pObj = Object_wx_PageSetupDialogData::GetSelfObj(args);
@@ -92,6 +94,7 @@ Gura_DeclareFunction(PageSetupDialogData_1)
 
 Gura_ImplementFunction(PageSetupDialogData_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintData *printData = Object_wx_PrintData::GetObject(args, 0)->GetEntity();
 	wx_PageSetupDialogData *pEntity = new wx_PageSetupDialogData(*printData);
 	Object_wx_PageSetupDialogData *pObj = Object_wx_PageSetupDialogData::GetSelfObj(args);

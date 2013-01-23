@@ -49,6 +49,7 @@ Gura_DeclareFunction(LongLongEmpty)
 
 Gura_ImplementFunction(LongLongEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_LongLong *pEntity = new wx_LongLong();
 	Object_wx_LongLong *pObj = Object_wx_LongLong::GetSelfObj(args);
@@ -77,6 +78,7 @@ Gura_DeclareFunction(LongLong)
 
 Gura_ImplementFunction(LongLong)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxLongLong_t *ll = Object_wx_LongLong_t::GetObject(args, 0)->GetEntity();
 	wx_LongLong *pEntity = new wx_LongLong(*ll);
@@ -107,6 +109,7 @@ Gura_DeclareFunction(LongLong_1)
 
 Gura_ImplementFunction(LongLong_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	long hi = args.GetLong(0);
 	unsigned lo = args.GetInt(1);

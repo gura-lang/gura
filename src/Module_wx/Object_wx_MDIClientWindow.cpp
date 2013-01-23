@@ -46,6 +46,7 @@ Gura_DeclareFunction(MDIClientWindowEmpty)
 
 Gura_ImplementFunction(MDIClientWindowEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MDIClientWindow *pEntity = new wx_MDIClientWindow();
 	Object_wx_MDIClientWindow *pObj = Object_wx_MDIClientWindow::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -69,6 +70,7 @@ Gura_DeclareFunction(MDIClientWindow)
 
 Gura_ImplementFunction(MDIClientWindow)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxMDIParentFrame *parent = Object_wx_MDIParentFrame::GetObject(args, 0)->GetEntity();
 	long style = 0;
 	if (args.IsValid(1)) style = args.GetLong(1);

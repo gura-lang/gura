@@ -45,6 +45,7 @@ Gura_DeclareFunction(DebugReportCompressEmpty)
 
 Gura_ImplementFunction(DebugReportCompressEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DebugReportCompress *pEntity = new wx_DebugReportCompress();
 	Object_wx_DebugReportCompress *pObj = Object_wx_DebugReportCompress::GetSelfObj(args);
 	if (pObj == NULL) {

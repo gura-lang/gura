@@ -52,6 +52,7 @@ Gura_DeclareFunction(TextDropTargetEmpty)
 
 Gura_ImplementFunction(TextDropTargetEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_TextDropTarget *pEntity = new wx_TextDropTarget();
 	Object_wx_TextDropTarget *pObj = Object_wx_TextDropTarget::GetSelfObj(args);

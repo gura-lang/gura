@@ -61,6 +61,7 @@ Gura_DeclareFunction(VScrolledWindow)
 
 Gura_ImplementFunction(VScrolledWindow)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
@@ -99,6 +100,7 @@ Gura_DeclareFunction(VScrolledWindowEmpty)
 
 Gura_ImplementFunction(VScrolledWindowEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_VScrolledWindow *pEntity = new wx_VScrolledWindow();
 	Object_wx_VScrolledWindow *pObj = Object_wx_VScrolledWindow::GetSelfObj(args);

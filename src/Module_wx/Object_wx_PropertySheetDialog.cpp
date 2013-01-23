@@ -57,6 +57,7 @@ Gura_DeclareFunction(PropertySheetDialog)
 
 Gura_ImplementFunction(PropertySheetDialog)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));

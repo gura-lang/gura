@@ -49,6 +49,7 @@ Gura_DeclareFunction(HashTable)
 
 Gura_ImplementFunction(HashTable)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	unsigned key_type = args.GetInt(0);
 	int size = 1000;

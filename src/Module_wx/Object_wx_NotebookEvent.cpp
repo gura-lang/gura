@@ -49,6 +49,7 @@ Gura_DeclareFunction(NotebookEvent)
 
 Gura_ImplementFunction(NotebookEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxEventType eventType = wxEVT_NULL;
 	if (args.IsValid(0)) eventType = static_cast<wxEventType>(args.GetInt(0));
 	int id = 0;

@@ -48,6 +48,7 @@ Gura_DeclareFunction(ContextMenuEvent)
 
 Gura_ImplementFunction(ContextMenuEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	WXTYPE type = 0;
 	if (args.IsValid(0)) type = static_cast<WXTYPE>(args.GetInt(0));
 	int id = 0;

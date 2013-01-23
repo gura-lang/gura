@@ -47,6 +47,7 @@ Gura_DeclareFunction(PrinterDC)
 
 Gura_ImplementFunction(PrinterDC)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintData *printData = Object_wx_PrintData::GetObject(args, 0)->GetEntity();
 	wx_PrinterDC *pEntity = new wx_PrinterDC(*printData);
 	Object_wx_PrinterDC *pObj = Object_wx_PrinterDC::GetSelfObj(args);
@@ -74,6 +75,7 @@ Gura_DeclareFunction(PrinterDC_1)
 
 Gura_ImplementFunction(PrinterDC_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString driver = wxString::FromUTF8(args.GetString(0));
 	wxString device = wxString::FromUTF8(args.GetString(1));
 	wxString output = wxString::FromUTF8(args.GetString(2));

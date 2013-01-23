@@ -49,6 +49,7 @@ Gura_DeclareFunction(TextInputStream)
 
 Gura_ImplementFunction(TextInputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxString sep = wxT(" \t");
 	if (args.IsValid(1)) sep = wxString::FromUTF8(args.GetString(1));

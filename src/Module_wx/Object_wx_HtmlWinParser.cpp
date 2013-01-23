@@ -51,6 +51,7 @@ Gura_DeclareFunction(HtmlWinParserEmpty)
 
 Gura_ImplementFunction(HtmlWinParserEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HtmlWinParser *pEntity = new wx_HtmlWinParser();
 	Object_wx_HtmlWinParser *pObj = Object_wx_HtmlWinParser::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -75,6 +76,7 @@ Gura_DeclareFunction(HtmlWinParser)
 
 Gura_ImplementFunction(HtmlWinParser)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxHtmlWindowInterface **wndIface = Object_wx_HtmlWindowInterface::GetObject(args, 0)->GetEntity();
 	wx_HtmlWinParser *pEntity = new wx_HtmlWinParser(**wndIface);
@@ -102,6 +104,7 @@ Gura_DeclareClassMethod(wx_HtmlWinParser, AddModule)
 
 Gura_ImplementClassMethod(wx_HtmlWinParser, AddModule)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxHtmlTagsModule **module = Object_wx_HtmlTagsModule::GetObject(args, 0)->GetEntity();
 	wxHtmlWinParser::AddModule(**module);

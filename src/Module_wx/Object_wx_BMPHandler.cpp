@@ -43,6 +43,7 @@ Gura_DeclareFunction(BMPHandler)
 
 Gura_ImplementFunction(BMPHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BMPHandler *pEntity = new wx_BMPHandler();
 	Object_wx_BMPHandler *pObj = Object_wx_BMPHandler::GetSelfObj(args);
 	if (pObj == NULL) {

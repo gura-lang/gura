@@ -127,6 +127,7 @@ Gura_DeclareFunction(SimpleHtmlListBoxEmpty)
 
 Gura_ImplementFunction(SimpleHtmlListBoxEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SimpleHtmlListBox *pEntity = new wx_SimpleHtmlListBox();
 	Object_wx_SimpleHtmlListBox *pObj = Object_wx_SimpleHtmlListBox::GetSelfObj(args);
 	if (pObj == NULL) {

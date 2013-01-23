@@ -51,6 +51,7 @@ Gura_DeclareFunction(DataViewColumn)
 
 Gura_ImplementFunction(DataViewColumn)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDataViewRenderer *renderer = Object_wx_DataViewRenderer::GetObject(args, 1)->GetEntity();
 	unsigned model_column = args.GetInt(2);
 	int width = 80;

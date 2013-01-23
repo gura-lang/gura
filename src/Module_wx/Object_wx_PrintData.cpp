@@ -46,6 +46,7 @@ Gura_DeclareFunction(PrintDataEmpty)
 
 Gura_ImplementFunction(PrintDataEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PrintData *pEntity = new wx_PrintData();
 	Object_wx_PrintData *pObj = Object_wx_PrintData::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -68,6 +69,7 @@ Gura_DeclareFunction(PrintData)
 
 Gura_ImplementFunction(PrintData)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintData *data = Object_wx_PrintData::GetObject(args, 0)->GetEntity();
 	wx_PrintData *pEntity = new wx_PrintData(*data);
 	Object_wx_PrintData *pObj = Object_wx_PrintData::GetSelfObj(args);

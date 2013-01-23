@@ -68,6 +68,7 @@ Gura_DeclareFunction(GridCellStringRenderer)
 
 Gura_ImplementFunction(GridCellStringRenderer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellStringRenderer *pEntity = new wx_GridCellStringRenderer();
 	Object_wx_GridCellStringRenderer *pObj = Object_wx_GridCellStringRenderer::GetSelfObj(args);
 	if (pObj == NULL) {

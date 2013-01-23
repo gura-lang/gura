@@ -45,6 +45,7 @@ Gura_DeclareFunction(LogStream)
 
 Gura_ImplementFunction(LogStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_LogStream *pEntity = new wx_LogStream();
 	Object_wx_LogStream *pObj = Object_wx_LogStream::GetSelfObj(args);
 	if (pObj == NULL) {

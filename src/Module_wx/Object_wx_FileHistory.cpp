@@ -47,6 +47,7 @@ Gura_DeclareFunction(FileHistory)
 
 Gura_ImplementFunction(FileHistory)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	size_t maxFiles = 9;
 	if (args.IsValid(0)) maxFiles = args.GetSizeT(0);
 	wxWindowID idBase = wxID_FILE1;

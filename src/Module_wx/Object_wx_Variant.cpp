@@ -61,6 +61,7 @@ Gura_DeclareFunction(VariantEmpty)
 
 Gura_ImplementFunction(VariantEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Variant *pEntity = new wx_Variant();
 	Object_wx_Variant *pObj = Object_wx_Variant::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -84,6 +85,7 @@ Gura_DeclareFunction(Variant)
 
 Gura_ImplementFunction(Variant)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Variant *pEntity = NULL;
 	wxString name = wxEmptyString;
 	if (args.IsValid(1)) name = wxString::FromUTF8(args.GetString(1));

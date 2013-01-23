@@ -46,6 +46,7 @@ Gura_DeclareFunction(Condition)
 
 Gura_ImplementFunction(Condition)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxMutex *mutex = Object_wx_Mutex::GetObject(args, 0)->GetEntity();
 	wx_Condition *pEntity = new wx_Condition(*mutex);
 	Object_wx_Condition *pObj = Object_wx_Condition::GetSelfObj(args);

@@ -48,6 +48,7 @@ Gura_DeclareFunction(DataViewProgressRenderer)
 
 Gura_ImplementFunction(DataViewProgressRenderer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString label = wxEmptyString;
 	if (args.IsValid(0)) label = wxString::FromUTF8(args.GetString(0));
 	wxString varianttype = wxT("long");

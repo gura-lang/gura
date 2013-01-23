@@ -46,6 +46,7 @@ Gura_DeclareFunction(RegExEmpty)
 
 Gura_ImplementFunction(RegExEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RegEx *pEntity = new wx_RegEx();
 	Object_wx_RegEx *pObj = Object_wx_RegEx::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -69,6 +70,7 @@ Gura_DeclareFunction(RegEx)
 
 Gura_ImplementFunction(RegEx)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString expr = wxString::FromUTF8(args.GetString(0));
 	int flags = wxRE_DEFAULT;
 	if (args.IsValid(1)) flags = args.GetInt(1);

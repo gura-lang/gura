@@ -46,6 +46,7 @@ Gura_DeclareFunction(RichTextCtrlEmpty)
 
 Gura_ImplementFunction(RichTextCtrlEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RichTextCtrl *pEntity = new wx_RichTextCtrl();
 	Object_wx_RichTextCtrl *pObj = Object_wx_RichTextCtrl::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -75,6 +76,7 @@ Gura_DeclareFunction(RichTextCtrl)
 
 Gura_ImplementFunction(RichTextCtrl)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));

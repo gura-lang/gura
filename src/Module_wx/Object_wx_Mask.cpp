@@ -48,6 +48,7 @@ Gura_DeclareFunction(MaskEmpty)
 
 Gura_ImplementFunction(MaskEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Mask *pEntity = new wx_Mask();
 	Object_wx_Mask *pObj = Object_wx_Mask::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -70,6 +71,7 @@ Gura_DeclareFunction(Mask)
 
 Gura_ImplementFunction(Mask)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_Mask *pEntity = new wx_Mask(*bitmap);
 	Object_wx_Mask *pObj = Object_wx_Mask::GetSelfObj(args);
@@ -94,6 +96,7 @@ Gura_DeclareFunction(Mask_1)
 
 Gura_ImplementFunction(Mask_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wxColour *colour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
 	wx_Mask *pEntity = new wx_Mask(*bitmap, *colour);
@@ -119,6 +122,7 @@ Gura_DeclareFunction(Mask_2)
 
 Gura_ImplementFunction(Mask_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	int index = args.GetInt(1);
 	wx_Mask *pEntity = new wx_Mask(*bitmap, index);

@@ -46,6 +46,7 @@ Gura_DeclareFunction(BitmapButtonEmpty)
 
 Gura_ImplementFunction(BitmapButtonEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BitmapButton *pEntity = new wx_BitmapButton();
 	Object_wx_BitmapButton *pObj = Object_wx_BitmapButton::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -75,6 +76,7 @@ Gura_DeclareFunction(BitmapButton)
 
 Gura_ImplementFunction(BitmapButton)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 2)->GetEntity();

@@ -47,6 +47,7 @@ Gura_DeclareFunction(DataInputStream)
 
 Gura_ImplementFunction(DataInputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wx_DataInputStream *pEntity = new wx_DataInputStream(*stream);
 	Object_wx_DataInputStream *pObj = Object_wx_DataInputStream::GetSelfObj(args);
@@ -73,6 +74,7 @@ Gura_DeclareFunction(DataInputStream_1)
 
 Gura_ImplementFunction(DataInputStream_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxMBConv *conv = (wxMBConv *)(&wxMBConvUTF8);

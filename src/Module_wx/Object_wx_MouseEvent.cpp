@@ -46,6 +46,7 @@ Gura_DeclareFunction(MouseEvent)
 
 Gura_ImplementFunction(MouseEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	WXTYPE mouseEventType = 0;
 	if (args.IsValid(0)) mouseEventType = static_cast<WXTYPE>(args.GetInt(0));
 	wx_MouseEvent *pEntity = new wx_MouseEvent(mouseEventType);

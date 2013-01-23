@@ -47,6 +47,7 @@ Gura_DeclareFunction(FileTypeEmpty)
 
 Gura_ImplementFunction(FileTypeEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_FileType *pEntity = new wx_FileType();
 	Object_wx_FileType *pObj = Object_wx_FileType::GetSelfObj(args);
@@ -232,6 +233,7 @@ Gura_DeclareClassMethod(wx_FileType, ExpandCommand)
 
 Gura_ImplementClassMethod(wx_FileType, ExpandCommand)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString command = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = wxFileType::ExpandCommand(command, );

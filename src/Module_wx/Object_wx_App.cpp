@@ -120,6 +120,7 @@ Gura_DeclareFunction(App)
 
 Gura_ImplementFunction(App)
 {
+	//if (!CheckWxReady(sig)) return Value::Null;
 	wx_App *pEntity = new wx_App();
 	Object_wx_App *pObj = Object_wx_App::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -260,6 +261,7 @@ Gura_DeclareClassMethod(wx_App, GetInstance)
 
 Gura_ImplementClassMethod(wx_App, GetInstance)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxAppConsole *rtn = (wxAppConsole *)wxApp::GetInstance();
 	wxApp *rtnEx = wxDynamicCast(rtn, wxApp);
 	if (rtnEx != NULL) {
@@ -350,6 +352,7 @@ Gura_DeclareClassMethod(wx_App, IsMainLoopRunning)
 
 Gura_ImplementClassMethod(wx_App, IsMainLoopRunning)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxApp::IsMainLoopRunning();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -727,6 +730,7 @@ Gura_DeclareClassMethod(wx_App, SetInstance)
 
 Gura_ImplementClassMethod(wx_App, SetInstance)
 {
+	//if (!CheckWxReady(sig)) return Value::Null;
 	wxAppConsole *app = Object_wx_AppConsole::GetObject(args, 0)->GetEntity();
 	wxApp::SetInstance(app);
 	return Value::Null;

@@ -48,6 +48,7 @@ Gura_DeclareFunction(GridEditorCreatedEventEmpty)
 
 Gura_ImplementFunction(GridEditorCreatedEventEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_GridEditorCreatedEvent *pEntity = new wx_GridEditorCreatedEvent();
 	Object_wx_GridEditorCreatedEvent *pObj = Object_wx_GridEditorCreatedEvent::GetSelfObj(args);
@@ -81,6 +82,7 @@ Gura_DeclareFunction(GridEditorCreatedEvent)
 
 Gura_ImplementFunction(GridEditorCreatedEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	int id = args.GetInt(0);
 	wxEventType type = static_cast<wxEventType>(args.GetInt(1));

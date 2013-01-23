@@ -47,6 +47,7 @@ Gura_DeclareFunction(VariantDataEmpty)
 
 Gura_ImplementFunction(VariantDataEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_VariantData *pEntity = new wx_VariantData();
 	Object_wx_VariantData *pObj = Object_wx_VariantData::GetSelfObj(args);

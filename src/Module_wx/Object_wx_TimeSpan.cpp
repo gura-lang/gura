@@ -100,6 +100,7 @@ Gura_DeclareClassMethod(wx_TimeSpan, Days)
 
 Gura_ImplementClassMethod(wx_TimeSpan, Days)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	long days = args.GetLong(0);
 	wxTimespan rtn = wxTimeSpan::Days(days);
@@ -117,6 +118,7 @@ Gura_DeclareClassMethod(wx_TimeSpan, Day)
 
 Gura_ImplementClassMethod(wx_TimeSpan, Day)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxTimespan rtn = wxTimeSpan::Day();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Timespan(new wxTimespan(rtn), NULL, OwnerTrue)));
@@ -261,6 +263,7 @@ Gura_DeclareClassMethod(wx_TimeSpan, Hours)
 
 Gura_ImplementClassMethod(wx_TimeSpan, Hours)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	long hours = args.GetLong(0);
 	wxTimespan rtn = wxTimeSpan::Hours(hours);
@@ -278,6 +281,7 @@ Gura_DeclareClassMethod(wx_TimeSpan, Hour)
 
 Gura_ImplementClassMethod(wx_TimeSpan, Hour)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxTimespan rtn = wxTimeSpan::Hour();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Timespan(new wxTimespan(rtn), NULL, OwnerTrue)));
@@ -387,6 +391,7 @@ Gura_DeclareClassMethod(wx_TimeSpan, Minutes)
 
 Gura_ImplementClassMethod(wx_TimeSpan, Minutes)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	long min = args.GetLong(0);
 	wxTimespan rtn = wxTimeSpan::Minutes(min);
@@ -404,6 +409,7 @@ Gura_DeclareClassMethod(wx_TimeSpan, Minute)
 
 Gura_ImplementClassMethod(wx_TimeSpan, Minute)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxTimespan rtn = wxTimeSpan::Minute();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Timespan(new wxTimespan(rtn), NULL, OwnerTrue)));
@@ -493,6 +499,7 @@ Gura_DeclareClassMethod(wx_TimeSpan, Milliseconds)
 
 Gura_ImplementClassMethod(wx_TimeSpan, Milliseconds)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	long ms = args.GetLong(0);
 	wxTimespan rtn = wxTimeSpan::Milliseconds(ms);
@@ -510,6 +517,7 @@ Gura_DeclareClassMethod(wx_TimeSpan, Millisecond)
 
 Gura_ImplementClassMethod(wx_TimeSpan, Millisecond)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxTimespan rtn = wxTimeSpan::Millisecond();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Timespan(new wxTimespan(rtn), NULL, OwnerTrue)));
@@ -529,6 +537,7 @@ Gura_DeclareClassMethod(wx_TimeSpan, Seconds)
 
 Gura_ImplementClassMethod(wx_TimeSpan, Seconds)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	long sec = args.GetLong(0);
 	wxTimespan rtn = wxTimeSpan::Seconds(sec);
@@ -546,6 +555,7 @@ Gura_DeclareClassMethod(wx_TimeSpan, Second)
 
 Gura_ImplementClassMethod(wx_TimeSpan, Second)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxTimespan rtn = wxTimeSpan::Second();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Timespan(new wxTimespan(rtn), NULL, OwnerTrue)));
@@ -603,6 +613,7 @@ Gura_DeclareClassMethod(wx_TimeSpan, Weeks)
 
 Gura_ImplementClassMethod(wx_TimeSpan, Weeks)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	long weeks = args.GetLong(0);
 	wxTimespan rtn = wxTimeSpan::Weeks(weeks);
@@ -620,6 +631,7 @@ Gura_DeclareClassMethod(wx_TimeSpan, Week)
 
 Gura_ImplementClassMethod(wx_TimeSpan, Week)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxTimespan rtn = wxTimeSpan::Week();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Timespan(new wxTimespan(rtn), NULL, OwnerTrue)));
@@ -639,6 +651,7 @@ Gura_DeclareFunction(TimeSpanEmpty)
 
 Gura_ImplementFunction(TimeSpanEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_TimeSpan *pEntity = new wx_TimeSpan();
 	Object_wx_TimeSpan *pObj = Object_wx_TimeSpan::GetSelfObj(args);
@@ -670,6 +683,7 @@ Gura_DeclareFunction(TimeSpan)
 
 Gura_ImplementFunction(TimeSpan)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	long hours = args.GetLong(0);
 	long min = args.GetLong(1);

@@ -133,6 +133,7 @@ Gura_DeclareFunction(PopupTransientWindow)
 
 Gura_ImplementFunction(PopupTransientWindow)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	long style = wxBORDER_NONE;
 	if (args.IsValid(1)) style = args.GetLong(1);

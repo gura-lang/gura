@@ -49,6 +49,7 @@ Gura_DeclareFunction(ZipInputStream)
 
 Gura_ImplementFunction(ZipInputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxMBConv *conv = (wxMBConv *)(&wxConvLocal);
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
@@ -75,6 +76,7 @@ Gura_DeclareFunction(ZipInputStream_1)
 
 Gura_ImplementFunction(ZipInputStream_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxMBConv *conv = (wxMBConv *)(&wxConvLocal);
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
@@ -101,6 +103,7 @@ Gura_DeclareFunction(ZipInputStream_2)
 
 Gura_ImplementFunction(ZipInputStream_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString archive = wxString::FromUTF8(args.GetString(0));
 	wxString file = wxString::FromUTF8(args.GetString(1));
 	wx_ZipInputStream *pEntity = new wx_ZipInputStream(archive, file);

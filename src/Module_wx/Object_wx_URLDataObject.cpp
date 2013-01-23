@@ -46,6 +46,7 @@ Gura_DeclareFunction(URLDataObject)
 
 Gura_ImplementFunction(URLDataObject)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString url = wxEmptyString;
 	if (args.IsValid(0)) url = wxString::FromUTF8(args.GetString(0));
 	wx_URLDataObject *pEntity = new wx_URLDataObject(url);

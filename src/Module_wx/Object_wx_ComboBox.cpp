@@ -50,6 +50,7 @@ Gura_DeclareFunction(ComboBoxEmpty)
 
 Gura_ImplementFunction(ComboBoxEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ComboBox *pEntity = new wx_ComboBox();
 	Object_wx_ComboBox *pObj = Object_wx_ComboBox::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -80,6 +81,7 @@ Gura_DeclareFunction(ComboBox)
 
 Gura_ImplementFunction(ComboBox)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString value = wxEmptyString;

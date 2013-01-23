@@ -47,6 +47,7 @@ Gura_DeclareFunction(OutputStreamEmpty)
 
 Gura_ImplementFunction(OutputStreamEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_OutputStream *pEntity = new wx_OutputStream();
 	Object_wx_OutputStream *pObj = Object_wx_OutputStream::GetSelfObj(args);

@@ -240,6 +240,7 @@ Gura_DeclareFunction(DataViewListModel)
 
 Gura_ImplementFunction(DataViewListModel)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DataViewListModel *pEntity = new wx_DataViewListModel();
 	Object_wx_DataViewListModel *pObj = Object_wx_DataViewListModel::GetSelfObj(args);
 	if (pObj == NULL) {

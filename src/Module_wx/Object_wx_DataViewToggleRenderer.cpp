@@ -47,6 +47,7 @@ Gura_DeclareFunction(DataViewToggleRenderer)
 
 Gura_ImplementFunction(DataViewToggleRenderer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString varianttype = wxT("bool");
 	if (args.IsValid(0)) varianttype = wxString::FromUTF8(args.GetString(0));
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;

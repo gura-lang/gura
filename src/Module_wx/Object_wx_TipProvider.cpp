@@ -51,6 +51,7 @@ Gura_DeclareFunction(TipProvider)
 
 Gura_ImplementFunction(TipProvider)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	size_t currentTip = args.GetSizeT(0);
 	wx_TipProvider *pEntity = new wx_TipProvider(currentTip);

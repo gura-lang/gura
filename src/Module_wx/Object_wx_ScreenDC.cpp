@@ -45,6 +45,7 @@ Gura_DeclareFunction(ScreenDCEmpty)
 
 Gura_ImplementFunction(ScreenDCEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ScreenDC *pEntity = new wx_ScreenDC();
 	Object_wx_ScreenDC *pObj = Object_wx_ScreenDC::GetSelfObj(args);
 	if (pObj == NULL) {

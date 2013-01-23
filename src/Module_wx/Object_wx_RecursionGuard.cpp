@@ -48,6 +48,7 @@ Gura_DeclareFunction(RecursionGuard)
 
 Gura_ImplementFunction(RecursionGuard)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxRecursionGuardFlag *flag = Object_wx_RecursionGuardFlag::GetObject(args, 0)->GetEntity();
 	wx_RecursionGuard *pEntity = new wx_RecursionGuard(*flag);

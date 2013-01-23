@@ -47,6 +47,7 @@ Gura_DeclareFunction(AuiTabArtEmpty)
 
 Gura_ImplementFunction(AuiTabArtEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_AuiTabArt *pEntity = new wx_AuiTabArt();
 	Object_wx_AuiTabArt *pObj = Object_wx_AuiTabArt::GetSelfObj(args);

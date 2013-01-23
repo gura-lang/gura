@@ -49,6 +49,7 @@ Gura_DeclareFunction(WizardPageSimple)
 
 Gura_ImplementFunction(WizardPageSimple)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWizard *parent = (wxWizard *)(NULL);
 	if (args.IsValid(0)) parent = Object_wx_Wizard::GetObject(args, 0)->GetEntity();
 	wxWizardPage *prev = (wxWizardPage *)(NULL);
@@ -108,6 +109,7 @@ Gura_DeclareClassMethod(wx_WizardPageSimple, Chain)
 
 Gura_ImplementClassMethod(wx_WizardPageSimple, Chain)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWizardPageSimple *first = Object_wx_WizardPageSimple::GetObject(args, 0)->GetEntity();
 	wxWizardPageSimple *second = Object_wx_WizardPageSimple::GetObject(args, 1)->GetEntity();
 	wxWizardPageSimple::Chain(first, second);

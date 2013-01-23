@@ -49,6 +49,7 @@ Gura_DeclareFunction(BrushEmpty)
 
 Gura_ImplementFunction(BrushEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Brush *pEntity = new wx_Brush();
 	Object_wx_Brush *pObj = Object_wx_Brush::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -72,6 +73,7 @@ Gura_DeclareFunction(Brush)
 
 Gura_ImplementFunction(Brush)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	int style = wxSOLID;
 	if (args.IsValid(1)) style = args.GetInt(1);
@@ -98,6 +100,7 @@ Gura_DeclareFunction(Brush_1)
 
 Gura_ImplementFunction(Brush_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString colourName = wxString::FromUTF8(args.GetString(0));
 	int style = args.GetInt(1);
 	wx_Brush *pEntity = new wx_Brush(colourName, style);
@@ -122,6 +125,7 @@ Gura_DeclareFunction(Brush_2)
 
 Gura_ImplementFunction(Brush_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *stippleBitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_Brush *pEntity = new wx_Brush(*stippleBitmap);
 	Object_wx_Brush *pObj = Object_wx_Brush::GetSelfObj(args);
@@ -145,6 +149,7 @@ Gura_DeclareFunction(Brush_3)
 
 Gura_ImplementFunction(Brush_3)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxBrush *brush = Object_wx_Brush::GetObject(args, 0)->GetEntity();
 	wx_Brush *pEntity = new wx_Brush(*brush);
 	Object_wx_Brush *pObj = Object_wx_Brush::GetSelfObj(args);

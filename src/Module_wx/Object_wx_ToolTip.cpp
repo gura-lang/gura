@@ -44,6 +44,7 @@ Gura_DeclareClassMethod(wx_ToolTip, Enable)
 
 Gura_ImplementClassMethod(wx_ToolTip, Enable)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	bool flag = args.GetBoolean(0);
 	wxToolTip::Enable(flag);
 	return Value::Null;
@@ -57,6 +58,7 @@ Gura_DeclareClassMethod(wx_ToolTip, SetDelay)
 
 Gura_ImplementClassMethod(wx_ToolTip, SetDelay)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	long msecs = args.GetLong(0);
 	wxToolTip::SetDelay(msecs);
 	return Value::Null;
@@ -72,6 +74,7 @@ Gura_DeclareFunction(ToolTip)
 
 Gura_ImplementFunction(ToolTip)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString tip = wxString::FromUTF8(args.GetString(0));
 	wx_ToolTip *pEntity = new wx_ToolTip(tip);
 	Object_wx_ToolTip *pObj = Object_wx_ToolTip::GetSelfObj(args);

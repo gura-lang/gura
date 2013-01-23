@@ -51,6 +51,7 @@ Gura_DeclareFunction(PreviewCanvas)
 
 Gura_ImplementFunction(PreviewCanvas)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintPreview *preview = Object_wx_PrintPreview::GetObject(args, 0)->GetEntity();
 	wxWindow *parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

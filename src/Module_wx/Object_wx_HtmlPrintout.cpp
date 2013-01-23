@@ -46,6 +46,7 @@ Gura_DeclareFunction(HtmlPrintout)
 
 Gura_ImplementFunction(HtmlPrintout)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString title = wxT("Printout");
 	if (args.IsValid(0)) title = wxString::FromUTF8(args.GetString(0));
 	wx_HtmlPrintout *pEntity = new wx_HtmlPrintout(title);
@@ -68,6 +69,7 @@ Gura_DeclareClassMethod(wx_HtmlPrintout, AddFilter)
 
 Gura_ImplementClassMethod(wx_HtmlPrintout, AddFilter)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxHtmlFilter *filter = Object_wx_HtmlFilter::GetObject(args, 0)->GetEntity();
 	wxHtmlPrintout::AddFilter(filter);
 	return Value::Null;

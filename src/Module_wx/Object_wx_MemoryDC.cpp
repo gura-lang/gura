@@ -46,6 +46,7 @@ Gura_DeclareFunction(MemoryDCEmpty)
 
 Gura_ImplementFunction(MemoryDCEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MemoryDC *pEntity = new wx_MemoryDC();
 	Object_wx_MemoryDC *pObj = Object_wx_MemoryDC::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -68,6 +69,7 @@ Gura_DeclareFunction(MemoryDC)
 
 Gura_ImplementFunction(MemoryDC)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_MemoryDC *pEntity = new wx_MemoryDC(*bitmap);
 	Object_wx_MemoryDC *pObj = Object_wx_MemoryDC::GetSelfObj(args);

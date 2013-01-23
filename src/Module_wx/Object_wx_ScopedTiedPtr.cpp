@@ -45,6 +45,7 @@ Gura_DeclareFunction(ScopedTiedPtr)
 
 Gura_ImplementFunction(ScopedTiedPtr)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ScopedTiedPtr *pEntity = new wx_ScopedTiedPtr(, );
 	Object_wx_ScopedTiedPtr *pObj = Object_wx_ScopedTiedPtr::GetSelfObj(args);
 	if (pObj == NULL) {

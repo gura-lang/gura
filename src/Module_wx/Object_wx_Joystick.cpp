@@ -46,6 +46,7 @@ Gura_DeclareFunction(Joystick)
 
 Gura_ImplementFunction(Joystick)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int joystick = wxJOYSTICK1;
 	if (args.IsValid(0)) joystick = args.GetInt(0);
 	wx_Joystick *pEntity = new wx_Joystick(joystick);
@@ -138,6 +139,7 @@ Gura_DeclareClassMethod(wx_Joystick, GetNumberJoysticks)
 
 Gura_ImplementClassMethod(wx_Joystick, GetNumberJoysticks)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int rtn = wxJoystick::GetNumberJoysticks();
 	return ReturnValue(env, sig, args, Value(rtn));
 }

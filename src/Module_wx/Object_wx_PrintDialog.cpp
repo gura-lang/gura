@@ -47,6 +47,7 @@ Gura_DeclareFunction(PrintDialog)
 
 Gura_ImplementFunction(PrintDialog)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxPrintDialogData *data = (wxPrintDialogData *)(NULL);
 	if (args.IsValid(1)) data = Object_wx_PrintDialogData::GetObject(args, 1)->GetEntity();

@@ -58,6 +58,7 @@ Gura_DeclareFunction(LogWindow)
 
 Gura_ImplementFunction(LogWindow)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxFrame **parent = Object_wx_Frame::GetObject(args, 0)->GetEntity();
 	wxChar *title = static_cast<wxChar>(args.GetInt(1));

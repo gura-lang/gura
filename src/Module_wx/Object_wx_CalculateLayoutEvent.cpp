@@ -46,6 +46,7 @@ Gura_DeclareFunction(CalculateLayoutEvent)
 
 Gura_ImplementFunction(CalculateLayoutEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindowID id = 0;
 	if (args.IsValid(0)) id = static_cast<wxWindowID>(args.GetInt(0));
 	wx_CalculateLayoutEvent *pEntity = new wx_CalculateLayoutEvent(id);

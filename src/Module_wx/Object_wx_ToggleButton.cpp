@@ -46,6 +46,7 @@ Gura_DeclareFunction(ToggleButtonEmpty)
 
 Gura_ImplementFunction(ToggleButtonEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ToggleButton *pEntity = new wx_ToggleButton();
 	Object_wx_ToggleButton *pObj = Object_wx_ToggleButton::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -75,6 +76,7 @@ Gura_DeclareFunction(ToggleButton)
 
 Gura_ImplementFunction(ToggleButton)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString label = wxString::FromUTF8(args.GetString(2));

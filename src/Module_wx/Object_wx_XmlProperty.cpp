@@ -46,6 +46,7 @@ Gura_DeclareFunction(XmlPropertyEmpty)
 
 Gura_ImplementFunction(XmlPropertyEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_XmlProperty *pEntity = new wx_XmlProperty();
 	Object_wx_XmlProperty *pObj = Object_wx_XmlProperty::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -70,6 +71,7 @@ Gura_DeclareFunction(XmlProperty)
 
 Gura_ImplementFunction(XmlProperty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString value = wxString::FromUTF8(args.GetString(1));
 	wxXmlProperty *next = (wxXmlProperty *)(NULL);

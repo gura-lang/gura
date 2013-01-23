@@ -46,6 +46,7 @@ Gura_DeclareFunction(AutomationObject)
 
 Gura_ImplementFunction(AutomationObject)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_AutomationObject *pEntity = new wx_AutomationObject();
 	Object_wx_AutomationObject *pObj = Object_wx_AutomationObject::GetSelfObj(args);
 	if (pObj == NULL) {

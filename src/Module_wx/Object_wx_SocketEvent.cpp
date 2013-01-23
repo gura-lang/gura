@@ -46,6 +46,7 @@ Gura_DeclareFunction(SocketEvent)
 
 Gura_ImplementFunction(SocketEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wx_SocketEvent *pEntity = new wx_SocketEvent(id);

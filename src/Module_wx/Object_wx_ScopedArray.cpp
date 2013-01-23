@@ -45,6 +45,7 @@ Gura_DeclareFunction(ScopedArray)
 
 Gura_ImplementFunction(ScopedArray)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ScopedArray *pEntity = new wx_ScopedArray();
 	Object_wx_ScopedArray *pObj = Object_wx_ScopedArray::GetSelfObj(args);
 	if (pObj == NULL) {

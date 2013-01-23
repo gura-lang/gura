@@ -46,6 +46,7 @@ Gura_DeclareFunction(SingleInstanceCheckerEmpty)
 
 Gura_ImplementFunction(SingleInstanceCheckerEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SingleInstanceChecker *pEntity = new wx_SingleInstanceChecker();
 	Object_wx_SingleInstanceChecker *pObj = Object_wx_SingleInstanceChecker::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -69,6 +70,7 @@ Gura_DeclareFunction(SingleInstanceChecker)
 
 Gura_ImplementFunction(SingleInstanceChecker)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString path = wxEmptyString;
 	if (args.IsValid(1)) path = wxString::FromUTF8(args.GetString(1));

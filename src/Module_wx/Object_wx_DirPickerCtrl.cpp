@@ -54,6 +54,7 @@ Gura_DeclareFunction(DirPickerCtrl)
 
 Gura_ImplementFunction(DirPickerCtrl)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString path = wxEmptyString;

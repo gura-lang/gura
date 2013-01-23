@@ -46,6 +46,7 @@ Gura_DeclareFunction(MetafileDC)
 
 Gura_ImplementFunction(MetafileDC)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString filename = wxT("");
 	if (args.IsValid(0)) filename = wxString::FromUTF8(args.GetString(0));
 	wx_MetafileDC *pEntity = new wx_MetafileDC(filename);

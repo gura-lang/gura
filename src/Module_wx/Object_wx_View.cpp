@@ -68,6 +68,7 @@ Gura_DeclareFunction(ViewEmpty)
 
 Gura_ImplementFunction(ViewEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_View *pEntity = new wx_View();
 	Object_wx_View *pObj = Object_wx_View::GetSelfObj(args);

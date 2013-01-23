@@ -88,6 +88,7 @@ Gura_DeclareClassMethod(wx_DC, CacheEnabled)
 
 Gura_ImplementClassMethod(wx_DC, CacheEnabled)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	bool rtn = wxDC::CacheEnabled();
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -133,6 +134,7 @@ Gura_DeclareClassMethod(wx_DC, ClearCache)
 
 Gura_ImplementClassMethod(wx_DC, ClearCache)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if defined(__WXMSW__)
 	wxDC::ClearCache();
 	return Value::Null;
@@ -822,6 +824,7 @@ Gura_DeclareClassMethod(wx_DC, EnableCache)
 
 Gura_ImplementClassMethod(wx_DC, EnableCache)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	bool enableCache = args.GetBoolean(0);
 	wxDC::EnableCache(enableCache);

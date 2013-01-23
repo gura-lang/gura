@@ -47,6 +47,7 @@ Gura_DeclareFunction(DataViewListModelNotifierEmpty)
 
 Gura_ImplementFunction(DataViewListModelNotifierEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_DataViewListModelNotifier *pEntity = new wx_DataViewListModelNotifier();
 	Object_wx_DataViewListModelNotifier *pObj = Object_wx_DataViewListModelNotifier::GetSelfObj(args);

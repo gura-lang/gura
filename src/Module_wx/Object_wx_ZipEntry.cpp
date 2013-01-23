@@ -49,6 +49,7 @@ Gura_DeclareFunction(ZipEntry)
 
 Gura_ImplementFunction(ZipEntry)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxEmptyString;
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
 	wxDateTime dt = wxDateTime::Now();
@@ -77,6 +78,7 @@ Gura_DeclareFunction(ZipEntry_1)
 
 Gura_ImplementFunction(ZipEntry_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxZipEntry *entry = Object_wx_ZipEntry::GetObject(args, 0)->GetEntity();
 	wx_ZipEntry *pEntity = new wx_ZipEntry(*entry);
 	Object_wx_ZipEntry *pObj = Object_wx_ZipEntry::GetSelfObj(args);

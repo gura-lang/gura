@@ -47,6 +47,7 @@ Gura_DeclareFunction(CaretEmpty)
 
 Gura_ImplementFunction(CaretEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Caret *pEntity = new wx_Caret();
 	Object_wx_Caret *pObj = Object_wx_Caret::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -71,6 +72,7 @@ Gura_DeclareFunction(Caret)
 
 Gura_ImplementFunction(Caret)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	int width = args.GetInt(1);
 	int height = args.GetInt(2);
@@ -97,6 +99,7 @@ Gura_DeclareFunction(Caret_1)
 
 Gura_ImplementFunction(Caret_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindowBase *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxSize *size = Object_wx_Size::GetObject(args, 1)->GetEntity();
 	wx_Caret *pEntity = new wx_Caret(window, *size);
@@ -157,6 +160,7 @@ Gura_DeclareClassMethod(wx_Caret, GetBlinkTime)
 
 Gura_ImplementClassMethod(wx_Caret, GetBlinkTime)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int rtn = wxCaret::GetBlinkTime();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -330,6 +334,7 @@ Gura_DeclareClassMethod(wx_Caret, SetBlinkTime)
 
 Gura_ImplementClassMethod(wx_Caret, SetBlinkTime)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int milliseconds = args.GetInt(0);
 	wxCaret::SetBlinkTime(milliseconds);
 	return Value::Null;

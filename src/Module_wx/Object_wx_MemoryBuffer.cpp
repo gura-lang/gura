@@ -47,6 +47,7 @@ Gura_DeclareFunction(MemoryBuffer)
 
 Gura_ImplementFunction(MemoryBuffer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxMemoryBuffer *src = Object_wx_MemoryBuffer::GetObject(args, 0)->GetEntity();
 	wx_MemoryBuffer *pEntity = new wx_MemoryBuffer(*src);
 	Object_wx_MemoryBuffer *pObj = Object_wx_MemoryBuffer::GetSelfObj(args);
@@ -70,6 +71,7 @@ Gura_DeclareFunction(MemoryBuffer_1)
 
 Gura_ImplementFunction(MemoryBuffer_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	size_t size = args.GetSizeT(0);
 	wx_MemoryBuffer *pEntity = new wx_MemoryBuffer(size);
 	Object_wx_MemoryBuffer *pObj = Object_wx_MemoryBuffer::GetSelfObj(args);

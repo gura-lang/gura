@@ -58,6 +58,7 @@ Gura_DeclareFunction(GLCanvas)
 
 Gura_ImplementFunction(GLCanvas)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = -1;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
@@ -105,6 +106,7 @@ Gura_DeclareFunction(GLCanvas_1)
 
 Gura_ImplementFunction(GLCanvas_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxGLContext *sharedContext = Object_wx_GLContext::GetObject(args, 1)->GetEntity();
 	wxWindowID id = -1;
@@ -154,6 +156,7 @@ Gura_DeclareFunction(GLCanvas_2)
 
 Gura_ImplementFunction(GLCanvas_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxGLCanvas *sharedCanvas = Object_wx_GLCanvas::GetObject(args, 1)->GetEntity();
 	wxWindowID id = -1;

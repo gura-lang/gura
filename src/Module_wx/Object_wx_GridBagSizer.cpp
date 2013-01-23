@@ -47,6 +47,7 @@ Gura_DeclareFunction(GridBagSizer)
 
 Gura_ImplementFunction(GridBagSizer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int vgap = 0;
 	if (args.IsValid(0)) vgap = args.GetInt(0);
 	int hgap = 0;

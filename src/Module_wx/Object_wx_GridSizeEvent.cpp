@@ -46,6 +46,7 @@ Gura_DeclareFunction(GridSizeEventEmpty)
 
 Gura_ImplementFunction(GridSizeEventEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridSizeEvent *pEntity = new wx_GridSizeEvent();
 	Object_wx_GridSizeEvent *pObj = Object_wx_GridSizeEvent::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -77,6 +78,7 @@ Gura_DeclareFunction(GridSizeEvent)
 
 Gura_ImplementFunction(GridSizeEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxEventType type = static_cast<wxEventType>(args.GetInt(1));
 	wxObject *obj = Object_wx_Object::GetObject(args, 2)->GetEntity();

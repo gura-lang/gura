@@ -47,6 +47,7 @@ Gura_DeclareFunction(FontDialogEmpty)
 
 Gura_ImplementFunction(FontDialogEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FontDialog *pEntity = new wx_FontDialog();
 	Object_wx_FontDialog *pObj = Object_wx_FontDialog::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -70,6 +71,7 @@ Gura_DeclareFunction(FontDialog)
 
 Gura_ImplementFunction(FontDialog)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
 	wx_FontDialog *pEntity = NULL;

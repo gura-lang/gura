@@ -46,6 +46,7 @@ Gura_DeclareFunction(ButtonEmpty)
 
 Gura_ImplementFunction(ButtonEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Button *pEntity = new wx_Button();
 	Object_wx_Button *pObj = Object_wx_Button::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -75,6 +76,7 @@ Gura_DeclareFunction(Button)
 
 Gura_ImplementFunction(Button)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString label = wxEmptyString;

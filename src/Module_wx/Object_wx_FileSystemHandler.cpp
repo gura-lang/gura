@@ -56,6 +56,7 @@ Gura_DeclareFunction(FileSystemHandlerEmpty)
 
 Gura_ImplementFunction(FileSystemHandlerEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_FileSystemHandler *pEntity = new wx_FileSystemHandler();
 	Object_wx_FileSystemHandler *pObj = Object_wx_FileSystemHandler::GetSelfObj(args);

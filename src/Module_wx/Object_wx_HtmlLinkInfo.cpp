@@ -46,6 +46,7 @@ Gura_DeclareFunction(HtmlLinkInfoEmpty)
 
 Gura_ImplementFunction(HtmlLinkInfoEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HtmlLinkInfo *pEntity = new wx_HtmlLinkInfo();
 	Object_wx_HtmlLinkInfo *pObj = Object_wx_HtmlLinkInfo::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -69,6 +70,7 @@ Gura_DeclareFunction(HtmlLinkInfo)
 
 Gura_ImplementFunction(HtmlLinkInfo)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString href = wxString::FromUTF8(args.GetString(0));
 	wxString target = wxEmptyString;
 	if (args.IsValid(1)) target = wxString::FromUTF8(args.GetString(1));

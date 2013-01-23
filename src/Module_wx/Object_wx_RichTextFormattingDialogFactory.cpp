@@ -62,6 +62,7 @@ Gura_DeclareFunction(RichTextFormattingDialogFactoryEmpty)
 
 Gura_ImplementFunction(RichTextFormattingDialogFactoryEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RichTextFormattingDialogFactory *pEntity = new wx_RichTextFormattingDialogFactory();
 	Object_wx_RichTextFormattingDialogFactory *pObj = Object_wx_RichTextFormattingDialogFactory::GetSelfObj(args);
 	if (pObj == NULL) {

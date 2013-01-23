@@ -46,6 +46,7 @@ Gura_DeclareFunction(TempFileOutputStream)
 
 Gura_ImplementFunction(TempFileOutputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString fileName = wxString::FromUTF8(args.GetString(0));
 	wx_TempFileOutputStream *pEntity = new wx_TempFileOutputStream(fileName);
 	Object_wx_TempFileOutputStream *pObj = Object_wx_TempFileOutputStream::GetSelfObj(args);

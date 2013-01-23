@@ -46,6 +46,7 @@ Gura_DeclareFunction(GridCellAttrEmpty)
 
 Gura_ImplementFunction(GridCellAttrEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellAttr *pEntity = new wx_GridCellAttr();
 	Object_wx_GridCellAttr *pObj = Object_wx_GridCellAttr::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -72,6 +73,7 @@ Gura_DeclareFunction(GridCellAttr)
 
 Gura_ImplementFunction(GridCellAttr)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxColour *colText = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	wxColour *colBack = Object_wx_Colour::GetObject(args, 1)->GetEntity();
 	wxFont *font = Object_wx_Font::GetObject(args, 2)->GetEntity();

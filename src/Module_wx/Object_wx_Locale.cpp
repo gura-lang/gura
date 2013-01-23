@@ -49,6 +49,7 @@ Gura_DeclareFunction(Locale)
 
 Gura_ImplementFunction(Locale)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Locale *pEntity = NULL;
 	if (args.IsValid(0)) {
 		int language = args.GetInt(0);
@@ -86,6 +87,7 @@ Gura_DeclareFunction(Locale_1)
 
 Gura_ImplementFunction(Locale_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char *szName = args.GetChar(0);
 	char *szShort = NULL;
@@ -151,6 +153,7 @@ Gura_DeclareClassMethod(wx_Locale, AddCatalogLookupPathPrefix)
 
 Gura_ImplementClassMethod(wx_Locale, AddCatalogLookupPathPrefix)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString prefix = wxString::FromUTF8(args.GetString(0));
 	wxLocale::AddCatalogLookupPathPrefix(prefix);
 	return Value::Null;
@@ -164,6 +167,7 @@ Gura_DeclareClassMethod(wx_Locale, AddLanguage)
 
 Gura_ImplementClassMethod(wx_Locale, AddLanguage)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxLanguageInfo *info = Object_wx_LanguageInfo::GetObject(args, 0)->GetEntity();
 	wxLocale::AddLanguage(*info);
 	return Value::Null;
@@ -178,6 +182,7 @@ Gura_DeclareClassMethod(wx_Locale, FindLanguageInfo)
 
 Gura_ImplementClassMethod(wx_Locale, FindLanguageInfo)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString locale = wxString::FromUTF8(args.GetString(0));
 	wxLanguageInfo *rtn = (wxLanguageInfo *)wxLocale::FindLanguageInfo(locale);
 	Value value;
@@ -224,6 +229,7 @@ Gura_DeclareClassMethod(wx_Locale, GetLanguageInfo)
 
 Gura_ImplementClassMethod(wx_Locale, GetLanguageInfo)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int lang = args.GetInt(0);
 	wxLanguageInfo *rtn = (wxLanguageInfo *)wxLocale::GetLanguageInfo(lang);
 	Value value;
@@ -242,6 +248,7 @@ Gura_DeclareClassMethod(wx_Locale, GetLanguageName)
 
 Gura_ImplementClassMethod(wx_Locale, GetLanguageName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int lang = args.GetInt(0);
 	wxString rtn = wxLocale::GetLanguageName(lang);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
@@ -375,6 +382,7 @@ Gura_DeclareClassMethod(wx_Locale, GetSystemEncoding)
 
 Gura_ImplementClassMethod(wx_Locale, GetSystemEncoding)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxFontEncoding rtn = wxLocale::GetSystemEncoding();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -387,6 +395,7 @@ Gura_DeclareClassMethod(wx_Locale, GetSystemEncodingName)
 
 Gura_ImplementClassMethod(wx_Locale, GetSystemEncodingName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxLocale::GetSystemEncodingName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
@@ -399,6 +408,7 @@ Gura_DeclareClassMethod(wx_Locale, GetSystemLanguage)
 
 Gura_ImplementClassMethod(wx_Locale, GetSystemLanguage)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int rtn = wxLocale::GetSystemLanguage();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -466,6 +476,7 @@ Gura_DeclareClassMethod(wx_Locale, IsAvailable)
 
 Gura_ImplementClassMethod(wx_Locale, IsAvailable)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int lang = args.GetInt(0);
 	bool rtn = wxLocale::IsAvailable(lang);
 	return ReturnValue(env, sig, args, Value(rtn));

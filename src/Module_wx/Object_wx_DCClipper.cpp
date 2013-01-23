@@ -49,6 +49,7 @@ Gura_DeclareFunction(DCClipper)
 
 Gura_ImplementFunction(DCClipper)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxRegion *r = Object_wx_Region::GetObject(args, 1)->GetEntity();
 	wx_DCClipper *pEntity = new wx_DCClipper(*dc, *r);
@@ -74,6 +75,7 @@ Gura_DeclareFunction(DCClipper_1)
 
 Gura_ImplementFunction(DCClipper_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
 	wx_DCClipper *pEntity = new wx_DCClipper(*dc, *rect);
@@ -102,6 +104,7 @@ Gura_DeclareFunction(DCClipper_2)
 
 Gura_ImplementFunction(DCClipper_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);

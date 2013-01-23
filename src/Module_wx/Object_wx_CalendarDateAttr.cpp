@@ -47,6 +47,7 @@ Gura_DeclareFunction(CalendarDateAttrEmpty)
 
 Gura_ImplementFunction(CalendarDateAttrEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_CalendarDateAttr *pEntity = new wx_CalendarDateAttr();
 	Object_wx_CalendarDateAttr *pObj = Object_wx_CalendarDateAttr::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -73,6 +74,7 @@ Gura_DeclareFunction(CalendarDateAttr)
 
 Gura_ImplementFunction(CalendarDateAttr)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxColour *colText = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	wxColour *colBack = (wxColour *)(&wxNullColour);
 	if (args.IsValid(1)) colBack = Object_wx_Colour::GetObject(args, 1)->GetEntity();
@@ -105,6 +107,7 @@ Gura_DeclareFunction(CalendarDateAttr_1)
 
 Gura_ImplementFunction(CalendarDateAttr_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxCalendarDateBorder border = static_cast<wxCalendarDateBorder>(args.GetInt(0));
 	wxColour *colBorder = (wxColour *)(&wxNullColour);
 	if (args.IsValid(1)) colBorder = Object_wx_Colour::GetObject(args, 1)->GetEntity();

@@ -80,6 +80,7 @@ Gura_DeclareFunction(GridEmpty)
 
 Gura_ImplementFunction(GridEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Grid *pEntity = new wx_Grid();
 	Object_wx_Grid *pObj = Object_wx_Grid::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -107,6 +108,7 @@ Gura_DeclareFunction(Grid)
 
 Gura_ImplementFunction(Grid)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

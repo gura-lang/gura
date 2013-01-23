@@ -46,6 +46,7 @@ Gura_DeclareFunction(RichTextHeaderFooterDataEmpty)
 
 Gura_ImplementFunction(RichTextHeaderFooterDataEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RichTextHeaderFooterData *pEntity = new wx_RichTextHeaderFooterData();
 	Object_wx_RichTextHeaderFooterData *pObj = Object_wx_RichTextHeaderFooterData::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -68,6 +69,7 @@ Gura_DeclareFunction(RichTextHeaderFooterData)
 
 Gura_ImplementFunction(RichTextHeaderFooterData)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRichTextHeaderFooterData *data = Object_wx_RichTextHeaderFooterData::GetObject(args, 0)->GetEntity();
 	wx_RichTextHeaderFooterData *pEntity = new wx_RichTextHeaderFooterData(*data);
 	Object_wx_RichTextHeaderFooterData *pObj = Object_wx_RichTextHeaderFooterData::GetSelfObj(args);

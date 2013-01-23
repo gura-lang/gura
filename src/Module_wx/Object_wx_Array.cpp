@@ -251,6 +251,7 @@ Gura_DeclareFunction(ArrayEmpty)
 
 Gura_ImplementFunction(ArrayEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Array *pEntity = new wx_Array();
 	Object_wx_Array *pObj = Object_wx_Array::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -301,6 +302,7 @@ Gura_DeclareFunction(Array)
 
 Gura_ImplementFunction(Array)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxArray *array = Object_wx_Array::GetObject(args, 0)->GetEntity();
 	wx_Array *pEntity = new wx_Array(*array);
 	Object_wx_Array *pObj = Object_wx_Array::GetSelfObj(args);

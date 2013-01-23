@@ -47,6 +47,7 @@ Gura_DeclareFunction(PaletteEmpty)
 
 Gura_ImplementFunction(PaletteEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Palette *pEntity = new wx_Palette();
 	Object_wx_Palette *pObj = Object_wx_Palette::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -69,6 +70,7 @@ Gura_DeclareFunction(Palette)
 
 Gura_ImplementFunction(Palette)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPalette *palette = Object_wx_Palette::GetObject(args, 0)->GetEntity();
 	wx_Palette *pEntity = new wx_Palette(*palette);
 	Object_wx_Palette *pObj = Object_wx_Palette::GetSelfObj(args);
@@ -97,6 +99,7 @@ Gura_DeclareFunction(Palette_1)
 
 Gura_ImplementFunction(Palette_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	int n = args.GetInt(0);
 	unsigned char red = args.GetUChar(1);

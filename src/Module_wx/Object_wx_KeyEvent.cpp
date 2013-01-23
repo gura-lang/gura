@@ -46,6 +46,7 @@ Gura_DeclareFunction(KeyEvent)
 
 Gura_ImplementFunction(KeyEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	WXTYPE keyEventType = static_cast<WXTYPE>(args.GetInt(0));
 	wx_KeyEvent *pEntity = new wx_KeyEvent(keyEventType);
 	Object_wx_KeyEvent *pObj = Object_wx_KeyEvent::GetSelfObj(args);

@@ -45,6 +45,7 @@ Gura_DeclareFunction(HtmlDCRendererEmpty)
 
 Gura_ImplementFunction(HtmlDCRendererEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HtmlDCRenderer *pEntity = new wx_HtmlDCRenderer();
 	Object_wx_HtmlDCRenderer *pObj = Object_wx_HtmlDCRenderer::GetSelfObj(args);
 	if (pObj == NULL) {

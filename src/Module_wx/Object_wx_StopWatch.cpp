@@ -45,6 +45,7 @@ Gura_DeclareFunction(StopWatch)
 
 Gura_ImplementFunction(StopWatch)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StopWatch *pEntity = new wx_StopWatch();
 	Object_wx_StopWatch *pObj = Object_wx_StopWatch::GetSelfObj(args);
 	if (pObj == NULL) {

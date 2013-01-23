@@ -45,6 +45,7 @@ Gura_DeclareFunction(Clipboard)
 
 Gura_ImplementFunction(Clipboard)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Clipboard *pEntity = new wx_Clipboard();
 	Object_wx_Clipboard *pObj = Object_wx_Clipboard::GetSelfObj(args);
 	if (pObj == NULL) {

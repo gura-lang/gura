@@ -46,6 +46,7 @@ Gura_DeclareFunction(WindowDisabler)
 
 Gura_ImplementFunction(WindowDisabler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *winToSkip = (wxWindow *)(NULL);
 	if (args.IsValid(0)) winToSkip = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_WindowDisabler windowDisabler(winToSkip);

@@ -57,6 +57,7 @@ Gura_DeclareFunction(DropSource)
 
 Gura_ImplementFunction(DropSource)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxWindow *win = (wxWindow *)(NULL);
 	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();
@@ -97,6 +98,7 @@ Gura_DeclareFunction(DropSource_1)
 
 Gura_ImplementFunction(DropSource_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDataObject *data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();
 	wxWindow *win = (wxWindow *)(NULL);

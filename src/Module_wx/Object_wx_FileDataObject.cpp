@@ -48,6 +48,7 @@ Gura_DeclareFunction(FileDataObjectEmpty)
 
 Gura_ImplementFunction(FileDataObjectEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FileDataObject *pEntity = new wx_FileDataObject();
 	Object_wx_FileDataObject *pObj = Object_wx_FileDataObject::GetSelfObj(args);
 	if (pObj == NULL) {

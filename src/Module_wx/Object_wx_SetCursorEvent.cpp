@@ -47,6 +47,7 @@ Gura_DeclareFunction(SetCursorEvent)
 
 Gura_ImplementFunction(SetCursorEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxCoord x = 0;
 	if (args.IsValid(0)) x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = 0;

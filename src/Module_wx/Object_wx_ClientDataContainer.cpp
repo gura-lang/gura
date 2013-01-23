@@ -45,6 +45,7 @@ Gura_DeclareFunction(ClientDataContainerEmpty)
 
 Gura_ImplementFunction(ClientDataContainerEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ClientDataContainer *pEntity = new wx_ClientDataContainer();
 	Object_wx_ClientDataContainer *pObj = Object_wx_ClientDataContainer::GetSelfObj(args);
 	if (pObj == NULL) {

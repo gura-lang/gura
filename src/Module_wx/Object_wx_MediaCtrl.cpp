@@ -46,6 +46,7 @@ Gura_DeclareFunction(MediaCtrlEmpty)
 
 Gura_ImplementFunction(MediaCtrlEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MediaCtrl *pEntity = new wx_MediaCtrl();
 	Object_wx_MediaCtrl *pObj = Object_wx_MediaCtrl::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -76,6 +77,7 @@ Gura_DeclareFunction(MediaCtrl)
 
 Gura_ImplementFunction(MediaCtrl)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString fileName = wxT("");

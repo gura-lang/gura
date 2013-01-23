@@ -85,6 +85,7 @@ Gura_DeclareFunction(HelpController)
 
 Gura_ImplementFunction(HelpController)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parentWindow = (wxWindow *)(NULL);
 	if (args.IsValid(0)) parentWindow = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_HelpController *pEntity = new wx_HelpController(parentWindow);

@@ -55,6 +55,7 @@ Gura_DeclareFunction(XmlNode)
 
 Gura_ImplementFunction(XmlNode)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxXmlNode *parent = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
 	wxXmlNodeType type = static_cast<wxXmlNodeType>(args.GetInt(1));
@@ -90,6 +91,7 @@ Gura_DeclareFunction(XmlNode_1)
 
 Gura_ImplementFunction(XmlNode_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
 	wx_XmlNode *pEntity = new wx_XmlNode(*node);
 	Object_wx_XmlNode *pObj = Object_wx_XmlNode::GetSelfObj(args);
@@ -115,6 +117,7 @@ Gura_DeclareFunction(XmlNode_2)
 
 Gura_ImplementFunction(XmlNode_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxXmlNodeType type = static_cast<wxXmlNodeType>(args.GetInt(0));
 	wxString name = wxString::FromUTF8(args.GetString(1));
 	wxString content = wxEmptyString;

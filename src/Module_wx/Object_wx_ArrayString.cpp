@@ -48,6 +48,7 @@ Gura_DeclareFunction(ArrayStringEmpty)
 
 Gura_ImplementFunction(ArrayStringEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ArrayString *pEntity = new wx_ArrayString();
 	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -70,6 +71,7 @@ Gura_DeclareFunction(ArrayString)
 
 Gura_ImplementFunction(ArrayString)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	std::auto_ptr<wxArrayString> array(CreateArrayString(args.GetList(0)));
 	wx_ArrayString *pEntity = new wx_ArrayString(*array);
 	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetSelfObj(args);
@@ -94,6 +96,7 @@ Gura_DeclareFunction(ArrayString_1)
 
 Gura_ImplementFunction(ArrayString_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	size_t sz = args.GetSizeT(0);
 	wxChar arr = static_cast<wxChar>(args.GetInt(1));
 	wx_ArrayString *pEntity = new wx_ArrayString(sz, arr);
@@ -119,6 +122,7 @@ Gura_DeclareFunction(ArrayString_2)
 
 Gura_ImplementFunction(ArrayString_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	size_t sz = args.GetSizeT(0);
 	wxString arr = wxString::FromUTF8(args.GetString(1));
 	wx_ArrayString *pEntity = new wx_ArrayString(sz, arr);

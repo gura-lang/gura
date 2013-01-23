@@ -46,6 +46,7 @@ Gura_DeclareFunction(CriticalSectionLocker)
 
 Gura_ImplementFunction(CriticalSectionLocker)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxCriticalSection *criticalsection = Object_wx_CriticalSection::GetObject(args, 0)->GetEntity();
 	wx_CriticalSectionLocker *pEntity = new wx_CriticalSectionLocker(*criticalsection);
 	Object_wx_CriticalSectionLocker *pObj = Object_wx_CriticalSectionLocker::GetSelfObj(args);

@@ -46,6 +46,7 @@ Gura_DeclareFunction(BoxSizer)
 
 Gura_ImplementFunction(BoxSizer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int orient = args.GetInt(0);
 	wx_BoxSizer *pEntity = new wx_BoxSizer(orient);
 	Object_wx_BoxSizer *pObj = Object_wx_BoxSizer::GetSelfObj(args);

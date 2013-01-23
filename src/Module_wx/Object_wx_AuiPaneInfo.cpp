@@ -46,6 +46,7 @@ Gura_DeclareFunction(AuiPaneInfoEmpty)
 
 Gura_ImplementFunction(AuiPaneInfoEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_AuiPaneInfo *pEntity = new wx_AuiPaneInfo();
 	Object_wx_AuiPaneInfo *pObj = Object_wx_AuiPaneInfo::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -68,6 +69,7 @@ Gura_DeclareFunction(AuiPaneInfo)
 
 Gura_ImplementFunction(AuiPaneInfo)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxAuiPaneInfo *c = Object_wx_AuiPaneInfo::GetObject(args, 0)->GetEntity();
 	wx_AuiPaneInfo *pEntity = new wx_AuiPaneInfo(*c);
 	Object_wx_AuiPaneInfo *pObj = Object_wx_AuiPaneInfo::GetSelfObj(args);

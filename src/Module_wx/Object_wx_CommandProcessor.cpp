@@ -63,6 +63,7 @@ Gura_DeclareFunction(CommandProcessor)
 
 Gura_ImplementFunction(CommandProcessor)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int maxCommands = -1;
 	if (args.IsValid(0)) maxCommands = args.GetInt(0);
 	wx_CommandProcessor *pEntity = new wx_CommandProcessor(maxCommands);

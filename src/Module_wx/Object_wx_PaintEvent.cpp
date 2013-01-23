@@ -46,6 +46,7 @@ Gura_DeclareFunction(PaintEvent)
 
 Gura_ImplementFunction(PaintEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wx_PaintEvent *pEntity = new wx_PaintEvent(id);

@@ -47,6 +47,7 @@ Gura_DeclareFunction(ChoiceEmpty)
 
 Gura_ImplementFunction(ChoiceEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Choice *pEntity = new wx_Choice();
 	Object_wx_Choice *pObj = Object_wx_Choice::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -76,6 +77,7 @@ Gura_DeclareFunction(Choice)
 
 Gura_ImplementFunction(Choice)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

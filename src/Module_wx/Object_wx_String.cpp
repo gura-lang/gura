@@ -52,6 +52,7 @@ Gura_DeclareFunction(String)
 
 Gura_ImplementFunction(String)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_String *pEntity = args.IsValid(0)?
 		new wx_String(wxString::FromUTF8(args.GetString(0))) : new wx_String();
 	Object_wx_String *pObj = Object_wx_String::GetSelfObj(args);
@@ -78,6 +79,7 @@ Gura_DeclareFunction(String_1)
 
 Gura_ImplementFunction(String_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxChar ch = static_cast<wxChar>(args.GetInt(0));
 	size_t n = 1;
@@ -110,6 +112,7 @@ Gura_DeclareFunction(String_2)
 
 Gura_ImplementFunction(String_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString psz = wxString::FromUTF8(args.GetString(0));
 	size_t nLength = wxSTRING_MAXLEN;
@@ -142,6 +145,7 @@ Gura_DeclareFunction(String_3)
 
 Gura_ImplementFunction(String_3)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	unsigned char psz = args.GetUChar(0);
 	size_t nLength = wxSTRING_MAXLEN;
@@ -175,6 +179,7 @@ Gura_DeclareFunction(String_4)
 
 Gura_ImplementFunction(String_4)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wchar_t psz = static_cast<wchar_t>(args.GetUShort(0));
 	wxMBConv *conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
@@ -209,6 +214,7 @@ Gura_DeclareFunction(String_5)
 
 Gura_ImplementFunction(String_5)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char psz = args.GetChar(0);
 	wxMBConv *conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
@@ -685,6 +691,7 @@ Gura_DeclareClassMethod(wx_String, Format)
 
 Gura_ImplementClassMethod(wx_String, Format)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxChar *format = static_cast<wxChar>(args.GetInt(0));
 	wxString rtn = wxString::Format(*format, );
@@ -728,6 +735,7 @@ Gura_DeclareClassMethod(wx_String, From8BitData)
 
 Gura_ImplementClassMethod(wx_String, From8BitData)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char buf = args.GetChar(0);
 	size_t len = args.GetSizeT(1);
@@ -749,6 +757,7 @@ Gura_DeclareClassMethod(wx_String, From8BitData_1)
 
 Gura_ImplementClassMethod(wx_String, From8BitData_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char buf = args.GetChar(0);
 	wxString rtn = wxString::From8BitData(buf);
@@ -769,6 +778,7 @@ Gura_DeclareClassMethod(wx_String, FromAscii)
 
 Gura_ImplementClassMethod(wx_String, FromAscii)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char s = args.GetChar(0);
 	wxString rtn = wxString::FromAscii(s);
@@ -789,6 +799,7 @@ Gura_DeclareClassMethod(wx_String, FromAscii_1)
 
 Gura_ImplementClassMethod(wx_String, FromAscii_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char c = args.GetChar(0);
 	wxString rtn = wxString::FromAscii(c);

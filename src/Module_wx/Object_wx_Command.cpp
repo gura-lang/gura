@@ -49,6 +49,7 @@ Gura_DeclareFunction(Command)
 
 Gura_ImplementFunction(Command)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	bool canUndo = false;
 	if (args.IsValid(0)) canUndo = args.GetBoolean(0);

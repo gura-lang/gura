@@ -121,6 +121,7 @@ Gura_DeclareFunction(ListCtrlEmpty)
 
 Gura_ImplementFunction(ListCtrlEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ListCtrl *pEntity = new wx_ListCtrl();
 	Object_wx_ListCtrl *pObj = Object_wx_ListCtrl::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -149,6 +150,7 @@ Gura_DeclareFunction(ListCtrl)
 
 Gura_ImplementFunction(ListCtrl)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

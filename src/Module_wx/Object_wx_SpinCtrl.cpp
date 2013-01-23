@@ -46,6 +46,7 @@ Gura_DeclareFunction(SpinCtrlEmpty)
 
 Gura_ImplementFunction(SpinCtrlEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SpinCtrl *pEntity = new wx_SpinCtrl();
 	Object_wx_SpinCtrl *pObj = Object_wx_SpinCtrl::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -77,6 +78,7 @@ Gura_DeclareFunction(SpinCtrl)
 
 Gura_ImplementFunction(SpinCtrl)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = -1;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));

@@ -47,6 +47,7 @@ Gura_DeclareFunction(RichTextAttr)
 
 Gura_ImplementFunction(RichTextAttr)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RichTextAttr *pEntity = new wx_RichTextAttr();
 	Object_wx_RichTextAttr *pObj = Object_wx_RichTextAttr::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -71,6 +72,7 @@ Gura_DeclareFunction(RichTextAttr_2)
 
 Gura_ImplementFunction(RichTextAttr_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxColour *colText = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	wxColour *colBack = (wxColour *)(&wxNullColour);
 	if (args.IsValid(1)) colBack = Object_wx_Colour::GetObject(args, 1)->GetEntity();
@@ -98,6 +100,7 @@ Gura_DeclareFunction(RichTextAttr_1)
 
 Gura_ImplementFunction(RichTextAttr_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxTextAttrEx *attr = Object_wx_TextAttrEx::GetObject(args, 0)->GetEntity();
 	wx_RichTextAttr *pEntity = new wx_RichTextAttr(*attr);
 	Object_wx_RichTextAttr *pObj = Object_wx_RichTextAttr::GetSelfObj(args);

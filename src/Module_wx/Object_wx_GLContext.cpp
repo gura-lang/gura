@@ -47,6 +47,7 @@ Gura_DeclareFunction(GLContext)
 
 Gura_ImplementFunction(GLContext)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxGLCanvas *win = Object_wx_GLCanvas::GetObject(args, 0)->GetEntity();
 	wxGLContext *other = (wxGLContext *)(NULL);
 	if (args.IsValid(1)) other = Object_wx_GLContext::GetObject(args, 1)->GetEntity();

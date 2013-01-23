@@ -57,6 +57,7 @@ Gura_DeclareFunction(MBConvEmpty)
 
 Gura_ImplementFunction(MBConvEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_MBConv *pEntity = new wx_MBConv();
 	Object_wx_MBConv *pObj = Object_wx_MBConv::GetSelfObj(args);

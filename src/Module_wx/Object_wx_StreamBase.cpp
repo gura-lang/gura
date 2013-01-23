@@ -50,6 +50,7 @@ Gura_DeclareFunction(StreamBaseEmpty)
 
 Gura_ImplementFunction(StreamBaseEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_StreamBase *pEntity = new wx_StreamBase();
 	Object_wx_StreamBase *pObj = Object_wx_StreamBase::GetSelfObj(args);

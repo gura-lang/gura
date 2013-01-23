@@ -46,6 +46,7 @@ Gura_DeclareFunction(SashLayoutWindowEmpty)
 
 Gura_ImplementFunction(SashLayoutWindowEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SashLayoutWindow *pEntity = new wx_SashLayoutWindow();
 	Object_wx_SashLayoutWindow *pObj = Object_wx_SashLayoutWindow::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -73,6 +74,7 @@ Gura_DeclareFunction(SashLayoutWindow)
 
 Gura_ImplementFunction(SashLayoutWindow)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

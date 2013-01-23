@@ -46,6 +46,7 @@ Gura_DeclareFunction(DocMDIParentFrameEmpty)
 
 Gura_ImplementFunction(DocMDIParentFrameEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DocMDIParentFrame *pEntity = new wx_DocMDIParentFrame();
 	Object_wx_DocMDIParentFrame *pObj = Object_wx_DocMDIParentFrame::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -75,6 +76,7 @@ Gura_DeclareFunction(DocMDIParentFrame)
 
 Gura_ImplementFunction(DocMDIParentFrame)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDocManager *manager = Object_wx_DocManager::GetObject(args, 0)->GetEntity();
 	wxFrame *parent = Object_wx_Frame::GetObject(args, 1)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(2));

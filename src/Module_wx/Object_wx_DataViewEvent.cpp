@@ -48,6 +48,7 @@ Gura_DeclareFunction(DataViewEvent)
 
 Gura_ImplementFunction(DataViewEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxEventType commandType = wxEVT_NULL;
 	if (args.IsValid(0)) commandType = static_cast<wxEventType>(args.GetInt(0));
 	int winid = 0;
@@ -74,6 +75,7 @@ Gura_DeclareFunction(DataViewEvent_1)
 
 Gura_ImplementFunction(DataViewEvent_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDataViewEvent *event = Object_wx_DataViewEvent::GetObject(args, 0)->GetEntity();
 	wx_DataViewEvent *pEntity = new wx_DataViewEvent(*event);
 	Object_wx_DataViewEvent *pObj = Object_wx_DataViewEvent::GetSelfObj(args);

@@ -52,6 +52,7 @@ Gura_DeclareFunction(HtmlHelpController)
 
 Gura_ImplementFunction(HtmlHelpController)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int style = wxHF_DEFAULT_STYLE;
 	if (args.IsValid(0)) style = args.GetInt(0);
 	wxWindow *parentWindow = (wxWindow *)(NULL);

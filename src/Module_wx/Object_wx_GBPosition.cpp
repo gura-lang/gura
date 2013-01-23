@@ -46,6 +46,7 @@ Gura_DeclareFunction(GBPositionEmpty)
 
 Gura_ImplementFunction(GBPositionEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GBPosition *pEntity = new wx_GBPosition();
 	Object_wx_GBPosition *pObj = Object_wx_GBPosition::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -69,6 +70,7 @@ Gura_DeclareFunction(GBPosition)
 
 Gura_ImplementFunction(GBPosition)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	wx_GBPosition *pEntity = new wx_GBPosition(row, col);

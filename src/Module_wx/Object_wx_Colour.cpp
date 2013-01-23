@@ -48,6 +48,7 @@ Gura_DeclareFunction(ColourEmpty)
 
 Gura_ImplementFunction(ColourEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Colour *pEntity = new wx_Colour();
 	Object_wx_Colour *pObj = Object_wx_Colour::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -73,6 +74,7 @@ Gura_DeclareFunction(Colour)
 
 Gura_ImplementFunction(Colour)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	unsigned red = args.GetInt(0);
 	unsigned green = args.GetInt(1);
 	unsigned blue = args.GetInt(2);
@@ -100,6 +102,7 @@ Gura_DeclareFunction(NamedColour)
 
 Gura_ImplementFunction(NamedColour)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString colourName = wxString::FromUTF8(args.GetString(0));
 	wx_Colour *pEntity = new wx_Colour(colourName);
 	Object_wx_Colour *pObj = Object_wx_Colour::GetSelfObj(args);

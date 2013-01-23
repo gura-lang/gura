@@ -50,6 +50,7 @@ Gura_DeclareFunction(DropFilesEvent)
 
 Gura_ImplementFunction(DropFilesEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	WXTYPE id = 0;
 	if (args.IsValid(0)) id = static_cast<WXTYPE>(args.GetInt(0));

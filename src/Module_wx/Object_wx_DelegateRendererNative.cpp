@@ -46,6 +46,7 @@ Gura_DeclareFunction(DelegateRendererNativeEmpty)
 
 Gura_ImplementFunction(DelegateRendererNativeEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DelegateRendererNative *pEntity = new wx_DelegateRendererNative();
 	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -68,6 +69,7 @@ Gura_DeclareFunction(DelegateRendererNative)
 
 Gura_ImplementFunction(DelegateRendererNative)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRendererNative *rendererNative = Object_wx_RendererNative::GetObject(args, 0)->GetEntity();
 	wx_DelegateRendererNative *pEntity = new wx_DelegateRendererNative(*rendererNative);
 	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetSelfObj(args);

@@ -47,6 +47,7 @@ Gura_DeclareFunction(RegKeyEmpty)
 
 Gura_ImplementFunction(RegKeyEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RegKey *pEntity = new wx_RegKey();
 	Object_wx_RegKey *pObj = Object_wx_RegKey::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -69,6 +70,7 @@ Gura_DeclareFunction(RegKey)
 
 Gura_ImplementFunction(RegKey)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString strKey = wxString::FromUTF8(args.GetString(0));
 	wx_RegKey *pEntity = new wx_RegKey(strKey);
 	Object_wx_RegKey *pObj = Object_wx_RegKey::GetSelfObj(args);
@@ -93,6 +95,7 @@ Gura_DeclareFunction(RegKey_1)
 
 Gura_ImplementFunction(RegKey_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRegKey *keyParent = Object_wx_RegKey::GetObject(args, 0)->GetEntity();
 	wxString strKey = wxString::FromUTF8(args.GetString(1));
 	wx_RegKey *pEntity = new wx_RegKey(*keyParent, strKey);
@@ -188,6 +191,7 @@ Gura_DeclareClassMethod(wx_RegKey, Exists)
 
 Gura_ImplementClassMethod(wx_RegKey, Exists)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	bool rtn = wxRegKey::Exists();
 	return ReturnValue(env, sig, args, Value(rtn));

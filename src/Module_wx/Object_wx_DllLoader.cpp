@@ -43,6 +43,7 @@ Gura_DeclareClassMethod(wx_DllLoader, GetDllExt)
 
 Gura_ImplementClassMethod(wx_DllLoader, GetDllExt)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxDllLoader::GetDllExt();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }

@@ -46,6 +46,7 @@ Gura_DeclareFunction(SliderEmpty)
 
 Gura_ImplementFunction(SliderEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Slider *pEntity = new wx_Slider();
 	Object_wx_Slider *pObj = Object_wx_Slider::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -77,6 +78,7 @@ Gura_DeclareFunction(Slider)
 
 Gura_ImplementFunction(Slider)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	int value = args.GetInt(2);

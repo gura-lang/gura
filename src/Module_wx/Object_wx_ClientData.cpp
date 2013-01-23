@@ -32,6 +32,7 @@ Gura_DeclareFunction(ClientData)
 
 Gura_ImplementFunction(ClientData)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ClientData *pEntity = new wx_ClientData(args.GetValue(0));
 	Object_wx_ClientData *pObj = Object_wx_ClientData::GetSelfObj(args);
 	if (pObj == NULL) {

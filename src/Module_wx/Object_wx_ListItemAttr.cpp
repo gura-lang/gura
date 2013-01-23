@@ -46,6 +46,7 @@ Gura_DeclareFunction(ListItemAttrEmpty)
 
 Gura_ImplementFunction(ListItemAttrEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ListItemAttr *pEntity = new wx_ListItemAttr();
 	Object_wx_ListItemAttr *pObj = Object_wx_ListItemAttr::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -70,6 +71,7 @@ Gura_DeclareFunction(ListItemAttr)
 
 Gura_ImplementFunction(ListItemAttr)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxColour *colText = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	wxColour *colBack = Object_wx_Colour::GetObject(args, 1)->GetEntity();
 	wxFont *font = Object_wx_Font::GetObject(args, 2)->GetEntity();

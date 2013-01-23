@@ -48,6 +48,7 @@ Gura_DeclareFunction(ColourPickerEvent)
 
 Gura_ImplementFunction(ColourPickerEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxObject *generator = Object_wx_Object::GetObject(args, 0)->GetEntity();
 	int id = args.GetInt(1);
 	wxColour *colour = Object_wx_Colour::GetObject(args, 2)->GetEntity();

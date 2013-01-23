@@ -45,6 +45,7 @@ Gura_DeclareFunction(HtmlHelpDataEmpty)
 
 Gura_ImplementFunction(HtmlHelpDataEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HtmlHelpData *pEntity = new wx_HtmlHelpData();
 	Object_wx_HtmlHelpData *pObj = Object_wx_HtmlHelpData::GetSelfObj(args);
 	if (pObj == NULL) {

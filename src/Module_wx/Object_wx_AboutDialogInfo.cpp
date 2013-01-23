@@ -45,6 +45,7 @@ Gura_DeclareFunction(AboutDialogInfo)
 
 Gura_ImplementFunction(AboutDialogInfo)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_AboutDialogInfo *pEntity = new wx_AboutDialogInfo();
 	Object_wx_AboutDialogInfo *pObj = Object_wx_AboutDialogInfo::GetSelfObj(args);
 	if (pObj == NULL) {

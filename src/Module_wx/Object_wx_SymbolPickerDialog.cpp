@@ -55,6 +55,7 @@ Gura_DeclareFunction(SymbolPickerDialog)
 
 Gura_ImplementFunction(SymbolPickerDialog)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString symbol = wxString::FromUTF8(args.GetString(0));
 	wxString initialFont = wxString::FromUTF8(args.GetString(1));
 	wxString normalTextFont = wxString::FromUTF8(args.GetString(2));
@@ -90,6 +91,7 @@ Gura_DeclareFunction(SymbolPickerDialogEmpty)
 
 Gura_ImplementFunction(SymbolPickerDialogEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SymbolPickerDialog *pEntity = new wx_SymbolPickerDialog();
 	Object_wx_SymbolPickerDialog *pObj = Object_wx_SymbolPickerDialog::GetSelfObj(args);
 	if (pObj == NULL) {

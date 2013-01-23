@@ -46,6 +46,7 @@ Gura_DeclareFunction(GaugeEmpty)
 
 Gura_ImplementFunction(GaugeEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Gauge *pEntity = new wx_Gauge();
 	Object_wx_Gauge *pObj = Object_wx_Gauge::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -75,6 +76,7 @@ Gura_DeclareFunction(Gauge)
 
 Gura_ImplementFunction(Gauge)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	int range = args.GetInt(2);

@@ -59,6 +59,7 @@ Gura_DeclareFunction(StatusBarEmpty)
 
 Gura_ImplementFunction(StatusBarEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StatusBar *pEntity = new wx_StatusBar();
 	Object_wx_StatusBar *pObj = Object_wx_StatusBar::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -84,6 +85,7 @@ Gura_DeclareFunction(StatusBar)
 
 Gura_ImplementFunction(StatusBar)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));

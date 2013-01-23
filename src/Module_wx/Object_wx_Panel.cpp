@@ -51,6 +51,7 @@ Gura_DeclareFunction(PanelEmpty)
 
 Gura_ImplementFunction(PanelEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Panel *pEntity = new wx_Panel();
 	Object_wx_Panel *pObj = Object_wx_Panel::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -78,6 +79,7 @@ Gura_DeclareFunction(Panel)
 
 Gura_ImplementFunction(Panel)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));

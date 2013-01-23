@@ -46,6 +46,7 @@ Gura_DeclareFunction(LogChain)
 
 Gura_ImplementFunction(LogChain)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxLog *logger = Object_wx_Log::GetObject(args, 0)->GetEntity();
 	wx_LogChain *pEntity = new wx_LogChain(logger);
 	Object_wx_LogChain *pObj = Object_wx_LogChain::GetSelfObj(args);

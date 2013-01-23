@@ -47,6 +47,7 @@ Gura_DeclareFunction(BusyInfo)
 
 Gura_ImplementFunction(BusyInfo)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString msg = wxString::FromUTF8(args.GetString(0));
 	wxWindow *parent = (wxWindow *)(NULL);
 	if (args.IsValid(1)) parent = Object_wx_Window::GetObject(args, 1)->GetEntity();

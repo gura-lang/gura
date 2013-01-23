@@ -54,6 +54,7 @@ Gura_DeclareFunction(HtmlTagHandlerEmpty)
 
 Gura_ImplementFunction(HtmlTagHandlerEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_HtmlTagHandler *pEntity = new wx_HtmlTagHandler();
 	Object_wx_HtmlTagHandler *pObj = Object_wx_HtmlTagHandler::GetSelfObj(args);

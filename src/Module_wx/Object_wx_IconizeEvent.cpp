@@ -47,6 +47,7 @@ Gura_DeclareFunction(IconizeEvent)
 
 Gura_ImplementFunction(IconizeEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
 	bool iconized = true;

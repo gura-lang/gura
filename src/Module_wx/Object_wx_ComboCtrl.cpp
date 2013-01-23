@@ -62,6 +62,7 @@ Gura_DeclareFunction(ComboCtrlEmpty)
 
 Gura_ImplementFunction(ComboCtrlEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ComboCtrl *pEntity = new wx_ComboCtrl();
 	Object_wx_ComboCtrl *pObj = Object_wx_ComboCtrl::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -91,6 +92,7 @@ Gura_DeclareFunction(ComboCtrl)
 
 Gura_ImplementFunction(ComboCtrl)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString value = wxT("");
@@ -337,6 +339,7 @@ Gura_DeclareClassMethod(wx_ComboCtrl, GetFeatures)
 
 Gura_ImplementClassMethod(wx_ComboCtrl, GetFeatures)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int rtn = wxComboCtrl::GetFeatures();
 	return ReturnValue(env, sig, args, Value(rtn));
 }

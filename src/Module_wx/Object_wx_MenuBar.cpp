@@ -47,6 +47,7 @@ Gura_DeclareFunction(MenuBar)
 
 Gura_ImplementFunction(MenuBar)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	long style = 0;
 	if (args.IsValid(0)) style = args.GetLong(0);
 	wx_MenuBar *pEntity = new wx_MenuBar(style);
@@ -76,6 +77,7 @@ Gura_DeclareFunction(MenuBar_1)
 
 Gura_ImplementFunction(MenuBar_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	size_t n = args.GetSizeT(0);
 	wxMenu *menus[] = Object_wx_Menu::GetObject(args, 1)->GetEntity();

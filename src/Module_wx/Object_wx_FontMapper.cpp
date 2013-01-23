@@ -45,6 +45,7 @@ Gura_DeclareFunction(FontMapper)
 
 Gura_ImplementFunction(FontMapper)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FontMapper *pEntity = new wx_FontMapper();
 	Object_wx_FontMapper *pObj = Object_wx_FontMapper::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -84,6 +85,7 @@ Gura_DeclareClassMethod(wx_FontMapper, Get)
 
 Gura_ImplementClassMethod(wx_FontMapper, Get)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxFontMapper *rtn = (wxFontMapper *)wxFontMapper::Get();
 	return ReturnValue(env, sig, args, Value(new Object_wx_FontMapper(rtn, NULL, OwnerFalse)));
 }
@@ -99,6 +101,7 @@ Gura_DeclareClassMethod(wx_FontMapper, GetAllEncodingNames)
 
 Gura_ImplementClassMethod(wx_FontMapper, GetAllEncodingNames)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wxChar rtn = wxFontMapper::GetAllEncodingNames(encoding);
@@ -174,6 +177,7 @@ Gura_DeclareClassMethod(wx_FontMapper, GetEncoding)
 
 Gura_ImplementClassMethod(wx_FontMapper, GetEncoding)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	size_t n = args.GetSizeT(0);
 	wxFontEncoding rtn = wxFontMapper::GetEncoding(n);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -188,6 +192,7 @@ Gura_DeclareClassMethod(wx_FontMapper, GetEncodingDescription)
 
 Gura_ImplementClassMethod(wx_FontMapper, GetEncodingDescription)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wxString rtn = wxFontMapper::GetEncodingDescription(encoding);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
@@ -202,6 +207,7 @@ Gura_DeclareClassMethod(wx_FontMapper, GetEncodingFromName)
 
 Gura_ImplementClassMethod(wx_FontMapper, GetEncodingFromName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString encoding = wxString::FromUTF8(args.GetString(0));
 	wxFontEncoding rtn = wxFontMapper::GetEncodingFromName(encoding);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -216,6 +222,7 @@ Gura_DeclareClassMethod(wx_FontMapper, GetEncodingName)
 
 Gura_ImplementClassMethod(wx_FontMapper, GetEncodingName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wxString rtn = wxFontMapper::GetEncodingName(encoding);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
@@ -229,6 +236,7 @@ Gura_DeclareClassMethod(wx_FontMapper, GetSupportedEncodingsCount)
 
 Gura_ImplementClassMethod(wx_FontMapper, GetSupportedEncodingsCount)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	size_t rtn = wxFontMapper::GetSupportedEncodingsCount();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -291,6 +299,7 @@ Gura_DeclareClassMethod(wx_FontMapper, Set)
 
 Gura_ImplementClassMethod(wx_FontMapper, Set)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxFontMapper *mapper = Object_wx_FontMapper::GetObject(args, 0)->GetEntity();
 	wxFontMapper *rtn = (wxFontMapper *)wxFontMapper::Set(mapper);
 	return ReturnValue(env, sig, args, Value(new Object_wx_FontMapper(rtn, NULL, OwnerFalse)));

@@ -52,6 +52,7 @@ Gura_DeclareFunction(StaticBitmapEmpty)
 
 Gura_ImplementFunction(StaticBitmapEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StaticBitmap *pEntity = new wx_StaticBitmap();
 	Object_wx_StaticBitmap *pObj = Object_wx_StaticBitmap::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -80,6 +81,7 @@ Gura_DeclareFunction(StaticBitmap)
 
 Gura_ImplementFunction(StaticBitmap)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

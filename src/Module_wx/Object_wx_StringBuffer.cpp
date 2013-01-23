@@ -47,6 +47,7 @@ Gura_DeclareFunction(StringBuffer)
 
 Gura_ImplementFunction(StringBuffer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString str = wxString::FromUTF8(args.GetString(0));
 	size_t len = args.GetSizeT(1);
 	wx_StringBuffer *pEntity = new wx_StringBuffer(str, len);

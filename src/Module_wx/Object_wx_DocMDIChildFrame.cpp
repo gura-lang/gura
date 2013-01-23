@@ -56,6 +56,7 @@ Gura_DeclareFunction(DocMDIChildFrame)
 
 Gura_ImplementFunction(DocMDIChildFrame)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDocument *doc = Object_wx_Document::GetObject(args, 0)->GetEntity();
 	wxView *view = Object_wx_View::GetObject(args, 1)->GetEntity();

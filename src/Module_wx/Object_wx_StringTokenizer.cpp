@@ -46,6 +46,7 @@ Gura_DeclareFunction(StringTokenizerEmpty)
 
 Gura_ImplementFunction(StringTokenizerEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StringTokenizer *pEntity = new wx_StringTokenizer();
 	Object_wx_StringTokenizer *pObj = Object_wx_StringTokenizer::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -70,6 +71,7 @@ Gura_DeclareFunction(StringTokenizer)
 
 Gura_ImplementFunction(StringTokenizer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString str = wxString::FromUTF8(args.GetString(0));
 	wxString delims = wxT(" trn");
 	if (args.IsValid(1)) delims = wxString::FromUTF8(args.GetString(1));

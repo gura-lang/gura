@@ -307,6 +307,7 @@ Gura_DeclareFunction(GridTableBase)
 
 Gura_ImplementFunction(GridTableBase)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridTableBase *pEntity = new wx_GridTableBase();
 	Object_wx_GridTableBase *pObj = Object_wx_GridTableBase::GetSelfObj(args);
 	if (pObj == NULL) {

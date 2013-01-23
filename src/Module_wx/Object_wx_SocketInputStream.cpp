@@ -46,6 +46,7 @@ Gura_DeclareFunction(SocketInputStream)
 
 Gura_ImplementFunction(SocketInputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxSocketBase *s = Object_wx_SocketBase::GetObject(args, 0)->GetEntity();
 	wx_SocketInputStream *pEntity = new wx_SocketInputStream(*s);
 	Object_wx_SocketInputStream *pObj = Object_wx_SocketInputStream::GetSelfObj(args);

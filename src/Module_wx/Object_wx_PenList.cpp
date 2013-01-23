@@ -45,6 +45,7 @@ Gura_DeclareFunction(PenListEmpty)
 
 Gura_ImplementFunction(PenListEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PenList *pEntity = new wx_PenList();
 	Object_wx_PenList *pObj = Object_wx_PenList::GetSelfObj(args);
 	if (pObj == NULL) {

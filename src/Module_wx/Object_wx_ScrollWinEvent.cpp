@@ -48,6 +48,7 @@ Gura_DeclareFunction(ScrollWinEvent)
 
 Gura_ImplementFunction(ScrollWinEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	WXTYPE commandType = 0;
 	if (args.IsValid(0)) commandType = static_cast<WXTYPE>(args.GetInt(0));
 	int pos = 0;

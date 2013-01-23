@@ -49,6 +49,7 @@ Gura_DeclareFunction(ZipOutputStream)
 
 Gura_ImplementFunction(ZipOutputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	int level = -1;
 	if (args.IsValid(1)) level = args.GetInt(1);
@@ -78,6 +79,7 @@ Gura_DeclareFunction(ZipOutputStream_1)
 
 Gura_ImplementFunction(ZipOutputStream_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	int level = -1;
 	if (args.IsValid(1)) level = args.GetInt(1);

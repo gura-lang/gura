@@ -49,6 +49,7 @@ Gura_DeclareFunction(DialogEmpty)
 
 Gura_ImplementFunction(DialogEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Dialog *pEntity = new wx_Dialog();
 	Object_wx_Dialog *pObj = Object_wx_Dialog::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -77,6 +78,7 @@ Gura_DeclareFunction(Dialog)
 
 Gura_ImplementFunction(Dialog)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));

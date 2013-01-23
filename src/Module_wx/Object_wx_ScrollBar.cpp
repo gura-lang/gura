@@ -49,6 +49,7 @@ Gura_DeclareFunction(ScrollBarEmpty)
 
 Gura_ImplementFunction(ScrollBarEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ScrollBar *pEntity = new wx_ScrollBar();
 	Object_wx_ScrollBar *pObj = Object_wx_ScrollBar::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -77,6 +78,7 @@ Gura_DeclareFunction(ScrollBar)
 
 Gura_ImplementFunction(ScrollBar)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

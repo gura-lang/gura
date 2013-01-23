@@ -45,6 +45,7 @@ Gura_DeclareFunction(CriticalSectionEmpty)
 
 Gura_ImplementFunction(CriticalSectionEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_CriticalSection *pEntity = new wx_CriticalSection();
 	Object_wx_CriticalSection *pObj = Object_wx_CriticalSection::GetSelfObj(args);
 	if (pObj == NULL) {

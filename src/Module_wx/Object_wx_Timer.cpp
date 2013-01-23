@@ -46,6 +46,7 @@ Gura_DeclareFunction(TimerEmpty)
 
 Gura_ImplementFunction(TimerEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Timer *pEntity = new wx_Timer();
 	Object_wx_Timer *pObj = Object_wx_Timer::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -69,6 +70,7 @@ Gura_DeclareFunction(Timer)
 
 Gura_ImplementFunction(Timer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxEvtHandler *owner = Object_wx_EvtHandler::GetObject(args, 0)->GetEntity();
 	int id = -1;
 	if (args.IsValid(1)) id = args.GetInt(1);

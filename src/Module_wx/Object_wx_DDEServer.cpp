@@ -48,6 +48,7 @@ Gura_DeclareFunction(DDEServerEmpty)
 
 Gura_ImplementFunction(DDEServerEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DDEServer *pEntity = new wx_DDEServer();
 	Object_wx_DDEServer *pObj = Object_wx_DDEServer::GetSelfObj(args);
 	if (pObj == NULL) {

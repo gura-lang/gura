@@ -47,6 +47,7 @@ Gura_DeclareFunction(CheckListBoxEmpty)
 
 Gura_ImplementFunction(CheckListBoxEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_CheckListBox *pEntity = new wx_CheckListBox();
 	Object_wx_CheckListBox *pObj = Object_wx_CheckListBox::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -76,6 +77,7 @@ Gura_DeclareFunction(CheckListBox)
 
 Gura_ImplementFunction(CheckListBox)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

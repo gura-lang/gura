@@ -53,6 +53,7 @@ Gura_DeclareFunction(SplashScreen)
 
 Gura_ImplementFunction(SplashScreen)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	long splashStyle = args.GetLong(1);
 	int milliseconds = args.GetInt(2);

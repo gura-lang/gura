@@ -46,6 +46,7 @@ Gura_DeclareFunction(MaximizeEvent)
 
 Gura_ImplementFunction(MaximizeEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wx_MaximizeEvent *pEntity = new wx_MaximizeEvent(id);

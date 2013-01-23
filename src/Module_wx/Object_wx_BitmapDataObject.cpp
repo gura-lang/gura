@@ -51,6 +51,7 @@ Gura_DeclareFunction(BitmapDataObject)
 
 Gura_ImplementFunction(BitmapDataObject)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bitmap = (wxBitmap *)(&wxNullBitmap);
 	if (args.IsValid(0)) bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_BitmapDataObject *pEntity = new wx_BitmapDataObject(*bitmap);

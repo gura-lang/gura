@@ -46,6 +46,7 @@ Gura_DeclareFunction(RichTextListStyleDefinition)
 
 Gura_ImplementFunction(RichTextListStyleDefinition)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxEmptyString;
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
 	wx_RichTextListStyleDefinition *pEntity = new wx_RichTextListStyleDefinition(name);

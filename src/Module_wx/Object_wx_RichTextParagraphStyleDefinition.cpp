@@ -46,6 +46,7 @@ Gura_DeclareFunction(RichTextParagraphStyleDefinition)
 
 Gura_ImplementFunction(RichTextParagraphStyleDefinition)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxEmptyString;
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
 	wx_RichTextParagraphStyleDefinition *pEntity = new wx_RichTextParagraphStyleDefinition(name);

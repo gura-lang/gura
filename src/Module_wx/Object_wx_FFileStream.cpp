@@ -46,6 +46,7 @@ Gura_DeclareFunction(FFileStream)
 
 Gura_ImplementFunction(FFileStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString iofileName = wxString::FromUTF8(args.GetString(0));
 	wx_FFileStream *pEntity = new wx_FFileStream(iofileName);

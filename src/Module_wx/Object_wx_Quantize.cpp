@@ -45,6 +45,7 @@ Gura_DeclareFunction(QuantizeEmpty)
 
 Gura_ImplementFunction(QuantizeEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Quantize *pEntity = new wx_Quantize();
 	Object_wx_Quantize *pObj = Object_wx_Quantize::GetSelfObj(args);
 	if (pObj == NULL) {

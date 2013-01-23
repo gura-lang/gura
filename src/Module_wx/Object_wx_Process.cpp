@@ -48,6 +48,7 @@ Gura_DeclareFunction(Process)
 
 Gura_ImplementFunction(Process)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxEvtHandler *parent = (wxEvtHandler *)(NULL);
 	if (args.IsValid(0)) parent = Object_wx_EvtHandler::GetObject(args, 0)->GetEntity();
 	int id = -1;
@@ -74,6 +75,7 @@ Gura_DeclareFunction(Process_1)
 
 Gura_ImplementFunction(Process_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int flags = args.GetInt(0);
 	wx_Process *pEntity = new wx_Process(flags);
 	Object_wx_Process *pObj = Object_wx_Process::GetSelfObj(args);
@@ -208,6 +210,7 @@ Gura_DeclareClassMethod(wx_Process, Kill)
 
 Gura_ImplementClassMethod(wx_Process, Kill)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int pid = args.GetInt(0);
 	wxSignal signal = wxSIGNONE;
 	if (args.IsValid(1)) signal = static_cast<wxSignal>(args.GetInt(1));
@@ -226,6 +229,7 @@ Gura_DeclareClassMethod(wx_Process, Exists)
 
 Gura_ImplementClassMethod(wx_Process, Exists)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int pid = args.GetInt(0);
 	bool rtn = wxProcess::Exists(pid);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -258,6 +262,7 @@ Gura_DeclareClassMethod(wx_Process, Open)
 
 Gura_ImplementClassMethod(wx_Process, Open)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString cmd = wxString::FromUTF8(args.GetString(0));
 	int flags = wxEXEC_ASYNC;
 	if (args.IsValid(1)) flags = args.GetInt(1);

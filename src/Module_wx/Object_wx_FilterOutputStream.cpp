@@ -47,6 +47,7 @@ Gura_DeclareFunction(FilterOutputStream)
 
 Gura_ImplementFunction(FilterOutputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wx_FilterOutputStream *pEntity = new wx_FilterOutputStream(*stream);
 	Object_wx_FilterOutputStream *pObj = Object_wx_FilterOutputStream::GetSelfObj(args);
@@ -70,6 +71,7 @@ Gura_DeclareFunction(FilterOutputStream_1)
 
 Gura_ImplementFunction(FilterOutputStream_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wx_FilterOutputStream *pEntity = new wx_FilterOutputStream(stream);
 	Object_wx_FilterOutputStream *pObj = Object_wx_FilterOutputStream::GetSelfObj(args);

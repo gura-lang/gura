@@ -75,6 +75,7 @@ Gura_DeclareFunction(DataViewCtrlEmpty)
 
 Gura_ImplementFunction(DataViewCtrlEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DataViewCtrl *pEntity = new wx_DataViewCtrl();
 	Object_wx_DataViewCtrl *pObj = Object_wx_DataViewCtrl::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -102,6 +103,7 @@ Gura_DeclareFunction(DataViewCtrl)
 
 Gura_ImplementFunction(DataViewCtrl)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

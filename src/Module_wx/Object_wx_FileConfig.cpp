@@ -47,6 +47,7 @@ Gura_DeclareFunction(FileConfig)
 
 Gura_ImplementFunction(FileConfig)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxInputStream *is = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxMBConv *conv = (wxMBConv *)(&wxConvUTF8);
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();

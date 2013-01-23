@@ -47,6 +47,7 @@ Gura_DeclareFunction(PrintDialogDataEmpty)
 
 Gura_ImplementFunction(PrintDialogDataEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PrintDialogData *pEntity = new wx_PrintDialogData();
 	Object_wx_PrintDialogData *pObj = Object_wx_PrintDialogData::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -69,6 +70,7 @@ Gura_DeclareFunction(PrintDialogData)
 
 Gura_ImplementFunction(PrintDialogData)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintDialogData *dialogData = Object_wx_PrintDialogData::GetObject(args, 0)->GetEntity();
 	wx_PrintDialogData *pEntity = new wx_PrintDialogData(*dialogData);
 	Object_wx_PrintDialogData *pObj = Object_wx_PrintDialogData::GetSelfObj(args);
@@ -92,6 +94,7 @@ Gura_DeclareFunction(PrintDialogData_1)
 
 Gura_ImplementFunction(PrintDialogData_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintData *printData = Object_wx_PrintData::GetObject(args, 0)->GetEntity();
 	wx_PrintDialogData *pEntity = new wx_PrintDialogData(*printData);
 	Object_wx_PrintDialogData *pObj = Object_wx_PrintDialogData::GetSelfObj(args);

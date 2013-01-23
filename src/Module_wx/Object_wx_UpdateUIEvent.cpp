@@ -46,6 +46,7 @@ Gura_DeclareFunction(UpdateUIEvent)
 
 Gura_ImplementFunction(UpdateUIEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindowID commandId = 0;
 	if (args.IsValid(0)) commandId = static_cast<wxWindowID>(args.GetInt(0));
 	wx_UpdateUIEvent *pEntity = new wx_UpdateUIEvent(commandId);
@@ -69,6 +70,7 @@ Gura_DeclareClassMethod(wx_UpdateUIEvent, CanUpdate)
 
 Gura_ImplementClassMethod(wx_UpdateUIEvent, CanUpdate)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool rtn = wxUpdateUIEvent::CanUpdate(window);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -239,6 +241,7 @@ Gura_DeclareClassMethod(wx_UpdateUIEvent, GetMode)
 
 Gura_ImplementClassMethod(wx_UpdateUIEvent, GetMode)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxUpdateUIMode rtn = wxUpdateUIEvent::GetMode();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -251,6 +254,7 @@ Gura_DeclareClassMethod(wx_UpdateUIEvent, GetUpdateInterval)
 
 Gura_ImplementClassMethod(wx_UpdateUIEvent, GetUpdateInterval)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	long rtn = wxUpdateUIEvent::GetUpdateInterval();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -262,6 +266,7 @@ Gura_DeclareClassMethod(wx_UpdateUIEvent, ResetUpdateTime)
 
 Gura_ImplementClassMethod(wx_UpdateUIEvent, ResetUpdateTime)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxUpdateUIEvent::ResetUpdateTime();
 	return Value::Null;
 }
@@ -274,6 +279,7 @@ Gura_DeclareClassMethod(wx_UpdateUIEvent, SetMode_)
 
 Gura_ImplementClassMethod(wx_UpdateUIEvent, SetMode_)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxUpdateUIMode mode = static_cast<wxUpdateUIMode>(args.GetInt(0));
 	wxUpdateUIEvent::SetMode(mode);
 	return Value::Null;
@@ -302,6 +308,7 @@ Gura_DeclareClassMethod(wx_UpdateUIEvent, SetUpdateInterval)
 
 Gura_ImplementClassMethod(wx_UpdateUIEvent, SetUpdateInterval)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	long updateInterval = args.GetLong(0);
 	wxUpdateUIEvent::SetUpdateInterval(updateInterval);
 	return Value::Null;

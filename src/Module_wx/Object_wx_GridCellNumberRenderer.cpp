@@ -45,6 +45,7 @@ Gura_DeclareFunction(GridCellNumberRenderer)
 
 Gura_ImplementFunction(GridCellNumberRenderer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellNumberRenderer *pEntity = new wx_GridCellNumberRenderer();
 	Object_wx_GridCellNumberRenderer *pObj = Object_wx_GridCellNumberRenderer::GetSelfObj(args);
 	if (pObj == NULL) {

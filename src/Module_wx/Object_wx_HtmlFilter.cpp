@@ -47,6 +47,7 @@ Gura_DeclareFunction(HtmlFilterEmpty)
 
 Gura_ImplementFunction(HtmlFilterEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_HtmlFilter *pEntity = new wx_HtmlFilter();
 	Object_wx_HtmlFilter *pObj = Object_wx_HtmlFilter::GetSelfObj(args);

@@ -52,6 +52,7 @@ Gura_DeclareFunction(FileDropTargetEmpty)
 
 Gura_ImplementFunction(FileDropTargetEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_FileDropTarget *pEntity = new wx_FileDropTarget();
 	Object_wx_FileDropTarget *pObj = Object_wx_FileDropTarget::GetSelfObj(args);

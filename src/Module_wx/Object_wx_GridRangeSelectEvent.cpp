@@ -46,6 +46,7 @@ Gura_DeclareFunction(GridRangeSelectEventEmpty)
 
 Gura_ImplementFunction(GridRangeSelectEventEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridRangeSelectEvent *pEntity = new wx_GridRangeSelectEvent();
 	Object_wx_GridRangeSelectEvent *pObj = Object_wx_GridRangeSelectEvent::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -77,6 +78,7 @@ Gura_DeclareFunction(GridRangeSelectEvent)
 
 Gura_ImplementFunction(GridRangeSelectEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxEventType type = static_cast<wxEventType>(args.GetInt(1));
 	wxObject *obj = Object_wx_Object::GetObject(args, 2)->GetEntity();

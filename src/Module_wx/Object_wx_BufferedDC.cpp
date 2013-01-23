@@ -47,6 +47,7 @@ Gura_DeclareFunction(BufferedDCEmpty)
 
 Gura_ImplementFunction(BufferedDCEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BufferedDC *pEntity = new wx_BufferedDC();
 	Object_wx_BufferedDC *pObj = Object_wx_BufferedDC::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -71,6 +72,7 @@ Gura_DeclareFunction(BufferedDC)
 
 Gura_ImplementFunction(BufferedDC)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxSize *area = Object_wx_Size::GetObject(args, 1)->GetEntity();
 	int style = wxBUFFER_CLIENT_AREA;
@@ -99,6 +101,7 @@ Gura_DeclareFunction(BufferedDC_1)
 
 Gura_ImplementFunction(BufferedDC_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxBitmap *buffer = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
 	int style = wxBUFFER_CLIENT_AREA;

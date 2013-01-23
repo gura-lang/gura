@@ -46,6 +46,7 @@ Gura_DeclareFunction(RegionIteratorEmpty)
 
 Gura_ImplementFunction(RegionIteratorEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RegionIterator *pEntity = new wx_RegionIterator();
 	Object_wx_RegionIterator *pObj = Object_wx_RegionIterator::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -68,6 +69,7 @@ Gura_DeclareFunction(RegionIterator)
 
 Gura_ImplementFunction(RegionIterator)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRegion *region = Object_wx_Region::GetObject(args, 0)->GetEntity();
 	wx_RegionIterator *pEntity = new wx_RegionIterator(*region);
 	Object_wx_RegionIterator *pObj = Object_wx_RegionIterator::GetSelfObj(args);

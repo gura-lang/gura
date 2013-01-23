@@ -46,6 +46,7 @@ Gura_DeclareFunction(FindReplaceData)
 
 Gura_ImplementFunction(FindReplaceData)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxUint32 flags = 0;
 	if (args.IsValid(0)) flags = static_cast<wxUint32>(args.GetULong(0));
 	wx_FindReplaceData *pEntity = new wx_FindReplaceData(flags);

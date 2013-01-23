@@ -47,6 +47,7 @@ Gura_DeclareFunction(IndividualLayoutConstraintEmpty)
 
 Gura_ImplementFunction(IndividualLayoutConstraintEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_IndividualLayoutConstraint *pEntity = new wx_IndividualLayoutConstraint();
 	Object_wx_IndividualLayoutConstraint *pObj = Object_wx_IndividualLayoutConstraint::GetSelfObj(args);
 	if (pObj == NULL) {

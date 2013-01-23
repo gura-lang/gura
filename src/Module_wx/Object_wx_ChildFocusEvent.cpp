@@ -46,6 +46,7 @@ Gura_DeclareFunction(ChildFocusEvent)
 
 Gura_ImplementFunction(ChildFocusEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *win = (wxWindow *)(NULL);
 	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_ChildFocusEvent *pEntity = new wx_ChildFocusEvent(win);

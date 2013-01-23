@@ -47,6 +47,7 @@ Gura_DeclareFunction(PageSetupDialog)
 
 Gura_ImplementFunction(PageSetupDialog)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxPageSetupDialogData *data = (wxPageSetupDialogData *)(NULL);
 	if (args.IsValid(1)) data = Object_wx_PageSetupDialogData::GetObject(args, 1)->GetEntity();

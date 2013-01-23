@@ -45,6 +45,7 @@ Gura_DeclareFunction(ListItem)
 
 Gura_ImplementFunction(ListItem)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ListItem *pEntity = new wx_ListItem();
 	Object_wx_ListItem *pObj = Object_wx_ListItem::GetSelfObj(args);
 	if (pObj == NULL) {

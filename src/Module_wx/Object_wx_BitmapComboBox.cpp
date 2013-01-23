@@ -47,6 +47,7 @@ Gura_DeclareFunction(BitmapComboBoxEmpty)
 
 Gura_ImplementFunction(BitmapComboBoxEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BitmapComboBox *pEntity = new wx_BitmapComboBox();
 	Object_wx_BitmapComboBox *pObj = Object_wx_BitmapComboBox::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -77,6 +78,7 @@ Gura_DeclareFunction(BitmapComboBox)
 
 Gura_ImplementFunction(BitmapComboBox)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString value = wxString::FromUTF8(args.GetString(2));

@@ -47,6 +47,7 @@ Gura_DeclareFunction(DialUpEvent)
 
 Gura_ImplementFunction(DialUpEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	bool isConnected = args.GetBoolean(0);
 	bool isOwnEvent = args.GetBoolean(1);
 	wx_DialUpEvent *pEntity = new wx_DialUpEvent(isConnected, isOwnEvent);

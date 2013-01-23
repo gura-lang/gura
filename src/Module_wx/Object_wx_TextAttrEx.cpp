@@ -46,6 +46,7 @@ Gura_DeclareFunction(TextAttrEx)
 
 Gura_ImplementFunction(TextAttrEx)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TextAttrEx *pEntity = new wx_TextAttrEx();
 	Object_wx_TextAttrEx *pObj = Object_wx_TextAttrEx::GetSelfObj(args);
 	if (pObj == NULL) {

@@ -50,6 +50,7 @@ Gura_DeclareFunction(WizardPage)
 
 Gura_ImplementFunction(WizardPage)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxWizard *parent = Object_wx_Wizard::GetObject(args, 0)->GetEntity();
 	wxBitmap *bitmap = (wxBitmap *)(&wxNullBitmap);

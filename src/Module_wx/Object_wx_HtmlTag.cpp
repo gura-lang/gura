@@ -53,6 +53,7 @@ Gura_DeclareFunction(HtmlTag)
 
 Gura_ImplementFunction(HtmlTag)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxHtmlTag *parent = Object_wx_HtmlTag::GetObject(args, 0)->GetEntity();
 	wxString source = wxString::FromUTF8(args.GetString(1));

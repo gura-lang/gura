@@ -47,6 +47,7 @@ Gura_DeclareFunction(PostScriptDC)
 
 Gura_ImplementFunction(PostScriptDC)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintData *printData = Object_wx_PrintData::GetObject(args, 0)->GetEntity();
 	wx_PostScriptDC *pEntity = new wx_PostScriptDC(*printData);
 	Object_wx_PostScriptDC *pObj = Object_wx_PostScriptDC::GetSelfObj(args);
@@ -72,6 +73,7 @@ Gura_DeclareFunction(PostScriptDC_1)
 
 Gura_ImplementFunction(PostScriptDC_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString output = wxString::FromUTF8(args.GetString(0));
 	bool interactive = true;
 	if (args.IsValid(1)) interactive = args.GetBoolean(1);
@@ -96,6 +98,7 @@ Gura_DeclareClassMethod(wx_PostScriptDC, SetResolution)
 
 Gura_ImplementClassMethod(wx_PostScriptDC, SetResolution)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int ppi = args.GetInt(0);
 	wxPostScriptDC::SetResolution(ppi);
 	return Value::Null;
@@ -109,6 +112,7 @@ Gura_DeclareClassMethod(wx_PostScriptDC, GetResolution)
 
 Gura_ImplementClassMethod(wx_PostScriptDC, GetResolution)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int rtn = wxPostScriptDC::GetResolution();
 	return ReturnValue(env, sig, args, Value(rtn));
 }

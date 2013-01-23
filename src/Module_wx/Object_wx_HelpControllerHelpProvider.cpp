@@ -46,6 +46,7 @@ Gura_DeclareFunction(HelpControllerHelpProvider)
 
 Gura_ImplementFunction(HelpControllerHelpProvider)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxHelpControllerBase *hc = (wxHelpControllerBase *)(NULL);
 	if (args.IsValid(0)) hc = Object_wx_HelpControllerBase::GetObject(args, 0)->GetEntity();
 	wx_HelpControllerHelpProvider *pEntity = new wx_HelpControllerHelpProvider(hc);

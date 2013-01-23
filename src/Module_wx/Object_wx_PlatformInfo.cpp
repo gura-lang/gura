@@ -46,6 +46,7 @@ Gura_DeclareFunction(PlatformInfoEmpty)
 
 Gura_ImplementFunction(PlatformInfoEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PlatformInfo *pEntity = new wx_PlatformInfo();
 	Object_wx_PlatformInfo *pObj = Object_wx_PlatformInfo::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -75,6 +76,7 @@ Gura_DeclareFunction(PlatformInfo)
 
 Gura_ImplementFunction(PlatformInfo)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPortId pid = wxPORT_UNKNOWN;
 	if (args.IsValid(0)) pid = static_cast<wxPortId>(args.GetInt(0));
 	int tkMajor = -1;
@@ -147,6 +149,7 @@ Gura_DeclareClassMethod(wx_PlatformInfo, Get)
 
 Gura_ImplementClassMethod(wx_PlatformInfo, Get)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	const wxPlatformInfo &rtn = wxPlatformInfo::Get();
 	return ReturnValue(env, sig, args, Value(new Object_wx_PlatformInfo(new wxPlatformInfo(rtn), NULL, OwnerTrue)));
 }
@@ -160,6 +163,7 @@ Gura_DeclareClassMethod(wx_PlatformInfo, GetArch)
 
 Gura_ImplementClassMethod(wx_PlatformInfo, GetArch)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString arch = wxString::FromUTF8(args.GetString(0));
 	wxArchitecture rtn = wxPlatformInfo::GetArch(arch);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -174,6 +178,7 @@ Gura_DeclareClassMethod(wx_PlatformInfo, GetArchName)
 
 Gura_ImplementClassMethod(wx_PlatformInfo, GetArchName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxArchitecture arch = static_cast<wxArchitecture>(args.GetInt(0));
 	wxString rtn = wxPlatformInfo::GetArchName(arch);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
@@ -216,6 +221,7 @@ Gura_DeclareClassMethod(wx_PlatformInfo, GetEndianness)
 
 Gura_ImplementClassMethod(wx_PlatformInfo, GetEndianness)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString end = wxString::FromUTF8(args.GetString(0));
 	wxEndianness rtn = wxPlatformInfo::GetEndianness(end);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -244,6 +250,7 @@ Gura_DeclareClassMethod(wx_PlatformInfo, GetEndiannessName)
 
 Gura_ImplementClassMethod(wx_PlatformInfo, GetEndiannessName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxEndianness end = static_cast<wxEndianness>(args.GetInt(0));
 	wxString rtn = wxPlatformInfo::GetEndiannessName(end);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
@@ -300,6 +307,7 @@ Gura_DeclareClassMethod(wx_PlatformInfo, GetOperatingSystemFamilyName)
 
 Gura_ImplementClassMethod(wx_PlatformInfo, GetOperatingSystemFamilyName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxOperatingSystemId os = static_cast<wxOperatingSystemId>(args.GetInt(0));
 	wxString rtn = wxPlatformInfo::GetOperatingSystemFamilyName(os);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
@@ -328,6 +336,7 @@ Gura_DeclareClassMethod(wx_PlatformInfo, GetOperatingSystemId)
 
 Gura_ImplementClassMethod(wx_PlatformInfo, GetOperatingSystemId)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxOperatingSystemId rtn = wxPlatformInfo::GetOperatingSystemId(name);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -356,6 +365,7 @@ Gura_DeclareClassMethod(wx_PlatformInfo, GetOperatingSystemIdName)
 
 Gura_ImplementClassMethod(wx_PlatformInfo, GetOperatingSystemIdName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxOperatingSystemId os = static_cast<wxOperatingSystemId>(args.GetInt(0));
 	wxString rtn = wxPlatformInfo::GetOperatingSystemIdName(os);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
@@ -384,6 +394,7 @@ Gura_DeclareClassMethod(wx_PlatformInfo, GetPortId)
 
 Gura_ImplementClassMethod(wx_PlatformInfo, GetPortId)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString portname = wxString::FromUTF8(args.GetString(0));
 	wxPortId rtn = wxPlatformInfo::GetPortId(portname);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -413,6 +424,7 @@ Gura_DeclareClassMethod(wx_PlatformInfo, GetPortIdName)
 
 Gura_ImplementClassMethod(wx_PlatformInfo, GetPortIdName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPortId port = static_cast<wxPortId>(args.GetInt(0));
 	bool usingUniversal = args.GetBoolean(1);
 	wxString rtn = wxPlatformInfo::GetPortIdName(port, usingUniversal);
@@ -443,6 +455,7 @@ Gura_DeclareClassMethod(wx_PlatformInfo, GetPortIdShortName)
 
 Gura_ImplementClassMethod(wx_PlatformInfo, GetPortIdShortName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPortId port = static_cast<wxPortId>(args.GetInt(0));
 	bool usingUniversal = args.GetBoolean(1);
 	wxString rtn = wxPlatformInfo::GetPortIdShortName(port, usingUniversal);

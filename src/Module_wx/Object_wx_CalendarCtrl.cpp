@@ -46,6 +46,7 @@ Gura_DeclareFunction(CalendarCtrlEmpty)
 
 Gura_ImplementFunction(CalendarCtrlEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_CalendarCtrl *pEntity = new wx_CalendarCtrl();
 	Object_wx_CalendarCtrl *pObj = Object_wx_CalendarCtrl::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -74,6 +75,7 @@ Gura_DeclareFunction(CalendarCtrl)
 
 Gura_ImplementFunction(CalendarCtrl)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxDateTime *date = (wxDateTime *)(&wxDefaultDateTime);

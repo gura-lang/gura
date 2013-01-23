@@ -45,6 +45,7 @@ Gura_DeclareFunction(CountingOutputStreamEmpty)
 
 Gura_ImplementFunction(CountingOutputStreamEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_CountingOutputStream *pEntity = new wx_CountingOutputStream();
 	Object_wx_CountingOutputStream *pObj = Object_wx_CountingOutputStream::GetSelfObj(args);
 	if (pObj == NULL) {

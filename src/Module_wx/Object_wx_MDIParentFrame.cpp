@@ -55,6 +55,7 @@ Gura_DeclareFunction(MDIParentFrameEmpty)
 
 Gura_ImplementFunction(MDIParentFrameEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MDIParentFrame *pEntity = new wx_MDIParentFrame();
 	Object_wx_MDIParentFrame *pObj = Object_wx_MDIParentFrame::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -83,6 +84,7 @@ Gura_DeclareFunction(MDIParentFrame)
 
 Gura_ImplementFunction(MDIParentFrame)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));

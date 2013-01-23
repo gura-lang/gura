@@ -45,6 +45,7 @@ Gura_DeclareFunction(GDIObjectEmpty)
 
 Gura_ImplementFunction(GDIObjectEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GDIObject *pEntity = new wx_GDIObject();
 	Object_wx_GDIObject *pObj = Object_wx_GDIObject::GetSelfObj(args);
 	if (pObj == NULL) {

@@ -45,6 +45,7 @@ Gura_DeclareFunction(IdleEventEmpty)
 
 Gura_ImplementFunction(IdleEventEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_IdleEvent *pEntity = new wx_IdleEvent();
 	Object_wx_IdleEvent *pObj = Object_wx_IdleEvent::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -66,6 +67,7 @@ Gura_DeclareClassMethod(wx_IdleEvent, CanSend)
 
 Gura_ImplementClassMethod(wx_IdleEvent, CanSend)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool rtn = wxIdleEvent::CanSend(window);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -79,6 +81,7 @@ Gura_DeclareClassMethod(wx_IdleEvent, GetMode)
 
 Gura_ImplementClassMethod(wx_IdleEvent, GetMode)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxIdleMode rtn = wxIdleEvent::GetMode();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -121,6 +124,7 @@ Gura_DeclareClassMethod(wx_IdleEvent, SetMode_)
 
 Gura_ImplementClassMethod(wx_IdleEvent, SetMode_)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxIdleMode mode = static_cast<wxIdleMode>(args.GetInt(0));
 	wxIdleEvent::SetMode(mode);
 	return Value::Null;

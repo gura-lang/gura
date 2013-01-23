@@ -45,6 +45,7 @@ Gura_DeclareFunction(GridCellTextEditor)
 
 Gura_ImplementFunction(GridCellTextEditor)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellTextEditor *pEntity = new wx_GridCellTextEditor();
 	Object_wx_GridCellTextEditor *pObj = Object_wx_GridCellTextEditor::GetSelfObj(args);
 	if (pObj == NULL) {

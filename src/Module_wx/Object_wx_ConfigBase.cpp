@@ -53,6 +53,7 @@ Gura_DeclareFunction(ConfigBase)
 
 Gura_ImplementFunction(ConfigBase)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString appName = wxEmptyString;
 	if (args.IsValid(0)) appName = wxString::FromUTF8(args.GetString(0));
@@ -89,6 +90,7 @@ Gura_DeclareClassMethod(wx_ConfigBase, Create)
 
 Gura_ImplementClassMethod(wx_ConfigBase, Create)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxConfigBase *rtn = (wxConfigBase *)wxConfigBase::Create();
 	return ReturnValue(env, sig, args, Value(new Object_wx_ConfigBase(rtn, NULL, OwnerFalse)));
 }
@@ -197,6 +199,7 @@ Gura_DeclareClassMethod(wx_ConfigBase, Get)
 
 Gura_ImplementClassMethod(wx_ConfigBase, Get)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	bool CreateOnDemand = true;
 	if (args.IsValid(0)) CreateOnDemand = args.GetBoolean(0);
 	wxConfigBase *rtn = (wxConfigBase *)wxConfigBase::Get(CreateOnDemand);
@@ -678,6 +681,7 @@ Gura_DeclareClassMethod(wx_ConfigBase, Set)
 
 Gura_ImplementClassMethod(wx_ConfigBase, Set)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxConfigBase *pConfig = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
 	wxConfigBase *rtn = (wxConfigBase *)wxConfigBase::Set(pConfig);
 	return ReturnValue(env, sig, args, Value(new Object_wx_ConfigBase(rtn, NULL, OwnerFalse)));

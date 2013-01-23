@@ -56,6 +56,7 @@ Gura_DeclareFunction(TextValidator_1)
 
 Gura_ImplementFunction(TextValidator_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxTextValidator *validator = Object_wx_TextValidator::GetObject(args, 0)->GetEntity();
 	wx_TextValidator *pEntity = new wx_TextValidator(*validator);
 	Object_wx_TextValidator *pObj = Object_wx_TextValidator::GetSelfObj(args);
@@ -80,6 +81,7 @@ Gura_DeclareFunction(TextValidator)
 
 Gura_ImplementFunction(TextValidator)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	long style = wxFILTER_NONE;
 	if (args.IsValid(0)) style = args.GetLong(0);

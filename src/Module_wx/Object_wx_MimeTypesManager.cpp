@@ -45,6 +45,7 @@ Gura_DeclareFunction(MimeTypesManagerEmpty)
 
 Gura_ImplementFunction(MimeTypesManagerEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MimeTypesManager *pEntity = new wx_MimeTypesManager();
 	Object_wx_MimeTypesManager *pObj = Object_wx_MimeTypesManager::GetSelfObj(args);
 	if (pObj == NULL) {

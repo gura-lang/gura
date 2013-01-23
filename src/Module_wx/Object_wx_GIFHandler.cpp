@@ -43,6 +43,7 @@ Gura_DeclareFunction(GIFHandler)
 
 Gura_ImplementFunction(GIFHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GIFHandler *pEntity = new wx_GIFHandler();
 	Object_wx_GIFHandler *pObj = Object_wx_GIFHandler::GetSelfObj(args);
 	if (pObj == NULL) {

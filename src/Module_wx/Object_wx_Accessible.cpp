@@ -85,6 +85,7 @@ Gura_DeclareFunction(Accessible)
 
 Gura_ImplementFunction(Accessible)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *win = (wxWindow *)(NULL);
 	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_Accessible *pEntity = new wx_Accessible(win);

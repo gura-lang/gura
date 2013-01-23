@@ -55,6 +55,7 @@ Gura_DeclareFunction(SizerItem)
 
 Gura_ImplementFunction(SizerItem)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
 	int proportion = args.GetInt(2);
@@ -84,6 +85,7 @@ Gura_DeclareFunction(SizerItem_1)
 
 Gura_ImplementFunction(SizerItem_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxSizerFlags *flags = Object_wx_SizerFlags::GetObject(args, 1)->GetEntity();
 	wx_SizerItem *pEntity = new wx_SizerItem(window, *flags);
@@ -112,6 +114,7 @@ Gura_DeclareFunction(SizerItem_2)
 
 Gura_ImplementFunction(SizerItem_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	int proportion = args.GetInt(1);
 	int flag = args.GetInt(2);
@@ -140,6 +143,7 @@ Gura_DeclareFunction(SizerItem_3)
 
 Gura_ImplementFunction(SizerItem_3)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxSizer *window = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 	wxSizerFlags *flags = Object_wx_SizerFlags::GetObject(args, 1)->GetEntity();
 	wx_SizerItem *pEntity = new wx_SizerItem(window, *flags);
@@ -168,6 +172,7 @@ Gura_DeclareFunction(SizerItem_4)
 
 Gura_ImplementFunction(SizerItem_4)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 	int proportion = args.GetInt(1);
 	int flag = args.GetInt(2);

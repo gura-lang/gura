@@ -47,6 +47,7 @@ Gura_DeclareFunction(RichTextEvent)
 
 Gura_ImplementFunction(RichTextEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRichTextEvent *event = Object_wx_RichTextEvent::GetObject(args, 0)->GetEntity();
 	wx_RichTextEvent *pEntity = new wx_RichTextEvent(*event);
 	Object_wx_RichTextEvent *pObj = Object_wx_RichTextEvent::GetSelfObj(args);
@@ -71,6 +72,7 @@ Gura_DeclareFunction(RichTextEvent_1)
 
 Gura_ImplementFunction(RichTextEvent_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxEventType commandType = wxEVT_NULL;
 	if (args.IsValid(0)) commandType = static_cast<wxEventType>(args.GetInt(0));
 	int winid = 0;

@@ -48,6 +48,7 @@ Gura_DeclareFunction(Printout)
 
 Gura_ImplementFunction(Printout)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString title = wxT("Printout");
 	if (args.IsValid(0)) title = wxString::FromUTF8(args.GetString(0));

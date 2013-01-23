@@ -46,6 +46,7 @@ Gura_DeclareFunction(QueryLayoutInfoEvent)
 
 Gura_ImplementFunction(QueryLayoutInfoEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindowID id = 0;
 	if (args.IsValid(0)) id = static_cast<wxWindowID>(args.GetInt(0));
 	wx_QueryLayoutInfoEvent *pEntity = new wx_QueryLayoutInfoEvent(id);

@@ -48,6 +48,7 @@ Gura_DeclareFunction(PrintPreview)
 
 Gura_ImplementFunction(PrintPreview)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintout *printout = Object_wx_Printout::GetObject(args, 0)->GetEntity();
 	wxPrintout *printoutForPrinting = Object_wx_Printout::GetObject(args, 1)->GetEntity();
 	wxPrintData *data = (wxPrintData *)(NULL);

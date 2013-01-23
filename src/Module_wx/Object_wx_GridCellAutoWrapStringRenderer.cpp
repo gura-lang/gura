@@ -45,6 +45,7 @@ Gura_DeclareFunction(GridCellAutoWrapStringRenderer)
 
 Gura_ImplementFunction(GridCellAutoWrapStringRenderer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellAutoWrapStringRenderer *pEntity = new wx_GridCellAutoWrapStringRenderer();
 	Object_wx_GridCellAutoWrapStringRenderer *pObj = Object_wx_GridCellAutoWrapStringRenderer::GetSelfObj(args);
 	if (pObj == NULL) {

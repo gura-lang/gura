@@ -47,6 +47,7 @@ Gura_DeclareFunction(DebugReportPreviewEmpty)
 
 Gura_ImplementFunction(DebugReportPreviewEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_DebugReportPreview *pEntity = new wx_DebugReportPreview();
 	Object_wx_DebugReportPreview *pObj = Object_wx_DebugReportPreview::GetSelfObj(args);

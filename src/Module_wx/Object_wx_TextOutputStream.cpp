@@ -55,6 +55,7 @@ Gura_DeclareFunction(TextOutputStream)
 
 Gura_ImplementFunction(TextOutputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wxEOL mode = wxEOL_NATIVE;

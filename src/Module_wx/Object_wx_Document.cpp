@@ -90,6 +90,7 @@ Gura_DeclareFunction(DocumentEmpty)
 
 Gura_ImplementFunction(DocumentEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Document *pEntity = new wx_Document();
 	Object_wx_Document *pObj = Object_wx_Document::GetSelfObj(args);
 	if (pObj == NULL) {

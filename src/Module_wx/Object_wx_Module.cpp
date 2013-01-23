@@ -52,6 +52,7 @@ Gura_DeclareFunction(ModuleEmpty)
 
 Gura_ImplementFunction(ModuleEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_Module *pEntity = new wx_Module();
 	Object_wx_Module *pObj = Object_wx_Module::GetSelfObj(args);

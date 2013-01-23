@@ -47,6 +47,7 @@ Gura_DeclareFunction(SockAddressEmpty)
 
 Gura_ImplementFunction(SockAddressEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_SockAddress *pEntity = new wx_SockAddress();
 	Object_wx_SockAddress *pObj = Object_wx_SockAddress::GetSelfObj(args);

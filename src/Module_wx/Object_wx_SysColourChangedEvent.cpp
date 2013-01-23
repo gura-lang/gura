@@ -45,6 +45,7 @@ Gura_DeclareFunction(SysColourChangedEventEmpty)
 
 Gura_ImplementFunction(SysColourChangedEventEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SysColourChangedEvent *pEntity = new wx_SysColourChangedEvent();
 	Object_wx_SysColourChangedEvent *pObj = Object_wx_SysColourChangedEvent::GetSelfObj(args);
 	if (pObj == NULL) {

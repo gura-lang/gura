@@ -48,6 +48,7 @@ Gura_DeclareFunction(ProcessEvent)
 
 Gura_ImplementFunction(ProcessEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
 	int pid = 0;

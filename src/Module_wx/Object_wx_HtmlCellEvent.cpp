@@ -51,6 +51,7 @@ Gura_DeclareFunction(HtmlCellEvent)
 
 Gura_ImplementFunction(HtmlCellEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxEventType commandType = static_cast<wxEventType>(args.GetInt(0));
 	int id = args.GetInt(1);

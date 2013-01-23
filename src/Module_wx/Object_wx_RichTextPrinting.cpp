@@ -47,6 +47,7 @@ Gura_DeclareFunction(RichTextPrinting)
 
 Gura_ImplementFunction(RichTextPrinting)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxT("Printing");
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
 	wxWindow *parentWindow = (wxWindow *)(NULL);

@@ -43,6 +43,7 @@ Gura_DeclareFunction(TIFFHandler)
 
 Gura_ImplementFunction(TIFFHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TIFFHandler *pEntity = new wx_TIFFHandler();
 	Object_wx_TIFFHandler *pObj = Object_wx_TIFFHandler::GetSelfObj(args);
 	if (pObj == NULL) {

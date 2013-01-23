@@ -43,6 +43,7 @@ Gura_DeclareFunction(PCXHandler)
 
 Gura_ImplementFunction(PCXHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PCXHandler *pEntity = new wx_PCXHandler();
 	Object_wx_PCXHandler *pObj = Object_wx_PCXHandler::GetSelfObj(args);
 	if (pObj == NULL) {

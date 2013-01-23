@@ -53,6 +53,7 @@ Gura_DeclareFunction(RichTextFormattingDialog)
 
 Gura_ImplementFunction(RichTextFormattingDialog)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	long flags = args.GetLong(0);
 	wxWindow *parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wxString title = _("Formatting");
@@ -86,6 +87,7 @@ Gura_DeclareFunction(RichTextFormattingDialogEmpty)
 
 Gura_ImplementFunction(RichTextFormattingDialogEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RichTextFormattingDialog *pEntity = new wx_RichTextFormattingDialog();
 	Object_wx_RichTextFormattingDialog *pObj = Object_wx_RichTextFormattingDialog::GetSelfObj(args);
 	if (pObj == NULL) {

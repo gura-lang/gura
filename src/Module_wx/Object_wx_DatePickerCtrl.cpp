@@ -53,6 +53,7 @@ Gura_DeclareFunction(DatePickerCtrl)
 
 Gura_ImplementFunction(DatePickerCtrl)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxDateTime *dt = (wxDateTime *)(&wxDefaultDateTime);

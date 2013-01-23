@@ -48,6 +48,7 @@ Gura_DeclareFunction(AcceleratorEntryEmpty)
 
 Gura_ImplementFunction(AcceleratorEntryEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_AcceleratorEntry *pEntity = new wx_AcceleratorEntry();
 	Object_wx_AcceleratorEntry *pObj = Object_wx_AcceleratorEntry::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -72,6 +73,7 @@ Gura_DeclareFunction(AcceleratorEntry)
 
 Gura_ImplementFunction(AcceleratorEntry)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int flags = args.GetInt(0);
 	int keyCode = ArgToKeyCode(this, sig, args, 1);
 	if (sig.IsSignalled()) return Value::Null;

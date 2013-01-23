@@ -49,6 +49,7 @@ Gura_DeclareFunction(FontEmpty)
 
 Gura_ImplementFunction(FontEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Font *pEntity = new wx_Font();
 	Object_wx_Font *pObj = Object_wx_Font::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -77,6 +78,7 @@ Gura_DeclareFunction(Font)
 
 Gura_ImplementFunction(Font)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int pointSize = args.GetInt(0);
 	wxFontFamily family = static_cast<wxFontFamily>(args.GetInt(1));
 	int style = args.GetInt(2);
@@ -115,6 +117,7 @@ Gura_DeclareFunction(FontEx)
 
 Gura_ImplementFunction(FontEx)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if defined(__WXMSW__)
 	wxSize *pixelSize = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wxFontFamily family = static_cast<wxFontFamily>(args.GetInt(1));
@@ -164,6 +167,7 @@ Gura_DeclareClassMethod(wx_Font, GetDefaultEncoding)
 
 Gura_ImplementClassMethod(wx_Font, GetDefaultEncoding)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxFontEncoding rtn = wxFont::GetDefaultEncoding();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -369,6 +373,7 @@ Gura_DeclareClassMethod(wx_Font, New)
 
 Gura_ImplementClassMethod(wx_Font, New)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int pointSize = args.GetInt(0);
 	wxFontFamily family = static_cast<wxFontFamily>(args.GetInt(1));
 	int style = args.GetInt(2);
@@ -396,6 +401,7 @@ Gura_DeclareClassMethod(wx_Font, New_1)
 
 Gura_ImplementClassMethod(wx_Font, New_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int pointSize = args.GetInt(0);
 	wxFontFamily family = static_cast<wxFontFamily>(args.GetInt(1));
 	int flags = wxFONTFLAG_DEFAULT;
@@ -423,6 +429,7 @@ Gura_DeclareClassMethod(wx_Font, New_2)
 
 Gura_ImplementClassMethod(wx_Font, New_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxSize *pixelSize = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wxFontFamily family = static_cast<wxFontFamily>(args.GetInt(1));
 	int style = args.GetInt(2);
@@ -450,6 +457,7 @@ Gura_DeclareClassMethod(wx_Font, New_3)
 
 Gura_ImplementClassMethod(wx_Font, New_3)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxSize *pixelSize = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wxFontFamily family = static_cast<wxFontFamily>(args.GetInt(1));
 	int flags = wxFONTFLAG_DEFAULT;
@@ -484,6 +492,7 @@ Gura_DeclareClassMethod(wx_Font, SetDefaultEncoding)
 
 Gura_ImplementClassMethod(wx_Font, SetDefaultEncoding)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wxFont::SetDefaultEncoding(encoding);
 	return Value::Null;

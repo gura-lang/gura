@@ -47,6 +47,7 @@ Gura_DeclareFunction(ColourDialog)
 
 Gura_ImplementFunction(ColourDialog)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
 	wxColourData *data = (wxColourData *)(NULL);

@@ -55,6 +55,7 @@ Gura_DeclareFunction(RichTextStyleOrganiserDialog)
 
 Gura_ImplementFunction(RichTextStyleOrganiserDialog)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int flags = args.GetInt(0);
 	wxRichTextStyleSheet *sheet = Object_wx_RichTextStyleSheet::GetObject(args, 1)->GetEntity();
 	wxRichTextCtrl *ctrl = NULL;
@@ -91,6 +92,7 @@ Gura_DeclareFunction(RichTextStyleOrganiserDialogEmpty)
 
 Gura_ImplementFunction(RichTextStyleOrganiserDialogEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RichTextStyleOrganiserDialog *pEntity = new wx_RichTextStyleOrganiserDialog();
 	Object_wx_RichTextStyleOrganiserDialog *pObj = Object_wx_RichTextStyleOrganiserDialog::GetSelfObj(args);
 	if (pObj == NULL) {

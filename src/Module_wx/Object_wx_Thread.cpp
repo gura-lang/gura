@@ -63,6 +63,7 @@ Gura_DeclareFunction(Thread)
 
 Gura_ImplementFunction(Thread)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxThreadKind kind = wxTHREAD_DETACHED;
 	if (args.IsValid(0)) kind = static_cast<wxThreadKind>(args.GetInt(0));
@@ -160,6 +161,7 @@ Gura_DeclareClassMethod(wx_Thread, GetCPUCount)
 
 Gura_ImplementClassMethod(wx_Thread, GetCPUCount)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int rtn = wxThread::GetCPUCount();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -172,6 +174,7 @@ Gura_DeclareClassMethod(wx_Thread, GetCurrentId)
 
 Gura_ImplementClassMethod(wx_Thread, GetCurrentId)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	unsigned rtn = wxThread::GetCurrentId();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -240,6 +243,7 @@ Gura_DeclareClassMethod(wx_Thread, IsMain)
 
 Gura_ImplementClassMethod(wx_Thread, IsMain)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxThread::IsMain();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -350,6 +354,7 @@ Gura_DeclareClassMethod(wx_Thread, Sleep)
 
 Gura_ImplementClassMethod(wx_Thread, Sleep)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	unsigned milliseconds = args.GetInt(0);
 	wxThread::Sleep(milliseconds);
 	return Value::Null;
@@ -378,6 +383,7 @@ Gura_DeclareClassMethod(wx_Thread, SetConcurrency)
 
 Gura_ImplementClassMethod(wx_Thread, SetConcurrency)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	size_t level = args.GetSizeT(0);
 	bool rtn = wxThread::SetConcurrency(level);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -410,6 +416,7 @@ Gura_DeclareClassMethod(wx_Thread, This)
 
 Gura_ImplementClassMethod(wx_Thread, This)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxThread *rtn = (wxThread *)wxThread::This();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Thread(rtn, NULL, OwnerFalse)));
 }

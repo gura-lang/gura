@@ -46,6 +46,7 @@ Gura_DeclareFunction(HashSet)
 
 Gura_ImplementFunction(HashSet)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HashSet *pEntity = new wx_HashSet();
 	Object_wx_HashSet *pObj = Object_wx_HashSet::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -68,6 +69,7 @@ Gura_DeclareFunction(HashSet_1)
 
 Gura_ImplementFunction(HashSet_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxHashSet *set = Object_wx_HashSet::GetObject(args, 0)->GetEntity();
 	wx_HashSet *pEntity = new wx_HashSet(*set);
 	Object_wx_HashSet *pObj = Object_wx_HashSet::GetSelfObj(args);

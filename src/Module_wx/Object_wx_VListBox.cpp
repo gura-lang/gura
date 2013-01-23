@@ -54,6 +54,7 @@ Gura_DeclareFunction(VListBox)
 
 Gura_ImplementFunction(VListBox)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
@@ -92,6 +93,7 @@ Gura_DeclareFunction(VListBoxEmpty)
 
 Gura_ImplementFunction(VListBoxEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_VListBox *pEntity = new wx_VListBox();
 	Object_wx_VListBox *pObj = Object_wx_VListBox::GetSelfObj(args);

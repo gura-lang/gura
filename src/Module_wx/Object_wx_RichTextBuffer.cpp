@@ -47,6 +47,7 @@ Gura_DeclareFunction(RichTextBuffer)
 
 Gura_ImplementFunction(RichTextBuffer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRichTextBuffer *obj = Object_wx_RichTextBuffer::GetObject(args, 0)->GetEntity();
 	wx_RichTextBuffer *pEntity = new wx_RichTextBuffer(*obj);
 	Object_wx_RichTextBuffer *pObj = Object_wx_RichTextBuffer::GetSelfObj(args);
@@ -69,6 +70,7 @@ Gura_DeclareFunction(RichTextBufferEmpty)
 
 Gura_ImplementFunction(RichTextBufferEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RichTextBuffer *pEntity = new wx_RichTextBuffer();
 	Object_wx_RichTextBuffer *pObj = Object_wx_RichTextBuffer::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -105,6 +107,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, AddHandler)
 
 Gura_ImplementClassMethod(wx_RichTextBuffer, AddHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRichTextFileHandler *handler = Object_wx_RichTextFileHandler::GetObject(args, 0)->GetEntity();
 	wxRichTextBuffer::AddHandler(handler);
 	return Value::Null;
@@ -524,6 +527,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, CleanUpHandlers)
 
 Gura_ImplementClassMethod(wx_RichTextBuffer, CleanUpHandlers)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRichTextBuffer::CleanUpHandlers();
 	return Value::Null;
 }
@@ -1000,6 +1004,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, FindHandler)
 
 Gura_ImplementClassMethod(wx_RichTextBuffer, FindHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int imageType = args.GetInt(0);
 	wxRichTextFileHandler *rtn = (wxRichTextFileHandler *)wxRichTextBuffer::FindHandler(imageType);
 	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextFileHandler(rtn, NULL, OwnerFalse)));
@@ -1015,6 +1020,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, FindHandler_1)
 
 Gura_ImplementClassMethod(wx_RichTextBuffer, FindHandler_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString extension = wxString::FromUTF8(args.GetString(0));
 	int imageType = args.GetInt(1);
 	wxRichTextFileHandler *rtn = (wxRichTextFileHandler *)wxRichTextBuffer::FindHandler(extension, imageType);
@@ -1030,6 +1036,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, FindHandler_2)
 
 Gura_ImplementClassMethod(wx_RichTextBuffer, FindHandler_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxRichTextFileHandler *rtn = (wxRichTextFileHandler *)wxRichTextBuffer::FindHandler(name);
 	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextFileHandler(rtn, NULL, OwnerFalse)));
@@ -1045,6 +1052,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, FindHandlerFilenameOrType)
 
 Gura_ImplementClassMethod(wx_RichTextBuffer, FindHandlerFilenameOrType)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	int imageType = args.GetInt(1);
 	wxRichTextFileHandler *rtn = (wxRichTextFileHandler *)wxRichTextBuffer::FindHandlerFilenameOrType(filename, imageType);
@@ -1121,6 +1129,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, GetExtWildcard)
 
 Gura_ImplementClassMethod(wx_RichTextBuffer, GetExtWildcard)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	bool combine = false;
 	if (args.IsValid(0)) combine = args.GetBoolean(0);
 	bool save = false;
@@ -1140,6 +1149,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, GetHandlers)
 
 Gura_ImplementClassMethod(wx_RichTextBuffer, GetHandlers)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxList &rtn = wxRichTextBuffer::GetHandlers();
 	return ReturnValue(env, sig, args, Value(new Object_wx_List(new wxList(rtn), NULL, OwnerTrue)));
 }
@@ -1152,6 +1162,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, GetRenderer)
 
 Gura_ImplementClassMethod(wx_RichTextBuffer, GetRenderer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRichTextRenderer *rtn = (wxRichTextRenderer *)wxRichTextBuffer::GetRenderer();
 	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextRenderer(rtn, NULL, OwnerFalse)));
 }
@@ -1314,6 +1325,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, InitStandardHandlers)
 
 Gura_ImplementClassMethod(wx_RichTextBuffer, InitStandardHandlers)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRichTextBuffer::InitStandardHandlers();
 	return Value::Null;
 }
@@ -1326,6 +1338,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, InsertHandler)
 
 Gura_ImplementClassMethod(wx_RichTextBuffer, InsertHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRichTextFileHandler *handler = Object_wx_RichTextFileHandler::GetObject(args, 0)->GetEntity();
 	wxRichTextBuffer::InsertHandler(handler);
 	return Value::Null;
@@ -1613,6 +1626,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, RemoveHandler)
 
 Gura_ImplementClassMethod(wx_RichTextBuffer, RemoveHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxRichTextBuffer::RemoveHandler(name);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -1776,6 +1790,7 @@ Gura_DeclareClassMethod(wx_RichTextBuffer, SetRenderer)
 
 Gura_ImplementClassMethod(wx_RichTextBuffer, SetRenderer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRichTextRenderer *renderer = Object_wx_RichTextRenderer::GetObject(args, 0)->GetEntity();
 	wxRichTextBuffer::SetRenderer(renderer);
 	return Value::Null;

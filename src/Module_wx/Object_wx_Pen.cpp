@@ -51,6 +51,7 @@ Gura_DeclareFunction(PenEmpty)
 
 Gura_ImplementFunction(PenEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Pen *pEntity = new wx_Pen();
 	Object_wx_Pen *pObj = Object_wx_Pen::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -75,6 +76,7 @@ Gura_DeclareFunction(Pen)
 
 Gura_ImplementFunction(Pen)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	int width = 1;
 	if (args.IsValid(1)) width = args.GetInt(1);
@@ -104,6 +106,7 @@ Gura_DeclareFunction(Pen_1)
 
 Gura_ImplementFunction(Pen_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString colourName = wxString::FromUTF8(args.GetString(0));
 	int width = args.GetInt(1);
 	int style = args.GetInt(2);
@@ -130,6 +133,7 @@ Gura_DeclareFunction(Pen_2)
 
 Gura_ImplementFunction(Pen_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if defined(__WXMSW__)
 	wxBitmap *stipple = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	int width = args.GetInt(1);
@@ -159,6 +163,7 @@ Gura_DeclareFunction(Pen_3)
 
 Gura_ImplementFunction(Pen_3)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPen *pen = Object_wx_Pen::GetObject(args, 0)->GetEntity();
 	wx_Pen *pEntity = new wx_Pen(*pen);
 	Object_wx_Pen *pObj = Object_wx_Pen::GetSelfObj(args);

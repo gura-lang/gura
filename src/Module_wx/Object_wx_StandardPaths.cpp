@@ -43,6 +43,7 @@ Gura_DeclareClassMethod(wx_StandardPaths, Get)
 
 Gura_ImplementClassMethod(wx_StandardPaths, Get)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxStandardPathsBase &rtn = wxStandardPaths::Get();
 	return ReturnValue(env, sig, args, Value(new Object_wx_StandardPathsBase(new wxStandardPathsBase(rtn), NULL, OwnerTrue)));

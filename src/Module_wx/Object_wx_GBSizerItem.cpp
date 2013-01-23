@@ -54,6 +54,7 @@ Gura_DeclareFunction(GBSizerItem)
 
 Gura_ImplementFunction(GBSizerItem)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
 	wxGBPosition *pos = Object_wx_GBPosition::GetObject(args, 2)->GetEntity();
@@ -88,6 +89,7 @@ Gura_DeclareFunction(GBSizerItem_1)
 
 Gura_ImplementFunction(GBSizerItem_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxGBPosition *pos = Object_wx_GBPosition::GetObject(args, 1)->GetEntity();
 	wxGBSpan *span = Object_wx_GBSpan::GetObject(args, 2)->GetEntity();
@@ -121,6 +123,7 @@ Gura_DeclareFunction(GBSizerItem_2)
 
 Gura_ImplementFunction(GBSizerItem_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 	wxGBPosition *pos = Object_wx_GBPosition::GetObject(args, 1)->GetEntity();
 	wxGBSpan *span = Object_wx_GBSpan::GetObject(args, 2)->GetEntity();

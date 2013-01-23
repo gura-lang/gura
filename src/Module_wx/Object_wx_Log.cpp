@@ -50,6 +50,7 @@ Gura_DeclareFunction(Log)
 
 Gura_ImplementFunction(Log)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	return Value::Null;
 }
 
@@ -61,6 +62,7 @@ Gura_DeclareClassMethod(wx_Log, AddTraceMask)
 
 Gura_ImplementClassMethod(wx_Log, AddTraceMask)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString mask = wxString::FromUTF8(args.GetString(0));
 	wxLog::AddTraceMask(mask);
 	return Value::Null;
@@ -73,6 +75,7 @@ Gura_DeclareClassMethod(wx_Log, ClearTraceMasks)
 
 Gura_ImplementClassMethod(wx_Log, ClearTraceMasks)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxLog::ClearTraceMasks();
 	return Value::Null;
 }
@@ -85,6 +88,7 @@ Gura_DeclareClassMethod(wx_Log, GetTraceMasks)
 
 Gura_ImplementClassMethod(wx_Log, GetTraceMasks)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxArrayString rtn = wxLog::GetTraceMasks();
 	return ReturnValue(env, sig, args, ArrayStringToValue(env, rtn));
 }
@@ -100,6 +104,7 @@ Gura_DeclareClassMethod(wx_Log, OnLog)
 
 Gura_ImplementClassMethod(wx_Log, OnLog)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxLogLevel level = static_cast<wxLogLevel>(args.GetInt(0));
 	char message = args.GetChar(1);
@@ -118,6 +123,7 @@ Gura_DeclareClassMethod(wx_Log, GetActiveTarget)
 
 Gura_ImplementClassMethod(wx_Log, GetActiveTarget)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxLog *rtn = (wxLog *)wxLog::GetActiveTarget();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Log(rtn, NULL, OwnerFalse));
@@ -133,6 +139,7 @@ Gura_DeclareClassMethod(wx_Log, SetActiveTarget)
 
 Gura_ImplementClassMethod(wx_Log, SetActiveTarget)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxLog *logtarget = args.IsValid(0)?
 					Object_wx_Log::GetObject(args, 0)->GetEntity() : NULL;
 	wxLog *rtn = (wxLog *)wxLog::SetActiveTarget(logtarget);
@@ -148,6 +155,7 @@ Gura_DeclareClassMethod(wx_Log, Suspend)
 
 Gura_ImplementClassMethod(wx_Log, Suspend)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxLog::Suspend();
 	return Value::Null;
 }
@@ -159,6 +167,7 @@ Gura_DeclareClassMethod(wx_Log, Resume)
 
 Gura_ImplementClassMethod(wx_Log, Resume)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxLog::Resume();
 	return Value::Null;
 }
@@ -214,6 +223,7 @@ Gura_DeclareClassMethod(wx_Log, DontCreateOnDemand)
 
 Gura_ImplementClassMethod(wx_Log, DontCreateOnDemand)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxLog::DontCreateOnDemand();
 	return Value::Null;
 }
@@ -238,6 +248,7 @@ Gura_DeclareClassMethod(wx_Log, FlushActive)
 
 Gura_ImplementClassMethod(wx_Log, FlushActive)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxLog::FlushActive();
 	return Value::Null;
 }
@@ -250,6 +261,7 @@ Gura_DeclareClassMethod(wx_Log, SetVerbose)
 
 Gura_ImplementClassMethod(wx_Log, SetVerbose)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	bool verbose = true;
 	if (args.IsValid(0)) verbose = args.GetBoolean(0);
 	wxLog::SetVerbose(verbose);
@@ -264,6 +276,7 @@ Gura_DeclareClassMethod(wx_Log, GetVerbose)
 
 Gura_ImplementClassMethod(wx_Log, GetVerbose)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxLog::GetVerbose();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -276,6 +289,7 @@ Gura_DeclareClassMethod(wx_Log, SetLogLevel)
 
 Gura_ImplementClassMethod(wx_Log, SetLogLevel)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxLogLevel logLevel = static_cast<wxLogLevel>(args.GetInt(0));
 	wxLog::SetLogLevel(logLevel);
 	return Value::Null;
@@ -289,6 +303,7 @@ Gura_DeclareClassMethod(wx_Log, GetLogLevel)
 
 Gura_ImplementClassMethod(wx_Log, GetLogLevel)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxLogLevel rtn = wxLog::GetLogLevel();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -301,6 +316,7 @@ Gura_DeclareClassMethod(wx_Log, SetRepetitionCounting)
 
 Gura_ImplementClassMethod(wx_Log, SetRepetitionCounting)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	bool repetCounting = true;
 	if (args.IsValid(0)) repetCounting = args.GetBoolean(0);
 	wxLog::SetRepetitionCounting(repetCounting);
@@ -315,6 +331,7 @@ Gura_DeclareClassMethod(wx_Log, GetRepetitionCounting)
 
 Gura_ImplementClassMethod(wx_Log, GetRepetitionCounting)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxLog::GetRepetitionCounting();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -327,6 +344,7 @@ Gura_DeclareClassMethod(wx_Log, SetTimestamp)
 
 Gura_ImplementClassMethod(wx_Log, SetTimestamp)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if defined(__WXMSW__)
 	if (args.IsValid(0)) {
 		const char *format = args.GetString(0);
@@ -349,6 +367,7 @@ Gura_DeclareClassMethod(wx_Log, GetTimestamp)
 
 Gura_ImplementClassMethod(wx_Log, GetTimestamp)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxString(wxLog::GetTimestamp());
 	return ReturnValue(env, sig, args, Value(env, rtn.ToUTF8()));
 }
@@ -361,6 +380,7 @@ Gura_DeclareClassMethod(wx_Log, SetTraceMask)
 
 Gura_ImplementClassMethod(wx_Log, SetTraceMask)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxTraceMask mask = static_cast<wxTraceMask>(args.GetInt(0));
 	wxLog::SetTraceMask(mask);
 	return Value::Null;
@@ -375,6 +395,7 @@ Gura_DeclareClassMethod(wx_Log, IsAllowedTraceMask)
 
 Gura_ImplementClassMethod(wx_Log, IsAllowedTraceMask)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString mask = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxLog::IsAllowedTraceMask(mask);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -388,6 +409,7 @@ Gura_DeclareClassMethod(wx_Log, RemoveTraceMask)
 
 Gura_ImplementClassMethod(wx_Log, RemoveTraceMask)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString mask = wxString::FromUTF8(args.GetString(0));
 	wxLog::RemoveTraceMask(mask);
 	return Value::Null;

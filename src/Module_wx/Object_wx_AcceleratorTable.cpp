@@ -50,6 +50,7 @@ Gura_DeclareFunction(AcceleratorTableEmpty)
 
 Gura_ImplementFunction(AcceleratorTableEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_AcceleratorTable *pEntity = new wx_AcceleratorTable();
 	Object_wx_AcceleratorTable *pObj = Object_wx_AcceleratorTable::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -72,6 +73,7 @@ Gura_DeclareFunction(AcceleratorTable)
 
 Gura_ImplementFunction(AcceleratorTable)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	CArrayOfAcceleratorEntry entries(args.GetList(0));
 	wx_AcceleratorTable *pEntity = new wx_AcceleratorTable(entries.Count(), entries.Data());
 	Object_wx_AcceleratorTable *pObj = Object_wx_AcceleratorTable::GetSelfObj(args);
@@ -96,6 +98,7 @@ Gura_DeclareFunction(AcceleratorTable_2)
 
 Gura_ImplementFunction(AcceleratorTable_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString resource = wxString::FromUTF8(args.GetString(0));
 	wx_AcceleratorTable *pEntity = new wx_AcceleratorTable(resource);
 	Object_wx_AcceleratorTable *pObj = Object_wx_AcceleratorTable::GetSelfObj(args);

@@ -137,6 +137,7 @@ Gura_DeclareFunction(DataViewRenderer)
 
 Gura_ImplementFunction(DataViewRenderer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString varianttype = wxString::FromUTF8(args.GetString(0));
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;

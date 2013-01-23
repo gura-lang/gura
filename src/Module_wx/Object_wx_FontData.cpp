@@ -45,6 +45,7 @@ Gura_DeclareFunction(FontData)
 
 Gura_ImplementFunction(FontData)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FontData *pEntity = new wx_FontData();
 	Object_wx_FontData *pObj = Object_wx_FontData::GetSelfObj(args);
 	if (pObj == NULL) {

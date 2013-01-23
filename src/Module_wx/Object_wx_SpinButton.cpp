@@ -46,6 +46,7 @@ Gura_DeclareFunction(SpinButtonEmpty)
 
 Gura_ImplementFunction(SpinButtonEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SpinButton *pEntity = new wx_SpinButton();
 	Object_wx_SpinButton *pObj = Object_wx_SpinButton::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -73,6 +74,7 @@ Gura_DeclareFunction(SpinButton)
 
 Gura_ImplementFunction(SpinButton)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

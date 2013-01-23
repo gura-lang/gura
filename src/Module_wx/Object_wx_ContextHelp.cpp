@@ -47,6 +47,7 @@ Gura_DeclareFunction(ContextHelp)
 
 Gura_ImplementFunction(ContextHelp)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *window = (wxWindow *)(NULL);
 	if (args.IsValid(0)) window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	bool doNow = true;

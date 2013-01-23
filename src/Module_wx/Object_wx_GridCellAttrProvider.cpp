@@ -65,6 +65,7 @@ Gura_DeclareFunction(GridCellAttrProvider)
 
 Gura_ImplementFunction(GridCellAttrProvider)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellAttrProvider *pEntity = new wx_GridCellAttrProvider();
 	Object_wx_GridCellAttrProvider *pObj = Object_wx_GridCellAttrProvider::GetSelfObj(args);
 	if (pObj == NULL) {

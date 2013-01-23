@@ -46,6 +46,7 @@ Gura_DeclareFunction(SizerFlags)
 
 Gura_ImplementFunction(SizerFlags)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int proportion = 0;
 	if (args.IsValid(0)) proportion = args.GetInt(0);
 	wx_SizerFlags *pEntity = new wx_SizerFlags(proportion);
@@ -181,6 +182,7 @@ Gura_DeclareClassMethod(wx_SizerFlags, GetDefaultBorder)
 
 Gura_ImplementClassMethod(wx_SizerFlags, GetDefaultBorder)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int rtn = wxSizerFlags::GetDefaultBorder();
 	return ReturnValue(env, sig, args, Value(rtn));
 }

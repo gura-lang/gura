@@ -47,6 +47,7 @@ Gura_DeclareFunction(StackWalkerEmpty)
 
 Gura_ImplementFunction(StackWalkerEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_StackWalker *pEntity = new wx_StackWalker();
 	Object_wx_StackWalker *pObj = Object_wx_StackWalker::GetSelfObj(args);

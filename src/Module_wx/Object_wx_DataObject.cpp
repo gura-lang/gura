@@ -60,6 +60,7 @@ Gura_DeclareFunction(DataObject)
 
 Gura_ImplementFunction(DataObject)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_DataObject *pEntity = new wx_DataObject();
 	Object_wx_DataObject *pObj = Object_wx_DataObject::GetSelfObj(args);

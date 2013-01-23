@@ -46,6 +46,7 @@ Gura_DeclareFunction(MiniFrameEmpty)
 
 Gura_ImplementFunction(MiniFrameEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MiniFrame *pEntity = new wx_MiniFrame();
 	Object_wx_MiniFrame *pObj = Object_wx_MiniFrame::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -74,6 +75,7 @@ Gura_DeclareFunction(MiniFrame)
 
 Gura_ImplementFunction(MiniFrame)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));

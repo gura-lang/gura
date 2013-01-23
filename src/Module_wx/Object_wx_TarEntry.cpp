@@ -49,6 +49,7 @@ Gura_DeclareFunction(TarEntry)
 
 Gura_ImplementFunction(TarEntry)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxEmptyString;
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
 	wxDateTime dt = wxDateTime::Now();
@@ -77,6 +78,7 @@ Gura_DeclareFunction(TarEntry_1)
 
 Gura_ImplementFunction(TarEntry_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxTarEntry *entry = Object_wx_TarEntry::GetObject(args, 0)->GetEntity();
 	wx_TarEntry *pEntity = new wx_TarEntry(*entry);
 	Object_wx_TarEntry *pObj = Object_wx_TarEntry::GetSelfObj(args);

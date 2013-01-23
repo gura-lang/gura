@@ -46,6 +46,7 @@ Gura_DeclareFunction(MutexLocker)
 
 Gura_ImplementFunction(MutexLocker)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxMutex *mutex = Object_wx_Mutex::GetObject(args, 0)->GetEntity();
 	wx_MutexLocker *pEntity = new wx_MutexLocker(*mutex);
 	Object_wx_MutexLocker *pObj = Object_wx_MutexLocker::GetSelfObj(args);

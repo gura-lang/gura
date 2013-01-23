@@ -46,6 +46,7 @@ Gura_DeclareFunction(NotebookSizer)
 
 Gura_ImplementFunction(NotebookSizer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxNotebook *notebook = Object_wx_Notebook::GetObject(args, 0)->GetEntity();
 	wx_NotebookSizer *pEntity = new wx_NotebookSizer(notebook);
 	Object_wx_NotebookSizer *pObj = Object_wx_NotebookSizer::GetSelfObj(args);

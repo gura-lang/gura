@@ -48,6 +48,7 @@ Gura_DeclareFunction(HtmlContainerCell)
 
 Gura_ImplementFunction(HtmlContainerCell)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxHtmlContainerCell **parent = Object_wx_HtmlContainerCell::GetObject(args, 0)->GetEntity();
 	wx_HtmlContainerCell *pEntity = new wx_HtmlContainerCell(**parent);

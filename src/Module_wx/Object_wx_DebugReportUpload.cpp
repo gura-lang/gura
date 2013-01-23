@@ -49,6 +49,7 @@ Gura_DeclareFunction(DebugReportUpload)
 
 Gura_ImplementFunction(DebugReportUpload)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString url = wxString::FromUTF8(args.GetString(0));
 	wxString input = wxString::FromUTF8(args.GetString(1));
 	wxString action = wxString::FromUTF8(args.GetString(2));

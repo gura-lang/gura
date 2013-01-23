@@ -46,6 +46,7 @@ Gura_DeclareFunction(WindowDC)
 
 Gura_ImplementFunction(WindowDC)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_WindowDC *pEntity = new wx_WindowDC(window);
 	Object_wx_WindowDC *pObj = Object_wx_WindowDC::GetSelfObj(args);

@@ -45,6 +45,7 @@ Gura_DeclareFunction(ColourData)
 
 Gura_ImplementFunction(ColourData)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ColourData *pEntity = new wx_ColourData();
 	Object_wx_ColourData *pObj = Object_wx_ColourData::GetSelfObj(args);
 	if (pObj == NULL) {

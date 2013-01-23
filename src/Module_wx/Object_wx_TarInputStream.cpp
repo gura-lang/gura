@@ -48,6 +48,7 @@ Gura_DeclareFunction(TarInputStream)
 
 Gura_ImplementFunction(TarInputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxMBConv *conv = (wxMBConv *)(&wxConvLocal);
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
@@ -74,6 +75,7 @@ Gura_DeclareFunction(TarInputStream_1)
 
 Gura_ImplementFunction(TarInputStream_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxMBConv *conv = (wxMBConv *)(&wxConvLocal);
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();

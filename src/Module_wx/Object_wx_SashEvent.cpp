@@ -47,6 +47,7 @@ Gura_DeclareFunction(SashEvent)
 
 Gura_ImplementFunction(SashEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wxSashEdgePosition edge = wxSASH_NONE;

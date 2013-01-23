@@ -46,6 +46,7 @@ Gura_DeclareFunction(TextAttr)
 
 Gura_ImplementFunction(TextAttr)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TextAttr *pEntity = new wx_TextAttr();
 	Object_wx_TextAttr *pObj = Object_wx_TextAttr::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -71,6 +72,7 @@ Gura_DeclareFunction(TextAttr_1)
 
 Gura_ImplementFunction(TextAttr_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxColour *colText = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	wxColour *colBack = (wxColour *)(&wxNullColour);
 	if (args.IsValid(1)) colBack = Object_wx_Colour::GetObject(args, 1)->GetEntity();
@@ -353,6 +355,7 @@ Gura_DeclareClassMethod(wx_TextAttr, Merge_1)
 
 Gura_ImplementClassMethod(wx_TextAttr, Merge_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxTextAttr *base = Object_wx_TextAttr::GetObject(args, 0)->GetEntity();
 	wxTextAttr *overlay = Object_wx_TextAttr::GetObject(args, 1)->GetEntity();
 	wxTextAttr rtn = wxTextAttr::Merge(*base, *overlay);

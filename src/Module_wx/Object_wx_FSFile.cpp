@@ -52,6 +52,7 @@ Gura_DeclareFunction(FSFile)
 
 Gura_ImplementFunction(FSFile)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxInputStream **stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxString loc = wxString::FromUTF8(args.GetString(1));

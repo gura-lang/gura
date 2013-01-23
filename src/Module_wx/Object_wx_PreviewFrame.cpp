@@ -52,6 +52,7 @@ Gura_DeclareFunction(PreviewFrame)
 
 Gura_ImplementFunction(PreviewFrame)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintPreview *preview = Object_wx_PrintPreview::GetObject(args, 0)->GetEntity();
 	wxWindow *parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wxString title = wxString::FromUTF8(args.GetString(2));

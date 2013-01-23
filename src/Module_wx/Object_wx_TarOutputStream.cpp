@@ -49,6 +49,7 @@ Gura_DeclareFunction(TarOutputStream)
 
 Gura_ImplementFunction(TarOutputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wxTarFormat format = wxTAR_PAX;
 	if (args.IsValid(1)) format = static_cast<wxTarFormat>(args.GetInt(1));
@@ -78,6 +79,7 @@ Gura_DeclareFunction(TarOutputStream_1)
 
 Gura_ImplementFunction(TarOutputStream_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wxTarFormat format = wxTAR_PAX;
 	if (args.IsValid(1)) format = static_cast<wxTarFormat>(args.GetInt(1));

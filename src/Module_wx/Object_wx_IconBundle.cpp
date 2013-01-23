@@ -48,6 +48,7 @@ Gura_DeclareFunction(IconBundleEmpty)
 
 Gura_ImplementFunction(IconBundleEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_IconBundle *pEntity = new wx_IconBundle();
 	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -71,6 +72,7 @@ Gura_DeclareFunction(IconBundle)
 
 Gura_ImplementFunction(IconBundle)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
 	long type = args.GetLong(1);
 	wx_IconBundle *pEntity = new wx_IconBundle(file, type);
@@ -95,6 +97,7 @@ Gura_DeclareFunction(IconBundle_1)
 
 Gura_ImplementFunction(IconBundle_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxIcon *icon = Object_wx_Icon::GetObject(args, 0)->GetEntity();
 	wx_IconBundle *pEntity = new wx_IconBundle(*icon);
 	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetSelfObj(args);
@@ -118,6 +121,7 @@ Gura_DeclareFunction(IconBundle_2)
 
 Gura_ImplementFunction(IconBundle_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxIconBundle *ic = Object_wx_IconBundle::GetObject(args, 0)->GetEntity();
 	wx_IconBundle *pEntity = new wx_IconBundle(*ic);
 	Object_wx_IconBundle *pObj = Object_wx_IconBundle::GetSelfObj(args);

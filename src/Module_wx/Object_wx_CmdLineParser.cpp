@@ -53,6 +53,7 @@ Gura_DeclareFunction(CmdLineParserEmpty)
 
 Gura_ImplementFunction(CmdLineParserEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_CmdLineParser *pEntity = new wx_CmdLineParser();
 	Object_wx_CmdLineParser *pObj = Object_wx_CmdLineParser::GetSelfObj(args);
@@ -82,6 +83,7 @@ Gura_DeclareFunction(CmdLineParser)
 
 Gura_ImplementFunction(CmdLineParser)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	int argc = args.GetInt(0);
 	char argv = args.GetChar(1);
@@ -113,6 +115,7 @@ Gura_DeclareFunction(CmdLineParser_1)
 
 Gura_ImplementFunction(CmdLineParser_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	int argc = args.GetInt(0);
 	wchar_t argv = static_cast<wchar_t>(args.GetUShort(1));
@@ -143,6 +146,7 @@ Gura_DeclareFunction(CmdLineParser_2)
 
 Gura_ImplementFunction(CmdLineParser_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString cmdline = wxString::FromUTF8(args.GetString(0));
 	wx_CmdLineParser *pEntity = new wx_CmdLineParser(cmdline);
@@ -172,6 +176,7 @@ Gura_DeclareFunction(CmdLineParser_3)
 
 Gura_ImplementFunction(CmdLineParser_3)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxCmdLineEntryDesc *desc = Object_wx_CmdLineEntryDesc::GetObject(args, 0)->GetEntity();
 	wx_CmdLineParser *pEntity = new wx_CmdLineParser(desc);
@@ -203,6 +208,7 @@ Gura_DeclareFunction(CmdLineParser_4)
 
 Gura_ImplementFunction(CmdLineParser_4)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxCmdLineEntryDesc *desc = Object_wx_CmdLineEntryDesc::GetObject(args, 0)->GetEntity();
 	int argc = args.GetInt(1);
@@ -235,6 +241,7 @@ Gura_DeclareFunction(CmdLineParser_5)
 
 Gura_ImplementFunction(CmdLineParser_5)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxCmdLineEntryDesc *desc = Object_wx_CmdLineEntryDesc::GetObject(args, 0)->GetEntity();
 	wxString cmdline = wxString::FromUTF8(args.GetString(1));
@@ -264,6 +271,7 @@ Gura_DeclareClassMethod(wx_CmdLineParser, ConvertStringToArgs)
 
 Gura_ImplementClassMethod(wx_CmdLineParser, ConvertStringToArgs)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxChar *cmdline = static_cast<wxChar>(args.GetInt(0));
 	wxArrayString rtn = wxCmdLineParser::ConvertStringToArgs(*cmdline);

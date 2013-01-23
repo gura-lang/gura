@@ -107,6 +107,7 @@ Gura_DeclareFunction(FontEnumerator)
 
 Gura_ImplementFunction(FontEnumerator)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FontEnumerator *pEntity = new wx_FontEnumerator();
 	Object_wx_FontEnumerator *pObj = Object_wx_FontEnumerator::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -165,6 +166,7 @@ Gura_DeclareClassMethod(wx_FontEnumerator, GetEncodings)
 
 Gura_ImplementClassMethod(wx_FontEnumerator, GetEncodings)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString facename = wxT("");
 	if (args.IsValid(0)) facename = wxString::FromUTF8(args.GetString(0));
 	wxArrayString rtn = wxFontEnumerator::GetEncodings(facename);
@@ -181,6 +183,7 @@ Gura_DeclareClassMethod(wx_FontEnumerator, GetFacenames)
 
 Gura_ImplementClassMethod(wx_FontEnumerator, GetFacenames)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxFontEncoding encoding = wxFONTENCODING_SYSTEM;
 	if (args.IsValid(0)) encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	bool fixedWidthOnly = false;
@@ -198,6 +201,7 @@ Gura_DeclareClassMethod(wx_FontEnumerator, IsValidFacename)
 
 Gura_ImplementClassMethod(wx_FontEnumerator, IsValidFacename)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString facename = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxFontEnumerator::IsValidFacename(facename);
 	return ReturnValue(env, sig, args, Value(rtn));

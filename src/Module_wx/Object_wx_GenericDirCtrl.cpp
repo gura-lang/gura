@@ -46,6 +46,7 @@ Gura_DeclareFunction(GenericDirCtrlEmpty)
 
 Gura_ImplementFunction(GenericDirCtrlEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GenericDirCtrl *pEntity = new wx_GenericDirCtrl();
 	Object_wx_GenericDirCtrl *pObj = Object_wx_GenericDirCtrl::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -76,6 +77,7 @@ Gura_DeclareFunction(GenericDirCtrl)
 
 Gura_ImplementFunction(GenericDirCtrl)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = -1;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));

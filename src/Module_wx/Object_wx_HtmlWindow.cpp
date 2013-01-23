@@ -167,6 +167,7 @@ Gura_DeclareFunction(HtmlWindowEmpty)
 
 Gura_ImplementFunction(HtmlWindowEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HtmlWindow *pEntity = new wx_HtmlWindow();
 	Object_wx_HtmlWindow *pObj = Object_wx_HtmlWindow::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -194,6 +195,7 @@ Gura_DeclareFunction(HtmlWindow)
 
 Gura_ImplementFunction(HtmlWindow)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = -1;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
@@ -225,6 +227,7 @@ Gura_DeclareClassMethod(wx_HtmlWindow, AddFilter)
 
 Gura_ImplementClassMethod(wx_HtmlWindow, AddFilter)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxHtmlFilter *filter = Object_wx_HtmlFilter::GetObject(args, 0)->GetEntity();
 	wxHtmlWindow::AddFilter(filter);
 	return Value::Null;

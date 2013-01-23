@@ -60,6 +60,7 @@ Gura_DeclareFunction(HtmlParserEmpty)
 
 Gura_ImplementFunction(HtmlParserEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_HtmlParser *pEntity = new wx_HtmlParser();
 	Object_wx_HtmlParser *pObj = Object_wx_HtmlParser::GetSelfObj(args);

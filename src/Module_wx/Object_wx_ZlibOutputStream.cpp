@@ -48,6 +48,7 @@ Gura_DeclareFunction(ZlibOutputStream)
 
 Gura_ImplementFunction(ZlibOutputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	int level = -1;
 	if (args.IsValid(1)) level = args.GetInt(1);
@@ -73,6 +74,7 @@ Gura_DeclareClassMethod(wx_ZlibOutputStream, CanHandleGZip)
 
 Gura_ImplementClassMethod(wx_ZlibOutputStream, CanHandleGZip)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	bool rtn = wxZlibOutputStream::CanHandleGZip();
 	return ReturnValue(env, sig, args, Value(rtn));
 }

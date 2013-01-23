@@ -48,6 +48,7 @@ Gura_DeclareFunction(DatagramSocket)
 
 Gura_ImplementFunction(DatagramSocket)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxSocketFlags flags = wxSOCKET_NONE;
 	if (args.IsValid(0)) flags = static_cast<wxSocketFlags>(args.GetInt(0));

@@ -45,6 +45,7 @@ Gura_DeclareFunction(DDEClientEmpty)
 
 Gura_ImplementFunction(DDEClientEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DDEClient *pEntity = new wx_DDEClient();
 	Object_wx_DDEClient *pObj = Object_wx_DDEClient::GetSelfObj(args);
 	if (pObj == NULL) {

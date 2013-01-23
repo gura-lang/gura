@@ -46,6 +46,7 @@ Gura_DeclareFunction(URL)
 
 Gura_ImplementFunction(URL)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString url = wxEmptyString;
 	if (args.IsValid(0)) url = wxString::FromUTF8(args.GetString(0));
 	wx_URL *pEntity = new wx_URL(url);
@@ -128,6 +129,7 @@ Gura_DeclareClassMethod(wx_URL, SetDefaultProxy)
 
 Gura_ImplementClassMethod(wx_URL, SetDefaultProxy)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString url_proxy = wxString::FromUTF8(args.GetString(0));
 	wxURL::SetDefaultProxy(url_proxy);
 	return Value::Null;

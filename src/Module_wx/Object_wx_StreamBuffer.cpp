@@ -50,6 +50,7 @@ Gura_DeclareFunction(StreamBuffer)
 
 Gura_ImplementFunction(StreamBuffer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxStreamBase *stream = Object_wx_StreamBase::GetObject(args, 0)->GetEntity();
 	wxStreamBuffer::BufMode mode = static_cast<wxStreamBuffer::BufMode>(args.GetInt(1));
 	wx_StreamBuffer *pEntity = new wx_StreamBuffer(*stream, mode);
@@ -74,6 +75,7 @@ Gura_DeclareFunction(StreamBuffer_1)
 
 Gura_ImplementFunction(StreamBuffer_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxStreamBuffer::BufMode mode = static_cast<wxStreamBuffer::BufMode>(args.GetInt(0));
 	wx_StreamBuffer *pEntity = new wx_StreamBuffer(mode);
 	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetSelfObj(args);
@@ -97,6 +99,7 @@ Gura_DeclareFunction(StreamBuffer_2)
 
 Gura_ImplementFunction(StreamBuffer_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxStreamBuffer *buffer = Object_wx_StreamBuffer::GetObject(args, 0)->GetEntity();
 	wx_StreamBuffer *pEntity = new wx_StreamBuffer(*buffer);
 	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetSelfObj(args);
@@ -121,6 +124,7 @@ Gura_DeclareFunction(StreamBufferEmpty)
 
 Gura_ImplementFunction(StreamBufferEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_StreamBuffer *pEntity = new wx_StreamBuffer();
 	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetSelfObj(args);

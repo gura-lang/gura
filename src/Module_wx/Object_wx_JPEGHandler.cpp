@@ -43,6 +43,7 @@ Gura_DeclareFunction(JPEGHandler)
 
 Gura_ImplementFunction(JPEGHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_JPEGHandler *pEntity = new wx_JPEGHandler();
 	Object_wx_JPEGHandler *pObj = Object_wx_JPEGHandler::GetSelfObj(args);
 	if (pObj == NULL) {

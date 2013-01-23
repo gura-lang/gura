@@ -45,6 +45,7 @@ Gura_DeclareFunction(LayoutAlgorithm)
 
 Gura_ImplementFunction(LayoutAlgorithm)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_LayoutAlgorithm *pEntity = new wx_LayoutAlgorithm();
 	Object_wx_LayoutAlgorithm *pObj = Object_wx_LayoutAlgorithm::GetSelfObj(args);
 	if (pObj == NULL) {

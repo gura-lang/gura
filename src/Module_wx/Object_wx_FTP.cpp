@@ -45,6 +45,7 @@ Gura_DeclareFunction(FTPEmpty)
 
 Gura_ImplementFunction(FTPEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FTP *pEntity = new wx_FTP();
 	Object_wx_FTP *pObj = Object_wx_FTP::GetSelfObj(args);
 	if (pObj == NULL) {

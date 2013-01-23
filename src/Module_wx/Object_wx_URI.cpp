@@ -48,6 +48,7 @@ Gura_DeclareFunction(URIEmpty)
 
 Gura_ImplementFunction(URIEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_URI *pEntity = new wx_URI();
 	Object_wx_URI *pObj = Object_wx_URI::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -70,6 +71,7 @@ Gura_DeclareFunction(URI)
 
 Gura_ImplementFunction(URI)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString uri = wxString::FromUTF8(args.GetString(0));
 	wx_URI *pEntity = new wx_URI(uri);
 	Object_wx_URI *pObj = Object_wx_URI::GetSelfObj(args);
@@ -93,6 +95,7 @@ Gura_DeclareFunction(URI_1)
 
 Gura_ImplementFunction(URI_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxURI *uri = Object_wx_URI::GetObject(args, 0)->GetEntity();
 	wx_URI *pEntity = new wx_URI(*uri);
 	Object_wx_URI *pObj = Object_wx_URI::GetSelfObj(args);

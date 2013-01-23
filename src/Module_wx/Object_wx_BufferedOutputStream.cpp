@@ -46,6 +46,7 @@ Gura_DeclareFunction(BufferedOutputStream)
 
 Gura_ImplementFunction(BufferedOutputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *parent = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wx_BufferedOutputStream *pEntity = new wx_BufferedOutputStream(*parent);
 	Object_wx_BufferedOutputStream *pObj = Object_wx_BufferedOutputStream::GetSelfObj(args);

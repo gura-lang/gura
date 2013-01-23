@@ -49,6 +49,7 @@ Gura_DeclareFunction(RichTextRange)
 
 Gura_ImplementFunction(RichTextRange)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	long start = args.GetLong(0);
 	long end = args.GetLong(1);
 	wx_RichTextRange *pEntity = new wx_RichTextRange(start, end);
@@ -73,6 +74,7 @@ Gura_DeclareFunction(RichTextRange_1)
 
 Gura_ImplementFunction(RichTextRange_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
 	wx_RichTextRange *pEntity = new wx_RichTextRange(*range);
 	Object_wx_RichTextRange *pObj = Object_wx_RichTextRange::GetSelfObj(args);
@@ -95,6 +97,7 @@ Gura_DeclareFunction(RichTextRangeEmpty)
 
 Gura_ImplementFunction(RichTextRangeEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RichTextRange *pEntity = new wx_RichTextRange();
 	Object_wx_RichTextRange *pObj = Object_wx_RichTextRange::GetSelfObj(args);
 	if (pObj == NULL) {

@@ -47,6 +47,7 @@ Gura_DeclareFunction(DocManager)
 
 Gura_ImplementFunction(DocManager)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	long flags = wxDEFAULT_DOCMAN_FLAGS;
 	if (args.IsValid(0)) flags = args.GetLong(0);
 	bool initialize = true;

@@ -47,6 +47,7 @@ Gura_DeclareFunction(XmlResourceHandlerEmpty)
 
 Gura_ImplementFunction(XmlResourceHandlerEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_XmlResourceHandler *pEntity = new wx_XmlResourceHandler();
 	Object_wx_XmlResourceHandler *pObj = Object_wx_XmlResourceHandler::GetSelfObj(args);

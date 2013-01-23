@@ -48,6 +48,7 @@ Gura_DeclareFunction(RichTextHTMLHandler)
 
 Gura_ImplementFunction(RichTextHTMLHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxT("HTML");
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
 	wxString ext = wxT("html");

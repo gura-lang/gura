@@ -49,6 +49,7 @@ Gura_DeclareFunction(File)
 
 Gura_ImplementFunction(File)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_File *pEntity = NULL;
 	if (args.IsValid(0)) {
 		wxString filename = wxString::FromUTF8(args.GetString(0));
@@ -79,6 +80,7 @@ Gura_DeclareClassMethod(wx_File, Access)
 
 Gura_ImplementClassMethod(wx_File, Access)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxFile::OpenMode mode = static_cast<wxFile::OpenMode>(args.GetInt(1));
 	bool rtn = wxFile::Access(name, mode);
@@ -191,6 +193,7 @@ Gura_DeclareClassMethod(wx_File, Exists)
 
 Gura_ImplementClassMethod(wx_File, Exists)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxFile::Exists(filename);
 	return ReturnValue(env, sig, args, Value(rtn));

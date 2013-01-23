@@ -49,6 +49,7 @@ Gura_DeclareFunction(FileDirPickerEvent)
 
 Gura_ImplementFunction(FileDirPickerEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxEventType type = static_cast<wxEventType>(args.GetInt(0));
 	wxObject *generator = Object_wx_Object::GetObject(args, 1)->GetEntity();
 	int id = args.GetInt(2);

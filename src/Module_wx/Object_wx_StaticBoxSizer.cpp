@@ -48,6 +48,7 @@ Gura_DeclareFunction(StaticBoxSizer)
 
 Gura_ImplementFunction(StaticBoxSizer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxStaticBox *box = Object_wx_StaticBox::GetObject(args, 0)->GetEntity();
 	int orient = args.GetInt(1);
 	wx_StaticBoxSizer *pEntity = new wx_StaticBoxSizer(box, orient);
@@ -74,6 +75,7 @@ Gura_DeclareFunction(StaticBoxSizerAuto)
 
 Gura_ImplementFunction(StaticBoxSizerAuto)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int orient = args.GetInt(0);
 	wxWindow *parent = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wxString label = wxEmptyString;

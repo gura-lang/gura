@@ -48,6 +48,7 @@ Gura_DeclareFunction(ActivateEvent)
 
 Gura_ImplementFunction(ActivateEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	WXTYPE eventType = 0;
 	if (args.IsValid(0)) eventType = static_cast<WXTYPE>(args.GetInt(0));
 	bool active = true;

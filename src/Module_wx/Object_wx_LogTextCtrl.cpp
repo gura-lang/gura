@@ -46,6 +46,7 @@ Gura_DeclareFunction(LogTextCtrl)
 
 Gura_ImplementFunction(LogTextCtrl)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxTextCtrl *textctrl = Object_wx_TextCtrl::GetObject(args, 0)->GetEntity();
 	wx_LogTextCtrl *pEntity = new wx_LogTextCtrl(textctrl);
 	Object_wx_LogTextCtrl *pObj = Object_wx_LogTextCtrl::GetSelfObj(args);

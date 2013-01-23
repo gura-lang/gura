@@ -59,6 +59,7 @@ Gura_DeclareFunction(CustomDataObject)
 
 Gura_ImplementFunction(CustomDataObject)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDataFormat *format = (wxDataFormat *)(&wxFormatInvalid);
 	if (args.IsValid(0)) format = Object_wx_DataFormat::GetObject(args, 0)->GetEntity();
 	wx_CustomDataObject *pEntity = new wx_CustomDataObject(*format);

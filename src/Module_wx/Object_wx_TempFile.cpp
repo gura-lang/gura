@@ -46,6 +46,7 @@ Gura_DeclareFunction(TempFileEmpty)
 
 Gura_ImplementFunction(TempFileEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TempFile *pEntity = new wx_TempFile();
 	Object_wx_TempFile *pObj = Object_wx_TempFile::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -68,6 +69,7 @@ Gura_DeclareFunction(TempFile)
 
 Gura_ImplementFunction(TempFile)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString strName = wxString::FromUTF8(args.GetString(0));
 	wx_TempFile *pEntity = new wx_TempFile(strName);
 	Object_wx_TempFile *pObj = Object_wx_TempFile::GetSelfObj(args);

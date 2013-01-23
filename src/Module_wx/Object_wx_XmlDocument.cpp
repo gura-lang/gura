@@ -48,6 +48,7 @@ Gura_DeclareFunction(XmlDocumentEmpty)
 
 Gura_ImplementFunction(XmlDocumentEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_XmlDocument *pEntity = new wx_XmlDocument();
 	Object_wx_XmlDocument *pObj = Object_wx_XmlDocument::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -74,6 +75,7 @@ Gura_DeclareFunction(XmlDocument)
 
 Gura_ImplementFunction(XmlDocument)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	wxString encoding = wxT("UTF-8");
@@ -109,6 +111,7 @@ Gura_DeclareFunction(XmlDocument_1)
 
 Gura_ImplementFunction(XmlDocument_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxString encoding = wxT("UTF-8");
@@ -140,6 +143,7 @@ Gura_DeclareFunction(XmlDocument_2)
 
 Gura_ImplementFunction(XmlDocument_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxXmlDocument *doc = Object_wx_XmlDocument::GetObject(args, 0)->GetEntity();
 	wx_XmlDocument *pEntity = new wx_XmlDocument(*doc);
 	Object_wx_XmlDocument *pObj = Object_wx_XmlDocument::GetSelfObj(args);

@@ -97,6 +97,7 @@ Gura_DeclareFunction(TextCtrlEmpty)
 
 Gura_ImplementFunction(TextCtrlEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TextCtrl *pEntity = new wx_TextCtrl();
 	Object_wx_TextCtrl *pObj = Object_wx_TextCtrl::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -126,6 +127,7 @@ Gura_DeclareFunction(TextCtrl)
 
 Gura_ImplementFunction(TextCtrl)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString value = wxT("");

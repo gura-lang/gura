@@ -61,6 +61,7 @@ Gura_DeclareFunction(DropTarget)
 
 Gura_ImplementFunction(DropTarget)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDataObject *data = (wxDataObject *)(NULL);
 	if (args.IsValid(0)) data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();

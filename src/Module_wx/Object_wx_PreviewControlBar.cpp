@@ -52,6 +52,7 @@ Gura_DeclareFunction(PreviewControlBar)
 
 Gura_ImplementFunction(PreviewControlBar)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintPreview *preview = Object_wx_PrintPreview::GetObject(args, 0)->GetEntity();
 	long buttons = args.GetLong(1);
 	wxWindow *parent = Object_wx_Window::GetObject(args, 2)->GetEntity();

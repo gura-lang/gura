@@ -47,6 +47,7 @@ Gura_DeclareFunction(Semaphore)
 
 Gura_ImplementFunction(Semaphore)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int initialcount = 0;
 	if (args.IsValid(0)) initialcount = args.GetInt(0);
 	int maxcount = 0;

@@ -47,6 +47,7 @@ Gura_DeclareFunction(SocketBaseEmpty)
 
 Gura_ImplementFunction(SocketBaseEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_SocketBase *pEntity = new wx_SocketBase();
 	Object_wx_SocketBase *pObj = Object_wx_SocketBase::GetSelfObj(args);

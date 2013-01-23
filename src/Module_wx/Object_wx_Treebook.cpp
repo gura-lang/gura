@@ -46,6 +46,7 @@ Gura_DeclareFunction(TreebookEmpty)
 
 Gura_ImplementFunction(TreebookEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Treebook *pEntity = new wx_Treebook();
 	Object_wx_Treebook *pObj = Object_wx_Treebook::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -73,6 +74,7 @@ Gura_DeclareFunction(Treebook)
 
 Gura_ImplementFunction(Treebook)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

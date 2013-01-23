@@ -47,6 +47,7 @@ Gura_DeclareFunction(SizeEvent)
 
 Gura_ImplementFunction(SizeEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxSize *sz = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);

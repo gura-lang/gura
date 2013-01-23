@@ -46,6 +46,7 @@ Gura_DeclareFunction(Mutex)
 
 Gura_ImplementFunction(Mutex)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxMutexType type = wxMUTEX_DEFAULT;
 	if (args.IsValid(0)) type = static_cast<wxMutexType>(args.GetInt(0));
 	wx_Mutex *pEntity = new wx_Mutex(type);

@@ -55,6 +55,7 @@ Gura_DeclareFunction(ProgressDialog)
 
 Gura_ImplementFunction(ProgressDialog)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString title = wxString::FromUTF8(args.GetString(0));
 	wxString message = wxString::FromUTF8(args.GetString(1));
 	int maximum = 100;

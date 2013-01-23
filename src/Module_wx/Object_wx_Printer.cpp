@@ -46,6 +46,7 @@ Gura_DeclareFunction(Printer)
 
 Gura_ImplementFunction(Printer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintDialogData *data = (wxPrintDialogData *)(NULL);
 	if (args.IsValid(0)) data = Object_wx_PrintDialogData::GetObject(args, 0)->GetEntity();
 	wx_Printer *pEntity = new wx_Printer(data);
@@ -99,6 +100,7 @@ Gura_DeclareClassMethod(wx_Printer, GetLastError)
 
 Gura_ImplementClassMethod(wx_Printer, GetLastError)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrinterError rtn = wxPrinter::GetLastError();
 	return ReturnValue(env, sig, args, Value(rtn));
 }

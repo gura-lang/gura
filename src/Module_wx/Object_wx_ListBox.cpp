@@ -47,6 +47,7 @@ Gura_DeclareFunction(ListBoxEmpty)
 
 Gura_ImplementFunction(ListBoxEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ListBox *pEntity = new wx_ListBox();
 	Object_wx_ListBox *pObj = Object_wx_ListBox::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -76,6 +77,7 @@ Gura_DeclareFunction(ListBox)
 
 Gura_ImplementFunction(ListBox)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

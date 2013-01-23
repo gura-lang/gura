@@ -61,6 +61,7 @@ Gura_DeclareFunction(TCPConnectionEmpty)
 
 Gura_ImplementFunction(TCPConnectionEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TCPConnection *pEntity = new wx_TCPConnection();
 	Object_wx_TCPConnection *pObj = Object_wx_TCPConnection::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -86,6 +87,7 @@ Gura_DeclareFunction(TCPConnection)
 
 Gura_ImplementFunction(TCPConnection)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char buffer = args.GetChar(0);
 	int size = args.GetInt(1);

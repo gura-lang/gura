@@ -52,6 +52,7 @@ Gura_DeclareFunction(ClassInfo)
 
 Gura_ImplementFunction(ClassInfo)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString className = wxString::FromUTF8(args.GetString(0));
 	wxClassInfo *baseClass1 = Object_wx_ClassInfo::GetObject(args, 1)->GetEntity();
@@ -96,6 +97,7 @@ Gura_DeclareClassMethod(wx_ClassInfo, FindClass)
 
 Gura_ImplementClassMethod(wx_ClassInfo, FindClass)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxClassInfo *rtn = (wxClassInfo *)wxClassInfo::FindClass(name);
 	return ReturnValue(env, sig, args, Value(new Object_wx_ClassInfo(rtn, NULL, OwnerFalse)));
@@ -176,6 +178,7 @@ Gura_DeclareClassMethod(wx_ClassInfo, InitializeClasses)
 
 Gura_ImplementClassMethod(wx_ClassInfo, InitializeClasses)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxClassInfo::InitializeClasses();
 	return Value::Null;

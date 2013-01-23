@@ -48,6 +48,7 @@ Gura_DeclareFunction(TaskBarIconEmpty)
 
 Gura_ImplementFunction(TaskBarIconEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TaskBarIcon *pEntity = new wx_TaskBarIcon();
 	Object_wx_TaskBarIcon *pObj = Object_wx_TaskBarIcon::GetSelfObj(args);
 	if (pObj == NULL) {

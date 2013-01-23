@@ -60,6 +60,7 @@ Gura_DeclareFunction(ScrolledWindowEmpty)
 
 Gura_ImplementFunction(ScrolledWindowEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ScrolledWindow *pEntity = new wx_ScrolledWindow();
 	Object_wx_ScrolledWindow *pObj = Object_wx_ScrolledWindow::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -87,6 +88,7 @@ Gura_DeclareFunction(ScrolledWindow)
 
 Gura_ImplementFunction(ScrolledWindow)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = -1;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));

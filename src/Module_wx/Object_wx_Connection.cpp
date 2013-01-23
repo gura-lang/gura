@@ -61,6 +61,7 @@ Gura_DeclareFunction(ConnectionEmpty)
 
 Gura_ImplementFunction(ConnectionEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Connection *pEntity = new wx_Connection();
 	Object_wx_Connection *pObj = Object_wx_Connection::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -86,6 +87,7 @@ Gura_DeclareFunction(Connection)
 
 Gura_ImplementFunction(Connection)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char buffer = args.GetChar(0);
 	int size = args.GetInt(1);

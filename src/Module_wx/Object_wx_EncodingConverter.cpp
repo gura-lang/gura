@@ -45,6 +45,7 @@ Gura_DeclareFunction(EncodingConverterEmpty)
 
 Gura_ImplementFunction(EncodingConverterEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_EncodingConverter *pEntity = new wx_EncodingConverter();
 	Object_wx_EncodingConverter *pObj = Object_wx_EncodingConverter::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -88,6 +89,7 @@ Gura_DeclareClassMethod(wx_EncodingConverter, CanConvert)
 
 Gura_ImplementClassMethod(wx_EncodingConverter, CanConvert)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxFontEncoding encIn = static_cast<wxFontEncoding>(args.GetInt(0));
 	wxFontEncoding encOut = static_cast<wxFontEncoding>(args.GetInt(1));
 	bool rtn = wxEncodingConverter::CanConvert(encIn, encOut);
@@ -256,6 +258,7 @@ Gura_DeclareClassMethod(wx_EncodingConverter, GetPlatformEquivalents)
 
 Gura_ImplementClassMethod(wx_EncodingConverter, GetPlatformEquivalents)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxFontEncoding enc = static_cast<wxFontEncoding>(args.GetInt(0));
 	int platform = wxPLATFORM_CURRENT;
@@ -278,6 +281,7 @@ Gura_DeclareClassMethod(wx_EncodingConverter, GetAllEquivalents)
 
 Gura_ImplementClassMethod(wx_EncodingConverter, GetAllEquivalents)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxFontEncoding enc = static_cast<wxFontEncoding>(args.GetInt(0));
 	wxFontEncodingArray rtn = wxEncodingConverter::GetAllEquivalents(enc);

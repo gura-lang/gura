@@ -51,6 +51,7 @@ Gura_DeclareFunction(MenuItem)
 
 Gura_ImplementFunction(MenuItem)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxMenu *parentMenu = (wxMenu *)(NULL);
 	if (args.IsValid(0)) parentMenu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
 	int id = wxID_SEPARATOR;
@@ -276,6 +277,7 @@ Gura_DeclareClassMethod(wx_MenuItem, GetLabelText)
 
 Gura_ImplementClassMethod(wx_MenuItem, GetLabelText)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = wxMenuItem::GetLabelText(text);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
@@ -290,6 +292,7 @@ Gura_DeclareClassMethod(wx_MenuItem, GetLabelFromText)
 
 Gura_ImplementClassMethod(wx_MenuItem, GetLabelFromText)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = wxMenuItem::GetLabelFromText(text);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));

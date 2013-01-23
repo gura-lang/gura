@@ -61,6 +61,7 @@ Gura_DeclareFunction(DDEConnectionEmpty)
 
 Gura_ImplementFunction(DDEConnectionEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DDEConnection *pEntity = new wx_DDEConnection();
 	Object_wx_DDEConnection *pObj = Object_wx_DDEConnection::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -86,6 +87,7 @@ Gura_DeclareFunction(DDEConnection)
 
 Gura_ImplementFunction(DDEConnection)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char buffer = args.GetChar(0);
 	int size = args.GetInt(1);

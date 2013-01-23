@@ -52,6 +52,7 @@ Gura_DeclareFunction(CursorEmpty)
 
 Gura_ImplementFunction(CursorEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Cursor *pEntity = new wx_Cursor();
 	Object_wx_Cursor *pObj = Object_wx_Cursor::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -81,6 +82,7 @@ Gura_DeclareFunction(Cursor)
 
 Gura_ImplementFunction(Cursor)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	const Binary &_bits = args.GetBinary(0);
 	const char *bits = _bits.data();
 	int width = args.GetInt(1);
@@ -132,6 +134,7 @@ Gura_DeclareFunction(NamedCursor)
 
 Gura_ImplementFunction(NamedCursor)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if defined(__WXMSW__)
 	wxString cursorName = wxString::FromUTF8(args.GetString(0));
 	long type = args.GetLong(1);
@@ -165,6 +168,7 @@ Gura_DeclareFunction(StockCursor)
 
 Gura_ImplementFunction(StockCursor)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int cursorId = args.GetInt(0);
 	wx_Cursor *pEntity = new wx_Cursor(cursorId);
 	Object_wx_Cursor *pObj = Object_wx_Cursor::GetSelfObj(args);
@@ -188,6 +192,7 @@ Gura_DeclareFunction(Cursor_3)
 
 Gura_ImplementFunction(Cursor_3)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxImage *image = Object_wx_Image::GetObject(args, 0)->GetEntity();
 	wx_Cursor *pEntity = new wx_Cursor(*image);
 	Object_wx_Cursor *pObj = Object_wx_Cursor::GetSelfObj(args);

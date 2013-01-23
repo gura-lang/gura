@@ -64,6 +64,7 @@ Gura_DeclareClassMethod(wx_FilterClassFactory, Find)
 
 Gura_ImplementClassMethod(wx_FilterClassFactory, Find)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString protocol = wxString::FromUTF8(args.GetString(0));
 	wxStreamProtocolType type = wxSTREAM_PROTOCOL;
 	if (args.IsValid(1)) type = static_cast<wxStreamProtocolType>(args.GetInt(1));
@@ -79,6 +80,7 @@ Gura_DeclareClassMethod(wx_FilterClassFactory, GetFirst)
 
 Gura_ImplementClassMethod(wx_FilterClassFactory, GetFirst)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxFilterClassFactory *rtn = (wxFilterClassFactory *)wxFilterClassFactory::GetFirst();
 	return ReturnValue(env, sig, args, Value(new Object_wx_FilterClassFactory(rtn, NULL, OwnerFalse)));
 }

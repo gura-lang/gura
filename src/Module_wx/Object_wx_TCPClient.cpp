@@ -45,6 +45,7 @@ Gura_DeclareFunction(TCPClientEmpty)
 
 Gura_ImplementFunction(TCPClientEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TCPClient *pEntity = new wx_TCPClient();
 	Object_wx_TCPClient *pObj = Object_wx_TCPClient::GetSelfObj(args);
 	if (pObj == NULL) {

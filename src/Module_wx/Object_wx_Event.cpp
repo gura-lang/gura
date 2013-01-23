@@ -52,6 +52,7 @@ Gura_DeclareFunction(Event)
 
 Gura_ImplementFunction(Event)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);

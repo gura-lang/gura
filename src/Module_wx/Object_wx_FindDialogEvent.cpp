@@ -47,6 +47,7 @@ Gura_DeclareFunction(FindDialogEvent)
 
 Gura_ImplementFunction(FindDialogEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxEventType commandType = wxEVT_NULL;
 	if (args.IsValid(0)) commandType = static_cast<wxEventType>(args.GetInt(0));
 	int id = 0;

@@ -48,6 +48,7 @@ Gura_DeclareFunction(DynamicLibraryEmpty)
 
 Gura_ImplementFunction(DynamicLibraryEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_DynamicLibrary *pEntity = new wx_DynamicLibrary();
 	Object_wx_DynamicLibrary *pObj = Object_wx_DynamicLibrary::GetSelfObj(args);
@@ -77,6 +78,7 @@ Gura_DeclareFunction(DynamicLibrary)
 
 Gura_ImplementFunction(DynamicLibrary)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	int flags = wxDL_DEFAULT;
@@ -108,6 +110,7 @@ Gura_DeclareClassMethod(wx_DynamicLibrary, CanonicalizeName)
 
 Gura_ImplementClassMethod(wx_DynamicLibrary, CanonicalizeName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxDynamicLibraryCategory *cat = (wxDynamicLibraryCategory *)(&wxDL_LIBRARY);
@@ -131,6 +134,7 @@ Gura_DeclareClassMethod(wx_DynamicLibrary, CanonicalizePluginName)
 
 Gura_ImplementClassMethod(wx_DynamicLibrary, CanonicalizePluginName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxPluginCategory *cat = (wxPluginCategory *)(&wxDL_PLUGIN_GUI);
@@ -203,6 +207,7 @@ Gura_DeclareClassMethod(wx_DynamicLibrary, GetProgramHandle)
 
 Gura_ImplementClassMethod(wx_DynamicLibrary, GetProgramHandle)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDllType rtn = wxDynamicLibrary::GetProgramHandle();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DllType(new wxDllType(rtn), NULL, OwnerTrue)));
@@ -249,6 +254,7 @@ Gura_DeclareClassMethod(wx_DynamicLibrary, ListLoaded)
 
 Gura_ImplementClassMethod(wx_DynamicLibrary, ListLoaded)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDynamicLibraryDetailsArray rtn = wxDynamicLibrary::ListLoaded();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DynamicLibraryDetailsArray(new wxDynamicLibraryDetailsArray(rtn), NULL, OwnerTrue)));
@@ -309,6 +315,7 @@ Gura_DeclareClassMethod(wx_DynamicLibrary, Unload_1)
 
 Gura_ImplementClassMethod(wx_DynamicLibrary, Unload_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDllType *handle = Object_wx_DllType::GetObject(args, 0)->GetEntity();
 	wxDynamicLibrary::Unload(*handle);

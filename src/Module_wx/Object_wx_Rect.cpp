@@ -49,6 +49,7 @@ Gura_DeclareFunction(RectEmpty)
 
 Gura_ImplementFunction(RectEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Rect *pEntity = new wx_Rect();
 	Object_wx_Rect *pObj = Object_wx_Rect::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -74,6 +75,7 @@ Gura_DeclareFunction(Rect)
 
 Gura_ImplementFunction(Rect)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	int width = args.GetInt(2);
@@ -101,6 +103,7 @@ Gura_DeclareFunction(Rect_1)
 
 Gura_ImplementFunction(Rect_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPoint *topLeft = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxPoint *bottomRight = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	wx_Rect *pEntity = new wx_Rect(*topLeft, *bottomRight);
@@ -126,6 +129,7 @@ Gura_DeclareFunction(Rect_2)
 
 Gura_ImplementFunction(Rect_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPoint *pos = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxSize *size = Object_wx_Size::GetObject(args, 1)->GetEntity();
 	wx_Rect *pEntity = new wx_Rect(*pos, *size);
@@ -150,6 +154,7 @@ Gura_DeclareFunction(Rect_3)
 
 Gura_ImplementFunction(Rect_3)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wx_Rect *pEntity = new wx_Rect(*size);
 	Object_wx_Rect *pObj = Object_wx_Rect::GetSelfObj(args);

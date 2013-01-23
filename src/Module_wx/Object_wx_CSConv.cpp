@@ -47,6 +47,7 @@ Gura_DeclareFunction(CSConv)
 
 Gura_ImplementFunction(CSConv)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString charset = wxString::FromUTF8(args.GetString(0));
 	wx_CSConv *pEntity = new wx_CSConv(charset);
 	Object_wx_CSConv *pObj = Object_wx_CSConv::GetSelfObj(args);
@@ -70,6 +71,7 @@ Gura_DeclareFunction(CSConv_1)
 
 Gura_ImplementFunction(CSConv_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wx_CSConv *pEntity = new wx_CSConv(encoding);
 	Object_wx_CSConv *pObj = Object_wx_CSConv::GetSelfObj(args);

@@ -47,6 +47,7 @@ Gura_DeclareFunction(AnimationEmpty)
 
 Gura_ImplementFunction(AnimationEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Animation *pEntity = new wx_Animation();
 	Object_wx_Animation *pObj = Object_wx_Animation::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -69,6 +70,7 @@ Gura_DeclareFunction(Animation)
 
 Gura_ImplementFunction(Animation)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxAnimation *anim = Object_wx_Animation::GetObject(args, 0)->GetEntity();
 	wx_Animation *pEntity = new wx_Animation(*anim);
 	Object_wx_Animation *pObj = Object_wx_Animation::GetSelfObj(args);
@@ -93,6 +95,7 @@ Gura_DeclareFunction(Animation_1)
 
 Gura_ImplementFunction(Animation_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxAnimationType type = wxANIMATION_TYPE_ANY;
 	if (args.IsValid(1)) type = static_cast<wxAnimationType>(args.GetInt(1));

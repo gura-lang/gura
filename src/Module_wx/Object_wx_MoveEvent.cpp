@@ -47,6 +47,7 @@ Gura_DeclareFunction(MoveEvent)
 
 Gura_ImplementFunction(MoveEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);

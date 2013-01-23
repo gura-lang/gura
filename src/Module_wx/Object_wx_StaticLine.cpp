@@ -46,6 +46,7 @@ Gura_DeclareFunction(StaticLineEmpty)
 
 Gura_ImplementFunction(StaticLineEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StaticLine *pEntity = new wx_StaticLine();
 	Object_wx_StaticLine *pObj = Object_wx_StaticLine::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -73,6 +74,7 @@ Gura_DeclareFunction(StaticLine)
 
 Gura_ImplementFunction(StaticLine)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));

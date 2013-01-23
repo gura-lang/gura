@@ -48,6 +48,7 @@ Gura_DeclareFunction(WizardEvent)
 
 Gura_ImplementFunction(WizardEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxEventType type = wxEVT_NULL;
 	if (args.IsValid(0)) type = static_cast<wxEventType>(args.GetInt(0));
 	int id = -1;

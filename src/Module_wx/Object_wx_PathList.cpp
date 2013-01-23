@@ -46,6 +46,7 @@ Gura_DeclareFunction(PathListEmpty)
 
 Gura_ImplementFunction(PathListEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PathList *pEntity = new wx_PathList();
 	Object_wx_PathList *pObj = Object_wx_PathList::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -68,6 +69,7 @@ Gura_DeclareFunction(PathList)
 
 Gura_ImplementFunction(PathList)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	std::auto_ptr<wxArrayString> arr(CreateArrayString(args.GetList(0)));
 	wx_PathList *pEntity = new wx_PathList(*arr);
 	Object_wx_PathList *pObj = Object_wx_PathList::GetSelfObj(args);

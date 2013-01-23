@@ -45,6 +45,7 @@ Gura_DeclareFunction(StdDialogButtonSizer)
 
 Gura_ImplementFunction(StdDialogButtonSizer)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StdDialogButtonSizer *pEntity = new wx_StdDialogButtonSizer();
 	Object_wx_StdDialogButtonSizer *pObj = Object_wx_StdDialogButtonSizer::GetSelfObj(args);
 	if (pObj == NULL) {

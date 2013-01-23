@@ -53,6 +53,7 @@ Gura_DeclareFunction(WizardEmpty)
 
 Gura_ImplementFunction(WizardEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Wizard *pEntity = new wx_Wizard();
 	Object_wx_Wizard *pObj = Object_wx_Wizard::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -80,6 +81,7 @@ Gura_DeclareFunction(Wizard)
 
 Gura_ImplementFunction(Wizard)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
 	int id = -1;

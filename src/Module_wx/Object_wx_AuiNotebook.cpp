@@ -46,6 +46,7 @@ Gura_DeclareFunction(AuiNotebookEmpty)
 
 Gura_ImplementFunction(AuiNotebookEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_AuiNotebook *pEntity = new wx_AuiNotebook();
 	Object_wx_AuiNotebook *pObj = Object_wx_AuiNotebook::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -72,6 +73,7 @@ Gura_DeclareFunction(AuiNotebook)
 
 Gura_ImplementFunction(AuiNotebook)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));

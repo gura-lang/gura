@@ -46,6 +46,7 @@ Gura_DeclareFunction(DirEmpty)
 
 Gura_ImplementFunction(DirEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Dir *pEntity = new wx_Dir();
 	Object_wx_Dir *pObj = Object_wx_Dir::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -68,6 +69,7 @@ Gura_DeclareFunction(Dir)
 
 Gura_ImplementFunction(Dir)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString dir = wxString::FromUTF8(args.GetString(0));
 	wx_Dir *pEntity = new wx_Dir(dir);
 	Object_wx_Dir *pObj = Object_wx_Dir::GetSelfObj(args);
@@ -90,6 +92,7 @@ Gura_DeclareClassMethod(wx_Dir, Exists)
 
 Gura_ImplementClassMethod(wx_Dir, Exists)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString dir = wxString::FromUTF8(args.GetString(0));
 	bool rtn = wxDir::Exists(dir);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -109,6 +112,7 @@ Gura_DeclareClassMethod(wx_Dir, GetAllFiles)
 
 Gura_ImplementClassMethod(wx_Dir, GetAllFiles)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString dirname = wxString::FromUTF8(args.GetString(0));
 	std::auto_ptr<wxArrayString> files(CreateArrayString(args.GetList(1)));
@@ -134,6 +138,7 @@ Gura_DeclareClassMethod(wx_Dir, FindFirst)
 
 Gura_ImplementClassMethod(wx_Dir, FindFirst)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString dirname = wxString::FromUTF8(args.GetString(0));
 	wxString filespec = wxString::FromUTF8(args.GetString(1));
 	int flags = wxDIR_DEFAULT;
@@ -217,6 +222,7 @@ Gura_DeclareClassMethod(wx_Dir, GetTotalSize)
 
 Gura_ImplementClassMethod(wx_Dir, GetTotalSize)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString dir = wxString::FromUTF8(args.GetString(0));
 	wxULongLong rtn = wxDir::GetTotalSize(dir, *filesSkipped);

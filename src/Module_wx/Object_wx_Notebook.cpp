@@ -46,6 +46,7 @@ Gura_DeclareFunction(NotebookEmpty)
 
 Gura_ImplementFunction(NotebookEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Notebook *pEntity = new wx_Notebook();
 	Object_wx_Notebook *pObj = Object_wx_Notebook::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -73,6 +74,7 @@ Gura_DeclareFunction(Notebook)
 
 Gura_ImplementFunction(Notebook)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

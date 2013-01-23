@@ -56,6 +56,7 @@ Gura_DeclareFunction(RadioBoxEmpty)
 
 Gura_ImplementFunction(RadioBoxEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RadioBox *pEntity = new wx_RadioBox();
 	Object_wx_RadioBox *pObj = Object_wx_RadioBox::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -87,6 +88,7 @@ Gura_DeclareFunction(RadioBox)
 
 Gura_ImplementFunction(RadioBox)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString label = wxString::FromUTF8(args.GetString(2));

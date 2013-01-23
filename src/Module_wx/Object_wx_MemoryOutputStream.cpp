@@ -49,6 +49,7 @@ Gura_DeclareFunction(MemoryOutputStream)
 
 Gura_ImplementFunction(MemoryOutputStream)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	char data = NULL;
 	if (args.IsValid(0)) data = args.GetChar(0);

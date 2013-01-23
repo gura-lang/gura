@@ -64,6 +64,7 @@ Gura_DeclareFunction(EvtHandler)
 
 Gura_ImplementFunction(EvtHandler)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_EvtHandler *pEntity = new wx_EvtHandler();
 	Object_wx_EvtHandler *pObj = Object_wx_EvtHandler::GetSelfObj(args);
 	if (pObj == NULL) {

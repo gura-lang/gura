@@ -50,6 +50,7 @@ Gura_DeclareClassMethod(wx_DateTime, ConvertYearToBC)
 
 Gura_ImplementClassMethod(wx_DateTime, ConvertYearToBC)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int year = args.GetInt(0);
 	int rtn = wxDateTime::ConvertYearToBC(year);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -63,6 +64,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetAmPmStrings)
 
 Gura_ImplementClassMethod(wx_DateTime, GetAmPmStrings)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString am;
 	wxString pm;
 	wxDateTime::GetAmPmStrings(&am, &pm);
@@ -81,6 +83,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetBeginDST)
 
 Gura_ImplementClassMethod(wx_DateTime, GetBeginDST)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int year = wxDateTime::Inv_Year;
 	if (args.IsValid(0)) year = args.GetInt(0);
 	wxDateTime::Country country = wxDateTime::Country_Default;
@@ -97,6 +100,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetCountry)
 
 Gura_ImplementClassMethod(wx_DateTime, GetCountry)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateTime::Country rtn = wxDateTime::GetCountry();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -110,6 +114,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetCurrentYear)
 
 Gura_ImplementClassMethod(wx_DateTime, GetCurrentYear)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateTime::Calendar cal = wxDateTime::Gregorian;
 	if (args.IsValid(0)) cal = static_cast<wxDateTime::Calendar>(args.GetInt(0));
 	int rtn = wxDateTime::GetCurrentYear(cal);
@@ -125,6 +130,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetCurrentMonth)
 
 Gura_ImplementClassMethod(wx_DateTime, GetCurrentMonth)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateTime::Calendar cal = wxDateTime::Gregorian;
 	if (args.IsValid(0)) cal = static_cast<wxDateTime::Calendar>(args.GetInt(0));
 	wxDateTime::Month rtn = wxDateTime::GetCurrentMonth(cal);
@@ -140,6 +146,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetCentury)
 
 Gura_ImplementClassMethod(wx_DateTime, GetCentury)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int year = args.GetInt(0);
 	int rtn = wxDateTime::GetCentury(year);
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -155,6 +162,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetEndDST)
 
 Gura_ImplementClassMethod(wx_DateTime, GetEndDST)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int year = wxDateTime::Inv_Year;
 	if (args.IsValid(0)) year = args.GetInt(0);
 	wxDateTime::Country country = wxDateTime::Country_Default;
@@ -173,6 +181,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetMonthName)
 
 Gura_ImplementClassMethod(wx_DateTime, GetMonthName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateTime::Month month = static_cast<wxDateTime::Month>(args.GetInt(0));
 	wxDateTime::NameFlags flags = wxDateTime::Name_Full;
 	if (args.IsValid(1)) flags = static_cast<wxDateTime::NameFlags>(args.GetInt(1));
@@ -190,6 +199,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetNumberOfDaysInYear)
 
 Gura_ImplementClassMethod(wx_DateTime, GetNumberOfDaysInYear)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int year = args.GetInt(0);
 	wxDateTime::Calendar cal = wxDateTime::Gregorian;
 	if (args.IsValid(1)) cal = static_cast<wxDateTime::Calendar>(args.GetInt(1));
@@ -208,6 +218,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetNumberOfDaysInMonth)
 
 Gura_ImplementClassMethod(wx_DateTime, GetNumberOfDaysInMonth)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateTime::Month month = static_cast<wxDateTime::Month>(args.GetInt(0));
 	int year = wxDateTime::Inv_Year;
 	if (args.IsValid(1)) year = args.GetInt(1);
@@ -225,6 +236,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetTimeNow)
 
 Gura_ImplementClassMethod(wx_DateTime, GetTimeNow)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 #endif
 	SetError_NotImplemented(sig);
@@ -239,6 +251,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetTmNow)
 
 Gura_ImplementClassMethod(wx_DateTime, GetTmNow)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 #endif
 	SetError_NotImplemented(sig);
@@ -255,6 +268,7 @@ Gura_DeclareClassMethod(wx_DateTime, GetWeekDayName)
 
 Gura_ImplementClassMethod(wx_DateTime, GetWeekDayName)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateTime::WeekDay weekday = static_cast<wxDateTime::WeekDay>(args.GetInt(0));
 	wxDateTime::NameFlags flags = wxDateTime::Name_Full;
 	if (args.IsValid(1)) flags = static_cast<wxDateTime::NameFlags>(args.GetInt(1));
@@ -272,6 +286,7 @@ Gura_DeclareClassMethod(wx_DateTime, IsLeapYear)
 
 Gura_ImplementClassMethod(wx_DateTime, IsLeapYear)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	int year = wxDateTime::Inv_Year;
 	if (args.IsValid(0)) year = args.GetInt(0);
 	wxDateTime::Calendar cal = wxDateTime::Gregorian;
@@ -290,6 +305,7 @@ Gura_DeclareClassMethod(wx_DateTime, IsWestEuropeanCountry)
 
 Gura_ImplementClassMethod(wx_DateTime, IsWestEuropeanCountry)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	bool rtn = wxDateTime::IsWestEuropeanCountry();
 	return ReturnValue(env, sig, args, Value(rtn));
@@ -309,6 +325,7 @@ Gura_DeclareClassMethod(wx_DateTime, IsDSTApplicable)
 
 Gura_ImplementClassMethod(wx_DateTime, IsDSTApplicable)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	int year = Inv_Year;
 	if (args.IsValid(0)) year = args.GetInt(0);
@@ -327,6 +344,7 @@ Gura_DeclareClassMethod(wx_DateTime, Now)
 
 Gura_ImplementClassMethod(wx_DateTime, Now)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateTime rtn = wxDateTime::Now();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
 }
@@ -340,6 +358,7 @@ Gura_DeclareClassMethod(wx_DateTime, SetCountry)
 
 Gura_ImplementClassMethod(wx_DateTime, SetCountry)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxDateTime::SetCountry();
 	return Value::Null;
@@ -356,6 +375,7 @@ Gura_DeclareClassMethod(wx_DateTime, Today)
 
 Gura_ImplementClassMethod(wx_DateTime, Today)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateTime rtn = wxDateTime::Today();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
 }
@@ -368,6 +388,7 @@ Gura_DeclareClassMethod(wx_DateTime, UNow)
 
 Gura_ImplementClassMethod(wx_DateTime, UNow)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxDateTime rtn = wxDateTime::UNow();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
 }
@@ -381,6 +402,7 @@ Gura_DeclareFunction(DateTime)
 
 Gura_ImplementFunction(DateTime)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DateTime *pEntity = new wx_DateTime();
 	Object_wx_DateTime *pObj = Object_wx_DateTime::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -1828,6 +1850,7 @@ Gura_DeclareClassMethod(wx_DateTime, SetToWeekOfYear)
 
 Gura_ImplementClassMethod(wx_DateTime, SetToWeekOfYear)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	int year = args.GetInt(0);
 	wxDateTime_t *numWeek = Object_wx_DateTime_t::GetObject(args, 1)->GetEntity();

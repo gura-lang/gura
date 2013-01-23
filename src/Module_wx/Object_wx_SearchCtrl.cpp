@@ -59,6 +59,7 @@ Gura_DeclareFunction(SearchCtrlEmpty)
 
 Gura_ImplementFunction(SearchCtrlEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SearchCtrl *pEntity = new wx_SearchCtrl();
 	Object_wx_SearchCtrl *pObj = Object_wx_SearchCtrl::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -88,6 +89,7 @@ Gura_DeclareFunction(SearchCtrl)
 
 Gura_ImplementFunction(SearchCtrl)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString value = wxT("");

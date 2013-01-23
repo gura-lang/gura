@@ -46,6 +46,7 @@ Gura_DeclareFunction(BusyCursor_)
 
 Gura_ImplementFunction(BusyCursor_)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxCursor *cursor = (wxCursor *)(wxHOURGLASS_CURSOR);
 	if (args.IsValid(0)) cursor = Object_wx_Cursor::GetObject(args, 0)->GetEntity();
 	wx_BusyCursor *pEntity = new wx_BusyCursor(cursor);

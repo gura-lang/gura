@@ -47,6 +47,7 @@ Gura_DeclareFunction(ListEvent)
 
 Gura_ImplementFunction(ListEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	WXTYPE commandType = 0;
 	if (args.IsValid(0)) commandType = static_cast<WXTYPE>(args.GetInt(0));
 	int id = 0;

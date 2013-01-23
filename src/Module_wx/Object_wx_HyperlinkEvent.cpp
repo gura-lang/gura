@@ -48,6 +48,7 @@ Gura_DeclareFunction(HyperlinkEvent)
 
 Gura_ImplementFunction(HyperlinkEvent)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxObject *generator = Object_wx_Object::GetObject(args, 0)->GetEntity();
 	int id = args.GetInt(1);
 	wxString url = wxString::FromUTF8(args.GetString(2));

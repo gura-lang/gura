@@ -58,6 +58,7 @@ Gura_DeclareFunction(LanguageInfo)
 
 Gura_ImplementFunction(LanguageInfo)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_LanguageInfo *pEntity = new wx_LanguageInfo();
 	pEntity->Language = 0;
 _MS(pEntity->WinLang = 0);

@@ -87,6 +87,7 @@ Gura_DeclareClassMethod(wx_Control, GetLabelText_1)
 
 Gura_ImplementClassMethod(wx_Control, GetLabelText_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString label = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = wxControl::GetLabelText(label);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));

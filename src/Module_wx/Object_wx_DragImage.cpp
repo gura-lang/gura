@@ -56,6 +56,7 @@ Gura_DeclareFunction(DragImageEmpty)
 
 Gura_ImplementFunction(DragImageEmpty)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DragImage *pEntity = new wx_DragImage();
 	Object_wx_DragImage *pObj = Object_wx_DragImage::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -80,6 +81,7 @@ Gura_DeclareFunction(DragImage)
 
 Gura_ImplementFunction(DragImage)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *image = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wxCursor *cursor = (wxCursor *)(&wxNullCursor);
 	if (args.IsValid(1)) cursor = Object_wx_Cursor::GetObject(args, 1)->GetEntity();
@@ -109,6 +111,7 @@ Gura_DeclareFunction(DragImage_1)
 
 Gura_ImplementFunction(DragImage_1)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxIcon *image = Object_wx_Icon::GetObject(args, 0)->GetEntity();
 	wxCursor *cursor = (wxCursor *)(&wxNullCursor);
 	if (args.IsValid(1)) cursor = Object_wx_Cursor::GetObject(args, 1)->GetEntity();
@@ -138,6 +141,7 @@ Gura_DeclareFunction(DragImage_2)
 
 Gura_ImplementFunction(DragImage_2)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	wxCursor *cursor = (wxCursor *)(&wxNullCursor);
 	if (args.IsValid(1)) cursor = Object_wx_Cursor::GetObject(args, 1)->GetEntity();
@@ -166,6 +170,7 @@ Gura_DeclareFunction(DragImage_3)
 
 Gura_ImplementFunction(DragImage_3)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxTreeCtrl *treeCtrl = Object_wx_TreeCtrl::GetObject(args, 0)->GetEntity();
 	wxTreeItemId *id = Object_wx_TreeItemId::GetObject(args, 1)->GetEntity();
 	wx_DragImage *pEntity = new wx_DragImage(*treeCtrl, *id);
@@ -191,6 +196,7 @@ Gura_DeclareFunction(DragImage_4)
 
 Gura_ImplementFunction(DragImage_4)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 	wxListCtrl *treeCtrl = Object_wx_ListCtrl::GetObject(args, 0)->GetEntity();
 	long id = args.GetLong(1);
 	wx_DragImage *pEntity = new wx_DragImage(*treeCtrl, id);
@@ -218,6 +224,7 @@ Gura_DeclareFunction(DragImage_5)
 
 Gura_ImplementFunction(DragImage_5)
 {
+	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxCursor *cursor = (wxCursor *)(&wxNullCursor);
 	if (args.IsValid(0)) cursor = Object_wx_Cursor::GetObject(args, 0)->GetEntity();
