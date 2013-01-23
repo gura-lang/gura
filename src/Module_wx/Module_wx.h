@@ -33,6 +33,9 @@ extern const bool OwnerTrue;
 //-----------------------------------------------------------------------------
 // Functions
 //-----------------------------------------------------------------------------
+void SetWxReadyFlag(bool wxReadyFlag);
+bool IsWxReady();
+bool CheckWxReady(Signal sig);
 void InitializeObjects(Environment &env);
 void SetError_NotImplemented(Signal sig);
 void SetError_MSWOnly(Signal sig);

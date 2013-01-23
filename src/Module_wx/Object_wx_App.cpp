@@ -20,7 +20,6 @@ Gura_DeclarePrivUserSymbol(OnUnhandledException);
 Gura_DeclarePrivUserSymbol(Pending);
 Gura_DeclarePrivUserSymbol(HandleEvent);
 
-bool g_enableEventHandleFlag = false;
 static Environment *_pEnv = NULL;
 
 //----------------------------------------------------------------------------
@@ -63,14 +62,14 @@ void wx_App::GuraObjectDeleted()
 
 void wx_App::ExitMainLoop()
 {
-	g_enableEventHandleFlag = false;
+	SetWxReadyFlag(false);
 	//::printf("ExitMainLoop\n");
 	wxApp::ExitMainLoop();
 }
 
 bool wx_App::OnInit()
 {
-	g_enableEventHandleFlag = true;
+	SetWxReadyFlag(true);
 	InitializeObjects(*_pEnv);
 	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnInit), true);
 	if (pFunc == NULL) return wxApp::OnInit();

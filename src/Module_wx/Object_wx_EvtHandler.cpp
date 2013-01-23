@@ -9,8 +9,6 @@ Gura_BeginModule(wx)
 Gura_DeclarePrivUserSymbol(ProcessEvent);
 Gura_DeclarePrivUserSymbol(SearchEventTable);
 
-extern bool g_enableEventHandleFlag;
-
 //----------------------------------------------------------------------------
 // Class derivation
 //----------------------------------------------------------------------------
@@ -43,7 +41,7 @@ void wx_EvtHandler::GuraObjectDeleted()
 
 void wx_EvtHandler::ObjectEventFunction(wxEvent &event)
 {
-	if (!g_enableEventHandleFlag) return;
+	if (!IsWxReady()) return;
 	EventHandlerPack *pEventHandlerPack =
 					wxDynamicCast(event.m_callbackUserData, EventHandlerPack);
 	Signal &sig = pEventHandlerPack->GetSignal();

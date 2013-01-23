@@ -33,6 +33,8 @@ Gura_BeginModule(wx)
 const bool OwnerTrue = true;
 const bool OwnerFalse = false;
 
+static bool g_wxReadyFlag = false;
+
 void RegisterFunctions(Environment &env, Signal sig);
 
 //-----------------------------------------------------------------------------
@@ -3839,6 +3841,23 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
+void SetWxReadyFlag(bool wxReadyFlag)
+{
+	g_wxReadyFlag = wxReadyFlag;
+}
+
+bool IsWxReady()
+{
+	return g_wxReadyFlag;
+}
+
+bool CheckWxReady(Signal sig)
+{
+	if (g_wxReadyFlag) return true;
+	sig.SetError(ERR_RuntimeError, "wxWidgets functions must be called after wxApp::OnInit");
+	return false;
+}
+
 void SetError_NotImplemented(Signal sig)
 {
 	sig.SetError(ERR_NotImplementedError, "sorry, not implemented yet");
