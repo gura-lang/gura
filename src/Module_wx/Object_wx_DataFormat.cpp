@@ -37,6 +37,7 @@ void wx_DataFormat::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 // Gura interfaces for wxDataFormat
 //----------------------------------------------------------------------------
+#if 0
 Gura_DeclareFunction(DataFormat)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -48,7 +49,7 @@ Gura_DeclareFunction(DataFormat)
 Gura_ImplementFunction(DataFormat)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	wxDataFormat::NativeFormat format = wxDF_INVALID;
+	wxDataFormatId format = wxDF_INVALID;
 	if (args.IsValid(0)) format = static_cast<wxDataFormat::NativeFormat>(args.GetInt(0));
 	wx_DataFormat *pEntity = new wx_DataFormat(format);
 	Object_wx_DataFormat *pObj = Object_wx_DataFormat::GetSelfObj(args);
@@ -91,6 +92,7 @@ Gura_ImplementFunction(DataFormat_1)
 	SetError_NotImplemented(sig);
 	return Value::Null;
 }
+#endif
 
 Gura_DeclareMethod(wx_DataFormat, GetId)
 {
@@ -114,10 +116,14 @@ Gura_DeclareMethod(wx_DataFormat, GetType)
 
 Gura_ImplementMethod(wx_DataFormat, GetType)
 {
+#if 0
 	Object_wx_DataFormat *pSelf = Object_wx_DataFormat::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxDataFormat::NativeFormat rtn = pSelf->GetEntity()->GetType();
 	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
 }
 
 Gura_DeclareMethod(wx_DataFormat, SetId)
@@ -149,10 +155,14 @@ Gura_DeclareMethod(wx_DataFormat, SetType)
 
 Gura_ImplementMethod(wx_DataFormat, SetType)
 {
+#if 0
 	Object_wx_DataFormat *pSelf = Object_wx_DataFormat::GetSelfObj(args);
 	if (pSelf->IsInvalid(sig)) return Value::Null;
 	wxDataFormat::NativeFormat format = static_cast<wxDataFormat::NativeFormat>(args.GetInt(0));
 	pSelf->GetEntity()->SetType(format);
+	return Value::Null;
+#endif
+	SetError_NotImplemented(sig);
 	return Value::Null;
 }
 
@@ -186,14 +196,14 @@ String Object_wx_DataFormat::ToString(Signal sig, bool exprFlag)
 
 void Object_wx_DataFormat::OnModuleEntry(Environment &env, Signal sig)
 {
-	Gura_AssignFunction(DataFormat);
-	Gura_AssignFunction(DataFormat_1);
+	//Gura_AssignFunction(DataFormat);
+	//Gura_AssignFunction(DataFormat_1);
 }
 
 //----------------------------------------------------------------------------
 // Class implementation for wxDataFormat
 //----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClassWithCast(wx_DataFormat)
+Gura_ImplementUserInheritableClass(wx_DataFormat)
 {
 	Gura_AssignMethod(wx_DataFormat, GetId);
 	Gura_AssignMethod(wx_DataFormat, GetType);
@@ -204,23 +214,6 @@ Gura_ImplementUserInheritableClassWithCast(wx_DataFormat)
 Gura_ImplementDescendantCreator(wx_DataFormat)
 {
 	return new Object_wx_DataFormat((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
-}
-
-Gura_ImplementCastFrom(wx_DataFormat)
-{
-	if (!value.IsNumber()) return false;
-	wxDataFormat::NativeFormat format =
-					static_cast<wxDataFormat::NativeFormat>(value.GetInt());
-	wx_DataFormat *pDataFormat = new wx_DataFormat(format);
-	Object_wx_DataFormat *pObj = new Object_wx_DataFormat(pDataFormat, pDataFormat, OwnerFalse);
-	pDataFormat->AssocWithGura(sig, pObj);
-	value = Value(pObj);
-	return true;
-}
-
-Gura_ImplementCastTo(wx_DataFormat)
-{
-	return false;
 }
 
 }}
