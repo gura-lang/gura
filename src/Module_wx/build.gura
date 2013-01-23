@@ -29,6 +29,8 @@ srcs = [
 	'Object_wx_FileConfig.cpp'
 	'Object_wx_CriticalSection.cpp'
 	'Object_wx_CriticalSectionLocker.cpp'
+	'Object_wx_DataFormat.cpp'
+	'Object_wx_DataObject.cpp'
 	'Object_wx_DateSpan.cpp'
 	'Object_wx_DateTime.cpp'
 	'Object_wx_DateTimeHolidayAuthority.cpp'
@@ -131,6 +133,7 @@ srcs = [
 	'Object_wx_ZipEntry.cpp'
 	'Object_wx_ArtProvider.cpp'
 	'Object_wx_BitmapHandler.cpp'
+	'Object_wx_Clipboard.cpp'
 	'Object_wx_Colour.cpp'
 	'Object_wx_ColourData.cpp'
 	'Object_wx_Command.cpp'
@@ -538,15 +541,12 @@ srcs = [
 ]
 srcs_MSW = [
 	// revise this later
-	'Object_wx_Clipboard.cpp'
 	'Object_wx_Thread.cpp'
 	'Object_wx_ThreadHelper.cpp'
 
 	'Object_wx_AutomationObject.cpp'
 	'Object_wx_PowerEvent.cpp'
-	'Object_wx_DataFormat.cpp'
 	'Object_wx_DataInputStream.cpp'
-	'Object_wx_DataObject.cpp'
 	'Object_wx_DataObjectComposite.cpp'
 	'Object_wx_URLDataObject.cpp'
 	'Object_wx_DataObjectSimple.cpp'

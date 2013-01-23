@@ -279,6 +279,8 @@
 #include "Object_wx_FileConfig.h"						// derived from wxConfigBase
 #include "Object_wx_CriticalSection.h"
 #include "Object_wx_CriticalSectionLocker.h"
+#include "Object_wx_DataFormat.h"
+#include "Object_wx_DataObject.h"
 #include "Object_wx_DateSpan.h"
 #include "Object_wx_DateTime.h"
 #include "Object_wx_DateTimeHolidayAuthority.h"
@@ -382,6 +384,7 @@
 #include "Object_wx_ZipEntry.h"							// derived from wxArchiveEntry
 #include "Object_wx_ArtProvider.h"						// derived from wxObject
 #include "Object_wx_BitmapHandler.h"					// derived from wxObject
+#include "Object_wx_Clipboard.h"						// derived from wxObject
 #include "Object_wx_Colour.h"							// derived from wxObject
 #include "Object_wx_ColourData.h"						// derived from wxObject
 #include "Object_wx_Command.h"							// derived from wxObject
@@ -787,15 +790,12 @@
 #include "Object_wx_RichTextAction.h"
 #include "Object_wx_EventFactory.h"
 #if defined(__WXMSW__)
-#include "Object_wx_Clipboard.h"						// derived from wxObject
 #include "Object_wx_Thread.h"
 #include "Object_wx_ThreadHelper.h"
 
 #include "Object_wx_AutomationObject.h"					// derived from wxObject
 #include "Object_wx_PowerEvent.h"						// derived from wxEvent
-#include "Object_wx_DataFormat.h"
 #include "Object_wx_DataInputStream.h"
-#include "Object_wx_DataObject.h"
 #include "Object_wx_DataObjectComposite.h"				// derived from wxDataObject
 #include "Object_wx_URLDataObject.h"					// derived from wxDataObjectComposite
 #include "Object_wx_DataObjectSimple.h"					// derived from wxDataObject
