@@ -1,0 +1,3 @@
+#define BINDIR "@BINDIR@"
+#define PKGDATADIR "@PKGDATADIR@"
+#define PKGLIBDIR "@PKGLIBDIR@"
