@@ -2,6 +2,8 @@ set(BINDIR "/usr/local/bin")
 set(PKGDATADIR "/usr/local/share/gura")
 set(PKGLIBDIR "/usr/local/lib/gura")
 
+SET_TARGET_PROPERTIES(gura-0.3 PROPERTIES VERSION "1.0.0" SOVERSION "1")
+
 include_directories(
 "${PROJECT_SOURCE_DIR}/include"
 "${PROJECT_SOURCE_DIR}/src"
