@@ -6,7 +6,7 @@ set(BINDIR "/usr/local/bin")
 set(PKGDATADIR "/usr/local/share/gura")
 set(PKGLIBDIR "/usr/local/lib/gura")
 
-configure_file(config_add.h.in config_add.h)
+configure_file(config.h.in config.h)
 include(CheckLibraryExists)
 check_library_exists(dl dlopen "" HAVE_LIBDL)
 
