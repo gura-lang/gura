@@ -2,15 +2,13 @@ set(BINDIR "/usr/local/bin")
 set(PKGDATADIR "/usr/local/share/gura")
 set(PKGLIBDIR "/usr/local/lib/gura")
 
-SET_TARGET_PROPERTIES(gura-0.3 PROPERTIES VERSION "1.0.0" SOVERSION "1")
-
 include_directories(
-"${PROJECT_SOURCE_DIR}/include"
+"${PROJECT_SOURCE_DIR}/../include"
 "${PROJECT_SOURCE_DIR}/src"
 "${PROJECT_SOURCE_DIR}/src/SFMT-src-1.3.3"
 )
 
-configure_file(config.h.in config.h)
+configure_file(config_add.h.in config_add.h)
 
 add_library(gura-0.3 SHARED
 SFMT-src-1.3.3/SFMT.c
@@ -32,16 +30,16 @@ Iterator.cpp
 Module.cpp
 Module_basement.cpp
 Module_sys.cpp
-Module_codecs_basic/Module_codecs_basic.cpp
-Module_codecs_iso8859/Module_codecs_iso8859.cpp
-Module_codecs_japanese/Module_codecs_japanese.cpp
-Module_codecs_japanese/Conv_Japanese.cpp
-Module_base64/Module_base64.cpp
-Module_fs/Module_fs.cpp
-Module_math/Module_math.cpp
-Module_os/Module_os.cpp
-Module_path/Module_path.cpp
-Module_time/Module_time.cpp
+../Module_codecs_basic/Module_codecs_basic.cpp
+../Module_codecs_iso8859/Module_codecs_iso8859.cpp
+../Module_codecs_japanese/Module_codecs_japanese.cpp
+../Module_codecs_japanese/Conv_Japanese.cpp
+../Module_base64/Module_base64.cpp
+../Module_fs/Module_fs.cpp
+../Module_math/Module_math.cpp
+../Module_os/Module_os.cpp
+../Module_path/Module_path.cpp
+../Module_time/Module_time.cpp
 Object.cpp
 Object_args.cpp
 Object_audio.cpp
