@@ -186,7 +186,7 @@
     <ClCompile Include="guraw.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\libgura.vcxproj">
+    <ProjectReference Include="..\lib\libgura.vcxproj">
       <Project>{84c27ed8-4a4f-4dc2-b276-5f012f2570ef}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
