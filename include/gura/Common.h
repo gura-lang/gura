@@ -30,7 +30,6 @@ typedef unsigned __int64 uint64;
 #else
 #if defined(HAVE_CONFIG_H)
 #include "config.h"
-#include "config_add.h"
 #endif
 #define DLLIMPORT
 #define DLLEXPORT
