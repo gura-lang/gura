@@ -1,3 +1,5 @@
 #define BINDIR "@BINDIR@"
 #define PKGDATADIR "@PKGDATADIR@"
 #define PKGLIBDIR "@PKGLIBDIR@"
+
+#cmakedefine HAVE_LIBDL
