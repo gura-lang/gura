@@ -1,8 +1,8 @@
 include_directories(
 "${PROJECT_SOURCE_DIR}"
 "${PROJECT_SOURCE_DIR}/../include"
-"${PROJECT_SOURCE_DIR}/src"
-"${PROJECT_SOURCE_DIR}/src/SFMT-src-1.3.3"
+"${PROJECT_SOURCE_DIR}/lib"
+"${PROJECT_SOURCE_DIR}/lib/SFMT-src-1.3.3"
 )
 
 add_library(gura-0.3 SHARED

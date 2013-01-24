@@ -4,9 +4,7 @@
 #include "Common.h"
 #include "DateTime.h"
 #include "Signal.h"
-#if defined(HAVE_SEMAPHORE_H)
 #include <semaphore.h>
-#endif
 
 #if defined(HAVE_WINDOWS_H)
 #define ecvt _ecvt
@@ -219,7 +217,7 @@ class DLLDECLARE Semaphore {
 private:
 #if defined(HAVE_WINDOWS_H)
 	HANDLE _hMutex;
-#elif defined(HAVE_SEMAPHORE_H)
+#else
 	sem_t _sem;
 #endif
 public:
