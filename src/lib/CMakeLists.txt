@@ -1,14 +1,9 @@
-set(BINDIR "/usr/local/bin")
-set(PKGDATADIR "/usr/local/share/gura")
-set(PKGLIBDIR "/usr/local/lib/gura")
-
 include_directories(
+"${PROJECT_SOURCE_DIR}"
 "${PROJECT_SOURCE_DIR}/../include"
 "${PROJECT_SOURCE_DIR}/src"
 "${PROJECT_SOURCE_DIR}/src/SFMT-src-1.3.3"
 )
-
-configure_file(config_add.h.in config_add.h)
 
 add_library(gura-0.3 SHARED
 SFMT-src-1.3.3/SFMT.c
