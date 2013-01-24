@@ -81,7 +81,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>GURA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>gura_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -107,7 +107,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>GURA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>gura_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -130,7 +130,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>.;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>GURA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>gura_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -154,7 +154,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>.;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>GURA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>gura_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -178,7 +178,7 @@
     <ClCompile Include="Algorithm.cpp" />
     <ClCompile Include="Codec.cpp" />
     <ClCompile Include="Common.cpp" />
-    <ClCompile Include="Module_codecs_japanese\Conv_Japanese.cpp" />
+    <ClCompile Include="..\Module_codecs_japanese\Conv_Japanese.cpp" />
     <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="Declaration.cpp" />
     <ClCompile Include="Directory.cpp" />
@@ -191,16 +191,16 @@
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Module.cpp" />
     <ClCompile Include="Module_basement.cpp" />
-    <ClCompile Include="Module_codecs_basic\Module_codecs_basic.cpp" />
-    <ClCompile Include="Module_codecs_iso8859\Module_codecs_iso8859.cpp" />
-    <ClCompile Include="Module_codecs_japanese\Module_codecs_japanese.cpp" />
-    <ClCompile Include="Module_base64\Module_base64.cpp" />
-    <ClCompile Include="Module_fs\Module_fs.cpp" />
-    <ClCompile Include="Module_math\Module_math.cpp" />
-    <ClCompile Include="Module_os\Module_os.cpp" />
-    <ClCompile Include="Module_path\Module_path.cpp" />
+    <ClCompile Include="..\Module_codecs_basic\Module_codecs_basic.cpp" />
+    <ClCompile Include="..\Module_codecs_iso8859\Module_codecs_iso8859.cpp" />
+    <ClCompile Include="..\Module_codecs_japanese\Module_codecs_japanese.cpp" />
+    <ClCompile Include="..\Module_base64\Module_base64.cpp" />
+    <ClCompile Include="..\Module_fs\Module_fs.cpp" />
+    <ClCompile Include="..\Module_math\Module_math.cpp" />
+    <ClCompile Include="..\Module_os\Module_os.cpp" />
+    <ClCompile Include="..\Module_path\Module_path.cpp" />
     <ClCompile Include="Module_sys.cpp" />
-    <ClCompile Include="Module_time\Module_time.cpp" />
+    <ClCompile Include="..\Module_time\Module_time.cpp" />
     <ClCompile Include="OAL.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Object_audio.cpp" />
@@ -249,57 +249,57 @@
     <ClCompile Include="Value.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\gura.h" />
-    <ClInclude Include="..\include\gura\Algorithm.h" />
-    <ClInclude Include="..\include\gura\BZLibHelper.h" />
-    <ClInclude Include="..\include\gura\Codec.h" />
-    <ClInclude Include="..\include\gura\Common.h" />
-    <ClInclude Include="..\include\gura\DateTime.h" />
-    <ClInclude Include="..\include\gura\Declaration.h" />
-    <ClInclude Include="..\include\gura\Directory.h" />
-    <ClInclude Include="..\include\gura\Environment.h" />
-    <ClInclude Include="..\include\gura\Expr.h" />
-    <ClInclude Include="..\include\gura\Formatter.h" />
-    <ClInclude Include="..\include\gura\Function.h" />
-    <ClInclude Include="..\include\gura\Iterator.h" />
-    <ClInclude Include="..\include\gura\Image.h" />
-    <ClInclude Include="..\include\gura\Module.h" />
-    <ClInclude Include="..\include\gura\OAL.h" />
-    <ClInclude Include="..\include\gura\Object.h" />
-    <ClInclude Include="..\include\gura\Object_args.h" />
-    <ClInclude Include="..\include\gura\Object_audio.h" />
-    <ClInclude Include="..\include\gura\Object_binary.h" />
-    <ClInclude Include="..\include\gura\Object_codec.h" />
-    <ClInclude Include="..\include\gura\Object_color.h" />
-    <ClInclude Include="..\include\gura\Object_Custom.h" />
-    <ClInclude Include="..\include\gura\Object_datetime.h" />
-    <ClInclude Include="..\include\gura\Object_dict.h" />
-    <ClInclude Include="..\include\gura\Object_environment.h" />
-    <ClInclude Include="..\include\gura\Object_error.h" />
-    <ClInclude Include="..\include\gura\Object_expr.h" />
-    <ClInclude Include="..\include\gura\Object_function.h" />
-    <ClInclude Include="..\include\gura\Object_image.h" />
-    <ClInclude Include="..\include\gura\Object_iterator.h" />
-    <ClInclude Include="..\include\gura\Object_list.h" />
-    <ClInclude Include="..\include\gura\Object_matrix.h" />
-    <ClInclude Include="..\include\gura\Object_palette.h" />
-    <ClInclude Include="..\include\gura\Object_semaphore.h" />
-    <ClInclude Include="..\include\gura\Object_stream.h" />
-    <ClInclude Include="..\include\gura\Object_string.h" />
-    <ClInclude Include="..\include\gura\Object_Struct.h" />
-    <ClInclude Include="..\include\gura\Object_timedelta.h" />
-    <ClInclude Include="..\include\gura\Object_uri.h" />
-    <ClInclude Include="..\include\gura\Operator.h" />
-    <ClInclude Include="..\include\gura\Option.h" />
-    <ClInclude Include="..\include\gura\PackedNumber.h" />
-    <ClInclude Include="..\include\gura\Parser.h" />
-    <ClInclude Include="..\include\gura\Signal.h" />
-    <ClInclude Include="..\include\gura\stdafx.h" />
-    <ClInclude Include="..\include\gura\Stream.h" />
-    <ClInclude Include="..\include\gura\String.h" />
-    <ClInclude Include="..\include\gura\Symbol.h" />
-    <ClInclude Include="..\include\gura\Value.h" />
-    <ClInclude Include="..\include\gura\ZLibHelper.h" />
+    <ClInclude Include="..\..\include\gura.h" />
+    <ClInclude Include="..\..\include\gura\Algorithm.h" />
+    <ClInclude Include="..\..\include\gura\BZLibHelper.h" />
+    <ClInclude Include="..\..\include\gura\Codec.h" />
+    <ClInclude Include="..\..\include\gura\Common.h" />
+    <ClInclude Include="..\..\include\gura\DateTime.h" />
+    <ClInclude Include="..\..\include\gura\Declaration.h" />
+    <ClInclude Include="..\..\include\gura\Directory.h" />
+    <ClInclude Include="..\..\include\gura\Environment.h" />
+    <ClInclude Include="..\..\include\gura\Expr.h" />
+    <ClInclude Include="..\..\include\gura\Formatter.h" />
+    <ClInclude Include="..\..\include\gura\Function.h" />
+    <ClInclude Include="..\..\include\gura\Iterator.h" />
+    <ClInclude Include="..\..\include\gura\Image.h" />
+    <ClInclude Include="..\..\include\gura\Module.h" />
+    <ClInclude Include="..\..\include\gura\OAL.h" />
+    <ClInclude Include="..\..\include\gura\Object.h" />
+    <ClInclude Include="..\..\include\gura\Object_args.h" />
+    <ClInclude Include="..\..\include\gura\Object_audio.h" />
+    <ClInclude Include="..\..\include\gura\Object_binary.h" />
+    <ClInclude Include="..\..\include\gura\Object_codec.h" />
+    <ClInclude Include="..\..\include\gura\Object_color.h" />
+    <ClInclude Include="..\..\include\gura\Object_Custom.h" />
+    <ClInclude Include="..\..\include\gura\Object_datetime.h" />
+    <ClInclude Include="..\..\include\gura\Object_dict.h" />
+    <ClInclude Include="..\..\include\gura\Object_environment.h" />
+    <ClInclude Include="..\..\include\gura\Object_error.h" />
+    <ClInclude Include="..\..\include\gura\Object_expr.h" />
+    <ClInclude Include="..\..\include\gura\Object_function.h" />
+    <ClInclude Include="..\..\include\gura\Object_image.h" />
+    <ClInclude Include="..\..\include\gura\Object_iterator.h" />
+    <ClInclude Include="..\..\include\gura\Object_list.h" />
+    <ClInclude Include="..\..\include\gura\Object_matrix.h" />
+    <ClInclude Include="..\..\include\gura\Object_palette.h" />
+    <ClInclude Include="..\..\include\gura\Object_semaphore.h" />
+    <ClInclude Include="..\..\include\gura\Object_stream.h" />
+    <ClInclude Include="..\..\include\gura\Object_string.h" />
+    <ClInclude Include="..\..\include\gura\Object_Struct.h" />
+    <ClInclude Include="..\..\include\gura\Object_timedelta.h" />
+    <ClInclude Include="..\..\include\gura\Object_uri.h" />
+    <ClInclude Include="..\..\include\gura\Operator.h" />
+    <ClInclude Include="..\..\include\gura\Option.h" />
+    <ClInclude Include="..\..\include\gura\PackedNumber.h" />
+    <ClInclude Include="..\..\include\gura\Parser.h" />
+    <ClInclude Include="..\..\include\gura\Signal.h" />
+    <ClInclude Include="..\..\include\gura\stdafx.h" />
+    <ClInclude Include="..\..\include\gura\Stream.h" />
+    <ClInclude Include="..\..\include\gura\String.h" />
+    <ClInclude Include="..\..\include\gura\Symbol.h" />
+    <ClInclude Include="..\..\include\gura\Value.h" />
+    <ClInclude Include="..\..\include\gura\ZLibHelper.h" />
     <ClInclude Include="Codec_ISO8859.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

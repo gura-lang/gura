@@ -18,7 +18,7 @@
 #if defined(HAVE_WINDOWS_H)
 #define DLLIMPORT __declspec(dllimport)
 #define DLLEXPORT __declspec(dllexport)
-#if defined(GURA_EXPORTS)
+#if defined(gura_EXPORTS)
 #define DLLDECLARE __declspec(dllexport)
 #else
 #define DLLDECLARE __declspec(dllimport)

@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libgura", "src\libgura.vcxproj", "{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gura", "src\Program_gura\gura.vcxproj", "{21F75DAE-FBEC-4B6A-814B-F41FDBB7ADE0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guraole", "src\Program_guraole\guraole.vcxproj", "{086B9E0B-69C2-4A38-8945-3D5C9A820E58}"
@@ -13,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "build_modules", "src\build_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guri", "src\Program_guri\guri.vcxproj", "{3F2FAADE-263B-4A90-A0F0-520354F49DF5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libgura", "src\lib\libgura.vcxproj", "{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,14 +21,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Debug|Win32.ActiveCfg = Debug|Win32
-		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Debug|Win32.Build.0 = Debug|Win32
-		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Debug|x64.ActiveCfg = Debug|x64
-		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Debug|x64.Build.0 = Debug|x64
-		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Release|Win32.ActiveCfg = Release|Win32
-		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Release|Win32.Build.0 = Release|Win32
-		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Release|x64.ActiveCfg = Release|x64
-		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Release|x64.Build.0 = Release|x64
 		{21F75DAE-FBEC-4B6A-814B-F41FDBB7ADE0}.Debug|Win32.ActiveCfg = Debug|Win32
 		{21F75DAE-FBEC-4B6A-814B-F41FDBB7ADE0}.Debug|Win32.Build.0 = Debug|Win32
 		{21F75DAE-FBEC-4B6A-814B-F41FDBB7ADE0}.Debug|x64.ActiveCfg = Debug|x64
@@ -67,6 +59,14 @@ Global
 		{3F2FAADE-263B-4A90-A0F0-520354F49DF5}.Release|Win32.Build.0 = Release|Win32
 		{3F2FAADE-263B-4A90-A0F0-520354F49DF5}.Release|x64.ActiveCfg = Release|x64
 		{3F2FAADE-263B-4A90-A0F0-520354F49DF5}.Release|x64.Build.0 = Release|x64
+		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Debug|Win32.Build.0 = Debug|Win32
+		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Debug|x64.ActiveCfg = Debug|x64
+		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Debug|x64.Build.0 = Debug|x64
+		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Release|Win32.ActiveCfg = Release|Win32
+		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Release|Win32.Build.0 = Release|Win32
+		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Release|x64.ActiveCfg = Release|x64
+		{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
