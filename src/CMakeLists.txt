@@ -14,6 +14,7 @@ configure_file(config.h.in config.h)
 
 add_subdirectory(lib)
 add_subdirectory(Program_gura)
+add_subdirectory(Program_guri)
 
 install(FILES
   ${srcdir_module}/calendar.gura
