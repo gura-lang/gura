@@ -6,6 +6,7 @@ include_directories(
 )
 
 add_library(guracore SHARED
+stdafx.cpp
 SFMT-src-1.3.3/SFMT.c
 OAL.cpp
 Algorithm.cpp
@@ -66,7 +67,6 @@ String.cpp
 StructObject.cpp
 Symbol.cpp
 Value.cpp
-stdafx.cpp
 )
 
 target_link_libraries(guracore dl pthread)
