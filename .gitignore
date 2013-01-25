@@ -41,7 +41,9 @@ autom4te.cache/
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
+install_manifest.txt
 *~
+*#
 *.exe
 *.obj
 *.dll
@@ -59,4 +61,5 @@ cmake_install.cmake
 *.lo
 *.la
 *.gch
-
+*.so
+*.so.*
