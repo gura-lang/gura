@@ -5,7 +5,7 @@ include_directories(
 "${PROJECT_SOURCE_DIR}/lib/SFMT-src-1.3.3"
 )
 
-add_library(gura-0.3 SHARED
+add_library(guracore SHARED
 SFMT-src-1.3.3/SFMT.c
 OAL.cpp
 Algorithm.cpp
@@ -69,9 +69,12 @@ Value.cpp
 stdafx.cpp
 )
 
-target_link_libraries(gura-0.3 dl pthread)
+target_link_libraries(guracore dl pthread)
 
-set_property(TARGET gura-0.3 PROPERTY COMPILE_DEFINITIONS HAVE_CONFIG_H)
+set_property(TARGET guracore PROPERTY COMPILE_DEFINITIONS HAVE_CONFIG_H)
 set_property(SOURCE SFMT-src-1.3.3/SFMT.c PROPERTY COMPILE_DEFINITIONS MEXP=19937)
-
-install(TARGETS gura-0.3 DESTINATION lib)
+set_target_properties(guracore PROPERTIES
+  VERSION 0.3.0
+  SOVERSION 0)
+  
+install(TARGETS guracore DESTINATION lib)
