@@ -6,7 +6,6 @@ include_directories(
 )
 
 add_library(guracore SHARED
-stdafx.cpp
 SFMT-src-1.3.3/SFMT.c
 OAL.cpp
 Algorithm.cpp
@@ -23,19 +22,15 @@ Formatter.cpp
 Function.cpp
 Image.cpp
 Iterator.cpp
-Module.cpp
-Module_basement.cpp
-Module_sys.cpp
-../Module_codecs_basic/Module_codecs_basic.cpp
-../Module_codecs_iso8859/Module_codecs_iso8859.cpp
-../Module_codecs_japanese/Module_codecs_japanese.cpp
-../Module_codecs_japanese/Conv_Japanese.cpp
-../Module_base64/Module_base64.cpp
-../Module_fs/Module_fs.cpp
-../Module_math/Module_math.cpp
-../Module_os/Module_os.cpp
-../Module_path/Module_path.cpp
-../Module_time/Module_time.cpp
+Operator.cpp
+Option.cpp
+Parser.cpp
+Signal.cpp
+Stream.cpp
+String.cpp
+StructObject.cpp
+Symbol.cpp
+Value.cpp
 Object.cpp
 Object_args.cpp
 Object_audio.cpp
@@ -58,15 +53,19 @@ Object_stream.cpp
 Object_string.cpp
 Object_timedelta.cpp
 Object_uri.cpp
-Operator.cpp
-Option.cpp
-Parser.cpp
-Signal.cpp
-Stream.cpp
-String.cpp
-StructObject.cpp
-Symbol.cpp
-Value.cpp
+Module.cpp
+Module_basement.cpp
+Module_sys.cpp
+../Module_codecs_basic/Module_codecs_basic.cpp
+../Module_codecs_iso8859/Module_codecs_iso8859.cpp
+../Module_codecs_japanese/Module_codecs_japanese.cpp
+../Module_codecs_japanese/Conv_Japanese.cpp
+../Module_base64/Module_base64.cpp
+../Module_fs/Module_fs.cpp
+../Module_math/Module_math.cpp
+../Module_os/Module_os.cpp
+../Module_path/Module_path.cpp
+../Module_time/Module_time.cpp
 )
 
 target_link_libraries(guracore dl pthread)
