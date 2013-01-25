@@ -29,6 +29,8 @@
 /test/50records-jp.sqlite3
 /test/*.emf
 /src/Program_*/*.obj
+/src/Program_*/Makefile
+/src/lib/Makefile
 msc/
 gnuc/
 Release/
@@ -36,6 +38,9 @@ Release.*/
 .deps/
 .libs/
 autom4te.cache/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
 *~
 *.exe
 *.obj
