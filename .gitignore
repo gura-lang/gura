@@ -30,6 +30,8 @@
 /test/*.emf
 /src/Program_*/*.obj
 /src/Program_*/Makefile
+/src/Program_gura/gura
+/src/Program_guri/guri
 /src/lib/Makefile
 msc/
 gnuc/
