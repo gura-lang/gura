@@ -11,8 +11,6 @@ set(PKGDATADIR ${CMAKE_INSTALL_PREFIX}/share/gura)
 set(PKGLIBDIR ${CMAKE_INSTALL_PREFIX}/lib/gura)
 
 configure_file(config.h.in config.h)
-include(CheckLibraryExists)
-check_library_exists(dl dlopen "" HAVE_LIBDL)
 
 add_subdirectory(lib)
 add_subdirectory(Program_gura)

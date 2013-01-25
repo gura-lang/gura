@@ -171,7 +171,7 @@ class DLLDECLARE DynamicLibrary {
 private:
 #if defined(HAVE_WINDOWS_H)
 	HMODULE _hModule;
-#elif defined(HAVE_LIBDL)
+#else
 	void *_hLibrary;
 #endif
 public:
