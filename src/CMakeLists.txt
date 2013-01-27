@@ -18,7 +18,6 @@ configure_file(config.h.in config.h)
 include(CheckIncludeFile)
 check_include_file(readline/readline.h HAVE_READLINE_H)
 
-
 include_directories(
 "${PROJECT_SOURCE_DIR}"
 "${PROJECT_SOURCE_DIR}/../include"
