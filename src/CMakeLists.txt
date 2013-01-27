@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 2.6)
 
 project(gura)
 
+set(GURA_VERSION 0.3.1)
+set(GURA_VERSION_SO 0)
+
 set(srcdir_include "../include/gura")
 set(srcdir_sample "../sample")
 set(srcdir_module "../module")
