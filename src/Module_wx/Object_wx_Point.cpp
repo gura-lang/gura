@@ -46,7 +46,7 @@ Gura_DeclareFunction(PointEmpty)
 
 Gura_ImplementFunction(PointEmpty)
 {
-	if (!CheckWxReady(sig)) return Value::Null;
+	//if (!CheckWxReady(sig)) return Value::Null;
 	wx_Point *pEntity = new wx_Point();
 	Object_wx_Point *pObj = Object_wx_Point::GetSelfObj(args);
 	if (pObj == NULL) {
@@ -70,7 +70,7 @@ Gura_DeclareFunction(Point)
 
 Gura_ImplementFunction(Point)
 {
-	if (!CheckWxReady(sig)) return Value::Null;
+	//if (!CheckWxReady(sig)) return Value::Null;
 	int x = 0;
 	if (args.IsValid(0)) x = args.GetInt(0);
 	int y = 0;
