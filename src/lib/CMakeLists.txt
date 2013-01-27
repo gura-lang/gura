@@ -1,10 +1,3 @@
-include_directories(
-"${PROJECT_SOURCE_DIR}"
-"${PROJECT_SOURCE_DIR}/../include"
-"${PROJECT_SOURCE_DIR}/lib"
-"${PROJECT_SOURCE_DIR}/lib/SFMT-src-1.3.3"
-)
-
 add_library(guracore SHARED
 SFMT-src-1.3.3/SFMT.c
 OAL.cpp
@@ -72,6 +65,7 @@ target_link_libraries(guracore dl pthread)
 
 set_property(TARGET guracore PROPERTY COMPILE_DEFINITIONS HAVE_CONFIG_H)
 set_property(SOURCE SFMT-src-1.3.3/SFMT.c PROPERTY COMPILE_DEFINITIONS MEXP=19937)
+
 set_target_properties(guracore PROPERTIES
   VERSION 0.3.0
   SOVERSION 0)

@@ -12,6 +12,16 @@ set(PKGLIBDIR ${CMAKE_INSTALL_PREFIX}/lib/gura)
 
 configure_file(config.h.in config.h)
 
+include(CheckLibraryExists)
+check_library_exists(readline readline "" HAVE_LIBREADLINE)
+
+include_directories(
+"${PROJECT_SOURCE_DIR}"
+"${PROJECT_SOURCE_DIR}/../include"
+"${PROJECT_SOURCE_DIR}/lib"
+"${PROJECT_SOURCE_DIR}/lib/SFMT-src-1.3.3"
+)
+
 add_subdirectory(lib)
 add_subdirectory(Program_gura)
 add_subdirectory(Program_guri)
