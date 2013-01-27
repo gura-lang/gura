@@ -1,4 +1,4 @@
-include_directories("${PROJECT_SOURCE_DIR}/../include")
+include_directories("${PROJECT_SOURCE_DIR}/include")
 
 add_executable(guri guri.cpp)
 

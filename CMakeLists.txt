@@ -5,26 +5,25 @@ project(gura)
 set(GURA_VERSION 0.3.1)
 set(GURA_VERSION_SO 0)
 
-set(srcdir_include "../include/gura")
-set(srcdir_sample "../sample")
-set(srcdir_module "../module")
+set(srcdir_include "${PROJECT_SOURCE_DIR}/include/gura")
+set(srcdir_sample "${PROJECT_SOURCE_DIR}/sample")
+set(srcdir_module "${PROJECT_SOURCE_DIR}/module")
 
 set(BINDIR ${CMAKE_INSTALL_PREFIX}/bin)
 set(PKGDATADIR ${CMAKE_INSTALL_PREFIX}/share/gura)
 set(PKGLIBDIR ${CMAKE_INSTALL_PREFIX}/lib/gura)
 
-configure_file(config.h.in config.h)
+configure_file(include/gura/config.h.in include/gura/config.h)
 
 include_directories(
-"${PROJECT_SOURCE_DIR}"
-"${PROJECT_SOURCE_DIR}/../include"
-"${PROJECT_SOURCE_DIR}/lib"
-"${PROJECT_SOURCE_DIR}/lib/SFMT-src-1.3.3"
+"${PROJECT_SOURCE_DIR}/include"
+"${PROJECT_SOURCE_DIR}/src/lib"
+"${PROJECT_SOURCE_DIR}/src/lib/SFMT-src-1.3.3"
 )
 
-add_subdirectory(lib)
-add_subdirectory(Program_gura)
-add_subdirectory(Program_guri)
+add_subdirectory(src/lib)
+add_subdirectory(src/Program_gura)
+add_subdirectory(src/Program_guri)
 
 install(FILES
   ${srcdir_module}/calendar.gura
