@@ -58,3 +58,7 @@ install_manifest.txt
 *.gch
 *.so
 *.so.*
+*.list.txt
+*.msi
+*.wxs
+*.zip

@@ -183,7 +183,7 @@ textTemplate = R"""
 """
 
 dirnameScript = path.dirname(sys.argv[0])
-dirnameDst = path.join(dirnameScript, '..', 'release')
+dirnameDst = path.join(dirnameScript)
 filenameBase = 'gura-%s-win32' % [sys.version]
 
 gatherFiles() = {
