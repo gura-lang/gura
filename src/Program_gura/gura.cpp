@@ -1,6 +1,7 @@
 #include <gura.h>
 
-#if defined(HAVE_READLINE_H)
+#if defined(HAVE_WINDOWS_H)
+#else
 #include <readline/readline.h>
 #include <readline/history.h>
 #endif
@@ -161,7 +162,23 @@ void PrintHelp(FILE *fp)
 	);
 }
 
-#if defined(HAVE_READLINE_H)
+#if defined(HAVE_WINDOWS_H)
+void ReadEvalPrintLoop(Environment &env, Signal sig)
+{
+	Stream *pConsole = env.GetConsole(false);
+	Parser parser;
+	ExprOwner exprOwner;
+	pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
+	for (;;) {
+		int ch = ::fgetc(stdin);
+		parser.EvalConsoleChar(env, sig, exprOwner, static_cast<unsigned char>(ch));
+		if (ch < 0) break;
+		if (ch == '\n') {
+			pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
+		}
+	}
+}
+#else
 void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
 	Parser parser;
@@ -177,22 +194,6 @@ void ReadEvalPrintLoop(Environment &env, Signal sig)
 			add_history(lineBuff);
 		}
 		free(lineBuff);
-	}
-}
-#else
-void ReadEvalPrintLoop(Environment &env, Signal sig)
-{
-	Stream *pConsole = env.GetConsole(false);
-	Parser parser;
-	ExprOwner exprOwner;
-	pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
-	for (;;) {
-		int ch = ::fgetc(stdin);
-		parser.EvalConsoleChar(env, sig, exprOwner, static_cast<unsigned char>(ch));
-		if (ch < 0) break;
-		if (ch == '\n') {
-			pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
-		}
 	}
 }
 #endif

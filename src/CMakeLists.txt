@@ -12,12 +12,6 @@ set(PKGLIBDIR ${CMAKE_INSTALL_PREFIX}/lib/gura)
 
 configure_file(config.h.in config.h)
 
-#include(CheckLibraryExists)
-#check_library_exists(readline readline "" HAVE_LIBREADLINE)
-
-include(CheckIncludeFile)
-check_include_file(readline/readline.h HAVE_READLINE_H)
-
 include_directories(
 "${PROJECT_SOURCE_DIR}"
 "${PROJECT_SOURCE_DIR}/../include"
