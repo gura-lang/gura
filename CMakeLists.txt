@@ -13,7 +13,9 @@ set(BINDIR ${CMAKE_INSTALL_PREFIX}/bin)
 set(PKGDATADIR ${CMAKE_INSTALL_PREFIX}/share/gura)
 set(PKGLIBDIR ${CMAKE_INSTALL_PREFIX}/lib/gura)
 
-configure_file(include/gura/config.h.in include/gura/config.h)
+configure_file(
+${PROJECT_SOURCE_DIR}/include/gura/config.h.in
+${PROJECT_SOURCE_DIR}/include/gura/config.h)
 
 include_directories(
 "${PROJECT_SOURCE_DIR}/include"
@@ -21,9 +23,9 @@ include_directories(
 "${PROJECT_SOURCE_DIR}/src/lib/SFMT-src-1.3.3"
 )
 
-add_subdirectory(src/lib)
-add_subdirectory(src/Program_gura)
-add_subdirectory(src/Program_guri)
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/lib)
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/Program_gura)
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/Program_guri)
 
 install(FILES
   ${srcdir_module}/calendar.gura
@@ -36,7 +38,9 @@ install(FILES
   ${srcdir_module}/tokenizer.gura
   ${srcdir_module}/units.gura
   DESTINATION lib/gura)
-install(FILES ../include/gura.h DESTINATION include)
+install(FILES
+  ${PROJECT_SOURCE_DIR}/include/gura.h
+  DESTINATION include)
 install(FILES
   ${srcdir_include}/Algorithm.h
   ${srcdir_include}/BZLibHelper.h
