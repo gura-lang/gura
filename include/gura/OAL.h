@@ -4,13 +4,13 @@
 #include "Common.h"
 #include "DateTime.h"
 #include "Signal.h"
-#include <semaphore.h>
 
 #if defined(HAVE_WINDOWS_H)
 #define ecvt _ecvt
 #define fcvt _fcvt
 #define gcvt _gcvt
 #else
+#include <semaphore.h>
 #include <sys/types.h>
 #include <dirent.h>
 #endif
