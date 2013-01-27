@@ -43,13 +43,13 @@ const char *GetOpening()
 {
 	static char buff[256];
 #if defined(_MSC_VER)
-	::sprintf(buff, "Gura %s [MSC v.%d, %s] copyright (c) 2011-2012 Y.Saito",
+	::sprintf(buff, "Gura %s [MSC v.%d, %s] copyright (c) 2011- Y.Saito",
 						GURA_VERSION, _MSC_VER, __DATE__);
 #elif defined(__GNUC__) && defined(__GNUC_MINOR__)
-	::sprintf(buff, "Gura %s [GNUC v.%d.%d, %s] copyright (c) 2011-2012 Y.Saito",
+	::sprintf(buff, "Gura %s [GNUC v.%d.%d, %s] copyright (c) 2011- Y.Saito",
 						GURA_VERSION, __GNUC__, __GNUC_MINOR__, __DATE__);
 #else
-	::sprintf(buff, "Gura %s [%s] copyright (c) 2011-2012 Y.Saito",
+	::sprintf(buff, "Gura %s [%s] copyright (c) 2011- Y.Saito",
 						GURA_VERSION, __DATE__);
 #endif
 	return buff;
