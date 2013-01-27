@@ -3125,7 +3125,7 @@ Gura_DeclareFunction(NewId)
 
 Gura_ImplementFunction(NewId)
 {
-	if (!CheckWxReady(sig)) return Value::Null;
+	//if (!CheckWxReady(sig)) return Value::Null;
 	long rtn = wxNewId();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -3138,7 +3138,7 @@ Gura_DeclareFunction(NewIds)
 
 Gura_ImplementFunction(NewIds)
 {
-	if (!CheckWxReady(sig)) return Value::Null;
+	//if (!CheckWxReady(sig)) return Value::Null;
 	Iterator *pIterator = new Iterator_NewIds();
 	return ReturnIterator(env, sig, args, pIterator);
 }
