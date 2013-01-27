@@ -11,7 +11,7 @@ if (sys.build == `msc) {
 It seems necessary libraries have not been installed on your system.
 See the following steps to resolve this problem.
 - Install Debian package:
-  $ sudo apt-get install libonig2 libonig-dev
+  $ sudo apt-get install libonig-dev
 - Install yum package:
   # yum install oniguruma-devel
 '''
