@@ -4,6 +4,8 @@ add_executable(gura gura.cpp)
 
 set_property(TARGET gura PROPERTY COMPILE_DEFINITIONS HAVE_CONFIG_H)
 
-target_link_libraries(gura guracore)
+find_library(LIBREADLINE readline)
+
+target_link_libraries(gura guracore ${LIBREADLINE})
 
 install(TARGETS gura DESTINATION bin)

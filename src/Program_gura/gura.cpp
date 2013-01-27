@@ -1,6 +1,6 @@
 #include <gura.h>
 
-#if defined(HAVE_LIBREADLINE)
+#if defined(HAVE_READLINE_H)
 #include <readline/readline.h>
 #include <readline/history.h>
 #endif
@@ -161,7 +161,7 @@ void PrintHelp(FILE *fp)
 	);
 }
 
-#if defined(HAVE_LIBREADLINE)
+#if defined(HAVE_READLINE_H)
 void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
 	Parser parser;
