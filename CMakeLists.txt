@@ -28,6 +28,26 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/src/Program_gura)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/Program_guri)
 
 install(FILES
+  ${srcdir_sample}/resource/Winter.jpg
+  ${srcdir_sample}/resource/readme.txt
+  ${srcdir_sample}/resource/arrow-green-u.gif
+  ${srcdir_sample}/resource/arrow-green-d.gif
+  ${srcdir_sample}/resource/msnms.ico
+  ${srcdir_sample}/resource/arrow-green-r.gif
+  ${srcdir_sample}/resource/Kaufmann_Bold_BT.ttf
+  ${srcdir_sample}/resource/banner-small.png
+  ${srcdir_sample}/resource/Water_lilies.jpg
+  ${srcdir_sample}/resource/Sunset.jpg
+  ${srcdir_sample}/resource/chicken16.bmp
+  ${srcdir_sample}/resource/chicken-anim.gif
+  ${srcdir_sample}/resource/Blue_hills.jpg
+  ${srcdir_sample}/resource/kangaroo.png
+  ${srcdir_sample}/resource/arrow-green-l.gif
+  ${srcdir_sample}/resource/kangaroo.gif
+  ${srcdir_sample}/resource/zippedfont.zip
+  ${srcdir_sample}/resource/chicken256.bmp
+  DESTINATION share/gura/sample/resource)
+install(FILES
   ${srcdir_module}/calendar.gura
   ${srcdir_module}/graph.gura
   ${srcdir_module}/gurcbuild.gura
