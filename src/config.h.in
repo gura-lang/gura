@@ -2,4 +2,4 @@
 #define PKGDATADIR "@PKGDATADIR@"
 #define PKGLIBDIR "@PKGLIBDIR@"
 
-#cmakedefine HAVE_LIBREADLINE
+#cmakedefine HAVE_READLINE_H
