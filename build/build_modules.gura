@@ -41,18 +41,17 @@ dirNamePre = path.dirname(sys.argv[0])
 for (dirName in dirNames) {
 	(dirName in dirNamesExcept) && continue
 	dirName = path.join('../src', dirName)
-	dirOrg = fs.getcwd()
-	if (dirNamePre != '') {
+	if (!dirNamePre.isempty()) {
 		dirName = path.join(dirNamePre, dirName)
 	}
 	argvOrg = sys.argv
 	sys.argv = argvOrg.replace('install', 'install-root'):list
-	fs.chdir(dirName)
-	println('-' * 78)
-	println(dirName)
-	scope {
-		open('build.gura').parse().eval()
- 	}
-	sys.argv = argvOrg
-	fs.chdir(dirOrg)
+	fs.chdir(dirName) {
+		println('-' * 78)
+		println(dirName)
+		scope {
+			open('build.gura').parse().eval()
+	 	}
+		sys.argv = argvOrg
+	}
 }
