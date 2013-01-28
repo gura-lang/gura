@@ -38,6 +38,8 @@ dirInfos = struct(dirName:string, builds[]:symbol) * [
 ]
 dirNames = dirInfos.filter(dirInfos:*builds:*iscontain(sys.build))::dirName
 dirNamePre = path.dirname(sys.argv[0])
+debFiles = []
+rpmFiles = []
 for (dirName in dirNames) {
 	(dirName in dirNamesExcept) && continue
 	dirName = path.join('../src', dirName)
@@ -50,8 +52,12 @@ for (dirName in dirNames) {
 		println('-' * 78)
 		println(dirName)
 		scope {
-			open('build.gura').parse().eval()
-	 	}
+			builder = open('build.gura').parse().eval()
+			builder.debFiles && debFiles.append(builder.debFiles)
+			builder.rpmFiles && rpmFiles.append(builder.rpmFiles)
+		}		
 		sys.argv = argvOrg
 	}
 }
+println(debFiles)
+println(rpmFiles)
