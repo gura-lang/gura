@@ -582,7 +582,7 @@ srcs_MSW = [
 	'Object_wx_PrinterDC.cpp'
 	'Object_wx_MetafileDC.cpp'
 ]
-	   
+contFlag = true	   
 builder = modbuild.Builder()
 if (sys.build == `msc) {
 	srcs.append(srcs_MSW)
@@ -617,28 +617,32 @@ if (sys.build == `msc) {
 	}
 	builder.debFiles = ['libwxgtk2.8-dev', 'libgl1-mesa-dev', 'libglu1-mesa-dev']
 	builder.rpmFiles = ['wxGTK-devel', 'mesa-libGL-devel', 'mesa-libGLU-devel']
-	if (!IsExist('wx-config')) {
+	if (IsExist('wx-config')) {
+		cflags = scope {
+			buff = binary()
+			os.redirect(nil, buff) {
+				os.exec('wx-config', '--cppflags')
+			}
+			os.fromnative(buff).strip().split(' '):list
+		}
+		builder.cflags.append(cflags.filter(cflags != ''))
+			ldflags = scope {
+			buff = binary()
+			os.redirect(nil, buff) {
+				os.exec('wx-config', '--libs', '--gl-libs')
+			}
+			str = os.fromnative(buff).replace('\n', ' ')
+			str.strip().split(' '):list
+		}
+		builder.ldflags.append(ldflags.filter(ldflags != ''))
+	} else {
 		builder.printHint()
-		sys.exit(1)
+		contFlag = false
 	}
-	cflags = scope {
-		buff = binary()
-		os.redirect(nil, buff) {
-			os.exec('wx-config', '--cppflags')
-		}
-		os.fromnative(buff).strip().split(' '):list
-	}
-	builder.cflags.append(cflags.filter(cflags != ''))
-	ldflags = scope {
-		buff = binary()
-		os.redirect(nil, buff) {
-			os.exec('wx-config', '--libs', '--gl-libs')
-		}
-		str = os.fromnative(buff).replace('\n', ' ')
-		str.strip().split(' '):list
-	}
-	builder.ldflags.append(ldflags.filter(ldflags != ''))
 }
-builder.precompile = 'stdafx.h'
-builder.progressFlag = true
-builder.build('wx', srcs)
+if (contFlag) {
+	builder.precompile = 'stdafx.h'
+	builder.progressFlag = true
+	builder.build('wx', srcs)
+}
+builder

@@ -55,7 +55,7 @@ for (dirName in dirNames) {
 			builder = open('build.gura').parse().eval()
 			builder.debFiles && debFiles.append(builder.debFiles)
 			builder.rpmFiles && rpmFiles.append(builder.rpmFiles)
-		}		
+		}
 		sys.argv = argvOrg
 	}
 }
