@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 
-Entry = struct(type:symbol, longName:string, shortName:string:nil)
+Entry = struct(type:symbol, longName:string, shortName:string:nil, defValue)
 
 Parser = class {
 	__init__() = {
@@ -8,7 +8,7 @@ Parser = class {
 	}
 	parse(argv[]:string) = {
 		cfg = %{}
-		cfg[self.entries.filter(self.entries:*type == `boolean):*longName] = false
+		cfg[self.entries:*longName] = self.entries:*defValue
 		argvRest = []
 		i = argv.offset(1)
 		while (arg = i.next()) {
@@ -55,19 +55,19 @@ Parser = class {
 		}
 		[cfg, argvRest]
 	}
-	add(type:symbol, longName:string, shortName?:string) = {
-		if (!(type in [`boolean, `string])) {
-			raise(ValueError, 'invalid type ' + type)
-		}
-		self.entries.add(Entry(type, longName, shortName))
+	add(longName:string, shortName?:string, defValue?:string) = {
+		self.entries.add(Entry(`string, longName, shortName, defValue))
+	}
+	addFlag(longName:string, shortName?:string) = {
+		self.entries.add(Entry(`boolean, longName, shortName, false))
 	}
 }
 
 if (__name__ == '__main__') {
 	Parser {|p|
-		p.add(`string, 'text')
-		p.add(`boolean, 'test')
-		p.add(`boolean, 'bold', 'b')
+		p.add('text')
+		p.addFlag('test')
+		p.addFlag('bold', 'b')
 		[cfg, argv] = p.parse(sys.argv)
 	}
 	println(cfg)
