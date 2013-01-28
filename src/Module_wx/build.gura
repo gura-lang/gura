@@ -618,7 +618,7 @@ if (sys.build == `msc) {
 	builder.debFiles = ['libwxgtk2.8-dev', 'libgl1-mesa-dev', 'libglu1-mesa-dev']
 	builder.rpmFiles = ['wxGTK-devel', 'mesa-libGL-devel', 'mesa-libGLU-devel']
 	if (!IsExist('wx-config')) {
-		print(hint)
+		builder.printHint()
 		sys.exit(1)
 	}
 	cflags = scope {
@@ -638,7 +638,6 @@ if (sys.build == `msc) {
 		str.strip().split(' '):list
 	}
 	builder.ldflags.append(ldflags.filter(ldflags != ''))
-	builder.hint = hint
 }
 builder.precompile = 'stdafx.h'
 builder.progressFlag = true
