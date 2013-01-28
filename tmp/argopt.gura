@@ -9,7 +9,9 @@ Parser = class {
 	parse(argv[]:string) = {
 		cfg = %{}
 		println(self.entries)
-		println(argv)
+		argv.each {|arg|
+			println(arg)
+		}
 		[cfg, argv]
 	}
 	add(type:symbol, longName:string, shortName?:string) = {
