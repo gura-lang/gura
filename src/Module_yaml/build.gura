@@ -7,14 +7,10 @@ if (sys.build == `msc) {
 					'yaml-0.1.4/win32/vs2010/Output/Release/lib/yaml.lib'))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('yaml')
-	builder.hint = '''\
-It seems necessary libraries have not been installed on your system.
-See the following steps to resolve this problem.
-- Install Debian package:
-  $ sudo apt-get install libyaml-dev
-- Install yum package:
-  # yum install libyaml-devel
-- Compile source code:
+	builder.debFiles = ['libyaml-dev']
+	builder.rpmFiles = ['libyaml-devel']
+	builder.hint = R'''
+To compile source code:
   $ wget http://pyyaml.org/download/libyaml/yaml-0.1.3.tar.gz
   $ tar xvfz yaml-0.1.3.tar.gz
   $ cd yaml-0.1.3

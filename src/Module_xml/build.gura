@@ -11,13 +11,7 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('expat')
 	builder.incDirs.append(path.join('..', 'Module_codecs_japanese'))
-	builder.hint = '''\
-It seems necessary libraries have not been installed on your system.
-See the following step(s) to resolve this problem.
-- Install Debian package:
-  $ sudo apt-get install libexpat1-dev
-- Install yum package:
-  # yum install expat-devel
-'''
+	builder.debFiles = ['libexpat1-dev']
+	builder.rpmFiles = ['expat-devel']
 }
 builder.build('xml', ['Module_xml.cpp', 'Conv_Japanese.cpp'])

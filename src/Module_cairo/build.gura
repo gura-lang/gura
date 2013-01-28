@@ -8,13 +8,7 @@ if (sys.build == `msc) {
 	builder.libs.append('cairo')
 	builder.incDirs.append('/usr/local/include/cairo', '/usr/include/cairo')
 	builder.hint = '''\
-It seems necessary libraries have not been installed on your system.
-See the one of the following step(s) to resolve this problem.
-- Install Debian package:
-  $ sudo apt-get install libcairo2-dev
-- Install yum package:
-  # yum install cairo-devel
-- Compile source code:
+To compile source code:
   $ wget http://cairographics.org/releases/pixman-0.21.4.tar.gz
   $ tar xvfz pixman-0.21.4.tar.gz
   $ cd pixman-0.21.4
@@ -30,5 +24,7 @@ See the one of the following step(s) to resolve this problem.
   $ sudo make install
   $ sudo ldconfig
 '''
+	builder.debFiles = ['libcairo2-dev']
+	builder.rpmFiles = ['cairo-devel']
 }
 builder.build('cairo', ['Module_cairo.cpp'])

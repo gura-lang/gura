@@ -9,11 +9,6 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('mysqlclient')
 	builder.incDirs.append('/usr/include/mysql', '/usr/local/include/mysql')
-	builder.hint = '''\
-It seems necessary libraries have not been installed on your system.
-See the following steps to resolve this problem.
-- Install Debian package:
-  $ sudo apt-get install libmysqlclient-dev
-'''
+	builder.debFiles = ['libmysqlclient-dev']
 }
 builder.build('mysql', ['Module_mysql.cpp'])

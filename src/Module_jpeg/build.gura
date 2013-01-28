@@ -7,13 +7,7 @@ if (sys.build == `msc) {
 	builder.libs.append(path.join(modbuild.guestDir, 'jpeg-8d/libjpeg.lib'))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('jpeg')
-	builder.hint = '''\
-It seems necessary libraries have not been installed on your system.
-See the following step(s) to resolve this problem.
-- Install Debian package:
-  $ sudo apt-get install libjpeg62-dev
-- Install yum package:
-  # yum install libjpeg-devel
-'''
+	builder.debFiles = ['libjpeg62-dev']
+	builder.rpmFiles = ['libjpeg-devel']
 }
 builder.build('jpeg', ['Module_jpeg.cpp'])

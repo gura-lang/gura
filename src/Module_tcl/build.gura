@@ -11,13 +11,7 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('tcl8.5', 'tk8.5')
 	builder.incDirs.append('/usr/include/tcl8.5')
-	builder.hint = '''\
-It seems necessary libraries have not been installed on your system.
-See the following step(s) to resolve this problem.
-- Install Debian package:
-  $ sudo apt-get install tk8.5-dev
-- Install yum package:
-  # yum install tcl-devel tk-devel
-'''
+	builder.debFiles = ['tk8.5-dev']
+	builder.rpmFiles = ['tcl-devel', 'tk-devel']
 }
 builder.build('tcl', ['Module_tcl.cpp'])

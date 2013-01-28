@@ -7,13 +7,7 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('freetype')
 	builder.incDirs.append('/usr/include/freetype2', '/usr/local/include/freetype2')
-	builder.hint = '''\
-It seems necessary libraries have not been installed on your system.
-See the following step(s) to resolve this problem.
-- Install Debian package:
-  $ sudo apt-get install libfreetype6-dev
-- Install yum package
-  # yum install freetype-devel
-'''
+	builder.debFiles = ['libfreetype6-dev']
+	builder.rpmFiles = ['freetype-devel']
 }
 builder.build('freetype', ['Module_freetype.cpp'])

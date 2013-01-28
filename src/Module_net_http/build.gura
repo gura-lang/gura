@@ -6,13 +6,7 @@ if (sys.build == `msc) {
 	builder.libs.append(path.join(modbuild.guestDir, 'zlib-1.2.7/zlib.lib'))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('z')
-	builder.hint = '''\
-It seems necessary libraries have not been installed on your system.
-See the following step(s) to resolve this problem.
-- Install Debian package:
-  $ sudo apt-get install zlib1g-dev
-- Install yum package:
-  # yum install zlib-devel
-'''
+	builder.debFiles = ['zlib1g-dev']
+	builder.rpmFiles = ['zlib-devel']
 }
 builder.build('net/http', ['Module_net_http.cpp'])

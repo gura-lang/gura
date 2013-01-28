@@ -6,13 +6,7 @@ if (sys.build == `msc) {
 	builder.libs.append(path.join(modbuild.guestDir, 'tiff-3.8.2/libtiff/libtiff.lib'))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('tiff')
-	builder.hint = '''\
-It seems necessary libraries have not been installed on your system.
-See the following step(s) to resolve this problem.
-- Install Debian package:
-  $ sudo apt-get install libtiff4-dev
-- Install yum package:
-  # yum install libtiff-devel
-'''
+	builder.debFiles = ['libtiff4-dev']
+	builder.rpmFiles = ['libtiff-devel']
 }
 builder.build('tiff', ['Module_tiff.cpp'])

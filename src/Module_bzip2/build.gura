@@ -6,13 +6,7 @@ if (sys.build == `msc) {
 	builder.libs.append(path.join(modbuild.guestDir, 'bzip2-1.0.6/libbz2.lib'))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('bz2')
-	builder.hint = '''\
-It seems necessary libraries have not been installed on your system.
-See the following steps to resolve this problem.
-- Install Debian package:
-  $ sudo apt-get install libbz2-dev
-- Install yum package:
-  # yum install bzip2-devel
-'''
+	builder.debFiles = ['libbz2-dev']
+	builder.rpmFiles = ['bzip2-devel']
 }
 builder.build('bzip2', ['Module_bzip2.cpp'])
