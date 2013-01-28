@@ -60,11 +60,11 @@ BuilderBase = class {
 			println('See the following steps to install necessary packages.')
 			if (self.debFiles) {
 				println('- Install Debian packages:')
-				println('  $ sudo apt-get install ', self.debFiles.join(' '))
+				println('  $ sudo apt-get install -y ', self.debFiles.join(' '))
 			}
 			if (self.rpmFiles) {
 				println('- Install RPM packages:')
-				println('  $ sudo yum install ', self.rpmFiles.join(' '))
+				println('  $ sudo yum install -y ', self.rpmFiles.join(' '))
 			}
 		}
 		true

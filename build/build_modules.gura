@@ -59,5 +59,13 @@ for (dirName in dirNames) {
 		sys.argv = argvOrg
 	}
 }
-println(debFiles)
-println(rpmFiles)
+scope {
+	fileName = 'install-deb.sh'
+	open(fileName, 'w').println('apt-get install -y ', set(debFiles))
+	fs.chmod('a+x', fileName)
+}
+scope {
+	fileName = 'install-rpm.sh'
+	open(fileName, 'w').println('yum install -y ', set(rpmFiles))
+	fs.chmod('a+x', fileName)
+}
