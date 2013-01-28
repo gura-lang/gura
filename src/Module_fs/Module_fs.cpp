@@ -749,18 +749,31 @@ Gura_ImplementFunction(rmdir)
 	return Value::Null;
 }
 
-// fs.chdir(pathname:string):void
+// fs.chdir(pathname:string) {block?}
 Gura_DeclareFunction(chdir)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pathname", VTYPE_string);
 	SetHelp("Changes the current working directory.");
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(chdir)
 {
-	if (!OAL::ChangeCurDir(args.GetString(0))) {
+	if (args.IsBlockSpecified()) {
+		String pathNameOrg = OAL::GetCurDir();
+		if (!OAL::ChangeCurDir(args.GetString(0))) {
+			sig.SetError(ERR_IOError, "failed to change current directory");
+			return Value::Null;
+		}
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		Value rtn = pExprBlock->Exec(env, sig);
+		OAL::ChangeCurDir(pathNameOrg.c_str());
+		return rtn;
+	} else if (!OAL::ChangeCurDir(args.GetString(0))) {
 		sig.SetError(ERR_IOError, "failed to change current directory");
+		return Value::Null;
 	}
 	return Value::Null;
 }
