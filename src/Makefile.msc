@@ -1,0 +1,102 @@
+#==============================================================================
+# Makefile for Microsoft Visual C++
+#==============================================================================
+LIB_GURA_D = ..\lib\libgura-x86.lib
+DLL_GURA = ..\bin-x86\libgura-x86.dll
+MANIFEST_GURA = ..\bin-x86\libgura-x86.dll.intermediate.manifest
+
+SRCS = \
+Common.cpp Parser.cpp Expr.cpp Value.cpp Iterator.cpp \
+Symbol.cpp String.cpp Binary.cpp Environment.cpp Signal.cpp Formatter.cpp Option.cpp \
+Function.cpp Operator.cpp Declaration.cpp \
+Algorithm.cpp Codec.cpp \
+Stream.cpp Directory.cpp DateTime.cpp Image.cpp OAL.cpp DLLMain.cpp
+
+SRCS = $(SRCS) Object.cpp \
+Object_function.cpp Object_string.cpp Object_binary.cpp \
+Object_list.cpp Object_matrix.cpp Object_dict.cpp Object_stream.cpp \
+Object_datetime.cpp Object_timedelta.cpp \
+Object_expr.cpp Object_environment.cpp Object_error.cpp Object_uri.cpp \
+Object_iterator.cpp Object_semaphore.cpp \
+Object_image.cpp Object_color.cpp Object_palette.cpp Object_audio.cpp Object_codec.cpp \
+Object_args.cpp StructObject.cpp CustomClass.cpp
+
+SRCS = $(SRCS) Module.cpp \
+Module_basement.cpp \
+Module_sys.cpp \
+Module_codecs_basic\Module_codecs_basic.cpp \
+Module_codecs_iso8859\Module_codecs_iso8859.cpp \
+Module_codecs_japanese\Module_codecs_japanese.cpp \
+Module_codecs_japanese\Conv_Japanese.cpp \
+Module_base64\Module_base64.cpp \
+Module_fs\Module_fs.cpp \
+Module_os\Module_os.cpp \
+Module_path\Module_path.cpp \
+Module_time\Module_time.cpp \
+Module_math\Module_math.cpp
+
+OBJS = $(SRCS:.cpp=.obj)
+
+OBJS_EXTRA = sfmt.obj
+
+SFMTDIR = SFMT-src-1.3.3
+
+CFLAGS = /GL /I ..\include \
+/D "GURA_EXPORTS" /D "_WINDLL" /D "_MBCS" \
+/FD /EHsc /MD /W3 /nologo /Zi /TP /errorReport:prompt
+
+#CFLAGS = $(CFLAGS) /DDEBUG_GURA
+
+LDFLAGS = $(LDFLAGS) /INCREMENTAL:NO /NOLOGO /DLL \
+/DEBUG /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG \
+/DYNAMICBASE:NO /MACHINE:X86 /ERRORREPORT:PROMPT \
+ws2_32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib \
+comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib \
+uuid.lib odbc32.lib odbccp32.lib
+
+.cpp.obj:
+	@cl $(CFLAGS) /Yustdafx.h /Fo$(<R).obj /c $<
+
+all: stdafx.obj library program module
+
+library: $(DLL_GURA)
+
+program: $(DLL_GURA)
+	@cd Program_gura
+	@nmake /nologo /f Makefile.msc
+	@cd ..\Program_guraw
+	@nmake /nologo /f Makefile.msc
+	@cd ..\Program_guraole
+	@nmake /nologo /f Makefile.msc
+	@cd ..
+
+
+module: $(DLL_GURA)
+	@..\bin-x86\gura.exe build_modules.gura install-root
+
+$(DLL_GURA): $(OBJS) $(OBJS_EXTRA)
+	@link /OUT:$(DLL_GURA) /IMPLIB:$(LIB_GURA_D) $(LDFLAGS) $(OBJS) $(OBJS_EXTRA) stdafx.obj
+	@echo $@ was created
+
+stdafx.obj: stdafx.cpp
+	@cl $(CFLAGS) /Ycstdafx.h /c $**
+
+sfmt.obj: $(SFMTDIR)\sfmt.c
+	@cl /EHsc /MD /nologo /Fo$@ /c $**
+
+clean: clean_module clean_program
+	@del stdafx.obj stdafx.pch
+	@del $(OBJS) $(OBJS_EXTRA)
+	@del $(LIB_GURA_D) $(DLL_GURA)
+
+clean_program:
+	@cd Program_gura
+	@nmake /nologo /f Makefile.msc clean
+	@cd ..\Program_guraw
+	@nmake /nologo /f Makefile.msc clean
+	@cd ..\Program_guraole
+	@nmake /nologo /f Makefile.msc clean
+	@cd ..
+
+clean_module:
+	@if exist ..\bin-x86\gura.exe ..\bin-x86\gura.exe build_modules.gura clean
