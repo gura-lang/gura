@@ -1,7 +1,25 @@
-parse(argv[]:string) = {
-	println(argv)
+#!/usr/bin/env gura
+
+Entry = struct(type:symbol, longName:string, shortName:string:nil)
+
+Parser = class {
+	__init__() = {
+		self.entries = []
+	}
+	parse(argv[]:string) = {
+		cfg = %{}
+		println(self.entries)
+		println(argv)
+		[cfg, argv]
+	}
+	add(type:symbol, longName:string, shortName?:string) = {
+		self.entries.add(Entry(type, longName, shortName))
+	}
 }
 
 if (__name__ == '__main__') {
-	parse(sys.argv)
+	Parser {|p|
+		p.add(`boolean, 'test')
+		[cfg, argv] = p.parse(sys.argv)
+	}
 }
