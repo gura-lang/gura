@@ -1,50 +1,50 @@
 #!/usr/bin/env gura
 import(re)
 
-fileNames = (path.glob("8859-*.TXT"):list).sort(function(fileName1, fileName2) {
-	tonumber(fileName1.match(r"-(\d+)\.TXT").group(1)) <=> \
-	tonumber(fileName2.match(r"-(\d+)\.TXT").group(1))
+fileNames = (path.glob('8859-*.TXT'):list).sort(function(fileName1, fileName2) {
+	tonumber(fileName1.match(r'-(\d+)\.TXT').group(1)) <=> \
+	tonumber(fileName2.match(r'-(\d+)\.TXT').group(1))
 })
 for (fileName in fileNames) {
 	tbl = fill(256, 0x0000):list
-	pattern = re.compile(r"^(0x\w+)\s+(0x\w+)")
+	pattern = re.pattern(r'^(0x\w+)\s+(0x\w+)')
 	for (m in pattern.match(open(fileName).readlines()).skipnil()) {
 		codeISO = tonumber(m.group(1))
 		codeUTF16 = tonumber(m.group(2))
 		tbl[codeISO] = codeUTF16
 	}
-	index = fileName.match(r"-(\d+)\.TXT").group(1)
-	varName = "_codeTbl_ISO8859_" + index
+	index = fileName.match(r'-(\d+)\.TXT').group(1)
+	varName = '_codeTbl_ISO8859_' + index
 	println()
-	println("//-----------------------------------------------------------------------------")
-	printf("// ISO8859-%s\n", index)
-	println("//-----------------------------------------------------------------------------")
-	printf("static const unsigned short %s[] = {\n", varName)
+	println('//-----------------------------------------------------------------------------')
+	printf('// ISO8859-%s\n', index)
+	println('//-----------------------------------------------------------------------------')
+	printf('static const unsigned short %s[] = {\n', varName)
 	for (tblFolded in tbl.fold(8)) {
-		print("\t", format("0x%04x", tblFolded).join(", "), ",\n")
+		print('\t', format('0x%04x', tblFolded).join(', '), ',\n')
 	}
-	printf("};\n")
+	printf('};\n')
 	println()
-	printf("static Codec::Map *_pMap_ISO8859_%s = NULL;\n", index);
+	printf('static Codec::Map *_pMap_ISO8859_%s = NULL;\n', index);
 	println()
-	printf("Codec_Encoder_ISO8859_%s::Codec_Encoder_ISO8859_%s(bool processEOLFlag) :\n", index, index)
-	printf("\tCodec_Encoder_ISO8859(processEOLFlag, %s, _pMap_ISO8859_%s) {}\n", varName, index)
-	printf("Codec_Decoder_ISO8859_%s::Codec_Decoder_ISO8859_%s(bool processEOLFlag) :\n", index, index)
-	printf("\tCodec_Decoder_ISO8859(processEOLFlag, %s) {}\n", varName)
+	printf('Codec_Encoder_ISO8859_%s::Codec_Encoder_ISO8859_%s(bool processEOLFlag) :\n', index, index)
+	printf('\tCodec_Encoder_ISO8859(processEOLFlag, %s, _pMap_ISO8859_%s) {}\n', varName, index)
+	printf('Codec_Decoder_ISO8859_%s::Codec_Decoder_ISO8859_%s(bool processEOLFlag) :\n', index, index)
+	printf('\tCodec_Decoder_ISO8859(processEOLFlag, %s) {}\n', varName)
 }
 for (fileName in fileNames) {
-	index = fileName.match(r"-(\d+)\.TXT").group(1)
+	index = fileName.match(r'-(\d+)\.TXT').group(1)
 	println()
-	println("//-----------------------------------------------------------------------------")
-	printf("// ISO8859-%s\n", index)
-	println("//-----------------------------------------------------------------------------")
-	printf("class Codec_Encoder_ISO8859_%s : public Codec_Encoder_ISO8859 {\n", index)
-	printf("public:\n")
-	printf("\tCodec_Encoder_ISO8859_%s(bool processEOLFlag);\n", index)
-	printf("};\n")
+	println('//-----------------------------------------------------------------------------')
+	printf('// ISO8859-%s\n', index)
+	println('//-----------------------------------------------------------------------------')
+	printf('class Codec_Encoder_ISO8859_%s : public Codec_Encoder_ISO8859 {\n', index)
+	printf('public:\n')
+	printf('\tCodec_Encoder_ISO8859_%s(bool processEOLFlag);\n', index)
+	printf('};\n')
 	println()
-	printf("class Codec_Decoder_ISO8859_%s : public Codec_Decoder_ISO8859 {\n", index)
-	printf("public:\n")
-	printf("\tCodec_Decoder_ISO8859_%s(bool processEOLFlag);\n", index)
-	printf("};\n")
+	printf('class Codec_Decoder_ISO8859_%s : public Codec_Decoder_ISO8859 {\n', index)
+	printf('public:\n')
+	printf('\tCodec_Decoder_ISO8859_%s(bool processEOLFlag);\n', index)
+	printf('};\n')
 }

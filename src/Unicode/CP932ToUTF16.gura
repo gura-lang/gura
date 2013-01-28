@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(re)
-fileName = "CP932.TXT"
-pattern = re.compile(r"^(0x\w+)\s+(0x\w+)")
+fileName = 'CP932.TXT'
+pattern = re.pattern(r'^(0x\w+)\s+(0x\w+)')
 tblWhole = repeat(256):list { [] }
 for (m in pattern.match(open(fileName).readlines()).skipnil()) {
 	codeSJIS = tonumber(m.group(1))
@@ -11,7 +11,7 @@ for (m in pattern.match(open(fileName).readlines()).skipnil()) {
 	if (codeSJIS_H == 0) {
 		iCol = codeSJIS_L
 	} elsif (codeSJIS_L < 0x40) {
-		sys.stderr.printf("%04x is not a shift-jis code\n", codeSJIS)
+		sys.stderr.printf('%04x is not a shift-jis code\n', codeSJIS)
 		sys.exit(1)
 	} else {
 		iCol = codeSJIS_L - 0x40
@@ -25,32 +25,32 @@ for (m in pattern.match(open(fileName).readlines()).skipnil()) {
 }
 for (tblRow in tblWhole) {|iRow|
 	if (tblRow.len() == 0) { continue() }
-	varName = format("_row_%02X", iRow)
-	printf("static const unsigned short %s[] = {\n", varName)
+	varName = format('_row_%02X', iRow)
+	printf('static const unsigned short %s[] = {\n', varName)
 	for (tblRowFolded in tblRow.fold(8)) {
-		print("\t", format("0x%04x", tblRowFolded).join(", "), ",\n")
+		print('\t', format('0x%04x', tblRowFolded).join(', '), ',\n')
 	}
-	printf("};\n")
+	printf('};\n')
 }
-print("""\
+print('''\
 struct CodeRow {
 	int nCols;
 	const short *row;
 };
-""")
-printf("static const CodeRow _codeRows[] = {\n");
+''')
+printf('static const CodeRow _codeRows[] = {\n');
 for (tblRow in tblWhole) {|iRow|
-	if (iRow % 4 == 0) { print("\t") }
-	varName = format("_row_%02X", iRow)
+	if (iRow % 4 == 0) { print('\t') }
+	varName = format('_row_%02X', iRow)
 	if (tblRow.len() == 0) {
-		printf("{ %3d, %8s }", 0, "NULL")
+		printf('{ %3d, %8s }', 0, 'NULL')
 	} else {
-		printf("{ %3d, %8s }", tblRow.len(), varName)
+		printf('{ %3d, %8s }', tblRow.len(), varName)
 	}
 	if ((iRow + 1) % 4 == 0) {
-		print(",\n")
+		print(',\n')
 	} else {
-		print(", ")
+		print(', ')
 	}
 }
-printf("};")
+printf('};')
