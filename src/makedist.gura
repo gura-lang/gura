@@ -187,7 +187,6 @@ dirnameDst = path.join(dirnameScript)
 filenameBase = 'gura-%s-win32' % [sys.version]
 
 gatherFiles() = {
-	fs.chdir(path.join(dirnameScript, '..'))
 	if (sys.build == `msc) {
 		filenames = [
 			'bin-x86\\gura.exe'
@@ -201,75 +200,77 @@ gatherFiles() = {
 			'lib\\libguracore-x86.lib'
 		]
 	}
-	filenames.append(path.glob(
-		'module/*.gura'
-		'module/*.gurd'
-		'module/net/*.gura'
-		'module/net/*.gurd'
-		'module/codecs/*.gura'
-		'module/codecs/*.gurd'
-		'module/site/readme.txt'
-		//----------------------------------
-		'doc/gura-*.pdf'
-		//----------------------------------
-		'test/test-*.gura'
-		'test/50records-en.csv'
-		'test/50records-jp.csv'
-		'test/temperature.txt'
-		'test/chars-cp932.txt'
-		'test/chars-eucjp.txt'
-		'test/chars-utf8-jp.txt'
-		'test/chars-jis.txt'
-		'test/ipss.go.jp-report-1.csv'
-		'test/testall.bat'
-		'test/result/test-*.sample.txt'
-		//----------------------------------
-		'application/getterphoto/*.gura'
-		'application/getterphoto/*.gurcw'
-		'application/getterphoto/*.guraw'
-		'application/getterphoto/*.ico'
-		'application/guraplot/*.gura'
-		'application/guraplot/*.gurcw'
-		'application/guraplot/*.guraw'
-		'application/guraplot/*.ico'
-		'application/makecalc/*.gura'
-		'application/makecalc/*.gurcw'
-		'application/makecalc/*.guraw'
-		'application/makecalc/*.ico'
-		//----------------------------------
-		'sample/cairo/cairo-*.gura'
-		'sample/cairo/cairo-*.guraw'
-		'sample/canvas/canvas-*.gura'
-		'sample/freetype/freetype-*.gura'
-		'sample/http/http-*.gura'
-		'sample/http/proxy_setting.sample.gura'
-		'sample/misc/*.gura'
-		'sample/opengl/gl-*.guraw'
-		'sample/opengl/*.rgb'
-		'sample/resource/readme.txt'
-		'sample/resource/*.ico'
-		'sample/resource/*.gif'
-		'sample/resource/*.jpg'
-		'sample/resource/*.bmp'
-		'sample/resource/*.png'
-		'sample/resource/*.ttf'
-		'sample/resource/*.zip'
-		'sample/scribble/*.gura'
-		'sample/sdl/sdl-*.guraw'
-		'sample/tk/tk-*.guraw'
-		'sample/mswin/mswin-*.gura'
-		'sample/wx/resource.gura'
-		'sample/wx/wx-*.guraw'
-		'sample/wx/original/wxutil.gura'
-		'sample/wx/original/wx-*.guraw'
-		//----------------------------------
-		'guest/lib.win32/*.dll'
-		//----------------------------------
-		'include/*.h'
-		'include/gura/*.h'
-	):list)
-	filenames.append(path.glob('guest/tcl/bin/*.dll'):list)
-	filenames.append(path.walk('guest/tcl/lib', nil):file)
+	fs.chdir(path.join(dirnameScript, '..')) {
+		filenames.append(path.glob(
+			'module/*.gura'
+			'module/*.gurd'
+			'module/net/*.gura'
+			'module/net/*.gurd'
+			'module/codecs/*.gura'
+			'module/codecs/*.gurd'
+			'module/site/readme.txt'
+			//----------------------------------
+			'doc/gura-*.pdf'
+			//----------------------------------
+			'test/test-*.gura'
+			'test/50records-en.csv'
+			'test/50records-jp.csv'
+			'test/temperature.txt'
+			'test/chars-cp932.txt'
+			'test/chars-eucjp.txt'
+			'test/chars-utf8-jp.txt'
+			'test/chars-jis.txt'
+			'test/ipss.go.jp-report-1.csv'
+			'test/testall.bat'
+			'test/result/test-*.sample.txt'
+			//----------------------------------
+			'application/getterphoto/*.gura'
+			'application/getterphoto/*.gurcw'
+			'application/getterphoto/*.guraw'
+			'application/getterphoto/*.ico'
+			'application/guraplot/*.gura'
+			'application/guraplot/*.gurcw'
+			'application/guraplot/*.guraw'
+			'application/guraplot/*.ico'
+			'application/makecalc/*.gura'
+			'application/makecalc/*.gurcw'
+			'application/makecalc/*.guraw'
+			'application/makecalc/*.ico'
+			//----------------------------------
+			'sample/cairo/cairo-*.gura'
+			'sample/cairo/cairo-*.guraw'
+			'sample/canvas/canvas-*.gura'
+			'sample/freetype/freetype-*.gura'
+			'sample/http/http-*.gura'
+			'sample/http/proxy_setting.sample.gura'
+			'sample/misc/*.gura'
+			'sample/opengl/gl-*.guraw'
+			'sample/opengl/*.rgb'
+			'sample/resource/readme.txt'
+			'sample/resource/*.ico'
+			'sample/resource/*.gif'
+			'sample/resource/*.jpg'
+			'sample/resource/*.bmp'
+			'sample/resource/*.png'
+			'sample/resource/*.ttf'
+			'sample/resource/*.zip'
+			'sample/scribble/*.gura'
+			'sample/sdl/sdl-*.guraw'
+			'sample/tk/tk-*.guraw'
+			'sample/mswin/mswin-*.gura'
+			'sample/wx/resource.gura'
+			'sample/wx/wx-*.guraw'
+			'sample/wx/original/wxutil.gura'
+			'sample/wx/original/wx-*.guraw'
+			//----------------------------------
+			'guest/lib.win32/*.dll'
+			//----------------------------------
+			'include/*.h'
+			'include/gura/*.h'
+		):list)
+		filenames.append(path.glob('guest/tcl/bin/*.dll'):list)
+		filenames.append(path.walk('guest/tcl/lib', nil):file)
+	}
 	filenames
 }
 
@@ -277,13 +278,14 @@ gatherFiles() = {
 // ZIP file creator
 //-----------------------------------------------------------------------------
 createZip(filenames) = {
-	fs.chdir(path.join(dirnameScript, '..', '..'))
-	filenames = path.join('gura', filenames)
-	filenameZip = path.join(dirnameDst, filenameBase + '.zip')
-	filenameList = path.join(dirnameDst, filenameBase + '.list.txt')
-	open(filenameList, 'w', 'shift_jis').println(filenames)
-	try { fs.remove(filenameZip) } except {}
-	(os.exec('7z', 'a', '-r-', filenameZip, '@' + filenameList) != 0) && sys.exit(1)
+	(fs.chdir(path.join(dirnameScript, '..', '..')) {
+		filenames = path.join('gura', filenames)
+		filenameZip = path.join(dirnameDst, filenameBase + '.zip')
+		filenameList = path.join(dirnameDst, filenameBase + '.list.txt')
+		open(filenameList, 'w', 'shift_jis').println(filenames)
+		try { fs.remove(filenameZip) } except {}
+		os.exec('7z', 'a', '-r-', filenameZip, '@' + filenameList)
+	} != 0) && sys.exit(1)
 	printf('%s and %s were created\n', path.filename(filenameZip), path.filename(filenameList))
 }
 
@@ -354,24 +356,25 @@ createMsi(filenames) = {
 		}
 		dirRec.filenames.add(filename)
 	}
-	fs.chdir(path.join(dirnameScript, '..'))
-	version = sys.version
-	components.add('ComponentReg')
-	filenameWxs = path.join(dirnameDst, filenameBase + '.wxs')
-	filenameWixobj = path.join(dirnameDst, filenameBase + '.wixobj')
-	filenameMsi = path.join(dirnameDst, filenameBase + '.msi')
-	textTemplate.template(open(filenameWxs, 'w', 'utf-8'))
-	try {
-		(os.exec('candle', '-o', filenameWixobj, filenameWxs) != 0) && sys.exit(1)
-		(os.exec('light', '-ext', 'WixUIExtension', '-spdb'
-					'-o', filenameMsi, filenameWixobj) != 0) && sys.exit(1)
-	} except {
-		println('Failed to execute WiX tool. Make sure that WiX has been properly installed.')
-		sys.exit(1)
+	fs.chdir(path.join(dirnameScript, '..')) {
+		version = sys.version
+		components.add('ComponentReg')
+		filenameWxs = path.join(dirnameDst, filenameBase + '.wxs')
+		filenameWixobj = path.join(dirnameDst, filenameBase + '.wixobj')
+		filenameMsi = path.join(dirnameDst, filenameBase + '.msi')
+		textTemplate.template(open(filenameWxs, 'w', 'utf-8'))
+		try {
+			(os.exec('candle', '-o', filenameWixobj, filenameWxs) != 0) && sys.exit(1)
+			(os.exec('light', '-ext', 'WixUIExtension', '-spdb'
+						'-o', filenameMsi, filenameWixobj) != 0) && sys.exit(1)
+		} except {
+			println('Failed to execute WiX tool. Make sure that WiX has been properly installed.')
+			sys.exit(1)
+		}
+		fs.remove(filenameWixobj)
 	}
-	fs.remove(filenameWixobj)
-	printf('%s and %s were created\n',
-			path.filename(filenameMsi), path.filename(filenameWxs))
+	printf('%s was created\n', path.filename(filenameMsi))
+	printf('%s was created\n', path.filename(filenameWxs))
 }
 
 //-----------------------------------------------------------------------------
@@ -389,7 +392,7 @@ if (sys.platform == `windows) {
 	filenames = gatherFiles()
 	createZip(filenames)
 	createMsi(filenames)
-	//createTar()
+	createTar()
 } elsif (sys.platform == `linux) {
 	createTar()
 }
