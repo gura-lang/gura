@@ -378,20 +378,19 @@ createMsi(filenames) = {
 // tar-ball creator
 //-----------------------------------------------------------------------------
 createTar() = {
-	dirnameSrc = 'gura-' + sys.version
-	filenameTar = path.join(dirnameDst, 'gura-' + sys.version + '.tar.gz')
-	printf('exporting source files managed under subversion\n');
-	(os.exec('svn', 'export', '..', dirnameSrc) != 0) && sys.exit(1)
+	prefix = 'gura-' + sys.version
+	filenameTar = prefix + '.tar.gz'
 	printf('creating tarball')
-	(os.exec('tar', 'cvfz', filenameTar, dirnameSrc) != 0) && sys.exit(1)
-	printf('%s was created\n', path.filename(filenameTar))
-	(os.exec('rm', '-rf', dirnameSrc) != 0) && sys.exit(1)
+	(os.exec('git', 'archive', '--format=tar.gz', '--prefix=' + prefix + '/',
+			 '--output=' + filenameTar, 'HEAD') != 0) && sys.exit(1)
+	printf('%s was created\n', filenameTar)
 }
 
 if (sys.platform == `windows) {
 	filenames = gatherFiles()
 	createZip(filenames)
 	createMsi(filenames)
+	createTar()
 } elsif (sys.platform == `linux) {
 	createTar()
 }
