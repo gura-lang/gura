@@ -20,12 +20,12 @@ configure_file(
 
 include_directories(
   ${GURA_ROOT_DIR}/include
-  ${GURA_ROOT_DIR}/src/lib
-  ${GURA_ROOT_DIR}/src/lib/SFMT-src-1.3.3)
+  ${PROJECT_SOURCE_DIR}/lib
+  ${PROJECT_SOURCE_DIR}/lib/SFMT-src-1.3.3)
 
-add_subdirectory(${GURA_ROOT_DIR}/src/lib)
-add_subdirectory(${GURA_ROOT_DIR}/src/Program_gura)
-add_subdirectory(${GURA_ROOT_DIR}/src/Program_guri)
+add_subdirectory(${PROJECT_SOURCE_DIR}/lib)
+add_subdirectory(${PROJECT_SOURCE_DIR}/Program_gura)
+add_subdirectory(${PROJECT_SOURCE_DIR}/Program_guri)
 
 install(FILES
   ${GURA_SAMPLE_DIR}/resource/Winter.jpg
