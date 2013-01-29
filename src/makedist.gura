@@ -191,6 +191,7 @@ gatherFiles() = {
 	if (sys.build == `msc) {
 		filenames = [
 			'bin-x86\\gura.exe'
+			//'bin-x86\\guri.exe'
 			'bin-x86\\guraw.exe'
 			'bin-x86\\gura.ico'
 			//'bin-x86\\guraole.dll'
