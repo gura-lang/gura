@@ -69,5 +69,5 @@ set_property(SOURCE SFMT-src-1.3.3/SFMT.c PROPERTY COMPILE_DEFINITIONS MEXP=1993
 set_target_properties(guracore PROPERTIES
   VERSION ${GURA_VERSION}
   SOVERSION ${GURA_VERSION_SO})
-  
+
 install(TARGETS guracore DESTINATION lib)
