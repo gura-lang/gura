@@ -196,8 +196,8 @@ gatherFiles() = {
 			//'bin-x86\\guraole.dll'
 			'bin-x86\\msvcp100.dll'
 			'bin-x86\\msvcr100.dll'
-			'bin-x86\\libgura-x86.dll'
-			'lib\\libgura-x86.lib'
+			'bin-x86\\libguracore-x86.dll'
+			'lib\\libguracore-x86.lib'
 		]
 	}
 	filenames.append(path.glob(

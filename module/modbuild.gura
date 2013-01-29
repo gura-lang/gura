@@ -103,7 +103,7 @@ if (sys.build == `msc) {
 				'/MACHINE:X86', '/ERRORREPORT:PROMPT'
 			]
 			self.libs = [
-				path.join(guraDir, 'lib', cond(self.debugFlag, 'libgurad-x86.lib', 'libgura-x86.lib')),
+				path.join(guraDir, 'lib', cond(self.debugFlag, 'libguracored-x86.lib', 'libguracore-x86.lib')),
 				'kernel32.lib', 'user32.lib', 'gdi32.lib', 'winspool.lib', 'comdlg32.lib',
 				'advapi32.lib', 'shell32.lib', 'ole32.lib', 'oleaut32.lib', 'uuid.lib',
 				'odbc32.lib', 'odbccp32.lib', 'ws2_32.lib', 'opengl32.lib', 'glu32.lib',

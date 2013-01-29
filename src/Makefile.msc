@@ -1,7 +1,7 @@
 #==============================================================================
 # Makefile for Microsoft Visual C++
 #==============================================================================
-DLL_GURA = ..\bin-x86\libgura-x86.dll
+DLL_GURA = ..\bin-x86\libguracore-x86.dll
 
 all: library program module
 
