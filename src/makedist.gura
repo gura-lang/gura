@@ -383,8 +383,10 @@ createMsi(filenames) = {
 createTar() = {
 	prefix = 'gura-' + sys.version
 	filenameTar = prefix + '.tar.gz'
-	(os.exec('git', 'archive', '--format=tar.gz', '--prefix=' + prefix + '/',
-			 '--output=' + filenameTar, 'HEAD') != 0) && sys.exit(1)
+	(fs.chdir('..') {
+		os.exec('git', 'archive', '--format=tar.gz', '--prefix=' + prefix + '/',
+			 '--output=' + filenameTar, 'HEAD')
+	} != 0) && sys.exit(1)
 	printf('%s was created\n', filenameTar)
 }
 
