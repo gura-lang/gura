@@ -389,7 +389,7 @@ if (sys.platform == `windows) {
 	filenames = gatherFiles()
 	createZip(filenames)
 	createMsi(filenames)
-	createTar()
+	//createTar()
 } elsif (sys.platform == `linux) {
 	createTar()
 }
