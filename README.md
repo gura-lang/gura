@@ -12,14 +12,15 @@ http://gura.sourceforge.jp/
 
 Build for Windows
 -----------------
-At first, you have to build necessary libraries by executing gura/guest/setup.bat.
-And then, open gura/src/gura.sln with Visual Studio 2010, change configuration to Release
-and build it.
+1. Check if Visual Studio 2010 has been installed. You can use Express version.
+2. First of all, you have to build necessary libraries by executing gura/guest/setup.bat.
+3. Open gura/src/gura.sln with Visual Studio 2010, change configuration to Release
+   and build it.
 
 Build for Linux
 -----------------
-Run the following commands.
-
+1. Check if build tools such as g++, make and cmake have been installed.
+2. Run the following commands.
     $ cd gura
     $ mkdir build
     $ cd build
