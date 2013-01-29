@@ -26,7 +26,7 @@
 /src/Program_gura/gura
 /src/Program_guri/guri
 /src/lib/Makefile
-/build/src
+/build
 msc/
 gnuc/
 Release/
@@ -38,6 +38,8 @@ Makefile
 CMakeCache.txt
 cmake_install.cmake
 install_manifest.txt
+install-deb.sh
+install-rpm.sh
 *~
 *#
 *.exe
