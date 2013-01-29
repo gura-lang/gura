@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gura", "src\Program_gura\gura.vcxproj", "{21F75DAE-FBEC-4B6A-814B-F41FDBB7ADE0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gura", "Program_gura\gura.vcxproj", "{21F75DAE-FBEC-4B6A-814B-F41FDBB7ADE0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guraole", "src\Program_guraole\guraole.vcxproj", "{086B9E0B-69C2-4A38-8945-3D5C9A820E58}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guraole", "Program_guraole\guraole.vcxproj", "{086B9E0B-69C2-4A38-8945-3D5C9A820E58}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guraw", "src\Program_guraw\guraw.vcxproj", "{6076FFD5-7E48-437E-A569-0EC97F3B0981}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guraw", "Program_guraw\guraw.vcxproj", "{6076FFD5-7E48-437E-A569-0EC97F3B0981}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guri", "src\Program_guri\guri.vcxproj", "{3F2FAADE-263B-4A90-A0F0-520354F49DF5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guri", "Program_guri\guri.vcxproj", "{3F2FAADE-263B-4A90-A0F0-520354F49DF5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libgura", "src\lib\libgura.vcxproj", "{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libgura", "lib\libgura.vcxproj", "{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "build_modules", "build\build_modules.vcxproj", "{EC848C55-B52D-4F07-BE3C-078966186BDD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "build_modules", "build_modules.vcxproj", "{EC848C55-B52D-4F07-BE3C-078966186BDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
