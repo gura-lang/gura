@@ -21,14 +21,12 @@ Build for Linux
 -----------------
 1. Check if build tools such as g++, make and cmake have been installed.
 2. Run the following commands.
-
-
-    $ cd gura
-    $ mkdir build
-    $ cd build
-    $ cmake ../src
-    $ make
-    $ sudo make install
-    $ sudo ldconfig
-    $ ../src/build_modules.gura
-    $ sudo ../src/build_modules.gura install
+        $ cd gura
+        $ mkdir build
+        $ cd build
+        $ cmake ../src
+        $ make
+        $ sudo make install
+        $ sudo ldconfig
+        $ ../src/build_modules.gura
+        $ sudo ../src/build_modules.gura install
