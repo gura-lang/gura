@@ -42,7 +42,6 @@ debFiles = []
 rpmFiles = []
 for (dirName in dirNames) {
 	(dirName in dirNamesExcept) && continue
-	dirName = path.join('../src', dirName)
 	if (!dirNamePre.isempty()) {
 		dirName = path.join(dirNamePre, dirName)
 	}
