@@ -5,27 +5,27 @@ project(gura)
 set(GURA_VERSION		0.3.1)
 set(GURA_VERSION_SO		0)
 
-set(GURA_INCLUDE_DIR	${PROJECT_SOURCE_DIR}/include)
-set(GURA_SAMPLE_DIR		${PROJECT_SOURCE_DIR}/sample)
-set(GURA_MODULE_DIR		${PROJECT_SOURCE_DIR}/module)
+set(GURA_ROOT_DIR		${PROJECT_SOURCE_DIR}/..)
+set(GURA_INCLUDE_DIR	${GURA_ROOT_DIR}/include)
+set(GURA_SAMPLE_DIR		${GURA_ROOT_DIR}/sample)
+set(GURA_MODULE_DIR		${GURA_ROOT_DIR}/module)
 
 set(BINDIR				${CMAKE_INSTALL_PREFIX}/bin)
 set(PKGDATADIR			${CMAKE_INSTALL_PREFIX}/share/gura)
 set(PKGLIBDIR			${CMAKE_INSTALL_PREFIX}/lib/gura)
 
 configure_file(
-${PROJECT_SOURCE_DIR}/include/gura/config.h.in
-${PROJECT_SOURCE_DIR}/include/gura/config.h)
+  ${GURA_ROOT_DIR}/include/gura/config.h.in
+  ${GURA_ROOT_DIR}/include/gura/config.h)
 
 include_directories(
-"${PROJECT_SOURCE_DIR}/include"
-"${PROJECT_SOURCE_DIR}/src/lib"
-"${PROJECT_SOURCE_DIR}/src/lib/SFMT-src-1.3.3"
-)
+  ${GURA_ROOT_DIR}/include
+  ${GURA_ROOT_DIR}/src/lib
+  ${GURA_ROOT_DIR}/src/lib/SFMT-src-1.3.3)
 
-add_subdirectory(${PROJECT_SOURCE_DIR}/src/lib)
-add_subdirectory(${PROJECT_SOURCE_DIR}/src/Program_gura)
-add_subdirectory(${PROJECT_SOURCE_DIR}/src/Program_guri)
+add_subdirectory(${GURA_ROOT_DIR}/src/lib)
+add_subdirectory(${GURA_ROOT_DIR}/src/Program_gura)
+add_subdirectory(${GURA_ROOT_DIR}/src/Program_guri)
 
 install(FILES
   ${GURA_SAMPLE_DIR}/resource/Winter.jpg
@@ -59,7 +59,7 @@ install(FILES
   ${GURA_MODULE_DIR}/units.gura
   DESTINATION lib/gura)
 install(FILES
-  ${PROJECT_SOURCE_DIR}/include/gura.h
+  ${GURA_INCLUDE_DIR}/gura.h
   DESTINATION include)
 install(FILES
   ${GURA_INCLUDE_DIR}/gura/Algorithm.h
