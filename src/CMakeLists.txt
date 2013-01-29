@@ -1,12 +1,12 @@
 # CMake Configuration for Gura
 # Available operations:
-# - Build library and executables
-#   $ make
-# - Install files to the system
-#   $ sudo make install
-# - Make packages of Debian and RPM
-#   $ make package
-
+#  - Build library and executables
+#    $ make
+#  - Install files to the system
+#    $ sudo make install
+#  - Make packages of Debian and RPM
+#    $ make package
+# When you want to see the detailed process, run "make VERBOSE=1".
 cmake_minimum_required(VERSION 2.6)
 
 project(gura)
@@ -131,6 +131,9 @@ install(FILES
   DESTINATION include/gura)
 
 set(CPACK_GENERATOR "DEB;RPM")
+set(CPACK_SET_DESTDIR true)
+SET(CPACK_PACKAGE_RELOCATABLE false)
+
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Gura Programming Language")
 set(CPACK_PACKAGE_VERSION_MAJOR ${GURA_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${GURA_VERSION_MINOR})
