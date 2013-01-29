@@ -286,7 +286,8 @@ createZip(filenames) = {
 		try { fs.remove(filenameZip) } except {}
 		os.exec('7z', 'a', '-r-', filenameZip, '@' + filenameList)
 	} != 0) && sys.exit(1)
-	printf('%s and %s were created\n', path.filename(filenameZip), path.filename(filenameList))
+	printf('%s was created\n', path.filename(filenameZip))
+	//printf('%s was created\n', path.filename(filenameList))
 }
 
 //-----------------------------------------------------------------------------
@@ -374,7 +375,7 @@ createMsi(filenames) = {
 		fs.remove(filenameWixobj)
 	}
 	printf('%s was created\n', path.filename(filenameMsi))
-	printf('%s was created\n', path.filename(filenameWxs))
+	//printf('%s was created\n', path.filename(filenameWxs))
 }
 
 //-----------------------------------------------------------------------------
@@ -383,11 +384,15 @@ createMsi(filenames) = {
 createTar() = {
 	prefix = 'gura-' + sys.version
 	filenameTar = prefix + '.tar.gz'
-	(fs.chdir('..') {
-		os.exec('git', 'archive', '--format=tar.gz', '--prefix=' + prefix + '/',
-			 '--output=src/' + filenameTar, 'HEAD')
-	} != 0) && sys.exit(1)
+	filenameZip = prefix + '-src.zip'
+	fs.chdir('..') {
+		(os.exec('git', 'archive', '--format=tar.gz', '--prefix=' + prefix + '/',
+				 '--output=src/' + filenameTar, 'HEAD') != 0) || \
+		(os.exec('git', 'archive', '--format=zip', '--prefix=' + prefix + '/',
+				 '--output=src/' + filenameZip, 'HEAD') != 0)
+	} && sys.exit(1)
 	printf('%s was created\n', filenameTar)
+	printf('%s was created\n', filenameZip)
 }
 
 if (sys.platform == `windows) {
