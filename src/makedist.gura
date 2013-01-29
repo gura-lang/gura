@@ -384,7 +384,7 @@ createMsi(filenames) = {
 createTar() = {
 	prefix = 'gura-' + sys.version
 	filenameTar = prefix + '.tar.gz'
-	filenameZip = prefix + '-src.zip'
+	filenameZip = prefix + '.zip'
 	fs.chdir('..') {
 		(os.exec('git', 'archive', '--format=tar.gz', '--prefix=' + prefix + '/',
 				 '--output=src/' + filenameTar, 'HEAD') != 0) || \
