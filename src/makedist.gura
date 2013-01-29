@@ -381,10 +381,10 @@ createMsi(filenames) = {
 //-----------------------------------------------------------------------------
 // tar-ball creator
 //-----------------------------------------------------------------------------
-createTar() = {
+createSrcPackage() = {
 	prefix = 'gura-' + sys.version
-	filenameTar = prefix + '.tar.gz'
-	filenameZip = prefix + '.zip'
+	filenameTar = prefix + '-src.tar.gz'
+	filenameZip = prefix + '-src.zip'
 	fs.chdir('..') {
 		(os.exec('git', 'archive', '--format=tar.gz', '--prefix=' + prefix + '/',
 				 '--output=src/' + filenameTar, 'HEAD') != 0) || \
@@ -399,7 +399,7 @@ if (sys.platform == `windows) {
 	filenames = gatherFiles()
 	createZip(filenames)
 	createMsi(filenames)
-	createTar()
+	createSrcPackage()
 } elsif (sys.platform == `linux) {
-	createTar()
+	createSrcPackage()
 }
