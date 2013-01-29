@@ -1,9 +1,22 @@
+# CMake Configuration for Gura
+# Available operations:
+# - Build library and executables
+#   $ make
+# - Install files to the system
+#   $ sudo make install
+# - Make packages of Debian and RPM
+#   $ make package
+
 cmake_minimum_required(VERSION 2.6)
 
 project(gura)
 
-set(GURA_VERSION		0.3.1)
-set(GURA_VERSION_SO		0)
+set(GURA_VERSION_MAJOR	0)
+set(GURA_VERSION_MINOR	3)
+set(GURA_VERSION_PATCH	1)
+
+set(GURA_VERSION		${GURA_VERSION_MAJOR}.${GURA_VERSION_MINOR}.${GURA_VERSION_PATCH})
+set(GURA_VERSION_SO		${GURA_VERSION_MAJOR})
 
 set(GURA_ROOT_DIR		${PROJECT_SOURCE_DIR}/..)
 set(GURA_INCLUDE_DIR	${GURA_ROOT_DIR}/include)
@@ -47,6 +60,7 @@ install(FILES
   ${GURA_SAMPLE_DIR}/resource/zippedfont.zip
   ${GURA_SAMPLE_DIR}/resource/chicken256.bmp
   DESTINATION share/gura/sample/resource)
+
 install(FILES
   ${GURA_MODULE_DIR}/calendar.gura
   ${GURA_MODULE_DIR}/graph.gura
@@ -58,9 +72,11 @@ install(FILES
   ${GURA_MODULE_DIR}/tokenizer.gura
   ${GURA_MODULE_DIR}/units.gura
   DESTINATION lib/gura)
+
 install(FILES
   ${GURA_INCLUDE_DIR}/gura.h
   DESTINATION include)
+
 install(FILES
   ${GURA_INCLUDE_DIR}/gura/Algorithm.h
   ${GURA_INCLUDE_DIR}/gura/BZLibHelper.h
@@ -113,3 +129,13 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Value.h
   ${GURA_INCLUDE_DIR}/gura/ZLibHelper.h
   DESTINATION include/gura)
+
+set(CPACK_GENERATOR "DEB;RPM")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Gura Programming Language")
+set(CPACK_PACKAGE_VERSION_MAJOR ${GURA_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${GURA_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${GURA_VERSION_PATCH})
+
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Yutaka Saito")
+
+include(CPack)
