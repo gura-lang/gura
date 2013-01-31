@@ -1854,29 +1854,29 @@ ${cond(excludeFlag, templateExcludedFuncPost, '')}\
 Grouping = struct(elementOwner:list, groupings => nil) {
 	IsControlWord(word:string) = false
 	IsText() = false
-	ToTex() = '{' + self.elementOwner:*ToTex().join() + '}'
-	ToString() = self.elementOwner:*ToString().join()
+	ToTex() = '{' + this.elementOwner:*ToTex().join() + '}'
+	ToString() = this.elementOwner:*ToString().join()
 }
 
 ControlWord = struct(word:string, groupings => []) {
-	IsControlWord(word:string) = (word == self.word)
+	IsControlWord(word:string) = (word == this.word)
 	IsText() = false
-	ToTex() = '\\' + self.word + self.groupings:*ToTex().join()
-	ToString() = self.groupings:*ToString().join()
+	ToTex() = '\\' + this.word + this.groupings:*ToTex().join()
+	ToString() = this.groupings:*ToString().join()
 }
 
 ControlSymbol = struct(symbol:string, groupings => []) {
 	IsControlWord(word:string) = false
 	IsText() = false
-	ToTex() = '\\' + self.symbol + self.groupings:*ToTex().join()
-	ToString() = self.groupings:*ToString().join()
+	ToTex() = '\\' + this.symbol + this.groupings:*ToTex().join()
+	ToString() = this.groupings:*ToString().join()
 }
 
 Text = struct(text:string, groupings => nil) {
 	IsControlWord(word:string) = false
 	IsText() = true
-	ToTex() = self.text
-	ToString() = self.text
+	ToTex() = this.text
+	ToString() = this.text
 }
 
 tokenizer = Tokenizer()
@@ -1925,82 +1925,82 @@ tokenizer.SetRule {
 	}
 }
 tokenizer.Initialize() = {
-	self.elementOwners = [[]]
-	self.textBuff = ''
+	this.elementOwners = [[]]
+	this.textBuff = ''
 }
 
 ReturnType = class {
 	__init__(grouping:Grouping) = {
 		decl = grouping.ToString().strip()
-		self.declRaw = decl
+		this.declRaw = decl
 		if (m = decl.match(r'virtual\s+static\s+(\w.*)')) {
 			// This expression is actually illegal.
-			self.funcType = `virtual
+			this.funcType = `virtual
 			decl = m[1]
 		} elsif (m = decl.match(r'virtual\s+(\w.*)')) {
-			self.funcType = `virtual
+			this.funcType = `virtual
 			decl = m[1]
 		} elsif (m = decl.match(r'static\s+(\w.*)')) {
-			self.funcType = `static
+			this.funcType = `static
 			decl = m[1]
 		} else {
-			self.funcType = nil
+			this.funcType = nil
 		}
 		if (m = decl.match(r'const\s+(\w.*)')) {
-			self.varAccess = `const
+			this.varAccess = `const
 			decl = m[1]
 		} else {
-			self.varAccess = nil
+			this.varAccess = nil
 		}
 		if (m = decl.match(r'([\s\w]+)([^\w]+)')) {
-			self.typeName = m[1].strip()
-			self.typeRef = m[2]
+			this.typeName = m[1].strip()
+			this.typeRef = m[2]
 		} else {
-			self.typeName = decl
-			self.typeRef = nil
+			this.typeName = decl
+			this.typeRef = nil
 		}
 	}
 	GenerateCode(f:stream, funcName:string, funcCall:string) = {
-		varAccessStr = cond(self.varAccess == `const, 'const ', '')
-		if (self.typeName in ['void', '']) {
+		varAccessStr = cond(this.varAccess == `const, 'const ', '')
+		if (this.typeName in ['void', '']) {
 			f.printf('\t%s;\n', funcCall)
 			f.printf('\treturn Value::Null;\n')
-		} elsif (m = self.typeName == 'wxString') {
-			f.printf('\t%s rtn = %s;\n', self.typeName, funcCall)
+		} elsif (m = this.typeName == 'wxString') {
+			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
 			f.printf('\treturn ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));\n')
-		} elsif (m = self.typeName == 'wxArrayString') {
-			f.printf('\t%s rtn = %s;\n', self.typeName, funcCall)
+		} elsif (m = this.typeName == 'wxArrayString') {
+			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
 			f.printf('\treturn ReturnValue(env, sig, args, ArrayStringToValue(env, rtn));\n')
-		} elsif (m = self.typeName == 'wxArrayInt') {
-			f.printf('\t%s rtn = %s;\n', self.typeName, funcCall)
+		} elsif (m = this.typeName == 'wxArrayInt') {
+			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
 			f.printf('\treturn ReturnValue(env, sig, args, ArrayIntToValue(env, rtn));\n')
-		} elsif (accessor = accessorMap.get(self.typeName)) {
+		} elsif (accessor = accessorMap.get(this.typeName)) {
 			f.printf('\t%s rtn = %s;\n', accessor.typeNameActual, funcCall)
 			f.printf('\treturn ReturnValue(env, sig, args, Value(rtn));\n')
-		} elsif (m = self.typeName.match(r'wx(\w+)')) {
-			guraClassName = ClassNameToGuraClassName(self.typeName)
-			if (!self.typeRef) {
-				f.printf('\t%s rtn = %s;\n', self.typeName, funcCall)
+		} elsif (m = this.typeName.match(r'wx(\w+)')) {
+			guraClassName = ClassNameToGuraClassName(this.typeName)
+			if (!this.typeRef) {
+				f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
 				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(new %s(rtn), NULL, OwnerTrue)));\n',
-										guraClassName, self.typeName)
-			} elsif (self.typeRef == '&') {
-				f.printf('\t%s%s &rtn = %s;\n', varAccessStr, self.typeName, funcCall)
+										guraClassName, this.typeName)
+			} elsif (this.typeRef == '&') {
+				f.printf('\t%s%s &rtn = %s;\n', varAccessStr, this.typeName, funcCall)
 				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(new %s(rtn), NULL, OwnerTrue)));\n',
-										guraClassName, self.typeName)
-			} elsif (self.typeRef == '*') {
+										guraClassName, this.typeName)
+			} elsif (this.typeRef == '*') {
 				f.printf('\t%s *rtn = (%s *)%s;\n',
-											self.typeName, self.typeName, funcCall)
+											this.typeName, this.typeName, funcCall)
 				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(rtn, NULL, OwnerFalse)));\n',
 										guraClassName)
 			} else {
-				sys.stderr.printf('can\'t handle "%s" in %s\n', self.typeName, funcName)
+				sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, funcName)
 			}
 		} else {
-			sys.stderr.printf('can\'t handle "%s" in %s\n', self.typeName, funcName)
+			sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, funcName)
 		}
 	}
-	ToString() = self.funcType + ' : ' + self.varAccess + ' : ' + \
-									self.typeName + ' : ' + self.typeRef
+	ToString() = this.funcType + ' : ' + this.varAccess + ' : ' + \
+									this.typeName + ' : ' + this.typeRef
 }
 
 Accessor = struct(template, typeNameActual, typeGura, vtype)
@@ -2234,151 +2234,151 @@ Param = class {
 		decl = groupings[0].ToString().strip().replace('$', '')
 		varNameRaw = groupings[1].ToString().replace('$', '')
 		if (m = decl.match(r'const\s+(\w.*)')) {
-			self.varAccess = `const
+			this.varAccess = `const
 			decl = m[1]
 		} elsif (decl == 'const') {
-			self.varAccess = `const
+			this.varAccess = `const
 			if (m = varNameRaw.match(r'(.+)\s+(\w+)$')) {
 				decl = m[1]
 				varNameRaw = m[2]
 			}
 		} else {
-			self.varAccess = nil
+			this.varAccess = nil
 		}
 		if (m = decl.match(r'([\s\w]+)([^\w]+)')) {
-			self.typeName = m[1].strip()
-			self.typeRef = m[2]
+			this.typeName = m[1].strip()
+			this.typeRef = m[2]
 		} else {
-			self.typeName = decl
-			self.typeRef = nil
+			this.typeName = decl
+			this.typeRef = nil
 		}
 		fields = varNameRaw.split('=')::strip()
 		if (fields.len() == 1) {
-			[self.varName, self.varInit] = [fields[0], nil]
+			[this.varName, this.varInit] = [fields[0], nil]
 		} elsif (fields.len() == 2) {
-			[self.varName, self.varInit] = fields
-			if (m = self.varInit.match(r'^(``|")([^"]*)"$')) {
-				self.varInit = 'wxT("' + m[2] + '")'
+			[this.varName, this.varInit] = fields
+			if (m = this.varInit.match(r'^(``|")([^"]*)"$')) {
+				this.varInit = 'wxT("' + m[2] + '")'
 			}
 		}
-		self.declArg = ''
-		self.varDecl = ''
-		self.varInCall = ''
-		self.varDeclC = cond(self.varAccess == `const, 'const ', '') + \
-										decl + ' ' + self.varName
-		self.varInCallC = self.varName
-		if (self.typeName == 'wxChar' && self.typeRef == '*') {
-			varNameEx = '_' + self.varName;
-			if (self.varInit) {
-				self.declArg = \
+		this.declArg = ''
+		this.varDecl = ''
+		this.varInCall = ''
+		this.varDeclC = cond(this.varAccess == `const, 'const ', '') + \
+										decl + ' ' + this.varName
+		this.varInCallC = this.varName
+		if (this.typeName == 'wxChar' && this.typeRef == '*') {
+			varNameEx = '_' + this.varName;
+			if (this.varInit) {
+				this.declArg = \
 					'\tDeclareArg(env, "%s", VTYPE_string, OCCUR_ZeroOrOnce);\n' % \
-							[self.varName]
-				self.varDecl += '\twxString %s;\n' % [varNameEx]
-				if (self.varInit.startswith('"')) {
-					self.varDecl += '\tconst wxChar *%s = wxT(%s);\n' % \
-							[self.varName, self.varInit]
+							[this.varName]
+				this.varDecl += '\twxString %s;\n' % [varNameEx]
+				if (this.varInit.startswith('"')) {
+					this.varDecl += '\tconst wxChar *%s = wxT(%s);\n' % \
+							[this.varName, this.varInit]
 				} else {
-					self.varDecl += '\tconst wxChar *%s = %s;\n' % \
-							[self.varName, self.varInit]
+					this.varDecl += '\tconst wxChar *%s = %s;\n' % \
+							[this.varName, this.varInit]
 				}
-				self.varDecl += '\tif (args.IsValid(%d)) {\n' % [idx]
-				self.varDecl += '\t\t%s = wxString::FromUTF8(args.GetString(%d));\n' % \
+				this.varDecl += '\tif (args.IsValid(%d)) {\n' % [idx]
+				this.varDecl += '\t\t%s = wxString::FromUTF8(args.GetString(%d));\n' % \
 							[varNameEx, idx]
-				self.varDecl += '\t\t%s = %s;\n' % \
-							[self.varName, varNameEx]
-				self.varDecl += '\t}\n'
-				self.varInCall = self.varName
+				this.varDecl += '\t\t%s = %s;\n' % \
+							[this.varName, varNameEx]
+				this.varDecl += '\t}\n'
+				this.varInCall = this.varName
 			} else {
-				self.declArg = \
+				this.declArg = \
 					'\tDeclareArg(env, "%s", VTYPE_string, OCCUR_Once);\n' % \
-							[self.varName]
-				self.varDecl += '\twxString %s = wxString::FromUTF8(args.GetString(%d));\n' % \
-							[self.varName, idx]
-				self.varInCall = self.varName
+							[this.varName]
+				this.varDecl += '\twxString %s = wxString::FromUTF8(args.GetString(%d));\n' % \
+							[this.varName, idx]
+				this.varInCall = this.varName
 			}
-		} elsif (accessor = accessorMap.get(self.typeName)) {
-			if (self.varInit) {
-				self.declArg = \
+		} elsif (accessor = accessorMap.get(this.typeName)) {
+			if (this.varInit) {
+				this.declArg = \
 					'\tDeclareArg(env, "%s", %s, OCCUR_ZeroOrOnce);\n' % \
-							[self.varName, accessor.vtype]
-				self.varDecl += '\t%s %s = %s;\n' % \
-					[accessor.typeNameActual, self.varName, self.varInit]
-				self.varDecl += '\tif (args.IsValid(%d)) %s = %s;\n' % \
-					[idx, self.varName, accessor.template.embed()]
+							[this.varName, accessor.vtype]
+				this.varDecl += '\t%s %s = %s;\n' % \
+					[accessor.typeNameActual, this.varName, this.varInit]
+				this.varDecl += '\tif (args.IsValid(%d)) %s = %s;\n' % \
+					[idx, this.varName, accessor.template.embed()]
 			} else {
-				self.declArg = \
+				this.declArg = \
 					'\tDeclareArg(env, "%s", %s, OCCUR_Once);\n' % \
-							[self.varName, accessor.vtype]
-				self.varDecl += '\t%s %s = %s;\n' % \
-					[accessor.typeNameActual, self.varName, accessor.template.embed()]
+							[this.varName, accessor.vtype]
+				this.varDecl += '\t%s %s = %s;\n' % \
+					[accessor.typeNameActual, this.varName, accessor.template.embed()]
 			}
-			self.varInCall = self.varName
-		} elsif (self.typeName == 'wxArrayString') {
-			if (self.varInit) {
+			this.varInCall = this.varName
+		} elsif (this.typeName == 'wxArrayString') {
+			if (this.varInit) {
 				sys.stderr.println('wxArrayString is not expected to have initial value')
 			} else {
-				self.declArg = \
+				this.declArg = \
 					'\tDeclareArg(env, "%s", VTYPE_string, OCCUR_Once, FLAG_List);\n' % \
-							[self.varName]
-				self.varDecl += '\tstd::auto_ptr<wxArrayString> %s(CreateArrayString(args.GetList(%d)));\n' % \
-							[self.varName, idx]
+							[this.varName]
+				this.varDecl += '\tstd::auto_ptr<wxArrayString> %s(CreateArrayString(args.GetList(%d)));\n' % \
+							[this.varName, idx]
 			}
-			self.varInCall = '*' + self.varName
-		} elsif (self.typeName == 'wxArrayInt') {
-			if (self.varInit) {
+			this.varInCall = '*' + this.varName
+		} elsif (this.typeName == 'wxArrayInt') {
+			if (this.varInit) {
 				sys.stderr.println('wxArrayInt is not expected to have initial value')
 			} else {
-				self.declArg = \
+				this.declArg = \
 					'\tDeclareArg(env, "%s", VTYPE_number, OCCUR_Once, FLAG_List);\n' % \
-							[self.varName]
-				self.varDecl += '\tstd::auto_ptr<wxArrayInt> %s(CreateArrayInt(args.GetList(%d)));\n' % \
-							[self.varName, idx]
+							[this.varName]
+				this.varDecl += '\tstd::auto_ptr<wxArrayInt> %s(CreateArrayInt(args.GetList(%d)));\n' % \
+							[this.varName, idx]
 			}
-			self.varInCall = '*' + self.varName
-		} elsif (m = self.typeName.match(r'wx(\w+)')) {
-			guraClassName = ClassNameToGuraClassName(self.typeName)
-			if (self.varInit) {
-				self.declArg = \
+			this.varInCall = '*' + this.varName
+		} elsif (m = this.typeName.match(r'wx(\w+)')) {
+			guraClassName = ClassNameToGuraClassName(this.typeName)
+			if (this.varInit) {
+				this.declArg = \
 					'\tDeclareArg(env, "%s", VTYPE_%s, OCCUR_ZeroOrOnce);\n' % \
-							[self.varName, guraClassName]
-				if (self.typeRef == '*') {
-					self.varDecl += '\t%s *%s = (%s *)(%s);\n' % \
-							[self.typeName, self.varName, self.typeName, self.varInit]
+							[this.varName, guraClassName]
+				if (this.typeRef == '*') {
+					this.varDecl += '\t%s *%s = (%s *)(%s);\n' % \
+							[this.typeName, this.varName, this.typeName, this.varInit]
 				} else {
-					self.varDecl += '\t%s *%s = (%s *)(&%s);\n' % \
-							[self.typeName, self.varName, self.typeName, self.varInit]
+					this.varDecl += '\t%s *%s = (%s *)(&%s);\n' % \
+							[this.typeName, this.varName, this.typeName, this.varInit]
 				}
-				self.varDecl += \
+				this.varDecl += \
 					'\tif (args.IsValid(%s)) %s = Object_%s::GetObject(args, %d)->GetEntity();\n' % \
-							[idx, self.varName, guraClassName, idx]
-			} elsif (topLevelConstructorFlag && self.typeName == 'wxWindow' && idx == 0) {
-				self.declArg = \
+							[idx, this.varName, guraClassName, idx]
+			} elsif (topLevelConstructorFlag && this.typeName == 'wxWindow' && idx == 0) {
+				this.declArg = \
 					'\tDeclareArg(env, "%s", VTYPE_%s, OCCUR_Once, FLAG_Nil);\n' % \
-							[self.varName, guraClassName]
-				self.varDecl += '\t%s *%s = args.IsValid(%d)?\n' % \
-							[self.typeName, self.varName, idx]
-				self.varDecl += '\t\t\tObject_%s::GetObject(args, %d)->GetEntity() : NULL;\n' % \
+							[this.varName, guraClassName]
+				this.varDecl += '\t%s *%s = args.IsValid(%d)?\n' % \
+							[this.typeName, this.varName, idx]
+				this.varDecl += '\t\t\tObject_%s::GetObject(args, %d)->GetEntity() : NULL;\n' % \
 							[guraClassName, idx]
 			} else {
-				self.declArg = \
+				this.declArg = \
 					'\tDeclareArg(env, "%s", VTYPE_%s, OCCUR_Once);\n' % \
-							[self.varName, guraClassName]
-				self.varDecl += \
+							[this.varName, guraClassName]
+				this.varDecl += \
 					'\t%s *%s = Object_%s::GetObject(args, %d)->GetEntity();\n' % \
-							[self.typeName, self.varName, guraClassName, idx]
+							[this.typeName, this.varName, guraClassName, idx]
 			}
-			if (self.typeRef == '*') {
-				self.varInCall = self.varName
+			if (this.typeRef == '*') {
+				this.varInCall = this.varName
 			} else {
-				self.varInCall = '*' + self.varName
+				this.varInCall = '*' + this.varName
 			}
 		} else {
-			sys.stderr.printf('can\'t handle "%s" in %s\n', self.typeName, funcName)
+			sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, funcName)
 			//sys.exit(1)
 		}
 	}
-	ToString() = self.varAccess + ' : ' + self.typeName + ' : ' + \
-			self.typeRef + ' : ' + self.varName + ' : ' + self.varInit
+	ToString() = this.varAccess + ' : ' + this.typeName + ' : ' + \
+			this.typeRef + ' : ' + this.varName + ' : ' + this.varInit
 }
 
 ExtractIndex(fileNameTex:string) = {
@@ -2524,7 +2524,7 @@ ClassInfo = struct(className:string, classNameSuper:string,
 							fileNameTex:string, elementOwner:list:nomap):map {
 	GenerateHeaderFile() = {
 		[className, classNameSuper, fileNameTex] = \
-			[self.className, self.classNameSuper, self.fileNameTex]
+			[this.className, this.classNameSuper, this.fileNameTex]
 		guraClassName = ClassNameToGuraClassName(className)
 		guraClassNameSuper = ClassNameToGuraClassName(classNameSuper)
 		fileName = ClassNameToHeaderFileName(className)
@@ -2534,7 +2534,7 @@ ClassInfo = struct(className:string, classNameSuper:string,
 		f.println()
 		f.print(templateClassDeclaration.embed())
 		f.println()
-		if (self.classNameSuper.isempty()) {
+		if (this.classNameSuper.isempty()) {
 			f.print(templateObjectDeclarationBase.embed())
 		} else {
 			castForEntity = 'dynamic_cast'
@@ -2549,7 +2549,7 @@ ClassInfo = struct(className:string, classNameSuper:string,
 	}
 	GenerateProgramFile() = {
 		[className, classNameSuper, elementOwner, fileNameTex] = \
-			[self.className, self.classNameSuper, self.elementOwner, self.fileNameTex]
+			[this.className, this.classNameSuper, this.elementOwner, this.fileNameTex]
 		guraClassName = ClassNameToGuraClassName(className)
 		guraClassNameSuper = ClassNameToGuraClassName(classNameSuper)
 		fileName = ClassNameToSourceFileName(className)
@@ -2704,7 +2704,7 @@ ClassInfo = struct(className:string, classNameSuper:string,
 			}
 		}
 		f.println()
-		baseClassFlag = self.classNameSuper.isempty()
+		baseClassFlag = this.classNameSuper.isempty()
 		f.print(templateObjectImplementation.embed())
 		f.println()
 		f.print(templateClassImplementation.embed())
@@ -2722,13 +2722,13 @@ ClassInfo = struct(className:string, classNameSuper:string,
 ClassLink = struct(className:string, classNameSuper:string,
 			tentativeFlag:boolean => false, classLinksSub:list => []) {
 	Print(f:stream, indent:number => 0) = {
-		f.println('  ' * indent, self.className, cond(self.tentativeFlag, '*', ''))
-		self.classLinksSub::Print(f, indent + 1)
+		f.println('  ' * indent, this.className, cond(this.tentativeFlag, '*', ''))
+		this.classLinksSub::Print(f, indent + 1)
 	}
 	Flatten(classLinks:list) = {
-		if (!classNamesExclude.find(self.className)) {
-			classLinks.add(self)
-			self.classLinksSub::Flatten(classLinks)
+		if (!classNamesExclude.find(this.className)) {
+			classLinks.add(this)
+			this.classLinksSub::Flatten(classLinks)
 		}
 	}
 }
