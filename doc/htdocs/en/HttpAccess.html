@@ -1,117 +1,40 @@
----
-layout: pages
-title: HTTP Access
----
-
-<h2>HTTP Access</h2>
-
-<h3>Downlad Files via HTTP</h3>
-
-<p>
-You can download files via HTTP protocol using a generic stream-copy function copy.
-Below is the example.
-</p>
-
-<pre><code>import(net.http)
-copy('http://sourceforge.jp/', 'sf.html')
-</code></pre>
-
-<p>
-If you want to use a proxy server, you need to specify a server setting
-using net.http.addproxy like follows.
-</p>
-
-<pre><code>import(net.http)
-net.http.addproxy('xx.xx.xx.xx', 8080, 'username', 'password')
-copy('http://sourceforge.jp/', 'sf.html')
-</code></pre>
-
-<h3>Read CSV File via HTTP</h3>
-
-<p>
-The following example reads a CSV file in the SVN repository via HTTP protocol
-and prints contents of it.
-</p>
-
-<pre><code>import(csv)
-import(net.http)
-uri = 'http://sourceforge.jp/projects/gura/svn/view/trunk/' \
-      'test/50records-en.csv?view=co&root=gura'
-Person = struct(name:string, email:string, gender:string, age:number, rest*)
-people = Person * csv.reader(uri):iter
-println(people)
-</code></pre>
-
-<p>
-The method csv#read(), which reads contents of a CSV file, doesn't have
-any idea about HTTP by itself. Gura language engine analyzes the path name,
-calls a stream-creating function of an appropriate module depending on it,
-net.http for the above case, and then passes the stream instance to csv#read() method.
-If you implement a function to receive a stream as its argument,
-it's automatically being capable of handling protocols like HTTP and accessing
-various type of data structures.
-</p>
-
-<h3>Database Access and HTTP Protocol</h3>
-
-<p>
-The following example works as a HTTP server, which generates a graph
-that shows values in SQLite3 database.
-</p>
-
-<p>
-After the script runs, it waits for HTTP requests.
-Launch a Web browser and access to it as like http://localhost/?site=0,1.
-If you try it on Linux, you have to run the script as a root user or
-replace the port number with one larger than or equal to 1024.
-</p>
-
-<pre><code>import(re)
-import(cairo)
-import(net.http)
-import(png)
-import(sqlite3)
-
-makeGraph(iSites[]:number) = {
-    tbl = struct(day:number, temps*:number) * \
-        sqlite3.db('temperature.sqlite3').query('select * from sites')
-    img = image(`rgba, 320, 320, `white)
-    [wdAxis, htAxis] = [img.width * 0.9, img.height * 0.9]
-    [xAxis, yAxis] = [(img.width - wdAxis) / 2, (img.height - htAxis) / 2]
-    [dayMax, dayMin] = [tbl:*day.max(), tbl:*day.min()]
-    dayRange = dayMax - dayMin
-    [tempMax, tempMin] = [tbl:*temps:*max().max(), tbl:*temps:*min().min()]
-    tempRange = tempMax - tempMin
-    calcX(day) = xAxis + (day - dayMin) * wdAxis / dayRange
-    calcY(temp) = yAxis + htAxis - (temp - tempMin) * htAxis / tempRange
-    img.cairo {|cr|
-        cr.set_line_width(img.height / 300)
-        cr.rectangle(xAxis, yAxis, wdAxis, htAxis).stroke()
-        cr.save {
-            cr.set_dash([img.height / 200, img.height / 200], 0)
-            cr.move_to(xAxis, calcY(0)).line_to(xAxis + wdAxis, calcY(0))
-            cr.stroke()
-        }
-        for (iSite in iSites) {
-            func = cr.move_to
-            for (item in tbl) {
-                func(calcX(item.day), calcY(item.temps[iSite]))
-                func = cr.line_to
-            }
-            cr.stroke()
-        }
-    }
-    img
-}
-net.http.server(port =&gt; 80).wait {|req|
-    iSites = [0]
-	query = net.http.parsequery(req.query)
-    if (query.haskey('site')) {
-        iSites = tonumber(query['site'].split(','):list)
-    }
-    buff = binary()
-    makeGraph(iSites).pngwrite(buff)
-    req.response('200', nil, buff,
-        'Server' =&gt; 'Gura_HTTP_Server' 'Connection' =&gt; 'close')
-}
-</code></pre>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="/stylesheets/pygment_trac.css">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="icon" href="/images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <a href="/"><img src="/images/banner-medium.png" alt="Gura Programming Language/" /></a>
+        <p></p>
+        <p class="view"><a href="/">Top Page</a></p>
+        <p class="view"><a href="/en/Download.html">Download</a></p>
+        <p class="view"><a href="/en/Install.html">Install</a></p>
+        <p class="view"><a href="/en/Gallery.html">Gallery</a></p>
+        <ul>
+          <li><a href="https://github.com/jxg/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/jxg/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/jxg">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/jxg">jxg</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/javascripts/scale.fix.js"></script>
+  </body>
+</html>

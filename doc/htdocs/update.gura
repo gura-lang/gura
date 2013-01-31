@@ -97,7 +97,7 @@ for (pathname in path.walk('', 1, '*.html', '*.html.ja', '*.html.en')) {
 	sys.stderr.println('updating ', pathname)
 	lines = open(pathname, 'r', 'utf-8').readlines():list
 	stat = `begin
-	f = open(pathname, 'w', 'utf-8')
+	f = open(pathname, 'w', 'utf-8').dosmode(false)
 	f.print(MakeHeader(pathname))
 	for (line in lines) {
 		if (stat == `begin) {

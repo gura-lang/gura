@@ -1,69 +1,40 @@
----
-layout: pages
-title: GUI Operation
----
-
-<h2>GUI Operation</h2>
-
-<p>
-Gura prepares an interface for Tcl/Tk aimed to build GUI applications.
-</p>
-
-<p>
-The following example creates a window that has one Button widget.
-</p>
-
-<pre><code>import(tk)
-
-tk.mainwindow() {|mw|
-    mw.Button(text =&gt; 'Push me') {|w|
-        w.pack()
-        w.bind(`command) {
-            w.tk$MessageBox(title =&gt; 'event', message =&gt; 'hello')
-        }
-    }
-}
-tk.mainloop()
-</code></pre>
-
-<p>
-The code below is a drawing program. I have ported it from a sample in
-<a href="http://www.tkdocs.com/" class="link">TkDocs</a>.
-</p>
-
-<pre><code>import(tk)
-
-tk.mainwindow() {|mw|
-    mw.Canvas(bg =&gt; 'white') {|c|
-        c.pack(fill =&gt; 'both', expand =&gt; true)
-        [lastx, lasty] = [0, 0]
-        color = 'black'
-        c.bind('&lt;1&gt;') {|x:number, y:number|
-            [lastx, lasty] = [x, y]
-        }
-        c.bind('&lt;B1-Motion&gt;') {|x:number, y:number|
-            addLine(x, y)
-        }
-        addLine(x:number, y:number) = {
-            extern(lastx, lasty)
-            c.Line(lastx, lasty, x, y, fill =&gt; color, width =&gt; 3)
-            [lastx, lasty] = [x, y]
-        }
-        setColor(colorNew:string) = {
-            color:extern = colorNew
-        }
-        function(color:string, y:number):map {
-            c.Rectangle(10, y, 30, y + 20, fill =&gt; color) {|item|
-                item.bind('&lt;1&gt;') { setColor(color) }
-            }
-        }(['red', 'blue', 'black'], 10 + (0..) * 25)
-    }
-}
-tk.mainloop()
-</code></pre>
-
-<p>
-Sample result.
-</p>
-
-<div><img src="../images/gui-demo.png" /></div>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="/stylesheets/pygment_trac.css">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="icon" href="/images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <a href="/"><img src="/images/banner-medium.png" alt="Gura Programming Language/" /></a>
+        <p></p>
+        <p class="view"><a href="/">Top Page</a></p>
+        <p class="view"><a href="/en/Download.html">Download</a></p>
+        <p class="view"><a href="/en/Install.html">Install</a></p>
+        <p class="view"><a href="/en/Gallery.html">Gallery</a></p>
+        <ul>
+          <li><a href="https://github.com/jxg/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/jxg/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/jxg">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/jxg">jxg</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/javascripts/scale.fix.js"></script>
+  </body>
+</html>
