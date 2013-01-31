@@ -1,37 +1,9 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="/gura/stylesheets/styles.css">
-    <link rel="stylesheet" href="/gura/stylesheets/pygment_trac.css">
-    <link rel="shortcut icon" href="/gura/images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <link rel="icon" href="/gura/images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <a href="http://jxg.github.com/gura/"><img src="/gura/images/banner-medium.png" alt="Gura Programming Language/" /></a>
-        <p></p>
-        <p class="view"><a href="/gura/">Top Page</a></p>
-        <p class="view"><a href="/gura/en/Download.html">Download</a></p>
-        <p class="view"><a href="/gura/en/Install.html">Install</a></p>
-        <p class="view"><a href="/gura/en/Gallery.html">Gallery</a></p>
-        <ul>
-          <li><a href="https://github.com/jxg/gura/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/jxg/gura/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/jxg/gura">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-<!-- ====================================================================== -->
+---
+layout: pages
+title: Quoted Value
+---
 
-<h3>Quoted Value</h3>
+<h2>Quoted Value</h2>
 
 <p>
 In normal case, when you specify expressions in the argument list of function call,
@@ -46,8 +18,7 @@ The following example creates a function that works just like for statement
 in C language.
 </p>
 
-<pre class="code">
-c_like_for(`init, `cond, `next) {`block} = {
+<pre><code>c_like_for(`init, `cond, `next) {`block} = {
     env = outers()
     env.eval(init)
     while (env.eval(cond)) {
@@ -61,15 +32,4 @@ c_like_for (i = 1, i &lt;= 10, i += 1) {
     n += i
 }
 printf('i = %d, sum = %d\n', i, n)
-</pre>
-
-<!-- ====================================================================== -->
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/jxg">jxg</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="/javascripts/scale.fix.js"></script>
-  </body>
-</html>
+</code></pre>

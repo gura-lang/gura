@@ -1,37 +1,9 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="/gura/stylesheets/styles.css">
-    <link rel="stylesheet" href="/gura/stylesheets/pygment_trac.css">
-    <link rel="shortcut icon" href="/gura/images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <link rel="icon" href="/gura/images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <a href="http://jxg.github.com/gura/"><img src="/gura/images/banner-medium.png" alt="Gura Programming Language/" /></a>
-        <p></p>
-        <p class="view"><a href="/gura/">Top Page</a></p>
-        <p class="view"><a href="/gura/en/Download.html">Download</a></p>
-        <p class="view"><a href="/gura/en/Install.html">Install</a></p>
-        <p class="view"><a href="/gura/en/Gallery.html">Gallery</a></p>
-        <ul>
-          <li><a href="https://github.com/jxg/gura/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/jxg/gura/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/jxg/gura">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-<!-- ====================================================================== -->
+---
+layout: pages
+title: Block Expression
+---
 
-<h3>Block Expression</h3>
+<h2>Block Expression</h2>
 
 <p>
 You can declare functions that has a block expression.
@@ -43,23 +15,21 @@ initial declaration of list and dictionary items, and so on.
 The following is a simple example of declaring a function with a block.
 </p>
 
-<pre class="code">
-f(x:number) {block} = {
+<pre><code>f(x:number) {block} = {
     block(x)
     block(x + 1)
     block(x + 2)
 }
-</pre>
+</code></pre>
 
 <p>
 You can call it like follows.
 </p>
 
-<pre class="code">
-f(2) {|x|
+<pre><code>f(2) {|x|
     print(x)
 } # 234
-</pre>
+</code></pre>
 
 <p>
 A block itself is a function object that has a special variable scope.
@@ -68,25 +38,23 @@ You can use any argument specifier like optional argument, default values
 and variable-length arguments for block parameters as well.
 </p>
 
-<pre class="code">
-x = 0
+<pre><code>x = 0
 f(2) {|x|
     print(x)
 }
 println(x)        # 0
-</pre>
+</code></pre>
 
 <p>
 You can use any symbol to specify the block.
 </p>
 
-<pre class="code">
-f(x:number) {yield} = {
+<pre><code>f(x:number) {yield} = {
     yield(x)
     yield(x + 1)
     yield(x + 2)
 }
-</pre>
+</code></pre>
 
 <p>
 A block specified by a symbol with a question character suffix shall be
@@ -94,8 +62,7 @@ treated as an optional one. If the function is called without a block,
 that symbol is assigned to nil.
 </p>
 
-<pre class="code">
-f_opt() {block?} = {
+<pre><code>f_opt() {block?} = {
     if (block == nil) {
         println('not specified')
     } else {
@@ -108,15 +75,14 @@ f_opt() # print 'not specified'
 f_opt() {
     println('message from block')
 }       # print 'message from block'
-</pre>
+</code></pre>
 
 <p>
 A block usually works with a variable scope that can access to an 'external' environment
 of the function.
 </p>
 
-<pre class="code">
-g() {block} = {
+<pre><code>g() {block} = {
     block()
 }
 
@@ -125,15 +91,14 @@ g() {
     n = 5
 }
 printf('n = %d\n', n) # n = 5
-</pre>
+</code></pre>
 
 <!--
 ブロックシンボルにアトリビュート :inside_scope をつけると、
 関数内部のスコープに切り替わり、関数の内部処理で設定される変数などにアクセスできるようになります。
 関数外部の変数は、参照できた値に対しての改変が可能です。
 
-<pre class="code">
-h() {block:inside_scope} = {
+<pre><code>h() {block:inside_scope} = {
     m = "local in h()"
     block()
 }
@@ -152,20 +117,18 @@ h() {
     n += 5
 }
 printf("n = %d\n", n)    # n = 7
-</pre>
+</code></pre>
 
 quoted value にしたブロックを設定した変数を {|..|} で囲って関数に渡すと、それがブロック本体として扱われます。ブロックパラメータも記述できます。例えば:
 
-<pre class="code">
-f() {block} = {
+<pre><code>f() {block} = {
     block(1, 2, 3, 4)
 }
-</pre>
+</code></pre>
 
 という関数があった場合、以下のふたつの呼び出しは等価です。
 
-<pre class="code">
-block = `{|a, b, c, d|
+<pre><code>block = `{|a, b, c, d|
     printf("%d %d %d %d\n", a, b, c, d)
 }
 f() {|block|}
@@ -173,24 +136,12 @@ f() {|block|}
 f() {|a, b, c, d|
     printf("%d %d %d %d\n", a, b, c, d)
 }
-</pre>
+</code></pre>
 
 ブロックは通常、関数オブジェクトとして扱われますが、シンボルの先頭にバッククオートをつけると quoted value として渡されます。これと、先に示した quoted value をブロック本体として渡す機能を使うと、ブロックの delegation ができます。
 
-<pre class="code">
-f(x:number) {`block} = {
+<pre><code>f(x:number) {`block} = {
     repeat(x) {|block|}
 }
-</pre>
+</code></pre>
 -->
-
-<!-- ====================================================================== -->
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/jxg">jxg</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="/javascripts/scale.fix.js"></script>
-  </body>
-</html>

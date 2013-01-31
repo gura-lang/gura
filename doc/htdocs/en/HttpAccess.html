@@ -1,77 +1,46 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="/gura/stylesheets/styles.css">
-    <link rel="stylesheet" href="/gura/stylesheets/pygment_trac.css">
-    <link rel="shortcut icon" href="/gura/images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <link rel="icon" href="/gura/images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <a href="http://jxg.github.com/gura/"><img src="/gura/images/banner-medium.png" alt="Gura Programming Language/" /></a>
-        <p></p>
-        <p class="view"><a href="/gura/">Top Page</a></p>
-        <p class="view"><a href="/gura/en/Download.html">Download</a></p>
-        <p class="view"><a href="/gura/en/Install.html">Install</a></p>
-        <p class="view"><a href="/gura/en/Gallery.html">Gallery</a></p>
-        <ul>
-          <li><a href="https://github.com/jxg/gura/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/jxg/gura/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/jxg/gura">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-<!-- ====================================================================== -->
+---
+layout: pages
+title: HTTP Access
+---
 
-<h3>HTTP Access</h3>
+<h2>HTTP Access</h2>
 
-<h4>Downlad Files via HTTP</h4>
+<h3>Downlad Files via HTTP</h3>
 
 <p>
 You can download files via HTTP protocol using a generic stream-copy function copy.
 Below is the example.
 </p>
 
-<pre class="code">
-import(net.http)
+<pre><code>import(net.http)
 copy('http://sourceforge.jp/', 'sf.html')
-</pre>
+</code></pre>
 
 <p>
 If you want to use a proxy server, you need to specify a server setting
 using net.http.addproxy like follows.
 </p>
 
-<pre class="code">
-import(net.http)
+<pre><code>import(net.http)
 net.http.addproxy('xx.xx.xx.xx', 8080, 'username', 'password')
 copy('http://sourceforge.jp/', 'sf.html')
-</pre>
+</code></pre>
 
-<h4>Read CSV File via HTTP</h4>
+<h3>Read CSV File via HTTP</h3>
 
 <p>
 The following example reads a CSV file in the SVN repository via HTTP protocol
 and prints contents of it.
 </p>
 
-<pre class="code">
-import(csv)
+<pre><code>import(csv)
 import(net.http)
 uri = 'http://sourceforge.jp/projects/gura/svn/view/trunk/' \
       'test/50records-en.csv?view=co&root=gura'
 Person = struct(name:string, email:string, gender:string, age:number, rest*)
 people = Person * csv.reader(uri):iter
 println(people)
-</pre>
+</code></pre>
 
 <p>
 The method csv#read(), which reads contents of a CSV file, doesn't have
@@ -83,7 +52,7 @@ it's automatically being capable of handling protocols like HTTP and accessing
 various type of data structures.
 </p>
 
-<h4>Database Access and HTTP Protocol</h4>
+<h3>Database Access and HTTP Protocol</h3>
 
 <p>
 The following example works as a HTTP server, which generates a graph
@@ -97,8 +66,7 @@ If you try it on Linux, you have to run the script as a root user or
 replace the port number with one larger than or equal to 1024.
 </p>
 
-<pre class="code">
-import(re)
+<pre><code>import(re)
 import(cairo)
 import(net.http)
 import(png)
@@ -146,15 +114,4 @@ net.http.server(port =&gt; 80).wait {|req|
     req.response('200', nil, buff,
         'Server' =&gt; 'Gura_HTTP_Server' 'Connection' =&gt; 'close')
 }
-</pre>
-
-<!-- ====================================================================== -->
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/jxg">jxg</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="/javascripts/scale.fix.js"></script>
-  </body>
-</html>
+</code></pre>

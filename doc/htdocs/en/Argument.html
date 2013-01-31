@@ -1,45 +1,16 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="/gura/stylesheets/styles.css">
-    <link rel="stylesheet" href="/gura/stylesheets/pygment_trac.css">
-    <link rel="shortcut icon" href="/gura/images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <link rel="icon" href="/gura/images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <a href="http://jxg.github.com/gura/"><img src="/gura/images/banner-medium.png" alt="Gura Programming Language/" /></a>
-        <p></p>
-        <p class="view"><a href="/gura/">Top Page</a></p>
-        <p class="view"><a href="/gura/en/Download.html">Download</a></p>
-        <p class="view"><a href="/gura/en/Install.html">Install</a></p>
-        <p class="view"><a href="/gura/en/Gallery.html">Gallery</a></p>
-        <ul>
-          <li><a href="https://github.com/jxg/gura/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/jxg/gura/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/jxg/gura">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-<!-- ====================================================================== -->
+---
+layout: pages
+title: Function Arguments
+---
 
-<h3>Function Arguments</h3>
+<h2>Function Arguments</h2>
 
 <p>
 You can specify optional arguments, default values and variable-length arguments
 for function declarations.
 </p>
 
-<pre class="code">
-f1(a, b?, c?) = printf('%s, %s, %s\n', a, b, c)
+<pre><code>f1(a, b?, c?) = printf('%s, %s, %s\n', a, b, c)
 f1(2)                                # 2, nil, nil
 
 f2(a, b = 10, c =&gt; 'abc') = printf('%s, %s, %s\n', a, b, c)
@@ -52,7 +23,7 @@ f3(2, 3)                             # 2, 3, []
 f4(a, b, c+) = printf('%s, %s, %s\n', a, b, c):nomap
 f4(2, 3, 4, 5, 6, 7)                 # 2, 3, [4, 5, 6, 7].
 f4(2, 3)                             # error. c has to get at least one value.
-</pre>
+</code></pre>
 
 <p>
 When calling a function, you can specify each argument value by a keyword.
@@ -60,10 +31,9 @@ A keyword shall be associated with its value with dictionary assignment operator
 =&gt;.
 </p>
 
-<pre class="code">
-g1(a, b, c) = printf('%s, %s, %s\n', a, b, c)
+<pre><code>g1(a, b, c) = printf('%s, %s, %s\n', a, b, c)
 g1(2, b =&gt; 3, c =&gt; 4)                # 2, 3, 4
-</pre>
+</code></pre>
 
 <p>
 If the argument declaration list contains a symbol suffixed by percent character (%),
@@ -71,19 +41,7 @@ the symbol shall be assigned with a dictionary consisting of pairs of
 keywords and values that have not matched the argument list.
 </p>
 
-<pre class="code">
-g2(a, b, dict%) = printf('%s, %s, %s\n', a, b, dict)
+<pre><code>g2(a, b, dict%) = printf('%s, %s, %s\n', a, b, dict)
 g2(2, b =&gt; 3, c =&gt; 4, d =&gt; 5)        # 2, 3, %{c =&gt; 4, d =&gt; 5}
 g2(2, 3, c =&gt; 4, d =&gt; 5)             # 2, 3, %{c =&gt; 4, d =&gt; 5}
-</pre>
-
-<!-- ====================================================================== -->
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/jxg">jxg</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="/javascripts/scale.fix.js"></script>
-  </body>
-</html>
+</code></pre>

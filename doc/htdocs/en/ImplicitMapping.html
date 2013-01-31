@@ -1,39 +1,11 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="/gura/stylesheets/styles.css">
-    <link rel="stylesheet" href="/gura/stylesheets/pygment_trac.css">
-    <link rel="shortcut icon" href="/gura/images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <link rel="icon" href="/gura/images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <a href="http://jxg.github.com/gura/"><img src="/gura/images/banner-medium.png" alt="Gura Programming Language/" /></a>
-        <p></p>
-        <p class="view"><a href="/gura/">Top Page</a></p>
-        <p class="view"><a href="/gura/en/Download.html">Download</a></p>
-        <p class="view"><a href="/gura/en/Install.html">Install</a></p>
-        <p class="view"><a href="/gura/en/Gallery.html">Gallery</a></p>
-        <ul>
-          <li><a href="https://github.com/jxg/gura/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/jxg/gura/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/jxg/gura">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-<!-- ====================================================================== -->
+---
+layout: pages
+title: Implicit Mapping
+---
 
-<h3>Implicit Mapping</h3>
+<h2>Implicit Mapping</h2>
 
-<h4>Basic Idea</h4>
+<h3>Basic Idea</h3>
 
 <p>
 Here, consider a process to draw a mathematical graph of y = x<sup>2</sup>.
@@ -46,13 +18,12 @@ it would be a common way to repeat a calculation by using a loop statement.
 With C language, you could come up with the following program.
 </p>
 
-<pre class="code">
-const float x[] = {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5 };
+<pre><code>const float x[] = {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5 };
 float y[11];
 for (int i = 0; i &lt; 11; i++) {
     y[i] = x[i] * x[i];
 }
-</pre>
+</code></pre>
 
 <p>
 When using a language that promotes functional programming,
@@ -61,9 +32,8 @@ In the case of LISP, the above program can be described like follows using map t
 performs mapping process.
 </p>
 
-<pre class="code">
-(map (lambda (x) (* x x)) ‘(-5 -4 -3 -2 -1 0 1 2 3 4 5))
-</pre>
+<pre><code>(map (lambda (x) (* x x)) ‘(-5 -4 -3 -2 -1 0 1 2 3 4 5))
+</code></pre>
 
 <p>
 It's so elegant. Besides LISP, an idea of higher-order function is a powerful solution
@@ -77,10 +47,9 @@ Get values of x<sup>2</sup> for a list of x values.
 Can't we get the answer by the following description?
 </p>
 
-<pre class="code">
-x = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
+<pre><code>x = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
 y = x * x
-</pre>
+</code></pre>
 
 <p>
 The expression, x * x, expects a single value for x.
@@ -93,33 +62,31 @@ any care about repeating process.
 The implementation of Implicit-mapping has started at this inspiration.
 </p>
 
-<h4>Case Study</h4>
+<h3>Case Study</h3>
 
 <p>
 The followings are examples of applying Implicit-mapping to operators.
 </p>
 
-<pre class="code">
->>> [1, 2, 3, 4] + [5, 6, 7, 8]
+<pre><code>&gt;&gt;&gt; [1, 2, 3, 4] + [5, 6, 7, 8]
 [6, 8, 10, 12]
->>> [1, 2, 3, 4] + 5
+&gt;&gt;&gt; [1, 2, 3, 4] + 5
 [6, 7, 8, 9]
->>> ([1, 2, 3, 4] + [5, 6, 7, 8]) / 2
+&gt;&gt;&gt; ([1, 2, 3, 4] + [5, 6, 7, 8]) / 2
 [3, 4, 5, 6]
->>> [3, 8, 0, 4] &lt; [4, 5, 3, 1]
+&gt;&gt;&gt; [3, 8, 0, 4] &lt; [4, 5, 3, 1]
 [true, false, true, false]
-</pre>
+</code></pre>
 
 <p>
 The following is an example of applying it to function calls.
 </p>
 
-<pre class="code">
->>> math.sqrt([1, 2, 3, 4])
+<pre><code>&gt;&gt;&gt; math.sqrt([1, 2, 3, 4])
 [1, 1.41421, 1.73205, 2]
->>> string.upper(['aaa', 'bbb', 'ccc'])
+&gt;&gt;&gt; string.upper(['aaa', 'bbb', 'ccc'])
 ['AAA', 'BBB', 'CCC']
-</pre>
+</code></pre>
 
 <p>
 You could resolve a lot of problems without control statement
@@ -128,14 +95,13 @@ I/O and data processing.
 Here's an example.
 </p>
 
-<pre class="code">
->>> x = [1, 2, 3, 4]
->>> printf('result = %2d, %2d, %2d, %f\n', x, x * x, x * x * x, math.sqrt(x))
+<pre><code>&gt;&gt;&gt; x = [1, 2, 3, 4]
+&gt;&gt;&gt; printf('result = %2d, %2d, %2d, %f\n', x, x * x, x * x * x, math.sqrt(x))
 result =  1,  1,  1, 1.000000
 result =  2,  4,  8, 1.414214
 result =  3,  9, 27, 1.732051
 result =  4, 16, 64, 2.000000
-</pre>
+</code></pre>
 
 <p>
 Expressions like x * x and math.sqrt(x) calculate values of each item in the list with Implicit-mapping.
@@ -148,9 +114,8 @@ You can write a program that displays contents of a file with line number
 like follows.
 </p>
 
-<pre class="code">
-printf('%7d %s', (1..), readlines('hoge.txt'))
-</pre>
+<pre><code>printf('%7d %s', (1..), readlines('hoge.txt'))
+</code></pre>
 
 <p>
 Expressions 1.. and file#readlines() return an iterator, not a list.
@@ -168,11 +133,10 @@ The following code shows an example that prints information exctracted
 from a file.
 </p>
 
-<pre class="code">
-import(re)
+<pre><code>import(re)
 lines = readlines('hoge.h')
 println(re.match(r'class (\w+)', lines).skipnil():*group(1))
-</pre>
+</code></pre>
 
 <p>
 Function re.match() returns an iterator that generates match instance
@@ -182,13 +146,3 @@ iterator#skipnil() is used to create an iterator that skips nil value.
 Operator :* is a Member-mapping operator, and it executes match#group() method
 for each item in the iterator.
 </p>
-<!-- ====================================================================== -->
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/jxg">jxg</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="/javascripts/scale.fix.js"></script>
-  </body>
-</html>

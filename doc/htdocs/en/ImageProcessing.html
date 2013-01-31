@@ -1,60 +1,30 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="/gura/stylesheets/styles.css">
-    <link rel="stylesheet" href="/gura/stylesheets/pygment_trac.css">
-    <link rel="shortcut icon" href="/gura/images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <link rel="icon" href="/gura/images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <a href="http://jxg.github.com/gura/"><img src="/gura/images/banner-medium.png" alt="Gura Programming Language/" /></a>
-        <p></p>
-        <p class="view"><a href="/gura/">Top Page</a></p>
-        <p class="view"><a href="/gura/en/Download.html">Download</a></p>
-        <p class="view"><a href="/gura/en/Install.html">Install</a></p>
-        <p class="view"><a href="/gura/en/Gallery.html">Gallery</a></p>
-        <ul>
-          <li><a href="https://github.com/jxg/gura/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/jxg/gura/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/jxg/gura">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-<!-- ====================================================================== -->
+---
+layout: pages
+title: Graphic Image Processing
+---
 
-<h3>Graphic Image Processing</h3>
+<h2>Graphic Image Processing</h2>
 
-<h4>Reading File Image and Converting Format</h4>
+<h3>Reading File Image and Converting Format</h3>
 
 <p>
 The code below converts a JPEG file into a PNG.
 </p>
 
-<pre class="code">
-import(jpeg)
+<pre><code>import(jpeg)
 import(png)
 I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 image(I('Winter.jpg')).write('Winter.png')
-</pre>
+</code></pre>
 
-<h4>Reading Image File and Writing after Drawing Graphic on It</h4>
+<h3>Reading Image File and Writing after Drawing Graphic on It</h3>
 
 <p>
 The following is an example that performs reading a JPEG file,
 drawing something on it with Cairo APIs and writing it out as a JPEG file.
 </p>
 
-<pre class="code">
-import(jpeg)
+<pre><code>import(jpeg)
 import(cairo)
 I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 img = image(I('Winter.jpg'))
@@ -71,20 +41,19 @@ img.cairo {|cr|
     }
 }
 img.write('result.jpg')
-</pre>
+</code></pre>
 
-<h4>Output Animation GIF File Combining Multiple Image Files</h4>
+<h3>Output Animation GIF File Combining Multiple Image Files</h3>
 
 <p>
 The following example will output an animation GIF file that combines
 several images from PNG files together.
 </p>
 
-<pre class="code">
-import(gif)
+<pre><code>import(gif)
 import(png)
 gif.gif().addimage(['cell1.png', 'cell2.png', 'cell3.png'], 10).write('anim1.gif')
-</pre>
+</code></pre>
 
 <p>
 You can also create a GIF file that has a dynamically produced image.
@@ -92,8 +61,7 @@ The example below shows how to output an animation GIF file that contains
 images created by Cairo APIs.
 </p>
 
-<pre class="code">
-import(cairo)
+<pre><code>import(cairo)
 import(gif)
 str = 'Hello'
 img = image(`rgba, 64, 64, `white)
@@ -111,9 +79,9 @@ img.cairo {|cr|
     }
 }
 gifobj.write('anim2.gif')
-</pre>
+</code></pre>
 
-<h4>OpenGL 3D Graphic</h4>
+<h3>OpenGL 3D Graphic</h3>
 
 <p>
 Gura supports APIs of OpenGL 1.1.
@@ -124,8 +92,7 @@ The following example has been ported from one of the samples in
 <a href="http://www.wakayama-u.ac.jp/~tokoi/opengl/libglut.html" class="link">http://www.wakayama-u.ac.jp/~tokoi/opengl/libglut.html</a>.
 </p>
 
-<pre class="code">
-import(glu) {*}
+<pre><code>import(glu) {*}
 import(opengl) {*}
 import(gltester)
 
@@ -175,7 +142,7 @@ gltester.mainloop(width, height, 0, `idle) {
         `right =&gt; function { degree -= 1 }
     }
 }
-</pre>
+</code></pre>
 
 <p>
 Execution result.
@@ -187,14 +154,3 @@ Execution result.
 A directory in Gura package gura/sample/opengl contains samples that have been ported from
 <a href="http://www.sgi.com/products/software/opengl/examples/samples/" class="link">SGI</a>.
 </p>
-
-<!-- ====================================================================== -->
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/jxg">jxg</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="/javascripts/scale.fix.js"></script>
-  </body>
-</html>
