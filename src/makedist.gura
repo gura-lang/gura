@@ -303,14 +303,14 @@ createMsi(filenames) = {
 		GenerateText(indentLevel:number => 0) = {
 			text = ''
 			indent = '  ' * indentLevel
-			if (!self.filenames.isempty()) {
+			if (!this.filenames.isempty()) {
 				text += indent
 				component = format('Component%d', componentId)
 				components.add(component)
 				text += format("<Component Id='%s' Guid='%s'>\n",
 										component, uuid.generate())
 				keyPathFlag = true
-				for (filename in self.filenames) {
+				for (filename in this.filenames) {
 					option = ''
 					if (keyPathFlag) {
 						option += " KeyPath='yes'"
@@ -331,7 +331,7 @@ createMsi(filenames) = {
 				text += "</Component>\n"
 			}
 			componentId += 1
-			self.dirRecs.items() {|item|
+			this.dirRecs.items() {|item|
 				[dirname, dirRec] = item
 				text += indent
 				dirname = dirname.replace('bin-x86', 'bin').replace('bin-x64', 'bin')
