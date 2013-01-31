@@ -49,6 +49,13 @@ a img {
   border-style:none;
 }
 
+a.radio-on {
+  border-bottom:1px solid #888800;
+}
+
+a.radio-off {
+}
+
 .wrapper {
   width:1000px;
   margin:0 auto;
