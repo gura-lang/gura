@@ -51,7 +51,7 @@ Gura_ImplementFunction(ContextHelpButtonEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_ContextHelpButton *pEntity = new wx_ContextHelpButton();
-	Object_wx_ContextHelpButton *pObj = Object_wx_ContextHelpButton::GetSelfObj(args);
+	Object_wx_ContextHelpButton *pObj = Object_wx_ContextHelpButton::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ContextHelpButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -59,7 +59,7 @@ Gura_ImplementFunction(ContextHelpButtonEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -90,7 +90,7 @@ Gura_ImplementFunction(ContextHelpButton)
 	long style = wxBU_AUTODRAW;
 	if (args.IsValid(4)) style = args.GetLong(4);
 	wx_ContextHelpButton *pEntity = new wx_ContextHelpButton(parent, id, *pos, *size, style);
-	Object_wx_ContextHelpButton *pObj = Object_wx_ContextHelpButton::GetSelfObj(args);
+	Object_wx_ContextHelpButton *pObj = Object_wx_ContextHelpButton::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ContextHelpButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -98,7 +98,7 @@ Gura_ImplementFunction(ContextHelpButton)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

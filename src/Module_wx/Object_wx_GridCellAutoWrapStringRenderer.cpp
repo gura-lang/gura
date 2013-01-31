@@ -47,7 +47,7 @@ Gura_ImplementFunction(GridCellAutoWrapStringRenderer)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellAutoWrapStringRenderer *pEntity = new wx_GridCellAutoWrapStringRenderer();
-	Object_wx_GridCellAutoWrapStringRenderer *pObj = Object_wx_GridCellAutoWrapStringRenderer::GetSelfObj(args);
+	Object_wx_GridCellAutoWrapStringRenderer *pObj = Object_wx_GridCellAutoWrapStringRenderer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GridCellAutoWrapStringRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(GridCellAutoWrapStringRenderer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

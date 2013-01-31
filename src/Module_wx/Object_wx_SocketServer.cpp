@@ -52,7 +52,7 @@ Gura_ImplementFunction(SocketServer)
 	wxSocketFlags flags = wxSOCKET_NONE;
 	if (args.IsValid(1)) flags = static_cast<wxSocketFlags>(args.GetInt(1));
 	wx_SocketServer *pEntity = new wx_SocketServer(*address, flags);
-	Object_wx_SocketServer *pObj = Object_wx_SocketServer::GetSelfObj(args);
+	Object_wx_SocketServer *pObj = Object_wx_SocketServer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SocketServer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -60,7 +60,7 @@ Gura_ImplementFunction(SocketServer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SocketServer, Accept)
@@ -72,11 +72,11 @@ Gura_DeclareMethod(wx_SocketServer, Accept)
 
 Gura_ImplementMethod(wx_SocketServer, Accept)
 {
-	Object_wx_SocketServer *pSelf = Object_wx_SocketServer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool wait = true;
 	if (args.IsValid(0)) wait = args.GetBoolean(0);
-	wxSocketBase *rtn = (wxSocketBase *)pSelf->GetEntity()->Accept(wait);
+	wxSocketBase *rtn = (wxSocketBase *)pThis->GetEntity()->Accept(wait);
 	return ReturnValue(env, sig, args, Value(new Object_wx_SocketBase(rtn, NULL, OwnerFalse)));
 }
 
@@ -90,12 +90,12 @@ Gura_DeclareMethod(wx_SocketServer, AcceptWith)
 
 Gura_ImplementMethod(wx_SocketServer, AcceptWith)
 {
-	Object_wx_SocketServer *pSelf = Object_wx_SocketServer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSocketBase *socket = Object_wx_SocketBase::GetObject(args, 0)->GetEntity();
 	bool wait = true;
 	if (args.IsValid(1)) wait = args.GetBoolean(1);
-	bool rtn = pSelf->GetEntity()->AcceptWith(*socket, wait);
+	bool rtn = pThis->GetEntity()->AcceptWith(*socket, wait);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -109,13 +109,13 @@ Gura_DeclareMethod(wx_SocketServer, WaitForAccept)
 
 Gura_ImplementMethod(wx_SocketServer, WaitForAccept)
 {
-	Object_wx_SocketServer *pSelf = Object_wx_SocketServer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long seconds = -1;
 	if (args.IsValid(0)) seconds = args.GetLong(0);
 	long millisecond = 0;
 	if (args.IsValid(1)) millisecond = args.GetLong(1);
-	bool rtn = pSelf->GetEntity()->WaitForAccept(seconds, millisecond);
+	bool rtn = pThis->GetEntity()->WaitForAccept(seconds, millisecond);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

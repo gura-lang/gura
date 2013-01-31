@@ -48,7 +48,7 @@ Gura_ImplementFunction(MemoryDCEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MemoryDC *pEntity = new wx_MemoryDC();
-	Object_wx_MemoryDC *pObj = Object_wx_MemoryDC::GetSelfObj(args);
+	Object_wx_MemoryDC *pObj = Object_wx_MemoryDC::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MemoryDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(MemoryDCEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(MemoryDC)
@@ -72,7 +72,7 @@ Gura_ImplementFunction(MemoryDC)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_MemoryDC *pEntity = new wx_MemoryDC(*bitmap);
-	Object_wx_MemoryDC *pObj = Object_wx_MemoryDC::GetSelfObj(args);
+	Object_wx_MemoryDC *pObj = Object_wx_MemoryDC::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MemoryDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(MemoryDC)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MemoryDC, SelectObject)
@@ -91,10 +91,10 @@ Gura_DeclareMethod(wx_MemoryDC, SelectObject)
 
 Gura_ImplementMethod(wx_MemoryDC, SelectObject)
 {
-	Object_wx_MemoryDC *pSelf = Object_wx_MemoryDC::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_MemoryDC *pThis = Object_wx_MemoryDC::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SelectObject(*bitmap);
+	pThis->GetEntity()->SelectObject(*bitmap);
 	return Value::Null;
 }
 
@@ -106,10 +106,10 @@ Gura_DeclareMethod(wx_MemoryDC, SelectObjectAsSource)
 
 Gura_ImplementMethod(wx_MemoryDC, SelectObjectAsSource)
 {
-	Object_wx_MemoryDC *pSelf = Object_wx_MemoryDC::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_MemoryDC *pThis = Object_wx_MemoryDC::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SelectObjectAsSource(*bitmap);
+	pThis->GetEntity()->SelectObjectAsSource(*bitmap);
 	return Value::Null;
 }
 

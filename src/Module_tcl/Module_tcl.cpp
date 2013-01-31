@@ -84,8 +84,8 @@ Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal sig, const Value &
 		const Function *pFunc =
 					pObj->LookupFunction(Gura_UserSymbol(__tclname__), true);
 		if (pFunc != NULL) {
-			Value valueSelf(pObj, Value::FLAG_NoOwner); // reference to self
-			Args args(ValueList::Null, valueSelf);
+			Value valueThis(pObj, Value::FLAG_NoOwner); // reference to self
+			Args args(ValueList::Null, valueThis);
 			Value result = pFunc->Eval(*pObj, sig, args);
 			if (!sig.IsSignalled()) {
 				return ConvToTclObj(env, sig, result);
@@ -298,15 +298,15 @@ Gura_DeclareMethod(interp, eval)
 
 Gura_ImplementMethod(interp, eval)
 {
-	Object_interp *pSelf = Object_interp::GetSelfObj(args);
-	return pSelf->TclEval(env, sig, args.GetList(0));
+	Object_interp *pThis = Object_interp::GetThisObj(args);
+	return pThis->TclEval(env, sig, args.GetList(0));
 }
 
 #if 0
 Gura_ImplementMethod(interp, eval)
 {
-	Object_interp *pSelf = Object_interp::GetSelfObj(args);
-	return pSelf->InvokeTclThread(env, sig, args.GetList(0));
+	Object_interp *pThis = Object_interp::GetThisObj(args);
+	return pThis->InvokeTclThread(env, sig, args.GetList(0));
 }
 #endif
 
@@ -319,14 +319,14 @@ Gura_DeclareMethod(interp, evalscript)
 
 Gura_ImplementMethod(interp, evalscript)
 {
-	Object_interp *pSelf = Object_interp::GetSelfObj(args);
-	Tcl_Interp *interp = pSelf->GetInterp();
+	Object_interp *pThis = Object_interp::GetThisObj(args);
+	Tcl_Interp *interp = pThis->GetInterp();
 	int rtn = ::Tcl_Eval(interp, args.GetString(0));
 	if (rtn != TCL_OK) {
 		sig.SetError(ERR_RuntimeError, "%s\n", ::Tcl_GetStringResult(interp));
 		return Value::Null;
 	}
-	return pSelf->ConvFromTclObj(env, sig, ::Tcl_GetObjResult(interp));
+	return pThis->ConvFromTclObj(env, sig, ::Tcl_GetObjResult(interp));
 }
 
 // tcl.interp#variable(value?, varName?:string)
@@ -339,8 +339,8 @@ Gura_DeclareMethod(interp, variable)
 
 Gura_ImplementMethod(interp, variable)
 {
-	Object_interp *pSelf = Object_interp::GetSelfObj(args);
-	Object_interp *pObjInterp = Object_interp::Reference(pSelf);
+	Object_interp *pThis = Object_interp::GetThisObj(args);
+	Object_interp *pObjInterp = Object_interp::Reference(pThis);
 	String varName;
 	if (args.IsString(1)) {
 		varName = args.GetString(1);
@@ -363,11 +363,11 @@ Gura_DeclareMethod(interp, command)
 
 Gura_ImplementMethod(interp, command)
 {
-	Object_interp *pSelf = Object_interp::GetSelfObj(args);
-	Tcl_Interp *interp = pSelf->GetInterp();
-	Handler *pHandler = new Handler(Object_interp::Reference(pSelf),
+	Object_interp *pThis = Object_interp::GetThisObj(args);
+	Tcl_Interp *interp = pThis->GetInterp();
+	Handler *pHandler = new Handler(Object_interp::Reference(pThis),
 					Object_function::Reference(args.GetFunctionObj(0)), sig);
-	String cmdName = pSelf->NewCommandName();
+	String cmdName = pThis->NewCommandName();
 	::Tcl_CreateCommand(interp, cmdName.c_str(), Object_interp::CommandProc,
 									pHandler, Object_interp::CommandDeleteProc);
 	return Value(env, cmdName.c_str());
@@ -381,8 +381,8 @@ Gura_DeclareMethod(interp, timer)
 
 Gura_ImplementMethod(interp, timer)
 {
-	Object_interp *pSelf = Object_interp::GetSelfObj(args);
-	Object_interp *pObjInterp = Object_interp::Reference(pSelf);
+	Object_interp *pThis = Object_interp::GetThisObj(args);
+	Object_interp *pObjInterp = Object_interp::Reference(pThis);
 	Object_timer *pObjTimer = new Object_timer(pObjInterp);
 	return Value(pObjTimer);
 }
@@ -649,14 +649,14 @@ Gura_DeclareMethod(timer, start)
 
 Gura_ImplementMethod(timer, start)
 {
-	Object_timer *pSelf = Object_timer::GetSelfObj(args);
+	Object_timer *pThis = Object_timer::GetThisObj(args);
 	const Function *pFuncBlock =
 					args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	int msec = args.GetInt(0);
 	int msecCont = args.IsNumber(1)? args.GetInt(1) : msec;
 	int cnt = args.IsNumber(2)? args.GetInt(2) : -1;
-	pSelf->Start(sig, pFuncBlock, msec, msecCont, cnt);
-	return args.GetSelf();
+	pThis->Start(sig, pFuncBlock, msec, msecCont, cnt);
+	return args.GetThis();
 }
 
 // tcl.timer#cancel()
@@ -667,9 +667,9 @@ Gura_DeclareMethod(timer, cancel)
 
 Gura_ImplementMethod(timer, cancel)
 {
-	Object_timer *pSelf = Object_timer::GetSelfObj(args);
-	pSelf->Cancel();
-	Object::Delete(pSelf);
+	Object_timer *pThis = Object_timer::GetThisObj(args);
+	pThis->Cancel();
+	Object::Delete(pThis);
 	return Value::Null;
 }
 
@@ -694,8 +694,8 @@ Gura_DeclareMethod(image, readtcl)
 
 Gura_ImplementMethod(image, readtcl)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!pSelf->CheckEmpty(sig)) return Value::Null;
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!pThis->CheckEmpty(sig)) return Value::Null;
 	Object_interp *pObjInterp = reinterpret_cast<Object_interp *>(args.GetObject(0));
 	Tcl_Interp *interp = pObjInterp->GetInterp();
 	const char *imageName = args.GetString(1);
@@ -706,19 +706,19 @@ Gura_ImplementMethod(image, readtcl)
 	}
 	int width, height;
 	::Tk_PhotoGetSize(handle, &width, &height);
-	if (!pSelf->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
+	if (!pThis->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
 	Tk_PhotoImageBlock photoImageBlock;
-	photoImageBlock.pixelPtr = reinterpret_cast<unsigned char *>(pSelf->GetBuffer());
+	photoImageBlock.pixelPtr = reinterpret_cast<unsigned char *>(pThis->GetBuffer());
 	photoImageBlock.width = width;
 	photoImageBlock.height = height;
-	photoImageBlock.pitch = static_cast<int>(pSelf->GetBytesPerLine());
-	photoImageBlock.pixelSize = static_cast<int>(pSelf->GetBytesPerPixel());
+	photoImageBlock.pitch = static_cast<int>(pThis->GetBytesPerLine());
+	photoImageBlock.pixelSize = static_cast<int>(pThis->GetBytesPerPixel());
 	photoImageBlock.offset[0] = Image::OffsetRed;
 	photoImageBlock.offset[1] = Image::OffsetGreen;
 	photoImageBlock.offset[2] = Image::OffsetBlue;
 	photoImageBlock.offset[3] = Image::OffsetAlpha;
 	::Tk_PhotoGetImage(handle, &photoImageBlock);
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // image#writetcl(interp:tcl.interp, imageName:string):reduce
@@ -732,8 +732,8 @@ Gura_DeclareMethod(image, writetcl)
 
 Gura_ImplementMethod(image, writetcl)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!pSelf->CheckValid(sig)) return Value::Null;
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!pThis->CheckValid(sig)) return Value::Null;
 	Object_interp *pObjInterp = reinterpret_cast<Object_interp *>(args.GetObject(0));
 	Tcl_Interp *interp = pObjInterp->GetInterp();
 	const char *imageName = args.GetString(1);
@@ -742,21 +742,21 @@ Gura_ImplementMethod(image, writetcl)
 		sig.SetError(ERR_ValueError, "invalid image name %s", imageName);
 		return Value::Null;
 	}
-	int width = static_cast<int>(pSelf->GetWidth());
-	int height = static_cast<int>(pSelf->GetHeight());
+	int width = static_cast<int>(pThis->GetWidth());
+	int height = static_cast<int>(pThis->GetHeight());
 	Tk_PhotoImageBlock photoImageBlock;
-	photoImageBlock.pixelPtr = reinterpret_cast<unsigned char *>(pSelf->GetBuffer());
+	photoImageBlock.pixelPtr = reinterpret_cast<unsigned char *>(pThis->GetBuffer());
 	photoImageBlock.width = width;
 	photoImageBlock.height = height;
-	photoImageBlock.pitch = static_cast<int>(pSelf->GetBytesPerLine());
-	photoImageBlock.pixelSize = static_cast<int>(pSelf->GetBytesPerPixel());
+	photoImageBlock.pitch = static_cast<int>(pThis->GetBytesPerLine());
+	photoImageBlock.pixelSize = static_cast<int>(pThis->GetBytesPerPixel());
 	photoImageBlock.offset[0] = Image::OffsetRed;
 	photoImageBlock.offset[1] = Image::OffsetGreen;
 	photoImageBlock.offset[2] = Image::OffsetBlue;
 	photoImageBlock.offset[3] = Image::OffsetAlpha;
 	::Tk_PhotoPutBlock(interp, handle, &photoImageBlock,
 							0, 0, width, height, TK_PHOTO_COMPOSITE_SET);
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------

@@ -53,7 +53,7 @@ Gura_ImplementFunction(PanelEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Panel *pEntity = new wx_Panel();
-	Object_wx_Panel *pObj = Object_wx_Panel::GetSelfObj(args);
+	Object_wx_Panel *pObj = Object_wx_Panel::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Panel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(PanelEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Panel)
@@ -92,7 +92,7 @@ Gura_ImplementFunction(Panel)
 	wxString name = wxT("panel");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_Panel *pEntity = new wx_Panel(parent, id, *pos, *size, style, name);
-	Object_wx_Panel *pObj = Object_wx_Panel::GetSelfObj(args);
+	Object_wx_Panel *pObj = Object_wx_Panel::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Panel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -100,7 +100,7 @@ Gura_ImplementFunction(Panel)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Panel, Create)
@@ -117,8 +117,8 @@ Gura_DeclareMethod(wx_Panel, Create)
 
 Gura_ImplementMethod(wx_Panel, Create)
 {
-	Object_wx_Panel *pSelf = Object_wx_Panel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_Panel, Create)
 	if (args.IsValid(4)) style = args.GetLong(4);
 	wxString name = wxT("panel");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, *pos, *size, style, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -141,9 +141,9 @@ Gura_DeclareMethod(wx_Panel, InitDialog)
 
 Gura_ImplementMethod(wx_Panel, InitDialog)
 {
-	Object_wx_Panel *pSelf = Object_wx_Panel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->InitDialog();
+	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->InitDialog();
 	return Value::Null;
 }
 
@@ -155,10 +155,10 @@ Gura_DeclareMethod(wx_Panel, OnSysColourChanged)
 
 Gura_ImplementMethod(wx_Panel, OnSysColourChanged)
 {
-	Object_wx_Panel *pSelf = Object_wx_Panel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSysColourChangedEvent *event = Object_wx_SysColourChangedEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnSysColourChanged(*event);
+	pThis->GetEntity()->OnSysColourChanged(*event);
 	return Value::Null;
 }
 
@@ -169,9 +169,9 @@ Gura_DeclareMethod(wx_Panel, SetFocus)
 
 Gura_ImplementMethod(wx_Panel, SetFocus)
 {
-	Object_wx_Panel *pSelf = Object_wx_Panel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->SetFocus();
+	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->SetFocus();
 	return Value::Null;
 }
 
@@ -182,9 +182,9 @@ Gura_DeclareMethod(wx_Panel, SetFocusIgnoringChildren)
 
 Gura_ImplementMethod(wx_Panel, SetFocusIgnoringChildren)
 {
-	Object_wx_Panel *pSelf = Object_wx_Panel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->SetFocusIgnoringChildren();
+	Object_wx_Panel *pThis = Object_wx_Panel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->SetFocusIgnoringChildren();
 	return Value::Null;
 }
 

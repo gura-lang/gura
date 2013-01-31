@@ -49,12 +49,12 @@ Gura_DeclareMethod(wx_MBConvUTF7, MB2WC)
 Gura_ImplementMethod(wx_MBConvUTF7, MB2WC)
 {
 #if 0
-	Object_wx_MBConvUTF7 *pSelf = Object_wx_MBConvUTF7::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_MBConvUTF7 *pThis = Object_wx_MBConvUTF7::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wchar_t buf = static_cast<wchar_t>(args.GetUShort(0));
 	char psz = args.GetChar(1);
 	size_t n = args.GetSizeT(2);
-	size_t rtn = pSelf->GetEntity()->MB2WC(buf, psz, n);
+	size_t rtn = pThis->GetEntity()->MB2WC(buf, psz, n);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -75,12 +75,12 @@ Gura_DeclareMethod(wx_MBConvUTF7, WC2MB)
 Gura_ImplementMethod(wx_MBConvUTF7, WC2MB)
 {
 #if 0
-	Object_wx_MBConvUTF7 *pSelf = Object_wx_MBConvUTF7::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_MBConvUTF7 *pThis = Object_wx_MBConvUTF7::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	char buf = args.GetChar(0);
 	wchar_t psz = static_cast<wchar_t>(args.GetUShort(1));
 	size_t n = args.GetSizeT(2);
-	size_t rtn = pSelf->GetEntity()->WC2MB(buf, psz, n);
+	size_t rtn = pThis->GetEntity()->WC2MB(buf, psz, n);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);

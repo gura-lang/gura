@@ -874,12 +874,12 @@ Gura_DeclareMethod(matrix, set)
 
 Gura_ImplementMethod(matrix, set)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	AutoPtr<Iterator> pIterator((args.IsList(0) || args.IsIterator(0))?
 								args.GetValue(0).CreateIterator(sig) :
 								new Iterator_Constant(args.GetValue(0)));
 	if (sig.IsSignalled()) return Value::Null;
-	pSelf->Set(env, sig, *pIterator);
+	pThis->Set(env, sig, *pIterator);
 	return Value::Null;
 }
 
@@ -894,12 +894,12 @@ Gura_DeclareMethod(matrix, setrow)
 
 Gura_ImplementMethod(matrix, setrow)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	AutoPtr<Iterator> pIterator((args.IsList(1) || args.IsIterator(1))?
 								args.GetValue(1).CreateIterator(sig) :
 								new Iterator_Constant(args.GetValue(1)));
 	if (sig.IsSignalled()) return Value::Null;
-	pSelf->SetRow(env, sig, args.GetSizeT(0), *pIterator);
+	pThis->SetRow(env, sig, args.GetSizeT(0), *pIterator);
 	return Value::Null;
 }
 
@@ -914,12 +914,12 @@ Gura_DeclareMethod(matrix, setcol)
 
 Gura_ImplementMethod(matrix, setcol)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	AutoPtr<Iterator> pIterator((args.IsList(1) || args.IsIterator(1))?
 								args.GetValue(1).CreateIterator(sig) :
 								new Iterator_Constant(args.GetValue(1)));
 	if (sig.IsSignalled()) return Value::Null;
-	pSelf->SetCol(env, sig, args.GetSizeT(0), *pIterator);
+	pThis->SetCol(env, sig, args.GetSizeT(0), *pIterator);
 	return Value::Null;
 }
 
@@ -932,8 +932,8 @@ Gura_DeclareMethod(matrix, rowsize)
 
 Gura_ImplementMethod(matrix, rowsize)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
-	return Value(static_cast<unsigned int>(pSelf->GetRows()));
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	return Value(static_cast<unsigned int>(pThis->GetRows()));
 }
 
 // matrix#colsize()
@@ -945,8 +945,8 @@ Gura_DeclareMethod(matrix, colsize)
 
 Gura_ImplementMethod(matrix, colsize)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
-	return Value(static_cast<unsigned int>(pSelf->GetCols()));
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	return Value(static_cast<unsigned int>(pThis->GetCols()));
 }
 
 // matrix#issquare()
@@ -958,8 +958,8 @@ Gura_DeclareMethod(matrix, issquare)
 
 Gura_ImplementMethod(matrix, issquare)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
-	return Value(pSelf->GetRows() == pSelf->GetCols());
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	return Value(pThis->GetRows() == pThis->GetCols());
 }
 
 // matrix#submat(row:number, col:number, nrows:number, ncols:number):map
@@ -977,8 +977,8 @@ Gura_DeclareMethod(matrix, submat)
 
 Gura_ImplementMethod(matrix, submat)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
-	return pSelf->GetSub(args.GetSizeT(0), args.GetSizeT(1),
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	return pThis->GetSub(args.GetSizeT(0), args.GetSizeT(1),
 						args.GetSizeT(2), args.GetSizeT(3));
 }
 
@@ -994,8 +994,8 @@ Gura_DeclareMethod(matrix, row)
 
 Gura_ImplementMethod(matrix, row)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
-	return pSelf->GetRow(env, sig, args.GetSizeT(0));
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	return pThis->GetRow(env, sig, args.GetSizeT(0));
 }
 
 // matrix#col(col:number):map
@@ -1010,8 +1010,8 @@ Gura_DeclareMethod(matrix, col)
 
 Gura_ImplementMethod(matrix, col)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
-	return pSelf->GetCol(env, sig, args.GetSizeT(0));
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	return pThis->GetCol(env, sig, args.GetSizeT(0));
 }
 
 // matrix#each():[transpose]
@@ -1027,8 +1027,8 @@ Gura_DeclareMethod(matrix, each)
 
 Gura_ImplementMethod(matrix, each)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
-	Object_matrix *pObj = Object_matrix::Reference(pSelf);
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pObj = Object_matrix::Reference(pThis);
 	Iterator *pIterator = new Object_matrix::IteratorEach(pObj,
 								args.IsSet(Gura_Symbol(transpose)));
 	return ReturnIterator(env, sig, args, pIterator);
@@ -1045,8 +1045,8 @@ Gura_DeclareMethod(matrix, eachrow)
 
 Gura_ImplementMethod(matrix, eachrow)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
-	Object_matrix *pObj = Object_matrix::Reference(pSelf);
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pObj = Object_matrix::Reference(pThis);
 	return ReturnIterator(env, sig, args,
 							new Object_matrix::IteratorEachRow(pObj));
 }
@@ -1062,8 +1062,8 @@ Gura_DeclareMethod(matrix, eachcol)
 
 Gura_ImplementMethod(matrix, eachcol)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
-	Object_matrix *pObj = Object_matrix::Reference(pSelf);
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Object_matrix *pObj = Object_matrix::Reference(pThis);
 	return ReturnIterator(env, sig, args,
 							new Object_matrix::IteratorEachCol(pObj));
 }
@@ -1088,10 +1088,10 @@ Gura_DeclareMethod(matrix, tolist)
 
 Gura_ImplementMethod(matrix, tolist)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	Value result;
 	ValueList &valList = result.InitAsList(env);
-	pSelf->ToList(valList,
+	pThis->ToList(valList,
 			args.IsSet(Gura_Symbol(transpose)),
 			args.IsSet(Gura_Symbol(flat)));
 	return result;
@@ -1108,9 +1108,9 @@ Gura_DeclareMethod(matrix, roundoff)
 
 Gura_ImplementMethod(matrix, roundoff)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	if (sig.IsSignalled()) return Value::Null;
-	return pSelf->RoundOff(env, sig, args.GetNumber(0));
+	return pThis->RoundOff(env, sig, args.GetNumber(0));
 }
 
 // matrix#transpose()
@@ -1122,9 +1122,9 @@ Gura_DeclareMethod(matrix, transpose)
 
 Gura_ImplementMethod(matrix, transpose)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	if (sig.IsSignalled()) return Value::Null;
-	return pSelf->Transpose(env, sig);
+	return pThis->Transpose(env, sig);
 }
 
 // matrix#inverse()
@@ -1136,9 +1136,9 @@ Gura_DeclareMethod(matrix, inverse)
 
 Gura_ImplementMethod(matrix, inverse)
 {
-	Object_matrix *pSelf = Object_matrix::GetSelfObj(args);
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	if (sig.IsSignalled()) return Value::Null;
-	return pSelf->Inverse(env, sig);
+	return pThis->Inverse(env, sig);
 }
 
 //-----------------------------------------------------------------------------

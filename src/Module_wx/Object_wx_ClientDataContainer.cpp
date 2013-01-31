@@ -47,7 +47,7 @@ Gura_ImplementFunction(ClientDataContainerEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ClientDataContainer *pEntity = new wx_ClientDataContainer();
-	Object_wx_ClientDataContainer *pObj = Object_wx_ClientDataContainer::GetSelfObj(args);
+	Object_wx_ClientDataContainer *pObj = Object_wx_ClientDataContainer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ClientDataContainer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(ClientDataContainerEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ClientDataContainer, GetClientData)
@@ -65,9 +65,9 @@ Gura_DeclareMethod(wx_ClientDataContainer, GetClientData)
 
 Gura_ImplementMethod(wx_ClientDataContainer, GetClientData)
 {
-	Object_wx_ClientDataContainer *pSelf = Object_wx_ClientDataContainer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->GetClientData();
+	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->GetClientData();
 	return Value::Null;
 }
 
@@ -80,9 +80,9 @@ Gura_DeclareMethod(wx_ClientDataContainer, GetClientObject)
 Gura_ImplementMethod(wx_ClientDataContainer, GetClientObject)
 {
 #if 0
-	Object_wx_ClientDataContainer *pSelf = Object_wx_ClientDataContainer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxClientData *rtn = (wxClientData *)pSelf->GetEntity()->GetClientObject();
+	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxClientData *rtn = (wxClientData *)pThis->GetEntity()->GetClientObject();
 	return ReturnValue(env, sig, args, Value(new Object_wx_ClientData(rtn, NULL, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
@@ -100,10 +100,10 @@ Gura_DeclareMethod(wx_ClientDataContainer, SetClientData)
 Gura_ImplementMethod(wx_ClientDataContainer, SetClientData)
 {
 #if 0
-	Object_wx_ClientDataContainer *pSelf = Object_wx_ClientDataContainer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int data = args.GetInt(0);
-	pSelf->GetEntity()->SetClientData(data);
+	pThis->GetEntity()->SetClientData(data);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -118,10 +118,10 @@ Gura_DeclareMethod(wx_ClientDataContainer, SetClientObject)
 
 Gura_ImplementMethod(wx_ClientDataContainer, SetClientObject)
 {
-	Object_wx_ClientDataContainer *pSelf = Object_wx_ClientDataContainer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxClientData *data = Object_wx_ClientData::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetClientObject(data);
+	pThis->GetEntity()->SetClientObject(data);
 	return Value::Null;
 }
 

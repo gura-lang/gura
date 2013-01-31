@@ -50,7 +50,7 @@ Gura_ImplementFunction(MaximizeEvent)
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wx_MaximizeEvent *pEntity = new wx_MaximizeEvent(id);
-	Object_wx_MaximizeEvent *pObj = Object_wx_MaximizeEvent::GetSelfObj(args);
+	Object_wx_MaximizeEvent *pObj = Object_wx_MaximizeEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MaximizeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(MaximizeEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

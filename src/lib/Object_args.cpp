@@ -18,8 +18,8 @@ Gura_DeclareMethod(args, isset)
 
 Gura_ImplementMethod(args, isset)
 {
-	Object_args *pSelf = Object_args::GetSelfObj(args);
-	bool rtn = pSelf->GetAttrs().IsSet(args.GetSymbol(0));
+	Object_args *pThis = Object_args::GetThisObj(args);
+	bool rtn = pThis->GetAttrs().IsSet(args.GetSymbol(0));
 	return Value(rtn);
 }
 

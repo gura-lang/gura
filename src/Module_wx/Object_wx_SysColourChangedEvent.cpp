@@ -47,7 +47,7 @@ Gura_ImplementFunction(SysColourChangedEventEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SysColourChangedEvent *pEntity = new wx_SysColourChangedEvent();
-	Object_wx_SysColourChangedEvent *pObj = Object_wx_SysColourChangedEvent::GetSelfObj(args);
+	Object_wx_SysColourChangedEvent *pObj = Object_wx_SysColourChangedEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SysColourChangedEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(SysColourChangedEventEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

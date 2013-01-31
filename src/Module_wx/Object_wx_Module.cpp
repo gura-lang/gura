@@ -55,7 +55,7 @@ Gura_ImplementFunction(ModuleEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_Module *pEntity = new wx_Module();
-	Object_wx_Module *pObj = Object_wx_Module::GetSelfObj(args);
+	Object_wx_Module *pObj = Object_wx_Module::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Module(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(ModuleEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -80,10 +80,10 @@ Gura_DeclareMethod(wx_Module, AddDependency)
 Gura_ImplementMethod(wx_Module, AddDependency)
 {
 #if 0
-	Object_wx_Module *pSelf = Object_wx_Module::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Module *pThis = Object_wx_Module::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxClassInfo *dep = Object_wx_ClassInfo::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->AddDependency(dep);
+	pThis->GetEntity()->AddDependency(dep);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -97,9 +97,9 @@ Gura_DeclareMethod(wx_Module, OnExit)
 
 Gura_ImplementMethod(wx_Module, OnExit)
 {
-	Object_wx_Module *pSelf = Object_wx_Module::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->OnExit();
+	Object_wx_Module *pThis = Object_wx_Module::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->OnExit();
 	return Value::Null;
 }
 
@@ -111,9 +111,9 @@ Gura_DeclareMethod(wx_Module, OnInit)
 
 Gura_ImplementMethod(wx_Module, OnInit)
 {
-	Object_wx_Module *pSelf = Object_wx_Module::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->OnInit();
+	Object_wx_Module *pThis = Object_wx_Module::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->OnInit();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

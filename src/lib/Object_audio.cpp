@@ -217,20 +217,20 @@ Gura_DeclareMethod(audio, sinewave)
 
 Gura_ImplementMethod(audio, sinewave)
 {
-	Object_audio *pSelf = Object_audio::GetSelfObj(args);
+	Object_audio *pThis = Object_audio::GetThisObj(args);
 	size_t iChannel = args.GetSizeT(0);
 	size_t pitch = args.GetSizeT(1);
 	int phase = args.IsNumber(2)? args.GetInt(2) : 0;
 	int amplitude = args.IsNumber(3)? args.GetInt(3) : -1;
 	size_t offset = args.IsNumber(4)? args.GetSizeT(4) : 0;
 	size_t len = args.IsNumber(5)? args.GetSizeT(5) : InvalidSize;
-	if (!pSelf->SetSineWave(sig, iChannel, pitch, phase, amplitude, offset, len)) {
+	if (!pThis->SetSineWave(sig, iChannel, pitch, phase, amplitude, offset, len)) {
 		return Value::Null;
 	}
-	//for (size_t i = 0; i < pSelf->GetLength() * pSelf->GetBytesPerData(); i++) {
-	//	::printf(" %02x", pSelf->GetBuffer()[i]);
+	//for (size_t i = 0; i < pThis->GetLength() * pThis->GetBytesPerData(); i++) {
+	//	::printf(" %02x", pThis->GetBuffer()[i]);
 	//}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // audio#put(channel:number, offset:number, data:number):reduce
@@ -244,8 +244,8 @@ Gura_DeclareMethod(audio, put)
 
 Gura_ImplementMethod(audio, put)
 {
-	Object_audio *pSelf = Object_audio::GetSelfObj(args);
-	return args.GetSelf();
+	Object_audio *pThis = Object_audio::GetThisObj(args);
+	return args.GetThis();
 }
 
 // audio#get(channel:number, offset:number)
@@ -258,7 +258,7 @@ Gura_DeclareMethod(audio, get)
 
 Gura_ImplementMethod(audio, get)
 {
-	Object_audio *pSelf = Object_audio::GetSelfObj(args);
+	Object_audio *pThis = Object_audio::GetThisObj(args);
 	return Value::Null;
 }
 
@@ -274,8 +274,8 @@ Gura_DeclareMethod(audio, store)
 
 Gura_ImplementMethod(audio, store)
 {
-	Object_audio *pSelf = Object_audio::GetSelfObj(args);
-	return args.GetSelf();
+	Object_audio *pThis = Object_audio::GetThisObj(args);
+	return args.GetThis();
 }
 
 // audio#extract(channel:number, offset:number, len:number, dst)
@@ -290,7 +290,7 @@ Gura_DeclareMethod(audio, extract)
 
 Gura_ImplementMethod(audio, extract)
 {
-	Object_audio *pSelf = Object_audio::GetSelfObj(args);
+	Object_audio *pThis = Object_audio::GetThisObj(args);
 	return Value::Null;
 }
 
@@ -303,8 +303,8 @@ Gura_DeclareMethod(audio, fill)
 
 Gura_ImplementMethod(audio, fill)
 {
-	Object_audio *pSelf = Object_audio::GetSelfObj(args);
-	return args.GetSelf();
+	Object_audio *pThis = Object_audio::GetThisObj(args);
+	return args.GetThis();
 }
 
 // audio#fillrange(channel:number, offset:number, len:number, data:number):reduce
@@ -319,8 +319,8 @@ Gura_DeclareMethod(audio, fillrange)
 
 Gura_ImplementMethod(audio, fillrange)
 {
-	Object_audio *pSelf = Object_audio::GetSelfObj(args);
-	return args.GetSelf();
+	Object_audio *pThis = Object_audio::GetThisObj(args);
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------

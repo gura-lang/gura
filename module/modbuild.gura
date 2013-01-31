@@ -5,48 +5,48 @@
 //-----------------------------------------------------------------------------
 BuilderBase = class {
 	__init__() = {
-		self.debFiles = nil
-		self.rpmFiles = nil
-		self.hint = nil
-		self.skipErrorFlag = false
-		self.verboseFlag = (sys.argv == '--verbose').or()
-		self.debugFlag = (sys.argv == '--debug').or()
-		self.progressFlag = (sys.argv == '--progress').or()
+		this.debFiles = nil
+		this.rpmFiles = nil
+		this.hint = nil
+		this.skipErrorFlag = false
+		this.verboseFlag = (sys.argv == '--verbose').or()
+		this.debugFlag = (sys.argv == '--debug').or()
+		this.progressFlag = (sys.argv == '--progress').or()
 		if ((sys.argv == '--here').or()) {
-			self.outDir = '.'
+			this.outDir = '.'
 		}
 	}
 	build(target:string, srcs[]:string) = {
 		if ((sys.argv == '--hint').or()) {
-			self.printHint()
-			return(self)
+			this.printHint()
+			return(this)
 		}
 		target = target.replace('/', path.sep_file)
 		if (!target.endswith('.gurd')) {
 			target = target + '.gurd'
 		}
 		if ((sys.argv == 'clean').or()) {
-			self.doClean(target)
-			return(self)
+			this.doClean(target)
+			return(this)
 		}
 		if ((sys.argv == '--rebuild').or()) {
-			self.doClean(target)
+			this.doClean(target)
 		}
-		outDir = path.join(self.outDir, path.dirname(target))
+		outDir = path.join(this.outDir, path.dirname(target))
 		!path.exists(outDir) && fs.mkdir(outDir):tree
-		(self.precompile && !self.doPrecompile()) && self.printHint() && return(self)
+		(this.precompile && !this.doPrecompile()) && this.printHint() && return(this)
 		srcs.each() {|src, idx|
-			!self.doCompile(src, idx, srcs.len()) && \
-				(self.skipErrorFlag || self.printHint() && return(self))
+			!this.doCompile(src, idx, srcs.len()) && \
+				(this.skipErrorFlag || this.printHint() && return(this))
 		}
-		objs = self.makeObjName(srcs)
-		!self.doLink(target, objs) && self.printHint() && return(self)
-		(sys.argv == 'install').or() && self.doInstall(target, true)
-		(sys.argv == 'install-root').or() && self.doInstall(target, false)
-		self
+		objs = this.makeObjName(srcs)
+		!this.doLink(target, objs) && this.printHint() && return(this)
+		(sys.argv == 'install').or() && this.doInstall(target, true)
+		(sys.argv == 'install-root').or() && this.doInstall(target, false)
+		this
 	}
 	execute(pathname:string, args*:string) = {
-		self.verboseFlag && println(pathname, ' ', args.join(' '))
+		this.verboseFlag && println(pathname, ' ', args.join(' '))
 		buff = binary()
 		os.redirect(nil, buff) {
 			result = (os.exec(pathname, args*) == 0)
@@ -55,16 +55,16 @@ BuilderBase = class {
 		}
 	}
 	printHint() = {
-		self.hint && print(self.hint)
-		if (self.debFiles || self.rpmFiles) {
+		this.hint && print(this.hint)
+		if (this.debFiles || this.rpmFiles) {
 			println('See the following steps to install necessary packages.')
-			if (self.debFiles) {
+			if (this.debFiles) {
 				println('- Install Debian packages:')
-				println('  $ sudo apt-get install -y ', self.debFiles.join(' '))
+				println('  $ sudo apt-get install -y ', this.debFiles.join(' '))
 			}
-			if (self.rpmFiles) {
+			if (this.rpmFiles) {
 				println('- Install RPM packages:')
-				println('  $ sudo yum install -y ', self.rpmFiles.join(' '))
+				println('  $ sudo yum install -y ', this.rpmFiles.join(' '))
 			}
 		}
 		true
@@ -77,7 +77,7 @@ BuilderBase = class {
 		}
 		dirName = path.dirname(targetPath)
 		!path.exists(dirName) && fs.mkdir(dirName):tree
-		copy(path.join(self.outDir, target), open(targetPath, 'w'))
+		copy(path.join(this.outDir, target), open(targetPath, 'w'))
 	}
 }
 
@@ -89,31 +89,31 @@ if (sys.build == `msc) {
 	guestDir = path.join(guraDir, 'guest')
 	Builder = class(BuilderBase) {
 		__init__() = {
-			self.outDir = 'msc'
-			self.incDirs = []
-			self.cflags = [
+			this.outDir = 'msc'
+			this.incDirs = []
+			this.cflags = [
 				'/nologo', '/DGURA_MODULE_SEPARATED'
 				'/EHsc', '/MD'
 				'/I' + path.join(guraDir, 'include')
 				'/I' + path.join(guestDir, 'include')
 			]
-			self.ldflags = [
+			this.ldflags = [
 				'/INCREMENTAL:NO', '/NOLOGO', '/DLL',
 				'/SUBSYSTEM:WINDOWS', '/OPT:REF', '/OPT:ICF', '/DYNAMICBASE:NO',
 				'/MACHINE:X86', '/ERRORREPORT:PROMPT'
 			]
-			self.libs = [
-				path.join(guraDir, 'lib', cond(self.debugFlag, 'libguracored-x86.lib', 'libguracore-x86.lib')),
+			this.libs = [
+				path.join(guraDir, 'lib', cond(this.debugFlag, 'libguracored-x86.lib', 'libguracore-x86.lib')),
 				'kernel32.lib', 'user32.lib', 'gdi32.lib', 'winspool.lib', 'comdlg32.lib',
 				'advapi32.lib', 'shell32.lib', 'ole32.lib', 'oleaut32.lib', 'uuid.lib',
 				'odbc32.lib', 'odbccp32.lib', 'ws2_32.lib', 'opengl32.lib', 'glu32.lib',
 				'comctl32.lib', 'winmm.lib'
 			]
-			self.dlls = []
-			self.precompile = nil
+			this.dlls = []
+			this.precompile = nil
 		}
 		makeObjName(src:string):map = {
-			path.join(self.outDir, path.filename(src).\
+			path.join(this.outDir, path.filename(src).\
 				replace('.cpp', '.obj').replace('.c', '.obj').replace('.h', '.obj'))
 		}
 		makeLibPath(lib:string):map = {
@@ -131,57 +131,57 @@ if (sys.build == `msc) {
 			libPath
 		}
 		doPrecompile() = {
-			src = self.precompile.replace('.h', '.cpp')
-			obj = self.makeObjName(src)
+			src = this.precompile.replace('.h', '.cpp')
+			obj = this.makeObjName(src)
 			cflags = []
-			cflags.append('/I' + self.incDirs)
-			cflags.append(self.cflags)
-			self.debugFlag && cflags.append('/ZI')
-			cflags.append('/Yc' + self.precompile)
+			cflags.append('/I' + this.incDirs)
+			cflags.append(this.cflags)
+			this.debugFlag && cflags.append('/ZI')
+			cflags.append('/Yc' + this.precompile)
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
-				self.progressFlag && println('compile: ', src)
-				!self.execute('cl', cflags*, '/Fo' + obj, '/c', src) && return(false)
+				this.progressFlag && println('compile: ', src)
+				!this.execute('cl', cflags*, '/Fo' + obj, '/c', src) && return(false)
 			}
 			true
 		}
 		doCompile(src:string, idx:number, cnt:number):map = {
 			firstFlag = (idx == 0)
-			obj = self.makeObjName(src)
+			obj = this.makeObjName(src)
 			cflags = []
-			cflags.append('/I' + self.incDirs)
-			cflags.append(self.cflags)
-			self.debugFlag && cflags.append('/ZI')
+			cflags.append('/I' + this.incDirs)
+			cflags.append(this.cflags)
+			this.debugFlag && cflags.append('/ZI')
 			if (firstFlag) {
 				cflags.append('/DGURA_MODULE_MAIN')
 			} else {
-				self.precompile && cflags.append('/Yu' + self.precompile)
+				this.precompile && cflags.append('/Yu' + this.precompile)
 			}
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
-				self.progressFlag && printf('compile %d/%d: %s\n', idx + 1, cnt, src)
-				!self.execute('cl', cflags*, '/Fo' + obj, '/c', src) && return(false)
+				this.progressFlag && printf('compile %d/%d: %s\n', idx + 1, cnt, src)
+				!this.execute('cl', cflags*, '/Fo' + obj, '/c', src) && return(false)
 			}
 			true
 		}
 		doLink(target:string, objs[]:string) = {
-			target = path.join(self.outDir, target)
-			ldflags = self.ldflags.clone()
-			libs = self.libs.clone()
+			target = path.join(this.outDir, target)
+			ldflags = this.ldflags.clone()
+			libs = this.libs.clone()
 			objsEx = []
-			self.precompile && objsEx.append(self.makeObjName(self.precompile))
-			libs.append(self.makeLibPath(self.dlls::replace('.dll', '.lib'):icase))
-			self.debugFlag && ldflags.append(['/DEBUG'])
+			this.precompile && objsEx.append(this.makeObjName(this.precompile))
+			libs.append(this.makeLibPath(this.dlls::replace('.dll', '.lib'):icase))
+			this.debugFlag && ldflags.append(['/DEBUG'])
 			if (!path.exists(target) || (path.stat(target).mtime < path.stat(objs):*mtime).or()) {
-				!self.execute('link', ldflags*,
+				!this.execute('link', ldflags*,
 							'/OUT:' + target, objs*, objsEx*, libs*) && return(false)
 				println(target, ' was created')
 			}
 			true
 		}
 		doClean(target:string) = {
-			!path.exists(self.outDir) && return
-			for (fileName in path.dir(self.outDir, target, '*.obj', '*.exp', '*.lib')) {
+			!path.exists(this.outDir) && return
+			for (fileName in path.dir(this.outDir, target, '*.obj', '*.exp', '*.lib')) {
 				fs.remove(fileName)
-				self.verboseFlag && println('deleted: ', fileName)
+				this.verboseFlag && println('deleted: ', fileName)
 			}
 			println('cleaned')
 		}
@@ -189,62 +189,62 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	Builder = class(BuilderBase) {
 		__init__() = {
-			self.outDir = 'gnuc'
-			self.incDirs = []
-			self.cflags = ['-DGURA_MODULE_SEPARATED', '-fPIC']
-			self.ldflags = ['-shared']
-			self.libs = []
-			self.precompile = nil
+			this.outDir = 'gnuc'
+			this.incDirs = []
+			this.cflags = ['-DGURA_MODULE_SEPARATED', '-fPIC']
+			this.ldflags = ['-shared']
+			this.libs = []
+			this.precompile = nil
 		}
 		makeObjName(src:string):map = {
-			path.join(self.outDir, path.filename(src). \
+			path.join(this.outDir, path.filename(src). \
 					  replace('.cpp', '.o').replace('.c', '.o'))
 		}
 		doPrecompile() = {
-			src = self.precompile
+			src = this.precompile
 			obj = src + '.gch'
-			cflags = self.cflags.clone()
-			cflags.append('-I' + self.incDirs)
-			self.debugFlag && cflags.append('-g')
+			cflags = this.cflags.clone()
+			cflags.append('-I' + this.incDirs)
+			this.debugFlag && cflags.append('-g')
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
-				self.progressFlag && println('compile: ', src)
-				!self.execute('gcc', cflags*, '-x', 'c++-header', src) && return(false)
+				this.progressFlag && println('compile: ', src)
+				!this.execute('gcc', cflags*, '-x', 'c++-header', src) && return(false)
 			}
 			true
 		}
 		doCompile(src:string, idx:number, cnt:number):map = {
 			firstFlag = (idx == 0)
-			obj = self.makeObjName(src)
-			cflags = self.cflags.clone()
-			cflags.append('-I' + self.incDirs)
-			self.debugFlag && cflags.append('-g')
+			obj = this.makeObjName(src)
+			cflags = this.cflags.clone()
+			cflags.append('-I' + this.incDirs)
+			this.debugFlag && cflags.append('-g')
 			firstFlag && cflags.append('-DGURA_MODULE_MAIN')
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
-				self.progressFlag && printf('compile %d/%d: %s\n', idx + 1, cnt, src)
-				!self.execute('gcc', cflags*, '-o', obj, '-c', src) && return(false)
+				this.progressFlag && printf('compile %d/%d: %s\n', idx + 1, cnt, src)
+				!this.execute('gcc', cflags*, '-o', obj, '-c', src) && return(false)
 			}
 			true
 		}
 		doLink(target:string, objs[]:string) = {
-			target = path.join(self.outDir, target)
-			ldflags = self.ldflags.clone()
-			libs = '-l' + self.libs.clone()
+			target = path.join(this.outDir, target)
+			ldflags = this.ldflags.clone()
+			libs = '-l' + this.libs.clone()
 			objsEx = []
-			self.precompile && objsEx.append(self.makeObjName(self.precompile))
-			self.debugFlag && ldflags.append('-g')
+			this.precompile && objsEx.append(this.makeObjName(this.precompile))
+			this.debugFlag && ldflags.append('-g')
 			if (!path.exists(target) || (path.stat(target).mtime < path.stat(objs):*mtime).or()) {
-				!self.execute('gcc', ldflags*, '-o', target, objs*, libs*) && return(false)
+				!this.execute('gcc', ldflags*, '-o', target, objs*, libs*) && return(false)
 				println(target, ' was created')
 			}
 			true
 		}
 		doClean(target:string) = {
-			!path.exists(self.outDir) && return
-			fileNames = path.dir(self.outDir, target, '*.o'):list
+			!path.exists(this.outDir) && return
+			fileNames = path.dir(this.outDir, target, '*.o'):list
 			fileNames.append(path.dir('.', '*.gch'))
 			for (fileName in fileNames) {
 				fs.remove(fileName)
-				self.verboseFlag && println('deleted: ', fileName)
+				this.verboseFlag && println('deleted: ', fileName)
 			}
 			println('cleaned')
 		}

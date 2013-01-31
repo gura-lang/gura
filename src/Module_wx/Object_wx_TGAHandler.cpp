@@ -45,7 +45,7 @@ Gura_ImplementFunction(TGAHandler)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TGAHandler *pEntity = new wx_TGAHandler();
-	Object_wx_TGAHandler *pObj = Object_wx_TGAHandler::GetSelfObj(args);
+	Object_wx_TGAHandler *pObj = Object_wx_TGAHandler::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TGAHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -53,7 +53,7 @@ Gura_ImplementFunction(TGAHandler)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

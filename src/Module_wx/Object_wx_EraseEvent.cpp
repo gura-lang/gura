@@ -53,7 +53,7 @@ Gura_ImplementFunction(EraseEvent)
 	wxDC *dc = (wxDC *)(NULL);
 	if (args.IsValid(1)) dc = Object_wx_DC::GetObject(args, 1)->GetEntity();
 	wx_EraseEvent *pEntity = new wx_EraseEvent(id, dc);
-	Object_wx_EraseEvent *pObj = Object_wx_EraseEvent::GetSelfObj(args);
+	Object_wx_EraseEvent *pObj = Object_wx_EraseEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_EraseEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(EraseEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_EraseEvent, GetDC)
@@ -72,9 +72,9 @@ Gura_DeclareMethod(wx_EraseEvent, GetDC)
 
 Gura_ImplementMethod(wx_EraseEvent, GetDC)
 {
-	Object_wx_EraseEvent *pSelf = Object_wx_EraseEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxDC *rtn = (wxDC *)pSelf->GetEntity()->GetDC();
+	Object_wx_EraseEvent *pThis = Object_wx_EraseEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxDC *rtn = (wxDC *)pThis->GetEntity()->GetDC();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DC(rtn, NULL, OwnerFalse)));
 }
 

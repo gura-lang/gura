@@ -53,7 +53,7 @@ Gura_ImplementFunction(ClipboardTextEvent)
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_ClipboardTextEvent *pEntity = new wx_ClipboardTextEvent(commandType, id);
-	Object_wx_ClipboardTextEvent *pObj = Object_wx_ClipboardTextEvent::GetSelfObj(args);
+	Object_wx_ClipboardTextEvent *pObj = Object_wx_ClipboardTextEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ClipboardTextEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(ClipboardTextEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

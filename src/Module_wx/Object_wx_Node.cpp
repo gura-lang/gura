@@ -43,8 +43,8 @@ Gura_DeclareMethod(wx_Node, GetData)
 
 Gura_ImplementMethod(wx_Node, GetData)
 {
-	Object_wx_Node *pSelf = Object_wx_Node::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Node *pThis = Object_wx_Node::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_Node, GetNext)
@@ -55,8 +55,8 @@ Gura_DeclareMethod(wx_Node, GetNext)
 
 Gura_ImplementMethod(wx_Node, GetNext)
 {
-	Object_wx_Node *pSelf = Object_wx_Node::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Node *pThis = Object_wx_Node::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_Node, GetPrevious)
@@ -67,8 +67,8 @@ Gura_DeclareMethod(wx_Node, GetPrevious)
 
 Gura_ImplementMethod(wx_Node, GetPrevious)
 {
-	Object_wx_Node *pSelf = Object_wx_Node::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Node *pThis = Object_wx_Node::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_Node, SetData)
@@ -81,9 +81,9 @@ Gura_DeclareMethod(wx_Node, SetData)
 Gura_ImplementMethod(wx_Node, SetData)
 {
 #if 0
-	Object_wx_Node *pSelf = Object_wx_Node::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->SetData();
+	Object_wx_Node *pThis = Object_wx_Node::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->SetData();
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -99,9 +99,9 @@ Gura_DeclareMethod(wx_Node, IndexOf)
 Gura_ImplementMethod(wx_Node, IndexOf)
 {
 #if 0
-	Object_wx_Node *pSelf = Object_wx_Node::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->IndexOf();
+	Object_wx_Node *pThis = Object_wx_Node::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->IndexOf();
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);

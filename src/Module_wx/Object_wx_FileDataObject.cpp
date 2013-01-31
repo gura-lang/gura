@@ -50,7 +50,7 @@ Gura_ImplementFunction(FileDataObjectEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FileDataObject *pEntity = new wx_FileDataObject();
-	Object_wx_FileDataObject *pObj = Object_wx_FileDataObject::GetSelfObj(args);
+	Object_wx_FileDataObject *pObj = Object_wx_FileDataObject::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_FileDataObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(FileDataObjectEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FileDataObject, AddFile)
@@ -69,10 +69,10 @@ Gura_DeclareMethod(wx_FileDataObject, AddFile)
 
 Gura_ImplementMethod(wx_FileDataObject, AddFile)
 {
-	Object_wx_FileDataObject *pSelf = Object_wx_FileDataObject::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FileDataObject *pThis = Object_wx_FileDataObject::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->AddFile(file);
+	pThis->GetEntity()->AddFile(file);
 	return Value::Null;
 }
 
@@ -84,9 +84,9 @@ Gura_DeclareMethod(wx_FileDataObject, GetFilenames)
 
 Gura_ImplementMethod(wx_FileDataObject, GetFilenames)
 {
-	Object_wx_FileDataObject *pSelf = Object_wx_FileDataObject::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxArrayString rtn = pSelf->GetEntity()->GetFilenames();
+	Object_wx_FileDataObject *pThis = Object_wx_FileDataObject::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxArrayString rtn = pThis->GetEntity()->GetFilenames();
 	return ReturnValue(env, sig, args, ArrayStringToValue(env, rtn));
 }
 

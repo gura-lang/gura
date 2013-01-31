@@ -66,7 +66,7 @@ Gura_ImplementFunction(HtmlCellEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HtmlCell *pEntity = new wx_HtmlCell();
-	Object_wx_HtmlCell *pObj = Object_wx_HtmlCell::GetSelfObj(args);
+	Object_wx_HtmlCell *pObj = Object_wx_HtmlCell::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_HtmlCell(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -74,7 +74,7 @@ Gura_ImplementFunction(HtmlCellEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_HtmlCell, AdjustPagebreak)
@@ -89,10 +89,10 @@ Gura_DeclareMethod(wx_HtmlCell, AdjustPagebreak)
 Gura_ImplementMethod(wx_HtmlCell, AdjustPagebreak)
 {
 #if 0
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pagebreak = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->AdjustPagebreak(pagebreak);
+	bool rtn = pThis->GetEntity()->AdjustPagebreak(pagebreak);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -114,14 +114,14 @@ Gura_DeclareMethod(wx_HtmlCell, Draw)
 Gura_ImplementMethod(wx_HtmlCell, Draw)
 {
 #if 0
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	int view_y1 = args.GetInt(3);
 	int view_y2 = args.GetInt(4);
-	pSelf->GetEntity()->Draw(*dc, x, y, view_y1, view_y2);
+	pThis->GetEntity()->Draw(*dc, x, y, view_y1, view_y2);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -141,12 +141,12 @@ Gura_DeclareMethod(wx_HtmlCell, DrawInvisible)
 Gura_ImplementMethod(wx_HtmlCell, DrawInvisible)
 {
 #if 0
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
-	pSelf->GetEntity()->DrawInvisible(*dc, x, y);
+	pThis->GetEntity()->DrawInvisible(*dc, x, y);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -166,11 +166,11 @@ Gura_DeclareMethod(wx_HtmlCell, Find)
 Gura_ImplementMethod(wx_HtmlCell, Find)
 {
 #if 0
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int condition = args.GetInt(0);
 	int param = args.GetInt(1);
-	wxHtmlCell *rtn = (wxHtmlCell *)pSelf->GetEntity()->Find(condition, param);
+	wxHtmlCell *rtn = (wxHtmlCell *)pThis->GetEntity()->Find(condition, param);
 	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlCell(rtn, NULL, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
@@ -185,9 +185,9 @@ Gura_DeclareMethod(wx_HtmlCell, GetDescent)
 
 Gura_ImplementMethod(wx_HtmlCell, GetDescent)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetDescent();
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetDescent();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -199,9 +199,9 @@ Gura_DeclareMethod(wx_HtmlCell, GetFirstChild)
 
 Gura_ImplementMethod(wx_HtmlCell, GetFirstChild)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxHtmlCell *rtn = (wxHtmlCell *)pSelf->GetEntity()->GetFirstChild();
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxHtmlCell *rtn = (wxHtmlCell *)pThis->GetEntity()->GetFirstChild();
 	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlCell(rtn, NULL, OwnerFalse)));
 }
 
@@ -213,9 +213,9 @@ Gura_DeclareMethod(wx_HtmlCell, GetHeight)
 
 Gura_ImplementMethod(wx_HtmlCell, GetHeight)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetHeight();
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetHeight();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -227,9 +227,9 @@ Gura_DeclareMethod(wx_HtmlCell, GetId)
 
 Gura_ImplementMethod(wx_HtmlCell, GetId)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetId();
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetId();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -243,13 +243,13 @@ Gura_DeclareMethod(wx_HtmlCell, GetLink)
 
 Gura_ImplementMethod(wx_HtmlCell, GetLink)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = 0;
 	if (args.IsValid(0)) x = args.GetInt(0);
 	int y = 0;
 	if (args.IsValid(1)) y = args.GetInt(1);
-	wxHtmlLinkInfo *rtn = (wxHtmlLinkInfo *)pSelf->GetEntity()->GetLink(x, y);
+	wxHtmlLinkInfo *rtn = (wxHtmlLinkInfo *)pThis->GetEntity()->GetLink(x, y);
 	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlLinkInfo(rtn, NULL, OwnerFalse)));
 }
 
@@ -262,10 +262,10 @@ Gura_DeclareMethod(wx_HtmlCell, GetMouseCursor)
 
 Gura_ImplementMethod(wx_HtmlCell, GetMouseCursor)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlWindowInterface *window = Object_wx_HtmlWindowInterface::GetObject(args, 0)->GetEntity();
-	wxCursor rtn = pSelf->GetEntity()->GetMouseCursor(window);
+	wxCursor rtn = pThis->GetEntity()->GetMouseCursor(window);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Cursor(new wxCursor(rtn), NULL, OwnerTrue)));
 }
 
@@ -277,9 +277,9 @@ Gura_DeclareMethod(wx_HtmlCell, GetNext)
 
 Gura_ImplementMethod(wx_HtmlCell, GetNext)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxHtmlCell *rtn = (wxHtmlCell *)pSelf->GetEntity()->GetNext();
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxHtmlCell *rtn = (wxHtmlCell *)pThis->GetEntity()->GetNext();
 	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlCell(rtn, NULL, OwnerFalse)));
 }
 
@@ -291,9 +291,9 @@ Gura_DeclareMethod(wx_HtmlCell, GetParent)
 
 Gura_ImplementMethod(wx_HtmlCell, GetParent)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxHtmlContainerCell *rtn = (wxHtmlContainerCell *)pSelf->GetEntity()->GetParent();
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxHtmlContainerCell *rtn = (wxHtmlContainerCell *)pThis->GetEntity()->GetParent();
 	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlContainerCell(rtn, NULL, OwnerFalse)));
 }
 
@@ -305,9 +305,9 @@ Gura_DeclareMethod(wx_HtmlCell, GetPosX)
 
 Gura_ImplementMethod(wx_HtmlCell, GetPosX)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetPosX();
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetPosX();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -319,9 +319,9 @@ Gura_DeclareMethod(wx_HtmlCell, GetPosY)
 
 Gura_ImplementMethod(wx_HtmlCell, GetPosY)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetPosY();
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetPosY();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -333,9 +333,9 @@ Gura_DeclareMethod(wx_HtmlCell, GetWidth)
 
 Gura_ImplementMethod(wx_HtmlCell, GetWidth)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetWidth();
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetWidth();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -347,10 +347,10 @@ Gura_DeclareMethod(wx_HtmlCell, Layout)
 
 Gura_ImplementMethod(wx_HtmlCell, Layout)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int w = args.GetInt(0);
-	pSelf->GetEntity()->Layout(w);
+	pThis->GetEntity()->Layout(w);
 	return Value::Null;
 }
 
@@ -365,12 +365,12 @@ Gura_DeclareMethod(wx_HtmlCell, ProcessMouseClick)
 
 Gura_ImplementMethod(wx_HtmlCell, ProcessMouseClick)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlWindowInterface *window = Object_wx_HtmlWindowInterface::GetObject(args, 0)->GetEntity();
 	wxPoint *pos = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	wxMouseEvent *event = Object_wx_MouseEvent::GetObject(args, 2)->GetEntity();
-	bool rtn = pSelf->GetEntity()->ProcessMouseClick(window, *pos, *event);
+	bool rtn = pThis->GetEntity()->ProcessMouseClick(window, *pos, *event);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -382,10 +382,10 @@ Gura_DeclareMethod(wx_HtmlCell, SetId)
 
 Gura_ImplementMethod(wx_HtmlCell, SetId)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString id = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetId(id);
+	pThis->GetEntity()->SetId(id);
 	return Value::Null;
 }
 
@@ -397,10 +397,10 @@ Gura_DeclareMethod(wx_HtmlCell, SetLink)
 
 Gura_ImplementMethod(wx_HtmlCell, SetLink)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlLinkInfo *link = Object_wx_HtmlLinkInfo::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetLink(*link);
+	pThis->GetEntity()->SetLink(*link);
 	return Value::Null;
 }
 
@@ -412,10 +412,10 @@ Gura_DeclareMethod(wx_HtmlCell, SetNext)
 
 Gura_ImplementMethod(wx_HtmlCell, SetNext)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlCell *cell = Object_wx_HtmlCell::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetNext(cell);
+	pThis->GetEntity()->SetNext(cell);
 	return Value::Null;
 }
 
@@ -427,10 +427,10 @@ Gura_DeclareMethod(wx_HtmlCell, SetParent)
 
 Gura_ImplementMethod(wx_HtmlCell, SetParent)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlContainerCell *p = Object_wx_HtmlContainerCell::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetParent(p);
+	pThis->GetEntity()->SetParent(p);
 	return Value::Null;
 }
 
@@ -443,11 +443,11 @@ Gura_DeclareMethod(wx_HtmlCell, SetPos)
 
 Gura_ImplementMethod(wx_HtmlCell, SetPos)
 {
-	Object_wx_HtmlCell *pSelf = Object_wx_HtmlCell::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
-	pSelf->GetEntity()->SetPos(x, y);
+	pThis->GetEntity()->SetPos(x, y);
 	return Value::Null;
 }
 

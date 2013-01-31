@@ -63,7 +63,7 @@ Gura_ImplementFunction(PreviewCanvas)
 	wxString name = wxT("canvas");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_PreviewCanvas *pEntity = new wx_PreviewCanvas(preview, parent, *pos, *size, style, name);
-	Object_wx_PreviewCanvas *pObj = Object_wx_PreviewCanvas::GetSelfObj(args);
+	Object_wx_PreviewCanvas *pObj = Object_wx_PreviewCanvas::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PreviewCanvas(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(PreviewCanvas)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_PreviewCanvas, OnPaint)
@@ -82,10 +82,10 @@ Gura_DeclareMethod(wx_PreviewCanvas, OnPaint)
 
 Gura_ImplementMethod(wx_PreviewCanvas, OnPaint)
 {
-	Object_wx_PreviewCanvas *pSelf = Object_wx_PreviewCanvas::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PreviewCanvas *pThis = Object_wx_PreviewCanvas::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPaintEvent *event = Object_wx_PaintEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnPaint(*event);
+	pThis->GetEntity()->OnPaint(*event);
 	return Value::Null;
 }
 

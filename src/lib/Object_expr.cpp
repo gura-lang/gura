@@ -7,7 +7,7 @@
 #define ImplementTypeChecker(funcName, func) \
 Gura_DeclareMethod(expr, funcName) {} \
 Gura_ImplementMethod(expr, funcName) { \
-	return Value(Object_expr::GetSelfObj(args)->GetExpr()->func()); \
+	return Value(Object_expr::GetThisObj(args)->GetExpr()->func()); \
 }
 
 namespace Gura {
@@ -89,7 +89,7 @@ Gura_DeclareMethod(expr, child)
 
 Gura_ImplementMethod(expr, child)
 {
-	const Expr *pExpr = Object_expr::GetSelfObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	if (!pExpr->IsUnary()) {
 		sig.SetError(ERR_ValueError, "not a unary expression");
 		return Value::Null;
@@ -108,7 +108,7 @@ Gura_DeclareMethod(expr, left)
 
 Gura_ImplementMethod(expr, left)
 {
-	const Expr *pExpr = Object_expr::GetSelfObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	if (!pExpr->IsBinary()) {
 		sig.SetError(ERR_ValueError, "not a binary expression");
 		return Value::Null;
@@ -127,7 +127,7 @@ Gura_DeclareMethod(expr, right)
 
 Gura_ImplementMethod(expr, right)
 {
-	const Expr *pExpr = Object_expr::GetSelfObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	if (!pExpr->IsBinary()) {
 		sig.SetError(ERR_ValueError, "not a binary expression");
 		return Value::Null;
@@ -147,7 +147,7 @@ Gura_DeclareMethod(expr, each)
 
 Gura_ImplementMethod(expr, each)
 {
-	const Expr *pExpr = Object_expr::GetSelfObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	if (!pExpr->IsContainer()) {
 		sig.SetError(ERR_ValueError, "not a container expression");
 		return Value::Null;
@@ -165,7 +165,7 @@ Gura_DeclareMethod(expr, car)
 
 Gura_ImplementMethod(expr, car)
 {
-	const Expr *pExpr = Object_expr::GetSelfObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	if (!pExpr->IsCompound()) {
 		sig.SetError(ERR_ValueError, "not a compound expression");
 		return Value::Null;
@@ -184,7 +184,7 @@ Gura_DeclareMethod(expr, cdr)
 
 Gura_ImplementMethod(expr, cdr)
 {
-	const Expr *pExpr = Object_expr::GetSelfObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	if (!pExpr->IsCompound()) {
 		sig.SetError(ERR_ValueError, "not a compound expression");
 		return Value::Null;
@@ -209,7 +209,7 @@ Gura_DeclareMethod(expr, unquote)
 
 Gura_ImplementMethod(expr, unquote)
 {
-	const Expr *pExpr = Object_expr::GetSelfObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	Value result;
 	result.InitAsExpr(env, pExpr->Unquote()->IncRef());
 	return result;
@@ -223,7 +223,7 @@ Gura_DeclareMethod(expr, block)
 
 Gura_ImplementMethod(expr, block)
 {
-	const Expr *pExpr = Object_expr::GetSelfObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	if (!pExpr->IsCaller()) {
 		sig.SetError(ERR_ValueError, "not a caller expression");
 		return Value::Null;
@@ -244,7 +244,7 @@ Gura_DeclareMethod(expr, exprname)
 
 Gura_ImplementMethod(expr, exprname)
 {
-	const Expr *pExpr = Object_expr::GetSelfObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	return Value(env, pExpr->GetTypeName());
 }
 
@@ -256,7 +256,7 @@ Gura_DeclareMethod(expr, getvalue)
 
 Gura_ImplementMethod(expr, getvalue)
 {
-	const Expr *pExpr = Object_expr::GetSelfObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	if (!pExpr->IsValue()) {
 		sig.SetError(ERR_ValueError, "expression is not a value");
 		return Value::Null;
@@ -272,7 +272,7 @@ Gura_DeclareMethod(expr, getstring)
 
 Gura_ImplementMethod(expr, getstring)
 {
-	const Expr *pExpr = Object_expr::GetSelfObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	if (!pExpr->IsString()) {
 		sig.SetError(ERR_ValueError, "expression is not a string");
 		return Value::Null;
@@ -288,7 +288,7 @@ Gura_DeclareMethod(expr, getsymbol)
 
 Gura_ImplementMethod(expr, getsymbol)
 {
-	const Expr *pExpr = Object_expr::GetSelfObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	if (!pExpr->IsSymbol()) {
 		sig.SetError(ERR_ValueError, "expression is not a symbol");
 		return Value::Null;
@@ -305,7 +305,7 @@ Gura_DeclareMethod(expr, tofunction)
 
 Gura_ImplementMethod(expr, tofunction)
 {
-	const Expr *pExpr = Object_expr::GetSelfObj(args)->GetExpr();
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	Function *pFunc = pExpr->ToFunction(env, sig,
 								args.GetList(0), args.GetAttrs());
 	return Value(env, pFunc, Value::Null);
@@ -321,7 +321,7 @@ Gura_DeclareMethod(expr, eval)
 Gura_ImplementMethod(expr, eval)
 {
 	Environment envBlock(&env, ENVTYPE_block);
-	return Object_expr::GetSelfObj(args)->GetExpr()->Exec(envBlock, sig);
+	return Object_expr::GetThisObj(args)->GetExpr()->Exec(envBlock, sig);
 }
 
 // type chekers

@@ -47,7 +47,7 @@ Gura_ImplementFunction(GridCellTextEditor)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellTextEditor *pEntity = new wx_GridCellTextEditor();
-	Object_wx_GridCellTextEditor *pObj = Object_wx_GridCellTextEditor::GetSelfObj(args);
+	Object_wx_GridCellTextEditor *pObj = Object_wx_GridCellTextEditor::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GridCellTextEditor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(GridCellTextEditor)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GridCellTextEditor, SetParameters)
@@ -66,10 +66,10 @@ Gura_DeclareMethod(wx_GridCellTextEditor, SetParameters)
 
 Gura_ImplementMethod(wx_GridCellTextEditor, SetParameters)
 {
-	Object_wx_GridCellTextEditor *pSelf = Object_wx_GridCellTextEditor::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridCellTextEditor *pThis = Object_wx_GridCellTextEditor::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString params = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetParameters(params);
+	pThis->GetEntity()->SetParameters(params);
 	return Value::Null;
 }
 

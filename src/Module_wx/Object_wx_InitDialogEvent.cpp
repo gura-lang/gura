@@ -50,7 +50,7 @@ Gura_ImplementFunction(InitDialogEvent)
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wx_InitDialogEvent *pEntity = new wx_InitDialogEvent(id);
-	Object_wx_InitDialogEvent *pObj = Object_wx_InitDialogEvent::GetSelfObj(args);
+	Object_wx_InitDialogEvent *pObj = Object_wx_InitDialogEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_InitDialogEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(InitDialogEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

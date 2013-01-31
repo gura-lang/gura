@@ -21,9 +21,9 @@ Gura_DeclareMethod(image, pngread)
 
 Gura_ImplementMethod(image, pngread)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!ImageStreamer_PNG::ReadStream(sig, pSelf, args.GetStream(0))) return Value::Null;
-	return args.GetSelf();
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!ImageStreamer_PNG::ReadStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	return args.GetThis();
 }
 
 // image#pngwrite(stream:stream:w):reduce
@@ -36,9 +36,9 @@ Gura_DeclareMethod(image, pngwrite)
 
 Gura_ImplementMethod(image, pngwrite)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!ImageStreamer_PNG::WriteStream(sig, pSelf, args.GetStream(0))) return Value::Null;
-	return args.GetSelf();
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!ImageStreamer_PNG::WriteStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------

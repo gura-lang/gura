@@ -13,8 +13,8 @@ inline static T *GetObject(const Value &value) { \
 inline static T *GetObject(Args &args, size_t idxArg) { \
 	return dynamic_cast<T *>(args.GetObj(idxArg)); \
 } \
-inline static T *GetSelfObj(Args &args) { \
-	return dynamic_cast<T *>(args.GetSelf().GetObj()); \
+inline static T *GetThisObj(Args &args) { \
+	return dynamic_cast<T *>(args.GetThis().GetObj()); \
 } \
 inline static T *Reference(const T *pObj) { \
 	return dynamic_cast<T *>(Object::Reference(pObj)); \
@@ -37,7 +37,7 @@ protected:
 	ObjectBase(Environment *pEnvOuter, EnvType envType);
 public:
 	virtual ~ObjectBase();
-	bool BuildContent(Environment &env, Signal sig, const Value &valueSelf,
+	bool BuildContent(Environment &env, Signal sig, const Value &valueThis,
 		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = NULL);
 	inline int DecRef() { if (_cntRef > 0) _cntRef--; return _cntRef; }
 	inline int GetRefCnt() const { return _cntRef; }

@@ -28,7 +28,7 @@ scope {
 	g(1..10, 1..10)
 	f(1..10)
 	//Fruit = struct(name:string, price:number) {
-	//	Print() = println(self.name, ' costs ', self.price)
+	//	Print() = println(this.name, ' costs ', this.price)
 	//}
 	//fruits = Fruit * [
 	//	['apple', 100], ['orage', 80], ['grape', 120]
@@ -42,8 +42,8 @@ scope {
 }
 scope {
 	A = class {
-		__init__(name:string) = { self.name = name }
-		func(str:string):map = println(self.name, ' ', str)
+		__init__(name:string) = { this.name = name }
+		func(str:string):map = println(this.name, ' ', str)
 	}
 	tbl = [A('abc'), A('def'), A('ghi'), A('jkl'), A('mno')]
 	tbl::func('123')

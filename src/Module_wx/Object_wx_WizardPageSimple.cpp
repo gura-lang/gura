@@ -59,7 +59,7 @@ Gura_ImplementFunction(WizardPageSimple)
 	wxBitmap *bitmap = (wxBitmap *)(&wxNullBitmap);
 	if (args.IsValid(3)) bitmap = Object_wx_Bitmap::GetObject(args, 3)->GetEntity();
 	wx_WizardPageSimple *pEntity = new wx_WizardPageSimple(parent, prev, next, *bitmap);
-	Object_wx_WizardPageSimple *pObj = Object_wx_WizardPageSimple::GetSelfObj(args);
+	Object_wx_WizardPageSimple *pObj = Object_wx_WizardPageSimple::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_WizardPageSimple(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(WizardPageSimple)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_WizardPageSimple, SetPrev)
@@ -78,10 +78,10 @@ Gura_DeclareMethod(wx_WizardPageSimple, SetPrev)
 
 Gura_ImplementMethod(wx_WizardPageSimple, SetPrev)
 {
-	Object_wx_WizardPageSimple *pSelf = Object_wx_WizardPageSimple::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWizardPage *prev = Object_wx_WizardPage::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetPrev(prev);
+	pThis->GetEntity()->SetPrev(prev);
 	return Value::Null;
 }
 
@@ -93,10 +93,10 @@ Gura_DeclareMethod(wx_WizardPageSimple, SetNext)
 
 Gura_ImplementMethod(wx_WizardPageSimple, SetNext)
 {
-	Object_wx_WizardPageSimple *pSelf = Object_wx_WizardPageSimple::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWizardPage *next = Object_wx_WizardPage::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetNext(next);
+	pThis->GetEntity()->SetNext(next);
 	return Value::Null;
 }
 

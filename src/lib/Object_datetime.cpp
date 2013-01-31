@@ -175,7 +175,7 @@ Gura_ImplementMethod(datetime, format)
 		"Jan", "Feb", "Mar", "Apr", "May", "Jun",
 		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 	};
-	const DateTime &dateTime = Object_datetime::GetSelfObj(args)->GetDateTime();
+	const DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
 	if (args.IsString(0)) {
 		return Value(env, dateTime.ToString(args.GetString(0)).c_str());
 	} else if (args.IsSymbol(0)) {
@@ -227,9 +227,9 @@ Gura_DeclareMethod(datetime, settzoff)
 
 Gura_ImplementMethod(datetime, settzoff)
 {
-	DateTime &dateTime = Object_datetime::GetSelfObj(args)->GetDateTime();
+	DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
 	dateTime.SetTZOffset(args.GetLong(0) * 60);
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // datetime#clrtzoff():reduce
@@ -240,9 +240,9 @@ Gura_DeclareMethod(datetime, clrtzoff)
 
 Gura_ImplementMethod(datetime, clrtzoff)
 {
-	DateTime &dateTime = Object_datetime::GetSelfObj(args)->GetDateTime();
+	DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
 	dateTime.ClearTZOffset();
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // datetime#utc()
@@ -253,7 +253,7 @@ Gura_DeclareMethod(datetime, utc)
 
 Gura_ImplementMethod(datetime, utc)
 {
-	const DateTime &dateTime = Object_datetime::GetSelfObj(args)->GetDateTime();
+	const DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
 	if (!dateTime.HasTZOffset()) {
 		sig.SetError(ERR_ValueError, "datetime has no timezone offset");
 		return Value::Null;
@@ -269,7 +269,7 @@ Gura_DeclareMethod(datetime, isleap)
 
 Gura_ImplementMethod(datetime, isleap)
 {
-	const DateTime &dateTime = Object_datetime::GetSelfObj(args)->GetDateTime();
+	const DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
 	return Value(dateTime.IsLeapYear());
 }
 

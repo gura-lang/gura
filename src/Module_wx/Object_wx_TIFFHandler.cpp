@@ -45,7 +45,7 @@ Gura_ImplementFunction(TIFFHandler)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TIFFHandler *pEntity = new wx_TIFFHandler();
-	Object_wx_TIFFHandler *pObj = Object_wx_TIFFHandler::GetSelfObj(args);
+	Object_wx_TIFFHandler *pObj = Object_wx_TIFFHandler::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TIFFHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -53,7 +53,7 @@ Gura_ImplementFunction(TIFFHandler)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

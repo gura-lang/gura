@@ -49,7 +49,7 @@ Gura_ImplementFunction(SocketInputStream)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxSocketBase *s = Object_wx_SocketBase::GetObject(args, 0)->GetEntity();
 	wx_SocketInputStream *pEntity = new wx_SocketInputStream(*s);
-	Object_wx_SocketInputStream *pObj = Object_wx_SocketInputStream::GetSelfObj(args);
+	Object_wx_SocketInputStream *pObj = Object_wx_SocketInputStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SocketInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(SocketInputStream)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

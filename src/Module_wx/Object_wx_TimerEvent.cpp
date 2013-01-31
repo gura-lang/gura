@@ -43,9 +43,9 @@ Gura_DeclareMethod(wx_TimerEvent, GetInterval)
 
 Gura_ImplementMethod(wx_TimerEvent, GetInterval)
 {
-	Object_wx_TimerEvent *pSelf = Object_wx_TimerEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetInterval();
+	Object_wx_TimerEvent *pThis = Object_wx_TimerEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetInterval();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

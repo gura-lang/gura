@@ -42,9 +42,9 @@ Gura_DeclareMethod(wx_StackFrame, GetAddress)
 
 Gura_ImplementMethod(wx_StackFrame, GetAddress)
 {
-	Object_wx_StackFrame *pSelf = Object_wx_StackFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->GetAddress();
+	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->GetAddress();
 	return Value::Null;
 }
 
@@ -56,9 +56,9 @@ Gura_DeclareMethod(wx_StackFrame, GetFileName)
 
 Gura_ImplementMethod(wx_StackFrame, GetFileName)
 {
-	Object_wx_StackFrame *pSelf = Object_wx_StackFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetFileName();
+	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetFileName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -70,9 +70,9 @@ Gura_DeclareMethod(wx_StackFrame, GetLevel)
 
 Gura_ImplementMethod(wx_StackFrame, GetLevel)
 {
-	Object_wx_StackFrame *pSelf = Object_wx_StackFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	size_t rtn = pSelf->GetEntity()->GetLevel();
+	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	size_t rtn = pThis->GetEntity()->GetLevel();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -84,9 +84,9 @@ Gura_DeclareMethod(wx_StackFrame, GetLine)
 
 Gura_ImplementMethod(wx_StackFrame, GetLine)
 {
-	Object_wx_StackFrame *pSelf = Object_wx_StackFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	size_t rtn = pSelf->GetEntity()->GetLine();
+	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	size_t rtn = pThis->GetEntity()->GetLine();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -98,9 +98,9 @@ Gura_DeclareMethod(wx_StackFrame, GetModule)
 
 Gura_ImplementMethod(wx_StackFrame, GetModule)
 {
-	Object_wx_StackFrame *pSelf = Object_wx_StackFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetModule();
+	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetModule();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -112,9 +112,9 @@ Gura_DeclareMethod(wx_StackFrame, GetName)
 
 Gura_ImplementMethod(wx_StackFrame, GetName)
 {
-	Object_wx_StackFrame *pSelf = Object_wx_StackFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetName();
+	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -126,9 +126,9 @@ Gura_DeclareMethod(wx_StackFrame, GetOffset)
 
 Gura_ImplementMethod(wx_StackFrame, GetOffset)
 {
-	Object_wx_StackFrame *pSelf = Object_wx_StackFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	size_t rtn = pSelf->GetEntity()->GetOffset();
+	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	size_t rtn = pThis->GetEntity()->GetOffset();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -147,13 +147,13 @@ Gura_DeclareMethod(wx_StackFrame, GetParam)
 Gura_ImplementMethod(wx_StackFrame, GetParam)
 {
 #if 0
-	Object_wx_StackFrame *pSelf = Object_wx_StackFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t n = args.GetSizeT(0);
 	wxString type = wxString::FromUTF8(args.GetString(1));
 	wxString name = wxString::FromUTF8(args.GetString(2));
 	wxString value = wxString::FromUTF8(args.GetString(3));
-	bool rtn = pSelf->GetEntity()->GetParam(n, type, name, value);
+	bool rtn = pThis->GetEntity()->GetParam(n, type, name, value);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -168,9 +168,9 @@ Gura_DeclareMethod(wx_StackFrame, GetParamCount)
 
 Gura_ImplementMethod(wx_StackFrame, GetParamCount)
 {
-	Object_wx_StackFrame *pSelf = Object_wx_StackFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	size_t rtn = pSelf->GetEntity()->GetParamCount();
+	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	size_t rtn = pThis->GetEntity()->GetParamCount();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -182,9 +182,9 @@ Gura_DeclareMethod(wx_StackFrame, HasSourceLocation)
 
 Gura_ImplementMethod(wx_StackFrame, HasSourceLocation)
 {
-	Object_wx_StackFrame *pSelf = Object_wx_StackFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasSourceLocation();
+	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasSourceLocation();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

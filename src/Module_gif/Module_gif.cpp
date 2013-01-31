@@ -1148,13 +1148,13 @@ Gura_DeclareMethod(content, write)
 
 Gura_ImplementMethod(content, write)
 {
-	GIF &gif = Object_content::GetSelfObj(args)->GetGIF();
+	GIF &gif = Object_content::GetThisObj(args)->GetGIF();
 	Stream &stream = args.GetStream(0);
 	unsigned short loopCount = 0;
 	if (!gif.Write(env, sig, stream, Color::Null, loopCount)) {
 		return Value::Null;
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // gif.content#addimage(image:image, delayTime:number => 0, 
@@ -1182,12 +1182,12 @@ Gura_DeclareMethod(content, addimage)
 
 Gura_ImplementMethod(content, addimage)
 {
-	GIF &gif = Object_content::GetSelfObj(args)->GetGIF();
+	GIF &gif = Object_content::GetThisObj(args)->GetGIF();
 	unsigned char disposalMethod = GIF::DisposalMethodFromSymbol(sig, args.GetSymbol(4));
 	if (sig.IsSignalled()) return Value::Null;
 	gif.AddImage(args.GetValue(0), args.GetUShort(1),
 					args.GetUShort(2), args.GetUShort(3), disposalMethod);
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // implementation of class GIF
@@ -1373,13 +1373,13 @@ Gura_DeclareMethod(image, gifread)
 
 Gura_ImplementMethod(image, gifread)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!pSelf->CheckEmpty(sig)) return Value::Null;
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!pThis->CheckEmpty(sig)) return Value::Null;
 	Stream &stream = args.GetStream(0);
-	if (!GIF().Read(env, sig, stream, pSelf, pSelf->GetFormat())) {
+	if (!GIF().Read(env, sig, stream, pThis, pThis->GetFormat())) {
 		return Value::Null;
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // image#gifwrite(stream:stream:w):reduce
@@ -1392,16 +1392,16 @@ Gura_DeclareMethod(image, gifwrite)
 
 Gura_ImplementMethod(image, gifwrite)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!pSelf->CheckValid(sig)) return Value::Null;
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!pThis->CheckValid(sig)) return Value::Null;
 	Stream &stream = args.GetStream(0);
 	GIF gif;
-	gif.AddImage(args.GetSelf(), 0, 0, 0, 1);
+	gif.AddImage(args.GetThis(), 0, 0, 0, 1);
 	unsigned short loopCount = 0;
 	if (!gif.Write(env, sig, stream, Color::Null, loopCount)) {
 		return Value::Null;
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------

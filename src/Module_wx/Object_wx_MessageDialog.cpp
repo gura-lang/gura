@@ -61,7 +61,7 @@ Gura_ImplementFunction(MessageDialog)
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
 	if (args.IsValid(4)) pos = Object_wx_Point::GetObject(args, 4)->GetEntity();
 	wx_MessageDialog *pEntity = new wx_MessageDialog(parent, message, caption, style, *pos);
-	Object_wx_MessageDialog *pObj = Object_wx_MessageDialog::GetSelfObj(args);
+	Object_wx_MessageDialog *pObj = Object_wx_MessageDialog::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MessageDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(MessageDialog)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MessageDialog, ShowModal)
@@ -80,9 +80,9 @@ Gura_DeclareMethod(wx_MessageDialog, ShowModal)
 
 Gura_ImplementMethod(wx_MessageDialog, ShowModal)
 {
-	Object_wx_MessageDialog *pSelf = Object_wx_MessageDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->ShowModal();
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->ShowModal();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

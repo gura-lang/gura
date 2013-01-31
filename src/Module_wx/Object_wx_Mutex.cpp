@@ -50,7 +50,7 @@ Gura_ImplementFunction(Mutex)
 	wxMutexType type = wxMUTEX_DEFAULT;
 	if (args.IsValid(0)) type = static_cast<wxMutexType>(args.GetInt(0));
 	wx_Mutex *pEntity = new wx_Mutex(type);
-	Object_wx_Mutex *pObj = Object_wx_Mutex::GetSelfObj(args);
+	Object_wx_Mutex *pObj = Object_wx_Mutex::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Mutex(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(Mutex)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Mutex, Lock)
@@ -69,9 +69,9 @@ Gura_DeclareMethod(wx_Mutex, Lock)
 
 Gura_ImplementMethod(wx_Mutex, Lock)
 {
-	Object_wx_Mutex *pSelf = Object_wx_Mutex::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxMutexError rtn = pSelf->GetEntity()->Lock();
+	Object_wx_Mutex *pThis = Object_wx_Mutex::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxMutexError rtn = pThis->GetEntity()->Lock();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -83,9 +83,9 @@ Gura_DeclareMethod(wx_Mutex, TryLock)
 
 Gura_ImplementMethod(wx_Mutex, TryLock)
 {
-	Object_wx_Mutex *pSelf = Object_wx_Mutex::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxMutexError rtn = pSelf->GetEntity()->TryLock();
+	Object_wx_Mutex *pThis = Object_wx_Mutex::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxMutexError rtn = pThis->GetEntity()->TryLock();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -97,9 +97,9 @@ Gura_DeclareMethod(wx_Mutex, Unlock)
 
 Gura_ImplementMethod(wx_Mutex, Unlock)
 {
-	Object_wx_Mutex *pSelf = Object_wx_Mutex::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxMutexError rtn = pSelf->GetEntity()->Unlock();
+	Object_wx_Mutex *pThis = Object_wx_Mutex::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxMutexError rtn = pThis->GetEntity()->Unlock();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

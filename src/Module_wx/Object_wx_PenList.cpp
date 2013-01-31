@@ -47,7 +47,7 @@ Gura_ImplementFunction(PenListEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PenList *pEntity = new wx_PenList();
-	Object_wx_PenList *pObj = Object_wx_PenList::GetSelfObj(args);
+	Object_wx_PenList *pObj = Object_wx_PenList::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PenList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(PenListEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_PenList, FindOrCreatePen)
@@ -69,12 +69,12 @@ Gura_DeclareMethod(wx_PenList, FindOrCreatePen)
 
 Gura_ImplementMethod(wx_PenList, FindOrCreatePen)
 {
-	Object_wx_PenList *pSelf = Object_wx_PenList::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PenList *pThis = Object_wx_PenList::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	int width = args.GetInt(1);
 	int style = args.GetInt(2);
-	wxPen *rtn = (wxPen *)pSelf->GetEntity()->FindOrCreatePen(*colour, width, style);
+	wxPen *rtn = (wxPen *)pThis->GetEntity()->FindOrCreatePen(*colour, width, style);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Pen(rtn, NULL, OwnerFalse)));
 }
 
@@ -89,12 +89,12 @@ Gura_DeclareMethod(wx_PenList, FindOrCreatePen_1)
 
 Gura_ImplementMethod(wx_PenList, FindOrCreatePen_1)
 {
-	Object_wx_PenList *pSelf = Object_wx_PenList::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PenList *pThis = Object_wx_PenList::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString colourName = wxString::FromUTF8(args.GetString(0));
 	int width = args.GetInt(1);
 	int style = args.GetInt(2);
-	wxPen *rtn = (wxPen *)pSelf->GetEntity()->FindOrCreatePen(colourName, width, style);
+	wxPen *rtn = (wxPen *)pThis->GetEntity()->FindOrCreatePen(colourName, width, style);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Pen(rtn, NULL, OwnerFalse)));
 }
 

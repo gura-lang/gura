@@ -49,7 +49,7 @@ Gura_ImplementFunction(BufferedDCEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BufferedDC *pEntity = new wx_BufferedDC();
-	Object_wx_BufferedDC *pObj = Object_wx_BufferedDC::GetSelfObj(args);
+	Object_wx_BufferedDC *pObj = Object_wx_BufferedDC::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_BufferedDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(BufferedDCEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(BufferedDC)
@@ -78,7 +78,7 @@ Gura_ImplementFunction(BufferedDC)
 	int style = wxBUFFER_CLIENT_AREA;
 	if (args.IsValid(2)) style = args.GetInt(2);
 	wx_BufferedDC *pEntity = new wx_BufferedDC(dc, *area, style);
-	Object_wx_BufferedDC *pObj = Object_wx_BufferedDC::GetSelfObj(args);
+	Object_wx_BufferedDC *pObj = Object_wx_BufferedDC::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_BufferedDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -86,7 +86,7 @@ Gura_ImplementFunction(BufferedDC)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(BufferedDC_1)
@@ -107,7 +107,7 @@ Gura_ImplementFunction(BufferedDC_1)
 	int style = wxBUFFER_CLIENT_AREA;
 	if (args.IsValid(2)) style = args.GetInt(2);
 	wx_BufferedDC *pEntity = new wx_BufferedDC(dc, *buffer, style);
-	Object_wx_BufferedDC *pObj = Object_wx_BufferedDC::GetSelfObj(args);
+	Object_wx_BufferedDC *pObj = Object_wx_BufferedDC::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_BufferedDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -115,7 +115,7 @@ Gura_ImplementFunction(BufferedDC_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_BufferedDC, Init)
@@ -128,13 +128,13 @@ Gura_DeclareMethod(wx_BufferedDC, Init)
 
 Gura_ImplementMethod(wx_BufferedDC, Init)
 {
-	Object_wx_BufferedDC *pSelf = Object_wx_BufferedDC::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxSize *area = Object_wx_Size::GetObject(args, 1)->GetEntity();
 	int style = wxBUFFER_CLIENT_AREA;
 	if (args.IsValid(2)) style = args.GetInt(2);
-	pSelf->GetEntity()->Init(dc, *area, style);
+	pThis->GetEntity()->Init(dc, *area, style);
 	return Value::Null;
 }
 
@@ -148,13 +148,13 @@ Gura_DeclareMethod(wx_BufferedDC, Init_1)
 
 Gura_ImplementMethod(wx_BufferedDC, Init_1)
 {
-	Object_wx_BufferedDC *pSelf = Object_wx_BufferedDC::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxBitmap *buffer = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
 	int style = wxBUFFER_CLIENT_AREA;
 	if (args.IsValid(2)) style = args.GetInt(2);
-	pSelf->GetEntity()->Init(dc, *buffer, style);
+	pThis->GetEntity()->Init(dc, *buffer, style);
 	return Value::Null;
 }
 

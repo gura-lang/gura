@@ -57,7 +57,7 @@ Gura_ImplementFunction(HtmlModalHelp)
 	int style = wxHF_DEFAULT_STYLE | wxHF_DIALOG | wxHF_MODAL;
 	if (args.IsValid(3)) style = args.GetInt(3);
 	wx_HtmlModalHelp *pEntity = new wx_HtmlModalHelp(parent, helpFile, topic, style);
-	Object_wx_HtmlModalHelp *pObj = Object_wx_HtmlModalHelp::GetSelfObj(args);
+	Object_wx_HtmlModalHelp *pObj = Object_wx_HtmlModalHelp::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_HtmlModalHelp(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -65,7 +65,7 @@ Gura_ImplementFunction(HtmlModalHelp)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

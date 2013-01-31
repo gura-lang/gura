@@ -49,7 +49,7 @@ Gura_ImplementFunction(BufferedOutputStream)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *parent = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wx_BufferedOutputStream *pEntity = new wx_BufferedOutputStream(*parent);
-	Object_wx_BufferedOutputStream *pObj = Object_wx_BufferedOutputStream::GetSelfObj(args);
+	Object_wx_BufferedOutputStream *pObj = Object_wx_BufferedOutputStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_BufferedOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(BufferedOutputStream)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_BufferedOutputStream, SeekO)
@@ -70,11 +70,11 @@ Gura_DeclareMethod(wx_BufferedOutputStream, SeekO)
 
 Gura_ImplementMethod(wx_BufferedOutputStream, SeekO)
 {
-	Object_wx_BufferedOutputStream *pSelf = Object_wx_BufferedOutputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	off_t pos = static_cast<off_t>(args.GetLong(0));
 	wxSeekMode mode = static_cast<wxSeekMode>(args.GetInt(1));
-	off_t rtn = pSelf->GetEntity()->SeekO(pos, mode);
+	off_t rtn = pThis->GetEntity()->SeekO(pos, mode);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -85,9 +85,9 @@ Gura_DeclareMethod(wx_BufferedOutputStream, Sync)
 
 Gura_ImplementMethod(wx_BufferedOutputStream, Sync)
 {
-	Object_wx_BufferedOutputStream *pSelf = Object_wx_BufferedOutputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Sync();
+	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Sync();
 	return Value::Null;
 }
 

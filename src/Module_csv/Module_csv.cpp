@@ -120,9 +120,9 @@ Gura_DeclareMethod(writer, write)
 
 Gura_ImplementMethod(writer, write)
 {
-	Object_writer *pSelf = Object_writer::GetSelfObj(args);
-	if (!pSelf->PutLine(env, sig, args.GetList(0))) return Value::Null;
-	return args.GetSelf();
+	Object_writer *pThis = Object_writer::GetThisObj(args);
+	if (!pThis->PutLine(env, sig, args.GetList(0))) return Value::Null;
+	return args.GetThis();
 }
 
 // implementation of class writer
@@ -194,9 +194,9 @@ Gura_DeclareMethod(stream, csvreader)
 
 Gura_ImplementMethod(stream, csvreader)
 {
-	Object_stream *pSelf = Object_stream::GetSelfObj(args);
+	Object_stream *pThis = Object_stream::GetThisObj(args);
 	Iterator *pIterator = new Iterator_reader(new ReaderStream(
-							Stream::Reference(&pSelf->GetStream())));
+							Stream::Reference(&pThis->GetStream())));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -210,10 +210,10 @@ Gura_DeclareMethod(stream, csvwriter)
 
 Gura_ImplementMethod(stream, csvwriter)
 {
-	Object_stream *pSelf = Object_stream::GetSelfObj(args);
+	Object_stream *pThis = Object_stream::GetThisObj(args);
 	const char *format = args.IsString(1)? args.GetString(1) : DEFAULT_FORMAT;
 	Object_writer *pObj = new Object_writer(
-						Stream::Reference(&pSelf->GetStream()), format);
+						Stream::Reference(&pThis->GetStream()), format);
 	return ReturnValue(env, sig, args, Value(pObj));
 }
 

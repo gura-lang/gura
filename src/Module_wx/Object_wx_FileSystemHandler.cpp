@@ -59,7 +59,7 @@ Gura_ImplementFunction(FileSystemHandlerEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_FileSystemHandler *pEntity = new wx_FileSystemHandler();
-	Object_wx_FileSystemHandler *pObj = Object_wx_FileSystemHandler::GetSelfObj(args);
+	Object_wx_FileSystemHandler *pObj = Object_wx_FileSystemHandler::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_FileSystemHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(FileSystemHandlerEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -82,10 +82,10 @@ Gura_DeclareMethod(wx_FileSystemHandler, CanOpen)
 
 Gura_ImplementMethod(wx_FileSystemHandler, CanOpen)
 {
-	Object_wx_FileSystemHandler *pSelf = Object_wx_FileSystemHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString location = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->CanOpen(location);
+	bool rtn = pThis->GetEntity()->CanOpen(location);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -101,10 +101,10 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetAnchor)
 Gura_ImplementMethod(wx_FileSystemHandler, GetAnchor)
 {
 #if 0
-	Object_wx_FileSystemHandler *pSelf = Object_wx_FileSystemHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString location = wxString::FromUTF8(args.GetString(0));
-	wxString rtn = pSelf->GetEntity()->GetAnchor(location);
+	wxString rtn = pThis->GetEntity()->GetAnchor(location);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
@@ -123,10 +123,10 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetLeftLocation)
 Gura_ImplementMethod(wx_FileSystemHandler, GetLeftLocation)
 {
 #if 0
-	Object_wx_FileSystemHandler *pSelf = Object_wx_FileSystemHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString location = wxString::FromUTF8(args.GetString(0));
-	wxString rtn = pSelf->GetEntity()->GetLeftLocation(location);
+	wxString rtn = pThis->GetEntity()->GetLeftLocation(location);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
@@ -145,10 +145,10 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetMimeTypeFromExt)
 Gura_ImplementMethod(wx_FileSystemHandler, GetMimeTypeFromExt)
 {
 #if 0
-	Object_wx_FileSystemHandler *pSelf = Object_wx_FileSystemHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString location = wxString::FromUTF8(args.GetString(0));
-	wxString rtn = pSelf->GetEntity()->GetMimeTypeFromExt(location);
+	wxString rtn = pThis->GetEntity()->GetMimeTypeFromExt(location);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
@@ -167,10 +167,10 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetProtocol)
 Gura_ImplementMethod(wx_FileSystemHandler, GetProtocol)
 {
 #if 0
-	Object_wx_FileSystemHandler *pSelf = Object_wx_FileSystemHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString location = wxString::FromUTF8(args.GetString(0));
-	wxString rtn = pSelf->GetEntity()->GetProtocol(location);
+	wxString rtn = pThis->GetEntity()->GetProtocol(location);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
@@ -189,10 +189,10 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetRightLocation)
 Gura_ImplementMethod(wx_FileSystemHandler, GetRightLocation)
 {
 #if 0
-	Object_wx_FileSystemHandler *pSelf = Object_wx_FileSystemHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString location = wxString::FromUTF8(args.GetString(0));
-	wxString rtn = pSelf->GetEntity()->GetRightLocation(location);
+	wxString rtn = pThis->GetEntity()->GetRightLocation(location);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
@@ -209,12 +209,12 @@ Gura_DeclareMethod(wx_FileSystemHandler, FindFirst)
 
 Gura_ImplementMethod(wx_FileSystemHandler, FindFirst)
 {
-	Object_wx_FileSystemHandler *pSelf = Object_wx_FileSystemHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString wildcard = wxString::FromUTF8(args.GetString(0));
 	int flags = 0;
 	if (args.IsValid(1)) flags = args.GetInt(1);
-	wxString rtn = pSelf->GetEntity()->FindFirst(wildcard, flags);
+	wxString rtn = pThis->GetEntity()->FindFirst(wildcard, flags);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -226,9 +226,9 @@ Gura_DeclareMethod(wx_FileSystemHandler, FindNext)
 
 Gura_ImplementMethod(wx_FileSystemHandler, FindNext)
 {
-	Object_wx_FileSystemHandler *pSelf = Object_wx_FileSystemHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->FindNext();
+	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->FindNext();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -242,11 +242,11 @@ Gura_DeclareMethod(wx_FileSystemHandler, OpenFile)
 
 Gura_ImplementMethod(wx_FileSystemHandler, OpenFile)
 {
-	Object_wx_FileSystemHandler *pSelf = Object_wx_FileSystemHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileSystem *fs = Object_wx_FileSystem::GetObject(args, 0)->GetEntity();
 	wxString location = wxString::FromUTF8(args.GetString(1));
-	wxFSFile *rtn = (wxFSFile *)pSelf->GetEntity()->OpenFile(*fs, location);
+	wxFSFile *rtn = (wxFSFile *)pThis->GetEntity()->OpenFile(*fs, location);
 	return ReturnValue(env, sig, args, Value(new Object_wx_FSFile(rtn, NULL, OwnerFalse)));
 }
 

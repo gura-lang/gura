@@ -50,7 +50,7 @@ Gura_ImplementFunction(SocketEvent)
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wx_SocketEvent *pEntity = new wx_SocketEvent(id);
-	Object_wx_SocketEvent *pObj = Object_wx_SocketEvent::GetSelfObj(args);
+	Object_wx_SocketEvent *pObj = Object_wx_SocketEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SocketEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(SocketEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SocketEvent, GetClientData)
@@ -68,9 +68,9 @@ Gura_DeclareMethod(wx_SocketEvent, GetClientData)
 
 Gura_ImplementMethod(wx_SocketEvent, GetClientData)
 {
-	Object_wx_SocketEvent *pSelf = Object_wx_SocketEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->GetClientData();
+	Object_wx_SocketEvent *pThis = Object_wx_SocketEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->GetClientData();
 	return Value::Null;
 }
 
@@ -82,9 +82,9 @@ Gura_DeclareMethod(wx_SocketEvent, GetSocket)
 
 Gura_ImplementMethod(wx_SocketEvent, GetSocket)
 {
-	Object_wx_SocketEvent *pSelf = Object_wx_SocketEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSocketBase *rtn = (wxSocketBase *)pSelf->GetEntity()->GetSocket();
+	Object_wx_SocketEvent *pThis = Object_wx_SocketEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSocketBase *rtn = (wxSocketBase *)pThis->GetEntity()->GetSocket();
 	return ReturnValue(env, sig, args, Value(new Object_wx_SocketBase(rtn, NULL, OwnerFalse)));
 }
 
@@ -97,9 +97,9 @@ Gura_DeclareMethod(wx_SocketEvent, GetSocketEvent)
 Gura_ImplementMethod(wx_SocketEvent, GetSocketEvent)
 {
 #if 0
-	Object_wx_SocketEvent *pSelf = Object_wx_SocketEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSocketNotify rtn = pSelf->GetEntity()->GetSocketEvent();
+	Object_wx_SocketEvent *pThis = Object_wx_SocketEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSocketNotify rtn = pThis->GetEntity()->GetSocketEvent();
 	return ReturnValue(env, sig, args, Value(new Object_wx_SocketNotify(new wxSocketNotify(rtn), NULL, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);

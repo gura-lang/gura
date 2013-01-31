@@ -57,7 +57,7 @@ Gura_ImplementFunction(HtmlHelpDialog)
 	wxHtmlHelpData *data = (wxHtmlHelpData *)(NULL);
 	if (args.IsValid(0)) data = Object_wx_HtmlHelpData::GetObject(args, 0)->GetEntity();
 	wx_HtmlHelpDialog *pEntity = new wx_HtmlHelpDialog(data);
-	Object_wx_HtmlHelpDialog *pObj = Object_wx_HtmlHelpDialog::GetSelfObj(args);
+	Object_wx_HtmlHelpDialog *pObj = Object_wx_HtmlHelpDialog::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_HtmlHelpDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -65,7 +65,7 @@ Gura_ImplementFunction(HtmlHelpDialog)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -98,7 +98,7 @@ Gura_ImplementFunction(HtmlHelpDialog_1)
 	wxHtmlHelpData *data = (wxHtmlHelpData *)(NULL);
 	if (args.IsValid(4)) data = Object_wx_HtmlHelpData::GetObject(args, 4)->GetEntity();
 	wx_HtmlHelpDialog *pEntity = new wx_HtmlHelpDialog(parent, wxWindowID, title, style, data);
-	Object_wx_HtmlHelpDialog *pObj = Object_wx_HtmlHelpDialog::GetSelfObj(args);
+	Object_wx_HtmlHelpDialog *pObj = Object_wx_HtmlHelpDialog::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_HtmlHelpDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -106,7 +106,7 @@ Gura_ImplementFunction(HtmlHelpDialog_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -124,11 +124,11 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, AddToolbarButtons)
 Gura_ImplementMethod(wx_HtmlHelpDialog, AddToolbarButtons)
 {
 #if 0
-	Object_wx_HtmlHelpDialog *pSelf = Object_wx_HtmlHelpDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxToolBar *toolBar = Object_wx_ToolBar::GetObject(args, 0)->GetEntity();
 	int style = args.GetInt(1);
-	pSelf->GetEntity()->AddToolbarButtons(toolBar, style);
+	pThis->GetEntity()->AddToolbarButtons(toolBar, style);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -150,15 +150,15 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, Create)
 Gura_ImplementMethod(wx_HtmlHelpDialog, Create)
 {
 #if 0
-	Object_wx_HtmlHelpDialog *pSelf = Object_wx_HtmlHelpDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString title = wxEmptyString;
 	if (args.IsValid(2)) title = wxString::FromUTF8(args.GetString(2));
 	int style = wxHF_DEFAULT_STYLE;
 	if (args.IsValid(3)) style = args.GetInt(3);
-	bool rtn = pSelf->GetEntity()->Create(parent, id, title, style);
+	bool rtn = pThis->GetEntity()->Create(parent, id, title, style);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -173,9 +173,9 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, GetController)
 
 Gura_ImplementMethod(wx_HtmlHelpDialog, GetController)
 {
-	Object_wx_HtmlHelpDialog *pSelf = Object_wx_HtmlHelpDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxHtmlHelpController *rtn = (wxHtmlHelpController *)pSelf->GetEntity()->GetController();
+	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxHtmlHelpController *rtn = (wxHtmlHelpController *)pThis->GetEntity()->GetController();
 	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpController(rtn, NULL, OwnerFalse)));
 }
 
@@ -191,12 +191,12 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, ReadCustomization)
 Gura_ImplementMethod(wx_HtmlHelpDialog, ReadCustomization)
 {
 #if 0
-	Object_wx_HtmlHelpDialog *pSelf = Object_wx_HtmlHelpDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxConfigBase *cfg = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
 	wxString path = wxEmptyString;
 	if (args.IsValid(1)) path = wxString::FromUTF8(args.GetString(1));
-	pSelf->GetEntity()->ReadCustomization(cfg, path);
+	pThis->GetEntity()->ReadCustomization(cfg, path);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -214,10 +214,10 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, SetController)
 Gura_ImplementMethod(wx_HtmlHelpDialog, SetController)
 {
 #if 0
-	Object_wx_HtmlHelpDialog *pSelf = Object_wx_HtmlHelpDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlHelpController *contoller = Object_wx_HtmlHelpController::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetController(contoller);
+	pThis->GetEntity()->SetController(contoller);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -235,10 +235,10 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, SetTitleFormat)
 Gura_ImplementMethod(wx_HtmlHelpDialog, SetTitleFormat)
 {
 #if 0
-	Object_wx_HtmlHelpDialog *pSelf = Object_wx_HtmlHelpDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString format = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetTitleFormat(format);
+	pThis->GetEntity()->SetTitleFormat(format);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -257,12 +257,12 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, WriteCustomization)
 Gura_ImplementMethod(wx_HtmlHelpDialog, WriteCustomization)
 {
 #if 0
-	Object_wx_HtmlHelpDialog *pSelf = Object_wx_HtmlHelpDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxConfigBase *cfg = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
 	wxString path = wxEmptyString;
 	if (args.IsValid(1)) path = wxString::FromUTF8(args.GetString(1));
-	pSelf->GetEntity()->WriteCustomization(cfg, path);
+	pThis->GetEntity()->WriteCustomization(cfg, path);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);

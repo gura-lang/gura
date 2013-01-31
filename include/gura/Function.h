@@ -183,7 +183,7 @@ const char *GetFuncTypeName(FunctionType funcType);
 class DLLDECLARE ICallable {
 public:
 	Value Call(Environment &env, Signal sig,
-			const Value &valueSelf, Iterator *pIteratorSelf, bool listSelfFlag,
+			const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
 			const Expr_Caller *pExprCaller, const ExprList &exprListArg,
 			const Function **ppFuncSuccRequester);
 protected:
@@ -427,9 +427,9 @@ public:
 //-----------------------------------------------------------------------------
 class DLLDECLARE Args {
 private:
-	Value _valueSelf;
-	AutoPtr<Iterator> _pIteratorSelf;
-	bool _listSelfFlag;
+	Value _valueThis;
+	AutoPtr<Iterator> _pIteratorThis;
+	bool _listThisFlag;
 	const Value &_valueWithDict;
 	const ExprList &_exprListArg;
 	const ValueList &_valListArg;
@@ -441,28 +441,28 @@ private:
 	unsigned long _flags;
 	AutoPtr<Function> _pFuncBlock;
 public:
-	inline Args(const ExprList &exprListArg, const Value &valueSelf = Value::Null,
-				Iterator *pIteratorSelf = NULL, bool listSelfFlag = false,
+	inline Args(const ExprList &exprListArg, const Value &valueThis = Value::Null,
+				Iterator *pIteratorThis = NULL, bool listThisFlag = false,
 				const Function **ppFuncSuccRequester = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
 				const SymbolSet &attrsOpt = SymbolSet::Null,
 				const Expr_Block *pExprBlock = NULL) :
-		_valueSelf(valueSelf),
-		_pIteratorSelf(pIteratorSelf), _listSelfFlag(listSelfFlag),
+		_valueThis(valueThis),
+		_pIteratorThis(pIteratorThis), _listThisFlag(listThisFlag),
 		_valueWithDict(Value::Null),
 		_exprListArg(exprListArg), _valListArg(ValueList::Null),
 		_ppFuncSuccRequester(ppFuncSuccRequester),
 		_attrs(attrs), _attrsOpt(attrsOpt), _pExprBlock(pExprBlock),
 		_resultMode(RSLTMODE_Normal), _flags(FLAG_None),
 		_pFuncBlock(NULL) {}
-	inline Args(const ValueList &valListArg, const Value &valueSelf = Value::Null,
-				Iterator *pIteratorSelf = NULL, bool listSelfFlag = false,
+	inline Args(const ValueList &valListArg, const Value &valueThis = Value::Null,
+				Iterator *pIteratorThis = NULL, bool listThisFlag = false,
 				const Function **ppFuncSuccRequester = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
 				const SymbolSet &attrsOpt = SymbolSet::Null,
 				const Expr_Block *pExprBlock = NULL) :
-		_valueSelf(valueSelf),
-		_pIteratorSelf(pIteratorSelf), _listSelfFlag(listSelfFlag),
+		_valueThis(valueThis),
+		_pIteratorThis(pIteratorThis), _listThisFlag(listThisFlag),
 		_valueWithDict(Value::Null),
 		_exprListArg(ExprList::Null), _valListArg(valListArg),
 		_ppFuncSuccRequester(ppFuncSuccRequester),
@@ -471,8 +471,8 @@ public:
 		_pFuncBlock(NULL) {}
 	inline Args(Args &args, const ValueList &valListArg,
 			const Value &valueWithDict, ResultMode resultMode, unsigned long flags) :
-		_valueSelf(args._valueSelf),
-		_pIteratorSelf(Iterator::Reference(args._pIteratorSelf.get())), _listSelfFlag(args._listSelfFlag),
+		_valueThis(args._valueThis),
+		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())), _listThisFlag(args._listThisFlag),
 		_valueWithDict(valueWithDict),
 		_exprListArg(ExprList::Null), _valListArg(valListArg),
 		_ppFuncSuccRequester(args._ppFuncSuccRequester),
@@ -480,8 +480,8 @@ public:
 		_resultMode(resultMode), _flags(flags),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
 	inline Args(Args &args, const ExprList &exprListArg) :
-		_valueSelf(args._valueSelf),
-		_pIteratorSelf(Iterator::Reference(args._pIteratorSelf.get())), _listSelfFlag(args._listSelfFlag),
+		_valueThis(args._valueThis),
+		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())), _listThisFlag(args._listThisFlag),
 		_valueWithDict(Value::Null),
 		_exprListArg(exprListArg), _valListArg(ValueList::Null),
 		_ppFuncSuccRequester(args._ppFuncSuccRequester),
@@ -497,16 +497,16 @@ public:
 	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
 	inline ResultMode GetResultMode() const { return _resultMode; }
 	inline bool GetFlatFlag() const { return (_flags & FLAG_Flat)? true : false; }
-	inline void SetSelf(const Value &valueSelf) { _valueSelf = valueSelf; }
-	inline Value &GetSelf() { return _valueSelf; }
-	inline const Value &GetSelf() const { return _valueSelf; }
-	inline Class *GetSelfClass() { return _valueSelf.GetClass(); }
-	inline Object *GetSelfObj() { return _valueSelf.GetObject(); }
-	inline ObjectBase *GetSelfObjBase() { return _valueSelf.GetObjectBase(); }
-	inline Iterator *GetIteratorSelf() { return _pIteratorSelf.get(); }
-	inline bool IsSelfIterable() const { return !_pIteratorSelf.IsNull(); }
-	inline bool IsSelfList() const { return !_pIteratorSelf.IsNull() && _listSelfFlag; }
-	inline bool IsSelfIterator() const { return !_pIteratorSelf.IsNull() && !_listSelfFlag; }
+	inline void SetThis(const Value &valueThis) { _valueThis = valueThis; }
+	inline Value &GetThis() { return _valueThis; }
+	inline const Value &GetThis() const { return _valueThis; }
+	inline Class *GetThisClass() { return _valueThis.GetClass(); }
+	inline Object *GetThisObj() { return _valueThis.GetObject(); }
+	inline ObjectBase *GetThisObjBase() { return _valueThis.GetObjectBase(); }
+	inline Iterator *GetIteratorThis() { return _pIteratorThis.get(); }
+	inline bool IsThisIterable() const { return !_pIteratorThis.IsNull(); }
+	inline bool IsThisList() const { return !_pIteratorThis.IsNull() && _listThisFlag; }
+	inline bool IsThisIterator() const { return !_pIteratorThis.IsNull() && !_listThisFlag; }
 	inline bool IsBlockSpecified() const { return _pExprBlock != NULL; }
 	inline bool IsRsltNormal() const { return _resultMode == RSLTMODE_Normal; }
 	inline bool IsRsltList() const { return _resultMode == RSLTMODE_List; }

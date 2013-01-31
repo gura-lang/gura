@@ -52,7 +52,7 @@ Gura_ImplementFunction(PageSetupDialog)
 	wxPageSetupDialogData *data = (wxPageSetupDialogData *)(NULL);
 	if (args.IsValid(1)) data = Object_wx_PageSetupDialogData::GetObject(args, 1)->GetEntity();
 	wx_PageSetupDialog *pEntity = new wx_PageSetupDialog(parent, data);
-	Object_wx_PageSetupDialog *pObj = Object_wx_PageSetupDialog::GetSelfObj(args);
+	Object_wx_PageSetupDialog *pObj = Object_wx_PageSetupDialog::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PageSetupDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -60,7 +60,7 @@ Gura_ImplementFunction(PageSetupDialog)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_PageSetupDialog, GetPageSetupData)
@@ -71,9 +71,9 @@ Gura_DeclareMethod(wx_PageSetupDialog, GetPageSetupData)
 
 Gura_ImplementMethod(wx_PageSetupDialog, GetPageSetupData)
 {
-	Object_wx_PageSetupDialog *pSelf = Object_wx_PageSetupDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPageSetupDialogData &rtn = pSelf->GetEntity()->GetPageSetupData();
+	Object_wx_PageSetupDialog *pThis = Object_wx_PageSetupDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPageSetupDialogData &rtn = pThis->GetEntity()->GetPageSetupData();
 	return ReturnValue(env, sig, args, Value(new Object_wx_PageSetupDialogData(new wxPageSetupDialogData(rtn), NULL, OwnerTrue)));
 }
 
@@ -86,9 +86,9 @@ Gura_DeclareMethod(wx_PageSetupDialog, IsOk)
 Gura_ImplementMethod(wx_PageSetupDialog, IsOk)
 {
 #if 0
-	Object_wx_PageSetupDialog *pSelf = Object_wx_PageSetupDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_PageSetupDialog *pThis = Object_wx_PageSetupDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -103,9 +103,9 @@ Gura_DeclareMethod(wx_PageSetupDialog, ShowModal)
 
 Gura_ImplementMethod(wx_PageSetupDialog, ShowModal)
 {
-	Object_wx_PageSetupDialog *pSelf = Object_wx_PageSetupDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->ShowModal();
+	Object_wx_PageSetupDialog *pThis = Object_wx_PageSetupDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->ShowModal();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

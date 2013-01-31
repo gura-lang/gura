@@ -60,7 +60,7 @@ Gura_ImplementFunction(FSFile)
 	wxString anchor = wxString::FromUTF8(args.GetString(3));
 	wxDateTime *modif = Object_wx_DateTime::GetObject(args, 4)->GetEntity();
 	wx_FSFile *pEntity = new wx_FSFile(**stream, loc, mimetype, anchor, *modif);
-	Object_wx_FSFile *pObj = Object_wx_FSFile::GetSelfObj(args);
+	Object_wx_FSFile *pObj = Object_wx_FSFile::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_FSFile(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -68,7 +68,7 @@ Gura_ImplementFunction(FSFile)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -81,9 +81,9 @@ Gura_DeclareMethod(wx_FSFile, DetachStream)
 
 Gura_ImplementMethod(wx_FSFile, DetachStream)
 {
-	Object_wx_FSFile *pSelf = Object_wx_FSFile::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->DetachStream();
+	Object_wx_FSFile *pThis = Object_wx_FSFile::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->DetachStream();
 	return Value::Null;
 }
 
@@ -95,9 +95,9 @@ Gura_DeclareMethod(wx_FSFile, GetAnchor)
 
 Gura_ImplementMethod(wx_FSFile, GetAnchor)
 {
-	Object_wx_FSFile *pSelf = Object_wx_FSFile::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetAnchor();
+	Object_wx_FSFile *pThis = Object_wx_FSFile::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetAnchor();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -109,9 +109,9 @@ Gura_DeclareMethod(wx_FSFile, GetLocation)
 
 Gura_ImplementMethod(wx_FSFile, GetLocation)
 {
-	Object_wx_FSFile *pSelf = Object_wx_FSFile::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetLocation();
+	Object_wx_FSFile *pThis = Object_wx_FSFile::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetLocation();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -123,9 +123,9 @@ Gura_DeclareMethod(wx_FSFile, GetMimeType)
 
 Gura_ImplementMethod(wx_FSFile, GetMimeType)
 {
-	Object_wx_FSFile *pSelf = Object_wx_FSFile::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetMimeType();
+	Object_wx_FSFile *pThis = Object_wx_FSFile::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetMimeType();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -137,9 +137,9 @@ Gura_DeclareMethod(wx_FSFile, GetModificationTime)
 
 Gura_ImplementMethod(wx_FSFile, GetModificationTime)
 {
-	Object_wx_FSFile *pSelf = Object_wx_FSFile::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxDateTime rtn = pSelf->GetEntity()->GetModificationTime();
+	Object_wx_FSFile *pThis = Object_wx_FSFile::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxDateTime rtn = pThis->GetEntity()->GetModificationTime();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
 }
 
@@ -151,9 +151,9 @@ Gura_DeclareMethod(wx_FSFile, GetStream)
 
 Gura_ImplementMethod(wx_FSFile, GetStream)
 {
-	Object_wx_FSFile *pSelf = Object_wx_FSFile::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxInputStream *rtn = (wxInputStream *)pSelf->GetEntity()->GetStream();
+	Object_wx_FSFile *pThis = Object_wx_FSFile::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxInputStream *rtn = (wxInputStream *)pThis->GetEntity()->GetStream();
 	return ReturnValue(env, sig, args, Value(new Object_wx_InputStream(rtn, NULL, OwnerFalse)));
 }
 

@@ -544,8 +544,8 @@ public:
 	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Environment &env, Signal sig, Stream &stream);
 	virtual String ToString() const;
-	Value EvalEach(Environment &env, Signal sig, const Value &valueSelf,
-		Iterator *pIteratorSelf, bool listSelfFlag, const Function **ppFuncSuccRequester) const;
+	Value EvalEach(Environment &env, Signal sig, const Value &valueThis,
+		Iterator *pIteratorThis, bool listThisFlag, const Function **ppFuncSuccRequester) const;
 	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }
 	inline void AddAttrOpt(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }
 	inline const SymbolSet &GetAttrs() const { return _attrs; }

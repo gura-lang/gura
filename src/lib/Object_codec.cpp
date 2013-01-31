@@ -105,9 +105,9 @@ Gura_DeclareMethod(codec, encode)
 
 Gura_ImplementMethod(codec, encode)
 {
-	Object_codec *pSelf = Object_codec::GetSelfObj(args);
+	Object_codec *pThis = Object_codec::GetThisObj(args);
 	Binary dst;
-	if (!pSelf->GetEncoder()->Encode(sig, dst, args.GetString(0))) {
+	if (!pThis->GetEncoder()->Encode(sig, dst, args.GetString(0))) {
 		return Value::Null;
 	}
 	Value result;
@@ -125,9 +125,9 @@ Gura_DeclareMethod(codec, decode)
 
 Gura_ImplementMethod(codec, decode)
 {
-	Object_codec *pSelf = Object_codec::GetSelfObj(args);
+	Object_codec *pThis = Object_codec::GetThisObj(args);
 	String dst;
-	if (!pSelf->GetDecoder()->Decode(sig, dst, args.GetBinary(0))) {
+	if (!pThis->GetDecoder()->Decode(sig, dst, args.GetBinary(0))) {
 		return Value::Null;
 	}
 	return Value(env, dst.c_str());

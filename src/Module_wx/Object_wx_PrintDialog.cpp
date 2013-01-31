@@ -52,7 +52,7 @@ Gura_ImplementFunction(PrintDialog)
 	wxPrintDialogData *data = (wxPrintDialogData *)(NULL);
 	if (args.IsValid(1)) data = Object_wx_PrintDialogData::GetObject(args, 1)->GetEntity();
 	wx_PrintDialog *pEntity = new wx_PrintDialog(parent, data);
-	Object_wx_PrintDialog *pObj = Object_wx_PrintDialog::GetSelfObj(args);
+	Object_wx_PrintDialog *pObj = Object_wx_PrintDialog::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PrintDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -60,7 +60,7 @@ Gura_ImplementFunction(PrintDialog)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_PrintDialog, GetPrintDialogData)
@@ -71,9 +71,9 @@ Gura_DeclareMethod(wx_PrintDialog, GetPrintDialogData)
 
 Gura_ImplementMethod(wx_PrintDialog, GetPrintDialogData)
 {
-	Object_wx_PrintDialog *pSelf = Object_wx_PrintDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPrintDialogData &rtn = pSelf->GetEntity()->GetPrintDialogData();
+	Object_wx_PrintDialog *pThis = Object_wx_PrintDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPrintDialogData &rtn = pThis->GetEntity()->GetPrintDialogData();
 	return ReturnValue(env, sig, args, Value(new Object_wx_PrintDialogData(new wxPrintDialogData(rtn), NULL, OwnerTrue)));
 }
 
@@ -85,9 +85,9 @@ Gura_DeclareMethod(wx_PrintDialog, GetPrintDC)
 
 Gura_ImplementMethod(wx_PrintDialog, GetPrintDC)
 {
-	Object_wx_PrintDialog *pSelf = Object_wx_PrintDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxDC *rtn = (wxDC *)pSelf->GetEntity()->GetPrintDC();
+	Object_wx_PrintDialog *pThis = Object_wx_PrintDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxDC *rtn = (wxDC *)pThis->GetEntity()->GetPrintDC();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DC(rtn, NULL, OwnerFalse)));
 }
 
@@ -99,9 +99,9 @@ Gura_DeclareMethod(wx_PrintDialog, ShowModal)
 
 Gura_ImplementMethod(wx_PrintDialog, ShowModal)
 {
-	Object_wx_PrintDialog *pSelf = Object_wx_PrintDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->ShowModal();
+	Object_wx_PrintDialog *pThis = Object_wx_PrintDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->ShowModal();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

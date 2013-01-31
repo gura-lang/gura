@@ -69,11 +69,11 @@ Gura_DeclareMethod(wx_HelpProvider, AddHelp)
 
 Gura_ImplementMethod(wx_HelpProvider, AddHelp)
 {
-	Object_wx_HelpProvider *pSelf = Object_wx_HelpProvider::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HelpProvider *pThis = Object_wx_HelpProvider::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindowBase *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxString text = wxString::FromUTF8(args.GetString(1));
-	pSelf->GetEntity()->AddHelp(window, text);
+	pThis->GetEntity()->AddHelp(window, text);
 	return Value::Null;
 }
 
@@ -86,11 +86,11 @@ Gura_DeclareMethod(wx_HelpProvider, AddHelp_1)
 
 Gura_ImplementMethod(wx_HelpProvider, AddHelp_1)
 {
-	Object_wx_HelpProvider *pSelf = Object_wx_HelpProvider::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HelpProvider *pThis = Object_wx_HelpProvider::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(0));
 	wxString text = wxString::FromUTF8(args.GetString(1));
-	pSelf->GetEntity()->AddHelp(id, text);
+	pThis->GetEntity()->AddHelp(id, text);
 	return Value::Null;
 }
 
@@ -116,10 +116,10 @@ Gura_DeclareMethod(wx_HelpProvider, GetHelp)
 
 Gura_ImplementMethod(wx_HelpProvider, GetHelp)
 {
-	Object_wx_HelpProvider *pSelf = Object_wx_HelpProvider::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HelpProvider *pThis = Object_wx_HelpProvider::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindowBase *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxString rtn = pSelf->GetEntity()->GetHelp(window);
+	wxString rtn = pThis->GetEntity()->GetHelp(window);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -131,10 +131,10 @@ Gura_DeclareMethod(wx_HelpProvider, RemoveHelp)
 
 Gura_ImplementMethod(wx_HelpProvider, RemoveHelp)
 {
-	Object_wx_HelpProvider *pSelf = Object_wx_HelpProvider::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HelpProvider *pThis = Object_wx_HelpProvider::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindowBase *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->RemoveHelp(window);
+	pThis->GetEntity()->RemoveHelp(window);
 	return Value::Null;
 }
 
@@ -167,12 +167,12 @@ Gura_DeclareMethod(wx_HelpProvider, ShowHelpAtPoint)
 Gura_ImplementMethod(wx_HelpProvider, ShowHelpAtPoint)
 {
 #if 0
-	Object_wx_HelpProvider *pSelf = Object_wx_HelpProvider::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HelpProvider *pThis = Object_wx_HelpProvider::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindowBase *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxPoint *point = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	wxHelpEvent *origin = Object_wx_HelpEvent::GetObject(args, 2)->GetEntity();
-	bool rtn = pSelf->GetEntity()->ShowHelpAtPoint(window, *point, *origin);
+	bool rtn = pThis->GetEntity()->ShowHelpAtPoint(window, *point, *origin);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -188,10 +188,10 @@ Gura_DeclareMethod(wx_HelpProvider, ShowHelp)
 
 Gura_ImplementMethod(wx_HelpProvider, ShowHelp)
 {
-	Object_wx_HelpProvider *pSelf = Object_wx_HelpProvider::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HelpProvider *pThis = Object_wx_HelpProvider::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindowBase *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->ShowHelp(window);
+	bool rtn = pThis->GetEntity()->ShowHelp(window);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

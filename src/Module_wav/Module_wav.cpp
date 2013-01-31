@@ -19,9 +19,9 @@ Gura_DeclareMethod(audio, wavread)
 
 Gura_ImplementMethod(audio, wavread)
 {
-	Object_audio *pSelf = Object_audio::GetSelfObj(args);
-	if (!AudioStreamer_WAV::ReadStream(sig, pSelf, args.GetStream(0))) return Value::Null;
-	return args.GetSelf();
+	Object_audio *pThis = Object_audio::GetThisObj(args);
+	if (!AudioStreamer_WAV::ReadStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	return args.GetThis();
 }
 
 // audio#wavwrite(stream:stream:w):reduce
@@ -34,9 +34,9 @@ Gura_DeclareMethod(audio, wavwrite)
 
 Gura_ImplementMethod(audio, wavwrite)
 {
-	Object_audio *pSelf = Object_audio::GetSelfObj(args);
-	if (!AudioStreamer_WAV::WriteStream(sig, pSelf, args.GetStream(0))) return Value::Null;
-	return args.GetSelf();
+	Object_audio *pThis = Object_audio::GetThisObj(args);
+	if (!AudioStreamer_WAV::WriteStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------

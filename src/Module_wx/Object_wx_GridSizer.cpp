@@ -64,7 +64,7 @@ Gura_ImplementFunction(GridSizer)
 	} else {
 		pEntity = new wx_GridSizer(cols, vgap, hgap);
 	}
-	Object_wx_GridSizer *pObj = Object_wx_GridSizer::GetSelfObj(args);
+	Object_wx_GridSizer *pObj = Object_wx_GridSizer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GridSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -72,7 +72,7 @@ Gura_ImplementFunction(GridSizer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GridSizer, GetCols)
@@ -83,9 +83,9 @@ Gura_DeclareMethod(wx_GridSizer, GetCols)
 
 Gura_ImplementMethod(wx_GridSizer, GetCols)
 {
-	Object_wx_GridSizer *pSelf = Object_wx_GridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetCols();
+	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetCols();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -97,9 +97,9 @@ Gura_DeclareMethod(wx_GridSizer, GetHGap)
 
 Gura_ImplementMethod(wx_GridSizer, GetHGap)
 {
-	Object_wx_GridSizer *pSelf = Object_wx_GridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetHGap();
+	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetHGap();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -111,9 +111,9 @@ Gura_DeclareMethod(wx_GridSizer, GetRows)
 
 Gura_ImplementMethod(wx_GridSizer, GetRows)
 {
-	Object_wx_GridSizer *pSelf = Object_wx_GridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetRows();
+	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetRows();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -125,9 +125,9 @@ Gura_DeclareMethod(wx_GridSizer, GetVGap)
 
 Gura_ImplementMethod(wx_GridSizer, GetVGap)
 {
-	Object_wx_GridSizer *pSelf = Object_wx_GridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetVGap();
+	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetVGap();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -139,10 +139,10 @@ Gura_DeclareMethod(wx_GridSizer, SetCols)
 
 Gura_ImplementMethod(wx_GridSizer, SetCols)
 {
-	Object_wx_GridSizer *pSelf = Object_wx_GridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int cols = args.GetInt(0);
-	pSelf->GetEntity()->SetCols(cols);
+	pThis->GetEntity()->SetCols(cols);
 	return Value::Null;
 }
 
@@ -154,10 +154,10 @@ Gura_DeclareMethod(wx_GridSizer, SetHGap)
 
 Gura_ImplementMethod(wx_GridSizer, SetHGap)
 {
-	Object_wx_GridSizer *pSelf = Object_wx_GridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int gap = args.GetInt(0);
-	pSelf->GetEntity()->SetHGap(gap);
+	pThis->GetEntity()->SetHGap(gap);
 	return Value::Null;
 }
 
@@ -169,10 +169,10 @@ Gura_DeclareMethod(wx_GridSizer, SetRows)
 
 Gura_ImplementMethod(wx_GridSizer, SetRows)
 {
-	Object_wx_GridSizer *pSelf = Object_wx_GridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rows = args.GetInt(0);
-	pSelf->GetEntity()->SetRows(rows);
+	pThis->GetEntity()->SetRows(rows);
 	return Value::Null;
 }
 
@@ -184,10 +184,10 @@ Gura_DeclareMethod(wx_GridSizer, SetVGap)
 
 Gura_ImplementMethod(wx_GridSizer, SetVGap)
 {
-	Object_wx_GridSizer *pSelf = Object_wx_GridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int gap = args.GetInt(0);
-	pSelf->GetEntity()->SetVGap(gap);
+	pThis->GetEntity()->SetVGap(gap);
 	return Value::Null;
 }
 

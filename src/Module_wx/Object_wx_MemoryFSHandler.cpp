@@ -47,7 +47,7 @@ Gura_ImplementFunction(MemoryFSHandler)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MemoryFSHandler *pEntity = new wx_MemoryFSHandler();
-	Object_wx_MemoryFSHandler *pObj = Object_wx_MemoryFSHandler::GetSelfObj(args);
+	Object_wx_MemoryFSHandler *pObj = Object_wx_MemoryFSHandler::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MemoryFSHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(MemoryFSHandler)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareClassMethod(wx_MemoryFSHandler, AddFile)

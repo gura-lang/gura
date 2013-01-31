@@ -50,7 +50,7 @@ Gura_ImplementFunction(TCPServerEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TCPServer *pEntity = new wx_TCPServer();
-	Object_wx_TCPServer *pObj = Object_wx_TCPServer::GetSelfObj(args);
+	Object_wx_TCPServer *pObj = Object_wx_TCPServer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TCPServer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(TCPServerEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TCPServer, Create)
@@ -70,10 +70,10 @@ Gura_DeclareMethod(wx_TCPServer, Create)
 
 Gura_ImplementMethod(wx_TCPServer, Create)
 {
-	Object_wx_TCPServer *pSelf = Object_wx_TCPServer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TCPServer *pThis = Object_wx_TCPServer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString service = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->Create(service);
+	bool rtn = pThis->GetEntity()->Create(service);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -86,10 +86,10 @@ Gura_DeclareMethod(wx_TCPServer, OnAcceptConnection)
 
 Gura_ImplementMethod(wx_TCPServer, OnAcceptConnection)
 {
-	Object_wx_TCPServer *pSelf = Object_wx_TCPServer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TCPServer *pThis = Object_wx_TCPServer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
-	wxConnectionBase *rtn = (wxConnectionBase *)pSelf->GetEntity()->OnAcceptConnection(topic);
+	wxConnectionBase *rtn = (wxConnectionBase *)pThis->GetEntity()->OnAcceptConnection(topic);
 	return ReturnValue(env, sig, args, Value(new Object_wx_ConnectionBase(rtn, NULL, OwnerFalse)));
 }
 

@@ -49,7 +49,7 @@ Gura_ImplementFunction(Condition)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxMutex *mutex = Object_wx_Mutex::GetObject(args, 0)->GetEntity();
 	wx_Condition *pEntity = new wx_Condition(*mutex);
-	Object_wx_Condition *pObj = Object_wx_Condition::GetSelfObj(args);
+	Object_wx_Condition *pObj = Object_wx_Condition::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Condition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(Condition)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Condition, Broadcast)
@@ -67,9 +67,9 @@ Gura_DeclareMethod(wx_Condition, Broadcast)
 
 Gura_ImplementMethod(wx_Condition, Broadcast)
 {
-	Object_wx_Condition *pSelf = Object_wx_Condition::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Broadcast();
+	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Broadcast();
 	return Value::Null;
 }
 
@@ -81,9 +81,9 @@ Gura_DeclareMethod(wx_Condition, IsOk)
 
 Gura_ImplementMethod(wx_Condition, IsOk)
 {
-	Object_wx_Condition *pSelf = Object_wx_Condition::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -94,9 +94,9 @@ Gura_DeclareMethod(wx_Condition, Signal)
 
 Gura_ImplementMethod(wx_Condition, Signal)
 {
-	Object_wx_Condition *pSelf = Object_wx_Condition::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Signal();
+	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Signal();
 	return Value::Null;
 }
 
@@ -108,9 +108,9 @@ Gura_DeclareMethod(wx_Condition, Wait)
 
 Gura_ImplementMethod(wx_Condition, Wait)
 {
-	Object_wx_Condition *pSelf = Object_wx_Condition::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxCondError rtn = pSelf->GetEntity()->Wait();
+	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxCondError rtn = pThis->GetEntity()->Wait();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -123,10 +123,10 @@ Gura_DeclareMethod(wx_Condition, WaitTimeout)
 
 Gura_ImplementMethod(wx_Condition, WaitTimeout)
 {
-	Object_wx_Condition *pSelf = Object_wx_Condition::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Condition *pThis = Object_wx_Condition::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned milliseconds = args.GetInt(0);
-	wxCondError rtn = pSelf->GetEntity()->WaitTimeout(milliseconds);
+	wxCondError rtn = pThis->GetEntity()->WaitTimeout(milliseconds);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

@@ -70,7 +70,7 @@ Gura_ImplementFunction(GridCellBoolRenderer)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellBoolRenderer *pEntity = new wx_GridCellBoolRenderer();
-	Object_wx_GridCellBoolRenderer *pObj = Object_wx_GridCellBoolRenderer::GetSelfObj(args);
+	Object_wx_GridCellBoolRenderer *pObj = Object_wx_GridCellBoolRenderer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GridCellBoolRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -78,7 +78,7 @@ Gura_ImplementFunction(GridCellBoolRenderer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GridCellBoolRenderer, Draw)
@@ -95,8 +95,8 @@ Gura_DeclareMethod(wx_GridCellBoolRenderer, Draw)
 
 Gura_ImplementMethod(wx_GridCellBoolRenderer, Draw)
 {
-	Object_wx_GridCellRenderer *pSelf = Object_wx_GridCellRenderer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGrid *grid = Object_wx_Grid::GetObject(args, 0)->GetEntity();
 	wxGridCellAttr *attr = Object_wx_GridCellAttr::GetObject(args, 1)->GetEntity();
 	wxDC *dc = Object_wx_DC::GetObject(args, 2)->GetEntity();
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_GridCellBoolRenderer, Draw)
 	int row = args.GetInt(4);
 	int col = args.GetInt(5);
 	bool isSelected = args.GetBoolean(6);
-	dynamic_cast<wx_GridCellBoolRenderer *>(pSelf->GetEntity())->
+	dynamic_cast<wx_GridCellBoolRenderer *>(pThis->GetEntity())->
 		_Draw(*grid, *attr, *dc, *rect, row, col, isSelected);
 	return Value::Null;
 }

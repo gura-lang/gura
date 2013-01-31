@@ -58,7 +58,7 @@ Gura_ImplementFunction(DragImageEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DragImage *pEntity = new wx_DragImage();
-	Object_wx_DragImage *pObj = Object_wx_DragImage::GetSelfObj(args);
+	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(DragImageEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DragImage)
@@ -88,7 +88,7 @@ Gura_ImplementFunction(DragImage)
 	wxPoint cursorHotspot = wxPoint(0, 0);
 	if (args.IsValid(2)) cursorHotspot = *Object_wx_Point::GetObject(args, 2)->GetEntity();
 	wx_DragImage *pEntity = new wx_DragImage(*image, *cursor, cursorHotspot);
-	Object_wx_DragImage *pObj = Object_wx_DragImage::GetSelfObj(args);
+	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -96,7 +96,7 @@ Gura_ImplementFunction(DragImage)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DragImage_1)
@@ -118,7 +118,7 @@ Gura_ImplementFunction(DragImage_1)
 	wxPoint cursorHotspot = wxPoint(0, 0);
 	if (args.IsValid(2)) cursorHotspot = *Object_wx_Point::GetObject(args, 2)->GetEntity();
 	wx_DragImage *pEntity = new wx_DragImage(*image, *cursor, cursorHotspot);
-	Object_wx_DragImage *pObj = Object_wx_DragImage::GetSelfObj(args);
+	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -126,7 +126,7 @@ Gura_ImplementFunction(DragImage_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DragImage_2)
@@ -148,7 +148,7 @@ Gura_ImplementFunction(DragImage_2)
 	wxPoint cursorHotspot = wxPoint(0, 0);
 	if (args.IsValid(2)) cursorHotspot = *Object_wx_Point::GetObject(args, 2)->GetEntity();
 	wx_DragImage *pEntity = new wx_DragImage(text, *cursor, cursorHotspot);
-	Object_wx_DragImage *pObj = Object_wx_DragImage::GetSelfObj(args);
+	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -156,7 +156,7 @@ Gura_ImplementFunction(DragImage_2)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DragImage_3)
@@ -174,7 +174,7 @@ Gura_ImplementFunction(DragImage_3)
 	wxTreeCtrl *treeCtrl = Object_wx_TreeCtrl::GetObject(args, 0)->GetEntity();
 	wxTreeItemId *id = Object_wx_TreeItemId::GetObject(args, 1)->GetEntity();
 	wx_DragImage *pEntity = new wx_DragImage(*treeCtrl, *id);
-	Object_wx_DragImage *pObj = Object_wx_DragImage::GetSelfObj(args);
+	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -182,7 +182,7 @@ Gura_ImplementFunction(DragImage_3)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DragImage_4)
@@ -200,7 +200,7 @@ Gura_ImplementFunction(DragImage_4)
 	wxListCtrl *treeCtrl = Object_wx_ListCtrl::GetObject(args, 0)->GetEntity();
 	long id = args.GetLong(1);
 	wx_DragImage *pEntity = new wx_DragImage(*treeCtrl, id);
-	Object_wx_DragImage *pObj = Object_wx_DragImage::GetSelfObj(args);
+	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -208,7 +208,7 @@ Gura_ImplementFunction(DragImage_4)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DragImage_5)
@@ -231,7 +231,7 @@ Gura_ImplementFunction(DragImage_5)
 	wxPoint *cursorHotspot = (wxPoint *)(&wxPoint(0, 0));
 	if (args.IsValid(1)) cursorHotspot = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	wx_DragImage *pEntity = new wx_DragImage(*cursor, *cursorHotspot);
-	Object_wx_DragImage *pObj = Object_wx_DragImage::GetSelfObj(args);
+	Object_wx_DragImage *pObj = Object_wx_DragImage::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DragImage(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -239,7 +239,7 @@ Gura_ImplementFunction(DragImage_5)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -257,15 +257,15 @@ Gura_DeclareMethod(wx_DragImage, BeginDrag)
 
 Gura_ImplementMethod(wx_DragImage, BeginDrag)
 {
-	Object_wx_DragImage *pSelf = Object_wx_DragImage::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *hotspot = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxWindow *window = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	bool fullScreen = false;
 	if (args.IsValid(2)) fullScreen = args.GetBoolean(2);
 	wxRect *rect = (wxRect *)(NULL);
 	if (args.IsValid(3)) rect = Object_wx_Rect::GetObject(args, 3)->GetEntity();
-	bool rtn = pSelf->GetEntity()->BeginDrag(*hotspot, window, fullScreen, rect);
+	bool rtn = pThis->GetEntity()->BeginDrag(*hotspot, window, fullScreen, rect);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -280,12 +280,12 @@ Gura_DeclareMethod(wx_DragImage, BeginDrag_1)
 
 Gura_ImplementMethod(wx_DragImage, BeginDrag_1)
 {
-	Object_wx_DragImage *pSelf = Object_wx_DragImage::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *hotspot = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxWindow *window = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wxWindow *boundingWindow = Object_wx_Window::GetObject(args, 2)->GetEntity();
-	bool rtn = pSelf->GetEntity()->BeginDrag(*hotspot, window, boundingWindow);
+	bool rtn = pThis->GetEntity()->BeginDrag(*hotspot, window, boundingWindow);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -302,11 +302,11 @@ Gura_DeclareMethod(wx_DragImage, DoDrawImage)
 Gura_ImplementMethod(wx_DragImage, DoDrawImage)
 {
 #if 0
-	Object_wx_DragImage *pSelf = Object_wx_DragImage::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxPoint *pos = Object_wx_Point::GetObject(args, 1)->GetEntity();
-	bool rtn = pSelf->GetEntity()->DoDrawImage(*dc, *pos);
+	bool rtn = pThis->GetEntity()->DoDrawImage(*dc, *pos);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -321,9 +321,9 @@ Gura_DeclareMethod(wx_DragImage, EndDrag)
 
 Gura_ImplementMethod(wx_DragImage, EndDrag)
 {
-	Object_wx_DragImage *pSelf = Object_wx_DragImage::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->EndDrag();
+	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->EndDrag();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -339,10 +339,10 @@ Gura_DeclareMethod(wx_DragImage, GetImageRect)
 Gura_ImplementMethod(wx_DragImage, GetImageRect)
 {
 #if 0
-	Object_wx_DragImage *pSelf = Object_wx_DragImage::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pos = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	wxRect rtn = pSelf->GetEntity()->GetImageRect(*pos);
+	wxRect rtn = pThis->GetEntity()->GetImageRect(*pos);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
@@ -357,9 +357,9 @@ Gura_DeclareMethod(wx_DragImage, Hide)
 
 Gura_ImplementMethod(wx_DragImage, Hide)
 {
-	Object_wx_DragImage *pSelf = Object_wx_DragImage::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Hide();
+	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Hide();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -372,10 +372,10 @@ Gura_DeclareMethod(wx_DragImage, Move)
 
 Gura_ImplementMethod(wx_DragImage, Move)
 {
-	Object_wx_DragImage *pSelf = Object_wx_DragImage::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Move(*pt);
+	bool rtn = pThis->GetEntity()->Move(*pt);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -387,9 +387,9 @@ Gura_DeclareMethod(wx_DragImage, Show)
 
 Gura_ImplementMethod(wx_DragImage, Show)
 {
-	Object_wx_DragImage *pSelf = Object_wx_DragImage::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Show();
+	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Show();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -408,13 +408,13 @@ Gura_DeclareMethod(wx_DragImage, UpdateBackingFromWindow)
 Gura_ImplementMethod(wx_DragImage, UpdateBackingFromWindow)
 {
 #if 0
-	Object_wx_DragImage *pSelf = Object_wx_DragImage::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DragImage *pThis = Object_wx_DragImage::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *windowDC = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxMemoryDC *destDC = Object_wx_MemoryDC::GetObject(args, 1)->GetEntity();
 	wxRect *sourceRect = Object_wx_Rect::GetObject(args, 2)->GetEntity();
 	wxRect *destRect = Object_wx_Rect::GetObject(args, 3)->GetEntity();
-	bool rtn = pSelf->GetEntity()->UpdateBackingFromWindow(*windowDC, *destDC, *sourceRect, *destRect);
+	bool rtn = pThis->GetEntity()->UpdateBackingFromWindow(*windowDC, *destDC, *sourceRect, *destRect);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);

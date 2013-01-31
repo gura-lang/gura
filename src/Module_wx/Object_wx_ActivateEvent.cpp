@@ -56,7 +56,7 @@ Gura_ImplementFunction(ActivateEvent)
 	int id = 0;
 	if (args.IsValid(2)) id = args.GetInt(2);
 	wx_ActivateEvent *pEntity = new wx_ActivateEvent(eventType, active, id);
-	Object_wx_ActivateEvent *pObj = Object_wx_ActivateEvent::GetSelfObj(args);
+	Object_wx_ActivateEvent *pObj = Object_wx_ActivateEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ActivateEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(ActivateEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ActivateEvent, GetActive)
@@ -75,9 +75,9 @@ Gura_DeclareMethod(wx_ActivateEvent, GetActive)
 
 Gura_ImplementMethod(wx_ActivateEvent, GetActive)
 {
-	Object_wx_ActivateEvent *pSelf = Object_wx_ActivateEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->GetActive();
+	Object_wx_ActivateEvent *pThis = Object_wx_ActivateEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->GetActive();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

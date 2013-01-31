@@ -985,8 +985,8 @@ Gura_DeclareMethod(color, html)
 
 Gura_ImplementMethod(color, html)
 {
-	Object_color *pSelf = Object_color::GetSelfObj(args);
-	return Value(env, pSelf->GetHTML().c_str());
+	Object_color *pThis = Object_color::GetThisObj(args);
+	return Value(env, pThis->GetHTML().c_str());
 }
 
 // color#tolist():[alpha]
@@ -998,16 +998,16 @@ Gura_DeclareMethod(color, tolist)
 
 Gura_ImplementMethod(color, tolist)
 {
-	Object_color *pSelf = Object_color::GetSelfObj(args);
+	Object_color *pThis = Object_color::GetThisObj(args);
 	bool alphaIncludeFlag = args.IsSet(Gura_Symbol(alpha));
 	if (alphaIncludeFlag) {
 		return Value::CreateAsList(env,
-					Value(pSelf->GetRed()), Value(pSelf->GetGreen()),
-					Value(pSelf->GetBlue()), Value(pSelf->GetAlpha()));
+					Value(pThis->GetRed()), Value(pThis->GetGreen()),
+					Value(pThis->GetBlue()), Value(pThis->GetAlpha()));
 	} else {
 		return Value::CreateAsList(env,
-					Value(pSelf->GetRed()), Value(pSelf->GetGreen()),
-					Value(pSelf->GetBlue()));
+					Value(pThis->GetRed()), Value(pThis->GetGreen()),
+					Value(pThis->GetBlue()));
 	}
 }
 

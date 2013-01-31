@@ -65,7 +65,7 @@ Gura_ImplementFunction(ProgressDialog)
 	int style = wxPD_AUTO_HIDE | wxPD_APP_MODAL;
 	if (args.IsValid(4)) style = args.GetInt(4);
 	wx_ProgressDialog *pEntity = new wx_ProgressDialog(title, message, maximum, parent, style);
-	Object_wx_ProgressDialog *pObj = Object_wx_ProgressDialog::GetSelfObj(args);
+	Object_wx_ProgressDialog *pObj = Object_wx_ProgressDialog::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ProgressDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -73,7 +73,7 @@ Gura_ImplementFunction(ProgressDialog)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ProgressDialog, Resume)
@@ -83,9 +83,9 @@ Gura_DeclareMethod(wx_ProgressDialog, Resume)
 
 Gura_ImplementMethod(wx_ProgressDialog, Resume)
 {
-	Object_wx_ProgressDialog *pSelf = Object_wx_ProgressDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Resume();
+	Object_wx_ProgressDialog *pThis = Object_wx_ProgressDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Resume();
 	return Value::Null;
 }
 
@@ -99,13 +99,13 @@ Gura_DeclareMethod(wx_ProgressDialog, Update)
 
 Gura_ImplementMethod(wx_ProgressDialog, Update)
 {
-	Object_wx_ProgressDialog *pSelf = Object_wx_ProgressDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ProgressDialog *pThis = Object_wx_ProgressDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int value = args.GetInt(0);
 	wxString newmsg = wxT("");
 	if (args.IsValid(1)) newmsg = wxString::FromUTF8(args.GetString(1));
 	bool skip = false;
-	bool rtn = pSelf->GetEntity()->Update(value, newmsg, &skip);
+	bool rtn = pThis->GetEntity()->Update(value, newmsg, &skip);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, rtn, skip));
 }
 
@@ -118,12 +118,12 @@ Gura_DeclareMethod(wx_ProgressDialog, Pulse)
 
 Gura_ImplementMethod(wx_ProgressDialog, Pulse)
 {
-	Object_wx_ProgressDialog *pSelf = Object_wx_ProgressDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ProgressDialog *pThis = Object_wx_ProgressDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString newmsg = wxT("");
 	if (args.IsValid(0)) newmsg = wxString::FromUTF8(args.GetString(0));
 	bool skip = false;
-	bool rtn = pSelf->GetEntity()->Pulse(newmsg, &skip);
+	bool rtn = pThis->GetEntity()->Pulse(newmsg, &skip);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, rtn, skip));
 }
 

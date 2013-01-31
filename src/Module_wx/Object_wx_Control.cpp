@@ -43,10 +43,10 @@ Gura_DeclareMethod(wx_Control, Command)
 
 Gura_ImplementMethod(wx_Control, Command)
 {
-	Object_wx_Control *pSelf = Object_wx_Control::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Control *pThis = Object_wx_Control::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCommandEvent *event = Object_wx_CommandEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->Command(*event);
+	pThis->GetEntity()->Command(*event);
 	return Value::Null;
 }
 
@@ -58,9 +58,9 @@ Gura_DeclareMethod(wx_Control, GetLabel)
 
 Gura_ImplementMethod(wx_Control, GetLabel)
 {
-	Object_wx_Control *pSelf = Object_wx_Control::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetLabel();
+	Object_wx_Control *pThis = Object_wx_Control::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetLabel();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -72,9 +72,9 @@ Gura_DeclareMethod(wx_Control, GetLabelText)
 
 Gura_ImplementMethod(wx_Control, GetLabelText)
 {
-	Object_wx_Control *pSelf = Object_wx_Control::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetLabelText();
+	Object_wx_Control *pThis = Object_wx_Control::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetLabelText();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -101,10 +101,10 @@ Gura_DeclareMethod(wx_Control, SetLabel)
 
 Gura_ImplementMethod(wx_Control, SetLabel)
 {
-	Object_wx_Control *pSelf = Object_wx_Control::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Control *pThis = Object_wx_Control::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString label = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetLabel(label);
+	pThis->GetEntity()->SetLabel(label);
 	return Value::Null;
 }
 

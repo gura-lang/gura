@@ -69,7 +69,7 @@ Gura_ImplementFunction(FontPickerCtrl)
 	wxString name = wxT("fontpickerctrl");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_FontPickerCtrl *pEntity = new wx_FontPickerCtrl(parent, id, *font, *pos, *size, style, *validator, name);
-	Object_wx_FontPickerCtrl *pObj = Object_wx_FontPickerCtrl::GetSelfObj(args);
+	Object_wx_FontPickerCtrl *pObj = Object_wx_FontPickerCtrl::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_FontPickerCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -77,7 +77,7 @@ Gura_ImplementFunction(FontPickerCtrl)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FontPickerCtrl, Create)
@@ -96,8 +96,8 @@ Gura_DeclareMethod(wx_FontPickerCtrl, Create)
 
 Gura_ImplementMethod(wx_FontPickerCtrl, Create)
 {
-	Object_wx_FontPickerCtrl *pSelf = Object_wx_FontPickerCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxFont *font = (wxFont *)(&wxNullFont);
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, Create)
 	if (args.IsValid(6)) validator = Object_wx_Validator::GetObject(args, 6)->GetEntity();
 	wxString name = wxT("fontpickerctrl");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, *font, *pos, *size, style, *validator, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, *font, *pos, *size, style, *validator, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -124,9 +124,9 @@ Gura_DeclareMethod(wx_FontPickerCtrl, GetSelectedFont)
 
 Gura_ImplementMethod(wx_FontPickerCtrl, GetSelectedFont)
 {
-	Object_wx_FontPickerCtrl *pSelf = Object_wx_FontPickerCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxFont rtn = pSelf->GetEntity()->GetSelectedFont();
+	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxFont rtn = pThis->GetEntity()->GetSelectedFont();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), NULL, OwnerTrue)));
 }
 
@@ -138,10 +138,10 @@ Gura_DeclareMethod(wx_FontPickerCtrl, SetSelectedFont)
 
 Gura_ImplementMethod(wx_FontPickerCtrl, SetSelectedFont)
 {
-	Object_wx_FontPickerCtrl *pSelf = Object_wx_FontPickerCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetSelectedFont(*font);
+	pThis->GetEntity()->SetSelectedFont(*font);
 	return Value::Null;
 }
 
@@ -153,9 +153,9 @@ Gura_DeclareMethod(wx_FontPickerCtrl, GetMaxPointSize)
 
 Gura_ImplementMethod(wx_FontPickerCtrl, GetMaxPointSize)
 {
-	Object_wx_FontPickerCtrl *pSelf = Object_wx_FontPickerCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	unsigned int rtn = pSelf->GetEntity()->GetMaxPointSize();
+	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	unsigned int rtn = pThis->GetEntity()->GetMaxPointSize();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -167,10 +167,10 @@ Gura_DeclareMethod(wx_FontPickerCtrl, SetMaxPointSize)
 
 Gura_ImplementMethod(wx_FontPickerCtrl, SetMaxPointSize)
 {
-	Object_wx_FontPickerCtrl *pSelf = Object_wx_FontPickerCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned max = args.GetInt(0);
-	pSelf->GetEntity()->SetMaxPointSize(max);
+	pThis->GetEntity()->SetMaxPointSize(max);
 	return Value::Null;
 }
 

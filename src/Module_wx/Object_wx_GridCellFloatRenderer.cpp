@@ -53,7 +53,7 @@ Gura_ImplementFunction(GridCellFloatRenderer)
 	int precision = -1;
 	if (args.IsValid(1)) precision = args.GetInt(1);
 	wx_GridCellFloatRenderer *pEntity = new wx_GridCellFloatRenderer(width, precision);
-	Object_wx_GridCellFloatRenderer *pObj = Object_wx_GridCellFloatRenderer::GetSelfObj(args);
+	Object_wx_GridCellFloatRenderer *pObj = Object_wx_GridCellFloatRenderer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GridCellFloatRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(GridCellFloatRenderer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GridCellFloatRenderer, GetPrecision)
@@ -72,9 +72,9 @@ Gura_DeclareMethod(wx_GridCellFloatRenderer, GetPrecision)
 
 Gura_ImplementMethod(wx_GridCellFloatRenderer, GetPrecision)
 {
-	Object_wx_GridCellFloatRenderer *pSelf = Object_wx_GridCellFloatRenderer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetPrecision();
+	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetPrecision();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -86,9 +86,9 @@ Gura_DeclareMethod(wx_GridCellFloatRenderer, GetWidth)
 
 Gura_ImplementMethod(wx_GridCellFloatRenderer, GetWidth)
 {
-	Object_wx_GridCellFloatRenderer *pSelf = Object_wx_GridCellFloatRenderer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetWidth();
+	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetWidth();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -100,10 +100,10 @@ Gura_DeclareMethod(wx_GridCellFloatRenderer, SetParameters)
 
 Gura_ImplementMethod(wx_GridCellFloatRenderer, SetParameters)
 {
-	Object_wx_GridCellFloatRenderer *pSelf = Object_wx_GridCellFloatRenderer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString params = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetParameters(params);
+	pThis->GetEntity()->SetParameters(params);
 	return Value::Null;
 }
 
@@ -115,10 +115,10 @@ Gura_DeclareMethod(wx_GridCellFloatRenderer, SetPrecision)
 
 Gura_ImplementMethod(wx_GridCellFloatRenderer, SetPrecision)
 {
-	Object_wx_GridCellFloatRenderer *pSelf = Object_wx_GridCellFloatRenderer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int precision = args.GetInt(0);
-	pSelf->GetEntity()->SetPrecision(precision);
+	pThis->GetEntity()->SetPrecision(precision);
 	return Value::Null;
 }
 
@@ -130,10 +130,10 @@ Gura_DeclareMethod(wx_GridCellFloatRenderer, SetWidth)
 
 Gura_ImplementMethod(wx_GridCellFloatRenderer, SetWidth)
 {
-	Object_wx_GridCellFloatRenderer *pSelf = Object_wx_GridCellFloatRenderer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);
-	pSelf->GetEntity()->SetWidth(width);
+	pThis->GetEntity()->SetWidth(width);
 	return Value::Null;
 }
 

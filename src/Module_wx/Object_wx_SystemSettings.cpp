@@ -47,7 +47,7 @@ Gura_ImplementFunction(SystemSettings)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SystemSettings *pEntity = new wx_SystemSettings();
-	Object_wx_SystemSettings *pObj = Object_wx_SystemSettings::GetSelfObj(args);
+	Object_wx_SystemSettings *pObj = Object_wx_SystemSettings::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SystemSettings(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(SystemSettings)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareClassMethod(wx_SystemSettings, GetColour)

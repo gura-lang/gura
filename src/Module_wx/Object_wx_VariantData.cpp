@@ -50,7 +50,7 @@ Gura_ImplementFunction(VariantDataEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_VariantData *pEntity = new wx_VariantData();
-	Object_wx_VariantData *pObj = Object_wx_VariantData::GetSelfObj(args);
+	Object_wx_VariantData *pObj = Object_wx_VariantData::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_VariantData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(VariantDataEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -71,9 +71,9 @@ Gura_DeclareMethod(wx_VariantData, DecRef)
 
 Gura_ImplementMethod(wx_VariantData, DecRef)
 {
-	Object_wx_VariantData *pSelf = Object_wx_VariantData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->DecRef();
+	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->DecRef();
 	return Value::Null;
 }
 
@@ -86,10 +86,10 @@ Gura_DeclareMethod(wx_VariantData, Eq)
 
 Gura_ImplementMethod(wx_VariantData, Eq)
 {
-	Object_wx_VariantData *pSelf = Object_wx_VariantData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxVariantData *data = Object_wx_VariantData::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Eq(*data);
+	bool rtn = pThis->GetEntity()->Eq(*data);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -101,9 +101,9 @@ Gura_DeclareMethod(wx_VariantData, GetType)
 
 Gura_ImplementMethod(wx_VariantData, GetType)
 {
-	Object_wx_VariantData *pSelf = Object_wx_VariantData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetType();
+	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetType();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -115,9 +115,9 @@ Gura_DeclareMethod(wx_VariantData, GetValueClassInfo)
 
 Gura_ImplementMethod(wx_VariantData, GetValueClassInfo)
 {
-	Object_wx_VariantData *pSelf = Object_wx_VariantData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxClassInfo *rtn = (wxClassInfo *)pSelf->GetEntity()->GetValueClassInfo();
+	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxClassInfo *rtn = (wxClassInfo *)pThis->GetEntity()->GetValueClassInfo();
 	return ReturnValue(env, sig, args, Value(new Object_wx_ClassInfo(rtn, NULL, OwnerFalse)));
 }
 
@@ -128,9 +128,9 @@ Gura_DeclareMethod(wx_VariantData, IncRef)
 
 Gura_ImplementMethod(wx_VariantData, IncRef)
 {
-	Object_wx_VariantData *pSelf = Object_wx_VariantData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->IncRef();
+	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->IncRef();
 	return Value::Null;
 }
 
@@ -146,10 +146,10 @@ Gura_DeclareMethod(wx_VariantData, Read)
 Gura_ImplementMethod(wx_VariantData, Read)
 {
 #if 0
-	Object_wx_VariantData *pSelf = Object_wx_VariantData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	Stream & stream = args.GetStream(0);
-	bool rtn = pSelf->GetEntity()->Read(stream);
+	bool rtn = pThis->GetEntity()->Read(stream);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -165,10 +165,10 @@ Gura_DeclareMethod(wx_VariantData, Read_1)
 
 Gura_ImplementMethod(wx_VariantData, Read_1)
 {
-	Object_wx_VariantData *pSelf = Object_wx_VariantData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->Read(string);
+	bool rtn = pThis->GetEntity()->Read(string);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -184,10 +184,10 @@ Gura_DeclareMethod(wx_VariantData, Write)
 Gura_ImplementMethod(wx_VariantData, Write)
 {
 #if 0
-	Object_wx_VariantData *pSelf = Object_wx_VariantData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	Stream & stream = args.GetStream(0);
-	bool rtn = pSelf->GetEntity()->Write(stream);
+	bool rtn = pThis->GetEntity()->Write(stream);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -203,10 +203,10 @@ Gura_DeclareMethod(wx_VariantData, Write_1)
 
 Gura_ImplementMethod(wx_VariantData, Write_1)
 {
-	Object_wx_VariantData *pSelf = Object_wx_VariantData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->Write(string);
+	bool rtn = pThis->GetEntity()->Write(string);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -218,8 +218,8 @@ Gura_DeclareMethod(wx_VariantData, wxGetVariantCast)
 
 Gura_ImplementMethod(wx_VariantData, wxGetVariantCast)
 {
-	Object_wx_VariantData *pSelf = Object_wx_VariantData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_VariantData *pThis = Object_wx_VariantData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 //----------------------------------------------------------------------------

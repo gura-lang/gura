@@ -47,7 +47,7 @@ Gura_ImplementFunction(ScopedArray)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ScopedArray *pEntity = new wx_ScopedArray();
-	Object_wx_ScopedArray *pObj = Object_wx_ScopedArray::GetSelfObj(args);
+	Object_wx_ScopedArray *pObj = Object_wx_ScopedArray::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ScopedArray(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(ScopedArray)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ScopedArray, reset)
@@ -65,9 +65,9 @@ Gura_DeclareMethod(wx_ScopedArray, reset)
 
 Gura_ImplementMethod(wx_ScopedArray, reset)
 {
-	Object_wx_ScopedArray *pSelf = Object_wx_ScopedArray::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->reset();
+	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->reset();
 	return Value::Null;
 }
 
@@ -79,8 +79,8 @@ Gura_DeclareMethod(wx_ScopedArray, get)
 
 Gura_ImplementMethod(wx_ScopedArray, get)
 {
-	Object_wx_ScopedArray *pSelf = Object_wx_ScopedArray::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_ScopedArray, swap)
@@ -91,10 +91,10 @@ Gura_DeclareMethod(wx_ScopedArray, swap)
 
 Gura_ImplementMethod(wx_ScopedArray, swap)
 {
-	Object_wx_ScopedArray *pSelf = Object_wx_ScopedArray::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxScopedPtr *& ot = Object_wx_ScopedPtr::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->swap(*& ot);
+	pThis->GetEntity()->swap(*& ot);
 	return Value::Null;
 }
 

@@ -21,9 +21,9 @@ Gura_DeclareMethod(image, ppmread)
 
 Gura_ImplementMethod(image, ppmread)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!ImageStreamer_PPM::ReadStream(sig, pSelf, args.GetStream(0))) return Value::Null;
-	return args.GetSelf();
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!ImageStreamer_PPM::ReadStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	return args.GetThis();
 }
 
 // image#ppmwrite(stream:stream:w):reduce:[gray]
@@ -37,11 +37,11 @@ Gura_DeclareMethod(image, ppmwrite)
 
 Gura_ImplementMethod(image, ppmwrite)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!ImageStreamer_PPM::WriteStream(sig, pSelf, args.GetStream(0), args.IsSet(Gura_Symbol(gray)))) {
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!ImageStreamer_PPM::WriteStream(sig, pThis, args.GetStream(0), args.IsSet(Gura_Symbol(gray)))) {
 		return Value::Null;
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------

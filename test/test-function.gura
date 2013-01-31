@@ -102,8 +102,8 @@ scope {
 scope {
 	m = module {
 		A = class {
-			__init__(name) = { self.name = name }
-			func() = { println('message from ', self.name) }
+			__init__(name) = { this.name = name }
+			func() = { println('message from ', this.name) }
 		}
 		obj1 = A('object-1')
 		obj2 = A('object-2')

@@ -49,7 +49,7 @@ Gura_ImplementFunction(BoxSizer)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int orient = args.GetInt(0);
 	wx_BoxSizer *pEntity = new wx_BoxSizer(orient);
-	Object_wx_BoxSizer *pObj = Object_wx_BoxSizer::GetSelfObj(args);
+	Object_wx_BoxSizer *pObj = Object_wx_BoxSizer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_BoxSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(BoxSizer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_BoxSizer, RecalcSizes)
@@ -67,9 +67,9 @@ Gura_DeclareMethod(wx_BoxSizer, RecalcSizes)
 
 Gura_ImplementMethod(wx_BoxSizer, RecalcSizes)
 {
-	Object_wx_BoxSizer *pSelf = Object_wx_BoxSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->RecalcSizes();
+	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->RecalcSizes();
 	return Value::Null;
 }
 
@@ -81,9 +81,9 @@ Gura_DeclareMethod(wx_BoxSizer, CalcMin)
 
 Gura_ImplementMethod(wx_BoxSizer, CalcMin)
 {
-	Object_wx_BoxSizer *pSelf = Object_wx_BoxSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->CalcMin();
+	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->CalcMin();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -95,9 +95,9 @@ Gura_DeclareMethod(wx_BoxSizer, GetOrientation)
 
 Gura_ImplementMethod(wx_BoxSizer, GetOrientation)
 {
-	Object_wx_BoxSizer *pSelf = Object_wx_BoxSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetOrientation();
+	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetOrientation();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

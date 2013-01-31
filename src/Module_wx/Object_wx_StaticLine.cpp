@@ -48,7 +48,7 @@ Gura_ImplementFunction(StaticLineEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StaticLine *pEntity = new wx_StaticLine();
-	Object_wx_StaticLine *pObj = Object_wx_StaticLine::GetSelfObj(args);
+	Object_wx_StaticLine *pObj = Object_wx_StaticLine::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StaticLine(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(StaticLineEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(StaticLine)
@@ -87,7 +87,7 @@ Gura_ImplementFunction(StaticLine)
 	wxString name = wxT("staticLine");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_StaticLine *pEntity = new wx_StaticLine(parent, id, *pos, *size, style, name);
-	Object_wx_StaticLine *pObj = Object_wx_StaticLine::GetSelfObj(args);
+	Object_wx_StaticLine *pObj = Object_wx_StaticLine::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StaticLine(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -95,7 +95,7 @@ Gura_ImplementFunction(StaticLine)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_StaticLine, Create)
@@ -112,8 +112,8 @@ Gura_DeclareMethod(wx_StaticLine, Create)
 
 Gura_ImplementMethod(wx_StaticLine, Create)
 {
-	Object_wx_StaticLine *pSelf = Object_wx_StaticLine::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = wxID_ANY;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_StaticLine, Create)
 	if (args.IsValid(4)) style = args.GetLong(4);
 	wxString name = wxT("staticLine");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, *pos, *size, style, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -137,9 +137,9 @@ Gura_DeclareMethod(wx_StaticLine, IsVertical)
 
 Gura_ImplementMethod(wx_StaticLine, IsVertical)
 {
-	Object_wx_StaticLine *pSelf = Object_wx_StaticLine::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsVertical();
+	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsVertical();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -151,9 +151,9 @@ Gura_DeclareMethod(wx_StaticLine, GetDefaultSize)
 
 Gura_ImplementMethod(wx_StaticLine, GetDefaultSize)
 {
-	Object_wx_StaticLine *pSelf = Object_wx_StaticLine::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetDefaultSize();
+	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetDefaultSize();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

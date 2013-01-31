@@ -58,7 +58,7 @@ Gura_ImplementFunction(HtmlHelpController)
 	wxWindow *parentWindow = (wxWindow *)(NULL);
 	if (args.IsValid(1)) parentWindow = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wx_HtmlHelpController *pEntity = new wx_HtmlHelpController(style, parentWindow);
-	Object_wx_HtmlHelpController *pObj = Object_wx_HtmlHelpController::GetSelfObj(args);
+	Object_wx_HtmlHelpController *pObj = Object_wx_HtmlHelpController::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_HtmlHelpController(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(HtmlHelpController)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_HtmlHelpController, AddBook)
@@ -79,11 +79,11 @@ Gura_DeclareMethod(wx_HtmlHelpController, AddBook)
 
 Gura_ImplementMethod(wx_HtmlHelpController, AddBook)
 {
-	Object_wx_HtmlHelpController *pSelf = Object_wx_HtmlHelpController::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileName *bookFile = Object_wx_FileName::GetObject(args, 0)->GetEntity();
 	bool showWaitMsg = args.GetBoolean(1);
-	bool rtn = pSelf->GetEntity()->AddBook(*bookFile, showWaitMsg);
+	bool rtn = pThis->GetEntity()->AddBook(*bookFile, showWaitMsg);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -97,11 +97,11 @@ Gura_DeclareMethod(wx_HtmlHelpController, AddBook_1)
 
 Gura_ImplementMethod(wx_HtmlHelpController, AddBook_1)
 {
-	Object_wx_HtmlHelpController *pSelf = Object_wx_HtmlHelpController::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString bookUrl = wxString::FromUTF8(args.GetString(0));
 	bool showWaitMsg = args.GetBoolean(1);
-	bool rtn = pSelf->GetEntity()->AddBook(bookUrl, showWaitMsg);
+	bool rtn = pThis->GetEntity()->AddBook(bookUrl, showWaitMsg);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -117,10 +117,10 @@ Gura_DeclareMethod(wx_HtmlHelpController, CreateHelpDialog)
 Gura_ImplementMethod(wx_HtmlHelpController, CreateHelpDialog)
 {
 #if 0
-	Object_wx_HtmlHelpController *pSelf = Object_wx_HtmlHelpController::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlHelpData *data = Object_wx_HtmlHelpData::GetObject(args, 0)->GetEntity();
-	wxHtmlHelpDialog *rtn = (wxHtmlHelpDialog *)pSelf->GetEntity()->CreateHelpDialog(data);
+	wxHtmlHelpDialog *rtn = (wxHtmlHelpDialog *)pThis->GetEntity()->CreateHelpDialog(data);
 	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpDialog(rtn, NULL, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
@@ -139,10 +139,10 @@ Gura_DeclareMethod(wx_HtmlHelpController, CreateHelpFrame)
 Gura_ImplementMethod(wx_HtmlHelpController, CreateHelpFrame)
 {
 #if 0
-	Object_wx_HtmlHelpController *pSelf = Object_wx_HtmlHelpController::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlHelpData *data = Object_wx_HtmlHelpData::GetObject(args, 0)->GetEntity();
-	wxHtmlHelpFrame *rtn = (wxHtmlHelpFrame *)pSelf->GetEntity()->CreateHelpFrame(data);
+	wxHtmlHelpFrame *rtn = (wxHtmlHelpFrame *)pThis->GetEntity()->CreateHelpFrame(data);
 	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlHelpFrame(rtn, NULL, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
@@ -157,10 +157,10 @@ Gura_DeclareMethod(wx_HtmlHelpController, Display)
 
 Gura_ImplementMethod(wx_HtmlHelpController, Display)
 {
-	Object_wx_HtmlHelpController *pSelf = Object_wx_HtmlHelpController::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString x = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->Display(x);
+	pThis->GetEntity()->Display(x);
 	return Value::Null;
 }
 
@@ -172,10 +172,10 @@ Gura_DeclareMethod(wx_HtmlHelpController, Display_1)
 
 Gura_ImplementMethod(wx_HtmlHelpController, Display_1)
 {
-	Object_wx_HtmlHelpController *pSelf = Object_wx_HtmlHelpController::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
-	pSelf->GetEntity()->Display(id);
+	pThis->GetEntity()->Display(id);
 	return Value::Null;
 }
 
@@ -186,9 +186,9 @@ Gura_DeclareMethod(wx_HtmlHelpController, DisplayContents)
 
 Gura_ImplementMethod(wx_HtmlHelpController, DisplayContents)
 {
-	Object_wx_HtmlHelpController *pSelf = Object_wx_HtmlHelpController::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->DisplayContents();
+	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->DisplayContents();
 	return Value::Null;
 }
 
@@ -199,9 +199,9 @@ Gura_DeclareMethod(wx_HtmlHelpController, DisplayIndex)
 
 Gura_ImplementMethod(wx_HtmlHelpController, DisplayIndex)
 {
-	Object_wx_HtmlHelpController *pSelf = Object_wx_HtmlHelpController::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->DisplayIndex();
+	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->DisplayIndex();
 	return Value::Null;
 }
 
@@ -215,12 +215,12 @@ Gura_DeclareMethod(wx_HtmlHelpController, KeywordSearch)
 
 Gura_ImplementMethod(wx_HtmlHelpController, KeywordSearch)
 {
-	Object_wx_HtmlHelpController *pSelf = Object_wx_HtmlHelpController::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString keyword = wxString::FromUTF8(args.GetString(0));
 	wxHelpSearchMode mode = wxHELP_SEARCH_ALL;
 	if (args.IsValid(1)) mode = static_cast<wxHelpSearchMode>(args.GetInt(1));
-	bool rtn = pSelf->GetEntity()->KeywordSearch(keyword, mode);
+	bool rtn = pThis->GetEntity()->KeywordSearch(keyword, mode);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -233,12 +233,12 @@ Gura_DeclareMethod(wx_HtmlHelpController, ReadCustomization)
 
 Gura_ImplementMethod(wx_HtmlHelpController, ReadCustomization)
 {
-	Object_wx_HtmlHelpController *pSelf = Object_wx_HtmlHelpController::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxConfigBase *cfg = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
 	wxString path = wxEmptyString;
 	if (args.IsValid(1)) path = wxString::FromUTF8(args.GetString(1));
-	pSelf->GetEntity()->ReadCustomization(cfg, path);
+	pThis->GetEntity()->ReadCustomization(cfg, path);
 	return Value::Null;
 }
 
@@ -250,10 +250,10 @@ Gura_DeclareMethod(wx_HtmlHelpController, SetTempDir)
 
 Gura_ImplementMethod(wx_HtmlHelpController, SetTempDir)
 {
-	Object_wx_HtmlHelpController *pSelf = Object_wx_HtmlHelpController::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetTempDir(path);
+	pThis->GetEntity()->SetTempDir(path);
 	return Value::Null;
 }
 
@@ -265,10 +265,10 @@ Gura_DeclareMethod(wx_HtmlHelpController, SetTitleFormat)
 
 Gura_ImplementMethod(wx_HtmlHelpController, SetTitleFormat)
 {
-	Object_wx_HtmlHelpController *pSelf = Object_wx_HtmlHelpController::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString format = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetTitleFormat(format);
+	pThis->GetEntity()->SetTitleFormat(format);
 	return Value::Null;
 }
 
@@ -281,12 +281,12 @@ Gura_DeclareMethod(wx_HtmlHelpController, UseConfig)
 
 Gura_ImplementMethod(wx_HtmlHelpController, UseConfig)
 {
-	Object_wx_HtmlHelpController *pSelf = Object_wx_HtmlHelpController::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxConfigBase *config = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
 	wxString rootpath = wxEmptyString;
 	if (args.IsValid(1)) rootpath = wxString::FromUTF8(args.GetString(1));
-	pSelf->GetEntity()->UseConfig(config, rootpath);
+	pThis->GetEntity()->UseConfig(config, rootpath);
 	return Value::Null;
 }
 
@@ -299,12 +299,12 @@ Gura_DeclareMethod(wx_HtmlHelpController, WriteCustomization)
 
 Gura_ImplementMethod(wx_HtmlHelpController, WriteCustomization)
 {
-	Object_wx_HtmlHelpController *pSelf = Object_wx_HtmlHelpController::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxConfigBase *cfg = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
 	wxString path = wxEmptyString;
 	if (args.IsValid(1)) path = wxString::FromUTF8(args.GetString(1));
-	pSelf->GetEntity()->WriteCustomization(cfg, path);
+	pThis->GetEntity()->WriteCustomization(cfg, path);
 	return Value::Null;
 }
 

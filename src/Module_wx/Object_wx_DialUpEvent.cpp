@@ -51,7 +51,7 @@ Gura_ImplementFunction(DialUpEvent)
 	bool isConnected = args.GetBoolean(0);
 	bool isOwnEvent = args.GetBoolean(1);
 	wx_DialUpEvent *pEntity = new wx_DialUpEvent(isConnected, isOwnEvent);
-	Object_wx_DialUpEvent *pObj = Object_wx_DialUpEvent::GetSelfObj(args);
+	Object_wx_DialUpEvent *pObj = Object_wx_DialUpEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DialUpEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -59,7 +59,7 @@ Gura_ImplementFunction(DialUpEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DialUpEvent, IsConnectedEvent)
@@ -70,9 +70,9 @@ Gura_DeclareMethod(wx_DialUpEvent, IsConnectedEvent)
 
 Gura_ImplementMethod(wx_DialUpEvent, IsConnectedEvent)
 {
-	Object_wx_DialUpEvent *pSelf = Object_wx_DialUpEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsConnectedEvent();
+	Object_wx_DialUpEvent *pThis = Object_wx_DialUpEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsConnectedEvent();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -84,9 +84,9 @@ Gura_DeclareMethod(wx_DialUpEvent, IsOwnEvent)
 
 Gura_ImplementMethod(wx_DialUpEvent, IsOwnEvent)
 {
-	Object_wx_DialUpEvent *pSelf = Object_wx_DialUpEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOwnEvent();
+	Object_wx_DialUpEvent *pThis = Object_wx_DialUpEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOwnEvent();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

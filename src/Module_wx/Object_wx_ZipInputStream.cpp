@@ -54,7 +54,7 @@ Gura_ImplementFunction(ZipInputStream)
 	wxMBConv *conv = (wxMBConv *)(&wxConvLocal);
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
 	wx_ZipInputStream *pEntity = new wx_ZipInputStream(*stream, *conv);
-	Object_wx_ZipInputStream *pObj = Object_wx_ZipInputStream::GetSelfObj(args);
+	Object_wx_ZipInputStream *pObj = Object_wx_ZipInputStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ZipInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(ZipInputStream)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ZipInputStream_1)
@@ -81,7 +81,7 @@ Gura_ImplementFunction(ZipInputStream_1)
 	wxMBConv *conv = (wxMBConv *)(&wxConvLocal);
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
 	wx_ZipInputStream *pEntity = new wx_ZipInputStream(stream, *conv);
-	Object_wx_ZipInputStream *pObj = Object_wx_ZipInputStream::GetSelfObj(args);
+	Object_wx_ZipInputStream *pObj = Object_wx_ZipInputStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ZipInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -89,7 +89,7 @@ Gura_ImplementFunction(ZipInputStream_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ZipInputStream_2)
@@ -107,7 +107,7 @@ Gura_ImplementFunction(ZipInputStream_2)
 	wxString archive = wxString::FromUTF8(args.GetString(0));
 	wxString file = wxString::FromUTF8(args.GetString(1));
 	wx_ZipInputStream *pEntity = new wx_ZipInputStream(archive, file);
-	Object_wx_ZipInputStream *pObj = Object_wx_ZipInputStream::GetSelfObj(args);
+	Object_wx_ZipInputStream *pObj = Object_wx_ZipInputStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ZipInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -115,7 +115,7 @@ Gura_ImplementFunction(ZipInputStream_2)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ZipInputStream, CloseEntry)
@@ -126,9 +126,9 @@ Gura_DeclareMethod(wx_ZipInputStream, CloseEntry)
 
 Gura_ImplementMethod(wx_ZipInputStream, CloseEntry)
 {
-	Object_wx_ZipInputStream *pSelf = Object_wx_ZipInputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->CloseEntry();
+	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->CloseEntry();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -140,9 +140,9 @@ Gura_DeclareMethod(wx_ZipInputStream, GetComment)
 
 Gura_ImplementMethod(wx_ZipInputStream, GetComment)
 {
-	Object_wx_ZipInputStream *pSelf = Object_wx_ZipInputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetComment();
+	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetComment();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -154,9 +154,9 @@ Gura_DeclareMethod(wx_ZipInputStream, GetNextEntry)
 
 Gura_ImplementMethod(wx_ZipInputStream, GetNextEntry)
 {
-	Object_wx_ZipInputStream *pSelf = Object_wx_ZipInputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxZipEntry *rtn = (wxZipEntry *)pSelf->GetEntity()->GetNextEntry();
+	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxZipEntry *rtn = (wxZipEntry *)pThis->GetEntity()->GetNextEntry();
 	return ReturnValue(env, sig, args, Value(new Object_wx_ZipEntry(rtn, NULL, OwnerFalse)));
 }
 
@@ -168,9 +168,9 @@ Gura_DeclareMethod(wx_ZipInputStream, GetTotalEntries)
 
 Gura_ImplementMethod(wx_ZipInputStream, GetTotalEntries)
 {
-	Object_wx_ZipInputStream *pSelf = Object_wx_ZipInputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetTotalEntries();
+	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetTotalEntries();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -183,10 +183,10 @@ Gura_DeclareMethod(wx_ZipInputStream, OpenEntry)
 
 Gura_ImplementMethod(wx_ZipInputStream, OpenEntry)
 {
-	Object_wx_ZipInputStream *pSelf = Object_wx_ZipInputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxZipEntry *entry = Object_wx_ZipEntry::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->OpenEntry(*entry);
+	bool rtn = pThis->GetEntity()->OpenEntry(*entry);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

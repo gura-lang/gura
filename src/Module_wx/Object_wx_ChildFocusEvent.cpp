@@ -50,7 +50,7 @@ Gura_ImplementFunction(ChildFocusEvent)
 	wxWindow *win = (wxWindow *)(NULL);
 	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_ChildFocusEvent *pEntity = new wx_ChildFocusEvent(win);
-	Object_wx_ChildFocusEvent *pObj = Object_wx_ChildFocusEvent::GetSelfObj(args);
+	Object_wx_ChildFocusEvent *pObj = Object_wx_ChildFocusEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ChildFocusEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(ChildFocusEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

@@ -199,7 +199,7 @@ Gura_DeclareMethod(db, exec)
 
 Gura_ImplementMethod(db, exec)
 {
-	Object_db *pObj = Object_db::GetSelfObj(args);
+	Object_db *pObj = Object_db::GetThisObj(args);
 	return pObj->Exec(sig, args.GetString(0), args);
 }
 
@@ -217,7 +217,7 @@ Gura_DeclareMethod(db, query)
 
 Gura_ImplementMethod(db, query)
 {
-	Object_db *pObj = Object_db::GetSelfObj(args);
+	Object_db *pObj = Object_db::GetThisObj(args);
 	Iterator *pIterator = pObj->Query(sig, args.GetString(0));
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnIterator(env, sig, args, pIterator);
@@ -233,7 +233,7 @@ Gura_DeclareMethod(db, getcolnames)
 
 Gura_ImplementMethod(db, getcolnames)
 {
-	Object_db *pObj = Object_db::GetSelfObj(args);
+	Object_db *pObj = Object_db::GetThisObj(args);
 	return pObj->GetColumnNames(sig, args.GetString(0));
 }
 
@@ -251,7 +251,7 @@ Gura_DeclareMethod(db, transaction)
 
 Gura_ImplementMethod(db, transaction)
 {
-	Object_db *pObj = Object_db::GetSelfObj(args);
+	Object_db *pObj = Object_db::GetThisObj(args);
 	const Function *pFuncBlock =
 						args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Null;
@@ -273,7 +273,7 @@ Gura_DeclareMethod(db, close)
 
 Gura_ImplementMethod(db, close)
 {
-	Object_db *pObj = Object_db::GetSelfObj(args);
+	Object_db *pObj = Object_db::GetThisObj(args);
 	pObj->Close();
 	return Value::Null;
 }

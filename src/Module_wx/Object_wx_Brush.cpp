@@ -51,7 +51,7 @@ Gura_ImplementFunction(BrushEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Brush *pEntity = new wx_Brush();
-	Object_wx_Brush *pObj = Object_wx_Brush::GetSelfObj(args);
+	Object_wx_Brush *pObj = Object_wx_Brush::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Brush(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -59,7 +59,7 @@ Gura_ImplementFunction(BrushEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Brush)
@@ -78,7 +78,7 @@ Gura_ImplementFunction(Brush)
 	int style = wxSOLID;
 	if (args.IsValid(1)) style = args.GetInt(1);
 	wx_Brush *pEntity = new wx_Brush(*colour, style);
-	Object_wx_Brush *pObj = Object_wx_Brush::GetSelfObj(args);
+	Object_wx_Brush *pObj = Object_wx_Brush::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Brush(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -86,7 +86,7 @@ Gura_ImplementFunction(Brush)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Brush_1)
@@ -104,7 +104,7 @@ Gura_ImplementFunction(Brush_1)
 	wxString colourName = wxString::FromUTF8(args.GetString(0));
 	int style = args.GetInt(1);
 	wx_Brush *pEntity = new wx_Brush(colourName, style);
-	Object_wx_Brush *pObj = Object_wx_Brush::GetSelfObj(args);
+	Object_wx_Brush *pObj = Object_wx_Brush::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Brush(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -112,7 +112,7 @@ Gura_ImplementFunction(Brush_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Brush_2)
@@ -128,7 +128,7 @@ Gura_ImplementFunction(Brush_2)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *stippleBitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_Brush *pEntity = new wx_Brush(*stippleBitmap);
-	Object_wx_Brush *pObj = Object_wx_Brush::GetSelfObj(args);
+	Object_wx_Brush *pObj = Object_wx_Brush::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Brush(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -136,7 +136,7 @@ Gura_ImplementFunction(Brush_2)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Brush_3)
@@ -152,7 +152,7 @@ Gura_ImplementFunction(Brush_3)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBrush *brush = Object_wx_Brush::GetObject(args, 0)->GetEntity();
 	wx_Brush *pEntity = new wx_Brush(*brush);
-	Object_wx_Brush *pObj = Object_wx_Brush::GetSelfObj(args);
+	Object_wx_Brush *pObj = Object_wx_Brush::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Brush(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -160,7 +160,7 @@ Gura_ImplementFunction(Brush_3)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Brush, GetColour)
@@ -171,9 +171,9 @@ Gura_DeclareMethod(wx_Brush, GetColour)
 
 Gura_ImplementMethod(wx_Brush, GetColour)
 {
-	Object_wx_Brush *pSelf = Object_wx_Brush::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxColour &rtn = pSelf->GetEntity()->GetColour();
+	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxColour &rtn = pThis->GetEntity()->GetColour();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
 }
 
@@ -185,9 +185,9 @@ Gura_DeclareMethod(wx_Brush, GetStipple)
 
 Gura_ImplementMethod(wx_Brush, GetStipple)
 {
-	Object_wx_Brush *pSelf = Object_wx_Brush::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxBitmap *rtn = (wxBitmap *)pSelf->GetEntity()->GetStipple();
+	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxBitmap *rtn = (wxBitmap *)pThis->GetEntity()->GetStipple();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(rtn, NULL, OwnerFalse)));
 }
 
@@ -199,9 +199,9 @@ Gura_DeclareMethod(wx_Brush, GetStyle)
 
 Gura_ImplementMethod(wx_Brush, GetStyle)
 {
-	Object_wx_Brush *pSelf = Object_wx_Brush::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetStyle();
+	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetStyle();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -213,9 +213,9 @@ Gura_DeclareMethod(wx_Brush, IsHatch)
 
 Gura_ImplementMethod(wx_Brush, IsHatch)
 {
-	Object_wx_Brush *pSelf = Object_wx_Brush::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsHatch();
+	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsHatch();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -227,9 +227,9 @@ Gura_DeclareMethod(wx_Brush, IsOk)
 
 Gura_ImplementMethod(wx_Brush, IsOk)
 {
-	Object_wx_Brush *pSelf = Object_wx_Brush::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -241,10 +241,10 @@ Gura_DeclareMethod(wx_Brush, SetColour)
 
 Gura_ImplementMethod(wx_Brush, SetColour)
 {
-	Object_wx_Brush *pSelf = Object_wx_Brush::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetColour(*colour);
+	pThis->GetEntity()->SetColour(*colour);
 	return Value::Null;
 }
 
@@ -256,10 +256,10 @@ Gura_DeclareMethod(wx_Brush, SetColour_1)
 
 Gura_ImplementMethod(wx_Brush, SetColour_1)
 {
-	Object_wx_Brush *pSelf = Object_wx_Brush::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString colourName = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetColour(colourName);
+	pThis->GetEntity()->SetColour(colourName);
 	return Value::Null;
 }
 
@@ -273,12 +273,12 @@ Gura_DeclareMethod(wx_Brush, SetColour_2)
 
 Gura_ImplementMethod(wx_Brush, SetColour_2)
 {
-	Object_wx_Brush *pSelf = Object_wx_Brush::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned red = args.GetInt(0);
 	unsigned green = args.GetInt(1);
 	unsigned blue = args.GetInt(2);
-	pSelf->GetEntity()->SetColour(red, green, blue);
+	pThis->GetEntity()->SetColour(red, green, blue);
 	return Value::Null;
 }
 
@@ -290,10 +290,10 @@ Gura_DeclareMethod(wx_Brush, SetStipple)
 
 Gura_ImplementMethod(wx_Brush, SetStipple)
 {
-	Object_wx_Brush *pSelf = Object_wx_Brush::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetStipple(*bitmap);
+	pThis->GetEntity()->SetStipple(*bitmap);
 	return Value::Null;
 }
 
@@ -305,10 +305,10 @@ Gura_DeclareMethod(wx_Brush, SetStyle)
 
 Gura_ImplementMethod(wx_Brush, SetStyle)
 {
-	Object_wx_Brush *pSelf = Object_wx_Brush::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int style = args.GetInt(0);
-	pSelf->GetEntity()->SetStyle(style);
+	pThis->GetEntity()->SetStyle(style);
 	return Value::Null;
 }
 
@@ -322,7 +322,7 @@ Gura_DeclareMethod(wx_Brush, __eq__)
 
 Gura_ImplementMethod(wx_Brush, __eq__)
 {
-	Object_wx_Brush *pSelf = Object_wx_Brush::GetSelfObj(args);
+	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
 	wxBrush *item1 = Object_wx_Brush::GetObject(args, 0)->GetEntity();
 	wxBrush *item2 = Object_wx_Brush::GetObject(args, 1)->GetEntity();
 	return *item1 == *item2;
@@ -338,7 +338,7 @@ Gura_DeclareMethod(wx_Brush, __ne__)
 
 Gura_ImplementMethod(wx_Brush, __ne__)
 {
-	Object_wx_Brush *pSelf = Object_wx_Brush::GetSelfObj(args);
+	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
 	wxBrush *item1 = Object_wx_Brush::GetObject(args, 0)->GetEntity();
 	wxBrush *item2 = Object_wx_Brush::GetObject(args, 1)->GetEntity();
 	return *item1 != *item2;

@@ -49,7 +49,7 @@ Gura_ImplementFunction(AnimationEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Animation *pEntity = new wx_Animation();
-	Object_wx_Animation *pObj = Object_wx_Animation::GetSelfObj(args);
+	Object_wx_Animation *pObj = Object_wx_Animation::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Animation(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(AnimationEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Animation)
@@ -73,7 +73,7 @@ Gura_ImplementFunction(Animation)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxAnimation *anim = Object_wx_Animation::GetObject(args, 0)->GetEntity();
 	wx_Animation *pEntity = new wx_Animation(*anim);
-	Object_wx_Animation *pObj = Object_wx_Animation::GetSelfObj(args);
+	Object_wx_Animation *pObj = Object_wx_Animation::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Animation(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -81,7 +81,7 @@ Gura_ImplementFunction(Animation)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Animation_1)
@@ -100,7 +100,7 @@ Gura_ImplementFunction(Animation_1)
 	wxAnimationType type = wxANIMATION_TYPE_ANY;
 	if (args.IsValid(1)) type = static_cast<wxAnimationType>(args.GetInt(1));
 	wx_Animation *pEntity = new wx_Animation(name, type);
-	Object_wx_Animation *pObj = Object_wx_Animation::GetSelfObj(args);
+	Object_wx_Animation *pObj = Object_wx_Animation::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Animation(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -108,7 +108,7 @@ Gura_ImplementFunction(Animation_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Animation, GetDelay)
@@ -120,10 +120,10 @@ Gura_DeclareMethod(wx_Animation, GetDelay)
 
 Gura_ImplementMethod(wx_Animation, GetDelay)
 {
-	Object_wx_Animation *pSelf = Object_wx_Animation::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned i = args.GetInt(0);
-	int rtn = pSelf->GetEntity()->GetDelay(i);
+	int rtn = pThis->GetEntity()->GetDelay(i);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -135,9 +135,9 @@ Gura_DeclareMethod(wx_Animation, GetFrameCount)
 
 Gura_ImplementMethod(wx_Animation, GetFrameCount)
 {
-	Object_wx_Animation *pSelf = Object_wx_Animation::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	unsigned rtn = pSelf->GetEntity()->GetFrameCount();
+	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	unsigned rtn = pThis->GetEntity()->GetFrameCount();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -150,10 +150,10 @@ Gura_DeclareMethod(wx_Animation, GetFrame)
 
 Gura_ImplementMethod(wx_Animation, GetFrame)
 {
-	Object_wx_Animation *pSelf = Object_wx_Animation::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned i = args.GetInt(0);
-	wxImage rtn = pSelf->GetEntity()->GetFrame(i);
+	wxImage rtn = pThis->GetEntity()->GetFrame(i);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Image(new wxImage(rtn), NULL, OwnerTrue)));
 }
 
@@ -165,9 +165,9 @@ Gura_DeclareMethod(wx_Animation, GetSize)
 
 Gura_ImplementMethod(wx_Animation, GetSize)
 {
-	Object_wx_Animation *pSelf = Object_wx_Animation::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetSize();
+	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -179,9 +179,9 @@ Gura_DeclareMethod(wx_Animation, IsOk)
 
 Gura_ImplementMethod(wx_Animation, IsOk)
 {
-	Object_wx_Animation *pSelf = Object_wx_Animation::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -195,12 +195,12 @@ Gura_DeclareMethod(wx_Animation, Load)
 
 Gura_ImplementMethod(wx_Animation, Load)
 {
-	Object_wx_Animation *pSelf = Object_wx_Animation::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 0)->GetEntity();
 	wxAnimationType type = wxANIMATION_TYPE_ANY;
 	if (args.IsValid(1)) type = static_cast<wxAnimationType>(args.GetInt(1));
-	bool rtn = pSelf->GetEntity()->Load(*stream, type);
+	bool rtn = pThis->GetEntity()->Load(*stream, type);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -214,12 +214,12 @@ Gura_DeclareMethod(wx_Animation, LoadFile)
 
 Gura_ImplementMethod(wx_Animation, LoadFile)
 {
-	Object_wx_Animation *pSelf = Object_wx_Animation::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Animation *pThis = Object_wx_Animation::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxAnimationType type = wxANIMATION_TYPE_ANY;
 	if (args.IsValid(1)) type = static_cast<wxAnimationType>(args.GetInt(1));
-	bool rtn = pSelf->GetEntity()->LoadFile(name, type);
+	bool rtn = pThis->GetEntity()->LoadFile(name, type);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

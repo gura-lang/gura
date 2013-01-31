@@ -47,7 +47,7 @@ Gura_ImplementFunction(DataObjectCompositeEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DataObjectComposite *pEntity = new wx_DataObjectComposite();
-	Object_wx_DataObjectComposite *pObj = Object_wx_DataObjectComposite::GetSelfObj(args);
+	Object_wx_DataObjectComposite *pObj = Object_wx_DataObjectComposite::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DataObjectComposite(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(DataObjectCompositeEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DataObjectComposite, Add)
@@ -70,12 +70,12 @@ Gura_DeclareMethod(wx_DataObjectComposite, Add)
 Gura_ImplementMethod(wx_DataObjectComposite, Add)
 {
 #if 0
-	Object_wx_DataObjectComposite *pSelf = Object_wx_DataObjectComposite::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataObjectSimple **dataObject = Object_wx_DataObjectSimple::GetObject(args, 0)->GetEntity();
 	bool preferred = false;
 	if (args.IsValid(1)) preferred = args.GetBoolean(1);
-	pSelf->GetEntity()->Add(**dataObject, preferred);
+	pThis->GetEntity()->Add(**dataObject, preferred);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -90,9 +90,9 @@ Gura_DeclareMethod(wx_DataObjectComposite, GetReceivedFormat)
 
 Gura_ImplementMethod(wx_DataObjectComposite, GetReceivedFormat)
 {
-	Object_wx_DataObjectComposite *pSelf = Object_wx_DataObjectComposite::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxDataFormat rtn = pSelf->GetEntity()->GetReceivedFormat();
+	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxDataFormat rtn = pThis->GetEntity()->GetReceivedFormat();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DataFormat(new wxDataFormat(rtn), NULL, OwnerTrue)));
 }
 

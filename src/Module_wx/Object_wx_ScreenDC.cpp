@@ -47,7 +47,7 @@ Gura_ImplementFunction(ScreenDCEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ScreenDC *pEntity = new wx_ScreenDC();
-	Object_wx_ScreenDC *pObj = Object_wx_ScreenDC::GetSelfObj(args);
+	Object_wx_ScreenDC *pObj = Object_wx_ScreenDC::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ScreenDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(ScreenDCEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ScreenDC, StartDrawingOnTop)
@@ -67,10 +67,10 @@ Gura_DeclareMethod(wx_ScreenDC, StartDrawingOnTop)
 
 Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop)
 {
-	Object_wx_ScreenDC *pSelf = Object_wx_ScreenDC::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->StartDrawingOnTop(window);
+	bool rtn = pThis->GetEntity()->StartDrawingOnTop(window);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -83,11 +83,11 @@ Gura_DeclareMethod(wx_ScreenDC, StartDrawingOnTop_1)
 
 Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop_1)
 {
-	Object_wx_ScreenDC *pSelf = Object_wx_ScreenDC::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = (wxRect *)(NULL);
 	if (args.IsValid(0)) rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->StartDrawingOnTop(rect);
+	bool rtn = pThis->GetEntity()->StartDrawingOnTop(rect);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -99,9 +99,9 @@ Gura_DeclareMethod(wx_ScreenDC, EndDrawingOnTop)
 
 Gura_ImplementMethod(wx_ScreenDC, EndDrawingOnTop)
 {
-	Object_wx_ScreenDC *pSelf = Object_wx_ScreenDC::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->EndDrawingOnTop();
+	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->EndDrawingOnTop();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

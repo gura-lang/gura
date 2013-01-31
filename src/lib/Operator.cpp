@@ -656,14 +656,14 @@ Value Func_Multiply::EvalExpr(Environment &env, Signal sig, Args &args) const
 			if (sig.IsSignalled()) return Value::Null;
 			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(env,
 						Function::Reference(pFunc),
-						valueLeft.GetFunctionObj()->GetSelf(), pIterator.release()));
+						valueLeft.GetFunctionObj()->GetThis(), pIterator.release()));
 			return pIteratorFuncBinder->Eval(env, sig, argsSub);
 		} else if (valueRight.IsIterator()) {
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
 			if (sig.IsSignalled()) return Value::Null;
 			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(env,
 						Function::Reference(pFunc),
-						valueLeft.GetFunctionObj()->GetSelf(), pIterator.release()));
+						valueLeft.GetFunctionObj()->GetThis(), pIterator.release()));
 			if (pFunc->IsRsltNormal() ||
 						pFunc->IsRsltIterator() || pFunc->IsRsltXIterator()) {
 				return Value(env, pIteratorFuncBinder.release());

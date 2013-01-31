@@ -67,7 +67,7 @@ Gura_ImplementFunction(GridCellAttrProvider)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellAttrProvider *pEntity = new wx_GridCellAttrProvider();
-	Object_wx_GridCellAttrProvider *pObj = Object_wx_GridCellAttrProvider::GetSelfObj(args);
+	Object_wx_GridCellAttrProvider *pObj = Object_wx_GridCellAttrProvider::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GridCellAttrProvider(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -75,7 +75,7 @@ Gura_ImplementFunction(GridCellAttrProvider)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GridCellAttrProvider, GetAttr)
@@ -88,12 +88,12 @@ Gura_DeclareMethod(wx_GridCellAttrProvider, GetAttr)
 
 Gura_ImplementMethod(wx_GridCellAttrProvider, GetAttr)
 {
-	Object_wx_GridCellAttrProvider *pSelf = Object_wx_GridCellAttrProvider::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridCellAttrProvider *pThis = Object_wx_GridCellAttrProvider::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	wxGridCellAttr::wxAttrKind kind = static_cast<wxGridCellAttr::wxAttrKind>(args.GetInt(2));
-	wxGridCellAttr *rtn = dynamic_cast<wx_GridCellAttrProvider *>(pSelf->GetEntity())->_GetAttr(row, col, kind);
+	wxGridCellAttr *rtn = dynamic_cast<wx_GridCellAttrProvider *>(pThis->GetEntity())->_GetAttr(row, col, kind);
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_GridCellAttr(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);

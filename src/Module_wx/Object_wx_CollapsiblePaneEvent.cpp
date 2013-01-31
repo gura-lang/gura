@@ -53,7 +53,7 @@ Gura_ImplementFunction(CollapsiblePaneEvent)
 	int id = args.GetInt(1);
 	bool collapsed = args.GetBoolean(2);
 	wx_CollapsiblePaneEvent *pEntity = new wx_CollapsiblePaneEvent(generator, id, collapsed);
-	Object_wx_CollapsiblePaneEvent *pObj = Object_wx_CollapsiblePaneEvent::GetSelfObj(args);
+	Object_wx_CollapsiblePaneEvent *pObj = Object_wx_CollapsiblePaneEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_CollapsiblePaneEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(CollapsiblePaneEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_CollapsiblePaneEvent, GetCollapsed)
@@ -72,9 +72,9 @@ Gura_DeclareMethod(wx_CollapsiblePaneEvent, GetCollapsed)
 
 Gura_ImplementMethod(wx_CollapsiblePaneEvent, GetCollapsed)
 {
-	Object_wx_CollapsiblePaneEvent *pSelf = Object_wx_CollapsiblePaneEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->GetCollapsed();
+	Object_wx_CollapsiblePaneEvent *pThis = Object_wx_CollapsiblePaneEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->GetCollapsed();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -86,10 +86,10 @@ Gura_DeclareMethod(wx_CollapsiblePaneEvent, SetCollapsed)
 
 Gura_ImplementMethod(wx_CollapsiblePaneEvent, SetCollapsed)
 {
-	Object_wx_CollapsiblePaneEvent *pSelf = Object_wx_CollapsiblePaneEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_CollapsiblePaneEvent *pThis = Object_wx_CollapsiblePaneEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool collapsed = args.GetBoolean(0);
-	pSelf->GetEntity()->SetCollapsed(collapsed);
+	pThis->GetEntity()->SetCollapsed(collapsed);
 	return Value::Null;
 }
 

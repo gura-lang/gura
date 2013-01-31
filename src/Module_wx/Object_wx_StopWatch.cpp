@@ -47,7 +47,7 @@ Gura_ImplementFunction(StopWatch)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StopWatch *pEntity = new wx_StopWatch();
-	Object_wx_StopWatch *pObj = Object_wx_StopWatch::GetSelfObj(args);
+	Object_wx_StopWatch *pObj = Object_wx_StopWatch::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StopWatch(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(StopWatch)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_StopWatch, Pause)
@@ -65,9 +65,9 @@ Gura_DeclareMethod(wx_StopWatch, Pause)
 
 Gura_ImplementMethod(wx_StopWatch, Pause)
 {
-	Object_wx_StopWatch *pSelf = Object_wx_StopWatch::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Pause();
+	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Pause();
 	return Value::Null;
 }
 
@@ -78,9 +78,9 @@ Gura_DeclareMethod(wx_StopWatch, Resume)
 
 Gura_ImplementMethod(wx_StopWatch, Resume)
 {
-	Object_wx_StopWatch *pSelf = Object_wx_StopWatch::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Resume();
+	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Resume();
 	return Value::Null;
 }
 
@@ -92,11 +92,11 @@ Gura_DeclareMethod(wx_StopWatch, Start)
 
 Gura_ImplementMethod(wx_StopWatch, Start)
 {
-	Object_wx_StopWatch *pSelf = Object_wx_StopWatch::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long milliseconds = 0;
 	if (args.IsValid(0)) milliseconds = args.GetLong(0);
-	pSelf->GetEntity()->Start(milliseconds);
+	pThis->GetEntity()->Start(milliseconds);
 	return Value::Null;
 }
 
@@ -108,9 +108,9 @@ Gura_DeclareMethod(wx_StopWatch, Time)
 
 Gura_ImplementMethod(wx_StopWatch, Time)
 {
-	Object_wx_StopWatch *pSelf = Object_wx_StopWatch::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	long rtn = pSelf->GetEntity()->Time();
+	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	long rtn = pThis->GetEntity()->Time();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

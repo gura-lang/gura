@@ -48,7 +48,7 @@ Gura_ImplementFunction(MDIClientWindowEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MDIClientWindow *pEntity = new wx_MDIClientWindow();
-	Object_wx_MDIClientWindow *pObj = Object_wx_MDIClientWindow::GetSelfObj(args);
+	Object_wx_MDIClientWindow *pObj = Object_wx_MDIClientWindow::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MDIClientWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(MDIClientWindowEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(MDIClientWindow)
@@ -75,7 +75,7 @@ Gura_ImplementFunction(MDIClientWindow)
 	long style = 0;
 	if (args.IsValid(1)) style = args.GetLong(1);
 	wx_MDIClientWindow *pEntity = new wx_MDIClientWindow(parent, style);
-	Object_wx_MDIClientWindow *pObj = Object_wx_MDIClientWindow::GetSelfObj(args);
+	Object_wx_MDIClientWindow *pObj = Object_wx_MDIClientWindow::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MDIClientWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -83,7 +83,7 @@ Gura_ImplementFunction(MDIClientWindow)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MDIClientWindow, CreateClient)
@@ -96,12 +96,12 @@ Gura_DeclareMethod(wx_MDIClientWindow, CreateClient)
 
 Gura_ImplementMethod(wx_MDIClientWindow, CreateClient)
 {
-	Object_wx_MDIClientWindow *pSelf = Object_wx_MDIClientWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_MDIClientWindow *pThis = Object_wx_MDIClientWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMDIParentFrame *parent = Object_wx_MDIParentFrame::GetObject(args, 0)->GetEntity();
 	long style = 0;
 	if (args.IsValid(1)) style = args.GetLong(1);
-	bool rtn = pSelf->GetEntity()->CreateClient(parent, style);
+	bool rtn = pThis->GetEntity()->CreateClient(parent, style);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

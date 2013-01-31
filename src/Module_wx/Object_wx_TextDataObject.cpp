@@ -57,7 +57,7 @@ Gura_ImplementFunction(TextDataObject)
 	wxString text = wxEmptyString;
 	if (args.IsValid(0)) text = wxString::FromUTF8(args.GetString(0));
 	wx_TextDataObject *pEntity = new wx_TextDataObject(text);
-	Object_wx_TextDataObject *pObj = Object_wx_TextDataObject::GetSelfObj(args);
+	Object_wx_TextDataObject *pObj = Object_wx_TextDataObject::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TextDataObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -65,7 +65,7 @@ Gura_ImplementFunction(TextDataObject)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TextDataObject, GetTextLength)
@@ -76,9 +76,9 @@ Gura_DeclareMethod(wx_TextDataObject, GetTextLength)
 
 Gura_ImplementMethod(wx_TextDataObject, GetTextLength)
 {
-	Object_wx_TextDataObject *pSelf = Object_wx_TextDataObject::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	size_t rtn = pSelf->GetEntity()->GetTextLength();
+	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	size_t rtn = pThis->GetEntity()->GetTextLength();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -90,9 +90,9 @@ Gura_DeclareMethod(wx_TextDataObject, GetText)
 
 Gura_ImplementMethod(wx_TextDataObject, GetText)
 {
-	Object_wx_TextDataObject *pSelf = Object_wx_TextDataObject::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetText();
+	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetText();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -104,10 +104,10 @@ Gura_DeclareMethod(wx_TextDataObject, SetText)
 
 Gura_ImplementMethod(wx_TextDataObject, SetText)
 {
-	Object_wx_TextDataObject *pSelf = Object_wx_TextDataObject::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString strText = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetText(strText);
+	pThis->GetEntity()->SetText(strText);
 	return Value::Null;
 }
 

@@ -48,7 +48,7 @@ Gura_ImplementFunction(ObjectRefDataEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ObjectRefData *pEntity = new wx_ObjectRefData();
-	Object_wx_ObjectRefData *pObj = Object_wx_ObjectRefData::GetSelfObj(args);
+	Object_wx_ObjectRefData *pObj = Object_wx_ObjectRefData::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ObjectRefData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(ObjectRefDataEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ObjectRefDataEmpty_1)
@@ -70,7 +70,7 @@ Gura_ImplementFunction(ObjectRefDataEmpty_1)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ObjectRefData *pEntity = new wx_ObjectRefData();
-	Object_wx_ObjectRefData *pObj = Object_wx_ObjectRefData::GetSelfObj(args);
+	Object_wx_ObjectRefData *pObj = Object_wx_ObjectRefData::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ObjectRefData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -78,7 +78,7 @@ Gura_ImplementFunction(ObjectRefDataEmpty_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ObjectRefData, GetRefCount)
@@ -89,9 +89,9 @@ Gura_DeclareMethod(wx_ObjectRefData, GetRefCount)
 
 Gura_ImplementMethod(wx_ObjectRefData, GetRefCount)
 {
-	Object_wx_ObjectRefData *pSelf = Object_wx_ObjectRefData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetRefCount();
+	Object_wx_ObjectRefData *pThis = Object_wx_ObjectRefData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetRefCount();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

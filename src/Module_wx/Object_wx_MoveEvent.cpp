@@ -52,7 +52,7 @@ Gura_ImplementFunction(MoveEvent)
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_MoveEvent *pEntity = new wx_MoveEvent(*pt, id);
-	Object_wx_MoveEvent *pObj = Object_wx_MoveEvent::GetSelfObj(args);
+	Object_wx_MoveEvent *pObj = Object_wx_MoveEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MoveEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -60,7 +60,7 @@ Gura_ImplementFunction(MoveEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MoveEvent, GetPosition)
@@ -71,9 +71,9 @@ Gura_DeclareMethod(wx_MoveEvent, GetPosition)
 
 Gura_ImplementMethod(wx_MoveEvent, GetPosition)
 {
-	Object_wx_MoveEvent *pSelf = Object_wx_MoveEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPoint rtn = pSelf->GetEntity()->GetPosition();
+	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPoint rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 

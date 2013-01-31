@@ -347,7 +347,7 @@ class DLLDECLARE Iterator_Fork : public Iterator, public OAL::Thread {
 private:
 	Environment _env;
 	AutoPtr<Function> _pFunc;
-	Value _valueSelf;
+	Value _valueThis;
 	IteratorOwner _iterOwner;
 	ValueList _valListA;
 	ValueList _valListB;
@@ -366,7 +366,7 @@ private:
 	} _writeBlock;
 public:
 	Iterator_Fork(Environment &env, Signal sig,
-		Function *pFunc, const Value &valueSelf, const ValueList &valListArg);
+		Function *pFunc, const Value &valueThis, const ValueList &valListArg);
 	virtual ~Iterator_Fork();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
@@ -404,13 +404,13 @@ private:
 	Environment _env;
 	Signal _sig;
 	AutoPtr<Function> _pFunc;
-	Value _valueSelf;
-	AutoPtr<Iterator> _pIteratorSelf;
+	Value _valueThis;
+	AutoPtr<Iterator> _pIteratorThis;
 	IteratorOwner _iterOwner;
-	bool _doneSelfFlag;
+	bool _doneThisFlag;
 public:
 	Iterator_ImplicitMap(Environment &env, Signal sig, Function *pFunc,
-			const Value &valueSelf, Iterator *pIteratorSelf,
+			const Value &valueThis, Iterator *pIteratorThis,
 			const ValueList &valListArg, bool skipInvalidFlag);
 	virtual ~Iterator_ImplicitMap();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -443,12 +443,12 @@ class DLLDECLARE Iterator_MethodMap : public Iterator {
 private:
 	Environment _env;
 	Signal _sig;
-	AutoPtr<Iterator> _pIteratorSelf;
+	AutoPtr<Iterator> _pIteratorThis;
 	AutoPtr<Expr_Caller> _pExprCaller;
 public:
-	inline Iterator_MethodMap(Environment &env, Signal sig, Iterator *pIteratorSelf, Expr_Caller *pExprCaller) :
-		Iterator(pIteratorSelf->IsInfinite()), _env(env), _sig(sig),
-		_pIteratorSelf(pIteratorSelf), _pExprCaller(pExprCaller) {}
+	inline Iterator_MethodMap(Environment &env, Signal sig, Iterator *pIteratorThis, Expr_Caller *pExprCaller) :
+		Iterator(pIteratorThis->IsInfinite()), _env(env), _sig(sig),
+		_pIteratorThis(pIteratorThis), _pExprCaller(pExprCaller) {}
 	virtual ~Iterator_MethodMap();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
@@ -462,11 +462,11 @@ class DLLDECLARE Iterator_FuncBinder : public Iterator {
 private:
 	Environment _env;
 	AutoPtr<Function> _pFunc;
-	Value _valueSelf;
+	Value _valueThis;
 	AutoPtr<Iterator> _pIterator;
 public:
 	Iterator_FuncBinder(Environment &env,
-				Function *pFunc, const Value &valueSelf, Iterator *pIterator);
+				Function *pFunc, const Value &valueThis, Iterator *pIterator);
 	virtual ~Iterator_FuncBinder();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;

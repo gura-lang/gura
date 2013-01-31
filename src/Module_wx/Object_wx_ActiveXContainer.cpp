@@ -52,7 +52,7 @@ Gura_ImplementFunction(ActiveXContainer)
 #if 0
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_ActiveXContainer *pEntity = new wx_ActiveXContainer(parent, , );
-	Object_wx_ActiveXContainer *pObj = Object_wx_ActiveXContainer::GetSelfObj(args);
+	Object_wx_ActiveXContainer *pObj = Object_wx_ActiveXContainer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ActiveXContainer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -60,7 +60,7 @@ Gura_ImplementFunction(ActiveXContainer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

@@ -49,7 +49,7 @@ Gura_ImplementFunction(OwnerDrawnComboBoxEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_OwnerDrawnComboBox *pEntity = new wx_OwnerDrawnComboBox();
-	Object_wx_OwnerDrawnComboBox *pObj = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
+	Object_wx_OwnerDrawnComboBox *pObj = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_OwnerDrawnComboBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(OwnerDrawnComboBoxEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(OwnerDrawnComboBox)
@@ -92,7 +92,7 @@ Gura_ImplementFunction(OwnerDrawnComboBox)
 	wxString name = wxT("comboBox");
 	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
 	wx_OwnerDrawnComboBox *pEntity = new wx_OwnerDrawnComboBox(parent, id, value, *pos, *size, *choices, style, *validator, name);
-	Object_wx_OwnerDrawnComboBox *pObj = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
+	Object_wx_OwnerDrawnComboBox *pObj = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_OwnerDrawnComboBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -100,7 +100,7 @@ Gura_ImplementFunction(OwnerDrawnComboBox)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_OwnerDrawnComboBox, Create)
@@ -120,8 +120,8 @@ Gura_DeclareMethod(wx_OwnerDrawnComboBox, Create)
 
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, Create)
 {
-	Object_wx_OwnerDrawnComboBox *pSelf = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString value = wxString::FromUTF8(args.GetString(2));
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, Create)
 	if (args.IsValid(7)) validator = Object_wx_Validator::GetObject(args, 7)->GetEntity();
 	wxString name = wxT("comboBox");
 	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, value, *pos, *size, *choices, style, *validator, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, value, *pos, *size, *choices, style, *validator, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -146,9 +146,9 @@ Gura_DeclareMethod(wx_OwnerDrawnComboBox, GetWidestItem)
 
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, GetWidestItem)
 {
-	Object_wx_OwnerDrawnComboBox *pSelf = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetWidestItem();
+	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetWidestItem();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -160,9 +160,9 @@ Gura_DeclareMethod(wx_OwnerDrawnComboBox, GetWidestItemWidth)
 
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, GetWidestItemWidth)
 {
-	Object_wx_OwnerDrawnComboBox *pSelf = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetWidestItemWidth();
+	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetWidestItemWidth();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -180,13 +180,13 @@ Gura_DeclareMethod(wx_OwnerDrawnComboBox, OnDrawBackground)
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnDrawBackground)
 {
 #if 0
-	Object_wx_OwnerDrawnComboBox *pSelf = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
 	int item = args.GetInt(2);
 	int flags = args.GetInt(3);
-	pSelf->GetEntity()->OnDrawBackground(*dc, *rect, item, flags);
+	pThis->GetEntity()->OnDrawBackground(*dc, *rect, item, flags);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -207,13 +207,13 @@ Gura_DeclareMethod(wx_OwnerDrawnComboBox, OnDrawItem)
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnDrawItem)
 {
 #if 0
-	Object_wx_OwnerDrawnComboBox *pSelf = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
 	int item = args.GetInt(2);
 	int flags = args.GetInt(3);
-	pSelf->GetEntity()->OnDrawItem(*dc, *rect, item, flags);
+	pThis->GetEntity()->OnDrawItem(*dc, *rect, item, flags);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -232,10 +232,10 @@ Gura_DeclareMethod(wx_OwnerDrawnComboBox, OnMeasureItem)
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnMeasureItem)
 {
 #if 0
-	Object_wx_OwnerDrawnComboBox *pSelf = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t item = args.GetSizeT(0);
-	wxCoord rtn = pSelf->GetEntity()->OnMeasureItem(item);
+	wxCoord rtn = pThis->GetEntity()->OnMeasureItem(item);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -254,10 +254,10 @@ Gura_DeclareMethod(wx_OwnerDrawnComboBox, OnMeasureItemWidth)
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, OnMeasureItemWidth)
 {
 #if 0
-	Object_wx_OwnerDrawnComboBox *pSelf = Object_wx_OwnerDrawnComboBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t item = args.GetSizeT(0);
-	wxCoord rtn = pSelf->GetEntity()->OnMeasureItemWidth(item);
+	wxCoord rtn = pThis->GetEntity()->OnMeasureItemWidth(item);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);

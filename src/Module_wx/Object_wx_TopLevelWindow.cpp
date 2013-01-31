@@ -58,9 +58,9 @@ Gura_DeclareMethod(wx_TopLevelWindow, CanSetTransparent)
 
 Gura_ImplementMethod(wx_TopLevelWindow, CanSetTransparent)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->CanSetTransparent();
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->CanSetTransparent();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -72,11 +72,11 @@ Gura_DeclareMethod(wx_TopLevelWindow, CentreOnScreen)
 
 Gura_ImplementMethod(wx_TopLevelWindow, CentreOnScreen)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int direction = wxBOTH;
 	if (args.IsValid(0)) direction = args.GetInt(0);
-	pSelf->GetEntity()->CentreOnScreen(direction);
+	pThis->GetEntity()->CentreOnScreen(direction);
 	return Value::Null;
 }
 
@@ -89,11 +89,11 @@ Gura_DeclareMethod(wx_TopLevelWindow, EnableCloseButton)
 
 Gura_ImplementMethod(wx_TopLevelWindow, EnableCloseButton)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool enable = true;
 	if (args.IsValid(0)) enable = args.GetBoolean(0);
-	bool rtn = pSelf->GetEntity()->EnableCloseButton(enable);
+	bool rtn = pThis->GetEntity()->EnableCloseButton(enable);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -105,9 +105,9 @@ Gura_DeclareMethod(wx_TopLevelWindow, GetDefaultItem)
 
 Gura_ImplementMethod(wx_TopLevelWindow, GetDefaultItem)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxWindow *rtn = (wxWindow *)pSelf->GetEntity()->GetDefaultItem();
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetDefaultItem();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
 }
 
@@ -119,9 +119,9 @@ Gura_DeclareMethod(wx_TopLevelWindow, GetIcon)
 
 Gura_ImplementMethod(wx_TopLevelWindow, GetIcon)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxIcon &rtn = pSelf->GetEntity()->GetIcon();
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxIcon &rtn = pThis->GetEntity()->GetIcon();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Icon(new wxIcon(rtn), NULL, OwnerTrue)));
 }
 
@@ -133,9 +133,9 @@ Gura_DeclareMethod(wx_TopLevelWindow, GetIcons)
 
 Gura_ImplementMethod(wx_TopLevelWindow, GetIcons)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxIconBundle &rtn = pSelf->GetEntity()->GetIcons();
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxIconBundle &rtn = pThis->GetEntity()->GetIcons();
 	return ReturnValue(env, sig, args, Value(new Object_wx_IconBundle(new wxIconBundle(rtn), NULL, OwnerTrue)));
 }
 
@@ -147,9 +147,9 @@ Gura_DeclareMethod(wx_TopLevelWindow, GetTitle)
 
 Gura_ImplementMethod(wx_TopLevelWindow, GetTitle)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetTitle();
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetTitle();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -164,11 +164,11 @@ Gura_DeclareMethod(wx_TopLevelWindow, HandleSettingChange)
 Gura_ImplementMethod(wx_TopLevelWindow, HandleSettingChange)
 {
 #if defined(__WXMSW__)
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	WXWPARAM wParam = static_cast<WXWPARAM>(args.GetULong(0));
 	WXLPARAM lParam = static_cast<WXLPARAM>(args.GetULong(1));
-	bool rtn = pSelf->GetEntity()->HandleSettingChange(wParam, lParam);
+	bool rtn = pThis->GetEntity()->HandleSettingChange(wParam, lParam);
 	return ReturnValue(env, sig, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
@@ -184,9 +184,9 @@ Gura_DeclareMethod(wx_TopLevelWindow, IsActive)
 
 Gura_ImplementMethod(wx_TopLevelWindow, IsActive)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsActive();
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsActive();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -198,9 +198,9 @@ Gura_DeclareMethod(wx_TopLevelWindow, IsAlwaysMaximized)
 
 Gura_ImplementMethod(wx_TopLevelWindow, IsAlwaysMaximized)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsAlwaysMaximized();
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsAlwaysMaximized();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -212,10 +212,10 @@ Gura_DeclareMethod(wx_TopLevelWindow, Iconize)
 
 Gura_ImplementMethod(wx_TopLevelWindow, Iconize)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool iconize = args.GetBoolean(0);
-	pSelf->GetEntity()->Iconize(iconize);
+	pThis->GetEntity()->Iconize(iconize);
 	return Value::Null;
 }
 
@@ -227,9 +227,9 @@ Gura_DeclareMethod(wx_TopLevelWindow, IsFullScreen)
 
 Gura_ImplementMethod(wx_TopLevelWindow, IsFullScreen)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsFullScreen();
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsFullScreen();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -241,9 +241,9 @@ Gura_DeclareMethod(wx_TopLevelWindow, IsIconized)
 
 Gura_ImplementMethod(wx_TopLevelWindow, IsIconized)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsIconized();
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsIconized();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -255,9 +255,9 @@ Gura_DeclareMethod(wx_TopLevelWindow, IsMaximized)
 
 Gura_ImplementMethod(wx_TopLevelWindow, IsMaximized)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsMaximized();
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsMaximized();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -270,9 +270,9 @@ Gura_DeclareMethod(wx_TopLevelWindow, IsUsingNativeDecorations)
 Gura_ImplementMethod(wx_TopLevelWindow, IsUsingNativeDecorations)
 {
 #if 0
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsUsingNativeDecorations();
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsUsingNativeDecorations();
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -287,10 +287,10 @@ Gura_DeclareMethod(wx_TopLevelWindow, Maximize)
 
 Gura_ImplementMethod(wx_TopLevelWindow, Maximize)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool maximize = args.GetBoolean(0);
-	pSelf->GetEntity()->Maximize(maximize);
+	pThis->GetEntity()->Maximize(maximize);
 	return Value::Null;
 }
 
@@ -302,11 +302,11 @@ Gura_DeclareMethod(wx_TopLevelWindow, RequestUserAttention)
 
 Gura_ImplementMethod(wx_TopLevelWindow, RequestUserAttention)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int flags = wxUSER_ATTENTION_INFO;
 	if (args.IsValid(0)) flags = args.GetInt(0);
-	pSelf->GetEntity()->RequestUserAttention(flags);
+	pThis->GetEntity()->RequestUserAttention(flags);
 	return Value::Null;
 }
 
@@ -321,10 +321,10 @@ Gura_DeclareMethod(wx_TopLevelWindow, SetDefaultItem)
 Gura_ImplementMethod(wx_TopLevelWindow, SetDefaultItem)
 {
 #if 0
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow **win = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetDefaultItem(**win);
+	pThis->GetEntity()->SetDefaultItem(**win);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -339,10 +339,10 @@ Gura_DeclareMethod(wx_TopLevelWindow, SetIcon)
 
 Gura_ImplementMethod(wx_TopLevelWindow, SetIcon)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxIcon *icon = Object_wx_Icon::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetIcon(*icon);
+	pThis->GetEntity()->SetIcon(*icon);
 	return Value::Null;
 }
 
@@ -354,10 +354,10 @@ Gura_DeclareMethod(wx_TopLevelWindow, SetIcons)
 
 Gura_ImplementMethod(wx_TopLevelWindow, SetIcons)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxIconBundle *icons = Object_wx_IconBundle::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetIcons(*icons);
+	pThis->GetEntity()->SetIcons(*icons);
 	return Value::Null;
 }
 
@@ -374,15 +374,15 @@ Gura_DeclareMethod(wx_TopLevelWindow, SetLeftMenu)
 Gura_ImplementMethod(wx_TopLevelWindow, SetLeftMenu)
 {
 #if 0
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = wxID_ANY;
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wxString label = wxEmptyString;
 	if (args.IsValid(1)) label = wxString::FromUTF8(args.GetString(1));
 	wxMenu *subMenu = (wxMenu *)(NULL);
 	if (args.IsValid(2)) subMenu = Object_wx_Menu::GetObject(args, 2)->GetEntity();
-	pSelf->GetEntity()->SetLeftMenu(id, label, subMenu);
+	pThis->GetEntity()->SetLeftMenu(id, label, subMenu);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -397,10 +397,10 @@ Gura_DeclareMethod(wx_TopLevelWindow, SetMaxSize)
 
 Gura_ImplementMethod(wx_TopLevelWindow, SetMaxSize)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetMaxSize(*size);
+	pThis->GetEntity()->SetMaxSize(*size);
 	return Value::Null;
 }
 
@@ -412,10 +412,10 @@ Gura_DeclareMethod(wx_TopLevelWindow, SetMinSize)
 
 Gura_ImplementMethod(wx_TopLevelWindow, SetMinSize)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetMinSize(*size);
+	pThis->GetEntity()->SetMinSize(*size);
 	return Value::Null;
 }
 
@@ -432,8 +432,8 @@ Gura_DeclareMethod(wx_TopLevelWindow, SetSizeHints)
 
 Gura_ImplementMethod(wx_TopLevelWindow, SetSizeHints)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int minW = args.GetInt(0);
 	int minH = args.GetInt(1);
 	int maxW = -1;
@@ -444,7 +444,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, SetSizeHints)
 	if (args.IsValid(4)) incW = args.GetInt(4);
 	int incH = -1;
 	if (args.IsValid(5)) incH = args.GetInt(5);
-	pSelf->GetEntity()->SetSizeHints(minW, minH, maxW, maxH, incW, incH);
+	pThis->GetEntity()->SetSizeHints(minW, minH, maxW, maxH, incW, incH);
 	return Value::Null;
 }
 
@@ -458,14 +458,14 @@ Gura_DeclareMethod(wx_TopLevelWindow, SetSizeHints_1)
 
 Gura_ImplementMethod(wx_TopLevelWindow, SetSizeHints_1)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *minSize = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wxSize *maxSize = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(1)) maxSize = Object_wx_Size::GetObject(args, 1)->GetEntity();
 	wxSize *incSize = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(2)) incSize = Object_wx_Size::GetObject(args, 2)->GetEntity();
-	pSelf->GetEntity()->SetSizeHints(*minSize, *maxSize, *incSize);
+	pThis->GetEntity()->SetSizeHints(*minSize, *maxSize, *incSize);
 	return Value::Null;
 }
 
@@ -482,15 +482,15 @@ Gura_DeclareMethod(wx_TopLevelWindow, SetRightMenu)
 Gura_ImplementMethod(wx_TopLevelWindow, SetRightMenu)
 {
 #if 0
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = wxID_ANY;
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wxString label = wxEmptyString;
 	if (args.IsValid(1)) label = wxString::FromUTF8(args.GetString(1));
 	wxMenu *subMenu = (wxMenu *)(NULL);
 	if (args.IsValid(2)) subMenu = Object_wx_Menu::GetObject(args, 2)->GetEntity();
-	pSelf->GetEntity()->SetRightMenu(id, label, subMenu);
+	pThis->GetEntity()->SetRightMenu(id, label, subMenu);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -506,10 +506,10 @@ Gura_DeclareMethod(wx_TopLevelWindow, SetShape)
 
 Gura_ImplementMethod(wx_TopLevelWindow, SetShape)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRegion *region = Object_wx_Region::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->SetShape(*region);
+	bool rtn = pThis->GetEntity()->SetShape(*region);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -521,10 +521,10 @@ Gura_DeclareMethod(wx_TopLevelWindow, SetTitle)
 
 Gura_ImplementMethod(wx_TopLevelWindow, SetTitle)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString title = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetTitle(title);
+	pThis->GetEntity()->SetTitle(title);
 	return Value::Null;
 }
 
@@ -537,10 +537,10 @@ Gura_DeclareMethod(wx_TopLevelWindow, SetTransparent)
 
 Gura_ImplementMethod(wx_TopLevelWindow, SetTransparent)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int alpha = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->SetTransparent(alpha);
+	bool rtn = pThis->GetEntity()->SetTransparent(alpha);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -552,9 +552,9 @@ Gura_DeclareMethod(wx_TopLevelWindow, ShouldPreventAppExit)
 
 Gura_ImplementMethod(wx_TopLevelWindow, ShouldPreventAppExit)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->ShouldPreventAppExit();
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->ShouldPreventAppExit();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -568,12 +568,12 @@ Gura_DeclareMethod(wx_TopLevelWindow, ShowFullScreen)
 
 Gura_ImplementMethod(wx_TopLevelWindow, ShowFullScreen)
 {
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool show = args.GetBoolean(0);
 	long style = wxFULLSCREEN_ALL;
 	if (args.IsValid(1)) style = args.GetLong(1);
-	bool rtn = pSelf->GetEntity()->ShowFullScreen(show, style);
+	bool rtn = pThis->GetEntity()->ShowFullScreen(show, style);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -588,11 +588,11 @@ Gura_DeclareMethod(wx_TopLevelWindow, UseNativeDecorations)
 Gura_ImplementMethod(wx_TopLevelWindow, UseNativeDecorations)
 {
 #if 0
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool native = ;
 	if (args.IsValid(0)) native = args.GetBoolean(0);
-	pSelf->GetEntity()->UseNativeDecorations(native);
+	pThis->GetEntity()->UseNativeDecorations(native);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -610,11 +610,11 @@ Gura_DeclareMethod(wx_TopLevelWindow, UseNativeDecorationsByDefault)
 Gura_ImplementMethod(wx_TopLevelWindow, UseNativeDecorationsByDefault)
 {
 #if 0
-	Object_wx_TopLevelWindow *pSelf = Object_wx_TopLevelWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool native = ;
 	if (args.IsValid(0)) native = args.GetBoolean(0);
-	pSelf->GetEntity()->UseNativeDecorationsByDefault(native);
+	pThis->GetEntity()->UseNativeDecorationsByDefault(native);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);

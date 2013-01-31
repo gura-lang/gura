@@ -56,7 +56,7 @@ Gura_ImplementFunction(WizardEvent)
 	bool direction = true;
 	if (args.IsValid(2)) direction = args.GetBoolean(2);
 	wx_WizardEvent *pEntity = new wx_WizardEvent(type, id, direction);
-	Object_wx_WizardEvent *pObj = Object_wx_WizardEvent::GetSelfObj(args);
+	Object_wx_WizardEvent *pObj = Object_wx_WizardEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_WizardEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(WizardEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_WizardEvent, GetDirection)
@@ -75,9 +75,9 @@ Gura_DeclareMethod(wx_WizardEvent, GetDirection)
 
 Gura_ImplementMethod(wx_WizardEvent, GetDirection)
 {
-	Object_wx_WizardEvent *pSelf = Object_wx_WizardEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->GetDirection();
+	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->GetDirection();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -89,9 +89,9 @@ Gura_DeclareMethod(wx_WizardEvent, GetPage)
 
 Gura_ImplementMethod(wx_WizardEvent, GetPage)
 {
-	Object_wx_WizardEvent *pSelf = Object_wx_WizardEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxWizardPage *rtn = (wxWizardPage *)pSelf->GetEntity()->GetPage();
+	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWizardPage *rtn = (wxWizardPage *)pThis->GetEntity()->GetPage();
 	return ReturnValue(env, sig, args, Value(new Object_wx_WizardPage(rtn, NULL, OwnerFalse)));
 }
 

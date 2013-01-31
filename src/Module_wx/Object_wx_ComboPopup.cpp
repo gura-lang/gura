@@ -45,10 +45,10 @@ Gura_DeclareMethod(wx_ComboPopup, Create)
 
 Gura_ImplementMethod(wx_ComboPopup, Create)
 {
-	Object_wx_ComboPopup *pSelf = Object_wx_ComboPopup::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Create(parent);
+	bool rtn = pThis->GetEntity()->Create(parent);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -59,9 +59,9 @@ Gura_DeclareMethod(wx_ComboPopup, Dismiss)
 
 Gura_ImplementMethod(wx_ComboPopup, Dismiss)
 {
-	Object_wx_ComboPopup *pSelf = Object_wx_ComboPopup::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Dismiss();
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Dismiss();
 	return Value::Null;
 }
 
@@ -76,12 +76,12 @@ Gura_DeclareMethod(wx_ComboPopup, GetAdjustedSize)
 
 Gura_ImplementMethod(wx_ComboPopup, GetAdjustedSize)
 {
-	Object_wx_ComboPopup *pSelf = Object_wx_ComboPopup::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int minWidth = args.GetInt(0);
 	int prefHeight = args.GetInt(1);
 	int maxHeight = args.GetInt(2);
-	wxSize rtn = pSelf->GetEntity()->GetAdjustedSize(minWidth, prefHeight, maxHeight);
+	wxSize rtn = pThis->GetEntity()->GetAdjustedSize(minWidth, prefHeight, maxHeight);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -93,9 +93,9 @@ Gura_DeclareMethod(wx_ComboPopup, GetControl)
 
 Gura_ImplementMethod(wx_ComboPopup, GetControl)
 {
-	Object_wx_ComboPopup *pSelf = Object_wx_ComboPopup::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxWindow *rtn = (wxWindow *)pSelf->GetEntity()->GetControl();
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetControl();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
 }
 
@@ -107,9 +107,9 @@ Gura_DeclareMethod(wx_ComboPopup, GetStringValue)
 
 Gura_ImplementMethod(wx_ComboPopup, GetStringValue)
 {
-	Object_wx_ComboPopup *pSelf = Object_wx_ComboPopup::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetStringValue();
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetStringValue();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -120,9 +120,9 @@ Gura_DeclareMethod(wx_ComboPopup, Init)
 
 Gura_ImplementMethod(wx_ComboPopup, Init)
 {
-	Object_wx_ComboPopup *pSelf = Object_wx_ComboPopup::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Init();
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Init();
 	return Value::Null;
 }
 
@@ -134,9 +134,9 @@ Gura_DeclareMethod(wx_ComboPopup, IsCreated)
 
 Gura_ImplementMethod(wx_ComboPopup, IsCreated)
 {
-	Object_wx_ComboPopup *pSelf = Object_wx_ComboPopup::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsCreated();
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsCreated();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -148,9 +148,9 @@ Gura_DeclareMethod(wx_ComboPopup, LazyCreate)
 
 Gura_ImplementMethod(wx_ComboPopup, LazyCreate)
 {
-	Object_wx_ComboPopup *pSelf = Object_wx_ComboPopup::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->LazyCreate();
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->LazyCreate();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -161,9 +161,9 @@ Gura_DeclareMethod(wx_ComboPopup, OnComboDoubleClick)
 
 Gura_ImplementMethod(wx_ComboPopup, OnComboDoubleClick)
 {
-	Object_wx_ComboPopup *pSelf = Object_wx_ComboPopup::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->OnComboDoubleClick();
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->OnComboDoubleClick();
 	return Value::Null;
 }
 
@@ -175,10 +175,10 @@ Gura_DeclareMethod(wx_ComboPopup, OnComboKeyEvent)
 
 Gura_ImplementMethod(wx_ComboPopup, OnComboKeyEvent)
 {
-	Object_wx_ComboPopup *pSelf = Object_wx_ComboPopup::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxKeyEvent *event = Object_wx_KeyEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnComboKeyEvent(*event);
+	pThis->GetEntity()->OnComboKeyEvent(*event);
 	return Value::Null;
 }
 
@@ -189,9 +189,9 @@ Gura_DeclareMethod(wx_ComboPopup, OnDismiss)
 
 Gura_ImplementMethod(wx_ComboPopup, OnDismiss)
 {
-	Object_wx_ComboPopup *pSelf = Object_wx_ComboPopup::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->OnDismiss();
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->OnDismiss();
 	return Value::Null;
 }
 
@@ -202,9 +202,9 @@ Gura_DeclareMethod(wx_ComboPopup, OnPopup)
 
 Gura_ImplementMethod(wx_ComboPopup, OnPopup)
 {
-	Object_wx_ComboPopup *pSelf = Object_wx_ComboPopup::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->OnPopup();
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->OnPopup();
 	return Value::Null;
 }
 
@@ -217,11 +217,11 @@ Gura_DeclareMethod(wx_ComboPopup, PaintComboControl)
 
 Gura_ImplementMethod(wx_ComboPopup, PaintComboControl)
 {
-	Object_wx_ComboPopup *pSelf = Object_wx_ComboPopup::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
-	pSelf->GetEntity()->PaintComboControl(*dc, *rect);
+	pThis->GetEntity()->PaintComboControl(*dc, *rect);
 	return Value::Null;
 }
 
@@ -233,10 +233,10 @@ Gura_DeclareMethod(wx_ComboPopup, SetStringValue)
 
 Gura_ImplementMethod(wx_ComboPopup, SetStringValue)
 {
-	Object_wx_ComboPopup *pSelf = Object_wx_ComboPopup::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString value = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetStringValue(value);
+	pThis->GetEntity()->SetStringValue(value);
 	return Value::Null;
 }
 

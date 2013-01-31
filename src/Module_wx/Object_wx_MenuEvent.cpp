@@ -56,7 +56,7 @@ Gura_ImplementFunction(MenuEvent)
 	wxMenu *menu = (wxMenu *)(NULL);
 	if (args.IsValid(2)) menu = Object_wx_Menu::GetObject(args, 2)->GetEntity();
 	wx_MenuEvent *pEntity = new wx_MenuEvent(type, id, menu);
-	Object_wx_MenuEvent *pObj = Object_wx_MenuEvent::GetSelfObj(args);
+	Object_wx_MenuEvent *pObj = Object_wx_MenuEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MenuEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(MenuEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MenuEvent, GetMenu)
@@ -75,9 +75,9 @@ Gura_DeclareMethod(wx_MenuEvent, GetMenu)
 
 Gura_ImplementMethod(wx_MenuEvent, GetMenu)
 {
-	Object_wx_MenuEvent *pSelf = Object_wx_MenuEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxMenu *rtn = (wxMenu *)pSelf->GetEntity()->GetMenu();
+	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->GetMenu();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, NULL, OwnerFalse)));
 }
 
@@ -89,9 +89,9 @@ Gura_DeclareMethod(wx_MenuEvent, GetMenuId)
 
 Gura_ImplementMethod(wx_MenuEvent, GetMenuId)
 {
-	Object_wx_MenuEvent *pSelf = Object_wx_MenuEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetMenuId();
+	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetMenuId();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -103,9 +103,9 @@ Gura_DeclareMethod(wx_MenuEvent, IsPopup)
 
 Gura_ImplementMethod(wx_MenuEvent, IsPopup)
 {
-	Object_wx_MenuEvent *pSelf = Object_wx_MenuEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsPopup();
+	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsPopup();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

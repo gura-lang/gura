@@ -71,11 +71,11 @@ Gura_DeclareMethod(image, tiffread)
 
 Gura_ImplementMethod(image, tiffread)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!ImageStreamer_TIFF::ReadStream(sig, pSelf, args.GetStream(0))) {
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!ImageStreamer_TIFF::ReadStream(sig, pThis, args.GetStream(0))) {
 		return Value::Null;
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------

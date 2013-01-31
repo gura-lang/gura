@@ -47,11 +47,11 @@ Gura_DeclareMethod(wx_HtmlLinkEvent, wxHyperlinkEvent)
 Gura_ImplementMethod(wx_HtmlLinkEvent, wxHyperlinkEvent)
 {
 #if 0
-	Object_wx_HtmlLinkEvent *pSelf = Object_wx_HtmlLinkEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlLinkEvent *pThis = Object_wx_HtmlLinkEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxHtmlLinkInfo *linkinfo = Object_wx_HtmlLinkInfo::GetObject(args, 1)->GetEntity();
-	pSelf->GetEntity()->wxHyperlinkEvent(id, *linkinfo);
+	pThis->GetEntity()->wxHyperlinkEvent(id, *linkinfo);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -66,9 +66,9 @@ Gura_DeclareMethod(wx_HtmlLinkEvent, GetLinkInfo)
 
 Gura_ImplementMethod(wx_HtmlLinkEvent, GetLinkInfo)
 {
-	Object_wx_HtmlLinkEvent *pSelf = Object_wx_HtmlLinkEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxHtmlLinkInfo &rtn = pSelf->GetEntity()->GetLinkInfo();
+	Object_wx_HtmlLinkEvent *pThis = Object_wx_HtmlLinkEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxHtmlLinkInfo &rtn = pThis->GetEntity()->GetLinkInfo();
 	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlLinkInfo(new wxHtmlLinkInfo(rtn), NULL, OwnerTrue)));
 }
 

@@ -63,7 +63,7 @@ Gura_ImplementFunction(CustomDataObject)
 	wxDataFormat *format = (wxDataFormat *)(&wxFormatInvalid);
 	if (args.IsValid(0)) format = Object_wx_DataFormat::GetObject(args, 0)->GetEntity();
 	wx_CustomDataObject *pEntity = new wx_CustomDataObject(*format);
-	Object_wx_CustomDataObject *pObj = Object_wx_CustomDataObject::GetSelfObj(args);
+	Object_wx_CustomDataObject *pObj = Object_wx_CustomDataObject::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_CustomDataObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(CustomDataObject)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_CustomDataObject, Alloc)
@@ -82,10 +82,10 @@ Gura_DeclareMethod(wx_CustomDataObject, Alloc)
 
 Gura_ImplementMethod(wx_CustomDataObject, Alloc)
 {
-	Object_wx_CustomDataObject *pSelf = Object_wx_CustomDataObject::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t size = args.GetSizeT(0);
-	pSelf->GetEntity()->Alloc(size);
+	pThis->GetEntity()->Alloc(size);
 	return Value::Null;
 }
 
@@ -96,9 +96,9 @@ Gura_DeclareMethod(wx_CustomDataObject, Free)
 
 Gura_ImplementMethod(wx_CustomDataObject, Free)
 {
-	Object_wx_CustomDataObject *pSelf = Object_wx_CustomDataObject::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Free();
+	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Free();
 	return Value::Null;
 }
 
@@ -110,9 +110,9 @@ Gura_DeclareMethod(wx_CustomDataObject, GetSize)
 
 Gura_ImplementMethod(wx_CustomDataObject, GetSize)
 {
-	Object_wx_CustomDataObject *pSelf = Object_wx_CustomDataObject::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	size_t rtn = pSelf->GetEntity()->GetSize();
+	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	size_t rtn = pThis->GetEntity()->GetSize();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -123,9 +123,9 @@ Gura_DeclareMethod(wx_CustomDataObject, GetData)
 
 Gura_ImplementMethod(wx_CustomDataObject, GetData)
 {
-	Object_wx_CustomDataObject *pSelf = Object_wx_CustomDataObject::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->GetData();
+	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->GetData();
 	return Value::Null;
 }
 
@@ -141,11 +141,11 @@ Gura_DeclareMethod(wx_CustomDataObject, SetData)
 Gura_ImplementMethod(wx_CustomDataObject, SetData)
 {
 #if 0
-	Object_wx_CustomDataObject *pSelf = Object_wx_CustomDataObject::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t size = args.GetSizeT(0);
 	int *data = args.GetInt(1);
-	pSelf->GetEntity()->SetData(size, *data);
+	pThis->GetEntity()->SetData(size, *data);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -164,11 +164,11 @@ Gura_DeclareMethod(wx_CustomDataObject, TakeData)
 Gura_ImplementMethod(wx_CustomDataObject, TakeData)
 {
 #if 0
-	Object_wx_CustomDataObject *pSelf = Object_wx_CustomDataObject::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t size = args.GetSizeT(0);
 	int *data = args.GetInt(1);
-	pSelf->GetEntity()->TakeData(size, *data);
+	pThis->GetEntity()->TakeData(size, *data);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);

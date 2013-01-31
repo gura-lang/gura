@@ -50,7 +50,7 @@ Gura_ImplementFunction(PaintEvent)
 	int id = 0;
 	if (args.IsValid(0)) id = args.GetInt(0);
 	wx_PaintEvent *pEntity = new wx_PaintEvent(id);
-	Object_wx_PaintEvent *pObj = Object_wx_PaintEvent::GetSelfObj(args);
+	Object_wx_PaintEvent *pObj = Object_wx_PaintEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PaintEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(PaintEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

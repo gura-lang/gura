@@ -49,7 +49,7 @@ Gura_ImplementFunction(TempFileOutputStream)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString fileName = wxString::FromUTF8(args.GetString(0));
 	wx_TempFileOutputStream *pEntity = new wx_TempFileOutputStream(fileName);
-	Object_wx_TempFileOutputStream *pObj = Object_wx_TempFileOutputStream::GetSelfObj(args);
+	Object_wx_TempFileOutputStream *pObj = Object_wx_TempFileOutputStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TempFileOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(TempFileOutputStream)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TempFileOutputStream, Commit)
@@ -68,9 +68,9 @@ Gura_DeclareMethod(wx_TempFileOutputStream, Commit)
 
 Gura_ImplementMethod(wx_TempFileOutputStream, Commit)
 {
-	Object_wx_TempFileOutputStream *pSelf = Object_wx_TempFileOutputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Commit();
+	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Commit();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -81,9 +81,9 @@ Gura_DeclareMethod(wx_TempFileOutputStream, Discard)
 
 Gura_ImplementMethod(wx_TempFileOutputStream, Discard)
 {
-	Object_wx_TempFileOutputStream *pSelf = Object_wx_TempFileOutputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Discard();
+	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Discard();
 	return Value::Null;
 }
 

@@ -40,7 +40,7 @@ Gura_DeclareMethod(Cursor, FreeCursor)
 
 Gura_ImplementMethod(Cursor, FreeCursor)
 {
-	Object_Cursor *pObj = Object_Cursor::GetSelfObj(args);
+	Object_Cursor *pObj = Object_Cursor::GetThisObj(args);
 	pObj->FreeCursor();
 	return Value::Null;
 }
@@ -108,14 +108,14 @@ bool Object_Timer::DoHandle()
 
 Uint32 Object_Timer::CallbackStub(Uint32 interval, void *param)
 {
-	Object_Timer *pSelf = reinterpret_cast<Object_Timer *>(param);
-	if (pSelf->IsThread()) {
-		return pSelf->DoHandle()? interval : 0;
+	Object_Timer *pThis = reinterpret_cast<Object_Timer *>(param);
+	if (pThis->IsThread()) {
+		return pThis->DoHandle()? interval : 0;
 	} else {
 		SDL_UserEvent event;
 		event.type = SDL_USEREVENT_Timer;
 		event.code = 0;
-		event.data1 = Object::Reference(pSelf); // decremented in PollEvent or WaitEvent
+		event.data1 = Object::Reference(pThis); // decremented in PollEvent or WaitEvent
 		event.data2 = NULL;
 		::SDL_PushEvent(reinterpret_cast<SDL_Event *>(&event));
 		return interval;
@@ -133,7 +133,7 @@ Gura_DeclareMethod(Timer, RemoveTimer)
 
 Gura_ImplementMethod(Timer, RemoveTimer)
 {
-	Object_Timer *pObj = Object_Timer::GetSelfObj(args);
+	Object_Timer *pObj = Object_Timer::GetThisObj(args);
 	return Value(pObj->RemoveTimer());
 }
 
@@ -681,7 +681,7 @@ Gura_DeclareMethod(PixelFormat, MapRGB)
 
 Gura_ImplementMethod(PixelFormat, MapRGB)
 {
-	SDL_PixelFormat *fmt = Object_PixelFormat::GetSelfObj(args)->GetPixelFormat();
+	SDL_PixelFormat *fmt = Object_PixelFormat::GetThisObj(args)->GetPixelFormat();
 	return Value(::SDL_MapRGB(fmt,
 				args.GetUChar(0), args.GetUChar(1), args.GetUChar(2)));
 }
@@ -698,7 +698,7 @@ Gura_DeclareMethod(PixelFormat, MapRGBA)
 
 Gura_ImplementMethod(PixelFormat, MapRGBA)
 {
-	SDL_PixelFormat *fmt = Object_PixelFormat::GetSelfObj(args)->GetPixelFormat();
+	SDL_PixelFormat *fmt = Object_PixelFormat::GetThisObj(args)->GetPixelFormat();
 	return Value(::SDL_MapRGBA(fmt,
 				args.GetUChar(0), args.GetUChar(1),
 				args.GetUChar(2), args.GetUChar(3)));
@@ -713,7 +713,7 @@ Gura_DeclareMethod(PixelFormat, GetRGB)
 
 Gura_ImplementMethod(PixelFormat, GetRGB)
 {
-	SDL_PixelFormat *fmt = Object_PixelFormat::GetSelfObj(args)->GetPixelFormat();
+	SDL_PixelFormat *fmt = Object_PixelFormat::GetThisObj(args)->GetPixelFormat();
 	Uint8 r, g, b;
 	::SDL_GetRGB(args.GetULong(0), fmt, &r, &g, &b);
 	Value result;
@@ -733,7 +733,7 @@ Gura_DeclareMethod(PixelFormat, GetRGBA)
 
 Gura_ImplementMethod(PixelFormat, GetRGBA)
 {
-	SDL_PixelFormat *fmt = Object_PixelFormat::GetSelfObj(args)->GetPixelFormat();
+	SDL_PixelFormat *fmt = Object_PixelFormat::GetThisObj(args)->GetPixelFormat();
 	Uint8 r, g, b, a;
 	::SDL_GetRGBA(args.GetULong(0), fmt, &r, &g, &b, &a);
 	Value result;
@@ -858,7 +858,7 @@ Gura_DeclareMethod(Surface, UpdateRect)
 
 Gura_ImplementMethod(Surface, UpdateRect)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	::SDL_UpdateRect(pSurface,
 		args.GetInt(0), args.GetInt(1), args.GetInt(2), args.GetInt(3));
 	return Value::Null;
@@ -873,7 +873,7 @@ Gura_DeclareMethod(Surface, UpdateRects)
 
 Gura_ImplementMethod(Surface, UpdateRects)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	const ValueList &valList = args.GetList(0);
 	int numrects = static_cast<int>(valList.size());
 	SDL_Rect *rects = new SDL_Rect[numrects];
@@ -897,7 +897,7 @@ Gura_DeclareMethod(Surface, Flip)
 
 Gura_ImplementMethod(Surface, Flip)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	return Value(::SDL_Flip(pSurface));
 }
 
@@ -912,7 +912,7 @@ Gura_DeclareMethod(Surface, SetColors)
 
 Gura_ImplementMethod(Surface, SetColors)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	const ValueList &valList = args.GetList(0);
 	int firstcolor = args.GetInt(1);
 	int ncolors = static_cast<int>(valList.size());
@@ -941,7 +941,7 @@ Gura_DeclareMethod(Surface, SetPalette)
 
 Gura_ImplementMethod(Surface, SetPalette)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	int flags = args.GetInt(0);
 	const ValueList &valList = args.GetList(1);
 	int firstcolor = args.GetInt(2);
@@ -967,7 +967,7 @@ Gura_DeclareMethod(Surface, LockSurface)
 
 Gura_ImplementMethod(Surface, LockSurface)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	return Value(::SDL_LockSurface(pSurface));
 }
 
@@ -979,7 +979,7 @@ Gura_DeclareMethod(Surface, UnlockSurface)
 
 Gura_ImplementMethod(Surface, UnlockSurface)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	::SDL_UnlockSurface(pSurface);
 	return Value::Null;
 }
@@ -993,7 +993,7 @@ Gura_DeclareMethod(Surface, SaveBMP)
 
 Gura_ImplementMethod(Surface, SaveBMP)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	return Value(::SDL_SaveBMP(pSurface, args.GetString(0)));
 }
 
@@ -1007,7 +1007,7 @@ Gura_DeclareMethod(Surface, SetColorKey)
 
 Gura_ImplementMethod(Surface, SetColorKey)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	return Value(::SDL_SetColorKey(pSurface, args.GetULong(0), args.GetULong(1)));
 }
 
@@ -1021,7 +1021,7 @@ Gura_DeclareMethod(Surface, SetAlpha)
 
 Gura_ImplementMethod(Surface, SetAlpha)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	return Value(::SDL_SetAlpha(pSurface, args.GetULong(0), args.GetUChar(1)));
 }
 
@@ -1034,7 +1034,7 @@ Gura_DeclareMethod(Surface, SetClipRect)
 
 Gura_ImplementMethod(Surface, SetClipRect)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	SDL_Rect &rect = dynamic_cast<Object_Rect *>(args.GetObject(0))->GetRect();
 	::SDL_SetClipRect(pSurface, &rect);
 	return Value::Null;
@@ -1048,7 +1048,7 @@ Gura_DeclareMethod(Surface, GetClipRect)
 
 Gura_ImplementMethod(Surface, GetClipRect)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	SDL_Rect rect;
 	::SDL_GetClipRect(pSurface, &rect);
 	return Object_Rect::CreateValue(rect);
@@ -1065,7 +1065,7 @@ Gura_DeclareMethod(Surface, ConvertSurface)
 
 Gura_ImplementMethod(Surface, ConvertSurface)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	const SDL_PixelFormat *fmt =
 		dynamic_cast<const Object_PixelFormat *>(args.GetObject(0))->GetPixelFormat();
 	int flags = args.GetInt(1);
@@ -1085,7 +1085,7 @@ Gura_DeclareMethod(Surface, FillRect)
 
 Gura_ImplementMethod(Surface, FillRect)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	SDL_Rect &dstrect = dynamic_cast<Object_Rect *>(args.GetObject(0))->GetRect();
 	SDL_Color &color = dynamic_cast<Object_Color *>(args.GetObject(1))->GetColor();
 	Uint32 colorIdx = ::SDL_MapRGB(pSurface->format, color.r, color.g, color.b);
@@ -1101,7 +1101,7 @@ Gura_DeclareMethod(Surface, DisplayFormat)
 
 Gura_ImplementMethod(Surface, DisplayFormat)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	SDL_Surface *pSurfaceConv = ::SDL_DisplayFormat(pSurface);
 	if (pSurfaceConv == NULL) return Value::Null;
 	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv));
@@ -1116,7 +1116,7 @@ Gura_DeclareMethod(Surface, DisplayFormatAlpha)
 
 Gura_ImplementMethod(Surface, DisplayFormatAlpha)
 {
-	SDL_Surface *pSurface = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	SDL_Surface *pSurfaceConv = ::SDL_DisplayFormatAlpha(pSurface);
 	if (pSurfaceConv == NULL) return Value::Null;
 	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv));
@@ -1133,7 +1133,7 @@ Gura_DeclareMethod(Surface, PutSurface)
 
 Gura_ImplementMethod(Surface, PutSurface)
 {
-	SDL_Surface *dst = Object_Surface::GetSelfObj(args)->GetSurface();
+	SDL_Surface *dst = Object_Surface::GetThisObj(args)->GetSurface();
 	SDL_Surface *src =
 		dynamic_cast<Object_Surface *>(args.GetObject(0))->GetSurface();
 	int x = args.GetInt(1), y = args.GetInt(2);
@@ -1214,7 +1214,7 @@ Gura_DeclareMethod(Overlay, LockYUVOverlay)
 
 Gura_ImplementMethod(Overlay, LockYUVOverlay)
 {
-	SDL_Overlay *pOverlay = Object_Overlay::GetSelfObj(args)->GetOverlay();
+	SDL_Overlay *pOverlay = Object_Overlay::GetThisObj(args)->GetOverlay();
 	return Value(::SDL_LockYUVOverlay(pOverlay));
 }
 
@@ -1226,7 +1226,7 @@ Gura_DeclareMethod(Overlay, UnlockYUVOverlay)
 
 Gura_ImplementMethod(Overlay, UnlockYUVOverlay)
 {
-	SDL_Overlay *pOverlay = Object_Overlay::GetSelfObj(args)->GetOverlay();
+	SDL_Overlay *pOverlay = Object_Overlay::GetThisObj(args)->GetOverlay();
 	::SDL_UnlockYUVOverlay(pOverlay);
 	return Value::Null;
 }
@@ -1240,7 +1240,7 @@ Gura_DeclareMethod(Overlay, DisplayYUVOverlay)
 
 Gura_ImplementMethod(Overlay, DisplayYUVOverlay)
 {
-	SDL_Overlay *pOverlay = Object_Overlay::GetSelfObj(args)->GetOverlay();
+	SDL_Overlay *pOverlay = Object_Overlay::GetThisObj(args)->GetOverlay();
 	SDL_Rect &dstrect = dynamic_cast<Object_Rect *>(args.GetObject(0))->GetRect();
 	return Value(::SDL_DisplayYUVOverlay(pOverlay, &dstrect));
 }
@@ -1367,7 +1367,7 @@ Gura_DeclareMethod(Font, GetFontStyle)
 
 Gura_ImplementMethod(Font, GetFontStyle)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	return Value(::TTF_GetFontStyle(pFont));
 }
 
@@ -1380,7 +1380,7 @@ Gura_DeclareMethod(Font, SetFontStyle)
 
 Gura_ImplementMethod(Font, SetFontStyle)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	::TTF_SetFontStyle(pFont, args.GetInt(0));
 	return Value::Null;
 }
@@ -1394,7 +1394,7 @@ Gura_DeclareMethod(Font, GetFontOutline)
 
 Gura_ImplementMethod(Font, GetFontOutline)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	//return Value(::TTF_GetFontOutline(pFont));
 	sig.SetError(ERR_SystemError, "not implemented");
 	return Value::Null;
@@ -1410,7 +1410,7 @@ Gura_DeclareMethod(Font, SetFontOutline)
 
 Gura_ImplementMethod(Font, SetFontOutline)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	//::TTF_SetFontOutline(pFont, args.GetInt(0));
 	sig.SetError(ERR_SystemError, "not implemented");
 	return Value::Null;
@@ -1424,7 +1424,7 @@ Gura_DeclareMethod(Font, GetFontHinting)
 
 Gura_ImplementMethod(Font, GetFontHinting)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	return Value(::TTF_GetFontHinting(pFont));
 }
 
@@ -1437,7 +1437,7 @@ Gura_DeclareMethod(Font, SetFontHinting)
 
 Gura_ImplementMethod(Font, SetFontHinting)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	::TTF_SetFontHinting(pFont, args.GetInt(0));
 	return Value::Null;
 }
@@ -1450,7 +1450,7 @@ Gura_DeclareMethod(Font, GetFontKerning)
 
 Gura_ImplementMethod(Font, GetFontKerning)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	return Value(::TTF_GetFontKerning(pFont));
 }
 
@@ -1463,7 +1463,7 @@ Gura_DeclareMethod(Font, SetFontKerning)
 
 Gura_ImplementMethod(Font, SetFontKerning)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	::TTF_SetFontKerning(pFont, args.GetInt(0));
 	return Value::Null;
 }
@@ -1476,7 +1476,7 @@ Gura_DeclareMethod(Font, FontHeight)
 
 Gura_ImplementMethod(Font, FontHeight)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	return Value(::TTF_FontHeight(pFont));
 }
 
@@ -1488,7 +1488,7 @@ Gura_DeclareMethod(Font, FontAscent)
 
 Gura_ImplementMethod(Font, FontAscent)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	return Value(::TTF_FontAscent(pFont));
 }
 
@@ -1500,7 +1500,7 @@ Gura_DeclareMethod(Font, FontDescent)
 
 Gura_ImplementMethod(Font, FontDescent)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	return Value(::TTF_FontDescent(pFont));
 }
 
@@ -1512,7 +1512,7 @@ Gura_DeclareMethod(Font, FontLineSkip)
 
 Gura_ImplementMethod(Font, FontLineSkip)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	return Value(::TTF_FontLineSkip(pFont));
 }
 
@@ -1524,7 +1524,7 @@ Gura_DeclareMethod(Font, FontFaces)
 
 Gura_ImplementMethod(Font, FontFaces)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	return Value(::TTF_FontFaces(pFont));
 }
 
@@ -1536,7 +1536,7 @@ Gura_DeclareMethod(Font, FontFaceIsFixedWidth)
 
 Gura_ImplementMethod(Font, FontFaceIsFixedWidth)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	return Value(::TTF_FontFaceIsFixedWidth(pFont));
 }
 
@@ -1548,7 +1548,7 @@ Gura_DeclareMethod(Font, FontFaceFamilyName)
 
 Gura_ImplementMethod(Font, FontFaceFamilyName)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	char *familyName = ::TTF_FontFaceFamilyName(pFont);
 	if (familyName == NULL) return Value::Null;
 	return Value(env, familyName);
@@ -1562,7 +1562,7 @@ Gura_DeclareMethod(Font, FontFaceStyleName)
 
 Gura_ImplementMethod(Font, FontFaceStyleName)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	char *styleName = ::TTF_FontFaceStyleName(pFont);
 	if (styleName == NULL) return Value::Null;
 	return Value(env, styleName);
@@ -1577,7 +1577,7 @@ Gura_DeclareMethod(Font, GlyphIsProvided)
 
 Gura_ImplementMethod(Font, GlyphIsProvided)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	return Value(::TTF_GlyphIsProvided(pFont, args.GetUShort(0)));
 }
 
@@ -1590,7 +1590,7 @@ Gura_DeclareMethod(Font, GlyphMetrics)
 
 Gura_ImplementMethod(Font, GlyphMetrics)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	int minx, maxx, miny, maxy, advance;
 	int rtn = ::TTF_GlyphMetrics(pFont, args.GetUShort(0),
 								&minx, &maxx, &miny, &maxy, &advance);
@@ -1614,7 +1614,7 @@ Gura_DeclareMethod(Font, SizeText)
 
 Gura_ImplementMethod(Font, SizeText)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	int w, h;
 	int rtn = ::TTF_SizeUTF8(pFont, args.GetString(0), &w, &h);
 	if (rtn < 0) return Value::Null;
@@ -1636,7 +1636,7 @@ Gura_DeclareMethod(Font, RenderText_Solid)
 
 Gura_ImplementMethod(Font, RenderText_Solid)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	const char *text = args.GetString(0);
 	SDL_Color &fg = dynamic_cast<Object_Color *>(args.GetObject(1))->GetColor();
 	SDL_Surface *pSurface = ::TTF_RenderUTF8_Solid(pFont, text, fg);
@@ -1656,7 +1656,7 @@ Gura_DeclareMethod(Font, RenderText_Shaded)
 
 Gura_ImplementMethod(Font, RenderText_Shaded)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	const char *text = args.GetString(0);
 	SDL_Color &fg = dynamic_cast<Object_Color *>(args.GetObject(1))->GetColor();
 	SDL_Color &bg = dynamic_cast<Object_Color *>(args.GetObject(2))->GetColor();
@@ -1676,7 +1676,7 @@ Gura_DeclareMethod(Font, RenderText_Blended)
 
 Gura_ImplementMethod(Font, RenderText_Blended)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	const char *text = args.GetString(0);
 	SDL_Color &fg = dynamic_cast<Object_Color *>(args.GetObject(1))->GetColor();
 	SDL_Surface *pSurface = ::TTF_RenderUTF8_Blended(pFont, text, fg);
@@ -1695,7 +1695,7 @@ Gura_DeclareMethod(Font, RenderGlyph_Solid)
 
 Gura_ImplementMethod(Font, RenderGlyph_Solid)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	Uint16 ch = args.GetUShort(0);
 	SDL_Color &fg = dynamic_cast<Object_Color *>(args.GetObject(1))->GetColor();
 	SDL_Surface *pSurface = ::TTF_RenderGlyph_Solid(pFont, ch, fg);
@@ -1715,7 +1715,7 @@ Gura_DeclareMethod(Font, RenderGlyph_Shaded)
 
 Gura_ImplementMethod(Font, RenderGlyph_Shaded)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	Uint16 ch = args.GetUShort(0);
 	SDL_Color &fg = dynamic_cast<Object_Color *>(args.GetObject(1))->GetColor();
 	SDL_Color &bg = dynamic_cast<Object_Color *>(args.GetObject(2))->GetColor();
@@ -1735,7 +1735,7 @@ Gura_DeclareMethod(Font, RenderGlyph_Blended)
 
 Gura_ImplementMethod(Font, RenderGlyph_Blended)
 {
-	TTF_Font *pFont = Object_Font::GetSelfObj(args)->GetFont();
+	TTF_Font *pFont = Object_Font::GetThisObj(args)->GetFont();
 	Uint16 ch = args.GetUShort(0);
 	SDL_Color &fg = dynamic_cast<Object_Color *>(args.GetObject(1))->GetColor();
 	SDL_Surface *pSurface = ::TTF_RenderGlyph_Blended(pFont, ch, fg);
@@ -1805,7 +1805,7 @@ Gura_DeclareMethod(Joystick, JoystickIndex)
 
 Gura_ImplementMethod(Joystick, JoystickIndex)
 {
-	SDL_Joystick *pJoystick = Object_Joystick::GetSelfObj(args)->GetJoystick();
+	SDL_Joystick *pJoystick = Object_Joystick::GetThisObj(args)->GetJoystick();
 	return Value(::SDL_JoystickIndex(pJoystick));
 }
 
@@ -1817,7 +1817,7 @@ Gura_DeclareMethod(Joystick, JoystickNumAxes)
 
 Gura_ImplementMethod(Joystick, JoystickNumAxes)
 {
-	SDL_Joystick *pJoystick = Object_Joystick::GetSelfObj(args)->GetJoystick();
+	SDL_Joystick *pJoystick = Object_Joystick::GetThisObj(args)->GetJoystick();
 	return Value(::SDL_JoystickNumAxes(pJoystick));
 }
 
@@ -1829,7 +1829,7 @@ Gura_DeclareMethod(Joystick, JoystickNumBalls)
 
 Gura_ImplementMethod(Joystick, JoystickNumBalls)
 {
-	SDL_Joystick *pJoystick = Object_Joystick::GetSelfObj(args)->GetJoystick();
+	SDL_Joystick *pJoystick = Object_Joystick::GetThisObj(args)->GetJoystick();
 	return Value(::SDL_JoystickNumBalls(pJoystick));
 }
 
@@ -1841,7 +1841,7 @@ Gura_DeclareMethod(Joystick, JoystickNumHats)
 
 Gura_ImplementMethod(Joystick, JoystickNumHats)
 {
-	SDL_Joystick *pJoystick = Object_Joystick::GetSelfObj(args)->GetJoystick();
+	SDL_Joystick *pJoystick = Object_Joystick::GetThisObj(args)->GetJoystick();
 	return Value(::SDL_JoystickNumHats(pJoystick));
 }
 
@@ -1853,7 +1853,7 @@ Gura_DeclareMethod(Joystick, JoystickNumButtons)
 
 Gura_ImplementMethod(Joystick, JoystickNumButtons)
 {
-	SDL_Joystick *pJoystick = Object_Joystick::GetSelfObj(args)->GetJoystick();
+	SDL_Joystick *pJoystick = Object_Joystick::GetThisObj(args)->GetJoystick();
 	return Value(::SDL_JoystickNumButtons(pJoystick));
 }
 
@@ -1866,7 +1866,7 @@ Gura_DeclareMethod(Joystick, JoystickGetAxis)
 
 Gura_ImplementMethod(Joystick, JoystickGetAxis)
 {
-	SDL_Joystick *pJoystick = Object_Joystick::GetSelfObj(args)->GetJoystick();
+	SDL_Joystick *pJoystick = Object_Joystick::GetThisObj(args)->GetJoystick();
 	return Value(::SDL_JoystickGetAxis(pJoystick, args.GetInt(0)));
 }
 
@@ -1879,7 +1879,7 @@ Gura_DeclareMethod(Joystick, JoystickGetHat)
 
 Gura_ImplementMethod(Joystick, JoystickGetHat)
 {
-	SDL_Joystick *pJoystick = Object_Joystick::GetSelfObj(args)->GetJoystick();
+	SDL_Joystick *pJoystick = Object_Joystick::GetThisObj(args)->GetJoystick();
 	return Value(::SDL_JoystickGetHat(pJoystick, args.GetInt(0)));
 }
 
@@ -1892,7 +1892,7 @@ Gura_DeclareMethod(Joystick, JoystickGetButton)
 
 Gura_ImplementMethod(Joystick, JoystickGetButton)
 {
-	SDL_Joystick *pJoystick = Object_Joystick::GetSelfObj(args)->GetJoystick();
+	SDL_Joystick *pJoystick = Object_Joystick::GetThisObj(args)->GetJoystick();
 	return Value(::SDL_JoystickGetButton(pJoystick, args.GetInt(0)));
 }
 
@@ -1905,7 +1905,7 @@ Gura_DeclareMethod(Joystick, JoystickGetBall)
 
 Gura_ImplementMethod(Joystick, JoystickGetBall)
 {
-	SDL_Joystick *pJoystick = Object_Joystick::GetSelfObj(args)->GetJoystick();
+	SDL_Joystick *pJoystick = Object_Joystick::GetThisObj(args)->GetJoystick();
 	int dx, dy;
 	if (::SDL_JoystickGetBall(pJoystick, args.GetInt(0), &dx, &dy) < 0) {
 		return Value::Null;
@@ -1925,7 +1925,7 @@ Gura_DeclareMethod(Joystick, JoystickClose)
 
 Gura_ImplementMethod(Joystick, JoystickClose)
 {
-	SDL_Joystick *pJoystick = Object_Joystick::GetSelfObj(args)->GetJoystick();
+	SDL_Joystick *pJoystick = Object_Joystick::GetThisObj(args)->GetJoystick();
 	::SDL_JoystickClose(pJoystick);
 	return Value::Null;
 }
@@ -2010,8 +2010,8 @@ void Object_AudioSpec::Callback(Uint8 *stream, int len)
 void Object_AudioSpec::CallbackStub(void *userdata, Uint8 *stream, int len)
 {
 	if (userdata == NULL) return;
-	Object_AudioSpec *pSelf = reinterpret_cast<Object_AudioSpec *>(userdata);
-	pSelf->Callback(stream, len);
+	Object_AudioSpec *pThis = reinterpret_cast<Object_AudioSpec *>(userdata);
+	pThis->Callback(stream, len);
 }
 
 String Object_AudioSpec::ToString(Signal sig, bool exprFlag)
@@ -2063,7 +2063,7 @@ Gura_DeclareMethod(AudioSpec, MixAudio)
 
 Gura_ImplementMethod(AudioSpec, MixAudio)
 {
-	Object_AudioSpec *pDst = Object_AudioSpec::GetSelfObj(args);
+	Object_AudioSpec *pDst = Object_AudioSpec::GetThisObj(args);
 	Object_AudioSpec *pSrc =dynamic_cast<Object_AudioSpec *>(args.GetObject(0));
 	int volume = args.GetInt(1);
 	if (pDst->GetAudioBuf() == NULL || pSrc->GetAudioBuf() == NULL) {
@@ -2116,7 +2116,7 @@ Gura_DeclareMethod(AudioCVT, ConvertAudio)
 
 Gura_ImplementMethod(AudioCVT, ConvertAudio)
 {
-	SDL_AudioCVT *pAudioCVT = Object_AudioCVT::GetSelfObj(args)->GetAudioCVT();
+	SDL_AudioCVT *pAudioCVT = Object_AudioCVT::GetThisObj(args)->GetAudioCVT();
 	return Value(::SDL_ConvertAudio(pAudioCVT));
 }
 
@@ -2233,7 +2233,7 @@ Gura_DeclareMethod(CD, CDStatus)
 
 Gura_ImplementMethod(CD, CDStatus)
 {
-	SDL_CD *pCD = Object_CD::GetSelfObj(args)->GetCD();
+	SDL_CD *pCD = Object_CD::GetThisObj(args)->GetCD();
 	return Value(::SDL_CDStatus(pCD));
 }
 
@@ -2247,7 +2247,7 @@ Gura_DeclareMethod(CD, CDPlay)
 
 Gura_ImplementMethod(CD, CDPlay)
 {
-	SDL_CD *pCD = Object_CD::GetSelfObj(args)->GetCD();
+	SDL_CD *pCD = Object_CD::GetThisObj(args)->GetCD();
 	return Value(::SDL_CDPlay(pCD, args.GetInt(0), args.GetInt(1)));
 }
 
@@ -2264,7 +2264,7 @@ Gura_DeclareMethod(CD, CDPlayTracks)
 
 Gura_ImplementMethod(CD, CDPlayTracks)
 {
-	SDL_CD *pCD = Object_CD::GetSelfObj(args)->GetCD();
+	SDL_CD *pCD = Object_CD::GetThisObj(args)->GetCD();
 	return Value(::SDL_CDPlayTracks(pCD, args.GetInt(0), args.GetInt(1),
 										args.GetInt(2), args.GetInt(3)));
 }
@@ -2277,7 +2277,7 @@ Gura_DeclareMethod(CD, CDPause)
 
 Gura_ImplementMethod(CD, CDPause)
 {
-	SDL_CD *pCD = Object_CD::GetSelfObj(args)->GetCD();
+	SDL_CD *pCD = Object_CD::GetThisObj(args)->GetCD();
 	return Value(::SDL_CDPause(pCD));
 }
 
@@ -2289,7 +2289,7 @@ Gura_DeclareMethod(CD, CDResume)
 
 Gura_ImplementMethod(CD, CDResume)
 {
-	SDL_CD *pCD = Object_CD::GetSelfObj(args)->GetCD();
+	SDL_CD *pCD = Object_CD::GetThisObj(args)->GetCD();
 	return Value(::SDL_CDResume(pCD));
 }
 
@@ -2301,7 +2301,7 @@ Gura_DeclareMethod(CD, CDStop)
 
 Gura_ImplementMethod(CD, CDStop)
 {
-	SDL_CD *pCD = Object_CD::GetSelfObj(args)->GetCD();
+	SDL_CD *pCD = Object_CD::GetThisObj(args)->GetCD();
 	return Value(::SDL_CDStop(pCD));
 }
 
@@ -2313,7 +2313,7 @@ Gura_DeclareMethod(CD, CDEject)
 
 Gura_ImplementMethod(CD, CDEject)
 {
-	SDL_CD *pCD = Object_CD::GetSelfObj(args)->GetCD();
+	SDL_CD *pCD = Object_CD::GetThisObj(args)->GetCD();
 	return Value(::SDL_CDEject(pCD));
 }
 
@@ -2325,7 +2325,7 @@ Gura_DeclareMethod(CD, CDClose)
 
 Gura_ImplementMethod(CD, CDClose)
 {
-	SDL_CD *pCD = Object_CD::GetSelfObj(args)->GetCD();
+	SDL_CD *pCD = Object_CD::GetThisObj(args)->GetCD();
 	::SDL_CDClose(pCD);
 	return Value::Null;
 }
@@ -2339,7 +2339,7 @@ Gura_DeclareMethod(CD, GetTrack)
 
 Gura_ImplementMethod(CD, GetTrack)
 {
-	SDL_CD *pCD = Object_CD::GetSelfObj(args)->GetCD();
+	SDL_CD *pCD = Object_CD::GetThisObj(args)->GetCD();
 	int n = args.GetInt(0);
 	if (n < 0 || n > pCD->numtracks) {
 		sig.SetError(ERR_ValueError, "track index is out of range");

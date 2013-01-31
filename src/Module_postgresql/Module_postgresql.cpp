@@ -108,7 +108,7 @@ Gura_DeclareMethod(postgresql, close)
 
 Gura_ImplementMethod(postgresql, close)
 {
-	Object_postgresql *pObj = Object_postgresql::GetSelfObj(args);
+	Object_postgresql *pObj = Object_postgresql::GetThisObj(args);
 	pObj->Close();
 	return Value::Null;
 }
@@ -122,7 +122,7 @@ Gura_DeclareMethod(postgresql, query)
 
 Gura_ImplementMethod(postgresql, query)
 {
-	Object_postgresql *pObj = Object_postgresql::GetSelfObj(args);
+	Object_postgresql *pObj = Object_postgresql::GetThisObj(args);
 	Iterator *pIterator = pObj->Exec(sig, args.GetString(0));
 	// Object_postgresql::Exec() may return NULL even if no error occurs.
 	if (pIterator == NULL) return Value::Null;

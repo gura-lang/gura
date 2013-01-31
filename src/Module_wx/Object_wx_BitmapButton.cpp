@@ -48,7 +48,7 @@ Gura_ImplementFunction(BitmapButtonEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BitmapButton *pEntity = new wx_BitmapButton();
-	Object_wx_BitmapButton *pObj = Object_wx_BitmapButton::GetSelfObj(args);
+	Object_wx_BitmapButton *pObj = Object_wx_BitmapButton::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_BitmapButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(BitmapButtonEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(BitmapButton)
@@ -91,7 +91,7 @@ Gura_ImplementFunction(BitmapButton)
 	wxString name = wxT("button");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_BitmapButton *pEntity = new wx_BitmapButton(parent, id, *bitmap, *pos, *size, style, *validator, name);
-	Object_wx_BitmapButton *pObj = Object_wx_BitmapButton::GetSelfObj(args);
+	Object_wx_BitmapButton *pObj = Object_wx_BitmapButton::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_BitmapButton(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(BitmapButton)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_BitmapButton, Create)
@@ -118,8 +118,8 @@ Gura_DeclareMethod(wx_BitmapButton, Create)
 
 Gura_ImplementMethod(wx_BitmapButton, Create)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 2)->GetEntity();
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_BitmapButton, Create)
 	if (args.IsValid(6)) validator = Object_wx_Validator::GetObject(args, 6)->GetEntity();
 	wxString name = wxT("button");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, *bitmap, *pos, *size, style, *validator, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, *bitmap, *pos, *size, style, *validator, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -144,9 +144,9 @@ Gura_DeclareMethod(wx_BitmapButton, GetBitmapDisabled)
 
 Gura_ImplementMethod(wx_BitmapButton, GetBitmapDisabled)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxBitmap &rtn = pSelf->GetEntity()->GetBitmapDisabled();
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxBitmap &rtn = pThis->GetEntity()->GetBitmapDisabled();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
@@ -158,9 +158,9 @@ Gura_DeclareMethod(wx_BitmapButton, GetBitmapDisabled_1)
 
 Gura_ImplementMethod(wx_BitmapButton, GetBitmapDisabled_1)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxBitmap &rtn = pSelf->GetEntity()->GetBitmapDisabled();
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxBitmap &rtn = pThis->GetEntity()->GetBitmapDisabled();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
@@ -172,9 +172,9 @@ Gura_DeclareMethod(wx_BitmapButton, GetBitmapFocus)
 
 Gura_ImplementMethod(wx_BitmapButton, GetBitmapFocus)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxBitmap &rtn = pSelf->GetEntity()->GetBitmapFocus();
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxBitmap &rtn = pThis->GetEntity()->GetBitmapFocus();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
@@ -186,9 +186,9 @@ Gura_DeclareMethod(wx_BitmapButton, GetBitmapFocus_1)
 
 Gura_ImplementMethod(wx_BitmapButton, GetBitmapFocus_1)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxBitmap &rtn = pSelf->GetEntity()->GetBitmapFocus();
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxBitmap &rtn = pThis->GetEntity()->GetBitmapFocus();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
@@ -200,9 +200,9 @@ Gura_DeclareMethod(wx_BitmapButton, GetBitmapHover)
 
 Gura_ImplementMethod(wx_BitmapButton, GetBitmapHover)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxBitmap &rtn = pSelf->GetEntity()->GetBitmapHover();
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxBitmap &rtn = pThis->GetEntity()->GetBitmapHover();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
@@ -214,9 +214,9 @@ Gura_DeclareMethod(wx_BitmapButton, GetBitmapHover_1)
 
 Gura_ImplementMethod(wx_BitmapButton, GetBitmapHover_1)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxBitmap &rtn = pSelf->GetEntity()->GetBitmapHover();
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxBitmap &rtn = pThis->GetEntity()->GetBitmapHover();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
@@ -228,9 +228,9 @@ Gura_DeclareMethod(wx_BitmapButton, GetBitmapLabel)
 
 Gura_ImplementMethod(wx_BitmapButton, GetBitmapLabel)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxBitmap &rtn = pSelf->GetEntity()->GetBitmapLabel();
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxBitmap &rtn = pThis->GetEntity()->GetBitmapLabel();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
@@ -242,9 +242,9 @@ Gura_DeclareMethod(wx_BitmapButton, GetBitmapLabel_1)
 
 Gura_ImplementMethod(wx_BitmapButton, GetBitmapLabel_1)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxBitmap &rtn = pSelf->GetEntity()->GetBitmapLabel();
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxBitmap &rtn = pThis->GetEntity()->GetBitmapLabel();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
@@ -256,9 +256,9 @@ Gura_DeclareMethod(wx_BitmapButton, GetBitmapSelected)
 
 Gura_ImplementMethod(wx_BitmapButton, GetBitmapSelected)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxBitmap &rtn = pSelf->GetEntity()->GetBitmapSelected();
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxBitmap &rtn = pThis->GetEntity()->GetBitmapSelected();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
@@ -270,9 +270,9 @@ Gura_DeclareMethod(wx_BitmapButton, GetBitmapSelected_1)
 
 Gura_ImplementMethod(wx_BitmapButton, GetBitmapSelected_1)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxBitmap &rtn = pSelf->GetEntity()->GetBitmapSelected();
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxBitmap &rtn = pThis->GetEntity()->GetBitmapSelected();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
@@ -284,10 +284,10 @@ Gura_DeclareMethod(wx_BitmapButton, SetBitmapDisabled)
 
 Gura_ImplementMethod(wx_BitmapButton, SetBitmapDisabled)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetBitmapDisabled(*bitmap);
+	pThis->GetEntity()->SetBitmapDisabled(*bitmap);
 	return Value::Null;
 }
 
@@ -299,10 +299,10 @@ Gura_DeclareMethod(wx_BitmapButton, SetBitmapFocus)
 
 Gura_ImplementMethod(wx_BitmapButton, SetBitmapFocus)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetBitmapFocus(*bitmap);
+	pThis->GetEntity()->SetBitmapFocus(*bitmap);
 	return Value::Null;
 }
 
@@ -314,10 +314,10 @@ Gura_DeclareMethod(wx_BitmapButton, SetBitmapHover)
 
 Gura_ImplementMethod(wx_BitmapButton, SetBitmapHover)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetBitmapHover(*bitmap);
+	pThis->GetEntity()->SetBitmapHover(*bitmap);
 	return Value::Null;
 }
 
@@ -329,10 +329,10 @@ Gura_DeclareMethod(wx_BitmapButton, SetBitmapLabel)
 
 Gura_ImplementMethod(wx_BitmapButton, SetBitmapLabel)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetBitmapLabel(*bitmap);
+	pThis->GetEntity()->SetBitmapLabel(*bitmap);
 	return Value::Null;
 }
 
@@ -344,10 +344,10 @@ Gura_DeclareMethod(wx_BitmapButton, SetBitmapSelected)
 
 Gura_ImplementMethod(wx_BitmapButton, SetBitmapSelected)
 {
-	Object_wx_BitmapButton *pSelf = Object_wx_BitmapButton::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetBitmapSelected(*bitmap);
+	pThis->GetEntity()->SetBitmapSelected(*bitmap);
 	return Value::Null;
 }
 

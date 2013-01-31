@@ -277,7 +277,7 @@ scope {
 	}
 }
 scope {
-	objs = @(struct(name, age) { Print() = print(self.name, ' ', self.age, '\n') }) {
+	objs = @(struct(name, age) { Print() = print(this.name, ' ', this.age, '\n') }) {
 		['entry-1',	30],
 		['entry-2',	23],
 		['entry-3',	29],

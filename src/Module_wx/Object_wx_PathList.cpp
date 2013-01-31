@@ -48,7 +48,7 @@ Gura_ImplementFunction(PathListEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PathList *pEntity = new wx_PathList();
-	Object_wx_PathList *pObj = Object_wx_PathList::GetSelfObj(args);
+	Object_wx_PathList *pObj = Object_wx_PathList::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PathList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(PathListEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(PathList)
@@ -72,7 +72,7 @@ Gura_ImplementFunction(PathList)
 	if (!CheckWxReady(sig)) return Value::Null;
 	std::auto_ptr<wxArrayString> arr(CreateArrayString(args.GetList(0)));
 	wx_PathList *pEntity = new wx_PathList(*arr);
-	Object_wx_PathList *pObj = Object_wx_PathList::GetSelfObj(args);
+	Object_wx_PathList *pObj = Object_wx_PathList::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PathList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(PathList)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_PathList, AddEnvList)
@@ -91,10 +91,10 @@ Gura_DeclareMethod(wx_PathList, AddEnvList)
 
 Gura_ImplementMethod(wx_PathList, AddEnvList)
 {
-	Object_wx_PathList *pSelf = Object_wx_PathList::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PathList *pThis = Object_wx_PathList::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString env_variable = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->AddEnvList(env_variable);
+	pThis->GetEntity()->AddEnvList(env_variable);
 	return Value::Null;
 }
 
@@ -107,10 +107,10 @@ Gura_DeclareMethod(wx_PathList, Add)
 
 Gura_ImplementMethod(wx_PathList, Add)
 {
-	Object_wx_PathList *pSelf = Object_wx_PathList::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PathList *pThis = Object_wx_PathList::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString path = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->Add(path);
+	bool rtn = pThis->GetEntity()->Add(path);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -122,10 +122,10 @@ Gura_DeclareMethod(wx_PathList, Add_1)
 
 Gura_ImplementMethod(wx_PathList, Add_1)
 {
-	Object_wx_PathList *pSelf = Object_wx_PathList::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PathList *pThis = Object_wx_PathList::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::auto_ptr<wxArrayString> arr(CreateArrayString(args.GetList(0)));
-	pSelf->GetEntity()->Add(*arr);
+	pThis->GetEntity()->Add(*arr);
 	return Value::Null;
 }
 
@@ -138,10 +138,10 @@ Gura_DeclareMethod(wx_PathList, EnsureFileAccessible)
 
 Gura_ImplementMethod(wx_PathList, EnsureFileAccessible)
 {
-	Object_wx_PathList *pSelf = Object_wx_PathList::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PathList *pThis = Object_wx_PathList::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->EnsureFileAccessible(filename);
+	bool rtn = pThis->GetEntity()->EnsureFileAccessible(filename);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -154,10 +154,10 @@ Gura_DeclareMethod(wx_PathList, FindAbsoluteValidPath)
 
 Gura_ImplementMethod(wx_PathList, FindAbsoluteValidPath)
 {
-	Object_wx_PathList *pSelf = Object_wx_PathList::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PathList *pThis = Object_wx_PathList::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
-	wxString rtn = pSelf->GetEntity()->FindAbsoluteValidPath(file);
+	wxString rtn = pThis->GetEntity()->FindAbsoluteValidPath(file);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -170,10 +170,10 @@ Gura_DeclareMethod(wx_PathList, FindValidPath)
 
 Gura_ImplementMethod(wx_PathList, FindValidPath)
 {
-	Object_wx_PathList *pSelf = Object_wx_PathList::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PathList *pThis = Object_wx_PathList::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
-	wxString rtn = pSelf->GetEntity()->FindValidPath(file);
+	wxString rtn = pThis->GetEntity()->FindValidPath(file);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 

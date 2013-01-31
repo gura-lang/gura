@@ -47,7 +47,7 @@ Gura_ImplementFunction(FontListEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FontList *pEntity = new wx_FontList();
-	Object_wx_FontList *pObj = Object_wx_FontList::GetSelfObj(args);
+	Object_wx_FontList *pObj = Object_wx_FontList::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_FontList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(FontListEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FontList, FindOrCreateFont)
@@ -73,8 +73,8 @@ Gura_DeclareMethod(wx_FontList, FindOrCreateFont)
 
 Gura_ImplementMethod(wx_FontList, FindOrCreateFont)
 {
-	Object_wx_FontList *pSelf = Object_wx_FontList::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FontList *pThis = Object_wx_FontList::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int point_size = args.GetInt(0);
 	int family = args.GetInt(1);
 	int style = args.GetInt(2);
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_FontList, FindOrCreateFont)
 	if (args.IsValid(5)) facename = wxString::FromUTF8(args.GetString(5));
 	wxFontEncoding encoding = wxFONTENCODING_DEFAULT;
 	if (args.IsValid(6)) encoding = static_cast<wxFontEncoding>(args.GetInt(6));
-	wxFont *rtn = (wxFont *)pSelf->GetEntity()->FindOrCreateFont(point_size, family, style, weight, underline, facename, encoding);
+	wxFont *rtn = (wxFont *)pThis->GetEntity()->FindOrCreateFont(point_size, family, style, weight, underline, facename, encoding);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Font(rtn, NULL, OwnerFalse)));
 }
 

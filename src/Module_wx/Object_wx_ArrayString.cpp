@@ -50,7 +50,7 @@ Gura_ImplementFunction(ArrayStringEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ArrayString *pEntity = new wx_ArrayString();
-	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetSelfObj(args);
+	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ArrayString(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(ArrayStringEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ArrayString)
@@ -74,7 +74,7 @@ Gura_ImplementFunction(ArrayString)
 	if (!CheckWxReady(sig)) return Value::Null;
 	std::auto_ptr<wxArrayString> array(CreateArrayString(args.GetList(0)));
 	wx_ArrayString *pEntity = new wx_ArrayString(*array);
-	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetSelfObj(args);
+	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ArrayString(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(ArrayString)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ArrayString_1)
@@ -100,7 +100,7 @@ Gura_ImplementFunction(ArrayString_1)
 	size_t sz = args.GetSizeT(0);
 	wxChar arr = static_cast<wxChar>(args.GetInt(1));
 	wx_ArrayString *pEntity = new wx_ArrayString(sz, arr);
-	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetSelfObj(args);
+	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ArrayString(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -108,7 +108,7 @@ Gura_ImplementFunction(ArrayString_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ArrayString_2)
@@ -126,7 +126,7 @@ Gura_ImplementFunction(ArrayString_2)
 	size_t sz = args.GetSizeT(0);
 	wxString arr = wxString::FromUTF8(args.GetString(1));
 	wx_ArrayString *pEntity = new wx_ArrayString(sz, arr);
-	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetSelfObj(args);
+	Object_wx_ArrayString *pObj = Object_wx_ArrayString::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ArrayString(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -134,7 +134,7 @@ Gura_ImplementFunction(ArrayString_2)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ArrayString, Add)
@@ -147,12 +147,12 @@ Gura_DeclareMethod(wx_ArrayString, Add)
 
 Gura_ImplementMethod(wx_ArrayString, Add)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString str = wxString::FromUTF8(args.GetString(0));
 	size_t copies = 1;
 	if (args.IsValid(1)) copies = args.GetSizeT(1);
-	size_t rtn = pSelf->GetEntity()->Add(str, copies);
+	size_t rtn = pThis->GetEntity()->Add(str, copies);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -164,10 +164,10 @@ Gura_DeclareMethod(wx_ArrayString, Alloc)
 
 Gura_ImplementMethod(wx_ArrayString, Alloc)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t nCount = args.GetSizeT(0);
-	pSelf->GetEntity()->Alloc(nCount);
+	pThis->GetEntity()->Alloc(nCount);
 	return Value::Null;
 }
 
@@ -178,9 +178,9 @@ Gura_DeclareMethod(wx_ArrayString, Clear)
 
 Gura_ImplementMethod(wx_ArrayString, Clear)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Clear();
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Clear();
 	return Value::Null;
 }
 
@@ -192,9 +192,9 @@ Gura_DeclareMethod(wx_ArrayString, Count)
 
 Gura_ImplementMethod(wx_ArrayString, Count)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	size_t rtn = pSelf->GetEntity()->Count();
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	size_t rtn = pThis->GetEntity()->Count();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -205,9 +205,9 @@ Gura_DeclareMethod(wx_ArrayString, Empty)
 
 Gura_ImplementMethod(wx_ArrayString, Empty)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Empty();
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Empty();
 	return Value::Null;
 }
 
@@ -219,9 +219,9 @@ Gura_DeclareMethod(wx_ArrayString, GetCount)
 
 Gura_ImplementMethod(wx_ArrayString, GetCount)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	size_t rtn = pSelf->GetEntity()->GetCount();
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	size_t rtn = pThis->GetEntity()->GetCount();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -236,14 +236,14 @@ Gura_DeclareMethod(wx_ArrayString, Index)
 
 Gura_ImplementMethod(wx_ArrayString, Index)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString sz = wxString::FromUTF8(args.GetString(0));
 	bool bCase = true;
 	if (args.IsValid(1)) bCase = args.GetBoolean(1);
 	bool bFromEnd = false;
 	if (args.IsValid(2)) bFromEnd = args.GetBoolean(2);
-	int rtn = pSelf->GetEntity()->Index(sz, bCase, bFromEnd);
+	int rtn = pThis->GetEntity()->Index(sz, bCase, bFromEnd);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -257,13 +257,13 @@ Gura_DeclareMethod(wx_ArrayString, Insert)
 
 Gura_ImplementMethod(wx_ArrayString, Insert)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString str = wxString::FromUTF8(args.GetString(0));
 	size_t nIndex = args.GetSizeT(1);
 	size_t copies = 1;
 	if (args.IsValid(2)) copies = args.GetSizeT(2);
-	pSelf->GetEntity()->Insert(str, nIndex, copies);
+	pThis->GetEntity()->Insert(str, nIndex, copies);
 	return Value::Null;
 }
 
@@ -275,9 +275,9 @@ Gura_DeclareMethod(wx_ArrayString, IsEmpty)
 
 Gura_ImplementMethod(wx_ArrayString, IsEmpty)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsEmpty();
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsEmpty();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -290,10 +290,10 @@ Gura_DeclareMethod(wx_ArrayString, Item)
 
 Gura_ImplementMethod(wx_ArrayString, Item)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t nIndex = args.GetSizeT(0);
-	wxString rtn = pSelf->GetEntity()->Item(nIndex);
+	wxString rtn = pThis->GetEntity()->Item(nIndex);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -305,9 +305,9 @@ Gura_DeclareMethod(wx_ArrayString, Last)
 
 Gura_ImplementMethod(wx_ArrayString, Last)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->Last();
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->Last();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -319,10 +319,10 @@ Gura_DeclareMethod(wx_ArrayString, Remove)
 
 Gura_ImplementMethod(wx_ArrayString, Remove)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString sz = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->Remove(sz);
+	pThis->GetEntity()->Remove(sz);
 	return Value::Null;
 }
 
@@ -335,12 +335,12 @@ Gura_DeclareMethod(wx_ArrayString, RemoveAt)
 
 Gura_ImplementMethod(wx_ArrayString, RemoveAt)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t nIndex = args.GetSizeT(0);
 	size_t count = 1;
 	if (args.IsValid(1)) count = args.GetSizeT(1);
-	pSelf->GetEntity()->RemoveAt(nIndex, count);
+	pThis->GetEntity()->RemoveAt(nIndex, count);
 	return Value::Null;
 }
 
@@ -351,9 +351,9 @@ Gura_DeclareMethod(wx_ArrayString, Shrink)
 
 Gura_ImplementMethod(wx_ArrayString, Shrink)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Shrink();
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Shrink();
 	return Value::Null;
 }
 
@@ -365,11 +365,11 @@ Gura_DeclareMethod(wx_ArrayString, Sort)
 
 Gura_ImplementMethod(wx_ArrayString, Sort)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool reverseOrder = false;
 	if (args.IsValid(0)) reverseOrder = args.GetBoolean(0);
-	pSelf->GetEntity()->Sort(reverseOrder);
+	pThis->GetEntity()->Sort(reverseOrder);
 	return Value::Null;
 }
 
@@ -380,9 +380,9 @@ Gura_DeclareMethod(wx_ArrayString, Sort_1)
 
 Gura_ImplementMethod(wx_ArrayString, Sort_1)
 {
-	Object_wx_ArrayString *pSelf = Object_wx_ArrayString::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Sort();
+	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Sort();
 	return Value::Null;
 }
 

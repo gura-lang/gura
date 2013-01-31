@@ -67,7 +67,7 @@ Gura_ImplementFunction(XmlNode)
 	wxXmlNode *next = (wxXmlNode *)();
 	if (args.IsValid(5)) next = Object_wx_XmlNode::GetObject(args, 5)->GetEntity();
 	wx_XmlNode *pEntity = new wx_XmlNode(parent, type, name, content, props, next);
-	Object_wx_XmlNode *pObj = Object_wx_XmlNode::GetSelfObj(args);
+	Object_wx_XmlNode *pObj = Object_wx_XmlNode::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_XmlNode(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -75,7 +75,7 @@ Gura_ImplementFunction(XmlNode)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -94,7 +94,7 @@ Gura_ImplementFunction(XmlNode_1)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
 	wx_XmlNode *pEntity = new wx_XmlNode(*node);
-	Object_wx_XmlNode *pObj = Object_wx_XmlNode::GetSelfObj(args);
+	Object_wx_XmlNode *pObj = Object_wx_XmlNode::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_XmlNode(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -102,7 +102,7 @@ Gura_ImplementFunction(XmlNode_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(XmlNode_2)
@@ -123,7 +123,7 @@ Gura_ImplementFunction(XmlNode_2)
 	wxString content = wxEmptyString;
 	if (args.IsValid(2)) content = wxString::FromUTF8(args.GetString(2));
 	wx_XmlNode *pEntity = new wx_XmlNode(type, name, content);
-	Object_wx_XmlNode *pObj = Object_wx_XmlNode::GetSelfObj(args);
+	Object_wx_XmlNode *pObj = Object_wx_XmlNode::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_XmlNode(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -131,7 +131,7 @@ Gura_ImplementFunction(XmlNode_2)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_XmlNode, AddChild)
@@ -142,10 +142,10 @@ Gura_DeclareMethod(wx_XmlNode, AddChild)
 
 Gura_ImplementMethod(wx_XmlNode, AddChild)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *child = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->AddChild(child);
+	pThis->GetEntity()->AddChild(child);
 	return Value::Null;
 }
 
@@ -158,11 +158,11 @@ Gura_DeclareMethod(wx_XmlNode, AddProperty)
 
 Gura_ImplementMethod(wx_XmlNode, AddProperty)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString value = wxString::FromUTF8(args.GetString(1));
-	pSelf->GetEntity()->AddProperty(name, value);
+	pThis->GetEntity()->AddProperty(name, value);
 	return Value::Null;
 }
 
@@ -174,10 +174,10 @@ Gura_DeclareMethod(wx_XmlNode, AddProperty_1)
 
 Gura_ImplementMethod(wx_XmlNode, AddProperty_1)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlProperty *prop = Object_wx_XmlProperty::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->AddProperty(prop);
+	pThis->GetEntity()->AddProperty(prop);
 	return Value::Null;
 }
 
@@ -190,10 +190,10 @@ Gura_DeclareMethod(wx_XmlNode, DeleteProperty)
 
 Gura_ImplementMethod(wx_XmlNode, DeleteProperty)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->DeleteProperty(name);
+	bool rtn = pThis->GetEntity()->DeleteProperty(name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -205,9 +205,9 @@ Gura_DeclareMethod(wx_XmlNode, GetChildren)
 
 Gura_ImplementMethod(wx_XmlNode, GetChildren)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxXmlNode *rtn = (wxXmlNode *)pSelf->GetEntity()->GetChildren();
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxXmlNode *rtn = (wxXmlNode *)pThis->GetEntity()->GetChildren();
 	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, NULL, OwnerFalse)));
 }
 
@@ -219,9 +219,9 @@ Gura_DeclareMethod(wx_XmlNode, GetContent)
 
 Gura_ImplementMethod(wx_XmlNode, GetContent)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetContent();
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetContent();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -234,11 +234,11 @@ Gura_DeclareMethod(wx_XmlNode, GetDepth)
 
 Gura_ImplementMethod(wx_XmlNode, GetDepth)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *grandparent = (wxXmlNode *)(NULL);
 	if (args.IsValid(0)) grandparent = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
-	int rtn = pSelf->GetEntity()->GetDepth(grandparent);
+	int rtn = pThis->GetEntity()->GetDepth(grandparent);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -250,9 +250,9 @@ Gura_DeclareMethod(wx_XmlNode, GetNodeContent)
 
 Gura_ImplementMethod(wx_XmlNode, GetNodeContent)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetNodeContent();
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetNodeContent();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -264,9 +264,9 @@ Gura_DeclareMethod(wx_XmlNode, GetName)
 
 Gura_ImplementMethod(wx_XmlNode, GetName)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetName();
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -278,9 +278,9 @@ Gura_DeclareMethod(wx_XmlNode, GetNext)
 
 Gura_ImplementMethod(wx_XmlNode, GetNext)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxXmlNode *rtn = (wxXmlNode *)pSelf->GetEntity()->GetNext();
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxXmlNode *rtn = (wxXmlNode *)pThis->GetEntity()->GetNext();
 	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, NULL, OwnerFalse)));
 }
 
@@ -292,9 +292,9 @@ Gura_DeclareMethod(wx_XmlNode, GetParent)
 
 Gura_ImplementMethod(wx_XmlNode, GetParent)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxXmlNode *rtn = (wxXmlNode *)pSelf->GetEntity()->GetParent();
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxXmlNode *rtn = (wxXmlNode *)pThis->GetEntity()->GetParent();
 	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, NULL, OwnerFalse)));
 }
 
@@ -308,11 +308,11 @@ Gura_DeclareMethod(wx_XmlNode, GetPropVal)
 
 Gura_ImplementMethod(wx_XmlNode, GetPropVal)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString propName = wxString::FromUTF8(args.GetString(0));
 	wxString value = wxString::FromUTF8(args.GetString(1));
-	bool rtn = pSelf->GetEntity()->GetPropVal(propName, value);
+	bool rtn = pThis->GetEntity()->GetPropVal(propName, value);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -326,11 +326,11 @@ Gura_DeclareMethod(wx_XmlNode, GetPropVal_1)
 
 Gura_ImplementMethod(wx_XmlNode, GetPropVal_1)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString propName = wxString::FromUTF8(args.GetString(0));
 	wxString defaultVal = wxString::FromUTF8(args.GetString(1));
-	wxString rtn = pSelf->GetEntity()->GetPropVal(propName, defaultVal);
+	wxString rtn = pThis->GetEntity()->GetPropVal(propName, defaultVal);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -342,9 +342,9 @@ Gura_DeclareMethod(wx_XmlNode, GetProperties)
 
 Gura_ImplementMethod(wx_XmlNode, GetProperties)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxXmlProperty *rtn = (wxXmlProperty *)pSelf->GetEntity()->GetProperties();
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxXmlProperty *rtn = (wxXmlProperty *)pThis->GetEntity()->GetProperties();
 	return ReturnValue(env, sig, args, Value(new Object_wx_XmlProperty(rtn, NULL, OwnerFalse)));
 }
 
@@ -356,9 +356,9 @@ Gura_DeclareMethod(wx_XmlNode, GetType)
 
 Gura_ImplementMethod(wx_XmlNode, GetType)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxXmlNodeType rtn = pSelf->GetEntity()->GetType();
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxXmlNodeType rtn = pThis->GetEntity()->GetType();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -371,10 +371,10 @@ Gura_DeclareMethod(wx_XmlNode, HasProp)
 
 Gura_ImplementMethod(wx_XmlNode, HasProp)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString propName = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->HasProp(propName);
+	bool rtn = pThis->GetEntity()->HasProp(propName);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -388,11 +388,11 @@ Gura_DeclareMethod(wx_XmlNode, InsertChild)
 
 Gura_ImplementMethod(wx_XmlNode, InsertChild)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *child = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
 	wxXmlNode *followingNode = Object_wx_XmlNode::GetObject(args, 1)->GetEntity();
-	bool rtn = pSelf->GetEntity()->InsertChild(child, followingNode);
+	bool rtn = pThis->GetEntity()->InsertChild(child, followingNode);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -406,11 +406,11 @@ Gura_DeclareMethod(wx_XmlNode, InsertChildAfter)
 
 Gura_ImplementMethod(wx_XmlNode, InsertChildAfter)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *child = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
 	wxXmlNode *precedingNode = Object_wx_XmlNode::GetObject(args, 1)->GetEntity();
-	bool rtn = pSelf->GetEntity()->InsertChildAfter(child, precedingNode);
+	bool rtn = pThis->GetEntity()->InsertChildAfter(child, precedingNode);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -422,9 +422,9 @@ Gura_DeclareMethod(wx_XmlNode, IsWhitespaceOnly)
 
 Gura_ImplementMethod(wx_XmlNode, IsWhitespaceOnly)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsWhitespaceOnly();
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsWhitespaceOnly();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -437,10 +437,10 @@ Gura_DeclareMethod(wx_XmlNode, RemoveChild)
 
 Gura_ImplementMethod(wx_XmlNode, RemoveChild)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *child = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->RemoveChild(child);
+	bool rtn = pThis->GetEntity()->RemoveChild(child);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -452,10 +452,10 @@ Gura_DeclareMethod(wx_XmlNode, SetChildren)
 
 Gura_ImplementMethod(wx_XmlNode, SetChildren)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *child = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetChildren(child);
+	pThis->GetEntity()->SetChildren(child);
 	return Value::Null;
 }
 
@@ -467,10 +467,10 @@ Gura_DeclareMethod(wx_XmlNode, SetContent)
 
 Gura_ImplementMethod(wx_XmlNode, SetContent)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString con = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetContent(con);
+	pThis->GetEntity()->SetContent(con);
 	return Value::Null;
 }
 
@@ -482,10 +482,10 @@ Gura_DeclareMethod(wx_XmlNode, SetName)
 
 Gura_ImplementMethod(wx_XmlNode, SetName)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetName(name);
+	pThis->GetEntity()->SetName(name);
 	return Value::Null;
 }
 
@@ -497,10 +497,10 @@ Gura_DeclareMethod(wx_XmlNode, SetNext)
 
 Gura_ImplementMethod(wx_XmlNode, SetNext)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *next = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetNext(next);
+	pThis->GetEntity()->SetNext(next);
 	return Value::Null;
 }
 
@@ -512,10 +512,10 @@ Gura_DeclareMethod(wx_XmlNode, SetParent)
 
 Gura_ImplementMethod(wx_XmlNode, SetParent)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *parent = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetParent(parent);
+	pThis->GetEntity()->SetParent(parent);
 	return Value::Null;
 }
 
@@ -527,10 +527,10 @@ Gura_DeclareMethod(wx_XmlNode, SetProperties)
 
 Gura_ImplementMethod(wx_XmlNode, SetProperties)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlProperty *prop = Object_wx_XmlProperty::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetProperties(prop);
+	pThis->GetEntity()->SetProperties(prop);
 	return Value::Null;
 }
 
@@ -542,10 +542,10 @@ Gura_DeclareMethod(wx_XmlNode, SetType)
 
 Gura_ImplementMethod(wx_XmlNode, SetType)
 {
-	Object_wx_XmlNode *pSelf = Object_wx_XmlNode::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNodeType type = static_cast<wxXmlNodeType>(args.GetInt(0));
-	pSelf->GetEntity()->SetType(type);
+	pThis->GetEntity()->SetType(type);
 	return Value::Null;
 }
 

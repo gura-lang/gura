@@ -47,7 +47,7 @@ Gura_ImplementFunction(FontMapper)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FontMapper *pEntity = new wx_FontMapper();
-	Object_wx_FontMapper *pObj = Object_wx_FontMapper::GetSelfObj(args);
+	Object_wx_FontMapper *pObj = Object_wx_FontMapper::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_FontMapper(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(FontMapper)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FontMapper, CharsetToEncoding)
@@ -68,12 +68,12 @@ Gura_DeclareMethod(wx_FontMapper, CharsetToEncoding)
 
 Gura_ImplementMethod(wx_FontMapper, CharsetToEncoding)
 {
-	Object_wx_FontMapper *pSelf = Object_wx_FontMapper::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString charset = wxString::FromUTF8(args.GetString(0));
 	bool interactive = true;
 	if (args.IsValid(1)) interactive = args.GetBoolean(1);
-	wxFontEncoding rtn = pSelf->GetEntity()->CharsetToEncoding(charset, interactive);
+	wxFontEncoding rtn = pThis->GetEntity()->CharsetToEncoding(charset, interactive);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -122,15 +122,15 @@ Gura_DeclareMethod(wx_FontMapper, GetAltForEncoding)
 
 Gura_ImplementMethod(wx_FontMapper, GetAltForEncoding)
 {
-	Object_wx_FontMapper *pSelf = Object_wx_FontMapper::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wxNativeEncodingInfo info;
 	wxString facename = wxEmptyString;
 	if (args.IsValid(1)) facename = wxString::FromUTF8(args.GetString(1));
 	bool interactive = true;
 	if (args.IsValid(2)) interactive = args.GetBoolean(2);
-	bool rtn = pSelf->GetEntity()->GetAltForEncoding(encoding, &info, facename, interactive);
+	bool rtn = pThis->GetEntity()->GetAltForEncoding(encoding, &info, facename, interactive);
 	Value value;
 	if (rtn) {
 		value = Value(new Object_wx_NativeEncodingInfo(new wxNativeEncodingInfo(info), NULL, OwnerTrue));
@@ -153,15 +153,15 @@ Gura_DeclareMethod(wx_FontMapper, GetAltForEncoding_1)
 Gura_ImplementMethod(wx_FontMapper, GetAltForEncoding_1)
 {
 #if 0
-	Object_wx_FontMapper *pSelf = Object_wx_FontMapper::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wxFontEncoding alt_encoding = static_cast<wxFontEncoding>(args.GetInt(1));
 	wxString facename = wxEmptyString;
 	if (args.IsValid(2)) facename = wxString::FromUTF8(args.GetString(2));
 	bool interactive = true;
 	if (args.IsValid(3)) interactive = args.GetBoolean(3);
-	bool rtn = pSelf->GetEntity()->GetAltForEncoding(encoding, alt_encoding, facename, interactive);
+	bool rtn = pThis->GetEntity()->GetAltForEncoding(encoding, alt_encoding, facename, interactive);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -251,12 +251,12 @@ Gura_DeclareMethod(wx_FontMapper, IsEncodingAvailable)
 
 Gura_ImplementMethod(wx_FontMapper, IsEncodingAvailable)
 {
-	Object_wx_FontMapper *pSelf = Object_wx_FontMapper::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFontEncoding encoding = static_cast<wxFontEncoding>(args.GetInt(0));
 	wxString facename = wxEmptyString;
 	if (args.IsValid(1)) facename = wxString::FromUTF8(args.GetString(1));
-	bool rtn = pSelf->GetEntity()->IsEncodingAvailable(encoding, facename);
+	bool rtn = pThis->GetEntity()->IsEncodingAvailable(encoding, facename);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -268,10 +268,10 @@ Gura_DeclareMethod(wx_FontMapper, SetDialogParent)
 
 Gura_ImplementMethod(wx_FontMapper, SetDialogParent)
 {
-	Object_wx_FontMapper *pSelf = Object_wx_FontMapper::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetDialogParent(parent);
+	pThis->GetEntity()->SetDialogParent(parent);
 	return Value::Null;
 }
 
@@ -283,10 +283,10 @@ Gura_DeclareMethod(wx_FontMapper, SetDialogTitle)
 
 Gura_ImplementMethod(wx_FontMapper, SetDialogTitle)
 {
-	Object_wx_FontMapper *pSelf = Object_wx_FontMapper::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString title = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetDialogTitle(title);
+	pThis->GetEntity()->SetDialogTitle(title);
 	return Value::Null;
 }
 
@@ -316,10 +316,10 @@ Gura_DeclareMethod(wx_FontMapper, SetConfig)
 Gura_ImplementMethod(wx_FontMapper, SetConfig)
 {
 #if 0
-	Object_wx_FontMapper *pSelf = Object_wx_FontMapper::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxConfigBase *config = Object_wx_ConfigBase::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetConfig(config);
+	pThis->GetEntity()->SetConfig(config);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -334,10 +334,10 @@ Gura_DeclareMethod(wx_FontMapper, SetConfigPath)
 
 Gura_ImplementMethod(wx_FontMapper, SetConfigPath)
 {
-	Object_wx_FontMapper *pSelf = Object_wx_FontMapper::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString prefix = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetConfigPath(prefix);
+	pThis->GetEntity()->SetConfigPath(prefix);
 	return Value::Null;
 }
 

@@ -50,7 +50,7 @@ Gura_ImplementFunction(FilterOutputStream)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wx_FilterOutputStream *pEntity = new wx_FilterOutputStream(*stream);
-	Object_wx_FilterOutputStream *pObj = Object_wx_FilterOutputStream::GetSelfObj(args);
+	Object_wx_FilterOutputStream *pObj = Object_wx_FilterOutputStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_FilterOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(FilterOutputStream)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(FilterOutputStream_1)
@@ -74,7 +74,7 @@ Gura_ImplementFunction(FilterOutputStream_1)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wx_FilterOutputStream *pEntity = new wx_FilterOutputStream(stream);
-	Object_wx_FilterOutputStream *pObj = Object_wx_FilterOutputStream::GetSelfObj(args);
+	Object_wx_FilterOutputStream *pObj = Object_wx_FilterOutputStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_FilterOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(FilterOutputStream_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

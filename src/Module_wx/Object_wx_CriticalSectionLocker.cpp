@@ -49,7 +49,7 @@ Gura_ImplementFunction(CriticalSectionLocker)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxCriticalSection *criticalsection = Object_wx_CriticalSection::GetObject(args, 0)->GetEntity();
 	wx_CriticalSectionLocker *pEntity = new wx_CriticalSectionLocker(*criticalsection);
-	Object_wx_CriticalSectionLocker *pObj = Object_wx_CriticalSectionLocker::GetSelfObj(args);
+	Object_wx_CriticalSectionLocker *pObj = Object_wx_CriticalSectionLocker::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_CriticalSectionLocker(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(CriticalSectionLocker)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

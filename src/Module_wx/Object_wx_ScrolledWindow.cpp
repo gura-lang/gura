@@ -62,7 +62,7 @@ Gura_ImplementFunction(ScrolledWindowEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ScrolledWindow *pEntity = new wx_ScrolledWindow();
-	Object_wx_ScrolledWindow *pObj = Object_wx_ScrolledWindow::GetSelfObj(args);
+	Object_wx_ScrolledWindow *pObj = Object_wx_ScrolledWindow::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ScrolledWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -70,7 +70,7 @@ Gura_ImplementFunction(ScrolledWindowEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ScrolledWindow)
@@ -101,7 +101,7 @@ Gura_ImplementFunction(ScrolledWindow)
 	wxString name = wxT("scrolledWindow");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_ScrolledWindow *pEntity = new wx_ScrolledWindow(parent, id, *pos, *size, style, name);
-	Object_wx_ScrolledWindow *pObj = Object_wx_ScrolledWindow::GetSelfObj(args);
+	Object_wx_ScrolledWindow *pObj = Object_wx_ScrolledWindow::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ScrolledWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -109,7 +109,7 @@ Gura_ImplementFunction(ScrolledWindow)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ScrolledWindow, CalcScrolledPosition)
@@ -122,13 +122,13 @@ Gura_DeclareMethod(wx_ScrolledWindow, CalcScrolledPosition)
 
 Gura_ImplementMethod(wx_ScrolledWindow, CalcScrolledPosition)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	int xx;
 	int yy;
-	pSelf->GetEntity()->CalcScrolledPosition(x, y, &xx, &yy);
+	pThis->GetEntity()->CalcScrolledPosition(x, y, &xx, &yy);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, xx, yy));
 }
 
@@ -142,13 +142,13 @@ Gura_DeclareMethod(wx_ScrolledWindow, CalcUnscrolledPosition)
 
 Gura_ImplementMethod(wx_ScrolledWindow, CalcUnscrolledPosition)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	int xx;
 	int yy;
-	pSelf->GetEntity()->CalcUnscrolledPosition(x, y, &xx, &yy);
+	pThis->GetEntity()->CalcUnscrolledPosition(x, y, &xx, &yy);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, xx, yy));
 }
 
@@ -166,8 +166,8 @@ Gura_DeclareMethod(wx_ScrolledWindow, Create)
 
 Gura_ImplementMethod(wx_ScrolledWindow, Create)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = -1;
 	if (args.IsValid(1)) id = static_cast<wxWindowID>(args.GetInt(1));
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, Create)
 	if (args.IsValid(4)) style = args.GetLong(4);
 	wxString name = wxT("scrolledWindow");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, *pos, *size, style, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -192,11 +192,11 @@ Gura_DeclareMethod(wx_ScrolledWindow, EnableScrolling)
 
 Gura_ImplementMethod(wx_ScrolledWindow, EnableScrolling)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool xScrolling = args.GetBoolean(0);
 	bool yScrolling = args.GetBoolean(1);
-	pSelf->GetEntity()->EnableScrolling(xScrolling, yScrolling);
+	pThis->GetEntity()->EnableScrolling(xScrolling, yScrolling);
 	return Value::Null;
 }
 
@@ -208,11 +208,11 @@ Gura_DeclareMethod(wx_ScrolledWindow, GetScrollPixelsPerUnit)
 
 Gura_ImplementMethod(wx_ScrolledWindow, GetScrollPixelsPerUnit)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int xUnit;
 	int yUnit;
-	pSelf->GetEntity()->GetScrollPixelsPerUnit(&xUnit, &yUnit);
+	pThis->GetEntity()->GetScrollPixelsPerUnit(&xUnit, &yUnit);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, xUnit, yUnit));
 }
 
@@ -224,11 +224,11 @@ Gura_DeclareMethod(wx_ScrolledWindow, GetViewStart)
 
 Gura_ImplementMethod(wx_ScrolledWindow, GetViewStart)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x;
 	int y;
-	pSelf->GetEntity()->GetViewStart(&x, &y);
+	pThis->GetEntity()->GetViewStart(&x, &y);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y));
 }
 
@@ -240,11 +240,11 @@ Gura_DeclareMethod(wx_ScrolledWindow, GetVirtualSize)
 
 Gura_ImplementMethod(wx_ScrolledWindow, GetVirtualSize)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x;
 	int y;
-	pSelf->GetEntity()->GetVirtualSize(&x, &y);
+	pThis->GetEntity()->GetVirtualSize(&x, &y);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y));
 }
 
@@ -256,9 +256,9 @@ Gura_DeclareMethod(wx_ScrolledWindow, IsRetained)
 
 Gura_ImplementMethod(wx_ScrolledWindow, IsRetained)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsRetained();
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsRetained();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -270,10 +270,10 @@ Gura_DeclareMethod(wx_ScrolledWindow, DoPrepareDC)
 
 Gura_ImplementMethod(wx_ScrolledWindow, DoPrepareDC)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->DoPrepareDC(*dc);
+	pThis->GetEntity()->DoPrepareDC(*dc);
 	return Value::Null;
 }
 
@@ -285,10 +285,10 @@ Gura_DeclareMethod(wx_ScrolledWindow, OnDraw)
 
 Gura_ImplementMethod(wx_ScrolledWindow, OnDraw)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->wxScrolledWindow::OnDraw(*dc);
+	pThis->GetEntity()->wxScrolledWindow::OnDraw(*dc);
 	return Value::Null;
 }
 
@@ -300,10 +300,10 @@ Gura_DeclareMethod(wx_ScrolledWindow, PrepareDC)
 
 Gura_ImplementMethod(wx_ScrolledWindow, PrepareDC)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->PrepareDC(*dc);
+	pThis->GetEntity()->PrepareDC(*dc);
 	return Value::Null;
 }
 
@@ -316,11 +316,11 @@ Gura_DeclareMethod(wx_ScrolledWindow, Scroll)
 
 Gura_ImplementMethod(wx_ScrolledWindow, Scroll)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
-	pSelf->GetEntity()->Scroll(x, y);
+	pThis->GetEntity()->Scroll(x, y);
 	return Value::Null;
 }
 
@@ -338,8 +338,8 @@ Gura_DeclareMethod(wx_ScrolledWindow, SetScrollbars)
 
 Gura_ImplementMethod(wx_ScrolledWindow, SetScrollbars)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pixelsPerUnitX = args.GetInt(0);
 	int pixelsPerUnitY = args.GetInt(1);
 	int noUnitsX = args.GetInt(2);
@@ -350,7 +350,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, SetScrollbars)
 	if (args.IsValid(5)) yPos = args.GetInt(5);
 	bool noRefresh = false;
 	if (args.IsValid(6)) noRefresh = args.GetBoolean(6);
-	pSelf->GetEntity()->SetScrollbars(pixelsPerUnitX, pixelsPerUnitY, noUnitsX, noUnitsY, xPos, yPos, noRefresh);
+	pThis->GetEntity()->SetScrollbars(pixelsPerUnitX, pixelsPerUnitY, noUnitsX, noUnitsY, xPos, yPos, noRefresh);
 	return Value::Null;
 }
 
@@ -363,11 +363,11 @@ Gura_DeclareMethod(wx_ScrolledWindow, SetScrollRate)
 
 Gura_ImplementMethod(wx_ScrolledWindow, SetScrollRate)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int xstep = args.GetInt(0);
 	int ystep = args.GetInt(1);
-	pSelf->GetEntity()->SetScrollRate(xstep, ystep);
+	pThis->GetEntity()->SetScrollRate(xstep, ystep);
 	return Value::Null;
 }
 
@@ -379,10 +379,10 @@ Gura_DeclareMethod(wx_ScrolledWindow, SetTargetWindow)
 
 Gura_ImplementMethod(wx_ScrolledWindow, SetTargetWindow)
 {
-	Object_wx_ScrolledWindow *pSelf = Object_wx_ScrolledWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScrolledWindow *pThis = Object_wx_ScrolledWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetTargetWindow(window);
+	pThis->GetEntity()->SetTargetWindow(window);
 	return Value::Null;
 }
 

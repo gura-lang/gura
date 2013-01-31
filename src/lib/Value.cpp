@@ -323,10 +323,10 @@ Value::Value(Environment &env, Stream *pStream) : _valType(VTYPE_stream), _flags
 }
 
 // VTYPE_function
-Value::Value(Environment &env, Function *pFunc, const Value &valueSelf) :
+Value::Value(Environment &env, Function *pFunc, const Value &valueThis) :
 									_valType(VTYPE_function), _flags(FLAG_Owner)
 {
-	_u.pObj = new Object_function(env, pFunc, valueSelf);
+	_u.pObj = new Object_function(env, pFunc, valueThis);
 }
 
 // VTYPE_expr

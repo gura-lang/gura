@@ -48,7 +48,7 @@ Gura_ImplementFunction(HashMap)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HashMap *pEntity = new wx_HashMap();
-	Object_wx_HashMap *pObj = Object_wx_HashMap::GetSelfObj(args);
+	Object_wx_HashMap *pObj = Object_wx_HashMap::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_HashMap(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(HashMap)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(HashMap_1)
@@ -72,7 +72,7 @@ Gura_ImplementFunction(HashMap_1)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxHashMap *map = Object_wx_HashMap::GetObject(args, 0)->GetEntity();
 	wx_HashMap *pEntity = new wx_HashMap(*map);
-	Object_wx_HashMap *pObj = Object_wx_HashMap::GetSelfObj(args);
+	Object_wx_HashMap *pObj = Object_wx_HashMap::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_HashMap(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(HashMap_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_HashMap, begin)
@@ -91,8 +91,8 @@ Gura_DeclareMethod(wx_HashMap, begin)
 
 Gura_ImplementMethod(wx_HashMap, begin)
 {
-	Object_wx_HashMap *pSelf = Object_wx_HashMap::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashMap *pThis = Object_wx_HashMap::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashMap, begin_1)
@@ -103,8 +103,8 @@ Gura_DeclareMethod(wx_HashMap, begin_1)
 
 Gura_ImplementMethod(wx_HashMap, begin_1)
 {
-	Object_wx_HashMap *pSelf = Object_wx_HashMap::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashMap *pThis = Object_wx_HashMap::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashMap, clear)
@@ -114,9 +114,9 @@ Gura_DeclareMethod(wx_HashMap, clear)
 
 Gura_ImplementMethod(wx_HashMap, clear)
 {
-	Object_wx_HashMap *pSelf = Object_wx_HashMap::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->clear();
+	Object_wx_HashMap *pThis = Object_wx_HashMap::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->clear();
 	return Value::Null;
 }
 
@@ -128,8 +128,8 @@ Gura_DeclareMethod(wx_HashMap, count)
 
 Gura_ImplementMethod(wx_HashMap, count)
 {
-	Object_wx_HashMap *pSelf = Object_wx_HashMap::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashMap *pThis = Object_wx_HashMap::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashMap, empty)
@@ -140,9 +140,9 @@ Gura_DeclareMethod(wx_HashMap, empty)
 
 Gura_ImplementMethod(wx_HashMap, empty)
 {
-	Object_wx_HashMap *pSelf = Object_wx_HashMap::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->empty();
+	Object_wx_HashMap *pThis = Object_wx_HashMap::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->empty();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -154,8 +154,8 @@ Gura_DeclareMethod(wx_HashMap, end)
 
 Gura_ImplementMethod(wx_HashMap, end)
 {
-	Object_wx_HashMap *pSelf = Object_wx_HashMap::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashMap *pThis = Object_wx_HashMap::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashMap, end_1)
@@ -166,8 +166,8 @@ Gura_DeclareMethod(wx_HashMap, end_1)
 
 Gura_ImplementMethod(wx_HashMap, end_1)
 {
-	Object_wx_HashMap *pSelf = Object_wx_HashMap::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashMap *pThis = Object_wx_HashMap::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashMap, erase)
@@ -178,8 +178,8 @@ Gura_DeclareMethod(wx_HashMap, erase)
 
 Gura_ImplementMethod(wx_HashMap, erase)
 {
-	Object_wx_HashMap *pSelf = Object_wx_HashMap::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashMap *pThis = Object_wx_HashMap::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashMap, erase_1)
@@ -189,9 +189,9 @@ Gura_DeclareMethod(wx_HashMap, erase_1)
 
 Gura_ImplementMethod(wx_HashMap, erase_1)
 {
-	Object_wx_HashMap *pSelf = Object_wx_HashMap::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->erase();
+	Object_wx_HashMap *pThis = Object_wx_HashMap::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->erase();
 	return Value::Null;
 }
 
@@ -202,9 +202,9 @@ Gura_DeclareMethod(wx_HashMap, erase_2)
 
 Gura_ImplementMethod(wx_HashMap, erase_2)
 {
-	Object_wx_HashMap *pSelf = Object_wx_HashMap::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->erase();
+	Object_wx_HashMap *pThis = Object_wx_HashMap::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->erase();
 	return Value::Null;
 }
 
@@ -216,8 +216,8 @@ Gura_DeclareMethod(wx_HashMap, find)
 
 Gura_ImplementMethod(wx_HashMap, find)
 {
-	Object_wx_HashMap *pSelf = Object_wx_HashMap::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashMap *pThis = Object_wx_HashMap::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashMap, find_1)
@@ -228,8 +228,8 @@ Gura_DeclareMethod(wx_HashMap, find_1)
 
 Gura_ImplementMethod(wx_HashMap, find_1)
 {
-	Object_wx_HashMap *pSelf = Object_wx_HashMap::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashMap *pThis = Object_wx_HashMap::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashMap, insert)
@@ -240,8 +240,8 @@ Gura_DeclareMethod(wx_HashMap, insert)
 
 Gura_ImplementMethod(wx_HashMap, insert)
 {
-	Object_wx_HashMap *pSelf = Object_wx_HashMap::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashMap *pThis = Object_wx_HashMap::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashMap, size)
@@ -252,8 +252,8 @@ Gura_DeclareMethod(wx_HashMap, size)
 
 Gura_ImplementMethod(wx_HashMap, size)
 {
-	Object_wx_HashMap *pSelf = Object_wx_HashMap::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashMap *pThis = Object_wx_HashMap::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 //----------------------------------------------------------------------------

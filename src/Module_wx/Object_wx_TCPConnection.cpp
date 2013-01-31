@@ -63,7 +63,7 @@ Gura_ImplementFunction(TCPConnectionEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TCPConnection *pEntity = new wx_TCPConnection();
-	Object_wx_TCPConnection *pObj = Object_wx_TCPConnection::GetSelfObj(args);
+	Object_wx_TCPConnection *pObj = Object_wx_TCPConnection::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TCPConnection(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(TCPConnectionEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(TCPConnection)
@@ -92,7 +92,7 @@ Gura_ImplementFunction(TCPConnection)
 	char buffer = args.GetChar(0);
 	int size = args.GetInt(1);
 	wx_TCPConnection *pEntity = new wx_TCPConnection(buffer, size);
-	Object_wx_TCPConnection *pObj = Object_wx_TCPConnection::GetSelfObj(args);
+	Object_wx_TCPConnection *pObj = Object_wx_TCPConnection::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TCPConnection(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -100,7 +100,7 @@ Gura_ImplementFunction(TCPConnection)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -121,15 +121,15 @@ Gura_DeclareMethod(wx_TCPConnection, Advise)
 Gura_ImplementMethod(wx_TCPConnection, Advise)
 {
 #if 0
-	Object_wx_TCPConnection *pSelf = Object_wx_TCPConnection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	char data = args.GetChar(1);
 	int size = -1;
 	if (args.IsValid(2)) size = args.GetInt(2);
 	wxIPCFormat format = wxCF_TEXT;
 	if (args.IsValid(3)) format = static_cast<wxIPCFormat>(args.GetInt(3));
-	bool rtn = pSelf->GetEntity()->Advise(item, data, size, format);
+	bool rtn = pThis->GetEntity()->Advise(item, data, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -150,14 +150,14 @@ Gura_DeclareMethod(wx_TCPConnection, Execute)
 Gura_ImplementMethod(wx_TCPConnection, Execute)
 {
 #if 0
-	Object_wx_TCPConnection *pSelf = Object_wx_TCPConnection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	char data = args.GetChar(0);
 	int size = -1;
 	if (args.IsValid(1)) size = args.GetInt(1);
 	wxIPCFormat format = wxCF_TEXT;
 	if (args.IsValid(2)) format = static_cast<wxIPCFormat>(args.GetInt(2));
-	bool rtn = pSelf->GetEntity()->Execute(data, size, format);
+	bool rtn = pThis->GetEntity()->Execute(data, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -172,9 +172,9 @@ Gura_DeclareMethod(wx_TCPConnection, Disconnect)
 
 Gura_ImplementMethod(wx_TCPConnection, Disconnect)
 {
-	Object_wx_TCPConnection *pSelf = Object_wx_TCPConnection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Disconnect();
+	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Disconnect();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -194,14 +194,14 @@ Gura_DeclareMethod(wx_TCPConnection, OnAdvise)
 Gura_ImplementMethod(wx_TCPConnection, OnAdvise)
 {
 #if 0
-	Object_wx_TCPConnection *pSelf = Object_wx_TCPConnection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
 	char data = args.GetChar(2);
 	int size = args.GetInt(3);
 	wxIPCFormat format = static_cast<wxIPCFormat>(args.GetInt(4));
-	bool rtn = pSelf->GetEntity()->OnAdvise(topic, item, data, size, format);
+	bool rtn = pThis->GetEntity()->OnAdvise(topic, item, data, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -216,9 +216,9 @@ Gura_DeclareMethod(wx_TCPConnection, OnDisconnect)
 
 Gura_ImplementMethod(wx_TCPConnection, OnDisconnect)
 {
-	Object_wx_TCPConnection *pSelf = Object_wx_TCPConnection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->OnDisconnect();
+	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->OnDisconnect();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -237,13 +237,13 @@ Gura_DeclareMethod(wx_TCPConnection, OnExecute)
 Gura_ImplementMethod(wx_TCPConnection, OnExecute)
 {
 #if 0
-	Object_wx_TCPConnection *pSelf = Object_wx_TCPConnection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	char data = args.GetChar(1);
 	int size = args.GetInt(2);
 	wxIPCFormat format = static_cast<wxIPCFormat>(args.GetInt(3));
-	bool rtn = pSelf->GetEntity()->OnExecute(topic, data, size, format);
+	bool rtn = pThis->GetEntity()->OnExecute(topic, data, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -266,14 +266,14 @@ Gura_DeclareMethod(wx_TCPConnection, OnPoke)
 Gura_ImplementMethod(wx_TCPConnection, OnPoke)
 {
 #if 0
-	Object_wx_TCPConnection *pSelf = Object_wx_TCPConnection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
 	char data = args.GetChar(2);
 	int size = args.GetInt(3);
 	wxIPCFormat format = static_cast<wxIPCFormat>(args.GetInt(4));
-	bool rtn = pSelf->GetEntity()->OnPoke(topic, item, data, size, format);
+	bool rtn = pThis->GetEntity()->OnPoke(topic, item, data, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -295,13 +295,13 @@ Gura_DeclareMethod(wx_TCPConnection, OnRequest)
 Gura_ImplementMethod(wx_TCPConnection, OnRequest)
 {
 #if 0
-	Object_wx_TCPConnection *pSelf = Object_wx_TCPConnection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
 	int size = args.GetInt(2);
 	wxIPCFormat format = static_cast<wxIPCFormat>(args.GetInt(3));
-	char rtn = pSelf->GetEntity()->OnRequest(topic, item, size, format);
+	char rtn = pThis->GetEntity()->OnRequest(topic, item, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -318,11 +318,11 @@ Gura_DeclareMethod(wx_TCPConnection, OnStartAdvise)
 
 Gura_ImplementMethod(wx_TCPConnection, OnStartAdvise)
 {
-	Object_wx_TCPConnection *pSelf = Object_wx_TCPConnection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
-	bool rtn = pSelf->GetEntity()->OnStartAdvise(topic, item);
+	bool rtn = pThis->GetEntity()->OnStartAdvise(topic, item);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -336,11 +336,11 @@ Gura_DeclareMethod(wx_TCPConnection, OnStopAdvise)
 
 Gura_ImplementMethod(wx_TCPConnection, OnStopAdvise)
 {
-	Object_wx_TCPConnection *pSelf = Object_wx_TCPConnection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
-	bool rtn = pSelf->GetEntity()->OnStopAdvise(topic, item);
+	bool rtn = pThis->GetEntity()->OnStopAdvise(topic, item);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -359,15 +359,15 @@ Gura_DeclareMethod(wx_TCPConnection, Poke)
 Gura_ImplementMethod(wx_TCPConnection, Poke)
 {
 #if 0
-	Object_wx_TCPConnection *pSelf = Object_wx_TCPConnection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	char data = args.GetChar(1);
 	int size = -1;
 	if (args.IsValid(2)) size = args.GetInt(2);
 	wxIPCFormat format = wxCF_TEXT;
 	if (args.IsValid(3)) format = static_cast<wxIPCFormat>(args.GetInt(3));
-	bool rtn = pSelf->GetEntity()->Poke(item, data, size, format);
+	bool rtn = pThis->GetEntity()->Poke(item, data, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -388,13 +388,13 @@ Gura_DeclareMethod(wx_TCPConnection, Request)
 Gura_ImplementMethod(wx_TCPConnection, Request)
 {
 #if 0
-	Object_wx_TCPConnection *pSelf = Object_wx_TCPConnection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	int size = args.GetInt(1);
 	wxIPCFormat format = wxIPC_TEXT;
 	if (args.IsValid(2)) format = static_cast<wxIPCFormat>(args.GetInt(2));
-	char rtn = pSelf->GetEntity()->Request(item, size, format);
+	char rtn = pThis->GetEntity()->Request(item, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -410,10 +410,10 @@ Gura_DeclareMethod(wx_TCPConnection, StartAdvise)
 
 Gura_ImplementMethod(wx_TCPConnection, StartAdvise)
 {
-	Object_wx_TCPConnection *pSelf = Object_wx_TCPConnection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->StartAdvise(item);
+	bool rtn = pThis->GetEntity()->StartAdvise(item);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -426,10 +426,10 @@ Gura_DeclareMethod(wx_TCPConnection, StopAdvise)
 
 Gura_ImplementMethod(wx_TCPConnection, StopAdvise)
 {
-	Object_wx_TCPConnection *pSelf = Object_wx_TCPConnection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->StopAdvise(item);
+	bool rtn = pThis->GetEntity()->StopAdvise(item);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

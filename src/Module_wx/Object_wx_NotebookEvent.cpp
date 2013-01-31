@@ -59,7 +59,7 @@ Gura_ImplementFunction(NotebookEvent)
 	int oldSel = -1;
 	if (args.IsValid(3)) oldSel = args.GetInt(3);
 	wx_NotebookEvent *pEntity = new wx_NotebookEvent(eventType, id, sel, oldSel);
-	Object_wx_NotebookEvent *pObj = Object_wx_NotebookEvent::GetSelfObj(args);
+	Object_wx_NotebookEvent *pObj = Object_wx_NotebookEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_NotebookEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(NotebookEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_NotebookEvent, GetOldSelection)
@@ -78,9 +78,9 @@ Gura_DeclareMethod(wx_NotebookEvent, GetOldSelection)
 
 Gura_ImplementMethod(wx_NotebookEvent, GetOldSelection)
 {
-	Object_wx_NotebookEvent *pSelf = Object_wx_NotebookEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetOldSelection();
+	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetOldSelection();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -92,9 +92,9 @@ Gura_DeclareMethod(wx_NotebookEvent, GetSelection)
 
 Gura_ImplementMethod(wx_NotebookEvent, GetSelection)
 {
-	Object_wx_NotebookEvent *pSelf = Object_wx_NotebookEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetSelection();
+	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetSelection();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -106,10 +106,10 @@ Gura_DeclareMethod(wx_NotebookEvent, SetOldSelection)
 
 Gura_ImplementMethod(wx_NotebookEvent, SetOldSelection)
 {
-	Object_wx_NotebookEvent *pSelf = Object_wx_NotebookEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int page = args.GetInt(0);
-	pSelf->GetEntity()->SetOldSelection(page);
+	pThis->GetEntity()->SetOldSelection(page);
 	return Value::Null;
 }
 
@@ -121,10 +121,10 @@ Gura_DeclareMethod(wx_NotebookEvent, SetSelection)
 
 Gura_ImplementMethod(wx_NotebookEvent, SetSelection)
 {
-	Object_wx_NotebookEvent *pSelf = Object_wx_NotebookEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_NotebookEvent *pThis = Object_wx_NotebookEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int page = args.GetInt(0);
-	pSelf->GetEntity()->SetSelection(page);
+	pThis->GetEntity()->SetSelection(page);
 	return Value::Null;
 }
 

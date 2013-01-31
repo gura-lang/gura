@@ -50,7 +50,7 @@ Gura_ImplementFunction(FindReplaceData)
 	wxUint32 flags = 0;
 	if (args.IsValid(0)) flags = static_cast<wxUint32>(args.GetULong(0));
 	wx_FindReplaceData *pEntity = new wx_FindReplaceData(flags);
-	Object_wx_FindReplaceData *pObj = Object_wx_FindReplaceData::GetSelfObj(args);
+	Object_wx_FindReplaceData *pObj = Object_wx_FindReplaceData::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_FindReplaceData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(FindReplaceData)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FindReplaceData, GetFindString)
@@ -69,9 +69,9 @@ Gura_DeclareMethod(wx_FindReplaceData, GetFindString)
 
 Gura_ImplementMethod(wx_FindReplaceData, GetFindString)
 {
-	Object_wx_FindReplaceData *pSelf = Object_wx_FindReplaceData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetFindString();
+	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetFindString();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -83,9 +83,9 @@ Gura_DeclareMethod(wx_FindReplaceData, GetReplaceString)
 
 Gura_ImplementMethod(wx_FindReplaceData, GetReplaceString)
 {
-	Object_wx_FindReplaceData *pSelf = Object_wx_FindReplaceData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetReplaceString();
+	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetReplaceString();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -97,9 +97,9 @@ Gura_DeclareMethod(wx_FindReplaceData, GetFlags)
 
 Gura_ImplementMethod(wx_FindReplaceData, GetFlags)
 {
-	Object_wx_FindReplaceData *pSelf = Object_wx_FindReplaceData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetFlags();
+	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetFlags();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -111,10 +111,10 @@ Gura_DeclareMethod(wx_FindReplaceData, SetFlags)
 
 Gura_ImplementMethod(wx_FindReplaceData, SetFlags)
 {
-	Object_wx_FindReplaceData *pSelf = Object_wx_FindReplaceData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxUint32 flags = static_cast<wxUint32>(args.GetULong(0));
-	pSelf->GetEntity()->SetFlags(flags);
+	pThis->GetEntity()->SetFlags(flags);
 	return Value::Null;
 }
 
@@ -126,10 +126,10 @@ Gura_DeclareMethod(wx_FindReplaceData, SetFindString)
 
 Gura_ImplementMethod(wx_FindReplaceData, SetFindString)
 {
-	Object_wx_FindReplaceData *pSelf = Object_wx_FindReplaceData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString str = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetFindString(str);
+	pThis->GetEntity()->SetFindString(str);
 	return Value::Null;
 }
 
@@ -141,10 +141,10 @@ Gura_DeclareMethod(wx_FindReplaceData, SetReplaceString)
 
 Gura_ImplementMethod(wx_FindReplaceData, SetReplaceString)
 {
-	Object_wx_FindReplaceData *pSelf = Object_wx_FindReplaceData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString str = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetReplaceString(str);
+	pThis->GetEntity()->SetReplaceString(str);
 	return Value::Null;
 }
 

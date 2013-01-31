@@ -52,7 +52,7 @@ Gura_ImplementFunction(StreamToTextRedirector)
 	Stream & ostr = NULL;
 	if (args.IsValid(1)) ostr = args.GetStream(1);
 	wx_StreamToTextRedirector *pEntity = new wx_StreamToTextRedirector(**text, ostr);
-	Object_wx_StreamToTextRedirector *pObj = Object_wx_StreamToTextRedirector::GetSelfObj(args);
+	Object_wx_StreamToTextRedirector *pObj = Object_wx_StreamToTextRedirector::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StreamToTextRedirector(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -60,7 +60,7 @@ Gura_ImplementFunction(StreamToTextRedirector)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

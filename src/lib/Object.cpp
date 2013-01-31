@@ -16,11 +16,11 @@ ObjectBase::~ObjectBase()
 
 bool ObjectBase::IsFunction() const { return false; }
 
-bool ObjectBase::BuildContent(Environment &env, Signal sig, const Value &valueSelf,
+bool ObjectBase::BuildContent(Environment &env, Signal sig, const Value &valueThis,
 			const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable)
 {
 	Environment envLocal(&env, ENVTYPE_local);
-	envLocal.AssignValue(Gura_Symbol(self), valueSelf, false);
+	envLocal.AssignValue(Gura_Symbol(this), valueThis, false);
 	foreach_const (ExprList, ppExpr, pExprBlock->GetExprList()) {
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsAssign()) {
@@ -77,8 +77,8 @@ Object::~Object()
 			pClassCustom->LookupFunction(Gura_Symbol(__del__), false);
 	if (pFunc == NULL) return;
 	Signal &sig = pClassCustom->GetSignal();
-	Value valueSelf(this, Value::FLAG_NoOwner); // reference to self
-	Args args(ValueList::Null, valueSelf);
+	Value valueThis(this, Value::FLAG_NoOwner); // reference to this
+	Args args(ValueList::Null, valueThis);
 	pFunc->Eval(*this, sig, args);
 }
 
@@ -120,8 +120,8 @@ Value Object::EmptyIndexGet(Environment &env, Signal sig)
 		sig.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
 		return Value::Null;
 	}
-	Value valueSelf(this, Value::FLAG_NoOwner); // reference to self
-	Args args(ValueList::Null, valueSelf);
+	Value valueThis(this, Value::FLAG_NoOwner); // reference to this
+	Args args(ValueList::Null, valueThis);
 	return pFunc->Eval(*this, sig, args);
 }
 
@@ -132,11 +132,11 @@ void Object::EmptyIndexSet(Environment &env, Signal sig, const Value &value)
 		sig.SetError(ERR_ValueError, "empty-indexed setting access is not supported");
 		return;
 	}
-	Value valueSelf(this, Value::FLAG_NoOwner); // reference to self
+	Value valueThis(this, Value::FLAG_NoOwner); // reference to this
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(value);
-	Args args(valListArg, valueSelf);
+	Args args(valListArg, valueThis);
 	pFunc->Eval(*this, sig, args);
 }
 
@@ -147,11 +147,11 @@ Value Object::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 		sig.SetError(ERR_ValueError, "indexed getting access is not supported");
 		return Value::Null;
 	}
-	Value valueSelf(this, Value::FLAG_NoOwner); // reference to self
+	Value valueThis(this, Value::FLAG_NoOwner); // reference to this
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(valueIdx);
-	Args args(valListArg, valueSelf);
+	Args args(valListArg, valueThis);
 	return pFunc->Eval(*this, sig, args);
 }
 
@@ -162,17 +162,17 @@ void Object::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const
 		sig.SetError(ERR_ValueError, "indexed setting access is not supported");
 		return;
 	}
-	Value valueSelf(this, Value::FLAG_NoOwner); // reference to self
+	Value valueThis(this, Value::FLAG_NoOwner); // reference to this
 	ValueList valListArg(valueIdx, value);
-	Args args(valListArg, valueSelf);
+	Args args(valListArg, valueThis);
 	pFunc->Eval(*this, sig, args);
 }
 
 Value Object::EvalMethod(Signal sig, const Function *pFunc, const ValueList &valListArg)
 {
 	const Function *pFuncSuccRequester = NULL;
-	Value valueSelf(this, Value::FLAG_NoOwner); // reference to self
-	Args args(valListArg, valueSelf, NULL, false, &pFuncSuccRequester);
+	Value valueThis(this, Value::FLAG_NoOwner); // reference to this
+	Args args(valListArg, valueThis, NULL, false, &pFuncSuccRequester);
 	return pFunc->Eval(*this, sig, args);
 }
 
@@ -183,9 +183,9 @@ Value Object::EvalMethod(Signal sig, const Symbol *pSymbol,
 	evaluatedFlag = false;
 	const Function *pFunc = LookupFunction(pSymbol, true);
 	if (pFunc == NULL) return Value::Null;
-	Value valueSelf(this, Value::FLAG_NoOwner); // reference to self
+	Value valueThis(this, Value::FLAG_NoOwner); // reference to this
 	evaluatedFlag = true;
-	Args args(valListArg, valueSelf, NULL, false, &pFuncSuccRequester);
+	Args args(valListArg, valueThis, NULL, false, &pFuncSuccRequester);
 	return pFunc->Eval(*this, sig, args);
 }
 
@@ -207,11 +207,11 @@ Value Object::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getprop__), true);
 	if (pFunc == NULL) return Value::Null;
 	evaluatedFlag = true;
-	Value valueSelf(this, Value::FLAG_NoOwner); // reference to self
+	Value valueThis(this, Value::FLAG_NoOwner); // reference to this
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(pSymbol));
-	Args args(valListArg, valueSelf);
+	Args args(valListArg, valueThis);
 	return pFunc->Eval(*this, sig, args);
 }
 
@@ -220,9 +220,9 @@ Value Object::DoPropSet(Signal sig, const Symbol *pSymbol,
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setprop__), true);
 	if (pFunc == NULL) return Value::Null;
-	Value valueSelf(this, Value::FLAG_NoOwner); // reference to self
+	Value valueThis(this, Value::FLAG_NoOwner); // reference to this
 	ValueList valListArg(Value(pSymbol), value);
-	Args args(valListArg, valueSelf);
+	Args args(valListArg, valueThis);
 	Value result = pFunc->Eval(*this, sig, args);
 	evaluatedFlag = result.GetBoolean();
 	return value;
@@ -264,7 +264,7 @@ Gura_ImplementMethod(Object, istype)
 		sig.SetError(ERR_ValueError, "invalid type name");
 		return Value::Null;
 	}
-	ValueType valType = args.GetSelf().GetType();
+	ValueType valType = args.GetThis().GetType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
 	if (valType == VTYPE_number && valTypeCmp == VTYPE_complex) return Value(true);
 	return Value(valType == valTypeCmp);
@@ -284,7 +284,7 @@ Gura_ImplementMethod(Object, tonumber)
 {
 	bool allowPartFlag = !args.IsSet(Gura_Symbol(strict));
 	bool successFlag;
-	Number num = args.GetSelf().ToNumber(allowPartFlag, successFlag);
+	Number num = args.GetThis().ToNumber(allowPartFlag, successFlag);
 	if (successFlag) {
 		return Value(num);
 	} else if (args.IsSet(Gura_Symbol(raise))) {
@@ -305,7 +305,7 @@ Gura_DeclareMethodPrimitive(Object, tostring)
 
 Gura_ImplementMethod(Object, tostring)
 {
-	String str = args.GetSelf().ToString(sig, false);
+	String str = args.GetThis().ToString(sig, false);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(env, str.c_str());
 }
@@ -320,12 +320,12 @@ Gura_DeclareMethod(Object, getprop_X)
 
 Gura_ImplementMethod(Object, getprop_X)
 {
-	ObjectBase *pSelf = args.GetSelfObjBase();
+	ObjectBase *pThis = args.GetThisObjBase();
 	if (args.IsDefined(1)) {
 		Value value = args.GetValue(1);
-		return pSelf->PropGet(sig, args.GetSymbol(0), &value);
+		return pThis->PropGet(sig, args.GetSymbol(0), &value);
 	} else {
-		return pSelf->PropGet(sig, args.GetSymbol(0));
+		return pThis->PropGet(sig, args.GetSymbol(0));
 	}
 }
 
@@ -339,8 +339,8 @@ Gura_DeclareMethod(Object, setprop_X)
 
 Gura_ImplementMethod(Object, setprop_X)
 {
-	ObjectBase *pSelf = args.GetSelfObjBase();
-	pSelf->AssignValue(args.GetSymbol(0), args.GetValue(1), false);
+	ObjectBase *pThis = args.GetThisObjBase();
+	pThis->AssignValue(args.GetSymbol(0), args.GetValue(1), false);
 	return Value::Null;
 }
 
@@ -364,7 +364,7 @@ Gura_Method(Object, call_X)::Gura_Method(Object, call_X)(Environment &env, const
 
 Value Gura_Method(Object, call_X)::EvalExpr(Environment &env, Signal sig, Args &args) const
 {
-	ObjectBase *pSelf = args.GetSelfObjBase();
+	ObjectBase *pThis = args.GetThisObjBase();
 	ExprOwner exprOwnerArgs(args.GetExprListArg());
 	const Expr *pExprArg = exprOwnerArgs.front();
 	size_t nElems = 0;
@@ -381,9 +381,9 @@ Value Gura_Method(Object, call_X)::EvalExpr(Environment &env, Signal sig, Args &
 	}
 	const Symbol *pSymbol = value.GetSymbol();
 	Value valueFunc;
-	const Value *pValue = pSelf->LookupValue(pSymbol, true);
+	const Value *pValue = pThis->LookupValue(pSymbol, true);
 	if (pValue == NULL) {
-		valueFunc = pSelf->PropGet(sig, pSymbol);
+		valueFunc = pThis->PropGet(sig, pSymbol);
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
 		valueFunc = *pValue;
@@ -410,7 +410,7 @@ Gura_DeclareMethod(Object, clone)
 
 Gura_ImplementMethod(Object, clone)
 {
-	Object *pObj = args.GetSelfObj()->Clone();
+	Object *pObj = args.GetThisObj()->Clone();
 	if (pObj == NULL) {
 		sig.SetError(ERR_ValueError, "failed to create a clone object");
 		return Value::Null;
@@ -426,7 +426,7 @@ Gura_DeclareMethod(Object, __iter__)
 
 Gura_ImplementMethod(Object, __iter__)
 {
-	Iterator *pIterator = args.GetSelf().CreateIterator(sig);
+	Iterator *pIterator = args.GetThis().CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(env, pIterator);
 }
@@ -609,7 +609,7 @@ Gura_DeclareMethodPrimitive(number, roundoff)
 
 Gura_ImplementMethod(number, roundoff)
 {
-	Number num = args.GetSelf().GetNumber();
+	Number num = args.GetThis().GetNumber();
 	if (num < args.GetNumber(0)) num = 0;
 	return Value(num);
 }

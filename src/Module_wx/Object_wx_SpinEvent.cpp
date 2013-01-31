@@ -53,7 +53,7 @@ Gura_ImplementFunction(SpinEvent)
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_SpinEvent *pEntity = new wx_SpinEvent(commandType, id);
-	Object_wx_SpinEvent *pObj = Object_wx_SpinEvent::GetSelfObj(args);
+	Object_wx_SpinEvent *pObj = Object_wx_SpinEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SpinEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(SpinEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SpinEvent, GetPosition)
@@ -72,9 +72,9 @@ Gura_DeclareMethod(wx_SpinEvent, GetPosition)
 
 Gura_ImplementMethod(wx_SpinEvent, GetPosition)
 {
-	Object_wx_SpinEvent *pSelf = Object_wx_SpinEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetPosition();
+	Object_wx_SpinEvent *pThis = Object_wx_SpinEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -86,10 +86,10 @@ Gura_DeclareMethod(wx_SpinEvent, SetPosition)
 
 Gura_ImplementMethod(wx_SpinEvent, SetPosition)
 {
-	Object_wx_SpinEvent *pSelf = Object_wx_SpinEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SpinEvent *pThis = Object_wx_SpinEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pos = args.GetInt(0);
-	pSelf->GetEntity()->SetPosition(pos);
+	pThis->GetEntity()->SetPosition(pos);
 	return Value::Null;
 }
 

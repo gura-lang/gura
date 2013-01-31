@@ -138,7 +138,7 @@ Gura_ImplementFunction(PopupTransientWindow)
 	long style = wxBORDER_NONE;
 	if (args.IsValid(1)) style = args.GetLong(1);
 	wx_PopupTransientWindow *pEntity = new wx_PopupTransientWindow(parent, style);
-	Object_wx_PopupTransientWindow *pObj = Object_wx_PopupTransientWindow::GetSelfObj(args);
+	Object_wx_PopupTransientWindow *pObj = Object_wx_PopupTransientWindow::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PopupTransientWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -146,7 +146,7 @@ Gura_ImplementFunction(PopupTransientWindow)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_PopupTransientWindow, Popup)
@@ -157,10 +157,10 @@ Gura_DeclareMethod(wx_PopupTransientWindow, Popup)
 
 Gura_ImplementMethod(wx_PopupTransientWindow, Popup)
 {
-	Object_wx_PopupTransientWindow *pSelf = Object_wx_PopupTransientWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *focus = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->wxPopupTransientWindow::Popup(focus);
+	pThis->GetEntity()->wxPopupTransientWindow::Popup(focus);
 	return Value::Null;
 }
 
@@ -171,9 +171,9 @@ Gura_DeclareMethod(wx_PopupTransientWindow, Dismiss)
 
 Gura_ImplementMethod(wx_PopupTransientWindow, Dismiss)
 {
-	Object_wx_PopupTransientWindow *pSelf = Object_wx_PopupTransientWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->wxPopupTransientWindow::Dismiss();
+	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->wxPopupTransientWindow::Dismiss();
 	return Value::Null;
 }
 
@@ -185,9 +185,9 @@ Gura_DeclareMethod(wx_PopupTransientWindow, CanDismiss)
 
 Gura_ImplementMethod(wx_PopupTransientWindow, CanDismiss)
 {
-	Object_wx_PopupTransientWindow *pSelf = Object_wx_PopupTransientWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->wxPopupTransientWindow::CanDismiss();
+	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->wxPopupTransientWindow::CanDismiss();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -200,10 +200,10 @@ Gura_DeclareMethod(wx_PopupTransientWindow, ProcessLeftDown)
 
 Gura_ImplementMethod(wx_PopupTransientWindow, ProcessLeftDown)
 {
-	Object_wx_PopupTransientWindow *pSelf = Object_wx_PopupTransientWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMouseEvent *event = Object_wx_MouseEvent::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->wxPopupTransientWindow::ProcessLeftDown(*event);
+	bool rtn = pThis->GetEntity()->wxPopupTransientWindow::ProcessLeftDown(*event);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -216,10 +216,10 @@ Gura_DeclareMethod(wx_PopupTransientWindow, Show)
 
 Gura_ImplementMethod(wx_PopupTransientWindow, Show)
 {
-	Object_wx_PopupTransientWindow *pSelf = Object_wx_PopupTransientWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool show = args.GetBoolean(0);
-	bool rtn = pSelf->GetEntity()->wxPopupTransientWindow::Show(show);
+	bool rtn = pThis->GetEntity()->wxPopupTransientWindow::Show(show);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -230,9 +230,9 @@ Gura_DeclareMethod(wx_PopupTransientWindow, OnDismiss)
 
 Gura_ImplementMethod(wx_PopupTransientWindow, OnDismiss)
 {
-	Object_wx_PopupTransientWindow *pSelf = Object_wx_PopupTransientWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	dynamic_cast<wx_PopupTransientWindow *>(pSelf->GetEntity())->_OnDismiss();
+	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	dynamic_cast<wx_PopupTransientWindow *>(pThis->GetEntity())->_OnDismiss();
 	return Value::Null;
 }
 

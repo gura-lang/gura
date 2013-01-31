@@ -50,7 +50,7 @@ Gura_ImplementFunction(QueryLayoutInfoEvent)
 	wxWindowID id = 0;
 	if (args.IsValid(0)) id = static_cast<wxWindowID>(args.GetInt(0));
 	wx_QueryLayoutInfoEvent *pEntity = new wx_QueryLayoutInfoEvent(id);
-	Object_wx_QueryLayoutInfoEvent *pObj = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
+	Object_wx_QueryLayoutInfoEvent *pObj = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_QueryLayoutInfoEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(QueryLayoutInfoEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetAlignment)
@@ -68,9 +68,9 @@ Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetAlignment)
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetAlignment)
 {
-	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->GetAlignment();
+	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->GetAlignment();
 	return Value::Null;
 }
 
@@ -82,9 +82,9 @@ Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetFlags)
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetFlags)
 {
-	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetFlags();
+	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetFlags();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -96,9 +96,9 @@ Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetOrientation)
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetOrientation)
 {
-	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxLayoutOrientation rtn = pSelf->GetEntity()->GetOrientation();
+	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxLayoutOrientation rtn = pThis->GetEntity()->GetOrientation();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -110,9 +110,9 @@ Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetRequestedLength)
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetRequestedLength)
 {
-	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetRequestedLength();
+	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetRequestedLength();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -124,9 +124,9 @@ Gura_DeclareMethod(wx_QueryLayoutInfoEvent, GetSize)
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, GetSize)
 {
-	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetSize();
+	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -138,10 +138,10 @@ Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetAlignment)
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, SetAlignment)
 {
-	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLayoutAlignment alignment = static_cast<wxLayoutAlignment>(args.GetInt(0));
-	pSelf->GetEntity()->SetAlignment(alignment);
+	pThis->GetEntity()->SetAlignment(alignment);
 	return Value::Null;
 }
 
@@ -153,10 +153,10 @@ Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetFlags)
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, SetFlags)
 {
-	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int flags = args.GetInt(0);
-	pSelf->GetEntity()->SetFlags(flags);
+	pThis->GetEntity()->SetFlags(flags);
 	return Value::Null;
 }
 
@@ -168,10 +168,10 @@ Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetOrientation)
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, SetOrientation)
 {
-	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLayoutOrientation orientation = static_cast<wxLayoutOrientation>(args.GetInt(0));
-	pSelf->GetEntity()->SetOrientation(orientation);
+	pThis->GetEntity()->SetOrientation(orientation);
 	return Value::Null;
 }
 
@@ -183,10 +183,10 @@ Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetRequestedLength)
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, SetRequestedLength)
 {
-	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int length = args.GetInt(0);
-	pSelf->GetEntity()->SetRequestedLength(length);
+	pThis->GetEntity()->SetRequestedLength(length);
 	return Value::Null;
 }
 
@@ -198,10 +198,10 @@ Gura_DeclareMethod(wx_QueryLayoutInfoEvent, SetSize)
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, SetSize)
 {
-	Object_wx_QueryLayoutInfoEvent *pSelf = Object_wx_QueryLayoutInfoEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetSize(*size);
+	pThis->GetEntity()->SetSize(*size);
 	return Value::Null;
 }
 

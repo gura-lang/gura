@@ -47,7 +47,7 @@ Gura_ImplementFunction(DebugReportPreviewStdEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DebugReportPreviewStd *pEntity = new wx_DebugReportPreviewStd();
-	Object_wx_DebugReportPreviewStd *pObj = Object_wx_DebugReportPreviewStd::GetSelfObj(args);
+	Object_wx_DebugReportPreviewStd *pObj = Object_wx_DebugReportPreviewStd::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DebugReportPreviewStd(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(DebugReportPreviewStdEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DebugReportPreviewStd, Show)
@@ -67,10 +67,10 @@ Gura_DeclareMethod(wx_DebugReportPreviewStd, Show)
 
 Gura_ImplementMethod(wx_DebugReportPreviewStd, Show)
 {
-	Object_wx_DebugReportPreviewStd *pSelf = Object_wx_DebugReportPreviewStd::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DebugReportPreviewStd *pThis = Object_wx_DebugReportPreviewStd::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDebugReport *dbgrpt = Object_wx_DebugReport::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Show(*dbgrpt);
+	bool rtn = pThis->GetEntity()->Show(*dbgrpt);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

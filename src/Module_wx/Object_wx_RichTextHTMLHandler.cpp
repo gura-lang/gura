@@ -56,7 +56,7 @@ Gura_ImplementFunction(RichTextHTMLHandler)
 	int type = wxRICHTEXT_TYPE_HTML;
 	if (args.IsValid(2)) type = args.GetInt(2);
 	wx_RichTextHTMLHandler *pEntity = new wx_RichTextHTMLHandler(name, ext, type);
-	Object_wx_RichTextHTMLHandler *pObj = Object_wx_RichTextHTMLHandler::GetSelfObj(args);
+	Object_wx_RichTextHTMLHandler *pObj = Object_wx_RichTextHTMLHandler::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_RichTextHTMLHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(RichTextHTMLHandler)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_RichTextHTMLHandler, ClearTemporaryImageLocations)
@@ -74,9 +74,9 @@ Gura_DeclareMethod(wx_RichTextHTMLHandler, ClearTemporaryImageLocations)
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, ClearTemporaryImageLocations)
 {
-	Object_wx_RichTextHTMLHandler *pSelf = Object_wx_RichTextHTMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->ClearTemporaryImageLocations();
+	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->ClearTemporaryImageLocations();
 	return Value::Null;
 }
 
@@ -88,9 +88,9 @@ Gura_DeclareMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages)
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages)
 {
-	Object_wx_RichTextHTMLHandler *pSelf = Object_wx_RichTextHTMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->DeleteTemporaryImages();
+	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->DeleteTemporaryImages();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -104,11 +104,11 @@ Gura_DeclareMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages_1)
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages_1)
 {
-	Object_wx_RichTextHTMLHandler *pSelf = Object_wx_RichTextHTMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int flags = args.GetInt(0);
 	std::auto_ptr<wxArrayString> imageLocations(CreateArrayString(args.GetList(1)));
-	bool rtn = pSelf->GetEntity()->DeleteTemporaryImages(flags, *imageLocations);
+	bool rtn = pThis->GetEntity()->DeleteTemporaryImages(flags, *imageLocations);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -125,11 +125,11 @@ Gura_DeclareMethod(wx_RichTextHTMLHandler, DoSaveFile)
 Gura_ImplementMethod(wx_RichTextHTMLHandler, DoSaveFile)
 {
 #if 0
-	Object_wx_RichTextHTMLHandler *pSelf = Object_wx_RichTextHTMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextBuffer *buffer = Object_wx_RichTextBuffer::GetObject(args, 0)->GetEntity();
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 1)->GetEntity();
-	bool rtn = pSelf->GetEntity()->DoSaveFile(buffer, *stream);
+	bool rtn = pThis->GetEntity()->DoSaveFile(buffer, *stream);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -144,9 +144,9 @@ Gura_DeclareMethod(wx_RichTextHTMLHandler, GetFontSizeMapping)
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, GetFontSizeMapping)
 {
-	Object_wx_RichTextHTMLHandler *pSelf = Object_wx_RichTextHTMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxArrayInt rtn = pSelf->GetEntity()->GetFontSizeMapping();
+	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxArrayInt rtn = pThis->GetEntity()->GetFontSizeMapping();
 	return ReturnValue(env, sig, args, ArrayIntToValue(env, rtn));
 }
 
@@ -158,9 +158,9 @@ Gura_DeclareMethod(wx_RichTextHTMLHandler, GetTempDir)
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, GetTempDir)
 {
-	Object_wx_RichTextHTMLHandler *pSelf = Object_wx_RichTextHTMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetTempDir();
+	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetTempDir();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -172,9 +172,9 @@ Gura_DeclareMethod(wx_RichTextHTMLHandler, GetTemporaryImageLocations)
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, GetTemporaryImageLocations)
 {
-	Object_wx_RichTextHTMLHandler *pSelf = Object_wx_RichTextHTMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxArrayString rtn = pSelf->GetEntity()->GetTemporaryImageLocations();
+	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxArrayString rtn = pThis->GetEntity()->GetTemporaryImageLocations();
 	return ReturnValue(env, sig, args, ArrayStringToValue(env, rtn));
 }
 
@@ -186,10 +186,10 @@ Gura_DeclareMethod(wx_RichTextHTMLHandler, SetFileCounter)
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, SetFileCounter)
 {
-	Object_wx_RichTextHTMLHandler *pSelf = Object_wx_RichTextHTMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int counter = args.GetInt(0);
-	pSelf->GetEntity()->SetFileCounter(counter);
+	pThis->GetEntity()->SetFileCounter(counter);
 	return Value::Null;
 }
 
@@ -201,10 +201,10 @@ Gura_DeclareMethod(wx_RichTextHTMLHandler, SetFontSizeMapping)
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, SetFontSizeMapping)
 {
-	Object_wx_RichTextHTMLHandler *pSelf = Object_wx_RichTextHTMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::auto_ptr<wxArrayInt> fontSizeMapping(CreateArrayInt(args.GetList(0)));
-	pSelf->GetEntity()->SetFontSizeMapping(*fontSizeMapping);
+	pThis->GetEntity()->SetFontSizeMapping(*fontSizeMapping);
 	return Value::Null;
 }
 
@@ -216,10 +216,10 @@ Gura_DeclareMethod(wx_RichTextHTMLHandler, SetTempDir)
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, SetTempDir)
 {
-	Object_wx_RichTextHTMLHandler *pSelf = Object_wx_RichTextHTMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString tempDir = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetTempDir(tempDir);
+	pThis->GetEntity()->SetTempDir(tempDir);
 	return Value::Null;
 }
 
@@ -231,10 +231,10 @@ Gura_DeclareMethod(wx_RichTextHTMLHandler, SetTemporaryImageLocations)
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, SetTemporaryImageLocations)
 {
-	Object_wx_RichTextHTMLHandler *pSelf = Object_wx_RichTextHTMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::auto_ptr<wxArrayString> locations(CreateArrayString(args.GetList(0)));
-	pSelf->GetEntity()->SetTemporaryImageLocations(*locations);
+	pThis->GetEntity()->SetTemporaryImageLocations(*locations);
 	return Value::Null;
 }
 

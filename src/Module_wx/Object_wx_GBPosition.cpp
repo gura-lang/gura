@@ -48,7 +48,7 @@ Gura_ImplementFunction(GBPositionEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GBPosition *pEntity = new wx_GBPosition();
-	Object_wx_GBPosition *pObj = Object_wx_GBPosition::GetSelfObj(args);
+	Object_wx_GBPosition *pObj = Object_wx_GBPosition::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GBPosition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(GBPositionEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(GBPosition)
@@ -74,7 +74,7 @@ Gura_ImplementFunction(GBPosition)
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	wx_GBPosition *pEntity = new wx_GBPosition(row, col);
-	Object_wx_GBPosition *pObj = Object_wx_GBPosition::GetSelfObj(args);
+	Object_wx_GBPosition *pObj = Object_wx_GBPosition::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GBPosition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(GBPosition)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GBPosition, GetCol)
@@ -93,9 +93,9 @@ Gura_DeclareMethod(wx_GBPosition, GetCol)
 
 Gura_ImplementMethod(wx_GBPosition, GetCol)
 {
-	Object_wx_GBPosition *pSelf = Object_wx_GBPosition::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetCol();
+	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetCol();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -107,9 +107,9 @@ Gura_DeclareMethod(wx_GBPosition, GetRow)
 
 Gura_ImplementMethod(wx_GBPosition, GetRow)
 {
-	Object_wx_GBPosition *pSelf = Object_wx_GBPosition::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetRow();
+	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetRow();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -121,10 +121,10 @@ Gura_DeclareMethod(wx_GBPosition, SetCol)
 
 Gura_ImplementMethod(wx_GBPosition, SetCol)
 {
-	Object_wx_GBPosition *pSelf = Object_wx_GBPosition::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int col = args.GetInt(0);
-	pSelf->GetEntity()->SetCol(col);
+	pThis->GetEntity()->SetCol(col);
 	return Value::Null;
 }
 
@@ -136,10 +136,10 @@ Gura_DeclareMethod(wx_GBPosition, SetRow)
 
 Gura_ImplementMethod(wx_GBPosition, SetRow)
 {
-	Object_wx_GBPosition *pSelf = Object_wx_GBPosition::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int row = args.GetInt(0);
-	pSelf->GetEntity()->SetRow(row);
+	pThis->GetEntity()->SetRow(row);
 	return Value::Null;
 }
 
@@ -153,7 +153,7 @@ Gura_DeclareMethod(wx_GBPosition, __eq__)
 
 Gura_ImplementMethod(wx_GBPosition, __eq__)
 {
-	Object_wx_GBPosition *pSelf = Object_wx_GBPosition::GetSelfObj(args);
+	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
 	wxGBPosition *item1 = Object_wx_GBPosition::GetObject(args, 0)->GetEntity();
 	wxGBPosition *item2 = Object_wx_GBPosition::GetObject(args, 1)->GetEntity();
 	return *item1 == *item2;
@@ -169,7 +169,7 @@ Gura_DeclareMethod(wx_GBPosition, __ne__)
 
 Gura_ImplementMethod(wx_GBPosition, __ne__)
 {
-	Object_wx_GBPosition *pSelf = Object_wx_GBPosition::GetSelfObj(args);
+	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
 	wxGBPosition *item1 = Object_wx_GBPosition::GetObject(args, 0)->GetEntity();
 	wxGBPosition *item2 = Object_wx_GBPosition::GetObject(args, 1)->GetEntity();
 	return *item1 != *item2;
@@ -185,7 +185,7 @@ Gura_DeclareMethod(wx_GBPosition, __not__)
 
 Gura_ImplementMethod(wx_GBPosition, __not__)
 {
-	Object_wx_GBPosition *pSelf = Object_wx_GBPosition::GetSelfObj(args);
+	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
 	wxGBPosition *item = Object_wx_GBPosition::GetObject(args, 0)->GetEntity();
 	return Value(!*item);
 }

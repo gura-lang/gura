@@ -48,7 +48,7 @@ Gura_ImplementFunction(StaticBoxEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StaticBox *pEntity = new wx_StaticBox();
-	Object_wx_StaticBox *pObj = Object_wx_StaticBox::GetSelfObj(args);
+	Object_wx_StaticBox *pObj = Object_wx_StaticBox::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StaticBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(StaticBoxEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(StaticBox)
@@ -88,7 +88,7 @@ Gura_ImplementFunction(StaticBox)
 	wxString name = wxT("staticBox");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_StaticBox *pEntity = new wx_StaticBox(parent, id, label, *pos, *size, style, name);
-	Object_wx_StaticBox *pObj = Object_wx_StaticBox::GetSelfObj(args);
+	Object_wx_StaticBox *pObj = Object_wx_StaticBox::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StaticBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -96,7 +96,7 @@ Gura_ImplementFunction(StaticBox)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_StaticBox, Create)
@@ -114,8 +114,8 @@ Gura_DeclareMethod(wx_StaticBox, Create)
 
 Gura_ImplementMethod(wx_StaticBox, Create)
 {
-	Object_wx_StaticBox *pSelf = Object_wx_StaticBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StaticBox *pThis = Object_wx_StaticBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString label = wxString::FromUTF8(args.GetString(2));
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_StaticBox, Create)
 	if (args.IsValid(5)) style = args.GetLong(5);
 	wxString name = wxT("staticBox");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, label, *pos, *size, style, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, label, *pos, *size, style, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

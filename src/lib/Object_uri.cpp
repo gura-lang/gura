@@ -177,12 +177,12 @@ Gura_DeclareMethod(uri, scheme)
 
 Gura_ImplementMethod(uri, scheme)
 {
-	Object_uri *pSelf = Object_uri::GetSelfObj(args);
+	Object_uri *pThis = Object_uri::GetThisObj(args);
 	if (args.IsString(0)) {
-		pSelf->SetScheme(args.GetString(0));
-		return args.GetSelf();
+		pThis->SetScheme(args.GetString(0));
+		return args.GetThis();
 	} else {
-		return Value(env, pSelf->GetScheme());
+		return Value(env, pThis->GetScheme());
 	}
 }
 
@@ -196,13 +196,13 @@ Gura_DeclareMethod(uri, user)
 
 Gura_ImplementMethod(uri, user)
 {
-	Object_uri *pSelf = Object_uri::GetSelfObj(args);
+	Object_uri *pThis = Object_uri::GetThisObj(args);
 	if (args.IsString(0)) {
-		pSelf->SetUser(args.GetString(0));
-		return args.GetSelf();
+		pThis->SetUser(args.GetString(0));
+		return args.GetThis();
 	} else {
-		if (!pSelf->IsUserValid()) return Value::Null;
-		return Value(env, pSelf->GetUser());
+		if (!pThis->IsUserValid()) return Value::Null;
+		return Value(env, pThis->GetUser());
 	}
 }
 
@@ -216,12 +216,12 @@ Gura_DeclareMethod(uri, password)
 
 Gura_ImplementMethod(uri, password)
 {
-	Object_uri *pSelf = Object_uri::GetSelfObj(args);
+	Object_uri *pThis = Object_uri::GetThisObj(args);
 	if (args.IsString(0)) {
-		pSelf->SetPassword(args.GetString(0));
-		return args.GetSelf();
+		pThis->SetPassword(args.GetString(0));
+		return args.GetThis();
 	} else {
-		return Value(env, pSelf->GetPassword());
+		return Value(env, pThis->GetPassword());
 	}
 }
 
@@ -235,12 +235,12 @@ Gura_DeclareMethod(uri, host)
 
 Gura_ImplementMethod(uri, host)
 {
-	Object_uri *pSelf = Object_uri::GetSelfObj(args);
+	Object_uri *pThis = Object_uri::GetThisObj(args);
 	if (args.IsString(0)) {
-		pSelf->SetHost(args.GetString(0));
-		return args.GetSelf();
+		pThis->SetHost(args.GetString(0));
+		return args.GetThis();
 	} else {
-		return Value(env, pSelf->GetHost());
+		return Value(env, pThis->GetHost());
 	}
 }
 
@@ -254,12 +254,12 @@ Gura_DeclareMethod(uri, port)
 
 Gura_ImplementMethod(uri, port)
 {
-	Object_uri *pSelf = Object_uri::GetSelfObj(args);
+	Object_uri *pThis = Object_uri::GetThisObj(args);
 	if (args.IsString(0)) {
-		pSelf->SetPort(args.GetString(0));
-		return args.GetSelf();
+		pThis->SetPort(args.GetString(0));
+		return args.GetThis();
 	} else {
-		return Value(env, pSelf->GetPort());
+		return Value(env, pThis->GetPort());
 	}
 }
 
@@ -273,12 +273,12 @@ Gura_DeclareMethod(uri, urlpath)
 
 Gura_ImplementMethod(uri, urlpath)
 {
-	Object_uri *pSelf = Object_uri::GetSelfObj(args);
+	Object_uri *pThis = Object_uri::GetThisObj(args);
 	if (args.IsString(0)) {
-		pSelf->SetUrlPath(args.GetString(0));
-		return args.GetSelf();
+		pThis->SetUrlPath(args.GetString(0));
+		return args.GetThis();
 	} else {
-		return Value(env, pSelf->GetUrlPath());
+		return Value(env, pThis->GetUrlPath());
 	}
 }
 

@@ -53,7 +53,7 @@ Gura_ImplementFunction(GridBagSizer)
 	int hgap = 0;
 	if (args.IsValid(1)) hgap = args.GetInt(1);
 	wx_GridBagSizer *pEntity = new wx_GridBagSizer(vgap, hgap);
-	Object_wx_GridBagSizer *pObj = Object_wx_GridBagSizer::GetSelfObj(args);
+	Object_wx_GridBagSizer *pObj = Object_wx_GridBagSizer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GridBagSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(GridBagSizer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GridBagSizer, Add)
@@ -78,8 +78,8 @@ Gura_DeclareMethod(wx_GridBagSizer, Add)
 
 Gura_ImplementMethod(wx_GridBagSizer, Add)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBPosition *pos = Object_wx_GBPosition::GetObject(args, 1)->GetEntity();
 	wxGBSpan *span = (wxGBSpan *)(&wxDefaultSpan);
 	if (args.IsValid(2)) span = Object_wx_GBSpan::GetObject(args, 2)->GetEntity();
@@ -92,10 +92,10 @@ Gura_ImplementMethod(wx_GridBagSizer, Add)
 	wxSizerItem *rtn = NULL;
 	if (args.IsInstanceOf(0, VTYPE_wx_Window)) {
 		wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
-		rtn = (wxSizerItem *)pSelf->GetEntity()->Add(window, *pos, *span, flag, border, userData);
+		rtn = (wxSizerItem *)pThis->GetEntity()->Add(window, *pos, *span, flag, border, userData);
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
 		wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
-		rtn = (wxSizerItem *)pSelf->GetEntity()->Add(sizer, *pos, *span, flag, border, userData);
+		rtn = (wxSizerItem *)pThis->GetEntity()->Add(sizer, *pos, *span, flag, border, userData);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 		return Value::Null;
@@ -118,8 +118,8 @@ Gura_DeclareMethod(wx_GridBagSizer, AddSpacer)
 
 Gura_ImplementMethod(wx_GridBagSizer, AddSpacer)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
 	wxGBPosition *pos = Object_wx_GBPosition::GetObject(args, 2)->GetEntity();
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_GridBagSizer, AddSpacer)
 	if (args.IsValid(5)) border = args.GetInt(5);
 	wxObject *userData = (wxObject *)(NULL);
 	if (args.IsValid(6)) userData = Object_wx_Object::GetObject(args, 6)->GetEntity();
-	wxSizerItem *rtn = (wxSizerItem *)pSelf->GetEntity()->Add(width, height, *pos, *span, flag, border, userData);
+	wxSizerItem *rtn = (wxSizerItem *)pThis->GetEntity()->Add(width, height, *pos, *span, flag, border, userData);
 	return ReturnValue(env, sig, args, Value(new Object_wx_SizerItem(rtn, NULL, OwnerFalse)));
 }
 
@@ -144,10 +144,10 @@ Gura_DeclareMethod(wx_GridBagSizer, AddItem)
 
 Gura_ImplementMethod(wx_GridBagSizer, AddItem)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBSizerItem *item = Object_wx_GBSizerItem::GetObject(args, 0)->GetEntity();
-	wxSizerItem *rtn = (wxSizerItem *)pSelf->GetEntity()->Add(item);
+	wxSizerItem *rtn = (wxSizerItem *)pThis->GetEntity()->Add(item);
 	return ReturnValue(env, sig, args, Value(new Object_wx_SizerItem(rtn, NULL, OwnerFalse)));
 }
 
@@ -159,9 +159,9 @@ Gura_DeclareMethod(wx_GridBagSizer, CalcMin)
 
 Gura_ImplementMethod(wx_GridBagSizer, CalcMin)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->CalcMin();
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->CalcMin();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -175,12 +175,12 @@ Gura_DeclareMethod(wx_GridBagSizer, CheckForIntersection)
 
 Gura_ImplementMethod(wx_GridBagSizer, CheckForIntersection)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBSizerItem *item = Object_wx_GBSizerItem::GetObject(args, 0)->GetEntity();
 	wxGBSizerItem *excludeItem = (wxGBSizerItem *)(NULL);
 	if (args.IsValid(1)) excludeItem = Object_wx_GBSizerItem::GetObject(args, 1)->GetEntity();
-	bool rtn = pSelf->GetEntity()->CheckForIntersection(item, excludeItem);
+	bool rtn = pThis->GetEntity()->CheckForIntersection(item, excludeItem);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -195,13 +195,13 @@ Gura_DeclareMethod(wx_GridBagSizer, CheckForIntersectionPos)
 
 Gura_ImplementMethod(wx_GridBagSizer, CheckForIntersectionPos)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBPosition *pos = Object_wx_GBPosition::GetObject(args, 0)->GetEntity();
 	wxGBSpan *span = Object_wx_GBSpan::GetObject(args, 1)->GetEntity();
 	wxGBSizerItem *excludeItem = (wxGBSizerItem *)(NULL);
 	if (args.IsValid(2)) excludeItem = Object_wx_GBSizerItem::GetObject(args, 2)->GetEntity();
-	bool rtn = pSelf->GetEntity()->CheckForIntersection(*pos, *span, excludeItem);
+	bool rtn = pThis->GetEntity()->CheckForIntersection(*pos, *span, excludeItem);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -214,15 +214,15 @@ Gura_DeclareMethod(wx_GridBagSizer, FindItem)
 
 Gura_ImplementMethod(wx_GridBagSizer, FindItem)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBSizerItem *rtn = NULL;
 	if (args.IsInstanceOf(0, VTYPE_wx_Window)) {
 		wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
-		rtn = (wxGBSizerItem *)pSelf->GetEntity()->FindItem(window);
+		rtn = (wxGBSizerItem *)pThis->GetEntity()->FindItem(window);
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
 		wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
-		rtn = (wxGBSizerItem *)pSelf->GetEntity()->FindItem(sizer);
+		rtn = (wxGBSizerItem *)pThis->GetEntity()->FindItem(sizer);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 		return Value::Null;
@@ -239,10 +239,10 @@ Gura_DeclareMethod(wx_GridBagSizer, FindItemAtPoint)
 
 Gura_ImplementMethod(wx_GridBagSizer, FindItemAtPoint)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	wxGBSizerItem *rtn = (wxGBSizerItem *)pSelf->GetEntity()->FindItemAtPoint(*pt);
+	wxGBSizerItem *rtn = (wxGBSizerItem *)pThis->GetEntity()->FindItemAtPoint(*pt);
 	return ReturnValue(env, sig, args, Value(new Object_wx_GBSizerItem(rtn, NULL, OwnerFalse)));
 }
 
@@ -255,10 +255,10 @@ Gura_DeclareMethod(wx_GridBagSizer, FindItemAtPosition)
 
 Gura_ImplementMethod(wx_GridBagSizer, FindItemAtPosition)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBPosition *pos = Object_wx_GBPosition::GetObject(args, 0)->GetEntity();
-	wxGBSizerItem *rtn = (wxGBSizerItem *)pSelf->GetEntity()->FindItemAtPosition(*pos);
+	wxGBSizerItem *rtn = (wxGBSizerItem *)pThis->GetEntity()->FindItemAtPosition(*pos);
 	return ReturnValue(env, sig, args, Value(new Object_wx_GBSizerItem(rtn, NULL, OwnerFalse)));
 }
 
@@ -271,10 +271,10 @@ Gura_DeclareMethod(wx_GridBagSizer, FindItemWithData)
 
 Gura_ImplementMethod(wx_GridBagSizer, FindItemWithData)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *userData = Object_wx_Object::GetObject(args, 0)->GetEntity();
-	wxGBSizerItem *rtn = (wxGBSizerItem *)pSelf->GetEntity()->FindItemWithData(userData);
+	wxGBSizerItem *rtn = (wxGBSizerItem *)pThis->GetEntity()->FindItemWithData(userData);
 	return ReturnValue(env, sig, args, Value(new Object_wx_GBSizerItem(rtn, NULL, OwnerFalse)));
 }
 
@@ -288,11 +288,11 @@ Gura_DeclareMethod(wx_GridBagSizer, GetCellSize)
 
 Gura_ImplementMethod(wx_GridBagSizer, GetCellSize)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
-	wxSize rtn = pSelf->GetEntity()->GetCellSize(row, col);
+	wxSize rtn = pThis->GetEntity()->GetCellSize(row, col);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -304,9 +304,9 @@ Gura_DeclareMethod(wx_GridBagSizer, GetEmptyCellSize)
 
 Gura_ImplementMethod(wx_GridBagSizer, GetEmptyCellSize)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetEmptyCellSize();
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetEmptyCellSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -319,18 +319,18 @@ Gura_DeclareMethod(wx_GridBagSizer, GetItemPosition)
 
 Gura_ImplementMethod(wx_GridBagSizer, GetItemPosition)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBPosition rtn;
 	if (args.IsInstanceOf(0, VTYPE_wx_Window)) {
 		wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
-		rtn = pSelf->GetEntity()->GetItemPosition(window);
+		rtn = pThis->GetEntity()->GetItemPosition(window);
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
 		wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
-		rtn = pSelf->GetEntity()->GetItemPosition(sizer);
+		rtn = pThis->GetEntity()->GetItemPosition(sizer);
 	} else if (args.IsInstanceOf(0, VTYPE_number)) {
 		size_t index = args.GetSizeT(0);
-		rtn = pSelf->GetEntity()->GetItemPosition(index);
+		rtn = pThis->GetEntity()->GetItemPosition(index);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 		return Value::Null;
@@ -347,18 +347,18 @@ Gura_DeclareMethod(wx_GridBagSizer, GetItemSpan)
 
 Gura_ImplementMethod(wx_GridBagSizer, GetItemSpan)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBSpan rtn;
 	if (args.IsInstanceOf(0, VTYPE_wx_Window)) {
 		wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
-		rtn = pSelf->GetEntity()->GetItemSpan(window);
+		rtn = pThis->GetEntity()->GetItemSpan(window);
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
 		wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
-		rtn = pSelf->GetEntity()->GetItemSpan(sizer);
+		rtn = pThis->GetEntity()->GetItemSpan(sizer);
 	} else if (args.IsInstanceOf(0, VTYPE_number)) {
 		size_t index = args.GetSizeT(0);
-		rtn = pSelf->GetEntity()->GetItemSpan(index);
+		rtn = pThis->GetEntity()->GetItemSpan(index);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 		return Value::Null;
@@ -373,9 +373,9 @@ Gura_DeclareMethod(wx_GridBagSizer, RecalcSizes)
 
 Gura_ImplementMethod(wx_GridBagSizer, RecalcSizes)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->RecalcSizes();
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->RecalcSizes();
 	return Value::Null;
 }
 
@@ -387,10 +387,10 @@ Gura_DeclareMethod(wx_GridBagSizer, SetEmptyCellSize)
 
 Gura_ImplementMethod(wx_GridBagSizer, SetEmptyCellSize)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *sz = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetEmptyCellSize(*sz);
+	pThis->GetEntity()->SetEmptyCellSize(*sz);
 	return Value::Null;
 }
 
@@ -404,19 +404,19 @@ Gura_DeclareMethod(wx_GridBagSizer, SetItemPosition)
 
 Gura_ImplementMethod(wx_GridBagSizer, SetItemPosition)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBPosition *pos = Object_wx_GBPosition::GetObject(args, 1)->GetEntity();
 	bool rtn = false;
 	if (args.IsInstanceOf(0, VTYPE_wx_Window)) {
 		wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
-		rtn = pSelf->GetEntity()->SetItemPosition(window, *pos);
+		rtn = pThis->GetEntity()->SetItemPosition(window, *pos);
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
 		wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
-		rtn = pSelf->GetEntity()->SetItemPosition(sizer, *pos);
+		rtn = pThis->GetEntity()->SetItemPosition(sizer, *pos);
 	} else if (args.IsInstanceOf(0, VTYPE_number)) {
 		size_t index = args.GetSizeT(0);
-		rtn = pSelf->GetEntity()->SetItemPosition(index, *pos);
+		rtn = pThis->GetEntity()->SetItemPosition(index, *pos);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 		return Value::Null;
@@ -434,19 +434,19 @@ Gura_DeclareMethod(wx_GridBagSizer, SetItemSpan)
 
 Gura_ImplementMethod(wx_GridBagSizer, SetItemSpan)
 {
-	Object_wx_GridBagSizer *pSelf = Object_wx_GridBagSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGBSpan *span = Object_wx_GBSpan::GetObject(args, 1)->GetEntity();
 	bool rtn = false;
 	if (args.IsInstanceOf(0, VTYPE_wx_Window)) {
 		wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
-		rtn = pSelf->GetEntity()->SetItemSpan(window, *span);
+		rtn = pThis->GetEntity()->SetItemSpan(window, *span);
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
 		wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
-		rtn = pSelf->GetEntity()->SetItemSpan(sizer, *span);
+		rtn = pThis->GetEntity()->SetItemSpan(sizer, *span);
 	} else if (args.IsInstanceOf(0, VTYPE_number)) {
 		size_t index = args.GetSizeT(0);
-		bool rtn = pSelf->GetEntity()->SetItemSpan(index, *span);
+		bool rtn = pThis->GetEntity()->SetItemSpan(index, *span);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 		return Value::Null;

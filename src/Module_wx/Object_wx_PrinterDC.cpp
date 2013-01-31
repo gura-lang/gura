@@ -50,7 +50,7 @@ Gura_ImplementFunction(PrinterDC)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPrintData *printData = Object_wx_PrintData::GetObject(args, 0)->GetEntity();
 	wx_PrinterDC *pEntity = new wx_PrinterDC(*printData);
-	Object_wx_PrinterDC *pObj = Object_wx_PrinterDC::GetSelfObj(args);
+	Object_wx_PrinterDC *pObj = Object_wx_PrinterDC::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PrinterDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(PrinterDC)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(PrinterDC_1)
@@ -84,7 +84,7 @@ Gura_ImplementFunction(PrinterDC_1)
 	int orientation = wxPORTRAIT;
 	if (args.IsValid(4)) orientation = args.GetInt(4);
 	wx_PrinterDC *pEntity = new wx_PrinterDC(driver, device, output, interactive, orientation);
-	Object_wx_PrinterDC *pObj = Object_wx_PrinterDC::GetSelfObj(args);
+	Object_wx_PrinterDC *pObj = Object_wx_PrinterDC::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PrinterDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -92,7 +92,7 @@ Gura_ImplementFunction(PrinterDC_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_PrinterDC, GetPaperRect)
@@ -103,9 +103,9 @@ Gura_DeclareMethod(wx_PrinterDC, GetPaperRect)
 
 Gura_ImplementMethod(wx_PrinterDC, GetPaperRect)
 {
-	Object_wx_PrinterDC *pSelf = Object_wx_PrinterDC::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxRect rtn = pSelf->GetEntity()->wxPrinterDC::GetPaperRect();
+	Object_wx_PrinterDC *pThis = Object_wx_PrinterDC::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxRect rtn = pThis->GetEntity()->wxPrinterDC::GetPaperRect();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 }
 

@@ -71,7 +71,7 @@ Gura_ImplementFunction(ViewEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_View *pEntity = new wx_View();
-	Object_wx_View *pObj = Object_wx_View::GetSelfObj(args);
+	Object_wx_View *pObj = Object_wx_View::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_View(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -79,7 +79,7 @@ Gura_ImplementFunction(ViewEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -93,10 +93,10 @@ Gura_DeclareMethod(wx_View, Activate)
 
 Gura_ImplementMethod(wx_View, Activate)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool activate = args.GetBoolean(0);
-	pSelf->GetEntity()->Activate(activate);
+	pThis->GetEntity()->Activate(activate);
 	return Value::Null;
 }
 
@@ -109,11 +109,11 @@ Gura_DeclareMethod(wx_View, Close)
 
 Gura_ImplementMethod(wx_View, Close)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool deleteWindow = true;
 	if (args.IsValid(0)) deleteWindow = args.GetBoolean(0);
-	bool rtn = pSelf->GetEntity()->Close(deleteWindow);
+	bool rtn = pThis->GetEntity()->Close(deleteWindow);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -125,9 +125,9 @@ Gura_DeclareMethod(wx_View, GetDocument)
 
 Gura_ImplementMethod(wx_View, GetDocument)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxDocument *rtn = (wxDocument *)pSelf->GetEntity()->GetDocument();
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxDocument *rtn = (wxDocument *)pThis->GetEntity()->GetDocument();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Document(rtn, NULL, OwnerFalse)));
 }
 
@@ -139,9 +139,9 @@ Gura_DeclareMethod(wx_View, GetDocumentManager)
 
 Gura_ImplementMethod(wx_View, GetDocumentManager)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxDocManager *rtn = (wxDocManager *)pSelf->GetEntity()->GetDocumentManager();
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxDocManager *rtn = (wxDocManager *)pThis->GetEntity()->GetDocumentManager();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DocManager(rtn, NULL, OwnerFalse)));
 }
 
@@ -153,9 +153,9 @@ Gura_DeclareMethod(wx_View, GetFrame)
 
 Gura_ImplementMethod(wx_View, GetFrame)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxWindow *rtn = (wxWindow *)pSelf->GetEntity()->GetFrame();
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetFrame();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
 }
 
@@ -167,9 +167,9 @@ Gura_DeclareMethod(wx_View, GetViewName)
 
 Gura_ImplementMethod(wx_View, GetViewName)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetViewName();
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetViewName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -183,12 +183,12 @@ Gura_DeclareMethod(wx_View, OnActivateView)
 
 Gura_ImplementMethod(wx_View, OnActivateView)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool activate = args.GetBoolean(0);
 	wxView *activeView = Object_wx_View::GetObject(args, 1)->GetEntity();
 	wxView *deactiveView = Object_wx_View::GetObject(args, 2)->GetEntity();
-	pSelf->GetEntity()->OnActivateView(activate, activeView, deactiveView);
+	pThis->GetEntity()->OnActivateView(activate, activeView, deactiveView);
 	return Value::Null;
 }
 
@@ -199,9 +199,9 @@ Gura_DeclareMethod(wx_View, OnChangeFilename)
 
 Gura_ImplementMethod(wx_View, OnChangeFilename)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->OnChangeFilename();
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->OnChangeFilename();
 	return Value::Null;
 }
 
@@ -214,10 +214,10 @@ Gura_DeclareMethod(wx_View, OnClose)
 
 Gura_ImplementMethod(wx_View, OnClose)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool deleteWindow = args.GetBoolean(0);
-	bool rtn = pSelf->GetEntity()->OnClose(deleteWindow);
+	bool rtn = pThis->GetEntity()->OnClose(deleteWindow);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -229,9 +229,9 @@ Gura_DeclareMethod(wx_View, OnClosingDoocument)
 Gura_ImplementMethod(wx_View, OnClosingDoocument)
 {
 #if 0
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->OnClosingDoocument();
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->OnClosingDoocument();
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -248,11 +248,11 @@ Gura_DeclareMethod(wx_View, OnCreate)
 
 Gura_ImplementMethod(wx_View, OnCreate)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDocument *doc = Object_wx_Document::GetObject(args, 0)->GetEntity();
 	long flags = args.GetLong(1);
-	bool rtn = pSelf->GetEntity()->OnCreate(doc, flags);
+	bool rtn = pThis->GetEntity()->OnCreate(doc, flags);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -264,9 +264,9 @@ Gura_DeclareMethod(wx_View, OnCreatePrintout)
 
 Gura_ImplementMethod(wx_View, OnCreatePrintout)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPrintout *rtn = (wxPrintout *)pSelf->GetEntity()->OnCreatePrintout();
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPrintout *rtn = (wxPrintout *)pThis->GetEntity()->OnCreatePrintout();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Printout(rtn, NULL, OwnerFalse)));
 }
 
@@ -278,10 +278,10 @@ Gura_DeclareMethod(wx_View, OnDraw)
 
 Gura_ImplementMethod(wx_View, OnDraw)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnDraw(dc);
+	pThis->GetEntity()->OnDraw(dc);
 	return Value::Null;
 }
 
@@ -294,11 +294,11 @@ Gura_DeclareMethod(wx_View, OnUpdate)
 
 Gura_ImplementMethod(wx_View, OnUpdate)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxView *sender = Object_wx_View::GetObject(args, 0)->GetEntity();
 	wxObject *hint = Object_wx_Object::GetObject(args, 1)->GetEntity();
-	pSelf->GetEntity()->OnUpdate(sender, hint);
+	pThis->GetEntity()->OnUpdate(sender, hint);
 	return Value::Null;
 }
 
@@ -310,10 +310,10 @@ Gura_DeclareMethod(wx_View, SetDocument)
 
 Gura_ImplementMethod(wx_View, SetDocument)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDocument *doc = Object_wx_Document::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetDocument(doc);
+	pThis->GetEntity()->SetDocument(doc);
 	return Value::Null;
 }
 
@@ -325,10 +325,10 @@ Gura_DeclareMethod(wx_View, SetFrame)
 
 Gura_ImplementMethod(wx_View, SetFrame)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *frame = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetFrame(frame);
+	pThis->GetEntity()->SetFrame(frame);
 	return Value::Null;
 }
 
@@ -340,10 +340,10 @@ Gura_DeclareMethod(wx_View, SetViewName)
 
 Gura_ImplementMethod(wx_View, SetViewName)
 {
-	Object_wx_View *pSelf = Object_wx_View::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetViewName(name);
+	pThis->GetEntity()->SetViewName(name);
 	return Value::Null;
 }
 

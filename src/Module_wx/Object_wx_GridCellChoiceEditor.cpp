@@ -53,7 +53,7 @@ Gura_ImplementFunction(GridCellChoiceEditor)
 	bool allowOthers = false;
 	if (args.IsValid(1)) allowOthers = args.GetBoolean(1);
 	wx_GridCellChoiceEditor *pEntity = new wx_GridCellChoiceEditor(*choices, allowOthers);
-	Object_wx_GridCellChoiceEditor *pObj = Object_wx_GridCellChoiceEditor::GetSelfObj(args);
+	Object_wx_GridCellChoiceEditor *pObj = Object_wx_GridCellChoiceEditor::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GridCellChoiceEditor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(GridCellChoiceEditor)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GridCellChoiceEditor, SetParameters)
@@ -72,10 +72,10 @@ Gura_DeclareMethod(wx_GridCellChoiceEditor, SetParameters)
 
 Gura_ImplementMethod(wx_GridCellChoiceEditor, SetParameters)
 {
-	Object_wx_GridCellChoiceEditor *pSelf = Object_wx_GridCellChoiceEditor::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridCellChoiceEditor *pThis = Object_wx_GridCellChoiceEditor::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString params = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetParameters(params);
+	pThis->GetEntity()->SetParameters(params);
 	return Value::Null;
 }
 

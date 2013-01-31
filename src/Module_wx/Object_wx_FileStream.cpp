@@ -50,7 +50,7 @@ Gura_ImplementFunction(FileStream)
 #if 0
 	wxString iofileName = wxString::FromUTF8(args.GetString(0));
 	wx_FileStream *pEntity = new wx_FileStream(iofileName);
-	Object_wx_FileStream *pObj = Object_wx_FileStream::GetSelfObj(args);
+	Object_wx_FileStream *pObj = Object_wx_FileStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_FileStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(FileStream)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

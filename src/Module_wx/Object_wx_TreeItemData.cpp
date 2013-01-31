@@ -34,7 +34,7 @@ Gura_ImplementFunction(TreeItemData)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TreeItemData *pEntity = new wx_TreeItemData(args.GetValue(0));
-	Object_wx_TreeItemData *pObj = Object_wx_TreeItemData::GetSelfObj(args);
+	Object_wx_TreeItemData *pObj = Object_wx_TreeItemData::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TreeItemData(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
@@ -42,7 +42,7 @@ Gura_ImplementFunction(TreeItemData)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TreeItemData, GetId)
@@ -53,9 +53,9 @@ Gura_DeclareMethod(wx_TreeItemData, GetId)
 
 Gura_ImplementMethod(wx_TreeItemData, GetId)
 {
-	Object_wx_TreeItemData *pSelf = Object_wx_TreeItemData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxTreeItemId &rtn = pSelf->GetEntity()->GetId();
+	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxTreeItemId &rtn = pThis->GetEntity()->GetId();
 	return ReturnValue(env, sig, args, Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), NULL, OwnerTrue)));
 }
 
@@ -67,10 +67,10 @@ Gura_DeclareMethod(wx_TreeItemData, SetId)
 
 Gura_ImplementMethod(wx_TreeItemData, SetId)
 {
-	Object_wx_TreeItemData *pSelf = Object_wx_TreeItemData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTreeItemId *id = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetId(*id);
+	pThis->GetEntity()->SetId(*id);
 	return Value::Null;
 }
 
@@ -82,9 +82,9 @@ Gura_DeclareMethod(wx_TreeItemData, GetData)
 
 Gura_ImplementMethod(wx_TreeItemData, GetData)
 {
-	Object_wx_TreeItemData *pSelf = Object_wx_TreeItemData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wx_TreeItemData *pEntity = dynamic_cast<wx_TreeItemData *>(pSelf->GetEntity());
+	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wx_TreeItemData *pEntity = dynamic_cast<wx_TreeItemData *>(pThis->GetEntity());
 	if (pEntity == NULL) return Value::Null;
 	return pEntity->GetValue();
 }
@@ -97,9 +97,9 @@ Gura_DeclareMethod(wx_TreeItemData, SetData)
 
 Gura_ImplementMethod(wx_TreeItemData, SetData)
 {
-	Object_wx_TreeItemData *pSelf = Object_wx_TreeItemData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wx_TreeItemData *pEntity = dynamic_cast<wx_TreeItemData *>(pSelf->GetEntity());
+	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wx_TreeItemData *pEntity = dynamic_cast<wx_TreeItemData *>(pThis->GetEntity());
 	if (pEntity == NULL) return Value::Null;
 	pEntity->SetValue(args.GetValue(0));
 	return Value::Null;

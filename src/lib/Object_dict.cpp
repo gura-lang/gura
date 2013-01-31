@@ -259,8 +259,8 @@ Gura_DeclareMethod(dict, len)
 
 Gura_ImplementMethod(dict, len)
 {
-	Object_dict *pSelf = Object_dict::GetSelfObj(args);
-	return Value(static_cast<Number>(pSelf->GetDict().size()));
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	return Value(static_cast<Number>(pThis->GetDict().size()));
 }
 
 // dict#get(key, default?:nomap):map:[raise]
@@ -274,10 +274,10 @@ Gura_DeclareMethod(dict, get)
 
 Gura_ImplementMethod(dict, get)
 {
-	Object_dict *pSelf = Object_dict::GetSelfObj(args);
+	Object_dict *pThis = Object_dict::GetThisObj(args);
 	const Value &valueIdx = args.GetValue(0);
 	bool raiseFlag = args.IsSet(Gura_Symbol(raise));
-	const Value *pValue = pSelf->Find(sig, valueIdx);
+	const Value *pValue = pThis->Find(sig, valueIdx);
 	if (pValue != NULL) {
 		return *pValue;
 	} else if (raiseFlag) {
@@ -300,10 +300,10 @@ Gura_DeclareMethod(dict, gets)
 
 Gura_ImplementMethod(dict, gets)
 {
-	Object_dict *pSelf = Object_dict::GetSelfObj(args);
+	Object_dict *pThis = Object_dict::GetThisObj(args);
 	const Value &valueIdx = args.GetValue(0);
 	bool raiseFlag = args.IsSet(Gura_Symbol(raise));
-	const Value *pValue = pSelf->Find(sig, valueIdx);
+	const Value *pValue = pThis->Find(sig, valueIdx);
 	if (pValue != NULL) {
 		return *pValue;
 	} else if (raiseFlag) {
@@ -325,10 +325,10 @@ Gura_DeclareMethod(dict, set)
 
 Gura_ImplementMethod(dict, set)
 {
-	Object_dict *pSelf = Object_dict::GetSelfObj(args);
+	Object_dict *pThis = Object_dict::GetThisObj(args);
 	const Value &valueIdx = args.GetValue(0);
-	pSelf->IndexSet(env, sig, args.GetValue(0), args.GetValue(1));
-	return args.GetSelf();
+	pThis->IndexSet(env, sig, args.GetValue(0), args.GetValue(1));
+	return args.GetThis();
 }
 
 // dict#setdefault(key, value:nomap):map
@@ -341,12 +341,12 @@ Gura_DeclareMethod(dict, setdefault)
 
 Gura_ImplementMethod(dict, setdefault)
 {
-	Object_dict *pSelf = Object_dict::GetSelfObj(args);
+	Object_dict *pThis = Object_dict::GetThisObj(args);
 	const Value &valueIdx = args.GetValue(0);
-	const Value *pValue = pSelf->Find(sig, valueIdx);
+	const Value *pValue = pThis->Find(sig, valueIdx);
 	if (pValue != NULL) return *pValue;
 	const Value &value = args.GetValue(1);
-	pSelf->IndexSet(env, sig, valueIdx, value);
+	pThis->IndexSet(env, sig, valueIdx, value);
 	if (sig.IsSignalled()) return Value::Null;
 	return value;
 }
@@ -361,9 +361,9 @@ Gura_DeclareMethod(dict, sets)
 
 Gura_ImplementMethod(dict, sets)
 {
-	Object_dict *pSelf = Object_dict::GetSelfObj(args);
+	Object_dict *pThis = Object_dict::GetThisObj(args);
 	const Value &valueIdx = args.GetValue(0);
-	pSelf->IndexSet(env, sig, args.GetValue(0), args.GetValue(1));
+	pThis->IndexSet(env, sig, args.GetValue(0), args.GetValue(1));
 	return Value::Null;
 }
 
@@ -378,8 +378,8 @@ Gura_DeclareMethod(dict, store)
 
 Gura_ImplementMethod(dict, store)
 {
-	Object_dict *pSelf = Object_dict::GetSelfObj(args);
-	ValueDict &valDict = pSelf->GetDict();
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	ValueDict &valDict = pThis->GetDict();
 	ValueDict::StoreMode storeMode = args.IsSet(Gura_Symbol(default_))?
 					ValueDict::STORE_Default : ValueDict::STORE_AllowDup;
 	if (args.GetValue(0).IsList()) {
@@ -403,7 +403,7 @@ Gura_ImplementMethod(dict, store)
 		if (sig.IsSignalled() || !valueList.IsList()) return Value::Null;
 		if (!valDict.Store(sig, valueList.GetList(), storeMode)) return Value::Null;
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // dict#haskey(key):map
@@ -415,9 +415,9 @@ Gura_DeclareMethod(dict, haskey)
 
 Gura_ImplementMethod(dict, haskey)
 {
-	Object_dict *pSelf = Object_dict::GetSelfObj(args);
+	Object_dict *pThis = Object_dict::GetThisObj(args);
 	const Value &valueIdx = args.GetValue(0);
-	const Value *pValue = pSelf->Find(sig, valueIdx);
+	const Value *pValue = pThis->Find(sig, valueIdx);
 	return Value(pValue != NULL);
 }
 
@@ -430,8 +430,8 @@ Gura_DeclareMethod(dict, keys)
 
 Gura_ImplementMethod(dict, keys)
 {
-	Object_dict *pSelf = Object_dict::GetSelfObj(args);
-	Object_dict *pObj = Object_dict::Reference(pSelf);
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	Object_dict *pObj = Object_dict::Reference(pThis);
 	return ReturnIterator(env, sig, args,
 							new Object_dict::IteratorKeys(pObj));
 }
@@ -445,8 +445,8 @@ Gura_DeclareMethod(dict, values)
 
 Gura_ImplementMethod(dict, values)
 {
-	Object_dict *pSelf = Object_dict::GetSelfObj(args);
-	Object_dict *pObj = Object_dict::Reference(pSelf);
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	Object_dict *pObj = Object_dict::Reference(pThis);
 	return ReturnIterator(env, sig, args,
 							new Object_dict::IteratorValues(pObj));
 }
@@ -460,8 +460,8 @@ Gura_DeclareMethod(dict, items)
 
 Gura_ImplementMethod(dict, items)
 {
-	Object_dict *pSelf = Object_dict::GetSelfObj(args);
-	Object_dict *pObj = Object_dict::Reference(pSelf);
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	Object_dict *pObj = Object_dict::Reference(pThis);
 	return ReturnIterator(env, sig, args,
 							new Object_dict::IteratorItems(pObj));
 }
@@ -474,8 +474,8 @@ Gura_DeclareMethod(dict, clear)
 
 Gura_ImplementMethod(dict, clear)
 {
-	Object_dict *pSelf = Object_dict::GetSelfObj(args);
-	pSelf->GetDict().clear();
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	pThis->GetDict().clear();
 	return Value::Null;
 }
 
@@ -488,8 +488,8 @@ Gura_DeclareMethod(dict, erase)
 
 Gura_ImplementMethod(dict, erase)
 {
-	Object_dict *pSelf = Object_dict::GetSelfObj(args);
-	pSelf->GetDict().erase(args.GetValue(0));
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	pThis->GetDict().erase(args.GetValue(0));
 	return Value::Null;
 }
 

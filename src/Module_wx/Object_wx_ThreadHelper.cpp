@@ -53,7 +53,7 @@ Gura_ImplementFunction(ThreadHelperEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_ThreadHelper *pEntity = new wx_ThreadHelper();
-	Object_wx_ThreadHelper *pObj = Object_wx_ThreadHelper::GetSelfObj(args);
+	Object_wx_ThreadHelper *pObj = Object_wx_ThreadHelper::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ThreadHelper(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(ThreadHelperEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -76,11 +76,11 @@ Gura_DeclareMethod(wx_ThreadHelper, Create)
 
 Gura_ImplementMethod(wx_ThreadHelper, Create)
 {
-	Object_wx_ThreadHelper *pSelf = Object_wx_ThreadHelper::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ThreadHelper *pThis = Object_wx_ThreadHelper::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned stackSize = 0;
 	if (args.IsValid(0)) stackSize = args.GetInt(0);
-	wxThreadError rtn = pSelf->GetEntity()->Create(stackSize);
+	wxThreadError rtn = pThis->GetEntity()->Create(stackSize);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -92,9 +92,9 @@ Gura_DeclareMethod(wx_ThreadHelper, Entry)
 
 Gura_ImplementMethod(wx_ThreadHelper, Entry)
 {
-	Object_wx_ThreadHelper *pSelf = Object_wx_ThreadHelper::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxThread::ExitCode rtn = pSelf->GetEntity()->Entry();
+	Object_wx_ThreadHelper *pThis = Object_wx_ThreadHelper::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxThread::ExitCode rtn = pThis->GetEntity()->Entry();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -106,9 +106,9 @@ Gura_DeclareMethod(wx_ThreadHelper, GetThread)
 
 Gura_ImplementMethod(wx_ThreadHelper, GetThread)
 {
-	Object_wx_ThreadHelper *pSelf = Object_wx_ThreadHelper::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxThread *rtn = (wxThread *)pSelf->GetEntity()->GetThread();
+	Object_wx_ThreadHelper *pThis = Object_wx_ThreadHelper::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxThread *rtn = (wxThread *)pThis->GetEntity()->GetThread();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Thread(rtn, NULL, OwnerFalse)));
 }
 

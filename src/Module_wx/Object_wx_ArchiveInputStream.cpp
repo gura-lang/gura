@@ -43,9 +43,9 @@ Gura_DeclareMethod(wx_ArchiveInputStream, CloseEntry)
 
 Gura_ImplementMethod(wx_ArchiveInputStream, CloseEntry)
 {
-	Object_wx_ArchiveInputStream *pSelf = Object_wx_ArchiveInputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->CloseEntry();
+	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->CloseEntry();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -57,9 +57,9 @@ Gura_DeclareMethod(wx_ArchiveInputStream, GetNextEntry)
 
 Gura_ImplementMethod(wx_ArchiveInputStream, GetNextEntry)
 {
-	Object_wx_ArchiveInputStream *pSelf = Object_wx_ArchiveInputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxArchiveEntry *rtn = (wxArchiveEntry *)pSelf->GetEntity()->GetNextEntry();
+	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxArchiveEntry *rtn = (wxArchiveEntry *)pThis->GetEntity()->GetNextEntry();
 	return ReturnValue(env, sig, args, Value(new Object_wx_ArchiveEntry(rtn, NULL, OwnerFalse)));
 }
 
@@ -72,10 +72,10 @@ Gura_DeclareMethod(wx_ArchiveInputStream, OpenEntry)
 
 Gura_ImplementMethod(wx_ArchiveInputStream, OpenEntry)
 {
-	Object_wx_ArchiveInputStream *pSelf = Object_wx_ArchiveInputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArchiveEntry *entry = Object_wx_ArchiveEntry::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->OpenEntry(*entry);
+	bool rtn = pThis->GetEntity()->OpenEntry(*entry);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

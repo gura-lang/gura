@@ -45,7 +45,7 @@ Gura_ImplementFunction(PNGHandler)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PNGHandler *pEntity = new wx_PNGHandler();
-	Object_wx_PNGHandler *pObj = Object_wx_PNGHandler::GetSelfObj(args);
+	Object_wx_PNGHandler *pObj = Object_wx_PNGHandler::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PNGHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -53,7 +53,7 @@ Gura_ImplementFunction(PNGHandler)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

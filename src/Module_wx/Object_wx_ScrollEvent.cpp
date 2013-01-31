@@ -59,7 +59,7 @@ Gura_ImplementFunction(ScrollEvent)
 	int orientation = 0;
 	if (args.IsValid(3)) orientation = args.GetInt(3);
 	wx_ScrollEvent *pEntity = new wx_ScrollEvent(commandType, id, pos, orientation);
-	Object_wx_ScrollEvent *pObj = Object_wx_ScrollEvent::GetSelfObj(args);
+	Object_wx_ScrollEvent *pObj = Object_wx_ScrollEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ScrollEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(ScrollEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ScrollEvent, GetOrientation)
@@ -78,9 +78,9 @@ Gura_DeclareMethod(wx_ScrollEvent, GetOrientation)
 
 Gura_ImplementMethod(wx_ScrollEvent, GetOrientation)
 {
-	Object_wx_ScrollEvent *pSelf = Object_wx_ScrollEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetOrientation();
+	Object_wx_ScrollEvent *pThis = Object_wx_ScrollEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetOrientation();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -92,9 +92,9 @@ Gura_DeclareMethod(wx_ScrollEvent, GetPosition)
 
 Gura_ImplementMethod(wx_ScrollEvent, GetPosition)
 {
-	Object_wx_ScrollEvent *pSelf = Object_wx_ScrollEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetPosition();
+	Object_wx_ScrollEvent *pThis = Object_wx_ScrollEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

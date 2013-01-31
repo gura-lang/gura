@@ -65,7 +65,7 @@ Gura_ImplementFunction(PreviewFrame)
 	wxString name = wxT("frame");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_PreviewFrame *pEntity = new wx_PreviewFrame(preview, parent, title, *pos, *size, style, name);
-	Object_wx_PreviewFrame *pObj = Object_wx_PreviewFrame::GetSelfObj(args);
+	Object_wx_PreviewFrame *pObj = Object_wx_PreviewFrame::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PreviewFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -73,7 +73,7 @@ Gura_ImplementFunction(PreviewFrame)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_PreviewFrame, CreateControlBar)
@@ -83,9 +83,9 @@ Gura_DeclareMethod(wx_PreviewFrame, CreateControlBar)
 
 Gura_ImplementMethod(wx_PreviewFrame, CreateControlBar)
 {
-	Object_wx_PreviewFrame *pSelf = Object_wx_PreviewFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->CreateControlBar();
+	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->CreateControlBar();
 	return Value::Null;
 }
 
@@ -96,9 +96,9 @@ Gura_DeclareMethod(wx_PreviewFrame, CreateCanvas)
 
 Gura_ImplementMethod(wx_PreviewFrame, CreateCanvas)
 {
-	Object_wx_PreviewFrame *pSelf = Object_wx_PreviewFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->CreateCanvas();
+	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->CreateCanvas();
 	return Value::Null;
 }
 
@@ -109,9 +109,9 @@ Gura_DeclareMethod(wx_PreviewFrame, Initialize)
 
 Gura_ImplementMethod(wx_PreviewFrame, Initialize)
 {
-	Object_wx_PreviewFrame *pSelf = Object_wx_PreviewFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Initialize();
+	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Initialize();
 	return Value::Null;
 }
 
@@ -123,10 +123,10 @@ Gura_DeclareMethod(wx_PreviewFrame, OnCloseWindow)
 
 Gura_ImplementMethod(wx_PreviewFrame, OnCloseWindow)
 {
-	Object_wx_PreviewFrame *pSelf = Object_wx_PreviewFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCloseEvent *event = Object_wx_CloseEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnCloseWindow(*event);
+	pThis->GetEntity()->OnCloseWindow(*event);
 	return Value::Null;
 }
 

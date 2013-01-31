@@ -55,7 +55,7 @@ Gura_ImplementFunction(TextDropTargetEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_TextDropTarget *pEntity = new wx_TextDropTarget();
-	Object_wx_TextDropTarget *pObj = Object_wx_TextDropTarget::GetSelfObj(args);
+	Object_wx_TextDropTarget *pObj = Object_wx_TextDropTarget::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TextDropTarget(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(TextDropTargetEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -84,13 +84,13 @@ Gura_DeclareMethod(wx_TextDropTarget, OnDrop)
 Gura_ImplementMethod(wx_TextDropTarget, OnDrop)
 {
 #if 0
-	Object_wx_TextDropTarget *pSelf = Object_wx_TextDropTarget::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long x = args.GetLong(0);
 	long y = args.GetLong(1);
 	int *data = args.GetInt(2);
 	size_t size = args.GetSizeT(3);
-	bool rtn = pSelf->GetEntity()->OnDrop(x, y, *data, size);
+	bool rtn = pThis->GetEntity()->OnDrop(x, y, *data, size);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -108,12 +108,12 @@ Gura_DeclareMethod(wx_TextDropTarget, OnDropText)
 
 Gura_ImplementMethod(wx_TextDropTarget, OnDropText)
 {
-	Object_wx_TextDropTarget *pSelf = Object_wx_TextDropTarget::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	wxString data = wxString::FromUTF8(args.GetString(2));
-	bool rtn = pSelf->GetEntity()->OnDropText(x, y, data);
+	bool rtn = pThis->GetEntity()->OnDropText(x, y, data);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

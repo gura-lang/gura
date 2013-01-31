@@ -77,7 +77,7 @@ Gura_ImplementFunction(ToolTip)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString tip = wxString::FromUTF8(args.GetString(0));
 	wx_ToolTip *pEntity = new wx_ToolTip(tip);
-	Object_wx_ToolTip *pObj = Object_wx_ToolTip::GetSelfObj(args);
+	Object_wx_ToolTip *pObj = Object_wx_ToolTip::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ToolTip(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(ToolTip)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ToolTip, SetTip)
@@ -96,10 +96,10 @@ Gura_DeclareMethod(wx_ToolTip, SetTip)
 
 Gura_ImplementMethod(wx_ToolTip, SetTip)
 {
-	Object_wx_ToolTip *pSelf = Object_wx_ToolTip::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString tip = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetTip(tip);
+	pThis->GetEntity()->SetTip(tip);
 	return Value::Null;
 }
 
@@ -111,9 +111,9 @@ Gura_DeclareMethod(wx_ToolTip, GetTip)
 
 Gura_ImplementMethod(wx_ToolTip, GetTip)
 {
-	Object_wx_ToolTip *pSelf = Object_wx_ToolTip::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetTip();
+	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetTip();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -125,9 +125,9 @@ Gura_DeclareMethod(wx_ToolTip, GetWindow)
 
 Gura_ImplementMethod(wx_ToolTip, GetWindow)
 {
-	Object_wx_ToolTip *pSelf = Object_wx_ToolTip::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxWindow *rtn = (wxWindow *)pSelf->GetEntity()->GetWindow();
+	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetWindow();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
 }
 

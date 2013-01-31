@@ -50,13 +50,13 @@ Gura_DeclareMethod(wx_RendererNative, DrawCheckBox)
 Gura_ImplementMethod(wx_RendererNative, DrawCheckBox)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxDC *dc = Object_wx_DC::GetObject(args, 1)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 2)->GetEntity();
 	int flags = args.GetInt(3);
-	pSelf->GetEntity()->DrawCheckBox(win, *dc, *rect, flags);
+	pThis->GetEntity()->DrawCheckBox(win, *dc, *rect, flags);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -77,13 +77,13 @@ Gura_DeclareMethod(wx_RendererNative, DrawComboBoxDropButton)
 Gura_ImplementMethod(wx_RendererNative, DrawComboBoxDropButton)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxDC *dc = Object_wx_DC::GetObject(args, 1)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 2)->GetEntity();
 	int flags = args.GetInt(3);
-	pSelf->GetEntity()->DrawComboBoxDropButton(win, *dc, *rect, flags);
+	pThis->GetEntity()->DrawComboBoxDropButton(win, *dc, *rect, flags);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -104,13 +104,13 @@ Gura_DeclareMethod(wx_RendererNative, DrawDropArrow)
 Gura_ImplementMethod(wx_RendererNative, DrawDropArrow)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxDC *dc = Object_wx_DC::GetObject(args, 1)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 2)->GetEntity();
 	int flags = args.GetInt(3);
-	pSelf->GetEntity()->DrawDropArrow(win, *dc, *rect, flags);
+	pThis->GetEntity()->DrawDropArrow(win, *dc, *rect, flags);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -134,8 +134,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawHeaderButton)
 Gura_ImplementMethod(wx_RendererNative, DrawHeaderButton)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxDC *dc = Object_wx_DC::GetObject(args, 1)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 2)->GetEntity();
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_RendererNative, DrawHeaderButton)
 	if (args.IsValid(4)) sortArrow = Object_wx_HeaderSortIconType::GetObject(args, 4)->GetEntity();
 	wxHeaderButtonParams *params = (wxHeaderButtonParams *)(NULL);
 	if (args.IsValid(5)) params = Object_wx_HeaderButtonParams::GetObject(args, 5)->GetEntity();
-	int rtn = pSelf->GetEntity()->DrawHeaderButton(win, *dc, *rect, flags, *sortArrow, params);
+	int rtn = pThis->GetEntity()->DrawHeaderButton(win, *dc, *rect, flags, *sortArrow, params);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -166,14 +166,14 @@ Gura_DeclareMethod(wx_RendererNative, DrawItemSelectionRect)
 Gura_ImplementMethod(wx_RendererNative, DrawItemSelectionRect)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxDC *dc = Object_wx_DC::GetObject(args, 1)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 2)->GetEntity();
 	int flags = 0;
 	if (args.IsValid(3)) flags = args.GetInt(3);
-	pSelf->GetEntity()->DrawItemSelectionRect(win, *dc, *rect, flags);
+	pThis->GetEntity()->DrawItemSelectionRect(win, *dc, *rect, flags);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -194,13 +194,13 @@ Gura_DeclareMethod(wx_RendererNative, DrawPushButton)
 Gura_ImplementMethod(wx_RendererNative, DrawPushButton)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxDC *dc = Object_wx_DC::GetObject(args, 1)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 2)->GetEntity();
 	int flags = args.GetInt(3);
-	pSelf->GetEntity()->DrawPushButton(win, *dc, *rect, flags);
+	pThis->GetEntity()->DrawPushButton(win, *dc, *rect, flags);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -221,14 +221,14 @@ Gura_DeclareMethod(wx_RendererNative, DrawSplitterBorder)
 Gura_ImplementMethod(wx_RendererNative, DrawSplitterBorder)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxDC *dc = Object_wx_DC::GetObject(args, 1)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 2)->GetEntity();
 	int flags = 0;
 	if (args.IsValid(3)) flags = args.GetInt(3);
-	pSelf->GetEntity()->DrawSplitterBorder(win, *dc, *rect, flags);
+	pThis->GetEntity()->DrawSplitterBorder(win, *dc, *rect, flags);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -251,8 +251,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawSplitterSash)
 Gura_ImplementMethod(wx_RendererNative, DrawSplitterSash)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxDC *dc = Object_wx_DC::GetObject(args, 1)->GetEntity();
 	wxSize *size = Object_wx_Size::GetObject(args, 2)->GetEntity();
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_RendererNative, DrawSplitterSash)
 	wxOrientation orient = static_cast<wxOrientation>(args.GetInt(4));
 	int flags = 0;
 	if (args.IsValid(5)) flags = args.GetInt(5);
-	pSelf->GetEntity()->DrawSplitterSash(win, *dc, *size, position, orient, flags);
+	pThis->GetEntity()->DrawSplitterSash(win, *dc, *size, position, orient, flags);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -281,14 +281,14 @@ Gura_DeclareMethod(wx_RendererNative, DrawTreeItemButton)
 Gura_ImplementMethod(wx_RendererNative, DrawTreeItemButton)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxDC *dc = Object_wx_DC::GetObject(args, 1)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 2)->GetEntity();
 	int flags = 0;
 	if (args.IsValid(3)) flags = args.GetInt(3);
-	pSelf->GetEntity()->DrawTreeItemButton(win, *dc, *rect, flags);
+	pThis->GetEntity()->DrawTreeItemButton(win, *dc, *rect, flags);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -304,9 +304,9 @@ Gura_DeclareMethod(wx_RendererNative, Get)
 Gura_ImplementMethod(wx_RendererNative, Get)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxRendererNative &rtn = pSelf->GetEntity()->Get();
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxRendererNative &rtn = pThis->GetEntity()->Get();
 	return ReturnValue(env, sig, args, Value(new Object_wx_RendererNative(new wxRendererNative(rtn), NULL, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
@@ -322,9 +322,9 @@ Gura_DeclareMethod(wx_RendererNative, GetDefault)
 Gura_ImplementMethod(wx_RendererNative, GetDefault)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxRendererNative &rtn = pSelf->GetEntity()->GetDefault();
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxRendererNative &rtn = pThis->GetEntity()->GetDefault();
 	return ReturnValue(env, sig, args, Value(new Object_wx_RendererNative(new wxRendererNative(rtn), NULL, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
@@ -340,9 +340,9 @@ Gura_DeclareMethod(wx_RendererNative, GetGeneric)
 Gura_ImplementMethod(wx_RendererNative, GetGeneric)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxRendererNative &rtn = pSelf->GetEntity()->GetGeneric();
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxRendererNative &rtn = pThis->GetEntity()->GetGeneric();
 	return ReturnValue(env, sig, args, Value(new Object_wx_RendererNative(new wxRendererNative(rtn), NULL, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
@@ -361,10 +361,10 @@ Gura_DeclareMethod(wx_RendererNative, GetHeaderButtonHeight)
 Gura_ImplementMethod(wx_RendererNative, GetHeaderButtonHeight)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	int rtn = pSelf->GetEntity()->GetHeaderButtonHeight(win);
+	int rtn = pThis->GetEntity()->GetHeaderButtonHeight(win);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -383,10 +383,10 @@ Gura_DeclareMethod(wx_RendererNative, GetSplitterParams)
 Gura_ImplementMethod(wx_RendererNative, GetSplitterParams)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	wxSplitterRenderParams rtn = pSelf->GetEntity()->GetSplitterParams(win);
+	wxSplitterRenderParams rtn = pThis->GetEntity()->GetSplitterParams(win);
 	return ReturnValue(env, sig, args, Value(new Object_wx_SplitterRenderParams(new wxSplitterRenderParams(rtn), NULL, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
@@ -401,9 +401,9 @@ Gura_DeclareMethod(wx_RendererNative, GetVersion)
 
 Gura_ImplementMethod(wx_RendererNative, GetVersion)
 {
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxRendererVersion rtn = pSelf->GetEntity()->GetVersion();
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxRendererVersion rtn = pThis->GetEntity()->GetVersion();
 	return ReturnValue(env, sig, args, Value(new Object_wx_RendererVersion(new wxRendererVersion(rtn), NULL, OwnerTrue)));
 }
 
@@ -419,10 +419,10 @@ Gura_DeclareMethod(wx_RendererNative, Load)
 Gura_ImplementMethod(wx_RendererNative, Load)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	wxRendererNative *rtn = (wxRendererNative *)pSelf->GetEntity()->Load(name);
+	wxRendererNative *rtn = (wxRendererNative *)pThis->GetEntity()->Load(name);
 	return ReturnValue(env, sig, args, Value(new Object_wx_RendererNative(rtn, NULL, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
@@ -441,10 +441,10 @@ Gura_DeclareMethod(wx_RendererNative, Set)
 Gura_ImplementMethod(wx_RendererNative, Set)
 {
 #if 0
-	Object_wx_RendererNative *pSelf = Object_wx_RendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRendererNative *renderer = Object_wx_RendererNative::GetObject(args, 0)->GetEntity();
-	wxRendererNative *rtn = (wxRendererNative *)pSelf->GetEntity()->Set(renderer);
+	wxRendererNative *rtn = (wxRendererNative *)pThis->GetEntity()->Set(renderer);
 	return ReturnValue(env, sig, args, Value(new Object_wx_RendererNative(rtn, NULL, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);

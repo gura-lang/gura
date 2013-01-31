@@ -52,7 +52,7 @@ Gura_ImplementFunction(SizeEvent)
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_SizeEvent *pEntity = new wx_SizeEvent(*sz, id);
-	Object_wx_SizeEvent *pObj = Object_wx_SizeEvent::GetSelfObj(args);
+	Object_wx_SizeEvent *pObj = Object_wx_SizeEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SizeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -60,7 +60,7 @@ Gura_ImplementFunction(SizeEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SizeEvent, GetSize)
@@ -71,9 +71,9 @@ Gura_DeclareMethod(wx_SizeEvent, GetSize)
 
 Gura_ImplementMethod(wx_SizeEvent, GetSize)
 {
-	Object_wx_SizeEvent *pSelf = Object_wx_SizeEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetSize();
+	Object_wx_SizeEvent *pThis = Object_wx_SizeEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 

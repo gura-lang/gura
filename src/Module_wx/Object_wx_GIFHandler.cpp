@@ -45,7 +45,7 @@ Gura_ImplementFunction(GIFHandler)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GIFHandler *pEntity = new wx_GIFHandler();
-	Object_wx_GIFHandler *pObj = Object_wx_GIFHandler::GetSelfObj(args);
+	Object_wx_GIFHandler *pObj = Object_wx_GIFHandler::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GIFHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -53,7 +53,7 @@ Gura_ImplementFunction(GIFHandler)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

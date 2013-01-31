@@ -257,7 +257,7 @@ Gura_ImplementFunction(WindowEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Window *pEntity = new wx_Window();
-	Object_wx_Window *pObj = Object_wx_Window::GetSelfObj(args);
+	Object_wx_Window *pObj = Object_wx_Window::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Window(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -265,7 +265,7 @@ Gura_ImplementFunction(WindowEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Window)
@@ -295,7 +295,7 @@ Gura_ImplementFunction(Window)
 	wxString name = wxPanelNameStr;
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_Window *pEntity = new wx_Window(parent, id, *pos, *size, style, name);
-	Object_wx_Window *pObj = Object_wx_Window::GetSelfObj(args);
+	Object_wx_Window *pObj = Object_wx_Window::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Window(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -303,7 +303,7 @@ Gura_ImplementFunction(Window)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Window, AddChild)
@@ -314,10 +314,10 @@ Gura_DeclareMethod(wx_Window, AddChild)
 
 Gura_ImplementMethod(wx_Window, AddChild)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *child = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->AddChild(child);
+	pThis->GetEntity()->AddChild(child);
 	return Value::Null;
 }
 
@@ -329,10 +329,10 @@ Gura_DeclareMethod(wx_Window, CacheBestSize)
 
 Gura_ImplementMethod(wx_Window, CacheBestSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->CacheBestSize(*size);
+	pThis->GetEntity()->CacheBestSize(*size);
 	return Value::Null;
 }
 
@@ -343,9 +343,9 @@ Gura_DeclareMethod(wx_Window, CaptureMouse)
 
 Gura_ImplementMethod(wx_Window, CaptureMouse)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->CaptureMouse();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->CaptureMouse();
 	return Value::Null;
 }
 
@@ -357,10 +357,10 @@ Gura_DeclareMethod(wx_Window, Center)
 
 Gura_ImplementMethod(wx_Window, Center)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int direction = args.GetInt(0);
-	pSelf->GetEntity()->Center(direction);
+	pThis->GetEntity()->Center(direction);
 	return Value::Null;
 }
 
@@ -372,10 +372,10 @@ Gura_DeclareMethod(wx_Window, CenterOnParent)
 
 Gura_ImplementMethod(wx_Window, CenterOnParent)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int direction = args.GetInt(0);
-	pSelf->GetEntity()->CenterOnParent(direction);
+	pThis->GetEntity()->CenterOnParent(direction);
 	return Value::Null;
 }
 
@@ -390,10 +390,10 @@ Gura_DeclareMethod(wx_Window, CenterOnScreen)
 Gura_ImplementMethod(wx_Window, CenterOnScreen)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int direction = args.GetInt(0);
-	pSelf->GetEntity()->CenterOnScreen(direction);
+	pThis->GetEntity()->CenterOnScreen(direction);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -408,11 +408,11 @@ Gura_DeclareMethod(wx_Window, Centre)
 
 Gura_ImplementMethod(wx_Window, Centre)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int direction = wxBOTH;
 	if (args.IsValid(0)) direction = args.GetInt(0);
-	pSelf->GetEntity()->Centre(direction);
+	pThis->GetEntity()->Centre(direction);
 	return Value::Null;
 }
 
@@ -424,11 +424,11 @@ Gura_DeclareMethod(wx_Window, CentreOnParent)
 
 Gura_ImplementMethod(wx_Window, CentreOnParent)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int direction = wxBOTH;
 	if (args.IsValid(0)) direction = args.GetInt(0);
-	pSelf->GetEntity()->CentreOnParent(direction);
+	pThis->GetEntity()->CentreOnParent(direction);
 	return Value::Null;
 }
 
@@ -439,9 +439,9 @@ Gura_DeclareMethod(wx_Window, ClearBackground)
 
 Gura_ImplementMethod(wx_Window, ClearBackground)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->ClearBackground();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->ClearBackground();
 	return Value::Null;
 }
 
@@ -454,11 +454,11 @@ Gura_DeclareMethod(wx_Window, ClientToScreenXY)
 
 Gura_ImplementMethod(wx_Window, ClientToScreenXY)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
-	pSelf->GetEntity()->ClientToScreen(&x, &y);
+	pThis->GetEntity()->ClientToScreen(&x, &y);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y));
 }
 
@@ -471,10 +471,10 @@ Gura_DeclareMethod(wx_Window, ClientToScreen)
 
 Gura_ImplementMethod(wx_Window, ClientToScreen)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	wxPoint rtn = pSelf->GetEntity()->ClientToScreen(*pt);
+	wxPoint rtn = pThis->GetEntity()->ClientToScreen(*pt);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -487,10 +487,10 @@ Gura_DeclareMethod(wx_Window, ClientToWindowSize)
 
 Gura_ImplementMethod(wx_Window, ClientToWindowSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	wxSize rtn = pSelf->GetEntity()->ClientToWindowSize(*size);
+	wxSize rtn = pThis->GetEntity()->ClientToWindowSize(*size);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -503,11 +503,11 @@ Gura_DeclareMethod(wx_Window, Close)
 
 Gura_ImplementMethod(wx_Window, Close)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool force = false;
 	if (args.IsValid(0)) force = args.GetBoolean(0);
-	bool rtn = pSelf->GetEntity()->Close(force);
+	bool rtn = pThis->GetEntity()->Close(force);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -520,10 +520,10 @@ Gura_DeclareMethod(wx_Window, ConvertDialogPointToPixels)
 
 Gura_ImplementMethod(wx_Window, ConvertDialogPointToPixels)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	wxPoint rtn = pSelf->GetEntity()->ConvertDialogToPixels(*pt);
+	wxPoint rtn = pThis->GetEntity()->ConvertDialogToPixels(*pt);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -536,10 +536,10 @@ Gura_DeclareMethod(wx_Window, ConvertDialogSizeToPixels)
 
 Gura_ImplementMethod(wx_Window, ConvertDialogSizeToPixels)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *sz = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	wxSize rtn = pSelf->GetEntity()->ConvertDialogToPixels(*sz);
+	wxSize rtn = pThis->GetEntity()->ConvertDialogToPixels(*sz);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -552,10 +552,10 @@ Gura_DeclareMethod(wx_Window, ConvertPixelPointToDialog)
 
 Gura_ImplementMethod(wx_Window, ConvertPixelPointToDialog)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	wxPoint rtn = pSelf->GetEntity()->ConvertPixelsToDialog(*pt);
+	wxPoint rtn = pThis->GetEntity()->ConvertPixelsToDialog(*pt);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -568,10 +568,10 @@ Gura_DeclareMethod(wx_Window, ConvertPixelSizeToDialog)
 
 Gura_ImplementMethod(wx_Window, ConvertPixelSizeToDialog)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *sz = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	wxSize rtn = pSelf->GetEntity()->ConvertPixelsToDialog(*sz);
+	wxSize rtn = pThis->GetEntity()->ConvertPixelsToDialog(*sz);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -583,9 +583,9 @@ Gura_DeclareMethod(wx_Window, Destroy)
 
 Gura_ImplementMethod(wx_Window, Destroy)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Destroy();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Destroy();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -596,9 +596,9 @@ Gura_DeclareMethod(wx_Window, DestroyChildren)
 
 Gura_ImplementMethod(wx_Window, DestroyChildren)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->DestroyChildren();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->DestroyChildren();
 	return Value::Null;
 }
 
@@ -610,9 +610,9 @@ Gura_DeclareMethod(wx_Window, Disable)
 
 Gura_ImplementMethod(wx_Window, Disable)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Disable();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Disable();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -625,9 +625,9 @@ Gura_DeclareMethod(wx_Window, DoGetBestSize)
 Gura_ImplementMethod(wx_Window, DoGetBestSize)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->DoGetBestSize();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->DoGetBestSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
@@ -642,10 +642,10 @@ Gura_DeclareMethod(wx_Window, DoUpdateWindowUI)
 
 Gura_ImplementMethod(wx_Window, DoUpdateWindowUI)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxUpdateUIEvent *event = Object_wx_UpdateUIEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->DoUpdateWindowUI(*event);
+	pThis->GetEntity()->DoUpdateWindowUI(*event);
 	return Value::Null;
 }
 
@@ -657,10 +657,10 @@ Gura_DeclareMethod(wx_Window, DragAcceptFiles)
 
 Gura_ImplementMethod(wx_Window, DragAcceptFiles)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool accept = args.GetBoolean(0);
-	pSelf->GetEntity()->DragAcceptFiles(accept);
+	pThis->GetEntity()->DragAcceptFiles(accept);
 	return Value::Null;
 }
 
@@ -673,11 +673,11 @@ Gura_DeclareMethod(wx_Window, Enable)
 
 Gura_ImplementMethod(wx_Window, Enable)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool enable = true;
 	if (args.IsValid(0)) enable = args.GetBoolean(0);
-	bool rtn = pSelf->GetEntity()->Enable(enable);
+	bool rtn = pThis->GetEntity()->Enable(enable);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -705,10 +705,10 @@ Gura_DeclareMethod(wx_Window, FindWindowById)
 
 Gura_ImplementMethod(wx_Window, FindWindowById)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long id = args.GetLong(0);
-	wxWindow *rtn = (wxWindow *)pSelf->GetEntity()->FindWindow(id);
+	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->FindWindow(id);
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Window(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -723,10 +723,10 @@ Gura_DeclareMethod(wx_Window, FindWindowByName)
 
 Gura_ImplementMethod(wx_Window, FindWindowByName)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	wxWindow *rtn = (wxWindow *)pSelf->GetEntity()->FindWindow(name);
+	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->FindWindow(name);
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Window(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -803,9 +803,9 @@ Gura_DeclareMethod(wx_Window, Fit)
 
 Gura_ImplementMethod(wx_Window, Fit)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Fit();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Fit();
 	return Value::Null;
 }
 
@@ -816,9 +816,9 @@ Gura_DeclareMethod(wx_Window, FitInside)
 
 Gura_ImplementMethod(wx_Window, FitInside)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->FitInside();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->FitInside();
 	return Value::Null;
 }
 
@@ -829,9 +829,9 @@ Gura_DeclareMethod(wx_Window, Freeze)
 
 Gura_ImplementMethod(wx_Window, Freeze)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Freeze();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Freeze();
 	return Value::Null;
 }
 
@@ -843,9 +843,9 @@ Gura_DeclareMethod(wx_Window, GetAcceleratorTable)
 
 Gura_ImplementMethod(wx_Window, GetAcceleratorTable)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxAcceleratorTable *rtn = (wxAcceleratorTable *)pSelf->GetEntity()->GetAcceleratorTable();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxAcceleratorTable *rtn = (wxAcceleratorTable *)pThis->GetEntity()->GetAcceleratorTable();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_AcceleratorTable(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -860,9 +860,9 @@ Gura_DeclareMethod(wx_Window, GetAccessible)
 Gura_ImplementMethod(wx_Window, GetAccessible)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxAccessible *rtn = (wxAccessible *)pSelf->GetEntity()->GetAccessible();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxAccessible *rtn = (wxAccessible *)pThis->GetEntity()->GetAccessible();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Accessible(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -880,9 +880,9 @@ Gura_DeclareMethod(wx_Window, GetAdjustedBestSize)
 Gura_ImplementMethod(wx_Window, GetAdjustedBestSize)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetAdjustedBestSize();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetAdjustedBestSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
@@ -897,9 +897,9 @@ Gura_DeclareMethod(wx_Window, GetBackgroundColour)
 
 Gura_ImplementMethod(wx_Window, GetBackgroundColour)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxColour rtn = pSelf->GetEntity()->GetBackgroundColour();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxColour rtn = pThis->GetEntity()->GetBackgroundColour();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
 }
 
@@ -911,9 +911,9 @@ Gura_DeclareMethod(wx_Window, GetBackgroundStyle)
 
 Gura_ImplementMethod(wx_Window, GetBackgroundStyle)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxBackgroundStyle rtn = pSelf->GetEntity()->GetBackgroundStyle();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxBackgroundStyle rtn = pThis->GetEntity()->GetBackgroundStyle();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -925,9 +925,9 @@ Gura_DeclareMethod(wx_Window, GetEffectiveMinSize)
 
 Gura_ImplementMethod(wx_Window, GetEffectiveMinSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetEffectiveMinSize();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetEffectiveMinSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -939,9 +939,9 @@ Gura_DeclareMethod(wx_Window, GetBestSize)
 
 Gura_ImplementMethod(wx_Window, GetBestSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetBestSize();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetBestSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -968,9 +968,9 @@ Gura_DeclareMethod(wx_Window, GetCaret)
 
 Gura_ImplementMethod(wx_Window, GetCaret)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxCaret *rtn = (wxCaret *)pSelf->GetEntity()->GetCaret();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxCaret *rtn = (wxCaret *)pThis->GetEntity()->GetCaret();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Caret(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -984,9 +984,9 @@ Gura_DeclareMethod(wx_Window, GetCharHeight)
 
 Gura_ImplementMethod(wx_Window, GetCharHeight)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetCharHeight();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetCharHeight();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -998,9 +998,9 @@ Gura_DeclareMethod(wx_Window, GetCharWidth)
 
 Gura_ImplementMethod(wx_Window, GetCharWidth)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetCharWidth();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetCharWidth();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1012,9 +1012,9 @@ Gura_DeclareMethod(wx_Window, GetChildren)
 
 Gura_ImplementMethod(wx_Window, GetChildren)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxWindowList &rtn = pSelf->GetEntity()->GetChildren();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWindowList &rtn = pThis->GetEntity()->GetChildren();
 	Value result;
 	ValueList &valList = result.InitAsList(env);
 	valList.reserve(rtn.size());
@@ -1055,11 +1055,11 @@ Gura_DeclareMethod(wx_Window, GetClientSizeWH)
 
 Gura_ImplementMethod(wx_Window, GetClientSizeWH)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width;
 	int height;
-	pSelf->GetEntity()->GetClientSize(&width, &height);
+	pThis->GetEntity()->GetClientSize(&width, &height);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, width, height));
 }
 
@@ -1071,9 +1071,9 @@ Gura_DeclareMethod(wx_Window, GetClientSize)
 
 Gura_ImplementMethod(wx_Window, GetClientSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetClientSize();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetClientSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -1085,9 +1085,9 @@ Gura_DeclareMethod(wx_Window, GetConstraints)
 
 Gura_ImplementMethod(wx_Window, GetConstraints)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxLayoutConstraints *rtn = (wxLayoutConstraints *)pSelf->GetEntity()->GetConstraints();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxLayoutConstraints *rtn = (wxLayoutConstraints *)pThis->GetEntity()->GetConstraints();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_LayoutConstraints(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -1101,9 +1101,9 @@ Gura_DeclareMethod(wx_Window, GetContainingSizer)
 
 Gura_ImplementMethod(wx_Window, GetContainingSizer)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSizer *rtn = (wxSizer *)pSelf->GetEntity()->GetContainingSizer();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSizer *rtn = (wxSizer *)pThis->GetEntity()->GetContainingSizer();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Sizer(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -1117,9 +1117,9 @@ Gura_DeclareMethod(wx_Window, GetCursor)
 
 Gura_ImplementMethod(wx_Window, GetCursor)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxCursor &rtn = pSelf->GetEntity()->GetCursor();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxCursor &rtn = pThis->GetEntity()->GetCursor();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Cursor(new wxCursor(rtn), NULL, OwnerTrue)));
 }
 
@@ -1132,9 +1132,9 @@ Gura_DeclareMethod(wx_Window, GetDefaultAttributes)
 Gura_ImplementMethod(wx_Window, GetDefaultAttributes)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxVisualAttributes rtn = pSelf->GetEntity()->GetDefaultAttributes();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxVisualAttributes rtn = pThis->GetEntity()->GetDefaultAttributes();
 	return ReturnValue(env, sig, args, Value(new Object_wx_VisualAttributes(new wxVisualAttributes(rtn), NULL, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
@@ -1149,9 +1149,9 @@ Gura_DeclareMethod(wx_Window, GetDropTarget)
 
 Gura_ImplementMethod(wx_Window, GetDropTarget)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxDropTarget *rtn = (wxDropTarget *)pSelf->GetEntity()->GetDropTarget();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxDropTarget *rtn = (wxDropTarget *)pThis->GetEntity()->GetDropTarget();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_DropTarget(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -1165,9 +1165,9 @@ Gura_DeclareMethod(wx_Window, GetEventHandler)
 
 Gura_ImplementMethod(wx_Window, GetEventHandler)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxEvtHandler *rtn = (wxEvtHandler *)pSelf->GetEntity()->GetEventHandler();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxEvtHandler *rtn = (wxEvtHandler *)pThis->GetEntity()->GetEventHandler();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_EvtHandler(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -1181,9 +1181,9 @@ Gura_DeclareMethod(wx_Window, GetExtraStyle)
 
 Gura_ImplementMethod(wx_Window, GetExtraStyle)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	long rtn = pSelf->GetEntity()->GetExtraStyle();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	long rtn = pThis->GetEntity()->GetExtraStyle();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1195,9 +1195,9 @@ Gura_DeclareMethod(wx_Window, GetFont)
 
 Gura_ImplementMethod(wx_Window, GetFont)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxFont rtn = pSelf->GetEntity()->GetFont();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxFont rtn = pThis->GetEntity()->GetFont();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), NULL, OwnerTrue)));
 }
 
@@ -1209,9 +1209,9 @@ Gura_DeclareMethod(wx_Window, GetForegroundColour)
 
 Gura_ImplementMethod(wx_Window, GetForegroundColour)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxColour rtn = pSelf->GetEntity()->GetForegroundColour();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxColour rtn = pThis->GetEntity()->GetForegroundColour();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
 }
 
@@ -1223,9 +1223,9 @@ Gura_DeclareMethod(wx_Window, GetGrandParent)
 
 Gura_ImplementMethod(wx_Window, GetGrandParent)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxWindow *rtn = (wxWindow *)pSelf->GetEntity()->GetGrandParent();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetGrandParent();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Window(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -1239,9 +1239,9 @@ Gura_DeclareMethod(wx_Window, GetHandle)
 
 Gura_ImplementMethod(wx_Window, GetHandle)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	void *rtn = pSelf->GetEntity()->GetHandle();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	void *rtn = pThis->GetEntity()->GetHandle();
 	Value value;
 	if (rtn != NULL) value = Value(reinterpret_cast<int>(rtn));
 	return ReturnValue(env, sig, args, value);
@@ -1260,11 +1260,11 @@ Gura_DeclareMethod(wx_Window, GetHelpTextAtPoint)
 Gura_ImplementMethod(wx_Window, GetHelpTextAtPoint)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *point = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxHelpEvent *origin = Object_wx_HelpEvent::GetObject(args, 1)->GetEntity();
-	wxString rtn = pSelf->GetEntity()->GetHelpTextAtPoint(*point, *origin);
+	wxString rtn = pThis->GetEntity()->GetHelpTextAtPoint(*point, *origin);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
@@ -1279,9 +1279,9 @@ Gura_DeclareMethod(wx_Window, GetHelpText)
 
 Gura_ImplementMethod(wx_Window, GetHelpText)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetHelpText();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetHelpText();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -1293,9 +1293,9 @@ Gura_DeclareMethod(wx_Window, GetId)
 
 Gura_ImplementMethod(wx_Window, GetId)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetId();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetId();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1307,9 +1307,9 @@ Gura_DeclareMethod(wx_Window, GetLabel)
 
 Gura_ImplementMethod(wx_Window, GetLabel)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetLabel();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetLabel();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -1321,9 +1321,9 @@ Gura_DeclareMethod(wx_Window, GetMaxSize)
 
 Gura_ImplementMethod(wx_Window, GetMaxSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetMaxSize();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetMaxSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -1335,9 +1335,9 @@ Gura_DeclareMethod(wx_Window, GetMinSize)
 
 Gura_ImplementMethod(wx_Window, GetMinSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetMinSize();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetMinSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -1349,9 +1349,9 @@ Gura_DeclareMethod(wx_Window, GetName)
 
 Gura_ImplementMethod(wx_Window, GetName)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetName();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -1363,9 +1363,9 @@ Gura_DeclareMethod(wx_Window, GetNextSibling)
 
 Gura_ImplementMethod(wx_Window, GetNextSibling)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxWindow *rtn = (wxWindow *)pSelf->GetEntity()->GetNextSibling();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetNextSibling();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Window(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -1379,9 +1379,9 @@ Gura_DeclareMethod(wx_Window, GetParent)
 
 Gura_ImplementMethod(wx_Window, GetParent)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxWindow *rtn = (wxWindow *)pSelf->GetEntity()->GetParent();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetParent();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Window(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -1395,11 +1395,11 @@ Gura_DeclareMethod(wx_Window, GetPositionXY)
 
 Gura_ImplementMethod(wx_Window, GetPositionXY)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x;
 	int y;
-	pSelf->GetEntity()->GetPosition(&x, &y);
+	pThis->GetEntity()->GetPosition(&x, &y);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y));
 }
 
@@ -1411,9 +1411,9 @@ Gura_DeclareMethod(wx_Window, GetPosition)
 
 Gura_ImplementMethod(wx_Window, GetPosition)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPoint rtn = pSelf->GetEntity()->GetPosition();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPoint rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -1425,9 +1425,9 @@ Gura_DeclareMethod(wx_Window, GetPrevSibling)
 
 Gura_ImplementMethod(wx_Window, GetPrevSibling)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxWindow *rtn = (wxWindow *)pSelf->GetEntity()->GetPrevSibling();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetPrevSibling();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Window(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -1441,9 +1441,9 @@ Gura_DeclareMethod(wx_Window, GetRect)
 
 Gura_ImplementMethod(wx_Window, GetRect)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxRect rtn = pSelf->GetEntity()->GetRect();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxRect rtn = pThis->GetEntity()->GetRect();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 }
 
@@ -1455,11 +1455,11 @@ Gura_DeclareMethod(wx_Window, GetScreenPositionXY)
 
 Gura_ImplementMethod(wx_Window, GetScreenPositionXY)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x;
 	int y;
-	pSelf->GetEntity()->GetScreenPosition(&x, &y);
+	pThis->GetEntity()->GetScreenPosition(&x, &y);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y));
 }
 
@@ -1471,9 +1471,9 @@ Gura_DeclareMethod(wx_Window, GetScreenPosition)
 
 Gura_ImplementMethod(wx_Window, GetScreenPosition)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPoint rtn = pSelf->GetEntity()->GetScreenPosition();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPoint rtn = pThis->GetEntity()->GetScreenPosition();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -1485,9 +1485,9 @@ Gura_DeclareMethod(wx_Window, GetScreenRect)
 
 Gura_ImplementMethod(wx_Window, GetScreenRect)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxRect rtn = pSelf->GetEntity()->GetScreenRect();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxRect rtn = pThis->GetEntity()->GetScreenRect();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 }
 
@@ -1500,10 +1500,10 @@ Gura_DeclareMethod(wx_Window, GetScrollPos)
 
 Gura_ImplementMethod(wx_Window, GetScrollPos)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int orientation = args.GetInt(0);
-	int rtn = pSelf->GetEntity()->GetScrollPos(orientation);
+	int rtn = pThis->GetEntity()->GetScrollPos(orientation);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1516,10 +1516,10 @@ Gura_DeclareMethod(wx_Window, GetScrollRange)
 
 Gura_ImplementMethod(wx_Window, GetScrollRange)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int orientation = args.GetInt(0);
-	int rtn = pSelf->GetEntity()->GetScrollRange(orientation);
+	int rtn = pThis->GetEntity()->GetScrollRange(orientation);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1532,10 +1532,10 @@ Gura_DeclareMethod(wx_Window, GetScrollThumb)
 
 Gura_ImplementMethod(wx_Window, GetScrollThumb)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int orientation = args.GetInt(0);
-	int rtn = pSelf->GetEntity()->GetScrollThumb(orientation);
+	int rtn = pThis->GetEntity()->GetScrollThumb(orientation);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1547,11 +1547,11 @@ Gura_DeclareMethod(wx_Window, GetSizeWH)
 
 Gura_ImplementMethod(wx_Window, GetSizeWH)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width;
 	int height;
-	pSelf->GetEntity()->GetSize(&width, &height);
+	pThis->GetEntity()->GetSize(&width, &height);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, width, height));
 }
 
@@ -1563,9 +1563,9 @@ Gura_DeclareMethod(wx_Window, GetSize)
 
 Gura_ImplementMethod(wx_Window, GetSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetSize();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -1577,9 +1577,9 @@ Gura_DeclareMethod(wx_Window, GetSizer)
 
 Gura_ImplementMethod(wx_Window, GetSizer)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSizer *rtn = (wxSizer *)pSelf->GetEntity()->GetSizer();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSizer *rtn = (wxSizer *)pThis->GetEntity()->GetSizer();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Sizer(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -1595,8 +1595,8 @@ Gura_DeclareMethod(wx_Window, GetTextExtent)
 
 Gura_ImplementMethod(wx_Window, GetTextExtent)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));
 	wxFont *font = (wxFont *)(NULL);
 	if (args.IsValid(1)) font = Object_wx_Font::GetObject(args, 1)->GetEntity();
@@ -1604,7 +1604,7 @@ Gura_ImplementMethod(wx_Window, GetTextExtent)
 	int y;
 	int descent;
 	int externalLeading;
-	pSelf->GetEntity()->GetTextExtent(string, &x, &y, &descent, &externalLeading, font);
+	pThis->GetEntity()->GetTextExtent(string, &x, &y, &descent, &externalLeading, font);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y, descent, externalLeading));
 }
 
@@ -1616,9 +1616,9 @@ Gura_DeclareMethod(wx_Window, GetToolTip)
 
 Gura_ImplementMethod(wx_Window, GetToolTip)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxToolTip *rtn = (wxToolTip *)pSelf->GetEntity()->GetToolTip();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxToolTip *rtn = (wxToolTip *)pThis->GetEntity()->GetToolTip();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_ToolTip(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -1632,9 +1632,9 @@ Gura_DeclareMethod(wx_Window, GetUpdateRegion)
 
 Gura_ImplementMethod(wx_Window, GetUpdateRegion)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxRegion rtn = pSelf->GetEntity()->GetUpdateRegion();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxRegion rtn = pThis->GetEntity()->GetUpdateRegion();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Region(new wxRegion(rtn), NULL, OwnerTrue)));
 }
 
@@ -1646,9 +1646,9 @@ Gura_DeclareMethod(wx_Window, GetValidator)
 
 Gura_ImplementMethod(wx_Window, GetValidator)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxValidator *rtn = (wxValidator *)pSelf->GetEntity()->GetValidator();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxValidator *rtn = (wxValidator *)pThis->GetEntity()->GetValidator();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Validator(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -1662,11 +1662,11 @@ Gura_DeclareMethod(wx_Window, GetVirtualSizeWH)
 
 Gura_ImplementMethod(wx_Window, GetVirtualSizeWH)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width;
 	int height;
-	pSelf->GetEntity()->GetVirtualSize(&width, &height);
+	pThis->GetEntity()->GetVirtualSize(&width, &height);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, width, height));
 }
 
@@ -1678,9 +1678,9 @@ Gura_DeclareMethod(wx_Window, GetVirtualSize)
 
 Gura_ImplementMethod(wx_Window, GetVirtualSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetVirtualSize();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetVirtualSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -1692,9 +1692,9 @@ Gura_DeclareMethod(wx_Window, GetWindowBorderSize)
 
 Gura_ImplementMethod(wx_Window, GetWindowBorderSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetWindowBorderSize();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetWindowBorderSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -1706,9 +1706,9 @@ Gura_DeclareMethod(wx_Window, GetWindowStyleFlag)
 
 Gura_ImplementMethod(wx_Window, GetWindowStyleFlag)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	long rtn = pSelf->GetEntity()->GetWindowStyleFlag();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	long rtn = pThis->GetEntity()->GetWindowStyleFlag();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1720,9 +1720,9 @@ Gura_DeclareMethod(wx_Window, GetWindowVariant)
 
 Gura_ImplementMethod(wx_Window, GetWindowVariant)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxWindowVariant rtn = pSelf->GetEntity()->GetWindowVariant();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWindowVariant rtn = pThis->GetEntity()->GetWindowVariant();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1734,9 +1734,9 @@ Gura_DeclareMethod(wx_Window, HasCapture)
 
 Gura_ImplementMethod(wx_Window, HasCapture)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasCapture();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasCapture();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1749,10 +1749,10 @@ Gura_DeclareMethod(wx_Window, HasFlag)
 
 Gura_ImplementMethod(wx_Window, HasFlag)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int flag = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->HasFlag(flag);
+	bool rtn = pThis->GetEntity()->HasFlag(flag);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1764,9 +1764,9 @@ Gura_DeclareMethod(wx_Window, HasMultiplePages)
 
 Gura_ImplementMethod(wx_Window, HasMultiplePages)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasMultiplePages();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasMultiplePages();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1779,10 +1779,10 @@ Gura_DeclareMethod(wx_Window, HasScrollbar)
 
 Gura_ImplementMethod(wx_Window, HasScrollbar)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int orient = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->HasScrollbar(orient);
+	bool rtn = pThis->GetEntity()->HasScrollbar(orient);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1794,9 +1794,9 @@ Gura_DeclareMethod(wx_Window, HasTransparentBackground)
 
 Gura_ImplementMethod(wx_Window, HasTransparentBackground)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasTransparentBackground();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasTransparentBackground();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1808,9 +1808,9 @@ Gura_DeclareMethod(wx_Window, Hide)
 
 Gura_ImplementMethod(wx_Window, Hide)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Hide();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Hide();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1821,9 +1821,9 @@ Gura_DeclareMethod(wx_Window, InheritAttributes)
 
 Gura_ImplementMethod(wx_Window, InheritAttributes)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->InheritAttributes();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->InheritAttributes();
 	return Value::Null;
 }
 
@@ -1834,9 +1834,9 @@ Gura_DeclareMethod(wx_Window, InitDialog)
 
 Gura_ImplementMethod(wx_Window, InitDialog)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->InitDialog();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->InitDialog();
 	return Value::Null;
 }
 
@@ -1847,9 +1847,9 @@ Gura_DeclareMethod(wx_Window, InvalidateBestSize)
 
 Gura_ImplementMethod(wx_Window, InvalidateBestSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->InvalidateBestSize();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->InvalidateBestSize();
 	return Value::Null;
 }
 
@@ -1861,9 +1861,9 @@ Gura_DeclareMethod(wx_Window, IsDoubleBuffered)
 
 Gura_ImplementMethod(wx_Window, IsDoubleBuffered)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsDoubleBuffered();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsDoubleBuffered();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1875,9 +1875,9 @@ Gura_DeclareMethod(wx_Window, IsEnabled)
 
 Gura_ImplementMethod(wx_Window, IsEnabled)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsEnabled();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsEnabled();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1893,17 +1893,17 @@ Gura_DeclareMethod(wx_Window, IsExposed)
 
 Gura_ImplementMethod(wx_Window, IsExposed)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	bool rtn = false;
 	if (args.IsNumber(2) && args.IsNumber(3)) {
 		int w = args.GetInt(2);
 		int h = args.GetInt(3);
-		rtn = pSelf->GetEntity()->IsExposed(x, y, w, h);
+		rtn = pThis->GetEntity()->IsExposed(x, y, w, h);
 	} else {
-		rtn = pSelf->GetEntity()->IsExposed(x, y);
+		rtn = pThis->GetEntity()->IsExposed(x, y);
 	}
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -1917,10 +1917,10 @@ Gura_DeclareMethod(wx_Window, IsExposedPoint)
 
 Gura_ImplementMethod(wx_Window, IsExposedPoint)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->IsExposed(*pt);
+	bool rtn = pThis->GetEntity()->IsExposed(*pt);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1933,10 +1933,10 @@ Gura_DeclareMethod(wx_Window, IsExposedRect)
 
 Gura_ImplementMethod(wx_Window, IsExposedRect)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->IsExposed(*rect);
+	bool rtn = pThis->GetEntity()->IsExposed(*rect);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1948,9 +1948,9 @@ Gura_DeclareMethod(wx_Window, IsFrozen)
 
 Gura_ImplementMethod(wx_Window, IsFrozen)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsFrozen();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsFrozen();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1962,9 +1962,9 @@ Gura_DeclareMethod(wx_Window, IsRetained)
 
 Gura_ImplementMethod(wx_Window, IsRetained)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsRetained();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsRetained();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1976,9 +1976,9 @@ Gura_DeclareMethod(wx_Window, IsShown)
 
 Gura_ImplementMethod(wx_Window, IsShown)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsShown();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsShown();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1990,9 +1990,9 @@ Gura_DeclareMethod(wx_Window, IsShownOnScreen)
 
 Gura_ImplementMethod(wx_Window, IsShownOnScreen)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsShownOnScreen();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsShownOnScreen();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -2004,9 +2004,9 @@ Gura_DeclareMethod(wx_Window, IsTopLevel)
 
 Gura_ImplementMethod(wx_Window, IsTopLevel)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsTopLevel();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsTopLevel();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -2017,9 +2017,9 @@ Gura_DeclareMethod(wx_Window, Layout)
 
 Gura_ImplementMethod(wx_Window, Layout)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Layout();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Layout();
 	return Value::Null;
 }
 
@@ -2030,9 +2030,9 @@ Gura_DeclareMethod(wx_Window, Lower)
 
 Gura_ImplementMethod(wx_Window, Lower)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Lower();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Lower();
 	return Value::Null;
 }
 
@@ -2044,10 +2044,10 @@ Gura_DeclareMethod(wx_Window, MakeModal)
 
 Gura_ImplementMethod(wx_Window, MakeModal)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool flag = args.GetBoolean(0);
-	pSelf->GetEntity()->MakeModal(flag);
+	pThis->GetEntity()->MakeModal(flag);
 	return Value::Null;
 }
 
@@ -2060,11 +2060,11 @@ Gura_DeclareMethod(wx_Window, MoveXY)
 
 Gura_ImplementMethod(wx_Window, MoveXY)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
-	pSelf->GetEntity()->Move(x, y);
+	pThis->GetEntity()->Move(x, y);
 	return Value::Null;
 }
 
@@ -2076,10 +2076,10 @@ Gura_DeclareMethod(wx_Window, Move)
 
 Gura_ImplementMethod(wx_Window, Move)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->Move(*pt);
+	pThis->GetEntity()->Move(*pt);
 	return Value::Null;
 }
 
@@ -2091,10 +2091,10 @@ Gura_DeclareMethod(wx_Window, MoveAfterInTabOrder)
 
 Gura_ImplementMethod(wx_Window, MoveAfterInTabOrder)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->MoveAfterInTabOrder(win);
+	pThis->GetEntity()->MoveAfterInTabOrder(win);
 	return Value::Null;
 }
 
@@ -2106,10 +2106,10 @@ Gura_DeclareMethod(wx_Window, MoveBeforeInTabOrder)
 
 Gura_ImplementMethod(wx_Window, MoveBeforeInTabOrder)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->MoveBeforeInTabOrder(win);
+	pThis->GetEntity()->MoveBeforeInTabOrder(win);
 	return Value::Null;
 }
 
@@ -2122,11 +2122,11 @@ Gura_DeclareMethod(wx_Window, Navigate)
 
 Gura_ImplementMethod(wx_Window, Navigate)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int flags = wxNavigationKeyEvent::IsForward;
 	if (args.IsValid(0)) flags = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->Navigate(flags);
+	bool rtn = pThis->GetEntity()->Navigate(flags);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -2141,10 +2141,10 @@ Gura_DeclareMethod(wx_Window, OnActivate)
 Gura_ImplementMethod(wx_Window, OnActivate)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxActivateEvent *event = Object_wx_ActivateEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnActivate(*event);
+	pThis->GetEntity()->OnActivate(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2162,10 +2162,10 @@ Gura_DeclareMethod(wx_Window, OnChar)
 Gura_ImplementMethod(wx_Window, OnChar)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxKeyEvent *event = Object_wx_KeyEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnChar(*event);
+	pThis->GetEntity()->OnChar(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2183,10 +2183,10 @@ Gura_DeclareMethod(wx_Window, OnCharHook)
 Gura_ImplementMethod(wx_Window, OnCharHook)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxKeyEvent *event = Object_wx_KeyEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnCharHook(*event);
+	pThis->GetEntity()->OnCharHook(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2205,11 +2205,11 @@ Gura_DeclareMethod(wx_Window, OnCommand)
 Gura_ImplementMethod(wx_Window, OnCommand)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEvtHandler *object = Object_wx_EvtHandler::GetObject(args, 0)->GetEntity();
 	wxCommandEvent *event = Object_wx_CommandEvent::GetObject(args, 1)->GetEntity();
-	pSelf->GetEntity()->OnCommand(*object, *event);
+	pThis->GetEntity()->OnCommand(*object, *event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2225,9 +2225,9 @@ Gura_DeclareMethod(wx_Window, OnClose)
 Gura_ImplementMethod(wx_Window, OnClose)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->OnClose();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->OnClose();
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -2245,10 +2245,10 @@ Gura_DeclareMethod(wx_Window, OnKeyDown)
 Gura_ImplementMethod(wx_Window, OnKeyDown)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxKeyEvent *event = Object_wx_KeyEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnKeyDown(*event);
+	pThis->GetEntity()->OnKeyDown(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2266,10 +2266,10 @@ Gura_DeclareMethod(wx_Window, OnKeyUp)
 Gura_ImplementMethod(wx_Window, OnKeyUp)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxKeyEvent *event = Object_wx_KeyEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnKeyUp(*event);
+	pThis->GetEntity()->OnKeyUp(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2287,10 +2287,10 @@ Gura_DeclareMethod(wx_Window, OnInitDialog)
 Gura_ImplementMethod(wx_Window, OnInitDialog)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxInitDialogEvent *event = Object_wx_InitDialogEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnInitDialog(*event);
+	pThis->GetEntity()->OnInitDialog(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2308,10 +2308,10 @@ Gura_DeclareMethod(wx_Window, OnMenuHighlight)
 Gura_ImplementMethod(wx_Window, OnMenuHighlight)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenuEvent *event = Object_wx_MenuEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnMenuHighlight(*event);
+	pThis->GetEntity()->OnMenuHighlight(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2329,10 +2329,10 @@ Gura_DeclareMethod(wx_Window, OnMouseEvent)
 Gura_ImplementMethod(wx_Window, OnMouseEvent)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMouseEvent *event = Object_wx_MouseEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnMouseEvent(*event);
+	pThis->GetEntity()->OnMouseEvent(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2350,10 +2350,10 @@ Gura_DeclareMethod(wx_Window, OnMove)
 Gura_ImplementMethod(wx_Window, OnMove)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMoveEvent *event = Object_wx_MoveEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnMove(*event);
+	pThis->GetEntity()->OnMove(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2371,10 +2371,10 @@ Gura_DeclareMethod(wx_Window, OnPaint)
 Gura_ImplementMethod(wx_Window, OnPaint)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPaintEvent *event = Object_wx_PaintEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnPaint(*event);
+	pThis->GetEntity()->OnPaint(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2392,10 +2392,10 @@ Gura_DeclareMethod(wx_Window, OnScroll)
 Gura_ImplementMethod(wx_Window, OnScroll)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxScrollWinEvent *event = Object_wx_ScrollWinEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnScroll(*event);
+	pThis->GetEntity()->OnScroll(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2413,10 +2413,10 @@ Gura_DeclareMethod(wx_Window, OnSetFocus)
 Gura_ImplementMethod(wx_Window, OnSetFocus)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFocusEvent *event = Object_wx_FocusEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnSetFocus(*event);
+	pThis->GetEntity()->OnSetFocus(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2434,10 +2434,10 @@ Gura_DeclareMethod(wx_Window, OnSize)
 Gura_ImplementMethod(wx_Window, OnSize)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizeEvent *event = Object_wx_SizeEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnSize(*event);
+	pThis->GetEntity()->OnSize(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2455,10 +2455,10 @@ Gura_DeclareMethod(wx_Window, OnSysColourChanged)
 Gura_ImplementMethod(wx_Window, OnSysColourChanged)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxOnSysColourChangedEvent *event = Object_wx_OnSysColourChangedEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnSysColourChanged(*event);
+	pThis->GetEntity()->OnSysColourChanged(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2473,9 +2473,9 @@ Gura_DeclareMethod(wx_Window, OnInternalIdle)
 Gura_ImplementMethod(wx_Window, OnInternalIdle)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->OnInternalIdle();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->OnInternalIdle();
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2491,11 +2491,11 @@ Gura_DeclareMethod(wx_Window, PopEventHandler)
 
 Gura_ImplementMethod(wx_Window, PopEventHandler)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool deleteHandler = false;
 	if (args.IsValid(0)) deleteHandler = args.GetBoolean(0);
-	wxEvtHandler *rtn = (wxEvtHandler *)pSelf->GetEntity()->PopEventHandler(deleteHandler);
+	wxEvtHandler *rtn = (wxEvtHandler *)pThis->GetEntity()->PopEventHandler(deleteHandler);
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_EvtHandler(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -2511,12 +2511,12 @@ Gura_DeclareMethod(wx_Window, PopupMenu)
 
 Gura_ImplementMethod(wx_Window, PopupMenu)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *menu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
 	if (args.IsValid(1)) pos = Object_wx_Point::GetObject(args, 1)->GetEntity();
-	bool rtn = pSelf->GetEntity()->PopupMenu(menu, *pos);
+	bool rtn = pThis->GetEntity()->PopupMenu(menu, *pos);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -2531,12 +2531,12 @@ Gura_DeclareMethod(wx_Window, PopupMenuXY)
 
 Gura_ImplementMethod(wx_Window, PopupMenuXY)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *menu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
-	bool rtn = pSelf->GetEntity()->PopupMenu(menu, x, y);
+	bool rtn = pThis->GetEntity()->PopupMenu(menu, x, y);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -2548,10 +2548,10 @@ Gura_DeclareMethod(wx_Window, PushEventHandler)
 
 Gura_ImplementMethod(wx_Window, PushEventHandler)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEvtHandler *handler = Object_wx_EvtHandler::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->PushEventHandler(handler);
+	pThis->GetEntity()->PushEventHandler(handler);
 	return Value::Null;
 }
 
@@ -2562,9 +2562,9 @@ Gura_DeclareMethod(wx_Window, Raise)
 
 Gura_ImplementMethod(wx_Window, Raise)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Raise();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Raise();
 	return Value::Null;
 }
 
@@ -2577,13 +2577,13 @@ Gura_DeclareMethod(wx_Window, Refresh)
 
 Gura_ImplementMethod(wx_Window, Refresh)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool eraseBackground = true;
 	if (args.IsValid(0)) eraseBackground = args.GetBoolean(0);
 	wxRect *rect = (wxRect *)(NULL);
 	if (args.IsValid(1)) rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
-	pSelf->GetEntity()->Refresh(eraseBackground, rect);
+	pThis->GetEntity()->Refresh(eraseBackground, rect);
 	return Value::Null;
 }
 
@@ -2596,12 +2596,12 @@ Gura_DeclareMethod(wx_Window, RefreshRect)
 
 Gura_ImplementMethod(wx_Window, RefreshRect)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	bool eraseBackground = true;
 	if (args.IsValid(1)) eraseBackground = args.GetBoolean(1);
-	pSelf->GetEntity()->RefreshRect(*rect, eraseBackground);
+	pThis->GetEntity()->RefreshRect(*rect, eraseBackground);
 	return Value::Null;
 }
 
@@ -2617,12 +2617,12 @@ Gura_DeclareMethod(wx_Window, RegisterHotKey)
 Gura_ImplementMethod(wx_Window, RegisterHotKey)
 {
 #if defined(__WXMSW__)
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int hotkeyId = args.GetInt(0);
 	int modifiers = args.GetInt(1);
 	int virtualKeyCode = args.GetInt(2);
-	bool rtn = pSelf->GetEntity()->RegisterHotKey(hotkeyId, modifiers, virtualKeyCode);
+	bool rtn = pThis->GetEntity()->RegisterHotKey(hotkeyId, modifiers, virtualKeyCode);
 	return ReturnValue(env, sig, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
@@ -2637,9 +2637,9 @@ Gura_DeclareMethod(wx_Window, ReleaseMouse)
 
 Gura_ImplementMethod(wx_Window, ReleaseMouse)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->ReleaseMouse();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->ReleaseMouse();
 	return Value::Null;
 }
 
@@ -2651,10 +2651,10 @@ Gura_DeclareMethod(wx_Window, RemoveChild)
 
 Gura_ImplementMethod(wx_Window, RemoveChild)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *child = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->RemoveChild(child);
+	pThis->GetEntity()->RemoveChild(child);
 	return Value::Null;
 }
 
@@ -2667,10 +2667,10 @@ Gura_DeclareMethod(wx_Window, RemoveEventHandler)
 
 Gura_ImplementMethod(wx_Window, RemoveEventHandler)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEvtHandler *handler = Object_wx_EvtHandler::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->RemoveEventHandler(handler);
+	bool rtn = pThis->GetEntity()->RemoveEventHandler(handler);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -2683,10 +2683,10 @@ Gura_DeclareMethod(wx_Window, Reparent)
 
 Gura_ImplementMethod(wx_Window, Reparent)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *newParent = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Reparent(newParent);
+	bool rtn = pThis->GetEntity()->Reparent(newParent);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -2700,11 +2700,11 @@ Gura_DeclareMethod(wx_Window, ScreenToClientXY)
 
 Gura_ImplementMethod(wx_Window, ScreenToClientXY)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
-	pSelf->GetEntity()->ScreenToClient(&x, &y);
+	pThis->GetEntity()->ScreenToClient(&x, &y);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y));
 }
 
@@ -2717,10 +2717,10 @@ Gura_DeclareMethod(wx_Window, ScreenToClient)
 
 Gura_ImplementMethod(wx_Window, ScreenToClient)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	wxPoint rtn = pSelf->GetEntity()->ScreenToClient(*pt);
+	wxPoint rtn = pThis->GetEntity()->ScreenToClient(*pt);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -2733,10 +2733,10 @@ Gura_DeclareMethod(wx_Window, ScrollLines)
 
 Gura_ImplementMethod(wx_Window, ScrollLines)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int lines = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->ScrollLines(lines);
+	bool rtn = pThis->GetEntity()->ScrollLines(lines);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -2749,10 +2749,10 @@ Gura_DeclareMethod(wx_Window, ScrollPages)
 
 Gura_ImplementMethod(wx_Window, ScrollPages)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pages = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->ScrollPages(pages);
+	bool rtn = pThis->GetEntity()->ScrollPages(pages);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -2766,13 +2766,13 @@ Gura_DeclareMethod(wx_Window, ScrollWindow)
 
 Gura_ImplementMethod(wx_Window, ScrollWindow)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int dx = args.GetInt(0);
 	int dy = args.GetInt(1);
 	wxRect *rect = (wxRect *)(NULL);
 	if (args.IsValid(2)) rect = Object_wx_Rect::GetObject(args, 2)->GetEntity();
-	pSelf->GetEntity()->ScrollWindow(dx, dy, rect);
+	pThis->GetEntity()->ScrollWindow(dx, dy, rect);
 	return Value::Null;
 }
 
@@ -2784,10 +2784,10 @@ Gura_DeclareMethod(wx_Window, SetAcceleratorTable)
 
 Gura_ImplementMethod(wx_Window, SetAcceleratorTable)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAcceleratorTable *accel = Object_wx_AcceleratorTable::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetAcceleratorTable(*accel);
+	pThis->GetEntity()->SetAcceleratorTable(*accel);
 	return Value::Null;
 }
 
@@ -2802,10 +2802,10 @@ Gura_DeclareMethod(wx_Window, SetAccessible)
 Gura_ImplementMethod(wx_Window, SetAccessible)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAccessible *accessible = Object_wx_Accessible::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetAccessible(accessible);
+	pThis->GetEntity()->SetAccessible(accessible);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -2820,10 +2820,10 @@ Gura_DeclareMethod(wx_Window, SetAutoLayout)
 
 Gura_ImplementMethod(wx_Window, SetAutoLayout)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool autoLayout = args.GetBoolean(0);
-	pSelf->GetEntity()->SetAutoLayout(autoLayout);
+	pThis->GetEntity()->SetAutoLayout(autoLayout);
 	return Value::Null;
 }
 
@@ -2836,10 +2836,10 @@ Gura_DeclareMethod(wx_Window, SetBackgroundColour)
 
 Gura_ImplementMethod(wx_Window, SetBackgroundColour)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->SetBackgroundColour(*colour);
+	bool rtn = pThis->GetEntity()->SetBackgroundColour(*colour);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -2851,10 +2851,10 @@ Gura_DeclareMethod(wx_Window, SetBackgroundStyle)
 
 Gura_ImplementMethod(wx_Window, SetBackgroundStyle)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBackgroundStyle style = static_cast<wxBackgroundStyle>(args.GetInt(0));
-	pSelf->GetEntity()->SetBackgroundStyle(style);
+	pThis->GetEntity()->SetBackgroundStyle(style);
 	return Value::Null;
 }
 
@@ -2866,11 +2866,11 @@ Gura_DeclareMethod(wx_Window, SetInitialSize)
 
 Gura_ImplementMethod(wx_Window, SetInitialSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(0)) size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetInitialSize(*size);
+	pThis->GetEntity()->SetInitialSize(*size);
 	return Value::Null;
 }
 
@@ -2882,10 +2882,10 @@ Gura_DeclareMethod(wx_Window, SetCaret)
 
 Gura_ImplementMethod(wx_Window, SetCaret)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCaret *caret = Object_wx_Caret::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetCaret(caret);
+	pThis->GetEntity()->SetCaret(caret);
 	return Value::Null;
 }
 
@@ -2898,11 +2898,11 @@ Gura_DeclareMethod(wx_Window, SetClientSizeWH)
 
 Gura_ImplementMethod(wx_Window, SetClientSizeWH)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
-	pSelf->GetEntity()->SetClientSize(width, height);
+	pThis->GetEntity()->SetClientSize(width, height);
 	return Value::Null;
 }
 
@@ -2914,10 +2914,10 @@ Gura_DeclareMethod(wx_Window, SetClientSize)
 
 Gura_ImplementMethod(wx_Window, SetClientSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetClientSize(*size);
+	pThis->GetEntity()->SetClientSize(*size);
 	return Value::Null;
 }
 
@@ -2929,10 +2929,10 @@ Gura_DeclareMethod(wx_Window, SetConstraints)
 
 Gura_ImplementMethod(wx_Window, SetConstraints)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLayoutConstraints *constraints = Object_wx_LayoutConstraints::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetConstraints(constraints);
+	pThis->GetEntity()->SetConstraints(constraints);
 	return Value::Null;
 }
 
@@ -2944,10 +2944,10 @@ Gura_DeclareMethod(wx_Window, SetContainingSizer)
 
 Gura_ImplementMethod(wx_Window, SetContainingSizer)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetContainingSizer(sizer);
+	pThis->GetEntity()->SetContainingSizer(sizer);
 	return Value::Null;
 }
 
@@ -2959,10 +2959,10 @@ Gura_DeclareMethod(wx_Window, SetCursor)
 
 Gura_ImplementMethod(wx_Window, SetCursor)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCursor *cursor = Object_wx_Cursor::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetCursor(*cursor);
+	pThis->GetEntity()->SetCursor(*cursor);
 	return Value::Null;
 }
 
@@ -2974,10 +2974,10 @@ Gura_DeclareMethod(wx_Window, SetDropTarget)
 
 Gura_ImplementMethod(wx_Window, SetDropTarget)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDropTarget *target = Object_wx_DropTarget::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetDropTarget(target);
+	pThis->GetEntity()->SetDropTarget(target);
 	return Value::Null;
 }
 
@@ -2992,10 +2992,10 @@ Gura_DeclareMethod(wx_Window, SetInitialBestSize)
 Gura_ImplementMethod(wx_Window, SetInitialBestSize)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetInitialBestSize(*size);
+	pThis->GetEntity()->SetInitialBestSize(*size);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -3010,10 +3010,10 @@ Gura_DeclareMethod(wx_Window, SetEventHandler)
 
 Gura_ImplementMethod(wx_Window, SetEventHandler)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEvtHandler *handler = Object_wx_EvtHandler::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetEventHandler(handler);
+	pThis->GetEntity()->SetEventHandler(handler);
 	return Value::Null;
 }
 
@@ -3025,10 +3025,10 @@ Gura_DeclareMethod(wx_Window, SetExtraStyle)
 
 Gura_ImplementMethod(wx_Window, SetExtraStyle)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long exStyle = args.GetLong(0);
-	pSelf->GetEntity()->SetExtraStyle(exStyle);
+	pThis->GetEntity()->SetExtraStyle(exStyle);
 	return Value::Null;
 }
 
@@ -3039,9 +3039,9 @@ Gura_DeclareMethod(wx_Window, SetFocus)
 
 Gura_ImplementMethod(wx_Window, SetFocus)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->SetFocus();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->SetFocus();
 	return Value::Null;
 }
 
@@ -3052,9 +3052,9 @@ Gura_DeclareMethod(wx_Window, SetFocusFromKbd)
 
 Gura_ImplementMethod(wx_Window, SetFocusFromKbd)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->SetFocusFromKbd();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->SetFocusFromKbd();
 	return Value::Null;
 }
 
@@ -3066,10 +3066,10 @@ Gura_DeclareMethod(wx_Window, SetFont)
 
 Gura_ImplementMethod(wx_Window, SetFont)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetFont(*font);
+	pThis->GetEntity()->SetFont(*font);
 	return Value::Null;
 }
 
@@ -3081,10 +3081,10 @@ Gura_DeclareMethod(wx_Window, SetForegroundColour)
 
 Gura_ImplementMethod(wx_Window, SetForegroundColour)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetForegroundColour(*colour);
+	pThis->GetEntity()->SetForegroundColour(*colour);
 	return Value::Null;
 }
 
@@ -3096,10 +3096,10 @@ Gura_DeclareMethod(wx_Window, SetHelpText)
 
 Gura_ImplementMethod(wx_Window, SetHelpText)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString helpText = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetHelpText(helpText);
+	pThis->GetEntity()->SetHelpText(helpText);
 	return Value::Null;
 }
 
@@ -3111,10 +3111,10 @@ Gura_DeclareMethod(wx_Window, SetId)
 
 Gura_ImplementMethod(wx_Window, SetId)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
-	pSelf->GetEntity()->SetId(id);
+	pThis->GetEntity()->SetId(id);
 	return Value::Null;
 }
 
@@ -3126,10 +3126,10 @@ Gura_DeclareMethod(wx_Window, SetLabel)
 
 Gura_ImplementMethod(wx_Window, SetLabel)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString label = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetLabel(label);
+	pThis->GetEntity()->SetLabel(label);
 	return Value::Null;
 }
 
@@ -3141,10 +3141,10 @@ Gura_DeclareMethod(wx_Window, SetMaxSize)
 
 Gura_ImplementMethod(wx_Window, SetMaxSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetMaxSize(*size);
+	pThis->GetEntity()->SetMaxSize(*size);
 	return Value::Null;
 }
 
@@ -3156,10 +3156,10 @@ Gura_DeclareMethod(wx_Window, SetMinSize)
 
 Gura_ImplementMethod(wx_Window, SetMinSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetMinSize(*size);
+	pThis->GetEntity()->SetMinSize(*size);
 	return Value::Null;
 }
 
@@ -3171,10 +3171,10 @@ Gura_DeclareMethod(wx_Window, SetName)
 
 Gura_ImplementMethod(wx_Window, SetName)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetName(name);
+	pThis->GetEntity()->SetName(name);
 	return Value::Null;
 }
 
@@ -3186,10 +3186,10 @@ Gura_DeclareMethod(wx_Window, SetOwnBackgroundColour)
 
 Gura_ImplementMethod(wx_Window, SetOwnBackgroundColour)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetOwnBackgroundColour(*colour);
+	pThis->GetEntity()->SetOwnBackgroundColour(*colour);
 	return Value::Null;
 }
 
@@ -3201,10 +3201,10 @@ Gura_DeclareMethod(wx_Window, SetOwnFont)
 
 Gura_ImplementMethod(wx_Window, SetOwnFont)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetOwnFont(*font);
+	pThis->GetEntity()->SetOwnFont(*font);
 	return Value::Null;
 }
 
@@ -3216,10 +3216,10 @@ Gura_DeclareMethod(wx_Window, SetOwnForegroundColour)
 
 Gura_ImplementMethod(wx_Window, SetOwnForegroundColour)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetOwnForegroundColour(*colour);
+	pThis->GetEntity()->SetOwnForegroundColour(*colour);
 	return Value::Null;
 }
 
@@ -3234,10 +3234,10 @@ Gura_DeclareMethod(wx_Window, SetPalette)
 Gura_ImplementMethod(wx_Window, SetPalette)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPalette *palette = Object_wx_Palette::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetPalette(palette);
+	pThis->GetEntity()->SetPalette(palette);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -3256,15 +3256,15 @@ Gura_DeclareMethod(wx_Window, SetScrollbar)
 
 Gura_ImplementMethod(wx_Window, SetScrollbar)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int orientation = args.GetInt(0);
 	int position = args.GetInt(1);
 	int thumbSize = args.GetInt(2);
 	int range = args.GetInt(3);
 	bool refresh = true;
 	if (args.IsValid(4)) refresh = args.GetBoolean(4);
-	pSelf->GetEntity()->SetScrollbar(orientation, position, thumbSize, range, refresh);
+	pThis->GetEntity()->SetScrollbar(orientation, position, thumbSize, range, refresh);
 	return Value::Null;
 }
 
@@ -3281,13 +3281,13 @@ Gura_DeclareMethod(wx_Window, SetScrollPage)
 Gura_ImplementMethod(wx_Window, SetScrollPage)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int orientation = args.GetInt(0);
 	int pageSize = args.GetInt(1);
 	bool refresh = true;
 	if (args.IsValid(2)) refresh = args.GetBoolean(2);
-	pSelf->GetEntity()->SetScrollPage(orientation, pageSize, refresh);
+	pThis->GetEntity()->SetScrollPage(orientation, pageSize, refresh);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -3304,13 +3304,13 @@ Gura_DeclareMethod(wx_Window, SetScrollPos)
 
 Gura_ImplementMethod(wx_Window, SetScrollPos)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int orientation = args.GetInt(0);
 	int pos = args.GetInt(1);
 	bool refresh = true;
 	if (args.IsValid(2)) refresh = args.GetBoolean(2);
-	pSelf->GetEntity()->SetScrollPos(orientation, pos, refresh);
+	pThis->GetEntity()->SetScrollPos(orientation, pos, refresh);
 	return Value::Null;
 }
 
@@ -3327,13 +3327,13 @@ Gura_DeclareMethod(wx_Window, SetScrollRange)
 Gura_ImplementMethod(wx_Window, SetScrollRange)
 {
 #if 0
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int orientation = args.GetInt(0);
 	int range = args.GetInt(1);
 	bool refresh = true;
 	if (args.IsValid(2)) refresh = args.GetBoolean(2);
-	pSelf->GetEntity()->SetScrollRange(orientation, range, refresh);
+	pThis->GetEntity()->SetScrollRange(orientation, range, refresh);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -3352,15 +3352,15 @@ Gura_DeclareMethod(wx_Window, SetDimensions)
 
 Gura_ImplementMethod(wx_Window, SetDimensions)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	int width = args.GetInt(2);
 	int height = args.GetInt(3);
 	int sizeFlags = wxSIZE_AUTO;
 	if (args.IsValid(4)) sizeFlags = args.GetInt(4);
-	pSelf->GetEntity()->SetSize(x, y, width, height, sizeFlags);
+	pThis->GetEntity()->SetSize(x, y, width, height, sizeFlags);
 	return Value::Null;
 }
 
@@ -3372,10 +3372,10 @@ Gura_DeclareMethod(wx_Window, SetRect)
 
 Gura_ImplementMethod(wx_Window, SetRect)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetSize(*rect);
+	pThis->GetEntity()->SetSize(*rect);
 	return Value::Null;
 }
 
@@ -3388,11 +3388,11 @@ Gura_DeclareMethod(wx_Window, SetSizeWH)
 
 Gura_ImplementMethod(wx_Window, SetSizeWH)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
-	pSelf->GetEntity()->SetSize(width, height);
+	pThis->GetEntity()->SetSize(width, height);
 	return Value::Null;
 }
 
@@ -3404,10 +3404,10 @@ Gura_DeclareMethod(wx_Window, SetSize)
 
 Gura_ImplementMethod(wx_Window, SetSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetSize(*size);
+	pThis->GetEntity()->SetSize(*size);
 	return Value::Null;
 }
 
@@ -3420,12 +3420,12 @@ Gura_DeclareMethod(wx_Window, SetSizer)
 
 Gura_ImplementMethod(wx_Window, SetSizer)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 	bool deleteOld = true;
 	if (args.IsValid(1)) deleteOld = args.GetBoolean(1);
-	pSelf->GetEntity()->SetSizer(sizer, deleteOld);
+	pThis->GetEntity()->SetSizer(sizer, deleteOld);
 	return Value::Null;
 }
 
@@ -3438,12 +3438,12 @@ Gura_DeclareMethod(wx_Window, SetSizerAndFit)
 
 Gura_ImplementMethod(wx_Window, SetSizerAndFit)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 	bool deleteOld = true;
 	if (args.IsValid(1)) deleteOld = args.GetBoolean(1);
-	pSelf->GetEntity()->SetSizerAndFit(sizer, deleteOld);
+	pThis->GetEntity()->SetSizerAndFit(sizer, deleteOld);
 	return Value::Null;
 }
 
@@ -3455,10 +3455,10 @@ Gura_DeclareMethod(wx_Window, SetThemeEnabled)
 
 Gura_ImplementMethod(wx_Window, SetThemeEnabled)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool enable = args.GetBoolean(0);
-	pSelf->GetEntity()->SetThemeEnabled(enable);
+	pThis->GetEntity()->SetThemeEnabled(enable);
 	return Value::Null;
 }
 
@@ -3470,10 +3470,10 @@ Gura_DeclareMethod(wx_Window, SetToolTipString)
 
 Gura_ImplementMethod(wx_Window, SetToolTipString)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString tip = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetToolTip(tip);
+	pThis->GetEntity()->SetToolTip(tip);
 	return Value::Null;
 }
 
@@ -3485,10 +3485,10 @@ Gura_DeclareMethod(wx_Window, SetToolTip)
 
 Gura_ImplementMethod(wx_Window, SetToolTip)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxToolTip *tip = Object_wx_ToolTip::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetToolTip(tip);
+	pThis->GetEntity()->SetToolTip(tip);
 	return Value::Null;
 }
 
@@ -3500,10 +3500,10 @@ Gura_DeclareMethod(wx_Window, SetValidator)
 
 Gura_ImplementMethod(wx_Window, SetValidator)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxValidator *validator = Object_wx_Validator::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetValidator(*validator);
+	pThis->GetEntity()->SetValidator(*validator);
 	return Value::Null;
 }
 
@@ -3516,11 +3516,11 @@ Gura_DeclareMethod(wx_Window, SetVirtualSizeWH)
 
 Gura_ImplementMethod(wx_Window, SetVirtualSizeWH)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
-	pSelf->GetEntity()->SetVirtualSize(width, height);
+	pThis->GetEntity()->SetVirtualSize(width, height);
 	return Value::Null;
 }
 
@@ -3532,10 +3532,10 @@ Gura_DeclareMethod(wx_Window, SetVirtualSize)
 
 Gura_ImplementMethod(wx_Window, SetVirtualSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetVirtualSize(*size);
+	pThis->GetEntity()->SetVirtualSize(*size);
 	return Value::Null;
 }
 
@@ -3550,15 +3550,15 @@ Gura_DeclareMethod(wx_Window, SetVirtualSizeHintsWH)
 
 Gura_ImplementMethod(wx_Window, SetVirtualSizeHintsWH)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int minW = args.GetInt(0);
 	int minH = args.GetInt(1);
 	int maxW = -1;
 	if (args.IsValid(2)) maxW = args.GetInt(2);
 	int maxH = -1;
 	if (args.IsValid(3)) maxH = args.GetInt(3);
-	pSelf->GetEntity()->SetVirtualSizeHints(minW, minH, maxW, maxH);
+	pThis->GetEntity()->SetVirtualSizeHints(minW, minH, maxW, maxH);
 	return Value::Null;
 }
 
@@ -3571,13 +3571,13 @@ Gura_DeclareMethod(wx_Window, SetVirtualSizeHints)
 
 Gura_ImplementMethod(wx_Window, SetVirtualSizeHints)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *minSize = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(0)) minSize = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wxSize *maxSize = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(1)) maxSize = Object_wx_Size::GetObject(args, 1)->GetEntity();
-	pSelf->GetEntity()->SetVirtualSizeHints(*minSize, *maxSize);
+	pThis->GetEntity()->SetVirtualSizeHints(*minSize, *maxSize);
 	return Value::Null;
 }
 
@@ -3589,10 +3589,10 @@ Gura_DeclareMethod(wx_Window, SetWindowStyle)
 
 Gura_ImplementMethod(wx_Window, SetWindowStyle)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long style = args.GetLong(0);
-	pSelf->GetEntity()->SetWindowStyle(style);
+	pThis->GetEntity()->SetWindowStyle(style);
 	return Value::Null;
 }
 
@@ -3604,10 +3604,10 @@ Gura_DeclareMethod(wx_Window, SetWindowStyleFlag)
 
 Gura_ImplementMethod(wx_Window, SetWindowStyleFlag)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long style = args.GetLong(0);
-	pSelf->GetEntity()->SetWindowStyleFlag(style);
+	pThis->GetEntity()->SetWindowStyleFlag(style);
 	return Value::Null;
 }
 
@@ -3619,10 +3619,10 @@ Gura_DeclareMethod(wx_Window, SetWindowVariant)
 
 Gura_ImplementMethod(wx_Window, SetWindowVariant)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindowVariant variant = static_cast<wxWindowVariant>(args.GetInt(0));
-	pSelf->GetEntity()->SetWindowVariant(variant);
+	pThis->GetEntity()->SetWindowVariant(variant);
 	return Value::Null;
 }
 
@@ -3634,9 +3634,9 @@ Gura_DeclareMethod(wx_Window, ShouldInheritColours)
 
 Gura_ImplementMethod(wx_Window, ShouldInheritColours)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->ShouldInheritColours();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->ShouldInheritColours();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -3649,11 +3649,11 @@ Gura_DeclareMethod(wx_Window, Show)
 
 Gura_ImplementMethod(wx_Window, Show)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool show = true;
 	if (args.IsValid(0)) show = args.GetBoolean(0);
-	bool rtn = pSelf->GetEntity()->Show(show);
+	bool rtn = pThis->GetEntity()->Show(show);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -3664,9 +3664,9 @@ Gura_DeclareMethod(wx_Window, Thaw)
 
 Gura_ImplementMethod(wx_Window, Thaw)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Thaw();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Thaw();
 	return Value::Null;
 }
 
@@ -3679,10 +3679,10 @@ Gura_DeclareMethod(wx_Window, ToggleWindowStyle)
 
 Gura_ImplementMethod(wx_Window, ToggleWindowStyle)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int flag = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->ToggleWindowStyle(flag);
+	bool rtn = pThis->GetEntity()->ToggleWindowStyle(flag);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -3694,9 +3694,9 @@ Gura_DeclareMethod(wx_Window, TransferDataFromWindow)
 
 Gura_ImplementMethod(wx_Window, TransferDataFromWindow)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->TransferDataFromWindow();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->TransferDataFromWindow();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -3708,9 +3708,9 @@ Gura_DeclareMethod(wx_Window, TransferDataToWindow)
 
 Gura_ImplementMethod(wx_Window, TransferDataToWindow)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->TransferDataToWindow();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->TransferDataToWindow();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -3724,10 +3724,10 @@ Gura_DeclareMethod(wx_Window, UnregisterHotKey)
 Gura_ImplementMethod(wx_Window, UnregisterHotKey)
 {
 #if defined(__WXMSW__)
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int hotkeyId = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->UnregisterHotKey(hotkeyId);
+	bool rtn = pThis->GetEntity()->UnregisterHotKey(hotkeyId);
 	return ReturnValue(env, sig, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
@@ -3742,9 +3742,9 @@ Gura_DeclareMethod(wx_Window, Update)
 
 Gura_ImplementMethod(wx_Window, Update)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Update();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Update();
 	return Value::Null;
 }
 
@@ -3756,11 +3756,11 @@ Gura_DeclareMethod(wx_Window, UpdateWindowUI)
 
 Gura_ImplementMethod(wx_Window, UpdateWindowUI)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long flags = wxUPDATE_UI_NONE;
 	if (args.IsValid(0)) flags = args.GetLong(0);
-	pSelf->GetEntity()->UpdateWindowUI(flags);
+	pThis->GetEntity()->UpdateWindowUI(flags);
 	return Value::Null;
 }
 
@@ -3772,9 +3772,9 @@ Gura_DeclareMethod(wx_Window, Validate)
 
 Gura_ImplementMethod(wx_Window, Validate)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Validate();
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Validate();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -3787,11 +3787,11 @@ Gura_DeclareMethod(wx_Window, WarpPointer)
 
 Gura_ImplementMethod(wx_Window, WarpPointer)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
-	pSelf->GetEntity()->WarpPointer(x, y);
+	pThis->GetEntity()->WarpPointer(x, y);
 	return Value::Null;
 }
 
@@ -3804,10 +3804,10 @@ Gura_DeclareMethod(wx_Window, WindowToClientSize)
 
 Gura_ImplementMethod(wx_Window, WindowToClientSize)
 {
-	Object_wx_Window *pSelf = Object_wx_Window::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	wxSize rtn = pSelf->GetEntity()->WindowToClientSize(*size);
+	wxSize rtn = pThis->GetEntity()->WindowToClientSize(*size);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 

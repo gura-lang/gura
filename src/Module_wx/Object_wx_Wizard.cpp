@@ -55,7 +55,7 @@ Gura_ImplementFunction(WizardEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Wizard *pEntity = new wx_Wizard();
-	Object_wx_Wizard *pObj = Object_wx_Wizard::GetSelfObj(args);
+	Object_wx_Wizard *pObj = Object_wx_Wizard::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Wizard(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(WizardEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Wizard)
@@ -95,7 +95,7 @@ Gura_ImplementFunction(Wizard)
 	long style = wxDEFAULT_DIALOG_STYLE;
 	if (args.IsValid(5)) style = args.GetLong(5);
 	wx_Wizard *pEntity = new wx_Wizard(parent, id, title, *bitmap, *pos, style);
-	Object_wx_Wizard *pObj = Object_wx_Wizard::GetSelfObj(args);
+	Object_wx_Wizard *pObj = Object_wx_Wizard::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Wizard(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -103,7 +103,7 @@ Gura_ImplementFunction(Wizard)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Wizard, Create)
@@ -120,8 +120,8 @@ Gura_DeclareMethod(wx_Wizard, Create)
 
 Gura_ImplementMethod(wx_Wizard, Create)
 {
-	Object_wx_Wizard *pSelf = Object_wx_Wizard::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
 	int id = -1;
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_Wizard, Create)
 	if (args.IsValid(4)) pos = Object_wx_Point::GetObject(args, 4)->GetEntity();
 	long style = wxDEFAULT_DIALOG_STYLE;
 	if (args.IsValid(5)) style = args.GetLong(5);
-	bool rtn = pSelf->GetEntity()->Create(parent, id, title, *bitmap, *pos, style);
+	bool rtn = pThis->GetEntity()->Create(parent, id, title, *bitmap, *pos, style);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -146,10 +146,10 @@ Gura_DeclareMethod(wx_Wizard, FitToPage)
 
 Gura_ImplementMethod(wx_Wizard, FitToPage)
 {
-	Object_wx_Wizard *pSelf = Object_wx_Wizard::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWizardPage *firstPage = Object_wx_WizardPage::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->FitToPage(firstPage);
+	pThis->GetEntity()->FitToPage(firstPage);
 	return Value::Null;
 }
 
@@ -161,9 +161,9 @@ Gura_DeclareMethod(wx_Wizard, GetBitmap)
 
 Gura_ImplementMethod(wx_Wizard, GetBitmap)
 {
-	Object_wx_Wizard *pSelf = Object_wx_Wizard::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxBitmap &rtn = pSelf->GetEntity()->GetBitmap();
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxBitmap &rtn = pThis->GetEntity()->GetBitmap();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
@@ -175,9 +175,9 @@ Gura_DeclareMethod(wx_Wizard, GetCurrentPage)
 
 Gura_ImplementMethod(wx_Wizard, GetCurrentPage)
 {
-	Object_wx_Wizard *pSelf = Object_wx_Wizard::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxWizardPage *rtn = (wxWizardPage *)pSelf->GetEntity()->GetCurrentPage();
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWizardPage *rtn = (wxWizardPage *)pThis->GetEntity()->GetCurrentPage();
 	return ReturnValue(env, sig, args, Value(new Object_wx_WizardPage(rtn, NULL, OwnerFalse)));
 }
 
@@ -189,9 +189,9 @@ Gura_DeclareMethod(wx_Wizard, GetPageAreaSizer)
 
 Gura_ImplementMethod(wx_Wizard, GetPageAreaSizer)
 {
-	Object_wx_Wizard *pSelf = Object_wx_Wizard::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSizer *rtn = (wxSizer *)pSelf->GetEntity()->GetPageAreaSizer();
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSizer *rtn = (wxSizer *)pThis->GetEntity()->GetPageAreaSizer();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Sizer(rtn, NULL, OwnerFalse)));
 }
 
@@ -203,9 +203,9 @@ Gura_DeclareMethod(wx_Wizard, GetPageSize)
 
 Gura_ImplementMethod(wx_Wizard, GetPageSize)
 {
-	Object_wx_Wizard *pSelf = Object_wx_Wizard::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetPageSize();
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetPageSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -218,10 +218,10 @@ Gura_DeclareMethod(wx_Wizard, HasNextPage)
 
 Gura_ImplementMethod(wx_Wizard, HasNextPage)
 {
-	Object_wx_Wizard *pSelf = Object_wx_Wizard::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWizardPage *page = Object_wx_WizardPage::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->HasNextPage(page);
+	bool rtn = pThis->GetEntity()->HasNextPage(page);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -234,10 +234,10 @@ Gura_DeclareMethod(wx_Wizard, HasPrevPage)
 
 Gura_ImplementMethod(wx_Wizard, HasPrevPage)
 {
-	Object_wx_Wizard *pSelf = Object_wx_Wizard::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWizardPage *page = Object_wx_WizardPage::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->HasPrevPage(page);
+	bool rtn = pThis->GetEntity()->HasPrevPage(page);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -250,10 +250,10 @@ Gura_DeclareMethod(wx_Wizard, RunWizard)
 
 Gura_ImplementMethod(wx_Wizard, RunWizard)
 {
-	Object_wx_Wizard *pSelf = Object_wx_Wizard::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWizardPage *firstPage = Object_wx_WizardPage::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->RunWizard(firstPage);
+	bool rtn = pThis->GetEntity()->RunWizard(firstPage);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -265,10 +265,10 @@ Gura_DeclareMethod(wx_Wizard, SetBitmap)
 
 Gura_ImplementMethod(wx_Wizard, SetBitmap)
 {
-	Object_wx_Wizard *pSelf = Object_wx_Wizard::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetBitmap(*bitmap);
+	pThis->GetEntity()->SetBitmap(*bitmap);
 	return Value::Null;
 }
 
@@ -280,10 +280,10 @@ Gura_DeclareMethod(wx_Wizard, SetPageSize)
 
 Gura_ImplementMethod(wx_Wizard, SetPageSize)
 {
-	Object_wx_Wizard *pSelf = Object_wx_Wizard::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *sizePage = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetPageSize(*sizePage);
+	pThis->GetEntity()->SetPageSize(*sizePage);
 	return Value::Null;
 }
 
@@ -295,10 +295,10 @@ Gura_DeclareMethod(wx_Wizard, SetBorder)
 
 Gura_ImplementMethod(wx_Wizard, SetBorder)
 {
-	Object_wx_Wizard *pSelf = Object_wx_Wizard::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int border = args.GetInt(0);
-	pSelf->GetEntity()->SetBorder(border);
+	pThis->GetEntity()->SetBorder(border);
 	return Value::Null;
 }
 

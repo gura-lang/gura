@@ -62,7 +62,7 @@ Gura_ImplementFunction(TipWindow)
 	wxRect *rectBounds = (wxRect *)();
 	if (args.IsValid(4)) rectBounds = Object_wx_Rect::GetObject(args, 4)->GetEntity();
 	wx_TipWindow *pEntity = new wx_TipWindow(parent, text, maxLength, *windowPtr, rectBounds);
-	Object_wx_TipWindow *pObj = Object_wx_TipWindow::GetSelfObj(args);
+	Object_wx_TipWindow *pObj = Object_wx_TipWindow::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TipWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -70,7 +70,7 @@ Gura_ImplementFunction(TipWindow)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -87,10 +87,10 @@ Gura_DeclareMethod(wx_TipWindow, SetTipWindowPtr)
 Gura_ImplementMethod(wx_TipWindow, SetTipWindowPtr)
 {
 #if 0
-	Object_wx_TipWindow *pSelf = Object_wx_TipWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TipWindow *pThis = Object_wx_TipWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTipWindow *windowPtr = Object_wx_TipWindow::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetTipWindowPtr(*windowPtr);
+	pThis->GetEntity()->SetTipWindowPtr(*windowPtr);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -105,10 +105,10 @@ Gura_DeclareMethod(wx_TipWindow, SetBoundingRect)
 
 Gura_ImplementMethod(wx_TipWindow, SetBoundingRect)
 {
-	Object_wx_TipWindow *pSelf = Object_wx_TipWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TipWindow *pThis = Object_wx_TipWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rectBound = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetBoundingRect(*rectBound);
+	pThis->GetEntity()->SetBoundingRect(*rectBound);
 	return Value::Null;
 }
 

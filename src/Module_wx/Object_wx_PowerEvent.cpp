@@ -42,9 +42,9 @@ Gura_DeclareMethod(wx_PowerEvent, Veto)
 
 Gura_ImplementMethod(wx_PowerEvent, Veto)
 {
-	Object_wx_PowerEvent *pSelf = Object_wx_PowerEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Veto();
+	Object_wx_PowerEvent *pThis = Object_wx_PowerEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Veto();
 	return Value::Null;
 }
 

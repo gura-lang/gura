@@ -512,7 +512,7 @@ Gura_DeclareMethod(parser, parse)
 
 Gura_ImplementMethod(parser, parse)
 {
-	Object_parser *pObj = Object_parser::GetSelfObj(args);
+	Object_parser *pObj = Object_parser::GetThisObj(args);
 	pObj->Parse(env, sig, args.GetStream(0));
 	return Value::Null;
 }
@@ -642,7 +642,7 @@ Gura_DeclareMethod(element, format)
 
 Gura_ImplementMethod(element, format)
 {
-	Object_element *pObj = Object_element::GetSelfObj(args);
+	Object_element *pObj = Object_element::GetThisObj(args);
 	String str = pObj->Format(sig, 0);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(env, str.c_str());
@@ -656,7 +656,7 @@ Gura_DeclareMethod(element, text)
 
 Gura_ImplementMethod(element, text)
 {
-	Object_element *pObj = Object_element::GetSelfObj(args);
+	Object_element *pObj = Object_element::GetThisObj(args);
 	String str = pObj->GetText(sig);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(env, str.c_str());
@@ -804,12 +804,12 @@ Gura_DeclareFunctionEnd(parser)
 
 Gura_ImplementFunction(parser)
 {
-	Object_parser *pObj = Object_parser::GetSelfObj(args);
+	Object_parser *pObj = Object_parser::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_parser(Gura_UserClass(parser));
 		return ReturnValue(env, sig, args, Value(pObj));
 	}
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 // p = xml.element(name:string, %attrs) {block?}
@@ -870,9 +870,9 @@ Gura_DeclareMethod(stream, xmlread)
 
 Gura_ImplementMethod(stream, xmlread)
 {
-	Object_stream *pSelf = Object_stream::GetSelfObj(args);
+	Object_stream *pThis = Object_stream::GetThisObj(args);
 	Value result;
-	Object_element *pObjElem = Reader().Parse(env, sig, pSelf->GetStream());
+	Object_element *pObjElem = Reader().Parse(env, sig, pThis->GetStream());
 	if (sig.IsError()) return Value::Null;
 	return Value(pObjElem);
 }

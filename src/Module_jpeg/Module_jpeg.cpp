@@ -19,11 +19,11 @@ Gura_DeclareMethod(image, jpegread)
 
 Gura_ImplementMethod(image, jpegread)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!ImageStreamer_JPEG::ReadStream(sig, pSelf, args.GetStream(0))) {
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!ImageStreamer_JPEG::ReadStream(sig, pThis, args.GetStream(0))) {
 		return Value::Null;
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // image#jpegwrite(stream:stream:w, quality:number => 75):reduce
@@ -38,12 +38,12 @@ Gura_DeclareMethod(image, jpegwrite)
 
 Gura_ImplementMethod(image, jpegwrite)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
+	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!ImageStreamer_JPEG::WriteStream(sig,
-							pSelf, args.GetStream(0), args.GetInt(1))) {
+							pThis, args.GetStream(0), args.GetInt(1))) {
 		return Value::Null;
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // jpeg.test()
@@ -123,7 +123,7 @@ bool ImageStreamer_JPEG::ReadStream(Signal sig, Object_image *pObjImage, Stream 
 		::jpeg_destroy_decompress(&cinfo);
 		return false;
 	}
-	//::memset(pSelf->GetBuffer(), 0xff, pSelf->GetBufferSize());
+	//::memset(pThis->GetBuffer(), 0xff, pThis->GetBufferSize());
 	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
 					JPOOL_IMAGE, cinfo.output_width * cinfo.output_components, 1);
 	while (cinfo.output_scanline < cinfo.output_height) {

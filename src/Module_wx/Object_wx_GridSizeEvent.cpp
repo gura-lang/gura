@@ -48,7 +48,7 @@ Gura_ImplementFunction(GridSizeEventEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridSizeEvent *pEntity = new wx_GridSizeEvent();
-	Object_wx_GridSizeEvent *pObj = Object_wx_GridSizeEvent::GetSelfObj(args);
+	Object_wx_GridSizeEvent *pObj = Object_wx_GridSizeEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GridSizeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(GridSizeEventEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(GridSizeEvent)
@@ -97,7 +97,7 @@ Gura_ImplementFunction(GridSizeEvent)
 	bool meta = false;
 	if (args.IsValid(9)) meta = args.GetBoolean(9);
 	wx_GridSizeEvent *pEntity = new wx_GridSizeEvent(id, type, obj, rowOrCol, x, y, control, shift, alt, meta);
-	Object_wx_GridSizeEvent *pObj = Object_wx_GridSizeEvent::GetSelfObj(args);
+	Object_wx_GridSizeEvent *pObj = Object_wx_GridSizeEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GridSizeEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -105,7 +105,7 @@ Gura_ImplementFunction(GridSizeEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GridSizeEvent, AltDown)
@@ -116,9 +116,9 @@ Gura_DeclareMethod(wx_GridSizeEvent, AltDown)
 
 Gura_ImplementMethod(wx_GridSizeEvent, AltDown)
 {
-	Object_wx_GridSizeEvent *pSelf = Object_wx_GridSizeEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->AltDown();
+	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->AltDown();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -130,9 +130,9 @@ Gura_DeclareMethod(wx_GridSizeEvent, ControlDown)
 
 Gura_ImplementMethod(wx_GridSizeEvent, ControlDown)
 {
-	Object_wx_GridSizeEvent *pSelf = Object_wx_GridSizeEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->ControlDown();
+	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->ControlDown();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -144,9 +144,9 @@ Gura_DeclareMethod(wx_GridSizeEvent, GetPosition)
 
 Gura_ImplementMethod(wx_GridSizeEvent, GetPosition)
 {
-	Object_wx_GridSizeEvent *pSelf = Object_wx_GridSizeEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPoint rtn = pSelf->GetEntity()->GetPosition();
+	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPoint rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -158,9 +158,9 @@ Gura_DeclareMethod(wx_GridSizeEvent, GetRowOrCol)
 
 Gura_ImplementMethod(wx_GridSizeEvent, GetRowOrCol)
 {
-	Object_wx_GridSizeEvent *pSelf = Object_wx_GridSizeEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetRowOrCol();
+	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetRowOrCol();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -172,9 +172,9 @@ Gura_DeclareMethod(wx_GridSizeEvent, MetaDown)
 
 Gura_ImplementMethod(wx_GridSizeEvent, MetaDown)
 {
-	Object_wx_GridSizeEvent *pSelf = Object_wx_GridSizeEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->MetaDown();
+	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->MetaDown();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -186,9 +186,9 @@ Gura_DeclareMethod(wx_GridSizeEvent, ShiftDown)
 
 Gura_ImplementMethod(wx_GridSizeEvent, ShiftDown)
 {
-	Object_wx_GridSizeEvent *pSelf = Object_wx_GridSizeEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->ShiftDown();
+	Object_wx_GridSizeEvent *pThis = Object_wx_GridSizeEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->ShiftDown();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

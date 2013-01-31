@@ -48,7 +48,7 @@ Gura_ImplementFunction(PointEmpty)
 {
 	//if (!CheckWxReady(sig)) return Value::Null;
 	wx_Point *pEntity = new wx_Point();
-	Object_wx_Point *pObj = Object_wx_Point::GetSelfObj(args);
+	Object_wx_Point *pObj = Object_wx_Point::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Point(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(PointEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Point)
@@ -76,7 +76,7 @@ Gura_ImplementFunction(Point)
 	int y = 0;
 	if (args.IsValid(1)) y = args.GetInt(1);
 	wx_Point *pEntity = new wx_Point(x, y);
-	Object_wx_Point *pObj = Object_wx_Point::GetSelfObj(args);
+	Object_wx_Point *pObj = Object_wx_Point::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Point(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(Point)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Point, __eq__)
@@ -97,7 +97,7 @@ Gura_DeclareMethod(wx_Point, __eq__)
 
 Gura_ImplementMethod(wx_Point, __eq__)
 {
-	Object_wx_Point *pSelf = Object_wx_Point::GetSelfObj(args);
+	Object_wx_Point *pThis = Object_wx_Point::GetThisObj(args);
 	wxPoint *item1 = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxPoint *item2 = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	return *item1 == *item2;
@@ -113,7 +113,7 @@ Gura_DeclareMethod(wx_Point, __ne__)
 
 Gura_ImplementMethod(wx_Point, __ne__)
 {
-	Object_wx_Point *pSelf = Object_wx_Point::GetSelfObj(args);
+	Object_wx_Point *pThis = Object_wx_Point::GetThisObj(args);
 	wxPoint *item1 = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxPoint *item2 = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	return *item1 != *item2;
@@ -129,7 +129,7 @@ Gura_DeclareMethod(wx_Point, __add__)
 
 Gura_ImplementMethod(wx_Point, __add__)
 {
-	Object_wx_Point *pSelf = Object_wx_Point::GetSelfObj(args);
+	Object_wx_Point *pThis = Object_wx_Point::GetThisObj(args);
 	wxPoint *item1 = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxPoint rtn;
 	if (args.IsInstanceOf(1, VTYPE_wx_Point)) {
@@ -155,7 +155,7 @@ Gura_DeclareMethod(wx_Point, __sub__)
 
 Gura_ImplementMethod(wx_Point, __sub__)
 {
-	Object_wx_Point *pSelf = Object_wx_Point::GetSelfObj(args);
+	Object_wx_Point *pThis = Object_wx_Point::GetThisObj(args);
 	wxPoint *item1 = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxPoint rtn;
 	if (args.IsInstanceOf(1, VTYPE_wx_Point)) {

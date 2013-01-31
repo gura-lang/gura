@@ -56,7 +56,7 @@ Gura_ImplementFunction(HelpEvent)
 	wxPoint point;
 	if (args.IsValid(2)) point = *Object_wx_Point::GetObject(args, 2)->GetEntity();
 	wx_HelpEvent *pEntity = new wx_HelpEvent(eventType, id, point);
-	Object_wx_HelpEvent *pObj = Object_wx_HelpEvent::GetSelfObj(args);
+	Object_wx_HelpEvent *pObj = Object_wx_HelpEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_HelpEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(HelpEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_HelpEvent, GetOrigin)
@@ -75,8 +75,8 @@ Gura_DeclareMethod(wx_HelpEvent, GetOrigin)
 
 Gura_ImplementMethod(wx_HelpEvent, GetOrigin)
 {
-	Object_wx_HelpEvent *pSelf = Object_wx_HelpEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HelpEvent, GetPosition)
@@ -87,9 +87,9 @@ Gura_DeclareMethod(wx_HelpEvent, GetPosition)
 
 Gura_ImplementMethod(wx_HelpEvent, GetPosition)
 {
-	Object_wx_HelpEvent *pSelf = Object_wx_HelpEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxPoint &rtn = pSelf->GetEntity()->GetPosition();
+	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxPoint &rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -104,10 +104,10 @@ Gura_DeclareMethod(wx_HelpEvent, SetOrigin)
 Gura_ImplementMethod(wx_HelpEvent, SetOrigin)
 {
 #if 0
-	Object_wx_HelpEvent *pSelf = Object_wx_HelpEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHelpEvent *origin = Object_wx_HelpEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetOrigin(*origin);
+	pThis->GetEntity()->SetOrigin(*origin);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -122,10 +122,10 @@ Gura_DeclareMethod(wx_HelpEvent, SetPosition)
 
 Gura_ImplementMethod(wx_HelpEvent, SetPosition)
 {
-	Object_wx_HelpEvent *pSelf = Object_wx_HelpEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HelpEvent *pThis = Object_wx_HelpEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetPosition(*pt);
+	pThis->GetEntity()->SetPosition(*pt);
 	return Value::Null;
 }
 

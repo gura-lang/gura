@@ -83,9 +83,9 @@ Gura_DeclareMethod(hash, init)
 
 Gura_ImplementMethod(hash, init)
 {
-	HashBase &hash = Object_hash::GetSelfObj(args)->GetHash();
+	HashBase &hash = Object_hash::GetThisObj(args)->GetHash();
 	hash.Init();
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // hash#update(stream:stream:r):reduce
@@ -97,9 +97,9 @@ Gura_DeclareMethod(hash, update)
 
 Gura_ImplementMethod(hash, update)
 {
-	HashBase &hash = Object_hash::GetSelfObj(args)->GetHash();
+	HashBase &hash = Object_hash::GetThisObj(args)->GetHash();
 	args.GetStream(0).ReadToStream(env, sig, hash, 0x10000, false);
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // implementation of class Hash

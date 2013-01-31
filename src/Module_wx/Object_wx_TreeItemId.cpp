@@ -47,7 +47,7 @@ Gura_ImplementFunction(TreeItemId)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TreeItemId *pEntity = new wx_TreeItemId();
-	Object_wx_TreeItemId *pObj = Object_wx_TreeItemId::GetSelfObj(args);
+	Object_wx_TreeItemId *pObj = Object_wx_TreeItemId::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TreeItemId(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(TreeItemId)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TreeItemId, IsOk)
@@ -66,9 +66,9 @@ Gura_DeclareMethod(wx_TreeItemId, IsOk)
 
 Gura_ImplementMethod(wx_TreeItemId, IsOk)
 {
-	Object_wx_TreeItemId *pSelf = Object_wx_TreeItemId::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -82,7 +82,7 @@ Gura_DeclareMethod(wx_TreeItemId, __eq__)
 
 Gura_ImplementMethod(wx_TreeItemId, __eq__)
 {
-	Object_wx_TreeItemId *pSelf = Object_wx_TreeItemId::GetSelfObj(args);
+	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetThisObj(args);
 	wxTreeItemId *item1 = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemId *item2 = Object_wx_TreeItemId::GetObject(args, 1)->GetEntity();
 	return *item1 == *item2;
@@ -98,7 +98,7 @@ Gura_DeclareMethod(wx_TreeItemId, __ne__)
 
 Gura_ImplementMethod(wx_TreeItemId, __ne__)
 {
-	Object_wx_TreeItemId *pSelf = Object_wx_TreeItemId::GetSelfObj(args);
+	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetThisObj(args);
 	wxTreeItemId *item1 = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemId *item2 = Object_wx_TreeItemId::GetObject(args, 1)->GetEntity();
 	return *item1 != *item2;
@@ -113,7 +113,7 @@ Gura_DeclareMethod(wx_TreeItemId, __not__)
 
 Gura_ImplementMethod(wx_TreeItemId, __not__)
 {
-	Object_wx_TreeItemId *pSelf = Object_wx_TreeItemId::GetSelfObj(args);
+	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetThisObj(args);
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	return Value(!*item);
 }

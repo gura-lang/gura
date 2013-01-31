@@ -48,7 +48,7 @@ Gura_ImplementFunction(SashLayoutWindowEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SashLayoutWindow *pEntity = new wx_SashLayoutWindow();
-	Object_wx_SashLayoutWindow *pObj = Object_wx_SashLayoutWindow::GetSelfObj(args);
+	Object_wx_SashLayoutWindow *pObj = Object_wx_SashLayoutWindow::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SashLayoutWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(SashLayoutWindowEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(SashLayoutWindow)
@@ -86,7 +86,7 @@ Gura_ImplementFunction(SashLayoutWindow)
 	wxString name = wxT("layoutWindow");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_SashLayoutWindow *pEntity = new wx_SashLayoutWindow(parent, id, *pos, *size, style, name);
-	Object_wx_SashLayoutWindow *pObj = Object_wx_SashLayoutWindow::GetSelfObj(args);
+	Object_wx_SashLayoutWindow *pObj = Object_wx_SashLayoutWindow::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SashLayoutWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -94,7 +94,7 @@ Gura_ImplementFunction(SashLayoutWindow)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SashLayoutWindow, Create)
@@ -111,8 +111,8 @@ Gura_DeclareMethod(wx_SashLayoutWindow, Create)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, Create)
 {
-	Object_wx_SashLayoutWindow *pSelf = Object_wx_SashLayoutWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_SashLayoutWindow, Create)
 	if (args.IsValid(4)) style = args.GetLong(4);
 	wxString name = wxT("layoutWindow");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, *pos, *size, style, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, style, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -135,9 +135,9 @@ Gura_DeclareMethod(wx_SashLayoutWindow, GetAlignment)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, GetAlignment)
 {
-	Object_wx_SashLayoutWindow *pSelf = Object_wx_SashLayoutWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxLayoutAlignment rtn = pSelf->GetEntity()->GetAlignment();
+	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxLayoutAlignment rtn = pThis->GetEntity()->GetAlignment();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -149,9 +149,9 @@ Gura_DeclareMethod(wx_SashLayoutWindow, GetOrientation)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, GetOrientation)
 {
-	Object_wx_SashLayoutWindow *pSelf = Object_wx_SashLayoutWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxLayoutOrientation rtn = pSelf->GetEntity()->GetOrientation();
+	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxLayoutOrientation rtn = pThis->GetEntity()->GetOrientation();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -163,10 +163,10 @@ Gura_DeclareMethod(wx_SashLayoutWindow, OnCalculateLayout)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, OnCalculateLayout)
 {
-	Object_wx_SashLayoutWindow *pSelf = Object_wx_SashLayoutWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCalculateLayoutEvent *event = Object_wx_CalculateLayoutEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnCalculateLayout(*event);
+	pThis->GetEntity()->OnCalculateLayout(*event);
 	return Value::Null;
 }
 
@@ -178,10 +178,10 @@ Gura_DeclareMethod(wx_SashLayoutWindow, OnQueryLayoutInfo)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, OnQueryLayoutInfo)
 {
-	Object_wx_SashLayoutWindow *pSelf = Object_wx_SashLayoutWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxQueryLayoutInfoEvent *event = Object_wx_QueryLayoutInfoEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnQueryLayoutInfo(*event);
+	pThis->GetEntity()->OnQueryLayoutInfo(*event);
 	return Value::Null;
 }
 
@@ -193,10 +193,10 @@ Gura_DeclareMethod(wx_SashLayoutWindow, SetAlignment)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, SetAlignment)
 {
-	Object_wx_SashLayoutWindow *pSelf = Object_wx_SashLayoutWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLayoutAlignment alignment = static_cast<wxLayoutAlignment>(args.GetInt(0));
-	pSelf->GetEntity()->SetAlignment(alignment);
+	pThis->GetEntity()->SetAlignment(alignment);
 	return Value::Null;
 }
 
@@ -208,10 +208,10 @@ Gura_DeclareMethod(wx_SashLayoutWindow, SetDefaultSize)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, SetDefaultSize)
 {
-	Object_wx_SashLayoutWindow *pSelf = Object_wx_SashLayoutWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetDefaultSize(*size);
+	pThis->GetEntity()->SetDefaultSize(*size);
 	return Value::Null;
 }
 
@@ -223,10 +223,10 @@ Gura_DeclareMethod(wx_SashLayoutWindow, SetOrientation)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, SetOrientation)
 {
-	Object_wx_SashLayoutWindow *pSelf = Object_wx_SashLayoutWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLayoutOrientation orientation = static_cast<wxLayoutOrientation>(args.GetInt(0));
-	pSelf->GetEntity()->SetOrientation(orientation);
+	pThis->GetEntity()->SetOrientation(orientation);
 	return Value::Null;
 }
 

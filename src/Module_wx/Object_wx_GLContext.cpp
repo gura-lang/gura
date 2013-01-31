@@ -52,7 +52,7 @@ Gura_ImplementFunction(GLContext)
 	wxGLContext *other = (wxGLContext *)(NULL);
 	if (args.IsValid(1)) other = Object_wx_GLContext::GetObject(args, 1)->GetEntity();
 	wx_GLContext *pEntity = new wx_GLContext(win, other);
-	Object_wx_GLContext *pObj = Object_wx_GLContext::GetSelfObj(args);
+	Object_wx_GLContext *pObj = Object_wx_GLContext::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GLContext(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -60,7 +60,7 @@ Gura_ImplementFunction(GLContext)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GLContext, SetCurrent)
@@ -71,10 +71,10 @@ Gura_DeclareMethod(wx_GLContext, SetCurrent)
 
 Gura_ImplementMethod(wx_GLContext, SetCurrent)
 {
-	Object_wx_GLContext *pSelf = Object_wx_GLContext::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GLContext *pThis = Object_wx_GLContext::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGLCanvas *win = Object_wx_GLCanvas::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetCurrent(*win);
+	pThis->GetEntity()->SetCurrent(*win);
 	return Value::Null;
 }
 

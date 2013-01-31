@@ -44,11 +44,11 @@ Gura_DeclareMethod(wx_PopupWindow, Position)
 
 Gura_ImplementMethod(wx_PopupWindow, Position)
 {
-	Object_wx_PopupTransientWindow *pSelf = Object_wx_PopupTransientWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *ptOrigin = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxSize *size = Object_wx_Size::GetObject(args, 1)->GetEntity();
-	pSelf->GetEntity()->wxPopupWindow::Position(*ptOrigin, *size);
+	pThis->GetEntity()->wxPopupWindow::Position(*ptOrigin, *size);
 	return Value::Null;
 }
 
@@ -60,9 +60,9 @@ Gura_DeclareMethod(wx_PopupWindow, IsTopLevel)
 
 Gura_ImplementMethod(wx_PopupWindow, IsTopLevel)
 {
-	Object_wx_PopupTransientWindow *pSelf = Object_wx_PopupTransientWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->wxPopupWindow::IsTopLevel();
+	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->wxPopupWindow::IsTopLevel();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

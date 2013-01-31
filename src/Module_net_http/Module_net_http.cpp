@@ -21,7 +21,7 @@ inline void closesocket(int sock) { close(sock); }
 
 Gura_BeginModule(net_http)
 
-static Environment *_pEnvSelf = NULL;
+static Environment *_pEnvThis = NULL;
 
 static const char *HTTP_VERSION = "HTTP/1.1";
 
@@ -1502,9 +1502,9 @@ Gura_DeclareMethod(stat, field)
 
 Gura_ImplementMethod(stat, field)
 {
-	Object_stat *pSelf = Object_stat::GetSelfObj(args);
+	Object_stat *pThis = Object_stat::GetThisObj(args);
 	bool signalFlag = args.IsSet(Gura_Symbol(raise));
-	return pSelf->GetHeader().GetField(env, sig, args.GetString(0), signalFlag);
+	return pThis->GetHeader().GetField(env, sig, args.GetString(0), signalFlag);
 }
 
 // implementation of class Stat
@@ -1754,9 +1754,9 @@ Gura_DeclareMethod(request, field)
 
 Gura_ImplementMethod(request, field)
 {
-	Object_request *pSelf = Object_request::GetSelfObj(args);
+	Object_request *pThis = Object_request::GetThisObj(args);
 	bool signalFlag = args.IsSet(Gura_Symbol(raise));
-	return pSelf->GetSessionObj()->GetRequest().
+	return pThis->GetSessionObj()->GetRequest().
 				GetHeader().GetField(env, sig, args.GetString(0), signalFlag);
 }
 
@@ -1775,14 +1775,14 @@ Gura_DeclareMethod(request, response)
 
 Gura_ImplementMethod(request, response)
 {
-	Object_request *pSelf = Object_request::GetSelfObj(args);
-	if (!pSelf->SendResponse(sig,
+	Object_request *pThis = Object_request::GetThisObj(args);
+	if (!pThis->SendResponse(sig,
 			args.GetString(0), args.IsString(1)? args.GetString(1) : NULL,
 			args.IsStream(2)? &args.GetStream(2) : NULL, args.GetString(3),
 			args.GetDictArg())) {
 		return Value::Null;
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // net.http.request#respchunk(code:string, reason?:string,
@@ -1800,8 +1800,8 @@ Gura_DeclareMethod(request, respchunk)
 
 Gura_ImplementMethod(request, respchunk)
 {
-	Object_request *pSelf = Object_request::GetSelfObj(args);
-	Stream *pStream = pSelf->SendRespChunk(sig, args.GetString(0),
+	Object_request *pThis = Object_request::GetThisObj(args);
+	Stream *pStream = pThis->SendRespChunk(sig, args.GetString(0),
 			args.IsString(1)? args.GetString(1) : NULL, args.GetString(2),
 			args.GetDictArg());
 	if (sig.IsSignalled()) return Value::Null;
@@ -1817,8 +1817,8 @@ Gura_DeclareMethod(request, ismethod)
 
 Gura_ImplementMethod(request, ismethod)
 {
-	Object_request *pSelf = Object_request::GetSelfObj(args);
-	const char *method = pSelf->GetSessionObj()->GetRequest().GetMethod();
+	Object_request *pThis = Object_request::GetThisObj(args);
+	const char *method = pThis->GetSessionObj()->GetRequest().GetMethod();
 	return Value(::strcasecmp(method, args.GetString(0)) == 0);
 }
 
@@ -1910,9 +1910,9 @@ Gura_DeclareMethod(response, field)
 
 Gura_ImplementMethod(response, field)
 {
-	Object_response *pSelf = Object_response::GetSelfObj(args);
+	Object_response *pThis = Object_response::GetThisObj(args);
 	bool signalFlag = args.IsSet(Gura_Symbol(raise));
-	return pSelf->GetClientObj()->GetStatus().
+	return pThis->GetClientObj()->GetStatus().
 				GetHeader().GetField(env, sig, args.GetString(0), signalFlag);
 }
 
@@ -2124,9 +2124,9 @@ Gura_DeclareMethod(server, wait)
 
 Gura_ImplementMethod(server, wait)
 {
-	Object_server *pSelf = Object_server::GetSelfObj(args);
+	Object_server *pThis = Object_server::GetThisObj(args);
 	if (!args.IsBlockSpecified()) {
-		Object_request *pObjRequest = pSelf->Wait(sig);
+		Object_request *pObjRequest = pThis->Wait(sig);
 		if (sig.IsSignalled()) return Value::Null;
 		return Value(pObjRequest);
 	}
@@ -2135,7 +2135,7 @@ Gura_ImplementMethod(server, wait)
 					args.GetBlockFunc(envBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
 	for (;;) {
-		Object_request *pObjRequest = pSelf->Wait(sig);
+		Object_request *pObjRequest = pThis->Wait(sig);
 		if (sig.IsSignalled()) return Value::Null;
 		Value value(pObjRequest);
 		ValueList valListArg(value);
@@ -2196,7 +2196,7 @@ bool Object_client::Prepare(Signal sig, const char *addr, short port,
 {
 	if (addrProxy == NULL) {
 		Environment &env = *this;
-		const Value *pValueOfList = _pEnvSelf->LookupValue(Gura_UserSymbol(proxies), false);
+		const Value *pValueOfList = _pEnvThis->LookupValue(Gura_UserSymbol(proxies), false);
 		if (pValueOfList != NULL && pValueOfList->IsList()) {
 			foreach_const_reverse (ValueList, pValue, pValueOfList->GetList()) {
 				if (!pValue->IsType(VTYPE_proxy)) continue;
@@ -2339,8 +2339,8 @@ Gura_DeclareMethod(client, request)
 
 Gura_ImplementMethod(client, request)
 {
-	Object_client *pSelf = Object_client::GetSelfObj(args);
-	Object_response *pObjResponse = pSelf->SendRequest(sig,
+	Object_client *pThis = Object_client::GetThisObj(args);
+	Object_response *pObjResponse = pThis->SendRequest(sig,
 			args.GetString(0), args.GetString(1),
 			args.IsStream(2)? &args.GetStream(2) : NULL,
 			args.GetString(3), args.GetDictArg());
@@ -2363,8 +2363,8 @@ Gura_DeclareMethod(client, _request)
 
 Gura_ImplementMethod(client, _request)
 {
-	Object_client *pSelf = Object_client::GetSelfObj(args);
-	Object_response *pObjResponse = pSelf->SendRequest(sig,
+	Object_client *pThis = Object_client::GetThisObj(args);
+	Object_response *pObjResponse = pThis->SendRequest(sig,
 			Upper(GetName()).c_str(), args.GetString(0),
 			args.IsStream(1)? &args.GetStream(1) : NULL,
 			args.GetString(2), args.GetDictArg());
@@ -2380,9 +2380,9 @@ Gura_DeclareMethod(client, cleanup)
 
 Gura_ImplementMethod(client, cleanup)
 {
-	Object_client *pSelf = Object_client::GetSelfObj(args);
-	if (!pSelf->CleanupResponse(sig)) return Value::Null;
-	return args.GetSelf();
+	Object_client *pThis = Object_client::GetThisObj(args);
+	if (!pThis->CleanupResponse(sig)) return Value::Null;
+	return args.GetThis();
 }
 
 // implementation of class Client
@@ -2551,11 +2551,11 @@ Gura_DeclareFunction(addproxy)
 Gura_ImplementFunction(addproxy)
 {
 	ValueList *pValList = NULL;
-	Value *pValue = _pEnvSelf->LookupValue(Gura_UserSymbol(proxies), false);
+	Value *pValue = _pEnvThis->LookupValue(Gura_UserSymbol(proxies), false);
 	if (pValue == NULL || !pValue->IsList()) {
 		Value value;
 		pValList = &value.InitAsList(env);
-		_pEnvSelf->AssignValue(Gura_UserSymbol(proxies), value, false);
+		_pEnvThis->AssignValue(Gura_UserSymbol(proxies), value, false);
 	} else {
 		pValList = &pValue->GetList();
 	}
@@ -2757,7 +2757,7 @@ Directory *DirectoryFactory_Http::DoOpenDirectory(Environment &env, Signal sig,
 // Module entry
 Gura_ModuleEntry()
 {
-	_pEnvSelf = &env;
+	_pEnvThis = &env;
 #if defined(HAVE_WINDOWS_H)
 	WSADATA wsaData;
 	::WSAStartup(MAKEWORD(2, 0), &wsaData);

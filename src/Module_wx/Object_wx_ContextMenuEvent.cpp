@@ -56,7 +56,7 @@ Gura_ImplementFunction(ContextMenuEvent)
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
 	if (args.IsValid(2)) pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
 	wx_ContextMenuEvent *pEntity = new wx_ContextMenuEvent(type, id, *pos);
-	Object_wx_ContextMenuEvent *pObj = Object_wx_ContextMenuEvent::GetSelfObj(args);
+	Object_wx_ContextMenuEvent *pObj = Object_wx_ContextMenuEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ContextMenuEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(ContextMenuEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ContextMenuEvent, GetPosition)
@@ -75,9 +75,9 @@ Gura_DeclareMethod(wx_ContextMenuEvent, GetPosition)
 
 Gura_ImplementMethod(wx_ContextMenuEvent, GetPosition)
 {
-	Object_wx_ContextMenuEvent *pSelf = Object_wx_ContextMenuEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPoint rtn = pSelf->GetEntity()->GetPosition();
+	Object_wx_ContextMenuEvent *pThis = Object_wx_ContextMenuEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPoint rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -89,10 +89,10 @@ Gura_DeclareMethod(wx_ContextMenuEvent, SetPosition)
 
 Gura_ImplementMethod(wx_ContextMenuEvent, SetPosition)
 {
-	Object_wx_ContextMenuEvent *pSelf = Object_wx_ContextMenuEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ContextMenuEvent *pThis = Object_wx_ContextMenuEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *point = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetPosition(*point);
+	pThis->GetEntity()->SetPosition(*point);
 	return Value::Null;
 }
 

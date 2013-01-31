@@ -41,9 +41,9 @@ Object *CustomClass::CreateDescendant(Environment &env, Signal sig, Class *pClas
 
 Function *CustomClass::Prepare(Environment &env, Signal sig)
 {
-	Value valueSelf(this, Value::FLAG_NoOwner);
+	Value valueThis(this, Value::FLAG_NoOwner);
 	if (!_pExprContent.IsNull() &&
-					!BuildContent(env, sig, valueSelf, _pExprContent.get())) {
+					!BuildContent(env, sig, valueThis, _pExprContent.get())) {
 		return NULL;
 	}
 	AutoPtr<ClassPrototype> pFunc;

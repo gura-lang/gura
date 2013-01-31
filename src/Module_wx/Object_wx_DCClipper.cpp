@@ -53,7 +53,7 @@ Gura_ImplementFunction(DCClipper)
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxRegion *r = Object_wx_Region::GetObject(args, 1)->GetEntity();
 	wx_DCClipper *pEntity = new wx_DCClipper(*dc, *r);
-	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetSelfObj(args);
+	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DCClipper(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(DCClipper)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DCClipper_1)
@@ -79,7 +79,7 @@ Gura_ImplementFunction(DCClipper_1)
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
 	wxRect *rect = Object_wx_Rect::GetObject(args, 1)->GetEntity();
 	wx_DCClipper *pEntity = new wx_DCClipper(*dc, *rect);
-	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetSelfObj(args);
+	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DCClipper(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -87,7 +87,7 @@ Gura_ImplementFunction(DCClipper_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DCClipper_2)
@@ -111,7 +111,7 @@ Gura_ImplementFunction(DCClipper_2)
 	int w = args.GetInt(3);
 	int h = args.GetInt(4);
 	wx_DCClipper *pEntity = new wx_DCClipper(*dc, x, y, w, h);
-	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetSelfObj(args);
+	Object_wx_DCClipper *pObj = Object_wx_DCClipper::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DCClipper(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -119,7 +119,7 @@ Gura_ImplementFunction(DCClipper_2)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

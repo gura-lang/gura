@@ -65,7 +65,7 @@ Gura_ImplementFunction(AnimationCtrl)
 	wxString name = wxT("animationctrl");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_AnimationCtrl *pEntity = new wx_AnimationCtrl(parent, id, *anim, *pos, *size, style, name);
-	Object_wx_AnimationCtrl *pObj = Object_wx_AnimationCtrl::GetSelfObj(args);
+	Object_wx_AnimationCtrl *pObj = Object_wx_AnimationCtrl::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_AnimationCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -73,7 +73,7 @@ Gura_ImplementFunction(AnimationCtrl)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_AnimationCtrl, Create)
@@ -91,8 +91,8 @@ Gura_DeclareMethod(wx_AnimationCtrl, Create)
 
 Gura_ImplementMethod(wx_AnimationCtrl, Create)
 {
-	Object_wx_AnimationCtrl *pSelf = Object_wx_AnimationCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxAnimation *anim = Object_wx_Animation::GetObject(args, 2)->GetEntity();
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, Create)
 	if (args.IsValid(5)) style = args.GetLong(5);
 	wxString name = wxT("animationctrl");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, *anim, *pos, *size, style, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, *anim, *pos, *size, style, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -116,9 +116,9 @@ Gura_DeclareMethod(wx_AnimationCtrl, GetAnimation)
 
 Gura_ImplementMethod(wx_AnimationCtrl, GetAnimation)
 {
-	Object_wx_AnimationCtrl *pSelf = Object_wx_AnimationCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxAnimation rtn = pSelf->GetEntity()->GetAnimation();
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxAnimation rtn = pThis->GetEntity()->GetAnimation();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Animation(new wxAnimation(rtn), NULL, OwnerTrue)));
 }
 
@@ -130,9 +130,9 @@ Gura_DeclareMethod(wx_AnimationCtrl, GetInactiveBitmap)
 
 Gura_ImplementMethod(wx_AnimationCtrl, GetInactiveBitmap)
 {
-	Object_wx_AnimationCtrl *pSelf = Object_wx_AnimationCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxBitmap rtn = pSelf->GetEntity()->GetInactiveBitmap();
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxBitmap rtn = pThis->GetEntity()->GetInactiveBitmap();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
@@ -144,9 +144,9 @@ Gura_DeclareMethod(wx_AnimationCtrl, IsPlaying)
 
 Gura_ImplementMethod(wx_AnimationCtrl, IsPlaying)
 {
-	Object_wx_AnimationCtrl *pSelf = Object_wx_AnimationCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsPlaying();
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsPlaying();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -160,12 +160,12 @@ Gura_DeclareMethod(wx_AnimationCtrl, LoadFile)
 
 Gura_ImplementMethod(wx_AnimationCtrl, LoadFile)
 {
-	Object_wx_AnimationCtrl *pSelf = Object_wx_AnimationCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString file = wxString::FromUTF8(args.GetString(0));
 	wxAnimationType animType = wxANIMATION_TYPE_ANY;
 	if (args.IsValid(1)) animType = static_cast<wxAnimationType>(args.GetInt(1));
-	bool rtn = pSelf->GetEntity()->LoadFile(file, animType);
+	bool rtn = pThis->GetEntity()->LoadFile(file, animType);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -177,9 +177,9 @@ Gura_DeclareMethod(wx_AnimationCtrl, Play)
 
 Gura_ImplementMethod(wx_AnimationCtrl, Play)
 {
-	Object_wx_AnimationCtrl *pSelf = Object_wx_AnimationCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Play();
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Play();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -191,10 +191,10 @@ Gura_DeclareMethod(wx_AnimationCtrl, SetAnimation)
 
 Gura_ImplementMethod(wx_AnimationCtrl, SetAnimation)
 {
-	Object_wx_AnimationCtrl *pSelf = Object_wx_AnimationCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAnimation *anim = Object_wx_Animation::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetAnimation(*anim);
+	pThis->GetEntity()->SetAnimation(*anim);
 	return Value::Null;
 }
 
@@ -206,10 +206,10 @@ Gura_DeclareMethod(wx_AnimationCtrl, SetInactiveBitmap)
 
 Gura_ImplementMethod(wx_AnimationCtrl, SetInactiveBitmap)
 {
-	Object_wx_AnimationCtrl *pSelf = Object_wx_AnimationCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bmp = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetInactiveBitmap(*bmp);
+	pThis->GetEntity()->SetInactiveBitmap(*bmp);
 	return Value::Null;
 }
 
@@ -220,9 +220,9 @@ Gura_DeclareMethod(wx_AnimationCtrl, Stop)
 
 Gura_ImplementMethod(wx_AnimationCtrl, Stop)
 {
-	Object_wx_AnimationCtrl *pSelf = Object_wx_AnimationCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Stop();
+	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Stop();
 	return Value::Null;
 }
 

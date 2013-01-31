@@ -48,7 +48,7 @@ Gura_ImplementFunction(GBSpanEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GBSpan *pEntity = new wx_GBSpan();
-	Object_wx_GBSpan *pObj = Object_wx_GBSpan::GetSelfObj(args);
+	Object_wx_GBSpan *pObj = Object_wx_GBSpan::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GBSpan(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(GBSpanEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(GBSpan)
@@ -74,7 +74,7 @@ Gura_ImplementFunction(GBSpan)
 	int rowspan = args.GetInt(0);
 	int colspan = args.GetInt(1);
 	wx_GBSpan *pEntity = new wx_GBSpan(rowspan, colspan);
-	Object_wx_GBSpan *pObj = Object_wx_GBSpan::GetSelfObj(args);
+	Object_wx_GBSpan *pObj = Object_wx_GBSpan::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GBSpan(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(GBSpan)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_GBSpan, GetColspan)
@@ -93,9 +93,9 @@ Gura_DeclareMethod(wx_GBSpan, GetColspan)
 
 Gura_ImplementMethod(wx_GBSpan, GetColspan)
 {
-	Object_wx_GBSpan *pSelf = Object_wx_GBSpan::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetColspan();
+	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetColspan();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -107,9 +107,9 @@ Gura_DeclareMethod(wx_GBSpan, GetRowspan)
 
 Gura_ImplementMethod(wx_GBSpan, GetRowspan)
 {
-	Object_wx_GBSpan *pSelf = Object_wx_GBSpan::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetRowspan();
+	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetRowspan();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -121,10 +121,10 @@ Gura_DeclareMethod(wx_GBSpan, SetColspan)
 
 Gura_ImplementMethod(wx_GBSpan, SetColspan)
 {
-	Object_wx_GBSpan *pSelf = Object_wx_GBSpan::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int colspan = args.GetInt(0);
-	pSelf->GetEntity()->SetColspan(colspan);
+	pThis->GetEntity()->SetColspan(colspan);
 	return Value::Null;
 }
 
@@ -136,10 +136,10 @@ Gura_DeclareMethod(wx_GBSpan, SetRowspan)
 
 Gura_ImplementMethod(wx_GBSpan, SetRowspan)
 {
-	Object_wx_GBSpan *pSelf = Object_wx_GBSpan::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rowspan = args.GetInt(0);
-	pSelf->GetEntity()->SetRowspan(rowspan);
+	pThis->GetEntity()->SetRowspan(rowspan);
 	return Value::Null;
 }
 

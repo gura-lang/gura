@@ -72,12 +72,12 @@ Gura_DeclareMethod(Struct, tolist)
 
 Gura_ImplementMethod(Struct, tolist)
 {
-	StructObject *pSelf = StructObject::GetSelfObj(args);
+	StructObject *pThis = StructObject::GetThisObj(args);
 	Value result;
 	ValueList &valList = result.InitAsList(env);
-	const DeclarationList &declList = pSelf->GetDeclList();
+	const DeclarationList &declList = pThis->GetDeclList();
 	foreach_const (DeclarationList, ppDecl, declList) {
-		const Value *pValue = pSelf->LookupValue((*ppDecl)->GetSymbol(), false);
+		const Value *pValue = pThis->LookupValue((*ppDecl)->GetSymbol(), false);
 		if (pValue == NULL) {
 			valList.push_back(Value::Null);
 		} else {

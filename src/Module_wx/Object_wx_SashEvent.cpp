@@ -53,7 +53,7 @@ Gura_ImplementFunction(SashEvent)
 	wxSashEdgePosition edge = wxSASH_NONE;
 	if (args.IsValid(1)) edge = static_cast<wxSashEdgePosition>(args.GetInt(1));
 	wx_SashEvent *pEntity = new wx_SashEvent(id, edge);
-	Object_wx_SashEvent *pObj = Object_wx_SashEvent::GetSelfObj(args);
+	Object_wx_SashEvent *pObj = Object_wx_SashEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SashEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(SashEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SashEvent, GetEdge)
@@ -72,9 +72,9 @@ Gura_DeclareMethod(wx_SashEvent, GetEdge)
 
 Gura_ImplementMethod(wx_SashEvent, GetEdge)
 {
-	Object_wx_SashEvent *pSelf = Object_wx_SashEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSashEdgePosition rtn = pSelf->GetEntity()->GetEdge();
+	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSashEdgePosition rtn = pThis->GetEntity()->GetEdge();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -86,9 +86,9 @@ Gura_DeclareMethod(wx_SashEvent, GetDragRect)
 
 Gura_ImplementMethod(wx_SashEvent, GetDragRect)
 {
-	Object_wx_SashEvent *pSelf = Object_wx_SashEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxRect rtn = pSelf->GetEntity()->GetDragRect();
+	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxRect rtn = pThis->GetEntity()->GetDragRect();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 }
 
@@ -100,9 +100,9 @@ Gura_DeclareMethod(wx_SashEvent, GetDragStatus)
 
 Gura_ImplementMethod(wx_SashEvent, GetDragStatus)
 {
-	Object_wx_SashEvent *pSelf = Object_wx_SashEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSashDragStatus rtn = pSelf->GetEntity()->GetDragStatus();
+	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSashDragStatus rtn = pThis->GetEntity()->GetDragStatus();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

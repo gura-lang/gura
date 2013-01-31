@@ -439,9 +439,9 @@ Gura_DeclareMethod(face, setcolor)
 
 Gura_ImplementMethod(face, setcolor)
 {
-	Object_face *pSelf = Object_face::GetSelfObj(args);
-	pSelf->SetColor(args.GetColorObj(0)->GetColor());
-	return args.GetSelf();
+	Object_face *pThis = Object_face::GetThisObj(args);
+	pThis->SetColor(args.GetColorObj(0)->GetColor());
+	return args.GetThis();
 }
 
 // freetype.face#setalpha(alpha:number)
@@ -453,9 +453,9 @@ Gura_DeclareMethod(face, setalpha)
 
 Gura_ImplementMethod(face, setalpha)
 {
-	Object_face *pSelf = Object_face::GetSelfObj(args);
-	pSelf->SetAlpha(args.GetUChar(0));
-	return args.GetSelf();
+	Object_face *pThis = Object_face::GetThisObj(args);
+	pThis->SetAlpha(args.GetUChar(0));
+	return args.GetThis();
 }
 
 // freetype.face#setstrength(strength:number)
@@ -467,9 +467,9 @@ Gura_DeclareMethod(face, setstrength)
 
 Gura_ImplementMethod(face, setstrength)
 {
-	Object_face *pSelf = Object_face::GetSelfObj(args);
-	pSelf->SetStrength(args.GetDouble(0));
-	return args.GetSelf();
+	Object_face *pThis = Object_face::GetThisObj(args);
+	pThis->SetStrength(args.GetDouble(0));
+	return args.GetThis();
 }
 
 // freetype.face#setslant(slant:number)
@@ -481,9 +481,9 @@ Gura_DeclareMethod(face, setslant)
 
 Gura_ImplementMethod(face, setslant)
 {
-	Object_face *pSelf = Object_face::GetSelfObj(args);
-	pSelf->SetSlant(args.GetDouble(0));
-	return args.GetSelf();
+	Object_face *pThis = Object_face::GetThisObj(args);
+	pThis->SetSlant(args.GetDouble(0));
+	return args.GetThis();
 }
 
 // freetype.face#setrotate(degree:number)
@@ -495,9 +495,9 @@ Gura_DeclareMethod(face, setrotate)
 
 Gura_ImplementMethod(face, setrotate)
 {
-	Object_face *pSelf = Object_face::GetSelfObj(args);
-	pSelf->SetRotate(args.GetDouble(0));
-	return args.GetSelf();
+	Object_face *pThis = Object_face::GetThisObj(args);
+	pThis->SetRotate(args.GetDouble(0));
+	return args.GetThis();
 }
 
 // freetype.face#setsize(width:number, height:number)
@@ -510,9 +510,9 @@ Gura_DeclareMethod(face, setsize)
 
 Gura_ImplementMethod(face, setsize)
 {
-	Object_face *pSelf = Object_face::GetSelfObj(args);
-	if (!pSelf->SetPixelSizes(sig, args.GetSizeT(0), args.GetSizeT(1))) return Value::Null;
-	return args.GetSelf();
+	Object_face *pThis = Object_face::GetThisObj(args);
+	if (!pThis->SetPixelSizes(sig, args.GetSizeT(0), args.GetSizeT(1))) return Value::Null;
+	return args.GetThis();
 }
 
 // freetype.face#setheight(height:number)
@@ -524,9 +524,9 @@ Gura_DeclareMethod(face, setheight)
 
 Gura_ImplementMethod(face, setheight)
 {
-	Object_face *pSelf = Object_face::GetSelfObj(args);
-	if (!pSelf->SetPixelSizes(sig, 0, args.GetSizeT(0))) return Value::Null;
-	return args.GetSelf();
+	Object_face *pThis = Object_face::GetThisObj(args);
+	if (!pThis->SetPixelSizes(sig, 0, args.GetSizeT(0))) return Value::Null;
+	return args.GetThis();
 }
 
 // freetype.face#cleardeco()
@@ -537,9 +537,9 @@ Gura_DeclareMethod(face, cleardeco)
 
 Gura_ImplementMethod(face, cleardeco)
 {
-	Object_face *pSelf = Object_face::GetSelfObj(args);
-	pSelf->ClearDeco();
-	return args.GetSelf();
+	Object_face *pThis = Object_face::GetThisObj(args);
+	pThis->ClearDeco();
+	return args.GetThis();
 }
 
 // freetype.face#drawtext(image:image, x:number, y:number, str:string):map:reduce
@@ -555,13 +555,13 @@ Gura_DeclareMethod(face, drawtext)
 
 Gura_ImplementMethod(face, drawtext)
 {
-	Object_face *pObjFace = Object_face::GetSelfObj(args);
+	Object_face *pObjFace = Object_face::GetThisObj(args);
 	Object_image *pObjImage = Object_image::GetObject(args, 0);
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	String str = args.GetStringSTL(3);
 	if (pObjFace->DrawOnImage(sig, pObjImage, x, y, str)) return Value::Null;
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // freetype.face#calcsize(str:string):map
@@ -573,7 +573,7 @@ Gura_DeclareMethod(face, calcsize)
 
 Gura_ImplementMethod(face, calcsize)
 {
-	Object_face *pObjFace = Object_face::GetSelfObj(args);
+	Object_face *pObjFace = Object_face::GetThisObj(args);
 	String str = args.GetStringSTL(0);
 	size_t width, height;
 	if (!pObjFace->CalcSize(sig, str, width, height)) return Value::Null;
@@ -594,7 +594,7 @@ Gura_DeclareMethod(face, calcbbox)
 // ******************* still buggy
 Gura_ImplementMethod(face, calcbbox)
 {
-	Object_face *pObjFace = Object_face::GetSelfObj(args);
+	Object_face *pObjFace = Object_face::GetThisObj(args);
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	String str = args.GetStringSTL(2);
@@ -638,13 +638,13 @@ Gura_DeclareMethod(image, drawtext)
 
 Gura_ImplementMethod(image, drawtext)
 {
-	Object_image *pObjImage = Object_image::GetSelfObj(args);
+	Object_image *pObjImage = Object_image::GetThisObj(args);
 	Object_face *pObjFace = Object_face::GetObject(args, 0);
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	String str = args.GetStringSTL(3);
 	if (pObjFace->DrawOnImage(sig, pObjImage, x, y, str)) return Value::Null;
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------

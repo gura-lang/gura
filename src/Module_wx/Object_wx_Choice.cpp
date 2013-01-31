@@ -49,7 +49,7 @@ Gura_ImplementFunction(ChoiceEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Choice *pEntity = new wx_Choice();
-	Object_wx_Choice *pObj = Object_wx_Choice::GetSelfObj(args);
+	Object_wx_Choice *pObj = Object_wx_Choice::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Choice(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(ChoiceEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Choice)
@@ -97,7 +97,7 @@ Gura_ImplementFunction(Choice)
 	wxString name = wxT("choice");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_Choice *pEntity = new wx_Choice(parent, id, *pos, *size, *choices, style, *validator, name);
-	Object_wx_Choice *pObj = Object_wx_Choice::GetSelfObj(args);
+	Object_wx_Choice *pObj = Object_wx_Choice::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Choice(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -105,7 +105,7 @@ Gura_ImplementFunction(Choice)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Choice, Create)
@@ -124,8 +124,8 @@ Gura_DeclareMethod(wx_Choice, Create)
 
 Gura_ImplementMethod(wx_Choice, Create)
 {
-	Object_wx_Choice *pSelf = Object_wx_Choice::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_Choice, Create)
 	if (args.IsValid(6)) validator = Object_wx_Validator::GetObject(args, 6)->GetEntity();
 	wxString name = wxT("choice");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, *pos, *size, *choices, style, *validator, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, *choices, style, *validator, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -149,9 +149,9 @@ Gura_DeclareMethod(wx_Choice, GetColumns)
 
 Gura_ImplementMethod(wx_Choice, GetColumns)
 {
-	Object_wx_Choice *pSelf = Object_wx_Choice::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetColumns();
+	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetColumns();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -163,9 +163,9 @@ Gura_DeclareMethod(wx_Choice, GetCurrentSelection)
 
 Gura_ImplementMethod(wx_Choice, GetCurrentSelection)
 {
-	Object_wx_Choice *pSelf = Object_wx_Choice::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetCurrentSelection();
+	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetCurrentSelection();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -177,11 +177,11 @@ Gura_DeclareMethod(wx_Choice, SetColumns)
 
 Gura_ImplementMethod(wx_Choice, SetColumns)
 {
-	Object_wx_Choice *pSelf = Object_wx_Choice::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Choice *pThis = Object_wx_Choice::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = 1;
 	if (args.IsValid(0)) n = args.GetInt(0);
-	pSelf->GetEntity()->SetColumns(n);
+	pThis->GetEntity()->SetColumns(n);
 	return Value::Null;
 }
 

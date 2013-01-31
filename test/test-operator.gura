@@ -121,8 +121,8 @@ function {
 }
 scope {
 	Fruit = class {
-		__init__(name:string) = { self.cnt = 0, self.name = name }
-		__str__() = format('name = %s, cnt = %d', self.name, self.cnt)
+		__init__(name:string) = { this.cnt = 0, this.name = name }
+		__str__() = format('name = %s, cnt = %d', this.name, this.cnt)
 		__neg__(v) = { format('__neg__(%s)', typename(v)):nomap }
 		__invert__(v) = { format('__invert__(%s)', typename(v)):nomap }
 		__not__(v) = { format('__not__(%s)', typename(v)):nomap }

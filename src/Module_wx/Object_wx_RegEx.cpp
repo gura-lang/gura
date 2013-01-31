@@ -48,7 +48,7 @@ Gura_ImplementFunction(RegExEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_RegEx *pEntity = new wx_RegEx();
-	Object_wx_RegEx *pObj = Object_wx_RegEx::GetSelfObj(args);
+	Object_wx_RegEx *pObj = Object_wx_RegEx::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_RegEx(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(RegExEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(RegEx)
@@ -75,7 +75,7 @@ Gura_ImplementFunction(RegEx)
 	int flags = wxRE_DEFAULT;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	wx_RegEx *pEntity = new wx_RegEx(expr, flags);
-	Object_wx_RegEx *pObj = Object_wx_RegEx::GetSelfObj(args);
+	Object_wx_RegEx *pObj = Object_wx_RegEx::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_RegEx(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -83,7 +83,7 @@ Gura_ImplementFunction(RegEx)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_RegEx, Compile)
@@ -96,12 +96,12 @@ Gura_DeclareMethod(wx_RegEx, Compile)
 
 Gura_ImplementMethod(wx_RegEx, Compile)
 {
-	Object_wx_RegEx *pSelf = Object_wx_RegEx::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString pattern = wxString::FromUTF8(args.GetString(0));
 	int flags = wxRE_DEFAULT;
 	if (args.IsValid(1)) flags = args.GetInt(1);
-	bool rtn = pSelf->GetEntity()->Compile(pattern, flags);
+	bool rtn = pThis->GetEntity()->Compile(pattern, flags);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -113,9 +113,9 @@ Gura_DeclareMethod(wx_RegEx, IsValid)
 
 Gura_ImplementMethod(wx_RegEx, IsValid)
 {
-	Object_wx_RegEx *pSelf = Object_wx_RegEx::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsValid();
+	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsValid();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -133,13 +133,13 @@ Gura_DeclareMethod(wx_RegEx, GetMatch)
 Gura_ImplementMethod(wx_RegEx, GetMatch)
 {
 #if 0
-	Object_wx_RegEx *pSelf = Object_wx_RegEx::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t start = args.GetSizeT(0);
 	size_t len = args.GetSizeT(1);
 	size_t index = 0;
 	if (args.IsValid(2)) index = args.GetSizeT(2);
-	bool rtn = pSelf->GetEntity()->GetMatch(start, len, index);
+	bool rtn = pThis->GetEntity()->GetMatch(start, len, index);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -156,12 +156,12 @@ Gura_DeclareMethod(wx_RegEx, GetMatch_1)
 
 Gura_ImplementMethod(wx_RegEx, GetMatch_1)
 {
-	Object_wx_RegEx *pSelf = Object_wx_RegEx::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	size_t index = 0;
 	if (args.IsValid(1)) index = args.GetSizeT(1);
-	wxString rtn = pSelf->GetEntity()->GetMatch(text, index);
+	wxString rtn = pThis->GetEntity()->GetMatch(text, index);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -173,9 +173,9 @@ Gura_DeclareMethod(wx_RegEx, GetMatchCount)
 
 Gura_ImplementMethod(wx_RegEx, GetMatchCount)
 {
-	Object_wx_RegEx *pSelf = Object_wx_RegEx::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	size_t rtn = pSelf->GetEntity()->GetMatchCount();
+	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	size_t rtn = pThis->GetEntity()->GetMatchCount();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -189,12 +189,12 @@ Gura_DeclareMethod(wx_RegEx, Matches)
 
 Gura_ImplementMethod(wx_RegEx, Matches)
 {
-	Object_wx_RegEx *pSelf = Object_wx_RegEx::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	int flags = 0;
 	if (args.IsValid(1)) flags = args.GetInt(1);
-	bool rtn = pSelf->GetEntity()->Matches(text, flags);
+	bool rtn = pThis->GetEntity()->Matches(text, flags);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -209,12 +209,12 @@ Gura_DeclareMethod(wx_RegEx, Matches_1)
 
 Gura_ImplementMethod(wx_RegEx, Matches_1)
 {
-	Object_wx_RegEx *pSelf = Object_wx_RegEx::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	int flags = args.GetInt(1);
 	size_t len = args.GetSizeT(2);
-	bool rtn = pSelf->GetEntity()->Matches(text, flags, len);
+	bool rtn = pThis->GetEntity()->Matches(text, flags, len);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -228,12 +228,12 @@ Gura_DeclareMethod(wx_RegEx, Matches_2)
 
 Gura_ImplementMethod(wx_RegEx, Matches_2)
 {
-	Object_wx_RegEx *pSelf = Object_wx_RegEx::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	int flags = 0;
 	if (args.IsValid(1)) flags = args.GetInt(1);
-	bool rtn = pSelf->GetEntity()->Matches(text, flags);
+	bool rtn = pThis->GetEntity()->Matches(text, flags);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -251,13 +251,13 @@ Gura_DeclareMethod(wx_RegEx, Replace)
 Gura_ImplementMethod(wx_RegEx, Replace)
 {
 #if 0
-	Object_wx_RegEx *pSelf = Object_wx_RegEx::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	wxString replacement = wxString::FromUTF8(args.GetString(1));
 	size_t maxMatches = 0;
 	if (args.IsValid(2)) maxMatches = args.GetSizeT(2);
-	int rtn = pSelf->GetEntity()->Replace(text, replacement, maxMatches);
+	int rtn = pThis->GetEntity()->Replace(text, replacement, maxMatches);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -277,11 +277,11 @@ Gura_DeclareMethod(wx_RegEx, ReplaceAll)
 Gura_ImplementMethod(wx_RegEx, ReplaceAll)
 {
 #if 0
-	Object_wx_RegEx *pSelf = Object_wx_RegEx::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	wxString replacement = wxString::FromUTF8(args.GetString(1));
-	int rtn = pSelf->GetEntity()->ReplaceAll(text, replacement);
+	int rtn = pThis->GetEntity()->ReplaceAll(text, replacement);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -301,11 +301,11 @@ Gura_DeclareMethod(wx_RegEx, ReplaceFirst)
 Gura_ImplementMethod(wx_RegEx, ReplaceFirst)
 {
 #if 0
-	Object_wx_RegEx *pSelf = Object_wx_RegEx::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RegEx *pThis = Object_wx_RegEx::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString text = wxString::FromUTF8(args.GetString(0));
 	wxString replacement = wxString::FromUTF8(args.GetString(1));
-	int rtn = pSelf->GetEntity()->ReplaceFirst(text, replacement);
+	int rtn = pThis->GetEntity()->ReplaceFirst(text, replacement);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);

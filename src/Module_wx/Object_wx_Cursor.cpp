@@ -54,7 +54,7 @@ Gura_ImplementFunction(CursorEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Cursor *pEntity = new wx_Cursor();
-	Object_wx_Cursor *pObj = Object_wx_Cursor::GetSelfObj(args);
+	Object_wx_Cursor *pObj = Object_wx_Cursor::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Cursor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(CursorEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Cursor)
@@ -110,7 +110,7 @@ Gura_ImplementFunction(Cursor)
 	//wxColour *bg = (wxColour *)(NULL);
 	//if (args.IsValid(7)) bg = Object_wx_Colour::GetObject(args, 7)->GetEntity();
 	wx_Cursor *pEntity = new wx_Cursor(bits, width, height, hotSpotX, hotSpotY, maskBits);
-	Object_wx_Cursor *pObj = Object_wx_Cursor::GetSelfObj(args);
+	Object_wx_Cursor *pObj = Object_wx_Cursor::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Cursor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -118,7 +118,7 @@ Gura_ImplementFunction(Cursor)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(NamedCursor)
@@ -143,7 +143,7 @@ Gura_ImplementFunction(NamedCursor)
 	int hotSpotY = 0;
 	if (args.IsValid(3)) hotSpotY = args.GetInt(3);
 	wx_Cursor *pEntity = new wx_Cursor(cursorName, type, hotSpotX, hotSpotY);
-	Object_wx_Cursor *pObj = Object_wx_Cursor::GetSelfObj(args);
+	Object_wx_Cursor *pObj = Object_wx_Cursor::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Cursor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -151,7 +151,7 @@ Gura_ImplementFunction(NamedCursor)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -171,7 +171,7 @@ Gura_ImplementFunction(StockCursor)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int cursorId = args.GetInt(0);
 	wx_Cursor *pEntity = new wx_Cursor(cursorId);
-	Object_wx_Cursor *pObj = Object_wx_Cursor::GetSelfObj(args);
+	Object_wx_Cursor *pObj = Object_wx_Cursor::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Cursor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -179,7 +179,7 @@ Gura_ImplementFunction(StockCursor)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Cursor_3)
@@ -195,7 +195,7 @@ Gura_ImplementFunction(Cursor_3)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxImage *image = Object_wx_Image::GetObject(args, 0)->GetEntity();
 	wx_Cursor *pEntity = new wx_Cursor(*image);
-	Object_wx_Cursor *pObj = Object_wx_Cursor::GetSelfObj(args);
+	Object_wx_Cursor *pObj = Object_wx_Cursor::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Cursor(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -203,7 +203,7 @@ Gura_ImplementFunction(Cursor_3)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Cursor, IsOk)
@@ -214,9 +214,9 @@ Gura_DeclareMethod(wx_Cursor, IsOk)
 
 Gura_ImplementMethod(wx_Cursor, IsOk)
 {
-	Object_wx_Cursor *pSelf = Object_wx_Cursor::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_Cursor *pThis = Object_wx_Cursor::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

@@ -47,7 +47,7 @@ Gura_ImplementFunction(LogGuiEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_LogGui *pEntity = new wx_LogGui();
-	Object_wx_LogGui *pObj = Object_wx_LogGui::GetSelfObj(args);
+	Object_wx_LogGui *pObj = Object_wx_LogGui::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_LogGui(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(LogGuiEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

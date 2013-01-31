@@ -45,7 +45,7 @@ Gura_ImplementFunction(XPMHandler)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_XPMHandler *pEntity = new wx_XPMHandler();
-	Object_wx_XPMHandler *pObj = Object_wx_XPMHandler::GetSelfObj(args);
+	Object_wx_XPMHandler *pObj = Object_wx_XPMHandler::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_XPMHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -53,7 +53,7 @@ Gura_ImplementFunction(XPMHandler)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

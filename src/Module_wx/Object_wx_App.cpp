@@ -122,7 +122,7 @@ Gura_ImplementFunction(App)
 {
 	//if (!CheckWxReady(sig)) return Value::Null;
 	wx_App *pEntity = new wx_App();
-	Object_wx_App *pObj = Object_wx_App::GetSelfObj(args);
+	Object_wx_App *pObj = Object_wx_App::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_App(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -130,7 +130,7 @@ Gura_ImplementFunction(App)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_App, CreateLogTarget)
@@ -142,9 +142,9 @@ Gura_DeclareMethod(wx_App, CreateLogTarget)
 Gura_ImplementMethod(wx_App, CreateLogTarget)
 {
 #if 0
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxLog *rtn = (wxLog *)pSelf->GetEntity()->CreateLogTarget();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxLog *rtn = (wxLog *)pThis->GetEntity()->CreateLogTarget();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Log(rtn, NULL, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
@@ -160,9 +160,9 @@ Gura_DeclareMethod(wx_App, CreateTraits)
 Gura_ImplementMethod(wx_App, CreateTraits)
 {
 #if 0
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxAppTraits *rtn = (wxAppTraits *)pSelf->GetEntity()->CreateTraits();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxAppTraits *rtn = (wxAppTraits *)pThis->GetEntity()->CreateTraits();
 	return ReturnValue(env, sig, args, Value(new Object_wx_AppTraits(rtn, NULL, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
@@ -176,9 +176,9 @@ Gura_DeclareMethod(wx_App, Dispatch)
 
 Gura_ImplementMethod(wx_App, Dispatch)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Dispatch();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Dispatch();
 	return Value::Null;
 }
 
@@ -189,9 +189,9 @@ Gura_DeclareMethod(wx_App, ExitMainLoop)
 
 Gura_ImplementMethod(wx_App, ExitMainLoop)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->ExitMainLoop();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->ExitMainLoop();
 	return Value::Null;
 }
 
@@ -204,10 +204,10 @@ Gura_DeclareMethod(wx_App, FilterEvent)
 
 Gura_ImplementMethod(wx_App, FilterEvent)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEvent *event = Object_wx_Event::GetObject(args, 0)->GetEntity();
-	int rtn = pSelf->GetEntity()->FilterEvent(*event);
+	int rtn = pThis->GetEntity()->FilterEvent(*event);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -219,9 +219,9 @@ Gura_DeclareMethod(wx_App, GetAppName)
 
 Gura_ImplementMethod(wx_App, GetAppName)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetAppName();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetAppName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -233,9 +233,9 @@ Gura_DeclareMethod(wx_App, GetClassName)
 
 Gura_ImplementMethod(wx_App, GetClassName)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetClassName();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetClassName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -247,9 +247,9 @@ Gura_DeclareMethod(wx_App, GetExitOnFrameDelete)
 
 Gura_ImplementMethod(wx_App, GetExitOnFrameDelete)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->GetExitOnFrameDelete();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->GetExitOnFrameDelete();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -278,9 +278,9 @@ Gura_DeclareMethod(wx_App, GetTopWindow)
 
 Gura_ImplementMethod(wx_App, GetTopWindow)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxWindow *rtn = (wxWindow *)pSelf->GetEntity()->GetTopWindow();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetTopWindow();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_Window(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -294,9 +294,9 @@ Gura_DeclareMethod(wx_App, GetTraits)
 
 Gura_ImplementMethod(wx_App, GetTraits)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxAppTraits *rtn = (wxAppTraits *)pSelf->GetEntity()->GetTraits();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxAppTraits *rtn = (wxAppTraits *)pThis->GetEntity()->GetTraits();
 	Value value;
 	if (rtn != NULL) value = Value(new Object_wx_AppTraits(rtn, NULL, OwnerFalse));
 	return ReturnValue(env, sig, args, value);
@@ -310,9 +310,9 @@ Gura_DeclareMethod(wx_App, GetUseBestVisual)
 
 Gura_ImplementMethod(wx_App, GetUseBestVisual)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->GetUseBestVisual();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->GetUseBestVisual();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -324,9 +324,9 @@ Gura_DeclareMethod(wx_App, GetVendorName)
 
 Gura_ImplementMethod(wx_App, GetVendorName)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetVendorName();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetVendorName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -338,9 +338,9 @@ Gura_DeclareMethod(wx_App, IsActive)
 
 Gura_ImplementMethod(wx_App, IsActive)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsActive();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsActive();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -365,9 +365,9 @@ Gura_DeclareMethod(wx_App, MainLoop)
 
 Gura_ImplementMethod(wx_App, MainLoop)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxApp::SetInstance(pSelf->GetEntity());
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxApp::SetInstance(pThis->GetEntity());
 	int argc = 0;
 	char *argv[1] = { NULL };
 	::wxEntry(argc, argv);
@@ -385,10 +385,10 @@ Gura_DeclareMethod(wx_App, OnActivate)
 Gura_ImplementMethod(wx_App, OnActivate)
 {
 #if 0
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxActivateEvent *event = Object_wx_ActivateEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->wxApp::OnActivate(*event);
+	pThis->GetEntity()->wxApp::OnActivate(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -406,10 +406,10 @@ Gura_DeclareMethod(wx_App, OnCharHook)
 Gura_ImplementMethod(wx_App, OnCharHook)
 {
 #if 0
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxKeyEvent *event = Object_wx_KeyEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->wxApp::OnCharHook(*event);
+	pThis->GetEntity()->wxApp::OnCharHook(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -431,14 +431,14 @@ Gura_DeclareMethod(wx_App, OnAssertFailure)
 Gura_ImplementMethod(wx_App, OnAssertFailure)
 {
 #if 0
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxChar *file = static_cast<wxChar>(args.GetInt(0));
 	int line = args.GetInt(1);
 	wxChar *func = static_cast<wxChar>(args.GetInt(2));
 	wxChar *cond = static_cast<wxChar>(args.GetInt(3));
 	wxChar *msg = static_cast<wxChar>(args.GetInt(4));
-	pSelf->GetEntity()->wxApp::OnAssertFailure(*file, line, *func, *cond, *msg);
+	pThis->GetEntity()->wxApp::OnAssertFailure(*file, line, *func, *cond, *msg);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -454,10 +454,10 @@ Gura_DeclareMethod(wx_App, OnCmdLineError)
 
 Gura_ImplementMethod(wx_App, OnCmdLineError)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCmdLineParser *parser = Object_wx_CmdLineParser::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->wxApp::OnCmdLineError(*parser);
+	bool rtn = pThis->GetEntity()->wxApp::OnCmdLineError(*parser);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -470,10 +470,10 @@ Gura_DeclareMethod(wx_App, OnCmdLineHelp)
 
 Gura_ImplementMethod(wx_App, OnCmdLineHelp)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCmdLineParser *parser = Object_wx_CmdLineParser::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->wxApp::OnCmdLineHelp(*parser);
+	bool rtn = pThis->GetEntity()->wxApp::OnCmdLineHelp(*parser);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -486,10 +486,10 @@ Gura_DeclareMethod(wx_App, OnCmdLineParsed)
 
 Gura_ImplementMethod(wx_App, OnCmdLineParsed)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCmdLineParser *parser = Object_wx_CmdLineParser::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->wxApp::OnCmdLineParsed(*parser);
+	bool rtn = pThis->GetEntity()->wxApp::OnCmdLineParsed(*parser);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -501,9 +501,9 @@ Gura_DeclareMethod(wx_App, OnExceptionInMainLoop)
 
 Gura_ImplementMethod(wx_App, OnExceptionInMainLoop)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->wxApp::OnExceptionInMainLoop();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->wxApp::OnExceptionInMainLoop();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -515,9 +515,9 @@ Gura_DeclareMethod(wx_App, OnExit)
 
 Gura_ImplementMethod(wx_App, OnExit)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->wxApp::OnExit();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->wxApp::OnExit();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -528,9 +528,9 @@ Gura_DeclareMethod(wx_App, OnFatalException)
 
 Gura_ImplementMethod(wx_App, OnFatalException)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->wxApp::OnFatalException();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->wxApp::OnFatalException();
 	return Value::Null;
 }
 
@@ -542,10 +542,10 @@ Gura_DeclareMethod(wx_App, OnIdle)
 
 Gura_ImplementMethod(wx_App, OnIdle)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxIdleEvent *event = Object_wx_IdleEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->wxApp::OnIdle(*event);
+	pThis->GetEntity()->wxApp::OnIdle(*event);
 	return Value::Null;
 }
 
@@ -558,10 +558,10 @@ Gura_DeclareMethod(wx_App, OnEndSession)
 Gura_ImplementMethod(wx_App, OnEndSession)
 {
 #if defined(__WXMSW__)
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCloseEvent *event = Object_wx_CloseEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnEndSession(*event);
+	pThis->GetEntity()->OnEndSession(*event);
 	return Value::Null;
 #else
 	SetError_MSWOnly(sig);
@@ -577,9 +577,9 @@ Gura_DeclareMethod(wx_App, OnInit)
 
 Gura_ImplementMethod(wx_App, OnInit)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->wxApp::OnInit();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->wxApp::OnInit();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -591,10 +591,10 @@ Gura_DeclareMethod(wx_App, OnInitCmdLine)
 
 Gura_ImplementMethod(wx_App, OnInitCmdLine)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCmdLineParser *parser = Object_wx_CmdLineParser::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->wxApp::OnInitCmdLine(*parser);
+	pThis->GetEntity()->wxApp::OnInitCmdLine(*parser);
 	return Value::Null;
 }
 
@@ -606,9 +606,9 @@ Gura_DeclareMethod(wx_App, OnRun)
 
 Gura_ImplementMethod(wx_App, OnRun)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->wxApp::OnRun();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->wxApp::OnRun();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -619,9 +619,9 @@ Gura_DeclareMethod(wx_App, OnUnhandledException)
 
 Gura_ImplementMethod(wx_App, OnUnhandledException)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->wxApp::OnUnhandledException();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->wxApp::OnUnhandledException();
 	return Value::Null;
 }
 
@@ -636,9 +636,9 @@ Gura_DeclareMethod(wx_App, ProcessMessage)
 Gura_ImplementMethod(wx_App, ProcessMessage)
 {
 #if 0
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->ProcessMessage();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->ProcessMessage();
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -653,9 +653,9 @@ Gura_DeclareMethod(wx_App, Pending)
 
 Gura_ImplementMethod(wx_App, Pending)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->wxApp::Pending();
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->wxApp::Pending();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -669,11 +669,11 @@ Gura_DeclareMethod(wx_App, SendIdleEvents)
 
 Gura_ImplementMethod(wx_App, SendIdleEvents)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxIdleEvent *event = Object_wx_IdleEvent::GetObject(args, 1)->GetEntity();
-	bool rtn = pSelf->GetEntity()->SendIdleEvents(win, *event);
+	bool rtn = pThis->GetEntity()->SendIdleEvents(win, *event);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -685,10 +685,10 @@ Gura_DeclareMethod(wx_App, SetAppName)
 
 Gura_ImplementMethod(wx_App, SetAppName)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetAppName(name);
+	pThis->GetEntity()->SetAppName(name);
 	return Value::Null;
 }
 
@@ -700,10 +700,10 @@ Gura_DeclareMethod(wx_App, SetClassName)
 
 Gura_ImplementMethod(wx_App, SetClassName)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetClassName(name);
+	pThis->GetEntity()->SetClassName(name);
 	return Value::Null;
 }
 
@@ -715,10 +715,10 @@ Gura_DeclareMethod(wx_App, SetExitOnFrameDelete)
 
 Gura_ImplementMethod(wx_App, SetExitOnFrameDelete)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool flag = args.GetBoolean(0);
-	pSelf->GetEntity()->SetExitOnFrameDelete(flag);
+	pThis->GetEntity()->SetExitOnFrameDelete(flag);
 	return Value::Null;
 }
 
@@ -744,10 +744,10 @@ Gura_DeclareMethod(wx_App, SetTopWindow)
 
 Gura_ImplementMethod(wx_App, SetTopWindow)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetTopWindow(window);
+	pThis->GetEntity()->SetTopWindow(window);
 	return Value::Null;
 }
 
@@ -759,10 +759,10 @@ Gura_DeclareMethod(wx_App, SetVendorName)
 
 Gura_ImplementMethod(wx_App, SetVendorName)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetVendorName(name);
+	pThis->GetEntity()->SetVendorName(name);
 	return Value::Null;
 }
 
@@ -775,12 +775,12 @@ Gura_DeclareMethod(wx_App, SetUseBestVisual)
 
 Gura_ImplementMethod(wx_App, SetUseBestVisual)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool flag = args.GetBoolean(0);
 	bool forceTrueColour = false;
 	if (args.IsValid(1)) forceTrueColour = args.GetBoolean(1);
-	pSelf->GetEntity()->SetUseBestVisual(flag, forceTrueColour);
+	pThis->GetEntity()->SetUseBestVisual(flag, forceTrueColour);
 	return Value::Null;
 }
 
@@ -797,12 +797,12 @@ Gura_DeclareMethod(wx_App, HandleEvent)
 Gura_ImplementMethod(wx_App, HandleEvent)
 {
 #if 0
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEvtHandler **handler = Object_wx_EvtHandler::GetObject(args, 0)->GetEntity();
 	wxEventFunction *func = Object_wx_EventFunction::GetObject(args, 1)->GetEntity();
 	wxEvent *event = Object_wx_Event::GetObject(args, 2)->GetEntity();
-	pSelf->GetEntity()->wxApp::HandleEvent(**handler, *func, *event);
+	pThis->GetEntity()->wxApp::HandleEvent(**handler, *func, *event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -818,11 +818,11 @@ Gura_DeclareMethod(wx_App, Yield)
 
 Gura_ImplementMethod(wx_App, Yield)
 {
-	Object_wx_App *pSelf = Object_wx_App::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool onlyIfNeeded = false;
 	if (args.IsValid(0)) onlyIfNeeded = args.GetBoolean(0);
-	bool rtn = pSelf->GetEntity()->Yield(onlyIfNeeded);
+	bool rtn = pThis->GetEntity()->Yield(onlyIfNeeded);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

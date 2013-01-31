@@ -52,7 +52,7 @@ Gura_ImplementFunction(HtmlWidgetCell)
 	int w = 0;
 	if (args.IsValid(1)) w = args.GetInt(1);
 	wx_HtmlWidgetCell *pEntity = new wx_HtmlWidgetCell(wnd, w);
-	Object_wx_HtmlWidgetCell *pObj = Object_wx_HtmlWidgetCell::GetSelfObj(args);
+	Object_wx_HtmlWidgetCell *pObj = Object_wx_HtmlWidgetCell::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_HtmlWidgetCell(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -60,7 +60,7 @@ Gura_ImplementFunction(HtmlWidgetCell)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

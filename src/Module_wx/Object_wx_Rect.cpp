@@ -51,7 +51,7 @@ Gura_ImplementFunction(RectEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Rect *pEntity = new wx_Rect();
-	Object_wx_Rect *pObj = Object_wx_Rect::GetSelfObj(args);
+	Object_wx_Rect *pObj = Object_wx_Rect::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Rect(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -59,7 +59,7 @@ Gura_ImplementFunction(RectEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Rect)
@@ -81,7 +81,7 @@ Gura_ImplementFunction(Rect)
 	int width = args.GetInt(2);
 	int height = args.GetInt(3);
 	wx_Rect *pEntity = new wx_Rect(x, y, width, height);
-	Object_wx_Rect *pObj = Object_wx_Rect::GetSelfObj(args);
+	Object_wx_Rect *pObj = Object_wx_Rect::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Rect(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -89,7 +89,7 @@ Gura_ImplementFunction(Rect)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Rect_1)
@@ -107,7 +107,7 @@ Gura_ImplementFunction(Rect_1)
 	wxPoint *topLeft = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxPoint *bottomRight = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	wx_Rect *pEntity = new wx_Rect(*topLeft, *bottomRight);
-	Object_wx_Rect *pObj = Object_wx_Rect::GetSelfObj(args);
+	Object_wx_Rect *pObj = Object_wx_Rect::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Rect(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -115,7 +115,7 @@ Gura_ImplementFunction(Rect_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Rect_2)
@@ -133,7 +133,7 @@ Gura_ImplementFunction(Rect_2)
 	wxPoint *pos = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxSize *size = Object_wx_Size::GetObject(args, 1)->GetEntity();
 	wx_Rect *pEntity = new wx_Rect(*pos, *size);
-	Object_wx_Rect *pObj = Object_wx_Rect::GetSelfObj(args);
+	Object_wx_Rect *pObj = Object_wx_Rect::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Rect(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -141,7 +141,7 @@ Gura_ImplementFunction(Rect_2)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Rect_3)
@@ -157,7 +157,7 @@ Gura_ImplementFunction(Rect_3)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxSize *size = Object_wx_Size::GetObject(args, 0)->GetEntity();
 	wx_Rect *pEntity = new wx_Rect(*size);
-	Object_wx_Rect *pObj = Object_wx_Rect::GetSelfObj(args);
+	Object_wx_Rect *pObj = Object_wx_Rect::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Rect(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -165,7 +165,7 @@ Gura_ImplementFunction(Rect_3)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Rect, CentreIn)
@@ -178,12 +178,12 @@ Gura_DeclareMethod(wx_Rect, CentreIn)
 
 Gura_ImplementMethod(wx_Rect, CentreIn)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *r = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	int dir = wxBOTH;
 	if (args.IsValid(1)) dir = args.GetInt(1);
-	wxRect rtn = pSelf->GetEntity()->CentreIn(*r, dir);
+	wxRect rtn = pThis->GetEntity()->CentreIn(*r, dir);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 }
 
@@ -197,12 +197,12 @@ Gura_DeclareMethod(wx_Rect, CenterIn)
 
 Gura_ImplementMethod(wx_Rect, CenterIn)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *r = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	int dir = wxBOTH;
 	if (args.IsValid(1)) dir = args.GetInt(1);
-	wxRect rtn = pSelf->GetEntity()->CenterIn(*r, dir);
+	wxRect rtn = pThis->GetEntity()->CenterIn(*r, dir);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 }
 
@@ -216,11 +216,11 @@ Gura_DeclareMethod(wx_Rect, ContainsXY)
 
 Gura_ImplementMethod(wx_Rect, ContainsXY)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
-	bool rtn = pSelf->GetEntity()->Contains(x, y);
+	bool rtn = pThis->GetEntity()->Contains(x, y);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -233,10 +233,10 @@ Gura_DeclareMethod(wx_Rect, Contains)
 
 Gura_ImplementMethod(wx_Rect, Contains)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Contains(*pt);
+	bool rtn = pThis->GetEntity()->Contains(*pt);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -249,10 +249,10 @@ Gura_DeclareMethod(wx_Rect, ContainsRect)
 
 Gura_ImplementMethod(wx_Rect, ContainsRect)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Contains(*rect);
+	bool rtn = pThis->GetEntity()->Contains(*rect);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -265,11 +265,11 @@ Gura_DeclareMethod(wx_Rect, Deflate)
 
 Gura_ImplementMethod(wx_Rect, Deflate)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord dx = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord dy = static_cast<wxCoord>(args.GetInt(1));
-	pSelf->GetEntity()->Deflate(dx, dy);
+	pThis->GetEntity()->Deflate(dx, dy);
 	return Value::Null;
 }
 
@@ -281,10 +281,10 @@ Gura_DeclareMethod(wx_Rect, Deflate_1)
 
 Gura_ImplementMethod(wx_Rect, Deflate_1)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *diff = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->Deflate(*diff);
+	pThis->GetEntity()->Deflate(*diff);
 	return Value::Null;
 }
 
@@ -296,10 +296,10 @@ Gura_DeclareMethod(wx_Rect, Deflate_2)
 
 Gura_ImplementMethod(wx_Rect, Deflate_2)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord diff = static_cast<wxCoord>(args.GetInt(0));
-	pSelf->GetEntity()->Deflate(diff);
+	pThis->GetEntity()->Deflate(diff);
 	return Value::Null;
 }
 
@@ -313,11 +313,11 @@ Gura_DeclareMethod(wx_Rect, Deflate_3)
 
 Gura_ImplementMethod(wx_Rect, Deflate_3)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord dx = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord dy = static_cast<wxCoord>(args.GetInt(1));
-	wxRect rtn = pSelf->GetEntity()->Deflate(dx, dy);
+	wxRect rtn = pThis->GetEntity()->Deflate(dx, dy);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 }
 
@@ -329,9 +329,9 @@ Gura_DeclareMethod(wx_Rect, GetBottom)
 
 Gura_ImplementMethod(wx_Rect, GetBottom)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetBottom();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetBottom();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -343,9 +343,9 @@ Gura_DeclareMethod(wx_Rect, GetHeight)
 
 Gura_ImplementMethod(wx_Rect, GetHeight)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetHeight();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetHeight();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -357,9 +357,9 @@ Gura_DeclareMethod(wx_Rect, GetLeft)
 
 Gura_ImplementMethod(wx_Rect, GetLeft)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetLeft();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetLeft();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -371,9 +371,9 @@ Gura_DeclareMethod(wx_Rect, GetPosition)
 
 Gura_ImplementMethod(wx_Rect, GetPosition)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPoint rtn = pSelf->GetEntity()->GetPosition();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPoint rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -385,9 +385,9 @@ Gura_DeclareMethod(wx_Rect, GetTopLeft)
 
 Gura_ImplementMethod(wx_Rect, GetTopLeft)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPoint rtn = pSelf->GetEntity()->GetTopLeft();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPoint rtn = pThis->GetEntity()->GetTopLeft();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -399,9 +399,9 @@ Gura_DeclareMethod(wx_Rect, GetTopRight)
 
 Gura_ImplementMethod(wx_Rect, GetTopRight)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPoint rtn = pSelf->GetEntity()->GetTopRight();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPoint rtn = pThis->GetEntity()->GetTopRight();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -413,9 +413,9 @@ Gura_DeclareMethod(wx_Rect, GetBottomLeft)
 
 Gura_ImplementMethod(wx_Rect, GetBottomLeft)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPoint rtn = pSelf->GetEntity()->GetBottomLeft();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPoint rtn = pThis->GetEntity()->GetBottomLeft();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -427,9 +427,9 @@ Gura_DeclareMethod(wx_Rect, GetBottomRight)
 
 Gura_ImplementMethod(wx_Rect, GetBottomRight)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPoint rtn = pSelf->GetEntity()->GetBottomRight();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPoint rtn = pThis->GetEntity()->GetBottomRight();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -441,9 +441,9 @@ Gura_DeclareMethod(wx_Rect, GetRight)
 
 Gura_ImplementMethod(wx_Rect, GetRight)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetRight();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetRight();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -455,9 +455,9 @@ Gura_DeclareMethod(wx_Rect, GetSize)
 
 Gura_ImplementMethod(wx_Rect, GetSize)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetSize();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -469,9 +469,9 @@ Gura_DeclareMethod(wx_Rect, GetTop)
 
 Gura_ImplementMethod(wx_Rect, GetTop)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetTop();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetTop();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -483,9 +483,9 @@ Gura_DeclareMethod(wx_Rect, GetWidth)
 
 Gura_ImplementMethod(wx_Rect, GetWidth)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetWidth();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetWidth();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -497,9 +497,9 @@ Gura_DeclareMethod(wx_Rect, GetX)
 
 Gura_ImplementMethod(wx_Rect, GetX)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetX();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetX();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -511,9 +511,9 @@ Gura_DeclareMethod(wx_Rect, GetY)
 
 Gura_ImplementMethod(wx_Rect, GetY)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetY();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetY();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -526,11 +526,11 @@ Gura_DeclareMethod(wx_Rect, Inflate)
 
 Gura_ImplementMethod(wx_Rect, Inflate)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord dx = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord dy = static_cast<wxCoord>(args.GetInt(1));
-	pSelf->GetEntity()->Inflate(dx, dy);
+	pThis->GetEntity()->Inflate(dx, dy);
 	return Value::Null;
 }
 
@@ -542,10 +542,10 @@ Gura_DeclareMethod(wx_Rect, Inflate_1)
 
 Gura_ImplementMethod(wx_Rect, Inflate_1)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *diff = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->Inflate(*diff);
+	pThis->GetEntity()->Inflate(*diff);
 	return Value::Null;
 }
 
@@ -557,10 +557,10 @@ Gura_DeclareMethod(wx_Rect, Inflate_2)
 
 Gura_ImplementMethod(wx_Rect, Inflate_2)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord diff = static_cast<wxCoord>(args.GetInt(0));
-	pSelf->GetEntity()->Inflate(diff);
+	pThis->GetEntity()->Inflate(diff);
 	return Value::Null;
 }
 
@@ -574,11 +574,11 @@ Gura_DeclareMethod(wx_Rect, Inflate_3)
 
 Gura_ImplementMethod(wx_Rect, Inflate_3)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord dx = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord dy = static_cast<wxCoord>(args.GetInt(1));
-	wxRect rtn = pSelf->GetEntity()->Inflate(dx, dy);
+	wxRect rtn = pThis->GetEntity()->Inflate(dx, dy);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 }
 
@@ -591,10 +591,10 @@ Gura_DeclareMethod(wx_Rect, Intersect)
 
 Gura_ImplementMethod(wx_Rect, Intersect)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	wxRect rtn = pSelf->GetEntity()->Intersect(*rect);
+	wxRect rtn = pThis->GetEntity()->Intersect(*rect);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 }
 
@@ -607,10 +607,10 @@ Gura_DeclareMethod(wx_Rect, Intersect_1)
 
 Gura_ImplementMethod(wx_Rect, Intersect_1)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	wxRect &rtn = pSelf->GetEntity()->Intersect(*rect);
+	wxRect &rtn = pThis->GetEntity()->Intersect(*rect);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 }
 
@@ -623,10 +623,10 @@ Gura_DeclareMethod(wx_Rect, Intersects)
 
 Gura_ImplementMethod(wx_Rect, Intersects)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Intersects(*rect);
+	bool rtn = pThis->GetEntity()->Intersects(*rect);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -638,9 +638,9 @@ Gura_DeclareMethod(wx_Rect, IsEmpty)
 
 Gura_ImplementMethod(wx_Rect, IsEmpty)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsEmpty();
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsEmpty();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -653,11 +653,11 @@ Gura_DeclareMethod(wx_Rect, Offset)
 
 Gura_ImplementMethod(wx_Rect, Offset)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord dx = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord dy = static_cast<wxCoord>(args.GetInt(1));
-	pSelf->GetEntity()->Offset(dx, dy);
+	pThis->GetEntity()->Offset(dx, dy);
 	return Value::Null;
 }
 
@@ -669,10 +669,10 @@ Gura_DeclareMethod(wx_Rect, Offset_1)
 
 Gura_ImplementMethod(wx_Rect, Offset_1)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->Offset(*pt);
+	pThis->GetEntity()->Offset(*pt);
 	return Value::Null;
 }
 
@@ -684,10 +684,10 @@ Gura_DeclareMethod(wx_Rect, SetHeight)
 
 Gura_ImplementMethod(wx_Rect, SetHeight)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int height = args.GetInt(0);
-	pSelf->GetEntity()->SetHeight(height);
+	pThis->GetEntity()->SetHeight(height);
 	return Value::Null;
 }
 
@@ -699,10 +699,10 @@ Gura_DeclareMethod(wx_Rect, SetSize)
 
 Gura_ImplementMethod(wx_Rect, SetSize)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSize *s = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetSize(*s);
+	pThis->GetEntity()->SetSize(*s);
 	return Value::Null;
 }
 
@@ -714,10 +714,10 @@ Gura_DeclareMethod(wx_Rect, SetWidth)
 
 Gura_ImplementMethod(wx_Rect, SetWidth)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);
-	pSelf->GetEntity()->SetWidth(width);
+	pThis->GetEntity()->SetWidth(width);
 	return Value::Null;
 }
 
@@ -729,10 +729,10 @@ Gura_DeclareMethod(wx_Rect, SetX)
 
 Gura_ImplementMethod(wx_Rect, SetX)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int x = args.GetInt(0);
-	pSelf->GetEntity()->SetX(x);
+	pThis->GetEntity()->SetX(x);
 	return Value::Null;
 }
 
@@ -744,10 +744,10 @@ Gura_DeclareMethod(wx_Rect, SetY)
 
 Gura_ImplementMethod(wx_Rect, SetY)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int y = args.GetInt(0);
-	pSelf->GetEntity()->SetY(y);
+	pThis->GetEntity()->SetY(y);
 	return Value::Null;
 }
 
@@ -760,10 +760,10 @@ Gura_DeclareMethod(wx_Rect, Union)
 
 Gura_ImplementMethod(wx_Rect, Union)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	wxRect rtn = pSelf->GetEntity()->Union(*rect);
+	wxRect rtn = pThis->GetEntity()->Union(*rect);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 }
 
@@ -776,10 +776,10 @@ Gura_DeclareMethod(wx_Rect, Union_1)
 
 Gura_ImplementMethod(wx_Rect, Union_1)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	wxRect &rtn = pSelf->GetEntity()->Union(*rect);
+	wxRect &rtn = pThis->GetEntity()->Union(*rect);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 }
 
@@ -793,7 +793,7 @@ Gura_DeclareMethod(wx_Rect, __eq__)
 
 Gura_ImplementMethod(wx_Rect, __eq__)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
 	wxRect *item1 = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	wxRect *item2 = Object_wx_Rect::GetObject(args, 1)->GetEntity();
 	return *item1 == *item2;
@@ -809,7 +809,7 @@ Gura_DeclareMethod(wx_Rect, __ne__)
 
 Gura_ImplementMethod(wx_Rect, __ne__)
 {
-	Object_wx_Rect *pSelf = Object_wx_Rect::GetSelfObj(args);
+	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
 	wxRect *item1 = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	wxRect *item2 = Object_wx_Rect::GetObject(args, 1)->GetEntity();
 	return *item1 != *item2;

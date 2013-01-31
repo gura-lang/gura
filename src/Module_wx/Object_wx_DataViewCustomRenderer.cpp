@@ -262,7 +262,7 @@ Gura_ImplementFunction(DataViewCustomRenderer)
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
 	if (args.IsValid(1)) mode = static_cast<wxDataViewCellMode>(args.GetInt(1));
 	wx_DataViewCustomRenderer *pEntity = new wx_DataViewCustomRenderer(varianttype, mode);
-	Object_wx_DataViewCustomRenderer *pObj = Object_wx_DataViewCustomRenderer::GetSelfObj(args);
+	Object_wx_DataViewCustomRenderer *pObj = Object_wx_DataViewCustomRenderer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DataViewCustomRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -270,7 +270,7 @@ Gura_ImplementFunction(DataViewCustomRenderer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DataViewCustomRenderer, Activate)
@@ -285,13 +285,13 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, Activate)
 
 Gura_ImplementMethod(wx_DataViewCustomRenderer, Activate)
 {
-	Object_wx_DataViewCustomRenderer *pSelf = Object_wx_DataViewCustomRenderer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *cell = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	wxDataViewListModel *model = Object_wx_DataViewListModel::GetObject(args, 1)->GetEntity();
 	unsigned col = args.GetInt(2);
 	unsigned row = args.GetInt(3);
-	bool rtn = pSelf->GetEntity()->wxDataViewCustomRenderer::Activate(*cell, model, col, row);
+	bool rtn = pThis->GetEntity()->wxDataViewCustomRenderer::Activate(*cell, model, col, row);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -303,9 +303,9 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, GetDC)
 
 Gura_ImplementMethod(wx_DataViewCustomRenderer, GetDC)
 {
-	Object_wx_DataViewCustomRenderer *pSelf = Object_wx_DataViewCustomRenderer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxDC *rtn = (wxDC *)pSelf->GetEntity()->wxDataViewCustomRenderer::GetDC();
+	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxDC *rtn = (wxDC *)pThis->GetEntity()->wxDataViewCustomRenderer::GetDC();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DC(rtn, NULL, OwnerFalse)));
 }
 
@@ -322,14 +322,14 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, LeftClick)
 
 Gura_ImplementMethod(wx_DataViewCustomRenderer, LeftClick)
 {
-	Object_wx_DataViewCustomRenderer *pSelf = Object_wx_DataViewCustomRenderer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *cursor = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxRect *cell = Object_wx_Rect::GetObject(args, 1)->GetEntity();
 	wxDataViewListModel *model = Object_wx_DataViewListModel::GetObject(args, 2)->GetEntity();
 	unsigned col = args.GetInt(3);
 	unsigned row = args.GetInt(4);
-	bool rtn = pSelf->GetEntity()->wxDataViewCustomRenderer::LeftClick(*cursor, *cell, model, col, row);
+	bool rtn = pThis->GetEntity()->wxDataViewCustomRenderer::LeftClick(*cursor, *cell, model, col, row);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -346,14 +346,14 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, RightClick)
 
 Gura_ImplementMethod(wx_DataViewCustomRenderer, RightClick)
 {
-	Object_wx_DataViewCustomRenderer *pSelf = Object_wx_DataViewCustomRenderer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *cursor = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxRect *cell = Object_wx_Rect::GetObject(args, 1)->GetEntity();
 	wxDataViewListModel *model = Object_wx_DataViewListModel::GetObject(args, 2)->GetEntity();
 	unsigned col = args.GetInt(3);
 	unsigned row = args.GetInt(4);
-	bool rtn = pSelf->GetEntity()->wxDataViewCustomRenderer::RightClick(*cursor, *cell, model, col, row);
+	bool rtn = pThis->GetEntity()->wxDataViewCustomRenderer::RightClick(*cursor, *cell, model, col, row);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -370,14 +370,14 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, StartDrag)
 
 Gura_ImplementMethod(wx_DataViewCustomRenderer, StartDrag)
 {
-	Object_wx_DataViewCustomRenderer *pSelf = Object_wx_DataViewCustomRenderer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *cursor = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxRect *cell = Object_wx_Rect::GetObject(args, 1)->GetEntity();
 	wxDataViewListModel *model = Object_wx_DataViewListModel::GetObject(args, 2)->GetEntity();
 	unsigned col = args.GetInt(3);
 	unsigned row = args.GetInt(4);
-	bool rtn = pSelf->GetEntity()->wxDataViewCustomRenderer::StartDrag(*cursor, *cell, model, col, row);
+	bool rtn = pThis->GetEntity()->wxDataViewCustomRenderer::StartDrag(*cursor, *cell, model, col, row);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

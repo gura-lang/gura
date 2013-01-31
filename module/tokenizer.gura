@@ -5,29 +5,29 @@ Entry = struct(pattern:re.pattern, func:function)
 
 Tokenizer = class {
 	__init__() = {
-		self.mode = `start
-		self.entriesDict = %{}
+		this.mode = `start
+		this.entriesDict = %{}
 	}
 	SetRule() {`block} = {
-		self.entriesDict[`start] = self.ParseBlock(block)
+		this.entriesDict[`start] = this.ParseBlock(block)
 	}
 	SetMode(mode:symbol) = {
-		self.mode = mode
+		this.mode = mode
 	}
 	Tokenize(stream:stream) = {
 		raw = 0
 		readlines(stream) {|lineBuff|
 			col = 0
 			while (col < lineBuff.len()) {
-				self.match = nil
-				for (entry in self.entriesDict[self.mode]) {
-					if (self.match = entry.pattern.match(lineBuff, col)) {
-						entry.func(self)
-						col = self.match.end(0)
+				this.match = nil
+				for (entry in this.entriesDict[this.mode]) {
+					if (this.match = entry.pattern.match(lineBuff, col)) {
+						entry.func(this)
+						col = this.match.end(0)
 						break
 					}
 				}
-				if (!self.match) {
+				if (!this.match) {
 					raise(ValueError,
 						'unrecognizable token at %d:%d' % [raw + 1, col + 1])
 					break
@@ -42,7 +42,7 @@ Tokenizer = class {
 				raise(SyntaxError, 'invalid element')
 			} elsif (expr.left().isquote()) {
 				exprLeft = expr.left().unquote()
-				self.entriesDict[exprLeft.getsymbol()] = self.ParseBlock(expr.right())
+				this.entriesDict[exprLeft.getsymbol()] = this.ParseBlock(expr.right())
 				nil
 			} else {
 				Entry(re.pattern('^' + expr.left().getstring()), expr.right().tofunction())

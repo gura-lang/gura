@@ -6,7 +6,7 @@
 
 Gura_BeginModule(os)
 
-static Environment *_pEnvSelf = NULL;
+static Environment *_pEnvThis = NULL;
 
 //-----------------------------------------------------------------------------
 // Gura module functions: os
@@ -25,21 +25,21 @@ Gura_ImplementFunction(redirect)
 {
 	Value *pValue = NULL;
 	Value value_stdin, value_stdout, value_stderr;
-	if ((pValue = _pEnvSelf->LookupValue(Gura_Symbol(stdin), false)) != NULL) {
+	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdin), false)) != NULL) {
 		value_stdin = *pValue;
 	}
-	if ((pValue = _pEnvSelf->LookupValue(Gura_Symbol(stdout), false)) != NULL) {
+	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdout), false)) != NULL) {
 		value_stdout = *pValue;
 	}
-	if ((pValue = _pEnvSelf->LookupValue(Gura_Symbol(stderr), false)) != NULL) {
+	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), false)) != NULL) {
 		value_stderr = *pValue;
 	}
-	_pEnvSelf->AssignValue(Gura_Symbol(stdin), args.GetValue(0), false);
-	_pEnvSelf->AssignValue(Gura_Symbol(stdout), args.GetValue(1), false);
+	_pEnvThis->AssignValue(Gura_Symbol(stdin), args.GetValue(0), false);
+	_pEnvThis->AssignValue(Gura_Symbol(stdout), args.GetValue(1), false);
 	if (args.IsDefined(2)) {
-		_pEnvSelf->AssignValue(Gura_Symbol(stderr), args.GetValue(2), false);
+		_pEnvThis->AssignValue(Gura_Symbol(stderr), args.GetValue(2), false);
 	} else {
-		_pEnvSelf->AssignValue(Gura_Symbol(stderr), args.GetValue(1), false);
+		_pEnvThis->AssignValue(Gura_Symbol(stderr), args.GetValue(1), false);
 	}
 	Value result;
 	if (args.IsBlockSpecified()) {
@@ -47,9 +47,9 @@ Gura_ImplementFunction(redirect)
 		const Expr_Block *pExprBlock = args.GetBlock(envBlock, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		result = pExprBlock->Exec(envBlock, sig);
-		_pEnvSelf->AssignValue(Gura_Symbol(stdin), value_stdin, false);
-		_pEnvSelf->AssignValue(Gura_Symbol(stdout), value_stdout, false);
-		_pEnvSelf->AssignValue(Gura_Symbol(stderr), value_stderr, false);
+		_pEnvThis->AssignValue(Gura_Symbol(stdin), value_stdin, false);
+		_pEnvThis->AssignValue(Gura_Symbol(stdout), value_stdout, false);
+		_pEnvThis->AssignValue(Gura_Symbol(stderr), value_stderr, false);
 	}
 	return result;
 }
@@ -74,10 +74,10 @@ Gura_ImplementFunction(exec)
 		return Value::Null;
 	}
 	const Value *pValue = NULL;
-	pValue = _pEnvSelf->LookupValue(Gura_Symbol(stdout), false);
+	pValue = _pEnvThis->LookupValue(Gura_Symbol(stdout), false);
 	Stream *pStreamStdout = (pValue != NULL && pValue->IsStream())?
 										&pValue->GetStream() : NULL;
-	pValue = _pEnvSelf->LookupValue(Gura_Symbol(stderr), false);
+	pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), false);
 	Stream *pStreamStderr = (pValue != NULL && pValue->IsStream())?
 										&pValue->GetStream() : NULL;
 	int rtn = OAL::ExecProgram(env, sig, pathName, args.GetList(1),
@@ -152,7 +152,7 @@ Gura_ImplementFunction(putenv)
 // Module entry
 Gura_ModuleEntry()
 {
-	_pEnvSelf = &env;
+	_pEnvThis = &env;
 	// value assignment
 	Module *pModuleSys = env.GetModule_sys();
 	do {

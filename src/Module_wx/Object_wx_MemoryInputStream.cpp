@@ -55,7 +55,7 @@ Gura_ImplementFunction(MemoryInputStream)
 	char data = args.GetChar(0);
 	size_t len = args.GetSizeT(1);
 	wx_MemoryInputStream *pEntity = new wx_MemoryInputStream(data, len);
-	Object_wx_MemoryInputStream *pObj = Object_wx_MemoryInputStream::GetSelfObj(args);
+	Object_wx_MemoryInputStream *pObj = Object_wx_MemoryInputStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MemoryInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(MemoryInputStream)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -82,7 +82,7 @@ Gura_ImplementFunction(MemoryInputStream_1)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxMemoryOutputStream *stream = Object_wx_MemoryOutputStream::GetObject(args, 0)->GetEntity();
 	wx_MemoryInputStream *pEntity = new wx_MemoryInputStream(*stream);
-	Object_wx_MemoryInputStream *pObj = Object_wx_MemoryInputStream::GetSelfObj(args);
+	Object_wx_MemoryInputStream *pObj = Object_wx_MemoryInputStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MemoryInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -90,7 +90,7 @@ Gura_ImplementFunction(MemoryInputStream_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MemoryInputStream, GetInputStreamBuffer)
@@ -101,9 +101,9 @@ Gura_DeclareMethod(wx_MemoryInputStream, GetInputStreamBuffer)
 
 Gura_ImplementMethod(wx_MemoryInputStream, GetInputStreamBuffer)
 {
-	Object_wx_MemoryInputStream *pSelf = Object_wx_MemoryInputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxStreamBuffer *rtn = (wxStreamBuffer *)pSelf->GetEntity()->GetInputStreamBuffer();
+	Object_wx_MemoryInputStream *pThis = Object_wx_MemoryInputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxStreamBuffer *rtn = (wxStreamBuffer *)pThis->GetEntity()->GetInputStreamBuffer();
 	return ReturnValue(env, sig, args, Value(new Object_wx_StreamBuffer(rtn, NULL, OwnerFalse)));
 }
 

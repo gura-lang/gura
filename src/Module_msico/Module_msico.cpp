@@ -188,10 +188,10 @@ Gura_DeclareMethod(content, write)
 
 Gura_ImplementMethod(content, write)
 {
-	Object_content *pSelf = Object_content::GetSelfObj(args);
+	Object_content *pThis = Object_content::GetThisObj(args);
 	Stream &stream = args.GetStream(0);
-	if (!pSelf->Write(env, sig, stream)) return Value::Null;
-	return args.GetSelf();
+	if (!pThis->Write(env, sig, stream)) return Value::Null;
+	return args.GetThis();
 }
 
 // msico.content#addimage(image:image):map:reduce
@@ -203,9 +203,9 @@ Gura_DeclareMethod(content, addimage)
 
 Gura_ImplementMethod(content, addimage)
 {
-	Object_content *pSelf = Object_content::GetSelfObj(args);
-	pSelf->AddImage(args.GetValue(0));
-	return args.GetSelf();
+	Object_content *pThis = Object_content::GetThisObj(args);
+	pThis->AddImage(args.GetValue(0));
+	return args.GetThis();
 }
 
 // implementation of class msico
@@ -231,10 +231,10 @@ Gura_DeclareMethod(image, msicoread)
 
 Gura_ImplementMethod(image, msicoread)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!ImageStreamer_ICO::ReadStream(sig, pSelf,
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!ImageStreamer_ICO::ReadStream(sig, pThis,
 					args.GetStream(0), args.GetInt(1))) return Value::Null;
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------

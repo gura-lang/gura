@@ -47,7 +47,7 @@ Gura_ImplementFunction(StdDialogButtonSizer)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_StdDialogButtonSizer *pEntity = new wx_StdDialogButtonSizer();
-	Object_wx_StdDialogButtonSizer *pObj = Object_wx_StdDialogButtonSizer::GetSelfObj(args);
+	Object_wx_StdDialogButtonSizer *pObj = Object_wx_StdDialogButtonSizer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StdDialogButtonSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(StdDialogButtonSizer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_StdDialogButtonSizer, AddButton)
@@ -66,10 +66,10 @@ Gura_DeclareMethod(wx_StdDialogButtonSizer, AddButton)
 
 Gura_ImplementMethod(wx_StdDialogButtonSizer, AddButton)
 {
-	Object_wx_StdDialogButtonSizer *pSelf = Object_wx_StdDialogButtonSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StdDialogButtonSizer *pThis = Object_wx_StdDialogButtonSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxButton *button = Object_wx_Button::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->AddButton(button);
+	pThis->GetEntity()->AddButton(button);
 	return Value::Null;
 }
 
@@ -80,9 +80,9 @@ Gura_DeclareMethod(wx_StdDialogButtonSizer, Realize)
 
 Gura_ImplementMethod(wx_StdDialogButtonSizer, Realize)
 {
-	Object_wx_StdDialogButtonSizer *pSelf = Object_wx_StdDialogButtonSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Realize();
+	Object_wx_StdDialogButtonSizer *pThis = Object_wx_StdDialogButtonSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Realize();
 	return Value::Null;
 }
 
@@ -94,10 +94,10 @@ Gura_DeclareMethod(wx_StdDialogButtonSizer, SetAffirmativeButton)
 
 Gura_ImplementMethod(wx_StdDialogButtonSizer, SetAffirmativeButton)
 {
-	Object_wx_StdDialogButtonSizer *pSelf = Object_wx_StdDialogButtonSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StdDialogButtonSizer *pThis = Object_wx_StdDialogButtonSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxButton *button = Object_wx_Button::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetAffirmativeButton(button);
+	pThis->GetEntity()->SetAffirmativeButton(button);
 	return Value::Null;
 }
 
@@ -109,10 +109,10 @@ Gura_DeclareMethod(wx_StdDialogButtonSizer, SetCancelButton)
 
 Gura_ImplementMethod(wx_StdDialogButtonSizer, SetCancelButton)
 {
-	Object_wx_StdDialogButtonSizer *pSelf = Object_wx_StdDialogButtonSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StdDialogButtonSizer *pThis = Object_wx_StdDialogButtonSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxButton *button = Object_wx_Button::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetCancelButton(button);
+	pThis->GetEntity()->SetCancelButton(button);
 	return Value::Null;
 }
 
@@ -124,10 +124,10 @@ Gura_DeclareMethod(wx_StdDialogButtonSizer, SetNegativeButton)
 
 Gura_ImplementMethod(wx_StdDialogButtonSizer, SetNegativeButton)
 {
-	Object_wx_StdDialogButtonSizer *pSelf = Object_wx_StdDialogButtonSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StdDialogButtonSizer *pThis = Object_wx_StdDialogButtonSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxButton *button = Object_wx_Button::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetNegativeButton(button);
+	pThis->GetEntity()->SetNegativeButton(button);
 	return Value::Null;
 }
 

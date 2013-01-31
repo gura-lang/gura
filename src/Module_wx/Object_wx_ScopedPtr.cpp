@@ -42,9 +42,9 @@ Gura_DeclareMethod(wx_ScopedPtr, explicit wxScopedPtr)
 
 Gura_ImplementMethod(wx_ScopedPtr, explicit wxScopedPtr)
 {
-	Object_wx_ScopedPtr *pSelf = Object_wx_ScopedPtr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->explicit wxScopedPtr();
+	Object_wx_ScopedPtr *pThis = Object_wx_ScopedPtr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->explicit wxScopedPtr();
 	return Value::Null;
 }
 
@@ -56,8 +56,8 @@ Gura_DeclareMethod(wx_ScopedPtr, release)
 
 Gura_ImplementMethod(wx_ScopedPtr, release)
 {
-	Object_wx_ScopedPtr *pSelf = Object_wx_ScopedPtr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScopedPtr *pThis = Object_wx_ScopedPtr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_ScopedPtr, reset)
@@ -67,9 +67,9 @@ Gura_DeclareMethod(wx_ScopedPtr, reset)
 
 Gura_ImplementMethod(wx_ScopedPtr, reset)
 {
-	Object_wx_ScopedPtr *pSelf = Object_wx_ScopedPtr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->reset();
+	Object_wx_ScopedPtr *pThis = Object_wx_ScopedPtr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->reset();
 	return Value::Null;
 }
 
@@ -81,8 +81,8 @@ Gura_DeclareMethod(wx_ScopedPtr, get)
 
 Gura_ImplementMethod(wx_ScopedPtr, get)
 {
-	Object_wx_ScopedPtr *pSelf = Object_wx_ScopedPtr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScopedPtr *pThis = Object_wx_ScopedPtr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_ScopedPtr, swap)
@@ -93,10 +93,10 @@ Gura_DeclareMethod(wx_ScopedPtr, swap)
 
 Gura_ImplementMethod(wx_ScopedPtr, swap)
 {
-	Object_wx_ScopedPtr *pSelf = Object_wx_ScopedPtr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ScopedPtr *pThis = Object_wx_ScopedPtr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxScopedPtr *& other = Object_wx_ScopedPtr::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->swap(*& other);
+	pThis->GetEntity()->swap(*& other);
 	return Value::Null;
 }
 

@@ -53,7 +53,7 @@ Gura_DeclareMethod(stream, bzip2reader)
 
 Gura_ImplementMethod(stream, bzip2reader)
 {
-	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	Object_stream *pObjStream = GenerateDecompressor(env, sig, stream);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjStream));
@@ -68,7 +68,7 @@ Gura_DeclareMethod(stream, bzip2writer)
 
 Gura_ImplementMethod(stream, bzip2writer)
 {
-	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	Object_stream *pObjStream = GenerateCompressor(env, sig, stream);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjStream));

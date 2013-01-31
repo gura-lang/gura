@@ -61,7 +61,7 @@ Gura_ImplementFunction(SearchCtrlEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SearchCtrl *pEntity = new wx_SearchCtrl();
-	Object_wx_SearchCtrl *pObj = Object_wx_SearchCtrl::GetSelfObj(args);
+	Object_wx_SearchCtrl *pObj = Object_wx_SearchCtrl::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SearchCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(SearchCtrlEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(SearchCtrl)
@@ -105,7 +105,7 @@ Gura_ImplementFunction(SearchCtrl)
 	wxString name = wxSearchCtrlNameStr;
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_SearchCtrl *pEntity = new wx_SearchCtrl(parent, id, value, *pos, *size, style, *validator, name);
-	Object_wx_SearchCtrl *pObj = Object_wx_SearchCtrl::GetSelfObj(args);
+	Object_wx_SearchCtrl *pObj = Object_wx_SearchCtrl::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SearchCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -113,7 +113,7 @@ Gura_ImplementFunction(SearchCtrl)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SearchCtrl, SetMenu)
@@ -124,10 +124,10 @@ Gura_DeclareMethod(wx_SearchCtrl, SetMenu)
 
 Gura_ImplementMethod(wx_SearchCtrl, SetMenu)
 {
-	Object_wx_SearchCtrl *pSelf = Object_wx_SearchCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *menu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetMenu(menu);
+	pThis->GetEntity()->SetMenu(menu);
 	return Value::Null;
 }
 
@@ -139,9 +139,9 @@ Gura_DeclareMethod(wx_SearchCtrl, GetMenu)
 
 Gura_ImplementMethod(wx_SearchCtrl, GetMenu)
 {
-	Object_wx_SearchCtrl *pSelf = Object_wx_SearchCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxMenu *rtn = (wxMenu *)pSelf->GetEntity()->GetMenu();
+	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->GetMenu();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, NULL, OwnerFalse)));
 }
 
@@ -153,10 +153,10 @@ Gura_DeclareMethod(wx_SearchCtrl, ShowSearchButton)
 
 Gura_ImplementMethod(wx_SearchCtrl, ShowSearchButton)
 {
-	Object_wx_SearchCtrl *pSelf = Object_wx_SearchCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool show = args.GetBoolean(0);
-	pSelf->GetEntity()->ShowSearchButton(show);
+	pThis->GetEntity()->ShowSearchButton(show);
 	return Value::Null;
 }
 
@@ -168,9 +168,9 @@ Gura_DeclareMethod(wx_SearchCtrl, IsSearchButtonVisible)
 
 Gura_ImplementMethod(wx_SearchCtrl, IsSearchButtonVisible)
 {
-	Object_wx_SearchCtrl *pSelf = Object_wx_SearchCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsSearchButtonVisible();
+	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsSearchButtonVisible();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -182,10 +182,10 @@ Gura_DeclareMethod(wx_SearchCtrl, ShowCancelButton)
 
 Gura_ImplementMethod(wx_SearchCtrl, ShowCancelButton)
 {
-	Object_wx_SearchCtrl *pSelf = Object_wx_SearchCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool show = args.GetBoolean(0);
-	pSelf->GetEntity()->ShowCancelButton(show);
+	pThis->GetEntity()->ShowCancelButton(show);
 	return Value::Null;
 }
 
@@ -197,9 +197,9 @@ Gura_DeclareMethod(wx_SearchCtrl, IsCancelButtonVisible)
 
 Gura_ImplementMethod(wx_SearchCtrl, IsCancelButtonVisible)
 {
-	Object_wx_SearchCtrl *pSelf = Object_wx_SearchCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsCancelButtonVisible();
+	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsCancelButtonVisible();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

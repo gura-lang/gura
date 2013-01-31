@@ -49,7 +49,7 @@ Gura_ImplementFunction(StringInputStream)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString s = wxString::FromUTF8(args.GetString(0));
 	wx_StringInputStream *pEntity = new wx_StringInputStream(s);
-	Object_wx_StringInputStream *pObj = Object_wx_StringInputStream::GetSelfObj(args);
+	Object_wx_StringInputStream *pObj = Object_wx_StringInputStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StringInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(StringInputStream)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

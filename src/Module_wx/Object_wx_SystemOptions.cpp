@@ -47,7 +47,7 @@ Gura_ImplementFunction(SystemOptions)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SystemOptions *pEntity = new wx_SystemOptions();
-	Object_wx_SystemOptions *pObj = Object_wx_SystemOptions::GetSelfObj(args);
+	Object_wx_SystemOptions *pObj = Object_wx_SystemOptions::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SystemOptions(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(SystemOptions)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SystemOptions, GetOption)
@@ -67,10 +67,10 @@ Gura_DeclareMethod(wx_SystemOptions, GetOption)
 
 Gura_ImplementMethod(wx_SystemOptions, GetOption)
 {
-	Object_wx_SystemOptions *pSelf = Object_wx_SystemOptions::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	wxString rtn = pSelf->GetEntity()->GetOption(name);
+	wxString rtn = pThis->GetEntity()->GetOption(name);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -83,10 +83,10 @@ Gura_DeclareMethod(wx_SystemOptions, GetOptionInt)
 
 Gura_ImplementMethod(wx_SystemOptions, GetOptionInt)
 {
-	Object_wx_SystemOptions *pSelf = Object_wx_SystemOptions::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	int rtn = pSelf->GetEntity()->GetOptionInt(name);
+	int rtn = pThis->GetEntity()->GetOptionInt(name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -99,10 +99,10 @@ Gura_DeclareMethod(wx_SystemOptions, HasOption)
 
 Gura_ImplementMethod(wx_SystemOptions, HasOption)
 {
-	Object_wx_SystemOptions *pSelf = Object_wx_SystemOptions::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->HasOption(name);
+	bool rtn = pThis->GetEntity()->HasOption(name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -115,10 +115,10 @@ Gura_DeclareMethod(wx_SystemOptions, IsFalse)
 
 Gura_ImplementMethod(wx_SystemOptions, IsFalse)
 {
-	Object_wx_SystemOptions *pSelf = Object_wx_SystemOptions::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->IsFalse(name);
+	bool rtn = pThis->GetEntity()->IsFalse(name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -131,11 +131,11 @@ Gura_DeclareMethod(wx_SystemOptions, SetOption)
 
 Gura_ImplementMethod(wx_SystemOptions, SetOption)
 {
-	Object_wx_SystemOptions *pSelf = Object_wx_SystemOptions::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString value = wxString::FromUTF8(args.GetString(1));
-	pSelf->GetEntity()->SetOption(name, value);
+	pThis->GetEntity()->SetOption(name, value);
 	return Value::Null;
 }
 
@@ -148,11 +148,11 @@ Gura_DeclareMethod(wx_SystemOptions, SetOption_1)
 
 Gura_ImplementMethod(wx_SystemOptions, SetOption_1)
 {
-	Object_wx_SystemOptions *pSelf = Object_wx_SystemOptions::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	int value = args.GetInt(1);
-	pSelf->GetEntity()->SetOption(name, value);
+	pThis->GetEntity()->SetOption(name, value);
 	return Value::Null;
 }
 

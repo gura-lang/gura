@@ -50,7 +50,7 @@ Gura_ImplementFunction(AcceleratorEntryEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_AcceleratorEntry *pEntity = new wx_AcceleratorEntry();
-	Object_wx_AcceleratorEntry *pObj = Object_wx_AcceleratorEntry::GetSelfObj(args);
+	Object_wx_AcceleratorEntry *pObj = Object_wx_AcceleratorEntry::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_AcceleratorEntry(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(AcceleratorEntryEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(AcceleratorEntry)
@@ -79,7 +79,7 @@ Gura_ImplementFunction(AcceleratorEntry)
 	if (sig.IsSignalled()) return Value::Null;
 	int cmd = args.GetInt(2);
 	wx_AcceleratorEntry *pEntity = new wx_AcceleratorEntry(flags, keyCode, cmd);
-	Object_wx_AcceleratorEntry *pObj = Object_wx_AcceleratorEntry::GetSelfObj(args);
+	Object_wx_AcceleratorEntry *pObj = Object_wx_AcceleratorEntry::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_AcceleratorEntry(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -87,7 +87,7 @@ Gura_ImplementFunction(AcceleratorEntry)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_AcceleratorEntry, GetCommand)
@@ -98,9 +98,9 @@ Gura_DeclareMethod(wx_AcceleratorEntry, GetCommand)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, GetCommand)
 {
-	Object_wx_AcceleratorEntry *pSelf = Object_wx_AcceleratorEntry::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetCommand();
+	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetCommand();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -112,9 +112,9 @@ Gura_DeclareMethod(wx_AcceleratorEntry, GetFlags)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, GetFlags)
 {
-	Object_wx_AcceleratorEntry *pSelf = Object_wx_AcceleratorEntry::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetFlags();
+	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetFlags();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -126,9 +126,9 @@ Gura_DeclareMethod(wx_AcceleratorEntry, GetKeyCode)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, GetKeyCode)
 {
-	Object_wx_AcceleratorEntry *pSelf = Object_wx_AcceleratorEntry::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetKeyCode();
+	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetKeyCode();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -142,13 +142,13 @@ Gura_DeclareMethod(wx_AcceleratorEntry, Set)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, Set)
 {
-	Object_wx_AcceleratorEntry *pSelf = Object_wx_AcceleratorEntry::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int flags = args.GetInt(0);
 	int keyCode = ArgToKeyCode(this, sig, args, 1);
 	if (sig.IsSignalled()) return Value::Null;
 	int cmd = args.GetInt(2);
-	pSelf->GetEntity()->Set(flags, keyCode, cmd);
+	pThis->GetEntity()->Set(flags, keyCode, cmd);
 	return Value::Null;
 }
 

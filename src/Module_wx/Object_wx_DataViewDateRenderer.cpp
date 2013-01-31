@@ -53,7 +53,7 @@ Gura_ImplementFunction(DataViewDateRenderer)
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_ACTIVATABLE;
 	if (args.IsValid(1)) mode = static_cast<wxDataViewCellMode>(args.GetInt(1));
 	wx_DataViewDateRenderer *pEntity = new wx_DataViewDateRenderer(varianttype, mode);
-	Object_wx_DataViewDateRenderer *pObj = Object_wx_DataViewDateRenderer::GetSelfObj(args);
+	Object_wx_DataViewDateRenderer *pObj = Object_wx_DataViewDateRenderer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DataViewDateRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(DataViewDateRenderer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

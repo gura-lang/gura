@@ -64,7 +64,7 @@ Gura_ImplementFunction(Toolbook)
 	wxString name = wxNotebookNameStr;
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_Toolbook *pEntity = new wx_Toolbook(parent, id, *pos, *size, style, name);
-	Object_wx_Toolbook *pObj = Object_wx_Toolbook::GetSelfObj(args);
+	Object_wx_Toolbook *pObj = Object_wx_Toolbook::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Toolbook(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -72,7 +72,7 @@ Gura_ImplementFunction(Toolbook)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

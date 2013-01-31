@@ -68,7 +68,7 @@ _MS(pEntity->WinSublang = 0);
 	if (args.IsValid(2)) pEntity->Description = wxString::FromUTF8(args.GetString(2));
 _MS(if (args.IsValid(3)) pEntity->WinLang = args.GetInt(3));
 _MS(if (args.IsValid(4)) pEntity->WinSublang = args.GetInt(4));
-	Object_wx_LanguageInfo *pObj = Object_wx_LanguageInfo::GetSelfObj(args);
+	Object_wx_LanguageInfo *pObj = Object_wx_LanguageInfo::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_LanguageInfo(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -76,7 +76,7 @@ _MS(if (args.IsValid(4)) pEntity->WinSublang = args.GetInt(4));
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

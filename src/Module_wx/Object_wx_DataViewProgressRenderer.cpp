@@ -56,7 +56,7 @@ Gura_ImplementFunction(DataViewProgressRenderer)
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
 	if (args.IsValid(2)) mode = static_cast<wxDataViewCellMode>(args.GetInt(2));
 	wx_DataViewProgressRenderer *pEntity = new wx_DataViewProgressRenderer(label, varianttype, mode);
-	Object_wx_DataViewProgressRenderer *pObj = Object_wx_DataViewProgressRenderer::GetSelfObj(args);
+	Object_wx_DataViewProgressRenderer *pObj = Object_wx_DataViewProgressRenderer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DataViewProgressRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(DataViewProgressRenderer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

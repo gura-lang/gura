@@ -53,7 +53,7 @@ Gura_ImplementFunction(FindDialogEvent)
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_FindDialogEvent *pEntity = new wx_FindDialogEvent(commandType, id);
-	Object_wx_FindDialogEvent *pObj = Object_wx_FindDialogEvent::GetSelfObj(args);
+	Object_wx_FindDialogEvent *pObj = Object_wx_FindDialogEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_FindDialogEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(FindDialogEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FindDialogEvent, GetFlags)
@@ -72,9 +72,9 @@ Gura_DeclareMethod(wx_FindDialogEvent, GetFlags)
 
 Gura_ImplementMethod(wx_FindDialogEvent, GetFlags)
 {
-	Object_wx_FindDialogEvent *pSelf = Object_wx_FindDialogEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetFlags();
+	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetFlags();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -86,9 +86,9 @@ Gura_DeclareMethod(wx_FindDialogEvent, GetFindString)
 
 Gura_ImplementMethod(wx_FindDialogEvent, GetFindString)
 {
-	Object_wx_FindDialogEvent *pSelf = Object_wx_FindDialogEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetFindString();
+	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetFindString();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -100,9 +100,9 @@ Gura_DeclareMethod(wx_FindDialogEvent, GetReplaceString)
 
 Gura_ImplementMethod(wx_FindDialogEvent, GetReplaceString)
 {
-	Object_wx_FindDialogEvent *pSelf = Object_wx_FindDialogEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetReplaceString();
+	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetReplaceString();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -114,9 +114,9 @@ Gura_DeclareMethod(wx_FindDialogEvent, GetDialog)
 
 Gura_ImplementMethod(wx_FindDialogEvent, GetDialog)
 {
-	Object_wx_FindDialogEvent *pSelf = Object_wx_FindDialogEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxFindReplaceDialog *rtn = (wxFindReplaceDialog *)pSelf->GetEntity()->GetDialog();
+	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxFindReplaceDialog *rtn = (wxFindReplaceDialog *)pThis->GetEntity()->GetDialog();
 	return ReturnValue(env, sig, args, Value(new Object_wx_FindReplaceDialog(rtn, NULL, OwnerFalse)));
 }
 

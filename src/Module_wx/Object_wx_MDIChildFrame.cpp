@@ -48,7 +48,7 @@ Gura_ImplementFunction(MDIChildFrameEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MDIChildFrame *pEntity = new wx_MDIChildFrame();
-	Object_wx_MDIChildFrame *pObj = Object_wx_MDIChildFrame::GetSelfObj(args);
+	Object_wx_MDIChildFrame *pObj = Object_wx_MDIChildFrame::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MDIChildFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(MDIChildFrameEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(MDIChildFrame)
@@ -88,7 +88,7 @@ Gura_ImplementFunction(MDIChildFrame)
 	wxString name = wxT("frame");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_MDIChildFrame *pEntity = new wx_MDIChildFrame(parent, id, title, *pos, *size, style, name);
-	Object_wx_MDIChildFrame *pObj = Object_wx_MDIChildFrame::GetSelfObj(args);
+	Object_wx_MDIChildFrame *pObj = Object_wx_MDIChildFrame::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MDIChildFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -96,7 +96,7 @@ Gura_ImplementFunction(MDIChildFrame)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MDIChildFrame, Activate)
@@ -106,9 +106,9 @@ Gura_DeclareMethod(wx_MDIChildFrame, Activate)
 
 Gura_ImplementMethod(wx_MDIChildFrame, Activate)
 {
-	Object_wx_MDIChildFrame *pSelf = Object_wx_MDIChildFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Activate();
+	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Activate();
 	return Value::Null;
 }
 
@@ -130,8 +130,8 @@ Gura_DeclareMethod(wx_MDIChildFrame, Create)
 Gura_ImplementMethod(wx_MDIChildFrame, Create)
 {
 #if 0
-	Object_wx_MDIChildFrame *pSelf = Object_wx_MDIChildFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_MDIChildFrame, Create)
 	if (args.IsValid(5)) style = args.GetLong(5);
 	wxString name = wxT("frame");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, title, *pos, *size, style, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, title, *pos, *size, style, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -159,10 +159,10 @@ Gura_DeclareMethod(wx_MDIChildFrame, Maximize)
 
 Gura_ImplementMethod(wx_MDIChildFrame, Maximize)
 {
-	Object_wx_MDIChildFrame *pSelf = Object_wx_MDIChildFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool maximize = args.GetBoolean(0);
-	pSelf->GetEntity()->Maximize(maximize);
+	pThis->GetEntity()->Maximize(maximize);
 	return Value::Null;
 }
 
@@ -173,9 +173,9 @@ Gura_DeclareMethod(wx_MDIChildFrame, Restore)
 
 Gura_ImplementMethod(wx_MDIChildFrame, Restore)
 {
-	Object_wx_MDIChildFrame *pSelf = Object_wx_MDIChildFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Restore();
+	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Restore();
 	return Value::Null;
 }
 

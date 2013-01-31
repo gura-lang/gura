@@ -22,51 +22,51 @@ reader(filename:string, sheetindex => 1) = {
 
 writer = class {
 	__init__(filename:string, sheetindex => 1, growvertFlag => true) = {
-		self.filename = filename
-		self.growvertFlag = growvertFlag
-		self.app = mswin.ole(progid)
-		self.wb = self.app.Workbooks.Add()
-		self.ws = self.wb.WorkSheets(sheetindex)
-		self.start(1, 1)
+		this.filename = filename
+		this.growvertFlag = growvertFlag
+		this.app = mswin.ole(progid)
+		this.wb = this.app.Workbooks.Add()
+		this.ws = this.wb.WorkSheets(sheetindex)
+		this.start(1, 1)
 	}
 	__del__() = {
-		self.close()
+		this.close()
 	}
 	start(iRow:number => 1, iCol:number => 1) = {
-		[self.iRow, self.iCol] = [iRow, iCol]
-		self.nEntries = 0
+		[this.iRow, this.iCol] = [iRow, iCol]
+		this.nEntries = 0
 	}
 	start.help = 'Set start point to write values.'
 	write(fields+):map = {
-		if (self.growvertFlag) {
+		if (this.growvertFlag) {
 			for (field in fields) {|idx|
-				self.ws.Cells(self.iRow + self.nEntries, self.iCol + idx).Value = field
+				this.ws.Cells(this.iRow + this.nEntries, this.iCol + idx).Value = field
 			}
 		} else {
 			for (field in fields) {|idx|
-				self.ws.Cells(self.iRow + idx, self.iCol + self.nEntries).Value = field
+				this.ws.Cells(this.iRow + idx, this.iCol + this.nEntries).Value = field
 			}
 		}
-		self.nEntries += 1
+		this.nEntries += 1
 	}
 	write.help = 'Append value of fields into Excel sheet.'
 	clear() = {
-		lastCell = self.ws.Range('A1').SpecialCells(self.app.xlCellTypeLastCell)
-		self.ws.Range(self.ws.Cells(1, 1), lastCell).ClearContents()
-		self.nEntries = 0
+		lastCell = this.ws.Range('A1').SpecialCells(this.app.xlCellTypeLastCell)
+		this.ws.Range(this.ws.Cells(1, 1), lastCell).ClearContents()
+		this.nEntries = 0
 	}
 	clear.help = 'Clear contents of Excel sheet.'
 	autofit() = {
 		lastCell = ws.Range('A1').SpecialCells(app.xlCellTypeLastCell)
 		for (iCol in 1..lastCell.Column) {
-			self.ws.Columns(iCol).EntireColumn().AutoFit()
+			this.ws.Columns(iCol).EntireColumn().AutoFit()
 		}
 	}
 	autofit.help = 'Fits column width by calculating maximum width of each column.'
 	close() = {
-		self.wb.SaveAs(path.absname(self.filename))
-		self.wb.Close(0)
-		self.app.Quit()
+		this.wb.SaveAs(path.absname(this.filename))
+		this.wb.Close(0)
+		this.app.Quit()
 	}
 	close.help = 'Save file and exit Excel application.'
 }

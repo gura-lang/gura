@@ -57,7 +57,7 @@ Gura_ImplementFunction(DataObjectSimple)
 	wxDataFormat *format = (wxDataFormat *)(&wxFormatInvalid);
 	if (args.IsValid(0)) format = Object_wx_DataFormat::GetObject(args, 0)->GetEntity();
 	wx_DataObjectSimple *pEntity = new wx_DataObjectSimple(*format);
-	Object_wx_DataObjectSimple *pObj = Object_wx_DataObjectSimple::GetSelfObj(args);
+	Object_wx_DataObjectSimple *pObj = Object_wx_DataObjectSimple::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DataObjectSimple(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -65,7 +65,7 @@ Gura_ImplementFunction(DataObjectSimple)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DataObjectSimple, GetFormat)
@@ -76,9 +76,9 @@ Gura_DeclareMethod(wx_DataObjectSimple, GetFormat)
 
 Gura_ImplementMethod(wx_DataObjectSimple, GetFormat)
 {
-	Object_wx_DataObjectSimple *pSelf = Object_wx_DataObjectSimple::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxDataFormat &rtn = pSelf->GetEntity()->GetFormat();
+	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxDataFormat &rtn = pThis->GetEntity()->GetFormat();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DataFormat(new wxDataFormat(rtn), NULL, OwnerTrue)));
 }
 
@@ -90,10 +90,10 @@ Gura_DeclareMethod(wx_DataObjectSimple, SetFormat)
 
 Gura_ImplementMethod(wx_DataObjectSimple, SetFormat)
 {
-	Object_wx_DataObjectSimple *pSelf = Object_wx_DataObjectSimple::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataFormat *format = Object_wx_DataFormat::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetFormat(*format);
+	pThis->GetEntity()->SetFormat(*format);
 	return Value::Null;
 }
 
@@ -105,9 +105,9 @@ Gura_DeclareMethod(wx_DataObjectSimple, GetDataSize)
 
 Gura_ImplementMethod(wx_DataObjectSimple, GetDataSize)
 {
-	Object_wx_DataObjectSimple *pSelf = Object_wx_DataObjectSimple::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	size_t rtn = pSelf->GetEntity()->GetDataSize();
+	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	size_t rtn = pThis->GetEntity()->GetDataSize();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -123,10 +123,10 @@ Gura_DeclareMethod(wx_DataObjectSimple, GetDataHere)
 Gura_ImplementMethod(wx_DataObjectSimple, GetDataHere)
 {
 #if 0
-	Object_wx_DataObjectSimple *pSelf = Object_wx_DataObjectSimple::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int *buf = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->GetDataHere(*buf);
+	bool rtn = pThis->GetEntity()->GetDataHere(*buf);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -146,11 +146,11 @@ Gura_DeclareMethod(wx_DataObjectSimple, SetData)
 Gura_ImplementMethod(wx_DataObjectSimple, SetData)
 {
 #if 0
-	Object_wx_DataObjectSimple *pSelf = Object_wx_DataObjectSimple::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t len = args.GetSizeT(0);
 	int *buf = args.GetInt(1);
-	bool rtn = pSelf->GetEntity()->SetData(len, *buf);
+	bool rtn = pThis->GetEntity()->SetData(len, *buf);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);

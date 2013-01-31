@@ -50,7 +50,7 @@ Gura_ImplementFunction(HelpControllerHelpProvider)
 	wxHelpControllerBase *hc = (wxHelpControllerBase *)(NULL);
 	if (args.IsValid(0)) hc = Object_wx_HelpControllerBase::GetObject(args, 0)->GetEntity();
 	wx_HelpControllerHelpProvider *pEntity = new wx_HelpControllerHelpProvider(hc);
-	Object_wx_HelpControllerHelpProvider *pObj = Object_wx_HelpControllerHelpProvider::GetSelfObj(args);
+	Object_wx_HelpControllerHelpProvider *pObj = Object_wx_HelpControllerHelpProvider::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_HelpControllerHelpProvider(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(HelpControllerHelpProvider)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_HelpControllerHelpProvider, SetHelpController)
@@ -69,10 +69,10 @@ Gura_DeclareMethod(wx_HelpControllerHelpProvider, SetHelpController)
 
 Gura_ImplementMethod(wx_HelpControllerHelpProvider, SetHelpController)
 {
-	Object_wx_HelpControllerHelpProvider *pSelf = Object_wx_HelpControllerHelpProvider::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHelpControllerBase *hc = Object_wx_HelpControllerBase::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetHelpController(hc);
+	pThis->GetEntity()->SetHelpController(hc);
 	return Value::Null;
 }
 
@@ -84,9 +84,9 @@ Gura_DeclareMethod(wx_HelpControllerHelpProvider, GetHelpController)
 
 Gura_ImplementMethod(wx_HelpControllerHelpProvider, GetHelpController)
 {
-	Object_wx_HelpControllerHelpProvider *pSelf = Object_wx_HelpControllerHelpProvider::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxHelpControllerBase *rtn = (wxHelpControllerBase *)pSelf->GetEntity()->GetHelpController();
+	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxHelpControllerBase *rtn = (wxHelpControllerBase *)pThis->GetEntity()->GetHelpController();
 	return ReturnValue(env, sig, args, Value(new Object_wx_HelpControllerBase(rtn, NULL, OwnerFalse)));
 }
 

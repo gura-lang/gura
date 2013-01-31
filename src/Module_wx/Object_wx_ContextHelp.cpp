@@ -53,7 +53,7 @@ Gura_ImplementFunction(ContextHelp)
 	bool doNow = true;
 	if (args.IsValid(1)) doNow = args.GetBoolean(1);
 	wx_ContextHelp *pEntity = new wx_ContextHelp(window, doNow);
-	Object_wx_ContextHelp *pObj = Object_wx_ContextHelp::GetSelfObj(args);
+	Object_wx_ContextHelp *pObj = Object_wx_ContextHelp::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ContextHelp(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(ContextHelp)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ContextHelp, BeginContextHelp)
@@ -73,11 +73,11 @@ Gura_DeclareMethod(wx_ContextHelp, BeginContextHelp)
 
 Gura_ImplementMethod(wx_ContextHelp, BeginContextHelp)
 {
-	Object_wx_ContextHelp *pSelf = Object_wx_ContextHelp::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *window = (wxWindow *)(NULL);
 	if (args.IsValid(0)) window = Object_wx_Window::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->BeginContextHelp(window);
+	bool rtn = pThis->GetEntity()->BeginContextHelp(window);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -89,9 +89,9 @@ Gura_DeclareMethod(wx_ContextHelp, EndContextHelp)
 
 Gura_ImplementMethod(wx_ContextHelp, EndContextHelp)
 {
-	Object_wx_ContextHelp *pSelf = Object_wx_ContextHelp::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->EndContextHelp();
+	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->EndContextHelp();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

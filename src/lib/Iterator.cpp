@@ -1062,8 +1062,8 @@ void Iterator_Interval::GatherFollower(Environment::Frame *pFrame, EnvironmentSe
 // Iterator_Fork
 //-----------------------------------------------------------------------------
 Iterator_Fork::Iterator_Fork(Environment &env, Signal sig,
-		Function *pFunc, const Value &valueSelf, const ValueList &valListArg) :
-	Iterator(false), _env(env), _pFunc(pFunc), _valueSelf(valueSelf), _doneFlag(false)
+		Function *pFunc, const Value &valueThis, const ValueList &valListArg) :
+	Iterator(false), _env(env), _pFunc(pFunc), _valueThis(valueThis), _doneFlag(false)
 {
 	_iterOwner.PrepareForMap(sig, pFunc->GetDeclOwner(), valListArg);
 	_pValListToWrite = &_valListA;
@@ -1128,7 +1128,7 @@ void Iterator_Fork::Run()
 	ValueList valList;
 	while (_iterOwner.Next(env, sig, valList)) {
 		Args args(valList);
-		args.SetSelf(_valueSelf);
+		args.SetThis(_valueThis);
 		Value value = _pFunc->Eval(_env, sig, args);
 		if (sig.IsSignalled()) break;
 		_semaphore.Wait();
@@ -1193,15 +1193,15 @@ void Iterator_ExplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 // Iterator_ImplicitMap
 //-----------------------------------------------------------------------------
 Iterator_ImplicitMap::Iterator_ImplicitMap(Environment &env, Signal sig, Function *pFunc,
-			const Value &valueSelf, Iterator *pIteratorSelf,
+			const Value &valueThis, Iterator *pIteratorThis,
 			const ValueList &valListArg, bool skipInvalidFlag) :
 	Iterator(false, skipInvalidFlag), _env(env), _sig(sig), _pFunc(pFunc),
-	_valueSelf(valueSelf), _pIteratorSelf(Reference(pIteratorSelf)), _doneSelfFlag(false)
+	_valueThis(valueThis), _pIteratorThis(Reference(pIteratorThis)), _doneThisFlag(false)
 {
 	_iterOwner.PrepareForMap(sig, pFunc->GetDeclOwner(), valListArg);
 	if (sig.IsSignalled()) return;
 	SetInfiniteFlag(_iterOwner.IsInfinite() &&
-				(_pIteratorSelf.IsNull() || _pIteratorSelf->IsInfinite()));
+				(_pIteratorThis.IsNull() || _pIteratorThis->IsInfinite()));
 }
 
 Iterator_ImplicitMap::~Iterator_ImplicitMap()
@@ -1212,11 +1212,11 @@ Iterator_ImplicitMap::~Iterator_ImplicitMap()
 bool Iterator_ImplicitMap::DoNext(Environment &env, Signal sig, Value &value)
 {
 	ValueList valList;
-	if (_doneSelfFlag || !_iterOwner.Next(env, sig, valList)) return false;
+	if (_doneThisFlag || !_iterOwner.Next(env, sig, valList)) return false;
 	Args args(valList);
-	args.SetSelf(_valueSelf);
-	if (!_pIteratorSelf.IsNull()) {
-		_doneSelfFlag = !_pIteratorSelf->Next(env, sig, _valueSelf);
+	args.SetThis(_valueThis);
+	if (!_pIteratorThis.IsNull()) {
+		_doneThisFlag = !_pIteratorThis->Next(env, sig, _valueThis);
 		if (sig.IsSignalled()) return false;
 	}
 	value = _pFunc->Eval(_env, sig, args);
@@ -1237,8 +1237,8 @@ void Iterator_ImplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 {
 	if (_cntRef == 1) {
 		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
-		if (!_pIteratorSelf.IsNull()) {
-			_pIteratorSelf->GatherFollower(pFrame, envSet);
+		if (!_pIteratorThis.IsNull()) {
+			_pIteratorThis->GatherFollower(pFrame, envSet);
 		}
 		_pFunc->GatherFollower(pFrame, envSet);
 		_iterOwner.GatherFollower(pFrame, envSet);
@@ -1255,15 +1255,15 @@ Iterator_MemberMap::~Iterator_MemberMap()
 
 bool Iterator_MemberMap::DoNext(Environment &env, Signal sig, Value &value)
 {
-	Value valueSelfEach;
-	if (!_pIterator->Next(env, sig, valueSelfEach)) return false;
-	ObjectBase *pObjEach = valueSelfEach.ExtractObject(sig);
+	Value valueThisEach;
+	if (!_pIterator->Next(env, sig, valueThisEach)) return false;
+	ObjectBase *pObjEach = valueThisEach.ExtractObject(sig);
 	if (sig.IsSignalled()) return false;
 	Environment &envEach = *pObjEach;
 	value = _pExpr->Exec(envEach, sig);
 	if (value.IsFunction()) {
 		Object_function *pObj = new Object_function(envEach,
-						Function::Reference(value.GetFunction()), valueSelfEach);
+						Function::Reference(value.GetFunction()), valueThisEach);
 		value = Value(pObj);
 	}
 	return true;
@@ -1293,10 +1293,10 @@ Iterator_MethodMap::~Iterator_MethodMap()
 bool Iterator_MethodMap::DoNext(Environment &env, Signal sig, Value &value)
 {
 	const Function *pFuncSuccRequester = NULL;
-	Value valueSelf;
-	if (!_pIteratorSelf->Next(env, sig, valueSelf)) return false;
+	Value valueThis;
+	if (!_pIteratorThis->Next(env, sig, valueThis)) return false;
 	value = _pExprCaller->EvalEach(_env, sig,
-							valueSelf, NULL, false, &pFuncSuccRequester);
+							valueThis, NULL, false, &pFuncSuccRequester);
 	return true;
 }
 
@@ -1309,7 +1309,7 @@ void Iterator_MethodMap::GatherFollower(Environment::Frame *pFrame, EnvironmentS
 {
 	if (_cntRef == 1) {
 		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
-		_pIteratorSelf->GatherFollower(pFrame, envSet);
+		_pIteratorThis->GatherFollower(pFrame, envSet);
 	}
 }
 
@@ -1317,9 +1317,9 @@ void Iterator_MethodMap::GatherFollower(Environment::Frame *pFrame, EnvironmentS
 // Iterator_FuncBinder
 //-----------------------------------------------------------------------------
 Iterator_FuncBinder::Iterator_FuncBinder(Environment &env,
-				Function *pFunc, const Value &valueSelf, Iterator *pIterator) :
+				Function *pFunc, const Value &valueThis, Iterator *pIterator) :
 		Iterator(false), _env(env), _pFunc(pFunc),
-		_valueSelf(valueSelf), _pIterator(pIterator)
+		_valueThis(valueThis), _pIterator(pIterator)
 {
 }
 
@@ -1337,7 +1337,7 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Signal sig, Value &value)
 		if (!_pFunc->GetDeclOwner().Compensate(_env, sig, valListComp)) {
 			return false;
 		}
-		Args args(valListComp, _valueSelf, NULL, false, &pFuncSuccRequester);
+		Args args(valListComp, _valueThis, NULL, false, &pFuncSuccRequester);
 		value = _pFunc->Eval(_env, sig, args);
 		if (sig.IsSignalled()) return false;
 	} else {
@@ -1346,7 +1346,7 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Signal sig, Value &value)
 		if (!_pFunc->GetDeclOwner().Compensate(_env, sig, valListComp)) {
 			return false;
 		}
-		Args args(valListComp, _valueSelf, NULL, false, &pFuncSuccRequester);
+		Args args(valListComp, _valueThis, NULL, false, &pFuncSuccRequester);
 		value = _pFunc->Eval(_env, sig, args);
 		if (sig.IsSignalled()) return false;
 		//sig.SetError(ERR_TypeError, "invalid structure of arguments");

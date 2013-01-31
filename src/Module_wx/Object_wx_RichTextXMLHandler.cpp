@@ -56,7 +56,7 @@ Gura_ImplementFunction(RichTextXMLHandler)
 	int type = wxRICHTEXT_TYPE_XML;
 	if (args.IsValid(2)) type = args.GetInt(2);
 	wx_RichTextXMLHandler *pEntity = new wx_RichTextXMLHandler(name, ext, type);
-	Object_wx_RichTextXMLHandler *pObj = Object_wx_RichTextXMLHandler::GetSelfObj(args);
+	Object_wx_RichTextXMLHandler *pObj = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_RichTextXMLHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(RichTextXMLHandler)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_RichTextXMLHandler, CanLoad)
@@ -75,9 +75,9 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, CanLoad)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, CanLoad)
 {
-	Object_wx_RichTextXMLHandler *pSelf = Object_wx_RichTextXMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->CanLoad();
+	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->CanLoad();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -89,9 +89,9 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, CanSave)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, CanSave)
 {
-	Object_wx_RichTextXMLHandler *pSelf = Object_wx_RichTextXMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->CanSave();
+	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->CanSave();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -105,12 +105,12 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, CreateStyle)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, CreateStyle)
 {
-	Object_wx_RichTextXMLHandler *pSelf = Object_wx_RichTextXMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTextAttrEx *attr = Object_wx_TextAttrEx::GetObject(args, 0)->GetEntity();
 	bool isPara = false;
 	if (args.IsValid(1)) isPara = args.GetBoolean(1);
-	wxString rtn = pSelf->GetEntity()->CreateStyle(*attr, isPara);
+	wxString rtn = pThis->GetEntity()->CreateStyle(*attr, isPara);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -127,11 +127,11 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, DoLoadFile)
 Gura_ImplementMethod(wx_RichTextXMLHandler, DoLoadFile)
 {
 #if 0
-	Object_wx_RichTextXMLHandler *pSelf = Object_wx_RichTextXMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextBuffer *buffer = Object_wx_RichTextBuffer::GetObject(args, 0)->GetEntity();
 	wxInputStream *stream = Object_wx_InputStream::GetObject(args, 1)->GetEntity();
-	bool rtn = pSelf->GetEntity()->DoLoadFile(buffer, *stream);
+	bool rtn = pThis->GetEntity()->DoLoadFile(buffer, *stream);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -151,11 +151,11 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, DoSaveFile)
 Gura_ImplementMethod(wx_RichTextXMLHandler, DoSaveFile)
 {
 #if 0
-	Object_wx_RichTextXMLHandler *pSelf = Object_wx_RichTextXMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextBuffer *buffer = Object_wx_RichTextBuffer::GetObject(args, 0)->GetEntity();
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 1)->GetEntity();
-	bool rtn = pSelf->GetEntity()->DoSaveFile(buffer, *stream);
+	bool rtn = pThis->GetEntity()->DoSaveFile(buffer, *stream);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -175,14 +175,14 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, ExportXML)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, ExportXML)
 {
-	Object_wx_RichTextXMLHandler *pSelf = Object_wx_RichTextXMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
 	wxMBConv *convMem = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
 	wxMBConv *convFile = Object_wx_MBConv::GetObject(args, 2)->GetEntity();
 	wxRichTextObject *obj = Object_wx_RichTextObject::GetObject(args, 3)->GetEntity();
 	int level = args.GetInt(4);
-	bool rtn = pSelf->GetEntity()->ExportXML(*stream, convMem, convFile, *obj, level);
+	bool rtn = pThis->GetEntity()->ExportXML(*stream, convMem, convFile, *obj, level);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -195,10 +195,10 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, GetNodeContent)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, GetNodeContent)
 {
-	Object_wx_RichTextXMLHandler *pSelf = Object_wx_RichTextXMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
-	wxString rtn = pSelf->GetEntity()->GetNodeContent(node);
+	wxString rtn = pThis->GetEntity()->GetNodeContent(node);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -212,11 +212,11 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, GetParamNode)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, GetParamNode)
 {
-	Object_wx_RichTextXMLHandler *pSelf = Object_wx_RichTextXMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
 	wxString param = wxString::FromUTF8(args.GetString(1));
-	wxXmlNode *rtn = (wxXmlNode *)pSelf->GetEntity()->GetParamNode(node, param);
+	wxXmlNode *rtn = (wxXmlNode *)pThis->GetEntity()->GetParamNode(node, param);
 	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, NULL, OwnerFalse)));
 }
 
@@ -230,11 +230,11 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, GetParamValue)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, GetParamValue)
 {
-	Object_wx_RichTextXMLHandler *pSelf = Object_wx_RichTextXMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
 	wxString param = wxString::FromUTF8(args.GetString(1));
-	wxString rtn = pSelf->GetEntity()->GetParamValue(node, param);
+	wxString rtn = pThis->GetEntity()->GetParamValue(node, param);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -249,13 +249,13 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, GetStyle)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, GetStyle)
 {
-	Object_wx_RichTextXMLHandler *pSelf = Object_wx_RichTextXMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTextAttrEx *attr = Object_wx_TextAttrEx::GetObject(args, 0)->GetEntity();
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 1)->GetEntity();
 	bool isPara = false;
 	if (args.IsValid(2)) isPara = args.GetBoolean(2);
-	bool rtn = pSelf->GetEntity()->GetStyle(*attr, node, isPara);
+	bool rtn = pThis->GetEntity()->GetStyle(*attr, node, isPara);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -270,14 +270,14 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, GetText)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, GetText)
 {
-	Object_wx_RichTextXMLHandler *pSelf = Object_wx_RichTextXMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
 	wxString param = wxEmptyString;
 	if (args.IsValid(1)) param = wxString::FromUTF8(args.GetString(1));
 	bool translate = false;
 	if (args.IsValid(2)) translate = args.GetBoolean(2);
-	wxString rtn = pSelf->GetEntity()->GetText(node, param, translate);
+	wxString rtn = pThis->GetEntity()->GetText(node, param, translate);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -291,11 +291,11 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, HasParam)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, HasParam)
 {
-	Object_wx_RichTextXMLHandler *pSelf = Object_wx_RichTextXMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
 	wxString param = wxString::FromUTF8(args.GetString(1));
-	bool rtn = pSelf->GetEntity()->HasParam(node, param);
+	bool rtn = pThis->GetEntity()->HasParam(node, param);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -309,11 +309,11 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, ImportXML)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, ImportXML)
 {
-	Object_wx_RichTextXMLHandler *pSelf = Object_wx_RichTextXMLHandler::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextBuffer *buffer = Object_wx_RichTextBuffer::GetObject(args, 0)->GetEntity();
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 1)->GetEntity();
-	bool rtn = pSelf->GetEntity()->ImportXML(buffer, node);
+	bool rtn = pThis->GetEntity()->ImportXML(buffer, node);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

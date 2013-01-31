@@ -51,7 +51,7 @@ Gura_ImplementFunction(StringBufferLength)
 	wxString str = wxString::FromUTF8(args.GetString(0));
 	size_t len = args.GetSizeT(1);
 	wx_StringBufferLength *pEntity = new wx_StringBufferLength(str, len);
-	Object_wx_StringBufferLength *pObj = Object_wx_StringBufferLength::GetSelfObj(args);
+	Object_wx_StringBufferLength *pObj = Object_wx_StringBufferLength::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StringBufferLength(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -59,7 +59,7 @@ Gura_ImplementFunction(StringBufferLength)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_StringBufferLength, SetLength)
@@ -70,10 +70,10 @@ Gura_DeclareMethod(wx_StringBufferLength, SetLength)
 
 Gura_ImplementMethod(wx_StringBufferLength, SetLength)
 {
-	Object_wx_StringBufferLength *pSelf = Object_wx_StringBufferLength::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StringBufferLength *pThis = Object_wx_StringBufferLength::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t nLength = args.GetSizeT(0);
-	pSelf->GetEntity()->SetLength(nLength);
+	pThis->GetEntity()->SetLength(nLength);
 	return Value::Null;
 }
 

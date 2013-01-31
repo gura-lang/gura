@@ -47,7 +47,7 @@ Gura_ImplementFunction(QuantizeEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Quantize *pEntity = new wx_Quantize();
-	Object_wx_Quantize *pObj = Object_wx_Quantize::GetSelfObj(args);
+	Object_wx_Quantize *pObj = Object_wx_Quantize::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Quantize(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(QuantizeEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Quantize, Quantize)
@@ -75,8 +75,8 @@ Gura_DeclareMethod(wx_Quantize, Quantize)
 Gura_ImplementMethod(wx_Quantize, Quantize)
 {
 #if 0
-	Object_wx_Quantize *pSelf = Object_wx_Quantize::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Quantize *pThis = Object_wx_Quantize::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxImage *src = Object_wx_Image::GetObject(args, 0)->GetEntity();
 	wxImage *dest = Object_wx_Image::GetObject(args, 1)->GetEntity();
 	wxPalette *pPalette = Object_wx_Palette::GetObject(args, 2)->GetEntity();
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_Quantize, Quantize)
 	if (args.IsValid(4)) eightBitData = args.GetUChar(4);
 	int flags = wxQUANTIZE_INCLUDE_WINDOWS_COLOURS|wxQUANTIZE_FILL_DESTINATION_IMAGE|wxQUANTIZE_RETURN_8BIT_DATA;
 	if (args.IsValid(5)) flags = args.GetInt(5);
-	bool rtn = pSelf->GetEntity()->Quantize(*src, *dest, *pPalette, desiredNoColours, eightBitData, flags);
+	bool rtn = pThis->GetEntity()->Quantize(*src, *dest, *pPalette, desiredNoColours, eightBitData, flags);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -109,8 +109,8 @@ Gura_DeclareMethod(wx_Quantize, Quantize_1)
 Gura_ImplementMethod(wx_Quantize, Quantize_1)
 {
 #if 0
-	Object_wx_Quantize *pSelf = Object_wx_Quantize::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Quantize *pThis = Object_wx_Quantize::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxImage *src = Object_wx_Image::GetObject(args, 0)->GetEntity();
 	wxImage *dest = Object_wx_Image::GetObject(args, 1)->GetEntity();
 	int desiredNoColours = 236;
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_Quantize, Quantize_1)
 	if (args.IsValid(3)) eightBitData = args.GetUChar(3);
 	int flags = wxQUANTIZE_INCLUDE_WINDOWS_COLOURS|wxQUANTIZE_FILL_DESTINATION_IMAGE|wxQUANTIZE_RETURN_8BIT_DATA;
 	if (args.IsValid(4)) flags = args.GetInt(4);
-	bool rtn = pSelf->GetEntity()->Quantize(*src, *dest, desiredNoColours, eightBitData, flags);
+	bool rtn = pThis->GetEntity()->Quantize(*src, *dest, desiredNoColours, eightBitData, flags);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -142,15 +142,15 @@ Gura_DeclareMethod(wx_Quantize, DoQuantize)
 Gura_ImplementMethod(wx_Quantize, DoQuantize)
 {
 #if 0
-	Object_wx_Quantize *pSelf = Object_wx_Quantize::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Quantize *pThis = Object_wx_Quantize::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned w = args.GetInt(0);
 	unsigned h = args.GetInt(1);
 	unsigned char in_rows = args.GetUChar(2);
 	unsigned char out_rows = args.GetUChar(3);
 	unsigned char palette = args.GetUChar(4);
 	int desiredNoColours = args.GetInt(5);
-	pSelf->GetEntity()->DoQuantize(w, h, in_rows, out_rows, palette, desiredNoColours);
+	pThis->GetEntity()->DoQuantize(w, h, in_rows, out_rows, palette, desiredNoColours);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);

@@ -21,9 +21,9 @@ Gura_DeclareMethod(image, xpmread)
 
 Gura_ImplementMethod(image, xpmread)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!ImageStreamer_xpm::ReadStream(sig, pSelf, args.GetStream(0))) return Value::Null;
-	return args.GetSelf();
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!ImageStreamer_xpm::ReadStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	return args.GetThis();
 }
 #endif
 
@@ -37,9 +37,9 @@ Gura_DeclareMethod(image, xpmwrite)
 
 Gura_ImplementMethod(image, xpmwrite)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!ImageStreamer_xpm::WriteStream(sig, pSelf, args.GetStream(0))) return Value::Null;
-	return args.GetSelf();
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!ImageStreamer_xpm::WriteStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	return args.GetThis();
 }
 
 // image#xpmdata(xpm[]:string):reduce
@@ -53,8 +53,8 @@ Gura_DeclareMethod(image, xpmdata)
 Gura_ImplementMethod(image, xpmdata)
 {
 	typedef std::map<String, Color> ColorMap;
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!pSelf->CheckEmpty(sig)) return Value::Null;
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!pThis->CheckEmpty(sig)) return Value::Null;
 	const ValueList &valList = args.GetList(0);
 	ValueList::const_iterator pValue = valList.begin();
 	if (pValue == valList.end()) {
@@ -219,10 +219,10 @@ Gura_ImplementMethod(image, xpmdata)
 		sig.SetError(ERR_FormatError, "invalid XPM header");
 		return Value::Null;
 	}
-	if (!pSelf->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
+	if (!pThis->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
 	std::auto_ptr<Object_image::Scanner>
-					pScannerDst(pSelf->CreateScanner(Image::SCAN_LeftTopHorz));
-	bool alphaFlag = (pSelf->GetFormat() == Image::FORMAT_RGBA);
+					pScannerDst(pThis->CreateScanner(Image::SCAN_LeftTopHorz));
+	bool alphaFlag = (pThis->GetFormat() == Image::FORMAT_RGBA);
 	for (int y = 0; y < height && pValue != valList.end(); y++, pValue++) {
 		const char *p = pValue->GetString();
 		String symbol;
@@ -252,7 +252,7 @@ Gura_ImplementMethod(image, xpmdata)
 			}
 		}
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------

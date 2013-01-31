@@ -53,7 +53,7 @@ Gura_ImplementFunction(NotifyEvent)
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_NotifyEvent *pEntity = new wx_NotifyEvent(eventType, id);
-	Object_wx_NotifyEvent *pObj = Object_wx_NotifyEvent::GetSelfObj(args);
+	Object_wx_NotifyEvent *pObj = Object_wx_NotifyEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_NotifyEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(NotifyEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_NotifyEvent, Allow)
@@ -71,9 +71,9 @@ Gura_DeclareMethod(wx_NotifyEvent, Allow)
 
 Gura_ImplementMethod(wx_NotifyEvent, Allow)
 {
-	Object_wx_NotifyEvent *pSelf = Object_wx_NotifyEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Allow();
+	Object_wx_NotifyEvent *pThis = Object_wx_NotifyEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Allow();
 	return Value::Null;
 }
 
@@ -85,9 +85,9 @@ Gura_DeclareMethod(wx_NotifyEvent, IsAllowed)
 
 Gura_ImplementMethod(wx_NotifyEvent, IsAllowed)
 {
-	Object_wx_NotifyEvent *pSelf = Object_wx_NotifyEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsAllowed();
+	Object_wx_NotifyEvent *pThis = Object_wx_NotifyEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsAllowed();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -98,9 +98,9 @@ Gura_DeclareMethod(wx_NotifyEvent, Veto)
 
 Gura_ImplementMethod(wx_NotifyEvent, Veto)
 {
-	Object_wx_NotifyEvent *pSelf = Object_wx_NotifyEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Veto();
+	Object_wx_NotifyEvent *pThis = Object_wx_NotifyEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Veto();
 	return Value::Null;
 }
 

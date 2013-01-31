@@ -63,7 +63,7 @@ Gura_ImplementFunction(ConnectionEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Connection *pEntity = new wx_Connection();
-	Object_wx_Connection *pObj = Object_wx_Connection::GetSelfObj(args);
+	Object_wx_Connection *pObj = Object_wx_Connection::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Connection(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(ConnectionEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Connection)
@@ -92,7 +92,7 @@ Gura_ImplementFunction(Connection)
 	char buffer = args.GetChar(0);
 	int size = args.GetInt(1);
 	wx_Connection *pEntity = new wx_Connection(buffer, size);
-	Object_wx_Connection *pObj = Object_wx_Connection::GetSelfObj(args);
+	Object_wx_Connection *pObj = Object_wx_Connection::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Connection(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -100,7 +100,7 @@ Gura_ImplementFunction(Connection)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -121,15 +121,15 @@ Gura_DeclareMethod(wx_Connection, Advise)
 Gura_ImplementMethod(wx_Connection, Advise)
 {
 #if 0
-	Object_wx_Connection *pSelf = Object_wx_Connection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	char data = args.GetChar(1);
 	int size = -1;
 	if (args.IsValid(2)) size = args.GetInt(2);
 	wxIPCFormat format = wxCF_TEXT;
 	if (args.IsValid(3)) format = static_cast<wxIPCFormat>(args.GetInt(3));
-	bool rtn = pSelf->GetEntity()->Advise(item, data, size, format);
+	bool rtn = pThis->GetEntity()->Advise(item, data, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -150,14 +150,14 @@ Gura_DeclareMethod(wx_Connection, Execute)
 Gura_ImplementMethod(wx_Connection, Execute)
 {
 #if 0
-	Object_wx_Connection *pSelf = Object_wx_Connection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	char data = args.GetChar(0);
 	int size = -1;
 	if (args.IsValid(1)) size = args.GetInt(1);
 	wxIPCFormat format = wxCF_TEXT;
 	if (args.IsValid(2)) format = static_cast<wxIPCFormat>(args.GetInt(2));
-	bool rtn = pSelf->GetEntity()->Execute(data, size, format);
+	bool rtn = pThis->GetEntity()->Execute(data, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -172,9 +172,9 @@ Gura_DeclareMethod(wx_Connection, Disconnect)
 
 Gura_ImplementMethod(wx_Connection, Disconnect)
 {
-	Object_wx_Connection *pSelf = Object_wx_Connection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Disconnect();
+	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Disconnect();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -194,14 +194,14 @@ Gura_DeclareMethod(wx_Connection, OnAdvise)
 Gura_ImplementMethod(wx_Connection, OnAdvise)
 {
 #if 0
-	Object_wx_Connection *pSelf = Object_wx_Connection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
 	char data = args.GetChar(2);
 	int size = args.GetInt(3);
 	wxIPCFormat format = static_cast<wxIPCFormat>(args.GetInt(4));
-	bool rtn = pSelf->GetEntity()->OnAdvise(topic, item, data, size, format);
+	bool rtn = pThis->GetEntity()->OnAdvise(topic, item, data, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -216,9 +216,9 @@ Gura_DeclareMethod(wx_Connection, OnDisconnect)
 
 Gura_ImplementMethod(wx_Connection, OnDisconnect)
 {
-	Object_wx_Connection *pSelf = Object_wx_Connection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->OnDisconnect();
+	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->OnDisconnect();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -237,13 +237,13 @@ Gura_DeclareMethod(wx_Connection, OnExecute)
 Gura_ImplementMethod(wx_Connection, OnExecute)
 {
 #if 0
-	Object_wx_Connection *pSelf = Object_wx_Connection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	char data = args.GetChar(1);
 	int size = args.GetInt(2);
 	wxIPCFormat format = static_cast<wxIPCFormat>(args.GetInt(3));
-	bool rtn = pSelf->GetEntity()->OnExecute(topic, data, size, format);
+	bool rtn = pThis->GetEntity()->OnExecute(topic, data, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -266,14 +266,14 @@ Gura_DeclareMethod(wx_Connection, OnPoke)
 Gura_ImplementMethod(wx_Connection, OnPoke)
 {
 #if 0
-	Object_wx_Connection *pSelf = Object_wx_Connection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
 	char data = args.GetChar(2);
 	int size = args.GetInt(3);
 	wxIPCFormat format = static_cast<wxIPCFormat>(args.GetInt(4));
-	bool rtn = pSelf->GetEntity()->OnPoke(topic, item, data, size, format);
+	bool rtn = pThis->GetEntity()->OnPoke(topic, item, data, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -295,13 +295,13 @@ Gura_DeclareMethod(wx_Connection, OnRequest)
 Gura_ImplementMethod(wx_Connection, OnRequest)
 {
 #if 0
-	Object_wx_Connection *pSelf = Object_wx_Connection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
 	int size = args.GetInt(2);
 	wxIPCFormat format = static_cast<wxIPCFormat>(args.GetInt(3));
-	char rtn = pSelf->GetEntity()->OnRequest(topic, item, size, format);
+	char rtn = pThis->GetEntity()->OnRequest(topic, item, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -318,11 +318,11 @@ Gura_DeclareMethod(wx_Connection, OnStartAdvise)
 
 Gura_ImplementMethod(wx_Connection, OnStartAdvise)
 {
-	Object_wx_Connection *pSelf = Object_wx_Connection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
-	bool rtn = pSelf->GetEntity()->OnStartAdvise(topic, item);
+	bool rtn = pThis->GetEntity()->OnStartAdvise(topic, item);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -336,11 +336,11 @@ Gura_DeclareMethod(wx_Connection, OnStopAdvise)
 
 Gura_ImplementMethod(wx_Connection, OnStopAdvise)
 {
-	Object_wx_Connection *pSelf = Object_wx_Connection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString topic = wxString::FromUTF8(args.GetString(0));
 	wxString item = wxString::FromUTF8(args.GetString(1));
-	bool rtn = pSelf->GetEntity()->OnStopAdvise(topic, item);
+	bool rtn = pThis->GetEntity()->OnStopAdvise(topic, item);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -359,15 +359,15 @@ Gura_DeclareMethod(wx_Connection, Poke)
 Gura_ImplementMethod(wx_Connection, Poke)
 {
 #if 0
-	Object_wx_Connection *pSelf = Object_wx_Connection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	char data = args.GetChar(1);
 	int size = -1;
 	if (args.IsValid(2)) size = args.GetInt(2);
 	wxIPCFormat format = wxCF_TEXT;
 	if (args.IsValid(3)) format = static_cast<wxIPCFormat>(args.GetInt(3));
-	bool rtn = pSelf->GetEntity()->Poke(item, data, size, format);
+	bool rtn = pThis->GetEntity()->Poke(item, data, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -388,13 +388,13 @@ Gura_DeclareMethod(wx_Connection, Request)
 Gura_ImplementMethod(wx_Connection, Request)
 {
 #if 0
-	Object_wx_Connection *pSelf = Object_wx_Connection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
 	int size = args.GetInt(1);
 	wxIPCFormat format = wxIPC_TEXT;
 	if (args.IsValid(2)) format = static_cast<wxIPCFormat>(args.GetInt(2));
-	char rtn = pSelf->GetEntity()->Request(item, size, format);
+	char rtn = pThis->GetEntity()->Request(item, size, format);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -410,10 +410,10 @@ Gura_DeclareMethod(wx_Connection, StartAdvise)
 
 Gura_ImplementMethod(wx_Connection, StartAdvise)
 {
-	Object_wx_Connection *pSelf = Object_wx_Connection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->StartAdvise(item);
+	bool rtn = pThis->GetEntity()->StartAdvise(item);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -426,10 +426,10 @@ Gura_DeclareMethod(wx_Connection, StopAdvise)
 
 Gura_ImplementMethod(wx_Connection, StopAdvise)
 {
-	Object_wx_Connection *pSelf = Object_wx_Connection::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Connection *pThis = Object_wx_Connection::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString item = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->StopAdvise(item);
+	bool rtn = pThis->GetEntity()->StopAdvise(item);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

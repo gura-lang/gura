@@ -214,8 +214,8 @@ Gura_DeclareMethod(reader, entries)
 
 Gura_ImplementMethod(reader, entries)
 {
-	Object_reader *pSelf = Object_reader::GetSelfObj(args);
-	Iterator *pIterator = new Iterator_Entry(Object_reader::Reference(pSelf));
+	Object_reader *pThis = Object_reader::GetThisObj(args);
+	Iterator *pIterator = new Iterator_Entry(Object_reader::Reference(pThis));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -342,7 +342,7 @@ Gura_DeclareMethod(writer, add)
 
 Gura_ImplementMethod(writer, add)
 {
-	Object_writer *pSelf = Object_writer::GetSelfObj(args);
+	Object_writer *pThis = Object_writer::GetThisObj(args);
 	String fileName;
 	if (args.IsString(1)) {
 		fileName = args.GetString(1);
@@ -354,8 +354,8 @@ Gura_ImplementMethod(writer, add)
 		}
 		Directory::SplitFileName(identifier, NULL, &fileName);
 	}
-	if (!pSelf->Add(args.GetStream(0), fileName.c_str())) return Value::Null;
-	return args.GetSelf();
+	if (!pThis->Add(args.GetStream(0), fileName.c_str())) return Value::Null;
+	return args.GetThis();
 }
 
 // tar.writer#close():reduce
@@ -366,9 +366,9 @@ Gura_DeclareMethod(writer, close)
 
 Gura_ImplementMethod(writer, close)
 {
-	Object_writer *pSelf = Object_writer::GetSelfObj(args);
-	if (!pSelf->Close()) return Value::Null;
-	return args.GetSelf();
+	Object_writer *pThis = Object_writer::GetThisObj(args);
+	if (!pThis->Close()) return Value::Null;
+	return args.GetThis();
 }
 
 // implementation of class writer

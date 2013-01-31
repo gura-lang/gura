@@ -59,7 +59,7 @@ Gura_ImplementFunction(DropFilesEvent)
 	wxString files = NULL;
 	if (args.IsValid(2)) files = wxString::FromUTF8(args.GetString(2));
 	wx_DropFilesEvent *pEntity = new wx_DropFilesEvent(id, noFiles, files);
-	Object_wx_DropFilesEvent *pObj = Object_wx_DropFilesEvent::GetSelfObj(args);
+	Object_wx_DropFilesEvent *pObj = Object_wx_DropFilesEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DropFilesEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(DropFilesEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -82,9 +82,9 @@ Gura_DeclareMethod(wx_DropFilesEvent, GetFiles)
 Gura_ImplementMethod(wx_DropFilesEvent, GetFiles)
 {
 #if 0
-	Object_wx_DropFilesEvent *pSelf = Object_wx_DropFilesEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetFiles();
+	Object_wx_DropFilesEvent *pThis = Object_wx_DropFilesEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetFiles();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
@@ -99,9 +99,9 @@ Gura_DeclareMethod(wx_DropFilesEvent, GetNumberOfFiles)
 
 Gura_ImplementMethod(wx_DropFilesEvent, GetNumberOfFiles)
 {
-	Object_wx_DropFilesEvent *pSelf = Object_wx_DropFilesEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetNumberOfFiles();
+	Object_wx_DropFilesEvent *pThis = Object_wx_DropFilesEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetNumberOfFiles();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -113,9 +113,9 @@ Gura_DeclareMethod(wx_DropFilesEvent, GetPosition)
 
 Gura_ImplementMethod(wx_DropFilesEvent, GetPosition)
 {
-	Object_wx_DropFilesEvent *pSelf = Object_wx_DropFilesEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPoint rtn = pSelf->GetEntity()->GetPosition();
+	Object_wx_DropFilesEvent *pThis = Object_wx_DropFilesEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPoint rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 

@@ -43,9 +43,9 @@ Gura_DeclareMethod(wx_IconLocation, IsOk)
 
 Gura_ImplementMethod(wx_IconLocation, IsOk)
 {
-	Object_wx_IconLocation *pSelf = Object_wx_IconLocation::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_IconLocation *pThis = Object_wx_IconLocation::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

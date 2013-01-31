@@ -59,7 +59,7 @@ Gura_DeclareMethod(stream, gzipreader)
 
 Gura_ImplementMethod(stream, gzipreader)
 {
-	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	int windowBits = 31;
 	Object_stream *pObjStream = GenerateDecompressor(env, sig,
 								Stream::Reference(&stream), windowBits);
@@ -77,7 +77,7 @@ Gura_DeclareMethod(stream, gzipwriter)
 
 Gura_ImplementMethod(stream, gzipwriter)
 {
-	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	int level = args.IsNumber(0)? args.GetInt(0) : Z_DEFAULT_COMPRESSION;
 	int windowBits = 31;
 	Object_stream *pObjStream = GenerateCompressor(env, sig,

@@ -47,7 +47,7 @@ Gura_ImplementFunction(LayoutConstraintsEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_LayoutConstraints *pEntity = new wx_LayoutConstraints();
-	Object_wx_LayoutConstraints *pObj = Object_wx_LayoutConstraints::GetSelfObj(args);
+	Object_wx_LayoutConstraints *pObj = Object_wx_LayoutConstraints::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_LayoutConstraints(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(LayoutConstraintsEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

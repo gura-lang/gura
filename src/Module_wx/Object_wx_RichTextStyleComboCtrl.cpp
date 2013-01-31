@@ -61,7 +61,7 @@ Gura_ImplementFunction(RichTextStyleComboCtrl)
 	long style = 0;
 	if (args.IsValid(4)) style = args.GetLong(4);
 	wx_RichTextStyleComboCtrl *pEntity = new wx_RichTextStyleComboCtrl(parent, id, *pos, *size, style);
-	Object_wx_RichTextStyleComboCtrl *pObj = Object_wx_RichTextStyleComboCtrl::GetSelfObj(args);
+	Object_wx_RichTextStyleComboCtrl *pObj = Object_wx_RichTextStyleComboCtrl::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_RichTextStyleComboCtrl(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(RichTextStyleComboCtrl)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_RichTextStyleComboCtrl, GetRichTextCtrl)
@@ -80,9 +80,9 @@ Gura_DeclareMethod(wx_RichTextStyleComboCtrl, GetRichTextCtrl)
 
 Gura_ImplementMethod(wx_RichTextStyleComboCtrl, GetRichTextCtrl)
 {
-	Object_wx_RichTextStyleComboCtrl *pSelf = Object_wx_RichTextStyleComboCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxRichTextCtrl *rtn = (wxRichTextCtrl *)pSelf->GetEntity()->GetRichTextCtrl();
+	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxRichTextCtrl *rtn = (wxRichTextCtrl *)pThis->GetEntity()->GetRichTextCtrl();
 	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextCtrl(rtn, NULL, OwnerFalse)));
 }
 
@@ -94,9 +94,9 @@ Gura_DeclareMethod(wx_RichTextStyleComboCtrl, GetStyleSheet)
 
 Gura_ImplementMethod(wx_RichTextStyleComboCtrl, GetStyleSheet)
 {
-	Object_wx_RichTextStyleComboCtrl *pSelf = Object_wx_RichTextStyleComboCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxRichTextStyleSheet *rtn = (wxRichTextStyleSheet *)pSelf->GetEntity()->GetStyleSheet();
+	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxRichTextStyleSheet *rtn = (wxRichTextStyleSheet *)pThis->GetEntity()->GetStyleSheet();
 	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextStyleSheet(rtn, NULL, OwnerFalse)));
 }
 
@@ -108,10 +108,10 @@ Gura_DeclareMethod(wx_RichTextStyleComboCtrl, SetRichTextCtrl)
 
 Gura_ImplementMethod(wx_RichTextStyleComboCtrl, SetRichTextCtrl)
 {
-	Object_wx_RichTextStyleComboCtrl *pSelf = Object_wx_RichTextStyleComboCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextCtrl *ctrl = Object_wx_RichTextCtrl::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetRichTextCtrl(ctrl);
+	pThis->GetEntity()->SetRichTextCtrl(ctrl);
 	return Value::Null;
 }
 
@@ -123,10 +123,10 @@ Gura_DeclareMethod(wx_RichTextStyleComboCtrl, SetStyleSheet)
 
 Gura_ImplementMethod(wx_RichTextStyleComboCtrl, SetStyleSheet)
 {
-	Object_wx_RichTextStyleComboCtrl *pSelf = Object_wx_RichTextStyleComboCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextStyleSheet *styleSheet = Object_wx_RichTextStyleSheet::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetStyleSheet(styleSheet);
+	pThis->GetEntity()->SetStyleSheet(styleSheet);
 	return Value::Null;
 }
 
@@ -137,9 +137,9 @@ Gura_DeclareMethod(wx_RichTextStyleComboCtrl, UpdateStyles)
 
 Gura_ImplementMethod(wx_RichTextStyleComboCtrl, UpdateStyles)
 {
-	Object_wx_RichTextStyleComboCtrl *pSelf = Object_wx_RichTextStyleComboCtrl::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->UpdateStyles();
+	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->UpdateStyles();
 	return Value::Null;
 }
 

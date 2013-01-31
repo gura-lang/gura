@@ -52,7 +52,7 @@ Gura_ImplementFunction(StaticBoxSizer)
 	wxStaticBox *box = Object_wx_StaticBox::GetObject(args, 0)->GetEntity();
 	int orient = args.GetInt(1);
 	wx_StaticBoxSizer *pEntity = new wx_StaticBoxSizer(box, orient);
-	Object_wx_StaticBoxSizer *pObj = Object_wx_StaticBoxSizer::GetSelfObj(args);
+	Object_wx_StaticBoxSizer *pObj = Object_wx_StaticBoxSizer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StaticBoxSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -60,7 +60,7 @@ Gura_ImplementFunction(StaticBoxSizer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(StaticBoxSizerAuto)
@@ -81,7 +81,7 @@ Gura_ImplementFunction(StaticBoxSizerAuto)
 	wxString label = wxEmptyString;
 	if (args.IsValid(2)) label = wxString::FromUTF8(args.GetString(2));
 	wx_StaticBoxSizer *pEntity = new wx_StaticBoxSizer(orient, parent, label);
-	Object_wx_StaticBoxSizer *pObj = Object_wx_StaticBoxSizer::GetSelfObj(args);
+	Object_wx_StaticBoxSizer *pObj = Object_wx_StaticBoxSizer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StaticBoxSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -89,7 +89,7 @@ Gura_ImplementFunction(StaticBoxSizerAuto)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_StaticBoxSizer, GetStaticBox)
@@ -100,9 +100,9 @@ Gura_DeclareMethod(wx_StaticBoxSizer, GetStaticBox)
 
 Gura_ImplementMethod(wx_StaticBoxSizer, GetStaticBox)
 {
-	Object_wx_StaticBoxSizer *pSelf = Object_wx_StaticBoxSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxStaticBox *rtn = (wxStaticBox *)pSelf->GetEntity()->GetStaticBox();
+	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxStaticBox *rtn = (wxStaticBox *)pThis->GetEntity()->GetStaticBox();
 	return ReturnValue(env, sig, args, Value(new Object_wx_StaticBox(rtn, NULL, OwnerFalse)));
 }
 

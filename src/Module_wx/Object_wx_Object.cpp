@@ -33,7 +33,7 @@ Gura_ImplementFunction(ObjectEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Object *pEntity = new wx_Object();
-	Object_wx_Object *pObj = Object_wx_Object::GetSelfObj(args);
+	Object_wx_Object *pObj = Object_wx_Object::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Object(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -41,7 +41,7 @@ Gura_ImplementFunction(ObjectEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Object)
@@ -57,7 +57,7 @@ Gura_ImplementFunction(Object)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxObject *other = Object_wx_Object::GetObject(args, 0)->GetEntity();
 	wx_Object *pEntity = new wx_Object(*other);
-	Object_wx_Object *pObj = Object_wx_Object::GetSelfObj(args);
+	Object_wx_Object *pObj = Object_wx_Object::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Object(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -65,7 +65,7 @@ Gura_ImplementFunction(Object)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ObjectEmpty_1)
@@ -79,7 +79,7 @@ Gura_ImplementFunction(ObjectEmpty_1)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Object *pEntity = new wx_Object();
-	Object_wx_Object *pObj = Object_wx_Object::GetSelfObj(args);
+	Object_wx_Object *pObj = Object_wx_Object::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Object(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -87,7 +87,7 @@ Gura_ImplementFunction(ObjectEmpty_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Object, Dump)
@@ -101,10 +101,10 @@ Gura_DeclareMethod(wx_Object, Dump)
 Gura_ImplementMethod(wx_Object, Dump)
 {
 #if 0
-	Object_wx_Object *pSelf = Object_wx_Object::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	Stream & stream = args.GetStream(0);
-	pSelf->GetEntity()->Dump(stream);
+	pThis->GetEntity()->Dump(stream);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -119,9 +119,9 @@ Gura_DeclareMethod(wx_Object, GetClassInfo)
 
 Gura_ImplementMethod(wx_Object, GetClassInfo)
 {
-	Object_wx_Object *pSelf = Object_wx_Object::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxClassInfo *rtn = (wxClassInfo *)pSelf->GetEntity()->GetClassInfo();
+	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxClassInfo *rtn = (wxClassInfo *)pThis->GetEntity()->GetClassInfo();
 	return ReturnValue(env, sig, args, Value(new Object_wx_ClassInfo(rtn, NULL, OwnerFalse)));
 }
 
@@ -133,9 +133,9 @@ Gura_DeclareMethod(wx_Object, GetRefData)
 
 Gura_ImplementMethod(wx_Object, GetRefData)
 {
-	Object_wx_Object *pSelf = Object_wx_Object::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxObjectRefData *rtn = (wxObjectRefData *)pSelf->GetEntity()->GetRefData();
+	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxObjectRefData *rtn = (wxObjectRefData *)pThis->GetEntity()->GetRefData();
 	return ReturnValue(env, sig, args, Value(new Object_wx_ObjectRefData(rtn, NULL, OwnerFalse)));
 }
 
@@ -148,10 +148,10 @@ Gura_DeclareMethod(wx_Object, IsKindOf)
 
 Gura_ImplementMethod(wx_Object, IsKindOf)
 {
-	Object_wx_Object *pSelf = Object_wx_Object::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxClassInfo *info = Object_wx_ClassInfo::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->IsKindOf(info);
+	bool rtn = pThis->GetEntity()->IsKindOf(info);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -164,10 +164,10 @@ Gura_DeclareMethod(wx_Object, IsSameAs)
 
 Gura_ImplementMethod(wx_Object, IsSameAs)
 {
-	Object_wx_Object *pSelf = Object_wx_Object::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *obj = Object_wx_Object::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->IsSameAs(*obj);
+	bool rtn = pThis->GetEntity()->IsSameAs(*obj);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -179,10 +179,10 @@ Gura_DeclareMethod(wx_Object, Ref)
 
 Gura_ImplementMethod(wx_Object, Ref)
 {
-	Object_wx_Object *pSelf = Object_wx_Object::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObject *clone = Object_wx_Object::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->Ref(*clone);
+	pThis->GetEntity()->Ref(*clone);
 	return Value::Null;
 }
 
@@ -194,10 +194,10 @@ Gura_DeclareMethod(wx_Object, SetRefData)
 
 Gura_ImplementMethod(wx_Object, SetRefData)
 {
-	Object_wx_Object *pSelf = Object_wx_Object::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxObjectRefData *data = Object_wx_ObjectRefData::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetRefData(data);
+	pThis->GetEntity()->SetRefData(data);
 	return Value::Null;
 }
 
@@ -208,9 +208,9 @@ Gura_DeclareMethod(wx_Object, UnRef)
 
 Gura_ImplementMethod(wx_Object, UnRef)
 {
-	Object_wx_Object *pSelf = Object_wx_Object::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->UnRef();
+	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->UnRef();
 	return Value::Null;
 }
 
@@ -221,9 +221,9 @@ Gura_DeclareMethod(wx_Object, UnShare)
 
 Gura_ImplementMethod(wx_Object, UnShare)
 {
-	Object_wx_Object *pSelf = Object_wx_Object::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->UnShare();
+	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->UnShare();
 	return Value::Null;
 }
 
@@ -237,7 +237,7 @@ Gura_DeclareMethod(wx_Object, __eq__)
 
 Gura_ImplementMethod(wx_Object, __eq__)
 {
-	Object_wx_Object *pSelf = Object_wx_Object::GetSelfObj(args);
+	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
 	if (args.IsValid(0) && args.IsValid(1)) {
 		wxObject *item1 = Object_wx_Object::GetObject(args, 0)->GetEntity();
 		wxObject *item2 = Object_wx_Object::GetObject(args, 1)->GetEntity();
@@ -256,7 +256,7 @@ Gura_DeclareMethod(wx_Object, __ne__)
 
 Gura_ImplementMethod(wx_Object, __ne__)
 {
-	Object_wx_Object *pSelf = Object_wx_Object::GetSelfObj(args);
+	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
 	if (args.IsValid(0) && args.IsValid(1)) {
 		wxObject *item1 = Object_wx_Object::GetObject(args, 0)->GetEntity();
 		wxObject *item2 = Object_wx_Object::GetObject(args, 1)->GetEntity();

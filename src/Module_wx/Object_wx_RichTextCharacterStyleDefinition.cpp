@@ -50,7 +50,7 @@ Gura_ImplementFunction(RichTextCharacterStyleDefinition)
 	wxString name = wxEmptyString;
 	if (args.IsValid(0)) name = wxString::FromUTF8(args.GetString(0));
 	wx_RichTextCharacterStyleDefinition *pEntity = new wx_RichTextCharacterStyleDefinition(name);
-	Object_wx_RichTextCharacterStyleDefinition *pObj = Object_wx_RichTextCharacterStyleDefinition::GetSelfObj(args);
+	Object_wx_RichTextCharacterStyleDefinition *pObj = Object_wx_RichTextCharacterStyleDefinition::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_RichTextCharacterStyleDefinition(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(RichTextCharacterStyleDefinition)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

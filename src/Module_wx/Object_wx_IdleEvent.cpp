@@ -47,7 +47,7 @@ Gura_ImplementFunction(IdleEventEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_IdleEvent *pEntity = new wx_IdleEvent();
-	Object_wx_IdleEvent *pObj = Object_wx_IdleEvent::GetSelfObj(args);
+	Object_wx_IdleEvent *pObj = Object_wx_IdleEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_IdleEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(IdleEventEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareClassMethod(wx_IdleEvent, CanSend)
@@ -94,11 +94,11 @@ Gura_DeclareMethod(wx_IdleEvent, RequestMore)
 
 Gura_ImplementMethod(wx_IdleEvent, RequestMore)
 {
-	Object_wx_IdleEvent *pSelf = Object_wx_IdleEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool needMore = true;
 	if (args.IsValid(0)) needMore = args.GetBoolean(0);
-	pSelf->GetEntity()->RequestMore(needMore);
+	pThis->GetEntity()->RequestMore(needMore);
 	return Value::Null;
 }
 
@@ -110,9 +110,9 @@ Gura_DeclareMethod(wx_IdleEvent, MoreRequested)
 
 Gura_ImplementMethod(wx_IdleEvent, MoreRequested)
 {
-	Object_wx_IdleEvent *pSelf = Object_wx_IdleEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->MoreRequested();
+	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->MoreRequested();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

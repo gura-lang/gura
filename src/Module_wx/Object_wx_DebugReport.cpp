@@ -47,7 +47,7 @@ Gura_ImplementFunction(DebugReportEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DebugReport *pEntity = new wx_DebugReport();
-	Object_wx_DebugReport *pObj = Object_wx_DebugReport::GetSelfObj(args);
+	Object_wx_DebugReport *pObj = Object_wx_DebugReport::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DebugReport(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(DebugReportEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DebugReport, AddAll)
@@ -65,9 +65,9 @@ Gura_DeclareMethod(wx_DebugReport, AddAll)
 
 Gura_ImplementMethod(wx_DebugReport, AddAll)
 {
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->AddAll();
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->AddAll();
 	return Value::Null;
 }
 
@@ -82,9 +82,9 @@ Gura_DeclareMethod(wx_DebugReport, AddContext)
 Gura_ImplementMethod(wx_DebugReport, AddContext)
 {
 #if 0
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->AddContext();
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->AddContext();
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -99,9 +99,9 @@ Gura_DeclareMethod(wx_DebugReport, AddCurrentContext)
 
 Gura_ImplementMethod(wx_DebugReport, AddCurrentContext)
 {
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->AddCurrentContext();
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->AddCurrentContext();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -114,9 +114,9 @@ Gura_DeclareMethod(wx_DebugReport, AddCurrentDump)
 Gura_ImplementMethod(wx_DebugReport, AddCurrentDump)
 {
 #if defined(__WXMSW__)
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->AddCurrentDump();
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->AddCurrentDump();
 	return ReturnValue(env, sig, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
@@ -135,9 +135,9 @@ Gura_DeclareMethod(wx_DebugReport, AddDump)
 Gura_ImplementMethod(wx_DebugReport, AddDump)
 {
 #if 0
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->AddDump();
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->AddDump();
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -152,9 +152,9 @@ Gura_DeclareMethod(wx_DebugReport, AddExceptionContext)
 
 Gura_ImplementMethod(wx_DebugReport, AddExceptionContext)
 {
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->AddExceptionContext();
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->AddExceptionContext();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -167,9 +167,9 @@ Gura_DeclareMethod(wx_DebugReport, AddExceptionDump)
 Gura_ImplementMethod(wx_DebugReport, AddExceptionDump)
 {
 #if defined(__WXMSW__)
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->AddExceptionDump();
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->AddExceptionDump();
 	return ReturnValue(env, sig, args, Value(rtn));
 #else
 	SetError_MSWOnly(sig);
@@ -186,11 +186,11 @@ Gura_DeclareMethod(wx_DebugReport, AddFile)
 
 Gura_ImplementMethod(wx_DebugReport, AddFile)
 {
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	wxString description = wxString::FromUTF8(args.GetString(1));
-	pSelf->GetEntity()->AddFile(filename, description);
+	pThis->GetEntity()->AddFile(filename, description);
 	return Value::Null;
 }
 
@@ -205,12 +205,12 @@ Gura_DeclareMethod(wx_DebugReport, AddText)
 
 Gura_ImplementMethod(wx_DebugReport, AddText)
 {
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	wxString text = wxString::FromUTF8(args.GetString(1));
 	wxString description = wxString::FromUTF8(args.GetString(2));
-	bool rtn = pSelf->GetEntity()->AddText(filename, text, description);
+	bool rtn = pThis->GetEntity()->AddText(filename, text, description);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -225,10 +225,10 @@ Gura_DeclareMethod(wx_DebugReport, DoAddCustomContext)
 Gura_ImplementMethod(wx_DebugReport, DoAddCustomContext)
 {
 #if 0
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *nodeRoot = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->DoAddCustomContext(nodeRoot);
+	pThis->GetEntity()->DoAddCustomContext(nodeRoot);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -247,10 +247,10 @@ Gura_DeclareMethod(wx_DebugReport, DoAddExceptionInfo)
 Gura_ImplementMethod(wx_DebugReport, DoAddExceptionInfo)
 {
 #if 0
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *nodeContext = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->DoAddExceptionInfo(nodeContext);
+	bool rtn = pThis->GetEntity()->DoAddExceptionInfo(nodeContext);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -269,10 +269,10 @@ Gura_DeclareMethod(wx_DebugReport, DoAddLoadedModules)
 Gura_ImplementMethod(wx_DebugReport, DoAddLoadedModules)
 {
 #if 0
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *nodeModules = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->DoAddLoadedModules(nodeModules);
+	bool rtn = pThis->GetEntity()->DoAddLoadedModules(nodeModules);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -291,10 +291,10 @@ Gura_DeclareMethod(wx_DebugReport, DoAddSystemInfo)
 Gura_ImplementMethod(wx_DebugReport, DoAddSystemInfo)
 {
 #if 0
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *nodeSystemInfo = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->DoAddSystemInfo(nodeSystemInfo);
+	bool rtn = pThis->GetEntity()->DoAddSystemInfo(nodeSystemInfo);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -309,9 +309,9 @@ Gura_DeclareMethod(wx_DebugReport, GetDirectory)
 
 Gura_ImplementMethod(wx_DebugReport, GetDirectory)
 {
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetDirectory();
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetDirectory();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -329,12 +329,12 @@ Gura_DeclareMethod(wx_DebugReport, GetFile)
 Gura_ImplementMethod(wx_DebugReport, GetFile)
 {
 #if 0
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t n = args.GetSizeT(0);
 	wxString name = wxString::FromUTF8(args.GetString(1));
 	wxString desc = wxString::FromUTF8(args.GetString(2));
-	bool rtn = pSelf->GetEntity()->GetFile(n, name, desc);
+	bool rtn = pThis->GetEntity()->GetFile(n, name, desc);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -349,9 +349,9 @@ Gura_DeclareMethod(wx_DebugReport, GetFilesCount)
 
 Gura_ImplementMethod(wx_DebugReport, GetFilesCount)
 {
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	size_t rtn = pSelf->GetEntity()->GetFilesCount();
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	size_t rtn = pThis->GetEntity()->GetFilesCount();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -363,9 +363,9 @@ Gura_DeclareMethod(wx_DebugReport, GetReportName)
 
 Gura_ImplementMethod(wx_DebugReport, GetReportName)
 {
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetReportName();
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetReportName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -377,9 +377,9 @@ Gura_DeclareMethod(wx_DebugReport, IsOk)
 
 Gura_ImplementMethod(wx_DebugReport, IsOk)
 {
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -391,9 +391,9 @@ Gura_DeclareMethod(wx_DebugReport, Process)
 
 Gura_ImplementMethod(wx_DebugReport, Process)
 {
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Process();
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Process();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -405,10 +405,10 @@ Gura_DeclareMethod(wx_DebugReport, RemoveFile)
 
 Gura_ImplementMethod(wx_DebugReport, RemoveFile)
 {
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->RemoveFile(name);
+	pThis->GetEntity()->RemoveFile(name);
 	return Value::Null;
 }
 
@@ -419,9 +419,9 @@ Gura_DeclareMethod(wx_DebugReport, Reset)
 
 Gura_ImplementMethod(wx_DebugReport, Reset)
 {
-	Object_wx_DebugReport *pSelf = Object_wx_DebugReport::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Reset();
+	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Reset();
 	return Value::Null;
 }
 

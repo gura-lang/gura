@@ -50,7 +50,7 @@ Gura_ImplementFunction(Metafile)
 	wxString filename = wxT("");
 	if (args.IsValid(0)) filename = wxString::FromUTF8(args.GetString(0));
 	wx_Metafile *pEntity = new wx_Metafile(filename);
-	Object_wx_Metafile *pObj = Object_wx_Metafile::GetSelfObj(args);
+	Object_wx_Metafile *pObj = Object_wx_Metafile::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Metafile(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(Metafile)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Metafile, Ok)
@@ -69,9 +69,9 @@ Gura_DeclareMethod(wx_Metafile, Ok)
 
 Gura_ImplementMethod(wx_Metafile, Ok)
 {
-	Object_wx_Metafile *pSelf = Object_wx_Metafile::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Ok();
+	Object_wx_Metafile *pThis = Object_wx_Metafile::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Ok();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -84,10 +84,10 @@ Gura_DeclareMethod(wx_Metafile, Play)
 
 Gura_ImplementMethod(wx_Metafile, Play)
 {
-	Object_wx_Metafile *pSelf = Object_wx_Metafile::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Metafile *pThis = Object_wx_Metafile::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDC *dc = Object_wx_DC::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Play(dc);
+	bool rtn = pThis->GetEntity()->Play(dc);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -101,13 +101,13 @@ Gura_DeclareMethod(wx_Metafile, SetClipboard)
 
 Gura_ImplementMethod(wx_Metafile, SetClipboard)
 {
-	Object_wx_Metafile *pSelf = Object_wx_Metafile::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Metafile *pThis = Object_wx_Metafile::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = 0;
 	if (args.IsValid(0)) width = args.GetInt(0);
 	int height = 0;
 	if (args.IsValid(1)) height = args.GetInt(1);
-	bool rtn = pSelf->GetEntity()->SetClipboard(width, height);
+	bool rtn = pThis->GetEntity()->SetClipboard(width, height);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

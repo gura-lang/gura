@@ -242,7 +242,7 @@ Gura_ImplementFunction(DataViewListModel)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DataViewListModel *pEntity = new wx_DataViewListModel();
-	Object_wx_DataViewListModel *pObj = Object_wx_DataViewListModel::GetSelfObj(args);
+	Object_wx_DataViewListModel *pObj = Object_wx_DataViewListModel::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DataViewListModel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -250,7 +250,7 @@ Gura_ImplementFunction(DataViewListModel)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DataViewListModel, AddNotifier)
@@ -261,10 +261,10 @@ Gura_DeclareMethod(wx_DataViewListModel, AddNotifier)
 
 Gura_ImplementMethod(wx_DataViewListModel, AddNotifier)
 {
-	Object_wx_DataViewListModel *pSelf = Object_wx_DataViewListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewListModelNotifier *notifier = Object_wx_DataViewListModelNotifier::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->AddNotifier(notifier);
+	pThis->GetEntity()->AddNotifier(notifier);
 	return Value::Null;
 }
 
@@ -277,11 +277,11 @@ Gura_DeclareMethod(wx_DataViewListModel, AddViewingColumn)
 
 Gura_ImplementMethod(wx_DataViewListModel, AddViewingColumn)
 {
-	Object_wx_DataViewListModel *pSelf = Object_wx_DataViewListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewColumn *view_column = Object_wx_DataViewColumn::GetObject(args, 0)->GetEntity();
 	unsigned model_column = args.GetInt(1);
-	pSelf->GetEntity()->AddViewingColumn(view_column, model_column);
+	pThis->GetEntity()->AddViewingColumn(view_column, model_column);
 	return Value::Null;
 }
 
@@ -293,9 +293,9 @@ Gura_DeclareMethod(wx_DataViewListModel, Cleared)
 
 Gura_ImplementMethod(wx_DataViewListModel, Cleared)
 {
-	Object_wx_DataViewListModel *pSelf = Object_wx_DataViewListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Cleared();
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Cleared();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -307,10 +307,10 @@ Gura_DeclareMethod(wx_DataViewListModel, RemoveNotifier)
 
 Gura_ImplementMethod(wx_DataViewListModel, RemoveNotifier)
 {
-	Object_wx_DataViewListModel *pSelf = Object_wx_DataViewListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewListModelNotifier *notifier = Object_wx_DataViewListModelNotifier::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->RemoveNotifier(notifier);
+	pThis->GetEntity()->RemoveNotifier(notifier);
 	return Value::Null;
 }
 
@@ -322,10 +322,10 @@ Gura_DeclareMethod(wx_DataViewListModel, RemoveViewingColumn)
 
 Gura_ImplementMethod(wx_DataViewListModel, RemoveViewingColumn)
 {
-	Object_wx_DataViewListModel *pSelf = Object_wx_DataViewListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDataViewColumn *column = Object_wx_DataViewColumn::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->RemoveViewingColumn(column);
+	pThis->GetEntity()->RemoveViewingColumn(column);
 	return Value::Null;
 }
 
@@ -337,9 +337,9 @@ Gura_DeclareMethod(wx_DataViewListModel, RowAppended)
 
 Gura_ImplementMethod(wx_DataViewListModel, RowAppended)
 {
-	Object_wx_DataViewListModel *pSelf = Object_wx_DataViewListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->wxDataViewListModel::RowAppended();
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->wxDataViewListModel::RowAppended();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -352,10 +352,10 @@ Gura_DeclareMethod(wx_DataViewListModel, RowChanged)
 
 Gura_ImplementMethod(wx_DataViewListModel, RowChanged)
 {
-	Object_wx_DataViewListModel *pSelf = Object_wx_DataViewListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned row = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->wxDataViewListModel::RowChanged(row);
+	bool rtn = pThis->GetEntity()->wxDataViewListModel::RowChanged(row);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -368,10 +368,10 @@ Gura_DeclareMethod(wx_DataViewListModel, RowDeleted)
 
 Gura_ImplementMethod(wx_DataViewListModel, RowDeleted)
 {
-	Object_wx_DataViewListModel *pSelf = Object_wx_DataViewListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned row = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->wxDataViewListModel::RowDeleted(row);
+	bool rtn = pThis->GetEntity()->wxDataViewListModel::RowDeleted(row);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -384,10 +384,10 @@ Gura_DeclareMethod(wx_DataViewListModel, RowInserted)
 
 Gura_ImplementMethod(wx_DataViewListModel, RowInserted)
 {
-	Object_wx_DataViewListModel *pSelf = Object_wx_DataViewListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned before = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->wxDataViewListModel::RowInserted(before);
+	bool rtn = pThis->GetEntity()->wxDataViewListModel::RowInserted(before);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -399,9 +399,9 @@ Gura_DeclareMethod(wx_DataViewListModel, RowPrepended)
 
 Gura_ImplementMethod(wx_DataViewListModel, RowPrepended)
 {
-	Object_wx_DataViewListModel *pSelf = Object_wx_DataViewListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->wxDataViewListModel::RowPrepended();
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->wxDataViewListModel::RowPrepended();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -414,10 +414,10 @@ Gura_DeclareMethod(wx_DataViewListModel, RowsReordered)
 
 Gura_ImplementMethod(wx_DataViewListModel, RowsReordered)
 {
-	Object_wx_DataViewListModel *pSelf = Object_wx_DataViewListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	CArrayOfInt new_order(args.GetList(0));
-	bool rtn = pSelf->GetEntity()->wxDataViewListModel::RowsReordered(
+	bool rtn = pThis->GetEntity()->wxDataViewListModel::RowsReordered(
 					reinterpret_cast<unsigned int *>(new_order.Data()));
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -432,11 +432,11 @@ Gura_DeclareMethod(wx_DataViewListModel, ValueChanged)
 
 Gura_ImplementMethod(wx_DataViewListModel, ValueChanged)
 {
-	Object_wx_DataViewListModel *pSelf = Object_wx_DataViewListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned col = args.GetInt(0);
 	unsigned row = args.GetInt(1);
-	bool rtn = pSelf->GetEntity()->wxDataViewListModel::ValueChanged(col, row);
+	bool rtn = pThis->GetEntity()->wxDataViewListModel::ValueChanged(col, row);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

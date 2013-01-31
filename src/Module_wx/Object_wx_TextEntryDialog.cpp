@@ -64,7 +64,7 @@ Gura_ImplementFunction(TextEntryDialog)
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
 	if (args.IsValid(5)) pos = Object_wx_Point::GetObject(args, 5)->GetEntity();
 	wx_TextEntryDialog *pEntity = new wx_TextEntryDialog(parent, message, caption, defaultValue, style, *pos);
-	Object_wx_TextEntryDialog *pObj = Object_wx_TextEntryDialog::GetSelfObj(args);
+	Object_wx_TextEntryDialog *pObj = Object_wx_TextEntryDialog::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TextEntryDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -72,7 +72,7 @@ Gura_ImplementFunction(TextEntryDialog)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TextEntryDialog, GetValue)
@@ -83,9 +83,9 @@ Gura_DeclareMethod(wx_TextEntryDialog, GetValue)
 
 Gura_ImplementMethod(wx_TextEntryDialog, GetValue)
 {
-	Object_wx_TextEntryDialog *pSelf = Object_wx_TextEntryDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetValue();
+	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetValue();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -97,10 +97,10 @@ Gura_DeclareMethod(wx_TextEntryDialog, SetValue)
 
 Gura_ImplementMethod(wx_TextEntryDialog, SetValue)
 {
-	Object_wx_TextEntryDialog *pSelf = Object_wx_TextEntryDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString value = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetValue(value);
+	pThis->GetEntity()->SetValue(value);
 	return Value::Null;
 }
 
@@ -112,9 +112,9 @@ Gura_DeclareMethod(wx_TextEntryDialog, ShowModal)
 
 Gura_ImplementMethod(wx_TextEntryDialog, ShowModal)
 {
-	Object_wx_TextEntryDialog *pSelf = Object_wx_TextEntryDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->ShowModal();
+	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->ShowModal();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

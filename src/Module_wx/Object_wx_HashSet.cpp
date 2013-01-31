@@ -48,7 +48,7 @@ Gura_ImplementFunction(HashSet)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_HashSet *pEntity = new wx_HashSet();
-	Object_wx_HashSet *pObj = Object_wx_HashSet::GetSelfObj(args);
+	Object_wx_HashSet *pObj = Object_wx_HashSet::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_HashSet(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(HashSet)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(HashSet_1)
@@ -72,7 +72,7 @@ Gura_ImplementFunction(HashSet_1)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxHashSet *set = Object_wx_HashSet::GetObject(args, 0)->GetEntity();
 	wx_HashSet *pEntity = new wx_HashSet(*set);
-	Object_wx_HashSet *pObj = Object_wx_HashSet::GetSelfObj(args);
+	Object_wx_HashSet *pObj = Object_wx_HashSet::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_HashSet(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(HashSet_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_HashSet, begin)
@@ -91,8 +91,8 @@ Gura_DeclareMethod(wx_HashSet, begin)
 
 Gura_ImplementMethod(wx_HashSet, begin)
 {
-	Object_wx_HashSet *pSelf = Object_wx_HashSet::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashSet, begin_1)
@@ -103,8 +103,8 @@ Gura_DeclareMethod(wx_HashSet, begin_1)
 
 Gura_ImplementMethod(wx_HashSet, begin_1)
 {
-	Object_wx_HashSet *pSelf = Object_wx_HashSet::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashSet, clear)
@@ -114,9 +114,9 @@ Gura_DeclareMethod(wx_HashSet, clear)
 
 Gura_ImplementMethod(wx_HashSet, clear)
 {
-	Object_wx_HashSet *pSelf = Object_wx_HashSet::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->clear();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->clear();
 	return Value::Null;
 }
 
@@ -128,8 +128,8 @@ Gura_DeclareMethod(wx_HashSet, count)
 
 Gura_ImplementMethod(wx_HashSet, count)
 {
-	Object_wx_HashSet *pSelf = Object_wx_HashSet::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashSet, empty)
@@ -140,9 +140,9 @@ Gura_DeclareMethod(wx_HashSet, empty)
 
 Gura_ImplementMethod(wx_HashSet, empty)
 {
-	Object_wx_HashSet *pSelf = Object_wx_HashSet::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->empty();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->empty();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -154,8 +154,8 @@ Gura_DeclareMethod(wx_HashSet, end)
 
 Gura_ImplementMethod(wx_HashSet, end)
 {
-	Object_wx_HashSet *pSelf = Object_wx_HashSet::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashSet, end_1)
@@ -166,8 +166,8 @@ Gura_DeclareMethod(wx_HashSet, end_1)
 
 Gura_ImplementMethod(wx_HashSet, end_1)
 {
-	Object_wx_HashSet *pSelf = Object_wx_HashSet::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashSet, erase)
@@ -178,8 +178,8 @@ Gura_DeclareMethod(wx_HashSet, erase)
 
 Gura_ImplementMethod(wx_HashSet, erase)
 {
-	Object_wx_HashSet *pSelf = Object_wx_HashSet::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashSet, erase_1)
@@ -189,9 +189,9 @@ Gura_DeclareMethod(wx_HashSet, erase_1)
 
 Gura_ImplementMethod(wx_HashSet, erase_1)
 {
-	Object_wx_HashSet *pSelf = Object_wx_HashSet::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->erase();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->erase();
 	return Value::Null;
 }
 
@@ -202,9 +202,9 @@ Gura_DeclareMethod(wx_HashSet, erase_2)
 
 Gura_ImplementMethod(wx_HashSet, erase_2)
 {
-	Object_wx_HashSet *pSelf = Object_wx_HashSet::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->erase();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->erase();
 	return Value::Null;
 }
 
@@ -216,8 +216,8 @@ Gura_DeclareMethod(wx_HashSet, find)
 
 Gura_ImplementMethod(wx_HashSet, find)
 {
-	Object_wx_HashSet *pSelf = Object_wx_HashSet::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashSet, find_1)
@@ -228,8 +228,8 @@ Gura_DeclareMethod(wx_HashSet, find_1)
 
 Gura_ImplementMethod(wx_HashSet, find_1)
 {
-	Object_wx_HashSet *pSelf = Object_wx_HashSet::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashSet, insert)
@@ -240,8 +240,8 @@ Gura_DeclareMethod(wx_HashSet, insert)
 
 Gura_ImplementMethod(wx_HashSet, insert)
 {
-	Object_wx_HashSet *pSelf = Object_wx_HashSet::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 Gura_DeclareMethod(wx_HashSet, size)
@@ -252,8 +252,8 @@ Gura_DeclareMethod(wx_HashSet, size)
 
 Gura_ImplementMethod(wx_HashSet, size)
 {
-	Object_wx_HashSet *pSelf = Object_wx_HashSet::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 }
 
 //----------------------------------------------------------------------------

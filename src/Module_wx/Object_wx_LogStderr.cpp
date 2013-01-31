@@ -48,7 +48,7 @@ Gura_ImplementFunction(LogStderr)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_LogStderr *pEntity = new wx_LogStderr();
-	Object_wx_LogStderr *pObj = Object_wx_LogStderr::GetSelfObj(args);
+	Object_wx_LogStderr *pObj = Object_wx_LogStderr::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_LogStderr(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(LogStderr)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

@@ -47,7 +47,7 @@ Gura_ImplementFunction(MimeTypesManagerEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MimeTypesManager *pEntity = new wx_MimeTypesManager();
-	Object_wx_MimeTypesManager *pObj = Object_wx_MimeTypesManager::GetSelfObj(args);
+	Object_wx_MimeTypesManager *pObj = Object_wx_MimeTypesManager::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MimeTypesManager(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(MimeTypesManagerEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MimeTypesManager, AddFallbacks)
@@ -66,10 +66,10 @@ Gura_DeclareMethod(wx_MimeTypesManager, AddFallbacks)
 
 Gura_ImplementMethod(wx_MimeTypesManager, AddFallbacks)
 {
-	Object_wx_MimeTypesManager *pSelf = Object_wx_MimeTypesManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_MimeTypesManager *pThis = Object_wx_MimeTypesManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFileTypeInfo *fallbacks = Object_wx_FileTypeInfo::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->AddFallbacks(fallbacks);
+	pThis->GetEntity()->AddFallbacks(fallbacks);
 	return Value::Null;
 }
 
@@ -82,10 +82,10 @@ Gura_DeclareMethod(wx_MimeTypesManager, GetFileTypeFromExtension)
 
 Gura_ImplementMethod(wx_MimeTypesManager, GetFileTypeFromExtension)
 {
-	Object_wx_MimeTypesManager *pSelf = Object_wx_MimeTypesManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_MimeTypesManager *pThis = Object_wx_MimeTypesManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString extension = wxString::FromUTF8(args.GetString(0));
-	wxFileType *rtn = (wxFileType *)pSelf->GetEntity()->GetFileTypeFromExtension(extension);
+	wxFileType *rtn = (wxFileType *)pThis->GetEntity()->GetFileTypeFromExtension(extension);
 	return ReturnValue(env, sig, args, Value(new Object_wx_FileType(rtn, NULL, OwnerFalse)));
 }
 
@@ -98,10 +98,10 @@ Gura_DeclareMethod(wx_MimeTypesManager, GetFileTypeFromMimeType)
 
 Gura_ImplementMethod(wx_MimeTypesManager, GetFileTypeFromMimeType)
 {
-	Object_wx_MimeTypesManager *pSelf = Object_wx_MimeTypesManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_MimeTypesManager *pThis = Object_wx_MimeTypesManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString mimeType = wxString::FromUTF8(args.GetString(0));
-	wxFileType *rtn = (wxFileType *)pSelf->GetEntity()->GetFileTypeFromMimeType(mimeType);
+	wxFileType *rtn = (wxFileType *)pThis->GetEntity()->GetFileTypeFromMimeType(mimeType);
 	return ReturnValue(env, sig, args, Value(new Object_wx_FileType(rtn, NULL, OwnerFalse)));
 }
 
@@ -115,11 +115,11 @@ Gura_DeclareMethod(wx_MimeTypesManager, IsOfType)
 
 Gura_ImplementMethod(wx_MimeTypesManager, IsOfType)
 {
-	Object_wx_MimeTypesManager *pSelf = Object_wx_MimeTypesManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_MimeTypesManager *pThis = Object_wx_MimeTypesManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString mimeType = wxString::FromUTF8(args.GetString(0));
 	wxString wildcard = wxString::FromUTF8(args.GetString(1));
-	bool rtn = pSelf->GetEntity()->IsOfType(mimeType, wildcard);
+	bool rtn = pThis->GetEntity()->IsOfType(mimeType, wildcard);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -133,12 +133,12 @@ Gura_DeclareMethod(wx_MimeTypesManager, ReadMailcap)
 
 Gura_ImplementMethod(wx_MimeTypesManager, ReadMailcap)
 {
-	Object_wx_MimeTypesManager *pSelf = Object_wx_MimeTypesManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_MimeTypesManager *pThis = Object_wx_MimeTypesManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	bool fallback = false;
 	if (args.IsValid(1)) fallback = args.GetBoolean(1);
-	bool rtn = pSelf->GetEntity()->ReadMailcap(filename, fallback);
+	bool rtn = pThis->GetEntity()->ReadMailcap(filename, fallback);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -151,10 +151,10 @@ Gura_DeclareMethod(wx_MimeTypesManager, ReadMimeTypes)
 
 Gura_ImplementMethod(wx_MimeTypesManager, ReadMimeTypes)
 {
-	Object_wx_MimeTypesManager *pSelf = Object_wx_MimeTypesManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_MimeTypesManager *pThis = Object_wx_MimeTypesManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->ReadMimeTypes(filename);
+	bool rtn = pThis->GetEntity()->ReadMimeTypes(filename);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

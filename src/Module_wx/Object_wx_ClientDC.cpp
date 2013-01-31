@@ -49,7 +49,7 @@ Gura_ImplementFunction(ClientDC)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_ClientDC *pEntity = new wx_ClientDC(window);
-	Object_wx_ClientDC *pObj = Object_wx_ClientDC::GetSelfObj(args);
+	Object_wx_ClientDC *pObj = Object_wx_ClientDC::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ClientDC(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(ClientDC)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

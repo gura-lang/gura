@@ -43,9 +43,9 @@ Gura_DeclareMethod(wx_DynamicLibraryDetails, GetName)
 
 Gura_ImplementMethod(wx_DynamicLibraryDetails, GetName)
 {
-	Object_wx_DynamicLibraryDetails *pSelf = Object_wx_DynamicLibraryDetails::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetName();
+	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -57,9 +57,9 @@ Gura_DeclareMethod(wx_DynamicLibraryDetails, GetPath)
 
 Gura_ImplementMethod(wx_DynamicLibraryDetails, GetPath)
 {
-	Object_wx_DynamicLibraryDetails *pSelf = Object_wx_DynamicLibraryDetails::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetPath();
+	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetPath();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -76,11 +76,11 @@ Gura_DeclareMethod(wx_DynamicLibraryDetails, GetAddress)
 Gura_ImplementMethod(wx_DynamicLibraryDetails, GetAddress)
 {
 #if 0
-	Object_wx_DynamicLibraryDetails *pSelf = Object_wx_DynamicLibraryDetails::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int addr = args.GetInt(0);
 	size_t *len = args.GetSizeT(1);
-	bool rtn = pSelf->GetEntity()->GetAddress(addr, *len);
+	bool rtn = pThis->GetEntity()->GetAddress(addr, *len);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -95,9 +95,9 @@ Gura_DeclareMethod(wx_DynamicLibraryDetails, GetVersion)
 
 Gura_ImplementMethod(wx_DynamicLibraryDetails, GetVersion)
 {
-	Object_wx_DynamicLibraryDetails *pSelf = Object_wx_DynamicLibraryDetails::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetVersion();
+	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetVersion();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 

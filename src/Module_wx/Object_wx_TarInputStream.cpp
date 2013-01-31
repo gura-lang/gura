@@ -53,7 +53,7 @@ Gura_ImplementFunction(TarInputStream)
 	wxMBConv *conv = (wxMBConv *)(&wxConvLocal);
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
 	wx_TarInputStream *pEntity = new wx_TarInputStream(*stream, *conv);
-	Object_wx_TarInputStream *pObj = Object_wx_TarInputStream::GetSelfObj(args);
+	Object_wx_TarInputStream *pObj = Object_wx_TarInputStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TarInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(TarInputStream)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(TarInputStream_1)
@@ -80,7 +80,7 @@ Gura_ImplementFunction(TarInputStream_1)
 	wxMBConv *conv = (wxMBConv *)(&wxConvLocal);
 	if (args.IsValid(1)) conv = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
 	wx_TarInputStream *pEntity = new wx_TarInputStream(stream, *conv);
-	Object_wx_TarInputStream *pObj = Object_wx_TarInputStream::GetSelfObj(args);
+	Object_wx_TarInputStream *pObj = Object_wx_TarInputStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TarInputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -88,7 +88,7 @@ Gura_ImplementFunction(TarInputStream_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TarInputStream, CloseEntry)
@@ -99,9 +99,9 @@ Gura_DeclareMethod(wx_TarInputStream, CloseEntry)
 
 Gura_ImplementMethod(wx_TarInputStream, CloseEntry)
 {
-	Object_wx_TarInputStream *pSelf = Object_wx_TarInputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->CloseEntry();
+	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->CloseEntry();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -113,9 +113,9 @@ Gura_DeclareMethod(wx_TarInputStream, GetNextEntry)
 
 Gura_ImplementMethod(wx_TarInputStream, GetNextEntry)
 {
-	Object_wx_TarInputStream *pSelf = Object_wx_TarInputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxTarEntry *rtn = (wxTarEntry *)pSelf->GetEntity()->GetNextEntry();
+	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxTarEntry *rtn = (wxTarEntry *)pThis->GetEntity()->GetNextEntry();
 	return ReturnValue(env, sig, args, Value(new Object_wx_TarEntry(rtn, NULL, OwnerFalse)));
 }
 
@@ -128,10 +128,10 @@ Gura_DeclareMethod(wx_TarInputStream, OpenEntry)
 
 Gura_ImplementMethod(wx_TarInputStream, OpenEntry)
 {
-	Object_wx_TarInputStream *pSelf = Object_wx_TarInputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTarEntry *entry = Object_wx_TarEntry::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->OpenEntry(*entry);
+	bool rtn = pThis->GetEntity()->OpenEntry(*entry);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

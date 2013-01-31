@@ -105,7 +105,7 @@ Gura_DeclareMethod(mysql, close)
 
 Gura_ImplementMethod(mysql, close)
 {
-	Object_mysql *pObj = Object_mysql::GetSelfObj(args);
+	Object_mysql *pObj = Object_mysql::GetThisObj(args);
 	pObj->Close();
 	return Value::Null;
 }
@@ -119,7 +119,7 @@ Gura_DeclareMethod(mysql, query)
 
 Gura_ImplementMethod(mysql, query)
 {
-	Object_mysql *pObj = Object_mysql::GetSelfObj(args);
+	Object_mysql *pObj = Object_mysql::GetThisObj(args);
 	Iterator *pIterator = pObj->Query(sig, args.GetString(0));
 	// Object_mysql::Query() may return NULL even if no error occurs.
 	if (pIterator == NULL) return Value::Null;

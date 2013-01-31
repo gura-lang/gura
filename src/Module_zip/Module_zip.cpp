@@ -107,12 +107,12 @@ Gura_DeclareMethod(reader, entries)
 
 Gura_ImplementMethod(reader, entries)
 {
-	Object_reader *pSelf = Object_reader::GetSelfObj(args);
-	if (pSelf->GetStreamSrc() == NULL) {
+	Object_reader *pThis = Object_reader::GetThisObj(args);
+	if (pThis->GetStreamSrc() == NULL) {
 		sig.SetError(ERR_ValueError, "zip object is not readable");
 		return Value::Null;
 	}
-	Iterator *pIterator = new Iterator_Entry(Object_reader::Reference(pSelf));
+	Iterator *pIterator = new Iterator_Entry(Object_reader::Reference(pThis));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -341,7 +341,7 @@ Gura_DeclareMethod(writer, add)
 
 Gura_ImplementMethod(writer, add)
 {
-	Object_writer *pSelf = Object_writer::GetSelfObj(args);
+	Object_writer *pThis = Object_writer::GetThisObj(args);
 	String fileName;
 	if (args.IsString(1)) {
 		fileName = args.GetString(1);
@@ -355,14 +355,14 @@ Gura_ImplementMethod(writer, add)
 	}
 	unsigned short compressionMethod = args.IsSymbol(2)?
 						SymbolToCompressionMethod(args.GetSymbol(2)) :
-						pSelf->GetCompressionMethod();
+						pThis->GetCompressionMethod();
 	if (compressionMethod == METHOD_Invalid) {
 		sig.SetError(ERR_IOError, "invalid compression method");
 		return Value::Null;
 	}
-	if (!pSelf->Add(sig, args.GetStream(0),
+	if (!pThis->Add(sig, args.GetStream(0),
 					fileName.c_str(), compressionMethod)) return Value::Null;
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // zip.writer#close():void
@@ -373,8 +373,8 @@ Gura_DeclareMethod(writer, close)
 
 Gura_ImplementMethod(writer, close)
 {
-	Object_writer *pSelf = Object_writer::GetSelfObj(args);
-	if (!pSelf->Finish()) return Value::Null;
+	Object_writer *pThis = Object_writer::GetThisObj(args);
+	if (!pThis->Finish()) return Value::Null;
 	return Value::Null;
 }
 

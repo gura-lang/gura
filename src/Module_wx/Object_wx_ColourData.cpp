@@ -47,7 +47,7 @@ Gura_ImplementFunction(ColourData)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ColourData *pEntity = new wx_ColourData();
-	Object_wx_ColourData *pObj = Object_wx_ColourData::GetSelfObj(args);
+	Object_wx_ColourData *pObj = Object_wx_ColourData::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ColourData(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(ColourData)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ColourData, GetChooseFull)
@@ -66,9 +66,9 @@ Gura_DeclareMethod(wx_ColourData, GetChooseFull)
 
 Gura_ImplementMethod(wx_ColourData, GetChooseFull)
 {
-	Object_wx_ColourData *pSelf = Object_wx_ColourData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->GetChooseFull();
+	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->GetChooseFull();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -80,9 +80,9 @@ Gura_DeclareMethod(wx_ColourData, GetColour)
 
 Gura_ImplementMethod(wx_ColourData, GetColour)
 {
-	Object_wx_ColourData *pSelf = Object_wx_ColourData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxColour &rtn = pSelf->GetEntity()->GetColour();
+	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxColour &rtn = pThis->GetEntity()->GetColour();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
 }
 
@@ -95,10 +95,10 @@ Gura_DeclareMethod(wx_ColourData, GetCustomColour)
 
 Gura_ImplementMethod(wx_ColourData, GetCustomColour)
 {
-	Object_wx_ColourData *pSelf = Object_wx_ColourData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int i = args.GetInt(0);
-	const wxColour &rtn = pSelf->GetEntity()->GetCustomColour(i);
+	const wxColour &rtn = pThis->GetEntity()->GetCustomColour(i);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
 }
 
@@ -110,10 +110,10 @@ Gura_DeclareMethod(wx_ColourData, SetChooseFull)
 
 Gura_ImplementMethod(wx_ColourData, SetChooseFull)
 {
-	Object_wx_ColourData *pSelf = Object_wx_ColourData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool flag = args.GetBoolean(0);
-	pSelf->GetEntity()->SetChooseFull(flag);
+	pThis->GetEntity()->SetChooseFull(flag);
 	return Value::Null;
 }
 
@@ -125,10 +125,10 @@ Gura_DeclareMethod(wx_ColourData, SetColour)
 
 Gura_ImplementMethod(wx_ColourData, SetColour)
 {
-	Object_wx_ColourData *pSelf = Object_wx_ColourData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetColour(*colour);
+	pThis->GetEntity()->SetColour(*colour);
 	return Value::Null;
 }
 
@@ -141,11 +141,11 @@ Gura_DeclareMethod(wx_ColourData, SetCustomColour)
 
 Gura_ImplementMethod(wx_ColourData, SetCustomColour)
 {
-	Object_wx_ColourData *pSelf = Object_wx_ColourData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ColourData *pThis = Object_wx_ColourData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int i = args.GetInt(0);
 	wxColour *colour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
-	pSelf->GetEntity()->SetCustomColour(i, *colour);
+	pThis->GetEntity()->SetCustomColour(i, *colour);
 	return Value::Null;
 }
 

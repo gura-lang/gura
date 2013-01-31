@@ -50,7 +50,7 @@ Gura_ImplementFunction(Joystick)
 	int joystick = wxJOYSTICK1;
 	if (args.IsValid(0)) joystick = args.GetInt(0);
 	wx_Joystick *pEntity = new wx_Joystick(joystick);
-	Object_wx_Joystick *pObj = Object_wx_Joystick::GetSelfObj(args);
+	Object_wx_Joystick *pObj = Object_wx_Joystick::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Joystick(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(Joystick)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Joystick, GetButtonState)
@@ -69,9 +69,9 @@ Gura_DeclareMethod(wx_Joystick, GetButtonState)
 
 Gura_ImplementMethod(wx_Joystick, GetButtonState)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetButtonState();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetButtonState();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -83,9 +83,9 @@ Gura_DeclareMethod(wx_Joystick, GetManufacturerId)
 
 Gura_ImplementMethod(wx_Joystick, GetManufacturerId)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetManufacturerId();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetManufacturerId();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -97,9 +97,9 @@ Gura_DeclareMethod(wx_Joystick, GetMovementThreshold)
 
 Gura_ImplementMethod(wx_Joystick, GetMovementThreshold)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetMovementThreshold();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetMovementThreshold();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -111,9 +111,9 @@ Gura_DeclareMethod(wx_Joystick, GetNumberAxes)
 
 Gura_ImplementMethod(wx_Joystick, GetNumberAxes)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetNumberAxes();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetNumberAxes();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -125,9 +125,9 @@ Gura_DeclareMethod(wx_Joystick, GetNumberButtons)
 
 Gura_ImplementMethod(wx_Joystick, GetNumberButtons)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetNumberButtons();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetNumberButtons();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -152,9 +152,9 @@ Gura_DeclareMethod(wx_Joystick, GetPollingMax)
 
 Gura_ImplementMethod(wx_Joystick, GetPollingMax)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetPollingMax();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetPollingMax();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -166,9 +166,9 @@ Gura_DeclareMethod(wx_Joystick, GetPollingMin)
 
 Gura_ImplementMethod(wx_Joystick, GetPollingMin)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetPollingMin();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetPollingMin();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -180,9 +180,9 @@ Gura_DeclareMethod(wx_Joystick, GetProductId)
 
 Gura_ImplementMethod(wx_Joystick, GetProductId)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetProductId();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetProductId();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -194,9 +194,9 @@ Gura_DeclareMethod(wx_Joystick, GetProductName)
 
 Gura_ImplementMethod(wx_Joystick, GetProductName)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetProductName();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetProductName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -208,9 +208,9 @@ Gura_DeclareMethod(wx_Joystick, GetPosition)
 
 Gura_ImplementMethod(wx_Joystick, GetPosition)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPoint rtn = pSelf->GetEntity()->GetPosition();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPoint rtn = pThis->GetEntity()->GetPosition();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue)));
 }
 
@@ -222,9 +222,9 @@ Gura_DeclareMethod(wx_Joystick, GetPOVPosition)
 
 Gura_ImplementMethod(wx_Joystick, GetPOVPosition)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetPOVPosition();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetPOVPosition();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -236,9 +236,9 @@ Gura_DeclareMethod(wx_Joystick, GetPOVCTSPosition)
 
 Gura_ImplementMethod(wx_Joystick, GetPOVCTSPosition)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetPOVCTSPosition();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetPOVCTSPosition();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -250,9 +250,9 @@ Gura_DeclareMethod(wx_Joystick, GetRudderMax)
 
 Gura_ImplementMethod(wx_Joystick, GetRudderMax)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetRudderMax();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetRudderMax();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -264,9 +264,9 @@ Gura_DeclareMethod(wx_Joystick, GetRudderMin)
 
 Gura_ImplementMethod(wx_Joystick, GetRudderMin)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetRudderMin();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetRudderMin();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -278,9 +278,9 @@ Gura_DeclareMethod(wx_Joystick, GetRudderPosition)
 
 Gura_ImplementMethod(wx_Joystick, GetRudderPosition)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetRudderPosition();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetRudderPosition();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -292,9 +292,9 @@ Gura_DeclareMethod(wx_Joystick, GetUMax)
 
 Gura_ImplementMethod(wx_Joystick, GetUMax)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetUMax();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetUMax();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -306,9 +306,9 @@ Gura_DeclareMethod(wx_Joystick, GetUMin)
 
 Gura_ImplementMethod(wx_Joystick, GetUMin)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetUMin();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetUMin();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -320,9 +320,9 @@ Gura_DeclareMethod(wx_Joystick, GetUPosition)
 
 Gura_ImplementMethod(wx_Joystick, GetUPosition)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetUPosition();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetUPosition();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -334,9 +334,9 @@ Gura_DeclareMethod(wx_Joystick, GetVMax)
 
 Gura_ImplementMethod(wx_Joystick, GetVMax)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetVMax();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetVMax();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -348,9 +348,9 @@ Gura_DeclareMethod(wx_Joystick, GetVMin)
 
 Gura_ImplementMethod(wx_Joystick, GetVMin)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetVMin();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetVMin();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -362,9 +362,9 @@ Gura_DeclareMethod(wx_Joystick, GetVPosition)
 
 Gura_ImplementMethod(wx_Joystick, GetVPosition)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetVPosition();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetVPosition();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -376,9 +376,9 @@ Gura_DeclareMethod(wx_Joystick, GetXMax)
 
 Gura_ImplementMethod(wx_Joystick, GetXMax)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetXMax();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetXMax();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -390,9 +390,9 @@ Gura_DeclareMethod(wx_Joystick, GetXMin)
 
 Gura_ImplementMethod(wx_Joystick, GetXMin)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetXMin();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetXMin();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -404,9 +404,9 @@ Gura_DeclareMethod(wx_Joystick, GetYMax)
 
 Gura_ImplementMethod(wx_Joystick, GetYMax)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetYMax();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetYMax();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -418,9 +418,9 @@ Gura_DeclareMethod(wx_Joystick, GetYMin)
 
 Gura_ImplementMethod(wx_Joystick, GetYMin)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetYMin();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetYMin();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -432,9 +432,9 @@ Gura_DeclareMethod(wx_Joystick, GetZMax)
 
 Gura_ImplementMethod(wx_Joystick, GetZMax)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetZMax();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetZMax();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -446,9 +446,9 @@ Gura_DeclareMethod(wx_Joystick, GetZMin)
 
 Gura_ImplementMethod(wx_Joystick, GetZMin)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetZMin();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetZMin();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -460,9 +460,9 @@ Gura_DeclareMethod(wx_Joystick, GetZPosition)
 
 Gura_ImplementMethod(wx_Joystick, GetZPosition)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetZPosition();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetZPosition();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -474,9 +474,9 @@ Gura_DeclareMethod(wx_Joystick, HasPOV)
 
 Gura_ImplementMethod(wx_Joystick, HasPOV)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasPOV();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasPOV();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -488,9 +488,9 @@ Gura_DeclareMethod(wx_Joystick, HasPOV4Dir)
 
 Gura_ImplementMethod(wx_Joystick, HasPOV4Dir)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasPOV4Dir();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasPOV4Dir();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -502,9 +502,9 @@ Gura_DeclareMethod(wx_Joystick, HasPOVCTS)
 
 Gura_ImplementMethod(wx_Joystick, HasPOVCTS)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasPOVCTS();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasPOVCTS();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -516,9 +516,9 @@ Gura_DeclareMethod(wx_Joystick, HasRudder)
 
 Gura_ImplementMethod(wx_Joystick, HasRudder)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasRudder();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasRudder();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -530,9 +530,9 @@ Gura_DeclareMethod(wx_Joystick, HasU)
 
 Gura_ImplementMethod(wx_Joystick, HasU)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasU();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasU();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -544,9 +544,9 @@ Gura_DeclareMethod(wx_Joystick, HasV)
 
 Gura_ImplementMethod(wx_Joystick, HasV)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasV();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasV();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -558,9 +558,9 @@ Gura_DeclareMethod(wx_Joystick, HasZ)
 
 Gura_ImplementMethod(wx_Joystick, HasZ)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasZ();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasZ();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -572,9 +572,9 @@ Gura_DeclareMethod(wx_Joystick, IsOk)
 
 Gura_ImplementMethod(wx_Joystick, IsOk)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -586,9 +586,9 @@ Gura_DeclareMethod(wx_Joystick, ReleaseCapture)
 
 Gura_ImplementMethod(wx_Joystick, ReleaseCapture)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->ReleaseCapture();
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->ReleaseCapture();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -602,12 +602,12 @@ Gura_DeclareMethod(wx_Joystick, SetCapture)
 
 Gura_ImplementMethod(wx_Joystick, SetCapture)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	int pollingFreq = 0;
 	if (args.IsValid(1)) pollingFreq = args.GetInt(1);
-	bool rtn = pSelf->GetEntity()->SetCapture(win, pollingFreq);
+	bool rtn = pThis->GetEntity()->SetCapture(win, pollingFreq);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -619,10 +619,10 @@ Gura_DeclareMethod(wx_Joystick, SetMovementThreshold)
 
 Gura_ImplementMethod(wx_Joystick, SetMovementThreshold)
 {
-	Object_wx_Joystick *pSelf = Object_wx_Joystick::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Joystick *pThis = Object_wx_Joystick::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int threshold = args.GetInt(0);
-	pSelf->GetEntity()->SetMovementThreshold(threshold);
+	pThis->GetEntity()->SetMovementThreshold(threshold);
 	return Value::Null;
 }
 

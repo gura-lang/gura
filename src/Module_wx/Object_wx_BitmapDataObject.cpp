@@ -55,7 +55,7 @@ Gura_ImplementFunction(BitmapDataObject)
 	wxBitmap *bitmap = (wxBitmap *)(&wxNullBitmap);
 	if (args.IsValid(0)) bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_BitmapDataObject *pEntity = new wx_BitmapDataObject(*bitmap);
-	Object_wx_BitmapDataObject *pObj = Object_wx_BitmapDataObject::GetSelfObj(args);
+	Object_wx_BitmapDataObject *pObj = Object_wx_BitmapDataObject::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_BitmapDataObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(BitmapDataObject)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_BitmapDataObject, GetBitmap)
@@ -74,9 +74,9 @@ Gura_DeclareMethod(wx_BitmapDataObject, GetBitmap)
 
 Gura_ImplementMethod(wx_BitmapDataObject, GetBitmap)
 {
-	Object_wx_BitmapDataObject *pSelf = Object_wx_BitmapDataObject::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxBitmap rtn = pSelf->GetEntity()->GetBitmap();
+	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxBitmap rtn = pThis->GetEntity()->GetBitmap();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
@@ -88,10 +88,10 @@ Gura_DeclareMethod(wx_BitmapDataObject, SetBitmap)
 
 Gura_ImplementMethod(wx_BitmapDataObject, SetBitmap)
 {
-	Object_wx_BitmapDataObject *pSelf = Object_wx_BitmapDataObject::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetBitmap(*bitmap);
+	pThis->GetEntity()->SetBitmap(*bitmap);
 	return Value::Null;
 }
 

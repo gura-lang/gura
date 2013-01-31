@@ -1568,37 +1568,37 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig,
 									this, GetExprList(), ppFuncSuccRequester);
 	}
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
-	Value valueSelf = pExprMember->GetLeft()->Exec(env, sig);
+	Value valueThis = pExprMember->GetLeft()->Exec(env, sig);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
 	}
-	if (valueSelf.IsInvalid()) return valueSelf;
+	if (valueThis.IsInvalid()) return valueThis;
 	Expr_Member::Mode mode = pExprMember->GetMode();
 	if (mode != Expr_Member::MODE_Normal) {
-		if (valueSelf.IsList() && valueSelf.GetList().empty()) {
-			return valueSelf;
+		if (valueThis.IsList() && valueThis.GetList().empty()) {
+			return valueThis;
 		}
-		ObjectBase *pObj = valueSelf.ExtractObject(sig);
+		ObjectBase *pObj = valueThis.ExtractObject(sig);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
 		}
-		Iterator *pIteratorSelf = pObj->CreateIterator(sig);
+		Iterator *pIteratorThis = pObj->CreateIterator(sig);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
 		}
-		if (pIteratorSelf == NULL) {
+		if (pIteratorThis == NULL) {
 			// nothing to do
 		} else if (mode == Expr_Member::MODE_MapAlong) {
-			Value valueSelfEach;
-			if (!pIteratorSelf->Next(env, sig, valueSelfEach)) return Value::Null;
-			return EvalEach(env, sig, valueSelfEach,
-						pIteratorSelf, valueSelf.IsList(), ppFuncSuccRequester);
+			Value valueThisEach;
+			if (!pIteratorThis->Next(env, sig, valueThisEach)) return Value::Null;
+			return EvalEach(env, sig, valueThisEach,
+						pIteratorThis, valueThis.IsList(), ppFuncSuccRequester);
 		} else {
 			AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(env, sig,
-						pIteratorSelf, dynamic_cast<Expr_Caller *>(IncRef())));
+						pIteratorThis, dynamic_cast<Expr_Caller *>(IncRef())));
 			if (mode == Expr_Member::MODE_MapToIter) {
 				return Value(env, pIteratorMap.release());
 			}
@@ -1610,21 +1610,21 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig,
 			return result;
 		}
 	}
-	return EvalEach(env, sig, valueSelf, NULL, false, ppFuncSuccRequester);
+	return EvalEach(env, sig, valueThis, NULL, false, ppFuncSuccRequester);
 }
 
-Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueSelf,
-	Iterator *pIteratorSelf, bool listSelfFlag, const Function **ppFuncSuccRequester) const
+Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis,
+	Iterator *pIteratorThis, bool listThisFlag, const Function **ppFuncSuccRequester) const
 {
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	const Expr *pExprRight = pExprMember->GetRight();
 	Value valueCar;
 	ICallable *pCallable = NULL;
 	ObjectBase *pObj = NULL;
-	if (valueSelf.IsPrimitive() || valueSelf.GetTinyBuffFlag()) {
-		pObj = env.LookupClass(valueSelf.GetType());
+	if (valueThis.IsPrimitive() || valueThis.GetTinyBuffFlag()) {
+		pObj = env.LookupClass(valueThis.GetType());
 	} else {
-		pObj = valueSelf.ExtractObject(sig);
+		pObj = valueThis.ExtractObject(sig);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
@@ -1644,7 +1644,7 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueSelf
 		if (pObj->IsModule()) {
 			Environment envLocal(pObj, ENVTYPE_member);
 			valueCar = pExprRight->Exec(envLocal, sig);
-		} else if ((cntSuperSkip = valueSelf.GetSuperSkipCount()) > 0) {
+		} else if ((cntSuperSkip = valueThis.GetSuperSkipCount()) > 0) {
 			Environment envLocal(pObj, pObj->GetEnvType());
 			envLocal.SetSuperSkipCount(cntSuperSkip);
 			valueCar = pExprRight->Exec(envLocal, sig);
@@ -1662,7 +1662,7 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueSelf
 		SetError(sig, ERR_TypeError, "object is not callable");
 		return Value::Null;
 	}
-	return pCallable->Call(env, sig, valueSelf, pIteratorSelf, listSelfFlag,
+	return pCallable->Call(env, sig, valueThis, pIteratorThis, listThisFlag,
 								this, GetExprList(), ppFuncSuccRequester);
 }
 
@@ -2447,16 +2447,16 @@ Value Expr_Member::Exec(Environment &env, Signal sig) const
 {
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
 	// correspond to method-calling, property-getting and property-setting.
-	Value valueSelf = GetLeft()->Exec(env, sig);
+	Value valueThis = GetLeft()->Exec(env, sig);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
 	}
 	ObjectBase *pObj = NULL;
-	if (valueSelf.IsPrimitive() || valueSelf.GetTinyBuffFlag()) {
-		pObj = env.LookupClass(valueSelf.GetType());
+	if (valueThis.IsPrimitive() || valueThis.GetTinyBuffFlag()) {
+		pObj = env.LookupClass(valueThis.GetType());
 	} else {
-		pObj = valueSelf.ExtractObject(sig);
+		pObj = valueThis.ExtractObject(sig);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
@@ -2464,8 +2464,8 @@ Value Expr_Member::Exec(Environment &env, Signal sig) const
 	}
 	Mode mode = GetMode();
 	if (mode != MODE_Normal) {
-		if (valueSelf.IsList() && valueSelf.GetList().empty()) {
-			return valueSelf;
+		if (valueThis.IsList() && valueThis.GetList().empty()) {
+			return valueThis;
 		}
 		Iterator *pIterator = pObj->CreateIterator(sig);
 		if (sig.IsSignalled()) {
@@ -2496,7 +2496,7 @@ Value Expr_Member::Exec(Environment &env, Signal sig) const
 	if (result.IsFunction()) {
 		Object_function *pObjFunc =
 			dynamic_cast<Object_function *>(result.GetFunctionObj()->Clone());
-		pObjFunc->SetSelf(valueSelf);
+		pObjFunc->SetThis(valueThis);
 		result = Value(pObjFunc);
 	}
 	return result;
@@ -2507,12 +2507,12 @@ Value Expr_Member::DoAssign(Environment &env, Signal sig, Value &value,
 {
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
 	// correspond to method-calling, property-getting and property-setting.
-	Value valueSelf = GetLeft()->Exec(env, sig);
+	Value valueThis = GetLeft()->Exec(env, sig);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
 	}
-	ObjectBase *pObj = valueSelf.ExtractObject(sig);
+	ObjectBase *pObj = valueThis.ExtractObject(sig);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
@@ -2521,8 +2521,8 @@ Value Expr_Member::DoAssign(Environment &env, Signal sig, Value &value,
 	if (mode == MODE_Normal) {
 		return GetRight()->DoAssign(*pObj, sig, value, pSymbolsAssignable, escalateFlag);
 	}
-	AutoPtr<Iterator> pIteratorSelf(pObj->CreateIterator(sig));
-	if (pIteratorSelf.IsNull()) {
+	AutoPtr<Iterator> pIteratorThis(pObj->CreateIterator(sig));
+	if (pIteratorThis.IsNull()) {
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
@@ -2536,10 +2536,10 @@ Value Expr_Member::DoAssign(Environment &env, Signal sig, Value &value,
 			return Value::Null;
 		}
 		Value value;
-		Value valueSelfEach;
-		while (pIteratorSelf->Next(env, sig, valueSelfEach) &&
+		Value valueThisEach;
+		while (pIteratorThis->Next(env, sig, valueThisEach) &&
 								pIteratorValue->Next(env, sig, value)) {
-			ObjectBase *pObjEach = valueSelfEach.ExtractObject(sig);
+			ObjectBase *pObjEach = valueThisEach.ExtractObject(sig);
 			if (sig.IsSignalled()) break;
 			GetRight()->DoAssign(*pObjEach, sig, value,
 									pSymbolsAssignable, escalateFlag);
@@ -2550,9 +2550,9 @@ Value Expr_Member::DoAssign(Environment &env, Signal sig, Value &value,
 			return Value::Null;
 		}
 	} else {
-		Value valueSelfEach;
-		while (pIteratorSelf->Next(env, sig, valueSelfEach)) {
-			ObjectBase *pObjEach = valueSelfEach.ExtractObject(sig);
+		Value valueThisEach;
+		while (pIteratorThis->Next(env, sig, valueThisEach)) {
+			ObjectBase *pObjEach = valueThisEach.ExtractObject(sig);
 			if (sig.IsSignalled()) break;
 			GetRight()->DoAssign(*pObjEach, sig, value, pSymbolsAssignable, escalateFlag);
 			if (sig.IsSignalled()) break;

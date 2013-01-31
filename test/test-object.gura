@@ -17,7 +17,7 @@ scope {
 			str:extern = 'modified class variable'
 		}
 		modify_2() = {
-			self.str = 'again, modified class variable'
+			this.str = 'again, modified class variable'
 		}
 		modify_3() = {
 			str += ': added'
@@ -59,19 +59,19 @@ scope {
 	B = class(A) {
 		func() = {
 			println('B.func()')
-			super(self).func()
+			super(this).func()
 		}
 	}
 	C = class(B) {
 		func() = {
 			println('C.func()')
-			super(self).func()
+			super(this).func()
 		}
 	}
 	D = class(C) {
 		func() = {
 			println('D.func()')
-			super(self).func()
+			super(this).func()
 		}
 	}
 	A().func()
@@ -92,14 +92,14 @@ scope {
 scope {
 	Person = class {
 		__init__(name:string => '(no name)', age:number => 0) = {
-			[self.name, self.age] = [name, age]
+			[this.name, this.age] = [name, age]
 		}
 		assign(person:Person) = {
-			[self.name, self.age] = [person.name, person.age]
+			[this.name, this.age] = [person.name, person.age]
 		}
-		HasSameName(person:Person) = (self.name == person.name)
-		IsAtSameAge(person:Person) = (self.age == person.age)
-		Print():void = printf('%-10s is %d years old.\n', self.name, self.age)
+		HasSameName(person:Person) = (this.name == person.name)
+		IsAtSameAge(person:Person) = (this.age == person.age)
+		Print():void = printf('%-10s is %d years old.\n', this.name, this.age)
 	}
 	people = Person * [
 		['Inari', 23], ['Maruyama', 27], ['Akai', 23], ['Maruyama', 32]
@@ -131,15 +131,15 @@ scope {
 scope {
 	A = class {
 		__init__() = {
-			self.prop = 'property'
+			this.prop = 'property'
 		}
 		__getprop__(symbol:symbol) = {
 			function(args*) {
-				symbol.tostring() + ' OK (' + args.join(',') + ') ' + self.prop
+				symbol.tostring() + ' OK (' + args.join(',') + ') ' + this.prop
 			}
 		}
-		func1(args*) = 'func1 OK (' + args.join(',') + ') ' + self.prop
-		func2(args*) = 'func2 OK (' + args.join(',') + ') ' + self.prop
+		func1(args*) = 'func1 OK (' + args.join(',') + ') ' + this.prop
+		func2(args*) = 'func2 OK (' + args.join(',') + ') ' + this.prop
 	}
 	a = A()
 	tester(`a.call!(`dynamic1, 1, 2, 3, 4))
@@ -166,8 +166,8 @@ scope {
 }
 scope {
 	classref(`string) {|ref|
-		ref.len2() = self.len() * 2
-		ref.len3() = self.len() * 3
+		ref.len2() = this.len() * 2
+		ref.len3() = this.len() * 3
 	}
 	tester(`'hello world'.len())
 	tester(`'hello world'.len2())
@@ -177,13 +177,13 @@ scope {
 	A = class {
 		inst = nil
 		__init__(name:string) = {
-			self.name = name
+			this.name = name
 		}
 		getInst():static = {
-			self.inst = self.inst || A('hoge')
-			self.inst
+			this.inst = this.inst || A('hoge')
+			this.inst
 		}
-		print() = println(self.name)
+		print() = println(this.name)
 	}
 	a = A.getInst()
 	a.print()
@@ -263,14 +263,14 @@ scope {
 scope {
 	Person1 = class {
 		__init__(name:string, age:number) = {
-			self.name = name, self.age = age
+			this.name = name, this.age = age
 		}
-		__str__() = format('name: %s, age:%s', self.name, self.age)
+		__str__() = format('name: %s, age:%s', this.name, this.age)
 	}
 	p1 = Person1('yamada', 30)
 	printf('%s %s\n', typename(p1), p1)
 	Person2 = struct(name:string, age:number) {
-		__str__() = format('name: %s, age:%s', self.name, self.age)
+		__str__() = format('name: %s, age:%s', this.name, this.age)
 	}
 	p2 = Person2('yamada', 30)
 	printf('%s %s\n', typename(p2), p2)
@@ -279,10 +279,10 @@ scope {
 	B = class {
 		cntAll = 0
 		__init__() = {
-			self.n = self.cntAll
-			self.cntAll += 1
+			this.n = this.cntAll
+			this.cntAll += 1
 		}
-		print() = printf('%d\n', self.n)
+		print() = printf('%d\n', this.n)
 	}
 	B().print()
 	B().print()
@@ -295,9 +295,9 @@ scope {
 scope {
 	Person = class {
 		__init__(name:string) = {
-			self.name = name
+			this.name = name
 		}
-		introduce() = format('my name is %s', self.name)
+		introduce() = format('my name is %s', this.name)
 		work() = 'do what?'
 	}
 	Student = class(Person) {
@@ -306,9 +306,9 @@ scope {
 	}
 	Worker = class(Person) {
 		__init__(name:string, workplace:string) = {|name|
-			self.workplace = workplace
+			this.workplace = workplace
 		}
-		work() = format('work at %s', self.workplace)
+		work() = format('work at %s', this.workplace)
 	}
 	Teacher = class(Worker) {
 		__init__(name:string) = {|name, 'school'|}
@@ -337,9 +337,9 @@ scope {
 scope {
 	Person = class {
 		__init__(job, name, age) = {
-			self.job = job, self.name = name, self.age = age
+			this.job = job, this.name = name, this.age = age
 		}
-		Print() = printf('job:%s, name:%s, age:%d\n', self.job, self.name, self.age)
+		Print() = printf('job:%s, name:%s, age:%d\n', this.job, this.name, this.age)
 	}
 	Student = class(Person) {
 		__init__(name, age) = {|'student', name, age|
@@ -362,14 +362,14 @@ scope {
 	A = class {
 		nn = 0
 		__init__() = {
-			self.n = self.nn, self.nn += 1
-			printf('+created %d\n', self.n)
+			this.n = this.nn, this.nn += 1
+			printf('+created %d\n', this.n)
 		}
 		__del__() = {
-			printf('-deleted %d\n', self.n)
+			printf('-deleted %d\n', this.n)
 		}
 		Print() = {
-			printf(' print   %d\n', self.n)
+			printf(' print   %d\n', this.n)
 		}
 	}
 	scope {
@@ -399,11 +399,11 @@ scope {
 scope {
 	Person = class {
 		__init__(name:string, age:number) = {
-			self.name = name
-			self.age = age
+			this.name = name
+			this.age = age
 		}
 		Print() = {
-			print(self.name, ' is ', self.age, ' years old.\n')
+			print(this.name, ' is ', this.age, ' years old.\n')
 		}
 	}
 	people = @(Person) {
@@ -427,7 +427,7 @@ scope {
 	obj.b = 20
 	obj.func1(x) = math.sin(x)
 	obj.func2(x) = math.sqrt(x)
-	obj.func3() = math.sqrt(self.a)
+	obj.func3() = math.sqrt(this.a)
 	print('obj.a + obj.b = ', obj.a + obj.b, '\n')
 	println(obj.func1(3))
 	println(obj.func2(2))
@@ -438,9 +438,9 @@ scope {
 	Person = class {
 		name = 'aaa'
 		age = 10
-		__str__() = format('name: %s, age:%s', self.name, self.age)
+		__str__() = format('name: %s, age:%s', this.name, this.age)
 		Print() = {
-			print(self.name, ' is ', self.age, ' years old', '  pi=', math.pi, '\n')
+			print(this.name, ' is ', this.age, ' years old', '  pi=', math.pi, '\n')
 		}
 	}
 	a = Person()
@@ -456,18 +456,18 @@ scope {
 	Person = class {
 		__init__(name) = {
 			print('Person constructor\n')
-			self.name = name
-			self.cnt = 0
+			this.name = name
+			this.cnt = 0
 		}
 		__del__() = {
 			print('Person destructor\n')
 		}
 		func(n) = {
-			print('Person#func() cnt = ', self.cnt, '\n')
-			self.cnt = self.cnt + n
+			print('Person#func() cnt = ', this.cnt, '\n')
+			this.cnt = this.cnt + n
 		}
 		Print() = {
-			print('My name is ', self.name, '\n')
+			print('My name is ', this.name, '\n')
 		}
 	}
 	p = Person('Yutaka')
@@ -486,36 +486,36 @@ scope {
 scope {
 	Axis = class {
 		__init__(title) = {
-			self.title = title
-			self.axis_step = 1
-			self.guide_step = 10
-			self.min = 0
-			self.max = 100
-			self.samples = 10
+			this.title = title
+			this.axis_step = 1
+			this.guide_step = 10
+			this.min = 0
+			this.max = 100
+			this.samples = 10
 		}
 		Print() = {
 			print(
-				'axis.title=',		self.title,
-				', axis_step=',		self.axis_step,
-				', guide_step=',	self.guide_step,
-				', min=',			self.min,
-				', max=',			self.max,
-				', samples=',		self.samples, '\n')
-			println([interval(self.min, self.max, self.samples)].tostring())
+				'axis.title=',		this.title,
+				', axis_step=',		this.axis_step,
+				', guide_step=',	this.guide_step,
+				', min=',			this.min,
+				', max=',			this.max,
+				', samples=',		this.samples, '\n')
+			println([interval(this.min, this.max, this.samples)].tostring())
 		}
 	}
 	Graph = class {
 		__init__(title) = {
-			self.title = title
-			self.x = Axis('x-title')
-			self.y = Axis('y-title')
-			self.z = Axis('z-title')
+			this.title = title
+			this.x = Axis('x-title')
+			this.y = Axis('y-title')
+			this.z = Axis('z-title')
 		}
 		Print() = {
-			print('title=', self.title, '\n')
-			self.x.Print()
-			self.y.Print()
-			self.z.Print()
+			print('title=', this.title, '\n')
+			this.x.Print()
+			this.y.Print()
+			this.z.Print()
 		}
 	}
 	g = Graph('hogehoge')
@@ -526,35 +526,35 @@ scope {
 	Graph = class {
 		Axis = class {
 			__init__(title) = {
-				self.title = title
-				self.axis_step = 1
-				self.guide_step = 10
-				self.min = 0
-				self.max = 100
-				self.samples = 10
+				this.title = title
+				this.axis_step = 1
+				this.guide_step = 10
+				this.min = 0
+				this.max = 100
+				this.samples = 10
 			}
 			Print() = {
 				print(
-					'axis.title=',		self.title,
-					', axis_step=',		self.axis_step,
-					', guide_step=',	self.guide_step,
-					', min=',			self.min,
-					', max=',			self.max,
-					', samples=',		self.samples, '\n')
-				println([interval(self.min, self.max, self.samples)].tostring())
+					'axis.title=',		this.title,
+					', axis_step=',		this.axis_step,
+					', guide_step=',	this.guide_step,
+					', min=',			this.min,
+					', max=',			this.max,
+					', samples=',		this.samples, '\n')
+				println([interval(this.min, this.max, this.samples)].tostring())
 			}
 		}
 		__init__(title) = {
-			self.title = title
-			self.x = Graph.Axis('x-title')
-			self.y = Graph.Axis('y-title')
-			self.z = Graph.Axis('z-title')
+			this.title = title
+			this.x = Graph.Axis('x-title')
+			this.y = Graph.Axis('y-title')
+			this.z = Graph.Axis('z-title')
 		}
 		Print() = {
-			print('title=', self.title, '\n')
-			self.x.Print()
-			self.y.Print()
-			self.z.Print()
+			print('title=', this.title, '\n')
+			this.x.Print()
+			this.y.Print()
+			this.z.Print()
 		}
 	}
 	g = Graph('hogehoge')
@@ -575,7 +575,7 @@ function {
 	ListEx = class(List) {
 		__init__() = {
 			#super()
-			repeat(3) { self.add('init') }
+			repeat(3) { this.add('init') }
 		}
 		__del__() = {
 			println('destroyed')
@@ -589,8 +589,8 @@ scope {
 	A = class {
 		val1 = 1
 		val2 = 'hello'
-		func1():static = { println(self.val1) }
-		func2() = { println(self.val2) }
+		func1():static = { println(this.val1) }
+		func2() = { println(this.val2) }
 	}
 	A.func1()
 	A().func2()

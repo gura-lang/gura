@@ -48,7 +48,7 @@ Gura_ImplementFunction(SashWindowEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SashWindow *pEntity = new wx_SashWindow();
-	Object_wx_SashWindow *pObj = Object_wx_SashWindow::GetSelfObj(args);
+	Object_wx_SashWindow *pObj = Object_wx_SashWindow::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SashWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(SashWindowEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(SashWindow)
@@ -86,7 +86,7 @@ Gura_ImplementFunction(SashWindow)
 	wxString name = wxT("sashWindow");
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_SashWindow *pEntity = new wx_SashWindow(parent, id, *pos, *size, style, name);
-	Object_wx_SashWindow *pObj = Object_wx_SashWindow::GetSelfObj(args);
+	Object_wx_SashWindow *pObj = Object_wx_SashWindow::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SashWindow(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -94,7 +94,7 @@ Gura_ImplementFunction(SashWindow)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SashWindow, GetSashVisible)
@@ -106,10 +106,10 @@ Gura_DeclareMethod(wx_SashWindow, GetSashVisible)
 
 Gura_ImplementMethod(wx_SashWindow, GetSashVisible)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSashEdgePosition edge = static_cast<wxSashEdgePosition>(args.GetInt(0));
-	bool rtn = pSelf->GetEntity()->GetSashVisible(edge);
+	bool rtn = pThis->GetEntity()->GetSashVisible(edge);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -121,9 +121,9 @@ Gura_DeclareMethod(wx_SashWindow, GetMaximumSizeX)
 
 Gura_ImplementMethod(wx_SashWindow, GetMaximumSizeX)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetMaximumSizeX();
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetMaximumSizeX();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -135,9 +135,9 @@ Gura_DeclareMethod(wx_SashWindow, GetMaximumSizeY)
 
 Gura_ImplementMethod(wx_SashWindow, GetMaximumSizeY)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetMaximumSizeY();
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetMaximumSizeY();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -149,9 +149,9 @@ Gura_DeclareMethod(wx_SashWindow, GetMinimumSizeX)
 
 Gura_ImplementMethod(wx_SashWindow, GetMinimumSizeX)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetMinimumSizeX();
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetMinimumSizeX();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -163,9 +163,9 @@ Gura_DeclareMethod(wx_SashWindow, GetMinimumSizeY)
 
 Gura_ImplementMethod(wx_SashWindow, GetMinimumSizeY)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetMinimumSizeY();
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetMinimumSizeY();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -178,10 +178,10 @@ Gura_DeclareMethod(wx_SashWindow, HasBorder)
 
 Gura_ImplementMethod(wx_SashWindow, HasBorder)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSashEdgePosition edge = static_cast<wxSashEdgePosition>(args.GetInt(0));
-	bool rtn = pSelf->GetEntity()->HasBorder(edge);
+	bool rtn = pThis->GetEntity()->HasBorder(edge);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -193,10 +193,10 @@ Gura_DeclareMethod(wx_SashWindow, SetMaximumSizeX)
 
 Gura_ImplementMethod(wx_SashWindow, SetMaximumSizeX)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int min = args.GetInt(0);
-	pSelf->GetEntity()->SetMaximumSizeX(min);
+	pThis->GetEntity()->SetMaximumSizeX(min);
 	return Value::Null;
 }
 
@@ -208,10 +208,10 @@ Gura_DeclareMethod(wx_SashWindow, SetMaximumSizeY)
 
 Gura_ImplementMethod(wx_SashWindow, SetMaximumSizeY)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int min = args.GetInt(0);
-	pSelf->GetEntity()->SetMaximumSizeY(min);
+	pThis->GetEntity()->SetMaximumSizeY(min);
 	return Value::Null;
 }
 
@@ -223,10 +223,10 @@ Gura_DeclareMethod(wx_SashWindow, SetMinimumSizeX)
 
 Gura_ImplementMethod(wx_SashWindow, SetMinimumSizeX)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int min = args.GetInt(0);
-	pSelf->GetEntity()->SetMinimumSizeX(min);
+	pThis->GetEntity()->SetMinimumSizeX(min);
 	return Value::Null;
 }
 
@@ -238,10 +238,10 @@ Gura_DeclareMethod(wx_SashWindow, SetMinimumSizeY)
 
 Gura_ImplementMethod(wx_SashWindow, SetMinimumSizeY)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int min = args.GetInt(0);
-	pSelf->GetEntity()->SetMinimumSizeY(min);
+	pThis->GetEntity()->SetMinimumSizeY(min);
 	return Value::Null;
 }
 
@@ -254,11 +254,11 @@ Gura_DeclareMethod(wx_SashWindow, SetSashVisible)
 
 Gura_ImplementMethod(wx_SashWindow, SetSashVisible)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSashEdgePosition edge = static_cast<wxSashEdgePosition>(args.GetInt(0));
 	bool visible = args.GetBoolean(1);
-	pSelf->GetEntity()->SetSashVisible(edge, visible);
+	pThis->GetEntity()->SetSashVisible(edge, visible);
 	return Value::Null;
 }
 
@@ -271,11 +271,11 @@ Gura_DeclareMethod(wx_SashWindow, SetSashBorder)
 
 Gura_ImplementMethod(wx_SashWindow, SetSashBorder)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSashEdgePosition edge = static_cast<wxSashEdgePosition>(args.GetInt(0));
 	bool hasBorder = args.GetBoolean(1);
-	pSelf->GetEntity()->SetSashBorder(edge, hasBorder);
+	pThis->GetEntity()->SetSashBorder(edge, hasBorder);
 	return Value::Null;
 }
 
@@ -288,10 +288,10 @@ Gura_DeclareMethod(wx_SashWindow, GetEdgeMargin)
 
 Gura_ImplementMethod(wx_SashWindow, GetEdgeMargin)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSashEdgePosition edge = static_cast<wxSashEdgePosition>(args.GetInt(0));
-	int rtn = pSelf->GetEntity()->GetEdgeMargin(edge);
+	int rtn = pThis->GetEntity()->GetEdgeMargin(edge);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -303,9 +303,9 @@ Gura_DeclareMethod(wx_SashWindow, GetDefaultBorderSize)
 
 Gura_ImplementMethod(wx_SashWindow, GetDefaultBorderSize)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetDefaultBorderSize();
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetDefaultBorderSize();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -317,9 +317,9 @@ Gura_DeclareMethod(wx_SashWindow, GetExtraBorderSize)
 
 Gura_ImplementMethod(wx_SashWindow, GetExtraBorderSize)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetDefaultBorderSize();
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetDefaultBorderSize();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -331,10 +331,10 @@ Gura_DeclareMethod(wx_SashWindow, SetDefaultBorderSize)
 
 Gura_ImplementMethod(wx_SashWindow, SetDefaultBorderSize)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);
-	pSelf->GetEntity()->SetDefaultBorderSize(width);
+	pThis->GetEntity()->SetDefaultBorderSize(width);
 	return Value::Null;
 }
 
@@ -346,10 +346,10 @@ Gura_DeclareMethod(wx_SashWindow, SetExtraBorderSize)
 
 Gura_ImplementMethod(wx_SashWindow, SetExtraBorderSize)
 {
-	Object_wx_SashWindow *pSelf = Object_wx_SashWindow::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);
-	pSelf->GetEntity()->SetExtraBorderSize(width);
+	pThis->GetEntity()->SetExtraBorderSize(width);
 	return Value::Null;
 }
 

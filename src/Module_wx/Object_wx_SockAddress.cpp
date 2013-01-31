@@ -50,7 +50,7 @@ Gura_ImplementFunction(SockAddressEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_SockAddress *pEntity = new wx_SockAddress();
-	Object_wx_SockAddress *pObj = Object_wx_SockAddress::GetSelfObj(args);
+	Object_wx_SockAddress *pObj = Object_wx_SockAddress::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SockAddress(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(SockAddressEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -71,9 +71,9 @@ Gura_DeclareMethod(wx_SockAddress, Clear)
 
 Gura_ImplementMethod(wx_SockAddress, Clear)
 {
-	Object_wx_SockAddress *pSelf = Object_wx_SockAddress::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Clear();
+	Object_wx_SockAddress *pThis = Object_wx_SockAddress::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Clear();
 	return Value::Null;
 }
 

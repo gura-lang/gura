@@ -45,7 +45,7 @@ Gura_ImplementFunction(PCXHandler)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PCXHandler *pEntity = new wx_PCXHandler();
-	Object_wx_PCXHandler *pObj = Object_wx_PCXHandler::GetSelfObj(args);
+	Object_wx_PCXHandler *pObj = Object_wx_PCXHandler::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PCXHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -53,7 +53,7 @@ Gura_ImplementFunction(PCXHandler)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

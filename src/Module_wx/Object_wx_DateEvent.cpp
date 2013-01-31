@@ -43,9 +43,9 @@ Gura_DeclareMethod(wx_DateEvent, GetDate)
 
 Gura_ImplementMethod(wx_DateEvent, GetDate)
 {
-	Object_wx_DateEvent *pSelf = Object_wx_DateEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxDateTime &rtn = pSelf->GetEntity()->GetDate();
+	Object_wx_DateEvent *pThis = Object_wx_DateEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxDateTime &rtn = pThis->GetEntity()->GetDate();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
 }
 
@@ -57,10 +57,10 @@ Gura_DeclareMethod(wx_DateEvent, SetDate)
 
 Gura_ImplementMethod(wx_DateEvent, SetDate)
 {
-	Object_wx_DateEvent *pSelf = Object_wx_DateEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DateEvent *pThis = Object_wx_DateEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDateTime *date = Object_wx_DateTime::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetDate(*date);
+	pThis->GetEntity()->SetDate(*date);
 	return Value::Null;
 }
 

@@ -49,10 +49,10 @@ Gura_DeclareMethod(wx_HtmlTagsModule, FillHandlersTable)
 Gura_ImplementMethod(wx_HtmlTagsModule, FillHandlersTable)
 {
 #if 0
-	Object_wx_HtmlTagsModule *pSelf = Object_wx_HtmlTagsModule::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_HtmlTagsModule *pThis = Object_wx_HtmlTagsModule::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxHtmlWinParser **parser = Object_wx_HtmlWinParser::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->FillHandlersTable(**parser);
+	pThis->GetEntity()->FillHandlersTable(**parser);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);

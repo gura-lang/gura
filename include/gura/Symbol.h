@@ -159,7 +159,7 @@ public:
 	Gura_DeclareSymbol(__doc__);
 	Gura_DeclareSymbol(__args__);
 	Gura_DeclareSymbol(super);
-	Gura_DeclareSymbol(self);
+	Gura_DeclareSymbol(this);
 	Gura_DeclareSymbol(static_);
 	Gura_DeclareSymbol(const_);
 	Gura_DeclareSymbol(_anonymous_);

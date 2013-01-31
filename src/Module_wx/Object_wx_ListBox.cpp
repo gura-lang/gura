@@ -49,7 +49,7 @@ Gura_ImplementFunction(ListBoxEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ListBox *pEntity = new wx_ListBox();
-	Object_wx_ListBox *pObj = Object_wx_ListBox::GetSelfObj(args);
+	Object_wx_ListBox *pObj = Object_wx_ListBox::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(ListBoxEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(ListBox)
@@ -97,7 +97,7 @@ Gura_ImplementFunction(ListBox)
 	wxString name = wxT("listBox");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_ListBox *pEntity = new wx_ListBox(parent, id, *pos, *size, *choices, style, *validator, name);
-	Object_wx_ListBox *pObj = Object_wx_ListBox::GetSelfObj(args);
+	Object_wx_ListBox *pObj = Object_wx_ListBox::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -105,7 +105,7 @@ Gura_ImplementFunction(ListBox)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ListBox, Create)
@@ -124,8 +124,8 @@ Gura_DeclareMethod(wx_ListBox, Create)
 
 Gura_ImplementMethod(wx_ListBox, Create)
 {
-	Object_wx_ListBox *pSelf = Object_wx_ListBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_ListBox, Create)
 	if (args.IsValid(6)) validator = Object_wx_Validator::GetObject(args, 6)->GetEntity();
 	wxString name = wxT("listBox");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, *pos, *size, *choices, style, *validator, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, *choices, style, *validator, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -156,10 +156,10 @@ Gura_DeclareMethod(wx_ListBox, Deselect)
 
 Gura_ImplementMethod(wx_ListBox, Deselect)
 {
-	Object_wx_ListBox *pSelf = Object_wx_ListBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
-	pSelf->GetEntity()->Deselect(n);
+	pThis->GetEntity()->Deselect(n);
 	return Value::Null;
 }
 
@@ -171,10 +171,10 @@ Gura_DeclareMethod(wx_ListBox, GetSelections)
 
 Gura_ImplementMethod(wx_ListBox, GetSelections)
 {
-	Object_wx_ListBox *pSelf = Object_wx_ListBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArrayInt selections;
-	int rtn = pSelf->GetEntity()->GetSelections(selections);
+	int rtn = pThis->GetEntity()->GetSelections(selections);
 	return ReturnValue(env, sig, args, ArrayIntToValue(env, selections));
 }
 
@@ -187,11 +187,11 @@ Gura_DeclareMethod(wx_ListBox, InsertItems)
 
 Gura_ImplementMethod(wx_ListBox, InsertItems)
 {
-	Object_wx_ListBox *pSelf = Object_wx_ListBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::auto_ptr<wxArrayString> items(CreateArrayString(args.GetList(0)));
 	unsigned pos = args.GetInt(1);
-	pSelf->GetEntity()->InsertItems(*items, pos);
+	pThis->GetEntity()->InsertItems(*items, pos);
 	return Value::Null;
 }
 
@@ -204,10 +204,10 @@ Gura_DeclareMethod(wx_ListBox, HitTest)
 
 Gura_ImplementMethod(wx_ListBox, HitTest)
 {
-	Object_wx_ListBox *pSelf = Object_wx_ListBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *point = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	int rtn = pSelf->GetEntity()->HitTest(*point);
+	int rtn = pThis->GetEntity()->HitTest(*point);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -220,10 +220,10 @@ Gura_DeclareMethod(wx_ListBox, IsSelected)
 
 Gura_ImplementMethod(wx_ListBox, IsSelected)
 {
-	Object_wx_ListBox *pSelf = Object_wx_ListBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->IsSelected(n);
+	bool rtn = pThis->GetEntity()->IsSelected(n);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -236,12 +236,12 @@ Gura_DeclareMethod(wx_ListBox, Set)
 
 Gura_ImplementMethod(wx_ListBox, Set)
 {
-	Object_wx_ListBox *pSelf = Object_wx_ListBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::auto_ptr<wxArrayString> choices(CreateArrayString(args.GetList(0)));
 	void **clientData = NULL;
 	//if (args.IsValid(1)) **clientData = args.GetInt(1);
-	pSelf->GetEntity()->Set(*choices, clientData);
+	pThis->GetEntity()->Set(*choices, clientData);
 	return Value::Null;
 }
 
@@ -253,10 +253,10 @@ Gura_DeclareMethod(wx_ListBox, SetFirstItem)
 
 Gura_ImplementMethod(wx_ListBox, SetFirstItem)
 {
-	Object_wx_ListBox *pSelf = Object_wx_ListBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
-	pSelf->GetEntity()->SetFirstItem(n);
+	pThis->GetEntity()->SetFirstItem(n);
 	return Value::Null;
 }
 
@@ -268,10 +268,10 @@ Gura_DeclareMethod(wx_ListBox, SetFirstItemString)
 
 Gura_ImplementMethod(wx_ListBox, SetFirstItemString)
 {
-	Object_wx_ListBox *pSelf = Object_wx_ListBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ListBox *pThis = Object_wx_ListBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetFirstItem(string);
+	pThis->GetEntity()->SetFirstItem(string);
 	return Value::Null;
 }
 

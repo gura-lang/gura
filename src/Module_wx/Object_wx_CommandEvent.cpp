@@ -53,7 +53,7 @@ Gura_ImplementFunction(CommandEvent)
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_CommandEvent *pEntity = new wx_CommandEvent(commandEventType, id);
-	Object_wx_CommandEvent *pObj = Object_wx_CommandEvent::GetSelfObj(args);
+	Object_wx_CommandEvent *pObj = Object_wx_CommandEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_CommandEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(CommandEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_CommandEvent, Checked)
@@ -73,9 +73,9 @@ Gura_DeclareMethod(wx_CommandEvent, Checked)
 Gura_ImplementMethod(wx_CommandEvent, Checked)
 {
 #if 0
-	Object_wx_CommandEvent *pSelf = Object_wx_CommandEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Checked();
+	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Checked();
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -90,9 +90,9 @@ Gura_DeclareMethod(wx_CommandEvent, GetClientObject)
 
 Gura_ImplementMethod(wx_CommandEvent, GetClientObject)
 {
-	Object_wx_CommandEvent *pSelf = Object_wx_CommandEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wx_ClientData *rtn = dynamic_cast<wx_ClientData *>(pSelf->GetEntity()->GetClientObject());
+	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wx_ClientData *rtn = dynamic_cast<wx_ClientData *>(pThis->GetEntity()->GetClientObject());
 	if (rtn == NULL) return Value::Null;
 	return ReturnValue(env, sig, args, Value(new Object_wx_ClientData(rtn, NULL, OwnerFalse)));
 }
@@ -105,9 +105,9 @@ Gura_DeclareMethod(wx_CommandEvent, GetExtraLong)
 
 Gura_ImplementMethod(wx_CommandEvent, GetExtraLong)
 {
-	Object_wx_CommandEvent *pSelf = Object_wx_CommandEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	long rtn = pSelf->GetEntity()->GetExtraLong();
+	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	long rtn = pThis->GetEntity()->GetExtraLong();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -119,9 +119,9 @@ Gura_DeclareMethod(wx_CommandEvent, GetInt)
 
 Gura_ImplementMethod(wx_CommandEvent, GetInt)
 {
-	Object_wx_CommandEvent *pSelf = Object_wx_CommandEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetInt();
+	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetInt();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -133,9 +133,9 @@ Gura_DeclareMethod(wx_CommandEvent, GetSelection)
 
 Gura_ImplementMethod(wx_CommandEvent, GetSelection)
 {
-	Object_wx_CommandEvent *pSelf = Object_wx_CommandEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetSelection();
+	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetSelection();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -147,9 +147,9 @@ Gura_DeclareMethod(wx_CommandEvent, GetString)
 
 Gura_ImplementMethod(wx_CommandEvent, GetString)
 {
-	Object_wx_CommandEvent *pSelf = Object_wx_CommandEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetString();
+	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetString();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -161,9 +161,9 @@ Gura_DeclareMethod(wx_CommandEvent, IsChecked)
 
 Gura_ImplementMethod(wx_CommandEvent, IsChecked)
 {
-	Object_wx_CommandEvent *pSelf = Object_wx_CommandEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsChecked();
+	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsChecked();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -175,9 +175,9 @@ Gura_DeclareMethod(wx_CommandEvent, IsSelection)
 
 Gura_ImplementMethod(wx_CommandEvent, IsSelection)
 {
-	Object_wx_CommandEvent *pSelf = Object_wx_CommandEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsSelection();
+	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsSelection();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -192,10 +192,10 @@ Gura_DeclareMethod(wx_CommandEvent, SetClientData)
 Gura_ImplementMethod(wx_CommandEvent, SetClientData)
 {
 #if 0
-	Object_wx_CommandEvent *pSelf = Object_wx_CommandEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int clientData = args.GetInt(0);
-	pSelf->GetEntity()->SetClientData(clientData);
+	pThis->GetEntity()->SetClientData(clientData);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -210,10 +210,10 @@ Gura_DeclareMethod(wx_CommandEvent, SetClientObject)
 
 Gura_ImplementMethod(wx_CommandEvent, SetClientObject)
 {
-	Object_wx_CommandEvent *pSelf = Object_wx_CommandEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxClientData *clientObject = Object_wx_ClientData::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetClientObject(clientObject);
+	pThis->GetEntity()->SetClientObject(clientObject);
 	return Value::Null;
 }
 
@@ -225,10 +225,10 @@ Gura_DeclareMethod(wx_CommandEvent, SetExtraLong)
 
 Gura_ImplementMethod(wx_CommandEvent, SetExtraLong)
 {
-	Object_wx_CommandEvent *pSelf = Object_wx_CommandEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long extraLong = args.GetLong(0);
-	pSelf->GetEntity()->SetExtraLong(extraLong);
+	pThis->GetEntity()->SetExtraLong(extraLong);
 	return Value::Null;
 }
 
@@ -240,10 +240,10 @@ Gura_DeclareMethod(wx_CommandEvent, SetInt)
 
 Gura_ImplementMethod(wx_CommandEvent, SetInt)
 {
-	Object_wx_CommandEvent *pSelf = Object_wx_CommandEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int intCommand = args.GetInt(0);
-	pSelf->GetEntity()->SetInt(intCommand);
+	pThis->GetEntity()->SetInt(intCommand);
 	return Value::Null;
 }
 
@@ -255,10 +255,10 @@ Gura_DeclareMethod(wx_CommandEvent, SetString)
 
 Gura_ImplementMethod(wx_CommandEvent, SetString)
 {
-	Object_wx_CommandEvent *pSelf = Object_wx_CommandEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString string = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetString(string);
+	pThis->GetEntity()->SetString(string);
 	return Value::Null;
 }
 

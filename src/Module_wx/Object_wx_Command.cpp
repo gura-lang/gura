@@ -56,7 +56,7 @@ Gura_ImplementFunction(Command)
 	wxString name = NULL;
 	if (args.IsValid(1)) name = wxString::FromUTF8(args.GetString(1));
 	wx_Command *pEntity = new wx_Command(canUndo, name);
-	Object_wx_Command *pObj = Object_wx_Command::GetSelfObj(args);
+	Object_wx_Command *pObj = Object_wx_Command::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Command(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(Command)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -78,9 +78,9 @@ Gura_DeclareMethod(wx_Command, CanUndo)
 
 Gura_ImplementMethod(wx_Command, CanUndo)
 {
-	Object_wx_Command *pSelf = Object_wx_Command::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->CanUndo();
+	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->CanUndo();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -92,9 +92,9 @@ Gura_DeclareMethod(wx_Command, Do)
 
 Gura_ImplementMethod(wx_Command, Do)
 {
-	Object_wx_Command *pSelf = Object_wx_Command::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Do();
+	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Do();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -106,9 +106,9 @@ Gura_DeclareMethod(wx_Command, GetName)
 
 Gura_ImplementMethod(wx_Command, GetName)
 {
-	Object_wx_Command *pSelf = Object_wx_Command::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetName();
+	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -120,9 +120,9 @@ Gura_DeclareMethod(wx_Command, Undo)
 
 Gura_ImplementMethod(wx_Command, Undo)
 {
-	Object_wx_Command *pSelf = Object_wx_Command::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->Undo();
+	Object_wx_Command *pThis = Object_wx_Command::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->Undo();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

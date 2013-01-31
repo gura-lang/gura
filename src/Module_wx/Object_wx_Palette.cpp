@@ -49,7 +49,7 @@ Gura_ImplementFunction(PaletteEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Palette *pEntity = new wx_Palette();
-	Object_wx_Palette *pObj = Object_wx_Palette::GetSelfObj(args);
+	Object_wx_Palette *pObj = Object_wx_Palette::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Palette(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(PaletteEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Palette)
@@ -73,7 +73,7 @@ Gura_ImplementFunction(Palette)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPalette *palette = Object_wx_Palette::GetObject(args, 0)->GetEntity();
 	wx_Palette *pEntity = new wx_Palette(*palette);
-	Object_wx_Palette *pObj = Object_wx_Palette::GetSelfObj(args);
+	Object_wx_Palette *pObj = Object_wx_Palette::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Palette(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -81,7 +81,7 @@ Gura_ImplementFunction(Palette)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Palette_1)
@@ -106,7 +106,7 @@ Gura_ImplementFunction(Palette_1)
 	unsigned char green = args.GetUChar(2);
 	unsigned char blue = args.GetUChar(3);
 	wx_Palette *pEntity = new wx_Palette(n, red, green, blue);
-	Object_wx_Palette *pObj = Object_wx_Palette::GetSelfObj(args);
+	Object_wx_Palette *pObj = Object_wx_Palette::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Palette(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -114,7 +114,7 @@ Gura_ImplementFunction(Palette_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -135,13 +135,13 @@ Gura_DeclareMethod(wx_Palette, Create)
 Gura_ImplementMethod(wx_Palette, Create)
 {
 #if 0
-	Object_wx_Palette *pSelf = Object_wx_Palette::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Palette *pThis = Object_wx_Palette::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int n = args.GetInt(0);
 	unsigned char red = args.GetUChar(1);
 	unsigned char green = args.GetUChar(2);
 	unsigned char blue = args.GetUChar(3);
-	bool rtn = pSelf->GetEntity()->Create(n, red, green, blue);
+	bool rtn = pThis->GetEntity()->Create(n, red, green, blue);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -156,9 +156,9 @@ Gura_DeclareMethod(wx_Palette, GetColoursCount)
 
 Gura_ImplementMethod(wx_Palette, GetColoursCount)
 {
-	Object_wx_Palette *pSelf = Object_wx_Palette::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetColoursCount();
+	Object_wx_Palette *pThis = Object_wx_Palette::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetColoursCount();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -173,12 +173,12 @@ Gura_DeclareMethod(wx_Palette, GetPixel)
 
 Gura_ImplementMethod(wx_Palette, GetPixel)
 {
-	Object_wx_Palette *pSelf = Object_wx_Palette::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Palette *pThis = Object_wx_Palette::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned red = args.GetInt(0);
 	unsigned green = args.GetInt(1);
 	unsigned blue = args.GetInt(2);
-	int rtn = pSelf->GetEntity()->GetPixel(red, green, blue);
+	int rtn = pThis->GetEntity()->GetPixel(red, green, blue);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -197,13 +197,13 @@ Gura_DeclareMethod(wx_Palette, GetRGB)
 Gura_ImplementMethod(wx_Palette, GetRGB)
 {
 #if 0
-	Object_wx_Palette *pSelf = Object_wx_Palette::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Palette *pThis = Object_wx_Palette::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pixel = args.GetInt(0);
 	unsigned char red = args.GetUChar(1);
 	unsigned char green = args.GetUChar(2);
 	unsigned char blue = args.GetUChar(3);
-	bool rtn = pSelf->GetEntity()->GetRGB(pixel, red, green, blue);
+	bool rtn = pThis->GetEntity()->GetRGB(pixel, red, green, blue);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -218,9 +218,9 @@ Gura_DeclareMethod(wx_Palette, IsOk)
 
 Gura_ImplementMethod(wx_Palette, IsOk)
 {
-	Object_wx_Palette *pSelf = Object_wx_Palette::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_Palette *pThis = Object_wx_Palette::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

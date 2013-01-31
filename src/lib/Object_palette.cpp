@@ -854,8 +854,8 @@ Gura_DeclareMethod(palette, each)
 
 Gura_ImplementMethod(palette, each)
 {
-	Object_palette *pSelf = Object_palette::GetSelfObj(args);
-	Object_palette *pObj = Object_palette::Reference(pSelf);
+	Object_palette *pThis = Object_palette::GetThisObj(args);
+	Object_palette *pObj = Object_palette::Reference(pThis);
 	Iterator *pIterator = new Object_palette::IteratorEach(pObj);
 	return ReturnIterator(env, sig, args, pIterator);
 }
@@ -871,10 +871,10 @@ Gura_DeclareMethod(palette, nearest)
 
 Gura_ImplementMethod(palette, nearest)
 {
-	Object_palette *pSelf = Object_palette::GetSelfObj(args);
-	size_t idx = pSelf->LookupNearest(args.GetColorObj(0));
+	Object_palette *pThis = Object_palette::GetThisObj(args);
+	size_t idx = pThis->LookupNearest(args.GetColorObj(0));
 	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<unsigned int>(idx));
-	return pSelf->GetColorValue(idx);
+	return pThis->GetColorValue(idx);
 }
 
 // palette#updateby(image_or_palette):reduce:[shrink,align]
@@ -893,25 +893,25 @@ Gura_DeclareMethod(palette, updateby)
 
 Gura_ImplementMethod(palette, updateby)
 {
-	Object_palette *pSelf = Object_palette::GetSelfObj(args);
+	Object_palette *pThis = Object_palette::GetThisObj(args);
 	Object_palette::ShrinkMode shrinkMode = Object_palette::ShrinkNone;
 	if (args.IsSet(Gura_Symbol(shrink))) {
 		shrinkMode = args.IsSet(Gura_Symbol(align))?
 				Object_palette::ShrinkAlign : Object_palette::ShrinkMinimum;
 	}
 	if (args.IsImage(0)) {
-		if (!pSelf->UpdateByImage(sig, args.GetImageObj(0), shrinkMode)) {
+		if (!pThis->UpdateByImage(sig, args.GetImageObj(0), shrinkMode)) {
 			return Value::Null;
 		}
 	} else if (args.IsPalette(0)) {
-		if (!pSelf->UpdateByPalette(sig, args.GetPaletteObj(0), shrinkMode)) {
+		if (!pThis->UpdateByPalette(sig, args.GetPaletteObj(0), shrinkMode)) {
 			return Value::Null;
 		}
 	} else {
 		sig.SetError(ERR_ValueError, "image or palette must be specified");
 		return Value::Null;
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // palette#shrink():reduce:[align]
@@ -927,9 +927,9 @@ Gura_DeclareMethod(palette, shrink)
 
 Gura_ImplementMethod(palette, shrink)
 {
-	Object_palette *pSelf = Object_palette::GetSelfObj(args);
-	pSelf->Shrink(pSelf->NextBlankIndex(), args.IsSet(Gura_Symbol(align)));
-	return args.GetSelf();
+	Object_palette *pThis = Object_palette::GetThisObj(args);
+	pThis->Shrink(pThis->NextBlankIndex(), args.IsSet(Gura_Symbol(align)));
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------

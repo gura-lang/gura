@@ -100,9 +100,9 @@ Value Object_function::DoPropSet(Signal sig,
 
 Value Object_function::DoCall(Environment &env, Signal sig, Args &args)
 {
-	if (args.GetSelf().IsInvalid() ||
-					(args.GetSelf().IsModule() && _valueSelf.IsValid())) {
-		args.SetSelf(_valueSelf);
+	if (args.GetThis().IsInvalid() ||
+					(args.GetThis().IsModule() && _valueThis.IsValid())) {
+		args.SetThis(_valueThis);
 	}
 	return _pFunc->EvalExpr(env, sig, args);
 }
@@ -111,7 +111,7 @@ Value Object_function::Eval(Environment &env, Signal sig, ValueList &valListArg)
 {
 	_pFunc->GetDeclOwner().Compensate(env, sig, valListArg);
 	if (sig.IsSignalled()) return Value::Null;
-	Args args(valListArg, _valueSelf);
+	Args args(valListArg, _valueThis);
 	return _pFunc->Eval(env, sig, args);
 }
 
@@ -146,17 +146,17 @@ void Object_function::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 String Object_function::MakePrefix(Signal sig) const
 {
 	String str;
-	if (_valueSelf.IsInvalid()) return str;
-	if (_valueSelf.IsPrimitive() || _valueSelf.GetTinyBuffFlag()) {
+	if (_valueThis.IsInvalid()) return str;
+	if (_valueThis.IsPrimitive() || _valueThis.GetTinyBuffFlag()) {
 		const Environment &env = *this;
-		const Class *pClass = env.LookupClass(_valueSelf.GetType());
+		const Class *pClass = env.LookupClass(_valueThis.GetType());
 		if (pClass != NULL) {
 			str += pClass->GetName();
 			str += "#";
 			return str;
 		}
 	}
-	const ObjectBase *pObj = _valueSelf.ExtractObject(sig);
+	const ObjectBase *pObj = _valueThis.ExtractObject(sig);
 	if (sig.IsSignalled()) return str;
 	if (pObj->IsModule()) {
 		str += dynamic_cast<const Module *>(pObj)->GetName();
@@ -220,8 +220,8 @@ Gura_DeclareMethod(function, diff)
 
 Gura_ImplementMethod(function, diff)
 {
-	Object_function *pSelf = Object_function::GetSelfObj(args);
-	const Function *pFunc = pSelf->GetFunction();
+	Object_function *pThis = Object_function::GetThisObj(args);
+	const Function *pFunc = pThis->GetFunction();
 	const DeclarationOwner &declOwner = pFunc->GetDeclOwner();
 	const Symbol *pSymbol = NULL;
 	if (args.IsSymbol(0)) {

@@ -65,8 +65,8 @@ Gura_DeclareMethod(wx_GridCellRenderer, Draw)
 
 Gura_ImplementMethod(wx_GridCellRenderer, Draw)
 {
-	Object_wx_GridCellRenderer *pSelf = Object_wx_GridCellRenderer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGrid *grid = Object_wx_Grid::GetObject(args, 0)->GetEntity();
 	wxGridCellAttr *attr = Object_wx_GridCellAttr::GetObject(args, 1)->GetEntity();
 	wxDC *dc = Object_wx_DC::GetObject(args, 2)->GetEntity();
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, Draw)
 	int row = args.GetInt(4);
 	int col = args.GetInt(5);
 	bool isSelected = args.GetBoolean(6);
-	dynamic_cast<wx_GridCellRenderer *>(pSelf->GetEntity())->
+	dynamic_cast<wx_GridCellRenderer *>(pThis->GetEntity())->
 		_Draw(*grid, *attr, *dc, *rect, row, col, isSelected);
 	return Value::Null;
 }
@@ -92,14 +92,14 @@ Gura_DeclareMethod(wx_GridCellRenderer, GetBestSize)
 
 Gura_ImplementMethod(wx_GridCellRenderer, GetBestSize)
 {
-	Object_wx_GridCellRenderer *pSelf = Object_wx_GridCellRenderer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGrid *grid = Object_wx_Grid::GetObject(args, 0)->GetEntity();
 	wxGridCellAttr *attr = Object_wx_GridCellAttr::GetObject(args, 1)->GetEntity();
 	wxDC *dc = Object_wx_DC::GetObject(args, 2)->GetEntity();
 	int row = args.GetInt(3);
 	int col = args.GetInt(4);
-	wxSize rtn = pSelf->GetEntity()->GetBestSize(*grid, *attr, *dc, row, col);
+	wxSize rtn = pThis->GetEntity()->GetBestSize(*grid, *attr, *dc, row, col);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -111,9 +111,9 @@ Gura_DeclareMethod(wx_GridCellRenderer, Clone)
 
 Gura_ImplementMethod(wx_GridCellRenderer, Clone)
 {
-	Object_wx_GridCellRenderer *pSelf = Object_wx_GridCellRenderer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxGridCellRenderer *rtn = (wxGridCellRenderer *)pSelf->GetEntity()->Clone();
+	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxGridCellRenderer *rtn = (wxGridCellRenderer *)pThis->GetEntity()->Clone();
 	return ReturnValue(env, sig, args, Value(new Object_wx_GridCellRenderer(rtn, NULL, OwnerFalse)));
 }
 

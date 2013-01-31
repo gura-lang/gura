@@ -50,7 +50,7 @@ Gura_ImplementFunction(WindowDestroyEvent)
 	wxWindow *win = (wxWindow *)(NULL);
 	if (args.IsValid(0)) win = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wx_WindowDestroyEvent *pEntity = new wx_WindowDestroyEvent(win);
-	Object_wx_WindowDestroyEvent *pObj = Object_wx_WindowDestroyEvent::GetSelfObj(args);
+	Object_wx_WindowDestroyEvent *pObj = Object_wx_WindowDestroyEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_WindowDestroyEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(WindowDestroyEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

@@ -48,7 +48,7 @@ Gura_ImplementFunction(DocParentFrameEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DocParentFrame *pEntity = new wx_DocParentFrame();
-	Object_wx_DocParentFrame *pObj = Object_wx_DocParentFrame::GetSelfObj(args);
+	Object_wx_DocParentFrame *pObj = Object_wx_DocParentFrame::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DocParentFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(DocParentFrameEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DocParentFrame)
@@ -90,7 +90,7 @@ Gura_ImplementFunction(DocParentFrame)
 	wxString name = wxT("frame");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_DocParentFrame *pEntity = new wx_DocParentFrame(manager, parent, id, title, *pos, *size, style, name);
-	Object_wx_DocParentFrame *pObj = Object_wx_DocParentFrame::GetSelfObj(args);
+	Object_wx_DocParentFrame *pObj = Object_wx_DocParentFrame::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DocParentFrame(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -98,7 +98,7 @@ Gura_ImplementFunction(DocParentFrame)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DocParentFrame, Create)
@@ -117,8 +117,8 @@ Gura_DeclareMethod(wx_DocParentFrame, Create)
 
 Gura_ImplementMethod(wx_DocParentFrame, Create)
 {
-	Object_wx_DocParentFrame *pSelf = Object_wx_DocParentFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DocParentFrame *pThis = Object_wx_DocParentFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDocManager *manager = Object_wx_DocManager::GetObject(args, 0)->GetEntity();
 	wxFrame *parent = Object_wx_Frame::GetObject(args, 1)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(2));
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_DocParentFrame, Create)
 	if (args.IsValid(6)) style = args.GetLong(6);
 	wxString name = wxT("frame");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
-	bool rtn = pSelf->GetEntity()->Create(manager, parent, id, title, *pos, *size, style, name);
+	bool rtn = pThis->GetEntity()->Create(manager, parent, id, title, *pos, *size, style, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -143,9 +143,9 @@ Gura_DeclareMethod(wx_DocParentFrame, GetDocumentManager)
 
 Gura_ImplementMethod(wx_DocParentFrame, GetDocumentManager)
 {
-	Object_wx_DocParentFrame *pSelf = Object_wx_DocParentFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxDocManager *rtn = (wxDocManager *)pSelf->GetEntity()->GetDocumentManager();
+	Object_wx_DocParentFrame *pThis = Object_wx_DocParentFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxDocManager *rtn = (wxDocManager *)pThis->GetEntity()->GetDocumentManager();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DocManager(rtn, NULL, OwnerFalse)));
 }
 
@@ -157,10 +157,10 @@ Gura_DeclareMethod(wx_DocParentFrame, OnCloseWindow)
 
 Gura_ImplementMethod(wx_DocParentFrame, OnCloseWindow)
 {
-	Object_wx_DocParentFrame *pSelf = Object_wx_DocParentFrame::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DocParentFrame *pThis = Object_wx_DocParentFrame::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCloseEvent *event = Object_wx_CloseEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnCloseWindow(*event);
+	pThis->GetEntity()->OnCloseWindow(*event);
 	return Value::Null;
 }
 

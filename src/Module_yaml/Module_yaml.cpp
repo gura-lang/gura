@@ -42,7 +42,7 @@ Gura_ImplementFunction(write)
 	if (!WriterToStream::Write(env, sig, args.GetStream(0), args.GetValue(1))) {
 		return Value::Null;
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // yaml.parse(str:string)
@@ -89,7 +89,7 @@ Gura_DeclareMethod(stream, yamlread)
 
 Gura_ImplementMethod(stream, yamlread)
 {
-	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	Iterator_FromStream *pIterator =
 				new Iterator_FromStream(sig, Stream::Reference(&stream));
 	if (args.IsRsltMulti()) {
@@ -110,11 +110,11 @@ Gura_DeclareMethod(stream, yamlwrite)
 
 Gura_ImplementMethod(stream, yamlwrite)
 {
-	Object_stream *pSelf = Object_stream::GetSelfObj(args);
-	if (!WriterToStream::Write(env, sig, pSelf->GetStream(), args.GetValue(0))) {
+	Object_stream *pThis = Object_stream::GetThisObj(args);
+	if (!WriterToStream::Write(env, sig, pThis->GetStream(), args.GetValue(0))) {
 		return Value::Null;
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // Module entry

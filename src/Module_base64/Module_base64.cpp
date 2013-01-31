@@ -90,7 +90,7 @@ Gura_DeclareMethod(stream, base64reader)
 
 Gura_ImplementMethod(stream, base64reader)
 {
-	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	AutoPtr<Stream> pStream(new Stream_Base64Reader(sig, Stream::Reference(&stream)));
 	return Value(new Object_stream(env, pStream.release()));
 }
@@ -105,7 +105,7 @@ Gura_DeclareMethod(stream, base64writer)
 Gura_ImplementMethod(stream, base64writer)
 {
 	int nCharsPerLine = args.IsNumber(0)? args.GetInt(0) : -1;
-	Stream &stream = Object_stream::GetSelfObj(args)->GetStream();
+	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	AutoPtr<Stream> pStream(new Stream_Base64Writer(sig,
 								Stream::Reference(&stream), nCharsPerLine));
 	return Value(new Object_stream(env, pStream.release()));

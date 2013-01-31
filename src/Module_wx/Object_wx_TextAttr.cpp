@@ -48,7 +48,7 @@ Gura_ImplementFunction(TextAttr)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TextAttr *pEntity = new wx_TextAttr();
-	Object_wx_TextAttr *pObj = Object_wx_TextAttr::GetSelfObj(args);
+	Object_wx_TextAttr *pObj = Object_wx_TextAttr::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TextAttr(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(TextAttr)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(TextAttr_1)
@@ -81,7 +81,7 @@ Gura_ImplementFunction(TextAttr_1)
 	wxTextAttrAlignment alignment = wxTEXT_ALIGNMENT_DEFAULT;
 	if (args.IsValid(3)) alignment = static_cast<wxTextAttrAlignment>(args.GetInt(3));
 	wx_TextAttr *pEntity = new wx_TextAttr(*colText, *colBack, *font, alignment);
-	Object_wx_TextAttr *pObj = Object_wx_TextAttr::GetSelfObj(args);
+	Object_wx_TextAttr *pObj = Object_wx_TextAttr::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TextAttr(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -89,7 +89,7 @@ Gura_ImplementFunction(TextAttr_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TextAttr, GetAlignment)
@@ -100,9 +100,9 @@ Gura_DeclareMethod(wx_TextAttr, GetAlignment)
 
 Gura_ImplementMethod(wx_TextAttr, GetAlignment)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxTextAttrAlignment rtn = pSelf->GetEntity()->GetAlignment();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxTextAttrAlignment rtn = pThis->GetEntity()->GetAlignment();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -114,9 +114,9 @@ Gura_DeclareMethod(wx_TextAttr, GetBackgroundColour)
 
 Gura_ImplementMethod(wx_TextAttr, GetBackgroundColour)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxColour &rtn = pSelf->GetEntity()->GetBackgroundColour();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxColour &rtn = pThis->GetEntity()->GetBackgroundColour();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
 }
 
@@ -128,9 +128,9 @@ Gura_DeclareMethod(wx_TextAttr, GetFont)
 
 Gura_ImplementMethod(wx_TextAttr, GetFont)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxFont &rtn = pSelf->GetEntity()->GetFont();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxFont &rtn = pThis->GetEntity()->GetFont();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), NULL, OwnerTrue)));
 }
 
@@ -142,9 +142,9 @@ Gura_DeclareMethod(wx_TextAttr, GetLeftIndent)
 
 Gura_ImplementMethod(wx_TextAttr, GetLeftIndent)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetLeftIndent();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetLeftIndent();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -156,9 +156,9 @@ Gura_DeclareMethod(wx_TextAttr, GetLeftSubIndent)
 
 Gura_ImplementMethod(wx_TextAttr, GetLeftSubIndent)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetLeftSubIndent();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetLeftSubIndent();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -170,9 +170,9 @@ Gura_DeclareMethod(wx_TextAttr, GetRightIndent)
 
 Gura_ImplementMethod(wx_TextAttr, GetRightIndent)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetRightIndent();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetRightIndent();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -184,9 +184,9 @@ Gura_DeclareMethod(wx_TextAttr, GetTabs)
 
 Gura_ImplementMethod(wx_TextAttr, GetTabs)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxArrayInt rtn = pSelf->GetEntity()->GetTabs();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxArrayInt rtn = pThis->GetEntity()->GetTabs();
 	return ReturnValue(env, sig, args, ArrayIntToValue(env, rtn));
 }
 
@@ -198,9 +198,9 @@ Gura_DeclareMethod(wx_TextAttr, GetTextColour)
 
 Gura_ImplementMethod(wx_TextAttr, GetTextColour)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxColour &rtn = pSelf->GetEntity()->GetTextColour();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxColour &rtn = pThis->GetEntity()->GetTextColour();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
 }
 
@@ -212,9 +212,9 @@ Gura_DeclareMethod(wx_TextAttr, HasAlignment)
 
 Gura_ImplementMethod(wx_TextAttr, HasAlignment)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasAlignment();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasAlignment();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -226,9 +226,9 @@ Gura_DeclareMethod(wx_TextAttr, HasBackgroundColour)
 
 Gura_ImplementMethod(wx_TextAttr, HasBackgroundColour)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasBackgroundColour();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasBackgroundColour();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -240,9 +240,9 @@ Gura_DeclareMethod(wx_TextAttr, HasFont)
 
 Gura_ImplementMethod(wx_TextAttr, HasFont)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasFont();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasFont();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -254,9 +254,9 @@ Gura_DeclareMethod(wx_TextAttr, HasLeftIndent)
 
 Gura_ImplementMethod(wx_TextAttr, HasLeftIndent)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasLeftIndent();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasLeftIndent();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -268,9 +268,9 @@ Gura_DeclareMethod(wx_TextAttr, HasRightIndent)
 
 Gura_ImplementMethod(wx_TextAttr, HasRightIndent)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasRightIndent();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasRightIndent();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -282,9 +282,9 @@ Gura_DeclareMethod(wx_TextAttr, HasTabs)
 
 Gura_ImplementMethod(wx_TextAttr, HasTabs)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasTabs();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasTabs();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -296,9 +296,9 @@ Gura_DeclareMethod(wx_TextAttr, HasTextColour)
 
 Gura_ImplementMethod(wx_TextAttr, HasTextColour)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasTextColour();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasTextColour();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -310,9 +310,9 @@ Gura_DeclareMethod(wx_TextAttr, GetFlags)
 
 Gura_ImplementMethod(wx_TextAttr, GetFlags)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	long rtn = pSelf->GetEntity()->GetFlags();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	long rtn = pThis->GetEntity()->GetFlags();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -324,9 +324,9 @@ Gura_DeclareMethod(wx_TextAttr, IsDefault)
 
 Gura_ImplementMethod(wx_TextAttr, IsDefault)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsDefault();
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsDefault();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -338,10 +338,10 @@ Gura_DeclareMethod(wx_TextAttr, Merge)
 
 Gura_ImplementMethod(wx_TextAttr, Merge)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTextAttr *overlay = Object_wx_TextAttr::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->Merge(*overlay);
+	pThis->GetEntity()->Merge(*overlay);
 	return Value::Null;
 }
 
@@ -370,10 +370,10 @@ Gura_DeclareMethod(wx_TextAttr, SetAlignment)
 
 Gura_ImplementMethod(wx_TextAttr, SetAlignment)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTextAttrAlignment alignment = static_cast<wxTextAttrAlignment>(args.GetInt(0));
-	pSelf->GetEntity()->SetAlignment(alignment);
+	pThis->GetEntity()->SetAlignment(alignment);
 	return Value::Null;
 }
 
@@ -385,10 +385,10 @@ Gura_DeclareMethod(wx_TextAttr, SetBackgroundColour)
 
 Gura_ImplementMethod(wx_TextAttr, SetBackgroundColour)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetBackgroundColour(*colour);
+	pThis->GetEntity()->SetBackgroundColour(*colour);
 	return Value::Null;
 }
 
@@ -400,10 +400,10 @@ Gura_DeclareMethod(wx_TextAttr, SetFlags)
 
 Gura_ImplementMethod(wx_TextAttr, SetFlags)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long flags = args.GetLong(0);
-	pSelf->GetEntity()->SetFlags(flags);
+	pThis->GetEntity()->SetFlags(flags);
 	return Value::Null;
 }
 
@@ -415,10 +415,10 @@ Gura_DeclareMethod(wx_TextAttr, SetFont)
 
 Gura_ImplementMethod(wx_TextAttr, SetFont)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFont *font = Object_wx_Font::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetFont(*font);
+	pThis->GetEntity()->SetFont(*font);
 	return Value::Null;
 }
 
@@ -431,12 +431,12 @@ Gura_DeclareMethod(wx_TextAttr, SetLeftIndent)
 
 Gura_ImplementMethod(wx_TextAttr, SetLeftIndent)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int indent = args.GetInt(0);
 	int subIndent = 0;
 	if (args.IsValid(1)) subIndent = args.GetInt(1);
-	pSelf->GetEntity()->SetLeftIndent(indent, subIndent);
+	pThis->GetEntity()->SetLeftIndent(indent, subIndent);
 	return Value::Null;
 }
 
@@ -448,10 +448,10 @@ Gura_DeclareMethod(wx_TextAttr, SetRightIndent)
 
 Gura_ImplementMethod(wx_TextAttr, SetRightIndent)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int indent = args.GetInt(0);
-	pSelf->GetEntity()->SetRightIndent(indent);
+	pThis->GetEntity()->SetRightIndent(indent);
 	return Value::Null;
 }
 
@@ -463,10 +463,10 @@ Gura_DeclareMethod(wx_TextAttr, SetTabs)
 
 Gura_ImplementMethod(wx_TextAttr, SetTabs)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::auto_ptr<wxArrayInt> tabs(CreateArrayInt(args.GetList(0)));
-	pSelf->GetEntity()->SetTabs(*tabs);
+	pThis->GetEntity()->SetTabs(*tabs);
 	return Value::Null;
 }
 
@@ -478,10 +478,10 @@ Gura_DeclareMethod(wx_TextAttr, SetTextColour)
 
 Gura_ImplementMethod(wx_TextAttr, SetTextColour)
 {
-	Object_wx_TextAttr *pSelf = Object_wx_TextAttr::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetTextColour(*colour);
+	pThis->GetEntity()->SetTextColour(*colour);
 	return Value::Null;
 }
 

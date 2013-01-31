@@ -49,7 +49,7 @@ Gura_ImplementFunction(LogChain)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxLog *logger = Object_wx_Log::GetObject(args, 0)->GetEntity();
 	wx_LogChain *pEntity = new wx_LogChain(logger);
-	Object_wx_LogChain *pObj = Object_wx_LogChain::GetSelfObj(args);
+	Object_wx_LogChain *pObj = Object_wx_LogChain::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_LogChain(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(LogChain)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_LogChain, DetachOldLog)
@@ -67,9 +67,9 @@ Gura_DeclareMethod(wx_LogChain, DetachOldLog)
 
 Gura_ImplementMethod(wx_LogChain, DetachOldLog)
 {
-	Object_wx_LogChain *pSelf = Object_wx_LogChain::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->DetachOldLog();
+	Object_wx_LogChain *pThis = Object_wx_LogChain::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->DetachOldLog();
 	return Value::Null;
 }
 
@@ -81,9 +81,9 @@ Gura_DeclareMethod(wx_LogChain, GetOldLog)
 
 Gura_ImplementMethod(wx_LogChain, GetOldLog)
 {
-	Object_wx_LogChain *pSelf = Object_wx_LogChain::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxLog *rtn = (wxLog *)pSelf->GetEntity()->GetOldLog();
+	Object_wx_LogChain *pThis = Object_wx_LogChain::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxLog *rtn = (wxLog *)pThis->GetEntity()->GetOldLog();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Log(rtn, NULL, OwnerFalse)));
 }
 
@@ -95,9 +95,9 @@ Gura_DeclareMethod(wx_LogChain, IsPassingMessages)
 
 Gura_ImplementMethod(wx_LogChain, IsPassingMessages)
 {
-	Object_wx_LogChain *pSelf = Object_wx_LogChain::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsPassingMessages();
+	Object_wx_LogChain *pThis = Object_wx_LogChain::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsPassingMessages();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -109,10 +109,10 @@ Gura_DeclareMethod(wx_LogChain, PassMessages)
 
 Gura_ImplementMethod(wx_LogChain, PassMessages)
 {
-	Object_wx_LogChain *pSelf = Object_wx_LogChain::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_LogChain *pThis = Object_wx_LogChain::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool passMessages = args.GetBoolean(0);
-	pSelf->GetEntity()->PassMessages(passMessages);
+	pThis->GetEntity()->PassMessages(passMessages);
 	return Value::Null;
 }
 
@@ -124,10 +124,10 @@ Gura_DeclareMethod(wx_LogChain, SetLog)
 
 Gura_ImplementMethod(wx_LogChain, SetLog)
 {
-	Object_wx_LogChain *pSelf = Object_wx_LogChain::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_LogChain *pThis = Object_wx_LogChain::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxLog *logger = Object_wx_Log::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetLog(logger);
+	pThis->GetEntity()->SetLog(logger);
 	return Value::Null;
 }
 

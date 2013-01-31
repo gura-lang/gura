@@ -49,7 +49,7 @@ Gura_ImplementFunction(DataViewSortedListModel)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxDataViewListModel *child = Object_wx_DataViewListModel::GetObject(args, 0)->GetEntity();
 	wx_DataViewSortedListModel *pEntity = new wx_DataViewSortedListModel(child);
-	Object_wx_DataViewSortedListModel *pObj = Object_wx_DataViewSortedListModel::GetSelfObj(args);
+	Object_wx_DataViewSortedListModel *pObj = Object_wx_DataViewSortedListModel::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DataViewSortedListModel(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(DataViewSortedListModel)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DataViewSortedListModel, GetAscending)
@@ -68,9 +68,9 @@ Gura_DeclareMethod(wx_DataViewSortedListModel, GetAscending)
 
 Gura_ImplementMethod(wx_DataViewSortedListModel, GetAscending)
 {
-	Object_wx_DataViewSortedListModel *pSelf = Object_wx_DataViewSortedListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->GetAscending();
+	Object_wx_DataViewSortedListModel *pThis = Object_wx_DataViewSortedListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->GetAscending();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -81,9 +81,9 @@ Gura_DeclareMethod(wx_DataViewSortedListModel, Resort)
 
 Gura_ImplementMethod(wx_DataViewSortedListModel, Resort)
 {
-	Object_wx_DataViewSortedListModel *pSelf = Object_wx_DataViewSortedListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Resort();
+	Object_wx_DataViewSortedListModel *pThis = Object_wx_DataViewSortedListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Resort();
 	return Value::Null;
 }
 
@@ -95,10 +95,10 @@ Gura_DeclareMethod(wx_DataViewSortedListModel, SetAscending)
 
 Gura_ImplementMethod(wx_DataViewSortedListModel, SetAscending)
 {
-	Object_wx_DataViewSortedListModel *pSelf = Object_wx_DataViewSortedListModel::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DataViewSortedListModel *pThis = Object_wx_DataViewSortedListModel::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool ascending = args.GetBoolean(0);
-	pSelf->GetEntity()->SetAscending(ascending);
+	pThis->GetEntity()->SetAscending(ascending);
 	return Value::Null;
 }
 

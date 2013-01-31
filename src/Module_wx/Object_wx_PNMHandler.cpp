@@ -45,7 +45,7 @@ Gura_ImplementFunction(PNMHandler)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PNMHandler *pEntity = new wx_PNMHandler();
-	Object_wx_PNMHandler *pObj = Object_wx_PNMHandler::GetSelfObj(args);
+	Object_wx_PNMHandler *pObj = Object_wx_PNMHandler::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PNMHandler(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -53,7 +53,7 @@ Gura_ImplementFunction(PNMHandler)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

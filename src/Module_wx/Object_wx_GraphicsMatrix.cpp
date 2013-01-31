@@ -43,10 +43,10 @@ Gura_DeclareMethod(wx_GraphicsMatrix, Concat)
 
 Gura_ImplementMethod(wx_GraphicsMatrix, Concat)
 {
-	Object_wx_GraphicsMatrix *pSelf = Object_wx_GraphicsMatrix::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGraphicsMatrix *t = Object_wx_GraphicsMatrix::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->Concat(t);
+	pThis->GetEntity()->Concat(t);
 	return Value::Null;
 }
 
@@ -58,10 +58,10 @@ Gura_DeclareMethod(wx_GraphicsMatrix, Concat_1)
 
 Gura_ImplementMethod(wx_GraphicsMatrix, Concat_1)
 {
-	Object_wx_GraphicsMatrix *pSelf = Object_wx_GraphicsMatrix::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGraphicsMatrix *t = Object_wx_GraphicsMatrix::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->Concat(*t);
+	pThis->GetEntity()->Concat(*t);
 	return Value::Null;
 }
 
@@ -78,8 +78,8 @@ Gura_DeclareMethod(wx_GraphicsMatrix, Get)
 
 Gura_ImplementMethod(wx_GraphicsMatrix, Get)
 {
-	Object_wx_GraphicsMatrix *pSelf = Object_wx_GraphicsMatrix::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDouble *a = (wxDouble *)(NULL);
 	if (args.IsValid(0)) a = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *b = (wxDouble *)(NULL);
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Get)
 	if (args.IsValid(4)) tx = Object_wx_Double::GetObject(args, 4)->GetEntity();
 	wxDouble *ty = (wxDouble *)(NULL);
 	if (args.IsValid(5)) ty = Object_wx_Double::GetObject(args, 5)->GetEntity();
-	pSelf->GetEntity()->Get(a, b, c, d, tx, ty);
+	pThis->GetEntity()->Get(a, b, c, d, tx, ty);
 	return Value::Null;
 }
 
@@ -103,9 +103,9 @@ Gura_DeclareMethod(wx_GraphicsMatrix, GetNativeMatrix)
 
 Gura_ImplementMethod(wx_GraphicsMatrix, GetNativeMatrix)
 {
-	Object_wx_GraphicsMatrix *pSelf = Object_wx_GraphicsMatrix::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->GetNativeMatrix();
+	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->GetNativeMatrix();
 	return Value::Null;
 }
 
@@ -116,9 +116,9 @@ Gura_DeclareMethod(wx_GraphicsMatrix, Invert)
 
 Gura_ImplementMethod(wx_GraphicsMatrix, Invert)
 {
-	Object_wx_GraphicsMatrix *pSelf = Object_wx_GraphicsMatrix::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Invert();
+	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Invert();
 	return Value::Null;
 }
 
@@ -131,10 +131,10 @@ Gura_DeclareMethod(wx_GraphicsMatrix, IsEqual)
 
 Gura_ImplementMethod(wx_GraphicsMatrix, IsEqual)
 {
-	Object_wx_GraphicsMatrix *pSelf = Object_wx_GraphicsMatrix::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGraphicsMatrix *t = Object_wx_GraphicsMatrix::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->IsEqual(*t);
+	bool rtn = pThis->GetEntity()->IsEqual(*t);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -146,9 +146,9 @@ Gura_DeclareMethod(wx_GraphicsMatrix, IsIdentity)
 
 Gura_ImplementMethod(wx_GraphicsMatrix, IsIdentity)
 {
-	Object_wx_GraphicsMatrix *pSelf = Object_wx_GraphicsMatrix::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsIdentity();
+	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsIdentity();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -160,10 +160,10 @@ Gura_DeclareMethod(wx_GraphicsMatrix, Rotate)
 
 Gura_ImplementMethod(wx_GraphicsMatrix, Rotate)
 {
-	Object_wx_GraphicsMatrix *pSelf = Object_wx_GraphicsMatrix::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDouble *angle = Object_wx_Double::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->Rotate(*angle);
+	pThis->GetEntity()->Rotate(*angle);
 	return Value::Null;
 }
 
@@ -176,11 +176,11 @@ Gura_DeclareMethod(wx_GraphicsMatrix, Scale)
 
 Gura_ImplementMethod(wx_GraphicsMatrix, Scale)
 {
-	Object_wx_GraphicsMatrix *pSelf = Object_wx_GraphicsMatrix::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDouble *xScale = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *yScale = Object_wx_Double::GetObject(args, 1)->GetEntity();
-	pSelf->GetEntity()->Scale(*xScale, *yScale);
+	pThis->GetEntity()->Scale(*xScale, *yScale);
 	return Value::Null;
 }
 
@@ -193,11 +193,11 @@ Gura_DeclareMethod(wx_GraphicsMatrix, Translate)
 
 Gura_ImplementMethod(wx_GraphicsMatrix, Translate)
 {
-	Object_wx_GraphicsMatrix *pSelf = Object_wx_GraphicsMatrix::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDouble *dx = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *dy = Object_wx_Double::GetObject(args, 1)->GetEntity();
-	pSelf->GetEntity()->Translate(*dx, *dy);
+	pThis->GetEntity()->Translate(*dx, *dy);
 	return Value::Null;
 }
 
@@ -214,8 +214,8 @@ Gura_DeclareMethod(wx_GraphicsMatrix, Set)
 
 Gura_ImplementMethod(wx_GraphicsMatrix, Set)
 {
-	Object_wx_GraphicsMatrix *pSelf = Object_wx_GraphicsMatrix::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDouble *a = (wxDouble *)(&1.0);
 	if (args.IsValid(0)) a = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *b = (wxDouble *)(&0.0);
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Set)
 	if (args.IsValid(4)) tx = Object_wx_Double::GetObject(args, 4)->GetEntity();
 	wxDouble *ty = (wxDouble *)(&0.0);
 	if (args.IsValid(5)) ty = Object_wx_Double::GetObject(args, 5)->GetEntity();
-	pSelf->GetEntity()->Set(*a, *b, *c, *d, *tx, *ty);
+	pThis->GetEntity()->Set(*a, *b, *c, *d, *tx, *ty);
 	return Value::Null;
 }
 
@@ -241,11 +241,11 @@ Gura_DeclareMethod(wx_GraphicsMatrix, TransformPoint)
 
 Gura_ImplementMethod(wx_GraphicsMatrix, TransformPoint)
 {
-	Object_wx_GraphicsMatrix *pSelf = Object_wx_GraphicsMatrix::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDouble *x = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *y = Object_wx_Double::GetObject(args, 1)->GetEntity();
-	pSelf->GetEntity()->TransformPoint(x, y);
+	pThis->GetEntity()->TransformPoint(x, y);
 	return Value::Null;
 }
 
@@ -258,11 +258,11 @@ Gura_DeclareMethod(wx_GraphicsMatrix, TransformDistance)
 
 Gura_ImplementMethod(wx_GraphicsMatrix, TransformDistance)
 {
-	Object_wx_GraphicsMatrix *pSelf = Object_wx_GraphicsMatrix::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDouble *dx = Object_wx_Double::GetObject(args, 0)->GetEntity();
 	wxDouble *dy = Object_wx_Double::GetObject(args, 1)->GetEntity();
-	pSelf->GetEntity()->TransformDistance(dx, dy);
+	pThis->GetEntity()->TransformDistance(dx, dy);
 	return Value::Null;
 }
 

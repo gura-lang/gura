@@ -48,7 +48,7 @@ Gura_ImplementFunction(DelegateRendererNativeEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_DelegateRendererNative *pEntity = new wx_DelegateRendererNative();
-	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetSelfObj(args);
+	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DelegateRendererNative(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(DelegateRendererNativeEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(DelegateRendererNative)
@@ -72,7 +72,7 @@ Gura_ImplementFunction(DelegateRendererNative)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxRendererNative *rendererNative = Object_wx_RendererNative::GetObject(args, 0)->GetEntity();
 	wx_DelegateRendererNative *pEntity = new wx_DelegateRendererNative(*rendererNative);
-	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetSelfObj(args);
+	Object_wx_DelegateRendererNative *pObj = Object_wx_DelegateRendererNative::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DelegateRendererNative(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(DelegateRendererNative)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_DelegateRendererNative, DrawXXX)
@@ -93,9 +93,9 @@ Gura_DeclareMethod(wx_DelegateRendererNative, DrawXXX)
 Gura_ImplementMethod(wx_DelegateRendererNative, DrawXXX)
 {
 #if 0
-	Object_wx_DelegateRendererNative *pSelf = Object_wx_DelegateRendererNative::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->DrawXXX();
+	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->DrawXXX();
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);

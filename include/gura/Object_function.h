@@ -25,22 +25,22 @@ public:
 	Gura_DeclareObjectAccessor(function)
 protected:
 	AutoPtr<Function> _pFunc;
-	Value _valueSelf;
+	Value _valueThis;
 public:
-	inline Object_function(Environment &env, Function *pFunc, const Value &valueSelf) :
-				Object(env.LookupClass(VTYPE_function)), _pFunc(pFunc), _valueSelf(valueSelf) {}
-	inline Object_function(Class *pClass, Function *pFunc, const Value &valueSelf) :
-				Object(pClass), _pFunc(pFunc), _valueSelf(valueSelf) {}
+	inline Object_function(Environment &env, Function *pFunc, const Value &valueThis) :
+				Object(env.LookupClass(VTYPE_function)), _pFunc(pFunc), _valueThis(valueThis) {}
+	inline Object_function(Class *pClass, Function *pFunc, const Value &valueThis) :
+				Object(pClass), _pFunc(pFunc), _valueThis(valueThis) {}
 	inline Object_function(const Object_function &obj) :
 				Object(obj), _pFunc(Function::Reference(obj._pFunc.get())),
-				_valueSelf(obj._valueSelf) {}
+				_valueThis(obj._valueThis) {}
 	~Object_function();
 	virtual bool IsFunction() const;
 	virtual Object *Clone() const;
 	inline Function *GetFunction() { return _pFunc.get(); }
 	inline const Function *GetFunction() const { return _pFunc.get(); }
-	inline void SetSelf(const Value &valueSelf) { _valueSelf = valueSelf; }
-	inline Value GetSelf() const { return _valueSelf; }
+	inline void SetThis(const Value &valueThis) { _valueThis = valueThis; }
+	inline Value GetThis() const { return _valueThis; }
 	inline String GetName() const { return _pFunc->GetName(); }
 	virtual String GetFullName(Signal sig);
 	virtual String ToString(Signal sig, bool exprFlag);

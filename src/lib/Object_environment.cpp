@@ -67,9 +67,9 @@ Gura_DeclareMethodAlias(environment, getprop_X, "getprop!")
 
 Gura_ImplementMethod(environment, getprop_X)
 {
-	Object_environment *pSelf = Object_environment::GetSelfObj(args);
+	Object_environment *pThis = Object_environment::GetThisObj(args);
 	const Symbol *pSymbol = args.GetSymbol(0);
-	const Value *pValue = pSelf->GetEnv().LookupValue(pSymbol, false);
+	const Value *pValue = pThis->GetEnv().LookupValue(pSymbol, false);
 	if (pValue == NULL) {
 		sig.SetError(ERR_ValueError,
 			"environment doesn't have a property named '%s'", pSymbol->GetName());
@@ -88,8 +88,8 @@ Gura_DeclareMethodAlias(environment, setprop_X, "setprop!")
 
 Gura_ImplementMethod(environment, setprop_X)
 {
-	Object_environment *pSelf = Object_environment::GetSelfObj(args);
-	pSelf->GetEnv().AssignValue(args.GetSymbol(0), args.GetValue(1), false);
+	Object_environment *pThis = Object_environment::GetThisObj(args);
+	pThis->GetEnv().AssignValue(args.GetSymbol(0), args.GetValue(1), false);
 	return Value::Null;
 }
 
@@ -103,8 +103,8 @@ Gura_DeclareMethod(environment, eval)
 
 Gura_ImplementMethod(environment, eval)
 {
-	Object_environment *pSelf = Object_environment::GetSelfObj(args);
-	return args.GetExpr(0)->Exec(pSelf->GetEnv(), sig);
+	Object_environment *pThis = Object_environment::GetThisObj(args);
+	return args.GetExpr(0)->Exec(pThis->GetEnv(), sig);
 }
 
 // environment#lookup(symbol:symbol, escalate:boolean => true):map
@@ -124,8 +124,8 @@ Gura_DeclareMethod(environment, lookup)
 
 Gura_ImplementMethod(environment, lookup)
 {
-	Object_environment *pSelf = Object_environment::GetSelfObj(args);
-	const Value *pValue = pSelf->GetEnv().LookupValue(
+	Object_environment *pThis = Object_environment::GetThisObj(args);
+	const Value *pValue = pThis->GetEnv().LookupValue(
 								args.GetSymbol(0), args.GetBoolean(1));
 	if (pValue == NULL) return Value::Null;
 	return *pValue;

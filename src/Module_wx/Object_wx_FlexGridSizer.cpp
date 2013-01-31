@@ -64,7 +64,7 @@ Gura_ImplementFunction(FlexGridSizer)
 	} else {
 		pEntity = new wx_FlexGridSizer(cols, vgap, hgap);
 	}
-	Object_wx_FlexGridSizer *pObj = Object_wx_FlexGridSizer::GetSelfObj(args);
+	Object_wx_FlexGridSizer *pObj = Object_wx_FlexGridSizer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_FlexGridSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -72,7 +72,7 @@ Gura_ImplementFunction(FlexGridSizer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FlexGridSizer, AddGrowableCol)
@@ -84,12 +84,12 @@ Gura_DeclareMethod(wx_FlexGridSizer, AddGrowableCol)
 
 Gura_ImplementMethod(wx_FlexGridSizer, AddGrowableCol)
 {
-	Object_wx_FlexGridSizer *pSelf = Object_wx_FlexGridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t idx = args.GetSizeT(0);
 	int proportion = 0;
 	if (args.IsValid(1)) proportion = args.GetInt(1);
-	pSelf->GetEntity()->AddGrowableCol(idx, proportion);
+	pThis->GetEntity()->AddGrowableCol(idx, proportion);
 	return Value::Null;
 }
 
@@ -102,12 +102,12 @@ Gura_DeclareMethod(wx_FlexGridSizer, AddGrowableRow)
 
 Gura_ImplementMethod(wx_FlexGridSizer, AddGrowableRow)
 {
-	Object_wx_FlexGridSizer *pSelf = Object_wx_FlexGridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t idx = args.GetSizeT(0);
 	int proportion = 0;
 	if (args.IsValid(1)) proportion = args.GetInt(1);
-	pSelf->GetEntity()->AddGrowableRow(idx, proportion);
+	pThis->GetEntity()->AddGrowableRow(idx, proportion);
 	return Value::Null;
 }
 
@@ -119,9 +119,9 @@ Gura_DeclareMethod(wx_FlexGridSizer, GetFlexibleDirection)
 
 Gura_ImplementMethod(wx_FlexGridSizer, GetFlexibleDirection)
 {
-	Object_wx_FlexGridSizer *pSelf = Object_wx_FlexGridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetFlexibleDirection();
+	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetFlexibleDirection();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -133,9 +133,9 @@ Gura_DeclareMethod(wx_FlexGridSizer, GetNonFlexibleGrowMode)
 
 Gura_ImplementMethod(wx_FlexGridSizer, GetNonFlexibleGrowMode)
 {
-	Object_wx_FlexGridSizer *pSelf = Object_wx_FlexGridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetNonFlexibleGrowMode();
+	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetNonFlexibleGrowMode();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -147,10 +147,10 @@ Gura_DeclareMethod(wx_FlexGridSizer, RemoveGrowableCol)
 
 Gura_ImplementMethod(wx_FlexGridSizer, RemoveGrowableCol)
 {
-	Object_wx_FlexGridSizer *pSelf = Object_wx_FlexGridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t idx = args.GetSizeT(0);
-	pSelf->GetEntity()->RemoveGrowableCol(idx);
+	pThis->GetEntity()->RemoveGrowableCol(idx);
 	return Value::Null;
 }
 
@@ -162,10 +162,10 @@ Gura_DeclareMethod(wx_FlexGridSizer, RemoveGrowableRow)
 
 Gura_ImplementMethod(wx_FlexGridSizer, RemoveGrowableRow)
 {
-	Object_wx_FlexGridSizer *pSelf = Object_wx_FlexGridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t idx = args.GetSizeT(0);
-	pSelf->GetEntity()->RemoveGrowableRow(idx);
+	pThis->GetEntity()->RemoveGrowableRow(idx);
 	return Value::Null;
 }
 
@@ -177,10 +177,10 @@ Gura_DeclareMethod(wx_FlexGridSizer, SetFlexibleDirection)
 
 Gura_ImplementMethod(wx_FlexGridSizer, SetFlexibleDirection)
 {
-	Object_wx_FlexGridSizer *pSelf = Object_wx_FlexGridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int direction = args.GetInt(0);
-	pSelf->GetEntity()->SetFlexibleDirection(direction);
+	pThis->GetEntity()->SetFlexibleDirection(direction);
 	return Value::Null;
 }
 
@@ -192,10 +192,10 @@ Gura_DeclareMethod(wx_FlexGridSizer, SetNonFlexibleGrowMode)
 
 Gura_ImplementMethod(wx_FlexGridSizer, SetNonFlexibleGrowMode)
 {
-	Object_wx_FlexGridSizer *pSelf = Object_wx_FlexGridSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFlexSizerGrowMode mode = static_cast<wxFlexSizerGrowMode>(args.GetInt(0));
-	pSelf->GetEntity()->SetNonFlexibleGrowMode(mode);
+	pThis->GetEntity()->SetNonFlexibleGrowMode(mode);
 	return Value::Null;
 }
 

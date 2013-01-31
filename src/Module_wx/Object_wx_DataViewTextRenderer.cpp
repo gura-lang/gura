@@ -53,7 +53,7 @@ Gura_ImplementFunction(DataViewTextRenderer)
 	wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT;
 	if (args.IsValid(1)) mode = static_cast<wxDataViewCellMode>(args.GetInt(1));
 	wx_DataViewTextRenderer *pEntity = new wx_DataViewTextRenderer(varianttype, mode);
-	Object_wx_DataViewTextRenderer *pObj = Object_wx_DataViewTextRenderer::GetSelfObj(args);
+	Object_wx_DataViewTextRenderer *pObj = Object_wx_DataViewTextRenderer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_DataViewTextRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(DataViewTextRenderer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

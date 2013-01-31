@@ -80,7 +80,7 @@ Gura_DeclareMethod(audio, test)
 
 Gura_ImplementMethod(audio, test)
 {
-	Object_audio *pSelf = Object_audio::GetSelfObj(args);
+	Object_audio *pThis = Object_audio::GetThisObj(args);
 	return Value(env, "Audio object");
 }
 

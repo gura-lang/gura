@@ -48,7 +48,7 @@ Gura_ImplementFunction(PlatformInfoEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_PlatformInfo *pEntity = new wx_PlatformInfo();
-	Object_wx_PlatformInfo *pObj = Object_wx_PlatformInfo::GetSelfObj(args);
+	Object_wx_PlatformInfo *pObj = Object_wx_PlatformInfo::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PlatformInfo(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(PlatformInfoEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(PlatformInfo)
@@ -94,7 +94,7 @@ Gura_ImplementFunction(PlatformInfo)
 	wxEndianness endian = wxENDIAN_INVALID;
 	if (args.IsValid(7)) endian = static_cast<wxEndianness>(args.GetInt(7));
 	wx_PlatformInfo *pEntity = new wx_PlatformInfo(pid, tkMajor, tkMinor, id, osMajor, osMinor, arch, endian);
-	Object_wx_PlatformInfo *pObj = Object_wx_PlatformInfo::GetSelfObj(args);
+	Object_wx_PlatformInfo *pObj = Object_wx_PlatformInfo::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_PlatformInfo(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -102,7 +102,7 @@ Gura_ImplementFunction(PlatformInfo)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_PlatformInfo, CheckOSVersion)
@@ -115,11 +115,11 @@ Gura_DeclareMethod(wx_PlatformInfo, CheckOSVersion)
 
 Gura_ImplementMethod(wx_PlatformInfo, CheckOSVersion)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int major = args.GetInt(0);
 	int minor = args.GetInt(1);
-	bool rtn = pSelf->GetEntity()->CheckOSVersion(major, minor);
+	bool rtn = pThis->GetEntity()->CheckOSVersion(major, minor);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -133,11 +133,11 @@ Gura_DeclareMethod(wx_PlatformInfo, CheckToolkitVersion)
 
 Gura_ImplementMethod(wx_PlatformInfo, CheckToolkitVersion)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int major = args.GetInt(0);
 	int minor = args.GetInt(1);
-	bool rtn = pSelf->GetEntity()->CheckToolkitVersion(major, minor);
+	bool rtn = pThis->GetEntity()->CheckToolkitVersion(major, minor);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -192,9 +192,9 @@ Gura_DeclareMethod(wx_PlatformInfo, GetArchName_1)
 
 Gura_ImplementMethod(wx_PlatformInfo, GetArchName_1)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetArchName();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetArchName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -206,9 +206,9 @@ Gura_DeclareMethod(wx_PlatformInfo, GetArchitecture)
 
 Gura_ImplementMethod(wx_PlatformInfo, GetArchitecture)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxArchitecture rtn = pSelf->GetEntity()->GetArchitecture();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxArchitecture rtn = pThis->GetEntity()->GetArchitecture();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -235,9 +235,9 @@ Gura_DeclareMethod(wx_PlatformInfo, GetEndianness_1)
 
 Gura_ImplementMethod(wx_PlatformInfo, GetEndianness_1)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxEndianness rtn = pSelf->GetEntity()->GetEndianness();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxEndianness rtn = pThis->GetEntity()->GetEndianness();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -264,9 +264,9 @@ Gura_DeclareMethod(wx_PlatformInfo, GetEndiannessName_1)
 
 Gura_ImplementMethod(wx_PlatformInfo, GetEndiannessName_1)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetEndiannessName();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetEndiannessName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -278,9 +278,9 @@ Gura_DeclareMethod(wx_PlatformInfo, GetOSMajorVersion)
 
 Gura_ImplementMethod(wx_PlatformInfo, GetOSMajorVersion)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetOSMajorVersion();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetOSMajorVersion();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -292,9 +292,9 @@ Gura_DeclareMethod(wx_PlatformInfo, GetOSMinorVersion)
 
 Gura_ImplementMethod(wx_PlatformInfo, GetOSMinorVersion)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetOSMinorVersion();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetOSMinorVersion();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -321,9 +321,9 @@ Gura_DeclareMethod(wx_PlatformInfo, GetOperatingSystemFamilyName_1)
 
 Gura_ImplementMethod(wx_PlatformInfo, GetOperatingSystemFamilyName_1)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetOperatingSystemFamilyName();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetOperatingSystemFamilyName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -350,9 +350,9 @@ Gura_DeclareMethod(wx_PlatformInfo, GetOperatingSystemId_1)
 
 Gura_ImplementMethod(wx_PlatformInfo, GetOperatingSystemId_1)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxOperatingSystemId rtn = pSelf->GetEntity()->GetOperatingSystemId();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxOperatingSystemId rtn = pThis->GetEntity()->GetOperatingSystemId();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -379,9 +379,9 @@ Gura_DeclareMethod(wx_PlatformInfo, GetOperatingSystemIdName_1)
 
 Gura_ImplementMethod(wx_PlatformInfo, GetOperatingSystemIdName_1)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetOperatingSystemIdName();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetOperatingSystemIdName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -408,9 +408,9 @@ Gura_DeclareMethod(wx_PlatformInfo, GetPortId_1)
 
 Gura_ImplementMethod(wx_PlatformInfo, GetPortId_1)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxPortId rtn = pSelf->GetEntity()->GetPortId();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxPortId rtn = pThis->GetEntity()->GetPortId();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -439,9 +439,9 @@ Gura_DeclareMethod(wx_PlatformInfo, GetPortIdName_1)
 
 Gura_ImplementMethod(wx_PlatformInfo, GetPortIdName_1)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetPortIdName();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetPortIdName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -470,9 +470,9 @@ Gura_DeclareMethod(wx_PlatformInfo, GetPortIdShortName_1)
 
 Gura_ImplementMethod(wx_PlatformInfo, GetPortIdShortName_1)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetPortIdShortName();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetPortIdShortName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -484,9 +484,9 @@ Gura_DeclareMethod(wx_PlatformInfo, GetToolkitMajorVersion)
 
 Gura_ImplementMethod(wx_PlatformInfo, GetToolkitMajorVersion)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetToolkitMajorVersion();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetToolkitMajorVersion();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -498,9 +498,9 @@ Gura_DeclareMethod(wx_PlatformInfo, GetToolkitMinorVersion)
 
 Gura_ImplementMethod(wx_PlatformInfo, GetToolkitMinorVersion)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetToolkitMinorVersion();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetToolkitMinorVersion();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -512,9 +512,9 @@ Gura_DeclareMethod(wx_PlatformInfo, IsOk)
 
 Gura_ImplementMethod(wx_PlatformInfo, IsOk)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -526,9 +526,9 @@ Gura_DeclareMethod(wx_PlatformInfo, IsUsingUniversalWidgets)
 
 Gura_ImplementMethod(wx_PlatformInfo, IsUsingUniversalWidgets)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsUsingUniversalWidgets();
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsUsingUniversalWidgets();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -540,10 +540,10 @@ Gura_DeclareMethod(wx_PlatformInfo, SetArchitecture)
 
 Gura_ImplementMethod(wx_PlatformInfo, SetArchitecture)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxArchitecture n = static_cast<wxArchitecture>(args.GetInt(0));
-	pSelf->GetEntity()->SetArchitecture(n);
+	pThis->GetEntity()->SetArchitecture(n);
 	return Value::Null;
 }
 
@@ -555,10 +555,10 @@ Gura_DeclareMethod(wx_PlatformInfo, SetEndianness)
 
 Gura_ImplementMethod(wx_PlatformInfo, SetEndianness)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxEndianness n = static_cast<wxEndianness>(args.GetInt(0));
-	pSelf->GetEntity()->SetEndianness(n);
+	pThis->GetEntity()->SetEndianness(n);
 	return Value::Null;
 }
 
@@ -571,11 +571,11 @@ Gura_DeclareMethod(wx_PlatformInfo, SetOSVersion)
 
 Gura_ImplementMethod(wx_PlatformInfo, SetOSVersion)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int major = args.GetInt(0);
 	int minor = args.GetInt(1);
-	pSelf->GetEntity()->SetOSVersion(major, minor);
+	pThis->GetEntity()->SetOSVersion(major, minor);
 	return Value::Null;
 }
 
@@ -587,10 +587,10 @@ Gura_DeclareMethod(wx_PlatformInfo, SetOperatingSystemId)
 
 Gura_ImplementMethod(wx_PlatformInfo, SetOperatingSystemId)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxOperatingSystemId n = static_cast<wxOperatingSystemId>(args.GetInt(0));
-	pSelf->GetEntity()->SetOperatingSystemId(n);
+	pThis->GetEntity()->SetOperatingSystemId(n);
 	return Value::Null;
 }
 
@@ -602,10 +602,10 @@ Gura_DeclareMethod(wx_PlatformInfo, SetPortId)
 
 Gura_ImplementMethod(wx_PlatformInfo, SetPortId)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPortId n = static_cast<wxPortId>(args.GetInt(0));
-	pSelf->GetEntity()->SetPortId(n);
+	pThis->GetEntity()->SetPortId(n);
 	return Value::Null;
 }
 
@@ -618,11 +618,11 @@ Gura_DeclareMethod(wx_PlatformInfo, SetToolkitVersion)
 
 Gura_ImplementMethod(wx_PlatformInfo, SetToolkitVersion)
 {
-	Object_wx_PlatformInfo *pSelf = Object_wx_PlatformInfo::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int major = args.GetInt(0);
 	int minor = args.GetInt(1);
-	pSelf->GetEntity()->SetToolkitVersion(major, minor);
+	pThis->GetEntity()->SetToolkitVersion(major, minor);
 	return Value::Null;
 }
 

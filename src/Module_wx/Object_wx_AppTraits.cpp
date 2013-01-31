@@ -62,9 +62,9 @@ Gura_DeclareMethod(wx_AppTraits, CreateFontMapper)
 
 Gura_ImplementMethod(wx_AppTraits, CreateFontMapper)
 {
-	Object_wx_AppTraits *pSelf = Object_wx_AppTraits::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxFontMapper *rtn = (wxFontMapper *)pSelf->GetEntity()->CreateFontMapper();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxFontMapper *rtn = (wxFontMapper *)pThis->GetEntity()->CreateFontMapper();
 	return ReturnValue(env, sig, args, Value(new Object_wx_FontMapper(rtn, NULL, OwnerFalse)));
 }
 
@@ -76,9 +76,9 @@ Gura_DeclareMethod(wx_AppTraits, CreateLogTarget)
 
 Gura_ImplementMethod(wx_AppTraits, CreateLogTarget)
 {
-	Object_wx_AppTraits *pSelf = Object_wx_AppTraits::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxLog *rtn = (wxLog *)pSelf->GetEntity()->CreateLogTarget();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxLog *rtn = (wxLog *)pThis->GetEntity()->CreateLogTarget();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Log(rtn, NULL, OwnerFalse)));
 }
 
@@ -91,9 +91,9 @@ Gura_DeclareMethod(wx_AppTraits, CreateMessageOutput)
 Gura_ImplementMethod(wx_AppTraits, CreateMessageOutput)
 {
 #if 0
-	Object_wx_AppTraits *pSelf = Object_wx_AppTraits::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxMessageOutput *rtn = (wxMessageOutput *)pSelf->GetEntity()->CreateMessageOutput();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxMessageOutput *rtn = (wxMessageOutput *)pThis->GetEntity()->CreateMessageOutput();
 	return ReturnValue(env, sig, args, Value(new Object_wx_MessageOutput(rtn, NULL, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
@@ -108,9 +108,9 @@ Gura_DeclareMethod(wx_AppTraits, CreateRenderer)
 
 Gura_ImplementMethod(wx_AppTraits, CreateRenderer)
 {
-	Object_wx_AppTraits *pSelf = Object_wx_AppTraits::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxRendererNative *rtn = (wxRendererNative *)pSelf->GetEntity()->CreateRenderer();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxRendererNative *rtn = (wxRendererNative *)pThis->GetEntity()->CreateRenderer();
 	return ReturnValue(env, sig, args, Value(new Object_wx_RendererNative(rtn, NULL, OwnerFalse)));
 }
 
@@ -122,9 +122,9 @@ Gura_DeclareMethod(wx_AppTraits, GetDesktopEnvironment)
 
 Gura_ImplementMethod(wx_AppTraits, GetDesktopEnvironment)
 {
-	Object_wx_AppTraits *pSelf = Object_wx_AppTraits::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetDesktopEnvironment();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetDesktopEnvironment();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -137,9 +137,9 @@ Gura_DeclareMethod(wx_AppTraits, GetStandardPaths)
 Gura_ImplementMethod(wx_AppTraits, GetStandardPaths)
 {
 #if 0
-	Object_wx_AppTraits *pSelf = Object_wx_AppTraits::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxStandardPaths &rtn = pSelf->GetEntity()->GetStandardPaths();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxStandardPaths &rtn = pThis->GetEntity()->GetStandardPaths();
 	return ReturnValue(env, sig, args, Value(new Object_wx_StandardPaths(new wxStandardPaths(rtn), NULL, OwnerTrue)));
 #endif
 	SetError_NotImplemented(sig);
@@ -159,13 +159,13 @@ Gura_DeclareMethod(wx_AppTraits, GetToolkitVersion)
 Gura_ImplementMethod(wx_AppTraits, GetToolkitVersion)
 {
 #if 0
-	Object_wx_AppTraits *pSelf = Object_wx_AppTraits::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int major = NULL;
 	if (args.IsValid(0)) major = args.GetInt(0);
 	int minor = NULL;
 	if (args.IsValid(1)) minor = args.GetInt(1);
-	wxPortId rtn = pSelf->GetEntity()->GetToolkitVersion(major, minor);
+	wxPortId rtn = pThis->GetEntity()->GetToolkitVersion(major, minor);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -180,9 +180,9 @@ Gura_DeclareMethod(wx_AppTraits, HasStderr)
 
 Gura_ImplementMethod(wx_AppTraits, HasStderr)
 {
-	Object_wx_AppTraits *pSelf = Object_wx_AppTraits::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HasStderr();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasStderr();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -194,9 +194,9 @@ Gura_DeclareMethod(wx_AppTraits, IsUsingUniversalWidgets)
 
 Gura_ImplementMethod(wx_AppTraits, IsUsingUniversalWidgets)
 {
-	Object_wx_AppTraits *pSelf = Object_wx_AppTraits::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsUsingUniversalWidgets();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsUsingUniversalWidgets();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -212,10 +212,10 @@ Gura_DeclareMethod(wx_AppTraits, ShowAssertDialog)
 Gura_ImplementMethod(wx_AppTraits, ShowAssertDialog)
 {
 #if 0
-	Object_wx_AppTraits *pSelf = Object_wx_AppTraits::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString msg = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->ShowAssertDialog(msg);
+	bool rtn = pThis->GetEntity()->ShowAssertDialog(msg);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);

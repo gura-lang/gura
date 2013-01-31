@@ -56,7 +56,7 @@ Gura_ImplementFunction(MemoryOutputStream)
 	size_t length = 0;
 	if (args.IsValid(1)) length = args.GetSizeT(1);
 	wx_MemoryOutputStream *pEntity = new wx_MemoryOutputStream(data, length);
-	Object_wx_MemoryOutputStream *pObj = Object_wx_MemoryOutputStream::GetSelfObj(args);
+	Object_wx_MemoryOutputStream *pObj = Object_wx_MemoryOutputStream::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MemoryOutputStream(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(MemoryOutputStream)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -83,11 +83,11 @@ Gura_DeclareMethod(wx_MemoryOutputStream, CopyTo)
 Gura_ImplementMethod(wx_MemoryOutputStream, CopyTo)
 {
 #if 0
-	Object_wx_MemoryOutputStream *pSelf = Object_wx_MemoryOutputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	char buffer = args.GetChar(0);
 	size_t len = args.GetSizeT(1);
-	size_t rtn = pSelf->GetEntity()->CopyTo(buffer, len);
+	size_t rtn = pThis->GetEntity()->CopyTo(buffer, len);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -102,9 +102,9 @@ Gura_DeclareMethod(wx_MemoryOutputStream, GetOutputStreamBuffer)
 
 Gura_ImplementMethod(wx_MemoryOutputStream, GetOutputStreamBuffer)
 {
-	Object_wx_MemoryOutputStream *pSelf = Object_wx_MemoryOutputStream::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxStreamBuffer *rtn = (wxStreamBuffer *)pSelf->GetEntity()->GetOutputStreamBuffer();
+	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxStreamBuffer *rtn = (wxStreamBuffer *)pThis->GetEntity()->GetOutputStreamBuffer();
 	return ReturnValue(env, sig, args, Value(new Object_wx_StreamBuffer(rtn, NULL, OwnerFalse)));
 }
 

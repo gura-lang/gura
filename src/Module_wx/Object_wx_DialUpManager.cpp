@@ -43,9 +43,9 @@ Gura_DeclareMethod(wx_DialUpManager, Create)
 
 Gura_ImplementMethod(wx_DialUpManager, Create)
 {
-	Object_wx_DialUpManager *pSelf = Object_wx_DialUpManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxDialUpManager *rtn = (wxDialUpManager *)pSelf->GetEntity()->Create();
+	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxDialUpManager *rtn = (wxDialUpManager *)pThis->GetEntity()->Create();
 	return ReturnValue(env, sig, args, Value(new Object_wx_DialUpManager(rtn, NULL, OwnerFalse)));
 }
 
@@ -57,9 +57,9 @@ Gura_DeclareMethod(wx_DialUpManager, IsOk)
 
 Gura_ImplementMethod(wx_DialUpManager, IsOk)
 {
-	Object_wx_DialUpManager *pSelf = Object_wx_DialUpManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -72,10 +72,10 @@ Gura_DeclareMethod(wx_DialUpManager, GetISPNames)
 
 Gura_ImplementMethod(wx_DialUpManager, GetISPNames)
 {
-	Object_wx_DialUpManager *pSelf = Object_wx_DialUpManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	std::auto_ptr<wxArrayString> names(CreateArrayString(args.GetList(0)));
-	size_t rtn = pSelf->GetEntity()->GetISPNames(*names);
+	size_t rtn = pThis->GetEntity()->GetISPNames(*names);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -91,8 +91,8 @@ Gura_DeclareMethod(wx_DialUpManager, Dial)
 
 Gura_ImplementMethod(wx_DialUpManager, Dial)
 {
-	Object_wx_DialUpManager *pSelf = Object_wx_DialUpManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString nameOfISP = wxEmptyString;
 	if (args.IsValid(0)) nameOfISP = wxString::FromUTF8(args.GetString(0));
 	wxString username = wxEmptyString;
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_DialUpManager, Dial)
 	if (args.IsValid(2)) password = wxString::FromUTF8(args.GetString(2));
 	bool async = true;
 	if (args.IsValid(3)) async = args.GetBoolean(3);
-	bool rtn = pSelf->GetEntity()->Dial(nameOfISP, username, password, async);
+	bool rtn = pThis->GetEntity()->Dial(nameOfISP, username, password, async);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -113,9 +113,9 @@ Gura_DeclareMethod(wx_DialUpManager, IsDialing)
 
 Gura_ImplementMethod(wx_DialUpManager, IsDialing)
 {
-	Object_wx_DialUpManager *pSelf = Object_wx_DialUpManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsDialing();
+	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsDialing();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -127,9 +127,9 @@ Gura_DeclareMethod(wx_DialUpManager, CancelDialing)
 
 Gura_ImplementMethod(wx_DialUpManager, CancelDialing)
 {
-	Object_wx_DialUpManager *pSelf = Object_wx_DialUpManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->CancelDialing();
+	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->CancelDialing();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -141,9 +141,9 @@ Gura_DeclareMethod(wx_DialUpManager, HangUp)
 
 Gura_ImplementMethod(wx_DialUpManager, HangUp)
 {
-	Object_wx_DialUpManager *pSelf = Object_wx_DialUpManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->HangUp();
+	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HangUp();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -155,9 +155,9 @@ Gura_DeclareMethod(wx_DialUpManager, IsAlwaysOnline)
 
 Gura_ImplementMethod(wx_DialUpManager, IsAlwaysOnline)
 {
-	Object_wx_DialUpManager *pSelf = Object_wx_DialUpManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsAlwaysOnline();
+	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsAlwaysOnline();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -169,9 +169,9 @@ Gura_DeclareMethod(wx_DialUpManager, IsOnline)
 
 Gura_ImplementMethod(wx_DialUpManager, IsOnline)
 {
-	Object_wx_DialUpManager *pSelf = Object_wx_DialUpManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOnline();
+	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOnline();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -183,11 +183,11 @@ Gura_DeclareMethod(wx_DialUpManager, SetOnlineStatus)
 
 Gura_ImplementMethod(wx_DialUpManager, SetOnlineStatus)
 {
-	Object_wx_DialUpManager *pSelf = Object_wx_DialUpManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool isOnline = true;
 	if (args.IsValid(0)) isOnline = args.GetBoolean(0);
-	pSelf->GetEntity()->SetOnlineStatus(isOnline);
+	pThis->GetEntity()->SetOnlineStatus(isOnline);
 	return Value::Null;
 }
 
@@ -200,11 +200,11 @@ Gura_DeclareMethod(wx_DialUpManager, EnableAutoCheckOnlineStatus)
 
 Gura_ImplementMethod(wx_DialUpManager, EnableAutoCheckOnlineStatus)
 {
-	Object_wx_DialUpManager *pSelf = Object_wx_DialUpManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t nSeconds = 60;
 	if (args.IsValid(0)) nSeconds = args.GetSizeT(0);
-	bool rtn = pSelf->GetEntity()->EnableAutoCheckOnlineStatus(nSeconds);
+	bool rtn = pThis->GetEntity()->EnableAutoCheckOnlineStatus(nSeconds);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -215,9 +215,9 @@ Gura_DeclareMethod(wx_DialUpManager, DisableAutoCheckOnlineStatus)
 
 Gura_ImplementMethod(wx_DialUpManager, DisableAutoCheckOnlineStatus)
 {
-	Object_wx_DialUpManager *pSelf = Object_wx_DialUpManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->DisableAutoCheckOnlineStatus();
+	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->DisableAutoCheckOnlineStatus();
 	return Value::Null;
 }
 
@@ -230,12 +230,12 @@ Gura_DeclareMethod(wx_DialUpManager, SetWellKnownHost)
 
 Gura_ImplementMethod(wx_DialUpManager, SetWellKnownHost)
 {
-	Object_wx_DialUpManager *pSelf = Object_wx_DialUpManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString hostname = wxString::FromUTF8(args.GetString(0));
 	int portno = 80;
 	if (args.IsValid(1)) portno = args.GetInt(1);
-	pSelf->GetEntity()->SetWellKnownHost(hostname, portno);
+	pThis->GetEntity()->SetWellKnownHost(hostname, portno);
 	return Value::Null;
 }
 
@@ -248,13 +248,13 @@ Gura_DeclareMethod(wx_DialUpManager, SetConnectCommand)
 
 Gura_ImplementMethod(wx_DialUpManager, SetConnectCommand)
 {
-	Object_wx_DialUpManager *pSelf = Object_wx_DialUpManager::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString commandDial = wxT("/usr/bin/pon");
 	if (args.IsValid(0)) commandDial = wxString::FromUTF8(args.GetString(0));
 	wxString commandHangup = wxT("/usr/bin/poff");
 	if (args.IsValid(1)) commandHangup = wxString::FromUTF8(args.GetString(1));
-	pSelf->GetEntity()->SetConnectCommand(commandDial, commandHangup);
+	pThis->GetEntity()->SetConnectCommand(commandDial, commandHangup);
 	return Value::Null;
 }
 

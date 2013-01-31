@@ -48,7 +48,7 @@ Gura_ImplementFunction(DirEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Dir *pEntity = new wx_Dir();
-	Object_wx_Dir *pObj = Object_wx_Dir::GetSelfObj(args);
+	Object_wx_Dir *pObj = Object_wx_Dir::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Dir(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(DirEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Dir)
@@ -72,7 +72,7 @@ Gura_ImplementFunction(Dir)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString dir = wxString::FromUTF8(args.GetString(0));
 	wx_Dir *pEntity = new wx_Dir(dir);
-	Object_wx_Dir *pObj = Object_wx_Dir::GetSelfObj(args);
+	Object_wx_Dir *pObj = Object_wx_Dir::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Dir(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(Dir)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareClassMethod(wx_Dir, Exists)
@@ -161,14 +161,14 @@ Gura_DeclareMethod(wx_Dir, GetFirst)
 Gura_ImplementMethod(wx_Dir, GetFirst)
 {
 #if 0
-	Object_wx_Dir *pSelf = Object_wx_Dir::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dir *pThis = Object_wx_Dir::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	wxString filespec = wxEmptyString;
 	if (args.IsValid(1)) filespec = wxString::FromUTF8(args.GetString(1));
 	int flags = wxDIR_DEFAULT;
 	if (args.IsValid(2)) flags = args.GetInt(2);
-	bool rtn = pSelf->GetEntity()->GetFirst(filename, filespec, flags);
+	bool rtn = pThis->GetEntity()->GetFirst(filename, filespec, flags);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -183,9 +183,9 @@ Gura_DeclareMethod(wx_Dir, GetName)
 
 Gura_ImplementMethod(wx_Dir, GetName)
 {
-	Object_wx_Dir *pSelf = Object_wx_Dir::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetName();
+	Object_wx_Dir *pThis = Object_wx_Dir::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetName();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -201,10 +201,10 @@ Gura_DeclareMethod(wx_Dir, GetNext)
 Gura_ImplementMethod(wx_Dir, GetNext)
 {
 #if 0
-	Object_wx_Dir *pSelf = Object_wx_Dir::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dir *pThis = Object_wx_Dir::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->GetNext(filename);
+	bool rtn = pThis->GetEntity()->GetNext(filename);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -241,11 +241,11 @@ Gura_DeclareMethod(wx_Dir, HasFiles)
 
 Gura_ImplementMethod(wx_Dir, HasFiles)
 {
-	Object_wx_Dir *pSelf = Object_wx_Dir::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dir *pThis = Object_wx_Dir::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filespec = wxEmptyString;
 	if (args.IsValid(0)) filespec = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->HasFiles(filespec);
+	bool rtn = pThis->GetEntity()->HasFiles(filespec);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -258,11 +258,11 @@ Gura_DeclareMethod(wx_Dir, HasSubDirs)
 
 Gura_ImplementMethod(wx_Dir, HasSubDirs)
 {
-	Object_wx_Dir *pSelf = Object_wx_Dir::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dir *pThis = Object_wx_Dir::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString dirspec = wxEmptyString;
 	if (args.IsValid(0)) dirspec = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->HasSubDirs(dirspec);
+	bool rtn = pThis->GetEntity()->HasSubDirs(dirspec);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -274,9 +274,9 @@ Gura_DeclareMethod(wx_Dir, IsOpened)
 
 Gura_ImplementMethod(wx_Dir, IsOpened)
 {
-	Object_wx_Dir *pSelf = Object_wx_Dir::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOpened();
+	Object_wx_Dir *pThis = Object_wx_Dir::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOpened();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -289,10 +289,10 @@ Gura_DeclareMethod(wx_Dir, Open)
 
 Gura_ImplementMethod(wx_Dir, Open)
 {
-	Object_wx_Dir *pSelf = Object_wx_Dir::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dir *pThis = Object_wx_Dir::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString dir = wxString::FromUTF8(args.GetString(0));
-	bool rtn = pSelf->GetEntity()->Open(dir);
+	bool rtn = pThis->GetEntity()->Open(dir);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -307,14 +307,14 @@ Gura_DeclareMethod(wx_Dir, Traverse)
 
 Gura_ImplementMethod(wx_Dir, Traverse)
 {
-	Object_wx_Dir *pSelf = Object_wx_Dir::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dir *pThis = Object_wx_Dir::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDirTraverser *sink = Object_wx_DirTraverser::GetObject(args, 0)->GetEntity();
 	wxString filespec = wxEmptyString;
 	if (args.IsValid(1)) filespec = wxString::FromUTF8(args.GetString(1));
 	int flags = wxDIR_DEFAULT;
 	if (args.IsValid(2)) flags = args.GetInt(2);
-	size_t rtn = pSelf->GetEntity()->Traverse(*sink, filespec, flags);
+	size_t rtn = pThis->GetEntity()->Traverse(*sink, filespec, flags);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

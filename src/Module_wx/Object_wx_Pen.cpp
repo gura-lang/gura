@@ -53,7 +53,7 @@ Gura_ImplementFunction(PenEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Pen *pEntity = new wx_Pen();
-	Object_wx_Pen *pObj = Object_wx_Pen::GetSelfObj(args);
+	Object_wx_Pen *pObj = Object_wx_Pen::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Pen(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(PenEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Pen)
@@ -83,7 +83,7 @@ Gura_ImplementFunction(Pen)
 	int style = wxSOLID;
 	if (args.IsValid(2)) style = args.GetInt(2);
 	wx_Pen *pEntity = new wx_Pen(*colour, width, style);
-	Object_wx_Pen *pObj = Object_wx_Pen::GetSelfObj(args);
+	Object_wx_Pen *pObj = Object_wx_Pen::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Pen(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -91,7 +91,7 @@ Gura_ImplementFunction(Pen)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Pen_1)
@@ -111,7 +111,7 @@ Gura_ImplementFunction(Pen_1)
 	int width = args.GetInt(1);
 	int style = args.GetInt(2);
 	wx_Pen *pEntity = new wx_Pen(colourName, width, style);
-	Object_wx_Pen *pObj = Object_wx_Pen::GetSelfObj(args);
+	Object_wx_Pen *pObj = Object_wx_Pen::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Pen(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -119,7 +119,7 @@ Gura_ImplementFunction(Pen_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Pen_2)
@@ -138,7 +138,7 @@ Gura_ImplementFunction(Pen_2)
 	wxBitmap *stipple = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	int width = args.GetInt(1);
 	wx_Pen *pEntity = new wx_Pen(*stipple, width);
-	Object_wx_Pen *pObj = Object_wx_Pen::GetSelfObj(args);
+	Object_wx_Pen *pObj = Object_wx_Pen::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Pen(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -146,7 +146,7 @@ Gura_ImplementFunction(Pen_2)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -166,7 +166,7 @@ Gura_ImplementFunction(Pen_3)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxPen *pen = Object_wx_Pen::GetObject(args, 0)->GetEntity();
 	wx_Pen *pEntity = new wx_Pen(*pen);
-	Object_wx_Pen *pObj = Object_wx_Pen::GetSelfObj(args);
+	Object_wx_Pen *pObj = Object_wx_Pen::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Pen(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -174,7 +174,7 @@ Gura_ImplementFunction(Pen_3)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Pen, GetCap)
@@ -185,9 +185,9 @@ Gura_DeclareMethod(wx_Pen, GetCap)
 
 Gura_ImplementMethod(wx_Pen, GetCap)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetCap();
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetCap();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -199,9 +199,9 @@ Gura_DeclareMethod(wx_Pen, GetColour)
 
 Gura_ImplementMethod(wx_Pen, GetColour)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxColour &rtn = pSelf->GetEntity()->GetColour();
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxColour &rtn = pThis->GetEntity()->GetColour();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
 }
 
@@ -213,10 +213,10 @@ Gura_DeclareMethod(wx_Pen, GetDashes)
 
 Gura_ImplementMethod(wx_Pen, GetDashes)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDash *dashes;
-	int rtn = pSelf->GetEntity()->GetDashes(&dashes);
+	int rtn = pThis->GetEntity()->GetDashes(&dashes);
 	Value result;
 	ValueList &valList = result.InitAsList(env);
 	valList.reserve(rtn);
@@ -234,9 +234,9 @@ Gura_DeclareMethod(wx_Pen, GetJoin)
 
 Gura_ImplementMethod(wx_Pen, GetJoin)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetJoin();
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetJoin();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -249,9 +249,9 @@ Gura_DeclareMethod(wx_Pen, GetStipple)
 Gura_ImplementMethod(wx_Pen, GetStipple)
 {
 #if defined(__WXMSW__)
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxBitmap *rtn = (wxBitmap *)pSelf->GetEntity()->GetStipple();
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxBitmap *rtn = (wxBitmap *)pThis->GetEntity()->GetStipple();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(rtn, NULL, OwnerFalse)));
 #else
 	SetError_MSWOnly(sig);
@@ -267,9 +267,9 @@ Gura_DeclareMethod(wx_Pen, GetStyle)
 
 Gura_ImplementMethod(wx_Pen, GetStyle)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetStyle();
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetStyle();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -281,9 +281,9 @@ Gura_DeclareMethod(wx_Pen, GetWidth)
 
 Gura_ImplementMethod(wx_Pen, GetWidth)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetWidth();
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetWidth();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -295,9 +295,9 @@ Gura_DeclareMethod(wx_Pen, IsOk)
 
 Gura_ImplementMethod(wx_Pen, IsOk)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -309,10 +309,10 @@ Gura_DeclareMethod(wx_Pen, SetCap)
 
 Gura_ImplementMethod(wx_Pen, SetCap)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int capStyle = args.GetInt(0);
-	pSelf->GetEntity()->SetCap(capStyle);
+	pThis->GetEntity()->SetCap(capStyle);
 	return Value::Null;
 }
 
@@ -324,10 +324,10 @@ Gura_DeclareMethod(wx_Pen, SetColour)
 
 Gura_ImplementMethod(wx_Pen, SetColour)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetColour(*colour);
+	pThis->GetEntity()->SetColour(*colour);
 	return Value::Null;
 }
 
@@ -339,10 +339,10 @@ Gura_DeclareMethod(wx_Pen, SetColour_1)
 
 Gura_ImplementMethod(wx_Pen, SetColour_1)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString colourName = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetColour(colourName);
+	pThis->GetEntity()->SetColour(colourName);
 	return Value::Null;
 }
 
@@ -356,12 +356,12 @@ Gura_DeclareMethod(wx_Pen, SetColour_2)
 
 Gura_ImplementMethod(wx_Pen, SetColour_2)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned red = args.GetInt(0);
 	unsigned green = args.GetInt(1);
 	unsigned blue = args.GetInt(2);
-	pSelf->GetEntity()->SetColour(red, green, blue);
+	pThis->GetEntity()->SetColour(red, green, blue);
 	return Value::Null;
 }
 
@@ -373,10 +373,10 @@ Gura_DeclareMethod(wx_Pen, SetDashes)
 
 Gura_ImplementMethod(wx_Pen, SetDashes)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	CArrayOfDash dashes(args.GetList(0));
-	pSelf->GetEntity()->SetDashes(dashes.Count(), dashes.Data());
+	pThis->GetEntity()->SetDashes(dashes.Count(), dashes.Data());
 	return Value::Null;
 }
 
@@ -388,10 +388,10 @@ Gura_DeclareMethod(wx_Pen, SetJoin)
 
 Gura_ImplementMethod(wx_Pen, SetJoin)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int join_style = args.GetInt(0);
-	pSelf->GetEntity()->SetJoin(join_style);
+	pThis->GetEntity()->SetJoin(join_style);
 	return Value::Null;
 }
 
@@ -404,10 +404,10 @@ Gura_DeclareMethod(wx_Pen, SetStipple)
 Gura_ImplementMethod(wx_Pen, SetStipple)
 {
 #if defined(__WXMSW__)
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *stipple = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetStipple(*stipple);
+	pThis->GetEntity()->SetStipple(*stipple);
 	return Value::Null;
 #else
 	SetError_MSWOnly(sig);
@@ -423,10 +423,10 @@ Gura_DeclareMethod(wx_Pen, SetStyle)
 
 Gura_ImplementMethod(wx_Pen, SetStyle)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int style = args.GetInt(0);
-	pSelf->GetEntity()->SetStyle(style);
+	pThis->GetEntity()->SetStyle(style);
 	return Value::Null;
 }
 
@@ -438,10 +438,10 @@ Gura_DeclareMethod(wx_Pen, SetWidth)
 
 Gura_ImplementMethod(wx_Pen, SetWidth)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);
-	pSelf->GetEntity()->SetWidth(width);
+	pThis->GetEntity()->SetWidth(width);
 	return Value::Null;
 }
 
@@ -455,7 +455,7 @@ Gura_DeclareMethod(wx_Pen, __eq__)
 
 Gura_ImplementMethod(wx_Pen, __eq__)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
 	wxPen *item1 = Object_wx_Pen::GetObject(args, 0)->GetEntity();
 	wxPen *item2 = Object_wx_Pen::GetObject(args, 1)->GetEntity();
 	return *item1 == *item2;
@@ -471,7 +471,7 @@ Gura_DeclareMethod(wx_Pen, __ne__)
 
 Gura_ImplementMethod(wx_Pen, __ne__)
 {
-	Object_wx_Pen *pSelf = Object_wx_Pen::GetSelfObj(args);
+	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
 	wxPen *item1 = Object_wx_Pen::GetObject(args, 0)->GetEntity();
 	wxPen *item2 = Object_wx_Pen::GetObject(args, 1)->GetEntity();
 	return *item1 != *item2;

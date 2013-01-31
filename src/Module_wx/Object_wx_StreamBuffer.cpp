@@ -54,7 +54,7 @@ Gura_ImplementFunction(StreamBuffer)
 	wxStreamBase *stream = Object_wx_StreamBase::GetObject(args, 0)->GetEntity();
 	wxStreamBuffer::BufMode mode = static_cast<wxStreamBuffer::BufMode>(args.GetInt(1));
 	wx_StreamBuffer *pEntity = new wx_StreamBuffer(*stream, mode);
-	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetSelfObj(args);
+	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StreamBuffer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(StreamBuffer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(StreamBuffer_1)
@@ -78,7 +78,7 @@ Gura_ImplementFunction(StreamBuffer_1)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxStreamBuffer::BufMode mode = static_cast<wxStreamBuffer::BufMode>(args.GetInt(0));
 	wx_StreamBuffer *pEntity = new wx_StreamBuffer(mode);
-	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetSelfObj(args);
+	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StreamBuffer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -86,7 +86,7 @@ Gura_ImplementFunction(StreamBuffer_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(StreamBuffer_2)
@@ -102,7 +102,7 @@ Gura_ImplementFunction(StreamBuffer_2)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxStreamBuffer *buffer = Object_wx_StreamBuffer::GetObject(args, 0)->GetEntity();
 	wx_StreamBuffer *pEntity = new wx_StreamBuffer(*buffer);
-	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetSelfObj(args);
+	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StreamBuffer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -110,7 +110,7 @@ Gura_ImplementFunction(StreamBuffer_2)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(StreamBufferEmpty)
@@ -127,7 +127,7 @@ Gura_ImplementFunction(StreamBufferEmpty)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wx_StreamBuffer *pEntity = new wx_StreamBuffer();
-	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetSelfObj(args);
+	Object_wx_StreamBuffer *pObj = Object_wx_StreamBuffer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StreamBuffer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -135,7 +135,7 @@ Gura_ImplementFunction(StreamBufferEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -154,11 +154,11 @@ Gura_DeclareMethod(wx_StreamBuffer, Read)
 Gura_ImplementMethod(wx_StreamBuffer, Read)
 {
 #if 0
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int buffer = args.GetInt(0);
 	size_t size = args.GetSizeT(1);
-	size_t rtn = pSelf->GetEntity()->Read(buffer, size);
+	size_t rtn = pThis->GetEntity()->Read(buffer, size);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -174,10 +174,10 @@ Gura_DeclareMethod(wx_StreamBuffer, Read_1)
 
 Gura_ImplementMethod(wx_StreamBuffer, Read_1)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxStreamBuffer *buffer = Object_wx_StreamBuffer::GetObject(args, 0)->GetEntity();
-	size_t rtn = pSelf->GetEntity()->Read(buffer);
+	size_t rtn = pThis->GetEntity()->Read(buffer);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -194,11 +194,11 @@ Gura_DeclareMethod(wx_StreamBuffer, Write)
 Gura_ImplementMethod(wx_StreamBuffer, Write)
 {
 #if 0
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int buffer = args.GetInt(0);
 	size_t size = args.GetSizeT(1);
-	size_t rtn = pSelf->GetEntity()->Write(buffer, size);
+	size_t rtn = pThis->GetEntity()->Write(buffer, size);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -214,10 +214,10 @@ Gura_DeclareMethod(wx_StreamBuffer, Write_1)
 
 Gura_ImplementMethod(wx_StreamBuffer, Write_1)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxStreamBuffer *buffer = Object_wx_StreamBuffer::GetObject(args, 0)->GetEntity();
-	size_t rtn = pSelf->GetEntity()->Write(buffer);
+	size_t rtn = pThis->GetEntity()->Write(buffer);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -229,9 +229,9 @@ Gura_DeclareMethod(wx_StreamBuffer, GetChar)
 
 Gura_ImplementMethod(wx_StreamBuffer, GetChar)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	char rtn = pSelf->GetEntity()->GetChar();
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	char rtn = pThis->GetEntity()->GetChar();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -243,10 +243,10 @@ Gura_DeclareMethod(wx_StreamBuffer, PutChar)
 
 Gura_ImplementMethod(wx_StreamBuffer, PutChar)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	char c = args.GetChar(0);
-	pSelf->GetEntity()->PutChar(c);
+	pThis->GetEntity()->PutChar(c);
 	return Value::Null;
 }
 
@@ -258,9 +258,9 @@ Gura_DeclareMethod(wx_StreamBuffer, Tell)
 
 Gura_ImplementMethod(wx_StreamBuffer, Tell)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	off_t rtn = pSelf->GetEntity()->Tell();
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	off_t rtn = pThis->GetEntity()->Tell();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -274,11 +274,11 @@ Gura_DeclareMethod(wx_StreamBuffer, Seek)
 
 Gura_ImplementMethod(wx_StreamBuffer, Seek)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	off_t pos = static_cast<off_t>(args.GetLong(0));
 	wxSeekMode mode = static_cast<wxSeekMode>(args.GetInt(1));
-	off_t rtn = pSelf->GetEntity()->Seek(pos, mode);
+	off_t rtn = pThis->GetEntity()->Seek(pos, mode);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -289,9 +289,9 @@ Gura_DeclareMethod(wx_StreamBuffer, ResetBuffer)
 
 Gura_ImplementMethod(wx_StreamBuffer, ResetBuffer)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->ResetBuffer();
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->ResetBuffer();
 	return Value::Null;
 }
 
@@ -307,11 +307,11 @@ Gura_DeclareMethod(wx_StreamBuffer, SetBufferIO)
 Gura_ImplementMethod(wx_StreamBuffer, SetBufferIO)
 {
 #if 0
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	char buffer_start = args.GetChar(0);
 	char buffer_end = args.GetChar(1);
-	pSelf->GetEntity()->SetBufferIO(buffer_start, buffer_end);
+	pThis->GetEntity()->SetBufferIO(buffer_start, buffer_end);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -326,10 +326,10 @@ Gura_DeclareMethod(wx_StreamBuffer, SetBufferIO_1)
 
 Gura_ImplementMethod(wx_StreamBuffer, SetBufferIO_1)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t bufsize = args.GetSizeT(0);
-	pSelf->GetEntity()->SetBufferIO(bufsize);
+	pThis->GetEntity()->SetBufferIO(bufsize);
 	return Value::Null;
 }
 
@@ -340,9 +340,9 @@ Gura_DeclareMethod(wx_StreamBuffer, GetBufferStart)
 
 Gura_ImplementMethod(wx_StreamBuffer, GetBufferStart)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->GetBufferStart();
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->GetBufferStart();
 	return Value::Null;
 }
 
@@ -353,9 +353,9 @@ Gura_DeclareMethod(wx_StreamBuffer, GetBufferEnd)
 
 Gura_ImplementMethod(wx_StreamBuffer, GetBufferEnd)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->GetBufferEnd();
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->GetBufferEnd();
 	return Value::Null;
 }
 
@@ -366,9 +366,9 @@ Gura_DeclareMethod(wx_StreamBuffer, GetBufferPos)
 
 Gura_ImplementMethod(wx_StreamBuffer, GetBufferPos)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->GetBufferPos();
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->GetBufferPos();
 	return Value::Null;
 }
 
@@ -380,9 +380,9 @@ Gura_DeclareMethod(wx_StreamBuffer, GetIntPosition)
 
 Gura_ImplementMethod(wx_StreamBuffer, GetIntPosition)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	off_t rtn = pSelf->GetEntity()->GetIntPosition();
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	off_t rtn = pThis->GetEntity()->GetIntPosition();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -394,10 +394,10 @@ Gura_DeclareMethod(wx_StreamBuffer, SetIntPosition)
 
 Gura_ImplementMethod(wx_StreamBuffer, SetIntPosition)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t pos = args.GetSizeT(0);
-	pSelf->GetEntity()->SetIntPosition(pos);
+	pThis->GetEntity()->SetIntPosition(pos);
 	return Value::Null;
 }
 
@@ -409,9 +409,9 @@ Gura_DeclareMethod(wx_StreamBuffer, GetLastAccess)
 
 Gura_ImplementMethod(wx_StreamBuffer, GetLastAccess)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	size_t rtn = pSelf->GetEntity()->GetLastAccess();
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	size_t rtn = pThis->GetEntity()->GetLastAccess();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -423,10 +423,10 @@ Gura_DeclareMethod(wx_StreamBuffer, Fixed)
 
 Gura_ImplementMethod(wx_StreamBuffer, Fixed)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool fixed = args.GetBoolean(0);
-	pSelf->GetEntity()->Fixed(fixed);
+	pThis->GetEntity()->Fixed(fixed);
 	return Value::Null;
 }
 
@@ -438,10 +438,10 @@ Gura_DeclareMethod(wx_StreamBuffer, Flushable)
 
 Gura_ImplementMethod(wx_StreamBuffer, Flushable)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool flushable = args.GetBoolean(0);
-	pSelf->GetEntity()->Flushable(flushable);
+	pThis->GetEntity()->Flushable(flushable);
 	return Value::Null;
 }
 
@@ -453,9 +453,9 @@ Gura_DeclareMethod(wx_StreamBuffer, FlushBuffer)
 
 Gura_ImplementMethod(wx_StreamBuffer, FlushBuffer)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->FlushBuffer();
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->FlushBuffer();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -467,9 +467,9 @@ Gura_DeclareMethod(wx_StreamBuffer, FillBuffer)
 
 Gura_ImplementMethod(wx_StreamBuffer, FillBuffer)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->FillBuffer();
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->FillBuffer();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -481,9 +481,9 @@ Gura_DeclareMethod(wx_StreamBuffer, GetDataLeft)
 
 Gura_ImplementMethod(wx_StreamBuffer, GetDataLeft)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	size_t rtn = pSelf->GetEntity()->GetDataLeft();
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	size_t rtn = pThis->GetEntity()->GetDataLeft();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -495,9 +495,9 @@ Gura_DeclareMethod(wx_StreamBuffer, Stream)
 
 Gura_ImplementMethod(wx_StreamBuffer, Stream)
 {
-	Object_wx_StreamBuffer *pSelf = Object_wx_StreamBuffer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxStreamBase *rtn = (wxStreamBase *)pSelf->GetEntity()->Stream();
+	Object_wx_StreamBuffer *pThis = Object_wx_StreamBuffer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxStreamBase *rtn = (wxStreamBase *)pThis->GetEntity()->Stream();
 	return ReturnValue(env, sig, args, Value(new Object_wx_StreamBase(rtn, NULL, OwnerFalse)));
 }
 

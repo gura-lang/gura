@@ -55,8 +55,8 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, wxHtmlListBox)
 Gura_ImplementMethod(wx_SimpleHtmlListBox, wxHtmlListBox)
 {
 #if 0
-	Object_wx_SimpleHtmlListBox *pSelf = Object_wx_SimpleHtmlListBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, wxHtmlListBox)
 	if (args.IsValid(7)) validator = Object_wx_Validator::GetObject(args, 7)->GetEntity();
 	wxString name = wxT("simpleHtmlListBox");
 	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
-	pSelf->GetEntity()->wxHtmlListBox(parent, id, *pos, *size, n, choices[], style, *validator, name);
+	pThis->GetEntity()->wxHtmlListBox(parent, id, *pos, *size, n, choices[], style, *validator, name);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -98,8 +98,8 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, wxHtmlListBox_1)
 Gura_ImplementMethod(wx_SimpleHtmlListBox, wxHtmlListBox_1)
 {
 #if 0
-	Object_wx_SimpleHtmlListBox *pSelf = Object_wx_SimpleHtmlListBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, wxHtmlListBox_1)
 	if (args.IsValid(6)) validator = Object_wx_Validator::GetObject(args, 6)->GetEntity();
 	wxString name = wxT("simpleHtmlListBox");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
-	pSelf->GetEntity()->wxHtmlListBox(parent, id, *pos, *size, *choices, style, *validator, name);
+	pThis->GetEntity()->wxHtmlListBox(parent, id, *pos, *size, *choices, style, *validator, name);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -129,7 +129,7 @@ Gura_ImplementFunction(SimpleHtmlListBoxEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_SimpleHtmlListBox *pEntity = new wx_SimpleHtmlListBox();
-	Object_wx_SimpleHtmlListBox *pObj = Object_wx_SimpleHtmlListBox::GetSelfObj(args);
+	Object_wx_SimpleHtmlListBox *pObj = Object_wx_SimpleHtmlListBox::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_SimpleHtmlListBox(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -137,7 +137,7 @@ Gura_ImplementFunction(SimpleHtmlListBoxEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_SimpleHtmlListBox, Create)
@@ -160,8 +160,8 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, Create)
 Gura_ImplementMethod(wx_SimpleHtmlListBox, Create)
 {
 #if 0
-	Object_wx_SimpleHtmlListBox *pSelf = Object_wx_SimpleHtmlListBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, Create)
 	if (args.IsValid(7)) validator = Object_wx_Validator::GetObject(args, 7)->GetEntity();
 	wxString name = wxT("simpleHtmlListBox");
 	if (args.IsValid(8)) name = wxString::FromUTF8(args.GetString(8));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, *pos, *size, n, choices[], style, *validator, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, n, choices[], style, *validator, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -200,8 +200,8 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, Create_1)
 
 Gura_ImplementMethod(wx_SimpleHtmlListBox, Create_1)
 {
-	Object_wx_SimpleHtmlListBox *pSelf = Object_wx_SimpleHtmlListBox::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxPoint *pos = Object_wx_Point::GetObject(args, 2)->GetEntity();
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, Create_1)
 	if (args.IsValid(6)) validator = Object_wx_Validator::GetObject(args, 6)->GetEntity();
 	wxString name = wxT("simpleHtmlListBox");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, *pos, *size, *choices, style, *validator, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, *pos, *size, *choices, style, *validator, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

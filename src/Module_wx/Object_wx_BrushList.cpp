@@ -47,7 +47,7 @@ Gura_ImplementFunction(BrushListEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_BrushList *pEntity = new wx_BrushList();
-	Object_wx_BrushList *pObj = Object_wx_BrushList::GetSelfObj(args);
+	Object_wx_BrushList *pObj = Object_wx_BrushList::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_BrushList(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(BrushListEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_BrushList, FindOrCreateBrush)
@@ -68,12 +68,12 @@ Gura_DeclareMethod(wx_BrushList, FindOrCreateBrush)
 
 Gura_ImplementMethod(wx_BrushList, FindOrCreateBrush)
 {
-	Object_wx_BrushList *pSelf = Object_wx_BrushList::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_BrushList *pThis = Object_wx_BrushList::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
 	int style = wxSOLID;
 	if (args.IsValid(1)) style = args.GetInt(1);
-	wxBrush *rtn = (wxBrush *)pSelf->GetEntity()->FindOrCreateBrush(*colour, style);
+	wxBrush *rtn = (wxBrush *)pThis->GetEntity()->FindOrCreateBrush(*colour, style);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Brush(rtn, NULL, OwnerFalse)));
 }
 

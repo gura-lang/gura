@@ -213,8 +213,8 @@ Gura_DeclareMethod(binary, len)
 
 Gura_ImplementMethod(binary, len)
 {
-	Object_binary *pSelf = Object_binary::GetSelfObj(args);
-	return Value(static_cast<unsigned int>(pSelf->GetBinary().size()));
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	return Value(static_cast<unsigned int>(pThis->GetBinary().size()));
 }
 
 // binary#each() {block?}
@@ -227,8 +227,8 @@ Gura_DeclareMethod(binary, each)
 
 Gura_ImplementMethod(binary, each)
 {
-	Object_binary *pSelf = Object_binary::GetSelfObj(args);
-	Object_binary *pObj = Object_binary::Reference(pSelf);
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	Object_binary *pObj = Object_binary::Reference(pThis);
 	Iterator *pIterator = new Object_binary::IteratorByte(pObj, -1);
 	return ReturnIterator(env, sig, args, pIterator);
 }
@@ -245,8 +245,8 @@ Gura_DeclareMethod(binary, pointer)
 
 Gura_ImplementMethod(binary, pointer)
 {
-	Object_binary *pSelf = Object_binary::GetSelfObj(args);
-	Object_binary *pObj = Object_binary::Reference(pSelf);
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	Object_binary *pObj = Object_binary::Reference(pThis);
 	size_t offset = args.GetSizeT(0);
 	Value result;
 	result.InitAsBinaryPtr(env, pObj, offset);
@@ -281,9 +281,9 @@ Gura_DeclareMethod(binary, unpack)
 
 Gura_ImplementMethod(binary, unpack)
 {
-	Object_binary *pSelf = Object_binary::GetSelfObj(args);
+	Object_binary *pThis = Object_binary::GetThisObj(args);
 	size_t offset = args.GetSizeT(1);
-	return pSelf->GetBinary().Unpack(env, sig, offset, args.GetString(0), true);
+	return pThis->GetBinary().Unpack(env, sig, offset, args.GetString(0), true);
 }
 
 // binary#unpacks(format:string, offset:number => 0, cnt?:number) {block?}
@@ -298,8 +298,8 @@ Gura_DeclareMethod(binary, unpacks)
 
 Gura_ImplementMethod(binary, unpacks)
 {
-	Object_binary *pSelf = Object_binary::GetSelfObj(args);
-	Object_binary *pObj = Object_binary::Reference(pSelf);
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	Object_binary *pObj = Object_binary::Reference(pThis);
 	const char *format = args.GetString(0);
 	size_t offset = args.GetSizeT(1);
 	int cntMax = args.IsNumber(2)? args.GetInt(2) : -1;
@@ -319,7 +319,7 @@ Gura_DeclareMethod(binary, hex)
 
 Gura_ImplementMethod(binary, hex)
 {
-	Object_binary *pSelf = Object_binary::GetSelfObj(args);
+	Object_binary *pThis = Object_binary::GetThisObj(args);
 	String rtn;
 	bool upperFlag = args.IsSet(Gura_Symbol(upper));
 	const char *sep = args.IsSet(Gura_Symbol(carray))? ", " : NULL;
@@ -327,7 +327,7 @@ Gura_ImplementMethod(binary, hex)
 		args.IsSet(Gura_Symbol(cstr))? (upperFlag? "\\x%02X" : "\\x%02x") :
 		args.IsSet(Gura_Symbol(carray))? (upperFlag? "0x%02X" : "0x%02x") :
 		(upperFlag? "%02X" : "%02x");
-	const Binary &buff = pSelf->GetBinary();
+	const Binary &buff = pThis->GetBinary();
 	foreach_const (Binary, p, buff) {
 		unsigned char ch = static_cast<unsigned char>(*p);
 		if (sep != NULL && p != buff.begin()) rtn += sep;
@@ -349,11 +349,11 @@ Gura_ImplementMethod(binary, dump)
 {
 	Stream *pConsole = env.GetConsole(false);
 	if (pConsole == NULL) return Value::Null;
-	Object_binary *pSelf = Object_binary::GetSelfObj(args);
+	Object_binary *pThis = Object_binary::GetThisObj(args);
 	int iCol = 0;
 	String strHex, strASCII;
 	bool upperFlag = args.IsSet(Gura_Symbol(upper));
-	foreach_const (Binary, p, pSelf->GetBinary()) {
+	foreach_const (Binary, p, pThis->GetBinary()) {
 		unsigned char ch = static_cast<unsigned char>(*p);
 		char buff[8];
 		if (upperFlag) {
@@ -395,15 +395,15 @@ Gura_DeclareMethod(binary, add)
 
 Gura_ImplementMethod(binary, add)
 {
-	Object_binary *pSelf = Object_binary::GetSelfObj(args);
-	if (!pSelf->IsWritable()) {
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	if (!pThis->IsWritable()) {
 		sig.SetError(ERR_ValueError, "not a writable binary");
 		return Value::Null;
 	}
 	foreach_const (ValueList, pValue, args.GetList(0)) {
-		pSelf->GetBinary() += pValue->GetBinary();
+		pThis->GetBinary() += pValue->GetBinary();
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // binary#store(offset:number, buff+:binary):map:reduce
@@ -416,13 +416,13 @@ Gura_DeclareMethod(binary, store)
 
 Gura_ImplementMethod(binary, store)
 {
-	Object_binary *pSelf = Object_binary::GetSelfObj(args);
-	if (!pSelf->IsWritable()) {
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	if (!pThis->IsWritable()) {
 		sig.SetError(ERR_ValueError, "not a writable binary");
 		return Value::Null;
 	}
 	size_t offset = args.GetSizeT(0);
-	Binary &binary = pSelf->GetBinary();
+	Binary &binary = pThis->GetBinary();
 	if (offset > binary.size()) {
 		binary.append(offset - binary.size(), '\0');
 	}
@@ -435,7 +435,7 @@ Gura_ImplementMethod(binary, store)
 		}
 		offset += sizeEach;
 	}
-	return args.GetSelf();
+	return args.GetThis();
 }
 
 // binary#reader() {block?}
@@ -447,8 +447,8 @@ Gura_DeclareMethod(binary, reader)
 
 Gura_ImplementMethod(binary, reader)
 {
-	Object_binary *pSelf = Object_binary::GetSelfObj(args);
-	Stream *pStream = new Stream_Binary(sig, Object_binary::Reference(pSelf), false);
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	Stream *pStream = new Stream_Binary(sig, Object_binary::Reference(pThis), false);
 	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
 }
 
@@ -461,8 +461,8 @@ Gura_DeclareMethod(binary, writer)
 
 Gura_ImplementMethod(binary, writer)
 {
-	Object_binary *pSelf = Object_binary::GetSelfObj(args);
-	Stream *pStream = new Stream_Binary(sig, Object_binary::Reference(pSelf), true);
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	Stream *pStream = new Stream_Binary(sig, Object_binary::Reference(pThis), true);
 	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
 }
 
@@ -475,10 +475,10 @@ Gura_DeclareMethodPrimitive(binary, decode)
 
 Gura_ImplementMethod(binary, decode)
 {
-	Object_binary *pSelf = Object_binary::GetSelfObj(args);
+	Object_binary *pThis = Object_binary::GetThisObj(args);
 	Object_codec *pObjCodec = dynamic_cast<Object_codec *>(args.GetObject(0));
 	String str;
-	if (!pObjCodec->GetDecoder()->Decode(sig, str, pSelf->GetBinary())) {
+	if (!pObjCodec->GetDecoder()->Decode(sig, str, pThis->GetBinary())) {
 		return Value::Null;
 	}
 	return Value(env, str.c_str());
@@ -494,8 +494,8 @@ Gura_DeclareMethod(binary, escapeuri)
 
 Gura_ImplementMethod(binary, escapeuri)
 {
-	Object_binary *pSelf = Object_binary::GetSelfObj(args);
-	const Binary &binary = pSelf->GetBinary();
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	const Binary &binary = pThis->GetBinary();
 	return Value(env, EscapeURI(binary.data(), binary.size()).c_str());
 }
 
@@ -609,8 +609,8 @@ Gura_DeclareMethod(binaryptr, reset)
 
 Gura_ImplementMethod(binaryptr, reset)
 {
-	Object_binaryptr *pSelf = Object_binaryptr::GetSelfObj(args);
-	pSelf->Reset();
+	Object_binaryptr *pThis = Object_binaryptr::GetThisObj(args);
+	pThis->Reset();
 	return Value::Null;
 }
 
@@ -625,14 +625,14 @@ Gura_DeclareMethod(binaryptr, pack)
 
 Gura_ImplementMethod(binaryptr, pack)
 {
-	Object_binaryptr *pSelf = Object_binaryptr::GetSelfObj(args);
-	if (!pSelf->IsWritable()) {
+	Object_binaryptr *pThis = Object_binaryptr::GetThisObj(args);
+	if (!pThis->IsWritable()) {
 		sig.SetError(ERR_ValueError, "not a writable binary");
 		return Value::Null;
 	}
 	bool forwardFlag = !args.IsSet(Gura_Symbol(stay));
-	pSelf->Pack(sig, forwardFlag, args.GetString(0), args.GetList(1));
-	return args.GetSelf();
+	pThis->Pack(sig, forwardFlag, args.GetString(0), args.GetList(1));
+	return args.GetThis();
 }
 
 // binaryptr#unpack(format:string):[stay]
@@ -645,9 +645,9 @@ Gura_DeclareMethod(binaryptr, unpack)
 
 Gura_ImplementMethod(binaryptr, unpack)
 {
-	Object_binaryptr *pSelf = Object_binaryptr::GetSelfObj(args);
+	Object_binaryptr *pThis = Object_binaryptr::GetThisObj(args);
 	bool forwardFlag = !args.IsSet(Gura_Symbol(stay));
-	return pSelf->Unpack(sig, forwardFlag, args.GetString(0), false);
+	return pThis->Unpack(sig, forwardFlag, args.GetString(0), false);
 }
 
 // binaryptr#unpacks(format:string, cnt?:number)
@@ -660,12 +660,12 @@ Gura_DeclareMethod(binaryptr, unpacks)
 
 Gura_ImplementMethod(binaryptr, unpacks)
 {
-	Object_binaryptr *pSelf = Object_binaryptr::GetSelfObj(args);
-	Object_binary *pObj = Object_binary::Reference(pSelf->GetBinaryObj());
+	Object_binaryptr *pThis = Object_binaryptr::GetThisObj(args);
+	Object_binary *pObj = Object_binary::Reference(pThis->GetBinaryObj());
 	const char *format = args.GetString(0);
 	int cntMax = args.IsNumber(1)? args.GetInt(1) : -1;
 	Iterator *pIterator =
-		new Object_binary::IteratorUnpack(pObj, format, pSelf->GetOffset(), cntMax);
+		new Object_binary::IteratorUnpack(pObj, format, pThis->GetOffset(), cntMax);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -678,10 +678,10 @@ Gura_DeclareMethod(binaryptr, forward)
 
 Gura_ImplementMethod(binaryptr, forward)
 {
-	Object_binaryptr *pSelf = Object_binaryptr::GetSelfObj(args);
+	Object_binaryptr *pThis = Object_binaryptr::GetThisObj(args);
 	bool exeedErrorFlag = true;
-	pSelf->UnpackForward(sig, args.GetInt(0), exeedErrorFlag);
-	return args.GetSelf();
+	pThis->UnpackForward(sig, args.GetInt(0), exeedErrorFlag);
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------

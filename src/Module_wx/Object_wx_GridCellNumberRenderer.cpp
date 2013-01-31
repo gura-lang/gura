@@ -47,7 +47,7 @@ Gura_ImplementFunction(GridCellNumberRenderer)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GridCellNumberRenderer *pEntity = new wx_GridCellNumberRenderer();
-	Object_wx_GridCellNumberRenderer *pObj = Object_wx_GridCellNumberRenderer::GetSelfObj(args);
+	Object_wx_GridCellNumberRenderer *pObj = Object_wx_GridCellNumberRenderer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GridCellNumberRenderer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(GridCellNumberRenderer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

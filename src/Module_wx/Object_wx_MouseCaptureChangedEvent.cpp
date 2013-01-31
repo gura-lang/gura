@@ -53,7 +53,7 @@ Gura_ImplementFunction(MouseCaptureChangedEvent)
 	wxWindow *gainedCapture = (wxWindow *)(NULL);
 	if (args.IsValid(1)) gainedCapture = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	wx_MouseCaptureChangedEvent *pEntity = new wx_MouseCaptureChangedEvent(windowId, gainedCapture);
-	Object_wx_MouseCaptureChangedEvent *pObj = Object_wx_MouseCaptureChangedEvent::GetSelfObj(args);
+	Object_wx_MouseCaptureChangedEvent *pObj = Object_wx_MouseCaptureChangedEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MouseCaptureChangedEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(MouseCaptureChangedEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow)
@@ -72,9 +72,9 @@ Gura_DeclareMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow)
 
 Gura_ImplementMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow)
 {
-	Object_wx_MouseCaptureChangedEvent *pSelf = Object_wx_MouseCaptureChangedEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxWindow *rtn = (wxWindow *)pSelf->GetEntity()->GetCapturedWindow();
+	Object_wx_MouseCaptureChangedEvent *pThis = Object_wx_MouseCaptureChangedEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWindow *rtn = (wxWindow *)pThis->GetEntity()->GetCapturedWindow();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Window(rtn, NULL, OwnerFalse)));
 }
 

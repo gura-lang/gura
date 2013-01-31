@@ -50,7 +50,7 @@ Gura_ImplementFunction(MouseCaptureLostEvent)
 	wxWindowID windowId = 0;
 	if (args.IsValid(0)) windowId = static_cast<wxWindowID>(args.GetInt(0));
 	wx_MouseCaptureLostEvent *pEntity = new wx_MouseCaptureLostEvent(windowId);
-	Object_wx_MouseCaptureLostEvent *pObj = Object_wx_MouseCaptureLostEvent::GetSelfObj(args);
+	Object_wx_MouseCaptureLostEvent *pObj = Object_wx_MouseCaptureLostEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MouseCaptureLostEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(MouseCaptureLostEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

@@ -47,7 +47,7 @@ Gura_ImplementFunction(GDIObjectEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_GDIObject *pEntity = new wx_GDIObject();
-	Object_wx_GDIObject *pObj = Object_wx_GDIObject::GetSelfObj(args);
+	Object_wx_GDIObject *pObj = Object_wx_GDIObject::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_GDIObject(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -55,7 +55,7 @@ Gura_ImplementFunction(GDIObjectEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 //----------------------------------------------------------------------------

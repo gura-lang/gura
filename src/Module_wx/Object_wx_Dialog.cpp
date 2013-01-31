@@ -51,7 +51,7 @@ Gura_ImplementFunction(DialogEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Dialog *pEntity = new wx_Dialog();
-	Object_wx_Dialog *pObj = Object_wx_Dialog::GetSelfObj(args);
+	Object_wx_Dialog *pObj = Object_wx_Dialog::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Dialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -59,7 +59,7 @@ Gura_ImplementFunction(DialogEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Dialog)
@@ -92,7 +92,7 @@ Gura_ImplementFunction(Dialog)
 	wxString name = wxT("dialogBox");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
 	wx_Dialog *pEntity = new wx_Dialog(parent, id, title, *pos, *size, style, name);
-	Object_wx_Dialog *pObj = Object_wx_Dialog::GetSelfObj(args);
+	Object_wx_Dialog *pObj = Object_wx_Dialog::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Dialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -100,7 +100,7 @@ Gura_ImplementFunction(Dialog)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Dialog, Centre)
@@ -111,11 +111,11 @@ Gura_DeclareMethod(wx_Dialog, Centre)
 
 Gura_ImplementMethod(wx_Dialog, Centre)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int direction = wxBOTH;
 	if (args.IsValid(0)) direction = args.GetInt(0);
-	pSelf->GetEntity()->Centre(direction);
+	pThis->GetEntity()->Centre(direction);
 	return Value::Null;
 }
 
@@ -134,8 +134,8 @@ Gura_DeclareMethod(wx_Dialog, Create)
 
 Gura_ImplementMethod(wx_Dialog, Create)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_Dialog, Create)
 	if (args.IsValid(5)) style = args.GetLong(5);
 	wxString name = wxT("dialogBox");
 	if (args.IsValid(6)) name = wxString::FromUTF8(args.GetString(6));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, title, *pos, *size, style, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, title, *pos, *size, style, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -161,10 +161,10 @@ Gura_DeclareMethod(wx_Dialog, CreateButtonSizer)
 
 Gura_ImplementMethod(wx_Dialog, CreateButtonSizer)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long flags = args.GetLong(0);
-	wxSizer *rtn = (wxSizer *)pSelf->GetEntity()->CreateButtonSizer(flags);
+	wxSizer *rtn = (wxSizer *)pThis->GetEntity()->CreateButtonSizer(flags);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Sizer(rtn, NULL, OwnerFalse)));
 }
 
@@ -177,10 +177,10 @@ Gura_DeclareMethod(wx_Dialog, CreateSeparatedButtonSizer)
 
 Gura_ImplementMethod(wx_Dialog, CreateSeparatedButtonSizer)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long flags = args.GetLong(0);
-	wxSizer *rtn = (wxSizer *)pSelf->GetEntity()->CreateSeparatedButtonSizer(flags);
+	wxSizer *rtn = (wxSizer *)pThis->GetEntity()->CreateSeparatedButtonSizer(flags);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Sizer(rtn, NULL, OwnerFalse)));
 }
 
@@ -193,10 +193,10 @@ Gura_DeclareMethod(wx_Dialog, CreateStdDialogButtonSizer)
 
 Gura_ImplementMethod(wx_Dialog, CreateStdDialogButtonSizer)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long flags = args.GetLong(0);
-	wxStdDialogButtonSizer *rtn = (wxStdDialogButtonSizer *)pSelf->GetEntity()->CreateStdDialogButtonSizer(flags);
+	wxStdDialogButtonSizer *rtn = (wxStdDialogButtonSizer *)pThis->GetEntity()->CreateStdDialogButtonSizer(flags);
 	return ReturnValue(env, sig, args, Value(new Object_wx_StdDialogButtonSizer(rtn, NULL, OwnerFalse)));
 }
 
@@ -209,9 +209,9 @@ Gura_DeclareMethod(wx_Dialog, DoOK)
 Gura_ImplementMethod(wx_Dialog, DoOK)
 {
 #if 0
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->DoOK();
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->DoOK();
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -226,10 +226,10 @@ Gura_DeclareMethod(wx_Dialog, EndModal)
 
 Gura_ImplementMethod(wx_Dialog, EndModal)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int retCode = args.GetInt(0);
-	pSelf->GetEntity()->EndModal(retCode);
+	pThis->GetEntity()->EndModal(retCode);
 	return Value::Null;
 }
 
@@ -241,9 +241,9 @@ Gura_DeclareMethod(wx_Dialog, GetAffirmativeId)
 
 Gura_ImplementMethod(wx_Dialog, GetAffirmativeId)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetAffirmativeId();
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetAffirmativeId();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -255,9 +255,9 @@ Gura_DeclareMethod(wx_Dialog, GetEscapeId)
 
 Gura_ImplementMethod(wx_Dialog, GetEscapeId)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetEscapeId();
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetEscapeId();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -269,9 +269,9 @@ Gura_DeclareMethod(wx_Dialog, GetReturnCode)
 
 Gura_ImplementMethod(wx_Dialog, GetReturnCode)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->GetReturnCode();
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetReturnCode();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -284,9 +284,9 @@ Gura_DeclareMethod(wx_Dialog, GetToolBar)
 Gura_ImplementMethod(wx_Dialog, GetToolBar)
 {
 #if 0
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxToolBar *rtn = (wxToolBar *)pSelf->GetEntity()->GetToolBar();
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxToolBar *rtn = (wxToolBar *)pThis->GetEntity()->GetToolBar();
 	return ReturnValue(env, sig, args, Value(new Object_wx_ToolBar(rtn, NULL, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
@@ -301,10 +301,10 @@ Gura_DeclareMethod(wx_Dialog, Iconize)
 
 Gura_ImplementMethod(wx_Dialog, Iconize)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool iconize = args.GetBoolean(0);
-	pSelf->GetEntity()->Iconize(iconize);
+	pThis->GetEntity()->Iconize(iconize);
 	return Value::Null;
 }
 
@@ -316,9 +316,9 @@ Gura_DeclareMethod(wx_Dialog, IsIconized)
 
 Gura_ImplementMethod(wx_Dialog, IsIconized)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsIconized();
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsIconized();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -330,9 +330,9 @@ Gura_DeclareMethod(wx_Dialog, IsModal)
 
 Gura_ImplementMethod(wx_Dialog, IsModal)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsModal();
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsModal();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -347,10 +347,10 @@ Gura_DeclareMethod(wx_Dialog, OnSysColourChanged)
 Gura_ImplementMethod(wx_Dialog, OnSysColourChanged)
 {
 #if 0
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxSysColourChangedEvent *event = Object_wx_SysColourChangedEvent::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnSysColourChanged(*event);
+	pThis->GetEntity()->OnSysColourChanged(*event);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -365,10 +365,10 @@ Gura_DeclareMethod(wx_Dialog, SetAffirmativeId)
 
 Gura_ImplementMethod(wx_Dialog, SetAffirmativeId)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
-	pSelf->GetEntity()->SetAffirmativeId(id);
+	pThis->GetEntity()->SetAffirmativeId(id);
 	return Value::Null;
 }
 
@@ -380,10 +380,10 @@ Gura_DeclareMethod(wx_Dialog, SetEscapeId)
 
 Gura_ImplementMethod(wx_Dialog, SetEscapeId)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
-	pSelf->GetEntity()->SetEscapeId(id);
+	pThis->GetEntity()->SetEscapeId(id);
 	return Value::Null;
 }
 
@@ -395,10 +395,10 @@ Gura_DeclareMethod(wx_Dialog, SetIcon)
 
 Gura_ImplementMethod(wx_Dialog, SetIcon)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxIcon *icon = Object_wx_Icon::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetIcon(*icon);
+	pThis->GetEntity()->SetIcon(*icon);
 	return Value::Null;
 }
 
@@ -410,10 +410,10 @@ Gura_DeclareMethod(wx_Dialog, SetIcons)
 
 Gura_ImplementMethod(wx_Dialog, SetIcons)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxIconBundle *icons = Object_wx_IconBundle::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->SetIcons(*icons);
+	pThis->GetEntity()->SetIcons(*icons);
 	return Value::Null;
 }
 
@@ -425,10 +425,10 @@ Gura_DeclareMethod(wx_Dialog, SetModal)
 
 Gura_ImplementMethod(wx_Dialog, SetModal)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool flag = args.GetBoolean(0);
-	pSelf->GetEntity()->SetModal(flag);
+	pThis->GetEntity()->SetModal(flag);
 	return Value::Null;
 }
 
@@ -440,10 +440,10 @@ Gura_DeclareMethod(wx_Dialog, SetReturnCode)
 
 Gura_ImplementMethod(wx_Dialog, SetReturnCode)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	int retCode = args.GetInt(0);
-	pSelf->GetEntity()->SetReturnCode(retCode);
+	pThis->GetEntity()->SetReturnCode(retCode);
 	return Value::Null;
 }
 
@@ -456,10 +456,10 @@ Gura_DeclareMethod(wx_Dialog, Show)
 
 Gura_ImplementMethod(wx_Dialog, Show)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool show = args.GetBoolean(0);
-	bool rtn = pSelf->GetEntity()->Show(show);
+	bool rtn = pThis->GetEntity()->Show(show);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -471,9 +471,9 @@ Gura_DeclareMethod(wx_Dialog, ShowModal)
 
 Gura_ImplementMethod(wx_Dialog, ShowModal)
 {
-	Object_wx_Dialog *pSelf = Object_wx_Dialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->ShowModal();
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->ShowModal();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

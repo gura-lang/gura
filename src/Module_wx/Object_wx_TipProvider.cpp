@@ -55,7 +55,7 @@ Gura_ImplementFunction(TipProvider)
 #if 0
 	size_t currentTip = args.GetSizeT(0);
 	wx_TipProvider *pEntity = new wx_TipProvider(currentTip);
-	Object_wx_TipProvider *pObj = Object_wx_TipProvider::GetSelfObj(args);
+	Object_wx_TipProvider *pObj = Object_wx_TipProvider::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TipProvider(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(TipProvider)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -77,9 +77,9 @@ Gura_DeclareMethod(wx_TipProvider, GetTip)
 
 Gura_ImplementMethod(wx_TipProvider, GetTip)
 {
-	Object_wx_TipProvider *pSelf = Object_wx_TipProvider::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetTip();
+	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetTip();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -95,10 +95,10 @@ Gura_DeclareMethod(wx_TipProvider, PreProcessTip)
 Gura_ImplementMethod(wx_TipProvider, PreProcessTip)
 {
 #if 0
-	Object_wx_TipProvider *pSelf = Object_wx_TipProvider::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString tip = wxString::FromUTF8(args.GetString(0));
-	wxString rtn = pSelf->GetEntity()->PreProcessTip(tip);
+	wxString rtn = pThis->GetEntity()->PreProcessTip(tip);
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
@@ -113,9 +113,9 @@ Gura_DeclareMethod(wx_TipProvider, GetCurrentTip)
 
 Gura_ImplementMethod(wx_TipProvider, GetCurrentTip)
 {
-	Object_wx_TipProvider *pSelf = Object_wx_TipProvider::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	size_t rtn = pSelf->GetEntity()->GetCurrentTip();
+	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	size_t rtn = pThis->GetEntity()->GetCurrentTip();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

@@ -54,7 +54,7 @@ Gura_ImplementFunction(RegionEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Region *pEntity = new wx_Region();
-	Object_wx_Region *pObj = Object_wx_Region::GetSelfObj(args);
+	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(RegionEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Region)
@@ -84,7 +84,7 @@ Gura_ImplementFunction(Region)
 	wxCoord width = static_cast<wxCoord>(args.GetInt(2));
 	wxCoord height = static_cast<wxCoord>(args.GetInt(3));
 	wx_Region *pEntity = new wx_Region(x, y, width, height);
-	Object_wx_Region *pObj = Object_wx_Region::GetSelfObj(args);
+	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -92,7 +92,7 @@ Gura_ImplementFunction(Region)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Region_1)
@@ -110,7 +110,7 @@ Gura_ImplementFunction(Region_1)
 	wxPoint *topLeft = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxPoint *bottomRight = Object_wx_Point::GetObject(args, 1)->GetEntity();
 	wx_Region *pEntity = new wx_Region(*topLeft, *bottomRight);
-	Object_wx_Region *pObj = Object_wx_Region::GetSelfObj(args);
+	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -118,7 +118,7 @@ Gura_ImplementFunction(Region_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Region_2)
@@ -134,7 +134,7 @@ Gura_ImplementFunction(Region_2)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
 	wx_Region *pEntity = new wx_Region(*rect);
-	Object_wx_Region *pObj = Object_wx_Region::GetSelfObj(args);
+	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -142,7 +142,7 @@ Gura_ImplementFunction(Region_2)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Region_3)
@@ -158,7 +158,7 @@ Gura_ImplementFunction(Region_3)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxRegion *region = Object_wx_Region::GetObject(args, 0)->GetEntity();
 	wx_Region *pEntity = new wx_Region(*region);
-	Object_wx_Region *pObj = Object_wx_Region::GetSelfObj(args);
+	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -166,7 +166,7 @@ Gura_ImplementFunction(Region_3)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Region_4)
@@ -190,7 +190,7 @@ Gura_ImplementFunction(Region_4)
 	int fillStyle = wxWINDING_RULE;
 	if (args.IsValid(2)) fillStyle = args.GetInt(2);
 	wx_Region *pEntity = new wx_Region(n, **points, fillStyle);
-	Object_wx_Region *pObj = Object_wx_Region::GetSelfObj(args);
+	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -198,7 +198,7 @@ Gura_ImplementFunction(Region_4)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -217,7 +217,7 @@ Gura_ImplementFunction(Region_5)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bmp = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_Region *pEntity = new wx_Region(*bmp);
-	Object_wx_Region *pObj = Object_wx_Region::GetSelfObj(args);
+	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -225,7 +225,7 @@ Gura_ImplementFunction(Region_5)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Region_6)
@@ -246,7 +246,7 @@ Gura_ImplementFunction(Region_6)
 	int tolerance = 0;
 	if (args.IsValid(2)) tolerance = args.GetInt(2);
 	wx_Region *pEntity = new wx_Region(*bmp, *transColour, tolerance);
-	Object_wx_Region *pObj = Object_wx_Region::GetSelfObj(args);
+	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -254,7 +254,7 @@ Gura_ImplementFunction(Region_6)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Region, Clear)
@@ -264,9 +264,9 @@ Gura_DeclareMethod(wx_Region, Clear)
 
 Gura_ImplementMethod(wx_Region, Clear)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->Clear();
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Clear();
 	return Value::Null;
 }
 
@@ -280,11 +280,11 @@ Gura_DeclareMethod(wx_Region, Contains)
 
 Gura_ImplementMethod(wx_Region, Contains)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long x = args.GetLong(0);
 	long y = args.GetLong(1);
-	wxRegionContain rtn = pSelf->GetEntity()->Contains(x, y);
+	wxRegionContain rtn = pThis->GetEntity()->Contains(x, y);
 	return ReturnValue(env, sig, args, Value(rtn != wxOutRegion));
 }
 
@@ -297,10 +297,10 @@ Gura_DeclareMethod(wx_Region, ContainsPoint)
 
 Gura_ImplementMethod(wx_Region, ContainsPoint)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	wxRegionContain rtn = pSelf->GetEntity()->Contains(*pt);
+	wxRegionContain rtn = pThis->GetEntity()->Contains(*pt);
 	return ReturnValue(env, sig, args, Value(rtn != wxOutRegion));
 }
 
@@ -316,13 +316,13 @@ Gura_DeclareMethod(wx_Region, ContainsRectDim)
 
 Gura_ImplementMethod(wx_Region, ContainsRectDim)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	long x = args.GetLong(0);
 	long y = args.GetLong(1);
 	long width = args.GetLong(2);
 	long height = args.GetLong(3);
-	wxRegionContain rtn = pSelf->GetEntity()->Contains(x, y, width, height);
+	wxRegionContain rtn = pThis->GetEntity()->Contains(x, y, width, height);
 	return ReturnValue(env, sig, args, Value(rtn != wxOutRegion));
 }
 
@@ -335,10 +335,10 @@ Gura_DeclareMethod(wx_Region, ContainsRect)
 
 Gura_ImplementMethod(wx_Region, ContainsRect)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	wxRegionContain rtn = pSelf->GetEntity()->Contains(*rect);
+	wxRegionContain rtn = pThis->GetEntity()->Contains(*rect);
 	return ReturnValue(env, sig, args, Value(rtn != wxOutRegion));
 }
 
@@ -350,9 +350,9 @@ Gura_DeclareMethod(wx_Region, ConvertToBitmap)
 
 Gura_ImplementMethod(wx_Region, ConvertToBitmap)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxBitmap rtn = pSelf->GetEntity()->ConvertToBitmap();
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxBitmap rtn = pThis->GetEntity()->ConvertToBitmap();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
@@ -364,13 +364,13 @@ Gura_DeclareMethod(wx_Region, GetBoxRectDim)
 
 Gura_ImplementMethod(wx_Region, GetBoxRectDim)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord x;
 	wxCoord y;
 	wxCoord width;
 	wxCoord height;
-	pSelf->GetEntity()->GetBox(x, y, width, height);
+	pThis->GetEntity()->GetBox(x, y, width, height);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env,
 						Value(x), Value(y), Value(width), Value(height)));
 }
@@ -383,9 +383,9 @@ Gura_DeclareMethod(wx_Region, GetBox)
 
 Gura_ImplementMethod(wx_Region, GetBox)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxRect rtn = pSelf->GetEntity()->GetBox();
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxRect rtn = pThis->GetEntity()->GetBox();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 }
 
@@ -401,13 +401,13 @@ Gura_DeclareMethod(wx_Region, Intersect)
 
 Gura_ImplementMethod(wx_Region, Intersect)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	wxCoord width = static_cast<wxCoord>(args.GetInt(2));
 	wxCoord height = static_cast<wxCoord>(args.GetInt(3));
-	bool rtn = pSelf->GetEntity()->Intersect(x, y, width, height);
+	bool rtn = pThis->GetEntity()->Intersect(x, y, width, height);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -420,10 +420,10 @@ Gura_DeclareMethod(wx_Region, IntersectRect)
 
 Gura_ImplementMethod(wx_Region, IntersectRect)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Intersect(*rect);
+	bool rtn = pThis->GetEntity()->Intersect(*rect);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -436,10 +436,10 @@ Gura_DeclareMethod(wx_Region, IntersectRegion)
 
 Gura_ImplementMethod(wx_Region, IntersectRegion)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRegion *region = Object_wx_Region::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Intersect(*region);
+	bool rtn = pThis->GetEntity()->Intersect(*region);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -451,9 +451,9 @@ Gura_DeclareMethod(wx_Region, IsEmpty)
 
 Gura_ImplementMethod(wx_Region, IsEmpty)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsEmpty();
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsEmpty();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -466,10 +466,10 @@ Gura_DeclareMethod(wx_Region, IsEqual)
 
 Gura_ImplementMethod(wx_Region, IsEqual)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRegion *region = Object_wx_Region::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->IsEqual(*region);
+	bool rtn = pThis->GetEntity()->IsEqual(*region);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -482,10 +482,10 @@ Gura_DeclareMethod(wx_Region, SubtractRect)
 
 Gura_ImplementMethod(wx_Region, SubtractRect)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Subtract(*rect);
+	bool rtn = pThis->GetEntity()->Subtract(*rect);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -498,10 +498,10 @@ Gura_DeclareMethod(wx_Region, SubtractRegion)
 
 Gura_ImplementMethod(wx_Region, SubtractRegion)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRegion *region = Object_wx_Region::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Subtract(*region);
+	bool rtn = pThis->GetEntity()->Subtract(*region);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -515,11 +515,11 @@ Gura_DeclareMethod(wx_Region, Offset)
 
 Gura_ImplementMethod(wx_Region, Offset)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
-	bool rtn = pSelf->GetEntity()->Offset(x, y);
+	bool rtn = pThis->GetEntity()->Offset(x, y);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -532,10 +532,10 @@ Gura_DeclareMethod(wx_Region, OffsetPoint)
 
 Gura_ImplementMethod(wx_Region, OffsetPoint)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Offset(*pt);
+	bool rtn = pThis->GetEntity()->Offset(*pt);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -551,13 +551,13 @@ Gura_DeclareMethod(wx_Region, Union)
 
 Gura_ImplementMethod(wx_Region, Union)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	wxCoord width = static_cast<wxCoord>(args.GetInt(2));
 	wxCoord height = static_cast<wxCoord>(args.GetInt(3));
-	bool rtn = pSelf->GetEntity()->Union(x, y, width, height);
+	bool rtn = pThis->GetEntity()->Union(x, y, width, height);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -570,10 +570,10 @@ Gura_DeclareMethod(wx_Region, UnionRect)
 
 Gura_ImplementMethod(wx_Region, UnionRect)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Union(*rect);
+	bool rtn = pThis->GetEntity()->Union(*rect);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -586,10 +586,10 @@ Gura_DeclareMethod(wx_Region, UnionRegion)
 
 Gura_ImplementMethod(wx_Region, UnionRegion)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRegion *region = Object_wx_Region::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Union(*region);
+	bool rtn = pThis->GetEntity()->Union(*region);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -602,10 +602,10 @@ Gura_DeclareMethod(wx_Region, UnionBitmap)
 
 Gura_ImplementMethod(wx_Region, UnionBitmap)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bmp = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Union(*bmp);
+	bool rtn = pThis->GetEntity()->Union(*bmp);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -620,13 +620,13 @@ Gura_DeclareMethod(wx_Region, UnionBitmapColour)
 
 Gura_ImplementMethod(wx_Region, UnionBitmapColour)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bmp = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wxColour *transColour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
 	int tolerance = 0;
 	if (args.IsValid(2)) tolerance = args.GetInt(2);
-	bool rtn = pSelf->GetEntity()->Union(*bmp, *transColour, tolerance);
+	bool rtn = pThis->GetEntity()->Union(*bmp, *transColour, tolerance);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -642,13 +642,13 @@ Gura_DeclareMethod(wx_Region, Xor)
 
 Gura_ImplementMethod(wx_Region, Xor)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	wxCoord width = static_cast<wxCoord>(args.GetInt(2));
 	wxCoord height = static_cast<wxCoord>(args.GetInt(3));
-	bool rtn = pSelf->GetEntity()->Xor(x, y, width, height);
+	bool rtn = pThis->GetEntity()->Xor(x, y, width, height);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -661,10 +661,10 @@ Gura_DeclareMethod(wx_Region, XorRect)
 
 Gura_ImplementMethod(wx_Region, XorRect)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Xor(*rect);
+	bool rtn = pThis->GetEntity()->Xor(*rect);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -677,10 +677,10 @@ Gura_DeclareMethod(wx_Region, XorRegion)
 
 Gura_ImplementMethod(wx_Region, XorRegion)
 {
-	Object_wx_Region *pSelf = Object_wx_Region::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Region *pThis = Object_wx_Region::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRegion *region = Object_wx_Region::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Xor(*region);
+	bool rtn = pThis->GetEntity()->Xor(*region);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

@@ -301,10 +301,10 @@ Gura_DeclareMethod(image, opengl)
 
 Gura_ImplementMethod(image, opengl)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!pSelf->CheckValid(sig)) return Value::Null;
-	if (!DoGLSection(env, sig, args, pSelf)) return Value::Null;
-	return args.GetSelf();
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!pThis->CheckValid(sig)) return Value::Null;
+	if (!DoGLSection(env, sig, args, pThis)) return Value::Null;
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------

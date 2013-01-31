@@ -48,7 +48,7 @@ Gura_ImplementFunction(SoundEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Sound *pEntity = new wx_Sound();
-	Object_wx_Sound *pObj = Object_wx_Sound::GetSelfObj(args);
+	Object_wx_Sound *pObj = Object_wx_Sound::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Sound(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(SoundEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Sound)
@@ -75,7 +75,7 @@ Gura_ImplementFunction(Sound)
 	bool isResource = false;
 	if (args.IsValid(1)) isResource = args.GetBoolean(1);
 	wx_Sound *pEntity = new wx_Sound(fileName, isResource);
-	Object_wx_Sound *pObj = Object_wx_Sound::GetSelfObj(args);
+	Object_wx_Sound *pObj = Object_wx_Sound::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Sound(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -83,7 +83,7 @@ Gura_ImplementFunction(Sound)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Sound, Create)
@@ -96,12 +96,12 @@ Gura_DeclareMethod(wx_Sound, Create)
 
 Gura_ImplementMethod(wx_Sound, Create)
 {
-	Object_wx_Sound *pSelf = Object_wx_Sound::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Sound *pThis = Object_wx_Sound::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString fileName = wxString::FromUTF8(args.GetString(0));
 	bool isResource = false;
 	if (args.IsValid(1)) isResource = args.GetBoolean(1);
-	bool rtn = pSelf->GetEntity()->Create(fileName, isResource);
+	bool rtn = pThis->GetEntity()->Create(fileName, isResource);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -113,9 +113,9 @@ Gura_DeclareMethod(wx_Sound, IsOk)
 
 Gura_ImplementMethod(wx_Sound, IsOk)
 {
-	Object_wx_Sound *pSelf = Object_wx_Sound::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_Sound *pThis = Object_wx_Sound::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -145,11 +145,11 @@ Gura_DeclareMethod(wx_Sound, Play)
 
 Gura_ImplementMethod(wx_Sound, Play)
 {
-	Object_wx_Sound *pSelf = Object_wx_Sound::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Sound *pThis = Object_wx_Sound::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned flags = wxSOUND_ASYNC;
 	if (args.IsValid(0)) flags = args.GetInt(0);
-	bool rtn = pSelf->GetEntity()->Play(flags);
+	bool rtn = pThis->GetEntity()->Play(flags);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

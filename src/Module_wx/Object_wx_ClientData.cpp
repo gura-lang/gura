@@ -34,7 +34,7 @@ Gura_ImplementFunction(ClientData)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_ClientData *pEntity = new wx_ClientData(args.GetValue(0));
-	Object_wx_ClientData *pObj = Object_wx_ClientData::GetSelfObj(args);
+	Object_wx_ClientData *pObj = Object_wx_ClientData::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_ClientData(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
@@ -42,7 +42,7 @@ Gura_ImplementFunction(ClientData)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_ClientData, GetData)
@@ -53,9 +53,9 @@ Gura_DeclareMethod(wx_ClientData, GetData)
 
 Gura_ImplementMethod(wx_ClientData, GetData)
 {
-	Object_wx_ClientData *pSelf = Object_wx_ClientData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wx_ClientData *pEntity = dynamic_cast<wx_ClientData *>(pSelf->GetEntity());
+	Object_wx_ClientData *pThis = Object_wx_ClientData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wx_ClientData *pEntity = dynamic_cast<wx_ClientData *>(pThis->GetEntity());
 	if (pEntity == NULL) return Value::Null;
 	return pEntity->GetValue();
 }
@@ -68,9 +68,9 @@ Gura_DeclareMethod(wx_ClientData, SetData)
 
 Gura_ImplementMethod(wx_ClientData, SetData)
 {
-	Object_wx_ClientData *pSelf = Object_wx_ClientData::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wx_ClientData *pEntity = dynamic_cast<wx_ClientData *>(pSelf->GetEntity());
+	Object_wx_ClientData *pThis = Object_wx_ClientData::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wx_ClientData *pEntity = dynamic_cast<wx_ClientData *>(pThis->GetEntity());
 	if (pEntity == NULL) return Value::Null;
 	pEntity->SetValue(args.GetValue(0));
 	return Value::Null;

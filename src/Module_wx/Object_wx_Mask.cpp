@@ -50,7 +50,7 @@ Gura_ImplementFunction(MaskEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Mask *pEntity = new wx_Mask();
-	Object_wx_Mask *pObj = Object_wx_Mask::GetSelfObj(args);
+	Object_wx_Mask *pObj = Object_wx_Mask::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(MaskEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Mask)
@@ -74,7 +74,7 @@ Gura_ImplementFunction(Mask)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wx_Mask *pEntity = new wx_Mask(*bitmap);
-	Object_wx_Mask *pObj = Object_wx_Mask::GetSelfObj(args);
+	Object_wx_Mask *pObj = Object_wx_Mask::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(Mask)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Mask_1)
@@ -100,7 +100,7 @@ Gura_ImplementFunction(Mask_1)
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wxColour *colour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
 	wx_Mask *pEntity = new wx_Mask(*bitmap, *colour);
-	Object_wx_Mask *pObj = Object_wx_Mask::GetSelfObj(args);
+	Object_wx_Mask *pObj = Object_wx_Mask::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -108,7 +108,7 @@ Gura_ImplementFunction(Mask_1)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Mask_2)
@@ -126,7 +126,7 @@ Gura_ImplementFunction(Mask_2)
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	int index = args.GetInt(1);
 	wx_Mask *pEntity = new wx_Mask(*bitmap, index);
-	Object_wx_Mask *pObj = Object_wx_Mask::GetSelfObj(args);
+	Object_wx_Mask *pObj = Object_wx_Mask::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Mask(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -134,7 +134,7 @@ Gura_ImplementFunction(Mask_2)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Mask, Create)
@@ -146,10 +146,10 @@ Gura_DeclareMethod(wx_Mask, Create)
 
 Gura_ImplementMethod(wx_Mask, Create)
 {
-	Object_wx_Mask *pSelf = Object_wx_Mask::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Mask *pThis = Object_wx_Mask::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Create(*bitmap);
+	bool rtn = pThis->GetEntity()->Create(*bitmap);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -163,11 +163,11 @@ Gura_DeclareMethod(wx_Mask, Create_1)
 
 Gura_ImplementMethod(wx_Mask, Create_1)
 {
-	Object_wx_Mask *pSelf = Object_wx_Mask::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Mask *pThis = Object_wx_Mask::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wxColour *colour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
-	bool rtn = pSelf->GetEntity()->Create(*bitmap, *colour);
+	bool rtn = pThis->GetEntity()->Create(*bitmap, *colour);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -181,11 +181,11 @@ Gura_DeclareMethod(wx_Mask, Create_2)
 
 Gura_ImplementMethod(wx_Mask, Create_2)
 {
-	Object_wx_Mask *pSelf = Object_wx_Mask::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Mask *pThis = Object_wx_Mask::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	int index = args.GetInt(1);
-	bool rtn = pSelf->GetEntity()->Create(*bitmap, index);
+	bool rtn = pThis->GetEntity()->Create(*bitmap, index);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

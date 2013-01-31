@@ -67,7 +67,7 @@ const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
 
 bool Args::ShouldGenerateIterator(const DeclarationList &declList) const
 {
-	if (IsSelfIterator()) return true;
+	if (IsThisIterator()) return true;
 	ValueList::const_iterator pValue = _valListArg.begin();
 	DeclarationList::const_iterator ppDecl = declList.begin();
 	for ( ; pValue != _valListArg.end() && ppDecl != declList.end(); pValue++) {
@@ -95,7 +95,7 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 // ICallable
 //-----------------------------------------------------------------------------
 Value ICallable::Call(Environment &env, Signal sig,
-		const Value &valueSelf, Iterator *pIteratorSelf, bool listSelfFlag,
+		const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
 		const Expr_Caller *pExprCaller, const ExprList &exprListArg,
 		const Function **ppFuncSuccRequester)
 {
@@ -110,7 +110,7 @@ Value ICallable::Call(Environment &env, Signal sig,
 			}
 		}
 	}
-	Args args(exprListArg, valueSelf, pIteratorSelf, listSelfFlag, ppFuncSuccRequester,
+	Args args(exprListArg, valueThis, pIteratorThis, listThisFlag, ppFuncSuccRequester,
 		pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(), pExprCaller->GetBlock());
 	Value result = DoCall(env, sig, args);
 	if (sig.IsSignalled()) {
@@ -332,12 +332,12 @@ void Function::SetHelp(const char *help)
 
 Value Function::EvalExpr(Environment &env, Signal sig, Args &args) const
 {
-	if (GetType() == FUNCTYPE_Instance && args.GetSelfObj() == NULL) {
+	if (GetType() == FUNCTYPE_Instance && args.GetThisObj() == NULL) {
 		sig.SetError(ERR_ValueError,
 			"object is expected as l-value of field");
 		return Value::Null;
 	} else if (GetType() == FUNCTYPE_Class &&
-				args.GetSelfClass() == NULL && args.GetSelfObj() == NULL) {
+				args.GetThisClass() == NULL && args.GetThisObj() == NULL) {
 		sig.SetError(ERR_ValueError,
 			"class or object is expected as l-value of field");
 		return Value::Null;
@@ -442,7 +442,7 @@ Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 	bool skipInvalidFlag = args.IsRsltXIterator();
 	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(env, sig,
 			Function::Reference(this),
-			args.GetSelf(), Iterator::Reference(args.GetIteratorSelf()),
+			args.GetThis(), Iterator::Reference(args.GetIteratorThis()),
 			args.GetArgs(), skipInvalidFlag));
 	if (sig.IsSignalled()) {
 		return Value::Null;
@@ -463,11 +463,11 @@ Value Function::EvalMapRecursive(Environment &env, Signal sig,
 		pResultComposer = new ResultComposer(env, args, result);
 		pResultComposerOwner.reset(pResultComposer);
 	}
-	bool doneSelfFlag = false;
-	Iterator *pIteratorSelf = args.GetIteratorSelf();
+	bool doneThisFlag = false;
+	Iterator *pIteratorThis = args.GetIteratorThis();
 	for (size_t n = 0; ; n++) {
 		ValueList valListArg;
-		if (doneSelfFlag || !iterOwner.Next(env, sig, valListArg)) {
+		if (doneThisFlag || !iterOwner.Next(env, sig, valListArg)) {
 			if (sig.IsSignalled()) return Value::Null;
 			if (n == 0 && !args.IsRsltVoid() && pResultComposerOwner.get() != NULL) {
 				result.InitAsList(env);
@@ -488,11 +488,11 @@ Value Function::EvalMapRecursive(Environment &env, Signal sig,
 			if (sig.IsSignalled()) return Value::Null;
 			pResultComposer->Store(valueEach);
 		}
-		if (pIteratorSelf != NULL) {
-			Value valueSelf;
-			doneSelfFlag = !pIteratorSelf->Next(env, sig, valueSelf);
+		if (pIteratorThis != NULL) {
+			Value valueThis;
+			doneThisFlag = !pIteratorThis->Next(env, sig, valueThis);
 			if (sig.IsSignalled()) return Value::Null;
-			args.SetSelf(valueSelf);
+			args.SetThis(valueThis);
 		}
 	}
 	return result;
@@ -927,7 +927,7 @@ Value FunctionCustom::DoEval(Environment &env, Signal sig, Args &args) const
 	std::auto_ptr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
 	if (pEnvLocal.get() == NULL) return Value::Null;
 	if (_funcType != FUNCTYPE_Block) {
-		pEnvLocal->AssignValue(Gura_Symbol(self), args.GetSelf(), false);
+		pEnvLocal->AssignValue(Gura_Symbol(this), args.GetThis(), false);
 	}
 	do {
 		Object_args *pObjArgs = new Object_args(env, args);
@@ -991,10 +991,10 @@ Value ClassPrototype::DoEval(Environment &env, Signal sig, Args &args) const
 	std::auto_ptr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
 	if (pEnvLocal.get() == NULL) return Value::Null;
 	EnvType envType = pEnvLocal->GetEnvType();
-	Value valueSelf(args.GetSelf());
-	if (!valueSelf.IsObject()) {
+	Value valueThis(args.GetThis());
+	if (!valueThis.IsObject()) {
 		Object *pObj = _pClassToConstruct->CreateDescendant(*pEnvLocal, sig, _pClassToConstruct);
-		valueSelf.InitAsObject(pObj);
+		valueThis.InitAsObject(pObj);
 	}
 	Class *pClassSuper = _pClassToConstruct->GetClassSuper();
 	Function *pConstructorSuper =
@@ -1010,14 +1010,14 @@ Value ClassPrototype::DoEval(Environment &env, Signal sig, Args &args) const
 			}
 		}
 		Environment envSuper(pEnvLocal.get(), ENVTYPE_method);
-		Args argsSub(*pExprList, valueSelf);
+		Args argsSub(*pExprList, valueThis);
 		pConstructorSuper->EvalExpr(envSuper, sig, argsSub);
 		if (sig.IsSignalled()) return Value::Null;
 	}
-	pEnvLocal->AssignValue(Gura_Symbol(self), valueSelf, false);
+	pEnvLocal->AssignValue(Gura_Symbol(this), valueThis, false);
 	GetExprBody()->Exec(*pEnvLocal, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, valueSelf);
+	return ReturnValue(env, sig, args, valueThis);
 }
 
 //-----------------------------------------------------------------------------
@@ -1036,22 +1036,22 @@ StructPrototype::~StructPrototype()
 
 Value StructPrototype::DoEval(Environment &env, Signal sig, Args &args) const
 {
-	Object *pObjSelf = NULL;
-	Value valueSelf(args.GetSelf());
-	if (valueSelf.IsObject()) {
-		pObjSelf = valueSelf.GetObject();
+	Object *pObjThis = NULL;
+	Value valueThis(args.GetThis());
+	if (valueThis.IsObject()) {
+		pObjThis = valueThis.GetObject();
 	} else {
-		pObjSelf = _pClassToConstruct->CreateDescendant(env, sig, _pClassToConstruct);
-		valueSelf.InitAsObject(pObjSelf);
+		pObjThis = _pClassToConstruct->CreateDescendant(env, sig, _pClassToConstruct);
+		valueThis.InitAsObject(pObjThis);
 	}
 	ValueList::const_iterator pValue = args.GetArgs().begin();
 	DeclarationList::const_iterator ppDecl = GetDeclOwner().begin();
 	for ( ; pValue != args.GetArgs().end() && ppDecl != GetDeclOwner().end();
 														pValue++, ppDecl++) {
 		const Declaration *pDecl = *ppDecl;
-		pObjSelf->AssignValue(pDecl->GetSymbol(), *pValue, false);
+		pObjThis->AssignValue(pDecl->GetSymbol(), *pValue, false);
 	}
-	return ReturnValue(env, sig, args, valueSelf);
+	return ReturnValue(env, sig, args, valueThis);
 }
 
 }

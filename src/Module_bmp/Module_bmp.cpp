@@ -19,9 +19,9 @@ Gura_DeclareMethod(image, bmpread)
 
 Gura_ImplementMethod(image, bmpread)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!ImageStreamer_BMP::ReadStream(sig, pSelf, args.GetStream(0))) return Value::Null;
-	return args.GetSelf();
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!ImageStreamer_BMP::ReadStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	return args.GetThis();
 }
 
 // image#bmpwrite(stream:stream:w):reduce
@@ -34,9 +34,9 @@ Gura_DeclareMethod(image, bmpwrite)
 
 Gura_ImplementMethod(image, bmpwrite)
 {
-	Object_image *pSelf = Object_image::GetSelfObj(args);
-	if (!ImageStreamer_BMP::WriteStream(sig, pSelf, args.GetStream(0))) return Value::Null;
-	return args.GetSelf();
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!ImageStreamer_BMP::WriteStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------

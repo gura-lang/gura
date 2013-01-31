@@ -49,7 +49,7 @@ Gura_ImplementFunction(NotebookSizer)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxNotebook *notebook = Object_wx_Notebook::GetObject(args, 0)->GetEntity();
 	wx_NotebookSizer *pEntity = new wx_NotebookSizer(notebook);
-	Object_wx_NotebookSizer *pObj = Object_wx_NotebookSizer::GetSelfObj(args);
+	Object_wx_NotebookSizer *pObj = Object_wx_NotebookSizer::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_NotebookSizer(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(NotebookSizer)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_NotebookSizer, GetNotebook)
@@ -68,9 +68,9 @@ Gura_DeclareMethod(wx_NotebookSizer, GetNotebook)
 
 Gura_ImplementMethod(wx_NotebookSizer, GetNotebook)
 {
-	Object_wx_NotebookSizer *pSelf = Object_wx_NotebookSizer::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxNotebook *rtn = (wxNotebook *)pSelf->GetEntity()->GetNotebook();
+	Object_wx_NotebookSizer *pThis = Object_wx_NotebookSizer::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxNotebook *rtn = (wxNotebook *)pThis->GetEntity()->GetNotebook();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Notebook(rtn, NULL, OwnerFalse)));
 }
 

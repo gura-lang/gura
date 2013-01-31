@@ -235,11 +235,11 @@ Gura_DeclareMethod(iterator, print)
 
 Gura_ImplementMethod(iterator, print)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Stream *pConsole = args.IsInstanceOf(0, VTYPE_stream)?
 				&args.GetStream(0) : env.GetConsole(false);
 	if (pConsole == NULL) return Value::Null;
-	Iterator *pIterator = pSelf->GetIterator()->Clone();
+	Iterator *pIterator = pThis->GetIterator()->Clone();
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
 		String str(value.ToString(sig, false));
@@ -259,11 +259,11 @@ Gura_DeclareMethod(iterator, println)
 
 Gura_ImplementMethod(iterator, println)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Stream *pConsole = args.IsInstanceOf(0, VTYPE_stream)?
 				&args.GetStream(0) : env.GetConsole(false);
 	if (pConsole == NULL) return Value::Null;
-	Iterator *pIterator = pSelf->GetIterator()->Clone();
+	Iterator *pIterator = pThis->GetIterator()->Clone();
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
 		String str(value.ToString(sig, false));
@@ -284,12 +284,12 @@ Gura_DeclareMethod(iterator, printf)
 
 Gura_ImplementMethod(iterator, printf)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	const char *format = args.GetString(0);
 	Stream *pConsole = args.IsInstanceOf(1, VTYPE_stream)?
 				&args.GetStream(1) : env.GetConsole(false);
 	if (pConsole == NULL) return Value::Null;
-	Iterator *pIterator = pSelf->GetIterator()->Clone();
+	Iterator *pIterator = pThis->GetIterator()->Clone();
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
 		if (value.IsList()) {
@@ -312,9 +312,9 @@ Gura_DeclareMethod(iterator, delay)
 
 Gura_ImplementMethod(iterator, delay)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Iterator *pIterator =
-		new Iterator_Delay(pSelf->GetIterator()->Clone(), args.GetNumber(0));
+		new Iterator_Delay(pThis->GetIterator()->Clone(), args.GetNumber(0));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -326,8 +326,8 @@ Gura_DeclareMethod(iterator, isinfinite)
 
 Gura_ImplementMethod(iterator, isinfinite)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	return Value(pSelf->GetIterator()->IsInfinite());
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	return Value(pThis->GetIterator()->IsInfinite());
 }
 
 // iterator#next()
@@ -338,9 +338,9 @@ Gura_DeclareMethod(iterator, next)
 
 Gura_ImplementMethod(iterator, next)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Value value;
-	if (pSelf->GetIterator()->Next(env, sig, value)) return value;
+	if (pThis->GetIterator()->Next(env, sig, value)) return value;
 	return Value::Null;
 }
 
@@ -353,10 +353,10 @@ Gura_DeclareMethod(iterator, len)
 
 Gura_ImplementMethod(iterator, len)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Value value;
 	int cnt;
-	AutoPtr<Iterator> pIterator(pSelf->GetIterator()->Clone());
+	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	for (cnt = 0; pIterator->Next(env, sig, value); cnt++) ;
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(static_cast<Number>(cnt));
@@ -380,8 +380,8 @@ Gura_DeclareMethod(iterator, min)
 
 Gura_ImplementMethod(iterator, min)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIterator(pSelf->GetIterator()->Clone());
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value result = pIterator->MinMax(env, sig, false, args.GetAttrs());
 	if (sig.IsSignalled()) return Value::Null;
 	return result;
@@ -405,8 +405,8 @@ Gura_DeclareMethod(iterator, max)
 
 Gura_ImplementMethod(iterator, max)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIterator(pSelf->GetIterator()->Clone());
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value result = pIterator->MinMax(env, sig, true, args.GetAttrs());
 	if (sig.IsSignalled()) return Value::Null;
 	return result;
@@ -421,8 +421,8 @@ Gura_DeclareMethod(iterator, sum)
 
 Gura_ImplementMethod(iterator, sum)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIterator(pSelf->CreateIterator(sig));
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
 	size_t cnt;
 	Value result = pIterator->Sum(env, sig, cnt);
@@ -439,8 +439,8 @@ Gura_DeclareMethod(iterator, average)
 
 Gura_ImplementMethod(iterator, average)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIterator(pSelf->CreateIterator(sig));
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
 	size_t cnt;
 	Value result = pIterator->Average(env, sig, cnt);
@@ -457,8 +457,8 @@ Gura_DeclareMethod(iterator, variance)
 
 Gura_ImplementMethod(iterator, variance)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIterator(pSelf->CreateIterator(sig));
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
 	size_t cnt;
 	Value result = pIterator->Variance(env, sig, cnt);
@@ -475,8 +475,8 @@ Gura_DeclareMethod(iterator, stddev)
 
 Gura_ImplementMethod(iterator, stddev)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIterator(pSelf->CreateIterator(sig));
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
 	size_t cnt;
 	Value result = pIterator->StandardDeviation(env, sig, cnt);
@@ -492,8 +492,8 @@ Gura_DeclareMethodAlias(iterator, and_, "and")
 
 Gura_ImplementMethod(iterator, and_)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIterator(pSelf->CreateIterator(sig));
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
 	Value result = pIterator->And(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
@@ -508,8 +508,8 @@ Gura_DeclareMethodAlias(iterator, or_, "or")
 
 Gura_ImplementMethod(iterator, or_)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIterator(pSelf->CreateIterator(sig));
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
 	Value result = pIterator->Or(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
@@ -527,8 +527,8 @@ Gura_DeclareMethod(iterator, iscontain)
 
 Gura_ImplementMethod(iterator, iscontain)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIterator(pSelf->CreateIterator(sig));
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
 	bool result = pIterator->IsContain(env, sig, args.GetValue(0));
 	if (sig.IsSignalled()) return Value::Null;
@@ -545,8 +545,8 @@ Gura_DeclareMethod(iterator, filter)
 
 Gura_ImplementMethod(iterator, filter)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	Iterator *pIteratorSrc = pSelf->GetIterator()->Clone();
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
 	Iterator *pIterator = pIteratorSrc->Filter(env, sig, args.GetValue(0));
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnIterator(env, sig, args, pIterator);
@@ -561,8 +561,8 @@ Gura_DeclareMethod(iterator, seek)
 
 Gura_ImplementMethod(iterator, seek)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIteratorSrc(pSelf->GetIterator()->Clone());
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	Value value;
 	size_t idx = pIteratorSrc->Seek(env, sig, args.GetValue(0), value);
 	if (sig.IsSignalled()) return Value::Null;
@@ -580,8 +580,8 @@ Gura_DeclareMethodAlias(iterator, while_, "while")
 
 Gura_ImplementMethod(iterator, while_)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	Iterator *pIteratorSrc = pSelf->GetIterator()->Clone();
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
 	Iterator *pIterator = pIteratorSrc->While(env, sig, args.GetValue(0));
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnIterator(env, sig, args, pIterator);
@@ -597,8 +597,8 @@ Gura_DeclareMethod(iterator, since)
 
 Gura_ImplementMethod(iterator, since)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	Iterator *pIteratorSrc = pSelf->GetIterator()->Clone();
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
 	Iterator *pIterator = pIteratorSrc->Since(env, sig, args.GetValue(0), true);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnIterator(env, sig, args, pIterator);
@@ -614,8 +614,8 @@ Gura_DeclareMethod(iterator, after)
 
 Gura_ImplementMethod(iterator, after)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	Iterator *pIteratorSrc = pSelf->GetIterator()->Clone();
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
 	Iterator *pIterator = pIteratorSrc->Since(env, sig, args.GetValue(0), false);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnIterator(env, sig, args, pIterator);
@@ -631,8 +631,8 @@ Gura_DeclareMethod(iterator, until)
 
 Gura_ImplementMethod(iterator, until)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	Iterator *pIteratorSrc = pSelf->GetIterator()->Clone();
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
 	Iterator *pIterator = pIteratorSrc->Until(env, sig, args.GetValue(0), true);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnIterator(env, sig, args, pIterator);
@@ -648,8 +648,8 @@ Gura_DeclareMethod(iterator, before)
 
 Gura_ImplementMethod(iterator, before)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	Iterator *pIteratorSrc = pSelf->GetIterator()->Clone();
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
 	Iterator *pIterator = pIteratorSrc->Until(env, sig, args.GetValue(0), false);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnIterator(env, sig, args, pIterator);
@@ -665,9 +665,9 @@ Gura_DeclareMethod(iterator, map)
 
 Gura_ImplementMethod(iterator, map)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Iterator *pIterator = new Iterator_ExplicitMap(env, sig,
-			pSelf->GetIterator()->Clone(),
+			pThis->GetIterator()->Clone(),
 			Object_function::Reference(args.GetFunctionObj(0)));
 	return ReturnIterator(env, sig, args, pIterator);
 }
@@ -682,8 +682,8 @@ Gura_DeclareMethod(iterator, reduce)
 
 Gura_ImplementMethod(iterator, reduce)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIterator(pSelf->GetIterator()->Clone());
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Environment envBlock(&env, ENVTYPE_block);
 	const Function *pFuncBlock =
 						args.GetBlockFunc(envBlock, sig, GetSymbolForBlock());
@@ -704,8 +704,8 @@ Gura_DeclareMethod(iterator, find)
 
 Gura_ImplementMethod(iterator, find)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIterator(pSelf->GetIterator()->Clone());
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	size_t idx = args.IsValid(0)?
 		pIterator->Find(env, sig, args.GetValue(0)) : pIterator->FindTrue(env, sig);
 	if (idx == InvalidSize) return Value::Null;
@@ -721,8 +721,8 @@ Gura_DeclareMethod(iterator, count)
 
 Gura_ImplementMethod(iterator, count)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIterator(pSelf->GetIterator()->Clone());
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	size_t cnt = args.IsValid(0)?
 		pIterator->Count(env, sig, args.GetValue(0)) : pIterator->CountTrue(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
@@ -741,11 +741,11 @@ Gura_DeclareMethod(iterator, sort)
 
 Gura_ImplementMethod(iterator, sort)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIteratorSrc(pSelf->GetIterator()->Clone());
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	Value value = pIteratorSrc->Eval(env, sig, args);
 	if (sig.IsSignalled()) return Value::Null;
-	if (value.IsInvalid()) return args.GetSelf();
+	if (value.IsInvalid()) return args.GetThis();
 	ASSUME(env, value.IsList());
 	Object_list *pObj = value.GetListObj()->SortRank(sig, args.GetValue(0),
 						args.IsList(1)? &args.GetList(1) : NULL,
@@ -765,8 +765,8 @@ Gura_DeclareMethod(iterator, rank)
 
 Gura_ImplementMethod(iterator, rank)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIteratorSrc(pSelf->GetIterator()->Clone());
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	Value value = pIteratorSrc->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	ASSUME(env, value.IsList());
@@ -786,9 +786,9 @@ Gura_DeclareMethod(iterator, join)
 
 Gura_ImplementMethod(iterator, join)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	const char *sep = args.IsString(0)? args.GetString(0) : "";
-	AutoPtr<Iterator> pIterator(pSelf->GetIterator()->Clone());
+	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	String rtn;
 	Value value;
 	if (pIterator->Next(env, sig, value)) {
@@ -816,9 +816,9 @@ Gura_DeclareMethod(iterator, joinb)
 
 Gura_ImplementMethod(iterator, joinb)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	const char *sep = args.IsString(0)? args.GetString(0) : "";
-	AutoPtr<Iterator> pIterator(pSelf->GetIterator()->Clone());
+	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Binary buff;
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
@@ -844,9 +844,9 @@ Gura_DeclareMethod(iterator, format)
 
 Gura_ImplementMethod(iterator, format)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Iterator *pIterator =
-		new Iterator_Format(pSelf->GetIterator()->Clone(), args.GetString(0));
+		new Iterator_Format(pThis->GetIterator()->Clone(), args.GetString(0));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -860,9 +860,9 @@ Gura_DeclareMethod(iterator, pack)
 
 Gura_ImplementMethod(iterator, pack)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Iterator *pIterator =
-		new Iterator_Pack(pSelf->GetIterator()->Clone(), args.GetString(0));
+		new Iterator_Pack(pThis->GetIterator()->Clone(), args.GetString(0));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -875,8 +875,8 @@ Gura_DeclareMethod(iterator, each)
 
 Gura_ImplementMethod(iterator, each)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	Iterator *pIterator = pSelf->GetIterator()->Clone();
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIterator = pThis->GetIterator()->Clone();
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -890,8 +890,8 @@ Gura_DeclareMethod(iterator, offset)
 
 Gura_ImplementMethod(iterator, offset)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	Iterator *pIterator = pSelf->GetIterator()->Clone();
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIterator = pThis->GetIterator()->Clone();
 	for (int cnt = static_cast<int>(args.GetNumber(0)); cnt > 0; cnt--) {
 		Value value;
 		pIterator->Next(env, sig, value);
@@ -908,8 +908,8 @@ Gura_DeclareMethod(iterator, runlength)
 
 Gura_ImplementMethod(iterator, runlength)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	Iterator *pIterator = new Iterator_RunLength(pSelf->GetIterator()->Clone());
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIterator = new Iterator_RunLength(pThis->GetIterator()->Clone());
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -924,8 +924,8 @@ Gura_DeclareMethod(iterator, align)
 
 Gura_ImplementMethod(iterator, align)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	Iterator *pIterator = new Iterator_Align(pSelf->GetIterator()->Clone(),
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIterator = new Iterator_Align(pThis->GetIterator()->Clone(),
 			static_cast<int>(args.GetNumber(0)), args.GetValue(1));
 	return ReturnIterator(env, sig, args, pIterator);
 }
@@ -940,9 +940,9 @@ Gura_DeclareMethod(iterator, skip)
 
 Gura_ImplementMethod(iterator, skip)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Iterator *pIterator =
-		new Iterator_Skip(pSelf->GetIterator()->Clone(), static_cast<int>(args.GetNumber(0)));
+		new Iterator_Skip(pThis->GetIterator()->Clone(), static_cast<int>(args.GetNumber(0)));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -955,8 +955,8 @@ Gura_DeclareMethod(iterator, skipnil)
 
 Gura_ImplementMethod(iterator, skipnil)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	Iterator *pIterator = new Iterator_SkipInvalid(pSelf->GetIterator()->Clone());
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIterator = new Iterator_SkipInvalid(pThis->GetIterator()->Clone());
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -971,9 +971,9 @@ Gura_DeclareMethod(iterator, roundoff)
 
 Gura_ImplementMethod(iterator, roundoff)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Iterator *pIterator = new Iterator_RoundOff(
-						pSelf->GetIterator()->Clone(), args.GetNumber(0));
+						pThis->GetIterator()->Clone(), args.GetNumber(0));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -986,8 +986,8 @@ Gura_DeclareMethod(iterator, nilto)
 
 Gura_ImplementMethod(iterator, nilto)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	Iterator *pIterator = new Iterator_ReplaceInvalid(pSelf->GetIterator()->Clone(),
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIterator = new Iterator_ReplaceInvalid(pThis->GetIterator()->Clone(),
 															args.GetValue(0));
 	return ReturnIterator(env, sig, args, pIterator);
 }
@@ -1002,8 +1002,8 @@ Gura_DeclareMethod(iterator, replace)
 
 Gura_ImplementMethod(iterator, replace)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	Iterator *pIterator = new Iterator_Replace(pSelf->GetIterator()->Clone(),
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIterator = new Iterator_Replace(pThis->GetIterator()->Clone(),
 									args.GetValue(0), args.GetValue(1));
 	return ReturnIterator(env, sig, args, pIterator);
 }
@@ -1018,8 +1018,8 @@ Gura_DeclareMethod(iterator, head)
 
 Gura_ImplementMethod(iterator, head)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	Iterator *pIterator = new Iterator_Head(pSelf->GetIterator()->Clone(),
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator *pIterator = new Iterator_Head(pThis->GetIterator()->Clone(),
 									static_cast<int>(args.GetNumber(0)));
 	return ReturnIterator(env, sig, args, pIterator);
 }
@@ -1034,8 +1034,8 @@ Gura_DeclareMethod(iterator, tail)
 
 Gura_ImplementMethod(iterator, tail)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIteratorSrc(pSelf->GetIterator()->Clone());
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	Value value = pIteratorSrc->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	ASSUME(env, value.IsList());
@@ -1057,8 +1057,8 @@ Gura_DeclareMethod(iterator, reverse)
 
 Gura_ImplementMethod(iterator, reverse)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
-	AutoPtr<Iterator> pIterator(pSelf->GetIterator()->Clone());
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value value = pIterator->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	ASSUME(env, value.IsList());
@@ -1077,9 +1077,9 @@ Gura_DeclareMethod(iterator, round)
 
 Gura_ImplementMethod(iterator, round)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	int cnt = args.IsNumber(0)? args.GetInt(0) : -1;
-	AutoPtr<Iterator> pIterator(pSelf->GetIterator()->Clone());
+	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value value = pIterator->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	ASSUME(env, value.IsList());
@@ -1102,13 +1102,13 @@ Gura_DeclareMethod(iterator, pingpong)
 
 Gura_ImplementMethod(iterator, pingpong)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	int cnt = args.IsNumber(0)? args.GetInt(0) : -1;
 	bool stickyFlagL = args.IsSet(Gura_Symbol(sticky)) ||
 						args.IsSet(Gura_Symbol(sticky_l));
 	bool stickyFlagR = args.IsSet(Gura_Symbol(sticky)) ||
 						args.IsSet(Gura_Symbol(sticky_r));
-	AutoPtr<Iterator> pIterator(pSelf->GetIterator()->Clone());
+	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value value = pIterator->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	ASSUME(env, value.IsList());
@@ -1129,10 +1129,10 @@ Gura_DeclareMethod(iterator, fold)
 
 Gura_ImplementMethod(iterator, fold)
 {
-	Object_iterator *pSelf = Object_iterator::GetSelfObj(args);
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	int cnt = static_cast<int>(args.GetNumber(0));
 	bool listItemFlag = !args.IsSet(Gura_Symbol(iteritem));
-	Iterator *pIterator = new Iterator_Fold(pSelf->GetIterator()->Clone(), cnt, listItemFlag);
+	Iterator *pIterator = new Iterator_Fold(pThis->GetIterator()->Clone(), cnt, listItemFlag);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 

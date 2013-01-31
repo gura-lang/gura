@@ -49,7 +49,7 @@ Gura_ImplementFunction(FontDialogEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_FontDialog *pEntity = new wx_FontDialog();
-	Object_wx_FontDialog *pObj = Object_wx_FontDialog::GetSelfObj(args);
+	Object_wx_FontDialog *pObj = Object_wx_FontDialog::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_FontDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(FontDialogEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(FontDialog)
@@ -81,7 +81,7 @@ Gura_ImplementFunction(FontDialog)
 	} else {
 		pEntity = new wx_FontDialog(parent);
 	}
-	Object_wx_FontDialog *pObj = Object_wx_FontDialog::GetSelfObj(args);
+	Object_wx_FontDialog *pObj = Object_wx_FontDialog::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_FontDialog(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -89,7 +89,7 @@ Gura_ImplementFunction(FontDialog)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_FontDialog, Create)
@@ -102,16 +102,16 @@ Gura_DeclareMethod(wx_FontDialog, Create)
 
 Gura_ImplementMethod(wx_FontDialog, Create)
 {
-	Object_wx_FontDialog *pSelf = Object_wx_FontDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = args.IsValid(0)?
 			Object_wx_Window::GetObject(args, 0)->GetEntity() : NULL;
 	bool rtn = false;
 	if (args.IsValid(1)) {
 		wxFontData *data = Object_wx_FontData::GetObject(args, 1)->GetEntity();
-		rtn = pSelf->GetEntity()->Create(parent, *data);
+		rtn = pThis->GetEntity()->Create(parent, *data);
 	} else {
-		rtn = pSelf->GetEntity()->Create(parent);
+		rtn = pThis->GetEntity()->Create(parent);
 	}
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -124,9 +124,9 @@ Gura_DeclareMethod(wx_FontDialog, GetFontData)
 
 Gura_ImplementMethod(wx_FontDialog, GetFontData)
 {
-	Object_wx_FontDialog *pSelf = Object_wx_FontDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	const wxFontData &rtn = pSelf->GetEntity()->GetFontData();
+	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxFontData &rtn = pThis->GetEntity()->GetFontData();
 	return ReturnValue(env, sig, args, Value(new Object_wx_FontData(new wxFontData(rtn), NULL, OwnerTrue)));
 }
 
@@ -138,9 +138,9 @@ Gura_DeclareMethod(wx_FontDialog, ShowModal)
 
 Gura_ImplementMethod(wx_FontDialog, ShowModal)
 {
-	Object_wx_FontDialog *pSelf = Object_wx_FontDialog::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	int rtn = pSelf->GetEntity()->ShowModal();
+	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->ShowModal();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 

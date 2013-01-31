@@ -53,7 +53,7 @@ Gura_ImplementFunction(CloseEvent)
 	int id = 0;
 	if (args.IsValid(1)) id = args.GetInt(1);
 	wx_CloseEvent *pEntity = new wx_CloseEvent(commandEventType, id);
-	Object_wx_CloseEvent *pObj = Object_wx_CloseEvent::GetSelfObj(args);
+	Object_wx_CloseEvent *pObj = Object_wx_CloseEvent::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_CloseEvent(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(CloseEvent)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_CloseEvent, CanVeto)
@@ -72,9 +72,9 @@ Gura_DeclareMethod(wx_CloseEvent, CanVeto)
 
 Gura_ImplementMethod(wx_CloseEvent, CanVeto)
 {
-	Object_wx_CloseEvent *pSelf = Object_wx_CloseEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->CanVeto();
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->CanVeto();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -86,9 +86,9 @@ Gura_DeclareMethod(wx_CloseEvent, GetLoggingOff)
 
 Gura_ImplementMethod(wx_CloseEvent, GetLoggingOff)
 {
-	Object_wx_CloseEvent *pSelf = Object_wx_CloseEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->GetLoggingOff();
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->GetLoggingOff();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -100,10 +100,10 @@ Gura_DeclareMethod(wx_CloseEvent, SetCanVeto)
 
 Gura_ImplementMethod(wx_CloseEvent, SetCanVeto)
 {
-	Object_wx_CloseEvent *pSelf = Object_wx_CloseEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool canVeto = args.GetBoolean(0);
-	pSelf->GetEntity()->SetCanVeto(canVeto);
+	pThis->GetEntity()->SetCanVeto(canVeto);
 	return Value::Null;
 }
 
@@ -118,10 +118,10 @@ Gura_DeclareMethod(wx_CloseEvent, SetForce)
 Gura_ImplementMethod(wx_CloseEvent, SetForce)
 {
 #if 0
-	Object_wx_CloseEvent *pSelf = Object_wx_CloseEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool force = args.GetBoolean(0);
-	pSelf->GetEntity()->SetForce(force);
+	pThis->GetEntity()->SetForce(force);
 	return Value::Null;
 #endif
 	SetError_NotImplemented(sig);
@@ -136,10 +136,10 @@ Gura_DeclareMethod(wx_CloseEvent, SetLoggingOff)
 
 Gura_ImplementMethod(wx_CloseEvent, SetLoggingOff)
 {
-	Object_wx_CloseEvent *pSelf = Object_wx_CloseEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool loggingOff = args.GetBoolean(0);
-	pSelf->GetEntity()->SetLoggingOff(loggingOff);
+	pThis->GetEntity()->SetLoggingOff(loggingOff);
 	return Value::Null;
 }
 
@@ -151,11 +151,11 @@ Gura_DeclareMethod(wx_CloseEvent, Veto)
 
 Gura_ImplementMethod(wx_CloseEvent, Veto)
 {
-	Object_wx_CloseEvent *pSelf = Object_wx_CloseEvent::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool veto = true;
 	if (args.IsValid(0)) veto = args.GetBoolean(0);
-	pSelf->GetEntity()->Veto(veto);
+	pThis->GetEntity()->Veto(veto);
 	return Value::Null;
 }
 

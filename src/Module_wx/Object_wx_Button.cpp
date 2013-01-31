@@ -48,7 +48,7 @@ Gura_ImplementFunction(ButtonEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_Button *pEntity = new wx_Button();
-	Object_wx_Button *pObj = Object_wx_Button::GetSelfObj(args);
+	Object_wx_Button *pObj = Object_wx_Button::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Button(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -56,7 +56,7 @@ Gura_ImplementFunction(ButtonEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareFunction(Button)
@@ -92,7 +92,7 @@ Gura_ImplementFunction(Button)
 	wxString name = wxT("button");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_Button *pEntity = new wx_Button(parent, id, label, *pos, *size, style, *validator, name);
-	Object_wx_Button *pObj = Object_wx_Button::GetSelfObj(args);
+	Object_wx_Button *pObj = Object_wx_Button::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Button(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -100,7 +100,7 @@ Gura_ImplementFunction(Button)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_Button, Create)
@@ -119,8 +119,8 @@ Gura_DeclareMethod(wx_Button, Create)
 
 Gura_ImplementMethod(wx_Button, Create)
 {
-	Object_wx_Button *pSelf = Object_wx_Button::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxWindowID id = static_cast<wxWindowID>(args.GetInt(1));
 	wxString label = wxEmptyString;
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_Button, Create)
 	if (args.IsValid(6)) validator = Object_wx_Validator::GetObject(args, 6)->GetEntity();
 	wxString name = wxT("button");
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
-	bool rtn = pSelf->GetEntity()->Create(parent, id, label, *pos, *size, style, *validator, name);
+	bool rtn = pThis->GetEntity()->Create(parent, id, label, *pos, *size, style, *validator, name);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -147,9 +147,9 @@ Gura_DeclareMethod(wx_Button, GetLabel)
 
 Gura_ImplementMethod(wx_Button, GetLabel)
 {
-	Object_wx_Button *pSelf = Object_wx_Button::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pSelf->GetEntity()->GetLabel();
+	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetLabel();
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
@@ -161,9 +161,9 @@ Gura_DeclareMethod(wx_Button, GetDefaultSize)
 
 Gura_ImplementMethod(wx_Button, GetDefaultSize)
 {
-	Object_wx_Button *pSelf = Object_wx_Button::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxSize rtn = pSelf->GetEntity()->GetDefaultSize();
+	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize rtn = pThis->GetEntity()->GetDefaultSize();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue)));
 }
 
@@ -174,9 +174,9 @@ Gura_DeclareMethod(wx_Button, SetDefault)
 
 Gura_ImplementMethod(wx_Button, SetDefault)
 {
-	Object_wx_Button *pSelf = Object_wx_Button::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	pSelf->GetEntity()->SetDefault();
+	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->SetDefault();
 	return Value::Null;
 }
 
@@ -188,10 +188,10 @@ Gura_DeclareMethod(wx_Button, SetLabel)
 
 Gura_ImplementMethod(wx_Button, SetLabel)
 {
-	Object_wx_Button *pSelf = Object_wx_Button::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString label = wxString::FromUTF8(args.GetString(0));
-	pSelf->GetEntity()->SetLabel(label);
+	pThis->GetEntity()->SetLabel(label);
 	return Value::Null;
 }
 

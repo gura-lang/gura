@@ -43,10 +43,10 @@ Gura_DeclareMethod(wx_ZipNotifier, OnEntryUpdated)
 
 Gura_ImplementMethod(wx_ZipNotifier, OnEntryUpdated)
 {
-	Object_wx_ZipNotifier *pSelf = Object_wx_ZipNotifier::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_ZipNotifier *pThis = Object_wx_ZipNotifier::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxZipEntry *entry = Object_wx_ZipEntry::GetObject(args, 0)->GetEntity();
-	pSelf->GetEntity()->OnEntryUpdated(*entry);
+	pThis->GetEntity()->OnEntryUpdated(*entry);
 	return Value::Null;
 }
 

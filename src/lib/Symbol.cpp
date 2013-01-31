@@ -172,7 +172,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(__doc__);
 	Gura_RealizeSymbol(__args__);
 	Gura_RealizeSymbol(super);
-	Gura_RealizeSymbol(self);
+	Gura_RealizeSymbol(this);
 	Gura_RealizeSymbolEx(static_,		"static");
 	Gura_RealizeSymbolEx(const_,		"const");
 	Gura_RealizeSymbolEx(_anonymous_,	"<>");

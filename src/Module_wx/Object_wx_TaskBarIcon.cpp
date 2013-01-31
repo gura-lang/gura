@@ -50,7 +50,7 @@ Gura_ImplementFunction(TaskBarIconEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_TaskBarIcon *pEntity = new wx_TaskBarIcon();
-	Object_wx_TaskBarIcon *pObj = Object_wx_TaskBarIcon::GetSelfObj(args);
+	Object_wx_TaskBarIcon *pObj = Object_wx_TaskBarIcon::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_TaskBarIcon(pEntity, pEntity, OwnerFalse);
 		pEntity->AssocWithGura(sig, pObj);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(TaskBarIconEmpty)
 	}
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetSelf());
+	return ReturnValue(env, sig, args, args.GetThis());
 }
 
 Gura_DeclareMethod(wx_TaskBarIcon, CreatePopupMenu)
@@ -70,9 +70,9 @@ Gura_DeclareMethod(wx_TaskBarIcon, CreatePopupMenu)
 Gura_ImplementMethod(wx_TaskBarIcon, CreatePopupMenu)
 {
 #if 0
-	Object_wx_TaskBarIcon *pSelf = Object_wx_TaskBarIcon::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	wxMenu *rtn = (wxMenu *)pSelf->GetEntity()->CreatePopupMenu();
+	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxMenu *rtn = (wxMenu *)pThis->GetEntity()->CreatePopupMenu();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Menu(rtn, NULL, OwnerFalse)));
 #endif
 	SetError_NotImplemented(sig);
@@ -87,9 +87,9 @@ Gura_DeclareMethod(wx_TaskBarIcon, IsIconInstalled)
 
 Gura_ImplementMethod(wx_TaskBarIcon, IsIconInstalled)
 {
-	Object_wx_TaskBarIcon *pSelf = Object_wx_TaskBarIcon::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsIconInstalled();
+	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsIconInstalled();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -101,9 +101,9 @@ Gura_DeclareMethod(wx_TaskBarIcon, IsOk)
 
 Gura_ImplementMethod(wx_TaskBarIcon, IsOk)
 {
-	Object_wx_TaskBarIcon *pSelf = Object_wx_TaskBarIcon::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->IsOk();
+	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsOk();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -116,10 +116,10 @@ Gura_DeclareMethod(wx_TaskBarIcon, PopupMenu)
 
 Gura_ImplementMethod(wx_TaskBarIcon, PopupMenu)
 {
-	Object_wx_TaskBarIcon *pSelf = Object_wx_TaskBarIcon::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxMenu *menu = Object_wx_Menu::GetObject(args, 0)->GetEntity();
-	bool rtn = pSelf->GetEntity()->PopupMenu(menu);
+	bool rtn = pThis->GetEntity()->PopupMenu(menu);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -131,9 +131,9 @@ Gura_DeclareMethod(wx_TaskBarIcon, RemoveIcon)
 
 Gura_ImplementMethod(wx_TaskBarIcon, RemoveIcon)
 {
-	Object_wx_TaskBarIcon *pSelf = Object_wx_TaskBarIcon::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
-	bool rtn = pSelf->GetEntity()->RemoveIcon();
+	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->RemoveIcon();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -147,11 +147,11 @@ Gura_DeclareMethod(wx_TaskBarIcon, SetIcon)
 
 Gura_ImplementMethod(wx_TaskBarIcon, SetIcon)
 {
-	Object_wx_TaskBarIcon *pSelf = Object_wx_TaskBarIcon::GetSelfObj(args);
-	if (pSelf->IsInvalid(sig)) return Value::Null;
+	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxIcon *icon = Object_wx_Icon::GetObject(args, 0)->GetEntity();
 	wxString tooltip = wxString::FromUTF8(args.GetString(1));
-	bool rtn = pSelf->GetEntity()->SetIcon(*icon, tooltip);
+	bool rtn = pThis->GetEntity()->SetIcon(*icon, tooltip);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
