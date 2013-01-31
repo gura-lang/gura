@@ -39,54 +39,49 @@
 制御構文などの表記を可能にするため、ブロック式の概念を導入しています。 if や while などの構文や、クラス宣言、リスト・辞書要素の初期化表記も、すべてこの機構を使って実装されています。
 </p>
 
-<pre class="code">
-f(x:number) {block} = {
+<pre><code>f(x:number) {block} = {
     block(x)
     block(x + 1)
     block(x + 2)
 }
-</pre>
+</code></pre>
 
 <p>
 呼び出し方は以下のようになります。
 </p>
 
-<pre class="code">
-f(2) {|x|
+<pre><code>f(2) {|x|
     print(x)
 } # 234
-</pre>
+</code></pre>
 
 <p>
 ブロック自体は特殊な変数スコープを持たせた関数オブジェクトで、ブロックパラメータは単に関数への引数になります。ブロックパラメータの操作が周囲に影響を与えることはありません。また、通常の関数オブジェクトで定義できる引数設定 (オプション引数・デフォルト値・可変長引数など) は、ブロックパラメータでも有効です。
 </p>
 
-<pre class="code">
-x = 0
+<pre><code>x = 0
 f(2) {|x|         # dummy arguments are completely isolated from outside
     print(x)
 }
 println(x)        # 0
-</pre>
+</code></pre>
 
 <p>
 ブロックを表すシンボルは何でもかまいません。
 </p>
 
-<pre class="code">
-f(x:number) {yield} = {
+<pre><code>f(x:number) {yield} = {
     yield(x)
     yield(x + 1)
     yield(x + 2)
 }
-</pre>
+</code></pre>
 
 <p>
 シンボルの後にクエスチョンマークをつけたブロックは、オプショナルとして扱われます。この場合、ブロックをつけないで関数を実行すると nil に設定されます。
 </p>
 
-<pre class="code">
-f_opt() {block?} = {
+<pre><code>f_opt() {block?} = {
     if (block == nil) {
         println('not specified')
     } else {
@@ -99,14 +94,13 @@ f_opt() # print 'not specified'
 f_opt() {
     println('message from block')
 }       # print 'message from block'
-</pre>
+</code></pre>
 
 <p>
 ブロックは通常、それを実行している関数の「外側」の環境にアクセスできる変数スコープで動作します (「外側」とはレキシカルスコープのそれになりますが、ダイナミックスコープに切り替えることもできます)。関数外部の変数の値を変更することができます。
 </p>
 
-<pre class="code">
-g() {block} = {
+<pre><code>g() {block} = {
     block()
 }
 
@@ -115,14 +109,13 @@ g() {
     n = 5
 }
 printf('n = %d\n', n) # n = 5
-</pre>
+</code></pre>
 
 <p>
 ブロックシンボルにアトリビュート :inside_scope をつけると、関数内部のスコープに切り替わり、関数の内部処理で設定される変数などにアクセスできるようになります。関数外部の変数は、参照できた値に対しての改変が可能です。
 </p>
 
-<pre class="code">
-h() {block:inside_scope} = {
+<pre><code>h() {block:inside_scope} = {
     m = 'local in h()'
     block()
 }
@@ -141,24 +134,22 @@ h() {
     n += 5
 }
 printf('n = %d\n', n)    # n = 7
-</pre>
+</code></pre>
 
 <p>
 quoted value にしたブロックを設定した変数を {|..|} で囲って関数に渡すと、それがブロック本体として扱われます。ブロックパラメータも記述できます。例えば:
 </p>
 
-<pre class="code">
-f() {block} = {
+<pre><code>f() {block} = {
     block(1, 2, 3, 4)
 }
-</pre>
+</code></pre>
 
 <p>
 という関数があった場合、以下のふたつの呼び出しは等価です。
 </p>
 
-<pre class="code">
-block = `{|a, b, c, d|
+<pre><code>block = `{|a, b, c, d|
     printf('%d %d %d %d\n', a, b, c, d)
 }
 f() {|block|}
@@ -166,17 +157,16 @@ f() {|block|}
 f() {|a, b, c, d|
     printf('%d %d %d %d\n', a, b, c, d)
 }
-</pre>
+</code></pre>
 
 <p>
 ブロックは通常、関数オブジェクトとして扱われますが、シンボルの先頭にバッククオートをつけると quoted value として渡されます。これと、先に示した quoted value をブロック本体として渡す機能を使うと、ブロックの delegation ができます。
 </p>
 
-<pre class="code">
-f(x:number) {`block} = {
+<pre><code>f(x:number) {`block} = {
     repeat(x) {|block|}
 }
-</pre>
+</code></pre>
 
 <!-- ====================================================================== -->
       </section>

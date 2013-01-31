@@ -43,9 +43,8 @@ Gura はバイナリモジュールを作成するための支援機構を持っ
 以下のコマンドを実行します。
 </p>
 
-<pre class="code">
-$ gura -i lets_module hoge
-</pre>
+<pre><code>$ gura -i lets_module hoge
+</code></pre>
 
 <p>
 これで、ビルド用スクリプト build.gura と、モジュールのひな形ソースファイル Module_hoge.cpp が生成されます。 Module_hoge.cpp は 40 行足らずの C++ ソースファイルですが、これで test という名前の Gura の関数をひとつ定義したモジュールができます。
@@ -55,30 +54,27 @@ $ gura -i lets_module hoge
 build.gura を実行すると適切な C++ コンパイラを実行してモジュールを作成します
 (Windows 環境の場合、Visual Studio 2010 をインストールしておく必要があります。無償の Express 版も使えますa)。
 </p>
-<pre class="code">
-$ gura build.gura --here
-</pre>
+<pre><code>$ gura build.gura --here
+</code></pre>
 
 <p>
 現在のディレクトリにバイナリモジュールファイル hoge.gurd ができていることを確認したら、これを実際にインポートして動作を確認してみます。
 </p>
 
-<pre class="code">
-$ gura
+<pre><code>$ gura
 &gt;&gt;&gt; import(hoge)
 &gt;&gt;&gt; dir(hoge)
 [`__name__, `test]
 &gt;&gt;&gt; hoge.test(3, 5)
 8
-</pre>
+</code></pre>
 
 <p>
 あとは、Module_hoge.cpp を編集して、欲しい機能を実装していきましょう。動作するものができたら、以下のコマンドを実行して Gura の環境にモジュールをインストールします。
 </p>
 
-<pre class="code">
-$ sudo gura build.gura install
-</pre>
+<pre><code>$ sudo gura build.gura install
+</code></pre>
 
 <p>
 ところで、実際にプログラムを書いていくには Gura の内部で実装されている C++ の関数やクラスを知る必要がありますが、その近道は他のモジュールのソースファイルを見ることです。まずは Gura が提供しているモジュールのうち、あなたが作ろうとしている機能に近いものを探しましょう。モジュールのソースファイルはソースパッケージの中で gura/src/Module_モジュール名 という名前のディレクトリに格納されています。いずれもソースファイル 1～2 個から成るシンプルなものですし、すべて同じコーディングポリシーに基づいて作られているので、目的の機能を実現する手段を見つけるのは比較的容易だと思います。 

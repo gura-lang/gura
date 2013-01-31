@@ -41,12 +41,11 @@
 JPEG ファイルを PNG ファイルに変換します。
 </p>
 
-<pre class="code">
-import(jpeg)
+<pre><code>import(jpeg)
 import(png)
 I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 image(I('Winter.jpg')).write('Winter.png')
-</pre>
+</code></pre>
 
 <h3>イメージファイルを読み込み、グラフィック描画を重ねあわせてファイルに書き出し</h3>
 
@@ -54,8 +53,7 @@ image(I('Winter.jpg')).write('Winter.png')
 JPEG ファイルを読み込んだ後、Cairo ライブラリで描画をして、その結果を JPEG ファイルとして書き出します。
 </p>
 
-<pre class="code">
-import(jpeg)
+<pre><code>import(jpeg)
 import(cairo)
 I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 img = image(I('Winter.jpg'))
@@ -72,7 +70,7 @@ img.cairo {|cr|
     }
 }
 img.write('result.jpg')
-</pre>
+</code></pre>
 
 <h3>複数のイメージファイルを結合してアニメーション GIF ファイルを出力</h3>
 
@@ -80,18 +78,16 @@ img.write('result.jpg')
 GIF ファイルにファイルイメージを結合してアニメーション GIF ファイルを出力します。
 </p>
 
-<pre class="code">
-import(gif)
+<pre><code>import(gif)
 import(png)
 gif.content().addimage(['cell1.png', 'cell2.png', 'cell3.png'], 10).write('anim1.gif')
-</pre>
+</code></pre>
 
 <p>
 動的にイメージを作成して GIF ファイルにすることも可能です。 Cairo でイメージを描画して、アニメーション GIF として出力する例を以下に示します。
 </p>
 
-<pre class="code">
-import(cairo)
+<pre><code>import(cairo)
 import(gif)
 str = 'Hello'
 img = image(`rgba, 64, 64, `white)
@@ -109,7 +105,7 @@ img.cairo {|cr|
     }
 }
 gifobj.write('anim2.gif')
-</pre>
+</code></pre>
 
 <h3>OpenGL による三次元グラフィック</h3>
 
@@ -119,8 +115,7 @@ OpenGL 1.1 をサポートしています。
 以下の例は <a href="http://www.wakayama-u.ac.jp/~tokoi/opengl/libglut.html" class="link">GLUT による「手抜き」OpenGL 入門</a> に掲載されていたサンプルを Gura にポーティングしたものです。
 </p>
 
-<pre class="code">
-import(glu) {*}
+<pre><code>import(glu) {*}
 import(opengl) {*}
 import(gltester)
 
@@ -170,7 +165,7 @@ gltester.mainloop(width, height, 0, `idle) {
         `right =&gt; function { degree -= 1 }
     }
 }
-</pre>
+</code></pre>
 
 <p>
 実行例

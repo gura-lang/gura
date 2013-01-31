@@ -40,20 +40,18 @@
 汎用のストリームコピー関数 copy を使って、HTTP 経由のファイルダウンロードができます。
 </p>
 
-<pre class="code">
-import(net.http)
+<pre><code>import(net.http)
 copy('http://sourceforge.jp/', 'sf.html')
-</pre>
+</code></pre>
 
 <p>
 プロキシを通す場合は、以下のように net.http.addproxy() を使ってプロキシサーバの設定をしてください。
 </p>
 
-<pre class="code">
-import(net.http)
+<pre><code>import(net.http)
 net.http.addproxy('xx.xx.xx.xx', 8080, 'username', 'password')
 copy('http://sourceforge.jp/', 'sf.html')
-</pre>
+</code></pre>
 
 <h3>HTTP 経由で CSV ファイルを読み込んでデータ処理</h3>
 
@@ -61,15 +59,14 @@ copy('http://sourceforge.jp/', 'sf.html')
 SVN のレポジトリに格納されている CSV ファイルを HTTP プロトコル経由で読み込んで表示します。
 </p>
 
-<pre class="code">
-import(csv)
+<pre><code>import(csv)
 import(net.http)
 uri = 'http://sourceforge.jp/projects/gura/svn/view/trunk/' \
       'test/50records-en.csv?view=co&root=gura'
 Person = struct(name:string, email:string, gender:string, age:number, rest*)
 people = Person * csv.reader(uri):iter
 println(people)
-</pre>
+</code></pre>
 
 <p>
 CSV ファイルを読み込む関数 csv#read() そのものは、HTTP に関して何も知りません。言語本体が、パス名から適切なモジュール (上記の場合 net.http) のオープン関数を呼び出し、ストリームにして関数に渡しています。関数がストリームを引数として受け取るようにしておけば、HTTP などの通信プロトコルや、さまざまなデータ構造にアクセスできるようになります。
@@ -85,8 +82,7 @@ HTTP サーバとして動作します。日付と 3 個所の温度を記録し
 スクリプトを実行すると、HTTP のリクエスト待ちになります。ブラウザから http://localhost/?site=0,1 のようにアクセスしてください。 Linux で動作させる場合は、ルート権限でスクリプトを実行するか、ポート番号を 1024 以上に書き直してください。
 </p>
 
-<pre class="code">
-import(re)
+<pre><code>import(re)
 import(cairo)
 import(net.http)
 import(png)
@@ -134,7 +130,7 @@ net.http.server(port =&gt; 80).wait {|req|
     req.response('200', nil, buff,
         'Server' =&gt; 'Gura_HTTP_Server' 'Connection' =&gt; 'close')
 }
-</pre>
+</code></pre>
 
 <!-- ====================================================================== -->
       </section>

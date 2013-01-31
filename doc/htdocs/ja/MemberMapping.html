@@ -42,56 +42,50 @@
 メンバマッピングがどのように働くのかを見るため、簡単な構造体 Fruit を作ります。
 </p>
 
-<pre class="code">
-Fruit = struct(name:string, price:number) {
+<pre><code>Fruit = struct(name:string, price:number) {
     Print() = printf('name:%s  price:%d\n', self.name, self.price)
 }
-</pre>
+</code></pre>
 
 <p>
 関数 struct は、引数で指定したメンバ変数とブロック式の中で定義したメンバ関数を持つ構造体を作り、そのコンストラクタ関数を返します。このコンストラクタ関数を:
 </p>
 
-<pre class="code">
-fruit = Fruit('apple', 100)
-</pre>
+<pre><code>fruit = Fruit('apple', 100)
+</code></pre>
 
 <p>
 のように呼び出すとインスタンスをひとつ生成します。以下はインスタンスに対するメンバアクセスの例です。
 </p>
 
-<pre class="code">
-printf('%s costs %d\n', fruit.name, fruit.price)
+<pre><code>printf('%s costs %d\n', fruit.name, fruit.price)
 fruit.Print()
-</pre>
+</code></pre>
 
 <p>
 それでは、構造体 Fruit のインスタンスのリストを作ってみましょう。
 </p>
 
-<pre class="code">
-fruits = [
+<pre><code>fruits = [
     Fruit('apple', 100), Fruit('orange', 80), Fruit('grape', 120)
 ]
-</pre>
+</code></pre>
 
 <p>
 このリスト中のインスタンスに対して、メソッド Print を実行するにはどうすればよいでしょうか。はじめに思いつくのは、繰り返し構文を使ってインスタンスをひとつずつとりだし、メソッドを実行する方法です。これは Gura の関数 for を使って以下のように書けます。
 </p>
 
-<pre class="code">
-for (fruit in fruits) {
+<pre><code>for (fruit in fruits) {
     fruit.Print()
 }
-</pre>
+</code></pre>
 
 <p>
 メンバマッピングを使うと、上の処理は以下のように記述できます。
 </p>
 
-<pre class="code">
-fruits::Print()
-</pre>
+<pre><code>fruits::Print()
+</code></pre>
 
 <p>
 オペレータ :: がメンバマッピングの処理を表していて、この場合、リスト fruits の要素についてそれぞれメソッド Print を実行しています。
@@ -103,20 +97,18 @@ fruits::Print()
 繰り返しを使うと以下のように書けそうです。
 </p>
 
-<pre class="code">
-priceSum = 0
+<pre><code>priceSum = 0
 for (fruit in fruits) {
     priceSum += fruit.price
 }
-</pre>
+</code></pre>
 
 <p>
 メンバマッピングを使うと以下のようになります。
 </p>
 
-<pre class="code">
-fruits::price.sum()
-</pre>
+<pre><code>fruits::price.sum()
+</code></pre>
 
 <p>
 ずいぶんと簡単に書くことができました。fruits::price を評価すると各インスタンスのメンバ変数 price の値を評価し、それらをまとめたリストを返します。そのリストに対してメソッド sum を実行し合計を求めています。
@@ -128,23 +120,21 @@ fruits::price.sum()
 繰り返しを使った解決法は以下のようになります。
 </p>
 
-<pre class="code">
-lenMax = -1
+<pre><code>lenMax = -1
 for (fruit in fruits) {
     len = fruit.name.len()
     if (lenMax &gt; len) {
         lenMax = len
     }
 }
-</pre>
+</code></pre>
 
 <p>
 メンバマッピングを使うと、これが以下のように書けます。
 </p>
 
-<pre class="code">
-fruits::name::len().max()
-</pre>
+<pre><code>fruits::name::len().max()
+</code></pre>
 
 <p>
 fruits::name で名前のリストを得て、それに対してさらにメソッド len を実行して 名前の長さ のリストにします。そしてそのリスト全体に対してメソッド max を評価することで最長の長さを得られることになります。
@@ -153,9 +143,8 @@ fruits::name で名前のリストを得て、それに対してさらにメソ�
 このような処理が簡単な記述で実現できることは、他の処理と組み合わせていく上で大変有利です。上の処理を使って、一番長い名前の長さにそろえて表示する例は以下のようになります。
 </p>
 
-<pre class="code">
-printf('%-*s %d\n', fruits::name::len().max(), fruits::name, fruits::price)
-</pre>
+<pre><code>printf('%-*s %d\n', fruits::name::len().max(), fruits::name, fruits::price)
+</code></pre>
 
 <p>
 ところで、メンバマッピングオペレータ :: は逐次リストを生成しますので、 name や len() の処理結果もそのたびにリストを作ることになります。これですと fruits の数が多くなると作るリストの要素数も増えてしまい、速度効率やメモリ効率が悪くなります。
@@ -164,16 +153,14 @@ printf('%-*s %d\n', fruits::name::len().max(), fruits::name, fruits::price)
 これを解決するため、メンバマッピングオペレータ :* があります。このオペレータを使うと、その評価結果はイテレータになり、実際の演算が必要なときまで評価が先送りされます。上の例は以下のように記述することができます。
 </p>
 
-<pre class="code">
-printf('%-*s %d\n', fruits:*name:*len().max(), fruits:*name, fruits:*price)
-</pre>
+<pre><code>printf('%-*s %d\n', fruits:*name:*len().max(), fruits:*name, fruits:*price)
+</code></pre>
 
 <p>
 メンバマッピングを使った少し長めのプログラムを見てみましょう。以下は、名前や年齢を記録した CSV ファイルを読み込んで簡単な統計処理をする例です。データ列を扱うための繰り返し処理がなくなっている点にご注目ください。
 </p>
 
-<pre class="code">
-import(csv)
+<pre><code>import(csv)
 
 Person = struct(name:string, email:string, gender:string, age:number, rest*)
 people = Person * csv.reader(open('50records-en.csv'))
@@ -200,7 +187,7 @@ printf('40 &lt;= age &lt; 50  %d\n', ages.count(&{40 &lt;= $age && $age &lt; 50}
 printf('50 &lt;= age &lt; 60  %d\n', ages.count(&{50 &lt;= $age && $age &lt; 60}))
 printf('60 &lt;= age &lt; 70  %d\n', ages.count(&{60 &lt;= $age && $age &lt; 70}))
 printf('70 &lt;= age       %d\n', ages.count(&{70 &lt;= $age}))
-</pre>
+</code></pre>
 
 <!-- ====================================================================== -->
       </section>

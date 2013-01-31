@@ -39,8 +39,7 @@
 関数の引数には、オプション引数・デフォルト値・可変長引数を指定できます。
 </p>
 
-<pre class="code">
-f1(a, b?, c?) = printf('%s, %s, %s\n', a, b, c)
+<pre><code>f1(a, b?, c?) = printf('%s, %s, %s\n', a, b, c)
 f1(2)                                # 2, nil, nil
 
 f2(a, b = 10, c =&gt; 'abc') = printf('%s, %s, %s\n', a, b, c)
@@ -53,26 +52,24 @@ f3(2, 3)                             # 2, 3, []
 f4(a, b, c+) = printf('%s, %s, %s\n', a, b, c):nomap
 f4(2, 3, 4, 5, 6, 7)                 # 2, 3, [4, 5, 6, 7].
 f4(2, 3)                             # error. c has to get at least one value.
-</pre>
+</code></pre>
 
 <p>
 関数呼び出しの際は、キーワード引数指定ができます。キーワードと値は、辞書演算子 (=&gt;) で対応づけます。
 </p>
 
-<pre class="code">
-g1(a, b, c) = printf('%s, %s, %s\n', a, b, c)
+<pre><code>g1(a, b, c) = printf('%s, %s, %s\n', a, b, c)
 g1(2, b =&gt; 3, c =&gt; 4)                # 2, 3, 4
-</pre>
+</code></pre>
 
 <p>
 引数リストの中に、% を後尾につけたシンボルを加えておくと、引数リストに合致しないキーワード引数指定の組を辞書にした値をそのシンボルに割り当てます。
 </p>
 
-<pre class="code">
-g2(a, b, dict%) = printf('%s, %s, %s\n', a, b, dict)
+<pre><code>g2(a, b, dict%) = printf('%s, %s, %s\n', a, b, dict)
 g2(2, b =&gt; 3, c =&gt; 4, d =&gt; 5)        # 2, 3, %{c =&gt; 4, d =&gt; 5}
 g2(2, 3, c =&gt; 4, d =&gt; 5)             # 2, 3, %{c =&gt; 4, d =&gt; 5}
-</pre>
+</code></pre>
 
 <!-- ====================================================================== -->
       </section>

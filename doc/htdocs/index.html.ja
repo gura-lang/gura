@@ -22,11 +22,13 @@
         <p class="view"><a href="/ja/Download.html">Download</a></p>
         <p class="view"><a href="/ja/Install.html">Install</a></p>
         <p class="view"><a href="/ja/Gallery.html">Gallery</a></p>
+        <!--
         <ul>
           <li><a href="https://github.com/jxg/zipball/master">Download <strong>ZIP File</strong></a></li>
           <li><a href="https://github.com/jxg/tarball/master">Download <strong>TAR Ball</strong></a></li>
           <li><a href="https://github.com/jxg">View On <strong>GitHub</strong></a></li>
         </ul>
+        -->
       </header>
       <section>
 <!-- ====================================================================== -->
@@ -99,8 +101,8 @@ Windows 用に書いた Gura のプログラムはそのまま Linux でも動�
       </section>
       <footer>
         <a href="http://sourceforge.jp/">
-        <img src="http://sourceforge.jp/sflogo.php?group_id=5586&type=2" width="210" height="63" border="0" alt="SourceForge.JP" />
-        </a></span>
+        <img src="http://sourceforge.jp/sflogo.php?group_id=5586&type=2" alt="SourceForge.JP" />
+        </a>
         <!--
         <p>This project is maintained by <a href="https://github.com/jxg">jxg</a></p>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>

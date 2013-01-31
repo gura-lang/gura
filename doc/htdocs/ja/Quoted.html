@@ -42,8 +42,7 @@
 以下は、quoted value を使って、C の for ステートメントのような動作をする関数を作成している例です。
 </p>
 
-<pre class="code">
-c_like_for(`init, `cond, `next) {`block} = {
+<pre><code>c_like_for(`init, `cond, `next) {`block} = {
     env = outers()
     env.eval(init)
     while (env.eval(cond)) {
@@ -57,7 +56,7 @@ c_like_for (i = 1, i &lt;= 10, i += 1) {
     n += i
 }
 printf('i = %d, sum = %d\n', i, n)
-</pre>
+</code></pre>
 
 <!-- ====================================================================== -->
       </section>

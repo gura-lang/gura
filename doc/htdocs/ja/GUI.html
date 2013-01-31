@@ -43,8 +43,7 @@ Gura は GUI アプリケーション構築用に Tcl/Tk へのインターフ�
 以下はボタンウィジェットを一つ持ったウィンドウを作る例です。
 </p>
 
-<pre class="code">
-import(tk)
+<pre><code>import(tk)
 
 tk.mainwindow() {|mw|
     mw.Button(text =&gt; 'Push me') {|w|
@@ -55,15 +54,14 @@ tk.mainwindow() {|mw|
     }
 }
 tk.mainloop()
-</pre>
+</code></pre>
 
 <p>
 お絵かきプログラムです。
 <a href="http://www.tkdocs.com/" class="link">TkDocs</a> のサンプルをポーティングしました。
 </p>
 
-<pre class="code">
-import(tk)
+<pre><code>import(tk)
 
 tk.mainwindow() {|mw|
     mw.Canvas(bg =&gt; 'white') {|c|
@@ -92,7 +90,7 @@ tk.mainwindow() {|mw|
     }
 }
 tk.mainloop()
-</pre>
+</code></pre>
 
 <p>
 実行例
