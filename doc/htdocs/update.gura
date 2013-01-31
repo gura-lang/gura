@@ -68,11 +68,13 @@ MakeHeader(pathname:string) = {
         <p class="view"><a href="/${siteName}/Download.html">Download</a></p>
         <p class="view"><a href="/${siteName}/Install.html">Install</a></p>
         <p class="view"><a href="/${siteName}/Gallery.html">Gallery</a></p>
+        <!--
         <ul>
           <li><a href="https://github.com/jxg/zipball/master">Download <strong>ZIP File</strong></a></li>
           <li><a href="https://github.com/jxg/tarball/master">Download <strong>TAR Ball</strong></a></li>
           <li><a href="https://github.com/jxg">View On <strong>GitHub</strong></a></li>
         </ul>
+        -->
       </header>
       <section>
 '''.template()
