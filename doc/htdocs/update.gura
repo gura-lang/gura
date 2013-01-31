@@ -64,6 +64,10 @@ MakeHeader(pathname:string) = {
       <header>
         <a href="/"><img src="/images/banner-medium.png" alt="Gura Programming Language/" /></a>
         <p></p>
+        <p>
+        <a href="${pathnameEn}" class="${classEn}" style="margin-left: 1em">English</a> |
+        <a href="${pathnameJa}" class="${classJa}">Japanese</a>
+        </p>
         <p class="view"><a href="/">Top Page</a></p>
         <p class="view"><a href="/${siteName}/Download.html">Download</a></p>
         <p class="view"><a href="/${siteName}/Install.html">Install</a></p>
