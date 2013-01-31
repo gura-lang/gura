@@ -33,64 +33,66 @@
       <section>
 <!-- ====================================================================== -->
 
-<p><b>Gura</b> is an <b>iterator-oriented</b> programming language
+<p><strong>Gura</strong> is an <strong>iterator-oriented</strong> programming language
 that focuses on iterators with improved functions for calculation and data processing.
 It makes you be able to write an artificial code for
 what used to need a lot of codes of repeat syntax.</p>
 
 <p>For detail, see descriptions in
-<a href="en/ImplicitMapping.html" class="link">Implicit-mapping</a>
+<a href="en/ImplicitMapping.html" class="user-mention">Implicit-mapping</a>
 and
-<a href="en/MemberMapping.html" class="link">Member-mapping</a>.</p>
+<a href="en/MemberMapping.html" class="user-mention">Member-mapping</a>.</p>
 
-<p><b>Gura</b> has a variety of functions for convinient use of computers such as
-<a href="en/ImageProcessing.html" class="link">graphic image processing</a>,
-<a href="en/GUI.html" class="link">GUI operation</a>,
-<a href="en/HttpAccess.html" class="link">HTTP access</a>,
-<a href="en/DatabaseAccess.html" class="link">database access</a>,
+<p><strong>Gura</strong> has a variety of functions for convinient use of computers such as
+<a href="en/ImageProcessing.html" class="user-mention">graphic image processing</a>,
+<a href="en/GUI.html" class="user-mention">GUI operation</a>,
+<a href="en/HttpAccess.html" class="user-mention">HTTP access</a>,
+<a href="en/DatabaseAccess.html" class="user-mention">database access</a>,
 text operations like regular expression and CSV, etc.
 As for handling data exchanged among those functions,
-<a href="en/ImplicitMapping.html" class="link">Implicit-mapping</a>
+<a href="en/ImplicitMapping.html" class="user-mention">Implicit-mapping</a>
 and
-<a href="en/MemberMapping.html" class="link">Member-mapping</a>
+<a href="en/MemberMapping.html" class="user-mention">Member-mapping</a>
 would process them in a effective way.</p>
 
-<p><b>Gura</b> has a simple and easily-extensible syntax.
-It has a mechanism of <a href="en/Argument.html" class="link">variable-length arguments and named argument</a>,
-and a flexible manner of parameter passing by <a href="en/Block.html" class="link">block expression</a>.
-Further more, with <a href="en/Quoted.html" class="link">Quoted-values</a>,
+<p><strong>Gura</strong> has a simple and easily-extensible syntax.
+It has a mechanism of <a href="en/Argument.html" class="user-mention">variable-length arguments and named argument</a>,
+and a flexible manner of parameter passing by <a href="en/Block.html" class="user-mention">block expression</a>.
+Further more, with <a href="en/Quoted.html" class="user-mention">Quoted-values</a>,
 you can create your original control statements by passing pre-evaluated expressions to functions.
 You can also add member functions or variables to already existing classes and instances.
 Please enjoy a world of meta-programming!</p>
 
-<p><b>Gura</b> supports multi platforms.
+<p><strong>Gura</strong> supports multi platforms.
 Gura program written for Windows can run on Linux without any modification,
 and opposite is also possible. How to install the package is described in
-<a href="en/Install.html" class="link">here</a>.
+<a href="en/Install.html" class="user-mention">here</a>.
 </p>
 
-<p><b>Gura</b> is a language that can be expanded according to your usage.
+<p><strong>Gura</strong> is a language that can be expanded according to your usage.
 If you find any lacking functions, you can create binary modules that run in native mode using C++.
 I'm quite sure you'd recognize doing so is much easier than any specification
 that other languages prepare for the similar purpose.
-How to create such a module is described in <a href="en/BinaryModule.html" class="link">here</a>.
+How to create such a module is described in <a href="en/BinaryModule.html" class="user-mention">here</a>.
 </p>
 
-<h3>Further Information</h3>
+<h2>Further Information</h2>
 
+<p>
 <div>
-<img src="images/pdf.png" /><a href="http://sourceforge.jp/projects/gura/wiki/FrontPage/attach/gura-lang-j.pdf" class="link">Gura Language Manual</a> (Japanese)
+<img src="images/pdf.png" />Gura Language Manual (<a href="https://github.com/jxg/gura/blob/master/doc/gura-lang-j.pdf?raw=true" class="user-mention">Japanese</a>)
 </div>
 <div>
-<img src="images/pdf.png" /><a href="http://sourceforge.jp/projects/gura/wiki/FrontPage/attach/gura-lib-j.pdf" class="link">Gura Library Reference</a> (Japanese)
+<img src="images/pdf.png" />Gura Library Reference (<a href="https://github.com/jxg/gura/blob/master/doc/gura-lib-j.pdf?raw=true" class="user-mention">Japanese</a>)
 </div>
 <div>
-<img src="images/pdf.png" /><a href="http://sourceforge.jp/projects/gura/wiki/FrontPage/attach/gura-dev-j.pdf" class="link">Gura Developer's Manual</a> (Japanese)
+<img src="images/pdf.png" />Gura Developer's Manual (<a href="https://github.com/jxg/gura/blob/master/doc/gura-dev-j.pdf?raw=true" class="user-mention">Japanese</a>)
 </div>
+</p>
 
 <p>Any opinions and suggestions are welcome via
-<a href="http://sourceforge.jp/forum/forum.php?forum_id=25596" class="link">Gura Forum</a> or
-<a href="mailto:pxn11432@nifty.com" class="link">E-mail</a>.</p>
+<a href="http://sourceforge.jp/forum/forum.php?forum_id=25596" class="user-mention">Gura Forum</a> or
+<a href="mailto:pxn11432@nifty.com" class="user-mention">E-mail</a>.</p>
 
 <!-- ====================================================================== -->
       </section>
