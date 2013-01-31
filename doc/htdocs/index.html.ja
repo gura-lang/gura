@@ -1,39 +1,34 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!doctype html>
 <html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="stylesheet.css" rel="stylesheet" type="text/css">
-<link rel="shortcut icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
-<link rel="icon" href="http://gura.sourceforge.jp/favicon.ico" type="image/vnd.microsoft.icon" />
-<title>Gura Programming Language</title>
-<meta name="keywords" content="programming, language, interpreter, mapping, gura,
-implicit mapping, member mapping">
-</head>
-<body>
-<div>
-<a href="index.html.ja"><img src="images/banner.png" style="border: none" /></a>
-<a href="index.html.en" class="radio-off" style="margin-left: 1em">English</a> |
-<a href="index.html.ja" class="radio-on">Japanese</a>
-<span style="margin-left: 3em"><a href="http://sourceforge.jp/">
-<img src="http://sourceforge.jp/sflogo.php?group_id=5586&type=3" width="210" height="63" border="0" alt="SourceForge.JP" />
-</a></span>
-</div>
-
-<div style="color: white; background: #888888; margin-top: 1em; font-weight: bold">
-<span style="margin-left: 1em">Copyright (c) 2011-2012 <a href="mailto:pxn11432@nifty.com" style="color:white">Yutaka Saito</a></span>
-</div>
-<div style="height:.2em; background: #cccccc"></div>
-<table cellspacing="0" border="0" width="100%">
-<tr>
-<td valign="top" class="menu">
-<div class="menuitem"><a href="/" class="menuitem">トップページ</a></div>
-<div class="menuitem"><a href="ja/Download.html" class="menuitem">ダウンロード</a></div>
-<div class="menuitem"><a href="ja/Install.html" class="menuitem">インストール</a></div>
-<div class="menuitem"><a href="ja/Gallery.html" class="menuitem">ギャラリー</a></div>
-<div class="menuitem"><a href="http://sourceforge.jp/forum/forum.php?forum_id=25531" class="menuitem">Gura 掲示板</a></div>
-</td>
-
-<td valign="top" class="description">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="/gura/stylesheets/styles.css">
+    <link rel="stylesheet" href="/gura/stylesheets/pygment_trac.css">
+    <link rel="shortcut icon" href="/gura/images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="icon" href="/gura/images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <a href="http://jxg.github.com/gura/"><img src="/gura/images/banner-medium.png" alt="Gura Programming Language/" /></a>
+        <p></p>
+        <p class="view"><a href="/gura/">Top Page</a></p>
+        <p class="view"><a href="/gura/en/Download.html">Download</a></p>
+        <p class="view"><a href="/gura/en/Install.html">Install</a></p>
+        <p class="view"><a href="/gura/en/Gallery.html">Gallery</a></p>
+        <ul>
+          <li><a href="https://github.com/jxg/gura/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/jxg/gura/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/jxg/gura">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
 <!-- ====================================================================== -->
 
 <p><b>Gura</b> は、機能強化されたイテレータを中心に計算やデータ処理を行う
@@ -101,9 +96,12 @@ Windows 用に書いた Gura のプログラムはそのまま Linux でも動�
 職務経歴書をお送りします (2012 年 11 月 4 日現在)。 </p>
 
 <!-- ====================================================================== -->
-</td>
-</tr>
-
-</table>
-</body>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/jxg">jxg</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/javascripts/scale.fix.js"></script>
+  </body>
 </html>
