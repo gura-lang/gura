@@ -7,6 +7,7 @@
 #if defined(HAVE_WINDOWS_H)
 typedef int socklen_t;
 #else
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
