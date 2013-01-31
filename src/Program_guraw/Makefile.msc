@@ -10,7 +10,7 @@ CFLAGS =
 LDFLAGS = /SUBSYSTEM:WINDOWS
 all: $(TARGET)
 #------------------------------------------------------------------------------
-LIBS = $(LIBS) $(GURADIR)\lib\libgura-x86.lib
+LIBS = $(LIBS) $(GURADIR)\lib\libguracore-x86.lib
 
 CFLAGS = $(CFLAGS) /GL /I $(GURADIR)\include /D "_MBCS" \
 /FD /EHsc /MD /W3 /nologo /Zi /TP /errorReport:prompt

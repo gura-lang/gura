@@ -1,9 +1,9 @@
 #==============================================================================
 # Makefile for Microsoft Visual C++
 #==============================================================================
-LIB_GURA_D = ..\..\lib\libgura-x86.lib
-DLL_GURA = ..\..\bin-x86\libgura-x86.dll
-MANIFEST_GURA = ..\..\bin-x86\libgura-x86.dll.intermediate.manifest
+LIB_GURA_D = ..\..\lib\libguracore-x86.lib
+DLL_GURA = ..\..\bin-x86\libguracore-x86.dll
+MANIFEST_GURA = ..\..\bin-x86\libguracore-x86.dll.intermediate.manifest
 
 SRCS = \
 Common.cpp Parser.cpp Expr.cpp Value.cpp Iterator.cpp \
