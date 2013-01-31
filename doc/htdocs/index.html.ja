@@ -18,6 +18,10 @@
       <header>
         <a href="/"><img src="/images/banner-medium.png" alt="Gura Programming Language/" /></a>
         <p></p>
+        <p>
+        <a href="index.html.en" class="radio-off" style="margin-left: 1em">English</a> |
+        <a href="index.html.ja" class="radio-on">Japanese</a>
+        </p>
         <p class="view"><a href="/">Top Page</a></p>
         <p class="view"><a href="/ja/Download.html">Download</a></p>
         <p class="view"><a href="/ja/Install.html">Install</a></p>
