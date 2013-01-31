@@ -15,10 +15,10 @@ mesh_t = struct(widthX:number => 0, widthY:number => 0,
 				numFacets:number => 0, numCoords:number => 0, frames:number => 0,
 				coords[]:coord_t => [], facets[]:facet_t => []) {
 	GetCoord(frame:number, x:number, y:number):map = {
-		self.coords[frame * self.numCoords + x + y * self.widthX + 1]
+		this.coords[frame * this.numCoords + x + y * this.widthX + 1]
 	}
 	GetFacet(frame:number, x:number, y:number):map = {
-		self.facets[frame * self.numFacets + x + y * self.widthX]
+		this.facets[frame * this.numFacets + x + y * this.widthX]
 	}
 }
 

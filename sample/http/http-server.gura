@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-# encoding: shift_jis
+# encoding: utf-8
 import(re)
 import(net.http)
 
@@ -9,7 +9,7 @@ println('server started on port ', port)
 generateHtml(addedLines:string) = {
 	R'''
 <html>
-<div>Š¿š‚ÌƒeƒXƒg</div>
+<div>æ¼¢å­—ã®ãƒ†ã‚¹ãƒˆ</div>
 <body>
 <form method="post" action="hoge" id="form-A">
   <div>field-1: <input type="text" name="field-1" /></div>

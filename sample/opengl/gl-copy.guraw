@@ -63,15 +63,15 @@ scope {
 			y = event.y
 		}
 		OnIdle() = {
-			if (self.CheckKeyState(sdl.K_UP)) {
+			if (this.CheckKeyState(sdl.K_UP)) {
 				zoom += 0.2
 			}
-			if (self.CheckKeyState(sdl.K_DOWN)) {
+			if (this.CheckKeyState(sdl.K_DOWN)) {
 				zoom -= 0.2
 				if (zoom < 0.2) { zoom = 0.2 }
 			}
 			Draw()
-			self.SwapBuffers()
+			this.SwapBuffers()
 		}
 	}
 	app = App()

@@ -34,14 +34,14 @@ ID_NEWBUTTON] = wx.NewIds()
 MySimpleCanvas = class(wx.ScrolledWindow) {
 	__init__(parent:wx.Window, id:number, pos:wx.Point, size:wx.Size) = \
 				{|parent, id, pos, size, wx.SUNKEN_BORDER, 'test canvas'|
-		self.SetScrollRate(10, 10)
-		self.SetVirtualSizeWH(92, 97)
-		self.SetBackgroundColour(wx.WHITE)
-		self.Bind(wx.EVT_PAINT) {|event| self.OnPaint(event) }
+		this.SetScrollRate(10, 10)
+		this.SetVirtualSizeWH(92, 97)
+		this.SetBackgroundColour(wx.WHITE)
+		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event) }
 	}
 	OnPaint(event:wx.PaintEvent) = {
-		wx.PaintDC(self) {|dc|
-			self.PrepareDC(dc)
+		wx.PaintDC(this) {|dc|
+			this.PrepareDC(dc)
 			dc.SetPen(wx.RED_PEN)
 			dc.SetBrush(wx.TRANSPARENT_BRUSH)
 			dc.DrawRectangle(0, 0, 92, 97)
@@ -58,12 +58,12 @@ MySimpleFrame = class(wx.Frame) {
 		file_menu.Append(ID_QUIT, 'E&xit\tAlt-X')
 		menu_bar = wx.MenuBar()
 		menu_bar.Append(file_menu, '&File')
-		self.SetMenuBar(menu_bar)
-		self.m_canvas = MySimpleCanvas(self, wx.ID_ANY, wx.Point(0, 0), wx.Size(100, 100))
-		self.Bind(wx.EVT_MENU, ID_QUIT) {|event| self.OnQuit(event) }
+		this.SetMenuBar(menu_bar)
+		this.m_canvas = MySimpleCanvas(this, wx.ID_ANY, wx.Point(0, 0), wx.Size(100, 100))
+		this.Bind(wx.EVT_MENU, ID_QUIT) {|event| this.OnQuit(event) }
 	}
 	OnQuit(event:wx.CommandEvent) = {
-		self.Close(true)
+		this.Close(true)
 	}
 }
 
@@ -74,34 +74,34 @@ MySimpleFrame = class(wx.Frame) {
 MyCanvas = class(wx.ScrolledWindow) {
 	__init__(parent:wx.Window, id:number, pos:wx.Point, size:wx.Size) = \
 			{|parent, id, pos, size, (wx.SUNKEN_BORDER | wx.TAB_TRAVERSAL), 'test canvas'|
-		self.SetScrollRate(10, 10)
-		self.SetVirtualSizeWH(500, 1000)
-		wx.Button(self, ID_ADDBUTTON, 'add button', wx.Point(10, 10))
-		wx.Button(self, ID_DELBUTTON, 'del button', wx.Point(10, 40))
-		wx.Button(self, ID_MOVEBUTTON, 'move button', wx.Point(150, 10))
-		wx.Button(self, ID_SCROLLWIN, 'scroll win', wx.Point(250, 10))
-		test = wx.Panel(self, wx.ID_ANY, wx.Point(10, 110), wx.Size(130,50), wx.SIMPLE_BORDER | wx.TAB_TRAVERSAL)
+		this.SetScrollRate(10, 10)
+		this.SetVirtualSizeWH(500, 1000)
+		wx.Button(this, ID_ADDBUTTON, 'add button', wx.Point(10, 10))
+		wx.Button(this, ID_DELBUTTON, 'del button', wx.Point(10, 40))
+		wx.Button(this, ID_MOVEBUTTON, 'move button', wx.Point(150, 10))
+		wx.Button(this, ID_SCROLLWIN, 'scroll win', wx.Point(250, 10))
+		test = wx.Panel(this, wx.ID_ANY, wx.Point(10, 110), wx.Size(130,50), wx.SIMPLE_BORDER | wx.TAB_TRAVERSAL)
 		test.SetBackgroundColour('WHEAT')
-		self.SetBackgroundColour('BLUE')
-		self.SetCursor(wx.StockCursor(wx.CURSOR_IBEAM))
+		this.SetBackgroundColour('BLUE')
+		this.SetCursor(wx.StockCursor(wx.CURSOR_IBEAM))
 		// event handler
-		self.Bind(wx.EVT_PAINT) {|event| self.OnPaint(event) }
-		self.Bind(wx.EVT_RIGHT_DOWN) {|event| self.OnMouseRightDown(event) }
-		self.Bind(wx.EVT_MOUSEWHEEL) {|event| self.OnMouseWheel(event) }
-		self.Bind(wx.EVT_BUTTON, ID_QUERYPOS) {|event| self.OnQueryPosition(event) }
-		self.Bind(wx.EVT_BUTTON, ID_ADDBUTTON) {|event| self.OnAddButton(event) }
-		self.Bind(wx.EVT_BUTTON, ID_DELBUTTON) {|event| self.OnDeleteButton(event) }
-		self.Bind(wx.EVT_BUTTON, ID_MOVEBUTTON) {|event| self.OnMoveButton(event) }
-		self.Bind(wx.EVT_BUTTON, ID_SCROLLWIN) {|event| self.OnScrollWin(event) }
+		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event) }
+		this.Bind(wx.EVT_RIGHT_DOWN) {|event| this.OnMouseRightDown(event) }
+		this.Bind(wx.EVT_MOUSEWHEEL) {|event| this.OnMouseWheel(event) }
+		this.Bind(wx.EVT_BUTTON, ID_QUERYPOS) {|event| this.OnQueryPosition(event) }
+		this.Bind(wx.EVT_BUTTON, ID_ADDBUTTON) {|event| this.OnAddButton(event) }
+		this.Bind(wx.EVT_BUTTON, ID_DELBUTTON) {|event| this.OnDeleteButton(event) }
+		this.Bind(wx.EVT_BUTTON, ID_MOVEBUTTON) {|event| this.OnMoveButton(event) }
+		this.Bind(wx.EVT_BUTTON, ID_SCROLLWIN) {|event| this.OnScrollWin(event) }
 	}
 	OnMouseRightDown(event:wx.MouseEvent) = {
 		pt = event.GetPosition()
-		[x, y] = self.CalcUnscrolledPosition(pt.x, pt.y)
+		[x, y] = this.CalcUnscrolledPosition(pt.x, pt.y)
 		wx.LogMessage('Mouse down event at: %d %d, scrolled: %d %d', pt.x, pt.y, x, y)
 	}
 	OnMouseWheel(event:wx.MouseEvent) = {
 		pt = event.GetPosition()
-		[x, y] = self.CalcUnscrolledPosition(pt.x, pt.y)
+		[x, y] = this.CalcUnscrolledPosition(pt.x, pt.y)
 		wx.LogMessage('Mouse wheel event at: %d %d, scrolled: %d %d\n' \
 				'Rotation: %d, delta = %d',
 				pt.x, pt.y, x, y,
@@ -109,28 +109,28 @@ MyCanvas = class(wx.ScrolledWindow) {
 		event.Skip()
 	}
 	OnPaint(event:wx.PaintEvent) = {
-		wx.PaintDC(self) {|dc|
-			self.PrepareDC(dc)
+		wx.PaintDC(this) {|dc|
+			this.PrepareDC(dc)
 			dc.DrawText('Press mouse button to test calculations!', 160, 50)
 			dc.DrawText('Some text', 140, 140)
 			dc.DrawRectangle(100, 160, 200, 200)
 		}
 	}
 	OnQueryPosition(event:wx.CommandEvent) = {
-		pt = self.m_button.GetPosition()
+		pt = this.m_button.GetPosition()
 		wx.LogMessage('Position of "Query position" is %d %d', pt.x, pt.y )
-		pt = self.ClientToScreen(pt)
+		pt = this.ClientToScreen(pt)
 		wx.LogMessage('Position of "Query position" on screen is %d %d', pt.x, pt.y )
 	}
 	OnAddButton(event:wx.CommandEvent) = {
 		wx.LogMessage('Inserting button at position 10,70...')
-		button = wx.Button(self, ID_NEWBUTTON, 'new button', wx.Point(10, 70), wx.Size(80, 25))
+		button = wx.Button(this, ID_NEWBUTTON, 'new button', wx.Point(10, 70), wx.Size(80, 25))
 		pt = button.GetPosition()
 		wx.LogMessage('-> Position after inserting %d %d', pt.x, pt.y)
 	}
 	OnDeleteButton(event:wx.CommandEvent) = {
 		wx.LogMessage('Deleting button inserted with "Add button"...')
-		win = self.FindWindowById(ID_NEWBUTTON)
+		win = this.FindWindowById(ID_NEWBUTTON)
 		if (win) {
 			win.Destroy()
 		} else {
@@ -139,7 +139,7 @@ MyCanvas = class(wx.ScrolledWindow) {
 	}
 	OnMoveButton(event:wx.CommandEvent) = {
 		wx.LogMessage('Moving button 10 pixels downward..')
-		win = self.FindWindowById(event.GetId())
+		win = this.FindWindowById(event.GetId())
 		pt = win.GetPosition()
 		wx.LogMessage('-> Position before move is %d %d', pt.x, pt.y)
 		win.MoveXY(wx.DefaultCoord, pt.y + 10)
@@ -148,8 +148,8 @@ MyCanvas = class(wx.ScrolledWindow) {
 	}
 	OnScrollWin(event:wx.CommandEvent) = {
 		wx.LogMessage('Scrolling 2 units up.\nThe white square and the controls should move equally!')
-		[x, y] = self.GetViewStart()
-		self.Scroll(wx.DefaultCoord, y + 2)
+		[x, y] = this.GetViewStart()
+		this.Scroll(wx.DefaultCoord, y + 2)
 	}
 }
 
@@ -168,42 +168,42 @@ MyAutoScrollWindow = class(wx.ScrolledWindow) {
 	__init__(parent:wx.Window) = \
 			{|parent, -1, wx.DefaultPosition, wx.DefaultSize,
 	    						(wx.SUNKEN_BORDER | wx.ScrolledWindowStyle)|
-		self.SetBackgroundColour(wx.NamedColour('GREEN'))
+		this.SetBackgroundColour(wx.NamedColour('GREEN'))
 		// Set the rate we'd like for scrolling.
-		self.SetScrollRate(5, 5)
+		this.SetScrollRate(5, 5)
 		// Populate a sizer with a 'resizing' button and some
 		// other static decoration
 		innersizer = wx.FlexGridSizer(nil, 2, 2, 0)
-		self.m_button = wx.Button(self,
+		this.m_button = wx.Button(this,
 								ID_RESIZEBUTTON,
 								'Press me',
 								wx.DefaultPosition,
 								SMALL_BUTTON)
-		self.m_button.SetSizeWH(SMALL_BUTTON.GetWidth(), SMALL_BUTTON.GetHeight())
-		innersizer.Add(self.m_button,
+		this.m_button.SetSizeWH(SMALL_BUTTON.GetWidth(), SMALL_BUTTON.GetHeight())
+		innersizer.Add(this.m_button,
 					wx.SizerFlags(0).Align(wx.ALIGN_CENTER).Border(wx.ALL, 20))
-		innersizer.Add(wx.StaticText(self, wx.ID_ANY, 'This is just'),
+		innersizer.Add(wx.StaticText(this, wx.ID_ANY, 'This is just'),
 					wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
-		innersizer.Add(wx.StaticText(self, wx.ID_ANY, 'some decoration'),
+		innersizer.Add(wx.StaticText(this, wx.ID_ANY, 'some decoration'),
 					wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
-		innersizer.Add(wx.StaticText(self, wx.ID_ANY, 'for you to scroll...'),
+		innersizer.Add(wx.StaticText(this, wx.ID_ANY, 'for you to scroll...'),
 					wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
 		// Then use the sizer to set the scrolled region size.
-		self.SetSizer(innersizer)
+		this.SetSizer(innersizer)
 		// event handler
-		self.Bind(wx.EVT_BUTTON, ID_RESIZEBUTTON) {|event| self.OnResizeClick(event) }
+		this.Bind(wx.EVT_BUTTON, ID_RESIZEBUTTON) {|event| this.OnResizeClick(event) }
 	}
 	OnResizeClick(event:wx.CommandEvent) = {
 		// Arbitrarily resize the button to change the minimum size of
 		// the (scrolled) sizer.
-		if(self.m_button.GetSize() == SMALL_BUTTON) {
-			self.m_button.SetMinSize(LARGE_BUTTON)
+		if(this.m_button.GetSize() == SMALL_BUTTON) {
+			this.m_button.SetMinSize(LARGE_BUTTON)
 		} else {
-			self.m_button.SetMinSize(SMALL_BUTTON)
+			this.m_button.SetMinSize(SMALL_BUTTON)
 		}
 		// Force update layout and scrollbars, since nothing we do here
 		// necessarily generates a size event which would do it for us.
-		self.FitInside()
+		this.FitInside()
 	}
 }
 
@@ -220,42 +220,42 @@ MyFrame = class(wx.Frame) {
 		file_menu.Append(ID_QUIT,		'E&xit\tAlt-X')
 		menu_bar = wx.MenuBar()
 		menu_bar.Append(file_menu, '&File')
-		self.SetMenuBar(menu_bar)
-		self.CreateStatusBar(2)
+		this.SetMenuBar(menu_bar)
+		this.CreateStatusBar(2)
 		widths = [ -1, 100 ]
-		self.SetStatusWidths(widths)
+		this.SetStatusWidths(widths)
 		topsizer = wx.BoxSizer(wx.HORIZONTAL)
 		// subsizer splits topsizer down the middle
 		subsizer = wx.BoxSizer(wx.VERTICAL)
 		// Setting an explicit size here is superfluous, it will be overridden
 		// by the sizer in any case.
-		self.m_canvas = MyCanvas(self, wx.ID_ANY, wx.Point(0, 0), wx.Size(100, 100))
+		this.m_canvas = MyCanvas(this, wx.ID_ANY, wx.Point(0, 0), wx.Size(100, 100))
 		// This is done with ScrollRate/VirtualSize in MyCanvas ctor now,
 		// both should produce identical results.
 		//m_canvas.SetScrollbars( 10, 10, 50, 100 )
-		subsizer.Add(self.m_canvas, wx.SizerFlags(1).Expand())
-		subsizer.Add(MyAutoScrollWindow(self), wx.SizerFlags(1).Expand())
+		subsizer.Add(this.m_canvas, wx.SizerFlags(1).Expand())
+		subsizer.Add(MyAutoScrollWindow(this), wx.SizerFlags(1).Expand())
 		sizerBtm = wx.BoxSizer(wx.HORIZONTAL)
-		sizerBtm.Add(MyScrolledWindowDumb(self), wx.SizerFlags(1).Expand())
-		sizerBtm.Add(MyScrolledWindowSmart(self), wx.SizerFlags(1).Expand())
+		sizerBtm.Add(MyScrolledWindowDumb(this), wx.SizerFlags(1).Expand())
+		sizerBtm.Add(MyScrolledWindowSmart(this), wx.SizerFlags(1).Expand())
 		subsizer.Add(sizerBtm, wx.SizerFlags(1).Expand())
 		topsizer.Add(subsizer, wx.SizerFlags(1).Expand())
-		topsizer.Add(MyAutoTimedScrollingWindow(self), wx.SizerFlags(1).Expand())
-		self.SetSizer(topsizer)
+		topsizer.Add(MyAutoTimedScrollingWindow(this), wx.SizerFlags(1).Expand())
+		this.SetSizer(topsizer)
 		// event handler
-		self.Bind(wx.EVT_MENU, ID_DELETE_ALL) {|event| self.OnDeleteAll(event) }
-		self.Bind(wx.EVT_MENU, ID_INSERT_NEW) {|event| self.OnInsertNew(event) }
-		self.Bind(wx.EVT_MENU, ID_ABOUT) {|event| self.OnAbout(event) }
-		self.Bind(wx.EVT_MENU, ID_QUIT) {|event| self.OnQuit(event) }
+		this.Bind(wx.EVT_MENU, ID_DELETE_ALL) {|event| this.OnDeleteAll(event) }
+		this.Bind(wx.EVT_MENU, ID_INSERT_NEW) {|event| this.OnInsertNew(event) }
+		this.Bind(wx.EVT_MENU, ID_ABOUT) {|event| this.OnAbout(event) }
+		this.Bind(wx.EVT_MENU, ID_QUIT) {|event| this.OnQuit(event) }
 	}
 	OnDeleteAll(event:wx.CommandEvent) = {
-		self.m_canvas.DestroyChildren()
+		this.m_canvas.DestroyChildren()
 	}
 	OnInsertNew(event:wx.CommandEvent) = {
-		wx.Button(self.m_canvas, wx.ID_ANY, 'Hello', wx.Point(100, 100))
+		wx.Button(this.m_canvas, wx.ID_ANY, 'Hello', wx.Point(100, 100))
 	}
 	OnQuit(event:wx.CommandEvent) = {
-		self.Close(true)
+		this.Close(true)
 	}
 	OnAbout(event:wx.CommandEvent) = {
 		wx.MessageBox('wxScroll demo\n' \
@@ -290,9 +290,9 @@ MyApp = class(wx.App) {
 // base class for both of them
 MyScrolledWindowBase = class(wx.ScrolledWindow) {
 	__init__(parent:wx.Window) = {|parent|
-		self.m_nLines = 100
-		dc = wx.ClientDC(self)
-		[w, self.m_hLine] = dc.GetTextExtent('Line 17')
+		this.m_nLines = 100
+		dc = wx.ClientDC(this)
+		[w, this.m_hLine] = dc.GetTextExtent('Line 17')
 	}
 	OnDraw(dc:wx.DC) = {
 		println('MyScrolledWindowBase.OnDraw')
@@ -309,7 +309,7 @@ MyScrolledWindowBase = class(wx.ScrolledWindow) {
 MyScrolledWindowDumb = class(MyScrolledWindowBase) {
 	__init__(parent:wx.Window) = {|parent|
 		// no horz scrolling
-		self.SetScrollbars(0, self.m_hLine, 0, self.m_nLines + 1, 0, 0, true /* no refresh */)
+		this.SetScrollbars(0, this.m_hLine, 0, this.m_nLines + 1, 0, 0, true /* no refresh */)
 	}
 	s_redrawCount = 0
 	OnDraw(dc:wx.DC) = {
@@ -317,11 +317,11 @@ MyScrolledWindowDumb = class(MyScrolledWindowBase) {
 		dc.SetTextForeground(if (s_redrawCount % 2 != 0) {wx.RED} else {wx.BLUE})
 		s_redrawCount += 1
 		y = 0
-		repeat(self.m_nLines) {|line|
-			[x, yPhys] = self.CalcScrolledPosition(0, y)
+		repeat(this.m_nLines) {|line|
+			[x, yPhys] = this.CalcScrolledPosition(0, y)
 			dc.DrawText(format('Line %u (logical %d, physical %d)',
 												line, y, yPhys), 0, y)
-			y += self.m_hLine
+			y += this.m_hLine
 		}
 	}
 }
@@ -335,8 +335,8 @@ MyScrolledWindowDumb = class(MyScrolledWindowBase) {
 MyScrolledWindowSmart = class(MyScrolledWindowBase) {
 	__init__(parent:wx.Window) = {|parent|
 		// no horz scrolling
-		self.SetScrollRate(0, self.m_hLine)
-		self.SetVirtualSizeWH(wx.DefaultCoord, (self.m_nLines + 1 ) * self.m_hLine)
+		this.SetScrollRate(0, this.m_hLine)
+		this.SetVirtualSizeWH(wx.DefaultCoord, (this.m_nLines + 1 ) * this.m_hLine)
 	}
 	s_redrawCount = 0
 	OnDraw(dc:wx.DC) = {
@@ -344,19 +344,19 @@ MyScrolledWindowSmart = class(MyScrolledWindowBase) {
 		dc.SetTextForeground(if (s_redrawCount % 2 != 0) {wx.RED} else {wx.BLUE})
 		s_redrawCount += 1
 		// update region is always in device coords, translate to logical ones
-		rectUpdate = self.GetUpdateRegion().GetBox()
-		[rectUpdate.x, rectUpdate.y] = self.CalcUnscrolledPosition(rectUpdate.x, rectUpdate.y)
-		lineFrom = rectUpdate.y / self.m_hLine
-		lineTo = rectUpdate.GetBottom() / self.m_hLine
-		if (lineTo > self.m_nLines - 1) {
-			lineTo = self.m_nLines - 1
+		rectUpdate = this.GetUpdateRegion().GetBox()
+		[rectUpdate.x, rectUpdate.y] = this.CalcUnscrolledPosition(rectUpdate.x, rectUpdate.y)
+		lineFrom = rectUpdate.y / this.m_hLine
+		lineTo = rectUpdate.GetBottom() / this.m_hLine
+		if (lineTo > this.m_nLines - 1) {
+			lineTo = this.m_nLines - 1
 		}
-		y = lineFrom * self.m_hLine
+		y = lineFrom * this.m_hLine
 		for (line in lineFrom .. lineTo) {
-			[xPhys, yPhys] = self.CalcScrolledPosition(0, y)
+			[xPhys, yPhys] = this.CalcScrolledPosition(0, y)
 			dc.DrawText(format('Line %u (logical %d, physical %d)',
 										 line, y, yPhys), 0, y)
-			y += self.m_hLine
+			y += this.m_hLine
 		}
 	}
 }
@@ -371,28 +371,28 @@ MyAutoTimedScrollingWindow = class(wx.ScrolledWindow) {
 	__init__(parent:wx.Window) = \
 		{|parent, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize,
 								(wx.VSCROLL | wx.HSCROLL | wx.SUNKEN_BORDER)|
-		self.m_selStart = wx.Point(-1, -1), self.m_cursor = wx.Point(-1, -1)
-		self.m_font = wx.Font(9, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL,
+		this.m_selStart = wx.Point(-1, -1), this.m_cursor = wx.Point(-1, -1)
+		this.m_font = wx.Font(9, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL,
 						wx.FONTWEIGHT_NORMAL)
-		dc = wx.ClientDC(self)
+		dc = wx.ClientDC(this)
 		// query dc for text size
-		dc.SetFont(self.m_font)
-		[self.m_fontW, self.m_fontH] = dc.GetTextExtent('A')
+		dc.SetFont(this.m_font)
+		[this.m_fontW, this.m_fontH] = dc.GetTextExtent('A')
 		// set up the virtual window
-		self.SetScrollbars(self.m_fontW, self.m_fontH, self.sm_lineLen, self.sm_lineCnt)
+		this.SetScrollbars(this.m_fontW, this.m_fontH, this.sm_lineLen, this.sm_lineCnt)
 		// event handler
-		self.Bind(wx.EVT_LEFT_DOWN) {|event| self.OnMouseLeftDown(event) }
-		self.Bind(wx.EVT_LEFT_UP) {|event| self.OnMouseLeftUp(event) }
-		self.Bind(wx.EVT_MOTION) {|event| self.OnMouseMove(event) }
-		self.Bind(wx.EVT_SCROLLWIN) {|event| self.OnScroll(event) }
+		this.Bind(wx.EVT_LEFT_DOWN) {|event| this.OnMouseLeftDown(event) }
+		this.Bind(wx.EVT_LEFT_UP) {|event| this.OnMouseLeftUp(event) }
+		this.Bind(wx.EVT_MOTION) {|event| this.OnMouseMove(event) }
+		this.Bind(wx.EVT_SCROLLWIN) {|event| this.OnScroll(event) }
 	}
 	DeviceCoordsToGraphicalChars(updRect:wx.Rect) = {
 		pos = updRect.GetPosition()
-		pos = self.DeviceCoordsToGraphicalChars(pos)
+		pos = this.DeviceCoordsToGraphicalChars(pos)
 		updRect.x = pos.x
 		updRect.y = pos.y
-		updRect.width /= self.m_fontW
-		updRect.height /= self.m_fontH
+		updRect.width /= this.m_fontW
+		updRect.height /= this.m_fontH
 		// the *CoordsToGraphicalChars() funcs round down to upper-left corner,
 		//   so an off-by-one correction is needed
 		updRect.width += 1 // kludge
@@ -400,28 +400,28 @@ MyAutoTimedScrollingWindow = class(wx.ScrolledWindow) {
 		updRect
 	}
 	DeviceCoordsToGraphicalChars(pos:wx.Point) = {
-		pos.x /= self.m_fontW
-		pos.y /= self.m_fontH
-		[vX, vY] = self.GetViewStart()
+		pos.x /= this.m_fontW
+		pos.y /= this.m_fontH
+		[vX, vY] = this.GetViewStart()
 		pos.x += vX
 		pos.y += vY
 		pos
 	}
 	GraphicalCharToDeviceCoords(pos:wx.Point) = {
-		[vX, vY] = self.GetViewStart()
+		[vX, vY] = this.GetViewStart()
 		pos.x -= vX
 		pos.y -= vY
-		pos.x *= self.m_fontW
-		pos.y *= self.m_fontH
+		pos.x *= this.m_fontW
+		pos.y *= this.m_fontH
 		pos
 	}
 	LogicalCoordsToGraphicalChars(updRect:wx.Rect) = {
 		pos = updRect.GetPosition()
-		pos = self.LogicalCoordsToGraphicalChars(pos)
+		pos = this.LogicalCoordsToGraphicalChars(pos)
 		updRect.x = pos.x
 		updRect.y = pos.y
-		updRect.width /= self.m_fontW
-		updRect.height /= self.m_fontH
+		updRect.width /= this.m_fontW
+		updRect.height /= this.m_fontH
 		// the *CoordsToGraphicalChars() funcs round down to upper-left corner,
 		//   so an off-by-one correction is needed
 		updRect.width += 1 // kludge
@@ -429,69 +429,69 @@ MyAutoTimedScrollingWindow = class(wx.ScrolledWindow) {
 		updRect
 	}
 	LogicalCoordsToGraphicalChars(pos:wx.Point) = {
-		pos.x /= self.m_fontW
-		pos.y /= self.m_fontH
+		pos.x /= this.m_fontW
+		pos.y /= this.m_fontH
 		pos
 	}
 	GraphicalCharToLogicalCoords(pos:wx.Point) = {
-		pos.x *= self.m_fontW
-		pos.y *= self.m_fontH
+		pos.x *= this.m_fontW
+		pos.y *= this.m_fontH
 		pos
 	}
 	lastSelStart = wx.Point(-1, -1)
 	lastCursor = wx.Point(-1, -1)
 	MyRefresh() = {
 		// refresh last selected area (to deselect previously selected text)
-		pt1 = self.GraphicalCharToDeviceCoords(self.lastSelStart)
-		pt2 = self.GraphicalCharToDeviceCoords(self.lastCursor)
+		pt1 = this.GraphicalCharToDeviceCoords(this.lastSelStart)
+		pt2 = this.GraphicalCharToDeviceCoords(this.lastCursor)
 		lastUpdRect = wx.Rect(pt1.x, pt1.y, pt2.x - pt1.x, pt2.y - pt1.y)
 		// off-by-one corrections, necessary because it's not possible to know
 		//   when to round up until rect is normalized by lastUpdRect constructor
-		self.lastUpdRect.width += self.m_fontW // kludge
-		self.lastUpdRect.height += self.m_fontH // kludge
+		this.lastUpdRect.width += this.m_fontW // kludge
+		this.lastUpdRect.height += this.m_fontH // kludge
 		// refresh currently selected (to select previously unselected text)
-		pt1 = self.GraphicalCharToDeviceCoords(self.m_selStart)
-		pt2 = self.GraphicalCharToDeviceCoords(self.m_cursor)
+		pt1 = this.GraphicalCharToDeviceCoords(this.m_selStart)
+		pt2 = this.GraphicalCharToDeviceCoords(this.m_cursor)
 		updRect = wx.Rect(pt1.x, pt1.y, pt2.x - pt1.x, pt2.y - pt1.y)
 		// off-by-one corrections
-		updRect.width += self.m_fontW // kludge
-		updRect.height += self.m_fontH // kludge
+		updRect.width += this.m_fontW // kludge
+		updRect.height += this.m_fontH // kludge
 		// find necessary refresh areas
 		rx = lastUpdRect.x
 		ry = lastUpdRect.y
 		rw = updRect.x - lastUpdRect.x
 		rh = lastUpdRect.height
 		if (rw != 0 && rh != 0) {
-			self.RefreshRect(self.DCNormalize(rx, ry, rw, rh))
+			this.RefreshRect(this.DCNormalize(rx, ry, rw, rh))
 		}
 		rx = updRect.x
 		ry = updRect.y + updRect.height
 		rw= updRect.width
 		rh = (lastUpdRect.y + lastUpdRect.height) - (updRect.y + updRect.height)
 		if (rw != 0 && rh != 0) {
-			self.RefreshRect(self.DCNormalize(rx, ry, rw, rh))
+			this.RefreshRect(this.DCNormalize(rx, ry, rw, rh))
 		}
 		rx = updRect.x + updRect.width
 		ry = lastUpdRect.y
 		rw = (lastUpdRect.x + lastUpdRect.width) - (updRect.x + updRect.width)
 		rh = lastUpdRect.height
 		if (rw != 0 && rh != 0) {
-			self.RefreshRect(self.DCNormalize(rx, ry, rw, rh))
+			this.RefreshRect(this.DCNormalize(rx, ry, rw, rh))
 		}
 		rx = updRect.x
 		ry = lastUpdRect.y
 		rw = updRect.width
 		rh = updRect.y - lastUpdRect.y
 		if (rw != 0 && rh != 0) {
-			self.RefreshRect(self.DCNormalize(rx, ry, rw, rh))
+			this.RefreshRect(this.DCNormalize(rx, ry, rw, rh))
 		}
 		// update last
-		self.lastSelStart = m_selStart
-		self.lastCursor = m_cursor
+		this.lastSelStart = m_selStart
+		this.lastCursor = m_cursor
 	}
 	IsSelected(chX:number, chY:number) = {
-		if (self.IsInside(chX, self.m_selStart.x, self.m_cursor.x) \
-				&& self.IsInside(chY, self.m_selStart.y, self.m_cursor.y)) {
+		if (this.IsInside(chX, this.m_selStart.x, this.m_cursor.x) \
+				&& this.IsInside(chY, this.m_selStart.y, this.m_cursor.y)) {
 			return(true)
 		}
 		false
@@ -525,24 +525,24 @@ MyAutoTimedScrollingWindow = class(wx.ScrolledWindow) {
 	}
 	// event stuff
 	OnDraw(dc:wx.DC) = {
-		dc.SetFont(self.m_font)
+		dc.SetFont(this.m_font)
 		normBrush = wx.Brush(wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW), wx.SOLID)
 		selBrush = wx.Brush(wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT), wx.SOLID)
 		dc.SetPen(wx.TRANSPARENT_PEN)
-		str = self.sm_testData
+		str = this.sm_testData
 		/*
 		// draw the characters
 		// 1. for each update region
-		upd = wx.RegionIterator(self.GetUpdateRegion())
+		upd = wx.RegionIterator(this.GetUpdateRegion())
 		while (upd.HaveRects()) {
 			updRect = upd.GetRect()
-			updRectInGChars = self.DeviceCoordsToGraphicalChars(updRect)
+			updRectInGChars = this.DeviceCoordsToGraphicalChars(updRect)
 			// 2. for each row of chars in the update region
 			for (chY in updRectInGChars.y..(updRectInGChars.y + updRectInGChars.height)) {
 				// 3. for each character in the row
 				for (chX in updRectInGChars.x..(updRectInGChars.x + updRectInGChars.width)) {
 					// 4. set up dc
-					if (self.IsSelected(chX, chY)) {
+					if (this.IsSelected(chX, chY)) {
 						dc.SetBrush(selBrush)
 						dc.SetTextForeground(wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHTTEXT))
 					} else {
@@ -550,12 +550,12 @@ MyAutoTimedScrollingWindow = class(wx.ScrolledWindow) {
 						dc.SetTextForeground(wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOWTEXT))
 					}
 					// 5. find position info
-					charPos = self.GraphicalCharToLogicalCoords(wx.Point(chX, chY))
+					charPos = this.GraphicalCharToLogicalCoords(wx.Point(chX, chY))
 					// 6. draw!
-					dc.DrawRectangle(charPos.x, charPos.y, self.m_fontW, self.m_fontH)
-					charIndex = chY * self.sm_lineLen + chX
-					if (chY < self.sm_lineCnt && \
-						chX < self.sm_lineLen && \
+					dc.DrawRectangle(charPos.x, charPos.y, this.m_fontW, this.m_fontH)
+					charIndex = chY * this.sm_lineLen + chX
+					if (chY < this.sm_lineCnt && \
+						chX < this.sm_lineLen && \
 						charIndex < str.len()) {
 						dc.DrawText(str.mid(charIndex, 1),
 									charPos.x, charPos.y)
@@ -568,36 +568,36 @@ MyAutoTimedScrollingWindow = class(wx.ScrolledWindow) {
 	}
 	OnMouseLeftDown(event:wx.MouseEvent) = {
 		// initial press of mouse button sets the beginning of the selection
-		self.m_selStart = self.DeviceCoordsToGraphicalChars(event.GetPosition())
+		this.m_selStart = this.DeviceCoordsToGraphicalChars(event.GetPosition())
 		// set the cursor to the same position
-		self.m_cursor = self.m_selStart
+		this.m_cursor = this.m_selStart
 		// draw/erase selection
-		self.MyRefresh()
+		this.MyRefresh()
 	}
 	OnMouseLeftUp(event:wx.MouseEvent) = {
 		// this test is necessary
-		if (self.HasCapture()) {
+		if (this.HasCapture()) {
 			// uncapture mouse
-			self.ReleaseMouse()
+			this.ReleaseMouse()
 		}
 	}
 	OnMouseMove(event:wx.MouseEvent) = {
 		// if user is dragging
 		if (event.Dragging() && event.LeftIsDown()) {
 			// set the new cursor position
-			self.m_cursor = self.DeviceCoordsToGraphicalChars(event.GetPosition())
+			this.m_cursor = this.DeviceCoordsToGraphicalChars(event.GetPosition())
 			// draw/erase selection
-			self.MyRefresh()
+			this.MyRefresh()
 			// capture mouse to activate auto-scrolling
-			if (!self.HasCapture()) {
-				self.CaptureMouse()
+			if (!this.HasCapture()) {
+				this.CaptureMouse()
 			}
 		}
 	}
 	OnScroll(event:wx.ScrollWinEvent) = {
 		// need to move the cursor when autoscrolling
 		// FIXME: the cursor also moves when the scrollbar arrows are clicked
-		if (self.HasCapture()) {
+		if (this.HasCapture()) {
 			if (event.GetOrientation() == wx.HORIZONTAL) {
 				if (event.GetEventType() == wx.EVT_SCROLLWIN_LINEUP) {
 					m_cursor.x -= 1
@@ -612,7 +612,7 @@ MyAutoTimedScrollingWindow = class(wx.ScrolledWindow) {
 				}
 			}
 		}
-		self.MyRefresh()
+		this.MyRefresh()
 		event.Skip()
 	}
 }
@@ -625,7 +625,7 @@ MyAutoTimedScrollingWindow.sm_testData = \
 "Raphael's or a dramatic scene like one of Shakespeare's, we convince ourselves " \
 "that the capacity to do so is quite extraordinarily marvelous, a wholly " \
 "uncommon accident, or, if we are still religiously inclined, a mercy from on " \
-"high. Thus our vanity, our self-love, promotes the cult of the genius: for only " \
+"high. Thus our vanity, our this-love, promotes the cult of the genius: for only " \
 "if we think of him as being very remote from us, as a miraculum, does he not " \
 "aggrieve us (even Goethe, who was without envy, called Shakespeare his star of " \
 "the most distant heights [\"William! Stern der schonsten Ferne\": from Goethe's, " \
@@ -634,12 +634,12 @@ MyAutoTimedScrollingWindow.sm_testData = \
 "from these suggestions of our vanity, the activity of the genius seems in no " \
 "way fundamentally different from the activity of the inventor of machines, the " \
 "scholar of astronomy or history, the master of tactics. All these activities " \
-"are explicable if one pictures to oneself people whose thinking is active in " \
+"are explicable if one pictures to onethis people whose thinking is active in " \
 "one direction, who employ everything as material, who always zealously observe " \
 "their own inner life and that of others, who perceive everywhere models and " \
 "incentives, who never tire of combining together the means available to them. " \
 "Genius too does nothing except learn first how to lay bricks then how to build, " \
-"except continually seek for material and continually form itself around it. " \
+"except continually seek for material and continually form itthis around it. " \
 "Every activity of man is amazingly complicated, not only that of the genius: " \
 "but none is a \"miracle.\" Whence, then, the belief that genius exists only in " \
 "the artist, orator and philosopher? that only they have \"intuition\"? (Whereby " \
@@ -675,7 +675,7 @@ MyAutoTimedScrollingWindow.sm_testData = \
 "describing human types and characters; one should above all relate things to " \
 "others and listen to others relate, keeping one's eyes and ears open for the " \
 "effect produced on those present, one should travel like a landscape painter or " \
-"costume designer; one should excerpt for oneself out of the individual sciences " \
+"costume designer; one should excerpt for onethis out of the individual sciences " \
 "everything that will produce an artistic effect when it is well described, one " \
 "should, finally, reflect on the motives of human actions, disdain no signpost " \
 "to instruction about them and be a collector of these things by day and night. " \
@@ -704,17 +704,17 @@ MyAutoTimedScrollingWindow.sm_testData = \
 "their own spirit during its time of development the finest form of discipline " \
 "and schooling. On the other hand, it is at least questionable whether the " \
 "superstitious belief in genius, in its privileges and special abilities, is of " \
-"benefit to the genius himself if it takes root in him. It is in any event a " \
-"dangerous sign when a man is assailed by awe of himself, whether it be the " \
+"benefit to the genius himthis if it takes root in him. It is in any event a " \
+"dangerous sign when a man is assailed by awe of himthis, whether it be the " \
 "celebrated Caesar's awe of Caesar or the awe of one's own genius now under " \
 "consideration; when the sacrificial incense which is properly rendered only to " \
 "a god penetrates the brain of the genius, so that his head begins to swim and " \
-"he comes to regard himself as something supra-human. The consequences that " \
+"he comes to regard himthis as something supra-human. The consequences that " \
 "slowly result are: the feeling of irresponsibility, of exceptional rights, the " \
 "belief that he confers a favor by his mere presence, insane rage when anyone " \
 "attempts even to compare him with others, let alone to rate him beneath them, " \
 "or to draw attention to lapses in his work. Because he ceases to practice " \
-"criticism of himself, at last one pinion after the other falls out of his " \
+"criticism of himthis, at last one pinion after the other falls out of his " \
 "plumage: that superstitious eats at the roots of his powers and perhaps even " \
 "turns him into a hypocrite after his powers have fled from him. For the great " \
 "spirits themselves it is therefore probably more beneficial if they acquire an " \
@@ -724,7 +724,7 @@ MyAutoTimedScrollingWindow.sm_testData = \
 "application to individual goals, great personal courage, then the good fortune " \
 "to receive an upbringing which offered in the early years the finest teachers, " \
 "models and methods. To be sure, when their goal is the production of the " \
-"greatest possible effect, unclarity with regard to oneself and that " \
+"greatest possible effect, unclarity with regard to onethis and that " \
 "semi-insanity superadded to it has always achieved much; for what has been " \
 "admired and envied at all times has been that power in them by virtue of which " \
 "they render men will-less and sweep them away into the delusion that the " \
@@ -736,10 +736,10 @@ MyAutoTimedScrollingWindow.sm_testData = \
 "excessive in all directions, was held firmly together: in the life of " \
 "individuals, too, illusions that are in themselves poisons often play the role " \
 "of healers; yet, in the end, in the case of every \"genius\" who believes in his " \
-"own divinity the poison shows itself to the same degree as his \"genius\" grows " \
+"own divinity the poison shows itthis to the same degree as his \"genius\" grows " \
 "old: one may recall, for example, the case of Napoleon, whose nature certainly " \
 "grew into the mighty unity that sets him apart from all men of modern times " \
-"precisely through his belief in himself and his star and through the contempt " \
+"precisely through his belief in himthis and his star and through the contempt " \
 "for men that flowed from it; until in the end, however, this same belief went " \
 "over into an almost insane fatalism, robbed him of his acuteness and swiftness " \
 "of perception, and became the cause of his destruction."

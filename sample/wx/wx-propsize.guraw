@@ -41,7 +41,7 @@ MyApp = class(wx.App) {
 		// Show it and tell the application that it's our main window
 		// @@@ what does it do exactly, in fact? is it necessary here?
 		frame.Show(true)
-		self.SetTopWindow(frame)
+		this.SetTopWindow(frame)
 		// success: wxApp::OnRun() will be called which will enter the main message
 		// loop and the application will run. If we returned false here, the
 		// application would exit immediately.
@@ -55,9 +55,9 @@ MyApp = class(wx.App) {
 
 MyFrame = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point, size:wx.Size) = {|nil, wx.ID_ANY, title, pos, size|
-		self.EventTable()
+		this.EventTable()
 	    // set the frame icon
-		self.SetIcon(wx.IconFromXPMData(resource.mondrian_xpm))
+		this.SetIcon(wx.IconFromXPMData(resource.mondrian_xpm))
 		// create a menu bar
 		menuFile = wx.Menu('', wx.MENU_TEAROFF)
 		menuFile.Append(wx.ID_ABOUT, '&About...\tCtrl-A', 'Show about dialog')
@@ -67,16 +67,16 @@ MyFrame = class(wx.Frame) {
 		menuBar = wx.MenuBar()
 		menuBar.Append(menuFile, '&File')
 		// ... and attach this menu bar to the frame
-		self.SetMenuBar(menuBar)
+		this.SetMenuBar(menuBar)
 		// create a status bar just for fun (by default with 1 pane only)
-		self.CreateStatusBar(1)
-		self.SetStatusText('Resize the frame to see how controls react')
-		parent = self
+		this.CreateStatusBar(1)
+		this.SetStatusText('Resize the frame to see how controls react')
+		parent = this
 		classref(`wx.BoxSizer) {|ref|
-			ref.AddLine(orient) = self.Add(
+			ref.AddLine(orient) = this.Add(
 				wx.StaticLine(parent, wx.ID_ANY, wx.DefaultPosition, wx.Size(2, 2), orient),
 				wx.SizerFlags(0).Expand())
-			ref.AddButton(label, align) = self.Add(
+			ref.AddButton(label, align) = this.Add(
 				wx.Button(parent, wx.ID_ANY, label, wx.DefaultPosition, wx.Size(100,50)),
 				wx.SizerFlags(1).Shaped().Align(align))
 		}
@@ -96,10 +96,10 @@ MyFrame = class(wx.Frame) {
 		// sizer that preserves it's shape
 		vsizer = wx.BoxSizer(wx.VERTICAL)
 		vsizer.Add(
-			wx.Button(self, wx.ID_ANY, 'up', wx.DefaultPosition, wx.Size(100, 25)),
+			wx.Button(this, wx.ID_ANY, 'up', wx.DefaultPosition, wx.Size(100, 25)),
 			wx.SizerFlags(1).Expand())
 		vsizer.Add(
-			wx.Button(self, wx.ID_ANY, 'down', wx.DefaultPosition, wx.Size(100, 25)),
+			wx.Button(this, wx.ID_ANY, 'down', wx.DefaultPosition, wx.Size(100, 25)),
 			wx.SizerFlags(1).Expand())
 		hsizer2.Add(vsizer, wx.SizerFlags(1).Shaped().Align(wx.ALIGN_CENTER))
 		hsizer2.AddLine(wx.VERTICAL)
@@ -115,23 +115,23 @@ MyFrame = class(wx.Frame) {
 		hsizer3.AddButton('nine', wx.EXPAND | wx.ALIGN_RIGHT | wx.ALIGN_BOTTOM)
 		topsizer.Add(hsizer3, wx.SizerFlags(1).Expand())
 		// set frame to minimum size
-		topsizer.Fit(self)
+		topsizer.Fit(this)
 		// don't allow frame to get smaller than what the sizers tell ye
 		// topsizer.SetSizeHints( this )
-		self.SetSizer(topsizer)
+		this.SetSizer(topsizer)
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MENU, Minimal_Quit) {|event| self.OnQuit(event) }
-		self.Bind(wx.EVT_MENU, wx.ID_ABOUT) {|event| self.OnAbout(event) }
+		this.Bind(wx.EVT_MENU, Minimal_Quit) {|event| this.OnQuit(event) }
+		this.Bind(wx.EVT_MENU, wx.ID_ABOUT) {|event| this.OnAbout(event) }
 	}
 	OnQuit(event:wx.CommandEvent) = {
 		// true is to force the frame to close
-		self.Close(true)
+		this.Close(true)
 	}
 	OnAbout(event:wx.CommandEvent) = {
 		msg = format('This is the about dialog of proportional sizer test.\n' \
 					'Welcome to %s', wx.VERSION_STRING)
-		wx.MessageBox(msg, 'About Shaped Sizer', wx.OK | wx.ICON_INFORMATION, self)
+		wx.MessageBox(msg, 'About Shaped Sizer', wx.OK | wx.ICON_INFORMATION, this)
 	}
 }
 

@@ -41,7 +41,7 @@ MyFrame = class(wx.Frame) {
 	__init__() = {|nil, wx.ID_ANY, 'wxWidgets Layout Demo',
 				wx.DefaultPosition, wx.DefaultSize,
 				(wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE)|
-		self.EventTable()
+		this.EventTable()
 		// Make a menubar
 		file_menu = wx.Menu()
 		file_menu.Append(LAYOUT_TEST_PROPORTIONS, '&Proportions demo...\tF1')
@@ -58,10 +58,10 @@ MyFrame = class(wx.Frame) {
 		menu_bar.Append(file_menu, '&File')
 		menu_bar.Append(help_menu, '&Help')
 		// Associate the menu bar with the frame
-		self.SetMenuBar(menu_bar)
-		self.CreateStatusBar(2)
-		self.SetStatusText('wxWidgets layout demo')
-		p = wx.Panel(self, wx.ID_ANY)
+		this.SetMenuBar(menu_bar)
+		this.CreateStatusBar(2)
+		this.SetStatusText('wxWidgets layout demo')
+		p = wx.Panel(this, wx.ID_ANY)
 		// we want to get a dialog that is stretchable because it
 		// has a text ctrl in the middle. at the bottom, we have
 		// two buttons which.
@@ -118,30 +118,30 @@ MyFrame = class(wx.Frame) {
 		p.SetSizer(topsizer)
 		// don't allow frame to get smaller than what the sizers tell it and also set
 		// the initial size as calculated by the sizers
-		topsizer.SetSizeHints(self)
+		topsizer.SetSizeHints(this)
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MENU, LAYOUT_ABOUT) {|event| self.OnAbout(event) }
-		self.Bind(wx.EVT_MENU, LAYOUT_QUIT) {|event| self.OnQuit(event) }
-		self.Bind(wx.EVT_MENU, LAYOUT_TEST_PROPORTIONS) {|event| self.TestProportions(event) }
-		self.Bind(wx.EVT_MENU, LAYOUT_TEST_SIZER) {|event| self.TestFlexSizers(event) }
-		self.Bind(wx.EVT_MENU, LAYOUT_TEST_NB_SIZER) {|event| self.TestNotebookSizers(event) }
-		self.Bind(wx.EVT_MENU, LAYOUT_TEST_GB_SIZER) {|event| self.TestGridBagSizer(event) }
-		self.Bind(wx.EVT_MENU, LAYOUT_TEST_SET_MINIMAL) {|event| self.TestSetMinimal(event) }
-		self.Bind(wx.EVT_MENU, LAYOUT_TEST_NESTED) {|event| self.TestNested(event) }
+		this.Bind(wx.EVT_MENU, LAYOUT_ABOUT) {|event| this.OnAbout(event) }
+		this.Bind(wx.EVT_MENU, LAYOUT_QUIT) {|event| this.OnQuit(event) }
+		this.Bind(wx.EVT_MENU, LAYOUT_TEST_PROPORTIONS) {|event| this.TestProportions(event) }
+		this.Bind(wx.EVT_MENU, LAYOUT_TEST_SIZER) {|event| this.TestFlexSizers(event) }
+		this.Bind(wx.EVT_MENU, LAYOUT_TEST_NB_SIZER) {|event| this.TestNotebookSizers(event) }
+		this.Bind(wx.EVT_MENU, LAYOUT_TEST_GB_SIZER) {|event| this.TestGridBagSizer(event) }
+		this.Bind(wx.EVT_MENU, LAYOUT_TEST_SET_MINIMAL) {|event| this.TestSetMinimal(event) }
+		this.Bind(wx.EVT_MENU, LAYOUT_TEST_NESTED) {|event| this.TestNested(event) }
 	}
 	OnQuit(event:wx.CommandEvent) = {
-		self.Close(true)
+		this.Close(true)
 	}
 	TestProportions(event:wx.CommandEvent) = {
-		MyProportionsFrame(self).Show()
+		MyProportionsFrame(this).Show()
 	}
 	TestFlexSizers(event:wx.CommandEvent) = {
 		newFrame = MyFlexSizerFrame('Flex Sizer Test Frame', 50, 50)
 		newFrame.Show(true)
 	}
 	TestNotebookSizers(event:wx.CommandEvent) = {
-		dialog = MySizerDialog(self, 'Notebook Sizer Test Dialog')
+		dialog = MySizerDialog(this, 'Notebook Sizer Test Dialog')
 		dialog.ShowModal()
 	}
 	TestSetMinimal(event:wx.CommandEvent) = {
@@ -166,61 +166,61 @@ MyFrame = class(wx.Frame) {
 MyProportionsFrame = class(wx.Frame) {
 	__init__(parent:wx.Frame) = {|parent, wx.ID_ANY, 'Box Sizer Proportions Demo'|
 	    // create the controls
-		panel = wx.Panel(self, wx.ID_ANY)
-		self.m_spins = repeat(3):list {|n|
+		panel = wx.Panel(this, wx.ID_ANY)
+		this.m_spins = repeat(3):list {|n|
 			spin = wx.SpinCtrl(panel)
 			spin.SetValue(n)
 			spin
 		}
 		// lay them out
-		self.m_sizer = wx.StaticBoxSizerAuto(wx.HORIZONTAL, panel,
+		this.m_sizer = wx.StaticBoxSizerAuto(wx.HORIZONTAL, panel,
 					'Try changing elements proportions and resizing the window')
-		self.m_sizer.Add(self.m_spins, wx.SizerFlags().Border())
+		this.m_sizer.Add(this.m_spins, wx.SizerFlags().Border())
 		// put everything together
-		panel.SetSizer(self.m_sizer)
+		panel.SetSizer(this.m_sizer)
 		sizerTop = wx.BoxSizer(wx.VERTICAL)
 		sizerTop.Add(panel, wx.SizerFlags(1).Expand().Border())
-		self.UpdateProportions()
-		self.SetSizerAndFit(sizerTop)
+		this.UpdateProportions()
+		this.SetSizerAndFit(sizerTop)
 		// and connect the events
-		self.Bind(wx.EVT_TEXT) {|event| self.OnProportionUpdated(event) }
-		self.Bind(wx.EVT_SPINCTRL) {|event| self.OnProportionChanged(event) }
+		this.Bind(wx.EVT_TEXT) {|event| this.OnProportionUpdated(event) }
+		this.Bind(wx.EVT_SPINCTRL) {|event| this.OnProportionChanged(event) }
 	}
 	UpdateProportions() = {
-		self.m_sizer.GetItem(0..):&SetProportion(self.m_spins:*GetValue())
-		self.m_sizer.Layout()
+		this.m_sizer.GetItem(0..):&SetProportion(this.m_spins:*GetValue())
+		this.m_sizer.Layout()
 	}
 	OnProportionUpdated(event:wx.CommandEvent) = {
-		self.UpdateProportions()
+		this.UpdateProportions()
 	}
 	OnProportionChanged(event:wx.SpinEvent) = {
-		self.UpdateProportions()
+		this.UpdateProportions()
 	}
 }
 
 // a frame using flex sizers for layout
 MyFlexSizerFrame = class(wx.Frame) {
 	__init__(title:string, x:number, y:number) = {|nil, wx.ID_ANY, title, wx.Point(x, y)|
-		p = wx.Panel(self, wx.ID_ANY)
+		p = wx.Panel(this, wx.ID_ANY)
 		// consttuct the first column
 		sizerCol1 = wx.BoxSizer(wx.VERTICAL)
 		sizerCol1.Add(wx.StaticText(p, wx.ID_ANY, 'Ungrowable:'), wx.SizerFlags(0).Center().Border(wx.TOP, 20))
 		sizerFlex = wx.FlexGridSizer(nil, 3, 3, 0)
-		self.InitFlexSizer(sizerFlex, p)
+		this.InitFlexSizer(sizerFlex, p)
 		sizerCol1.Add(sizerFlex, wx.SizerFlags(1).Expand().Border(wx.ALL, 10))
 		sizerCol1.Add(wx.StaticText(p, wx.ID_ANY, 'Growable middle column:'), wx.SizerFlags(0).Center().Border(wx.TOP, 20))
 		sizerFlex = wx.FlexGridSizer(nil, 3, 3, 0)
-		self.InitFlexSizer(sizerFlex, p)
+		this.InitFlexSizer(sizerFlex, p)
 		sizerFlex.AddGrowableCol(1)
 		sizerCol1.Add(sizerFlex, wx.SizerFlags(1).Expand().Border(wx.ALL, 10))
 		sizerCol1.Add(wx.StaticText(p, wx.ID_ANY, 'Growable middle row:'), wx.SizerFlags(0).Center().Border(wx.TOP, 20))
 		sizerFlex = wx.FlexGridSizer(nil, 3, 3, 0)
-		self.InitFlexSizer(sizerFlex, p)
+		this.InitFlexSizer(sizerFlex, p)
 		sizerFlex.AddGrowableRow(1)
 		sizerCol1.Add(sizerFlex, wx.SizerFlags(1).Expand().Border(wx.ALL, 10))
 		sizerCol1.Add(wx.StaticText(p, wx.ID_ANY, 'All growable columns:'), wx.SizerFlags(0).Center().Border(wx.TOP, 20))
 		sizerFlex = wx.FlexGridSizer(nil, 3, 3, 0)
-		self.InitFlexSizer(sizerFlex, p)
+		this.InitFlexSizer(sizerFlex, p)
 		sizerFlex.AddGrowableCol(0, 1)
 		sizerFlex.AddGrowableCol(1, 2)
 		sizerFlex.AddGrowableCol(2, 3)
@@ -229,20 +229,20 @@ MyFlexSizerFrame = class(wx.Frame) {
 		sizerCol2 = wx.BoxSizer(wx.VERTICAL)
 		sizerCol2.Add(wx.StaticText(p, wx.ID_ANY, 'Growable middle row and column:'), wx.SizerFlags(0).Center().Border(wx.TOP, 20))
 		sizerFlex = wx.FlexGridSizer(nil, 3, 3, 0)
-		self.InitFlexSizer(sizerFlex, p)
+		this.InitFlexSizer(sizerFlex, p)
 		sizerFlex.AddGrowableCol(1)
 		sizerFlex.AddGrowableRow(1)
 		sizerCol2.Add(sizerFlex, wx.SizerFlags(1).Expand().Border(wx.ALL, 10))
 		sizerCol2.Add(wx.StaticText(p, wx.ID_ANY, 'Same with horz flex direction'), wx.SizerFlags(0).Center().Border(wx.TOP, 20))
 		sizerFlex = wx.FlexGridSizer(nil, 3, 3, 0)
-		self.InitFlexSizer(sizerFlex, p)
+		this.InitFlexSizer(sizerFlex, p)
 		sizerFlex.AddGrowableCol(1)
 		sizerFlex.AddGrowableRow(1)
 		sizerFlex.SetFlexibleDirection(wx.HORIZONTAL)
 		sizerCol2.Add(sizerFlex, wx.SizerFlags(1).Expand().Border(wx.ALL, 10))
 		sizerCol2.Add(wx.StaticText(p, wx.ID_ANY, 'Same with grow mode == \"none\"'), wx.SizerFlags(0).Center().Border(wx.TOP, 20))
 		sizerFlex = wx.FlexGridSizer(nil, 3, 3, 0)
-		self.InitFlexSizer(sizerFlex, p)
+		this.InitFlexSizer(sizerFlex, p)
 		sizerFlex.AddGrowableCol(1)
 		sizerFlex.AddGrowableRow(1)
 		sizerFlex.SetFlexibleDirection(wx.HORIZONTAL)
@@ -250,7 +250,7 @@ MyFlexSizerFrame = class(wx.Frame) {
 		sizerCol2.Add(sizerFlex, wx.SizerFlags(1).Expand().Border(wx.ALL, 10))
 		sizerCol2.Add(wx.StaticText(p, wx.ID_ANY, 'Same with grow mode == \"all\"'), wx.SizerFlags(0).Center().Border(wx.TOP, 20))
 		sizerFlex = wx.FlexGridSizer(nil, 3, 3, 0)
-		self.InitFlexSizer(sizerFlex, p)
+		this.InitFlexSizer(sizerFlex, p)
 		sizerFlex.AddGrowableCol(1)
 		sizerFlex.AddGrowableRow(1)
 		sizerFlex.SetFlexibleDirection(wx.HORIZONTAL)
@@ -261,7 +261,7 @@ MyFlexSizerFrame = class(wx.Frame) {
 		sizerTop.Add(sizerCol1, wx.SizerFlags(1).Expand())
 		sizerTop.Add(sizerCol2, wx.SizerFlags(1).Expand())
 		p.SetSizer(sizerTop)
-		sizerTop.SetSizeHints(self)
+		sizerTop.SetSizeHints(this)
 	}
 	InitFlexSizer(sizer:wx.FlexGridSizer, parent:wx.Window) = {
 		cross(i in 0..2, j in 0..2) {
@@ -283,9 +283,9 @@ MySizerDialog = class(wx.Dialog) {
 		// Begin with first hierarchy: a notebook at the top and
 		// and OK button at the bottom.
 		topsizer = wx.BoxSizer(wx.VERTICAL)
-		notebook = wx.Notebook(self, wx.ID_ANY)
+		notebook = wx.Notebook(this, wx.ID_ANY)
 		topsizer.Add(notebook, wx.SizerFlags(1))
-		button = wx.Button(self, wx.ID_OK, 'OK')
+		button = wx.Button(this, wx.ID_OK, 'OK')
 		topsizer.Add(button, wx.SizerFlags(0).Align(wx.ALIGN_RIGHT).Border(wx.ALL, 10))
 		// First page: one big text ctrl
 		multi = wx.TextCtrl(notebook, wx.ID_ANY, 'TextCtrl.', wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE)
@@ -303,8 +303,8 @@ MySizerDialog = class(wx.Dialog) {
 		panel.SetAutoLayout(true)
 		panel.SetSizer(panelsizer)
 		// Tell dialog to use sizer
-		self.SetSizer(topsizer)
-		topsizer.SetSizeHints(self)
+		this.SetSizer(topsizer)
+		topsizer.SetSizeHints(this)
 	}
 }
 
@@ -328,85 +328,85 @@ MyGridBagSizerFrame = class(wx.Frame) {
 		MLTEXTCTRL(text) = wx.TextCtrl(p, wx.ID_ANY, text, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE)
 		POS(r, c) = wx.GBPosition(r, c)
 		SPAN(r, c) = wx.GBSpan(r, c)
-		self.EventHandler()
-		p = wx.Panel(self, wx.ID_ANY)
-		self.m_panel = p
-		self.m_gbs = wx.GridBagSizer()
-		self.m_gbs.Add(wx.StaticText(p, wx.ID_ANY, gbsDescription),
+		this.EventHandler()
+		p = wx.Panel(this, wx.ID_ANY)
+		this.m_panel = p
+		this.m_gbs = wx.GridBagSizer()
+		this.m_gbs.Add(wx.StaticText(p, wx.ID_ANY, gbsDescription),
 					POS(0, 0), SPAN(1, 7),
 					wx.ALIGN_CENTER | wx.ALL, 5)
-		self.m_gbs.Add(TEXTCTRL('pos(1,0)'), POS(1, 0))
-		self.m_gbs.Add(TEXTCTRL('pos(1,1)'), POS(1, 1))
-		self.m_gbs.Add(TEXTCTRL('pos(2,0)'), POS(2, 0))
-		self.m_gbs.Add(TEXTCTRL('pos(2,1)'), POS(2, 1))
-		self.m_gbs.Add(MLTEXTCTRL('pos(3,2), span(1,2)\nthis row and col are growable'),
+		this.m_gbs.Add(TEXTCTRL('pos(1,0)'), POS(1, 0))
+		this.m_gbs.Add(TEXTCTRL('pos(1,1)'), POS(1, 1))
+		this.m_gbs.Add(TEXTCTRL('pos(2,0)'), POS(2, 0))
+		this.m_gbs.Add(TEXTCTRL('pos(2,1)'), POS(2, 1))
+		this.m_gbs.Add(MLTEXTCTRL('pos(3,2), span(1,2)\nthis row and col are growable'),
 				  POS(3,2), SPAN(1,2), wx.EXPAND)
-		self.m_gbs.Add(MLTEXTCTRL('pos(4,3)\nspan(3,1)'),
+		this.m_gbs.Add(MLTEXTCTRL('pos(4,3)\nspan(3,1)'),
 				  POS(4,3), SPAN(3,1), wx.EXPAND)
-		self.m_gbs.Add(TEXTCTRL('pos(5,4)'), POS(5,4), wx.DefaultSpan, wx.EXPAND)
-		self.m_gbs.Add(TEXTCTRL('pos(6,5)'), POS(6,5), wx.DefaultSpan, wx.EXPAND)
-		self.m_gbs.Add(TEXTCTRL('pos(7,6)'), POS(7,6) )
-		//self.m_gbs.Add(TEXTCTRL('bad position'), POS(4, 3))  // Test for assert
-		//self.m_gbs.Add(TEXTCTRL('bad position'), POS(5, 3))  // Test for assert
-		self.m_moveBtn1 = wx.Button(p, GBS_MOVE_BTN1, 'Move this to (3,6)')
-		self.m_moveBtn2 = wx.Button(p, GBS_MOVE_BTN2, 'Move this to (3,6)')
-		self.m_gbs.Add(self.m_moveBtn1, POS(10, 2))
-		self.m_gbs.Add(self.m_moveBtn2, POS(10, 3))
-		self.m_hideBtn = wx.Button(p, GBS_HIDE_BTN, 'Hide this item -.')
-		self.m_gbs.Add(self.m_hideBtn, POS(12, 3))
-		self.m_hideTxt = wx.TextCtrl(p, wx.ID_ANY, 'pos(12,4), size(150, wxDefaultCoord)',
+		this.m_gbs.Add(TEXTCTRL('pos(5,4)'), POS(5,4), wx.DefaultSpan, wx.EXPAND)
+		this.m_gbs.Add(TEXTCTRL('pos(6,5)'), POS(6,5), wx.DefaultSpan, wx.EXPAND)
+		this.m_gbs.Add(TEXTCTRL('pos(7,6)'), POS(7,6) )
+		//this.m_gbs.Add(TEXTCTRL('bad position'), POS(4, 3))  // Test for assert
+		//this.m_gbs.Add(TEXTCTRL('bad position'), POS(5, 3))  // Test for assert
+		this.m_moveBtn1 = wx.Button(p, GBS_MOVE_BTN1, 'Move this to (3,6)')
+		this.m_moveBtn2 = wx.Button(p, GBS_MOVE_BTN2, 'Move this to (3,6)')
+		this.m_gbs.Add(this.m_moveBtn1, POS(10, 2))
+		this.m_gbs.Add(this.m_moveBtn2, POS(10, 3))
+		this.m_hideBtn = wx.Button(p, GBS_HIDE_BTN, 'Hide this item -.')
+		this.m_gbs.Add(this.m_hideBtn, POS(12, 3))
+		this.m_hideTxt = wx.TextCtrl(p, wx.ID_ANY, 'pos(12,4), size(150, wxDefaultCoord)',
 									wx.DefaultPosition, wx.Size(150, wx.DefaultCoord))
-		self.m_gbs.Add(self.m_hideTxt, POS(12, 4))
-		self.m_showBtn = wx.Button(p, GBS_SHOW_BTN, '<-- Show it again')
-		self.m_gbs.Add(self.m_showBtn, POS(12, 5))
-		self.m_showBtn.Disable()
-		self.m_gbs.AddSpacer(10, 10, POS(14, 0))
-		self.m_gbs.AddGrowableRow(3)
-		self.m_gbs.AddGrowableCol(2)
-		p.SetSizerAndFit(self.m_gbs)
-		self.SetClientSize(p.GetSize())
+		this.m_gbs.Add(this.m_hideTxt, POS(12, 4))
+		this.m_showBtn = wx.Button(p, GBS_SHOW_BTN, '<-- Show it again')
+		this.m_gbs.Add(this.m_showBtn, POS(12, 5))
+		this.m_showBtn.Disable()
+		this.m_gbs.AddSpacer(10, 10, POS(14, 0))
+		this.m_gbs.AddGrowableRow(3)
+		this.m_gbs.AddGrowableCol(2)
+		p.SetSizerAndFit(this.m_gbs)
+		this.SetClientSize(p.GetSize())
 	}
 	EventHandler() = {
-		self.Bind(wx.EVT_BUTTON, GBS_HIDE_BTN) {|event| self.OnHideBtn(event) }
-		self.Bind(wx.EVT_BUTTON, GBS_SHOW_BTN) {|event| self.OnShowBtn(event) }
-		self.Bind(wx.EVT_BUTTON, GBS_MOVE_BTN1) {|event| self.OnMoveBtn(event) }
-		self.Bind(wx.EVT_BUTTON, GBS_MOVE_BTN2) {|event| self.OnMoveBtn(event) }
+		this.Bind(wx.EVT_BUTTON, GBS_HIDE_BTN) {|event| this.OnHideBtn(event) }
+		this.Bind(wx.EVT_BUTTON, GBS_SHOW_BTN) {|event| this.OnShowBtn(event) }
+		this.Bind(wx.EVT_BUTTON, GBS_MOVE_BTN1) {|event| this.OnMoveBtn(event) }
+		this.Bind(wx.EVT_BUTTON, GBS_MOVE_BTN2) {|event| this.OnMoveBtn(event) }
 	}
 	OnHideBtn(event:wx.CommandEvent) = {
-		self.m_gbs.Hide(self.m_hideTxt)
-		self.m_hideBtn.Disable()
-		self.m_showBtn.Enable()
-		self.m_gbs.Layout()
+		this.m_gbs.Hide(this.m_hideTxt)
+		this.m_hideBtn.Disable()
+		this.m_showBtn.Enable()
+		this.m_gbs.Layout()
 	}
 	OnShowBtn(event:wx.CommandEvent) = {
-		self.m_gbs.Show(self.m_hideTxt)
-		self.m_hideBtn.Enable()
-		self.m_showBtn.Disable()
-		self.m_gbs.Layout()
+		this.m_gbs.Show(this.m_hideTxt)
+		this.m_hideBtn.Enable()
+		this.m_showBtn.Disable()
+		this.m_gbs.Layout()
 	}
 	OnMoveBtn(event:wx.CommandEvent) = {
 		btn = (%{
-			GBS_MOVE_BTN1 => self.m_moveBtn1,
-			GBS_MOVE_BTN2 => self.m_moveBtn2,
+			GBS_MOVE_BTN1 => this.m_moveBtn1,
+			GBS_MOVE_BTN2 => this.m_moveBtn2,
 		})[event.GetId()]
-		curPos = self.m_gbs.GetItemPosition(btn)
+		curPos = this.m_gbs.GetItemPosition(btn)
 		// if it's already at the "other" spot then move it back
 		if (curPos == wx.GBPosition(3, 6)) {
-			self.m_gbs.SetItemPosition(btn, self.m_lastPos)
+			this.m_gbs.SetItemPosition(btn, this.m_lastPos)
 			btn.SetLabel('Move this to (3,6)')
 		} else {
-			if (self.m_gbs.CheckForIntersectionPos(wx.GBPosition(3, 6), wx.GBSpan(1, 1))) {
+			if (this.m_gbs.CheckForIntersectionPos(wx.GBPosition(3, 6), wx.GBSpan(1, 1))) {
 				wx.MessageBox(
 '''wxGridBagSizer will not allow items to be in the same cell as
 another item, so this operation will fail.  You will also get an assert
 when compiled in debug mode.''', 'Warning', wx.OK | wx.ICON_INFORMATION)
 			}
-			if (self.m_gbs.SetItemPosition(btn, wx.GBPosition(3, 6))) {
-				self.m_lastPos = curPos
+			if (this.m_gbs.SetItemPosition(btn, wx.GBPosition(3, 6))) {
+				this.m_lastPos = curPos
 				btn.SetLabel('Move it back')
 			}
 		}
-		self.m_gbs.Layout()
+		this.m_gbs.Layout()
 	}
 }
 
@@ -418,34 +418,34 @@ ID_SET_BIG
 // a frame for testing simple setting of "default size"
 MySimpleSizerFrame = class(wx.Frame) {
 	__init__(title:string, x:number, y:number) = {|nil, wx.ID_ANY, title, wx.Point(x, y)|
-		self.EventHandler()
+		this.EventHandler()
 		menu = wx.Menu()
 		menu.Append(ID_SET_SMALL, 'Make text control small\tF4')
 		menu.Append(ID_SET_BIG, 'Make text control big\tF5')
 		menu_bar = wx.MenuBar()
 		menu_bar.Append(menu, '&File')
-		self.SetMenuBar(menu_bar)
+		this.SetMenuBar(menu_bar)
 		main_sizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.m_target = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(80, wx.DefaultCoord))
-		main_sizer.Add(self.m_target, wx.SizerFlags(1).Border(wx.ALL, 5))
-		main_sizer.Add(wx.StaticText(self, wx.ID_ANY, 'Set alternating sizes using F4 and F5'), wx.SizerFlags(0).Border(wx.ALL, 5))
-		self.SetSizer(main_sizer)
-		self.Layout()
-		self.GetSizer().Fit(self)
+		this.m_target = wx.TextCtrl(this, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(80, wx.DefaultCoord))
+		main_sizer.Add(this.m_target, wx.SizerFlags(1).Border(wx.ALL, 5))
+		main_sizer.Add(wx.StaticText(this, wx.ID_ANY, 'Set alternating sizes using F4 and F5'), wx.SizerFlags(0).Border(wx.ALL, 5))
+		this.SetSizer(main_sizer)
+		this.Layout()
+		this.GetSizer().Fit(this)
 	}
 	EventHandler() = {
-		self.Bind(wx.EVT_MENU, ID_SET_SMALL) {|event| self.OnSetSmallSize(event) }
-		self.Bind(wx.EVT_MENU, ID_SET_BIG) {|event| self.OnSetBigSize(event) }
+		this.Bind(wx.EVT_MENU, ID_SET_SMALL) {|event| this.OnSetSmallSize(event) }
+		this.Bind(wx.EVT_MENU, ID_SET_BIG) {|event| this.OnSetBigSize(event) }
 	}
 	OnSetSmallSize(event:wx.CommandEvent) = {
-		self.GetSizer().SetItemMinSize(self.m_target, 40, -1)
-		self.Layout()
-		self.GetSizer().Fit(self)
+		this.GetSizer().SetItemMinSize(this.m_target, 40, -1)
+		this.Layout()
+		this.GetSizer().Fit(this)
 	}
 	OnSetBigSize(event:wx.CommandEvent) = {
-		self.GetSizer().SetItemMinSize(self.m_target, 140, -1)
-		self.Layout()
-		self.GetSizer().Fit(self)
+		this.GetSizer().SetItemMinSize(this.m_target, 140, -1)
+		this.Layout()
+		this.GetSizer().Fit(this)
 	}
 }
 
@@ -458,13 +458,13 @@ MyNestedSizerFrame = class(wx.Frame) {
 		menu.Append(wx.ID_ABOUT, 'Do nothing')
 		menu_bar = wx.MenuBar()
 		menu_bar.Append(menu, '&File')
-		self.SetMenuBar(menu_bar)
+		this.SetMenuBar(menu_bar)
 		main_sizer = wx.BoxSizer(wx.VERTICAL)
-		main_sizer.Add(wx.StaticText(self, -1, 'Hello outside'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
-		main_sizer.Add(wx.StaticText(self, -1, 'Hello outside'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
-		main_sizer.Add(wx.StaticText(self, -1, 'Hello outside'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
-		main_sizer.Add(wx.StaticText(self, -1, 'Hello outside'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
-		panel = wx.Panel(self, -1, wx.DefaultPosition, wx.DefaultSize, 
+		main_sizer.Add(wx.StaticText(this, -1, 'Hello outside'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
+		main_sizer.Add(wx.StaticText(this, -1, 'Hello outside'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
+		main_sizer.Add(wx.StaticText(this, -1, 'Hello outside'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
+		main_sizer.Add(wx.StaticText(this, -1, 'Hello outside'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
+		panel = wx.Panel(this, -1, wx.DefaultPosition, wx.DefaultSize, 
 									wx.TAB_TRAVERSAL | wx.SUNKEN_BORDER)
 		main_sizer.Add(panel, wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
 		panel_sizer = wx.BoxSizer(wx.VERTICAL)
@@ -472,13 +472,13 @@ MyNestedSizerFrame = class(wx.Frame) {
 		panel_sizer.Add(wx.StaticText(panel, -1, 'Hello inside'))
 		panel_sizer.Add(wx.StaticText(panel, -1, 'Hello inside'))
 		panel_sizer.Add(wx.StaticText(panel, -1, 'Hello inside'))
-		main_sizer.Add(wx.StaticText(self, -1, 'Hello outside'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
-		self.m_target = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(80, wx.DefaultCoord))
-		main_sizer.Add(self.m_target, wx.SizerFlags(1).Border(wx.ALL, 5))
-		self.SetSizer( main_sizer)
-		self.Layout()
-		self.GetSizer().Fit(self)
-		self.GetSizer().SetSizeHints(self)
+		main_sizer.Add(wx.StaticText(this, -1, 'Hello outside'), wx.SizerFlags(0).Align(wx.ALIGN_CENTER))
+		this.m_target = wx.TextCtrl(this, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(80, wx.DefaultCoord))
+		main_sizer.Add(this.m_target, wx.SizerFlags(1).Border(wx.ALL, 5))
+		this.SetSizer( main_sizer)
+		this.Layout()
+		this.GetSizer().Fit(this)
+		this.GetSizer().SetSizeHints(this)
 	}
 }
 

@@ -36,45 +36,45 @@ main = module {
 Panel = class(wx.Panel) {
 	__init__(parent:wx.Window) = {|parent|
 		outerBox = wx.BoxSizer(wx.VERTICAL)
-		self.SetSizer(outerBox)
+		this.SetSizer(outerBox)
 		wdLabel = 80
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			outerBox.Add(hbox, wx.SizerFlags().Expand())
-			wx.StaticText(self, wx.ID_ANY, 'Source', size => wx.Size(wdLabel, -1)) {|ctrl|
+			wx.StaticText(this, wx.ID_ANY, 'Source', size => wx.Size(wdLabel, -1)) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Align(wx.ALIGN_CENTER_VERTICAL))
 			}
-			wx.ComboBox(self, wx.ID_ANY, '', style => wx.CB_READONLY) {|ctrl|
+			wx.ComboBox(this, wx.ID_ANY, '', style => wx.CB_READONLY) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags(1).Expand())
-				self.comboSourceDirNames = ctrl
+				this.comboSourceDirNames = ctrl
 			}
-			wx.Button(self, wx.ID_ANY, 'Refresh') {|ctrl|
+			wx.Button(this, wx.ID_ANY, 'Refresh') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 2))
 				ctrl.Bind(wx.EVT_BUTTON) {
-					self.UpdateSourceDirNames()
+					this.UpdateSourceDirNames()
 				}
 			}
 		}
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			outerBox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
-			wx.StaticText(self, wx.ID_ANY, 'Destination', size => wx.Size(wdLabel, -1)) {|ctrl|
+			wx.StaticText(this, wx.ID_ANY, 'Destination', size => wx.Size(wdLabel, -1)) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Align(wx.ALIGN_CENTER_VERTICAL))
 			}
-			wx.TextCtrl(self, wx.ID_ANY, '') {|ctrl|
+			wx.TextCtrl(this, wx.ID_ANY, '') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags(1).Expand())
-				self.textDirNameDstBase = ctrl
+				this.textDirNameDstBase = ctrl
 			}
-			wx.Button(self, wx.ID_ANY, '...', size => wx.Size(20, -1)) {|ctrl|
+			wx.Button(this, wx.ID_ANY, '...', size => wx.Size(20, -1)) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 2))
-				self.Bind(wx.EVT_BUTTON) {
-					dlg = wx.DirDialog(self, 'Choose a destination directory'
-											self.textDirNameDstBase.GetValue())
+				this.Bind(wx.EVT_BUTTON) {
+					dlg = wx.DirDialog(this, 'Choose a destination directory'
+											this.textDirNameDstBase.GetValue())
 					if (dlg.ShowModal() == wx.ID_OK) {
-						self.textDirNameDstBase.SetValue(dlg.GetPath())
+						this.textDirNameDstBase.SetValue(dlg.GetPath())
 					}
 				}
 			}
 		}
-		wx.ListCtrl(self, wx.ID_ANY, style => wx.LC_REPORT | wx.LC_HRULES) {|ctrl|
+		wx.ListCtrl(this, wx.ID_ANY, style => wx.LC_REPORT | wx.LC_HRULES) {|ctrl|
 			outerBox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
 			ctrl.InsertColumn(0.., ['Source', 'Destination'])
 			ctrl.Bind(wx.EVT_SIZE) {|event|
@@ -86,54 +86,54 @@ Panel = class(wx.Panel) {
 				ctrl.SetColumnWidth(1, width)
 				event.Skip()
 			}
-			self.listFileNames = ctrl
+			this.listFileNames = ctrl
 		}
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			outerBox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
-			wx.Button(self, wx.ID_ANY, 'Get Photo') {|ctrl|
+			wx.Button(this, wx.ID_ANY, 'Get Photo') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Expand())
-				self.btnGetPhoto = ctrl
+				this.btnGetPhoto = ctrl
 				ctrl.Bind(wx.EVT_BUTTON) {
-					dirNameDstBase = self.textDirNameDstBase.GetValue()
-					indices = range(self.listFileNames.GetItemCount())
-					self.GetPhoto(dirNameDstBase:string, indices)
+					dirNameDstBase = this.textDirNameDstBase.GetValue()
+					indices = range(this.listFileNames.GetItemCount())
+					this.GetPhoto(dirNameDstBase:string, indices)
 				}
 			}
-			wx.Gauge(self, wx.ID_ANY, 100, style => wx.GA_HORIZONTAL) {|ctrl|
+			wx.Gauge(this, wx.ID_ANY, 100, style => wx.GA_HORIZONTAL) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.LEFT, 2))
-				self.gauge = ctrl
+				this.gauge = ctrl
 			}
 		}
-		self.UpdateSourceDirNames()
-		self.textDirNameDstBase.SetValue(main.cfg['dirNameDst'])
+		this.UpdateSourceDirNames()
+		this.textDirNameDstBase.SetValue(main.cfg['dirNameDst'])
 	}
 	UpdateSourceDirNames() = {
 		dirNames = path.join(chr(ord('A')..ord('K')) + ':', 'DCIM')
 		dirNames = path.dir(dirNames.filter(path.exists(dirNames))):dir:list
-		self.comboSourceDirNames.Clear()
+		this.comboSourceDirNames.Clear()
 		if (dirNames.len() == 0) {
-			self.comboSourceDirNames.SetValue('')
+			this.comboSourceDirNames.SetValue('')
 		} else {
-			self.comboSourceDirNames.Append(dirNames)
-			self.comboSourceDirNames.Select(0)
+			this.comboSourceDirNames.Append(dirNames)
+			this.comboSourceDirNames.Select(0)
 		}
-		self.UpdateFileNames()
+		this.UpdateFileNames()
 	}
 	UpdateFileNames() = {
-		dirName = self.comboSourceDirNames.GetValue()
+		dirName = this.comboSourceDirNames.GetValue()
 		if (dirName == '') {
-			self.btnGetPhoto.Enable(false)
+			this.btnGetPhoto.Enable(false)
 			return
 		}
-		self.listFileNames.DeleteAllItems()
+		this.listFileNames.DeleteAllItems()
 		pathNames = path.dir(dirName, main.patternImgList*,
 								main.patternAviList*):icase:file:list
-		self.listFileNames.pathNames = pathNames
-		self.listFileNames.InsertStringItem(0.., path.filename(pathNames))
-		self.btnGetPhoto.Enable(!pathNames.isempty())
+		this.listFileNames.pathNames = pathNames
+		this.listFileNames.InsertStringItem(0.., path.filename(pathNames))
+		this.btnGetPhoto.Enable(!pathNames.isempty())
 	}
 	GetPhoto(dirNameDstBase:string, index:number):map = {
-		pathName = self.listFileNames.pathNames[index]
+		pathName = this.listFileNames.pathNames[index]
 		stat = path.stat(pathName)
 		mtime = stat.mtime
 		extName = path.splitext(pathName)[1]
@@ -159,23 +159,23 @@ Panel = class(wx.Panel) {
 		item.SetId(index)
 		item.SetColumn(1)
 		item.SetText(path.filename(pathNameDst))
-		self.listFileNames.SetItem(item)
-		self.listFileNames.Refresh()
-		self.listFileNames.Update()
-		self.listFileNames.SetItemState(index,
+		this.listFileNames.SetItem(item)
+		this.listFileNames.Refresh()
+		this.listFileNames.Update()
+		this.listFileNames.SetItemState(index,
 					wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED,
 					wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
-		self.listFileNames.EnsureVisible(index)
+		this.listFileNames.EnsureVisible(index)
 		bytesProgress = 0
 		copy(pathName, pathNameDst) {|buff|
 			if (stat.size > 0) {
-				self.gauge.SetValue(bytesProgress * 100 / stat.size)
+				this.gauge.SetValue(bytesProgress * 100 / stat.size)
 				bytesProgress += buff.len()
 			}
-			self.Update()
+			this.Update()
 		}
-		self.gauge.SetValue(0)
-		self.Update()
+		this.gauge.SetValue(0)
+		this.Update()
 	}
 }
 
@@ -185,11 +185,11 @@ Panel = class(wx.Panel) {
 Frame = class(wx.Frame) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0]),
 							size => wx.Size(main.cfg['wdFrame', 'htFrame']*)|
-		//self.SetIcon(wx.Icon(path.join(sys.maindir, 'getterphoto.ico'),
+		//this.SetIcon(wx.Icon(path.join(sys.maindir, 'getterphoto.ico'),
 		//												wx.BITMAP_TYPE_ICO))
-		self.SetIcon(wx.IconFromXPMData(mainicon_xpm))
-		Panel(self)
-		self.Bind(wx.EVT_SIZE) {|event|
+		this.SetIcon(wx.IconFromXPMData(mainicon_xpm))
+		Panel(this)
+		this.Bind(wx.EVT_SIZE) {|event|
 			size = event.GetSize()
 			main.cfg['wdFrame', 'htFrame'] = [size.GetWidth(), size.GetHeight()]
 			event.Skip()
@@ -205,7 +205,7 @@ App = class(wx.App) {
 		frame = Frame(nil)
 		//wx.StatusBar(frame)
 		frame.Show()
-		self.SetTopWindow(frame)
+		this.SetTopWindow(frame)
 		true
 	}
 }

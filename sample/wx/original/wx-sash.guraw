@@ -6,62 +6,62 @@ log = nil
 
 Frame = class(wx.Frame) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
-		wx.SashLayoutWindow(self, wx.ID_ANY,
+		wx.SashLayoutWindow(this, wx.ID_ANY,
 					style => wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN) {|sash|
 			sash.SetDefaultSize(wx.Size(1000, 100));
 			sash.SetOrientation(wx.LAYOUT_HORIZONTAL);
 			sash.SetAlignment(wx.LAYOUT_TOP);
 			sash.SetBackgroundColour(wx.Colour(255, 255, 0));
 			sash.SetSashVisible(wx.SASH_BOTTOM, true);
-			self.sashTop = sash
+			this.sashTop = sash
 		}
-		wx.SashLayoutWindow(self, wx.ID_ANY,
+		wx.SashLayoutWindow(this, wx.ID_ANY,
 					style => wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN) {|sash|
 			sash.SetDefaultSize(wx.Size(100, 1000));
 			sash.SetOrientation(wx.LAYOUT_VERTICAL);
 			sash.SetAlignment(wx.LAYOUT_RIGHT);
 			sash.SetBackgroundColour(wx.Colour(0, 0, 255));
 			sash.SetSashVisible(wx.SASH_LEFT, true);
-			self.sashRight = sash
+			this.sashRight = sash
 		}
-		wx.SashLayoutWindow(self, wx.ID_ANY,
+		wx.SashLayoutWindow(this, wx.ID_ANY,
 					style => wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN) {|sash|
 			sash.SetDefaultSize(wx.Size(1000, 100));
 			sash.SetOrientation(wx.LAYOUT_HORIZONTAL);
 			sash.SetAlignment(wx.LAYOUT_BOTTOM);
 			sash.SetBackgroundColour(wx.Colour(255, 0, 0));
 			sash.SetSashVisible(wx.SASH_TOP, true);
-			self.sashBottom = sash
+			this.sashBottom = sash
 		}
-		wx.SashLayoutWindow(self, wx.ID_ANY,
+		wx.SashLayoutWindow(this, wx.ID_ANY,
 					style => wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN) {|sash|
 			sash.SetDefaultSize(wx.Size(100, 1000));
 			sash.SetOrientation(wx.LAYOUT_VERTICAL);
 			sash.SetAlignment(wx.LAYOUT_LEFT);
 			sash.SetBackgroundColour(wx.Colour(0, 255, 0));
 			sash.SetSashVisible(wx.SASH_RIGHT, true);
-			self.sashLeft = sash
+			this.sashLeft = sash
 		}
-		wx.Panel(self, style => wx.BORDER_SUNKEN) {|panel|
-			self.remainingSpace = panel
+		wx.Panel(this, style => wx.BORDER_SUNKEN) {|panel|
+			this.remainingSpace = panel
 		}
-		self.Bind(wx.EVT_SIZE) {|event|
-			wx.LayoutAlgorithm().LayoutWindow(self, self.remainingSpace)
+		this.Bind(wx.EVT_SIZE) {|event|
+			wx.LayoutAlgorithm().LayoutWindow(this, this.remainingSpace)
 		}
-		self.Bind(wx.EVT_SASH_DRAGGED) {|event|
+		this.Bind(wx.EVT_SASH_DRAGGED) {|event|
 			(event.GetDragStatus() == wx.SASH_STATUS_OUT_OF_RANGE) && return
 			id = event.GetId()
-			if (id == self.sashLeft.GetId()) {
-				self.sashLeft.SetDefaultSize(wx.Size(event.GetDragRect().GetWidth(), 1000))
-			} elsif (id == self.sashRight.GetId()) {
-				self.sashRight.SetDefaultSize(wx.Size(event.GetDragRect().GetWidth(), 1000))
-			} elsif (id == self.sashTop.GetId()) {
-				self.sashTop.SetDefaultSize(wx.Size(1000, event.GetDragRect().GetHeight()))
-			} elsif (id == self.sashBottom.GetId()) {
-				self.sashBottom.SetDefaultSize(wx.Size(1000, event.GetDragRect().GetHeight()))
+			if (id == this.sashLeft.GetId()) {
+				this.sashLeft.SetDefaultSize(wx.Size(event.GetDragRect().GetWidth(), 1000))
+			} elsif (id == this.sashRight.GetId()) {
+				this.sashRight.SetDefaultSize(wx.Size(event.GetDragRect().GetWidth(), 1000))
+			} elsif (id == this.sashTop.GetId()) {
+				this.sashTop.SetDefaultSize(wx.Size(1000, event.GetDragRect().GetHeight()))
+			} elsif (id == this.sashBottom.GetId()) {
+				this.sashBottom.SetDefaultSize(wx.Size(1000, event.GetDragRect().GetHeight()))
 			}
-			wx.LayoutAlgorithm().LayoutWindow(self, self.remainingSpace)
-			self.remainingSpace.Refresh()
+			wx.LayoutAlgorithm().LayoutWindow(this, this.remainingSpace)
+			this.remainingSpace.Refresh()
 		}
 	}
 }
@@ -70,7 +70,7 @@ App = class(wx.App) {
 	OnInit() = {
 		frame = Frame(nil)
 		frame.Show()
-		self.SetTopWindow(frame)
+		this.SetTopWindow(frame)
 		true
 	}
 }

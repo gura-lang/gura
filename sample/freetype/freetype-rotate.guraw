@@ -1,4 +1,4 @@
-# encoding: shift_jis
+# encoding: utf-8
 import(tk)
 import(freetype)
 
@@ -9,7 +9,7 @@ scope {
 	face.setslant(.3)
 	interval(0, 360, 16):open_r {|degree|
 		face.setrotate(degree)
-		img.drawtext(face, wdImage / 2, htImage / 2, "Ç†Ç¢Ç§Ç¶Ç® Hello world")
+		img.drawtext(face, wdImage / 2, htImage / 2, "„ÅÇ„ÅÑ„ÅÜ„Åà„Åä Hello world")
 	}
 	img.show()
 }

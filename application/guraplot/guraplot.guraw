@@ -7,10 +7,10 @@ import(math) {*}
 
 classref(`cairo.context) {|ref|
 	ref.hline(x:number, y:number, width:number):map:reduce = {
-		self.move_to(x, y).rel_line_to(width, 0)
+		this.move_to(x, y).rel_line_to(width, 0)
 	}
 	ref.vline(x:number, y:number, height:number):map:reduce = {
-		self.move_to(x, y).rel_line_to(0, height)
+		this.move_to(x, y).rel_line_to(0, height)
 	}
 }
 
@@ -26,17 +26,17 @@ cfg.store():default {
 //-----------------------------------------------------------------------------
 Graph = class {
 	__init__() = {
-		self.funcs = []
-		self.plots = []
-		[self.xMin, self.xMax] = [-10, 10]
-		[self.yMin, self.yMax] = [-10, 10]
-		self.cntSamples = 100
+		this.funcs = []
+		this.plots = []
+		[this.xMin, this.xMax] = [-10, 10]
+		[this.yMin, this.yMax] = [-10, 10]
+		this.cntSamples = 100
 	}
 	coordX(x:number):map = {
-		self.xAxis + (x - self.xMin) * self.wdAxis / (self.xMax - self.xMin)
+		this.xAxis + (x - this.xMin) * this.wdAxis / (this.xMax - this.xMin)
 	}
 	coordY(y:number):map = {
-		self.yAxis + self.htAxis - (y - self.yMin) * self.htAxis / (self.yMax - self.yMin)
+		this.yAxis + this.htAxis - (y - this.yMin) * this.htAxis / (this.yMax - this.yMin)
 	}
 	coord(x:number, y:number) = [coordX(x), coordY(y)]
 	calcStep(tMin:number, tMax:number) = {
@@ -47,67 +47,67 @@ Graph = class {
 		(tSteps.filter(tRange / tSteps >= 10):list).last()
 	}
 	draw(cr:cairo.context) = {
-		[self.wdAxis, self.htAxis] = [cr.width * .9, cr.height * .9]
-		[self.xAxis, self.yAxis] = [(cr.width - self.wdAxis) / 2, (cr.height - self.htAxis) / 2]
+		[this.wdAxis, this.htAxis] = [cr.width * .9, cr.height * .9]
+		[this.xAxis, this.yAxis] = [(cr.width - this.wdAxis) / 2, (cr.height - this.htAxis) / 2]
 		cr.set_line_width(1)
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
-			cr.rectangle(self.xAxis, self.yAxis, self.wdAxis, self.htAxis)
+			cr.rectangle(this.xAxis, this.yAxis, this.wdAxis, this.htAxis)
 			cr.stroke()
 		}
-		cr.rectangle(self.xAxis, self.yAxis, self.wdAxis, self.htAxis)
+		cr.rectangle(this.xAxis, this.yAxis, this.wdAxis, this.htAxis)
 		cr.clip()
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
 			cr.set_dash([], 0)
-			cr.vline(self.coordX(0), self.yAxis, self.htAxis)
-			cr.hline(self.xAxis, self.coordY(0), self.wdAxis)
+			cr.vline(this.coordX(0), this.yAxis, this.htAxis)
+			cr.hline(this.xAxis, this.coordY(0), this.wdAxis)
 			cr.stroke()
 			cr.set_dash([2, 2], 0)
 			scope {
-				tStep = self.calcStep(self.xMin, self.xMax)
-				xs = (int(self.xMin / tStep) + \
-						(0 .. int((self.xMax - self.xMin) / tStep))) * tStep
-				cr.vline(self.coordX(xs), self.yAxis, self.htAxis)
+				tStep = this.calcStep(this.xMin, this.xMax)
+				xs = (int(this.xMin / tStep) + \
+						(0 .. int((this.xMax - this.xMin) / tStep))) * tStep
+				cr.vline(this.coordX(xs), this.yAxis, this.htAxis)
 			}
 			scope {
-				tStep = self.calcStep(self.yMin, self.yMax)
-				ys = (int(self.yMin / tStep) + \
-						(0 .. int((self.yMax - self.yMin) / tStep))) * tStep
-				cr.hline(self.xAxis, self.coordY(ys), self.wdAxis)
+				tStep = this.calcStep(this.yMin, this.yMax)
+				ys = (int(this.yMin / tStep) + \
+						(0 .. int((this.yMax - this.yMin) / tStep))) * tStep
+				cr.hline(this.xAxis, this.coordY(ys), this.wdAxis)
 			}
 			cr.stroke()
 		}
 		cr.save {
-			x = interval(self.xMin, self.xMax, self.cntSamples)
-			y = interval(self.yMin, self.yMax, self.cntSamples)
+			x = interval(this.xMin, this.xMax, this.cntSamples)
+			y = interval(this.yMin, this.yMax, this.cntSamples)
 			cr.set_antialias(cairo.ANTIALIAS_DEFAULT)
-			for (func in self.funcs) {
+			for (func in this.funcs) {
 				syms = func.args
 				if (syms.len() != 1) {
 					raise(ValueError, 'wrong number of arguments')
 				}
 				sym = syms.first()
 				if (sym == `y) {
-					cr.line_to(self.coordX(func(y)), self.coordY(y))
+					cr.line_to(this.coordX(func(y)), this.coordY(y))
 				} else {
-					cr.line_to(self.coordX(x), self.coordY(func(x)))
+					cr.line_to(this.coordX(x), this.coordY(func(x)))
 				}
 				cr.stroke()
 			}
 		}
 		cr.save {
-			for (plot in self.plots) {
-				t = interval(plot.tMin, plot.tMax, self.cntSamples)
-				cr.line_to(self.coordX(eval(plot.x)), self.coordY(eval(plot.y)))
+			for (plot in this.plots) {
+				t = interval(plot.tMin, plot.tMax, this.cntSamples)
+				cr.line_to(this.coordX(eval(plot.x)), this.coordY(eval(plot.y)))
 				cr.stroke()
 			}
 		}
 	}
 	addFunc(func:function) = {
-		idx = (self.funcs::name == func.name).find()
-		idx && self.funcs.erase(idx)
-		self.funcs.add(func)
+		idx = (this.funcs::name == func.name).find()
+		idx && this.funcs.erase(idx)
+		this.funcs.add(func)
 	}
 }
 

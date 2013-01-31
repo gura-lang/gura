@@ -29,7 +29,7 @@ MyApp = class(wx.App) {
 MyFrame = class(wx.Frame) {
 	// ctor(s)
 	__init__(title:string) = {|nil, wx.ID_ANY, title|
-		self.EventTable()
+		this.EventTable()
 		// create a menu bar
 		menuFile = wx.Menu()
 		menuFile.Append(wx.ID_ABOUT)
@@ -38,19 +38,19 @@ MyFrame = class(wx.Frame) {
 		menuBar = wx.MenuBar()
 		menuBar.Append(menuFile, '&File')
 		// ... and attach this menu bar to the frame
-		self.SetMenuBar(menuBar)
+		this.SetMenuBar(menuBar)
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MENU, wx.ID_ABOUT) {|event| self.OnAbout(event) }
-		self.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| self.OnQuit(event) }
+		this.Bind(wx.EVT_MENU, wx.ID_ABOUT) {|event| this.OnAbout(event) }
+		this.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| this.OnQuit(event) }
 	}
 	// event handlers
 	OnQuit(event:wx.CommandEvent) = {
 		// true is to force the frame to close
-		self.Close(true)
+		this.Close(true)
 	}
 	OnAbout(event:wx.CommandEvent) = {
-		dlg = wx.Dialog(self, wx.ID_ANY, 'About')
+		dlg = wx.Dialog(this, wx.ID_ANY, 'About')
 		topsizer = wx.BoxSizer(wx.VERTICAL)
 		html = wx.HtmlWindow(dlg, wx.ID_ANY, wx.DefaultPosition, wx.Size(380, 160), wx.HW_SCROLLBAR_NEVER)
 		html.SetBorders(0)

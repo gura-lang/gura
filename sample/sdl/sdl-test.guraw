@@ -21,15 +21,15 @@ try {
 font = sdl.OpenFont(path.join(os.getenv('SystemRoot'), 'Fonts', 'arial.ttf'), 32)
 screen.SolidText(text:string, x:number, y:number, fg:sdl.Color):map:void = {
 	surface = font.RenderText_Solid(text, fg)
-	self.PutSurface(surface, x, y)
+	this.PutSurface(surface, x, y)
 }
 screen.ShadedText(text:string, x:number, y:number, fg:sdl.Color, bg:sdl.Color):map:void = {
 	surface = font.RenderText_Shaded(text, fg, bg)
-	self.PutSurface(surface, x, y)
+	this.PutSurface(surface, x, y)
 }
 screen.BlendedText(text:string, x:number, y:number, fg:sdl.Color):map:void = {
 	surface = font.RenderText_Blended(text, fg)
-	self.PutSurface(surface, x, y)
+	this.PutSurface(surface, x, y)
 }
 screen.SolidText('hoge', 200, (0..3) * 40 + 10, color(`white))
 screen.ShadedText('hoge', 300, (0..3) * 40 + 10, color(`white), color(`gray))

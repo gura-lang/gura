@@ -1,4 +1,4 @@
-# encoding: shift_jis
+# encoding: utf-8
 import(tk)
 import(jpeg)
 import(freetype)
@@ -8,11 +8,11 @@ scope {
 	img = image(I('Winter.jpg'))
 	//img = image(`rgb, 640, 480, `gray)
 	face = freetype.face(freetype.sysfontpath('msgothic.ttc'), 1).setheight(64).setcolor(`red)
-	img.drawtext(face, (0..10) * 50 - 100, (0 ..10) * 64 - 25, '‚ ‚¢‚¤‚¦‚¨ Hello world')
+	img.drawtext(face, (0..10) * 50 - 100, (0 ..10) * 64 - 25, 'ã‚ã„ã†ãˆãŠ Hello world')
 	face.setcolor(`white)
-	img.drawtext(face, 0, 200, 'ƒSƒVƒbƒN‘Ì•¶šd‚Ë‡‚í‚¹')
+	img.drawtext(face, 0, 200, 'ã‚´ã‚·ãƒƒã‚¯ä½“æ–‡å­—é‡ã­åˆã‚ã›')
 	face.setcolor(`gray)
-	str = 'd‚Ë‡‚í‚¹ ‚»‚Ì2'
+	str = 'é‡ã­åˆã‚ã› ãã®2'
 	bbox = face.calcbbox(0, 260, str)
 	img.fillrect(bbox*, `white)
 	face.drawtext(img, 0, 260, str)

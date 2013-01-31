@@ -19,9 +19,9 @@ Frame = class(wx.Frame) {
 		Menu_Bitmap2, Menu_Submenu, Menu_Toggle] = wx.NewIds()
 	__init__(parent:wx.Window, title:string, x:number, y:number, w:number, h:number) = {|parent,
 							wx.ID_ANY, title, wx.Point(x, y), wx.Size(w, h)|
-		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
-		self.InitMenu()
-		panel = wx.Panel(self)
+		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		this.InitMenu()
+		panel = wx.Panel(this)
 		vbox = wx.BoxSizer(wx.HORIZONTAL)
 		panel.SetSizer(vbox)
 		choices = [
@@ -57,15 +57,15 @@ Frame = class(wx.Frame) {
 		bmpInfo_mono = wx.BitmapFromXPMData(resource.info_mono_xpm)
 		menuBar = wx.MenuBar()
 		wx.Menu() {|menu|
-			wx.MenuItem(menu, self.Menu_Sub1, 'Submenu &first', 'large') {|item|
+			wx.MenuItem(menu, this.Menu_Sub1, 'Submenu &first', 'large') {|item|
 				item.SetFont(fontLarge)
 				menu.AppendItem(item)
 			}
-			wx.MenuItem(menu, self.Menu_Sub2, 'Submenu &second', 'italic') {|item|
+			wx.MenuItem(menu, this.Menu_Sub2, 'Submenu &second', 'italic') {|item|
 				item.SetFont(fontItalic)
 				menu.AppendItem(item)
 			}
-			wx.MenuItem(menu, self.Menu_Sub3, 'Submenu &third', 'underlined') {|item|
+			wx.MenuItem(menu, this.Menu_Sub3, 'Submenu &third', 'underlined') {|item|
 				item.SetFont(fontUlined)
 				menu.AppendItem(item)
 			}
@@ -73,48 +73,48 @@ Frame = class(wx.Frame) {
 		}
 		wx.Menu() {|menu|
 			menuBar.Append(menu, '&File')
-			wx.MenuItem(menu, self.Menu_Test1, '&Uncheckable',
+			wx.MenuItem(menu, this.Menu_Test1, '&Uncheckable',
 								'red item', wx.ITEM_CHECK) {|item|
 				item.SetFont(wx.ITALIC_FONT)
 				item.SetTextColour(wx.Colour(255, 0, 0))
 				menu.AppendItem(item)
 			}
-			wx.MenuItem(menu, self.Menu_Test2, '&Checkable',
+			wx.MenuItem(menu, this.Menu_Test2, '&Checkable',
 								'checkable item', wx.ITEM_CHECK) {|item|
 				item.SetFont(wx.SMALL_FONT)
 				menu.AppendItem(item)
 			}
-			wx.MenuItem(menu, self.Menu_Test3, '&Disabled',
+			wx.MenuItem(menu, this.Menu_Test3, '&Disabled',
 								'disabled item', wx.ITEM_CHECK) {|item|
 				item.SetFont(wx.NORMAL_FONT)
 				menu.AppendItem(item)
-				menu.Enable(self.Menu_Test3, false)
+				menu.Enable(this.Menu_Test3, false)
 			}
-			wx.MenuItem(menu, self.Menu_Bitmap, '&Bell',
+			wx.MenuItem(menu, this.Menu_Bitmap, '&Bell',
 								'check/uncheck me!', wx.ITEM_CHECK) {|item|
 				item.SetFont(fontBmp)
 				item.SetBitmaps(bmpBell)
 				menu.AppendItem(item)
 			}
-			wx.MenuItem(menu, self.Menu_Bitmap2, 'So&und',
+			wx.MenuItem(menu, this.Menu_Bitmap2, 'So&und',
 								'icon changes!', wx.ITEM_CHECK) {|item|
 				item.SetFont(fontBmp)
 				item.SetBitmaps(bmpSound, bmpNoSound)
 				menu.AppendItem(item)
 			}
-			wx.MenuItem(menu, self.Menu_Submenu, '&Sub menu',
+			wx.MenuItem(menu, this.Menu_Submenu, '&Sub menu',
 								'', wx.ITEM_CHECK, menuSub) {|item|
 				item.SetFont(wx.SWISS_FONT)
 				menu.AppendItem(item)
 			}
 			menu.AppendSeparator()
-			wx.MenuItem(menu, self.Menu_Toggle, '&Disable/Enable\tCtrl+D',
+			wx.MenuItem(menu, this.Menu_Toggle, '&Disable/Enable\tCtrl+D',
 					'enables/disables the About-Item', wx.ITEM_NORMAL) {|item|
 				item.SetFont(wx.NORMAL_FONT)
 				menu.AppendItem(item)
 			}
 		}
-		self.SetMenuBar(menuBar)
+		this.SetMenuBar(menuBar)
 	}
 }
 
@@ -122,7 +122,7 @@ App = class(wx.App) {
 	OnInit() = {
 		frame = Frame(nil, 'wxWidgets Ownerdraw Sample', 50, 50, 450, 340)
 		frame.Show()
-		self.SetTopWindow(frame)
+		this.SetTopWindow(frame)
 		true
 	}
 }

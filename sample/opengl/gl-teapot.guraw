@@ -158,20 +158,20 @@ scope {
 			Draw(teaList, rotX, rotY)
 		}
 		OnIdle() = {
-			if (self.CheckKeyState(sdl.K_LEFT)) {
+			if (this.CheckKeyState(sdl.K_LEFT)) {
 				rotX -= 1
 			}
-			if (self.CheckKeyState(sdl.K_RIGHT)) {
+			if (this.CheckKeyState(sdl.K_RIGHT)) {
 				rotX += 1
 			}
-			if (self.CheckKeyState(sdl.K_UP)) {
+			if (this.CheckKeyState(sdl.K_UP)) {
 				rotY -= 1
 			}
-			if (self.CheckKeyState(sdl.K_DOWN)) {
+			if (this.CheckKeyState(sdl.K_DOWN)) {
 				rotY += 1
 			}
 			Draw(teaList, rotX, rotY)
-			self.SwapBuffers()
+			this.SwapBuffers()
 		}
 	}
 	app = App()

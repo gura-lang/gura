@@ -12,7 +12,7 @@ Frame1 = class(wx.Frame) {
 	] = [1]
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
 		wx.MenuBar() {|menuBar|
-			self.SetMenuBar(menuBar)
+			this.SetMenuBar(menuBar)
 			wx.Menu() {|menu|
 				menuBar.Append(menu, '&File')
 				//menu.Append(wx.ID_ANY, 'Save')
@@ -20,8 +20,8 @@ Frame1 = class(wx.Frame) {
 				//menu.Append(wx.ID_ANY, 'Exit')
 			}
 		}
-		wx.ToolBar(self, wx.ID_ANY) {|toolBar|
-			self.SetToolBar(toolBar)
+		wx.ToolBar(this, wx.ID_ANY) {|toolBar|
+			this.SetToolBar(toolBar)
 			toolBar.AddTool(1, 'tool-1', image(I('arrow-green-d.gif')))
 			toolBar.AddTool(2, 'tool-2', image(I('arrow-green-u.gif')))
 			toolBar.AddSeparator()
@@ -42,17 +42,17 @@ Frame1 = class(wx.Frame) {
 			toolBar.AddControl(wx.StaticText(toolBar, wx.ID_ANY, 'Label'))
 			toolBar.Realize() // this must be called after adding items
 		}
-		wx.StatusBar(self) {|statusBar|
-			self.SetStatusBar(statusBar)
+		wx.StatusBar(this) {|statusBar|
+			this.SetStatusBar(statusBar)
 		}
-		log:extern = wxutil.LogWindow(self)
+		log:extern = wxutil.LogWindow(this)
 	}
 }
 
 Frame2 = class(wx.Frame) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
-		wx.ToolBar(self, wx.ID_ANY, style => wx.TB_RIGHT) {|toolBar|
-			self.SetToolBar(toolBar)
+		wx.ToolBar(this, wx.ID_ANY, style => wx.TB_RIGHT) {|toolBar|
+			this.SetToolBar(toolBar)
 			toolBar.AddTool(1, 'tool-1', image(I('arrow-green-d.gif')))
 			toolBar.AddTool(2, 'tool-2', image(I('arrow-green-u.gif')))
 			toolBar.AddSeparator()
@@ -68,7 +68,7 @@ Frame2 = class(wx.Frame) {
 			toolBar.AddRadioTool(7, 'radio',
 					image(I('arrow-green-r.gif')), image(I('arrow-green-r.gif')))
 			toolBar.Realize() // this must be called after adding items
-			wxutil.LogWindow(self)
+			wxutil.LogWindow(this)
 		}
 	}
 }
@@ -77,7 +77,7 @@ App = class(wx.App) {
 	OnInit() = {
 		frame = Frame1(nil)
 		frame.Show()
-		self.SetTopWindow(frame)
+		this.SetTopWindow(frame)
 		frame = Frame2(nil)
 		frame.Show()
 		true

@@ -6,7 +6,7 @@ tk.mainwindow() {|mw|
 	timerVar = tk.variable()
 	timerVar.setValue(t:number) = {
 		t = int(t * 100)
-		self.string = format('%02d:%02d', int(t / 100), t % 100)
+		this.string = format('%02d:%02d', int(t / 100), t % 100)
 	}
 	timerVar.setValue(0)
 	font = tk.FixedFont.customize(size => 24)

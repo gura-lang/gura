@@ -19,11 +19,11 @@ import(resource)
 
 MyTextModel = class(wx.DataViewListModel) {
 	__init__() = {
-		self.m_list = dim(1000) {'Test'}
-		self.m_bools = [false, true].round(1000):list
-		self.m_colours = ['red', 'green'].round(1000):list
-		self.m_progress = [int(range(1000)) / 10]
-		self.m_dates = dim(1000) {wx.DateTime.Now()}
+		this.m_list = dim(1000) {'Test'}
+		this.m_bools = [false, true].round(1000):list
+		this.m_colours = ['red', 'green'].round(1000):list
+		this.m_progress = [int(range(1000)) / 10]
+		this.m_dates = dim(1000) {wx.DateTime.Now()}
 	}
 	GetNumberOfRows() = 1000
 	GetNumberOfCols() = 7
@@ -41,15 +41,15 @@ MyTextModel = class(wx.DataViewListModel) {
 	}
 	GetValue(col:number, row:number) = {
 		if (col == 6) {
-			variant = wx.Variant(self.m_dates[row])
+			variant = wx.Variant(this.m_dates[row])
 		} elsif (col == 5) {
-			variant = wx.Variant(self.m_progress[row])
+			variant = wx.Variant(this.m_progress[row])
 		} elsif (col == 4) {
-			variant = wx.Variant(self.m_colours[row])
+			variant = wx.Variant(this.m_colours[row])
 		} elsif (col == 3) {
-			variant = wx.Variant(self.m_bools[row])
+			variant = wx.Variant(this.m_bools[row])
 		} elsif (col == 2) {
-			variant = wx.Variant(self.m_list[row])
+			variant = wx.Variant(this.m_list[row])
 		} else {
 			tmp = format('item(%d;%d)', row, col)
 			variant = wx.Variant(tmp)
@@ -58,11 +58,11 @@ MyTextModel = class(wx.DataViewListModel) {
 	}
 	SetValue(value:wx.Variant, col:number, row:number) = {
 		if (col == 6) {
-			self.m_dates[row] = value.GetDateTime()
+			this.m_dates[row] = value.GetDateTime()
 		} elsif (col == 3) {
-			self.m_bools[row] = value.GetBool()
+			this.m_bools[row] = value.GetBool()
 		} elsif (col == 2) {
-			self.m_list[row] = value.GetString()
+			this.m_list[row] = value.GetString()
 		}
 		true
 	}
@@ -74,17 +74,17 @@ MyTextModel = class(wx.DataViewListModel) {
 
 MyCustomRenderer = class(wx.DataViewCustomRenderer) {
 	__init__() = {|'string', wx.DATAVIEW_CELL_ACTIVATABLE|
-		self.m_colour = 'black'
+		this.m_colour = 'black'
 	}
 	SetValue(value:wx.Variant) = {
-		self.m_colour = value.GetString()
+		this.m_colour = value.GetString()
 		true
 	}
 	Render(rect:wx.Rect, dc:wx.DC, state:number) = {
 		dc.SetPen(wx.BLACK_PEN)
-		if (self.m_colour == 'red') {
+		if (this.m_colour == 'red') {
 			dc.SetBrush(wx.RED_BRUSH)
-		} elsif (self.m_colour == 'green') {
+		} elsif (this.m_colour == 'green') {
 			dc.SetBrush(wx.GREEN_BRUSH)
 		} else {
 			dc.SetBrush(wx.BLACK_BRUSH)
@@ -106,7 +106,7 @@ MyCustomRenderer = class(wx.DataViewCustomRenderer) {
 
 MyUnsortedTextModel = class(wx.DataViewListModel) {
 	__init__() = {
-		self.m_list = [
+		this.m_list = [
 			'This'
 			'is'
 			'an'
@@ -115,18 +115,18 @@ MyUnsortedTextModel = class(wx.DataViewListModel) {
 			'of'
 			'words.'
 		]
-		self.m_bitmap = wx.BitmapFromXPMData(resource.null_xpm)
+		this.m_bitmap = wx.BitmapFromXPMData(resource.null_xpm)
 	}
-	GetNumberOfRows() = self.m_list.len()
+	GetNumberOfRows() = this.m_list.len()
 	GetNumberOfCols() = 2
 	GetColType(col:number) = 'string'
 	GetValue(col:number, row:number) = {
 		if (col == 0) {
-			variant = wx.Variant(self.m_list[row])
+			variant = wx.Variant(this.m_list[row])
 			return(variant)
 		}
 		if ((col == 2) || (col == 3)) {
-			variant = wx.Variant(self.m_bitmap)
+			variant = wx.Variant(this.m_bitmap)
 			return(variant)
 		}
 		tmp = format('item(%d;%d)', row, col)
@@ -135,26 +135,26 @@ MyUnsortedTextModel = class(wx.DataViewListModel) {
 	}
 	SetValue(variant:wx.Variant, col:number, row:number) = {
 		if (col == 0) {
-			self.m_list[row] = variant.GetString()
+			this.m_list[row] = variant.GetString()
 			return(true)
 		}
 		false
 	}
 	AppendRow(text:string) = {
-		self.m_list.add(text)
-		self.RowAppended()
+		this.m_list.add(text)
+		this.RowAppended()
 	}
 	PrependRow(text:string) = {
-		self.m_list.insert(0, text)
-		self.RowPrepended()
+		this.m_list.insert(0, text)
+		this.RowPrepended()
 	}
 	InsertRowAt1(text:string) = {
-		self.m_list.insert(1, text)
-		self.RowInserted(1)
+		this.m_list.insert(1, text)
+		this.RowInserted(1)
 	}
 	DeleteRow(index:number) = {
-		self.m_list.erase(index)
-		self.RowDeleted(index)
+		this.m_list.erase(index)
+		this.RowDeleted(index)
 	}
 }
 
@@ -171,7 +171,7 @@ MyApp = class(wx.App) {
 		frame.Show(true)
 		frame2 = MySortingFrame(nil, 'wxDataViewCtrl sorting test', 10, 150, 600, 500)
 		frame2.Show(true)
-		self.SetTopWindow(frame)
+		this.SetTopWindow(frame)
 		true
 	}
 }
@@ -183,57 +183,57 @@ MyApp = class(wx.App) {
 MyFrame = class(wx.Frame) {
 	__init__(frame:wx.Frame:nil, title:string, x:number, y:number, w:number, h:number) = \
 			{|frame, wx.ID_ANY, title, wx.Point(x, y), wx.Size(w, h)|
-		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 		file_menu = wx.Menu()
 		file_menu.Append(DYNAMIC_ABOUT, '&About')
 		file_menu.Append(DYNAMIC_QUIT, 'E&xit')
 		menu_bar = wx.MenuBar()
 		menu_bar.Append(file_menu, '&File')
-		self.SetMenuBar(menu_bar)
+		this.SetMenuBar(menu_bar)
 		// You used to have to do some casting for param 4, but now there are type-safe handlers
-		self.Bind(wx.EVT_MENU, DYNAMIC_QUIT) {|event| self.OnQuit(event) }
-		self.Bind(wx.EVT_MENU, DYNAMIC_ABOUT) {|event| self.OnAbout(event) }
-		self.CreateStatusBar()
-		panel = wx.Panel(self, wx.ID_ANY)
+		this.Bind(wx.EVT_MENU, DYNAMIC_QUIT) {|event| this.OnQuit(event) }
+		this.Bind(wx.EVT_MENU, DYNAMIC_ABOUT) {|event| this.OnAbout(event) }
+		this.CreateStatusBar()
+		panel = wx.Panel(this, wx.ID_ANY)
 		// Left wxDataViewCtrl
-		self.dataview_left = wx.DataViewCtrl(panel, wx.ID_ANY)
+		this.dataview_left = wx.DataViewCtrl(panel, wx.ID_ANY)
 		model = MyTextModel()
-		self.dataview_left.AssociateModel(model)
-		self.dataview_left.AppendTextColumn('first', 0)
-		self.dataview_left.AppendTextColumn('second', 1)
+		this.dataview_left.AssociateModel(model)
+		this.dataview_left.AppendTextColumn('first', 0)
+		this.dataview_left.AppendTextColumn('second', 1)
 		text_renderer = wx.DataViewTextRenderer('string', wx.DATAVIEW_CELL_EDITABLE)
 		column = wx.DataViewColumn('editable', text_renderer, 2)
-		self.dataview_left.AppendColumn(column)
-		self.dataview_left.AppendToggleColumn('fourth', 3)
+		this.dataview_left.AppendColumn(column)
+		this.dataview_left.AppendToggleColumn('fourth', 3)
 		custom_renderer = MyCustomRenderer()
 		column = wx.DataViewColumn('custom', custom_renderer, 4)
-		self.dataview_left.AppendColumn(column)
-		self.dataview_left.AppendProgressColumn('progress', 5)
-		self.dataview_left.AppendDateColumn('date', 6)
+		this.dataview_left.AppendColumn(column)
+		this.dataview_left.AppendProgressColumn('progress', 5)
+		this.dataview_left.AppendDateColumn('date', 6)
 		// Right wxDataViewCtrl using the same model
-		self.dataview_right = wx.DataViewCtrl(panel, wx.ID_ANY)
-		self.dataview_right.AssociateModel(model)
+		this.dataview_right = wx.DataViewCtrl(panel, wx.ID_ANY)
+		this.dataview_right.AssociateModel(model)
 		text_renderer = wx.DataViewTextRenderer('string', wx.DATAVIEW_CELL_EDITABLE)
 		column = wx.DataViewColumn('editable', text_renderer, 2)
-		self.dataview_right.AppendColumn(column)
-		self.dataview_right.AppendTextColumn('first', 0)
-		self.dataview_right.AppendTextColumn('second', 1)
+		this.dataview_right.AppendColumn(column)
+		this.dataview_right.AppendTextColumn('first', 0)
+		this.dataview_right.AppendTextColumn('second', 1)
 		toggle_renderer = wx.DataViewToggleRenderer('bool', wx.DATAVIEW_CELL_ACTIVATABLE)
 		column = wx.DataViewColumn('bool', toggle_renderer, 3, 30)
-		self.dataview_right.AppendColumn(column)
-		self.dataview_right.AppendDateColumn('date', 6)
+		this.dataview_right.AppendColumn(column)
+		this.dataview_right.AppendDateColumn('date', 6)
 		// layout dataview controls.
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		sizer.Add(self.dataview_left, wx.SizerFlags(3).Expand())
+		sizer.Add(this.dataview_left, wx.SizerFlags(3).Expand())
 		sizer.AddSpacer(10, 10)
-		sizer.Add(self.dataview_right, wx.SizerFlags(2).Expand())
+		sizer.Add(this.dataview_right, wx.SizerFlags(2).Expand())
 		panel.SetSizer(sizer)
 	}
 	OnQuit(event:wx.CommandEvent) = {
-		self.Close(true)
+		this.Close(true)
 	}
 	OnAbout(event:wx.CommandEvent) = {
-		dialog = wx.MessageDialog(self, 'This demonstrates the dataview control handling',
+		dialog = wx.MessageDialog(this, 'This demonstrates the dataview control handling',
 				'About DataView', wx.OK)
 		dialog.ShowModal()
 	}
@@ -264,93 +264,93 @@ ID_ACTIVATED
 MySortingFrame = class(wx.Frame) {
 	__init__(frame:wx.Frame:nil, title:string, x:number, y:number, w:number, h:number) = \
 					{|frame, wx.ID_ANY, title, wx.Point(x, y), wx.Size(w, h)|
-		self.EventTable()
-		self.m_logOld = nil
-		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		this.EventTable()
+		this.m_logOld = nil
+		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 		file_menu = wx.Menu()
 		file_menu.Append(DYNAMIC_ABOUT, '&About')
 		file_menu.Append(DYNAMIC_QUIT, 'E&xit')
 		menu_bar = wx.MenuBar()
 		menu_bar.Append(file_menu, '&File')
-		self.SetMenuBar(menu_bar)
+		this.SetMenuBar(menu_bar)
 		// You used to have to do some casting for param 4, but now there are type-safe handlers
-		self.Bind(wx.EVT_MENU, DYNAMIC_QUIT) {|event| self.OnQuit(event) }
-		self.Bind(wx.EVT_MENU, DYNAMIC_ABOUT) {|event| self.OnAbout(event) }
-		self.CreateStatusBar()
+		this.Bind(wx.EVT_MENU, DYNAMIC_QUIT) {|event| this.OnQuit(event) }
+		this.Bind(wx.EVT_MENU, DYNAMIC_ABOUT) {|event| this.OnAbout(event) }
+		this.CreateStatusBar()
 		// Left wxDataViewCtrl
-		self.dataview_left = wx.DataViewCtrl(self, ID_UNSORTED, wx.DefaultPosition, wx.DefaultSize, wx.DV_MULTIPLE)
-		self.m_unsorted_model = MyUnsortedTextModel()
-		self.dataview_left.AssociateModel(self.m_unsorted_model)
+		this.dataview_left = wx.DataViewCtrl(this, ID_UNSORTED, wx.DefaultPosition, wx.DefaultSize, wx.DV_MULTIPLE)
+		this.m_unsorted_model = MyUnsortedTextModel()
+		this.dataview_left.AssociateModel(this.m_unsorted_model)
 		text_renderer = wx.DataViewTextRenderer('string', wx.DATAVIEW_CELL_EDITABLE)
 		column = wx.DataViewColumn('editable', text_renderer, 0)
-		self.dataview_left.AppendColumn(column)
-		self.dataview_left.AppendTextColumn('second', 1)
-		self.dataview_left.AppendColumn(wx.DataViewColumn(wx.BitmapFromXPMData(resource.null_xpm), wx.DataViewBitmapRenderer(), 2, 25))
-		self.dataview_left.AppendColumn(wx.DataViewColumn('icon', wx.DataViewBitmapRenderer(), 3, 25))
+		this.dataview_left.AppendColumn(column)
+		this.dataview_left.AppendTextColumn('second', 1)
+		this.dataview_left.AppendColumn(wx.DataViewColumn(wx.BitmapFromXPMData(resource.null_xpm), wx.DataViewBitmapRenderer(), 2, 25))
+		this.dataview_left.AppendColumn(wx.DataViewColumn('icon', wx.DataViewBitmapRenderer(), 3, 25))
 		// Right wxDataViewCtrl using the sorting model
-		self.dataview_right = wx.DataViewCtrl(self, ID_SORTED)
-		self.m_sorted_model = wx.DataViewSortedListModel(self.m_unsorted_model)
-		self.dataview_right.AssociateModel(self.m_sorted_model)
+		this.dataview_right = wx.DataViewCtrl(this, ID_SORTED)
+		this.m_sorted_model = wx.DataViewSortedListModel(this.m_unsorted_model)
+		this.dataview_right.AssociateModel(this.m_sorted_model)
 		text_renderer = wx.DataViewTextRenderer('string', wx.DATAVIEW_CELL_EDITABLE)
 		column = wx.DataViewColumn('editable', text_renderer, 0, -1, wx.DATAVIEW_COL_SORTABLE | wx.DATAVIEW_COL_RESIZABLE)
-		self.dataview_right.AppendColumn(column)
-		self.dataview_right.AppendTextColumn('second', 1)
+		this.dataview_right.AppendColumn(column)
+		this.dataview_right.AppendTextColumn('second', 1)
 		// layout dataview controls.
 		top_sizer = wx.BoxSizer(wx.HORIZONTAL)
-		top_sizer.Add(self.dataview_left, wx.SizerFlags(1).Expand())
+		top_sizer.Add(this.dataview_left, wx.SizerFlags(1).Expand())
 		top_sizer.AddSpacer(10, 10)
-		top_sizer.Add(self.dataview_right, wx.SizerFlags(1).Expand())
+		top_sizer.Add(this.dataview_right, wx.SizerFlags(1).Expand())
 		button_sizer = wx.BoxSizer(wx.HORIZONTAL)
 		button_sizer.AddSpacer(10, 10, 1)
 		left_sizer = wx.FlexGridSizer(nil, 2, 0, 0)
-		left_sizer.Add(wx.Button(self, ID_APPEND_ROW_LEFT, 'Append' ), wx.SizerFlags(0).Border(wx.ALL, 5))
-		left_sizer.Add(wx.Button(self, ID_PREPEND_ROW_LEFT, 'Prepend'), wx.SizerFlags(0).Border(wx.ALL, 5))
-		left_sizer.Add(wx.Button(self, ID_INSERT_ROW_LEFT, 'Insert'), wx.SizerFlags(0).Border(wx.ALL, 5))
-		left_sizer.Add(wx.Button(self, ID_DELETE_ROW_LEFT, 'Delete second'), wx.SizerFlags(0).Border(wx.ALL, 5))
-		left_sizer.Add(wx.Button(self, ID_EDIT_ROW_LEFT, 'Edit'), wx.SizerFlags(0).Border(wx.ALL, 5))
+		left_sizer.Add(wx.Button(this, ID_APPEND_ROW_LEFT, 'Append' ), wx.SizerFlags(0).Border(wx.ALL, 5))
+		left_sizer.Add(wx.Button(this, ID_PREPEND_ROW_LEFT, 'Prepend'), wx.SizerFlags(0).Border(wx.ALL, 5))
+		left_sizer.Add(wx.Button(this, ID_INSERT_ROW_LEFT, 'Insert'), wx.SizerFlags(0).Border(wx.ALL, 5))
+		left_sizer.Add(wx.Button(this, ID_DELETE_ROW_LEFT, 'Delete second'), wx.SizerFlags(0).Border(wx.ALL, 5))
+		left_sizer.Add(wx.Button(this, ID_EDIT_ROW_LEFT, 'Edit'), wx.SizerFlags(0).Border(wx.ALL, 5))
 		left_sizer.AddSpacer(5, 5)
-		left_sizer.Add(wx.Button(self, ID_SELECT, 'Select third' ), wx.SizerFlags(0).Border(wx.ALL, 5))
-		left_sizer.Add(wx.Button(self, ID_UNSELECT_ALL, 'Unselect all' ), wx.SizerFlags(0).Border(wx.ALL, 5))
+		left_sizer.Add(wx.Button(this, ID_SELECT, 'Select third' ), wx.SizerFlags(0).Border(wx.ALL, 5))
+		left_sizer.Add(wx.Button(this, ID_UNSELECT_ALL, 'Unselect all' ), wx.SizerFlags(0).Border(wx.ALL, 5))
 		button_sizer.Add(left_sizer)
 		button_sizer.AddSpacer(10, 10, 2)
 		right_sizer = wx.FlexGridSizer(nil, 2, 0, 0)
-		right_sizer.Add(wx.Button(self, ID_APPEND_ROW_RIGHT, 'Append'), wx.SizerFlags(0).Border(wx.ALL, 5))
-		right_sizer.Add(wx.Button(self, ID_PREPEND_ROW_RIGHT, 'Prepend'), wx.SizerFlags(0).Border(wx.ALL, 5))
-		right_sizer.Add(wx.Button(self, ID_INSERT_ROW_RIGHT, 'Insert'), wx.SizerFlags(0).Border(wx.ALL, 5))
-		right_sizer.Add(wx.Button(self, ID_DELETE_ROW_RIGHT, 'Delete second'), wx.SizerFlags(0).Border(wx.ALL, 5))
-		right_sizer.Add(wx.Button(self, ID_EDIT_ROW_RIGHT, 'Edit'), wx.SizerFlags(0).Border(wx.ALL, 5))
+		right_sizer.Add(wx.Button(this, ID_APPEND_ROW_RIGHT, 'Append'), wx.SizerFlags(0).Border(wx.ALL, 5))
+		right_sizer.Add(wx.Button(this, ID_PREPEND_ROW_RIGHT, 'Prepend'), wx.SizerFlags(0).Border(wx.ALL, 5))
+		right_sizer.Add(wx.Button(this, ID_INSERT_ROW_RIGHT, 'Insert'), wx.SizerFlags(0).Border(wx.ALL, 5))
+		right_sizer.Add(wx.Button(this, ID_DELETE_ROW_RIGHT, 'Delete second'), wx.SizerFlags(0).Border(wx.ALL, 5))
+		right_sizer.Add(wx.Button(this, ID_EDIT_ROW_RIGHT, 'Edit'), wx.SizerFlags(0).Border(wx.ALL, 5))
 		button_sizer.Add(right_sizer)
 		button_sizer.AddSpacer(10, 10, 1)
 		main_sizer = wx.BoxSizer(wx.VERTICAL)
 		main_sizer.Add(top_sizer, wx.SizerFlags(1).Expand())
 		main_sizer.Add(button_sizer, wx.SizerFlags(0).Expand())
-		self.m_logWindow = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString,
+		this.m_logWindow = wx.TextCtrl(this, wx.ID_ANY, wx.EmptyString,
 									wx.DefaultPosition, wx.DefaultSize,
 									wx.TE_MULTILINE | wx.SUNKEN_BORDER)
 		main_sizer.AddSpacer(20, 20)
-		main_sizer.Add(self.m_logWindow, wx.SizerFlags(1).Expand())
-		self.m_logOld = wx.Log.SetActiveTarget(wx.LogTextCtrl(self.m_logWindow))
-		self.SetSizer(main_sizer)
+		main_sizer.Add(this.m_logWindow, wx.SizerFlags(1).Expand())
+		this.m_logOld = wx.Log.SetActiveTarget(wx.LogTextCtrl(this.m_logWindow))
+		this.SetSizer(main_sizer)
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_BUTTON, ID_APPEND_ROW_LEFT) {|event| self.OnAppendRowLeft(event) }
-		self.Bind(wx.EVT_BUTTON, ID_PREPEND_ROW_LEFT) {|event| self.OnPrependRowLeft(event) }
-		self.Bind(wx.EVT_BUTTON, ID_INSERT_ROW_LEFT) {|event| self.OnInsertRowLeft(event) }
-		self.Bind(wx.EVT_BUTTON, ID_DELETE_ROW_LEFT) {|event| self.OnDeleteRowLeft(event) }
-		self.Bind(wx.EVT_BUTTON, ID_SELECT) {|event| self.OnSelect(event) }
-		self.Bind(wx.EVT_BUTTON, ID_UNSELECT_ALL) {|event| self.OnUnselectAll(event) }
-		self.Bind(wx.EVT_DATAVIEW_ROW_SELECTED, ID_SORTED) {|event| self.OnSelectedSorted(event) }
-		self.Bind(wx.EVT_DATAVIEW_ROW_SELECTED, ID_UNSORTED) {|event| self.OnSelectedUnsorted(event) }
-		self.Bind(wx.EVT_DATAVIEW_ROW_ACTIVATED, ID_UNSORTED) {|event| self.OnActivatedUnsorted(event) }
-		self.Bind(wx.EVT_DATAVIEW_COLUMN_HEADER_CLICK, ID_SORTED) {|event| self.OnHeaderClickSorted(event) }
-		self.Bind(wx.EVT_DATAVIEW_COLUMN_HEADER_CLICK, ID_UNSORTED) {|event| self.OnHeaderClickUnsorted(event) }
+		this.Bind(wx.EVT_BUTTON, ID_APPEND_ROW_LEFT) {|event| this.OnAppendRowLeft(event) }
+		this.Bind(wx.EVT_BUTTON, ID_PREPEND_ROW_LEFT) {|event| this.OnPrependRowLeft(event) }
+		this.Bind(wx.EVT_BUTTON, ID_INSERT_ROW_LEFT) {|event| this.OnInsertRowLeft(event) }
+		this.Bind(wx.EVT_BUTTON, ID_DELETE_ROW_LEFT) {|event| this.OnDeleteRowLeft(event) }
+		this.Bind(wx.EVT_BUTTON, ID_SELECT) {|event| this.OnSelect(event) }
+		this.Bind(wx.EVT_BUTTON, ID_UNSELECT_ALL) {|event| this.OnUnselectAll(event) }
+		this.Bind(wx.EVT_DATAVIEW_ROW_SELECTED, ID_SORTED) {|event| this.OnSelectedSorted(event) }
+		this.Bind(wx.EVT_DATAVIEW_ROW_SELECTED, ID_UNSORTED) {|event| this.OnSelectedUnsorted(event) }
+		this.Bind(wx.EVT_DATAVIEW_ROW_ACTIVATED, ID_UNSORTED) {|event| this.OnActivatedUnsorted(event) }
+		this.Bind(wx.EVT_DATAVIEW_COLUMN_HEADER_CLICK, ID_SORTED) {|event| this.OnHeaderClickSorted(event) }
+		this.Bind(wx.EVT_DATAVIEW_COLUMN_HEADER_CLICK, ID_UNSORTED) {|event| this.OnHeaderClickUnsorted(event) }
 	}
 	OnSelectedUnsorted(event:wx.DataViewEvent) = {
 		row = event.GetRow()
 		wx.LogMessage('OnSelected from unsorted list, selected %d', row )
 		if (row >= 0) {
 			wx.LogMessage('wxDataViewCtrl::IsSelected( %d ): %d (as int)', 
-						row, self.dataview_right.IsSelected(row))
+						row, this.dataview_right.IsSelected(row))
 		}
 	}
 	OnSelectedSorted(event:wx.DataViewEvent) = {
@@ -366,12 +366,12 @@ MySortingFrame = class(wx.Frame) {
 			// this is the sorting column
 			if (col.IsSortOrderAscending()) {
 				col.SetSortOrder(false)
-				self.m_sorted_model.SetAscending(false)
-				self.m_sorted_model.Resort()
+				this.m_sorted_model.SetAscending(false)
+				this.m_sorted_model.Resort()
 			} else {
 				col.SetSortOrder(true)
-				self.m_sorted_model.SetAscending(true)
-				self.m_sorted_model.Resort()
+				this.m_sorted_model.SetAscending(true)
+				this.m_sorted_model.Resort()
 			}
 		}
 	}
@@ -379,48 +379,48 @@ MySortingFrame = class(wx.Frame) {
 		wx.LogMessage('OnHeaderClick from unsorted list, column %s', event.GetDataViewColumn().GetTitle())
 	}
 	OnQuit(event:wx.CommandEvent) = {
-		self.Close(true)
+		this.Close(true)
 	}
 	OnAbout(event:wx.CommandEvent) = {
-		dialog = wx.MessageDialog(self, 'This demonstrates the dataview control sorting',
+		dialog = wx.MessageDialog(this, 'This demonstrates the dataview control sorting',
 				'About DataView', wx.OK)
 		dialog.ShowModal()
 	}
 	OnSelect(event:wx.CommandEvent) = {
-		self.dataview_left.SetSelection(2)
+		this.dataview_left.SetSelection(2)
 	}
 	OnUnselectAll(event:wx.CommandEvent) = {
-		self.dataview_left.ClearSelection()
+		this.dataview_left.ClearSelection()
 	}
 	OnAppendRowLeft(event:wx.CommandEvent) = {
-		dialog = wx.TextEntryDialog(self, 'Enter text to append')
+		dialog = wx.TextEntryDialog(this, 'Enter text to append')
 		if (dialog.ShowModal() == wx.ID_OK) {
 			value = dialog.GetValue()
 			if (!value.isempty()) {
-				self.m_unsorted_model.AppendRow(value)
+				this.m_unsorted_model.AppendRow(value)
 			}
 		}
 	}
 	OnPrependRowLeft(event:wx.CommandEvent) = {
-		dialog = wx.TextEntryDialog(self, 'Enter text to prepend')
+		dialog = wx.TextEntryDialog(this, 'Enter text to prepend')
 		if (dialog.ShowModal() == wx.ID_OK) {
 			value = dialog.GetValue()
 			if (!value.isempty()) {
-				self.m_unsorted_model.PrependRow(value)
+				this.m_unsorted_model.PrependRow(value)
 			}
 		}
 	}
 	OnInsertRowLeft(event:wx.CommandEvent) = {
-		dialog = wx.TextEntryDialog(self, 'Enter text to insert before second')
+		dialog = wx.TextEntryDialog(this, 'Enter text to insert before second')
 		if (dialog.ShowModal() == wx.ID_OK) {
 			value = dialog.GetValue()
 			if (!value.isempty()) {
-				self.m_unsorted_model.InsertRowAt1(value)
+				this.m_unsorted_model.InsertRowAt1(value)
 			}
 		}
 	}
 	OnDeleteRowLeft(event:wx.CommandEvent) = {
-		self.m_unsorted_model.DeleteRow(1)
+		this.m_unsorted_model.DeleteRow(1)
 	}
 	OnEditRowLeft(event:wx.CommandEvent) = {
 	}

@@ -54,8 +54,8 @@ TestGLCanvas = class(wx.GLCanvas) {
 				size:wx.Size => wx.DefaultSize, style:number => 0,
 				name:string => 'TestGLCanvas') = \
 			{|parent, id, pos, size, (style | wx.FULL_REPAINT_ON_RESIZE), name|
-		self.EventTable()
-		self.m_gldata = GLData(
+		this.EventTable()
+		this.m_gldata = GLData(
 			initialized => false
 			// initialize view matrix
 			beginx => 0.0
@@ -63,26 +63,26 @@ TestGLCanvas = class(wx.GLCanvas) {
 			quat => [0, 0, 0, 0]
 			zoom => 45.0
 		)
-		self.m_gldata.quat = trackball(0.0, 0.0, 0.0, 0.0)
-		self.m_renderer = DXFRenderer()
+		this.m_gldata.quat = trackball(0.0, 0.0, 0.0, 0.0)
+		this.m_renderer = DXFRenderer()
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_SIZE) {|event| self.OnSize(event) }
-		self.Bind(wx.EVT_PAINT) {|event| self.OnPaint(event) }
-		self.Bind(wx.EVT_ERASE_BACKGROUND) {|event| self.OnEraseBackground(event) }
-		self.Bind(wx.EVT_MOUSE_EVENTS) {|event| self.OnMouse(event) }
+		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
+		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event) }
+		this.Bind(wx.EVT_ERASE_BACKGROUND) {|event| this.OnEraseBackground(event) }
+		this.Bind(wx.EVT_MOUSE_EVENTS) {|event| this.OnMouse(event) }
 	}
 	OnPaint(event:wx.PaintEvent) = {
 		// must always be here
-		dc = wx.PaintDC(self)
-		if (!self.GetContext()) { return }
+		dc = wx.PaintDC(this)
+		if (!this.GetContext()) { return }
 		try {
-			self.SetCurrent()
+			this.SetCurrent()
 			// Initialize OpenGL
-			if (!self.m_gldata.initialized) {
-				self.InitGL()
-				self.ResetProjectionMode()
-				self.m_gldata.initialized = true
+			if (!this.m_gldata.initialized) {
+				this.InitGL()
+				this.ResetProjectionMode()
+				this.m_gldata.initialized = true
 			}
 			// Clear
 			glClearColor(0.3, 0.4, 0.6, 1.0)
@@ -90,13 +90,13 @@ TestGLCanvas = class(wx.GLCanvas) {
 			// Transformations
 			glLoadIdentity()
 			glTranslatef(0.0, 0.0, -20.0)
-			m = build_rotmatrix(self.m_gldata.quat)
+			m = build_rotmatrix(this.m_gldata.quat)
 			glMultMatrixf(m)
-			self.m_renderer.Render()
+			this.m_renderer.Render()
 			// Flush
 			glFlush()
 			// Swap
-			self.SwapBuffers()
+			this.SwapBuffers()
 		} except {|e|
 			println(e.message)
 		}
@@ -104,9 +104,9 @@ TestGLCanvas = class(wx.GLCanvas) {
 	}
 	OnSize(event:wx.SizeEvent) = {
 		// this is also necessary to update the context on some platforms
-		//super(self).OnSize(event)
+		//super(this).OnSize(event)
 		// Reset the OpenGL view aspect
-		self.ResetProjectionMode()
+		this.ResetProjectionMode()
 	}
 	OnEraseBackground(event:wx.EraseEvent) = {
 		// Do nothing, to avoid flashing on MSW
@@ -116,27 +116,27 @@ TestGLCanvas = class(wx.GLCanvas) {
 		if (stream.Ok()) {
 			if (filename.endswith('.gz')) {
 				zstream = wx.ZlibInputStream(stream)
-				self.m_renderer.Load(zstream)
+				this.m_renderer.Load(zstream)
 			} else {
-				self.m_renderer.Load(stream)
+				this.m_renderer.Load(stream)
 			}
 		}
 	}
 	OnMouse(event:wx.MouseEvent) = {
 		if (event.Dragging()) {
-			sz = self.GetClientSize()
+			sz = this.GetClientSize()
 			/* drag in progress, simulate trackball */
 			spin_quat = trackball(
-				(2.0 * self.m_gldata.beginx - sz.x) / sz.x,
-				(sz.y - 2.0 * self.m_gldata.beginy) / sz.y,
+				(2.0 * this.m_gldata.beginx - sz.x) / sz.x,
+				(sz.y - 2.0 * this.m_gldata.beginy) / sz.y,
 				(2.0 * event.GetX() - sz.x)	/ sz.x,
 				(sz.y - 2.0 * event.GetY())	/ sz.y)
-			self.m_gldata.quat = add_quats(spin_quat, self.m_gldata.quat)
+			this.m_gldata.quat = add_quats(spin_quat, this.m_gldata.quat)
 			/* orientation has changed, redraw mesh */
-			self.Refresh(false)
+			this.Refresh(false)
 		}
-		self.m_gldata.beginx = event.GetX()
-		self.m_gldata.beginy = event.GetY()
+		this.m_gldata.beginx = event.GetX()
+		this.m_gldata.beginy = event.GetY()
 	}
 	InitGL() = {
 		light0_pos = [-50.0, 50.0, 0.0, 0.0]
@@ -165,9 +165,9 @@ TestGLCanvas = class(wx.GLCanvas) {
 		glEnable(GL_COLOR_MATERIAL)
 	}
 	ResetProjectionMode() = {
-		[w, h] = self.GetClientSizeWH()
-		if (self.GetContext()) {
-			self.SetCurrent()
+		[w, h] = this.GetClientSizeWH()
+		if (this.GetContext()) {
+			this.SetCurrent()
 			glViewport(0, 0, w, h)
 			glMatrixMode(GL_PROJECTION)
 			glLoadIdentity()
@@ -186,8 +186,8 @@ MyFrame = class(wx.Frame) {
 	__init__(frame:wx.Frame, title:string, pos:wx.Point,
 				size:wx.Size, style:number => wx.DEFAULT_FRAME_STYLE) = \
 			{|frame, wx.ID_ANY, title, pos, size, style|
-		self.EventTable()
-		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		this.EventTable()
+		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 		// Make the "File" menu
 		fileMenu = wx.Menu()
 		fileMenu.Append(wx.ID_OPEN, '&Open...')
@@ -199,14 +199,14 @@ MyFrame = class(wx.Frame) {
 		menuBar = wx.MenuBar()
 		menuBar.Append(fileMenu, '&File')
 		menuBar.Append(helpMenu, '&Help')
-		self.SetMenuBar(menuBar)
-		self.m_canvas = TestGLCanvas(self, wx.ID_ANY, wx.DefaultPosition,
+		this.SetMenuBar(menuBar)
+		this.m_canvas = TestGLCanvas(this, wx.ID_ANY, wx.DefaultPosition,
 									wx.Size(300, 300), wx.SUNKEN_BORDER)
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MENU, wx.ID_OPEN) {|event| self.OnMenuFileOpen(event) }
-		self.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| self.OnMenuFileExit(event) }
-		self.Bind(wx.EVT_MENU, wx.ID_HELP) {|event| self.OnMenuHelpAbout(event) }
+		this.Bind(wx.EVT_MENU, wx.ID_OPEN) {|event| this.OnMenuFileOpen(event) }
+		this.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| this.OnMenuFileExit(event) }
+		this.Bind(wx.EVT_MENU, wx.ID_HELP) {|event| this.OnMenuHelpAbout(event) }
 	}
 	OnMenuFileOpen(event:wx.CommandEvent) = {
 		filename = wx.FileSelector('Choose DXF Model', '', '', '',
@@ -214,19 +214,19 @@ MyFrame = class(wx.Frame) {
 			//'DXF Drawing (*.dxf)|*.dxf)|All files (*.*)|*.*',
 			wx.FD_OPEN)
 		if (!filename.isempty()) {
-			self.m_canvas.LoadDXF(filename)
-			self.m_canvas.Refresh(false)
+			this.m_canvas.LoadDXF(filename)
+			this.m_canvas.Refresh(false)
 		}
 	}
 	OnMenuFileExit(event:wx.CommandEvent) = {
 		// true is to force the frame to close
-		self.Close(true)
+		this.Close(true)
 	}
 	OnMenuHelpAbout(event:wx.CommandEvent) = {
 		wx.MessageBox('OpenGL Penguin Sample (c) Robert Roebling, Sandro Sigala et al')
 	}
-	//SetCanvas(canvas:TestGLCanvas) = { self.m_canvas = canvas }
-	GetCanvas() = { self.m_canvas }
+	//SetCanvas(canvas:TestGLCanvas) = { this.m_canvas = canvas }
+	GetCanvas() = { this.m_canvas }
 }
 
 wx.IMPLEMENT_APP(MyApp)

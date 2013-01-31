@@ -5,7 +5,7 @@ classref(`image).rgbread(stream:stream) = {
 						width:number, height:number, nElems:number)
 	buff = stream.read()
 	hdr = ImageHeader * buff.unpack('>HHHHHH')
-	self.allocbuff(hdr.width, hdr.height)
+	this.allocbuff(hdr.width, hdr.height)
 	p = buff.pointer(512)
 	n = hdr.height * hdr.nElems
 	rowStart = p.unpack('>${n}I'.template())
@@ -24,17 +24,17 @@ classref(`image).rgbread(stream:stream) = {
 			}
 		}
 	}
-	if (self.format == `rgb) {
+	if (this.format == `rgb) {
 		repeat (hdr.height) {|y|
-			self.putpixel(0.., y, color(getrow(y, 0), getrow(y, 1), getrow(y, 2)))
+			this.putpixel(0.., y, color(getrow(y, 0), getrow(y, 1), getrow(y, 2)))
 		}
-	} elsif (self.format == `rgba) {
+	} elsif (this.format == `rgba) {
 		repeat (hdr.height) {|y|
-			self.putpixel(0.., y, color(getrow(y, 0), getrow(y, 1), getrow(y, 2), 0))
+			this.putpixel(0.., y, color(getrow(y, 0), getrow(y, 1), getrow(y, 2), 0))
 		}
 	} else {
 		raise(ValueError, 'unknown image format')
 	}
-	self
+	this
 }
 classref(`image).rgbread.help = '''Reads an image in RGB format'''

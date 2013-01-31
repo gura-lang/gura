@@ -45,9 +45,9 @@ MyApp = class(wx.App) {
 
 MyFrame = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point, size:wx.Size) = {|nil, wx.ID_ANY, title, pos, size|
-		self.EventTable()
+		this.EventTable()
 		// set the frame icon
-		self.SetIcon(wx.IconFromXPMData(resource.mondrian_xpm))
+		this.SetIcon(wx.IconFromXPMData(resource.mondrian_xpm))
 		// create a menu bar
 		menuFile = wx.Menu()
 		menuFile.Append(Caret_SetBlinkTime, '&Blink time...\tCtrl-B')
@@ -61,30 +61,30 @@ MyFrame = class(wx.Frame) {
 		menuBar = wx.MenuBar()
 		menuBar.Append(menuFile, '&File')
 		// ... and attach this menu bar to the frame
-		self.SetMenuBar(menuBar)
-		self.m_canvas = MyCanvas(self)
+		this.SetMenuBar(menuBar)
+		this.m_canvas = MyCanvas(this)
 		// create a status bar just for fun (by default with 1 pane only)
-		self.CreateStatusBar(2)
-		self.SetStatusText('Welcome to wxWidgets!')
+		this.CreateStatusBar(2)
+		this.SetStatusText('Welcome to wxWidgets!')
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MENU, Caret_Quit) {|event| self.OnQuit(event) }
-		self.Bind(wx.EVT_MENU, Caret_About) {|event| self.OnAbout(event) }
-		self.Bind(wx.EVT_MENU, Caret_SetBlinkTime) {|event| self.OnSetBlinkTime(event) }
-		self.Bind(wx.EVT_MENU, Caret_SetFontSize) {|event| self.OnSetFontSize(event) }
-		self.Bind(wx.EVT_MENU, Caret_Move) {|event| self.OnCaretMove(event) }
+		this.Bind(wx.EVT_MENU, Caret_Quit) {|event| this.OnQuit(event) }
+		this.Bind(wx.EVT_MENU, Caret_About) {|event| this.OnAbout(event) }
+		this.Bind(wx.EVT_MENU, Caret_SetBlinkTime) {|event| this.OnSetBlinkTime(event) }
+		this.Bind(wx.EVT_MENU, Caret_SetFontSize) {|event| this.OnSetFontSize(event) }
+		this.Bind(wx.EVT_MENU, Caret_Move) {|event| this.OnCaretMove(event) }
 	}
 	// event handlers (these functions should _not_ be virtual)
 	OnQuit(event:wx.CommandEvent) = {
 		// true is to force the frame to close
-		self.Close(true)
+		this.Close(true)
 	}
 	OnAbout(event:wx.CommandEvent) = {
 		wx.MessageBox('The caret wxWidgets sample.\n(c) 1999 Vadim Zeitlin',
-						'About Caret', wx.OK | wx.ICON_INFORMATION, self)
+						'About Caret', wx.OK | wx.ICON_INFORMATION, this)
 	}
 	OnCaretMove(event:wx.CommandEvent) = {
-		self.m_canvas.MoveCaret(10, 10)
+		this.m_canvas.MoveCaret(10, 10)
 	}
 	OnSetBlinkTime(event:wx.CommandEvent) = {
 		blinkTime = wx.GetNumberFromUser(
@@ -92,12 +92,12 @@ MyFrame = class(wx.Frame) {
 						'Time in milliseconds:',
 						'wxCaret sample',
 						wx.Caret.GetBlinkTime(), 0, 10000,
-						self
+						this
 						)
 		if (blinkTime != -1) {
 			wx.Caret.SetBlinkTime(blinkTime)
-			self.m_canvas.CreateCaret()
-			wx.LogStatusEx(self, 'Blink time set to %ld milliseconds.', blinkTime)
+			this.m_canvas.CreateCaret()
+			wx.LogStatusEx(this, 'Blink time set to %ld milliseconds.', blinkTime)
 		}
 	}
 	OnSetFontSize(event:wx.CommandEvent) = {
@@ -106,10 +106,10 @@ MyFrame = class(wx.Frame) {
 						'Font size (in points):',
 						'wxCaret sample',
 						12, 1, 100,
-						self
+						this
 						)
 		if (fontSize != -1) {
-			self.m_canvas.SetFontSize(fontSize)
+			this.m_canvas.SetFontSize(fontSize)
 		}
 	}
 }
@@ -117,143 +117,143 @@ MyFrame = class(wx.Frame) {
 MyCanvas = class(wx.ScrolledWindow) {
 	__init__(parent:wx.Frame) = {|parent, wx.ID_ANY,
 				wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|
-		self.m_frame = parent
-		self.EventTable()
+		this.m_frame = parent
+		this.EventTable()
 		// the text
-		self.m_text = nil
-		self.SetBackgroundColour(wx.WHITE)
-		self.SetFontSize(12)
+		this.m_text = nil
+		this.SetBackgroundColour(wx.WHITE)
+		this.SetFontSize(12)
 		// position (in text coords) of the caret
-		self.m_xCaret = self.m_yCaret = 0
+		this.m_xCaret = this.m_yCaret = 0
 		// the size (in text coords) of the window
-		self.m_xChars = self.m_yChars = 0
+		this.m_xChars = this.m_yChars = 0
 		// the margin around the text (looks nicer)
-		self.m_xMargin = self.m_yMargin = 5
-		self.CreateCaret()
+		this.m_xMargin = this.m_yMargin = 5
+		this.CreateCaret()
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_PAINT) {|event| self.OnPaint(event) }
-		self.Bind(wx.EVT_SIZE) {|event| self.OnSize(event) }
-		self.Bind(wx.EVT_CHAR) {|event| self.OnChar(event) }
+		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event) }
+		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
+		this.Bind(wx.EVT_CHAR) {|event| this.OnChar(event) }
 	}
-	CharAt(x:number, y:number) = { self.m_text[y][x] }
-	StoreAt(x:number, y:number, ch:string) = { self.m_text[y][x] = ch }
+	CharAt(x:number, y:number) = { this.m_text[y][x] }
+	StoreAt(x:number, y:number, ch:string) = { this.m_text[y][x] = ch }
 	// operations
 	CreateCaret() = {
-		caret = wx.Caret(self, self.m_widthChar, self.m_heightChar)
-		self.SetCaret(caret)
-		caret.Move(self.m_xMargin, self.m_yMargin)
+		caret = wx.Caret(this, this.m_widthChar, this.m_heightChar)
+		this.SetCaret(caret)
+		caret.Move(this.m_xMargin, this.m_yMargin)
 		caret.Show()
 	}
 	SetFontSize(fontSize:number) = {
-		self.m_font = wx.Font(fontSize, wx.FONTFAMILY_TELETYPE,
+		this.m_font = wx.Font(fontSize, wx.FONTFAMILY_TELETYPE,
 						wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-		dc = wx.ClientDC(self)
-		dc.SetFont(self.m_font)
-		self.m_heightChar = dc.GetCharHeight()
-		self.m_widthChar = dc.GetCharWidth()
-		caret = self.GetCaret()
+		dc = wx.ClientDC(this)
+		dc.SetFont(this.m_font)
+		this.m_heightChar = dc.GetCharHeight()
+		this.m_widthChar = dc.GetCharWidth()
+		caret = this.GetCaret()
 		if (caret) {
-			caret.SetSize(self.m_widthChar, self.m_heightChar)
-			self.ChangeSize()
+			caret.SetSize(this.m_widthChar, this.m_heightChar)
+			this.ChangeSize()
 		}
 	}
 	MoveCaret(x:number, y:number) = {
-		self.m_xCaret = x
-		self.m_yCaret = y
-		self.DoMoveCaret()
+		this.m_xCaret = x
+		this.m_yCaret = y
+		this.DoMoveCaret()
 	}
 	// caret movement
-	Home() = { self.m_xCaret = 0 }
-	End() = { self.m_xCaret = self.m_xChars - 1 }
-	FirstLine() = { self.m_yCaret = 0 }
-	LastLine() = { self.m_yCaret = self.m_yChars - 1 }
-	PrevChar() = { if (self.m_xCaret == 0) { self.End(); self.PrevLine() }, self.m_xCaret -= 1 }
-	NextChar() = { self.m_xCaret += 1, if (self.m_xCaret == self.m_xChars) { self.Home(); self.NextLine() } }
-	PrevLine() = { if (self.m_yCaret == 0) { self.LastLine() }, self.m_yCaret -= 1 }
-	NextLine() = { self.m_yCaret += 1, if (self.m_yCaret == self.m_yChars) { self.FirstLine() } }
+	Home() = { this.m_xCaret = 0 }
+	End() = { this.m_xCaret = this.m_xChars - 1 }
+	FirstLine() = { this.m_yCaret = 0 }
+	LastLine() = { this.m_yCaret = this.m_yChars - 1 }
+	PrevChar() = { if (this.m_xCaret == 0) { this.End(); this.PrevLine() }, this.m_xCaret -= 1 }
+	NextChar() = { this.m_xCaret += 1, if (this.m_xCaret == this.m_xChars) { this.Home(); this.NextLine() } }
+	PrevLine() = { if (this.m_yCaret == 0) { this.LastLine() }, this.m_yCaret -= 1 }
+	NextLine() = { this.m_yCaret += 1, if (this.m_yCaret == this.m_yChars) { this.FirstLine() } }
 	// event handlers
 	// move the caret to m_xCaret, m_yCaret
 	DoMoveCaret() = {
-		wx.LogStatus('Caret is at (%d, %d)', self.m_xCaret, self.m_yCaret)
-		self.GetCaret().Move(self.m_xMargin + self.m_xCaret * self.m_widthChar,
-						self.m_yMargin + self.m_yCaret * self.m_heightChar)
+		wx.LogStatus('Caret is at (%d, %d)', this.m_xCaret, this.m_yCaret)
+		this.GetCaret().Move(this.m_xMargin + this.m_xCaret * this.m_widthChar,
+						this.m_yMargin + this.m_yCaret * this.m_heightChar)
 	}
 	OnSize(event:wx.SizeEvent) = {
-		self.ChangeSize()
+		this.ChangeSize()
 		event.Skip()
 	}
 	// update the geometry
 	ChangeSize() = {
-		size = self.GetClientSize()
-		self.m_xChars = (size.x - 2 * self.m_xMargin) / self.m_widthChar
-		self.m_yChars = (size.y - 2 * self.m_yMargin) / self.m_heightChar
-		if (self.m_xChars == 0) {
-			self.m_xChars = 1
+		size = this.GetClientSize()
+		this.m_xChars = (size.x - 2 * this.m_xMargin) / this.m_widthChar
+		this.m_yChars = (size.y - 2 * this.m_yMargin) / this.m_heightChar
+		if (this.m_xChars == 0) {
+			this.m_xChars = 1
 		}
-		if (self.m_yChars == 0) {
-			self.m_yChars = 1
+		if (this.m_yChars == 0) {
+			this.m_yChars = 1
 		}
 		//free(m_text)
-		self.m_text = dim(self.m_yChars, self.m_xChars) {''}
-		if (self.m_frame && self.m_frame.GetStatusBar()) {
-			msg = format('Panel size is (%d, %d)', self.m_xChars, self.m_yChars)
-			self.m_frame.SetStatusText(msg, 1)
+		this.m_text = dim(this.m_yChars, this.m_xChars) {''}
+		if (this.m_frame && this.m_frame.GetStatusBar()) {
+			msg = format('Panel size is (%d, %d)', this.m_xChars, this.m_yChars)
+			this.m_frame.SetStatusText(msg, 1)
 		}
 	}
 	OnPaint(event:wx.PaintEvent) = {
-		wx.CaretSuspend(self) {
-			dc = wx.PaintDC(self)
-			self.PrepareDC(dc)
+		wx.CaretSuspend(this) {
+			dc = wx.PaintDC(this)
+			this.PrepareDC(dc)
 			dc.Clear()
-			dc.SetFont(self.m_font)
-			repeat(self.m_yChars) {|y|
+			dc.SetFont(this.m_font)
+			repeat(this.m_yChars) {|y|
 				line = ''
-				repeat(self.m_xChars) {|x|
-					ch = self.CharAt(x, y)
+				repeat(this.m_xChars) {|x|
+					ch = this.CharAt(x, y)
 					if (!ch) {
 						ch = ' '
 					}
 					line += ch
 				}
-				dc.DrawText(line, self.m_xMargin, self.m_yMargin + y * self.m_heightChar)
+				dc.DrawText(line, this.m_xMargin, this.m_yMargin + y * this.m_heightChar)
 			}
 		}
 	}
 	OnChar(event:wx.KeyEvent) = {
 		keyCode = event.GetKeyCode()
 		if (keyCode == wx.WXK_LEFT) {
-			self.PrevChar()
+			this.PrevChar()
 		} elsif (keyCode == wx.WXK_RIGHT) {
-			self.NextChar()
+			this.NextChar()
 		} elsif (keyCode == wx.WXK_UP) {
-			self.PrevLine()
+			this.PrevLine()
 		} elsif (keyCode == wx.WXK_DOWN) {
-			self.NextLine()
+			this.NextLine()
 		} elsif (keyCode == wx.WXK_HOME) {
-			self.Home()
+			this.Home()
 		} elsif (keyCode == wx.WXK_END) {
-			self.End()
+			this.End()
 		} elsif (keyCode == wx.WXK_RETURN) {
-			self.Home()
-			self.NextLine()
+			this.Home()
+			this.NextLine()
 		} else {
 			if (!event.AltDown() && wx.Isprint(event.GetKeyCode())) {
 				ch = chr(event.GetKeyCode())
-				self.StoreAt(self.m_xCaret, self.m_yCaret, ch)
-				wx.CaretSuspend(self) {
-					dc = wx.ClientDC(self)
-					dc.SetFont(self.m_font)
+				this.StoreAt(this.m_xCaret, this.m_yCaret, ch)
+				wx.CaretSuspend(this) {
+					dc = wx.ClientDC(this)
+					dc.SetFont(this.m_font)
 					dc.SetBackgroundMode(wx.SOLID) // overwrite old value
-					dc.DrawText(ch, self.m_xMargin + self.m_xCaret * self.m_widthChar,
-									self.m_yMargin + self.m_yCaret * self.m_heightChar)
-					self.NextChar()
+					dc.DrawText(ch, this.m_xMargin + this.m_xCaret * this.m_widthChar,
+									this.m_yMargin + this.m_yCaret * this.m_heightChar)
+					this.NextChar()
 				}
 			} else {
 				event.Skip()
 			}
 		}
-		self.DoMoveCaret()
+		this.DoMoveCaret()
 	}
 }
 

@@ -15,23 +15,23 @@ xStep = wdImage / 10
 
 Chicken = class {
 	__init__(x:number, y:number, dir:symbol) = {
-		[self.x, self.y] = [x, y]
-		if (dir == `right) { self.turnRight() } else { self.turnLeft() }
+		[this.x, this.y] = [x, y]
+		if (dir == `right) { this.turnRight() } else { this.turnLeft() }
 	}
 	turnRight() = {
-		self.xDir = xStep
-		self.imageIter = imagesR.round()
+		this.xDir = xStep
+		this.imageIter = imagesR.round()
 	}
 	turnLeft() = {
-		self.xDir = -xStep
-		self.imageIter = imagesL.round()
+		this.xDir = -xStep
+		this.imageIter = imagesL.round()
 	}
 	doAction():void = {
-		image = self.imageIter.next()
-		screen.PutSurface(image, self.x, self.y - image.height)
-		self.x += self.xDir
-		(self.x + wdImage > wdScreen) && self.turnLeft()
-		(self.x < 0) && self.turnRight()
+		image = this.imageIter.next()
+		screen.PutSurface(image, this.x, this.y - image.height)
+		this.x += this.xDir
+		(this.x + wdImage > wdScreen) && this.turnLeft()
+		(this.x < 0) && this.turnRight()
 	}
 }
 chickens = repeat(3):list {

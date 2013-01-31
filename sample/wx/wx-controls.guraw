@@ -109,31 +109,31 @@ INVALID_SELECTION = -2
 MyPanel = class(wx.Panel) {
 	__init__(frame:wx.Frame, x:number, y:number, w:number, h:number) = \
 					{|frame, wx.ID_ANY, wx.Point(x, y), wx.Size(w, h)|
-		self.m_listbox = nil
-		self.m_listboxSorted = nil
-		self.m_choice = nil
-		self.m_choiceSorted = nil
-		self.m_combo = nil
-		self.m_radio = nil
-		self.m_gauge = nil
-		self.m_gaugeVert = nil
-		self.m_slider = nil
-		self.m_fontButton = nil
-		self.m_lbSelectNum = nil
-		self.m_lbSelectThis = nil
-		self.m_spinbutton = nil
-		self.m_btnProgress = nil
-		self.m_spinctrl = nil
-		self.m_spintext = nil
-		self.m_checkbox = nil
-		self.m_text = nil
-		self.m_book = nil
-		self.m_label = nil
-		self.EventTable()
-		self.m_text = wx.TextCtrl(self, wx.ID_ANY, 'This is the log window.\n',
+		this.m_listbox = nil
+		this.m_listboxSorted = nil
+		this.m_choice = nil
+		this.m_choiceSorted = nil
+		this.m_combo = nil
+		this.m_radio = nil
+		this.m_gauge = nil
+		this.m_gaugeVert = nil
+		this.m_slider = nil
+		this.m_fontButton = nil
+		this.m_lbSelectNum = nil
+		this.m_lbSelectThis = nil
+		this.m_spinbutton = nil
+		this.m_btnProgress = nil
+		this.m_spinctrl = nil
+		this.m_spintext = nil
+		this.m_checkbox = nil
+		this.m_text = nil
+		this.m_book = nil
+		this.m_label = nil
+		this.EventTable()
+		this.m_text = wx.TextCtrl(this, wx.ID_ANY, 'This is the log window.\n',
 							wx.Point(0, 250), wx.Size(100, 50), wx.TE_MULTILINE)
-		self.m_logTargetOld = wx.Log.SetActiveTarget(wx.LogTextCtrl(self.m_text))
-		self.m_book = wx.BookCtrl(self, ID_BOOK)
+		this.m_logTargetOld = wx.Log.SetActiveTarget(wx.LogTextCtrl(this.m_text))
+		this.m_book = wx.BookCtrl(this, ID_BOOK)
 		choices = [
 			'This',
 			'is one of my',
@@ -160,42 +160,42 @@ MyPanel = class(wx.Panel) {
 		imagelist.Add(wx.BitmapFromXPMData(resource.text_xpm))
 		imagelist.Add(wx.BitmapFromXPMData(resource.radio_xpm))
 		imagelist.Add(wx.BitmapFromXPMData(resource.gauge_xpm))
-		self.m_book.SetImageList(imagelist)
-		wx.Panel(self.m_book) {|panel|
-			self.m_listbox = wx.ListBox(panel, ID_LISTBOX,
+		this.m_book.SetImageList(imagelist)
+		wx.Panel(this.m_book) {|panel|
+			this.m_listbox = wx.ListBox(panel, ID_LISTBOX,
 										wx.Point(10, 10), wx.Size(120, 70),
 										choices, wx.LB_MULTIPLE | wx.LB_ALWAYS_SB)
-			self.m_listboxSorted = wx.ListBox(panel, ID_LISTBOX_SORTED,
+			this.m_listboxSorted = wx.ListBox(panel, ID_LISTBOX_SORTED,
 										wx.Point(10, 90), wx.Size(120, 70),
 										choices, wx.LB_SORT)
-			SetListboxClientData('listbox', self.m_listbox)
-			SetListboxClientData('listbox', self.m_listboxSorted)
-			self.m_listbox.SetCursor(wx.CROSS_CURSOR)
-			self.m_listbox.SetToolTipString('This is a list box')
-			self.m_lbSelectNum = wx.Button(panel, ID_LISTBOX_SEL_NUM, 'Select #&2', wx.Point(180, 30), wx.Size(140, 30))
-			self.m_lbSelectThis = wx.Button(panel, ID_LISTBOX_SEL_STR, "&Select 'This'", wx.Point(340, 30), wx.Size(140, 30))
+			SetListboxClientData('listbox', this.m_listbox)
+			SetListboxClientData('listbox', this.m_listboxSorted)
+			this.m_listbox.SetCursor(wx.CROSS_CURSOR)
+			this.m_listbox.SetToolTipString('This is a list box')
+			this.m_lbSelectNum = wx.Button(panel, ID_LISTBOX_SEL_NUM, 'Select #&2', wx.Point(180, 30), wx.Size(140, 30))
+			this.m_lbSelectThis = wx.Button(panel, ID_LISTBOX_SEL_STR, "&Select 'This'", wx.Point(340, 30), wx.Size(140, 30))
 			wx.Button(panel, ID_LISTBOX_CLEAR, '&Clear', wx.Point(180, 80), wx.Size(140, 30))
 			MyButton(panel, ID_LISTBOX_APPEND, "&Append 'Hi!'", wx.Point(340, 80), wx.Size(140, 30))
 			wx.Button(panel, ID_LISTBOX_DELETE, 'D&elete selected item', wx.Point(180, 130), wx.Size(140, 30))
 			button = MyButton( panel, ID_LISTBOX_FONT, 'Set &Italic font', wx.Point(340, 130), wx.Size(140, 30))
 			button.SetDefault()
 			button.SetToolTipString('Press here to set italic font')
-			self.m_checkbox = wx.CheckBox(panel, ID_LISTBOX_ENABLE, '&Disable', wx.Point(20, 170))
-			self.m_checkbox.SetValue(false)
-			button.MoveAfterInTabOrder(self.m_checkbox)
-			self.m_checkbox.SetToolTipString('Click here to disable the listbox')
+			this.m_checkbox = wx.CheckBox(panel, ID_LISTBOX_ENABLE, '&Disable', wx.Point(20, 170))
+			this.m_checkbox.SetValue(false)
+			button.MoveAfterInTabOrder(this.m_checkbox)
+			this.m_checkbox.SetToolTipString('Click here to disable the listbox')
 			wx.CheckBox( panel, ID_CHANGE_COLOUR, '&Toggle colour',
 								wx.Point(110, 170))
 			panel.SetCursor(wx.StockCursor(wx.CURSOR_HAND))
-			self.m_book.AddPage(panel, 'wxListBox', true, Image_List)
+			this.m_book.AddPage(panel, 'wxListBox', true, Image_List)
 		}
-		wx.Panel(self.m_book) {|panel|
-			self.m_choice = MyChoice(panel, ID_CHOICE, wx.Point(10,10), wx.Size(120, wx.DefaultCoord), choices)
-			self.m_choiceSorted = MyChoice(panel, ID_CHOICE_SORTED, wx.Point(10, 70), wx.Size(120, wx.DefaultCoord),
+		wx.Panel(this.m_book) {|panel|
+			this.m_choice = MyChoice(panel, ID_CHOICE, wx.Point(10,10), wx.Size(120, wx.DefaultCoord), choices)
+			this.m_choiceSorted = MyChoice(panel, ID_CHOICE_SORTED, wx.Point(10, 70), wx.Size(120, wx.DefaultCoord),
 										choices, wx.CB_SORT)
-			SetChoiceClientData('choice', self.m_choice)
-			SetChoiceClientData('choice', self.m_choiceSorted)
-			self.m_choice.SetSelection(2)
+			SetChoiceClientData('choice', this.m_choice)
+			SetChoiceClientData('choice', this.m_choiceSorted)
+			this.m_choice.SetSelection(2)
 			wx.Button(panel, ID_CHOICE_SEL_NUM, 'Select #&2', wx.Point(180, 30), wx.Size(140, 30))
 			wx.Button(panel, ID_CHOICE_SEL_STR, "&Select 'This'", wx.Point(340, 30), wx.Size(140, 30))
 			wx.Button(panel, ID_CHOICE_CLEAR, '&Clear', wx.Point(180, 80), wx.Size(140, 30))
@@ -203,13 +203,13 @@ MyPanel = class(wx.Panel) {
 			wx.Button(panel, ID_CHOICE_DELETE, 'D&elete selected item', wx.Point(180, 130), wx.Size(140, 30))
 			wx.Button(panel, ID_CHOICE_FONT, 'Set &Italic font', wx.Point(340, 130), wx.Size(140, 30))
 			wx.CheckBox(panel, ID_CHOICE_ENABLE, '&Disable', wx.Point(20, 130), wx.Size(140, 30))
-			self.m_book.AddPage(panel, 'wxChoice', false, Image_Choice)
+			this.m_book.AddPage(panel, 'wxChoice', false, Image_Choice)
 		}
 
-		wx.Panel(self.m_book) {|panel|
+		wx.Panel(this.m_book) {|panel|
 			wx.StaticBox(panel, wx.ID_ANY, '&Box around combobox',
 						wx.Point(5, 5), wx.Size(150, 100))
-			self.m_combo = MyComboBox(panel, ID_COMBO, 'This',
+			this.m_combo = MyComboBox(panel, ID_COMBO, 'This',
 								wx.Point(20,25), wx.Size(120, wx.DefaultCoord),
 								choices,
 								wx.TE_PROCESS_ENTER)
@@ -221,7 +221,7 @@ MyPanel = class(wx.Panel) {
 			wx.Button(panel, ID_COMBO_FONT, 'Set &Italic font', wx.Point(340, 130), wx.Size(140, 30))
 			wx.Button(panel, ID_COMBO_SET_TEXT, "Set 'Hi!' at #2", wx.Point(340, 180), wx.Size(140, 30))
 			wx.CheckBox(panel, ID_COMBO_ENABLE, '&Disable', wx.Point(20, 130), wx.Size(140, 30))
-			self.m_book.AddPage(panel, 'wxComboBox', false, Image_Combo)
+			this.m_book.AddPage(panel, 'wxComboBox', false, Image_Combo)
 		}
 		choices2 = [
 			'First', 'Second',
@@ -229,31 +229,31 @@ MyPanel = class(wx.Panel) {
 			"Fourth", "Fifth", "Sixth",
 			"Seventh", "Eighth", "Nineth", "Tenth" */
 		]
-		wx.Panel(self.m_book) {|panel|
+		wx.Panel(this.m_book) {|panel|
 			radio2 = MyRadioBox(panel, ID_RADIOBOX, '&That', wx.Point(10, 160), wx.DefaultSize, choices2, 1, wx.RA_SPECIFY_ROWS)
-			self.m_radio = wx.RadioBox(panel, ID_RADIOBOX, 'T&his', wx.Point(10, 10), wx.DefaultSize, choices, 1, wx.RA_SPECIFY_COLS)
-			self.m_combo.SetToolTipString('This is a natural\ncombobox - can you believe me?')
+			this.m_radio = wx.RadioBox(panel, ID_RADIOBOX, 'T&his', wx.Point(10, 10), wx.DefaultSize, choices, 1, wx.RA_SPECIFY_COLS)
+			this.m_combo.SetToolTipString('This is a natural\ncombobox - can you believe me?')
 			radio2.SetToolTipString('Ever seen a radiobox?')
 			//m_radio.SetToolTipString('Tooltip for the entire radiobox')
-			self.m_radio.SetItemToolTip(0.., 'tooltip for\n' + choices)
+			this.m_radio.SetItemToolTip(0.., 'tooltip for\n' + choices)
 			// remove the tooltip for one of the items
-			self.m_radio.SetItemToolTip(2, '')
-			self.m_radio.SetItemHelpText(0.., format('Help text for "%s"', choices))
+			this.m_radio.SetItemToolTip(2, '')
+			this.m_radio.SetItemHelpText(0.., format('Help text for "%s"', choices))
 			// erase help text for the second item
-			self.m_radio.SetItemHelpText(1, '')
+			this.m_radio.SetItemHelpText(1, '')
 			// set default help text for control
-			self.m_radio.SetHelpText('Default helptext for wxRadioBox')
+			this.m_radio.SetHelpText('Default helptext for wxRadioBox')
 			wx.Button(panel, ID_RADIOBOX_SEL_NUM, 'Select #&2', wx.Point(180, 30), wx.Size(140, 30))
 			wx.Button(panel, ID_RADIOBOX_SEL_STR, "&Select 'This'", wx.Point(180, 80), wx.Size(140, 30))
-			self.m_fontButton = wx.Button(panel, ID_SET_FONT, 'Set &more Italic font', wx.Point(340, 30), wx.Size(140, 30))
+			this.m_fontButton = wx.Button(panel, ID_SET_FONT, 'Set &more Italic font', wx.Point(340, 30), wx.Size(140, 30))
 			wx.Button(panel, ID_RADIOBOX_FONT, 'Set &Italic font', wx.Point(340, 80), wx.Size(140, 30))
 			wx.CheckBox(panel, ID_RADIOBOX_ENABLE, '&Disable', wx.Point(340, 130), wx.DefaultSize)
 			rb = wx.RadioButton(panel, ID_RADIOBUTTON_1, 'Radiobutton1', wx.Point(210, 170), wx.DefaultSize, wx.RB_GROUP)
 			rb.SetValue(false)
 			wx.RadioButton(panel, ID_RADIOBUTTON_2, '&Radiobutton2', wx.Point(340, 170), wx.DefaultSize)
-			self.m_book.AddPage(panel, 'wxRadioBox', false, Image_Radio)
+			this.m_book.AddPage(panel, 'wxRadioBox', false, Image_Radio)
 		}
-		wx.Panel(self.m_book) {|panel|
+		wx.Panel(this.m_book) {|panel|
 			main_sizer = wx.BoxSizer(wx.HORIZONTAL)
 			panel.SetSizer(main_sizer)
 			gauge_sizer = wx.StaticBoxSizer(wx.StaticBox(panel, wx.ID_ANY, '&wxGauge and wxSlider'),
@@ -261,23 +261,23 @@ MyPanel = class(wx.Panel) {
 			main_sizer.Add(gauge_sizer, wx.SizerFlags(0).Border(wx.ALL, 5))
 			sz = wx.BoxSizer(wx.VERTICAL)
 			gauge_sizer.Add(sz, wx.SizerFlags())
-			self.m_gauge = wx.Gauge(panel, wx.ID_ANY, 200, wx.DefaultPosition, wx.Size(155, 30), wx.GA_HORIZONTAL|wx.NO_BORDER)
-			sz.Add(self.m_gauge, wx.SizerFlags(0).Border(wx.ALL, 10))
-			self.m_slider = wx.Slider(panel, ID_SLIDER, 0, 0, 200,
+			this.m_gauge = wx.Gauge(panel, wx.ID_ANY, 200, wx.DefaultPosition, wx.Size(155, 30), wx.GA_HORIZONTAL|wx.NO_BORDER)
+			sz.Add(this.m_gauge, wx.SizerFlags(0).Border(wx.ALL, 10))
+			this.m_slider = wx.Slider(panel, ID_SLIDER, 0, 0, 200,
 									wx.DefaultPosition, wx.Size(155, wx.DefaultCoord),
 									wx.SL_AUTOTICKS | wx.SL_LABELS)
-			self.m_slider.SetTickFreq(40, 0)
-			self.m_slider.SetToolTipString('This is a sliding slider')
-			sz.Add(self.m_slider, wx.SizerFlags(0).Border(wx.ALL, 10))
-			self.m_gaugeVert = wx.Gauge(panel, wx.ID_ANY, 100,
+			this.m_slider.SetTickFreq(40, 0)
+			this.m_slider.SetToolTipString('This is a sliding slider')
+			sz.Add(this.m_slider, wx.SizerFlags(0).Border(wx.ALL, 10))
+			this.m_gaugeVert = wx.Gauge(panel, wx.ID_ANY, 100,
 									wx.DefaultPosition, wx.Size(wx.DefaultCoord, 90),
 									wx.GA_VERTICAL | wx.GA_SMOOTH | wx.NO_BORDER)
-			gauge_sizer.Add(self.m_gaugeVert, wx.SizerFlags(0).Border(wx.ALL, 10))
+			gauge_sizer.Add(this.m_gaugeVert, wx.SizerFlags(0).Border(wx.ALL, 10))
 			sb = wx.StaticBox(panel, wx.ID_ANY, '&Explanation',
 									wx.DefaultPosition, wx.DefaultSize) //, wx.ALIGN_CENTER)
 			wrapping_sizer = wx.StaticBoxSizer(sb, wx.VERTICAL)
 			main_sizer.Add(wrapping_sizer, wx.SizerFlags(0).Border(wx.ALL, 5))
-			self.m_wrappingText = wx.StaticText(panel, wx.ID_ANY,
+			this.m_wrappingText = wx.StaticText(panel, wx.ID_ANY,
 									'In order see the gauge (aka progress bar) ' \
 									'control do something you have to drag the ' \
 									'handle of the slider to the right.' \
@@ -287,31 +287,31 @@ MyPanel = class(wx.Panel) {
 									wx.DefaultPosition,
 									wx.Size(240, wx.DefaultCoord)
 								)
-			wrapping_sizer.Add(self.m_wrappingText, wx.SizerFlags())
+			wrapping_sizer.Add(this.m_wrappingText, wx.SizerFlags())
 			non_wrapping_sizer = wx.StaticBoxSizer(wx.StaticBox(panel, wx.ID_ANY, 'Non-wrapping'), wx.VERTICAL)
 			main_sizer.Add(non_wrapping_sizer, wx.SizerFlags(0).Border(wx.ALL, 5))
-			self.m_nonWrappingText = wx.StaticText(panel, wx.ID_ANY,
+			this.m_nonWrappingText = wx.StaticText(panel, wx.ID_ANY,
 									'This static text has two lines.\nThey do not wrap.',
 									wx.DefaultPosition,
 									wx.DefaultSize
 								)
-			non_wrapping_sizer.Add(self.m_nonWrappingText, wx.SizerFlags())
+			non_wrapping_sizer.Add(this.m_nonWrappingText, wx.SizerFlags())
 			wx.Button(panel, ID_BTNNEWTEXT, 'New text', wx.Point(450, 160))
 			initialSpinValue = -5
 			s = ''
 			s += initialSpinValue
-			self.m_spintext = wx.TextCtrl(panel, wx.ID_ANY, s, wx.Point(20, 160), wx.Size(80, wx.DefaultCoord))
-			self.m_spinbutton = wx.SpinButton(panel, ID_SPIN, wx.Point(103, 160))
-			self.m_spinbutton.SetRange(-40, 30)
-			self.m_spinbutton.SetValue(initialSpinValue)
-			self.m_btnProgress = wx.Button(panel, ID_BTNPROGRESS, '&Show progress dialog',
+			this.m_spintext = wx.TextCtrl(panel, wx.ID_ANY, s, wx.Point(20, 160), wx.Size(80, wx.DefaultCoord))
+			this.m_spinbutton = wx.SpinButton(panel, ID_SPIN, wx.Point(103, 160))
+			this.m_spinbutton.SetRange(-40, 30)
+			this.m_spinbutton.SetValue(initialSpinValue)
+			this.m_btnProgress = wx.Button(panel, ID_BTNPROGRESS, '&Show progress dialog',
 								wx.Point(300, 160))
-			self.m_spinctrl = wx.SpinCtrl(panel, ID_SPINCTRL, wx.EmptyString, wx.Point(200, 160), wx.Size(80, wx.DefaultCoord))
-			self.m_spinctrl.SetRange(-10, 30)
-			self.m_spinctrl.SetValue(15)
-			self.m_book.AddPage(panel, 'wxGauge', false, Image_Gauge)
+			this.m_spinctrl = wx.SpinCtrl(panel, ID_SPINCTRL, wx.EmptyString, wx.Point(200, 160), wx.Size(80, wx.DefaultCoord))
+			this.m_spinctrl.SetRange(-10, 30)
+			this.m_spinctrl.SetValue(15)
+			this.m_book.AddPage(panel, 'wxGauge', false, Image_Gauge)
 		}
-		wx.Panel(self.m_book) {|panel|
+		wx.Panel(this.m_book) {|panel|
 			icon = wx.ArtProvider.GetIcon(wx.ART_INFORMATION)
 			wx.StaticBitmap(panel, wx.ID_ANY, icon, wx.Point(10, 10))
 			// VZ: don't leak memory
@@ -350,14 +350,14 @@ MyPanel = class(wx.Panel) {
 			bmpBtn.SetBitmapFocus(bmp3)
 			wx.ToggleButton(panel, ID_BUTTON_LABEL,
 										'&Toggle label', wx.Point(250, 20))
-			self.m_label = wx.StaticText(panel, wx.ID_ANY, 'Label with some long text',
+			this.m_label = wx.StaticText(panel, wx.ID_ANY, 'Label with some long text',
 										wx.Point(250, 60), wx.DefaultSize,
 										wx.ALIGN_RIGHT /*| wx.ST_NO_AUTORESIZE*/)
-			self.m_label.SetForegroundColour(wx.BLUE)
-			self.m_book.AddPage(panel, 'wxBitmapXXX')
+			this.m_label.SetForegroundColour(wx.BLUE)
+			this.m_book.AddPage(panel, 'wxBitmapXXX')
 		}
 		// sizer
-		wx.Panel(self.m_book) {|panel|
+		wx.Panel(this.m_book) {|panel|
 			panel.SetAutoLayout(true)
 			sizer = wx.BoxSizer(wx.VERTICAL)
 			csizer = wx.StaticBoxSizer(
@@ -381,106 +381,106 @@ MyPanel = class(wx.Panel) {
 			checkBig.SetValue(true)
 			csizer.Add(checkBig)
 			sizer.Add(csizer)
-			self.m_hsizer = wx.BoxSizer(wx.HORIZONTAL)
-			self.m_buttonSizer = wx.BoxSizer (wx.VERTICAL)
-			self.m_sizerBtn1 = wx.Button(panel, wx.ID_ANY, 'Test Button &1 (tab order 1)')
-			self.m_buttonSizer.Add(self.m_sizerBtn1, wx.SizerFlags(0).Border(wx.ALL, 10))
-			self.m_sizerBtn2 = wx.Button(panel, wx.ID_ANY, 'Test Button &2 (tab order 3)')
-			self.m_buttonSizer.Add(self.m_sizerBtn2, wx.SizerFlags(0).Border(wx.ALL, 10))
-			self.m_sizerBtn3 = wx.Button(panel, wx.ID_ANY, 'Test Button &3 (tab order 2)')
-			self.m_buttonSizer.Add(self.m_sizerBtn3, wx.SizerFlags(0).Border(wx.ALL, 10))
-			self.m_sizerBtn4 = wx.Button(panel, wx.ID_ANY, 'Test Button &4 (tab order 4)')
-			self.m_buttonSizer.Add(self.m_sizerBtn4, wx.SizerFlags(0).Border(wx.ALL, 10))
-			self.m_sizerBtn3.MoveBeforeInTabOrder(self.m_sizerBtn2)
-			self.m_hsizer.Add(self.m_buttonSizer)
-			self.m_hsizer.AddSpacer(20, 20, 1)
-			self.m_bigBtn = wx.Button(panel, wx.ID_ANY, 'Multiline\nbutton')
-			self.m_hsizer.Add(self.m_bigBtn, wx.SizerFlags(3).Border(wx.ALL, 10))
-			sizer.Add(self.m_hsizer, wx.SizerFlags(1))
+			this.m_hsizer = wx.BoxSizer(wx.HORIZONTAL)
+			this.m_buttonSizer = wx.BoxSizer (wx.VERTICAL)
+			this.m_sizerBtn1 = wx.Button(panel, wx.ID_ANY, 'Test Button &1 (tab order 1)')
+			this.m_buttonSizer.Add(this.m_sizerBtn1, wx.SizerFlags(0).Border(wx.ALL, 10))
+			this.m_sizerBtn2 = wx.Button(panel, wx.ID_ANY, 'Test Button &2 (tab order 3)')
+			this.m_buttonSizer.Add(this.m_sizerBtn2, wx.SizerFlags(0).Border(wx.ALL, 10))
+			this.m_sizerBtn3 = wx.Button(panel, wx.ID_ANY, 'Test Button &3 (tab order 2)')
+			this.m_buttonSizer.Add(this.m_sizerBtn3, wx.SizerFlags(0).Border(wx.ALL, 10))
+			this.m_sizerBtn4 = wx.Button(panel, wx.ID_ANY, 'Test Button &4 (tab order 4)')
+			this.m_buttonSizer.Add(this.m_sizerBtn4, wx.SizerFlags(0).Border(wx.ALL, 10))
+			this.m_sizerBtn3.MoveBeforeInTabOrder(this.m_sizerBtn2)
+			this.m_hsizer.Add(this.m_buttonSizer)
+			this.m_hsizer.AddSpacer(20, 20, 1)
+			this.m_bigBtn = wx.Button(panel, wx.ID_ANY, 'Multiline\nbutton')
+			this.m_hsizer.Add(this.m_bigBtn, wx.SizerFlags(3).Border(wx.ALL, 10))
+			sizer.Add(this.m_hsizer, wx.SizerFlags(1))
 			panel.SetSizer(sizer)
-			self.m_book.AddPage(panel, 'wxSizer')
+			this.m_book.AddPage(panel, 'wxSizer')
 		}
-		// set the sizer for the panel itself
+		// set the sizer for the panel itthis
 		sizer = wx.BoxSizer(wx.VERTICAL)
-		sizer.Add(self.m_book, wx.SizerFlags().Border().Expand())
-		sizer.Add(self.m_text, wx.SizerFlags(1).Border().Expand())
-		self.SetSizer(sizer)
+		sizer.Add(this.m_book, wx.SizerFlags().Border().Expand())
+		sizer.Add(this.m_text, wx.SizerFlags(1).Border().Expand())
+		this.SetSizer(sizer)
 	}
 	EventTable() = {
 		// event binding
-		self.Bind(wx.EVT_IDLE) {|event| self.OnIdle(event) }
-		self.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGING, ID_BOOK) {|event| self.OnPageChanging(event) }
-		self.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, ID_BOOK) {|event| self.OnPageChanged(event) }
-		self.Bind(wx.EVT_LISTBOX, ID_LISTBOX) {|event| self.OnListBox(event) }
-		self.Bind(wx.EVT_LISTBOX, ID_LISTBOX_SORTED) {|event| self.OnListBox(event) }
-		self.Bind(wx.EVT_LISTBOX_DCLICK, ID_LISTBOX) {|event| self.OnListBoxDoubleClick(event) }
-		self.Bind(wx.EVT_BUTTON, ID_LISTBOX_SEL_NUM) {|event| self.OnListBoxButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_LISTBOX_SEL_STR) {|event| self.OnListBoxButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_LISTBOX_CLEAR) {|event| self.OnListBoxButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_LISTBOX_APPEND) {|event| self.OnListBoxButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_LISTBOX_DELETE) {|event| self.OnListBoxButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_LISTBOX_FONT) {|event| self.OnListBoxButtons(event) }
-		self.Bind(wx.EVT_CHECKBOX, ID_LISTBOX_ENABLE) {|event| self.OnListBoxButtons(event) }
-		self.Bind(wx.EVT_CHOICE, ID_CHOICE) {|event| self.OnChoice(event) }
-		self.Bind(wx.EVT_CHOICE, ID_CHOICE_SORTED) {|event| self.OnChoice(event) }
-		self.Bind(wx.EVT_BUTTON, ID_CHOICE_SEL_NUM) {|event| self.OnChoiceButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_CHOICE_SEL_STR) {|event| self.OnChoiceButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_CHOICE_CLEAR) {|event| self.OnChoiceButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_CHOICE_APPEND) {|event| self.OnChoiceButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_CHOICE_DELETE) {|event| self.OnChoiceButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_CHOICE_FONT) {|event| self.OnChoiceButtons(event) }
-		self.Bind(wx.EVT_CHECKBOX, ID_CHOICE_ENABLE) {|event| self.OnChoiceButtons(event) }
-		self.Bind(wx.EVT_COMBOBOX, ID_COMBO) {|event| self.OnCombo(event) }
-		self.Bind(wx.EVT_TEXT, ID_COMBO) {|event| self.OnComboTextChanged(event) }
-		self.Bind(wx.EVT_TEXT_ENTER, ID_COMBO) {|event| self.OnComboTextEnter(event) }
-		self.Bind(wx.EVT_BUTTON, ID_COMBO_SEL_NUM) {|event| self.OnComboButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_COMBO_SEL_STR) {|event| self.OnComboButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_COMBO_CLEAR) {|event| self.OnComboButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_COMBO_APPEND) {|event| self.OnComboButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_COMBO_DELETE) {|event| self.OnComboButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_COMBO_FONT) {|event| self.OnComboButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_COMBO_SET_TEXT) {|event| self.OnComboButtons(event) }
-		self.Bind(wx.EVT_CHECKBOX, ID_COMBO_ENABLE) {|event| self.OnComboButtons(event) }
-		self.Bind(wx.EVT_RADIOBOX, ID_RADIOBOX) {|event| self.OnRadio(event) }
-		self.Bind(wx.EVT_BUTTON, ID_RADIOBOX_SEL_NUM) {|event| self.OnRadioButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_RADIOBOX_SEL_STR) {|event| self.OnRadioButtons(event) }
-		self.Bind(wx.EVT_BUTTON, ID_RADIOBOX_FONT) {|event| self.OnRadioButtons(event) }
-		self.Bind(wx.EVT_CHECKBOX, ID_RADIOBOX_ENABLE) {|event| self.OnRadioButtons(event) }
-		self.Bind(wx.EVT_RADIOBUTTON, ID_RADIOBUTTON_1) {|event| self.OnRadioButton1(event) }
-		self.Bind(wx.EVT_RADIOBUTTON, ID_RADIOBUTTON_2) {|event| self.OnRadioButton2(event) }
-		self.Bind(wx.EVT_BUTTON, ID_SET_FONT) {|event| self.OnSetFont(event) }
-		self.Bind(wx.EVT_SLIDER, ID_SLIDER) {|event| self.OnSliderUpdate(event) }
-		self.Bind(wx.EVT_SPIN, ID_SPIN) {|event| self.OnSpinUpdate(event) }
-		self.Bind(wx.EVT_SPIN_UP, ID_SPIN) {|event| self.OnSpinUp(event) }
-		self.Bind(wx.EVT_SPIN_DOWN, ID_SPIN) {|event| self.OnSpinDown(event) }
-		self.Bind(wx.EVT_UPDATE_UI, ID_BTNPROGRESS) {|event| self.OnUpdateShowProgress(event) }
-		self.Bind(wx.EVT_BUTTON, ID_BTNPROGRESS) {|event| self.OnShowProgress(event) }
-		self.Bind(wx.EVT_SPINCTRL, ID_SPINCTRL) {|event| self.OnSpinCtrl(event) }
-		self.Bind(wx.EVT_SPIN_UP, ID_SPINCTRL) {|event| self.OnSpinCtrlUp(event) }
-		self.Bind(wx.EVT_SPIN_DOWN, ID_SPINCTRL) {|event| self.OnSpinCtrlDown(event) }
-		self.Bind(wx.EVT_TEXT, ID_SPINCTRL) {|event| self.OnSpinCtrlText(event) }
-		self.Bind(wx.EVT_BUTTON, ID_BTNNEWTEXT) {|event| self.OnNewText(event) }
-		self.Bind(wx.EVT_TOGGLEBUTTON, ID_BUTTON_LABEL) {|event| self.OnUpdateLabel(event) }
-		self.Bind(wx.EVT_CHECKBOX, ID_CHANGE_COLOUR) {|event| self.OnChangeColour(event) }
-		self.Bind(wx.EVT_BUTTON, ID_BUTTON_TEST1) {|event| self.OnTestButton(event) }
-		self.Bind(wx.EVT_BUTTON, ID_BUTTON_TEST2) {|event| self.OnTestButton(event) }
-		self.Bind(wx.EVT_BUTTON, ID_BITMAP_BTN) {|event| self.OnBmpButton(event) }
-		self.Bind(wx.EVT_TOGGLEBUTTON, ID_BITMAP_BTN_ENABLE) {|event| self.OnBmpButtonToggle(event) }
-		self.Bind(wx.EVT_CHECKBOX, ID_SIZER_CHECK1) {|event| self.OnSizerCheck(event) }
-		self.Bind(wx.EVT_CHECKBOX, ID_SIZER_CHECK2) {|event| self.OnSizerCheck(event) }
-		self.Bind(wx.EVT_CHECKBOX, ID_SIZER_CHECK3) {|event| self.OnSizerCheck(event) }
-		self.Bind(wx.EVT_CHECKBOX, ID_SIZER_CHECK4) {|event| self.OnSizerCheck(event) }
-		self.Bind(wx.EVT_CHECKBOX, ID_SIZER_CHECK14) {|event| self.OnSizerCheck(event) }
-		self.Bind(wx.EVT_CHECKBOX, ID_SIZER_CHECKBIG) {|event| self.OnSizerCheck(event) }
+		this.Bind(wx.EVT_IDLE) {|event| this.OnIdle(event) }
+		this.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGING, ID_BOOK) {|event| this.OnPageChanging(event) }
+		this.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, ID_BOOK) {|event| this.OnPageChanged(event) }
+		this.Bind(wx.EVT_LISTBOX, ID_LISTBOX) {|event| this.OnListBox(event) }
+		this.Bind(wx.EVT_LISTBOX, ID_LISTBOX_SORTED) {|event| this.OnListBox(event) }
+		this.Bind(wx.EVT_LISTBOX_DCLICK, ID_LISTBOX) {|event| this.OnListBoxDoubleClick(event) }
+		this.Bind(wx.EVT_BUTTON, ID_LISTBOX_SEL_NUM) {|event| this.OnListBoxButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_LISTBOX_SEL_STR) {|event| this.OnListBoxButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_LISTBOX_CLEAR) {|event| this.OnListBoxButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_LISTBOX_APPEND) {|event| this.OnListBoxButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_LISTBOX_DELETE) {|event| this.OnListBoxButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_LISTBOX_FONT) {|event| this.OnListBoxButtons(event) }
+		this.Bind(wx.EVT_CHECKBOX, ID_LISTBOX_ENABLE) {|event| this.OnListBoxButtons(event) }
+		this.Bind(wx.EVT_CHOICE, ID_CHOICE) {|event| this.OnChoice(event) }
+		this.Bind(wx.EVT_CHOICE, ID_CHOICE_SORTED) {|event| this.OnChoice(event) }
+		this.Bind(wx.EVT_BUTTON, ID_CHOICE_SEL_NUM) {|event| this.OnChoiceButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_CHOICE_SEL_STR) {|event| this.OnChoiceButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_CHOICE_CLEAR) {|event| this.OnChoiceButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_CHOICE_APPEND) {|event| this.OnChoiceButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_CHOICE_DELETE) {|event| this.OnChoiceButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_CHOICE_FONT) {|event| this.OnChoiceButtons(event) }
+		this.Bind(wx.EVT_CHECKBOX, ID_CHOICE_ENABLE) {|event| this.OnChoiceButtons(event) }
+		this.Bind(wx.EVT_COMBOBOX, ID_COMBO) {|event| this.OnCombo(event) }
+		this.Bind(wx.EVT_TEXT, ID_COMBO) {|event| this.OnComboTextChanged(event) }
+		this.Bind(wx.EVT_TEXT_ENTER, ID_COMBO) {|event| this.OnComboTextEnter(event) }
+		this.Bind(wx.EVT_BUTTON, ID_COMBO_SEL_NUM) {|event| this.OnComboButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_COMBO_SEL_STR) {|event| this.OnComboButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_COMBO_CLEAR) {|event| this.OnComboButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_COMBO_APPEND) {|event| this.OnComboButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_COMBO_DELETE) {|event| this.OnComboButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_COMBO_FONT) {|event| this.OnComboButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_COMBO_SET_TEXT) {|event| this.OnComboButtons(event) }
+		this.Bind(wx.EVT_CHECKBOX, ID_COMBO_ENABLE) {|event| this.OnComboButtons(event) }
+		this.Bind(wx.EVT_RADIOBOX, ID_RADIOBOX) {|event| this.OnRadio(event) }
+		this.Bind(wx.EVT_BUTTON, ID_RADIOBOX_SEL_NUM) {|event| this.OnRadioButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_RADIOBOX_SEL_STR) {|event| this.OnRadioButtons(event) }
+		this.Bind(wx.EVT_BUTTON, ID_RADIOBOX_FONT) {|event| this.OnRadioButtons(event) }
+		this.Bind(wx.EVT_CHECKBOX, ID_RADIOBOX_ENABLE) {|event| this.OnRadioButtons(event) }
+		this.Bind(wx.EVT_RADIOBUTTON, ID_RADIOBUTTON_1) {|event| this.OnRadioButton1(event) }
+		this.Bind(wx.EVT_RADIOBUTTON, ID_RADIOBUTTON_2) {|event| this.OnRadioButton2(event) }
+		this.Bind(wx.EVT_BUTTON, ID_SET_FONT) {|event| this.OnSetFont(event) }
+		this.Bind(wx.EVT_SLIDER, ID_SLIDER) {|event| this.OnSliderUpdate(event) }
+		this.Bind(wx.EVT_SPIN, ID_SPIN) {|event| this.OnSpinUpdate(event) }
+		this.Bind(wx.EVT_SPIN_UP, ID_SPIN) {|event| this.OnSpinUp(event) }
+		this.Bind(wx.EVT_SPIN_DOWN, ID_SPIN) {|event| this.OnSpinDown(event) }
+		this.Bind(wx.EVT_UPDATE_UI, ID_BTNPROGRESS) {|event| this.OnUpdateShowProgress(event) }
+		this.Bind(wx.EVT_BUTTON, ID_BTNPROGRESS) {|event| this.OnShowProgress(event) }
+		this.Bind(wx.EVT_SPINCTRL, ID_SPINCTRL) {|event| this.OnSpinCtrl(event) }
+		this.Bind(wx.EVT_SPIN_UP, ID_SPINCTRL) {|event| this.OnSpinCtrlUp(event) }
+		this.Bind(wx.EVT_SPIN_DOWN, ID_SPINCTRL) {|event| this.OnSpinCtrlDown(event) }
+		this.Bind(wx.EVT_TEXT, ID_SPINCTRL) {|event| this.OnSpinCtrlText(event) }
+		this.Bind(wx.EVT_BUTTON, ID_BTNNEWTEXT) {|event| this.OnNewText(event) }
+		this.Bind(wx.EVT_TOGGLEBUTTON, ID_BUTTON_LABEL) {|event| this.OnUpdateLabel(event) }
+		this.Bind(wx.EVT_CHECKBOX, ID_CHANGE_COLOUR) {|event| this.OnChangeColour(event) }
+		this.Bind(wx.EVT_BUTTON, ID_BUTTON_TEST1) {|event| this.OnTestButton(event) }
+		this.Bind(wx.EVT_BUTTON, ID_BUTTON_TEST2) {|event| this.OnTestButton(event) }
+		this.Bind(wx.EVT_BUTTON, ID_BITMAP_BTN) {|event| this.OnBmpButton(event) }
+		this.Bind(wx.EVT_TOGGLEBUTTON, ID_BITMAP_BTN_ENABLE) {|event| this.OnBmpButtonToggle(event) }
+		this.Bind(wx.EVT_CHECKBOX, ID_SIZER_CHECK1) {|event| this.OnSizerCheck(event) }
+		this.Bind(wx.EVT_CHECKBOX, ID_SIZER_CHECK2) {|event| this.OnSizerCheck(event) }
+		this.Bind(wx.EVT_CHECKBOX, ID_SIZER_CHECK3) {|event| this.OnSizerCheck(event) }
+		this.Bind(wx.EVT_CHECKBOX, ID_SIZER_CHECK4) {|event| this.OnSizerCheck(event) }
+		this.Bind(wx.EVT_CHECKBOX, ID_SIZER_CHECK14) {|event| this.OnSizerCheck(event) }
+		this.Bind(wx.EVT_CHECKBOX, ID_SIZER_CHECKBIG) {|event| this.OnSizerCheck(event) }
 	}
 	s_selCombo = INVALID_SELECTION
 	s_selChoice = INVALID_SELECTION
 	OnIdle(event:wx.IdleEvent) = {
-		if (!self.m_combo || !self.m_choice) {
+		if (!this.m_combo || !this.m_choice) {
 			event.Skip()
 			return
 		}
-		sel = self.m_combo.GetSelection()
+		sel = this.m_combo.GetSelection()
 		if (sel != MyPanel.s_selCombo) {
 			if (MyPanel.s_selCombo != INVALID_SELECTION) {
 				wx.LogMessage('EVT_IDLE: combobox selection changed from %d to %d',
@@ -488,7 +488,7 @@ MyPanel = class(wx.Panel) {
 			}
 			MyPanel.s_selCombo = sel
 		}
-	    sel = self.m_choice.GetSelection()
+	    sel = this.m_choice.GetSelection()
 	    if (sel != MyPanel.s_selChoice) {
 			if (MyPanel.s_selChoice != INVALID_SELECTION) {
 				wx.LogMessage('EVT_IDLE: choice selection changed from %d to %d',
@@ -505,19 +505,19 @@ MyPanel = class(wx.Panel) {
 							'page change from taking place - if you select\n' \
 							'[No] the current page will stay the third one\n',
 							'Control sample',
-							wx.ICON_QUESTION | wx.YES_NO, self) != wx.YES) {
+							wx.ICON_QUESTION | wx.YES_NO, this) != wx.YES) {
 				event.Veto()
 				return
 			}
 		}
-		self.m_text.AppendText('Book selection is being changed from ' + selOld \
+		this.m_text.AppendText('Book selection is being changed from ' + selOld \
 				+ ' to ' + event.GetSelection() \
 				+ ' (current page from book is ' \
-				+ self.m_book.GetSelection() + ')\n')
+				+ this.m_book.GetSelection() + ')\n')
 	}
 	OnPageChanged(event:wx.NotebookEvent) = {
-		self.m_text.AppendText('Book selection is now ' + event.GetSelection() \
-			+ ' (from book: ' + self.m_book.GetSelection() \
+		this.m_text.AppendText('Book selection is now ' + event.GetSelection() \
+			+ ' (from book: ' + this.m_book.GetSelection() \
 			+ ')\n')
 	}
 	OnTestButton(event:wx.CommandEvent) = {
@@ -528,118 +528,118 @@ MyPanel = class(wx.Panel) {
 		wx.LogMessage('Bitmap button clicked.')
 	}
 	OnBmpButtonToggle(event:wx.CommandEvent) = {
-		self.FindWindowById(ID_BITMAP_BTN).Enable(!event.IsChecked())
+		this.FindWindowById(ID_BITMAP_BTN).Enable(!event.IsChecked())
 	}
 	s_colOld = nil
 	OnChangeColour(event:wx.CommandEvent) = {
-		self.SetThemeEnabled(false)
+		this.SetThemeEnabled(false)
 		// test panel colour changing and propagation to the subcontrols
 		if (MyPanel.s_colOld) {
-			self.SetBackgroundColour(MyPanel.s_colOld)
+			this.SetBackgroundColour(MyPanel.s_colOld)
 			s_colOld = wx.NullColour
-			self.m_lbSelectThis.SetForegroundColour(wx.NullColour)
-			self.m_lbSelectThis.SetBackgroundColour(wx.NullColour)
+			this.m_lbSelectThis.SetForegroundColour(wx.NullColour)
+			this.m_lbSelectThis.SetBackgroundColour(wx.NullColour)
 		} else {
 			MyPanel.s_colOld = wx.NamedColour('red')
-			self.SetBackgroundColour(wx.NamedColour('white'))
-			self.m_lbSelectThis.SetForegroundColour(wx.NamedColour('white'))
-			self.m_lbSelectThis.SetBackgroundColour(wx.NamedColour('red'))
+			this.SetBackgroundColour(wx.NamedColour('white'))
+			this.m_lbSelectThis.SetForegroundColour(wx.NamedColour('white'))
+			this.m_lbSelectThis.SetBackgroundColour(wx.NamedColour('red'))
 		}
-		self.m_lbSelectThis.Refresh()
-		self.Refresh()
+		this.m_lbSelectThis.Refresh()
+		this.Refresh()
 	}
 	OnListBox(event:wx.CommandEvent) = {
 		if (event.GetInt() == -1) {
-			self.m_text.AppendText('ListBox has no selections anymore\n')
+			this.m_text.AppendText('ListBox has no selections anymore\n')
 			return
 		}
-		listbox = if (event.GetId() == ID_LISTBOX) {self.m_listbox} else {self.m_listboxSorted}
-		self.m_text.AppendText("ListBox event selection string is: '")
-		self.m_text.AppendText(event.GetString())
-		self.m_text.AppendText("'\n")
+		listbox = if (event.GetId() == ID_LISTBOX) {this.m_listbox} else {this.m_listboxSorted}
+		this.m_text.AppendText("ListBox event selection string is: '")
+		this.m_text.AppendText(event.GetString())
+		this.m_text.AppendText("'\n")
 		// can't use GetStringSelection() with multiple selections, there could be
 		// more than one of them
 		if (!listbox.HasFlag(wx.LB_MULTIPLE)) {
-			self.m_text.AppendText("ListBox control selection string is: '")
-			self.m_text.AppendText(listbox.GetStringSelection())
-			self.m_text.AppendText("'\n")
+			this.m_text.AppendText("ListBox control selection string is: '")
+			this.m_text.AppendText(listbox.GetStringSelection())
+			this.m_text.AppendText("'\n")
 		}
 		obj = event.GetClientObject()
-		self.m_text.AppendText("ListBox event client data string is: '")
+		this.m_text.AppendText("ListBox event client data string is: '")
 		if (obj) {
-		    self.m_text.AppendText(obj.GetData())
+		    this.m_text.AppendText(obj.GetData())
 		} else {
-		    self.m_text.AppendText('none')
+		    this.m_text.AppendText('none')
 		}
-		self.m_text.AppendText("'\n")
-		self.m_text.AppendText("ListBox control client data string is: '")
+		this.m_text.AppendText("'\n")
+		this.m_text.AppendText("ListBox control client data string is: '")
 		obj = listbox.GetClientObject(event.GetInt())
 		if (obj) {
-			self.m_text.AppendText(obj.GetData())
+			this.m_text.AppendText(obj.GetData())
 		} else {
-			self.m_text.AppendText('none')
+			this.m_text.AppendText('none')
 		}
-		self.m_text.AppendText("'\n")
+		this.m_text.AppendText("'\n")
 	}
 	OnListBoxDoubleClick(event:wx.CommandEvent) = {
-		self.m_text.AppendText('ListBox double click string is: ')
-		self.m_text.AppendText(event.GetString())
-		self.m_text.AppendText('\n')
+		this.m_text.AppendText('ListBox double click string is: ')
+		this.m_text.AppendText(event.GetString())
+		this.m_text.AppendText('\n')
 	}
 	OnListBoxButtons(event:wx.CommandEvent) = {
 		id = event.GetId()
 		if (id == ID_LISTBOX_ENABLE) {
-			self.m_text.AppendText('Checkbox clicked.\n')
-			cb = self.m_checkbox
+			this.m_text.AppendText('Checkbox clicked.\n')
+			cb = this.m_checkbox
 			if (event.GetInt()) {
 				cb.SetToolTipString('Click to enable listbox')
 			} else {
 				cb.SetToolTipString('Click to disable listbox')
 			}
-			self.m_listbox.Enable(event.GetInt() == 0)
-			self.m_lbSelectThis.Enable(event.GetInt() == 0)
-			self.m_lbSelectNum.Enable(event.GetInt() == 0)
-			self.m_listboxSorted.Enable(event.GetInt() == 0)
-			self.FindWindowById(ID_CHANGE_COLOUR).Enable(event.GetInt() == 0)
+			this.m_listbox.Enable(event.GetInt() == 0)
+			this.m_lbSelectThis.Enable(event.GetInt() == 0)
+			this.m_lbSelectNum.Enable(event.GetInt() == 0)
+			this.m_listboxSorted.Enable(event.GetInt() == 0)
+			this.FindWindowById(ID_CHANGE_COLOUR).Enable(event.GetInt() == 0)
 		} elsif (id == ID_LISTBOX_SEL_NUM) {
-			if (self.m_listbox.GetCount() > 2) {
-			    self.m_listbox.SetSelection(2)
+			if (this.m_listbox.GetCount() > 2) {
+			    this.m_listbox.SetSelection(2)
 			}
-			if (self.m_listboxSorted.GetCount() > 2) {
-			    self.m_listboxSorted.SetSelection(2)
+			if (this.m_listboxSorted.GetCount() > 2) {
+			    this.m_listboxSorted.SetSelection(2)
 			}
-			self.m_lbSelectThis.WarpPointer(40, 14)
+			this.m_lbSelectThis.WarpPointer(40, 14)
 		} elsif (id == ID_LISTBOX_SEL_STR) {
-			if (self.m_listbox.FindString('This') != wx.NOT_FOUND) {
-				self.m_listbox.SetStringSelection('This')
+			if (this.m_listbox.FindString('This') != wx.NOT_FOUND) {
+				this.m_listbox.SetStringSelection('This')
 			}
-			if (self.m_listboxSorted.FindString('This') != wx.NOT_FOUND) {
-				self.m_listboxSorted.SetStringSelection('This')
+			if (this.m_listboxSorted.FindString('This') != wx.NOT_FOUND) {
+				this.m_listboxSorted.SetStringSelection('This')
 			}
-			self.m_lbSelectNum.WarpPointer(40, 14)
+			this.m_lbSelectNum.WarpPointer(40, 14)
 		} elsif (id == ID_LISTBOX_CLEAR) {
-			self.m_listbox.Clear()
-			self.m_listboxSorted.Clear()
+			this.m_listbox.Clear()
+			this.m_listboxSorted.Clear()
 		} elsif (id == ID_LISTBOX_APPEND) {
-			self.m_listbox.Append('Hi!')
-			self.m_listboxSorted.Append('Hi!')
+			this.m_listbox.Append('Hi!')
+			this.m_listboxSorted.Append('Hi!')
 		} elsif (id == ID_LISTBOX_DELETE) {
-			idx = self.m_listbox.GetSelection()
+			idx = this.m_listbox.GetSelection()
 			if (idx != wx.NOT_FOUND) {
-				self.m_listbox.Delete(idx)
+				this.m_listbox.Delete(idx)
 			}
-			idx = self.m_listboxSorted.GetSelection()
+			idx = this.m_listboxSorted.GetSelection()
 			if (idx != wx.NOT_FOUND) {
-				self.m_listboxSorted.Delete(idx)
+				this.m_listboxSorted.Delete(idx)
 			}
 		} elsif (id == ID_LISTBOX_FONT) {
-			self.m_listbox.SetFont(wx.ITALIC_FONT)
-			self.m_listboxSorted.SetFont(wx.ITALIC_FONT)
-			self.m_checkbox.SetFont(wx.ITALIC_FONT)
+			this.m_listbox.SetFont(wx.ITALIC_FONT)
+			this.m_listboxSorted.SetFont(wx.ITALIC_FONT)
+			this.m_checkbox.SetFont(wx.ITALIC_FONT)
 		}
 	}
 	OnChoice(event:wx.CommandEvent) = {
-		choice = if (event.GetId() == ID_CHOICE) {self.m_choice} else {self.m_choiceSorted}
+		choice = if (event.GetId() == ID_CHOICE) {this.m_choice} else {this.m_choiceSorted}
 		sel = choice.GetSelection()
 		dataEvt = event.GetClientObject(),
 		dataCtrl = choice.GetClientObject(sel)
@@ -656,175 +656,175 @@ MyPanel = class(wx.Panel) {
 	OnChoiceButtons(event:wx.CommandEvent) = {
 		id = event.GetId()
 		if (id == ID_CHOICE_ENABLE) {
-			self.m_choice.Enable(event.GetInt() == 0)
-			self.m_choiceSorted.Enable(event.GetInt() == 0)
+			this.m_choice.Enable(event.GetInt() == 0)
+			this.m_choiceSorted.Enable(event.GetInt() == 0)
 		} elsif (id == ID_CHOICE_SEL_NUM) {
-			self.m_choice.SetSelection(2)
-			self.m_choiceSorted.SetSelection(2)
+			this.m_choice.SetSelection(2)
+			this.m_choiceSorted.SetSelection(2)
 		} elsif (id == ID_CHOICE_SEL_STR) {
-			self.m_choice.SetStringSelection('This')
-			self.m_choiceSorted.SetStringSelection('This')
+			this.m_choice.SetStringSelection('This')
+			this.m_choiceSorted.SetStringSelection('This')
 		} elsif (id == ID_CHOICE_CLEAR) {
-			self.m_choice.Clear()
-			self.m_choiceSorted.Clear()
+			this.m_choice.Clear()
+			this.m_choiceSorted.Clear()
 		} elsif (id == ID_CHOICE_APPEND) {
-			self.m_choice.Append('Hi!')
-			self.m_choiceSorted.Append('Hi!')
+			this.m_choice.Append('Hi!')
+			this.m_choiceSorted.Append('Hi!')
 		} elsif (id == ID_CHOICE_DELETE) {
-			idx = self.m_choice.GetSelection()
+			idx = this.m_choice.GetSelection()
 			if (idx != wx.NOT_FOUND) {
-				self.m_choice.Delete(idx)
+				this.m_choice.Delete(idx)
 			}
-			idx = self.m_choiceSorted.GetSelection()
+			idx = this.m_choiceSorted.GetSelection()
 			if (idx != wx.NOT_FOUND) {
-				self.m_choiceSorted.Delete(idx)
+				this.m_choiceSorted.Delete(idx)
 			}
 		} elsif (id == ID_CHOICE_FONT) {
-			self.m_choice.SetFont(wx.ITALIC_FONT)
-			self.m_choiceSorted.SetFont(wx.ITALIC_FONT)
+			this.m_choice.SetFont(wx.ITALIC_FONT)
+			this.m_choiceSorted.SetFont(wx.ITALIC_FONT)
 		}
 	}
 	OnCombo(event:wx.CommandEvent) = {
-		if (!self.m_combo) {
+		if (!this.m_combo) {
 			return
 		}
 		wx.LogMessage('EVT_COMBOBOX: item %d/%d (event/control), string "%s"/"%s"',
 					event.GetInt(),
-					self.m_combo.GetSelection(),
+					this.m_combo.GetSelection(),
 					event.GetString(),
-					self.m_combo.GetStringSelection())
+					this.m_combo.GetStringSelection())
 	}
 	OnComboTextChanged(event:wx.CommandEvent) = {
-		if (self.m_combo) {
+		if (this.m_combo) {
 			wx.LogMessage('EVT_TEXT for the combobox: "%s" (event) or "%s" (control).',
 					event.GetString(),
-					self.m_combo.GetValue())
+					this.m_combo.GetValue())
 		}
 	}
 	OnComboTextEnter(event:wx.CommandEvent) = {
-		if (self.m_combo) {
+		if (this.m_combo) {
 			wx.LogMessage("Enter pressed in the combobox: value is '%s'.",
-					self.m_combo.GetValue())
+					this.m_combo.GetValue())
 		}
 	}
 	OnComboButtons(event:wx.CommandEvent) = {
 		id = event.GetId()
 		if (id == ID_COMBO_ENABLE) {
-			self.m_combo.Enable(event.GetInt() == 0)
+			this.m_combo.Enable(event.GetInt() == 0)
 		} elsif (id == ID_COMBO_SEL_NUM) {
-			self.m_combo.SetSelection(2)
+			this.m_combo.SetSelection(2)
 		} elsif (id == ID_COMBO_SEL_STR) {
-			self.m_combo.SetStringSelection('This')
+			this.m_combo.SetStringSelection('This')
 		} elsif (id == ID_COMBO_CLEAR) {
-			self.m_combo.Clear()
+			this.m_combo.Clear()
 		} elsif (id == ID_COMBO_APPEND) {
-			self.m_combo.Append('Hi!')
+			this.m_combo.Append('Hi!')
 		} elsif (id == ID_COMBO_DELETE) {
-			idx = self.m_combo.GetSelection()
-			self.m_combo.Delete(idx)
+			idx = this.m_combo.GetSelection()
+			this.m_combo.Delete(idx)
 		} elsif (id == ID_COMBO_FONT) {
-			self.m_combo.SetFont(wx.ITALIC_FONT)
+			this.m_combo.SetFont(wx.ITALIC_FONT)
 		} elsif (id == ID_COMBO_SET_TEXT) {
-			self.m_combo.SetString(2, 'Hi!')
+			this.m_combo.SetString(2, 'Hi!')
 		}
 	}
 	OnRadio(event:wx.CommandEvent) = {
-		self.m_text.AppendText('RadioBox selection string is: ')
-		self.m_text.AppendText(event.GetString())
-		self.m_text.AppendText('\n')
+		this.m_text.AppendText('RadioBox selection string is: ')
+		this.m_text.AppendText(event.GetString())
+		this.m_text.AppendText('\n')
 	}
 	OnRadioButton1(event:wx.CommandEvent) = {
 		wx.MessageBox('First wxRadioButton selected.', 'wxControl sample')
 	}
 	OnRadioButton2(event:wx.CommandEvent) = {
-		self.m_text.AppendText('Second wxRadioButton selected.\n')
+		this.m_text.AppendText('Second wxRadioButton selected.\n')
 	}
 	OnRadioButtons(event:wx.CommandEvent) = {
 		id = event.GetId()
 		if (id == ID_RADIOBOX_ENABLE) {
-			self.m_radio.Enable(event.GetInt() == 0)
+			this.m_radio.Enable(event.GetInt() == 0)
 		} elsif (id == ID_RADIOBOX_SEL_NUM) {
-			self.m_radio.SetSelection(2)
+			this.m_radio.SetSelection(2)
 		} elsif (id == ID_RADIOBOX_SEL_STR) {
-			self.m_radio.SetStringSelection('This')
+			this.m_radio.SetStringSelection('This')
 		} elsif (id == ID_RADIOBOX_FONT) {
-			self.m_radio.SetFont(wx.ITALIC_FONT)
+			this.m_radio.SetFont(wx.ITALIC_FONT)
 		}
 	}
 	OnSetFont(event:wx.CommandEvent) = {
-		self.m_fontButton.SetFont(wx.ITALIC_FONT)
-		self.m_text.SetFont(wx.ITALIC_FONT)
+		this.m_fontButton.SetFont(wx.ITALIC_FONT)
+		this.m_text.SetFont(wx.ITALIC_FONT)
 	}
 	OnUpdateLabel(event:wx.CommandEvent) = {
-		self.m_label.SetLabel(if (event.GetInt() > 0) \
+		this.m_label.SetLabel(if (event.GetInt() > 0) \
 			{'Very very very very very long text.'} else {'Shorter text.'})
 	}
 	OnSliderUpdate(event:wx.CommandEvent) = {
-		self.m_gauge.SetValue(self.m_slider.GetValue())
-		self.m_gaugeVert.SetValue(self.m_slider.GetValue() / 2)
+		this.m_gauge.SetValue(this.m_slider.GetValue())
+		this.m_gaugeVert.SetValue(this.m_slider.GetValue() / 2)
 	}
 	OnSpinCtrlText(event:wx.CommandEvent) = {
-		if (self.m_spinctrl) {
+		if (this.m_spinctrl) {
 			s = format('Spin ctrl text changed: now %d (from event: %s)\n',
-					self.m_spinctrl.GetValue(), event.GetString())
-			self.m_text.AppendText(s)
+					this.m_spinctrl.GetValue(), event.GetString())
+			this.m_text.AppendText(s)
 		}
 	}
 	OnSpinCtrl(event:wx.SpinEvent) = {
-		if (self.m_spinctrl) {
+		if (this.m_spinctrl) {
 			s = format('Spin ctrl changed: now %d (from event: %d)\n',
-					self.m_spinctrl.GetValue(), event.GetInt())
-			self.m_text.AppendText(s)
+					this.m_spinctrl.GetValue(), event.GetInt())
+			this.m_text.AppendText(s)
 		}
 	}
 	OnSpinCtrlUp(event:wx.SpinEvent) = {
-		if (self.m_spinctrl) {
-			self.m_text.AppendText(format('Spin up: %d (from event: %d)\n',
- 					self.m_spinctrl.GetValue(), event.GetInt()))
+		if (this.m_spinctrl) {
+			this.m_text.AppendText(format('Spin up: %d (from event: %d)\n',
+ 					this.m_spinctrl.GetValue(), event.GetInt()))
  		}
 	}
 	OnSpinCtrlDown(event:wx.SpinEvent) = {
-		if (self.m_spinctrl) {
-			self.m_text.AppendText(format('Spin down: %d (from event: %d)\n',
-					self.m_spinctrl.GetValue(), event.GetInt()))
+		if (this.m_spinctrl) {
+			this.m_text.AppendText(format('Spin down: %d (from event: %d)\n',
+					this.m_spinctrl.GetValue(), event.GetInt()))
 		}
 	}
 	OnSpinUp(event:wx.SpinEvent) = {
 		value = format('Spin control up: current = %d\n',
-					self.m_spinbutton.GetValue())
+					this.m_spinbutton.GetValue())
 		if (event.GetPosition() > 17) {
 			value += 'Preventing the spin button from going above 17.\n'
 			event.Veto()
 		}
-		self.m_text.AppendText(value)
+		this.m_text.AppendText(value)
 	}
 	OnSpinDown(event:wx.SpinEvent) = {
 		value = format('Spin control down: current = %d\n',
-					self.m_spinbutton.GetValue())
+					this.m_spinbutton.GetValue())
 		if (event.GetPosition() < -17) {
 			value += 'Preventing the spin button from going below -17.\n'
 			event.Veto()
 		}
-		self.m_text.AppendText(value)
+		this.m_text.AppendText(value)
 	}
 	OnSpinUpdate(event:wx.SpinEvent) = {
 		value = format('%d', event.GetPosition())
-		self.m_spintext.SetValue(value)
+		this.m_spintext.SetValue(value)
 		value = format('Spin control range: (%d, %d), current = %d\n',
-					self.m_spinbutton.GetMin(), self.m_spinbutton.GetMax(),
-					self.m_spinbutton.GetValue())
-		self.m_text.AppendText(value)
+					this.m_spinbutton.GetMin(), this.m_spinbutton.GetMax(),
+					this.m_spinbutton.GetValue())
+		this.m_text.AppendText(value)
 	}
 	OnNewText(event:wx.CommandEvent) = {
-		self.m_nonWrappingText.SetLabel('This text is short\nbut still spans\nover three lines.')
-		self.m_wrappingText.SetLabel('This text is short but will still be wrapped if it is too long.')
-		self.m_wrappingText.GetParent().Layout()
+		this.m_nonWrappingText.SetLabel('This text is short\nbut still spans\nover three lines.')
+		this.m_wrappingText.SetLabel('This text is short but will still be wrapped if it is too long.')
+		this.m_wrappingText.GetParent().Layout()
 	}
 	OnUpdateShowProgress(event:wx.UpdateUIEvent) = {
-		event.Enable(self.m_spinbutton.GetValue() > 0)
+		event.Enable(this.m_spinbutton.GetValue() > 0)
 	}
 	OnShowProgress(event:wx.CommandEvent) = {
-		max = self.m_spinbutton.GetValue()
+		max = this.m_spinbutton.GetValue()
 		if (max <= 0) {
 			wx.LogError('You must set positive range!')
 			return
@@ -832,7 +832,7 @@ MyPanel = class(wx.Panel) {
 		dialog = wx.ProgressDialog('Progress dialog example',
 						'An informative message',
 						max,    // range
-						self,   // parent
+						this,   // parent
 						wx.PD_CAN_ABORT | \
 						wx.PD_AUTO_HIDE | \
 						wx.PD_APP_MODAL | \
@@ -852,31 +852,31 @@ MyPanel = class(wx.Panel) {
 			}
 		}
 		if (!cont) {
-			self.m_text.AppendText('Progress dialog aborted!\n')
+			this.m_text.AppendText('Progress dialog aborted!\n')
 		} else {
-			self.m_text.AppendText('Countdown from ' + max +  ' finished.\n')
+			this.m_text.AppendText('Countdown from ' + max +  ' finished.\n')
 		}
 	}
 	OnSizerCheck (event:wx.CommandEvent) = {
 		id = event.GetId()
 		if (id == ID_SIZER_CHECK1) {
-			self.m_buttonSizer.Show(self.m_sizerBtn1, event.IsChecked())
-			self.m_buttonSizer.Layout()
+			this.m_buttonSizer.Show(this.m_sizerBtn1, event.IsChecked())
+			this.m_buttonSizer.Layout()
 		} elsif (id == ID_SIZER_CHECK2) {
-			self.m_buttonSizer.Show(self.m_sizerBtn2, event.IsChecked())
-			self.m_buttonSizer.Layout()
+			this.m_buttonSizer.Show(this.m_sizerBtn2, event.IsChecked())
+			this.m_buttonSizer.Layout()
 		} elsif (id == ID_SIZER_CHECK3) {
-			self.m_buttonSizer.Show(self.m_sizerBtn3, event.IsChecked())
-			self.m_buttonSizer.Layout()
+			this.m_buttonSizer.Show(this.m_sizerBtn3, event.IsChecked())
+			this.m_buttonSizer.Layout()
 		} elsif (id == ID_SIZER_CHECK4) {
-			self.m_buttonSizer.Show(self.m_sizerBtn4, event.IsChecked())
-			self.m_buttonSizer.Layout()
+			this.m_buttonSizer.Show(this.m_sizerBtn4, event.IsChecked())
+			this.m_buttonSizer.Layout()
 		} elsif (id == ID_SIZER_CHECK14) {
-			self.m_hsizer.Show(self.m_buttonSizer, event.IsChecked())
-			self.m_hsizer.Layout()
+			this.m_hsizer.Show(this.m_buttonSizer, event.IsChecked())
+			this.m_hsizer.Layout()
 		} elsif (id == ID_SIZER_CHECKBIG) {
-			self.m_hsizer.Show(self.m_bigBtn, event.IsChecked())
-			self.m_hsizer.Layout()
+			this.m_hsizer.Show(this.m_bigBtn, event.IsChecked())
+			this.m_hsizer.Layout()
 		}
 	}
 }
@@ -888,9 +888,9 @@ MyPanel = class(wx.Panel) {
 MyFrame = class(wx.Frame) {
 	__init__(title:string, x:number, y:number) = {|nil, wx.ID_ANY,
 							title, wx.Point(x, y), wx.Size(700, 450)|
-		self.EventTable()
-		self.SetHelpText('Controls sample demonstrating various widgets')
-		self.SetIcon(wx.IconFromXPMData(resource.mondrian_xpm))
+		this.EventTable()
+		this.SetHelpText('Controls sample demonstrating various widgets')
+		this.SetIcon(wx.IconFromXPMData(resource.mondrian_xpm))
 		file_menu = wx.Menu()
 		file_menu.Append(CONTROLS_CLEAR_LOG, '&Clear log\tCtrl-L')
 		file_menu.AppendSeparator()
@@ -912,34 +912,34 @@ MyFrame = class(wx.Frame) {
 		panel_menu.Append(CONTROLS_CONTEXT_HELP, '&Context help...\tCtrl-H',
 							'Get context help for a control')
 		menu_bar.Append(panel_menu, '&Panel')
-		self.SetMenuBar(menu_bar)
-		self.CreateStatusBar(2)
-		self.m_panel = MyPanel(self, 10, 10, 300, 100)
+		this.SetMenuBar(menu_bar)
+		this.CreateStatusBar(2)
+		this.m_panel = MyPanel(this, 10, 10, 300, 100)
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MENU, CONTROLS_QUIT) {|event| self.OnQuit(event) }
-		self.Bind(wx.EVT_MENU, CONTROLS_ABOUT) {|event| self.OnAbout(event) }
-		self.Bind(wx.EVT_MENU, CONTROLS_CLEAR_LOG) {|event| self.OnClearLog(event) }
-		self.Bind(wx.EVT_MENU, CONTROLS_SET_TOOLTIP_DELAY) {|event| self.OnSetTooltipDelay(event) }
-		self.Bind(wx.EVT_MENU, CONTROLS_ENABLE_TOOLTIPS) {|event| self.OnToggleTooltips(event) }
-		self.Bind(wx.EVT_MENU, CONTROLS_ENABLE_ALL) {|event| self.OnEnableAll(event) }
-		self.Bind(wx.EVT_MENU, CONTROLS_CONTEXT_HELP) {|event| self.OnContextHelp(event) }
-		self.Bind(wx.EVT_ICONIZE) {|event| self.OnIconized(event) }
-		self.Bind(wx.EVT_MAXIMIZE) {|event| self.OnMaximized(event) }
-		self.Bind(wx.EVT_SIZE) {|event| self.OnSize(event) }
-		self.Bind(wx.EVT_MOVE) {|event| self.OnMove(event) }
-		self.Bind(wx.EVT_IDLE) {|event| self.OnIdle(event) }
+		this.Bind(wx.EVT_MENU, CONTROLS_QUIT) {|event| this.OnQuit(event) }
+		this.Bind(wx.EVT_MENU, CONTROLS_ABOUT) {|event| this.OnAbout(event) }
+		this.Bind(wx.EVT_MENU, CONTROLS_CLEAR_LOG) {|event| this.OnClearLog(event) }
+		this.Bind(wx.EVT_MENU, CONTROLS_SET_TOOLTIP_DELAY) {|event| this.OnSetTooltipDelay(event) }
+		this.Bind(wx.EVT_MENU, CONTROLS_ENABLE_TOOLTIPS) {|event| this.OnToggleTooltips(event) }
+		this.Bind(wx.EVT_MENU, CONTROLS_ENABLE_ALL) {|event| this.OnEnableAll(event) }
+		this.Bind(wx.EVT_MENU, CONTROLS_CONTEXT_HELP) {|event| this.OnContextHelp(event) }
+		this.Bind(wx.EVT_ICONIZE) {|event| this.OnIconized(event) }
+		this.Bind(wx.EVT_MAXIMIZE) {|event| this.OnMaximized(event) }
+		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
+		this.Bind(wx.EVT_MOVE) {|event| this.OnMove(event) }
+		this.Bind(wx.EVT_IDLE) {|event| this.OnIdle(event) }
 	}
 	OnQuit(event:wx.CommandEvent) = {
-		self.Close(true)
+		this.Close(true)
 	}
 	OnAbout(event:wx.CommandEvent) = {
 		bc = wx.BusyCursor()
-		dialog = wx.MessageDialog(self, 'This is a control sample', 'About Controls', wx.OK)
+		dialog = wx.MessageDialog(this, 'This is a control sample', 'About Controls', wx.OK)
 		dialog.ShowModal()
 	}
 	OnClearLog(event:wx.CommandEvent) = {
-		self.m_panel.m_text.Clear()
+		this.m_panel.m_text.Clear()
 	}
 	s_delay = 5000
 	OnSetTooltipDelay(event:wx.CommandEvent) = {
@@ -947,7 +947,7 @@ MyFrame = class(wx.Frame) {
 		delay = wx.GetTextFromUser('Enter delay (in milliseconds)',
 				'Set tooltip delay',
 				delay,
-				self)
+				this)
 		if (!delay) {
 			return // cancelled
 		}
@@ -964,13 +964,13 @@ MyFrame = class(wx.Frame) {
 	s_enabled2 = true
 	OnEnableAll(event:wx.CommandEvent) = {
 		MyFrame.s_enabled2 = !MyFrame.s_enabled2
-		self.m_panel.Enable(MyFrame.s_enabled2)
+		this.m_panel.Enable(MyFrame.s_enabled2)
 	}
 	OnContextHelp(event:wx.CommandEvent) = {
-		chelp = wx.ContextHelp(self)
+		chelp = wx.ContextHelp(this)
 	}
 	OnMove(event:wx.MoveEvent) = {
-		self.UpdateStatusBar(event.GetPosition(), self.GetSize())
+		this.UpdateStatusBar(event.GetPosition(), this.GetSize())
 		event.Skip()
 	}
 	OnIconized(event:wx.IconizeEvent) = {
@@ -981,12 +981,12 @@ MyFrame = class(wx.Frame) {
 		wx.LogMessage('Frame maximized')
 	}
 	OnSize(event:wx.SizeEvent) = {
-		self.UpdateStatusBar(self.GetPosition(), event.GetSize())
+		this.UpdateStatusBar(this.GetPosition(), event.GetSize())
 		event.Skip()
 	}
 	OnIdle(event:wx.IdleEvent) = {
 	}
-	GetPanel() = { self.m_panel }
+	GetPanel() = { this.m_panel }
 	UpdateStatusBar(pos:wx.Point, size:wx.Size) = {
 	}
 }
@@ -995,10 +995,10 @@ MyFrame = class(wx.Frame) {
 MyButton = class(wx.Button) {
 	__init__(parent:wx.Window, id:number, label:string, pos:wx.Point, size:wx.Size) = \
 												{|parent, id, label, pos, size|
-		self.EventTable()
+		this.EventTable()
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_LEFT_DCLICK) {|event| self.OnDClick(event) }
+		this.Bind(wx.EVT_LEFT_DCLICK) {|event| this.OnDClick(event) }
 	}
 	OnDClick(event:wx.MouseEvent) = {
 		wx.LogMessage('MyButton::OnDClick')
@@ -1018,13 +1018,13 @@ MyComboBox = class(wx.ComboBox) {
 				validator:wx.Validator => wx.DefaultValidator,
 				name:string => wx.ComboBoxNameStr) = \
 			{|parent, id, value, pos, size, choices, style,validator, name|
-		self.EventTable()
+		this.EventTable()
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_CHAR) {|event| self.OnChar(event) }
-		self.Bind(wx.EVT_KEY_DOWN) {|event| self.OnKeyDown(event) }
-		self.Bind(wx.EVT_KEY_UP) {|event| self.OnKeyUp(event) }
-		self.Bind(wx.EVT_SET_FOCUS) {|event| self.OnFocusGot(event) }
+		this.Bind(wx.EVT_CHAR) {|event| this.OnChar(event) }
+		this.Bind(wx.EVT_KEY_DOWN) {|event| this.OnKeyDown(event) }
+		this.Bind(wx.EVT_KEY_UP) {|event| this.OnKeyUp(event) }
+		this.Bind(wx.EVT_SET_FOCUS) {|event| this.OnFocusGot(event) }
 	}
 	OnChar(event:wx.KeyEvent) = {
 		wx.LogMessage('MyComboBox::OnChar')
@@ -1065,11 +1065,11 @@ MyRadioBox = class(wx.RadioBox) {
 				validator:wx.Validator => wx.DefaultValidator,
 				name:string => wx.RadioBoxNameStr) = \
 			{|parent, id, title, pos, size, choices, majorDim, style, validator, name|
-		self.EventTable()
+		this.EventTable()
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_SET_FOCUS) {|event| self.OnFocusGot(event) }
-		self.Bind(wx.EVT_KILL_FOCUS) {|event| self.OnFocusLost(event) }
+		this.Bind(wx.EVT_SET_FOCUS) {|event| this.OnFocusGot(event) }
+		this.Bind(wx.EVT_KILL_FOCUS) {|event| this.OnFocusLost(event) }
 	}
 	OnFocusGot(event:wx.FocusEvent) = {
 		wx.LogMessage('wyRadioBox::OnFocusGot')
@@ -1092,11 +1092,11 @@ MyChoice = class(wx.Choice) {
 				validator:wx.Validator => wx.DefaultValidator,
 				name:string => wx.ChoiceNameStr) = \
 			{|parent, id, pos, size, choices, style, validator, name|
-		self.EventTable()
+		this.EventTable()
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_SET_FOCUS) {|event| self.OnFocusGot(event) }
-		self.Bind(wx.EVT_KILL_FOCUS) {|event| self.OnFocusLost(event) }
+		this.Bind(wx.EVT_SET_FOCUS) {|event| this.OnFocusGot(event) }
+		this.Bind(wx.EVT_KILL_FOCUS) {|event| this.OnFocusLost(event) }
 	}
 	OnFocusGot(event:wx.FocusEvent) = {
 		wx.LogMessage('MyChoice::OnFocusGot')

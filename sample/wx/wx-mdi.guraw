@@ -63,7 +63,7 @@ MyApp = class(wx.App) {
 		frame.SetMenuBar(menu_bar)
 		frame.CreateStatusBar()
 		frame.Show(true)
-		self.SetTopWindow(frame)
+		this.SetTopWindow(frame)
 		true
 	}
 }
@@ -76,12 +76,12 @@ MyFrame = class(wx.MDIParentFrame) {
 	__init__(parent:wx.Window, id:number, title:string,
 					pos:wx.Point, size:wx.Size, style:number) = \
 			{|parent, id, title, pos, size, style|
-		self.EventTable()
-		self.textWindow = wx.TextCtrl(self, wx.ID_ANY, 'A help window',
+		this.EventTable()
+		this.textWindow = wx.TextCtrl(this, wx.ID_ANY, 'A help window',
 									wx.DefaultPosition, wx.DefaultSize,
 									wx.TE_MULTILINE | wx.SUNKEN_BORDER)
-		self.CreateToolBar(wx.NO_BORDER | wx.TB_FLAT | wx.TB_HORIZONTAL)
-		self.InitToolBar(self.GetToolBar())
+		this.CreateToolBar(wx.NO_BORDER | wx.TB_FLAT | wx.TB_HORIZONTAL)
+		this.InitToolBar(this.GetToolBar())
 		// Accelerators
 		entries = @(wx.AcceleratorEntry) {
 			{wx.ACCEL_CTRL, 'N', MDI_NEW_WINDOW },
@@ -89,14 +89,14 @@ MyFrame = class(wx.MDIParentFrame) {
 			{wx.ACCEL_CTRL, 'A', MDI_ABOUT },
 		}
 		accel = wx.AcceleratorTable(entries)
-		self.SetAcceleratorTable(accel)
+		this.SetAcceleratorTable(accel)
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MENU, MDI_ABOUT) {|event| self.OnAbout(event) }
-		self.Bind(wx.EVT_MENU, MDI_NEW_WINDOW) {|event| self.OnNewWindow(event) }
-		self.Bind(wx.EVT_MENU, MDI_QUIT) {|event| self.OnQuit(event) }
-		self.Bind(wx.EVT_CLOSE) {|event| self.OnClose(event) }
-		self.Bind(wx.EVT_SIZE) {|event| self.OnSize(event) }
+		this.Bind(wx.EVT_MENU, MDI_ABOUT) {|event| this.OnAbout(event) }
+		this.Bind(wx.EVT_MENU, MDI_NEW_WINDOW) {|event| this.OnNewWindow(event) }
+		this.Bind(wx.EVT_MENU, MDI_QUIT) {|event| this.OnQuit(event) }
+		this.Bind(wx.EVT_CLOSE) {|event| this.OnClose(event) }
+		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
 	}
 	OnClose(event:wx.CloseEvent) = {
 		if (event.CanVeto() && (gs_nFrames > 0)) {
@@ -110,7 +110,7 @@ MyFrame = class(wx.MDIParentFrame) {
 		event.Skip()
 	}
 	OnQuit(event:wx.CommandEvent) = {
-		self.Close()
+		this.Close()
 	}
 	OnAbout(event:wx.CommandEvent) = {
 		wx.MessageBox('wxWidgets 2.0 MDI Demo\n' \
@@ -157,9 +157,9 @@ MyFrame = class(wx.MDIParentFrame) {
 		subframe.Show(true)
 	}
 	OnSize(event:wx.SizeEvent) = {
-		[w, h] = self.GetClientSizeWH()
-		self.textWindow.SetDimensions(0, 0, 200, h)
-		self.GetClientWindow().SetDimensions(200, 0, w - 200, h)
+		[w, h] = this.GetClientSizeWH()
+		this.textWindow.SetDimensions(0, 0, 200, h)
+		this.GetClientWindow().SetDimensions(200, 0, w - 200, h)
 		event.Skip()
 	}
 	InitToolBar(toolBar:wx.ToolBar) = {
@@ -198,17 +198,17 @@ MyCanvas = class(wx.ScrolledWindow) {
 							(wx.SUNKEN_BORDER | \
 							wx.NO_FULL_REPAINT_ON_RESIZE | \
 							wx.VSCROLL | wx.HSCROLL)|
-		self.EventTable()
-		self.SetBackgroundColour(wx.NamedColour('WHITE'))
-		self.m_text = ''
-		self.m_dirty = false
+		this.EventTable()
+		this.SetBackgroundColour(wx.NamedColour('WHITE'))
+		this.m_text = ''
+		this.m_dirty = false
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MOUSE_EVENTS) {|event| self.OnEvent(event) }
+		this.Bind(wx.EVT_MOUSE_EVENTS) {|event| this.OnEvent(event) }
 	}
 	OnDraw(dc:wx.DC) = {
-		if (!self.m_text.isempty()) {
-			dc.DrawText(self.m_text, 10, 10)
+		if (!this.m_text.isempty()) {
+			dc.DrawText(this.m_text, 10, 10)
 		}
 		dc.SetFont(wx.SWISS_FONT)
 		dc.SetPen(wx.GREEN_PEN)
@@ -228,21 +228,21 @@ MyCanvas = class(wx.ScrolledWindow) {
 		points[2].x = 300; points[2].y = 400
 		dc.DrawPolygon(points)
 	}
-	IsDirty() = { self.m_dirty }
+	IsDirty() = { this.m_dirty }
 	OnEvent(event:wx.MouseEvent) = {
 		extern(xpos, ypos)
-		dc = wx.ClientDC(self)
-		self.PrepareDC(dc)
+		dc = wx.ClientDC(this)
+		this.PrepareDC(dc)
 		pt = event.GetLogicalPosition(dc)
 		if (xpos > -1 && ypos > -1 && event.Dragging()) {
 			dc.SetPen(wx.BLACK_PEN)
 			dc.DrawLine(xpos, ypos, pt.x, pt.y)
-			self.m_dirty = true
+			this.m_dirty = true
 		}
 		xpos = pt.x
 		ypos = pt.y
 	}
-	SetText(text:string) = { self.m_text = text; self.Refresh() }
+	SetText(text:string) = { this.m_text = text; this.Refresh() }
 }
 
 // ---------------------------------------------------------------------------
@@ -254,57 +254,57 @@ MyChild = class(wx.MDIChildFrame) {
 	__init__(parent:wx.MDIParentFrame, title:string) = \
 			{|parent, wx.ID_ANY, title, wx.DefaultPosition, wx.DefaultSize,
 						(wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE)|
-		self.EventTable()
-		self.canvas = nil
-		my_children.append(self)
+		this.EventTable()
+		this.canvas = nil
+		my_children.append(this)
 		// this should work for MDI frames as well as for normal ones
-		self.SetSizeHints(100, 100)
+		this.SetSizeHints(100, 100)
 	}
 	__del__() = {
-		idx = my_chilren.find(self)
+		idx = my_chilren.find(this)
 		idx && my_chilren.erase(idx)
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MENU, MDI_CHILD_QUIT) {|event| self.OnQuit(event) }
-		self.Bind(wx.EVT_MENU, MDI_REFRESH) {|event| self.OnRefresh(event) }
-		self.Bind(wx.EVT_MENU, MDI_CHANGE_TITLE) {|event| self.OnChangeTitle(event) }
-		self.Bind(wx.EVT_MENU, MDI_CHANGE_POSITION) {|event| self.OnChangePosition(event) }
-		self.Bind(wx.EVT_MENU, MDI_CHANGE_SIZE) {|event| self.OnChangeSize(event) }
-		self.Bind(wx.EVT_MENU, wx.ID_PASTE) {|event| self.OnPaste(event) }
-		self.Bind(wx.EVT_UPDATE_UI, wx.ID_PASTE) {|event| self.OnUpdatePaste(event) }
-		self.Bind(wx.EVT_SIZE) {|event| self.OnSize(event) }
-		self.Bind(wx.EVT_MOVE) {|event| self.OnMove(event) }
-		self.Bind(wx.EVT_CLOSE) {|event| self.OnClose(event) }
+		this.Bind(wx.EVT_MENU, MDI_CHILD_QUIT) {|event| this.OnQuit(event) }
+		this.Bind(wx.EVT_MENU, MDI_REFRESH) {|event| this.OnRefresh(event) }
+		this.Bind(wx.EVT_MENU, MDI_CHANGE_TITLE) {|event| this.OnChangeTitle(event) }
+		this.Bind(wx.EVT_MENU, MDI_CHANGE_POSITION) {|event| this.OnChangePosition(event) }
+		this.Bind(wx.EVT_MENU, MDI_CHANGE_SIZE) {|event| this.OnChangeSize(event) }
+		this.Bind(wx.EVT_MENU, wx.ID_PASTE) {|event| this.OnPaste(event) }
+		this.Bind(wx.EVT_UPDATE_UI, wx.ID_PASTE) {|event| this.OnUpdatePaste(event) }
+		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
+		this.Bind(wx.EVT_MOVE) {|event| this.OnMove(event) }
+		this.Bind(wx.EVT_CLOSE) {|event| this.OnClose(event) }
 	}
 	OnQuit(event:wx.CommandEvent) = {
-		self.Close(true)
+		this.Close(true)
 	}
 	OnRefresh(event:wx.CommandEvent) = {
-		if (self.canvas) {
-			self.canvas.Refresh()
+		if (this.canvas) {
+			this.canvas.Refresh()
 		}
 	}
 	OnChangePosition(event:wx.CommandEvent) = {
-		self.MoveXY(10, 10)
+		this.MoveXY(10, 10)
 	}
 	OnChangeSize(event:wx.CommandEvent) = {
-		self.SetClientSizeWH(100, 100)
+		this.SetClientSizeWH(100, 100)
 	}
 	s_title = 'Canvas Frame'
 	OnChangeTitle(event:wx.CommandEvent) = {
 		title = wx.GetTextFromUser('Enter the new title for MDI child',
 										'MDI sample question',
 										s_title,
-										self.GetParent().GetParent())
+										this.GetParent().GetParent())
 		if (!title) {
 			return
 		}
 		s_title = title
-		self.SetTitle(s_title)
+		this.SetTitle(s_title)
 	}
 	OnActivate(event:wx.ActivateEvent) = {
-		if (event.GetActive() && self.canvas) {
-			self.canvas.SetFocus()
+		if (event.GetActive() && this.canvas) {
+			this.canvas.SetFocus()
 		}
 	}
 	OnMove(event:wx.MoveEvent) = {
@@ -312,7 +312,7 @@ MyChild = class(wx.MDIChildFrame) {
 		//	 different and both wrong (pos2 is off by 2 pixels for me which seems
 		//	 to be the width of the MDI canvas border)
 		pos1 = event.GetPosition()
-		pos2 = self.GetPosition()
+		pos2 = this.GetPosition()
 		wx.LogStatus('position from event: (%d, %d), from frame (%d, %d)',
 					pos1.x, pos1.y, pos2.x, pos2.y)
 		event.Skip()
@@ -322,14 +322,14 @@ MyChild = class(wx.MDIChildFrame) {
 		//	 unexpectedly) *except* for the very first one which has the full
 		//	 size... what should it really be? TODO: check under wxGTK
 		size1 = event.GetSize(),
-		size2 = self.GetSize(),
-		size3 = self.GetClientSize()
+		size2 = this.GetSize(),
+		size3 = this.GetClientSize()
 		wx.LogStatus('size from event: %dx%d, from frame %dx%d, client %dx%d',
 					size1.x, size1.y, size2.x, size2.y, size3.x, size3.y)
 		event.Skip()
 	}
 	OnClose(event:wx.CloseEvent) = {
-		if (self.canvas && self.canvas.IsDirty()) {
+		if (this.canvas && this.canvas.IsDirty()) {
 			if (wx.MessageBox('Really close?', 'Please confirm',
 							wx.ICON_QUESTION | wx.YES_NO) != wx.YES) {
 				event.Veto()
@@ -342,7 +342,7 @@ MyChild = class(wx.MDIChildFrame) {
 	OnPaste(event:wx.CommandEvent) = {
 		wx.ClipboardLocker {
 			data = wx.TextDataObject()
-			self.canvas.SetText(if (wx.TheClipboard.GetData(data)) \
+			this.canvas.SetText(if (wx.TheClipboard.GetData(data)) \
 							{ data.GetText() } else {'No text on clipboard'})
 		}
 	}

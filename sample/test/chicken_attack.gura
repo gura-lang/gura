@@ -33,40 +33,40 @@ squTbl = [interval(-1, 2, 60) ** 2 * 300]
 
 Bullet = class {
 	__init__(x:number, y:number) = {
-		[self.x, self.y] = [x, y]
-		self.squIter = squTbl.each()
+		[this.x, this.y] = [x, y]
+		this.squIter = squTbl.each()
 	}
 	doAction() = {
-		yOffset = self.squIter.next()
+		yOffset = this.squIter.next()
 		!yOffset && return(false)
-		y = self.y - squTbl[0] + yOffset
-		screen.PutSurface(imgBullet, self.x, y)
-		self.x += 12
+		y = this.y - squTbl[0] + yOffset
+		screen.PutSurface(imgBullet, this.x, y)
+		this.x += 12
 		true
 	}
 }
 Chicken = class {
 	__init__(x:number, y:number, dir:symbol) = {
-		[self.x, self.y] = [x, y]
+		[this.x, this.y] = [x, y]
 		if (dir == `right) {
-			self.xDir = xStep
-			self.imageIter = imagesR.round()
+			this.xDir = xStep
+			this.imageIter = imagesR.round()
 		} else {
-			self.xDir = -xStep
-			self.imageIter = imagesL.round()
+			this.xDir = -xStep
+			this.imageIter = imagesL.round()
 		}
 	}
 	doAction() = {
-		image = self.imageIter.next()
-		screen.PutSurface(image, self.x, self.y - image.height)
-		self.x += self.xDir
-		if (self.x + wdImage > wdScreen) {
-			self.xDir = -xStep
-			self.imageIter = imagesL.round()
+		image = this.imageIter.next()
+		screen.PutSurface(image, this.x, this.y - image.height)
+		this.x += this.xDir
+		if (this.x + wdImage > wdScreen) {
+			this.xDir = -xStep
+			this.imageIter = imagesL.round()
 		}
-		if (self.x < 0) {
-			self.xDir = xStep
-			self.imageIter = imagesR.round()
+		if (this.x < 0) {
+			this.xDir = xStep
+			this.imageIter = imagesR.round()
 		}
 	}
 }

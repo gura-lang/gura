@@ -55,15 +55,15 @@ scope {
 			display(degree)
 		}
 		OnIdle() = {
-			if (self.CheckKeyState(sdl.K_LEFT)) {
+			if (this.CheckKeyState(sdl.K_LEFT)) {
 				degree += 1
 			}
-			if (self.CheckKeyState(sdl.K_RIGHT)) {
+			if (this.CheckKeyState(sdl.K_RIGHT)) {
 				degree -= 1
 			}
 			init(width, height)
 			display(degree)
-			self.SwapBuffers()
+			this.SwapBuffers()
 		}
 	}
 	app = App()

@@ -35,7 +35,7 @@ down_mask = @{
 
 Frame = class(wx.Frame) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
-		panel = wx.Panel(self)
+		panel = wx.Panel(this)
 		grid = wx.GridSizer(nil, 4, 1, 1)
 		panel.SetSizer(grid)
 		tbl = [
@@ -73,12 +73,12 @@ Frame = class(wx.Frame) {
 				ctrl.SetCursor(wx.StockCursor(cursorId))
 			}
 		}
-		self.cursor = wx.Cursor(down_bits.pack('128B'), 32, 32,
+		this.cursor = wx.Cursor(down_bits.pack('128B'), 32, 32,
 										maskBits => down_mask.pack('128B'))
 		wx.StaticText(panel, wx.ID_ANY, 'custom',
 						style => wx.BORDER_STATIC | wx.ALIGN_CENTRE) {|ctrl|
 			grid.Add(ctrl, wx.SizerFlags(1).Expand())
-			ctrl.SetCursor(self.cursor)
+			ctrl.SetCursor(this.cursor)
 		}
 	}
 }
@@ -87,7 +87,7 @@ App = class(wx.App) {
 	OnInit() = {
 		frame = Frame(nil)
 		frame.Show()
-		self.SetTopWindow(frame)
+		this.SetTopWindow(frame)
 		true
 	}
 }

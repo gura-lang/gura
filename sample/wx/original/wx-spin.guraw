@@ -9,22 +9,22 @@ I(filename:string) = image(path.join(sys.datadir, 'sample', 'resource', filename
 Panel = class(wx.Panel) {
 	__init__(parent:wx.Window) = {|parent|
 		outerBox = wx.BoxSizer(wx.VERTICAL)
-		self.SetSizer(outerBox)
+		this.SetSizer(outerBox)
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		outerBox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.ALL, 4))
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Expand())
-			wx.SpinCtrl(self, wx.ID_ANY, '', style => wx.SP_ARROW_KEYS) {|ctrl|
+			wx.SpinCtrl(this, wx.ID_ANY, '', style => wx.SP_ARROW_KEYS) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags(1))
 				ctrl.Bind(wx.EVT_SPINCTRL) {|event|
 					log.WriteText('EVT_SPINCTRL %d\n' % event.GetInt())
 				}
 			}
-			wx.SpinCtrl(self, wx.ID_ANY, '', style => wx.SP_ARROW_KEYS,
+			wx.SpinCtrl(this, wx.ID_ANY, '', style => wx.SP_ARROW_KEYS,
 								min => -10, max => 10, initial => 3) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags(1))
 			}
-			wx.SpinCtrl(self, wx.ID_ANY, '', style => wx.SP_ARROW_KEYS | wx.SP_WRAP,
+			wx.SpinCtrl(this, wx.ID_ANY, '', style => wx.SP_ARROW_KEYS | wx.SP_WRAP,
 								min => 0, max => 10, initial => 0) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags(1))
 			}
@@ -35,9 +35,9 @@ Panel = class(wx.Panel) {
 Frame = class(wx.Frame) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
 		vbox = wx.BoxSizer(wx.VERTICAL)
-		self.SetSizer(vbox)
-		vbox.Add(Panel(self), wx.SizerFlags().Expand())
-		wxutil.LogWindow(self) {|ctrl|
+		this.SetSizer(vbox)
+		vbox.Add(Panel(this), wx.SizerFlags().Expand())
+		wxutil.LogWindow(this) {|ctrl|
 			vbox.Add(ctrl, wx.SizerFlags(1).Expand())
 			log:extern = ctrl
 		}
@@ -51,7 +51,7 @@ App = class(wx.App) {
 			frame = Frame(nil)
 			//wx.StatusBar(frame)
 			frame.Show()
-			self.SetTopWindow(frame)
+			this.SetTopWindow(frame)
 		} except {|e|
 			println(e.text)
 		}

@@ -100,7 +100,7 @@ scope {
 				stipple = !stipple
 			}
 			Draw()
-			self.SwapBuffers()
+			this.SwapBuffers()
 		}
 	}
 	app = App()

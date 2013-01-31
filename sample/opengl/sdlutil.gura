@@ -4,9 +4,9 @@ App = class {
 	MainLoop(caption:string:nil, width:number, height:number, flags:number) = {
 		sdl.Init(sdl.INIT_VIDEO)
 		if (caption) {
-			self.SetCaption(caption)
+			this.SetCaption(caption)
 		} else {
-			self.SetCaption(path.splitext(path.filename(sys.argv[0]))[0])
+			this.SetCaption(path.splitext(path.filename(sys.argv[0]))[0])
 		}
 		bpp = sdl.GetVideoInfo().vfmt.BitsPerPixel
 		screen = sdl.SetVideoMode(width, height, bpp, flags)
@@ -17,36 +17,36 @@ App = class {
 				[sdl.GL_DEPTH_SIZE, 32], [sdl.GL_DOUBLEBUFFER, 0]
 			]
 		}
-		self.OnInit()
-		self.OnResize(width, height)
+		this.OnInit()
+		this.OnResize(width, height)
 		repeat {
 			event = sdl.PollEvent()
 			if (!event) {
 				// nothing to do
 			} elsif (event.type == sdl.VIDEOEXPOSE) {
-				self.OnDraw()
-				openglFlag && self.SwapBuffers()
+				this.OnDraw()
+				openglFlag && this.SwapBuffers()
 			} elsif (event.type == sdl.VIDEORESIZE) {
-				self.OnResize(event.w, event.h)
-				self.OnDraw()
-				openglFlag && self.SwapBuffers()
+				this.OnResize(event.w, event.h)
+				this.OnDraw()
+				openglFlag && this.SwapBuffers()
 			} elsif (event.type == sdl.QUIT) {
 				break
 			} elsif (event.type == sdl.KEYDOWN) {
 				if (event.sym == sdl.K_ESCAPE) {
 					break
 				}
-				self.OnKeyDown(event)
+				this.OnKeyDown(event)
 			} elsif (event.type == sdl.KEYUP) {
-				self.OnKeyUp(event)
+				this.OnKeyUp(event)
 			} elsif (event.type == sdl.MOUSEMOTION) {
-				self.OnMouseMotion(event)
+				this.OnMouseMotion(event)
 			} elsif (event.type == sdl.MOUSEBUTTONDOWN) {
-				self.OnMouseButtonDown(event)
+				this.OnMouseButtonDown(event)
 			} elsif (event.type == sdl.MOUSEBUTTONUP) {
-				self.OnMouseButtonUp(event)
+				this.OnMouseButtonUp(event)
 			}
-			self.OnIdle()
+			this.OnIdle()
 		}
 	}
 	SwapBuffers() = sdl.GL_SwapBuffers()

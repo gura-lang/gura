@@ -275,50 +275,50 @@ aci_to_rgb = @(aci_to_rgb_t) {
 
 DXFVector = class {
 	__init__(x:number => 0, y:number => 0, z:number => 0) = {
-		self.x = x; self.y = y; self.z = z
+		this.x = x; this.y = y; this.z = z
 	}
 }
 
 DXFEntity = class {
 	[Line, Face] = 0..
 	__init__(type:number, colour:number) = {
-		self.type = type, self.colour = colour
+		this.type = type, this.colour = colour
 	}
 }
 
 DXFLine = class(DXFEntity) {
 	__init__() = {|DXFEntity.Line, 0|
-		self.v0 = DXFVector(), self.v1 = DXFVector()
+		this.v0 = DXFVector(), this.v1 = DXFVector()
 	}
 }
 
 DXFFace = class(DXFEntity) {
 	__init__() = {|DXFEntity.Face, 0|
-		self.v0 = DXFVector()
-		self.v1 = DXFVector()
-		self.v2 = DXFVector()
-		self.v3 = DXFVector()
-		self.n = DXFVector()		// normal
+		this.v0 = DXFVector()
+		this.v1 = DXFVector()
+		this.v2 = DXFVector()
+		this.v3 = DXFVector()
+		this.n = DXFVector()		// normal
 	}
 	CalculateNormal() = {
 		v01 = DXFVector()
 		v02 = DXFVector()
-		v01.x = self.v0.x - self.v1.x
-		v01.y = self.v0.y - self.v1.y
-		v01.z = self.v0.z - self.v1.z
-		v02.x = self.v0.x - self.v2.x
-		v02.y = self.v0.y - self.v2.y
-		v02.z = self.v0.z - self.v2.z
-		self.n = Cross(v01, v02)
-		mod = math.sqrt(self.n.x * self.n.x + self.n.y * self.n.y + self.n.z * self.n.z)
-		self.n.x /= mod
-		self.n.y /= mod
-		self.n.z /= mod
+		v01.x = this.v0.x - this.v1.x
+		v01.y = this.v0.y - this.v1.y
+		v01.z = this.v0.z - this.v1.z
+		v02.x = this.v0.x - this.v2.x
+		v02.y = this.v0.y - this.v2.y
+		v02.z = this.v0.z - this.v2.z
+		this.n = Cross(v01, v02)
+		mod = math.sqrt(this.n.x * this.n.x + this.n.y * this.n.y + this.n.z * this.n.z)
+		this.n.x /= mod
+		this.n.y /= mod
+		this.n.z /= mod
 	}
 }
 
 DXFLayer = class {
-	__init__() = { self.name = '', self.colour = -1 }
+	__init__() = { this.name = '', this.colour = -1 }
 }
 
 // ---------------------------------------------------------------------------
@@ -327,24 +327,24 @@ DXFLayer = class {
 
 DXFRenderer = class {
 	__init__() = {
-		self.m_loaded = false
-		self.m_layers = []		// DXFLayer
-		self.m_entities = [] 	// DXFEntity
+		this.m_loaded = false
+		this.m_layers = []		// DXFLayer
+		this.m_entities = [] 	// DXFEntity
 	}
 	__del__() = {
-		self.Clear()
+		this.Clear()
 	}
 	Clear() = {
-		self.m_loaded = false
-		self.m_layers.clear()
-		self.m_entities.clear()
+		this.m_loaded = false
+		this.m_layers.clear()
+		this.m_entities.clear()
 	}
 	GetLayerColour(layer:string) = {
-		current = self.m_layers.seek(self.m_layers:*name == layer)
+		current = this.m_layers.seek(this.m_layers:*name == layer)
 		current && return(current.colour)
 		7
 	}
-	IsOk() = { self.m_loaded; }
+	IsOk() = { this.m_loaded; }
 	// parse header section: just skip everything
 	ParseHeader(stream:wx.InputStream) = {
 		text = wx.TextInputStream(stream)
@@ -369,7 +369,7 @@ DXFRenderer = class {
 					p = DXFLayer()
 					p.name = layer.name
 					p.colour = layer.colour
-					self.m_layers.append(p)
+					this.m_layers.append(p)
 				}
 				layer = DXFLayer()
 				inlayer = false
@@ -411,7 +411,7 @@ DXFRenderer = class {
 					} else {
 						p.colour = GetLayerColour(layer)
 					}
-					self.m_entities.append(p)
+					this.m_entities.append(p)
 					colour = -1; layer = wx.EmptyString
 					v = repeat (4):list { DXFVector() }
 					//v[0] = v[1] = v[2] = v[3] = DXFVector()
@@ -425,7 +425,7 @@ DXFRenderer = class {
 					} else {
 						p.colour = GetLayerColour(layer)
 					}
-					self.m_entities.append(p)
+					this.m_entities.append(p)
 					colour = -1; layer = wx.EmptyString
 					v = repeat (4):list { DXFVector() }
 					//v[0] = v[1] = v[2] = v[3] = DXFVector()
@@ -477,7 +477,7 @@ DXFRenderer = class {
 	// parse and load a DXF file
 	// currently pretty limited, but knows enought do handle 3DFACEs and LINEs
 	Load(stream:wx.InputStream) = {
-		self.Clear()
+		this.Clear()
 		text = wx.TextInputStream(stream)
 		while (stream.CanRead()) {
 			[line1, line2] = GetLines(text)
@@ -487,23 +487,23 @@ DXFRenderer = class {
 				[line1, line2] = GetLines(text)
 				if (line1 == '2') {
 					if (line2 == 'HEADER') {
-						if (!self.ParseHeader(stream)) {
+						if (!this.ParseHeader(stream)) {
 							return(false)
 						}
 					} elsif (line2 == 'TABLES') {
-						if (!self.ParseTables(stream)) {
+						if (!this.ParseTables(stream)) {
 							return(false)
 						}
 					} elsif (line2 == 'ENTITIES') {
-						if (!self.ParseEntities(stream)) {
+						if (!this.ParseEntities(stream)) {
 							return(false)
 						}
 					}
 				}
 			}
 		}
-		self.NormalizeEntities()
-		self.m_loaded = true
+		this.NormalizeEntities()
+		this.m_loaded = true
 		true
 	}
 	// Scale object boundings to [-5,5]
@@ -511,7 +511,7 @@ DXFRenderer = class {
 		// calculate current min and max boundings of object
 		minv = DXFVector(10e20, 10e20, 10e20)
 		maxv = DXFVector(-10e20, -10e20, -10e20)
-		for (p in self.m_entities) {
+		for (p in this.m_entities) {
 			if (p.type == DXFEntity.Line) {
 				line = p
 				for (v in [line.v0, line.v1]) {
@@ -537,7 +537,7 @@ DXFRenderer = class {
 		// rescale object down to [-5,5]
 		span = DXFVector(maxv.x - minv.x, maxv.y - minv.y, maxv.z - minv.z)
 		factor = mymin(mymin(10.0 / span.x, 10.0 / span.y), 10.0 / span.z)
-		for (p in self.m_entities) {
+		for (p in this.m_entities) {
 			if (p.type == DXFEntity.Line) {
 				line = p
 				for (v in [line.v0, line.v1]) {
@@ -557,10 +557,10 @@ DXFRenderer = class {
 	}
 	// OpenGL renderer for DXF entities
 	Render() = {
-		if (!self.m_loaded) {
+		if (!this.m_loaded) {
 			return
 		}
-		for (p in self.m_entities) {
+		for (p in this.m_entities) {
 			c = ACIColourToRGB(p.colour)
 			if (p.type == DXFEntity.Line) {
 				line = p

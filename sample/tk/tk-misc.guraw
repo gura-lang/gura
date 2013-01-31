@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-# encoding: shift_jis
+# encoding: utf-8
 import(tk)
 
 //tk.tclDump()
@@ -81,7 +81,7 @@ tk.mainwindow() {|mw|
 			println('<ButtonPress> ', x, ' ', y)
 		}
 	}
-	mw.Button(text => 'ì˙ñ{åÍÇÃÉ{É^Éì') {|w|
+	mw.Button(text => 'Êó•Êú¨Ë™û„ÅÆ„Éú„Çø„É≥') {|w|
 		w.grid(sticky => 'ew')
 		w.bind(`command) {
 		}
@@ -93,7 +93,7 @@ tk.mainwindow() {|mw|
 			w.grid(sticky => 'ew', column => 0, row => 0)
 			w.bind(`command) {
 				w.bindafter(1000) {
-					textvar.string = format('Ç†Ç¢Ç§Ç¶Ç® %d', i)
+					textvar.string = format('„ÅÇ„ÅÑ„ÅÜ„Åà„Åä %d', i)
 					i += 1
 				}
 			}
@@ -102,7 +102,7 @@ tk.mainwindow() {|mw|
 			w.grid(sticky => 'ew', column => 1, row => 0, padx => '4 0')
 			w.bind(`command) {
 				w.bindtimer(100, 100, 10) {
-					textvar.string = format('Ç†Ç¢Ç§Ç¶Ç® %d', i)
+					textvar.string = format('„ÅÇ„ÅÑ„ÅÜ„Åà„Åä %d', i)
 					i += 1
 				}
 			}

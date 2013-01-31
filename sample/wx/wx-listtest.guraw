@@ -71,35 +71,35 @@ MyApp = class(wx.App) {
 		frame = MyFrame('wxListCtrl Test')
 		// Show the frame
 		frame.Show(true)
-		self.SetTopWindow(frame)
+		this.SetTopWindow(frame)
 		true
 	}
 }
 
 MyFrame = class(wx.Frame) {
 	__init__(title:string) = {|nil, wx.ID_ANY, title|
-		self.m_listCtrl = nil
-		self.m_logWindow = nil
-		self.m_smallVirtual = false
+		this.m_listCtrl = nil
+		this.m_logWindow = nil
+		this.m_smallVirtual = false
 		if (wx.SystemSettings.GetScreenType() > wx.SYS_SCREEN_SMALL) {
-			self.SetSize(wx.Size(450, 340))
+			this.SetSize(wx.Size(450, 340))
 		}
 		// Give it an icon
-		self.SetIcon(wx.IconFromXPMData(resource.mondrian_xpm))
-		//self.SetIcon(wx.ICON(mondrian))
+		this.SetIcon(wx.IconFromXPMData(resource.mondrian_xpm))
+		//this.SetIcon(wx.ICON(mondrian))
 		// Make an image list containing large icons
-		self.m_imageListNormal = wx.ImageList(32, 32, true)
-		self.m_imageListSmall = wx.ImageList(16, 16, true)
-		self.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.toolbrai_xpm))
-		self.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.toolchar_xpm))
-		self.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.tooldata_xpm))
-		self.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.toolnote_xpm))
-		self.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.tooltodo_xpm))
-		self.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.toolchec_xpm))
-		self.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.toolgame_xpm))
-		self.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.tooltime_xpm))
-		self.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.toolword_xpm))
-		self.m_imageListSmall.Add(wx.BitmapFromXPMData(resource.small1_xpm))
+		this.m_imageListNormal = wx.ImageList(32, 32, true)
+		this.m_imageListSmall = wx.ImageList(16, 16, true)
+		this.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.toolbrai_xpm))
+		this.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.toolchar_xpm))
+		this.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.tooldata_xpm))
+		this.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.toolnote_xpm))
+		this.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.tooltodo_xpm))
+		this.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.toolchec_xpm))
+		this.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.toolgame_xpm))
+		this.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.tooltime_xpm))
+		this.m_imageListNormal.Add(wx.BitmapFromXPMData(resource.toolword_xpm))
+		this.m_imageListSmall.Add(wx.BitmapFromXPMData(resource.small1_xpm))
 		// Make a menubar
 		menuFile = wx.Menu()
 		menuFile.Append(LIST_ABOUT, '&About')
@@ -146,67 +146,67 @@ MyFrame = class(wx.Frame) {
 		menubar.Append(menuView, '&View')
 		menubar.Append(menuList, '&List')
 		menubar.Append(menuCol, '&Colour')
-		self.SetMenuBar(menubar)
-		self.m_panel = wx.Panel(self, wx.ID_ANY)
-		self.m_logWindow = wx.TextCtrl(self.m_panel, wx.ID_ANY, wx.EmptyString,
+		this.SetMenuBar(menubar)
+		this.m_panel = wx.Panel(this, wx.ID_ANY)
+		this.m_logWindow = wx.TextCtrl(this.m_panel, wx.ID_ANY, wx.EmptyString,
 									wx.DefaultPosition, wx.DefaultSize,
 									wx.TE_MULTILINE | wx.SUNKEN_BORDER)
-		self.m_logOld = wx.Log.SetActiveTarget(wx.LogTextCtrl(self.m_logWindow))
-		self.RecreateList(wx.LC_REPORT | wx.LC_SINGLE_SEL)
-		self.CreateStatusBar(3)
-		self.EventTable()
+		this.m_logOld = wx.Log.SetActiveTarget(wx.LogTextCtrl(this.m_logWindow))
+		this.RecreateList(wx.LC_REPORT | wx.LC_SINGLE_SEL)
+		this.CreateStatusBar(3)
+		this.EventTable()
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_SIZE) {|event| self.OnSize(event) }
-		self.Bind(wx.EVT_MENU, LIST_QUIT) {|event| self.OnQuit(event) }
-		self.Bind(wx.EVT_MENU, LIST_ABOUT) {|event| self.OnAbout(event) }
-		self.Bind(wx.EVT_MENU, LIST_LIST_VIEW) {|event| self.OnListView(event) }
-		self.Bind(wx.EVT_MENU, LIST_REPORT_VIEW) {|event| self.OnReportView(event) }
-		self.Bind(wx.EVT_MENU, LIST_ICON_VIEW) {|event| self.OnIconView(event) }
-		self.Bind(wx.EVT_MENU, LIST_ICON_TEXT_VIEW) {|event| self.OnIconTextView(event) }
-		self.Bind(wx.EVT_MENU, LIST_SMALL_ICON_VIEW) {|event| self.OnSmallIconView(event) }
-		self.Bind(wx.EVT_MENU, LIST_SMALL_ICON_TEXT_VIEW) {|event| self.OnSmallIconTextView(event) }
-		self.Bind(wx.EVT_MENU, LIST_VIRTUAL_VIEW) {|event| self.OnVirtualView(event) }
-		self.Bind(wx.EVT_MENU, LIST_SMALL_VIRTUAL_VIEW) {|event| self.OnSmallVirtualView(event) }
-		self.Bind(wx.EVT_MENU, LIST_FOCUS_LAST) {|event| self.OnFocusLast(event) }
-		self.Bind(wx.EVT_MENU, LIST_TOGGLE_FIRST) {|event| self.OnToggleFirstSel(event) }
-		self.Bind(wx.EVT_MENU, LIST_DESELECT_ALL) {|event| self.OnDeselectAll(event) }
-		self.Bind(wx.EVT_MENU, LIST_SELECT_ALL) {|event| self.OnSelectAll(event) }
-		self.Bind(wx.EVT_MENU, LIST_DELETE) {|event| self.OnDelete(event) }
-		self.Bind(wx.EVT_MENU, LIST_ADD) {|event| self.OnAdd(event) }
-		self.Bind(wx.EVT_MENU, LIST_EDIT) {|event| self.OnEdit(event) }
-		self.Bind(wx.EVT_MENU, LIST_DELETE_ALL) {|event| self.OnDeleteAll(event) }
-		self.Bind(wx.EVT_MENU, LIST_SORT) {|event| self.OnSort(event) }
-		self.Bind(wx.EVT_MENU, LIST_SET_FG_COL) {|event| self.OnSetFgColour(event) }
-		self.Bind(wx.EVT_MENU, LIST_SET_BG_COL) {|event| self.OnSetBgColour(event) }
-		self.Bind(wx.EVT_MENU, LIST_TOGGLE_MULTI_SEL) {|event| self.OnToggleMultiSel(event) }
-		self.Bind(wx.EVT_MENU, LIST_SHOW_COL_INFO) {|event| self.OnShowColInfo(event) }
-		self.Bind(wx.EVT_MENU, LIST_SHOW_SEL_INFO) {|event| self.OnShowSelInfo(event) }
-		self.Bind(wx.EVT_MENU, LIST_FREEZE) {|event| self.OnFreeze(event) }
-		self.Bind(wx.EVT_MENU, LIST_THAW) {|event| self.OnThaw(event) }
-		self.Bind(wx.EVT_MENU, LIST_TOGGLE_LINES) {|event| self.OnToggleLines(event) }
-		self.Bind(wx.EVT_MENU, LIST_MAC_USE_GENERIC) {|event| self.OnToggleMacUseGeneric(event) }
-		self.Bind(wx.EVT_MENU, LIST_LONG_OPERATION) {|event| self.OnLongOperation(event) }
-		self.Bind(wx.EVT_UPDATE_UI, LIST_SHOW_COL_INFO) {|event| self.OnUpdateShowColInfo(event) }
-		self.Bind(wx.EVT_UPDATE_UI, LIST_TOGGLE_MULTI_SEL) {|event| self.OnUpdateToggleMultiSel(event) }
+		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
+		this.Bind(wx.EVT_MENU, LIST_QUIT) {|event| this.OnQuit(event) }
+		this.Bind(wx.EVT_MENU, LIST_ABOUT) {|event| this.OnAbout(event) }
+		this.Bind(wx.EVT_MENU, LIST_LIST_VIEW) {|event| this.OnListView(event) }
+		this.Bind(wx.EVT_MENU, LIST_REPORT_VIEW) {|event| this.OnReportView(event) }
+		this.Bind(wx.EVT_MENU, LIST_ICON_VIEW) {|event| this.OnIconView(event) }
+		this.Bind(wx.EVT_MENU, LIST_ICON_TEXT_VIEW) {|event| this.OnIconTextView(event) }
+		this.Bind(wx.EVT_MENU, LIST_SMALL_ICON_VIEW) {|event| this.OnSmallIconView(event) }
+		this.Bind(wx.EVT_MENU, LIST_SMALL_ICON_TEXT_VIEW) {|event| this.OnSmallIconTextView(event) }
+		this.Bind(wx.EVT_MENU, LIST_VIRTUAL_VIEW) {|event| this.OnVirtualView(event) }
+		this.Bind(wx.EVT_MENU, LIST_SMALL_VIRTUAL_VIEW) {|event| this.OnSmallVirtualView(event) }
+		this.Bind(wx.EVT_MENU, LIST_FOCUS_LAST) {|event| this.OnFocusLast(event) }
+		this.Bind(wx.EVT_MENU, LIST_TOGGLE_FIRST) {|event| this.OnToggleFirstSel(event) }
+		this.Bind(wx.EVT_MENU, LIST_DESELECT_ALL) {|event| this.OnDeselectAll(event) }
+		this.Bind(wx.EVT_MENU, LIST_SELECT_ALL) {|event| this.OnSelectAll(event) }
+		this.Bind(wx.EVT_MENU, LIST_DELETE) {|event| this.OnDelete(event) }
+		this.Bind(wx.EVT_MENU, LIST_ADD) {|event| this.OnAdd(event) }
+		this.Bind(wx.EVT_MENU, LIST_EDIT) {|event| this.OnEdit(event) }
+		this.Bind(wx.EVT_MENU, LIST_DELETE_ALL) {|event| this.OnDeleteAll(event) }
+		this.Bind(wx.EVT_MENU, LIST_SORT) {|event| this.OnSort(event) }
+		this.Bind(wx.EVT_MENU, LIST_SET_FG_COL) {|event| this.OnSetFgColour(event) }
+		this.Bind(wx.EVT_MENU, LIST_SET_BG_COL) {|event| this.OnSetBgColour(event) }
+		this.Bind(wx.EVT_MENU, LIST_TOGGLE_MULTI_SEL) {|event| this.OnToggleMultiSel(event) }
+		this.Bind(wx.EVT_MENU, LIST_SHOW_COL_INFO) {|event| this.OnShowColInfo(event) }
+		this.Bind(wx.EVT_MENU, LIST_SHOW_SEL_INFO) {|event| this.OnShowSelInfo(event) }
+		this.Bind(wx.EVT_MENU, LIST_FREEZE) {|event| this.OnFreeze(event) }
+		this.Bind(wx.EVT_MENU, LIST_THAW) {|event| this.OnThaw(event) }
+		this.Bind(wx.EVT_MENU, LIST_TOGGLE_LINES) {|event| this.OnToggleLines(event) }
+		this.Bind(wx.EVT_MENU, LIST_MAC_USE_GENERIC) {|event| this.OnToggleMacUseGeneric(event) }
+		this.Bind(wx.EVT_MENU, LIST_LONG_OPERATION) {|event| this.OnLongOperation(event) }
+		this.Bind(wx.EVT_UPDATE_UI, LIST_SHOW_COL_INFO) {|event| this.OnUpdateShowColInfo(event) }
+		this.Bind(wx.EVT_UPDATE_UI, LIST_TOGGLE_MULTI_SEL) {|event| this.OnUpdateToggleMultiSel(event) }
 	}
 	OnSize(event:wx.SizeEvent) = {
-		self.DoSize()
+		this.DoSize()
 		event.Skip()
 	}
 	DoSize() = {
-		if (!self.m_logWindow) {
+		if (!this.m_logWindow) {
 			return
 		}
-		size = self.GetClientSize()
+		size = this.GetClientSize()
 		y = (2 * size.y) / 3
-		self.m_listCtrl.SetDimensions(0, 0, size.x, y)
-		self.m_logWindow.SetDimensions(0, y + 1, size.x, size.y - y)
+		this.m_listCtrl.SetDimensions(0, 0, size.x, y)
+		this.m_logWindow.SetDimensions(0, y + 1, size.x, size.y - y)
 	}
 	// return true if the control is not in virtual view, give an error message
 	// and return false if it is
 	CheckNonVirtual() = {
-		if (!self.m_listCtrl.HasFlag(wx.LC_VIRTUAL)) {
+		if (!this.m_listCtrl.HasFlag(wx.LC_VIRTUAL)) {
 			return(true)
 		}
 		// "this" == whatever
@@ -214,283 +214,283 @@ MyFrame = class(wx.Frame) {
 		false
 	}
 	OnQuit(event:wx.CommandEvent) = {
-		self.Close(true)
+		this.Close(true)
 	}
 	OnAbout(event:wx.CommandEvent) = {
-		dialog = wx.MessageDialog(self, 'List test sample\nJulian Smart (c) 1997',
+		dialog = wx.MessageDialog(this, 'List test sample\nJulian Smart (c) 1997',
 			'About list test', wx.OK | wx.CANCEL)
 		dialog.ShowModal()
 	}
 	OnFreeze(event:wx.CommandEvent) = {
 		wx.LogMessage('Freezing the control')
-		self.m_listCtrl.Freeze()
+		this.m_listCtrl.Freeze()
 	}
 	OnThaw(event:wx.CommandEvent) = {
 		wx.LogMessage('Thawing the control')
-		self.m_listCtrl.Thaw()
+		this.m_listCtrl.Thaw()
 	}
 	OnToggleLines(event:wx.CommandEvent) = {
-		self.m_listCtrl.SetSingleStyle(wx.LC_HRULES | wx.LC_VRULES, event.IsChecked())
+		this.m_listCtrl.SetSingleStyle(wx.LC_HRULES | wx.LC_VRULES, event.IsChecked())
 	}
 	OnToggleMacUseGeneric(event:wx.CommandEvent) = {
 	}
 	OnLongOperation(event:wx.CommandEvent) = {
-		if ((self.m_listCtrl.GetWindowStyleFlag() & wx.LC_MASK_TYPE) != wx.LC_REPORT) {
+		if ((this.m_listCtrl.GetWindowStyleFlag() & wx.LC_MASK_TYPE) != wx.LC_REPORT) {
 			wx.LogWarning('need to be in report mode')
 			return
 		}
 		repeat(100) {|idx|
-			self.m_listCtrl.Freeze()
-			self.m_listCtrl.DeleteAllItems()
-			self.m_listCtrl.DeleteColumn(2)
-			self.m_listCtrl.DeleteColumn(1)
-			self.m_listCtrl.DeleteColumn(0)
-			self.InitWithReportItems (idx)
-			self.m_listCtrl.Thaw()
+			this.m_listCtrl.Freeze()
+			this.m_listCtrl.DeleteAllItems()
+			this.m_listCtrl.DeleteColumn(2)
+			this.m_listCtrl.DeleteColumn(1)
+			this.m_listCtrl.DeleteColumn(0)
+			this.InitWithReportItems (idx)
+			this.m_listCtrl.Thaw()
 			wx.App.GetInstance().Yield(true)
 		}
 	}
 	OnFocusLast(event:wx.CommandEvent) = {
-		index = self.m_listCtrl.GetItemCount() - 1
+		index = this.m_listCtrl.GetItemCount() - 1
 		if (index == -1) {
 			return
 		}
-		self.m_listCtrl.SetItemState(index, wx.LIST_STATE_FOCUSED, wx.LIST_STATE_FOCUSED)
-		self.m_listCtrl.EnsureVisible(index)
+		this.m_listCtrl.SetItemState(index, wx.LIST_STATE_FOCUSED, wx.LIST_STATE_FOCUSED)
+		this.m_listCtrl.EnsureVisible(index)
 	}
 	OnToggleFirstSel(event:wx.CommandEvent) = {
-		self.m_listCtrl.SetItemState(0, (~self.m_listCtrl.GetItemState(0, wx.LIST_STATE_SELECTED)) & wx.LIST_STATE_SELECTED, wx.LIST_STATE_SELECTED)
+		this.m_listCtrl.SetItemState(0, (~this.m_listCtrl.GetItemState(0, wx.LIST_STATE_SELECTED)) & wx.LIST_STATE_SELECTED, wx.LIST_STATE_SELECTED)
 	}
 	OnDeselectAll(event:wx.CommandEvent) = {
-		if (!self.CheckNonVirtual()) {
+		if (!this.CheckNonVirtual()) {
 			return
 		}
-		n = self.m_listCtrl.GetItemCount()
-		self.m_listCtrl.SetItemState(0 .. (n - 1), 0, wx.LIST_STATE_SELECTED)
+		n = this.m_listCtrl.GetItemCount()
+		this.m_listCtrl.SetItemState(0 .. (n - 1), 0, wx.LIST_STATE_SELECTED)
 	}
 	OnSelectAll(event:wx.CommandEvent) = {
-		if (!self.CheckNonVirtual()) {
+		if (!this.CheckNonVirtual()) {
 			return
 		}
-		n = self.m_listCtrl.GetItemCount()
-		self.m_listCtrl.SetItemState(0 .. (n - 1), wx.LIST_STATE_SELECTED, wx.LIST_STATE_SELECTED)
+		n = this.m_listCtrl.GetItemCount()
+		this.m_listCtrl.SetItemState(0 .. (n - 1), wx.LIST_STATE_SELECTED, wx.LIST_STATE_SELECTED)
 	}
 	// recreate the list control with the new flags
 	RecreateList(flags:number, withText:boolean => true) = {
 		// we could avoid recreating it if we don't set/clear the wxLC_VIRTUAL
 		// style, but it is more trouble to do it than not
-		self.m_listCtrl && self.m_listCtrl.Destroy()
-		self.m_listCtrl = MyListCtrl(self.m_panel, LIST_CTRL,
+		this.m_listCtrl && this.m_listCtrl.Destroy()
+		this.m_listCtrl = MyListCtrl(this.m_panel, LIST_CTRL,
 									wx.DefaultPosition, wx.DefaultSize,
 									flags | \
 									wx.SUNKEN_BORDER | wx.LC_EDIT_LABELS)
 		flagsMasked = flags & wx.LC_MASK_TYPE
 		if (flagsMasked == wx.LC_LIST) {
-			self.InitWithListItems()
+			this.InitWithListItems()
 		} elsif (flagsMasked == wx.LC_ICON) {
-			self.InitWithIconItems(withText)
+			this.InitWithIconItems(withText)
 		} elsif (flagsMasked == wx.LC_SMALL_ICON) {
-			self.InitWithIconItems(withText, true)
+			this.InitWithIconItems(withText, true)
 		} elsif (flagsMasked == wx.LC_REPORT) {
 			if (flags & wx.LC_VIRTUAL != 0) {
-				self.InitWithVirtualItems()
+				this.InitWithVirtualItems()
 			} else {
-				self.InitWithReportItems(0)
+				this.InitWithReportItems(0)
 			}
 		} else {
 			wx.FAIL_MSG('unknown listctrl mode')
 		}
-		self.DoSize()
-		self.m_logWindow.Clear()
+		this.DoSize()
+		this.m_logWindow.Clear()
 	}
 	OnListView(event:wx.CommandEvent) = {
-		self.RecreateList(wx.LC_LIST)
+		this.RecreateList(wx.LC_LIST)
 	}
 	// fill the control with items depending on the view
 	InitWithListItems() = {
 		i = 0..(NUM_ITEMS - 1)
-		self.m_listCtrl.InsertStringItem(i, format('Item %d', i))
+		this.m_listCtrl.InsertStringItem(i, format('Item %d', i))
 	}
 	OnReportView(event:wx.CommandEvent) = {
-		self.RecreateList(wx.LC_REPORT)
+		this.RecreateList(wx.LC_REPORT)
 	}
 	InitWithReportItems(shift:number) = {
-		self.m_listCtrl.SetImageList(self.m_imageListSmall, wx.IMAGE_LIST_SMALL)
+		this.m_listCtrl.SetImageList(this.m_imageListSmall, wx.IMAGE_LIST_SMALL)
 		// note that under MSW for SetColumnWidth() to work we need to create the
 		// items with images initially even if we specify dummy image id
 		itemCol = wx.ListItem()
 		itemCol.SetText('Column 1')
 		itemCol.SetImage(-1)
-		self.m_listCtrl.InsertColumnItem(0, itemCol)
+		this.m_listCtrl.InsertColumnItem(0, itemCol)
 		itemCol.SetText('Column 2')
 		itemCol.SetAlign(wx.LIST_FORMAT_CENTRE)
-		self.m_listCtrl.InsertColumnItem(1, itemCol)
+		this.m_listCtrl.InsertColumnItem(1, itemCol)
 		itemCol.SetText('Column 3')
 		itemCol.SetAlign(wx.LIST_FORMAT_RIGHT)
-		self.m_listCtrl.InsertColumnItem(2, itemCol)
+		this.m_listCtrl.InsertColumnItem(2, itemCol)
 		// to speed up inserting we hide the control temporarily
-		self.m_listCtrl.Hide()
+		this.m_listCtrl.Hide()
 		sw = wx.StopWatch()
-		self.m_listCtrl.InsertItemInReportView(0..(NUM_ITEMS - 1), shift)
-		self.m_logWindow.WriteText(format('%d items inserted in %ldms\n',
+		this.m_listCtrl.InsertItemInReportView(0..(NUM_ITEMS - 1), shift)
+		this.m_logWindow.WriteText(format('%d items inserted in %ldms\n',
 												NUM_ITEMS, sw.Time()))
-		self.m_listCtrl.Show()
+		this.m_listCtrl.Show()
 		// we leave all mask fields to 0 and only change the colour
 		item = wx.ListItem()
 		item.SetId(0)
 		item.SetTextColour(wx.RED)
-		self.m_listCtrl.SetItem(item)
+		this.m_listCtrl.SetItem(item)
 		item.SetId(2)
 		item.SetTextColour(wx.GREEN)
-		self.m_listCtrl.SetItem(item)
+		this.m_listCtrl.SetItem(item)
 		item.SetId(4)
 		item.SetTextColour(wx.LIGHT_GREY)
 		item.SetFont(wx.ITALIC_FONT)
 		item.SetBackgroundColour(wx.RED)
-		self.m_listCtrl.SetItem(item)
-		self.m_listCtrl.SetTextColour(wx.BLUE)
-		self.m_listCtrl.SetColumnWidth(0, wx.LIST_AUTOSIZE)
-		self.m_listCtrl.SetColumnWidth(1, wx.LIST_AUTOSIZE)
-		self.m_listCtrl.SetColumnWidth(2, wx.LIST_AUTOSIZE)
+		this.m_listCtrl.SetItem(item)
+		this.m_listCtrl.SetTextColour(wx.BLUE)
+		this.m_listCtrl.SetColumnWidth(0, wx.LIST_AUTOSIZE)
+		this.m_listCtrl.SetColumnWidth(1, wx.LIST_AUTOSIZE)
+		this.m_listCtrl.SetColumnWidth(2, wx.LIST_AUTOSIZE)
 		// Set images in columns
-		self.m_listCtrl.SetItemColumnImage(1, 1, 0)
+		this.m_listCtrl.SetItemColumnImage(1, 1, 0)
 		info = wx.ListItem()
 		info.SetImage(0)
 		info.SetId(3)
 		info.SetColumn(2)
-		self.m_listCtrl.SetItem(info)
+		this.m_listCtrl.SetItem(info)
 		// test SetItemFont too
-		self.m_listCtrl.SetItemFont(0, wx.ITALIC_FONT)
+		this.m_listCtrl.SetItemFont(0, wx.ITALIC_FONT)
 	}
 	InitWithIconItems(withText:boolean, sameIcon:boolean => false) = {
-		self.m_listCtrl.SetImageList(self.m_imageListNormal, wx.IMAGE_LIST_NORMAL)
-		self.m_listCtrl.SetImageList(self.m_imageListSmall, wx.IMAGE_LIST_SMALL)
+		this.m_listCtrl.SetImageList(this.m_imageListNormal, wx.IMAGE_LIST_NORMAL)
+		this.m_listCtrl.SetImageList(this.m_imageListSmall, wx.IMAGE_LIST_SMALL)
 		repeat(NUM_ICONS) {|i|
 			image = if (sameIcon) {0} else {i}
 			if (withText) {
-				self.m_listCtrl.InsertImageStringItem(i, format('Label %d', i),
+				this.m_listCtrl.InsertImageStringItem(i, format('Label %d', i),
 									image)
 			} else {
-				self.m_listCtrl.InsertImageItem(i, image)
+				this.m_listCtrl.InsertImageItem(i, image)
 			}
 		}
 	}
 	OnIconView(event:wx.CommandEvent) = {
-		self.RecreateList(wx.LC_ICON, false)
+		this.RecreateList(wx.LC_ICON, false)
 	}
 	OnIconTextView(event:wx.CommandEvent) = {
-		self.RecreateList(wx.LC_ICON)
+		this.RecreateList(wx.LC_ICON)
 	}
 	OnSmallIconView(event:wx.CommandEvent) = {
-		self.RecreateList(wx.LC_SMALL_ICON, false)
+		this.RecreateList(wx.LC_SMALL_ICON, false)
 	}
 	OnSmallIconTextView(event:wx.CommandEvent) = {
-		self.RecreateList(wx.LC_SMALL_ICON)
+		this.RecreateList(wx.LC_SMALL_ICON)
 	}
 	OnVirtualView(event:wx.CommandEvent) = {
-		self.m_smallVirtual = false
-		self.RecreateList(wx.LC_REPORT | wx.LC_VIRTUAL)
+		this.m_smallVirtual = false
+		this.RecreateList(wx.LC_REPORT | wx.LC_VIRTUAL)
 	}
 	OnSmallVirtualView(event:wx.CommandEvent) = {
-		self.m_smallVirtual = true
-		self.RecreateList(wx.LC_REPORT | wx.LC_VIRTUAL)
+		this.m_smallVirtual = true
+		this.RecreateList(wx.LC_REPORT | wx.LC_VIRTUAL)
 	}
 	InitWithVirtualItems() = {
-		self.m_listCtrl.SetImageList(self.m_imageListSmall, wx.IMAGE_LIST_SMALL)
-		if (self.m_smallVirtual) {
-			self.m_listCtrl.InsertColumn(0, 'Animal')
-			self.m_listCtrl.InsertColumn(1, 'Sound')
-			self.m_listCtrl.SetItemCount(SMALL_VIRTUAL_VIEW_ITEMS.len())
+		this.m_listCtrl.SetImageList(this.m_imageListSmall, wx.IMAGE_LIST_SMALL)
+		if (this.m_smallVirtual) {
+			this.m_listCtrl.InsertColumn(0, 'Animal')
+			this.m_listCtrl.InsertColumn(1, 'Sound')
+			this.m_listCtrl.SetItemCount(SMALL_VIRTUAL_VIEW_ITEMS.len())
 		} else {
-			self.m_listCtrl.InsertColumn(0, 'First Column')
-			self.m_listCtrl.InsertColumn(1, 'Second Column')
-			self.m_listCtrl.SetColumnWidth(0, 150)
-			self.m_listCtrl.SetColumnWidth(1, 150)
-			self.m_listCtrl.SetItemCount(1000000)
+			this.m_listCtrl.InsertColumn(0, 'First Column')
+			this.m_listCtrl.InsertColumn(1, 'Second Column')
+			this.m_listCtrl.SetColumnWidth(0, 150)
+			this.m_listCtrl.SetColumnWidth(1, 150)
+			this.m_listCtrl.SetItemCount(1000000)
 		}
 	}
 	OnSort(event:wx.CommandEvent) = {
 		sw = wx.StopWatch()
-		self.m_listCtrl.SortItems(MyCompareFunction)
-		self.m_logWindow.WriteText(format('Sorting %d items took %ld ms\n',
-											self.m_listCtrl.GetItemCount(),
+		this.m_listCtrl.SortItems(MyCompareFunction)
+		this.m_logWindow.WriteText(format('Sorting %d items took %ld ms\n',
+											this.m_listCtrl.GetItemCount(),
 											sw.Time()))
 	}
 	OnShowSelInfo(event:wx.CommandEvent) = {
-		selCount = self.m_listCtrl.GetSelectedItemCount()
+		selCount = this.m_listCtrl.GetSelectedItemCount()
 		wx.LogMessage('%d items selected:', selCount)
 		// don't show too many items
 		shownCount = 0
-		item = self.m_listCtrl.GetNextItem(-1, wx.LIST_NEXT_ALL,
+		item = this.m_listCtrl.GetNextItem(-1, wx.LIST_NEXT_ALL,
 											wx.LIST_STATE_SELECTED)
 		while (item != -1) {
 			wx.LogMessage('\t%ld (%s)',
-						 item, self.m_listCtrl.GetItemText(item))
+						 item, this.m_listCtrl.GetItemText(item))
 			shownCount += 1
 			if (shownCount > 10) {
 				wx.LogMessage('\t... more selected items snipped...')
 				break
 			}
-			item = self.m_listCtrl.GetNextItem(item, wx.LIST_NEXT_ALL,
+			item = this.m_listCtrl.GetNextItem(item, wx.LIST_NEXT_ALL,
 										   wx.LIST_STATE_SELECTED)
 		}
 	}
 	OnShowColInfo(event:wx.CommandEvent) = {
-		count = self.m_listCtrl.GetColumnCount()
+		count = this.m_listCtrl.GetColumnCount()
 		wx.LogMessage('%d columns:', count)
 		c = 0 .. (count - 1)
 		wx.LogMessage('\tcolumn %d has width %d', c,
-						self.m_listCtrl.GetColumnWidth(c))
+						this.m_listCtrl.GetColumnWidth(c))
 	}
 	OnUpdateShowColInfo(event:wx.UpdateUIEvent) = {
-		event.Enable((self.m_listCtrl.GetWindowStyleFlag() & wx.LC_REPORT) != 0)
+		event.Enable((this.m_listCtrl.GetWindowStyleFlag() & wx.LC_REPORT) != 0)
 	}
 	OnToggleMultiSel(event:wx.CommandEvent) = {
-		flags = self.m_listCtrl.GetWindowStyleFlag()
+		flags = this.m_listCtrl.GetWindowStyleFlag()
 		if (flags & wx.LC_SINGLE_SEL) {
 			flags &= ~wx.LC_SINGLE_SEL
 		} else {
 			flags |= wx.LC_SINGLE_SEL
 		}
-		self.m_logWindow.WriteText(format('Current selection mode: %sle\n',
+		this.m_logWindow.WriteText(format('Current selection mode: %sle\n',
 						if (flags & wx.LC_SINGLE_SEL != 0) {'sing'} else {'multip'}))
-		self.RecreateList(flags)
+		this.RecreateList(flags)
 	}
 	OnUpdateToggleMultiSel(event:wx.UpdateUIEvent) = {
-		event.Check((self.m_listCtrl.GetWindowStyleFlag() & wx.LC_SINGLE_SEL) == 0)
+		event.Check((this.m_listCtrl.GetWindowStyleFlag() & wx.LC_SINGLE_SEL) == 0)
 	}
 	OnSetFgColour(event:wx.CommandEvent) = {
-		self.m_listCtrl.SetForegroundColour(wx.GetColourFromUser(self))
-		self.m_listCtrl.Refresh()
+		this.m_listCtrl.SetForegroundColour(wx.GetColourFromUser(this))
+		this.m_listCtrl.Refresh()
 	}
 	OnSetBgColour(event:wx.CommandEvent) = {
-		self.m_listCtrl.SetBackgroundColour(wx.GetColourFromUser(self))
-		self.m_listCtrl.Refresh()
+		this.m_listCtrl.SetBackgroundColour(wx.GetColourFromUser(this))
+		this.m_listCtrl.Refresh()
 	}
 	OnAdd(event:wx.CommandEvent) = {
-		self.m_listCtrl.InsertStringItem(self.m_listCtrl.GetItemCount(), 'Appended item')
+		this.m_listCtrl.InsertStringItem(this.m_listCtrl.GetItemCount(), 'Appended item')
 	}
 	OnEdit(event:wx.CommandEvent) = {
-		itemCur = self.m_listCtrl.GetNextItem(-1, wx.LIST_NEXT_ALL,
+		itemCur = this.m_listCtrl.GetNextItem(-1, wx.LIST_NEXT_ALL,
 											wx.LIST_STATE_FOCUSED)
 		if (itemCur != -1) {
-			self.m_listCtrl.EditLabel(itemCur)
+			this.m_listCtrl.EditLabel(itemCur)
 		} else {
-			self.m_logWindow.WriteText('No item to edit')
+			this.m_logWindow.WriteText('No item to edit')
 		}
 	}
 	OnDelete(event:wx.CommandEvent) = {
-		if (self.m_listCtrl.GetItemCount() != 0) {
-			self.m_listCtrl.DeleteItem(0)
+		if (this.m_listCtrl.GetItemCount() != 0) {
+			this.m_listCtrl.DeleteItem(0)
 		} else {
-			self.m_logWindow.WriteText('Nothing to delete')
+			this.m_logWindow.WriteText('Nothing to delete')
 		}
 	}
 	OnDeleteAll(event:wx.CommandEvent) = {
 		sw = wx.StopWatch()
-		itemCount = self.m_listCtrl.GetItemCount()
-		self.m_listCtrl.DeleteAllItems()
-		self.m_logWindow.WriteText(format('Deleting %d items took %ld ms\n',
+		itemCount = this.m_listCtrl.GetItemCount()
+		this.m_listCtrl.DeleteAllItems()
+		this.m_logWindow.WriteText(format('Deleting %d items took %ld ms\n',
 												itemCount,
 												sw.Time()))
 	}
@@ -499,30 +499,30 @@ MyFrame = class(wx.Frame) {
 MyListCtrl = class(wx.ListCtrl) {
 	__init__(parent:wx.Window, id:number, pos:wx.Point, size:wx.Size, style:number) = \
 												{|parent, id, pos, size, style|
-		self.m_attr = wx.ListItemAttr(wx.BLUE, wx.LIGHT_GREY, wx.NullFont)
-		self.EventTable()
+		this.m_attr = wx.ListItemAttr(wx.BLUE, wx.LIGHT_GREY, wx.NullFont)
+		this.EventTable()
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_LIST_BEGIN_DRAG, LIST_CTRL) {|event| self.OnBeginDrag(event) }
-		self.Bind(wx.EVT_LIST_BEGIN_RDRAG, LIST_CTRL) {|event| self.OnBeginRDrag(event) }
-		self.Bind(wx.EVT_LIST_BEGIN_LABEL_EDIT, LIST_CTRL) {|event| self.OnBeginLabelEdit(event) }
-		self.Bind(wx.EVT_LIST_END_LABEL_EDIT, LIST_CTRL) {|event| self.OnEndLabelEdit(event) }
-		self.Bind(wx.EVT_LIST_DELETE_ITEM, LIST_CTRL) {|event| self.OnDeleteItem(event) }
-		self.Bind(wx.EVT_LIST_DELETE_ALL_ITEMS, LIST_CTRL) {|event| self.OnDeleteAllItems(event) }
-		self.Bind(wx.EVT_LIST_ITEM_SELECTED, LIST_CTRL) {|event| self.OnSelected(event) }
-		self.Bind(wx.EVT_LIST_ITEM_DESELECTED, LIST_CTRL) {|event| self.OnDeselected(event) }
-		self.Bind(wx.EVT_LIST_KEY_DOWN, LIST_CTRL) {|event| self.OnListKeyDown(event) }
-		self.Bind(wx.EVT_LIST_ITEM_ACTIVATED, LIST_CTRL) {|event| self.OnActivated(event) }
-		self.Bind(wx.EVT_LIST_ITEM_FOCUSED, LIST_CTRL) {|event| self.OnFocused(event) }
-		self.Bind(wx.EVT_LIST_COL_CLICK, LIST_CTRL) {|event| self.OnColClick(event) }
-		self.Bind(wx.EVT_LIST_COL_RIGHT_CLICK, LIST_CTRL) {|event| self.OnColRightClick(event) }
-		self.Bind(wx.EVT_LIST_COL_BEGIN_DRAG, LIST_CTRL) {|event| self.OnColBeginDrag(event) }
-		self.Bind(wx.EVT_LIST_COL_DRAGGING, LIST_CTRL) {|event| self.OnColDragging(event) }
-		self.Bind(wx.EVT_LIST_COL_END_DRAG, LIST_CTRL) {|event| self.OnColEndDrag(event) }
-		self.Bind(wx.EVT_LIST_CACHE_HINT, LIST_CTRL) {|event| self.OnCacheHint(event) }
-		self.Bind(wx.EVT_CONTEXT_MENU) {|event| self.OnContextMenu(event) }
-		self.Bind(wx.EVT_CHAR) {|event| self.OnChar(event) }
-		self.Bind(wx.EVT_RIGHT_DOWN) {|event| self.OnRightClick(event) }
+		this.Bind(wx.EVT_LIST_BEGIN_DRAG, LIST_CTRL) {|event| this.OnBeginDrag(event) }
+		this.Bind(wx.EVT_LIST_BEGIN_RDRAG, LIST_CTRL) {|event| this.OnBeginRDrag(event) }
+		this.Bind(wx.EVT_LIST_BEGIN_LABEL_EDIT, LIST_CTRL) {|event| this.OnBeginLabelEdit(event) }
+		this.Bind(wx.EVT_LIST_END_LABEL_EDIT, LIST_CTRL) {|event| this.OnEndLabelEdit(event) }
+		this.Bind(wx.EVT_LIST_DELETE_ITEM, LIST_CTRL) {|event| this.OnDeleteItem(event) }
+		this.Bind(wx.EVT_LIST_DELETE_ALL_ITEMS, LIST_CTRL) {|event| this.OnDeleteAllItems(event) }
+		this.Bind(wx.EVT_LIST_ITEM_SELECTED, LIST_CTRL) {|event| this.OnSelected(event) }
+		this.Bind(wx.EVT_LIST_ITEM_DESELECTED, LIST_CTRL) {|event| this.OnDeselected(event) }
+		this.Bind(wx.EVT_LIST_KEY_DOWN, LIST_CTRL) {|event| this.OnListKeyDown(event) }
+		this.Bind(wx.EVT_LIST_ITEM_ACTIVATED, LIST_CTRL) {|event| this.OnActivated(event) }
+		this.Bind(wx.EVT_LIST_ITEM_FOCUSED, LIST_CTRL) {|event| this.OnFocused(event) }
+		this.Bind(wx.EVT_LIST_COL_CLICK, LIST_CTRL) {|event| this.OnColClick(event) }
+		this.Bind(wx.EVT_LIST_COL_RIGHT_CLICK, LIST_CTRL) {|event| this.OnColRightClick(event) }
+		this.Bind(wx.EVT_LIST_COL_BEGIN_DRAG, LIST_CTRL) {|event| this.OnColBeginDrag(event) }
+		this.Bind(wx.EVT_LIST_COL_DRAGGING, LIST_CTRL) {|event| this.OnColDragging(event) }
+		this.Bind(wx.EVT_LIST_COL_END_DRAG, LIST_CTRL) {|event| this.OnColEndDrag(event) }
+		this.Bind(wx.EVT_LIST_CACHE_HINT, LIST_CTRL) {|event| this.OnCacheHint(event) }
+		this.Bind(wx.EVT_CONTEXT_MENU) {|event| this.OnContextMenu(event) }
+		this.Bind(wx.EVT_CHAR) {|event| this.OnChar(event) }
+		this.Bind(wx.EVT_RIGHT_DOWN) {|event| this.OnRightClick(event) }
 	}
 	OnCacheHint(event:wx.ListEvent) = {
 		wx.LogMessage('OnCacheHint: cache items %ld..%ld',
@@ -532,25 +532,25 @@ MyListCtrl = class(wx.ListCtrl) {
 		item = wx.ListItem()
 		item.SetMask(wx.LIST_MASK_IMAGE)
 		item.SetImage(image)
-		self.SetColumn(col, item)
+		this.SetColumn(col, item)
 	}
 	x = false
 	OnColClick(event:wx.ListEvent) = {
 		col = event.GetColumn()
 		// set or unset image
 		MyListCtrl.x = !MyListCtrl.x
-		self.SetColumnImage(col, if (MyListCtrl.x) {0} else {-1})
+		this.SetColumnImage(col, if (MyListCtrl.x) {0} else {-1})
 		wx.LogMessage('OnColumnClick at %d.', col)
 	}
 	OnColRightClick(event:wx.ListEvent) = {
 		col = event.GetColumn()
 		if (col != -1) {
-			self.SetColumnImage(col, -1)
+			this.SetColumnImage(col, -1)
 		}
 		// Show popupmenu at position
 		menu = wx.Menu('Test')
 		menu.Append(LIST_ABOUT, '&About')
-		self.PopupMenu(menu, event.GetPoint())
+		this.PopupMenu(menu, event.GetPoint())
 		wx.LogMessage('OnColumnRightClick at %d.', event.GetColumn())
 	}
 	LogColEvent(event:wx.ListEvent, name:string) = {
@@ -559,24 +559,24 @@ MyListCtrl = class(wx.ListCtrl) {
 					name,
 					col,
 					event.GetItem().GetWidth(),
-					self.GetColumnWidth(col))
+					this.GetColumnWidth(col))
 	}
 	OnColBeginDrag(event:wx.ListEvent) = {
-		self.LogColEvent( event, 'OnColBeginDrag' )
+		this.LogColEvent( event, 'OnColBeginDrag' )
 		if (event.GetColumn() == 0) {
 			wx.LogMessage("Resizing this column shouldn't work.")
 			event.Veto()
 		}
 	}
 	OnColDragging(event:wx.ListEvent) = {
-		self.LogColEvent( event, 'OnColDragging' )
+		this.LogColEvent( event, 'OnColDragging' )
 	}
 	OnColEndDrag(event:wx.ListEvent) = {
-		self.LogColEvent( event, 'OnColEndDrag' )
+		this.LogColEvent( event, 'OnColEndDrag' )
 	}
 	OnBeginDrag(event:wx.ListEvent) = {
 		pt = event.GetPoint()
-		[index, flags] = self.HitTest(pt)
+		[index, flags] = this.HitTest(pt)
 		wx.LogMessage('OnBeginDrag at (%d, %d), item %ld.',
 				  pt.x, pt.y, index)
 	}
@@ -592,16 +592,16 @@ MyListCtrl = class(wx.ListCtrl) {
 			if (event.IsEditCancelled()) {'[cancelled]'} else {event.GetItem().GetText()})
 	}
 	OnDeleteItem(event:wx.ListEvent) = {
-		self.LogEvent(event, 'OnDeleteItem')
-		wx.LogMessage('Number of items when delete event is sent: %d', self.GetItemCount() )
+		this.LogEvent(event, 'OnDeleteItem')
+		wx.LogMessage('Number of items when delete event is sent: %d', this.GetItemCount() )
 	}
 	OnDeleteAllItems(event:wx.ListEvent) = {
-		self.LogEvent(event, 'OnDeleteAllItems')
+		this.LogEvent(event, 'OnDeleteAllItems')
 	}
 	OnSelected(event:wx.ListEvent) = {
-		self.LogEvent(event, 'OnSelected')
-		if ((self.GetWindowStyle() & wx.LC_REPORT) != 0) {
-			if (info = self.GetItem(event.GetIndex(), 1)) {
+		this.LogEvent(event, 'OnSelected')
+		if ((this.GetWindowStyle() & wx.LC_REPORT) != 0) {
+			if (info = this.GetItem(event.GetIndex(), 1)) {
 				wx.LogMessage('Value of the 2nd field of the selected item: %s',
 							info.GetText())
 			} else {
@@ -610,13 +610,13 @@ MyListCtrl = class(wx.ListCtrl) {
 		}
 	}
 	OnDeselected(event:wx.ListEvent) = {
-		self.LogEvent(event, 'OnDeselected')
+		this.LogEvent(event, 'OnDeselected')
 	}
 	OnActivated(event:wx.ListEvent) = {
-		self.LogEvent(event, 'OnActivated')
+		this.LogEvent(event, 'OnActivated')
 	}
 	OnFocused(event:wx.ListEvent) = {
-		self.LogEvent(event, 'OnFocused')
+		this.LogEvent(event, 'OnFocused')
 		event.Skip()
 	}
 	OnListKeyDown(event:wx.ListEvent) = {
@@ -631,45 +631,45 @@ MyListCtrl = class(wx.ListCtrl) {
 			attr = info.GetAttributes()
 			if (!attr || !attr.HasTextColour()) {
 				info.SetTextColour(wx.CYAN)
-				self.SetItem(info)
-				self.RefreshItem(itemId)
+				this.SetItem(info)
+				this.RefreshItem(itemId)
 			}
 		} elsif (keyCode in ord(['n', 'N'])) { // next
-			item = self.GetNextItem(-1, wx.LIST_NEXT_ALL, wx.LIST_STATE_FOCUSED)
+			item = this.GetNextItem(-1, wx.LIST_NEXT_ALL, wx.LIST_STATE_FOCUSED)
 			item += 1
-			if (item == self.GetItemCount() - 1) {
+			if (item == this.GetItemCount() - 1) {
 				item = 0
 			}
 			wx.LogMessage('Focusing item %ld', item)
-			self.SetItemState(item, wx.LIST_STATE_FOCUSED, wx.LIST_STATE_FOCUSED)
-			self.EnsureVisible(item)
+			this.SetItemState(item, wx.LIST_STATE_FOCUSED, wx.LIST_STATE_FOCUSED)
+			this.EnsureVisible(item)
 		} elsif (keyCode in ord(['r', 'R'])) { // show bounding Rect
 			item = event.GetIndex()
-			if (!(r = self.GetItemRect(item))) {
+			if (!(r = this.GetItemRect(item))) {
 				wx.LogError('Failed to retrieve rect of item %ld', item)
 			} else {
 				wx.LogMessage('Bounding rect of item %ld is (%d, %d)-(%d, %d)',
 						item, r.x, r.y, r.x + r.width, r.y + r.height)
 			}
 		} elsif (keyCode == wx.WXK_DELETE) {
-			item = self.GetNextItem(-1, wx.LIST_NEXT_ALL, wx.LIST_STATE_SELECTED)
+			item = this.GetNextItem(-1, wx.LIST_NEXT_ALL, wx.LIST_STATE_SELECTED)
 			while (item != -1) {
-				self.DeleteItem(item)
+				this.DeleteItem(item)
 				wx.LogMessage('Item %ld deleted', item)
 				// -1 because the indices were shifted by DeleteItem()
-				item = self.GetNextItem(item - 1,
+				item = this.GetNextItem(item - 1,
 								   wx.LIST_NEXT_ALL, wx.LIST_STATE_SELECTED)
 			}
 		} elsif (keyCode == wx.WXK_INSERT) {
-			if ((self.GetWindowStyle() & wxLC_REPORT) != 0) {
-				if ((self.GetWindowStyle() & wx.LC_VIRTUAL) != 0) {
-					self.SetItemCount(self.GetItemCount() + 1)
+			if ((this.GetWindowStyle() & wxLC_REPORT) != 0) {
+				if ((this.GetWindowStyle() & wx.LC_VIRTUAL) != 0) {
+					this.SetItemCount(this.GetItemCount() + 1)
 				} else { // !virtual
-					self.InsertItemInReportView(event.GetIndex(), 0)
+					this.InsertItemInReportView(event.GetIndex(), 0)
 				}
 			}
 		} else { //else: fall through
-			self.LogEvent(event, 'OnListKeyDown')
+			this.LogEvent(event, 'OnListKeyDown')
 			event.Skip()
 		}
 	}
@@ -686,7 +686,7 @@ MyListCtrl = class(wx.ListCtrl) {
 			event.Skip()
 			return
 		}
-		[item, flags, subitem] = self.HitTest(event.GetPosition())
+		[item, flags, subitem] = this.HitTest(event.GetPosition())
 		where = ''
 		if (flags == wx.LIST_HITTEST_ABOVE) {
 			where = 'above'
@@ -716,7 +716,7 @@ MyListCtrl = class(wx.ListCtrl) {
 						event.GetText(), event.GetData())
 	}
 	OnGetItemText(item:number, column:number) = {
-		if (self.GetItemCount() == SMALL_VIRTUAL_VIEW_ITEMS.len()) {
+		if (this.GetItemCount() == SMALL_VIRTUAL_VIEW_ITEMS.len()) {
 			SMALL_VIRTUAL_VIEW_ITEMS[item][column]
 		} else {
 			format('Column %ld of item %ld', column, item)
@@ -732,36 +732,36 @@ MyListCtrl = class(wx.ListCtrl) {
 		-1
 	}
 	OnGetItemAttr(item:number) = {
-		if (item % 2 != 0) {nil} else {self.m_attr}
+		if (item % 2 != 0) {nil} else {this.m_attr}
 	}
 	// add one item to the listctrl in report mode
 	InsertItemInReportView(i:number, shift:number):map = {
 		buf = format('This is item %d', i + shift)
-		tmp = self.InsertImageStringItem(i, buf, 0)
-		self.SetItemData(tmp, i)
+		tmp = this.InsertImageStringItem(i, buf, 0)
+		this.SetItemData(tmp, i)
 		buf = format('Col 1, item %d', i + shift)
-		self.SetStringItem(tmp, 1, buf)
+		this.SetStringItem(tmp, 1, buf)
 		buf = format('Item %d in column 2', i + shift)
-		self.SetStringItem(tmp, 2, buf)
+		this.SetStringItem(tmp, 2, buf)
 	}
 	OnContextMenu(event:wx.ContextMenuEvent) = {
 		point = event.GetPosition()
 		// If from keyboard
 		if (point.x == -1 && point.y == -1) {
-			size = self.GetSize()
+			size = this.GetSize()
 			point.x = size.x / 2
 			point.y = size.y / 2
 		} else {
-			point = self.ScreenToClient(point)
+			point = this.ScreenToClient(point)
 		}
-		self.ShowContextMenu(point)
+		this.ShowContextMenu(point)
 	}
 	ShowContextMenu(pos:wx.Point) = {
 		menu = wx.Menu()
 		menu.Append(wx.ID_ABOUT, '&About')
 		menu.AppendSeparator()
 		menu.Append(wx.ID_EXIT, 'E&xit')
-		self.PopupMenuXY(menu, pos.x, pos.y)
+		this.PopupMenuXY(menu, pos.x, pos.y)
 	}
 }
 

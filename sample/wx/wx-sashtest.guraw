@@ -58,7 +58,7 @@ MyApp = class(wx.App) {
 		frame.SetMenuBar(menu_bar)
 		frame.CreateStatusBar()
 		frame.Show(true)
-		self.SetTopWindow(frame)
+		this.SetTopWindow(frame)
 		true
 	}
 }
@@ -66,11 +66,11 @@ MyApp = class(wx.App) {
 MyCanvas = class(wx.ScrolledWindow) {
 	__init__(parent:wx.Window, pos:wx.Point, size:wx.Size) = \
 		{|parent, wx.ID_ANY, pos, size, wx.SUNKEN_BORDER, wx.NO_FULL_REPAINT_ON_RESIZE|
-		self.EventTable()
-		self.SetBackgroundColour(wx.WHITE)
+		this.EventTable()
+		this.SetBackgroundColour(wx.WHITE)
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MOUSE_EVENTS) {|event| self.OnEvent(event) }
+		this.Bind(wx.EVT_MOUSE_EVENTS) {|event| this.OnEvent(event) }
 	}
 	OnDraw(dc:wx.DC) = {
 		dc.SetFont(wx.SWISS_FONT)
@@ -93,8 +93,8 @@ MyCanvas = class(wx.ScrolledWindow) {
 	}
 	OnEvent(event:wx.MouseEvent) = {
 		extern(xpos, ypos)
-		dc = wx.ClientDC(self)
-		self.PrepareDC(dc)
+		dc = wx.ClientDC(this)
+		this.PrepareDC(dc)
 		pt = event.GetLogicalPosition(dc)
 		if (xpos > -1 && ypos > -1 && event.Dragging()) {
 			dc.SetPen(wx.BLACK_PEN)
@@ -108,10 +108,10 @@ MyCanvas = class(wx.ScrolledWindow) {
 MyFrame = class(wx.MDIParentFrame) {
 	__init__(parent:wx.Window, id:number, title:string, pos:wx.Point,
 			size:wx.Size, style:number) = {|parent, id, title, pos, size, style|
-		self.EventTable()
+		this.EventTable()
 		// Create some dummy layout windows
 		// A window like a toolbar
-		win = wx.SashLayoutWindow(self, ID_WINDOW_TOP,
+		win = wx.SashLayoutWindow(this, ID_WINDOW_TOP,
 									wx.DefaultPosition, wx.Size(200, 30),
 									wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN)
 		win.SetDefaultSize(wx.Size(1000, 30))
@@ -119,9 +119,9 @@ MyFrame = class(wx.MDIParentFrame) {
 		win.SetAlignment(wx.LAYOUT_TOP)
 		win.SetBackgroundColour(wx.Colour(255, 0, 0))
 		win.SetSashVisible(wx.SASH_BOTTOM, true)
-		self.m_topWindow = win
+		this.m_topWindow = win
 		// A window like a statusbar
-		win = wx.SashLayoutWindow(self, ID_WINDOW_BOTTOM,
+		win = wx.SashLayoutWindow(this, ID_WINDOW_BOTTOM,
 									wx.DefaultPosition, wx.Size(200, 30),
 									wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN)
 		win.SetDefaultSize(wx.Size(1000, 30))
@@ -129,9 +129,9 @@ MyFrame = class(wx.MDIParentFrame) {
 		win.SetAlignment(wx.LAYOUT_BOTTOM)
 		win.SetBackgroundColour(wx.Colour(0, 0, 255))
 		win.SetSashVisible(wx.SASH_TOP, true)
-		self.m_bottomWindow = win
+		this.m_bottomWindow = win
 		// A window to the left of the client window
-		win = wx.SashLayoutWindow(self, ID_WINDOW_LEFT1,
+		win = wx.SashLayoutWindow(this, ID_WINDOW_LEFT1,
 		                             wx.DefaultPosition, wx.Size(200, 30),
 		                             wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN)
 		win.SetDefaultSize(wx.Size(120, 1000))
@@ -144,9 +144,9 @@ MyFrame = class(wx.MDIParentFrame) {
 					wx.TE_MULTILINE|wx.SUNKEN_BORDER)
 		//			wx.TE_MULTILINE|wx.NO_BORDER)
 		textWindow.SetValue('A help window')
-		self.m_leftWindow1 = win
+		this.m_leftWindow1 = win
 		// Another window to the left of the client window
-		win = wx.SashLayoutWindow(self, ID_WINDOW_LEFT2,
+		win = wx.SashLayoutWindow(this, ID_WINDOW_LEFT2,
 		                             wx.DefaultPosition, wx.Size(200, 30),
 		                             wx.NO_BORDER | wx.SW_3D | wx.CLIP_CHILDREN)
 		win.SetDefaultSize(wx.Size(120, 1000))
@@ -154,30 +154,30 @@ MyFrame = class(wx.MDIParentFrame) {
 		win.SetAlignment(wx.LAYOUT_LEFT)
 		win.SetBackgroundColour(wx.Colour(0, 255, 255))
 		win.SetSashVisible(wx.SASH_RIGHT, true)
-		self.m_leftWindow2 = win
+		this.m_leftWindow2 = win
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MENU, SASHTEST_ABOUT) {|event| self.OnAbout(event) }
-		self.Bind(wx.EVT_MENU, SASHTEST_NEW_WINDOW) {|event| self.OnNewWindow(event) }
-		self.Bind(wx.EVT_SIZE) {|event| self.OnSize(event) }
-		self.Bind(wx.EVT_MENU, SASHTEST_QUIT) {|event| self.OnQuit(event) }
-		self.Bind(wx.EVT_MENU, SASHTEST_TOGGLE_WINDOW) {|event| self.OnToggleWindow(event) }
-		self.Bind(wx.EVT_SASH_DRAGGED, ID_WINDOW_TOP, ID_WINDOW_BOTTOM) {|event| self.OnSashDrag(event) }
+		this.Bind(wx.EVT_MENU, SASHTEST_ABOUT) {|event| this.OnAbout(event) }
+		this.Bind(wx.EVT_MENU, SASHTEST_NEW_WINDOW) {|event| this.OnNewWindow(event) }
+		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
+		this.Bind(wx.EVT_MENU, SASHTEST_QUIT) {|event| this.OnQuit(event) }
+		this.Bind(wx.EVT_MENU, SASHTEST_TOGGLE_WINDOW) {|event| this.OnToggleWindow(event) }
+		this.Bind(wx.EVT_SASH_DRAGGED, ID_WINDOW_TOP, ID_WINDOW_BOTTOM) {|event| this.OnSashDrag(event) }
 	}
 	OnQuit(event:wx.CommandEvent) = {
-		self.Close(true)
+		this.Close(true)
 	}
 	OnAbout(event:wx.CommandEvent) = {
 		wx.MessageBox('wxWidgets 2.0 Sash Demo\nAuthor: Julian Smart (c) 1998', 'About Sash Demo')
 	}
 	OnToggleWindow(event:wx.CommandEvent) = {
-		if (self.m_leftWindow1.IsShown()) {
-			self.m_leftWindow1.Show(false)
+		if (this.m_leftWindow1.IsShown()) {
+			this.m_leftWindow1.Show(false)
 		} else {
-			self.m_leftWindow1.Show(true)
+			this.m_leftWindow1.Show(true)
 		}
 		layout = wx.LayoutAlgorithm()
-		layout.LayoutMDIFrame(self)
+		layout.LayoutMDIFrame(this)
 	}
 	OnSashDrag(event:wx.SashEvent) = {
 		if (event.GetDragStatus() == wx.SASH_STATUS_OUT_OF_RANGE) {
@@ -185,18 +185,18 @@ MyFrame = class(wx.MDIParentFrame) {
 		}
 		id = event.GetId()
 		if (id == ID_WINDOW_TOP) {
-			self.m_topWindow.SetDefaultSize(wx.Size(1000, event.GetDragRect().height))
+			this.m_topWindow.SetDefaultSize(wx.Size(1000, event.GetDragRect().height))
 		} elsif (id == ID_WINDOW_LEFT1) {
-			self.m_leftWindow1.SetDefaultSize(wx.Size(event.GetDragRect().width, 1000))
+			this.m_leftWindow1.SetDefaultSize(wx.Size(event.GetDragRect().width, 1000))
 		} elsif (id == ID_WINDOW_LEFT2) {
-			self.m_leftWindow2.SetDefaultSize(wx.Size(event.GetDragRect().width, 1000))
+			this.m_leftWindow2.SetDefaultSize(wx.Size(event.GetDragRect().width, 1000))
 		} elsif (id == ID_WINDOW_BOTTOM) {
-			self.m_bottomWindow.SetDefaultSize(wx.Size(1000, event.GetDragRect().height))
+			this.m_bottomWindow.SetDefaultSize(wx.Size(1000, event.GetDragRect().height))
 		}
 		layout = wx.LayoutAlgorithm()
-		layout.LayoutMDIFrame(self)
-		// Leaves bits of itself behind sometimes
-		self.GetClientWindow().Refresh()
+		layout.LayoutMDIFrame(this)
+		// Leaves bits of itthis behind sometimes
+		this.GetClientWindow().Refresh()
 	}
 	OnNewWindow(event:wx.CommandEvent) = {
 		extern(winNumber, frame)
@@ -237,27 +237,27 @@ MyFrame = class(wx.MDIParentFrame) {
 	}
 	OnSize(event:wx.SizeEvent) = {
 		layout = wx.LayoutAlgorithm()
-		layout.LayoutMDIFrame(self)
+		layout.LayoutMDIFrame(this)
 	}
 }
 
 MyChild = class(wx.MDIChildFrame) {
 	__init__(parent:wx.MDIParentFrame, title:string, pos:wx.Point, size:wx.Size, style:number) = \
 										{|parent, wx.ID_ANY, title, pos, size, style|
-		self.EventTable()
+		this.EventTable()
 		extern(my_children)
-		self.canvas = nil
-		my_children.append(self)
+		this.canvas = nil
+		my_children.append(this)
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MENU, SASHTEST_CHILD_QUIT) {|event| self.OnQuit(event)}
+		this.Bind(wx.EVT_MENU, SASHTEST_CHILD_QUIT) {|event| this.OnQuit(event)}
 	}
 	OnQuit(event:wx.CommandEvent) = {
-		self.Close(true)
+		this.Close(true)
 	}
 	OnActivate(event:wx.ActivateEvent) = {
-		if (event.GetActive() && self.canvas) {
-			self.canvas.SetFocus()
+		if (event.GetActive() && this.canvas) {
+			this.canvas.SetFocus()
 		}
 	}
 }

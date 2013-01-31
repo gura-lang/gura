@@ -2,51 +2,51 @@
 
 scope {
 	Coord = struct(x:number, y:number) {
-		__str__() = format('(%d,%d)', self.x, self.y)
+		__str__() = format('(%d,%d)', this.x, this.y)
 	}
 	Piece = class {
 		__init__(id:number, patterns[]) = {
-			self.id = id
-			self.patterns = for (pattern in patterns):list { Coord * pattern }
-			self.resetPattern()
+			this.id = id
+			this.patterns = for (pattern in patterns):list { Coord * pattern }
+			this.resetPattern()
 		}
-		print():void = println(self.patterns):nomap
+		print():void = println(this.patterns):nomap
 		resetPattern():void = {
-			self.iterPattern = self.patterns.each()
-			self.patternCur = self.iterPattern.next()
+			this.iterPattern = this.patterns.each()
+			this.patternCur = this.iterPattern.next()
 		}
-		getPattern() = self.patternCur
+		getPattern() = this.patternCur
 		nextPattern() = {
-			self.patternCur = self.iterPattern.next()
-			self.patternCur.istype(`list)
+			this.patternCur = this.iterPattern.next()
+			this.patternCur.istype(`list)
 		}
 	}
 	Board = class {
 		__init__() = {
-			self.cells = repeat(8 * 8):list {nil}
+			this.cells = repeat(8 * 8):list {nil}
 		}
 		getCell(x:number, y:number):map = {
 			if (0 <= x && x < 8 && 0 <= y && y < 8) {
-				self.cells[x + y * 8]
+				this.cells[x + y * 8]
 			} else {
 				-1
 			}
 		}
 		putCell(x:number, y:number, id:number):map:void = {
 			if (0 <= x && x < 8 && 0 <= y && y < 8) {
-				self.cells[x + y * 8] = id
+				this.cells[x + y * 8] = id
 			}
 		}
 		nextEmpty(iCell:number) = {
-			(!self.cells.offset(iCell)).find() + iCell
+			(!this.cells.offset(iCell)).find() + iCell
 		}
 		print():void = {
 			str = '+' + '--+' * 8
 			println(str)
 			repeat (8) {|y|
-				cells = self.getCell(0..7, y)
-				bordersX = (cells != self.getCell(1..8, y))
-				bordersY = (cells != self.getCell(0..7, y + 1))
+				cells = this.getCell(0..7, y)
+				bordersX = (cells != this.getCell(1..8, y))
+				bordersY = (cells != this.getCell(0..7, y + 1))
 				str = '|' + cond(bordersX,
 							cond(cells, '  |', '..|'),
 							cond(cells, '   ', '...')).join()
@@ -58,14 +58,14 @@ scope {
 		}
 		isPlacable(piece:Piece, x:number, y:number) = {
 			pattern = piece.getPattern()
-			!self.getCell(x + pattern:*x, y + pattern:*y).or()
+			!this.getCell(x + pattern:*x, y + pattern:*y).or()
 		}
 		place(piece:Piece, x:number, y:number):void = {
 			pattern = piece.getPattern()
-			self.putCell(x + pattern:*x, y + pattern:*y, piece.id)
+			this.putCell(x + pattern:*x, y + pattern:*y, piece.id)
 		}
 		remove(piece:Piece):void = {
-			self.cells = self.cells.replace(piece.id, nil):list
+			this.cells = this.cells.replace(piece.id, nil):list
 		}
 	}
 	piecesOrg = [

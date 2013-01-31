@@ -58,11 +58,11 @@ MyApp = class(wx.App) {
 	// 'Main program' equivalent: the program execution "starts" here
 	OnInit() = {
 		wx.HelpProvider.Set(wx.SimpleHelpProvider())
-		self.m_styleSheet = wx.RichTextStyleSheet()
-		self.m_printing = wx.RichTextPrinting('Test Document')
-		self.m_printing.SetFooterText('@TITLE@', wx.RICHTEXT_PAGE_ALL, wx.RICHTEXT_PAGE_CENTRE)
-		self.m_printing.SetFooterText('Page @PAGENUM@', wx.RICHTEXT_PAGE_ALL, wx.RICHTEXT_PAGE_RIGHT)
-		self.CreateStyles()
+		this.m_styleSheet = wx.RichTextStyleSheet()
+		this.m_printing = wx.RichTextPrinting('Test Document')
+		this.m_printing.SetFooterText('@TITLE@', wx.RICHTEXT_PAGE_ALL, wx.RICHTEXT_PAGE_CENTRE)
+		this.m_printing.SetFooterText('Page @PAGENUM@', wx.RICHTEXT_PAGE_ALL, wx.RICHTEXT_PAGE_RIGHT)
+		this.CreateStyles()
 		// Add extra handlers (plain text is automatically added)
 		wx.RichTextBuffer.AddHandler(wx.RichTextXMLHandler())
 		wx.RichTextBuffer.AddHandler(wx.RichTextHTMLHandler())
@@ -74,7 +74,7 @@ MyApp = class(wx.App) {
 		// create the main application window
 		frame = MyFrame('wxRichTextCtrl Sample', wx.ID_ANY
 									wx.DefaultPosition, wx.Size(700, 600))
-		self.m_printing.SetParentWindow(frame)
+		this.m_printing.SetParentWindow(frame)
 		// and show it (the frames, unlike simple controls, are not shown when
 		// created initially)
 		frame.Show(true)
@@ -96,7 +96,7 @@ MyApp = class(wx.App) {
 			wx.TEXT_ATTR_PARA_SPACING_BEFORE|wx.TEXT_ATTR_PARA_SPACING_AFTER|wx.TEXT_ATTR_LINE_SPACING| \
 			wx.TEXT_ATTR_BULLET_STYLE|wx.TEXT_ATTR_BULLET_NUMBER)
 		normalPara.SetStyle(normalAttr)
-		self.m_styleSheet.AddParagraphStyle(normalPara)
+		this.m_styleSheet.AddParagraphStyle(normalPara)
 
 		indentedPara = wx.RichTextParagraphStyleDefinition('Indented')
 		indentedAttr = wx.RichTextAttr()
@@ -107,7 +107,7 @@ MyApp = class(wx.App) {
 		indentedAttr.SetFlags(wx.TEXT_ATTR_LEFT_INDENT|wx.TEXT_ATTR_RIGHT_INDENT)
 		indentedPara.SetStyle(indentedAttr)
 
-		self.m_styleSheet.AddParagraphStyle(indentedPara)
+		this.m_styleSheet.AddParagraphStyle(indentedPara)
 
 		indentedPara2 = wx.RichTextParagraphStyleDefinition('Red Bold Indented')
 		indentedAttr2 = wx.RichTextAttr()
@@ -120,7 +120,7 @@ MyApp = class(wx.App) {
 		// We want to affect indentation, font and text colour
 		indentedAttr2.SetFlags(wx.TEXT_ATTR_LEFT_INDENT|wx.TEXT_ATTR_RIGHT_INDENT|wx.TEXT_ATTR_FONT|wx.TEXT_ATTR_TEXT_COLOUR)
 		indentedPara2.SetStyle(indentedAttr2)
-		self.m_styleSheet.AddParagraphStyle(indentedPara2)
+		this.m_styleSheet.AddParagraphStyle(indentedPara2)
 		flIndentedPara = wx.RichTextParagraphStyleDefinition('First Line Indented')
 		flIndentedAttr = wx.RichTextAttr()
 		flIndentedAttr.SetFontFaceName(swissFont.GetFaceName())
@@ -138,7 +138,7 @@ MyApp = class(wx.App) {
 		// We only want to affect boldness
 		boldAttr.SetFlags(wx.TEXT_ATTR_FONT_WEIGHT)
 		boldDef.SetStyle(boldAttr)
-		self.m_styleSheet.AddCharacterStyle(boldDef)
+		this.m_styleSheet.AddCharacterStyle(boldDef)
 		italicDef = wx.RichTextCharacterStyleDefinition('Italic')
 		italicAttr = wx.RichTextAttr()
 		italicAttr.SetFontFaceName(romanFont.GetFaceName())
@@ -147,7 +147,7 @@ MyApp = class(wx.App) {
 		// We only want to affect italics
 		italicAttr.SetFlags(wx.TEXT_ATTR_FONT_ITALIC)
 		italicDef.SetStyle(italicAttr)
-		self.m_styleSheet.AddCharacterStyle(italicDef)
+		this.m_styleSheet.AddCharacterStyle(italicDef)
 		redDef = wx.RichTextCharacterStyleDefinition('Red Bold')
 		redAttr = wx.RichTextAttr()
 		redAttr.SetFontFaceName(romanFont.GetFaceName())
@@ -157,7 +157,7 @@ MyApp = class(wx.App) {
 		// We only want to affect colour, weight and face
 		redAttr.SetFlags(wx.TEXT_ATTR_FONT_FACE|wx.TEXT_ATTR_FONT_WEIGHT|wx.TEXT_ATTR_TEXT_COLOUR)
 		redDef.SetStyle(redAttr)
-		self.m_styleSheet.AddCharacterStyle(redDef)
+		this.m_styleSheet.AddCharacterStyle(redDef)
 		bulletList = wx.RichTextListStyleDefinition('Bullet List 1')
 		repeat (10) {|i|
 			bulletText = if (i == 0) {
@@ -178,7 +178,7 @@ MyApp = class(wx.App) {
 			attr.SetBulletText(bulletText)
 			bulletList.SetLevelAttributes(i, attr)
 		}
-		self.m_styleSheet.AddListStyle(bulletList)
+		this.m_styleSheet.AddListStyle(bulletList)
 		numberedList = wx.RichTextListStyleDefinition('Numbered List 1')
 		repeat (10) {|i|
 			numberStyle = if (i == 0) {
@@ -199,7 +199,7 @@ MyApp = class(wx.App) {
 			attr.SetBulletStyle(numberStyle)
 			numberedList.SetLevelAttributes(i, attr)
 	    }
-		self.m_styleSheet.AddListStyle(numberedList)
+		this.m_styleSheet.AddListStyle(numberedList)
 
 		outlineList = wx.RichTextListStyleDefinition('Outline List 1')
 		repeat (10) {|i|
@@ -214,9 +214,9 @@ MyApp = class(wx.App) {
 			attr.SetBulletStyle(numberStyle)
 			outlineList.SetLevelAttributes(i, attr)
 		}
-		self.m_styleSheet.AddListStyle(outlineList)
+		this.m_styleSheet.AddListStyle(outlineList)
 	}
-	GetStyleSheet() = self.m_styleSheet
+	GetStyleSheet() = this.m_styleSheet
 }
 
 // Define a new frame type: this is going to be our main frame
@@ -226,7 +226,7 @@ MyFrame = class(wx.Frame) {
 			size:wx.Size => wx.DefaultSize, style => wx.DEFAULT_FRAME_STYLE) = \
 											{|nil, id, title, pos, size, style|
 		// set the frame icon
-		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 		// create a menu bar
 		fileMenu = wx.Menu()
 		// the "About" item should be in the help menu
@@ -319,15 +319,15 @@ MyFrame = class(wx.Frame) {
 		menuBar.Append(insertMenu, '&Insert')
 		menuBar.Append(helpMenu, '&Help')
 		// ... and attach this menu bar to the frame
-		self.SetMenuBar(menuBar)
+		this.SetMenuBar(menuBar)
 		// create a status bar just for fun (by default with 1 pane only)
 		// but don't create it on limited screen space (WinCE)
 		is_pda = (wx.SystemSettings.GetScreenType() <= wx.SYS_SCREEN_PDA)
 		if (!is_pda) {
-			self.CreateStatusBar(2)
-			self.SetStatusText('Welcome to wxRichTextCtrl!')
+			this.CreateStatusBar(2)
+			this.SetStatusText('Welcome to wxRichTextCtrl!')
 		}
-	    toolBar = self.CreateToolBar()
+	    toolBar = this.CreateToolBar()
 		toolBar.AddTool(wx.ID_OPEN, 'Open', wx.BitmapFromXPMData(resource.open_xpm), wx.NullBitmap, wx.ITEM_NORMAL)
 		toolBar.AddTool(wx.ID_SAVEAS, 'Save', wx.BitmapFromXPMData(resource.save_xpm), wx.NullBitmap, wx.ITEM_NORMAL)
 		toolBar.AddSeparator()
@@ -351,89 +351,89 @@ MyFrame = class(wx.Frame) {
 		toolBar.AddSeparator()
 		toolBar.AddTool(ID_FORMAT_FONT, 'Font', wx.BitmapFromXPMData(resource.font_xpm), wx.NullBitmap, wx.ITEM_NORMAL)
 		combo = wx.RichTextStyleComboCtrl(toolBar, ID_RICHTEXT_STYLE_COMBO, wx.DefaultPosition, wx.Size(200, -1))
-		self.m_styleCombo = combo
+		this.m_styleCombo = combo
 		toolBar.AddControl(combo)
 		toolBar.Realize()
-		splitter = wx.SplitterWindow(self, wx.ID_ANY, wx.DefaultPosition, self.GetClientSize(), wx.SP_NO_XP_THEME|wx.SP_3D|wx.SP_LIVE_UPDATE)
+		splitter = wx.SplitterWindow(this, wx.ID_ANY, wx.DefaultPosition, this.GetClientSize(), wx.SP_NO_XP_THEME|wx.SP_3D|wx.SP_LIVE_UPDATE)
 		textFont = wx.Font(12, wx.FONTFAMILY_ROMAN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		boldFont = wx.Font(12, wx.FONTFAMILY_ROMAN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
 		italicFont = wx.Font(12, wx.FONTFAMILY_ROMAN, wx.FONTSTYLE_ITALIC, wx.FONTWEIGHT_NORMAL)
-		self.m_richTextCtrl = wx.RichTextCtrl(splitter, ID_RICHTEXT_CTRL, wx.EmptyString, wx.DefaultPosition, wx.Size(200, 200), wx.VSCROLL|wx.HSCROLL|wx.NO_BORDER|wx.WANTS_CHARS)
+		this.m_richTextCtrl = wx.RichTextCtrl(splitter, ID_RICHTEXT_CTRL, wx.EmptyString, wx.DefaultPosition, wx.Size(200, 200), wx.VSCROLL|wx.HSCROLL|wx.NO_BORDER|wx.WANTS_CHARS)
 		font = wx.Font(12, wx.FONTFAMILY_ROMAN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-		self.m_richTextCtrl.SetFont(font)
-		self.m_richTextCtrl.SetStyleSheet(wx.GetApp().GetStyleSheet())
+		this.m_richTextCtrl.SetFont(font)
+		this.m_richTextCtrl.SetStyleSheet(wx.GetApp().GetStyleSheet())
 		combo.SetStyleSheet(wx.GetApp().GetStyleSheet())
-		combo.SetRichTextCtrl(self.m_richTextCtrl)
+		combo.SetRichTextCtrl(this.m_richTextCtrl)
 		combo.UpdateStyles()
 		styleListCtrl = wx.RichTextStyleListCtrl(splitter, ID_RICHTEXT_STYLE_LIST)
-		self.m_styleList = styleListCtrl
+		this.m_styleList = styleListCtrl
 		display = wx.GetDisplaySize()
 		if (is_pda && (display.GetWidth() < display.GetHeight())) {
-			splitter.SplitHorizontally(self.m_richTextCtrl, styleListCtrl)
+			splitter.SplitHorizontally(this.m_richTextCtrl, styleListCtrl)
 		} else {
-			splitter.SplitVertically(self.m_richTextCtrl, styleListCtrl, 500)
+			splitter.SplitVertically(this.m_richTextCtrl, styleListCtrl, 500)
 		}
 		splitter.UpdateSize()
 		styleListCtrl.SetStyleSheet(wx.GetApp().GetStyleSheet())
-		styleListCtrl.SetRichTextCtrl(self.m_richTextCtrl)
+		styleListCtrl.SetRichTextCtrl(this.m_richTextCtrl)
 		styleListCtrl.UpdateStyles()
-		self.WriteInitialText()
-		self.EventTable()
+		this.WriteInitialText()
+		this.EventTable()
 	}
 	EventTable() = {
 		// bind event handlers
-		self.Bind(wx.EVT_MENU, ID_Quit) { self.OnQuit() }
-		self.Bind(wx.EVT_MENU, ID_About) { self.OnAbout() }
-		self.Bind(wx.EVT_MENU, wx.ID_OPEN) { self.OnOpen() }
-		self.Bind(wx.EVT_MENU, wx.ID_SAVE) { self.OnSave() }
-		self.Bind(wx.EVT_MENU, wx.ID_SAVEAS) { self.OnSaveAs() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_BOLD) { self.OnBold() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_ITALIC) { self.OnItalic() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_UNDERLINE) { self.OnUnderline() }
-		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_BOLD) {|event| self.OnUpdateBold(event) }
-		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_ITALIC) {|event| self.OnUpdateItalic(event) }
-		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_UNDERLINE) {|event| self.OnUpdateUnderline(event) }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_ALIGN_LEFT) { self.OnAlignLeft() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_ALIGN_CENTRE) { self.OnAlignCentre() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_ALIGN_RIGHT) { self.OnAlignRight() }
-		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_ALIGN_LEFT) {|event| self.OnUpdateAlignLeft(event) }
-		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_ALIGN_CENTRE) {|event| self.OnUpdateAlignCentre(event) }
-		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_ALIGN_RIGHT) {|event| self.OnUpdateAlignRight(event) }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_FONT) { self.OnFont() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_PARAGRAPH) { self.OnParagraph() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_CONTENT) { self.OnFormat() }
-		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_FONT) {|event| self.OnUpdateFormat(event) }
-		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_PARAGRAPH) {|event| self.OnUpdateFormat(event) }
-		self.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_CONTENT) {|event| self.OnUpdateFormat(event) }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_INDENT_MORE) { self.OnIndentMore() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_INDENT_LESS) { self.OnIndentLess() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_LINE_SPACING_HALF) { self.OnLineSpacingHalf() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_LINE_SPACING_SINGLE) { self.OnLineSpacingSingle() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_LINE_SPACING_DOUBLE) { self.OnLineSpacingDouble() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_PARAGRAPH_SPACING_MORE) { self.OnParagraphSpacingMore() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_PARAGRAPH_SPACING_LESS) { self.OnParagraphSpacingLess() }
-		self.Bind(wx.EVT_MENU, ID_RELOAD) { self.OnReload() }
-		self.Bind(wx.EVT_MENU, ID_INSERT_SYMBOL) { self.OnInsertSymbol() }
-		self.Bind(wx.EVT_MENU, ID_INSERT_URL) { self.OnInsertURL() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_NUMBER_LIST) { self.OnNumberList() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_BULLETS_AND_NUMBERING) { self.OnBulletsAndNumbering() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_ITEMIZE_LIST) { self.OnItemizeList() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_RENUMBER_LIST) { self.OnRenumberList() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_PROMOTE_LIST) { self.OnPromoteList() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_DEMOTE_LIST) { self.OnDemoteList() }
-		self.Bind(wx.EVT_MENU, ID_FORMAT_CLEAR_LIST) { self.OnClearList() }
-		self.Bind(wx.EVT_MENU, ID_VIEW_HTML) { self.OnViewHTML() }
-		self.Bind(wx.EVT_MENU, ID_SWITCH_STYLE_SHEETS) { self.OnSwitchStyleSheets() }
-		self.Bind(wx.EVT_MENU, ID_MANAGE_STYLES) { self.OnManageStyles() }
-		self.Bind(wx.EVT_MENU, ID_PRINT) { self.OnPrint() }
-		self.Bind(wx.EVT_MENU, ID_PREVIEW) { self.OnPreview() }
-		self.Bind(wx.EVT_MENU, ID_PAGE_SETUP) { self.OnPageSetup() }
-		self.Bind(wx.EVT_TEXT_URL, wx.ID_ANY) {|event| self.OnURL(event) }
-		self.Bind(wx.EVT_RICHTEXT_STYLESHEET_REPLACING, wx.ID_ANY) {|even| self.OnStyleSheetReplacing(event) }
+		this.Bind(wx.EVT_MENU, ID_Quit) { this.OnQuit() }
+		this.Bind(wx.EVT_MENU, ID_About) { this.OnAbout() }
+		this.Bind(wx.EVT_MENU, wx.ID_OPEN) { this.OnOpen() }
+		this.Bind(wx.EVT_MENU, wx.ID_SAVE) { this.OnSave() }
+		this.Bind(wx.EVT_MENU, wx.ID_SAVEAS) { this.OnSaveAs() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_BOLD) { this.OnBold() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_ITALIC) { this.OnItalic() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_UNDERLINE) { this.OnUnderline() }
+		this.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_BOLD) {|event| this.OnUpdateBold(event) }
+		this.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_ITALIC) {|event| this.OnUpdateItalic(event) }
+		this.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_UNDERLINE) {|event| this.OnUpdateUnderline(event) }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_ALIGN_LEFT) { this.OnAlignLeft() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_ALIGN_CENTRE) { this.OnAlignCentre() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_ALIGN_RIGHT) { this.OnAlignRight() }
+		this.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_ALIGN_LEFT) {|event| this.OnUpdateAlignLeft(event) }
+		this.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_ALIGN_CENTRE) {|event| this.OnUpdateAlignCentre(event) }
+		this.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_ALIGN_RIGHT) {|event| this.OnUpdateAlignRight(event) }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_FONT) { this.OnFont() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_PARAGRAPH) { this.OnParagraph() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_CONTENT) { this.OnFormat() }
+		this.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_FONT) {|event| this.OnUpdateFormat(event) }
+		this.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_PARAGRAPH) {|event| this.OnUpdateFormat(event) }
+		this.Bind(wx.EVT_UPDATE_UI, ID_FORMAT_CONTENT) {|event| this.OnUpdateFormat(event) }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_INDENT_MORE) { this.OnIndentMore() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_INDENT_LESS) { this.OnIndentLess() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_LINE_SPACING_HALF) { this.OnLineSpacingHalf() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_LINE_SPACING_SINGLE) { this.OnLineSpacingSingle() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_LINE_SPACING_DOUBLE) { this.OnLineSpacingDouble() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_PARAGRAPH_SPACING_MORE) { this.OnParagraphSpacingMore() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_PARAGRAPH_SPACING_LESS) { this.OnParagraphSpacingLess() }
+		this.Bind(wx.EVT_MENU, ID_RELOAD) { this.OnReload() }
+		this.Bind(wx.EVT_MENU, ID_INSERT_SYMBOL) { this.OnInsertSymbol() }
+		this.Bind(wx.EVT_MENU, ID_INSERT_URL) { this.OnInsertURL() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_NUMBER_LIST) { this.OnNumberList() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_BULLETS_AND_NUMBERING) { this.OnBulletsAndNumbering() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_ITEMIZE_LIST) { this.OnItemizeList() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_RENUMBER_LIST) { this.OnRenumberList() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_PROMOTE_LIST) { this.OnPromoteList() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_DEMOTE_LIST) { this.OnDemoteList() }
+		this.Bind(wx.EVT_MENU, ID_FORMAT_CLEAR_LIST) { this.OnClearList() }
+		this.Bind(wx.EVT_MENU, ID_VIEW_HTML) { this.OnViewHTML() }
+		this.Bind(wx.EVT_MENU, ID_SWITCH_STYLE_SHEETS) { this.OnSwitchStyleSheets() }
+		this.Bind(wx.EVT_MENU, ID_MANAGE_STYLES) { this.OnManageStyles() }
+		this.Bind(wx.EVT_MENU, ID_PRINT) { this.OnPrint() }
+		this.Bind(wx.EVT_MENU, ID_PREVIEW) { this.OnPreview() }
+		this.Bind(wx.EVT_MENU, ID_PAGE_SETUP) { this.OnPageSetup() }
+		this.Bind(wx.EVT_TEXT_URL, wx.ID_ANY) {|event| this.OnURL(event) }
+		this.Bind(wx.EVT_RICHTEXT_STYLESHEET_REPLACING, wx.ID_ANY) {|even| this.OnStyleSheetReplacing(event) }
 	}
 	// Write text
 	WriteInitialText() = {
-		r = self.m_richTextCtrl
+		r = this.m_richTextCtrl
 		r.SetDefaultStyle(wx.RichTextAttr())
 		r.BeginSuppressUndo()
 		r.BeginParagraphSpacing(0, 20)
@@ -571,11 +571,11 @@ MyFrame = class(wx.Frame) {
 	// event handlers (these functions should _not_ be virtual)
 	OnQuit() = {
 		// true is to force the frame to close
-		self.Close(true)
+		this.Close(true)
 	}
 	OnAbout() = {
 		msg = 'This is a demo for wxRichTextCtrl, a control for editing styled text.\n(c) Julian Smart, 2005'
-		wx.MessageBox(msg, 'About wxRichTextCtrl Sample', wx.OK | wx.ICON_INFORMATION, self)
+		wx.MessageBox(msg, 'About wxRichTextCtrl Sample', wx.OK | wx.ICON_INFORMATION, this)
 	}
 	OnOpen() = {
 		[filter, fileTypes] = wx.RichTextBuffer.GetExtWildcard(false, false)
@@ -585,7 +585,7 @@ MyFrame = class(wx.Frame) {
 		filter += 'All files (*.*)|*.*'
 		path = ''
 		filename = ''
-		dialog = wx.FileDialog(self, 'Choose a filename',
+		dialog = wx.FileDialog(this, 'Choose a filename',
 									path, filename, filter, wx.FD_OPEN)
 		if (dialog.ShowModal() == wx.ID_OK) {
 			path = dialog.GetPath()
@@ -597,207 +597,207 @@ MyFrame = class(wx.Frame) {
 					wx.RICHTEXT_TYPE_TEXT
 				}
 			}
-			self.m_richTextCtrl.LoadFile(path, fileType)
+			this.m_richTextCtrl.LoadFile(path, fileType)
 		}
 	}
 	OnSave() = {
-		if (self.m_richTextCtrl.GetFilename().isempty()) {
-			self.OnSaveAs()
+		if (this.m_richTextCtrl.GetFilename().isempty()) {
+			this.OnSaveAs()
 			return
 		}
-		self.m_richTextCtrl.SaveFile()
+		this.m_richTextCtrl.SaveFile()
 	}
 	OnSaveAs() = {
 		[filter, fileTypes] = wx.RichTextBuffer.GetExtWildcard(false, true)
 		path = ''
 		filename = ''
-		dialog = wx.FileDialog(self, 'Choose a filename',
+		dialog = wx.FileDialog(this, 'Choose a filename',
 									path, filename, filter, wx.FD_SAVE)
 		if (dialog.ShowModal() == wx.ID_OK) {
 			path = dialog.GetPath()
 			if (!path.isempty()) {
-				self.m_richTextCtrl.SaveFile(path)
+				this.m_richTextCtrl.SaveFile(path)
 			}
 		}
 	}
 	OnBold() = {
-		self.m_richTextCtrl.ApplyBoldToSelection()
+		this.m_richTextCtrl.ApplyBoldToSelection()
 	}
 	OnItalic() = {
-		self.m_richTextCtrl.ApplyItalicToSelection()
+		this.m_richTextCtrl.ApplyItalicToSelection()
 	}
 	OnUnderline() = {
-		self.m_richTextCtrl.ApplyUnderlineToSelection()
+		this.m_richTextCtrl.ApplyUnderlineToSelection()
 	}
 	OnUpdateBold(event:wx.UpdateUIEvent) = {
-		event.Check(self.m_richTextCtrl.IsSelectionBold())
+		event.Check(this.m_richTextCtrl.IsSelectionBold())
 	}
 	OnUpdateItalic(event:wx.UpdateUIEvent) = {
-		event.Check(self.m_richTextCtrl.IsSelectionItalics())
+		event.Check(this.m_richTextCtrl.IsSelectionItalics())
 	}
 	OnUpdateUnderline(event:wx.UpdateUIEvent) = {
-		event.Check(self.m_richTextCtrl.IsSelectionUnderlined())
+		event.Check(this.m_richTextCtrl.IsSelectionUnderlined())
 	}
 	OnAlignLeft() = {
-		self.m_richTextCtrl.ApplyAlignmentToSelection(wx.TEXT_ALIGNMENT_LEFT)
+		this.m_richTextCtrl.ApplyAlignmentToSelection(wx.TEXT_ALIGNMENT_LEFT)
 	}
 	OnAlignCentre() = {
-		self.m_richTextCtrl.ApplyAlignmentToSelection(wx.TEXT_ALIGNMENT_CENTRE)
+		this.m_richTextCtrl.ApplyAlignmentToSelection(wx.TEXT_ALIGNMENT_CENTRE)
 	}
 	OnAlignRight() = {
-		self.m_richTextCtrl.ApplyAlignmentToSelection(wx.TEXT_ALIGNMENT_RIGHT)
+		this.m_richTextCtrl.ApplyAlignmentToSelection(wx.TEXT_ALIGNMENT_RIGHT)
 	}
 	OnUpdateAlignLeft(event:wx.UpdateUIEvent) = {
-		event.Check(self.m_richTextCtrl.IsSelectionAligned(wx.TEXT_ALIGNMENT_LEFT))
+		event.Check(this.m_richTextCtrl.IsSelectionAligned(wx.TEXT_ALIGNMENT_LEFT))
 	}
 	OnUpdateAlignCentre(event:wx.UpdateUIEvent) = {
-		event.Check(self.m_richTextCtrl.IsSelectionAligned(wx.TEXT_ALIGNMENT_CENTRE))
+		event.Check(this.m_richTextCtrl.IsSelectionAligned(wx.TEXT_ALIGNMENT_CENTRE))
 	}
 	OnUpdateAlignRight(event:wx.UpdateUIEvent) = {
-		event.Check(self.m_richTextCtrl.IsSelectionAligned(wx.TEXT_ALIGNMENT_RIGHT))
+		event.Check(this.m_richTextCtrl.IsSelectionAligned(wx.TEXT_ALIGNMENT_RIGHT))
 	}
 	OnFont() = {
-		range = if (self.m_richTextCtrl.HasSelection()) {
-			self.m_richTextCtrl.GetSelectionRange()
+		range = if (this.m_richTextCtrl.HasSelection()) {
+			this.m_richTextCtrl.GetSelectionRange()
 		} else {
-			wx.RichTextRange(0, self.m_richTextCtrl.GetLastPosition() + 1)
+			wx.RichTextRange(0, this.m_richTextCtrl.GetLastPosition() + 1)
 		}
 		pages = wx.RICHTEXT_FORMAT_FONT
-		formatDlg = wx.RichTextFormattingDialog(pages, self)
-		formatDlg.GetStyle(self.m_richTextCtrl, range)
+		formatDlg = wx.RichTextFormattingDialog(pages, this)
+		formatDlg.GetStyle(this.m_richTextCtrl, range)
 		if (formatDlg.ShowModal() == wx.ID_OK) {
-			formatDlg.ApplyStyle(self.m_richTextCtrl, range, wx.RICHTEXT_SETSTYLE_WITH_UNDO|wx.RICHTEXT_SETSTYLE_OPTIMIZE|wx.RICHTEXT_SETSTYLE_CHARACTERS_ONLY)
+			formatDlg.ApplyStyle(this.m_richTextCtrl, range, wx.RICHTEXT_SETSTYLE_WITH_UNDO|wx.RICHTEXT_SETSTYLE_OPTIMIZE|wx.RICHTEXT_SETSTYLE_CHARACTERS_ONLY)
 		}
 	}
 	OnParagraph() = {
-		range = if (self.m_richTextCtrl.HasSelection()) {
-			self.m_richTextCtrl.GetSelectionRange()
+		range = if (this.m_richTextCtrl.HasSelection()) {
+			this.m_richTextCtrl.GetSelectionRange()
 		} else {
-			wx.RichTextRange(0, self.m_richTextCtrl.GetLastPosition() + 1)
+			wx.RichTextRange(0, this.m_richTextCtrl.GetLastPosition() + 1)
 		}
 		pages = wx.RICHTEXT_FORMAT_INDENTS_SPACING|wx.RICHTEXT_FORMAT_TABS|wx.RICHTEXT_FORMAT_BULLETS
-		formatDlg = wx.RichTextFormattingDialog(pages, self)
-		formatDlg.GetStyle(self.m_richTextCtrl, range)
+		formatDlg = wx.RichTextFormattingDialog(pages, this)
+		formatDlg.GetStyle(this.m_richTextCtrl, range)
 		if (formatDlg.ShowModal() == wx.ID_OK) {
-			formatDlg.ApplyStyle(self.m_richTextCtrl, range)
+			formatDlg.ApplyStyle(this.m_richTextCtrl, range)
 		}
 	}
 	OnFormat() = {
-		range = if (self.m_richTextCtrl.HasSelection()) {
-			self.m_richTextCtrl.GetSelectionRange()
+		range = if (this.m_richTextCtrl.HasSelection()) {
+			this.m_richTextCtrl.GetSelectionRange()
 		} else {
-			wx.RichTextRange(0, self.m_richTextCtrl.GetLastPosition() + 1)
+			wx.RichTextRange(0, this.m_richTextCtrl.GetLastPosition() + 1)
 		}
 		pages = wx.RICHTEXT_FORMAT_FONT|wx.RICHTEXT_FORMAT_INDENTS_SPACING|wx.RICHTEXT_FORMAT_TABS|wx.RICHTEXT_FORMAT_BULLETS
-		formatDlg = wx.RichTextFormattingDialog(pages, self)
-		formatDlg.GetStyle(self.m_richTextCtrl, range)
+		formatDlg = wx.RichTextFormattingDialog(pages, this)
+		formatDlg.GetStyle(this.m_richTextCtrl, range)
 		if (formatDlg.ShowModal() == wx.ID_OK) {
-			formatDlg.ApplyStyle(self.m_richTextCtrl, range)
+			formatDlg.ApplyStyle(this.m_richTextCtrl, range)
 		}
 	}
 	OnUpdateFormat(event:wx.UpdateUIEvent) = {
-		event.Enable(self.m_richTextCtrl.HasSelection())
+		event.Enable(this.m_richTextCtrl.HasSelection())
 	}
 	OnIndentMore() = {
 		attr = wx.TextAttrEx()
 		attr.SetFlags(wx.TEXT_ATTR_LEFT_INDENT)
-		if (self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)) {
-			range = wx.RichTextRange(self.m_richTextCtrl.GetInsertionPoint(), self.m_richTextCtrl.GetInsertionPoint())
-			if (self.m_richTextCtrl.HasSelection()) {
-				range = self.m_richTextCtrl.GetSelectionRange()
+		if (this.m_richTextCtrl.GetStyle(this.m_richTextCtrl.GetInsertionPoint(), attr)) {
+			range = wx.RichTextRange(this.m_richTextCtrl.GetInsertionPoint(), this.m_richTextCtrl.GetInsertionPoint())
+			if (this.m_richTextCtrl.HasSelection()) {
+				range = this.m_richTextCtrl.GetSelectionRange()
 			}
 			attr.SetLeftIndent(attr.GetLeftIndent() + 100)
 			attr.SetFlags(wx.TEXT_ATTR_LEFT_INDENT)
-			self.m_richTextCtrl.SetStyle(range, attr)
+			this.m_richTextCtrl.SetStyle(range, attr)
 		}
     }
 	OnIndentLess() = {
 		attr = wx.TextAttrEx()
 		attr.SetFlags(wx.TEXT_ATTR_LEFT_INDENT)
-		if (self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)) {
-			range = wx.RichTextRange(self.m_richTextCtrl.GetInsertionPoint(), self.m_richTextCtrl.GetInsertionPoint())
-			if (self.m_richTextCtrl.HasSelection()) {
-				range = self.m_richTextCtrl.GetSelectionRange()
+		if (this.m_richTextCtrl.GetStyle(this.m_richTextCtrl.GetInsertionPoint(), attr)) {
+			range = wx.RichTextRange(this.m_richTextCtrl.GetInsertionPoint(), this.m_richTextCtrl.GetInsertionPoint())
+			if (this.m_richTextCtrl.HasSelection()) {
+				range = this.m_richTextCtrl.GetSelectionRange()
 			}
 			if (attr.GetLeftIndent() > 0) {
 				attr.SetLeftIndent(max(0, attr.GetLeftIndent() - 100))
 			}
-			self.m_richTextCtrl.SetStyle(range, attr)
+			this.m_richTextCtrl.SetStyle(range, attr)
 		}
 	}
 	OnLineSpacingHalf() = {
 		attr = wx.TextAttrEx()
 		attr.SetFlags(wx.TEXT_ATTR_LINE_SPACING)
-		if (self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)) {
-			range = wx.RichTextRange(self.m_richTextCtrl.GetInsertionPoint(), self.m_richTextCtrl.GetInsertionPoint())
-			if (self.m_richTextCtrl.HasSelection()) {
-				range = self.m_richTextCtrl.GetSelectionRange()
+		if (this.m_richTextCtrl.GetStyle(this.m_richTextCtrl.GetInsertionPoint(), attr)) {
+			range = wx.RichTextRange(this.m_richTextCtrl.GetInsertionPoint(), this.m_richTextCtrl.GetInsertionPoint())
+			if (this.m_richTextCtrl.HasSelection()) {
+				range = this.m_richTextCtrl.GetSelectionRange()
 			}
 			attr.SetFlags(wx.TEXT_ATTR_LINE_SPACING)
 			attr.SetLineSpacing(15)
-			self.m_richTextCtrl.SetStyle(range, attr)
+			this.m_richTextCtrl.SetStyle(range, attr)
 		}
 	}
 	OnLineSpacingDouble() = {
 		attr = wx.TextAttrEx()
 		attr.SetFlags(wx.TEXT_ATTR_LINE_SPACING)
-		if (self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)) {
-			range = wx.RichTextRange(self.m_richTextCtrl.GetInsertionPoint(), self.m_richTextCtrl.GetInsertionPoint())
-			if (self.m_richTextCtrl.HasSelection()) {
-				range = self.m_richTextCtrl.GetSelectionRange()
+		if (this.m_richTextCtrl.GetStyle(this.m_richTextCtrl.GetInsertionPoint(), attr)) {
+			range = wx.RichTextRange(this.m_richTextCtrl.GetInsertionPoint(), this.m_richTextCtrl.GetInsertionPoint())
+			if (this.m_richTextCtrl.HasSelection()) {
+				range = this.m_richTextCtrl.GetSelectionRange()
 			}
 			attr.SetFlags(wx.TEXT_ATTR_LINE_SPACING)
 			attr.SetLineSpacing(20)
-			self.m_richTextCtrl.SetStyle(range, attr)
+			this.m_richTextCtrl.SetStyle(range, attr)
 		}
 	}
 	OnLineSpacingSingle() = {
 		attr = wx.TextAttrEx()
 		attr.SetFlags(wx.TEXT_ATTR_LINE_SPACING)
-		if (self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)) {
-			range = wx.RichTextRange(self.m_richTextCtrl.GetInsertionPoint(), self.m_richTextCtrl.GetInsertionPoint())
-			if (self.m_richTextCtrl.HasSelection()) {
-				range = self.m_richTextCtrl.GetSelectionRange()
+		if (this.m_richTextCtrl.GetStyle(this.m_richTextCtrl.GetInsertionPoint(), attr)) {
+			range = wx.RichTextRange(this.m_richTextCtrl.GetInsertionPoint(), this.m_richTextCtrl.GetInsertionPoint())
+			if (this.m_richTextCtrl.HasSelection()) {
+				range = this.m_richTextCtrl.GetSelectionRange()
 			}
 			attr.SetFlags(wx.TEXT_ATTR_LINE_SPACING)
 			attr.SetLineSpacing(0) // Can also use 10
-			self.m_richTextCtrl.SetStyle(range, attr)
+			this.m_richTextCtrl.SetStyle(range, attr)
 		}
     }
 	OnParagraphSpacingMore() = {
 		attr = wx.TextAttrEx()
 		attr.SetFlags(wx.TEXT_ATTR_PARA_SPACING_AFTER)
-		if (self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)) {
-			range = wx.RichTextRange(self.m_richTextCtrl.GetInsertionPoint(), self.m_richTextCtrl.GetInsertionPoint())
-			if (self.m_richTextCtrl.HasSelection()) {
-				range = self.m_richTextCtrl.GetSelectionRange()
+		if (this.m_richTextCtrl.GetStyle(this.m_richTextCtrl.GetInsertionPoint(), attr)) {
+			range = wx.RichTextRange(this.m_richTextCtrl.GetInsertionPoint(), this.m_richTextCtrl.GetInsertionPoint())
+			if (this.m_richTextCtrl.HasSelection()) {
+				range = this.m_richTextCtrl.GetSelectionRange()
 			}
 			attr.SetParagraphSpacingAfter(attr.GetParagraphSpacingAfter() + 20)
 			attr.SetFlags(wx.TEXT_ATTR_PARA_SPACING_AFTER)
-			self.m_richTextCtrl.SetStyle(range, attr)
+			this.m_richTextCtrl.SetStyle(range, attr)
 		}
     }
 	OnParagraphSpacingLess() = {
 		attr = wx.TextAttrEx()
 		attr.SetFlags(wx.TEXT_ATTR_PARA_SPACING_AFTER)
-		if (self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)) {
-			range = wx.RichTextRange(self.m_richTextCtrl.GetInsertionPoint(), self.m_richTextCtrl.GetInsertionPoint())
-			if (self.m_richTextCtrl.HasSelection()) {
-				range = self.m_richTextCtrl.GetSelectionRange()
+		if (this.m_richTextCtrl.GetStyle(this.m_richTextCtrl.GetInsertionPoint(), attr)) {
+			range = wx.RichTextRange(this.m_richTextCtrl.GetInsertionPoint(), this.m_richTextCtrl.GetInsertionPoint())
+			if (this.m_richTextCtrl.HasSelection()) {
+				range = this.m_richTextCtrl.GetSelectionRange()
 			}
 			if (attr.GetParagraphSpacingAfter() >= 20) {
 				attr.SetParagraphSpacingAfter(attr.GetParagraphSpacingAfter() - 20)
 				attr.SetFlags(wx.TEXT_ATTR_PARA_SPACING_AFTER)
-				self.m_richTextCtrl.SetStyle(range, attr)
+				this.m_richTextCtrl.SetStyle(range, attr)
 			}
 		}
     }
 	OnReload() = {
-		self.m_richTextCtrl.Clear()
-		self.WriteInitialText()
+		this.m_richTextCtrl.Clear()
+		this.WriteInitialText()
 	}
 	OnViewHTML() = {
-		dialog = wx.Dialog(self, wx.ID_ANY, 'HTML', wx.DefaultPosition, wx.Size(500, 400), wx.DEFAULT_DIALOG_STYLE)
+		dialog = wx.Dialog(this, wx.ID_ANY, 'HTML', wx.DefaultPosition, wx.Size(500, 400), wx.DEFAULT_DIALOG_STYLE)
 		boxSizer = wx.BoxSizer(wx.VERTICAL)
 		dialog.SetSizer(boxSizer)
 		win = wx.HtmlWindow(dialog, wx.ID_ANY, wx.DefaultPosition, wx.Size(500, 400), wx.SUNKEN_BORDER)
@@ -811,7 +811,7 @@ MyFrame = class(wx.Frame) {
 		fontSizeMapping = [7, 9, 11, 12, 14, 22, 100]
 		htmlHandler.SetFontSizeMapping(fontSizeMapping)
 		println(text)
-		if (htmlHandler.SaveFile(self.m_richTextCtrl.GetBuffer(), strStream)) {
+		if (htmlHandler.SaveFile(this.m_richTextCtrl.GetBuffer(), strStream)) {
 			win.SetPage(text)
 		}
 		boxSizer.Fit(dialog)
@@ -823,11 +823,11 @@ MyFrame = class(wx.Frame) {
 	// reflected in the control content without wiping out character formatting.
 	gs_AlternateStyleSheet = nil
 	OnSwitchStyleSheets() = {
-		//styleList = wx.DynamicCast(self.FindWindow(ID_RICHTEXT_STYLE_LIST), wx.RichTextStyleListCtrl)
-		//styleCombo = wx.DynamicCast(self.FindWindow(ID_RICHTEXT_STYLE_COMBO), wx.RichTextStyleComboCtrl)
-		styleList = self.m_styleList
-		styleCombo = self.m_styleCombo
-		sheet = self.m_richTextCtrl.GetStyleSheet()
+		//styleList = wx.DynamicCast(this.FindWindow(ID_RICHTEXT_STYLE_LIST), wx.RichTextStyleListCtrl)
+		//styleCombo = wx.DynamicCast(this.FindWindow(ID_RICHTEXT_STYLE_COMBO), wx.RichTextStyleComboCtrl)
+		styleList = this.m_styleList
+		styleCombo = this.m_styleCombo
+		sheet = this.m_richTextCtrl.GetStyleSheet()
 		// One-time creation of an alternate style sheet
 		if (!MyFrame.gs_AlternateStyleSheet) {
 			MyFrame.gs_AlternateStyleSheet = sheet.clone()
@@ -853,53 +853,53 @@ MyFrame = class(wx.Frame) {
 		tmp = MyFrame.gs_AlternateStyleSheet
 		MyFrame.gs_AlternateStyleSheet = sheet
 		sheet = tmp
-		self.m_richTextCtrl.SetStyleSheet(sheet)
-		self.m_richTextCtrl.ApplyStyleSheet(sheet) // Makes the control reflect the new style definitions
+		this.m_richTextCtrl.SetStyleSheet(sheet)
+		this.m_richTextCtrl.ApplyStyleSheet(sheet) // Makes the control reflect the new style definitions
 		styleList.SetStyleSheet(sheet)
 		styleList.UpdateStyles()
 		styleCombo.SetStyleSheet(sheet)
 		styleCombo.UpdateStyles()
 	}
 	OnManageStyles() = {
-		sheet = self.m_richTextCtrl.GetStyleSheet()
+		sheet = this.m_richTextCtrl.GetStyleSheet()
 		flags = wx.RICHTEXT_ORGANISER_CREATE_STYLES|wx.RICHTEXT_ORGANISER_EDIT_STYLES
-		dlg = wx.RichTextStyleOrganiserDialog(flags, sheet, nil, self, wx.ID_ANY, 'Style Manager')
+		dlg = wx.RichTextStyleOrganiserDialog(flags, sheet, nil, this, wx.ID_ANY, 'Style Manager')
 		dlg.ShowModal()
 	}
 	OnInsertSymbol() = {
 		attr = wx.TextAttrEx()
 		attr.SetFlags(wx.TEXT_ATTR_FONT)
-		self.m_richTextCtrl.GetStyle(self.m_richTextCtrl.GetInsertionPoint(), attr)
+		this.m_richTextCtrl.GetStyle(this.m_richTextCtrl.GetInsertionPoint(), attr)
 		if (attr.HasFont() && attr.GetFont().IsOk()) {
 			currentFontName = attr.GetFont().GetFaceName()
 		}
 		// Don't set the initial font in the dialog (so the user is choosing
 		// 'normal text', i.e. the current font) but do tell the dialog
 		// what 'normal text' is.
-		dlg = wx.SymbolPickerDialog('*', wx.EmptyString, currentFontName, self)
+		dlg = wx.SymbolPickerDialog('*', wx.EmptyString, currentFontName, this)
 		if (dlg.ShowModal() == wx.ID_OK) {
 			if (dlg.HasSelection()) {
-				insertionPoint = self.m_richTextCtrl.GetInsertionPoint()
-				self.m_richTextCtrl.WriteText(dlg.GetSymbol())
+				insertionPoint = this.m_richTextCtrl.GetInsertionPoint()
+				this.m_richTextCtrl.WriteText(dlg.GetSymbol())
 				if (!dlg.UseNormalFont()) {
 					font = attr.GetFont().clone()
 					font.SetFaceName(dlg.GetFontName())
 					attr.SetFont(font)
-					self.m_richTextCtrl.SetStyle(insertionPoint, insertionPoint+1, attr)
+					this.m_richTextCtrl.SetStyle(insertionPoint, insertionPoint+1, attr)
 				}
             }
         }
     }
 	OnNumberList() = {
-		if (self.m_richTextCtrl.HasSelection()) {
-			range = self.m_richTextCtrl.GetSelectionRange()
-			self.m_richTextCtrl.SetListStyle(range, 'Numbered List 1', wx.RICHTEXT_SETSTYLE_WITH_UNDO|wx.RICHTEXT_SETSTYLE_RENUMBER)
+		if (this.m_richTextCtrl.HasSelection()) {
+			range = this.m_richTextCtrl.GetSelectionRange()
+			this.m_richTextCtrl.SetListStyle(range, 'Numbered List 1', wx.RICHTEXT_SETSTYLE_WITH_UNDO|wx.RICHTEXT_SETSTYLE_RENUMBER)
 		}
 	}
 	OnBulletsAndNumbering() = {
-		sheet = self.m_richTextCtrl.GetStyleSheet()
+		sheet = this.m_richTextCtrl.GetStyleSheet()
 		flags = wx.RICHTEXT_ORGANISER_BROWSE_NUMBERING
-		dlg = wxRichTextStyleOrganiserDialog(flags, sheet, m_richTextCtrl, self, wx.ID_ANY, 'Bullets and Numbering')
+		dlg = wxRichTextStyleOrganiserDialog(flags, sheet, m_richTextCtrl, this, wx.ID_ANY, 'Bullets and Numbering')
 		if (dlg.ShowModal() == wx.ID_OK) {
 			if (dlg.GetSelectedStyleDefinition()) {
 				dlg.ApplyStyle()
@@ -907,33 +907,33 @@ MyFrame = class(wx.Frame) {
 		}
 	}
 	OnItemizeList() = {
-		if (self.m_richTextCtrl.HasSelection()) {
-			range = self.m_richTextCtrl.GetSelectionRange()
-			self.m_richTextCtrl.SetListStyle(range, 'Bullet List 1')
+		if (this.m_richTextCtrl.HasSelection()) {
+			range = this.m_richTextCtrl.GetSelectionRange()
+			this.m_richTextCtrl.SetListStyle(range, 'Bullet List 1')
 		}
 	}
 	OnRenumberList() = {
-		if (self.m_richTextCtrl.HasSelection()) {
-			range = self.m_richTextCtrl.GetSelectionRange()
-			self.m_richTextCtrl.NumberList(range, nil, wx.RICHTEXT_SETSTYLE_WITH_UNDO|wx.RICHTEXT_SETSTYLE_RENUMBER)
+		if (this.m_richTextCtrl.HasSelection()) {
+			range = this.m_richTextCtrl.GetSelectionRange()
+			this.m_richTextCtrl.NumberList(range, nil, wx.RICHTEXT_SETSTYLE_WITH_UNDO|wx.RICHTEXT_SETSTYLE_RENUMBER)
 		}
 	}
 	OnPromoteList() = {
-		if (self.m_richTextCtrl.HasSelection()) {
-			range = self.m_richTextCtrl.GetSelectionRange()
-			self.m_richTextCtrl.PromoteList(1, range, nil)
+		if (this.m_richTextCtrl.HasSelection()) {
+			range = this.m_richTextCtrl.GetSelectionRange()
+			this.m_richTextCtrl.PromoteList(1, range, nil)
 		}
 	}
 	OnDemoteList() = {
-		if (self.m_richTextCtrl.HasSelection()) {
-			range = self.m_richTextCtrl.GetSelectionRange()
-			self.m_richTextCtrl.PromoteList(-1, range, nil)
+		if (this.m_richTextCtrl.HasSelection()) {
+			range = this.m_richTextCtrl.GetSelectionRange()
+			this.m_richTextCtrl.PromoteList(-1, range, nil)
 		}
 	}
 	OnClearList() = {
-		if (self.m_richTextCtrl.HasSelection()) {
-			range = self.m_richTextCtrl.GetSelectionRange()
-			self.m_richTextCtrl.ClearListStyle(range)
+		if (this.m_richTextCtrl.HasSelection()) {
+			range = this.m_richTextCtrl.GetSelectionRange()
+			this.m_richTextCtrl.ClearListStyle(range)
 		}
 	}
 	OnInsertURL() = {
@@ -943,11 +943,11 @@ MyFrame = class(wx.Frame) {
 			urlStyle = wx.RichTextAttr()
 			urlStyle.SetTextColour(wx.BLUE)
 			urlStyle.SetFontUnderlined(true)
-			self.m_richTextCtrl.BeginStyle(urlStyle)
-			self.m_richTextCtrl.BeginURL(url)
-			self.m_richTextCtrl.WriteText(url)
-			self.m_richTextCtrl.EndURL()
-			self.m_richTextCtrl.EndStyle()
+			this.m_richTextCtrl.BeginStyle(urlStyle)
+			this.m_richTextCtrl.BeginURL(url)
+			this.m_richTextCtrl.WriteText(url)
+			this.m_richTextCtrl.EndURL()
+			this.m_richTextCtrl.EndStyle()
 		}
 	}
 	OnURL(event:wx.TextUrlEvent) = {
@@ -959,10 +959,10 @@ MyFrame = class(wx.Frame) {
 		event.Veto()
 	}
 	OnPrint() = {
-		wx.GetApp().GetPrinting().PrintBuffer(self.m_richTextCtrl.GetBuffer())
+		wx.GetApp().GetPrinting().PrintBuffer(this.m_richTextCtrl.GetBuffer())
 	}
 	OnPreview() = {
-		wx.GetApp().GetPrinting().PreviewBuffer(self.m_richTextCtrl.GetBuffer())
+		wx.GetApp().GetPrinting().PreviewBuffer(this.m_richTextCtrl.GetBuffer())
 	}
 	OnPageSetup() = {
 		wx.GetApp().GetPrinting().PageSetup()

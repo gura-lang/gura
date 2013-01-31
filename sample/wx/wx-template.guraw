@@ -14,7 +14,7 @@ MyApp = class(wx.App) {
 MyFrame = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
-		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 	}
 }
 

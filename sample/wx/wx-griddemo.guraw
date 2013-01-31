@@ -82,7 +82,7 @@ GridApp = class(wx.App) {
 
 GridFrame = class(wx.Frame) {
 	__init__() = {|nil, wx.ID_ANY, 'wxWidgets grid class demo', wx.DefaultPosition, wx.DefaultSize|
-		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 		fileMenu = wx.Menu()
 		fileMenu.Append(ID_VTABLE, '&Virtual table test\tCtrl-V')
 		fileMenu.Append(ID_BUGS_TABLE, '&Bugs table test\tCtrl-B')
@@ -161,15 +161,15 @@ GridFrame = class(wx.Frame) {
 		menuBar.Append(editMenu, '&Edit')
 		menuBar.Append(selectMenu, '&Select')
 		menuBar.Append(helpMenu, '&Help')
-		self.SetMenuBar(menuBar)
-		self.m_addToSel = false
-		grid = wx.Grid(self, wx.ID_ANY, wx.Point(0, 0), wx.Size(400, 300))
+		this.SetMenuBar(menuBar)
+		this.m_addToSel = false
+		grid = wx.Grid(this, wx.ID_ANY, wx.Point(0, 0), wx.Size(400, 300))
 		gridW = 600, gridH = 300
 		logW = gridW, logH = 100
-		logWin = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString,
+		logWin = wx.TextCtrl(this, wx.ID_ANY, wx.EmptyString,
 				wx.Point(0, gridH + 20), wx.Size(logW, logH), wx.TE_MULTILINE)
 		logger = wx.LogTextCtrl(logWin)
-		self.m_logOld = wx.Log.SetActiveTarget(logger)
+		this.m_logOld = wx.Log.SetActiveTarget(logger)
 		try {
 			// avoid error under gtk
 			wx.Log.SetTimestamp(nil)
@@ -243,162 +243,162 @@ GridFrame = class(wx.Frame) {
 		topSizer = wx.BoxSizer(wx.VERTICAL)
 		topSizer.Add(grid, wx.SizerFlags(1).Expand())
 		topSizer.Add(logWin, wx.SizerFlags().Expand())
-		self.SetAutoLayout(true)
-		self.SetSizer(topSizer)
-		topSizer.Fit(self)
-		self.Centre()
-		self.SetDefaults()
-		self.grid = grid
-		self.EventTable()
+		this.SetAutoLayout(true)
+		this.SetSizer(topSizer)
+		topSizer.Fit(this)
+		this.Centre()
+		this.SetDefaults()
+		this.grid = grid
+		this.EventTable()
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MENU, ID_TOGGLEROWLABELS) {|ev| self.ToggleRowLabels(ev) }
-		self.Bind(wx.EVT_MENU, ID_TOGGLECOLLABELS) {|ev| self.ToggleColLabels(ev) }
-		self.Bind(wx.EVT_MENU, ID_TOGGLEEDIT) {|ev| self.ToggleEditing(ev) }
-		self.Bind(wx.EVT_MENU, ID_TOGGLEROWSIZING) {|ev| self.ToggleRowSizing(ev) }
-		self.Bind(wx.EVT_MENU, ID_TOGGLECOLSIZING) {|ev| self.ToggleColSizing(ev) }
-		self.Bind(wx.EVT_MENU, ID_TOGGLECOLMOVING) {|ev| self.ToggleColMoving(ev) }
-		self.Bind(wx.EVT_MENU, ID_TOGGLEGRIDSIZING) {|ev| self.ToggleGridSizing(ev) }
-		self.Bind(wx.EVT_MENU, ID_TOGGLEGRIDDRAGCELL) {|ev| self.ToggleGridDragCell(ev) }
-		self.Bind(wx.EVT_MENU, ID_TOGGLEGRIDLINES) {|ev| self.ToggleGridLines(ev) }
-		self.Bind(wx.EVT_MENU, ID_AUTOSIZECOLS) {|ev| self.AutoSizeCols(ev) }
-		self.Bind(wx.EVT_MENU, ID_CELLOVERFLOW) {|ev| self.CellOverflow(ev) }
-		self.Bind(wx.EVT_MENU, ID_RESIZECELL) {|ev| self.ResizeCell(ev) }
-		self.Bind(wx.EVT_MENU, ID_SETLABELCOLOUR) {|ev| self.SetLabelColour(ev) }
-		self.Bind(wx.EVT_MENU, ID_SETLABELTEXTCOLOUR) {|ev| self.SetLabelTextColour(ev) }
-		self.Bind(wx.EVT_MENU, ID_SETLABEL_FONT) {|ev| self.SetLabelFont(ev) }
-		self.Bind(wx.EVT_MENU, ID_ROWLABELHORIZALIGN) {|ev| self.SetRowLabelHorizAlignment(ev) }
-		self.Bind(wx.EVT_MENU, ID_ROWLABELVERTALIGN) {|ev| self.SetRowLabelVertAlignment(ev) }
-		self.Bind(wx.EVT_MENU, ID_COLLABELHORIZALIGN) {|ev| self.SetColLabelHorizAlignment(ev) }
-		self.Bind(wx.EVT_MENU, ID_COLLABELVERTALIGN) {|ev| self.SetColLabelVertAlignment(ev) }
-		self.Bind(wx.EVT_MENU, ID_GRIDLINECOLOUR) {|ev| self.SetGridLineColour(ev) }
-		self.Bind(wx.EVT_MENU, ID_INSERTROW) {|ev| self.InsertRow(ev) }
-		self.Bind(wx.EVT_MENU, ID_INSERTCOL) {|ev| self.InsertCol(ev) }
-		self.Bind(wx.EVT_MENU, ID_DELETEROW) {|ev| self.DeleteSelectedRows(ev) }
-		self.Bind(wx.EVT_MENU, ID_DELETECOL) {|ev| self.DeleteSelectedCols(ev) }
-		self.Bind(wx.EVT_MENU, ID_CLEARGRID) {|ev| self.ClearGrid(ev) }
-		self.Bind(wx.EVT_MENU, ID_SELCELLS) {|ev| self.SelectCells(ev) }
-		self.Bind(wx.EVT_MENU, ID_SELROWS) {|ev| self.SelectRows(ev) }
-		self.Bind(wx.EVT_MENU, ID_SELCOLS) {|ev| self.SelectCols(ev) }
-		self.Bind(wx.EVT_MENU, ID_SET_CELL_FG_COLOUR) {|ev| self.SetCellFgColour(ev) }
-		self.Bind(wx.EVT_MENU, ID_SET_CELL_BG_COLOUR) {|ev| self.SetCellBgColour(ev) }
-		self.Bind(wx.EVT_MENU, wx.ID_ABOUT) {|ev| self.About(ev) }
-		self.Bind(wx.EVT_MENU, wx.ID_EXIT) {|ev| self.OnQuit(ev) }
-		self.Bind(wx.EVT_MENU, ID_VTABLE) {|ev| self.OnVTable(ev) }
-		self.Bind(wx.EVT_MENU, ID_BUGS_TABLE) {|ev| self.OnBugsTable(ev) }
-		self.Bind(wx.EVT_MENU, ID_SMALL_GRID) {|ev| self.OnSmallGrid(ev) }
-		self.Bind(wx.EVT_MENU, ID_DESELECT_CELL) {|ev| self.DeselectCell(ev) }
-		self.Bind(wx.EVT_MENU, ID_DESELECT_COL) {|ev| self.DeselectCol(ev) }
-		self.Bind(wx.EVT_MENU, ID_DESELECT_ROW) {|ev| self.DeselectRow(ev) }
-		self.Bind(wx.EVT_MENU, ID_DESELECT_ALL) {|ev| self.DeselectAll(ev) }
-		self.Bind(wx.EVT_MENU, ID_SELECT_CELL) {|ev| self.SelectCell(ev) }
-		self.Bind(wx.EVT_MENU, ID_SELECT_COL) {|ev| self.SelectCol(ev) }
-		self.Bind(wx.EVT_MENU, ID_SELECT_ROW) {|ev| self.SelectRow(ev) }
-		self.Bind(wx.EVT_MENU, ID_SELECT_ALL) {|ev| self.SelectAll(ev) }
-		self.Bind(wx.EVT_MENU, ID_SELECT_UNSELECT) {|ev| self.OnAddToSelectToggle(ev) }
-		self.Bind(wx.EVT_MENU, ID_SHOW_SELECTION) {|ev| self.OnShowSelection(ev) }
-		self.Bind(wx.EVT_MENU, ID_SET_HIGHLIGHT_WIDTH) {|ev| self.OnSetHighlightWidth(ev) }
-		self.Bind(wx.EVT_MENU, ID_SET_RO_HIGHLIGHT_WIDTH) {|ev| self.OnSetROHighlightWidth(ev) }
-		self.Bind(wx.EVT_GRID_LABEL_LEFT_CLICK) {|ev| self.OnLabelLeftClick(ev) }
-		self.Bind(wx.EVT_GRID_CELL_LEFT_CLICK) {|ev| self.OnCellLeftClick(ev) }
-		self.Bind(wx.EVT_GRID_ROW_SIZE) {|ev| self.OnRowSize(ev) }
-		self.Bind(wx.EVT_GRID_COL_SIZE) {|ev| self.OnColSize(ev) }
-		self.Bind(wx.EVT_GRID_SELECT_CELL) {|ev| self.OnSelectCell(ev) }
-		self.Bind(wx.EVT_GRID_RANGE_SELECT) {|ev| self.OnRangeSelected(ev) }
-		self.Bind(wx.EVT_GRID_CELL_CHANGE) {|ev| self.OnCellValueChanged(ev) }
-		//self.Bind(wx.EVT_GRID_CELL_BEGIN_DRAG) {|ev| self.OnCellBeginDrag(ev) }
-		self.Bind(wx.EVT_GRID_EDITOR_SHOWN) {|ev| self.OnEditorShown(ev) }
-		self.Bind(wx.EVT_GRID_EDITOR_HIDDEN) {|ev| self.OnEditorHidden(ev) }
+		this.Bind(wx.EVT_MENU, ID_TOGGLEROWLABELS) {|ev| this.ToggleRowLabels(ev) }
+		this.Bind(wx.EVT_MENU, ID_TOGGLECOLLABELS) {|ev| this.ToggleColLabels(ev) }
+		this.Bind(wx.EVT_MENU, ID_TOGGLEEDIT) {|ev| this.ToggleEditing(ev) }
+		this.Bind(wx.EVT_MENU, ID_TOGGLEROWSIZING) {|ev| this.ToggleRowSizing(ev) }
+		this.Bind(wx.EVT_MENU, ID_TOGGLECOLSIZING) {|ev| this.ToggleColSizing(ev) }
+		this.Bind(wx.EVT_MENU, ID_TOGGLECOLMOVING) {|ev| this.ToggleColMoving(ev) }
+		this.Bind(wx.EVT_MENU, ID_TOGGLEGRIDSIZING) {|ev| this.ToggleGridSizing(ev) }
+		this.Bind(wx.EVT_MENU, ID_TOGGLEGRIDDRAGCELL) {|ev| this.ToggleGridDragCell(ev) }
+		this.Bind(wx.EVT_MENU, ID_TOGGLEGRIDLINES) {|ev| this.ToggleGridLines(ev) }
+		this.Bind(wx.EVT_MENU, ID_AUTOSIZECOLS) {|ev| this.AutoSizeCols(ev) }
+		this.Bind(wx.EVT_MENU, ID_CELLOVERFLOW) {|ev| this.CellOverflow(ev) }
+		this.Bind(wx.EVT_MENU, ID_RESIZECELL) {|ev| this.ResizeCell(ev) }
+		this.Bind(wx.EVT_MENU, ID_SETLABELCOLOUR) {|ev| this.SetLabelColour(ev) }
+		this.Bind(wx.EVT_MENU, ID_SETLABELTEXTCOLOUR) {|ev| this.SetLabelTextColour(ev) }
+		this.Bind(wx.EVT_MENU, ID_SETLABEL_FONT) {|ev| this.SetLabelFont(ev) }
+		this.Bind(wx.EVT_MENU, ID_ROWLABELHORIZALIGN) {|ev| this.SetRowLabelHorizAlignment(ev) }
+		this.Bind(wx.EVT_MENU, ID_ROWLABELVERTALIGN) {|ev| this.SetRowLabelVertAlignment(ev) }
+		this.Bind(wx.EVT_MENU, ID_COLLABELHORIZALIGN) {|ev| this.SetColLabelHorizAlignment(ev) }
+		this.Bind(wx.EVT_MENU, ID_COLLABELVERTALIGN) {|ev| this.SetColLabelVertAlignment(ev) }
+		this.Bind(wx.EVT_MENU, ID_GRIDLINECOLOUR) {|ev| this.SetGridLineColour(ev) }
+		this.Bind(wx.EVT_MENU, ID_INSERTROW) {|ev| this.InsertRow(ev) }
+		this.Bind(wx.EVT_MENU, ID_INSERTCOL) {|ev| this.InsertCol(ev) }
+		this.Bind(wx.EVT_MENU, ID_DELETEROW) {|ev| this.DeleteSelectedRows(ev) }
+		this.Bind(wx.EVT_MENU, ID_DELETECOL) {|ev| this.DeleteSelectedCols(ev) }
+		this.Bind(wx.EVT_MENU, ID_CLEARGRID) {|ev| this.ClearGrid(ev) }
+		this.Bind(wx.EVT_MENU, ID_SELCELLS) {|ev| this.SelectCells(ev) }
+		this.Bind(wx.EVT_MENU, ID_SELROWS) {|ev| this.SelectRows(ev) }
+		this.Bind(wx.EVT_MENU, ID_SELCOLS) {|ev| this.SelectCols(ev) }
+		this.Bind(wx.EVT_MENU, ID_SET_CELL_FG_COLOUR) {|ev| this.SetCellFgColour(ev) }
+		this.Bind(wx.EVT_MENU, ID_SET_CELL_BG_COLOUR) {|ev| this.SetCellBgColour(ev) }
+		this.Bind(wx.EVT_MENU, wx.ID_ABOUT) {|ev| this.About(ev) }
+		this.Bind(wx.EVT_MENU, wx.ID_EXIT) {|ev| this.OnQuit(ev) }
+		this.Bind(wx.EVT_MENU, ID_VTABLE) {|ev| this.OnVTable(ev) }
+		this.Bind(wx.EVT_MENU, ID_BUGS_TABLE) {|ev| this.OnBugsTable(ev) }
+		this.Bind(wx.EVT_MENU, ID_SMALL_GRID) {|ev| this.OnSmallGrid(ev) }
+		this.Bind(wx.EVT_MENU, ID_DESELECT_CELL) {|ev| this.DeselectCell(ev) }
+		this.Bind(wx.EVT_MENU, ID_DESELECT_COL) {|ev| this.DeselectCol(ev) }
+		this.Bind(wx.EVT_MENU, ID_DESELECT_ROW) {|ev| this.DeselectRow(ev) }
+		this.Bind(wx.EVT_MENU, ID_DESELECT_ALL) {|ev| this.DeselectAll(ev) }
+		this.Bind(wx.EVT_MENU, ID_SELECT_CELL) {|ev| this.SelectCell(ev) }
+		this.Bind(wx.EVT_MENU, ID_SELECT_COL) {|ev| this.SelectCol(ev) }
+		this.Bind(wx.EVT_MENU, ID_SELECT_ROW) {|ev| this.SelectRow(ev) }
+		this.Bind(wx.EVT_MENU, ID_SELECT_ALL) {|ev| this.SelectAll(ev) }
+		this.Bind(wx.EVT_MENU, ID_SELECT_UNSELECT) {|ev| this.OnAddToSelectToggle(ev) }
+		this.Bind(wx.EVT_MENU, ID_SHOW_SELECTION) {|ev| this.OnShowSelection(ev) }
+		this.Bind(wx.EVT_MENU, ID_SET_HIGHLIGHT_WIDTH) {|ev| this.OnSetHighlightWidth(ev) }
+		this.Bind(wx.EVT_MENU, ID_SET_RO_HIGHLIGHT_WIDTH) {|ev| this.OnSetROHighlightWidth(ev) }
+		this.Bind(wx.EVT_GRID_LABEL_LEFT_CLICK) {|ev| this.OnLabelLeftClick(ev) }
+		this.Bind(wx.EVT_GRID_CELL_LEFT_CLICK) {|ev| this.OnCellLeftClick(ev) }
+		this.Bind(wx.EVT_GRID_ROW_SIZE) {|ev| this.OnRowSize(ev) }
+		this.Bind(wx.EVT_GRID_COL_SIZE) {|ev| this.OnColSize(ev) }
+		this.Bind(wx.EVT_GRID_SELECT_CELL) {|ev| this.OnSelectCell(ev) }
+		this.Bind(wx.EVT_GRID_RANGE_SELECT) {|ev| this.OnRangeSelected(ev) }
+		this.Bind(wx.EVT_GRID_CELL_CHANGE) {|ev| this.OnCellValueChanged(ev) }
+		//this.Bind(wx.EVT_GRID_CELL_BEGIN_DRAG) {|ev| this.OnCellBeginDrag(ev) }
+		this.Bind(wx.EVT_GRID_EDITOR_SHOWN) {|ev| this.OnEditorShown(ev) }
+		this.Bind(wx.EVT_GRID_EDITOR_HIDDEN) {|ev| this.OnEditorHidden(ev) }
 	}
 	SetDefaults() = {
-		self.GetMenuBar().Check(ID_TOGGLEROWLABELS, true)
-		self.GetMenuBar().Check(ID_TOGGLECOLLABELS, true)
-		self.GetMenuBar().Check(ID_TOGGLEEDIT, true)
-		self.GetMenuBar().Check(ID_TOGGLEROWSIZING, true)
-		self.GetMenuBar().Check(ID_TOGGLECOLSIZING, true)
-		self.GetMenuBar().Check(ID_TOGGLECOLMOVING, false)
-		self.GetMenuBar().Check(ID_TOGGLEGRIDSIZING, true)
-		self.GetMenuBar().Check(ID_TOGGLEGRIDDRAGCELL, false)
-		self.GetMenuBar().Check(ID_TOGGLEGRIDLINES, true)
-		self.GetMenuBar().Check(ID_CELLOVERFLOW, true)
+		this.GetMenuBar().Check(ID_TOGGLEROWLABELS, true)
+		this.GetMenuBar().Check(ID_TOGGLECOLLABELS, true)
+		this.GetMenuBar().Check(ID_TOGGLEEDIT, true)
+		this.GetMenuBar().Check(ID_TOGGLEROWSIZING, true)
+		this.GetMenuBar().Check(ID_TOGGLECOLSIZING, true)
+		this.GetMenuBar().Check(ID_TOGGLECOLMOVING, false)
+		this.GetMenuBar().Check(ID_TOGGLEGRIDSIZING, true)
+		this.GetMenuBar().Check(ID_TOGGLEGRIDDRAGCELL, false)
+		this.GetMenuBar().Check(ID_TOGGLEGRIDLINES, true)
+		this.GetMenuBar().Check(ID_CELLOVERFLOW, true)
 	}
 	ToggleRowLabels(ev:wx.CommandEvent) = {
-		if (self.GetMenuBar().IsChecked(ID_TOGGLEROWLABELS)) {
-			self.grid.SetRowLabelSize(self.grid.GetDefaultRowLabelSize())
+		if (this.GetMenuBar().IsChecked(ID_TOGGLEROWLABELS)) {
+			this.grid.SetRowLabelSize(this.grid.GetDefaultRowLabelSize())
 		} else {
-			self.grid.SetRowLabelSize(0)
+			this.grid.SetRowLabelSize(0)
 		}
 	}
 	ToggleColLabels(ev:wx.CommandEvent) = {
-		if (self.GetMenuBar().IsChecked(ID_TOGGLECOLLABELS)) {
-			self.grid.SetColLabelSize(self.grid.GetDefaultColLabelSize())
+		if (this.GetMenuBar().IsChecked(ID_TOGGLECOLLABELS)) {
+			this.grid.SetColLabelSize(this.grid.GetDefaultColLabelSize())
 		} else {
-			self.grid.SetColLabelSize(0)
+			this.grid.SetColLabelSize(0)
 		}
 	}
 	ToggleEditing(ev:wx.CommandEvent) = {
-		self.grid.EnableEditing(self.GetMenuBar().IsChecked(ID_TOGGLEEDIT))
+		this.grid.EnableEditing(this.GetMenuBar().IsChecked(ID_TOGGLEEDIT))
 	}
 	ToggleRowSizing(ev:wx.CommandEvent) = {
-		self.grid.EnableDragRowSize(self.GetMenuBar().IsChecked(ID_TOGGLEROWSIZING))
+		this.grid.EnableDragRowSize(this.GetMenuBar().IsChecked(ID_TOGGLEROWSIZING))
 	}
 	ToggleColSizing(ev:wx.CommandEvent) = {
-		self.grid.EnableDragColSize(self.GetMenuBar().IsChecked(ID_TOGGLECOLSIZING))
+		this.grid.EnableDragColSize(this.GetMenuBar().IsChecked(ID_TOGGLECOLSIZING))
 	}
 	ToggleColMoving(ev:wx.CommandEvent) = {
-		self.grid.EnableDragColMove(self.GetMenuBar().IsChecked(ID_TOGGLECOLMOVING))
+		this.grid.EnableDragColMove(this.GetMenuBar().IsChecked(ID_TOGGLECOLMOVING))
 	}
 	ToggleGridSizing(ev:wx.CommandEvent) = {
-		self.grid.EnableDragGridSize(self.GetMenuBar().IsChecked(ID_TOGGLEGRIDSIZING))
+		this.grid.EnableDragGridSize(this.GetMenuBar().IsChecked(ID_TOGGLEGRIDSIZING))
 	}
 	ToggleGridDragCell(ev:wx.CommandEvent) = {
-		self.grid.EnableDragCell(self.GetMenuBar().IsChecked(ID_TOGGLEGRIDDRAGCELL))
+		this.grid.EnableDragCell(this.GetMenuBar().IsChecked(ID_TOGGLEGRIDDRAGCELL))
 	}
 	ToggleGridLines(ev:wx.CommandEvent) = {
-		self.grid.EnableGridLines(self.GetMenuBar().IsChecked(ID_TOGGLEGRIDLINES))
+		this.grid.EnableGridLines(this.GetMenuBar().IsChecked(ID_TOGGLEGRIDLINES))
 	}
 	OnSetHighlightWidth(ev:wx.CommandEvent) = {
 		choices = format('%d', 0..10):list
-		dlg = wx.SingleChoiceDialog(self, 'Choose the thickness of the highlight pen:',
+		dlg = wx.SingleChoiceDialog(this, 'Choose the thickness of the highlight pen:',
 				'Pen Width', choices)
-		current = self.grid.GetCellHighlightPenWidth()
+		current = this.grid.GetCellHighlightPenWidth()
 		dlg.SetSelection(current)
 		if (dlg.ShowModal() == wx.ID_OK) {
-			self.grid.SetCellHighlightPenWidth(dlg.GetSelection())
+			this.grid.SetCellHighlightPenWidth(dlg.GetSelection())
 		}
 	}
 	OnSetROHighlightWidth(ev:wx.CommandEvent) = {
 		choices = format('%d', 0..10):list
-		dlg = wx.SingleChoiceDialog(self, 'Choose the thickness of the highlight pen:',
+		dlg = wx.SingleChoiceDialog(this, 'Choose the thickness of the highlight pen:',
 				'Pen Width', choices)
-		current = self.grid.GetCellHighlightROPenWidth()
+		current = this.grid.GetCellHighlightROPenWidth()
 		dlg.SetSelection(current)
 		if (dlg.ShowModal() == wx.ID_OK) {
-			self.grid.SetCellHighlightROPenWidth(dlg.GetSelection())
+			this.grid.SetCellHighlightROPenWidth(dlg.GetSelection())
 		}
 	}
 	AutoSizeCols(ev:wx.CommandEvent) = {
-		self.grid.AutoSizeColumns()
-		self.grid.Refresh()
+		this.grid.AutoSizeColumns()
+		this.grid.Refresh()
 	}
 	CellOverflow(ev:wx.CommandEvent) = {
-		self.grid.SetDefaultCellOverflow(ev.IsChecked())
-		self.grid.Refresh()
+		this.grid.SetDefaultCellOverflow(ev.IsChecked())
+		this.grid.Refresh()
 	}
 	ResizeCell(ev:wx.CommandEvent) = {
 		if (ev.IsChecked()) {
-			self.grid.SetCellSize(7, 1, 5, 5)
+			this.grid.SetCellSize(7, 1, 5, 5)
 		} else {
-			self.grid.SetCellSize(7, 1, 1, 5)
+			this.grid.SetCellSize(7, 1, 1, 5)
 		}
-    	self.grid.Refresh()
+    	this.grid.Refresh()
     }
 	SetLabelColour(ev:wx.CommandEvent) = {
 		dlg = wx.ColourDialog(nil)
 		if (dlg.ShowModal() == wx.ID_OK) {
 			retData = dlg.GetColourData()
 			colour = retData.GetColour()
-			self.grid.SetLabelBackgroundColour(colour)
+			this.grid.SetLabelBackgroundColour(colour)
 		}
 	}
 	SetLabelTextColour(ev:wx.CommandEvent) = {
@@ -406,17 +406,17 @@ GridFrame = class(wx.Frame) {
 		if (dlg.ShowModal() == wx.ID_OK) {
 			retData = dlg.GetColourData()
 			colour = retData.GetColour()
-			self.grid.SetLabelTextColour(colour)
+			this.grid.SetLabelTextColour(colour)
 		}
 	}
 	SetLabelFont(ev:wx.CommandEvent) = {
-		font = wx.GetFontFromUser(self)
+		font = wx.GetFontFromUser(this)
 		if (font.IsOk()) {
-			self.grid.SetLabelFont(font)
+			this.grid.SetLabelFont(font)
 		}
 	}
 	SetRowLabelHorizAlignment(ev:wx.CommandEvent) = {
-		[horiz, vert] = self.grid.GetRowLabelAlignment()
+		[horiz, vert] = this.grid.GetRowLabelAlignment()
 		if (horiz == wx.ALIGN_LEFT) {
 			horiz = wx.ALIGN_CENTRE
 		} elsif (horiz = wx.ALIGN_CENTRE) {
@@ -424,10 +424,10 @@ GridFrame = class(wx.Frame) {
 		} elsif (horiz == wx.ALIGN_RIGHT) {
 			horiz = wx.ALIGN_LEFT
 		}
-		self.grid.SetRowLabelAlignment(horiz, vert)
+		this.grid.SetRowLabelAlignment(horiz, vert)
 	}
 	SetRowLabelVertAlignment(ev:wx.CommandEvent) = {
-		[horiz, vert] = self.grid.GetRowLabelAlignment()
+		[horiz, vert] = this.grid.GetRowLabelAlignment()
 		if (vert == wx.ALIGN_TOP) {
 			vert = wx.ALIGN_CENTRE
 		} elsif (vert = wx.ALIGN_CENTRE) {
@@ -435,10 +435,10 @@ GridFrame = class(wx.Frame) {
 		} elsif (vert == wx.ALIGN_BOTTOM) {
 			vert = wx.ALIGN_TOP
 		}
-		self.grid.SetRowLabelAlignment(horiz, vert)
+		this.grid.SetRowLabelAlignment(horiz, vert)
 	}
 	SetColLabelHorizAlignment(ev:wx.CommandEvent) = {
-		[horiz, vert] = self.grid.GetColLabelAlignment()
+		[horiz, vert] = this.grid.GetColLabelAlignment()
 		if (horiz == wx.ALIGN_LEFT) {
 			horiz = wx.ALIGN_CENTRE
 		} elsif (horiz = wx.ALIGN_CENTRE) {
@@ -446,10 +446,10 @@ GridFrame = class(wx.Frame) {
 		} elsif (horiz == wx.ALIGN_RIGHT) {
 			horiz = wx.ALIGN_LEFT
 		}
-		self.grid.SetColLabelAlignment(horiz, vert)
+		this.grid.SetColLabelAlignment(horiz, vert)
 	}
 	SetColLabelVertAlignment(ev:wx.CommandEvent) = {
-		[horiz, vert] = self.grid.GetColLabelAlignment()
+		[horiz, vert] = this.grid.GetColLabelAlignment()
 		if (vert == wx.ALIGN_TOP) {
 			vert = wx.ALIGN_CENTRE
 		} elsif (vert = wx.ALIGN_CENTRE) {
@@ -457,107 +457,107 @@ GridFrame = class(wx.Frame) {
 		} elsif (vert == wx.ALIGN_BOTTOM) {
 			vert = wx.ALIGN_TOP
 		}
-		self.grid.SetColLabelAlignment(horiz, vert)
+		this.grid.SetColLabelAlignment(horiz, vert)
 	}
 	SetGridLineColour(ev:wx.CommandEvent) = {
 		dlg = wx.ColourDialog(nil)
 		if (dlg.ShowModal() == wx.ID_OK) {
 			retData = dlg.GetColourData()
 			colour = retData.GetColour()
-			self.grid.SetGridLineColour(colour)
+			this.grid.SetGridLineColour(colour)
 		}
 	}
 	InsertRow(ev:wx.CommandEvent) = {
-		self.grid.InsertRows(self.grid.GetGridCursorRow(), 1)
+		this.grid.InsertRows(this.grid.GetGridCursorRow(), 1)
 	}
 	InsertCol(ev:wx.CommandEvent) = {
-		self.grid.InsertCols(self.grid.GetGridCursorCol(), 1)
+		this.grid.InsertCols(this.grid.GetGridCursorCol(), 1)
 	}
 	DeleteSelectedRows(ev:wx.CommandEvent) = {
-		if (self.grid.IsSelection()) {
-			self.grid.BeginBatch()
+		if (this.grid.IsSelection()) {
+			this.grid.BeginBatch()
 			n = 0
-			while (n < self.grid.GetNumberRows()) {
-				if (self.grid.IsInSelection(n, 0)) {
-					self.grid.DeleteRows(n, 1)
+			while (n < this.grid.GetNumberRows()) {
+				if (this.grid.IsInSelection(n, 0)) {
+					this.grid.DeleteRows(n, 1)
 				} else {
 					n += 1
 				}
 			}
-			self.grid.EndBatch()
+			this.grid.EndBatch()
 		}
 	}
 	DeleteSelectedCols(ev:wx.CommandEvent) = {
-		if (self.grid.IsSelection()) {
-			self.grid.BeginBatch()
+		if (this.grid.IsSelection()) {
+			this.grid.BeginBatch()
 			n = 0
-			while (n < self.grid.GetNumberCols()) {
-				if (self.grid.IsInSelection(0, n)) {
-					self.grid.DeleteCols(n, 1)
+			while (n < this.grid.GetNumberCols()) {
+				if (this.grid.IsInSelection(0, n)) {
+					this.grid.DeleteCols(n, 1)
 				} else {
 					n += 1
 				}
 			}
-			self.grid.EndBatch()
+			this.grid.EndBatch()
 		}
 	}
 	ClearGrid(ev:wx.CommandEvent) = {
-		self.grid.ClearGrid()
+		this.grid.ClearGrid()
 	}
 	SelectCells(ev:wx.CommandEvent) = {
-		self.grid.SetSelectionMode(wx.Grid.wxGridSelectCells)
+		this.grid.SetSelectionMode(wx.Grid.wxGridSelectCells)
 	}
 	SelectRows(ev:wx.CommandEvent) = {
-		self.grid.SetSelectionMode(wx.Grid.wxGridSelectRows)
+		this.grid.SetSelectionMode(wx.Grid.wxGridSelectRows)
 	}
 	SelectCols(ev:wx.CommandEvent) = {
-		self.grid.SetSelectionMode(wx.Grid.wxGridSelectColumns)
+		this.grid.SetSelectionMode(wx.Grid.wxGridSelectColumns)
 	}
 	SetCellFgColour(ev:wx.CommandEvent) = {
-		col = wx.GetColourFromUser(self)
+		col = wx.GetColourFromUser(this)
 		if (col.IsOk()) {
-			self.grid.SetDefaultCellTextColour(col)
-			self.grid.Refresh()
+			this.grid.SetDefaultCellTextColour(col)
+			this.grid.Refresh()
 		}
 	}
 	SetCellBgColour(ev:wx.CommandEvent) = {
-		col = wx.GetColourFromUser(self)
+		col = wx.GetColourFromUser(this)
 		if (col.IsOk()) {
 			// Check the new Refresh function by passing it a rectangle
 			// which exactly fits the grid.
 			pt = wx.Point(0, 0)
-			size = self.grid.GetSize()
+			size = this.grid.GetSize()
 			r = wx.Rect(pt.x, pt.y, size.GetWidth(), size.GetHeight())
-			self.grid.SetDefaultCellBackgroundColour(col)
-			self.grid.Refresh(true, r)
+			this.grid.SetDefaultCellBackgroundColour(col)
+			this.grid.Refresh(true, r)
 		}
 	}
 	DeselectCell(ev:wx.CommandEvent) = {
-		self.grid.DeselectCell(3, 1)
+		this.grid.DeselectCell(3, 1)
 	}
 	DeselectCol(ev:wx.CommandEvent) = {
-		self.grid.DeselectCol(2)
+		this.grid.DeselectCol(2)
 	}
 	DeselectRow(ev:wx.CommandEvent) = {
-		self.grid.DeselectRow(2)
+		this.grid.DeselectRow(2)
 	}
 	DeselectAll(ev:wx.CommandEvent) = {
-		self.grid.ClearSelection()
+		this.grid.ClearSelection()
 	}
 	SelectCell(ev:wx.CommandEvent) = {
-		self.grid.SelectBlock(3, 1, 3, 1, self.m_addToSel)
+		this.grid.SelectBlock(3, 1, 3, 1, this.m_addToSel)
 	}
 	SelectCol(ev:wx.CommandEvent) = {
-		self.grid.SelectCol(2, self.m_addToSel)
+		this.grid.SelectCol(2, this.m_addToSel)
 	}
 	SelectRow(ev:wx.CommandEvent) = {
-		self.grid.SelectRow(2, self.m_addToSel)
+		this.grid.SelectRow(2, this.m_addToSel)
 	}
 	SelectAll(ev:wx.CommandEvent) = {
-		self.grid.SelectAll()
+		this.grid.SelectAll()
 	}
 	OnAddToSelectToggle(ev:wx.CommandEvent) = {
-		self.m_addToSel = ev.IsChecked()
+		this.m_addToSel = ev.IsChecked()
 	}
 	OnLabelLeftClick(ev:wx.GridEvent) = {
 		logBuf = ''
@@ -598,9 +598,9 @@ GridFrame = class(wx.Frame) {
 		// max number of elements to dump -- otherwise it can take too much time
 		countMax = 100
 		rows = false
-		mode = self.grid.GetSelectionMode()
+		mode = this.grid.GetSelectionMode()
 		if (mode == wx.Grid.wxGridSelectCells) {
-			cells = wxGridCellCoordsArray(self.grid.GetSelectedCells())
+			cells = wxGridCellCoordsArray(this.grid.GetSelectedCells())
 			count = cells.size()
 			wx.LogMessage('%lu cells selected:', count)
 			if (count > countMax) {
@@ -625,9 +625,9 @@ GridFrame = class(wx.Frame) {
 				single = 'column'
 			}
 			sels = if (rows) {
-				self.grid.GetSelectedRows()
+				this.grid.GetSelectedRows()
 			} else {
-				self.grid.GetSelectedCols()
+				this.grid.GetSelectedCols()
 			}
 			count = sels.size()
 			wx.LogMessage('%lu %s selected:', count, plural)
@@ -659,8 +659,8 @@ GridFrame = class(wx.Frame) {
 				+ ', AltDown: ' + if (ev.AltDown()) {'T'} else {'F'} \
 				+ ', MetaDown: ' + if (ev.MetaDown()) {'T'} else {'F'} + ' )'
 		//Indicate whether this column was moved
-		if (self.grid.GetColPos(ev.GetCol()) != ev.GetCol()) {
-			logBuf += ' *** Column moved, current position: ' + self.grid.GetColPos(ev.GetCol())
+		if (this.grid.GetColPos(ev.GetCol()) != ev.GetCol()) {
+			logBuf += ' *** Column moved, current position: ' + this.grid.GetColPos(ev.GetCol())
 		}
 		wx.LogMessage('%s', logBuf)
 		// you must call Skip() if you want the default processing
@@ -689,7 +689,7 @@ GridFrame = class(wx.Frame) {
 		row = ev.GetRow(),
 		col = ev.GetCol()
 		wx.LogMessage('Value changed for cell at row %d, col %d: now \"%s\"',
-					row, col, self.grid.GetCellValue(row, col))
+					row, col, this.grid.GetCellValue(row, col))
 		ev.Skip()
 	}
 	OnCellBeginDrag(ev:wx.GridEvent) = {
@@ -726,7 +726,7 @@ GridFrame = class(wx.Frame) {
 						wx.OK)
 	}
 	OnQuit(ev:wx.CommandEvent) = {
-		self.Close(true)
+		this.Close(true)
 	}
 	OnBugsTable(ev:wx.CommandEvent) = {
 		frame = BugsGridFrame()
@@ -747,7 +747,7 @@ GridFrame = class(wx.Frame) {
 									'Size: ',
 									'wxGridDemo question',
 									GridFrame.s_sizeGrid,
-									0, 32000, self)
+									0, 32000, this)
 		if (GridFrame.s_sizeGrid != -1) {
 			win = BigGridFrame(s_sizeGrid)
 			win.Show(true)
@@ -764,7 +764,7 @@ GridFrame = class(wx.Frame) {
 // allow
 MyGridCellRenderer = class(wx.GridCellStringRenderer) {
 	Draw(grid:wx.Grid, attr:wx.GridCellAttr, dc:wx.DC, rect:wx.Rect, row:number, col:number, isSelected:boolean) = {
-		super(self).Draw(grid, attr, dc, rect, row, col, isSelected)
+		super(this).Draw(grid, attr, dc, rect, row, col, isSelected)
 		dc.SetPen(wx.GREEN_PEN)
 		dc.SetBrush(wx.TRANSPARENT_BRUSH)
 		dc.DrawEllipseRect(rect)
@@ -777,17 +777,17 @@ MyGridCellRenderer = class(wx.GridCellStringRenderer) {
 
 MyGridCellAttrProvider = class(wx.GridCellAttrProvider) {
 	__init__() = {
-		self.m_attrForOddRows = wx.GridCellAttrEmpty()
-		self.m_attrForOddRows.SetBackgroundColour(wx.LIGHT_GREY)
+		this.m_attrForOddRows = wx.GridCellAttrEmpty()
+		this.m_attrForOddRows.SetBackgroundColour(wx.LIGHT_GREY)
 	}
 	__del__() = {
-		self.m_attrForOddRows.DecRef()
+		this.m_attrForOddRows.DecRef()
 	}
 	GetAttr(row:number, col:number, kind:number) = {
-		attr = super(self).GetAttr(row, col, kind)
+		attr = super(this).GetAttr(row, col, kind)
 		if (row % 2 == 1) {
 			if (!attr) {
-				attr = self.m_attrForOddRows
+				attr = this.m_attrForOddRows
 				attr.IncRef()
 			} else {
 				if (!attr.HasBackgroundColour()) {
@@ -808,13 +808,13 @@ MyGridCellAttrProvider = class(wx.GridCellAttrProvider) {
 
 BigGridTable = class(wx.GridTableBase) {
 	__init__(sizeGrid:number) = {
-		self.m_sizeGrid = sizeGrid
+		this.m_sizeGrid = sizeGrid
 	}
 	GetNumberRows() = {
-		self.m_sizeGrid
+		this.m_sizeGrid
 	}
 	GetNumberCols() = {
-		self.m_sizeGrid
+		this.m_sizeGrid
 	}
 	GetValue(row:number, col:number) = {
 		format('(%d, %d)', row, col)
@@ -828,12 +828,12 @@ BigGridTable = class(wx.GridTableBase) {
 BigGridFrame = class(wx.Frame) {
 	__init__(sizeGrid:number) = {|nil, wx.ID_ANY, 'Plugin Virtual Table', \
 										wx.DefaultPosition, wx.Size(500, 450)|
-		self.m_grid = wx.Grid(self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize)
-		self.m_table = BigGridTable(sizeGrid)
+		this.m_grid = wx.Grid(this, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize)
+		this.m_table = BigGridTable(sizeGrid)
 		// VZ: I don't understand why this slows down the display that much,
 		//     must profile it...
-		//self.m_table.SetAttrProvider(MyGridCellAttrProvider())
-		self.m_grid.SetTable(self.m_table, true)
+		//this.m_table.SetAttrProvider(MyGridCellAttrProvider())
+		this.m_grid.SetTable(this.m_table, true)
 	}
 }
 
@@ -960,7 +960,7 @@ BugsGridTable = class(wx.GridTableBase) {
 		}
 	}
 	CanSetValueAs(row:number, col:number, typeName:string) = {
-		self.CanGetValueAs(row, col, typeName)
+		this.CanGetValueAs(row, col, typeName)
 	}
 	GetValueAsLong(row:number, col:number) = {
 		gd = gs_dataBugsGrid[row]
@@ -1009,7 +1009,7 @@ BugsGridTable = class(wx.GridTableBase) {
 
 BugsGridFrame = class(wx.Frame) {
 	__init__() = {|nil, wx.ID_ANY, 'Bugs table'|
-		grid = wx.Grid(self, wx.ID_ANY, wx.DefaultPosition)
+		grid = wx.Grid(this, wx.ID_ANY, wx.DefaultPosition)
 		table = BugsGridTable()
 		table.SetAttrProvider(MyGridCellAttrProvider())
 		grid.SetTable(table, true)
@@ -1023,7 +1023,7 @@ BugsGridFrame = class(wx.Frame) {
 		grid.SetColAttr(Col_Priority, attrRangeEditor)
 		grid.SetColAttr(Col_Severity, attrCombo)
 		grid.Fit()
-		self.SetClientSize(grid.GetSize())
+		this.SetClientSize(grid.GetSize())
 	}
 }
 

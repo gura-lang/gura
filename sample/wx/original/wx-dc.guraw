@@ -9,11 +9,11 @@ I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 
 Panel = class(wx.Panel) {
 	__init__(parent:wx.Window) = {|parent, style => wx.BORDER_SUNKEN|
-		self.bmp = image(I('kangaroo.gif'))
-		self.Bind(wx.EVT_PAINT) {|event|
-			wx.PaintDC(self) {|dc|
+		this.bmp = image(I('kangaroo.gif'))
+		this.Bind(wx.EVT_PAINT) {|event|
+			wx.PaintDC(this) {|dc|
 				//dc.DrawBitmap(wx.Bitmap(I('Winter.jpg')), 0, 0, false)
-				dc.DrawBitmap(self.bmp, 10 + (0..4) * 50, 10 + (0..4) * 50, false)
+				dc.DrawBitmap(this.bmp, 10 + (0..4) * 50, 10 + (0..4) * 50, false)
 				dc.DrawBitmap(image(I('kangaroo.gif')), 10 + (0..4) * 50, 100 + (0..4) * 50, false)
 				dc.SetPen(wx.Pen('green', 10, wx.DOT))
 				//dc.SetPen(wx.BLACK_DASHED_PEN)
@@ -32,37 +32,37 @@ Panel = class(wx.Panel) {
 				//dc = nil
 			}
 		}
-		self.Bind(wx.EVT_LEFT_DOWN) {|event|
+		this.Bind(wx.EVT_LEFT_DOWN) {|event|
 			log.WriteText('[%3d, %3d] EVT_LEFT_DOWN\n' % [event.GetX(), event.GetY()])
 		}
-		self.Bind(wx.EVT_LEFT_UP) {|event|
+		this.Bind(wx.EVT_LEFT_UP) {|event|
 			log.WriteText('[%3d, %3d] EVT_LEFT_UP\n' % [event.GetX(), event.GetY()])
 		}
-		self.Bind(wx.EVT_LEFT_DCLICK) {|event|
+		this.Bind(wx.EVT_LEFT_DCLICK) {|event|
 			log.WriteText('[%3d, %3d] EVT_LEFT_DCLICK\n' % [event.GetX(), event.GetY()])
 		}
-		self.Bind(wx.EVT_MIDDLE_DOWN) {|event|
+		this.Bind(wx.EVT_MIDDLE_DOWN) {|event|
 			log.WriteText('[%3d, %3d] EVT_MIDDLE_DOWN\n' % [event.GetX(), event.GetY()])
 		}
-		self.Bind(wx.EVT_MIDDLE_UP) {|event|
+		this.Bind(wx.EVT_MIDDLE_UP) {|event|
 			log.WriteText('[%3d, %3d] EVT_MIDDLE_UP\n' % [event.GetX(), event.GetY()])
 		}
-		self.Bind(wx.EVT_MIDDLE_DCLICK) {|event|
+		this.Bind(wx.EVT_MIDDLE_DCLICK) {|event|
 			log.WriteText('[%3d, %3d] EVT_MIDDLE_DCLICK\n' % [event.GetX(), event.GetY()])
 		}
-		self.Bind(wx.EVT_RIGHT_DOWN) {|event|
+		this.Bind(wx.EVT_RIGHT_DOWN) {|event|
 			log.WriteText('[%3d, %3d] EVT_RIGHT_DOWN\n' % [event.GetX(), event.GetY()])
 		}
-		self.Bind(wx.EVT_RIGHT_UP) {|event|
+		this.Bind(wx.EVT_RIGHT_UP) {|event|
 			log.WriteText('[%3d, %3d] EVT_RIGHT_UP\n' % [event.GetX(), event.GetY()])
 		}
-		self.Bind(wx.EVT_RIGHT_DCLICK) {|event|
+		this.Bind(wx.EVT_RIGHT_DCLICK) {|event|
 			log.WriteText('[%3d, %3d] EVT_RIGHT_DCLICK\n' % [event.GetX(), event.GetY()])
 		}
-		self.Bind(wx.EVT_MOTION) {|event|
+		this.Bind(wx.EVT_MOTION) {|event|
 			log.WriteText('[%3d, %3d] EVT_MOTION\n' % [event.GetX(), event.GetY()])
 		}
-		self.Bind(wx.EVT_MOUSEWHEEL) {|event|
+		this.Bind(wx.EVT_MOUSEWHEEL) {|event|
 			log.WriteText('[%3d, %3d] EVT_MOUSEWHEEL rotation:%d, delta:%d\n' % \
 					[event.GetX(), event.GetY(),
 							event.GetWheelRotation(), event.GetWheelDelta()])
@@ -73,7 +73,7 @@ Panel = class(wx.Panel) {
 Frame = class(wx.Frame) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
 						path.filename(sys.argv[0]), size => wx.Size(600, 600)|
-		wx.Panel(self) {|panel|
+		wx.Panel(this) {|panel|
 			wx.BoxSizer(wx.VERTICAL) {|vbox|
 				panel.SetSizer(vbox)
 				vbox.Add(Panel(panel), wx.SizerFlags(2).Expand())
@@ -90,7 +90,7 @@ App = class(wx.App) {
 	OnInit() = {
 		frame = Frame(nil)
 		frame.Show()
-		self.SetTopWindow(frame)
+		this.SetTopWindow(frame)
 		true
 	}
 }

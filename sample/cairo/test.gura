@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-// coding: shift_jis
+// coding: utf-8
 import(tk)
 import(cairo)
 import(units)
@@ -25,9 +25,9 @@ drawContent(cr:cairo.context) = {
 	cr.set_line_width(.1)
 	cr.move_to(20, 20)
 	[x, y] = [20, 20]
-	for (ch in '‚¨‚¶‚³‚ñ‚Ì‰Æ‚É—V‚Ñ‚És‚«‚Ü‚·B‚ ‚¢‚¤‚¦‚¨A‚©‚«‚­‚¯‚±B') {
+	for (ch in 'ãŠã˜ã•ã‚“ã®å®¶ã«éŠã³ã«è¡Œãã¾ã™ã€‚ã‚ã„ã†ãˆãŠã€ã‹ããã‘ã“ã€‚') {
 		extents = cr.text_extents(ch)
-		if (ch == 'A' || ch == 'B') {
+		if (ch == 'ã€' || ch == 'ã€‚') {
 			cr.move_to(x + extents.width * 1.2, y + extents.y_bearing * 3)
 			y += -extents.y_bearing * 2
 		} else {

@@ -50,8 +50,8 @@ MyFrame = class(wx.Frame) {
 	__init__() = {|nil, wx.ID_ANY, 'wxSplitterWindow sample',
 					wx.DefaultPosition, wx.Size(420, 300),
 					(wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE)|
-		self.EventHandler()
-		self.CreateStatusBar(2)
+		this.EventHandler()
+		this.CreateStatusBar(2)
 		// Make a menubar
 		splitMenu = wx.Menu()
 		splitMenu.Append(SPLIT_VERTICAL,
@@ -84,79 +84,79 @@ MyFrame = class(wx.Frame) {
 		splitMenu.Append(SPLIT_QUIT, 'E&xit\tAlt-X', 'Exit')
 		menuBar = wx.MenuBar()
 		menuBar.Append(splitMenu, '&Splitter')
-		self.SetMenuBar(menuBar)
+		this.SetMenuBar(menuBar)
 		menuBar.Check(SPLIT_LIVE, true)
-		self.m_splitter = MySplitterWindow(self)
-		self.m_splitter.SetSashGravity(1.0)
-		self.m_left = MyCanvas(self.m_splitter, true)
-		self.m_left.SetBackgroundColour(wx.RED)
-		self.m_left.SetScrollbars(20, 20, 5, 5)
-		self.m_left.SetCursor(wx.StockCursor(wx.CURSOR_MAGNIFIER))
-		self.m_right = MyCanvas(self.m_splitter, false)
-		self.m_right.SetBackgroundColour(wx.CYAN)
-		self.m_right.SetScrollbars(20, 20, 5, 5)
+		this.m_splitter = MySplitterWindow(this)
+		this.m_splitter.SetSashGravity(1.0)
+		this.m_left = MyCanvas(this.m_splitter, true)
+		this.m_left.SetBackgroundColour(wx.RED)
+		this.m_left.SetScrollbars(20, 20, 5, 5)
+		this.m_left.SetCursor(wx.StockCursor(wx.CURSOR_MAGNIFIER))
+		this.m_right = MyCanvas(this.m_splitter, false)
+		this.m_right.SetBackgroundColour(wx.CYAN)
+		this.m_right.SetScrollbars(20, 20, 5, 5)
 		// you can also do this to start with a single window
 		// you can also try -100
-		self.m_splitter.SplitVertically(self.m_left, self.m_right, 100)
-		self.SetStatusText('Min pane size = 0', 1)
-		self.m_replacewindow = nil
+		this.m_splitter.SplitVertically(this.m_left, this.m_right, 100)
+		this.SetStatusText('Min pane size = 0', 1)
+		this.m_replacewindow = nil
 	}
 	EventHandler() = {
-		self.Bind(wx.EVT_MENU, SPLIT_VERTICAL) {|event| self.SplitVertical(event) }
-		self.Bind(wx.EVT_MENU, SPLIT_HORIZONTAL) {|event| self.SplitHorizontal(event) }
-		self.Bind(wx.EVT_MENU, SPLIT_UNSPLIT) {|event| self.Unsplit(event) }
-		self.Bind(wx.EVT_MENU, SPLIT_LIVE) {|event| self.ToggleLive(event) }
-		self.Bind(wx.EVT_MENU, SPLIT_SETPOSITION) {|event| self.SetPosition(event) }
-		self.Bind(wx.EVT_MENU, SPLIT_SETMINSIZE) {|event| self.SetMinSize(event) }
-		self.Bind(wx.EVT_MENU, SPLIT_SETGRAVITY) {|event| self.SetGravity(event) }
-		self.Bind(wx.EVT_MENU, SPLIT_REPLACE) {|event| self.Replace(event) }
-		self.Bind(wx.EVT_MENU, SPLIT_QUIT) {|event| self.Quit(event) }
-		self.Bind(wx.EVT_UPDATE_UI, SPLIT_VERTICAL) {|event| self.UpdateUIVertical(event) }
-		self.Bind(wx.EVT_UPDATE_UI, SPLIT_HORIZONTAL) {|event| self.UpdateUIHorizontal(event) }
-		self.Bind(wx.EVT_UPDATE_UI, SPLIT_UNSPLIT) {|event| self.UpdateUIUnsplit(event) }
+		this.Bind(wx.EVT_MENU, SPLIT_VERTICAL) {|event| this.SplitVertical(event) }
+		this.Bind(wx.EVT_MENU, SPLIT_HORIZONTAL) {|event| this.SplitHorizontal(event) }
+		this.Bind(wx.EVT_MENU, SPLIT_UNSPLIT) {|event| this.Unsplit(event) }
+		this.Bind(wx.EVT_MENU, SPLIT_LIVE) {|event| this.ToggleLive(event) }
+		this.Bind(wx.EVT_MENU, SPLIT_SETPOSITION) {|event| this.SetPosition(event) }
+		this.Bind(wx.EVT_MENU, SPLIT_SETMINSIZE) {|event| this.SetMinSize(event) }
+		this.Bind(wx.EVT_MENU, SPLIT_SETGRAVITY) {|event| this.SetGravity(event) }
+		this.Bind(wx.EVT_MENU, SPLIT_REPLACE) {|event| this.Replace(event) }
+		this.Bind(wx.EVT_MENU, SPLIT_QUIT) {|event| this.Quit(event) }
+		this.Bind(wx.EVT_UPDATE_UI, SPLIT_VERTICAL) {|event| this.UpdateUIVertical(event) }
+		this.Bind(wx.EVT_UPDATE_UI, SPLIT_HORIZONTAL) {|event| this.UpdateUIHorizontal(event) }
+		this.Bind(wx.EVT_UPDATE_UI, SPLIT_UNSPLIT) {|event| this.UpdateUIUnsplit(event) }
 	}
 	// Menu commands
 	Quit(event:wx.CommandEvent) = {
-		self.Close(true)
+		this.Close(true)
 	}
 	SplitHorizontal(event:wx.CommandEvent) = {
-		if (self.m_splitter.IsSplit()) {
-			self.m_splitter.Unsplit()
+		if (this.m_splitter.IsSplit()) {
+			this.m_splitter.Unsplit()
 		}
-		self.m_left.Show(true)
-		self.m_right.Show(true)
-		self.m_splitter.SplitHorizontally(self.m_left, self.m_right)
-		self.m_replacewindow = nil
-		self.SetStatusText('Splitter split horizontally', 1)
+		this.m_left.Show(true)
+		this.m_right.Show(true)
+		this.m_splitter.SplitHorizontally(this.m_left, this.m_right)
+		this.m_replacewindow = nil
+		this.SetStatusText('Splitter split horizontally', 1)
 	}
 	SplitVertical(event:wx.CommandEvent) = {
-		if (self.m_splitter.IsSplit()) {
-			self.m_splitter.Unsplit()
+		if (this.m_splitter.IsSplit()) {
+			this.m_splitter.Unsplit()
 		}
-		self.m_left.Show(true)
-		self.m_right.Show(true)
-		self.m_splitter.SplitVertically(self.m_left, self.m_right)
-		self.m_replacewindow = nil
-		self.SetStatusText('Splitter split vertically', 1)
+		this.m_left.Show(true)
+		this.m_right.Show(true)
+		this.m_splitter.SplitVertically(this.m_left, this.m_right)
+		this.m_replacewindow = nil
+		this.SetStatusText('Splitter split vertically', 1)
 	}
 	Unsplit(event:wx.CommandEvent) = {
-		if (self.m_splitter.IsSplit()) {
-			self.m_splitter.Unsplit()
+		if (this.m_splitter.IsSplit()) {
+			this.m_splitter.Unsplit()
 		}
-		self.SetStatusText('No splitter')
+		this.SetStatusText('No splitter')
 	}
 	ToggleLive(event:wx.CommandEvent) = {
-		style = self.m_splitter.GetWindowStyleFlag()
+		style = this.m_splitter.GetWindowStyleFlag()
 		if (event.IsChecked()) {
 			style |= wx.SP_LIVE_UPDATE
 		} else {
 			style &= ~wx.SP_LIVE_UPDATE
 		}
-		self.m_splitter.SetWindowStyleFlag(style)
+		this.m_splitter.SetWindowStyleFlag(style)
 	}
 	SetPosition(event:wx.CommandEvent) = {
-	    str = format('%d', self.m_splitter.GetSashPosition())
-	    str = wx.GetTextFromUser('Enter splitter position:', '', str, self)
+	    str = format('%d', this.m_splitter.GetSashPosition())
+	    str = wx.GetTextFromUser('Enter splitter position:', '', str, this)
 	    if (str.isempty()) {
 			return
 		}
@@ -166,12 +166,12 @@ MyFrame = class(wx.Frame) {
 			wx.LogError('The splitter position should be an integer.')
 			return
 		}
-		self.m_splitter.SetSashPosition(pos)
-		wx.LogStatusEx(self, 'Splitter position set to %ld', pos)
+		this.m_splitter.SetSashPosition(pos)
+		wx.LogStatusEx(this, 'Splitter position set to %ld', pos)
 	}
 	SetMinSize(event:wx.CommandEvent) = {
-		str = format('%d', self.m_splitter.GetMinimumPaneSize())
-		str = wx.GetTextFromUser('Enter minimal size for panes:', '', str, self)
+		str = format('%d', this.m_splitter.GetMinimumPaneSize())
+		str = wx.GetTextFromUser('Enter minimal size for panes:', '', str, this)
 		if (str.isempty()) {
 			return
 		}
@@ -180,44 +180,44 @@ MyFrame = class(wx.Frame) {
 		} except {
 			return
 		}
-		self.m_splitter.SetMinimumPaneSize(minsize)
+		this.m_splitter.SetMinimumPaneSize(minsize)
 		str = format('Min pane size = %d', minsize)
-		self.SetStatusText(str, 1)
+		this.SetStatusText(str, 1)
 	}
 	SetGravity(event:wx.CommandEvent) = {
-		str = format('%g', self.m_splitter.GetSashGravity())
-		str = wx.GetTextFromUser('Enter sash gravity (0,1):', '', str, self)
+		str = format('%g', this.m_splitter.GetSashGravity())
+		str = wx.GetTextFromUser('Enter sash gravity (0,1):', '', str, this)
 		if (str.isempty()) {
 			return
 		}
 		gravity = str.tonumber()
 		!gravity && return
-		self.m_splitter.SetSashGravity(gravity)
+		this.m_splitter.SetSashGravity(gravity)
 		str = format('Gravity = %g', gravity)
-		self.SetStatusText(str, 1)
+		this.SetStatusText(str, 1)
 	}
 	Replace(event:wx.CommandEvent) = {
-		if (self.m_replacewindow == nil) {
-			self.m_replacewindow = self.m_splitter.GetWindow2()
-			self.m_splitter.ReplaceWindow(self.m_replacewindow, wx.Panel(self.m_splitter, wx.ID_ANY))
-			self.m_replacewindow.Hide()
+		if (this.m_replacewindow == nil) {
+			this.m_replacewindow = this.m_splitter.GetWindow2()
+			this.m_splitter.ReplaceWindow(this.m_replacewindow, wx.Panel(this.m_splitter, wx.ID_ANY))
+			this.m_replacewindow.Hide()
 		} else {
-			empty = self.m_splitter.GetWindow2()
-			self.m_splitter.ReplaceWindow(empty, self.m_replacewindow)
-			self.m_replacewindow.Show()
-			self.m_replacewindow = nil
+			empty = this.m_splitter.GetWindow2()
+			this.m_splitter.ReplaceWindow(empty, this.m_replacewindow)
+			this.m_replacewindow.Show()
+			this.m_replacewindow = nil
 			empty.Destroy()
 		}
 	}
 	// Menu command update functions
 	UpdateUIHorizontal(event:wx.UpdateUIEvent) = {
-		event.Enable((!self.m_splitter.IsSplit()) || (self.m_splitter.GetSplitMode() != wx.SPLIT_HORIZONTAL))
+		event.Enable((!this.m_splitter.IsSplit()) || (this.m_splitter.GetSplitMode() != wx.SPLIT_HORIZONTAL))
 	}
 	UpdateUIVertical(event:wx.UpdateUIEvent) = {
-		event.Enable(((!self.m_splitter.IsSplit()) || (self.m_splitter.GetSplitMode() != wx.SPLIT_VERTICAL)))
+		event.Enable(((!this.m_splitter.IsSplit()) || (this.m_splitter.GetSplitMode() != wx.SPLIT_VERTICAL)))
 	}
 	UpdateUIUnsplit(event:wx.UpdateUIEvent) = {
-		event.Enable(self.m_splitter.IsSplit())
+		event.Enable(this.m_splitter.IsSplit())
 	}
 }
 
@@ -230,32 +230,32 @@ MySplitterWindow = class(wx.SplitterWindow) {
 								wx.DefaultPosition, wx.DefaultSize,
 								(wx.SP_3D | wx.SP_LIVE_UPDATE | \
 								 wx.CLIP_CHILDREN /* | wx.SP_NO_XP_THEME */)|
-		self.m_frame = parent
-		self.EventHandler()
+		this.m_frame = parent
+		this.EventHandler()
 	}
 	EventHandler() = {
-		self.Bind(wx.EVT_SPLITTER_SASH_POS_CHANGED, wx.ID_ANY) {|event| self.OnPositionChanged(event) }
-		self.Bind(wx.EVT_SPLITTER_SASH_POS_CHANGING, wx.ID_ANY) {|event| self.OnPositionChanging(event) }
-		self.Bind(wx.EVT_SPLITTER_DCLICK, wx.ID_ANY) {|event| self.OnDClick(event) }
-		self.Bind(wx.EVT_SPLITTER_UNSPLIT, wx.ID_ANY) {|event| self.OnUnsplitEvent(event) }
+		this.Bind(wx.EVT_SPLITTER_SASH_POS_CHANGED, wx.ID_ANY) {|event| this.OnPositionChanged(event) }
+		this.Bind(wx.EVT_SPLITTER_SASH_POS_CHANGING, wx.ID_ANY) {|event| this.OnPositionChanging(event) }
+		this.Bind(wx.EVT_SPLITTER_DCLICK, wx.ID_ANY) {|event| this.OnDClick(event) }
+		this.Bind(wx.EVT_SPLITTER_UNSPLIT, wx.ID_ANY) {|event| this.OnUnsplitEvent(event) }
 	}
 	// event handlers
 	OnPositionChanged(event:wx.SplitterEvent) = {
-		wx.LogStatusEx(self.m_frame, 'Position has changed, now = %d (or %d)',
-					event.GetSashPosition(), self.GetSashPosition())
+		wx.LogStatusEx(this.m_frame, 'Position has changed, now = %d (or %d)',
+					event.GetSashPosition(), this.GetSashPosition())
 		event.Skip()
 	}
 	OnPositionChanging(event:wx.SplitterEvent) = {
-		wx.LogStatusEx(self.m_frame, 'Position is changing, now = %d (or %d)',
-					event.GetSashPosition(), self.GetSashPosition())
+		wx.LogStatusEx(this.m_frame, 'Position is changing, now = %d (or %d)',
+					event.GetSashPosition(), this.GetSashPosition())
 		event.Skip()
 	}
 	OnDClick(event:wx.SplitterEvent) = {
-		self.m_frame.SetStatusText('Splitter double clicked', 1)
+		this.m_frame.SetStatusText('Splitter double clicked', 1)
 		event.Skip()
 	}
 	OnUnsplitEvent(event:wx.SplitterEvent) = {
-		self.m_frame.SetStatusText('Splitter unsplit', 1)
+		this.m_frame.SetStatusText('Splitter unsplit', 1)
 		event.Skip()
 	}
 }
@@ -268,10 +268,10 @@ MyCanvas = class(wx.ScrolledWindow) {
 	__init__(parent:wx.Window, mirror:boolean) = {|parent, wx.ID_ANY,
 				wx.DefaultPosition, wx.DefaultSize,
 				(wx.HSCROLL | wx.VSCROLL | wx.NO_FULL_REPAINT_ON_RESIZE)|
-		self.m_mirror = mirror
+		this.m_mirror = mirror
 	}
 	OnDraw(dcOrig:wx.DC) = {
-		dc = wx.MirrorDC(dcOrig, self.m_mirror)
+		dc = wx.MirrorDC(dcOrig, this.m_mirror)
 		dc.SetPen(wx.BLACK_PEN)
 		dc.DrawLine(0, 0, 100, 200)
 		dc.SetBackgroundMode(wx.TRANSPARENT)

@@ -13,19 +13,19 @@ randseed(time.clock())
 //-----------------------------------------------------------------------------
 Question = class {
 	__init__(numLeft:number, numRight:number, answer, operator:string, opSizeFactor:number) = {
-		self.numLeft = numLeft
-		self.numRight = numRight
+		this.numLeft = numLeft
+		this.numRight = numRight
 		if (isnumber(answer)) {
-			self.numAnswer = answer
-			self.strAnswer = makeNumStr(answer)
+			this.numAnswer = answer
+			this.strAnswer = makeNumStr(answer)
 		} else {
-			self.numAnswer = 0
-			self.strAnswer = answer
+			this.numAnswer = 0
+			this.strAnswer = answer
 		}
-		self.operator = operator
-		self.opSizeFactor = opSizeFactor
+		this.operator = operator
+		this.opSizeFactor = opSizeFactor
 	}
-	makeText() = format('%d%s%d', self.numLeft, self.operator, self.numRight)
+	makeText() = format('%d%s%d', this.numLeft, this.operator, this.numRight)
 }
 
 drawText(cr:cairo.context, x:number, y:number, width:number, height:number, text:string) = {
@@ -65,20 +65,20 @@ if (sys.platform == `windows) {
 QuestionGenerator = class {
 	__init__(title:string, titleKanji:string, subtitle:string,
 								func:function, nQuestionsPerPage:number) = {
-		self.title = title
-		self.titleKanji = titleKanji
-		self.subtitle = subtitle
-		self.func = func
-		self.nQuestionsPerPage = nQuestionsPerPage
-		self.nPages = 1
-		self.pages = nil
+		this.title = title
+		this.titleKanji = titleKanji
+		this.subtitle = subtitle
+		this.func = func
+		this.nQuestionsPerPage = nQuestionsPerPage
+		this.nPages = 1
+		this.pages = nil
 	}
 	updateQuestion() = {
-		self.pages = repeat (self.nPages):list {
+		this.pages = repeat (this.nPages):list {
 			textList = []
-			repeat (self.nQuestionsPerPage):list {
+			repeat (this.nQuestionsPerPage):list {
 				repeat {
-					question = self.func()
+					question = this.func()
 					text = question.makeText()
 					!textList.find(text) && break
 				}
@@ -89,15 +89,15 @@ QuestionGenerator = class {
 	}
 	makePDF(filename:string, nPages:number, updateFlag:boolean,
 										kanjiFlag:boolean, answerFlag:boolean) = {
-		if (isnil(self.pages) || self.nPages != nPages || updateFlag) {
-			self.nPages = nPages
-			self.updateQuestion()
+		if (isnil(this.pages) || this.nPages != nPages || updateFlag) {
+			this.nPages = nPages
+			this.updateQuestion()
 		}
 		scale = units.mm$pt(210) / 210
 		cairo.pdf_create(open(filename, 'w'), units.mm$pt(210), units.mm$pt(297)) {|cr|
 			cr.scale(scale, scale)
-			for (questions in self.pages) {
-				self.doDraw(cr, questions, kanjiFlag, answerFlag)
+			for (questions in this.pages) {
+				this.doDraw(cr, questions, kanjiFlag, answerFlag)
 				cr.show_page()
 			}
 			cr.destroy()
@@ -105,16 +105,16 @@ QuestionGenerator = class {
 	}
 	draw(canvas:tk.Canvas, nPages:number, updateFlag:boolean, iPage:number,
 										kanjiFlag:boolean, answerFlag:boolean) = {
-		if (isnil(self.pages) || self.nPages != nPages || updateFlag) {
-			self.nPages = nPages
-			self.updateQuestion()
+		if (isnil(this.pages) || this.nPages != nPages || updateFlag) {
+			this.nPages = nPages
+			this.updateQuestion()
 		}
 		canvas.imgTk && canvas.imgTk.delete()
 		canvas.itemImage && canvas.itemImage.delete()
 		img = image(`rgba, canvas.wdImage, canvas.htImage, `white)
 		img.cairo {|cr|
 			cr.scale(canvas.wdImage / 210, canvas.htImage / 297)
-			self.doDraw(cr, self.pages[iPage], kanjiFlag, answerFlag)
+			this.doDraw(cr, this.pages[iPage], kanjiFlag, answerFlag)
 			cr.destroy()
 		}
 		canvas.imgTk = img.to_tk()
@@ -142,11 +142,11 @@ QuestionGenerator = class {
 	drawTitle(cr:cairo.context, x:number, y:number, kanjiFlag:boolean) = {
 		//x = 10, y = 20
 		cr.set_font_size(10)
-		cr.move_to(x, y).show_text(if (kanjiFlag) {self.titleKanji} else {self.title})
-		extents = cr.text_extents(self.title)
+		cr.move_to(x, y).show_text(if (kanjiFlag) {this.titleKanji} else {this.title})
+		extents = cr.text_extents(this.title)
 		x += extents.width + extents.x_bearing + 5
 		cr.set_font_size(3)
-		cr.move_to(x, y).show_text(self.subtitle)
+		cr.move_to(x, y).show_text(this.subtitle)
 	}
 	drawNameField(cr:cairo.context, xLeft:number, xRight:number, y:number, kanjiFlag:boolean) = {
 		cr.set_font_size(4)
@@ -172,40 +172,40 @@ QGen_Equation = class(QuestionGenerator) {
 	__init__(title:string, titleKanji:string, subtitle:string, nQuestionsPerPage:number,
 			wdLeft:number, wdRight:number, wdAnswer:number, htQuestion:number, func:function) = \
 							{|title, titleKanji, subtitle, func, nQuestionsPerPage|
-		self.wdLeft = wdLeft
-		self.wdRight = wdRight
-		self.wdAnswer = wdAnswer
-		self.htQuestion = htQuestion
-		self.fontSize = 7
+		this.wdLeft = wdLeft
+		this.wdRight = wdRight
+		this.wdAnswer = wdAnswer
+		this.htQuestion = htQuestion
+		this.fontSize = 7
 	}
 	doDraw(cr:cairo.context, questions[]:Question, kanjiFlag:boolean, answerFlag:boolean) = {
 		cr.set_source_color('#444444')
 		cr.select_font_face('HGMaruGothicMPRO',
 						cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-		self.drawTitle(cr, 10, 20, kanjiFlag)
-		self.drawNameField(cr, 40, 200, 32, kanjiFlag)
+		this.drawTitle(cr, 10, 20, kanjiFlag)
+		this.drawNameField(cr, 40, 200, 32, kanjiFlag)
 		x = [10, 210 / 2].get((0..1).round())
-		y = 40 + int((0..) / 2) * self.htQuestion
-		self.putOneQuestion(cr, x, y, questions, answerFlag)
+		y = 40 + int((0..) / 2) * this.htQuestion
+		this.putOneQuestion(cr, x, y, questions, answerFlag)
 	}
 	putOneQuestion(cr:cairo.context, x:number, y:number,
 								question:Question, answerFlag:boolean):map:void = {
 		cr.set_source_color('#444444')
 		htLine = 10
-		cr.set_font_size(self.fontSize)
-		drawText(cr, x, y, self.wdLeft, htLine, makeNumStr(question.numLeft)), x += self.wdLeft
-		cr.set_font_size(self.fontSize * question.opSizeFactor)
+		cr.set_font_size(this.fontSize)
+		drawText(cr, x, y, this.wdLeft, htLine, makeNumStr(question.numLeft)), x += this.wdLeft
+		cr.set_font_size(this.fontSize * question.opSizeFactor)
 		drawText(cr, x, y, 10, htLine, question.operator), x += 10
-		cr.set_font_size(self.fontSize)
-		drawText(cr, x, y, self.wdRight, htLine, makeNumStr(question.numRight)), x += self.wdRight
+		cr.set_font_size(this.fontSize)
+		drawText(cr, x, y, this.wdRight, htLine, makeNumStr(question.numRight)), x += this.wdRight
 		cr.set_line_width(.1)
-		cr.set_font_size(self.fontSize * 1.2)
+		cr.set_font_size(this.fontSize * 1.2)
 		drawText(cr, x, y, 10, htLine, '='), x += 10
-		cr.rectangle(x, y, self.wdAnswer, htLine * 1.2)
+		cr.rectangle(x, y, this.wdAnswer, htLine * 1.2)
 		cr.stroke()
-		cr.set_font_size(self.fontSize)
+		cr.set_font_size(this.fontSize)
 		cr.set_source_color('#ff8888')
-		answerFlag && drawText(cr, x, y, self.wdAnswer, htLine, question.strAnswer)
+		answerFlag && drawText(cr, x, y, this.wdAnswer, htLine, question.strAnswer)
 	}
 }
 
@@ -216,13 +216,13 @@ QGen_CalcOnPaperBase = class(QuestionGenerator) {
 	__init__(title:string, titleKanji:string, subtitle:string, func:function, nHorz:number, nVert:number,
 			wdQuestion:number, htQuestion:number, nDigitsMax:number) = \
 							{|title, titleKanji, subtitle, func, nHorz * nVert|
-		self.nHorz = nHorz
-		self.nVert = nVert
-		self.nDigitsMax = nDigitsMax
-		self.wdQuestion = wdQuestion
-		self.htQuestion = htQuestion
-		self.fontSize = 7
-		[self.wdCell, self.htCell] = [1.14, 1.71] * self.fontSize
+		this.nHorz = nHorz
+		this.nVert = nVert
+		this.nDigitsMax = nDigitsMax
+		this.wdQuestion = wdQuestion
+		this.htQuestion = htQuestion
+		this.fontSize = 7
+		[this.wdCell, this.htCell] = [1.14, 1.71] * this.fontSize
 	}
 	doDraw(cr:cairo.context, questions[]:Question, kanjiFlag:boolean, answerFlag:boolean) = {
 		cr.set_source_color('#444444')
@@ -242,20 +242,20 @@ QGen_CalcOnPaperBase = class(QuestionGenerator) {
 			}
 		}
 		*/
-		self.drawTitle(cr, 10, 20, kanjiFlag)
-		self.drawNameField(cr, 40, 200, 32, kanjiFlag)
-		x = 10 + (0..(self.nHorz - 1)).round() * self.wdQuestion
-		y = 40 + int((0..) / self.nHorz) * self.htQuestion
-		self.putOneQuestion(cr, x, y, questions, answerFlag)
+		this.drawTitle(cr, 10, 20, kanjiFlag)
+		this.drawNameField(cr, 40, 200, 32, kanjiFlag)
+		x = 10 + (0..(this.nHorz - 1)).round() * this.wdQuestion
+		y = 40 + int((0..) / this.nHorz) * this.htQuestion
+		this.putOneQuestion(cr, x, y, questions, answerFlag)
 	}
 	putNumber(cr:cairo.context, x:number, y:number, num:number) = {
-		idx = self.nDigitsMax - 1
+		idx = this.nDigitsMax - 1
 		if (num == 0) {
-			drawText(cr, x + idx * self.wdCell, y, self.wdCell, self.htCell, makeNumStr(num))
+			drawText(cr, x + idx * this.wdCell, y, this.wdCell, this.htCell, makeNumStr(num))
 			return
 		}
 		while (num > 0) {
-			drawText(cr, x + idx * self.wdCell, y, self.wdCell, self.htCell, makeNumStr(num % 10))
+			drawText(cr, x + idx * this.wdCell, y, this.wdCell, this.htCell, makeNumStr(num % 10))
 			num = int(num / 10)
 			idx -= 1
 		}
@@ -274,18 +274,18 @@ QGen_CalcOnPaper = class(QGen_CalcOnPaperBase) {
 								question:Question, answerFlag:boolean):map:void = {
 		cr.set_source_color('#444444')
 		wdMargin = 2
-		cr.set_font_size(self.fontSize)
-		self.putNumber(cr, x, y, question.numLeft)
-		self.putNumber(cr, x, y + self.htCell, question.numRight)
-		cr.set_font_size(self.fontSize * question.opSizeFactor)
-		drawText(cr, x - wdMargin, y + self.htCell, self.wdCell, self.htCell, question.operator)
+		cr.set_font_size(this.fontSize)
+		this.putNumber(cr, x, y, question.numLeft)
+		this.putNumber(cr, x, y + this.htCell, question.numRight)
+		cr.set_font_size(this.fontSize * question.opSizeFactor)
+		drawText(cr, x - wdMargin, y + this.htCell, this.wdCell, this.htCell, question.operator)
 		cr.set_line_width(.1)
-		cr.move_to(x - wdMargin, y + self.htCell * 2).rel_line_to(self.wdCell * self.nDigitsMax + wdMargin, 0)
+		cr.move_to(x - wdMargin, y + this.htCell * 2).rel_line_to(this.wdCell * this.nDigitsMax + wdMargin, 0)
 		cr.stroke()
 		cr.set_source_color('#ff8888')
-		cr.set_font_size(self.fontSize)
+		cr.set_font_size(this.fontSize)
 		answerFlag && {
-			self.putNumber(cr, x, y + self.htCell * 2, question.numAnswer)
+			this.putNumber(cr, x, y + this.htCell * 2, question.numAnswer)
 		}
 	}
 }
@@ -302,17 +302,17 @@ QGen_CalcOnPaperDiv = class(QGen_CalcOnPaperBase) {
 								question:Question, answerFlag:boolean):map:void = {
 		cr.set_source_color('#444444')
 		wdMargin = 3
-		cr.set_font_size(self.fontSize)
-		[x1, y1] = [x + self.wdCell * self.nDigitsMax, y + self.htCell]
-		self.putNumber(cr, x1 + wdMargin, y1, question.numLeft)
-		self.putNumber(cr, x - wdMargin, y + self.htCell, question.numRight)
+		cr.set_font_size(this.fontSize)
+		[x1, y1] = [x + this.wdCell * this.nDigitsMax, y + this.htCell]
+		this.putNumber(cr, x1 + wdMargin, y1, question.numLeft)
+		this.putNumber(cr, x - wdMargin, y + this.htCell, question.numRight)
 		cr.set_line_width(.1)
-		cr.move_to(x1, y1).rel_line_to(self.wdCell * self.nDigitsMax + wdMargin + wdMargin, 0)
-		cr.move_to(x1, y1).rel_curve_to(2, self.htCell / 3, 2, self.htCell / 3 * 2, 0, self.htCell)
+		cr.move_to(x1, y1).rel_line_to(this.wdCell * this.nDigitsMax + wdMargin + wdMargin, 0)
+		cr.move_to(x1, y1).rel_curve_to(2, this.htCell / 3, 2, this.htCell / 3 * 2, 0, this.htCell)
 		cr.stroke()
 		cr.set_source_color('#ff8888')
-		cr.set_font_size(self.fontSize)
-		//answerFlag && self.putNumber(cr, x, y + self.htCell * 2, tonumber(question.strAnswer))
+		cr.set_font_size(this.fontSize)
+		//answerFlag && this.putNumber(cr, x, y + this.htCell * 2, tonumber(question.strAnswer))
 	}
 }
 

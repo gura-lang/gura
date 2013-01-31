@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-# -*- coding: shift_jis -*-
+# -*- coding: utf-8 -*-
 import(mswin)
 
 mswin.ole('Excel.Application') {|app|
@@ -7,7 +7,7 @@ mswin.ole('Excel.Application') {|app|
 	workbook = app.Workbooks.Add()
 	worksheet = workbook.WorkSheets(1)
 	worksheet.Range('A1:D1')::Value = ['North', 'South', 'East', 'West']
-	//worksheet.Range('A1:D1')::Value = ['ñk', 'ìÏ', 'ìå', 'êº']
+	//worksheet.Range('A1:D1')::Value = ['Âåó', 'Âçó', 'Êù±', 'Ë•ø']
 	worksheet.Range('A2:D2')::Value = [5.2, 10, 8, 20]
 	range = worksheet.Range('A1:D2')
 	for (edge in [app.xlEdgeRight, app.xlEdgeLeft,

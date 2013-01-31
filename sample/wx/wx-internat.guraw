@@ -89,7 +89,7 @@ langNames = [
 MyApp = class(wx.App) {
 	// `Main program' equivalent, creating windows and returning main app frame
 	OnInit() = {
-		self.m_locale = wx.Locale()
+		this.m_locale = wx.Locale()
 		lng = -1
 		if (sys.argv.len() == 2) {
 			// the parameter must be the lang index
@@ -104,16 +104,16 @@ MyApp = class(wx.App) {
 		if (lng != -1) {
 			// don't use wxLOCALE_LOAD_DEFAULT flag so that Init() doesn't return
 			// false just because it failed to load wxstd catalog
-			if (!self.m_locale.Init(langIds[lng], wx.LOCALE_CONV_ENCODING)) {
+			if (!this.m_locale.Init(langIds[lng], wx.LOCALE_CONV_ENCODING)) {
 				wx.LogError('This language is not supported by the system.')
 				return(false)
 			}
 		}
 		wx.Locale.AddCatalogLookupPathPrefix('./internat')
 		// Initialize the catalogs we'll be using
-		self.m_locale.AddCatalog('internat')
+		this.m_locale.AddCatalog('internat')
 		// Create the main frame window
-		frame = MyFrame(self.m_locale)
+		frame = MyFrame(this.m_locale)
 		// Give it an icon
 		frame.SetIcon(wx.IconFromXPMData(resource.mondrian_xpm))
 		// Make a menubar
@@ -136,7 +136,7 @@ MyApp = class(wx.App) {
 		frame.SetMenuBar(menu_bar)
 		// Show the frame
 		frame.Show(true)
-		self.SetTopWindow(frame)
+		this.SetTopWindow(frame)
 		true
 	}
 }
@@ -148,37 +148,37 @@ MyApp = class(wx.App) {
 MyFrame = class(wx.Frame) {
 	// main frame constructor
 	__init__(locale:wx.Locale) = {|nil, wx.ID_ANY, _("International wxWidgets App")|
-		self.m_locale = locale
-		self.EventTable()
+		this.m_locale = locale
+		this.EventTable()
 		// this demonstrates RTL layout mirroring for Arabic locales
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		sizer.Add(wx.StaticText(self, wx.ID_ANY, _("First")),
+		sizer.Add(wx.StaticText(this, wx.ID_ANY, _("First")),
 					wx.SizerFlags().Border())
-		sizer.Add(wx.StaticText(self, wx.ID_ANY, _("Second")),
+		sizer.Add(wx.StaticText(this, wx.ID_ANY, _("Second")),
 					wx.SizerFlags().Border())
-		self.SetSizer(sizer)
+		this.SetSizer(sizer)
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MENU, INTERNAT_TEST) {|event| self.OnTestLocaleAvail(event) }
-		self.Bind(wx.EVT_MENU, wx.ID_ABOUT) {|event| self.OnAbout(event) }
-		self.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| self.OnQuit(event) }
-		self.Bind(wx.EVT_MENU, INTERNAT_PLAY) {|event| self.OnPlay(event) }
-		self.Bind(wx.EVT_MENU, wx.ID_OPEN) {|event| self.OnOpen(event) }
-		self.Bind(wx.EVT_MENU, INTERNAT_TEST_1) {|event| self.OnTest1(event) }
-		self.Bind(wx.EVT_MENU, INTERNAT_TEST_2) {|event| self.OnTest2(event) }
-		self.Bind(wx.EVT_MENU, INTERNAT_TEST_3) {|event| self.OnTest3(event) }
+		this.Bind(wx.EVT_MENU, INTERNAT_TEST) {|event| this.OnTestLocaleAvail(event) }
+		this.Bind(wx.EVT_MENU, wx.ID_ABOUT) {|event| this.OnAbout(event) }
+		this.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| this.OnQuit(event) }
+		this.Bind(wx.EVT_MENU, INTERNAT_PLAY) {|event| this.OnPlay(event) }
+		this.Bind(wx.EVT_MENU, wx.ID_OPEN) {|event| this.OnOpen(event) }
+		this.Bind(wx.EVT_MENU, INTERNAT_TEST_1) {|event| this.OnTest1(event) }
+		this.Bind(wx.EVT_MENU, INTERNAT_TEST_2) {|event| this.OnTest2(event) }
+		this.Bind(wx.EVT_MENU, INTERNAT_TEST_3) {|event| this.OnTest3(event) }
 	}
 	OnQuit(event:wx.CommandEvent) = {
-		self.Close(true)
+		this.Close(true)
 	}
 	OnAbout(event:wx.CommandEvent) = {
-		locale = self.m_locale.GetLocale()
-		sysname = self.m_locale.GetSysName()
-		canname = self.m_locale.GetCanonicalName()
+		locale = this.m_locale.GetLocale()
+		sysname = this.m_locale.GetSysName()
+		canname = this.m_locale.GetCanonicalName()
 		localeInfo = format(_("Language: %s\nSystem locale name:\n%s\nCanonical locale name: %s\n"),
 			locale, sysname, canname)
 		dlg = wx.MessageDialog(
-					self,
+					this,
 					_("I18n sample\n(c) 1998, 1999 Vadim Zeitlin and Julian Smart") \
 							+ '\n\n' \
 							+ localeInfo,
@@ -192,7 +192,7 @@ MyFrame = class(wx.Frame) {
 						_("Enter your number:"),
 						_("Try to guess my number!"),
 						wx.EmptyString,
-						self)
+						this)
 		if (str.isempty()) {
 			// cancelled
 			return
@@ -223,7 +223,7 @@ MyFrame = class(wx.Frame) {
 							_("Enter the locale to test"),
 							wx.GetTextFromUserPromptStr,
 							s_locale,
-							self)
+							this)
 		if (locale.isempty()) {
 			return
 		}
@@ -246,7 +246,7 @@ MyFrame = class(wx.Frame) {
 	}
 	OnTest1(event:wx.CommandEvent) = {
 		title = _("Testing _() (gettext)")
-		d = wx.TextEntryDialog(self, _("Please enter text to translate"),
+		d = wx.TextEntryDialog(this, _("Please enter text to translate"),
 			title, wx.TRANSLATE('default value'))
 		if (d.ShowModal() == wx.ID_OK) {
 			v = d.GetValue()
@@ -258,7 +258,7 @@ MyFrame = class(wx.Frame) {
 	}
 	OnTest2(event:wx.CommandEvent) = {
 		title = _("Testing _N() (ngettext)")
-		d = wx.TextEntryDialog(self,
+		d = wx.TextEntryDialog(this,
 			_("Please enter range for plural forms of \"n files deleted\" phrase"),
 			title, '0-10')
 		if (d.ShowModal() == wx.ID_OK) {

@@ -25,27 +25,27 @@ squTbl = [((interval(-1, 1, 20):open_r) ** 2 - 1)]
 
 Kangaroo = class {
 	__init__(c:tk.Canvas, x:number, y:number, direction:symbol) = {
-		self._c = c
-		[self._x0, self._y0] = [x, y]
-		self._item = c.Image(x, y, anchor => 'c')
+		this._c = c
+		[this._x0, this._y0] = [x, y]
+		this._item = c.Image(x, y, anchor => 'c')
 		if (direction == `left) {
-			self._xdir = -5
-			self._item[`image] = images[`kangarooL]
+			this._xdir = -5
+			this._item[`image] = images[`kangarooL]
 		} else {
-			self._xdir = 5
-			self._item[`image] = images[`kangarooR]
+			this._xdir = 5
+			this._item[`image] = images[`kangarooR]
 		}
 	}
 	startJump(htJump:number) = {
-		[x1, y1, x2, y2] = self._item.bbox()
+		[x1, y1, x2, y2] = this._item.bbox()
 		[wdItem, htItem] = [x2 - x1, y2 - y1]
-		[x, xdir] = [self._x0, self._xdir]
-		iter_y = squTbl.round() * htJump + self._y0
+		[x, xdir] = [this._x0, this._xdir]
+		iter_y = squTbl.round() * htJump + this._y0
 		imageIter = nil
-		self._c.bindtimer(0, 40) {
-			wdCanvas = self._c.winfo$width()
+		this._c.bindtimer(0, 40) {
+			wdCanvas = this._c.winfo$width()
 			y = iter_y.next()
-			self._item.coords(x, y)
+			this._item.coords(x, y)
 			x += xdir
 			if (x < wdItem / 2) {
 				imageIter = imagesTurnL.each()
@@ -57,7 +57,7 @@ Kangaroo = class {
 			if (imageIter) {
 				image = imageIter.next()
 				if (image) {
-					self._item[`image] = image
+					this._item[`image] = image
 				} else {
 					imageIter = nil
 				}

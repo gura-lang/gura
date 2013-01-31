@@ -10,8 +10,8 @@ Log(parent:tk.Widget, height:number => 10) = {
 		w.pack(fill => 'x', pady => [2, 0])
 	}
 	log.println(text*:string) = {
-		self.insert('end', text.join() + '\n')
-		self.see('end')
+		this.insert('end', text.join() + '\n')
+		this.see('end')
 	}
 	log
 }

@@ -2,15 +2,15 @@
 
 Board = class {
 	__init__() = {
-		self.cells = repeat (8 * 8):list { 0 }
+		this.cells = repeat (8 * 8):list { 0 }
 	}
 	PutQueen(id:number, iCell0:number) = {
 		bit = 1 << id
 		[iCol0, iRow0] = [iCell0 % 8, int(iCell0 / 8)]
 		iCell = iRow0 * 8
-		repeat (8) { self.cells[iCell] |= bit, iCell += 1 }
+		repeat (8) { this.cells[iCell] |= bit, iCell += 1 }
 		iCell = iCol0
-		repeat (8) { self.cells[iCell] |= bit, iCell += 8 }
+		repeat (8) { this.cells[iCell] |= bit, iCell += 8 }
 		if (iCol0 <= iRow0) {
 			nOffset = iRow0 - iCol0
 			iCell = nOffset * 8
@@ -18,7 +18,7 @@ Board = class {
 			nOffset = iCol0 - iRow0
 			iCell = nOffset
 		}
-		repeat (8 - nOffset) { self.cells[iCell] |= bit, iCell += 9 }
+		repeat (8 - nOffset) { this.cells[iCell] |= bit, iCell += 9 }
 		if (iCol0 <= 7 - iRow0) {
 			nOffset = 7 - iRow0 - iCol0
 			iCell = (7 - nOffset) * 8
@@ -26,20 +26,20 @@ Board = class {
 			nOffset = iCol0 - (7 - iRow0)
 			iCell = nOffset
 		}
-		repeat (8 - nOffset) { self.cells[iCell] |= bit, iCell -= 7 }
+		repeat (8 - nOffset) { this.cells[iCell] |= bit, iCell -= 7 }
 	}
 	RemoveQueen(id:number) = {
 		mask = ~(1 << id)
-		repeat (8 * 8) {|iCell| self.cells[iCell] &= mask }
+		repeat (8 * 8) {|iCell| this.cells[iCell] &= mask }
 	}
 	Print() = {
-		self.cells.fold(8) {|nums|
+		this.cells.fold(8) {|nums|
 			println(cond(nums == 0, '.', '*').join(' '))
 		}
 	}
 	SeekEmpty(iCell:number) = {
 		while (iCell < 8 * 8) {
-			(self.cells[iCell] == 0) && break
+			(this.cells[iCell] == 0) && break
 			iCell += 1
 		}
 		iCell

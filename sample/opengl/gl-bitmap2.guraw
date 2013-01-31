@@ -674,15 +674,15 @@ scope {
 			Draw()
 		}
 		OnIdle() = {
-			if (self.CheckKeyState(sdl.K_1)) {
+			if (this.CheckKeyState(sdl.K_1)) {
 				extern(useLists)
 				useLists = !useLists
-			} elsif (self.CheckKeyState(sdl.K_2)) {
+			} elsif (this.CheckKeyState(sdl.K_2)) {
 				extern(abuse)
 				abuse = !abuse
 			}
 			Draw()
-			self.SwapBuffers()
+			this.SwapBuffers()
 		}
 	}
 	app = App()

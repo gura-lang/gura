@@ -44,7 +44,7 @@ CheckListBoxApp = class(wx.App) {
 				nil,
 				'wxWidgets Checklistbox Sample',
 				)
-		self.SetTopWindow(pFrame)
+		this.SetTopWindow(pFrame)
 		true
 	}
 }
@@ -53,11 +53,11 @@ CheckListBoxApp = class(wx.App) {
 CheckListBoxFrame = class(wx.Frame) {
 	// ctor & dtor
 	__init__(frame:wx.Frame, title:string) = {|frame, wx.ID_ANY, title|
-		self.EventHandler()
+		this.EventHandler()
 		// create the status line
 		widths = [ -1, 60 ]
-		self.CreateStatusBar(2)
-		self.SetStatusWidths(widths)
+		this.CreateStatusBar(2)
+		this.SetStatusWidths(widths)
 		// Make a menubar
 		// --------------
 		// file submenu
@@ -88,47 +88,47 @@ CheckListBoxFrame = class(wx.Frame) {
 		menu_bar = wx.MenuBar()
 		menu_bar.Append(menuFile, '&File')
 		menu_bar.Append(menuList, '&List')
-		self.SetMenuBar(menu_bar)
+		this.SetMenuBar(menu_bar)
 		// make a panel with some controls
-		self.m_panel = wx.Panel(self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-		self.CreateCheckListbox()
+		this.m_panel = wx.Panel(this, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
+		this.CreateCheckListbox()
 		// create buttons for moving the items around
-		button1 = wx.Button(self.m_panel, Btn_Up)
-		button2 = wx.Button(self.m_panel, Btn_Down)
+		button1 = wx.Button(this.m_panel, Btn_Up)
+		button2 = wx.Button(this.m_panel, Btn_Down)
 		mainsizer = wx.BoxSizer(wx.VERTICAL)
-		mainsizer.Add(self.m_pListBox, wx.SizerFlags(1).Expand().Border(wx.ALL, 10))
+		mainsizer.Add(this.m_pListBox, wx.SizerFlags(1).Expand().Border(wx.ALL, 10))
 		bottomsizer = wx.BoxSizer(wx.HORIZONTAL)
 		bottomsizer.Add(button1, wx.SizerFlags(0).Border(wx.ALL, 10))
 		bottomsizer.Add(button2, wx.SizerFlags(0).Border(wx.ALL, 10))
 		mainsizer.Add(bottomsizer, wx.SizerFlags(0).Center())
 		// tell frame to make use of sizer (or constraints, if any)
-		self.m_panel.SetAutoLayout(true)
-		self.m_panel.SetSizer(mainsizer)
+		this.m_panel.SetAutoLayout(true)
+		this.m_panel.SetSizer(mainsizer)
 		// don't allow frame to get smaller than what the sizers tell ye
-		mainsizer.SetSizeHints(self)
-		self.Show(true)
+		mainsizer.SetSizeHints(this)
+		this.Show(true)
 	}
 	EventHandler() = {
-		self.Bind(wx.EVT_MENU, Menu_About) {|event| self.OnAbout(event) }
-		self.Bind(wx.EVT_MENU, Menu_Quit) {|event| self.OnQuit(event) }
-		self.Bind(wx.EVT_MENU, Menu_CheckFirst) {|event| self.OnCheckFirstItem(event) }
-		self.Bind(wx.EVT_MENU, Menu_UncheckFirst) {|event| self.OnUncheckFirstItem(event) }
-		self.Bind(wx.EVT_MENU, Menu_ToggleFirst) {|event| self.OnToggleFirstItem(event) }
-		self.Bind(wx.EVT_MENU, Menu_Selection) {|event| self.OnToggleSelection(event) }
-		self.Bind(wx.EVT_MENU, Menu_Extended) {|event| self.OnToggleExtended(event) }
-		self.Bind(wx.EVT_MENU, Menu_Sorting) {|event| self.OnToggleSorting(event) }
-		self.Bind(wx.EVT_MENU, Menu_InsertItemsStart) {|event| self.OnInsertItemsStart(event) }
-		self.Bind(wx.EVT_MENU, Menu_InsertItemsMiddle) {|event| self.OnInsertItemsMiddle(event) }
-		self.Bind(wx.EVT_MENU, Menu_InsertItemsEnd) {|event| self.OnInsertItemsEnd(event) }
-		self.Bind(wx.EVT_MENU, Menu_AppendItems) {|event| self.OnAppendItems(event) }
-		self.Bind(wx.EVT_MENU, Menu_RemoveItems) {|event| self.OnRemoveItems(event) }
-		self.Bind(wx.EVT_MENU, Menu_GetBestSize) {|event| self.OnGetBestSize(event) }
-		self.Bind(wx.EVT_MENU, Menu_MakeItemFirst) {|event| self.OnMakeItemFirst(event) }
-		self.Bind(wx.EVT_LISTBOX, Control_Listbox) {|event| self.OnListboxSelect(event) }
-		self.Bind(wx.EVT_CHECKLISTBOX, Control_Listbox) {|event| self.OnCheckboxToggle(event) }
-		self.Bind(wx.EVT_LISTBOX_DCLICK, Control_Listbox) {|event| self.OnListboxDblClick(event) }
-		self.Bind(wx.EVT_BUTTON, Btn_Up) {|event| self.OnButtonUp(event) }
-		self.Bind(wx.EVT_BUTTON, Btn_Down) {|event| self.OnButtonDown(event) }
+		this.Bind(wx.EVT_MENU, Menu_About) {|event| this.OnAbout(event) }
+		this.Bind(wx.EVT_MENU, Menu_Quit) {|event| this.OnQuit(event) }
+		this.Bind(wx.EVT_MENU, Menu_CheckFirst) {|event| this.OnCheckFirstItem(event) }
+		this.Bind(wx.EVT_MENU, Menu_UncheckFirst) {|event| this.OnUncheckFirstItem(event) }
+		this.Bind(wx.EVT_MENU, Menu_ToggleFirst) {|event| this.OnToggleFirstItem(event) }
+		this.Bind(wx.EVT_MENU, Menu_Selection) {|event| this.OnToggleSelection(event) }
+		this.Bind(wx.EVT_MENU, Menu_Extended) {|event| this.OnToggleExtended(event) }
+		this.Bind(wx.EVT_MENU, Menu_Sorting) {|event| this.OnToggleSorting(event) }
+		this.Bind(wx.EVT_MENU, Menu_InsertItemsStart) {|event| this.OnInsertItemsStart(event) }
+		this.Bind(wx.EVT_MENU, Menu_InsertItemsMiddle) {|event| this.OnInsertItemsMiddle(event) }
+		this.Bind(wx.EVT_MENU, Menu_InsertItemsEnd) {|event| this.OnInsertItemsEnd(event) }
+		this.Bind(wx.EVT_MENU, Menu_AppendItems) {|event| this.OnAppendItems(event) }
+		this.Bind(wx.EVT_MENU, Menu_RemoveItems) {|event| this.OnRemoveItems(event) }
+		this.Bind(wx.EVT_MENU, Menu_GetBestSize) {|event| this.OnGetBestSize(event) }
+		this.Bind(wx.EVT_MENU, Menu_MakeItemFirst) {|event| this.OnMakeItemFirst(event) }
+		this.Bind(wx.EVT_LISTBOX, Control_Listbox) {|event| this.OnListboxSelect(event) }
+		this.Bind(wx.EVT_CHECKLISTBOX, Control_Listbox) {|event| this.OnCheckboxToggle(event) }
+		this.Bind(wx.EVT_LISTBOX_DCLICK, Control_Listbox) {|event| this.OnListboxDblClick(event) }
+		this.Bind(wx.EVT_BUTTON, Btn_Up) {|event| this.OnButtonUp(event) }
+		this.Bind(wx.EVT_BUTTON, Btn_Down) {|event| this.OnButtonDown(event) }
 	}
 	CreateCheckListbox(flags:number => 0) = {
 	    // check list box
@@ -138,8 +138,8 @@ CheckListBoxFrame = class(wx.Frame) {
 			'Fourth', 'Fifth', 'Sixth',
 			'Seventh', 'Eighth', 'Nineth'
 		]
-		self.m_pListBox = wx.CheckListBox(
-			self.m_panel,			// parent
+		this.m_pListBox = wx.CheckListBox(
+			this.m_panel,			// parent
 			Control_Listbox,		// control id
 			wx.Point(10, 10),		// listbox poistion
 			wx.Size(400, 100),		// listbox size
@@ -147,32 +147,32 @@ CheckListBoxFrame = class(wx.Frame) {
 			flags
 		)
 		// set grey background for every second entry
-		self.AdjustColour(range(0, aszChoices.len(), 2))
-		self.m_pListBox.Check(2)
-		self.m_pListBox.Select(3)
+		this.AdjustColour(range(0, aszChoices.len(), 2))
+		this.m_pListBox.Check(2)
+		this.m_pListBox.Select(3)
 	}
 	// notifications
 	OnQuit(event:wx.CommandEvent) = {
-		self.Close(true)
+		this.Close(true)
 	}
 	OnAbout(event:wx.CommandEvent) = {
 		wxMessageBox('Demo of wxCheckListBox control\n(c) Vadim Zeitlin 1998-2002',
 						'About wxCheckListBox',
-						wx.ICON_INFORMATION, self)
+						wx.ICON_INFORMATION, this)
 	}
 	OnCheckFirstItem(event:wx.CommandEvent) = {
-		if (!self.m_pListBox.IsEmpty()) {
-			self.m_pListBox.Check(0)
+		if (!this.m_pListBox.IsEmpty()) {
+			this.m_pListBox.Check(0)
 		}
 	}
 	OnUncheckFirstItem(event:wx.CommandEvent) = {
-		if (!self.m_pListBox.IsEmpty()) {
-			self.m_pListBox.Check(0, false)
+		if (!this.m_pListBox.IsEmpty()) {
+			this.m_pListBox.Check(0, false)
 		}
 	}
 	OnToggleFirstItem(event:wx.CommandEvent) = {
-		if (!self.m_pListBox.IsEmpty()) {
-			self.m_pListBox.Check(0, !self.m_pListBox.IsChecked(0))
+		if (!this.m_pListBox.IsEmpty()) {
+			this.m_pListBox.Check(0, !this.m_pListBox.IsChecked(0))
 		}
 	}
 	s_nItem1 = 0
@@ -182,7 +182,7 @@ CheckListBoxFrame = class(wx.Frame) {
 			format('New item %lu', (s_nItem1 += 1))
 			format('New item %lu', (s_nItem1 += 1))
 		]
-		self.m_pListBox.InsertItems(items, 0)
+		this.m_pListBox.InsertItems(items, 0)
 	}
 	s_nItem2 = 0
 	OnInsertItemsMiddle(event:wx.CommandEvent) = {
@@ -191,7 +191,7 @@ CheckListBoxFrame = class(wx.Frame) {
 			format('New item %lu', (s_nItem2 += 1))
 			format('New item %lu', (s_nItem2 += 1))
 		]
-		self.m_pListBox.InsertItems(items, if (self.m_pListBox.GetCount() > 0) {1} else {0})
+		this.m_pListBox.InsertItems(items, if (this.m_pListBox.GetCount() > 0) {1} else {0})
 	}
 	s_nItem3 = 0
 	OnInsertItemsEnd(event:wx.CommandEvent) = {
@@ -200,135 +200,135 @@ CheckListBoxFrame = class(wx.Frame) {
 			format('New item %lu', (s_nItem3 += 1))
 			format('New item %lu', (s_nItem3 += 1))
 		]
-		self.m_pListBox.InsertItems(items, self.m_pListBox.GetCount())
+		this.m_pListBox.InsertItems(items, this.m_pListBox.GetCount())
 	}
 	s_nItem4 = 0
 	OnAppendItems(event:wx.CommandEvent) = {
-		self.m_pListBox.Append(format('New item %lu', (s_nItem4 += 1)))
-		self.m_pListBox.Append(format('New item %lu', (s_nItem4 += 1)))
-		self.m_pListBox.Append(format('New item %lu', (s_nItem4 += 1)))
+		this.m_pListBox.Append(format('New item %lu', (s_nItem4 += 1)))
+		this.m_pListBox.Append(format('New item %lu', (s_nItem4 += 1)))
+		this.m_pListBox.Append(format('New item %lu', (s_nItem4 += 1)))
 	}
 	OnRemoveItems(event:wx.CommandEvent) = {
-		if (self.m_pListBox.GetCount() > 0) {
-			self.m_pListBox.Delete(0)
+		if (this.m_pListBox.GetCount() > 0) {
+			this.m_pListBox.Delete(0)
 		}
-		if (self.m_pListBox.GetCount() > 0) {
-			self.m_pListBox.Delete(0)
+		if (this.m_pListBox.GetCount() > 0) {
+			this.m_pListBox.Delete(0)
 		}
-		if (self.m_pListBox.GetCount() > 0) {
-			self.m_pListBox.Delete(0)
+		if (this.m_pListBox.GetCount() > 0) {
+			this.m_pListBox.Delete(0)
 		}
 	}
 	OnGetBestSize(event:wx.CommandEvent) = {
-		bestSize = self.m_pListBox.GetBestSize()
+		bestSize = this.m_pListBox.GetBestSize()
 		wx.MessageBox(format('Best size of the checklistbox is:[%i,%i]',
 									bestSize.x, bestSize.y
 							)
 					)
 	}
 	OnMakeItemFirst(event:wx.CommandEvent) = {
-		if (self.m_pListBox.GetSelection() != -1) {
-			self.m_pListBox.SetFirstItem(self.m_pListBox.GetSelection())
+		if (this.m_pListBox.GetSelection() != -1) {
+			this.m_pListBox.SetFirstItem(this.m_pListBox.GetSelection())
 		} else {
 			wx.MessageBox('Nothing selected!')
 		}
 	}
 	OnToggleSelection(event:wx.CommandEvent) = {
-		sizer = self.m_panel.GetSizer()
-		sizer.Detach(self.m_pListBox)
-		self.m_pListBox.Destroy()
-		self.CreateCheckListbox(if (event.IsChecked()) {wx.LB_EXTENDED} else {0})
-		sizer.Insert(0, self.m_pListBox, wx.SizerFlags(1).Expand().Border(wx.ALL, 10))
-		self.m_panel.Layout()
+		sizer = this.m_panel.GetSizer()
+		sizer.Detach(this.m_pListBox)
+		this.m_pListBox.Destroy()
+		this.CreateCheckListbox(if (event.IsChecked()) {wx.LB_EXTENDED} else {0})
+		sizer.Insert(0, this.m_pListBox, wx.SizerFlags(1).Expand().Border(wx.ALL, 10))
+		this.m_panel.Layout()
 	}
 	OnToggleExtended(event:wx.CommandEvent) = {
-		sizer = self.m_panel.GetSizer()
-		sizer.Detach(self.m_pListBox)
-		self.m_pListBox.Destroy()
-		self.CreateCheckListbox(if (event.IsChecked()) {wx.LB_EXTENDED} else {0})
-		sizer.Insert(0, self.m_pListBox, wx.SizerFlags(1).Expand().Border(wx.ALL, 10))
-		self.m_panel.Layout()
+		sizer = this.m_panel.GetSizer()
+		sizer.Detach(this.m_pListBox)
+		this.m_pListBox.Destroy()
+		this.CreateCheckListbox(if (event.IsChecked()) {wx.LB_EXTENDED} else {0})
+		sizer.Insert(0, this.m_pListBox, wx.SizerFlags(1).Expand().Border(wx.ALL, 10))
+		this.m_panel.Layout()
 	}
 	OnToggleSorting(event:wx.CommandEvent) = {
-		sizer = self.m_panel.GetSizer()
-		sizer.Detach(self.m_pListBox)
-		self.m_pListBox.Destroy()
-		self.CreateCheckListbox(if (event.IsChecked()) {wx.LB_SORT} else {0})
-		sizer.Insert(0, self.m_pListBox, wx.SizerFlags(1).Expand().Border(wx.ALL, 10))
-		self.m_panel.Layout()
+		sizer = this.m_panel.GetSizer()
+		sizer.Detach(this.m_pListBox)
+		this.m_pListBox.Destroy()
+		this.CreateCheckListbox(if (event.IsChecked()) {wx.LB_SORT} else {0})
+		sizer.Insert(0, this.m_pListBox, wx.SizerFlags(1).Expand().Border(wx.ALL, 10))
+		this.m_panel.Layout()
 	}
 	OnListboxSelect(event:wx.CommandEvent) = {
 		nSel = event.GetSelection()
-		wx.LogStatusEx(self, 'Item %d selected (%schecked)', nSel,
-						if (self.m_pListBox.IsChecked(nSel)) {''} else {'not '})
+		wx.LogStatusEx(this, 'Item %d selected (%schecked)', nSel,
+						if (this.m_pListBox.IsChecked(nSel)) {''} else {'not '})
 	}
 	OnListboxDblClick(event:wx.CommandEvent) = {
 	    selection = -1
-		if (self.m_pListBox.GetWindowStyle() & wx.LB_EXTENDED != 0) {
-			list = self.m_pListBox.GetSelections()
+		if (this.m_pListBox.GetWindowStyle() & wx.LB_EXTENDED != 0) {
+			list = this.m_pListBox.GetSelections()
 			if (list.len() == 1) {
 				selection = list[0]
 			}
 		} else {
-			selection = self.m_pListBox.GetSelection()
+			selection = this.m_pListBox.GetSelection()
 		}
 		if (selection != -1) {
 			strSelection = format('Item %d double clicked', selection)
 		} else {
 			strSelection = 'List double clicked in multiple selection mode'
 		}
-		dialog = wx.MessageDialog(self, strSelection, 'wxCheckListBox message', wx.ICON_INFORMATION)
+		dialog = wx.MessageDialog(this, strSelection, 'wxCheckListBox message', wx.ICON_INFORMATION)
 		dialog.ShowModal()
 	}
 	OnCheckboxToggle(event:wx.CommandEvent) = {
 		nItem = event.GetInt()
-		wx.LogStatusEx(self, 'item %d was %schecked', nItem,
-						if (self.m_pListBox.IsChecked(nItem)) {''} else {'un'})
+		wx.LogStatusEx(this, 'item %d was %schecked', nItem,
+						if (this.m_pListBox.IsChecked(nItem)) {''} else {'un'})
 	}
 	OnButtonUp(event:wx.CommandEvent) = {
-		self.OnButtonMove(true)
+		this.OnButtonMove(true)
 	}
 	OnButtonDown(event:wx.CommandEvent) = {
-		self.OnButtonMove(false)
+		this.OnButtonMove(false)
 	}
 	OnButtonMove(up:boolean) = {
 		selection = -1
-		if (self.m_pListBox.GetWindowStyle() & wx.LB_EXTENDED != 0) {
-			list = self.m_pListBox.GetSelections()
+		if (this.m_pListBox.GetWindowStyle() & wx.LB_EXTENDED != 0) {
+			list = this.m_pListBox.GetSelections()
 			if (list.len() == 1) {
 				selection = list[0]
 			}
 		} else {
-			selection = self.m_pListBox.GetSelection()
+			selection = this.m_pListBox.GetSelection()
 		}
 		if (selection != wx.NOT_FOUND) {
-			label = self.m_pListBox.GetString(selection)
+			label = this.m_pListBox.GetString(selection)
 			positionNew = if (up) {selection - 1} else {selection + 2}
-			if (positionNew < 0 || positionNew > self.m_pListBox.GetCount()) {
-				wx.LogStatusEx(self, "Can't move this item %s", if (up) {'up'} else {'down'})
+			if (positionNew < 0 || positionNew > this.m_pListBox.GetCount()) {
+				wx.LogStatusEx(this, "Can't move this item %s", if (up) {'up'} else {'down'})
 			} else {
-				wasChecked = self.m_pListBox.IsChecked(selection)
+				wasChecked = this.m_pListBox.IsChecked(selection)
 				positionOld = if (up) {selection + 1} else {selection}
 				// insert the item
-				self.m_pListBox.InsertItems([label], positionNew)
+				this.m_pListBox.InsertItems([label], positionNew)
 				// and delete the old one
-				self.m_pListBox.Delete(positionOld)
+				this.m_pListBox.Delete(positionOld)
 				selectionNew = if (up) {positionNew} else {positionNew - 1}
-				self.m_pListBox.Check(selectionNew, wasChecked)
-				self.m_pListBox.SetSelection(selectionNew)
-				self.m_pListBox.SetFocus()
-				self.AdjustColour(selection)
-				self.AdjustColour(selectionNew)
-				wx.LogStatusEx(self, 'Item moved %s', if (up) {'up'} else {'down'})
+				this.m_pListBox.Check(selectionNew, wasChecked)
+				this.m_pListBox.SetSelection(selectionNew)
+				this.m_pListBox.SetFocus()
+				this.AdjustColour(selection)
+				this.AdjustColour(selectionNew)
+				wx.LogStatusEx(this, 'Item moved %s', if (up) {'up'} else {'down'})
 			}
 		} else {
-			wx.LogStatusEx(self, 'Please select single item')
+			wx.LogStatusEx(this, 'Please select single item')
 		}
 	}
 	AdjustColour(index:number):map = {
 		// even items have grey backround, odd ones - white
 		//c = if (index % 2 != 0) {255} else {200}
-		//self.m_pListBox.GetItem(index).SetBackgroundColour(wx.Color(c, c, c))
+		//this.m_pListBox.GetItem(index).SetBackgroundColour(wx.Color(c, c, c))
 	}
 }
 
@@ -336,7 +336,7 @@ CheckListBoxFrame = class(wx.Frame) {
 MyFrame = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
-		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 	}
 }
 

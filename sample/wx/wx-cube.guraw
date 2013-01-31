@@ -24,18 +24,18 @@ ID_DEF_ROTATE_RIGHT_KEY = 10002
 ScanCodeCtrl = class(wx.TextCtrl) {
 	__init__(parent:wx.Window, id:number, code:number, pos:wx.Point, size:wx.Size) = \
 								{|parent, id, wx.EmptyString, pos, size|
-		self.EventTable()
-		self.SetValue(format('0x%04x', code))
+		this.EventTable()
+		this.SetValue(format('0x%04x', code))
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_CHAR) {|event| self.OnChar(event) }
-		self.Bind(wx.EVT_KEY_DOWN) {|event| self.OnKeyDown(event) }
+		this.Bind(wx.EVT_CHAR) {|event| this.OnChar(event) }
+		this.Bind(wx.EVT_KEY_DOWN) {|event| this.OnKeyDown(event) }
 	}
 	OnChar(event:wx.KeyEvent) = {
 		// Do nothing
 	}
 	OnKeyDown(event:wx.KeyEvent) = {
-		self.SetValue(format('0x%04x', event.GetKeyCode()))
+		this.SetValue(format('0x%04x', event.GetKeyCode()))
 	}
 }
 
@@ -46,20 +46,20 @@ ScanCodeCtrl = class(wx.TextCtrl) {
 ScanCodeDialog = class(wx.Dialog) {
 	__init__(parent:wx.Window, id:number, code:number, descr:string, title:string) = \
 			{|parent, id, title, wx.DefaultPosition, wx.Size(96 * 2, 76 * 2)|
-		wx.StaticText(self, wx.ID_ANY, 'Scancode', wx.Point(4 * 2, 3 * 2),
+		wx.StaticText(this, wx.ID_ANY, 'Scancode', wx.Point(4 * 2, 3 * 2),
 			wx.Size(31 * 2, 12 * 2))
-		self.m_ScanCode = ScanCodeCtrl(self, wx.ID_ANY, code, wx.Point(37 * 2,6 * 2),
+		this.m_ScanCode = ScanCodeCtrl(this, wx.ID_ANY, code, wx.Point(37 * 2,6 * 2),
 			wx.Size(53 * 2, 14 * 2))
-		wx.StaticText(self, wx.ID_ANY, 'Description', wx.Point(4 * 2, 24 * 2),
+		wx.StaticText(this, wx.ID_ANY, 'Description', wx.Point(4 * 2, 24 * 2),
 			wx.Size(32 * 2, 12 * 2))
-		self.m_Description = wx.TextCtrl(self, wx.ID_ANY, descr, wx.Point(37 * 2, 27 * 2),
+		this.m_Description = wx.TextCtrl(this, wx.ID_ANY, descr, wx.Point(37 * 2, 27 * 2),
 			wx.Size(53 * 2, 14 * 2))
-		wx.Button(self, wx.ID_OK, 'Ok', wx.Point(20 * 2, 50 * 2), wx.Size(20 * 2, 13 * 2))
-		wx.Button(self, wx.ID_CANCEL, 'Cancel', wx.Point(44 * 2,50 * 2),
+		wx.Button(this, wx.ID_OK, 'Ok', wx.Point(20 * 2, 50 * 2), wx.Size(20 * 2, 13 * 2))
+		wx.Button(this, wx.ID_CANCEL, 'Cancel', wx.Point(44 * 2,50 * 2),
 			wx.Size(25 * 2, 13 * 2))
 	}
 	GetValue() = {
-		buf = self.m_ScanCode.GetValue()
+		buf = this.m_ScanCode.GetValue()
 		code = int(buf)
 		code
 	}
@@ -75,35 +75,35 @@ TestGLCanvas = class(wx.GLCanvas) {
 			size:wx.Size => wx.DefaultSize, style:number => 0,
 			name:string => 'TestGLCanvas') = \
 		{|parent, id, pos, size, (style | wx.FULL_REPAINT_ON_RESIZE), name|
-		self.EventTable()
-		self.m_init = false
-		self.m_gllist = nil
-		self.m_rleft = wx.WXK_LEFT
-		self.m_rright = wx.WXK_RIGHT
-		self.m_TimeInitialized = 0
-		self.m_xsynct = 0
-		self.m_gsynct = 0
-		self.m_Key = 0
-		self.m_StartTime = 0
-		self.m_LastTime = 0
-		self.m_LastRedraw = 0
+		this.EventTable()
+		this.m_init = false
+		this.m_gllist = nil
+		this.m_rleft = wx.WXK_LEFT
+		this.m_rright = wx.WXK_RIGHT
+		this.m_TimeInitialized = 0
+		this.m_xsynct = 0
+		this.m_gsynct = 0
+		this.m_Key = 0
+		this.m_StartTime = 0
+		this.m_LastTime = 0
+		this.m_LastRedraw = 0
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_SIZE) {|event| self.OnSize(event) }
-		self.Bind(wx.EVT_PAINT) {|event| self.OnPaint(event) }
-		self.Bind(wx.EVT_ERASE_BACKGROUND) {|event| self.OnEraseBackground(event) }
-		self.Bind(wx.EVT_KEY_DOWN) {|event| self.OnKeyDown(event) }
-		self.Bind(wx.EVT_KEY_UP) {|event| self.OnKeyUp(event) }
-		self.Bind(wx.EVT_ENTER_WINDOW) {|event| self.OnEnterWindow(event) }
+		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
+		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event) }
+		this.Bind(wx.EVT_ERASE_BACKGROUND) {|event| this.OnEraseBackground(event) }
+		this.Bind(wx.EVT_KEY_DOWN) {|event| this.OnKeyDown(event) }
+		this.Bind(wx.EVT_KEY_UP) {|event| this.OnKeyUp(event) }
+		this.Bind(wx.EVT_ENTER_WINDOW) {|event| this.OnEnterWindow(event) }
 	}
 	Render() = {
-		dc = wx.PaintDC(self)
-		if (!self.GetContext()) { dc = nil; return }
-		self.SetCurrent()
+		dc = wx.PaintDC(this)
+		if (!this.GetContext()) { dc = nil; return }
+		this.SetCurrent()
 		// Init OpenGL once, but after SetCurrent
-		if (!self.m_init) {
-			self.InitGL()
-			self.m_init = true
+		if (!this.m_init) {
+			this.InitGL()
+			this.m_init = true
 		}
 		glMatrixMode(GL_PROJECTION)
 		glLoadIdentity()
@@ -111,9 +111,9 @@ TestGLCanvas = class(wx.GLCanvas) {
 		glMatrixMode(GL_MODELVIEW)
 		/* clear color and depth buffers */
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-		if (self.m_gllist == nil) {
-			self.m_gllist = glGenLists(1)
-			glNewList(self.m_gllist, GL_COMPILE_AND_EXECUTE )
+		if (this.m_gllist == nil) {
+			this.m_gllist = glGenLists(1)
+			glNewList(this.m_gllist, GL_COMPILE_AND_EXECUTE )
 			/* draw six faces of a cube */
 			glBegin(GL_QUADS)
 			glNormal3f( 0.0, 0.0, 1.0)
@@ -137,22 +137,22 @@ TestGLCanvas = class(wx.GLCanvas) {
 			glEnd()
 			glEndList()
 		} else {
-			glCallList(self.m_gllist)
+			glCallList(this.m_gllist)
 		}
 		glFlush()
-		self.SwapBuffers()
+		this.SwapBuffers()
 		dc = nil
 	}
 	OnEnterWindow(event:wx.MouseEvent) = {
 	}
 	OnPaint(event:wx.PaintEvent) = {
-		self.Render()
+		this.Render()
 	}
 	OnSize(event:wx.SizeEvent) = {
 		// set GL viewport (not called by wxGLCanvas::OnSize on all platforms...)
-		[w, h] = self.GetClientSizeWH()
-		if (self.GetContext()) {
-			self.SetCurrent()
+		[w, h] = this.GetClientSizeWH()
+		if (this.GetContext()) {
+			this.SetCurrent()
 			glViewport(0, 0, w, h)
 		}
 	}
@@ -160,7 +160,7 @@ TestGLCanvas = class(wx.GLCanvas) {
 		// Do nothing, to avoid flashing.
 	}
 	InitGL() = {
-		self.SetCurrent()
+		this.SetCurrent()
 		/* set viewing projection */
 		glMatrixMode(GL_PROJECTION)
 		glFrustum(-0.5, 0.5, -0.5, 0.5, 1.0, 3.0)
@@ -187,55 +187,55 @@ TestGLCanvas = class(wx.GLCanvas) {
 	}
 	CalcRotateAngle(lasttime:number, acceltime:number):static = {
 		t = (acceltime - lasttime) / 1000.0
-		s1 = self.CalcRotateSpeed(lasttime)
-		s2 = self.CalcRotateSpeed(acceltime)
+		s1 = this.CalcRotateSpeed(lasttime)
+		s2 = this.CalcRotateSpeed(acceltime)
 		t * (s1 + s2) * 135.0
 	}
 	Action(code:number, lasttime:number, acceltime:number) = {
-		angle = self.CalcRotateAngle(lasttime, acceltime)
-		if (code == self.m_rleft) {
-			self.Rotate(angle)
-		} elsif (code == self.m_rright) {
-			self.Rotate(-angle)
+		angle = this.CalcRotateAngle(lasttime, acceltime)
+		if (code == this.m_rleft) {
+			this.Rotate(angle)
+		} elsif (code == this.m_rright) {
+			this.Rotate(-angle)
 		}
 	}
 	OnKeyDown(event:wx.KeyEvent) = {
 		evkey = event.GetKeyCode()
 		if (evkey == 0) { return }
-		if (!self.m_TimeInitialized) {
-			self.m_TimeInitialized = 1
-			self.m_xsynct = event.GetTimestamp()
-			self.m_gsynct = StopWatch(&m_secbase)
-			self.m_Key = evkey
-			self.m_StartTime = 0
-			self.m_LastTime = 0
-			self.m_LastRedraw = 0
+		if (!this.m_TimeInitialized) {
+			this.m_TimeInitialized = 1
+			this.m_xsynct = event.GetTimestamp()
+			this.m_gsynct = StopWatch(&m_secbase)
+			this.m_Key = evkey
+			this.m_StartTime = 0
+			this.m_LastTime = 0
+			this.m_LastRedraw = 0
 		}
-		currTime = event.GetTimestamp() - self.m_xsynct
-		if (evkey != self.m_Key) {
-			self.m_Key = evkey
-			self.m_LastRedraw = self.m_StartTime = self.m_LastTime = currTime
+		currTime = event.GetTimestamp() - this.m_xsynct
+		if (evkey != this.m_Key) {
+			this.m_Key = evkey
+			this.m_LastRedraw = this.m_StartTime = this.m_LastTime = currTime
 		}
-		if (currTime >= self.m_LastRedraw) {	  // Redraw:
-			self.Action(self.m_Key, self.m_LastTime - self.m_StartTime, currTime - self.m_StartTime)
-			self.m_LastRedraw = currTime;
+		if (currTime >= this.m_LastRedraw) {	  // Redraw:
+			this.Action(this.m_Key, this.m_LastTime - this.m_StartTime, currTime - this.m_StartTime)
+			this.m_LastRedraw = currTime;
 			//m_LastRedraw = StopWatch(&m_secbase) - m_gsynct
-			self.m_LastTime = currTime
+			this.m_LastTime = currTime
 		}
 		event.Skip()
 	}
 	OnKeyUp(event:wx.KeyEvent) = {
-		self.m_Key = 0
-		self.m_StartTime = 0
-		self.m_LastTime = 0
-		self.m_LastRedraw = 0
+		this.m_Key = 0
+		this.m_StartTime = 0
+		this.m_LastTime = 0
+		this.m_LastRedraw = 0
 		event.Skip()
 	}
 	Rotate(deg:number) = {
-		self.SetCurrent()
+		this.SetCurrent()
 		glMatrixMode(GL_MODELVIEW)
 		glRotatef(deg, 0.0, 0.0, 1.0)
-		self.Refresh(false)
+		this.Refresh(false)
 	}
 }
 
@@ -247,19 +247,19 @@ MyFrame = class(wx.Frame) {
 	__init__(parent:wx.Window, title:string, pos:wx.Point,
 			size:wx.Size, style:number => wx.DEFAULT_FRAME_STYLE) = \
 							{|parent, wx.ID_ANY, title, pos, size, style|
-		self.EventTable()
-		self.m_canvas = nil
-		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		this.EventTable()
+		this.m_canvas = nil
+		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| self.OnExit(event) }
-		self.Bind(wx.EVT_MENU, ID_NEW_WINDOW) {|event| self.OnNewWindow(event) }
-		self.Bind(wx.EVT_MENU, ID_DEF_ROTATE_LEFT_KEY) {|event| self.OnDefRotateLeftKey(event) }
-		self.Bind(wx.EVT_MENU, ID_DEF_ROTATE_RIGHT_KEY) {|event| self.OnDefRotateRightKey(event) }
+		this.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| this.OnExit(event) }
+		this.Bind(wx.EVT_MENU, ID_NEW_WINDOW) {|event| this.OnNewWindow(event) }
+		this.Bind(wx.EVT_MENU, ID_DEF_ROTATE_LEFT_KEY) {|event| this.OnDefRotateLeftKey(event) }
+		this.Bind(wx.EVT_MENU, ID_DEF_ROTATE_RIGHT_KEY) {|event| this.OnDefRotateRightKey(event) }
 	}
 	OnExit(event:wx.CommandEvent) = {
 		// true is to force the frame to close
-		self.Close(true)
+		this.Close(true)
 	}
 	Create(parentFrame:MyFrame:nil, isCloneWindow:boolean => false):static = {
 		str = 'wxWidgets OpenGL Cube Sample'
@@ -288,22 +288,22 @@ MyFrame = class(wx.Frame) {
 		frame
 	}
 	OnNewWindow(event:wx.CommandEvent) = {
-		self.Create(self, true)
+		this.Create(this, true)
 	}
 	OnDefRotateLeftKey(event:wx.CommandEvent) = {
-		dial = ScanCodeDialog(self, wx.ID_ANY, self.m_canvas.m_rleft,
+		dial = ScanCodeDialog(this, wx.ID_ANY, this.m_canvas.m_rleft,
 					'Left', 'Define key')
 		result = dial.ShowModal()
 		if (result == wx.ID_OK) {
-			self.m_canvas.m_rleft = dial.GetValue()
+			this.m_canvas.m_rleft = dial.GetValue()
 		}
 	}
 	OnDefRotateRightKey(event:wx.CommandEvent) = {
-		dial = ScanCodeDialog(self, wx.ID_ANY, self.m_canvas.m_rright,
+		dial = ScanCodeDialog(this, wx.ID_ANY, this.m_canvas.m_rright,
 					'Right', 'Define key')
 		result = dial.ShowModal()
 		if (result == wx.ID_OK) {
-			self.m_canvas.m_rright = dial.GetValue()
+			this.m_canvas.m_rright = dial.GetValue()
 		}
 	}
 }

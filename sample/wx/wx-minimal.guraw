@@ -23,7 +23,7 @@ MyApp = class(wx.App) {
 	OnInit() = {
 		// call the base class initialization method, currently it only parses a
 		// few common command-line options but it could be do more in the future
-		if (!super(self).OnInit()) {
+		if (!super(this).OnInit()) {
 			return(false)
 		}
 		// create the main application window
@@ -41,8 +41,8 @@ MyApp = class(wx.App) {
 MyFrame = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
-		self.EventTable()
-		self.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		this.EventTable()
+		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 		// create a menu bar
 		fileMenu = wx.Menu()
 		// the "About" item should be in the help menu
@@ -54,19 +54,19 @@ MyFrame = class(wx.Frame) {
 		menuBar.Append(fileMenu, '&File')
 		menuBar.Append(helpMenu, '&Help')
 		// ... and attach this menu bar to the frame
-		self.SetMenuBar(menuBar)
+		this.SetMenuBar(menuBar)
 		// create a status bar just for fun (by default with 1 pane only)
-		self.CreateStatusBar(2)
-		self.SetStatusText('Welcome to wxWidgets!')
+		this.CreateStatusBar(2)
+		this.SetStatusText('Welcome to wxWidgets!')
 	}
 	EventTable() = {
-		self.Bind(wx.EVT_MENU, Minimal_Quit) {|event| self.OnQuit(event) }
-		self.Bind(wx.EVT_MENU, Minimal_About) {|event| self.OnAbout(event) }
+		this.Bind(wx.EVT_MENU, Minimal_Quit) {|event| this.OnQuit(event) }
+		this.Bind(wx.EVT_MENU, Minimal_About) {|event| this.OnAbout(event) }
 	}
 	// event handlers
 	OnQuit(event:wx.CommandEvent) = {
 		// true is to force the frame to close
-		self.Close(true)
+		this.Close(true)
 	}
 	OnAbout(event:wx.CommandEvent) = {
 	wx.MessageBox(format(
@@ -79,7 +79,7 @@ MyFrame = class(wx.Frame) {
 				),
 				'About wxWidgets minimal sample',
 				wx.OK | wx.ICON_INFORMATION,
-				self)
+				this)
 	}
 }
 
