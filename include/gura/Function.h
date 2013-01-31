@@ -183,7 +183,7 @@ const char *GetFuncTypeName(FunctionType funcType);
 class DLLDECLARE ICallable {
 public:
 	Value Call(Environment &env, Signal sig,
-			const Value &valueSelf, Iterator *pIteratorSelf, bool selfListFlag,
+			const Value &valueSelf, Iterator *pIteratorSelf, bool listSelfFlag,
 			const Expr_Caller *pExprCaller, const ExprList &exprListArg,
 			const Function **ppFuncSuccRequester);
 protected:

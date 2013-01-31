@@ -95,7 +95,7 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 // ICallable
 //-----------------------------------------------------------------------------
 Value ICallable::Call(Environment &env, Signal sig,
-		const Value &valueSelf, Iterator *pIteratorSelf, bool selfListFlag,
+		const Value &valueSelf, Iterator *pIteratorSelf, bool listSelfFlag,
 		const Expr_Caller *pExprCaller, const ExprList &exprListArg,
 		const Function **ppFuncSuccRequester)
 {
@@ -110,7 +110,7 @@ Value ICallable::Call(Environment &env, Signal sig,
 			}
 		}
 	}
-	Args args(exprListArg, valueSelf, pIteratorSelf, selfListFlag, ppFuncSuccRequester,
+	Args args(exprListArg, valueSelf, pIteratorSelf, listSelfFlag, ppFuncSuccRequester,
 		pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(), pExprCaller->GetBlock());
 	Value result = DoCall(env, sig, args);
 	if (sig.IsSignalled()) {
