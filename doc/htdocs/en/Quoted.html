@@ -35,6 +35,39 @@
         -->
       </header>
       <section>
+<!-- ====================================================================== -->
+
+<h2>Quoted Value</h2>
+
+<p>
+In normal case, when you specify expressions in the argument list of function call,
+their evaluation results are passed to a function.
+However, if the function specify an argument symbol prefixed with a backquote character
+in its declaration, a pre-evaluated expression shall be passed to the function as a
+Quoted value.
+</p>
+
+<p>
+The following example creates a function that works just like for statement
+in C language.
+</p>
+
+<pre><code>c_like_for(`init, `cond, `next) {`block} = {
+    env = outers()
+    env.eval(init)
+    while (env.eval(cond)) {
+        env.eval(block)
+        env.eval(next)
+    }
+}
+
+n = 0
+c_like_for (i = 1, i &lt;= 10, i += 1) {
+    n += i
+}
+printf('i = %d, sum = %d\n', i, n)
+</code></pre>
+<!-- ====================================================================== -->
       </section>
       <footer>
         <a href="http://sourceforge.jp/">

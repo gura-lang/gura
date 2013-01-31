@@ -35,6 +35,51 @@
         -->
       </header>
       <section>
+<!-- ====================================================================== -->
+
+<h2>Function Arguments</h2>
+
+<p>
+You can specify optional arguments, default values and variable-length arguments
+for function declarations.
+</p>
+
+<pre><code>f1(a, b?, c?) = printf('%s, %s, %s\n', a, b, c)
+f1(2)                                # 2, nil, nil
+
+f2(a, b = 10, c =&gt; 'abc') = printf('%s, %s, %s\n', a, b, c)
+f2(2)                                # 2, 10, abc
+
+f3(a, b, c*) = printf('%s, %s, %s\n', a, b, c):nomap
+f3(2, 3, 4, 5, 6, 7)                 # 2, 3, [4, 5, 6, 7]
+f3(2, 3)                             # 2, 3, []
+
+f4(a, b, c+) = printf('%s, %s, %s\n', a, b, c):nomap
+f4(2, 3, 4, 5, 6, 7)                 # 2, 3, [4, 5, 6, 7].
+f4(2, 3)                             # error. c has to get at least one value.
+</code></pre>
+
+<p>
+When calling a function, you can specify each argument value by a keyword.
+A keyword shall be associated with its value with dictionary assignment operator
+=&gt;.
+</p>
+
+<pre><code>g1(a, b, c) = printf('%s, %s, %s\n', a, b, c)
+g1(2, b =&gt; 3, c =&gt; 4)                # 2, 3, 4
+</code></pre>
+
+<p>
+If the argument declaration list contains a symbol suffixed by percent character (%),
+the symbol shall be assigned with a dictionary consisting of pairs of
+keywords and values that have not matched the argument list.
+</p>
+
+<pre><code>g2(a, b, dict%) = printf('%s, %s, %s\n', a, b, dict)
+g2(2, b =&gt; 3, c =&gt; 4, d =&gt; 5)        # 2, 3, %{c =&gt; 4, d =&gt; 5}
+g2(2, 3, c =&gt; 4, d =&gt; 5)             # 2, 3, %{c =&gt; 4, d =&gt; 5}
+</code></pre>
+<!-- ====================================================================== -->
       </section>
       <footer>
         <a href="http://sourceforge.jp/">

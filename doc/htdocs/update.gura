@@ -81,12 +81,14 @@ MakeHeader(pathname:string) = {
         -->
       </header>
       <section>
+<!-- ====================================================================== -->
 '''.template()
 	//-------------------------------------------------------------------------
 }
 
 //-----------------------------------------------------------------------------
 footer = '''\
+<!-- ====================================================================== -->
       </section>
       <footer>
         <a href="http://sourceforge.jp/">
@@ -113,17 +115,22 @@ for (pathname in path.walk('', 1, '*.html', '*.html.ja', '*.html.en')) {
 	for (line in lines) {
 		if (stat == `begin) {
 			if (line.match('^<!-- ========')) {
-				f.print(line)
+				stat = `output
+			} elsif (line.match('^title:')) {
+				stat = `jekyll
+			}
+		} elsif (stat == `jekyll) {
+			if (line.match('^---$')) {
 				stat = `output
 			}
 		} elsif (stat == `output) {
 			line = line.sub(r'gura-\d+\.\d+\.\d+', 'gura-' + version)
 			line = line.sub(r'projects/gura/downloads/\d+/',
 							'projects/gura/downloads/' + downloadId + '/')
-			f.print(line)
 			if (line.match('^<!-- ========')) {
 				break
 			}
+			f.print(line)
 		}
 	}
 	f.print(footer)

@@ -35,6 +35,63 @@
         -->
       </header>
       <section>
+<!-- ====================================================================== -->
+
+<h2>How to Install</h2>
+
+<h3>Install into Windows</h3>
+
+<p>
+Just launch installer
+<a href="http://sourceforge.jp/projects/gura/downloads/56617/gura-0.3.0-win32.msi/" class="link">gura-0.3.0-win32.msi</a>,
+which will associate extensions .gura, .guraw, .gurc and .gurcw to executable files.
+</p>
+
+<h3>Install into Linux</h3>
+
+<p>
+In default configuration, Ubuntu and Fedora do not include C++ compilers and readline library.
+Install them as follows before building Gura.
+</p>
+
+<p>For Ubuntu:</p>
+
+<pre><code>$ sudo apt-get install g++ libreadline5-dev
+</code></pre>
+
+<p>For Fedora:</p>
+
+<pre><code># yum install gcc gcc-c++ readline-devel
+</code></pre>
+
+<p>
+Download a source package
+<a href="http://sourceforge.jp/projects/gura/downloads/56617/gura-0.3.0.tar.gz/" class="link">gura-0.3.0.tar.gz</a>
+and follow the steps below to build and install Gura executables.
+</p>
+
+<pre><code>$ tar xvfz gura-0.3.0.tar.gz
+$ cd gura-0.3.0/src
+$ ./configure
+$ make
+$ sudo make install
+$ sudo ldconfig     # for the first install
+</code></pre>
+
+<p>
+After that, follow the steps below to build and install Gura module files.
+</p>
+
+<pre><code>$ ./build_modules.gura
+$ sudo ./build_modules.gura install
+</code></pre>
+
+<p>
+If you see any error messages, your system may not have been installed
+with packages necessary to build the modules.
+Install them and try building modules again.
+</p>
+<!-- ====================================================================== -->
       </section>
       <footer>
         <a href="http://sourceforge.jp/">
