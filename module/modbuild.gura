@@ -1,23 +1,53 @@
 #!/usr/bin/env gura
+import(argopt)
 
 //-----------------------------------------------------------------------------
 // BuilderBase
 //-----------------------------------------------------------------------------
 BuilderBase = class {
 	__init__() = {
+		argopt.Parser {|p|
+			p.addFlag('verbose',	'v', 'verbose mode')
+			p.addFlag('debug',		'd', 'build module with debug information')
+			p.addFlag('progress',	'p', 'print building progress')
+			p.addFlag('here',		'h', 'output files in the current directory')
+			p.addFlag('hint',		'H', 'print hint')
+			p.addFlag('rebuild',	'r', 'clean output files before building')
+			try {
+				[this.cfg, argv] = p.parse(sys.argv)
+			} except {|e|
+				sys.stderr.println(e.text)
+				sys.exit(1)
+			}
+			this.command = if (argv.len() == 0) {
+				`build
+			} elsif (argv[0] == 'help') {
+				this.printHelp(p)
+				sys.exit(1)
+			} elsif (argv[0] == 'clean') {
+				`clean
+			} elsif (argv[0] == 'install') {
+				`install
+			} elsif (argv[0] == 'install-root') {
+				`install_root
+			} else {
+				sys.stderr.println('unknown command: ', argv[0])
+				sys.exit(1)
+			}
+		}
 		this.debFiles = nil
 		this.rpmFiles = nil
 		this.hint = nil
 		this.skipErrorFlag = false
-		this.verboseFlag = (sys.argv == '--verbose').or()
-		this.debugFlag = (sys.argv == '--debug').or()
-		this.progressFlag = (sys.argv == '--progress').or()
-		if ((sys.argv == '--here').or()) {
+		this.verboseFlag = this.cfg['verbose']
+		this.debugFlag = this.cfg['debug']
+		this.progressFlag = this.cfg['progress']
+		if (this.cfg['here']) {
 			this.outDir = '.'
 		}
 	}
 	build(target:string, srcs[]:string) = {
-		if ((sys.argv == '--hint').or()) {
+		if (this.cfg['hint']) {
 			this.printHint()
 			return(this)
 		}
@@ -25,11 +55,11 @@ BuilderBase = class {
 		if (!target.endswith('.gurd')) {
 			target = target + '.gurd'
 		}
-		if ((sys.argv == 'clean').or()) {
+		if (this.command == `clean) {
 			this.doClean(target)
 			return(this)
 		}
-		if ((sys.argv == '--rebuild').or()) {
+		if (this.cfg['rebuild']) {
 			this.doClean(target)
 		}
 		outDir = path.join(this.outDir, path.dirname(target))
@@ -41,8 +71,8 @@ BuilderBase = class {
 		}
 		objs = this.makeObjName(srcs)
 		!this.doLink(target, objs) && this.printHint() && return(this)
-		(sys.argv == 'install').or() && this.doInstall(target, true)
-		(sys.argv == 'install-root').or() && this.doInstall(target, false)
+		(this.command == `install) && this.doInstall(target, true)
+		(this.command == `install_root) && this.doInstall(target, false)
 		this
 	}
 	execute(pathname:string, args*:string) = {
@@ -78,6 +108,15 @@ BuilderBase = class {
 		dirName = path.dirname(targetPath)
 		!path.exists(dirName) && fs.mkdir(dirName):tree
 		copy(path.join(this.outDir, target), open(targetPath, 'w'))
+	}
+	printHelp(p:argopt.Parser) = {
+		sys.stderr.printf('usage: %s [options] command\n', path.filename(sys.argv[0]))
+		sys.stderr.println('command:')
+		sys.stderr.println(' clean        clean output files')
+		sys.stderr.println(' install      install output files')
+		sys.stderr.println(' install-root install output files to root directory')
+		sys.stderr.println('options:')
+		sys.stderr.println(' ', p.formatHelp())
 	}
 }
 
