@@ -310,15 +310,15 @@ Gura_ImplementMethod(Object, tostring)
 	return Value(env, str.c_str());
 }
 
-// object#getprop!(symbol:symbol, default?:nomap):map
-Gura_DeclareMethod(Object, getprop_X)
+// object.getprop!(symbol:symbol, default?:nomap):map
+Gura_DeclareClassMethod(Object, getprop_X)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "default", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
 }
 
-Gura_ImplementMethod(Object, getprop_X)
+Gura_ImplementClassMethod(Object, getprop_X)
 {
 	ObjectBase *pThis = args.GetThisObjBase();
 	if (args.IsDefined(1)) {
@@ -329,22 +329,22 @@ Gura_ImplementMethod(Object, getprop_X)
 	}
 }
 
-// object#setprop!(symbol:symbol, value):map
-Gura_DeclareMethod(Object, setprop_X)
+// object.setprop!(symbol:symbol, value):map
+Gura_DeclareClassMethod(Object, setprop_X)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "value", VTYPE_any);
 }
 
-Gura_ImplementMethod(Object, setprop_X)
+Gura_ImplementClassMethod(Object, setprop_X)
 {
 	ObjectBase *pThis = args.GetThisObjBase();
 	pThis->AssignValue(args.GetSymbol(0), args.GetValue(1), false);
 	return Value::Null;
 }
 
-// object#call!(symbol:symbol, args*, dict%):map {block?}
+// object.call!(symbol:symbol, args*, dict%):map {block?}
 class Gura_Method(Object, call_X) : public Function {
 public:
 	Gura_Method(Object, call_X)(Environment &env, const char *name);
@@ -353,7 +353,7 @@ public:
 };
 
 Gura_Method(Object, call_X)::Gura_Method(Object, call_X)(Environment &env, const char *name) :
-							Function(env, Symbol::Add(name), FUNCTYPE_Instance)
+							Function(env, Symbol::Add(name), FUNCTYPE_Class)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);
