@@ -37,6 +37,8 @@
       <section>
 <!-- ====================================================================== -->
 
+<h2>What's This?</h2>
+
 <p><strong>Gura</strong> is an <strong>iterator-oriented</strong> programming language
 that focuses on iterators with improved functions for calculation and data processing.
 It makes you be able to write an artificial code for
