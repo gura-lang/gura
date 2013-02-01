@@ -1,0 +1,100 @@
+#!/usr/bin/env gura
+//-----------------------------------------------------------------------------
+// argopt.gura
+// This module provides a parser of argument options.
+// example)
+//   import(argopt)
+// 	 argopt.Parser {|p|
+//       p.addParam('text', 't')
+//       p.addFlag('bold', 'b')
+//       [cfg, argv] = p.parse(sys.argv)
+//   }
+//-----------------------------------------------------------------------------
+Entry = struct(type:symbol, longName:string, shortName:string:nil, defValue)
+
+Parser = class {
+	__init__() = {
+		this.entries = []
+	}
+	parse(argv[]:string) = {
+		cfg = %{}
+		cfg[this.entries:*longName] = this.entries:*defValue
+		argvRest = []
+		i = argv.offset(1)
+		while (arg = i.next()) {
+			[entry, value] = [nil, nil]
+			if (arg.startswith('--')) {
+				if (arg.len() == 2) {
+					argvRest.add(arg)
+					continue
+				}
+				fields = arg.mid(2).split('='):list
+				if (fields.len() == 1) {
+					longName = fields[0]
+				} else {
+					[longName, value] = fields
+				}
+				entry = this.entries.seek(this.entries:*longName == longName)
+				!entry && raise(CommandError, 'unknown option --' + longName)
+			} elsif (arg.startswith('-')) {
+				if (arg.len() == 1) {
+					argvRest.add(arg)
+					continue
+				}
+				shortName = arg.mid(1, 1)
+				if (arg.len() > 2) {
+					value = arg.mid(2)
+				}
+				entry = this.entries.seek(this.entries:*shortName == shortName)
+				!entry && raise(CommandError, 'unknown option -' + shortName)
+				if (entry.type != `flag && !value) {
+					value = i.next()
+				}
+			} else {
+				argvRest.add(arg)
+				continue
+			}
+			if (entry.type == `flag) {
+				if (!value) {
+					value = true
+				} else {
+					str = value.lower()
+					if (str in ['t', 'true', 'on']) {
+						value = true
+					} elsif (str in ['f', 'false', 'off', 'nil']) {
+						value = false
+					} else {
+						raise(CommandError, 'invalid value for flag: ' + value)
+					}
+				}
+				cfg[entry.longName] = value
+			} elsif (value) {
+				cfg[entry.longName] = value
+			} else {
+				raise(CommandError, 'value is necessary')
+			}
+		}
+		[cfg, argvRest]
+	}
+	addParam(longName:string, shortName?:string, defValue?:string) = {
+		this.entries.add(Entry(`param, longName, shortName, defValue))
+	}
+	addFlag(longName:string, shortName?:string) = {
+		this.entries.add(Entry(`flag, longName, shortName, false))
+	}
+}
+
+if (__name__ == '__main__') {
+	Parser {|p|
+		p.addParam('text', 't')
+		p.addFlag('test')
+		p.addFlag('bold', 'b')
+		try {
+			[cfg, argv] = p.parse(sys.argv)
+		} except {|e|
+			println(e.text)
+			sys.exit(1)
+		}
+	}
+	println(cfg)
+}
