@@ -62,6 +62,7 @@ install(FILES
   DESTINATION share/gura/sample/resource)
 
 install(FILES
+  ${GURA_MODULE_DIR}/argopt.gura
   ${GURA_MODULE_DIR}/calendar.gura
   ${GURA_MODULE_DIR}/graph.gura
   ${GURA_MODULE_DIR}/gurcbuild.gura
