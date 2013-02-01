@@ -121,6 +121,7 @@ public:
 		AssignValue(Gura_Symbol(__name__), Value(*this, GetName()), false);
 	}
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
+	bool PropDir(Signal sig, SymbolSet &symbols);
 	virtual bool IsModule() const;
 	virtual Module *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);

@@ -483,18 +483,18 @@ const TimeDelta &Value::GetTimeDelta() const
 	return dynamic_cast<Object_timedelta *>(_u.pObj)->GetTimeDelta();
 }
 
-bool Value::PropDir(Environment &env, Signal sig, SymbolSet &symbols)
+bool Value::PropDir(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag)
 {
 	if (GetTinyBuffFlag()) {
 		// nothing to do
 	} else if (IsModule()) {
 		return GetModule()->PropDir(sig, symbols);
 	} else if (IsClass()) {
-		return GetClass()->PropDir(sig, symbols);
+		return GetClass()->PropDir(sig, symbols, escalateFlag);
 	} else if (IsObject()) {
 		return GetObject()->PropDir(sig, symbols);
 	}
-	return env.LookupClass(_valType)->PropDir(sig, symbols);
+	return env.LookupClass(_valType)->PropDir(sig, symbols, escalateFlag);
 }
 
 ErrorType Value::GetErrorType() const

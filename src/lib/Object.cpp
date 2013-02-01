@@ -49,9 +49,6 @@ Value ObjectBase::DoCall(Environment &env, Signal sig, Args &args)
 
 bool ObjectBase::DoPropDir(Signal sig, SymbolSet &symbols)
 {
-	foreach_const (ValueMap, iter, GetTopFrame().GetValueMap()) {
-		symbols.insert(iter->first);
-	}
 	return true;
 }
 
@@ -168,6 +165,22 @@ void Object::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const
 	pFunc->Eval(*this, sig, args);
 }
 
+bool Object::PropDir(Signal sig, SymbolSet &symbols)
+{
+	//foreach_const (ValueMap, iter, GetTopFrame().GetValueMap()) {
+	//	symbols.insert(iter->first);
+	//}
+	foreach_const (FrameList, ppFrame, GetFrameList()) {
+		const Frame *pFrame = *ppFrame;
+		if (pFrame->IsType(ENVTYPE_class) || pFrame->IsType(ENVTYPE_instance)) {
+			foreach_const (ValueMap, iter, pFrame->GetValueMap()) {
+				symbols.insert(iter->first);
+			}
+		}
+	}
+	return DoPropDir(sig, symbols);
+}
+
 Value Object::EvalMethod(Signal sig, const Function *pFunc, const ValueList &valListArg)
 {
 	const Function *pFuncSuccRequester = NULL;
@@ -187,19 +200,6 @@ Value Object::EvalMethod(Signal sig, const Symbol *pSymbol,
 	evaluatedFlag = true;
 	Args args(valListArg, valueThis, NULL, false, &pFuncSuccRequester);
 	return pFunc->Eval(*this, sig, args);
-}
-
-bool Object::DoPropDir(Signal sig, SymbolSet &symbols)
-{
-	foreach_const (FrameList, ppFrame, GetFrameList()) {
-		const Frame *pFrame = *ppFrame;
-		if (pFrame->IsType(ENVTYPE_class) || pFrame->IsType(ENVTYPE_instance)) {
-			foreach_const (ValueMap, iter, pFrame->GetValueMap()) {
-				symbols.insert(iter->first);
-			}
-		}
-	}
-	return true;
 }
 
 Value Object::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
@@ -457,6 +457,25 @@ Object *Class::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 	return new Object((pClass == NULL)? this : pClass);
 }
 
+bool Class::PropDir(Signal sig, SymbolSet &symbols, bool escalateFlag)
+{
+	if (escalateFlag) {
+		foreach_const (FrameList, ppFrame, GetFrameList()) {
+			const Frame *pFrame = *ppFrame;
+			if (pFrame->IsType(ENVTYPE_class) || pFrame->IsType(ENVTYPE_instance)) {
+				foreach_const (ValueMap, iter, pFrame->GetValueMap()) {
+					symbols.insert(iter->first);
+				}
+			}
+		}
+	} else {
+		foreach_const (ValueMap, iter, GetTopFrame().GetValueMap()) {
+			symbols.insert(iter->first);
+		}
+	}
+	return DoPropDir(sig, symbols);
+}
+
 bool Class::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	return false;
@@ -474,19 +493,6 @@ String Class::ToString(Signal sig, bool exprFlag)
 	str += GetName();
 	str += ">";
 	return str;
-}
-
-bool Class::DoPropDir(Signal sig, SymbolSet &symbols)
-{
-	foreach_const (FrameList, ppFrame, GetFrameList()) {
-		const Frame *pFrame = *ppFrame;
-		if (pFrame->IsType(ENVTYPE_class) || pFrame->IsType(ENVTYPE_instance)) {
-			foreach_const (ValueMap, iter, pFrame->GetValueMap()) {
-				symbols.insert(iter->first);
-			}
-		}
-	}
-	return true;
 }
 
 // assignment

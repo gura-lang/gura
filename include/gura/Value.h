@@ -582,7 +582,7 @@ public:
 	Object_palette *GetPaletteObj();
 	Object_palette *GetPaletteObj() const;
 	//-----------------------
-	bool PropDir(Environment &env, Signal sig, SymbolSet &symbols);
+	bool PropDir(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag);
 	ErrorType GetErrorType() const;
 	bool IsFlatList() const;
 	bool IsInstanceOf(ValueType valType) const;
