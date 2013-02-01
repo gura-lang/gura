@@ -58,7 +58,7 @@ for (dirName in dirNames) {
 		sys.argv = argvOrg
 	}
 }
-if (sys.argv[1] != 'install') {
+if (sys.argv.len() < 2 || sys.argv[1] != 'install') {
 	if (!debFiles.isempty()) {
 		fileName = 'install-deb.sh'
 		open(fileName, 'w').println('apt-get install -y ', set(debFiles))
