@@ -178,6 +178,7 @@ public:
 	Gura_DeclareSymbol(map);
 	Gura_DeclareSymbol(nomap);
 	Gura_DeclareSymbol(nocast);
+	Gura_DeclareSymbol(noesc);
 	Gura_DeclareSymbol(fork);
 	Gura_DeclareSymbol(strict);
 	Gura_DeclareSymbol(loose);
@@ -346,6 +347,16 @@ public:
 	Gura_DeclareSymbol(indent);
 	Gura_DeclareSymbol(noindent);
 	Gura_DeclareSymbol(autoindent);
+	Gura_DeclareSymbol(en);
+	Gura_DeclareSymbol(ar);
+	Gura_DeclareSymbol(bg);
+	Gura_DeclareSymbol(cs);
+	Gura_DeclareSymbol(de);
+	Gura_DeclareSymbol(fr);
+	Gura_DeclareSymbol(ja);
+	Gura_DeclareSymbol(ka);
+	Gura_DeclareSymbol(pl);
+	Gura_DeclareSymbol(sv);
 private:
 	typedef std::set<Symbol *, Symbol::KeyCompare_Name> Content;
 private:

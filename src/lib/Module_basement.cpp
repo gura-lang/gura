@@ -1117,16 +1117,17 @@ Gura_ImplementFunction(printf)
 	return Value::Null;
 }
 
-// dir(obj?)
+// dir(obj?):[noesc]
 Gura_DeclareFunction(dir)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "obj", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(noesc));
 }
 
 Gura_ImplementFunction(dir)
 {
-	bool escalateFlag = true;
+	bool escalateFlag = !args.IsSet(Gura_Symbol(noesc));
 	SymbolList symbolList;
 	if (args.IsValid(0)) {
 		SymbolSet symbols;

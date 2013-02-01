@@ -191,6 +191,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(map);
 	Gura_RealizeSymbol(nomap);
 	Gura_RealizeSymbol(nocast);
+	Gura_RealizeSymbol(noesc);
 	Gura_RealizeSymbol(fork);
 	Gura_RealizeSymbol(strict);
 	Gura_RealizeSymbol(loose);
@@ -359,6 +360,16 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(indent);
 	Gura_RealizeSymbol(noindent);
 	Gura_RealizeSymbol(autoindent);
+	Gura_RealizeSymbol(en);
+	Gura_RealizeSymbol(ar);
+	Gura_RealizeSymbol(bg);
+	Gura_RealizeSymbol(cs);
+	Gura_RealizeSymbol(de);
+	Gura_RealizeSymbol(fr);
+	Gura_RealizeSymbol(ja);
+	Gura_RealizeSymbol(ka);
+	Gura_RealizeSymbol(pl);
+	Gura_RealizeSymbol(sv);
 }
 
 const Symbol *SymbolPool::Add(const char *name)
