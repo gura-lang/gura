@@ -92,6 +92,7 @@ default:function = default() {block}
 dict:function = dict(elem[]?):[icase] {block?}
 dim:function = dim(n+:number) {block?}
 dir:function = dir(obj?):[noesc]
+dirtype:function = dirtype(obj?):[noesc]
 else:function = else() {block}
 elsif:function = elsif (`cond) {block}
 eval:function = eval(expr:expr):map
