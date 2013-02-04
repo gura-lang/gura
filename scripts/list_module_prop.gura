@@ -1,0 +1,8 @@
+#!/usr/bin/env gura
+import(wx)
+dirtype(wx).each() {|type|
+	println()
+	println('**** ', type, ' ****')
+	x = classref(`wx, type)
+	println(x.getprop!(dir(x):noesc))
+}
