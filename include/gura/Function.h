@@ -338,7 +338,7 @@ public:
 	inline bool IsHelpExist() const { return !_help.empty(); }
 	void DeclareBlock(OccurPattern occurPattern, const Symbol *pSymbol = NULL,
 			BlockScope blockScope = BLKSCOPE_Through, bool quoteFlag = false);
-	void SetHelp(const char *help);
+	void AddHelp(const Symbol *pSymbol, const char *help);
 	String ToString() const;
 	void SetError_DivideByZero(Signal sig) const;
 	void SetError_UnsupportedAttr(Signal sig, const SymbolSet &attrs) const;

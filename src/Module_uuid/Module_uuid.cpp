@@ -12,7 +12,7 @@ Gura_BeginModule(uuid)
 Gura_DeclareFunction(generate)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Generates a Universal Unique Identifier (UUID). In default, results are output in\n"
 	"lower-case characters. Specifying :upper would generates it in upper-case characters.");
 	DeclareAttr(Gura_Symbol(upper));

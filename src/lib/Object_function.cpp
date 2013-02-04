@@ -92,7 +92,7 @@ Value Object_function::DoSetProp(Signal sig,
 			sig.SetError(ERR_TypeError, "string must be specified");
 			return Value::Null;
 		}
-		GetFunction()->SetHelp(value.GetString());
+		GetFunction()->AddHelp(Gura_Symbol(en), value.GetString());
 		return value;
 	}
 	return DoGetProp(sig, pSymbol, evaluatedFlag);

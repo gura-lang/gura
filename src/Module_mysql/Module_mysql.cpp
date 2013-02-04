@@ -100,7 +100,7 @@ String Object_mysql::IteratorQuery::ToString(Signal sig) const
 Gura_DeclareMethod(mysql, close)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp("Shuts down the connection with an MySQL server.");
+	AddHelp(Gura_Symbol(en), "Shuts down the connection with an MySQL server.");
 }
 
 Gura_ImplementMethod(mysql, close)

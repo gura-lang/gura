@@ -3671,7 +3671,7 @@ Gura_DeclareFunction(AudioSpec)
 	DeclareArg(env, "samples",	VTYPE_number, OCCUR_Once, FLAG_None,
 												new Expr_Value(8192));
 	DeclareArg(env, "callback",	VTYPE_function, OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"It passes an audio object to the callback that is supposed to fill it\n"
 	"with audio data.");
 }

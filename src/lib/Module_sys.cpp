@@ -14,7 +14,7 @@ Gura_DeclareFunction(echo)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flag", VTYPE_boolean);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Enables or disables echo-back functionality according to flag.");
 }
 
@@ -29,7 +29,7 @@ Gura_DeclareFunction(exit)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "status", VTYPE_number, OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Terminates the program with a specified status number.");
 }
 

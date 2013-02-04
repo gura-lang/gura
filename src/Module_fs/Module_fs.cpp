@@ -680,7 +680,7 @@ Gura_DeclareFunction(rename)
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "src", VTYPE_string);
 	DeclareArg(env, "dst", VTYPE_string);
-	SetHelp("Renames a file or directory.");
+	AddHelp(Gura_Symbol(en), "Renames a file or directory.");
 }
 
 Gura_ImplementFunction(rename)
@@ -696,7 +696,7 @@ Gura_DeclareFunction(remove)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
-	SetHelp("Removes a file from the file system.");
+	AddHelp(Gura_Symbol(en), "Removes a file from the file system.");
 }
 
 Gura_ImplementFunction(remove)
@@ -713,7 +713,7 @@ Gura_DeclareFunction(mkdir)
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(tree));
-	SetHelp("Creates a directory.");
+	AddHelp(Gura_Symbol(en), "Creates a directory.");
 }
 
 Gura_ImplementFunction(mkdir)
@@ -734,7 +734,7 @@ Gura_DeclareFunction(rmdir)
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(tree));
-	SetHelp("Removes a directory.");
+	AddHelp(Gura_Symbol(en), "Removes a directory.");
 }
 
 Gura_ImplementFunction(rmdir)
@@ -754,7 +754,7 @@ Gura_DeclareFunction(chdir)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pathname", VTYPE_string);
-	SetHelp("Changes the current working directory.");
+	AddHelp(Gura_Symbol(en), "Changes the current working directory.");
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -782,7 +782,7 @@ Gura_ImplementFunction(chdir)
 Gura_DeclareFunction(getcwd)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp("Returns the current working directory.");
+	AddHelp(Gura_Symbol(en), "Returns the current working directory.");
 }
 
 Gura_ImplementFunction(getcwd)
@@ -797,7 +797,7 @@ Gura_DeclareFunction(chmod)
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_any);
 	DeclareArg(env, "pathname", VTYPE_string);
-	SetHelp("Changes the access mode of a file.");
+	AddHelp(Gura_Symbol(en), "Changes the access mode of a file.");
 }
 
 Gura_ImplementFunction(chmod)

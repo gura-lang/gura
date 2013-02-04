@@ -98,7 +98,7 @@ Gura_DeclareMethod(environment, eval)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "expr", VTYPE_expr);
-	SetHelp("Evaluates the expr instance in the environment and returns its result.");
+	AddHelp(Gura_Symbol(en), "Evaluates the expr instance in the environment and returns its result.");
 }
 
 Gura_ImplementMethod(environment, eval)
@@ -114,7 +114,7 @@ Gura_DeclareMethod(environment, lookup)
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "escalate", VTYPE_boolean,
 						OCCUR_Once, FLAG_None, new Expr_Value(Value(true)));
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Looks up a specified symbol in the environment and returns the associated value.\n"
 	"In default, if the symbol is not defined in the environment, it will be searched\n"
 	"in environments outside of the current one. Set escalate flag to false\n"

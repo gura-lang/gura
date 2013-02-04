@@ -550,7 +550,7 @@ Gura_DeclareMethod(face, drawtext)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "str", VTYPE_string);
-	SetHelp("Draws a text on the image.");
+	AddHelp(Gura_Symbol(en), "Draws a text on the image.");
 }
 
 Gura_ImplementMethod(face, drawtext)
@@ -633,7 +633,7 @@ Gura_DeclareMethod(image, drawtext)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "str", VTYPE_string);
-	SetHelp("Draws a text on the image.");
+	AddHelp(Gura_Symbol(en), "Draws a text on the image.");
 }
 
 Gura_ImplementMethod(image, drawtext)

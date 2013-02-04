@@ -938,7 +938,7 @@ Gura_DeclareFunction(color)
 	DeclareArg(env, "args", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_color));
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Gets either of a color symbol or a list of elements of red, green, blue and alpha,\n"
 	"and returns an color object.");
 }

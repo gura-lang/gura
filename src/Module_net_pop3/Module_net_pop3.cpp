@@ -14,7 +14,7 @@ Gura_DeclareFunction(test)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "num1", VTYPE_number);
 	DeclareArg(env, "num2", VTYPE_number);
-	SetHelp("adds two numbers and returns the result.");
+	AddHelp(Gura_Symbol(en), "adds two numbers and returns the result.");
 }
 
 Gura_ImplementFunction(test)

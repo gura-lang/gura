@@ -172,7 +172,7 @@ Gura_DeclareMethod(uri, scheme)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
-	SetHelp("Sets or gets scheme part of the URI.");
+	AddHelp(Gura_Symbol(en), "Sets or gets scheme part of the URI.");
 }
 
 Gura_ImplementMethod(uri, scheme)
@@ -191,7 +191,7 @@ Gura_DeclareMethod(uri, user)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
-	SetHelp("Sets or gets scheme user of the URI.");
+	AddHelp(Gura_Symbol(en), "Sets or gets scheme user of the URI.");
 }
 
 Gura_ImplementMethod(uri, user)
@@ -211,7 +211,7 @@ Gura_DeclareMethod(uri, password)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
-	SetHelp("Sets or gets password part of the URI.");
+	AddHelp(Gura_Symbol(en), "Sets or gets password part of the URI.");
 }
 
 Gura_ImplementMethod(uri, password)
@@ -230,7 +230,7 @@ Gura_DeclareMethod(uri, host)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
-	SetHelp("Sets or gets host part of the URI.");
+	AddHelp(Gura_Symbol(en), "Sets or gets host part of the URI.");
 }
 
 Gura_ImplementMethod(uri, host)
@@ -249,7 +249,7 @@ Gura_DeclareMethod(uri, port)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
-	SetHelp("Sets or gets port part of the URI.");
+	AddHelp(Gura_Symbol(en), "Sets or gets port part of the URI.");
 }
 
 Gura_ImplementMethod(uri, port)
@@ -268,7 +268,7 @@ Gura_DeclareMethod(uri, urlpath)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
-	SetHelp("Sets or gets url-path part of the URI.");
+	AddHelp(Gura_Symbol(en), "Sets or gets url-path part of the URI.");
 }
 
 Gura_ImplementMethod(uri, urlpath)

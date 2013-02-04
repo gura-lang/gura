@@ -325,7 +325,7 @@ void Function::DeclareBlock(OccurPattern occurPattern,
 	_blockInfo.quoteFlag = quoteFlag;
 }
 
-void Function::SetHelp(const char *help)
+void Function::AddHelp(const Symbol *pSymbol, const char *help)
 {
 	_help = help;
 }

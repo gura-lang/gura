@@ -61,7 +61,7 @@ Gura_DeclareFunction(exec)
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareArg(env, "args", VTYPE_string, OCCUR_ZeroOrMore);
 	DeclareAttr(Gura_Symbol(fork));
-	SetHelp("Executes the specified executable file.");
+	AddHelp(Gura_Symbol(en), "Executes the specified executable file.");
 }
 
 Gura_ImplementFunction(exec)
@@ -91,7 +91,7 @@ Gura_DeclareFunction(fromnative)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buff", VTYPE_binary);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Converts binary data that includes OS's native string into Gura's regulated string.");
 }
 
@@ -107,7 +107,7 @@ Gura_DeclareFunction(tonative)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Converts Gura's regulated string into binary data that includes OS's native string.");
 }
 
@@ -125,7 +125,7 @@ Gura_DeclareFunction(getenv)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
-	SetHelp("Returns the value of a environment variable.");
+	AddHelp(Gura_Symbol(en), "Returns the value of a environment variable.");
 }
 
 Gura_ImplementFunction(getenv)
@@ -140,7 +140,7 @@ Gura_DeclareFunction(putenv)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareArg(env, "value", VTYPE_string);
-	SetHelp("Set the value of a environment variable.");
+	AddHelp(Gura_Symbol(en), "Set the value of a environment variable.");
 }
 
 Gura_ImplementFunction(putenv)

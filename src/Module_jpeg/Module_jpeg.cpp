@@ -14,7 +14,7 @@ Gura_DeclareMethod(image, jpegread)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	SetHelp("Reads a JPEG image from a stream.");
+	AddHelp(Gura_Symbol(en), "Reads a JPEG image from a stream.");
 }
 
 Gura_ImplementMethod(image, jpegread)
@@ -33,7 +33,7 @@ Gura_DeclareMethod(image, jpegwrite)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "quality", VTYPE_number, OCCUR_Once,
 										FLAG_None, new Expr_Value(75));
-	SetHelp("Writes a JPEG image to a stream.");
+	AddHelp(Gura_Symbol(en), "Writes a JPEG image to a stream.");
 }
 
 Gura_ImplementMethod(image, jpegwrite)

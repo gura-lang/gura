@@ -672,7 +672,7 @@ Gura_ImplementFunction(ListInit)
 Gura_DeclareMethod(list, clear)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
-	SetHelp("Clear the content of the list.");
+	AddHelp(Gura_Symbol(en), "Clear the content of the list.");
 }
 
 Gura_ImplementMethod(list, clear)
@@ -686,7 +686,7 @@ Gura_ImplementMethod(list, clear)
 Gura_DeclareMethod(list, isempty)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp("Return true if the list is empty.");
+	AddHelp(Gura_Symbol(en), "Return true if the list is empty.");
 }
 
 Gura_ImplementMethod(list, isempty)
@@ -699,7 +699,7 @@ Gura_ImplementMethod(list, isempty)
 Gura_DeclareMethod(list, shuffle)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
-	SetHelp("Shuffle the order of the list content based on random numbers.");
+	AddHelp(Gura_Symbol(en), "Shuffle the order of the list content based on random numbers.");
 }
 
 Gura_ImplementMethod(list, shuffle)
@@ -716,7 +716,7 @@ Gura_DeclareMethod(list, add)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "elem", VTYPE_any, OCCUR_OnceOrMore);
-	SetHelp("Add specified items to the list.");
+	AddHelp(Gura_Symbol(en), "Add specified items to the list.");
 }
 
 Gura_ImplementMethod(list, add)
@@ -735,7 +735,7 @@ Gura_DeclareMethod(list, insert)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "idx", VTYPE_number);
 	DeclareArg(env, "elem", VTYPE_any, OCCUR_OnceOrMore);
-	SetHelp("Insert specified items to the list from the selected index.");
+	AddHelp(Gura_Symbol(en), "Insert specified items to the list from the selected index.");
 }
 
 Gura_ImplementMethod(list, insert)
@@ -759,7 +759,7 @@ Gura_DeclareMethod(list, append)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "elem", VTYPE_any, OCCUR_OnceOrMore);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Adds specified items to the list. If the item is a list or an iterator,\n"
 	"each element in such an item is added to the list.");
 }
@@ -793,7 +793,7 @@ Gura_DeclareMethod(list, shift)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(raise));
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Shifts the elements of the list. If the content of the list is [1, 2, 3, 4],\n"
 	"it becomes [2, 3, 4] after calling this method. In default, no error occurs\n"
 	"even when the list is empty. To raise an error for executing this method on\n"
@@ -820,7 +820,7 @@ Gura_DeclareMethod(list, erase)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_ZeroOrMore);
-	SetHelp("Erases elements at the specified indices.");
+	AddHelp(Gura_Symbol(en), "Erases elements at the specified indices.");
 }
 
 Gura_ImplementMethod(list, erase)
@@ -849,7 +849,7 @@ Gura_DeclareMethod(list, get)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
 	DeclareArg(env, "index", VTYPE_number);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns a value stored at the specified index in the list.\n"
 	"An error occurs when the index is out of range.");
 }
@@ -864,7 +864,7 @@ Gura_ImplementMethod(list, get)
 Gura_DeclareMethod(list, first)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns a first value in the list. An error occurs when the list is empty.");
 }
 
@@ -883,7 +883,7 @@ Gura_ImplementMethod(list, first)
 Gura_DeclareMethod(list, last)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns a last value in the list. An error occurs when the list is empty.");
 }
 
@@ -904,7 +904,7 @@ Gura_DeclareMethod(list, permutation)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Creates an iterator that generates lists that contain elements picked up\n"
 	"from the original list in a permutation manner.\n"
 	ITERATOR_HELP
@@ -930,7 +930,7 @@ Gura_DeclareMethod(list, combination)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Creates an iterator that generates lists that contain elements picked up\n"
 	"from the original list in a combination manner.\n"
 	ITERATOR_HELP
@@ -954,7 +954,7 @@ Gura_ImplementMethod(list, combination)
 Gura_DeclareMethod(list, flat)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp("Returns the flattened list.");
+	AddHelp(Gura_Symbol(en), "Returns the flattened list.");
 }
 
 Gura_ImplementMethod(list, flat)
@@ -972,7 +972,7 @@ Gura_DeclareMethod(list, printf)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	SetHelp("Prints items in the list by using the format.");
+	AddHelp(Gura_Symbol(en), "Prints items in the list by using the format.");
 }
 
 Gura_ImplementMethod(list, printf)
@@ -990,7 +990,7 @@ Gura_ImplementMethod(list, printf)
 Gura_DeclareMethod(list, len)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp("Returns the length of the list.");
+	AddHelp(Gura_Symbol(en), "Returns the length of the list.");
 }
 
 Gura_ImplementMethod(list, len)
@@ -1007,7 +1007,7 @@ Gura_DeclareMethod(list, min)
 	DeclareAttr(Gura_Symbol(index));
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns the minimum value in the list when no attribute is specified.\n"
 	"With an attribute :index, it returns an index of the minimum value.\n"
 	"With an attribute :last_index, it returns the last index of the minimum value\n"
@@ -1033,7 +1033,7 @@ Gura_DeclareMethod(list, max)
 	DeclareAttr(Gura_Symbol(index));
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns the maximum value in the list when no attribute is specified.\n"
 	"With an attribute :index, it returns an index of the maximum value.\n"
 	"With an attribute :last_index, it returns the last index of the maximum value\n"
@@ -1056,7 +1056,7 @@ Gura_ImplementMethod(list, max)
 Gura_DeclareMethod(list, sum)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp("Returns a sum of values in the list.");
+	AddHelp(Gura_Symbol(en), "Returns a sum of values in the list.");
 }
 
 Gura_ImplementMethod(list, sum)
@@ -1074,7 +1074,7 @@ Gura_ImplementMethod(list, sum)
 Gura_DeclareMethod(list, average)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp("Returns an average of values in the list.");
+	AddHelp(Gura_Symbol(en), "Returns an average of values in the list.");
 }
 
 Gura_ImplementMethod(list, average)
@@ -1092,7 +1092,7 @@ Gura_ImplementMethod(list, average)
 Gura_DeclareMethod(list, variance)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp("Returns a variance of values in the list.");
+	AddHelp(Gura_Symbol(en), "Returns a variance of values in the list.");
 }
 
 Gura_ImplementMethod(list, variance)
@@ -1110,7 +1110,7 @@ Gura_ImplementMethod(list, variance)
 Gura_DeclareMethod(list, stddev)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp("Returns a standard deviation of values in the list.");
+	AddHelp(Gura_Symbol(en), "Returns a standard deviation of values in the list.");
 }
 
 Gura_ImplementMethod(list, stddev)
@@ -1128,7 +1128,7 @@ Gura_ImplementMethod(list, stddev)
 Gura_DeclareMethodAlias(list, and_, "and")
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Calculates a logical AND result of all the values in the list.\n"
 	"Values of boolean type's false and nil are recognized as false\n"
 	"while others are true.");
@@ -1148,7 +1148,7 @@ Gura_ImplementMethod(list, and_)
 Gura_DeclareMethodAlias(list, or_, "or")
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Calculates a logical OR result of all the values in the list.\n"
 	"Values of boolean type's false and nil are recognized as false\n"
 	"while others are true.");
@@ -1169,7 +1169,7 @@ Gura_DeclareMethod(list, iscontain)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns true if a specified value exists in the list.");
 }
 
@@ -1189,7 +1189,7 @@ Gura_DeclareMethod(list, filter)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns a list that consists of elements of the original list after filtering\n"
 	"by a criteria. A criteria can be an iterator or a function object.\n"
 	"When an iterator is supplied as a criteria, it picks up true value in the iterator\n"
@@ -1236,7 +1236,7 @@ Gura_DeclareMethodAlias(list, while_, "while")
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Creates an iterator that picks up each element in the list while criteria\n"
 	"is evaluated as true. You can specify a function object, a list or an iterator\n"
 	"as the criteria.\n"
@@ -1263,7 +1263,7 @@ Gura_DeclareMethod(list, since)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Creates an iterator that picks up each element in the list since criteria\n"
 	"is evaluated as true. You can specify a function object, a list or an iterator\n"
 	"as the criteria.\n"
@@ -1290,7 +1290,7 @@ Gura_DeclareMethod(list, after)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Creates an iterator that picks up each element in the list after criteria\n"
 	"is evaluated as true. You can specify a function object, a list or an iterator\n"
 	"as the criteria.\n"
@@ -1317,7 +1317,7 @@ Gura_DeclareMethod(list, until)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Creates an iterator that picks up each element in the list until criteria\n"
 	"is evaluated as true. You can specify a function object, a list or an iterator\n"
 	"as the criteria.\n"
@@ -1344,7 +1344,7 @@ Gura_DeclareMethod(list, before)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Creates an iterator that picks up each element in the list before criteria\n"
 	"is evaluated as true. You can specify a function object, a list or an iterator\n"
 	"as the criteria.\n"
@@ -1371,7 +1371,7 @@ Gura_DeclareMethod(list, map)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "func", VTYPE_function);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Creates an iterator that generates element values after applying the specfied\n"
 	"function on them. The function must take one argument.\n"
 	ITERATOR_HELP
@@ -1394,7 +1394,7 @@ Gura_DeclareMethod(list, reduce)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "accum", VTYPE_any);
 	DeclareBlock(OCCUR_Once);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Evaluates a block with a parameter format |value, accum| and leaves the result\n"
 	"as the next accum value. It returns the final accum value as its result.");
 }
@@ -1436,7 +1436,7 @@ Gura_DeclareMethod(list, count)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns a number of elements that matches the given criteria which is a single-argument\n"
 	"function or a value. When a function is applied, it counts the number of true after\n"
 	"evaluating element value with the function. If a value is applied, it counts the number\n"
@@ -1462,7 +1462,7 @@ Gura_DeclareMethod(list, sort)
 	DeclareArg(env, "keys", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_List);
 	DeclareAttr(Gura_Symbol(stable));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns an iterator of elements after sorting them.\n"
 	"In default, they are sorted in an ascending order. You can specify the following\n"
 	"directives for sorting.\n"
@@ -1492,7 +1492,7 @@ Gura_DeclareMethod(list, rank)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "directive", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(stable));
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns a list of rank numbers for elements after sorting them.\n"
 	"In default, they are sorted in an ascending order. You can specify the following\n"
 	"directives for sorting.\n"
@@ -1519,7 +1519,7 @@ Gura_DeclareMethod(list, join)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "sep", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_String(""));
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns a string that joins strings of elements with the specified separator.");
 }
 
@@ -1535,7 +1535,7 @@ Gura_DeclareMethod(list, format)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Applies element values in the list to format string that contains C printf"
 	"specifiers	and returns a formatted string.");
 }
@@ -1552,7 +1552,7 @@ Gura_DeclareMethod(list, pack)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns a binary object packing elements values according to a format string.\n"
 	"Following markers specify the order of how a multi-byte number is stored.\n"
 	" @  sets as a native order for the current platform\n"
@@ -1595,7 +1595,7 @@ Gura_DeclareMethod(list, each)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Creates an iterator that iterates each element in the list.\n"
 	ITERATOR_HELP
 	"Block parameter format: |value, idx:number|");

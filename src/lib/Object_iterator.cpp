@@ -168,7 +168,7 @@ Gura_DeclareFunction(zipv)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Creates an iterator generating lists that bind given argument values.\n"
 	"When the value is a list or an iterator, each item in it would be zipped.\n"
 	ITERATOR_HELP);
@@ -348,7 +348,7 @@ Gura_ImplementMethod(iterator, next)
 Gura_DeclareMethod(iterator, len)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp("Returns the length of the iterator.");
+	AddHelp(Gura_Symbol(en), "Returns the length of the iterator.");
 }
 
 Gura_ImplementMethod(iterator, len)
@@ -369,7 +369,7 @@ Gura_DeclareMethod(iterator, min)
 	DeclareAttr(Gura_Symbol(index));
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns the minimum value in the iterator when no attribute is specified.\n"
 	"With an attribute :index, it returns an index of the minimum value.\n"
 	"With an attribute :last_index, it returns the last index of the minimum value\n"
@@ -394,7 +394,7 @@ Gura_DeclareMethod(iterator, max)
 	DeclareAttr(Gura_Symbol(index));
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns the maximum value in the iterator when no attribute is specified.\n"
 	"With an attribute :index, it returns an index of the maximum value.\n"
 	"With an attribute :last_index, it returns the last index of the maximum value\n"
@@ -416,7 +416,7 @@ Gura_ImplementMethod(iterator, max)
 Gura_DeclareMethod(iterator, sum)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp("Returns a sum of values in the iterator.");
+	AddHelp(Gura_Symbol(en), "Returns a sum of values in the iterator.");
 }
 
 Gura_ImplementMethod(iterator, sum)
@@ -434,7 +434,7 @@ Gura_ImplementMethod(iterator, sum)
 Gura_DeclareMethod(iterator, average)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp("Returns an average of values in the iterator.");
+	AddHelp(Gura_Symbol(en), "Returns an average of values in the iterator.");
 }
 
 Gura_ImplementMethod(iterator, average)
@@ -452,7 +452,7 @@ Gura_ImplementMethod(iterator, average)
 Gura_DeclareMethod(iterator, variance)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp("Returns a variance of values in the iterator.");
+	AddHelp(Gura_Symbol(en), "Returns a variance of values in the iterator.");
 }
 
 Gura_ImplementMethod(iterator, variance)
@@ -470,7 +470,7 @@ Gura_ImplementMethod(iterator, variance)
 Gura_DeclareMethod(iterator, stddev)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	SetHelp("Returns a standard deviation of values in the iterator.");
+	AddHelp(Gura_Symbol(en), "Returns a standard deviation of values in the iterator.");
 }
 
 Gura_ImplementMethod(iterator, stddev)
@@ -521,7 +521,7 @@ Gura_DeclareMethod(iterator, iscontain)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
-	SetHelp(
+	AddHelp(Gura_Symbol(en), 
 	"Returns true if a specified value exists in the iterated elements.");
 }
 
