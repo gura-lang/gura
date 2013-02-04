@@ -1273,26 +1273,28 @@ Gura_ImplementFunction(istype_)
 	return Value(valType == valTypeCmp);
 }
 
-// istype(value, type:expr):map
+// istype(value, type+:expr):map
 Gura_DeclareFunction(istype)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
-	DeclareArg(env, "type", VTYPE_expr);
+	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 }
 
 Gura_ImplementFunction(istype)
 {
 	SymbolList symbolList;
-	if (!args.GetExpr(1)->GetChainedSymbolList(symbolList)) {
-		sig.SetError(ERR_TypeError, "invalid type name %s",
-								args.GetExpr(1)->ToString().c_str());
-		return Value::Null;
+	foreach_const_reverse (ValueList, pValue, args.GetList(1)) {
+		if (!pValue->GetExpr()->GetChainedSymbolList(symbolList)) {
+			sig.SetError(ERR_TypeError, "invalid type name %s",
+									pValue->GetExpr()->ToString().c_str());
+			return Value::Null;
+		}
 	}
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(symbolList);
 	if (pValueTypeInfo == NULL) {
 		sig.SetError(ERR_ValueError, "invalid type name %s",
-								args.GetExpr(1)->ToString().c_str());
+								symbolList.Join(".").c_str());
 		return Value::Null;
 	}
 	ValueType valType = args.GetValue(0).GetType();
@@ -1301,51 +1303,55 @@ Gura_ImplementFunction(istype)
 	return Value(valType == valTypeCmp);
 }
 
-// isinstance(value, type:expr):map
+// isinstance(value, type+:expr):map
 Gura_DeclareFunction(isinstance)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
-	DeclareArg(env, "type", VTYPE_expr);
+	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 }
 
 Gura_ImplementFunction(isinstance)
 {
 	SymbolList symbolList;
-	if (!args.GetExpr(1)->GetChainedSymbolList(symbolList)) {
-		sig.SetError(ERR_TypeError, "invalid type name %s",
-								args.GetExpr(1)->ToString().c_str());
-		return Value::Null;
+	foreach_const_reverse (ValueList, pValue, args.GetList(1)) {
+		if (!pValue->GetExpr()->GetChainedSymbolList(symbolList)) {
+			sig.SetError(ERR_TypeError, "invalid type name %s",
+									pValue->GetExpr()->ToString().c_str());
+			return Value::Null;
+		}
 	}
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(symbolList);
 	if (pValueTypeInfo == NULL) {
 		sig.SetError(ERR_ValueError, "invalid type name %s",
-								args.GetExpr(1)->ToString().c_str());
+								symbolList.Join(".").c_str());
 		return Value::Null;
 	}
 	return args.GetValue(0).IsInstanceOf(pValueTypeInfo->GetValueType());
 }
 
-// classref(type:expr):map {block?}
+// classref(type+:expr):map {block?}
 Gura_DeclareFunction(classref)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "type", VTYPE_expr);
+	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(classref)
 {
 	SymbolList symbolList;
-	if (!args.GetExpr(0)->GetChainedSymbolList(symbolList)) {
-		sig.SetError(ERR_TypeError, "invalid type name %s",
-								args.GetExpr(0)->ToString().c_str());
-		return Value::Null;
+	foreach_const_reverse (ValueList, pValue, args.GetList(0)) {
+		if (!pValue->GetExpr()->GetChainedSymbolList(symbolList)) {
+			sig.SetError(ERR_TypeError, "invalid type name %s",
+									pValue->GetExpr()->ToString().c_str());
+			return Value::Null;
+		}
 	}
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(symbolList);
 	if (pValueTypeInfo == NULL) {
 		sig.SetError(ERR_ValueError, "invalid type name %s",
-								args.GetExpr(0)->ToString().c_str());
+								symbolList.Join(".").c_str());
 		return Value::Null;
 	}
 	if (pValueTypeInfo->GetClass() == NULL) {
