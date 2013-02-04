@@ -1,7 +1,7 @@
 path.walk('', 1, '*.cpp', '*.h') {|fileName|
 	println(fileName)
-	lines = open(fileName).readlines():list
-	lines = lines::replace('ascript/', 'gura/')
+	lines = readlines(fileName):list
+	lines = lines:*replace('PropGet', 'GetProp'):*replace('PropSet', 'SetProp'):*replace('PropDir', 'DirProp')
 	open(fileName, 'w').dosmode(false).print(lines)
 	//print(lines)
 }
