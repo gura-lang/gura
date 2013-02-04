@@ -344,12 +344,12 @@ const ValueTypeInfo *Environment::LookupValueType(const Symbol *pSymbol) const
 	return NULL;
 }
 
-Value Environment::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Environment::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	return Value::Null;
 }
 
-Value Environment::DoPropSet(Signal sig, const Symbol *pSymbol,
+Value Environment::DoSetProp(Signal sig, const Symbol *pSymbol,
 										const Value &value, bool &evaluatedFlag)
 {
 	return Value::Null;
@@ -360,12 +360,12 @@ ICallable *Environment::GetCallable(Signal sig, const Symbol *pSymbol)
 	return NULL;
 }
 
-Value Environment::PropGet(Signal sig, const Symbol *pSymbol, const Value *pValueDefault)
+Value Environment::GetProp(Signal sig, const Symbol *pSymbol, const Value *pValueDefault)
 {
 	const Value *pValue = LookupValue(pSymbol, true);
 	if (pValue != NULL) return *pValue;
 	bool evaluatedFlag = false;
-	Value result = DoPropGet(sig, pSymbol, evaluatedFlag);
+	Value result = DoGetProp(sig, pSymbol, evaluatedFlag);
 	if (sig.IsSignalled()) return Value::Null;
 	if (evaluatedFlag) return result;
 	if (pValueDefault != NULL) return *pValueDefault;

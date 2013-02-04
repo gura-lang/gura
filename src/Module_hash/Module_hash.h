@@ -47,8 +47,8 @@ public:
 	Object_hash(Class *pClass, HashBase *pHash, const char *name);
 	virtual ~Object_hash();
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline HashBase &GetHash() {
 		return *dynamic_cast<HashBase *>(&GetStream());

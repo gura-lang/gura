@@ -120,16 +120,16 @@ const Symbol *Object_audio::FormatToSymbol(Format format)
 	}
 }
 
-bool Object_audio::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_audio::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(format));
 	symbols.insert(Gura_Symbol(channels));
 	symbols.insert(Gura_Symbol(len));
 	return true;
 }
 
-Value Object_audio::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_audio::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
@@ -143,10 +143,10 @@ Value Object_audio::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluated
 	return Value::Null;
 }
 
-Value Object_audio::DoPropSet(Signal sig, const Symbol *pSymbol,
+Value Object_audio::DoSetProp(Signal sig, const Symbol *pSymbol,
 									const Value &value, bool &evaluatedFlag)
 {
-	return DoPropGet(sig, pSymbol, evaluatedFlag);
+	return DoGetProp(sig, pSymbol, evaluatedFlag);
 }
 
 String Object_audio::ToString(Signal sig, bool exprFlag)

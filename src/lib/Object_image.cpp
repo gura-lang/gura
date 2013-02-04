@@ -7,9 +7,9 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object_image (common)
 //-----------------------------------------------------------------------------
-bool Object_image::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_image::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(format));
 	symbols.insert(Gura_Symbol(width));
 	symbols.insert(Gura_Symbol(height));
@@ -17,7 +17,7 @@ bool Object_image::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_image::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_image::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
@@ -34,7 +34,7 @@ Value Object_image::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluated
 	return Value::Null;
 }
 
-Value Object_image::DoPropSet(Signal sig, const Symbol *pSymbol,
+Value Object_image::DoSetProp(Signal sig, const Symbol *pSymbol,
 									const Value &value, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(palette))) {
@@ -49,7 +49,7 @@ Value Object_image::DoPropSet(Signal sig, const Symbol *pSymbol,
 			return Value::Null;
 		}
 	}
-	return DoPropGet(sig, pSymbol, evaluatedFlag);
+	return DoGetProp(sig, pSymbol, evaluatedFlag);
 }
 
 String Object_image::ToString(Signal sig, bool exprFlag)

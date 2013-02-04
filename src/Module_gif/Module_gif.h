@@ -267,8 +267,8 @@ public:
 	inline Object_content() : Object(Gura_UserClass(content)) {}
 	virtual ~Object_content();
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline GIF &GetGIF() { return _gif; }
 };
@@ -288,8 +288,8 @@ public:
 	inline Object_Header(Object_content *pObjContent) :
 				Object(Gura_UserClass(Header)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 };
 
@@ -308,8 +308,8 @@ public:
 	inline Object_LogicalScreenDescriptor(Object_content *pObjContent) :
 				Object(Gura_UserClass(LogicalScreenDescriptor)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 };
 
@@ -328,8 +328,8 @@ public:
 	inline Object_CommentExtension(Object_content *pObjContent) :
 				Object(Gura_UserClass(CommentExtension)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 };
 
@@ -348,8 +348,8 @@ public:
 	inline Object_PlainTextExtension(Object_content *pObjContent) :
 				Object(Gura_UserClass(PlainTextExtension)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 };
 
@@ -368,8 +368,8 @@ public:
 	inline Object_ApplicationExtension(Object_content *pObjContent) :
 				Object(Gura_UserClass(ApplicationExtension)), _pObjContent(pObjContent) {}
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 };
 
@@ -388,8 +388,8 @@ public:
 					Object(Gura_UserClass(GraphicControl)), _gctl(gctl) {}
 	virtual ~Object_GraphicControl();
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline GIF::GraphicControlExtension *GetGraphicControl() { return &_gctl; }
 };
@@ -409,8 +409,8 @@ public:
 					Object(Gura_UserClass(ImageDescriptor)), _desc(desc) {}
 	virtual ~Object_ImageDescriptor();
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline GIF::ImageDescriptor *GetImageDescriptor() { return &_desc; }
 };
@@ -433,8 +433,8 @@ public:
 				_pObjImageDescriptor(pObjImageDescriptor) {}
 	virtual ~Object_imgprop();
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline GIF::GraphicControlExtension *GetGraphicControl() {
 		return _pObjGraphicControl->GetGraphicControl();

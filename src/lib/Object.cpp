@@ -47,7 +47,7 @@ Value ObjectBase::DoCall(Environment &env, Signal sig, Args &args)
 	return Value::Null;
 }
 
-bool ObjectBase::DoPropDir(Signal sig, SymbolSet &symbols)
+bool ObjectBase::DoDirProp(Signal sig, SymbolSet &symbols)
 {
 	return true;
 }
@@ -165,7 +165,7 @@ void Object::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const
 	pFunc->Eval(*this, sig, args);
 }
 
-bool Object::PropDir(Signal sig, SymbolSet &symbols)
+bool Object::DirProp(Signal sig, SymbolSet &symbols)
 {
 	//foreach_const (ValueMap, iter, GetTopFrame().GetValueMap()) {
 	//	symbols.insert(iter->first);
@@ -178,7 +178,7 @@ bool Object::PropDir(Signal sig, SymbolSet &symbols)
 			}
 		}
 	}
-	return DoPropDir(sig, symbols);
+	return DoDirProp(sig, symbols);
 }
 
 Value Object::EvalMethod(Signal sig, const Function *pFunc, const ValueList &valListArg)
@@ -202,7 +202,7 @@ Value Object::EvalMethod(Signal sig, const Symbol *pSymbol,
 	return pFunc->Eval(*this, sig, args);
 }
 
-Value Object::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getprop__), true);
 	if (pFunc == NULL) return Value::Null;
@@ -215,7 +215,7 @@ Value Object::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 	return pFunc->Eval(*this, sig, args);
 }
 
-Value Object::DoPropSet(Signal sig, const Symbol *pSymbol,
+Value Object::DoSetProp(Signal sig, const Symbol *pSymbol,
 										const Value &value, bool &evaluatedFlag)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setprop__), true);
@@ -323,9 +323,9 @@ Gura_ImplementClassMethod(Object, getprop_X)
 	ObjectBase *pThis = args.GetThisObjBase();
 	if (args.IsDefined(1)) {
 		Value value = args.GetValue(1);
-		return pThis->PropGet(sig, args.GetSymbol(0), &value);
+		return pThis->GetProp(sig, args.GetSymbol(0), &value);
 	} else {
-		return pThis->PropGet(sig, args.GetSymbol(0));
+		return pThis->GetProp(sig, args.GetSymbol(0));
 	}
 }
 
@@ -383,7 +383,7 @@ Value Gura_Method(Object, call_X)::EvalExpr(Environment &env, Signal sig, Args &
 	Value valueFunc;
 	const Value *pValue = pThis->LookupValue(pSymbol, true);
 	if (pValue == NULL) {
-		valueFunc = pThis->PropGet(sig, pSymbol);
+		valueFunc = pThis->GetProp(sig, pSymbol);
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
 		valueFunc = *pValue;
@@ -457,7 +457,7 @@ Object *Class::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 	return new Object((pClass == NULL)? this : pClass);
 }
 
-bool Class::PropDir(Signal sig, SymbolSet &symbols, bool escalateFlag)
+bool Class::DirProp(Signal sig, SymbolSet &symbols, bool escalateFlag)
 {
 	if (escalateFlag) {
 		foreach_const (FrameList, ppFrame, GetFrameList()) {
@@ -473,7 +473,7 @@ bool Class::PropDir(Signal sig, SymbolSet &symbols, bool escalateFlag)
 			symbols.insert(iter->first);
 		}
 	}
-	return DoPropDir(sig, symbols);
+	return DoDirProp(sig, symbols);
 }
 
 bool Class::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

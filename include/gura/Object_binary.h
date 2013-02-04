@@ -63,8 +63,8 @@ public:
 	Object_binary(const Object_binary &obj);
 	virtual ~Object_binary();
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal sig);

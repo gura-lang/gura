@@ -49,8 +49,8 @@ public:
 	inline Stream &GetStream() { return *_pStream; }
 	virtual ~Object_stream();
 	virtual Iterator *CreateIterator(Signal sig);
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 };
 

@@ -23,9 +23,9 @@ Object *Object_datetime::Clone() const
 	return new Object_datetime(*this);
 }
 
-bool Object_datetime::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_datetime::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(year));
 	symbols.insert(Gura_Symbol(month));
 	symbols.insert(Gura_Symbol(day));
@@ -39,7 +39,7 @@ bool Object_datetime::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_datetime::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_datetime::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(year))) {
@@ -67,7 +67,7 @@ Value Object_datetime::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evalua
 	return Value::Null;
 }
 
-Value Object_datetime::DoPropSet(Signal sig,
+Value Object_datetime::DoSetProp(Signal sig,
 				const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -128,7 +128,7 @@ Value Object_datetime::DoPropSet(Signal sig,
 		_dateTime.SetUSec(num);
 		return Value(num);
 	}
-	return DoPropGet(sig, pSymbol, evaluatedFlag);
+	return DoGetProp(sig, pSymbol, evaluatedFlag);
 }
 
 String Object_datetime::ToString(Signal sig, bool exprFlag)

@@ -183,7 +183,7 @@ public:
 	String GetString() const;
 	Stream_Http *GenerateDownStream(Signal sig,
 					Object *pObjOwner, int sock, const char *name) const;
-	static void DoPropDir(SymbolSet &symbols);
+	static void DoDirProp(SymbolSet &symbols);
 };
 
 //-----------------------------------------------------------------------------
@@ -428,8 +428,8 @@ public:
 				Object(obj), _header(obj._header) {}
 	virtual ~Object_stat();
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual String ToString(Signal sig, bool exprFlag);
 	Header &GetHeader() { return _header; }
@@ -450,8 +450,8 @@ public:
 	inline Object_request(Object_session *pObjSession) :
 			Object(Gura_UserClass(request)), _pObjSession(pObjSession) {}
 	virtual ~Object_request();
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
@@ -478,8 +478,8 @@ public:
 	inline Object_response(Object_client *pObjClient) :
 			Object(Gura_UserClass(response)), _pObjClient(pObjClient) {}
 	virtual ~Object_response();
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
@@ -515,8 +515,8 @@ public:
 		_localIP(localIP), _localHost(localHost), _dateTime(dateTime) {}
 	inline Object_session(const Object_session &obj) : Object(obj) {}
 	virtual ~Object_session();
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline bool IsValid() const { return _sock > 0; }
@@ -549,8 +549,8 @@ public:
 	Object_server();
 	virtual ~Object_server();
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	bool Prepare(Signal sig, const char *addr, short port);
 	Object_request *Wait(Signal sig);

@@ -24,14 +24,14 @@ Object *Object_writer::Clone() const
 	return NULL;
 }
 
-bool Object_writer::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_writer::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(format));
 	return true;
 }
 
-Value Object_writer::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_writer::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -42,7 +42,7 @@ Value Object_writer::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluate
 	return Value::Null;
 }
 
-Value Object_writer::DoPropSet(Signal sig,
+Value Object_writer::DoSetProp(Signal sig,
 				const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -54,7 +54,7 @@ Value Object_writer::DoPropSet(Signal sig,
 		_format = value.GetString();
 		return value;
 	}
-	return DoPropGet(sig, pSymbol, evaluatedFlag);
+	return DoGetProp(sig, pSymbol, evaluatedFlag);
 }
 
 String Object_writer::ToString(Signal sig, bool exprFlag)

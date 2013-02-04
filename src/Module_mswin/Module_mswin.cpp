@@ -443,10 +443,10 @@ Iterator *Object_ole::CreateIterator(Signal sig)
 	return pIterator;
 }
 
-bool Object_ole::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_ole::DoDirProp(Signal sig, SymbolSet &symbols)
 {
 	Environment &env = *this;
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	HRESULT hr;
 	//hr = _pDispatch->GetTypeInfoCount(&cnt); // 0 or 1
 	ITypeLib *pTypeLib = NULL;
@@ -536,7 +536,7 @@ bool Object_ole::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_ole::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_ole::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	DISPID dispid;
 	do {
@@ -563,7 +563,7 @@ Value Object_ole::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFl
 	return result;
 }
 
-Value Object_ole::DoPropSet(Signal sig, const Symbol *pSymbol,
+Value Object_ole::DoSetProp(Signal sig, const Symbol *pSymbol,
 									const Value &value, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

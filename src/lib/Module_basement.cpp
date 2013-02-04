@@ -1131,7 +1131,7 @@ Gura_ImplementFunction(dir)
 	SymbolList symbolList;
 	if (args.IsValid(0)) {
 		SymbolSet symbols;
-		if (!args.GetValue(0).PropDir(env, sig, symbols, escalateFlag)) return Value::Null;
+		if (!args.GetValue(0).DirProp(env, sig, symbols, escalateFlag)) return Value::Null;
 		foreach_const (SymbolSet, ppSymbol, symbols) {
 			const Symbol *pSymbol = *ppSymbol;
 			symbolList.push_back(pSymbol);

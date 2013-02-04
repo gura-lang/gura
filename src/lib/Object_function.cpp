@@ -15,11 +15,11 @@ Object_function::~Object_function()
 {
 }
 
-bool Object_function::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_function::DoDirProp(Signal sig, SymbolSet &symbols)
 {
 	Class *pClass = GetFunction()->GetClassToConstruct();
-	if (pClass != NULL) return pClass->DoPropDir(sig, symbols);
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (pClass != NULL) return pClass->DoDirProp(sig, symbols);
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(symbol));
 	symbols.insert(Gura_Symbol(name));
 	symbols.insert(Gura_Symbol(fullname));
@@ -29,7 +29,7 @@ bool Object_function::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_function::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_function::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -60,7 +60,7 @@ Value Object_function::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evalua
 	return Value::Null;
 }
 
-Value Object_function::DoPropSet(Signal sig,
+Value Object_function::DoSetProp(Signal sig,
 				const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -95,7 +95,7 @@ Value Object_function::DoPropSet(Signal sig,
 		GetFunction()->SetHelp(value.GetString());
 		return value;
 	}
-	return DoPropGet(sig, pSymbol, evaluatedFlag);
+	return DoGetProp(sig, pSymbol, evaluatedFlag);
 }
 
 Value Object_function::DoCall(Environment &env, Signal sig, Args &args)

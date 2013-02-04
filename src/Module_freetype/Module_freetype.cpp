@@ -68,9 +68,9 @@ Object *Object_face::Clone() const
 	return NULL; //new Object_face(*this);
 }
 
-bool Object_face::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_face::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(num_faces));
 	symbols.insert(Gura_UserSymbol(face_index));
 	symbols.insert(Gura_UserSymbol(face_flag_scalable));
@@ -97,7 +97,7 @@ bool Object_face::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_face::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_face::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;

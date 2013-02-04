@@ -128,10 +128,10 @@ public:
 	inline void SetAlpha(unsigned char alpha) { _alpha = alpha; }
 	virtual ~Object_color();
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig,
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig,
 				const Symbol *pSymbol, bool &evaluatedFlag);
-	virtual Value DoPropSet(Signal sig,
+	virtual Value DoSetProp(Signal sig,
 				const Symbol *pSymbol, const Value &value, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	String GetHTML() const;

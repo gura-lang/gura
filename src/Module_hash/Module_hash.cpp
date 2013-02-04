@@ -30,16 +30,16 @@ Object *Object_hash::Clone() const
 	return NULL;
 }
 
-bool Object_hash::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_hash::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(digest));
 	symbols.insert(Gura_UserSymbol(hexdigest));
 	symbols.insert(Gura_Symbol(number));
 	return true;
 }
 
-Value Object_hash::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_hash::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(digest))) {

@@ -463,16 +463,16 @@ String Object_variable::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
-bool Object_variable::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_variable::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(boolean));
 	symbols.insert(Gura_Symbol(string));
 	symbols.insert(Gura_Symbol(number));
 	return true;
 }
 
-Value Object_variable::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_variable::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	if (pSymbol->IsIdentical(Gura_Symbol(boolean))) {
@@ -518,7 +518,7 @@ Value Object_variable::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evalua
 	return Value::Null;
 }
 
-Value Object_variable::DoPropSet(Signal sig, const Symbol *pSymbol,
+Value Object_variable::DoSetProp(Signal sig, const Symbol *pSymbol,
 									const Value &value, bool &evaluatedFlag)
 {
 	Environment &env = *this;

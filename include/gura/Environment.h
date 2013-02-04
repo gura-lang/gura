@@ -246,11 +246,11 @@ public:
 	void AssignValueType(const ValueTypeInfo *pValueTypeInfo);
 	const ValueTypeInfo *LookupValueType(const SymbolList &symbolList) const;
 	const ValueTypeInfo *LookupValueType(const Symbol *pSymbol) const;
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
-	virtual Value DoPropSet(Signal sig, const Symbol *pSymbol,
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol,
 										const Value &value, bool &evaluatedFlag);
 	virtual ICallable *GetCallable(Signal sig, const Symbol *pSymbol);
-	Value PropGet(Signal sig, const Symbol *pSymbol, const Value *pValueDefault = NULL);
+	Value GetProp(Signal sig, const Symbol *pSymbol, const Value *pValueDefault = NULL);
 	inline Class *LookupClass(ValueType valType) const {
 		return GetGlobal()->LookupClass(valType);
 	}

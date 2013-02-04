@@ -48,8 +48,8 @@ public:
 		Object(Gura_UserClass(context)), _cr(cr), _pObjSurface(pObjSurface) {}
 	virtual ~Object_context();
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline cairo_t *GetContext() { return _cr; }
 	inline Object_surface *GetSurfaceObj() { return _pObjSurface.get(); }
@@ -71,8 +71,8 @@ public:
 			Object(Gura_UserClass(font_extents)), _font_extents(font_extents) {}
 	virtual ~Object_font_extents();
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline cairo_font_extents_t &GetEntity() { return _font_extents; }
 };
@@ -92,8 +92,8 @@ public:
 			Object(Gura_UserClass(text_extents)), _text_extents(text_extents) {}
 	virtual ~Object_text_extents();
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline cairo_text_extents_t &GetEntity() { return _text_extents; }
 };
@@ -255,8 +255,8 @@ public:
 				_surface(surface), _pObjImage(NULL), _pWriter(pWriter) {}
 	virtual ~Object_surface();
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline cairo_surface_t *GetEntity() { return _surface; }
 	inline Object_image *GetImageObj() { return _pObjImage.get(); }

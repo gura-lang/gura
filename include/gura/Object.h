@@ -43,7 +43,7 @@ public:
 	inline int GetRefCnt() const { return _cntRef; }
 	virtual bool IsFunction() const;
 	virtual Iterator *CreateIterator(Signal sig);
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
 	virtual Value DoCall(Environment &env, Signal sig, Args &args);
 	virtual String ToString(Signal sig, bool exprFlag) = 0;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
@@ -93,7 +93,7 @@ public:
 	}
 	inline Function *GetConstructor() { return _pConstructor.get(); }
 	inline const Function *GetConstructor() const { return _pConstructor.get(); }
-	bool PropDir(Signal sig, SymbolSet &symbols, bool escalateFlag);
+	bool DirProp(Signal sig, SymbolSet &symbols, bool escalateFlag);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl);
 	virtual String ToString(Signal sig, bool exprFlag);
@@ -190,12 +190,12 @@ public:
 	virtual void EmptyIndexSet(Environment &env, Signal sig, const Value &value);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
-	virtual Value DoPropGet(Signal sig,
+	virtual Value DoGetProp(Signal sig,
 				const Symbol *pSymbol, bool &evaluatedFlag);
-	virtual Value DoPropSet(Signal sig,
+	virtual Value DoSetProp(Signal sig,
 				const Symbol *pSymbol, const Value &value, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	bool PropDir(Signal sig, SymbolSet &symbols);
+	bool DirProp(Signal sig, SymbolSet &symbols);
 	Value EvalMethod(Signal sig, const Function *pFunc, const ValueList &valListArg);
 	Value EvalMethod(Signal sig, const Symbol *pSymbol,
 							const ValueList &valListArg, bool &evaluatedFlag);

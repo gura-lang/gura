@@ -94,9 +94,9 @@ public:
 	HRESULT GetDispIDOfNamedArg(
 				const char *nameMethod, const char *name, DISPID &dispid);
 	virtual Iterator *CreateIterator(Signal sig);
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
-	virtual Value DoPropSet(Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol,
 								const Value &value, bool &evaluatedFlag);
 	virtual ICallable *GetCallable(Signal sig, const Symbol *pSymbol);
 	virtual String ToString(Signal sig, bool exprFlag);

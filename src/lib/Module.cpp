@@ -44,12 +44,12 @@ String Module::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
-bool Module::PropDir(Signal sig, SymbolSet &symbols)
+bool Module::DirProp(Signal sig, SymbolSet &symbols)
 {
 	foreach_const (ValueMap, iter, GetTopFrame().GetValueMap()) {
 		symbols.insert(iter->first);
 	}
-	return DoPropDir(sig, symbols);
+	return DoDirProp(sig, symbols);
 }
 
 //-----------------------------------------------------------------------------

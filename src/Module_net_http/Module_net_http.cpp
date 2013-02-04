@@ -876,7 +876,7 @@ Stream_Http *Header::GenerateDownStream(Signal sig,
 	return pStreamHttp;
 }
 
-void Header::DoPropDir(SymbolSet &symbols)
+void Header::DoDirProp(SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(date));
 	symbols.insert(Gura_UserSymbol(expires));
@@ -1460,14 +1460,14 @@ Object *Object_stat::Clone() const
 	return new Object_stat(*this);
 }
 
-bool Object_stat::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_stat::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
-	Header::DoPropDir(symbols);
+	if (!Object::DoDirProp(sig, symbols)) return false;
+	Header::DoDirProp(symbols);
 	return true;
 }
 
-Value Object_stat::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_stat::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -1521,9 +1521,9 @@ Object_session::~Object_session()
 	if (_sock >= 0) ::closesocket(_sock);
 }
 
-bool Object_session::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_session::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(server));
 	symbols.insert(Gura_UserSymbol(remote_ip));
 	symbols.insert(Gura_UserSymbol(remote_host));
@@ -1534,7 +1534,7 @@ bool Object_session::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_session::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_session::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -1614,9 +1614,9 @@ Object_request::~Object_request()
 {
 }
 
-bool Object_request::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_request::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(session));
 	symbols.insert(Gura_UserSymbol(method));
 	symbols.insert(Gura_UserSymbol(uri));
@@ -1627,11 +1627,11 @@ bool Object_request::DoPropDir(Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(path));
 	symbols.insert(Gura_UserSymbol(query));
 	symbols.insert(Gura_UserSymbol(fragment));
-	Header::DoPropDir(symbols);
+	Header::DoDirProp(symbols);
 	return true;
 }
 
-Value Object_request::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_request::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -1838,18 +1838,18 @@ Object_response::~Object_response()
 {
 }
 
-bool Object_response::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_response::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(version));
 	symbols.insert(Gura_UserSymbol(code));
 	symbols.insert(Gura_UserSymbol(reason));
 	symbols.insert(Gura_UserSymbol(body));
-	Header::DoPropDir(symbols);
+	Header::DoDirProp(symbols);
 	return true;
 }
 
-Value Object_response::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_response::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -1945,14 +1945,14 @@ Object *Object_server::Clone() const
 	return NULL; //new Object_server(*this);
 }
 
-bool Object_server::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_server::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(sessions));
 	return true;
 }
 
-Value Object_server::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_server::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;

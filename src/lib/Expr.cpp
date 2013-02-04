@@ -748,7 +748,7 @@ Expr *Expr_Symbol::Clone() const
 
 Value Expr_Symbol::Exec(Environment &env, Signal sig) const
 {
-	Value rtn = env.PropGet(sig, GetSymbol());
+	Value rtn = env.GetProp(sig, GetSymbol());
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
@@ -760,7 +760,7 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
 	bool evaluatedFlag = false;
-	Value result = env.DoPropSet(sig, GetSymbol(), value, evaluatedFlag);
+	Value result = env.DoSetProp(sig, GetSymbol(), value, evaluatedFlag);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;

@@ -428,9 +428,9 @@ Object *Object_stat::Clone() const
 	return new Object_stat(*this);
 }
 
-bool Object_stat::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_stat::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(name));
 	symbols.insert(Gura_UserSymbol(filename));
 	symbols.insert(Gura_UserSymbol(linkname));
@@ -450,7 +450,7 @@ bool Object_stat::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_stat::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_stat::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;

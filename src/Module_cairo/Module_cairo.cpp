@@ -23,16 +23,16 @@ Object *Object_context::Clone() const
 	return NULL;
 }
 
-bool Object_context::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_context::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(surface));
 	symbols.insert(Gura_UserSymbol(width));
 	symbols.insert(Gura_UserSymbol(height));
 	return true;
 }
 
-Value Object_context::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_context::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(surface))) {
@@ -1973,9 +1973,9 @@ Object *Object_font_extents::Clone() const
 	return NULL;
 }
 
-bool Object_font_extents::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_font_extents::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(ascent));
 	symbols.insert(Gura_UserSymbol(descent));
 	symbols.insert(Gura_UserSymbol(height));
@@ -1984,7 +1984,7 @@ bool Object_font_extents::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_font_extents::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_font_extents::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(ascent))) {
@@ -2027,9 +2027,9 @@ Object *Object_text_extents::Clone() const
 	return NULL;
 }
 
-bool Object_text_extents::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_text_extents::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(x_bearing));
 	symbols.insert(Gura_UserSymbol(y_bearing));
 	symbols.insert(Gura_UserSymbol(width));
@@ -2039,7 +2039,7 @@ bool Object_text_extents::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_text_extents::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_text_extents::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(x_bearing))) {
@@ -2747,9 +2747,9 @@ Object *Object_surface::Clone() const
 	return NULL;
 }
 
-bool Object_surface::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_surface::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
 	symbols.insert(Gura_UserSymbol(width));
 	symbols.insert(Gura_UserSymbol(height));
@@ -2758,7 +2758,7 @@ bool Object_surface::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_surface::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_surface::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;

@@ -81,9 +81,9 @@ public:
 			size_t pitch, int phase, int amplitude, size_t offset, size_t len);
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
 	static const Symbol *FormatToSymbol(Format format);
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
-	virtual Value DoPropSet(Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol,
 									const Value &value, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 };

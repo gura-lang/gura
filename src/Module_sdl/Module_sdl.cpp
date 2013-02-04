@@ -224,9 +224,9 @@ String Object_Event::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
-bool Object_Event::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_Event::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
 	if (_event.type == SDL_ACTIVEEVENT) {
 		symbols.insert(Gura_UserSymbol(gain));
@@ -284,7 +284,7 @@ bool Object_Event::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Event::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_Event::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
@@ -423,9 +423,9 @@ String Object_Rect::ToString(Signal sig, bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Rect::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_Rect::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(x));
 	symbols.insert(Gura_UserSymbol(y));
 	symbols.insert(Gura_UserSymbol(w));
@@ -433,7 +433,7 @@ bool Object_Rect::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Rect::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_Rect::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
@@ -475,16 +475,16 @@ String Object_Color::ToString(Signal sig, bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Color::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_Color::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(r));
 	symbols.insert(Gura_UserSymbol(g));
 	symbols.insert(Gura_UserSymbol(b));
 	return true;
 }
 
-Value Object_Color::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_Color::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(r))) {
@@ -547,14 +547,14 @@ String Object_Palette::ToString(Signal sig, bool exprFlag)
 	return String("<sdl.Palette>");
 }
 
-bool Object_Palette::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_Palette::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	//symbols.insert(Gura_Symbol(red));
 	return true;
 }
 
-Value Object_Palette::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_Palette::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
 	return Value::Null;
@@ -602,9 +602,9 @@ String Object_PixelFormat::ToString(Signal sig, bool exprFlag)
 	return String("<sdl.PixelFormat>");
 }
 
-bool Object_PixelFormat::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_PixelFormat::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(palette));
 	symbols.insert(Gura_UserSymbol(BitsPerPixel));
 	symbols.insert(Gura_UserSymbol(BytesPerPixel));
@@ -625,7 +625,7 @@ bool Object_PixelFormat::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_PixelFormat::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_PixelFormat::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(palette))) {
@@ -770,9 +770,9 @@ Object *Object_Surface::Clone() const
 	return NULL;
 }
 
-bool Object_Surface::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_Surface::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(flags));
 	symbols.insert(Gura_UserSymbol(format));
 	symbols.insert(Gura_UserSymbol(w));
@@ -784,7 +784,7 @@ bool Object_Surface::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Surface::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_Surface::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(flags))) {
@@ -1272,9 +1272,9 @@ String Object_VideoInfo::ToString(Signal sig, bool exprFlag)
 	return String("<sdl.VideoInfo>");
 }
 
-bool Object_VideoInfo::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_VideoInfo::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(hw_available));
 	symbols.insert(Gura_UserSymbol(wm_available));
 	symbols.insert(Gura_UserSymbol(blit_hw));
@@ -1289,7 +1289,7 @@ bool Object_VideoInfo::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_VideoInfo::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_VideoInfo::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(hw_available))) {
@@ -2140,9 +2140,9 @@ Object *Object_CDtrack::Clone() const
 	return NULL;
 }
 
-bool Object_CDtrack::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_CDtrack::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(id));
 	symbols.insert(Gura_UserSymbol(type));
 	symbols.insert(Gura_UserSymbol(length));
@@ -2150,7 +2150,7 @@ bool Object_CDtrack::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_CDtrack::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_CDtrack::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
@@ -2191,9 +2191,9 @@ Object *Object_CD::Clone() const
 	return NULL;
 }
 
-bool Object_CD::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_CD::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(status));
 	symbols.insert(Gura_UserSymbol(numtracks));
 	symbols.insert(Gura_UserSymbol(cur_track));
@@ -2201,7 +2201,7 @@ bool Object_CD::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_CD::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_CD::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(status))) {

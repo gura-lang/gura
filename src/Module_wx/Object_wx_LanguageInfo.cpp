@@ -94,9 +94,9 @@ Object *Object_wx_LanguageInfo::Clone() const
 	return NULL;
 }
 
-bool Object_wx_LanguageInfo::DoPropDir(Signal sig, SymbolSet &symbols)
+bool Object_wx_LanguageInfo::DoDirProp(Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoPropDir(sig, symbols)) return false;
+	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(Language));
 	symbols.insert(Gura_UserSymbol(CanonicalName));
 	symbols.insert(Gura_UserSymbol(Description));
@@ -107,7 +107,7 @@ bool Object_wx_LanguageInfo::DoPropDir(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_wx_LanguageInfo::DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_wx_LanguageInfo::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -128,7 +128,7 @@ Value Object_wx_LanguageInfo::DoPropGet(Signal sig, const Symbol *pSymbol, bool 
 	return Value::Null;
 }
 
-Value Object_wx_LanguageInfo::DoPropSet(Signal sig,
+Value Object_wx_LanguageInfo::DoSetProp(Signal sig,
 			const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_UserSymbol(Language))) {

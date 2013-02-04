@@ -101,9 +101,9 @@ public:
 	inline const char *GetVarName() const { return _varName.c_str(); }
 	virtual ~Object_variable();
 	virtual Object *Clone() const;
-	virtual bool DoPropDir(Signal sig, SymbolSet &symbols);
-	virtual Value DoPropGet(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
-	virtual Value DoPropSet(Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol,
 										const Value &value, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	bool Set(Environment &env, Signal sig, const Value &value);
