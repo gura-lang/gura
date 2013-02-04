@@ -25,7 +25,6 @@ bool Object_function::DoDirProp(Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_Symbol(fullname));
 	symbols.insert(Gura_Symbol(args));
 	symbols.insert(Gura_Symbol(expr));
-	symbols.insert(Gura_Symbol(help));
 	return true;
 }
 
@@ -89,13 +88,6 @@ Value Object_function::DoSetProp(Signal sig,
 		}
 		FunctionCustom *pFuncCustom = dynamic_cast<FunctionCustom *>(GetFunction());
 		pFuncCustom->SetExprBody(Expr::Reference(value.GetExpr()));
-		return value;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(help))) {
-		if (!value.IsString()) {
-			sig.SetError(ERR_TypeError, "string must be specified");
-			return Value::Null;
-		}
-		GetFunction()->AddHelp(Gura_Symbol(en), value.GetString());
 		return value;
 	}
 	return DoGetProp(sig, pSymbol, evaluatedFlag);
@@ -214,6 +206,37 @@ Gura_ImplementFunction(function)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_function
 //-----------------------------------------------------------------------------
+// function#addhelp(lang:symbol, help:string):map
+Gura_DeclareMethod(function, addhelp)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "lang", VTYPE_symbol);
+	DeclareArg(env, "help", VTYPE_string);
+}
+
+Gura_ImplementMethod(function, addhelp)
+{
+	Object_function *pThis = Object_function::GetThisObj(args);
+	pThis->GetFunction()->AddHelp(args.GetSymbol(0), args.GetString(1));
+	return Value::Null;
+}
+
+// function#gethelp(lang?:symbol):map
+Gura_DeclareMethod(function, gethelp)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(function, gethelp)
+{
+	Object_function *pThis = Object_function::GetThisObj(args);
+	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : Gura_Symbol(en);
+	const char *helpStr = pThis->GetFunction()->GetHelp(pSymbol);
+	if (helpStr == NULL) return Value::Null;
+	return Value(env, helpStr);
+}
+
 // function#diff(var?:symbol)
 Gura_DeclareMethod(function, diff)
 {
@@ -263,6 +286,8 @@ Class_function::Class_function(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 
 void Class_function::Prepare()
 {
+	Gura_AssignMethod(function, addhelp);
+	Gura_AssignMethod(function, gethelp);
 	Gura_AssignMethod(function, diff);
 }
 

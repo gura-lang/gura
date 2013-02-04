@@ -36,7 +36,6 @@ writer = class {
 		[this.iRow, this.iCol] = [iRow, iCol]
 		this.nEntries = 0
 	}
-	start.help = 'Set start point to write values.'
 	write(fields+):map = {
 		if (this.growvertFlag) {
 			for (field in fields) {|idx|
@@ -49,24 +48,25 @@ writer = class {
 		}
 		this.nEntries += 1
 	}
-	write.help = 'Append value of fields into Excel sheet.'
 	clear() = {
 		lastCell = this.ws.Range('A1').SpecialCells(this.app.xlCellTypeLastCell)
 		this.ws.Range(this.ws.Cells(1, 1), lastCell).ClearContents()
 		this.nEntries = 0
 	}
-	clear.help = 'Clear contents of Excel sheet.'
 	autofit() = {
 		lastCell = ws.Range('A1').SpecialCells(app.xlCellTypeLastCell)
 		for (iCol in 1..lastCell.Column) {
 			this.ws.Columns(iCol).EntireColumn().AutoFit()
 		}
 	}
-	autofit.help = 'Fits column width by calculating maximum width of each column.'
 	close() = {
 		this.wb.SaveAs(path.absname(this.filename))
 		this.wb.Close(0)
 		this.app.Quit()
 	}
-	close.help = 'Save file and exit Excel application.'
 }
+writer.start.addhelp(`en, 'Set start point to write values.')
+writer.write.addhelp(`en, 'Append value of fields into Excel sheet.')
+writer.clear.addhelp(`en, 'Clear contents of Excel sheet.')
+writer.autofit.addhelp(`en, 'Fits column width by calculating maximum width of each column.')
+writer.close.addhelp(`en, 'Save file and exit Excel application.')
