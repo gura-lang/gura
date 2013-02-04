@@ -52,6 +52,13 @@ bool Module::DirProp(Signal sig, SymbolSet &symbols)
 	return DoDirProp(sig, symbols);
 }
 
+void Module::DirValueType(SymbolSet &symbols) const
+{
+	foreach_const (ValueTypeMap, iter, GetTopFrame().GetValueTypeMap()) {
+		symbols.insert(iter->first);
+	}
+}
+
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------

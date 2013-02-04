@@ -122,6 +122,7 @@ public:
 	}
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	bool DirProp(Signal sig, SymbolSet &symbols);
+	void DirValueType(SymbolSet &symbols) const;
 	virtual bool IsModule() const;
 	virtual Module *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);

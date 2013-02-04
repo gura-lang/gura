@@ -206,8 +206,11 @@ public:
 //-----------------------------------------------------------------------------
 // ValueTypeMap
 //-----------------------------------------------------------------------------
-typedef std::map<const Symbol *, const ValueTypeInfo *,
-									Symbol::KeyCompare_UniqNumber> ValueTypeMap;
+class DLLDECLARE ValueTypeMap : public std::map<const Symbol *,
+						const ValueTypeInfo *, Symbol::KeyCompare_UniqNumber> {
+public:
+	static const ValueTypeMap Null;
+};
 
 //-----------------------------------------------------------------------------
 // ValueTypeList
@@ -583,6 +586,7 @@ public:
 	Object_palette *GetPaletteObj() const;
 	//-----------------------
 	bool DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag);
+	void DirValueType(SymbolSet &symbols, bool escalateFlag);
 	ErrorType GetErrorType() const;
 	bool IsFlatList() const;
 	bool IsInstanceOf(ValueType valType) const;

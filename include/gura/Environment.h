@@ -188,6 +188,9 @@ public:
 		inline const ValueMap &GetValueMap() const {
 			return (_pValueMap.get() == NULL)? ValueMap::Null : *_pValueMap;
 		}
+		inline const ValueTypeMap &GetValueTypeMap() const {
+			return (_pValueTypeMap.get() == NULL)? ValueTypeMap::Null : *_pValueTypeMap;
+		}
 		void AssignValue(const Symbol *pSymbol, const Value &value);
 		void RemoveValue(const Symbol *pSymbol);
 		Value *LookupValue(const Symbol *pSymbol);

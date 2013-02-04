@@ -1153,6 +1153,42 @@ Gura_ImplementFunction(dir)
 	return result;
 }
 
+// dirtype(obj?):[noesc]
+Gura_DeclareFunction(dirtype)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "obj", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(noesc));
+}
+
+Gura_ImplementFunction(dirtype)
+{
+	bool escalateFlag = !args.IsSet(Gura_Symbol(noesc));
+	SymbolList symbolList;
+	if (args.IsValid(0)) {
+		SymbolSet symbols;
+		args.GetValue(0).DirValueType(symbols, escalateFlag);
+		foreach_const (SymbolSet, ppSymbol, symbols) {
+			const Symbol *pSymbol = *ppSymbol;
+			symbolList.push_back(pSymbol);
+		}
+	} else {
+		foreach_const (ValueTypeMap, iter, env.GetBottomFrame().GetValueTypeMap()) {
+			const Symbol *pSymbol = iter->first;
+			symbolList.push_back(pSymbol);
+		}
+	}
+	symbolList.SortByName();
+	Value result;
+	ValueList &valList = result.InitAsList(env);
+	valList.reserve(symbolList.size());
+	foreach_const (SymbolList, ppSymbol, symbolList) {
+		const Symbol *pSymbol = *ppSymbol;
+		valList.push_back(Value(pSymbol));
+	}
+	return result;
+}
+
 // help(func:function):map:void
 Gura_DeclareFunction(help)
 {
@@ -1495,6 +1531,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(println);
 	Gura_AssignFunction(printf);
 	Gura_AssignFunction(dir);
+	Gura_AssignFunction(dirtype);
 	Gura_AssignFunction(help);
 	Gura_AssignFunction(isdefined);
 	Gura_AssignFunction(typename_);

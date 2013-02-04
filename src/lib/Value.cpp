@@ -55,6 +55,7 @@ const Value Value::Undefined(VTYPE_undefined, Value::FLAG_Owner);
 const Value::KeyCompare Value::KeyCompareCase(false);
 const Value::KeyCompare Value::KeyCompareIgnoreCase(true);
 const ValueList ValueList::Null;
+const ValueTypeMap ValueTypeMap::Null;
 const ValueMap ValueMap::Null;
 const ValueDict ValueDict::Null;
 
@@ -72,6 +73,10 @@ void ValueTypeInfo::SetClass(Class *pClass)
 	pClass->SetSymbol(_pSymbol);
 	pClass->SetValueType(_valType);
 }
+
+//-----------------------------------------------------------------------------
+// ValueTypeMap
+//-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // ValueTypePool
@@ -495,6 +500,19 @@ bool Value::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escal
 		return GetObject()->DirProp(sig, symbols);
 	}
 	return env.LookupClass(_valType)->DirProp(sig, symbols, escalateFlag);
+}
+
+void Value::DirValueType(SymbolSet &symbols, bool escalateFlag)
+{
+	if (GetTinyBuffFlag()) {
+		// nothing to do
+	} else if (IsModule()) {
+		GetModule()->DirValueType(symbols);
+	} else if (IsClass()) {
+		// nothing to do
+	} else if (IsObject()) {
+		// nothing to do
+	}
 }
 
 ErrorType Value::GetErrorType() const
