@@ -1285,12 +1285,14 @@ Gura_ImplementFunction(istype)
 {
 	SymbolList symbolList;
 	if (!args.GetExpr(1)->GetChainedSymbolList(symbolList)) {
-		sig.SetError(ERR_TypeError, "invalid type name");
+		sig.SetError(ERR_TypeError, "invalid type name %s",
+								args.GetExpr(1)->ToString().c_str());
 		return Value::Null;
 	}
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(symbolList);
 	if (pValueTypeInfo == NULL) {
-		sig.SetError(ERR_ValueError, "invalid type name");
+		sig.SetError(ERR_ValueError, "invalid type name %s",
+								args.GetExpr(1)->ToString().c_str());
 		return Value::Null;
 	}
 	ValueType valType = args.GetValue(0).GetType();
@@ -1311,12 +1313,14 @@ Gura_ImplementFunction(isinstance)
 {
 	SymbolList symbolList;
 	if (!args.GetExpr(1)->GetChainedSymbolList(symbolList)) {
-		sig.SetError(ERR_TypeError, "invalid type name");
+		sig.SetError(ERR_TypeError, "invalid type name %s",
+								args.GetExpr(1)->ToString().c_str());
 		return Value::Null;
 	}
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(symbolList);
 	if (pValueTypeInfo == NULL) {
-		sig.SetError(ERR_ValueError, "invalid type name");
+		sig.SetError(ERR_ValueError, "invalid type name %s",
+								args.GetExpr(1)->ToString().c_str());
 		return Value::Null;
 	}
 	return args.GetValue(0).IsInstanceOf(pValueTypeInfo->GetValueType());
@@ -1334,12 +1338,14 @@ Gura_ImplementFunction(classref)
 {
 	SymbolList symbolList;
 	if (!args.GetExpr(0)->GetChainedSymbolList(symbolList)) {
-		sig.SetError(ERR_TypeError, "invalid type name");
+		sig.SetError(ERR_TypeError, "invalid type name %s",
+								args.GetExpr(0)->ToString().c_str());
 		return Value::Null;
 	}
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(symbolList);
 	if (pValueTypeInfo == NULL) {
-		sig.SetError(ERR_ValueError, "invalid type name");
+		sig.SetError(ERR_ValueError, "invalid type name %s",
+								args.GetExpr(0)->ToString().c_str());
 		return Value::Null;
 	}
 	if (pValueTypeInfo->GetClass() == NULL) {
