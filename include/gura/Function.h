@@ -221,6 +221,7 @@ public:
 		void Store(const Value &value);
 	};
 	typedef std::map<const Symbol *, const Expr *, Symbol::KeyCompare_UniqNumber> ExprMap;
+	typedef std::map<const Symbol *, String> HelpMap;
 protected:
 	int _cntRef;
 	const Symbol *_pSymbol;
@@ -233,7 +234,7 @@ protected:
 	ResultMode _resultMode;
 	unsigned long _flags;
 	SymbolSet _attrsOpt;
-	String _help;
+	HelpMap _helpMap;
 	struct {
 		OccurPattern occurPattern;
 		BlockScope blockScope;
@@ -334,8 +335,11 @@ public:
 		return _declOwner.size() == 1 && !_declOwner.front()->IsVariableLength();
 	}
 	inline bool IsUnaryable() const { return _declOwner.size() == 1; }
-	inline const char *GetHelp() const { return _help.c_str(); }
-	inline bool IsHelpExist() const { return !_help.empty(); }
+	inline const char *GetHelp(const Symbol *pSymbol) const {
+		HelpMap::const_iterator iter = _helpMap.find(pSymbol);
+		return (iter == _helpMap.end())? NULL : iter->second.c_str();
+	}
+	inline bool IsHelpExist() const { return !_helpMap.empty(); }
 	void DeclareBlock(OccurPattern occurPattern, const Symbol *pSymbol = NULL,
 			BlockScope blockScope = BLKSCOPE_Through, bool quoteFlag = false);
 	void AddHelp(const Symbol *pSymbol, const char *help);

@@ -1200,13 +1200,15 @@ Gura_DeclareFunction(help)
 Gura_ImplementFunction(help)
 {
 	Object_function *pFuncObj = args.GetFunctionObj(0);
+	const Symbol *pSymbol = Gura_Symbol(en);
 	Stream *pConsole = env.GetConsole(false);
 	pConsole->Println(sig, pFuncObj->ToString(sig, true).c_str());
 	if (sig.IsSignalled()) return Value::Null;
-	if (pFuncObj->GetFunction()->IsHelpExist()) {
+	const char *helpStr = pFuncObj->GetFunction()->GetHelp(pSymbol);
+	if (helpStr != NULL) {
 		const char *lineTop = "  ";
 		bool lineTopFlag = true;
-		for (const char *p = pFuncObj->GetFunction()->GetHelp(); *p != '\0'; p++) {
+		for (const char *p = helpStr; *p != '\0'; p++) {
 			char ch = *p;
 			if (lineTopFlag) {
 				pConsole->Print(sig, lineTop);

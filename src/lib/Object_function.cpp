@@ -54,7 +54,10 @@ Value Object_function::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evalua
 						dynamic_cast<const FunctionCustom *>(GetFunction());
 		return Value(env, pFuncCustom->GetExprBody()->IncRef());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(help))) {
-		return Value(env, GetFunction()->GetHelp());
+		const Symbol *pSymbol = Gura_Symbol(en);
+		const char *helpStr = GetFunction()->GetHelp(pSymbol);
+		if (helpStr == NULL) return Value::Null;
+		return Value(env, helpStr);
 	}
 	evaluatedFlag = false;
 	return Value::Null;

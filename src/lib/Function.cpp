@@ -327,7 +327,7 @@ void Function::DeclareBlock(OccurPattern occurPattern,
 
 void Function::AddHelp(const Symbol *pSymbol, const char *help)
 {
-	_help = help;
+	_helpMap[pSymbol] = help;
 }
 
 Value Function::EvalExpr(Environment &env, Signal sig, Args &args) const

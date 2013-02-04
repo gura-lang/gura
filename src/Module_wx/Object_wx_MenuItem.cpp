@@ -555,7 +555,7 @@ Gura_ImplementMethod(wx_MenuItem, SetHelp)
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString helpString = wxString::FromUTF8(args.GetString(0));
-	pThis->GetEntity()->AddHelp(Gura_Symbol(en), helpString);
+	pThis->GetEntity()->SetHelp(helpString);
 	return Value::Null;
 }
 
