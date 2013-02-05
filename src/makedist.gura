@@ -263,13 +263,13 @@ gatherFiles() = {
 			'sample/wx/original/wxutil.gura'
 			'sample/wx/original/wx-*.guraw'
 			//----------------------------------
-			'guest/lib.win32/*.dll'
+			'gura-guest/lib.win32/*.dll'
 			//----------------------------------
 			'include/*.h'
 			'include/gura/*.h'
 		):list)
-		filenames.append(path.glob('guest/tcl/bin/*.dll'):list)
-		filenames.append(path.walk('guest/tcl/lib', nil):file)
+		filenames.append(path.glob('gura-guest/tcl/bin/*.dll'):list)
+		filenames.append(path.walk('gura-guest/tcl/lib', nil):file)
 	}
 	filenames
 }

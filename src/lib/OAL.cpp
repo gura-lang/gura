@@ -716,10 +716,10 @@ void SetupExecutablePath()
 	String dirBase = GetBaseDir();
 	String path;
 	path += dirBase;
-	path += "\\guest\\lib.win32";
+	path += "\\gura-guest\\lib.win32";
 	path += ";";
 	path += dirBase;
-	path += "\\guest\\tcl\\bin";
+	path += "\\gura-guest\\tcl\\bin";
 	path += ";";
 	path += GetEnv("PATH");
 	PutEnv("PATH", path.c_str());
