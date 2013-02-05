@@ -125,7 +125,7 @@ BuilderBase = class {
 //-----------------------------------------------------------------------------
 if (sys.build == `msc) {
 	guraDir:local = sys.datadir
-	guestDir = path.join(guraDir, 'guest')
+	guestDir = path.join(guraDir, 'gura-guest')
 	Builder = class(BuilderBase) {
 		__init__() = {
 			this.outDir = 'msc'

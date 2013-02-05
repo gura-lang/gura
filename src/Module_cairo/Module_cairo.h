@@ -2,6 +2,9 @@
 #define __MODULE_CAIRO_H__
 
 #include <gura.h>
+#if defined(HAVE_WINDOWS_H)
+#define CAIRO_WIN32_STATIC_BUILD
+#endif
 #include <cairo.h>
 #include <cairo-pdf.h>
 #include <cairo-ps.h>
