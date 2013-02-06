@@ -1,4 +1,7 @@
 @echo off
+rem ==========================================================================
+rem Setup libraries necessary to build Gura modules
+rem ==========================================================================
 if exist ..\gura-guest goto update
 git --exec-path=.. clone https://github.com/jxg/gura-setup.git
 goto setup
