@@ -5,8 +5,8 @@ stat = `normal
 generate(rtnType:string, rtnPtr:string, funcName:string, argsRaw:string) = {
 	println(rtnType, ' ', rtnPtr, ' ', funcName)
 	argsRaw.split(','):*strip().each() {|arg|
-		if (m = arg.match(r'^(\w+)\s*(\*?)\s*(\w+)')) {
-			[argType, argPtr, argName] = m[1, 2, 3]
+		if (m = arg.match(r'^(const\s+)?(\w+)\s*(\*?)\s*(\w+)')) {
+			[argType, argPtr, argName] = m[2, 3, 4]
 			println('    ', argType, ' ', argPtr, ' ', argName)
 		} else {
 			println('invalid argument form: ', arg)
@@ -23,6 +23,18 @@ readlines(fileName) {|line|
 		} elsif (m = line.match(r'^(\w+)\s*(\*?)\s*(\w+)\s*\(([^\)]*)')) {
 			[rtnType, rtnPtr, funcName] = m[1, 2, 3]
 			argsRaw = m[4].strip()
+			stat = `args
+		} elsif (m = line.match(r'^(\w+)\s*(\*?)\s*(\w+)')) {
+			[rtnType, rtnPtr, funcName] = m[1, 2, 3]
+			stat = `argssep
+		}
+	} elsif (stat == `argssep) {
+		if (m = line.match(r'^\s*\(([^\)]*)\)')) {
+			argsRaw = m[1].strip()
+			generate(rtnType, rtnPtr, funcName, argsRaw)
+			stat = `normal
+		} elsif (m = line.match(r'^\s*\(([^\)]*)')) {
+			argsRaw = m[1].strip()
 			stat = `args
 		}
 	} elsif (stat == `args) {

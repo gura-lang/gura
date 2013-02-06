@@ -491,24 +491,6 @@ void                cairo_raster_source_pattern_set_finish
                                                          cairo_raster_source_finish_func_t finish);
 cairo_raster_source_finish_func_t cairo_raster_source_pattern_get_finish
                                                         (cairo_pattern_t *pattern);
-cairo_surface_t     (*cairo_raster_source_acquire_func_t)
-                                                        (cairo_pattern_t *pattern,
-                                                         void *callback_data,
-                                                         cairo_surface_t *target,
-                                                         const cairo_rectangle_int_t *extents);
-void                (*cairo_raster_source_release_func_t)
-                                                        (cairo_pattern_t *pattern,
-                                                         void *callback_data,
-                                                         cairo_surface_t *surface);
-cairo_status_t      (*cairo_raster_source_snapshot_func_t)
-                                                        (cairo_pattern_t *pattern,
-                                                         void *callback_data);
-cairo_status_t      (*cairo_raster_source_copy_func_t)  (cairo_pattern_t *pattern,
-                                                         void *callback_data,
-                                                         const cairo_pattern_t *other);
-void                (*cairo_raster_source_finish_func_t)
-                                                        (cairo_pattern_t *pattern,
-                                                         void *callback_data);
 //-----------------------------------------------------------------------------
 // cairo_font_face_t
 //-----------------------------------------------------------------------------
@@ -652,28 +634,6 @@ cairo_font_face_t * cairo_quartz_font_face_create_for_atsu_font_id
 //-----------------------------------------------------------------------------
 // User Fonts
 //-----------------------------------------------------------------------------
-cairo_status_t      (*cairo_user_scaled_font_init_func_t)
-                                                        (cairo_scaled_font_t *scaled_font,
-                                                         cairo_t *cr,
-                                                         cairo_font_extents_t *extents);
-cairo_status_t      (*cairo_user_scaled_font_render_glyph_func_t)
-                                                        (cairo_scaled_font_t *scaled_font,
-                                                         unsigned long  glyph,
-                                                         cairo_t *cr,
-                                                         cairo_text_extents_t *extents);
-cairo_status_t      (*cairo_user_scaled_font_text_to_glyphs_func_t)
-                                                        (cairo_scaled_font_t *scaled_font,
-                                                         const char *utf8,
-                                                         int utf8_len,
-                                                         cairo_glyph_t **glyphs,
-                                                         int *num_glyphs,
-                                                         cairo_text_cluster_t **clusters,
-                                                         int *num_clusters,
-                                                         cairo_text_cluster_flags_t *cluster_flags);
-cairo_status_t      (*cairo_user_scaled_font_unicode_to_glyph_func_t)
-                                                        (cairo_scaled_font_t *scaled_font,
-                                                         unsigned long  unicode,
-                                                         unsigned long *glyph_index);
 cairo_font_face_t * cairo_user_font_face_create         (void);
 void                cairo_user_font_face_set_init_func  (cairo_font_face_t *font_face,
                                                          cairo_user_scaled_font_init_func_t init_func);
@@ -828,17 +788,11 @@ void                cairo_pdf_surface_set_size          (cairo_surface_t *surfac
 // PNG Support
 //-----------------------------------------------------------------------------
 cairo_surface_t *   cairo_image_surface_create_from_png (const char *filename);
-cairo_status_t      (*cairo_read_func_t)                (void *closure,
-                                                         unsigned char *data,
-                                                         unsigned int length);
 cairo_surface_t *   cairo_image_surface_create_from_png_stream
                                                         (cairo_read_func_t read_func,
                                                          void *closure);
 cairo_status_t      cairo_surface_write_to_png          (cairo_surface_t *surface,
                                                          const char *filename);
-cairo_status_t      (*cairo_write_func_t)               (void *closure,
-                                                         const unsigned char *data,
-                                                         unsigned int length);
 cairo_status_t      cairo_surface_write_to_png_stream   (cairo_surface_t *surface,
                                                          cairo_write_func_t write_func,
                                                          void *closure);
@@ -1080,4 +1034,3 @@ void                cairo_debug_reset_static_data       (void);
 //-----------------------------------------------------------------------------
 // Types
 //-----------------------------------------------------------------------------
-void                (*cairo_destroy_func_t)             (void *data);
