@@ -2,12 +2,38 @@
 import(re)
 fileName = 'resource.txt'
 stat = `normal
+
+typeMap = %{
+'cairo_antialias_t'			=> 'number'
+'cairo_fill_rule_t'			=> 'number'
+'cairo_line_cap_t'			=> 'number'
+'cairo_line_join_t'			=> 'number'
+'cairo_operator_t'			=> 'number'
+'cairo_extend_t'			=> 'number'
+'cairo_filter_t'			=> 'number'
+'cairo_pattern_type_t'		=> 'number'
+'cairo_region_overlap_t'	=> 'number'
+'cairo_font_type_t'			=> 'number'
+'cairo_subpixel_order_t'	=> 'number'
+'cairo_hint_style_t'		=> 'number'
+'cairo_hint_metrics_t'		=> 'number'
+'cairo_ft_synthesize_t'		=> 'number'
+'cairo_device_type_t'		=> 'number'
+'cairo_surface_type_t'		=> 'number'
+'cairo_pdf_version_t'		=> 'number'
+'cairo_ps_level_t'			=> 'number'
+'cairo_svg_version_t'		=> 'number'
+'cairo_script_mode_t'		=> 'number'
+}
+types = []
 generate(rtnType:string, rtnPtr:string, funcName:string, argsRaw:string) = {
 	println(rtnType, ' ', rtnPtr, ' ', funcName)
+	types.append(rtnType)
 	argsRaw.split(','):*strip().each() {|arg|
 		if (m = arg.match(r'^(const\s+)?(\w+)\s*(\*?)\s*(\w+)')) {
 			[argType, argPtr, argName] = m[2, 3, 4]
 			println('    ', argType, ' ', argPtr, ' ', argName)
+			types.append(argType)
 		} else {
 			println('invalid argument form: ', arg)
 			sys.exit(1)
@@ -47,3 +73,4 @@ readlines(fileName) {|line|
 		}
 	}
 }
+println(set(types).sort())

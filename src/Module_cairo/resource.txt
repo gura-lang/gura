@@ -32,7 +32,6 @@ void                cairo_set_source_surface            (cairo_t *cr,
                                                          double x,
                                                          double y);
 cairo_pattern_t *   cairo_get_source                    (cairo_t *cr);
-enum                cairo_antialias_t;
 void                cairo_set_antialias                 (cairo_t *cr,
                                                          cairo_antialias_t antialias);
 cairo_antialias_t   cairo_get_antialias                 (cairo_t *cr);
@@ -44,15 +43,12 @@ int                 cairo_get_dash_count                (cairo_t *cr);
 void                cairo_get_dash                      (cairo_t *cr,
                                                          double *dashes,
                                                          double *offset);
-enum                cairo_fill_rule_t;
 void                cairo_set_fill_rule                 (cairo_t *cr,
                                                          cairo_fill_rule_t fill_rule);
 cairo_fill_rule_t   cairo_get_fill_rule                 (cairo_t *cr);
-enum                cairo_line_cap_t;
 void                cairo_set_line_cap                  (cairo_t *cr,
                                                          cairo_line_cap_t line_cap);
 cairo_line_cap_t    cairo_get_line_cap                  (cairo_t *cr);
-enum                cairo_line_join_t;
 void                cairo_set_line_join                 (cairo_t *cr,
                                                          cairo_line_join_t line_join);
 cairo_line_join_t   cairo_get_line_join                 (cairo_t *cr);
@@ -62,7 +58,6 @@ double              cairo_get_line_width                (cairo_t *cr);
 void                cairo_set_miter_limit               (cairo_t *cr,
                                                          double limit);
 double              cairo_get_miter_limit               (cairo_t *cr);
-enum                cairo_operator_t;
 void                cairo_set_operator                  (cairo_t *cr,
                                                          cairo_operator_t op);
 cairo_operator_t    cairo_get_operator                  (cairo_t *cr);
@@ -305,11 +300,9 @@ cairo_status_t      cairo_mesh_pattern_get_corner_color_rgba
 cairo_pattern_t *   cairo_pattern_reference             (cairo_pattern_t *pattern);
 void                cairo_pattern_destroy               (cairo_pattern_t *pattern);
 cairo_status_t      cairo_pattern_status                (cairo_pattern_t *pattern);
-enum                cairo_extend_t;
 void                cairo_pattern_set_extend            (cairo_pattern_t *pattern,
                                                          cairo_extend_t extend);
 cairo_extend_t      cairo_pattern_get_extend            (cairo_pattern_t *pattern);
-enum                cairo_filter_t;
 void                cairo_pattern_set_filter            (cairo_pattern_t *pattern,
                                                          cairo_filter_t filter);
 cairo_filter_t      cairo_pattern_get_filter            (cairo_pattern_t *pattern);
@@ -317,7 +310,6 @@ void                cairo_pattern_set_matrix            (cairo_pattern_t *patter
                                                          const cairo_matrix_t *matrix);
 void                cairo_pattern_get_matrix            (cairo_pattern_t *pattern,
                                                          cairo_matrix_t *matrix);
-enum                cairo_pattern_type_t;
 cairo_pattern_type_t cairo_pattern_get_type             (cairo_pattern_t *pattern);
 unsigned int        cairo_pattern_get_reference_count   (cairo_pattern_t *pattern);
 cairo_status_t      cairo_pattern_set_user_data         (cairo_pattern_t *pattern,
@@ -347,7 +339,6 @@ cairo_bool_t        cairo_region_is_empty               (const cairo_region_t *r
 cairo_bool_t        cairo_region_contains_point         (const cairo_region_t *region,
                                                          int x,
                                                          int y);
-enum                cairo_region_overlap_t;
 cairo_region_overlap_t cairo_region_contains_rectangle  (const cairo_region_t *region,
                                                          const cairo_rectangle_int_t *rectangle);
 cairo_bool_t        cairo_region_equal                  (const cairo_region_t *a,
@@ -497,7 +488,6 @@ cairo_raster_source_finish_func_t cairo_raster_source_pattern_get_finish
 cairo_font_face_t * cairo_font_face_reference           (cairo_font_face_t *font_face);
 void                cairo_font_face_destroy             (cairo_font_face_t *font_face);
 cairo_status_t      cairo_font_face_status              (cairo_font_face_t *font_face);
-enum                cairo_font_type_t;
 cairo_font_type_t   cairo_font_face_get_type            (cairo_font_face_t *font_face);
 unsigned int        cairo_font_face_get_reference_count (cairo_font_face_t *font_face);
 cairo_status_t      cairo_font_face_set_user_data       (cairo_font_face_t *font_face,
@@ -570,17 +560,14 @@ cairo_bool_t        cairo_font_options_equal            (const cairo_font_option
 void                cairo_font_options_set_antialias    (cairo_font_options_t *options,
                                                          cairo_antialias_t antialias);
 cairo_antialias_t   cairo_font_options_get_antialias    (const cairo_font_options_t *options);
-enum                cairo_subpixel_order_t;
 void                cairo_font_options_set_subpixel_order
                                                         (cairo_font_options_t *options,
                                                          cairo_subpixel_order_t subpixel_order);
 cairo_subpixel_order_t cairo_font_options_get_subpixel_order
                                                         (const cairo_font_options_t *options);
-enum                cairo_hint_style_t;
 void                cairo_font_options_set_hint_style   (cairo_font_options_t *options,
                                                          cairo_hint_style_t hint_style);
 cairo_hint_style_t  cairo_font_options_get_hint_style   (const cairo_font_options_t *options);
-enum                cairo_hint_metrics_t;
 void                cairo_font_options_set_hint_metrics (cairo_font_options_t *options,
                                                          cairo_hint_metrics_t hint_metrics);
 cairo_hint_metrics_t cairo_font_options_get_hint_metrics
@@ -597,7 +584,6 @@ void                cairo_ft_font_options_substitute    (const cairo_font_option
                                                          FcPattern *pattern);
 FT_Face             cairo_ft_scaled_font_lock_face      (cairo_scaled_font_t *scaled_font);
 void                cairo_ft_scaled_font_unlock_face    (cairo_scaled_font_t *scaled_font);
-enum                cairo_ft_synthesize_t;
 unsigned int        cairo_ft_font_face_get_synthesize   (cairo_font_face_t *font_face);
 void                cairo_ft_font_face_set_synthesize   (cairo_font_face_t *font_face,
                                                          unsigned int synth_flags);
@@ -662,7 +648,6 @@ void                cairo_device_destroy                (cairo_device_t *device)
 cairo_status_t      cairo_device_status                 (cairo_device_t *device);
 void                cairo_device_finish                 (cairo_device_t *device);
 void                cairo_device_flush                  (cairo_device_t *device);
-enum                cairo_device_type_t;
 cairo_device_type_t cairo_device_get_type               (cairo_device_t *device);
 unsigned int        cairo_device_get_reference_count    (cairo_device_t *device);
 cairo_status_t      cairo_device_set_user_data          (cairo_device_t *device,
@@ -718,7 +703,6 @@ void                cairo_surface_get_fallback_resolution
                                                         (cairo_surface_t *surface,
                                                          double *x_pixels_per_inch,
                                                          double *y_pixels_per_inch);
-enum                cairo_surface_type_t;
 cairo_surface_type_t cairo_surface_get_type             (cairo_surface_t *surface);
 unsigned int        cairo_surface_get_reference_count   (cairo_surface_t *surface);
 cairo_status_t      cairo_surface_set_user_data         (cairo_surface_t *surface,
@@ -777,7 +761,6 @@ cairo_surface_t *   cairo_pdf_surface_create_for_stream (cairo_write_func_t writ
 void                cairo_pdf_surface_restrict_to_version
                                                         (cairo_surface_t *surface,
                                                          cairo_pdf_version_t version);
-enum                cairo_pdf_version_t;
 void                cairo_pdf_get_versions              (cairo_pdf_version_t const **versions,
                                                          int *num_versions);
 const char *        cairo_pdf_version_to_string         (cairo_pdf_version_t version);
@@ -808,7 +791,6 @@ cairo_surface_t *   cairo_ps_surface_create_for_stream  (cairo_write_func_t writ
                                                          double height_in_points);
 void                cairo_ps_surface_restrict_to_level  (cairo_surface_t *surface,
                                                          cairo_ps_level_t level);
-enum                cairo_ps_level_t;
 void                cairo_ps_get_levels                 (cairo_ps_level_t const **levels,
                                                          int *num_levels);
 const char *        cairo_ps_level_to_string            (cairo_ps_level_t level);
@@ -862,7 +844,6 @@ cairo_surface_t *   cairo_svg_surface_create_for_stream (cairo_write_func_t writ
 void                cairo_svg_surface_restrict_to_version
                                                         (cairo_surface_t *surface,
                                                          cairo_svg_version_t version);
-enum                cairo_svg_version_t;
 void                cairo_svg_get_versions              (cairo_svg_version_t const **versions,
                                                          int *num_versions);
 const char *        cairo_svg_version_to_string         (cairo_svg_version_t version);
@@ -976,7 +957,6 @@ cairo_device_t *    cairo_script_create_for_stream      (cairo_write_func_t writ
 cairo_status_t      cairo_script_from_recording_surface (cairo_device_t *script,
                                                          cairo_surface_t *recording_surface);
 cairo_script_mode_t cairo_script_get_mode               (cairo_device_t *script);
-enum                cairo_script_mode_t;
 void                cairo_script_set_mode               (cairo_device_t *script,
                                                          cairo_script_mode_t mode);
 cairo_surface_t *   cairo_script_surface_create         (cairo_device_t *script,
