@@ -54,7 +54,7 @@ public:
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline cairo_t *GetContext() { return _cr; }
+	inline cairo_t *GetEntity() { return _cr; }
 	inline Object_surface *GetSurfaceObj() { return _pObjSurface.get(); }
 	void Destroy();
 };
