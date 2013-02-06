@@ -28,6 +28,7 @@
 /src/Program_guri/guri
 /src/lib/Makefile
 /build
+/gura-guest
 msc/
 gnuc/
 Release/
