@@ -3,12 +3,15 @@ rem ==========================================================================
 rem Setup libraries necessary to build Gura modules
 rem ==========================================================================
 if exist ..\gura-guest goto update
-git --exec-path=.. clone https://github.com/jxg/gura-setup.git
+pushd ..
+git clone https://github.com/jxg/gura-setup.git
+popd
+pushd ..\gura-guest
 goto setup
 :update
-git --exec-path=..\gura-guest pull
+pushd ..\gura-guest
+git pull
 goto setup
 :setup
-pushd ..\gura-guest
 call setup.bat
 popd
