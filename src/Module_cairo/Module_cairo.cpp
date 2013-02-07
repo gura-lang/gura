@@ -2598,6 +2598,44 @@ String Object_font_face::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for font_face
 //-----------------------------------------------------------------------------
+//#cairo_font_face_t *cairo_font_face_reference(cairo_font_face_t *font_face);
+//#void cairo_font_face_destroy(cairo_font_face_t *font_face);
+//#cairo_status_t cairo_font_face_status(cairo_font_face_t *font_face);
+
+//#cairo_font_type_t cairo_font_face_get_type(cairo_font_face_t *font_face);
+
+//#unsigned int cairo_font_face_get_reference_count(cairo_font_face_t *font_face);
+//#cairo_status_t cairo_font_face_set_user_data(cairo_font_face_t *font_face, const cairo_user_data_key_t *key, void *user_data, cairo_destroy_func_t destroy);
+//#void *cairo_font_face_get_user_data(cairo_font_face_t *font_face, const cairo_user_data_key_t *key);
+
+//#cairo_font_face_t * cairo_toy_font_face_create(const char *family, cairo_font_slant_t slant, cairo_font_weight_t weight);
+//#const char *cairo_toy_font_face_get_family(cairo_font_face_t *font_face);
+//#cairo_font_slant_t cairo_toy_font_face_get_slant(cairo_font_face_t *font_face);
+//#cairo_font_weight_t cairo_toy_font_face_get_weight(cairo_font_face_t *font_face);
+
+//#cairo_font_face_t *cairo_ft_font_face_create_for_ft_face(FT_Face face, int load_flags);
+//#cairo_font_face_t *cairo_ft_font_face_create_for_pattern(FcPattern *pattern);
+//#unsigned int cairo_ft_font_face_get_synthesize(cairo_font_face_t *font_face);
+//#void cairo_ft_font_face_set_synthesize(cairo_font_face_t *font_face, unsigned int synth_flags);
+//#void cairo_ft_font_face_unset_synthesize (cairo_font_face_t *font_face, unsigned int synth_flags);
+
+//#cairo_font_face_t *cairo_win32_font_face_create_for_logfontw(LOGFONTW *logfont);
+//#cairo_font_face_t *cairo_win32_font_face_create_for_hfont(HFONT font);
+//#cairo_font_face_t *cairo_win32_font_face_create_for_logfontw_hfont(LOGFONTW *logfont, HFONT font);
+
+//#cairo_font_face_t *cairo_quartz_font_face_create_for_cgfont(CGFontRef font);
+//#cairo_font_face_t *cairo_quartz_font_face_create_for_atsu_font_id(ATSUFontID font_id);
+
+//#cairo_font_face_t *cairo_user_font_face_create(void);
+//#void cairo_user_font_face_set_init_func(cairo_font_face_t *font_face,  cairo_user_scaled_font_init_func_t init_func);
+//#cairo_user_scaled_font_init_func_t cairo_user_font_face_get_init_func(cairo_font_face_t *font_face);
+//#void cairo_user_font_face_set_render_glyph_func(cairo_font_face_t *font_face, cairo_user_scaled_font_render_glyph_func_t render_glyph_func);
+//#cairo_user_scaled_font_render_glyph_func_t cairo_user_font_face_get_render_glyph_func(cairo_font_face_t *font_face);
+//#void cairo_user_font_face_set_unicode_to_glyph_func(cairo_font_face_t *font_face, cairo_user_scaled_font_unicode_to_glyph_func_t unicode_to_glyph_func);
+//#cairo_user_scaled_font_unicode_to_glyph_func_t cairo_user_font_face_get_unicode_to_glyph_func(cairo_font_face_t *font_face);
+//#void cairo_user_font_face_set_text_to_glyphs_func(cairo_font_face_t *font_face, cairo_user_scaled_font_text_to_glyphs_func_t text_to_glyphs_func);
+//#cairo_user_scaled_font_text_to_glyphs_func_t cairo_user_font_face_get_text_to_glyphs_func(cairo_font_face_t *font_face);
+
 // implementation of class font_face
 Gura_ImplementUserClass(font_face)
 {
@@ -2624,6 +2662,33 @@ String Object_scaled_font::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for scaled_font
 //-----------------------------------------------------------------------------
+//#cairo_scaled_font_t *cairo_scaled_font_create(cairo_font_face_t *font_face, const cairo_matrix_t *font_matrix, const cairo_matrix_t *ctm, const cairo_font_options_t *options);
+//#cairo_scaled_font_t *cairo_scaled_font_reference(cairo_scaled_font_t *scaled_font);
+//#void cairo_scaled_font_destroy(cairo_scaled_font_t *scaled_font);
+//#cairo_status_t cairo_scaled_font_status(cairo_scaled_font_t *scaled_font);
+//#void cairo_scaled_font_extents(cairo_scaled_font_t *scaled_font, cairo_font_extents_t *extents);
+//#void cairo_scaled_font_text_extents(cairo_scaled_font_t *scaled_font, const char *utf8, cairo_text_extents_t *extents);
+//#void cairo_scaled_font_glyph_extents(cairo_scaled_font_t *scaled_font, const cairo_glyph_t *glyphs, int num_glyphs, cairo_text_extents_t *extents);
+//#cairo_status_t cairo_scaled_font_text_to_glyphs(cairo_scaled_font_t *scaled_font, double x, double y, const char *utf8, int utf8_len, cairo_glyph_t **glyphs, int *num_glyphs, cairo_text_cluster_t **clusters, int *num_clusters, cairo_text_cluster_flags_t *cluster_flags);
+//#cairo_font_face_t *cairo_scaled_font_get_font_face(cairo_scaled_font_t *scaled_font);
+//#void cairo_scaled_font_get_font_options(cairo_scaled_font_t *scaled_font, cairo_font_options_t *options);
+//#void cairo_scaled_font_get_font_matrix(cairo_scaled_font_t *scaled_font, cairo_matrix_t *font_matrix);
+//#void cairo_scaled_font_get_ctm(cairo_scaled_font_t *scaled_font, cairo_matrix_t *ctm);
+//#void cairo_scaled_font_get_scale_matrix(cairo_scaled_font_t *scaled_font, cairo_matrix_t *scale_matrix);
+//#cairo_font_type_t cairo_scaled_font_get_type(cairo_scaled_font_t *scaled_font);
+//#unsigned int cairo_scaled_font_get_reference_count(cairo_scaled_font_t *scaled_font);
+//#cairo_status_t cairo_scaled_font_set_user_data(cairo_scaled_font_t *scaled_font, const cairo_user_data_key_t *key, void *user_data, cairo_destroy_func_t destroy);
+//#void *cairo_scaled_font_get_user_data(cairo_scaled_font_t *scaled_font, const cairo_user_data_key_t *key);
+
+//#FT_Face cairo_ft_scaled_font_lock_face(cairo_scaled_font_t *scaled_font);
+//#void cairo_ft_scaled_font_unlock_face(cairo_scaled_font_t *scaled_font);
+
+//#cairo_status_t cairo_win32_scaled_font_select_font (cairo_scaled_font_t *scaled_font, HDC hdc);
+//#void cairo_win32_scaled_font_done_font(cairo_scaled_font_t *scaled_font);
+//#double cairo_win32_scaled_font_get_metrics_factor(cairo_scaled_font_t *scaled_font);
+//#void cairo_win32_scaled_font_get_logical_to_device(cairo_scaled_font_t *scaled_font, cairo_matrix_t *logical_to_device);
+//#void cairo_win32_scaled_font_get_device_to_logical(cairo_scaled_font_t *scaled_font, cairo_matrix_t *device_to_logical);
+
 // implementation of class font_options
 Gura_ImplementUserClass(scaled_font)
 {
@@ -2650,6 +2715,13 @@ String Object_font_options::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for font_options
 //-----------------------------------------------------------------------------
+//#cairo_font_options_t *cairo_font_options_create(void);
+//#cairo_font_options_t *cairo_font_options_copy(const cairo_font_options_t *original);
+//#void cairo_font_options_destroy(cairo_font_options_t *options);
+//#cairo_status_t cairo_font_options_status(cairo_font_options_t *options);
+
+//#void cairo_ft_font_options_substitute(const cairo_font_options_t *options, FcPattern *pattern);
+
 // cairo.font_options#merge(other:font_options):void
 Gura_DeclareMethod(font_options, merge)
 {
@@ -3661,6 +3733,9 @@ String Object_glyph::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for glyph
 //-----------------------------------------------------------------------------
+//#cairo_glyph_t *cairo_glyph_allocate(int num_glyphs);
+//#void cairo_glyph_free(cairo_glyph_t *glyphs);
+
 // implementation of class glyph
 Gura_ImplementUserClass(glyph)
 {
@@ -3686,6 +3761,9 @@ String Object_text_cluster::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for text_cluster
 //-----------------------------------------------------------------------------
+//#cairo_text_cluster_t *cairo_text_cluster_allocate(int num_clusters);
+//#void cairo_text_cluster_free(cairo_text_cluster_t *clusters);
+
 // implementation of class text_cluster
 Gura_ImplementUserClass(text_cluster)
 {
