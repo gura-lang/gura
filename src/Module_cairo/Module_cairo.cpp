@@ -2620,7 +2620,7 @@ String Object_font_face::ToString(Signal sig, bool exprFlag)
 //#cairo_status_t cairo_font_face_set_user_data(cairo_font_face_t *font_face, const cairo_user_data_key_t *key, void *user_data, cairo_destroy_func_t destroy);
 //#void *cairo_font_face_get_user_data(cairo_font_face_t *font_face, const cairo_user_data_key_t *key);
 
-//#cairo_font_face_t * cairo_toy_font_face_create(const char *family, cairo_font_slant_t slant, cairo_font_weight_t weight);
+//#cairo_font_face_t *cairo_toy_font_face_create(const char *family, cairo_font_slant_t slant, cairo_font_weight_t weight);
 //#const char *cairo_toy_font_face_get_family(cairo_font_face_t *font_face);
 //#cairo_font_slant_t cairo_toy_font_face_get_slant(cairo_font_face_t *font_face);
 //#cairo_font_weight_t cairo_toy_font_face_get_weight(cairo_font_face_t *font_face);
@@ -3154,7 +3154,6 @@ double Object_surface::GetHeight() const
 //#cairo_surface_t *cairo_script_surface_create(cairo_device_t *script, cairo_content_t content, double width, double height);
 //#cairo_surface_t *cairo_script_surface_create_for_target(cairo_device_t *script, cairo_surface_t *target);
 //#void cairo_script_write_comment(cairo_device_t *script, const char *comment, int len);
-
 
 // cairo.surface#finish():reduce
 Gura_DeclareMethod(surface, finish)
@@ -4674,30 +4673,30 @@ const char *SurfaceTypeToName(cairo_surface_type_t surface_type)
 		const char *name;
 	};
 	static const Info infoTbl[] = {
-		{ CAIRO_SURFACE_TYPE_IMAGE,			"image" },
-		{ CAIRO_SURFACE_TYPE_PDF,			"pdf" },
-		{ CAIRO_SURFACE_TYPE_PS,			"ps" },
-		{ CAIRO_SURFACE_TYPE_XLIB,			"xlib" },
-		{ CAIRO_SURFACE_TYPE_XCB,			"xcb" },
-		{ CAIRO_SURFACE_TYPE_GLITZ,			"glitz" },
-		{ CAIRO_SURFACE_TYPE_QUARTZ,		"quartz" },
-		{ CAIRO_SURFACE_TYPE_WIN32,			"win32" },
-		{ CAIRO_SURFACE_TYPE_BEOS,			"beos" },
-		{ CAIRO_SURFACE_TYPE_DIRECTFB,		"directfb" },
-		{ CAIRO_SURFACE_TYPE_SVG,			"svg" },
-		{ CAIRO_SURFACE_TYPE_OS2,			"os2" },
-		{ CAIRO_SURFACE_TYPE_WIN32_PRINTING,"win32_printing" },
-		{ CAIRO_SURFACE_TYPE_QUARTZ_IMAGE,	"quartz_image" },
-		{ CAIRO_SURFACE_TYPE_SCRIPT,		"script" },
-		{ CAIRO_SURFACE_TYPE_QT,			"qt" },
-		{ CAIRO_SURFACE_TYPE_RECORDING,		"recording" },
-		{ CAIRO_SURFACE_TYPE_VG,			"vg" },
-		{ CAIRO_SURFACE_TYPE_GL,			"gl" },
-		{ CAIRO_SURFACE_TYPE_DRM,			"drm" },
-		{ CAIRO_SURFACE_TYPE_TEE,			"tee" },
-		{ CAIRO_SURFACE_TYPE_XML,			"xml" },
-		{ CAIRO_SURFACE_TYPE_SKIA		,	"skia" },
-		{ CAIRO_SURFACE_TYPE_SUBSURFACE,	"subsurface" },
+		{ CAIRO_SURFACE_TYPE_IMAGE,			"image"			},
+		{ CAIRO_SURFACE_TYPE_PDF,			"pdf"			},
+		{ CAIRO_SURFACE_TYPE_PS,			"ps"			},
+		{ CAIRO_SURFACE_TYPE_XLIB,			"xlib"			},
+		{ CAIRO_SURFACE_TYPE_XCB,			"xcb"			},
+		{ CAIRO_SURFACE_TYPE_GLITZ,			"glitz"			},
+		{ CAIRO_SURFACE_TYPE_QUARTZ,		"quartz"		},
+		{ CAIRO_SURFACE_TYPE_WIN32,			"win32"			},
+		{ CAIRO_SURFACE_TYPE_BEOS,			"beos"			},
+		{ CAIRO_SURFACE_TYPE_DIRECTFB,		"directfb"		},
+		{ CAIRO_SURFACE_TYPE_SVG,			"svg"			},
+		{ CAIRO_SURFACE_TYPE_OS2,			"os2"			},
+		{ CAIRO_SURFACE_TYPE_WIN32_PRINTING,"win32_printing"},
+		{ CAIRO_SURFACE_TYPE_QUARTZ_IMAGE,	"quartz_image"	},
+		{ CAIRO_SURFACE_TYPE_SCRIPT,		"script"		},
+		{ CAIRO_SURFACE_TYPE_QT,			"qt"			},
+		{ CAIRO_SURFACE_TYPE_RECORDING,		"recording"		},
+		{ CAIRO_SURFACE_TYPE_VG,			"vg"			},
+		{ CAIRO_SURFACE_TYPE_GL,			"gl"			},
+		{ CAIRO_SURFACE_TYPE_DRM,			"drm"			},
+		{ CAIRO_SURFACE_TYPE_TEE,			"tee"			},
+		{ CAIRO_SURFACE_TYPE_XML,			"xml"			},
+		{ CAIRO_SURFACE_TYPE_SKIA		,	"skia"			},
+		{ CAIRO_SURFACE_TYPE_SUBSURFACE,	"subsurface"	},
 	};
 	for (size_t i = 0; i < NUMBEROF(infoTbl); i++) {
 		if (infoTbl[i].surface_type == surface_type) return infoTbl[i].name;
