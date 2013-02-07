@@ -82,6 +82,11 @@ void Object_context::Destroy()
 // Gura interfaces for context
 // context operations
 //-----------------------------------------------------------------------------
+//#cairo_t *cairo_create(cairo_surface_t *target);
+//#cairo_t *cairo_reference(cairo_t *cr);
+//#void cairo_destroy(cairo_t *cr);
+//#cairo_status_t cairo_status(cairo_t *cr);
+
 // cairo.context#destroy():reduce
 Gura_DeclareMethod(context, destroy)
 {
@@ -774,6 +779,8 @@ Gura_ImplementMethod(context, reset_clip)
 	return args.GetThis();
 }
 
+//#void cairo_rectangle_list_destroy(cairo_rectangle_list_t *rectangle_list);
+
 // cairo.context#copy_clip_rectangle_list()
 Gura_DeclareMethod(context, copy_clip_rectangle_list)
 {
@@ -1040,6 +1047,10 @@ Gura_ImplementMethod(context, show_page)
 	return args.GetThis();
 }
 
+//#unsigned int cairo_get_reference_count(cairo_t *cr);
+//#cairo_status_t cairo_set_user_data(cairo_t *cr, const cairo_user_data_key_t *key, void *user_data, cairo_destroy_func_t destroy);
+//#void *cairo_get_user_data(cairo_t *cr, const cairo_user_data_key_t *key);
+
 //-----------------------------------------------------------------------------
 // Gura interfaces for context
 // Paths - Creating paths and manipulating path data
@@ -1077,6 +1088,9 @@ Gura_ImplementMethod(context, copy_path_flat)
 	Value result(new Object_path(path));
 	return result;
 }
+
+//#void cairo_path_destroy(cairo_path_t *path);
+//#void cairo_append_path(cairo_t *cr, const cairo_path_t *path);
 
 // cairo.context#has_current_point()
 Gura_DeclareMethod(context, has_current_point)
@@ -1304,11 +1318,15 @@ Gura_ImplementMethod(context, glyph_path)
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Null;
-	//::cairo_text_path(cr, args.GetString(0));
+	int num_glyphs = static_cast<int>(args.GetList(0).size());
+	cairo_glyph_t *glyphs = ::cairo_glyph_allocate(num_glyphs);
+	cairo_glyph_t *glyphp = glyphs;
+	foreach_const (ValueList, pValue, args.GetList(0)) {
+		*glyphp++ = Object_glyph::GetObject(*pValue)->GetEntity();
+	}
+	::cairo_glyph_path(cr, glyphs, num_glyphs);
+	::cairo_glyph_free(glyphs);
 	if (IsError(sig, cr)) return Value::Null;
-	
-	sig.SetError(ERR_SystemError, "not implemented yet");
-	
 	return args.GetThis();
 }
 
