@@ -3065,13 +3065,6 @@ double Object_surface::GetHeight() const
 //#void cairo_surface_destroy(cairo_surface_t *surface);
 //#cairo_status_t cairo_surface_status(cairo_surface_t *surface);
 
-//#cairo_surface_t *cairo_image_surface_create_for_data(unsigned char *data, cairo_format_t format, int width, int height, int stride);
-//#unsigned char *cairo_image_surface_get_data(cairo_surface_t *surface);
-//#cairo_format_t cairo_image_surface_get_format(cairo_surface_t *surface);
-//#int cairo_image_surface_get_width(cairo_surface_t *surface);
-//#int cairo_image_surface_get_height(cairo_surface_t *surface);
-//#int cairo_image_surface_get_stride(cairo_surface_t *surface);
-
 //#cairo_surface_t *cairo_pdf_surface_create(const char *filename, double width_in_points, double height_in_points);
 //#cairo_surface_t *cairo_pdf_surface_create_for_stream (cairo_write_func_t write_func, void *closure, double width_in_points, double height_in_points);
 //#void cairo_pdf_surface_restrict_to_version(cairo_surface_t *surface, cairo_pdf_version_t version);
@@ -3079,8 +3072,6 @@ double Object_surface::GetHeight() const
 //#const char *cairo_pdf_version_to_string(cairo_pdf_version_t version);
 //#void cairo_pdf_surface_set_size(cairo_surface_t *surface, double width_in_points, double height_in_points);
 
-//#cairo_surface_t *cairo_image_surface_create_from_png(const char *filename);
-//#cairo_surface_t *cairo_image_surface_create_from_png_stream(cairo_read_func_t read_func, void *closure);
 //#cairo_status_t cairo_surface_write_to_png(cairo_surface_t *surface, const char *filename);
 //#cairo_status_t cairo_surface_write_to_png_stream(cairo_surface_t *surface, cairo_write_func_t write_func, void *closure);
 
@@ -3524,6 +3515,27 @@ Gura_ImplementCastFrom(surface)
 Gura_ImplementCastTo(surface)
 {
 	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Object_image_surface implementation
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for image_surface
+//-----------------------------------------------------------------------------
+//#cairo_surface_t *cairo_image_surface_create_for_data(unsigned char *data, cairo_format_t format, int width, int height, int stride);
+//#unsigned char *cairo_image_surface_get_data(cairo_surface_t *surface);
+//#cairo_format_t cairo_image_surface_get_format(cairo_surface_t *surface);
+//#int cairo_image_surface_get_width(cairo_surface_t *surface);
+//#int cairo_image_surface_get_height(cairo_surface_t *surface);
+//#int cairo_image_surface_get_stride(cairo_surface_t *surface);
+
+//#cairo_surface_t *cairo_image_surface_create_from_png(const char *filename);
+//#cairo_surface_t *cairo_image_surface_create_from_png_stream(cairo_read_func_t read_func, void *closure);
+
+Gura_ImplementUserClass(image_surface)
+{
 }
 
 //-----------------------------------------------------------------------------

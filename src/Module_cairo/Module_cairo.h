@@ -271,6 +271,14 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Object_image_surface declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(image_surface);
+
+class Object_image_surface : public Object_surface {
+};
+
+//-----------------------------------------------------------------------------
 // Object_pattern declaration
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(pattern);
