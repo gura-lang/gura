@@ -219,7 +219,6 @@ public:
 // Object_device declaration
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(device);
-
 class Object_device : public Object {
 private:
 	cairo_device_t *_device;
@@ -276,6 +275,78 @@ public:
 Gura_DeclareUserClass(image_surface);
 
 class Object_image_surface : public Object_surface {
+};
+
+//-----------------------------------------------------------------------------
+// Object_pdf_surface declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(pdf_surface);
+
+class Object_pdf_surface : public Object_surface {
+};
+
+//-----------------------------------------------------------------------------
+// Object_ps_surface declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(ps_surface);
+
+class Object_ps_surface : public Object_surface {
+};
+
+//-----------------------------------------------------------------------------
+// Object_recording_surface declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(recording_surface);
+
+class Object_recording_surface : public Object_surface {
+};
+
+//-----------------------------------------------------------------------------
+// Object_win32_surface declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(win32_surface);
+
+class Object_win32_surface : public Object_surface {
+};
+
+//-----------------------------------------------------------------------------
+// Object_svg_surface declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(svg_surface);
+
+class Object_svg_surface : public Object_surface {
+};
+
+//-----------------------------------------------------------------------------
+// Object_quartz_surface declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(quartz_surface);
+
+class Object_quartz_surface : public Object_surface {
+};
+
+//-----------------------------------------------------------------------------
+// Object_xcb_surface declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(xcb_surface);
+
+class Object_xcb_surface : public Object_surface {
+};
+
+//-----------------------------------------------------------------------------
+// Object_xlib_surface declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(xlib_surface);
+
+class Object_xlib_surface : public Object_surface {
+};
+
+//-----------------------------------------------------------------------------
+// Object_script_surface declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(script_surface);
+
+class Object_script_surface : public Object_surface {
 };
 
 //-----------------------------------------------------------------------------

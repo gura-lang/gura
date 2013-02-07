@@ -3539,6 +3539,105 @@ Gura_ImplementUserClass(image_surface)
 }
 
 //-----------------------------------------------------------------------------
+// Object_pdf_surface implementation
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for pdf_surface
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(pdf_surface)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Object_ps_surface implementation
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for ps_surface
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(ps_surface)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Object_recording_surface implementation
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for recording_surface
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(recording_surface)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Object_win32_surface implementation
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for win32_surface
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(win32_surface)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Object_svg_surface implementation
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for svg_surface
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(svg_surface)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Object_quartz_surface implementation
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for quartz_surface
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(quartz_surface)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Object_xcb_surface implementation
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for xcb_surface
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(xcb_surface)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Object_xlib_surface implementation
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for xlib_surface
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(xlib_surface)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Object_script_surface implementation
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for script_surface
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(script_surface)
+{
+}
+
+//-----------------------------------------------------------------------------
 // Object_pattern implementation
 //-----------------------------------------------------------------------------
 Object_pattern::~Object_pattern()
@@ -4400,6 +4499,16 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(font_options,		env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(device,			env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(surface,			env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(image_surface,	Gura_UserClass(surface));
+	Gura_RealizeUserClass(pdf_surface,		Gura_UserClass(surface));
+	Gura_RealizeUserClass(ps_surface,		Gura_UserClass(surface));
+	Gura_RealizeUserClass(recording_surface,Gura_UserClass(surface));
+	Gura_RealizeUserClass(win32_surface,	Gura_UserClass(surface));
+	Gura_RealizeUserClass(svg_surface,		Gura_UserClass(surface));
+	Gura_RealizeUserClass(quartz_surface,	Gura_UserClass(surface));
+	Gura_RealizeUserClass(xcb_surface,		Gura_UserClass(surface));
+	Gura_RealizeUserClass(xlib_surface,		Gura_UserClass(surface));
+	Gura_RealizeUserClass(script_surface,	Gura_UserClass(surface));
 	Gura_RealizeUserClass(pattern,			env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(region,			env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(path,				env.LookupClass(VTYPE_object));
