@@ -1,5 +1,6 @@
 //-----------------------------------------------------------------------------
 // Gura cairo module
+// cairo version 1.12.12
 //-----------------------------------------------------------------------------
 #include "Module_cairo.h"
 
@@ -2262,6 +2263,17 @@ String Object_region::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for region
 //-----------------------------------------------------------------------------
+//#cairo_region_t *cairo_region_create(void);
+//#cairo_region_t *cairo_region_create_rectangle(const cairo_rectangle_int_t *rectangle);
+//#cairo_region_t *cairo_region_create_rectangles(const cairo_rectangle_int_t *rects, int count);
+//#cairo_region_t *cairo_region_copy(const cairo_region_t *original);
+//#cairo_region_t *cairo_region_reference(cairo_region_t *region);
+//#void cairo_region_destroy(cairo_region_t *region);
+//#cairo_status_t cairo_region_status(const cairo_region_t *region);
+//#void cairo_region_get_extents(const cairo_region_t *region, cairo_rectangle_int_t *extents);
+//#int cairo_region_num_rectangles(const cairo_region_t *region);
+//#void cairo_region_get_rectangle(const cairo_region_t *region, int nth, cairo_rectangle_int_t *rectangle);
+
 // cairo.region#is_empty()
 Gura_DeclareMethod(region, is_empty)
 {
@@ -2942,6 +2954,18 @@ String Object_device::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for device
 //-----------------------------------------------------------------------------
+//#cairo_device_t *cairo_device_reference(cairo_device_t *device);
+//#void cairo_device_destroy(cairo_device_t *device);
+//#cairo_status_t cairo_device_status(cairo_device_t *device);
+//#void cairo_device_finish(cairo_device_t *device);
+//#void cairo_device_flush(cairo_device_t *device);
+//#cairo_device_type_t cairo_device_get_type(cairo_device_t *device);
+//#unsigned int cairo_device_get_reference_count(cairo_device_t *device);
+//#cairo_status_t cairo_device_set_user_data(cairo_device_t *device, const cairo_user_data_key_t *key, void *user_data, cairo_destroy_func_t destroy);
+//#void *cairo_device_get_user_data(cairo_device_t *device, const cairo_user_data_key_t *key);
+//#cairo_status_t cairo_device_acquire(cairo_device_t *device);
+//#void cairo_device_release(cairo_device_t *device);
+
 // implementation of class device
 Gura_ImplementUserClass(device)
 {
@@ -3034,6 +3058,104 @@ double Object_surface::GetHeight() const
 //-----------------------------------------------------------------------------
 // Gura interfaces for surface
 //-----------------------------------------------------------------------------
+//#cairo_surface_t *cairo_surface_create_similar(cairo_surface_t *other, cairo_content_t content, int width, int height);
+//#cairo_surface_t *cairo_surface_create_similar_image(cairo_surface_t *other, cairo_format_t format, int width, int height);
+//#cairo_surface_t *cairo_surface_create_for_rectangle(cairo_surface_t *target, double x, double y, double width, double height);
+//#cairo_surface_t *cairo_surface_reference(cairo_surface_t *surface);
+//#void cairo_surface_destroy(cairo_surface_t *surface);
+//#cairo_status_t cairo_surface_status(cairo_surface_t *surface);
+
+//#cairo_surface_t *cairo_image_surface_create_for_data(unsigned char *data, cairo_format_t format, int width, int height, int stride);
+//#unsigned char *cairo_image_surface_get_data(cairo_surface_t *surface);
+//#cairo_format_t cairo_image_surface_get_format(cairo_surface_t *surface);
+//#int cairo_image_surface_get_width(cairo_surface_t *surface);
+//#int cairo_image_surface_get_height(cairo_surface_t *surface);
+//#int cairo_image_surface_get_stride(cairo_surface_t *surface);
+
+//#cairo_surface_t *cairo_pdf_surface_create(const char *filename, double width_in_points, double height_in_points);
+//#cairo_surface_t *cairo_pdf_surface_create_for_stream (cairo_write_func_t write_func, void *closure, double width_in_points, double height_in_points);
+//#void cairo_pdf_surface_restrict_to_version(cairo_surface_t *surface, cairo_pdf_version_t version);
+//#void cairo_pdf_get_versions(cairo_pdf_version_t const **versions, int *num_versions);
+//#const char *cairo_pdf_version_to_string(cairo_pdf_version_t version);
+//#void cairo_pdf_surface_set_size(cairo_surface_t *surface, double width_in_points, double height_in_points);
+
+//#cairo_surface_t *cairo_image_surface_create_from_png(const char *filename);
+//#cairo_surface_t *cairo_image_surface_create_from_png_stream(cairo_read_func_t read_func, void *closure);
+//#cairo_status_t cairo_surface_write_to_png(cairo_surface_t *surface, const char *filename);
+//#cairo_status_t cairo_surface_write_to_png_stream(cairo_surface_t *surface, cairo_write_func_t write_func, void *closure);
+
+//#cairo_surface_t *cairo_ps_surface_create(const char *filename, double width_in_points, double height_in_points);
+//#cairo_surface_t *cairo_ps_surface_create_for_stream(cairo_write_func_t write_func, void *closure, double width_in_points, double height_in_points);
+//#void cairo_ps_surface_restrict_to_level(cairo_surface_t *surface, cairo_ps_level_t level);
+//#void cairo_ps_get_levels(cairo_ps_level_t const **levels, int *num_levels);
+//#const char *cairo_ps_level_to_string(cairo_ps_level_t level);
+//#void cairo_ps_surface_set_eps(cairo_surface_t *surface, cairo_bool_t eps);
+//#cairo_bool_t cairo_ps_surface_get_eps(cairo_surface_t *surface);
+//#void cairo_ps_surface_set_size(cairo_surface_t *surface, double width_in_points, double height_in_points);
+//#void cairo_ps_surface_dsc_begin_setup(cairo_surface_t *surface);
+//#void cairo_ps_surface_dsc_begin_page_setup(cairo_surface_t *surface);
+//#void cairo_ps_surface_dsc_comment(cairo_surface_t *surface, const char *comment);
+
+//#cairo_surface_t *cairo_recording_surface_create(cairo_content_t content, const cairo_rectangle_t *extents);
+//#void cairo_recording_surface_ink_extents(cairo_surface_t *surface, double *x0, double *y0, double *width, double *height);
+//#cairo_bool_t cairo_recording_surface_get_extents(cairo_surface_t *surface, cairo_rectangle_t *extents);
+
+//#cairo_surface_t *cairo_win32_surface_create(HDC hdc);
+//#cairo_surface_t *cairo_win32_surface_create_with_dib(cairo_format_t format, int width, int height);
+//#cairo_surface_t *cairo_win32_surface_create_with_ddb(HDC hdc, cairo_format_t format, int width, int height);
+//#cairo_surface_t *cairo_win32_printing_surface_create(HDC hdc);
+//#HDC cairo_win32_surface_get_dc(cairo_surface_t *surface);
+//#cairo_surface_t *cairo_win32_surface_get_image(cairo_surface_t *surface);
+
+//#cairo_surface_t *cairo_svg_surface_create(const char *filename, double width_in_points, double height_in_points);
+//#cairo_surface_t *cairo_svg_surface_create_for_stream (cairo_write_func_t write_func, void *closure, double width_in_points, double height_in_points);
+//#void cairo_svg_surface_restrict_to_version(cairo_surface_t *surface, cairo_svg_version_t version);
+//#void cairo_svg_get_versions(cairo_svg_version_t const **versions, int *num_versions);
+//#const char *cairo_svg_version_to_string(cairo_svg_version_t version);
+
+//#cairo_surface_t *cairo_quartz_surface_create(cairo_format_t format, unsigned int width, unsigned int height);
+//#cairo_surface_t *cairo_quartz_surface_create_for_cg_context(CGContextRef cgContext, unsigned int width, unsigned int height);
+//#CGContextRef cairo_quartz_surface_get_cg_context (cairo_surface_t *surface);
+
+//#cairo_surface_t *cairo_xcb_surface_create(xcb_connection_t *connection, xcb_drawable_t drawable, xcb_visualtype_t *visual, int width, int height);
+//#cairo_surface_t *cairo_xcb_surface_create_for_bitmap(xcb_connection_t *connection, xcb_screen_t *screen, xcb_pixmap_t bitmap, int width, int height);
+//#cairo_surface_t *cairo_xcb_surface_create_with_xrender_format(xcb_connection_t *connection, xcb_screen_t *screen, xcb_drawable_t drawable, xcb_render_pictforminfo_t *format, int width, int height);
+//#void cairo_xcb_surface_set_size(cairo_surface_t *surface, int width, int height);
+//#void cairo_xcb_surface_set_drawable(cairo_surface_t *surface, xcb_drawable_t drawable, int width, int height);
+//#xcb_connection_t *cairo_xcb_device_get_connection(cairo_device_t *device);
+//#void cairo_xcb_device_debug_cap_xrender_version(cairo_device_t *device, int major_version, int minor_version);
+//#void cairo_xcb_device_debug_cap_xshm_version(cairo_device_t *device, int major_version, int minor_version);
+//#int cairo_xcb_device_debug_get_precision(cairo_device_t *device);
+//#void cairo_xcb_device_debug_set_precision(cairo_device_t *device, int precision);
+
+//#cairo_surface_t *cairo_xlib_surface_create(Display *dpy, Drawable drawable, Visual *visual, int width, int height);
+//#cairo_surface_t *cairo_xlib_surface_create_for_bitmap(Display *dpy, Pixmap bitmap, Screen *screen, int width, int height);
+//#void cairo_xlib_surface_set_size(cairo_surface_t *surface, int width, int height);
+//#Display *cairo_xlib_surface_get_display(cairo_surface_t *surface);
+//#Screen *cairo_xlib_surface_get_screen(cairo_surface_t *surface);
+//#void cairo_xlib_surface_set_drawable(cairo_surface_t *surface, Drawable drawable, int width, int height);
+//#Drawable cairo_xlib_surface_get_drawable(cairo_surface_t *surface);
+//#Visual *cairo_xlib_surface_get_visual(cairo_surface_t *surface);
+//#int cairo_xlib_surface_get_width(cairo_surface_t *surface);
+//#int cairo_xlib_surface_get_height(cairo_surface_t *surface);
+//#int cairo_xlib_surface_get_depth(cairo_surface_t *surface);
+//#void cairo_xlib_device_debug_cap_xrender_version(cairo_device_t *device, int major_version, int minor_version);
+//#int cairo_xlib_device_debug_get_precision(cairo_device_t *device);
+//#void cairo_xlib_device_debug_set_precision(cairo_device_t *device, int precision);
+
+//#cairo_surface_t *   cairo_xlib_surface_create_with_xrender_format(Display *dpy, Drawable drawable, Screen *screen, XRenderPictFormat *format, int width, int height);
+//#XRenderPictFormat * cairo_xlib_surface_get_xrender_format(cairo_surface_t *surface);
+
+//#cairo_device_t *cairo_script_create(const char *filename);
+//#cairo_device_t *cairo_script_create_for_stream(cairo_write_func_t write_func, void *closure);
+//#cairo_status_t cairo_script_from_recording_surface(cairo_device_t *script, cairo_surface_t *recording_surface);
+//#cairo_script_mode_t cairo_script_get_mode(cairo_device_t *script);
+//#void cairo_script_set_mode(cairo_device_t *script, cairo_script_mode_t mode);
+//#cairo_surface_t *cairo_script_surface_create(cairo_device_t *script, cairo_content_t content, double width, double height);
+//#cairo_surface_t *cairo_script_surface_create_for_target(cairo_device_t *script, cairo_surface_t *target);
+//#void cairo_script_write_comment(cairo_device_t *script, const char *comment, int len);
+
+
 // cairo.surface#finish():reduce
 Gura_DeclareMethod(surface, finish)
 {
@@ -3231,6 +3353,10 @@ Gura_ImplementMethod(surface, get_type)
 	return Value(rtn);
 }
 
+//#unsigned int cairo_surface_get_reference_count(cairo_surface_t *surface);
+//#cairo_status_t cairo_surface_set_user_data(cairo_surface_t *surface, const cairo_user_data_key_t *key, void *user_data, cairo_destroy_func_t destroy);
+//#void *cairo_surface_get_user_data(cairo_surface_t *surface, const cairo_user_data_key_t *key);
+
 // cairo.surface#copy_page():reduce
 Gura_DeclareMethod(surface, copy_page)
 {
@@ -3422,6 +3548,18 @@ String Object_pattern::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for pattern
 //-----------------------------------------------------------------------------
+//#cairo_pattern_t *cairo_pattern_create_raster_source(void *user_data, cairo_content_t content, int width, int height);
+//#void cairo_raster_source_pattern_set_callback_data(cairo_pattern_t *pattern, void *data);
+//#void *cairo_raster_source_pattern_get_callback_data(cairo_pattern_t *pattern);
+//#void cairo_raster_source_pattern_set_acquire(cairo_pattern_t *pattern, cairo_raster_source_acquire_func_t acquire, cairo_raster_source_release_func_t release);
+//#void cairo_raster_source_pattern_get_acquire(cairo_pattern_t *pattern, cairo_raster_source_acquire_func_t *acquire, cairo_raster_source_release_func_t *release);
+//#void cairo_raster_source_pattern_set_snapshot(cairo_pattern_t *pattern, cairo_raster_source_snapshot_func_t snapshot);
+//#cairo_raster_source_snapshot_func_t cairo_raster_source_pattern_get_snapshot(cairo_pattern_t *pattern);
+//#void cairo_raster_source_pattern_set_copy(cairo_pattern_t *pattern, cairo_raster_source_copy_func_t copy);
+//#cairo_raster_source_copy_func_t cairo_raster_source_pattern_get_copy(cairo_pattern_t *pattern);
+//#void cairo_raster_source_pattern_set_finish(cairo_pattern_t *pattern, cairo_raster_source_finish_func_t finish);
+//#cairo_raster_source_finish_func_t cairo_raster_source_pattern_get_finish(cairo_pattern_t *pattern);
+
 // cairo.pattern#add_color_stop_rgb(offset:number, red:number, green:number, blue:number):reduce
 Gura_DeclareMethod(pattern, add_color_stop_rgb)
 {
@@ -3497,6 +3635,9 @@ Gura_ImplementMethod(pattern, get_color_stop_rgba)
 	return CreateValueList(env, offset, red, green, blue, alpha);
 }
 
+//#cairo_pattern_t *cairo_pattern_create_rgb(double red, double green, double blue);
+//#cairo_pattern_t *cairo_pattern_create_rgba(double red, double green, double blue, double alpha);
+
 // cairo.pattern#get_rgba()
 Gura_DeclareMethod(pattern, get_rgba)
 {
@@ -3513,6 +3654,8 @@ Gura_ImplementMethod(pattern, get_rgba)
 	if (IsError(sig, status)) return Value::Null;
 	return CreateValueList(env, red, green, blue, alpha);
 }
+
+//#cairo_pattern_t *cairo_pattern_create_for_surface(cairo_surface_t *surface);
 
 // cairo.pattern#get_surface()
 Gura_DeclareMethod(pattern, get_surface)
@@ -3532,6 +3675,8 @@ Gura_ImplementMethod(pattern, get_surface)
 	return Value(pObjSurface);
 }
 
+//#cairo_pattern_t *cairo_pattern_create_linear(double x0, double y0, double x1, double y1);
+
 // cairo.pattern#get_linear_points()
 Gura_DeclareMethod(pattern, get_linear_points)
 {
@@ -3549,6 +3694,8 @@ Gura_ImplementMethod(pattern, get_linear_points)
 	return CreateValueList(env, x0, y0, x1, y1);
 }
 
+//#cairo_pattern_t *cairo_pattern_create_radial(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1);
+
 // cairo.pattern#get_radial_circles():reduce
 Gura_DeclareMethod(pattern, get_radial_circles)
 {
@@ -3565,6 +3712,24 @@ Gura_ImplementMethod(pattern, get_radial_circles)
 	if (IsError(sig, status)) return Value::Null;
 	return CreateValueList(env, x0, y0, r0, x1, y1, r1);
 }
+
+//#cairo_pattern_t *cairo_pattern_create_mesh(void);
+//#void cairo_mesh_pattern_begin_patch(cairo_pattern_t *pattern);
+//#void cairo_mesh_pattern_end_patch(cairo_pattern_t *pattern);
+//#void cairo_mesh_pattern_move_to(cairo_pattern_t *pattern, double x, double y);
+//#void cairo_mesh_pattern_line_to(cairo_pattern_t *pattern, double x, double y);
+//#void cairo_mesh_pattern_curve_to(cairo_pattern_t *pattern, double x1, double y1, double x2, double y2, double x3, double y3);
+//#void cairo_mesh_pattern_set_control_point(cairo_pattern_t *pattern, unsigned int point_num, double x, double y);
+//#void cairo_mesh_pattern_set_corner_color_rgb(cairo_pattern_t *pattern, unsigned int corner_num, double red, double green, double blue);
+//#void cairo_mesh_pattern_set_corner_color_rgba(cairo_pattern_t *pattern, unsigned int corner_num, double red, double green, double blue, double alpha);
+//#cairo_status_t cairo_mesh_pattern_get_patch_count(cairo_pattern_t *pattern, unsigned int *count);
+//#cairo_path_t *cairo_mesh_pattern_get_path(cairo_pattern_t *pattern, unsigned int patch_num);
+//#cairo_status_t cairo_mesh_pattern_get_control_point(cairo_pattern_t *pattern, unsigned int patch_num, unsigned int point_num, double *x, double *y);
+//#cairo_status_t cairo_mesh_pattern_get_corner_color_rgba(cairo_pattern_t *pattern, unsigned int patch_num, unsigned int corner_num, double *red, double *green, double *blue, double *alpha);
+
+//#cairo_pattern_t *cairo_pattern_reference(cairo_pattern_t *pattern);
+//#void cairo_pattern_destroy(cairo_pattern_t *pattern);
+//#cairo_status_t cairo_pattern_status(cairo_pattern_t *pattern);
 
 // cairo.pattern#set_extend(extend:number):reduce
 Gura_DeclareMethod(pattern, set_extend)
@@ -3667,6 +3832,11 @@ Gura_ImplementMethod(pattern, get_matrix)
 	Object_matrix *pObjMatrix = CairoToMatrix(env, matrix);
 	return Value(pObjMatrix);
 }
+
+//#cairo_pattern_type_t cairo_pattern_get_type(cairo_pattern_t *pattern);
+//#unsigned int cairo_pattern_get_reference_count(cairo_pattern_t *pattern);
+//#cairo_status_t cairo_pattern_set_user_data(cairo_pattern_t *pattern, const cairo_user_data_key_t *key, void *user_data, cairo_destroy_func_t destroy);
+//#void *cairo_pattern_get_user_data(cairo_pattern_t *pattern, const cairo_user_data_key_t *key);
 
 // implementation of class pattern
 Gura_ImplementUserClass(pattern)
@@ -4130,6 +4300,11 @@ Gura_ImplementFunction(pattern_create_radial)
 	Value result(new Object_pattern(pattern));
 	return ReturnValue(env, sig, args, result);
 }
+
+//#int cairo_format_stride_for_width(cairo_format_t format, int width);
+//#cairo_surface_t *cairo_image_surface_create(cairo_format_t format, int width, int height);
+//#const char *cairo_status_to_string(cairo_status_t status);
+//#void cairo_debug_reset_static_data(void);
 
 // cairo.test()
 Gura_DeclareFunction(test)
@@ -4681,3 +4856,16 @@ cairo_surface_t *CreateSurfaceFromImage(Signal sig, Object_image *pObjImage)
 Gura_EndModule(cairo, cairo)
 
 Gura_RegisterModule(cairo)
+
+//#void cairo_matrix_init(cairo_matrix_t *matrix, double xx, double yx, double xy, double yy, double x0, double y0);
+//#void cairo_matrix_init_identity(cairo_matrix_t *matrix);
+//#void cairo_matrix_init_translate(cairo_matrix_t *matrix, double tx, double ty);
+//#void cairo_matrix_init_scale(cairo_matrix_t *matrix, double sx, double sy);
+//#void cairo_matrix_init_rotate(cairo_matrix_t *matrix, double radians);
+//#void cairo_matrix_translate(cairo_matrix_t *matrix, double tx, double ty);
+//#void cairo_matrix_scale(cairo_matrix_t *matrix, double sx, double sy);
+//#void cairo_matrix_rotate(cairo_matrix_t *matrix, double radians);
+//#cairo_status_t cairo_matrix_invert(cairo_matrix_t *matrix);
+//#void cairo_matrix_multiply(cairo_matrix_t *result, const cairo_matrix_t *a, const cairo_matrix_t *b);
+//#void cairo_matrix_transform_distance(const cairo_matrix_t *matrix, double *dx, double *dy);
+//#void cairo_matrix_transform_point(const cairo_matrix_t *matrix, double *x, double *y);
