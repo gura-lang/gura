@@ -434,17 +434,22 @@ Gura_ImplementMethod(context, get_dash)
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Null;
-#if 0
-	//int num_dashes = ::cairo_get_dash_count(cr);
+	int num_dashes = ::cairo_get_dash_count(cr);
 	double *dashes = new double [num_dashes];
 	double offset = 0;
 	::cairo_get_dash(cr, dashes, &offset);
-	if (IsError(sig, cr)) return Value::Null;
-#endif
-	
-	sig.SetError(ERR_SystemError, "not implemented yet");
-	
-	return args.GetThis();
+	if (IsError(sig, cr)) {
+		delete[] dashes;
+		return Value::Null;
+	}
+	Value rtn;
+	ValueList &valList = rtn.InitAsList(env);
+	valList.reserve(num_dashes);
+	for (int i = 0; i < num_dashes; i++) {
+		valList.push_back(Value(dashes[num_dashes]));
+	}
+	delete[] dashes;
+	return Value::CreateAsList(env, rtn, Value(offset));
 }
 
 // cairo.context#set_fill_rule(fill_rule:number):reduce

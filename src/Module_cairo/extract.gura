@@ -78,7 +78,8 @@ generate(rtnType:string, rtnPtr:string, funcName:string, argsRaw:string) = {
 	}
 	className = ''
 	cairoTypeName = 'cairo_hoge'
-	print(tmplMethod.template())
+	//print(tmplMethod.template())
+	println(funcName)
 }
 stat = `normal
 readlines(fileName) {|line|
@@ -114,4 +115,4 @@ readlines(fileName) {|line|
 		}
 	}
 }
-println(set(types).sort())
+//println(set(types).sort())
