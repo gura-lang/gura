@@ -13,8 +13,6 @@
 #include <cairo-win32.h>
 #endif
 
-#include "Object_context.h"
-
 Gura_BeginModule(cairo)
 
 Gura_DeclareUserSymbol(ascent);

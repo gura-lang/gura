@@ -2,7 +2,7 @@
 // Gura cairo module
 // cairo version 1.12.12
 //-----------------------------------------------------------------------------
-#include "Module_cairo.h"
+#include "stdafx.h"
 
 #define Gura_AssignCairoValue(name) \
 Gura_AssignValue(name, Value(CAIRO_##name))

@@ -1,4 +1,4 @@
-#include "Module_cairo.h"
+#include "stdafx.h"
 
 Gura_BeginModule(cairo)
 
