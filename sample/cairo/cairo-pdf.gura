@@ -2,9 +2,9 @@
 import(units)
 import(cairo)
 
-cairo.pdf_create('cairo-pdf.pdf', units.mm$pt(100), units.mm$pt(100)) {|cr|
-	cr.scale(cr.width, cr.height)
-	radial = cairo.pattern_create_radial(0.25, 0.25, 0.1,  0.5, 0.5, 0.5)
+cairo.create(cairo.pdf_surface.create('cairo-pdf.pdf', units.mm$pt(100), units.mm$pt(100))) {|cr|
+	cr.scale(cr.surface.width, cr.surface.height)
+	radial = cairo.pattern.create_radial(0.25, 0.25, 0.1,  0.5, 0.5, 0.5)
 	radial.add_color_stop_rgb(0,  1.0, 0.8, 0.8)
 	radial.add_color_stop_rgb(1,  0.9, 0.0, 0.0)
 	cross (i in 1..9, j in 1..9) {
@@ -12,7 +12,7 @@ cairo.pdf_create('cairo-pdf.pdf', units.mm$pt(100), units.mm$pt(100)) {|cr|
 	}
 	cr.set_source(radial)
 	cr.fill()
-	linear = cairo.pattern_create_linear(0.25, 0.35, 0.75, 0.65)
+	linear = cairo.pattern.create_linear(0.25, 0.35, 0.75, 0.65)
 	linear.add_color_stop_rgba(0.00,  1, 1, 1, 0)
 	linear.add_color_stop_rgba(0.25,  0, 1, 0, 0.5)
 	linear.add_color_stop_rgba(0.50,  1, 1, 1, 0)
