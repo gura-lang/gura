@@ -9,6 +9,8 @@ Gura_BeginModule(cairo)
 //-----------------------------------------------------------------------------
 // Gura interfaces for pdf_surface
 //-----------------------------------------------------------------------------
+//#cairo_surface_t *cairo_pdf_surface_create(const char *filename, double width_in_points, double height_in_points);
+//#cairo_surface_t *cairo_pdf_surface_create_for_stream (cairo_write_func_t write_func, void *closure, double width_in_points, double height_in_points);
 // cairo.pdf_surface.create(stream:stream:w, width_in_points:number, height_in_points:number) {block?}
 Gura_DeclareClassMethod(pdf_surface, create)
 {
@@ -31,19 +33,29 @@ Gura_ImplementClassMethod(pdf_surface, create)
 	return ReturnValue(env, sig, args, Value(pObjSurface));
 }
 
-//#cairo_surface_t *cairo_pdf_surface_create(const char *filename, double width_in_points, double height_in_points);
-//#cairo_surface_t *cairo_pdf_surface_create_for_stream (cairo_write_func_t write_func, void *closure, double width_in_points, double height_in_points);
 //#void cairo_pdf_surface_restrict_to_version(cairo_surface_t *surface, cairo_pdf_version_t version);
-//#void cairo_pdf_get_versions(cairo_pdf_version_t const **versions, int *num_versions);
-//#const char *cairo_pdf_version_to_string(cairo_pdf_version_t version);
-//#void cairo_pdf_surface_set_size(cairo_surface_t *surface, double width_in_points, double height_in_points);
 
-//#cairo_status_t cairo_surface_write_to_png(cairo_surface_t *surface, const char *filename);
-//#cairo_status_t cairo_surface_write_to_png_stream(cairo_surface_t *surface, cairo_write_func_t write_func, void *closure);
+// cairo.pdf_surface#set_size(width_in_points:number, height_in_points:number)
+Gura_DeclareMethod(pdf_surface, set_size)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "width_in_points", VTYPE_number);
+	DeclareArg(env, "height_in_points", VTYPE_number);
+}
+
+Gura_ImplementMethod(pdf_surface, set_size)
+{
+	Object_surface *pThis = Object_surface::GetThisObj(args);
+	cairo_surface_t *surface = pThis->GetEntity();
+	::cairo_pdf_surface_set_size(surface, args.GetDouble(0), args.GetDouble(1));
+	if (IsError(sig, surface)) return Value::Null;
+	return args.GetThis();
+}
 
 Gura_ImplementUserClass(pdf_surface)
 {
 	Gura_AssignMethod(pdf_surface, create);
+	Gura_AssignMethod(pdf_surface, set_size);
 }
 
 }}

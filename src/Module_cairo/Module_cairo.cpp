@@ -55,6 +55,8 @@ Gura_ImplementFunction(create)
 		Value(new Object_context(cr, Object_surface::Reference(pObjSurface))));
 }
 
+//#void cairo_pdf_get_versions(cairo_pdf_version_t const **versions, int *num_versions);
+//#const char *cairo_pdf_version_to_string(cairo_pdf_version_t version);
 //#int cairo_format_stride_for_width(cairo_format_t format, int width);
 //#cairo_surface_t *cairo_image_surface_create(cairo_format_t format, int width, int height);
 //#const char *cairo_status_to_string(cairo_status_t status);

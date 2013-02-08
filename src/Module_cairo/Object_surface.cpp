@@ -404,6 +404,24 @@ Gura_ImplementMethod(surface, unmap_image)
 	return Value::Null;
 }
 
+// cairo.surface#write_to_png(stream:stream:w):reduce
+Gura_DeclareMethod(surface, write_to_png)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+}
+
+Gura_ImplementMethod(surface, write_to_png)
+{
+	Object_surface *pThis = Object_surface::GetThisObj(args);
+	cairo_surface_t *surface = pThis->GetEntity();
+	std::auto_ptr<Writer_Stream> pWriter(new Writer_Stream(sig, 0, 0,
+									Stream::Reference(&args.GetStream(0))));
+	::cairo_surface_write_to_png_stream(surface, Writer_Stream::write_func, pWriter.get());
+	if (IsError(sig, surface)) return Value::Null;
+	return args.GetThis();
+}
+
 // implementation of class surface
 Gura_ImplementUserClassWithCast(surface)
 {
@@ -427,6 +445,7 @@ Gura_ImplementUserClassWithCast(surface)
 	Gura_AssignMethod(surface, supports_mime_type);
 	Gura_AssignMethod(surface, map_to_image);
 	Gura_AssignMethod(surface, unmap_image);
+	Gura_AssignMethod(surface, write_to_png);
 }
 
 Gura_ImplementCastFrom(surface)
