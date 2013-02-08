@@ -239,34 +239,19 @@ public:
 Gura_DeclareUserClass(surface);
 
 class Object_surface : public Object {
-private:
+protected:
 	cairo_surface_t *_surface;
-	AutoPtr<Object_image> _pObjImage;	// valid when initialized as image
-	Writer *_pWriter;					// valid when initialized as pdf, ps
 public:
 	Gura_DeclareObjectAccessor(surface)
 public:
 	inline Object_surface(cairo_surface_t *surface) :
-				Object(Gura_UserClass(surface)),
-				_surface(surface), _pObjImage(NULL), _pWriter(NULL) {}
-	inline Object_surface(cairo_surface_t *surface, Object_image *pObjImage) :
-				Object(Gura_UserClass(surface)),
-				_surface(surface), _pObjImage(pObjImage), _pWriter(NULL) {}
-	inline Object_surface(cairo_surface_t *surface, Writer *pWriter) :
-				Object(Gura_UserClass(surface)),
-				_surface(surface), _pObjImage(NULL), _pWriter(pWriter) {}
+				Object(Gura_UserClass(surface)), _surface(surface) {}
 	virtual ~Object_surface();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline cairo_surface_t *GetEntity() { return _surface; }
-	inline Object_image *GetImageObj() { return _pObjImage.get(); }
-	inline bool HasSize() const {
-		return !_pObjImage.IsNull() || _pWriter != NULL;
-	}
-	double GetWidth() const;
-	double GetHeight() const;
 };
 
 //-----------------------------------------------------------------------------
@@ -275,6 +260,29 @@ public:
 Gura_DeclareUserClass(image_surface);
 
 class Object_image_surface : public Object_surface {
+private:
+	AutoPtr<Object_image> _pObjImage;
+public:
+	inline Object_image_surface(cairo_surface_t *surface, Object_image *pObjImage) :
+				Object_surface(surface), _pObjImage(pObjImage) {}
+	inline Object_image *GetImageObj() { return _pObjImage.get(); }
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+};
+
+//-----------------------------------------------------------------------------
+// Object_Writer_surface declaration
+//-----------------------------------------------------------------------------
+class Object_Writer_surface : public Object_surface {
+private:
+	Writer *_pWriter;
+public:
+	inline Object_Writer_surface(cairo_surface_t *surface, Writer *pWriter) :
+				Object_surface(surface), _pWriter(pWriter) {}
+	virtual ~Object_Writer_surface();
+	inline Writer *GetWriter() { return _pWriter; }
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 };
 
 //-----------------------------------------------------------------------------
@@ -282,7 +290,10 @@ class Object_image_surface : public Object_surface {
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(pdf_surface);
 
-class Object_pdf_surface : public Object_surface {
+class Object_pdf_surface : public Object_Writer_surface {
+public:
+	inline Object_pdf_surface(cairo_surface_t *surface, Writer *pWriter) :
+				Object_Writer_surface(surface, pWriter) {}
 };
 
 //-----------------------------------------------------------------------------
@@ -290,7 +301,10 @@ class Object_pdf_surface : public Object_surface {
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(ps_surface);
 
-class Object_ps_surface : public Object_surface {
+class Object_ps_surface : public Object_Writer_surface {
+public:
+	inline Object_ps_surface(cairo_surface_t *surface, Writer *pWriter) :
+				Object_Writer_surface(surface, pWriter) {}
 };
 
 //-----------------------------------------------------------------------------
@@ -306,7 +320,10 @@ class Object_recording_surface : public Object_surface {
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(win32_surface);
 
-class Object_win32_surface : public Object_surface {
+class Object_win32_surface : public Object_Writer_surface {
+public:
+	inline Object_win32_surface(cairo_surface_t *surface, Writer *pWriter) :
+				Object_Writer_surface(surface, pWriter) {}
 };
 
 //-----------------------------------------------------------------------------
@@ -314,7 +331,10 @@ class Object_win32_surface : public Object_surface {
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(svg_surface);
 
-class Object_svg_surface : public Object_surface {
+class Object_svg_surface : public Object_Writer_surface {
+public:
+	inline Object_svg_surface(cairo_surface_t *surface, Writer *pWriter) :
+				Object_Writer_surface(surface, pWriter) {}
 };
 
 //-----------------------------------------------------------------------------

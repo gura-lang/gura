@@ -38,12 +38,6 @@ Value Object_context::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluat
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(surface))) {
 		return Value(Object_surface::Reference(_pObjSurface.get()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {
-		if (!_pObjSurface->HasSize()) return Value::Null;
-		return Value(_pObjSurface->GetWidth());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
-		if (!_pObjSurface->HasSize()) return Value::Null;
-		return Value(_pObjSurface->GetHeight());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -2976,8 +2970,10 @@ Gura_ImplementUserClass(device)
 //-----------------------------------------------------------------------------
 Object_surface::~Object_surface()
 {
-	::cairo_surface_destroy(_surface);
-	delete _pWriter;
+	if (_surface != NULL) {
+		::cairo_surface_destroy(_surface);
+		_surface = NULL;
+	}
 }
 
 Object *Object_surface::Clone() const
@@ -2989,10 +2985,6 @@ bool Object_surface::DoDirProp(Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
-	symbols.insert(Gura_UserSymbol(width));
-	symbols.insert(Gura_UserSymbol(height));
-	symbols.insert(Gura_UserSymbol(image));
-	symbols.insert(Gura_UserSymbol(stream));
 	return true;
 }
 
@@ -3000,28 +2992,10 @@ Value Object_surface::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluat
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
-	cairo_surface_type_t type = ::cairo_surface_get_type(_surface);
+	//cairo_surface_type_t type = ::cairo_surface_get_type(_surface);
 	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
 		cairo_surface_type_t surface_type = ::cairo_surface_get_type(_surface);
 		return Value(surface_type);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {
-		if (!HasSize()) return Value::Null;
-		return Value(GetWidth());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
-		if (!HasSize()) return Value::Null;
-		return Value(GetHeight());
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(image))) {
-		if (_pObjImage.IsNull()) {
-			return Value::Null;
-		} else {
-			return Value(Object_image::Reference(_pObjImage.get()));
-		}
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(stream))) {
-		if (_pWriter == NULL) return Value::Null;
-		Stream *pStream = _pWriter->GetStream();
-		if (pStream == NULL) return Value::Null;
-		Object_stream *pObjStream = new Object_stream(env, Stream::Reference(pStream));
-		return Value(pObjStream);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -3043,18 +3017,6 @@ String Object_surface::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
-double Object_surface::GetWidth() const
-{
-	return !_pObjImage.IsNull()? _pObjImage->GetWidth() :
-		(_pWriter != NULL)? _pWriter->GetWidth() : 0.;
-}
-
-double Object_surface::GetHeight() const
-{
-	return !_pObjImage.IsNull()? _pObjImage->GetHeight() :
-		(_pWriter != NULL)? _pWriter->GetHeight() : 0.;
-}
-
 //-----------------------------------------------------------------------------
 // Gura interfaces for surface
 //-----------------------------------------------------------------------------
@@ -3064,87 +3026,6 @@ double Object_surface::GetHeight() const
 //#cairo_surface_t *cairo_surface_reference(cairo_surface_t *surface);
 //#void cairo_surface_destroy(cairo_surface_t *surface);
 //#cairo_status_t cairo_surface_status(cairo_surface_t *surface);
-
-//#cairo_surface_t *cairo_pdf_surface_create(const char *filename, double width_in_points, double height_in_points);
-//#cairo_surface_t *cairo_pdf_surface_create_for_stream (cairo_write_func_t write_func, void *closure, double width_in_points, double height_in_points);
-//#void cairo_pdf_surface_restrict_to_version(cairo_surface_t *surface, cairo_pdf_version_t version);
-//#void cairo_pdf_get_versions(cairo_pdf_version_t const **versions, int *num_versions);
-//#const char *cairo_pdf_version_to_string(cairo_pdf_version_t version);
-//#void cairo_pdf_surface_set_size(cairo_surface_t *surface, double width_in_points, double height_in_points);
-
-//#cairo_status_t cairo_surface_write_to_png(cairo_surface_t *surface, const char *filename);
-//#cairo_status_t cairo_surface_write_to_png_stream(cairo_surface_t *surface, cairo_write_func_t write_func, void *closure);
-
-//#cairo_surface_t *cairo_ps_surface_create(const char *filename, double width_in_points, double height_in_points);
-//#cairo_surface_t *cairo_ps_surface_create_for_stream(cairo_write_func_t write_func, void *closure, double width_in_points, double height_in_points);
-//#void cairo_ps_surface_restrict_to_level(cairo_surface_t *surface, cairo_ps_level_t level);
-//#void cairo_ps_get_levels(cairo_ps_level_t const **levels, int *num_levels);
-//#const char *cairo_ps_level_to_string(cairo_ps_level_t level);
-//#void cairo_ps_surface_set_eps(cairo_surface_t *surface, cairo_bool_t eps);
-//#cairo_bool_t cairo_ps_surface_get_eps(cairo_surface_t *surface);
-//#void cairo_ps_surface_set_size(cairo_surface_t *surface, double width_in_points, double height_in_points);
-//#void cairo_ps_surface_dsc_begin_setup(cairo_surface_t *surface);
-//#void cairo_ps_surface_dsc_begin_page_setup(cairo_surface_t *surface);
-//#void cairo_ps_surface_dsc_comment(cairo_surface_t *surface, const char *comment);
-
-//#cairo_surface_t *cairo_recording_surface_create(cairo_content_t content, const cairo_rectangle_t *extents);
-//#void cairo_recording_surface_ink_extents(cairo_surface_t *surface, double *x0, double *y0, double *width, double *height);
-//#cairo_bool_t cairo_recording_surface_get_extents(cairo_surface_t *surface, cairo_rectangle_t *extents);
-
-//#cairo_surface_t *cairo_win32_surface_create(HDC hdc);
-//#cairo_surface_t *cairo_win32_surface_create_with_dib(cairo_format_t format, int width, int height);
-//#cairo_surface_t *cairo_win32_surface_create_with_ddb(HDC hdc, cairo_format_t format, int width, int height);
-//#cairo_surface_t *cairo_win32_printing_surface_create(HDC hdc);
-//#HDC cairo_win32_surface_get_dc(cairo_surface_t *surface);
-//#cairo_surface_t *cairo_win32_surface_get_image(cairo_surface_t *surface);
-
-//#cairo_surface_t *cairo_svg_surface_create(const char *filename, double width_in_points, double height_in_points);
-//#cairo_surface_t *cairo_svg_surface_create_for_stream (cairo_write_func_t write_func, void *closure, double width_in_points, double height_in_points);
-//#void cairo_svg_surface_restrict_to_version(cairo_surface_t *surface, cairo_svg_version_t version);
-//#void cairo_svg_get_versions(cairo_svg_version_t const **versions, int *num_versions);
-//#const char *cairo_svg_version_to_string(cairo_svg_version_t version);
-
-//#cairo_surface_t *cairo_quartz_surface_create(cairo_format_t format, unsigned int width, unsigned int height);
-//#cairo_surface_t *cairo_quartz_surface_create_for_cg_context(CGContextRef cgContext, unsigned int width, unsigned int height);
-//#CGContextRef cairo_quartz_surface_get_cg_context (cairo_surface_t *surface);
-
-//#cairo_surface_t *cairo_xcb_surface_create(xcb_connection_t *connection, xcb_drawable_t drawable, xcb_visualtype_t *visual, int width, int height);
-//#cairo_surface_t *cairo_xcb_surface_create_for_bitmap(xcb_connection_t *connection, xcb_screen_t *screen, xcb_pixmap_t bitmap, int width, int height);
-//#cairo_surface_t *cairo_xcb_surface_create_with_xrender_format(xcb_connection_t *connection, xcb_screen_t *screen, xcb_drawable_t drawable, xcb_render_pictforminfo_t *format, int width, int height);
-//#void cairo_xcb_surface_set_size(cairo_surface_t *surface, int width, int height);
-//#void cairo_xcb_surface_set_drawable(cairo_surface_t *surface, xcb_drawable_t drawable, int width, int height);
-//#xcb_connection_t *cairo_xcb_device_get_connection(cairo_device_t *device);
-//#void cairo_xcb_device_debug_cap_xrender_version(cairo_device_t *device, int major_version, int minor_version);
-//#void cairo_xcb_device_debug_cap_xshm_version(cairo_device_t *device, int major_version, int minor_version);
-//#int cairo_xcb_device_debug_get_precision(cairo_device_t *device);
-//#void cairo_xcb_device_debug_set_precision(cairo_device_t *device, int precision);
-
-//#cairo_surface_t *cairo_xlib_surface_create(Display *dpy, Drawable drawable, Visual *visual, int width, int height);
-//#cairo_surface_t *cairo_xlib_surface_create_for_bitmap(Display *dpy, Pixmap bitmap, Screen *screen, int width, int height);
-//#void cairo_xlib_surface_set_size(cairo_surface_t *surface, int width, int height);
-//#Display *cairo_xlib_surface_get_display(cairo_surface_t *surface);
-//#Screen *cairo_xlib_surface_get_screen(cairo_surface_t *surface);
-//#void cairo_xlib_surface_set_drawable(cairo_surface_t *surface, Drawable drawable, int width, int height);
-//#Drawable cairo_xlib_surface_get_drawable(cairo_surface_t *surface);
-//#Visual *cairo_xlib_surface_get_visual(cairo_surface_t *surface);
-//#int cairo_xlib_surface_get_width(cairo_surface_t *surface);
-//#int cairo_xlib_surface_get_height(cairo_surface_t *surface);
-//#int cairo_xlib_surface_get_depth(cairo_surface_t *surface);
-//#void cairo_xlib_device_debug_cap_xrender_version(cairo_device_t *device, int major_version, int minor_version);
-//#int cairo_xlib_device_debug_get_precision(cairo_device_t *device);
-//#void cairo_xlib_device_debug_set_precision(cairo_device_t *device, int precision);
-
-//#cairo_surface_t *   cairo_xlib_surface_create_with_xrender_format(Display *dpy, Drawable drawable, Screen *screen, XRenderPictFormat *format, int width, int height);
-//#XRenderPictFormat * cairo_xlib_surface_get_xrender_format(cairo_surface_t *surface);
-
-//#cairo_device_t *cairo_script_create(const char *filename);
-//#cairo_device_t *cairo_script_create_for_stream(cairo_write_func_t write_func, void *closure);
-//#cairo_status_t cairo_script_from_recording_surface(cairo_device_t *script, cairo_surface_t *recording_surface);
-//#cairo_script_mode_t cairo_script_get_mode(cairo_device_t *script);
-//#void cairo_script_set_mode(cairo_device_t *script, cairo_script_mode_t mode);
-//#cairo_surface_t *cairo_script_surface_create(cairo_device_t *script, cairo_content_t content, double width, double height);
-//#cairo_surface_t *cairo_script_surface_create_for_target(cairo_device_t *script, cairo_surface_t *target);
-//#void cairo_script_write_comment(cairo_device_t *script, const char *comment, int len);
 
 // cairo.surface#finish():reduce
 Gura_DeclareMethod(surface, finish)
@@ -3506,7 +3387,7 @@ Gura_ImplementCastFrom(surface)
 			Object_image::Delete(pObjImage);
 			return false;
 		}
-		value = Value(new Object_surface(surface, pObjImage));
+		value = Value(new Object_image_surface(surface, pObjImage));
 		return true;
 	}
 	return false;
@@ -3520,22 +3401,111 @@ Gura_ImplementCastTo(surface)
 //-----------------------------------------------------------------------------
 // Object_image_surface implementation
 //-----------------------------------------------------------------------------
+bool Object_image_surface::DoDirProp(Signal sig, SymbolSet &symbols)
+{
+	if (!Object_surface::DoDirProp(sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(image));
+	symbols.insert(Gura_UserSymbol(width));
+	symbols.insert(Gura_UserSymbol(height));
+	return true;
+}
+
+Value Object_image_surface::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(image))) {
+		return Value(Object_image::Reference(_pObjImage.get()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {
+		return Value(_pObjImage->GetWidth());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
+		return Value(_pObjImage->GetHeight());
+	}
+	evaluatedFlag = false;
+	return Object_surface::DoGetProp(sig, pSymbol, evaluatedFlag);
+}
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for image_surface
 //-----------------------------------------------------------------------------
-//#cairo_surface_t *cairo_image_surface_create_for_data(unsigned char *data, cairo_format_t format, int width, int height, int stride);
+// cairo.image_surface.create(width:number, height:number, color?:color) {block?}
+Gura_DeclareClassMethod(image_surface, create)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "width", VTYPE_number);
+	DeclareArg(env, "height", VTYPE_number);
+	DeclareArg(env, "color", VTYPE_color, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(image_surface, create)
+{
+	Object_image *pObjImage = new Object_image(env, Image::FORMAT_RGBA);
+	size_t width = args.GetSizeT(0);
+	size_t height = args.GetSizeT(1);
+	if (!pObjImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
+	if (args.IsColor(2)) {
+		pObjImage->Fill(args.GetColorObj(2));
+	}
+	cairo_surface_t *surface = ::cairo_image_surface_create_for_data(
+				pObjImage->GetBuffer(), CAIRO_FORMAT_ARGB32,
+				static_cast<int>(width), static_cast<int>(height),
+				static_cast<int>(pObjImage->GetBytesPerLine()));
+	Object_image_surface *pObjSurface = new Object_image_surface(surface, pObjImage);
+	return ReturnValue(env, sig, args, Value(pObjSurface));
+}
+
+//#cairo_surface_t *cairo_image_surface_create_from_png(const char *filename);
+//#cairo_surface_t *cairo_image_surface_create_from_png_stream(cairo_read_func_t read_func, void *closure);
+
 //#unsigned char *cairo_image_surface_get_data(cairo_surface_t *surface);
 //#cairo_format_t cairo_image_surface_get_format(cairo_surface_t *surface);
 //#int cairo_image_surface_get_width(cairo_surface_t *surface);
 //#int cairo_image_surface_get_height(cairo_surface_t *surface);
 //#int cairo_image_surface_get_stride(cairo_surface_t *surface);
 
-//#cairo_surface_t *cairo_image_surface_create_from_png(const char *filename);
-//#cairo_surface_t *cairo_image_surface_create_from_png_stream(cairo_read_func_t read_func, void *closure);
-
 Gura_ImplementUserClass(image_surface)
 {
+	Gura_AssignMethod(image_surface, create);
+}
+
+//-----------------------------------------------------------------------------
+// Object_Writer_surface implementation
+//-----------------------------------------------------------------------------
+Object_Writer_surface::~Object_Writer_surface()
+{
+	if (_surface != NULL) {
+		::cairo_surface_destroy(_surface);
+		_surface = NULL;
+	}
+	delete _pWriter; // this must be deleted after surface is destroyed
+	_pWriter = NULL;
+}
+
+bool Object_Writer_surface::DoDirProp(Signal sig, SymbolSet &symbols)
+{
+	if (!Object_surface::DoDirProp(sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(stream));
+	symbols.insert(Gura_UserSymbol(width));
+	symbols.insert(Gura_UserSymbol(height));
+	return true;
+}
+
+Value Object_Writer_surface::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+{
+	Environment &env = *this;
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(stream))) {
+		Stream *pStream = _pWriter->GetStream();
+		if (pStream == NULL) return Value::Null;
+		Object_stream *pObjStream = new Object_stream(env, Stream::Reference(pStream));
+		return Value(pObjStream);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {
+		return Value(_pWriter->GetWidth());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
+		return Value(_pWriter->GetHeight());
+	}
+	evaluatedFlag = false;
+	return Object_surface::DoGetProp(sig, pSymbol, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -3545,8 +3515,41 @@ Gura_ImplementUserClass(image_surface)
 //-----------------------------------------------------------------------------
 // Gura interfaces for pdf_surface
 //-----------------------------------------------------------------------------
+// cairo.pdf_surface.create(stream:stream:w, width_in_points:number, height_in_points:number) {block?}
+Gura_DeclareClassMethod(pdf_surface, create)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareArg(env, "width_in_points", VTYPE_number);
+	DeclareArg(env, "height_in_points", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(pdf_surface, create)
+{
+	double width = args.GetDouble(1);
+	double height = args.GetDouble(2);
+	Writer_Stream *pWriter = new Writer_Stream(sig, width, height,
+									Stream::Reference(&args.GetStream(0)));
+	cairo_surface_t *surface = ::cairo_pdf_surface_create_for_stream(
+					Writer_Stream::write_func, pWriter, width, height);
+	Object_surface *pObjSurface = new Object_pdf_surface(surface, pWriter);
+	return ReturnValue(env, sig, args, Value(pObjSurface));
+}
+
+//#cairo_surface_t *cairo_pdf_surface_create(const char *filename, double width_in_points, double height_in_points);
+//#cairo_surface_t *cairo_pdf_surface_create_for_stream (cairo_write_func_t write_func, void *closure, double width_in_points, double height_in_points);
+//#void cairo_pdf_surface_restrict_to_version(cairo_surface_t *surface, cairo_pdf_version_t version);
+//#void cairo_pdf_get_versions(cairo_pdf_version_t const **versions, int *num_versions);
+//#const char *cairo_pdf_version_to_string(cairo_pdf_version_t version);
+//#void cairo_pdf_surface_set_size(cairo_surface_t *surface, double width_in_points, double height_in_points);
+
+//#cairo_status_t cairo_surface_write_to_png(cairo_surface_t *surface, const char *filename);
+//#cairo_status_t cairo_surface_write_to_png_stream(cairo_surface_t *surface, cairo_write_func_t write_func, void *closure);
+
 Gura_ImplementUserClass(pdf_surface)
 {
+	Gura_AssignMethod(pdf_surface, create);
 }
 
 //-----------------------------------------------------------------------------
@@ -3556,8 +3559,42 @@ Gura_ImplementUserClass(pdf_surface)
 //-----------------------------------------------------------------------------
 // Gura interfaces for ps_surface
 //-----------------------------------------------------------------------------
+// cairo.ps_surface.create(stream:stream:w, width_in_points:number, height_in_points:number) {block?}
+Gura_DeclareClassMethod(ps_surface, create)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareArg(env, "width_in_points", VTYPE_number);
+	DeclareArg(env, "height_in_points", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(ps_surface, create)
+{
+	double width = args.GetDouble(1), height = args.GetDouble(2);
+	Writer_Stream *pWriter = new Writer_Stream(sig, width, height,
+									Stream::Reference(&args.GetStream(0)));
+	cairo_surface_t *surface = ::cairo_ps_surface_create_for_stream(
+					Writer_Stream::write_func, pWriter, width, height);
+	Object_surface *pObjSurface = new Object_ps_surface(surface, pWriter);
+	return ReturnValue(env, sig, args, Value(pObjSurface));
+}
+
+//#cairo_surface_t *cairo_ps_surface_create(const char *filename, double width_in_points, double height_in_points);
+//#cairo_surface_t *cairo_ps_surface_create_for_stream(cairo_write_func_t write_func, void *closure, double width_in_points, double height_in_points);
+//#void cairo_ps_surface_restrict_to_level(cairo_surface_t *surface, cairo_ps_level_t level);
+//#void cairo_ps_get_levels(cairo_ps_level_t const **levels, int *num_levels);
+//#const char *cairo_ps_level_to_string(cairo_ps_level_t level);
+//#void cairo_ps_surface_set_eps(cairo_surface_t *surface, cairo_bool_t eps);
+//#cairo_bool_t cairo_ps_surface_get_eps(cairo_surface_t *surface);
+//#void cairo_ps_surface_set_size(cairo_surface_t *surface, double width_in_points, double height_in_points);
+//#void cairo_ps_surface_dsc_begin_setup(cairo_surface_t *surface);
+//#void cairo_ps_surface_dsc_begin_page_setup(cairo_surface_t *surface);
+//#void cairo_ps_surface_dsc_comment(cairo_surface_t *surface, const char *comment);
+
 Gura_ImplementUserClass(ps_surface)
 {
+	Gura_AssignMethod(ps_surface, create);
 }
 
 //-----------------------------------------------------------------------------
@@ -3567,6 +3604,10 @@ Gura_ImplementUserClass(ps_surface)
 //-----------------------------------------------------------------------------
 // Gura interfaces for recording_surface
 //-----------------------------------------------------------------------------
+//#cairo_surface_t *cairo_recording_surface_create(cairo_content_t content, const cairo_rectangle_t *extents);
+//#void cairo_recording_surface_ink_extents(cairo_surface_t *surface, double *x0, double *y0, double *width, double *height);
+//#cairo_bool_t cairo_recording_surface_get_extents(cairo_surface_t *surface, cairo_rectangle_t *extents);
+
 Gura_ImplementUserClass(recording_surface)
 {
 }
@@ -3578,6 +3619,13 @@ Gura_ImplementUserClass(recording_surface)
 //-----------------------------------------------------------------------------
 // Gura interfaces for win32_surface
 //-----------------------------------------------------------------------------
+//#cairo_surface_t *cairo_win32_surface_create(HDC hdc);
+//#cairo_surface_t *cairo_win32_surface_create_with_dib(cairo_format_t format, int width, int height);
+//#cairo_surface_t *cairo_win32_surface_create_with_ddb(HDC hdc, cairo_format_t format, int width, int height);
+//#cairo_surface_t *cairo_win32_printing_surface_create(HDC hdc);
+//#HDC cairo_win32_surface_get_dc(cairo_surface_t *surface);
+//#cairo_surface_t *cairo_win32_surface_get_image(cairo_surface_t *surface);
+
 Gura_ImplementUserClass(win32_surface)
 {
 }
@@ -3589,8 +3637,37 @@ Gura_ImplementUserClass(win32_surface)
 //-----------------------------------------------------------------------------
 // Gura interfaces for svg_surface
 //-----------------------------------------------------------------------------
+// cairo.svg_surface.create(stream:stream:w, width_in_points:number, height_in_points:number) {block?}
+Gura_DeclareClassMethod(svg_surface, create)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareArg(env, "width_in_points", VTYPE_number);
+	DeclareArg(env, "height_in_points", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(svg_surface, create)
+{
+	double width = args.GetDouble(1);
+	double height = args.GetDouble(2);
+	Writer_Stream *pWriter = new Writer_Stream(sig, width, height,
+									Stream::Reference(&args.GetStream(0)));
+	cairo_surface_t *surface = ::cairo_svg_surface_create_for_stream(
+					Writer_Stream::write_func, pWriter, width, height);
+	Object_surface *pObjSurface = new Object_svg_surface(surface, pWriter);
+	return ReturnValue(env, sig, args, Value(pObjSurface));
+}
+
+//#cairo_surface_t *cairo_svg_surface_create(const char *filename, double width_in_points, double height_in_points);
+//#cairo_surface_t *cairo_svg_surface_create_for_stream (cairo_write_func_t write_func, void *closure, double width_in_points, double height_in_points);
+//#void cairo_svg_surface_restrict_to_version(cairo_surface_t *surface, cairo_svg_version_t version);
+//#void cairo_svg_get_versions(cairo_svg_version_t const **versions, int *num_versions);
+//#const char *cairo_svg_version_to_string(cairo_svg_version_t version);
+
 Gura_ImplementUserClass(svg_surface)
 {
+	Gura_AssignMethod(svg_surface, create);
 }
 
 //-----------------------------------------------------------------------------
@@ -3600,6 +3677,10 @@ Gura_ImplementUserClass(svg_surface)
 //-----------------------------------------------------------------------------
 // Gura interfaces for quartz_surface
 //-----------------------------------------------------------------------------
+//#cairo_surface_t *cairo_quartz_surface_create(cairo_format_t format, unsigned int width, unsigned int height);
+//#cairo_surface_t *cairo_quartz_surface_create_for_cg_context(CGContextRef cgContext, unsigned int width, unsigned int height);
+//#CGContextRef cairo_quartz_surface_get_cg_context (cairo_surface_t *surface);
+
 Gura_ImplementUserClass(quartz_surface)
 {
 }
@@ -3611,6 +3692,17 @@ Gura_ImplementUserClass(quartz_surface)
 //-----------------------------------------------------------------------------
 // Gura interfaces for xcb_surface
 //-----------------------------------------------------------------------------
+//#cairo_surface_t *cairo_xcb_surface_create(xcb_connection_t *connection, xcb_drawable_t drawable, xcb_visualtype_t *visual, int width, int height);
+//#cairo_surface_t *cairo_xcb_surface_create_for_bitmap(xcb_connection_t *connection, xcb_screen_t *screen, xcb_pixmap_t bitmap, int width, int height);
+//#cairo_surface_t *cairo_xcb_surface_create_with_xrender_format(xcb_connection_t *connection, xcb_screen_t *screen, xcb_drawable_t drawable, xcb_render_pictforminfo_t *format, int width, int height);
+//#void cairo_xcb_surface_set_size(cairo_surface_t *surface, int width, int height);
+//#void cairo_xcb_surface_set_drawable(cairo_surface_t *surface, xcb_drawable_t drawable, int width, int height);
+//#xcb_connection_t *cairo_xcb_device_get_connection(cairo_device_t *device);
+//#void cairo_xcb_device_debug_cap_xrender_version(cairo_device_t *device, int major_version, int minor_version);
+//#void cairo_xcb_device_debug_cap_xshm_version(cairo_device_t *device, int major_version, int minor_version);
+//#int cairo_xcb_device_debug_get_precision(cairo_device_t *device);
+//#void cairo_xcb_device_debug_set_precision(cairo_device_t *device, int precision);
+
 Gura_ImplementUserClass(xcb_surface)
 {
 }
@@ -3622,6 +3714,24 @@ Gura_ImplementUserClass(xcb_surface)
 //-----------------------------------------------------------------------------
 // Gura interfaces for xlib_surface
 //-----------------------------------------------------------------------------
+//#cairo_surface_t *cairo_xlib_surface_create(Display *dpy, Drawable drawable, Visual *visual, int width, int height);
+//#cairo_surface_t *cairo_xlib_surface_create_for_bitmap(Display *dpy, Pixmap bitmap, Screen *screen, int width, int height);
+//#void cairo_xlib_surface_set_size(cairo_surface_t *surface, int width, int height);
+//#Display *cairo_xlib_surface_get_display(cairo_surface_t *surface);
+//#Screen *cairo_xlib_surface_get_screen(cairo_surface_t *surface);
+//#void cairo_xlib_surface_set_drawable(cairo_surface_t *surface, Drawable drawable, int width, int height);
+//#Drawable cairo_xlib_surface_get_drawable(cairo_surface_t *surface);
+//#Visual *cairo_xlib_surface_get_visual(cairo_surface_t *surface);
+//#int cairo_xlib_surface_get_width(cairo_surface_t *surface);
+//#int cairo_xlib_surface_get_height(cairo_surface_t *surface);
+//#int cairo_xlib_surface_get_depth(cairo_surface_t *surface);
+//#void cairo_xlib_device_debug_cap_xrender_version(cairo_device_t *device, int major_version, int minor_version);
+//#int cairo_xlib_device_debug_get_precision(cairo_device_t *device);
+//#void cairo_xlib_device_debug_set_precision(cairo_device_t *device, int precision);
+
+//#cairo_surface_t *   cairo_xlib_surface_create_with_xrender_format(Display *dpy, Drawable drawable, Screen *screen, XRenderPictFormat *format, int width, int height);
+//#XRenderPictFormat * cairo_xlib_surface_get_xrender_format(cairo_surface_t *surface);
+
 Gura_ImplementUserClass(xlib_surface)
 {
 }
@@ -3633,6 +3743,15 @@ Gura_ImplementUserClass(xlib_surface)
 //-----------------------------------------------------------------------------
 // Gura interfaces for script_surface
 //-----------------------------------------------------------------------------
+//#cairo_device_t *cairo_script_create(const char *filename);
+//#cairo_device_t *cairo_script_create_for_stream(cairo_write_func_t write_func, void *closure);
+//#cairo_status_t cairo_script_from_recording_surface(cairo_device_t *script, cairo_surface_t *recording_surface);
+//#cairo_script_mode_t cairo_script_get_mode(cairo_device_t *script);
+//#void cairo_script_set_mode(cairo_device_t *script, cairo_script_mode_t mode);
+//#cairo_surface_t *cairo_script_surface_create(cairo_device_t *script, cairo_content_t content, double width, double height);
+//#cairo_surface_t *cairo_script_surface_create_for_target(cairo_device_t *script, cairo_surface_t *target);
+//#void cairo_script_write_comment(cairo_device_t *script, const char *comment, int len);
+
 Gura_ImplementUserClass(script_surface)
 {
 }
@@ -3658,7 +3777,152 @@ String Object_pattern::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for pattern
 //-----------------------------------------------------------------------------
+// cairo.pattern.create_rgb(red:number, green:number, blue:number) {block?}
+Gura_DeclareClassMethod(pattern, create_rgb)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "red", VTYPE_number);
+	DeclareArg(env, "green", VTYPE_number);
+	DeclareArg(env, "blue", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(pattern, create_rgb)
+{
+	cairo_pattern_t *pattern = ::cairo_pattern_create_rgb(
+			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2));
+	if (IsError(sig, pattern)) {
+		::cairo_pattern_destroy(pattern);
+		return Value::Null;
+	}
+	Value result(new Object_pattern(pattern));
+	return ReturnValue(env, sig, args, result);
+}
+
+// cairo.pattern.create_rgba(red:number, green:number, blue:number, alpha:number) {block?}
+Gura_DeclareClassMethod(pattern, create_rgba)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "red", VTYPE_number);
+	DeclareArg(env, "green", VTYPE_number);
+	DeclareArg(env, "blue", VTYPE_number);
+	DeclareArg(env, "alpha", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(pattern, create_rgba)
+{
+	cairo_pattern_t *pattern = ::cairo_pattern_create_rgba(
+			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2), args.GetDouble(3));
+	if (IsError(sig, pattern)) {
+		::cairo_pattern_destroy(pattern);
+		return Value::Null;
+	}
+	Value result(new Object_pattern(pattern));
+	return ReturnValue(env, sig, args, result);
+}
+
+// cairo.pattern.create_color(color:color, alpha?:number) {block?}
+Gura_DeclareClassMethod(pattern, create_color)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "color", VTYPE_color);
+	DeclareArg(env, "alpha", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(pattern, create_color)
+{
+	const Color &color = Object_color::GetObject(args, 0)->GetColor();
+	double red = static_cast<double>(color.GetRed()) / 255;
+	double green = static_cast<double>(color.GetGreen()) / 255;
+	double blue = static_cast<double>(color.GetBlue()) / 255;
+	cairo_pattern_t *pattern;
+	if (args.IsNumber(1)) {
+		double alpha = args.GetDouble(1);
+		pattern = ::cairo_pattern_create_rgba(red, green, blue, alpha);
+	} else {
+		pattern = ::cairo_pattern_create_rgb(red, green, blue);
+	}
+	if (IsError(sig, pattern)) {
+		::cairo_pattern_destroy(pattern);
+		return Value::Null;
+	}
+	Value result(new Object_pattern(pattern));
+	return ReturnValue(env, sig, args, result);
+}
+
+// cairo.pattern.create_for_surface(surface:cairo.surface) {block?}
+Gura_DeclareClassMethod(pattern, create_for_surface)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "surface", VTYPE_surface);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(pattern, create_for_surface)
+{
+	cairo_surface_t *surface = Object_surface::GetObject(args, 0)->GetEntity();
+	cairo_pattern_t *pattern = ::cairo_pattern_create_for_surface(surface);
+	if (IsError(sig, pattern)) {
+		::cairo_pattern_destroy(pattern);
+		return Value::Null;
+	}
+	Value result(new Object_pattern(pattern));
+	return ReturnValue(env, sig, args, result);
+}
+
+// cairo.pattern.create_linear(x0:number, y0:number, x1:number, y1:number) {block?}
+Gura_DeclareClassMethod(pattern, create_linear)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "x0", VTYPE_number);
+	DeclareArg(env, "y0", VTYPE_number);
+	DeclareArg(env, "x1", VTYPE_number);
+	DeclareArg(env, "y1", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(pattern, create_linear)
+{
+	cairo_pattern_t *pattern = ::cairo_pattern_create_linear(
+			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2), args.GetDouble(3));
+	if (IsError(sig, pattern)) {
+		::cairo_pattern_destroy(pattern);
+		return Value::Null;
+	}
+	Value result(new Object_pattern(pattern));
+	return ReturnValue(env, sig, args, result);
+}
+
+// cairo.pattern.create_radial(cx0:number, cy0:number, radius0:number, cx1:number, cy1:number, radius1:number) {block?}
+Gura_DeclareClassMethod(pattern, create_radial)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "cx0", VTYPE_number);
+	DeclareArg(env, "cy0", VTYPE_number);
+	DeclareArg(env, "radius0", VTYPE_number);
+	DeclareArg(env, "cx1", VTYPE_number);
+	DeclareArg(env, "cy1", VTYPE_number);
+	DeclareArg(env, "radius1", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(pattern, create_radial)
+{
+	cairo_pattern_t *pattern = ::cairo_pattern_create_radial(
+			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2),
+			args.GetDouble(3), args.GetDouble(4), args.GetDouble(5));
+	if (IsError(sig, pattern)) {
+		::cairo_pattern_destroy(pattern);
+		return Value::Null;
+	}
+	Value result(new Object_pattern(pattern));
+	return ReturnValue(env, sig, args, result);
+}
+
 //#cairo_pattern_t *cairo_pattern_create_raster_source(void *user_data, cairo_content_t content, int width, int height);
+
 //#void cairo_raster_source_pattern_set_callback_data(cairo_pattern_t *pattern, void *data);
 //#void *cairo_raster_source_pattern_get_callback_data(cairo_pattern_t *pattern);
 //#void cairo_raster_source_pattern_set_acquire(cairo_pattern_t *pattern, cairo_raster_source_acquire_func_t acquire, cairo_raster_source_release_func_t release);
@@ -3745,9 +4009,6 @@ Gura_ImplementMethod(pattern, get_color_stop_rgba)
 	return CreateValueList(env, offset, red, green, blue, alpha);
 }
 
-//#cairo_pattern_t *cairo_pattern_create_rgb(double red, double green, double blue);
-//#cairo_pattern_t *cairo_pattern_create_rgba(double red, double green, double blue, double alpha);
-
 // cairo.pattern#get_rgba()
 Gura_DeclareMethod(pattern, get_rgba)
 {
@@ -3764,8 +4025,6 @@ Gura_ImplementMethod(pattern, get_rgba)
 	if (IsError(sig, status)) return Value::Null;
 	return CreateValueList(env, red, green, blue, alpha);
 }
-
-//#cairo_pattern_t *cairo_pattern_create_for_surface(cairo_surface_t *surface);
 
 // cairo.pattern#get_surface()
 Gura_DeclareMethod(pattern, get_surface)
@@ -3785,8 +4044,6 @@ Gura_ImplementMethod(pattern, get_surface)
 	return Value(pObjSurface);
 }
 
-//#cairo_pattern_t *cairo_pattern_create_linear(double x0, double y0, double x1, double y1);
-
 // cairo.pattern#get_linear_points()
 Gura_DeclareMethod(pattern, get_linear_points)
 {
@@ -3803,8 +4060,6 @@ Gura_ImplementMethod(pattern, get_linear_points)
 	if (IsError(sig, status)) return Value::Null;
 	return CreateValueList(env, x0, y0, x1, y1);
 }
-
-//#cairo_pattern_t *cairo_pattern_create_radial(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1);
 
 // cairo.pattern#get_radial_circles():reduce
 Gura_DeclareMethod(pattern, get_radial_circles)
@@ -3951,6 +4206,12 @@ Gura_ImplementMethod(pattern, get_matrix)
 // implementation of class pattern
 Gura_ImplementUserClass(pattern)
 {
+	Gura_AssignMethod(pattern, create_rgb);
+	Gura_AssignMethod(pattern, create_rgba);
+	Gura_AssignMethod(pattern, create_color);
+	Gura_AssignMethod(pattern, create_for_surface);
+	Gura_AssignMethod(pattern, create_linear);
+	Gura_AssignMethod(pattern, create_radial);
 	Gura_AssignMethod(pattern, add_color_stop_rgb);
 	Gura_AssignMethod(pattern, add_color_stop_rgba);
 	Gura_AssignMethod(pattern, get_color_stop_count);
@@ -4069,7 +4330,7 @@ Gura_ImplementMethod(image, cairo)
 		Object_image::Delete(pObjImage);
 		return Value::Null;
 	}
-	Object_surface *pObjSurface = new Object_surface(surface, pObjImage);
+	Object_surface *pObjSurface = new Object_image_surface(surface, pObjImage);
 	cairo_t *cr = ::cairo_create(surface);
 	Value result(new Object_context(cr, pObjSurface));
 	return ReturnValue(env, sig, args, result);
@@ -4078,102 +4339,20 @@ Gura_ImplementMethod(image, cairo)
 //-----------------------------------------------------------------------------
 // Gura module functions: cairo
 //-----------------------------------------------------------------------------
-// cairo.image_create(width:number, height:number, color?:color) {block?}
-Gura_DeclareFunction(image_create)
+// cairo.create(surface:cairo.surface) {block?}
+Gura_DeclareFunction(create)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "width", VTYPE_number);
-	DeclareArg(env, "height", VTYPE_number);
-	DeclareArg(env, "color", VTYPE_color, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "surface", VTYPE_surface);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(image_create)
+Gura_ImplementFunction(create)
 {
-	Object_image *pObjImage = new Object_image(env, Image::FORMAT_RGBA);
-	size_t width = args.GetSizeT(0);
-	size_t height = args.GetSizeT(1);
-	if (!pObjImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
-	if (args.IsColor(2)) {
-		pObjImage->Fill(args.GetColorObj(2));
-	}
-	cairo_surface_t *surface = ::cairo_image_surface_create_for_data(
-				pObjImage->GetBuffer(), CAIRO_FORMAT_ARGB32,
-				static_cast<int>(width), static_cast<int>(height),
-				static_cast<int>(pObjImage->GetBytesPerLine()));
-	Object_surface *pObjSurface = new Object_surface(surface, pObjImage);
-	cairo_t *cr = ::cairo_create(surface);
-	Value result(new Object_context(cr, pObjSurface));
-	return ReturnValue(env, sig, args, result);
-}
-
-// cairo.pdf_create(stream:stream:w, width_in_points:number, height_in_points:number) {block?}
-Gura_DeclareFunction(pdf_create)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
-	DeclareArg(env, "width_in_points", VTYPE_number);
-	DeclareArg(env, "height_in_points", VTYPE_number);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(pdf_create)
-{
-	double width = args.GetDouble(1), height = args.GetDouble(2);
-	Writer_Stream *pWriter = new Writer_Stream(sig, width, height,
-									Stream::Reference(&args.GetStream(0)));
-	cairo_surface_t *surface = ::cairo_pdf_surface_create_for_stream(
-					Writer_Stream::write_func, pWriter, width, height);
-	Object_surface *pObjSurface = new Object_surface(surface, pWriter);
-	cairo_t *cr = ::cairo_create(surface);
-	Value result(new Object_context(cr, pObjSurface));
-	return ReturnValue(env, sig, args, result);
-}
-
-// cairo.ps_create(stream:stream:w, width_in_points:number, height_in_points:number) {block?}
-Gura_DeclareFunction(ps_create)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
-	DeclareArg(env, "width_in_points", VTYPE_number);
-	DeclareArg(env, "height_in_points", VTYPE_number);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(ps_create)
-{
-	double width = args.GetDouble(1), height = args.GetDouble(2);
-	Writer_Stream *pWriter = new Writer_Stream(sig, width, height,
-									Stream::Reference(&args.GetStream(0)));
-	cairo_surface_t *surface = ::cairo_ps_surface_create_for_stream(
-					Writer_Stream::write_func, pWriter, width, height);
-	Object_surface *pObjSurface = new Object_surface(surface, pWriter);
-	cairo_t *cr = ::cairo_create(surface);
-	Value result(new Object_context(cr, pObjSurface));
-	return ReturnValue(env, sig, args, result);
-}
-
-// cairo.svg_create(stream:stream:w, width_in_points:number, height_in_points:number) {block?}
-Gura_DeclareFunction(svg_create)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
-	DeclareArg(env, "width_in_points", VTYPE_number);
-	DeclareArg(env, "height_in_points", VTYPE_number);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(svg_create)
-{
-	double width = args.GetDouble(1), height = args.GetDouble(2);
-	Writer_Stream *pWriter = new Writer_Stream(sig, width, height,
-									Stream::Reference(&args.GetStream(0)));
-	cairo_surface_t *surface = ::cairo_svg_surface_create_for_stream(
-					Writer_Stream::write_func, pWriter, width, height);
-	Object_surface *pObjSurface = new Object_surface(surface, pWriter);
-	cairo_t *cr = ::cairo_create(surface);
-	Value result(new Object_context(cr, pObjSurface));
-	return ReturnValue(env, sig, args, result);
+	Object_surface *pObjSurface = Object_surface::GetObject(args, 0);
+	cairo_t *cr = ::cairo_create(pObjSurface->GetEntity());
+	return ReturnValue(env, sig, args,
+		Value(new Object_context(cr, Object_surface::Reference(pObjSurface))));
 }
 
 #if defined(HAVE_WINDOWS_H)
@@ -4206,7 +4385,7 @@ Gura_ImplementFunction(emf_create)
 	Writer_EnhMetaFile *pWriter = new Writer_EnhMetaFile(sig, width, height, hdc);
 	cairo_surface_t *surface = ::cairo_win32_surface_create(hdc);
 	//cairo_surface_t *surface = ::cairo_win32_printing_surface_create(hdc);
-	Object_surface *pObjSurface = new Object_surface(surface, pWriter);
+	Object_surface *pObjSurface = new Object_win32_surface(surface, pWriter);
 	cairo_t *cr = ::cairo_create(surface);
 	Value result(new Object_context(cr, pObjSurface));
 	return ReturnValue(env, sig, args, result);
@@ -4260,156 +4439,12 @@ Gura_ImplementFunction(printer_create)
 	//::SetMapMode(hdc, MM_HIMETRIC);			// 1 unit = 0.01mm
 	Writer_WindowsDC *pWriter = new Writer_WindowsDC(sig, width, height, hdc);
 	cairo_surface_t *surface = ::cairo_win32_printing_surface_create(hdc);
-	Object_surface *pObjSurface = new Object_surface(surface, pWriter);
+	Object_surface *pObjSurface = new Object_win32_surface(surface, pWriter);
 	cairo_t *cr = ::cairo_create(surface);
 	Value result(new Object_context(cr, pObjSurface));
 	return ReturnValue(env, sig, args, result);
 }
 #endif
-
-// cairo.pattern_create_rgb(red:number, green:number, blue:number) {block?}
-Gura_DeclareFunction(pattern_create_rgb)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "red", VTYPE_number);
-	DeclareArg(env, "green", VTYPE_number);
-	DeclareArg(env, "blue", VTYPE_number);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(pattern_create_rgb)
-{
-	cairo_pattern_t *pattern = ::cairo_pattern_create_rgb(
-			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2));
-	if (IsError(sig, pattern)) {
-		::cairo_pattern_destroy(pattern);
-		return Value::Null;
-	}
-	Value result(new Object_pattern(pattern));
-	return ReturnValue(env, sig, args, result);
-}
-
-// cairo.pattern_create_rgba(red:number, green:number, blue:number, alpha:number) {block?}
-Gura_DeclareFunction(pattern_create_rgba)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "red", VTYPE_number);
-	DeclareArg(env, "green", VTYPE_number);
-	DeclareArg(env, "blue", VTYPE_number);
-	DeclareArg(env, "alpha", VTYPE_number);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(pattern_create_rgba)
-{
-	cairo_pattern_t *pattern = ::cairo_pattern_create_rgba(
-			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2), args.GetDouble(3));
-	if (IsError(sig, pattern)) {
-		::cairo_pattern_destroy(pattern);
-		return Value::Null;
-	}
-	Value result(new Object_pattern(pattern));
-	return ReturnValue(env, sig, args, result);
-}
-
-// cairo.pattern_create_color(color:color, alpha?:number) {block?}
-Gura_DeclareFunction(pattern_create_color)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "color", VTYPE_color);
-	DeclareArg(env, "alpha", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(pattern_create_color)
-{
-	const Color &color = Object_color::GetObject(args, 0)->GetColor();
-	double red = static_cast<double>(color.GetRed()) / 255;
-	double green = static_cast<double>(color.GetGreen()) / 255;
-	double blue = static_cast<double>(color.GetBlue()) / 255;
-	cairo_pattern_t *pattern;
-	if (args.IsNumber(1)) {
-		double alpha = args.GetDouble(1);
-		pattern = ::cairo_pattern_create_rgba(red, green, blue, alpha);
-	} else {
-		pattern = ::cairo_pattern_create_rgb(red, green, blue);
-	}
-	if (IsError(sig, pattern)) {
-		::cairo_pattern_destroy(pattern);
-		return Value::Null;
-	}
-	Value result(new Object_pattern(pattern));
-	return ReturnValue(env, sig, args, result);
-}
-
-// cairo.pattern_create_for_surface(surface:cairo.surface) {block?}
-Gura_DeclareFunction(pattern_create_for_surface)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "surface", VTYPE_surface);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(pattern_create_for_surface)
-{
-	cairo_surface_t *surface = Object_surface::GetObject(args, 0)->GetEntity();
-	cairo_pattern_t *pattern = ::cairo_pattern_create_for_surface(surface);
-	if (IsError(sig, pattern)) {
-		::cairo_pattern_destroy(pattern);
-		return Value::Null;
-	}
-	Value result(new Object_pattern(pattern));
-	return ReturnValue(env, sig, args, result);
-}
-
-// cairo.pattern_create_linear(x0:number, y0:number, x1:number, y1:number) {block?}
-Gura_DeclareFunction(pattern_create_linear)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "x0", VTYPE_number);
-	DeclareArg(env, "y0", VTYPE_number);
-	DeclareArg(env, "x1", VTYPE_number);
-	DeclareArg(env, "y1", VTYPE_number);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(pattern_create_linear)
-{
-	cairo_pattern_t *pattern = ::cairo_pattern_create_linear(
-			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2), args.GetDouble(3));
-	if (IsError(sig, pattern)) {
-		::cairo_pattern_destroy(pattern);
-		return Value::Null;
-	}
-	Value result(new Object_pattern(pattern));
-	return ReturnValue(env, sig, args, result);
-}
-
-// cairo.pattern_create_radial(cx0:number, cy0:number, radius0:number, cx1:number, cy1:number, radius1:number) {block?}
-Gura_DeclareFunction(pattern_create_radial)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "cx0", VTYPE_number);
-	DeclareArg(env, "cy0", VTYPE_number);
-	DeclareArg(env, "radius0", VTYPE_number);
-	DeclareArg(env, "cx1", VTYPE_number);
-	DeclareArg(env, "cy1", VTYPE_number);
-	DeclareArg(env, "radius1", VTYPE_number);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(pattern_create_radial)
-{
-	cairo_pattern_t *pattern = ::cairo_pattern_create_radial(
-			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2),
-			args.GetDouble(3), args.GetDouble(4), args.GetDouble(5));
-	if (IsError(sig, pattern)) {
-		::cairo_pattern_destroy(pattern);
-		return Value::Null;
-	}
-	Value result(new Object_pattern(pattern));
-	return ReturnValue(env, sig, args, result);
-}
 
 //#int cairo_format_stride_for_width(cairo_format_t format, int width);
 //#cairo_surface_t *cairo_image_surface_create(cairo_format_t format, int width, int height);
@@ -4517,21 +4552,38 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(context,			env.LookupClass(VTYPE_object));
 	// method assignment to image type
 	Gura_AssignMethodTo(VTYPE_image, image, cairo);
+	// class reference assignment
+	Gura_AssignValue(font_extents,			Value(Gura_UserClass(font_extents)));
+	Gura_AssignValue(text_extents,			Value(Gura_UserClass(text_extents)));
+	Gura_AssignValue(rectangle,				Value(Gura_UserClass(rectangle)));
+	Gura_AssignValue(rectangle_int,			Value(Gura_UserClass(rectangle_int)));
+	Gura_AssignValue(font_face,				Value(Gura_UserClass(font_face)));
+	Gura_AssignValue(scaled_font,			Value(Gura_UserClass(scaled_font)));
+	Gura_AssignValue(font_options,			Value(Gura_UserClass(font_options)));
+	Gura_AssignValue(device,				Value(Gura_UserClass(device)));
+	Gura_AssignValue(surface,				Value(Gura_UserClass(surface)));
+	Gura_AssignValue(image_surface,			Value(Gura_UserClass(image_surface)));
+	Gura_AssignValue(pdf_surface,			Value(Gura_UserClass(pdf_surface)));
+	Gura_AssignValue(ps_surface,			Value(Gura_UserClass(ps_surface)));
+	Gura_AssignValue(recording_surface,		Value(Gura_UserClass(recording_surface)));
+	Gura_AssignValue(win32_surface,			Value(Gura_UserClass(win32_surface)));
+	Gura_AssignValue(svg_surface,			Value(Gura_UserClass(svg_surface)));
+	Gura_AssignValue(quartz_surface,		Value(Gura_UserClass(quartz_surface)));
+	Gura_AssignValue(xcb_surface,			Value(Gura_UserClass(xcb_surface)));
+	Gura_AssignValue(xlib_surface,			Value(Gura_UserClass(xlib_surface)));
+	Gura_AssignValue(script_surface,		Value(Gura_UserClass(script_surface)));
+	Gura_AssignValue(pattern,				Value(Gura_UserClass(pattern)));
+	Gura_AssignValue(region,				Value(Gura_UserClass(region)));
+	Gura_AssignValue(path,					Value(Gura_UserClass(path)));
+	Gura_AssignValue(glyph,					Value(Gura_UserClass(glyph)));
+	Gura_AssignValue(text_cluster,			Value(Gura_UserClass(text_cluster)));
+	Gura_AssignValue(context,				Value(Gura_UserClass(context)));
 	// function assignment
-	Gura_AssignFunction(image_create);
-	Gura_AssignFunction(pdf_create);
-	Gura_AssignFunction(ps_create);
-	Gura_AssignFunction(svg_create);
+	Gura_AssignFunction(create);
 #if defined(HAVE_WINDOWS_H)
 	Gura_AssignFunction(emf_create);
 	Gura_AssignFunction(printer_create);
 #endif
-	Gura_AssignFunction(pattern_create_rgb);
-	Gura_AssignFunction(pattern_create_rgba);
-	Gura_AssignFunction(pattern_create_color);
-	Gura_AssignFunction(pattern_create_for_surface);
-	Gura_AssignFunction(pattern_create_linear);
-	Gura_AssignFunction(pattern_create_radial);
 	Gura_AssignFunction(test);
 	// cairo_path_data_type_t
 	Gura_AssignCairoValue(PATH_MOVE_TO);
