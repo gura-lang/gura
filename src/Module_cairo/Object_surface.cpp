@@ -261,7 +261,21 @@ Gura_ImplementMethod(surface, get_type)
 	return Value(rtn);
 }
 
-//#unsigned int cairo_surface_get_reference_count(cairo_surface_t *surface);
+// cairo.surface#get_reference_count()
+Gura_DeclareMethod(surface, get_reference_count)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(surface, get_reference_count)
+{
+	Object_surface *pThis = Object_surface::GetThisObj(args);
+	cairo_surface_t *surface = pThis->GetEntity();
+	unsigned int rtn = cairo_surface_get_reference_count(surface);
+	if (IsError(sig, surface)) return Value::Null;
+	return Value(rtn);
+}
+
 //#cairo_status_t cairo_surface_set_user_data(cairo_surface_t *surface, const cairo_user_data_key_t *key, void *user_data, cairo_destroy_func_t destroy);
 //#void *cairo_surface_get_user_data(cairo_surface_t *surface, const cairo_user_data_key_t *key);
 
