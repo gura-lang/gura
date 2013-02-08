@@ -4423,8 +4423,7 @@ Gura_ImplementMethod(image, cairo)
 	}
 	Object_surface *pObjSurface = new Object_image_surface(surface, pObjImage);
 	cairo_t *cr = ::cairo_create(surface);
-	Value result(new Object_context(cr, pObjSurface));
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, sig, args, Value(new Object_context(cr, pObjSurface)));
 }
 
 //-----------------------------------------------------------------------------
