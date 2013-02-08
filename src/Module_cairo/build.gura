@@ -8,8 +8,6 @@ if (sys.build == `msc) {
 		'lpng1510/projects/vstudio/Release Library', ['libpng15.lib', 'zlib.lib']))
 	builder.libs.append('msimg32.lib')
 	builder.incDirs.append(path.join(modbuild.guestDir, 'cairo-1.12.12/src'))
-	//builder.dlls.append('libcairo-2.dll')
-	//builder.incDirs.append(path.join(modbuild.guestDir, 'include/cairo'))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('cairo')
 	builder.incDirs.append('/usr/local/include/cairo', '/usr/include/cairo')
@@ -33,4 +31,31 @@ To compile source code:
 	builder.debFiles = ['libcairo2-dev']
 	builder.rpmFiles = ['cairo-devel']
 }
-builder.build('cairo', ['Module_cairo.cpp'])
+builder.build('cairo', ['Module_cairo.cpp',
+'Object_context.cpp'
+'Object_device.cpp'
+'Object_font_extents.cpp'
+'Object_font_face.cpp'
+'Object_font_options.cpp'
+'Object_glyph.cpp'
+'Object_image_surface.cpp'
+'Object_path.cpp'
+'Object_pattern.cpp'
+'Object_pdf_surface.cpp'
+'Object_ps_surface.cpp'
+'Object_quartz_surface.cpp'
+'Object_recording_surface.cpp'
+'Object_rectangle.cpp'
+'Object_rectangle_int.cpp'
+'Object_region.cpp'
+'Object_scaled_font.cpp'
+'Object_script_surface.cpp'
+'Object_surface.cpp'
+'Object_svg_surface.cpp'
+'Object_text_cluster.cpp'
+'Object_text_extents.cpp'
+'Object_win32_surface.cpp'
+'Object_Writer_surface.cpp'
+'Object_xcb_surface.cpp'
+'Object_xlib_surface.cpp'
+])
