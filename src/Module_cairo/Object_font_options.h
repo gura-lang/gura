@@ -3,6 +3,24 @@
 
 Gura_BeginModule(cairo)
 
+//-----------------------------------------------------------------------------
+// Object_font_options declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(font_options);
+
+class Object_font_options : public Object {
+private:
+	cairo_font_options_t *_options;
+public:
+	Gura_DeclareObjectAccessor(font_options)
+public:
+	inline Object_font_options(cairo_font_options_t *options) :
+					Object(Gura_UserClass(font_options)), _options(options) {}
+	virtual ~Object_font_options();
+	virtual Object *Clone() const;
+	virtual String ToString(Signal sig, bool exprFlag);
+	inline cairo_font_options_t *GetEntity() { return _options; }
+};
 
 }}
 

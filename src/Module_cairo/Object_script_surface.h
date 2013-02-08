@@ -3,6 +3,13 @@
 
 Gura_BeginModule(cairo)
 
+//-----------------------------------------------------------------------------
+// Object_script_surface declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(script_surface);
+
+class Object_script_surface : public Object_surface {
+};
 
 }}
 

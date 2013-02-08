@@ -3,6 +3,13 @@
 
 Gura_BeginModule(cairo)
 
+//-----------------------------------------------------------------------------
+// Object_recording_surface declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(recording_surface);
+
+class Object_recording_surface : public Object_surface {
+};
 
 }}
 

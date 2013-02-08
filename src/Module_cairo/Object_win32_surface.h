@@ -3,6 +3,16 @@
 
 Gura_BeginModule(cairo)
 
+//-----------------------------------------------------------------------------
+// Object_win32_surface declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(win32_surface);
+
+class Object_win32_surface : public Object_Writer_surface {
+public:
+	inline Object_win32_surface(cairo_surface_t *surface, Writer *pWriter) :
+				Object_Writer_surface(surface, pWriter) {}
+};
 
 }}
 

@@ -3,6 +3,13 @@
 
 Gura_BeginModule(cairo)
 
+//-----------------------------------------------------------------------------
+// Object_xcb_surface declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(xcb_surface);
+
+class Object_xcb_surface : public Object_surface {
+};
 
 }}
 
