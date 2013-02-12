@@ -2,7 +2,7 @@
   Add the following content into Apache's configuration file httpd.conf.
 
     LoadModule gura_module modules/mod_gura.so
-    <Location "/gura/">
+    <Location "/gura">
       SetHandler gura
     </Location>
 */
@@ -16,9 +16,7 @@
 /* The sample content handler */
 static int gura_handler(request_rec *r)
 {
-	if (strcmp(r->handler, "gura") != 0) {
-		return DECLINED;
-	}
+	if (strcmp(r->handler, "gura") != 0) return DECLINED;
 	r->content_type = "text/html";
 	if (r->header_only) return OK;
 	ap_rprintf(r, "<html><body>\n");
