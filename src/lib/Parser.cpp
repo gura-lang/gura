@@ -1294,6 +1294,7 @@ Expr *Parser::FeedElement(Environment &env, Signal sig, const Element &elem)
 				_elemStack.pop_back();
 			} else {
 				// something's wrong
+				SetError_InvalidElement(sig, __LINE__);
 				InitStack();
 			}
 			break;
