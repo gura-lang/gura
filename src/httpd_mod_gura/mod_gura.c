@@ -27,7 +27,7 @@
 #include "util_filter.h"
 #include "scoreboard.h"
 
-module AP_MODULE_DECLARE_DATA echo_module;
+module AP_MODULE_DECLARE_DATA gura_module;
 
 typedef struct {
     int bEnabled;
@@ -37,6 +37,7 @@ static void *create_echo_server_config(apr_pool_t *p, server_rec *s)
 {
     EchoConfig *pConfig = apr_pcalloc(p, sizeof *pConfig);
 
+	printf("line.%d\n", __LINE__);
     pConfig->bEnabled = 0;
 
     return pConfig;
@@ -45,7 +46,8 @@ static void *create_echo_server_config(apr_pool_t *p, server_rec *s)
 static const char *echo_on(cmd_parms *cmd, void *dummy, int arg)
 {
     EchoConfig *pConfig = ap_get_module_config(cmd->server->module_config,
-                                               &echo_module);
+                                               &gura_module);
+	printf("line.%d\n", __LINE__);
     pConfig->bEnabled = arg;
 
     return NULL;
@@ -57,6 +59,7 @@ static apr_status_t brigade_peek(apr_bucket_brigade *bbIn,
     apr_bucket *b;
     apr_size_t readbytes = 0;
 
+	printf("line.%d\n", __LINE__);
     if (bufflen--)
         /* compensate for NULL */
         *buff = '\0';
@@ -99,6 +102,7 @@ static int update_echo_child_status(ap_sb_handle_t *sbh,
     worker_score *ws = ap_get_scoreboard_worker(sbh);
     int old_status = ws->status;
 
+	printf("line.%d\n", __LINE__);
     ws->status = status;
 
     if (!ap_extended_status)
@@ -133,8 +137,9 @@ static int process_echo_connection(conn_rec *c)
     apr_bucket *b;
     apr_socket_t *csd = NULL;
     EchoConfig *pConfig = ap_get_module_config(c->base_server->module_config,
-                                               &echo_module);
+                                               &gura_module);
 
+	printf("line.%d\n", __LINE__);
     if (!pConfig->bEnabled) {
         return DECLINED;
     }
@@ -197,18 +202,19 @@ static int process_echo_connection(conn_rec *c)
 
 static const command_rec echo_cmds[] =
 {
-    AP_INIT_FLAG("ProtocolEcho", echo_on, NULL, RSRC_CONF,
+    AP_INIT_FLAG("ProtocolGura", echo_on, NULL, RSRC_CONF,
                  "Run an echo server on this host"),
     { NULL }
 };
 
 static void register_hooks(apr_pool_t *p)
 {
+	printf("register_hooks\n");
     ap_hook_process_connection(process_echo_connection, NULL, NULL,
                                APR_HOOK_MIDDLE);
 }
 
-AP_DECLARE_MODULE(echo) = {
+AP_DECLARE_MODULE(gura) = {
     STANDARD20_MODULE_STUFF,
     NULL,                       /* create per-directory config structure */
     NULL,                       /* merge per-directory config structures */
