@@ -33,11 +33,18 @@ static void *create_dir_config(apr_pool_t *p, char *dir)
 	return cfg;
 }
 
-static void *merge_dir_config(apr_pool_t *p, void *basev, void *overridesv)
+static void *merge_dir_config(apr_pool_t *p, void *base_conf, void *new_conf)
 {
 	gura_dir_config *cfg = (gura_dir_config *)apr_pcalloc(p, sizeof(gura_dir_config));
-	gura_dir_config *base = (gura_dir_config *)basev;
-	gura_dir_config *overrides = (gura_dir_config *)overridesv;
+	gura_dir_config *cfg_base = (gura_dir_config *)base_conf;
+	gura_dir_config *cfg_new = (gura_dir_config *)new_conf;
+    return cfg;
+}
+
+static void *create_server_config(apr_pool_t *p, server_rec *s)
+{
+	gura_server_config *cfg = (gura_server_config *)apr_pcalloc(p, sizeof(gura_server_config));
+	//apr_thread_rwlock_create(&cfg->vm_reslists_lock, p);
     return cfg;
 }
 
@@ -48,20 +55,13 @@ static int create_request_config(request_rec *r)
     return OK;
 }
 
-static void *create_server_config(apr_pool_t *p, server_rec *s)
-{
-	gura_server_config *cfg = (gura_server_config *)apr_pcalloc(p, sizeof(gura_server_config));
-	//apr_thread_rwlock_create(&cfg->vm_reslists_lock, p);
-    return cfg;
-}
-
 static const char *handler_GuraPath(cmd_parms *cmd, void *cfgv, const char *arg)
 {
 	gura_dir_config *cfg = (gura_dir_config *)cfgv;
     return NULL;
 }
 
-command_rec gura_config_file_commands[] = {
+static command_rec cmds[] = {
 	AP_INIT_TAKE1("GuraPath", (cmd_func)handler_GuraPath, NULL, OR_ALL,
 				"Set a directory in which Gura searches modules"),
 	{ NULL }
@@ -81,18 +81,18 @@ static int gura_handler(request_rec *r)
 	ap_rprintf(r, "</body></html>\n");
 	return OK;
 }
- 
-static void gura_register_hooks(apr_pool_t *p)
+
+static void register_hooks(apr_pool_t *p)
 {
 	ap_hook_handler(gura_handler, NULL, NULL, APR_HOOK_MIDDLE);
 }
  
 AP_DECLARE_MODULE(gura) = {
 	STANDARD20_MODULE_STUFF,
-	create_dir_config,			/* create per-dir config structures */
-	merge_dir_config,			/* merge per-dir config structures */
-	create_server_config,		/* create per-server config structures */
-	NULL,						/* merge per-server config structures */
-	gura_config_file_commands,	/* table of config file commands */
-	gura_register_hooks			/* register hooks */
+	create_dir_config,		/* create per-dir config structures */
+	merge_dir_config,		/* merge per-dir config structures */
+	create_server_config,	/* create per-server config structures */
+	NULL,					/* merge per-server config structures */
+	cmds,					/* table of config file commands */
+	register_hooks			/* register hooks */
 };
