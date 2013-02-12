@@ -27,6 +27,8 @@
 #include "util_filter.h"
 #include "scoreboard.h"
 
+#include "guraif.h"
+
 module AP_MODULE_DECLARE_DATA gura_module;
 
 typedef struct {
