@@ -1,5 +1,5 @@
-#ifndef __GURAIF_H__
-#define __GURAIF_H__
+#ifndef __MOD_GURA_H__
+#define __MOD_GURA_H__
 #include <httpd.h>
 #include <http_config.h>
 #include <http_protocol.h>
@@ -9,6 +9,7 @@
 extern "C" {
 #endif
 
+extern module AP_MODULE_DECLARE_DATA gura_module;
 extern command_rec gura_cmds[];
 
 void *gura_create_dir_config(apr_pool_t *p, char *dir);

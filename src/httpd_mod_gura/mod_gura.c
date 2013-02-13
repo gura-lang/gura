@@ -6,9 +6,7 @@
       SetHandler gura
     </Location>
 */
-#include "guraif.h"
-
-module AP_MODULE_DECLARE_DATA gura_module;
+#include "mod_gura.h"
 
 static void register_hooks(apr_pool_t *p)
 {

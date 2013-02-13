@@ -86,7 +86,7 @@
     <ClCompile Include="mod_gura.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="guraif.h" />
+    <ClInclude Include="mod_gura.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

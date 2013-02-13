@@ -1,0 +1,9 @@
+apr.print(R'''
+<html><body>
+hello, gura world
+あいうえお
+<table border="1">
+
+</table>
+</body></html>
+''')
