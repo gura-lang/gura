@@ -149,8 +149,8 @@ CreateInitialPages(parent:wx.BookCtrlBase) = {
 CreatePage(parent:wx.BookCtrlBase, pageName:string) = {
 	if (pageName.find(INSERTED_PAGE_NAME) || \
 			pageName.find(ADDED_PAGE_NAME) || \
-				pageName.find(ADDED_SUB_PAGE_NAME) || \
-					pageName.find(ADDED_PAGE_NAME_BEFORE)) {
+			pageName.find(ADDED_SUB_PAGE_NAME) || \
+			pageName.find(ADDED_PAGE_NAME_BEFORE)) {
 		return(CreateUserCreatedPage(parent))
 	}
 	if (pageName == I_WAS_INSERTED_PAGE_NAME) {
