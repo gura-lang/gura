@@ -47,8 +47,8 @@ Graph = class {
 		(tSteps.filter(tRange / tSteps >= 10):list).last()
 	}
 	draw(cr:cairo.context) = {
-		[this.wdAxis, this.htAxis] = [cr.width * .9, cr.height * .9]
-		[this.xAxis, this.yAxis] = [(cr.width - this.wdAxis) / 2, (cr.height - this.htAxis) / 2]
+		[this.wdAxis, this.htAxis] = [cr.surface.width * .9, cr.surface.height * .9]
+		[this.xAxis, this.yAxis] = [(cr.surface.width - this.wdAxis) / 2, (cr.surface.height - this.htAxis) / 2]
 		cr.set_line_width(1)
 		cr.save {
 			cr.set_antialias(cairo.ANTIALIAS_NONE)
@@ -105,7 +105,7 @@ Graph = class {
 		}
 	}
 	addFunc(func:function) = {
-		idx = (this.funcs::name == func.name).find()
+		idx = (this.funcs::name == func.name).find():index
 		idx && this.funcs.erase(idx)
 		this.funcs.add(func)
 	}
