@@ -552,6 +552,7 @@ Gura_ImplementMethod(iterator, filter)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
+#if 0
 // iterator#seek(criteria)
 Gura_DeclareMethod(iterator, seek)
 {
@@ -569,6 +570,7 @@ Gura_ImplementMethod(iterator, seek)
 	if (idx == InvalidSize) return Value::Null;
 	return value;
 }
+#endif
 
 // iterator#while(criteria) {block?}
 Gura_DeclareMethodAlias(iterator, while_, "while")
@@ -695,10 +697,11 @@ Gura_ImplementMethod(iterator, reduce)
 	return result;
 }
 
-// iterator#find(criteria?)
+// iterator#find(criteria?):[index]
 Gura_DeclareMethod(iterator, find)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(index));
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 }
 
@@ -706,10 +709,13 @@ Gura_ImplementMethod(iterator, find)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
+	Value value;
 	size_t idx = args.IsValid(0)?
-		pIterator->Find(env, sig, args.GetValue(0)) : pIterator->FindTrue(env, sig);
+			pIterator->Find(env, sig, args.GetValue(0), value) :
+			pIterator->FindTrue(env, sig, value);
 	if (idx == InvalidSize) return Value::Null;
-	return Value(static_cast<unsigned int>(idx));
+	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<unsigned int>(idx));
+	return value;
 }
 
 // iterator#count(criteria?)
@@ -1159,7 +1165,7 @@ Class_iterator::Class_iterator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 	Gura_AssignMethod(iterator, or_);
 	Gura_AssignMethod(iterator, iscontain);
 	Gura_AssignMethod(iterator, filter);
-	Gura_AssignMethod(iterator, seek);
+	//Gura_AssignMethod(iterator, seek);
 	Gura_AssignMethod(iterator, while_);
 	Gura_AssignMethod(iterator, since);
 	Gura_AssignMethod(iterator, after);

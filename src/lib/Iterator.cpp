@@ -440,16 +440,15 @@ Value Iterator::Or(Environment &env, Signal sig)
 	return Value(false);
 }
 
-size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria)
+size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria, Value &value)
 {
-	if (IsInfinite()) {
-		SetError_InfiniteNotAllowed(sig);
-		return InvalidSize;
-	}
 	size_t idx = 0;
 	if (criteria.IsFunction()) {
+		if (IsInfinite()) {
+			SetError_InfiniteNotAllowed(sig);
+			return InvalidSize;
+		}
 		const Function *pFunc = criteria.GetFunction();
-		Value value;
 		while (Next(env, sig, value)) {
 			ValueList valListArg(value);
 			Args args(valListArg);
@@ -459,8 +458,21 @@ size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria)
 			idx++;
 		}
 		if (sig.IsSignalled()) return InvalidSize;
+	} else if (criteria.IsList() || criteria.IsIterator()) {
+		AutoPtr<Iterator> pIteratorCriteria(criteria.CreateIterator(sig));
+		if (sig.IsSignalled()) return InvalidSize;
+		if (IsInfinite() && pIteratorCriteria->IsInfinite()) {
+			SetError_InfiniteNotAllowed(sig);
+			return InvalidSize;
+		}
+		while (Next(env, sig, value)) {
+			Value valueCriteria;
+			if (!pIteratorCriteria->Next(env, sig, valueCriteria)) break;
+			if (valueCriteria.GetBoolean()) return idx;
+			idx++;
+		}
+		return InvalidSize;
 	} else {
-		Value value;
 		while (Next(env, sig, value)) {
 			if (Value::Compare(value, criteria) == 0) return idx;
 			idx++;
@@ -469,14 +481,13 @@ size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria)
 	return InvalidSize;
 }
 
-size_t Iterator::FindTrue(Environment &env, Signal sig)
+size_t Iterator::FindTrue(Environment &env, Signal sig, Value &value)
 {
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);
 		return 0;
 	}
 	size_t idx = 0;
-	Value value;
 	while (Next(env, sig, value)) {
 		if (value.GetBoolean()) return idx;
 		idx++;
@@ -541,6 +552,7 @@ Iterator *Iterator::Filter(Environment &env, Signal sig, const Value &criteria)
 	}
 }
 
+#if 0
 size_t Iterator::Seek(Environment &env, Signal sig, const Value &criteria, Value &value)
 {
 	if (IsInfinite()) {
@@ -593,6 +605,7 @@ size_t Iterator::SeekTrue(Environment &env, Signal sig, Value &value)
 	}
 	return InvalidSize;
 }
+#endif
 
 Iterator *Iterator::While(Environment &env, Signal sig, const Value &criteria)
 {

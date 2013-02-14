@@ -53,12 +53,12 @@ scope {
 }
 scope {
 	fruits = ['apple', 'orange', 'grape']
-	println(fruits.seek(fruits:*len() > 5))
-	println(fruits.seek(fruits:*len() > 6))
-	println(fruits.seek(fruits:*startswith('g')))
-	println(fruits.each().seek(fruits:*len() > 5))
-	println(fruits.each().seek(fruits:*len() > 6))
-	println(fruits.each().seek(fruits:*startswith('g')))
+	println(fruits.find(fruits:*len() > 5))
+	println(fruits.find(fruits:*len() > 6))
+	println(fruits.find(fruits:*startswith('g')))
+	println(fruits.each().find(fruits:*len() > 5))
+	println(fruits.each().find(fruits:*len() > 6))
+	println(fruits.each().find(fruits:*startswith('g')))
 }
 scope {
 	x = [1e-6, 1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12, 1e-13]
@@ -69,16 +69,16 @@ scope {
 }
 scope {
 	tester(`[].each().sort())
-	tester(`[].find(2))
-	tester(`[].find())
-	tester(`[3, 4, 1, 2, 5].find(2))
-	tester(`[3, 4, 1, 2, 5].each().find(2))
-	tester(`[3, 4, 1, 2, 5].find(6))
-	tester(`[3, 4, 1, 2, 5].each().find(6))
-	tester(`[false, false, true, false, true].find())
-	tester(`[false, false, true, false, true].each().find())
-	tester(`[false, false, false, false].find())
-	tester(`[false, false, false, false].each().find())
+	tester(`[].find(2):index)
+	tester(`[].find():index)
+	tester(`[3, 4, 1, 2, 5].find(2):index)
+	tester(`[3, 4, 1, 2, 5].each().find(2):index)
+	tester(`[3, 4, 1, 2, 5].find(6):index)
+	tester(`[3, 4, 1, 2, 5].each().find(6):index)
+	tester(`[false, false, true, false, true].find():index)
+	tester(`[false, false, true, false, true].each().find():index)
+	tester(`[false, false, false, false].find():index)
+	tester(`[false, false, false, false].each().find():index)
 }
 scope {
 	x = chr(ord('A')..ord('Z')):list

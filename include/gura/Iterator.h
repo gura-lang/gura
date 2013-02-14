@@ -103,13 +103,13 @@ public:
 	Value StandardDeviation(Environment &env, Signal sig, size_t &cnt);
 	Value And(Environment &env, Signal sig);
 	Value Or(Environment &env, Signal sig);
-	size_t Find(Environment &env, Signal sig, const Value &criteria);
-	size_t FindTrue(Environment &env, Signal sig);
+	size_t Find(Environment &env, Signal sig, const Value &criteria, Value &value);
+	size_t FindTrue(Environment &env, Signal sig, Value &value);
 	size_t Count(Environment &env, Signal sig, const Value &criteria);
 	size_t CountTrue(Environment &env, Signal sig);
 	Iterator *Filter(Environment &env, Signal sig, const Value &criteria);
-	size_t Seek(Environment &env, Signal sig, const Value &criteria, Value &value);
-	size_t SeekTrue(Environment &env, Signal sig, Value &value);
+	//size_t Seek(Environment &env, Signal sig, const Value &criteria, Value &value);
+	//size_t SeekTrue(Environment &env, Signal sig, Value &value);
 	Iterator *While(Environment &env, Signal sig, const Value &criteria);
 	Iterator *Since(Environment &env, Signal sig, const Value &criteria, bool containFirstFlag);
 	Iterator *Until(Environment &env, Signal sig, const Value &criteria, bool containLastFlag);
