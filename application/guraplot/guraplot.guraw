@@ -151,7 +151,8 @@ tk.mainwindow() {|mw|
 			m.Command(label => 'Open', underline => 0) {
 			}
 			m.Command(label => 'Create PDF', underline => 0) {
-				cairo.pdf_create('>cairo-pdf.pdf', units.mm$pt(100), units.mm$pt(100)) {|cr|
+				cairo.create(cairo.pdf_surface.create('cairo-pdf.pdf',
+									units.mm$pt(100), units.mm$pt(100))) {|cr|
 					cr.scale(units.mm$pt(100) / 100, units.mm$pt(100) / 100)
 					try {
 						graph.draw(cr)
@@ -210,7 +211,8 @@ tk.mainwindow() {|mw|
 		f.Button(text => 'PDF', width => 10) {|w|
 			w.pack(side => 'top', pady => [2, 0])
 			w.bind(`command) {
-				cairo.pdf_create('>graph.pdf', units.mm$pt(100), units.mm$pt(100)) {|cr|
+				cairo.create(cairo.pdf_surface.create('graph.pdf',
+									units.mm$pt(100), units.mm$pt(100))) {|cr|
 					cr.scale(units.mm$pt(100) / 100, units.mm$pt(100) / 100)
 					try {
 						graph.draw(cr)
