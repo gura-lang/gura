@@ -7,6 +7,9 @@
 #define Gura_AssignCairoValue(name) \
 Gura_AssignValue(name, Value(CAIRO_##name))
 
+#define Gura_AssignCairoStringValue(name) \
+Gura_AssignValue(name, Value(env, CAIRO_##name))
+
 Gura_BeginModule(cairo)
 
 const double NUM_PI = 3.14159265358979323846;
@@ -439,6 +442,12 @@ Gura_ModuleEntry()
 	// cairo_svg_version_t
 	Gura_AssignCairoValue(SVG_VERSION_1_1);
 	Gura_AssignCairoValue(SVG_VERSION_1_2);
+	// MIME_TYPE
+	Gura_AssignCairoStringValue(MIME_TYPE_JP2);
+	Gura_AssignCairoStringValue(MIME_TYPE_JPEG);
+	Gura_AssignCairoStringValue(MIME_TYPE_PNG);
+	Gura_AssignCairoStringValue(MIME_TYPE_URI);
+	Gura_AssignCairoStringValue(MIME_TYPE_UNIQUE_ID);
 }
 
 Gura_ModuleTerminate()
