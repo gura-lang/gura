@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 # encoding: utf-8
 //-----------------------------------------------------------------------------
-// makecalc
+// guradrill
 // copyright (c) Yutaka SAITO
 //-----------------------------------------------------------------------------
 import(wx)
@@ -157,7 +157,7 @@ App = class(wx.App) {
 			this.IMG_Divide = this.imgList.Add(img)
 		}
 		if (sys.argv.len() < 2) {
-			this.fileNameCfg = path.join(sys.localdir, 'makecalc.yml')
+			this.fileNameCfg = path.join(sys.localdir, 'guradrill.yml')
 		} else {
 			this.fileNameCfg = sys.argv[1]
 		}
@@ -304,7 +304,7 @@ ComposerAttr = class {
 			this.seed			= cfg['seed']
 		} else {
 			this.name			= ''
-			this.fileNamePDF	= path.join(sys.localdir, 'makecalc.pdf')
+			this.fileNamePDF	= path.join(sys.localdir, 'guradrill.pdf')
 			this.cntHorz		= 1
 			this.cntVert		= 1
 			this.nPages			= 10
@@ -1534,7 +1534,7 @@ Panel = class(wx.Panel) {
 //-----------------------------------------------------------------------------
 Frame = class(wx.Frame) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
-						path.filename(sys.argv[0]),
+						'Gura ドリル',
 						size => wx.Size(wx.GetApp().cfg['wdFrame', 'htFrame']*)|
 		this.SetIcon(wx.IconFromXPMData(sample_xpm))
 		Panel(this)

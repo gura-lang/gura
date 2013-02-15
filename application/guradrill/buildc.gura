@@ -1,3 +1,3 @@
 #!/usr/bin/env gura
 import(gurcbuild)
-gurcbuild.build(['makecalc.guraw'])
+gurcbuild.build(['guradrill.guraw'])
