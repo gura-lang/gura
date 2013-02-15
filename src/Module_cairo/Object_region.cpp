@@ -24,8 +24,11 @@ String Object_region::ToString(Signal sig, bool exprFlag)
 // Gura interfaces for region
 //-----------------------------------------------------------------------------
 //#cairo_region_t *cairo_region_create(void);
+
 //#cairo_region_t *cairo_region_create_rectangle(const cairo_rectangle_int_t *rectangle);
+
 //#cairo_region_t *cairo_region_create_rectangles(const cairo_rectangle_int_t *rects, int count);
+
 //#cairo_region_t *cairo_region_copy(const cairo_region_t *original);
 //#cairo_region_t *cairo_region_reference(cairo_region_t *region);
 //#void cairo_region_destroy(cairo_region_t *region);
