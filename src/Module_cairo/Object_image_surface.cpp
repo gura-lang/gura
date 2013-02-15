@@ -29,6 +29,8 @@ Value Object_image_surface::DoGetProp(Signal sig, const Symbol *pSymbol, bool &e
 //-----------------------------------------------------------------------------
 // Gura interfaces for image_surface
 //-----------------------------------------------------------------------------
+//#cairo_surface_t *cairo_image_surface_create(cairo_format_t format, int width, int height);
+
 // cairo.image_surface.create(width:number, height:number, color?:color) {block?}
 Gura_DeclareClassMethod(image_surface, create)
 {

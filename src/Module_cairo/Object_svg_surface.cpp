@@ -31,15 +31,27 @@ Gura_ImplementClassMethod(svg_surface, create)
 	return ReturnValue(env, sig, args, Value(pObjSurface));
 }
 
-//#cairo_surface_t *cairo_svg_surface_create(const char *filename, double width_in_points, double height_in_points);
-//#cairo_surface_t *cairo_svg_surface_create_for_stream (cairo_write_func_t write_func, void *closure, double width_in_points, double height_in_points);
-//#void cairo_svg_surface_restrict_to_version(cairo_surface_t *surface, cairo_svg_version_t version);
-//#void cairo_svg_get_versions(cairo_svg_version_t const **versions, int *num_versions);
-//#const char *cairo_svg_version_to_string(cairo_svg_version_t version);
+// cairo.svg_surface#restrict_to_version(version:number):reduce
+Gura_DeclareMethod(svg_surface, restrict_to_version)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "version", VTYPE_number);
+}
+
+Gura_ImplementMethod(svg_surface, restrict_to_version)
+{
+	Object_surface *pThis = Object_surface::GetThisObj(args);
+	cairo_surface_t *surface = pThis->GetEntity();
+	cairo_svg_version_t version = static_cast<cairo_svg_version_t>(args.GetInt(0));
+	::cairo_svg_surface_restrict_to_version(surface, version);
+	if (IsError(sig, surface)) return Value::Null;
+	return args.GetThis();
+}
 
 Gura_ImplementUserClass(svg_surface)
 {
 	Gura_AssignMethod(svg_surface, create);
+	Gura_AssignMethod(svg_surface, restrict_to_version);
 }
 
 }}

@@ -33,7 +33,22 @@ Gura_ImplementClassMethod(pdf_surface, create)
 	return ReturnValue(env, sig, args, Value(pObjSurface));
 }
 
-//#void cairo_pdf_surface_restrict_to_version(cairo_surface_t *surface, cairo_pdf_version_t version);
+// cairo.pdf_surface#restrict_to_version(version:number):reduce
+Gura_DeclareMethod(pdf_surface, restrict_to_version)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "version", VTYPE_number);
+}
+
+Gura_ImplementMethod(pdf_surface, restrict_to_version)
+{
+	Object_surface *pThis = Object_surface::GetThisObj(args);
+	cairo_surface_t *surface = pThis->GetEntity();
+	cairo_pdf_version_t version = static_cast<cairo_pdf_version_t>(args.GetInt(0));
+	::cairo_pdf_surface_restrict_to_version(surface, version);
+	if (IsError(sig, surface)) return Value::Null;
+	return args.GetThis();
+}
 
 // cairo.pdf_surface#set_size(width_in_points:number, height_in_points:number)
 Gura_DeclareMethod(pdf_surface, set_size)
@@ -55,6 +70,7 @@ Gura_ImplementMethod(pdf_surface, set_size)
 Gura_ImplementUserClass(pdf_surface)
 {
 	Gura_AssignMethod(pdf_surface, create);
+	Gura_AssignMethod(pdf_surface, restrict_to_version);
 	Gura_AssignMethod(pdf_surface, set_size);
 }
 

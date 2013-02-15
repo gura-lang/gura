@@ -55,11 +55,111 @@ Gura_ImplementFunction(create)
 		Value(new Object_context(cr, Object_surface::Reference(pObjSurface))));
 }
 
-//#void cairo_pdf_get_versions(cairo_pdf_version_t const **versions, int *num_versions);
-//#const char *cairo_pdf_version_to_string(cairo_pdf_version_t version);
-//#int cairo_format_stride_for_width(cairo_format_t format, int width);
-//#cairo_surface_t *cairo_image_surface_create(cairo_format_t format, int width, int height);
-//#const char *cairo_status_to_string(cairo_status_t status);
+// cairo.pdf_get_versions()
+Gura_DeclareFunction(pdf_get_versions)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementFunction(pdf_get_versions)
+{
+	cairo_pdf_version_t const *versions = NULL;
+	int num_versions = 0;
+	::cairo_pdf_get_versions(&versions, &num_versions);
+	Value rtn;
+	ValueList &valList = rtn.InitAsList(env);
+	if (num_versions > 0) {
+		valList.reserve(num_versions);
+		for (int i = 0; i < num_versions; i++) {
+			valList.push_back(Value(versions[i]));
+		}
+	}
+	return rtn;
+}
+
+// cairo.svg_get_versions()
+Gura_DeclareFunction(svg_get_versions)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementFunction(svg_get_versions)
+{
+	cairo_svg_version_t const *versions = NULL;
+	int num_versions = 0;
+	::cairo_svg_get_versions(&versions, &num_versions);
+	Value rtn;
+	ValueList &valList = rtn.InitAsList(env);
+	if (num_versions > 0) {
+		valList.reserve(num_versions);
+		for (int i = 0; i < num_versions; i++) {
+			valList.push_back(Value(versions[i]));
+		}
+	}
+	return rtn;
+}
+
+// cairo.pdf_version_to_string(version:number)
+Gura_DeclareFunction(pdf_version_to_string)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "version", VTYPE_number);
+}
+
+Gura_ImplementFunction(pdf_version_to_string)
+{
+	cairo_pdf_version_t version = static_cast<cairo_pdf_version_t>(args.GetInt(0));
+	const char *rtn = ::cairo_pdf_version_to_string(version);
+	if (rtn == NULL) return Value::Null;
+	return Value(env, rtn);
+}
+
+// cairo.svg_version_to_string(version:number)
+Gura_DeclareFunction(svg_version_to_string)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "version", VTYPE_number);
+}
+
+Gura_ImplementFunction(svg_version_to_string)
+{
+	cairo_svg_version_t version = static_cast<cairo_svg_version_t>(args.GetInt(0));
+	const char *rtn = ::cairo_svg_version_to_string(version);
+	if (rtn == NULL) return Value::Null;
+	return Value(env, rtn);
+}
+
+// cairo.status_to_string(status:number)
+Gura_DeclareFunction(status_to_string)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "version", VTYPE_number);
+}
+
+Gura_ImplementFunction(status_to_string)
+{
+	cairo_status_t status = static_cast<cairo_status_t>(args.GetInt(0));
+	const char *rtn = ::cairo_status_to_string(status);
+	if (rtn == NULL) return Value::Null;
+	return Value(env, rtn);
+}
+
+// cairo.format_stride_for_width(format:number, width:number)
+Gura_DeclareFunction(format_stride_for_width)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "format", VTYPE_number);
+	DeclareArg(env, "width", VTYPE_number);
+}
+
+Gura_ImplementFunction(format_stride_for_width)
+{
+	cairo_format_t format = static_cast<cairo_format_t>(args.GetInt(0));
+	int width = args.GetInt(1);
+	int rtn = ::cairo_format_stride_for_width(format, width);
+	return Value(rtn);
+}
+
 //#void cairo_debug_reset_static_data(void);
 
 // cairo.test()
@@ -191,6 +291,12 @@ Gura_ModuleEntry()
 	Gura_AssignValue(context,				Value(Gura_UserClass(context)));
 	// function assignment
 	Gura_AssignFunction(create);
+	Gura_AssignFunction(pdf_get_versions);
+	Gura_AssignFunction(svg_get_versions);
+	Gura_AssignFunction(pdf_version_to_string);
+	Gura_AssignFunction(svg_version_to_string);
+	Gura_AssignFunction(status_to_string);
+	Gura_AssignFunction(format_stride_for_width);
 	Gura_AssignFunction(test);
 	// cairo_path_data_type_t
 	Gura_AssignCairoValue(PATH_MOVE_TO);
@@ -327,6 +433,12 @@ Gura_ModuleEntry()
 	Gura_AssignCairoValue(DEVICE_TYPE_COGL);
 	Gura_AssignCairoValue(DEVICE_TYPE_WIN32);
 	Gura_AssignCairoValue(DEVICE_TYPE_INVALID);
+	// cairo_pdf_version_t
+	Gura_AssignCairoValue(PDF_VERSION_1_4);
+	Gura_AssignCairoValue(PDF_VERSION_1_5);
+	// cairo_svg_version_t
+	Gura_AssignCairoValue(SVG_VERSION_1_1);
+	Gura_AssignCairoValue(SVG_VERSION_1_2);
 }
 
 Gura_ModuleTerminate()
