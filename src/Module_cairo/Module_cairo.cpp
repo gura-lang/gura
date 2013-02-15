@@ -317,6 +317,16 @@ Gura_ModuleEntry()
 	Gura_AssignCairoValue(SURFACE_TYPE_XML);
 	Gura_AssignCairoValue(SURFACE_TYPE_SKIA);
 	Gura_AssignCairoValue(SURFACE_TYPE_SUBSURFACE);
+	// cairo_device_type_t
+	Gura_AssignCairoValue(DEVICE_TYPE_DRM);
+	Gura_AssignCairoValue(DEVICE_TYPE_GL);
+	Gura_AssignCairoValue(DEVICE_TYPE_SCRIPT);
+	Gura_AssignCairoValue(DEVICE_TYPE_XCB);
+	Gura_AssignCairoValue(DEVICE_TYPE_XLIB);
+	Gura_AssignCairoValue(DEVICE_TYPE_XML);
+	Gura_AssignCairoValue(DEVICE_TYPE_COGL);
+	Gura_AssignCairoValue(DEVICE_TYPE_WIN32);
+	Gura_AssignCairoValue(DEVICE_TYPE_INVALID);
 }
 
 Gura_ModuleTerminate()
