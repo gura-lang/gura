@@ -492,8 +492,8 @@ Composer = class {
 	OutputPDF() = {
 		this.UpdatePages()
 		scale = units.mm$pt(210) / 210
-		cairo.pdf_create(open(this.attrCur.fileNamePDF, 'w'),
-								units.mm$pt(210), units.mm$pt(297)) {|cr|
+		cairo.create(cairo.pdf_surface.create(this.attrCur.fileNamePDF,
+								units.mm$pt(210), units.mm$pt(297))) {|cr|
 			cr.scale(scale, scale)
 			repeat (this.attrCur.nPages) {|iPage|
 				this.ComposePage(cr, iPage)
