@@ -163,7 +163,17 @@ Gura_ImplementFunction(format_stride_for_width)
 	return Value(rtn);
 }
 
-//#void cairo_debug_reset_static_data(void);
+// cairo.debug_reset_static_data():void
+Gura_DeclareFunction(debug_reset_static_data)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementFunction(debug_reset_static_data)
+{
+	::cairo_debug_reset_static_data();
+	return Value::Null;
+}
 
 // cairo.test()
 Gura_DeclareFunction(test)
@@ -300,6 +310,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(svg_version_to_string);
 	Gura_AssignFunction(status_to_string);
 	Gura_AssignFunction(format_stride_for_width);
+	Gura_AssignFunction(debug_reset_static_data);
 	Gura_AssignFunction(test);
 	// cairo_path_data_type_t
 	Gura_AssignCairoValue(PATH_MOVE_TO);
