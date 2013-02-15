@@ -307,10 +307,10 @@ Gura_ImplementMethod(pattern, get_linear_points)
 	return CreateValueList(env, x0, y0, x1, y1);
 }
 
-// cairo.pattern#get_radial_circles():reduce
+// cairo.pattern#get_radial_circles()
 Gura_DeclareMethod(pattern, get_radial_circles)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(pattern, get_radial_circles)
@@ -340,7 +340,20 @@ Gura_ImplementMethod(pattern, get_radial_circles)
 
 //#cairo_pattern_t *cairo_pattern_reference(cairo_pattern_t *pattern);
 //#void cairo_pattern_destroy(cairo_pattern_t *pattern);
-//#cairo_status_t cairo_pattern_status(cairo_pattern_t *pattern);
+
+// cairo.pattern#status()
+Gura_DeclareMethod(pattern, status)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(pattern, status)
+{
+	Object_pattern *pThis = Object_pattern::GetThisObj(args);
+	cairo_pattern_t *pattern = pThis->GetEntity();
+	cairo_status_t rtn = cairo_pattern_status(pattern);
+	return Value(rtn);
+}
 
 // cairo.pattern#set_extend(extend:number):reduce
 Gura_DeclareMethod(pattern, set_extend)
@@ -466,6 +479,7 @@ Gura_ImplementUserClass(pattern)
 	Gura_AssignMethod(pattern, get_surface);
 	Gura_AssignMethod(pattern, get_linear_points);
 	Gura_AssignMethod(pattern, get_radial_circles);
+	Gura_AssignMethod(pattern, status);
 	Gura_AssignMethod(pattern, set_extend);
 	Gura_AssignMethod(pattern, get_extend);
 	Gura_AssignMethod(pattern, set_filter);

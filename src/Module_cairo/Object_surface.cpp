@@ -57,12 +57,89 @@ String Object_surface::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for surface
 //-----------------------------------------------------------------------------
-//#cairo_surface_t *cairo_surface_create_similar(cairo_surface_t *other, cairo_content_t content, int width, int height);
-//#cairo_surface_t *cairo_surface_create_similar_image(cairo_surface_t *other, cairo_format_t format, int width, int height);
-//#cairo_surface_t *cairo_surface_create_for_rectangle(cairo_surface_t *target, double x, double y, double width, double height);
+// cairo.surface.create_similar(other:cairo.surface, content:number, width:number, height:number) {block?}
+Gura_DeclareClassMethod(surface, create_similar)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "other", VTYPE_surface);
+	DeclareArg(env, "content", VTYPE_number);
+	DeclareArg(env, "width", VTYPE_number);
+	DeclareArg(env, "height", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(surface, create_similar)
+{
+	cairo_surface_t *other = Object_surface::GetObject(args, 0)->GetEntity();
+	cairo_content_t content = static_cast<cairo_content_t>(args.GetInt(1));
+	int width = args.GetInt(2);
+	int height = args.GetInt(3);
+	cairo_surface_t *surface = ::cairo_surface_create_similar(other, content, width, height);
+	Object_surface *pObjSurface = new Object_surface(surface);
+	return ReturnValue(env, sig, args, Value(pObjSurface));
+}
+
+// cairo.surface.create_similar(other:cairo.surface, content:number, width:number, height:number) {block?}
+Gura_DeclareClassMethod(surface, create_similar_image)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "other", VTYPE_surface);
+	DeclareArg(env, "format", VTYPE_number);
+	DeclareArg(env, "width", VTYPE_number);
+	DeclareArg(env, "height", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(surface, create_similar_image)
+{
+	cairo_surface_t *other = Object_surface::GetObject(args, 0)->GetEntity();
+	cairo_format_t format = static_cast<cairo_format_t>(args.GetInt(1));
+	int width = args.GetInt(2);
+	int height = args.GetInt(3);
+	cairo_surface_t *surface = ::cairo_surface_create_similar_image(other, format, width, height);
+	Object_surface *pObjSurface = new Object_surface(surface);
+	return ReturnValue(env, sig, args, Value(pObjSurface));
+}
+
+// cairo.surface.create_for_rectangle(target:cairo.surface, x:number, y:number, width:number, height:number) {block?}
+Gura_DeclareClassMethod(surface, create_for_rectangle)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "other", VTYPE_surface);
+	DeclareArg(env, "format", VTYPE_number);
+	DeclareArg(env, "width", VTYPE_number);
+	DeclareArg(env, "height", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(surface, create_for_rectangle)
+{
+	cairo_surface_t *target = Object_surface::GetObject(args, 0)->GetEntity();
+	double x = args.GetDouble(1);
+	double y = args.GetDouble(2);
+	double width = args.GetDouble(3);
+	double height = args.GetDouble(4);
+	cairo_surface_t *surface = ::cairo_surface_create_for_rectangle(target, x, y, width, height);
+	Object_surface *pObjSurface = new Object_surface(surface);
+	return ReturnValue(env, sig, args, Value(pObjSurface));
+}
+
 //#cairo_surface_t *cairo_surface_reference(cairo_surface_t *surface);
 //#void cairo_surface_destroy(cairo_surface_t *surface);
-//#cairo_status_t cairo_surface_status(cairo_surface_t *surface);
+
+// cairo.surface#status()
+Gura_DeclareMethod(surface, status)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(surface, status)
+{
+	Object_surface *pThis = Object_surface::GetThisObj(args);
+	cairo_surface_t *surface = pThis->GetEntity();
+	cairo_status_t rtn = cairo_surface_status(surface);
+	return Value(rtn);
+}
 
 // cairo.surface#finish():reduce
 Gura_DeclareMethod(surface, finish)
@@ -425,6 +502,10 @@ Gura_ImplementMethod(surface, write_to_png)
 // implementation of class surface
 Gura_ImplementUserClassWithCast(surface)
 {
+	Gura_AssignMethod(surface, create_similar);
+	Gura_AssignMethod(surface, create_similar_image);
+	Gura_AssignMethod(surface, create_for_rectangle);
+	Gura_AssignMethod(surface, status);
 	Gura_AssignMethod(surface, finish);
 	Gura_AssignMethod(surface, flush);
 	Gura_AssignMethod(surface, get_device);
