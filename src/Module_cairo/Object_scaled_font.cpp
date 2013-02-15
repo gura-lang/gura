@@ -24,6 +24,7 @@ String Object_scaled_font::ToString(Signal sig, bool exprFlag)
 // Gura interfaces for scaled_font
 //-----------------------------------------------------------------------------
 //#cairo_scaled_font_t *cairo_scaled_font_create(cairo_font_face_t *font_face, const cairo_matrix_t *font_matrix, const cairo_matrix_t *ctm, const cairo_font_options_t *options);
+
 //#cairo_scaled_font_t *cairo_scaled_font_reference(cairo_scaled_font_t *scaled_font);
 //#void cairo_scaled_font_destroy(cairo_scaled_font_t *scaled_font);
 
