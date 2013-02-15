@@ -334,6 +334,39 @@ Gura_ModuleTerminate()
 }
 
 //-----------------------------------------------------------------------------
+// Reader implementation
+//-----------------------------------------------------------------------------
+Reader::~Reader()
+{
+}
+
+//-----------------------------------------------------------------------------
+// Reader_Stream implementation
+//-----------------------------------------------------------------------------
+Reader_Stream::~Reader_Stream()
+{
+}
+
+cairo_status_t Reader_Stream::ReadFunc(unsigned char *data, unsigned int length)
+{
+	_pStream->Read(_sig, data, length);
+	if (_sig.IsSignalled()) return CAIRO_STATUS_WRITE_ERROR;
+	return CAIRO_STATUS_SUCCESS;
+}
+
+cairo_status_t Reader_Stream::read_func(void *closure,
+						unsigned char *data, unsigned int length)
+{
+	Reader_Stream *pReader = reinterpret_cast<Reader_Stream *>(closure);
+	return pReader->ReadFunc(data, length);
+}
+
+Stream *Reader_Stream::GetStream()
+{
+	return _pStream.get();
+}
+
+//-----------------------------------------------------------------------------
 // Writer implementation
 //-----------------------------------------------------------------------------
 Writer::~Writer()

@@ -33,6 +33,34 @@ Gura_DeclareUserSymbol(y_bearing);
 extern const double NUM_PI;
 
 //-----------------------------------------------------------------------------
+// Reader declaration
+//-----------------------------------------------------------------------------
+class Reader {
+protected:
+	Signal _sig;
+public:
+	inline Reader(Signal sig) : _sig(sig) {}
+	virtual ~Reader();
+	virtual Stream *GetStream() = 0;
+};
+
+//-----------------------------------------------------------------------------
+// Reader_Stream declaration
+//-----------------------------------------------------------------------------
+class Reader_Stream : public Reader {
+private:
+	AutoPtr<Stream> _pStream;
+public:
+	inline Reader_Stream(Signal sig, Stream *pStream) :
+				Reader(sig), _pStream(pStream) {}
+	virtual ~Reader_Stream();
+	cairo_status_t ReadFunc(unsigned char *data, unsigned int length);
+	static cairo_status_t read_func(void *closure,
+						unsigned char *data, unsigned int length);
+	virtual Stream *GetStream();
+};
+
+//-----------------------------------------------------------------------------
 // Writer declaration
 //-----------------------------------------------------------------------------
 class Writer {
