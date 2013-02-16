@@ -10,6 +10,8 @@ Gura_DeclareUserClass(svg_surface);
 
 class Object_svg_surface : public Object_Writer_surface {
 public:
+	Gura_DeclareObjectAccessor(svg_surface)
+public:
 	inline Object_svg_surface(cairo_surface_t *surface, Writer *pWriter) :
 				Object_Writer_surface(surface, pWriter) {}
 };
