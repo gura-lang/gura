@@ -1,0 +1,33 @@
+files = [
+'Object_quartz_surface.h'
+'Object_recording_surface.h'
+'Object_rectangle.h'
+'Object_rectangle_int.h'
+'Object_region.h'
+'Object_scaled_font.h'
+'Object_script_surface.h'
+'Object_surface.h'
+'Object_svg_surface.h'
+'Object_text_cluster.h'
+'Object_text_extents.h'
+'Object_win32_surface.h'
+'Object_Writer_surface.h'
+'Object_xcb_surface.h'
+'Object_xlib_surface.h'
+]
+
+tmpl = R'''
+#ifndef __CAIRO_${macro}__
+#define __CAIRO_${macro}__
+
+Gura_BeginModule(cairo)
+
+
+}}
+
+#endif
+'''
+files.each {|fileName|
+	macro = fileName.upper().replace('.', '_')
+	tmpl.template(open(fileName, 'w').dosmode(false))
+}

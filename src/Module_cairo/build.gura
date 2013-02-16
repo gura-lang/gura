@@ -9,6 +9,9 @@ srcs = [
 'Object_rectangle_int.cpp'
 'Object_region.cpp'
 'Object_font_face.cpp'
+
+'Object_ft_font_face.cpp'
+
 'Object_scaled_font.cpp'
 'Object_font_options.cpp'
 'Object_device.cpp'
