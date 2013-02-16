@@ -10,17 +10,18 @@ Gura_DeclareUserClass(text_cluster);
 
 class Object_text_cluster : public Object {
 private:
-	cairo_text_cluster_t _text_cluster;
+	cairo_text_cluster_t *_clusters;
+	int _num_clusters;
 public:
 	Gura_DeclareObjectAccessor(text_cluster)
 public:
-	inline Object_text_cluster(const cairo_text_cluster_t &text_cluster) :
-						Object(Gura_UserClass(text_cluster)), _text_cluster(text_cluster) {}
+	inline Object_text_cluster(cairo_text_cluster_t *clusters, int num_clusters) :
+		Object(Gura_UserClass(text_cluster)), _clusters(clusters), _num_clusters(num_clusters) {}
 	virtual ~Object_text_cluster();
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline cairo_text_cluster_t &GetEntity() { return _text_cluster; }
-	inline const cairo_text_cluster_t &GetEntity() const { return _text_cluster; }
+	inline cairo_text_cluster_t *GetClusters() { return _clusters; }
+	inline int GetNumClusters() const { return _num_clusters; }
 };
 
 }}

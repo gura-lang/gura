@@ -1319,11 +1319,11 @@ Gura_ImplementMethod(context, rectangle)
 	return args.GetThis();
 }
 
-// cairo.context#glyph_path(glyph[]:cairo.glyph):reduce
+// cairo.context#glyph_path(glyphs:cairo.glyph):reduce
 Gura_DeclareMethod(context, glyph_path)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "glyph", VTYPE_glyph);
+	DeclareArg(env, "glyphs", VTYPE_glyph);
 }
 
 Gura_ImplementMethod(context, glyph_path)
@@ -1331,14 +1331,8 @@ Gura_ImplementMethod(context, glyph_path)
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Null;
-	int num_glyphs = static_cast<int>(args.GetList(0).size());
-	cairo_glyph_t *glyphs = ::cairo_glyph_allocate(num_glyphs);
-	cairo_glyph_t *glyphp = glyphs;
-	foreach_const (ValueList, pValue, args.GetList(0)) {
-		*glyphp++ = Object_glyph::GetObject(*pValue)->GetEntity();
-	}
-	::cairo_glyph_path(cr, glyphs, num_glyphs);
-	::cairo_glyph_free(glyphs);
+	Object_glyph *pObjGlyph = Object_glyph::GetObject(args, 0);
+	::cairo_glyph_path(cr, pObjGlyph->GetGlyphs(), pObjGlyph->GetNumGlyphs());
 	if (IsError(sig, cr)) return Value::Null;
 	return args.GetThis();
 }
@@ -1862,11 +1856,11 @@ Gura_ImplementMethod(context, show_text)
 	return args.GetThis();
 }
 
-// cairo.context#show_glyphs(glyphs[]:cairo.glyph):reduce
+// cairo.context#show_glyphs(glyphs:cairo.glyph):reduce
 Gura_DeclareMethod(context, show_glyphs)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "glyphs", VTYPE_glyph, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "glyphs", VTYPE_glyph);
 }
 
 Gura_ImplementMethod(context, show_glyphs)
@@ -1874,25 +1868,20 @@ Gura_ImplementMethod(context, show_glyphs)
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Null;
-	int num_glyphs = static_cast<int>(args.GetList(0).size());
-	cairo_glyph_t *glyphs = ::cairo_glyph_allocate(num_glyphs);
-	cairo_glyph_t *glyphp = glyphs;
-	foreach_const (ValueList, pValue, args.GetList(0)) {
-		*glyphp++ = Object_glyph::GetObject(*pValue)->GetEntity();
-	}
-	::cairo_show_glyphs(cr, glyphs, num_glyphs);
-	::cairo_glyph_free(glyphs);
+	Object_glyph *pObjGlyph = Object_glyph::GetObject(args, 0);
+	::cairo_show_glyphs(cr, pObjGlyph->GetGlyphs(), pObjGlyph->GetNumGlyphs());
 	if (IsError(sig, cr)) return Value::Null;
 	return args.GetThis();
 }
 
-// cairo.context#show_text_glyphs():reduce
+// cairo.context#show_text_glyphs(text:string, glyphs:cairo.glyphs,
+//              clusters:cairo.text_cluster, cluster_flags:number):reduce
 Gura_DeclareMethod(context, show_text_glyphs)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string);
-	DeclareArg(env, "glyphs", VTYPE_glyph, OCCUR_Once, FLAG_List);
-	DeclareArg(env, "clusters", VTYPE_text_cluster, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "glyphs", VTYPE_glyph);
+	DeclareArg(env, "clusters", VTYPE_text_cluster);
 	DeclareArg(env, "cluster_flags", VTYPE_number);
 }
 
@@ -1902,24 +1891,13 @@ Gura_ImplementMethod(context, show_text_glyphs)
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Null;
 	String text = args.GetStringSTL(0);
-	int num_glyphs = static_cast<int>(args.GetList(1).size());
-	cairo_glyph_t *glyphs = ::cairo_glyph_allocate(num_glyphs);
-	cairo_glyph_t *glyphp = glyphs;
-	foreach_const (ValueList, pValue, args.GetList(1)) {
-		*glyphp++ = Object_glyph::GetObject(*pValue)->GetEntity();
-	}
-	int num_clusters = static_cast<int>(args.GetList(2).size());
-	cairo_text_cluster_t *clusters = ::cairo_text_cluster_allocate(num_clusters);
-	cairo_text_cluster_t *clusterp = clusters;
-	foreach_const (ValueList, pValue, args.GetList(2)) {
-		*clusterp++ = Object_text_cluster::GetObject(*pValue)->GetEntity();
-	}
+	Object_glyph *pObjGlyph = Object_glyph::GetObject(args, 1);
+	Object_text_cluster *pObjCluster = Object_text_cluster::GetObject(args, 2);
 	cairo_text_cluster_flags_t cluster_flags =
 					static_cast<cairo_text_cluster_flags_t>(args.GetInt(3));
 	::cairo_show_text_glyphs(cr, text.c_str(), static_cast<int>(text.size()),
-					glyphs, num_glyphs, clusters, num_clusters, cluster_flags);
-	::cairo_glyph_free(glyphs);
-	::cairo_text_cluster_free(clusters);
+		pObjGlyph->GetGlyphs(), pObjGlyph->GetNumGlyphs(),
+		pObjCluster->GetClusters(), pObjCluster->GetNumClusters(), cluster_flags);
 	if (IsError(sig, cr)) return Value::Null;
 	return args.GetThis();
 }
@@ -1961,10 +1939,11 @@ Gura_ImplementMethod(context, text_extents)
 	return Value(pObjTextExtents);
 }
 
-// cairo.context#glyph_extents(glyphs[]:cairo.glyph)
+// cairo.context#glyph_extents(glyphs:cairo.glyph)
 Gura_DeclareMethod(context, glyph_extents)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "glyphs", VTYPE_glyph);
 }
 
 Gura_ImplementMethod(context, glyph_extents)
@@ -1972,15 +1951,9 @@ Gura_ImplementMethod(context, glyph_extents)
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Null;
-	int num_glyphs = static_cast<int>(args.GetList(0).size());
-	cairo_glyph_t *glyphs = ::cairo_glyph_allocate(num_glyphs);
-	int i = 0;
-	foreach_const (ValueList, pValue, args.GetList(0)) {
-		glyphs[i++] = Object_glyph::GetObject(*pValue)->GetEntity();
-	}
+	Object_glyph *pObjGlyph = Object_glyph::GetObject(args, 0);
 	cairo_text_extents_t extents;
-	::cairo_glyph_extents(cr, glyphs, num_glyphs, &extents);
-	::cairo_glyph_free(glyphs);
+	::cairo_glyph_extents(cr, pObjGlyph->GetGlyphs(), pObjGlyph->GetNumGlyphs(), &extents);
 	if (IsError(sig, cr)) return Value::Null;
 	Object_text_extents *pObjTextExtents = new Object_text_extents(extents);
 	return Value(pObjTextExtents);

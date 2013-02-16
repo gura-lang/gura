@@ -7,6 +7,7 @@ Gura_BeginModule(cairo)
 //-----------------------------------------------------------------------------
 Object_glyph::~Object_glyph()
 {
+	::cairo_glyph_free(_glyphs);
 }
 
 Object *Object_glyph::Clone() const
@@ -23,6 +24,8 @@ String Object_glyph::ToString(Signal sig, bool exprFlag)
 // Gura interfaces for glyph
 //-----------------------------------------------------------------------------
 //#cairo_glyph_t *cairo_glyph_allocate(int num_glyphs);
+
+
 //#void cairo_glyph_free(cairo_glyph_t *glyphs);
 
 // implementation of class glyph
