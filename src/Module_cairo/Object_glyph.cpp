@@ -23,14 +23,28 @@ String Object_glyph::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for glyph
 //-----------------------------------------------------------------------------
-//#cairo_glyph_t *cairo_glyph_allocate(int num_glyphs);
+// cairo.glyph.allocate(num_glyphs:number) {block?}
+Gura_DeclareClassMethod(glyph, allocate)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "num_glyphs", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
 
+Gura_ImplementClassMethod(glyph, allocate)
+{
+	int num_glyphs = args.GetInt(0);
+	cairo_glyph_t *glyphs = ::cairo_glyph_allocate(num_glyphs);
+	Object_glyph *pObjGlyph = new Object_glyph(glyphs, num_glyphs);
+	return ReturnValue(env, sig, args, Value(pObjGlyph));
+}
 
 //#void cairo_glyph_free(cairo_glyph_t *glyphs);
 
 // implementation of class glyph
 Gura_ImplementUserClass(glyph)
 {
+	Gura_AssignMethod(glyph, allocate);
 }
 
 }}

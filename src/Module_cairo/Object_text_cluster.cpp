@@ -22,12 +22,28 @@ String Object_text_cluster::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for text_cluster
 //-----------------------------------------------------------------------------
-//#cairo_text_cluster_t *cairo_text_cluster_allocate(int num_clusters);
+// cairo.text_cluster.allocate(num_clusters:number) {block?}
+Gura_DeclareClassMethod(text_cluster, allocate)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "num_clusters", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(text_cluster, allocate)
+{
+	int num_clusters = args.GetInt(0);
+	cairo_text_cluster_t *clusters = ::cairo_text_cluster_allocate(num_clusters);
+	Object_text_cluster *pObjCluster = new Object_text_cluster(clusters, num_clusters);
+	return ReturnValue(env, sig, args, Value(pObjCluster));
+}
+
 //#void cairo_text_cluster_free(cairo_text_cluster_t *clusters);
 
 // implementation of class text_cluster
 Gura_ImplementUserClass(text_cluster)
 {
+	Gura_AssignMethod(text_cluster, allocate);
 }
 
 }}
