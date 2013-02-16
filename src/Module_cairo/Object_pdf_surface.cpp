@@ -9,8 +9,6 @@ Gura_BeginModule(cairo)
 //-----------------------------------------------------------------------------
 // Gura interfaces for pdf_surface
 //-----------------------------------------------------------------------------
-//#cairo_surface_t *cairo_pdf_surface_create(const char *filename, double width_in_points, double height_in_points);
-//#cairo_surface_t *cairo_pdf_surface_create_for_stream (cairo_write_func_t write_func, void *closure, double width_in_points, double height_in_points);
 // cairo.pdf_surface.create(stream:stream:w, width_in_points:number, height_in_points:number) {block?}
 Gura_DeclareClassMethod(pdf_surface, create)
 {

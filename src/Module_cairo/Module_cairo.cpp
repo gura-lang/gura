@@ -80,6 +80,29 @@ Gura_ImplementFunction(pdf_get_versions)
 	return rtn;
 }
 
+//#void cairo_ps_get_levels(cairo_ps_level_t const **levels, int *num_levels);
+// cairo.ps_get_levels()
+Gura_DeclareFunction(ps_get_levels)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementFunction(ps_get_levels)
+{
+	cairo_ps_level_t const *levels = NULL;
+	int num_levels = 0;
+	::cairo_ps_get_levels(&levels, &num_levels);
+	Value rtn;
+	ValueList &valList = rtn.InitAsList(env);
+	if (num_levels > 0) {
+		valList.reserve(num_levels);
+		for (int i = 0; i < num_levels; i++) {
+			valList.push_back(Value(levels[i]));
+		}
+	}
+	return rtn;
+}
+
 // cairo.svg_get_versions()
 Gura_DeclareFunction(svg_get_versions)
 {
@@ -100,6 +123,22 @@ Gura_ImplementFunction(svg_get_versions)
 		}
 	}
 	return rtn;
+}
+
+
+// cairo.ps_level_to_string(level:number)
+Gura_DeclareFunction(ps_level_to_string)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "level", VTYPE_number);
+}
+
+Gura_ImplementFunction(ps_level_to_string)
+{
+	cairo_ps_level_t level = static_cast<cairo_ps_level_t>(args.GetInt(0));
+	const char *rtn = ::cairo_ps_level_to_string(level);
+	if (rtn == NULL) return Value::Null;
+	return Value(env, rtn);
 }
 
 // cairo.pdf_version_to_string(version:number)
@@ -314,8 +353,10 @@ Gura_ModuleEntry()
 	Gura_AssignValue(context,				Value(Gura_UserClass(context)));
 	// function assignment
 	Gura_AssignFunction(create);
+	Gura_AssignFunction(ps_get_levels);
 	Gura_AssignFunction(pdf_get_versions);
 	Gura_AssignFunction(svg_get_versions);
+	Gura_AssignFunction(ps_level_to_string);
 	Gura_AssignFunction(pdf_version_to_string);
 	Gura_AssignFunction(svg_version_to_string);
 	Gura_AssignFunction(status_to_string);
@@ -457,6 +498,9 @@ Gura_ModuleEntry()
 	Gura_AssignCairoValue(DEVICE_TYPE_COGL);
 	Gura_AssignCairoValue(DEVICE_TYPE_WIN32);
 	Gura_AssignCairoValue(DEVICE_TYPE_INVALID);
+	// cairo_ps_level_t
+	Gura_AssignCairoValue(PS_LEVEL_2);
+	Gura_AssignCairoValue(PS_LEVEL_3);
 	// cairo_pdf_version_t
 	Gura_AssignCairoValue(PDF_VERSION_1_4);
 	Gura_AssignCairoValue(PDF_VERSION_1_5);
