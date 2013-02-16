@@ -23,6 +23,8 @@ String Object_path::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for path
 //-----------------------------------------------------------------------------
+//#void cairo_path_destroy(cairo_path_t *path);
+
 // implementation of class path
 Gura_ImplementUserClass(path)
 {

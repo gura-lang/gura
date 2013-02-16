@@ -68,10 +68,22 @@ void Object_context::Destroy()
 // Gura interfaces for context
 // context operations
 //-----------------------------------------------------------------------------
-//#cairo_t *cairo_create(cairo_surface_t *target);
 //#cairo_t *cairo_reference(cairo_t *cr);
 //#void cairo_destroy(cairo_t *cr);
-//#cairo_status_t cairo_status(cairo_t *cr);
+
+// cairo.context#status()
+Gura_DeclareMethod(context, status)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(context, status)
+{
+	Object_context *pThis = Object_context::GetThisObj(args);
+	cairo_t *context = pThis->GetEntity();
+	cairo_status_t rtn = ::cairo_status(context);
+	return Value(rtn);
+}
 
 // cairo.context#destroy():reduce
 Gura_DeclareMethod(context, destroy)
@@ -1075,8 +1087,23 @@ Gura_ImplementMethod(context, copy_path_flat)
 	return result;
 }
 
-//#void cairo_path_destroy(cairo_path_t *path);
-//#void cairo_append_path(cairo_t *cr, const cairo_path_t *path);
+// cairo.context#append_path(path:path):reduce
+Gura_DeclareMethod(context, append_path)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "path", VTYPE_path);
+}
+
+Gura_ImplementMethod(context, append_path)
+{
+	Object_context *pThis = Object_context::GetThisObj(args);
+	cairo_t *cr = pThis->GetEntity();
+	if (IsInvalid(sig, cr)) return Value::Null;
+	cairo_path_t *path = Object_path::GetObject(args, 0)->GetEntity();
+	::cairo_append_path(cr, path);
+	if (IsError(sig, cr)) return Value::Null;
+	return args.GetThis();
+}
 
 // cairo.context#has_current_point()
 Gura_DeclareMethod(context, has_current_point)
@@ -1963,6 +1990,7 @@ Gura_ImplementMethod(context, glyph_extents)
 Gura_ImplementUserClass(context)
 {
 	// Context operations
+	Gura_AssignMethod(context, status);
 	Gura_AssignMethod(context, destroy);
 	Gura_AssignMethod(context, save);
 	Gura_AssignMethod(context, restore);
@@ -2019,6 +2047,7 @@ Gura_ImplementUserClass(context)
 	// Paths - Creating paths and manipulating path data
 	Gura_AssignMethod(context, copy_path);
 	Gura_AssignMethod(context, copy_path_flat);
+	Gura_AssignMethod(context, append_path);
 	Gura_AssignMethod(context, has_current_point);
 	Gura_AssignMethod(context, get_current_point);
 	Gura_AssignMethod(context, new_path);

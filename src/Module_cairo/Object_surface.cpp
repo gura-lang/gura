@@ -137,7 +137,7 @@ Gura_ImplementMethod(surface, status)
 {
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
-	cairo_status_t rtn = cairo_surface_status(surface);
+	cairo_status_t rtn = ::cairo_surface_status(surface);
 	return Value(rtn);
 }
 
