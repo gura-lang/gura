@@ -23,10 +23,36 @@ String Object_font_options::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for font_options
 //-----------------------------------------------------------------------------
-//#cairo_font_options_t *cairo_font_options_create(void);
+// cairo.font_options.create() {block?}
+Gura_DeclareClassMethod(font_options, create)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(font_options, create)
+{
+	cairo_font_options_t *font_options = ::cairo_font_options_create();
+	Object_font_options *pObjFontOptions = new Object_font_options(font_options);
+	return ReturnValue(env, sig, args, Value(pObjFontOptions));
+}
+
 //#cairo_font_options_t *cairo_font_options_copy(const cairo_font_options_t *original);
 //#void cairo_font_options_destroy(cairo_font_options_t *options);
-//#cairo_status_t cairo_font_options_status(cairo_font_options_t *options);
+
+// cairo.font_options#status()
+Gura_DeclareMethod(font_options, status)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(font_options, status)
+{
+	Object_font_options *pThis = Object_font_options::GetThisObj(args);
+	cairo_font_options_t *font_options = pThis->GetEntity();
+	cairo_status_t rtn = ::cairo_font_options_status(font_options);
+	return Value(rtn);
+}
 
 //#void cairo_ft_font_options_substitute(const cairo_font_options_t *options, FcPattern *pattern);
 
@@ -216,6 +242,8 @@ Gura_ImplementMethod(font_options, get_hint_metrics)
 // implementation of class font_options
 Gura_ImplementUserClass(font_options)
 {
+	Gura_AssignMethod(font_options, create);
+	Gura_AssignMethod(font_options, status);
 	Gura_AssignMethod(font_options, merge);
 	Gura_AssignMethod(font_options, hash);
 	Gura_AssignMethod(font_options, equal);
