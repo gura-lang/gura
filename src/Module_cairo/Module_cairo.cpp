@@ -254,9 +254,11 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(rectangle,		env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(rectangle_int,	env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(font_face,		env.LookupClass(VTYPE_object));
-
+	Gura_RealizeUserClass(toy_font_face,	Gura_UserClass(font_face));
 	Gura_RealizeUserClass(ft_font_face,		Gura_UserClass(font_face));
-
+	Gura_RealizeUserClass(win32_font_face,	Gura_UserClass(font_face));
+	Gura_RealizeUserClass(quartz_font_face,	Gura_UserClass(font_face));
+	Gura_RealizeUserClass(user_font_face,	Gura_UserClass(font_face));
 	Gura_RealizeUserClass(scaled_font,		env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(font_options,		env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(device,			env.LookupClass(VTYPE_object));
@@ -285,9 +287,11 @@ Gura_ModuleEntry()
 	Gura_AssignValue(rectangle,				Value(Gura_UserClass(rectangle)));
 	Gura_AssignValue(rectangle_int,			Value(Gura_UserClass(rectangle_int)));
 	Gura_AssignValue(font_face,				Value(Gura_UserClass(font_face)));
-
+	Gura_AssignValue(toy_font_face,			Value(Gura_UserClass(toy_font_face)));
 	Gura_AssignValue(ft_font_face,			Value(Gura_UserClass(ft_font_face)));
-
+	Gura_AssignValue(win32_font_face,		Value(Gura_UserClass(win32_font_face)));
+	Gura_AssignValue(quartz_font_face,		Value(Gura_UserClass(quartz_font_face)));
+	Gura_AssignValue(user_font_face,		Value(Gura_UserClass(user_font_face)));
 	Gura_AssignValue(scaled_font,			Value(Gura_UserClass(scaled_font)));
 	Gura_AssignValue(font_options,			Value(Gura_UserClass(font_options)));
 	Gura_AssignValue(device,				Value(Gura_UserClass(device)));

@@ -9,9 +9,11 @@
 #include "Object_rectangle_int.h"
 #include "Object_region.h"
 #include "Object_font_face.h"
-
+#include "Object_toy_font_face.h"
 #include "Object_ft_font_face.h"
-
+#include "Object_win32_font_face.h"
+#include "Object_quartz_font_face.h"
+#include "Object_user_font_face.h"
 #include "Object_scaled_font.h"
 #include "Object_font_options.h"
 #include "Object_device.h"
