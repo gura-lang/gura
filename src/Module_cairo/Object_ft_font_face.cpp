@@ -13,7 +13,26 @@ String Object_ft_font_face::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for ft_font_face
 //-----------------------------------------------------------------------------
-//#cairo_font_face_t *cairo_ft_font_face_create_for_ft_face(FT_Face face, int load_flags);
+#if 0
+// cairo.ft_font_face.create_for_ft_face(face:FT_Face, load_flag:number) {block?}
+Gura_DeclareClassMethod(ft_font_face, create_for_ft_face)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "face", VTYPE_number);
+	DeclareArg(env, "load_flag", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(ft_font_face, create_for_ft_face)
+{
+	//FT_Face face = NULL;
+	int load_flag = args.GetInt(1);
+	cairo_font_face_t *font_face = ::cairo_ft_font_face_create_for_ft_face(face, load_flags);
+	Object_ft_font_face *pObjFontFace = new Object_ft_font_face(font_face);
+	return ReturnValue(env, sig, args, Value(pObjFontFace));
+}
+#endif
+
 //#cairo_font_face_t *cairo_ft_font_face_create_for_pattern(FcPattern *pattern);
 
 //#unsigned int cairo_ft_font_face_get_synthesize(cairo_font_face_t *font_face);
