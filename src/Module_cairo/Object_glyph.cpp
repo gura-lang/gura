@@ -39,8 +39,6 @@ Gura_ImplementClassMethod(glyph, allocate)
 	return ReturnValue(env, sig, args, Value(pObjGlyph));
 }
 
-//#void cairo_glyph_free(cairo_glyph_t *glyphs);
-
 // implementation of class glyph
 Gura_ImplementUserClass(glyph)
 {

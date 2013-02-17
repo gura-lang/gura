@@ -33,14 +33,55 @@ Gura_ImplementClassMethod(toy_font_face, create)
 	return ReturnValue(env, sig, args, Value(pObjFontFace));
 }
 
-//#const char *cairo_toy_font_face_get_family(cairo_font_face_t *font_face);
-//#cairo_font_slant_t cairo_toy_font_face_get_slant(cairo_font_face_t *font_face);
-//#cairo_font_weight_t cairo_toy_font_face_get_weight(cairo_font_face_t *font_face);
+// cairo.toy_font_face#get_family()
+Gura_DeclareMethod(toy_font_face, get_family)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(toy_font_face, get_family)
+{
+	Object_toy_font_face *pThis = Object_toy_font_face::GetThisObj(args);
+	cairo_font_face_t *font_face = pThis->GetEntity();
+	const char *rtn = ::cairo_toy_font_face_get_family(font_face);
+	return Value(env, rtn);
+}
+
+// cairo.toy_font_face#get_slant()
+Gura_DeclareMethod(toy_font_face, get_slant)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(toy_font_face, get_slant)
+{
+	Object_toy_font_face *pThis = Object_toy_font_face::GetThisObj(args);
+	cairo_font_face_t *font_face = pThis->GetEntity();
+	cairo_font_slant_t rtn = ::cairo_toy_font_face_get_slant(font_face);
+	return Value(rtn);
+}
+
+// cairo.toy_font_face#get_weight()
+Gura_DeclareMethod(toy_font_face, get_weight)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(toy_font_face, get_weight)
+{
+	Object_toy_font_face *pThis = Object_toy_font_face::GetThisObj(args);
+	cairo_font_face_t *font_face = pThis->GetEntity();
+	cairo_font_weight_t rtn = ::cairo_toy_font_face_get_weight(font_face);
+	return Value(rtn);
+}
 
 // implementation of class toy_font_face
 Gura_ImplementUserClass(toy_font_face)
 {
 	Gura_AssignMethod(toy_font_face, create);
+	Gura_AssignMethod(toy_font_face, get_family);
+	Gura_AssignMethod(toy_font_face, get_slant);
+	Gura_AssignMethod(toy_font_face, get_weight);
 }
 
 }}

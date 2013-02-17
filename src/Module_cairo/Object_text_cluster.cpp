@@ -7,6 +7,7 @@ Gura_BeginModule(cairo)
 //-----------------------------------------------------------------------------
 Object_text_cluster::~Object_text_cluster()
 {
+	::cairo_text_cluster_free(_clusters);
 }
 
 Object *Object_text_cluster::Clone() const
@@ -37,8 +38,6 @@ Gura_ImplementClassMethod(text_cluster, allocate)
 	Object_text_cluster *pObjCluster = new Object_text_cluster(clusters, num_clusters);
 	return ReturnValue(env, sig, args, Value(pObjCluster));
 }
-
-//#void cairo_text_cluster_free(cairo_text_cluster_t *clusters);
 
 // implementation of class text_cluster
 Gura_ImplementUserClass(text_cluster)
