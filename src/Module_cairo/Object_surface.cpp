@@ -29,7 +29,6 @@ Value Object_surface::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluat
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
-	//cairo_surface_type_t type = ::cairo_surface_get_type(_surface);
 	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
 		cairo_surface_type_t surface_type = ::cairo_surface_get_type(_surface);
 		return Value(surface_type);

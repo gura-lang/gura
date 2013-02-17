@@ -41,8 +41,7 @@ Gura_ImplementClassMethod(pattern, create_rgb)
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
-	Value result(new Object_pattern(pattern));
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, sig, args, Value(new Object_pattern(pattern)));
 }
 
 // cairo.pattern.create_rgba(red:number, green:number, blue:number, alpha:number) {block?}
@@ -64,8 +63,7 @@ Gura_ImplementClassMethod(pattern, create_rgba)
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
-	Value result(new Object_pattern(pattern));
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, sig, args, Value(new Object_pattern(pattern)));
 }
 
 // cairo.pattern.create_color(color:color, alpha?:number) {block?}
@@ -94,8 +92,7 @@ Gura_ImplementClassMethod(pattern, create_color)
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
-	Value result(new Object_pattern(pattern));
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, sig, args, Value(new Object_pattern(pattern)));
 }
 
 // cairo.pattern.create_for_surface(surface:cairo.surface) {block?}
@@ -114,8 +111,7 @@ Gura_ImplementClassMethod(pattern, create_for_surface)
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
-	Value result(new Object_pattern(pattern));
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, sig, args, Value(new Object_pattern(pattern)));
 }
 
 // cairo.pattern.create_linear(x0:number, y0:number, x1:number, y1:number) {block?}
@@ -137,8 +133,7 @@ Gura_ImplementClassMethod(pattern, create_linear)
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
-	Value result(new Object_pattern(pattern));
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, sig, args, Value(new Object_pattern(pattern)));
 }
 
 // cairo.pattern.create_radial(cx0:number, cy0:number, radius0:number, cx1:number, cy1:number, radius1:number) {block?}
@@ -163,8 +158,7 @@ Gura_ImplementClassMethod(pattern, create_radial)
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
-	Value result(new Object_pattern(pattern));
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, sig, args, Value(new Object_pattern(pattern)));
 }
 
 //#cairo_pattern_t *cairo_pattern_create_raster_source(void *user_data, cairo_content_t content, int width, int height);
@@ -285,8 +279,60 @@ Gura_ImplementMethod(pattern, get_surface)
 	cairo_surface_t *surface = NULL;
 	cairo_status_t status = ::cairo_pattern_get_surface(pattern, &surface);
 	if (IsError(sig, status)) return Value::Null;
-	Object_surface *pObjSurface =
-			new Object_surface(::cairo_surface_reference(surface));
+	cairo_surface_t *surface_ref = ::cairo_surface_reference(surface);
+	cairo_surface_type_t surface_type = ::cairo_surface_get_type(surface);
+	Object_surface *pObjSurface = NULL;
+	if (surface_type == CAIRO_SURFACE_TYPE_IMAGE) {
+		pObjSurface = new Object_image_surface(surface_ref, NULL);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_PDF) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_PS) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_XLIB) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_XCB) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_GLITZ) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_QUARTZ) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_WIN32) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_BEOS) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_DIRECTFB) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_SVG) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_OS2) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_WIN32_PRINTING) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_QUARTZ_IMAGE) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_SCRIPT) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_QT) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_RECORDING) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_VG) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_GL) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_DRM) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_TEE) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_XML) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_SKIA) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else if (surface_type == CAIRO_SURFACE_TYPE_SUBSURFACE) {
+		pObjSurface = new Object_surface(surface_ref);
+	} else {
+		pObjSurface = new Object_surface(surface_ref);
+	}
 	return Value(pObjSurface);
 }
 
@@ -457,7 +503,21 @@ Gura_ImplementMethod(pattern, get_matrix)
 	return Value(pObjMatrix);
 }
 
-//#cairo_pattern_type_t cairo_pattern_get_type(cairo_pattern_t *pattern);
+// cairo.pattern#get_type()
+Gura_DeclareMethod(pattern, get_type)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(pattern, get_type)
+{
+	Object_pattern *pThis = Object_pattern::GetThisObj(args);
+	cairo_pattern_t *pattern = pThis->GetEntity();
+	cairo_pattern_type_t rtn = ::cairo_pattern_get_type(pattern);
+	if (IsError(sig, pattern)) return Value::Null;
+	return Value(rtn);
+}
+
 //#unsigned int cairo_pattern_get_reference_count(cairo_pattern_t *pattern);
 //#cairo_status_t cairo_pattern_set_user_data(cairo_pattern_t *pattern, const cairo_user_data_key_t *key, void *user_data, cairo_destroy_func_t destroy);
 //#void *cairo_pattern_get_user_data(cairo_pattern_t *pattern, const cairo_user_data_key_t *key);
@@ -486,6 +546,7 @@ Gura_ImplementUserClass(pattern)
 	Gura_AssignMethod(pattern, get_filter);
 	Gura_AssignMethod(pattern, set_matrix);
 	Gura_AssignMethod(pattern, get_matrix);
+	Gura_AssignMethod(pattern, get_type);
 }
 
 }}
