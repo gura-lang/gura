@@ -5,6 +5,12 @@ tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nom
 I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 
 scope {
+	['red', `blue, [128, 128, 0], [255, 255, 255, 64]].each() {|d|
+		c:color = d
+		println(c)
+	}
+}
+scope {
 	plt = palette(8)
 	plt[0..] = [`black, `blue, `lime, `aqua, `red, `fuchsia, `yellow, `white]
 	println(plt.each():*html().join(','))
