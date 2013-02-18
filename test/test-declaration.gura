@@ -1,4 +1,6 @@
 #!/usr/bin/env gura
+import(testutil) {*}
+
 listSymbols(skipWords:list, indent:number => 0, m?:module) = {
 	skipWordsMap = %{
 		'sys' => ['stdin', 'stdout', 'stderr', 'path', 'argv',

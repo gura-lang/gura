@@ -1,3 +1,4 @@
 #!/usr/bin/env gura
 import(sample)
+import(testutil) {*}
 println(dir(sample).join(', '))

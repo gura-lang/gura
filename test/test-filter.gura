@@ -1,8 +1,7 @@
 #!/usr/bin/env gura
+import(testutil) {*}
+
 sys.echo(false)
-
-tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
-
 scope {
 	// http://msdn.microsoft.com/ja-jp/library/bb308959.aspx
 	names = [

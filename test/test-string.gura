@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
 # -*- coding: utf-8 -*-
-sys.echo(false)
-tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+import(testutil) {*}
 
+sys.echo(false)
 sys.stdout.setencoding('shift_jis')
 
 scope {

@@ -8,9 +8,8 @@ import(gif)
 import(xpm)
 import(hash)
 import(freetype)
+import(testutil) {*}
 
-tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
-I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 tester_image(image:image, comment:string):map:void = {
 	printf('%-20s %3dx%3d\n', comment, image.width, image.height)
 	sdl.Init(sdl.INIT_EVERYTHING)

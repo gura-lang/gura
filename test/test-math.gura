@@ -1,7 +1,5 @@
 #!/usr/bin/env gura
-
-print_func(func:function) = printf('%s = %s\n', func, func.expr)
-tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+import(testutil) {*}
 
 scope {
 	TestCase = struct(a:number, b:number)

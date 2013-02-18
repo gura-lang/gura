@@ -1,4 +1,5 @@
 import(hash)
+import(testutil) {*}
 
 scope {
 	println('CRC32')

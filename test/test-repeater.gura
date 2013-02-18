@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
-sys.echo(false)
-tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+import(testutil) {*}
 
+sys.echo(false)
 scope {
 	a = 0
 	for (a in 1..10) {}

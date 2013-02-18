@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-tester(test):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+import(testutil) {*}
 
 scope {
 	f(name:string, price:number, color:string):map = printf('%-8s %3d %s\n', name, price, color)

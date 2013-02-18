@@ -1,2 +1,5 @@
+sys.stdout.dosmode(false)
+
 print_func(func:function) = printf('%s = %s\n', func, func.expr)
 tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)

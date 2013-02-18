@@ -1,4 +1,5 @@
 #!/usr/bin/env gura
+import(testutil) {*}
 
 sys.stdout.setencoding('shift_jis')
 

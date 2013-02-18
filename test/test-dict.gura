@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
+import(testutil) {*}
 
 scope {
 	d = %{'a' => 3, 'b' => 2, 'c' => 1}

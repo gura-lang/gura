@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import(csv)
 import(sqlite3)
+import(testutil) {*}
 
 sys.stdout.setencoding('shift_jis')
 

@@ -1,7 +1,6 @@
 #!/usr/bin/env gura
+import(testutil) {*}
 
-print_func(func:function) = printf('%s = %s\n', func, func.expr())
-tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
 assign_tester(container):dynamic_scope {`block} = {
 	eval(block)
 	println(block, ' .. ', container):nomap

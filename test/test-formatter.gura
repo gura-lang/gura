@@ -1,4 +1,6 @@
 #!/usr/bin/env gura
+import(testutil) {*}
+
 sys.echo(false)
 println('======== formatter test ========')
 scope {

@@ -1,3 +1,7 @@
+<color:#ff0000,alpha:ff>
+<color:#0000ff,alpha:ff>
+<color:#808000,alpha:ff>
+<color:#ffffff,alpha:40>
 #000000,#0000ff,#00ff00,#00ffff,#ff0000,#ff00ff,#ffff00,#ffffff
 #ffffff,#ffff00,#ff00ff,#ff0000,#00ffff,#00ff00,#0000ff,#000000
 palette(2).each():*html().join(',') .. #000000,#000000

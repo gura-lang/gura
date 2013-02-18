@@ -1,3 +1,5 @@
+import(testutil) {*}
+
 create_object() = {
 	[size, theta] = [rand(100) + 50, rand(2 * math.pi)]
 	[x, y] = [rand(400), rand(300)]

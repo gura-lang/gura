@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
+import(testutil) {*}
 sys.echo(false)
-tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
 
 scope {
 	hanoi(n:number, from:string, to:string, via:string) = {

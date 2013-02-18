@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(xml)
+import(testutil) {*}
 
 scope {
 	MyParser = class(xml.parser) {

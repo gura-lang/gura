@@ -1,8 +1,6 @@
 #!/usr/bin/env gura
 import(gif)
-
-tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
-I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+import(testutil) {*}
 
 scope {
 	['red', `blue, [128, 128, 0], [255, 255, 255, 64]].each() {|d|
