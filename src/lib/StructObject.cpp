@@ -95,6 +95,20 @@ StructClass::StructClass(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Struct
 	Gura_AssignMethod(Struct, tolist);
 }
 
+bool StructClass::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+{
+	if (value.IsList()) {
+		Class *pClass = env.LookupClass(pDecl->GetValueType());
+		if (pClass == NULL) return false;
+		const Function *pConstructor = pClass->GetConstructor();
+		if (pConstructor == NULL) return false;
+		Args args(value.GetList());
+		value = pConstructor->Eval(env, sig, args);
+		return !sig.IsSignalled();
+	}
+	return false;
+}
+
 Object *StructClass::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	return new StructObject((pClass == NULL)? this : pClass);
