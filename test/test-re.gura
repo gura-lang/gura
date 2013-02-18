@@ -2,7 +2,7 @@
 import(re)
 import(testutil) {*}
 
-sys.stdout.setencoding('shift_jis')
+sys.stdout.setencoding('shift_jis', false)
 
 scope {
 	str = 'hoge(ABCD, EFGH, IJKL), foo(MNOP, QRST), bar(UVWX, 1234)'
