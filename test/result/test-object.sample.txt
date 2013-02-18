@@ -1,5 +1,10 @@
 1 2 3
 4 5 6
+knots_t(a => point_t(x => 0, y => 0), b => point_t(x => 0, y => 100), c => point_t(x => 100, y => 100), d => point_t(x => 100, y => 0))
+knots_t(a => point_t(x => 0, y => 0), b => point_t(x => 75, y => 100), c => point_t(x => 25, y => 100), d => point_t(x => 100, y => 0))
+knots_t(a => point_t(x => 0, y => 0), b => point_t(x => 100, y => 100), c => point_t(x => 0, y => 100), d => point_t(x => 100, y => 0))
+knots_t(a => point_t(x => 0, y => 0), b => point_t(x => 150, y => 100), c => point_t(x => -50, y => 100), d => point_t(x => 100, y => 0))
+knots_t(a => point_t(x => 0, y => 0), b => point_t(x => 100, y => 200), c => point_t(x => 0, y => -100), d => point_t(x => 100, y => 100))
 class variable
 local variable
 modified class variable

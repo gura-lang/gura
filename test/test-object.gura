@@ -11,6 +11,18 @@ scope {
 	f([1, 2, 3], [4, 5, 6])
 }
 scope {
+	point_t = struct(x:number, y:number)
+	knots_t = struct(a:point_t, b:point_t, c:point_t, d:point_t)
+	knots = @(knots_t) {
+	    { {0, 0}, {0, 100}, {100, 100}, {100, 0} },
+	    { {0, 0}, {75, 100}, {25, 100}, {100, 0} },
+	    { {0, 0}, {100, 100}, {0, 100}, {100, 0} },
+	    { {0, 0}, {150, 100}, {-50, 100}, {100, 0} },
+	    { {0, 0}, {100, 200}, {0, -100}, {100, 100} },
+	};
+	println(knots)
+}
+scope {
 	A = class {
 		str = 'class variable'
 		test1() = {
