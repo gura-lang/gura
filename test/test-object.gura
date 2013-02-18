@@ -4,6 +4,14 @@ print_func(func:function) = printf('%s = %s\n', func, func.expr())
 tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
 
 scope {
+	A = struct(x, y, z)
+	f(a1:A, a2:A) = {
+		println(a1.x, ' ', a1.y, ' ', a1.z)
+		println(a2.x, ' ', a2.y, ' ', a2.z)
+	}
+	f([1, 2, 3], [4, 5, 6])
+}
+scope {
 	A = class {
 		str = 'class variable'
 		test1() = {

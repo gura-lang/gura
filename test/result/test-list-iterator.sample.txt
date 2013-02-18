@@ -23,16 +23,16 @@ x.each().roundoff():list .. [1e-06, 1e-07, 1e-08, 1e-09, 1e-10, 0, 0, 0]
 x.roundoff(1e-08):list .. [1e-06, 1e-07, 1e-08, 0, 0, 0, 0, 0]
 x.each().roundoff(1e-08):list .. [1e-06, 1e-07, 1e-08, 0, 0, 0, 0, 0]
 [].each().sort() .. <iterator:list#each>
-[].find(2) .. nil
-[].find() .. nil
-[3, 4, 1, 2, 5].find(2) .. 3
-[3, 4, 1, 2, 5].each().find(2) .. 3
-[3, 4, 1, 2, 5].find(6) .. nil
-[3, 4, 1, 2, 5].each().find(6) .. nil
-[false, false, true, false, true].find() .. 2
-[false, false, true, false, true].each().find() .. 2
-[false, false, false, false].find() .. nil
-[false, false, false, false].each().find() .. nil
+[].find(2):index .. nil
+[].find():index .. nil
+[3, 4, 1, 2, 5].find(2):index .. 3
+[3, 4, 1, 2, 5].each().find(2):index .. 3
+[3, 4, 1, 2, 5].find(6):index .. nil
+[3, 4, 1, 2, 5].each().find(6):index .. nil
+[false, false, true, false, true].find():index .. 2
+[false, false, true, false, true].each().find():index .. 2
+[false, false, false, false].find():index .. nil
+[false, false, false, false].each().find():index .. nil
 x .. ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 x[0] .. A
 x[13] .. N
