@@ -1,8 +1,5 @@
 import(cairo)
 
-WIDTH = 800
-HEIGHT = 400
-
 STROKE = 1
 FILL = 2
 
@@ -196,6 +193,7 @@ E(0,0)
 };
 
 draw_world_map(cr:cairo.context, width:number, height:number, mode:number) = {
+	cr.scale(width / 800, height / 400)
 	cr.set_line_width(0.2);
 	cr.set_source_rgb(.68, .85, .90); /* lightblue */
 	cr.rectangle(0, 0, width, height);
@@ -232,7 +230,24 @@ draw_world_map(cr:cairo.context, width:number, height:number, mode:number) = {
 	//return CAIRO_TEST_SUCCESS;
 }
 
-import(png)
-img = image(`rgba, WIDTH, HEIGHT)
-img.cairo {|cr| draw_world_map(cr, WIDTH, HEIGHT, FILL | STROKE)}
-img.pngwrite('test.png')
+scope {
+	fileName = 'world-map.png'
+	import(png)
+	img = image(`rgba, 1600, 800)
+	img.cairo {|cr|
+		draw_world_map(cr, img.width, img.height, FILL | STROKE)
+	}
+	img.pngwrite(fileName)
+	println(fileName, ' was created')
+}
+/*
+scope {
+	fileName = 'world-map.pdf'
+	import(units)
+	[width, height] = [units.mm$pt(297), units.mm$pt(297 / 2)]
+	cairo.create(cairo.pdf_surface.create(fileName, width, height)) {|cr|
+		draw_world_map(cr, width, height, STROKE)
+	}
+	println(fileName, ' was created')
+}
+*/
