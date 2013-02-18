@@ -582,6 +582,28 @@ Gura_ImplementFunction(tanh)
 	return result;
 }
 
+// math.hypot(x, y):map
+Gura_DeclareFunction(hypot)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_any);
+	DeclareArg(env, "y", VTYPE_any);
+	AddHelp(Gura_Symbol(en), "Returns a hyperbolic tangent value.");
+}
+
+Gura_ImplementFunction(hypot)
+{
+	const Value &x = args.GetValue(0);
+	const Value &y = args.GetValue(1);
+	Value result;
+	if (x.IsNumber() && y.IsNumber()) {
+		result.SetNumber(::hypot(x.GetNumber(), y.GetNumber()));
+	} else if (x.IsValid() || y.IsValid()) {
+		SetError_InvalidValType(sig, x, y);
+	}
+	return result;
+}
+
 // math.least_square(x:iterator, y:iterator, dim:number = 1, var:symbol = `x)
 Gura_DeclareFunction(least_square)
 {
@@ -1087,6 +1109,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(sqrt);
 	Gura_AssignFunction(tan);
 	Gura_AssignFunction(tanh);
+	Gura_AssignFunction(hypot);
 	Gura_AssignFunction(least_square);
 	Gura_AssignFunction(bezier);
 	Gura_AssignFunction(diff);
