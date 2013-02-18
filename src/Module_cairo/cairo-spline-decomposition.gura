@@ -1,0 +1,247 @@
+point_t = struct(x:number, y:number)
+
+knots_t = struct(a:point_t, b:point_t, c:point_t, d:point_t)
+
+knots = @(knots_t) {
+    { {0, 0}, {0, 100}, {100, 100}, {100, 0} },
+    { {0, 0}, {75, 100}, {25, 100}, {100, 0} },
+    { {0, 0}, {100, 100}, {0, 100}, {100, 0} },
+    { {0, 0}, {150, 100}, {-50, 100}, {100, 0} },
+    { {0, 0}, {100, 200}, {0, -100}, {100, 100} },
+};
+//println(knots)
+
+_lerp_half(a:point_t, b:point_t)
+{
+	point_t(.5 * (a.x + b.x), .5 * (a.y + b.y))
+}
+
+_de_casteljau(k1:knots_t, k2:knots_t)
+{
+	ab = _lerp_half(&k1.a, &k1.b);
+	bc = _lerp_half(&k1.b, &k1.c);
+	cd = _lerp_half(&k1.c, &k1.d);
+	abbc = _lerp_half(&ab, &bc);
+	bccd = _lerp_half(&bc, &cd);
+	final = _lerp_half(&abbc, &bccd);
+	k2.a = final;
+	k2.b = bccd;
+	k2.c = cd;
+	k2.d = k1.d;
+	k1.b = ab;
+	k1.c = abbc;
+	k1.d = final;
+}
+
+_spline_error_squared(knots:knots_t)
+{
+	/* Intersection point (px):
+	 *		px = p1 + u(p2 - p1)
+	 *		(p - px) ? (p2 - p1) = 0
+	 * Thus:
+	 *		u = ((p - p1) ? (p2 - p1)) / Åap2 - p1Åa2;
+	 */
+	bdx = knots.b.x - knots.a.x;
+	bdy = knots.b.y - knots.a.y;
+	cdx = knots.c.x - knots.a.x;
+	cdy = knots.c.y - knots.a.y;
+	dx = knots.d.x - knots.a.x;
+	dy = knots.d.y - knots.a.y;
+	v = dx * dx + dy * dy;
+	if (v != 0.) {
+		u = bdx * dx + bdy * dy;
+		if (u <= 0) {
+			/* bdx -= 0;
+			 * bdy -= 0;
+			 */
+		} elsif (u >= v) {
+			bdx -= dx;
+			bdy -= dy;
+		} else {
+			bdx -= u / v * dx;
+			bdy -= u / v * dy;
+		}
+		u = cdx * dx + cdy * dy;
+		if (u <= 0) {
+			/* cdx -= 0;
+			 * cdy -= 0;
+			 */
+		} elsif (u >= v) {
+			cdx -= dx;
+			cdy -= dy;
+		} else {
+			cdx -= u / v * dx;
+			cdy -= u / v * dy;
+		}
+	}
+	berr = bdx * bdx + bdy * bdy;
+	cerr = cdx * cdx + cdy * cdy;
+	if (berr > cerr) {
+		berr * v;
+	} else {
+		cerr * v;
+	}
+}
+
+_offset_line_to(cr:cairo.context,
+		p0:point_t,
+		p1:point_t,
+		p2:point_t,
+		p3:point_t,
+		offset:number)
+{
+	dx = p1.x - p0.x;
+	dy = p1.y - p0.y;
+	v = math.hypot(dx, dy);
+	if (v == 0) {
+		dx = p2.x - p0.x;
+		dy = p2.y - p0.y;
+		v = math.hypot(dx, dy);
+		if (v == 0) {
+			dx = p3.x - p0.x;
+			dy = p3.y - p0.y;
+			v = math.hypot(dx, dy);
+		}
+	}
+	if (v == 0) {
+		cr.line_to(p0.x, p0.y);
+	} else
+		cr.line_to(p0.x - offset * dy / v, p0.y + offset * dx / v);
+	}
+}
+
+_spline_decompose_into(k1:knots_t,
+			tolerance_squared:number,
+			offset:number,
+			cr:cairo.context)
+{
+	if (_spline_error_squared(k1) < tolerance_squared) {
+		_offset_line_to(cr, k1.a, k1.b, k1.c, k1.d, offset);
+		return;
+	}
+	_de_casteljau(k1, k2);
+	_spline_decompose_into(k1, tolerance_squared, offset, cr);
+	_spline_decompose_into(k2, tolerance_squared, offset, cr);
+}
+
+_spline_decompose(knots:knots_t,
+		tolerance:number, offset:number,
+		cr:cairo.context)
+{
+	k = knots;
+	_spline_decompose_into (&k, tolerance * tolerance, offset, cr);
+	_offset_line_to (cr, &knots.d, &knots.c, &knots.b, &knots.a, -offset);
+}
+
+static void
+_knots_reverse (knots_t *knots)
+{
+	point_t tmp;
+
+	tmp = knots.a;
+	knots.a = knots.d;
+	knots.d = tmp;
+
+	tmp = knots.b;
+	knots.b = knots.c;
+	knots.c = tmp;
+}
+
+static void
+thick_splines (cairo_t *cr, double offset)
+{
+	knots_t k;
+
+	cairo_save (cr);
+	cairo_translate (cr, 15, 15);
+
+	k = knots[0];
+
+	cairo_new_path (cr);
+	_spline_decompose (&k, .1, offset, cr);
+	_knots_reverse (&k);
+	_spline_decompose (&k, .1, offset, cr);
+	cairo_close_path (cr);
+	cairo_fill (cr);
+
+	cairo_translate (cr, 130, 0);
+
+	k = knots[1];
+
+	cairo_new_path (cr);
+	_spline_decompose (&k, .1, offset, cr);
+	_knots_reverse (&k);
+	_spline_decompose (&k, .1, offset, cr);
+	cairo_close_path (cr);
+	cairo_fill (cr);
+
+	cairo_translate (cr, 130, 0);
+
+	k = knots[2];
+
+	cairo_new_path (cr);
+	_spline_decompose (&k, .1, offset, cr);
+	_knots_reverse (&k);
+	_spline_decompose (&k, .1, offset, cr);
+	cairo_close_path (cr);
+	cairo_fill (cr);
+
+	cairo_translate (cr, -130 - 65, 130);
+
+	k = knots[3];
+
+	cairo_new_path (cr);
+	_spline_decompose (&k, .1, offset, cr);
+	_knots_reverse (&k);
+	_spline_decompose (&k, .1, offset, cr);
+	cairo_close_path (cr);
+	cairo_fill (cr);
+
+	cairo_translate (cr, 130, 0);
+
+	k = knots[4];
+
+	cairo_new_path (cr);
+	_spline_decompose (&k, .1, offset, cr);
+	_knots_reverse (&k);
+	_spline_decompose (&k, .1, offset, cr);
+	cairo_close_path (cr);
+	cairo_fill (cr);
+	cairo_restore (cr);
+}
+
+static void
+thin_splines (cairo_t *cr)
+{
+	cairo_save (cr);
+	cairo_translate (cr, 15, 15);
+
+	cairo_new_path (cr);
+	_spline_decompose (&knots[0], .1, 0, cr);
+	cairo_stroke (cr);
+
+	cairo_translate (cr, 130, 0);
+
+	cairo_new_path (cr);
+	_spline_decompose (&knots[1], .1, 0, cr);
+	cairo_stroke (cr);
+
+	cairo_translate (cr, 130, 0);
+
+	cairo_new_path (cr);
+	_spline_decompose (&knots[2], .1, 0, cr);
+	cairo_stroke (cr);
+
+	cairo_translate (cr, -130 - 65, 130);
+
+	cairo_new_path (cr);
+	_spline_decompose (&knots[3], .1, 0, cr);
+	cairo_stroke (cr);
+
+	cairo_translate (cr, 130, 0);
+
+	cairo_new_path (cr);
+	_spline_decompose (&knots[4], .1, 0, cr);
+	cairo_stroke (cr);
+	cairo_restore (cr);
+}
