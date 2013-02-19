@@ -30,6 +30,7 @@ srcs = [
 'Object_xlib_surface.cpp'
 'Object_script_surface.cpp'
 'Object_pattern.cpp'
+'Object_raster_source_pattern.cpp'
 'Object_path.cpp'
 'Object_glyph.cpp'
 'Object_text_cluster.cpp'

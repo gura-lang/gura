@@ -30,6 +30,7 @@
 #include "Object_xlib_surface.h"
 #include "Object_script_surface.h"
 #include "Object_pattern.h"
+#include "Object_raster_source_pattern.h"
 #include "Object_path.h"
 #include "Object_glyph.h"
 #include "Object_text_cluster.h"

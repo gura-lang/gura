@@ -313,6 +313,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(xlib_surface,		Gura_UserClass(surface));
 	Gura_RealizeUserClass(script_surface,	Gura_UserClass(surface));
 	Gura_RealizeUserClass(pattern,			env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(raster_source_pattern, Gura_UserClass(pattern));
 	Gura_RealizeUserClass(region,			env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(path,				env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(glyph,			env.LookupClass(VTYPE_object));
@@ -346,6 +347,7 @@ Gura_ModuleEntry()
 	Gura_AssignValue(xlib_surface,			Value(Gura_UserClass(xlib_surface)));
 	Gura_AssignValue(script_surface,		Value(Gura_UserClass(script_surface)));
 	Gura_AssignValue(pattern,				Value(Gura_UserClass(pattern)));
+	Gura_AssignValue(raster_source_pattern,	Value(Gura_UserClass(raster_source_pattern)));
 	Gura_AssignValue(region,				Value(Gura_UserClass(region)));
 	Gura_AssignValue(path,					Value(Gura_UserClass(path)));
 	Gura_AssignValue(glyph,					Value(Gura_UserClass(glyph)));
