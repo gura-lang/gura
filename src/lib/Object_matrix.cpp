@@ -864,6 +864,26 @@ Gura_ImplementFunction(MatrixInit)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_matrix
 //-----------------------------------------------------------------------------
+// matrix.identity(n:number) {block?}
+Gura_DeclareClassMethod(matrix, identity)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "n", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(matrix, identity)
+{
+	Value result;
+	Value valueZero(0.), valueOne(1.);
+	int n = args.GetInt(0);
+	Object_matrix *pObj = result.InitAsMatrix(env, n, n, valueZero);
+	for (int i = 0; i < n; i++) {
+		pObj->SetElement(i, i, valueOne);
+	}
+	return ReturnValue(env, sig, args, result);
+}
+
 // matrix#set(value)
 Gura_DeclareMethod(matrix, set)
 {
@@ -1146,6 +1166,7 @@ Gura_ImplementMethod(matrix, invert)
 //-----------------------------------------------------------------------------
 Class_matrix::Class_matrix(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_matrix)
 {
+	Gura_AssignMethod(matrix, identity);
 	Gura_AssignMethod(matrix, set);
 	Gura_AssignMethod(matrix, setrow);
 	Gura_AssignMethod(matrix, setcol);
