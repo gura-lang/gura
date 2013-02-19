@@ -23,19 +23,153 @@ String Object_region::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for region
 //-----------------------------------------------------------------------------
-//#cairo_region_t *cairo_region_create(void);
+// cairo.region.create() {block?}
+Gura_DeclareClassMethod(region, create)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
 
-//#cairo_region_t *cairo_region_create_rectangle(const cairo_rectangle_int_t *rectangle);
+Gura_ImplementClassMethod(region, create)
+{
+	cairo_region_t *region = ::cairo_region_create();
+	if (IsError(sig, region)) {
+		::cairo_region_destroy(region);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_region(region)));
+}
 
-//#cairo_region_t *cairo_region_create_rectangles(const cairo_rectangle_int_t *rects, int count);
+// cairo.region.create_rectangle(rectangle:cairo.rectangle_int) {block?}
+Gura_DeclareClassMethod(region, create_rectangle)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "rectangle", VTYPE_rectangle_int);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
 
-//#cairo_region_t *cairo_region_copy(const cairo_region_t *original);
+Gura_ImplementClassMethod(region, create_rectangle)
+{
+	cairo_rectangle_int_t rectangle =
+				Object_rectangle_int::GetObject(args, 0)->GetEntity();
+	cairo_region_t *region = ::cairo_region_create_rectangle(&rectangle);
+	if (IsError(sig, region)) {
+		::cairo_region_destroy(region);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_region(region)));
+}
+
+// cairo.region.create_rectangles(rectangle[]:cairo.rectangle_int) {block?}
+Gura_DeclareClassMethod(region, create_rectangles)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "rects", VTYPE_rectangle_int, OCCUR_Once, FLAG_List);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(region, create_rectangles)
+{
+	const ValueList &valList = args.GetList(0);
+	int count = static_cast<int>(valList.size());
+	cairo_rectangle_int_t *rects = new cairo_rectangle_int_t[count];
+	size_t i = 0;
+	foreach_const (ValueList, pValue, valList) {
+		rects[i++] = Object_rectangle_int::GetObject(*pValue)->GetEntity();
+	}
+	cairo_region_t *region = ::cairo_region_create_rectangles(rects, count);
+	delete[] rects;
+	if (IsError(sig, region)) {
+		::cairo_region_destroy(region);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_region(region)));
+}
+
+// cairo.region#copy() {block?}
+Gura_DeclareMethod(region, copy)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(region, copy)
+{
+	Object_region *pThis = Object_region::GetThisObj(args);
+	cairo_region_t *original = pThis->GetEntity();
+	cairo_region_t *region = ::cairo_region_copy(original);
+	if (IsError(sig, region)) {
+		::cairo_region_destroy(region);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_region(region)));
+}
+
 //#cairo_region_t *cairo_region_reference(cairo_region_t *region);
 //#void cairo_region_destroy(cairo_region_t *region);
-//#cairo_status_t cairo_region_status(const cairo_region_t *region);
-//#void cairo_region_get_extents(const cairo_region_t *region, cairo_rectangle_int_t *extents);
-//#int cairo_region_num_rectangles(const cairo_region_t *region);
-//#void cairo_region_get_rectangle(const cairo_region_t *region, int nth, cairo_rectangle_int_t *rectangle);
+
+// cairo.region#status()
+Gura_DeclareMethod(region, status)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(region, status)
+{
+	Object_region *pThis = Object_region::GetThisObj(args);
+	cairo_region_t *region = pThis->GetEntity();
+	cairo_status_t rtn = ::cairo_region_status(region);
+	return Value(rtn);
+}
+
+// cairo.region#get_extents()
+Gura_DeclareMethod(region, get_extents)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(region, get_extents)
+{
+	Object_region *pThis = Object_region::GetThisObj(args);
+	cairo_region_t *region = pThis->GetEntity();
+	cairo_rectangle_int_t extents;
+	::cairo_region_get_extents(region, &extents);
+	if (IsError(sig, region)) return Value::Null;
+	return Value(new Object_rectangle_int(extents));
+}
+
+// cairo.region#num_rectangles()
+Gura_DeclareMethod(region, num_rectangles)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(region, num_rectangles)
+{
+	Object_region *pThis = Object_region::GetThisObj(args);
+	cairo_region_t *region = pThis->GetEntity();
+	int rtn = ::cairo_region_num_rectangles(region);
+	if (IsError(sig, region)) return Value::Null;
+	return Value(rtn);
+}
+
+// cairo.region#get_rectangle(nth:number)
+Gura_DeclareMethod(region, get_rectangle)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "nth", VTYPE_number);
+}
+
+Gura_ImplementMethod(region, get_rectangle)
+{
+	Object_region *pThis = Object_region::GetThisObj(args);
+	cairo_region_t *region = pThis->GetEntity();
+	int nth = args.GetInt(0);
+	cairo_rectangle_int_t rectangle;
+	::cairo_region_get_rectangle(region, nth, &rectangle);
+	if (IsError(sig, region)) return Value::Null;
+	return Value(new Object_rectangle_int(rectangle));
+}
 
 // cairo.region#is_empty()
 Gura_DeclareMethod(region, is_empty)
@@ -59,7 +193,6 @@ Gura_DeclareMethod(region, contains_point)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 }
-
 
 Gura_ImplementMethod(region, contains_point)
 {
@@ -337,6 +470,14 @@ Gura_ImplementMethod(region, xor_rectangle)
 // implementation of class region
 Gura_ImplementUserClass(region)
 {
+	Gura_AssignMethod(region, create);
+	Gura_AssignMethod(region, create_rectangle);
+	Gura_AssignMethod(region, create_rectangles);
+	Gura_AssignMethod(region, copy);
+	Gura_AssignMethod(region, status);
+	Gura_AssignMethod(region, get_extents);
+	Gura_AssignMethod(region, num_rectangles);
+	Gura_AssignMethod(region, get_rectangle);
 	Gura_AssignMethod(region, is_empty);
 	Gura_AssignMethod(region, contains_point);
 	Gura_AssignMethod(region, contains_rectangle);

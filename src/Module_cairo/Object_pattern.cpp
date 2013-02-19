@@ -370,7 +370,7 @@ Gura_ImplementMethod(pattern, status)
 {
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
-	cairo_status_t rtn = cairo_pattern_status(pattern);
+	cairo_status_t rtn = ::cairo_pattern_status(pattern);
 	return Value(rtn);
 }
 
