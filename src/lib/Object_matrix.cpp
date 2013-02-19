@@ -369,7 +369,7 @@ Value Object_matrix::Transpose(Environment &env, Signal sig)
 	return result;
 }
 
-Value Object_matrix::Inverse(Environment &env, Signal sig)
+Value Object_matrix::Invert(Environment &env, Signal sig)
 {
 	size_t nCols = GetCols(), nRows = GetRows();
 	if (nCols != nRows) {
@@ -390,8 +390,8 @@ Value Object_matrix::Inverse(Environment &env, Signal sig)
 			}
 		}
 		Number det;
-		if (!InverseMatrix(mat, nCols, det)) {
-			sig.SetError(ERR_ValueError, "failed to calculate inverse matrix");
+		if (!InvertMatrix(mat, nCols, det)) {
+			sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
 			return Value::Null;
 		}
 		Value result;
@@ -419,8 +419,8 @@ Value Object_matrix::Inverse(Environment &env, Signal sig)
 			}
 		}
 		Complex det;
-		if (!InverseMatrix(mat, nCols, det)) {
-			sig.SetError(ERR_ValueError, "failed to calculate inverse matrix");
+		if (!InvertMatrix(mat, nCols, det)) {
+			sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
 			return Value::Null;
 		}
 		Value result;
@@ -436,7 +436,7 @@ Value Object_matrix::Inverse(Environment &env, Signal sig)
 		}
 		return result;
 	}
-	sig.SetError(ERR_ValueError, "failed to calculate inverse matrix");
+	sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
 	return Value::Null;
 }
 
@@ -1127,18 +1127,18 @@ Gura_ImplementMethod(matrix, transpose)
 	return pThis->Transpose(env, sig);
 }
 
-// matrix#inverse()
-Gura_DeclareMethod(matrix, inverse)
+// matrix#invert()
+Gura_DeclareMethod(matrix, invert)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), "Returns an inverse matrix.");
+	AddHelp(Gura_Symbol(en), "Returns an inverted matrix.");
 }
 
-Gura_ImplementMethod(matrix, inverse)
+Gura_ImplementMethod(matrix, invert)
 {
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
 	if (sig.IsSignalled()) return Value::Null;
-	return pThis->Inverse(env, sig);
+	return pThis->Invert(env, sig);
 }
 
 //-----------------------------------------------------------------------------
@@ -1161,7 +1161,7 @@ Class_matrix::Class_matrix(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_matr
 	Gura_AssignMethod(matrix, tolist);
 	Gura_AssignMethod(matrix, roundoff);
 	Gura_AssignMethod(matrix, transpose);
-	Gura_AssignMethod(matrix, inverse);
+	Gura_AssignMethod(matrix, invert);
 }
 
 bool Class_matrix::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const

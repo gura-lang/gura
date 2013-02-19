@@ -176,6 +176,7 @@ math:module = <module:math>
   fft:function = fft(seq[])
   floor:function = floor(num):map
   gcd:function = gcd(a:number, b+:number):map
+  hypot:function = hypot(x, y):map
   imag:function = imag(num):map
   integral:function = integral()
   lcm:function = lcm(a:number, b+:number):map

@@ -28,10 +28,10 @@ public:
 DLLDECLARE void CalcFFT(ComplexList &vec);
 
 //-----------------------------------------------------------------------------
-// Inverse matrix
+// Invert matrix
 //-----------------------------------------------------------------------------
-DLLDECLARE bool InverseMatrix(NumberList &mat, size_t nFold, Number &det);
-DLLDECLARE bool InverseMatrix(ComplexList &mat, size_t nFold, Complex &det);
+DLLDECLARE bool InvertMatrix(NumberList &mat, size_t nFold, Number &det);
+DLLDECLARE bool InvertMatrix(ComplexList &mat, size_t nFold, Complex &det);
 
 }
 

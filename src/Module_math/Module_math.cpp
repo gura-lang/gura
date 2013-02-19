@@ -680,8 +680,8 @@ Gura_ImplementFunction(least_square)
 		}
 	}
 	Number det;
-	if (!Gura::InverseMatrix(mat, nCols, det)) {
-		sig.SetError(ERR_ValueError, "failed to calculate inverse matrix");
+	if (!Gura::InvertMatrix(mat, nCols, det)) {
+		sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
 		return Value::Null;
 	}
 	NumberList alphaList;

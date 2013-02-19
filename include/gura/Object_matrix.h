@@ -117,7 +117,7 @@ public:
 	Value GetCol(Environment &env, Signal sig, size_t iCol) const;
 	Value RoundOff(Environment &env, Signal sig, Number threshold);
 	Value Transpose(Environment &env, Signal sig);
-	Value Inverse(Environment &env, Signal sig);
+	Value Invert(Environment &env, Signal sig);
 	static Value OperatorNeg(Environment &env, Signal sig,
 										const Object_matrix *pObjMat);
 	static Value OperatorPlusMinus(Environment &env, Signal sig, const Function *pFunc,

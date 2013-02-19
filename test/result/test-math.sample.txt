@@ -1,3 +1,4 @@
+math.hypot(3, 4) .. 5
 6   3   .. GCD:3   LCM:6  
 3   6   .. GCD:3   LCM:6  
 2   3   .. GCD:1   LCM:6  

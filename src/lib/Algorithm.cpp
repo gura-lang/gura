@@ -35,11 +35,11 @@ void CalcFFT(ComplexList &vec)
 }
 
 //-----------------------------------------------------------------------------
-// Inverse matrix
+// Invert matrix
 //-----------------------------------------------------------------------------
 static const Number Epsilon = 1.0e-6;
 
-bool InverseMatrix(NumberList &mat, size_t nFold, Number &det)
+bool InvertMatrix(NumberList &mat, size_t nFold, Number &det)
 {
 	size_t nFold2 = nFold * 2;
 	typedef std::vector<NumberList::iterator> Rows;
@@ -86,7 +86,7 @@ bool InverseMatrix(NumberList &mat, size_t nFold, Number &det)
 	return true;
 }
 
-bool InverseMatrix(ComplexList &mat, size_t nFold, Complex &det)
+bool InvertMatrix(ComplexList &mat, size_t nFold, Complex &det)
 {
 	size_t nFold2 = nFold * 2;
 	typedef std::vector<ComplexList::iterator> Rows;
