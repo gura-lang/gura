@@ -125,18 +125,30 @@ int Handler(request_rec *r)
 		ap_get_module_config(r->server->module_config, &gura_module))->pContext;
 	Environment &env = pContext->GetEnv();
 	Signal &sig = pContext->GetSignal();
+	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
+	Stream_Binary streamBinary(sig, Object_binary::Reference(pObjBinary.get()), false);
+	env.SetConsole(true, &streamBinary);
 	env.AssignValue(Symbol::Add("apr"), Value(new Object_stream(env, new StreamAPR(sig, r))), false);
 	AutoPtr<Expr> pExpr(Parser().ParseStream(env, sig, "C:/Users/yutaka/gura/src/httpd_mod_gura/test.gura", NULL));
-	if (!pExpr.IsNull()) pExpr->Exec(env, sig);
-#if 0
-	ap_rprintf(r, "<html><body>\n");
-	ap_rprintf(r, "<table border=\"1\">\n");
-	ap_rprintf(r, "<tr><td>r->handler</td><td>%s</td>\n", r->handler);
-	ap_rprintf(r, "<tr><td>r->uri</td><td>%s</td>\n", r->uri);
-	ap_rprintf(r, "<tr><td>r->args</td><td>%s</td>\n", r->args);
-	ap_rprintf(r, "</table>\n");
-	ap_rprintf(r, "</body></html>\n");
-#endif
+	if (pExpr.IsNull()) {
+		ap_rprintf(r, "<html>\n");
+		ap_rprintf(r, "<body>\n");
+		ap_rprintf(r, "%s\n", EscapeHtml(sig.GetErrString().c_str(), true));
+		ap_rprintf(r, "</body>\n");
+		ap_rprintf(r, "</html>\n");
+	} else {
+		pExpr->Exec(env, sig);
+		const Binary &buff = pObjBinary->GetBinary();
+		if (!buff.empty()) {
+			ap_rprintf(r, "<html>\n");
+			ap_rprintf(r, "<body>\n");
+			ap_rprintf(r, "<pre>\n");
+			ap_rwrite(buff.data(), buff.size(), r);
+			ap_rprintf(r, "</pre>\n");
+			ap_rprintf(r, "</body>\n");
+			ap_rprintf(r, "</html>\n");
+		}
+	}
 	return OK;
 }
 

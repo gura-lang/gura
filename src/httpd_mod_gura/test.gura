@@ -1,9 +1,14 @@
 apr.print(R'''
-<html><body>
-hello, gura world
-あいうえお
+<html>
+<body>
+<p>hello, gura world</p>
+<p>あいうえお</p>
 <table border="1">
-
+<tr><td>column-1</td><td>column-2</td></tr>
+<tr><td>column-1</td><td>column-2</td></tr>
+<tr><td>column-1</td><td>column-2</td></tr>
+<tr><td>column-1</td><td>column-2</td></tr>
 </table>
-</body></html>
+</body>
+</html>
 ''')
