@@ -125,7 +125,6 @@ Gura_ImplementFunction(svg_get_versions)
 	return rtn;
 }
 
-
 // cairo.ps_level_to_string(level:number)
 Gura_DeclareFunction(ps_level_to_string)
 {
@@ -367,6 +366,14 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(format_stride_for_width);
 	Gura_AssignFunction(debug_reset_static_data);
 	Gura_AssignFunction(test);
+	// cairo_format_t
+	Gura_AssignCairoValue(FORMAT_INVALID);
+	Gura_AssignCairoValue(FORMAT_ARGB32);
+	Gura_AssignCairoValue(FORMAT_RGB24);
+	Gura_AssignCairoValue(FORMAT_A8);
+	Gura_AssignCairoValue(FORMAT_A1);
+	Gura_AssignCairoValue(FORMAT_RGB16_565);
+	Gura_AssignCairoValue(FORMAT_RGB30);
 	// cairo_path_data_type_t
 	Gura_AssignCairoValue(PATH_MOVE_TO);
 	Gura_AssignCairoValue(PATH_LINE_TO);
@@ -853,7 +860,7 @@ cairo_surface_t *CreateSurfaceFromImage(Signal sig, Object_image *pObjImage)
 {
 	if (!pObjImage->CheckValid(sig)) return NULL;
 	if (pObjImage->GetFormat() != Image::FORMAT_RGBA) {
-		sig.SetError(ERR_FormatError, "cairo can be applied to image in `rgba format");
+		sig.SetError(ERR_FormatError, "cairo can only be applied to image in `rgba format");
 		return NULL;
 	}
 	size_t width = pObjImage->GetWidth();

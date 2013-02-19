@@ -29,31 +29,22 @@ Value Object_image_surface::DoGetProp(Signal sig, const Symbol *pSymbol, bool &e
 //-----------------------------------------------------------------------------
 // Gura interfaces for image_surface
 //-----------------------------------------------------------------------------
-//#cairo_surface_t *cairo_image_surface_create(cairo_format_t format, int width, int height);
-
-// cairo.image_surface.create(width:number, height:number, color?:color) {block?}
+// cairo.image_surface.create(image:image) {block?}
 Gura_DeclareClassMethod(image_surface, create)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "width", VTYPE_number);
-	DeclareArg(env, "height", VTYPE_number);
-	DeclareArg(env, "color", VTYPE_color, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "image", VTYPE_image);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementClassMethod(image_surface, create)
 {
-	Object_image *pObjImage = new Object_image(env, Image::FORMAT_RGBA);
-	size_t width = args.GetSizeT(0);
-	size_t height = args.GetSizeT(1);
-	if (!pObjImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
-	if (args.IsColor(2)) {
-		pObjImage->Fill(args.GetColorObj(2));
+	Object_image *pObjImage = Object_image::Reference(args.GetImageObj(0));
+	cairo_surface_t *surface = CreateSurfaceFromImage(sig, pObjImage);
+	if (sig.IsSignalled()) {
+		Object_image::Delete(pObjImage);
+		return Value::Null;
 	}
-	cairo_surface_t *surface = ::cairo_image_surface_create_for_data(
-				pObjImage->GetBuffer(), CAIRO_FORMAT_ARGB32,
-				static_cast<int>(width), static_cast<int>(height),
-				static_cast<int>(pObjImage->GetBytesPerLine()));
 	Object_image_surface *pObjSurface = new Object_image_surface(surface, pObjImage);
 	return ReturnValue(env, sig, args, Value(pObjSurface));
 }

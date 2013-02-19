@@ -13,7 +13,23 @@ String Object_mesh_pattern::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for mesh_pattern
 //-----------------------------------------------------------------------------
-//#cairo_pattern_t *cairo_pattern_create_mesh(void);
+// cairo.mesh_pattern.create() {block?}
+Gura_DeclareClassMethod(mesh_pattern, create)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(mesh_pattern, create)
+{
+	cairo_pattern_t *pattern = ::cairo_pattern_create_mesh();
+	if (IsError(sig, pattern)) {
+		::cairo_pattern_destroy(pattern);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_mesh_pattern(pattern)));
+}
+
 //#void cairo_mesh_pattern_begin_patch(cairo_pattern_t *pattern);
 //#void cairo_mesh_pattern_end_patch(cairo_pattern_t *pattern);
 //#void cairo_mesh_pattern_move_to(cairo_pattern_t *pattern, double x, double y);
