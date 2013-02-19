@@ -161,19 +161,6 @@ Gura_ImplementClassMethod(pattern, create_radial)
 	return ReturnValue(env, sig, args, Value(new Object_pattern(pattern)));
 }
 
-//#cairo_pattern_t *cairo_pattern_create_raster_source(void *user_data, cairo_content_t content, int width, int height);
-
-//#void cairo_raster_source_pattern_set_callback_data(cairo_pattern_t *pattern, void *data);
-//#void *cairo_raster_source_pattern_get_callback_data(cairo_pattern_t *pattern);
-//#void cairo_raster_source_pattern_set_acquire(cairo_pattern_t *pattern, cairo_raster_source_acquire_func_t acquire, cairo_raster_source_release_func_t release);
-//#void cairo_raster_source_pattern_get_acquire(cairo_pattern_t *pattern, cairo_raster_source_acquire_func_t *acquire, cairo_raster_source_release_func_t *release);
-//#void cairo_raster_source_pattern_set_snapshot(cairo_pattern_t *pattern, cairo_raster_source_snapshot_func_t snapshot);
-//#cairo_raster_source_snapshot_func_t cairo_raster_source_pattern_get_snapshot(cairo_pattern_t *pattern);
-//#void cairo_raster_source_pattern_set_copy(cairo_pattern_t *pattern, cairo_raster_source_copy_func_t copy);
-//#cairo_raster_source_copy_func_t cairo_raster_source_pattern_get_copy(cairo_pattern_t *pattern);
-//#void cairo_raster_source_pattern_set_finish(cairo_pattern_t *pattern, cairo_raster_source_finish_func_t finish);
-//#cairo_raster_source_finish_func_t cairo_raster_source_pattern_get_finish(cairo_pattern_t *pattern);
-
 // cairo.pattern#add_color_stop_rgb(offset:number, red:number, green:number, blue:number):reduce
 Gura_DeclareMethod(pattern, add_color_stop_rgb)
 {
@@ -369,20 +356,6 @@ Gura_ImplementMethod(pattern, get_radial_circles)
 	if (IsError(sig, status)) return Value::Null;
 	return CreateValueList(env, x0, y0, r0, x1, y1, r1);
 }
-
-//#cairo_pattern_t *cairo_pattern_create_mesh(void);
-//#void cairo_mesh_pattern_begin_patch(cairo_pattern_t *pattern);
-//#void cairo_mesh_pattern_end_patch(cairo_pattern_t *pattern);
-//#void cairo_mesh_pattern_move_to(cairo_pattern_t *pattern, double x, double y);
-//#void cairo_mesh_pattern_line_to(cairo_pattern_t *pattern, double x, double y);
-//#void cairo_mesh_pattern_curve_to(cairo_pattern_t *pattern, double x1, double y1, double x2, double y2, double x3, double y3);
-//#void cairo_mesh_pattern_set_control_point(cairo_pattern_t *pattern, unsigned int point_num, double x, double y);
-//#void cairo_mesh_pattern_set_corner_color_rgb(cairo_pattern_t *pattern, unsigned int corner_num, double red, double green, double blue);
-//#void cairo_mesh_pattern_set_corner_color_rgba(cairo_pattern_t *pattern, unsigned int corner_num, double red, double green, double blue, double alpha);
-//#cairo_status_t cairo_mesh_pattern_get_patch_count(cairo_pattern_t *pattern, unsigned int *count);
-//#cairo_path_t *cairo_mesh_pattern_get_path(cairo_pattern_t *pattern, unsigned int patch_num);
-//#cairo_status_t cairo_mesh_pattern_get_control_point(cairo_pattern_t *pattern, unsigned int patch_num, unsigned int point_num, double *x, double *y);
-//#cairo_status_t cairo_mesh_pattern_get_corner_color_rgba(cairo_pattern_t *pattern, unsigned int patch_num, unsigned int corner_num, double *red, double *green, double *blue, double *alpha);
 
 //#cairo_pattern_t *cairo_pattern_reference(cairo_pattern_t *pattern);
 //#void cairo_pattern_destroy(cairo_pattern_t *pattern);
