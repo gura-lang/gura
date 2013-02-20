@@ -1,6 +1,6 @@
 msgothic 16pix        32x 32 6aa748f92f68768b5656d6eb2c682293
-arial 16pix           32x 32 659d222b2451586632153cef68648aa8
-arial 320pix         320x320 25d310fdc6f2bc431c807db5512bc841
+arial 16pix           32x 32 17baea59b0b0f5cbcef0058aad60c89e
+arial 320pix         320x320 cb43efeb7d4ad5d16bec45af866b477e
        ******             ******             ******             ******      
      **      **         **      **         **      **         **      **    
     *    @     *       *          *       *          *       *          *   
