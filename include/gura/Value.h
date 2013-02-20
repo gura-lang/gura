@@ -474,6 +474,41 @@ public:
 	inline bool IsArgs() const				{ return IsType(VTYPE_args);		}
 	inline bool IsListOrIterator() const	{ return IsList() || IsIterator();	}
 	inline bool IsNumberOrComplex() const	{ return IsNumber() || IsComplex();	}
+	bool MustBe(Signal &sig, bool flag, const char *expected) const;
+	inline bool MustBeInvalid(Signal &sig) const	{ return MustBe(sig, IsInvalid(),	"invalid");		}
+	inline bool MustBeUndefined(Signal &sig) const	{ return MustBe(sig, IsUndefined(),	"undefined");	}
+	inline bool MustBeValid(Signal &sig) const		{ return MustBe(sig, IsValid(),		"valid");		}
+	inline bool MustBeDefined(Signal &sig) const	{ return MustBe(sig, IsDefined(),	"defined");		}
+	inline bool MustBeSymbol(Signal &sig) const		{ return MustBe(sig, IsSymbol(),	"symbol");		}
+	inline bool MustBeBoolean(Signal &sig) const	{ return MustBe(sig, IsBoolean(), 	"boolean");		}
+	inline bool MustBeNumber(Signal &sig) const		{ return MustBe(sig, IsNumber(), 	"number");		}
+	inline bool MustBeComplex(Signal &sig) const	{ return MustBe(sig, IsComplex(), 	"complex");		}
+	inline bool MustBeModule(Signal &sig) const		{ return MustBe(sig, IsModule(), 	"module");		}
+	inline bool MustBeClass(Signal &sig) const		{ return MustBe(sig, IsClass(), 	"class");		}
+	inline bool MustBeGenericObject(Signal &sig) const { return MustBe(sig, IsGenericObject(), 	"generic object");		}
+	inline bool MustBeFunction(Signal &sig) const	{ return MustBe(sig, IsFunction(), 	"function");	}
+	inline bool MustBeString(Signal &sig) const		{ return MustBe(sig, IsString(), 	"string");		}
+	inline bool MustBeBinary(Signal &sig) const		{ return MustBe(sig, IsBinary(), 	"binary");		}
+	inline bool MustBeBinaryPtr(Signal &sig) const	{ return MustBe(sig, IsBinaryPtr(), "binaryptr");	}
+	inline bool MustBeList(Signal &sig) const		{ return MustBe(sig, IsList(), 		"list");		}
+	inline bool MustBeMatrix(Signal &sig) const		{ return MustBe(sig, IsMatrix(), 	"matrix");		}
+	inline bool MustBeDict(Signal &sig) const		{ return MustBe(sig, IsDict(), 		"dict");		}
+	inline bool MustBeStream(Signal &sig) const		{ return MustBe(sig, IsStream(), 	"stream");		}
+	inline bool MustBeDateTime(Signal &sig) const	{ return MustBe(sig, IsDateTime(), 	"datetime");	}
+	inline bool MustBeTimeDelta(Signal &sig) const	{ return MustBe(sig, IsTimeDelta(), "timedelta");	}
+	inline bool MustBeIterator(Signal &sig) const	{ return MustBe(sig, IsIterator(), 	"iterator");	}
+	inline bool MustBeExpr(Signal &sig) const		{ return MustBe(sig, IsExpr(), 		"expr");		}
+	inline bool MustBeEnvironment(Signal &sig) const{ return MustBe(sig, IsEnvironment(),"environment");}
+	inline bool MustBeError(Signal &sig) const		{ return MustBe(sig, IsError(), 	"error");		}
+	inline bool MustBeURI(Signal &sig) const		{ return MustBe(sig, IsURI(), 		"uri");			}
+	inline bool MustBeSemaphore(Signal &sig) const	{ return MustBe(sig, IsSemaphore(), "semaphore");	}
+	inline bool MustBeStruct(Signal &sig) const		{ return MustBe(sig, IsStruct(), 	"struct");		}
+	inline bool MustBeImage(Signal &sig) const		{ return MustBe(sig, IsImage(), 	"image");		}
+	inline bool MustBeColor(Signal &sig) const		{ return MustBe(sig, IsColor(), 	"color");		}
+	inline bool MustBePalette(Signal &sig) const	{ return MustBe(sig, IsPalette(), 	"palette");		}
+	inline bool MustBeAudio(Signal &sig) const		{ return MustBe(sig, IsAudio(), 	"audio");		}
+	inline bool MustBeCodec(Signal &sig) const		{ return MustBe(sig, IsCodec(), 	"codec");		}
+	inline bool MustBeArgs(Signal &sig) const		{ return MustBe(sig, IsArgs(), 		"args");		}
 	inline void SetSymbol(const Symbol *pSymbol) {
 		FreeResource(); _valType = VTYPE_symbol, _u.pSymbol = pSymbol;
 	}

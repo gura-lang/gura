@@ -407,6 +407,13 @@ const char *Value::GetTypeName() const
 	return GetValueTypeSymbol(GetType())->GetName();
 }
 
+bool Value::MustBe(Signal &sig, bool flag, const char *expected) const
+{
+	if (flag) return true;
+	sig.SetError(ERR_ValueError, "value must be %s", expected);
+	return false;
+}
+
 ObjectBase *Value::ExtractObject(Signal sig)
 {
 	if (GetTinyBuffFlag()) {
