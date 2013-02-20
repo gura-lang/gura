@@ -449,6 +449,7 @@ Value Object_Rect::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedF
 	return Value::Null;
 }
 
+#if 0
 Value Object_Rect::DoSetProp(Signal sig,
 			const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
 {
@@ -467,6 +468,7 @@ Value Object_Rect::DoSetProp(Signal sig,
 	}
 	return Value::Null;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Class implementation for sdl.Rect
