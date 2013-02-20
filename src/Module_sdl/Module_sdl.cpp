@@ -449,26 +449,30 @@ Value Object_Rect::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedF
 	return Value::Null;
 }
 
-#if 0
 Value Object_Rect::DoSetProp(Signal sig,
 			const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
-		
-		evaluatedFlag = true;
-		unsigned char red = value.GetUChar();
-		_color.SetRed(red);
-		return Value(red);
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		_rect.x = static_cast<Sint16>(value.GetInt());
+		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
-		
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		_rect.y = static_cast<Sint16>(value.GetInt());
+		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(w))) {
-		
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		_rect.w = static_cast<Uint16>(value.GetUInt());
+		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(h))) {
-		
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		_rect.h = static_cast<Uint16>(value.GetUInt());
+		return value;
 	}
+	evaluatedFlag = false;
 	return Value::Null;
 }
-#endif
 
 //-----------------------------------------------------------------------------
 // Class implementation for sdl.Rect
@@ -514,6 +518,27 @@ Value Object_Color::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluated
 		return Value(_color.g);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(b))) {
 		return Value(_color.b);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+Value Object_Color::DoSetProp(Signal sig,
+			const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(r))) {
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		_color.r = static_cast<Uint8>(value.GetUInt());
+		return value;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(g))) {
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		_color.g = static_cast<Uint8>(value.GetUInt());
+		return value;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(b))) {
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		_color.b = static_cast<Uint8>(value.GetUInt());
+		return value;
 	}
 	evaluatedFlag = false;
 	return Value::Null;

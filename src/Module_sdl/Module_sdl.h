@@ -184,6 +184,7 @@ public:
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value, bool &evaluatedFlag);
 	inline SDL_Rect &GetRect() { return _rect; }
 	inline const SDL_Rect &GetRect() const { return _rect; }
 	inline static Value CreateValue(const SDL_Rect &rect) {
@@ -210,6 +211,7 @@ public:
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value, bool &evaluatedFlag);
 	inline SDL_Color &GetColor() { return _color; }
 	inline const SDL_Color &GetColor() const { return _color; }
 	inline static Value CreateValue(const SDL_Color &color) {
