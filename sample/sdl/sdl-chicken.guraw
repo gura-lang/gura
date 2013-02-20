@@ -28,7 +28,8 @@ Chicken = class {
 	}
 	doAction():void = {
 		image = this.imageIter.next()
-		screen.PutSurface(image, this.x, this.y - image.height)
+		sdl.BlitSurface(image, nil,
+				screen, sdl.Rect(this.x, this.y - image.height, 0, 0))
 		this.x += this.xDir
 		(this.x + wdImage > wdScreen) && this.turnLeft()
 		(this.x < 0) && this.turnRight()
@@ -42,7 +43,7 @@ chickens = repeat(3):list {
 }
 //font = sdl.OpenFont(path.join(os.getenv('SystemRoot'), 'Fonts', 'arial.ttf'), 32)
 sdl.AddTimer(100) {
-	screen.PutSurface(imageBg, 0, 0)
+	sdl.BlitSurface(imageBg, nil, screen, nil)
 	text = 'Chickens: %d' % chickens.len()
 	//font.RenderText_Blended(text, color(`white)) {|surface|
 	//	screen.PutSurface(surface, 10, 10)

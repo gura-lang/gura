@@ -1156,27 +1156,6 @@ Gura_ImplementMethod(Surface, DisplayFormatAlpha)
 	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv, NULL));
 }
 
-// sdl.Surface#PutSurface(src:sdl.Surface, x:number => 0, y:number => 0):map
-Gura_DeclareMethod(Surface, PutSurface)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "src", VTYPE_Surface);
-	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-}
-
-Gura_ImplementMethod(Surface, PutSurface)
-{
-	SDL_Surface *dst = Object_Surface::GetThisObj(args)->GetSurface();
-	SDL_Surface *src =
-		dynamic_cast<Object_Surface *>(args.GetObject(0))->GetSurface();
-	int x = args.GetInt(1), y = args.GetInt(2);
-	SDL_Rect *srcrect = NULL;
-	SDL_Rect dstrect;
-	dstrect.x = x, dstrect.y = y, dstrect.w = 0, dstrect.h = 0;
-	return Value(::SDL_BlitSurface(src, srcrect, dst, &dstrect));
-}
-
 //-----------------------------------------------------------------------------
 // Class implementation for sdl.Surface
 //-----------------------------------------------------------------------------
@@ -1198,7 +1177,6 @@ Gura_ImplementUserClassWithCast(Surface)
 	Gura_AssignMethod(Surface, FillRect);
 	Gura_AssignMethod(Surface, DisplayFormat);
 	Gura_AssignMethod(Surface, DisplayFormatAlpha);
-	Gura_AssignMethod(Surface, PutSurface);
 }
 
 Gura_ImplementCastFrom(Surface)
@@ -2289,9 +2267,9 @@ Gura_DeclareFunction(BlitSurface)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "src",		VTYPE_Surface);
-	DeclareArg(env, "srcrect",	VTYPE_any);
+	DeclareArg(env, "srcrect",	VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "dst",		VTYPE_Surface);
-	DeclareArg(env, "dstrect",	VTYPE_any);
+	DeclareArg(env, "dstrect",	VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 }
 
 Gura_ImplementFunction(BlitSurface)
@@ -2301,10 +2279,10 @@ Gura_ImplementFunction(BlitSurface)
 	SDL_Surface *dst =
 		dynamic_cast<Object_Surface *>(args.GetObject(2))->GetSurface();
 	SDL_Rect *srcrect = NULL, *dstrect = NULL;
-	if (args.IsType(1, VTYPE_Rect)) {
+	if (args.IsValid(1)) {
 		srcrect = &dynamic_cast<Object_Rect *>(args.GetObject(1))->GetRect();
 	}
-	if (args.IsType(3, VTYPE_Rect)) {
+	if (args.IsValid(3)) {
 		dstrect = &dynamic_cast<Object_Rect *>(args.GetObject(3))->GetRect();
 	}
 	return Value(::SDL_BlitSurface(src, srcrect, dst, dstrect));
