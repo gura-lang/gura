@@ -716,12 +716,7 @@ Gura_ImplementMethod(PixelFormat, GetRGB)
 	SDL_PixelFormat *fmt = Object_PixelFormat::GetThisObj(args)->GetPixelFormat();
 	Uint8 r, g, b;
 	::SDL_GetRGB(args.GetULong(0), fmt, &r, &g, &b);
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.push_back(Value(r));
-	valList.push_back(Value(g));
-	valList.push_back(Value(b));
-	return result;
+	return Value::CreateAsList(env, Value(r), Value(g), Value(b));
 }
 
 // sdl.PixelFormat#GetRGBA(pixel:number):void
@@ -736,13 +731,7 @@ Gura_ImplementMethod(PixelFormat, GetRGBA)
 	SDL_PixelFormat *fmt = Object_PixelFormat::GetThisObj(args)->GetPixelFormat();
 	Uint8 r, g, b, a;
 	::SDL_GetRGBA(args.GetULong(0), fmt, &r, &g, &b, &a);
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.push_back(Value(r));
-	valList.push_back(Value(g));
-	valList.push_back(Value(b));
-	valList.push_back(Value(a));
-	return result;
+	return Value::CreateAsList(env, Value(r), Value(g), Value(b), Value(a));
 }
 
 //-----------------------------------------------------------------------------
@@ -1461,11 +1450,7 @@ Gura_ImplementMethod(Joystick, JoystickGetBall)
 	if (::SDL_JoystickGetBall(pJoystick, args.GetInt(0), &dx, &dy) < 0) {
 		return Value::Null;
 	}
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.push_back(Value(dx));
-	valList.push_back(Value(dy));
-	return result;
+	return Value::CreateAsList(env, Value(dx), Value(dy));
 }
 
 // sdl.Joystick#JoystickClose():void
@@ -2151,7 +2136,7 @@ Gura_ImplementFunction(GetGammaRamp)
 			valElemList.push_back(Value(bluetable[i]));
 		}
 	} while (0);
-	return Value::Null;
+	return result;
 }
 
 // sdl.SetGammaRamp(redtable[]:number, greentable[]:number, bluetable[]:number)
@@ -2452,11 +2437,9 @@ Gura_ImplementFunction(WM_GetCaption)
 {
 	char *title = NULL, *icon = NULL;
 	::SDL_WM_GetCaption(&title, &icon);
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.push_back(Value(env, (title == NULL)? "" : title));
-	valList.push_back(Value(env, (icon == NULL)? "" : icon));
-	return result;
+	return Value::CreateAsList(env,
+			Value(env, (title == NULL)? "" : title),
+			Value(env, (icon == NULL)? "" : icon));
 }
 
 // sdl.WM_SetIcon(icon:Surface, mask?:binary)
@@ -2799,12 +2782,7 @@ Gura_ImplementFunction(GetMouseState)
 {
 	int x, y;
 	Uint8 state = ::SDL_GetMouseState(&x, &y);
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.push_back(Value(state));
-	valList.push_back(Value(x));
-	valList.push_back(Value(y));
-	return result;
+	return Value::CreateAsList(env, Value(state), Value(x), Value(y));
 }
 
 // sdl.GetRelativeMouseState()
@@ -2817,12 +2795,7 @@ Gura_ImplementFunction(GetRelativeMouseState)
 {
 	int x, y;
 	Uint8 state = ::SDL_GetRelativeMouseState(&x, &y);
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.push_back(Value(state));
-	valList.push_back(Value(x));
-	valList.push_back(Value(y));
-	return result;
+	return Value::CreateAsList(env, Value(state), Value(x), Value(y));
 }
 
 // sdl.GetAppState()

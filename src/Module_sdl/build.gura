@@ -4,11 +4,10 @@ builder = modbuild.Builder()
 if (sys.build == `msc) {
 	builder.incDirs.append(path.join(modbuild.guestDir, 'SDL-1.2.15/include'))
 	builder.libs.append(path.join(modbuild.guestDir, 'SDL-1.2.15/VisualC/Release/SDL.lib'))
-	//builder.cflags.append('-D__DMC__')
 } elsif (sys.build == `gnuc) {
-	builder.libs.append('SDL', 'SDL_image', 'SDL_mixer')
+	builder.libs.append('SDL')
 	builder.incDirs.append('/usr/include/SDL', '/usr/local/include/SDL')
-	builder.debFiles = ['libsdl1.2-dev', 'libsdl-image1.2-dev', 'libsdl-mixer1.2-dev']
-	builder.rpmFiles = ['SDL-devel', 'SDL_image-devel', 'SDL_mixer-devel']
+	builder.debFiles = ['libsdl1.2-dev']
+	builder.rpmFiles = ['SDL-devel']
 }
 builder.build('sdl', ['Module_sdl.cpp'])
