@@ -2483,9 +2483,10 @@ Gura_ImplementFunction(WM_GetCaption)
 {
 	char *title = NULL, *icon = NULL;
 	::SDL_WM_GetCaption(&title, &icon);
-	return Value::CreateAsList(env,
-			Value(env, (title == NULL)? "" : title),
-			Value(env, (icon == NULL)? "" : icon));
+	Value valTitle, valIcon;
+	if (title != NULL) valTitle = Value(env, title);
+	if (icon != NULL) valIcon = Value(env, icon);
+	return Value::CreateAsList(env, valTitle, valIcon);
 }
 
 // sdl.WM_SetIcon(icon:sdl.Surface, mask?:binary)
