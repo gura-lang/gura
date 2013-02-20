@@ -76,7 +76,7 @@ mainloop(width:number, height:number, delay:number, drawTrigger:symbol) {`block}
 			onDraw && onDraw()
 			sdl.GL_SwapBuffers()
 		} elsif (event.type == sdl.VIDEORESIZE) {
-			onResize && onResize(event.width, event.height)
+			onResize && onResize(event.w, event.h)
 			onDraw && onDraw()
 			sdl.GL_SwapBuffers()
 		} elsif (event.type == sdl.QUIT) {

@@ -2,8 +2,10 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.build == `msc) {
-	builder.dlls.append('libfreetype-6.dll')
-	builder.incDirs.append(path.join(modbuild.guestDir, 'include/freetype'))
+	builder.libs.append(path.join(modbuild.guestDir,
+				'freetype-2.4.11/objs/win32/vc2010/freetype2411.lib'))
+	builder.incDirs.append(path.join(modbuild.guestDir,
+				'freetype-2.4.11/include'))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('freetype')
 	builder.incDirs.append('/usr/include/freetype2', '/usr/local/include/freetype2')
