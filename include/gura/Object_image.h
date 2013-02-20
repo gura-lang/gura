@@ -221,6 +221,8 @@ public:
 									const Value &value, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	bool AllocBuffer(Signal sig, size_t width, size_t height, unsigned char fillValue);
+	void SetBuffer(size_t width, size_t height, unsigned char *buff,
+									size_t bytesPerPixel, size_t bytesPerLine);
 	void FreeBuffer();
 	inline bool CheckCoord(int x, int y) const {
 		return 0 <= x && x < static_cast<int>(_width) &&

@@ -797,7 +797,6 @@ Gura_ImplementUserClass(PixelFormat)
 Object_Surface::~Object_Surface()
 {
 	::SDL_FreeSurface(_pSurface);
-	Object::Delete(_pObjRef);
 }
 
 Object *Object_Surface::Clone() const
@@ -873,8 +872,8 @@ Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal sig, Object_image 
 	}
 	SDL_Surface *pSurface = ::SDL_CreateRGBSurfaceFrom(
 				pixels, width, height, depth, pitch, Rmask, Gmask, Bmask, Amask);
-	Object_Surface *pObj = new Object_Surface(pSurface);
-	pObj->SetReferenceObject(Object::Reference(pObjImg));
+	Object_Surface *pObj = new Object_Surface(pSurface,
+										Object_image::Reference(pObjImg));
 	return pObj;
 }
 
@@ -1107,7 +1106,7 @@ Gura_ImplementMethod(Surface, ConvertSurface)
 	SDL_Surface *pSurfaceConv = ::SDL_ConvertSurface(pSurface,
 								const_cast<SDL_PixelFormat *>(fmt), flags);
 	if (pSurfaceConv == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv));
+	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv, NULL));
 }
 
 // sdl.Surface#FillRect(dstrect:sdl.Rect, color:Color):map:void
@@ -1139,7 +1138,7 @@ Gura_ImplementMethod(Surface, DisplayFormat)
 	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	SDL_Surface *pSurfaceConv = ::SDL_DisplayFormat(pSurface);
 	if (pSurfaceConv == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv));
+	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv, NULL));
 }
 
 // sdl.Surface#DisplayFormatAlpha() {block?}
@@ -1154,7 +1153,7 @@ Gura_ImplementMethod(Surface, DisplayFormatAlpha)
 	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
 	SDL_Surface *pSurfaceConv = ::SDL_DisplayFormatAlpha(pSurface);
 	if (pSurfaceConv == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv));
+	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv, NULL));
 }
 
 // sdl.Surface#PutSurface(src:sdl.Surface, x:number => 0, y:number => 0):map
@@ -2038,7 +2037,7 @@ Gura_ImplementFunction(GetVideoSurface)
 {
 	SDL_Surface *pSurface = ::SDL_GetVideoSurface();
 	if (pSurface == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface));
+	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, NULL));
 }
 
 // sdl.GetVideoInfo()
@@ -2127,7 +2126,7 @@ Gura_ImplementFunction(SetVideoMode)
 	SDL_Surface *pSurface = ::SDL_SetVideoMode(
 		args.GetInt(0), args.GetInt(1), args.GetInt(2), args.GetULong(3));
 	if (pSurface == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface));
+	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, NULL));
 }
 
 // sdl.SetGamma(redgamma:number, greengamma:number, bluegamma:number)
@@ -2247,7 +2246,7 @@ Gura_ImplementFunction(CreateRGBSurface)
 		args.GetULong(0), args.GetInt(1), args.GetInt(2), args.GetInt(3),
 		args.GetULong(4), args.GetULong(5), args.GetULong(6), args.GetULong(7));
 	if (pSurface == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface));
+	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, NULL));
 }
 
 // sdl.CreateRGBSurfaceFrom(image:image) {block?}
@@ -2282,7 +2281,7 @@ Gura_ImplementFunction(LoadBMP)
 		sig.SetError(ERR_RuntimeError, "failed to load an image %s", file);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface));
+	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, NULL));
 }
 
 // sdl.BlitSurface(src:sdl.Surface, srcrect, dst:sdl.Surface, dstrect)

@@ -132,8 +132,8 @@ void Object_image::InitMetrics()
 			(_format == Image::FORMAT_RGBA)? 32 : 0;
 	_metrics.bytesPerPixel = _metrics.bitsPerPixel / 8;
 	_metrics.bytesPerLine =
-			(_format == Image::FORMAT_RGB)?	((_width * 3 + 3) / 4) * 4 :
-			(_format == Image::FORMAT_RGBA)?	_width * 4 : 0;
+			(_format == Image::FORMAT_RGB)? ((_width * 3 + 3) / 4) * 4 :
+			(_format == Image::FORMAT_RGBA)? _width * 4 : 0;
 }
 
 Object_image *Object_image::CreateDerivation(Signal sig,
@@ -1159,6 +1159,16 @@ bool Object_image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool mas
 		}
 	}
 	return true;
+}
+
+void Object_image::SetBuffer(size_t width, size_t height, unsigned char *buff,
+									size_t bytesPerPixel, size_t bytesPerLine)
+{
+	_width = width, _height = height;
+	_buff = buff;
+	_metrics.bitsPerPixel = bytesPerPixel * 8;
+	_metrics.bytesPerPixel = bytesPerPixel;
+	_metrics.bytesPerLine = bytesPerLine;
 }
 
 #if USE_WINDOWS_DIB

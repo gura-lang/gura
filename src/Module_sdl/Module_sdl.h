@@ -278,21 +278,20 @@ public:
 	Gura_DeclareObjectAccessor(Surface)
 private:
 	SDL_Surface *_pSurface;
-	Object *_pObjRef;
+	AutoPtr<Object_image> _pObjImage;
 public:
-	inline Object_Surface(SDL_Surface *pSurface) :
-				Object(Gura_UserClass(Surface)), _pSurface(pSurface), _pObjRef(NULL) {}
+	inline Object_Surface(SDL_Surface *pSurface, Object_image *pObjImage) :
+				Object(Gura_UserClass(Surface)), _pSurface(pSurface), _pObjImage(pObjImage) {}
 	inline Object_Surface(const Object_Surface &obj) : Object(obj),
-				_pObjRef(Object::Reference(obj._pObjRef)) {}
+				_pObjImage(Object_image::Reference(obj._pObjImage.get())) {}
 	inline SDL_Surface *GetSurface() { return _pSurface; }
 	virtual ~Object_Surface();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline void SetReferenceObject(Object *pObj) { _pObjRef = pObj; }
-	inline static Value CreateValue(SDL_Surface *pSurface) {
-		return Value(new Object_Surface(pSurface));
+	inline static Value CreateValue(SDL_Surface *pSurface, Object_image *pObjImage) {
+		return Value(new Object_Surface(pSurface, pObjImage));
 	}
 	static Object_Surface *CreateSurfaceFromImage(Signal sig, Object_image *pObjImg);
 };
