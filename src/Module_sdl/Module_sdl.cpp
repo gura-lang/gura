@@ -1966,8 +1966,6 @@ Gura_DeclareFunction(Quit)
 Gura_ImplementFunction(Quit)
 {
 	::SDL_Quit();
-	//::IMG_Quit();
-	//::TTF_Quit();
 	return Value::Null;
 }
 
@@ -2039,15 +2037,31 @@ Gura_ImplementFunction(VideoDriverName)
 	return Value(env, p);
 }
 
-// sdl.ListModes()
+// sdl.ListModes(format:sdl.PixelFormat, flags:number)
 Gura_DeclareFunction(ListModes)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_Nil);
+	DeclareArg(env, "flags", VTYPE_number);
 }
 
 Gura_ImplementFunction(ListModes)
 {
-	return Value::Null;
+	SDL_PixelFormat *format = args.IsValid(0)?
+			Object_PixelFormat::GetObject(args, 0)->GetPixelFormat() : NULL;
+	Uint32 flags = args.GetUInt(1);
+	SDL_Rect **modes = ::SDL_ListModes(format, flags);
+	if (modes == NULL) return Value::Null;
+	Value rtn;
+	ValueList &valList = rtn.InitAsList(env);
+	if (modes == reinterpret_cast<SDL_Rect **>(-1)) {
+		// nothing to do
+	} else {
+		for (int i = 0; modes[i] != NULL; i++) {
+			valList.push_back(Value(new Object_Rect(*modes[i])));
+		}
+	}
+	return rtn;
 }
 
 // sdl.VideoModeOK(width:number, height:number, bpp:number, flags:number)
