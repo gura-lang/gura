@@ -132,39 +132,24 @@ Value Object_wx_LanguageInfo::DoSetProp(Signal sig,
 			const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_UserSymbol(Language))) {
-		if (!value.IsNumber()) {
-			sig.SetError(ERR_ValueError, "number must be specified");
-			return Value::Null;
-		}
+		if (!value.MustBeNumber(sig)) return Value::Null;
 		GetEntity()->Language = value.GetInt();
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CanonicalName))) {
-		if (!value.IsString()) {
-			sig.SetError(ERR_ValueError, "string must be specified");
-			return Value::Null;
-		}
+		if (!value.MustBeString(sig)) return Value::Null;
 		GetEntity()->CanonicalName = wxString::FromUTF8(value.GetString());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(Description))) {
-		if (!value.IsString()) {
-			sig.SetError(ERR_ValueError, "string must be specified");
-			return Value::Null;
-		}
+		if (!value.MustBeString(sig)) return Value::Null;
 		GetEntity()->Description = wxString::FromUTF8(value.GetString());
 		return value;
 #ifdef __WIN32__
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(WinLang))) {
-		if (!value.IsNumber()) {
-			sig.SetError(ERR_ValueError, "number must be specified");
-			return Value::Null;
-		}
+		if (!value.MustBeNumber(sig)) return Value::Null;
 		GetEntity()->WinLang = value.GetInt();
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(WinSublang))) {
-		if (!value.IsNumber()) {
-			sig.SetError(ERR_ValueError, "number must be specified");
-			return Value::Null;
-		}
+		if (!value.MustBeNumber(sig)) return Value::Null;
 		GetEntity()->WinSublang = value.GetInt();
 		return value;
 #endif

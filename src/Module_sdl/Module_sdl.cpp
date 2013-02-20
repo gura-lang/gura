@@ -449,6 +449,25 @@ Value Object_Rect::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedF
 	return Value::Null;
 }
 
+Value Object_Rect::DoSetProp(Signal sig,
+			const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
+{
+	if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
+		
+		evaluatedFlag = true;
+		unsigned char red = value.GetUChar();
+		_color.SetRed(red);
+		return Value(red);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
+		
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(w))) {
+		
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(h))) {
+		
+	}
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // Class implementation for sdl.Rect
 //-----------------------------------------------------------------------------
@@ -853,7 +872,7 @@ Gura_ImplementMethod(Surface, UpdateRect)
 	return Value::Null;
 }
 
-// sdl.Surface#UpdateRects(rects[]:Rect):void
+// sdl.Surface#UpdateRects(rects[]:sdl.Rect):void
 Gura_DeclareMethod(Surface, UpdateRects)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1014,7 +1033,7 @@ Gura_ImplementMethod(Surface, SetAlpha)
 	return Value(::SDL_SetAlpha(pSurface, args.GetULong(0), args.GetUChar(1)));
 }
 
-// sdl.Surface#SetClipRect(rect:Rect):map:void
+// sdl.Surface#SetClipRect(rect:sdl.Rect):map:void
 Gura_DeclareMethod(Surface, SetClipRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -1043,7 +1062,7 @@ Gura_ImplementMethod(Surface, GetClipRect)
 	return Object_Rect::CreateValue(rect);
 }
 
-// sdl.Surface#ConvertSurface(fmt:PixelFormat, flags:number) {block?}
+// sdl.Surface#ConvertSurface(fmt:sdl.PixelFormat, flags:number) {block?}
 Gura_DeclareMethod(Surface, ConvertSurface)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1064,7 +1083,7 @@ Gura_ImplementMethod(Surface, ConvertSurface)
 	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv));
 }
 
-// sdl.Surface#FillRect(dstrect:Rect, color:Color):map:void
+// sdl.Surface#FillRect(dstrect:sdl.Rect, color:Color):map:void
 Gura_DeclareMethod(Surface, FillRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -1111,7 +1130,7 @@ Gura_ImplementMethod(Surface, DisplayFormatAlpha)
 	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv));
 }
 
-// sdl.Surface#PutSurface(src:Surface, x:number => 0, y:number => 0):map
+// sdl.Surface#PutSurface(src:sdl.Surface, x:number => 0, y:number => 0):map
 Gura_DeclareMethod(Surface, PutSurface)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -1220,7 +1239,7 @@ Gura_ImplementMethod(Overlay, UnlockYUVOverlay)
 	return Value::Null;
 }
 
-// sdl.Overlay#DisplayYUVOverlay(dstrect:Rect)
+// sdl.Overlay#DisplayYUVOverlay(dstrect:sdl.Rect)
 Gura_DeclareMethod(Overlay, DisplayYUVOverlay)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2239,7 +2258,7 @@ Gura_ImplementFunction(LoadBMP)
 	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface));
 }
 
-// sdl.BlitSurface(src:Surface, srcrect, dst:Surface, dstrect)
+// sdl.BlitSurface(src:sdl.Surface, srcrect, dst:sdl.Surface, dstrect)
 Gura_DeclareFunction(BlitSurface)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2304,7 +2323,7 @@ Gura_ImplementFunction(CreateCursor)
 	return Object_Cursor::CreateValue(pCursor);
 }
 
-// sdl.SetCursor(cursor:Cursor):void
+// sdl.SetCursor(cursor:sdl.Cursor):void
 Gura_DeclareFunction(SetCursor)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2442,7 +2461,7 @@ Gura_ImplementFunction(WM_GetCaption)
 			Value(env, (icon == NULL)? "" : icon));
 }
 
-// sdl.WM_SetIcon(icon:Surface, mask?:binary)
+// sdl.WM_SetIcon(icon:sdl.Surface, mask?:binary)
 Gura_DeclareFunction(WM_SetIcon)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2470,7 +2489,7 @@ Gura_ImplementFunction(WM_IconifyWindow)
 	return Value(::SDL_WM_IconifyWindow());
 }
 
-// sdl.WM_ToggleFullScreen(surface:Surface)
+// sdl.WM_ToggleFullScreen(surface:sdl.Surface)
 Gura_DeclareFunction(WM_ToggleFullScreen)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);

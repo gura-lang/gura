@@ -470,17 +470,11 @@ Value Object_wx_Size::DoSetProp(Signal sig,
 			const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.IsNumber()) {
-			sig.SetError(ERR_ValueError, "number must be specified");
-			return Value::Null;
-		}
+		if (!value.MustBeNumber(sig)) return Value::Null;
 		GetEntity()->x = value.GetInt();
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.IsNumber()) {
-			sig.SetError(ERR_ValueError, "number must be specified");
-			return Value::Null;
-		}
+		if (!value.MustBeNumber(sig)) return Value::Null;
 		GetEntity()->y = value.GetInt();
 		return value;
 	}
