@@ -2700,6 +2700,7 @@ Gura_ImplementFunction(LoadBMP)
 	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface));
 }
 
+#if 0
 // sdl.LoadImage(file:string) {block?}
 Gura_DeclareFunction(LoadImage)
 {
@@ -2718,6 +2719,7 @@ Gura_ImplementFunction(LoadImage)
 	}
 	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface));
 }
+#endif
 
 // sdl.BlitSurface(src:Surface, srcrect, dst:Surface, dstrect)
 Gura_DeclareFunction(BlitSurface)
@@ -4095,7 +4097,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(CreateRGBSurface);
 	Gura_AssignFunction(CreateRGBSurfaceFrom);
 	Gura_AssignFunction(LoadBMP);
-	Gura_AssignFunction(LoadImage);
+	//Gura_AssignFunction(LoadImage);
 	Gura_AssignFunction(BlitSurface);
 	Gura_AssignFunction(WarpMouse);
 	Gura_AssignFunction(CreateCursor);

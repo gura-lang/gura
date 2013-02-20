@@ -2,9 +2,9 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.build == `msc) {
-	builder.incDirs.append(path.join(modbuild.guestDir, 'include', 'SDL'))
-	builder.dlls.append('SDL.dll', 'SDL_image.dll', 'SDL_mixer.dll', 'SDL_ttf.dll')
-	builder.cflags.append('-D__DMC__')
+	builder.incDirs.append(path.join(modbuild.guestDir, 'SDL-1.2.15/include'))
+	builder.libs.append(path.join(modbuild.guestDir, 'SDL-1.2.15/VisualC/Release/SDL.lib'))
+	//builder.cflags.append('-D__DMC__')
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('SDL', 'SDL_image', 'SDL_mixer')
 	builder.incDirs.append('/usr/include/SDL', '/usr/local/include/SDL')
