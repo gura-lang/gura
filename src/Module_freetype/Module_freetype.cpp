@@ -3,6 +3,9 @@
 //-----------------------------------------------------------------------------
 #include "Module_freetype.h"
 
+#define Gura_AssignFTValue(name) \
+Gura_AssignValue(name, Value(static_cast<double>(FT_##name)))
+
 Gura_BeginModule(freetype)
 
 static FT_Library g_lib;
@@ -55,39 +58,24 @@ FT_ULong Handler::ReadStub(FT_Stream streamFT,
 }
 
 //-----------------------------------------------------------------------------
-// Object_face implementation
+// Object_Face implementation
 //-----------------------------------------------------------------------------
-Object_face::~Object_face()
+Object_Face::~Object_Face()
 {
 	delete _pHandler;
 	::FT_Done_Face(_face);
 }
 
-Object *Object_face::Clone() const
+Object *Object_Face::Clone() const
 {
-	return NULL; //new Object_face(*this);
+	return NULL; //new Object_Face(*this);
 }
 
-bool Object_face::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_Face::DoDirProp(Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(num_faces));
 	symbols.insert(Gura_UserSymbol(face_index));
-	symbols.insert(Gura_UserSymbol(face_flag_scalable));
-	symbols.insert(Gura_UserSymbol(face_flag_fixed_width));
-	symbols.insert(Gura_UserSymbol(face_flag_sfnt));
-	symbols.insert(Gura_UserSymbol(face_flag_horizontal));
-	symbols.insert(Gura_UserSymbol(face_flag_vertical));
-	symbols.insert(Gura_UserSymbol(face_flag_kerning));
-	symbols.insert(Gura_UserSymbol(face_flag_fast_glyphs));
-	symbols.insert(Gura_UserSymbol(face_flag_multiple_masters));
-	symbols.insert(Gura_UserSymbol(face_flag_glyph_names));
-	symbols.insert(Gura_UserSymbol(face_flag_external_stream));
-	symbols.insert(Gura_UserSymbol(face_flag_hinter));
-	symbols.insert(Gura_UserSymbol(face_flag_cid_keyed));
-	symbols.insert(Gura_UserSymbol(face_flag_tricky));
-	symbols.insert(Gura_UserSymbol(style_flag_italic));
-	symbols.insert(Gura_UserSymbol(style_flag_bold));
 	symbols.insert(Gura_UserSymbol(family_name));
 	symbols.insert(Gura_UserSymbol(style_name));
 	symbols.insert(Gura_UserSymbol(bbox));
@@ -97,7 +85,7 @@ bool Object_face::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_face::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_Face::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -107,62 +95,68 @@ Value Object_face::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedF
 		return Value(_face->num_faces);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_index))) {
 		return Value(_face->face_index);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flag_scalable))) {
-		return Value((_face->face_flags & FT_FACE_FLAG_SCALABLE)? true : false);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flag_fixed_width))) {
-		return Value((_face->face_flags & FT_FACE_FLAG_FIXED_WIDTH)? true : false);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flag_sfnt))) {
-		return Value((_face->face_flags & FT_FACE_FLAG_SFNT)? true : false);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flag_horizontal))) {
-		return Value((_face->face_flags & FT_FACE_FLAG_HORIZONTAL)? true : false);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flag_vertical))) {
-		return Value((_face->face_flags & FT_FACE_FLAG_VERTICAL)? true : false);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flag_kerning))) {
-		return Value((_face->face_flags & FT_FACE_FLAG_KERNING)? true : false);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flag_fast_glyphs))) {
-		return Value((_face->face_flags & FT_FACE_FLAG_FAST_GLYPHS)? true : false);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flag_multiple_masters))) {
-		return Value((_face->face_flags & FT_FACE_FLAG_MULTIPLE_MASTERS)? true : false);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flag_glyph_names))) {
-		return Value((_face->face_flags & FT_FACE_FLAG_GLYPH_NAMES)? true : false);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flag_external_stream))) {
-		return Value((_face->face_flags & FT_FACE_FLAG_EXTERNAL_STREAM)? true : false);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flag_hinter))) {
-		return Value((_face->face_flags & FT_FACE_FLAG_HINTER)? true : false);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flag_cid_keyed))) {
-		return Value::Null;
-		//return Value((_face->face_flags & FT_FACE_FLAG_CID_KEYED)? true : false);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flag_tricky))) {
-		return Value::Null;
-		//return Value((_face->face_flags & FT_FACE_FLAG_TRICKY)? true : false);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(style_flag_italic))) {
-		return Value((_face->style_flags & FT_STYLE_FLAG_ITALIC)? true : false);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(style_flag_bold))) {
-		return Value((_face->style_flags & FT_STYLE_FLAG_BOLD)? true : false);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flags))) {
+		return Value(_face->face_flags);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(style_flags))) {
+		return Value(_face->style_flags);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_glyphs))) {
+		return Value(_face->num_glyphs);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(family_name))) {
+		if (_face->family_name == NULL) return Value::Null;
 		return Value(env, _face->family_name);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(style_name))) {
 		if (_face->style_name == NULL) return Value::Null;
 		return Value(env, _face->style_name);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_fixed_sizes))) {
+		return Value(_face->num_fixed_sizes);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(available_sizes))) {
+		//_face->num_fixed_sizes
+		//_face->available_sizes
+		return Value::Null;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_charmaps))) {
+		return Value::Null;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(charmaps))) {
+		return Value::Null;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(generic))) {
+		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(bbox))) {
 		return Value::CreateAsList(env,
 				Value(_face->bbox.xMin), Value(_face->bbox.yMin),
 				Value(_face->bbox.xMax), Value(_face->bbox.yMax));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ascender))) {	// fontUnits
-		return Value(_face->ascender * y_ppem / units_per_EM);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(descender))) {	// fontUnits
-		return Value(_face->descender * y_ppem / units_per_EM);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {		// fontUnits
-		return Value(_face->height * y_ppem / units_per_EM);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(units_per_EM))) {
+		return Value(_face->units_per_EM);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ascender))) {
+		return Value(_face->ascender);
+		//return Value(_face->ascender * y_ppem / units_per_EM);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(descender))) {
+		return Value(_face->descender);
+		//return Value(_face->descender * y_ppem / units_per_EM);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
+		return Value(_face->height);
+		//return Value(_face->height * y_ppem / units_per_EM);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(max_advance_width))) {
+		return Value(_face->max_advance_width);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(max_advance_height))) {
+		return Value(_face->max_advance_height);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(underline_position))) {
+		return Value(_face->underline_position);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(underline_thickness))) {
+		return Value(_face->underline_thickness);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(glyph))) {
+		return Value::Null;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
+		return Value::Null;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(charmap))) {
+		return Value::Null;
 	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-String Object_face::ToString(Signal sig, bool exprFlag)
+String Object_Face::ToString(Signal sig, bool exprFlag)
 {
 	String str;
-	str = "<freetype.face";
+	str = "<freetype.Face";
 	str += ":";
 	str += _face->family_name;
 	if (_face->style_name != NULL) {
@@ -178,23 +172,13 @@ String Object_face::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
-bool Object_face::Initialize(Signal sig, const char *pathName, int index)
-{
-	FT_Error err = ::FT_New_Face(g_lib, pathName, index, &_face);
-	if (err) {
-		sig.SetError(ERR_IOError, "error occurs in FT_New_Face()");
-		return false;
-	}
-	return true;
-}
-
-bool Object_face::Initialize(Signal sig, Stream *pStream, int index)
+bool Object_Face::Initialize(Signal sig, Stream *pStream, int index)
 {
 	_pHandler = new Handler(sig, Stream::Reference(pStream));
 	return _pHandler->OpenFace(sig, index, &_face);
 }
 
-bool Object_face::SetPixelSizes(Signal sig, size_t width, size_t height)
+bool Object_Face::SetPixelSizes(Signal sig, size_t width, size_t height)
 {
 	FT_Error err = ::FT_Set_Pixel_Sizes(_face,
 				static_cast<FT_UInt>(width), static_cast<FT_UInt>(height));
@@ -205,7 +189,7 @@ bool Object_face::SetPixelSizes(Signal sig, size_t width, size_t height)
 	return true;
 }
 
-bool Object_face::CalcSize(Signal sig, const String &str, size_t &width, size_t &height)
+bool Object_Face::CalcSize(Signal sig, const String &str, size_t &width, size_t &height)
 {
 	int x = 0, y = 0;
 	String::const_iterator p = str.begin();
@@ -214,25 +198,25 @@ bool Object_face::CalcSize(Signal sig, const String &str, size_t &width, size_t 
 		unsigned long codeUTF32;
 		p = Gura::NextUTF32(str, p, codeUTF32);
 		if (codeUTF32 == 0x00000000) break;
-		FT_GlyphSlot slot = LoadChar(codeUTF32);
-		if (slot == NULL) continue;
-		FT_Bitmap &bitmap = slot->bitmap;
-		int xLeft = x + slot->bitmap_left;
-		int yTop = y - slot->bitmap_top;
+		FT_GlyphSlot glyphSlot = LoadChar(codeUTF32);
+		if (glyphSlot == NULL) continue;
+		FT_Bitmap &bitmap = glyphSlot->bitmap;
+		int xLeft = x + glyphSlot->bitmap_left;
+		int yTop = y - glyphSlot->bitmap_top;
 		int xRight = xLeft + bitmap.width;
 		int yBottom = yTop + bitmap.rows;
 		if (xMin > xLeft) xMin = xLeft;
 		if (xMax < xRight) xMax = xRight;
 		if (yMin > yTop) yMin = yTop;
 		if (yMax < yBottom) yMax = yBottom;
-		x += slot->advance.x >> 6;	// 26.6 fixed float
-		y += slot->advance.y >> 6;	// 26.6 fixed float
+		x += glyphSlot->advance.x >> 6;	// 26.6 fixed float
+		y += glyphSlot->advance.y >> 6;	// 26.6 fixed float
 	} while (p != str.end());
 	width = xMax - xMin, height = yMax - yMin;
 	return true;
 }
 
-bool Object_face::DrawOnImage(Signal sig,
+bool Object_Face::DrawOnImage(Signal sig,
 				Object_image *pObjImage, int x, int y, const String &str)
 {
 	unsigned long redFg = _color.GetRed();
@@ -243,12 +227,12 @@ bool Object_face::DrawOnImage(Signal sig,
 		unsigned long codeUTF32;
 		p = Gura::NextUTF32(str, p, codeUTF32);
 		if (codeUTF32 == 0x00000000) break;
-		FT_GlyphSlot slot = LoadChar(codeUTF32);
-		if (slot == NULL) continue;
-		if (slot->format == FT_GLYPH_FORMAT_BITMAP) {
-			FT_Bitmap &bitmap = slot->bitmap;
-			int xOrg = x + slot->bitmap_left;
-			int yOrg = y - slot->bitmap_top;
+		FT_GlyphSlot glyphSlot = LoadChar(codeUTF32);
+		if (glyphSlot == NULL) continue;
+		if (glyphSlot->format == FT_GLYPH_FORMAT_BITMAP) {
+			FT_Bitmap &bitmap = glyphSlot->bitmap;
+			int xOrg = x + glyphSlot->bitmap_left;
+			int yOrg = y - glyphSlot->bitmap_top;
 			int xAdj = xOrg, yAdj = yOrg;
 			int width = bitmap.width;
 			int height = bitmap.rows;
@@ -264,13 +248,13 @@ bool Object_face::DrawOnImage(Signal sig,
 							width, height, bitmap.pitch, xAdj - xOrg, yAdj - yOrg);
 			}
 		}
-		x += slot->advance.x >> 6;	// 26.6 fixed float
-		y += slot->advance.y >> 6;	// 26.6 fixed float
+		x += glyphSlot->advance.x >> 6;	// 26.6 fixed float
+		y += glyphSlot->advance.y >> 6;	// 26.6 fixed float
 	} while (p != str.end());
 	return true;
 }
 
-FT_GlyphSlot Object_face::LoadChar(unsigned long codeUTF32)
+FT_GlyphSlot Object_Face::LoadChar(unsigned long codeUTF32)
 {
 	bool transformFlag = false;
 	FT_Matrix matrix;	// 16.16 fixed float
@@ -299,52 +283,52 @@ FT_GlyphSlot Object_face::LoadChar(unsigned long codeUTF32)
 	FT_Error err = ::FT_Load_Char(_face, codeUTF32,
 					FT_LOAD_DEFAULT | (transformFlag? FT_LOAD_NO_BITMAP : 0));
 	if (err) return NULL;
-	FT_GlyphSlot slot = _face->glyph;
+	FT_GlyphSlot glyphSlot = _face->glyph;
 	if (_deco.strength == 0.) {
 		// nothing to do
-	} else if (slot->format == FT_GLYPH_FORMAT_NONE) {
+	} else if (glyphSlot->format == FT_GLYPH_FORMAT_NONE) {
 		// nothing to do
-	} else if (slot->format == FT_GLYPH_FORMAT_COMPOSITE) {
+	} else if (glyphSlot->format == FT_GLYPH_FORMAT_COMPOSITE) {
 		// nothing to do
-	} else if (slot->format == FT_GLYPH_FORMAT_BITMAP) {
+	} else if (glyphSlot->format == FT_GLYPH_FORMAT_BITMAP) {
 		FT_Pos xStrength = static_cast<FT_Pos>(_deco.strength * (1 << 6)); // 26.6 fixed float
 		FT_Pos yStrength = 0;
-		err = ::FT_Bitmap_Embolden(g_lib, &slot->bitmap, xStrength, yStrength);
+		err = ::FT_Bitmap_Embolden(g_lib, &glyphSlot->bitmap, xStrength, yStrength);
 		if (err) return NULL;
-	} else if (slot->format == FT_GLYPH_FORMAT_OUTLINE) {
+	} else if (glyphSlot->format == FT_GLYPH_FORMAT_OUTLINE) {
 		FT_Pos strength = static_cast<FT_Pos>(_deco.strength * (1 << 6)); // 26.6 fixed float
-		err = ::FT_Outline_Embolden(&slot->outline, strength);
+		err = ::FT_Outline_Embolden(&glyphSlot->outline, strength);
 		if (err) return NULL;
-	} else if (slot->format == FT_GLYPH_FORMAT_PLOTTER) {
+	} else if (glyphSlot->format == FT_GLYPH_FORMAT_PLOTTER) {
 		// nothing to do
 	}
-	if (slot->format == FT_GLYPH_FORMAT_NONE) {
+	if (glyphSlot->format == FT_GLYPH_FORMAT_NONE) {
 		// nothing to do
-	} else if (slot->format == FT_GLYPH_FORMAT_COMPOSITE) {
+	} else if (glyphSlot->format == FT_GLYPH_FORMAT_COMPOSITE) {
 		// nothing to do
-	} else if (slot->format == FT_GLYPH_FORMAT_BITMAP) {
+	} else if (glyphSlot->format == FT_GLYPH_FORMAT_BITMAP) {
 		// nothing to do
-	} else if (slot->format == FT_GLYPH_FORMAT_OUTLINE) {
+	} else if (glyphSlot->format == FT_GLYPH_FORMAT_OUTLINE) {
 		if (transformFlag) {
-			::FT_Outline_Transform(&slot->outline, &matrix);
+			::FT_Outline_Transform(&glyphSlot->outline, &matrix);
 		}
 		// convert outline to bitmap
-		err = ::FT_Render_Glyph(slot, FT_RENDER_MODE_NORMAL);
+		err = ::FT_Render_Glyph(glyphSlot, FT_RENDER_MODE_NORMAL);
 		if (err) return NULL;
 		if (_deco.rotate.sinNum != 0.) {
 			double cosNum = _deco.rotate.cosNum;
 			double sinNum = -_deco.rotate.sinNum;
-			FT_Pos x = slot->advance.x, y = slot->advance.y;
-			slot->advance.x = static_cast<FT_Pos>(cosNum * x - sinNum * y);
-			slot->advance.y = static_cast<FT_Pos>(sinNum * x + cosNum * y);
+			FT_Pos x = glyphSlot->advance.x, y = glyphSlot->advance.y;
+			glyphSlot->advance.x = static_cast<FT_Pos>(cosNum * x - sinNum * y);
+			glyphSlot->advance.y = static_cast<FT_Pos>(sinNum * x + cosNum * y);
 		}
-	} else if (slot->format == FT_GLYPH_FORMAT_PLOTTER) {
+	} else if (glyphSlot->format == FT_GLYPH_FORMAT_PLOTTER) {
 		// nothing to do
 	}
-	return slot;
+	return glyphSlot;
 }
 
-void Object_face::DrawMonoOnImage(Object_image *pObjImage, int x, int y,
+void Object_Face::DrawMonoOnImage(Object_image *pObjImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset)
 {
@@ -382,7 +366,7 @@ void Object_face::DrawMonoOnImage(Object_image *pObjImage, int x, int y,
 	}
 }
 
-void Object_face::DrawGrayOnImage(Object_image *pObjImage, int x, int y,
+void Object_Face::DrawGrayOnImage(Object_image *pObjImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset)
 {
@@ -428,122 +412,122 @@ void Object_face::DrawGrayOnImage(Object_image *pObjImage, int x, int y,
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_face
+// Gura interfaces for Object_Face
 //-----------------------------------------------------------------------------
-// freetype.face#setcolor(color:color)
-Gura_DeclareMethod(face, setcolor)
+// freetype.Face#setcolor(color:color)
+Gura_DeclareMethod(Face, setcolor)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_color);
 }
 
-Gura_ImplementMethod(face, setcolor)
+Gura_ImplementMethod(Face, setcolor)
 {
-	Object_face *pThis = Object_face::GetThisObj(args);
+	Object_Face *pThis = Object_Face::GetThisObj(args);
 	pThis->SetColor(args.GetColorObj(0)->GetColor());
 	return args.GetThis();
 }
 
-// freetype.face#setalpha(alpha:number)
-Gura_DeclareMethod(face, setalpha)
+// freetype.Face#setalpha(alpha:number)
+Gura_DeclareMethod(Face, setalpha)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "alpha", VTYPE_number);
 }
 
-Gura_ImplementMethod(face, setalpha)
+Gura_ImplementMethod(Face, setalpha)
 {
-	Object_face *pThis = Object_face::GetThisObj(args);
+	Object_Face *pThis = Object_Face::GetThisObj(args);
 	pThis->SetAlpha(args.GetUChar(0));
 	return args.GetThis();
 }
 
-// freetype.face#setstrength(strength:number)
-Gura_DeclareMethod(face, setstrength)
+// freetype.Face#setstrength(strength:number)
+Gura_DeclareMethod(Face, setstrength)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "strength", VTYPE_number);
 }
 
-Gura_ImplementMethod(face, setstrength)
+Gura_ImplementMethod(Face, setstrength)
 {
-	Object_face *pThis = Object_face::GetThisObj(args);
+	Object_Face *pThis = Object_Face::GetThisObj(args);
 	pThis->SetStrength(args.GetDouble(0));
 	return args.GetThis();
 }
 
-// freetype.face#setslant(slant:number)
-Gura_DeclareMethod(face, setslant)
+// freetype.Face#setslant(slant:number)
+Gura_DeclareMethod(Face, setslant)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "slant", VTYPE_number);
 }
 
-Gura_ImplementMethod(face, setslant)
+Gura_ImplementMethod(Face, setslant)
 {
-	Object_face *pThis = Object_face::GetThisObj(args);
+	Object_Face *pThis = Object_Face::GetThisObj(args);
 	pThis->SetSlant(args.GetDouble(0));
 	return args.GetThis();
 }
 
-// freetype.face#setrotate(degree:number)
-Gura_DeclareMethod(face, setrotate)
+// freetype.Face#setrotate(degree:number)
+Gura_DeclareMethod(Face, setrotate)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "degree", VTYPE_number);
 }
 
-Gura_ImplementMethod(face, setrotate)
+Gura_ImplementMethod(Face, setrotate)
 {
-	Object_face *pThis = Object_face::GetThisObj(args);
+	Object_Face *pThis = Object_Face::GetThisObj(args);
 	pThis->SetRotate(args.GetDouble(0));
 	return args.GetThis();
 }
 
-// freetype.face#setsize(width:number, height:number)
-Gura_DeclareMethod(face, setsize)
+// freetype.Face#setsize(width:number, height:number)
+Gura_DeclareMethod(Face, setsize)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "width", VTYPE_number);
 	DeclareArg(env, "height", VTYPE_number);
 }
 
-Gura_ImplementMethod(face, setsize)
+Gura_ImplementMethod(Face, setsize)
 {
-	Object_face *pThis = Object_face::GetThisObj(args);
+	Object_Face *pThis = Object_Face::GetThisObj(args);
 	if (!pThis->SetPixelSizes(sig, args.GetSizeT(0), args.GetSizeT(1))) return Value::Null;
 	return args.GetThis();
 }
 
-// freetype.face#setheight(height:number)
-Gura_DeclareMethod(face, setheight)
+// freetype.Face#setheight(height:number)
+Gura_DeclareMethod(Face, setheight)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "height", VTYPE_number);
 }
 
-Gura_ImplementMethod(face, setheight)
+Gura_ImplementMethod(Face, setheight)
 {
-	Object_face *pThis = Object_face::GetThisObj(args);
+	Object_Face *pThis = Object_Face::GetThisObj(args);
 	if (!pThis->SetPixelSizes(sig, 0, args.GetSizeT(0))) return Value::Null;
 	return args.GetThis();
 }
 
-// freetype.face#cleardeco()
-Gura_DeclareMethod(face, cleardeco)
+// freetype.Face#cleardeco()
+Gura_DeclareMethod(Face, cleardeco)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 }
 
-Gura_ImplementMethod(face, cleardeco)
+Gura_ImplementMethod(Face, cleardeco)
 {
-	Object_face *pThis = Object_face::GetThisObj(args);
+	Object_Face *pThis = Object_Face::GetThisObj(args);
 	pThis->ClearDeco();
 	return args.GetThis();
 }
 
-// freetype.face#drawtext(image:image, x:number, y:number, str:string):map:reduce
-Gura_DeclareMethod(face, drawtext)
+// freetype.Face#drawtext(image:image, x:number, y:number, str:string):map:reduce
+Gura_DeclareMethod(Face, drawtext)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "image", VTYPE_image);
@@ -553,9 +537,9 @@ Gura_DeclareMethod(face, drawtext)
 	AddHelp(Gura_Symbol(en), "Draws a text on the image.");
 }
 
-Gura_ImplementMethod(face, drawtext)
+Gura_ImplementMethod(Face, drawtext)
 {
-	Object_face *pObjFace = Object_face::GetThisObj(args);
+	Object_Face *pObjFace = Object_Face::GetThisObj(args);
 	Object_image *pObjImage = Object_image::GetObject(args, 0);
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
@@ -564,16 +548,16 @@ Gura_ImplementMethod(face, drawtext)
 	return args.GetThis();
 }
 
-// freetype.face#calcsize(str:string):map
-Gura_DeclareMethod(face, calcsize)
+// freetype.Face#calcsize(str:string):map
+Gura_DeclareMethod(Face, calcsize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 }
 
-Gura_ImplementMethod(face, calcsize)
+Gura_ImplementMethod(Face, calcsize)
 {
-	Object_face *pObjFace = Object_face::GetThisObj(args);
+	Object_Face *pObjFace = Object_Face::GetThisObj(args);
 	String str = args.GetStringSTL(0);
 	size_t width, height;
 	if (!pObjFace->CalcSize(sig, str, width, height)) return Value::Null;
@@ -582,8 +566,8 @@ Gura_ImplementMethod(face, calcsize)
 			Value(static_cast<unsigned int>(height)));
 }
 
-// freetype.face#calcbbox(x:number, y:number, str:string):map
-Gura_DeclareMethod(face, calcbbox)
+// freetype.Face#calcbbox(x:number, y:number, str:string):map
+Gura_DeclareMethod(Face, calcbbox)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
@@ -592,9 +576,9 @@ Gura_DeclareMethod(face, calcbbox)
 }
 
 // ******************* still buggy
-Gura_ImplementMethod(face, calcbbox)
+Gura_ImplementMethod(Face, calcbbox)
 {
-	Object_face *pObjFace = Object_face::GetThisObj(args);
+	Object_Face *pObjFace = Object_Face::GetThisObj(args);
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	String str = args.GetStringSTL(2);
@@ -606,30 +590,30 @@ Gura_ImplementMethod(face, calcbbox)
 }
 
 // implementation of class Face
-Gura_ImplementUserClass(face)
+Gura_ImplementUserClass(Face)
 {
-	Gura_AssignMethod(face, setcolor);
-	Gura_AssignMethod(face, setalpha);
-	Gura_AssignMethod(face, setstrength);
-	Gura_AssignMethod(face, setslant);
-	Gura_AssignMethod(face, setrotate);
-	Gura_AssignMethod(face, setsize);
-	Gura_AssignMethod(face, setheight);
-	Gura_AssignMethod(face, cleardeco);
-	Gura_AssignMethod(face, drawtext);
-	Gura_AssignMethod(face, calcsize);
-	Gura_AssignMethod(face, calcbbox);
+	Gura_AssignMethod(Face, setcolor);
+	Gura_AssignMethod(Face, setalpha);
+	Gura_AssignMethod(Face, setstrength);
+	Gura_AssignMethod(Face, setslant);
+	Gura_AssignMethod(Face, setrotate);
+	Gura_AssignMethod(Face, setsize);
+	Gura_AssignMethod(Face, setheight);
+	Gura_AssignMethod(Face, cleardeco);
+	Gura_AssignMethod(Face, drawtext);
+	Gura_AssignMethod(Face, calcsize);
+	Gura_AssignMethod(Face, calcbbox);
 }
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_image
 // These methods are available after importing freetype module.
 //-----------------------------------------------------------------------------
-// image#drawtext(face:freetype.face, x:number, y:number, str:string):map:reduce
+// image#drawtext(face:freetype.Face, x:number, y:number, str:string):map:reduce
 Gura_DeclareMethod(image, drawtext)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
-	DeclareArg(env, "face", VTYPE_face);
+	DeclareArg(env, "face", VTYPE_Face);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "str", VTYPE_string);
@@ -639,7 +623,7 @@ Gura_DeclareMethod(image, drawtext)
 Gura_ImplementMethod(image, drawtext)
 {
 	Object_image *pObjImage = Object_image::GetThisObj(args);
-	Object_face *pObjFace = Object_face::GetObject(args, 0);
+	Object_Face *pObjFace = Object_Face::GetObject(args, 0);
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	String str = args.GetStringSTL(3);
@@ -716,21 +700,21 @@ Gura_ImplementFunction(test)
 	err = ::FT_New_Face(g_lib, "", 0, &face);
 	//err = ::FT_Set_Char_Size(face, 0, 16 * 64, 300, 300);
 	err = ::FT_Set_Pixel_Sizes(face, 0, 16);
-	FT_GlyphSlot slot = face->glyph;
+	FT_GlyphSlot glyphSlot = face->glyph;
 	FT_ULong codeUTF32 = 0x00000000;
 	//FT_UInt glyph_index = ::FT_Get_Char_Index(face, codeUTF32);
 	//err = ::FT_Load_Glyph(face, glyph_index, FT_LOAD_DEFAULT);
 	//err = ::FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
 	err = ::FT_Load_Char(face, codeUTF32, FT_LOAD_RENDER);
-	FT_Bitmap &bitmap = slot->bitmap;
+	FT_Bitmap &bitmap = glyphSlot->bitmap;
 	bitmap.rows;
 	bitmap.width;
 	bitmap.pitch;
 	bitmap.buffer;
-	slot->bitmap_left;
-	slot->bitmap_top;
-	slot->advance.x;
-	slot->advance.y;
+	glyphSlot->bitmap_left;
+	glyphSlot->bitmap_top;
+	glyphSlot->advance.x;
+	glyphSlot->advance.y;
 	//err = ::FT_New_Memory_Face(g_lib, buffer, size, 0, &face);
 	//FT_Open_Args args;
 	//err = ::FT_Open_Face(g_lib, &args, face_index, &face);
@@ -738,17 +722,17 @@ Gura_ImplementFunction(test)
 	return Value::Null;
 #endif
 
-// freetype.face(stream:stream, index:number => 0):map
-Gura_DeclareFunction(face)
+// freetype.New_Face(stream:stream, face_index:number => 0):map {block?}
+Gura_DeclareFunction(New_Face)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream);
-	DeclareArg(env, "index", VTYPE_number,
+	DeclareArg(env, "face_index", VTYPE_number,
 						OCCUR_Once, FLAG_None, new Expr_Value(0));
-	SetClassToConstruct(Gura_UserClass(face));
+	//SetClassToConstruct(Gura_UserClass(Face));
 }
 
-Gura_ImplementFunction(face)
+Gura_ImplementFunction(New_Face)
 {
 	AutoPtr<Stream> pStream(Stream::Reference(&args.GetStream(0)));
 	int index = args.GetInt(1);
@@ -756,10 +740,10 @@ Gura_ImplementFunction(face)
 		pStream.reset(Stream::Prefetch(sig, pStream.release(), true));
 		if (sig.IsSignalled()) return Value::Null;
 	}
-	AutoPtr<Object_face> pObjFace(new Object_face());
+	AutoPtr<Object_Face> pObjFace(new Object_Face());
 	pObjFace->Initialize(sig, pStream.release(), index);
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(pObjFace.release());
+	return ReturnValue(env, sig, args, Value(pObjFace.release()));
 }
 
 // freetype.sysfontpath(name?:string):map
@@ -782,34 +766,53 @@ Gura_ModuleEntry()
 	// symbol realization
 	Gura_RealizeUserSymbol(num_faces);
 	Gura_RealizeUserSymbol(face_index);
-	Gura_RealizeUserSymbol(face_flag_scalable);
-	Gura_RealizeUserSymbol(face_flag_fixed_width);
-	Gura_RealizeUserSymbol(face_flag_sfnt);
-	Gura_RealizeUserSymbol(face_flag_horizontal);
-	Gura_RealizeUserSymbol(face_flag_vertical);
-	Gura_RealizeUserSymbol(face_flag_kerning);
-	Gura_RealizeUserSymbol(face_flag_fast_glyphs);
-	Gura_RealizeUserSymbol(face_flag_multiple_masters);
-	Gura_RealizeUserSymbol(face_flag_glyph_names);
-	Gura_RealizeUserSymbol(face_flag_external_stream);
-	Gura_RealizeUserSymbol(face_flag_hinter);
-	Gura_RealizeUserSymbol(face_flag_cid_keyed);
-	Gura_RealizeUserSymbol(face_flag_tricky);
-	Gura_RealizeUserSymbol(style_flag_italic);
-	Gura_RealizeUserSymbol(style_flag_bold);
+	Gura_RealizeUserSymbol(face_flags);
+	Gura_RealizeUserSymbol(style_flags);
+	Gura_RealizeUserSymbol(num_glyphs);
 	Gura_RealizeUserSymbol(family_name);
 	Gura_RealizeUserSymbol(style_name);
+	Gura_RealizeUserSymbol(num_fixed_sizes);
+	Gura_RealizeUserSymbol(available_sizes);
+	Gura_RealizeUserSymbol(num_charmaps);
+	Gura_RealizeUserSymbol(charmaps);
+	Gura_RealizeUserSymbol(generic);
 	Gura_RealizeUserSymbol(bbox);
+	Gura_RealizeUserSymbol(units_per_EM);
 	Gura_RealizeUserSymbol(ascender);
 	Gura_RealizeUserSymbol(descender);
 	Gura_RealizeUserSymbol(height);
+	Gura_RealizeUserSymbol(max_advance_width);
+	Gura_RealizeUserSymbol(max_advance_height);
+	Gura_RealizeUserSymbol(underline_position);
+	Gura_RealizeUserSymbol(underline_thickness);
+	Gura_RealizeUserSymbol(glyph);
+	Gura_RealizeUserSymbol(size);
+	Gura_RealizeUserSymbol(charmap);
+	// value declarations
+	// FT_FACE_FLAG_XXX
+	Gura_AssignFTValue(FACE_FLAG_SCALABLE);
+	Gura_AssignFTValue(FACE_FLAG_FIXED_WIDTH);
+	Gura_AssignFTValue(FACE_FLAG_SFNT);
+	Gura_AssignFTValue(FACE_FLAG_HORIZONTAL);
+	Gura_AssignFTValue(FACE_FLAG_VERTICAL);
+	Gura_AssignFTValue(FACE_FLAG_KERNING);
+	Gura_AssignFTValue(FACE_FLAG_FAST_GLYPHS);
+	Gura_AssignFTValue(FACE_FLAG_MULTIPLE_MASTERS);
+	Gura_AssignFTValue(FACE_FLAG_GLYPH_NAMES);
+	Gura_AssignFTValue(FACE_FLAG_EXTERNAL_STREAM);
+	Gura_AssignFTValue(FACE_FLAG_HINTER);
+	Gura_AssignFTValue(FACE_FLAG_CID_KEYED);
+	Gura_AssignFTValue(FACE_FLAG_TRICKY);
+	// FT_STYLE_FLAG_XXX
+	Gura_AssignFTValue(STYLE_FLAG_ITALIC);
+	Gura_AssignFTValue(STYLE_FLAG_BOLD);
 	// class realization
-	Gura_RealizeUserClass(face, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(Face, env.LookupClass(VTYPE_object));
 	// method assignment to image type
 	Gura_AssignMethodTo(VTYPE_image, image, drawtext);
 	// function assignment
 	Gura_AssignFunction(test);
-	Gura_AssignFunction(face);
+	Gura_AssignFunction(New_Face);
 	Gura_AssignFunction(sysfontpath);
 }
 
@@ -822,7 +825,7 @@ Gura_ModuleTerminate()
 String GetSysFontPathName()
 {
 	char pathName[MAX_PATH];
-	if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_FONTS, NULL, 0, pathName))) {
+	if (SUCCEEDED(::SHGetFolderPath(NULL, CSIDL_FONTS, NULL, 0, pathName))) {
 		return String(pathName);
 	}
 	return String("");

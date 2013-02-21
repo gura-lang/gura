@@ -18,27 +18,28 @@ Gura_BeginModule(freetype)
 
 Gura_DeclareUserSymbol(num_faces);
 Gura_DeclareUserSymbol(face_index);
-Gura_DeclareUserSymbol(face_flag_scalable);
-Gura_DeclareUserSymbol(face_flag_fixed_width);
-Gura_DeclareUserSymbol(face_flag_sfnt);
-Gura_DeclareUserSymbol(face_flag_horizontal);
-Gura_DeclareUserSymbol(face_flag_vertical);
-Gura_DeclareUserSymbol(face_flag_kerning);
-Gura_DeclareUserSymbol(face_flag_fast_glyphs);
-Gura_DeclareUserSymbol(face_flag_multiple_masters);
-Gura_DeclareUserSymbol(face_flag_glyph_names);
-Gura_DeclareUserSymbol(face_flag_external_stream);
-Gura_DeclareUserSymbol(face_flag_hinter);
-Gura_DeclareUserSymbol(face_flag_cid_keyed);
-Gura_DeclareUserSymbol(face_flag_tricky);
-Gura_DeclareUserSymbol(style_flag_italic);
-Gura_DeclareUserSymbol(style_flag_bold);
+Gura_DeclareUserSymbol(face_flags);
+Gura_DeclareUserSymbol(style_flags);
+Gura_DeclareUserSymbol(num_glyphs);
 Gura_DeclareUserSymbol(family_name);
 Gura_DeclareUserSymbol(style_name);
+Gura_DeclareUserSymbol(num_fixed_sizes);
+Gura_DeclareUserSymbol(available_sizes);
+Gura_DeclareUserSymbol(num_charmaps);
+Gura_DeclareUserSymbol(charmaps);
+Gura_DeclareUserSymbol(generic);
 Gura_DeclareUserSymbol(bbox);
+Gura_DeclareUserSymbol(units_per_EM);
 Gura_DeclareUserSymbol(ascender);
 Gura_DeclareUserSymbol(descender);
 Gura_DeclareUserSymbol(height);
+Gura_DeclareUserSymbol(max_advance_width);
+Gura_DeclareUserSymbol(max_advance_height);
+Gura_DeclareUserSymbol(underline_position);
+Gura_DeclareUserSymbol(underline_thickness);
+Gura_DeclareUserSymbol(glyph);
+Gura_DeclareUserSymbol(size);
+Gura_DeclareUserSymbol(charmap);
 
 //-----------------------------------------------------------------------------
 // Handler
@@ -60,13 +61,13 @@ private:
 };
 
 //-----------------------------------------------------------------------------
-// Object_face declaration
+// Object_Face declaration
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(face);
+Gura_DeclareUserClass(Face);
 
-class Object_face : public Object {
+class Object_Face : public Object {
 public:
-	Gura_DeclareObjectAccessor(face)
+	Gura_DeclareObjectAccessor(Face)
 private:
 	Handler *_pHandler;
 	FT_Face _face;
@@ -80,11 +81,11 @@ private:
 		} rotate;
 	} _deco;
 public:
-	inline Object_face() : Object(Gura_UserClass(face)),
+	inline Object_Face() : Object(Gura_UserClass(Face)),
 								_pHandler(NULL), _face(NULL), _alpha(255) {
 		ClearDeco();
 	}
-	virtual ~Object_face();
+	virtual ~Object_Face();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
@@ -99,7 +100,6 @@ public:
 		_deco.slant = 0;
 		_deco.rotate.cosNum = 1., _deco.rotate.sinNum = 0;
 	}
-	bool Initialize(Signal sig, const char *pathName, int index);
 	bool Initialize(Signal sig, Stream *pSstream, int index);
 	bool SetPixelSizes(Signal sig, size_t width, size_t height);
 	bool CalcSize(Signal sig, const String &str, size_t &width, size_t &height);
