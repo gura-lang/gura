@@ -718,6 +718,8 @@ void SetupExecutablePath()
 	path += dirBase;
 	path += "\\gura-guest\\bin-x86";
 	path += ";";
+	path += "\\gura-guest\\bin";
+	path += ";";
 	path += dirBase;
 	path += "\\gura-guest\\tcl\\bin";
 	path += ";";

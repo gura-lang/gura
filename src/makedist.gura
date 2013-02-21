@@ -263,7 +263,7 @@ gatherFiles() = {
 			'sample/wx/original/wxutil.gura'
 			'sample/wx/original/wx-*.guraw'
 			//----------------------------------
-			'gura-guest/lib.win32/*.dll'
+			'gura-guest/bin-x86/*.dll'
 			//----------------------------------
 			'include/*.h'
 			'include/gura/*.h'
