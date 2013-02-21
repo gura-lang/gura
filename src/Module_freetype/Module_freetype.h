@@ -16,6 +16,8 @@
 
 Gura_BeginModule(freetype)
 
+Gura_DeclareUserSymbol(pixel);
+// Face attributes
 Gura_DeclareUserSymbol(num_faces);
 Gura_DeclareUserSymbol(face_index);
 Gura_DeclareUserSymbol(face_flags);
