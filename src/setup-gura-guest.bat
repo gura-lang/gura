@@ -4,7 +4,7 @@ rem Setup libraries necessary to build Gura modules
 rem ==========================================================================
 if exist ..\gura-guest goto update
 pushd ..
-git clone https://github.com/jxg/gura-guest.git
+git clone https://github.com/ypsitau/gura-guest.git
 popd
 pushd ..\gura-guest
 goto setup
