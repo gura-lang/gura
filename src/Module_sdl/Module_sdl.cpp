@@ -3150,7 +3150,7 @@ Gura_ImplementFunction(AddTimer)
 //-----------------------------------------------------------------------------
 // Object constructors
 //-----------------------------------------------------------------------------
-// sdl.Rect(x:number, y:number, w:number, h:number):map
+// sdl.Rect(x:number, y:number, w:number, h:number):map {block?}
 Gura_DeclareFunction(Rect)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -3158,6 +3158,8 @@ Gura_DeclareFunction(Rect)
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "w", VTYPE_number);
 	DeclareArg(env, "h", VTYPE_number);
+	SetClassToConstruct(Gura_UserClass(Rect));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(Rect)
@@ -3167,16 +3169,18 @@ Gura_ImplementFunction(Rect)
 	rect.y = args.GetInt(1);
 	rect.w = args.GetInt(2);
 	rect.h = args.GetInt(3);
-	return Object_Rect::CreateValue(rect);
+	return ReturnValue(env, sig, args, Object_Rect::CreateValue(rect));
 }
 
-// sdl.Color(r:number, g:number, b:number):map
+// sdl.Color(r:number, g:number, b:number):map {block?}
 Gura_DeclareFunction(Color)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "r", VTYPE_number);
 	DeclareArg(env, "g", VTYPE_number);
 	DeclareArg(env, "b", VTYPE_number);
+	SetClassToConstruct(Gura_UserClass(Color));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(Color)
@@ -3186,11 +3190,11 @@ Gura_ImplementFunction(Color)
 	color.g = args.GetUChar(1);
 	color.b = args.GetUChar(2);
 	color.unused = 0;
-	return Object_Color::CreateValue(color);
+	return ReturnValue(env, sig, args, Object_Color::CreateValue(color));
 }
 
 // sdl.AudioSpec(freq:number => 22050, format:number => AUDIO_S16,
-//           channels:number => 1, samples:number => 8192, callback?:function)
+//     channels:number => 1, samples:number => 8192, callback?:function) {block?}
 Gura_DeclareFunction(AudioSpec)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3206,6 +3210,8 @@ Gura_DeclareFunction(AudioSpec)
 	AddHelp(Gura_Symbol(en), 
 	"It passes an audio object to the callback that is supposed to fill it\n"
 	"with audio data.");
+	SetClassToConstruct(Gura_UserClass(AudioSpec));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(AudioSpec)
@@ -3226,7 +3232,7 @@ Gura_ImplementFunction(AudioSpec)
 	Object_AudioSpec *pObj =
 			new Object_AudioSpec(pAudioSpec, sig, pFuncCallback, NULL, 0);
 	pAudioSpec->userdata = pObj;
-	return Value(pObj);
+	return ReturnValue(env, sig, args, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------
