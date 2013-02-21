@@ -360,7 +360,8 @@ ICallable *Environment::GetCallable(Signal sig, const Symbol *pSymbol)
 	return NULL;
 }
 
-Value Environment::GetProp(Signal sig, const Symbol *pSymbol, const Value *pValueDefault)
+Value Environment::GetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, const Value *pValueDefault)
 {
 	const Value *pValue = LookupValue(pSymbol, true);
 	if (pValue != NULL) return *pValue;

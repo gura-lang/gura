@@ -253,7 +253,8 @@ public:
 	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol,
 										const Value &value, bool &evaluatedFlag);
 	virtual ICallable *GetCallable(Signal sig, const Symbol *pSymbol);
-	Value GetProp(Signal sig, const Symbol *pSymbol, const Value *pValueDefault = NULL);
+	Value GetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, const Value *pValueDefault = NULL);
 	inline Class *LookupClass(ValueType valType) const {
 		return GetGlobal()->LookupClass(valType);
 	}

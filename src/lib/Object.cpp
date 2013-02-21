@@ -321,11 +321,12 @@ Gura_DeclareClassMethod(Object, getprop_X)
 Gura_ImplementClassMethod(Object, getprop_X)
 {
 	ObjectBase *pThis = args.GetThisObjBase();
+	const SymbolSet &attrs = SymbolSet::Null;
 	if (args.IsDefined(1)) {
 		Value value = args.GetValue(1);
-		return pThis->GetProp(sig, args.GetSymbol(0), &value);
+		return pThis->GetProp(sig, args.GetSymbol(0), attrs, &value);
 	} else {
-		return pThis->GetProp(sig, args.GetSymbol(0));
+		return pThis->GetProp(sig, args.GetSymbol(0), attrs);
 	}
 }
 
@@ -383,7 +384,8 @@ Value Gura_Method(Object, call_X)::EvalExpr(Environment &env, Signal sig, Args &
 	Value valueFunc;
 	const Value *pValue = pThis->LookupValue(pSymbol, true);
 	if (pValue == NULL) {
-		valueFunc = pThis->GetProp(sig, pSymbol);
+		const SymbolSet &attrs = SymbolSet::Null;
+		valueFunc = pThis->GetProp(sig, pSymbol, attrs);
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
 		valueFunc = *pValue;

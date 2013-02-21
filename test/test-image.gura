@@ -31,7 +31,7 @@ tester_image(image:image, comment:string):map:void = {
 if (sys.build != `gnuc) {
 	scope {
 		img = image(`rgb, 32, 32, `black)
-		face = freetype.face(freetype.sysfontpath('msgothic.ttc')).setheight(16).setcolor(`white)
+		face = freetype.New_Face(freetype.sysfontpath('msgothic.ttc')).setheight(16).setcolor(`white)
 		str = '\xe5\x9c\x92' // kanji 'en'
 		img.drawtext(face, -4, 12, str)
 		img.drawtext(face, 24, 12, str)
@@ -41,7 +41,7 @@ if (sys.build != `gnuc) {
 	}
 	scope {
 		img = image(`rgb, 32, 32, `black)
-		face = freetype.face(freetype.sysfontpath('arial.ttf')).setheight(16).setcolor(`white)
+		face = freetype.New_Face(freetype.sysfontpath('arial.ttf')).setheight(16).setcolor(`white)
 		img.drawtext(face, -8, 8, '@')
 		img.drawtext(face, 24, 8, '@')
 		img.drawtext(face, -8, 36, '@')
@@ -50,7 +50,7 @@ if (sys.build != `gnuc) {
 	}
 	scope {
 		img = image(`rgb, 320, 320, `black)
-		face = freetype.face(freetype.sysfontpath('arial.ttf')).setheight(320).setcolor(`white)
+		face = freetype.New_Face(freetype.sysfontpath('arial.ttf')).setheight(320).setcolor(`white)
 		img.drawtext(face, 0, 240, '@')
 		tester_image(img, 'arial 320pix')
 	}

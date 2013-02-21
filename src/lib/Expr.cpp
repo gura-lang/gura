@@ -748,7 +748,7 @@ Expr *Expr_Symbol::Clone() const
 
 Value Expr_Symbol::Exec(Environment &env, Signal sig) const
 {
-	Value rtn = env.GetProp(sig, GetSymbol());
+	Value rtn = env.GetProp(sig, GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
