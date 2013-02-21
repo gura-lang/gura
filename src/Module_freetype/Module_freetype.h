@@ -17,6 +17,14 @@
 Gura_BeginModule(freetype)
 
 Gura_DeclareUserSymbol(pixel);
+Gura_DeclareUserSymbol(xMin);
+Gura_DeclareUserSymbol(yMin);
+Gura_DeclareUserSymbol(xMax);
+Gura_DeclareUserSymbol(yMax);
+Gura_DeclareUserSymbol(xx);
+Gura_DeclareUserSymbol(xy);
+Gura_DeclareUserSymbol(yx);
+Gura_DeclareUserSymbol(yy);
 // Face attributes
 Gura_DeclareUserSymbol(num_faces);
 Gura_DeclareUserSymbol(face_index);
@@ -86,6 +94,58 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline FT_Vector &GetEntity() { return _vector; }
 	inline const FT_Vector &GetEntity() const { return _vector; }
+};
+
+//-----------------------------------------------------------------------------
+// Object_BBox declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(BBox);
+
+class Object_BBox : public Object {
+public:
+	Gura_DeclareObjectAccessor(BBox)
+private:
+	FT_BBox _bbox;
+public:
+	inline Object_BBox(const FT_BBox &bbox) :
+			Object(Gura_UserClass(BBox)), _bbox(bbox) {}
+	inline Object_BBox(const Object_BBox &obj) :
+			Object(obj), _bbox(obj._bbox) {}
+	virtual Object *Clone() const;
+	virtual String ToString(Signal sig, bool exprFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	inline FT_BBox &GetEntity() { return _bbox; }
+	inline const FT_BBox &GetEntity() const { return _bbox; }
+};
+
+//-----------------------------------------------------------------------------
+// Object_Matrix declaration
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(Matrix);
+
+class Object_Matrix : public Object {
+public:
+	Gura_DeclareObjectAccessor(Matrix)
+private:
+	FT_Matrix _matrix;
+public:
+	inline Object_Matrix(const FT_Matrix &matrix) :
+			Object(Gura_UserClass(Matrix)), _matrix(matrix) {}
+	inline Object_Matrix(const Object_Matrix &obj) :
+			Object(obj), _matrix(obj._matrix) {}
+	virtual Object *Clone() const;
+	virtual String ToString(Signal sig, bool exprFlag);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	inline FT_Matrix &GetEntity() { return _matrix; }
+	inline const FT_Matrix &GetEntity() const { return _matrix; }
 };
 
 //-----------------------------------------------------------------------------
