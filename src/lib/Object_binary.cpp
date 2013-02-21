@@ -26,7 +26,8 @@ bool Object_binary::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_binary::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_binary::DoGetProp(Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(writable))) {
 		evaluatedFlag = true;

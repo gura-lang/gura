@@ -48,7 +48,8 @@ public:
 	virtual ~Object_content();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	bool Read(Environment &env, Signal sig, Stream &stream, Image::Format format);
 	bool Write(Environment &env, Signal sig, Stream &stream);

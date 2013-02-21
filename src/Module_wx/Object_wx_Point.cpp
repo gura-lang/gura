@@ -194,7 +194,8 @@ bool Object_wx_Point::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_wx_Point::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_wx_Point::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
@@ -206,8 +207,8 @@ Value Object_wx_Point::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evalua
 	return Value::Null;
 }
 
-Value Object_wx_Point::DoSetProp(Signal sig,
-			const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
+Value Object_wx_Point::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
 		if (!value.MustBeNumber(sig)) return Value::Null;

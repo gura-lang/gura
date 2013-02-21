@@ -472,7 +472,8 @@ bool Object_variable::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_variable::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_variable::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	if (pSymbol->IsIdentical(Gura_Symbol(boolean))) {
@@ -518,8 +519,8 @@ Value Object_variable::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evalua
 	return Value::Null;
 }
 
-Value Object_variable::DoSetProp(Signal sig, const Symbol *pSymbol,
-									const Value &value, bool &evaluatedFlag)
+Value Object_variable::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	if (pSymbol->IsIdentical(Gura_Symbol(boolean))) {

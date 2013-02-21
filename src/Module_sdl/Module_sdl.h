@@ -156,7 +156,8 @@ public:
 	virtual ~Object_Event();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline SDL_Event &GetEvent() { return _event; }
 	inline const SDL_Event &GetEvent() const { return _event; }
@@ -183,8 +184,10 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
-	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+						const SymbolSet &attrs, bool &evaluatedFlag);
 	inline SDL_Rect &GetRect() { return _rect; }
 	inline const SDL_Rect &GetRect() const { return _rect; }
 	inline static Value CreateValue(const SDL_Rect &rect) {
@@ -210,8 +213,10 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
-	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline SDL_Color &GetColor() { return _color; }
 	inline const SDL_Color &GetColor() const { return _color; }
 	inline static Value CreateValue(const SDL_Color &color) {
@@ -237,7 +242,8 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline static Value CreateValue(const SDL_Palette *pPalette) {
 		return Value(new Object_Palette(pPalette));
 	}
@@ -260,7 +266,8 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline SDL_PixelFormat *GetPixelFormat() { return &_pixelFormat; }
 	inline const SDL_PixelFormat *GetPixelFormat() const { return &_pixelFormat; }
 	inline static Value CreateValue(const SDL_PixelFormat &pixelFormat) {
@@ -288,7 +295,8 @@ public:
 	virtual ~Object_Surface();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline static Value CreateValue(SDL_Surface *pSurface, Object_image *pObjImage) {
 		return Value(new Object_Surface(pSurface, pObjImage));
@@ -337,7 +345,8 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline static Value CreateValue(const SDL_VideoInfo *pVideoInfo) {
 		return Value(new Object_VideoInfo(pVideoInfo));
 	}
@@ -465,7 +474,8 @@ public:
 	virtual ~Object_CDtrack();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline SDL_CDtrack &GetCDtrack() { return _CDtrack; }
 	inline static Value CreateValue(const SDL_CDtrack &CDtrack) {
@@ -489,7 +499,8 @@ public:
 	virtual ~Object_CD();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline SDL_CD *GetCD() { return _pCD; }
 	inline static Value CreateValue(SDL_CD *pCD) {

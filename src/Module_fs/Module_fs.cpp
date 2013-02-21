@@ -58,7 +58,8 @@ bool Object_Stat::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Stat::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_Stat::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;

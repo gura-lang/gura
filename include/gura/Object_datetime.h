@@ -30,9 +30,10 @@ public:
 	virtual ~Object_datetime();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
-	virtual Value DoSetProp(Signal sig,
-				const Symbol *pSymbol, const Value &value, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline DateTime &GetDateTime() { return _dateTime; }
 	inline const DateTime &GetDateTime() const { return _dateTime; }

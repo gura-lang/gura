@@ -88,7 +88,8 @@ public:
 	virtual ~Object_Face();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline void SetColor(const Color &color) { _color = color; }
 	inline void SetAlpha(unsigned char alpha) { _alpha = alpha; }

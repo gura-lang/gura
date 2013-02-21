@@ -536,7 +536,8 @@ bool Object_ole::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_ole::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_ole::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	DISPID dispid;
 	do {
@@ -563,8 +564,8 @@ Value Object_ole::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFl
 	return result;
 }
 
-Value Object_ole::DoSetProp(Signal sig, const Symbol *pSymbol,
-									const Value &value, bool &evaluatedFlag)
+Value Object_ole::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	DISPID dispid;

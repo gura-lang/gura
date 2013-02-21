@@ -30,9 +30,10 @@ public:
 				Object(pClass), _pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
 	virtual ~Object_wx_Rect();
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
-	virtual Value DoSetProp(Signal sig,
-				const Symbol *pSymbol, const Value &value, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline void SetEntity(wxRect *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) {

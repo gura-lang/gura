@@ -39,7 +39,8 @@ bool Object_datetime::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_datetime::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_datetime::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(year))) {
@@ -67,8 +68,8 @@ Value Object_datetime::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evalua
 	return Value::Null;
 }
 
-Value Object_datetime::DoSetProp(Signal sig,
-				const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
+Value Object_datetime::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(year))) {
@@ -128,7 +129,7 @@ Value Object_datetime::DoSetProp(Signal sig,
 		_dateTime.SetUSec(num);
 		return Value(num);
 	}
-	return DoGetProp(sig, pSymbol, evaluatedFlag);
+	return DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_datetime::ToString(Signal sig, bool exprFlag)

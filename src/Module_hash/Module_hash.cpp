@@ -39,7 +39,8 @@ bool Object_hash::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_hash::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_hash::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(digest))) {

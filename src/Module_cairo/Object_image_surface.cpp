@@ -14,7 +14,8 @@ bool Object_image_surface::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_image_surface::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_image_surface::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {
@@ -23,7 +24,7 @@ Value Object_image_surface::DoGetProp(Signal sig, const Symbol *pSymbol, bool &e
 		return Value(::cairo_image_surface_get_height(_surface));
 	}
 	evaluatedFlag = false;
-	return Object_surface::DoGetProp(sig, pSymbol, evaluatedFlag);
+	return Object_surface::DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------

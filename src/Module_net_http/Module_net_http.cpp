@@ -1467,7 +1467,8 @@ bool Object_stat::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_stat::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_stat::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -1534,7 +1535,8 @@ bool Object_session::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_session::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_session::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -1631,7 +1633,8 @@ bool Object_request::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_request::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_request::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -1849,7 +1852,8 @@ bool Object_response::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_response::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_response::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -1952,7 +1956,8 @@ bool Object_server::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_server::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_server::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;

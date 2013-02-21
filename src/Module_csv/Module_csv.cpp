@@ -31,7 +31,8 @@ bool Object_writer::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_writer::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_writer::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -42,8 +43,8 @@ Value Object_writer::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluate
 	return Value::Null;
 }
 
-Value Object_writer::DoSetProp(Signal sig,
-				const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
+Value Object_writer::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
@@ -54,7 +55,7 @@ Value Object_writer::DoSetProp(Signal sig,
 		_format = value.GetString();
 		return value;
 	}
-	return DoGetProp(sig, pSymbol, evaluatedFlag);
+	return DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_writer::ToString(Signal sig, bool exprFlag)

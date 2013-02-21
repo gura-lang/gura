@@ -249,9 +249,10 @@ public:
 	void AssignValueType(const ValueTypeInfo *pValueTypeInfo);
 	const ValueTypeInfo *LookupValueType(const SymbolList &symbolList) const;
 	const ValueTypeInfo *LookupValueType(const Symbol *pSymbol) const;
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
-	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol,
-										const Value &value, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+										const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+										const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual ICallable *GetCallable(Signal sig, const Symbol *pSymbol);
 	Value GetProp(Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, const Value *pValueDefault = NULL);

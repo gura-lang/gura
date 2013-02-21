@@ -202,7 +202,8 @@ Value Object::EvalMethod(Signal sig, const Symbol *pSymbol,
 	return pFunc->Eval(*this, sig, args);
 }
 
-Value Object::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getprop__), true);
 	if (pFunc == NULL) return Value::Null;
@@ -215,8 +216,8 @@ Value Object::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
 	return pFunc->Eval(*this, sig, args);
 }
 
-Value Object::DoSetProp(Signal sig, const Symbol *pSymbol,
-										const Value &value, bool &evaluatedFlag)
+Value Object::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setprop__), true);
 	if (pFunc == NULL) return Value::Null;

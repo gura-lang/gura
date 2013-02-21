@@ -15,7 +15,8 @@ public:
 	virtual ~Object_Writer_surface();
 	inline Writer *GetWriter() { return _pWriter; }
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
 }}

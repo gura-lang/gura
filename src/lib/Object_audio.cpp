@@ -129,7 +129,8 @@ bool Object_audio::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_audio::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_audio::DoGetProp(Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
@@ -143,10 +144,10 @@ Value Object_audio::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluated
 	return Value::Null;
 }
 
-Value Object_audio::DoSetProp(Signal sig, const Symbol *pSymbol,
-									const Value &value, bool &evaluatedFlag)
+Value Object_audio::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return DoGetProp(sig, pSymbol, evaluatedFlag);
+	return DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_audio::ToString(Signal sig, bool exprFlag)

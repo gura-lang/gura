@@ -21,7 +21,8 @@ bool Object_Header::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Header::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_Header::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	GIF &gif = _pObjContent->GetGIF();
@@ -72,7 +73,8 @@ bool Object_LogicalScreenDescriptor::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_LogicalScreenDescriptor::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_LogicalScreenDescriptor::DoGetProp(Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	GIF &gif = _pObjContent->GetGIF();
@@ -130,7 +132,8 @@ bool Object_CommentExtension::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_CommentExtension::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_CommentExtension::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	GIF &gif = _pObjContent->GetGIF();
@@ -179,7 +182,8 @@ bool Object_PlainTextExtension::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_PlainTextExtension::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_PlainTextExtension::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	GIF &gif = _pObjContent->GetGIF();
@@ -238,7 +242,8 @@ bool Object_ApplicationExtension::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_ApplicationExtension::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_ApplicationExtension::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	GIF &gif = _pObjContent->GetGIF();
@@ -1097,7 +1102,8 @@ bool Object_content::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_content::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_content::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	GIF::Extensions &exts = _gif.GetExtensions();
@@ -1220,7 +1226,8 @@ bool Object_GraphicControl::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_GraphicControl::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_GraphicControl::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(DisposalMethod))) {
@@ -1277,7 +1284,8 @@ bool Object_ImageDescriptor::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_ImageDescriptor::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_ImageDescriptor::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(ImageLeftPosition))) {
@@ -1334,7 +1342,8 @@ bool Object_imgprop::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_imgprop::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_imgprop::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(GraphicControl))) {

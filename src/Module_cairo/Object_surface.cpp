@@ -25,7 +25,8 @@ bool Object_surface::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_surface::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_surface::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;

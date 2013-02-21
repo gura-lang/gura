@@ -190,10 +190,10 @@ public:
 	virtual void EmptyIndexSet(Environment &env, Signal sig, const Value &value);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
-	virtual Value DoGetProp(Signal sig,
-				const Symbol *pSymbol, bool &evaluatedFlag);
-	virtual Value DoSetProp(Signal sig,
-				const Symbol *pSymbol, const Value &value, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+					const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol,
+					const Value &value, const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	bool DirProp(Signal sig, SymbolSet &symbols);
 	Value EvalMethod(Signal sig, const Function *pFunc, const ValueList &valListArg);

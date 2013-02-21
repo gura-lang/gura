@@ -25,7 +25,8 @@ bool Object_font_extents::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_font_extents::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_font_extents::DoGetProp(Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(ascent))) {

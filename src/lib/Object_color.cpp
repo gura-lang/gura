@@ -809,7 +809,8 @@ bool Object_color::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_color::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_color::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(red))) {
 		evaluatedFlag = true;
@@ -830,8 +831,8 @@ Value Object_color::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluated
 	return Value::Null;
 }
 
-Value Object_color::DoSetProp(Signal sig,
-			const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
+Value Object_color::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(red))) {
 		evaluatedFlag = true;

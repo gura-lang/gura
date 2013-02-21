@@ -26,7 +26,8 @@ bool Object_text_extents::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_text_extents::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_text_extents::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(x_bearing))) {

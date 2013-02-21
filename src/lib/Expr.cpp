@@ -760,7 +760,8 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
 	bool evaluatedFlag = false;
-	Value result = env.DoSetProp(sig, GetSymbol(), value, evaluatedFlag);
+	const SymbolSet &attrs = SymbolSet::Null;
+	Value result = env.DoSetProp(sig, GetSymbol(), value, attrs, evaluatedFlag);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;

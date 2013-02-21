@@ -23,7 +23,8 @@ public:
 	virtual ~Object_context();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline cairo_t *GetEntity() { return _cr; }
 	inline Object_surface *GetSurfaceObj() { return _pObjSurface.get(); }

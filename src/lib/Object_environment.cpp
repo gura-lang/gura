@@ -29,7 +29,8 @@ bool Object_environment::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_environment::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_environment::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const Value *pValue = GetEnv().LookupValue(pSymbol, true);
 	if (pValue == NULL) return Value::Null;
@@ -37,8 +38,8 @@ Value Object_environment::DoGetProp(Signal sig, const Symbol *pSymbol, bool &eva
 	return *pValue;
 }
 
-Value Object_environment::DoSetProp(Signal sig, const Symbol *pSymbol,
-										const Value &value, bool &evaluatedFlag)
+Value Object_environment::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GetEnv().AssignValue(pSymbol, value, true);
 	evaluatedFlag = true;

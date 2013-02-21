@@ -24,7 +24,8 @@ bool Object_content::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_content::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_content::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;

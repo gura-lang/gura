@@ -344,13 +344,14 @@ const ValueTypeInfo *Environment::LookupValueType(const Symbol *pSymbol) const
 	return NULL;
 }
 
-Value Environment::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Environment::DoGetProp(Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
 }
 
-Value Environment::DoSetProp(Signal sig, const Symbol *pSymbol,
-										const Value &value, bool &evaluatedFlag)
+Value Environment::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
 }
@@ -366,7 +367,7 @@ Value Environment::GetProp(Signal sig, const Symbol *pSymbol,
 	const Value *pValue = LookupValue(pSymbol, true);
 	if (pValue != NULL) return *pValue;
 	bool evaluatedFlag = false;
-	Value result = DoGetProp(sig, pSymbol, evaluatedFlag);
+	Value result = DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
 	if (sig.IsSignalled()) return Value::Null;
 	if (evaluatedFlag) return result;
 	if (pValueDefault != NULL) return *pValueDefault;

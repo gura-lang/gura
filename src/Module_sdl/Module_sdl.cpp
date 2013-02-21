@@ -284,7 +284,8 @@ bool Object_Event::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Event::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_Event::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
@@ -433,7 +434,8 @@ bool Object_Rect::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Rect::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_Rect::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
@@ -449,8 +451,8 @@ Value Object_Rect::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedF
 	return Value::Null;
 }
 
-Value Object_Rect::DoSetProp(Signal sig,
-			const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
+Value Object_Rect::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
@@ -509,7 +511,8 @@ bool Object_Color::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Color::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_Color::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(r))) {
@@ -523,8 +526,8 @@ Value Object_Color::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluated
 	return Value::Null;
 }
 
-Value Object_Color::DoSetProp(Signal sig,
-			const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
+Value Object_Color::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(r))) {
@@ -600,7 +603,8 @@ bool Object_Palette::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Palette::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_Palette::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
 	return Value::Null;
@@ -671,7 +675,8 @@ bool Object_PixelFormat::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_PixelFormat::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_PixelFormat::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(palette))) {
@@ -818,7 +823,8 @@ bool Object_Surface::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Surface::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_Surface::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(flags))) {
@@ -1301,7 +1307,8 @@ bool Object_VideoInfo::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_VideoInfo::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_VideoInfo::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(hw_available))) {
@@ -1709,7 +1716,8 @@ bool Object_CDtrack::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_CDtrack::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_CDtrack::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
@@ -1760,7 +1768,8 @@ bool Object_CD::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_CD::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_CD::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(status))) {

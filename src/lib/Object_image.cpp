@@ -17,7 +17,8 @@ bool Object_image::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_image::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_image::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
@@ -34,8 +35,8 @@ Value Object_image::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluated
 	return Value::Null;
 }
 
-Value Object_image::DoSetProp(Signal sig, const Symbol *pSymbol,
-									const Value &value, bool &evaluatedFlag)
+Value Object_image::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(palette))) {
 		if (value.IsPalette()) {
@@ -49,7 +50,7 @@ Value Object_image::DoSetProp(Signal sig, const Symbol *pSymbol,
 			return Value::Null;
 		}
 	}
-	return DoGetProp(sig, pSymbol, evaluatedFlag);
+	return DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_image::ToString(Signal sig, bool exprFlag)

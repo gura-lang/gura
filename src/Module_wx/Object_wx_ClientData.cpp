@@ -98,7 +98,8 @@ bool Object_wx_ClientData::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_wx_ClientData::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_wx_ClientData::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(value))) {
 		evaluatedFlag = true;
@@ -107,8 +108,8 @@ Value Object_wx_ClientData::DoGetProp(Signal sig, const Symbol *pSymbol, bool &e
 	return Value::Null;
 }
 
-Value Object_wx_ClientData::DoSetProp(Signal sig,
-			const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
+Value Object_wx_ClientData::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(value))) {
 		GetEntity()->SetValue(value);

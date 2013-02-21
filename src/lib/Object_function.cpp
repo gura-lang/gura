@@ -28,7 +28,8 @@ bool Object_function::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_function::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_function::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -62,8 +63,8 @@ Value Object_function::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evalua
 	return Value::Null;
 }
 
-Value Object_function::DoSetProp(Signal sig,
-				const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
+Value Object_function::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(symbol)) ||
@@ -90,7 +91,7 @@ Value Object_function::DoSetProp(Signal sig,
 		pFuncCustom->SetExprBody(Expr::Reference(value.GetExpr()));
 		return value;
 	}
-	return DoGetProp(sig, pSymbol, evaluatedFlag);
+	return DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
 }
 
 Value Object_function::DoCall(Environment &env, Signal sig, Args &args)

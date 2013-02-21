@@ -107,7 +107,8 @@ bool Object_wx_LanguageInfo::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_wx_LanguageInfo::DoGetProp(Signal sig, const Symbol *pSymbol, bool &evaluatedFlag)
+Value Object_wx_LanguageInfo::DoGetProp(Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
 	evaluatedFlag = true;
@@ -128,8 +129,8 @@ Value Object_wx_LanguageInfo::DoGetProp(Signal sig, const Symbol *pSymbol, bool 
 	return Value::Null;
 }
 
-Value Object_wx_LanguageInfo::DoSetProp(Signal sig,
-			const Symbol *pSymbol, const Value &value, bool &evaluatedFlag)
+Value Object_wx_LanguageInfo::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_UserSymbol(Language))) {
 		if (!value.MustBeNumber(sig)) return Value::Null;
