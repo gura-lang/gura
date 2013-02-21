@@ -5,7 +5,7 @@ import(freetype)
 scope {
 	[wdImage, htImage] = [640, 640]
 	img = image(`rgb, wdImage, htImage, `white)
-	face = freetype.face(freetype.sysfontpath('msgothic.ttc'), 1).setheight(32).setcolor(`black)
+	face = freetype.New_Face(freetype.sysfontpath('msgothic.ttc'), 1).setheight(32).setcolor(`black)
 	face.setslant(.3)
 	interval(0, 360, 16):open_r {|degree|
 		face.setrotate(degree)
