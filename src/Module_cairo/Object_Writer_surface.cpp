@@ -40,7 +40,7 @@ Value Object_Writer_surface::DoGetProp(Signal sig, const Symbol *pSymbol,
 		return Value(_pWriter->GetHeight());
 	}
 	evaluatedFlag = false;
-	return Object_surface::DoGetProp(sig, pSymbol, evaluatedFlag);
+	return Object_surface::DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
 }
 
 }}
