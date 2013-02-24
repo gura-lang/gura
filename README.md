@@ -35,3 +35,7 @@ Build for Linux
         $ sudo ldconfig
         $ ../src/build_modules.gura
         $ sudo ../src/build_modules.gura install
+
+3. The default install path is /usr/local. Execute cmake as follows to change the path.
+
+        $ cmake -D CMAKE_INSTALL_PREFIX=/usr ../src
