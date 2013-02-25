@@ -48,7 +48,7 @@ Build for Linux
   generates shell scripts so that you can easily setup necessary packages.
   Run `install-deb.sh` for Ubuntu and `install-rpm.sh` for RedHat.
 
-4.After successfully build modules, do the following command to install them.
+4. After you successfully build modules, do the following command to install them.
 
         $ sudo ../src/build_modules.gura install
 
