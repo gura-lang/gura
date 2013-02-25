@@ -9,6 +9,8 @@ Gura_BeginModule(cairo)
 Gura_DeclareUserClass(user_font_face);
 
 class Object_user_font_face : public Object_font_face {
+private:
+	//static cairo_user_data_key_t key_ObjFontFaceL;
 public:
 	Gura_DeclareObjectAccessor(user_font_face)
 public:

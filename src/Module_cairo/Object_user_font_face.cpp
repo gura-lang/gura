@@ -2,7 +2,7 @@
 
 Gura_BeginModule(cairo)
 
-static const cairo_user_data_key_t key_ObjFontFace;
+//static cairo_user_data_key_t Object_user_font_face::key_ObjFontFaceL;
 
 void destroy_ObjFontFace(void *data)
 {
@@ -22,8 +22,8 @@ cairo_status_t Object_user_font_face::init_func(cairo_scaled_font_t *scaled_font
 		cairo_t *cr, cairo_font_extents_t *extents)
 {
 	cairo_font_face_t *font_face = ::cairo_scaled_font_get_font_face(scaled_font);
-	Object_font_face *pObjFontFace = reinterpret_cast<Object_font_face *>(
-					::cairo_font_face_get_user_data(font_face, &key_ObjFontFace));
+	//Object_font_face *pObjFontFace = reinterpret_cast<Object_font_face *>(
+	//					::cairo_font_face_get_user_data(font_face, &key_ObjFontFace));
 	
 	return CAIRO_STATUS_SUCCESS;
 }
@@ -63,8 +63,8 @@ Gura_ImplementClassMethod(user_font_face, create)
 {
 	cairo_font_face_t *font_face = ::cairo_user_font_face_create();
 	Object_user_font_face *pObjFontFace = new Object_user_font_face(font_face);
-	::cairo_font_face_set_user_data(font_face, &key_ObjFontFace,
-		Object_user_font_face::Reference(pObjFontFace), destroy_ObjFontFace);
+	//::cairo_font_face_set_user_data(font_face, &key_ObjFontFace,
+	//		Object_user_font_face::Reference(pObjFontFace), destroy_ObjFontFace);
 	::cairo_user_font_face_set_init_func(font_face, Object_user_font_face::init_func);
 	::cairo_user_font_face_set_render_glyph_func(font_face, Object_user_font_face::render_glyph_func);
 	::cairo_user_font_face_set_unicode_to_glyph_func(font_face, Object_user_font_face::unicode_to_glyph_func);
