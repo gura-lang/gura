@@ -1,11 +1,10 @@
+#!/usr/bin/env gura
 import(zip)
 
 !path.exists('tmp') && fs.mkdir('tmp')
 //println("'", path.walk('test.zip/')::replace('\\', '\\\\'), "'")
 //sys.exit()
-files = path.walk('test.zip/')
-
-for (file in files) {
-	println(file)
-	copy(file, open(path.join('tmp', path.filename(file)), 'w'))
+path.walk('test.zip/') {|fileName|
+	println(fileName)
+	copy(fileName, open(path.join('tmp', path.filename(fileName)), 'w'))
 }

@@ -1,6 +1,7 @@
+#!/usr/bin/env gura
 import(zip)
 
-zip.reader('test.zip').each() {|s|
+zip.reader('test.zip').entries() {|s|
 	println(s.name)
-	copy(s, path.join('tmp', s.name))
+	//copy(s, path.join('tmp', s.name))
 }

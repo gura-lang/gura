@@ -1,3 +1,4 @@
+#!/usr/bin/env gura
 import(zip)
 zip.writer('a.zip') {|z|
 	z.add('build.gura')
