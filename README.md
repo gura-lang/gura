@@ -40,7 +40,7 @@ Build for Linux
         $ sudo make install
         $ sudo ldconfig
 
-3. Run the following commands to build gura modules.
+3. Run the following command to build gura modules.
 
         $ ../src/build_modules.gura
 
