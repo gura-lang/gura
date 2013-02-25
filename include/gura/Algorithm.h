@@ -16,7 +16,7 @@ public:
 	inline CRC32() : _crc32(0xffffffff), _bytes(0) {}
 	inline void Initialize() { _crc32 = 0xffffffff, _bytes = 0; }
 	void Update(const void *buff, size_t bytes);
-	inline unsigned long GetResult() const { return ~_crc32; }
+	inline unsigned long GetResult() const { return ~_crc32 & 0xffffffff; }
 	inline size_t GetBytes() const { return _bytes; }
 };
 
