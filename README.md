@@ -29,7 +29,7 @@ Build for Linux
 
         $ sudo apt-get install build-essential cmake libreadline-dev
 
-2. Run the following commands to build gura library, executable and modules.
+2. Run the following commands to build gura library and executable.
 
         $ git clone https://github.com/ypsitau/gura.git
         $ cd gura
@@ -39,5 +39,16 @@ Build for Linux
         $ make
         $ sudo make install
         $ sudo ldconfig
+
+3. Run the following commands to build gura modules.
+
         $ ../src/build_modules.gura
+
+  This may occur an error because of lacking packages. The script build_modules.gura
+  generates shell scripts so that you can easily setup necessary packages.
+  Run `install-deb.sh` for Ubuntu and `install-rpm.sh` for RedHat.
+
+4.After successfully build modules, do the following command to install them.
+
         $ sudo ../src/build_modules.gura install
+
