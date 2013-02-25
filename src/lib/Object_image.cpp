@@ -61,7 +61,8 @@ String Object_image::ToString(Signal sig, bool exprFlag)
 	rtn += ":";
 	if (IsValid()) {
 		char buff[64];
-		::sprintf(buff, "%dx%d", GetWidth(), GetHeight());
+		::sprintf(buff, "%dx%d",
+				static_cast<int>(GetWidth()), static_cast<int>(GetHeight()));
 		rtn += buff;
 	} else {
 		rtn += "invalid";

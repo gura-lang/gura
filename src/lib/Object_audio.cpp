@@ -158,7 +158,7 @@ String Object_audio::ToString(Signal sig, bool exprFlag)
 	rtn += ":";
 	if (IsValid()) {
 		char buff[32];
-		::sprintf(buff, "%d", GetLength());
+		::sprintf(buff, "%d", static_cast<int>(GetLength()));
 		rtn += buff;
 	} else {
 		rtn += "invalid";
@@ -166,7 +166,7 @@ String Object_audio::ToString(Signal sig, bool exprFlag)
 	rtn += ":";
 	do {
 		char buff[32];
-		::sprintf(buff, "%dch", _nChannels);
+		::sprintf(buff, "%dch", static_cast<int>(_nChannels));
 		rtn += buff;
 	} while (0);
 	rtn += ">";

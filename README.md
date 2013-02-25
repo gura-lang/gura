@@ -24,18 +24,20 @@ Build for Windows
 Build for Linux
 -----------------
 1. Check if build tools such as g++, make and cmake have been installed.
-2. Run the following commands.
 
+   For Ubuntu, do the following command.
+
+        $ sudo apt-get install build-essential cmake libreadline-dev
+
+2. Run the following commands to build gura library, executable and modules.
+
+        $ git clone https://github.com/ypsitau/gura.git
         $ cd gura
         $ mkdir build
         $ cd build
-        $ cmake ../src
+        $ cmake -D CMAKE_INSTALL_PREFIX=/usr ../src
         $ make
         $ sudo make install
         $ sudo ldconfig
         $ ../src/build_modules.gura
         $ sudo ../src/build_modules.gura install
-
-3. The default install path is /usr/local. Execute cmake as follows to change the path.
-
-        $ cmake -D CMAKE_INSTALL_PREFIX=/usr ../src

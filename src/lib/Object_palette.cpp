@@ -255,7 +255,7 @@ String Object_palette::ToString(Signal sig, bool exprFlag)
 	str += "<Palette:";
 	do {
 		char buff[64];
-		::sprintf(buff, "%dentries", _nEntries);
+		::sprintf(buff, "%dentries", static_cast<int>(_nEntries));
 		str += buff;
 	} while (0);
 	str += ">";

@@ -104,7 +104,7 @@ String Object_binary::ToString(Signal sig, bool exprFlag)
 {
 	char buff[64];
 	::sprintf(buff, "<binary:%s:%dbyte>",
-							IsWritable()? "RW" : "R", _binary.size());
+				IsWritable()? "RW" : "R", static_cast<int>(_binary.size()));
 	return String(buff);
 }
 
@@ -570,7 +570,7 @@ Object *Object_binaryptr::Clone() const
 String Object_binaryptr::ToString(Signal sig, bool exprFlag)
 {
 	char buff[64];
-	::sprintf(buff, "<binaryptr:%d>", _offset);
+	::sprintf(buff, "<binaryptr:%d>", static_cast<int>(_offset));
 	return String(buff);
 }
 
