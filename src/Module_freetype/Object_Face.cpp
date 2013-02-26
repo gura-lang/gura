@@ -378,6 +378,30 @@ void Object_Face::DrawGrayOnImage(Object_image *pObjImage, int x, int y,
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_Face
 //-----------------------------------------------------------------------------
+// freetype.Face.New(stream:stream, face_index:number => 0):map {block?}
+Gura_DeclareClassMethod(Face, New)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareArg(env, "face_index", VTYPE_number,
+						OCCUR_Once, FLAG_None, new Expr_Value(0));
+	//SetClassToConstruct(Gura_UserClass(Face));
+}
+
+Gura_ImplementClassMethod(Face, New)
+{
+	AutoPtr<Stream> pStream(Stream::Reference(&args.GetStream(0)));
+	int index = args.GetInt(1);
+	if (!pStream->IsBwdSeekable()) {
+		pStream.reset(Stream::Prefetch(sig, pStream.release(), true));
+		if (sig.IsSignalled()) return Value::Null;
+	}
+	AutoPtr<Object_Face> pObjFace(new Object_Face());
+	pObjFace->Initialize(sig, pStream.release(), index);
+	if (sig.IsSignalled()) return Value::Null;
+	return ReturnValue(env, sig, args, Value(pObjFace.release()));
+}
+
 // freetype.Face#setcolor(color:color)
 Gura_DeclareMethod(Face, setcolor)
 {
@@ -556,6 +580,7 @@ Gura_ImplementMethod(Face, calcbbox)
 // implementation of class Face
 Gura_ImplementUserClass(Face)
 {
+	Gura_AssignMethod(Face, New);
 	Gura_AssignMethod(Face, setcolor);
 	Gura_AssignMethod(Face, setalpha);
 	Gura_AssignMethod(Face, setstrength);

@@ -177,29 +177,6 @@ Gura_ImplementFunction(test)
 	return Value::Null;
 #endif
 
-// freetype.New_Face(stream:stream, face_index:number => 0):map {block?}
-Gura_DeclareFunction(New_Face)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "stream", VTYPE_stream);
-	DeclareArg(env, "face_index", VTYPE_number,
-						OCCUR_Once, FLAG_None, new Expr_Value(0));
-	//SetClassToConstruct(Gura_UserClass(Face));
-}
-
-Gura_ImplementFunction(New_Face)
-{
-	AutoPtr<Stream> pStream(Stream::Reference(&args.GetStream(0)));
-	int index = args.GetInt(1);
-	if (!pStream->IsBwdSeekable()) {
-		pStream.reset(Stream::Prefetch(sig, pStream.release(), true));
-		if (sig.IsSignalled()) return Value::Null;
-	}
-	AutoPtr<Object_Face> pObjFace(new Object_Face());
-	pObjFace->Initialize(sig, pStream.release(), index);
-	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjFace.release()));
-}
 
 // freetype.sysfontpath(name?:string):map
 Gura_DeclareFunction(sysfontpath)
@@ -545,7 +522,6 @@ Gura_ModuleEntry()
 	Gura_AssignMethodTo(VTYPE_image, image, drawtext);
 	// function assignment
 	Gura_AssignFunction(test);
-	Gura_AssignFunction(New_Face);
 	Gura_AssignFunction(sysfontpath);
 }
 
