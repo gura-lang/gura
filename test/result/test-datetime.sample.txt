@@ -8,9 +8,9 @@
 <timedelta:2557days,0secs(00:00:00),0usecs>
 <timedelta:2922days,0secs(00:00:00),0usecs>
 <timedelta:3288days,0secs(00:00:00),0usecs>
-time.datetime(2011, 1, 10, 8, 3, 0, 0).unixtime .. 1294614180
-time.datetime(2001, 9, 9, 1, 46, 40, 0).unixtime .. 999967600
-time.datetime(2009, 2, 13, 23, 31, 30, 0).unixtime .. 1234535490
+time.datetime(2011, 1, 10, 8, 3, 0, 0, 0).unixtime .. 1294646580
+time.datetime(2001, 9, 9, 1, 46, 40, 0, 0).unixtime .. 1000000000
+time.datetime(2009, 2, 13, 23, 31, 30, 0, 0).unixtime .. 1234567890
 time.parse('Sun, 06 Nov 1994 08:49:37 -0900') .. <datetime:1994-11-06T08:49:37-09:00>
 time.parse('Sun, 06 Nov 1994 08:49:37 +0900') .. <datetime:1994-11-06T08:49:37+09:00>
 time.parse('Sun, 06 Nov 1994 08:49:37 +0845') .. <datetime:1994-11-06T08:49:37+08:45>
@@ -54,8 +54,8 @@ time.delta(8, 0, 0) - time.delta(5, 300, 300) .. <timedelta:2days,86099secs(23:5
 time.delta(5, 300, 300) + time.delta(2, 86099, 999700) .. <timedelta:8days,0secs(00:00:00),0usecs>
 --------------------
 2000-03-21 00:00
-time.datetime(year, month, day, hour, min) + time.delta(1) .. <datetime:2000-03-22T00:00:00+09:00>
-time.delta(1) + time.datetime(year, month, day) .. <datetime:2000-03-22T00:00:00+09:00>
+time.datetime(year, month, day, hour, min, minsoff => 0) + time.delta(1) .. <datetime:2000-03-22T00:00:00Z>
+time.delta(1) + time.datetime(year, month, day, minsoff => 0) .. <datetime:2000-03-22T00:00:00Z>
 dt + time.delta(1) .. <datetime:2000-03-22T00:00:00Z>
 dt - (-time.delta(1)) .. <datetime:2000-03-22T00:00:00Z>
 dt - time.delta(1) .. <datetime:2000-03-20T00:00:00Z>
@@ -72,8 +72,8 @@ dt - time.delta(0, 0, 2000000) .. <datetime:2000-03-20T23:59:58Z>
 dt + (-time.delta(0, 0, 2000000)) .. <datetime:2000-03-20T23:59:58Z>
 --------------------
 2000-03-01 00:00
-time.datetime(year, month, day, hour, min) + time.delta(1) .. <datetime:2000-03-02T00:00:00+09:00>
-time.delta(1) + time.datetime(year, month, day) .. <datetime:2000-03-02T00:00:00+09:00>
+time.datetime(year, month, day, hour, min, minsoff => 0) + time.delta(1) .. <datetime:2000-03-02T00:00:00Z>
+time.delta(1) + time.datetime(year, month, day, minsoff => 0) .. <datetime:2000-03-02T00:00:00Z>
 dt + time.delta(1) .. <datetime:2000-03-02T00:00:00Z>
 dt - (-time.delta(1)) .. <datetime:2000-03-02T00:00:00Z>
 dt - time.delta(1) .. <datetime:2000-02-29T00:00:00Z>
@@ -90,8 +90,8 @@ dt - time.delta(0, 0, 2000000) .. <datetime:2000-02-29T23:59:58Z>
 dt + (-time.delta(0, 0, 2000000)) .. <datetime:2000-02-29T23:59:58Z>
 --------------------
 2001-03-01 00:00
-time.datetime(year, month, day, hour, min) + time.delta(1) .. <datetime:2001-03-02T00:00:00+09:00>
-time.delta(1) + time.datetime(year, month, day) .. <datetime:2001-03-02T00:00:00+09:00>
+time.datetime(year, month, day, hour, min, minsoff => 0) + time.delta(1) .. <datetime:2001-03-02T00:00:00Z>
+time.delta(1) + time.datetime(year, month, day, minsoff => 0) .. <datetime:2001-03-02T00:00:00Z>
 dt + time.delta(1) .. <datetime:2001-03-02T00:00:00Z>
 dt - (-time.delta(1)) .. <datetime:2001-03-02T00:00:00Z>
 dt - time.delta(1) .. <datetime:2001-02-28T00:00:00Z>
@@ -108,8 +108,8 @@ dt - time.delta(0, 0, 2000000) .. <datetime:2001-02-28T23:59:58Z>
 dt + (-time.delta(0, 0, 2000000)) .. <datetime:2001-02-28T23:59:58Z>
 --------------------
 2000-02-29 23:00
-time.datetime(year, month, day, hour, min) + time.delta(1) .. <datetime:2000-03-01T23:00:00+09:00>
-time.delta(1) + time.datetime(year, month, day) .. <datetime:2000-03-01T00:00:00+09:00>
+time.datetime(year, month, day, hour, min, minsoff => 0) + time.delta(1) .. <datetime:2000-03-01T23:00:00Z>
+time.delta(1) + time.datetime(year, month, day, minsoff => 0) .. <datetime:2000-03-01T00:00:00Z>
 dt + time.delta(1) .. <datetime:2000-03-01T23:00:00Z>
 dt - (-time.delta(1)) .. <datetime:2000-03-01T23:00:00Z>
 dt - time.delta(1) .. <datetime:2000-02-28T23:00:00Z>
@@ -126,8 +126,8 @@ dt - time.delta(0, 0, 2000000) .. <datetime:2000-02-29T22:59:58Z>
 dt + (-time.delta(0, 0, 2000000)) .. <datetime:2000-02-29T22:59:58Z>
 --------------------
 2001-02-28 23:00
-time.datetime(year, month, day, hour, min) + time.delta(1) .. <datetime:2001-03-01T23:00:00+09:00>
-time.delta(1) + time.datetime(year, month, day) .. <datetime:2001-03-01T00:00:00+09:00>
+time.datetime(year, month, day, hour, min, minsoff => 0) + time.delta(1) .. <datetime:2001-03-01T23:00:00Z>
+time.delta(1) + time.datetime(year, month, day, minsoff => 0) .. <datetime:2001-03-01T00:00:00Z>
 dt + time.delta(1) .. <datetime:2001-03-01T23:00:00Z>
 dt - (-time.delta(1)) .. <datetime:2001-03-01T23:00:00Z>
 dt - time.delta(1) .. <datetime:2001-02-27T23:00:00Z>
@@ -144,8 +144,8 @@ dt - time.delta(0, 0, 2000000) .. <datetime:2001-02-28T22:59:58Z>
 dt + (-time.delta(0, 0, 2000000)) .. <datetime:2001-02-28T22:59:58Z>
 --------------------
 2000-01-01 00:00
-time.datetime(year, month, day, hour, min) + time.delta(1) .. <datetime:2000-01-02T00:00:00+09:00>
-time.delta(1) + time.datetime(year, month, day) .. <datetime:2000-01-02T00:00:00+09:00>
+time.datetime(year, month, day, hour, min, minsoff => 0) + time.delta(1) .. <datetime:2000-01-02T00:00:00Z>
+time.delta(1) + time.datetime(year, month, day, minsoff => 0) .. <datetime:2000-01-02T00:00:00Z>
 dt + time.delta(1) .. <datetime:2000-01-02T00:00:00Z>
 dt - (-time.delta(1)) .. <datetime:2000-01-02T00:00:00Z>
 dt - time.delta(1) .. <datetime:1999-12-31T00:00:00Z>
@@ -162,8 +162,8 @@ dt - time.delta(0, 0, 2000000) .. <datetime:1999-12-31T23:59:58Z>
 dt + (-time.delta(0, 0, 2000000)) .. <datetime:1999-12-31T23:59:58Z>
 --------------------
 2000-12-31 23:00
-time.datetime(year, month, day, hour, min) + time.delta(1) .. <datetime:2001-01-01T23:00:00+09:00>
-time.delta(1) + time.datetime(year, month, day) .. <datetime:2001-01-01T00:00:00+09:00>
+time.datetime(year, month, day, hour, min, minsoff => 0) + time.delta(1) .. <datetime:2001-01-01T23:00:00Z>
+time.delta(1) + time.datetime(year, month, day, minsoff => 0) .. <datetime:2001-01-01T00:00:00Z>
 dt + time.delta(1) .. <datetime:2001-01-01T23:00:00Z>
 dt - (-time.delta(1)) .. <datetime:2001-01-01T23:00:00Z>
 dt - time.delta(1) .. <datetime:2000-12-30T23:00:00Z>
