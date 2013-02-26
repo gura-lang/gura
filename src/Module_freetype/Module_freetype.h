@@ -9,6 +9,18 @@
 #include FT_BITMAP_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
+#include FT_TRIGONOMETRY_H
+#include FT_BDF_H
+#include FT_AUTOHINTER_H
+#include FT_LCD_FILTER_H
+#include FT_WINFONTS_H
+#include FT_GX_VALIDATE_H
+#include FT_OPENTYPE_VALIDATE_H
+#include FT_SFNT_NAMES_H
+#include FT_INCREMENTAL_H
+#include FT_STROKER_H
+#include FT_MODULE_H
+#include FT_UNPATENTED_HINTING_H
 
 #if defined(HAVE_WINDOWS_H)
 #include <shlobj.h>

@@ -3,6 +3,9 @@
 //-----------------------------------------------------------------------------
 #include "Module_freetype.h"
 
+#define Gura_AssignRawValue(name) \
+Gura_AssignValue(name, Value(static_cast<double>(name)))
+
 #define Gura_AssignFTValue(name) \
 Gura_AssignValue(name, Value(static_cast<double>(FT_##name)))
 
@@ -1027,6 +1030,45 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(size);
 	Gura_RealizeUserSymbol(charmap);
 	// value declarations
+	// BDF_PropertyType (BDF_PROPERTY_TYPE_XXX)
+	Gura_AssignRawValue(BDF_PROPERTY_TYPE_NONE);
+	Gura_AssignRawValue(BDF_PROPERTY_TYPE_ATOM);
+	Gura_AssignRawValue(BDF_PROPERTY_TYPE_INTEGER);
+	Gura_AssignRawValue(BDF_PROPERTY_TYPE_CARDINAL);
+	// FREETYPE_XXX
+	Gura_AssignRawValue(FREETYPE_MAJOR);
+	Gura_AssignRawValue(FREETYPE_MINOR);
+	Gura_AssignRawValue(FREETYPE_PATCH);
+	// FT_ANGLE_XXX
+	Gura_AssignFTValue(ANGLE_2PI);
+	Gura_AssignFTValue(ANGLE_PI);
+	Gura_AssignFTValue(ANGLE_PI2);
+	Gura_AssignFTValue(ANGLE_PI4);
+	// FT_AUTOHINTER_SCRIPT_XXX
+	Gura_AssignFTValue(AUTOHINTER_SCRIPT_CJK);
+	Gura_AssignFTValue(AUTOHINTER_SCRIPT_INDIC);
+	Gura_AssignFTValue(AUTOHINTER_SCRIPT_LATIN);
+	Gura_AssignFTValue(AUTOHINTER_SCRIPT_NONE);
+	// FT_Encoding (FT_ENCODING_XXX)
+	Gura_AssignFTValue(ENCODING_ADOBE_CUSTOM);
+	Gura_AssignFTValue(ENCODING_ADOBE_EXPERT);
+	Gura_AssignFTValue(ENCODING_ADOBE_LATIN_1);
+	Gura_AssignFTValue(ENCODING_ADOBE_STANDARD);
+	Gura_AssignFTValue(ENCODING_APPLE_ROMAN);
+	Gura_AssignFTValue(ENCODING_BIG5);
+	Gura_AssignFTValue(ENCODING_GB2312);
+	Gura_AssignFTValue(ENCODING_JOHAB);
+	Gura_AssignFTValue(ENCODING_MS_BIG5);
+	Gura_AssignFTValue(ENCODING_MS_GB2312);
+	Gura_AssignFTValue(ENCODING_MS_JOHAB);
+	Gura_AssignFTValue(ENCODING_MS_SJIS);
+	Gura_AssignFTValue(ENCODING_MS_SYMBOL);
+	Gura_AssignFTValue(ENCODING_MS_WANSUNG);
+	Gura_AssignFTValue(ENCODING_NONE);
+	Gura_AssignFTValue(ENCODING_OLD_LATIN_2);
+	Gura_AssignFTValue(ENCODING_SJIS);
+	Gura_AssignFTValue(ENCODING_UNICODE);
+	Gura_AssignFTValue(ENCODING_WANSUNG);
 	// FT_FACE_FLAG_XXX
 	Gura_AssignFTValue(FACE_FLAG_SCALABLE);
 	Gura_AssignFTValue(FACE_FLAG_FIXED_WIDTH);
@@ -1041,9 +1083,169 @@ Gura_ModuleEntry()
 	Gura_AssignFTValue(FACE_FLAG_HINTER);
 	Gura_AssignFTValue(FACE_FLAG_CID_KEYED);
 	Gura_AssignFTValue(FACE_FLAG_TRICKY);
+	// FT_FSTYPE_XXX
+	Gura_AssignFTValue(FSTYPE_INSTALLABLE_EMBEDDING);
+	Gura_AssignFTValue(FSTYPE_RESTRICTED_LICENSE_EMBEDDING);
+	Gura_AssignFTValue(FSTYPE_PREVIEW_AND_PRINT_EMBEDDING);
+	Gura_AssignFTValue(FSTYPE_EDITABLE_EMBEDDING);
+	Gura_AssignFTValue(FSTYPE_NO_SUBSETTING);
+	Gura_AssignFTValue(FSTYPE_BITMAP_EMBEDDING_ONLY);
+	// FT_Glyph_BBox_Mode (FT_GLYPH_BBOX_XXX)
+	Gura_AssignFTValue(GLYPH_BBOX_UNSCALED);
+	Gura_AssignFTValue(GLYPH_BBOX_SUBPIXELS);
+	Gura_AssignFTValue(GLYPH_BBOX_GRIDFIT);
+	Gura_AssignFTValue(GLYPH_BBOX_TRUNCATE);
+	Gura_AssignFTValue(GLYPH_BBOX_PIXELS);
+	// FT_Kerning_Mode (FT_KERNING_XXX)
+	Gura_AssignFTValue(KERNING_DEFAULT);
+	Gura_AssignFTValue(KERNING_UNFITTED);
+	Gura_AssignFTValue(KERNING_UNSCALED);
+	// FT_LcdFilter (FT_LCD_FILTER_XXX)
+	Gura_AssignFTValue(LCD_FILTER_NONE);
+	Gura_AssignFTValue(LCD_FILTER_DEFAULT);
+	Gura_AssignFTValue(LCD_FILTER_LIGHT);
+	Gura_AssignFTValue(LCD_FILTER_LEGACY);
+	// FT_LOAD_XXX
+	Gura_AssignFTValue(LOAD_DEFAULT);
+	Gura_AssignFTValue(LOAD_NO_SCALE);
+	Gura_AssignFTValue(LOAD_NO_HINTING);
+	Gura_AssignFTValue(LOAD_RENDER);
+	Gura_AssignFTValue(LOAD_NO_BITMAP);
+	Gura_AssignFTValue(LOAD_VERTICAL_LAYOUT);
+	Gura_AssignFTValue(LOAD_FORCE_AUTOHINT);
+	Gura_AssignFTValue(LOAD_CROP_BITMAP);
+	Gura_AssignFTValue(LOAD_PEDANTIC);
+	Gura_AssignFTValue(LOAD_IGNORE_GLOBAL_ADVANCE_WIDTH);
+	Gura_AssignFTValue(LOAD_NO_RECURSE);
+	Gura_AssignFTValue(LOAD_IGNORE_TRANSFORM);
+	Gura_AssignFTValue(LOAD_MONOCHROME);
+	Gura_AssignFTValue(LOAD_LINEAR_DESIGN);
+	Gura_AssignFTValue(LOAD_NO_AUTOHINT);
+	// FT_OPEN_XXX
+	Gura_AssignFTValue(OPEN_DRIVER);
+	Gura_AssignFTValue(OPEN_MEMORY);
+	Gura_AssignFTValue(OPEN_PARAMS);
+	Gura_AssignFTValue(OPEN_PATHNAME);
+	Gura_AssignFTValue(OPEN_STREAM);
+	// FT_Orientation (FT_ORIENTATION_XXX)
+	Gura_AssignFTValue(ORIENTATION_TRUETYPE);
+	Gura_AssignFTValue(ORIENTATION_POSTSCRIPT);
+	Gura_AssignFTValue(ORIENTATION_FILL_RIGHT);
+	Gura_AssignFTValue(ORIENTATION_FILL_LEFT);
+	Gura_AssignFTValue(ORIENTATION_NONE);
+	// FT_OUTLINE_XXX
+	Gura_AssignFTValue(OUTLINE_NONE);
+	Gura_AssignFTValue(OUTLINE_OWNER);
+	Gura_AssignFTValue(OUTLINE_EVEN_ODD_FILL);
+	Gura_AssignFTValue(OUTLINE_REVERSE_FILL);
+	Gura_AssignFTValue(OUTLINE_IGNORE_DROPOUTS);
+	Gura_AssignFTValue(OUTLINE_SMART_DROPOUTS);
+	Gura_AssignFTValue(OUTLINE_INCLUDE_STUBS);
+	Gura_AssignFTValue(OUTLINE_HIGH_PRECISION);
+	Gura_AssignFTValue(OUTLINE_SINGLE_PASS);
+	// FT_PARAM_TAG_XXX
+	Gura_AssignFTValue(PARAM_TAG_IGNORE_PREFERRED_FAMILY);
+	Gura_AssignFTValue(PARAM_TAG_IGNORE_PREFERRED_SUBFAMILY);
+	Gura_AssignFTValue(PARAM_TAG_INCREMENTAL);
+	Gura_AssignFTValue(PARAM_TAG_UNPATENTED_HINTING);
+	// FT_Pixel_Mode (FT_PIXEL_MODE_XXX)
+	Gura_AssignFTValue(PIXEL_MODE_NONE);
+	Gura_AssignFTValue(PIXEL_MODE_MONO);
+	Gura_AssignFTValue(PIXEL_MODE_GRAY);
+	Gura_AssignFTValue(PIXEL_MODE_GRAY2);
+	Gura_AssignFTValue(PIXEL_MODE_GRAY4);
+	Gura_AssignFTValue(PIXEL_MODE_LCD);
+	Gura_AssignFTValue(PIXEL_MODE_LCD_V);
+	// FT_RASTER_FLAG_XXX
+	Gura_AssignFTValue(RASTER_FLAG_DEFAULT);
+	Gura_AssignFTValue(RASTER_FLAG_AA);
+	Gura_AssignFTValue(RASTER_FLAG_DIRECT);
+	Gura_AssignFTValue(RASTER_FLAG_CLIP);
+	// FT_Render_Mode (FT_RENDER_MODE_XXX)
+	Gura_AssignFTValue(RENDER_MODE_NORMAL);
+	Gura_AssignFTValue(RENDER_MODE_LIGHT);
+	Gura_AssignFTValue(RENDER_MODE_MONO);
+	Gura_AssignFTValue(RENDER_MODE_LCD);
+	Gura_AssignFTValue(RENDER_MODE_LCD_V);
+	// FT_Size_Request_Type (FT_SIZE_REQUEST_TYPE_XXX)
+	Gura_AssignFTValue(SIZE_REQUEST_TYPE_NOMINAL);
+	Gura_AssignFTValue(SIZE_REQUEST_TYPE_REAL_DIM);
+	Gura_AssignFTValue(SIZE_REQUEST_TYPE_BBOX);
+	Gura_AssignFTValue(SIZE_REQUEST_TYPE_CELL);
+	Gura_AssignFTValue(SIZE_REQUEST_TYPE_SCALES);
+	// FT_StrokerBorder (FT_STROKER_BORDER_XXX)
+	Gura_AssignFTValue(STROKER_BORDER_LEFT);
+	Gura_AssignFTValue(STROKER_BORDER_RIGHT);
+	// FT_Stroker_LineCap (FT_STROKER_LINECAP_XXX)
+	Gura_AssignFTValue(STROKER_LINECAP_BUTT);
+	Gura_AssignFTValue(STROKER_LINECAP_ROUND);
+	Gura_AssignFTValue(STROKER_LINECAP_SQUARE);
+	// FT_Stroker_LineCap (FT_STROKER_LINEJOIN_XXX)
+	Gura_AssignFTValue(STROKER_LINEJOIN_ROUND);
+	Gura_AssignFTValue(STROKER_LINEJOIN_BEVEL);
+	Gura_AssignFTValue(STROKER_LINEJOIN_MITER_VARIABLE);
+	Gura_AssignFTValue(STROKER_LINEJOIN_MITER);
+	Gura_AssignFTValue(STROKER_LINEJOIN_MITER_FIXED);
 	// FT_STYLE_FLAG_XXX
 	Gura_AssignFTValue(STYLE_FLAG_ITALIC);
 	Gura_AssignFTValue(STYLE_FLAG_BOLD);
+	// FT_SUBGLYPH_FLAG_XXX
+	Gura_AssignFTValue(SUBGLYPH_FLAG_ARGS_ARE_WORDS);
+	Gura_AssignFTValue(SUBGLYPH_FLAG_ARGS_ARE_XY_VALUES);
+	Gura_AssignFTValue(SUBGLYPH_FLAG_ROUND_XY_TO_GRID);
+	Gura_AssignFTValue(SUBGLYPH_FLAG_SCALE);
+	Gura_AssignFTValue(SUBGLYPH_FLAG_XY_SCALE);
+	Gura_AssignFTValue(SUBGLYPH_FLAG_2X2);
+	Gura_AssignFTValue(SUBGLYPH_FLAG_USE_MY_METRICS);
+	// FT_TrueTypeEngineType (FT_TRUETYPE_ENGINE_TYPE_XXX)
+	Gura_AssignFTValue(TRUETYPE_ENGINE_TYPE_NONE);
+	Gura_AssignFTValue(TRUETYPE_ENGINE_TYPE_UNPATENTED);
+	Gura_AssignFTValue(TRUETYPE_ENGINE_TYPE_PATENTED);
+	// FT_VALIDATE_XXX
+	Gura_AssignFTValue(VALIDATE_MS);
+	Gura_AssignFTValue(VALIDATE_APPLE);
+	Gura_AssignFTValue(VALIDATE_CKERN);
+	// FT_VALIDATE_OTXXX
+	Gura_AssignFTValue(VALIDATE_OT);
+	Gura_AssignFTValue(VALIDATE_BASE);
+	Gura_AssignFTValue(VALIDATE_GDEF);
+	Gura_AssignFTValue(VALIDATE_GPOS);
+	Gura_AssignFTValue(VALIDATE_GSUB);
+	Gura_AssignFTValue(VALIDATE_JSTF);
+	Gura_AssignFTValue(VALIDATE_MATH);
+	// FT_VALIDATE_GXXX
+	Gura_AssignFTValue(VALIDATE_GX);
+	Gura_AssignFTValue(VALIDATE_GX_LENGTH);
+	Gura_AssignFTValue(VALIDATE_feat);
+	Gura_AssignFTValue(VALIDATE_mort);
+	Gura_AssignFTValue(VALIDATE_morx);
+	Gura_AssignFTValue(VALIDATE_bsln);
+	Gura_AssignFTValue(VALIDATE_just);
+	Gura_AssignFTValue(VALIDATE_kern);
+	Gura_AssignFTValue(VALIDATE_opbd);
+	Gura_AssignFTValue(VALIDATE_trak);
+	Gura_AssignFTValue(VALIDATE_prop);
+	Gura_AssignFTValue(VALIDATE_lcar);
+	// FT_WinFNT_ID_XXX
+	Gura_AssignFTValue(WinFNT_ID_CP1252);
+	Gura_AssignFTValue(WinFNT_ID_DEFAULT);
+	Gura_AssignFTValue(WinFNT_ID_SYMBOL);
+	Gura_AssignFTValue(WinFNT_ID_MAC);
+	Gura_AssignFTValue(WinFNT_ID_CP932);
+	Gura_AssignFTValue(WinFNT_ID_CP949);
+	Gura_AssignFTValue(WinFNT_ID_CP1361);
+	Gura_AssignFTValue(WinFNT_ID_CP936);
+	Gura_AssignFTValue(WinFNT_ID_CP950);
+	Gura_AssignFTValue(WinFNT_ID_CP1253);
+	Gura_AssignFTValue(WinFNT_ID_CP1254);
+	Gura_AssignFTValue(WinFNT_ID_CP1258);
+	Gura_AssignFTValue(WinFNT_ID_CP1255);
+	Gura_AssignFTValue(WinFNT_ID_CP1256);
+	Gura_AssignFTValue(WinFNT_ID_CP1257);
+	Gura_AssignFTValue(WinFNT_ID_CP1251);
+	Gura_AssignFTValue(WinFNT_ID_CP874);
+	Gura_AssignFTValue(WinFNT_ID_CP1250);
+	Gura_AssignFTValue(WinFNT_ID_OEM);
 	// class realization
 	Gura_RealizeUserClass(Vector, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(BBox, env.LookupClass(VTYPE_object));
