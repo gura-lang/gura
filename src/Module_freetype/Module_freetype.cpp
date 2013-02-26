@@ -1246,6 +1246,13 @@ Gura_ModuleEntry()
 	Gura_AssignFTValue(WinFNT_ID_CP874);
 	Gura_AssignFTValue(WinFNT_ID_CP1250);
 	Gura_AssignFTValue(WinFNT_ID_OEM);
+	// TT_ADOBE_ID_XXX
+	Gura_AssignRawValue(TT_ADOBE_ID_STANDARD);
+	Gura_AssignRawValue(TT_ADOBE_ID_EXPERT);
+	Gura_AssignRawValue(TT_ADOBE_ID_CUSTOM);
+	Gura_AssignRawValue(TT_ADOBE_ID_LATIN_1);
+
+
 	// class realization
 	Gura_RealizeUserClass(Vector, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(BBox, env.LookupClass(VTYPE_object));
