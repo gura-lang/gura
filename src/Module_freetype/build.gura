@@ -2,7 +2,10 @@
 import(modbuild)
 srcs = [
 'Module_freetype.cpp'
+'Object_BBox.cpp'
 'Object_Vector.cpp'
+'Object_Matrix.cpp'
+'Object_Face.cpp'
 ]
 builder = modbuild.Builder()
 if (sys.build == `msc) {
