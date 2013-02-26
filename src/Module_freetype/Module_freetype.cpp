@@ -1251,8 +1251,68 @@ Gura_ModuleEntry()
 	Gura_AssignRawValue(TT_ADOBE_ID_EXPERT);
 	Gura_AssignRawValue(TT_ADOBE_ID_CUSTOM);
 	Gura_AssignRawValue(TT_ADOBE_ID_LATIN_1);
-
-
+	// TT_APPLE_ID_XXX
+	Gura_AssignRawValue(TT_APPLE_ID_DEFAULT);
+	Gura_AssignRawValue(TT_APPLE_ID_ISO_10646);
+	Gura_AssignRawValue(TT_APPLE_ID_UNICODE_1_1);
+	Gura_AssignRawValue(TT_APPLE_ID_UNICODE_2_0);
+	Gura_AssignRawValue(TT_APPLE_ID_UNICODE_32);
+	Gura_AssignRawValue(TT_APPLE_ID_VARIANT_SELECTOR);
+	// TT_ISO_ID_XXX
+	Gura_AssignRawValue(TT_ISO_ID_10646);
+	Gura_AssignRawValue(TT_ISO_ID_7BIT_ASCII);
+	Gura_AssignRawValue(TT_ISO_ID_8859_1);
+	// TT_MAC_ID_XXX
+	Gura_AssignRawValue(TT_MAC_ID_ARABIC);
+	Gura_AssignRawValue(TT_MAC_ID_ARMENIAN);
+	Gura_AssignRawValue(TT_MAC_ID_BENGALI);
+	Gura_AssignRawValue(TT_MAC_ID_BURMESE);
+	Gura_AssignRawValue(TT_MAC_ID_DEVANAGARI);
+	Gura_AssignRawValue(TT_MAC_ID_GEEZ);
+	Gura_AssignRawValue(TT_MAC_ID_GEORGIAN);
+	Gura_AssignRawValue(TT_MAC_ID_GREEK);
+	Gura_AssignRawValue(TT_MAC_ID_GUJARATI);
+	Gura_AssignRawValue(TT_MAC_ID_GURMUKHI);
+	Gura_AssignRawValue(TT_MAC_ID_HEBREW);
+	Gura_AssignRawValue(TT_MAC_ID_JAPANESE);
+	Gura_AssignRawValue(TT_MAC_ID_KANNADA);
+	Gura_AssignRawValue(TT_MAC_ID_KHMER);
+	Gura_AssignRawValue(TT_MAC_ID_KOREAN);
+	Gura_AssignRawValue(TT_MAC_ID_LAOTIAN);
+	Gura_AssignRawValue(TT_MAC_ID_MALAYALAM);
+	Gura_AssignRawValue(TT_MAC_ID_MALDIVIAN);
+	Gura_AssignRawValue(TT_MAC_ID_MONGOLIAN);
+	Gura_AssignRawValue(TT_MAC_ID_ORIYA);
+	Gura_AssignRawValue(TT_MAC_ID_ROMAN);
+	Gura_AssignRawValue(TT_MAC_ID_RSYMBOL);
+	Gura_AssignRawValue(TT_MAC_ID_RUSSIAN);
+	Gura_AssignRawValue(TT_MAC_ID_SIMPLIFIED_CHINESE);
+	Gura_AssignRawValue(TT_MAC_ID_SINDHI);
+	Gura_AssignRawValue(TT_MAC_ID_SINHALESE);
+	Gura_AssignRawValue(TT_MAC_ID_SLAVIC);
+	Gura_AssignRawValue(TT_MAC_ID_TAMIL);
+	Gura_AssignRawValue(TT_MAC_ID_TELUGU);
+	Gura_AssignRawValue(TT_MAC_ID_THAI);
+	Gura_AssignRawValue(TT_MAC_ID_TIBETAN);
+	Gura_AssignRawValue(TT_MAC_ID_TRADITIONAL_CHINESE);
+	Gura_AssignRawValue(TT_MAC_ID_UNINTERP);
+	Gura_AssignRawValue(TT_MAC_ID_VIETNAMESE);
+	// TT_MS_ID_XXX
+	Gura_AssignRawValue(TT_MS_ID_BIG_5);
+	Gura_AssignRawValue(TT_MS_ID_GB2312);
+	Gura_AssignRawValue(TT_MS_ID_JOHAB);
+	Gura_AssignRawValue(TT_MS_ID_SJIS);
+	Gura_AssignRawValue(TT_MS_ID_SYMBOL_CS);
+	Gura_AssignRawValue(TT_MS_ID_UCS_4);
+	Gura_AssignRawValue(TT_MS_ID_UNICODE_CS);
+	Gura_AssignRawValue(TT_MS_ID_WANSUNG);
+	// TT_PLATFORM_XXX
+	Gura_AssignRawValue(TT_PLATFORM_APPLE_UNICODE);
+	Gura_AssignRawValue(TT_PLATFORM_MACINTOSH);
+	Gura_AssignRawValue(TT_PLATFORM_ISO);
+	Gura_AssignRawValue(TT_PLATFORM_MICROSOFT);
+	Gura_AssignRawValue(TT_PLATFORM_CUSTOM);
+	Gura_AssignRawValue(TT_PLATFORM_ADOBE);
 	// class realization
 	Gura_RealizeUserClass(Vector, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(BBox, env.LookupClass(VTYPE_object));

@@ -21,6 +21,7 @@
 #include FT_STROKER_H
 #include FT_MODULE_H
 #include FT_UNPATENTED_HINTING_H
+#include FT_TRUETYPE_IDS_H
 
 #if defined(HAVE_WINDOWS_H)
 #include <shlobj.h>
