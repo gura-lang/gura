@@ -517,6 +517,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(Vector, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(BBox, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Matrix, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(GlyphSlot, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(Outline, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Face, env.LookupClass(VTYPE_object));
 	// class assignment
 	Gura_AssignValue(Face, Value(Gura_UserClass(Face)));

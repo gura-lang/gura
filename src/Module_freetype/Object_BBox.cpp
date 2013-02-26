@@ -13,7 +13,7 @@ Object *Object_BBox::Clone() const
 String Object_BBox::ToString(Signal sig, bool exprFlag)
 {
 	char buff[80];
-	::sprintf(buff, "<sdl.BBox:xMin=%d,yMin=%d,xMax=%d,yMax=%d>",
+	::sprintf(buff, "<freetype.BBox:xMin=%d,yMin=%d,xMax=%d,yMax=%d>",
 						_bbox.xMin, _bbox.yMin, _bbox.xMax, _bbox.yMax);
 	return String(buff);
 }

@@ -5,6 +5,8 @@
 #include "Object_BBox.h"
 #include "Object_Vector.h"
 #include "Object_Matrix.h"
+#include "Object_GlyphSlot.h"
+#include "Object_Outline.h"
 #include "Object_Face.h"
 
 #endif

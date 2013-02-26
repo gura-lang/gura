@@ -3,45 +3,50 @@
 Gura_BeginModule(freetype)
 
 //-----------------------------------------------------------------------------
-// Object_Vector implementation
+// Object_GlyphSlot implementation
 //-----------------------------------------------------------------------------
-Object *Object_Vector::Clone() const
+Object *Object_GlyphSlot::Clone() const
 {
 	return NULL;
 }
 
-String Object_Vector::ToString(Signal sig, bool exprFlag)
+String Object_GlyphSlot::ToString(Signal sig, bool exprFlag)
 {
 	char buff[80];
-	::sprintf(buff, "<freetype.Vector:x=%d,y=%d>", _vector.x, _vector.y);
+	::sprintf(buff, "<freetype.GlyphSlot>");
 	return String(buff);
 }
 
-bool Object_Vector::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_GlyphSlot::DoDirProp(Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(sig, symbols)) return false;
+#if 0
 	symbols.insert(Gura_Symbol(x));
 	symbols.insert(Gura_Symbol(y));
+#endif
 	return true;
 }
 
-Value Object_Vector::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_GlyphSlot::DoGetProp(Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
+#if 0
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
 		return Value(_vector.x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
 		return Value(_vector.y);
 	}
+#endif
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-Value Object_Vector::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_GlyphSlot::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
+#if 0
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
 		if (!value.MustBeNumber(sig)) return Value::Null;
 		_vector.x = static_cast<FT_Pos>(value.GetLong());
@@ -51,14 +56,15 @@ Value Object_Vector::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &v
 		_vector.y = static_cast<FT_Pos>(value.GetLong());
 		return Value(_vector.y);
 	}
+#endif
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
-// Class implementation for freetype.Vector
+// Class implementation for freetype.GlyphSlot
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(Vector)
+Gura_ImplementUserClass(GlyphSlot)
 {
 }
 

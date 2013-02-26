@@ -13,7 +13,7 @@ Object *Object_Matrix::Clone() const
 String Object_Matrix::ToString(Signal sig, bool exprFlag)
 {
 	char buff[80];
-	::sprintf(buff, "<sdl.Matrix:xx=%d,xy=%d,yx=%d,yy=%d>",
+	::sprintf(buff, "<freetype.Matrix:xx=%d,xy=%d,yx=%d,yy=%d>",
 					_matrix.xx, _matrix.xy, _matrix.yx, _matrix.yy);
 	return String(buff);
 }
