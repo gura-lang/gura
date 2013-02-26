@@ -92,6 +92,7 @@ Gura_DeclareClassMethod(surface, create_similar_image)
 
 Gura_ImplementClassMethod(surface, create_similar_image)
 {
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	cairo_surface_t *other = Object_surface::GetObject(args, 0)->GetEntity();
 	cairo_format_t format = static_cast<cairo_format_t>(args.GetInt(1));
 	int width = args.GetInt(2);
@@ -99,6 +100,10 @@ Gura_ImplementClassMethod(surface, create_similar_image)
 	cairo_surface_t *surface = ::cairo_surface_create_similar_image(other, format, width, height);
 	Object_surface *pObjSurface = new Object_surface(surface);
 	return ReturnValue(env, sig, args, Value(pObjSurface));
+#else
+	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
+	return Value::Null;
+#endif
 }
 
 // cairo.surface.create_for_rectangle(target:cairo.surface, x:number, y:number, width:number, height:number) {block?}

@@ -373,7 +373,7 @@ Gura_ModuleEntry()
 	Gura_AssignCairoValue(FORMAT_A8);
 	Gura_AssignCairoValue(FORMAT_A1);
 	Gura_AssignCairoValue(FORMAT_RGB16_565);
-	Gura_AssignCairoValue(FORMAT_RGB30);
+	//Gura_AssignCairoValue(FORMAT_RGB30);
 	// cairo_path_data_type_t
 	Gura_AssignCairoValue(PATH_MOVE_TO);
 	Gura_AssignCairoValue(PATH_LINE_TO);
@@ -506,9 +506,11 @@ Gura_ModuleEntry()
 	Gura_AssignCairoValue(DEVICE_TYPE_XCB);
 	Gura_AssignCairoValue(DEVICE_TYPE_XLIB);
 	Gura_AssignCairoValue(DEVICE_TYPE_XML);
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Gura_AssignCairoValue(DEVICE_TYPE_COGL);
 	Gura_AssignCairoValue(DEVICE_TYPE_WIN32);
-	Gura_AssignCairoValue(DEVICE_TYPE_INVALID);
+#endif
+	//Gura_AssignCairoValue(DEVICE_TYPE_INVALID);
 	// cairo_ps_level_t
 	Gura_AssignCairoValue(PS_LEVEL_2);
 	Gura_AssignCairoValue(PS_LEVEL_3);
@@ -523,7 +525,7 @@ Gura_ModuleEntry()
 	Gura_AssignCairoStringValue(MIME_TYPE_JPEG);
 	Gura_AssignCairoStringValue(MIME_TYPE_PNG);
 	Gura_AssignCairoStringValue(MIME_TYPE_URI);
-	Gura_AssignCairoStringValue(MIME_TYPE_UNIQUE_ID);
+	//Gura_AssignCairoStringValue(MIME_TYPE_UNIQUE_ID);
 }
 
 Gura_ModuleTerminate()

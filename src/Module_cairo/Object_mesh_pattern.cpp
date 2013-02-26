@@ -22,12 +22,17 @@ Gura_DeclareClassMethod(mesh_pattern, create)
 
 Gura_ImplementClassMethod(mesh_pattern, create)
 {
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	cairo_pattern_t *pattern = ::cairo_pattern_create_mesh();
 	if (IsError(sig, pattern)) {
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_mesh_pattern(pattern)));
+#else
+	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
+	return Value::Null;
+#endif
 }
 
 // cairo.mesh_pattern#begin_patch():reduce
@@ -38,11 +43,16 @@ Gura_DeclareMethod(mesh_pattern, begin_patch)
 
 Gura_ImplementMethod(mesh_pattern, begin_patch)
 {
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	::cairo_mesh_pattern_begin_patch(pattern);
 	if (IsError(sig, pattern)) return Value::Null;
 	return args.GetThis();
+#else
+	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
+	return Value::Null;
+#endif
 }
 
 // cairo.mesh_pattern#end_patch():reduce
@@ -53,11 +63,16 @@ Gura_DeclareMethod(mesh_pattern, end_patch)
 
 Gura_ImplementMethod(mesh_pattern, end_patch)
 {
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	::cairo_mesh_pattern_end_patch(pattern);
 	if (IsError(sig, pattern)) return Value::Null;
 	return args.GetThis();
+#else
+	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
+	return Value::Null;
+#endif
 }
 
 // cairo.mesh_pattern#move_to(x:number, y:number):reduce
@@ -70,6 +85,7 @@ Gura_DeclareMethod(mesh_pattern, move_to)
 
 Gura_ImplementMethod(mesh_pattern, move_to)
 {
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	double x = args.GetDouble(0);
@@ -77,6 +93,10 @@ Gura_ImplementMethod(mesh_pattern, move_to)
 	::cairo_mesh_pattern_move_to(pattern, x, y);
 	if (IsError(sig, pattern)) return Value::Null;
 	return args.GetThis();
+#else
+	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
+	return Value::Null;
+#endif
 }
 
 // cairo.mesh_pattern#line_to(x:number, y:number):reduce
@@ -89,6 +109,7 @@ Gura_DeclareMethod(mesh_pattern, line_to)
 
 Gura_ImplementMethod(mesh_pattern, line_to)
 {
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	double x = args.GetDouble(0);
@@ -96,6 +117,10 @@ Gura_ImplementMethod(mesh_pattern, line_to)
 	::cairo_mesh_pattern_line_to(pattern, x, y);
 	if (IsError(sig, pattern)) return Value::Null;
 	return args.GetThis();
+#else
+	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
+	return Value::Null;
+#endif
 }
 
 // cairo.mesh_pattern#curve_to(x1:number, y1:number, x2:number, y2:number, x3:number, y3:number):reduce
@@ -112,6 +137,7 @@ Gura_DeclareMethod(mesh_pattern, curve_to)
 
 Gura_ImplementMethod(mesh_pattern, curve_to)
 {
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	double x1 = args.GetDouble(0);
@@ -123,6 +149,10 @@ Gura_ImplementMethod(mesh_pattern, curve_to)
 	::cairo_mesh_pattern_curve_to(pattern, x1, y1, x2, y2, x3, y3);
 	if (IsError(sig, pattern)) return Value::Null;
 	return args.GetThis();
+#else
+	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
+	return Value::Null;
+#endif
 }
 
 // cairo.mesh_pattern#set_control_point(point_num:number, x:number, y:number):reduce
@@ -136,6 +166,7 @@ Gura_DeclareMethod(mesh_pattern, set_control_point)
 
 Gura_ImplementMethod(mesh_pattern, set_control_point)
 {
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	unsigned int point_num = args.GetUInt(0);
@@ -144,6 +175,10 @@ Gura_ImplementMethod(mesh_pattern, set_control_point)
 	::cairo_mesh_pattern_set_control_point(pattern, point_num, x, y);
 	if (IsError(sig, pattern)) return Value::Null;
 	return args.GetThis();
+#else
+	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
+	return Value::Null;
+#endif
 }
 
 // cairo.mesh_pattern#set_corner_color_rgb(corner_num:number,
@@ -159,6 +194,7 @@ Gura_DeclareMethod(mesh_pattern, set_corner_color_rgb)
 
 Gura_ImplementMethod(mesh_pattern, set_corner_color_rgb)
 {
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	unsigned int corner_num = args.GetUInt(0);
@@ -168,6 +204,10 @@ Gura_ImplementMethod(mesh_pattern, set_corner_color_rgb)
 	::cairo_mesh_pattern_set_corner_color_rgb(pattern, corner_num, red, green, blue);
 	if (IsError(sig, pattern)) return Value::Null;
 	return args.GetThis();
+#else
+	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
+	return Value::Null;
+#endif
 }
 
 // cairo.mesh_pattern#set_corner_color_rgba(corner_num:number,
@@ -184,6 +224,7 @@ Gura_DeclareMethod(mesh_pattern, set_corner_color_rgba)
 
 Gura_ImplementMethod(mesh_pattern, set_corner_color_rgba)
 {
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	unsigned int corner_num = args.GetUInt(0);
@@ -194,6 +235,10 @@ Gura_ImplementMethod(mesh_pattern, set_corner_color_rgba)
 	::cairo_mesh_pattern_set_corner_color_rgba(pattern, corner_num, red, green, blue, alpha);
 	if (IsError(sig, pattern)) return Value::Null;
 	return args.GetThis();
+#else
+	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
+	return Value::Null;
+#endif
 }
 
 //#cairo_status_t cairo_mesh_pattern_get_patch_count(cairo_pattern_t *pattern, unsigned int *count);

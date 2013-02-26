@@ -11,7 +11,9 @@
 #include FT_GLYPH_H
 #include FT_TRIGONOMETRY_H
 #include FT_BDF_H
+#ifdef FT_AUTOHINTER_H
 #include FT_AUTOHINTER_H
+#endif
 #include FT_LCD_FILTER_H
 #include FT_WINFONTS_H
 #include FT_GX_VALIDATE_H
