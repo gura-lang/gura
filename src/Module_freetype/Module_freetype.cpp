@@ -244,11 +244,13 @@ Gura_ModuleEntry()
 	Gura_AssignFTValue(ANGLE_PI);
 	Gura_AssignFTValue(ANGLE_PI2);
 	Gura_AssignFTValue(ANGLE_PI4);
+#ifdef FT_AUTOHINTER_H
 	// FT_AUTOHINTER_SCRIPT_XXX
 	Gura_AssignFTValue(AUTOHINTER_SCRIPT_CJK);
 	Gura_AssignFTValue(AUTOHINTER_SCRIPT_INDIC);
 	Gura_AssignFTValue(AUTOHINTER_SCRIPT_LATIN);
 	Gura_AssignFTValue(AUTOHINTER_SCRIPT_NONE);
+#endif
 	// FT_Encoding (FT_ENCODING_XXX)
 	Gura_AssignFTValue(ENCODING_ADOBE_CUSTOM);
 	Gura_AssignFTValue(ENCODING_ADOBE_EXPERT);
