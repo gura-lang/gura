@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // Gura freetype module
 //-----------------------------------------------------------------------------
-#include "Module_freetype.h"
+#include "stdafx.h"
 
 #define Gura_AssignRawValue(name) \
 Gura_AssignValue(name, Value(static_cast<double>(name)))

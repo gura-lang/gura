@@ -1,5 +1,9 @@
 #!/usr/bin/env gura
 import(modbuild)
+srcs = [
+'Module_freetype.cpp'
+'Object_Vector.cpp'
+]
 builder = modbuild.Builder()
 if (sys.build == `msc) {
 	builder.libs.append(path.join(modbuild.guestDir,
@@ -12,4 +16,6 @@ if (sys.build == `msc) {
 	builder.debFiles = ['libfreetype6-dev']
 	builder.rpmFiles = ['freetype-devel']
 }
-builder.build('freetype', ['Module_freetype.cpp'])
+builder.precompile = 'stdafx.h'
+builder.progressFlag = true
+builder.build('freetype', srcs)
