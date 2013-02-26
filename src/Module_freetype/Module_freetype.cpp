@@ -11,7 +11,7 @@ Gura_AssignValue(name, Value(static_cast<double>(FT_##name)))
 
 Gura_BeginModule(freetype)
 
-extern FT_Library g_lib;
+FT_Library g_lib;
 
 static String GetSysFontPathName();
 
