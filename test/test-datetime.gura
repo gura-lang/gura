@@ -14,9 +14,9 @@ scope {
 	println(time.datetime(2009, 1, 1) - time.datetime(2000, 1, 1))
 }
 scope {
-	tester(`time.datetime(2011, 1, 10, 8, 3, 0, 0).unixtime)
-	tester(`time.datetime(2001, 9, 9, 1, 46, 40, 0).unixtime)
-	tester(`time.datetime(2009, 2, 13, 23, 31, 30, 0).unixtime)
+	tester(`time.datetime(2011, 1, 10, 8, 3, 0, 0, 0).unixtime)
+	tester(`time.datetime(2001, 9, 9, 1, 46, 40, 0, 0).unixtime)
+	tester(`time.datetime(2009, 2, 13, 23, 31, 30, 0, 0).unixtime)
 }
 scope {
 	tester(`time.parse('Sun, 06 Nov 1994 08:49:37 -0900'))
@@ -66,7 +66,7 @@ scope {
 	}
 }
 scope {
-	tdOrg = time.datetime(1900, 1, 1)
+	tdOrg = time.datetime(1900, 1, 1, minsoff => 0)
 	dayOffsets1 = rands(1000, 365 * 200)
 	dayOffsets2 = rands(1000, 365 * 200)
 	td1 = tdOrg + time.delta(dayOffsets1)
@@ -101,8 +101,8 @@ scope {
 	for ([year, month, day, hour, min] in patterns) {
 		println('-' * 20)
 		printf('%04d-%02d-%02d %02d:%02d\n', year, month, day, hour, min)
-		tester(`(time.datetime(year, month, day, hour, min) + time.delta(1)))
-		tester(`(time.delta(1) + time.datetime(year, month, day)))
+		tester(`(time.datetime(year, month, day, hour, min, minsoff => 0) + time.delta(1)))
+		tester(`(time.delta(1) + time.datetime(year, month, day, minsoff => 0)))
 		dt = time.datetime(year, month, day, hour, min, minsoff => 0)
 		tester(`(dt + time.delta(1)))
 		tester(`(dt - (-time.delta(1))))
