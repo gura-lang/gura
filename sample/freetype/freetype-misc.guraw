@@ -1,3 +1,4 @@
+#!/usr/bin/env gura
 # encoding: utf-8
 import(tk)
 import(jpeg)

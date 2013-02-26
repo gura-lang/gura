@@ -1,3 +1,4 @@
+#!/usr/bin/env gura
 # encoding: shift_jis
 import(tk)
 import(freetype)

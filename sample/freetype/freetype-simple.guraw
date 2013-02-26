@@ -1,3 +1,4 @@
+#!/usr/bin/env gura
 import(tk)
 import(freetype)
 
