@@ -1,7 +1,7 @@
 import(tk)
 import(freetype)
 
-face = freetype.New_Face(freetype.sysfontpath('arial.ttf')).setheight(32)
+face = freetype.Face.New(freetype.sysfontpath('arial.ttf')).setheight(32)
 img = image(`rgb, 640, 320, `white)
 
 img.drawtext(face, 10, face.height:pixel, 'normal')

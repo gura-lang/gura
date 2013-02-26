@@ -6,10 +6,10 @@ I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 
 img = image(`rgb, 160, 120, `black)
 
-face = freetype.New_Face(I('zippedfont.zip/Kaufmann_Bold_BT.ttf')).setheight(32).setcolor(`white)
+face = freetype.Face.New(I('zippedfont.zip/Kaufmann_Bold_BT.ttf')).setheight(32).setcolor(`white)
 img.drawtext(face, 0, face.height:pixel, 'Hello world')
 
-face = freetype.New_Face(I('Kaufmann_Bold_BT.ttf')).setheight(32).setcolor(`white)
+face = freetype.Face.New(I('Kaufmann_Bold_BT.ttf')).setheight(32).setcolor(`white)
 img.drawtext(face, 0, face.height:pixel * 2, 'Hello world')
 
 img.show()

@@ -518,6 +518,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(BBox, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Matrix, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Face, env.LookupClass(VTYPE_object));
+	// class assignment
+	Gura_AssignValue(Face, Value(Gura_UserClass(Face)));
 	// method assignment to image type
 	Gura_AssignMethodTo(VTYPE_image, image, drawtext);
 	// function assignment

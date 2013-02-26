@@ -4,7 +4,7 @@ import(freetype)
 
 scope {
 	img = image(`rgb, 700, 480, `white)
-	face = freetype.New_Face(freetype.sysfontpath('msgothic.ttc'), 1).setheight(32).setcolor(`black)
+	face = freetype.Face.New(freetype.sysfontpath('msgothic.ttc'), 1).setheight(32).setcolor(`black)
 	repeat (10) {|i|
 		face.setstrength(0).setslant(0)
 		img.drawtext(face, 10, face.height:pixel * (i + 1), '%.1f' % (i * .1))
