@@ -20,7 +20,7 @@ program: $(DLL_GURA)
 	@cd ..
 
 module: $(DLL_GURA)
-	@..\bin-x86\gura.exe -C ..\build build_modules.gura install-root
+	@..\bin-x86\gura.exe -C ..\build build-modules.gura install-root
 
 clean: clean_library clean_module clean_program
 
@@ -39,4 +39,4 @@ clean_program:
 	@cd ..
 
 clean_module:
-	@if exist ..\bin-x86\gura.exe ..\bin-x86\gura.exe -C ..\build build_modules.gura clean
+	@if exist ..\bin-x86\gura.exe ..\bin-x86\gura.exe -C ..\build build-modules.gura clean

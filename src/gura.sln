@@ -11,7 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guri", "Program_guri\guri.v
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libguracore", "lib\libguracore.vcxproj", "{84C27ED8-4A4F-4DC2-B276-5F012F2570EF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "build_modules", "build_modules.vcxproj", "{EC848C55-B52D-4F07-BE3C-078966186BDD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "build-modules", "build-modules.vcxproj", "{EC848C55-B52D-4F07-BE3C-078966186BDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

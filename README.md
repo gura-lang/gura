@@ -63,12 +63,12 @@ Build for Linux
 
 4. Run the following command to build gura modules.
 
-        $ ../src/build_modules.gura
+        $ ../src/build-modules.gura
 
-  This may occur an error because of lacking packages. The script build_modules.gura
+  This may occur an error because of lacking packages. The script `build-modules.gura`
   generates shell scripts so that you can easily setup necessary packages.
   Run `install-deb.sh` for Ubuntu and `install-rpm.sh` for RedHat.
 
 5. After you successfully build modules, do the following command to install them.
 
-        $ sudo ../src/build_modules.gura install
+        $ sudo ../src/build-modules.gura install
