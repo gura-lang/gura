@@ -64,6 +64,25 @@ Value Object_Stroker::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &
 //-----------------------------------------------------------------------------
 // Class implementation for freetype.Stroker
 //-----------------------------------------------------------------------------
+// freetype.Stroker.New():map {block?}
+Gura_DeclareClassMethod(Stroker, New)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	//SetClassToConstruct(Gura_UserClass(Face));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(Stroker, New)
+{
+	AutoPtr<Object_Stroker> pObj(new Object_Stroker());
+	FT_Error err = ::FT_Stroker_New(g_lib, &pObj->GetEntity());
+	if (err != 0) {
+		sig.SetError(ERR_RuntimeError, "freetype error");
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(pObj.release()));
+}
+
 Gura_ImplementUserClass(Stroker)
 {
 }
