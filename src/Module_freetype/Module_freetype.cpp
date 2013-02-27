@@ -516,8 +516,9 @@ Gura_ModuleEntry()
 	Gura_AssignRawValue(TT_PLATFORM_CUSTOM);
 	Gura_AssignRawValue(TT_PLATFORM_ADOBE);
 	// class realization
-	Gura_RealizeUserClass(Vector, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(BDF_Property, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(BBox, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(Vector, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Matrix, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Bitmap, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(GlyphSlot, env.LookupClass(VTYPE_object));
