@@ -521,9 +521,21 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(Vector, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Matrix, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Bitmap, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(CharMap, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(GlyphSlot, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Outline, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(Raster, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(Span, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Face, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(Stroker, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(FTC_CMapCache, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(FTC_ImageCache, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(FTC_ImageType, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(FTC_Manager, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(FTC_Node, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(FTC_SBit, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(FTC_SBitCache, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(FTC_Scaler, env.LookupClass(VTYPE_object));
 	// class assignment
 	Gura_AssignValue(Face, Value(Gura_UserClass(Face)));
 	// method assignment to image type

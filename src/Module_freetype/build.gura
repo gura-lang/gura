@@ -7,9 +7,21 @@ srcs = [
 'Object_Vector.cpp'
 'Object_Matrix.cpp'
 'Object_Bitmap.cpp'
+'Object_CharMap.cpp'
 'Object_GlyphSlot.cpp'
 'Object_Outline.cpp'
+'Object_Raster.cpp'
+'Object_Span.cpp'
 'Object_Face.cpp'
+'Object_Stroker.cpp'
+'Object_FTC_CMapCache.cpp'
+'Object_FTC_ImageCache.cpp'
+'Object_FTC_ImageType.cpp'
+'Object_FTC_Manager.cpp'
+'Object_FTC_Node.cpp'
+'Object_FTC_SBit.cpp'
+'Object_FTC_SBitCache.cpp'
+'Object_FTC_Scaler.cpp'
 ]
 builder = modbuild.Builder()
 if (sys.build == `msc) {
