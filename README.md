@@ -23,11 +23,16 @@ Build for Windows
 
 Build for Linux
 -----------------
-1. Check if build tools such as g++, make and cmake have been installed.
+1. Check if build tools such as C++ compiler, make, cmake and necessary libraries
+   have been installed.
 
    For Ubuntu, do the following command.
 
         $ sudo apt-get install build-essential cmake libreadline-dev
+
+   For Fedora, do the following command.
+
+        $ sudo yum install gcc gcc-c++ make cmake readline-devel
 
 2. Run the following commands to build gura library and executable.
 
