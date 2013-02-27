@@ -37,10 +37,26 @@ Build for Linux
         $ cd build
         $ cmake -D CMAKE_INSTALL_PREFIX=/usr ../src
         $ make
-        $ sudo make install
-        $ sudo ldconfig
 
-3. Run the following command to build gura modules.
+3. Make packages of Debian and RPM. Installation of following packages is necessary.
+
+        $ sudo apt-get install rpm
+
+   Run the following command.
+
+        $ make package
+
+   You can install package using an appropriate package manager.
+
+   For Ubuntu:
+
+        $ sudo dpkg -i gura-x.x.x-Linux.deb
+
+   For RedHat:
+
+        $ sudo rpm -i gura-x.x.x-Linux.rpm
+
+4. Run the following command to build gura modules.
 
         $ ../src/build_modules.gura
 
@@ -48,6 +64,6 @@ Build for Linux
   generates shell scripts so that you can easily setup necessary packages.
   Run `install-deb.sh` for Ubuntu and `install-rpm.sh` for RedHat.
 
-4. After you successfully build modules, do the following command to install them.
+5. After you successfully build modules, do the following command to install them.
 
         $ sudo ../src/build_modules.gura install
