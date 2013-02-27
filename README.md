@@ -1,4 +1,4 @@
-![banner](http://jxg.github.com/gura/images/banner.png)
+![banner](http://www.gura-lang.org/images/banner.png)
 
 Gura is an iterator-oriented programming language
 that focuses on iterators with improved functions
