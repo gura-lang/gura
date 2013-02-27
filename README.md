@@ -51,4 +51,3 @@ Build for Linux
 4. After you successfully build modules, do the following command to install them.
 
         $ sudo ../src/build_modules.gura install
-
