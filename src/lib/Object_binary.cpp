@@ -339,17 +339,18 @@ Gura_ImplementMethod(binary, hex)
 	return Value(env, rtn.c_str());
 }
 
-// binary#dump():void:[upper]
+// binary#dump(stream?:stream:w):void:[upper]
 Gura_DeclareMethod(binary, dump)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	DeclareAttr(Gura_Symbol(upper));
 }
 
 Gura_ImplementMethod(binary, dump)
 {
-	Stream *pConsole = env.GetConsole();
-	if (pConsole == NULL) return Value::Null;
+	Stream *pStream = args.IsInstanceOf(0, VTYPE_stream)?
+								&args.GetStream(0) : env.GetConsole();
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	int iCol = 0;
 	String strHex, strASCII;
@@ -369,7 +370,7 @@ Gura_ImplementMethod(binary, dump)
 			String strLine = strHex;
 			strLine += "  ";
 			strLine += strASCII;
-			pConsole->Println(sig, strLine.c_str());
+			pStream->Println(sig, strLine.c_str());
 			if (sig.IsSignalled()) return Value::Null;
 			strHex.clear();
 			strASCII.clear();
@@ -381,7 +382,7 @@ Gura_ImplementMethod(binary, dump)
 		for ( ; iCol < 16; iCol++) strLine += "   ";
 		strLine += "  ";
 		strLine += strASCII;
-		pConsole->Println(sig, strLine.c_str());
+		pStream->Println(sig, strLine.c_str());
 		if (sig.IsSignalled()) return Value::Null;
 	}
 	return Value::Null;

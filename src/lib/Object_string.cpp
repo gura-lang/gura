@@ -738,13 +738,9 @@ Gura_DeclareMethodPrimitive(string, print)
 
 Gura_ImplementMethod(string, print)
 {
-	if (args.IsInstanceOf(0, VTYPE_stream)) {
-		args.GetStream(0).Print(sig, args.GetThis().GetString());
-	} else {
-		Stream *pConsole = env.GetConsole();
-		if (pConsole == NULL) return Value::Null;
-		pConsole->Print(sig, args.GetThis().GetString());
-	}
+	Stream *pStream = args.IsInstanceOf(0, VTYPE_stream)?
+								&args.GetStream(0) : env.GetConsole();
+	pStream->Print(sig, args.GetThis().GetString());
 	return Value::Null;
 }
 
@@ -757,13 +753,9 @@ Gura_DeclareMethodPrimitive(string, println)
 
 Gura_ImplementMethod(string, println)
 {
-	if (args.IsInstanceOf(0, VTYPE_stream)) {
-		args.GetStream(0).Println(sig, args.GetThis().GetString());
-	} else {
-		Stream *pConsole = env.GetConsole();
-		if (pConsole == NULL) return Value::Null;
-		pConsole->Println(sig, args.GetThis().GetString());
-	}
+	Stream *pStream = args.IsInstanceOf(0, VTYPE_stream)?
+								&args.GetStream(0) : env.GetConsole();
+	pStream->Println(sig, args.GetThis().GetString());
 	return Value::Null;
 }
 
