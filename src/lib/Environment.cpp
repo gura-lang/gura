@@ -397,7 +397,7 @@ void Environment::AssignModule(Module *pModule)
 	GetTopFrame().AssignValue(pModule->GetSymbol(), value);
 }
 
-bool Environment::ImportModules(Signal sig, const char *moduleNames)
+bool Environment::ImportModules(Signal sig, const char *moduleNames, bool binaryOnlyFlag)
 {
 	String moduleName;
 	for (const char *p = moduleNames; ; p++) {
@@ -418,7 +418,7 @@ bool Environment::ImportModules(Signal sig, const char *moduleNames)
 			if (!field.empty()) {
 				symbolList.push_back(Symbol::Add(field.c_str()));
 			}
-			if (!ImportModule(sig, symbolList)) return false;
+			if (!ImportModule(sig, symbolList, NULL, NULL, true, true, binaryOnlyFlag)) return false;
 			moduleName.clear();
 			if (ch == '\0') break;
 		} else {
@@ -429,7 +429,8 @@ bool Environment::ImportModules(Signal sig, const char *moduleNames)
 }
 
 bool Environment::ImportModule(Signal sig, const Expr *pExpr,
-	const Symbol *pSymbolOfModule, const SymbolSet *pSymbolsToMixIn, bool overwriteFlag)
+			const Symbol *pSymbolOfModule, const SymbolSet *pSymbolsToMixIn,
+			bool overwriteFlag, bool binaryOnlyFlag)
 {
 	bool assignModuleNameFlag = true;
 	SymbolList symbolOfModule;
@@ -447,17 +448,20 @@ bool Environment::ImportModule(Signal sig, const Expr *pExpr,
 		return false;
 	}
 	return ImportModule(sig, symbolOfModule, pSymbolOfModule, pSymbolsToMixIn,
-											overwriteFlag, assignModuleNameFlag);
+							overwriteFlag, assignModuleNameFlag, binaryOnlyFlag);
 }
 
 bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 	const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
-	bool overwriteFlag, bool assignModuleNameFlag)
+	bool overwriteFlag, bool assignModuleNameFlag, bool binaryOnlyFlag)
 {
-	Module *pModule = ImportIntegratedModule(sig, symbolOfModule);
-	if (sig.IsSignalled()) return false;
+	Module *pModule = NULL;
+	if (!binaryOnlyFlag) {
+		pModule = ImportIntegratedModule(sig, symbolOfModule);
+		if (sig.IsSignalled()) return false;
+	}
 	if (pModule == NULL) {
-		pModule = ImportSeparatedModule(sig, symbolOfModule);
+		pModule = ImportSeparatedModule(sig, symbolOfModule, binaryOnlyFlag);
 		if (sig.IsSignalled()) return false;
 	}
 	if (pSymbolsToMixIn == NULL) {
@@ -561,11 +565,12 @@ Module *Environment::ImportIntegratedModule(Signal sig, const SymbolList &symbol
 	return pModule;
 }
 
-Module *Environment::ImportSeparatedModule(Signal sig, const SymbolList &symbolOfModule)
+Module *Environment::ImportSeparatedModule(Signal sig,
+					const SymbolList &symbolOfModule, bool binaryOnlyFlag)
 {
 	String pathName;
 	if (!SearchSeparatedModuleFile(sig, pathName,
-					symbolOfModule.begin(), symbolOfModule.end())) return NULL;
+		symbolOfModule.begin(), symbolOfModule.end(), binaryOnlyFlag)) return NULL;
 	Module *pModule = GetGlobal()->LookupSeparatedModule(pathName.c_str());
 	if (pModule != NULL) return pModule;
 	if (IsBinaryModule(pathName.c_str())) {
@@ -579,8 +584,8 @@ Module *Environment::ImportSeparatedModule(Signal sig, const SymbolList &symbolO
 }
 
 bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
-						SymbolList::const_iterator ppSymbolOfModule,
-						SymbolList::const_iterator ppSymbolOfModuleEnd)
+		SymbolList::const_iterator ppSymbolOfModule,
+		SymbolList::const_iterator ppSymbolOfModuleEnd, bool binaryOnlyFlag)
 {
 	Environment &env = *this;
 	const Value *pValDirNameList =
@@ -593,7 +598,9 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 		return false;
 	}
 	StringList extNameList;
-	extNameList.push_back("gura"); // script module shall be searched first
+	if (!binaryOnlyFlag) {
+		extNameList.push_back("gura"); // script module shall be searched first
+	}
 	extNameList.push_back("gurd");
 	String baseName = SymbolList::Join(ppSymbolOfModule,
 									ppSymbolOfModuleEnd, OAL::FileSeparator);

@@ -261,12 +261,12 @@ public:
 		return GetGlobal()->LookupClass(valType);
 	}
 	void AssignModule(Module *pModule);
-	bool ImportModules(Signal sig, const char *moduleNames);
+	bool ImportModules(Signal sig, const char *moduleNames, bool binaryOnlyFlag);
 	bool ImportModule(Signal sig, const Expr *pExpr, const Symbol *pSymbolAlias,
-			const SymbolSet *pSymbolsToMixIn, bool overwriteFlag);
+			const SymbolSet *pSymbolsToMixIn, bool overwriteFlag, bool binaryOnlyFlag);
 	bool ImportModule(Signal sig, const SymbolList &symbolOfModule,
-			const Symbol *pSymbolAlias = NULL, const SymbolSet *pSymbolsToMixIn = NULL,
-			bool overwriteFlag = true, bool assignModuleNameFlag = true);
+			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
+			bool overwriteFlag, bool assignModuleNameFlag, bool binaryOnlyFlag);
 	static bool IsBinaryModule(const char *pathName);
 	bool AddModuleSearchPath(Signal sig, const StringList &strList);
 	virtual bool IsModule() const;
@@ -286,10 +286,11 @@ public:
 			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate);
 private:
 	Module *ImportIntegratedModule(Signal sig, const SymbolList &symbolOfModule);
-	Module *ImportSeparatedModule(Signal sig, const SymbolList &symbolOfModule);
+	Module *ImportSeparatedModule(Signal sig,
+							const SymbolList &symbolOfModule, bool binaryOnlyFlag);
 	bool SearchSeparatedModuleFile(Signal sig, String &pathName,
-						SymbolList::const_iterator ppSymbolOfModule,
-						SymbolList::const_iterator ppSymbolOfModuleEnd);
+			SymbolList::const_iterator ppSymbolOfModule,
+			SymbolList::const_iterator ppSymbolOfModuleEnd, bool binaryOnlyFlag);
 	Module *ImportSeparatedModule_Script(Signal sig, Environment *pEnvOuter,
 						const char *pathName, const SymbolList &symbolOfModule);
 	Module *ImportSeparatedModule_Binary(Signal sig, Environment *pEnvOuter,

@@ -149,6 +149,7 @@ Gura_DeclareFunctionAlias(import_, "import")
 	DeclareArg(env, "alias", VTYPE_quote, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(overwrite));
+	DeclareAttr(Gura_Symbol(binary));
 	AddHelp(Gura_Symbol(en), 
 	"Imports a module stored in directories specified by a variable sys.path.\n"
 	"There are three ways of calling this function like follow:\n"
@@ -195,8 +196,10 @@ Gura_ImplementFunction(import_)
 		pSymbol =
 			dynamic_cast<const Expr_Symbol *>(args.GetExpr(1))->GetSymbol();
 	}
-	if (!env.ImportModule(sig, args.GetExpr(0), pSymbol,
-				pSymbolsToMixIn, args.IsSet(Gura_Symbol(overwrite)))) {
+	bool overwriteFlag = args.IsSet(Gura_Symbol(overwrite));
+	bool binaryOnlyFlag = args.IsSet(Gura_Symbol(binary));
+	if (!env.ImportModule(sig, args.GetExpr(0), pSymbol, pSymbolsToMixIn,
+										overwriteFlag, binaryOnlyFlag)) {
 		return Value::Null;
 	}
 	return Value::Null;
