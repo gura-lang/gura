@@ -125,9 +125,6 @@ int Handler(request_rec *r)
 		ap_get_module_config(r->server->module_config, &gura_module))->pContext;
 	Environment &env = pContext->GetEnv();
 	Signal &sig = pContext->GetSignal();
-	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
-	Stream_Binary streamBinary(sig, Object_binary::Reference(pObjBinary.get()), false);
-	env.SetConsole(true, &streamBinary);
 	env.AssignValue(Symbol::Add("apr"), Value(new Object_stream(env, new StreamAPR(sig, r))), false);
 	AutoPtr<Expr> pExpr(Parser().ParseStream(env, sig, "C:/Users/yutaka/gura/src/httpd_mod_gura/test.gura", NULL));
 	if (pExpr.IsNull()) {
@@ -138,15 +135,17 @@ int Handler(request_rec *r)
 		ap_rprintf(r, "</html>\n");
 	} else {
 		pExpr->Exec(env, sig);
-		const Binary &buff = pObjBinary->GetBinary();
-		if (!buff.empty()) {
+		if (sig.IsSignalled()) {
 			ap_rprintf(r, "<html>\n");
 			ap_rprintf(r, "<body>\n");
 			ap_rprintf(r, "<pre>\n");
-			ap_rwrite(buff.data(), buff.size(), r);
+			ap_rputs(sig.GetErrString().c_str(), r);
+			ap_rputs("\n", r);
+			ap_rputs(sig.GetErrTrace().c_str(), r);
 			ap_rprintf(r, "</pre>\n");
 			ap_rprintf(r, "</body>\n");
 			ap_rprintf(r, "</html>\n");
+			sig.ClearSignal();
 		}
 	}
 	return OK;
