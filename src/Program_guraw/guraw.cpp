@@ -64,7 +64,6 @@ int MainW(int argc, const char *argv[])
 	}
 	Signal sig;
 	EnvironmentRoot env(argc, argv);
-	Stream *pConsole = env.GetConsole(false);
 	bool interactiveFlag = true;
 	if (opt.IsSet("import-dir")) {
 		env.AddModuleSearchPath(sig, opt.GetStringList("import-dir"));
@@ -72,6 +71,7 @@ int MainW(int argc, const char *argv[])
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
 			if (!env.ImportModules(sig, pModuleNames->c_str())) {
+				Stream *pConsole = env.GetConsole();
 				pConsole->PrintSignal(sig, sig);
 				return 1;
 			}
@@ -83,17 +83,21 @@ int MainW(int argc, const char *argv[])
 			if (::strcmp(cmd, "") == 0) continue;
 			Expr *pExpr = Parser().ParseString(env, sig, "<command line>", cmd);
 			if (sig.IsSignalled()) {
+				Stream *pConsole = env.GetConsole();
 				pConsole->PrintSignal(sig, sig);
 				return 1;
 			}
 			if (pExpr == NULL) {
+				Stream *pConsole = env.GetConsole();
 				pConsole->Println(sig, "incomplete command");
 			} else {
 				Value result = pExpr->Exec(env, sig);
 				if (sig.IsSignalled()) {
+					Stream *pConsole = env.GetConsole();
 					pConsole->PrintSignal(sig, sig);
 					return 1;
 				} else if (result.IsValid()) {
+					Stream *pConsole = env.GetConsole();
 					pConsole->Println(sig, result.ToString(sig).c_str());
 				}
 			}
@@ -105,11 +109,13 @@ int MainW(int argc, const char *argv[])
 	if (argc >= 2) {
 		pExprRoot = Parser().ParseStream(env, sig, argv[1], encoding);
 		if (sig.IsSignalled()) {
+			Stream *pConsole = env.GetConsole();
 			pConsole->PrintSignal(sig, sig);
 			return 1;
 		}
 		pExprRoot->Exec(env, sig);
 		if (sig.IsSignalled()) {
+			Stream *pConsole = env.GetConsole();
 			pConsole->PrintSignal(sig, sig);
 			sig.ClearSignal();
 		}

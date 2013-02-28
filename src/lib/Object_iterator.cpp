@@ -237,7 +237,7 @@ Gura_ImplementMethod(iterator, print)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Stream *pConsole = args.IsInstanceOf(0, VTYPE_stream)?
-				&args.GetStream(0) : env.GetConsole(false);
+				&args.GetStream(0) : env.GetConsole();
 	if (pConsole == NULL) return Value::Null;
 	Iterator *pIterator = pThis->GetIterator()->Clone();
 	Value value;
@@ -261,7 +261,7 @@ Gura_ImplementMethod(iterator, println)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Stream *pConsole = args.IsInstanceOf(0, VTYPE_stream)?
-				&args.GetStream(0) : env.GetConsole(false);
+				&args.GetStream(0) : env.GetConsole();
 	if (pConsole == NULL) return Value::Null;
 	Iterator *pIterator = pThis->GetIterator()->Clone();
 	Value value;
@@ -287,7 +287,7 @@ Gura_ImplementMethod(iterator, printf)
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	const char *format = args.GetString(0);
 	Stream *pConsole = args.IsInstanceOf(1, VTYPE_stream)?
-				&args.GetStream(1) : env.GetConsole(false);
+				&args.GetStream(1) : env.GetConsole();
 	if (pConsole == NULL) return Value::Null;
 	Iterator *pIterator = pThis->GetIterator()->Clone();
 	Value value;

@@ -163,6 +163,7 @@ public:
 		void RegisterIntegratedModule(int id, Module *pModule);
 		Module *LookupSeparatedModule(const char *pathName) const;
 		void RegisterSeparatedModule(const char *pathName, Module *pModule);
+		void UnregisterSeparatedModule(const char *pathName);
 	};
 	class DLLDECLARE Frame {
 	private:
@@ -276,8 +277,10 @@ public:
 	}
 	void DbgPrint() const;
 	const char *GetPrompt(bool indentFlag);
-	void SetConsole(bool errorOutputFlag, Stream *pConsole);
-	Stream *GetConsole(bool errorOutputFlag);
+	void SetConsole(Stream *pConsole);
+	void SetConsoleErr(Stream *pConsole);
+	Stream *GetConsole();
+	Stream *GetConsoleErr();
 	static void IntegrateModule(const char *name,
 			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate);
 private:

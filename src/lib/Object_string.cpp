@@ -741,7 +741,7 @@ Gura_ImplementMethod(string, print)
 	if (args.IsInstanceOf(0, VTYPE_stream)) {
 		args.GetStream(0).Print(sig, args.GetThis().GetString());
 	} else {
-		Stream *pConsole = env.GetConsole(false);
+		Stream *pConsole = env.GetConsole();
 		if (pConsole == NULL) return Value::Null;
 		pConsole->Print(sig, args.GetThis().GetString());
 	}
@@ -760,7 +760,7 @@ Gura_ImplementMethod(string, println)
 	if (args.IsInstanceOf(0, VTYPE_stream)) {
 		args.GetStream(0).Println(sig, args.GetThis().GetString());
 	} else {
-		Stream *pConsole = env.GetConsole(false);
+		Stream *pConsole = env.GetConsole();
 		if (pConsole == NULL) return Value::Null;
 		pConsole->Println(sig, args.GetThis().GetString());
 	}

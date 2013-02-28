@@ -575,8 +575,6 @@ Module *Environment::ImportSeparatedModule(Signal sig, const SymbolList &symbolO
 		pModule = ImportSeparatedModule_Script(sig, this,
 								pathName.c_str(), symbolOfModule);
 	}
-	if (pModule == NULL) return NULL;
-	GetGlobal()->RegisterSeparatedModule(pathName.c_str(), pModule);
 	return pModule;
 }
 
@@ -595,7 +593,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 		return false;
 	}
 	StringList extNameList;
-	extNameList.push_back("gura");
+	extNameList.push_back("gura"); // script module shall be searched first
 	extNameList.push_back("gurd");
 	String baseName = SymbolList::Join(ppSymbolOfModule,
 									ppSymbolOfModuleEnd, OAL::FileSeparator);
@@ -646,11 +644,13 @@ Module *Environment::ImportSeparatedModule_Script(Signal sig, Environment *pEnvO
 	Expr *pExpr = Parser().ParseStream(*pEnvOuter, sig, *pStream);
 	if (sig.IsSignalled()) return NULL;
 	Module *pModule = new Module(pEnvOuter, symbolOfModule.back(), pathName, pExpr, NULL);
+	GetGlobal()->RegisterSeparatedModule(pathName, pModule);
 	bool echoFlagSaved = pModule->GetEchoFlag();
 	pModule->SetEchoFlag(false);
 	pExpr->Exec(*pModule, sig);
 	pModule->SetEchoFlag(echoFlagSaved);
 	if (sig.IsSignalled()) {
+		GetGlobal()->UnregisterSeparatedModule(pathName);
 		delete pModule;
 		return NULL;
 	}
@@ -672,8 +672,10 @@ Module *Environment::ImportSeparatedModule_Binary(Signal sig, Environment *pEnvO
 	if (pFunc == NULL) return NULL;
 	ModuleTerminateType moduleTerminate = (ModuleTerminateType)(pFunc);
 	Module *pModule = new Module(pEnvOuter, symbolOfModule.back(), pathName, NULL, moduleTerminate);
+	GetGlobal()->RegisterSeparatedModule(pathName, pModule);
 	(*moduleEntry)(*pModule, sig);
 	if (sig.IsSignalled()) {
+		GetGlobal()->UnregisterSeparatedModule(pathName);
 		delete pModule;
 		return NULL;
 	}
@@ -719,24 +721,29 @@ const char *Environment::GetPrompt(bool indentFlag)
 	return (pValue == NULL || !pValue->IsString())? "" : pValue->GetString();
 }
 
-void Environment::SetConsole(bool errorOutputFlag, Stream *pConsole)
+void Environment::SetConsole(Stream *pConsole)
 {
-	if (errorOutputFlag) {
-		GetGlobal()->_pConsoleError = pConsole;
-	} else {
-		GetGlobal()->_pConsole = pConsole;
-	}
+	GetGlobal()->_pConsole = pConsole;
 }
 
-Stream *Environment::GetConsole(bool errorOutputFlag)
+void Environment::SetConsoleErr(Stream *pConsole)
 {
-	if (errorOutputFlag) {
-		if (GetGlobal()->_pConsoleError != NULL) return GetGlobal()->_pConsoleError;
-	} else {
-		if (GetGlobal()->_pConsole != NULL) return GetGlobal()->_pConsole;
-	}
-	const Symbol *pSymbol = errorOutputFlag?
-							Gura_Symbol(stderr) : Gura_Symbol(stdout);
+	GetGlobal()->_pConsoleError = pConsole;
+}
+
+Stream *Environment::GetConsole()
+{
+	if (GetGlobal()->_pConsole != NULL) return GetGlobal()->_pConsole;
+	const Symbol *pSymbol = Gura_Symbol(stdout);
+	Value *pValue = GetModule_sys()->LookupValue(pSymbol, false);
+	if (pValue == NULL || !pValue->IsInstanceOf(VTYPE_stream)) return NULL;
+	return &pValue->GetStream();
+}
+
+Stream *Environment::GetConsoleErr()
+{
+	if (GetGlobal()->_pConsoleError != NULL) return GetGlobal()->_pConsoleError;
+	const Symbol *pSymbol = Gura_Symbol(stderr);
 	Value *pValue = GetModule_sys()->LookupValue(pSymbol, false);
 	if (pValue == NULL || !pValue->IsInstanceOf(VTYPE_stream)) return NULL;
 	return &pValue->GetStream();
@@ -810,6 +817,11 @@ Module *Environment::Global::LookupSeparatedModule(const char *pathName) const
 void Environment::Global::RegisterSeparatedModule(const char *pathName, Module *pModule)
 {
 	_separatedModuleMap[pathName] = pModule;
+}
+
+void Environment::Global::UnregisterSeparatedModule(const char *pathName)
+{
+	_separatedModuleMap.erase(_separatedModuleMap.find(pathName));
 }
 
 //-----------------------------------------------------------------------------

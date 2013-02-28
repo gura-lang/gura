@@ -348,7 +348,7 @@ Gura_DeclareMethod(binary, dump)
 
 Gura_ImplementMethod(binary, dump)
 {
-	Stream *pConsole = env.GetConsole(false);
+	Stream *pConsole = env.GetConsole();
 	if (pConsole == NULL) return Value::Null;
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	int iCol = 0;

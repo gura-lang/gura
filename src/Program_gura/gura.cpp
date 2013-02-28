@@ -59,8 +59,6 @@ int Main(int argc, const char *argv[])
 		::fprintf(stderr, "\n");
 	}
 	EnvironmentRoot env(argc, argv);
-	Stream *pConsole = env.GetConsole(false);
-	Stream *pConsoleErr = env.GetConsole(true);
 	bool interactiveFlag = true;
 	if (opt.IsSet("import-dir")) {
 		env.AddModuleSearchPath(sig, opt.GetStringList("import-dir"));
@@ -68,6 +66,7 @@ int Main(int argc, const char *argv[])
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
 			if (!env.ImportModules(sig, pModuleNames->c_str())) {
+				Stream *pConsoleErr = env.GetConsoleErr();
 				pConsoleErr->PrintSignal(sig, sig);
 				return 1;
 			}
@@ -79,17 +78,21 @@ int Main(int argc, const char *argv[])
 			if (::strcmp(cmd, "") == 0) continue;
 			Expr *pExpr = Parser().ParseString(env, sig, "<command line>", cmd);
 			if (sig.IsSignalled()) {
+				Stream *pConsoleErr = env.GetConsoleErr();
 				pConsoleErr->PrintSignal(sig, sig);
 				return 1;
 			}
 			if (pExpr == NULL) {
+				Stream *pConsoleErr = env.GetConsoleErr();
 				pConsoleErr->Println(sig, "incomplete command");
 			} else {
 				Value result = pExpr->Exec(env, sig);
 				if (sig.IsSignalled()) {
+					Stream *pConsoleErr = env.GetConsoleErr();
 					pConsoleErr->PrintSignal(sig, sig);
 					return 1;
 				} else if (result.IsValid()) {
+					Stream *pConsole = env.GetConsole();
 					pConsole->Println(sig, result.ToString(sig).c_str());
 				}
 			}
@@ -101,15 +104,18 @@ int Main(int argc, const char *argv[])
 	if (argc >= 2) {
 		pExprRoot = Parser().ParseStream(env, sig, argv[1], encoding);
 		if (sig.IsSignalled()) {
+			Stream *pConsoleErr = env.GetConsoleErr();
 			pConsoleErr->PrintSignal(sig, sig);
 			return 1;
 		}
 		if (opt.IsSet("llvm")) {
+			Stream *pConsole = env.GetConsole();
 			pExprRoot->GenerateCode(env, sig, *pConsole);
 		} else {
 			pExprRoot->Exec(env, sig);
 		}
 		if (sig.IsSignalled()) {
+			Stream *pConsoleErr = env.GetConsoleErr();
 			pConsoleErr->PrintSignal(sig, sig);
 			sig.ClearSignal();
 		}
@@ -120,11 +126,14 @@ int Main(int argc, const char *argv[])
 			AutoPtr<Stream> pStreamSrc(Directory::OpenStream(env, sig,
 					pPathName->c_str(), Stream::ATTR_Readable, encoding));
 			if (sig.IsSignalled()) {
+				Stream *pConsoleErr = env.GetConsoleErr();
 				pConsoleErr->PrintSignal(sig, sig);
 				return 1;
 			}
+			Stream *pConsole = env.GetConsole();
 			Parser().ParseTemplate(env, sig, *pStreamSrc, *pConsole, true, false);
 			if (sig.IsSignalled()) {
+				Stream *pConsoleErr = env.GetConsoleErr();
 				pConsoleErr->PrintSignal(sig, sig);
 				return 1;
 			}
@@ -165,7 +174,7 @@ void PrintHelp(FILE *fp)
 #if defined(HAVE_WINDOWS_H)
 void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
-	Stream *pConsole = env.GetConsole(false);
+	Stream *pConsole = env.GetConsole();
 	Parser parser;
 	ExprOwner exprOwner;
 	pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));

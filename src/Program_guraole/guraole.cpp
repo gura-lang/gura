@@ -242,7 +242,7 @@ HRESULT CMain::ParseScriptText(
 	DBGPRINTF(("ulStartingLineNumber  %d\n", ulStartingLineNumber));
 	DBGPRINTF(("dwFlags               %08x\n", dwFlags));
 	Gura::Gura_Module(mswin)::Import(_env, _sig);
-	Gura::Stream *pConsole = _env.GetConsole(false);
+	Gura::Stream *pConsole = _env.GetConsole();
 	Gura::Expr *pExpr = Gura::Parser().ParseString(_env, _sig, "OLE", pstrCode);
 	if (_sig.IsSignalled()) {
 		pexcepinfo->bstrDescription = L"*************";
@@ -359,7 +359,7 @@ HRESULT STDMETHODCALLTYPE CMain::Invoke(
 	if (idx >= _valListDispatched.size()) {
 		return E_HANDLE;
 	}
-	Gura::Stream *pConsole = _env.GetConsole(false);
+	Gura::Stream *pConsole = _env.GetConsole();
 	Gura::Value value = _valListDispatched[idx];
 	Gura::ValueList valListArg;
 	for (UINT iArg = 0; iArg < pDispParams->cArgs; iArg++) {

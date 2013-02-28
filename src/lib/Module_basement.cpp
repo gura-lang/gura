@@ -1073,7 +1073,7 @@ Gura_DeclareFunction(print)
 
 Gura_ImplementFunction(print)
 {
-	Stream *pConsole = env.GetConsole(false);
+	Stream *pConsole = env.GetConsole();
 	if (pConsole == NULL) return Value::Null;
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		pConsole->Print(sig, pValue->ToString(sig, false).c_str());
@@ -1091,7 +1091,7 @@ Gura_DeclareFunction(println)
 
 Gura_ImplementFunction(println)
 {
-	Stream *pConsole = env.GetConsole(false);
+	Stream *pConsole = env.GetConsole();
 	if (pConsole == NULL) return Value::Null;
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		pConsole->Print(sig, pValue->ToString(sig, false).c_str());
@@ -1111,7 +1111,7 @@ Gura_DeclareFunction(printf)
 
 Gura_ImplementFunction(printf)
 {
-	Stream *pConsole = env.GetConsole(false);
+	Stream *pConsole = env.GetConsole();
 	if (pConsole == NULL) return Value::Null;
 	pConsole->Printf(sig, args.GetString(0), args.GetList(1));
 	return Value::Null;
@@ -1201,7 +1201,7 @@ Gura_ImplementFunction(help)
 {
 	Object_function *pFuncObj = args.GetFunctionObj(0);
 	const Symbol *pSymbol = Gura_Symbol(en);
-	Stream *pConsole = env.GetConsole(false);
+	Stream *pConsole = env.GetConsole();
 	pConsole->Println(sig, pFuncObj->ToString(sig, true).c_str());
 	if (sig.IsSignalled()) return Value::Null;
 	const char *helpStr = pFuncObj->GetFunction()->GetHelp(pSymbol);

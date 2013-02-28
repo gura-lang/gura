@@ -980,7 +980,7 @@ Gura_ImplementMethod(list, printf)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	const char *format = args.GetString(0);
 	Stream *pConsole = args.IsInstanceOf(1, VTYPE_stream)?
-				&args.GetStream(1) : env.GetConsole(false);
+				&args.GetStream(1) : env.GetConsole();
 	if (pConsole == NULL) return Value::Null;
 	pConsole->Printf(sig, args.GetString(0), pThis->GetList());
 	return Value::Null;
