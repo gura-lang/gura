@@ -66,8 +66,7 @@ int Main(int argc, const char *argv[])
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
 			if (!env.ImportModules(sig, pModuleNames->c_str())) {
-				Stream *pConsoleErr = env.GetConsoleErr();
-				pConsoleErr->PrintSignal(sig, sig);
+				env.GetConsoleErr()->PrintSignal(sig, sig);
 				return 1;
 			}
 		}
@@ -78,22 +77,18 @@ int Main(int argc, const char *argv[])
 			if (::strcmp(cmd, "") == 0) continue;
 			Expr *pExpr = Parser().ParseString(env, sig, "<command line>", cmd);
 			if (sig.IsSignalled()) {
-				Stream *pConsoleErr = env.GetConsoleErr();
-				pConsoleErr->PrintSignal(sig, sig);
+				env.GetConsoleErr()->PrintSignal(sig, sig);
 				return 1;
 			}
 			if (pExpr == NULL) {
-				Stream *pConsoleErr = env.GetConsoleErr();
-				pConsoleErr->Println(sig, "incomplete command");
+				env.GetConsoleErr()->Println(sig, "incomplete command");
 			} else {
 				Value result = pExpr->Exec(env, sig);
 				if (sig.IsSignalled()) {
-					Stream *pConsoleErr = env.GetConsoleErr();
-					pConsoleErr->PrintSignal(sig, sig);
+					env.GetConsoleErr()->PrintSignal(sig, sig);
 					return 1;
 				} else if (result.IsValid()) {
-					Stream *pConsole = env.GetConsole();
-					pConsole->Println(sig, result.ToString(sig).c_str());
+					env.GetConsole()->Println(sig, result.ToString(sig).c_str());
 				}
 			}
 		}
@@ -104,19 +99,16 @@ int Main(int argc, const char *argv[])
 	if (argc >= 2) {
 		pExprRoot = Parser().ParseStream(env, sig, argv[1], encoding);
 		if (sig.IsSignalled()) {
-			Stream *pConsoleErr = env.GetConsoleErr();
-			pConsoleErr->PrintSignal(sig, sig);
+			env.GetConsoleErr()->PrintSignal(sig, sig);
 			return 1;
 		}
 		if (opt.IsSet("llvm")) {
-			Stream *pConsole = env.GetConsole();
-			pExprRoot->GenerateCode(env, sig, *pConsole);
+			pExprRoot->GenerateCode(env, sig, *env.GetConsole());
 		} else {
 			pExprRoot->Exec(env, sig);
 		}
 		if (sig.IsSignalled()) {
-			Stream *pConsoleErr = env.GetConsoleErr();
-			pConsoleErr->PrintSignal(sig, sig);
+			env.GetConsoleErr()->PrintSignal(sig, sig);
 			sig.ClearSignal();
 		}
 		interactiveFlag = false;
@@ -126,15 +118,12 @@ int Main(int argc, const char *argv[])
 			AutoPtr<Stream> pStreamSrc(Directory::OpenStream(env, sig,
 					pPathName->c_str(), Stream::ATTR_Readable, encoding));
 			if (sig.IsSignalled()) {
-				Stream *pConsoleErr = env.GetConsoleErr();
-				pConsoleErr->PrintSignal(sig, sig);
+				env.GetConsoleErr()->PrintSignal(sig, sig);
 				return 1;
 			}
-			Stream *pConsole = env.GetConsole();
-			Parser().ParseTemplate(env, sig, *pStreamSrc, *pConsole, true, false);
+			Parser().ParseTemplate(env, sig, *pStreamSrc, *env.GetConsole(), true, false);
 			if (sig.IsSignalled()) {
-				Stream *pConsoleErr = env.GetConsoleErr();
-				pConsoleErr->PrintSignal(sig, sig);
+				env.GetConsoleErr()->PrintSignal(sig, sig);
 				return 1;
 			}
 		}
@@ -174,13 +163,14 @@ void PrintHelp(FILE *fp)
 #if defined(HAVE_WINDOWS_H)
 void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
-	Stream *pConsole = env.GetConsole();
 	Parser parser;
 	ExprOwner exprOwner;
+	Stream *pConsole = env.GetConsole();
 	pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
 	for (;;) {
 		int ch = ::fgetc(stdin);
-		parser.EvalConsoleChar(env, sig, exprOwner, static_cast<unsigned char>(ch));
+		parser.EvalConsoleChar(env, sig, exprOwner,
+								pConsole, static_cast<unsigned char>(ch));
 		if (ch < 0) break;
 		if (ch == '\n') {
 			pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
@@ -193,10 +183,11 @@ void ReadEvalPrintLoop(Environment &env, Signal sig)
 	Parser parser;
 	ExprOwner exprOwner;
 	char *lineBuff = NULL;
+	Stream *pConsole = env.GetConsole();
 	while (lineBuff = readline(env.GetPrompt(parser.IsContinued()))) {
 		for (char *p = lineBuff; ; p++) {
 			char ch = (*p == '\0')? '\n' : *p;
-			parser.EvalConsoleChar(env, sig, exprOwner, ch);
+			parser.EvalConsoleChar(env, sig, exprOwner, pConsole, ch);
 			if (ch == '\n') break;
 		}
 		if (lineBuff[0] != '\0') {

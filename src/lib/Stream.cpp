@@ -696,7 +696,7 @@ StreamDumb::~StreamDumb()
 
 const char *StreamDumb::GetName() const
 {
-	return "dumb stream";
+	return "dumb";
 }
 
 const char *StreamDumb::GetIdentifier() const
@@ -706,12 +706,12 @@ const char *StreamDumb::GetIdentifier() const
 
 bool StreamDumb::GetAttribute(Attribute &attr)
 {
-	return true;
+	return false;
 }
 
 bool StreamDumb::SetAttribute(const Attribute &attr)
 {
-	return true;
+	return false;
 }
 
 size_t StreamDumb::DoRead(Signal sig, void *buff, size_t len)

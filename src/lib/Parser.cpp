@@ -1122,10 +1122,9 @@ bool Parser::OutputTemplateResult(Environment &env, Signal sig,
 }
 
 void Parser::EvalConsoleChar(Environment &env, Signal sig,
-											ExprOwner &exprOwner, char ch)
+					ExprOwner &exprOwner, Stream *pConsole, char ch)
 {
 	char chConv = '\0';
-	Stream *pConsole = env.GetConsole();
 	Codec_Decoder *pDecoder = pConsole->GetDecoder();
 	Codec::Result rtn = pDecoder->FeedChar(ch, chConv);
 	if (rtn != Codec::RESULT_Complete) return;
