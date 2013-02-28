@@ -149,8 +149,7 @@ public:
 		bool				_echoFlag;
 		Function			*_pOpFuncTbl[OPTYPE_max];
 		Module				*_pModule_sys;
-		Stream				*_pConsole;
-		Stream				*_pConsoleError;
+		AutoPtr<Stream>		_pConsoleDumb;
 	public:
 		Global();
 		~Global();
@@ -164,6 +163,7 @@ public:
 		Module *LookupSeparatedModule(const char *pathName) const;
 		void RegisterSeparatedModule(const char *pathName, Module *pModule);
 		void UnregisterSeparatedModule(const char *pathName);
+		Stream *GetConsoleDumb() { return _pConsoleDumb.get(); }
 	};
 	class DLLDECLARE Frame {
 	private:
@@ -281,6 +281,7 @@ public:
 	void SetConsoleErr(Stream *pConsole);
 	Stream *GetConsole();
 	Stream *GetConsoleErr();
+	Stream *GetConsoleDumb();
 	static void IntegrateModule(const char *name,
 			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate);
 private:

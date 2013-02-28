@@ -721,32 +721,27 @@ const char *Environment::GetPrompt(bool indentFlag)
 	return (pValue == NULL || !pValue->IsString())? "" : pValue->GetString();
 }
 
-void Environment::SetConsole(Stream *pConsole)
-{
-	GetGlobal()->_pConsole = pConsole;
-}
-
-void Environment::SetConsoleErr(Stream *pConsole)
-{
-	GetGlobal()->_pConsoleError = pConsole;
-}
-
 Stream *Environment::GetConsole()
 {
-	if (GetGlobal()->_pConsole != NULL) return GetGlobal()->_pConsole;
-	const Symbol *pSymbol = Gura_Symbol(stdout);
-	Value *pValue = GetModule_sys()->LookupValue(pSymbol, false);
-	if (pValue == NULL || !pValue->IsInstanceOf(VTYPE_stream)) return NULL;
+	Value *pValue = GetModule_sys()->LookupValue(Gura_Symbol(stdout), false);
+	if (pValue == NULL || !pValue->IsInstanceOf(VTYPE_stream)) {
+		return GetConsoleDumb();
+	}
 	return &pValue->GetStream();
 }
 
 Stream *Environment::GetConsoleErr()
 {
-	if (GetGlobal()->_pConsoleError != NULL) return GetGlobal()->_pConsoleError;
-	const Symbol *pSymbol = Gura_Symbol(stderr);
-	Value *pValue = GetModule_sys()->LookupValue(pSymbol, false);
-	if (pValue == NULL || !pValue->IsInstanceOf(VTYPE_stream)) return NULL;
+	Value *pValue = GetModule_sys()->LookupValue(Gura_Symbol(stderr), false);
+	if (pValue == NULL || !pValue->IsInstanceOf(VTYPE_stream)) {
+		return GetConsoleDumb();
+	}
 	return &pValue->GetStream();
+}
+
+Stream *Environment::GetConsoleDumb()
+{
+	return GetGlobal()->GetConsoleDumb();
 }
 
 // this function is called in a args before main() function.
@@ -767,9 +762,7 @@ bool Environment::IsObject() const { return false; }
 //-----------------------------------------------------------------------------
 // Environment::Global
 //-----------------------------------------------------------------------------
-Environment::Global::Global() : _echoFlag(false),
-	_pConsole(NULL),
-	_pConsoleError(NULL)
+Environment::Global::Global() : _echoFlag(false)
 {
 	for (size_t i = 0; i < OPTYPE_max; i++) {
 		_pOpFuncTbl[i] = NULL;
@@ -790,6 +783,7 @@ void Environment::Global::Prepare()
 {
 	_workingDirList.push_back(OAL::GetCurDir());
 	_pValueTypePool = ValueTypePool::GetInstance();
+	_pConsoleDumb.reset(new StreamDumb());
 }
 
 Class *Environment::Global::LookupClass(ValueType valType) const

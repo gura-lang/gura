@@ -199,8 +199,10 @@ public:
 // StreamDumb
 //-----------------------------------------------------------------------------
 class DLLDECLARE StreamDumb : public Stream {
+private:
+	Signal _sig;
 public:
-	StreamDumb(Signal sig);
+	StreamDumb();
 	virtual ~StreamDumb();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;

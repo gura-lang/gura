@@ -686,7 +686,7 @@ Stream *Stream::Prefetch(Signal sig, Stream *pStreamSrc,
 //-----------------------------------------------------------------------------
 // StreamDumb
 //-----------------------------------------------------------------------------
-StreamDumb::StreamDumb(Signal sig) : Stream(sig, ATTR_Writable)
+StreamDumb::StreamDumb() : Stream(_sig, ATTR_Writable)
 {
 }
 
@@ -736,7 +736,7 @@ bool StreamDumb::DoFlush(Signal sig)
 
 bool StreamDumb::DoClose(Signal sig)
 {
-	return DoFlush(sig);
+	return true;
 }
 
 size_t StreamDumb::DoGetSize()

@@ -22,14 +22,14 @@ program: $(DLL_GURA)
 module: $(DLL_GURA)
 	@..\bin-x86\gura.exe -C ..\build build-modules.gura install-root
 
-clean: clean_library clean_module clean_program
+clean: clean-module clean-program clean-library
 
-clean_library:
+clean-library:
 	@cd lib
 	@nmake /nologo /f Makefile.msc clean
 	@cd ..
 
-clean_program:
+clean-program:
 	@cd Program_gura
 	@nmake /nologo /f Makefile.msc clean
 	@cd ..\Program_guraw
@@ -38,5 +38,5 @@ clean_program:
 	@nmake /nologo /f Makefile.msc clean
 	@cd ..
 
-clean_module:
-	@if exist ..\bin-x86\gura.exe ..\bin-x86\gura.exe -C ..\build build-modules.gura clean
+clean-module:
+	@if exist ..\bin-x86\gura.exe ..\bin-x86\gura.exe build-modules.gura clean
