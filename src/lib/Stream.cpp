@@ -684,6 +684,67 @@ Stream *Stream::Prefetch(Signal sig, Stream *pStreamSrc,
 }
 
 //-----------------------------------------------------------------------------
+// StreamDumb
+//-----------------------------------------------------------------------------
+StreamDumb::StreamDumb(Signal sig) : Stream(sig, ATTR_Writable)
+{
+}
+
+StreamDumb::~StreamDumb()
+{
+}
+
+const char *StreamDumb::GetName() const
+{
+	return "dumb stream";
+}
+
+const char *StreamDumb::GetIdentifier() const
+{
+	return "dumb";
+}
+
+bool StreamDumb::GetAttribute(Attribute &attr)
+{
+	return true;
+}
+
+bool StreamDumb::SetAttribute(const Attribute &attr)
+{
+	return true;
+}
+
+size_t StreamDumb::DoRead(Signal sig, void *buff, size_t len)
+{
+	return 0;
+}
+
+size_t StreamDumb::DoWrite(Signal sig, const void *buff, size_t len)
+{
+	return len;
+}
+
+bool StreamDumb::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+{
+	return true;
+}
+
+bool StreamDumb::DoFlush(Signal sig)
+{
+	return true;
+}
+
+bool StreamDumb::DoClose(Signal sig)
+{
+	return DoFlush(sig);
+}
+
+size_t StreamDumb::DoGetSize()
+{
+	return 0;
+}
+
+//-----------------------------------------------------------------------------
 // Stream_Prefetch
 //-----------------------------------------------------------------------------
 Stream_Prefetch::Stream_Prefetch(Signal sig, Stream *pStreamSrc, size_t bytesUnit) :
