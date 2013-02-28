@@ -65,7 +65,7 @@ int Main(int argc, const char *argv[])
 	}
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
-			if (!env.ImportModules(sig, pModuleNames->c_str(), false)) {
+			if (!env.ImportModules(sig, pModuleNames->c_str(), false, false)) {
 				env.GetConsoleErr()->PrintSignal(sig, sig);
 				return 1;
 			}

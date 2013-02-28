@@ -173,6 +173,7 @@ public:
 	Gura_DeclareSymbol(symbol_func);
 	Gura_DeclareSymbol(force);
 	Gura_DeclareSymbol(overwrite);
+	Gura_DeclareSymbol(mixin_type);
 	Gura_DeclareSymbol(raw);
 	Gura_DeclareSymbol(stat);
 	Gura_DeclareSymbol(map);

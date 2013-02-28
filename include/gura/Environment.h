@@ -261,12 +261,15 @@ public:
 		return GetGlobal()->LookupClass(valType);
 	}
 	void AssignModule(Module *pModule);
-	bool ImportModules(Signal sig, const char *moduleNames, bool binaryOnlyFlag);
+	bool ImportModules(Signal sig, const char *moduleNames,
+								bool binaryOnlyFlag, bool mixinTypeFlag);
 	bool ImportModule(Signal sig, const Expr *pExpr, const Symbol *pSymbolAlias,
-			const SymbolSet *pSymbolsToMixIn, bool overwriteFlag, bool binaryOnlyFlag);
+			const SymbolSet *pSymbolsToMixIn, bool overwriteFlag,
+			bool binaryOnlyFlag, bool mixinTypeFlag);
 	bool ImportModule(Signal sig, const SymbolList &symbolOfModule,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
-			bool overwriteFlag, bool assignModuleNameFlag, bool binaryOnlyFlag);
+			bool overwriteFlag, bool assignModuleNameFlag,
+			bool binaryOnlyFlag, bool mixinTypeFlag);
 	static bool IsBinaryModule(const char *pathName);
 	bool AddModuleSearchPath(Signal sig, const StringList &strList);
 	virtual bool IsModule() const;

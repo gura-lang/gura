@@ -397,7 +397,8 @@ void Environment::AssignModule(Module *pModule)
 	GetTopFrame().AssignValue(pModule->GetSymbol(), value);
 }
 
-bool Environment::ImportModules(Signal sig, const char *moduleNames, bool binaryOnlyFlag)
+bool Environment::ImportModules(Signal sig,
+		const char *moduleNames, bool binaryOnlyFlag, bool mixinTypeFlag)
 {
 	String moduleName;
 	for (const char *p = moduleNames; ; p++) {
@@ -418,7 +419,8 @@ bool Environment::ImportModules(Signal sig, const char *moduleNames, bool binary
 			if (!field.empty()) {
 				symbolList.push_back(Symbol::Add(field.c_str()));
 			}
-			if (!ImportModule(sig, symbolList, NULL, NULL, true, true, binaryOnlyFlag)) return false;
+			if (!ImportModule(sig, symbolList, NULL, NULL,
+					true, true, binaryOnlyFlag, mixinTypeFlag)) return false;
 			moduleName.clear();
 			if (ch == '\0') break;
 		} else {
@@ -430,7 +432,7 @@ bool Environment::ImportModules(Signal sig, const char *moduleNames, bool binary
 
 bool Environment::ImportModule(Signal sig, const Expr *pExpr,
 			const Symbol *pSymbolOfModule, const SymbolSet *pSymbolsToMixIn,
-			bool overwriteFlag, bool binaryOnlyFlag)
+			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
 {
 	bool assignModuleNameFlag = true;
 	SymbolList symbolOfModule;
@@ -448,12 +450,13 @@ bool Environment::ImportModule(Signal sig, const Expr *pExpr,
 		return false;
 	}
 	return ImportModule(sig, symbolOfModule, pSymbolOfModule, pSymbolsToMixIn,
-							overwriteFlag, assignModuleNameFlag, binaryOnlyFlag);
+			overwriteFlag, assignModuleNameFlag, binaryOnlyFlag, mixinTypeFlag);
 }
 
 bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
-	const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
-	bool overwriteFlag, bool assignModuleNameFlag, bool binaryOnlyFlag)
+			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
+			bool overwriteFlag, bool assignModuleNameFlag,
+			bool binaryOnlyFlag, bool mixinTypeFlag)
 {
 	Module *pModule = NULL;
 	if (!binaryOnlyFlag) {
@@ -533,6 +536,12 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 			if (pValue != NULL) {
 				AssignValue(pSymbol, *pValue, false);
 			}
+		}
+	}
+	if (mixinTypeFlag) {
+		foreach_const (ValueTypeMap, iter, pModule->GetTopFrame().GetValueTypeMap()) {
+			const ValueTypeInfo *pValueTypeInfo = iter->second;
+			AssignValueType(pValueTypeInfo);
 		}
 	}
 	return true;

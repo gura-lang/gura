@@ -186,6 +186,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(symbol_func);
 	Gura_RealizeSymbol(force);
 	Gura_RealizeSymbol(overwrite);
+	Gura_RealizeSymbol(mixin_type);
 	Gura_RealizeSymbol(raw);
 	Gura_RealizeSymbol(stat);
 	Gura_RealizeSymbol(map);

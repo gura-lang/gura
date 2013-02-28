@@ -70,7 +70,7 @@ int MainW(int argc, const char *argv[])
 	}
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
-			if (!env.ImportModules(sig, pModuleNames->c_str(), false)) {
+			if (!env.ImportModules(sig, pModuleNames->c_str(), false, false)) {
 				Stream *pConsole = env.GetConsole();
 				pConsole->PrintSignal(sig, sig);
 				return 1;

@@ -150,6 +150,7 @@ Gura_DeclareFunctionAlias(import_, "import")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(overwrite));
 	DeclareAttr(Gura_Symbol(binary));
+	DeclareAttr(Gura_Symbol(mixin_type));
 	AddHelp(Gura_Symbol(en), 
 	"Imports a module stored in directories specified by a variable sys.path.\n"
 	"There are three ways of calling this function like follow:\n"
@@ -198,8 +199,9 @@ Gura_ImplementFunction(import_)
 	}
 	bool overwriteFlag = args.IsSet(Gura_Symbol(overwrite));
 	bool binaryOnlyFlag = args.IsSet(Gura_Symbol(binary));
+	bool mixinTypeFlag = args.IsSet(Gura_Symbol(mixin_type));
 	if (!env.ImportModule(sig, args.GetExpr(0), pSymbol, pSymbolsToMixIn,
-										overwriteFlag, binaryOnlyFlag)) {
+								overwriteFlag, binaryOnlyFlag, mixinTypeFlag)) {
 		return Value::Null;
 	}
 	return Value::Null;

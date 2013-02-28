@@ -880,7 +880,7 @@ Expr *Parser::ParseStream(Environment &env, Signal sig, const char *pathName, co
 		} else {
 			pathNameMod = pathName;
 		}
-		if (zippedFlag && !env.ImportModules(sig, "zip", false)) return NULL;
+		if (zippedFlag && !env.ImportModules(sig, "zip", false, false)) return NULL;
 	} while (0);
 	AutoPtr<Stream> pStream(Directory::OpenStream(env, sig,
 					pathNameMod.c_str(), Stream::ATTR_Readable, encoding));
