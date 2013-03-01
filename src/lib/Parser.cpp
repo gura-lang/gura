@@ -923,8 +923,9 @@ Expr *Parser::ParseString(Environment &env, Signal sig,
 	return pExprRtn;
 }
 
-bool Parser::ParseTemplate(Environment &env, Signal sig, SimpleStream &streamSrc,
-			SimpleStream &streamDst, bool autoIndentFlag, bool appendLastEOLFlag)
+bool Parser::ParseTemplate(Environment &env, Signal sig,
+					SimpleStream &streamSrc, SimpleStream &streamDst,
+					bool autoIndentFlag, bool appendLastEOLFlag)
 {
 	char chPrefix = '$';
 	enum {
