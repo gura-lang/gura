@@ -2,7 +2,7 @@
 #define __MODULE_HTTP_H__
 #include <gura.h>
 
-Gura_BeginModule(net_http)
+Gura_BeginModule(http)
 
 class Header;
 class Stream_Http;

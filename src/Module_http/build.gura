@@ -9,4 +9,4 @@ if (sys.build == `msc) {
 	builder.debFiles = ['zlib1g-dev']
 	builder.rpmFiles = ['zlib-devel']
 }
-builder.build('net/http', ['Module_net_http.cpp'])
+builder.build('http', ['Module_http.cpp'])

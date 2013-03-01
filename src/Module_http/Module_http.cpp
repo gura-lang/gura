@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Gura net.http module
+// Gura http module
 //-----------------------------------------------------------------------------
 #include <gura.h>
 #include "gura/ZLibHelper.h"
@@ -17,9 +17,9 @@ typedef int socklen_t;
 inline void closesocket(int sock) { close(sock); }
 #endif
 
-#include "Module_net_http.h"
+#include "Module_http.h"
 
-Gura_BeginModule(net_http)
+Gura_BeginModule(http)
 
 static Environment *_pEnvThis = NULL;
 
@@ -1487,13 +1487,13 @@ Value Object_stat::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 
 String Object_stat::ToString(Signal sig, bool exprFlag)
 {
-	return String("<net.http.stat>");
+	return String("<http.stat>");
 }
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_stat
 //-----------------------------------------------------------------------------
-// net.http.stat#field(name:string):map:[raise]
+// http.stat#field(name:string):map:[raise]
 Gura_DeclareMethod(stat, field)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -1566,7 +1566,7 @@ Object *Object_session::Clone() const
 
 String Object_session::ToString(Signal sig, bool exprFlag)
 {
-	String rtn = "<net.http.session";
+	String rtn = "<http.session";
 	do {
 		rtn += ":";
 		rtn += _remoteIP;
@@ -1702,7 +1702,7 @@ Object *Object_request::Clone() const
 String Object_request::ToString(Signal sig, bool exprFlag)
 {
 	Request &request = _pObjSession->GetRequest();
-	String str = "<net.http.request:";
+	String str = "<http.request:";
 	str += request.GetMethod();
 	str += " ";
 	str += request.GetRequestURI();
@@ -1747,7 +1747,7 @@ Stream *Object_request::SendRespChunk(Signal sig,
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_request
 //-----------------------------------------------------------------------------
-// net.http.request#field(name:string):map:[raise]
+// http.request#field(name:string):map:[raise]
 Gura_DeclareMethod(request, field)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -1763,7 +1763,7 @@ Gura_ImplementMethod(request, field)
 				GetHeader().GetField(env, sig, args.GetString(0), signalFlag);
 }
 
-// net.http.request#response(code:string, reason?:string, body?:stream:r,
+// http.request#response(code:string, reason?:string, body?:stream:r,
 //                       version:string => 'HTTP/1.1', header%):reduce
 Gura_DeclareMethod(request, response)
 {
@@ -1788,7 +1788,7 @@ Gura_ImplementMethod(request, response)
 	return args.GetThis();
 }
 
-// net.http.request#respchunk(code:string, reason?:string,
+// http.request#respchunk(code:string, reason?:string,
 //                        version:string => 'HTTP/1.1', header%) {block?}
 Gura_DeclareMethod(request, respchunk)
 {
@@ -1811,7 +1811,7 @@ Gura_ImplementMethod(request, respchunk)
 	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
 }
 
-// net.http.request#ismethod(method:string)
+// http.request#ismethod(method:string)
 Gura_DeclareMethod(request, ismethod)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
@@ -1891,7 +1891,7 @@ Object *Object_response::Clone() const
 String Object_response::ToString(Signal sig, bool exprFlag)
 {
 	Status &status = _pObjClient->GetStatus();
-	String str = "<net.http.response:";
+	String str = "<http.response:";
 	str += status.GetHttpVersion();
 	str += " ";
 	str += status.GetStatusCode();
@@ -1904,7 +1904,7 @@ String Object_response::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_response
 //-----------------------------------------------------------------------------
-// net.http.response#field(name:string):map:[raise]
+// http.response#field(name:string):map:[raise]
 Gura_DeclareMethod(response, field)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -1979,7 +1979,7 @@ Value Object_server::DoGetProp(Signal sig, const Symbol *pSymbol,
 String Object_server::ToString(Signal sig, bool exprFlag)
 {
 	String str;
-	str += "<net.http.server:";
+	str += "<http.server:";
 	if (_sockListen < 0) {
 		str += "invalid";
 	} else {
@@ -2120,7 +2120,7 @@ Object_request *Object_server::Wait(Signal sig)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_server
 //-----------------------------------------------------------------------------
-// net.http.server#wait() {block?}
+// http.server#wait() {block?}
 Gura_DeclareMethod(server, wait)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2180,7 +2180,7 @@ Object *Object_client::Clone() const
 String Object_client::ToString(Signal sig, bool exprFlag)
 {
 	String str;
-	str += "<net.http.client:";
+	str += "<http.client:";
 	str += _addr;
 	str += ":";
 	str += NumberToString(_port);
@@ -2328,7 +2328,7 @@ bool Object_client::CleanupResponse(Signal sig)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_client
 //-----------------------------------------------------------------------------
-// net.http.client#request(method:string, uri:string, body?:stream:r,
+// http.client#request(method:string, uri:string, body?:stream:r,
 //                     version:string => 'HTTP/1.1', header%) {block?}
 Gura_DeclareMethod(client, request)
 {
@@ -2353,7 +2353,7 @@ Gura_ImplementMethod(client, request)
 	return ReturnValue(env, sig, args, Value(pObjResponse));
 }
 
-// net.http.client#_request(uri:string, body?:stream:r,
+// http.client#_request(uri:string, body?:stream:r,
 //                     version:string => 'HTTP/1.1', header%) {block?}
 Gura_DeclareMethod(client, _request)
 {
@@ -2377,7 +2377,7 @@ Gura_ImplementMethod(client, _request)
 	return ReturnValue(env, sig, args, Value(pObjResponse));
 }
 
-// net.http.client#cleanup()
+// http.client#cleanup()
 Gura_DeclareMethod(client, cleanup)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
@@ -2420,7 +2420,7 @@ Object *Object_proxy::Clone() const
 String Object_proxy::ToString(Signal sig, bool exprFlag)
 {
 	String str;
-	str += "<net.http.proxy:";
+	str += "<http.proxy:";
 	str += _addr;
 	str += ":";
 	str += NumberToString(_port);
@@ -2449,7 +2449,7 @@ Gura_ImplementUserClass(proxy)
 //-----------------------------------------------------------------------------
 // Gura module functions: http
 //-----------------------------------------------------------------------------
-// net.http.uri(scheme:string, authority:string, path:string, query?:string, fragment?:string)
+// http.uri(scheme:string, authority:string, path:string, query?:string, fragment?:string)
 Gura_DeclareFunction(uri)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2482,7 +2482,7 @@ Gura_ImplementFunction(uri)
 	return Value(env, str.c_str());
 }
 
-// net.http.splituri(uri:string)
+// http.splituri(uri:string)
 Gura_DeclareFunction(splituri)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2530,7 +2530,7 @@ Gura_ImplementFunction(splituri)
 	return result;
 }
 
-// net.http.parsequery(query:string)
+// http.parsequery(query:string)
 Gura_DeclareFunction(parsequery)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2542,7 +2542,7 @@ Gura_ImplementFunction(parsequery)
 	return DecodeURIQuery(env, sig, args.GetString(0));
 }
 
-// net.http.addproxy(addr:string, port:number, userid?:string, password?:string) {criteria?}
+// http.addproxy(addr:string, port:number, userid?:string, password?:string) {criteria?}
 Gura_DeclareFunction(addproxy)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2573,7 +2573,7 @@ Gura_ImplementFunction(addproxy)
 	return Value::Null;
 }
 
-// net.http.server(addr?:string, port:number => 80) {block?}
+// http.server(addr?:string, port:number => 80) {block?}
 Gura_DeclareFunction(server)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2594,7 +2594,7 @@ Gura_ImplementFunction(server)
 	return ReturnValue(env, sig, args, Value(pObjServer.release()));
 }
 
-// net.http.client(addr:string, port:number => 80,
+// http.client(addr:string, port:number => 80,
 //             addrProxy?:string, portProxy?:number,
 //             useridProxy?:string, passwordProxy?:string) {block?}
 Gura_DeclareFunction(client)
@@ -2816,6 +2816,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(net_http, http)
+Gura_EndModule(http, http)
 
-Gura_RegisterModule(net_http)
+Gura_RegisterModule(http)
