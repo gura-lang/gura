@@ -923,40 +923,6 @@ Expr *Parser::ParseString(Environment &env, Signal sig,
 	return pExprRtn;
 }
 
-Expr *Parser::ParseString(Environment &env, Signal sig,
-					const char *sourceName, const wchar_t *str, size_t len)
-{
-	Expr *pExprRtn = NULL;
-	Expr_Block *pExprBlock = NULL;
-	SetSourceName(sourceName);
-	for ( ; ; str++, len--) {
-		char ch = (len == 0)? '\0' : static_cast<char>(*str);
-		Expr *pExpr = ParseChar(env, sig, ch);
-		if (sig.IsSignalled()) {
-			if (sig.IsDetectEncoding()) {
-				sig.ClearSignal();
-			} else {
-				Expr::Delete(pExprRtn);
-				return NULL;
-			}
-		} else if (pExpr == NULL) {
-			// nothing to do
-		} else if (pExprRtn == NULL) {
-			pExprRtn = pExpr;
-		} else {
-			if (pExprBlock == NULL) {
-				pExprBlock = new Expr_Block();
-				pExprBlock->AddExpr(pExprRtn);
-				pExprRtn = pExprBlock;
-			}
-			pExprBlock->AddExpr(pExpr);
-		}
-		if (len == 0) break;
-	}
-	
-	return pExprRtn;
-}
-
 bool Parser::ParseTemplate(Environment &env, Signal sig, SimpleStream &streamSrc,
 			SimpleStream &streamDst, bool autoIndentFlag, bool appendLastEOLFlag)
 {

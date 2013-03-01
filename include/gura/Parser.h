@@ -233,13 +233,8 @@ public:
 	Expr *ParseStream(Environment &env, Signal sig, const char *pathName, const char *encoding);
 	Expr *ParseString(Environment &env, Signal sig,
 							const char *sourceName, const char *str, size_t len);
-	Expr *ParseString(Environment &env, Signal sig,
-							const char *sourceName, const wchar_t *str, size_t len);
 	inline Expr *ParseString(Environment &env, Signal sig, const char *sourceName, const char *str) {
 		return ParseString(env, sig, sourceName, str, ::strlen(str));
-	}
-	inline Expr *ParseString(Environment &env, Signal sig, const char *sourceName, const wchar_t *str) {
-		return ParseString(env, sig, sourceName, str, ::wcslen(str));
 	}
 	bool ParseTemplate(Environment &env, Signal sig, SimpleStream &streamSrc,
 				SimpleStream &streamDst, bool autoIndentFlag, bool appendLastEOLFlag);
