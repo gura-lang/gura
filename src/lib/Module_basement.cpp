@@ -520,6 +520,19 @@ Gura_ImplementFunction(else_)
 	return pExprBlock->Exec(envBlock, sig);
 }
 
+// end ():trailer
+Gura_DeclareFunction(end)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Trailer);
+	AddHelp(Gura_Symbol(en), 
+	"Specify an end of a sequence. It just works as a marker.\n");
+}
+
+Gura_ImplementFunction(end)
+{
+	return Value::Null;
+}
+
 // switch {block}
 Gura_DeclareFunctionAlias(switch_, "switch")
 {
@@ -1521,6 +1534,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(if_);
 	Gura_AssignFunction(elsif_);
 	Gura_AssignFunction(else_);
+	Gura_AssignFunction(end);
 	Gura_AssignFunction(switch_);
 	Gura_AssignFunction(case_);
 	Gura_AssignFunction(default_);
