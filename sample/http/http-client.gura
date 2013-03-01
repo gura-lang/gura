@@ -1,9 +1,9 @@
 #!/usr/bin/env gura
-import(net.http)
+import(http)
 
 path.exists('proxy_setting.gura') && import(proxy_setting)
 
-net.http.client('www.nifty.com') {|c|
+http.client('www.nifty.com') {|c|
 	resp = c.get('/',
 		'Accept'			=> 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
 		'Accept-Charset'	=> 'Shift_JIS,utf-8;q=0.7,*;q=0.7'
@@ -22,7 +22,7 @@ net.http.client('www.nifty.com') {|c|
 	println('Expires       ', resp['Expires'])
 	resp.body.copyto('nifty.html')
 }
-net.http.client('www.asahi.com') {|c|
+http.client('www.asahi.com') {|c|
 	resp = c.get('/',
 		'Accept'			=> 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
 		'Accept-Charset'	=> 'Shift_JIS,utf-8;q=0.7,*;q=0.7'

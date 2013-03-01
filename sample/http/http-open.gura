@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(net.http)
+import(http)
 
 path.exists('proxy_setting.gura') && import(proxy_setting)
 

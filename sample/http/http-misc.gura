@@ -1,14 +1,14 @@
 #!/usr/bin/env gura
-import(net.http)
+import(http)
 
 tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
 
 scope {
-	tester(`net.http.splituri(''))
-	tester(`net.http.splituri('http://www.ics.uci.edu/pub/ietf/uri/#Related'))
-	tester(`net.http.splituri('http://www.ics.uci.edu/pub/ietf/uri/?hoge?foo?bar#Related'))
-	tester(`net.http.splituri('http://www.ics.uci.edu/pub/ietf/uri/?hoge=first?foo=second?bar=third#Related'))
-	tester(`net.http.splituri('/pub/ietf/uri/?hoge=first?foo=second?bar=third#Related'))
-	tester(`net.http.splituri('/?hoge=first?foo=second?bar=third#Related'))
-	tester(`net.http.splituri('?hoge=first?foo=second?bar=third#Related'))
+	tester(`http.splituri(''))
+	tester(`http.splituri('http://www.ics.uci.edu/pub/ietf/uri/#Related'))
+	tester(`http.splituri('http://www.ics.uci.edu/pub/ietf/uri/?hoge?foo?bar#Related'))
+	tester(`http.splituri('http://www.ics.uci.edu/pub/ietf/uri/?hoge=first?foo=second?bar=third#Related'))
+	tester(`http.splituri('/pub/ietf/uri/?hoge=first?foo=second?bar=third#Related'))
+	tester(`http.splituri('/?hoge=first?foo=second?bar=third#Related'))
+	tester(`http.splituri('?hoge=first?foo=second?bar=third#Related'))
 }
