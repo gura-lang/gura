@@ -241,6 +241,10 @@ bool Function::CustomDeclare(Environment &env, Signal sig,
 			_flags |= FLAG_DynamicScope;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(symbol_func))) {
 			_flags |= FLAG_SymbolFunc;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(leader))) {
+			_flags |= FLAG_Leader;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(trailer))) {
+			_flags |= FLAG_Trailer;
 		} else if (attrsAcceptable.IsSet(pSymbol)) {
 			// nothing to do
 		} else {
@@ -726,6 +730,14 @@ String Function::ToString() const
 	if (GetSymbolFuncFlag()) {
 		str += ":";
 		str += Gura_Symbol(symbol_func)->GetName();
+	}
+	if (GetLeaderFlag()) {
+		str += ":";
+		str += Gura_Symbol(leader)->GetName();
+	}
+	if (GetTrailerFlag()) {
+		str += ":";
+		str += Gura_Symbol(trailer)->GetName();
 	}
 	if (_resultMode == RSLTMODE_List) {
 		str += ":";

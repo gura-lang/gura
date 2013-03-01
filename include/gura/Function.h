@@ -315,6 +315,8 @@ public:
 	inline bool GetForkFlag() const { return (_flags & FLAG_Fork)? true : false; }
 	inline bool GetDynamicScopeFlag() const { return (_flags & FLAG_DynamicScope)? true : false; }
 	inline bool GetSymbolFuncFlag() const { return (_flags & FLAG_SymbolFunc)? true : false; }
+	inline bool GetLeaderFlag() const { return (_flags & FLAG_Leader)? true : false; }
+	inline bool GetTrailerFlag() const { return (_flags & FLAG_Trailer)? true : false; }
 	void SetClassToConstruct(Class *pClassToConstruct);
 	bool CustomDeclare(Environment &env, Signal sig,
 			const SymbolSet &attrsAcceptable, Args &args);

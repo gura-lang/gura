@@ -180,6 +180,8 @@ public:
 	Gura_DeclareSymbol(nomap);
 	Gura_DeclareSymbol(nocast);
 	Gura_DeclareSymbol(noesc);
+	Gura_DeclareSymbol(leader);
+	Gura_DeclareSymbol(trailer);
 	Gura_DeclareSymbol(fork);
 	Gura_DeclareSymbol(strict);
 	Gura_DeclareSymbol(loose);

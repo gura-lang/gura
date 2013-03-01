@@ -193,6 +193,8 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(nomap);
 	Gura_RealizeSymbol(nocast);
 	Gura_RealizeSymbol(noesc);
+	Gura_RealizeSymbol(leader);
+	Gura_RealizeSymbol(trailer);
 	Gura_RealizeSymbol(fork);
 	Gura_RealizeSymbol(strict);
 	Gura_RealizeSymbol(loose);

@@ -154,7 +154,8 @@ enum {
 	FLAG_Read			= (1 << 8),		// :r
 	FLAG_Write			= (1 << 9),		// :w
 	FLAG_NoCast			= (1 << 10),	// :nocast
-	FLAG_
+	FLAG_Leader			= (1 << 11),	// :leader
+	FLAG_Trailer		= (1 << 12),	// :trailer
 };
 
 //-----------------------------------------------------------------------------

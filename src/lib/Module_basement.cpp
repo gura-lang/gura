@@ -342,9 +342,10 @@ Gura_ImplementFunction(local)
 	return Value::Null;
 }
 
-// try () {block}
+// try ():leader {block}
 Gura_DeclareFunctionLeaderAlias(try_, "try")
 {
+	SetMode(RSLTMODE_Normal, FLAG_Leader);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), 
 	"Specify a try block of a statement of try-except-else.\n"
@@ -368,9 +369,10 @@ bool Gura_Function(try_)::CheckIfTrailer(const ICallable *pCallable) const
 	return true;
 }
 
-// except (errors*:error) {block}
+// except (errors*:error):leader:trailer {block}
 Gura_DeclareFunctionLeaderAlias(except_, "except")
 {
+	SetMode(RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), 
@@ -424,9 +426,10 @@ bool Gura_Function(except_)::CheckIfTrailer(const ICallable *pCallable) const
 	return true;
 }
 
-// finally () {block}
+// finally ():trailer {block}
 Gura_DeclareFunctionAlias(finally_, "finally")
 {
+	SetMode(RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
 }
 
@@ -438,9 +441,10 @@ Gura_ImplementFunction(finally_)
 	return pExprBlock->Exec(envBlock, sig);
 }
 
-// if (`cond) {block}
+// if (`cond):leader {block}
 Gura_DeclareFunctionLeaderAlias(if_, "if")
 {
+	SetMode(RSLTMODE_Normal, FLAG_Leader);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), 
@@ -467,9 +471,10 @@ bool Gura_Function(if_)::CheckIfTrailer(const ICallable *pCallable) const
 	return true;
 }
 
-// elsif (`cond) {block}
+// elsif (`cond):leader:trailer {block}
 Gura_DeclareFunctionLeaderAlias(elsif_, "elsif")
 {
+	SetMode(RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), 
@@ -496,9 +501,10 @@ bool Gura_Function(elsif_)::CheckIfTrailer(const ICallable *pCallable) const
 	return true;
 }
 
-// else () {block}
+// else ():trailer {block}
 Gura_DeclareFunctionAlias(else_, "else")
 {
+	SetMode(RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), 
 	"Specify an else block of a statement of if-elsif-else or try-except-else.\n");
