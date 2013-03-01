@@ -1672,7 +1672,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 				if (pExprBlock == NULL) {
 					pExprBlock = new Expr_Block();
 				}
-				pExprCaller->GetLastSucceeding()->SetBlock(pExprBlock);
+				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
 				pExpr = pExprCaller;
 			} else {
 				if (pExprBlock == NULL) {
@@ -1883,10 +1883,10 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 				} else if (pExprDst->IsCaller()) {
 					Expr_Caller *pExprCaller =
 									dynamic_cast<Expr_Caller *>(pExprDst);
-					Expr_Caller *pExprCallerSucc =
-									pExprCaller->GetLastSucceeding();
-					pExprCallerSucc->AddAttr(pSymbol);
-					pAttrFront = &pExprCallerSucc->GetAttrFront();
+					Expr_Caller *pExprTrailer =
+									pExprCaller->GetLastTrailer();
+					pExprTrailer->AddAttr(pSymbol);
+					pAttrFront = &pExprTrailer->GetAttrFront();
 				} else {
 					SetError_InvalidElement(sig, __LINE__);
 					return false;
@@ -1903,9 +1903,9 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 				} else if (pExprDst->IsCaller()) {
 					Expr_Caller *pExprCaller =
 									dynamic_cast<Expr_Caller *>(pExprDst);
-					Expr_Caller *pExprCallerSucc =
-									pExprCaller->GetLastSucceeding();
-					pAttrFront = &pExprCallerSucc->GetAttrFront();
+					Expr_Caller *pExprTrailer =
+									pExprCaller->GetLastTrailer();
+					pAttrFront = &pExprTrailer->GetAttrFront();
 				} else {
 					SetError_InvalidElement(sig, __LINE__);
 					return false;
@@ -1931,7 +1931,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 				} else if (pExprDst->IsCaller()) {
 					Expr_Caller *pExprCaller =
 									dynamic_cast<Expr_Caller *>(pExprDst);
-					pExprCaller = pExprCaller->GetLastSucceeding();
+					pExprCaller = pExprCaller->GetLastTrailer();
 					foreach (ExprList, ppExpr, exprList) {
 						Expr *pExpr = *ppExpr;
 						if (!pExpr->IsSymbol()) {
@@ -2028,7 +2028,7 @@ bool Parser::ReduceFourElems(Environment &env, Signal sig)
 			}
 			Expr_Caller *pExprCallerPrev =
 							dynamic_cast<Expr_Caller *>(elem1.GetExpr());
-			pExprCallerPrev->GetLastSucceeding()->SetSucceeding(pExprCaller);
+			pExprCallerPrev->GetLastTrailer()->SetTrailer(pExprCaller);
 			pExpr = pExprCallerPrev;
 		} else if (elem4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
@@ -2050,7 +2050,7 @@ bool Parser::ReduceFourElems(Environment &env, Signal sig)
 			Expr_Caller *pExprCaller;
 			if (elem2.GetExpr()->IsCaller()) {
 				pExprCaller = dynamic_cast<Expr_Caller *>(elem2.GetExpr());
-				pExprCaller->GetLastSucceeding()->SetBlock(pExprBlock);
+				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
 			} else {
 				pExprCaller = new Expr_Caller(elem2.GetExpr(), NULL, pExprBlock);
 			}
@@ -2060,7 +2060,7 @@ bool Parser::ReduceFourElems(Environment &env, Signal sig)
 			}
 			Expr_Caller *pExprCallerPrev =
 							dynamic_cast<Expr_Caller *>(elem1.GetExpr());
-			pExprCallerPrev->GetLastSucceeding()->SetSucceeding(pExprCaller);
+			pExprCallerPrev->GetLastTrailer()->SetTrailer(pExprCaller);
 			pExpr = pExprCallerPrev;
 		} else if (elem4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
@@ -2110,7 +2110,7 @@ bool Parser::ReduceFourElems(Environment &env, Signal sig)
 			if (elem1.GetExpr()->IsCaller()) {
 				Expr_Caller *pExprCaller =
 								dynamic_cast<Expr_Caller *>(elem1.GetExpr());
-				pExprCaller->GetLastSucceeding()->SetBlock(pExprBlock);
+				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
 				pExpr = pExprCaller;
 			} else {
 				Expr_Caller *pExprCaller =
@@ -2198,7 +2198,7 @@ bool Parser::ReduceFiveElems(Environment &env, Signal sig)
 			}
 			Expr_Caller *pExprCallerPrev =
 							dynamic_cast<Expr_Caller *>(elem1.GetExpr());
-			pExprCallerPrev->GetLastSucceeding()->SetSucceeding(pExprCaller);
+			pExprCallerPrev->GetLastTrailer()->SetTrailer(pExprCaller);
 			pExpr = pExprCallerPrev;
 		} else if (elem5.IsType(ETYPE_Comma) || elem5.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
@@ -2227,7 +2227,7 @@ bool Parser::ReduceFiveElems(Environment &env, Signal sig)
 			Expr_Caller *pExprCaller;
 			if (elem2.GetExpr()->IsCaller()) {
 				pExprCaller = dynamic_cast<Expr_Caller *>(elem2.GetExpr());
-				pExprCaller->GetLastSucceeding()->SetBlock(pExprBlock);
+				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
 			} else {
 				pExprCaller = new Expr_Caller(elem2.GetExpr(), NULL, pExprBlock);
 			}
@@ -2237,7 +2237,7 @@ bool Parser::ReduceFiveElems(Environment &env, Signal sig)
 			}
 			Expr_Caller *pExprCallerPrev =
 							dynamic_cast<Expr_Caller *>(elem1.GetExpr());
-			pExprCallerPrev->GetLastSucceeding()->SetSucceeding(pExprCaller);
+			pExprCallerPrev->GetLastTrailer()->SetTrailer(pExprCaller);
 			pExpr = pExprCallerPrev;
 		} else if (elem5.IsType(ETYPE_Comma) ||
 					elem5.IsType(ETYPE_Semicolon) || elem5.IsType(ETYPE_EOL)) {

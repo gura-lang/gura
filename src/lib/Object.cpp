@@ -183,22 +183,22 @@ bool Object::DirProp(Signal sig, SymbolSet &symbols)
 
 Value Object::EvalMethod(Signal sig, const Function *pFunc, const ValueList &valListArg)
 {
-	const Function *pFuncSuccRequester = NULL;
+	const Function *pFuncLeader = NULL;
 	Value valueThis(this, Value::FLAG_NoOwner); // reference to this
-	Args args(valListArg, valueThis, NULL, false, &pFuncSuccRequester);
+	Args args(valListArg, valueThis, NULL, false, &pFuncLeader);
 	return pFunc->Eval(*this, sig, args);
 }
 
 Value Object::EvalMethod(Signal sig, const Symbol *pSymbol,
 							const ValueList &valListArg, bool &evaluatedFlag)
 {
-	const Function *pFuncSuccRequester = NULL;
+	const Function *pFuncLeader = NULL;
 	evaluatedFlag = false;
 	const Function *pFunc = LookupFunction(pSymbol, true);
 	if (pFunc == NULL) return Value::Null;
 	Value valueThis(this, Value::FLAG_NoOwner); // reference to this
 	evaluatedFlag = true;
-	Args args(valListArg, valueThis, NULL, false, &pFuncSuccRequester);
+	Args args(valListArg, valueThis, NULL, false, &pFuncLeader);
 	return pFunc->Eval(*this, sig, args);
 }
 
@@ -355,7 +355,7 @@ public:
 };
 
 Gura_Method(Object, call_X)::Gura_Method(Object, call_X)(Environment &env, const char *name) :
-							Function(env, Symbol::Add(name), FUNCTYPE_Class)
+						Function(env, Symbol::Add(name), FUNCTYPE_Class, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);

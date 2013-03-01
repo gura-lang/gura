@@ -50,7 +50,7 @@ void AssignOperators(Environment &env)
 bool Func_Pos::IsPos() const { return true; }
 
 Func_Pos::Func_Pos(Environment &env) :
-			Function(env, Symbol::Add("__pos__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__pos__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Plus, OPTYPE_Plus);	// revise this later
@@ -101,7 +101,7 @@ Expr *Func_Pos::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
 bool Func_Neg::IsNeg() const { return true; }
 
 Func_Neg::Func_Neg(Environment &env) :
-			Function(env, Symbol::Add("__neg__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__neg__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Minus, OPTYPE_Minus);	// revise this later
@@ -166,7 +166,7 @@ Expr *Func_Neg::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
 
 // ~x
 Func_Invert::Func_Invert(Environment &env) :
-			Function(env, Symbol::Add("__invert__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__invert__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Invert, OPTYPE_Invert);
@@ -192,7 +192,7 @@ Value Func_Invert::DoEval(Environment &env, Signal sig, Args &args) const
 
 // !n
 Func_Not::Func_Not(Environment &env) :
-			Function(env, Symbol::Add("__not__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__not__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Not, OPTYPE_Not);
@@ -215,7 +215,7 @@ Value Func_Not::DoEval(Environment &env, Signal sig, Args &args) const
 bool Func_Plus::IsPlus() const { return true; }
 
 Func_Plus::Func_Plus(Environment &env) :
-			Function(env, Symbol::Add("__add__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__add__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Plus, OPTYPE_Plus);
@@ -421,7 +421,7 @@ Expr *Func_Plus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Ex
 bool Func_Minus::IsMinus() const { return true; }
 
 Func_Minus::Func_Minus(Environment &env) :
-			Function(env, Symbol::Add("__sub__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__sub__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Minus, OPTYPE_Minus);
@@ -617,7 +617,7 @@ Expr *Func_Minus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 bool Func_Multiply::IsMultiply() const { return true; }
 
 Func_Multiply::Func_Multiply(Environment &env) :
-			Function(env, Symbol::Add("__mul__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__mul__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Multiply, OPTYPE_Multiply);
@@ -648,8 +648,8 @@ Value Func_Multiply::EvalExpr(Environment &env, Signal sig, Args &args) const
 				if (!pFunc->GetDeclOwner().Compensate(env, sig, valListComp)) {
 					return Value::Null;
 				}
-				const Function *pFuncSuccRequester = NULL;
-				Args argsSub(valListComp, Value::Null, NULL, false, &pFuncSuccRequester);
+				const Function *pFuncLeader = NULL;
+				Args argsSub(valListComp, Value::Null, NULL, false, &pFuncLeader);
 				return pFunc->Eval(env, sig, argsSub);
 			}
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
@@ -915,7 +915,7 @@ Expr *Func_Multiply::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft
 bool Func_Divide::IsDivide() const { return true; }
 
 Func_Divide::Func_Divide(Environment &env) :
-			Function(env, Symbol::Add("__div__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__div__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Divide, OPTYPE_Divide);
@@ -1110,7 +1110,7 @@ Expr *Func_Divide::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 bool Func_Modulo::IsModulo() const { return true; }
 
 Func_Modulo::Func_Modulo(Environment &env) :
-			Function(env, Symbol::Add("mod"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("mod"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Modulo, OPTYPE_Modulo);
@@ -1204,7 +1204,7 @@ Value Func_Modulo::DoEval(Environment &env, Signal sig, Args &args) const
 
 // format(format, value*):map
 Func_format::Func_format(Environment &env) :
-			Function(env, Symbol::Add("format"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("format"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
@@ -1221,7 +1221,7 @@ Value Func_format::DoEval(Environment &env, Signal sig, Args &args) const
 bool Func_Power::IsPower() const { return true; }
 
 Func_Power::Func_Power(Environment &env) :
-			Function(env, Symbol::Add("__pow__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__pow__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Power, OPTYPE_Power);
@@ -1331,7 +1331,7 @@ Expr *Func_Power::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 
 // n == m
 Func_Equal::Func_Equal(Environment &env) :
-			Function(env, Symbol::Add("__eq__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__eq__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Equal, OPTYPE_Equal);
@@ -1354,7 +1354,7 @@ Value Func_Equal::DoEval(Environment &env, Signal sig, Args &args) const
 
 // n != m
 Func_NotEqual::Func_NotEqual(Environment &env) :
-			Function(env, Symbol::Add("__ne__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__ne__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_NotEqual, OPTYPE_NotEqual);
@@ -1377,7 +1377,7 @@ Value Func_NotEqual::DoEval(Environment &env, Signal sig, Args &args) const
 
 // n > m
 Func_Greater::Func_Greater(Environment &env) :
-			Function(env, Symbol::Add("__gt__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__gt__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Greater, OPTYPE_Greater);
@@ -1400,7 +1400,7 @@ Value Func_Greater::DoEval(Environment &env, Signal sig, Args &args) const
 
 // n < m
 Func_Less::Func_Less(Environment &env) :
-			Function(env, Symbol::Add("__lt__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__lt__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Less, OPTYPE_Less);
@@ -1423,7 +1423,7 @@ Value Func_Less::DoEval(Environment &env, Signal sig, Args &args) const
 
 // n >= m
 Func_GreaterEq::Func_GreaterEq(Environment &env) :
-			Function(env, Symbol::Add("__ge__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__ge__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_GreaterEq, OPTYPE_GreaterEq);
@@ -1446,7 +1446,7 @@ Value Func_GreaterEq::DoEval(Environment &env, Signal sig, Args &args) const
 
 // n <= m
 Func_LessEq::Func_LessEq(Environment &env) :
-			Function(env, Symbol::Add("__le__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__le__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_LessEq, OPTYPE_LessEq);
@@ -1469,7 +1469,7 @@ Value Func_LessEq::DoEval(Environment &env, Signal sig, Args &args) const
 
 // n <=> m
 Func_Compare::Func_Compare(Environment &env) :
-			Function(env, Symbol::Add("__cmp__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__cmp__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Compare, OPTYPE_Compare);
@@ -1492,7 +1492,7 @@ Value Func_Compare::DoEval(Environment &env, Signal sig, Args &args) const
 bool Func_ContainCheck::IsContainCheck() const { return true; }
 
 Func_ContainCheck::Func_ContainCheck(Environment &env) :
-			Function(env, Symbol::Add("in"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("in"), FUNCTYPE_Function, FLAG_None)
 {
 	SetOperatorInfo(Parser::ETYPE_ContainCheck, OPTYPE_ContainCheck);
 	DeclareArg(env, "n", VTYPE_any);
@@ -1557,7 +1557,7 @@ Value Func_ContainCheck::DoEval(Environment &env, Signal sig, Args &args) const
 
 // n | m
 Func_Or::Func_Or(Environment &env) :
-			Function(env, Symbol::Add("__or__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__or__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Or, OPTYPE_Or);
@@ -1591,7 +1591,7 @@ Value Func_Or::DoEval(Environment &env, Signal sig, Args &args) const
 
 // n & m
 Func_And::Func_And(Environment &env) :
-			Function(env, Symbol::Add("__and__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__and__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_And, OPTYPE_And);
@@ -1626,7 +1626,7 @@ Value Func_And::DoEval(Environment &env, Signal sig, Args &args) const
 
 // n ^ m
 Func_Xor::Func_Xor(Environment &env) :
-			Function(env, Symbol::Add("__xor__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__xor__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Xor, OPTYPE_Xor);
@@ -1659,7 +1659,7 @@ Value Func_Xor::DoEval(Environment &env, Signal sig, Args &args) const
 
 // n << m
 Func_ShiftL::Func_ShiftL(Environment &env) :
-			Function(env, Symbol::Add("__shl__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__shl__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_ShiftL, OPTYPE_ShiftL);
@@ -1688,7 +1688,7 @@ Value Func_ShiftL::DoEval(Environment &env, Signal sig, Args &args) const
 
 // n >> m
 Func_ShiftR::Func_ShiftR(Environment &env) :
-			Function(env, Symbol::Add("__shr__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__shr__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_ShiftR, OPTYPE_ShiftR);
@@ -1719,7 +1719,7 @@ Value Func_ShiftR::DoEval(Environment &env, Signal sig, Args &args) const
 // this function takes quoted values as its arguments to implement
 // a short-circuit evaluation.
 Func_OrOr::Func_OrOr(Environment &env) :
-			Function(env, Symbol::Add("__oror__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__oror__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_OrOr, OPTYPE_OrOr);
@@ -1742,7 +1742,7 @@ Value Func_OrOr::DoEval(Environment &env, Signal sig, Args &args) const
 // this function takes quoted values as its arguments to implement
 // a short-circuit evaluation.
 Func_AndAnd::Func_AndAnd(Environment &env) :
-			Function(env, Symbol::Add("__andand__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__andand__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_AndAnd, OPTYPE_AndAnd);
@@ -1765,7 +1765,7 @@ Value Func_AndAnd::DoEval(Environment &env, Signal sig, Args &args) const
 bool Func_Sequence::IsSequence() const { return true; }
 
 Func_Sequence::Func_Sequence(Environment &env) :
-			Function(env, Symbol::Add("__seq__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__seq__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Sequence, OPTYPE_Sequence);
@@ -1794,7 +1794,7 @@ Value Func_Sequence::DoEval(Environment &env, Signal sig, Args &args) const
 
 // n ..
 Func_SequenceInf::Func_SequenceInf(Environment &env) :
-			Function(env, Symbol::Add("__seqinf__"), FUNCTYPE_Function)
+			Function(env, Symbol::Add("__seqinf__"), FUNCTYPE_Function, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Sequence, OPTYPE_SequenceInf);

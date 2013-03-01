@@ -97,20 +97,20 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 Value ICallable::Call(Environment &env, Signal sig,
 		const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
 		const Expr_Caller *pExprCaller, const ExprList &exprListArg,
-		const Function **ppFuncSuccRequester)
+		const Function **ppFuncLeader)
 {
-	if (ppFuncSuccRequester != NULL) {
-		const Function *pFuncSuccRequester = *ppFuncSuccRequester;
-		*ppFuncSuccRequester = NULL;
-		if (pFuncSuccRequester != NULL) {
-			if (!pFuncSuccRequester->IsSucceedable(this)) {
+	if (ppFuncLeader != NULL) {
+		const Function *pFuncLeader = *ppFuncLeader;
+		*ppFuncLeader = NULL;
+		if (pFuncLeader != NULL) {
+			if (!pFuncLeader->CheckIfTrailer(this)) {
 				pExprCaller->SetError(sig,
-						ERR_SyntaxError, "invalid succeeding process");
+						ERR_SyntaxError, "invalid trailing process");
 				return Value::Null;
 			}
 		}
 	}
-	Args args(exprListArg, valueThis, pIteratorThis, listThisFlag, ppFuncSuccRequester,
+	Args args(exprListArg, valueThis, pIteratorThis, listThisFlag, ppFuncLeader,
 		pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(), pExprCaller->GetBlock());
 	Value result = DoCall(env, sig, args);
 	if (sig.IsSignalled()) {
@@ -178,10 +178,12 @@ Function::Function(const Function &func) : _cntRef(1),
 {
 }
 
-Function::Function(Environment &envScope, const Symbol *pSymbol, FunctionType funcType) : _cntRef(1),
+Function::Function(Environment &envScope, const Symbol *pSymbol,
+								FunctionType funcType, unsigned long flags) :
+	_cntRef(1),
 	_pSymbol(pSymbol), _pClassToConstruct(NULL), _envScope(envScope), _funcType(funcType),
 	_elemType(Parser::ETYPE_Unknown),
-	_resultMode(RSLTMODE_Normal), _flags(0)
+	_resultMode(RSLTMODE_Normal), _flags(flags)
 {
 	_blockInfo.occurPattern = OCCUR_Zero;
 	_blockInfo.pSymbol = NULL;
@@ -586,7 +588,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 	return pEnvLocal;
 }
 
-bool Function::IsSucceedable(const ICallable *pCallable) const
+bool Function::CheckIfTrailer(const ICallable *pCallable) const
 {
 	return false;
 }
@@ -914,7 +916,7 @@ bool FunctionCustom::IsCustom() const { return true; }
 
 FunctionCustom::FunctionCustom(Environment &envScope,
 				const Symbol *pSymbol, Expr *pExprBody, FunctionType funcType) :
-		Function(envScope, pSymbol, funcType), _pExprBody(pExprBody)
+		Function(envScope, pSymbol, funcType, FLAG_None), _pExprBody(pExprBody)
 {
 }
 
@@ -977,7 +979,7 @@ FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 ClassPrototype::ClassPrototype(Environment &envScope, const Symbol *pSymbol,
 									Expr *pExprBody, FunctionType funcType) :
-		Function(envScope, pSymbol, funcType), _envScope(envScope),
+		Function(envScope, pSymbol, funcType, FLAG_None), _envScope(envScope),
 		_pExprBody(pExprBody)
 {
 }
@@ -1026,7 +1028,7 @@ Value ClassPrototype::DoEval(Environment &env, Signal sig, Args &args) const
 bool StructPrototype::IsStructPrototype() const { return true; }
 
 StructPrototype::StructPrototype(Environment &env) :
-			Function(env, Gura_Symbol(_anonymous_), FUNCTYPE_Function)
+		Function(env, Gura_Symbol(_anonymous_), FUNCTYPE_Function, FLAG_None)
 {
 }
 

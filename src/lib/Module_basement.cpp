@@ -343,7 +343,7 @@ Gura_ImplementFunction(local)
 }
 
 // try () {block}
-Gura_DeclareFunctionSucceedableAlias(try_, "try")
+Gura_DeclareFunctionLeaderAlias(try_, "try")
 {
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), 
@@ -359,17 +359,17 @@ Gura_ImplementFunction(try_)
 	if (sig.IsSignalled()) return Value::Null;
 	Value result = pExprBlock->Exec(envBlock, sig);
 	sig.SuspendError();
-	args.RequestSucceeding(this);
+	args.RequestTrailer(this);
 	return result;
 }
 
-bool Gura_Function(try_)::IsSucceedable(const ICallable *pCallable) const
+bool Gura_Function(try_)::CheckIfTrailer(const ICallable *pCallable) const
 {
 	return true;
 }
 
 // except (errors*:error) {block}
-Gura_DeclareFunctionSucceedableAlias(except_, "except")
+Gura_DeclareFunctionLeaderAlias(except_, "except")
 {
 	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_Once);
@@ -398,7 +398,7 @@ Gura_ImplementFunction(except_)
 		}
 	}
 	if (!handleFlag) {
-		args.RequestSucceeding(this);
+		args.RequestTrailer(this);
 		return Value::Null;
 	}
 	Object_error *pObj = new Object_error(env, sig.GetErrorType());
@@ -419,7 +419,7 @@ Gura_ImplementFunction(except_)
 	return pFuncBlock->Eval(envBlock, sig, argsSub);
 }
 
-bool Gura_Function(except_)::IsSucceedable(const ICallable *pCallable) const
+bool Gura_Function(except_)::CheckIfTrailer(const ICallable *pCallable) const
 {
 	return true;
 }
@@ -439,7 +439,7 @@ Gura_ImplementFunction(finally_)
 }
 
 // if (`cond) {block}
-Gura_DeclareFunctionSucceedableAlias(if_, "if")
+Gura_DeclareFunctionLeaderAlias(if_, "if")
 {
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
@@ -458,17 +458,17 @@ Gura_ImplementFunction(if_)
 		if (sig.IsSignalled()) return Value::Null;
 		return pExprBlock->Exec(envBlock, sig);
 	}
-	args.RequestSucceeding(this);
+	args.RequestTrailer(this);
 	return Value::Null;
 }
 
-bool Gura_Function(if_)::IsSucceedable(const ICallable *pCallable) const
+bool Gura_Function(if_)::CheckIfTrailer(const ICallable *pCallable) const
 {
 	return true;
 }
 
 // elsif (`cond) {block}
-Gura_DeclareFunctionSucceedableAlias(elsif_, "elsif")
+Gura_DeclareFunctionLeaderAlias(elsif_, "elsif")
 {
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
@@ -487,11 +487,11 @@ Gura_ImplementFunction(elsif_)
 		if (sig.IsSignalled()) return Value::Null;
 		return pExprBlock->Exec(envBlock, sig);
 	}
-	args.RequestSucceeding(this);
+	args.RequestTrailer(this);
 	return Value::Null;
 }
 
-bool Gura_Function(elsif_)::IsSucceedable(const ICallable *pCallable) const
+bool Gura_Function(elsif_)::CheckIfTrailer(const ICallable *pCallable) const
 {
 	return true;
 }
@@ -1262,7 +1262,7 @@ public:
 };
 Gura_Function(istype_)::Gura_Function(istype_)(
 					Environment &env, const char *name, ValueType valType) :
-	Function(env, Symbol::Add(name), FUNCTYPE_Function), _valType(valType)
+	Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None), _valType(valType)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);

@@ -522,7 +522,7 @@ public:
 class DLLDECLARE Expr_Caller : public Expr_Compound {
 protected:
 	AutoPtr<Expr_Block> _pExprBlock;		// this may be NULL
-	AutoPtr<Expr_Caller> _pExprCallerSucc;	// this may be NULL
+	AutoPtr<Expr_Caller> _pExprTrailer;		// this may be NULL
 	SymbolSet _attrs;
 	SymbolSet _attrsOpt;
 	SymbolList _attrFront;
@@ -545,7 +545,7 @@ public:
 	virtual bool DoDeserialize(Environment &env, Signal sig, Stream &stream);
 	virtual String ToString() const;
 	Value EvalEach(Environment &env, Signal sig, const Value &valueThis,
-		Iterator *pIteratorThis, bool listThisFlag, const Function **ppFuncSuccRequester) const;
+		Iterator *pIteratorThis, bool listThisFlag, const Function **ppFuncLeader) const;
 	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }
 	inline void AddAttrOpt(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }
 	inline const SymbolSet &GetAttrs() const { return _attrs; }
@@ -556,17 +556,17 @@ public:
 		_pExprBlock.reset(pExprBlock);
 		if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(this);
 	}
-	inline void SetSucceeding(Expr_Caller *pExprCaller) {
-		_pExprCallerSucc.reset(pExprCaller);
-		if (!_pExprCallerSucc.IsNull()) _pExprCallerSucc->SetParent(this);
+	inline void SetTrailer(Expr_Caller *pExprCaller) {
+		_pExprTrailer.reset(pExprCaller);
+		if (!_pExprTrailer.IsNull()) _pExprTrailer->SetParent(this);
 	}
 	inline const Expr_Block *GetBlock() const { return _pExprBlock.get(); }
-	inline const Expr_Caller *GetSucceeding() const { return _pExprCallerSucc.get(); }
-	inline Expr_Caller *GetLastSucceeding() {
-		return (_pExprCallerSucc.IsNull())? this : _pExprCallerSucc->GetLastSucceeding();
+	inline const Expr_Caller *GetTrailer() const { return _pExprTrailer.get(); }
+	inline Expr_Caller *GetLastTrailer() {
+		return (_pExprTrailer.IsNull())? this : _pExprTrailer->GetLastTrailer();
 	}
 private:
-	Value DoExec(Environment &env, Signal sig, const Function **ppFuncSuccRequester) const;
+	Value DoExec(Environment &env, Signal sig, const Function **ppFuncLeader) const;
 };
 
 //-----------------------------------------------------------------------------

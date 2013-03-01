@@ -1501,7 +1501,7 @@ bool Expr_Caller::IsCaller() const { return true; }
 Expr_Caller::Expr_Caller(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) :
 		Expr_Compound(EXPRTYPE_Caller,
 				pExprCar, (pExprLister == NULL)? new Expr_Lister() : pExprLister),
-		_pExprBlock(pExprBlock), _pExprCallerSucc(NULL)
+		_pExprBlock(pExprBlock), _pExprTrailer(NULL)
 {
 	if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(this);
 }
@@ -1509,8 +1509,8 @@ Expr_Caller::Expr_Caller(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *p
 Expr_Caller::Expr_Caller(const Expr_Caller &expr) : Expr_Compound(expr),
 		_pExprBlock(expr._pExprBlock.IsNull()? NULL :
 					dynamic_cast<Expr_Block *>(expr._pExprBlock->Clone())),
-		_pExprCallerSucc(expr._pExprCallerSucc.IsNull()? NULL :
-					dynamic_cast<Expr_Caller *>(expr._pExprCallerSucc->Clone())),
+		_pExprTrailer(expr._pExprTrailer.IsNull()? NULL :
+					dynamic_cast<Expr_Caller *>(expr._pExprTrailer->Clone())),
 		_attrs(expr._attrs), _attrsOpt(expr._attrsOpt)
 {
 	if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(this);
@@ -1519,13 +1519,13 @@ Expr_Caller::Expr_Caller(const Expr_Caller &expr) : Expr_Compound(expr),
 Expr_Caller::~Expr_Caller()
 {
 	if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(GetParent());
-	if (!_pExprCallerSucc.IsNull()) _pExprCallerSucc->SetParent(GetParent());
+	if (!_pExprTrailer.IsNull()) _pExprTrailer->SetParent(GetParent());
 }
 
 Expr *Expr_Caller::IncRef() const
 {
 	if (!_pExprBlock.IsNull()) _pExprBlock->IncRef();
-	if (!_pExprCallerSucc.IsNull()) _pExprCallerSucc->IncRef();
+	if (!_pExprTrailer.IsNull()) _pExprTrailer->IncRef();
 	return Expr_Compound::IncRef();
 }
 
@@ -1537,11 +1537,11 @@ Expr *Expr_Caller::Clone() const
 Value Expr_Caller::Exec(Environment &env, Signal sig) const
 {
 	Value result;
-	const Function *pFuncSuccRequester = NULL;
+	const Function *pFuncLeader = NULL;
 	for (const Expr_Caller *pExprCaller = this; pExprCaller != NULL;
-									pExprCaller = pExprCaller->GetSucceeding()) {
-		result = pExprCaller->DoExec(env, sig, &pFuncSuccRequester);
-		if (pFuncSuccRequester == NULL) break;
+									pExprCaller = pExprCaller->GetTrailer()) {
+		result = pExprCaller->DoExec(env, sig, &pFuncLeader);
+		if (pFuncLeader == NULL) break;
 	}
 	// if there's an error suspended by try() function, it would be resumed below.
 	// otherwise, nothing would happen and any error would be kept intact.
@@ -1550,7 +1550,7 @@ Value Expr_Caller::Exec(Environment &env, Signal sig) const
 }
 
 Value Expr_Caller::DoExec(Environment &env, Signal sig,
-									const Function **ppFuncSuccRequester) const
+									const Function **ppFuncLeader) const
 {
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
 	// correspond to method-calling, property-getting and property-setting.
@@ -1566,7 +1566,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig,
 			return Value::Null;
 		}
 		return pCallable->Call(env, sig, Value::Null, NULL, false,
-									this, GetExprList(), ppFuncSuccRequester);
+									this, GetExprList(), ppFuncLeader);
 	}
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	Value valueThis = pExprMember->GetLeft()->Exec(env, sig);
@@ -1596,7 +1596,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig,
 			Value valueThisEach;
 			if (!pIteratorThis->Next(env, sig, valueThisEach)) return Value::Null;
 			return EvalEach(env, sig, valueThisEach,
-						pIteratorThis, valueThis.IsList(), ppFuncSuccRequester);
+						pIteratorThis, valueThis.IsList(), ppFuncLeader);
 		} else {
 			AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(env, sig,
 						pIteratorThis, dynamic_cast<Expr_Caller *>(IncRef())));
@@ -1611,11 +1611,11 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig,
 			return result;
 		}
 	}
-	return EvalEach(env, sig, valueThis, NULL, false, ppFuncSuccRequester);
+	return EvalEach(env, sig, valueThis, NULL, false, ppFuncLeader);
 }
 
 Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis,
-	Iterator *pIteratorThis, bool listThisFlag, const Function **ppFuncSuccRequester) const
+	Iterator *pIteratorThis, bool listThisFlag, const Function **ppFuncLeader) const
 {
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	const Expr *pExprRight = pExprMember->GetRight();
@@ -1664,7 +1664,7 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 		return Value::Null;
 	}
 	return pCallable->Call(env, sig, valueThis, pIteratorThis, listThisFlag,
-								this, GetExprList(), ppFuncSuccRequester);
+								this, GetExprList(), ppFuncLeader);
 }
 
 Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &value,
@@ -1727,9 +1727,9 @@ void Expr_Caller::Accept(ExprVisitor &visitor) const
 bool Expr_Caller::IsParentOf(const Expr *pExpr) const
 {
 	if (Expr_Compound::IsParentOf(pExpr)) return true;
-	if (_pExprBlock.get() == pExpr || _pExprCallerSucc.get() == pExpr) return true;
+	if (_pExprBlock.get() == pExpr || _pExprTrailer.get() == pExpr) return true;
 	if (!_pExprBlock.IsNull() && _pExprBlock->IsParentOf(pExpr)) return true;
-	if (!_pExprCallerSucc.IsNull() && _pExprCallerSucc->IsParentOf(pExpr)) return true;
+	if (!_pExprTrailer.IsNull() && _pExprTrailer->IsParentOf(pExpr)) return true;
 	return false;
 }
 
@@ -1775,7 +1775,7 @@ bool Expr_Caller::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	if (!_pExprCar->GenerateCode(env, sig, stream)) return false;
 	if (!GetExprList().GenerateCode(env, sig, stream)) return false;
 	if (!_pExprBlock.IsNull() && _pExprBlock->GenerateCode(env, sig, stream)) return false;
-	if (!_pExprCallerSucc.IsNull() && _pExprCallerSucc->GenerateCode(env, sig, stream)) return false;
+	if (!_pExprTrailer.IsNull() && _pExprTrailer->GenerateCode(env, sig, stream)) return false;
 	return true;
 }
 
@@ -1783,7 +1783,7 @@ bool Expr_Caller::DoSerialize(Environment &env, Signal sig, Stream &stream) cons
 {
 	if (!Expr_Compound::DoSerialize(env, sig, stream)) return false;
 	if (!Expr::Serialize(env, sig, stream, _pExprBlock.get())) return false;
-	if (!Expr::Serialize(env, sig, stream, _pExprCallerSucc.get())) return false;
+	if (!Expr::Serialize(env, sig, stream, _pExprTrailer.get())) return false;
 	if (!stream.SerializeSymbolSet(sig, _attrs)) return false;
 	if (!stream.SerializeSymbolSet(sig, _attrsOpt)) return false;
 	if (!stream.SerializeSymbolList(sig, _attrFront)) return false;
@@ -1793,19 +1793,19 @@ bool Expr_Caller::DoSerialize(Environment &env, Signal sig, Stream &stream) cons
 bool Expr_Caller::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
 	if (!Expr_Compound::DoDeserialize(env, sig, stream)) return false;
-	Expr *pExprBlock = NULL, *pExprCallerSucc = NULL;
+	Expr *pExprBlock = NULL, *pExprTrailer = NULL;
 	if (!Expr::Deserialize(env, sig, stream, &pExprBlock, false)) return false;
-	if (!Expr::Deserialize(env, sig, stream, &pExprCallerSucc, false)) return false;
+	if (!Expr::Deserialize(env, sig, stream, &pExprTrailer, false)) return false;
 	if (pExprBlock != NULL && !pExprBlock->IsBlock()) {
 		sig.SetError(ERR_IOError, "block is expected in the stream");
 		return false;
 	}
-	if (pExprCallerSucc != NULL && !pExprCallerSucc->IsCaller()) {
+	if (pExprTrailer != NULL && !pExprTrailer->IsCaller()) {
 		sig.SetError(ERR_IOError, "caller is expected in the stream");
 		return false;
 	}
 	_pExprBlock.reset(dynamic_cast<Expr_Block *>(pExprBlock));
-	_pExprCallerSucc.reset(dynamic_cast<Expr_Caller *>(pExprCallerSucc));
+	_pExprTrailer.reset(dynamic_cast<Expr_Caller *>(pExprTrailer));
 	if (!stream.DeserializeSymbolSet(sig, _attrs)) return false;
 	if (!stream.DeserializeSymbolSet(sig, _attrsOpt)) return false;
 	if (!stream.DeserializeSymbolList(sig, _attrFront)) return false;
@@ -1838,9 +1838,9 @@ String Expr_Caller::ToString() const
 		str += " ";
 		str += _pExprBlock->ToString();
 	}
-	if (!_pExprCallerSucc.IsNull()) {
+	if (!_pExprTrailer.IsNull()) {
 		str += " ";
-		str += _pExprCallerSucc->ToString();
+		str += _pExprTrailer->ToString();
 	}
 	return str;
 }

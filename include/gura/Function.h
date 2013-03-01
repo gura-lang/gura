@@ -15,7 +15,7 @@ public: \
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
-							Function(env, Symbol::Add(name), FUNCTYPE_Function)
+					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
 #define Gura_DeclareFunction(name) Gura_DeclareFunctionAlias(name, #name)
 
@@ -28,24 +28,24 @@ public: \
 	virtual Expr *DiffUnary(Environment &env, Signal sig, const Expr *pExprArg, const Symbol *pSymbol) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
-							Function(env, Symbol::Add(name), FUNCTYPE_Function)
+					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
 #define Gura_DeclareFunctionWithDiffUnary(name) \
 Gura_DeclareFunctionWithDiffUnaryAlias(name, #name)
 
-// DeclareFunctionSucceedable
-#define Gura_DeclareFunctionSucceedableAlias(name, nameAlias) \
+// DeclareFunctionLeader
+#define Gura_DeclareFunctionLeaderAlias(name, nameAlias) \
 class Func_##name : public Function { \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
-	virtual bool IsSucceedable(const ICallable *pCallable) const; \
+	virtual bool CheckIfTrailer(const ICallable *pCallable) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
-							Function(env, Symbol::Add(name), FUNCTYPE_Function)
+					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
-#define Gura_DeclareFunctionSucceedable(name) \
-Gura_DeclareFunctionSucceedableAlias(name, #name)
+#define Gura_DeclareFunctionLeader(name) \
+Gura_DeclareFunctionLeaderAlias(name, #name)
 
 // DeclareMethod
 #define Gura_DeclareMethodAlias(className, name, nameAlias) \
@@ -55,7 +55,7 @@ public: \
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
 }; \
 Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
-							Function(env, Symbol::Add(name), FUNCTYPE_Instance)
+					Function(env, Symbol::Add(name), FUNCTYPE_Instance, FLAG_None)
 
 #define Gura_DeclareMethod(className, name) Gura_DeclareMethodAlias(className, name, #name)
 
@@ -67,7 +67,7 @@ public: \
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
 }; \
 Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
-							Function(env, Symbol::Add(name), FUNCTYPE_Function)
+					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
 #define Gura_DeclareMethodPrimitive(className, name) Gura_DeclareMethodPrimitiveAlias(className, name, #name)
 
@@ -79,7 +79,7 @@ public: \
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
 }; \
 Func_##className##__##name::Func_##className##__##name(Environment &env, const char *name) : \
-							Function(env, Symbol::Add(name), FUNCTYPE_Class)
+					Function(env, Symbol::Add(name), FUNCTYPE_Class, FLAG_None)
 
 #define Gura_DeclareClassMethod(className, name) Gura_DeclareClassMethodAlias(className, name, #name)
 
@@ -108,7 +108,7 @@ public: \
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
-							Function(env, Symbol::Add(name), FUNCTYPE_Function)
+					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
 #define Gura_AssignFunction(name) \
 env.AssignFunction(new Func_##name(env))
@@ -185,7 +185,7 @@ public:
 	Value Call(Environment &env, Signal sig,
 			const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
 			const Expr_Caller *pExprCaller, const ExprList &exprListArg,
-			const Function **ppFuncSuccRequester);
+			const Function **ppFuncLeader);
 protected:
 	virtual Value DoCall(Environment &env, Signal sig, Args &args) = 0;
 };
@@ -244,7 +244,8 @@ protected:
 	static const char *_mathSymbolTbl[];
 public:
 	Function(const Function &func);
-	Function(Environment &envScope, const Symbol *pSymbol, FunctionType funcType);
+	Function(Environment &envScope, const Symbol *pSymbol,
+								FunctionType funcType, unsigned long flags);
 	virtual ~Function();
 	inline int DecRef() { if (_cntRef > 0) _cntRef--; return _cntRef; }
 	inline int GetRefCnt() const { return _cntRef; }
@@ -293,11 +294,11 @@ public:
 	Value EvalMap(Environment &env, Signal sig, Args &args) const;
 	Value EvalMapRecursive(Environment &env, Signal sig,
 				ResultComposer *pResultComposer, Args &args) const;
-	virtual bool IsSucceedable(const ICallable *pCallable) const;
+	virtual bool CheckIfTrailer(const ICallable *pCallable) const;
 	inline FunctionType GetType() const { return _funcType; }
 	inline const char *GetTypeName() const { return GetFuncTypeName(_funcType); }
 	inline void SetMode(ResultMode resultMode, unsigned long flags) {
-		_resultMode = resultMode, _flags = flags;
+		_resultMode = resultMode, _flags |= flags;
 	}
 	inline bool IsRsltNormal() const { return _resultMode == RSLTMODE_Normal; }
 	inline bool IsRsltList() const { return _resultMode == RSLTMODE_List; }
@@ -437,7 +438,7 @@ private:
 	const Value &_valueWithDict;
 	const ExprList &_exprListArg;
 	const ValueList &_valListArg;
-	const Function **_ppFuncSuccRequester;
+	const Function **_ppFuncLeader;
 	const SymbolSet &_attrs;
 	const SymbolSet &_attrsOpt;
 	const Expr_Block *_pExprBlock;
@@ -447,7 +448,7 @@ private:
 public:
 	inline Args(const ExprList &exprListArg, const Value &valueThis = Value::Null,
 				Iterator *pIteratorThis = NULL, bool listThisFlag = false,
-				const Function **ppFuncSuccRequester = NULL,
+				const Function **ppFuncLeader = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
 				const SymbolSet &attrsOpt = SymbolSet::Null,
 				const Expr_Block *pExprBlock = NULL) :
@@ -455,13 +456,13 @@ public:
 		_pIteratorThis(pIteratorThis), _listThisFlag(listThisFlag),
 		_valueWithDict(Value::Null),
 		_exprListArg(exprListArg), _valListArg(ValueList::Null),
-		_ppFuncSuccRequester(ppFuncSuccRequester),
+		_ppFuncLeader(ppFuncLeader),
 		_attrs(attrs), _attrsOpt(attrsOpt), _pExprBlock(pExprBlock),
 		_resultMode(RSLTMODE_Normal), _flags(FLAG_None),
 		_pFuncBlock(NULL) {}
 	inline Args(const ValueList &valListArg, const Value &valueThis = Value::Null,
 				Iterator *pIteratorThis = NULL, bool listThisFlag = false,
-				const Function **ppFuncSuccRequester = NULL,
+				const Function **ppFuncLeader = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
 				const SymbolSet &attrsOpt = SymbolSet::Null,
 				const Expr_Block *pExprBlock = NULL) :
@@ -469,7 +470,7 @@ public:
 		_pIteratorThis(pIteratorThis), _listThisFlag(listThisFlag),
 		_valueWithDict(Value::Null),
 		_exprListArg(ExprList::Null), _valListArg(valListArg),
-		_ppFuncSuccRequester(ppFuncSuccRequester),
+		_ppFuncLeader(ppFuncLeader),
 		_attrs(attrs), _attrsOpt(attrsOpt), _pExprBlock(pExprBlock),
 		_resultMode(RSLTMODE_Normal), _flags(FLAG_None),
 		_pFuncBlock(NULL) {}
@@ -479,7 +480,7 @@ public:
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())), _listThisFlag(args._listThisFlag),
 		_valueWithDict(valueWithDict),
 		_exprListArg(ExprList::Null), _valListArg(valListArg),
-		_ppFuncSuccRequester(args._ppFuncSuccRequester),
+		_ppFuncLeader(args._ppFuncLeader),
 		_attrs(args._attrs), _attrsOpt(args._attrsOpt), _pExprBlock(args._pExprBlock),
 		_resultMode(resultMode), _flags(flags),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
@@ -488,7 +489,7 @@ public:
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())), _listThisFlag(args._listThisFlag),
 		_valueWithDict(Value::Null),
 		_exprListArg(exprListArg), _valListArg(ValueList::Null),
-		_ppFuncSuccRequester(args._ppFuncSuccRequester),
+		_ppFuncLeader(args._ppFuncLeader),
 		_attrs(args._attrs), _attrsOpt(args._attrsOpt), _pExprBlock(args._pExprBlock),
 		_resultMode(args._resultMode), _flags(args._flags),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
@@ -527,8 +528,8 @@ public:
 			IsRsltSet() || IsRsltXSet() || IsRsltIterator() || IsRsltXIterator();
 	}
 	inline bool IsRsltFlat() const { return GetFlatFlag(); }
-	inline void RequestSucceeding(const Function *pFuncSuccRequester) {
-		if (_ppFuncSuccRequester != NULL) *_ppFuncSuccRequester = pFuncSuccRequester;
+	inline void RequestTrailer(const Function *pFuncLeader) {
+		if (_ppFuncLeader != NULL) *_ppFuncLeader = pFuncLeader;
 	}
 	inline const ExprList &GetExprListArg() const { return _exprListArg; }
 	inline const ValueList &GetArgs() const { return _valListArg; }

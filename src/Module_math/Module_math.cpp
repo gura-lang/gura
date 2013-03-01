@@ -735,7 +735,7 @@ public:
 };
 
 Func_BezierPrototype::Func_BezierPrototype(Environment &env, const ValueList &nums) :
-						Function(env, Gura_Symbol(_anonymous_), FUNCTYPE_Function)
+				Function(env, Gura_Symbol(_anonymous_), FUNCTYPE_Function, FLAG_None)
 {
 	_nums.reserve(nums.size());
 	if (nums.size() == 3) {

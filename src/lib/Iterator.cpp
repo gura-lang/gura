@@ -1305,11 +1305,11 @@ Iterator_MethodMap::~Iterator_MethodMap()
 
 bool Iterator_MethodMap::DoNext(Environment &env, Signal sig, Value &value)
 {
-	const Function *pFuncSuccRequester = NULL;
+	const Function *pFuncLeader = NULL;
 	Value valueThis;
 	if (!_pIteratorThis->Next(env, sig, valueThis)) return false;
 	value = _pExprCaller->EvalEach(_env, sig,
-							valueThis, NULL, false, &pFuncSuccRequester);
+							valueThis, NULL, false, &pFuncLeader);
 	return true;
 }
 
@@ -1345,21 +1345,21 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Signal sig, Value &value)
 	Value valueArg;
 	if (!_pIterator->Next(env, sig, valueArg)) return false;
 	if (valueArg.IsList()) {
-		const Function *pFuncSuccRequester = NULL;
+		const Function *pFuncLeader = NULL;
 		ValueList valListComp = valueArg.GetList();
 		if (!_pFunc->GetDeclOwner().Compensate(_env, sig, valListComp)) {
 			return false;
 		}
-		Args args(valListComp, _valueThis, NULL, false, &pFuncSuccRequester);
+		Args args(valListComp, _valueThis, NULL, false, &pFuncLeader);
 		value = _pFunc->Eval(_env, sig, args);
 		if (sig.IsSignalled()) return false;
 	} else {
-		const Function *pFuncSuccRequester = NULL;
+		const Function *pFuncLeader = NULL;
 		ValueList valListComp(valueArg);
 		if (!_pFunc->GetDeclOwner().Compensate(_env, sig, valListComp)) {
 			return false;
 		}
-		Args args(valListComp, _valueThis, NULL, false, &pFuncSuccRequester);
+		Args args(valListComp, _valueThis, NULL, false, &pFuncLeader);
 		value = _pFunc->Eval(_env, sig, args);
 		if (sig.IsSignalled()) return false;
 		//sig.SetError(ERR_TypeError, "invalid structure of arguments");
