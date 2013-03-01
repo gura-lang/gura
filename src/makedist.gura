@@ -204,8 +204,6 @@ gatherFiles() = {
 		filenames.append(path.glob(
 			'module/*.gura'
 			'module/*.gurd'
-			'module/net/*.gura'
-			'module/net/*.gurd'
 			'module/codecs/*.gura'
 			'module/codecs/*.gurd'
 			'module/site/readme.txt'
