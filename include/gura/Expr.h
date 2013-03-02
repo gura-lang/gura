@@ -36,6 +36,7 @@ enum ExprType {
 	EXPRTYPE_Value,
 	EXPRTYPE_Symbol,
 	EXPRTYPE_String,
+	EXPRTYPE_Template,
 };
 
 DLLDECLARE const char *GetExprTypeName(ExprType exprType);
@@ -68,7 +69,8 @@ public:
 //        |                   `- Expr_Caller
 //        +- Expr_Value
 //        +- Expr_Symbol
-//        `- Expr_String
+//        +- Expr_String
+//        `- Expr_Template
 //-----------------------------------------------------------------------------
 class DLLDECLARE Expr {
 public:
@@ -167,6 +169,7 @@ public:
 	virtual bool IsValue() const;
 	virtual bool IsSymbol() const;
 	virtual bool IsString() const;
+	virtual bool IsTemplate() const;
 	bool IsConstNumber(Number num) const;
 	bool IsConstEvenNumber() const;
 	bool IsConstNegNumber() const;
@@ -333,12 +336,38 @@ class DLLDECLARE Expr_String : public Expr {
 protected:
 	String _str;
 public:
-	inline Expr_String(const char *str) : Expr(EXPRTYPE_String), _str(str) {}
+	inline Expr_String(const String &str) : Expr(EXPRTYPE_String), _str(str) {}
 	inline Expr_String(const Expr_String &expr) : Expr(expr), _str(expr._str) {}
 	inline const char *GetString() const { return _str.c_str(); }
 	virtual ~Expr_String();
 	virtual Expr *IncRef() const;
 	virtual bool IsString() const;
+	virtual Expr *Clone() const;
+	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual void Accept(ExprVisitor &visitor) const;
+	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
+	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const;
+	virtual bool DoDeserialize(Environment &env, Signal sig, Stream &stream);
+	virtual String ToString() const;
+};
+
+//-----------------------------------------------------------------------------
+// Expr_Template
+//-----------------------------------------------------------------------------
+class DLLDECLARE Expr_Template : public Expr {
+protected:
+	SimpleStream &_streamDst;
+	String _str;
+public:
+	inline Expr_Template(SimpleStream &streamDst, const String &str) :
+				Expr(EXPRTYPE_Template), _streamDst(streamDst), _str(str) {}
+	inline Expr_Template(const Expr_Template &expr) :
+				Expr(expr), _streamDst(expr._streamDst), _str(expr._str) {}
+	inline SimpleStream &GetStreamDst() { return _streamDst;; }
+	inline const char *GetString() const { return _str.c_str(); }
+	virtual ~Expr_Template();
+	virtual Expr *IncRef() const;
+	virtual bool IsTemplate() const;
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
 	virtual void Accept(ExprVisitor &visitor) const;
@@ -391,7 +420,7 @@ class DLLDECLARE Expr_Root : public Expr_Container {
 private:
 	String _pathName;
 public:
-	inline Expr_Root(const char *pathName) :
+	inline Expr_Root(const String &pathName) :
 						Expr_Container(EXPRTYPE_Root), _pathName(pathName) {}
 	inline Expr_Root(const Expr_Root &expr) :
 						Expr_Container(expr), _pathName(expr._pathName) {}

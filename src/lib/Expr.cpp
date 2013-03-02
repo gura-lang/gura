@@ -29,6 +29,7 @@ const char *GetExprTypeName(ExprType exprType)
 		{ EXPRTYPE_Value,		"value",		},
 		{ EXPRTYPE_Symbol,		"symbol",		},
 		{ EXPRTYPE_String,		"string",		},
+		{ EXPRTYPE_Template,	"template",		},
 	};
 	for (int i = 0; i < NUMBEROF(tbl); i++) {
 		if (tbl[i].exprType == exprType) return tbl[i].name;
@@ -56,7 +57,8 @@ const char *GetExprTypeName(ExprType exprType)
 //        |                   `- Expr_Caller
 //        +- Expr_Value
 //        +- Expr_Symbol
-//        `- Expr_String
+//        +- Expr_String
+//        `- Expr_Template
 //-----------------------------------------------------------------------------
 Expr::~Expr()
 {
@@ -304,6 +306,7 @@ bool Expr::IsCaller() const			{ return false; }
 bool Expr::IsValue() const			{ return false; }
 bool Expr::IsSymbol() const			{ return false; }
 bool Expr::IsString() const			{ return false; }
+bool Expr::IsTemplate() const		{ return false; }
 
 bool Expr::IsParentOf(const Expr *pExpr) const
 {
@@ -409,6 +412,9 @@ bool Expr::Deserialize(Environment &env, Signal sig, Stream &stream, Expr **ppEx
 	case EXPRTYPE_String:
 		pExpr.reset(new Expr_String(""));
 		break;
+	case EXPRTYPE_Template:
+		sig.SetError(ERR_IOError, "can't serialize template expr");
+		return false;
 	default:
 		sig.SetError(ERR_IOError, "unknown expr type %d", exprType);
 		return false;
@@ -723,6 +729,59 @@ bool Expr_String::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 }
 
 String Expr_String::ToString() const
+{
+	return MakeQuotedString(_str.c_str());
+}
+
+//-----------------------------------------------------------------------------
+// Expr_Template
+//-----------------------------------------------------------------------------
+bool Expr_Template::IsTemplate() const { return true; }
+
+Expr_Template::~Expr_Template()
+{
+}
+
+Expr *Expr_Template::IncRef() const
+{
+	return Expr::IncRef();
+}
+
+Expr *Expr_Template::Clone() const
+{
+	return new Expr_Template(*this);
+}
+
+Value Expr_Template::Exec(Environment &env, Signal sig) const
+{
+	_streamDst.Print(sig, _str.c_str());
+	return Value::Null;
+}
+
+void Expr_Template::Accept(ExprVisitor &visitor) const
+{
+	visitor.Visit(this);
+}
+
+bool Expr_Template::GenerateCode(Environment &env, Signal sig, Stream &stream)
+{
+	stream.Println(sig, "Template");
+	return true;
+}
+
+bool Expr_Template::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+{
+	sig.SetError(ERR_IOError, "can't serialize template expr");
+	return false;
+}
+
+bool Expr_Template::DoDeserialize(Environment &env, Signal sig, Stream &stream)
+{
+	sig.SetError(ERR_IOError, "can't deserialize template expr");
+	return false;
+}
+
+String Expr_Template::ToString() const
 {
 	return MakeQuotedString(_str.c_str());
 }
