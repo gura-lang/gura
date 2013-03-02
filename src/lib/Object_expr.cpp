@@ -61,7 +61,7 @@ Object_expr::Iterator_Each::~Iterator_Each()
 
 bool Object_expr::Iterator_Each::DoNext(Environment &env, Signal sig, Value &value)
 {
-	if (_ppExpr == _pExprContainer->GetExprList().end()) return false;
+	if (_ppExpr == _pExprContainer->GetExprOwner().end()) return false;
 	Object_expr *pObj = new Object_expr(_env, (*_ppExpr)->IncRef());
 	value = Value(pObj);
 	_ppExpr++;
@@ -192,7 +192,7 @@ Gura_ImplementMethod(expr, cdr)
 	Value result;
 	ValueList &valList = result.InitAsList(env);
 	foreach_const (ExprList, ppExpr,
-					dynamic_cast<const Expr_Compound *>(pExpr)->GetExprList()) {
+					dynamic_cast<const Expr_Compound *>(pExpr)->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
 		Value value;
 		value.InitAsExpr(env, pExpr->IncRef());

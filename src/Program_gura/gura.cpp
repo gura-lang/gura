@@ -75,15 +75,15 @@ int Main(int argc, const char *argv[])
 		foreach_const (StringList, pCmd, opt.GetStringList("command")) {
 			const char *cmd = pCmd->c_str();
 			if (::strcmp(cmd, "") == 0) continue;
-			Expr *pExpr = Parser().ParseString(env, sig, "<command line>", cmd);
-			if (sig.IsSignalled()) {
+			ExprOwner exprOwner;
+			if (!Parser().ParseString(env, sig, exprOwner, "<command line>", cmd)) {
 				env.GetConsoleErr()->PrintSignal(sig, sig);
 				return 1;
 			}
-			if (pExpr == NULL) {
+			if (exprOwner.empty()) {
 				env.GetConsoleErr()->Println(sig, "incomplete command");
 			} else {
-				Value result = pExpr->Exec(env, sig);
+				Value result = exprOwner.Exec(env, sig, true);
 				if (sig.IsSignalled()) {
 					env.GetConsoleErr()->PrintSignal(sig, sig);
 					return 1;

@@ -231,10 +231,11 @@ public:
 	Expr *ParseChar(Environment &env, Signal sig, char ch);
 	Expr *ParseStream(Environment &env, Signal sig, Stream &stream);
 	Expr *ParseStream(Environment &env, Signal sig, const char *pathName, const char *encoding);
-	Expr *ParseString(Environment &env, Signal sig,
+	bool ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
 							const char *sourceName, const char *str, size_t len);
-	inline Expr *ParseString(Environment &env, Signal sig, const char *sourceName, const char *str) {
-		return ParseString(env, sig, sourceName, str, ::strlen(str));
+	inline bool ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
+							const char *sourceName, const char *str) {
+		return ParseString(env, sig, exprOwner, sourceName, str, ::strlen(str));
 	}
 	bool ParseTemplate(Environment &env, Signal sig, SimpleStream &streamSrc,
 				SimpleStream &streamDst, bool autoIndentFlag, bool appendLastEOLFlag);

@@ -815,10 +815,11 @@ Gura_DeclareMethod(string, parse)
 
 Gura_ImplementMethod(string, parse)
 {
-	Expr *pExpr = Parser().ParseString(env, sig,
-							"<parse function>", args.GetThis().GetString());
-	if (pExpr == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Value(env, pExpr));
+	ExprOwner exprOwner;
+	AutoPtr<Expr_Block> pExpr(new Expr_Block());
+	if (!Parser().ParseString(env, sig, pExpr->GetExprOwner(),
+		"<parse function>", args.GetThis().GetString())) return Value::Null;
+	return ReturnValue(env, sig, args, Value(env, pExpr.release()));
 }
 
 // string#template(dst?:stream:w):[noindent,lasteol]

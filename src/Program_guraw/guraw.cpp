@@ -71,8 +71,7 @@ int MainW(int argc, const char *argv[])
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
 			if (!env.ImportModules(sig, pModuleNames->c_str(), false, false)) {
-				Stream *pConsole = env.GetConsole();
-				pConsole->PrintSignal(sig, sig);
+				env.GetConsole()->PrintSignal(sig, sig);
 				return 1;
 			}
 		}
@@ -81,24 +80,20 @@ int MainW(int argc, const char *argv[])
 		foreach_const (StringList, pCmd, opt.GetStringList("command")) {
 			const char *cmd = pCmd->c_str();
 			if (::strcmp(cmd, "") == 0) continue;
-			Expr *pExpr = Parser().ParseString(env, sig, "<command line>", cmd);
-			if (sig.IsSignalled()) {
-				Stream *pConsole = env.GetConsole();
-				pConsole->PrintSignal(sig, sig);
+			ExprOwner exprOwner;
+			if (!Parser().ParseString(env, sig, exprOwner, "<command line>", cmd)) {
+				env.GetConsole()->PrintSignal(sig, sig);
 				return 1;
 			}
-			if (pExpr == NULL) {
-				Stream *pConsole = env.GetConsole();
-				pConsole->Println(sig, "incomplete command");
+			if (exprOwner.empty()) {
+				env.GetConsole()->Println(sig, "incomplete command");
 			} else {
-				Value result = pExpr->Exec(env, sig);
+				Value result = exprOwner.Exec(env, sig, true);
 				if (sig.IsSignalled()) {
-					Stream *pConsole = env.GetConsole();
-					pConsole->PrintSignal(sig, sig);
+					env.GetConsole()->PrintSignal(sig, sig);
 					return 1;
 				} else if (result.IsValid()) {
-					Stream *pConsole = env.GetConsole();
-					pConsole->Println(sig, result.ToString(sig).c_str());
+					env.GetConsole()->Println(sig, result.ToString(sig).c_str());
 				}
 			}
 		}
@@ -109,14 +104,12 @@ int MainW(int argc, const char *argv[])
 	if (argc >= 2) {
 		pExprRoot = Parser().ParseStream(env, sig, argv[1], encoding);
 		if (sig.IsSignalled()) {
-			Stream *pConsole = env.GetConsole();
-			pConsole->PrintSignal(sig, sig);
+			env.GetConsole()->PrintSignal(sig, sig);
 			return 1;
 		}
 		pExprRoot->Exec(env, sig);
 		if (sig.IsSignalled()) {
-			Stream *pConsole = env.GetConsole();
-			pConsole->PrintSignal(sig, sig);
+			env.GetConsole()->PrintSignal(sig, sig);
 			sig.ClearSignal();
 		}
 		interactiveFlag = false;

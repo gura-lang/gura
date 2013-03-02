@@ -195,7 +195,7 @@ Gura_ImplementFunction(function)
 		sig.SetError(ERR_SyntaxError, "argument list conflicts with block parameter.");
 		return Value::Null;
 	} else {
-		pExprListArg = &pExprBlockParam->GetExprList();
+		pExprListArg = &pExprBlockParam->GetExprOwner();
 	}
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 			Gura_Symbol(_anonymous_), pExprBlock->IncRef(), FUNCTYPE_Function));

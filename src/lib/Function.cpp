@@ -37,10 +37,10 @@ const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
 	const Expr_Block *pExprBlock = _pExprBlock;
 	while (pExprBlock != NULL) {
 		const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
-		if (pExprBlockParam == NULL || !pExprBlock->GetExprList().empty()) {
+		if (pExprBlockParam == NULL || !pExprBlock->GetExprOwner().empty()) {
 			break;
 		}
-		const ExprList &exprList = pExprBlockParam->GetExprList();
+		const ExprList &exprList = pExprBlockParam->GetExprOwner();
 		if (exprList.size() != 1 || !exprList.front()->IsSymbol()) {
 			break;
 		}
@@ -232,7 +232,7 @@ bool Function::CustomDeclare(Environment &env, Signal sig,
 	if (!args.IsBlockSpecified()) return true;
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return false;
-	const ExprList &exprList = pExprBlock->GetExprList();
+	const ExprList &exprList = pExprBlock->GetExprOwner();
 	if (exprList.size() != 1) {
 		SetError_InvalidFunctionExpression(sig);
 		return false;
@@ -951,7 +951,7 @@ FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env, Signal sig,
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 								pSymbol, pExprBlock->IncRef(), funcType));
 	pFunc->_declOwner.AllowTooManyArgs(true);
-	Args args(pExprBlockParam->GetExprList());
+	Args args(pExprBlockParam->GetExprOwner());
 	if (pExprBlockParam != NULL &&
 			!pFunc->CustomDeclare(env, sig, SymbolSet::Null, args)) {
 		return NULL;
@@ -993,7 +993,7 @@ Value ClassPrototype::DoEval(Environment &env, Signal sig, Args &args) const
 			const Expr_Block *pExprBlock = dynamic_cast<const Expr_Block *>(pExpr);
 			const Expr_BlockParam *pExprParam = pExprBlock->GetParam();
 			if (pExprParam != NULL) {
-				pExprList = &pExprParam->GetExprList();
+				pExprList = &pExprParam->GetExprOwner();
 			}
 		}
 		Environment envSuper(pEnvLocal.get(), ENVTYPE_method);

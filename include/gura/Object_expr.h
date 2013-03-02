@@ -31,7 +31,7 @@ public:
 	public:
 		inline Iterator_Each(Environment &env, Expr_Container *pExprContainer) :
 						Iterator(false), _env(env), _pExprContainer(pExprContainer),
-						_ppExpr(pExprContainer->GetExprList().begin()) {}
+						_ppExpr(pExprContainer->GetExprOwner().begin()) {}
 		virtual ~Iterator_Each();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;

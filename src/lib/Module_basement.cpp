@@ -175,7 +175,7 @@ Gura_ImplementFunction(import_)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		foreach_const (ExprList, ppExpr, pExprBlock->GetExprList()) {
+		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 			if (!(*ppExpr)->IsSymbol()) {
 				sig.SetError(ERR_SyntaxError,
 					"wrong format for an element in import list");

@@ -646,7 +646,7 @@ Gura_ImplementFunction(ListInit)
 		}
 		Environment envLister(&env, ENVTYPE_lister);
 		Value valueRaw =
-				pExprBlock->GetExprList().ExecForList(envLister, sig, false, false);
+				pExprBlock->GetExprOwner().ExecForList(envLister, sig, false, false);
 		if (sig.IsSignalled() || !valueRaw.IsList()) return Value::Null;
 		ValueList &valList = result.InitAsList(env);
 		foreach_const (ValueList, pValue, valueRaw.GetList()) {
@@ -660,7 +660,7 @@ Gura_ImplementFunction(ListInit)
 		}
 	} else {
 		Environment envLister(&env, ENVTYPE_lister);
-		result = pExprBlock->GetExprList().ExecForList(envLister, sig, false, false);
+		result = pExprBlock->GetExprOwner().ExecForList(envLister, sig, false, false);
 	}
 	return result;
 }

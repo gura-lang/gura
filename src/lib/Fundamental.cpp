@@ -50,7 +50,7 @@ bool Fundamental::BuildContent(Environment &env, Signal sig, const Value &valueT
 {
 	Environment envLocal(&env, ENVTYPE_local);
 	envLocal.AssignValue(Gura_Symbol(this), valueThis, false);
-	foreach_const (ExprList, ppExpr, pExprBlock->GetExprList()) {
+	foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsAssign()) {
 			const Expr_Assign *pExprAssign =

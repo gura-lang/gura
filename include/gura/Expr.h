@@ -250,7 +250,7 @@ public:
 	virtual bool DoDeserialize(Environment &env, Signal sig, Stream &stream);
 	inline Expr *GetChild() { return const_cast<Expr *>(_exprOwner[0]); }
 	inline const Expr *GetChild() const { return _exprOwner[0]; }
-	inline const ExprList &GetExprList() const { return _exprOwner; }
+	inline const ExprOwner &GetExprOwner() const { return _exprOwner; }
 };
 
 //-----------------------------------------------------------------------------
@@ -273,7 +273,7 @@ public:
 	inline Expr *GetRight() { return const_cast<Expr *>(_exprOwner[1]); }
 	inline const Expr *GetLeft() const { return _exprOwner[0]; }
 	inline const Expr *GetRight() const { return _exprOwner[1]; }
-	inline const ExprList &GetExprList() const { return _exprOwner; }
+	inline const ExprOwner &GetExprOwner() const { return _exprOwner; }
 };
 
 //-----------------------------------------------------------------------------
@@ -296,8 +296,8 @@ public:
 		_exprOwner.push_back(pExpr);
 		pExpr->SetParent(this);
 	}
-	inline ExprList &GetExprList() { return _exprOwner; }
-	inline const ExprList &GetExprList() const { return _exprOwner; }
+	inline ExprOwner &GetExprOwner() { return _exprOwner; }
+	inline const ExprOwner &GetExprOwner() const { return _exprOwner; }
 };
 
 //-----------------------------------------------------------------------------
@@ -490,8 +490,8 @@ public:
 	inline const Expr *GetCar() const { return _pExprCar.get(); }
 	inline Expr_Lister *GetLister() { return _pExprLister.get(); }
 	inline const Expr_Lister *GetLister() const { return _pExprLister.get(); }
-	inline ExprList &GetExprList() { return _pExprLister->GetExprList(); }
-	inline const ExprList &GetExprList() const { return _pExprLister->GetExprList(); }
+	inline ExprOwner &GetExprOwner() { return _pExprLister->GetExprOwner(); }
+	inline const ExprOwner &GetExprOwner() const { return _pExprLister->GetExprOwner(); }
 };
 
 //-----------------------------------------------------------------------------

@@ -921,7 +921,7 @@ bool Expr_Root::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 
 String Expr_Root::ToString() const
 {
-	return GetExprList().ToString();
+	return GetExprOwner().ToString();
 }
 
 //-----------------------------------------------------------------------------
@@ -1004,8 +1004,8 @@ String Expr_Block::ToString() const
 		str += _pExprBlockParam->ToString();
 	}
 	str += " ";
-	str += GetExprList().ToString();
-	if (!GetExprList().empty()) str += " ";
+	str += GetExprOwner().ToString();
+	if (!GetExprOwner().empty()) str += " ";
 	str += "}";
 	return str;
 }
@@ -1051,7 +1051,7 @@ String Expr_BlockParam::ToString() const
 {
 	String str;
 	str += "|";
-	str += GetExprList().ToString();
+	str += GetExprOwner().ToString();
 	str += "|";
 	return str;
 }
@@ -1110,7 +1110,7 @@ Value Expr_Lister::Exec(Environment &env, Signal sig) const
 Value Expr_Lister::DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
-	const ExprList &exprList = GetExprList();
+	const ExprList &exprList = GetExprOwner();
 	if (value.IsList() || value.IsIterator()) {
 		ValueList *pValList = NULL;
 		ExprList::const_iterator ppExpr = exprList.begin();
@@ -1212,7 +1212,7 @@ String Expr_Lister::ToString() const
 {
 	String str;
 	str += "[";
-	str += GetExprList().ToString();
+	str += GetExprOwner().ToString();
 	str += "]";
 	return str;
 }
@@ -1306,7 +1306,7 @@ Value Expr_Indexer::Exec(Environment &env, Signal sig) const
 		sig.AddExprCause(this);
 		return Value::Null;
 	}
-	const ExprList &exprList = GetLister()->GetExprList();
+	const ExprList &exprList = GetLister()->GetExprOwner();
 	Object &objCar = *valueCar.GetObject();
 	if (exprList.empty()) {
 		return objCar.EmptyIndexGet(env, sig);
@@ -1371,7 +1371,7 @@ Value Expr_Indexer::DoAssign(Environment &env, Signal sig, Value &value,
 		SetError(sig, ERR_ValueError, "object is expected as l-value of indexer");
 		return Value::Null;
 	}
-	const ExprList &exprList = GetLister()->GetExprList();
+	const ExprList &exprList = GetLister()->GetExprOwner();
 	Object &objDst = *valueDst.GetObject();
 	if (exprList.empty()) {
 		objDst.EmptyIndexSet(env, sig, value);
@@ -1488,7 +1488,7 @@ String Expr_Indexer::ToString() const
 	String str;
 	str += GetCar()->ToString();
 	str += "[";
-	str += GetLister()->GetExprList().ToString();
+	str += GetLister()->GetExprOwner().ToString();
 	str += "]";
 	return str;
 }
@@ -1566,7 +1566,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig,
 			return Value::Null;
 		}
 		return pCallable->Call(env, sig, Value::Null, NULL, false,
-									this, GetExprList(), ppFuncLeader);
+									this, GetExprOwner(), ppFuncLeader);
 	}
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	Value valueThis = pExprMember->GetLeft()->Exec(env, sig);
@@ -1664,7 +1664,7 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 		return Value::Null;
 	}
 	return pCallable->Call(env, sig, valueThis, pIteratorThis, listThisFlag,
-								this, GetExprList(), ppFuncLeader);
+								this, GetExprOwner(), ppFuncLeader);
 }
 
 Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &value,
@@ -1700,7 +1700,7 @@ Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &value,
 	FunctionType funcType = !env.IsClass()? FUNCTYPE_Function :
 		GetAttrs().IsSet(Gura_Symbol(static_))? FUNCTYPE_Class : FUNCTYPE_Instance;
 	FunctionCustom *pFunc = new FunctionCustom(env, pSymbol, pExprBody, funcType);
-	Args args(GetExprList(), Value::Null, NULL, false,
+	Args args(GetExprOwner(), Value::Null, NULL, false,
 								NULL, GetAttrs(), GetAttrsOpt(), GetBlock());
 	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, args)) {
 		sig.AddExprCause(this);
@@ -1720,7 +1720,7 @@ void Expr_Caller::Accept(ExprVisitor &visitor) const
 {
 	if (visitor.Visit(this)) {
 		GetCar()->Accept(visitor);
-		GetExprList().Accept(visitor);
+		GetExprOwner().Accept(visitor);
 	}
 }
 
@@ -1736,8 +1736,8 @@ bool Expr_Caller::IsParentOf(const Expr *pExpr) const
 Expr *Expr_Caller::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
 {
 	// f(g(x))' = f(u)'g(x)'
-	if (GetExprList().size() != 1) return NULL;
-	const Expr *pExprArg = GetExprList().front();
+	if (GetExprOwner().size() != 1) return NULL;
+	const Expr *pExprArg = GetExprOwner().front();
 	Value value = GetCar()->Exec(env, sig);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
@@ -1773,7 +1773,7 @@ bool Expr_Caller::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "Caller");
 	if (!_pExprCar->GenerateCode(env, sig, stream)) return false;
-	if (!GetExprList().GenerateCode(env, sig, stream)) return false;
+	if (!GetExprOwner().GenerateCode(env, sig, stream)) return false;
 	if (!_pExprBlock.IsNull() && _pExprBlock->GenerateCode(env, sig, stream)) return false;
 	if (!_pExprTrailer.IsNull() && _pExprTrailer->GenerateCode(env, sig, stream)) return false;
 	return true;
@@ -1816,7 +1816,7 @@ String Expr_Caller::ToString() const
 {
 	String str;
 	str += _pExprCar->ToString();
-	bool argListFlag = !GetExprList().empty() ||
+	bool argListFlag = !GetExprOwner().empty() ||
 									!_attrs.empty() || _pExprBlock.IsNull();
 	if (_pExprCar->IsSymbol()) {
 		const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(GetCar())->GetSymbol();
@@ -1826,7 +1826,7 @@ String Expr_Caller::ToString() const
 	}
 	if (argListFlag) {
 		str += "(";
-		str += GetExprList().ToString();
+		str += GetExprOwner().ToString();
 		str += ")";
 	}
 	foreach_const (SymbolSet, ppSymbol, _attrs) {
@@ -1861,7 +1861,7 @@ Expr *Expr_UnaryOp::Clone() const
 
 Value Expr_UnaryOp::Exec(Environment &env, Signal sig) const
 {
-	Args args(GetExprList());
+	Args args(GetExprOwner());
 	Value result = _pFunc->EvalExpr(env, sig, args);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
@@ -1946,7 +1946,7 @@ Expr *Expr_BinaryOp::Clone() const
 
 Value Expr_BinaryOp::Exec(Environment &env, Signal sig) const
 {
-	Args args(GetExprList());
+	Args args(GetExprOwner());
 	Value result = _pFunc->EvalExpr(env, sig, args);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);

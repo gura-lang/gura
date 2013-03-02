@@ -176,6 +176,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Algorithm.cpp" />
+    <ClCompile Include="Class.cpp" />
     <ClCompile Include="Codec.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="..\Module_codecs_japanese\Conv_Japanese.cpp" />
@@ -187,6 +188,7 @@
     <ClCompile Include="Expr.cpp" />
     <ClCompile Include="Formatter.cpp" />
     <ClCompile Include="Function.cpp" />
+    <ClCompile Include="Fundamental.cpp" />
     <ClCompile Include="Iterator.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Module.cpp" />
@@ -252,6 +254,7 @@
     <ClInclude Include="..\..\include\gura.h" />
     <ClInclude Include="..\..\include\gura\Algorithm.h" />
     <ClInclude Include="..\..\include\gura\BZLibHelper.h" />
+    <ClInclude Include="..\..\include\gura\Class.h" />
     <ClInclude Include="..\..\include\gura\Codec.h" />
     <ClInclude Include="..\..\include\gura\Common.h" />
     <ClInclude Include="..\..\include\gura\DateTime.h" />
@@ -261,6 +264,7 @@
     <ClInclude Include="..\..\include\gura\Expr.h" />
     <ClInclude Include="..\..\include\gura\Formatter.h" />
     <ClInclude Include="..\..\include\gura\Function.h" />
+    <ClInclude Include="..\..\include\gura\Fundamental.h" />
     <ClInclude Include="..\..\include\gura\Iterator.h" />
     <ClInclude Include="..\..\include\gura\Image.h" />
     <ClInclude Include="..\..\include\gura\Module.h" />

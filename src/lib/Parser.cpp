@@ -889,11 +889,9 @@ Expr *Parser::ParseStream(Environment &env, Signal sig, const char *pathName, co
 	return pExpr;
 }
 
-Expr *Parser::ParseString(Environment &env, Signal sig,
-						const char *sourceName, const char *str, size_t len)
+bool Parser::ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
+							const char *sourceName, const char *str, size_t len)
 {
-	Expr *pExprRtn = NULL;
-	Expr_Block *pExprBlock = NULL;
 	SetSourceName(sourceName);
 	for ( ; ; str++, len--) {
 		char ch = (len == 0)? '\0' : *str;
@@ -902,25 +900,14 @@ Expr *Parser::ParseString(Environment &env, Signal sig,
 			if (sig.IsDetectEncoding()) {
 				sig.ClearSignal();
 			} else {
-				Expr::Delete(pExprRtn);
-				return NULL;
+				return false;
 			}
-		} else if (pExpr == NULL) {
-			// nothing to do
-		} else if (pExprRtn == NULL) {
-			pExprRtn = pExpr;
-		} else {
-			if (pExprBlock == NULL) {
-				pExprBlock = new Expr_Block();
-				pExprBlock->AddExpr(pExprRtn);
-				pExprRtn = pExprBlock;
-			}
-			pExprBlock->AddExpr(pExpr);
+		} else if (pExpr != NULL) {
+			exprOwner.push_back(pExpr);
 		}
 		if (len == 0) break;
 	}
-	
-	return pExprRtn;
+	return true;
 }
 
 bool Parser::ParseTemplate(Environment &env, Signal sig,
@@ -1003,14 +990,14 @@ bool Parser::ParseTemplate(Environment &env, Signal sig,
 						strEmbed += ch;
 						break;
 					}
-					AutoPtr<Expr> pExpr(ParseString(env, sig,
-										"<embedded string>", strEmbed.c_str()));
-					if (sig.IsSignalled()) return false;
-					if (pExpr.IsNull()) {
+					ExprOwner exprOwner;
+					if (!ParseString(env, sig, exprOwner,
+						"<embedded string>", strEmbed.c_str())) return false;
+					if (exprOwner.empty()) {
 						stat = STAT_Body;
 						break;
 					}
-					Value value = pExpr->Exec(env, sig);
+					Value value = exprOwner.Exec(env, sig, true);
 					if (sig.IsSignalled()) return false;
 					if (value.IsInvalid()) {
 						stat = STAT_SkipEOL;
@@ -1890,7 +1877,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 				Expr::Delete(pExprRight);
 			} else if (pExprRight->IsLister()) {
 				ExprList &exprList =
-							dynamic_cast<Expr_Lister *>(pExprRight)->GetExprList();
+							dynamic_cast<Expr_Lister *>(pExprRight)->GetExprOwner();
 				if (pExprDst->IsSymbol()) {
 					sig.SetError(ERR_TypeError,
 									"symbols cannot declare optional attributes");

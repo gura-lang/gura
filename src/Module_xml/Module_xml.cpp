@@ -832,7 +832,7 @@ Gura_ImplementFunction(element)
 	if (pExprBlock != NULL) {
 		Environment envLister(&env, ENVTYPE_lister);
 		Value valueRaw =
-			pExprBlock->GetExprList().ExecForList(envLister, sig, false, false);
+			pExprBlock->GetExprOwner().ExecForList(envLister, sig, false, false);
 		if (sig.IsSignalled() || !valueRaw.IsList()) return Value::Null;
 		Value result;
 		ValueList &valList = result.InitAsList(env);
