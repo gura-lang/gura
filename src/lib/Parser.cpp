@@ -934,7 +934,6 @@ bool Parser::ParseTemplate(Environment &env, Signal sig,
 			switch (stat) {
 			case STAT_LineTop: {
 				if (ch == '\n') {
-					//streamDst.PutChar(sig, ch);
 					strText += ch;
 				} else if (IsWhite(ch)) {
 					continueFlag = true;
@@ -947,7 +946,6 @@ bool Parser::ParseTemplate(Environment &env, Signal sig,
 			}
 			case STAT_Indent: {
 				if (IsWhite(ch)) {
-					//streamDst.PutChar(sig, ch);
 					strText += ch;
 					strIndent += ch;
 				} else {
@@ -961,11 +959,9 @@ bool Parser::ParseTemplate(Environment &env, Signal sig,
 					stat = STAT_EmbedPre;
 				} else if (ch == '\n') {
 					strIndent.clear();
-					//streamDst.PutChar(sig, ch);
 					strText += ch;
 					stat = STAT_LineTop;
 				} else {
-					//streamDst.PutChar(sig, ch);
 					strText += ch;
 				}
 				break;
@@ -980,11 +976,9 @@ bool Parser::ParseTemplate(Environment &env, Signal sig,
 					strEmbed.clear();
 					stat = STAT_Embed;
 				} else if (ch == chPrefix) {
-					//streamDst.PutChar(sig, ch);
 					strText += ch;
 					stat = STAT_Body;
 				} else {
-					//streamDst.PutChar(sig, chPrefix);
 					strText += ch;
 					continueFlag = true;
 					stat = STAT_Body;
