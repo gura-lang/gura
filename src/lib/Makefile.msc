@@ -10,9 +10,9 @@ Common.cpp Parser.cpp Expr.cpp Value.cpp Iterator.cpp \
 Symbol.cpp String.cpp Binary.cpp Environment.cpp Signal.cpp Formatter.cpp Option.cpp \
 Function.cpp Operator.cpp Declaration.cpp \
 Algorithm.cpp Codec.cpp \
-Stream.cpp Directory.cpp DateTime.cpp Image.cpp OAL.cpp DLLMain.cpp
+Stream.cpp Directory.cpp DateTime.cpp Image.cpp OAL.cpp DLLMain.cpp Fundamental.cpp
 
-SRCS = $(SRCS) Object.cpp \
+SRCS = $(SRCS) Class.cpp Object.cpp \
 Object_function.cpp Object_string.cpp Object_binary.cpp \
 Object_list.cpp Object_matrix.cpp Object_dict.cpp Object_stream.cpp \
 Object_datetime.cpp Object_timedelta.cpp \

@@ -1,7 +1,7 @@
 #ifndef __GURA_MODULE_H__
 #define __GURA_MODULE_H__
 
-#include "Object.h"
+#include "Fundamental.h"
 
 //-----------------------------------------------------------------------------
 // Macros and functions to implement modules
