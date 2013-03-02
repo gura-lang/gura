@@ -24,6 +24,8 @@ String.cpp
 StructObject.cpp
 Symbol.cpp
 Value.cpp
+Fundamental.cpp
+Class.cpp
 Object.cpp
 Object_args.cpp
 Object_audio.cpp
