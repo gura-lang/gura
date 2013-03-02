@@ -156,6 +156,7 @@ enum {
 	FLAG_NoCast			= (1 << 10),	// :nocast
 	FLAG_Leader			= (1 << 11),	// :leader
 	FLAG_Trailer		= (1 << 12),	// :trailer
+	FLAG_EndMarker		= (1 << 13),	// :end_marker
 };
 
 //-----------------------------------------------------------------------------

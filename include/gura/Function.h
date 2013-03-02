@@ -262,7 +262,6 @@ public:
 		_elemType = elemType; _opType = opType;
 	}
 	inline Class *GetClassToConstruct() const { return _pClassToConstruct; }
-	inline void SetAsSymbolFunc() { _flags |= FLAG_SymbolFunc; }
 	inline bool IsSymbolFunc() const { return GetSymbolFuncFlag(); }
 	inline bool IsAnonymous() const { return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_)); }
 	inline void SetSymbol(const Symbol *pSymbol) { _pSymbol = pSymbol; }
@@ -317,6 +316,7 @@ public:
 	inline bool GetSymbolFuncFlag() const { return (_flags & FLAG_SymbolFunc)? true : false; }
 	inline bool GetLeaderFlag() const { return (_flags & FLAG_Leader)? true : false; }
 	inline bool GetTrailerFlag() const { return (_flags & FLAG_Trailer)? true : false; }
+	inline bool GetEndMarkerFlag() const { return (_flags & FLAG_EndMarker)? true : false; }
 	void SetClassToConstruct(Class *pClassToConstruct);
 	bool CustomDeclare(Environment &env, Signal sig,
 			const SymbolSet &attrsAcceptable, Args &args);

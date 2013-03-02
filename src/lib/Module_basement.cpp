@@ -520,10 +520,10 @@ Gura_ImplementFunction(else_)
 	return pExprBlock->Exec(envBlock, sig);
 }
 
-// end ():trailer
+// end ():void:symbol_func:trailer:end_marker
 Gura_DeclareFunction(end)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Trailer);
+	SetMode(RSLTMODE_Void, FLAG_SymbolFunc | FLAG_Trailer | FLAG_EndMarker);
 	AddHelp(Gura_Symbol(en), 
 	"Specify an end of a sequence. It just works as a marker.\n");
 }
@@ -560,6 +560,7 @@ Gura_ImplementFunction(switch_)
 // case (`cond) {block}
 Gura_DeclareFunctionAlias(case_, "case")
 {
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), 
@@ -586,6 +587,7 @@ Gura_ImplementFunction(case_)
 // default {block}
 Gura_DeclareFunctionAlias(default_, "default")
 {
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), 
 	"Specify a default block within a switch block.\n"
@@ -633,6 +635,7 @@ Gura_ImplementFunction(repeat)
 // while (`cond) {block}
 Gura_DeclareFunctionAlias(while_, "while")
 {
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), 
@@ -682,6 +685,7 @@ Gura_ImplementFunction(for_)
 // cross (`expr+) {block}
 Gura_DeclareFunction(cross)
 {
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "expr", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), 
@@ -706,10 +710,10 @@ Gura_ImplementFunction(cross)
 	return DoRepeater(env, sig, args, pIterator);
 }
 
-// break(value?):symbol_func
+// break(value?):void:symbol_func
 Gura_DeclareFunctionAlias(break_, "break")
 {
-	SetAsSymbolFunc();
+	SetMode(RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), 
 	"Exits from an inside of a loop that is formed with functions repeat(), while()\n"
@@ -725,10 +729,10 @@ Gura_ImplementFunction(break_)
 	return Value::Null;
 }
 
-// continue(value?):symbol_func
+// continue(value?):void:symbol_func
 Gura_DeclareFunctionAlias(continue_, "continue")
 {
-	SetAsSymbolFunc();
+	SetMode(RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), 
 	"In a loop that is formed with functions repeat(), while(), for() and cross(),\n"
@@ -745,10 +749,10 @@ Gura_ImplementFunction(continue_)
 	return Value::Null;
 }
 
-// return(value?):symbol_func
+// return(value?):void:symbol_func
 Gura_DeclareFunctionAlias(return_, "return")
 {
-	SetAsSymbolFunc();
+	SetMode(RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), 
 	"Exits from a function skipping the following part of it.\n"
@@ -784,6 +788,7 @@ Gura_ImplementFunction(raise)
 // dim(n+:number) {block}
 Gura_DeclareFunction(dim)
 {
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), 

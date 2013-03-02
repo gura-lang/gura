@@ -245,6 +245,8 @@ bool Function::CustomDeclare(Environment &env, Signal sig,
 			_flags |= FLAG_Leader;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(trailer))) {
 			_flags |= FLAG_Trailer;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(end_marker))) {
+			_flags |= FLAG_EndMarker;
 		} else if (attrsAcceptable.IsSet(pSymbol)) {
 			// nothing to do
 		} else {
