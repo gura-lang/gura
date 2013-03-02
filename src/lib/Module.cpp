@@ -8,7 +8,7 @@ namespace Gura {
 bool Module::IsModule() const { return true; }
 
 Module::Module(const Module &module) :
-	ObjectBase(module), _pSymbol(module._pSymbol),
+	Fundamental(module), _pSymbol(module._pSymbol),
 	_pExprScript((module._pExprScript == NULL)? NULL : module._pExprScript->Clone()),
 	_moduleTerminate(module._moduleTerminate)
 {
@@ -16,8 +16,8 @@ Module::Module(const Module &module) :
 
 Module::Module(Environment *pEnvOuter, const Symbol *pSymbol, const char *sourceName,
 						Expr *pExprScript, ModuleTerminateType moduleTerminate) :
-		ObjectBase(pEnvOuter, ENVTYPE_module), _pSymbol(pSymbol),
-		_pExprScript(pExprScript), _moduleTerminate(moduleTerminate)
+	Fundamental(pEnvOuter, ENVTYPE_module), _pSymbol(pSymbol),
+	_pExprScript(pExprScript), _moduleTerminate(moduleTerminate)
 {
 	Environment &env = *this;
 	AssignValue(Gura_Symbol(__name__), Value(env, GetName()), false);

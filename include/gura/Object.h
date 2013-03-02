@@ -26,17 +26,30 @@ Gura_DeclareObjectAccessorEx(Object_##name)
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// ObjectBase
+// ICallable
 //-----------------------------------------------------------------------------
-class DLLDECLARE ObjectBase : public Environment, public ICallable {
+class DLLDECLARE ICallable {
+public:
+	Value Call(Environment &env, Signal sig,
+			const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
+			const Expr_Caller *pExprCaller, const ExprList &exprListArg,
+			const Function **ppFuncLeader);
+protected:
+	virtual Value DoCall(Environment &env, Signal sig, Args &args) = 0;
+};
+
+//-----------------------------------------------------------------------------
+// Fundamental
+//-----------------------------------------------------------------------------
+class DLLDECLARE Fundamental : public Environment, public ICallable {
 protected:
 	int _cntRef;
 protected:
-	inline ObjectBase(const ObjectBase &obj) :
-							Environment(obj), _cntRef(obj._cntRef) {}
-	ObjectBase(Environment *pEnvOuter, EnvType envType);
+	inline Fundamental(const Fundamental &fund) :
+							Environment(fund), _cntRef(fund._cntRef) {}
+	Fundamental(Environment *pEnvOuter, EnvType envType);
 public:
-	virtual ~ObjectBase();
+	virtual ~Fundamental();
 	bool BuildContent(Environment &env, Signal sig, const Value &valueThis,
 		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = NULL);
 	inline int DecRef() { if (_cntRef > 0) _cntRef--; return _cntRef; }
@@ -52,14 +65,14 @@ public:
 //-----------------------------------------------------------------------------
 // Class
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class : public ObjectBase {
+class DLLDECLARE Class : public Fundamental {
 protected:
 	AutoPtr<Class> _pClassSuper;
 	ValueType _valType;
 	const Symbol *_pSymbol;
 	AutoPtr<Function> _pConstructor;
 protected:
-	inline Class(const Class &cls) : ObjectBase(cls),
+	inline Class(const Class &cls) : Fundamental(cls),
 		_pClassSuper(Class::Reference(cls._pClassSuper.get())), _valType(cls._valType),
 		_pSymbol(cls._pSymbol), _pConstructor(NULL) {}
 public:
@@ -159,12 +172,12 @@ public:
 //-----------------------------------------------------------------------------
 // Object
 //-----------------------------------------------------------------------------
-class DLLDECLARE Object : public ObjectBase {
+class DLLDECLARE Object : public Fundamental {
 protected:
 	AutoPtr<Class> _pClass;
 protected:
 	inline Object(const Object &obj) :
-			ObjectBase(obj), _pClass(Class::Reference(obj._pClass.get())) {}
+			Fundamental(obj), _pClass(Class::Reference(obj._pClass.get())) {}
 public:
 	Object(Class *pClass);
 protected:

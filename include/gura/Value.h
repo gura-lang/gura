@@ -10,7 +10,7 @@ namespace Gura {
 
 class Expr;
 class Binary;
-class ObjectBase;
+class Fundamental;
 class Environment;
 class Module;
 class Function;
@@ -625,16 +625,16 @@ public:
 	ErrorType GetErrorType() const;
 	bool IsFlatList() const;
 	bool IsInstanceOf(ValueType valType) const;
-	ObjectBase *ExtractObject(Signal sig);
-	inline ObjectBase *ExtractObject(Signal sig) const {
-		return const_cast<Value *>(this)->ExtractObject(sig);
+	Fundamental *ExtractFundamental(Signal sig);
+	inline Fundamental *ExtractFundamental(Signal sig) const {
+		return const_cast<Value *>(this)->ExtractFundamental(sig);
 	}
 	Expr *CloneExpr() const;
 	inline Object *GetObj() { return IsObject()? _u.pObj : NULL; }
 	inline Object *GetObj() const { return IsObject()? _u.pObj : NULL; }
 	inline Object *GetObject() { return IsObject()? _u.pObj : NULL; }
 	inline Object *GetObject() const { return IsObject()? _u.pObj : NULL; }
-	ObjectBase *GetObjectBase();
+	Fundamental *GetFundamental();
 	Iterator *CreateIterator(Signal sig) const;
 	String ToString(Signal sig, bool exprFlag = true) const;
 	Number ToNumber(bool allowPartFlag, bool &successFlag) const;

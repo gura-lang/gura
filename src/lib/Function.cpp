@@ -92,35 +92,6 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 }
 
 //-----------------------------------------------------------------------------
-// ICallable
-//-----------------------------------------------------------------------------
-Value ICallable::Call(Environment &env, Signal sig,
-		const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
-		const Expr_Caller *pExprCaller, const ExprList &exprListArg,
-		const Function **ppFuncLeader)
-{
-	if (ppFuncLeader != NULL) {
-		const Function *pFuncLeader = *ppFuncLeader;
-		*ppFuncLeader = NULL;
-		if (pFuncLeader != NULL) {
-			if (!pFuncLeader->CheckIfTrailer(this)) {
-				pExprCaller->SetError(sig,
-						ERR_SyntaxError, "invalid trailing process");
-				return Value::Null;
-			}
-		}
-	}
-	Args args(exprListArg, valueThis, pIteratorThis, listThisFlag, ppFuncLeader,
-		pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(), pExprCaller->GetBlock());
-	Value result = DoCall(env, sig, args);
-	if (sig.IsSignalled()) {
-		sig.AddExprCause(pExprCaller);
-		return Value::Null;
-	}
-	return result;
-}
-
-//-----------------------------------------------------------------------------
 // Function
 //-----------------------------------------------------------------------------
 const char *Function::_mathSymbolTbl[] = {

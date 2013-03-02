@@ -97,7 +97,7 @@ class Signal;
 //-----------------------------------------------------------------------------
 // Module
 //-----------------------------------------------------------------------------
-class DLLDECLARE Module : public ObjectBase {
+class DLLDECLARE Module : public Fundamental {
 protected:
 	const Symbol *_pSymbol;
 	Expr *_pExprScript;		// this is set to NULL in binary modules

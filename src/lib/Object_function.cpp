@@ -152,16 +152,16 @@ String Object_function::MakePrefix(Signal sig) const
 			return str;
 		}
 	}
-	const ObjectBase *pObj = _valueThis.ExtractObject(sig);
+	const Fundamental *pFund = _valueThis.ExtractFundamental(sig);
 	if (sig.IsSignalled()) return str;
-	if (pObj->IsModule()) {
-		str += dynamic_cast<const Module *>(pObj)->GetName();
+	if (pFund->IsModule()) {
+		str += dynamic_cast<const Module *>(pFund)->GetName();
 		str += ".";
-	} else if (pObj->IsClass()) {
-		str += dynamic_cast<const Class *>(pObj)->GetName();
+	} else if (pFund->IsClass()) {
+		str += dynamic_cast<const Class *>(pFund)->GetName();
 		str += (_pFunc->GetType() == FUNCTYPE_Instance)? "#" : ".";
-	} else if (pObj->IsObject()) {
-		str += dynamic_cast<const Object *>(pObj)->GetClass()->GetName();
+	} else if (pFund->IsObject()) {
+		str += dynamic_cast<const Object *>(pFund)->GetClass()->GetName();
 		str += "#";
 	}
 	return str;

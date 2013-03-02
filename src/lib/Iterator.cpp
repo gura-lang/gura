@@ -1270,9 +1270,9 @@ bool Iterator_MemberMap::DoNext(Environment &env, Signal sig, Value &value)
 {
 	Value valueThisEach;
 	if (!_pIterator->Next(env, sig, valueThisEach)) return false;
-	ObjectBase *pObjEach = valueThisEach.ExtractObject(sig);
+	Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
 	if (sig.IsSignalled()) return false;
-	Environment &envEach = *pObjEach;
+	Environment &envEach = *pFundEach;
 	value = _pExpr->Exec(envEach, sig);
 	if (value.IsFunction()) {
 		Object_function *pObj = new Object_function(envEach,

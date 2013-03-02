@@ -1580,12 +1580,12 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig,
 		if (valueThis.IsList() && valueThis.GetList().empty()) {
 			return valueThis;
 		}
-		ObjectBase *pObj = valueThis.ExtractObject(sig);
+		Fundamental *pFund = valueThis.ExtractFundamental(sig);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
 		}
-		Iterator *pIteratorThis = pObj->CreateIterator(sig);
+		Iterator *pIteratorThis = pFund->CreateIterator(sig);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
@@ -1621,18 +1621,18 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 	const Expr *pExprRight = pExprMember->GetRight();
 	Value valueCar;
 	ICallable *pCallable = NULL;
-	ObjectBase *pObj = NULL;
+	Fundamental *pFund = NULL;
 	if (valueThis.IsPrimitive() || valueThis.GetTinyBuffFlag()) {
-		pObj = env.LookupClass(valueThis.GetType());
+		pFund = env.LookupClass(valueThis.GetType());
 	} else {
-		pObj = valueThis.ExtractObject(sig);
+		pFund = valueThis.ExtractFundamental(sig);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
 		}
 	}
 	if (pExprRight->IsSymbol()) {
-		pCallable = pObj->GetCallable(sig,
+		pCallable = pFund->GetCallable(sig,
 					dynamic_cast<const Expr_Symbol *>(pExprRight)->GetSymbol());
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
@@ -1642,15 +1642,15 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 	if (pCallable == NULL) {
 		//*** WATCH THIS PART ***
 		int cntSuperSkip = 0;
-		if (pObj->IsModule()) {
-			Environment envLocal(pObj, ENVTYPE_member);
+		if (pFund->IsModule()) {
+			Environment envLocal(pFund, ENVTYPE_member);
 			valueCar = pExprRight->Exec(envLocal, sig);
 		} else if ((cntSuperSkip = valueThis.GetSuperSkipCount()) > 0) {
-			Environment envLocal(pObj, pObj->GetEnvType());
+			Environment envLocal(pFund, pFund->GetEnvType());
 			envLocal.SetSuperSkipCount(cntSuperSkip);
 			valueCar = pExprRight->Exec(envLocal, sig);
 		} else {
-			valueCar = pExprRight->Exec(*pObj, sig);
+			valueCar = pExprRight->Exec(*pFund, sig);
 		}
 		//*** WATCH THIS PART ***
 		if (sig.IsSignalled()) {
@@ -2453,11 +2453,11 @@ Value Expr_Member::Exec(Environment &env, Signal sig) const
 		sig.AddExprCause(this);
 		return Value::Null;
 	}
-	ObjectBase *pObj = NULL;
+	Fundamental *pFund = NULL;
 	if (valueThis.IsPrimitive() || valueThis.GetTinyBuffFlag()) {
-		pObj = env.LookupClass(valueThis.GetType());
+		pFund = env.LookupClass(valueThis.GetType());
 	} else {
-		pObj = valueThis.ExtractObject(sig);
+		pFund = valueThis.ExtractFundamental(sig);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
@@ -2468,7 +2468,7 @@ Value Expr_Member::Exec(Environment &env, Signal sig) const
 		if (valueThis.IsList() && valueThis.GetList().empty()) {
 			return valueThis;
 		}
-		Iterator *pIterator = pObj->CreateIterator(sig);
+		Iterator *pIterator = pFund->CreateIterator(sig);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
@@ -2488,11 +2488,11 @@ Value Expr_Member::Exec(Environment &env, Signal sig) const
 		}
 	}
 	Value result;
-	if (pObj->IsModule()) {
-		Environment envLocal(pObj, ENVTYPE_member);
+	if (pFund->IsModule()) {
+		Environment envLocal(pFund, ENVTYPE_member);
 		result = GetRight()->Exec(envLocal, sig);
 	} else {
-		result = GetRight()->Exec(*pObj, sig);
+		result = GetRight()->Exec(*pFund, sig);
 	}
 	if (result.IsFunction()) {
 		Object_function *pObjFunc =
@@ -2513,22 +2513,22 @@ Value Expr_Member::DoAssign(Environment &env, Signal sig, Value &value,
 		sig.AddExprCause(this);
 		return Value::Null;
 	}
-	ObjectBase *pObj = valueThis.ExtractObject(sig);
+	Fundamental *pFund = valueThis.ExtractFundamental(sig);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
 	}
 	Mode mode = GetMode();
 	if (mode == MODE_Normal) {
-		return GetRight()->DoAssign(*pObj, sig, value, pSymbolsAssignable, escalateFlag);
+		return GetRight()->DoAssign(*pFund, sig, value, pSymbolsAssignable, escalateFlag);
 	}
-	AutoPtr<Iterator> pIteratorThis(pObj->CreateIterator(sig));
+	AutoPtr<Iterator> pIteratorThis(pFund->CreateIterator(sig));
 	if (pIteratorThis.IsNull()) {
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
 		}
-		return GetRight()->DoAssign(*pObj, sig, value, pSymbolsAssignable, escalateFlag);
+		return GetRight()->DoAssign(*pFund, sig, value, pSymbolsAssignable, escalateFlag);
 	}
 	if (value.IsList() || value.IsIterator()) {
 		AutoPtr<Iterator> pIteratorValue(value.CreateIterator(sig));
@@ -2540,9 +2540,9 @@ Value Expr_Member::DoAssign(Environment &env, Signal sig, Value &value,
 		Value valueThisEach;
 		while (pIteratorThis->Next(env, sig, valueThisEach) &&
 								pIteratorValue->Next(env, sig, value)) {
-			ObjectBase *pObjEach = valueThisEach.ExtractObject(sig);
+			Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
 			if (sig.IsSignalled()) break;
-			GetRight()->DoAssign(*pObjEach, sig, value,
+			GetRight()->DoAssign(*pFundEach, sig, value,
 									pSymbolsAssignable, escalateFlag);
 			if (sig.IsSignalled()) break;
 		}
@@ -2553,9 +2553,9 @@ Value Expr_Member::DoAssign(Environment &env, Signal sig, Value &value,
 	} else {
 		Value valueThisEach;
 		while (pIteratorThis->Next(env, sig, valueThisEach)) {
-			ObjectBase *pObjEach = valueThisEach.ExtractObject(sig);
+			Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
 			if (sig.IsSignalled()) break;
-			GetRight()->DoAssign(*pObjEach, sig, value, pSymbolsAssignable, escalateFlag);
+			GetRight()->DoAssign(*pFundEach, sig, value, pSymbolsAssignable, escalateFlag);
 			if (sig.IsSignalled()) break;
 		}
 		if (sig.IsSignalled()) {

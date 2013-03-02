@@ -3,20 +3,49 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// ObjectBase
+// ICallable
 //-----------------------------------------------------------------------------
-ObjectBase::ObjectBase(Environment *pEnvOuter, EnvType envType) :
+Value ICallable::Call(Environment &env, Signal sig,
+		const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
+		const Expr_Caller *pExprCaller, const ExprList &exprListArg,
+		const Function **ppFuncLeader)
+{
+	if (ppFuncLeader != NULL) {
+		const Function *pFuncLeader = *ppFuncLeader;
+		*ppFuncLeader = NULL;
+		if (pFuncLeader != NULL) {
+			if (!pFuncLeader->CheckIfTrailer(this)) {
+				pExprCaller->SetError(sig,
+						ERR_SyntaxError, "invalid trailing process");
+				return Value::Null;
+			}
+		}
+	}
+	Args args(exprListArg, valueThis, pIteratorThis, listThisFlag, ppFuncLeader,
+		pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(), pExprCaller->GetBlock());
+	Value result = DoCall(env, sig, args);
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(pExprCaller);
+		return Value::Null;
+	}
+	return result;
+}
+
+//-----------------------------------------------------------------------------
+// Fundamental
+//-----------------------------------------------------------------------------
+Fundamental::Fundamental(Environment *pEnvOuter, EnvType envType) :
 							Environment(pEnvOuter, envType), _cntRef(1)
 {
 }
 
-ObjectBase::~ObjectBase()
+Fundamental::~Fundamental()
 {
 }
 
-bool ObjectBase::IsFunction() const { return false; }
+bool Fundamental::IsFunction() const { return false; }
 
-bool ObjectBase::BuildContent(Environment &env, Signal sig, const Value &valueThis,
+bool Fundamental::BuildContent(Environment &env, Signal sig, const Value &valueThis,
 			const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable)
 {
 	Environment envLocal(&env, ENVTYPE_local);
@@ -35,24 +64,24 @@ bool ObjectBase::BuildContent(Environment &env, Signal sig, const Value &valueTh
 	return true;
 }
 
-Iterator *ObjectBase::CreateIterator(Signal sig)
+Iterator *Fundamental::CreateIterator(Signal sig)
 {
 	sig.SetError(ERR_ValueError, "object cannot generate iterator");
 	return NULL;
 }
 
-Value ObjectBase::DoCall(Environment &env, Signal sig, Args &args)
+Value Fundamental::DoCall(Environment &env, Signal sig, Args &args)
 {
 	sig.SetError(ERR_TypeError, "object is not callable");
 	return Value::Null;
 }
 
-bool ObjectBase::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Fundamental::DoDirProp(Signal sig, SymbolSet &symbols)
 {
 	return true;
 }
 
-void ObjectBase::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+void Fundamental::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 
@@ -62,7 +91,7 @@ void ObjectBase::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envS
 bool Object::IsObject() const { return true; }
 
 Object::Object(Class *pClass) :
-			ObjectBase(pClass, ENVTYPE_instance), _pClass(pClass->IncRef())
+			Fundamental(pClass, ENVTYPE_instance), _pClass(pClass->IncRef())
 {
 }
 
@@ -321,7 +350,7 @@ Gura_DeclareClassMethod(Object, getprop_X)
 
 Gura_ImplementClassMethod(Object, getprop_X)
 {
-	ObjectBase *pThis = args.GetThisObjBase();
+	Fundamental *pThis = args.GetThisFundamental();
 	const SymbolSet &attrs = SymbolSet::Null;
 	if (args.IsDefined(1)) {
 		Value value = args.GetValue(1);
@@ -341,7 +370,7 @@ Gura_DeclareClassMethod(Object, setprop_X)
 
 Gura_ImplementClassMethod(Object, setprop_X)
 {
-	ObjectBase *pThis = args.GetThisObjBase();
+	Fundamental *pThis = args.GetThisFundamental();
 	pThis->AssignValue(args.GetSymbol(0), args.GetValue(1), false);
 	return Value::Null;
 }
@@ -366,7 +395,7 @@ Gura_Method(Object, call_X)::Gura_Method(Object, call_X)(Environment &env, const
 
 Value Gura_Method(Object, call_X)::EvalExpr(Environment &env, Signal sig, Args &args) const
 {
-	ObjectBase *pThis = args.GetThisObjBase();
+	Fundamental *pThis = args.GetThisFundamental();
 	ExprOwner exprOwnerArgs(args.GetExprListArg());
 	const Expr *pExprArg = exprOwnerArgs.front();
 	size_t nElems = 0;
@@ -441,7 +470,7 @@ bool Class::IsClass() const { return true; }
 bool Class::IsCustom() const { return false; }
 
 Class::Class(Environment *pEnvOuter, ValueType valType) :
-	ObjectBase(pEnvOuter, ENVTYPE_class),
+	Fundamental(pEnvOuter, ENVTYPE_class),
 	_pClassSuper(pEnvOuter->IsClass()?
 			Class::Reference(dynamic_cast<Class *>(pEnvOuter)) : NULL),
 	_pConstructor(NULL), _pSymbol(Gura_Symbol(_anonymous_)), _valType(valType) 

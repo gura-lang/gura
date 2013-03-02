@@ -177,19 +177,6 @@ enum FunctionType {
 
 const char *GetFuncTypeName(FunctionType funcType);
 
-//-----------------------------------------------------------------------------
-// ICallable
-//-----------------------------------------------------------------------------
-class DLLDECLARE ICallable {
-public:
-	Value Call(Environment &env, Signal sig,
-			const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
-			const Expr_Caller *pExprCaller, const ExprList &exprListArg,
-			const Function **ppFuncLeader);
-protected:
-	virtual Value DoCall(Environment &env, Signal sig, Args &args) = 0;
-};
-
 //----------------------------------------------------------------------------
 // Function
 //-----------------------------------------------------------------------------
@@ -509,7 +496,7 @@ public:
 	inline const Value &GetThis() const { return _valueThis; }
 	inline Class *GetThisClass() { return _valueThis.GetClass(); }
 	inline Object *GetThisObj() { return _valueThis.GetObject(); }
-	inline ObjectBase *GetThisObjBase() { return _valueThis.GetObjectBase(); }
+	inline Fundamental *GetThisFundamental() { return _valueThis.GetFundamental(); }
 	inline Iterator *GetIteratorThis() { return _pIteratorThis.get(); }
 	inline bool IsThisIterable() const { return !_pIteratorThis.IsNull(); }
 	inline bool IsThisList() const { return !_pIteratorThis.IsNull() && _listThisFlag; }

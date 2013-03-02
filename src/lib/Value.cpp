@@ -414,7 +414,7 @@ bool Value::MustBe(Signal &sig, bool flag, const char *expected) const
 	return false;
 }
 
-ObjectBase *Value::ExtractObject(Signal sig)
+Fundamental *Value::ExtractFundamental(Signal sig)
 {
 	if (GetTinyBuffFlag()) {
 		// nothing to do
@@ -423,17 +423,17 @@ ObjectBase *Value::ExtractObject(Signal sig)
 	} else if (IsClass()) {
 		return GetClass();
 	} else if (IsObject()) {
-		ObjectBase *pObjBase = GetObject();
-		if (pObjBase->IsFunction()) {
+		Fundamental *pFund = GetFundamental();
+		if (pFund->IsFunction()) {
 			const Object_function *pObjFunc =
-								dynamic_cast<const Object_function *>(pObjBase);
+								dynamic_cast<const Object_function *>(pFund);
 			Class *pClass = pObjFunc->GetFunction()->GetClassToConstruct();
 			if (pClass != NULL) {
 				InitAsClass(pClass->IncRef());
-				pObjBase = pClass;
+				pFund = pClass;
 			}
 		}
-		return pObjBase;
+		return pFund;
 	}
 	sig.SetError(ERR_ValueError,
 		"%s can not be specified as l-value of member", GetTypeName());
@@ -640,7 +640,7 @@ Expr *Value::CloneExpr() const
 			IsSymbol()? new Expr_Symbol(_u.pSymbol) : NULL;
 }
 
-ObjectBase *Value::GetObjectBase()
+Fundamental *Value::GetFundamental()
 {
 	if (GetTinyBuffFlag()) {
 		// nothing to do
