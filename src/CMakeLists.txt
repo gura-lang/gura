@@ -97,6 +97,8 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Iterator.h
   ${GURA_INCLUDE_DIR}/gura/Module.h
   ${GURA_INCLUDE_DIR}/gura/OAL.h
+  ${GURA_INCLUDE_DIR}/gura/Fundamental.h
+  ${GURA_INCLUDE_DIR}/gura/Class.h
   ${GURA_INCLUDE_DIR}/gura/Object.h
   ${GURA_INCLUDE_DIR}/gura/Object_args.h
   ${GURA_INCLUDE_DIR}/gura/Object_audio.h
