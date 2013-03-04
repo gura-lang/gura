@@ -1,0 +1,40 @@
+${x = 10}
+${print(x)}
+hello world
+   ${x = 100, nil}
+   ${if (x < 10)}
+       A
+   ${else}
+       B
+   ${end}
+   ${for (x in 1..10)}
+       ${for (y in 1..10)}XXX${end}
+   ${end}
+hoge
+
+${for (x in 1..10)}
+    hoge ${x}
+${end}
+
+${
+	company = nil //'hoge'
+	products = ['apple', 'grape', 'orange']
+	nil
+}
+${if (company)}
+Company: ${company}
+${else}
+(not defined)
+${end}
+[Products]
+${for (product in products)}
+- ${product}
+${end}
+
+${for (i in 1..10)}
+    ${if (i < 5)}
+        ${i} is less than five
+    ${else}
+        ${i} is greater or equal to five
+    ${end}
+${end}
