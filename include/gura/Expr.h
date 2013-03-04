@@ -624,6 +624,7 @@ public:
 		_pExprTrailer.reset(pExprCaller);
 		if (!_pExprTrailer.IsNull()) _pExprTrailer->SetParent(this);
 	}
+	inline Expr_Block *GetBlock() { return _pExprBlock.get(); }
 	inline const Expr_Block *GetBlock() const { return _pExprBlock.get(); }
 	inline const Expr_Caller *GetTrailer() const { return _pExprTrailer.get(); }
 	inline Expr_Caller *GetLastTrailer() {

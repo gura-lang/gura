@@ -914,6 +914,7 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 					SimpleStream &streamSrc, SimpleStream &streamDst,
 					bool autoIndentFlag, bool appendLastEOLFlag)
 {
+	typedef std::vector<Expr_Caller *> ExprCallerStack;
 	char chPrefix = '$';
 	enum {
 		STAT_LineTop, STAT_Indent, STAT_Body,
@@ -924,7 +925,7 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 	String strIndent;
 	int nDepth = 0;
 	ExprOwner exprOwnerRoot;
-	ExprOwner *pExprOwner = &exprOwnerRoot;
+	ExprCallerStack exprCallerStack;
 	for (;;) {
 		int chRaw = streamSrc.GetChar(sig);
 		if (sig.IsSignalled()) return false;
@@ -971,7 +972,9 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 			case STAT_EmbedPre: {
 				if (ch == '{') {
 					if (!str.empty()) {
-						pExprOwner->push_back(new Expr_TemplateString(streamDst, str));
+						ExprOwner &exprOwner = exprCallerStack.empty()?
+							exprOwnerRoot : exprCallerStack.back()->GetBlock()->GetExprOwner();
+						exprOwner.push_back(new Expr_TemplateString(streamDst, str));
 						str.clear();
 					}
 					nDepth = 1;
@@ -997,17 +1000,45 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 						strEmbed += ch;
 						break;
 					}
-					ExprOwner exprOwner;
-					if (!ParseString(env, sig, exprOwner,
+					ExprOwner exprOwnerPart;
+					if (!ParseString(env, sig, exprOwnerPart,
 							"<templateblock>", strEmbed.c_str())) return false;
 					AutoPtr<Expr_TemplateBlock> pExprTmplBlock(new Expr_TemplateBlock(
 						streamDst, strIndent, autoIndentFlag, appendLastEOLFlag));
-					foreach (ExprOwner, ppExpr, exprOwner) {
+					ExprOwner::iterator ppExpr = exprOwnerPart.begin();
+					if (ppExpr != exprOwnerPart.end()) {
 						Expr *pExpr = *ppExpr;
-						pExprTmplBlock->GetExprOwner().push_back(Expr::Reference(pExpr));
+						ICallable *pCallable = pExpr->LookupCallable(env, sig);
+						if (pCallable == NULL) {
+							// nothing to do
+						} else if (pCallable->IsEndMarker()) {
+							if (exprCallerStack.empty()) {
+								sig.SetError(ERR_SyntaxError, "unmatching end-marker expression");
+								return false;
+							}
+							exprCallerStack.pop_back();
+							ppExpr++;
+						} else if (pExpr->IsCaller() && pCallable->IsTrailer()) {
+							Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExpr);
+							if (exprCallerStack.empty()) {
+								sig.SetError(ERR_SyntaxError, "unmatching trailer expression");
+								return false;
+							}
+							exprCallerStack.back()->SetTrailer(pExprCaller);
+							exprCallerStack.pop_back();
+							ppExpr++;
+						}
 					}
-					pExprOwner->push_back(pExprTmplBlock.release());
-					Expr *pExprLast = exprOwner.empty()? NULL : exprOwner.back();
+					if (ppExpr != exprOwnerPart.end()) {
+						for ( ; ppExpr != exprOwnerPart.end(); ppExpr++) {
+							Expr *pExpr = *ppExpr;
+							pExprTmplBlock->GetExprOwner().push_back(Expr::Reference(pExpr));
+						}
+						ExprOwner &exprOwner = exprCallerStack.empty()?
+							exprOwnerRoot : exprCallerStack.back()->GetBlock()->GetExprOwner();
+						exprOwner.push_back(pExprTmplBlock.release());
+					}
+					Expr *pExprLast = exprOwnerPart.empty()? NULL : exprOwnerPart.back();
 					if (pExprLast != NULL && pExprLast->IsCaller()) {
 						Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExprLast);
 						if (pExprCaller->GetBlock() == NULL) {
@@ -1016,7 +1047,7 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 							if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
 								Expr_Block *pExprBlock = new Expr_Block();
 								pExprCaller->SetBlock(pExprBlock);
-								
+								exprCallerStack.push_back(pExprCaller);
 							}
 						}
 					}
@@ -1029,8 +1060,12 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 			}
 		} while (continueFlag);
 	}
+	if (!exprCallerStack.empty()) {
+		sig.SetError(ERR_SyntaxError, "lacking end statement for block expression");
+		return false;
+	}
 	if (!str.empty()) {
-		pExprOwner->push_back(new Expr_TemplateString(streamDst, str));
+		exprOwnerRoot.push_back(new Expr_TemplateString(streamDst, str));
 		str.clear();
 	}
 	exprOwnerRoot.Exec(env, sig, true);
