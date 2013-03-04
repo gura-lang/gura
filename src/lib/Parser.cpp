@@ -1010,6 +1010,7 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 					if (ppExpr != exprOwnerPart.end()) {
 						Expr *pExpr = *ppExpr;
 						ICallable *pCallable = pExpr->LookupCallable(env, sig);
+						sig.ClearSignal();
 						if (pCallable == NULL) {
 							// nothing to do
 						} else if (pCallable->IsEndMarker()) {
@@ -1047,7 +1048,7 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 						Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExprLast);
 						if (pExprCaller->GetBlock() == NULL) {
 							ICallable *pCallable = pExprCaller->LookupCallable(env, sig);
-							if (sig.IsSignalled()) return false;
+							sig.ClearSignal();
 							if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
 								Expr_Block *pExprBlock = new Expr_Block();
 								pExprCaller->SetBlock(pExprBlock);
@@ -1072,8 +1073,8 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 		exprOwnerRoot.push_back(new Expr_TemplateString(streamDst, str));
 		str.clear();
 	}
-	//exprOwnerRoot.Exec(env, sig, true);
-	::printf("%s\n", exprOwnerRoot.ToString().c_str());
+	exprOwnerRoot.Exec(env, sig, true);
+	//::printf("%s\n", exprOwnerRoot.ToString().c_str());
 	return !sig.IsSignalled();
 }
 
