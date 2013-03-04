@@ -32,9 +32,11 @@ ${for (product in products)}
 ${end}
 
 ${for (i in 1..10)}
-    ${if (i < 5)}
-        ${i} is less than five
-    ${else}
-        ${i} is greater or equal to five
-    ${end}
+  ${if (i < 5)}
+    ${i} is less than five
+  ${elsif (i < 8)}
+    ${i} is less than eight
+  ${else}
+    ${i} is greater or equal to eight
+  ${end}
 ${end}
