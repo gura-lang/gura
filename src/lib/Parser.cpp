@@ -1011,26 +1011,19 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 						Expr *pExpr = *ppExpr;
 						ICallable *pCallable = pExpr->LookupCallable(env, sig);
 						sig.ClearSignal();
-						if (pCallable == NULL) {
-							// nothing to do
-						} else if (pCallable->IsEndMarker()) {
-							if (exprCallerStack.empty()) {
-								sig.SetError(ERR_SyntaxError, "unmatching end-marker expression");
-								return false;
-							}
-							exprCallerStack.pop_back();
-							ppExpr++;
-						} else if (pCallable->IsTrailer()) {
+						if (pCallable != NULL && pCallable->IsTrailer()) {
 							if (exprCallerStack.empty()) {
 								sig.SetError(ERR_SyntaxError, "unmatching trailer expression");
 								return false;
 							}
-							Expr_Caller *pExprCaller = pExpr->IsCaller()?
+							if (!pCallable->IsEndMarker()) {
+								Expr_Caller *pExprCaller = pExpr->IsCaller()?
 									dynamic_cast<Expr_Caller *>(Expr::Reference(pExpr)) :
 									new Expr_Caller(Expr::Reference(pExpr), NULL, NULL);
-							exprCallerStack.back()->SetTrailer(pExprCaller);
+								exprCallerStack.back()->SetTrailer(pExprCaller);
+								pExprLast = pExprCaller;
+							}
 							exprCallerStack.pop_back();
-							pExprLast = pExprCaller;
 							ppExpr++;
 						}
 					}
