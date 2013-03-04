@@ -240,7 +240,7 @@ public:
 	}
 	bool EvalTemplate(Environment &env, Signal sig, SimpleStream &streamSrc,
 				SimpleStream &streamDst, bool autoIndentFlag, bool appendLastEOLFlag);
-	bool MakeTemplateScript(Environment &env, Signal sig,
+	bool ParseTemplateScript(Environment &env, Signal sig,
 			const char *strIndent, const char *strScript,
 			SimpleStream &streamDst, bool autoIndentFlag, bool appendLastEOLFlag,
 			ExprOwner &exprOwnerRoot, ExprCallerStack &exprCallerStack);

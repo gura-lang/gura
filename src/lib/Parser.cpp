@@ -999,7 +999,7 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 						strScript += ch;
 						break;
 					}
-					if (!MakeTemplateScript(env, sig,
+					if (!ParseTemplateScript(env, sig,
 							strIndent.c_str(), strScript.c_str(),
 							streamDst, autoIndentFlag, appendLastEOLFlag,
 							exprOwnerRoot, exprCallerStack)) return false;
@@ -1025,7 +1025,7 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 	return !sig.IsSignalled();
 }
 
-bool Parser::MakeTemplateScript(Environment &env, Signal sig,
+bool Parser::ParseTemplateScript(Environment &env, Signal sig,
 			const char *strIndent, const char *strScript,
 			SimpleStream &streamDst, bool autoIndentFlag, bool appendLastEOLFlag,
 			ExprOwner &exprOwnerRoot, ExprCallerStack &exprCallerStack)
