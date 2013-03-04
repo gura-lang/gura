@@ -1000,9 +1000,9 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 						break;
 					}
 					if (!MakeTemplateScript(env, sig,
-								strIndent.c_str(), strScript.c_str(),
-								streamDst, autoIndentFlag, appendLastEOLFlag,
-								exprOwnerRoot, exprCallerStack)) return false;
+							strIndent.c_str(), strScript.c_str(),
+							streamDst, autoIndentFlag, appendLastEOLFlag,
+							exprOwnerRoot, exprCallerStack)) return false;
 					stat = STAT_String;
 				} else {
 					strScript += ch;
