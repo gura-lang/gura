@@ -208,6 +208,7 @@ public:
 		void Clear();
 		String ToString() const;
 	};
+	typedef std::vector<Expr_Caller *> ExprCallerStack;
 private:
 	Stat _stat;
 	MagicCommentParser _magicCommentParser;
@@ -239,6 +240,10 @@ public:
 	}
 	bool EvalTemplate(Environment &env, Signal sig, SimpleStream &streamSrc,
 				SimpleStream &streamDst, bool autoIndentFlag, bool appendLastEOLFlag);
+	bool MakeTemplateScript(Environment &env, Signal sig,
+			const char *strIndent, const char *strScript,
+			SimpleStream &streamDst, bool autoIndentFlag, bool appendLastEOLFlag,
+			ExprOwner &exprOwnerRoot, ExprCallerStack &exprCallerStack);
 	void EvalConsoleChar(Environment &env, Signal sig, ExprOwner &exprOwner,
 												Stream *pConsole, char ch);
 	inline void SetSourceName(const char *sourceName) { _sourceName = sourceName; }

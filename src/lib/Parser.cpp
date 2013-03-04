@@ -914,7 +914,6 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 					SimpleStream &streamSrc, SimpleStream &streamDst,
 					bool autoIndentFlag, bool appendLastEOLFlag)
 {
-	typedef std::vector<Expr_Caller *> ExprCallerStack;
 	char chPrefix = '$';
 	enum {
 		STAT_LineTop, STAT_Indent, STAT_String,
@@ -1000,55 +999,10 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 						strScript += ch;
 						break;
 					}
-					ExprOwner exprOwnerPart;
-					if (!ParseString(env, sig, exprOwnerPart,
-							"<templatescript>", strScript.c_str())) return false;
-					AutoPtr<Expr_TemplateScript> pExprTmplBlock(new Expr_TemplateScript(
-						streamDst, strIndent, autoIndentFlag, appendLastEOLFlag));
-					ExprOwner::iterator ppExpr = exprOwnerPart.begin();
-					Expr *pExprLast = NULL;
-					if (ppExpr != exprOwnerPart.end()) {
-						Expr *pExpr = *ppExpr;
-						ICallable *pCallable = pExpr->LookupCallable(env, sig);
-						sig.ClearSignal();
-						if (pCallable != NULL && pCallable->IsTrailer()) {
-							if (exprCallerStack.empty()) {
-								sig.SetError(ERR_SyntaxError, "unmatching trailer expression");
-								return false;
-							}
-							if (!pCallable->IsEndMarker()) {
-								Expr_Caller *pExprCaller = pExpr->IsCaller()?
-									dynamic_cast<Expr_Caller *>(Expr::Reference(pExpr)) :
-									new Expr_Caller(Expr::Reference(pExpr), NULL, NULL);
-								exprCallerStack.back()->SetTrailer(pExprCaller);
-								pExprLast = pExprCaller;
-							}
-							exprCallerStack.pop_back();
-							ppExpr++;
-						}
-					}
-					if (ppExpr != exprOwnerPart.end()) {
-						for ( ; ppExpr != exprOwnerPart.end(); ppExpr++) {
-							Expr *pExpr = *ppExpr;
-							pExprTmplBlock->GetExprOwner().push_back(Expr::Reference(pExpr));
-							pExprLast = pExpr;
-						}
-						ExprOwner &exprOwner = exprCallerStack.empty()?
-							exprOwnerRoot : exprCallerStack.back()->GetBlock()->GetExprOwner();
-						exprOwner.push_back(pExprTmplBlock.release());
-					}
-					if (pExprLast != NULL && pExprLast->IsCaller()) {
-						Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExprLast);
-						if (pExprCaller->GetBlock() == NULL) {
-							ICallable *pCallable = pExprCaller->LookupCallable(env, sig);
-							sig.ClearSignal();
-							if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
-								Expr_Block *pExprBlock = new Expr_Block();
-								pExprCaller->SetBlock(pExprBlock);
-								exprCallerStack.push_back(pExprCaller);
-							}
-						}
-					}
+					if (!MakeTemplateScript(env, sig,
+								strIndent.c_str(), strScript.c_str(),
+								streamDst, autoIndentFlag, appendLastEOLFlag,
+								exprOwnerRoot, exprCallerStack)) return false;
 					stat = STAT_String;
 				} else {
 					strScript += ch;
@@ -1069,6 +1023,63 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 	exprOwnerRoot.Exec(env, sig, true);
 	//::printf("%s\n", exprOwnerRoot.ToString().c_str());
 	return !sig.IsSignalled();
+}
+
+bool Parser::MakeTemplateScript(Environment &env, Signal sig,
+			const char *strIndent, const char *strScript,
+			SimpleStream &streamDst, bool autoIndentFlag, bool appendLastEOLFlag,
+			ExprOwner &exprOwnerRoot, ExprCallerStack &exprCallerStack)
+{
+	ExprOwner exprOwnerPart;
+	if (!ParseString(env, sig, exprOwnerPart,
+						"<templatescript>", strScript)) return false;
+	AutoPtr<Expr_TemplateScript> pExprTmplBlock(new Expr_TemplateScript(
+		streamDst, strIndent, autoIndentFlag, appendLastEOLFlag));
+	ExprOwner::iterator ppExpr = exprOwnerPart.begin();
+	Expr *pExprLast = NULL;
+	if (ppExpr != exprOwnerPart.end()) {
+		Expr *pExpr = *ppExpr;
+		ICallable *pCallable = pExpr->LookupCallable(env, sig);
+		sig.ClearSignal();
+		if (pCallable != NULL && pCallable->IsTrailer()) {
+			if (exprCallerStack.empty()) {
+				sig.SetError(ERR_SyntaxError, "unmatching trailer expression");
+				return false;
+			}
+			if (!pCallable->IsEndMarker()) {
+				Expr_Caller *pExprCaller = pExpr->IsCaller()?
+					dynamic_cast<Expr_Caller *>(Expr::Reference(pExpr)) :
+					new Expr_Caller(Expr::Reference(pExpr), NULL, NULL);
+				exprCallerStack.back()->SetTrailer(pExprCaller);
+				pExprLast = pExprCaller;
+			}
+			exprCallerStack.pop_back();
+			ppExpr++;
+		}
+	}
+	if (ppExpr != exprOwnerPart.end()) {
+		for ( ; ppExpr != exprOwnerPart.end(); ppExpr++) {
+			Expr *pExpr = *ppExpr;
+			pExprTmplBlock->GetExprOwner().push_back(Expr::Reference(pExpr));
+			pExprLast = pExpr;
+		}
+		ExprOwner &exprOwner = exprCallerStack.empty()?
+			exprOwnerRoot : exprCallerStack.back()->GetBlock()->GetExprOwner();
+		exprOwner.push_back(pExprTmplBlock.release());
+	}
+	if (pExprLast != NULL && pExprLast->IsCaller()) {
+		Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExprLast);
+		if (pExprCaller->GetBlock() == NULL) {
+			ICallable *pCallable = pExprCaller->LookupCallable(env, sig);
+			sig.ClearSignal();
+			if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
+				Expr_Block *pExprBlock = new Expr_Block();
+				pExprCaller->SetBlock(pExprBlock);
+				exprCallerStack.push_back(pExprCaller);
+			}
+		}
+	}
+	return true;
 }
 
 void Parser::EvalConsoleChar(Environment &env, Signal sig,
