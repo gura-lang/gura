@@ -1000,15 +1000,26 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 					ExprOwner exprOwner;
 					if (!ParseString(env, sig, exprOwner,
 							"<templateblock>", strEmbed.c_str())) return false;
-					//exprOwner.back()->LookupFunction(env, sig);
-					
-					AutoPtr<Expr_TemplateBlock> pExprBlock(new Expr_TemplateBlock(
+					AutoPtr<Expr_TemplateBlock> pExprTmplBlock(new Expr_TemplateBlock(
 						streamDst, strIndent, autoIndentFlag, appendLastEOLFlag));
 					foreach (ExprOwner, ppExpr, exprOwner) {
 						Expr *pExpr = *ppExpr;
-						pExprBlock->GetExprOwner().push_back(Expr::Reference(pExpr));
+						pExprTmplBlock->GetExprOwner().push_back(Expr::Reference(pExpr));
 					}
-					pExprOwner->push_back(pExprBlock.release());
+					pExprOwner->push_back(pExprTmplBlock.release());
+					Expr *pExprLast = exprOwner.empty()? NULL : exprOwner.back();
+					if (pExprLast != NULL && pExprLast->IsCaller()) {
+						Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExprLast);
+						if (pExprCaller->GetBlock() == NULL) {
+							ICallable *pCallable = pExprCaller->LookupCallable(env, sig);
+							if (sig.IsSignalled()) return false;
+							if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
+								Expr_Block *pExprBlock = new Expr_Block();
+								pExprCaller->SetBlock(pExprBlock);
+								
+							}
+						}
+					}
 					stat = STAT_Body;
 				} else {
 					strEmbed += ch;

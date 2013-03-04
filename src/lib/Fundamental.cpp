@@ -41,6 +41,11 @@ bool ICallable::IsTrailer() const
 	return false;
 }
 
+bool ICallable::IsEndMarker() const
+{
+	return false;
+}
+
 OccurPattern ICallable::GetBlockOccurPattern() const
 {
 	return OCCUR_Zero;

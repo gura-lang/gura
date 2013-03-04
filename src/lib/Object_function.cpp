@@ -104,6 +104,11 @@ bool Object_function::IsTrailer() const
 	return _pFunc->GetTrailerFlag();
 }
 
+bool Object_function::IsEndMarker() const
+{
+	return _pFunc->GetEndMarkerFlag();
+}
+
 OccurPattern Object_function::GetBlockOccurPattern() const
 {
 	return _pFunc->GetBlockOccurPattern();
