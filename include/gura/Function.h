@@ -253,6 +253,9 @@ public:
 	inline bool IsAnonymous() const { return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_)); }
 	inline void SetSymbol(const Symbol *pSymbol) { _pSymbol = pSymbol; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
+	inline OccurPattern GetBlockOccurPattern() const { return _blockInfo.occurPattern; }
+	inline BlockScope GetBlockScope() const { return _blockInfo.blockScope; }
+	inline bool GetBlockQuoteFlag() const { return _blockInfo.quoteFlag; }
 	inline const Symbol *GetSymbolForBlock() const { return _blockInfo.pSymbol; }
 	inline const char *GetName() const { return _pSymbol->GetName(); }
 	inline Parser::ElemType GetElemType() const { return _elemType; }

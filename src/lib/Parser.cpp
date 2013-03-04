@@ -997,11 +997,18 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 						strEmbed += ch;
 						break;
 					}
-					AutoPtr<Expr_TemplateBlock> pExpr(new Expr_TemplateBlock(
-						streamDst, strIndent, autoIndentFlag, appendLastEOLFlag));
-					if (!ParseString(env, sig, pExpr->GetExprOwner(),
+					ExprOwner exprOwner;
+					if (!ParseString(env, sig, exprOwner,
 							"<templateblock>", strEmbed.c_str())) return false;
-					pExprOwner->push_back(pExpr.release());
+					//exprOwner.back()->LookupFunction(env, sig);
+					
+					AutoPtr<Expr_TemplateBlock> pExprBlock(new Expr_TemplateBlock(
+						streamDst, strIndent, autoIndentFlag, appendLastEOLFlag));
+					foreach (ExprOwner, ppExpr, exprOwner) {
+						Expr *pExpr = *ppExpr;
+						pExprBlock->GetExprOwner().push_back(Expr::Reference(pExpr));
+					}
+					pExprOwner->push_back(pExprBlock.release());
 					stat = STAT_Body;
 				} else {
 					strEmbed += ch;

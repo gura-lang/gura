@@ -331,6 +331,11 @@ void Expr::SetError_NotAssignableSymbol(Signal sig, const Symbol *pSymbol) const
 		"symbol '%s' cannot be assigned in this object", pSymbol->GetName());
 }
 
+ICallable *Expr::LookupCallable(Environment &env, Signal sig) const
+{
+	return NULL;
+}
+
 bool Expr::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	return false;
@@ -809,6 +814,16 @@ Expr *Expr_Symbol::IncRef() const
 Expr *Expr_Symbol::Clone() const
 {
 	return new Expr_Symbol(*this);
+}
+
+ICallable *Expr_Symbol::LookupCallable(Environment &env, Signal sig) const
+{
+	Value rtn = env.GetProp(sig, GetSymbol(), GetAttrs());
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(this);
+		return NULL;
+	}
+	return rtn.GetObject();
 }
 
 Value Expr_Symbol::Exec(Environment &env, Signal sig) const
@@ -1699,6 +1714,19 @@ Expr *Expr_Caller::IncRef() const
 Expr *Expr_Caller::Clone() const
 {
 	return new Expr_Caller(*this);
+}
+
+ICallable *Expr_Caller::LookupCallable(Environment &env, Signal sig) const
+{
+	if (!_pExprCar->IsMember()) {
+		Value valueCar = _pExprCar->Exec(env, sig);
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(this);
+			return NULL;
+		}
+		return valueCar.GetObject();
+	}
+	return NULL;
 }
 
 Value Expr_Caller::Exec(Environment &env, Signal sig) const

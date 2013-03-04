@@ -139,6 +139,8 @@ public:
 										const Function &func, bool rightFlag);
 	virtual Expr *Clone() const = 0;
 	virtual const char *GetPathName() const;
+	
+	virtual ICallable *LookupCallable(Environment &env, Signal sig) const;
 	virtual Value Exec(Environment &env, Signal sig) const = 0;
 	bool ExecInArg(Environment &env, Signal sig,
 					ValueList &valListArg, size_t &nElems, bool quoteFlag) const;
@@ -397,6 +399,7 @@ public:
 	virtual Expr *IncRef() const;
 	virtual bool IsSymbol() const;
 	virtual Expr *Clone() const;
+	virtual ICallable *LookupCallable(Environment &env, Signal sig) const;
 	virtual Value Exec(Environment &env, Signal sig) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
@@ -593,6 +596,7 @@ public:
 	virtual Expr *IncRef() const;
 	virtual bool IsCaller() const;
 	virtual Expr *Clone() const;
+	virtual ICallable *LookupCallable(Environment &env, Signal sig) const;
 	virtual Value Exec(Environment &env, Signal sig) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;

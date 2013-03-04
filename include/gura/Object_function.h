@@ -49,6 +49,9 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual bool IsLeader() const;
+	virtual bool IsTrailer() const;
+	virtual OccurPattern GetBlockOccurPattern() const;
 	virtual Value DoCall(Environment &env, Signal sig, Args &args);
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	Value Eval(Environment &env, Signal sig, ValueList &valListArg) const;

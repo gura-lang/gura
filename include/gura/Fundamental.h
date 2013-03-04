@@ -17,6 +17,9 @@ public:
 			const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
 			const Expr_Caller *pExprCaller, const ExprList &exprListArg,
 			const Function **ppFuncLeader);
+	virtual bool IsLeader() const;
+	virtual bool IsTrailer() const;
+	virtual OccurPattern GetBlockOccurPattern() const;
 protected:
 	virtual Value DoCall(Environment &env, Signal sig, Args &args) = 0;
 };

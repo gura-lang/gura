@@ -94,6 +94,21 @@ Value Object_function::DoSetProp(Signal sig, const Symbol *pSymbol, const Value 
 	return DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
 }
 
+bool Object_function::IsLeader() const
+{
+	return _pFunc->GetLeaderFlag();
+}
+
+bool Object_function::IsTrailer() const
+{
+	return _pFunc->GetTrailerFlag();
+}
+
+OccurPattern Object_function::GetBlockOccurPattern() const
+{
+	return _pFunc->GetBlockOccurPattern();
+}
+
 Value Object_function::DoCall(Environment &env, Signal sig, Args &args)
 {
 	if (args.GetThis().IsInvalid() ||

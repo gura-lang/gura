@@ -31,6 +31,21 @@ Value ICallable::Call(Environment &env, Signal sig,
 	return result;
 }
 
+bool ICallable::IsLeader() const
+{
+	return false;
+}
+
+bool ICallable::IsTrailer() const
+{
+	return false;
+}
+
+OccurPattern ICallable::GetBlockOccurPattern() const
+{
+	return OCCUR_Zero;
+}
+
 //-----------------------------------------------------------------------------
 // Fundamental
 //-----------------------------------------------------------------------------
