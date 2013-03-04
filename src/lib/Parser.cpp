@@ -910,7 +910,7 @@ bool Parser::ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
 	return true;
 }
 
-bool Parser::ParseTemplate(Environment &env, Signal sig,
+bool Parser::EvalTemplate(Environment &env, Signal sig,
 					SimpleStream &streamSrc, SimpleStream &streamDst,
 					bool autoIndentFlag, bool appendLastEOLFlag)
 {
@@ -1017,58 +1017,6 @@ bool Parser::ParseTemplate(Environment &env, Signal sig,
 	}
 	exprOwnerRoot.Exec(env, sig, true);
 	return !sig.IsSignalled();
-}
-
-bool Parser::OutputTemplateResult(Environment &env, Signal sig,
-			const Value &value, const char *strIndent,
-			SimpleStream &streamDst, bool autoIndentFlag, bool appendLastEOLFlag)
-{
-	String str;
-	if (value.IsString()) {
-		str = value.GetStringSTL();
-	} else if (value.IsList() || value.IsIterator()) {
-		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
-		if (sig.IsSignalled()) return false;
-		Value valueElem;
-		while (pIterator->Next(env, sig, valueElem)) {
-			foreach_const (String, p, str) {
-				char ch = *p;
-				if (ch == '\n') {
-					streamDst.PutChar(sig, ch);
-					if (autoIndentFlag && valueElem.IsValid()) {
-						streamDst.Print(sig, strIndent);
-					}
-				} else {
-					streamDst.PutChar(sig, ch);
-				}
-			}
-			if (valueElem.IsString()) {
-				str = valueElem.GetStringSTL();
-			} else if (valueElem.IsValid()) {
-				str = valueElem.ToString(sig);
-				if (sig.IsSignalled()) return false;
-			} else {
-				str.clear();
-			}
-		}
-	} else {
-		str = value.ToString(sig);
-		if (sig.IsSignalled()) return false;
-	}
-	foreach_const (String, p, str) {
-		char ch = *p;
-		if (ch != '\n') {
-			streamDst.PutChar(sig, ch);
-		} else if (p + 1 != str.end()) {
-			streamDst.PutChar(sig, ch);
-			if (autoIndentFlag) {
-				streamDst.Print(sig, strIndent);
-			}
-		} else if (appendLastEOLFlag) {
-			streamDst.PutChar(sig, ch);
-		}
-	}
-	return true;
 }
 
 void Parser::EvalConsoleChar(Environment &env, Signal sig,

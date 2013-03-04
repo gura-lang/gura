@@ -237,10 +237,7 @@ public:
 							const char *sourceName, const char *str) {
 		return ParseString(env, sig, exprOwner, sourceName, str, ::strlen(str));
 	}
-	bool ParseTemplate(Environment &env, Signal sig, SimpleStream &streamSrc,
-				SimpleStream &streamDst, bool autoIndentFlag, bool appendLastEOLFlag);
-	static bool OutputTemplateResult(Environment &env, Signal sig,
-				const Value &value, const char *strIndent,
+	bool EvalTemplate(Environment &env, Signal sig, SimpleStream &streamSrc,
 				SimpleStream &streamDst, bool autoIndentFlag, bool appendLastEOLFlag);
 	void EvalConsoleChar(Environment &env, Signal sig, ExprOwner &exprOwner,
 												Stream *pConsole, char ch);
