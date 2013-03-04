@@ -31,12 +31,13 @@ enum ExprType {
 	EXPRTYPE_BlockParam,
 	EXPRTYPE_Block,
 	EXPRTYPE_Lister,
+	EXPRTYPE_TemplateBlock,
 	EXPRTYPE_Indexer,
 	EXPRTYPE_Caller,
 	EXPRTYPE_Value,
 	EXPRTYPE_Symbol,
 	EXPRTYPE_String,
-	EXPRTYPE_Template,
+	EXPRTYPE_TemplateString,
 };
 
 DLLDECLARE const char *GetExprTypeName(ExprType exprType);
@@ -64,13 +65,14 @@ public:
 //        +- Expr_Container <-+- Expr_Root
 //        |                   +- Expr_BlockParam
 //        |                   +- Expr_Block
-//        |                   `- Expr_Lister
+//        |                   +- Expr_Lister
+//        |                   `- Expr_TemplateBlock
 //        +- Expr_Compound <--+- Expr_Indexer
 //        |                   `- Expr_Caller
 //        +- Expr_Value
 //        +- Expr_Symbol
 //        +- Expr_String
-//        `- Expr_Template
+//        `- Expr_TemplateString
 //-----------------------------------------------------------------------------
 class DLLDECLARE Expr {
 public:
@@ -163,13 +165,14 @@ public:
 	virtual bool IsBlockParam() const;
 	virtual bool IsBlock() const;
 	virtual bool IsLister() const;
+	virtual bool IsTemplateBlock() const;
 	virtual bool IsCompound() const;
 	virtual bool IsIndexer() const;
 	virtual bool IsCaller() const;
 	virtual bool IsValue() const;
 	virtual bool IsSymbol() const;
 	virtual bool IsString() const;
-	virtual bool IsTemplate() const;
+	virtual bool IsTemplateString() const;
 	bool IsConstNumber(Number num) const;
 	bool IsConstEvenNumber() const;
 	bool IsConstNegNumber() const;
@@ -352,22 +355,22 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Expr_Template
+// Expr_TemplateString
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Template : public Expr {
+class DLLDECLARE Expr_TemplateString : public Expr {
 protected:
 	SimpleStream &_streamDst;
 	String _str;
 public:
-	inline Expr_Template(SimpleStream &streamDst, const String &str) :
-				Expr(EXPRTYPE_Template), _streamDst(streamDst), _str(str) {}
-	inline Expr_Template(const Expr_Template &expr) :
+	inline Expr_TemplateString(SimpleStream &streamDst, const String &str) :
+				Expr(EXPRTYPE_TemplateString), _streamDst(streamDst), _str(str) {}
+	inline Expr_TemplateString(const Expr_TemplateString &expr) :
 				Expr(expr), _streamDst(expr._streamDst), _str(expr._str) {}
 	inline SimpleStream &GetStreamDst() { return _streamDst;; }
 	inline const char *GetString() const { return _str.c_str(); }
-	virtual ~Expr_Template();
+	virtual ~Expr_TemplateString();
 	virtual Expr *IncRef() const;
-	virtual bool IsTemplate() const;
+	virtual bool IsTemplateString() const;
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
 	virtual void Accept(ExprVisitor &visitor) const;
@@ -493,6 +496,34 @@ public:
 	virtual Value Exec(Environment &env, Signal sig) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
+	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
+	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const;
+	virtual bool DoDeserialize(Environment &env, Signal sig, Stream &stream);
+	virtual String ToString() const;
+};
+
+//-----------------------------------------------------------------------------
+// Expr_TemplateBlock
+//-----------------------------------------------------------------------------
+class DLLDECLARE Expr_TemplateBlock : public Expr_Container {
+protected:
+	SimpleStream &_streamDst;
+	String _strIndent;
+	bool _autoIndentFlag;
+	bool _appendLastEOLFlag;
+public:
+	inline Expr_TemplateBlock(SimpleStream &streamDst, const String &strIndent,
+							bool autoIndentFlag, bool appendLastEOLFlag) :
+			Expr_Container(EXPRTYPE_TemplateBlock), _streamDst(streamDst), _strIndent(strIndent),
+			_autoIndentFlag(autoIndentFlag), _appendLastEOLFlag(appendLastEOLFlag) {}
+	inline Expr_TemplateBlock(const Expr_TemplateBlock &expr) :
+			Expr_Container(expr), _streamDst(expr._streamDst), _strIndent(expr._strIndent),
+			_autoIndentFlag(expr._autoIndentFlag), _appendLastEOLFlag(expr._appendLastEOLFlag) {}
+	inline SimpleStream &GetStreamDst() { return _streamDst;; }
+	virtual ~Expr_TemplateBlock();
+	virtual bool IsTemplateBlock() const;
+	virtual Expr *Clone() const;
+	virtual Value Exec(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Environment &env, Signal sig, Stream &stream);
