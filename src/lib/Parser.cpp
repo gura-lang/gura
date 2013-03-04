@@ -1006,6 +1006,7 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 					AutoPtr<Expr_TemplateBlock> pExprTmplBlock(new Expr_TemplateBlock(
 						streamDst, strIndent, autoIndentFlag, appendLastEOLFlag));
 					ExprOwner::iterator ppExpr = exprOwnerPart.begin();
+					Expr *pExprLast = NULL;
 					if (ppExpr != exprOwnerPart.end()) {
 						Expr *pExpr = *ppExpr;
 						ICallable *pCallable = pExpr->LookupCallable(env, sig);
@@ -1018,14 +1019,17 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 							}
 							exprCallerStack.pop_back();
 							ppExpr++;
-						} else if (pExpr->IsCaller() && pCallable->IsTrailer()) {
-							Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExpr);
+						} else if (pCallable->IsTrailer()) {
 							if (exprCallerStack.empty()) {
 								sig.SetError(ERR_SyntaxError, "unmatching trailer expression");
 								return false;
 							}
+							Expr_Caller *pExprCaller = pExpr->IsCaller()?
+									dynamic_cast<Expr_Caller *>(Expr::Reference(pExpr)) :
+									new Expr_Caller(Expr::Reference(pExpr), NULL, NULL);
 							exprCallerStack.back()->SetTrailer(pExprCaller);
 							exprCallerStack.pop_back();
+							pExprLast = pExprCaller;
 							ppExpr++;
 						}
 					}
@@ -1033,12 +1037,12 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 						for ( ; ppExpr != exprOwnerPart.end(); ppExpr++) {
 							Expr *pExpr = *ppExpr;
 							pExprTmplBlock->GetExprOwner().push_back(Expr::Reference(pExpr));
+							pExprLast = pExpr;
 						}
 						ExprOwner &exprOwner = exprCallerStack.empty()?
 							exprOwnerRoot : exprCallerStack.back()->GetBlock()->GetExprOwner();
 						exprOwner.push_back(pExprTmplBlock.release());
 					}
-					Expr *pExprLast = exprOwnerPart.empty()? NULL : exprOwnerPart.back();
 					if (pExprLast != NULL && pExprLast->IsCaller()) {
 						Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExprLast);
 						if (pExprCaller->GetBlock() == NULL) {
@@ -1068,7 +1072,8 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 		exprOwnerRoot.push_back(new Expr_TemplateString(streamDst, str));
 		str.clear();
 	}
-	exprOwnerRoot.Exec(env, sig, true);
+	//exprOwnerRoot.Exec(env, sig, true);
+	::printf("%s\n", exprOwnerRoot.ToString().c_str());
 	return !sig.IsSignalled();
 }
 

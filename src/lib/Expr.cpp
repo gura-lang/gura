@@ -794,7 +794,11 @@ bool Expr_TemplateString::DoDeserialize(Environment &env, Signal sig, Stream &st
 
 String Expr_TemplateString::ToString() const
 {
-	return MakeQuotedString(_str.c_str());
+	String str;
+	str += "tmpl(";
+	str += MakeQuotedString(_str.c_str());
+	str += ")";
+	return str;
 }
 
 //-----------------------------------------------------------------------------
