@@ -917,12 +917,14 @@ bool Parser::ParseTemplate(Environment &env, Signal sig,
 	char chPrefix = '$';
 	enum {
 		STAT_LineTop, STAT_Indent, STAT_Body,
-		STAT_EmbedPre, STAT_Embed, STAT_SkipEOL,
+		STAT_EmbedPre, STAT_Embed,
 	} stat = STAT_LineTop;
-	String strText;
+	String str;
 	String strEmbed;
 	String strIndent;
 	int nDepth = 0;
+	ExprOwner exprOwnerRoot;
+	ExprOwner *pExprOwner = &exprOwnerRoot;
 	for (;;) {
 		int chRaw = streamSrc.GetChar(sig);
 		if (sig.IsSignalled()) return false;
@@ -934,7 +936,7 @@ bool Parser::ParseTemplate(Environment &env, Signal sig,
 			switch (stat) {
 			case STAT_LineTop: {
 				if (ch == '\n') {
-					strText += ch;
+					str += ch;
 				} else if (IsWhite(ch)) {
 					continueFlag = true;
 					stat = STAT_Indent;
@@ -946,7 +948,7 @@ bool Parser::ParseTemplate(Environment &env, Signal sig,
 			}
 			case STAT_Indent: {
 				if (IsWhite(ch)) {
-					strText += ch;
+					str += ch;
 					strIndent += ch;
 				} else {
 					continueFlag = true;
@@ -959,27 +961,27 @@ bool Parser::ParseTemplate(Environment &env, Signal sig,
 					stat = STAT_EmbedPre;
 				} else if (ch == '\n') {
 					strIndent.clear();
-					strText += ch;
+					str += ch;
 					stat = STAT_LineTop;
 				} else {
-					strText += ch;
+					str += ch;
 				}
 				break;
 			}
 			case STAT_EmbedPre: {
 				if (ch == '{') {
-					if (!strText.empty()) {
-						streamDst.Print(sig, strText.c_str());
-						strText.clear();
+					if (!str.empty()) {
+						pExprOwner->push_back(new Expr_TemplateString(streamDst, str));
+						str.clear();
 					}
 					nDepth = 1;
 					strEmbed.clear();
 					stat = STAT_Embed;
 				} else if (ch == chPrefix) {
-					strText += ch;
+					str += ch;
 					stat = STAT_Body;
 				} else {
-					strText += ch;
+					str += ch;
 					continueFlag = true;
 					stat = STAT_Body;
 				}
@@ -995,41 +997,26 @@ bool Parser::ParseTemplate(Environment &env, Signal sig,
 						strEmbed += ch;
 						break;
 					}
-					ExprOwner exprOwner;
-					if (!ParseString(env, sig, exprOwner,
-						"<embedded string>", strEmbed.c_str())) return false;
-					if (exprOwner.empty()) {
-						stat = STAT_Body;
-						break;
-					}
-					Value value = exprOwner.Exec(env, sig, true);
-					if (sig.IsSignalled()) return false;
-					if (value.IsInvalid()) {
-						stat = STAT_SkipEOL;
-					} else if (OutputTemplateResult(env, sig, value, strIndent.c_str(),
-									streamDst, autoIndentFlag, appendLastEOLFlag)) {
-						stat = STAT_Body;
-					} else {
-						return false;
-					}
+					AutoPtr<Expr_TemplateBlock> pExpr(new Expr_TemplateBlock(
+						streamDst, strIndent, autoIndentFlag, appendLastEOLFlag));
+					if (!ParseString(env, sig, pExpr->GetExprOwner(),
+							"<templateblock>", strEmbed.c_str())) return false;
+					pExprOwner->push_back(pExpr.release());
+					stat = STAT_Body;
 				} else {
 					strEmbed += ch;
 				}
 				break;
 			}
-			case STAT_SkipEOL: {
-				continueFlag = (ch != '\n');
-				stat = STAT_Body;
-				break;
-			}
 			}
 		} while (continueFlag);
 	}
-	if (!strText.empty()) {
-		streamDst.Print(sig, strText.c_str());
-		strText.clear();
+	if (!str.empty()) {
+		pExprOwner->push_back(new Expr_TemplateString(streamDst, str));
+		str.clear();
 	}
-	return true;
+	exprOwnerRoot.Exec(env, sig, true);
+	return !sig.IsSignalled();
 }
 
 bool Parser::OutputTemplateResult(Environment &env, Signal sig,

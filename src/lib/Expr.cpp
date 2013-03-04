@@ -1298,13 +1298,61 @@ Expr *Expr_TemplateBlock::Clone() const
 
 Value Expr_TemplateBlock::Exec(Environment &env, Signal sig) const
 {
+	if (_exprOwner.empty()) {
+		//stat = STAT_SkipEOL;
+		return Value::Null;
+	}
 	Value value = _exprOwner.Exec(env, sig, true);
 	if (sig.IsSignalled()) {
-		// nothing to do
+		return Value::Null;
 	} else if (value.IsInvalid()) {
 		//stat = STAT_SkipEOL;
+		return Value::Null;
+	}
+	String str;
+	if (value.IsString()) {
+		str = value.GetStringSTL();
+	} else if (value.IsList() || value.IsIterator()) {
+		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
+		if (sig.IsSignalled()) return false;
+		Value valueElem;
+		while (pIterator->Next(env, sig, valueElem)) {
+			foreach_const (String, p, str) {
+				char ch = *p;
+				if (ch == '\n') {
+					_streamDst.PutChar(sig, ch);
+					if (_autoIndentFlag && valueElem.IsValid()) {
+						_streamDst.Print(sig, _strIndent.c_str());
+					}
+				} else {
+					_streamDst.PutChar(sig, ch);
+				}
+			}
+			if (valueElem.IsString()) {
+				str = valueElem.GetStringSTL();
+			} else if (valueElem.IsValid()) {
+				str = valueElem.ToString(sig);
+				if (sig.IsSignalled()) return false;
+			} else {
+				str.clear();
+			}
+		}
 	} else {
-		//stat = STAT_Body;
+		str = value.ToString(sig);
+		if (sig.IsSignalled()) return false;
+	}
+	foreach_const (String, p, str) {
+		char ch = *p;
+		if (ch != '\n') {
+			_streamDst.PutChar(sig, ch);
+		} else if (p + 1 != str.end()) {
+			_streamDst.PutChar(sig, ch);
+			if (_autoIndentFlag) {
+				_streamDst.Print(sig, _strIndent.c_str());
+			}
+		} else if (_appendLastEOLFlag) {
+			_streamDst.PutChar(sig, ch);
+		}
 	}
 	return Value::Null;
 }
