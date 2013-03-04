@@ -31,7 +31,7 @@ enum ExprType {
 	EXPRTYPE_BlockParam,
 	EXPRTYPE_Block,
 	EXPRTYPE_Lister,
-	EXPRTYPE_TemplateBlock,
+	EXPRTYPE_TemplateScript,
 	EXPRTYPE_Indexer,
 	EXPRTYPE_Caller,
 	EXPRTYPE_Value,
@@ -66,7 +66,7 @@ public:
 //        |                   +- Expr_BlockParam
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
-//        |                   `- Expr_TemplateBlock
+//        |                   `- Expr_TemplateScript
 //        +- Expr_Compound <--+- Expr_Indexer
 //        |                   `- Expr_Caller
 //        +- Expr_Value
@@ -167,7 +167,7 @@ public:
 	virtual bool IsBlockParam() const;
 	virtual bool IsBlock() const;
 	virtual bool IsLister() const;
-	virtual bool IsTemplateBlock() const;
+	virtual bool IsTemplateScript() const;
 	virtual bool IsCompound() const;
 	virtual bool IsIndexer() const;
 	virtual bool IsCaller() const;
@@ -506,25 +506,25 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Expr_TemplateBlock
+// Expr_TemplateScript
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_TemplateBlock : public Expr_Container {
+class DLLDECLARE Expr_TemplateScript : public Expr_Container {
 protected:
 	SimpleStream &_streamDst;
 	String _strIndent;
 	bool _autoIndentFlag;
 	bool _appendLastEOLFlag;
 public:
-	inline Expr_TemplateBlock(SimpleStream &streamDst, const String &strIndent,
+	inline Expr_TemplateScript(SimpleStream &streamDst, const String &strIndent,
 							bool autoIndentFlag, bool appendLastEOLFlag) :
-			Expr_Container(EXPRTYPE_TemplateBlock), _streamDst(streamDst), _strIndent(strIndent),
+			Expr_Container(EXPRTYPE_TemplateScript), _streamDst(streamDst), _strIndent(strIndent),
 			_autoIndentFlag(autoIndentFlag), _appendLastEOLFlag(appendLastEOLFlag) {}
-	inline Expr_TemplateBlock(const Expr_TemplateBlock &expr) :
+	inline Expr_TemplateScript(const Expr_TemplateScript &expr) :
 			Expr_Container(expr), _streamDst(expr._streamDst), _strIndent(expr._strIndent),
 			_autoIndentFlag(expr._autoIndentFlag), _appendLastEOLFlag(expr._appendLastEOLFlag) {}
 	inline SimpleStream &GetStreamDst() { return _streamDst;; }
-	virtual ~Expr_TemplateBlock();
-	virtual bool IsTemplateBlock() const;
+	virtual ~Expr_TemplateScript();
+	virtual bool IsTemplateScript() const;
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);

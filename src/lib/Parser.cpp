@@ -917,11 +917,11 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 	typedef std::vector<Expr_Caller *> ExprCallerStack;
 	char chPrefix = '$';
 	enum {
-		STAT_LineTop, STAT_Indent, STAT_Body,
-		STAT_EmbedPre, STAT_Embed,
+		STAT_LineTop, STAT_Indent, STAT_String,
+		STAT_ScriptPre, STAT_Script,
 	} stat = STAT_LineTop;
 	String str;
-	String strEmbed;
+	String strScript;
 	String strIndent;
 	int nDepth = 0;
 	ExprOwner exprOwnerRoot;
@@ -943,7 +943,7 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 					stat = STAT_Indent;
 				} else {
 					continueFlag = true;
-					stat = STAT_Body;
+					stat = STAT_String;
 				}
 				break;
 			}
@@ -953,13 +953,13 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 					strIndent += ch;
 				} else {
 					continueFlag = true;
-					stat = STAT_Body;
+					stat = STAT_String;
 				}
 				break;
 			}
-			case STAT_Body: {
+			case STAT_String: {
 				if (ch == chPrefix) {
-					stat = STAT_EmbedPre;
+					stat = STAT_ScriptPre;
 				} else if (ch == '\n') {
 					strIndent.clear();
 					str += ch;
@@ -969,7 +969,7 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 				}
 				break;
 			}
-			case STAT_EmbedPre: {
+			case STAT_ScriptPre: {
 				if (ch == '{') {
 					if (!str.empty()) {
 						ExprOwner &exprOwner = exprCallerStack.empty()?
@@ -978,32 +978,32 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 						str.clear();
 					}
 					nDepth = 1;
-					strEmbed.clear();
-					stat = STAT_Embed;
+					strScript.clear();
+					stat = STAT_Script;
 				} else if (ch == chPrefix) {
 					str += ch;
-					stat = STAT_Body;
+					stat = STAT_String;
 				} else {
 					str += ch;
 					continueFlag = true;
-					stat = STAT_Body;
+					stat = STAT_String;
 				}
 				break;
 			}
-			case STAT_Embed: {
+			case STAT_Script: {
 				if (ch == '{') {
-					strEmbed += ch;
+					strScript += ch;
 					nDepth++;
 				} else if (ch == '}') {
 					nDepth--;
 					if (nDepth > 0) {
-						strEmbed += ch;
+						strScript += ch;
 						break;
 					}
 					ExprOwner exprOwnerPart;
 					if (!ParseString(env, sig, exprOwnerPart,
-							"<templateblock>", strEmbed.c_str())) return false;
-					AutoPtr<Expr_TemplateBlock> pExprTmplBlock(new Expr_TemplateBlock(
+							"<templatescript>", strScript.c_str())) return false;
+					AutoPtr<Expr_TemplateScript> pExprTmplBlock(new Expr_TemplateScript(
 						streamDst, strIndent, autoIndentFlag, appendLastEOLFlag));
 					ExprOwner::iterator ppExpr = exprOwnerPart.begin();
 					Expr *pExprLast = NULL;
@@ -1056,9 +1056,9 @@ bool Parser::EvalTemplate(Environment &env, Signal sig,
 							}
 						}
 					}
-					stat = STAT_Body;
+					stat = STAT_String;
 				} else {
-					strEmbed += ch;
+					strScript += ch;
 				}
 				break;
 			}

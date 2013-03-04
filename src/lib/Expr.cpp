@@ -24,7 +24,7 @@ const char *GetExprTypeName(ExprType exprType)
 		{ EXPRTYPE_BlockParam,		"blockparam",		},
 		{ EXPRTYPE_Block,			"block",			},
 		{ EXPRTYPE_Lister,			"lister",			},
-		{ EXPRTYPE_TemplateBlock,	"templateblock",	},
+		{ EXPRTYPE_TemplateScript,	"templatescript",	},
 		{ EXPRTYPE_Indexer,			"indexer",			},
 		{ EXPRTYPE_Caller,			"caller",			},
 		{ EXPRTYPE_Value,			"value",			},
@@ -54,7 +54,7 @@ const char *GetExprTypeName(ExprType exprType)
 //        |                   +- Expr_BlockParam
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
-//        |                   `- Expr_TemplateBlock
+//        |                   `- Expr_TemplateScript
 //        +- Expr_Compound <--+- Expr_Indexer
 //        |                   `- Expr_Caller
 //        +- Expr_Value
@@ -300,7 +300,7 @@ bool Expr::IsRoot() const			{ return false; }
 bool Expr::IsBlockParam() const		{ return false; }
 bool Expr::IsBlock() const			{ return false; }
 bool Expr::IsLister() const			{ return false; }
-bool Expr::IsTemplateBlock() const	{ return false; }
+bool Expr::IsTemplateScript() const	{ return false; }
 
 bool Expr::IsCompound() const		{ return false; }
 bool Expr::IsIndexer() const		{ return false; }
@@ -405,7 +405,7 @@ bool Expr::Deserialize(Environment &env, Signal sig, Stream &stream, Expr **ppEx
 	case EXPRTYPE_Lister:
 		pExpr.reset(new Expr_Lister());
 		break;
-	case EXPRTYPE_TemplateBlock:
+	case EXPRTYPE_TemplateScript:
 		sig.SetError(ERR_IOError, "can't serialize template block");
 		return false;
 	case EXPRTYPE_Indexer:
@@ -1302,20 +1302,20 @@ String Expr_Lister::ToString() const
 }
 
 //-----------------------------------------------------------------------------
-// Expr_TemplateBlock
+// Expr_TemplateScript
 //-----------------------------------------------------------------------------
-bool Expr_TemplateBlock::IsTemplateBlock() const { return true; }
+bool Expr_TemplateScript::IsTemplateScript() const { return true; }
 
-Expr_TemplateBlock::~Expr_TemplateBlock()
+Expr_TemplateScript::~Expr_TemplateScript()
 {
 }
 
-Expr *Expr_TemplateBlock::Clone() const
+Expr *Expr_TemplateScript::Clone() const
 {
-	return new Expr_TemplateBlock(*this);
+	return new Expr_TemplateScript(*this);
 }
 
-Value Expr_TemplateBlock::Exec(Environment &env, Signal sig) const
+Value Expr_TemplateScript::Exec(Environment &env, Signal sig) const
 {
 	if (_exprOwner.empty()) {
 		//stat = STAT_SkipEOL;
@@ -1376,25 +1376,25 @@ Value Expr_TemplateBlock::Exec(Environment &env, Signal sig) const
 	return Value::Null;
 }
 
-bool Expr_TemplateBlock::GenerateCode(Environment &env, Signal sig, Stream &stream)
+bool Expr_TemplateScript::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
-	stream.Println(sig, "TemplateBlock");
+	stream.Println(sig, "TemplateScript");
 	return true;
 }
 
-bool Expr_TemplateBlock::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_TemplateScript::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
-	sig.SetError(ERR_IOError, "can't serialize template string");
+	sig.SetError(ERR_IOError, "can't serialize template script");
 	return false;
 }
 
-bool Expr_TemplateBlock::DoDeserialize(Environment &env, Signal sig, Stream &stream)
+bool Expr_TemplateScript::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
-	sig.SetError(ERR_IOError, "can't deserialize template string");
+	sig.SetError(ERR_IOError, "can't deserialize template script");
 	return false;
 }
 
-String Expr_TemplateBlock::ToString() const
+String Expr_TemplateScript::ToString() const
 {
 	String str;
 	str += "[";
