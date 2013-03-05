@@ -111,22 +111,28 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 				break;
 			}
 			case STAT_ScriptPost: {
-				const char *strPost = "";
-				if (ch == '\n') {
-					strPost = "\n";
-					continueFlag = false;
-				} else {
-					continueFlag = true;
-				}
+				const char *strPost = (ch == '\n')? "\n" : "";
 				if (!ParseScript(env, sig,
 						strIndent.c_str(), strScript.c_str(), strPost,
 						streamDst, exprOwnerRoot, exprCallerStack)) return false;
 				strIndent.clear();
-				stat = STAT_String;
+				if (ch == '\n') {
+					continueFlag = false;
+					stat = STAT_LineTop;
+				} else {
+					continueFlag = true;
+					stat = STAT_String;
+				}
 				break;
 			}
 			}
 		} while (continueFlag);
+	}
+	if (!strScript.empty()) {
+		const char *strPost = "";
+		if (!ParseScript(env, sig,
+				strIndent.c_str(), strScript.c_str(), strPost,
+				streamDst, exprOwnerRoot, exprCallerStack)) return false;
 	}
 	if (!exprCallerStack.empty()) {
 		sig.SetError(ERR_SyntaxError, "lacking end statement for block expression");
@@ -153,6 +159,7 @@ bool TemplateEngine::ParseScript(Environment &env, Signal sig,
 		streamDst, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag);
 	ExprOwner::iterator ppExpr = exprOwnerPart.begin();
 	Expr *pExprLast = NULL;
+	//::printf("[%s], [%s], [%s]\n", strIndent, strScript, strPost);
 	if (ppExpr != exprOwnerPart.end()) {
 		Expr *pExpr = *ppExpr;
 		ICallable *pCallable = pExpr->LookupCallable(env, sig);
