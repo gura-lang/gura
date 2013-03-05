@@ -6,6 +6,24 @@ sys.echo(false)
 sys.stdout.setencoding('shift_jis')
 
 scope {
+	R'''
+hello
+${
+nil
+}
+${nil}
+gura
+${''}
+world
+
+hello ${nil}world
+hello ${(1..10) + ','} world
+hello ${(1..10) + '\n'} world
+foo${nil}bar
+foo${''}bar
+'''.template(sys.stdout)
+}
+scope {
 	companies = ['Gura company', 'Guri corporation', nil]
 	products = ['apple', 'grape', 'orange']
 	R'''
