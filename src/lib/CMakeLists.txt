@@ -66,7 +66,7 @@ Module_sys.cpp
 target_link_libraries(guracore dl pthread)
 
 set_property(TARGET guracore PROPERTY COMPILE_DEFINITIONS HAVE_CONFIG_H)
-#set_property(SOURCE dSFMT-src-2.2.1/dSFMT.c PROPERTY COMPILE_DEFINITIONS MEXP=19937)
+set_property(SOURCE dSFMT-src-2.2.1/dSFMT.c PROPERTY COMPILE_DEFINITIONS DSFMT_MEXP=19937)
 
 set_target_properties(guracore PROPERTIES
   VERSION ${GURA_VERSION}
