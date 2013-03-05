@@ -552,61 +552,6 @@ Iterator *Iterator::Filter(Environment &env, Signal sig, const Value &criteria)
 	}
 }
 
-#if 0
-size_t Iterator::Seek(Environment &env, Signal sig, const Value &criteria, Value &value)
-{
-	if (IsInfinite()) {
-		SetError_InfiniteNotAllowed(sig);
-		return InvalidSize;
-	}
-	if (criteria.IsFunction()) {
-		Object_function *pObjFunc =
-			Object_function::Reference(criteria.GetFunctionObj());
-		size_t idx = 0;
-		while (Next(env, sig, value)) {
-			ValueList valList(value);
-			Value valueCriteria = pObjFunc->Eval(env, sig, valList);
-			if (sig.IsSignalled()) return InvalidSize;
-			if (valueCriteria.GetBoolean()) return idx;
-			idx++;
-		}
-		return InvalidSize;
-	} else if (criteria.IsList() || criteria.IsIterator()) {
-		AutoPtr<Iterator> pIteratorCriteria(criteria.CreateIterator(sig));
-		if (sig.IsSignalled()) return InvalidSize;
-		if (pIteratorCriteria->IsInfinite()) {
-			SetError_InfiniteNotAllowed(sig);
-			return InvalidSize;
-		}
-		size_t idx = 0;
-		while (Next(env, sig, value)) {
-			Value valueCriteria;
-			if (!pIteratorCriteria->Next(env, sig, valueCriteria)) break;
-			if (valueCriteria.GetBoolean()) return idx;
-			idx++;
-		}
-		return InvalidSize;
-	} else {
-		sig.SetError(ERR_ValueError, "invalid type of criteria for seek");
-		return InvalidSize;
-	}
-}
-
-size_t Iterator::SeekTrue(Environment &env, Signal sig, Value &value)
-{
-	if (IsInfinite()) {
-		SetError_InfiniteNotAllowed(sig);
-		return InvalidSize;
-	}
-	size_t idx = 0;
-	while (Next(env, sig, value)) {
-		if (value.GetBoolean()) return idx;
-		idx++;
-	}
-	return InvalidSize;
-}
-#endif
-
 Iterator *Iterator::While(Environment &env, Signal sig, const Value &criteria)
 {
 	if (criteria.IsFunction()) {
