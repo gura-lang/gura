@@ -125,6 +125,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Option.h
   ${GURA_INCLUDE_DIR}/gura/PackedNumber.h
   ${GURA_INCLUDE_DIR}/gura/Parser.h
+  ${GURA_INCLUDE_DIR}/gura/TemplateEngine.h
   ${GURA_INCLUDE_DIR}/gura/Signal.h
   ${GURA_INCLUDE_DIR}/gura/Stream.h
   ${GURA_INCLUDE_DIR}/gura/String.h
