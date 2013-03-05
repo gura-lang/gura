@@ -6,6 +6,35 @@ sys.echo(false)
 sys.stdout.setencoding('shift_jis')
 
 scope {
+	companies = ['Gura company', 'Guri corporation', nil]
+	products = ['apple', 'grape', 'orange']
+	R'''
+[Companies]
+${for (company in companies)}
+  ${if (company)}
+    Company: ${company}
+  ${else}
+    Company: (not defined)
+  ${end}
+${end}
+[Products]
+${for (product in products)}
+- ${product}
+${end}
+'''.template(sys.stdout)
+	R'''
+${for (i in 1..10)}
+  ${if (i < 5)}
+    ${i} is less than five
+  ${elsif (i < 8)}
+    ${i} is less than eight
+  ${else}
+    ${i} is greater or equal to eight
+  ${end}
+${end}
+'''.template(sys.stdout)
+}
+scope {
 	tester(`''.chop())
 	tester(`'abcdef'.chop())
 	tester(`'abcdef'.chop('f'))

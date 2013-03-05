@@ -17,29 +17,3 @@ ${for (x in 1..10)}
     hoge ${x}
 ${end}
 
-${
-  companies = ['Gura company', nil]
-  products = ['apple', 'grape', 'orange']
-  nil
-}
-${for (company in companies)}
-  ${if (company)}
-    Company: ${company}
-  ${else}
-    Company: (not defined)
-  ${end}
-${end}
-[Products]
-${for (product in products)}
-- ${product}
-${end}
-
-${for (i in 1..10)}
-  ${if (i < 5)}
-    ${i} is less than five
-  ${elsif (i < 8)}
-    ${i} is less than eight
-  ${else}
-    ${i} is greater or equal to eight
-  ${end}
-${end}

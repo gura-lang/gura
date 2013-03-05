@@ -1,3 +1,21 @@
+[Companies]
+    Company: Gura company
+    Company: Guri corporation
+    Company: (not defined)
+[Products]
+- apple
+- grape
+- orange
+    1 is less than five
+    2 is less than five
+    3 is less than five
+    4 is less than five
+    5 is less than eight
+    6 is less than eight
+    7 is less than eight
+    8 is greater or equal to eight
+    9 is greater or equal to eight
+    10 is greater or equal to eight
 ''.chop() .. 
 'abcdef'.chop() .. abcde
 'abcdef'.chop('f') .. abcde
