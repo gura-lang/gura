@@ -116,6 +116,7 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 						strIndent.c_str(), strScript.c_str(), strPost,
 						streamDst, exprOwnerRoot, exprCallerStack)) return false;
 				strIndent.clear();
+				strScript.clear();
 				if (ch == '\n') {
 					continueFlag = false;
 					stat = STAT_LineTop;

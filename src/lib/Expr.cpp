@@ -1317,17 +1317,14 @@ Expr *Expr_TemplateScript::Clone() const
 
 Value Expr_TemplateScript::Exec(Environment &env, Signal sig) const
 {
-	if (_exprOwner.empty()) {
-		//stat = STAT_SkipEOL;
-		return Value::Null;
-	}
+	if (_exprOwner.empty()) return Value::Null;
 	Value value = _exprOwner.Exec(env, sig, true);
 	if (sig.IsSignalled()) {
 		return Value::Null;
 	} else if (value.IsInvalid()) {
-		//stat = STAT_SkipEOL;
 		return Value::Null;
 	}
+	_streamDst.Print(sig, _strIndent.c_str());
 	String str;
 	if (value.IsString()) {
 		str = value.GetStringSTL();
@@ -1360,7 +1357,6 @@ Value Expr_TemplateScript::Exec(Environment &env, Signal sig) const
 		str = value.ToString(sig);
 		if (sig.IsSignalled()) return false;
 	}
-	_streamDst.Print(sig, _strIndent.c_str());
 	foreach_const (String, p, str) {
 		char ch = *p;
 		if (ch != '\n') {
