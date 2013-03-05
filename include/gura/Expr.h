@@ -512,17 +512,23 @@ class DLLDECLARE Expr_TemplateScript : public Expr_Container {
 protected:
 	SimpleStream &_streamDst;
 	String _strIndent;
+	String _strPost;
 	bool _autoIndentFlag;
 	bool _appendLastEOLFlag;
 public:
-	inline Expr_TemplateScript(SimpleStream &streamDst, const String &strIndent,
+	inline Expr_TemplateScript(SimpleStream &streamDst,
+							const String &strIndent, const String &strPost,
 							bool autoIndentFlag, bool appendLastEOLFlag) :
-			Expr_Container(EXPRTYPE_TemplateScript), _streamDst(streamDst), _strIndent(strIndent),
+			Expr_Container(EXPRTYPE_TemplateScript), _streamDst(streamDst),
+			_strIndent(strIndent), _strPost(strPost),
 			_autoIndentFlag(autoIndentFlag), _appendLastEOLFlag(appendLastEOLFlag) {}
 	inline Expr_TemplateScript(const Expr_TemplateScript &expr) :
-			Expr_Container(expr), _streamDst(expr._streamDst), _strIndent(expr._strIndent),
+			Expr_Container(expr), _streamDst(expr._streamDst),
+			_strIndent(expr._strIndent), _strPost(expr._strPost),
 			_autoIndentFlag(expr._autoIndentFlag), _appendLastEOLFlag(expr._appendLastEOLFlag) {}
 	inline SimpleStream &GetStreamDst() { return _streamDst;; }
+	inline void SetStringIndent(const String &strIndent) { _strIndent = strIndent; }
+	inline void SetStringPost(const String &strPost) { _strPost = strPost; }
 	virtual ~Expr_TemplateScript();
 	virtual bool IsTemplateScript() const;
 	virtual Expr *Clone() const;

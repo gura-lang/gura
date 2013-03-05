@@ -21,8 +21,9 @@ public:
 					SimpleStream &streamSrc, SimpleStream &streamDst);
 private:
 	bool ParseScript(Environment &env, Signal sig,
-			const char *strIndent, const char *strScript, SimpleStream &streamDst,
-			ExprOwner &exprOwnerRoot, ExprCallerStack &exprCallerStack);
+			const char *strIndent, const char *strScript, const char *strPost,
+			SimpleStream &streamDst, ExprOwner &exprOwnerRoot,
+			ExprCallerStack &exprCallerStack);
 };
 
 }

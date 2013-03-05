@@ -1360,6 +1360,7 @@ Value Expr_TemplateScript::Exec(Environment &env, Signal sig) const
 		str = value.ToString(sig);
 		if (sig.IsSignalled()) return false;
 	}
+	_streamDst.Print(sig, _strIndent.c_str());
 	foreach_const (String, p, str) {
 		char ch = *p;
 		if (ch != '\n') {
@@ -1373,6 +1374,7 @@ Value Expr_TemplateScript::Exec(Environment &env, Signal sig) const
 			_streamDst.PutChar(sig, ch);
 		}
 	}
+	_streamDst.Print(sig, _strPost.c_str());
 	return Value::Null;
 }
 

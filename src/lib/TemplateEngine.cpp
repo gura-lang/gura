@@ -16,7 +16,7 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 	char chPrefix = '$';
 	enum {
 		STAT_LineTop, STAT_Indent, STAT_String,
-		STAT_ScriptPre, STAT_Script,
+		STAT_ScriptPre, STAT_Script, STAT_ScriptPost,
 	} stat = STAT_LineTop;
 	String str;
 	String strScript;
@@ -47,9 +47,12 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 			}
 			case STAT_Indent: {
 				if (IsWhite(ch)) {
-					str += ch;
 					strIndent += ch;
+				} else if (ch == chPrefix) {
+					stat = STAT_ScriptPre;
 				} else {
+					str += strIndent;
+					strIndent.clear();
 					continueFlag = true;
 					stat = STAT_String;
 				}
@@ -59,7 +62,6 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 				if (ch == chPrefix) {
 					stat = STAT_ScriptPre;
 				} else if (ch == '\n') {
-					strIndent.clear();
 					str += ch;
 					stat = STAT_LineTop;
 				} else {
@@ -79,9 +81,13 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 					strScript.clear();
 					stat = STAT_Script;
 				} else if (ch == chPrefix) {
+					str += strIndent;
+					strIndent.clear();
 					str += ch;
 					stat = STAT_String;
 				} else {
+					str += strIndent;
+					strIndent.clear();
 					str += ch;
 					continueFlag = true;
 					stat = STAT_String;
@@ -98,12 +104,25 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 						strScript += ch;
 						break;
 					}
-					if (!ParseScript(env, sig, strIndent.c_str(), strScript.c_str(),
-							streamDst, exprOwnerRoot, exprCallerStack)) return false;
-					stat = STAT_String;
+					stat = STAT_ScriptPost;
 				} else {
 					strScript += ch;
 				}
+				break;
+			}
+			case STAT_ScriptPost: {
+				const char *strPost = "";
+				if (ch == '\n') {
+					strPost = "\n";
+					continueFlag = false;
+				} else {
+					continueFlag = true;
+				}
+				if (!ParseScript(env, sig,
+						strIndent.c_str(), strScript.c_str(), strPost,
+						streamDst, exprOwnerRoot, exprCallerStack)) return false;
+				strIndent.clear();
+				stat = STAT_String;
 				break;
 			}
 			}
@@ -123,14 +142,15 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 }
 
 bool TemplateEngine::ParseScript(Environment &env, Signal sig,
-			const char *strIndent, const char *strScript, SimpleStream &streamDst,
-			ExprOwner &exprOwnerRoot, ExprCallerStack &exprCallerStack)
+			const char *strIndent, const char *strScript, const char *strPost,
+			SimpleStream &streamDst, ExprOwner &exprOwnerRoot,
+			ExprCallerStack &exprCallerStack)
 {
 	ExprOwner exprOwnerPart;
 	if (!_parser.ParseString(env, sig, exprOwnerPart,
 						"<templatescript>", strScript)) return false;
-	AutoPtr<Expr_TemplateScript> pExprTmplBlock(new Expr_TemplateScript(
-		streamDst, strIndent, _autoIndentFlag, _appendLastEOLFlag));
+	Expr_TemplateScript *pExprTmplScript = new Expr_TemplateScript(
+		streamDst, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag);
 	ExprOwner::iterator ppExpr = exprOwnerPart.begin();
 	Expr *pExprLast = NULL;
 	if (ppExpr != exprOwnerPart.end()) {
@@ -138,8 +158,10 @@ bool TemplateEngine::ParseScript(Environment &env, Signal sig,
 		ICallable *pCallable = pExpr->LookupCallable(env, sig);
 		sig.ClearSignal();
 		if (pCallable != NULL && pCallable->IsTrailer()) {
+			pExprTmplScript->SetStringIndent("");
 			if (exprCallerStack.empty()) {
 				sig.SetError(ERR_SyntaxError, "unmatching trailer expression");
+				Expr::Delete(pExprTmplScript);
 				return false;
 			}
 			if (!pCallable->IsEndMarker()) {
@@ -156,12 +178,12 @@ bool TemplateEngine::ParseScript(Environment &env, Signal sig,
 	if (ppExpr != exprOwnerPart.end()) {
 		for ( ; ppExpr != exprOwnerPart.end(); ppExpr++) {
 			Expr *pExpr = *ppExpr;
-			pExprTmplBlock->GetExprOwner().push_back(Expr::Reference(pExpr));
+			pExprTmplScript->GetExprOwner().push_back(Expr::Reference(pExpr));
 			pExprLast = pExpr;
 		}
 		ExprOwner &exprOwner = exprCallerStack.empty()?
 			exprOwnerRoot : exprCallerStack.back()->GetBlock()->GetExprOwner();
-		exprOwner.push_back(pExprTmplBlock.release());
+		exprOwner.push_back(pExprTmplScript);
 	}
 	if (pExprLast != NULL && pExprLast->IsCaller()) {
 		Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExprLast);
@@ -172,6 +194,8 @@ bool TemplateEngine::ParseScript(Environment &env, Signal sig,
 				Expr_Block *pExprBlock = new Expr_Block();
 				pExprCaller->SetBlock(pExprBlock);
 				exprCallerStack.push_back(pExprCaller);
+				pExprTmplScript->SetStringIndent("");
+				pExprTmplScript->SetStringPost("");
 			}
 		}
 	}
