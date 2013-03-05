@@ -37,9 +37,9 @@ Module_sys.cpp \
 
 OBJS = $(SRCS:.cpp=.obj)
 
-OBJS_EXTRA = sfmt.obj
+OBJS_EXTRA = dSFMT.obj
 
-SFMTDIR = SFMT-src-1.3.3
+SFMTDIR = ..\dSFMT-src-2.2.1
 
 CFLAGS = /GL /I . /I ..\..\include \
 /D "gura_EXPORTS" /D "_WINDLL" /D "_MBCS" \
@@ -66,7 +66,7 @@ $(DLL_GURA): $(OBJS) $(OBJS_EXTRA)
 	@link /OUT:$(DLL_GURA) /IMPLIB:$(LIB_GURA_D) $(LDFLAGS) $(OBJS) $(OBJS_EXTRA) stdafx.obj
 	@echo $@ was created
 
-sfmt.obj: $(SFMTDIR)\sfmt.c
+dSFMT.obj: $(SFMTDIR)\dSFMT.c
 	@cl /EHsc /MD /nologo /Fo$@ /c $**
 
 clean:

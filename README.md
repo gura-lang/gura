@@ -72,3 +72,10 @@ Build for Linux
 5. After you successfully build modules, do the following command to install them.
 
         $ sudo ../src/build-modules.gura install
+
+Source URLs of Guest Libraries
+------------------------------
+
+<table>
+<tr><td>dSFMT-src-2.2.1.zip</td><td>http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/index.html</td></tr>
+</table>

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 extern "C" {
-#include "SFMT-src-1.3.3/SFMT.h"
+#include "../dSFMT-src-2.2.1/dSFMT.h"
 }
 
 //-----------------------------------------------------------------------------
@@ -60,17 +60,17 @@ const char *GetOpening()
 //-----------------------------------------------------------------------------
 void RandomGenerator::Initialize(unsigned long seed)
 {
-	::init_gen_rand(seed);	// initialize random generator SFMT
+	::dsfmt_gv_init_gen_rand(seed);	// initialize random generator dSFMT
 }
 
 double RandomGenerator::Real2()
 {
-	return ::genrand_real2();
+	return ::dsfmt_gv_genrand_close_open();
 }
 
 int RandomGenerator::operator()(int n)
 {
-	return static_cast<int>(::genrand_real2() * n);
+	return static_cast<int>(Real2() * n);
 }
 
 
