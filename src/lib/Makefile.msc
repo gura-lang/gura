@@ -6,7 +6,7 @@ DLL_GURA = ..\..\bin-x86\libguracore-x86.dll
 MANIFEST_GURA = ..\..\bin-x86\libguracore-x86.dll.intermediate.manifest
 
 SRCS = \
-Common.cpp Parser.cpp Expr.cpp Value.cpp Iterator.cpp \
+Common.cpp Parser.cpp TemplateEngine.cpp Expr.cpp Value.cpp Iterator.cpp \
 Symbol.cpp String.cpp Binary.cpp Environment.cpp Signal.cpp Formatter.cpp Option.cpp \
 Function.cpp Operator.cpp Declaration.cpp \
 Algorithm.cpp Codec.cpp \

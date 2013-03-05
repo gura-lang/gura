@@ -121,7 +121,8 @@ int Main(int argc, const char *argv[])
 				env.GetConsoleErr()->PrintSignal(sig, sig);
 				return 1;
 			}
-			Parser().EvalTemplate(env, sig, *pStreamSrc, *env.GetConsole(), true, false);
+			TemplateEngine(true, false).EvalStream(env, sig,
+										*pStreamSrc, *env.GetConsole());
 			if (sig.IsSignalled()) {
 				env.GetConsoleErr()->PrintSignal(sig, sig);
 				return 1;

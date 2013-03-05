@@ -18,6 +18,7 @@ Iterator.cpp
 Operator.cpp
 Option.cpp
 Parser.cpp
+TemplateEngine.cpp
 Signal.cpp
 Stream.cpp
 String.cpp

@@ -28,6 +28,7 @@
 #include "gura/Algorithm.h"
 #include "gura/Directory.h"
 #include "gura/Parser.h"
+#include "gura/TemplateEngine.h"
 #include "gura/Option.h"
 #include "gura/Module.h"
 #include "gura/Formatter.h"

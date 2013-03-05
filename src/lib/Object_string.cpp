@@ -843,14 +843,14 @@ Gura_ImplementMethod(string, template_)
 	SimpleStream_StringRead streamSrc(strSrc.begin(), strSrc.end());
 	if (args.IsStream(0)) {
 		Stream &streamDst = args.GetStream(0);
-		Parser().EvalTemplate(env, sig, streamSrc, streamDst,
-								autoIndentFlag, appendLastEOLFlag);
+		TemplateEngine(autoIndentFlag, appendLastEOLFlag).
+						EvalStream(env, sig, streamSrc, streamDst);
 		return Value::Null;
 	} else {
 		String strDst;
 		SimpleStream_StringWrite streamDst(strDst);
-		if (!Parser().EvalTemplate(env, sig, streamSrc, streamDst,
-					autoIndentFlag, appendLastEOLFlag)) return Value::Null;
+		if (!TemplateEngine(autoIndentFlag, appendLastEOLFlag).
+				EvalStream(env, sig, streamSrc, streamDst)) return Value::Null;
 		return Value(env, strDst.c_str());
 	}
 }
