@@ -1,0 +1,255 @@
+hello
+gura
+
+world
+
+hello world
+hello 1,2,3,4,5,6,7,8,9,10, world
+hello 1
+2
+3
+4
+5
+6
+7
+8
+9
+10 world
+foobar
+foobar
+[Companies]
+    Company: Gura company
+    Company: Guri corporation
+    Company: (not defined)
+[Products]
+- apple
+- grape
+- orange
+    1 is less than five
+    2 is less than five
+    3 is less than five
+    4 is less than five
+    5 is less than eight
+    6 is less than eight
+    7 is less than eight
+    8 is greater or equal to eight
+    9 is greater or equal to eight
+    10 is greater or equal to eight
+漢字のテスト スクリプト文字列
+Company: hoge
+[Products]
+- apple
+- grape
+- orange
+(not defined)
+[Products]
+- car
+- bicycle
+- boat
+** auto-indent **
+space 1
+ embedded #1 line
+ embedded #2 line
+ embedded #3 line
+ embedded #4 line
+space 2
+  embedded #1 line
+  embedded #2 line
+  embedded #3 line
+  embedded #4 line
+space 3
+   embedded #1 line
+   embedded #2 line
+   embedded #3 line
+   embedded #4 line
+space 4
+    embedded #1 line
+    embedded #2 line
+    embedded #3 line
+    embedded #4 line
+tab 1
+	embedded #1 line
+	embedded #2 line
+	embedded #3 line
+	embedded #4 line
+tab 2
+		embedded #1 line
+		embedded #2 line
+		embedded #3 line
+		embedded #4 line
+not line top:  embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+space 1
+ embedded #1 line
+ embedded #2 line
+ embedded #3 line
+ embedded #4 line
+space 2
+  embedded #1 line
+  embedded #2 line
+  embedded #3 line
+  embedded #4 line
+space 3
+   embedded #1 line
+   embedded #2 line
+   embedded #3 line
+   embedded #4 line
+space 4
+    embedded #1 line
+    embedded #2 line
+    embedded #3 line
+    embedded #4 line
+tab 1
+	embedded #1 line
+	embedded #2 line
+	embedded #3 line
+	embedded #4 line
+tab 2
+		embedded #1 line
+		embedded #2 line
+		embedded #3 line
+		embedded #4 line
+not line top:  embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+** append last-eol **
+space 1
+ embedded #1 line
+ embedded #2 line
+ embedded #3 line
+ embedded #4 line
+
+space 2
+  embedded #1 line
+  embedded #2 line
+  embedded #3 line
+  embedded #4 line
+
+space 3
+   embedded #1 line
+   embedded #2 line
+   embedded #3 line
+   embedded #4 line
+
+space 4
+    embedded #1 line
+    embedded #2 line
+    embedded #3 line
+    embedded #4 line
+
+tab 1
+	embedded #1 line
+	embedded #2 line
+	embedded #3 line
+	embedded #4 line
+
+tab 2
+		embedded #1 line
+		embedded #2 line
+		embedded #3 line
+		embedded #4 line
+
+not line top:  embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+
+** no-indent **
+space 1
+ embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+space 2
+  embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+space 3
+   embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+space 4
+    embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+tab 1
+	embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+tab 2
+		embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+not line top:  embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+** no-indent, append last-eol **
+space 1
+ embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+
+space 2
+  embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+
+space 3
+   embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+
+space 4
+    embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+
+tab 1
+	embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+
+tab 2
+		embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+
+not line top:  embedded #1 line
+embedded #2 line
+embedded #3 line
+embedded #4 line
+
+space 1
+ single string
+space 2
+  single string
+space 3
+   single string
+space 4
+    single string
+tab 1
+	single string
+tab 2
+		single string
+not line top:  single string
+expected error occurs: ValueError: undefined symbol 'hoge'
+'hello ${format("%d", 0..10).join(",")}'.template() .. hello 0,1,2,3,4,5,6,7,8,9,10
+'hello ${var} world'.template() .. hello HOGE world
+'hello ${var * 2} world'.template() .. hello HOGEHOGE world
+"hello '${format('%8s', var)}' world".template() .. hello '    HOGE' world
+'hello ${var} world'.template() .. hello 3.14 world
