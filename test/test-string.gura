@@ -3,7 +3,7 @@
 import(testutil) {*}
 
 sys.echo(false)
-sys.stdout.setencoding('shift_jis')
+sys.stdout.setencoding('shift_jis', false)
 
 scope {
 	tester(`''.chop())

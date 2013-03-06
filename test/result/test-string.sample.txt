@@ -1059,11 +1059,11 @@ str.eachline():list .. ['first line\n', 'second line\n', 'third line\n', 'fourth
 str.eachline(2):list .. ['first line\n', 'second line\n']
 str.eachline():list:chop .. ['first line', 'second line', 'third line', 'fourth line', 'fifth line']
 str.eachline(2):list:chop .. ['first line', 'second line']
-str .. first line
-second line
-third line
-fourth line
-fifth line
+str .. first line
+second line
+third line
+fourth line
+fifth line
 
 str.eachline():list .. ['first line\r\n', 'second line\r\n', 'third line\r\n', 'fourth line\r\n', 'fifth line\r\n']
 str.eachline(2):list .. ['first line\r\n', 'second line\r\n']
