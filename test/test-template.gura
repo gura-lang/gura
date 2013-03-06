@@ -8,6 +8,19 @@ sys.stdout.setencoding('shift_jis', false)
 //-----------------------------------------------------------------------------
 scope {
 	R'''
+  ${// comment}
+  line.1
+    ${# comment}
+  line.2
+      ${/* comment */}
+  line.3
+  line.4${//comment}
+
+'''.template(sys.stdout)
+}
+//-----------------------------------------------------------------------------
+scope {
+	R'''
 ${(1..10).each() {|i|}}
   ${i}
 ${end}
