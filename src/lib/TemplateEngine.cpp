@@ -193,19 +193,23 @@ bool TemplateEngine::ParseScript(Environment &env, Signal sig,
 			exprOwnerRoot : exprCallerStack.back()->GetBlock()->GetExprOwner();
 		exprOwner.push_back(pExprTmplScript);
 	}
-	if (pExprLast != NULL && pExprLast->IsCaller()) {
-		Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExprLast);
-		if (pExprCaller->GetBlock() == NULL) {
-			ICallable *pCallable = pExprCaller->LookupCallable(env, sig);
-			sig.ClearSignal();
-			if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
-				Expr_Block *pExprBlock = new Expr_Block();
-				pExprCaller->SetBlock(pExprBlock);
-				exprCallerStack.push_back(pExprCaller);
-				pExprTmplScript->SetStringIndent("");
-				pExprTmplScript->SetStringPost("");
-			}
+	if (pExprLast == NULL || !pExprLast->IsCaller()) return true;
+	Expr_Caller *pExprLastCaller = dynamic_cast<Expr_Caller *>(pExprLast);
+	if (pExprLastCaller->GetBlock() == NULL) {
+		ICallable *pCallable = pExprLastCaller->LookupCallable(env, sig);
+		sig.ClearSignal();
+		if (pCallable != NULL &&
+						pCallable->GetBlockOccurPattern() == OCCUR_Once) {
+			Expr_Block *pExprBlock = new Expr_Block();
+			pExprLastCaller->SetBlock(pExprBlock);
+			exprCallerStack.push_back(pExprLastCaller);
+			pExprTmplScript->SetStringIndent("");
+			pExprTmplScript->SetStringPost("");
 		}
+	} else if (pExprLastCaller->GetBlock()->GetExprOwner().empty()) {
+		exprCallerStack.push_back(pExprLastCaller);
+		pExprTmplScript->SetStringIndent("");
+		pExprTmplScript->SetStringPost("");
 	}
 	return true;
 }

@@ -8,6 +8,14 @@ sys.stdout.setencoding('shift_jis', false)
 //-----------------------------------------------------------------------------
 scope {
 	R'''
+${(1..10).each() {|i|}}
+  ${i}
+${end}
+'''.template(sys.stdout)
+}
+//-----------------------------------------------------------------------------
+scope {
+	R'''
 hello
 ${
 nil
@@ -74,10 +82,10 @@ ${R"""
 	scope {
 		company = 'hoge'
 		products = ['apple', 'grape', 'orange']
-		print(template.template())
+		template.template(sys.stdout)
 		company = nil
 		products = ['car', 'bicycle', 'boat']
-		print(template.template())
+		template.template(sys.stdout)
 	}
 }
 //-----------------------------------------------------------------------------
@@ -99,16 +107,16 @@ tab 2
 not line top:  ${x}
 '''
 	println('** auto-indent **')
-	print(template.template())
-	print(template.reader().template())
+	template.template(sys.stdout)
+	template.reader().template(sys.stdout)
 	println('** append last-eol **')
-	print(template.template():lasteol)
+	template.template(sys.stdout):lasteol
 	println('** no-indent **')
-	print(template.template():noindent)
+	template.template(sys.stdout):noindent
 	println('** no-indent, append last-eol **')
-	print(template.template():noindent:lasteol)
+	template.template(sys.stdout):noindent:lasteol
 	x = 'single string'
-	print(template.template())
+	template.template(sys.stdout)
 }
 //-----------------------------------------------------------------------------
 scope {
