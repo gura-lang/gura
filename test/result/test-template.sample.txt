@@ -35,6 +35,14 @@ foobar
 - apple
 - grape
 - orange
+[Companies]
+    Company: Gura company
+    Company: Guri corporation
+    Company: (not defined)
+[Products]
+- apple
+- grape
+- orange
     1 is less than five
     2 is less than five
     3 is less than five
