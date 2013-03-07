@@ -13,7 +13,7 @@ static void register_hooks(apr_pool_t *p)
 	ap_hook_handler(gura_handler, NULL, NULL, APR_HOOK_MIDDLE);
 }
  
-AP_DECLARE_MODULE(gura) = {
+module AP_MODULE_DECLARE_DATA gura_module = {
 	STANDARD20_MODULE_STUFF,
 	gura_create_dir_config,		/* create per-dir config structures */
 	gura_merge_dir_config,		/* merge per-dir config structures */
