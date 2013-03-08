@@ -11,14 +11,14 @@ Gura_BeginModule(codecs_basic)
 //-----------------------------------------------------------------------------
 // USASCII
 //-----------------------------------------------------------------------------
-class DLLDECLARE Codec_Encoder_USASCII : public Codec_Encoder {
+class GURA_DLLDECLARE Codec_Encoder_USASCII : public Codec_Encoder {
 public:
 	inline Codec_Encoder_USASCII(CodecFactory *pCodecFactory, bool processEOLFlag) :
 			Codec_Encoder(pCodecFactory, processEOLFlag) {}
 	virtual Result FeedChar(char ch, char &chConv);
 };
 
-class DLLDECLARE Codec_Decoder_USASCII : public Codec_Decoder {
+class GURA_DLLDECLARE Codec_Decoder_USASCII : public Codec_Decoder {
 public:
 	inline Codec_Decoder_USASCII(CodecFactory *pCodecFactory, bool processEOLFlag) :
 			Codec_Decoder(pCodecFactory, processEOLFlag) {}
@@ -28,7 +28,7 @@ public:
 //-----------------------------------------------------------------------------
 // UTF8
 //-----------------------------------------------------------------------------
-class DLLDECLARE Codec_Encoder_UTF8 : public Codec_Encoder {
+class GURA_DLLDECLARE Codec_Encoder_UTF8 : public Codec_Encoder {
 private:
 	int _cntTrails;
 public:
@@ -37,7 +37,7 @@ public:
 	virtual Result FeedChar(char ch, char &chConv);
 };
 
-class DLLDECLARE Codec_Decoder_UTF8 : public Codec_Decoder {
+class GURA_DLLDECLARE Codec_Decoder_UTF8 : public Codec_Decoder {
 private:
 	int _cntTrails;
 public:
@@ -49,14 +49,14 @@ public:
 //-----------------------------------------------------------------------------
 // UTF16LE
 //-----------------------------------------------------------------------------
-class DLLDECLARE Codec_Encoder_UTF16LE : public Codec_Encoder_UTF {
+class GURA_DLLDECLARE Codec_Encoder_UTF16LE : public Codec_Encoder_UTF {
 public:
 	inline Codec_Encoder_UTF16LE(CodecFactory *pCodecFactory, bool processEOLFlag) :
 			Codec_Encoder_UTF(pCodecFactory, processEOLFlag) {}
 	virtual Result FeedUTF32(unsigned long codeUTF32, char &chConv);
 };
 
-class DLLDECLARE Codec_Decoder_UTF16LE : public Codec_Decoder_UTF {
+class GURA_DLLDECLARE Codec_Decoder_UTF16LE : public Codec_Decoder_UTF {
 public:
 	enum Stat {
 		STAT_First, STAT_Second, STAT_LowerFirst, STAT_LowerSecond,
