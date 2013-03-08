@@ -29,11 +29,11 @@ namespace Gura { \
 namespace ModuleNS_##name {
 
 #define Gura_EndModule(name, nameBase) \
-DLLEXPORT void Terminate(Module *pModule) \
+GURA_DLLEXPORT void Terminate(Module *pModule) \
 { \
 	_Terminate(pModule); \
 } \
-DLLEXPORT Module *Import(Environment &env, Signal sig) \
+GURA_DLLEXPORT Module *Import(Environment &env, Signal sig) \
 { \
 	Module *pModule = new Module(&env, Symbol::Add(#nameBase), "<integrated>", NULL, Terminate); \
 	MixIn(*pModule, sig); \
@@ -65,12 +65,12 @@ do { \
 
 #if defined(GURA_MODULE_SEPARATED)
 #define Gura_RegisterModule(name) \
-extern "C" DLLEXPORT \
+extern "C" GURA_DLLEXPORT \
 void GuraModuleEntry(Gura::Environment &env, Gura::Signal sig) \
 { \
 	Gura::ModuleNS_##name::MixIn(env, sig); \
 } \
-extern "C" DLLEXPORT \
+extern "C" GURA_DLLEXPORT \
 void GuraModuleTerminate(Gura::Module *pModule) \
 { \
 	Gura::ModuleNS_##name::Terminate(pModule); \
@@ -84,10 +84,10 @@ ModuleIntegrator s_integrator(#name, MixIn, Terminate); \
 #endif
 
 #define Gura_ModuleEntry() \
-DLLEXPORT void MixIn(Environment &env, Signal sig)
+GURA_DLLEXPORT void MixIn(Environment &env, Signal sig)
 
 #define Gura_ModuleTerminate() \
-DLLEXPORT void _Terminate(Module *pModule)
+GURA_DLLEXPORT void _Terminate(Module *pModule)
 
 namespace Gura {
 
@@ -97,7 +97,7 @@ class Signal;
 //-----------------------------------------------------------------------------
 // Module
 //-----------------------------------------------------------------------------
-class DLLDECLARE Module : public Fundamental {
+class GURA_DLLDECLARE Module : public Fundamental {
 protected:
 	const Symbol *_pSymbol;
 	Expr *_pExprScript;		// this is set to NULL in binary modules
@@ -132,7 +132,7 @@ public:
 // utility functions
 //-----------------------------------------------------------------------------
 namespace Gura_Module(math) {
-DLLEXPORT Expr *CreateFuncExpr(const char *name, Expr *pExprArg);
+GURA_DLLEXPORT Expr *CreateFuncExpr(const char *name, Expr *pExprArg);
 }
 
 }

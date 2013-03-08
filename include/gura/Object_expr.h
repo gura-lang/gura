@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_expr
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_expr : public Class {
+class GURA_DLLDECLARE Class_expr : public Class {
 public:
 	Class_expr(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -21,7 +21,7 @@ public:
 //-----------------------------------------------------------------------------
 // Object_expr
 //-----------------------------------------------------------------------------
-class DLLDECLARE Object_expr : public Object {
+class GURA_DLLDECLARE Object_expr : public Object {
 public:
 	class Iterator_Each : public Iterator {
 	private:

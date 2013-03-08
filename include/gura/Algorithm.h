@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // CRC32
 //-----------------------------------------------------------------------------
-class DLLDECLARE CRC32 {
+class GURA_DLLDECLARE CRC32 {
 private:
 	unsigned long _crc32;
 	size_t _bytes;
@@ -20,18 +20,18 @@ public:
 	inline size_t GetBytes() const { return _bytes; }
 };
 
-//DLLDECLARE unsigned long UpdateCRC32(unsigned long crc32, const void *buff, size_t bytes);
+//GURA_DLLDECLARE unsigned long UpdateCRC32(unsigned long crc32, const void *buff, size_t bytes);
 
 //-----------------------------------------------------------------------------
 // FFT
 //-----------------------------------------------------------------------------
-DLLDECLARE void CalcFFT(ComplexList &vec);
+GURA_DLLDECLARE void CalcFFT(ComplexList &vec);
 
 //-----------------------------------------------------------------------------
 // Invert matrix
 //-----------------------------------------------------------------------------
-DLLDECLARE bool InvertMatrix(NumberList &mat, size_t nFold, Number &det);
-DLLDECLARE bool InvertMatrix(ComplexList &mat, size_t nFold, Complex &det);
+GURA_DLLDECLARE bool InvertMatrix(NumberList &mat, size_t nFold, Number &det);
+GURA_DLLDECLARE bool InvertMatrix(ComplexList &mat, size_t nFold, Complex &det);
 
 }
 

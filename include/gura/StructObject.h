@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // StructClass / StructObject
 //-----------------------------------------------------------------------------
-class DLLDECLARE StructClass : public Class {
+class GURA_DLLDECLARE StructClass : public Class {
 public:
 	StructClass(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -16,7 +16,7 @@ public:
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
 
-class DLLDECLARE StructObject : public Object {
+class GURA_DLLDECLARE StructObject : public Object {
 public:
 	Gura_DeclareObjectAccessorEx(StructObject)
 public:

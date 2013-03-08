@@ -9,7 +9,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_semaphore
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_semaphore : public Class {
+class GURA_DLLDECLARE Class_semaphore : public Class {
 public:
 	Class_semaphore(Environment *pEnvOuter);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
@@ -19,7 +19,7 @@ public:
 //-----------------------------------------------------------------------------
 // Object_semaphore
 //-----------------------------------------------------------------------------
-class DLLDECLARE Object_semaphore : public Object {
+class GURA_DLLDECLARE Object_semaphore : public Object {
 public:
 	Gura_DeclareObjectAccessor(semaphore)
 private:

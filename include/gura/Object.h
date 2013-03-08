@@ -25,7 +25,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object
 //-----------------------------------------------------------------------------
-class DLLDECLARE Object : public Fundamental {
+class GURA_DLLDECLARE Object : public Fundamental {
 protected:
 	AutoPtr<Class> _pClass;
 protected:

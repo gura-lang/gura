@@ -9,7 +9,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_args
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_args : public Class {
+class GURA_DLLDECLARE Class_args : public Class {
 public:
 	Class_args(Environment *pEnvOuter);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
@@ -19,7 +19,7 @@ public:
 //-----------------------------------------------------------------------------
 // Object_args
 //-----------------------------------------------------------------------------
-class DLLDECLARE Object_args : public Object {
+class GURA_DLLDECLARE Object_args : public Object {
 private:
 	SymbolSet _attrs;
 public:

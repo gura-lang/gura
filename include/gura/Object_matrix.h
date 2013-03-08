@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_matrix
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_matrix : public Class {
+class GURA_DLLDECLARE Class_matrix : public Class {
 public:
 	Class_matrix(Environment *pEnvOuter);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
@@ -20,7 +20,7 @@ public:
 //-----------------------------------------------------------------------------
 // Object_matrix
 //-----------------------------------------------------------------------------
-class DLLDECLARE Object_matrix : public Object {
+class GURA_DLLDECLARE Object_matrix : public Object {
 public:
 	class IteratorEach : public Iterator {
 	private:

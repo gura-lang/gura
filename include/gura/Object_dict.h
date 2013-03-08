@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_dict / Object_dict
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_dict : public Class {
+class GURA_DLLDECLARE Class_dict : public Class {
 public:
 	Class_dict(Environment *pEnvOuter);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
@@ -17,7 +17,7 @@ public:
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
 
-class DLLDECLARE Object_dict : public Object {
+class GURA_DLLDECLARE Object_dict : public Object {
 public:
 	class IteratorKeys : public Iterator {
 	private:

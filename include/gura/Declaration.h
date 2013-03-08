@@ -13,7 +13,7 @@ class Args;
 //-----------------------------------------------------------------------------
 // Declaration
 //-----------------------------------------------------------------------------
-class DLLDECLARE Declaration {
+class GURA_DLLDECLARE Declaration {
 private:
 	const Symbol *_pSymbol;
 	ValueType _valType;
@@ -72,7 +72,7 @@ public:
 //-----------------------------------------------------------------------------
 // DeclarationList
 //-----------------------------------------------------------------------------
-class DLLDECLARE DeclarationList : public std::vector<Declaration *> {
+class GURA_DLLDECLARE DeclarationList : public std::vector<Declaration *> {
 public:
 	typedef std::map<const Symbol *, const Expr *, Symbol::KeyCompare_UniqNumber> ExprMap;
 public:
@@ -92,7 +92,7 @@ public:
 //-----------------------------------------------------------------------------
 // DeclarationOwner
 //-----------------------------------------------------------------------------
-class DLLDECLARE DeclarationOwner : public DeclarationList {
+class GURA_DLLDECLARE DeclarationOwner : public DeclarationList {
 private:
 	const Symbol *_pSymbolDict;
 	bool _allowTooManyArgsFlag;

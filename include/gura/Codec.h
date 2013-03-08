@@ -12,7 +12,7 @@ class CodecFactory;
 //-----------------------------------------------------------------------------
 // Codec
 //-----------------------------------------------------------------------------
-class DLLDECLARE Codec {
+class GURA_DLLDECLARE Codec {
 public:
 	enum Result {
 		RESULT_None,
@@ -44,7 +44,7 @@ protected:
 //-----------------------------------------------------------------------------
 // Codec_None
 //-----------------------------------------------------------------------------
-class DLLDECLARE Codec_None : public Codec {
+class GURA_DLLDECLARE Codec_None : public Codec {
 public:
 	inline Codec_None() : Codec(NULL, false) {}
 	virtual Result FeedChar(char ch, char &chConv);
@@ -53,7 +53,7 @@ public:
 //-----------------------------------------------------------------------------
 // Codec_Encoder
 //-----------------------------------------------------------------------------
-class DLLDECLARE Codec_Encoder : public Codec {
+class GURA_DLLDECLARE Codec_Encoder : public Codec {
 public:
 	inline Codec_Encoder(CodecFactory *pCodecFactory, bool processEOLFlag) :
 										Codec(pCodecFactory, processEOLFlag) {}
@@ -67,7 +67,7 @@ public:
 //-----------------------------------------------------------------------------
 // Codec_Decoder
 //-----------------------------------------------------------------------------
-class DLLDECLARE Codec_Decoder : public Codec {
+class GURA_DLLDECLARE Codec_Decoder : public Codec {
 public:
 	inline Codec_Decoder(CodecFactory *pCodecFactory, bool processEOLFlag) :
 										Codec(pCodecFactory, processEOLFlag) {}
@@ -79,7 +79,7 @@ public:
 //-----------------------------------------------------------------------------
 // CodecFactory
 //-----------------------------------------------------------------------------
-class DLLDECLARE CodecFactory {
+class GURA_DLLDECLARE CodecFactory {
 public:
 	typedef std::vector<CodecFactory *> List;
 private:
@@ -98,7 +98,7 @@ public:
 //-----------------------------------------------------------------------------
 // UTF
 //-----------------------------------------------------------------------------
-class DLLDECLARE Codec_Encoder_UTF : public Codec_Encoder {
+class GURA_DLLDECLARE Codec_Encoder_UTF : public Codec_Encoder {
 protected:
 	int _cntChars;
 	unsigned long _codeUTF32;
@@ -110,7 +110,7 @@ public:
 	virtual Result FeedUTF32(unsigned long codeUTF32, char &chConv) = 0;
 };
 
-class DLLDECLARE Codec_Decoder_UTF : public Codec_Decoder {
+class GURA_DLLDECLARE Codec_Decoder_UTF : public Codec_Decoder {
 public:
 	inline Codec_Decoder_UTF(CodecFactory *pCodecFactory, bool processEOLFlag) :
 		Codec_Decoder(pCodecFactory, processEOLFlag) {}

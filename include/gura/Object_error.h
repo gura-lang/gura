@@ -9,14 +9,14 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_error / Object_error
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_error : public Class {
+class GURA_DLLDECLARE Class_error : public Class {
 public:
 	Class_error(Environment *pEnvOuter);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
 
-class DLLDECLARE Object_error : public Object {
+class GURA_DLLDECLARE Object_error : public Object {
 public:
 	Gura_DeclareObjectAccessor(error)
 private:

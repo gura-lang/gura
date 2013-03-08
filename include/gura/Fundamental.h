@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // ICallable
 //-----------------------------------------------------------------------------
-class DLLDECLARE ICallable {
+class GURA_DLLDECLARE ICallable {
 public:
 	Value Call(Environment &env, Signal sig,
 			const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
@@ -28,7 +28,7 @@ protected:
 //-----------------------------------------------------------------------------
 // Fundamental
 //-----------------------------------------------------------------------------
-class DLLDECLARE Fundamental : public Environment, public ICallable {
+class GURA_DLLDECLARE Fundamental : public Environment, public ICallable {
 protected:
 	int _cntRef;
 protected:

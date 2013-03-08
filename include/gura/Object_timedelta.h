@@ -9,14 +9,14 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_timedelta / Object_timedelta
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_timedelta : public Class {
+class GURA_DLLDECLARE Class_timedelta : public Class {
 public:
 	Class_timedelta(Environment *pEnvOuter);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
 
-class DLLDECLARE Object_timedelta : public Object {
+class GURA_DLLDECLARE Object_timedelta : public Object {
 public:
 	Gura_DeclareObjectAccessor(timedelta)
 private:

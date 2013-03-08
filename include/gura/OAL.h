@@ -26,16 +26,16 @@ namespace OAL {
 //-----------------------------------------------------------------------------
 // generic functions
 //-----------------------------------------------------------------------------
-DLLDECLARE extern const char FileSeparatorWin;
-DLLDECLARE extern const char FileSeparatorUnix;
-DLLDECLARE extern const char FileSeparator;
+GURA_DLLDECLARE extern const char FileSeparatorWin;
+GURA_DLLDECLARE extern const char FileSeparatorUnix;
+GURA_DLLDECLARE extern const char FileSeparator;
 
-DLLDECLARE bool IsAbsPathName(const char *pathName);
-DLLDECLARE String MakeAbsPathName(char chSeparator, const char *fileName);
-DLLDECLARE String RegulatePathName(char chSeparator, const char *pathName, bool cutLastSepFlag);
-DLLDECLARE String JoinPathName(char chSeparator, const char *pathName, const char *name);
-DLLDECLARE String JoinPathName(char chSeparator, const char *pathName, const char *name, size_t len);
-DLLDECLARE String EliminateBottomDirName(const char *pathName);
+GURA_DLLDECLARE bool IsAbsPathName(const char *pathName);
+GURA_DLLDECLARE String MakeAbsPathName(char chSeparator, const char *fileName);
+GURA_DLLDECLARE String RegulatePathName(char chSeparator, const char *pathName, bool cutLastSepFlag);
+GURA_DLLDECLARE String JoinPathName(char chSeparator, const char *pathName, const char *name);
+GURA_DLLDECLARE String JoinPathName(char chSeparator, const char *pathName, const char *name, size_t len);
+GURA_DLLDECLARE String EliminateBottomDirName(const char *pathName);
 
 inline String JoinPathName(const char *pathName, const char *name) {
 	return JoinPathName(OAL::FileSeparator, pathName, name);
@@ -45,53 +45,53 @@ inline String JoinPathName(const char *pathName, const char *name, size_t len) {
 	return JoinPathName(OAL::FileSeparator, pathName, name, len);
 }
 
-DLLDECLARE int ExecProgram(Environment &env, Signal sig, const char *pathName,
+GURA_DLLDECLARE int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		const ValueList &valList, Stream *pStreamStdout, Stream *pStreamStderr,
 		bool forkFlag);
-DLLDECLARE String GetEnv(const char *name);
-DLLDECLARE void PutEnv(const char *name, const char *value);
-DLLDECLARE bool Rename(const char *src, const char *dst);
-DLLDECLARE bool Remove(const char *pathName);
-DLLDECLARE bool IsExist(const char *pathName);
-DLLDECLARE bool IsDir(const char *pathName, bool *pExistFlag = NULL);
-DLLDECLARE bool MakeDir(const char *pathName);
-DLLDECLARE bool MakeDirTree(const char *pathName);
-DLLDECLARE bool RemoveDir(const char *pathName);
-DLLDECLARE bool RemoveDirTree(const char *pathName);
-DLLDECLARE bool ChangeCurDir(const char *pathName);
-DLLDECLARE String GetCurDir();
-DLLDECLARE bool ChangeMode(int modeOct, const char *pathName);
-DLLDECLARE bool ChangeMode(const char *mode, const char *pathName);
-DLLDECLARE void Sleep(Number delay);
-DLLDECLARE Number GetTickTime();
-DLLDECLARE DateTime GetCurDateTime(bool utcFlag = false);
+GURA_DLLDECLARE String GetEnv(const char *name);
+GURA_DLLDECLARE void PutEnv(const char *name, const char *value);
+GURA_DLLDECLARE bool Rename(const char *src, const char *dst);
+GURA_DLLDECLARE bool Remove(const char *pathName);
+GURA_DLLDECLARE bool IsExist(const char *pathName);
+GURA_DLLDECLARE bool IsDir(const char *pathName, bool *pExistFlag = NULL);
+GURA_DLLDECLARE bool MakeDir(const char *pathName);
+GURA_DLLDECLARE bool MakeDirTree(const char *pathName);
+GURA_DLLDECLARE bool RemoveDir(const char *pathName);
+GURA_DLLDECLARE bool RemoveDirTree(const char *pathName);
+GURA_DLLDECLARE bool ChangeCurDir(const char *pathName);
+GURA_DLLDECLARE String GetCurDir();
+GURA_DLLDECLARE bool ChangeMode(int modeOct, const char *pathName);
+GURA_DLLDECLARE bool ChangeMode(const char *mode, const char *pathName);
+GURA_DLLDECLARE void Sleep(Number delay);
+GURA_DLLDECLARE Number GetTickTime();
+GURA_DLLDECLARE DateTime GetCurDateTime(bool utcFlag = false);
 #if defined(HAVE_WINDOWS_H)
-DLLDECLARE void SetModuleHandle(HMODULE hModule);
-DLLDECLARE DateTime ToDateTime(const SYSTEMTIME &st, int secsOffset);
-DLLDECLARE DateTime ToDateTime(const FILETIME &ft, bool utcFlag = false);
-DLLDECLARE SYSTEMTIME ToSYSTEMTIME(const DateTime &dt);
-DLLDECLARE FILETIME ToFILETIME(const DateTime &dt);
+GURA_DLLDECLARE void SetModuleHandle(HMODULE hModule);
+GURA_DLLDECLARE DateTime ToDateTime(const SYSTEMTIME &st, int secsOffset);
+GURA_DLLDECLARE DateTime ToDateTime(const FILETIME &ft, bool utcFlag = false);
+GURA_DLLDECLARE SYSTEMTIME ToSYSTEMTIME(const DateTime &dt);
+GURA_DLLDECLARE FILETIME ToFILETIME(const DateTime &dt);
 static inline bool IsPathSeparator(char ch) { return ch == ';'; }
 #else
-DLLDECLARE DateTime ToDateTime(const struct tm &tm, int secsOffset);
-DLLDECLARE DateTime ToDateTime(time_t t, bool utcFlag = false);
+GURA_DLLDECLARE DateTime ToDateTime(const struct tm &tm, int secsOffset);
+GURA_DLLDECLARE DateTime ToDateTime(time_t t, bool utcFlag = false);
 static inline bool IsPathSeparator(char ch) { return ch == ';' || ch == ':'; }
 #endif
-DLLDECLARE int GetSecsOffsetTZ();
-DLLDECLARE String GetBaseDir();
-DLLDECLARE String GetDataDir();
-DLLDECLARE String GetLibDir();
-DLLDECLARE String GetLocalDir();
-DLLDECLARE String GetExecutable();
-DLLDECLARE void SetupModulePath(StringList &strList);
-DLLDECLARE void SetupExecutablePath();
-DLLDECLARE String ToNativeString(const char *str, int len = -1);
-DLLDECLARE String FromNativeString(const char *str, int len = -1);
+GURA_DLLDECLARE int GetSecsOffsetTZ();
+GURA_DLLDECLARE String GetBaseDir();
+GURA_DLLDECLARE String GetDataDir();
+GURA_DLLDECLARE String GetLibDir();
+GURA_DLLDECLARE String GetLocalDir();
+GURA_DLLDECLARE String GetExecutable();
+GURA_DLLDECLARE void SetupModulePath(StringList &strList);
+GURA_DLLDECLARE void SetupExecutablePath();
+GURA_DLLDECLARE String ToNativeString(const char *str, int len = -1);
+GURA_DLLDECLARE String FromNativeString(const char *str, int len = -1);
 
 //-----------------------------------------------------------------------------
 // FileStat declaration
 //-----------------------------------------------------------------------------
-class DLLDECLARE FileStat {
+class GURA_DLLDECLARE FileStat {
 public:
 	enum {
 		ATTR_Dir	= (1 << 22),
@@ -167,7 +167,7 @@ public:
 //-----------------------------------------------------------------------------
 // DynamicLibrary
 //-----------------------------------------------------------------------------
-class DLLDECLARE DynamicLibrary {
+class GURA_DLLDECLARE DynamicLibrary {
 private:
 #if defined(HAVE_WINDOWS_H)
 	HMODULE _hModule;
@@ -183,7 +183,7 @@ public:
 //-----------------------------------------------------------------------------
 // Memory
 //-----------------------------------------------------------------------------
-class DLLDECLARE Memory {
+class GURA_DLLDECLARE Memory {
 private:
 	size_t _bytes;
 	char *_buff;
@@ -204,7 +204,7 @@ public:
 //-----------------------------------------------------------------------------
 // Thread
 //-----------------------------------------------------------------------------
-class DLLDECLARE Thread {
+class GURA_DLLDECLARE Thread {
 public:
 	void Start();
 	virtual void Run() = 0;
@@ -213,7 +213,7 @@ public:
 //-----------------------------------------------------------------------------
 // Semaphore
 //-----------------------------------------------------------------------------
-class DLLDECLARE Semaphore {
+class GURA_DLLDECLARE Semaphore {
 private:
 #if defined(HAVE_WINDOWS_H)
 	HANDLE _hMutex;
@@ -230,7 +230,7 @@ public:
 //-----------------------------------------------------------------------------
 // Event
 //-----------------------------------------------------------------------------
-class DLLDECLARE Event {
+class GURA_DLLDECLARE Event {
 private:
 #if defined(HAVE_WINDOWS_H)
 	HANDLE _hEvent;

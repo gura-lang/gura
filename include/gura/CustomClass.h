@@ -6,7 +6,7 @@
 
 namespace Gura {
 
-class DLLDECLARE CustomClass : public Class {
+class GURA_DLLDECLARE CustomClass : public Class {
 private:
 	AutoPtr<Expr_Block> _pExprContent;
 	Signal _sig;

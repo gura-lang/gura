@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_binary / Object_binary
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_binary : public Class {
+class GURA_DLLDECLARE Class_binary : public Class {
 public:
 	Class_binary(Environment *pEnvOuter);
 	virtual void Prepare();
@@ -19,7 +19,7 @@ public:
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
 
-class DLLDECLARE Object_binary : public Object {
+class GURA_DLLDECLARE Object_binary : public Object {
 public:
 	class IteratorByte : public Iterator {
 	private:
@@ -78,14 +78,14 @@ public:
 //-----------------------------------------------------------------------------
 // Class_binaryptr / Object_binaryptr
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_binaryptr : public Class {
+class GURA_DLLDECLARE Class_binaryptr : public Class {
 public:
 	Class_binaryptr(Environment *pEnvOuter);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
 
-class DLLDECLARE Object_binaryptr : public Object {
+class GURA_DLLDECLARE Object_binaryptr : public Object {
 public:
 	Gura_DeclareObjectAccessor(binaryptr)
 private:
@@ -119,7 +119,7 @@ public:
 //-----------------------------------------------------------------------------
 // Stream_Binary
 //-----------------------------------------------------------------------------
-class DLLDECLARE Stream_Binary : public Stream {
+class GURA_DLLDECLARE Stream_Binary : public Stream {
 private:
 	AutoPtr<Object_binary> _pObjBinary;
 	size_t _offset;

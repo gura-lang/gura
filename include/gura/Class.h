@@ -12,7 +12,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class : public Fundamental {
+class GURA_DLLDECLARE Class : public Fundamental {
 protected:
 	AutoPtr<Class> _pClassSuper;
 	ValueType _valType;
@@ -64,7 +64,7 @@ public:
 //-----------------------------------------------------------------------------
 // Class_nil
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_nil : public Class {
+class GURA_DLLDECLARE Class_nil : public Class {
 public:
 	Class_nil(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -75,7 +75,7 @@ public:
 //-----------------------------------------------------------------------------
 // Class_symbol
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_symbol : public Class {
+class GURA_DLLDECLARE Class_symbol : public Class {
 public:
 	Class_symbol(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -86,7 +86,7 @@ public:
 //-----------------------------------------------------------------------------
 // Class_boolean
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_boolean : public Class {
+class GURA_DLLDECLARE Class_boolean : public Class {
 public:
 	Class_boolean(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -97,7 +97,7 @@ public:
 //-----------------------------------------------------------------------------
 // Class_number
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_number : public Class {
+class GURA_DLLDECLARE Class_number : public Class {
 public:
 	Class_number(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -108,7 +108,7 @@ public:
 //-----------------------------------------------------------------------------
 // Class_complex
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_complex : public Class {
+class GURA_DLLDECLARE Class_complex : public Class {
 public:
 	Class_complex(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);

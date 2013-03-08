@@ -7,7 +7,7 @@
 
 namespace Gura {
 
-class DLLDECLARE Binary : public std::basic_string<char> {
+class GURA_DLLDECLARE Binary : public std::basic_string<char> {
 public:
 	inline Binary() {}
 	inline Binary(const Binary &binary) : std::basic_string<char>(binary) {}

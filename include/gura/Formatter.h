@@ -12,7 +12,7 @@ class Value;
 //-----------------------------------------------------------------------------
 // FormatterBase
 //-----------------------------------------------------------------------------
-class DLLDECLARE FormatterBase {
+class GURA_DLLDECLARE FormatterBase {
 private:
 	bool _nilVisibleFlag;
 	const char *_lineSep;
@@ -72,7 +72,7 @@ private:
 //-----------------------------------------------------------------------------
 // Formatter
 //-----------------------------------------------------------------------------
-class DLLDECLARE Formatter : public FormatterBase {
+class GURA_DLLDECLARE Formatter : public FormatterBase {
 private:
 	String _str;
 public:

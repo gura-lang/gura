@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_audio
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_audio : public Class {
+class GURA_DLLDECLARE Class_audio : public Class {
 public:
 	Class_audio(Environment *pEnvOuter);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
@@ -18,7 +18,7 @@ public:
 //-----------------------------------------------------------------------------
 // Object_audio
 //-----------------------------------------------------------------------------
-class DLLDECLARE Object_audio : public Object {
+class GURA_DLLDECLARE Object_audio : public Object {
 public:
 	enum Format {
 		FORMAT_None,
@@ -92,7 +92,7 @@ public:
 //-----------------------------------------------------------------------------
 // AudioStreamer
 //-----------------------------------------------------------------------------
-class DLLDECLARE AudioStreamer {
+class GURA_DLLDECLARE AudioStreamer {
 public:
 	typedef std::vector<AudioStreamer *> List;
 private:

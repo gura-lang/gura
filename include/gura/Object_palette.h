@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_palette
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_palette : public Class {
+class GURA_DLLDECLARE Class_palette : public Class {
 public:
 	Class_palette(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -19,7 +19,7 @@ public:
 //-----------------------------------------------------------------------------
 // Object_palette
 //-----------------------------------------------------------------------------
-class DLLDECLARE Object_palette : public Object {
+class GURA_DLLDECLARE Object_palette : public Object {
 public:
 	enum {
 		OffsetRed	= 2,

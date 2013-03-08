@@ -7,7 +7,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // TimeDelta
 //-----------------------------------------------------------------------------
-class DLLDECLARE TimeDelta {
+class GURA_DLLDECLARE TimeDelta {
 private:
 	long _days;		// -999999999 <= _days <= 999999999
 	long _secs;		// 0 <= _secs <= 3600 * 24 - 1
@@ -32,7 +32,7 @@ public:
 //-----------------------------------------------------------------------------
 // DateTime
 //-----------------------------------------------------------------------------
-class DLLDECLARE DateTime {
+class GURA_DLLDECLARE DateTime {
 private:
 	short _year;
 	char _month;

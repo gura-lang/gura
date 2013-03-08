@@ -8,14 +8,14 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_uri / Object_uri
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_uri : public Class {
+class GURA_DLLDECLARE Class_uri : public Class {
 public:
 	Class_uri(Environment *pEnvOuter);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
 
-class DLLDECLARE Object_uri : public Object {
+class GURA_DLLDECLARE Object_uri : public Object {
 public:
 	Gura_DeclareObjectAccessor(uri)
 private:

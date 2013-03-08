@@ -30,9 +30,9 @@ class IteratorOwner;
 //-----------------------------------------------------------------------------
 // Iterator
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator {
+class GURA_DLLDECLARE Iterator {
 public:
-	class DLLDECLARE Share {
+	class GURA_DLLDECLARE Share {
 	public:
 		typedef std::vector<size_t> IndexList;
 	private:
@@ -130,7 +130,7 @@ private:
 //-----------------------------------------------------------------------------
 // Iterator_GenericClone
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_GenericClone : public Iterator {
+class GURA_DLLDECLARE Iterator_GenericClone : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	int _id;
@@ -147,7 +147,7 @@ public:
 //-----------------------------------------------------------------------------
 // IteratorOwner
 //-----------------------------------------------------------------------------
-class DLLDECLARE IteratorOwner : public std::vector<Iterator *> {
+class GURA_DLLDECLARE IteratorOwner : public std::vector<Iterator *> {
 public:
 	inline IteratorOwner() {}
 	IteratorOwner(const IteratorOwner &iterOwner);
@@ -161,7 +161,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Constant
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Constant : public Iterator {
+class GURA_DLLDECLARE Iterator_Constant : public Iterator {
 private:
 	Value _value;
 public:
@@ -178,7 +178,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_OneShot
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_OneShot : public Iterator {
+class GURA_DLLDECLARE Iterator_OneShot : public Iterator {
 private:
 	Value _value;
 	bool _doneFlag;
@@ -197,7 +197,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Fill
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Fill : public Iterator {
+class GURA_DLLDECLARE Iterator_Fill : public Iterator {
 private:
 	int _cnt;
 	Value _value;
@@ -218,7 +218,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Rand
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Rand : public Iterator {
+class GURA_DLLDECLARE Iterator_Rand : public Iterator {
 private:
 	int _cnt;
 	int _range;
@@ -235,7 +235,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Range
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Range : public Iterator {
+class GURA_DLLDECLARE Iterator_Range : public Iterator {
 private:
 	Number _num;
 	Number _numBegin;
@@ -258,7 +258,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Sequence
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Sequence : public Iterator {
+class GURA_DLLDECLARE Iterator_Sequence : public Iterator {
 private:
 	Number _num;
 	Number _numBegin;
@@ -285,7 +285,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_SequenceInf
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_SequenceInf : public Iterator {
+class GURA_DLLDECLARE Iterator_SequenceInf : public Iterator {
 private:
 	Number _num;
 	Number _numBegin;
@@ -306,7 +306,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Interval
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Interval : public Iterator {
+class GURA_DLLDECLARE Iterator_Interval : public Iterator {
 private:
 	Number _numBegin;
 	Number _numEnd;
@@ -343,7 +343,7 @@ protected:
 //-----------------------------------------------------------------------------
 // Iterator_Fork
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Fork : public Iterator, public OAL::Thread {
+class GURA_DLLDECLARE Iterator_Fork : public Iterator, public OAL::Thread {
 private:
 	Environment _env;
 	AutoPtr<Function> _pFunc;
@@ -379,7 +379,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_ExplicitMap
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_ExplicitMap : public Iterator {
+class GURA_DLLDECLARE Iterator_ExplicitMap : public Iterator {
 private:
 	Environment _env;
 	Signal _sig;
@@ -399,7 +399,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_ImplicitMap
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_ImplicitMap : public Iterator {
+class GURA_DLLDECLARE Iterator_ImplicitMap : public Iterator {
 private:
 	Environment _env;
 	Signal _sig;
@@ -421,7 +421,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_MemberMap
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_MemberMap : public Iterator {
+class GURA_DLLDECLARE Iterator_MemberMap : public Iterator {
 private:
 	Environment _env;
 	Signal _sig;
@@ -439,7 +439,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_MethodMap
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_MethodMap : public Iterator {
+class GURA_DLLDECLARE Iterator_MethodMap : public Iterator {
 private:
 	Environment _env;
 	Signal _sig;
@@ -458,7 +458,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_FuncBinder
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_FuncBinder : public Iterator {
+class GURA_DLLDECLARE Iterator_FuncBinder : public Iterator {
 private:
 	Environment _env;
 	AutoPtr<Function> _pFunc;
@@ -476,7 +476,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Delay
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Delay : public Iterator {
+class GURA_DLLDECLARE Iterator_Delay : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	Number _delay;
@@ -492,7 +492,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Skip
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Skip : public Iterator {
+class GURA_DLLDECLARE Iterator_Skip : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	int _nSkip;
@@ -508,7 +508,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_SkipInvalid
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_SkipInvalid : public Iterator {
+class GURA_DLLDECLARE Iterator_SkipInvalid : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 public:
@@ -523,7 +523,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_RoundOff
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_RoundOff : public Iterator {
+class GURA_DLLDECLARE Iterator_RoundOff : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	Number _threshold;
@@ -539,7 +539,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_FilterWithFunc
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_FilterWithFunc : public Iterator {
+class GURA_DLLDECLARE Iterator_FilterWithFunc : public Iterator {
 private:
 	Environment _env;
 	AutoPtr<Iterator> _pIterator;
@@ -558,7 +558,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_FilterWithIter
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_FilterWithIter : public Iterator {
+class GURA_DLLDECLARE Iterator_FilterWithIter : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Iterator> _pIteratorCriteria;
@@ -575,7 +575,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_WhileWithFunc
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_WhileWithFunc : public Iterator {
+class GURA_DLLDECLARE Iterator_WhileWithFunc : public Iterator {
 private:
 	Environment _env;
 	AutoPtr<Iterator> _pIterator;
@@ -594,7 +594,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_WhileWithIter
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_WhileWithIter : public Iterator {
+class GURA_DLLDECLARE Iterator_WhileWithIter : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Iterator> _pIteratorCriteria;
@@ -611,7 +611,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_UntilWithFunc
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_UntilWithFunc : public Iterator {
+class GURA_DLLDECLARE Iterator_UntilWithFunc : public Iterator {
 private:
 	Environment _env;
 	AutoPtr<Iterator> _pIterator;
@@ -631,7 +631,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_UntilWithIter
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_UntilWithIter : public Iterator {
+class GURA_DLLDECLARE Iterator_UntilWithIter : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Iterator> _pIteratorCriteria;
@@ -651,7 +651,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_SinceWithFunc
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_SinceWithFunc : public Iterator {
+class GURA_DLLDECLARE Iterator_SinceWithFunc : public Iterator {
 private:
 	Environment _env;
 	AutoPtr<Iterator> _pIterator;
@@ -671,7 +671,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_SinceWithIter
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_SinceWithIter : public Iterator {
+class GURA_DLLDECLARE Iterator_SinceWithIter : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Iterator> _pIteratorCriteria;
@@ -691,7 +691,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Replace
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Replace : public Iterator {
+class GURA_DLLDECLARE Iterator_Replace : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	Value _value;
@@ -710,7 +710,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_ReplaceInvalid
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_ReplaceInvalid : public Iterator {
+class GURA_DLLDECLARE Iterator_ReplaceInvalid : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	Value _valueReplace;
@@ -727,7 +727,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Format
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Format : public Iterator {
+class GURA_DLLDECLARE Iterator_Format : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	String _format;
@@ -744,7 +744,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Pack
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Pack : public Iterator {
+class GURA_DLLDECLARE Iterator_Pack : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	String _format;
@@ -761,7 +761,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Zipv
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Zipv : public Iterator {
+class GURA_DLLDECLARE Iterator_Zipv : public Iterator {
 private:
 	IteratorOwner _iterOwner;
 public:
@@ -776,7 +776,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_RunLength
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_RunLength : public Iterator {
+class GURA_DLLDECLARE Iterator_RunLength : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	int _cnt;
@@ -795,7 +795,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Align
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Align : public Iterator {
+class GURA_DLLDECLARE Iterator_Align : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	int _cnt;
@@ -812,7 +812,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Head
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Head : public Iterator {
+class GURA_DLLDECLARE Iterator_Head : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	int _cnt;
@@ -828,7 +828,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Fold
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Fold : public Iterator {
+class GURA_DLLDECLARE Iterator_Fold : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	int _cnt;
@@ -846,7 +846,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_FoldSeg
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_FoldSeg : public Iterator {
+class GURA_DLLDECLARE Iterator_FoldSeg : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	int _cnt;
@@ -864,7 +864,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_Concat
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_Concat : public Iterator {
+class GURA_DLLDECLARE Iterator_Concat : public Iterator {
 private:
 	IteratorOwner _iterOwner;
 	IteratorOwner::iterator _ppIterator;
@@ -880,7 +880,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_repeat
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_repeat : public Iterator {
+class GURA_DLLDECLARE Iterator_repeat : public Iterator {
 private:
 	Environment _env;
 	AutoPtr<Function> _pFuncBlock;
@@ -900,7 +900,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_while
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_while : public Iterator {
+class GURA_DLLDECLARE Iterator_while : public Iterator {
 private:
 	Environment _env;
 	AutoPtr<Function> _pFuncBlock;
@@ -920,7 +920,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_for
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_for : public Iterator {
+class GURA_DLLDECLARE Iterator_for : public Iterator {
 private:
 	Environment _env;
 	AutoPtr<Function> _pFuncBlock;
@@ -942,7 +942,7 @@ public:
 //-----------------------------------------------------------------------------
 // Iterator_cross
 //-----------------------------------------------------------------------------
-class DLLDECLARE Iterator_cross : public Iterator {
+class GURA_DLLDECLARE Iterator_cross : public Iterator {
 private:
 	Environment _env;
 	AutoPtr<Function> _pFuncBlock;

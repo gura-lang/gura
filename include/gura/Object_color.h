@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Color
 //-----------------------------------------------------------------------------
-class DLLDECLARE Color {
+class GURA_DLLDECLARE Color {
 public:
 	struct ElementEntry {
 		const char *name;
@@ -85,7 +85,7 @@ typedef std::map<const Symbol *, Color> ColorMap;
 //-----------------------------------------------------------------------------
 // Class_color
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_color : public Class {
+class GURA_DLLDECLARE Class_color : public Class {
 public:
 	Class_color(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -96,7 +96,7 @@ public:
 //-----------------------------------------------------------------------------
 // Object_color
 //-----------------------------------------------------------------------------
-class DLLDECLARE Object_color : public Object {
+class GURA_DLLDECLARE Object_color : public Object {
 public:
 public:
 	Gura_DeclareObjectAccessor(color)

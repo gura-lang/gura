@@ -18,7 +18,7 @@ typedef std::deque<Directory *> DirectoryDeque;
 //-----------------------------------------------------------------------------
 // Directory
 //-----------------------------------------------------------------------------
-class DLLDECLARE Directory {
+class GURA_DLLDECLARE Directory {
 public:
 	enum Type {
 		TYPE_None, TYPE_Item, TYPE_Container,
@@ -28,7 +28,7 @@ public:
 		NF_Signal, NF_NoSignal, NF_Wouldbe,
 	};
 public:
-	class DLLDECLARE Iterator_Walk : public Iterator {
+	class GURA_DLLDECLARE Iterator_Walk : public Iterator {
 	public:
 	private:
 		bool _addSepFlag;
@@ -50,7 +50,7 @@ public:
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
-	class DLLDECLARE Iterator_Glob : public Iterator {
+	class GURA_DLLDECLARE Iterator_Glob : public Iterator {
 	public:
 		typedef std::deque<size_t> DepthDeque;
 	private:
@@ -155,7 +155,7 @@ protected:
 //-----------------------------------------------------------------------------
 // DirectoryFactory
 //-----------------------------------------------------------------------------
-class DLLDECLARE DirectoryFactory {
+class GURA_DLLDECLARE DirectoryFactory {
 public:
 	typedef std::vector<DirectoryFactory *> List;
 protected:
@@ -197,7 +197,7 @@ class Record;
 
 typedef std::vector<Record *> RecordList;
 
-class DLLDECLARE Record {
+class GURA_DLLDECLARE Record {
 protected:
 	Structure *_pStructure;
 	Record *_pRecordParent;
@@ -243,7 +243,7 @@ public:
 //-----------------------------------------------------------------------------
 // Structure
 //-----------------------------------------------------------------------------
-class DLLDECLARE Structure {
+class GURA_DLLDECLARE Structure {
 private:
 	int _cntRef;
 	Record *_pRecordRoot;

@@ -9,7 +9,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_codec
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_codec : public Class {
+class GURA_DLLDECLARE Class_codec : public Class {
 public:
 	Class_codec(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -20,7 +20,7 @@ public:
 //-----------------------------------------------------------------------------
 // Object_codec
 //-----------------------------------------------------------------------------
-class DLLDECLARE Object_codec : public Object {
+class GURA_DLLDECLARE Object_codec : public Object {
 public:
 	Gura_DeclareObjectAccessor(codec)
 private:

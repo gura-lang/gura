@@ -16,12 +16,12 @@
 #endif
 
 #if defined(HAVE_WINDOWS_H)
-#define DLLIMPORT __declspec(dllimport)
-#define DLLEXPORT __declspec(dllexport)
+#define GURA_DLLIMPORT __declspec(dllimport)
+#define GURA_DLLEXPORT __declspec(dllexport)
 #if defined(gura_EXPORTS)
-#define DLLDECLARE __declspec(dllexport)
+#define GURA_DLLDECLARE __declspec(dllexport)
 #else
-#define DLLDECLARE __declspec(dllimport)
+#define GURA_DLLDECLARE __declspec(dllimport)
 #endif
 typedef __int64 int64;
 typedef unsigned __int64 uint64;
@@ -31,9 +31,9 @@ typedef unsigned __int64 uint64;
 #if defined(HAVE_CONFIG_H)
 #include "config.h"
 #endif
-#define DLLIMPORT
-#define DLLEXPORT
-#define DLLDECLARE
+#define GURA_DLLIMPORT
+#define GURA_DLLEXPORT
+#define GURA_DLLDECLARE
 typedef long long int64;
 typedef unsigned long long uint64;
 typedef void *HBITMAP;
@@ -66,12 +66,12 @@ typedef void *HBITMAP;
 
 namespace Gura {
 
-DLLDECLARE extern const int MAX_STACK_LEVEL;
-DLLDECLARE extern const size_t InvalidSize;
+GURA_DLLDECLARE extern const int MAX_STACK_LEVEL;
+GURA_DLLDECLARE extern const size_t InvalidSize;
 
-DLLDECLARE bool IsBigEndian();
-DLLDECLARE const char *GetVersion();
-DLLDECLARE const char *GetOpening();
+GURA_DLLDECLARE bool IsBigEndian();
+GURA_DLLDECLARE const char *GetVersion();
+GURA_DLLDECLARE const char *GetOpening();
 
 //-----------------------------------------------------------------------------
 // Simple type declarations
@@ -79,7 +79,7 @@ DLLDECLARE const char *GetOpening();
 typedef double Number;
 typedef std::complex<Number> Complex;
 
-DLLDECLARE extern const Number RoundOffThreshold;
+GURA_DLLDECLARE extern const Number RoundOffThreshold;
 
 typedef std::vector<char> CharList;
 typedef std::vector<short> ShortList;

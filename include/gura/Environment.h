@@ -77,7 +77,7 @@ enum OpType {
 	OPTYPE_max,
 };
 
-DLLDECLARE const char *GetEnvTypeName(EnvType envType);
+GURA_DLLDECLARE const char *GetEnvTypeName(EnvType envType);
 
 //-----------------------------------------------------------------------------
 // IntegratedModuleMap
@@ -98,7 +98,7 @@ typedef void (*ModuleTerminateType)(Module *pModule);
 //-----------------------------------------------------------------------------
 // IntegratedModule
 //-----------------------------------------------------------------------------
-class DLLDECLARE IntegratedModule {
+class GURA_DLLDECLARE IntegratedModule {
 private:
 	String _name;
 	ModuleEntryType _moduleEntry;
@@ -119,7 +119,7 @@ public:
 //-----------------------------------------------------------------------------
 // IntegratedModuleOwner
 //-----------------------------------------------------------------------------
-class DLLDECLARE IntegratedModuleOwner : public std::vector<IntegratedModule *> {
+class GURA_DLLDECLARE IntegratedModuleOwner : public std::vector<IntegratedModule *> {
 public:
 	~IntegratedModuleOwner();
 };
@@ -127,7 +127,7 @@ public:
 //-----------------------------------------------------------------------------
 // ModuleIntegrator
 //-----------------------------------------------------------------------------
-class DLLDECLARE ModuleIntegrator {
+class GURA_DLLDECLARE ModuleIntegrator {
 public:
 	ModuleIntegrator(const char *name,
 			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate);
@@ -136,9 +136,9 @@ public:
 //-----------------------------------------------------------------------------
 // Environment
 //-----------------------------------------------------------------------------
-class DLLDECLARE Environment {
+class GURA_DLLDECLARE Environment {
 public:
-	class DLLDECLARE Global {
+	class GURA_DLLDECLARE Global {
 	private:
 		IntegratedModuleMap _integratedModuleMap;
 		SeparatedModuleMap	_separatedModuleMap;
@@ -165,7 +165,7 @@ public:
 		void UnregisterSeparatedModule(const char *pathName);
 		Stream *GetConsoleDumb() { return _pConsoleDumb.get(); }
 	};
-	class DLLDECLARE Frame {
+	class GURA_DLLDECLARE Frame {
 	private:
 		int _cntRef;
 		EnvType _envType;
@@ -199,7 +199,7 @@ public:
 		const ValueTypeInfo *LookupValueType(const Symbol *pSymbol) const;
 		void DbgPrint() const;
 	};
-	class DLLDECLARE FrameList : public std::list<Frame *> {
+	class GURA_DLLDECLARE FrameList : public std::list<Frame *> {
 	public:
 		~FrameList();
 		inline bool IsExist(Frame *pFrame) const {
@@ -305,7 +305,7 @@ typedef std::set<Environment *> EnvironmentSet;
 //-----------------------------------------------------------------------------
 // EnvironmentRoot
 //-----------------------------------------------------------------------------
-class DLLDECLARE EnvironmentRoot : public Environment {
+class GURA_DLLDECLARE EnvironmentRoot : public Environment {
 public:
 	EnvironmentRoot(int argc, const char *argv[]);
 	virtual ~EnvironmentRoot();

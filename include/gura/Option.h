@@ -9,7 +9,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Option
 //-----------------------------------------------------------------------------
-class DLLDECLARE Option {
+class GURA_DLLDECLARE Option {
 public:
 	struct Info {
 		const char *keyLong;

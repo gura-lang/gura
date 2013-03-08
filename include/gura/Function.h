@@ -180,7 +180,7 @@ const char *GetFuncTypeName(FunctionType funcType);
 //----------------------------------------------------------------------------
 // Function
 //-----------------------------------------------------------------------------
-class DLLDECLARE Function {
+class GURA_DLLDECLARE Function {
 public:
 	enum {
 		MAP_Off				= (0 << 0),	// 
@@ -193,7 +193,7 @@ public:
 		BLKSCOPE_Inside,
 		BLKSCOPE_SameAsFunc,
 	};
-	class DLLDECLARE ResultComposer {
+	class GURA_DLLDECLARE ResultComposer {
 	private:
 		Environment &_env;
 		Args &_args;
@@ -374,7 +374,7 @@ private:
 //-----------------------------------------------------------------------------
 // FunctionCustom
 //-----------------------------------------------------------------------------
-class DLLDECLARE FunctionCustom : public Function {
+class GURA_DLLDECLARE FunctionCustom : public Function {
 private:
 	AutoPtr<Expr> _pExprBody;
 public:
@@ -395,7 +395,7 @@ private:
 //-----------------------------------------------------------------------------
 // ClassPrototype
 //-----------------------------------------------------------------------------
-class DLLDECLARE ClassPrototype : public Function {
+class GURA_DLLDECLARE ClassPrototype : public Function {
 private:
 	Environment _envScope;
 	AutoPtr<Expr> _pExprBody;
@@ -411,7 +411,7 @@ private:
 //-----------------------------------------------------------------------------
 // StructPrototype
 //-----------------------------------------------------------------------------
-class DLLDECLARE StructPrototype : public Function {
+class GURA_DLLDECLARE StructPrototype : public Function {
 public:
 	StructPrototype(Environment &env);
 	virtual ~StructPrototype();
@@ -422,7 +422,7 @@ public:
 //-----------------------------------------------------------------------------
 // Args
 //-----------------------------------------------------------------------------
-class DLLDECLARE Args {
+class GURA_DLLDECLARE Args {
 private:
 	Value _valueThis;
 	AutoPtr<Iterator> _pIteratorThis;

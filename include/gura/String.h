@@ -17,58 +17,58 @@ class StringList;
 //-----------------------------------------------------------------------------
 // String operations
 //-----------------------------------------------------------------------------
-DLLDECLARE char GetEscaped(char ch);
-DLLDECLARE String ZenToHan(const char *str);
-DLLDECLARE char ZenToHanChar(const char *str, const char **next);
-DLLDECLARE const char *FindString(const char *str, const char *sub, bool ignoreCaseFlag);
-DLLDECLARE String::const_iterator FindString(String::const_iterator str,
+GURA_DLLDECLARE char GetEscaped(char ch);
+GURA_DLLDECLARE String ZenToHan(const char *str);
+GURA_DLLDECLARE char ZenToHanChar(const char *str, const char **next);
+GURA_DLLDECLARE const char *FindString(const char *str, const char *sub, bool ignoreCaseFlag);
+GURA_DLLDECLARE String::const_iterator FindString(String::const_iterator str,
 		String::const_iterator strEnd, const String &sub, bool ignoreCaseFlag);
 
-DLLDECLARE String PickChar(const String &str, size_t idx);
-DLLDECLARE String::const_iterator NextChar(const String &str, String::const_iterator p);
-DLLDECLARE String::const_iterator NextUTF8(const String &str, String::const_iterator p, uint64 &codeUTF8);
-DLLDECLARE String::const_iterator NextUTF32(const String &str, String::const_iterator p, unsigned long &codeUTF32);
+GURA_DLLDECLARE String PickChar(const String &str, size_t idx);
+GURA_DLLDECLARE String::const_iterator NextChar(const String &str, String::const_iterator p);
+GURA_DLLDECLARE String::const_iterator NextUTF8(const String &str, String::const_iterator p, uint64 &codeUTF8);
+GURA_DLLDECLARE String::const_iterator NextUTF32(const String &str, String::const_iterator p, unsigned long &codeUTF32);
 
-DLLDECLARE String MakeQuotedString(const char *str);
+GURA_DLLDECLARE String MakeQuotedString(const char *str);
 
-DLLDECLARE void EscapeURI(String &strDst, const char *str);
-DLLDECLARE String EscapeURI(const char *str);
-DLLDECLARE void EscapeURI(String &strDst, const char *str, size_t len);
-DLLDECLARE String EscapeURI(const char *str, size_t len);
-DLLDECLARE void UnescapeURI(String &strDst, const char *str);
-DLLDECLARE String UnescapeURI(const char *str);
-DLLDECLARE void EscapeHtml(String &strDst, const char *str, bool quoteFlag);
-DLLDECLARE String EscapeHtml(const char *str, bool quoteFlag);
-DLLDECLARE void UnescapeHtml(String &strDst, const char *str);
-DLLDECLARE String UnescapeHtml(const char *str);
-DLLDECLARE String NumberToString(Number num);
-DLLDECLARE const char *StartsWith(const char *str, const char *prefix, size_t pos, bool ignoreCaseFlag);
-DLLDECLARE const char *EndsWith(const char *str, const char *suffix, bool ignoreCaseFlag);
-DLLDECLARE const char *EndsWith(const char *str, const char *suffix, size_t posEnd, bool ignoreCaseFlag);
-DLLDECLARE String Capitalize(const char *str);
-DLLDECLARE String Lower(const char *str);
-DLLDECLARE String Upper(const char *str);
-DLLDECLARE String Strip(const char *str, bool stripLeftFlag = true, bool stripRightFlag = true);
-DLLDECLARE String Strip(const char *str, const SymbolSet &attrs);
-DLLDECLARE String Chop(const char *str, bool eolOnlyFlag);
-DLLDECLARE size_t Length(const char *str);
-DLLDECLARE size_t CalcCharPos(const char *str, size_t idx);
-DLLDECLARE const char *Forward(const char *str, size_t len);
-DLLDECLARE String::const_iterator Forward(String::const_iterator str, String::const_iterator strEnd, size_t len);
-DLLDECLARE String Center(const char *str, size_t len, const char *padding);
-DLLDECLARE String LJust(const char *str, size_t len, const char *padding);
-DLLDECLARE String RJust(const char *str, size_t len, const char *padding);
-DLLDECLARE String Left(const char *str, size_t len);
-DLLDECLARE String Right(const char *str, size_t len);
-DLLDECLARE String Middle(const char *str, int start, int len);
-DLLDECLARE String Join(const ValueList &valList, const char *str);
-DLLDECLARE String Replace(const char *str, const char *sub, const char *replace,
+GURA_DLLDECLARE void EscapeURI(String &strDst, const char *str);
+GURA_DLLDECLARE String EscapeURI(const char *str);
+GURA_DLLDECLARE void EscapeURI(String &strDst, const char *str, size_t len);
+GURA_DLLDECLARE String EscapeURI(const char *str, size_t len);
+GURA_DLLDECLARE void UnescapeURI(String &strDst, const char *str);
+GURA_DLLDECLARE String UnescapeURI(const char *str);
+GURA_DLLDECLARE void EscapeHtml(String &strDst, const char *str, bool quoteFlag);
+GURA_DLLDECLARE String EscapeHtml(const char *str, bool quoteFlag);
+GURA_DLLDECLARE void UnescapeHtml(String &strDst, const char *str);
+GURA_DLLDECLARE String UnescapeHtml(const char *str);
+GURA_DLLDECLARE String NumberToString(Number num);
+GURA_DLLDECLARE const char *StartsWith(const char *str, const char *prefix, size_t pos, bool ignoreCaseFlag);
+GURA_DLLDECLARE const char *EndsWith(const char *str, const char *suffix, bool ignoreCaseFlag);
+GURA_DLLDECLARE const char *EndsWith(const char *str, const char *suffix, size_t posEnd, bool ignoreCaseFlag);
+GURA_DLLDECLARE String Capitalize(const char *str);
+GURA_DLLDECLARE String Lower(const char *str);
+GURA_DLLDECLARE String Upper(const char *str);
+GURA_DLLDECLARE String Strip(const char *str, bool stripLeftFlag = true, bool stripRightFlag = true);
+GURA_DLLDECLARE String Strip(const char *str, const SymbolSet &attrs);
+GURA_DLLDECLARE String Chop(const char *str, bool eolOnlyFlag);
+GURA_DLLDECLARE size_t Length(const char *str);
+GURA_DLLDECLARE size_t CalcCharPos(const char *str, size_t idx);
+GURA_DLLDECLARE const char *Forward(const char *str, size_t len);
+GURA_DLLDECLARE String::const_iterator Forward(String::const_iterator str, String::const_iterator strEnd, size_t len);
+GURA_DLLDECLARE String Center(const char *str, size_t len, const char *padding);
+GURA_DLLDECLARE String LJust(const char *str, size_t len, const char *padding);
+GURA_DLLDECLARE String RJust(const char *str, size_t len, const char *padding);
+GURA_DLLDECLARE String Left(const char *str, size_t len);
+GURA_DLLDECLARE String Right(const char *str, size_t len);
+GURA_DLLDECLARE String Middle(const char *str, int start, int len);
+GURA_DLLDECLARE String Join(const ValueList &valList, const char *str);
+GURA_DLLDECLARE String Replace(const char *str, const char *sub, const char *replace,
 									int nMaxReplace, const SymbolSet &attrs);
-DLLDECLARE void SplitPathList(const char *str, StringList &strList);
-DLLDECLARE Value FindString(Environment &env, Signal sig,
+GURA_DLLDECLARE void SplitPathList(const char *str, StringList &strList);
+GURA_DLLDECLARE Value FindString(Environment &env, Signal sig,
 		const char *str, const char *sub, int start, const SymbolSet &attrs);
 
-DLLDECLARE unsigned short GetCType(char ch);
+GURA_DLLDECLARE unsigned short GetCType(char ch);
 
 inline size_t CalcCharOffset(const char *str, size_t pos) {
 	return Forward(str, pos) - str;
@@ -155,7 +155,7 @@ inline bool IsFileSeparator(char ch) {
 //-----------------------------------------------------------------------------
 // StringList
 //-----------------------------------------------------------------------------
-class DLLDECLARE StringList : public std::vector<String> {
+class GURA_DLLDECLARE StringList : public std::vector<String> {
 public:
 	static const StringList Null;
 	inline StringList() {}

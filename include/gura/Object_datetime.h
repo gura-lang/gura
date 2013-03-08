@@ -9,14 +9,14 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_datetime / Object_datetime
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_datetime : public Class {
+class GURA_DLLDECLARE Class_datetime : public Class {
 public:
 	Class_datetime(Environment *pEnvOuter);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
 
-class DLLDECLARE Object_datetime : public Object {
+class GURA_DLLDECLARE Object_datetime : public Object {
 public:
 	Gura_DeclareObjectAccessor(datetime)
 private:

@@ -16,7 +16,7 @@ class Object_codec;
 //-----------------------------------------------------------------------------
 // SimpleStream
 //-----------------------------------------------------------------------------
-class DLLDECLARE SimpleStream {
+class GURA_DLLDECLARE SimpleStream {
 public:
 	void Print(Signal sig, const char *str);
 	void Printf(Signal sig, const char *format, const ValueList &valList);
@@ -30,7 +30,7 @@ public:
 //-----------------------------------------------------------------------------
 // SimpleStream_StringRead
 //-----------------------------------------------------------------------------
-class DLLDECLARE SimpleStream_StringRead : public SimpleStream {
+class GURA_DLLDECLARE SimpleStream_StringRead : public SimpleStream {
 private:
 	String::const_iterator _pStr;
 	String::const_iterator _pEnd;
@@ -44,7 +44,7 @@ public:
 //-----------------------------------------------------------------------------
 // SimpleStream_StringWrite
 //-----------------------------------------------------------------------------
-class DLLDECLARE SimpleStream_StringWrite : public SimpleStream {
+class GURA_DLLDECLARE SimpleStream_StringWrite : public SimpleStream {
 private:
 	String &_str;
 public:
@@ -56,7 +56,7 @@ public:
 //-----------------------------------------------------------------------------
 // Stream
 //-----------------------------------------------------------------------------
-class DLLDECLARE Stream : public SimpleStream {
+class GURA_DLLDECLARE Stream : public SimpleStream {
 public:
 	enum SeekMode { SeekSet, SeekCur };
 	enum Error {
@@ -199,7 +199,7 @@ public:
 //-----------------------------------------------------------------------------
 // StreamDumb
 //-----------------------------------------------------------------------------
-class DLLDECLARE StreamDumb : public Stream {
+class GURA_DLLDECLARE StreamDumb : public Stream {
 private:
 	Signal _sig;
 public:
@@ -220,7 +220,7 @@ public:
 //-----------------------------------------------------------------------------
 // Stream_Prefetch
 //-----------------------------------------------------------------------------
-class DLLDECLARE Stream_Prefetch : public Stream {
+class GURA_DLLDECLARE Stream_Prefetch : public Stream {
 public:
 	typedef std::vector<OAL::Memory *> MemoryList;
 private:
@@ -248,7 +248,7 @@ public:
 //-----------------------------------------------------------------------------
 // Stream_Base64Reader
 //-----------------------------------------------------------------------------
-class DLLDECLARE Stream_Base64Reader : public Stream {
+class GURA_DLLDECLARE Stream_Base64Reader : public Stream {
 private:
 	AutoPtr<Stream> _pStreamSrc;
 	int _nChars;
@@ -274,7 +274,7 @@ public:
 //-----------------------------------------------------------------------------
 // Stream_Base64Writer
 //-----------------------------------------------------------------------------
-class DLLDECLARE Stream_Base64Writer : public Stream {
+class GURA_DLLDECLARE Stream_Base64Writer : public Stream {
 private:
 	AutoPtr<Stream> _pStreamDst;
 	int _nCharsPerLine;
@@ -300,7 +300,7 @@ public:
 //-----------------------------------------------------------------------------
 // Stream_CRC32
 //-----------------------------------------------------------------------------
-class DLLDECLARE Stream_CRC32 : public Stream {
+class GURA_DLLDECLARE Stream_CRC32 : public Stream {
 private:
 	AutoPtr<Stream> _pStreamDst;
 	CRC32 _crc32;

@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // MagicCommentParser
 //-----------------------------------------------------------------------------
-class DLLDECLARE MagicCommentParser {
+class GURA_DLLDECLARE MagicCommentParser {
 private:
 	enum Stat {
 		STAT_Idle, STAT_Start, STAT_SkipSpace, STAT_CodingName,
@@ -26,7 +26,7 @@ public:
 //-----------------------------------------------------------------------------
 // Parser
 //-----------------------------------------------------------------------------
-class DLLDECLARE Parser {
+class GURA_DLLDECLARE Parser {
 public:
 	enum Stat {
 		STAT_Start,
@@ -140,7 +140,7 @@ public:
 		int cntRest;
 		unsigned long accum;
 	};
-	class DLLDECLARE Element {
+	class GURA_DLLDECLARE Element {
 	private:
 		ElemType _elemType;
 		int _lineNo;
@@ -200,7 +200,7 @@ public:
 		Number GetNumber() const;
 		const char *GetTypeSymbol() const;
 	};
-	class DLLDECLARE ElementStack : public std::vector<Element> {
+	class GURA_DLLDECLARE ElementStack : public std::vector<Element> {
 	public:
 		~ElementStack();
 		reverse_iterator SeekTerminal(reverse_iterator p);

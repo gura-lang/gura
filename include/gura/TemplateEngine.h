@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // TemplateEngine
 //-----------------------------------------------------------------------------
-class DLLDECLARE TemplateEngine {
+class GURA_DLLDECLARE TemplateEngine {
 public:
 	typedef std::vector<Expr_Caller *> ExprCallerStack;
 private:

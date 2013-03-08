@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object_iterator
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_iterator : public Class {
+class GURA_DLLDECLARE Class_iterator : public Class {
 public:
 	Class_iterator(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -16,7 +16,7 @@ public:
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
 
-class DLLDECLARE Object_iterator : public Object {
+class GURA_DLLDECLARE Object_iterator : public Object {
 public:
 	Gura_DeclareObjectAccessor(iterator)
 private:

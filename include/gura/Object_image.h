@@ -10,7 +10,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_image
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_image : public Class {
+class GURA_DLLDECLARE Class_image : public Class {
 public:
 	Class_image(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -20,7 +20,7 @@ public:
 //-----------------------------------------------------------------------------
 // Object_image
 //-----------------------------------------------------------------------------
-class DLLDECLARE Object_image : public Object {
+class GURA_DLLDECLARE Object_image : public Object {
 #if USE_WINDOWS_DIB
 protected:
 	HBITMAP _hBmp;
@@ -64,7 +64,7 @@ public:
 				static_cast<unsigned char>(alpha));
 		}
 	};
-	class DLLDECLARE Scanner {
+	class GURA_DLLDECLARE Scanner {
 	private:
 		AutoPtr<Object_image> _pObjImage;
 		unsigned char *_pPixel;
@@ -353,7 +353,7 @@ private:
 //-----------------------------------------------------------------------------
 // ImageStreamer
 //-----------------------------------------------------------------------------
-class DLLDECLARE ImageStreamer {
+class GURA_DLLDECLARE ImageStreamer {
 public:
 	typedef std::vector<ImageStreamer *> List;
 private:

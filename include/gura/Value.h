@@ -72,7 +72,7 @@ Gura_RealizeVTYPEEx(name, #name)
 Class_##name::Class_##name(Environment *pEnvOuter) : Class(pEnvOuter)
 
 #define Gura_DeclareUserClass(name) \
-class DLLEXPORT Class_##name : public Class { \
+class GURA_DLLEXPORT Class_##name : public Class { \
 public: \
 	inline Class_##name(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {} \
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl); \
@@ -82,7 +82,7 @@ public: \
 public: \
 	static ValueTypeInfo *_pValueTypeInfo; \
 }; \
-DLLEXPORT extern ValueType VTYPE_##name;
+GURA_DLLEXPORT extern ValueType VTYPE_##name;
 
 #define Gura_ImplementUserClass(name) \
 ValueTypeInfo *Class_##name::_pValueTypeInfo = NULL; \
@@ -145,49 +145,49 @@ Gura_RealizeUserClassEx(name, #name, pClassBase)
 Gura_RealizeUserClassExWithoutPrepare(name, #name, pClassBase)
 
 // nil / undefined
-DLLDECLARE extern ValueType VTYPE_nil;
-DLLDECLARE extern ValueType VTYPE_undefined;
+GURA_DLLDECLARE extern ValueType VTYPE_nil;
+GURA_DLLDECLARE extern ValueType VTYPE_undefined;
 // primitive types
-DLLDECLARE extern ValueType VTYPE_symbol;
-DLLDECLARE extern ValueType VTYPE_boolean;
-DLLDECLARE extern ValueType VTYPE_number;
-DLLDECLARE extern ValueType VTYPE_complex;
+GURA_DLLDECLARE extern ValueType VTYPE_symbol;
+GURA_DLLDECLARE extern ValueType VTYPE_boolean;
+GURA_DLLDECLARE extern ValueType VTYPE_number;
+GURA_DLLDECLARE extern ValueType VTYPE_complex;
 // for declaration
-DLLDECLARE extern ValueType VTYPE_quote;
-DLLDECLARE extern ValueType VTYPE_any;
+GURA_DLLDECLARE extern ValueType VTYPE_quote;
+GURA_DLLDECLARE extern ValueType VTYPE_any;
 // container types
-DLLDECLARE extern ValueType VTYPE_Module;
-DLLDECLARE extern ValueType VTYPE_Class;
+GURA_DLLDECLARE extern ValueType VTYPE_Module;
+GURA_DLLDECLARE extern ValueType VTYPE_Class;
 // object types
-DLLDECLARE extern ValueType VTYPE_object;
-DLLDECLARE extern ValueType VTYPE_function;
-DLLDECLARE extern ValueType VTYPE_string;
-DLLDECLARE extern ValueType VTYPE_binary;
-DLLDECLARE extern ValueType VTYPE_binaryptr;
-DLLDECLARE extern ValueType VTYPE_list;
-DLLDECLARE extern ValueType VTYPE_matrix;
-DLLDECLARE extern ValueType VTYPE_dict;
-DLLDECLARE extern ValueType VTYPE_stream;
-DLLDECLARE extern ValueType VTYPE_datetime;
-DLLDECLARE extern ValueType VTYPE_timedelta;
-DLLDECLARE extern ValueType VTYPE_iterator;
-DLLDECLARE extern ValueType VTYPE_expr;
-DLLDECLARE extern ValueType VTYPE_environment;
-DLLDECLARE extern ValueType VTYPE_error;
-DLLDECLARE extern ValueType VTYPE_uri;
-DLLDECLARE extern ValueType VTYPE_semaphore;
-DLLDECLARE extern ValueType VTYPE_Struct;
-DLLDECLARE extern ValueType VTYPE_image;
-DLLDECLARE extern ValueType VTYPE_color;
-DLLDECLARE extern ValueType VTYPE_palette;
-DLLDECLARE extern ValueType VTYPE_audio;
-DLLDECLARE extern ValueType VTYPE_codec;
-DLLDECLARE extern ValueType VTYPE_args;
+GURA_DLLDECLARE extern ValueType VTYPE_object;
+GURA_DLLDECLARE extern ValueType VTYPE_function;
+GURA_DLLDECLARE extern ValueType VTYPE_string;
+GURA_DLLDECLARE extern ValueType VTYPE_binary;
+GURA_DLLDECLARE extern ValueType VTYPE_binaryptr;
+GURA_DLLDECLARE extern ValueType VTYPE_list;
+GURA_DLLDECLARE extern ValueType VTYPE_matrix;
+GURA_DLLDECLARE extern ValueType VTYPE_dict;
+GURA_DLLDECLARE extern ValueType VTYPE_stream;
+GURA_DLLDECLARE extern ValueType VTYPE_datetime;
+GURA_DLLDECLARE extern ValueType VTYPE_timedelta;
+GURA_DLLDECLARE extern ValueType VTYPE_iterator;
+GURA_DLLDECLARE extern ValueType VTYPE_expr;
+GURA_DLLDECLARE extern ValueType VTYPE_environment;
+GURA_DLLDECLARE extern ValueType VTYPE_error;
+GURA_DLLDECLARE extern ValueType VTYPE_uri;
+GURA_DLLDECLARE extern ValueType VTYPE_semaphore;
+GURA_DLLDECLARE extern ValueType VTYPE_Struct;
+GURA_DLLDECLARE extern ValueType VTYPE_image;
+GURA_DLLDECLARE extern ValueType VTYPE_color;
+GURA_DLLDECLARE extern ValueType VTYPE_palette;
+GURA_DLLDECLARE extern ValueType VTYPE_audio;
+GURA_DLLDECLARE extern ValueType VTYPE_codec;
+GURA_DLLDECLARE extern ValueType VTYPE_args;
 
 //-----------------------------------------------------------------------------
 // ValueTypeInfo
 //-----------------------------------------------------------------------------
-class DLLDECLARE ValueTypeInfo {
+class GURA_DLLDECLARE ValueTypeInfo {
 private:
 	ValueType _valType;
 	const Symbol *_pSymbol;
@@ -206,7 +206,7 @@ public:
 //-----------------------------------------------------------------------------
 // ValueTypeMap
 //-----------------------------------------------------------------------------
-class DLLDECLARE ValueTypeMap : public std::map<const Symbol *,
+class GURA_DLLDECLARE ValueTypeMap : public std::map<const Symbol *,
 						const ValueTypeInfo *, Symbol::KeyCompare_UniqNumber> {
 public:
 	static const ValueTypeMap Null;
@@ -220,7 +220,7 @@ typedef std::vector<ValueTypeInfo *> ValueTypeList;
 //-----------------------------------------------------------------------------
 // ValueTypePool
 //-----------------------------------------------------------------------------
-class DLLDECLARE ValueTypePool {
+class GURA_DLLDECLARE ValueTypePool {
 public:
 	// primitive types
 	Gura_DeclareVTYPE(nil);
@@ -298,7 +298,7 @@ public:
 //-----------------------------------------------------------------------------
 // Value
 //-----------------------------------------------------------------------------
-class DLLDECLARE Value {
+class GURA_DLLDECLARE Value {
 public:
 	class KeyCompare {
 	private:
@@ -682,7 +682,7 @@ private:
 //-----------------------------------------------------------------------------
 // ValueList
 //-----------------------------------------------------------------------------
-class DLLDECLARE ValueList : public std::vector<Value> {
+class GURA_DLLDECLARE ValueList : public std::vector<Value> {
 public:
 	static const ValueList Null;
 public:
@@ -725,7 +725,7 @@ typedef std::vector<const Value *> ValuePtrList;
 //-----------------------------------------------------------------------------
 // ValueMap
 //-----------------------------------------------------------------------------
-class DLLDECLARE ValueMap : public std::map<const Symbol *, Value, Symbol::KeyCompare_UniqNumber> {
+class GURA_DLLDECLARE ValueMap : public std::map<const Symbol *, Value, Symbol::KeyCompare_UniqNumber> {
 public:
 	static const ValueMap Null;
 public:
@@ -749,7 +749,7 @@ typedef std::deque<Value> ValueDeque;
 //-----------------------------------------------------------------------------
 // ValueDict
 //-----------------------------------------------------------------------------
-class DLLDECLARE ValueDict : public std::map<Value, Value, Value::KeyCompare> {
+class GURA_DLLDECLARE ValueDict : public std::map<Value, Value, Value::KeyCompare> {
 public:
 	enum StoreMode {
 		STORE_Normal,

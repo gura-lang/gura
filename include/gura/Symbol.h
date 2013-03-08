@@ -38,7 +38,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Symbol
 //-----------------------------------------------------------------------------
-class DLLDECLARE Symbol {
+class GURA_DLLDECLARE Symbol {
 public:
 	typedef unsigned int UniqNumber;
 	struct KeyCompare_UniqNumber {
@@ -72,7 +72,7 @@ public:
 //-----------------------------------------------------------------------------
 // SymbolList
 //-----------------------------------------------------------------------------
-class DLLDECLARE SymbolList : public std::vector<const Symbol *> {
+class GURA_DLLDECLARE SymbolList : public std::vector<const Symbol *> {
 public:
 	String Join(const char *sep) const;
 	String Join(const char sepChar) const;
@@ -86,7 +86,7 @@ public:
 //-----------------------------------------------------------------------------
 // SymbolSet
 //-----------------------------------------------------------------------------
-class DLLDECLARE SymbolSet : public std::set<const Symbol *, Symbol::KeyCompare_UniqNumber> {
+class GURA_DLLDECLARE SymbolSet : public std::set<const Symbol *, Symbol::KeyCompare_UniqNumber> {
 public:
 	static const SymbolSet Null;
 public:
@@ -105,7 +105,7 @@ public:
 //-----------------------------------------------------------------------------
 // SymbolPool
 //-----------------------------------------------------------------------------
-class DLLDECLARE SymbolPool {
+class GURA_DLLDECLARE SymbolPool {
 public:
 	Gura_DeclareSymbol(Str_Empty);
 	Gura_DeclareSymbol(Char_Plus);

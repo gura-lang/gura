@@ -9,14 +9,14 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_environment / Object_environment
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_environment : public Class {
+class GURA_DLLDECLARE Class_environment : public Class {
 public:
 	Class_environment(Environment *pEnvOuter);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
 
-class DLLDECLARE Object_environment : public Object {
+class GURA_DLLDECLARE Object_environment : public Object {
 public:
 	Gura_DeclareObjectAccessor(environment)
 private:

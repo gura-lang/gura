@@ -9,7 +9,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_stream
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_stream : public Class {
+class GURA_DLLDECLARE Class_stream : public Class {
 public:
 	Class_stream(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -20,7 +20,7 @@ public:
 //-----------------------------------------------------------------------------
 // Object_stream
 //-----------------------------------------------------------------------------
-class DLLDECLARE Object_stream : public Object {
+class GURA_DLLDECLARE Object_stream : public Object {
 public:
 	class IteratorLine : public Iterator {
 	private:

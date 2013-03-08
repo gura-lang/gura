@@ -63,7 +63,7 @@ const char *GetSignalTypeName(SignalType sigType);
 //-----------------------------------------------------------------------------
 // Signal
 //-----------------------------------------------------------------------------
-class DLLDECLARE Signal {
+class GURA_DLLDECLARE Signal {
 private:
 	struct Message {
 		SignalType sigType;

@@ -40,7 +40,7 @@ enum ExprType {
 	EXPRTYPE_TemplateString,
 };
 
-DLLDECLARE const char *GetExprTypeName(ExprType exprType);
+GURA_DLLDECLARE const char *GetExprTypeName(ExprType exprType);
 
 //-----------------------------------------------------------------------------
 // ExprVisitor
@@ -74,7 +74,7 @@ public:
 //        +- Expr_String
 //        `- Expr_TemplateString
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr {
+class GURA_DLLDECLARE Expr {
 public:
 	class ExprVisitor_GatherSymbol : public ExprVisitor {
 	private:
@@ -193,7 +193,7 @@ public:
 //-----------------------------------------------------------------------------
 // ExprList
 //-----------------------------------------------------------------------------
-class DLLDECLARE ExprList : public std::vector<Expr *> {
+class GURA_DLLDECLARE ExprList : public std::vector<Expr *> {
 private:
 	class ValueVisitorEx : public ValueVisitor {
 	private:
@@ -230,7 +230,7 @@ private:
 //-----------------------------------------------------------------------------
 // ExprOwner
 //-----------------------------------------------------------------------------
-class DLLDECLARE ExprOwner : public ExprList {
+class GURA_DLLDECLARE ExprOwner : public ExprList {
 public:
 	inline ExprOwner() {}
 	ExprOwner(const ExprList &exprList);
@@ -243,7 +243,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Unary
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Unary : public Expr {
+class GURA_DLLDECLARE Expr_Unary : public Expr {
 private:
 	ExprOwner _exprOwner;
 public:
@@ -264,7 +264,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Binary
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Binary : public Expr {
+class GURA_DLLDECLARE Expr_Binary : public Expr {
 private:
 	ExprOwner _exprOwner;
 public:
@@ -287,7 +287,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Container
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Container : public Expr {
+class GURA_DLLDECLARE Expr_Container : public Expr {
 protected:
 	ExprOwner _exprOwner;
 public:
@@ -311,7 +311,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Value
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Value : public Expr {
+class GURA_DLLDECLARE Expr_Value : public Expr {
 protected:
 	Value _value;
 public:
@@ -337,7 +337,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_String
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_String : public Expr {
+class GURA_DLLDECLARE Expr_String : public Expr {
 protected:
 	String _str;
 public:
@@ -359,7 +359,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_TemplateString
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_TemplateString : public Expr {
+class GURA_DLLDECLARE Expr_TemplateString : public Expr {
 protected:
 	SimpleStream &_streamDst;
 	String _str;
@@ -385,7 +385,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Symbol
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Symbol : public Expr {
+class GURA_DLLDECLARE Expr_Symbol : public Expr {
 protected:
 	const Symbol *_pSymbol;
 	SymbolSet _attrs;
@@ -422,7 +422,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Root
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Root : public Expr_Container {
+class GURA_DLLDECLARE Expr_Root : public Expr_Container {
 private:
 	String _pathName;
 public:
@@ -444,7 +444,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_BlockParam
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_BlockParam : public Expr_Container {
+class GURA_DLLDECLARE Expr_BlockParam : public Expr_Container {
 public:
 	inline Expr_BlockParam() : Expr_Container(EXPRTYPE_BlockParam) {}
 	inline Expr_BlockParam(const Expr_BlockParam &expr) : Expr_Container(expr) {}
@@ -461,7 +461,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Block
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Block : public Expr_Container {
+class GURA_DLLDECLARE Expr_Block : public Expr_Container {
 protected:
 	AutoPtr<Expr_BlockParam> _pExprBlockParam;	// this may be NULL
 public:
@@ -486,7 +486,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Lister
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Lister : public Expr_Container {
+class GURA_DLLDECLARE Expr_Lister : public Expr_Container {
 public:
 	inline Expr_Lister() : Expr_Container(EXPRTYPE_Lister) {}
 	inline Expr_Lister(Expr *pExpr) : Expr_Container(EXPRTYPE_Lister) {
@@ -508,7 +508,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_TemplateScript
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_TemplateScript : public Expr_Container {
+class GURA_DLLDECLARE Expr_TemplateScript : public Expr_Container {
 protected:
 	SimpleStream &_streamDst;
 	String _strIndent;
@@ -542,7 +542,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Compound
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Compound : public Expr {
+class GURA_DLLDECLARE Expr_Compound : public Expr {
 protected:
 	AutoPtr<Expr> _pExprCar;
 	AutoPtr<Expr_Lister> _pExprLister;
@@ -566,7 +566,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Indexer
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Indexer : public Expr_Compound {
+class GURA_DLLDECLARE Expr_Indexer : public Expr_Compound {
 public:
 	inline Expr_Indexer(Expr *pExprCar, Expr_Lister *pExprLister) :
 			Expr_Compound(EXPRTYPE_Indexer, pExprCar, pExprLister) {}
@@ -588,7 +588,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Caller
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Caller : public Expr_Compound {
+class GURA_DLLDECLARE Expr_Caller : public Expr_Compound {
 protected:
 	AutoPtr<Expr_Block> _pExprBlock;		// this may be NULL
 	AutoPtr<Expr_Caller> _pExprTrailer;		// this may be NULL
@@ -643,7 +643,7 @@ private:
 //-----------------------------------------------------------------------------
 // Expr_UnaryOp
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_UnaryOp : public Expr_Unary {
+class GURA_DLLDECLARE Expr_UnaryOp : public Expr_Unary {
 protected:
 	const Function *_pFunc;
 	bool _suffixSymbolFlag;
@@ -670,7 +670,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_BinaryOp
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_BinaryOp : public Expr_Binary {
+class GURA_DLLDECLARE Expr_BinaryOp : public Expr_Binary {
 protected:
 	const Function *_pFunc;
 public:
@@ -694,7 +694,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Quote
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Quote : public Expr_Unary {
+class GURA_DLLDECLARE Expr_Quote : public Expr_Unary {
 public:
 	inline Expr_Quote(Expr *pExprChild) : Expr_Unary(EXPRTYPE_Quote, pExprChild) {}
 	inline Expr_Quote(const Expr_Quote &expr) : Expr_Unary(expr) {}
@@ -712,7 +712,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Force
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Force : public Expr_Unary {
+class GURA_DLLDECLARE Expr_Force : public Expr_Unary {
 public:
 	inline Expr_Force(Expr *pExprChild) : Expr_Unary(EXPRTYPE_Force, pExprChild) {}
 	inline Expr_Force(const Expr_Force &expr) : Expr_Unary(expr) {}
@@ -729,7 +729,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Prefix
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Prefix : public Expr_Unary {
+class GURA_DLLDECLARE Expr_Prefix : public Expr_Unary {
 private:
 	const Symbol *_pSymbol;
 public:
@@ -751,7 +751,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Suffix
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Suffix : public Expr_Unary {
+class GURA_DLLDECLARE Expr_Suffix : public Expr_Unary {
 private:
 	const Symbol *_pSymbol;
 public:
@@ -774,7 +774,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Assign
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Assign : public Expr_Binary {
+class GURA_DLLDECLARE Expr_Assign : public Expr_Binary {
 private:
 	const Function *_pFuncToApply;
 public:
@@ -797,7 +797,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_DictAssign
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_DictAssign : public Expr_Binary {
+class GURA_DLLDECLARE Expr_DictAssign : public Expr_Binary {
 public:
 	inline Expr_DictAssign(Expr *pExprLeft, Expr *pExprRight) :
 				Expr_Binary(EXPRTYPE_DictAssign, pExprLeft, pExprRight) {}
@@ -816,7 +816,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Member
 //-----------------------------------------------------------------------------
-class DLLDECLARE Expr_Member : public Expr_Binary {
+class GURA_DLLDECLARE Expr_Member : public Expr_Binary {
 public:
 	enum Mode {
 		MODE_Normal,		// foo.bar

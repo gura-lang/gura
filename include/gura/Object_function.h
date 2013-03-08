@@ -9,7 +9,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_function / Object_function
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_function : public Class {
+class GURA_DLLDECLARE Class_function : public Class {
 public:
 	Class_function(Environment *pEnvOuter);
 	virtual void Prepare();
@@ -20,7 +20,7 @@ public:
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
 
-class DLLDECLARE Object_function : public Object {
+class GURA_DLLDECLARE Object_function : public Object {
 public:
 	Gura_DeclareObjectAccessor(function)
 protected:

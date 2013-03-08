@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class_string / Object_string
 //-----------------------------------------------------------------------------
-class DLLDECLARE Class_string : public Class {
+class GURA_DLLDECLARE Class_string : public Class {
 public:
 	Class_string(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -18,9 +18,9 @@ public:
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
 
-class DLLDECLARE Object_string : public Object {
+class GURA_DLLDECLARE Object_string : public Object {
 public:
-	class DLLDECLARE IteratorEach : public Iterator {
+	class GURA_DLLDECLARE IteratorEach : public Iterator {
 	public:
 		enum Attr { ATTR_None, ATTR_UTF8, ATTR_UTF32, };
 	private:
@@ -35,7 +35,7 @@ public:
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
-	class DLLDECLARE IteratorLine : public Iterator {
+	class GURA_DLLDECLARE IteratorLine : public Iterator {
 	private:
 		String _str;
 		int _cnt, _cntMax;
@@ -48,7 +48,7 @@ public:
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
-	class DLLDECLARE IteratorSplit : public Iterator {
+	class GURA_DLLDECLARE IteratorSplit : public Iterator {
 	private:
 		String _str;
 		String _sep;
@@ -64,7 +64,7 @@ public:
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
-	class DLLDECLARE IteratorFold : public Iterator {
+	class GURA_DLLDECLARE IteratorFold : public Iterator {
 	private:
 		String _str;
 		size_t _cntPerFold;
@@ -103,7 +103,7 @@ public:
 //-----------------------------------------------------------------------------
 // Stream_StringReader
 //-----------------------------------------------------------------------------
-class DLLDECLARE Stream_StringReader : public Stream {
+class GURA_DLLDECLARE Stream_StringReader : public Stream {
 private:
 	String _str;
 	size_t _offset;
