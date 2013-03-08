@@ -17,6 +17,7 @@ public:
 	virtual ~Object_exif();
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
+	bool ReadStream(Signal sig, Stream &stream);
 };
 
 }}

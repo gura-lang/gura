@@ -2,6 +2,7 @@
 // Gura jpeg module
 //-----------------------------------------------------------------------------
 #include "Module_jpeg.h"
+#include "Object_exif.h"
 
 Gura_BeginModule(jpeg)
 
@@ -46,6 +47,23 @@ Gura_ImplementMethod(image, jpegwrite)
 	return args.GetThis();
 }
 
+// jpeg.exif(stream?:stream) {block?}
+Gura_DeclareFunction(exif)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(exif)
+{
+	Object_exif *pObj = new Object_exif();
+	if (args.IsStream(0)) {
+		if (!pObj->ReadStream(sig, args.GetStream(0))) return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(pObj));
+}
+
 // jpeg.test()
 Gura_DeclareFunction(test)
 {
@@ -64,6 +82,7 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// function assignment
+	Gura_AssignFunction(exif);
 	Gura_AssignFunction(test);
 	// method assignment to image
 	Gura_AssignMethodTo(VTYPE_image, image, jpegread);

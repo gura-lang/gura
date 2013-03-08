@@ -19,6 +19,11 @@ String Object_exif::ToString(Signal sig, bool exprFlag)
 	return String("<jpeg.exif>");
 }
 
+bool Object_exif::ReadStream(Signal sig, Stream &stream)
+{
+	return true;
+}
+
 //-----------------------------------------------------------------------------
 // Gura interfaces for exif
 //-----------------------------------------------------------------------------
