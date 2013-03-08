@@ -143,8 +143,12 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 		exprOwnerRoot.push_back(new Expr_TemplateString(streamDst, str));
 		str.clear();
 	}
-	exprOwnerRoot.Exec(env, sig, true);
-	//::printf("%s\n", exprOwnerRoot.ToString().c_str());
+	Environment envBlock(&env, ENVTYPE_local);
+	do {
+		Environment &env = envBlock;
+		exprOwnerRoot.Exec(env, sig, true);
+		//::printf("%s\n", exprOwnerRoot.ToString().c_str());
+	} while (0);
 	return !sig.IsSignalled();
 }
 
