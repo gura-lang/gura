@@ -84,6 +84,8 @@ private:
 public:
 	inline Object_string(Class *pClass) : Object(pClass) {}
 	inline Object_string(Environment &env) : Object(env.LookupClass(VTYPE_string)) {}
+	inline Object_string(Environment &env, const String &str) :
+						Object(env.LookupClass(VTYPE_string)), _str(str) {}
 	inline Object_string(Environment &env, const char *str) :
 						Object(env.LookupClass(VTYPE_string)), _str(str) {}
 	inline Object_string(Environment &env, const char *str, size_t len) :

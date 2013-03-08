@@ -53,6 +53,7 @@ Gura_DeclareFunction(exif)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(exif));
 }
 
 Gura_ImplementFunction(exif)
@@ -81,6 +82,8 @@ Gura_ImplementFunction(test)
 // Module entry
 Gura_ModuleEntry()
 {
+	// class realization
+	Gura_RealizeUserClass(exif, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(exif);
 	Gura_AssignFunction(test);

@@ -286,6 +286,21 @@ Value::~Value()
 }
 
 // VTYPE_string
+Value::Value(Environment &env, const String &str) : _valType(VTYPE_string), _flags(FLAG_Owner)
+{
+#if USE_TINYBUFF
+	size_t len = str.size();
+	if (len < sizeof(_u) - 1) {
+		_flags |= FLAG_TinyBuff;
+		::memcpy(_u.tinyBuff, str, len + 1);
+	} else {
+		_u.pObj = new Object_string(env, str);
+	}
+#else
+	_u.pObj = new Object_string(env, str);
+#endif
+}
+
 Value::Value(Environment &env, const char *str) : _valType(VTYPE_string), _flags(FLAG_Owner)
 {
 #if USE_TINYBUFF

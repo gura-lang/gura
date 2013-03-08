@@ -410,6 +410,7 @@ public:
 		_u.pComp = new Complex(comp);
 	}
 	// VTYPE_string, VTYPE_binary
+	Value(Environment &env, const String &str);
 	Value(Environment &env, const char *str);
 	Value(Environment &env, const char *str, size_t len);
 	// VTYPE_iterator
