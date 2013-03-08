@@ -69,7 +69,7 @@ public:
 	};
 public:
 	Gura_DeclareObjectAccessor(dict)
-private:
+protected:
 	ValueDict _valDict;
 	bool _ignoreCaseFlag;
 public:

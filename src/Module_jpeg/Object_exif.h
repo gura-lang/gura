@@ -9,15 +9,17 @@ Gura_BeginModule(jpeg)
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(exif);
 
-class Object_exif : public Object {
+class Object_exif : public Object_dict {
 public:
 	Gura_DeclareObjectAccessor(exif)
 public:
-	inline Object_exif() : Object(Gura_UserClass(exif)) {}
+	inline Object_exif() : Object_dict(Gura_UserClass(exif), false) {}
 	virtual ~Object_exif();
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	bool ReadStream(Signal sig, Stream &stream);
+	bool ParseIFD(Environment &env, Signal sig,
+					char *buff, size_t bytesAPP1, size_t offset);
 };
 
 }}
