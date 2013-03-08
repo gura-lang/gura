@@ -10,4 +10,4 @@ if (sys.build == `msc) {
 	builder.debFiles = ['libjpeg-dev']
 	builder.rpmFiles = ['libjpeg-devel']
 }
-builder.build('jpeg', ['Module_jpeg.cpp'])
+builder.build('jpeg', ['Module_jpeg.cpp', 'Object_exif.cpp'])
