@@ -33,6 +33,42 @@ void SimpleStream::PrintSignal(Signal sig, const Signal &sigToPrint)
 	}
 }
 
+void SimpleStream::Dump(Signal sig, const void *buff, size_t bytes, bool upperFlag)
+{
+	int iCol = 0;
+	String strHex, strASCII;
+	const unsigned char *p = reinterpret_cast<const unsigned char *>(buff);
+	for (size_t i = 0; i < bytes; i++, p++) {
+		unsigned char ch = *p;
+		char buff[8];
+		if (upperFlag) {
+			::sprintf(buff, (iCol > 0)? " %02X" : "%02X", ch);
+		} else {
+			::sprintf(buff, (iCol > 0)? " %02x" : "%02x", ch);
+		}
+		strHex += buff;
+		strASCII += (0x20 <= ch && ch < 0x7f)? ch : '.';
+		iCol++;
+		if (iCol == 16) {
+			String strLine = strHex;
+			strLine += "  ";
+			strLine += strASCII;
+			Println(sig, strLine.c_str());
+			if (sig.IsSignalled()) return;
+			strHex.clear();
+			strASCII.clear();
+			iCol = 0;
+		}
+	}
+	if (iCol > 0) {
+		String strLine = strHex;
+		for ( ; iCol < 16; iCol++) strLine += "   ";
+		strLine += "  ";
+		strLine += strASCII;
+		Println(sig, strLine.c_str());
+	}
+}
+
 //-----------------------------------------------------------------------------
 // SimpleStream_StringRead
 //-----------------------------------------------------------------------------

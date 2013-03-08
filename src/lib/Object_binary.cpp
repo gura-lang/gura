@@ -352,39 +352,8 @@ Gura_ImplementMethod(binary, dump)
 	Stream *pStream = args.IsInstanceOf(0, VTYPE_stream)?
 								&args.GetStream(0) : env.GetConsole();
 	Object_binary *pThis = Object_binary::GetThisObj(args);
-	int iCol = 0;
-	String strHex, strASCII;
-	bool upperFlag = args.IsSet(Gura_Symbol(upper));
-	foreach_const (Binary, p, pThis->GetBinary()) {
-		unsigned char ch = static_cast<unsigned char>(*p);
-		char buff[8];
-		if (upperFlag) {
-			::sprintf(buff, (iCol > 0)? " %02X" : "%02X", ch);
-		} else {
-			::sprintf(buff, (iCol > 0)? " %02x" : "%02x", ch);
-		}
-		strHex += buff;
-		strASCII += (0x20 <= ch && ch < 0x7f)? ch : '.';
-		iCol++;
-		if (iCol == 16) {
-			String strLine = strHex;
-			strLine += "  ";
-			strLine += strASCII;
-			pStream->Println(sig, strLine.c_str());
-			if (sig.IsSignalled()) return Value::Null;
-			strHex.clear();
-			strASCII.clear();
-			iCol = 0;
-		}
-	}
-	if (iCol > 0) {
-		String strLine = strHex;
-		for ( ; iCol < 16; iCol++) strLine += "   ";
-		strLine += "  ";
-		strLine += strASCII;
-		pStream->Println(sig, strLine.c_str());
-		if (sig.IsSignalled()) return Value::Null;
-	}
+	const Binary &buff = pThis->GetBinary();
+	pStream->Dump(sig, buff.data(), buff.size(), args.IsSet(Gura_Symbol(upper)));
 	return Value::Null;
 }
 
