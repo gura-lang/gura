@@ -83,7 +83,7 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// class realization
-	Gura_RealizeUserClass(exif, env.LookupClass(VTYPE_dict));
+	Gura_RealizeUserClass(exif, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(exif);
 	Gura_AssignFunction(test);

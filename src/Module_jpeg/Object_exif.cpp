@@ -8,6 +8,11 @@ enum {
 };
 
 enum {
+	MARKER_SOI	= 0xffd8,
+	MARKER_APP1	= 0xffe1,
+};
+
+enum {
 	TYPE_BYTE		= 1,
 	TYPE_ASCII		= 2,
 	TYPE_SHORT		= 3,
@@ -251,6 +256,7 @@ struct TagInfo {
 	unsigned short tag;
 	const char *name;
 	unsigned short type;
+	const char *nameForOwner;
 };
 
 struct TypeInfo {
@@ -260,108 +266,108 @@ struct TypeInfo {
 };
 
 static const TagInfo g_tagInfoTbl[] = {
-	{ TAG_ImageWidth,					"ImageWidth",					TYPE_UNDEFINED,	},
-	{ TAG_ImageLength,					"ImageLength",					TYPE_UNDEFINED,	},
-	{ TAG_BitsPerSample,				"BitsPerSample",				TYPE_UNDEFINED,	},
-	{ TAG_Compression,					"Compression",					TYPE_UNDEFINED,	},
-	{ TAG_PhotometricInterpretation,	"PhotometricInterpretation",	TYPE_UNDEFINED,	},
-	{ TAG_Orientation,					"Orientation",					TYPE_SHORT,		},
-	{ TAG_SamplesPerPixel,				"SamplesPerPixel",				TYPE_UNDEFINED,	},
-	{ TAG_PlanarConfiguration,			"PlanarConfiguration",			TYPE_UNDEFINED,	},
-	{ TAG_YCbCrSubSampling,				"YCbCrSubSampling",				TYPE_UNDEFINED,	},
-	{ TAG_YCbCrPositioning,				"YCbCrPositioning",				TYPE_SHORT,		},
-	{ TAG_XResolution,					"XResolution",					TYPE_RATIONAL,	},
-	{ TAG_YResolution,					"YResolution",					TYPE_RATIONAL,	},
-	{ TAG_ResolutionUnit,				"ResolutionUnit",				TYPE_SHORT,		},
-	{ TAG_StripOffsets,					"StripOffsets",					TYPE_UNDEFINED,	},
-	{ TAG_RowsPerStrip,					"RowsPerStrip",					TYPE_UNDEFINED,	},
-	{ TAG_StripByteCounts,				"StripByteCounts",				TYPE_UNDEFINED,	},
-	{ TAG_JPEGInterchangeFormat,		"JPEGInterchangeFormat",		TYPE_UNDEFINED,	},
-	{ TAG_JPEGInterchangeFormatLength,	"JPEGInterchangeFormatLength",	TYPE_UNDEFINED,	},
-	{ TAG_TransferFunction,				"TransferFunction",				TYPE_UNDEFINED,	},
-	{ TAG_WhitePoint,					"WhitePoint",					TYPE_UNDEFINED,	},
-	{ TAG_PrimaryChromaticities,		"PrimaryChromaticities",		TYPE_UNDEFINED,	},
-	{ TAG_YCbCrCoefficients,			"YCbCrCoefficients",			TYPE_UNDEFINED,	},
-	{ TAG_ReferenceBlackWhite,			"ReferenceBlackWhite",			TYPE_UNDEFINED,	},
-	{ TAG_DateTime,						"DateTime",						TYPE_ASCII,		},
-	{ TAG_ImageDescription,				"ImageDescription",				TYPE_UNDEFINED,	},
-	{ TAG_Make,							"Make",							TYPE_ASCII,		},
-	{ TAG_Model,						"Model",						TYPE_ASCII,		},
-	{ TAG_Software,						"Software",						TYPE_UNDEFINED,	},
-	{ TAG_Artist,						"Artist",						TYPE_UNDEFINED,	},
-	{ TAG_Copyright,					"Copyright",					TYPE_UNDEFINED,	},
-	{ TAG_ExifIFDPointer,				"ExifIFDPointer",				TYPE_SHORT,		},
-	{ TAG_GPSInfoIFDPointer,			"GPSInfoIFDPointer",			TYPE_UNDEFINED,	},
-	{ TAG_ExifVersion,					"ExifVersion",					TYPE_UNDEFINED,	},
-	{ TAG_FlashPixVersion,				"FlashPixVersion",				TYPE_UNDEFINED,	},
-	{ TAG_ColorSpace,					"ColorSpace",					TYPE_UNDEFINED,	},
-	{ TAG_ComponentsConfiguration,		"ComponentsConfiguration",		TYPE_UNDEFINED,	},
-	{ TAG_CompressedBitsPerPixel,		"CompressedBitsPerPixel",		TYPE_UNDEFINED,	},
-	{ TAG_PixelXDimension,				"PixelXDimension",				TYPE_UNDEFINED,	},
-	{ TAG_PixelYDimension,				"PixelYDimension",				TYPE_UNDEFINED,	},
-	{ TAG_MakerNote,					"MakerNote",					TYPE_UNDEFINED,	},
-	{ TAG_UserComment,					"UserComment",					TYPE_UNDEFINED,	},
-	{ TAG_RelatedSoundFile,				"RelatedSoundFile",				TYPE_UNDEFINED,	},
-	{ TAG_DateTimeOriginal,				"DateTimeOriginal",				TYPE_UNDEFINED,	},
-	{ TAG_DateTimeDigitized,			"DateTimeDigitized",			TYPE_UNDEFINED,	},
-	{ TAG_SubSecTime,					"SubSecTime",					TYPE_UNDEFINED,	},
-	{ TAG_SubSecTimeOriginal,			"SubSecTimeOriginal",			TYPE_UNDEFINED,	},
-	{ TAG_SubSecTimeDigitized,			"SubSecTimeDigitized",			TYPE_UNDEFINED,	},
-	{ TAG_ExposureTime,					"ExposureTime",					TYPE_UNDEFINED,	},
-	{ TAG_FNumber,						"FNumber",						TYPE_UNDEFINED,	},
-	{ TAG_ExposureProgram,				"ExposureProgram",				TYPE_UNDEFINED,	},
-	{ TAG_SpectralSensitivity,			"SpectralSensitivity",			TYPE_UNDEFINED,	},
-	{ TAG_ISOSpeedRatings,				"ISOSpeedRatings",				TYPE_UNDEFINED,	},
-	{ TAG_OECF,							"OECF",							TYPE_UNDEFINED,	},
-	{ TAG_ShutterSpeedValue,			"ShutterSpeedValue",			TYPE_UNDEFINED,	},
-	{ TAG_ApertureValue,				"ApertureValue",				TYPE_UNDEFINED,	},
-	{ TAG_BrightnessValue,				"BrightnessValue",				TYPE_UNDEFINED,	},
-	{ TAG_ExposureBiasValue,			"ExposureBiasValue",			TYPE_UNDEFINED,	},
-	{ TAG_MaxApertureValue,				"MaxApertureValue",				TYPE_UNDEFINED,	},
-	{ TAG_SubjectDistance,				"SubjectDistance",				TYPE_UNDEFINED,	},
-	{ TAG_MeteringMode,					"MeteringMode",					TYPE_UNDEFINED,	},
-	{ TAG_LightSource,					"LightSource",					TYPE_UNDEFINED,	},
-	{ TAG_Flash,						"Flash",						TYPE_UNDEFINED,	},
-	{ TAG_FocalLength,					"FocalLength",					TYPE_UNDEFINED,	},
-	{ TAG_FlashEnergy,					"FlashEnergy",					TYPE_UNDEFINED,	},
-	{ TAG_SpatialFrequencyResponse,		"SpatialFrequencyResponse",		TYPE_UNDEFINED,	},
-	{ TAG_FocalPlaneXResolution,		"FocalPlaneXResolution",		TYPE_UNDEFINED,	},
-	{ TAG_FocalPlaneYResolution,		"FocalPlaneYResolution",		TYPE_UNDEFINED,	},
-	{ TAG_FocalPlaneResolutionUnit,		"FocalPlaneResolutionUnit",		TYPE_UNDEFINED,	},
-	{ TAG_SubjectLocation,				"SubjectLocation",				TYPE_UNDEFINED,	},
-	{ TAG_ExposureIndex,				"ExposureIndex",				TYPE_UNDEFINED,	},
-	{ TAG_SensingMethod,				"SensingMethod",				TYPE_UNDEFINED,	},
-	{ TAG_FileSource,					"FileSource",					TYPE_UNDEFINED,	},
-	{ TAG_SceneType,					"SceneType",					TYPE_UNDEFINED,	},
-	{ TAG_CFAPattern,					"CFAPattern",					TYPE_UNDEFINED,	},
-	{ TAG_InteroperabilityIFDPointer,	"InteroperabilityIFDPointer",	TYPE_UNDEFINED,	},
-	{ TAG_GPSVersionID,					"GPSVersionID",					TYPE_UNDEFINED,	},
-	{ TAG_GPSLatitudeRef,				"GPSLatitudeRef",				TYPE_UNDEFINED,	},
-	{ TAG_GPSLatitude,					"GPSLatitude",					TYPE_UNDEFINED,	},
-	{ TAG_GPSLongitudeRef,				"GPSLongitudeRef",				TYPE_UNDEFINED,	},
-	{ TAG_GPSLongitude,					"GPSLongitude",					TYPE_UNDEFINED,	},
-	{ TAG_GPSAltitudeRef,				"GPSAltitudeRef",				TYPE_UNDEFINED,	},
-	{ TAG_GPSAltitude,					"GPSAltitude",					TYPE_UNDEFINED,	},
-	{ TAG_GPSTimeStamp,					"GPSTimeStamp",					TYPE_UNDEFINED,	},
-	{ TAG_GPSSatellites,				"GPSSatellites",				TYPE_UNDEFINED,	},
-	{ TAG_GPSStatus,					"GPSStatus",					TYPE_UNDEFINED,	},
-	{ TAG_GPSMeasureMode,				"GPSMeasureMode",				TYPE_UNDEFINED,	},
-	{ TAG_GPSDOP,						"GPSDOP",						TYPE_UNDEFINED,	},
-	{ TAG_GPSSpeedRef,					"GPSSpeedRef",					TYPE_UNDEFINED,	},
-	{ TAG_GPSSpeed,						"GPSSpeed",						TYPE_UNDEFINED,	},
-	{ TAG_GPSTrackRef,					"GPSTrackRef",					TYPE_UNDEFINED,	},
-	{ TAG_GPSTrack,						"GPSTrack",						TYPE_UNDEFINED,	},
-	{ TAG_GPSImgDirectionRef,			"GPSImgDirectionRef",			TYPE_UNDEFINED,	},
-	{ TAG_GPSImgDirection,				"GPSImgDirection",				TYPE_UNDEFINED,	},
-	{ TAG_GPSMapDatum,					"GPSMapDatum",					TYPE_UNDEFINED,	},
-	{ TAG_GPSDestLatitudeRef,			"GPSDestLatitudeRef",			TYPE_UNDEFINED,	},
-	{ TAG_GPSDestLatitude,				"GPSDestLatitude",				TYPE_UNDEFINED,	},
-	{ TAG_GPSDestLongitudeRef,			"GPSDestLongitudeRef",			TYPE_UNDEFINED,	},
-	{ TAG_GPSDestLongitude,				"GPSDestLongitude",				TYPE_UNDEFINED,	},
-	{ TAG_GPSBearingRef,				"GPSBearingRef",				TYPE_UNDEFINED,	},
-	{ TAG_GPSBearing,					"GPSBearing",					TYPE_UNDEFINED,	},
-	{ TAG_GPSDestDistanceRef,			"GPSDestDistanceRef",			TYPE_UNDEFINED,	},
-	{ TAG_GPSDestDistance,				"GPSDestDistance",				TYPE_UNDEFINED,	},
+	{ TAG_ImageWidth,					"ImageWidth",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_ImageLength,					"ImageLength",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_BitsPerSample,				"BitsPerSample",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_Compression,					"Compression",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_PhotometricInterpretation,	"PhotometricInterpretation",	TYPE_UNDEFINED,	NULL,				},
+	{ TAG_Orientation,					"Orientation",					TYPE_SHORT,		NULL,				},
+	{ TAG_SamplesPerPixel,				"SamplesPerPixel",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_PlanarConfiguration,			"PlanarConfiguration",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_YCbCrSubSampling,				"YCbCrSubSampling",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_YCbCrPositioning,				"YCbCrPositioning",				TYPE_SHORT,		NULL,				},
+	{ TAG_XResolution,					"XResolution",					TYPE_RATIONAL,	NULL,				},
+	{ TAG_YResolution,					"YResolution",					TYPE_RATIONAL,	NULL,				},
+	{ TAG_ResolutionUnit,				"ResolutionUnit",				TYPE_SHORT,		NULL,				},
+	{ TAG_StripOffsets,					"StripOffsets",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_RowsPerStrip,					"RowsPerStrip",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_StripByteCounts,				"StripByteCounts",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_JPEGInterchangeFormat,		"JPEGInterchangeFormat",		TYPE_UNDEFINED,	NULL,				},
+	{ TAG_JPEGInterchangeFormatLength,	"JPEGInterchangeFormatLength",	TYPE_UNDEFINED,	NULL,				},
+	{ TAG_TransferFunction,				"TransferFunction",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_WhitePoint,					"WhitePoint",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_PrimaryChromaticities,		"PrimaryChromaticities",		TYPE_UNDEFINED,	NULL,				},
+	{ TAG_YCbCrCoefficients,			"YCbCrCoefficients",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_ReferenceBlackWhite,			"ReferenceBlackWhite",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_DateTime,						"DateTime",						TYPE_ASCII,		NULL,				},
+	{ TAG_ImageDescription,				"ImageDescription",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_Make,							"Make",							TYPE_ASCII,		NULL,				},
+	{ TAG_Model,						"Model",						TYPE_ASCII,		NULL,				},
+	{ TAG_Software,						"Software",						TYPE_UNDEFINED,	NULL,				},
+	{ TAG_Artist,						"Artist",						TYPE_UNDEFINED,	NULL,				},
+	{ TAG_Copyright,					"Copyright",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_ExifIFDPointer,				"ExifIFDPointer",				TYPE_SHORT,		"Exif",				},
+	{ TAG_GPSInfoIFDPointer,			"GPSInfoIFDPointer",			TYPE_SHORT,		"GPSInfo",			},
+	{ TAG_ExifVersion,					"ExifVersion",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_FlashPixVersion,				"FlashPixVersion",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_ColorSpace,					"ColorSpace",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_ComponentsConfiguration,		"ComponentsConfiguration",		TYPE_UNDEFINED,	NULL,				},
+	{ TAG_CompressedBitsPerPixel,		"CompressedBitsPerPixel",		TYPE_UNDEFINED,	NULL,				},
+	{ TAG_PixelXDimension,				"PixelXDimension",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_PixelYDimension,				"PixelYDimension",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_MakerNote,					"MakerNote",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_UserComment,					"UserComment",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_RelatedSoundFile,				"RelatedSoundFile",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_DateTimeOriginal,				"DateTimeOriginal",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_DateTimeDigitized,			"DateTimeDigitized",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_SubSecTime,					"SubSecTime",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_SubSecTimeOriginal,			"SubSecTimeOriginal",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_SubSecTimeDigitized,			"SubSecTimeDigitized",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_ExposureTime,					"ExposureTime",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_FNumber,						"FNumber",						TYPE_UNDEFINED,	NULL,				},
+	{ TAG_ExposureProgram,				"ExposureProgram",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_SpectralSensitivity,			"SpectralSensitivity",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_ISOSpeedRatings,				"ISOSpeedRatings",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_OECF,							"OECF",							TYPE_UNDEFINED,	NULL,				},
+	{ TAG_ShutterSpeedValue,			"ShutterSpeedValue",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_ApertureValue,				"ApertureValue",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_BrightnessValue,				"BrightnessValue",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_ExposureBiasValue,			"ExposureBiasValue",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_MaxApertureValue,				"MaxApertureValue",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_SubjectDistance,				"SubjectDistance",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_MeteringMode,					"MeteringMode",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_LightSource,					"LightSource",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_Flash,						"Flash",						TYPE_UNDEFINED,	NULL,				},
+	{ TAG_FocalLength,					"FocalLength",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_FlashEnergy,					"FlashEnergy",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_SpatialFrequencyResponse,		"SpatialFrequencyResponse",		TYPE_UNDEFINED,	NULL,				},
+	{ TAG_FocalPlaneXResolution,		"FocalPlaneXResolution",		TYPE_UNDEFINED,	NULL,				},
+	{ TAG_FocalPlaneYResolution,		"FocalPlaneYResolution",		TYPE_UNDEFINED,	NULL,				},
+	{ TAG_FocalPlaneResolutionUnit,		"FocalPlaneResolutionUnit",		TYPE_UNDEFINED,	NULL,				},
+	{ TAG_SubjectLocation,				"SubjectLocation",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_ExposureIndex,				"ExposureIndex",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_SensingMethod,				"SensingMethod",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_FileSource,					"FileSource",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_SceneType,					"SceneType",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_CFAPattern,					"CFAPattern",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_InteroperabilityIFDPointer,	"InteroperabilityIFDPointer",	TYPE_SHORT,		"Interoperability"	},
+	{ TAG_GPSVersionID,					"GPSVersionID",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSLatitudeRef,				"GPSLatitudeRef",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSLatitude,					"GPSLatitude",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSLongitudeRef,				"GPSLongitudeRef",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSLongitude,					"GPSLongitude",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSAltitudeRef,				"GPSAltitudeRef",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSAltitude,					"GPSAltitude",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSTimeStamp,					"GPSTimeStamp",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSSatellites,				"GPSSatellites",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSStatus,					"GPSStatus",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSMeasureMode,				"GPSMeasureMode",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSDOP,						"GPSDOP",						TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSSpeedRef,					"GPSSpeedRef",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSSpeed,						"GPSSpeed",						TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSTrackRef,					"GPSTrackRef",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSTrack,						"GPSTrack",						TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSImgDirectionRef,			"GPSImgDirectionRef",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSImgDirection,				"GPSImgDirection",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSMapDatum,					"GPSMapDatum",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSDestLatitudeRef,			"GPSDestLatitudeRef",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSDestLatitude,				"GPSDestLatitude",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSDestLongitudeRef,			"GPSDestLongitudeRef",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSDestLongitude,				"GPSDestLongitude",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSBearingRef,				"GPSBearingRef",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSBearing,					"GPSBearing",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSDestDistanceRef,			"GPSDestDistanceRef",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSDestDistance,				"GPSDestDistance",				TYPE_UNDEFINED,	NULL,				},
 };
 
 static const TypeInfo g_typeInfoTbl[] = {
@@ -439,8 +445,8 @@ Value SRationalToValue(Signal sig, const SRATIONAL_T &rational)
 
 template<typename IFDHeader_T, typename TagRaw_T, typename ValueRaw_T, typename SHORT_T,
 		typename LONG_T, typename RATIONAL_T, typename SLONG_T, typename SRATIONAL_T>
-bool ParseIFD_T(Environment &env, Signal sig, TagOwner &tagOwner,
-							char *buff, size_t bytesAPP1, size_t offset)
+bool ParseIFD_T(Environment &env, Signal sig, IFD *pIFD,
+					char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext)
 {
 	if (offset + SIZE_IFDHeader >= bytesAPP1 - 1) {
 		SetError_InvalidFormat(sig);
@@ -449,9 +455,13 @@ bool ParseIFD_T(Environment &env, Signal sig, TagOwner &tagOwner,
 	IFDHeader_T *pIFDHeader = reinterpret_cast<IFDHeader_T *>(buff + offset);
 	size_t nTags = XUnpackUShort(pIFDHeader->TagCount);
 	offset += SIZE_IFDHeader;
-	if (offset + nTags * SIZE_TagRaw >= bytesAPP1 - 1) {
+	if (offset + nTags * SIZE_TagRaw + UNITSIZE_SHORT >= bytesAPP1 - 1) {
 		SetError_InvalidFormat(sig);
 		return false;
+	}
+	if (pOffsetNext != NULL) {
+		SHORT_T *pShort = reinterpret_cast<SHORT_T *>(buff + offset + nTags * SIZE_TagRaw);
+		*pOffsetNext = XUnpackUShort(pShort->num);
 	}
 	for (size_t iTag = 0; iTag < nTags; iTag++, offset += SIZE_TagRaw) {
 		TagRaw_T *pTagRaw = reinterpret_cast<TagRaw_T *>(buff + offset);
@@ -459,29 +469,26 @@ bool ParseIFD_T(Environment &env, Signal sig, TagOwner &tagOwner,
 		unsigned short type = XUnpackUShort(pTagRaw->Type);
 		unsigned long count = XUnpackULong(pTagRaw->Count);
 		ValueRaw_T *pValueRaw = reinterpret_cast<ValueRaw_T *>(pTagRaw->ValueRaw);
+		const TagInfo *pTagInfo = TagToInfo(tag);
+#if 0
 		do {
-			const TagInfo *pTagInfo = TagToInfo(tag);
 			const TypeInfo *pTypeInfo = TypeToInfo(type);
 			::printf("%s [%04x], %s [%04x], %08x, %08x\n",
 					(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, tag,
 					(pTypeInfo == NULL)? "(unknown)" : pTypeInfo->name, type,
 					count, XUnpackULong(pValueRaw->LONG.num));
 		} while (0);
-		if (tag == TAG_ExifIFDPointer) {
+#endif
+		if (pTagInfo != NULL && pTagInfo->nameForOwner != NULL) {
+			std::auto_ptr<IFD> pIFDSub(new IFD());
+			size_t offsetSub = XUnpackULong(pValueRaw->LONG.num);
+			size_t offsetNext = 0;
 			if (!ParseIFD_T<IFDHeader_T, TagRaw_T, ValueRaw_T, SHORT_T,
-					LONG_T, RATIONAL_T, SLONG_T, SRATIONAL_T>(env, sig, tagOwner, buff, bytesAPP1, XUnpackULong(pValueRaw->LONG.num))) {
+					LONG_T, RATIONAL_T, SLONG_T, SRATIONAL_T>(env, sig,
+							pIFDSub.get(), buff, bytesAPP1, offsetSub, &offsetNext)) {
 				return false;
 			}
-		} else if (tag == TAG_GPSInfoIFDPointer) {
-			if (!ParseIFD_T<IFDHeader_T, TagRaw_T, ValueRaw_T, SHORT_T,
-					LONG_T, RATIONAL_T, SLONG_T, SRATIONAL_T>(env, sig, tagOwner, buff, bytesAPP1, XUnpackULong(pValueRaw->LONG.num))) {
-				return false;
-			}
-		} else if (tag == TAG_InteroperabilityIFDPointer) {
-			if (!ParseIFD_T<IFDHeader_T, TagRaw_T, ValueRaw_T, SHORT_T,
-					LONG_T, RATIONAL_T, SLONG_T, SRATIONAL_T>(env, sig, tagOwner, buff, bytesAPP1, XUnpackULong(pValueRaw->LONG.num))) {
-				return false;
-			}
+			pIFD->GetTagOwner().push_back(new Tag(tag, type, pIFDSub.release()));
 		} else {
 			Value value;
 			switch (type) {
@@ -640,48 +647,54 @@ bool ParseIFD_T(Environment &env, Signal sig, TagOwner &tagOwner,
 				break;
 			}
 			}
-			//tagOwner.push_back(new Tag(tag, type, value));
+			pIFD->GetTagOwner().push_back(new Tag(tag, type, value));
 		}
 	}
 	return true;
 }
 
-inline bool ParseIFD_BE(Environment &env, Signal sig,
-				TagOwner &tagOwner, char *buff, size_t bytesAPP1, size_t offset)
+inline bool ParseIFD_BE(Environment &env, Signal sig, IFD *pIFD,
+				char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext)
 {
 	return ParseIFD_T<IFDHeader_BE, TagRaw_BE, ValueRaw_BE, SHORT_BE,
-		LONG_BE, RATIONAL_BE, SLONG_BE, SRATIONAL_BE>(env, sig, tagOwner, buff, bytesAPP1, offset);
+		LONG_BE, RATIONAL_BE, SLONG_BE, SRATIONAL_BE>(env, sig, pIFD, buff, bytesAPP1, offset, pOffsetNext);
 }
 
-inline bool ParseIFD_LE(Environment &env, Signal sig,
-				TagOwner &tagOwner, char *buff, size_t bytesAPP1, size_t offset)
+inline bool ParseIFD_LE(Environment &env, Signal sig, IFD *pIFD,
+				char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext)
 {
 	return ParseIFD_T<IFDHeader_LE, TagRaw_LE, ValueRaw_LE, SHORT_LE,
-		LONG_LE, RATIONAL_LE, SLONG_LE, SRATIONAL_LE>(env, sig, tagOwner, buff, bytesAPP1, offset);
+		LONG_LE, RATIONAL_LE, SLONG_LE, SRATIONAL_LE>(env, sig, pIFD, buff, bytesAPP1, offset, pOffsetNext);
 }
 
 //-----------------------------------------------------------------------------
 // Tag
 //-----------------------------------------------------------------------------
-void Tag::Print() const
+void Tag::Print(int indentLevel) const
 {
 	Signal sig;
 	const TagInfo *pTagInfo = TagToInfo(_tag);
 	const TypeInfo *pTypeInfo = TypeToInfo(_type);
-	::printf("%s [%04x], %s [%04x], %s\n",
+	if (IsIFDPointer()) {
+		::printf("%*s%s [%04x]\n", indentLevel * 2, "",
+			(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, _tag);
+		GetIFD()->GetTagOwner().Print(indentLevel + 1);
+	} else {
+		::printf("%*s%s [%04x], %s [%04x], %s\n", indentLevel * 2, "",
 			(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, _tag,
 			(pTypeInfo == NULL)? "(unknown)" : pTypeInfo->name, _type,
 			_value.ToString(sig).c_str());
+	}
 }
 
 //-----------------------------------------------------------------------------
 // TagList
 //-----------------------------------------------------------------------------
-void TagList::Print() const
+void TagList::Print(int indentLevel) const
 {
 	foreach_const (TagList, ppTag, *this) {
 		const Tag *pTag = *ppTag;
-		pTag->Print();
+		pTag->Print(indentLevel);
 	}
 }
 
@@ -705,6 +718,11 @@ void TagOwner::Clear()
 //-----------------------------------------------------------------------------
 // Object_exif implementation
 //-----------------------------------------------------------------------------
+Object_exif::Object_exif() : Object(Gura_UserClass(exif)),
+							_pIFD0th(new IFD()), _pIFD1st(new IFD())
+{
+}
+
 Object_exif::~Object_exif()
 {
 }
@@ -729,11 +747,11 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 	size_t bytesAPP1 = 0;
 	do {
 		Header *pHeader = reinterpret_cast<Header *>(buff);
-		if (XUnpackUShort(pHeader->SOI) != 0xffd8) {
+		if (XUnpackUShort(pHeader->SOI) != MARKER_SOI) {
 			SetError_InvalidFormat(sig);
 			return false;
 		}
-		if (XUnpackUShort(pHeader->APP1) != 0xffe1) {
+		if (XUnpackUShort(pHeader->APP1) != MARKER_APP1) {
 			SetError_InvalidFormat(sig);
 			return false;
 		}
@@ -754,16 +772,22 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 			SetError_InvalidFormat(sig);
 			return false;
 		}
-		ParseIFD_BE(env, sig, _tagOwner, buff, bytesAPP1, XUnpackULong(pTIFF->Offset0thIFD));
+		size_t offset = XUnpackULong(pTIFF->Offset0thIFD);
+		if (!ParseIFD_BE(env, sig, _pIFD0th.get(), buff, bytesAPP1, offset, &offset)) {
+			return false;
+		}
 	} else if (::memcmp(buff, "II", 2) == 0) {
 		TIFF_LE *pTIFF = reinterpret_cast<TIFF_LE *>(buff + 2);
 		if (XUnpackUShort(pTIFF->Code) != 0x002a) {
 			SetError_InvalidFormat(sig);
 			return false;
 		}
-		ParseIFD_LE(env, sig, _tagOwner, buff, bytesAPP1, XUnpackULong(pTIFF->Offset0thIFD));
+		size_t offset = XUnpackULong(pTIFF->Offset0thIFD);
+		if (!ParseIFD_LE(env, sig, _pIFD0th.get(), buff, bytesAPP1, offset, &offset)) {
+			return false;
+		}
 	}
-	//_tagOwner.Print();
+	_pIFD0th->GetTagOwner().Print();
 	//GetConsole()->Dump(sig, buff, bytesAPP1);
 	return true;
 }
