@@ -772,6 +772,13 @@ Number Value::ToNumber(bool allowPartFlag, bool &successFlag) const
 		}
 		successFlag = (p > str && (allowPartFlag || *p == '\0'));
 		return num;
+	} else if (IsFraction()) {
+		const Fraction &frac = *_u.pFrac;
+		if (frac.denominator == 0) {
+			successFlag = false;
+			return 0.;
+		}
+		return frac.numerator / frac.denominator;
 	} else {
 		successFlag = false;
 		return 0.;
