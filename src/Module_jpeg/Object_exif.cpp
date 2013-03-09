@@ -3,8 +3,8 @@
 Gura_BeginModule(jpeg)
 
 enum {
-	BYTES_IFDHeader	= 2,
-	BYTES_TagRaw	= 12,
+	SIZE_IFDHeader	= 2,
+	SIZE_TagRaw		= 12,
 };
 
 enum {
@@ -160,23 +160,23 @@ struct IFDHeader_LE {
 };
 
 struct RATIONAL_BE {
-	XPackedULong_BE(top);
-	XPackedULong_BE(bottom);
+	XPackedULong_BE(numerator);
+	XPackedULong_BE(denominator);
 };
 
 struct RATIONAL_LE {
-	XPackedULong_LE(top);
-	XPackedULong_LE(bottom);
+	XPackedULong_LE(numerator);
+	XPackedULong_LE(denominator);
 };
 
 struct SRATIONAL_BE {
-	XPackedULong_BE(top);
-	XPackedULong_BE(bottom);
+	XPackedULong_BE(numerator);
+	XPackedULong_BE(denominator);
 };
 
 struct SRATIONAL_LE {
-	XPackedULong_LE(top);
-	XPackedULong_LE(bottom);
+	XPackedULong_LE(numerator);
+	XPackedULong_LE(denominator);
 };
 
 struct SHORT_BE {
@@ -415,25 +415,291 @@ const TypeInfo *TypeToInfo(unsigned short type)
 template<typename RATIONAL_T>
 Value RationalToValue(Signal sig, const RATIONAL_T &rational)
 {
-	unsigned long top = XUnpackULong(rational.top);
-	unsigned long bottom = XUnpackULong(rational.bottom);
-	if (bottom == 0) {
-		sig.SetError(ERR_ValueError, "rational bottom is zero");
+	unsigned long numerator = XUnpackULong(rational.numerator);
+	unsigned long denominator = XUnpackULong(rational.denominator);
+	if (denominator == 0) {
+		sig.SetError(ERR_ValueError, "rational denominator can't be zero");
 		return Value::Null;
 	}
-	return Value(static_cast<Number>(top) / bottom);
+	return Value(Fraction(numerator, denominator));
 }
 
 template<typename SRATIONAL_T>
 Value SRationalToValue(Signal sig, const SRATIONAL_T &rational)
 {
-	long top = XUnpackLong(rational.top);
-	long bottom = XUnpackLong(rational.bottom);
-	if (bottom == 0) {
-		sig.SetError(ERR_ValueError, "rational bottom is zero");
+	long numerator = XUnpackLong(rational.numerator);
+	long denominator = XUnpackLong(rational.denominator);
+	if (denominator == 0) {
+		sig.SetError(ERR_ValueError, "rational denominator can't be zero");
 		return Value::Null;
 	}
-	return Value(static_cast<Number>(top) / bottom);
+	
+	return Value(Fraction(numerator, denominator));
+}
+
+template<typename IFDHeader_T, typename TagRaw_T, typename ValueRaw_T, typename SHORT_T,
+		typename LONG_T, typename RATIONAL_T, typename SLONG_T, typename SRATIONAL_T>
+bool ParseIFD_T(Environment &env, Signal sig, TagOwner &tagOwner,
+							char *buff, size_t bytesAPP1, size_t offset)
+{
+	if (offset + SIZE_IFDHeader >= bytesAPP1 - 1) {
+		SetError_InvalidFormat(sig);
+		return false;
+	}
+	IFDHeader_T *pIFDHeader = reinterpret_cast<IFDHeader_T *>(buff + offset);
+	size_t nTags = XUnpackUShort(pIFDHeader->TagCount);
+	offset += SIZE_IFDHeader;
+	if (offset + nTags * SIZE_TagRaw >= bytesAPP1 - 1) {
+		SetError_InvalidFormat(sig);
+		return false;
+	}
+	for (size_t iTag = 0; iTag < nTags; iTag++, offset += SIZE_TagRaw) {
+		TagRaw_T *pTagRaw = reinterpret_cast<TagRaw_T *>(buff + offset);
+		unsigned short tag = XUnpackUShort(pTagRaw->Tag);
+		unsigned short type = XUnpackUShort(pTagRaw->Type);
+		unsigned long count = XUnpackULong(pTagRaw->Count);
+		ValueRaw_T *pValueRaw = reinterpret_cast<ValueRaw_T *>(pTagRaw->ValueRaw);
+		do {
+			const TagInfo *pTagInfo = TagToInfo(tag);
+			const TypeInfo *pTypeInfo = TypeToInfo(type);
+			::printf("%s [%04x], %s [%04x], %08x, %08x\n",
+					(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, tag,
+					(pTypeInfo == NULL)? "(unknown)" : pTypeInfo->name, type,
+					count, XUnpackULong(pValueRaw->LONG.num));
+		} while (0);
+		if (tag == TAG_ExifIFDPointer) {
+			if (!ParseIFD_T<IFDHeader_T, TagRaw_T, ValueRaw_T, SHORT_T,
+					LONG_T, RATIONAL_T, SLONG_T, SRATIONAL_T>(env, sig, tagOwner, buff, bytesAPP1, XUnpackULong(pValueRaw->LONG.num))) {
+				return false;
+			}
+		} else if (tag == TAG_GPSInfoIFDPointer) {
+			if (!ParseIFD_T<IFDHeader_T, TagRaw_T, ValueRaw_T, SHORT_T,
+					LONG_T, RATIONAL_T, SLONG_T, SRATIONAL_T>(env, sig, tagOwner, buff, bytesAPP1, XUnpackULong(pValueRaw->LONG.num))) {
+				return false;
+			}
+		} else if (tag == TAG_InteroperabilityIFDPointer) {
+			if (!ParseIFD_T<IFDHeader_T, TagRaw_T, ValueRaw_T, SHORT_T,
+					LONG_T, RATIONAL_T, SLONG_T, SRATIONAL_T>(env, sig, tagOwner, buff, bytesAPP1, XUnpackULong(pValueRaw->LONG.num))) {
+				return false;
+			}
+		} else {
+			Value value;
+			switch (type) {
+			case TYPE_BYTE: {
+				char *p = pValueRaw->BYTE;
+				if (count > 4) {
+					size_t offset = XUnpackULong(pValueRaw->LONG.num);
+					if (offset + count >= bytesAPP1 - 1) {
+						SetError_InvalidFormat(sig);
+						return false;
+					}
+					p = buff + offset;
+				}
+				value.InitAsBinary(env, p, count, false);
+				break;
+			}
+			case TYPE_ASCII: {
+				char *p = pValueRaw->ASCII;
+				if (count > 4) {
+					size_t offset = XUnpackULong(pValueRaw->LONG.num);
+					if (offset + count >= bytesAPP1 - 1) {
+						SetError_InvalidFormat(sig);
+						return false;
+					}
+					p = buff + offset;
+				}
+				value = Value(env, p, count - 1);
+				break;
+			}
+			case TYPE_SHORT: {
+				if (count == 1) {
+					value = Value(XUnpackUShort(pValueRaw->SHORT.num));
+				} else if (count == 2) {
+					ValueList &valList = value.InitAsList(env);
+					valList.reserve(count);
+					valList.push_back(Value(XUnpackUShort(pValueRaw->SHORT.num)));
+					valList.push_back(Value(XUnpackUShort(pValueRaw->SHORT.second)));
+				} else {
+					ValueList &valList = value.InitAsList(env);
+					valList.reserve(count);
+					size_t offset = XUnpackULong(pValueRaw->LONG.num);
+					if (offset + UNITSIZE_SHORT * count >= bytesAPP1 - 1) {
+						SetError_InvalidFormat(sig);
+						return false;
+					}
+					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_SHORT) {
+						SHORT_T *pShort = reinterpret_cast<SHORT_T *>(buff + offset);
+						valList.push_back(Value(XUnpackUShort(pShort->num)));
+					}
+				}
+				break;
+			}
+			case TYPE_LONG: {
+				if (count == 1) {
+					value = Value(XUnpackULong(pValueRaw->LONG.num));
+				} else {
+					ValueList &valList = value.InitAsList(env);
+					valList.reserve(count);
+					size_t offset = XUnpackULong(pValueRaw->LONG.num);
+					if (offset + UNITSIZE_LONG * count >= bytesAPP1 - 1) {
+						SetError_InvalidFormat(sig);
+						return false;
+					}
+					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_LONG) {
+						LONG_T *pLong = reinterpret_cast<LONG_T *>(buff + offset);
+						valList.push_back(Value(XUnpackULong(pLong->num)));
+					}
+				}
+				break;
+			}
+			case TYPE_RATIONAL: {
+				size_t offset = XUnpackULong(pValueRaw->LONG.num);
+				if (offset + UNITSIZE_RATIONAL * count >= bytesAPP1 - 1) {
+					SetError_InvalidFormat(sig);
+					return false;
+				}
+				if (count == 1) {
+					RATIONAL_T *pRational = reinterpret_cast<RATIONAL_T *>(buff + offset);
+					value = RationalToValue(sig, *pRational);
+				} else {
+					ValueList &valList = value.InitAsList(env);
+					valList.reserve(count);
+					size_t offset = XUnpackULong(pValueRaw->LONG.num);
+					if (offset + UNITSIZE_RATIONAL * count >= bytesAPP1 - 1) {
+						SetError_InvalidFormat(sig);
+						return false;
+					}
+					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_RATIONAL) {
+						RATIONAL_T *pRational = reinterpret_cast<RATIONAL_T *>(buff + offset);
+						Value valueItem = RationalToValue(sig, *pRational);
+						if (valueItem.IsInvalid()) return false;
+						valList.push_back(valueItem);
+					}
+				}
+				break;
+			}
+			case TYPE_UNDEFINED: {
+				char *p = pValueRaw->BYTE;
+				if (count > 4) {
+					size_t offset = XUnpackULong(pValueRaw->LONG.num);
+					if (offset + count >= bytesAPP1 - 1) {
+						SetError_InvalidFormat(sig);
+						return false;
+					}
+					p = buff + offset;
+				}
+				value.InitAsBinary(env, p, count, false);
+				break;
+			}
+			case TYPE_SLONG: {
+				if (count == 1) {
+					value = Value(XUnpackLong(pValueRaw->SLONG.num));
+				} else {
+					ValueList &valList = value.InitAsList(env);
+					valList.reserve(count);
+					size_t offset = XUnpackLong(pValueRaw->SLONG.num);
+					if (offset + UNITSIZE_SLONG * count >= bytesAPP1 - 1) {
+						SetError_InvalidFormat(sig);
+						return false;
+					}
+					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_SLONG) {
+						SLONG_T *pLong = reinterpret_cast<SLONG_T *>(buff + offset);
+						valList.push_back(Value(XUnpackULong(pLong->num)));
+					}
+				}
+				break;
+			}
+			case TYPE_SRATIONAL: {
+				size_t offset = XUnpackULong(pValueRaw->LONG.num);
+				if (offset + UNITSIZE_SRATIONAL * count >= bytesAPP1 - 1) {
+					SetError_InvalidFormat(sig);
+					return false;
+				}
+				if (count == 1) {
+					SRATIONAL_T *pRational = reinterpret_cast<SRATIONAL_T *>(buff + offset);
+					value = RationalToValue(sig, *pRational);
+				} else {
+					ValueList &valList = value.InitAsList(env);
+					valList.reserve(count);
+					size_t offset = XUnpackULong(pValueRaw->LONG.num);
+					if (offset + UNITSIZE_SRATIONAL * count >= bytesAPP1 - 1) {
+						SetError_InvalidFormat(sig);
+						return false;
+					}
+					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_SRATIONAL) {
+						SRATIONAL_T *pRational = reinterpret_cast<SRATIONAL_T *>(buff + offset);
+						Value valueItem = SRationalToValue(sig, *pRational);
+						if (valueItem.IsInvalid()) return false;
+						valList.push_back(valueItem);
+					}
+				}
+				break;
+			}
+			default: {
+				
+				break;
+			}
+			}
+			//tagOwner.push_back(new Tag(tag, type, value));
+		}
+	}
+	return true;
+}
+
+inline bool ParseIFD_BE(Environment &env, Signal sig,
+				TagOwner &tagOwner, char *buff, size_t bytesAPP1, size_t offset)
+{
+	return ParseIFD_T<IFDHeader_BE, TagRaw_BE, ValueRaw_BE, SHORT_BE,
+		LONG_BE, RATIONAL_BE, SLONG_BE, SRATIONAL_BE>(env, sig, tagOwner, buff, bytesAPP1, offset);
+}
+
+inline bool ParseIFD_LE(Environment &env, Signal sig,
+				TagOwner &tagOwner, char *buff, size_t bytesAPP1, size_t offset)
+{
+	return ParseIFD_T<IFDHeader_LE, TagRaw_LE, ValueRaw_LE, SHORT_LE,
+		LONG_LE, RATIONAL_LE, SLONG_LE, SRATIONAL_LE>(env, sig, tagOwner, buff, bytesAPP1, offset);
+}
+
+//-----------------------------------------------------------------------------
+// Tag
+//-----------------------------------------------------------------------------
+void Tag::Print() const
+{
+	Signal sig;
+	const TagInfo *pTagInfo = TagToInfo(_tag);
+	const TypeInfo *pTypeInfo = TypeToInfo(_type);
+	::printf("%s [%04x], %s [%04x], %s\n",
+			(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, _tag,
+			(pTypeInfo == NULL)? "(unknown)" : pTypeInfo->name, _type,
+			_value.ToString(sig).c_str());
+}
+
+//-----------------------------------------------------------------------------
+// TagList
+//-----------------------------------------------------------------------------
+void TagList::Print() const
+{
+	foreach_const (TagList, ppTag, *this) {
+		const Tag *pTag = *ppTag;
+		pTag->Print();
+	}
+}
+
+//-----------------------------------------------------------------------------
+// TagOwner
+//-----------------------------------------------------------------------------
+TagOwner::~TagOwner()
+{
+	Clear();
+}
+
+void TagOwner::Clear()
+{
+	foreach (TagOwner, ppTag, *this) {
+		Tag *pTag = *ppTag;
+		delete pTag;
+	}
+	clear();
 }
 
 //-----------------------------------------------------------------------------
@@ -484,219 +750,21 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 	if (!ReadBuff(sig, stream, buff, bytesAPP1)) return false;
 	if (::memcmp(buff, "MM", 2) == 0) {
 		TIFF_BE *pTIFF = reinterpret_cast<TIFF_BE *>(buff + 2);
-		
-		
-	} else if (::memcmp(buff, "II", 2) == 0) {
-		TIFF_LE *pTIFF = reinterpret_cast<TIFF_LE *>(buff + 2);
-		
 		if (XUnpackUShort(pTIFF->Code) != 0x002a) {
 			SetError_InvalidFormat(sig);
 			return false;
 		}
-		ParseIFD(env, sig, buff, bytesAPP1, XUnpackULong(pTIFF->Offset0thIFD));
-	}
-	//GetConsole()->Dump(sig, buff, bytesAPP1);
-	return true;
-}
-
-bool Object_exif::ParseIFD(Environment &env, Signal sig, char *buff, size_t bytesAPP1, size_t offset)
-{
-	if (offset + BYTES_IFDHeader >= bytesAPP1 - 1) {
-		SetError_InvalidFormat(sig);
-		return false;
-	}
-	IFDHeader_LE *pIFDHeader = reinterpret_cast<IFDHeader_LE *>(buff + offset);
-	size_t nTags = XUnpackUShort(pIFDHeader->TagCount);
-	offset += BYTES_IFDHeader;
-	if (offset + nTags * BYTES_TagRaw >= bytesAPP1 - 1) {
-		SetError_InvalidFormat(sig);
-		return false;
-	}
-	for (size_t iTag = 0; iTag < nTags; iTag++, offset += BYTES_TagRaw) {
-		TagRaw_LE *pTagRaw = reinterpret_cast<TagRaw_LE *>(buff + offset);
-		unsigned short tag = XUnpackUShort(pTagRaw->Tag);
-		unsigned short type = XUnpackUShort(pTagRaw->Type);
-		unsigned long count = XUnpackULong(pTagRaw->Count);
-		ValueRaw_LE *pValueRaw = reinterpret_cast<ValueRaw_LE *>(pTagRaw->ValueRaw);
-		const TagInfo *pTagInfo = TagToInfo(tag);
-		const TypeInfo *pTypeInfo = TypeToInfo(type);
-		//::printf("%s [%04x], %s [%04x], %08x, %08x\n",
-		//		(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, tag,
-		//		(pTypeInfo == NULL)? "(unknown)" : pTypeInfo->name, type,
-		//		count, XUnpackULong(pValueRaw->LONG.num));
-		if (tag == TAG_ExifIFDPointer) {
-			if (!ParseIFD(env, sig, buff, bytesAPP1, XUnpackULong(pValueRaw->LONG.num))) {
-				return false;
-			}
-		} else if (tag == TAG_GPSInfoIFDPointer) {
-			if (!ParseIFD(env, sig, buff, bytesAPP1, XUnpackULong(pValueRaw->LONG.num))) {
-				return false;
-			}
-		} else if (tag == TAG_InteroperabilityIFDPointer) {
-			if (!ParseIFD(env, sig, buff, bytesAPP1, XUnpackULong(pValueRaw->LONG.num))) {
-				return false;
-			}
-		} else if (pTagInfo != NULL) {
-			Value value;
-			switch (type) {
-			case TYPE_BYTE: {
-				char *p = pValueRaw->BYTE;
-				if (count > 4) {
-					size_t offset = XUnpackULong(pValueRaw->LONG.num);
-					if (offset + count >= bytesAPP1 - 1) {
-						SetError_InvalidFormat(sig);
-						return false;
-					}
-					p = buff + offset;
-				}
-				value.InitAsBinary(env, p, count, false);
-				break;
-			}
-			case TYPE_ASCII: {
-				char *p = pValueRaw->ASCII;
-				if (count > 4) {
-					size_t offset = XUnpackULong(pValueRaw->LONG.num);
-					if (offset + count >= bytesAPP1 - 1) {
-						SetError_InvalidFormat(sig);
-						return false;
-					}
-					p = buff + offset;
-				}
-				value = Value(env, p, count - 1);
-				break;
-			}
-			case TYPE_SHORT: {
-				if (count == 1) {
-					value = Value(XUnpackUShort(pValueRaw->SHORT.num));
-				} else if (count == 2) {
-					ValueList &valList = value.InitAsList(env);
-					valList.reserve(count);
-					valList.push_back(Value(XUnpackUShort(pValueRaw->SHORT.num)));
-					valList.push_back(Value(XUnpackUShort(pValueRaw->SHORT.second)));
-				} else {
-					ValueList &valList = value.InitAsList(env);
-					valList.reserve(count);
-					size_t offset = XUnpackULong(pValueRaw->LONG.num);
-					if (offset + UNITSIZE_SHORT * count >= bytesAPP1 - 1) {
-						SetError_InvalidFormat(sig);
-						return false;
-					}
-					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_SHORT) {
-						SHORT_LE *pShort = reinterpret_cast<SHORT_LE *>(buff + offset);
-						valList.push_back(Value(XUnpackUShort(pShort->num)));
-					}
-				}
-				break;
-			}
-			case TYPE_LONG: {
-				if (count == 1) {
-					value = Value(XUnpackULong(pValueRaw->LONG.num));
-				} else {
-					ValueList &valList = value.InitAsList(env);
-					valList.reserve(count);
-					size_t offset = XUnpackULong(pValueRaw->LONG.num);
-					if (offset + UNITSIZE_LONG * count >= bytesAPP1 - 1) {
-						SetError_InvalidFormat(sig);
-						return false;
-					}
-					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_LONG) {
-						LONG_LE *pLong = reinterpret_cast<LONG_LE *>(buff + offset);
-						valList.push_back(Value(XUnpackULong(pLong->num)));
-					}
-				}
-				break;
-			}
-			case TYPE_RATIONAL: {
-				size_t offset = XUnpackULong(pValueRaw->LONG.num);
-				if (offset + UNITSIZE_RATIONAL * count >= bytesAPP1 - 1) {
-					SetError_InvalidFormat(sig);
-					return false;
-				}
-				if (count == 1) {
-					RATIONAL_LE *pRational = reinterpret_cast<RATIONAL_LE *>(buff + offset);
-					value = RationalToValue(sig, *pRational);
-				} else {
-					ValueList &valList = value.InitAsList(env);
-					valList.reserve(count);
-					size_t offset = XUnpackULong(pValueRaw->LONG.num);
-					if (offset + UNITSIZE_RATIONAL * count >= bytesAPP1 - 1) {
-						SetError_InvalidFormat(sig);
-						return false;
-					}
-					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_RATIONAL) {
-						RATIONAL_LE *pRational = reinterpret_cast<RATIONAL_LE *>(buff + offset);
-						Value valueItem = RationalToValue(sig, *pRational);
-						if (valueItem.IsInvalid()) return false;
-						valList.push_back(valueItem);
-					}
-				}
-				break;
-			}
-			case TYPE_UNDEFINED: {
-				char *p = pValueRaw->BYTE;
-				if (count > 4) {
-					size_t offset = XUnpackULong(pValueRaw->LONG.num);
-					if (offset + count >= bytesAPP1 - 1) {
-						SetError_InvalidFormat(sig);
-						return false;
-					}
-					p = buff + offset;
-				}
-				value.InitAsBinary(env, p, count, false);
-				break;
-			}
-			case TYPE_SLONG: {
-				if (count == 1) {
-					value = Value(XUnpackLong(pValueRaw->SLONG.num));
-				} else {
-					ValueList &valList = value.InitAsList(env);
-					valList.reserve(count);
-					size_t offset = XUnpackLong(pValueRaw->SLONG.num);
-					if (offset + UNITSIZE_SLONG * count >= bytesAPP1 - 1) {
-						SetError_InvalidFormat(sig);
-						return false;
-					}
-					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_SLONG) {
-						SLONG_LE *pLong = reinterpret_cast<SLONG_LE *>(buff + offset);
-						valList.push_back(Value(XUnpackULong(pLong->num)));
-					}
-				}
-				break;
-			}
-			case TYPE_SRATIONAL: {
-				size_t offset = XUnpackULong(pValueRaw->LONG.num);
-				if (offset + UNITSIZE_SRATIONAL * count >= bytesAPP1 - 1) {
-					SetError_InvalidFormat(sig);
-					return false;
-				}
-				if (count == 1) {
-					SRATIONAL_LE *pRational = reinterpret_cast<SRATIONAL_LE *>(buff + offset);
-					value = RationalToValue(sig, *pRational);
-				} else {
-					ValueList &valList = value.InitAsList(env);
-					valList.reserve(count);
-					size_t offset = XUnpackULong(pValueRaw->LONG.num);
-					if (offset + UNITSIZE_SRATIONAL * count >= bytesAPP1 - 1) {
-						SetError_InvalidFormat(sig);
-						return false;
-					}
-					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_SRATIONAL) {
-						SRATIONAL_LE *pRational = reinterpret_cast<SRATIONAL_LE *>(buff + offset);
-						Value valueItem = SRationalToValue(sig, *pRational);
-						if (valueItem.IsInvalid()) return false;
-						valList.push_back(valueItem);
-					}
-				}
-				break;
-			}
-			default: {
-				
-				break;
-			}
-			}
-			_valDict[Value(env, pTagInfo->name)] = value;
+		ParseIFD_BE(env, sig, _tagOwner, buff, bytesAPP1, XUnpackULong(pTIFF->Offset0thIFD));
+	} else if (::memcmp(buff, "II", 2) == 0) {
+		TIFF_LE *pTIFF = reinterpret_cast<TIFF_LE *>(buff + 2);
+		if (XUnpackUShort(pTIFF->Code) != 0x002a) {
+			SetError_InvalidFormat(sig);
+			return false;
 		}
+		ParseIFD_LE(env, sig, _tagOwner, buff, bytesAPP1, XUnpackULong(pTIFF->Offset0thIFD));
 	}
+	//_tagOwner.Print();
+	//GetConsole()->Dump(sig, buff, bytesAPP1);
 	return true;
 }
 
