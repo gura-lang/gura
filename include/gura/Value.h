@@ -152,6 +152,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_symbol;
 GURA_DLLDECLARE extern ValueType VTYPE_boolean;
 GURA_DLLDECLARE extern ValueType VTYPE_number;
 GURA_DLLDECLARE extern ValueType VTYPE_complex;
+GURA_DLLDECLARE extern ValueType VTYPE_fraction;
 // for declaration
 GURA_DLLDECLARE extern ValueType VTYPE_quote;
 GURA_DLLDECLARE extern ValueType VTYPE_any;
@@ -229,6 +230,7 @@ public:
 	Gura_DeclareVTYPE(boolean);
 	Gura_DeclareVTYPE(number);
 	Gura_DeclareVTYPE(complex);
+	Gura_DeclareVTYPE(fraction);
 	// for declaration
 	Gura_DeclareVTYPE(quote);
 	Gura_DeclareVTYPE(any);
@@ -328,6 +330,7 @@ private:
 		bool flag;				// VTYPE_boolean
 		const Symbol *pSymbol;	// VTYPE_symbol
 		Complex *pComp;			// VTYPE_complex
+		Fraction *pFrac;		// VTYPE_fraction
 		Module *pModule;		// VTYPE_module
 		Class *pClass;			// VTYPE_class
 		Object *pObj;			// objects
@@ -335,6 +338,7 @@ private:
 	} _u;
 private:
 	static const Complex _compZero;
+	static const Fraction _fracZero;
 public:
 	static const Value Null;
 	static const Value Undefined;
@@ -409,6 +413,10 @@ public:
 	inline Value(const Complex &comp) : _valType(VTYPE_complex), _flags(FLAG_Owner) {
 		_u.pComp = new Complex(comp);
 	}
+	// VTYPE_fraction
+	inline Value(const Fraction &frac) : _valType(VTYPE_fraction), _flags(FLAG_Owner) {
+		_u.pFrac = new Fraction(frac);
+	}
 	// VTYPE_string, VTYPE_binary
 	Value(Environment &env, const String &str);
 	Value(Environment &env, const char *str);
@@ -438,7 +446,7 @@ public:
 	inline ValueType GetType() const { return _valType; }
 	inline bool IsType(ValueType valType) const { return _valType == valType;	}
 	inline bool IsObject() const			{ return _valType >= VTYPE_object && !GetTinyBuffFlag(); }
-	inline bool IsPrimitive() const			{ return _valType <= VTYPE_complex;	}
+	inline bool IsPrimitive() const			{ return _valType <= VTYPE_fraction;}
 	inline bool IsInvalid() const			{ return IsType(VTYPE_nil) || IsType(VTYPE_undefined); }
 	inline bool IsUndefined() const			{ return IsType(VTYPE_undefined);	}
 	inline bool IsValid() const				{ return !IsInvalid();				}
@@ -447,6 +455,7 @@ public:
 	inline bool IsBoolean() const			{ return IsType(VTYPE_boolean);		}
 	inline bool IsNumber() const			{ return IsType(VTYPE_number);		}
 	inline bool IsComplex() const			{ return IsType(VTYPE_complex);		}
+	inline bool IsFraction() const			{ return IsType(VTYPE_fraction);	}
 	inline bool IsModule() const			{ return IsType(VTYPE_Module);		}
 	inline bool IsClass() const				{ return IsType(VTYPE_Class);		}
 	inline bool IsGenericObject() const		{ return IsType(VTYPE_object);		}
@@ -484,6 +493,7 @@ public:
 	inline bool MustBeBoolean(Signal &sig) const	{ return MustBe(sig, IsBoolean(), 	"boolean");		}
 	inline bool MustBeNumber(Signal &sig) const		{ return MustBe(sig, IsNumber(), 	"number");		}
 	inline bool MustBeComplex(Signal &sig) const	{ return MustBe(sig, IsComplex(), 	"complex");		}
+	inline bool MustBeFraction(Signal &sig) const	{ return MustBe(sig, IsFraction(), 	"fraction");	}
 	inline bool MustBeModule(Signal &sig) const		{ return MustBe(sig, IsModule(), 	"module");		}
 	inline bool MustBeClass(Signal &sig) const		{ return MustBe(sig, IsClass(), 	"class");		}
 	inline bool MustBeGenericObject(Signal &sig) const { return MustBe(sig, IsGenericObject(), 	"generic object");		}
@@ -527,6 +537,10 @@ public:
 			 _valType = VTYPE_complex, _u.pComp = new Complex(comp);
 		}
 	}
+	inline void SetFraction(const Fraction &frac) {
+		FreeResource();
+		_valType = VTYPE_fraction, _u.pFrac = new Fraction(frac);
+	}
 	inline Number GetNumber() const {
 		return IsNumber()? _u.num :
 				IsBoolean()? (_u.flag? 1. : 0.) :
@@ -564,6 +578,13 @@ public:
 	}
 	inline const Complex *GetComplexPtr() const {
 		return _u.pComp;
+	}
+	// VTYPE_fraction
+	inline Fraction GetFraction() const {
+		return IsFraction()? *_u.pFrac : IsNumber()? Fraction(GetNumber(), 1) : _fracZero;
+	}
+	inline const Fraction *GetFractionPtr() const {
+		return _u.pFrac;
 	}
 	// VTYPE_module
 	inline Module *GetModule() { return IsModule()? _u.pModule : NULL; }

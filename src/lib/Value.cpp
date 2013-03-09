@@ -12,6 +12,7 @@ ValueType VTYPE_symbol			= static_cast<ValueType>(0);
 ValueType VTYPE_boolean			= static_cast<ValueType>(0);
 ValueType VTYPE_number			= static_cast<ValueType>(0);
 ValueType VTYPE_complex			= static_cast<ValueType>(0);
+ValueType VTYPE_fraction		= static_cast<ValueType>(0);
 // for declaration
 ValueType VTYPE_quote			= static_cast<ValueType>(0);
 ValueType VTYPE_any				= static_cast<ValueType>(0);
@@ -50,6 +51,7 @@ ValueType VTYPE_Struct			= static_cast<ValueType>(0);
 ValueTypePool *ValueTypePool::_pInst = NULL;
 
 const Complex Value::_compZero;
+const Fraction Value::_fracZero;
 const Value Value::Null;
 const Value Value::Undefined(VTYPE_undefined, Value::FLAG_Owner);
 const Value::KeyCompare Value::KeyCompareCase(false);
@@ -107,6 +109,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(boolean);
 	Gura_RealizeVTYPE(number);
 	Gura_RealizeVTYPE(complex);
+	Gura_RealizeVTYPE(fraction);
 	// for declaration
 	Gura_RealizeVTYPE(quote);
 	Gura_RealizeVTYPE(any);
@@ -153,6 +156,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(boolean	)->SetClass(new Class_boolean(pClass));
 	Gura_VTYPEInfo(number	)->SetClass(new Class_number(pClass));
 	Gura_VTYPEInfo(complex	)->SetClass(new Class_complex(pClass));
+	Gura_VTYPEInfo(fraction	)->SetClass(new Class_fraction(pClass));
 	// for declaration
 	Gura_VTYPEInfo(quote	)->SetClass(new Class(pClass, VTYPE_quote));
 	Gura_VTYPEInfo(any		)->SetClass(new Class(pClass, VTYPE_any));
@@ -189,6 +193,7 @@ void ValueTypePool::OnModuleEntry(Environment &env, Signal sig)
 	//Class_boolean::OnModuleEntry(env, sig);
 	//Class_number::OnModuleEntry(env, sig);
 	//Class_complex::OnModuleEntry(env, sig);
+	//Class_fractioin::OnModuleEntry(env, sig);
 	Class_function::OnModuleEntry(env, sig);
 	Class_string::OnModuleEntry(env, sig);
 	Class_binary::OnModuleEntry(env, sig);
@@ -253,6 +258,8 @@ Value::Value(const Value &value) : _valType(value._valType), _flags(value._flags
 		_u.pSymbol = value._u.pSymbol;
 	} else if (value.IsComplex()) {
 		_u.pComp = new Complex(*value._u.pComp);
+	} else if (value.IsFraction()) {
+		_u.pFrac = new Fraction(*value._u.pFrac);
 	} else if (value.IsModule()) {
 		_u.pModule = value._u.pModule->IncRef();
 	} else if (value.IsClass()) {
@@ -374,6 +381,9 @@ void Value::FreeResource()
 	} else if (IsComplex()) {
 		delete _u.pComp;
 		_u.pComp = NULL;
+	} else if (IsFraction()) {
+		delete _u.pFrac;
+		_u.pFrac = NULL;
 	} else if (IsModule()) {
 		if (IsOwner()) Module::Delete(_u.pModule);
 		_u.pModule = NULL;
@@ -404,6 +414,8 @@ Value &Value::operator=(const Value &value)
 		_u.pSymbol = value._u.pSymbol;
 	} else if (value.IsComplex()) {
 		_u.pComp = new Complex(*value._u.pComp);
+	} else if (value.IsFraction()) {
+		_u.pFrac = new Fraction(*value._u.pFrac);
 	} else if (value.IsModule()) {
 		_u.pModule = value._u.pModule->IncRef();
 	} else if (value.IsClass()) {
@@ -712,6 +724,21 @@ String Value::ToString(Signal sig, bool exprFlag) const
 			::sprintf(buff, GetNumberFormat(), ::fabs(_u.pComp->imag()));
 			str += buff;
 			str += Gura_Symbol(j)->GetName();
+		}
+		return str;
+	} else if (IsFraction()) {
+		const Fraction &frac = *_u.pFrac;
+		String str;
+		if (exprFlag) {
+			str += "frac(";
+			str += NumberToString(frac.numerator);
+			str += ", ";
+			str += NumberToString(frac.denominator);
+			str += ")";
+		} else {
+			str += NumberToString(frac.numerator);
+			str += " / ";
+			str += NumberToString(frac.denominator);
 		}
 		return str;
 	} else if (IsModule()) {

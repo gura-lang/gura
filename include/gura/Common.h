@@ -79,6 +79,16 @@ GURA_DLLDECLARE const char *GetOpening();
 typedef double Number;
 typedef std::complex<Number> Complex;
 
+struct Fraction {
+	Number numerator;
+	Number denominator;
+	inline Fraction() : numerator(0), denominator(1) {}
+	inline Fraction(Number numerator_, Number denominator_) :
+			numerator(numerator_), denominator(denominator_) {}
+	inline Fraction(const Fraction &frac) :
+			numerator(frac.numerator), denominator(frac.denominator) {}
+};
+
 GURA_DLLDECLARE extern const Number RoundOffThreshold;
 
 typedef std::vector<char> CharList;
@@ -93,6 +103,7 @@ typedef std::vector<unsigned int> UIntList;
 typedef std::vector<unsigned long> ULongList;
 typedef std::vector<Number> NumberList;
 typedef std::vector<Complex> ComplexList;
+typedef std::vector<Fraction> FractionList;
 
 typedef std::deque<char> CharDeque;
 typedef std::deque<short> ShortDeque;
@@ -106,6 +117,7 @@ typedef std::deque<unsigned int> UIntDeque;
 typedef std::deque<unsigned long> ULongDeque;
 typedef std::deque<Number> NumberDeque;
 typedef std::deque<Complex> ComplexDeque;
+typedef std::deque<Fraction> FractionDeque;
 
 typedef std::basic_string<char> String;
 typedef std::deque<String> StringDeque;

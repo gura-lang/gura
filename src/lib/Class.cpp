@@ -427,9 +427,9 @@ bool Class_complex::CastFrom(Environment &env, Signal sig, Value &value, const D
 
 bool Class_complex::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
-	const Complex *pNum = value.GetComplexPtr();
-	if (!stream.SerializeDouble(sig, pNum->real())) return false;
-	if (!stream.SerializeDouble(sig, pNum->imag())) return false;
+	const Complex *pComp = value.GetComplexPtr();
+	if (!stream.SerializeDouble(sig, pComp->real())) return false;
+	if (!stream.SerializeDouble(sig, pComp->imag())) return false;
 	return true;
 }
 
@@ -439,6 +439,42 @@ bool Class_complex::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 	if (!stream.DeserializeDouble(sig, re)) return false;
 	if (!stream.DeserializeDouble(sig, im)) return false;
 	value = Value(Complex(re, im));
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Class_
+//-----------------------------------------------------------------------------
+Class_fraction::Class_fraction(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_fraction)
+{
+}
+
+bool Class_fraction::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+{
+	if (value.IsNumber()) {		// cast number to fraction
+		return true;
+	}
+	return false;
+}
+
+bool Class_fraction::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+{
+	const Fraction *pFrac = value.GetFractionPtr();
+	if (!stream.SerializeDouble(sig, pFrac->numerator)) return false;
+	if (!stream.SerializeDouble(sig, pFrac->denominator)) return false;
+	return true;
+}
+
+bool Class_fraction::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+{
+	double numerator = 0, denominator = 0;
+	if (!stream.DeserializeDouble(sig, numerator)) return false;
+	if (!stream.DeserializeDouble(sig, denominator)) return false;
+	if (denominator == 0) {
+		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
+		return false;
+	}
+	value = Value(Fraction(numerator, denominator));
 	return true;
 }
 
