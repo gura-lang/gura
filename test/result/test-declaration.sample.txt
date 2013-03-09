@@ -136,6 +136,7 @@ isdict:function = isdict(value)
 isenvironment:function = isenvironment(value)
 iserror:function = iserror(value)
 isexpr:function = isexpr(value)
+isfraction:function = isfraction(value)
 isfunction:function = isfunction(value)
 isinstance:function = isinstance(value, type+:expr):map
 isiterator:function = isiterator(value)

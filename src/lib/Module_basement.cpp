@@ -1321,7 +1321,9 @@ Gura_ImplementFunction(istype_)
 {
 	ValueType valType = args.GetValue(0).GetType();
 	ValueType valTypeCmp = _valType;
-	if (valType == VTYPE_number && valTypeCmp == VTYPE_complex) return Value(true);
+	if ((valType == VTYPE_number || valType == VTYPE_fraction) &&
+								valTypeCmp == VTYPE_complex) return Value(true);
+	if (valType == VTYPE_fraction && valTypeCmp == VTYPE_number) return Value(true);
 	return Value(valType == valTypeCmp);
 }
 
@@ -1351,7 +1353,9 @@ Gura_ImplementFunction(istype)
 	}
 	ValueType valType = args.GetValue(0).GetType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
-	if (valType == VTYPE_number && valTypeCmp == VTYPE_complex) return Value(true);
+	if ((valType == VTYPE_number || valType == VTYPE_fraction) &&
+								valTypeCmp == VTYPE_complex) return Value(true);
+	if (valType == VTYPE_fraction && valTypeCmp == VTYPE_number) return Value(true);
 	return Value(valType == valTypeCmp);
 }
 
@@ -1607,6 +1611,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunctionExx(istype_, "isboolean",	VTYPE_boolean);
 	Gura_AssignFunctionExx(istype_, "isnumber",		VTYPE_number);
 	Gura_AssignFunctionExx(istype_, "iscomplex",	VTYPE_complex);
+	Gura_AssignFunctionExx(istype_, "isfraction",	VTYPE_fraction);
 	Gura_AssignFunctionExx(istype_, "isfunction",	VTYPE_function);
 	Gura_AssignFunctionExx(istype_, "isstring",		VTYPE_string);
 	Gura_AssignFunctionExx(istype_, "isbinary",		VTYPE_binary);

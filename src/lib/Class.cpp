@@ -387,7 +387,7 @@ Class_number::Class_number(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_numb
 bool Class_number::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	bool allowPartFlag = false;
-	bool successFlag;
+	bool successFlag = false;
 	Number num = value.ToNumber(allowPartFlag, successFlag);
 	if (successFlag) {
 		value = Value(num);
@@ -421,6 +421,14 @@ bool Class_complex::CastFrom(Environment &env, Signal sig, Value &value, const D
 {
 	if (value.IsNumber()) {		// cast number to complex
 		return true;
+	} else if (value.IsFraction()) {
+		bool allowPartFlag = false;
+		bool successFlag = false;
+		Number num = value.ToNumber(allowPartFlag, successFlag);
+		if (successFlag) {
+			value = Value(num);
+			return true;
+		}
 	}
 	return false;
 }

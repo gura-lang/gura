@@ -737,7 +737,7 @@ String Value::ToString(Signal sig, bool exprFlag) const
 			str += ")";
 		} else {
 			str += NumberToString(frac.numerator);
-			str += " / ";
+			str += "/";
 			str += NumberToString(frac.denominator);
 		}
 		return str;
