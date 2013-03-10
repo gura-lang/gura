@@ -1,6 +1,7 @@
 #ifndef __JPEG_OBJECT_EXIF_H__
 #define __JPEG_OBJECT_EXIF_H__
 #include <gura.h>
+#include "Module_jpeg.h"
 #include "Object_ifd.h"
 
 Gura_BeginModule(jpeg)
@@ -13,7 +14,7 @@ Gura_DeclareUserClass(exif);
 class Object_exif : public Object {
 private:
 	AutoPtr<Object_ifd> _pObj0thIFD;
-	AutoPtr<Object_ifd> _pObj1stIFD;
+	AutoPtr<Object_ifd> _pObj1stIFD;	// this may be NULL
 public:
 	Gura_DeclareObjectAccessor(exif)
 public:

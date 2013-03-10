@@ -193,7 +193,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig,
 		unsigned short tag = XUnpackUShort(pTagRaw->Tag);
 		unsigned short type = XUnpackUShort(pTagRaw->Type);
 		unsigned long count = XUnpackULong(pTagRaw->Count);
-		ValueRaw_T *pValueRaw = reinterpret_cast<ValueRaw_T *>(pTagRaw->ValueRaw);
+		ValueRaw_T *pValueRaw = reinterpret_cast<ValueRaw_T *>(&pTagRaw->ValueRaw);
 		const TagInfo *pTagInfo = TagToInfo(tag);
 #if 0
 		do {

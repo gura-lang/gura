@@ -232,7 +232,7 @@ struct TagRaw_BE {
 	XPackedUShort_BE(Tag);
 	XPackedUShort_BE(Type);
 	XPackedULong_BE(Count);
-	unsigned char ValueRaw[4];
+	unsigned char ValueRaw;
 };
 
 union ValueRaw_LE {
@@ -254,7 +254,7 @@ struct TagRaw_LE {
 	XPackedUShort_LE(Tag);
 	XPackedUShort_LE(Type);
 	XPackedULong_LE(Count);
-	unsigned char ValueRaw[4];
+	unsigned char ValueRaw;
 };
 
 struct TagInfo {
@@ -344,9 +344,9 @@ bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes);
 const TagInfo *TagToInfo(unsigned short tag);
 const TypeInfo *TypeToInfo(unsigned short type);
 Object_ifd *ParseIFD_BE(Environment &env, Signal sig,
-				char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext);
+			char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext);
 Object_ifd *ParseIFD_LE(Environment &env, Signal sig,
-				char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext);
+			char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext);
 
 }}
 

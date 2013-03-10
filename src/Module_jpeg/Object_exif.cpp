@@ -1,3 +1,4 @@
+#include "Module_jpeg.h"
 #include "Object_exif.h"
 
 Gura_BeginModule(jpeg)
