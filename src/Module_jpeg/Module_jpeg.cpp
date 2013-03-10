@@ -202,7 +202,11 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// symbol realization
+	Gura_RealizeUserSymbol(id);
+	Gura_RealizeUserSymbol(name);
 	Gura_RealizeUserSymbol(type);
+	Gura_RealizeUserSymbol(value);
+	Gura_RealizeUserSymbol(ifd);
 	Gura_RealizeUserSymbol(ifd0);
 	Gura_RealizeUserSymbol(ifd1);
 	PrepareSymbolTagList();

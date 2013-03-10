@@ -33,6 +33,20 @@ Object_ifd *ParseIFD_BE(Environment &env, Signal sig,
 Object_ifd *ParseIFD_LE(Environment &env, Signal sig,
 			char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext);
 
+//-----------------------------------------------------------------------------
+// IteratorTag declaration
+//-----------------------------------------------------------------------------
+class IteratorTag : public Iterator {
+private:
+	AutoPtr<Object_ifd> _pObjIFD;
+	size_t _idx;
+public:
+	IteratorTag(Object_ifd *pObjIFD);
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString(Signal sig) const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
 }}
 
 #endif

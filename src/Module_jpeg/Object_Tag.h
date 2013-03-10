@@ -23,6 +23,10 @@ public:
 public:
 	Object_Tag(unsigned short tag, unsigned short type, const Symbol *pSymbol, const Value &value);
 	Object_Tag(unsigned short tag, unsigned short type, const Symbol *pSymbol, Object_ifd *pObjIFD);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
 	inline unsigned short GetTag() const { return _tag; }
 	inline unsigned short GetType() const { return _type; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }

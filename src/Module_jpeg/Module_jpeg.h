@@ -12,7 +12,11 @@ extern "C" {
 
 Gura_BeginModule(jpeg)
 
+Gura_DeclareUserSymbol(id);
+Gura_DeclareUserSymbol(name);
 Gura_DeclareUserSymbol(type);
+Gura_DeclareUserSymbol(value);
+Gura_DeclareUserSymbol(ifd);
 Gura_DeclareUserSymbol(ifd0);
 Gura_DeclareUserSymbol(ifd1);
 

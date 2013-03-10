@@ -36,6 +36,43 @@ void Object_Tag::Print(int indentLevel) const
 	}
 }
 
+bool Object_Tag::DoDirProp(Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(id));
+	symbols.insert(Gura_UserSymbol(name));
+	symbols.insert(Gura_UserSymbol(type));
+	symbols.insert(Gura_UserSymbol(value));
+	symbols.insert(Gura_UserSymbol(ifd));
+	return true;
+}
+
+Value Object_Tag::DoGetProp(Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	Environment &env = *this;
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
+		return Value(_tag);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
+		return Value(env, _pSymbol->GetName());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
+		return Value(_type);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
+		return _value;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ifd))) {
+		if (IsIFDPointer()) return Value(Object_ifd::Reference(GetObjectIFD()));
+		return Value::Null;
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_Tag::ToString(Signal sig, bool exprFlag)
+{
+	return String("<jpeg.Tag>");
+}
+
 //-----------------------------------------------------------------------------
 // Gura interfaces for Tag
 //-----------------------------------------------------------------------------

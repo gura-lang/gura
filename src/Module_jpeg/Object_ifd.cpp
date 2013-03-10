@@ -3,6 +3,9 @@
 
 Gura_BeginModule(jpeg)
 
+//-----------------------------------------------------------------------------
+// utility functions
+//-----------------------------------------------------------------------------
 template<typename RATIONAL_T>
 Value RationalToValue(Signal sig, const RATIONAL_T &rational)
 {
@@ -243,6 +246,32 @@ Object_ifd *ParseIFD_LE(Environment &env, Signal sig,
 }
 
 //-----------------------------------------------------------------------------
+// IteraorTag
+//-----------------------------------------------------------------------------
+IteratorTag::IteratorTag(Object_ifd *pObjIFD) :
+						Iterator(false), _pObjIFD(pObjIFD), _idx(0)
+{
+}
+
+bool IteratorTag::DoNext(Environment &env, Signal sig, Value &value)
+{
+	TagOwner &tagOwner = _pObjIFD->GetTagOwner();
+	if (_idx >= tagOwner.size()) return false;
+	Object_Tag *pObjTag = tagOwner[_idx++];
+	value = Value(Object_Tag::Reference(pObjTag));
+	return true;
+}
+
+String IteratorTag::ToString(Signal sig) const
+{
+	return String("<iterator:re.exif.tag>");
+}
+
+void IteratorTag::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
 // Object_ifd implementation
 //-----------------------------------------------------------------------------
 Object_ifd::Object_ifd() : Object(Gura_UserClass(ifd))
@@ -260,11 +289,26 @@ Object *Object_ifd::Clone() const
 
 Value Object_ifd::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
-	unsigned short tag = valueIdx.GetUShort();
-	foreach (TagOwner, ppObjTag, GetTagOwner()) {
-		Object_Tag *pObjTag = *ppObjTag;
-		if (pObjTag->GetTag() == tag) return pObjTag->GetValue();
+	if (valueIdx.IsNumber()) {
+		unsigned short tag = valueIdx.GetUShort();
+		foreach (TagOwner, ppObjTag, GetTagOwner()) {
+			Object_Tag *pObjTag = *ppObjTag;
+			if (pObjTag->GetTag() == tag) {
+				return Value(Object_Tag::Reference(pObjTag));
+			}
+		}
+		sig.SetError(ERR_IndexError, "can't find tag 0x%04x", tag);
+	} else if (valueIdx.IsSymbol()) {
+		const Symbol *pSymbol = valueIdx.GetSymbol();
+		foreach (TagOwner, ppObjTag, GetTagOwner()) {
+			Object_Tag *pObjTag = *ppObjTag;
+			if (pObjTag->GetSymbol() == pSymbol) {
+				return Value(Object_Tag::Reference(pObjTag));
+			}
+		}
+		sig.SetError(ERR_IndexError, "can't find tag `%s", pSymbol->GetName());
 	}
+	sig.SetError(ERR_IndexError, "invalid type for index of ifd");
 	return Value::Null;
 }
 
@@ -275,7 +319,6 @@ bool Object_ifd::DoDirProp(Signal sig, SymbolSet &symbols)
 		const Symbol *pSymbol = *ppSymbol;
 		symbols.insert(pSymbol);
 	}
-	//symbols.insert(Gura_UserSymbol(surface));
 	return true;
 }
 
@@ -286,13 +329,9 @@ Value Object_ifd::DoGetProp(Signal sig, const Symbol *pSymbol,
 	foreach (TagOwner, ppObjTag, GetTagOwner()) {
 		Object_Tag *pObjTag = *ppObjTag;
 		if (pObjTag->GetSymbol() == pSymbol) {
-			if (attrs.IsSet(Gura_UserSymbol(type))) Value(pObjTag->GetType());
-			return pObjTag->GetValue();
+			return Value(Object_Tag::Reference(pObjTag));
 		}
 	}
-	//if (pSymbol->IsIdentical(Gura_UserSymbol(surface))) {
-	//	return Value(Object_surface::Reference(_pObjSurface.get()));
-	//}
 	evaluatedFlag = false;
 	return Value::Null;
 }
@@ -305,10 +344,24 @@ String Object_ifd::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for ifd
 //-----------------------------------------------------------------------------
+// jpeg.ifd#each() {block?}
+Gura_DeclareMethod(ifd, each)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(ifd, each)
+{
+	Object_ifd *pThis = Object_ifd::GetThisObj(args);
+	return ReturnIterator(env, sig, args,
+						new IteratorTag(Object_ifd::Reference(pThis)));
+}
 
 // implementation of class ifd
 Gura_ImplementUserClass(ifd)
 {
+	Gura_AssignMethod(ifd, each);
 }
 
 }}
