@@ -5,8 +5,7 @@ Gura_BeginModule(jpeg)
 //-----------------------------------------------------------------------------
 // Object_exif implementation
 //-----------------------------------------------------------------------------
-Object_exif::Object_exif() : Object(Gura_UserClass(exif)),
-							_pIFD0th(new IFD()), _pIFD1st(new IFD())
+Object_exif::Object_exif() : Object(Gura_UserClass(exif)), _pObj0thIFD(new Object_ifd())
 {
 }
 
@@ -85,11 +84,11 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 			return false;
 		}
 		size_t offset = XUnpackULong(pTIFF->Offset0thIFD);
-		if (!ParseIFD_BE(env, sig, _pIFD0th.get(), buff, bytesAPP1, offset, &offset)) {
-			return false;
-		}
-		if (offset != 0 && !ParseIFD_BE(env, sig, _pIFD1st.get(), buff, bytesAPP1, offset, &offset)) {
-			return false;
+		_pObj0thIFD.reset(ParseIFD_BE(env, sig, buff, bytesAPP1, offset, &offset));
+		if (_pObj0thIFD.IsNull()) return false;
+		if (offset != 0) {
+			_pObj1stIFD.reset(ParseIFD_BE(env, sig, buff, bytesAPP1, offset, &offset));
+			if (_pObj1stIFD.IsNull()) return false;
 		}
 	} else if (::memcmp(buff, "II", 2) == 0) {
 		TIFF_LE *pTIFF = reinterpret_cast<TIFF_LE *>(buff + 2);
@@ -98,18 +97,18 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 			return false;
 		}
 		size_t offset = XUnpackULong(pTIFF->Offset0thIFD);
-		if (!ParseIFD_LE(env, sig, _pIFD0th.get(), buff, bytesAPP1, offset, &offset)) {
-			return false;
-		}
-		if (offset != 0 && !ParseIFD_LE(env, sig, _pIFD1st.get(), buff, bytesAPP1, offset, &offset)) {
-			return false;
+		_pObj0thIFD.reset(ParseIFD_LE(env, sig, buff, bytesAPP1, offset, &offset));
+		if (_pObj0thIFD.IsNull()) return false;
+		if (offset != 0) {
+			_pObj1stIFD.reset(ParseIFD_LE(env, sig, buff, bytesAPP1, offset, &offset));
+			if (_pObj1stIFD.IsNull()) return false;
 		}
 	} else {
 		SetError_InvalidFormat(sig);
 		return false;
 	}
-	_pIFD0th->GetTagOwner().Print();
-	_pIFD1st->GetTagOwner().Print();
+	_pObj0thIFD->GetTagOwner().Print();
+	if (!_pObj1stIFD.IsNull()) _pObj1stIFD->GetTagOwner().Print();
 	//GetConsole()->Dump(sig, buff, bytesAPP1);
 	return true;
 }

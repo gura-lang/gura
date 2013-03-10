@@ -273,25 +273,25 @@ struct TypeInfo {
 //-----------------------------------------------------------------------------
 // Tag declaration
 //-----------------------------------------------------------------------------
-class IFD;
+class Object_ifd;
 
 class Tag {
 private:
 	unsigned short _tag;
 	unsigned short _type;
 	Value _value;
-	std::auto_ptr<IFD> _pIFD;	// this may be NULL
+	AutoPtr<Object_ifd> _pObjIFD;	// this may be NULL
 public:
 	inline Tag(unsigned short tag, unsigned short type, const Value &value) :
 									_tag(tag), _type(type), _value(value) {}
-	inline Tag(unsigned short tag, unsigned short type, IFD *pIFD) :
-									_tag(tag), _type(type), _pIFD(pIFD) {}
+	inline Tag(unsigned short tag, unsigned short type, Object_ifd *pObjIFD) :
+									_tag(tag), _type(type), _pObjIFD(pObjIFD) {}
 	inline unsigned short GetTag() const { return _tag; }
 	inline unsigned short GetType() const { return _type; }
 	inline const Value &GetValue() const { return _value; }
-	inline bool IsIFDPointer() const { return _pIFD.get() != NULL; }
-	inline IFD *GetIFD() { return _pIFD.get(); }
-	inline const IFD *GetIFD() const { return _pIFD.get(); }
+	inline bool IsIFDPointer() const { return _pObjIFD.get() != NULL; }
+	inline Object_ifd *GetObjectIFD() { return _pObjIFD.get(); }
+	inline const Object_ifd *GetObjectIFD() const { return _pObjIFD.get(); }
 	void Print(int indentLevel = 0) const;
 };
 
@@ -314,16 +314,27 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// IFD declaration
+// Object_ifd declaration
 //-----------------------------------------------------------------------------
-class IFD {
+Gura_DeclareUserClass(ifd);
+
+class Object_ifd : public Object {
 private:
 	TagOwner _tagOwner;
 public:
+	Gura_DeclareObjectAccessor(ifd)
+public:
+	Object_ifd();
+	virtual ~Object_ifd();
+	virtual Object *Clone() const;
+	virtual String ToString(Signal sig, bool exprFlag);
+	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
+	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline TagOwner &GetTagOwner() { return _tagOwner; }
 	inline const TagOwner &GetTagOwner() const { return _tagOwner; }
 };
-
 
 //-----------------------------------------------------------------------------
 // utility functions
@@ -332,9 +343,9 @@ void SetError_InvalidFormat(Signal &sig);
 bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes);
 const TagInfo *TagToInfo(unsigned short tag);
 const TypeInfo *TypeToInfo(unsigned short type);
-bool ParseIFD_BE(Environment &env, Signal sig, IFD *pIFD,
+Object_ifd *ParseIFD_BE(Environment &env, Signal sig,
 				char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext);
-bool ParseIFD_LE(Environment &env, Signal sig, IFD *pIFD,
+Object_ifd *ParseIFD_LE(Environment &env, Signal sig,
 				char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext);
 
 }}
