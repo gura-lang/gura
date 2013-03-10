@@ -21,27 +21,28 @@ Object *Object_exif::Clone() const
 
 Value Object_exif::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
-	return Value::Null;
+	return _pObj0thIFD->IndexGet(env, sig, valueIdx);
 }
 
 bool Object_exif::DoDirProp(Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(sig, symbols)) return false;
-	//symbols.insert(Gura_UserSymbol(surface));
-	//symbols.insert(Gura_UserSymbol(width));
-	//symbols.insert(Gura_UserSymbol(height));
-	return true;
+	symbols.insert(Gura_UserSymbol(ifd0));
+	symbols.insert(Gura_UserSymbol(ifd1));
+	return _pObj0thIFD->DoDirProp(sig, symbols);
 }
 
 Value Object_exif::DoGetProp(Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	//if (pSymbol->IsIdentical(Gura_UserSymbol(surface))) {
-	//	return Value(Object_surface::Reference(_pObjSurface.get()));
-	//}
-	evaluatedFlag = false;
-	return Value::Null;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(ifd0))) {
+		return Value(Object_ifd::Reference(_pObj0thIFD.get()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ifd1))) {
+		if (_pObj1stIFD.IsNull()) return Value::Null;
+		return Value(Object_ifd::Reference(_pObj1stIFD.get()));
+	}
+	return _pObj0thIFD->DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_exif::ToString(Signal sig, bool exprFlag)
@@ -117,10 +118,23 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 //-----------------------------------------------------------------------------
 // Gura interfaces for exif
 //-----------------------------------------------------------------------------
+// cairo.exif#each() {block?}
+Gura_DeclareMethod(exif, each)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(exif, each)
+{
+	Object_exif *pThis = Object_exif::GetThisObj(args);
+	return Value::Null;
+}
 
 // implementation of class exif
 Gura_ImplementUserClass(exif)
 {
+	Gura_AssignMethod(exif, each);
 }
 
 }}

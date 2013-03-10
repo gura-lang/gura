@@ -12,6 +12,13 @@ extern "C" {
 
 Gura_BeginModule(jpeg)
 
+Gura_DeclareUserSymbol(type);
+Gura_DeclareUserSymbol(ifd0);
+Gura_DeclareUserSymbol(ifd1);
+
+extern SymbolList g_symbolTagList;
+extern SymbolList g_symbolIFDList;
+
 //-----------------------------------------------------------------------------
 // ImageStreamer_JPEG
 //-----------------------------------------------------------------------------

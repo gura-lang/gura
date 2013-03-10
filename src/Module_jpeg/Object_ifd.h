@@ -261,7 +261,7 @@ struct TagInfo {
 	unsigned short tag;
 	const char *name;
 	unsigned short type;
-	const char *nameForOwner;
+	const char *nameForIFD;
 };
 
 struct TypeInfo {
@@ -279,15 +279,17 @@ class Tag {
 private:
 	unsigned short _tag;
 	unsigned short _type;
+	const Symbol *_pSymbol;
 	Value _value;
 	AutoPtr<Object_ifd> _pObjIFD;	// this may be NULL
 public:
-	inline Tag(unsigned short tag, unsigned short type, const Value &value) :
-									_tag(tag), _type(type), _value(value) {}
-	inline Tag(unsigned short tag, unsigned short type, Object_ifd *pObjIFD) :
-									_tag(tag), _type(type), _pObjIFD(pObjIFD) {}
+	inline Tag(unsigned short tag, unsigned short type, const Symbol *pSymbol, const Value &value) :
+					_tag(tag), _type(type), _pSymbol(pSymbol), _value(value) {}
+	inline Tag(unsigned short tag, unsigned short type, const Symbol *pSymbol, Object_ifd *pObjIFD) :
+					_tag(tag), _type(type), _pSymbol(pSymbol), _pObjIFD(pObjIFD) {}
 	inline unsigned short GetTag() const { return _tag; }
 	inline unsigned short GetType() const { return _type; }
+	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const Value &GetValue() const { return _value; }
 	inline bool IsIFDPointer() const { return _pObjIFD.get() != NULL; }
 	inline Object_ifd *GetObjectIFD() { return _pObjIFD.get(); }
@@ -339,10 +341,11 @@ public:
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
+void PrepareSymbolTagList();
 void SetError_InvalidFormat(Signal &sig);
 bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes);
-const TagInfo *TagToInfo(unsigned short tag);
-const TypeInfo *TypeToInfo(unsigned short type);
+const TagInfo *TagToTagInfo(unsigned short tag);
+const TypeInfo *TypeToTypeInfo(unsigned short type);
 Object_ifd *ParseIFD_BE(Environment &env, Signal sig,
 			char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext);
 Object_ifd *ParseIFD_LE(Environment &env, Signal sig,

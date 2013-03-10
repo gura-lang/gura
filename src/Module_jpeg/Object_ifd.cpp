@@ -1,3 +1,4 @@
+#include "Module_jpeg.h"
 #include "Object_ifd.h"
 
 Gura_BeginModule(jpeg)
@@ -121,6 +122,17 @@ static const TypeInfo g_typeInfoTbl[] = {
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
+void PrepareSymbolTagList()
+{
+	const TagInfo *pTagInfo = g_tagInfoTbl;
+	for (int i = 0; i < NUMBEROF(g_tagInfoTbl); i++, pTagInfo++) {
+		g_symbolTagList.push_back(Symbol::Add(pTagInfo->name));
+		if (pTagInfo->nameForIFD != NULL) {
+			g_symbolIFDList.push_back(Symbol::Add(pTagInfo->nameForIFD));
+		}
+	}
+}
+
 void SetError_InvalidFormat(Signal &sig)
 {
 	sig.SetError(ERR_FormatError, "invalid Exif format");
@@ -204,7 +216,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig,
 					count, XUnpackULong(pValueRaw->LONG.num));
 		} while (0);
 #endif
-		if (pTagInfo != NULL && pTagInfo->nameForOwner != NULL) {
+		if (pTagInfo != NULL && pTagInfo->nameForIFD != NULL) {
 			size_t offsetSub = XUnpackULong(pValueRaw->LONG.num);
 			size_t offsetNext = 0;
 			AutoPtr<Object_ifd> pObjIFDSub(ParseIFD_T<IFDHeader_T, TagRaw_T,
@@ -212,7 +224,8 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig,
 					LONG_T, RATIONAL_T, SLONG_T, SRATIONAL_T>(env, sig,
 									buff, bytesAPP1, offsetSub, &offsetNext));
 			if (pObjIFDSub.IsNull()) return NULL;
-			pObjIFD->GetTagOwner().push_back(new Tag(tag, type, pObjIFDSub.release()));
+			const Symbol *pSymbol = Symbol::Add(pTagInfo->name);
+			pObjIFD->GetTagOwner().push_back(new Tag(tag, type, pSymbol, pObjIFDSub.release()));
 		} else {
 			Value value;
 			switch (type) {
@@ -371,7 +384,9 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig,
 				break;
 			}
 			}
-			pObjIFD->GetTagOwner().push_back(new Tag(tag, type, value));
+			const Symbol *pSymbol = (pTagInfo == NULL)?
+					Gura_Symbol(Str_Empty) : Symbol::Add(pTagInfo->name);
+			pObjIFD->GetTagOwner().push_back(new Tag(tag, type, pSymbol, value));
 		}
 	}
 	return pObjIFD.release();
@@ -457,15 +472,22 @@ Object *Object_ifd::Clone() const
 
 Value Object_ifd::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
+	unsigned short tag = valueIdx.GetUShort();
+	foreach (TagOwner, ppTag, GetTagOwner()) {
+		Tag *pTag = *ppTag;
+		if (pTag->GetTag() == tag) return pTag->GetValue();
+	}
 	return Value::Null;
 }
 
 bool Object_ifd::DoDirProp(Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(sig, symbols)) return false;
+	foreach (SymbolList, ppSymbol, g_symbolTagList) {
+		const Symbol *pSymbol = *ppSymbol;
+		symbols.insert(pSymbol);
+	}
 	//symbols.insert(Gura_UserSymbol(surface));
-	//symbols.insert(Gura_UserSymbol(width));
-	//symbols.insert(Gura_UserSymbol(height));
 	return true;
 }
 
@@ -473,6 +495,13 @@ Value Object_ifd::DoGetProp(Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
+	foreach (TagOwner, ppTag, GetTagOwner()) {
+		Tag *pTag = *ppTag;
+		if (pTag->GetSymbol() == pSymbol) {
+			if (attrs.IsSet(Gura_UserSymbol(type))) Value(pTag->GetType());
+			return pTag->GetValue();
+		}
+	}
 	//if (pSymbol->IsIdentical(Gura_UserSymbol(surface))) {
 	//	return Value(Object_surface::Reference(_pObjSurface.get()));
 	//}

@@ -6,6 +6,9 @@
 
 Gura_BeginModule(jpeg)
 
+SymbolList g_symbolTagList;
+SymbolList g_symbolIFDList;
+
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_image
 // These methods are available after importing jpeg module.
@@ -82,6 +85,11 @@ Gura_ImplementFunction(test)
 // Module entry
 Gura_ModuleEntry()
 {
+	// symbol realization
+	Gura_RealizeUserSymbol(type);
+	Gura_RealizeUserSymbol(ifd0);
+	Gura_RealizeUserSymbol(ifd1);
+	PrepareSymbolTagList();
 	// class realization
 	Gura_RealizeUserClass(ifd, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(exif, env.LookupClass(VTYPE_object));
