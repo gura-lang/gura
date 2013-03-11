@@ -30,13 +30,17 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 	IFDHeader_T *pIFDHeader = reinterpret_cast<IFDHeader_T *>(buff + offset);
 	size_t nTags = XUnpackUShort(pIFDHeader->TagCount);
 	offset += SIZE_IFDHeader;
-	if (offset + nTags * SIZE_TagRaw + UNITSIZE_SHORT >= bytesAPP1 - 1) {
+	if (offset + nTags * SIZE_TagRaw >= bytesAPP1 - 1) {
 		SetError_InvalidFormat(sig);
 		return NULL;
 	}
-	if (pOffsetNext != NULL) {
-		SHORT_T *pShort = reinterpret_cast<SHORT_T *>(buff + offset + nTags * SIZE_TagRaw);
-		*pOffsetNext = XUnpackUShort(pShort->num);
+	if (pOffsetNext == NULL) {
+		// nothing to do
+	} else if (offset + nTags * SIZE_TagRaw + UNITSIZE_LONG <= bytesAPP1) {
+		LONG_T *pLong = reinterpret_cast<LONG_T *>(buff + offset + nTags * SIZE_TagRaw);
+		*pOffsetNext = XUnpackULong(pLong->num);
+	} else {
+		*pOffsetNext = 0;
 	}
 	AutoPtr<Object_ifd> pObjIFD(new Object_ifd(pSymbolOfIFD));
 	for (size_t iTag = 0; iTag < nTags; iTag++, offset += SIZE_TagRaw) {

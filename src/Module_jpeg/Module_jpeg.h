@@ -62,7 +62,10 @@ enum {
 enum {
 	TAG_invalid						= -1,
 };
+
+// 4.6.4 TIFF Rev.6.0 Attribute Information
 enum {
+	// A. Tags relating to image data structure
 	TAG_ImageWidth					= 0x0100,
 	TAG_ImageLength					= 0x0101,
 	TAG_BitsPerSample				= 0x0102,
@@ -76,45 +79,56 @@ enum {
 	TAG_XResolution					= 0x011a,
 	TAG_YResolution					= 0x011b,
 	TAG_ResolutionUnit				= 0x0128,
+	// B. Tags relating to recording offset
 	TAG_StripOffsets				= 0x0111,
 	TAG_RowsPerStrip				= 0x0116,
 	TAG_StripByteCounts				= 0x0117,
 	TAG_JPEGInterchangeFormat		= 0x0201,
 	TAG_JPEGInterchangeFormatLength	= 0x0202,
+	// C. Tags relating to image data characteristics
 	TAG_TransferFunction			= 0x012d,
 	TAG_WhitePoint					= 0x013e,
 	TAG_PrimaryChromaticities		= 0x013f,
 	TAG_YCbCrCoefficients			= 0x0211,
 	TAG_ReferenceBlackWhite			= 0x0214,
+	// D. Other tags
 	TAG_DateTime					= 0x0132,
 	TAG_ImageDescription			= 0x010e,
 	TAG_Make						= 0x010f,
 	TAG_Model						= 0x0110,
 	TAG_Software					= 0x0131,
 	TAG_Artist						= 0x013b,
-	TAG_Copyright					= 0x0d68,
-	TAG_Copyright2					= 0x8298,
+	TAG_Copyright					= 0x8298,
+	// Pointers
 	TAG_ExifIFDPointer				= 0x8769,
 	TAG_GPSInfoIFDPointer			= 0x8825,
+	TAG_InteroperabilityIFDPointer	= 0xa005,
 };
 
-// Tags declared in an IFD pointed by ExifIFDPointer
+// 4.6.5 Exif IFD Attribute Information
 enum {
+	// A. Tags Relating to Version
 	TAG_ExifVersion					= 0x9000,
 	TAG_FlashPixVersion				= 0xa000,
+	// B. Tag Relating to Image Data Characteristics
 	TAG_ColorSpace					= 0xa001,
+	// C. Tags Relating to Image Configuration
 	TAG_ComponentsConfiguration		= 0x9101,
 	TAG_CompressedBitsPerPixel		= 0x9102,
 	TAG_PixelXDimension				= 0xa002,
 	TAG_PixelYDimension				= 0xa003,
+	// D. Tags Relating to User Information
 	TAG_MakerNote					= 0x927c,
 	TAG_UserComment					= 0x9286,
+	// E. Tags Relating to Related File Information
 	TAG_RelatedSoundFile			= 0xa004,
+	// F. Tags Relating to Date and Time
 	TAG_DateTimeOriginal			= 0x9003,
 	TAG_DateTimeDigitized			= 0x9004,
 	TAG_SubSecTime					= 0x9290,
 	TAG_SubSecTimeOriginal			= 0x9291,
 	TAG_SubSecTimeDigitized			= 0x9292,
+	// G. Tags Relating to Picture-Taking Conditions
 	TAG_ExposureTime				= 0x829a,
 	TAG_FNumber						= 0x829d,
 	TAG_ExposureProgram				= 0x8822,
@@ -131,6 +145,7 @@ enum {
 	TAG_LightSource					= 0x9208,
 	TAG_Flash						= 0x9209,
 	TAG_FocalLength					= 0x920a,
+	TAG_SubjectArea					= 0x9214,
 	TAG_FlashEnergy					= 0xa20b,
 	TAG_SpatialFrequencyResponse	= 0xa20c,
 	TAG_FocalPlaneXResolution		= 0xa20e,
@@ -142,19 +157,25 @@ enum {
 	TAG_FileSource					= 0xa300,
 	TAG_SceneType					= 0xa301,
 	TAG_CFAPattern					= 0xa302,
-	TAG_InteroperabilityIFDPointer	= 0xa005,
+	TAG_CustomRendered				= 0xa401,
+	TAG_ExposureMode				= 0xa402,
+	TAG_WhiteBalance				= 0xa403,
+	TAG_DigitalZoomRatio			= 0xa404,
+	TAG_FocalLengthIn35mmFilm		= 0xa405,
+	TAG_SceneCaptureType 			= 0xa406,
+	TAG_GainControl					= 0xa407,
+	TAG_Contrast					= 0xa408,
+	TAG_Saturation					= 0xa409,
+	TAG_Sharpness					= 0xa40a,
+	TAG_DeviceSettingDescription	= 0xa40b,
+	TAG_SubjectDistanceRange		= 0xa40c,
+	// H. Other Tags
+	TAG_ImageUniqueID				= 0xa420,
 };
 
-// Tags declared in an IFD pointed by InteroperabilityIFDPointer
+// 4.6.6 GPS Attribute Information
 enum {
-	TAG_InteroperabilityIndex		= 0x0001,
-	TAG_InteroperabilityVersion		= 0x0002,
-	TAG_RelatedImageWidth			= 0x1001,
-	TAG_RelatedImageHeight			= 0x1002,
-};
-
-// Tags declared in an IFD pointed by GPSInfoIFDPointer
-enum {
+	// A. Tags Relating to GPS
 	TAG_GPSVersionID				= 0x0000,
 	TAG_GPSLatitudeRef				= 0x0001,
 	TAG_GPSLatitude					= 0x0002,
@@ -182,6 +203,18 @@ enum {
 	TAG_GPSBearing					= 0x0018,
 	TAG_GPSDestDistanceRef			= 0x0019,
 	TAG_GPSDestDistance				= 0x001a,
+	TAG_GPSProcessingMethod			= 0x001b,
+	TAG_GPSAreaInformation			= 0x001c,
+	TAG_GPSDateStamp				= 0x001d,
+	TAG_GPSDifferential				= 0x001e,
+};
+
+// Tags declared in an IFD pointed by InteroperabilityIFDPointer
+enum {
+	TAG_InteroperabilityIndex		= 0x0001,
+	TAG_InteroperabilityVersion		= 0x0002,
+	TAG_RelatedImageWidth			= 0x1001,
+	TAG_RelatedImageHeight			= 0x1002,
 };
 
 struct Header {
