@@ -63,6 +63,14 @@ enum {
 	TAG_invalid						= -1,
 };
 
+// 4.6.3 Exif-specific IFD
+enum {
+	// Pointers
+	TAG_ExifIFDPointer				= 0x8769,
+	TAG_GPSInfoIFDPointer			= 0x8825,
+	TAG_InteroperabilityIFDPointer	= 0xa005,
+};
+
 // 4.6.4 TIFF Rev.6.0 Attribute Information
 enum {
 	// A. Tags relating to image data structure
@@ -99,10 +107,6 @@ enum {
 	TAG_Software					= 0x0131,
 	TAG_Artist						= 0x013b,
 	TAG_Copyright					= 0x8298,
-	// Pointers
-	TAG_ExifIFDPointer				= 0x8769,
-	TAG_GPSInfoIFDPointer			= 0x8825,
-	TAG_InteroperabilityIFDPointer	= 0xa005,
 };
 
 // 4.6.5 Exif IFD Attribute Information
@@ -209,7 +213,7 @@ enum {
 	TAG_GPSDifferential				= 0x001e,
 };
 
-// Tags declared in an IFD pointed by InteroperabilityIFDPointer
+// 4.6.7 Interoperability IFD Attribute Information
 enum {
 	TAG_InteroperabilityIndex		= 0x0001,
 	TAG_InteroperabilityVersion		= 0x0002,

@@ -6,7 +6,9 @@
 
 Gura_BeginModule(jpeg)
 
+// 4.6.4 TIFF Rev.6.0 Attribute Information
 static const TagInfo g_tagInfoTbl[] = {
+	// A. Tags relating to image data structure
 	{ TAG_ImageWidth,					"ImageWidth",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_ImageLength,					"ImageLength",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_BitsPerSample,				"BitsPerSample",				TYPE_UNDEFINED,	NULL,				},
@@ -20,16 +22,19 @@ static const TagInfo g_tagInfoTbl[] = {
 	{ TAG_XResolution,					"XResolution",					TYPE_RATIONAL,	NULL,				},
 	{ TAG_YResolution,					"YResolution",					TYPE_RATIONAL,	NULL,				},
 	{ TAG_ResolutionUnit,				"ResolutionUnit",				TYPE_SHORT,		NULL,				},
+	// B. Tags relating to recording offset
 	{ TAG_StripOffsets,					"StripOffsets",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_RowsPerStrip,					"RowsPerStrip",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_StripByteCounts,				"StripByteCounts",				TYPE_UNDEFINED,	NULL,				},
 	{ TAG_JPEGInterchangeFormat,		"JPEGInterchangeFormat",		TYPE_UNDEFINED,	NULL,				},
 	{ TAG_JPEGInterchangeFormatLength,	"JPEGInterchangeFormatLength",	TYPE_UNDEFINED,	NULL,				},
+	// C. Tags relating to image data characteristics
 	{ TAG_TransferFunction,				"TransferFunction",				TYPE_UNDEFINED,	NULL,				},
 	{ TAG_WhitePoint,					"WhitePoint",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_PrimaryChromaticities,		"PrimaryChromaticities",		TYPE_UNDEFINED,	NULL,				},
 	{ TAG_YCbCrCoefficients,			"YCbCrCoefficients",			TYPE_UNDEFINED,	NULL,				},
 	{ TAG_ReferenceBlackWhite,			"ReferenceBlackWhite",			TYPE_UNDEFINED,	NULL,				},
+	// D. Other tags
 	{ TAG_DateTime,						"DateTime",						TYPE_ASCII,		NULL,				},
 	{ TAG_ImageDescription,				"ImageDescription",				TYPE_UNDEFINED,	NULL,				},
 	{ TAG_Make,							"Make",							TYPE_ASCII,		NULL,				},
@@ -37,28 +42,36 @@ static const TagInfo g_tagInfoTbl[] = {
 	{ TAG_Software,						"Software",						TYPE_UNDEFINED,	NULL,				},
 	{ TAG_Artist,						"Artist",						TYPE_UNDEFINED,	NULL,				},
 	{ TAG_Copyright,					"Copyright",					TYPE_UNDEFINED,	NULL,				},
-	{ TAG_Copyright2,					"Copyright2",					TYPE_ASCII,		NULL,				},
-	{ TAG_ExifIFDPointer,				"ExifIFDPointer",				TYPE_SHORT,		"Exif",				},
-	{ TAG_GPSInfoIFDPointer,			"GPSInfoIFDPointer",			TYPE_SHORT,		"GPSInfo",			},
+	// Pointers
+	{ TAG_ExifIFDPointer,				"ExifIFDPointer",				TYPE_LONG,		"Exif",				},
+	{ TAG_GPSInfoIFDPointer,			"GPSInfoIFDPointer",			TYPE_LONG,		"GPSInfo",			},
 	{ TAG_invalid,						NULL,							TYPE_UNDEFINED,	NULL,				},
 };
 
+// 4.6.5 Exif IFD Attribute Information
 static const TagInfo g_tagInfoTbl_Exif[] = {
+	// A. Tags Relating to Version
 	{ TAG_ExifVersion,					"ExifVersion",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_FlashPixVersion,				"FlashPixVersion",				TYPE_UNDEFINED,	NULL,				},
+	// B. Tag Relating to Image Data Characteristics
 	{ TAG_ColorSpace,					"ColorSpace",					TYPE_UNDEFINED,	NULL,				},
+	// C. Tags Relating to Image Configuration
 	{ TAG_ComponentsConfiguration,		"ComponentsConfiguration",		TYPE_UNDEFINED,	NULL,				},
 	{ TAG_CompressedBitsPerPixel,		"CompressedBitsPerPixel",		TYPE_UNDEFINED,	NULL,				},
 	{ TAG_PixelXDimension,				"PixelXDimension",				TYPE_UNDEFINED,	NULL,				},
 	{ TAG_PixelYDimension,				"PixelYDimension",				TYPE_UNDEFINED,	NULL,				},
+	// D. Tags Relating to User Information
 	{ TAG_MakerNote,					"MakerNote",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_UserComment,					"UserComment",					TYPE_UNDEFINED,	NULL,				},
+	// E. Tags Relating to Related File Information
 	{ TAG_RelatedSoundFile,				"RelatedSoundFile",				TYPE_UNDEFINED,	NULL,				},
+	// F. Tags Relating to Date and Time
 	{ TAG_DateTimeOriginal,				"DateTimeOriginal",				TYPE_UNDEFINED,	NULL,				},
 	{ TAG_DateTimeDigitized,			"DateTimeDigitized",			TYPE_UNDEFINED,	NULL,				},
 	{ TAG_SubSecTime,					"SubSecTime",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_SubSecTimeOriginal,			"SubSecTimeOriginal",			TYPE_UNDEFINED,	NULL,				},
 	{ TAG_SubSecTimeDigitized,			"SubSecTimeDigitized",			TYPE_UNDEFINED,	NULL,				},
+	// G. Tags Relating to Picture-Taking Conditions
 	{ TAG_ExposureTime,					"ExposureTime",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_FNumber,						"FNumber",						TYPE_UNDEFINED,	NULL,				},
 	{ TAG_ExposureProgram,				"ExposureProgram",				TYPE_UNDEFINED,	NULL,				},
@@ -75,6 +88,7 @@ static const TagInfo g_tagInfoTbl_Exif[] = {
 	{ TAG_LightSource,					"LightSource",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_Flash,						"Flash",						TYPE_UNDEFINED,	NULL,				},
 	{ TAG_FocalLength,					"FocalLength",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_SubjectArea,					"SubjectArea",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_FlashEnergy,					"FlashEnergy",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_SpatialFrequencyResponse,		"SpatialFrequencyResponse",		TYPE_UNDEFINED,	NULL,				},
 	{ TAG_FocalPlaneXResolution,		"FocalPlaneXResolution",		TYPE_UNDEFINED,	NULL,				},
@@ -86,19 +100,28 @@ static const TagInfo g_tagInfoTbl_Exif[] = {
 	{ TAG_FileSource,					"FileSource",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_SceneType,					"SceneType",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_CFAPattern,					"CFAPattern",					TYPE_UNDEFINED,	NULL,				},
-	{ TAG_InteroperabilityIFDPointer,	"InteroperabilityIFDPointer",	TYPE_SHORT,		"Interoperability"	},
+	{ TAG_CustomRendered,				"CustomRendered",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_ExposureMode,					"ExposureMode",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_WhiteBalance,					"WhiteBalance",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_DigitalZoomRatio,				"DigitalZoomRatio",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_FocalLengthIn35mmFilm,		"FocalLengthIn35mmFilm",		TYPE_UNDEFINED,	NULL,				},
+	{ TAG_SceneCaptureType,				"SceneCaptureType",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GainControl,					"GainControl",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_Contrast,						"Contrast",						TYPE_UNDEFINED,	NULL,				},
+	{ TAG_Saturation,					"Saturation",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_Sharpness,					"Sharpness",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_DeviceSettingDescription,		"DeviceSettingDescription",		TYPE_UNDEFINED,	NULL,				},
+	{ TAG_SubjectDistanceRange,			"SubjectDistanceRange",			TYPE_UNDEFINED,	NULL,				},
+	// H. Other Tags
+	{ TAG_ImageUniqueID,				"ImageUniqueID",				TYPE_UNDEFINED,	NULL,				},
+	// Pointers
+	{ TAG_InteroperabilityIFDPointer,	"InteroperabilityIFDPointer",	TYPE_LONG,		"Interoperability"	},
 	{ TAG_invalid,						NULL,							TYPE_UNDEFINED,	NULL,				},
 };
 
-static const TagInfo g_tagInfoTbl_Interoperability[] = {
-	{ TAG_InteroperabilityIndex,		"InteroperabilityIndex",		TYPE_ASCII,							},
-	{ TAG_InteroperabilityVersion,		"InteroperabilityVersion",		TYPE_UNDEFINED,						},
-	{ TAG_RelatedImageWidth,			"RelatedImageWidth",			TYPE_SHORT,							},
-	{ TAG_RelatedImageHeight,			"RelatedImageHeight",			TYPE_SHORT,							},
-	{ TAG_invalid,						NULL,							TYPE_UNDEFINED,	NULL,				},
-};
-
+// 4.6.6 GPS Attribute Information
 static const TagInfo g_tagInfoTbl_GPSInfo[] = {
+	// A. Tags Relating to GPS
 	{ TAG_GPSVersionID,					"GPSVersionID",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_GPSLatitudeRef,				"GPSLatitudeRef",				TYPE_UNDEFINED,	NULL,				},
 	{ TAG_GPSLatitude,					"GPSLatitude",					TYPE_UNDEFINED,	NULL,				},
@@ -126,8 +149,22 @@ static const TagInfo g_tagInfoTbl_GPSInfo[] = {
 	{ TAG_GPSBearing,					"GPSBearing",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_GPSDestDistanceRef,			"GPSDestDistanceRef",			TYPE_UNDEFINED,	NULL,				},
 	{ TAG_GPSDestDistance,				"GPSDestDistance",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSProcessingMethod,			"GPSProcessingMethod",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSAreaInformation,			"GPSAreaInformation",			TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSDateStamp,					"GPSDateStamp",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_GPSDifferential,				"GPSDifferential",				TYPE_UNDEFINED,	NULL,				},
 	{ TAG_invalid,						NULL,							TYPE_UNDEFINED,	NULL,				},
 };
+
+// 4.6.7 Interoperability IFD Attribute Information
+static const TagInfo g_tagInfoTbl_Interoperability[] = {
+	{ TAG_InteroperabilityIndex,		"InteroperabilityIndex",		TYPE_ASCII,							},
+	{ TAG_InteroperabilityVersion,		"InteroperabilityVersion",		TYPE_UNDEFINED,						},
+	{ TAG_RelatedImageWidth,			"RelatedImageWidth",			TYPE_SHORT,							},
+	{ TAG_RelatedImageHeight,			"RelatedImageHeight",			TYPE_SHORT,							},
+	{ TAG_invalid,						NULL,							TYPE_UNDEFINED,	NULL,				},
+};
+
 
 static const TypeInfo g_typeInfoTbl[] = {
 	{ TYPE_BYTE,		"BYTE",			UNITSIZE_BYTE,		},

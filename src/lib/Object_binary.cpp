@@ -102,10 +102,29 @@ Iterator *Object_binary::CreateIterator(Signal sig)
 
 String Object_binary::ToString(Signal sig, bool exprFlag)
 {
+	String str;
 	char buff[64];
-	::sprintf(buff, "<binary:%s:%dbyte>",
+	::sprintf(buff, "<binary:%s:%dbyte",
 				IsWritable()? "RW" : "R", static_cast<int>(_binary.size()));
-	return String(buff);
+	str += buff;
+	if (!_binary.empty() && _binary.size() < 32) {
+		str += ":'";
+		foreach (Binary, p, _binary) {
+			char ch = *p;
+			if (ch == '\'' || ch == '\\') {
+				str += '\\';
+				str += ch;
+			} else if (0x20 < ch && ch < 0x7f) {
+				str += ch;
+			} else {
+				::sprintf(buff, "\\x%02x", ch);
+				str += buff;
+			}
+		}
+		str += "'";
+	}
+	str += ">";
+	return str;
 }
 
 //-----------------------------------------------------------------------------
