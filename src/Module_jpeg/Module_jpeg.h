@@ -33,24 +33,39 @@ Gura_DeclareUserSymbol(GPSInfo);
 // data types
 //-----------------------------------------------------------------------------
 enum {
-	SIZE_IFDHeader	= 2,
-	SIZE_TagRaw		= 12,
+	SIZE_IFDHeader		= 2,
+	SIZE_TagRaw			= 12,
 };
 
 enum {
-	MARKER_SOI	= 0xffd8,
-	MARKER_APP1	= 0xffe1,
+	MARKER_SOI			= 0xffd8,
+	MARKER_APP0			= 0xffe0,
+	MARKER_APP1			= 0xffe1,
+	MARKER_APP2			= 0xffe2,
+	MARKER_APP3			= 0xffe3,
+	MARKER_APP4			= 0xffe4,
+	MARKER_APP5			= 0xffe5,
+	MARKER_APP6			= 0xffe6,
+	MARKER_APP7			= 0xffe7,
+	MARKER_APP8			= 0xffe8,
+	MARKER_APP9			= 0xffe9,
+	MARKER_APP10		= 0xffea,
+	MARKER_APP11		= 0xffeb,
+	MARKER_APP12		= 0xffec,
+	MARKER_APP13		= 0xffed,
+	MARKER_APP14		= 0xffee,
+	MARKER_APP15		= 0xffef,
 };
 
 enum {
-	TYPE_BYTE		= 1,
-	TYPE_ASCII		= 2,
-	TYPE_SHORT		= 3,
-	TYPE_LONG		= 4,
-	TYPE_RATIONAL	= 5,
-	TYPE_UNDEFINED	= 7,
-	TYPE_SLONG		= 9,
-	TYPE_SRATIONAL	= 10,
+	TYPE_BYTE			= 1,
+	TYPE_ASCII			= 2,
+	TYPE_SHORT			= 3,
+	TYPE_LONG			= 4,
+	TYPE_RATIONAL		= 5,
+	TYPE_UNDEFINED		= 7,
+	TYPE_SLONG			= 9,
+	TYPE_SRATIONAL		= 10,
 };
 
 enum {
@@ -224,13 +239,6 @@ enum {
 	TAG_InteroperabilityVersion		= 0x0002,
 	TAG_RelatedImageWidth			= 0x1001,
 	TAG_RelatedImageHeight			= 0x1002,
-};
-
-struct Header {
-	XPackedUShort_BE(SOI);
-	XPackedUShort_BE(APP1);
-	XPackedUShort_BE(Size);
-	char ExifCode[6];
 };
 
 struct TIFF_BE {

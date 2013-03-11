@@ -81,28 +81,38 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 	OAL::Memory mem;
 	mem.Allocate(65536);
 	char *buff = reinterpret_cast<char *>(mem.GetPointer());
-	if (!ReadBuff(sig, stream, buff, 12)) return false;
+	SHORT_BE *pShort = reinterpret_cast<SHORT_BE *>(buff);
+	if (!ReadBuff(sig, stream, pShort, UNITSIZE_SHORT)) return false;
+	if (XUnpackUShort(pShort->num) != MARKER_SOI) {
+		sig.SetError(ERR_FormatError, "invalid jpeg file");
+		return false;
+	}
 	size_t bytesAPP1 = 0;
-	do {
-		Header *pHeader = reinterpret_cast<Header *>(buff);
-		if (XUnpackUShort(pHeader->SOI) != MARKER_SOI) {
+	for (;;) {
+		if (!ReadBuff(sig, stream, pShort, UNITSIZE_SHORT)) return false;
+		unsigned short marker = XUnpackUShort(pShort->num);
+		if (marker < MARKER_APP0 || MARKER_APP15 < marker) {
+			sig.SetError(ERR_FormatError, "Exif information doesn't exist");
+			return false;
+		}
+		if (!ReadBuff(sig, stream, pShort, UNITSIZE_SHORT)) return false;
+		unsigned short bytes = XUnpackUShort(pShort->num);
+		if (bytes < UNITSIZE_SHORT) {
 			sig.SetError(ERR_FormatError, "invalid jpeg file");
 			return false;
 		}
-		if (XUnpackUShort(pHeader->APP1) != MARKER_APP1) {
-			sig.SetError(ERR_FormatError, "Exif information doesn't exist");
-			return false;
+		if (marker == MARKER_APP1) {
+			char code[6];
+			if (!ReadBuff(sig, stream, code, 6)) return false;
+			if (::memcmp(code, "Exif\0\0", 6) != 0) {
+				sig.SetError(ERR_FormatError, "Exif information doesn't exist");
+				return false;
+			}
+			bytesAPP1 = bytes;
+			break;
 		}
-		bytesAPP1 = XUnpackUShort(pHeader->Size);
-		if (bytesAPP1 < 8) {
-			sig.SetError(ERR_FormatError, "Exif information doesn't exist");
-			return false;
-		}
-		if (::memcmp(pHeader->ExifCode, "Exif\0\0", 6) != 0) {
-			sig.SetError(ERR_FormatError, "Exif information doesn't exist");
-			return false;
-		}
-	} while (0);
+		if (!stream.Seek(sig, bytes - 2, Stream::SeekCur)) return false;
+	}
 	if (!ReadBuff(sig, stream, buff, bytesAPP1)) return false;
 	if (::memcmp(buff, "MM", 2) == 0) {
 		_bigendianFlag = true;
