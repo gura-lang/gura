@@ -93,6 +93,7 @@ enum {
 	TAG_Software					= 0x0131,
 	TAG_Artist						= 0x013b,
 	TAG_Copyright					= 0x0d68,
+	TAG_Copyright2					= 0x8298,
 	TAG_ExifIFDPointer				= 0x8769,
 	TAG_GPSInfoIFDPointer			= 0x8825,
 };

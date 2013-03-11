@@ -37,6 +37,7 @@ static const TagInfo g_tagInfoTbl[] = {
 	{ TAG_Software,						"Software",						TYPE_UNDEFINED,	NULL,				},
 	{ TAG_Artist,						"Artist",						TYPE_UNDEFINED,	NULL,				},
 	{ TAG_Copyright,					"Copyright",					TYPE_UNDEFINED,	NULL,				},
+	{ TAG_Copyright2,					"Copyright2",					TYPE_ASCII,		NULL,				},
 	{ TAG_ExifIFDPointer,				"ExifIFDPointer",				TYPE_SHORT,		"Exif",				},
 	{ TAG_GPSInfoIFDPointer,			"GPSInfoIFDPointer",			TYPE_SHORT,		"GPSInfo",			},
 	{ TAG_invalid,						NULL,							TYPE_UNDEFINED,	NULL,				},
