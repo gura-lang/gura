@@ -26,6 +26,8 @@ public:
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
+	inline Object_ifd *GetObj0thIFD() { return _pObj0thIFD.get(); }
+	inline Object_ifd *GetObj1stIFD() { return _pObj1stIFD.get(); }
 	bool ReadStream(Signal sig, Stream &stream);
 };
 

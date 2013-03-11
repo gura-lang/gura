@@ -13,7 +13,7 @@ Gura_DeclareUserClass(Tag);
 
 class Object_Tag : public Object {
 private:
-	unsigned short _tag;
+	unsigned short _id;
 	unsigned short _type;
 	const Symbol *_pSymbol;
 	Value _value;
@@ -27,7 +27,7 @@ public:
 	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline unsigned short GetTag() const { return _tag; }
+	inline unsigned short GetId() const { return _id; }
 	inline unsigned short GetType() const { return _type; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const Value &GetValue() const { return _value; }

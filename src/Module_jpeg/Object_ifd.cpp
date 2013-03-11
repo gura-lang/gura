@@ -41,11 +41,11 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbol,
 	AutoPtr<Object_ifd> pObjIFD(new Object_ifd(pSymbol));
 	for (size_t iTag = 0; iTag < nTags; iTag++, offset += SIZE_TagRaw) {
 		TagRaw_T *pTagRaw = reinterpret_cast<TagRaw_T *>(buff + offset);
-		unsigned short tag = XUnpackUShort(pTagRaw->Tag);
+		unsigned short id = XUnpackUShort(pTagRaw->Id);
 		unsigned short type = XUnpackUShort(pTagRaw->Type);
 		unsigned long count = XUnpackULong(pTagRaw->Count);
 		ValueRaw_T *pValueRaw = reinterpret_cast<ValueRaw_T *>(&pTagRaw->ValueRaw);
-		const TagInfo *pTagInfo = TagToInfo(tag);
+		const TagInfo *pTagInfo = TagIdToInfo(id);
 #if 0
 		do {
 			const TypeInfo *pTypeInfo = TypeToInfo(type);
@@ -65,7 +65,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbol,
 									buff, bytesAPP1, offsetSub, &offsetNext));
 			if (pObjIFDSub.IsNull()) return NULL;
 			const Symbol *pSymbol = Symbol::Add(pTagInfo->name);
-			pObjIFD->GetTagOwner().push_back(new Object_Tag(tag, type, pSymbol, pObjIFDSub.release()));
+			pObjIFD->GetTagOwner().push_back(new Object_Tag(id, type, pSymbol, pObjIFDSub.release()));
 		} else {
 			Value value;
 			switch (type) {
@@ -226,7 +226,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbol,
 			}
 			const Symbol *pSymbol = (pTagInfo == NULL)?
 					Gura_Symbol(Str_Empty) : Symbol::Add(pTagInfo->name);
-			pObjIFD->GetTagOwner().push_back(new Object_Tag(tag, type, pSymbol, value));
+			pObjIFD->GetTagOwner().push_back(new Object_Tag(id, type, pSymbol, value));
 		}
 	}
 	return pObjIFD.release();
@@ -292,14 +292,14 @@ Object *Object_ifd::Clone() const
 Value Object_ifd::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
 	if (valueIdx.IsNumber()) {
-		unsigned short tag = valueIdx.GetUShort();
+		unsigned short id = valueIdx.GetUShort();
 		foreach (TagOwner, ppObjTag, GetTagOwner()) {
 			Object_Tag *pObjTag = *ppObjTag;
-			if (pObjTag->GetTag() == tag) {
+			if (pObjTag->GetId() == id) {
 				return Value(Object_Tag::Reference(pObjTag));
 			}
 		}
-		sig.SetError(ERR_IndexError, "can't find tag 0x%04x", tag);
+		sig.SetError(ERR_IndexError, "can't find tag ID 0x%04x", id);
 	} else if (valueIdx.IsSymbol()) {
 		const Symbol *pSymbol = valueIdx.GetSymbol();
 		foreach (TagOwner, ppObjTag, GetTagOwner()) {

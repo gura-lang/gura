@@ -249,7 +249,7 @@ union ValueRaw_BE {
 };
 
 struct TagRaw_BE {
-	XPackedUShort_BE(Tag);
+	XPackedUShort_BE(Id);
 	XPackedUShort_BE(Type);
 	XPackedULong_BE(Count);
 	unsigned char ValueRaw;
@@ -271,14 +271,14 @@ union ValueRaw_LE {
 };
 
 struct TagRaw_LE {
-	XPackedUShort_LE(Tag);
+	XPackedUShort_LE(Id);
 	XPackedUShort_LE(Type);
 	XPackedULong_LE(Count);
 	unsigned char ValueRaw;
 };
 
 struct TagInfo {
-	unsigned short tag;
+	unsigned short id;
 	const char *name;
 	unsigned short type;
 	const char *nameForIFD;
@@ -354,7 +354,7 @@ struct DestinationMgr {
 void PrepareSymbolTagList();
 void SetError_InvalidFormat(Signal &sig);
 bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes);
-const TagInfo *TagToInfo(unsigned short tag);
+const TagInfo *TagIdToInfo(unsigned short id);
 const TypeInfo *TypeToInfo(unsigned short type);
 
 }}

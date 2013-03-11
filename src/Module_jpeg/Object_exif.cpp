@@ -135,7 +135,9 @@ Gura_DeclareMethod(exif, each)
 Gura_ImplementMethod(exif, each)
 {
 	Object_exif *pThis = Object_exif::GetThisObj(args);
-	return Value::Null;
+	Object_ifd *pObj0thIFD = pThis->GetObj0thIFD();
+	return ReturnIterator(env, sig, args,
+					new IteratorTag(Object_ifd::Reference(pObj0thIFD)));
 }
 
 // implementation of class exif

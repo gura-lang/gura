@@ -7,30 +7,30 @@ Gura_BeginModule(jpeg)
 //-----------------------------------------------------------------------------
 // Object_Tag implementation
 //-----------------------------------------------------------------------------
-Object_Tag::Object_Tag(unsigned short tag, unsigned short type, const Symbol *pSymbol, const Value &value) :
+Object_Tag::Object_Tag(unsigned short id, unsigned short type, const Symbol *pSymbol, const Value &value) :
 			Object(Gura_UserClass(Tag)),
-			_tag(tag), _type(type), _pSymbol(pSymbol), _value(value)
+			_id(id), _type(type), _pSymbol(pSymbol), _value(value)
 {
 }
 
-Object_Tag::Object_Tag(unsigned short tag, unsigned short type, const Symbol *pSymbol, Object_ifd *pObjIFD) :
+Object_Tag::Object_Tag(unsigned short id, unsigned short type, const Symbol *pSymbol, Object_ifd *pObjIFD) :
 			Object(Gura_UserClass(Tag)),
-			_tag(tag), _type(type), _pSymbol(pSymbol), _pObjIFD(pObjIFD)
+			_id(id), _type(type), _pSymbol(pSymbol), _pObjIFD(pObjIFD)
 {
 }
 
 void Object_Tag::Print(int indentLevel) const
 {
 	Signal sig;
-	const TagInfo *pTagInfo = TagToInfo(_tag);
+	const TagInfo *pTagInfo = TagIdToInfo(_id);
 	const TypeInfo *pTypeInfo = TypeToInfo(_type);
 	if (IsIFDPointer()) {
 		::printf("%*s%s [%04x]\n", indentLevel * 2, "",
-			(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, _tag);
+			(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, _id);
 		GetObjectIFD()->GetTagOwner().Print(indentLevel + 1);
 	} else {
 		::printf("%*s%s [%04x], %s [%04x], %s\n", indentLevel * 2, "",
-			(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, _tag,
+			(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, _id,
 			(pTypeInfo == NULL)? "(unknown)" : pTypeInfo->name, _type,
 			_value.ToString(sig).c_str());
 	}
@@ -54,7 +54,7 @@ Value Object_Tag::DoGetProp(Signal sig, const Symbol *pSymbol,
 	Environment &env = *this;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
-		return Value(_tag);
+		return Value(_id);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
 		return Value(env, _pSymbol->GetName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(symbol))) {

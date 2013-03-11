@@ -497,11 +497,11 @@ bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes)
 	return true;
 }
 
-const TagInfo *TagToInfo(unsigned short tag)
+const TagInfo *TagIdToInfo(unsigned short id)
 {
 	const TagInfo *pTagInfo = g_tagInfoTbl;
 	for (int i = 0; i < NUMBEROF(g_tagInfoTbl); i++, pTagInfo++) {
-		if (pTagInfo->tag == tag) return pTagInfo;
+		if (pTagInfo->id == id) return pTagInfo;
 	}
 	return NULL;
 }
