@@ -21,6 +21,21 @@ Value RationalToValue(Signal sig, const RATIONAL_T &rational)
 	return Value(Fraction(numerator, denominator));
 }
 
+template<typename RATIONAL_T>
+Value SRationalToValue(Signal sig, const RATIONAL_T &rational)
+{
+	long numerator = XUnpackLong(rational.numerator);
+	long denominator = XUnpackLong(rational.denominator);
+	if (denominator == 0) {
+		if (numerator != 0) {
+			sig.SetError(ERR_ValueError, "rational denominator can't be zero");
+			return Value::Null;
+		}
+		denominator = 1;
+	}
+	return Value(Fraction(numerator, denominator));
+}
+
 template<typename IFDHeader_T, typename TagRaw_T, typename ValueRaw_T, typename SHORT_T,
 		typename LONG_T, typename RATIONAL_T, typename SLONG_T, typename SRATIONAL_T>
 Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
@@ -213,7 +228,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 				}
 				if (count == 1) {
 					SRATIONAL_T *pRational = reinterpret_cast<SRATIONAL_T *>(buff + offset);
-					value = RationalToValue(sig, *pRational);
+					value = SRationalToValue(sig, *pRational);
 					if (value.IsInvalid()) return NULL;
 				} else {
 					ValueList &valList = value.InitAsList(env);
@@ -225,7 +240,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					}
 					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_SRATIONAL) {
 						SRATIONAL_T *pRational = reinterpret_cast<SRATIONAL_T *>(buff + offset);
-						Value valueItem = RationalToValue(sig, *pRational);
+						Value valueItem = SRationalToValue(sig, *pRational);
 						if (valueItem.IsInvalid()) return NULL;
 						valList.push_back(valueItem);
 					}
