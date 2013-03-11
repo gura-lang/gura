@@ -552,26 +552,6 @@ Gura_ImplementMethod(iterator, filter)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-#if 0
-// iterator#seek(criteria)
-Gura_DeclareMethod(iterator, seek)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "criteria", VTYPE_any);
-}
-
-Gura_ImplementMethod(iterator, seek)
-{
-	Object_iterator *pThis = Object_iterator::GetThisObj(args);
-	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
-	Value value;
-	size_t idx = pIteratorSrc->Seek(env, sig, args.GetValue(0), value);
-	if (sig.IsSignalled()) return Value::Null;
-	if (idx == InvalidSize) return Value::Null;
-	return value;
-}
-#endif
-
 // iterator#while(criteria) {block?}
 Gura_DeclareMethodAlias(iterator, while_, "while")
 {
@@ -1165,7 +1145,6 @@ Class_iterator::Class_iterator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 	Gura_AssignMethod(iterator, or_);
 	Gura_AssignMethod(iterator, iscontain);
 	Gura_AssignMethod(iterator, filter);
-	//Gura_AssignMethod(iterator, seek);
 	Gura_AssignMethod(iterator, while_);
 	Gura_AssignMethod(iterator, since);
 	Gura_AssignMethod(iterator, after);
