@@ -17,7 +17,7 @@ private:
 public:
 	Gura_DeclareObjectAccessor(ifd)
 public:
-	Object_ifd(const Symbol *pSymbol);
+	Object_ifd(const Symbol *pSymbolOfIFD);
 	virtual ~Object_ifd();
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
@@ -30,9 +30,9 @@ public:
 	inline const TagOwner &GetTagOwner() const { return _tagOwner; }
 };
 
-Object_ifd *ParseIFD_BE(Environment &env, Signal sig, const Symbol *pSymbol,
+Object_ifd *ParseIFD_BE(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 			char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext);
-Object_ifd *ParseIFD_LE(Environment &env, Signal sig, const Symbol *pSymbol,
+Object_ifd *ParseIFD_LE(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 			char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext);
 
 //-----------------------------------------------------------------------------

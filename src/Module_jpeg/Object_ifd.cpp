@@ -20,7 +20,7 @@ Value RationalToValue(Signal sig, const RATIONAL_T &rational)
 
 template<typename IFDHeader_T, typename TagRaw_T, typename ValueRaw_T, typename SHORT_T,
 		typename LONG_T, typename RATIONAL_T, typename SLONG_T, typename SRATIONAL_T>
-Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbol,
+Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext)
 {
 	if (offset + SIZE_IFDHeader >= bytesAPP1 - 1) {
@@ -38,14 +38,14 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbol,
 		SHORT_T *pShort = reinterpret_cast<SHORT_T *>(buff + offset + nTags * SIZE_TagRaw);
 		*pOffsetNext = XUnpackUShort(pShort->num);
 	}
-	AutoPtr<Object_ifd> pObjIFD(new Object_ifd(pSymbol));
+	AutoPtr<Object_ifd> pObjIFD(new Object_ifd(pSymbolOfIFD));
 	for (size_t iTag = 0; iTag < nTags; iTag++, offset += SIZE_TagRaw) {
 		TagRaw_T *pTagRaw = reinterpret_cast<TagRaw_T *>(buff + offset);
 		unsigned short id = XUnpackUShort(pTagRaw->Id);
 		unsigned short type = XUnpackUShort(pTagRaw->Type);
 		unsigned long count = XUnpackULong(pTagRaw->Count);
 		ValueRaw_T *pValueRaw = reinterpret_cast<ValueRaw_T *>(&pTagRaw->ValueRaw);
-		const TagInfo *pTagInfo = TagIdToInfo(id);
+		const TagInfo *pTagInfo = TagIdToInfo(pSymbolOfIFD, id);
 #if 0
 		do {
 			const TypeInfo *pTypeInfo = TypeToInfo(type);
@@ -58,10 +58,10 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbol,
 		if (pTagInfo != NULL && pTagInfo->nameForIFD != NULL) {
 			size_t offsetSub = XUnpackULong(pValueRaw->LONG.num);
 			size_t offsetNext = 0;
-			const Symbol *pSymbolForIFD = Symbol::Add(pTagInfo->nameForIFD);
+			const Symbol *pSymbolOfIFDSub = Symbol::Add(pTagInfo->nameForIFD);
 			AutoPtr<Object_ifd> pObjIFDSub(ParseIFD_T<IFDHeader_T, TagRaw_T,
 					ValueRaw_T, SHORT_T,
-					LONG_T, RATIONAL_T, SLONG_T, SRATIONAL_T>(env, sig, pSymbolForIFD,
+					LONG_T, RATIONAL_T, SLONG_T, SRATIONAL_T>(env, sig, pSymbolOfIFDSub,
 									buff, bytesAPP1, offsetSub, &offsetNext));
 			if (pObjIFDSub.IsNull()) return NULL;
 			const Symbol *pSymbol = Symbol::Add(pTagInfo->name);
@@ -232,18 +232,18 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbol,
 	return pObjIFD.release();
 }
 
-Object_ifd *ParseIFD_BE(Environment &env, Signal sig, const Symbol *pSymbol,
+Object_ifd *ParseIFD_BE(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 				char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext)
 {
 	return ParseIFD_T<IFDHeader_BE, TagRaw_BE, ValueRaw_BE, SHORT_BE,
-		LONG_BE, RATIONAL_BE, SLONG_BE, SRATIONAL_BE>(env, sig, pSymbol, buff, bytesAPP1, offset, pOffsetNext);
+		LONG_BE, RATIONAL_BE, SLONG_BE, SRATIONAL_BE>(env, sig, pSymbolOfIFD, buff, bytesAPP1, offset, pOffsetNext);
 }
 
-Object_ifd *ParseIFD_LE(Environment &env, Signal sig, const Symbol *pSymbol,
+Object_ifd *ParseIFD_LE(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 				char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext)
 {
 	return ParseIFD_T<IFDHeader_LE, TagRaw_LE, ValueRaw_LE, SHORT_LE,
-		LONG_LE, RATIONAL_LE, SLONG_LE, SRATIONAL_LE>(env, sig, pSymbol, buff, bytesAPP1, offset, pOffsetNext);
+		LONG_LE, RATIONAL_LE, SLONG_LE, SRATIONAL_LE>(env, sig, pSymbolOfIFD, buff, bytesAPP1, offset, pOffsetNext);
 }
 
 //-----------------------------------------------------------------------------
@@ -275,8 +275,8 @@ void IteratorTag::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &env
 //-----------------------------------------------------------------------------
 // Object_ifd implementation
 //-----------------------------------------------------------------------------
-Object_ifd::Object_ifd(const Symbol *pSymbol) :
-						Object(Gura_UserClass(ifd)), _pSymbol(pSymbol)
+Object_ifd::Object_ifd(const Symbol *pSymbolOfIFD) :
+						Object(Gura_UserClass(ifd)), _pSymbol(pSymbolOfIFD)
 {
 }
 

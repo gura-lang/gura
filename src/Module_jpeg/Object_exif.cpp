@@ -64,20 +64,20 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 	do {
 		Header *pHeader = reinterpret_cast<Header *>(buff);
 		if (XUnpackUShort(pHeader->SOI) != MARKER_SOI) {
-			SetError_InvalidFormat(sig);
+			sig.SetError(ERR_FormatError, "invalid jpeg file");
 			return false;
 		}
 		if (XUnpackUShort(pHeader->APP1) != MARKER_APP1) {
-			SetError_InvalidFormat(sig);
+			sig.SetError(ERR_FormatError, "Exif information doesn't exist");
 			return false;
 		}
 		bytesAPP1 = XUnpackUShort(pHeader->Size);
 		if (bytesAPP1 < 8) {
-			SetError_InvalidFormat(sig);
+			sig.SetError(ERR_FormatError, "Exif information doesn't exist");
 			return false;
 		}
 		if (::memcmp(pHeader->ExifCode, "Exif\0\0", 6) != 0) {
-			SetError_InvalidFormat(sig);
+			sig.SetError(ERR_FormatError, "Exif information doesn't exist");
 			return false;
 		}
 	} while (0);

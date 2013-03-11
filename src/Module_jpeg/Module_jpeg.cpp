@@ -39,6 +39,10 @@ static const TagInfo g_tagInfoTbl[] = {
 	{ TAG_Copyright,					"Copyright",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_ExifIFDPointer,				"ExifIFDPointer",				TYPE_SHORT,		"Exif",				},
 	{ TAG_GPSInfoIFDPointer,			"GPSInfoIFDPointer",			TYPE_SHORT,		"GPSInfo",			},
+	{ TAG_invalid,						NULL,							TYPE_UNDEFINED,	NULL,				},
+};
+
+static const TagInfo g_tagInfoTbl_Exif[] = {
 	{ TAG_ExifVersion,					"ExifVersion",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_FlashPixVersion,				"FlashPixVersion",				TYPE_UNDEFINED,	NULL,				},
 	{ TAG_ColorSpace,					"ColorSpace",					TYPE_UNDEFINED,	NULL,				},
@@ -82,6 +86,18 @@ static const TagInfo g_tagInfoTbl[] = {
 	{ TAG_SceneType,					"SceneType",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_CFAPattern,					"CFAPattern",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_InteroperabilityIFDPointer,	"InteroperabilityIFDPointer",	TYPE_SHORT,		"Interoperability"	},
+	{ TAG_invalid,						NULL,							TYPE_UNDEFINED,	NULL,				},
+};
+
+static const TagInfo g_tagInfoTbl_Interoperability[] = {
+	{ TAG_InteroperabilityIndex,		"InteroperabilityIndex",		TYPE_ASCII,							},
+	{ TAG_InteroperabilityVersion,		"InteroperabilityVersion",		TYPE_UNDEFINED,						},
+	{ TAG_RelatedImageWidth,			"RelatedImageWidth",			TYPE_SHORT,							},
+	{ TAG_RelatedImageHeight,			"RelatedImageHeight",			TYPE_SHORT,							},
+	{ TAG_invalid,						NULL,							TYPE_UNDEFINED,	NULL,				},
+};
+
+static const TagInfo g_tagInfoTbl_GPSInfo[] = {
 	{ TAG_GPSVersionID,					"GPSVersionID",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_GPSLatitudeRef,				"GPSLatitudeRef",				TYPE_UNDEFINED,	NULL,				},
 	{ TAG_GPSLatitude,					"GPSLatitude",					TYPE_UNDEFINED,	NULL,				},
@@ -109,6 +125,7 @@ static const TagInfo g_tagInfoTbl[] = {
 	{ TAG_GPSBearing,					"GPSBearing",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_GPSDestDistanceRef,			"GPSDestDistanceRef",			TYPE_UNDEFINED,	NULL,				},
 	{ TAG_GPSDestDistance,				"GPSDestDistance",				TYPE_UNDEFINED,	NULL,				},
+	{ TAG_invalid,						NULL,							TYPE_UNDEFINED,	NULL,				},
 };
 
 static const TypeInfo g_typeInfoTbl[] = {
@@ -207,6 +224,9 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(ifd);
 	Gura_RealizeUserSymbol(ifd0);
 	Gura_RealizeUserSymbol(ifd1);
+	Gura_RealizeUserSymbol(Exif);
+	Gura_RealizeUserSymbol(Interoperability);
+	Gura_RealizeUserSymbol(GPSInfo);
 	// class realization
 	Gura_RealizeUserClass(Tag, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(ifd, env.LookupClass(VTYPE_object));
@@ -482,10 +502,15 @@ bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes)
 	return true;
 }
 
-const TagInfo *TagIdToInfo(unsigned short id)
+const TagInfo *TagIdToInfo(const Symbol *pSymbolOfIFD, unsigned short id)
 {
-	const TagInfo *pTagInfo = g_tagInfoTbl;
-	for (int i = 0; i < NUMBEROF(g_tagInfoTbl); i++, pTagInfo++) {
+	const TagInfo *pTagInfo =
+		(pSymbolOfIFD == Gura_UserSymbol(Exif))? g_tagInfoTbl_Exif :
+		(pSymbolOfIFD == Gura_UserSymbol(Interoperability))? g_tagInfoTbl_Interoperability :
+		(pSymbolOfIFD == Gura_UserSymbol(GPSInfo))? g_tagInfoTbl_GPSInfo :
+		g_tagInfoTbl;
+	if (pTagInfo == NULL) return NULL;
+	for (int i = 0; pTagInfo->name != NULL; i++, pTagInfo++) {
 		if (pTagInfo->id == id) return pTagInfo;
 	}
 	return NULL;

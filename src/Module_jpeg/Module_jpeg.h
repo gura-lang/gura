@@ -20,6 +20,9 @@ Gura_DeclareUserSymbol(value);
 Gura_DeclareUserSymbol(ifd);
 Gura_DeclareUserSymbol(ifd0);
 Gura_DeclareUserSymbol(ifd1);
+Gura_DeclareUserSymbol(Exif);
+Gura_DeclareUserSymbol(Interoperability);
+Gura_DeclareUserSymbol(GPSInfo);
 
 //-----------------------------------------------------------------------------
 // data types
@@ -57,6 +60,9 @@ enum {
 };
 
 enum {
+	TAG_invalid						= -1,
+};
+enum {
 	TAG_ImageWidth					= 0x0100,
 	TAG_ImageLength					= 0x0101,
 	TAG_BitsPerSample				= 0x0102,
@@ -89,6 +95,10 @@ enum {
 	TAG_Copyright					= 0x0d68,
 	TAG_ExifIFDPointer				= 0x8769,
 	TAG_GPSInfoIFDPointer			= 0x8825,
+};
+
+// Tags declared in an IFD pointed by ExifIFDPointer
+enum {
 	TAG_ExifVersion					= 0x9000,
 	TAG_FlashPixVersion				= 0xa000,
 	TAG_ColorSpace					= 0xa001,
@@ -132,6 +142,18 @@ enum {
 	TAG_SceneType					= 0xa301,
 	TAG_CFAPattern					= 0xa302,
 	TAG_InteroperabilityIFDPointer	= 0xa005,
+};
+
+// Tags declared in an IFD pointed by InteroperabilityIFDPointer
+enum {
+	TAG_InteroperabilityIndex		= 0x0001,
+	TAG_InteroperabilityVersion		= 0x0002,
+	TAG_RelatedImageWidth			= 0x1001,
+	TAG_RelatedImageHeight			= 0x1002,
+};
+
+// Tags declared in an IFD pointed by GPSInfoIFDPointer
+enum {
 	TAG_GPSVersionID				= 0x0000,
 	TAG_GPSLatitudeRef				= 0x0001,
 	TAG_GPSLatitude					= 0x0002,
@@ -350,7 +372,7 @@ struct DestinationMgr {
 //-----------------------------------------------------------------------------
 void SetError_InvalidFormat(Signal &sig);
 bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes);
-const TagInfo *TagIdToInfo(unsigned short id);
+const TagInfo *TagIdToInfo(const Symbol *pSymbolOfIFD, unsigned short id);
 const TypeInfo *TypeToInfo(unsigned short type);
 
 }}
