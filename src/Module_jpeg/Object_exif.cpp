@@ -41,6 +41,7 @@ bool Object_exif::DoDirProp(Signal sig, SymbolSet &symbols)
 Value Object_exif::DoGetProp(Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Environment &env = *this;
 	if (_pObj0thIFD.IsNull()) return Value::Null;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(ifd0))) {
@@ -49,7 +50,20 @@ Value Object_exif::DoGetProp(Signal sig, const Symbol *pSymbol,
 		if (_pObj1stIFD.IsNull()) return Value::Null;
 		return Value(Object_ifd::Reference(_pObj1stIFD.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(thumbnail))) {
-		return _valueThumbnail;
+		if (_pObjBinaryThumbnail.IsNull()) return Value::Null;
+		if (_pObjImageThumbnail.IsNull()) {
+			Stream_Binary stream(sig,
+					Object_binary::Reference(_pObjBinaryThumbnail.get()), false);
+			AutoPtr<Object_image> pObjImage(new Object_image(env, Image::FORMAT_RGBA));
+			if (!ImageStreamer_JPEG::ReadStream(sig, pObjImage.get(), stream)) {
+				return Value::Null;
+			}
+			_pObjImageThumbnail.reset(pObjImage.release());
+		}
+		return Value(Object_image::Reference(_pObjImageThumbnail.get()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(thumbnail_jpeg))) {
+		if (_pObjBinaryThumbnail.IsNull()) return Value::Null;
+		return Value(Object_binary::Reference(_pObjBinaryThumbnail.get()));
 	}
 	return _pObj0thIFD->DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
 }
@@ -140,14 +154,8 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 				SetError_InvalidFormat(sig);
 				return false;
 			}
-			//GetConsole()->Dump(sig, buff + offsetThumbnail, bytesThumbnail);
-			StreamMemReader streamThumbnail(sig, buff + offsetThumbnail, bytesThumbnail);
-			AutoPtr<Object_image> pObjImage(new Object_image(env, Image::FORMAT_RGBA));
-			if (!ImageStreamer_JPEG::ReadStream(sig, pObjImage.get(), streamThumbnail)) {
-				return false;
-			}
-			_valueThumbnail = Value(pObjImage.release());
-			//_valueThumbnail = Value(new Object_binary(env, buff + offsetThumbnail, bytesThumbnail, false));
+			_pObjBinaryThumbnail.reset(new Object_binary(env,
+								buff + offsetThumbnail, bytesThumbnail, false));
 		}
 	}
 	//_pObj0thIFD->GetTagOwner().Print();
