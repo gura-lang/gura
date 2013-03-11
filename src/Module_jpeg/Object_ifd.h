@@ -12,11 +12,12 @@ Gura_DeclareUserClass(ifd);
 
 class Object_ifd : public Object {
 private:
+	const Symbol *_pSymbol;
 	TagOwner _tagOwner;
 public:
 	Gura_DeclareObjectAccessor(ifd)
 public:
-	Object_ifd();
+	Object_ifd(const Symbol *pSymbol);
 	virtual ~Object_ifd();
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
@@ -24,13 +25,14 @@ public:
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
+	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline TagOwner &GetTagOwner() { return _tagOwner; }
 	inline const TagOwner &GetTagOwner() const { return _tagOwner; }
 };
 
-Object_ifd *ParseIFD_BE(Environment &env, Signal sig,
+Object_ifd *ParseIFD_BE(Environment &env, Signal sig, const Symbol *pSymbol,
 			char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext);
-Object_ifd *ParseIFD_LE(Environment &env, Signal sig,
+Object_ifd *ParseIFD_LE(Environment &env, Signal sig, const Symbol *pSymbol,
 			char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext);
 
 //-----------------------------------------------------------------------------

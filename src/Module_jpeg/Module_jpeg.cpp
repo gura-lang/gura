@@ -204,6 +204,7 @@ Gura_ModuleEntry()
 	// symbol realization
 	Gura_RealizeUserSymbol(id);
 	Gura_RealizeUserSymbol(name);
+	Gura_RealizeUserSymbol(symbol);
 	Gura_RealizeUserSymbol(type);
 	Gura_RealizeUserSymbol(value);
 	Gura_RealizeUserSymbol(ifd);

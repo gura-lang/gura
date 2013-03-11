@@ -20,7 +20,7 @@ Value RationalToValue(Signal sig, const RATIONAL_T &rational)
 
 template<typename IFDHeader_T, typename TagRaw_T, typename ValueRaw_T, typename SHORT_T,
 		typename LONG_T, typename RATIONAL_T, typename SLONG_T, typename SRATIONAL_T>
-Object_ifd *ParseIFD_T(Environment &env, Signal sig,
+Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbol,
 					char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext)
 {
 	if (offset + SIZE_IFDHeader >= bytesAPP1 - 1) {
@@ -38,7 +38,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig,
 		SHORT_T *pShort = reinterpret_cast<SHORT_T *>(buff + offset + nTags * SIZE_TagRaw);
 		*pOffsetNext = XUnpackUShort(pShort->num);
 	}
-	AutoPtr<Object_ifd> pObjIFD(new Object_ifd());
+	AutoPtr<Object_ifd> pObjIFD(new Object_ifd(pSymbol));
 	for (size_t iTag = 0; iTag < nTags; iTag++, offset += SIZE_TagRaw) {
 		TagRaw_T *pTagRaw = reinterpret_cast<TagRaw_T *>(buff + offset);
 		unsigned short tag = XUnpackUShort(pTagRaw->Tag);
@@ -58,9 +58,10 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig,
 		if (pTagInfo != NULL && pTagInfo->nameForIFD != NULL) {
 			size_t offsetSub = XUnpackULong(pValueRaw->LONG.num);
 			size_t offsetNext = 0;
+			const Symbol *pSymbolForIFD = Symbol::Add(pTagInfo->nameForIFD);
 			AutoPtr<Object_ifd> pObjIFDSub(ParseIFD_T<IFDHeader_T, TagRaw_T,
 					ValueRaw_T, SHORT_T,
-					LONG_T, RATIONAL_T, SLONG_T, SRATIONAL_T>(env, sig,
+					LONG_T, RATIONAL_T, SLONG_T, SRATIONAL_T>(env, sig, pSymbolForIFD,
 									buff, bytesAPP1, offsetSub, &offsetNext));
 			if (pObjIFDSub.IsNull()) return NULL;
 			const Symbol *pSymbol = Symbol::Add(pTagInfo->name);
@@ -231,18 +232,18 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig,
 	return pObjIFD.release();
 }
 
-Object_ifd *ParseIFD_BE(Environment &env, Signal sig,
+Object_ifd *ParseIFD_BE(Environment &env, Signal sig, const Symbol *pSymbol,
 				char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext)
 {
 	return ParseIFD_T<IFDHeader_BE, TagRaw_BE, ValueRaw_BE, SHORT_BE,
-		LONG_BE, RATIONAL_BE, SLONG_BE, SRATIONAL_BE>(env, sig, buff, bytesAPP1, offset, pOffsetNext);
+		LONG_BE, RATIONAL_BE, SLONG_BE, SRATIONAL_BE>(env, sig, pSymbol, buff, bytesAPP1, offset, pOffsetNext);
 }
 
-Object_ifd *ParseIFD_LE(Environment &env, Signal sig,
+Object_ifd *ParseIFD_LE(Environment &env, Signal sig, const Symbol *pSymbol,
 				char *buff, size_t bytesAPP1, size_t offset, size_t *pOffsetNext)
 {
 	return ParseIFD_T<IFDHeader_LE, TagRaw_LE, ValueRaw_LE, SHORT_LE,
-		LONG_LE, RATIONAL_LE, SLONG_LE, SRATIONAL_LE>(env, sig, buff, bytesAPP1, offset, pOffsetNext);
+		LONG_LE, RATIONAL_LE, SLONG_LE, SRATIONAL_LE>(env, sig, pSymbol, buff, bytesAPP1, offset, pOffsetNext);
 }
 
 //-----------------------------------------------------------------------------
@@ -274,7 +275,8 @@ void IteratorTag::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &env
 //-----------------------------------------------------------------------------
 // Object_ifd implementation
 //-----------------------------------------------------------------------------
-Object_ifd::Object_ifd() : Object(Gura_UserClass(ifd))
+Object_ifd::Object_ifd(const Symbol *pSymbol) :
+						Object(Gura_UserClass(ifd)), _pSymbol(pSymbol)
 {
 }
 
@@ -315,6 +317,8 @@ Value Object_ifd::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 bool Object_ifd::DoDirProp(Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(name));
+	symbols.insert(Gura_UserSymbol(symbol));
 	foreach (SymbolList, ppSymbol, g_symbolTagList) {
 		const Symbol *pSymbol = *ppSymbol;
 		symbols.insert(pSymbol);
@@ -325,7 +329,13 @@ bool Object_ifd::DoDirProp(Signal sig, SymbolSet &symbols)
 Value Object_ifd::DoGetProp(Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	Environment &env = *this;
 	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
+		return Value(env, _pSymbol->GetName());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(symbol))) {
+		return Value(_pSymbol);
+	}
 	foreach (TagOwner, ppObjTag, GetTagOwner()) {
 		Object_Tag *pObjTag = *ppObjTag;
 		if (pObjTag->GetSymbol() == pSymbol) {

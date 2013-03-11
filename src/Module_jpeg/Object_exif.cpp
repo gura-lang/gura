@@ -6,7 +6,7 @@ Gura_BeginModule(jpeg)
 //-----------------------------------------------------------------------------
 // Object_exif implementation
 //-----------------------------------------------------------------------------
-Object_exif::Object_exif() : Object(Gura_UserClass(exif)), _pObj0thIFD(new Object_ifd())
+Object_exif::Object_exif() : Object(Gura_UserClass(exif))
 {
 }
 
@@ -21,12 +21,14 @@ Object *Object_exif::Clone() const
 
 Value Object_exif::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
+	if (_pObj0thIFD.IsNull()) return Value::Null;
 	return _pObj0thIFD->IndexGet(env, sig, valueIdx);
 }
 
 bool Object_exif::DoDirProp(Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (_pObj0thIFD.IsNull()) return true;
 	symbols.insert(Gura_UserSymbol(ifd0));
 	symbols.insert(Gura_UserSymbol(ifd1));
 	return _pObj0thIFD->DoDirProp(sig, symbols);
@@ -35,6 +37,7 @@ bool Object_exif::DoDirProp(Signal sig, SymbolSet &symbols)
 Value Object_exif::DoGetProp(Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	if (_pObj0thIFD.IsNull()) return Value::Null;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(ifd0))) {
 		return Value(Object_ifd::Reference(_pObj0thIFD.get()));
@@ -86,10 +89,12 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 			return false;
 		}
 		size_t offset = XUnpackULong(pTIFF->Offset0thIFD);
-		_pObj0thIFD.reset(ParseIFD_BE(env, sig, buff, bytesAPP1, offset, &offset));
+		_pObj0thIFD.reset(ParseIFD_BE(env, sig, Symbol::Add("ifd0"),
+										buff, bytesAPP1, offset, &offset));
 		if (_pObj0thIFD.IsNull()) return false;
 		if (offset != 0) {
-			_pObj1stIFD.reset(ParseIFD_BE(env, sig, buff, bytesAPP1, offset, &offset));
+			_pObj1stIFD.reset(ParseIFD_BE(env, sig, Symbol::Add("ifd1"),
+										buff, bytesAPP1, offset, &offset));
 			if (_pObj1stIFD.IsNull()) return false;
 		}
 	} else if (::memcmp(buff, "II", 2) == 0) {
@@ -99,10 +104,12 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 			return false;
 		}
 		size_t offset = XUnpackULong(pTIFF->Offset0thIFD);
-		_pObj0thIFD.reset(ParseIFD_LE(env, sig, buff, bytesAPP1, offset, &offset));
+		_pObj0thIFD.reset(ParseIFD_LE(env, sig, Symbol::Add("ifd0"),
+										buff, bytesAPP1, offset, &offset));
 		if (_pObj0thIFD.IsNull()) return false;
 		if (offset != 0) {
-			_pObj1stIFD.reset(ParseIFD_LE(env, sig, buff, bytesAPP1, offset, &offset));
+			_pObj1stIFD.reset(ParseIFD_LE(env, sig, Symbol::Add("ifd1"),
+										buff, bytesAPP1, offset, &offset));
 			if (_pObj1stIFD.IsNull()) return false;
 		}
 	} else {
