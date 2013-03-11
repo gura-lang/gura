@@ -7,12 +7,15 @@ PrintIFD(ifd:jpeg.ifd, indentLevel:number => 0) = {
 	}
 }
 jpeg.exif(sys.argv[1]) {|exif|
+	println('endian: ', exif.endian)
 	println('= ifd0 =')
 	PrintIFD(exif.ifd0)
 	println('= ifd0.Exif =')
 	PrintIFD(exif.ifd0.Exif)
 	println('= ifd0.Exif.Interoperability =')
-	PrintIFD(exif.ifd0.Exif.Interoperability)
+	try {
+		PrintIFD(exif.ifd0.Exif.Interoperability)
+	} except {}
 	if (exif.ifd1) {
 		println('= ifd1 =')
 		PrintIFD(exif.ifd1)

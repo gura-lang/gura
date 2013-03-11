@@ -9,7 +9,7 @@ Gura_BeginModule(jpeg)
 //-----------------------------------------------------------------------------
 // Object_exif implementation
 //-----------------------------------------------------------------------------
-Object_exif::Object_exif() : Object(Gura_UserClass(exif))
+Object_exif::Object_exif() : Object(Gura_UserClass(exif)), _bigendianFlag(false)
 {
 }
 
@@ -44,7 +44,9 @@ Value Object_exif::DoGetProp(Signal sig, const Symbol *pSymbol,
 	Environment &env = *this;
 	if (_pObj0thIFD.IsNull()) return Value::Null;
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(ifd0))) {
+	if (pSymbol->IsIdentical(Gura_UserSymbol(endian))) {
+		return Value(_bigendianFlag? Gura_UserSymbol(big) : Gura_UserSymbol(little));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ifd0))) {
 		return Value(Object_ifd::Reference(_pObj0thIFD.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ifd1))) {
 		if (_pObj1stIFD.IsNull()) return Value::Null;
@@ -103,6 +105,7 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 	} while (0);
 	if (!ReadBuff(sig, stream, buff, bytesAPP1)) return false;
 	if (::memcmp(buff, "MM", 2) == 0) {
+		_bigendianFlag = true;
 		TIFF_BE *pTIFF = reinterpret_cast<TIFF_BE *>(buff + 2);
 		if (XUnpackUShort(pTIFF->Code) != 0x002a) {
 			SetError_InvalidFormat(sig);
@@ -118,6 +121,7 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 			if (_pObj1stIFD.IsNull()) return false;
 		}
 	} else if (::memcmp(buff, "II", 2) == 0) {
+		_bigendianFlag = false;
 		TIFF_LE *pTIFF = reinterpret_cast<TIFF_LE *>(buff + 2);
 		if (XUnpackUShort(pTIFF->Code) != 0x002a) {
 			SetError_InvalidFormat(sig);
@@ -158,9 +162,6 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 								buff + offsetThumbnail, bytesThumbnail, false));
 		}
 	}
-	//_pObj0thIFD->GetTagOwner().Print();
-	//if (!_pObj1stIFD.IsNull()) _pObj1stIFD->GetTagOwner().Print();
-	//GetConsole()->Dump(sig, buff, bytesAPP1);
 	return true;
 }
 

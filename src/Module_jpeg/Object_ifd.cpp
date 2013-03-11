@@ -12,8 +12,11 @@ Value RationalToValue(Signal sig, const RATIONAL_T &rational)
 	unsigned long numerator = XUnpackULong(rational.numerator);
 	unsigned long denominator = XUnpackULong(rational.denominator);
 	if (denominator == 0) {
-		sig.SetError(ERR_ValueError, "rational denominator can't be zero");
-		return Value::Null;
+		if (numerator != 0) {
+			sig.SetError(ERR_ValueError, "rational denominator can't be zero");
+			return Value::Null;
+		}
+		denominator = 1;
 	}
 	return Value(Fraction(numerator, denominator));
 }
@@ -54,7 +57,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 		do {
 			const TypeInfo *pTypeInfo = TypeToInfo(type);
 			::printf("%s [%04x], %s [%04x], %08x, %08x\n",
-					(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, tag,
+					(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, id,
 					(pTypeInfo == NULL)? "(unknown)" : pTypeInfo->name, type,
 					count, XUnpackULong(pValueRaw->LONG.num));
 		} while (0);
@@ -96,7 +99,11 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					}
 					p = buff + offset;
 				}
-				value = Value(env, p, count - 1);
+				if (count == 0) {
+					value = Value(env, p);
+				} else {
+					value = Value(env, p, count - 1);
+				}
 				break;
 			}
 			case TYPE_SHORT: {
@@ -149,6 +156,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 				if (count == 1) {
 					RATIONAL_T *pRational = reinterpret_cast<RATIONAL_T *>(buff + offset);
 					value = RationalToValue(sig, *pRational);
+					if (value.IsInvalid()) return NULL;
 				} else {
 					ValueList &valList = value.InitAsList(env);
 					valList.reserve(count);
@@ -206,6 +214,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 				if (count == 1) {
 					SRATIONAL_T *pRational = reinterpret_cast<SRATIONAL_T *>(buff + offset);
 					value = RationalToValue(sig, *pRational);
+					if (value.IsInvalid()) return NULL;
 				} else {
 					ValueList &valList = value.InitAsList(env);
 					valList.reserve(count);

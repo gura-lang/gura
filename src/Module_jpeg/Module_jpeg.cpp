@@ -254,6 +254,9 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// symbol realization
+	Gura_RealizeUserSymbol(endian);
+	Gura_RealizeUserSymbol(big);
+	Gura_RealizeUserSymbol(little);
 	Gura_RealizeUserSymbol(id);
 	Gura_RealizeUserSymbol(name);
 	Gura_RealizeUserSymbol(symbol);
