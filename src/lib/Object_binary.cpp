@@ -117,7 +117,7 @@ String Object_binary::ToString(Signal sig, bool exprFlag)
 			} else if (0x20 < ch && ch < 0x7f) {
 				str += ch;
 			} else {
-				::sprintf(buff, "\\x%02x", ch);
+				::sprintf(buff, "\\x%02x", static_cast<unsigned char>(ch));
 				str += buff;
 			}
 		}
