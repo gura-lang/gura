@@ -218,6 +218,30 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// StreamMemReader
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE StreamMemReader : public Stream {
+private:
+	Signal _sig;
+	const char *_buff;
+	size_t _bytes;
+	size_t _offset;
+public:
+	StreamMemReader(const void *buff, size_t bytes);
+	virtual ~StreamMemReader();
+	virtual const char *GetName() const;
+	virtual const char *GetIdentifier() const;
+	virtual bool GetAttribute(Attribute &attr);
+	virtual bool SetAttribute(const Attribute &attr);
+	virtual size_t DoRead(Signal sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal sig);
+	virtual bool DoClose(Signal sig);
+	virtual size_t DoGetSize();
+};
+
+//-----------------------------------------------------------------------------
 // Stream_Prefetch
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Stream_Prefetch : public Stream {

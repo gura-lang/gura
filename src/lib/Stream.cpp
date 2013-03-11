@@ -781,6 +781,81 @@ size_t StreamDumb::DoGetSize()
 }
 
 //-----------------------------------------------------------------------------
+// StreamMemReader
+//-----------------------------------------------------------------------------
+StreamMemReader::StreamMemReader(const void *buff, size_t bytes) :
+	Stream(_sig, ATTR_Readable), _buff(reinterpret_cast<const char *>(buff)), _bytes(bytes), _offset(0)
+{
+}
+
+StreamMemReader::~StreamMemReader()
+{
+}
+
+const char *StreamMemReader::GetName() const
+{
+	return "MemReader";
+}
+
+const char *StreamMemReader::GetIdentifier() const
+{
+	return "MemReader";
+}
+
+bool StreamMemReader::GetAttribute(Attribute &attr)
+{
+	return false;
+}
+
+bool StreamMemReader::SetAttribute(const Attribute &attr)
+{
+	return false;
+}
+
+size_t StreamMemReader::DoRead(Signal sig, void *buff, size_t len)
+{
+	if (_offset > _bytes) {
+		sig.SetError(ERR_IndexError, "out of range");
+		return 0;
+	}
+	size_t lenRest = _bytes - _offset;
+	size_t lenRead = ChooseMin(lenRest, len);
+	::memcpy(buff, _buff + _offset, lenRead);
+	_offset += lenRead;
+	return lenRead;
+}
+
+size_t StreamMemReader::DoWrite(Signal sig, const void *buff, size_t len)
+{
+	return 0;
+}
+
+bool StreamMemReader::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+{
+	if (seekMode == SeekSet) {
+		_offset = static_cast<size_t>(offset);
+	} else if (seekMode == SeekCur) {
+		_offset += offset;
+	}
+	return true;
+}
+
+bool StreamMemReader::DoFlush(Signal sig)
+{
+	return true;
+}
+
+bool StreamMemReader::DoClose(Signal sig)
+{
+	return true;
+}
+
+size_t StreamMemReader::DoGetSize()
+{
+	return _bytes;
+}
+
+//-----------------------------------------------------------------------------
 // Stream_Prefetch
 //-----------------------------------------------------------------------------
 Stream_Prefetch::Stream_Prefetch(Signal sig, Stream *pStreamSrc, size_t bytesUnit) :
