@@ -116,8 +116,8 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 		SetError_InvalidFormat(sig);
 		return false;
 	}
-	_pObj0thIFD->GetTagOwner().Print();
-	if (!_pObj1stIFD.IsNull()) _pObj1stIFD->GetTagOwner().Print();
+	//_pObj0thIFD->GetTagOwner().Print();
+	//if (!_pObj1stIFD.IsNull()) _pObj1stIFD->GetTagOwner().Print();
 	//GetConsole()->Dump(sig, buff, bytesAPP1);
 	return true;
 }

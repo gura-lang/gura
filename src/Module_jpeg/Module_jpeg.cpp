@@ -6,9 +6,6 @@
 
 Gura_BeginModule(jpeg)
 
-SymbolList g_symbolTagList;
-SymbolList g_symbolIFDList;
-
 static const TagInfo g_tagInfoTbl[] = {
 	{ TAG_ImageWidth,					"ImageWidth",					TYPE_UNDEFINED,	NULL,				},
 	{ TAG_ImageLength,					"ImageLength",					TYPE_UNDEFINED,	NULL,				},
@@ -210,7 +207,6 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(ifd);
 	Gura_RealizeUserSymbol(ifd0);
 	Gura_RealizeUserSymbol(ifd1);
-	PrepareSymbolTagList();
 	// class realization
 	Gura_RealizeUserClass(Tag, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(ifd, env.LookupClass(VTYPE_object));
@@ -470,17 +466,6 @@ void DestinationMgr::term_destination(j_compress_ptr cinfo)
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
-void PrepareSymbolTagList()
-{
-	const TagInfo *pTagInfo = g_tagInfoTbl;
-	for (int i = 0; i < NUMBEROF(g_tagInfoTbl); i++, pTagInfo++) {
-		g_symbolTagList.push_back(Symbol::Add(pTagInfo->name));
-		if (pTagInfo->nameForIFD != NULL) {
-			g_symbolIFDList.push_back(Symbol::Add(pTagInfo->nameForIFD));
-		}
-	}
-}
-
 void SetError_InvalidFormat(Signal &sig)
 {
 	sig.SetError(ERR_FormatError, "invalid Exif format");

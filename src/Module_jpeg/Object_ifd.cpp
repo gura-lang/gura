@@ -319,9 +319,13 @@ bool Object_ifd::DoDirProp(Signal sig, SymbolSet &symbols)
 	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(name));
 	symbols.insert(Gura_UserSymbol(symbol));
-	foreach (SymbolList, ppSymbol, g_symbolTagList) {
-		const Symbol *pSymbol = *ppSymbol;
-		symbols.insert(pSymbol);
+	foreach (TagOwner, ppObjTag, GetTagOwner()) {
+		Object_Tag *pObjTag = *ppObjTag;
+		symbols.insert(pObjTag->GetSymbol());
+		if (pObjTag->IsIFDPointer()) {
+			Object_ifd *pObjIFD = pObjTag->GetObjectIFD();
+			symbols.insert(pObjIFD->GetSymbol());
+		}
 	}
 	return true;
 }
@@ -340,6 +344,11 @@ Value Object_ifd::DoGetProp(Signal sig, const Symbol *pSymbol,
 		Object_Tag *pObjTag = *ppObjTag;
 		if (pObjTag->GetSymbol() == pSymbol) {
 			return Value(Object_Tag::Reference(pObjTag));
+		} else if (pObjTag->IsIFDPointer()) {
+			Object_ifd *pObjIFD = pObjTag->GetObjectIFD();
+			if (pObjIFD->GetSymbol() == pSymbol) {
+				return Value(Object_ifd::Reference(pObjIFD));
+			}
 		}
 	}
 	evaluatedFlag = false;

@@ -21,9 +21,6 @@ Gura_DeclareUserSymbol(ifd);
 Gura_DeclareUserSymbol(ifd0);
 Gura_DeclareUserSymbol(ifd1);
 
-extern SymbolList g_symbolTagList;
-extern SymbolList g_symbolIFDList;
-
 //-----------------------------------------------------------------------------
 // data types
 //-----------------------------------------------------------------------------
@@ -351,7 +348,6 @@ struct DestinationMgr {
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
-void PrepareSymbolTagList();
 void SetError_InvalidFormat(Signal &sig);
 bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes);
 const TagInfo *TagIdToInfo(unsigned short id);
