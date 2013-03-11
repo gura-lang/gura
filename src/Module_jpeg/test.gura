@@ -1,0 +1,24 @@
+#!/usr/bin/env gura
+import(jpeg)
+PrintIFD(ifd:jpeg.ifd, indentLevel:number => 0) = {
+	ifd.each() {|tag|
+		printf('%s[%04x] %-32s %s\n', '  ' * indentLevel, tag.id, tag.name, tag.value)
+		//tag.ifd && PrintIFD(tag.ifd, indentLevel + 1)
+	}
+}
+jpeg.exif(sys.argv[1]) {|exif|
+	println('= ifd0 =')
+	PrintIFD(exif.ifd0)
+	println('= ifd0.Exif =')
+	PrintIFD(exif.ifd0.Exif)
+	println('= ifd0.Exif.Interoperability =')
+	PrintIFD(exif.ifd0.Exif.Interoperability)
+	if (exif.ifd1) {
+		println('= ifd1 =')
+		PrintIFD(exif.ifd1)
+	}
+	if (exif.thumbnail) {
+		println(exif.thumbnail)
+		println(exif.thumbnail_jpeg)
+	}
+}
