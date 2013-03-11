@@ -222,12 +222,10 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE StreamMemReader : public Stream {
 private:
-	Signal _sig;
 	const char *_buff;
 	size_t _bytes;
-	size_t _offset;
 public:
-	StreamMemReader(const void *buff, size_t bytes);
+	StreamMemReader(Signal sig, const void *buff, size_t bytes);
 	virtual ~StreamMemReader();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;

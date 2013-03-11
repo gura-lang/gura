@@ -783,8 +783,9 @@ size_t StreamDumb::DoGetSize()
 //-----------------------------------------------------------------------------
 // StreamMemReader
 //-----------------------------------------------------------------------------
-StreamMemReader::StreamMemReader(const void *buff, size_t bytes) :
-	Stream(_sig, ATTR_Readable), _buff(reinterpret_cast<const char *>(buff)), _bytes(bytes), _offset(0)
+StreamMemReader::StreamMemReader(Signal sig, const void *buff, size_t bytes) :
+				Stream(sig, ATTR_BwdSeekable | ATTR_Readable),
+				_buff(reinterpret_cast<const char *>(buff)), _bytes(bytes)
 {
 }
 
@@ -799,7 +800,7 @@ const char *StreamMemReader::GetName() const
 
 const char *StreamMemReader::GetIdentifier() const
 {
-	return "MemReader";
+	return NULL;
 }
 
 bool StreamMemReader::GetAttribute(Attribute &attr)
@@ -814,14 +815,14 @@ bool StreamMemReader::SetAttribute(const Attribute &attr)
 
 size_t StreamMemReader::DoRead(Signal sig, void *buff, size_t len)
 {
-	if (_offset > _bytes) {
+	if (_offsetCur > _bytes) {
 		sig.SetError(ERR_IndexError, "out of range");
 		return 0;
 	}
-	size_t lenRest = _bytes - _offset;
+	size_t lenRest = _bytes - _offsetCur;
 	size_t lenRead = ChooseMin(lenRest, len);
-	::memcpy(buff, _buff + _offset, lenRead);
-	_offset += lenRead;
+	::memcpy(buff, _buff + _offsetCur, lenRead);
+	_offsetCur += lenRead;
 	return lenRead;
 }
 
@@ -833,9 +834,9 @@ size_t StreamMemReader::DoWrite(Signal sig, const void *buff, size_t len)
 bool StreamMemReader::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
 	if (seekMode == SeekSet) {
-		_offset = static_cast<size_t>(offset);
+		_offsetCur = static_cast<size_t>(offset);
 	} else if (seekMode == SeekCur) {
-		_offset += offset;
+		_offsetCur += offset;
 	}
 	return true;
 }

@@ -297,22 +297,20 @@ Value Object_ifd::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
 	if (valueIdx.IsNumber()) {
 		unsigned short id = valueIdx.GetUShort();
-		foreach (TagOwner, ppObjTag, GetTagOwner()) {
-			Object_Tag *pObjTag = *ppObjTag;
-			if (pObjTag->GetId() == id) {
-				return Value(Object_Tag::Reference(pObjTag));
-			}
+		Object_Tag *pObjTag = GetTagOwner().FindById(id);
+		if (pObjTag == NULL) {
+			sig.SetError(ERR_IndexError, "can't find tag ID 0x%04x", id);
+			return Value::Null;
 		}
-		sig.SetError(ERR_IndexError, "can't find tag ID 0x%04x", id);
+		return Value(Object_Tag::Reference(pObjTag));
 	} else if (valueIdx.IsSymbol()) {
 		const Symbol *pSymbol = valueIdx.GetSymbol();
-		foreach (TagOwner, ppObjTag, GetTagOwner()) {
-			Object_Tag *pObjTag = *ppObjTag;
-			if (pObjTag->GetSymbol() == pSymbol) {
-				return Value(Object_Tag::Reference(pObjTag));
-			}
+		Object_Tag *pObjTag = GetTagOwner().FindBySymbol(pSymbol);
+		if (pObjTag == NULL) {
+			sig.SetError(ERR_IndexError, "can't find tag `%s", pSymbol->GetName());
+			return Value::Null;
 		}
-		sig.SetError(ERR_IndexError, "can't find tag `%s", pSymbol->GetName());
+		return Value(Object_Tag::Reference(pObjTag));
 	}
 	sig.SetError(ERR_IndexError, "invalid type for index of ifd");
 	return Value::Null;

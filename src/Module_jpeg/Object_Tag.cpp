@@ -85,6 +85,24 @@ Gura_ImplementUserClass(Tag)
 //-----------------------------------------------------------------------------
 // TagList
 //-----------------------------------------------------------------------------
+Object_Tag *TagList::FindById(unsigned short id)
+{
+	foreach (TagList, ppObjTag, *this) {
+		Object_Tag *pObjTag = *ppObjTag;
+		if (pObjTag->GetId() == id) return pObjTag;
+	}
+	return NULL;
+}
+
+Object_Tag *TagList::FindBySymbol(const Symbol *pSymbol)
+{
+	foreach (TagList, ppObjTag, *this) {
+		Object_Tag *pObjTag = *ppObjTag;
+			if (pObjTag->GetSymbol() == pSymbol) return pObjTag;
+	}
+	return NULL;
+}
+
 void TagList::Print(int indentLevel) const
 {
 	foreach_const (TagList, ppObjTag, *this) {

@@ -34,6 +34,7 @@ bool Object_exif::DoDirProp(Signal sig, SymbolSet &symbols)
 	if (_pObj0thIFD.IsNull()) return true;
 	symbols.insert(Gura_UserSymbol(ifd0));
 	symbols.insert(Gura_UserSymbol(ifd1));
+	symbols.insert(Gura_UserSymbol(thumbnail));
 	return _pObj0thIFD->DoDirProp(sig, symbols);
 }
 
@@ -47,6 +48,8 @@ Value Object_exif::DoGetProp(Signal sig, const Symbol *pSymbol,
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ifd1))) {
 		if (_pObj1stIFD.IsNull()) return Value::Null;
 		return Value(Object_ifd::Reference(_pObj1stIFD.get()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(thumbnail))) {
+		return _valueThumbnail;
 	}
 	return _pObj0thIFD->DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
 }
@@ -118,6 +121,34 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 	} else {
 		SetError_InvalidFormat(sig);
 		return false;
+	}
+	if (!_pObj1stIFD.IsNull()) {
+		Object_Tag *pObjTag_JPEGInterchangeFormat =
+			_pObj1stIFD->GetTagOwner().FindById(TAG_JPEGInterchangeFormat);
+		Object_Tag *pObjTag_JPEGInterchangeFormatLength =
+			 _pObj1stIFD->GetTagOwner().FindById(TAG_JPEGInterchangeFormatLength);
+		if (pObjTag_JPEGInterchangeFormat == NULL ||
+						pObjTag_JPEGInterchangeFormatLength == NULL) {
+			// nothing to do
+		} else if (pObjTag_JPEGInterchangeFormat->GetType() != TYPE_LONG ||
+						pObjTag_JPEGInterchangeFormatLength->GetType() != TYPE_LONG) {
+			// nothing to do
+		} else {
+			size_t offsetThumbnail = pObjTag_JPEGInterchangeFormat->GetValue().GetULong();
+			size_t bytesThumbnail = pObjTag_JPEGInterchangeFormatLength->GetValue().GetULong();
+			if (offsetThumbnail + bytesThumbnail >= bytesAPP1 - 1) {
+				SetError_InvalidFormat(sig);
+				return false;
+			}
+			//GetConsole()->Dump(sig, buff + offsetThumbnail, bytesThumbnail);
+			StreamMemReader streamThumbnail(sig, buff + offsetThumbnail, bytesThumbnail);
+			AutoPtr<Object_image> pObjImage(new Object_image(env, Image::FORMAT_RGBA));
+			if (!ImageStreamer_JPEG::ReadStream(sig, pObjImage.get(), streamThumbnail)) {
+				return false;
+			}
+			_valueThumbnail = Value(pObjImage.release());
+			//_valueThumbnail = Value(new Object_binary(env, buff + offsetThumbnail, bytesThumbnail, false));
+		}
 	}
 	//_pObj0thIFD->GetTagOwner().Print();
 	//if (!_pObj1stIFD.IsNull()) _pObj1stIFD->GetTagOwner().Print();

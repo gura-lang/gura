@@ -42,6 +42,8 @@ public:
 //-----------------------------------------------------------------------------
 class TagList : public std::vector<Object_Tag *> {
 public:
+	Object_Tag *FindById(unsigned short id);
+	Object_Tag *FindBySymbol(const Symbol *pSymbol);
 	void Print(int indentLevel = 0) const;
 };
 

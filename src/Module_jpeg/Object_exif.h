@@ -15,6 +15,7 @@ class Object_exif : public Object {
 private:
 	AutoPtr<Object_ifd> _pObj0thIFD;
 	AutoPtr<Object_ifd> _pObj1stIFD;	// this may be NULL
+	Value _valueThumbnail;
 public:
 	Gura_DeclareObjectAccessor(exif)
 public:

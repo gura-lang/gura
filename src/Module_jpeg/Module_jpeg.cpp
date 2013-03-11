@@ -262,6 +262,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(ifd);
 	Gura_RealizeUserSymbol(ifd0);
 	Gura_RealizeUserSymbol(ifd1);
+	Gura_RealizeUserSymbol(thumbnail);
 	Gura_RealizeUserSymbol(Exif);
 	Gura_RealizeUserSymbol(Interoperability);
 	Gura_RealizeUserSymbol(GPSInfo);
