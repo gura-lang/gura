@@ -12,6 +12,7 @@ scope {
 	tester(`x.grep(r'^o'):*string.join(','))
 	tester(`x.grep(r'pe$'):*string.join(','))
 	tester(`x.grep(r'\d+'):*string.join(','))
+	tester(`['1-1', '11-a', '1', '00-', '1-0'].grep(r'\d+-\d+'):*string.join(','))
 }
 scope {
 	tester(`(0..):*tostring():*match('3').skipnil().head(30):*string.join(','))
