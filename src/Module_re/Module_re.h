@@ -109,7 +109,7 @@ public:
 //-----------------------------------------------------------------------------
 class IteratorSplit : public Iterator {
 private:
-	Object_pattern *_pObjPattern;
+	AutoPtr<Object_pattern> _pObjPattern;
 	String _str;
 	int _cnt;
 	int _idx;
@@ -129,7 +129,7 @@ public:
 //-----------------------------------------------------------------------------
 class IteratorScan : public Iterator {
 private:
-	Object_pattern *_pObjPattern;
+	AutoPtr<Object_pattern> _pObjPattern;
 	String _str;
 	int _idx, _idxEnd;
 	int _len;
@@ -137,6 +137,20 @@ private:
 public:
 	IteratorScan(Object_pattern *pObjPattern, const String &str, int pos, int posEnd);
 	virtual ~IteratorScan();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString(Signal sig) const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
+//-----------------------------------------------------------------------------
+// IteratorGrep class declaration
+//-----------------------------------------------------------------------------
+class IteratorGrep : public Iterator {
+private:
+	AutoPtr<Iterator> _pIteratorSrc;
+	AutoPtr<Object_pattern> _pObjPattern;
+public:
+	IteratorGrep(Iterator *pIteratorSrc, Object_pattern *pObjPattern);
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

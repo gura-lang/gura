@@ -5,6 +5,15 @@ import(testutil) {*}
 sys.stdout.setencoding('shift_jis', false)
 
 scope {
+	x = ['apple', 'orange', 'pencil', '1234', 'grape', '5678']
+	tester(`x.grep(r'\w+'):*string.join(','))
+	tester(`x.grep(r'r'):*string.join(','))
+	tester(`x.grep(r'^a'):*string.join(','))
+	tester(`x.grep(r'^o'):*string.join(','))
+	tester(`x.grep(r'pe$'):*string.join(','))
+	tester(`x.grep(r'\d+'):*string.join(','))
+}
+scope {
 	tester(`(0..):*tostring():*match('3').skipnil().head(30):*string.join(','))
 }
 scope {

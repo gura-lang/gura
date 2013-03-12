@@ -1,3 +1,9 @@
+x.grep('\\w+'):*string.join(',') .. apple,orange,pencil,1234,grape,5678
+x.grep('r'):*string.join(',') .. orange,grape
+x.grep('^a'):*string.join(',') .. apple
+x.grep('^o'):*string.join(',') .. orange
+x.grep('pe$'):*string.join(',') .. grape
+x.grep('\\d+'):*string.join(',') .. 1234,5678
 (0..):*tostring():*match('3').skipnil().head(30):*string.join(',') .. 3,13,23,30,31,32,33,34,35,36,37,38,39,43,53,63,73,83,93,103,113,123,130,131,132,133,134,135,136,137
 str.sub('(\\w+\\()(\\w+)', & { $m[1] + $m[2].lower() }) .. hoge(abcd, EFGH, IJKL), foo(mnop, QRST), bar(uvwx, 1234)
 str.match('(\\w+) (\\w+) (\\w+) (\\w+)')[1 .. 4].join() .. abcdefghijklmnopqrstuvwxyz

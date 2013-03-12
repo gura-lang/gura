@@ -18,7 +18,6 @@ IteratorSplit::IteratorSplit(Object_pattern *pObjPattern, const String &str, int
 
 IteratorSplit::~IteratorSplit()
 {
-	Object::Delete(_pObjPattern);
 	::onig_region_free(_pRegion, 1); // 1:free self, 0:free contents only
 }
 
@@ -87,7 +86,6 @@ IteratorScan::IteratorScan(Object_pattern *pObjPattern, const String &str, int p
 
 IteratorScan::~IteratorScan()
 {
-	Object::Delete(_pObjPattern);
 	::onig_region_free(_pRegion, 1); // 1:free self, 0:free contents only
 }
 
@@ -138,6 +136,45 @@ void IteratorScan::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 }
 
 //-----------------------------------------------------------------------------
+// IteratorGrep
+//-----------------------------------------------------------------------------
+IteratorGrep::IteratorGrep(Iterator *pIteratorSrc, Object_pattern *pObjPattern) :
+		Iterator(pIteratorSrc->IsInfinite()),
+		_pIteratorSrc(pIteratorSrc), _pObjPattern(pObjPattern)
+{
+}
+
+bool IteratorGrep::DoNext(Environment &env, Signal sig, Value &value)
+{
+	const int pos = 0, posEnd = -1;
+	while (_pIteratorSrc->Next(env, sig, value)) {
+		String str = value.ToString(sig, false);
+		if (sig.IsSignalled()) return false;
+		value = DoMatch(env, sig,
+					_pObjPattern->GetRegEx(), str.c_str(), pos, posEnd);
+		if (sig.IsSignalled()) return false;
+		if (value.IsValid()) return true;
+	}
+	return false;
+}
+
+String IteratorGrep::ToString(Signal sig) const
+{
+	String rtn;
+	rtn += "<iterator:re.grep:";
+	rtn += _pIteratorSrc->ToString(sig);
+	rtn += ">";
+	return rtn;
+}
+
+void IteratorGrep::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+	if (_cntRef == 1) {
+		_pIteratorSrc->GatherFollower(pFrame, envSet);
+	}
+}
+
+//-----------------------------------------------------------------------------
 // Object_pattern
 //-----------------------------------------------------------------------------
 Object_pattern::~Object_pattern()
@@ -164,7 +201,7 @@ String Object_pattern::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for re.pattern
 //-----------------------------------------------------------------------------
-// m = re.pattern#match(str:string, pos:number => 0):map {block?}
+// re.pattern#match(str:string, pos:number => 0):map {block?}
 Gura_DeclareMethod(pattern, match)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -178,14 +215,14 @@ Gura_DeclareMethod(pattern, match)
 
 Gura_ImplementMethod(pattern, match)
 {
-	Object_pattern *pObj = Object_pattern::GetThisObj(args);
-	Value result = DoMatch(env, sig, pObj->GetRegEx(), args.GetString(0),
+	Object_pattern *pThis = Object_pattern::GetThisObj(args);
+	Value result = DoMatch(env, sig, pThis->GetRegEx(), args.GetString(0),
 			args.GetInt(1), args.IsNumber(2)? args.GetInt(2) : -1);
 	if (result.IsInvalid()) return result;
 	return ReturnValue(env, sig, args, result);
 }
 
-// str = re.pattern#sub(replace, str:string, count?:number):map {block?}
+// re.pattern#sub(replace, str:string, count?:number):map {block?}
 Gura_DeclareMethod(pattern, sub)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -197,14 +234,14 @@ Gura_DeclareMethod(pattern, sub)
 
 Gura_ImplementMethod(pattern, sub)
 {
-	Object_pattern *pObj = Object_pattern::GetThisObj(args);
+	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	int cnt = args.IsNumber(2)? static_cast<int>(args.GetNumber(2)) : -1;
 	Value result;
 	if (args.IsString(0)) {
-		result = DoSubWithString(env, sig, pObj->GetRegEx(),
+		result = DoSubWithString(env, sig, pThis->GetRegEx(),
 						args.GetString(0), args.GetString(1), cnt);
 	} else if (args.IsFunction(0)) {
-		result = DoSubWithFunc(env, sig, pObj->GetRegEx(),
+		result = DoSubWithFunc(env, sig, pThis->GetRegEx(),
 						args.GetFunction(0), args.GetString(1), cnt);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
@@ -339,7 +376,6 @@ bool Object_match::SetMatchInfo(const char *str,
 	if (pRegion->num_regs == 0) return false;
 	::onig_foreach_name(pRegEx, &ForeachNameCallbackStub, this);
 	_str = str;
-	AssignValue(Gura_Symbol(string), Value(*this, str), false);
 	for (int iGroup = 0; iGroup < pRegion->num_regs; iGroup++) {
 		int idxBegin = pRegion->beg[iGroup];
 		int idxEnd = pRegion->end[iGroup];
@@ -394,7 +430,7 @@ int Object_match::ForeachNameCallbackStub(
 //-----------------------------------------------------------------------------
 // Gura interfaces for re.match
 //-----------------------------------------------------------------------------
-// str = re.match#group(index):map
+// re.match#group(index):map
 Gura_DeclareMethod(match, group)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -403,11 +439,11 @@ Gura_DeclareMethod(match, group)
 
 Gura_ImplementMethod(match, group)
 {
-	Object_match *pObj = Object_match::GetThisObj(args);
-	return pObj->IndexGet(env, sig, args.GetValue(0));
+	Object_match *pThis = Object_match::GetThisObj(args);
+	return pThis->IndexGet(env, sig, args.GetValue(0));
 }
 
-// list = re.match#groups()
+// re.match#groups()
 Gura_DeclareMethod(match, groups)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -415,19 +451,19 @@ Gura_DeclareMethod(match, groups)
 
 Gura_ImplementMethod(match, groups)
 {
-	Object_match *pObj = Object_match::GetThisObj(args);
+	Object_match *pThis = Object_match::GetThisObj(args);
 	Value result;
 	ValueList &valList = result.InitAsList(env);
-	const Object_match::GroupList &groupList = pObj->GetGroupList();
+	const Object_match::GroupList &groupList = pThis->GetGroupList();
 	Object_match::GroupList::const_iterator pGroup = groupList.begin();
 	if (pGroup != groupList.end()) pGroup++;
 	for ( ; pGroup != groupList.end(); pGroup++) {
-		valList.push_back(Value(env, pObj->GetGroupString(*pGroup).c_str()));
+		valList.push_back(Value(env, pThis->GetGroupString(*pGroup).c_str()));
 	}
 	return result;
 }
 
-// num = re.match#start(index):map
+// re.match#start(index):map
 Gura_DeclareMethod(match, start)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -436,13 +472,13 @@ Gura_DeclareMethod(match, start)
 
 Gura_ImplementMethod(match, start)
 {
-	Object_match *pObj = Object_match::GetThisObj(args);
-	const Object_match::Group *pGroup = pObj->GetGroup(sig, args.GetValue(0));
+	Object_match *pThis = Object_match::GetThisObj(args);
+	const Object_match::Group *pGroup = pThis->GetGroup(sig, args.GetValue(0));
 	if (pGroup == NULL) return Value::Null;
 	return Value(pGroup->GetPosBegin());
 }
 
-// num = re.match#end(index):map
+// re.match#end(index):map
 Gura_DeclareMethod(match, end)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -451,8 +487,8 @@ Gura_DeclareMethod(match, end)
 
 Gura_ImplementMethod(match, end)
 {
-	Object_match *pObj = Object_match::GetThisObj(args);
-	const Object_match::Group *pGroup = pObj->GetGroup(sig, args.GetValue(0));
+	Object_match *pThis = Object_match::GetThisObj(args);
+	const Object_match::Group *pGroup = pThis->GetGroup(sig, args.GetValue(0));
 	if (pGroup == NULL) return Value::Null;
 	return Value(pGroup->GetPosEnd());
 }
@@ -471,7 +507,7 @@ Gura_ImplementUserClass(match)
 //-----------------------------------------------------------------------------
 // Gura interfaces for string
 //-----------------------------------------------------------------------------
-// m = string#match(pattern:pattern, pos:number => 0, endpos?:number):map {block?}
+// string#match(pattern:pattern, pos:number => 0, endpos?:number):map {block?}
 Gura_DeclareMethod(string, match)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -491,7 +527,7 @@ Gura_ImplementMethod(string, match)
 	return ReturnValue(env, sig, args, result);
 }
 
-// str = string#sub(pattern:pattern, replace, count?:number):map {block?}
+// string#sub(pattern:pattern, replace, count?:number):map {block?}
 Gura_DeclareMethod(string, sub)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -519,7 +555,7 @@ Gura_ImplementMethod(string, sub)
 	return ReturnValue(env, sig, args, result);
 }
 
-// iter = string#splitreg(pattern:pattern, count?:number):map {block?}
+// string#splitreg(pattern:pattern, count?:number):map {block?}
 Gura_DeclareMethod(string, splitreg)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -538,7 +574,7 @@ Gura_ImplementMethod(string, splitreg)
 				new IteratorSplit(pObjPattern, pThis->GetStringSTL(), cntMax));
 }
 
-// iter = string#scan(pattern:pattern, pos:number => 0, endpos?:number):map {block?}
+// string#scan(pattern:pattern, pos:number => 0, endpos?:number):map {block?}
 Gura_DeclareMethod(string, scan)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -559,9 +595,50 @@ Gura_ImplementMethod(string, scan)
 }
 
 //-----------------------------------------------------------------------------
+// Gura interfaces for list and iterator
+//-----------------------------------------------------------------------------
+// list#grep(pattern:pattern) {block?}
+Gura_DeclareMethod(list, grep)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "pattern", VTYPE_pattern);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(list, grep)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	Object_pattern *pObjPattern = Object_pattern::GetObject(args, 0);
+	AutoPtr<Iterator> pIteratorSrc(pThis->CreateIterator(sig));
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<Iterator> pIterator(new IteratorGrep(pIteratorSrc.release(),
+									Object_pattern::Reference(pObjPattern)));
+	return ReturnIterator(env, sig, args, pIterator.release());
+}
+
+// iterator#grep(pattern:pattern) {block?}
+Gura_DeclareMethod(iterator, grep)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "pattern", VTYPE_pattern);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(iterator, grep)
+{
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Object_pattern *pObjPattern = Object_pattern::GetObject(args, 0);
+	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<Iterator> pIterator(new IteratorGrep(pIteratorSrc.release(),
+									Object_pattern::Reference(pObjPattern)));
+	return ReturnIterator(env, sig, args, pIterator.release());
+}
+
+//-----------------------------------------------------------------------------
 // Gura module functions: re
 //-----------------------------------------------------------------------------
-// pattern = re.pattern(pattern:string):map:[icase,multiline] {block?}
+// re.pattern(pattern:string):map:[icase,multiline] {block?}
 Gura_DeclareFunction(pattern)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -582,7 +659,7 @@ Gura_ImplementFunction(pattern)
 	return ReturnValue(env, sig, args, Value(pObjPattern));
 }
 
-// m = re.match(pattern:pattern, str:string, pos:number => 0):map {block?}
+// re.match(pattern:pattern, str:string, pos:number => 0):map {block?}
 Gura_DeclareFunction(match)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -603,7 +680,7 @@ Gura_ImplementFunction(match)
 	return ReturnValue(env, sig, args, result);
 }
 
-// str = re.sub(pattern:pattern, replace, str:string, count?:number):map {block?}
+// re.sub(pattern:pattern, replace, str:string, count?:number):map {block?}
 Gura_DeclareFunction(sub)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -631,7 +708,7 @@ Gura_ImplementFunction(sub)
 	return ReturnValue(env, sig, args, result);
 }
 
-// iter = re.split(pattern:pattern, str:string, count?:number):map {block?}
+// re.split(pattern:pattern, str:string, count?:number):map {block?}
 Gura_DeclareFunction(split)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -651,7 +728,7 @@ Gura_ImplementFunction(split)
 							new IteratorSplit(pObjPattern, str, cntMax));
 }
 
-// iter = re.scan(pattern:pattern, str:string, pos:number => 0, endpos?:number):map {block?}
+// re.scan(pattern:pattern, str:string, pos:number => 0, endpos?:number):map {block?}
 Gura_DeclareFunction(scan)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -693,6 +770,8 @@ Gura_ModuleEntry()
 	Gura_AssignMethodTo(VTYPE_string, string, sub);
 	Gura_AssignMethodTo(VTYPE_string, string, splitreg);
 	Gura_AssignMethodTo(VTYPE_string, string, scan);
+	Gura_AssignMethodTo(VTYPE_list, list, grep);
+	Gura_AssignMethodTo(VTYPE_iterator, iterator, grep);
 }
 
 Gura_ModuleTerminate()
