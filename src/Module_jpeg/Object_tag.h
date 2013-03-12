@@ -29,6 +29,7 @@ public:
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline unsigned short GetId() const { return _id; }
 	inline unsigned short GetType() const { return _type; }
+	inline bool IsTypeSHORTorLONG() const { return _type == TYPE_SHORT || _type == TYPE_LONG; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const Value &GetValue() const { return _value; }
 	inline bool IsIFDPointer() const { return _pObjIFD.get() != NULL; }

@@ -11,6 +11,8 @@ Gura_BeginModule(jpeg)
 //-----------------------------------------------------------------------------
 Object_exif::Object_exif() : Object(Gura_UserClass(exif)), _bigendianFlag(false)
 {
+	_strip.validFlag = false;
+	_strip.width = _strip.height = 0;
 }
 
 Object_exif::~Object_exif()
@@ -54,17 +56,37 @@ Value Object_exif::DoGetProp(Signal sig, const Symbol *pSymbol,
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(thumbnail))) {
 		if (_pObjBinaryThumbnail.IsNull()) return Value::Null;
 		if (_pObjImageThumbnail.IsNull()) {
-			Stream_Binary stream(sig,
-					Object_binary::Reference(_pObjBinaryThumbnail.get()), false);
 			AutoPtr<Object_image> pObjImage(new Object_image(env, Image::FORMAT_RGBA));
-			if (!ImageStreamer_JPEG::ReadStream(sig, pObjImage.get(), stream)) {
-				return Value::Null;
+			if (_strip.validFlag) {
+				if (!pObjImage->AllocBuffer(sig, _strip.width, _strip.height, 0x00)) {
+					return Value::Null;
+				}
+				const Binary &buff = _pObjBinaryThumbnail->GetBinary();
+				size_t bytesExpect = _strip.width * _strip.height * 3;
+				if (buff.size() < bytesExpect) {
+					return Value::Null;
+				}
+				Binary::const_iterator p = buff.begin();
+				std::auto_ptr<Object_image::Scanner> pScannerDst(
+								pObjImage->CreateScanner(Image::SCAN_LeftTopHorz));
+				do {
+					unsigned char red = *p++;
+					unsigned char green = *p++;
+					unsigned char blue = *p++;
+					pScannerDst->StorePixel(red, green, blue, 0);
+				} while (pScannerDst->Next());
+			} else {
+				Stream_Binary stream(sig,
+					Object_binary::Reference(_pObjBinaryThumbnail.get()), false);
+				if (!ImageStreamer_JPEG::ReadStream(sig, pObjImage.get(), stream)) {
+					return Value::Null;
+				}
 			}
 			_pObjImageThumbnail.reset(pObjImage.release());
 		}
 		return Value(Object_image::Reference(_pObjImageThumbnail.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(thumbnail_jpeg))) {
-		if (_pObjBinaryThumbnail.IsNull()) return Value::Null;
+		if (_pObjBinaryThumbnail.IsNull() || _strip.validFlag) return Value::Null;
 		return Value(Object_binary::Reference(_pObjBinaryThumbnail.get()));
 	}
 	return _pObj0thIFD->DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
@@ -150,16 +172,56 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 		SetError_InvalidFormat(sig);
 		return false;
 	}
-	if (!_pObj1stIFD.IsNull()) {
+	if (_pObj1stIFD.IsNull()) return true;
+	// extract thumbnail image
+	unsigned short compression = 1;
+	Object_tag *pObjTag_Compression =
+		_pObj1stIFD->GetTagOwner().FindById(TAG_Compression);
+	if (pObjTag_Compression != NULL && pObjTag_Compression->GetType() == TYPE_SHORT) {
+		compression = pObjTag_Compression->GetValue().GetUShort();
+	}
+	if (compression == 1) {	// uncompressed
+		Object_tag *pObjTag_ImageWidth =
+			_pObj1stIFD->GetTagOwner().FindById(TAG_ImageWidth);
+		Object_tag *pObjTag_ImageLength =
+			_pObj1stIFD->GetTagOwner().FindById(TAG_ImageLength);
+		Object_tag *pObjTag_StripOffsets =
+			_pObj1stIFD->GetTagOwner().FindById(TAG_StripOffsets);
+		Object_tag *pObjTag_StripByteCounts =
+			_pObj1stIFD->GetTagOwner().FindById(TAG_StripByteCounts);
+		if (pObjTag_ImageWidth == NULL ||
+					pObjTag_ImageLength == NULL ||
+					pObjTag_StripOffsets == NULL ||
+					pObjTag_StripByteCounts == NULL) {
+			// nothing to do
+		} else if (!pObjTag_ImageWidth->IsTypeSHORTorLONG() ||
+					!pObjTag_ImageLength->IsTypeSHORTorLONG() ||
+					!pObjTag_StripOffsets->IsTypeSHORTorLONG() ||
+					!pObjTag_StripByteCounts->IsTypeSHORTorLONG()) {
+			// nothing to do
+		} else {
+			_strip.validFlag = true;
+			_strip.width = pObjTag_ImageWidth->GetValue().GetULong();
+			_strip.height = pObjTag_ImageLength->GetValue().GetULong();
+			size_t offsetThumbnail = pObjTag_StripOffsets->GetValue().GetULong();
+			size_t bytesThumbnail = pObjTag_StripByteCounts->GetValue().GetULong();
+			if (offsetThumbnail + bytesThumbnail >= bytesAPP1 - 1) {
+				SetError_InvalidFormat(sig);
+				return false;
+			}
+			_pObjBinaryThumbnail.reset(new Object_binary(env,
+								buff + offsetThumbnail, bytesThumbnail, false));
+		}
+	} else {
 		Object_tag *pObjTag_JPEGInterchangeFormat =
 			_pObj1stIFD->GetTagOwner().FindById(TAG_JPEGInterchangeFormat);
 		Object_tag *pObjTag_JPEGInterchangeFormatLength =
 			 _pObj1stIFD->GetTagOwner().FindById(TAG_JPEGInterchangeFormatLength);
 		if (pObjTag_JPEGInterchangeFormat == NULL ||
-						pObjTag_JPEGInterchangeFormatLength == NULL) {
+					pObjTag_JPEGInterchangeFormatLength == NULL) {
 			// nothing to do
 		} else if (pObjTag_JPEGInterchangeFormat->GetType() != TYPE_LONG ||
-						pObjTag_JPEGInterchangeFormatLength->GetType() != TYPE_LONG) {
+					pObjTag_JPEGInterchangeFormatLength->GetType() != TYPE_LONG) {
 			// nothing to do
 		} else {
 			size_t offsetThumbnail = pObjTag_JPEGInterchangeFormat->GetValue().GetULong();

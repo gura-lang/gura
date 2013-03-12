@@ -18,6 +18,10 @@ private:
 	AutoPtr<Object_ifd> _pObj1stIFD;				// this may be NULL
 	AutoPtr<Object_binary> _pObjBinaryThumbnail;	// this may be NULL
 	AutoPtr<Object_image> _pObjImageThumbnail;		// this may be NULL
+	struct {
+		bool validFlag;
+		size_t width, height;
+	} _strip;
 public:
 	Gura_DeclareObjectAccessor(exif)
 public:
