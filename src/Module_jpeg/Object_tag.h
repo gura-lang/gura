@@ -13,7 +13,7 @@ Gura_DeclareUserClass(tag);
 
 class Object_tag : public Object {
 private:
-	unsigned short _id;
+	unsigned short _tagId;
 	unsigned short _type;
 	const Symbol *_pSymbol;
 	Value _value;
@@ -21,13 +21,13 @@ private:
 public:
 	Gura_DeclareObjectAccessor(tag)
 public:
-	Object_tag(unsigned short tag, unsigned short type, const Symbol *pSymbol, const Value &value);
-	Object_tag(unsigned short tag, unsigned short type, const Symbol *pSymbol, Object_ifd *pObjIFD);
+	Object_tag(unsigned short tagId, unsigned short type, const Symbol *pSymbol, const Value &value);
+	Object_tag(unsigned short tagId, unsigned short type, const Symbol *pSymbol, Object_ifd *pObjIFD);
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline unsigned short GetId() const { return _id; }
+	inline unsigned short GetId() const { return _tagId; }
 	inline unsigned short GetType() const { return _type; }
 	inline bool IsTypeSHORTorLONG() const { return _type == TYPE_SHORT || _type == TYPE_LONG; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
@@ -43,7 +43,7 @@ public:
 //-----------------------------------------------------------------------------
 class TagList : public std::vector<Object_tag *> {
 public:
-	Object_tag *FindById(unsigned short id);
+	Object_tag *FindById(unsigned short tagId);
 	Object_tag *FindBySymbol(const Symbol *pSymbol);
 	void Print(int indentLevel = 0) const;
 };

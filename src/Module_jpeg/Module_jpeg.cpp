@@ -177,6 +177,8 @@ static const TypeInfo g_typeInfoTbl[] = {
 	{ TYPE_SRATIONAL,	"SRATIONAL",	UNITSIZE_SRATIONAL,	},
 };
 
+SymbolAssocOwner g_symbolAssocOwner;
+
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_image
 // These methods are available after importing jpeg module.
@@ -282,6 +284,66 @@ Gura_ModuleEntry()
 	Gura_AssignMethodTo(VTYPE_image, image, jpegwrite);
 	// image streamer registration
 	ImageStreamer::Register(new ImageStreamer_JPEG());
+	do {
+		const unsigned short tagId = TAG_Compression;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 1,	"uncompressed",		NULL,	},
+			{ 6,	"JPEG",				NULL,	},
+			{ 0,	NULL, NULL, },
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_PhotometricInterpretation;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 2,	"RGB",					NULL,	},
+			{ 6,	"YCbCr",				NULL,	},
+			{ 0,	NULL, NULL, },
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_Orientation;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 1,	"left_top_vert",		NULL,	},
+			{ 2,	"right_top_vert",		NULL,	},
+			{ 3,	"right_bottom_vert",	NULL,	},
+			{ 4,	"left_bottom_vert",		NULL,	},
+			{ 5,	"left_top_horz",		NULL,	},
+			{ 6,	"right_top_horz",		NULL,	},
+			{ 7,	"right_bottom_horz",	NULL,	},
+			{ 8,	"left_bottom_horz",		NULL,	},
+			{ 0,	NULL, NULL, },
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_PlanarConfiguration;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 1,	"chunky",				NULL,	},
+			{ 2,	"planar",				NULL,	},
+			{ 0,	NULL, NULL, },
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_YCbCrPositioning;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 1,	"centered",				NULL,	},
+			{ 2,	"cosited",				NULL,	},
+			{ 0,	NULL, NULL, },
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_ResolutionUnit;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 2,	"inches",				NULL,	},
+			{ 3,	"centimeters",			NULL,	},
+			{ 0,	NULL, NULL, },
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
 }
 
 Gura_ModuleTerminate()
@@ -524,6 +586,59 @@ void DestinationMgr::term_destination(j_compress_ptr cinfo)
 		}
 	}
 	//pFile->Flush();
+}
+
+//-----------------------------------------------------------------------------
+// SymbolAssoc
+//-----------------------------------------------------------------------------
+SymbolAssoc::SymbolAssoc(unsigned short tagId, Entry *entryTbl) :
+									_tagId(tagId), _entryTbl(entryTbl)
+{
+	for (Entry *pEntry = _entryTbl; pEntry->name != NULL; pEntry++) {
+		pEntry->pSymbol = Symbol::Add(pEntry->name);
+	}
+}
+
+const Symbol *SymbolAssoc::NumToSymbol(unsigned short num) const
+{
+	for (const Entry *pEntry = _entryTbl; pEntry->name != NULL; pEntry++) {
+		if (pEntry->num == num) return pEntry->pSymbol;
+	}
+	return NULL;
+}
+
+//-----------------------------------------------------------------------------
+// SymbolAssocList
+//-----------------------------------------------------------------------------
+const SymbolAssoc *SymbolAssocList::FindByTagId(unsigned short tagId) const
+{
+	foreach_const (SymbolAssocList, ppSymbolAssoc, *this) {
+		const SymbolAssoc *pSymbolAssoc = *ppSymbolAssoc;
+		if (pSymbolAssoc->GetTagId() == tagId) return pSymbolAssoc;
+	}
+	return NULL;
+}
+
+const Symbol *SymbolAssocList::NumToSymbol(unsigned short tagId, unsigned short num) const
+{
+	const SymbolAssoc *pSymbolAssoc = FindByTagId(tagId);
+	return (pSymbolAssoc == NULL)? NULL : pSymbolAssoc->NumToSymbol(num);
+}
+
+//-----------------------------------------------------------------------------
+// SymbolAssocOwner
+//-----------------------------------------------------------------------------
+SymbolAssocOwner::~SymbolAssocOwner()
+{
+	Clear();
+}
+
+void SymbolAssocOwner::Clear()
+{
+	foreach (SymbolAssocOwner, ppSymbolAssoc, *this) {
+		SymbolAssoc *pSymbolAssoc = *ppSymbolAssoc;
+		delete pSymbolAssoc;
+	}
 }
 
 //-----------------------------------------------------------------------------

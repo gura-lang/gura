@@ -419,12 +419,51 @@ struct DestinationMgr {
 };
 
 //-----------------------------------------------------------------------------
+// SymbolAssoc
+//-----------------------------------------------------------------------------
+class SymbolAssoc {
+public:
+	struct Entry {
+		unsigned short num;
+		const char *name;
+		const Symbol *pSymbol;
+	};
+private:
+	unsigned short _tagId;
+	Entry *_entryTbl;
+public:
+	SymbolAssoc(unsigned short tagId, Entry *entryTbl);
+	inline unsigned short GetTagId() const { return _tagId; }
+	const Symbol *NumToSymbol(unsigned short num) const;
+};
+
+//-----------------------------------------------------------------------------
+// SymbolAssocList
+//-----------------------------------------------------------------------------
+class SymbolAssocList : public std::vector<SymbolAssoc *> {
+public:
+	const SymbolAssoc *FindByTagId(unsigned short tagId) const;
+	const Symbol *NumToSymbol(unsigned short tagId, unsigned short num) const;
+};
+
+//-----------------------------------------------------------------------------
+// SymbolAssocOwner
+//-----------------------------------------------------------------------------
+class SymbolAssocOwner : public SymbolAssocList {
+public:
+	~SymbolAssocOwner();
+	void Clear();
+};
+
+//-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
 void SetError_InvalidFormat(Signal &sig);
 bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes);
 const TagInfo *TagIdToInfo(const Symbol *pSymbolOfIFD, unsigned short id);
 const TypeInfo *TypeToInfo(unsigned short type);
+
+extern SymbolAssocOwner g_symbolAssocOwner;
 
 }}
 

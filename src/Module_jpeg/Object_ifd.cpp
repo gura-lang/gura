@@ -63,16 +63,16 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 	AutoPtr<Object_ifd> pObjIFD(new Object_ifd(pSymbolOfIFD));
 	for (size_t iTag = 0; iTag < nTags; iTag++, offset += SIZE_TagRaw) {
 		TagRaw_T *pTagRaw = reinterpret_cast<TagRaw_T *>(buff + offset);
-		unsigned short id = XUnpackUShort(pTagRaw->Id);
+		unsigned short tagId = XUnpackUShort(pTagRaw->Id);
 		unsigned short type = XUnpackUShort(pTagRaw->Type);
 		unsigned long count = XUnpackULong(pTagRaw->Count);
 		ValueRaw_T *pValueRaw = reinterpret_cast<ValueRaw_T *>(&pTagRaw->ValueRaw);
-		const TagInfo *pTagInfo = TagIdToInfo(pSymbolOfIFD, id);
+		const TagInfo *pTagInfo = TagIdToInfo(pSymbolOfIFD, tagId);
 #if 0
 		do {
 			const TypeInfo *pTypeInfo = TypeToInfo(type);
 			::printf("%s [%04x], %s [%04x], %08x, %08x\n",
-					(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, id,
+					(pTagInfo == NULL)? "(unknown)" : pTagInfo->name, tagId,
 					(pTypeInfo == NULL)? "(unknown)" : pTypeInfo->name, type,
 					count, XUnpackULong(pValueRaw->LONG.num));
 		} while (0);
@@ -87,7 +87,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 									buff, bytesAPP1, offsetSub, &offsetNext));
 			if (pObjIFDSub.IsNull()) return NULL;
 			const Symbol *pSymbol = Symbol::Add(pTagInfo->name);
-			pObjIFD->GetTagOwner().push_back(new Object_tag(id, type, pSymbol, pObjIFDSub.release()));
+			pObjIFD->GetTagOwner().push_back(new Object_tag(tagId, type, pSymbol, pObjIFDSub.release()));
 		} else {
 			Value value;
 			switch (type) {
@@ -123,7 +123,13 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 			}
 			case TYPE_SHORT: {
 				if (count == 1) {
-					value = Value(XUnpackUShort(pValueRaw->SHORT.num));
+					unsigned short num = XUnpackUShort(pValueRaw->SHORT.num);
+					const Symbol *pSymbol = g_symbolAssocOwner.NumToSymbol(tagId, num);
+					if (pSymbol == NULL) {
+						value = Value(num);
+					} else {
+						value = Value(pSymbol);
+					}
 				} else if (count == 2) {
 					ValueList &valList = value.InitAsList(env);
 					valList.reserve(count);
@@ -254,7 +260,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 			}
 			const Symbol *pSymbol = (pTagInfo == NULL)?
 					Gura_Symbol(Str_Empty) : Symbol::Add(pTagInfo->name);
-			pObjIFD->GetTagOwner().push_back(new Object_tag(id, type, pSymbol, value));
+			pObjIFD->GetTagOwner().push_back(new Object_tag(tagId, type, pSymbol, value));
 		}
 	}
 	return pObjIFD.release();
@@ -320,10 +326,10 @@ Object *Object_ifd::Clone() const
 Value Object_ifd::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
 	if (valueIdx.IsNumber()) {
-		unsigned short id = valueIdx.GetUShort();
-		Object_tag *pObjTag = GetTagOwner().FindById(id);
+		unsigned short tagId = valueIdx.GetUShort();
+		Object_tag *pObjTag = GetTagOwner().FindById(tagId);
 		if (pObjTag == NULL) {
-			sig.SetError(ERR_IndexError, "can't find tag ID 0x%04x", id);
+			sig.SetError(ERR_IndexError, "can't find tag ID 0x%04x", tagId);
 			return Value::Null;
 		}
 		return Value(Object_tag::Reference(pObjTag));

@@ -7,15 +7,15 @@ Gura_BeginModule(jpeg)
 //-----------------------------------------------------------------------------
 // Object_tag implementation
 //-----------------------------------------------------------------------------
-Object_tag::Object_tag(unsigned short id, unsigned short type, const Symbol *pSymbol, const Value &value) :
+Object_tag::Object_tag(unsigned short tagId, unsigned short type, const Symbol *pSymbol, const Value &value) :
 			Object(Gura_UserClass(tag)),
-			_id(id), _type(type), _pSymbol(pSymbol), _value(value)
+			_tagId(tagId), _type(type), _pSymbol(pSymbol), _value(value)
 {
 }
 
-Object_tag::Object_tag(unsigned short id, unsigned short type, const Symbol *pSymbol, Object_ifd *pObjIFD) :
+Object_tag::Object_tag(unsigned short tagId, unsigned short type, const Symbol *pSymbol, Object_ifd *pObjIFD) :
 			Object(Gura_UserClass(tag)),
-			_id(id), _type(type), _pSymbol(pSymbol), _pObjIFD(pObjIFD)
+			_tagId(tagId), _type(type), _pSymbol(pSymbol), _pObjIFD(pObjIFD)
 {
 }
 
@@ -24,11 +24,11 @@ void Object_tag::Print(int indentLevel) const
 	Signal sig;
 	const TypeInfo *pTypeInfo = TypeToInfo(_type);
 	if (IsIFDPointer()) {
-		::printf("%*s%s [%04x]\n", indentLevel * 2, "", GetSymbol()->GetName(), _id);
+		::printf("%*s%s [%04x]\n", indentLevel * 2, "", GetSymbol()->GetName(), _tagId);
 		GetObjectIFD()->GetTagOwner().Print(indentLevel + 1);
 	} else {
 		::printf("%*s%s [%04x], %s [%04x], %s\n", indentLevel * 2, "",
-			GetSymbol()->GetName(), _id,
+			GetSymbol()->GetName(), _tagId,
 			(pTypeInfo == NULL)? "(unknown)" : pTypeInfo->name, _type,
 			_value.ToString(sig).c_str());
 	}
@@ -52,7 +52,7 @@ Value Object_tag::DoGetProp(Signal sig, const Symbol *pSymbol,
 	Environment &env = *this;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
-		return Value(_id);
+		return Value(_tagId);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
 		return Value(env, _pSymbol->GetName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(symbol))) {
@@ -85,11 +85,11 @@ Gura_ImplementUserClass(tag)
 //-----------------------------------------------------------------------------
 // TagList
 //-----------------------------------------------------------------------------
-Object_tag *TagList::FindById(unsigned short id)
+Object_tag *TagList::FindById(unsigned short tagId)
 {
 	foreach (TagList, ppObjTag, *this) {
 		Object_tag *pObjTag = *ppObjTag;
-		if (pObjTag->GetId() == id) return pObjTag;
+		if (pObjTag->GetId() == tagId) return pObjTag;
 	}
 	return NULL;
 }
