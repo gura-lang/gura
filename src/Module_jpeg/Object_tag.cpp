@@ -8,13 +8,13 @@ Gura_BeginModule(jpeg)
 // Object_tag implementation
 //-----------------------------------------------------------------------------
 Object_tag::Object_tag(unsigned short id, unsigned short type, const Symbol *pSymbol, const Value &value) :
-			Object(Gura_UserClass(Tag)),
+			Object(Gura_UserClass(tag)),
 			_id(id), _type(type), _pSymbol(pSymbol), _value(value)
 {
 }
 
 Object_tag::Object_tag(unsigned short id, unsigned short type, const Symbol *pSymbol, Object_ifd *pObjIFD) :
-			Object(Gura_UserClass(Tag)),
+			Object(Gura_UserClass(tag)),
 			_id(id), _type(type), _pSymbol(pSymbol), _pObjIFD(pObjIFD)
 {
 }
@@ -71,14 +71,14 @@ Value Object_tag::DoGetProp(Signal sig, const Symbol *pSymbol,
 
 String Object_tag::ToString(Signal sig, bool exprFlag)
 {
-	return String("<jpeg.Tag>");
+	return String("<jpeg.tag>");
 }
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for Tag
 //-----------------------------------------------------------------------------
-// implementation of class Tag
-Gura_ImplementUserClass(Tag)
+// implementation of class tag
+Gura_ImplementUserClass(tag)
 {
 }
 

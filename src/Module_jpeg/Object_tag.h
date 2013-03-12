@@ -9,7 +9,7 @@ class Object_ifd;
 //-----------------------------------------------------------------------------
 // Object_tag declaration
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(Tag);
+Gura_DeclareUserClass(tag);
 
 class Object_tag : public Object {
 private:
