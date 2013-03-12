@@ -68,8 +68,8 @@ expected error occurs: FormatError: Not a PNG file
 expected error occurs: FormatError: Not a JPEG file: starts with 0x89 0x50
 expected error occurs: FormatError: Not a GIF file
 expected error occurs: FormatError: Not a BMP file
-Header.Signature <binary:RW:3byte>
-Header.Version   <binary:RW:3byte>
+Header.Signature <binary:RW:3byte:'GIF'>
+Header.Version   <binary:RW:3byte:'89a'>
 LogicalScreenDescriptor.LogicalScreenWidth     99
 LogicalScreenDescriptor.LogicalScreenHeight    54
 LogicalScreenDescriptor.GlobalColorTableFlag   1
@@ -78,9 +78,9 @@ LogicalScreenDescriptor.SortFlag               0
 LogicalScreenDescriptor.SizeOfGlobalColorTable 4
 LogicalScreenDescriptor.BackgroundColorIndex   23
 LogicalScreenDescriptor.PixelAspectRatio       0
-ApplicationExtension.ApplicationIdentifier <binary:RW:8byte>
-ApplicationExtension.AuthenticationCode    <binary:RW:3byte>
-ApplicationExtension.ApplicationData       <binary:RW:3byte>
+ApplicationExtension.ApplicationIdentifier <binary:RW:8byte:'NETSCAPE'>
+ApplicationExtension.AuthenticationCode    <binary:RW:3byte:'2.0'>
+ApplicationExtension.ApplicationData       <binary:RW:3byte:'\x01\x00\x00'>
 image#0
 gif.GraphicControl.DisposalMethod        keep
 gif.GraphicControl.UserInputFlag         false
