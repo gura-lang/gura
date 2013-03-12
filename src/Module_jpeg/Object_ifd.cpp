@@ -87,7 +87,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 									buff, bytesAPP1, offsetSub, &offsetNext));
 			if (pObjIFDSub.IsNull()) return NULL;
 			const Symbol *pSymbol = Symbol::Add(pTagInfo->name);
-			pObjIFD->GetTagOwner().push_back(new Object_Tag(id, type, pSymbol, pObjIFDSub.release()));
+			pObjIFD->GetTagOwner().push_back(new Object_tag(id, type, pSymbol, pObjIFDSub.release()));
 		} else {
 			Value value;
 			switch (type) {
@@ -254,7 +254,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 			}
 			const Symbol *pSymbol = (pTagInfo == NULL)?
 					Gura_Symbol(Str_Empty) : Symbol::Add(pTagInfo->name);
-			pObjIFD->GetTagOwner().push_back(new Object_Tag(id, type, pSymbol, value));
+			pObjIFD->GetTagOwner().push_back(new Object_tag(id, type, pSymbol, value));
 		}
 	}
 	return pObjIFD.release();
@@ -286,8 +286,8 @@ bool IteratorTag::DoNext(Environment &env, Signal sig, Value &value)
 {
 	TagOwner &tagOwner = _pObjIFD->GetTagOwner();
 	if (_idx >= tagOwner.size()) return false;
-	Object_Tag *pObjTag = tagOwner[_idx++];
-	value = Value(Object_Tag::Reference(pObjTag));
+	Object_tag *pObjTag = tagOwner[_idx++];
+	value = Value(Object_tag::Reference(pObjTag));
 	return true;
 }
 
@@ -321,20 +321,20 @@ Value Object_ifd::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
 	if (valueIdx.IsNumber()) {
 		unsigned short id = valueIdx.GetUShort();
-		Object_Tag *pObjTag = GetTagOwner().FindById(id);
+		Object_tag *pObjTag = GetTagOwner().FindById(id);
 		if (pObjTag == NULL) {
 			sig.SetError(ERR_IndexError, "can't find tag ID 0x%04x", id);
 			return Value::Null;
 		}
-		return Value(Object_Tag::Reference(pObjTag));
+		return Value(Object_tag::Reference(pObjTag));
 	} else if (valueIdx.IsSymbol()) {
 		const Symbol *pSymbol = valueIdx.GetSymbol();
-		Object_Tag *pObjTag = GetTagOwner().FindBySymbol(pSymbol);
+		Object_tag *pObjTag = GetTagOwner().FindBySymbol(pSymbol);
 		if (pObjTag == NULL) {
 			sig.SetError(ERR_IndexError, "can't find tag `%s", pSymbol->GetName());
 			return Value::Null;
 		}
-		return Value(Object_Tag::Reference(pObjTag));
+		return Value(Object_tag::Reference(pObjTag));
 	}
 	sig.SetError(ERR_IndexError, "invalid type for index of ifd");
 	return Value::Null;
@@ -346,7 +346,7 @@ bool Object_ifd::DoDirProp(Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(name));
 	symbols.insert(Gura_UserSymbol(symbol));
 	foreach (TagOwner, ppObjTag, GetTagOwner()) {
-		Object_Tag *pObjTag = *ppObjTag;
+		Object_tag *pObjTag = *ppObjTag;
 		symbols.insert(pObjTag->GetSymbol());
 		if (pObjTag->IsIFDPointer()) {
 			Object_ifd *pObjIFD = pObjTag->GetObjectIFD();
@@ -367,9 +367,9 @@ Value Object_ifd::DoGetProp(Signal sig, const Symbol *pSymbol,
 		return Value(_pSymbol);
 	}
 	foreach (TagOwner, ppObjTag, GetTagOwner()) {
-		Object_Tag *pObjTag = *ppObjTag;
+		Object_tag *pObjTag = *ppObjTag;
 		if (pObjTag->GetSymbol() == pSymbol) {
-			return Value(Object_Tag::Reference(pObjTag));
+			return Value(Object_tag::Reference(pObjTag));
 		} else if (pObjTag->IsIFDPointer()) {
 			Object_ifd *pObjIFD = pObjTag->GetObjectIFD();
 			if (pObjIFD->GetSymbol() == pSymbol) {

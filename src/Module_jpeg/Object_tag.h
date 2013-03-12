@@ -7,11 +7,11 @@ Gura_BeginModule(jpeg)
 class Object_ifd;
 
 //-----------------------------------------------------------------------------
-// Object_Tag declaration
+// Object_tag declaration
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(Tag);
 
-class Object_Tag : public Object {
+class Object_tag : public Object {
 private:
 	unsigned short _id;
 	unsigned short _type;
@@ -19,10 +19,10 @@ private:
 	Value _value;
 	AutoPtr<Object_ifd> _pObjIFD;	// this may be NULL
 public:
-	Gura_DeclareObjectAccessor(Tag)
+	Gura_DeclareObjectAccessor(tag)
 public:
-	Object_Tag(unsigned short tag, unsigned short type, const Symbol *pSymbol, const Value &value);
-	Object_Tag(unsigned short tag, unsigned short type, const Symbol *pSymbol, Object_ifd *pObjIFD);
+	Object_tag(unsigned short tag, unsigned short type, const Symbol *pSymbol, const Value &value);
+	Object_tag(unsigned short tag, unsigned short type, const Symbol *pSymbol, Object_ifd *pObjIFD);
 	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
@@ -40,10 +40,10 @@ public:
 //-----------------------------------------------------------------------------
 // TagList declaration
 //-----------------------------------------------------------------------------
-class TagList : public std::vector<Object_Tag *> {
+class TagList : public std::vector<Object_tag *> {
 public:
-	Object_Tag *FindById(unsigned short id);
-	Object_Tag *FindBySymbol(const Symbol *pSymbol);
+	Object_tag *FindById(unsigned short id);
+	Object_tag *FindBySymbol(const Symbol *pSymbol);
 	void Print(int indentLevel = 0) const;
 };
 

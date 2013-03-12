@@ -1,7 +1,7 @@
 #ifndef __JPEG_OBJECT_IFD_H__
 #define __JPEG_OBJECT_IFD_H__
 #include <gura.h>
-#include "Object_Tag.h"
+#include "Object_tag.h"
 
 Gura_BeginModule(jpeg)
 

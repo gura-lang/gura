@@ -1,25 +1,25 @@
 #include "Module_jpeg.h"
-#include "Object_Tag.h"
+#include "Object_tag.h"
 #include "Object_ifd.h"
 
 Gura_BeginModule(jpeg)
 
 //-----------------------------------------------------------------------------
-// Object_Tag implementation
+// Object_tag implementation
 //-----------------------------------------------------------------------------
-Object_Tag::Object_Tag(unsigned short id, unsigned short type, const Symbol *pSymbol, const Value &value) :
+Object_tag::Object_tag(unsigned short id, unsigned short type, const Symbol *pSymbol, const Value &value) :
 			Object(Gura_UserClass(Tag)),
 			_id(id), _type(type), _pSymbol(pSymbol), _value(value)
 {
 }
 
-Object_Tag::Object_Tag(unsigned short id, unsigned short type, const Symbol *pSymbol, Object_ifd *pObjIFD) :
+Object_tag::Object_tag(unsigned short id, unsigned short type, const Symbol *pSymbol, Object_ifd *pObjIFD) :
 			Object(Gura_UserClass(Tag)),
 			_id(id), _type(type), _pSymbol(pSymbol), _pObjIFD(pObjIFD)
 {
 }
 
-void Object_Tag::Print(int indentLevel) const
+void Object_tag::Print(int indentLevel) const
 {
 	Signal sig;
 	const TypeInfo *pTypeInfo = TypeToInfo(_type);
@@ -34,7 +34,7 @@ void Object_Tag::Print(int indentLevel) const
 	}
 }
 
-bool Object_Tag::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_tag::DoDirProp(Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(id));
@@ -46,7 +46,7 @@ bool Object_Tag::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Tag::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_tag::DoGetProp(Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Environment &env = *this;
@@ -69,7 +69,7 @@ Value Object_Tag::DoGetProp(Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-String Object_Tag::ToString(Signal sig, bool exprFlag)
+String Object_tag::ToString(Signal sig, bool exprFlag)
 {
 	return String("<jpeg.Tag>");
 }
@@ -85,19 +85,19 @@ Gura_ImplementUserClass(Tag)
 //-----------------------------------------------------------------------------
 // TagList
 //-----------------------------------------------------------------------------
-Object_Tag *TagList::FindById(unsigned short id)
+Object_tag *TagList::FindById(unsigned short id)
 {
 	foreach (TagList, ppObjTag, *this) {
-		Object_Tag *pObjTag = *ppObjTag;
+		Object_tag *pObjTag = *ppObjTag;
 		if (pObjTag->GetId() == id) return pObjTag;
 	}
 	return NULL;
 }
 
-Object_Tag *TagList::FindBySymbol(const Symbol *pSymbol)
+Object_tag *TagList::FindBySymbol(const Symbol *pSymbol)
 {
 	foreach (TagList, ppObjTag, *this) {
-		Object_Tag *pObjTag = *ppObjTag;
+		Object_tag *pObjTag = *ppObjTag;
 			if (pObjTag->GetSymbol() == pSymbol) return pObjTag;
 	}
 	return NULL;
@@ -106,7 +106,7 @@ Object_Tag *TagList::FindBySymbol(const Symbol *pSymbol)
 void TagList::Print(int indentLevel) const
 {
 	foreach_const (TagList, ppObjTag, *this) {
-		const Object_Tag *pObjTag = *ppObjTag;
+		const Object_tag *pObjTag = *ppObjTag;
 		pObjTag->Print(indentLevel);
 	}
 }
@@ -122,7 +122,7 @@ TagOwner::~TagOwner()
 void TagOwner::Clear()
 {
 	foreach (TagOwner, ppObjTag, *this) {
-		Object_Tag *pObjTag = *ppObjTag;
+		Object_tag *pObjTag = *ppObjTag;
 		Object::Delete(pObjTag);
 	}
 	clear();

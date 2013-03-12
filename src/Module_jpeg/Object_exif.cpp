@@ -151,9 +151,9 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 		return false;
 	}
 	if (!_pObj1stIFD.IsNull()) {
-		Object_Tag *pObjTag_JPEGInterchangeFormat =
+		Object_tag *pObjTag_JPEGInterchangeFormat =
 			_pObj1stIFD->GetTagOwner().FindById(TAG_JPEGInterchangeFormat);
-		Object_Tag *pObjTag_JPEGInterchangeFormatLength =
+		Object_tag *pObjTag_JPEGInterchangeFormatLength =
 			 _pObj1stIFD->GetTagOwner().FindById(TAG_JPEGInterchangeFormatLength);
 		if (pObjTag_JPEGInterchangeFormat == NULL ||
 						pObjTag_JPEGInterchangeFormatLength == NULL) {
