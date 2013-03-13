@@ -358,8 +358,8 @@ public:
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 protected:
-	Value EvalOverrideUnary(Signal sig, Args &args, bool &evaluatedFlag) const;
-	Value EvalOverrideBinary(Signal sig, Args &args, bool &evaluatedFlag) const;
+	Value EvalOverrideUnary(Environment &env, Signal sig, Args &args, bool &evaluatedFlag) const;
+	Value EvalOverrideBinary(Environment &env, Signal sig, Args &args, bool &evaluatedFlag) const;
 	Value ReturnIterator(Environment &env, Signal sig,
 					Args &args, Iterator *pIterator) const;
 	Value ReturnValue(Environment &env, Signal sig,

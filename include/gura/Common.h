@@ -9,6 +9,8 @@
 
 #if defined(_MSC_VER)
 #define HAVE_WINDOWS_H
+#undef SetProp
+#undef GetProp
 #pragma warning(disable:4251)
 #pragma warning(disable:4275)
 #pragma warning(disable:4355)

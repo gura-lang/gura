@@ -17,9 +17,9 @@ String Object_FTC_Node::ToString(Signal sig, bool exprFlag)
 	return String(buff);
 }
 
-bool Object_FTC_Node::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_FTC_Node::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 #if 0
 	symbols.insert(Gura_Symbol(x));
 	symbols.insert(Gura_Symbol(y));
@@ -27,7 +27,7 @@ bool Object_FTC_Node::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_FTC_Node::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_FTC_Node::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -42,7 +42,7 @@ Value Object_FTC_Node::DoGetProp(Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value Object_FTC_Node::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_FTC_Node::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

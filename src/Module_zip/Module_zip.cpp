@@ -540,9 +540,9 @@ Object *Object_stat::Clone() const
 	return new Object_stat(*this);
 }
 
-bool Object_stat::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_stat::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(filename));
 	symbols.insert(Gura_UserSymbol(comment));
 	symbols.insert(Gura_UserSymbol(mtime));
@@ -554,10 +554,9 @@ bool Object_stat::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_stat::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(filename))) {
 		return Value(env, _hdr.GetFileName());

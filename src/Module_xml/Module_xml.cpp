@@ -296,7 +296,7 @@ void Object_parser::Parse(Environment &env, Signal &sig, Stream &stream)
 void Object_parser::CallHandler(const Symbol *pSymbol, const ValueList argList)
 {
 	bool evaluatedFlag;
-	Value rtn = EvalMethod(*_pSig, pSymbol, argList, evaluatedFlag);
+	Value rtn = EvalMethod(*this, *_pSig, pSymbol, argList, evaluatedFlag);
 	if (_pSig->IsSignalled()) {
 		_parser.StopParser();
 	}

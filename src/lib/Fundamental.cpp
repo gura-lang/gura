@@ -96,7 +96,7 @@ Value Fundamental::DoCall(Environment &env, Signal sig, Args &args)
 	return Value::Null;
 }
 
-bool Fundamental::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Fundamental::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	return true;
 }

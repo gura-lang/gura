@@ -1460,17 +1460,16 @@ Object *Object_stat::Clone() const
 	return new Object_stat(*this);
 }
 
-bool Object_stat::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_stat::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	Header::DoDirProp(symbols);
 	return true;
 }
 
-Value Object_stat::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	evaluatedFlag = true;
 	Value value;
 	if (_header.GetTimeField(env, sig, pSymbol, value)) {
@@ -1522,9 +1521,9 @@ Object_session::~Object_session()
 	if (_sock >= 0) ::closesocket(_sock);
 }
 
-bool Object_session::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_session::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(server));
 	symbols.insert(Gura_UserSymbol(remote_ip));
 	symbols.insert(Gura_UserSymbol(remote_host));
@@ -1535,10 +1534,9 @@ bool Object_session::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_session::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_session::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(server))) {
 		return Value(Object_server::Reference(_pObjServer.get()));
@@ -1616,9 +1614,9 @@ Object_request::~Object_request()
 {
 }
 
-bool Object_request::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_request::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(session));
 	symbols.insert(Gura_UserSymbol(method));
 	symbols.insert(Gura_UserSymbol(uri));
@@ -1633,10 +1631,9 @@ bool Object_request::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_request::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_request::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	evaluatedFlag = true;
 	Request &request = _pObjSession->GetRequest();
 	Header &header = request.GetHeader();
@@ -1841,9 +1838,9 @@ Object_response::~Object_response()
 {
 }
 
-bool Object_response::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_response::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(version));
 	symbols.insert(Gura_UserSymbol(code));
 	symbols.insert(Gura_UserSymbol(reason));
@@ -1852,10 +1849,9 @@ bool Object_response::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_response::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_response::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	evaluatedFlag = true;
 	Status &status = _pObjClient->GetStatus();
 	Header &header = status.GetHeader();
@@ -1949,17 +1945,16 @@ Object *Object_server::Clone() const
 	return NULL; //new Object_server(*this);
 }
 
-bool Object_server::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_server::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(sessions));
 	return true;
 }
 
-Value Object_server::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_server::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	evaluatedFlag = true;
 	Value value;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(sessions))) {
@@ -2030,7 +2025,6 @@ bool Object_server::Prepare(Signal sig, const char *addr, short port)
 
 Object_request *Object_server::Wait(Signal sig)
 {
-	Environment &env = *this;
 	AutoPtr<Object_session> pObjSessionCur;
 	for (SessionList::iterator ppObjSession = _sessionList.begin();
 								ppObjSession != _sessionList.end(); ) {
@@ -2200,12 +2194,12 @@ bool Object_client::Prepare(Signal sig, const char *addr, short port,
 				const char *userIdProxy, const char *passwordProxy)
 {
 	if (addrProxy == NULL) {
-		Environment &env = *this;
 		const Value *pValueOfList = _pEnvThis->LookupValue(Gura_UserSymbol(proxies), false);
 		if (pValueOfList != NULL && pValueOfList->IsList()) {
 			foreach_const_reverse (ValueList, pValue, pValueOfList->GetList()) {
 				if (!pValue->IsType(VTYPE_proxy)) continue;
 				Object_proxy *pObjProxy = Object_proxy::GetObject(*pValue);
+				Environment &env = *this;
 				if (pObjProxy->IsResponsible(env, sig, addr)) {
 					addrProxy = pObjProxy->GetAddr();
 					portProxy = pObjProxy->GetPort();
@@ -2258,7 +2252,6 @@ Object_response *Object_client::SendRequest(Signal sig,
 		const char *method, const char *uri, Stream *pStreamBody,
 		const char *httpVersion, const ValueDict &valueDict)
 {
-	Environment &env = *this;
 	if (!CleanupResponse(sig)) return NULL;
 	if (_sock < 0) {
 		sig.SetError(ERR_IOError, "access to invalid socket");
@@ -2286,6 +2279,7 @@ Object_response *Object_client::SendRequest(Signal sig,
 		Binary buff;
 		buff = "Basic ";
 		do {
+			Environment &env = *this;
 			Object_binary *pObjBinary = new Object_binary(env);
 			Stream_Base64Writer stream(sig, new Stream_Binary(sig, pObjBinary, false), 0);
 			stream.Write(sig, str.data(), str.size());

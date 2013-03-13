@@ -222,7 +222,7 @@ void wx_Window::GuraObjectDeleted()
 bool wx_Window::TransferDataFromWindow()
 {
 	bool evaluatedFlag;
-	Value rtn = _pObj->EvalMethod(_sig,
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig,
 		Gura_UserSymbol(TransferDataFromWindow), ValueList::Null, evaluatedFlag);
 	if (_sig.IsSignalled()) {
 		SetLogError(_sig);
@@ -234,7 +234,7 @@ bool wx_Window::TransferDataFromWindow()
 bool wx_Window::TransferDataToWindow()
 {
 	bool evaluatedFlag;
-	Value rtn = _pObj->EvalMethod(_sig,
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig,
 		Gura_UserSymbol(TransferDataToWindow), ValueList::Null, evaluatedFlag);
 	if (_sig.IsSignalled()) {
 		SetLogError(_sig);

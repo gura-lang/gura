@@ -30,20 +30,19 @@ Value Object_exif::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 	return _pObj0thIFD->IndexGet(env, sig, valueIdx);
 }
 
-bool Object_exif::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_exif::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	if (_pObj0thIFD.IsNull()) return true;
 	symbols.insert(Gura_UserSymbol(ifd0));
 	symbols.insert(Gura_UserSymbol(ifd1));
 	symbols.insert(Gura_UserSymbol(thumbnail));
-	return _pObj0thIFD->DoDirProp(sig, symbols);
+	return _pObj0thIFD->DoDirProp(env, sig, symbols);
 }
 
-Value Object_exif::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_exif::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	if (_pObj0thIFD.IsNull()) return Value::Null;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(endian))) {
@@ -89,7 +88,7 @@ Value Object_exif::DoGetProp(Signal sig, const Symbol *pSymbol,
 		if (_pObjBinaryThumbnail.IsNull() || _strip.validFlag) return Value::Null;
 		return Value(Object_binary::Reference(_pObjBinaryThumbnail.get()));
 	}
-	return _pObj0thIFD->DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
+	return _pObj0thIFD->DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_exif::ToString(Signal sig, bool exprFlag)

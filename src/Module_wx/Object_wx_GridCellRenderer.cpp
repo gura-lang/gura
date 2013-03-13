@@ -163,7 +163,7 @@ void Object_wx_GridCellRenderer::EvalMethod_Draw(Signal sig, bool &evaluatedFlag
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
 	valList.push_back(Value(isSelected));
-	Value rtn = EvalMethod(sig, pFunc, valList);
+	Value rtn = EvalMethod(*this, sig, pFunc, valList);
 	CheckMethodResult(sig);
 }
 

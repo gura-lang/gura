@@ -18,17 +18,16 @@ Object *Object_surface::Clone() const
 	return NULL;
 }
 
-bool Object_surface::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_surface::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
 	return true;
 }
 
-Value Object_surface::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_surface::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
 		cairo_surface_type_t surface_type = ::cairo_surface_get_type(_surface);

@@ -224,9 +224,9 @@ String Object_Event::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
-bool Object_Event::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_Event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
 	if (_event.type == SDL_ACTIVEEVENT) {
 		symbols.insert(Gura_UserSymbol(gain));
@@ -284,7 +284,7 @@ bool Object_Event::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Event::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -424,9 +424,9 @@ String Object_Rect::ToString(Signal sig, bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Rect::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_Rect::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(x));
 	symbols.insert(Gura_UserSymbol(y));
 	symbols.insert(Gura_UserSymbol(w));
@@ -434,7 +434,7 @@ bool Object_Rect::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Rect::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_Rect::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -451,7 +451,7 @@ Value Object_Rect::DoGetProp(Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value Object_Rect::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_Rect::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -502,16 +502,16 @@ String Object_Color::ToString(Signal sig, bool exprFlag)
 	return String(buff);
 }
 
-bool Object_Color::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_Color::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(r));
 	symbols.insert(Gura_UserSymbol(g));
 	symbols.insert(Gura_UserSymbol(b));
 	return true;
 }
 
-Value Object_Color::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_Color::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -526,7 +526,7 @@ Value Object_Color::DoGetProp(Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value Object_Color::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_Color::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -596,14 +596,14 @@ String Object_Palette::ToString(Signal sig, bool exprFlag)
 	return String("<sdl.Palette>");
 }
 
-bool Object_Palette::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_Palette::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	//symbols.insert(Gura_Symbol(red));
 	return true;
 }
 
-Value Object_Palette::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_Palette::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = false;
@@ -652,9 +652,9 @@ String Object_PixelFormat::ToString(Signal sig, bool exprFlag)
 	return String("<sdl.PixelFormat>");
 }
 
-bool Object_PixelFormat::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_PixelFormat::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(palette));
 	symbols.insert(Gura_UserSymbol(BitsPerPixel));
 	symbols.insert(Gura_UserSymbol(BytesPerPixel));
@@ -675,7 +675,7 @@ bool Object_PixelFormat::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_PixelFormat::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_PixelFormat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -809,9 +809,9 @@ Object *Object_Surface::Clone() const
 	return NULL;
 }
 
-bool Object_Surface::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_Surface::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(flags));
 	symbols.insert(Gura_UserSymbol(format));
 	symbols.insert(Gura_UserSymbol(w));
@@ -823,7 +823,7 @@ bool Object_Surface::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Surface::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_Surface::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1290,9 +1290,9 @@ String Object_VideoInfo::ToString(Signal sig, bool exprFlag)
 	return String("<sdl.VideoInfo>");
 }
 
-bool Object_VideoInfo::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_VideoInfo::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(hw_available));
 	symbols.insert(Gura_UserSymbol(wm_available));
 	symbols.insert(Gura_UserSymbol(blit_hw));
@@ -1307,7 +1307,7 @@ bool Object_VideoInfo::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_VideoInfo::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_VideoInfo::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1706,9 +1706,9 @@ Object *Object_CDtrack::Clone() const
 	return NULL;
 }
 
-bool Object_CDtrack::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_CDtrack::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(id));
 	symbols.insert(Gura_UserSymbol(type));
 	symbols.insert(Gura_UserSymbol(length));
@@ -1716,7 +1716,7 @@ bool Object_CDtrack::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_CDtrack::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_CDtrack::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1758,9 +1758,9 @@ Object *Object_CD::Clone() const
 	return NULL;
 }
 
-bool Object_CD::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_CD::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(status));
 	symbols.insert(Gura_UserSymbol(numtracks));
 	symbols.insert(Gura_UserSymbol(cur_track));
@@ -1768,7 +1768,7 @@ bool Object_CD::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_CD::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_CD::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

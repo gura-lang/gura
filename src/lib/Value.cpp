@@ -527,13 +527,13 @@ bool Value::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escal
 	if (GetTinyBuffFlag()) {
 		// nothing to do
 	} else if (IsModule()) {
-		return GetModule()->DirProp(sig, symbols);
+		return GetModule()->DirProp(env, sig, symbols);
 	} else if (IsClass()) {
-		return GetClass()->DirProp(sig, symbols, escalateFlag);
+		return GetClass()->DirProp(env, sig, symbols, escalateFlag);
 	} else if (IsObject()) {
-		return GetObject()->DirProp(sig, symbols);
+		return GetObject()->DirProp(env, sig, symbols);
 	}
-	return env.LookupClass(_valType)->DirProp(sig, symbols, escalateFlag);
+	return env.LookupClass(_valType)->DirProp(env, sig, symbols, escalateFlag);
 }
 
 void Value::DirValueType(SymbolSet &symbols, bool escalateFlag)

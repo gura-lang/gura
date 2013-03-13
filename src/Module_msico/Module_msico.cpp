@@ -17,17 +17,16 @@ Object *Object_content::Clone() const
 	return NULL;
 }
 
-bool Object_content::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_content::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(images));
 	return true;
 }
 
-Value Object_content::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_content::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(images))) {
 		return Value(new Object_list(env, _valList));

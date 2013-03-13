@@ -337,17 +337,16 @@ Value Object_match::IndexGet(Environment &env, Signal sig, const Value &valueIdx
 	return Value(env, GetGroupString(*pGroup).c_str());
 }
 
-bool Object_match::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_match::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(string));
 	return true;
 }
 
-Value Object_match::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_match::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
 		return Value(env, _str);

@@ -53,7 +53,7 @@ public:
 	}
 	inline Function *GetConstructor() { return _pConstructor.get(); }
 	inline const Function *GetConstructor() const { return _pConstructor.get(); }
-	bool DirProp(Signal sig, SymbolSet &symbols, bool escalateFlag);
+	bool DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl);
 	virtual String ToString(Signal sig, bool exprFlag);

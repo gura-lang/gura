@@ -23,16 +23,16 @@ Object *Object_timedelta::Clone() const
 	return new Object_timedelta(*this);
 }
 
-bool Object_timedelta::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_timedelta::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(days));
 	symbols.insert(Gura_Symbol(secs));
 	symbols.insert(Gura_Symbol(usecs));
 	return true;
 }
 
-Value Object_timedelta::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_timedelta::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -47,7 +47,7 @@ Value Object_timedelta::DoGetProp(Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value Object_timedelta::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_timedelta::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -62,7 +62,7 @@ Value Object_timedelta::DoSetProp(Signal sig, const Symbol *pSymbol, const Value
 		return Value(static_cast<Number>(_timeDelta.GetUSecs()));
 	}
 	evaluatedFlag = false;
-	return DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
+	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_timedelta::ToString(Signal sig, bool exprFlag)

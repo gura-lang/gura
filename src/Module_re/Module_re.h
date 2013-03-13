@@ -60,8 +60,8 @@ public:
 	virtual ~Object_match();
 	virtual Object *Clone() const;
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
-	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	bool SetMatchInfo(const char *str, regex_t *pRegEx,

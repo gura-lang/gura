@@ -798,9 +798,9 @@ Object *Object_color::Clone() const
 	return new Object_color(*this);
 }
 
-bool Object_color::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_color::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(red));
 	symbols.insert(Gura_Symbol(green));
 	symbols.insert(Gura_Symbol(blue));
@@ -809,7 +809,7 @@ bool Object_color::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_color::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_color::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(red))) {
@@ -831,7 +831,7 @@ Value Object_color::DoGetProp(Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value Object_color::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_color::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(red))) {

@@ -16,8 +16,8 @@ public:
 public:
 	inline Object_image_surface(cairo_surface_t *surface, Object_image *pObjImage) :
 				Object_surface(surface), _pObjImage(pObjImage) {}
-	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 };
 

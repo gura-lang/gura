@@ -111,7 +111,7 @@ void Object::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const
 	pFunc->Eval(*this, sig, args);
 }
 
-bool Object::DirProp(Signal sig, SymbolSet &symbols)
+bool Object::DirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	//foreach_const (ValueMap, iter, GetTopFrame().GetValueMap()) {
 	//	symbols.insert(iter->first);
@@ -124,18 +124,18 @@ bool Object::DirProp(Signal sig, SymbolSet &symbols)
 			}
 		}
 	}
-	return DoDirProp(sig, symbols);
+	return DoDirProp(env, sig, symbols);
 }
 
-Value Object::EvalMethod(Signal sig, const Function *pFunc, const ValueList &valListArg)
+Value Object::EvalMethod(Environment &env, Signal sig, const Function *pFunc, const ValueList &valListArg)
 {
 	const Function *pFuncLeader = NULL;
 	Value valueThis(this, Value::FLAG_NoOwner); // reference to this
 	Args args(valListArg, valueThis, NULL, false, &pFuncLeader);
-	return pFunc->Eval(*this, sig, args);
+	return pFunc->Eval(env, sig, args);
 }
 
-Value Object::EvalMethod(Signal sig, const Symbol *pSymbol,
+Value Object::EvalMethod(Environment &env, Signal sig, const Symbol *pSymbol,
 							const ValueList &valListArg, bool &evaluatedFlag)
 {
 	const Function *pFuncLeader = NULL;
@@ -145,10 +145,10 @@ Value Object::EvalMethod(Signal sig, const Symbol *pSymbol,
 	Value valueThis(this, Value::FLAG_NoOwner); // reference to this
 	evaluatedFlag = true;
 	Args args(valListArg, valueThis, NULL, false, &pFuncLeader);
-	return pFunc->Eval(*this, sig, args);
+	return pFunc->Eval(env, sig, args);
 }
 
-Value Object::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getprop__), true);
@@ -162,7 +162,7 @@ Value Object::DoGetProp(Signal sig, const Symbol *pSymbol,
 	return pFunc->Eval(*this, sig, args);
 }
 
-Value Object::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setprop__), true);
@@ -178,7 +178,7 @@ Value Object::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
 String Object::ToString(Signal sig, bool exprFlag)
 {
 	bool evaluatedFlag = false;
-	Value value = EvalMethod(sig, Gura_Symbol(__str__),
+	Value value = EvalMethod(*this, sig, Gura_Symbol(__str__),
 											ValueList::Null, evaluatedFlag);
 	if (sig.IsSignalled()) return String("");
 	if (evaluatedFlag) return value.ToString(sig, false);

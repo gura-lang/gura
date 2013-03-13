@@ -91,14 +91,14 @@ Object *Object_wx_ClientData::Clone() const
 	return NULL;
 }
 
-bool Object_wx_ClientData::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_wx_ClientData::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(value));
 	return true;
 }
 
-Value Object_wx_ClientData::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_wx_ClientData::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(value))) {
@@ -108,7 +108,7 @@ Value Object_wx_ClientData::DoGetProp(Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value Object_wx_ClientData::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_wx_ClientData::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(value))) {

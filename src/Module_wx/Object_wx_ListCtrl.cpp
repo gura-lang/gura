@@ -59,7 +59,7 @@ wxListItemAttr *wx_ListCtrl::OnGetItemAttr(long item) const
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(item));
-	Value rtn = _pObj->EvalMethod(_sig, pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_ListItemAttr, true)) return false;
 	return rtn.IsValid()? Object_wx_ListItemAttr::GetObject(rtn)->GetEntity() : NULL;
 }
@@ -72,7 +72,7 @@ int wx_ListCtrl::OnGetItemImage(long item) const
 	ValueList valList;
 	valList.reserve(1);
 	valList.push_back(Value(item));
-	Value rtn = _pObj->EvalMethod(_sig, pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
@@ -86,7 +86,7 @@ int wx_ListCtrl::OnGetItemColumnImage(long item, long column) const
 	valList.reserve(1);
 	valList.push_back(Value(item));
 	valList.push_back(Value(column));
-	Value rtn = _pObj->EvalMethod(_sig, pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
@@ -100,7 +100,7 @@ wxString wx_ListCtrl::OnGetItemText(long item, long column) const
 	valList.reserve(1);
 	valList.push_back(Value(item));
 	valList.push_back(Value(column));
-	Value rtn = _pObj->EvalMethod(_sig, pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_string)) return wxEmptyString;
 	return wxString::FromUTF8(rtn.GetString());
 }

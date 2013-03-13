@@ -84,9 +84,9 @@ Gura_ImplementClassMethod(Object, getprop_X)
 	const SymbolSet &attrs = SymbolSet::Null;
 	if (args.IsDefined(1)) {
 		Value value = args.GetValue(1);
-		return pThis->GetProp(sig, args.GetSymbol(0), attrs, &value);
+		return pThis->GetProp(env, sig, args.GetSymbol(0), attrs, &value);
 	} else {
-		return pThis->GetProp(sig, args.GetSymbol(0), attrs);
+		return pThis->GetProp(env, sig, args.GetSymbol(0), attrs);
 	}
 }
 
@@ -145,7 +145,7 @@ Value Gura_Method(Object, call_X)::EvalExpr(Environment &env, Signal sig, Args &
 	const Value *pValue = pThis->LookupValue(pSymbol, true);
 	if (pValue == NULL) {
 		const SymbolSet &attrs = SymbolSet::Null;
-		valueFunc = pThis->GetProp(sig, pSymbol, attrs);
+		valueFunc = pThis->GetProp(env, sig, pSymbol, attrs);
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
 		valueFunc = *pValue;
@@ -216,7 +216,7 @@ Object *Class::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 	return new Object((pClass == NULL)? this : pClass);
 }
 
-bool Class::DirProp(Signal sig, SymbolSet &symbols, bool escalateFlag)
+bool Class::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag)
 {
 	if (escalateFlag) {
 		foreach_const (FrameList, ppFrame, GetFrameList()) {
@@ -232,7 +232,7 @@ bool Class::DirProp(Signal sig, SymbolSet &symbols, bool escalateFlag)
 			symbols.insert(iter->first);
 		}
 	}
-	return DoDirProp(sig, symbols);
+	return DoDirProp(env, sig, symbols);
 }
 
 bool Class::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

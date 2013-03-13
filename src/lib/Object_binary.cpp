@@ -19,14 +19,14 @@ Object *Object_binary::Clone() const
 	return new Object_binary(*this);
 }
 
-bool Object_binary::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_binary::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(writable));
 	return true;
 }
 
-Value Object_binary::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_binary::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(writable))) {

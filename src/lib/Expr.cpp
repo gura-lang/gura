@@ -822,7 +822,7 @@ Expr *Expr_Symbol::Clone() const
 
 ICallable *Expr_Symbol::LookupCallable(Environment &env, Signal sig) const
 {
-	Value rtn = env.GetProp(sig, GetSymbol(), GetAttrs());
+	Value rtn = env.GetProp(env, sig, GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return NULL;
@@ -832,7 +832,7 @@ ICallable *Expr_Symbol::LookupCallable(Environment &env, Signal sig) const
 
 Value Expr_Symbol::Exec(Environment &env, Signal sig) const
 {
-	Value rtn = env.GetProp(sig, GetSymbol(), GetAttrs());
+	Value rtn = env.GetProp(env, sig, GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
@@ -845,7 +845,7 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 {
 	bool evaluatedFlag = false;
 	const SymbolSet &attrs = SymbolSet::Null;
-	Value result = env.DoSetProp(sig, GetSymbol(), value, attrs, evaluatedFlag);
+	Value result = env.DoSetProp(env, sig, GetSymbol(), value, attrs, evaluatedFlag);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;

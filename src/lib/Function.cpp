@@ -477,7 +477,7 @@ Value Function::EvalMapRecursive(Environment &env, Signal sig,
 	return result;
 }
 
-Value Function::EvalOverrideUnary(Signal sig, Args &args, bool &evaluatedFlag) const
+Value Function::EvalOverrideUnary(Environment &env, Signal sig, Args &args, bool &evaluatedFlag) const
 {
 	const Value &value = args.GetValue(0);
 	Object *pObj = NULL;
@@ -489,10 +489,10 @@ Value Function::EvalOverrideUnary(Signal sig, Args &args, bool &evaluatedFlag) c
 		return Value::Null;
 	}
 	evaluatedFlag = true;
-	return pObj->EvalMethod(sig, GetSymbol(), args.GetArgs(), evaluatedFlag);
+	return pObj->EvalMethod(env, sig, GetSymbol(), args.GetArgs(), evaluatedFlag);
 }
 
-Value Function::EvalOverrideBinary(Signal sig, Args &args, bool &evaluatedFlag) const
+Value Function::EvalOverrideBinary(Environment &env, Signal sig, Args &args, bool &evaluatedFlag) const
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
@@ -508,7 +508,7 @@ Value Function::EvalOverrideBinary(Signal sig, Args &args, bool &evaluatedFlag) 
 		return Value::Null;
 	}
 	evaluatedFlag = true;
-	return pObj->EvalMethod(sig, GetSymbol(), args.GetArgs(), evaluatedFlag);
+	return pObj->EvalMethod(env, sig, GetSymbol(), args.GetArgs(), evaluatedFlag);
 }
 
 Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &args) const

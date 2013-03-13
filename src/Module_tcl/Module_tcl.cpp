@@ -463,19 +463,18 @@ String Object_variable::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
-bool Object_variable::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_variable::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(boolean));
 	symbols.insert(Gura_Symbol(string));
 	symbols.insert(Gura_Symbol(number));
 	return true;
 }
 
-Value Object_variable::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_variable::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	if (pSymbol->IsIdentical(Gura_Symbol(boolean))) {
 		Value value = Get(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
@@ -519,10 +518,9 @@ Value Object_variable::DoGetProp(Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value Object_variable::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_variable::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	if (pSymbol->IsIdentical(Gura_Symbol(boolean))) {
 		Set(env, sig, value);
 		if (sig.IsSignalled()) return Value::Null;

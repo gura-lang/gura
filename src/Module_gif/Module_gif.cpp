@@ -13,18 +13,17 @@ Object *Object_Header::Clone() const
 	return new Object_Header(*this);
 }
 
-bool Object_Header::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_Header::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(Signature));
 	symbols.insert(Gura_UserSymbol(Version));
 	return true;
 }
 
-Value Object_Header::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_Header::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	GIF &gif = _pObjContent->GetGIF();
 	evaluatedFlag = true;
 	GIF::Header &hdr = gif.GetHeader();
@@ -58,9 +57,9 @@ Object *Object_LogicalScreenDescriptor::Clone() const
 	return new Object_LogicalScreenDescriptor(*this);
 }
 
-bool Object_LogicalScreenDescriptor::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_LogicalScreenDescriptor::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(LogicalScreenWidth));
 	symbols.insert(Gura_UserSymbol(LogicalScreenHeight));
 	symbols.insert(Gura_UserSymbol(GlobalColorTableFlag));
@@ -73,10 +72,9 @@ bool Object_LogicalScreenDescriptor::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_LogicalScreenDescriptor::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_LogicalScreenDescriptor::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	GIF &gif = _pObjContent->GetGIF();
 	evaluatedFlag = true;
 	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
@@ -125,17 +123,16 @@ Object *Object_CommentExtension::Clone() const
 	return new Object_CommentExtension(*this);
 }
 
-bool Object_CommentExtension::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_CommentExtension::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(CommentData));
 	return true;
 }
 
-Value Object_CommentExtension::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_CommentExtension::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	GIF &gif = _pObjContent->GetGIF();
 	evaluatedFlag = true;
 	GIF::Extensions &exts = gif.GetExtensions();
@@ -167,9 +164,9 @@ Object *Object_PlainTextExtension::Clone() const
 	return new Object_PlainTextExtension(*this);
 }
 
-bool Object_PlainTextExtension::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_PlainTextExtension::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(TextGridLeftPosition));
 	symbols.insert(Gura_UserSymbol(TextGridTopPosition));
 	symbols.insert(Gura_UserSymbol(TextGridWidth));
@@ -182,10 +179,9 @@ bool Object_PlainTextExtension::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_PlainTextExtension::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_PlainTextExtension::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	GIF &gif = _pObjContent->GetGIF();
 	evaluatedFlag = true;
 	GIF::Extensions &exts = gif.GetExtensions();
@@ -233,19 +229,18 @@ Object *Object_ApplicationExtension::Clone() const
 	return new Object_ApplicationExtension(*this);
 }
 
-bool Object_ApplicationExtension::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_ApplicationExtension::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(ApplicationIdentifier));
 	symbols.insert(Gura_UserSymbol(AuthenticationCode));
 	symbols.insert(Gura_UserSymbol(ApplicationData));
 	return true;
 }
 
-Value Object_ApplicationExtension::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_ApplicationExtension::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	GIF &gif = _pObjContent->GetGIF();
 	evaluatedFlag = true;
 	GIF::Extensions &exts = gif.GetExtensions();
@@ -1090,9 +1085,9 @@ Object *Object_content::Clone() const
 	return NULL;
 }
 
-bool Object_content::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_content::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(images));
 	symbols.insert(Gura_UserSymbol(Header));
 	symbols.insert(Gura_UserSymbol(LogicalScreenDescriptor));
@@ -1102,10 +1097,9 @@ bool Object_content::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_content::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_content::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	GIF::Extensions &exts = _gif.GetExtensions();
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(images))) {
@@ -1215,9 +1209,9 @@ Object *Object_GraphicControl::Clone() const
 	return NULL;
 }
 
-bool Object_GraphicControl::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_GraphicControl::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(DisposalMethod));
 	symbols.insert(Gura_UserSymbol(UserInputFlag));
 	symbols.insert(Gura_UserSymbol(TransparentColorFlag));
@@ -1226,7 +1220,7 @@ bool Object_GraphicControl::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_GraphicControl::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_GraphicControl::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1270,9 +1264,9 @@ Object *Object_ImageDescriptor::Clone() const
 	return NULL;
 }
 
-bool Object_ImageDescriptor::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_ImageDescriptor::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(ImageLeftPosition));
 	symbols.insert(Gura_UserSymbol(ImageTopPosition));
 	symbols.insert(Gura_UserSymbol(ImageWidth));
@@ -1284,7 +1278,7 @@ bool Object_ImageDescriptor::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_ImageDescriptor::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_ImageDescriptor::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1334,15 +1328,15 @@ Object *Object_imgprop::Clone() const
 	return NULL;
 }
 
-bool Object_imgprop::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_imgprop::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(GraphicControl));
 	symbols.insert(Gura_UserSymbol(ImageDescriptor));
 	return true;
 }
 
-Value Object_imgprop::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_imgprop::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

@@ -14,9 +14,9 @@ Object_stream::~Object_stream()
 	Stream::Delete(_pStream);
 }
 
-bool Object_stream::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_stream::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(stat));
 	symbols.insert(Gura_Symbol(name));
 	symbols.insert(Gura_Symbol(identifier));
@@ -25,10 +25,9 @@ bool Object_stream::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_stream::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_stream::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(stat))) {
 		Object *pObj = GetStream().GetStatObj(sig);

@@ -15,11 +15,11 @@ Object_function::~Object_function()
 {
 }
 
-bool Object_function::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_function::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	Class *pClass = GetFunction()->GetClassToConstruct();
-	if (pClass != NULL) return pClass->DoDirProp(sig, symbols);
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (pClass != NULL) return pClass->DoDirProp(env, sig, symbols);
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(symbol));
 	symbols.insert(Gura_Symbol(name));
 	symbols.insert(Gura_Symbol(fullname));
@@ -28,10 +28,9 @@ bool Object_function::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_function::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	Environment &env = *this;
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
 		return Value(GetFunction()->GetSymbol());
@@ -63,7 +62,7 @@ Value Object_function::DoGetProp(Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value Object_function::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_function::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -91,7 +90,7 @@ Value Object_function::DoSetProp(Signal sig, const Symbol *pSymbol, const Value 
 		pFuncCustom->SetExprBody(Expr::Reference(value.GetExpr()));
 		return value;
 	}
-	return DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
+	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
 bool Object_function::IsLeader() const

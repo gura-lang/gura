@@ -22,8 +22,8 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
-	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline TagOwner &GetTagOwner() { return _tagOwner; }

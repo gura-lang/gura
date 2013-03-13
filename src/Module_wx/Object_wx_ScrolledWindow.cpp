@@ -44,7 +44,7 @@ void wx_ScrolledWindow::OnDraw(wxDC& dc)
 	}
 	ValueList valList;
 	valList.push_back(Value(new Object_wx_DC(&dc, NULL, OwnerFalse)));
-	_pObj->EvalMethod(_sig, pFunc, valList);
+	_pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	CheckMethodResult(_sig);
 }
 

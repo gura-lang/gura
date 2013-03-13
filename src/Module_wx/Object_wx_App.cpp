@@ -75,7 +75,7 @@ bool wx_App::OnInit()
 	if (pFunc == NULL) return wxApp::OnInit();
 	Environment &env = *_pObj;
 	ValueList valList;
-	Value rtn = _pObj->EvalMethod(_sig, pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
 }
@@ -84,7 +84,7 @@ int wx_App::OnExit()
 {
 	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnExit), true);
 	if (pFunc == NULL) return wxApp::OnExit();
-	Value rtn = _pObj->EvalMethod(_sig, pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }
@@ -96,7 +96,7 @@ void wx_App::OnUnhandledException()
 		wxApp::OnUnhandledException();
 		return;
 	}
-	Value rtn = _pObj->EvalMethod(_sig, pFunc, ValueList::Null);
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	CheckMethodResult(_sig);
 }
 

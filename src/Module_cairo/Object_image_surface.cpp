@@ -5,16 +5,16 @@ Gura_BeginModule(cairo)
 //-----------------------------------------------------------------------------
 // Object_image_surface implementation
 //-----------------------------------------------------------------------------
-bool Object_image_surface::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_image_surface::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object_surface::DoDirProp(sig, symbols)) return false;
+	if (!Object_surface::DoDirProp(env, sig, symbols)) return false;
 	//symbols.insert(Gura_UserSymbol(image));
 	symbols.insert(Gura_UserSymbol(width));
 	symbols.insert(Gura_UserSymbol(height));
 	return true;
 }
 
-Value Object_image_surface::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_image_surface::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -24,7 +24,7 @@ Value Object_image_surface::DoGetProp(Signal sig, const Symbol *pSymbol,
 		return Value(::cairo_image_surface_get_height(_surface));
 	}
 	evaluatedFlag = false;
-	return Object_surface::DoGetProp(sig, pSymbol, attrs, evaluatedFlag);
+	return Object_surface::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------

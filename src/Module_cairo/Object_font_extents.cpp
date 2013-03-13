@@ -14,9 +14,9 @@ Object *Object_font_extents::Clone() const
 	return NULL;
 }
 
-bool Object_font_extents::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_font_extents::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(ascent));
 	symbols.insert(Gura_UserSymbol(descent));
 	symbols.insert(Gura_UserSymbol(height));
@@ -25,7 +25,7 @@ bool Object_font_extents::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_font_extents::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_font_extents::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;

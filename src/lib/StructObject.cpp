@@ -25,7 +25,7 @@ Object *StructObject::Clone() const
 String StructObject::ToString(Signal sig, bool exprFlag)
 {
 	bool evaluatedFlag = false;
-	Value value = EvalMethod(sig, Gura_Symbol(__str__),
+	Value value = EvalMethod(*this, sig, Gura_Symbol(__str__),
 											ValueList::Null, evaluatedFlag);
 	if (evaluatedFlag) return value.ToString(sig, false);
 	String str;

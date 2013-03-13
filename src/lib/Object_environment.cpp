@@ -23,13 +23,13 @@ Object *Object_environment::Clone() const
 	return new Object_environment(*this);
 }
 
-bool Object_environment::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_environment::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	return true;
 }
 
-Value Object_environment::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_environment::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	const Value *pValue = GetEnv().LookupValue(pSymbol, true);
@@ -38,7 +38,7 @@ Value Object_environment::DoGetProp(Signal sig, const Symbol *pSymbol,
 	return *pValue;
 }
 
-Value Object_environment::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_environment::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	GetEnv().AssignValue(pSymbol, value, true);

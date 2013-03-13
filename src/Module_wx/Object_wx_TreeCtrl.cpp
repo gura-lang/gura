@@ -47,7 +47,7 @@ int wx_TreeCtrl::OnCompareItems(const wxTreeItemId& item1, const wxTreeItemId& i
 	valList.reserve(2);
 	valList.push_back(Value(new Object_wx_TreeItemId(new wxTreeItemId(item1), NULL, OwnerTrue)));
 	valList.push_back(Value(new Object_wx_TreeItemId(new wxTreeItemId(item2), NULL, OwnerTrue)));
-	Value rtn = _pObj->EvalMethod(_sig, pFunc, valList);
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return 0;
 	return rtn.GetInt();
 }

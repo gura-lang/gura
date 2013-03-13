@@ -830,9 +830,9 @@ Object *Object_wx_Rect::Clone() const
 	return new Object_wx_Rect(new wxRect(*dynamic_cast<wxRect *>(_pEntity)), NULL, OwnerTrue);
 }
 
-bool Object_wx_Rect::DoDirProp(Signal sig, SymbolSet &symbols)
+bool Object_wx_Rect::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	if (!Object::DoDirProp(sig, symbols)) return false;
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(x));
 	symbols.insert(Gura_Symbol(y));
 	symbols.insert(Gura_Symbol(width));
@@ -840,7 +840,7 @@ bool Object_wx_Rect::DoDirProp(Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_wx_Rect::DoGetProp(Signal sig, const Symbol *pSymbol,
+Value Object_wx_Rect::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -857,7 +857,7 @@ Value Object_wx_Rect::DoGetProp(Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-Value Object_wx_Rect::DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_wx_Rect::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {

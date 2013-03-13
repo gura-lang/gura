@@ -20,10 +20,10 @@ public:
 			Object(obj), _property(obj._property) {}
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
-	virtual bool DoDirProp(Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Signal sig, const Symbol *pSymbol,
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Value DoSetProp(Signal sig, const Symbol *pSymbol, const Value &value,
+	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline BDF_Property &GetEntity() { return _property; }
 	inline const BDF_Property &GetEntity() const { return _property; }
