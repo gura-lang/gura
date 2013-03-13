@@ -200,10 +200,8 @@ public:
 // StreamDumb
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE StreamDumb : public Stream {
-private:
-	Signal _sig;
 public:
-	StreamDumb();
+	StreamDumb(Signal sig);
 	virtual ~StreamDumb();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;

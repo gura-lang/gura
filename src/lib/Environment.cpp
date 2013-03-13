@@ -795,11 +795,11 @@ Environment::Global::~Global()
 	}
 }
 
-void Environment::Global::Prepare()
+void Environment::Global::Prepare(Signal sig)
 {
 	_workingDirList.push_back(OAL::GetCurDir());
 	_pValueTypePool = ValueTypePool::GetInstance();
-	_pConsoleDumb.reset(new StreamDumb());
+	_pConsoleDumb.reset(new StreamDumb(sig));
 }
 
 Class *Environment::Global::LookupClass(ValueType valType) const
@@ -955,17 +955,25 @@ Environment::FrameList::~FrameList()
 //-----------------------------------------------------------------------------
 // EnvironmentRoot
 //-----------------------------------------------------------------------------
-EnvironmentRoot::EnvironmentRoot(int argc, const char *argv[]) :
-											Environment(NULL, ENVTYPE_root)
+EnvironmentRoot::EnvironmentRoot() : Environment(NULL, ENVTYPE_root)
 {
+}
+
+EnvironmentRoot::~EnvironmentRoot()
+{
+	Global *pGlobal = GetGlobal();
+	Global::Delete(pGlobal);
+}
+
+bool EnvironmentRoot::Initialize(Signal sig, int argc, const char *argv[])
+{
+	Environment &env = *this;
 #if defined(_MSC_VER)
 	::_set_output_format(_TWO_DIGIT_EXPONENT);
 #endif
-	Signal sig;
-	Environment &env = *this;
 	RandomGenerator::Initialize(1234);	// initialize random generator SFMT
 	ValueTypePool::Initialize(env);
-	GetGlobal()->Prepare();
+	GetGlobal()->Prepare(sig);
 	AssignErrorTypes(env);	// Signal.cpp
 	AssignOperators(env);	// Operators.cpp
 	do {
@@ -973,13 +981,13 @@ EnvironmentRoot::EnvironmentRoot(int argc, const char *argv[]) :
 	} while (0);
 	do { // import(basement) { * }
 		Gura_Module(basement)::MixIn(env, sig);
-		if (sig.IsSignalled()) return;
+		if (sig.IsSignalled()) return false;
 	} while (0);
 	do { // import(sys), this module must be imported just after basement
 		Module *pModule = Gura_Module(sys)::Import(env, sig);
-		if (sig.IsSignalled()) return;
+		if (sig.IsSignalled()) return false;
 		Gura_Module(sys)::Setup(pModule, sig, argc, argv);
-		if (sig.IsSignalled()) return;
+		if (sig.IsSignalled()) return false;
 	} while (0);
 	do {
 		Module *pModule = new Module(&env, Symbol::Add("codecs"),
@@ -987,48 +995,43 @@ EnvironmentRoot::EnvironmentRoot(int argc, const char *argv[]) :
 		env.AssignModule(pModule);
 		do { // import(codecs.basic)
 			Gura_Module(codecs_basic)::Import(*pModule, sig);
-			if (sig.IsSignalled()) return;
+			if (sig.IsSignalled()) return false;
 		} while (0);
 		do { // import(codecs.iso8859)
 			Gura_Module(codecs_iso8859)::Import(*pModule, sig);
-			if (sig.IsSignalled()) return;
+			if (sig.IsSignalled()) return false;
 		} while (0);
 		do { // import(codecs.japanese)
 			Gura_Module(codecs_japanese)::Import(*pModule, sig);
-			if (sig.IsSignalled()) return;
+			if (sig.IsSignalled()) return false;
 		} while (0);
 	} while (0);
 	do { // import(base64)
 		Gura_Module(base64)::Import(env, sig);
-		if (sig.IsSignalled()) return;
+		if (sig.IsSignalled()) return false;
 	} while (0);
 	do { // import(fs)
 		Gura_Module(fs)::Import(env, sig);
-		if (sig.IsSignalled()) return;
+		if (sig.IsSignalled()) return false;
 	} while (0);
 	do { // import(os)
 		Gura_Module(os)::Import(env, sig);
-		if (sig.IsSignalled()) return;
+		if (sig.IsSignalled()) return false;
 	} while (0);
 	do { // import(path)
 		Gura_Module(path)::Import(env, sig);
-		if (sig.IsSignalled()) return;
+		if (sig.IsSignalled()) return false;
 	} while (0);
 	do { // import(time)
 		Gura_Module(time)::Import(env, sig);
-		if (sig.IsSignalled()) return;
+		if (sig.IsSignalled()) return false;
 	} while (0);
 	do { // import(math)
 		Gura_Module(math)::Import(env, sig);
-		if (sig.IsSignalled()) return;
+		if (sig.IsSignalled()) return false;
 	} while (0);
 	OAL::SetupExecutablePath();
-}
-
-EnvironmentRoot::~EnvironmentRoot()
-{
-	Global *pGlobal = GetGlobal();
-	Global::Delete(pGlobal);
+	return true;
 }
 
 }

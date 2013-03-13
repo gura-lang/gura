@@ -63,7 +63,11 @@ int MainW(int argc, const char *argv[])
 		OAL::ChangeCurDir(opt.GetString("directory", ""));
 	}
 	Signal sig;
-	EnvironmentRoot env(argc, argv);
+	EnvironmentRoot env;
+	if (!env.Initialize(sig, argc, argv)) {
+		env.GetConsoleErr()->PrintSignal(sig, sig);
+		return 1;
+	}
 	bool interactiveFlag = true;
 	if (opt.IsSet("import-dir")) {
 		env.AddModuleSearchPath(sig, opt.GetStringList("import-dir"));

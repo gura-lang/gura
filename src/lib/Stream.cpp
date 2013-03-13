@@ -722,7 +722,7 @@ Stream *Stream::Prefetch(Signal sig, Stream *pStreamSrc,
 //-----------------------------------------------------------------------------
 // StreamDumb
 //-----------------------------------------------------------------------------
-StreamDumb::StreamDumb() : Stream(_sig, ATTR_Writable)
+StreamDumb::StreamDumb(Signal sig) : Stream(sig, ATTR_Writable)
 {
 }
 

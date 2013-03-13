@@ -156,7 +156,7 @@ public:
 		inline static void Delete(Global *pGlobal) {
 			delete pGlobal;
 		}
-		void Prepare();
+		void Prepare(Signal sig);
 		Class *LookupClass(ValueType valType) const;
 		Module *LookupIntegratedModule(int id) const;
 		void RegisterIntegratedModule(int id, Module *pModule);
@@ -307,8 +307,9 @@ typedef std::set<Environment *> EnvironmentSet;
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE EnvironmentRoot : public Environment {
 public:
-	EnvironmentRoot(int argc, const char *argv[]);
+	EnvironmentRoot();
 	virtual ~EnvironmentRoot();
+	bool Initialize(Signal sig, int argc, const char *argv[]);
 };
 
 }

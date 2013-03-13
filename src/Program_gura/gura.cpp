@@ -58,7 +58,11 @@ int Main(int argc, const char *argv[])
 		}
 		::fprintf(stderr, "\n");
 	}
-	EnvironmentRoot env(argc, argv);
+	EnvironmentRoot env;
+	if (!env.Initialize(sig, argc, argv)) {
+		env.GetConsoleErr()->PrintSignal(sig, sig);
+		return 1;
+	}
 	bool interactiveFlag = true;
 	if (opt.IsSet("import-dir")) {
 		env.AddModuleSearchPath(sig, opt.GetStringList("import-dir"));
