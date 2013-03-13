@@ -612,6 +612,9 @@ Value Function::ReturnValue(Environment &env, Signal sig,
 	ValueList valListArg(result);
 	Args argsSub(valListArg);
 	Value value = pFuncBlock->Eval(env, sig, argsSub);
+	if (sig.IsBreak() || sig.IsContinue()) {
+		sig.ClearSignal();
+	}
 	return value;
 }
 
