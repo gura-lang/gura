@@ -15,6 +15,7 @@ Gura_BeginModule(jpeg)
 Gura_DeclareUserSymbol(endian);
 Gura_DeclareUserSymbol(big);
 Gura_DeclareUserSymbol(little);
+Gura_DeclareUserSymbol(uncompressed);
 Gura_DeclareUserSymbol(id);
 Gura_DeclareUserSymbol(name);
 Gura_DeclareUserSymbol(symbol);

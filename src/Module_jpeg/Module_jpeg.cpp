@@ -259,6 +259,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(endian);
 	Gura_RealizeUserSymbol(big);
 	Gura_RealizeUserSymbol(little);
+	Gura_RealizeUserSymbol(uncompressed);
 	Gura_RealizeUserSymbol(id);
 	Gura_RealizeUserSymbol(name);
 	Gura_RealizeUserSymbol(symbol);
@@ -287,99 +288,99 @@ Gura_ModuleEntry()
 	do {
 		const unsigned short tagId = TAG_Compression;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 1,		"uncompressed",			NULL,	},
-			{ 6,		"JPEG",					NULL,	},
-			{ 0,		NULL,					NULL,	},
+			{ 1,		"uncompressed",					NULL,	},
+			{ 6,		"JPEG",							NULL,	},
+			{ 0,		NULL,							NULL,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const unsigned short tagId = TAG_PhotometricInterpretation;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 2,		"RGB",					NULL,	},
-			{ 6,		"YCbCr",				NULL,	},
-			{ 0,		NULL,					NULL,	},
+			{ 2,		"RGB",							NULL,	},
+			{ 6,		"YCbCr",						NULL,	},
+			{ 0,		NULL,							NULL,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const unsigned short tagId = TAG_Orientation;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 1,		"LeftTopVert",			NULL,	},
-			{ 2,		"RightTopVert",			NULL,	},
-			{ 3,		"RightBottomVert",		NULL,	},
-			{ 4,		"LefBottomVert",		NULL,	},
-			{ 5,		"LeftTopHorz",			NULL,	},
-			{ 6,		"RightTopHorz",			NULL,	},
-			{ 7,		"RightBottomHorz",		NULL,	},
-			{ 8,		"LeftBottomHorz",		NULL,	},
-			{ 0,		NULL,					NULL,	},
+			{ 1,		"LeftTopVert",					NULL,	},
+			{ 2,		"RightTopVert",					NULL,	},
+			{ 3,		"RightBottomVert",				NULL,	},
+			{ 4,		"LefBottomVert",				NULL,	},
+			{ 5,		"LeftTopHorz",					NULL,	},
+			{ 6,		"RightTopHorz",					NULL,	},
+			{ 7,		"RightBottomHorz",				NULL,	},
+			{ 8,		"LeftBottomHorz",				NULL,	},
+			{ 0,		NULL,							NULL,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const unsigned short tagId = TAG_PlanarConfiguration;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 1,		"chunky",				NULL,	},
-			{ 2,		"planar",				NULL,	},
-			{ 0,		NULL,					NULL,	},
+			{ 1,		"chunky",						NULL,	},
+			{ 2,		"planar",						NULL,	},
+			{ 0,		NULL,							NULL,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const unsigned short tagId = TAG_YCbCrPositioning;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 1,		"centered",				NULL,	},
-			{ 2,		"cosited",				NULL,	},
-			{ 0,		NULL,					NULL,	},
+			{ 1,		"centered",						NULL,	},
+			{ 2,		"cosited",						NULL,	},
+			{ 0,		NULL,							NULL,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const unsigned short tagId = TAG_ResolutionUnit;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 2,		"inches",				NULL,	},
-			{ 3,		"centimeters",			NULL,	},
-			{ 0,		NULL,					NULL,	},
+			{ 2,		"inches",						NULL,	},
+			{ 3,		"centimeters",					NULL,	},
+			{ 0,		NULL,							NULL,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const unsigned short tagId = TAG_ColorSpace;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 1,		"sRGB",					NULL,	},
-			{ 0xffff,	"uncalibrated",			NULL,	},
-			{ 0,		NULL,					NULL,	},
+			{ 1,		"sRGB",							NULL,	},
+			{ 0xffff,	"uncalibrated",					NULL,	},
+			{ 0,		NULL,							NULL,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const unsigned short tagId = TAG_ComponentsConfiguration;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"not_exist",			NULL,	},
-			{ 1,		"Y",					NULL,	},
-			{ 2,		"Cb",					NULL,	},
-			{ 3,		"Cr",					NULL,	},
-			{ 4,		"R",					NULL,	},
-			{ 5,		"G",					NULL,	},
-			{ 6,		"B",					NULL,	},
-			{ 0,		NULL,					NULL,	},
+			{ 0,		"not_exist",					NULL,	},
+			{ 1,		"Y",							NULL,	},
+			{ 2,		"Cb",							NULL,	},
+			{ 3,		"Cr",							NULL,	},
+			{ 4,		"R",							NULL,	},
+			{ 5,		"G",							NULL,	},
+			{ 6,		"B",							NULL,	},
+			{ 0,		NULL,							NULL,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const unsigned short tagId = TAG_ExposureProgram;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"NotDefined",			NULL,	},
-			{ 1,		"Manual",				NULL,	},
-			{ 2,		"NormalProgram",		NULL,	},
-			{ 3,		"AperturePriority",		NULL,	},
-			{ 4,		"ShutterPriority",		NULL,	},
-			{ 5,		"CreativeProgram",		NULL,	},
-			{ 6,		"ActionProgram",		NULL,	},
-			{ 7,		"PortraitMode",			NULL,	},
-			{ 8,		"LandscapeMode",		NULL,	},
-			{ 0,		NULL,					NULL,	},
+			{ 0,		"NotDefined",					NULL,	},
+			{ 1,		"Manual",						NULL,	},
+			{ 2,		"NormalProgram",				NULL,	},
+			{ 3,		"AperturePriority",				NULL,	},
+			{ 4,		"ShutterPriority",				NULL,	},
+			{ 5,		"CreativeProgram",				NULL,	},
+			{ 6,		"ActionProgram",				NULL,	},
+			{ 7,		"PortraitMode",					NULL,	},
+			{ 8,		"LandscapeMode",				NULL,	},
+			{ 0,		NULL,							NULL,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
@@ -387,43 +388,43 @@ Gura_ModuleEntry()
 	do {
 		const unsigned short tagId = TAG_MeteringMode;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"unknown",				NULL,	},
-			{ 1,		"Average",				NULL,	},
-			{ 2,		"CenterWeightedAverage",NULL,	},
-			{ 3,		"Spot",					NULL,	},
-			{ 4,		"MultiSpot",			NULL,	},
-			{ 5,		"Pattern",				NULL,	},
-			{ 6,		"Partial",				NULL,	},
-			{ 255,		"other",				NULL,	},
-			{ 0,		NULL,					NULL,	},
+			{ 0,		"unknown",						NULL,	},
+			{ 1,		"Average",						NULL,	},
+			{ 2,		"CenterWeightedAverage",		NULL,	},
+			{ 3,		"Spot",							NULL,	},
+			{ 4,		"MultiSpot",					NULL,	},
+			{ 5,		"Pattern",						NULL,	},
+			{ 6,		"Partial",						NULL,	},
+			{ 255,		"other",						NULL,	},
+			{ 0,		NULL,							NULL,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
 		const unsigned short tagId = TAG_LightSource;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 0,		"unknown",				NULL,	},
-			{ 1,		"Daylight",				NULL,	},
-			{ 2,		"Fluorescent",			NULL,	},
-			{ 3,		"Tungsten",				NULL,	},
-			{ 4,		"Flash",				NULL,	},
-			{ 9,		"FineWeather",			NULL,	},
-			{ 10,		"CloudyWeather",		NULL,	},
-			{ 11,		"Shade",				NULL,	},
-			{ 12,		"DaylightFluorescent",	NULL,	},
-			{ 13,		"DayWhiteFluorescent",	NULL,	},
-			{ 14,		"CoolWhiteFluorescent",	NULL,	},
-			{ 15,		"WhiteFluorescent",		NULL,	},
-			{ 17,		"StandardLightA",		NULL,	},
-			{ 18,		"StandardLightB",		NULL,	},
-			{ 19,		"StandardLightC",		NULL,	},
-			{ 20,		"D55",					NULL,	},
-			{ 21,		"D65",					NULL,	},
-			{ 22,		"D75",					NULL,	},
-			{ 23,		"D50",					NULL,	},
-			{ 24,		"ISOStudioTungsten",	NULL,	},
-			{ 255,		"OtherLightSource",		NULL,	},
-			{ 0,		NULL,					NULL,	},
+			{ 0,		"unknown",						NULL,	},
+			{ 1,		"Daylight",						NULL,	},
+			{ 2,		"Fluorescent",					NULL,	},
+			{ 3,		"Tungsten",						NULL,	},
+			{ 4,		"Flash",						NULL,	},
+			{ 9,		"FineWeather",					NULL,	},
+			{ 10,		"CloudyWeather",				NULL,	},
+			{ 11,		"Shade",						NULL,	},
+			{ 12,		"DaylightFluorescent",			NULL,	},
+			{ 13,		"DayWhiteFluorescent",			NULL,	},
+			{ 14,		"CoolWhiteFluorescent",			NULL,	},
+			{ 15,		"WhiteFluorescent",				NULL,	},
+			{ 17,		"StandardLightA",				NULL,	},
+			{ 18,		"StandardLightB",				NULL,	},
+			{ 19,		"StandardLightC",				NULL,	},
+			{ 20,		"D55",							NULL,	},
+			{ 21,		"D65",							NULL,	},
+			{ 22,		"D75",							NULL,	},
+			{ 23,		"D50",							NULL,	},
+			{ 24,		"ISOStudioTungsten",			NULL,	},
+			{ 255,		"OtherLightSource",				NULL,	},
+			{ 0,		NULL,							NULL,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
@@ -456,13 +457,12 @@ Gura_ModuleEntry()
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
-
 	do {
 		const unsigned short tagId = TAG_FocalPlaneResolutionUnit;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 2,		"inches",				NULL,	},
-			{ 3,		"centimeters",			NULL,	},
-			{ 0,		NULL,					NULL,	},
+			{ 2,		"inches",						NULL,	},
+			{ 3,		"centimeters",					NULL,	},
+			{ 0,		NULL,							NULL,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
@@ -480,7 +480,123 @@ Gura_ModuleEntry()
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
-
+	do {
+		const unsigned short tagId = TAG_FileSource;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 3,		"DSC",							NULL,	},
+			{ 0,		NULL,							NULL,	},
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_SceneType;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 1,		"DirectlyPhotographedImage",	NULL,	},
+			{ 0,		NULL,							NULL,	},
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_CustomRendered;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 0,		"NormalProces",					NULL,	},
+			{ 1,		"CustomProcess",				NULL,	},
+			{ 0,		NULL,							NULL,	},
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_ExposureMode;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 0,		"AutoExposure",					NULL,	},
+			{ 1,		"ManualExposure",				NULL,	},
+			{ 2,		"AutoBracket",					NULL,	},
+			{ 0,		NULL,							NULL,	},
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_WhiteBalance;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 0,		"AutoWhiteBalance",				NULL,	},
+			{ 1,		"ManualWhiteBalance",			NULL,	},
+			{ 0,		NULL,							NULL,	},
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_SceneCaptureType;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 0,		"Standard",						NULL,	},
+			{ 1,		"Landscape",					NULL,	},
+			{ 2,		"Portrait",						NULL,	},
+			{ 3,		"NightScene",					NULL,	},
+			{ 0,		NULL,							NULL,	},
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_GainControl;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 0,		"None",							NULL,	},
+			{ 1,		"LowGainUp",					NULL,	},
+			{ 2,		"HighGainUp",					NULL,	},
+			{ 3,		"LowGainDown",					NULL,	},
+			{ 4,		"HighGainDown",					NULL,	},
+			{ 0,		NULL,							NULL,	},
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_Contrast;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 0,		"Normal",						NULL,	},
+			{ 1,		"Soft",							NULL,	},
+			{ 2,		"Hard",							NULL,	},
+			{ 0,		NULL,							NULL,	},
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_Saturation;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 0,		"Normal",						NULL,	},
+			{ 1,		"LowSaturation",				NULL,	},
+			{ 2,		"HighSaturation",				NULL,	},
+			{ 0,		NULL,							NULL,	},
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_Sharpness;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 0,		"Normal",						NULL,	},
+			{ 1,		"Soft",							NULL,	},
+			{ 2,		"Hard",							NULL,	},
+			{ 0,		NULL,							NULL,	},
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_SubjectDistanceRange;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 0,		"unknown",						NULL,	},
+			{ 1,		"Macro",						NULL,	},
+			{ 2,		"CloseView",					NULL,	},
+			{ 3,		"DistantView",					NULL,	},
+			{ 0,		NULL,							NULL,	},
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
+	do {
+		const unsigned short tagId = TAG_GPSAltitudeRef;
+		static SymbolAssoc::Entry entryTbl[] = {
+			{ 0,		"SeaLevel",						NULL,	},
+			{ 1,		"SeaLavelReference",			NULL,	},
+			{ 0,		NULL,							NULL,	},
+		};
+		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
+	} while (0);
 }
 
 Gura_ModuleTerminate()

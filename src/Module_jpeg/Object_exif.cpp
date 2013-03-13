@@ -174,13 +174,13 @@ bool Object_exif::ReadStream(Signal sig, Stream &stream)
 	}
 	if (_pObj1stIFD.IsNull()) return true;
 	// extract thumbnail image
-	unsigned short compression = 1;
+	const Symbol *pSymbol_Compression = NULL;
 	Object_tag *pObjTag_Compression =
 		_pObj1stIFD->GetTagOwner().FindById(TAG_Compression);
 	if (pObjTag_Compression != NULL && pObjTag_Compression->GetType() == TYPE_SHORT) {
-		compression = pObjTag_Compression->GetValue().GetUShort();
+		pSymbol_Compression = pObjTag_Compression->GetValue().GetSymbol();
 	}
-	if (compression == 1) {	// uncompressed
+	if (pSymbol_Compression == Gura_UserSymbol(uncompressed)) {
 		Object_tag *pObjTag_ImageWidth =
 			_pObj1stIFD->GetTagOwner().FindById(TAG_ImageWidth);
 		Object_tag *pObjTag_ImageLength =
