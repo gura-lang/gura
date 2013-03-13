@@ -10,6 +10,10 @@ PrintIFD(ifd:jpeg.ifd, indentLevel:number => 0) = {
 }
 
 jpeg.exif(sys.argv[1]) {|exif|
+	if (!exif) {
+		println("exif doesn't exist")
+		break
+	}
 	println('endian: ', exif.endian)
 	println('= ifd0 =')
 	PrintIFD(exif.ifd0)

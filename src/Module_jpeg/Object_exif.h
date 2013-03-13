@@ -35,7 +35,7 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline Object_ifd *GetObj0thIFD() { return _pObj0thIFD.get(); }
 	inline Object_ifd *GetObj1stIFD() { return _pObj1stIFD.get(); }
-	bool ReadStream(Signal sig, Stream &stream);
+	static Object_exif *ReadStream(Environment &env, Signal sig, Stream &stream);
 };
 
 }}

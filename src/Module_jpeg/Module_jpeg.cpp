@@ -226,16 +226,27 @@ Gura_DeclareFunction(exif)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(raise));
 	SetClassToConstruct(Gura_UserClass(exif));
 }
 
 Gura_ImplementFunction(exif)
 {
-	Object_exif *pObj = new Object_exif();
+	Value value;
 	if (args.IsStream(0)) {
-		if (!pObj->ReadStream(sig, args.GetStream(0))) return Value::Null;
+		Object_exif *pObj = Object_exif::ReadStream(env, sig, args.GetStream(0));
+		if (sig.IsSignalled()) return Value::Null;
+		if (pObj != NULL) {
+			value = Value(pObj);
+		} else if (args.IsSet(Gura_Symbol(raise))) {
+			sig.SetError(ERR_FormatError, "Exif information doesn't exist");
+			return Value::Null;
+		}
+	} else {
+		Object_exif *pObj = new Object_exif();
+		value = Value(pObj);
 	}
-	return ReturnValue(env, sig, args, Value(pObj));
+	return ReturnValue(env, sig, args, value);
 }
 
 // jpeg.test()
