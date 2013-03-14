@@ -21,6 +21,11 @@ IteratorSplit::~IteratorSplit()
 	::onig_region_free(_pRegion, 1); // 1:free self, 0:free contents only
 }
 
+Iterator *IteratorSplit::GetSource()
+{
+	return NULL;
+}
+
 bool IteratorSplit::DoNext(Environment &env, Signal sig, Value &value)
 {
 	const char *str = _str.c_str();
@@ -89,6 +94,11 @@ IteratorScan::~IteratorScan()
 	::onig_region_free(_pRegion, 1); // 1:free self, 0:free contents only
 }
 
+Iterator *IteratorScan::GetSource()
+{
+	return NULL;
+}
+
 bool IteratorScan::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_idx >= _idxEnd) return false;
@@ -142,6 +152,11 @@ IteratorGrep::IteratorGrep(Iterator *pIteratorSrc, Object_pattern *pObjPattern) 
 		Iterator(pIteratorSrc->IsInfinite()),
 		_pIteratorSrc(pIteratorSrc), _pObjPattern(pObjPattern)
 {
+}
+
+Iterator *IteratorGrep::GetSource()
+{
+	return NULL;
 }
 
 bool IteratorGrep::DoNext(Environment &env, Signal sig, Value &value)

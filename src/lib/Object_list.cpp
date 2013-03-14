@@ -204,6 +204,11 @@ Object_list::IteratorEach::~IteratorEach()
 {
 }
 
+Iterator *Object_list::IteratorEach::GetSource()
+{
+	return NULL;
+}
+
 bool Object_list::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 {
 	ValueList &valList = _pObj->GetList();
@@ -227,6 +232,11 @@ void Object_list::IteratorEach::GatherFollower(Environment::Frame *pFrame, Envir
 //-----------------------------------------------------------------------------
 Object_list::IteratorReverse::~IteratorReverse()
 {
+}
+
+Iterator *Object_list::IteratorReverse::GetSource()
+{
+	return NULL;
 }
 
 bool Object_list::IteratorReverse::DoNext(Environment &env, Signal sig, Value &value)
@@ -254,6 +264,11 @@ Object_list::IteratorRound::~IteratorRound()
 {
 }
 
+Iterator *Object_list::IteratorRound::GetSource()
+{
+	return NULL;
+}
+
 bool Object_list::IteratorRound::DoNext(Environment &env, Signal sig, Value &value)
 {
 	ValueList &valList = _pObj->GetList();
@@ -279,6 +294,11 @@ void Object_list::IteratorRound::GatherFollower(Environment::Frame *pFrame, Envi
 //-----------------------------------------------------------------------------
 Object_list::IteratorPingpong::~IteratorPingpong()
 {
+}
+
+Iterator *Object_list::IteratorPingpong::GetSource()
+{
+	return NULL;
 }
 
 bool Object_list::IteratorPingpong::DoNext(Environment &env, Signal sig, Value &value)
@@ -330,6 +350,11 @@ Object_list::IteratorFold::~IteratorFold()
 {
 }
 
+Iterator *Object_list::IteratorFold::GetSource()
+{
+	return NULL;
+}
+
 bool Object_list::IteratorFold::DoNext(Environment &env, Signal sig, Value &value)
 {
 	ValueList &valList = _pObj->GetList();
@@ -370,6 +395,11 @@ Object_list::IteratorPermutation::IteratorPermutation(Object_list *pObj, int cnt
 
 Object_list::IteratorPermutation::~IteratorPermutation()
 {
+}
+
+Iterator *Object_list::IteratorPermutation::GetSource()
+{
+	return NULL;
 }
 
 bool Object_list::IteratorPermutation::DoNext(Environment &env, Signal sig, Value &value)
@@ -417,6 +447,11 @@ Object_list::IteratorCombination::IteratorCombination(Object_list *pObj, int cnt
 
 Object_list::IteratorCombination::~IteratorCombination()
 {
+}
+
+Iterator *Object_list::IteratorCombination::GetSource()
+{
+	return NULL;
 }
 
 bool Object_list::IteratorCombination::DoNext(Environment &env, Signal sig, Value &value)

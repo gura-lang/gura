@@ -32,6 +32,7 @@ public:
 							Iterator(false), _pObj(pObj),
 							_iRow(0), _iCol(0), _transposeFlag(transposeFlag) {}
 		virtual ~IteratorEach();
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
@@ -44,6 +45,7 @@ public:
 		inline IteratorEachRow(Object_matrix *pObj) :
 							Iterator(false), _pObj(pObj), _iRow(0) {}
 		virtual ~IteratorEachRow();
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
@@ -56,6 +58,7 @@ public:
 		inline IteratorEachCol(Object_matrix *pObj) :
 							Iterator(false), _pObj(pObj), _iCol(0) {}
 		virtual ~IteratorEachCol();
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

@@ -140,6 +140,11 @@ Object_binary::IteratorByte::~IteratorByte()
 {
 }
 
+Iterator *Object_binary::IteratorByte::GetSource()
+{
+	return NULL;
+}
+
 bool Object_binary::IteratorByte::DoNext(Environment &env, Signal sig, Value &value)
 {
 	const Binary &binary = _pObj->GetBinary();
@@ -172,6 +177,11 @@ Object_binary::IteratorUnpack::IteratorUnpack(Object_binary *pObj,
 
 Object_binary::IteratorUnpack::~IteratorUnpack()
 {
+}
+
+Iterator *Object_binary::IteratorUnpack::GetSource()
+{
+	return NULL;
 }
 
 bool Object_binary::IteratorUnpack::DoNext(Environment &env, Signal sig, Value &value)

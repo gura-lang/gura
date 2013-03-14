@@ -44,6 +44,7 @@ private:
 	size_t _idx;
 public:
 	IteratorTag(Object_ifd *pObjIFD);
+	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

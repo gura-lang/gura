@@ -158,7 +158,7 @@ public:
 				size_t x, size_t y, size_t width, size_t height, Image::ScanDir scanDir) :
 			Iterator(false),
 			_scanner(pObjImage, x, y, width, height, scanDir), _doneFlag(false) {}
-		virtual ~IteratorEach();
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

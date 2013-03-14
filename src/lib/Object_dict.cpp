@@ -87,9 +87,9 @@ Object_dict::IteratorKeys::IteratorKeys(Object_dict *pObj) :
 {
 }
 
-Object_dict::IteratorKeys::~IteratorKeys()
+Iterator *Object_dict::IteratorKeys::GetSource()
 {
-	Object::Delete(_pObj);
+	return NULL;
 }
 
 bool Object_dict::IteratorKeys::DoNext(Environment &env, Signal sig, Value &value)
@@ -117,9 +117,9 @@ Object_dict::IteratorValues::IteratorValues(Object_dict *pObj) :
 {
 }
 
-Object_dict::IteratorValues::~IteratorValues()
+Iterator *Object_dict::IteratorValues::GetSource()
 {
-	Object::Delete(_pObj);
+	return NULL;
 }
 
 bool Object_dict::IteratorValues::DoNext(Environment &env, Signal sig, Value &value)
@@ -147,9 +147,9 @@ Object_dict::IteratorItems::IteratorItems(Object_dict *pObj) :
 {
 }
 
-Object_dict::IteratorItems::~IteratorItems()
+Iterator *Object_dict::IteratorItems::GetSource()
 {
-	Object::Delete(_pObj);
+	return NULL;
 }
 
 bool Object_dict::IteratorItems::DoNext(Environment &env, Signal sig, Value &value)
@@ -181,10 +181,9 @@ Object_dict::IteratorGet::IteratorGet(Object_dict *pObj, Iterator *pIteratorKey,
 {
 }
 
-Object_dict::IteratorGet::~IteratorGet()
+Iterator *Object_dict::IteratorGet::GetSource()
 {
-	Object::Delete(_pObj);
-	Iterator::Delete(_pIteratorKey);
+	return NULL;
 }
 
 bool Object_dict::IteratorGet::DoNext(Environment &env, Signal sig, Value &value)

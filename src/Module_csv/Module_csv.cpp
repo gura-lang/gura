@@ -330,8 +330,9 @@ char ReaderString::NextChar(Signal sig)
 //-----------------------------------------------------------------------------
 // Iterator_reader
 //-----------------------------------------------------------------------------
-Iterator_reader::~Iterator_reader()
+Iterator *Iterator_reader::GetSource()
 {
+	return NULL;
 }
 
 bool Iterator_reader::DoNext(Environment &env, Signal sig, Value &value)

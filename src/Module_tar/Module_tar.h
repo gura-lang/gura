@@ -330,7 +330,7 @@ private:
 	size_t _offsetNext;
 public:
 	inline Iterator_Entry(Object_reader *pObjReader);
-	virtual ~Iterator_Entry();
+	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

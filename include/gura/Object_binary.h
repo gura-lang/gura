@@ -29,6 +29,7 @@ public:
 	public:
 		IteratorByte(Object_binary *pObj, int cntMax);
 		virtual ~IteratorByte();
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
@@ -42,6 +43,7 @@ public:
 	public:
 		IteratorUnpack(Object_binary *pObj, const char *format, size_t offset, int cntMax);
 		virtual ~IteratorUnpack();
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

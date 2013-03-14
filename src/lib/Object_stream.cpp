@@ -787,9 +787,9 @@ void Class_stream::OnModuleEntry(Environment &env, Signal sig)
 //-----------------------------------------------------------------------------
 // Object_stream::IteratorLine
 //-----------------------------------------------------------------------------
-Object_stream::IteratorLine::~IteratorLine()
+Iterator *Object_stream::IteratorLine::GetSource()
 {
-	Object::Delete(_pObj);
+	return NULL;
 }
 
 bool Object_stream::IteratorLine::DoNext(Environment &env, Signal sig, Value &value)

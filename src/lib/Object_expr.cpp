@@ -54,9 +54,9 @@ String Object_expr::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Object_expr::Iterator_Each
 //-----------------------------------------------------------------------------
-Object_expr::Iterator_Each::~Iterator_Each()
+Iterator *Object_expr::Iterator_Each::GetSource()
 {
-	Expr::Delete(_pExprContainer);
+	return NULL;
 }
 
 bool Object_expr::Iterator_Each::DoNext(Environment &env, Signal sig, Value &value)

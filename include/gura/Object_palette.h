@@ -35,12 +35,12 @@ public:
 public:
 	class IteratorEach : public Iterator {
 	private:
-		Object_palette *_pObjPalette;
+		AutoPtr<Object_palette> _pObjPalette;
 		size_t _idx;
 	public:
 		inline IteratorEach(Object_palette *pObjPalette) :
 			Iterator(false), _pObjPalette(pObjPalette), _idx(0) {}
-		virtual ~IteratorEach();
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

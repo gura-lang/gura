@@ -386,8 +386,9 @@ Iterator_Entry::Iterator_Entry(Object_reader *pObjReader) :
 {
 }
 
-Iterator_Entry::~Iterator_Entry()
+Iterator *Iterator_Entry::GetSource()
 {
+	return NULL;
 }
 
 bool Iterator_Entry::DoNext(Environment &env, Signal sig, Value &value)

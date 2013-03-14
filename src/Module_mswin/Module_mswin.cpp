@@ -813,8 +813,12 @@ void Object_ole::CallableOwner::Clear()
 //-----------------------------------------------------------------------------
 Object_ole::IteratorEx::~IteratorEx()
 {
-	Object::Delete(_pObj);
 	_pEnum->Release();
+}
+
+Iterator *Object_ole::IteratorEx::GetSource()
+{
+	return NULL;
 }
 
 bool Object_ole::IteratorEx::DoNext(Environment &env, Signal sig, Value &value)
@@ -855,8 +859,9 @@ Iterator_RegEnumKey::Iterator_RegEnumKey(Object_regkey *pObjRegKey, REGSAM samDe
 {
 }
 
-Iterator_RegEnumKey::~Iterator_RegEnumKey()
+Iterator *Iterator_RegEnumKey::GetSource()
 {
+	return NULL;
 }
 
 bool Iterator_RegEnumKey::DoNext(Environment &env, Signal sig, Value &value)
@@ -903,8 +908,9 @@ Iterator_RegEnumValue::Iterator_RegEnumValue(Object_regkey *pObjRegKey) :
 {
 }
 
-Iterator_RegEnumValue::~Iterator_RegEnumValue()
+Iterator *Iterator_RegEnumValue::GetSource()
 {
+	return NULL;
 }
 
 bool Iterator_RegEnumValue::DoNext(Environment &env, Signal sig, Value &value)

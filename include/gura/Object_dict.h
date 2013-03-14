@@ -21,48 +21,48 @@ class GURA_DLLDECLARE Object_dict : public Object {
 public:
 	class IteratorKeys : public Iterator {
 	private:
-		Object_dict *_pObj;
+		AutoPtr<Object_dict> _pObj;
 		ValueDict::const_iterator _pCur;
 	public:
 		IteratorKeys(Object_dict *pObj);
-		virtual ~IteratorKeys();
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class IteratorValues : public Iterator {
 	private:
-		Object_dict *_pObj;
+		AutoPtr<Object_dict> _pObj;
 		ValueDict::const_iterator _pCur;
 	public:
 		IteratorValues(Object_dict *pObj);
-		virtual ~IteratorValues();
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class IteratorItems : public Iterator {
 	private:
-		Object_dict *_pObj;
+		AutoPtr<Object_dict> _pObj;
 		ValueDict::const_iterator _pCur;
 	public:
 		IteratorItems(Object_dict *pObj);
-		virtual ~IteratorItems();
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class IteratorGet : public Iterator {
 	private:
-		Object_dict *_pObj;
-		Iterator *_pIteratorKey;
+		AutoPtr<Object_dict> _pObj;
+		AutoPtr<Iterator> _pIteratorKey;
 		Value _valDefault;
 		bool _raiseFlag;
 		bool _setDefaultFlag;
 	public:
 		IteratorGet(Object_dict *pObj, Iterator *pIteratorKey,
 					const Value &valDefault, bool raiseFlag, bool setDefaultFlag);
-		virtual ~IteratorGet();
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

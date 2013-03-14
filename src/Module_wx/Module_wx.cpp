@@ -3995,13 +3995,14 @@ bool CheckMethodResult(Signal sig, const Value &rtn,
 //-----------------------------------------------------------------------------
 // Iterator_NewIds
 //-----------------------------------------------------------------------------
-Iterator_NewIds::~Iterator_NewIds()
-{
-}
-
 Iterator *Iterator_NewIds::Clone() const
 {
 	return Iterator::Reference(this);
+}
+
+Iterator *Iterator_NewIds::GetSource()
+{
+	return NULL;
 }
 
 bool Iterator_NewIds::DoNext(Environment &env, Signal sig, Value &value)

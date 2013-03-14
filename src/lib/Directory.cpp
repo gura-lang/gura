@@ -282,6 +282,11 @@ Directory::Iterator_Walk::~Iterator_Walk()
 	}
 }
 
+Iterator *Directory::Iterator_Walk::GetSource()
+{
+	return NULL;
+}
+
 bool Directory::Iterator_Walk::DoNext(Environment &env, Signal sig, Value &value)
 {
 	for (;;) {
@@ -396,6 +401,11 @@ Directory::Iterator_Glob::~Iterator_Glob()
 	foreach (DirectoryDeque, ppDirectory, _directoryQue) {
 		Directory::Delete(*ppDirectory);
 	}
+}
+
+Iterator *Directory::Iterator_Glob::GetSource()
+{
+	return NULL;
 }
 
 bool Directory::Iterator_Glob::DoNext(Environment &env, Signal sig, Value &value)

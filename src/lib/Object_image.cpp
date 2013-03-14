@@ -2078,8 +2078,9 @@ Object_image::Scanner::~Scanner()
 //-----------------------------------------------------------------------------
 // Object_image::IteratorEach
 //-----------------------------------------------------------------------------
-Object_image::IteratorEach::~IteratorEach()
+Iterator *Object_image::IteratorEach::GetSource()
 {
+	return NULL;
 }
 
 bool Object_image::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)

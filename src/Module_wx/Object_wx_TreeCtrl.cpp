@@ -66,14 +66,15 @@ public:
 			wxTreeItemId item, wxTreeItemId itemChild, wxTreeItemIdValue cookie) :
 		Iterator(false), _pObj(pObj),
 		_item(item), _itemChild(itemChild), _cookie(cookie) {}
-	virtual ~Iterator_TreeCtrl_ItemChildren();
+	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
-Iterator_TreeCtrl_ItemChildren::~Iterator_TreeCtrl_ItemChildren()
+Iterator *Iterator_TreeCtrl_ItemChildren::GetSource()
 {
+	return NULL;
 }
 
 bool Iterator_TreeCtrl_ItemChildren::DoNext(Environment &env, Signal sig, Value &value)

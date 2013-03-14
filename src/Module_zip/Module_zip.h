@@ -819,6 +819,7 @@ private:
 public:
 	inline Iterator_Entry(Object_reader *pObjZipR);
 	virtual ~Iterator_Entry();
+	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

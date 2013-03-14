@@ -971,9 +971,9 @@ void Class_palette::OnModuleEntry(Environment &env, Signal sig)
 //-----------------------------------------------------------------------------
 // Object_palette::IteratorEach
 //-----------------------------------------------------------------------------
-Object_palette::IteratorEach::~IteratorEach()
+Iterator *Object_palette::IteratorEach::GetSource()
 {
-	Object::Delete(_pObjPalette);
+	return NULL;
 }
 
 bool Object_palette::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)

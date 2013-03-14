@@ -288,6 +288,11 @@ IteratorTag::IteratorTag(Object_ifd *pObjIFD) :
 {
 }
 
+Iterator *IteratorTag::GetSource()
+{
+	return NULL;
+}
+
 bool IteratorTag::DoNext(Environment &env, Signal sig, Value &value)
 {
 	TagOwner &tagOwner = _pObjIFD->GetTagOwner();

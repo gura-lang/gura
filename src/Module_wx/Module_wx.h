@@ -89,8 +89,8 @@ public:
 class Iterator_NewIds : public Iterator {
 public:
 	inline Iterator_NewIds() : Iterator(true) {}
-	virtual ~Iterator_NewIds();
 	virtual Iterator *Clone() const;
+	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

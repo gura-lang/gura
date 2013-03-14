@@ -24,7 +24,7 @@ class GURA_DLLDECLARE Object_stream : public Object {
 public:
 	class IteratorLine : public Iterator {
 	private:
-		Object_stream *_pObj;
+		AutoPtr<Object_stream> _pObj;
 		int _nLinesMax;
 		bool _includeEOLFlag;
 		int _nLines;
@@ -32,7 +32,7 @@ public:
 		inline IteratorLine(Object_stream *pObj, int nLinesMax, bool includeEOLFlag) :
 			Iterator(pObj->GetStream().IsInfinite()), _pObj(pObj), _nLinesMax(nLinesMax),
 			_includeEOLFlag(includeEOLFlag), _nLines(0) {}
-		virtual ~IteratorLine();
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

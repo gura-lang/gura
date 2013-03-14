@@ -43,7 +43,7 @@ class Object_ole : public Object {
 public:
 	class IteratorEx : public Iterator {
 	private:
-		Object_ole *_pObj;
+		AutoPtr<Object_ole> _pObj;
 		IEnumVARIANT *_pEnum;
 		bool _validFlag;
 		Value _value;
@@ -51,6 +51,7 @@ public:
 		inline IteratorEx(Object_ole *pObj, IEnumVARIANT *pEnum) :
 				Iterator(false), _pObj(pObj), _pEnum(pEnum), _validFlag(false) {}
 		virtual ~IteratorEx();
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
@@ -114,7 +115,7 @@ private:
 	DWORD _dwIndex;
 public:
 	Iterator_RegEnumKey(Object_regkey *pObjRegKey, REGSAM samDesired);
-	virtual ~Iterator_RegEnumKey();
+	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
@@ -129,7 +130,7 @@ private:
 	DWORD _dwIndex;
 public:
 	Iterator_RegEnumValue(Object_regkey *pObjRegKey);
-	virtual ~Iterator_RegEnumValue();
+	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

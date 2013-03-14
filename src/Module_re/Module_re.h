@@ -119,6 +119,7 @@ private:
 public:
 	IteratorSplit(Object_pattern *pObjPattern, const String &str, int cntMax);
 	virtual ~IteratorSplit();
+	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
@@ -137,6 +138,7 @@ private:
 public:
 	IteratorScan(Object_pattern *pObjPattern, const String &str, int pos, int posEnd);
 	virtual ~IteratorScan();
+	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
@@ -151,6 +153,7 @@ private:
 	AutoPtr<Object_pattern> _pObjPattern;
 public:
 	IteratorGrep(Iterator *pIteratorSrc, Object_pattern *pObjPattern);
+	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

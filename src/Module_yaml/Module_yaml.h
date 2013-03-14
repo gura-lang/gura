@@ -100,6 +100,7 @@ private:
 public:
 	Iterator_FromStream(Signal sig, Stream *pStream);
 	virtual ~Iterator_FromStream();
+	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
@@ -119,6 +120,7 @@ private:
 public:
 	Iterator_FromString(const char *str);
 	virtual ~Iterator_FromString();
+	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

@@ -74,6 +74,11 @@ Object_string::IteratorEach::~IteratorEach()
 {
 }
 
+Iterator *Object_string::IteratorEach::GetSource()
+{
+	return NULL;
+}
+
 bool Object_string::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_pCur == _str.end()) return false;
@@ -122,6 +127,11 @@ Object_string::IteratorLine::~IteratorLine()
 {
 }
 
+Iterator *Object_string::IteratorLine::GetSource()
+{
+	return NULL;
+}
+
 bool Object_string::IteratorLine::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_pCur == _str.end() || _cnt == 0) return false;
@@ -165,6 +175,11 @@ Object_string::IteratorSplit::IteratorSplit(const String &str, const char *sep,
 
 Object_string::IteratorSplit::~IteratorSplit()
 {
+}
+
+Iterator *Object_string::IteratorSplit::GetSource()
+{
+	return NULL;
 }
 
 bool Object_string::IteratorSplit::DoNext(Environment &env, Signal sig, Value &value)
@@ -215,6 +230,11 @@ Object_string::IteratorFold::IteratorFold(const String &str,
 
 Object_string::IteratorFold::~IteratorFold()
 {
+}
+
+Iterator *Object_string::IteratorFold::GetSource()
+{
+	return NULL;
 }
 
 bool Object_string::IteratorFold::DoNext(Environment &env, Signal sig, Value &value)

@@ -146,6 +146,10 @@ Object_db::IteratorQuery::~IteratorQuery()
 	::sqlite3_finalize(_pStmt);
 }
 
+Iterator *Object_db::IteratorQuery::GetSource()
+{
+	return NULL;
+}
 
 bool Object_db::IteratorQuery::DoNext(Environment &env, Signal sig, Value &value)
 {

@@ -694,6 +694,11 @@ Iterator_GenericClone::~Iterator_GenericClone()
 {
 }
 
+Iterator *Iterator_GenericClone::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_GenericClone::DoNext(Environment &env, Signal sig, Value &value)
 {
 	return _pIterator->NextShared(env, sig, _id, value);
@@ -721,6 +726,11 @@ Iterator_Constant::~Iterator_Constant()
 Iterator *Iterator_Constant::Clone() const
 {
 	return new Iterator_Constant(*this);
+}
+
+Iterator *Iterator_Constant::GetSource()
+{
+	return NULL;
 }
 
 bool Iterator_Constant::DoNext(Environment &env, Signal sig, Value &value)
@@ -751,6 +761,11 @@ Iterator_OneShot::~Iterator_OneShot()
 Iterator *Iterator_OneShot::Clone() const
 {
 	return new Iterator_OneShot(*this);
+}
+
+Iterator *Iterator_OneShot::GetSource()
+{
+	return NULL;
 }
 
 bool Iterator_OneShot::DoNext(Environment &env, Signal sig, Value &value)
@@ -785,6 +800,11 @@ Iterator *Iterator_Fill::Clone() const
 	return new Iterator_Fill(*this);
 }
 
+Iterator *Iterator_Fill::GetSource()
+{
+	return NULL;
+}
+
 bool Iterator_Fill::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_idx >= _cnt) return false;
@@ -814,6 +834,11 @@ void Iterator_Fill::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 //-----------------------------------------------------------------------------
 Iterator_Rand::~Iterator_Rand()
 {
+}
+
+Iterator *Iterator_Rand::GetSource()
+{
+	return NULL;
 }
 
 bool Iterator_Rand::DoNext(Environment &env, Signal sig, Value &value)
@@ -858,6 +883,11 @@ Iterator_Range::~Iterator_Range()
 Iterator *Iterator_Range::Clone() const
 {
 	return new Iterator_Range(*this);
+}
+
+Iterator *Iterator_Range::GetSource()
+{
+	return NULL;
 }
 
 bool Iterator_Range::DoNext(Environment &env, Signal sig, Value &value)
@@ -912,6 +942,11 @@ Iterator *Iterator_Sequence::Clone() const
 	return new Iterator_Sequence(*this);
 }
 
+Iterator *Iterator_Sequence::GetSource()
+{
+	return NULL;
+}
+
 bool Iterator_Sequence::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (!((_numStep > 0)? (_num <= _numEnd) : (_num >= _numEnd))) return false;
@@ -958,6 +993,11 @@ Iterator *Iterator_SequenceInf::Clone() const
 	return new Iterator_SequenceInf(*this);
 }
 
+Iterator *Iterator_SequenceInf::GetSource()
+{
+	return NULL;
+}
+
 bool Iterator_SequenceInf::DoNext(Environment &env, Signal sig, Value &value)
 {
 	value = Value(_num);
@@ -988,6 +1028,11 @@ Iterator_Interval::~Iterator_Interval()
 Iterator *Iterator_Interval::Clone() const
 {
 	return new Iterator_Interval(*this);
+}
+
+Iterator *Iterator_Interval::GetSource()
+{
+	return NULL;
 }
 
 bool Iterator_Interval::DoNext(Environment &env, Signal sig, Value &value)
@@ -1033,6 +1078,11 @@ Iterator_Fork::Iterator_Fork(Environment &env, Signal sig,
 
 Iterator_Fork::~Iterator_Fork()
 {
+}
+
+Iterator *Iterator_Fork::GetSource()
+{
+	return NULL;
 }
 
 bool Iterator_Fork::DoNext(Environment &env, Signal sig, Value &value)
@@ -1127,6 +1177,11 @@ Iterator *Iterator_ExplicitMap::Clone() const
 	return new Iterator_ExplicitMap(*this);
 }
 
+Iterator *Iterator_ExplicitMap::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_ExplicitMap::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (!_pIterator->Next(env, sig, value)) return false;
@@ -1165,6 +1220,11 @@ Iterator_ImplicitMap::Iterator_ImplicitMap(Environment &env, Signal sig, Functio
 Iterator_ImplicitMap::~Iterator_ImplicitMap()
 {
 	if (IsVirgin()) Consume(_env, _sig);
+}
+
+Iterator *Iterator_ImplicitMap::GetSource()
+{
+	return _pIteratorThis.get();
 }
 
 bool Iterator_ImplicitMap::DoNext(Environment &env, Signal sig, Value &value)
@@ -1211,6 +1271,11 @@ Iterator_MemberMap::~Iterator_MemberMap()
 	if (IsVirgin()) Consume(_env, _sig);
 }
 
+Iterator *Iterator_MemberMap::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_MemberMap::DoNext(Environment &env, Signal sig, Value &value)
 {
 	Value valueThisEach;
@@ -1248,6 +1313,11 @@ Iterator_MethodMap::~Iterator_MethodMap()
 	if (IsVirgin()) Consume(_env, _sig);
 }
 
+Iterator *Iterator_MethodMap::GetSource()
+{
+	return _pIteratorThis.get();
+}
+
 bool Iterator_MethodMap::DoNext(Environment &env, Signal sig, Value &value)
 {
 	const Function *pFuncLeader = NULL;
@@ -1283,6 +1353,11 @@ Iterator_FuncBinder::Iterator_FuncBinder(Environment &env,
 
 Iterator_FuncBinder::~Iterator_FuncBinder()
 {
+}
+
+Iterator *Iterator_FuncBinder::GetSource()
+{
+	return _pIterator.get();
 }
 
 bool Iterator_FuncBinder::DoNext(Environment &env, Signal sig, Value &value)
@@ -1338,6 +1413,11 @@ Iterator_Delay::~Iterator_Delay()
 {
 }
 
+Iterator *Iterator_Delay::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_Delay::DoNext(Environment &env, Signal sig, Value &value)
 {
 	OAL::Sleep(_delay);
@@ -1361,6 +1441,11 @@ void Iterator_Delay::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 //-----------------------------------------------------------------------------
 Iterator_Skip::~Iterator_Skip()
 {
+}
+
+Iterator *Iterator_Skip::GetSource()
+{
+	return _pIterator.get();
 }
 
 bool Iterator_Skip::DoNext(Environment &env, Signal sig, Value &value)
@@ -1396,6 +1481,11 @@ Iterator_SkipInvalid::~Iterator_SkipInvalid()
 {
 }
 
+Iterator *Iterator_SkipInvalid::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_SkipInvalid::DoNext(Environment &env, Signal sig, Value &value)
 {
 	while (_pIterator->Next(env, sig, value)) {
@@ -1425,6 +1515,11 @@ void Iterator_SkipInvalid::GatherFollower(Environment::Frame *pFrame, Environmen
 //-----------------------------------------------------------------------------
 Iterator_RoundOff::~Iterator_RoundOff()
 {
+}
+
+Iterator *Iterator_RoundOff::GetSource()
+{
+	return _pIterator.get();
 }
 
 bool Iterator_RoundOff::DoNext(Environment &env, Signal sig, Value &value)
@@ -1458,6 +1553,11 @@ void Iterator_RoundOff::GatherFollower(Environment::Frame *pFrame, EnvironmentSe
 //-----------------------------------------------------------------------------
 Iterator_FilterWithFunc::~Iterator_FilterWithFunc()
 {
+}
+
+Iterator *Iterator_FilterWithFunc::GetSource()
+{
+	return _pIterator.get();
 }
 
 bool Iterator_FilterWithFunc::DoNext(Environment &env, Signal sig, Value &value)
@@ -1496,6 +1596,11 @@ Iterator_FilterWithIter::~Iterator_FilterWithIter()
 {
 }
 
+Iterator *Iterator_FilterWithIter::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_FilterWithIter::DoNext(Environment &env, Signal sig, Value &value)
 {
 	while (_pIterator->Next(env, sig, value)) {
@@ -1528,6 +1633,11 @@ void Iterator_FilterWithIter::GatherFollower(Environment::Frame *pFrame, Environ
 //-----------------------------------------------------------------------------
 Iterator_WhileWithFunc::~Iterator_WhileWithFunc()
 {
+}
+
+Iterator *Iterator_WhileWithFunc::GetSource()
+{
+	return _pIterator.get();
 }
 
 bool Iterator_WhileWithFunc::DoNext(Environment &env, Signal sig, Value &value)
@@ -1579,6 +1689,11 @@ Iterator_WhileWithIter::~Iterator_WhileWithIter()
 {
 }
 
+Iterator *Iterator_WhileWithIter::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_WhileWithIter::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_pIterator.IsNull() || _pIteratorCriteria.IsNull()) return false;
@@ -1624,6 +1739,11 @@ void Iterator_WhileWithIter::GatherFollower(Environment::Frame *pFrame, Environm
 //-----------------------------------------------------------------------------
 Iterator_UntilWithFunc::~Iterator_UntilWithFunc()
 {
+}
+
+Iterator *Iterator_UntilWithFunc::GetSource()
+{
+	return _pIterator.get();
 }
 
 bool Iterator_UntilWithFunc::DoNext(Environment &env, Signal sig, Value &value)
@@ -1679,6 +1799,11 @@ Iterator_UntilWithIter::~Iterator_UntilWithIter()
 {
 }
 
+Iterator *Iterator_UntilWithIter::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_UntilWithIter::DoNext(Environment &env, Signal sig, Value &value)
 {
 	bool rtnDone = false;
@@ -1730,6 +1855,11 @@ Iterator_SinceWithFunc::~Iterator_SinceWithFunc()
 {
 }
 
+Iterator *Iterator_SinceWithFunc::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_SinceWithFunc::DoNext(Environment &env, Signal sig, Value &value)
 {
 	for (;;) {
@@ -1773,6 +1903,11 @@ Iterator_SinceWithIter::~Iterator_SinceWithIter()
 {
 }
 
+Iterator *Iterator_SinceWithIter::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_SinceWithIter::DoNext(Environment &env, Signal sig, Value &value)
 {
 	for (;;) {
@@ -1814,6 +1949,11 @@ Iterator_Replace::~Iterator_Replace()
 {
 }
 
+Iterator *Iterator_Replace::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_Replace::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (!_pIterator->Next(env, sig, value)) return false;
@@ -1844,6 +1984,11 @@ Iterator_ReplaceInvalid::~Iterator_ReplaceInvalid()
 {
 }
 
+Iterator *Iterator_ReplaceInvalid::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_ReplaceInvalid::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (!_pIterator->Next(env, sig, value)) return false;
@@ -1872,6 +2017,11 @@ void Iterator_ReplaceInvalid::GatherFollower(Environment::Frame *pFrame, Environ
 //-----------------------------------------------------------------------------
 Iterator_Format::~Iterator_Format()
 {
+}
+
+Iterator *Iterator_Format::GetSource()
+{
+	return _pIterator.get();
 }
 
 bool Iterator_Format::DoNext(Environment &env, Signal sig, Value &value)
@@ -1910,6 +2060,11 @@ void Iterator_Format::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 //-----------------------------------------------------------------------------
 Iterator_Pack::~Iterator_Pack()
 {
+}
+
+Iterator *Iterator_Pack::GetSource()
+{
+	return _pIterator.get();
 }
 
 bool Iterator_Pack::DoNext(Environment &env, Signal sig, Value &value)
@@ -1954,6 +2109,11 @@ Iterator_Zipv::~Iterator_Zipv()
 {
 }
 
+Iterator *Iterator_Zipv::GetSource()
+{
+	return _iterOwner.empty()? NULL : _iterOwner.front();
+}
+
 bool Iterator_Zipv::DoNext(Environment &env, Signal sig, Value &value)
 {
 	ValueList &valList = value.InitAsList(env);
@@ -1977,6 +2137,11 @@ void Iterator_Zipv::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 //-----------------------------------------------------------------------------
 Iterator_RunLength::~Iterator_RunLength()
 {
+}
+
+Iterator *Iterator_RunLength::GetSource()
+{
+	return _pIterator.get();
 }
 
 bool Iterator_RunLength::DoNext(Environment &env, Signal sig, Value &value)
@@ -2022,6 +2187,11 @@ Iterator_Align::~Iterator_Align()
 {
 }
 
+Iterator *Iterator_Align::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_Align::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_cnt == 0) return false;
@@ -2053,6 +2223,11 @@ Iterator_Head::~Iterator_Head()
 {
 }
 
+Iterator *Iterator_Head::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_Head::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_cnt == 0) return false;
@@ -2081,6 +2256,11 @@ void Iterator_Head::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 //-----------------------------------------------------------------------------
 Iterator_Fold::~Iterator_Fold()
 {
+}
+
+Iterator *Iterator_Fold::GetSource()
+{
+	return _pIterator.get();
 }
 
 bool Iterator_Fold::DoNext(Environment &env, Signal sig, Value &value)
@@ -2121,6 +2301,11 @@ Iterator_FoldSeg::~Iterator_FoldSeg()
 {
 }
 
+Iterator *Iterator_FoldSeg::GetSource()
+{
+	return _pIterator.get();
+}
+
 bool Iterator_FoldSeg::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_cnt == 0) return false;
@@ -2151,6 +2336,11 @@ void Iterator_FoldSeg::GatherFollower(Environment::Frame *pFrame, EnvironmentSet
 //-----------------------------------------------------------------------------
 Iterator_Concat::~Iterator_Concat()
 {
+}
+
+Iterator *Iterator_Concat::GetSource()
+{
+	return _iterOwner.empty()? NULL : _iterOwner.front();
 }
 
 bool Iterator_Concat::DoNext(Environment &env, Signal sig, Value &value)
@@ -2196,6 +2386,11 @@ Iterator_repeat::Iterator_repeat(Environment &env, Signal sig, Function *pFuncBl
 
 Iterator_repeat::~Iterator_repeat()
 {
+}
+
+Iterator *Iterator_repeat::GetSource()
+{
+	return NULL;
 }
 
 bool Iterator_repeat::DoNext(Environment &env, Signal sig, Value &value)
@@ -2264,6 +2459,11 @@ Iterator_while::~Iterator_while()
 {
 }
 
+Iterator *Iterator_while::GetSource()
+{
+	return NULL;
+}
+
 bool Iterator_while::DoNext(Environment &env, Signal sig, Value &value)
 {
 	for (;;) {
@@ -2329,6 +2529,11 @@ Iterator_for::Iterator_for(Environment &env, Signal sig, Function *pFuncBlock,
 
 Iterator_for::~Iterator_for()
 {
+}
+
+Iterator *Iterator_for::GetSource()
+{
+	return NULL;
 }
 
 bool Iterator_for::DoNext(Environment &env, Signal sig, Value &value)
@@ -2437,6 +2642,11 @@ Iterator_cross::Iterator_cross(Environment &env, Signal sig, Function *pFuncBloc
 
 Iterator_cross::~Iterator_cross()
 {
+}
+
+Iterator *Iterator_cross::GetSource()
+{
+	return NULL;
 }
 
 bool Iterator_cross::DoNext(Environment &env, Signal sig, Value &value)

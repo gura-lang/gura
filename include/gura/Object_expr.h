@@ -26,13 +26,13 @@ public:
 	class Iterator_Each : public Iterator {
 	private:
 		Environment _env;
-		Expr_Container *_pExprContainer;
+		AutoPtr<Expr_Container> _pExprContainer;
 		ExprList::iterator _ppExpr;
 	public:
 		inline Iterator_Each(Environment &env, Expr_Container *pExprContainer) :
 						Iterator(false), _env(env), _pExprContainer(pExprContainer),
 						_ppExpr(pExprContainer->GetExprOwner().begin()) {}
-		virtual ~Iterator_Each();
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

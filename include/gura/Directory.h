@@ -46,6 +46,7 @@ public:
 		~Iterator_Walk();
 		bool Init(Environment &env, Signal sig, const char *dirName,
 									int depthMax, const StringList &patterns);
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
@@ -69,6 +70,7 @@ public:
 							bool ignoreCaseFlag, bool fileFlag, bool dirFlag);
 		~Iterator_Glob();
 		bool Init(Environment &env, Signal sig, const char *pattern);
+		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);

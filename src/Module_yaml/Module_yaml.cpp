@@ -233,6 +233,11 @@ Iterator_FromStream::~Iterator_FromStream()
 	::yaml_parser_delete(&_parser);
 }
 
+Iterator *Iterator_FromStream::GetSource()
+{
+	return NULL;
+}
+
 bool Iterator_FromStream::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_doneFlag) return false;
@@ -276,6 +281,11 @@ Iterator_FromString::Iterator_FromString(const char *str) :
 Iterator_FromString::~Iterator_FromString()
 {
 	::yaml_parser_delete(&_parser);
+}
+
+Iterator *Iterator_FromString::GetSource()
+{
+	return NULL;
 }
 
 bool Iterator_FromString::DoNext(Environment &env, Signal sig, Value &value)

@@ -741,6 +741,11 @@ Object_matrix::IteratorEach::~IteratorEach()
 {
 }
 
+Iterator *Object_matrix::IteratorEach::GetSource()
+{
+	return NULL;
+}
+
 bool Object_matrix::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_transposeFlag) {
@@ -777,6 +782,11 @@ Object_matrix::IteratorEachRow::~IteratorEachRow()
 {
 }
 
+Iterator *Object_matrix::IteratorEachRow::GetSource()
+{
+	return NULL;
+}
+
 bool Object_matrix::IteratorEachRow::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_iRow >= _pObj->GetRows()) return false;
@@ -799,6 +809,11 @@ void Object_matrix::IteratorEachRow::GatherFollower(Environment::Frame *pFrame, 
 //-----------------------------------------------------------------------------
 Object_matrix::IteratorEachCol::~IteratorEachCol()
 {
+}
+
+Iterator *Object_matrix::IteratorEachCol::GetSource()
+{
+	return NULL;
 }
 
 bool Object_matrix::IteratorEachCol::DoNext(Environment &env, Signal sig, Value &value)
