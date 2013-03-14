@@ -5,6 +5,10 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Iterator
 //-----------------------------------------------------------------------------
+Iterator::~Iterator()
+{
+}
+
 void Iterator::Delete(Iterator *pIterator)
 {
 	if (pIterator == NULL) return;

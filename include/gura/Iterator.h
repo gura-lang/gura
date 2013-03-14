@@ -61,6 +61,7 @@ public:
 	inline Iterator(const Iterator &iter) :
 			_cntRef(1), _cntNext(iter._cntNext), _pShare(NULL),
 			_infiniteFlag(iter._infiniteFlag), _skipInvalidFlag(iter._skipInvalidFlag) {}
+	virtual ~Iterator();
 	inline int IncRef() { _cntRef++; return _cntRef; }
 	inline int DecRef() { if (_cntRef > 0) _cntRef--; return _cntRef; }
 	inline int GetRefCnt() const { return _cntRef; }
