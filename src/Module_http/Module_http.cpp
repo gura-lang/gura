@@ -5,7 +5,7 @@
 #include "gura/ZLibHelper.h"
 #include <algorithm>
 
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 typedef int socklen_t;
 #else
 #include <sys/types.h>
@@ -2757,7 +2757,7 @@ Directory *DirectoryFactory_Http::DoOpenDirectory(Environment &env, Signal sig,
 Gura_ModuleEntry()
 {
 	_pEnvThis = &env;
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 	WSADATA wsaData;
 	::WSAStartup(MAKEWORD(2, 0), &wsaData);
 #endif

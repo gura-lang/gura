@@ -18,7 +18,7 @@
 #include <llvm/Analysis/Verifier.h>
 #include <llvm/Support/IRBuilder.h>
 
-#undef HAVE_WINDOWS_H
+#undef GURA_ON_MSWIN
 #include <gura.h>
 
 Gura_BeginModule(llvm)

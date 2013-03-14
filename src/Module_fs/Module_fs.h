@@ -39,7 +39,7 @@ public:
 //-----------------------------------------------------------------------------
 class Stream_File : public Stream {
 private:
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 	HANDLE _hFile;
 	struct {
 		HANDLE hFileMappingObject;
@@ -80,7 +80,7 @@ private:
 //-----------------------------------------------------------------------------
 class Directory_FileSys : public Directory {
 private:
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 	HANDLE _hFind;
 #else
 	DIR *_pDir;

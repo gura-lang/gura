@@ -146,7 +146,7 @@ bool Stream_File::GetAttribute(Attribute &attr)
 	return true;
 }
 
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 Stream_File::Stream_File(Signal sig) : Stream(sig, ATTR_BwdSeekable), _hFile(INVALID_HANDLE_VALUE), _needCloseFlag(false)
 {
 }
@@ -348,7 +348,7 @@ Object *Stream_File::DoGetStatObj(Signal sig)
 	return new Object_Stat(OAL::FileStat(pathName.c_str(), attrData));
 }
 
-#else // !defined(HAVE_WINDOWS_H)
+#else // !defined(GURA_ON_MSWIN)
 Stream_File::Stream_File(Signal sig) : Stream(sig, ATTR_BwdSeekable), _fp(NULL), _needCloseFlag(false)
 {
 }
@@ -479,7 +479,7 @@ Object *Stream_File::DoGetStatObj(Signal sig)
 //-----------------------------------------------------------------------------
 // Directory_FileSys implementation
 //-----------------------------------------------------------------------------
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 Directory_FileSys::Directory_FileSys(Directory *pParent, const char *name,
 										Type type, OAL::FileStat *pFileStat) :
 	Directory(pParent, name, type, OAL::FileSeparator),

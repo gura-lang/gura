@@ -5,7 +5,7 @@
 #include "DateTime.h"
 #include "Signal.h"
 
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 #define ecvt _ecvt
 #define fcvt _fcvt
 #define gcvt _gcvt
@@ -65,7 +65,7 @@ GURA_DLLDECLARE bool ChangeMode(const char *mode, const char *pathName);
 GURA_DLLDECLARE void Sleep(Number delay);
 GURA_DLLDECLARE Number GetTickTime();
 GURA_DLLDECLARE DateTime GetCurDateTime(bool utcFlag = false);
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 GURA_DLLDECLARE void SetModuleHandle(HMODULE hModule);
 GURA_DLLDECLARE DateTime ToDateTime(const SYSTEMTIME &st, int secsOffset);
 GURA_DLLDECLARE DateTime ToDateTime(const FILETIME &ft, bool utcFlag = false);
@@ -123,7 +123,7 @@ public:
 		_pathName(fileStat._pathName), _attr(fileStat._attr), _bytes(fileStat._bytes),
 		_atime(fileStat._atime), _mtime(fileStat._mtime), _ctime(fileStat._ctime),
 		_uid(fileStat._uid), _gid(fileStat._gid) {}
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 	FileStat(const char *pathName, const BY_HANDLE_FILE_INFORMATION &attrData);
 	FileStat(const char *pathName, const WIN32_FILE_ATTRIBUTE_DATA &attrData);
 	FileStat(const char *pathName, const WIN32_FIND_DATA &findData);
@@ -153,7 +153,7 @@ public:
 //-----------------------------------------------------------------------------
 class DirLister {
 	String _dirName;
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 	HANDLE _hFind;
 #else
 	DIR *_dirp;
@@ -169,7 +169,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE DynamicLibrary {
 private:
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 	HMODULE _hModule;
 #else
 	void *_hLibrary;
@@ -215,7 +215,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Semaphore {
 private:
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 	HANDLE _hMutex;
 #else
 	sem_t _sem;
@@ -232,7 +232,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Event {
 private:
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 	HANDLE _hEvent;
 #else
 #endif

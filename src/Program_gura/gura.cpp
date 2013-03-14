@@ -1,6 +1,6 @@
 #include <gura.h>
 
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 #else
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -165,7 +165,7 @@ void PrintHelp(FILE *fp)
 	);
 }
 
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
 	Parser parser;

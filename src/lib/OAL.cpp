@@ -1,7 +1,7 @@
 // OAL: OS Abstraction Layer
 #include "stdafx.h"
 
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 #include <shlobj.h>
 #if defined(_MSC_VER)
 typedef int mode_t;
@@ -346,7 +346,7 @@ static void AppendCmdLine(String &cmdLine, const char *arg)
 	}
 }
 
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 //=============================================================================
 // Windows API
 //=============================================================================

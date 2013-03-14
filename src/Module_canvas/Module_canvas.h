@@ -79,7 +79,7 @@ struct Color {
 	inline Color(unsigned char red, unsigned char blue, unsigned char green) :
 									_red(red), _blue(blue), _green(green) {}
 	Color(Signal sig, const Value &value);
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 	inline COLORREF ToWin32() const { return RGB(_red, _blue, _green); }
 #endif
 };

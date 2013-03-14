@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 #include "Module_glu.h"
 
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 #else
 #define __stdcall
 #endif

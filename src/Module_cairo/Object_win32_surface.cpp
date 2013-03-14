@@ -9,7 +9,7 @@ Gura_BeginModule(cairo)
 //-----------------------------------------------------------------------------
 // Gura interfaces for win32_surface
 //-----------------------------------------------------------------------------
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 // cairo.win32_surface.emf_create(filename:string, width_in_points:number, height_in_points:number) {block?}
 Gura_DeclareClassMethod(win32_surface, create_emf)
 {
@@ -105,7 +105,7 @@ Gura_ImplementClassMethod(win32_surface, create_printing)
 
 Gura_ImplementUserClass(win32_surface)
 {
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 	Gura_AssignMethod(win32_surface, create_emf);
 	Gura_AssignMethod(win32_surface, create_printing);
 #endif

@@ -1,5 +1,5 @@
 #include <gura.h>
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 typedef int socklen_t;
 #else
 #include <unistd.h>
@@ -95,7 +95,7 @@ bool Main(int argc, const char *argv[])
 
 int main(int argc, const char *argv[])
 {
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 	WSADATA wsaData;
 	::WSAStartup(MAKEWORD(2, 0), &wsaData);
 #endif

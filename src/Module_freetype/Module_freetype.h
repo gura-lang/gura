@@ -26,7 +26,7 @@
 #include FT_TRUETYPE_IDS_H
 #include FT_CACHE_H
 
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 #include <shlobj.h>
 #endif
 

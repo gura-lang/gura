@@ -326,7 +326,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-#if USE_WINDOWS_DIB
+#if GURA_USE_MSWIN_DIB
 bool DoGLSection(Environment &env, Signal sig, Args &args, Object_image *pObjImg)
 {
 	PIXELFORMATDESCRIPTOR pfd = { 

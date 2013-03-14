@@ -599,7 +599,7 @@ Stream *Writer_Stream::GetStream()
 	return _pStream.get();
 }
 
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 //-----------------------------------------------------------------------------
 // Writer_EnhMetaFile implementation
 //-----------------------------------------------------------------------------

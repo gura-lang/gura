@@ -550,7 +550,7 @@ Gura_ModuleTerminate()
 	::FT_Done_FreeType(g_lib);
 }
 
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 String GetSysFontPathName()
 {
 	char pathName[MAX_PATH];

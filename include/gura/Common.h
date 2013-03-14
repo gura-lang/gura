@@ -4,11 +4,11 @@
 #define GURA_VERSION "0.3.1"
 
 #if defined(__BORLANDC__)
-#define HAVE_WINDOWS_H
+#define GURA_ON_MSWIN
 #endif
 
 #if defined(_MSC_VER)
-#define HAVE_WINDOWS_H
+#define GURA_ON_MSWIN
 #undef SetProp
 #undef GetProp
 #pragma warning(disable:4251)
@@ -17,7 +17,7 @@
 #pragma warning(disable:4996)
 #endif
 
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 #define GURA_DLLIMPORT __declspec(dllimport)
 #define GURA_DLLEXPORT __declspec(dllexport)
 #if defined(gura_EXPORTS)
@@ -28,7 +28,7 @@
 typedef __int64 int64;
 typedef unsigned __int64 uint64;
 #define strcasecmp stricmp
-#define USE_WINDOWS_DIB 1
+#define GURA_USE_MSWIN_DIB 1
 #else
 #if defined(HAVE_CONFIG_H)
 #include "config.h"
@@ -39,7 +39,7 @@ typedef unsigned __int64 uint64;
 typedef long long int64;
 typedef unsigned long long uint64;
 typedef void *HBITMAP;
-#define USE_WINDOWS_DIB 0
+#define GURA_USE_MSWIN_DIB 0
 #endif
 
 #define NUMBEROF(x) (sizeof(x) / sizeof(x[0]))

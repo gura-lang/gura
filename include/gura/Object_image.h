@@ -21,7 +21,7 @@ public:
 // Object_image
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_image : public Object {
-#if USE_WINDOWS_DIB
+#if GURA_USE_MSWIN_DIB
 protected:
 	HBITMAP _hBmp;
 public:

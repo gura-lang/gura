@@ -1173,7 +1173,7 @@ void Object_image::SetBuffer(size_t width, size_t height, unsigned char *buff,
 	_metrics.bytesPerLine = bytesPerLine;
 }
 
-#if USE_WINDOWS_DIB
+#if GURA_USE_MSWIN_DIB
 //-----------------------------------------------------------------------------
 // Object_image (Windows DIB section)
 //-----------------------------------------------------------------------------
@@ -1257,7 +1257,7 @@ void Object_image::FreeBuffer()
 	_buff = NULL;
 	_hBmp = NULL;
 }
-#else // USE_WINDOWS_DIB
+#else // GURA_USE_MSWIN_DIB
 //-----------------------------------------------------------------------------
 // Object_image (on memory)
 //-----------------------------------------------------------------------------

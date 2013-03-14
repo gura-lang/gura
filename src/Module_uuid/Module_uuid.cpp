@@ -22,7 +22,7 @@ Gura_ImplementFunction(generate)
 {
 	bool upperFlag = args.IsSet(Gura_Symbol(upper));
 	char str[64];
-#ifdef HAVE_WINDOWS_H
+#ifdef GURA_ON_MSWIN
 	const char *format = upperFlag?
 		"%08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X" :
 		"%08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x";

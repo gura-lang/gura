@@ -2,14 +2,14 @@
 #define __MODULE_CAIRO_H__
 
 #include <gura.h>
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 #define CAIRO_WIN32_STATIC_BUILD
 #endif
 #include <cairo.h>
 #include <cairo-pdf.h>
 #include <cairo-ps.h>
 #include <cairo-svg.h>
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 #include <cairo-win32.h>
 #endif
 
@@ -92,7 +92,7 @@ public:
 	virtual Stream *GetStream();
 };
 
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 //-----------------------------------------------------------------------------
 // Writer_EnhMetaFile declaration
 //-----------------------------------------------------------------------------

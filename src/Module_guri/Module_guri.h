@@ -4,7 +4,7 @@
 #ifndef __MODULE_GURI_H__
 #define __MODULE_GURI_H__
 #include <gura.h>
-#if defined(HAVE_WINDOWS_H)
+#if defined(GURA_ON_MSWIN)
 typedef int socklen_t;
 #else
 #include <unistd.h>
