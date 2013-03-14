@@ -125,8 +125,22 @@ Value Iterator::Eval(Environment &env, Signal sig,
 		pResultComposer.reset(new Function::ResultComposer(env, args, result));
 	}
 	bool contFlag = true;
+	const DeclarationOwner &declOwner = pFuncBlock->GetDeclOwner();
+	size_t nArgs = declOwner.size();
+	if (declOwner.IsVariableLength()) {
+		nArgs = 1;
+		for (Iterator *pIterator = this; pIterator != NULL;
+								nArgs++, pIterator = pIterator->GetSource()) ;
+	}
 	while (contFlag && Next(env, sig, value)) {
-		ValueList valListArg(value, Value(static_cast<Number>(GetCountNext() - 1)));
+		ValueList valListArg;
+		valListArg.reserve(nArgs);
+		size_t iArg = 0;
+		if (iArg++ < nArgs) valListArg.push_back(value);
+		for (Iterator *pIterator = this; iArg < nArgs && pIterator != NULL;
+								iArg++, pIterator = pIterator->GetSource()) {
+			valListArg.push_back(Value(pIterator->GetCountNext() - 1));
+		}
 		Args argsSub(valListArg);
 		Value resultElem = pFuncBlock->Eval(env, sig, argsSub);
 		if (!sig.IsSignalled()) {

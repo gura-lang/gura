@@ -156,7 +156,7 @@ IteratorGrep::IteratorGrep(Iterator *pIteratorSrc, Object_pattern *pObjPattern) 
 
 Iterator *IteratorGrep::GetSource()
 {
-	return NULL;
+	return _pIteratorSrc.get();
 }
 
 bool IteratorGrep::DoNext(Environment &env, Signal sig, Value &value)
