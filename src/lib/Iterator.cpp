@@ -125,8 +125,8 @@ Value Iterator::Eval(Environment &env, Signal sig,
 		pResultComposer.reset(new Function::ResultComposer(env, args, result));
 	}
 	bool contFlag = true;
-	for (int idx = 0; contFlag && Next(env, sig, value); idx++) {
-		ValueList valListArg(value, Value(static_cast<Number>(idx)));
+	while (contFlag && Next(env, sig, value)) {
+		ValueList valListArg(value, Value(static_cast<Number>(GetCountNext() - 1)));
 		Args argsSub(valListArg);
 		Value resultElem = pFuncBlock->Eval(env, sig, argsSub);
 		if (!sig.IsSignalled()) {
@@ -163,7 +163,7 @@ Value Iterator::Reduce(Environment &env, Signal sig,
 		return Value::Null;
 	}
 	Value value;
-	for (int idx = 0; Next(env, sig, value); idx++) {
+	while (Next(env, sig, value)) {
 		ValueList valListArg(value, valueAccum);
 		Args argsSub(valListArg);
 		Value result = pFuncBlock->Eval(env, sig, argsSub);
@@ -200,44 +200,47 @@ Value Iterator::MinMax(Environment &env, Signal sig,
 	if (!Next(env, sig, valueHit)) return Value::Null;
 	Value result;
 	if (attrs.IsSet(Gura_Symbol(index))) {
-		size_t idxHit = 0;
+		int idxHit = GetCountNext() - 1;
 		Value value;
-		for (size_t idx = 1; Next(env, sig, value); idx++) {
+		while (Next(env, sig, value)) {
 			int cmp = Value::Compare(valueHit, value);
 			if (maxFlag) cmp = -cmp;
 			if (cmp > 0) {
 				valueHit = value;
-				idxHit = idx;
+				idxHit = GetCountNext() - 1;
 			}
 		}
 		if (sig.IsSignalled()) return Value::Null;
 		result.SetNumber(idxHit);
 	} else if (attrs.IsSet(Gura_Symbol(last_index))) {
-		size_t idxHit = 0;
+		int idxHit = GetCountNext() - 1;
 		Value value;
-		for (size_t idx = 1; Next(env, sig, value); idx++) {
+		while (Next(env, sig, value)) {
 			int cmp = Value::Compare(valueHit, value);
 			if (maxFlag) cmp = -cmp;
 			if (cmp >= 0) {
 				valueHit = value;
-				idxHit = idx;
+				idxHit = GetCountNext() - 1;
 			}
 		}
 		if (sig.IsSignalled()) return Value::Null;
 		result.SetNumber(idxHit);
 	} else if (attrs.IsSet(Gura_Symbol(indices))) {
+		int idxHit = GetCountNext() - 1;
 		ValueList &resultList = result.InitAsList(env);
-		resultList.push_back(Value(static_cast<Number>(0)));
+		resultList.push_back(Value(idxHit));
 		Value value;
-		for (size_t idx = 1; Next(env, sig, value); idx++) {
+		while (Next(env, sig, value)) {
 			int cmp = Value::Compare(valueHit, value);
 			if (maxFlag) cmp = -cmp;
 			if (cmp > 0) {
+				int idxHit = GetCountNext() - 1;
 				valueHit = value;
 				resultList.clear();
-				resultList.push_back(Value(static_cast<Number>(idx)));
+				resultList.push_back(Value(idxHit));
 			} else if (cmp == 0) {
-				resultList.push_back(Value(static_cast<Number>(idx)));
+				int idxHit = GetCountNext() - 1;
+				resultList.push_back(Value(static_cast<Number>(idxHit)));
 			}
 		}
 		if (sig.IsSignalled()) return Value::Null;
@@ -442,7 +445,6 @@ Value Iterator::Or(Environment &env, Signal sig)
 
 size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria, Value &value)
 {
-	size_t idx = 0;
 	if (criteria.IsFunction()) {
 		if (IsInfinite()) {
 			SetError_InfiniteNotAllowed(sig);
@@ -454,8 +456,7 @@ size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria, Value
 			Args args(valListArg);
 			Value valueFlag = pFunc->Eval(env, sig, args);
 			if (sig.IsSignalled()) return InvalidSize;
-			if (valueFlag.GetBoolean()) return idx;
-			idx++;
+			if (valueFlag.GetBoolean()) return GetCountNext() - 1;
 		}
 		if (sig.IsSignalled()) return InvalidSize;
 	} else if (criteria.IsList() || criteria.IsIterator()) {
@@ -468,14 +469,12 @@ size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria, Value
 		while (Next(env, sig, value)) {
 			Value valueCriteria;
 			if (!pIteratorCriteria->Next(env, sig, valueCriteria)) break;
-			if (valueCriteria.GetBoolean()) return idx;
-			idx++;
+			if (valueCriteria.GetBoolean()) return GetCountNext() - 1;
 		}
 		return InvalidSize;
 	} else {
 		while (Next(env, sig, value)) {
-			if (Value::Compare(value, criteria) == 0) return idx;
-			idx++;
+			if (Value::Compare(value, criteria) == 0) return GetCountNext() - 1;
 		}
 	}
 	return InvalidSize;
@@ -487,10 +486,8 @@ size_t Iterator::FindTrue(Environment &env, Signal sig, Value &value)
 		SetError_InfiniteNotAllowed(sig);
 		return 0;
 	}
-	size_t idx = 0;
 	while (Next(env, sig, value)) {
-		if (value.GetBoolean()) return idx;
-		idx++;
+		if (value.GetBoolean()) return GetCountNext() - 1;
 	}
 	return InvalidSize;
 }

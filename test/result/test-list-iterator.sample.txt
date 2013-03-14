@@ -1,3 +1,5 @@
+x .. <iterator:1..10>
+x.min():index .. 2
 x.runlength():list .. [[3, 1], [2, 2], [5, 3], [2, 4]]
 x.each().runlength():list .. [[3, 1], [2, 2], [5, 3], [2, 4]]
 x.runlength():list .. [[3, 'a'], [2, 'b'], [5, 'c'], [2, 'd']]

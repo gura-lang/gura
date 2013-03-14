@@ -7,6 +7,13 @@ assign_tester(container):dynamic_scope {`block} = {
 	container.clear()
 }
 scope {
+	x = 1..10
+	x.next()
+	x.next()
+	tester(`x)
+	tester(`x.min():index)
+}
+scope {
 	x = [1, 1, 1, 2, 2, 3, 3, 3, 3, 3, 4, 4]
 	tester(`x.runlength():list)
 	tester(`x.each().runlength():list)
