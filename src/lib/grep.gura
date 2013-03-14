@@ -1,0 +1,28 @@
+#!/usr/bin/env gura
+import(re)
+import(argopt)
+
+argopt.Parser {|p|
+	p.addFlag('line-number', 'n')
+	try {
+		[cfg, argv] = p.parse(sys.argv)
+	} except {|e|
+		println(e.text)
+		sys.exit(1)
+	}
+	if (argv.len() < 2) {
+		sys.stderr.println('usage: grep.gura [options] pattern file ...')
+		sys.exit(1)
+	}
+	pattern = argv[0]
+	glob = argv[1]
+}
+path.glob(glob) {|fileName|
+	readlines(fileName).grep(pattern) {|m, i, j|
+		if (cfg['line-number']) {
+			printf('%s:%d:%s', fileName, j + 1, m.string)
+		} else {
+			printf('%s:%s', fileName, m.string)
+		}
+	}
+}
