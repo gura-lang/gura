@@ -1,7 +1,13 @@
 path.walk('', 1, '*.cpp', '*.h') {|fileName|
 	println(fileName)
 	lines = readlines(fileName):list
-	lines = lines:*replace('PropGet', 'GetProp'):*replace('PropSet', 'SetProp'):*replace('PropDir', 'DirProp')
-	open(fileName, 'w').dosmode(false).print(lines)
-	//print(lines)
+	linesSub = lines \
+		:*replace('HAVE_WINDOWS_H', 'GURA_ON_MSWIN') \
+		:*replace('USE_WINDOWS_DIB', 'GURA_USE_MSWIN_DIB')
+	replacedFlag = false
+	(lines != linesSub).filter() {|v, i1, i2|
+		printf('  replaced at line.%d\n', i2 + 1)
+		replacedFlag = true
+	}
+	replacedFlag && open(fileName, 'w').dosmode(false).print(linesSub)
 }
