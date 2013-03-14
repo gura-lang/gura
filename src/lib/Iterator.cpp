@@ -5,11 +5,6 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Iterator
 //-----------------------------------------------------------------------------
-Iterator::~Iterator()
-{
-	delete _pShare;
-}
-
 void Iterator::Delete(Iterator *pIterator)
 {
 	if (pIterator == NULL) return;
@@ -21,7 +16,7 @@ bool Iterator::IsSequenceInf() const { return false; }
 
 Iterator *Iterator::_Clone()
 {
-	if (_pShare == NULL) _pShare = new Share();
+	if (_pShare.get() == NULL) _pShare.reset(new Share());
 	int id = _pShare->Register();
 	return new Iterator_GenericClone(Reference(this), id);
 }
@@ -33,15 +28,16 @@ Iterator *Iterator::Clone() const
 
 bool Iterator::NextShared(Environment &env, Signal sig, int id, Value &value)
 {
-	if (_pShare == NULL) {
+	if (_pShare.get() == NULL) {
 		for (;;) {
 			if (!DoNext(env, sig, value)) return false;
 			if (!IsSkipInvalid() || value.IsValid()) break;
 		}
-		return true;
-	}
-	if (!_pShare->Next(id, value)) {
-		if (_pShare->IsDone()) return false;
+	} else if (_pShare->Next(id, value)) {
+		// nothing to do
+	} else if (_pShare->IsDone()) {
+		return false;
+	} else {
 		for (;;) {
 			if (!DoNext(env, sig, value)) {
 				_pShare->SetDone();
@@ -664,10 +660,6 @@ Iterator::Share::Share() : _doneFlag(false), _indexMin(0)
 	_indexList.push_back(_indexMin);
 }
 
-Iterator::Share::~Share()
-{
-}
-
 int Iterator::Share::Register()
 {
 	int id = static_cast<int>(_indexList.size());
@@ -701,10 +693,6 @@ void Iterator::Share::Store(int id, const Value &value)
 //-----------------------------------------------------------------------------
 // Iterator_GenericClone
 //-----------------------------------------------------------------------------
-Iterator_GenericClone::~Iterator_GenericClone()
-{
-}
-
 Iterator *Iterator_GenericClone::GetSource()
 {
 	return _pIterator.get();
@@ -730,10 +718,6 @@ void Iterator_GenericClone::GatherFollower(Environment::Frame *pFrame, Environme
 //-----------------------------------------------------------------------------
 // Iterator_Constant
 //-----------------------------------------------------------------------------
-Iterator_Constant::~Iterator_Constant()
-{
-}
-
 Iterator *Iterator_Constant::Clone() const
 {
 	return new Iterator_Constant(*this);
@@ -765,10 +749,6 @@ void Iterator_Constant::GatherFollower(Environment::Frame *pFrame, EnvironmentSe
 //-----------------------------------------------------------------------------
 // Iterator_OneShot
 //-----------------------------------------------------------------------------
-Iterator_OneShot::~Iterator_OneShot()
-{
-}
-
 Iterator *Iterator_OneShot::Clone() const
 {
 	return new Iterator_OneShot(*this);
@@ -802,10 +782,6 @@ void Iterator_OneShot::GatherFollower(Environment::Frame *pFrame, EnvironmentSet
 //-----------------------------------------------------------------------------
 // Iterator_Fill
 //-----------------------------------------------------------------------------
-Iterator_Fill::~Iterator_Fill()
-{
-}
-
 Iterator *Iterator_Fill::Clone() const
 {
 	return new Iterator_Fill(*this);
@@ -843,10 +819,6 @@ void Iterator_Fill::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 //-----------------------------------------------------------------------------
 // Iterator_Rand
 //-----------------------------------------------------------------------------
-Iterator_Rand::~Iterator_Rand()
-{
-}
-
 Iterator *Iterator_Rand::GetSource()
 {
 	return NULL;
@@ -887,10 +859,6 @@ void Iterator_Rand::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 //-----------------------------------------------------------------------------
 // Iterator_Range
 //-----------------------------------------------------------------------------
-Iterator_Range::~Iterator_Range()
-{
-}
-
 Iterator *Iterator_Range::Clone() const
 {
 	return new Iterator_Range(*this);
@@ -944,9 +912,6 @@ void Iterator_Range::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 // Iterator_Sequence
 //-----------------------------------------------------------------------------
 bool Iterator_Sequence::IsSequence() const { return true; }
-Iterator_Sequence::~Iterator_Sequence()
-{
-}
 
 Iterator *Iterator_Sequence::Clone() const
 {
@@ -995,9 +960,6 @@ void Iterator_Sequence::GatherFollower(Environment::Frame *pFrame, EnvironmentSe
 // Iterator_SequenceInf
 //-----------------------------------------------------------------------------
 bool Iterator_SequenceInf::IsSequenceInf() const { return true; }
-Iterator_SequenceInf::~Iterator_SequenceInf()
-{
-}
 
 Iterator *Iterator_SequenceInf::Clone() const
 {
@@ -1032,10 +994,6 @@ void Iterator_SequenceInf::GatherFollower(Environment::Frame *pFrame, Environmen
 //-----------------------------------------------------------------------------
 // Iterator_Interval
 //-----------------------------------------------------------------------------
-Iterator_Interval::~Iterator_Interval()
-{
-}
-
 Iterator *Iterator_Interval::Clone() const
 {
 	return new Iterator_Interval(*this);
@@ -1085,10 +1043,6 @@ Iterator_Fork::Iterator_Fork(Environment &env, Signal sig,
 	_pValueRead = _pValListToRead->begin();
 	_readBlock.blockedFlag = false;
 	_writeBlock.blockedFlag = false;
-}
-
-Iterator_Fork::~Iterator_Fork()
-{
 }
 
 Iterator *Iterator_Fork::GetSource()
@@ -1362,10 +1316,6 @@ Iterator_FuncBinder::Iterator_FuncBinder(Environment &env,
 {
 }
 
-Iterator_FuncBinder::~Iterator_FuncBinder()
-{
-}
-
 Iterator *Iterator_FuncBinder::GetSource()
 {
 	return _pIterator.get();
@@ -1420,10 +1370,6 @@ void Iterator_FuncBinder::GatherFollower(Environment::Frame *pFrame, Environment
 //-----------------------------------------------------------------------------
 // Iterator_Delay
 //-----------------------------------------------------------------------------
-Iterator_Delay::~Iterator_Delay()
-{
-}
-
 Iterator *Iterator_Delay::GetSource()
 {
 	return _pIterator.get();
@@ -1450,10 +1396,6 @@ void Iterator_Delay::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 //-----------------------------------------------------------------------------
 // Iterator_Skip
 //-----------------------------------------------------------------------------
-Iterator_Skip::~Iterator_Skip()
-{
-}
-
 Iterator *Iterator_Skip::GetSource()
 {
 	return _pIterator.get();
@@ -1488,10 +1430,6 @@ void Iterator_Skip::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 //-----------------------------------------------------------------------------
 // Iterator_SkipInvalid
 //-----------------------------------------------------------------------------
-Iterator_SkipInvalid::~Iterator_SkipInvalid()
-{
-}
-
 Iterator *Iterator_SkipInvalid::GetSource()
 {
 	return _pIterator.get();
@@ -1522,12 +1460,40 @@ void Iterator_SkipInvalid::GatherFollower(Environment::Frame *pFrame, Environmen
 }
 
 //-----------------------------------------------------------------------------
-// Iterator_RoundOff
+// Iterator_SkipFalse
 //-----------------------------------------------------------------------------
-Iterator_RoundOff::~Iterator_RoundOff()
+Iterator *Iterator_SkipFalse::GetSource()
 {
+	return _pIterator.get();
 }
 
+bool Iterator_SkipFalse::DoNext(Environment &env, Signal sig, Value &value)
+{
+	while (_pIterator->Next(env, sig, value)) {
+		if (value.GetBoolean()) return true;
+	}
+	return false;
+}
+
+String Iterator_SkipFalse::ToString(Signal sig) const
+{
+	String rtn;
+	rtn += "<iterator:skip_false:";
+	rtn += _pIterator->ToString(sig);
+	rtn += ">";
+	return rtn;
+}
+
+void Iterator_SkipFalse::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+	if (_cntRef == 1) {
+		_pIterator->GatherFollower(pFrame, envSet);
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Iterator_RoundOff
+//-----------------------------------------------------------------------------
 Iterator *Iterator_RoundOff::GetSource()
 {
 	return _pIterator.get();
@@ -1562,10 +1528,6 @@ void Iterator_RoundOff::GatherFollower(Environment::Frame *pFrame, EnvironmentSe
 //-----------------------------------------------------------------------------
 // Iterator_FilterWithFunc
 //-----------------------------------------------------------------------------
-Iterator_FilterWithFunc::~Iterator_FilterWithFunc()
-{
-}
-
 Iterator *Iterator_FilterWithFunc::GetSource()
 {
 	return _pIterator.get();
@@ -1603,10 +1565,6 @@ void Iterator_FilterWithFunc::GatherFollower(Environment::Frame *pFrame, Environ
 //-----------------------------------------------------------------------------
 // Iterator_FilterWithIter
 //-----------------------------------------------------------------------------
-Iterator_FilterWithIter::~Iterator_FilterWithIter()
-{
-}
-
 Iterator *Iterator_FilterWithIter::GetSource()
 {
 	return _pIterator.get();
@@ -1642,10 +1600,6 @@ void Iterator_FilterWithIter::GatherFollower(Environment::Frame *pFrame, Environ
 //-----------------------------------------------------------------------------
 // Iterator_WhileWithFunc
 //-----------------------------------------------------------------------------
-Iterator_WhileWithFunc::~Iterator_WhileWithFunc()
-{
-}
-
 Iterator *Iterator_WhileWithFunc::GetSource()
 {
 	return _pIterator.get();
@@ -1696,10 +1650,6 @@ void Iterator_WhileWithFunc::GatherFollower(Environment::Frame *pFrame, Environm
 //-----------------------------------------------------------------------------
 // Iterator_WhileWithIter
 //-----------------------------------------------------------------------------
-Iterator_WhileWithIter::~Iterator_WhileWithIter()
-{
-}
-
 Iterator *Iterator_WhileWithIter::GetSource()
 {
 	return _pIterator.get();
@@ -1748,10 +1698,6 @@ void Iterator_WhileWithIter::GatherFollower(Environment::Frame *pFrame, Environm
 //-----------------------------------------------------------------------------
 // Iterator_UntilWithFunc
 //-----------------------------------------------------------------------------
-Iterator_UntilWithFunc::~Iterator_UntilWithFunc()
-{
-}
-
 Iterator *Iterator_UntilWithFunc::GetSource()
 {
 	return _pIterator.get();
@@ -1806,10 +1752,6 @@ void Iterator_UntilWithFunc::GatherFollower(Environment::Frame *pFrame, Environm
 //-----------------------------------------------------------------------------
 // Iterator_UntilWithIter
 //-----------------------------------------------------------------------------
-Iterator_UntilWithIter::~Iterator_UntilWithIter()
-{
-}
-
 Iterator *Iterator_UntilWithIter::GetSource()
 {
 	return _pIterator.get();
@@ -1862,10 +1804,6 @@ void Iterator_UntilWithIter::GatherFollower(Environment::Frame *pFrame, Environm
 //-----------------------------------------------------------------------------
 // Iterator_SinceWithFunc
 //-----------------------------------------------------------------------------
-Iterator_SinceWithFunc::~Iterator_SinceWithFunc()
-{
-}
-
 Iterator *Iterator_SinceWithFunc::GetSource()
 {
 	return _pIterator.get();
@@ -1910,10 +1848,6 @@ void Iterator_SinceWithFunc::GatherFollower(Environment::Frame *pFrame, Environm
 //-----------------------------------------------------------------------------
 // Iterator_SinceWithIter
 //-----------------------------------------------------------------------------
-Iterator_SinceWithIter::~Iterator_SinceWithIter()
-{
-}
-
 Iterator *Iterator_SinceWithIter::GetSource()
 {
 	return _pIterator.get();
@@ -1956,10 +1890,6 @@ void Iterator_SinceWithIter::GatherFollower(Environment::Frame *pFrame, Environm
 //-----------------------------------------------------------------------------
 // Iterator_Replace
 //-----------------------------------------------------------------------------
-Iterator_Replace::~Iterator_Replace()
-{
-}
-
 Iterator *Iterator_Replace::GetSource()
 {
 	return _pIterator.get();
@@ -1991,10 +1921,6 @@ void Iterator_Replace::GatherFollower(Environment::Frame *pFrame, EnvironmentSet
 //-----------------------------------------------------------------------------
 // Iterator_ReplaceInvalid
 //-----------------------------------------------------------------------------
-Iterator_ReplaceInvalid::~Iterator_ReplaceInvalid()
-{
-}
-
 Iterator *Iterator_ReplaceInvalid::GetSource()
 {
 	return _pIterator.get();
@@ -2026,10 +1952,6 @@ void Iterator_ReplaceInvalid::GatherFollower(Environment::Frame *pFrame, Environ
 //-----------------------------------------------------------------------------
 // Iterator_Format
 //-----------------------------------------------------------------------------
-Iterator_Format::~Iterator_Format()
-{
-}
-
 Iterator *Iterator_Format::GetSource()
 {
 	return _pIterator.get();
@@ -2069,10 +1991,6 @@ void Iterator_Format::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 //-----------------------------------------------------------------------------
 // Iterator_Pack
 //-----------------------------------------------------------------------------
-Iterator_Pack::~Iterator_Pack()
-{
-}
-
 Iterator *Iterator_Pack::GetSource()
 {
 	return _pIterator.get();
@@ -2116,10 +2034,6 @@ void Iterator_Pack::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 //-----------------------------------------------------------------------------
 // Iterator_Zipv
 //-----------------------------------------------------------------------------
-Iterator_Zipv::~Iterator_Zipv()
-{
-}
-
 Iterator *Iterator_Zipv::GetSource()
 {
 	return _iterOwner.empty()? NULL : _iterOwner.front();
@@ -2146,10 +2060,6 @@ void Iterator_Zipv::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 //-----------------------------------------------------------------------------
 // Iterator_RunLength
 //-----------------------------------------------------------------------------
-Iterator_RunLength::~Iterator_RunLength()
-{
-}
-
 Iterator *Iterator_RunLength::GetSource()
 {
 	return _pIterator.get();
@@ -2194,10 +2104,6 @@ void Iterator_RunLength::GatherFollower(Environment::Frame *pFrame, EnvironmentS
 //-----------------------------------------------------------------------------
 // Iterator_Align
 //-----------------------------------------------------------------------------
-Iterator_Align::~Iterator_Align()
-{
-}
-
 Iterator *Iterator_Align::GetSource()
 {
 	return _pIterator.get();
@@ -2230,10 +2136,6 @@ void Iterator_Align::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 //-----------------------------------------------------------------------------
 // Iterator_Head
 //-----------------------------------------------------------------------------
-Iterator_Head::~Iterator_Head()
-{
-}
-
 Iterator *Iterator_Head::GetSource()
 {
 	return _pIterator.get();
@@ -2265,10 +2167,6 @@ void Iterator_Head::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 //-----------------------------------------------------------------------------
 // Iterator_Fold
 //-----------------------------------------------------------------------------
-Iterator_Fold::~Iterator_Fold()
-{
-}
-
 Iterator *Iterator_Fold::GetSource()
 {
 	return _pIterator.get();
@@ -2308,10 +2206,6 @@ void Iterator_Fold::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 //-----------------------------------------------------------------------------
 // Iterator_FoldSeg
 //-----------------------------------------------------------------------------
-Iterator_FoldSeg::~Iterator_FoldSeg()
-{
-}
-
 Iterator *Iterator_FoldSeg::GetSource()
 {
 	return _pIterator.get();
@@ -2345,10 +2239,6 @@ void Iterator_FoldSeg::GatherFollower(Environment::Frame *pFrame, EnvironmentSet
 //-----------------------------------------------------------------------------
 // Iterator_Concat
 //-----------------------------------------------------------------------------
-Iterator_Concat::~Iterator_Concat()
-{
-}
-
 Iterator *Iterator_Concat::GetSource()
 {
 	return _iterOwner.empty()? NULL : _iterOwner.front();
@@ -2392,10 +2282,6 @@ Iterator_repeat::Iterator_repeat(Environment &env, Signal sig, Function *pFuncBl
 		Iterator(cnt < 0, skipInvalidFlag), _env(env), _pFuncBlock(pFuncBlock),
 		_standaloneFlag(standaloneFlag),
 		_pIteratorSub(NULL), _cnt(cnt), _idx(0)
-{
-}
-
-Iterator_repeat::~Iterator_repeat()
 {
 }
 
@@ -2466,10 +2352,6 @@ Iterator_while::Iterator_while(Environment &env, Signal sig, Function *pFuncBloc
 {
 }
 
-Iterator_while::~Iterator_while()
-{
-}
-
 Iterator *Iterator_while::GetSource()
 {
 	return NULL;
@@ -2536,10 +2418,6 @@ Iterator_for::Iterator_for(Environment &env, Signal sig, Function *pFuncBlock,
 		_pIteratorSub(NULL), _idx(0), _doneFlag(false)
 {
 	PrepareRepeaterIterators(_env, sig, valListArg, _exprLeftList, _iteratorOwner);
-}
-
-Iterator_for::~Iterator_for()
-{
 }
 
 Iterator *Iterator_for::GetSource()
@@ -2649,10 +2527,6 @@ Iterator_cross::Iterator_cross(Environment &env, Signal sig, Function *pFuncBloc
 		if (sig.IsSignalled()) return;
 		ppExprLeft++;
 	}
-}
-
-Iterator_cross::~Iterator_cross()
-{
 }
 
 Iterator *Iterator_cross::GetSource()

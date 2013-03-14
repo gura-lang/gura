@@ -449,6 +449,11 @@ scope {
 	tester(`freshfruit)
 	tester(`for (weapon in freshfruit):list { weapon.strip() })
 	tester(`freshfruit::strip())
+	vec = ['hoge', false, 'foo', 'bar', nil]
+	tester(`vec.filter():list)
+	tester(`vec.each().filter():list)
+	tester(`vec.skipnil():list)
+	tester(`vec.each().skipnil():list)
 	vec = [2, 4, 6, 3, 1, 4, 2]
 	tester(`vec)
 	tester(`(3 * vec))

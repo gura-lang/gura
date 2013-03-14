@@ -1218,11 +1218,11 @@ Gura_ImplementMethod(list, iscontain)
 	return Value(result);
 }
 
-// list#filter(criteria) {block?}
+// list#filter(criteria?) {block?}
 Gura_DeclareMethod(list, filter)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "criteria", VTYPE_any);
+	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), 
 	"Returns a list that consists of elements of the original list after filtering\n"
@@ -1238,10 +1238,12 @@ Gura_ImplementMethod(list, filter)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = pIteratorSrc->Filter(env, sig, args.GetValue(0));
-	if (sig.IsSignalled()) {
-		Iterator::Delete(pIteratorSrc);
-		return Value::Null;
+	Iterator *pIterator = NULL;
+	if (args.IsValid(0)) {
+		pIterator = pIteratorSrc->Filter(env, sig, args.GetValue(0));
+		if (sig.IsSignalled()) return Value::Null;
+	} else {
+		pIterator = new Iterator_SkipFalse(pIteratorSrc);
 	}
 	return ReturnIterator(env, sig, args, pIterator);
 }

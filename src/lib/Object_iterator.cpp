@@ -535,11 +535,11 @@ Gura_ImplementMethod(iterator, iscontain)
 	return Value(result);
 }
 
-// iterator#filter(criteria) {block?}
+// iterator#filter(criteria?) {block?}
 Gura_DeclareMethod(iterator, filter)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "criteria", VTYPE_any);
+	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -547,8 +547,13 @@ Gura_ImplementMethod(iterator, filter)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
-	Iterator *pIterator = pIteratorSrc->Filter(env, sig, args.GetValue(0));
-	if (sig.IsSignalled()) return Value::Null;
+	Iterator *pIterator = NULL;
+	if (args.IsValid(0)) {
+		pIterator = pIteratorSrc->Filter(env, sig, args.GetValue(0));
+		if (sig.IsSignalled()) return Value::Null;
+	} else {
+		pIterator = new Iterator_SkipFalse(pIteratorSrc);
+	}
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
