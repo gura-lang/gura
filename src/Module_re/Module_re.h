@@ -16,9 +16,9 @@ Gura_DeclareUserSymbol(multiline);
 regex_t *CreateRegEx(Signal sig, const char *pattern, const SymbolSet &attrs);
 Value DoMatch(Environment &env, Signal sig, regex_t *pRegEx,
 							const char *str, int pos, int posEnd);
-Value DoSubWithString(Environment &env, Signal sig, regex_t *pRegEx,
+String DoSubWithString(Environment &env, Signal sig, regex_t *pRegEx,
 							const char *replace, const char *str, int cnt);
-Value DoSubWithFunc(Environment &env, Signal sig, regex_t *pRegEx,
+String DoSubWithFunc(Environment &env, Signal sig, regex_t *pRegEx,
 							const Function *pFunc, const char *str, int cnt);
 void SetError_OnigurumaError(Signal sig, int rtn);
 void SetError_FailInOniguruma(Signal sig);

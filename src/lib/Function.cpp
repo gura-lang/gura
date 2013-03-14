@@ -618,6 +618,23 @@ Value Function::ReturnValue(Environment &env, Signal sig,
 	return value;
 }
 
+Value Function::ReturnValue(Environment &env, Signal sig,
+								Args &args, const ValueList &valListArg) const
+{
+	if (!args.IsBlockSpecified()) return valListArg.front();
+	if (sig.IsSignalled()) return Value::Null;
+	Environment envBlock(&env, ENVTYPE_block);
+	const Function *pFuncBlock =
+					args.GetBlockFunc(envBlock, sig, GetSymbolForBlock());
+	if (pFuncBlock == NULL) return Value::Null;
+	Args argsSub(valListArg);
+	Value value = pFuncBlock->Eval(env, sig, argsSub);
+	if (sig.IsBreak() || sig.IsContinue()) {
+		sig.ClearSignal();
+	}
+	return value;
+}
+
 Value Function::DoRepeater(Environment &env, Signal sig,
 								Args &args, Iterator *pIterator) const
 {

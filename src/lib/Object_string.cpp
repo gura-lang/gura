@@ -556,7 +556,7 @@ Gura_ImplementMethod(string, endswith)
 	return rtn != NULL;
 }
 
-// string#replace(sub:string, replace:string, count?:number):map:[icase]
+// string#replace(sub:string, replace:string, count?:number):map:[icase] {block?}
 Gura_DeclareMethod(string, replace)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -564,6 +564,7 @@ Gura_DeclareMethod(string, replace)
 	DeclareArg(env, "replace",	VTYPE_string);
 	DeclareArg(env, "count",	VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(icase));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), 
 	"Returns a string that substitutes sub strings in the string with replace.\n"
 	"An argument count limits the maximum number of substitution\n"
@@ -576,7 +577,12 @@ Gura_ImplementMethod(string, replace)
 	String result = Replace(args.GetThis().GetString(),
 			args.GetString(0), args.GetString(1),
 			args.IsNumber(2)? args.GetInt(2) : -1, args.GetAttrs());
-	return Value(env, result.c_str());
+	if (!args.IsBlockSpecified()) return Value(env, result);
+	ValueList valListArg;
+	valListArg.reserve(2);
+	valListArg.push_back(Value(env, result));
+	valListArg.push_back(Value(result != args.GetThis().GetStringSTL()));
+	return ReturnValue(env, sig, args, valListArg);
 }
 
 // string#split(sep?:string, count?:number):[icase] {block?}

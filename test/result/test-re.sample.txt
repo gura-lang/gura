@@ -1,3 +1,9 @@
+hoge NUM foo
+no number here
+NUM aaaaaa NUM
+---
+hoge NUM foo
+NUM aaaaaa NUM
 x.grep('\\w+'):*string.join(',') .. apple,orange,pencil,1234,grape,5678
 x.grep('r'):*string.join(',') .. orange,grape
 x.grep('^a'):*string.join(',') .. apple

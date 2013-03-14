@@ -251,7 +251,7 @@ Gura_ImplementMethod(pattern, sub)
 {
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	int cnt = args.IsNumber(2)? static_cast<int>(args.GetNumber(2)) : -1;
-	Value result;
+	String result;
 	if (args.IsString(0)) {
 		result = DoSubWithString(env, sig, pThis->GetRegEx(),
 						args.GetString(0), args.GetString(1), cnt);
@@ -260,8 +260,15 @@ Gura_ImplementMethod(pattern, sub)
 						args.GetFunction(0), args.GetString(1), cnt);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 0);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, result);
+	if (sig.IsSignalled()) return Value::Null;
+	if (!args.IsBlockSpecified()) return Value(env, result);
+	ValueList valListArg;
+	valListArg.reserve(2);
+	valListArg.push_back(Value(env, result));
+	valListArg.push_back(Value(result != args.GetStringSTL(1)));
+	return ReturnValue(env, sig, args, valListArg);
 }
 
 // re.pattern#split(str:string, count?:number):map {block?}
@@ -556,7 +563,7 @@ Gura_ImplementMethod(string, sub)
 	Object_string *pThis = Object_string::GetThisObj(args);
 	regex_t *pRegEx = dynamic_cast<Object_pattern *>(args.GetObject(0))->GetRegEx();
 	int cnt = args.IsNumber(2)? static_cast<int>(args.GetNumber(2)) : -1;
-	Value result;
+	String result;
 	if (args.IsString(1)) {
 		result = DoSubWithString(env, sig, pRegEx,
 						args.GetString(1), pThis->GetString(), cnt);
@@ -565,8 +572,15 @@ Gura_ImplementMethod(string, sub)
 						args.GetFunction(1), pThis->GetString(), cnt);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 1);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, result);
+	if (sig.IsSignalled()) return Value::Null;
+	if (!args.IsBlockSpecified()) return Value(env, result);
+	ValueList valListArg;
+	valListArg.reserve(2);
+	valListArg.push_back(Value(env, result));
+	valListArg.push_back(Value(result != pThis->GetStringSTL()));
+	return ReturnValue(env, sig, args, valListArg);
 }
 
 // string#splitreg(pattern:pattern, count?:number):map {block?}
@@ -709,7 +723,7 @@ Gura_ImplementFunction(sub)
 {
 	regex_t *pRegEx = dynamic_cast<Object_pattern *>(args.GetObject(0))->GetRegEx();
 	int cnt = args.IsNumber(3)? static_cast<int>(args.GetNumber(3)) : -1;
-	Value result;
+	String result;
 	if (args.IsString(1)) {
 		result = DoSubWithString(env, sig, pRegEx,
 						args.GetString(1), args.GetString(2), cnt);
@@ -718,8 +732,15 @@ Gura_ImplementFunction(sub)
 						args.GetFunction(1), args.GetString(2), cnt);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 1);
+		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, result);
+	if (sig.IsSignalled()) return Value::Null;
+	if (!args.IsBlockSpecified()) return Value(env, result);
+	ValueList valListArg;
+	valListArg.reserve(2);
+	valListArg.push_back(Value(env, result));
+	valListArg.push_back(Value(result != args.GetStringSTL(2)));
+	return ReturnValue(env, sig, args, valListArg);
 }
 
 // re.split(pattern:pattern, str:string, count?:number):map {block?}
@@ -851,7 +872,7 @@ Value DoMatch(Environment &env, Signal sig, regex_t *pRegEx,
 	return result;
 }
 
-Value DoSubWithString(Environment &env, Signal sig, regex_t *pRegEx,
+String DoSubWithString(Environment &env, Signal sig, regex_t *pRegEx,
 							const char *replace, const char *str, int cnt)
 {
 	enum Stat { STAT_Start, STAT_Escape };
@@ -906,13 +927,13 @@ Value DoSubWithString(Environment &env, Signal sig, regex_t *pRegEx,
 	}
 	::onig_region_free(pRegion, 1); // 1:free self, 0:free contents only
 	result += String(str + idx);
-	return Value(env, result.c_str());
+	return result;
 error_done:
 	::onig_region_free(pRegion, 1); // 1:free self, 0:free contents only
-	return Value::Null;
+	return "";
 }
 
-Value DoSubWithFunc(Environment &env, Signal sig, regex_t *pRegEx,
+String DoSubWithFunc(Environment &env, Signal sig, regex_t *pRegEx,
 						const Function *pFunc, const char *str, int cnt)
 {
 	enum Stat { STAT_Start, STAT_Escape };
@@ -952,10 +973,10 @@ Value DoSubWithFunc(Environment &env, Signal sig, regex_t *pRegEx,
 	}
 	::onig_region_free(pRegion, 1); // 1:free self, 0:free contents only
 	result += String(str + idx);
-	return Value(env, result.c_str());
+	return result;
 error_done:
 	::onig_region_free(pRegion, 1); // 1:free self, 0:free contents only
-	return Value::Null;
+	return "";
 }
 
 void SetError_OnigurumaError(Signal sig, int errCode)

@@ -5,6 +5,12 @@ import(testutil) {*}
 sys.stdout.setencoding('shift_jis', false)
 
 scope {
+	x = ['hoge 123 foo', 'no number here', '456 aaaaaa 111']
+	x::sub(r'\d+', 'NUM') {|str, replaced| println(str)}
+	println('---')
+	x::sub(r'\d+', 'NUM') {|str, replaced| replaced && println(str)}
+}
+scope {
 	x = ['apple', 'orange', 'pencil', '1234', 'grape', '5678']
 	tester(`x.grep(r'\w+'):*string.join(','))
 	tester(`x.grep(r'r'):*string.join(','))
