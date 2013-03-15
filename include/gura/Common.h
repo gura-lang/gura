@@ -42,10 +42,12 @@ typedef void *HBITMAP;
 #define GURA_USE_MSWIN_DIB 0
 #endif
 
-#define NUMBEROF(x) (sizeof(x) / sizeof(x[0]))
+template<typename T>
+inline T ChooseMin(T a, T b) { return (a < b)? a : b; }
+template<typename T>
+inline T ChooseMax(T a, T b) { return (a > b)? a : b; }
 
-#define ChooseMin(a, b) (((a) < (b))? (a) : (b))
-#define ChooseMax(a, b) (((a) > (b))? (a) : (b))
+#define NUMBEROF(x) (sizeof(x) / sizeof(x[0]))
 
 #define foreach(T, i, c) for (T::iterator i = (c).begin(); i != (c).end(); i++)
 #define foreach_const(T, i, c) for (T::const_iterator i = (c).begin(); i != (c).end(); i++)
