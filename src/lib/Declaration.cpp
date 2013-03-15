@@ -388,8 +388,8 @@ Declaration *DeclarationOwner::Declare(Environment &env, const Symbol *pSymbol, 
 {
 	Declaration *pDecl =
 			new Declaration(pSymbol, valType, occurPattern, flags, pExprDefault);
-	ASSUME(env, !IsVariableLength());
-	ASSUME(env, !(!(pDecl->IsOptional() || occurPattern == OCCUR_ZeroOrMore) &&
+	GURA_ASSUME(env, !IsVariableLength());
+	GURA_ASSUME(env, !(!(pDecl->IsOptional() || occurPattern == OCCUR_ZeroOrMore) &&
 				!empty() && back()->IsOptional()));
 	push_back(pDecl);
 	return pDecl;

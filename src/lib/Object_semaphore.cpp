@@ -113,7 +113,7 @@ Class_semaphore::Class_semaphore(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 
 Object *Class_semaphore::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	ERROREND(env, "this function must not be called");
+	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
 }
 

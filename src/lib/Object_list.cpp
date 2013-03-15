@@ -185,7 +185,7 @@ Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
 
 void Object_list::ValueVisitor_Index::Visit(Signal sig, const Value &value)
 {
-	ASSUME(_env, value.IsNumber());
+	GURA_ASSUME(_env, value.IsNumber());
 	int idx = value.GetInt();
 	if (idx < 0) idx += _valList.size();
 	if (std::find(_indexList.begin(), _indexList.end(), idx) != _indexList.end()) {

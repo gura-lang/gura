@@ -737,7 +737,7 @@ Gura_ImplementMethod(iterator, sort)
 	Value value = pIteratorSrc->Eval(env, sig, args);
 	if (sig.IsSignalled()) return Value::Null;
 	if (value.IsInvalid()) return args.GetThis();
-	ASSUME(env, value.IsList());
+	GURA_ASSUME(env, value.IsList());
 	Object_list *pObj = value.GetListObj()->SortRank(sig, args.GetValue(0),
 						args.IsList(1)? &args.GetList(1) : NULL,
 						false, args.IsSet(Gura_Symbol(stable)));
@@ -760,7 +760,7 @@ Gura_ImplementMethod(iterator, rank)
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	Value value = pIteratorSrc->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
-	ASSUME(env, value.IsList());
+	GURA_ASSUME(env, value.IsList());
 	Object_list *pObj = value.GetListObj()->SortRank(sig, args.GetValue(0), NULL,
 							true, args.IsSet(Gura_Symbol(stable)));
 	if (sig.IsSignalled()) return Value::Null;
@@ -1029,7 +1029,7 @@ Gura_ImplementMethod(iterator, tail)
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	Value value = pIteratorSrc->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
-	ASSUME(env, value.IsList());
+	GURA_ASSUME(env, value.IsList());
 	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
 	Object_list *pObj = dynamic_cast<Object_list *>(Object::Reference(value.GetListObj()));
 	int cnt = args.GetInt(0);
@@ -1052,7 +1052,7 @@ Gura_ImplementMethod(iterator, reverse)
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value value = pIterator->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
-	ASSUME(env, value.IsList());
+	GURA_ASSUME(env, value.IsList());
 	Object_list *pObj = dynamic_cast<Object_list *>(Object::Reference(value.GetListObj()));
 	return ReturnIterator(env, sig, args,
 							new Object_list::IteratorReverse(pObj));
@@ -1073,7 +1073,7 @@ Gura_ImplementMethod(iterator, round)
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value value = pIterator->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
-	ASSUME(env, value.IsList());
+	GURA_ASSUME(env, value.IsList());
 	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
 	Object_list *pObj = dynamic_cast<Object_list *>(Object::Reference(value.GetListObj()));
 	return ReturnIterator(env, sig, args,
@@ -1102,7 +1102,7 @@ Gura_ImplementMethod(iterator, pingpong)
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value value = pIterator->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
-	ASSUME(env, value.IsList());
+	GURA_ASSUME(env, value.IsList());
 	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
 	Object_list *pObj = dynamic_cast<Object_list *>(Object::Reference(value.GetListObj()));
 	return ReturnIterator(env, sig, args,
@@ -1194,7 +1194,7 @@ bool Class_iterator::CastFrom(Environment &env, Signal sig, Value &value, const 
 
 Object *Class_iterator::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	ERROREND(env, "this function must not be called");
+	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
 }
 

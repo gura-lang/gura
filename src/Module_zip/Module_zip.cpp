@@ -866,7 +866,7 @@ Stream *Directory_ZIP::DoOpenStream(Environment &env, Signal sig,
 		}
 	}
 	const CentralFileHeader *pHdr = _pRecord->GetCentralFileHeader();
-	ASSUME(env, pHdr != NULL);
+	GURA_ASSUME(env, pHdr != NULL);
 	return CreateStream(sig, pStreamSrc.get(), pHdr);
 }
 

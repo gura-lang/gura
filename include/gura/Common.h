@@ -1,6 +1,8 @@
 #ifndef __GURA_COMMON_H__
 #define __GURA_COMMON_H__
 
+namespace Gura {
+
 #define GURA_VERSION "0.3.1"
 
 #if defined(_MSC_VER)
@@ -53,18 +55,15 @@ typedef void *HBITMAP;
 #ifdef DEBUG_GURA
 #define DBG(x) x
 #define DBGPARSER(x) x
-#define ASSUME(env, x) if (!(x)) { env.Error(__FILE__, __LINE__, #x); }
 #else
 #define DBG(x)
 #define DBGPARSER(x)
-#define ASSUME(env, x) if (!(x)) { env.Error(__FILE__, __LINE__, #x); }
 #endif
 
-#define ERROREND(env, str) (env).Error(__FILE__, __LINE__, (str));
+#define GURA_ASSUME(env, x) if (!(x)) { env.Error(__FILE__, __LINE__, #x); }
+#define GURA_ERROREND(env, str) (env).Error(__FILE__, __LINE__, (str));
 
 #include "PackedNumber.h"
-
-namespace Gura {
 
 GURA_DLLDECLARE extern const int MAX_STACK_LEVEL;
 GURA_DLLDECLARE extern const size_t InvalidSize;

@@ -87,7 +87,7 @@ Class_timedelta::Class_timedelta(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 
 Object *Class_timedelta::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	ERROREND(env, "this function must not be called");
+	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
 }
 

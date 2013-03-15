@@ -636,7 +636,7 @@ bool Iterator::PrepareRepeaterIterators(Environment &env, Signal sig,
 						IteratorOwner &iteratorOwner)
 {
 	foreach_const (ValueList, pValue, valListArg) {
-		ASSUME(env, pValue->IsExpr());
+		GURA_ASSUME(env, pValue->IsExpr());
 		const Expr *pExpr = pValue->GetExpr();
 		Value value;
 		if (!(pExpr->IsBinaryOp() && dynamic_cast<const Expr_BinaryOp *>(pExpr)->
