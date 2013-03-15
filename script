@@ -1,0 +1,39 @@
+#!/usr/bin/env gura
+import(re)
+import(argopt)
+
+argopt.Parser {|p|
+	p.addFlag('line-number',	'n', 'print line number with output lines')
+	p.addFlag('recursive',		'r', 'recursively search subdirectories')
+	p.addParam('level',			'l', 'specify depth-level for recursive search', 'NUM')
+	try {
+		[cfg, argv] = p.parse(sys.argv)
+	} except {|e|
+		println(e.text)
+		sys.exit(1)
+	}
+	if (argv.len() < 2) {
+		sys.stderr.println('usage: grep.gura [options] pattern file ...')
+		println('options:')
+		printf('  -%s, --%-*s  %s\n', p.entries:*shortName,
+				p.entries:*longName:*len().max(), p.entries:*longName,
+				p.entries:*help)
+		sys.exit(1)
+	}
+	pattern = argv[0]
+}
+if (cfg['recursive']) {
+	level = cfg['level']
+	fileNames = path.walk('', level, argv[1..]*)
+} else {
+	fileNames = path.glob(argv[1..]):list
+}
+fileNames.each {|fileName|
+	readlines(fileName).grep(pattern) {|m, i, j|
+		if (cfg['line-number']) {
+			printf('%s:%d:%s', fileName, j + 1, m.string)
+		} else {
+			printf('%s:%s', fileName, m.string)
+		}
+	}
+}

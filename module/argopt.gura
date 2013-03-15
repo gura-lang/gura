@@ -10,7 +10,8 @@
 //       [cfg, argv] = p.parse(sys.argv)
 //   }
 //-----------------------------------------------------------------------------
-Entry = struct(type:symbol, longName:string, shortName:string:nil, help:string:nil, defValue)
+Entry = struct(type:symbol, longName:string, shortName:string:nil,
+							help:string:nil, helpValue:string:nil, defValue)
 
 Parser = class {
 	__init__() = {
@@ -76,14 +77,14 @@ Parser = class {
 		}
 		[cfg, argvRest]
 	}
-	addParam(longName:string, shortName?:string, help?:string, defValue?:string) = {
-		this.entries.add(Entry(`param, longName, shortName, help, defValue))
+	addParam(longName:string, shortName?:string, help?:string, helpValue?:string, defValue?:string) = {
+		this.entries.add(Entry(`param, longName, shortName, help, helpValue, defValue))
 	}
 	addFlag(longName:string, shortName?:string, help?:string) = {
-		this.entries.add(Entry(`flag, longName, shortName, help, false))
+		this.entries.add(Entry(`flag, longName, shortName, help, nil, false))
 	}
 	formatHelp() = {
-		format('%-*s  %s', this.entries:*longName:*len().max(),
+		format('--%-*s  %s', this.entries:*longName:*len().max(),
 						this.entries:*longName, this.entries:*help.nilto(''))
 	}
 }
