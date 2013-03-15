@@ -1,6 +1,14 @@
 #ifndef __GURA_COMMON_H__
 #define __GURA_COMMON_H__
 
+#include "PackedNumber.h"
+
+#define ArraySizeOf(array)				(sizeof(array) / sizeof(array[0]))
+#define foreach(T, i, c)				for (T::iterator i = (c).begin(); i != (c).end(); i++)
+#define foreach_const(T, i, c)			for (T::const_iterator i = (c).begin(); i != (c).end(); i++)
+#define foreach_reverse(T, i, c)		for (T::reverse_iterator i = (c).rbegin(); i != (c).rend(); i++)
+#define foreach_const_reverse(T, i, c)	for (T::const_reverse_iterator i = (c).rbegin(); i != (c).rend(); i++)
+
 namespace Gura {
 
 #define GURA_VERSION "0.3.1"
@@ -42,30 +50,13 @@ typedef void *HBITMAP;
 #define GURA_USE_MSWIN_DIB 0
 #endif
 
+#define GURA_ASSUME(env, x) if (!(x)) { env.Error(__FILE__, __LINE__, #x); }
+#define GURA_GURA_ERROREND(env, str) (env).Error(__FILE__, __LINE__, (str));
+
 template<typename T>
 inline T ChooseMin(T a, T b) { return (a < b)? a : b; }
 template<typename T>
 inline T ChooseMax(T a, T b) { return (a > b)? a : b; }
-
-#define NUMBEROF(x) (sizeof(x) / sizeof(x[0]))
-
-#define foreach(T, i, c) for (T::iterator i = (c).begin(); i != (c).end(); i++)
-#define foreach_const(T, i, c) for (T::const_iterator i = (c).begin(); i != (c).end(); i++)
-#define foreach_reverse(T, i, c) for (T::reverse_iterator i = (c).rbegin(); i != (c).rend(); i++)
-#define foreach_const_reverse(T, i, c) for (T::const_reverse_iterator i = (c).rbegin(); i != (c).rend(); i++)
-
-#ifdef DEBUG_GURA
-#define DBG(x) x
-#define DBGPARSER(x) x
-#else
-#define DBG(x)
-#define DBGPARSER(x)
-#endif
-
-#define GURA_ASSUME(env, x) if (!(x)) { env.Error(__FILE__, __LINE__, #x); }
-#define GURA_ERROREND(env, str) (env).Error(__FILE__, __LINE__, (str));
-
-#include "PackedNumber.h"
 
 GURA_DLLDECLARE extern const int MAX_STACK_LEVEL;
 GURA_DLLDECLARE extern const size_t InvalidSize;

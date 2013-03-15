@@ -335,7 +335,7 @@ bool Class_function::Deserialize(Environment &env, Signal sig, Stream &stream, V
 
 Object *Class_function::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	GURA_ERROREND(env, "this function must not be called");
+	GURA_GURA_ERROREND(env, "this function must not be called");
 	return NULL;
 }
 

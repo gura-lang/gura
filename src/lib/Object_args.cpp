@@ -61,7 +61,7 @@ Class_args::Class_args(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_args)
 
 Object *Class_args::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	GURA_ERROREND(env, "this function must not be called");
+	GURA_GURA_ERROREND(env, "this function must not be called");
 	return NULL;
 }
 

@@ -959,7 +959,7 @@ bool Class_palette::CastFrom(Environment &env, Signal sig, Value &value, const D
 
 Object *Class_palette::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	GURA_ERROREND(env, "this function must not be called");
+	GURA_GURA_ERROREND(env, "this function must not be called");
 	return NULL;
 }
 

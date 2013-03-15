@@ -1058,7 +1058,7 @@ bool Class_color::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 
 Object *Class_color::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	GURA_ERROREND(env, "this function must not be called");
+	GURA_GURA_ERROREND(env, "this function must not be called");
 	return NULL;
 }
 
