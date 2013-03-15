@@ -100,9 +100,12 @@ static bool ExpandWildCard(Environment &env, Signal sig,
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag));
 	if (!pIterator->Init(env, sig, pattern)) return false;
 	Value value;
+	bool emptyFlag = true;
 	while (pIterator->Next(env, sig, value)) {
 		valList.push_back(value);
+		emptyFlag  = false;
 	}
+	if (emptyFlag) valList.push_back(Value(env, pattern));
 	return !sig.IsSignalled();
 }
 
@@ -117,11 +120,12 @@ bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[])
 					OAL::MakeAbsPathName(OAL::FileSeparator, argv[1]).c_str()));
 			for (int i = 2; i < argc; i++) {
 				const char *arg = argv[i];
-				if (Directory::HasWildCard(arg)) {
-					if (!ExpandWildCard(env, sig, valList, arg)) return false;
-				} else {
-					valList.push_back(Value(env, arg));
-				}
+				//if (Directory::HasWildCard(arg)) {
+				//	if (!ExpandWildCard(env, sig, valList, arg)) return false;
+				//} else {
+				//	valList.push_back(Value(env, arg));
+				//}
+				valList.push_back(Value(env, arg));
 			}
 		}
 		env.AssignValue(Symbol::Add("argv"), value, false);

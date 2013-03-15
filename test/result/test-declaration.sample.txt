@@ -3,6 +3,7 @@
 @:function = @(func?:function) {block?}
 @@:function = @@() {block}
 @rem:nil = nil
+ArgumentError:error = <error:ArgumentError>
 ArithmeticError:error = <error:ArithmeticError>
 AttributeError:error = <error:AttributeError>
 CodecError:error = <error:CodecError>
@@ -20,7 +21,6 @@ None:error = <error:None>
 NotImplementedError:error = <error:NotImplementedError>
 ResourceError:error = <error:ResourceError>
 RuntimeError:error = <error:RuntimeError>
-StopIteration:error = <error:StopIteration>
 SyntaxError:error = <error:SyntaxError>
 SystemError:error = <error:SystemError>
 TypeError:error = <error:TypeError>

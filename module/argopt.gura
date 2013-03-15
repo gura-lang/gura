@@ -35,7 +35,7 @@ Parser = class {
 					[longName, value] = fields
 				}
 				entry = this.entries.find(this.entries:*longName == longName)
-				!entry && raise(CommandError, 'unknown option --' + longName)
+				!entry && raise(ArgumentError, 'unknown option --' + longName)
 			} elsif (arg.startswith('-')) {
 				if (arg.len() == 1) {
 					argvRest.add(arg)
@@ -46,7 +46,7 @@ Parser = class {
 					value = arg.mid(2)
 				}
 				entry = this.entries.find(this.entries:*shortName == shortName)
-				!entry && raise(CommandError, 'unknown option -' + shortName)
+				!entry && raise(ArgumentError, 'unknown option -' + shortName)
 				if (entry.type != `flag && !value) {
 					value = i.next()
 				}
@@ -64,14 +64,14 @@ Parser = class {
 					} elsif (str in ['f', 'false', 'off', 'nil']) {
 						value = false
 					} else {
-						raise(CommandError, 'invalid value for flag: ' + value)
+						raise(ArgumentError, 'invalid value for flag: ' + value)
 					}
 				}
 				cfg[entry.longName] = value
 			} elsif (value) {
 				cfg[entry.longName] = value
 			} else {
-				raise(CommandError, 'value is necessary')
+				raise(ArgumentError, 'value is necessary')
 			}
 		}
 		[cfg, argvRest]

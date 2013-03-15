@@ -10,14 +10,13 @@ argopt.Parser {|p|
 		println(e.text)
 		sys.exit(1)
 	}
-	if (argv.len() < 2) {
+	if (argv.len() < 3) {
 		sys.stderr.println('usage: grep.gura [options] pattern file ...')
 		sys.exit(1)
 	}
 	pattern = argv[0]
-	glob = argv[1]
 }
-path.glob(glob) {|fileName|
+argv[1..].each {|fileName|
 	readlines(fileName).grep(pattern) {|m, i, j|
 		if (cfg['line-number']) {
 			printf('%s:%d:%s', fileName, j + 1, m.string)
