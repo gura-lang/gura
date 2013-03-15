@@ -49,15 +49,16 @@ Gura_ModuleEntry()
 		Value valueBuild, valuePlatform;
 #if defined(_MSC_VER)
 		valueBuild = Value(Gura_Symbol(msc));
-		valuePlatform = Value(Gura_Symbol(windows));
-#elif defined(__BORLANDC__)
-		valueBuild = Value(Gura_Symbol(bcc));
-		valuePlatform = Value(Gura_Symbol(windows));
 #elif defined(__GNUC__) && defined(__GNUC_MINOR__)
 		valueBuild = Value(Gura_Symbol(gnuc));
-		valuePlatform = Value(Gura_Symbol(linux));
 #else
 		valueBuild = Value::Null;
+#endif
+#if defined(GURA_ON_MSWIN)
+		valuePlatform = Value(Gura_Symbol(windows));
+#elif defined(GURA_ON_LINUX)
+		valuePlatform = Value(Gura_Symbol(linux));
+#else
 		valuePlatform = Value::Null;
 #endif
 		Gura_AssignValue(build, valueBuild);
@@ -83,7 +84,29 @@ bool IsCompositeFile(const char *pathName)
 			::strcasecmp(extName, ".gurcw") == 0;
 }
 
-void Setup(Module *pModule, Signal sig, int argc, const char *argv[])
+static bool ExpandWildCard(Environment &env, Signal sig,
+									ValueList &valList, const char *pattern)
+{
+	bool addSepFlag = true;
+	bool statFlag = false;
+#if defined(GURA_ON_MSWIN)
+	bool ignoreCaseFlag = true;
+#else
+	bool ignoreCaseFlag = false;
+#endif
+	bool fileFlag = true;
+	bool dirFlag = true;
+	AutoPtr<Directory::Iterator_Glob> pIterator(new Directory::Iterator_Glob(
+					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag));
+	if (!pIterator->Init(env, sig, pattern)) return false;
+	Value value;
+	while (pIterator->Next(env, sig, value)) {
+		valList.push_back(value);
+	}
+	return !sig.IsSignalled();
+}
+
+bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[])
 {
 	Environment &env = *pModule;
 	do {
@@ -94,7 +117,11 @@ void Setup(Module *pModule, Signal sig, int argc, const char *argv[])
 					OAL::MakeAbsPathName(OAL::FileSeparator, argv[1]).c_str()));
 			for (int i = 2; i < argc; i++) {
 				const char *arg = argv[i];
-				valList.push_back(Value(env, arg));
+				if (Directory::HasWildCard(arg)) {
+					if (!ExpandWildCard(env, sig, valList, arg)) return false;
+				} else {
+					valList.push_back(Value(env, arg));
+				}
 			}
 		}
 		env.AssignValue(Symbol::Add("argv"), value, false);
@@ -127,7 +154,7 @@ void Setup(Module *pModule, Signal sig, int argc, const char *argv[])
 		}
 		env.AssignValue(Symbol::Add("maindir"), Value(env, str.c_str()), false);
 	} while (0);
-	env.GetGlobal()->_pModule_sys = pModule;
+	return true;
 }
 
 Gura_EndModule(sys, sys)

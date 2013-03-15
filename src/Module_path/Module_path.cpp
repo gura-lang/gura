@@ -143,13 +143,12 @@ Gura_ImplementFunction(glob)
 	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
 	bool fileFlag = args.IsSet(Gura_Symbol(file)) || !args.IsSet(Gura_Symbol(dir));
 	bool dirFlag = args.IsSet(Gura_Symbol(dir)) || !args.IsSet(Gura_Symbol(file));
-	Directory::Iterator_Glob *pIterator = new Directory::Iterator_Glob(
-					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag);
+	AutoPtr<Directory::Iterator_Glob> pIterator(new Directory::Iterator_Glob(
+					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag));
 	if (!pIterator->Init(env, sig, args.GetString(0))) {
-		Iterator::Delete(pIterator);
 		return Value::Null;
 	}
-	return ReturnIterator(env, sig, args, pIterator);
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // path.match(pattern:string, name:string):map

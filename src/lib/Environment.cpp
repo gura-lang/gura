@@ -6,7 +6,7 @@
 
 Gura_IncludeModule(basement)
 Gura_IncludeModuleBegin(sys)
-void Setup(Module *pModule, Signal sig, int argc, const char *argv[]);
+bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[]);
 Gura_IncludeModuleEnd()
 Gura_IncludeModule(codecs_basic)
 Gura_IncludeModule(codecs_iso8859)
@@ -986,8 +986,7 @@ bool EnvironmentRoot::Initialize(Signal sig, int argc, const char *argv[])
 	do { // import(sys), this module must be imported just after basement
 		Module *pModule = Gura_Module(sys)::Import(env, sig);
 		if (sig.IsSignalled()) return false;
-		Gura_Module(sys)::Setup(pModule, sig, argc, argv);
-		if (sig.IsSignalled()) return false;
+		GetGlobal()->_pModule_sys = pModule;
 	} while (0);
 	do {
 		Module *pModule = new Module(&env, Symbol::Add("codecs"),
@@ -1030,6 +1029,9 @@ bool EnvironmentRoot::Initialize(Signal sig, int argc, const char *argv[])
 		Gura_Module(math)::Import(env, sig);
 		if (sig.IsSignalled()) return false;
 	} while (0);
+	if (!Gura_Module(sys)::SetupValues(GetModule_sys(), sig, argc, argv)) {
+		return false;
+	}
 	OAL::SetupExecutablePath();
 	return true;
 }

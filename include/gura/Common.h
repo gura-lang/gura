@@ -3,10 +3,6 @@
 
 #define GURA_VERSION "0.3.1"
 
-#if defined(__BORLANDC__)
-#define GURA_ON_MSWIN
-#endif
-
 #if defined(_MSC_VER)
 #define GURA_ON_MSWIN
 #undef SetProp
@@ -15,6 +11,8 @@
 #pragma warning(disable:4275)
 #pragma warning(disable:4355)
 #pragma warning(disable:4996)
+#else
+#define GURA_ON_LINUX
 #endif
 
 #if defined(GURA_ON_MSWIN)
