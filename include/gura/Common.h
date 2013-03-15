@@ -4,6 +4,7 @@
 #include "PackedNumber.h"
 
 #define ArraySizeOf(array)				(sizeof(array) / sizeof(array[0]))
+
 #define foreach(T, i, c)				for (T::iterator i = (c).begin(); i != (c).end(); i++)
 #define foreach_const(T, i, c)			for (T::const_iterator i = (c).begin(); i != (c).end(); i++)
 #define foreach_reverse(T, i, c)		for (T::reverse_iterator i = (c).rbegin(); i != (c).rend(); i++)
@@ -51,7 +52,7 @@ typedef void *HBITMAP;
 #endif
 
 #define GURA_ASSUME(env, x) if (!(x)) { env.Error(__FILE__, __LINE__, #x); }
-#define GURA_GURA_ERROREND(env, str) (env).Error(__FILE__, __LINE__, (str));
+#define GURA_ERROREND(env, str) (env).Error(__FILE__, __LINE__, (str))
 
 template<typename T>
 inline T ChooseMin(T a, T b) { return (a < b)? a : b; }
@@ -204,26 +205,26 @@ public:
 //-----------------------------------------------------------------------------
 struct BitmapFileHeader {
 	enum { Size = 14 };
-	XPackedUShort_LE(bfType);
-	XPackedULong_LE(bfSize);
-	XPackedUShort_LE(bfReserved1);
-	XPackedUShort_LE(bfReserved2);
-	XPackedULong_LE(bfOffBits);
+	Gura_PackedUShort_LE(bfType);
+	Gura_PackedULong_LE(bfSize);
+	Gura_PackedUShort_LE(bfReserved1);
+	Gura_PackedUShort_LE(bfReserved2);
+	Gura_PackedULong_LE(bfOffBits);
 };
 
 struct BitmapInfoHeader {
 	enum { Size = 40 };
-	XPackedULong_LE(biSize);
-	XPackedLong_LE(biWidth);
-	XPackedLong_LE(biHeight);
-	XPackedUShort_LE(biPlanes);
-	XPackedUShort_LE(biBitCount);
-	XPackedULong_LE(biCompression);
-	XPackedULong_LE(biSizeImage);
-	XPackedLong_LE(biXPelsPerMeter);
-	XPackedLong_LE(biYPelsPerMeter);
-	XPackedULong_LE(biClrUsed);
-	XPackedULong_LE(biClrImportant);
+	Gura_PackedULong_LE(biSize);
+	Gura_PackedLong_LE(biWidth);
+	Gura_PackedLong_LE(biHeight);
+	Gura_PackedUShort_LE(biPlanes);
+	Gura_PackedUShort_LE(biBitCount);
+	Gura_PackedULong_LE(biCompression);
+	Gura_PackedULong_LE(biSizeImage);
+	Gura_PackedLong_LE(biXPelsPerMeter);
+	Gura_PackedLong_LE(biYPelsPerMeter);
+	Gura_PackedULong_LE(biClrUsed);
+	Gura_PackedULong_LE(biClrImportant);
 };
 
 }

@@ -869,7 +869,7 @@ bool Iterator_RegEnumKey::DoNext(Environment &env, Signal sig, Value &value)
 	char name[256];
 	FILETIME ftLastWriteTime;
 	HKEY hKey = _pObjRegKey->GetKey();
-	DWORD pcName = NUMBEROF(name);
+	DWORD pcName = ArraySizeOf(name);
 	DWORD dwErrCode = ::RegEnumKeyEx(hKey, _dwIndex, name, &pcName,
 										NULL, NULL, NULL, &ftLastWriteTime);
 	if (dwErrCode != ERROR_SUCCESS) {
@@ -916,7 +916,7 @@ Iterator *Iterator_RegEnumValue::GetSource()
 bool Iterator_RegEnumValue::DoNext(Environment &env, Signal sig, Value &value)
 {
 	char valueName[256];
-	DWORD cValueName = NUMBEROF(valueName);
+	DWORD cValueName = ArraySizeOf(valueName);
 	HKEY hKey = _pObjRegKey->GetKey();
 	DWORD dwType;
 	DWORD cbData;
@@ -926,7 +926,7 @@ bool Iterator_RegEnumValue::DoNext(Environment &env, Signal sig, Value &value)
 		if (dwErrCode != ERROR_NO_MORE_ITEMS) SetError(sig, dwErrCode);
 		return false;
 	}
-	cValueName = NUMBEROF(valueName);
+	cValueName = ArraySizeOf(valueName);
 	LPBYTE lpData = reinterpret_cast<LPBYTE>(::LocalAlloc(LMEM_FIXED, cbData));
 	dwErrCode = ::RegEnumValue(hKey, _dwIndex, 
 						valueName, &cValueName, NULL, &dwType, lpData, &cbData);

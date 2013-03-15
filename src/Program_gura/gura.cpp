@@ -33,7 +33,7 @@ int Main(int argc, const char *argv[])
 		{ "version",		'v', false	},
 		{ "llvm",			'o', true	},
 	};
-	Option opt(optInfoTbl, NUMBEROF(optInfoTbl));
+	Option opt(optInfoTbl, ArraySizeOf(optInfoTbl));
 	String strErr;
 	bool rtn = opt.Parse(argc, argv, strErr);
 	if (!rtn) {

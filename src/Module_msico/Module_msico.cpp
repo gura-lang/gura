@@ -45,7 +45,7 @@ bool Object_content::Read(Environment &env, Signal sig,
 			sig.SetError(ERR_FormatError, "invalid ICO format");
 			return false;
 		}
-		cntIcons = XUnpackUShort(iconDir.idCount);
+		cntIcons = Gura_UnpackUShort(iconDir.idCount);
 	} while (0);
 	LongList imageOffsets;
 	for (int iIcon = 0; iIcon < cntIcons; iIcon++) {
@@ -54,7 +54,7 @@ bool Object_content::Read(Environment &env, Signal sig,
 			sig.SetError(ERR_FormatError, "invalid ICO format");
 			return false;
 		}
-		long imageOffset = XUnpackLong(iconDirEntry.dwImageOffset);
+		long imageOffset = Gura_UnpackLong(iconDirEntry.dwImageOffset);
 		imageOffsets.push_back(imageOffset);
 	}
 	foreach (LongList, pImageOffset, imageOffsets) {
@@ -65,9 +65,9 @@ bool Object_content::Read(Environment &env, Signal sig,
 			sig.SetError(ERR_FormatError, "invalid ICO format");
 			return false;
 		}
-		int biWidth = XUnpackLong(bih.biWidth);
-		int biHeight = XUnpackLong(bih.biHeight) / 2;
-		unsigned short biBitCount = XUnpackUShort(bih.biBitCount);
+		int biWidth = Gura_UnpackLong(bih.biWidth);
+		int biHeight = Gura_UnpackLong(bih.biHeight) / 2;
+		unsigned short biBitCount = Gura_UnpackUShort(bih.biBitCount);
 		Object_image *pObjImage = new Object_image(env, format);
 		if (!pObjImage->ReadDIBPalette(sig, stream, biBitCount)) return false;
 		if (!pObjImage->ReadDIB(sig, stream, biWidth, biHeight, biBitCount, true)) {
@@ -84,9 +84,9 @@ bool Object_content::Write(Environment &env, Signal sig, Stream &stream)
 	do {
 		IconDir iconDir;
 		::memset(&iconDir, 0x00, sizeof(iconDir));
-		XPackUShort(iconDir.idReserved,	0x0000);
-		XPackUShort(iconDir.idType,		0x0001);
-		XPackUShort(iconDir.idCount,	cntIcons);
+		Gura_PackUShort(iconDir.idReserved,	0x0000);
+		Gura_PackUShort(iconDir.idType,		0x0001);
+		Gura_PackUShort(iconDir.idCount,	cntIcons);
 		stream.Write(sig, &iconDir, IconDir::Size);
 		if (sig.IsSignalled()) return false;
 	} while (0);
@@ -112,11 +112,11 @@ bool Object_content::Write(Environment &env, Signal sig, Stream &stream)
 						static_cast<unsigned char>(1 << biBitCount) : 0;
 		iconDirEntry.bReserved = 0;
 		unsigned short wPlanes = (biBitCount >= 8)? 1 : 0;
-		XPackUShort(iconDirEntry.wPlanes, wPlanes);
+		Gura_PackUShort(iconDirEntry.wPlanes, wPlanes);
 		unsigned short wBitCount = (biBitCount >= 8)? biBitCount : 0;
-		XPackUShort(iconDirEntry.wBitCount, wBitCount);
-		XPackULong(iconDirEntry.dwBytesInRes, dwBytesInRes);
-		XPackULong(iconDirEntry.dwImageOffset, dwImageOffset);
+		Gura_PackUShort(iconDirEntry.wBitCount, wBitCount);
+		Gura_PackULong(iconDirEntry.dwBytesInRes, dwBytesInRes);
+		Gura_PackULong(iconDirEntry.dwImageOffset, dwImageOffset);
 		stream.Write(sig, &iconDirEntry, IconDirEntry::Size);
 		if (sig.IsSignalled()) return false;
 		dwImageOffset += dwBytesInRes;
@@ -127,17 +127,17 @@ bool Object_content::Write(Environment &env, Signal sig, Stream &stream)
 		int biBitCount = pObjImage->CalcDIBBitCount();
 		BitmapInfoHeader bih;
 		::memset(&bih, 0x00, sizeof(bih));
-		XPackULong(bih.biSize,			BitmapInfoHeader::Size);
-		XPackLong(bih.biWidth,			width);
-		XPackLong(bih.biHeight,			height * 2);
-		XPackUShort(bih.biPlanes,		1);
-		XPackUShort(bih.biBitCount,		biBitCount);
-		XPackULong(bih.biCompression,	0);	// just set to zero
-		XPackULong(bih.biSizeImage,		0);	// just set to zero
-		XPackLong(bih.biXPelsPerMeter,	0);	// just set to zero
-		XPackLong(bih.biYPelsPerMeter,	0);	// just set to zero
-		XPackULong(bih.biClrUsed,		0);	// just set to zero
-		XPackULong(bih.biClrImportant,	0);	// just set to zero
+		Gura_PackULong(bih.biSize,			BitmapInfoHeader::Size);
+		Gura_PackLong(bih.biWidth,			width);
+		Gura_PackLong(bih.biHeight,			height * 2);
+		Gura_PackUShort(bih.biPlanes,		1);
+		Gura_PackUShort(bih.biBitCount,		biBitCount);
+		Gura_PackULong(bih.biCompression,	0);	// just set to zero
+		Gura_PackULong(bih.biSizeImage,		0);	// just set to zero
+		Gura_PackLong(bih.biXPelsPerMeter,	0);	// just set to zero
+		Gura_PackLong(bih.biYPelsPerMeter,	0);	// just set to zero
+		Gura_PackULong(bih.biClrUsed,		0);	// just set to zero
+		Gura_PackULong(bih.biClrImportant,	0);	// just set to zero
 		stream.Write(sig, &bih, BitmapInfoHeader::Size);
 		if (sig.IsSignalled()) return false;
 		if (!pObjImage->WriteDIBPalette(sig, stream, biBitCount)) return false;
@@ -314,7 +314,7 @@ bool ImageStreamer_ICO::ReadStream(Signal sig,
 			sig.SetError(ERR_FormatError, "invalid ICO format");
 			return false;
 		}
-		cntIcons = XUnpackUShort(iconDir.idCount);
+		cntIcons = Gura_UnpackUShort(iconDir.idCount);
 	} while (0);
 	if (idx >= cntIcons) {
 		sig.SetError(ERR_FormatError, "index of icon is out of range");
@@ -328,7 +328,7 @@ bool ImageStreamer_ICO::ReadStream(Signal sig,
 			sig.SetError(ERR_FormatError, "invalid ICO format");
 			return false;
 		}
-		dwImageOffset = XUnpackLong(iconDirEntry.dwImageOffset);
+		dwImageOffset = Gura_UnpackLong(iconDirEntry.dwImageOffset);
 	} while (0);
 	do {
 		if (!stream.Seek(sig, dwImageOffset, Stream::SeekSet)) return false;
@@ -337,9 +337,9 @@ bool ImageStreamer_ICO::ReadStream(Signal sig,
 			sig.SetError(ERR_FormatError, "invalid ICO format");
 			return false;
 		}
-		int biWidth = XUnpackLong(bih.biWidth);
-		int biHeight = XUnpackLong(bih.biHeight) / 2;
-		unsigned short biBitCount = XUnpackUShort(bih.biBitCount);
+		int biWidth = Gura_UnpackLong(bih.biWidth);
+		int biHeight = Gura_UnpackLong(bih.biHeight) / 2;
+		unsigned short biBitCount = Gura_UnpackUShort(bih.biBitCount);
 		if (!pObjImage->ReadDIBPalette(sig, stream, biBitCount)) return false;
 		if (!pObjImage->ReadDIB(sig, stream, biWidth, biHeight, biBitCount, true)) {
 			return false;

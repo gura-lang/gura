@@ -51,7 +51,7 @@ const char *Codec::EncodingFromLANG()
 			{ "ja",	 	"euc-jp" },
 			{ "ja_JP",	"euc-jp" },
 		};
-		for (int i = 0; i < NUMBEROF(assocInfoTbl); i++) {
+		for (int i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
 			if (::strcasecmp(langLeft.c_str(), assocInfoTbl[i].key) == 0) {
 				return assocInfoTbl[i].value;
 			}
@@ -66,7 +66,7 @@ const char *Codec::EncodingFromLANG()
 			{ "utf16",	"utf-16" },
 			{ "SJIS",	"shift_jis" },
 		};
-		for (int i = 0; i < NUMBEROF(assocInfoTbl); i++) {
+		for (int i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
 			if (::strcasecmp(langRight.c_str(), assocInfoTbl[i].key) == 0) {
 				return assocInfoTbl[i].value;
 			}

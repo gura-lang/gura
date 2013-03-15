@@ -158,7 +158,7 @@ bool Class_codec::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 
 Object *Class_codec::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	GURA_GURA_ERROREND(env, "this function must not be called");
+	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
 }
 

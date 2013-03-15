@@ -79,9 +79,9 @@ Value Object_LogicalScreenDescriptor::DoGetProp(Environment &env, Signal sig, co
 	evaluatedFlag = true;
 	GIF::LogicalScreenDescriptor &lsd = gif.GetLogicalScreenDescriptor();
 	if (pSymbol->IsIdentical(Gura_UserSymbol(LogicalScreenWidth))) {
-		return Value(XUnpackUShort(lsd.LogicalScreenWidth));
+		return Value(Gura_UnpackUShort(lsd.LogicalScreenWidth));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(LogicalScreenHeight))) {
-		return Value(XUnpackUShort(lsd.LogicalScreenHeight));
+		return Value(Gura_UnpackUShort(lsd.LogicalScreenHeight));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(GlobalColorTableFlag))) {
 		return Value(lsd.GlobalColorTableFlag());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ColorResolution))) {
@@ -188,13 +188,13 @@ Value Object_PlainTextExtension::DoGetProp(Environment &env, Signal sig, const S
 	if (!exts.plainText.validFlag) return Value::Null;
 	GIF::PlainTextExtension &pltxt = exts.plainText;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(TextGridLeftPosition))) {
-		return Value(XUnpackUShort(pltxt.TextGridLeftPosition));
+		return Value(Gura_UnpackUShort(pltxt.TextGridLeftPosition));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TextGridTopPosition))) {
-		return Value(XUnpackUShort(pltxt.TextGridTopPosition));
+		return Value(Gura_UnpackUShort(pltxt.TextGridTopPosition));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TextGridWidth))) {
-		return Value(XUnpackUShort(pltxt.TextGridWidth));
+		return Value(Gura_UnpackUShort(pltxt.TextGridWidth));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TextGridHeight))) {
-		return Value(XUnpackUShort(pltxt.TextGridHeight));
+		return Value(Gura_UnpackUShort(pltxt.TextGridHeight));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CharacterCellWidth))) {
 		return Value(pltxt.CharacterCellWidth);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CharacterCellHeight))) {
@@ -310,7 +310,7 @@ bool GIF::Read(Environment &env, Signal sig, Stream &stream,
 		// set default values
 		graphicControl.BlockSize = 4;
 		graphicControl.PackedFields = (1 << 2) | (0 << 1) | (0 << 0);
-		XPackUShort(graphicControl.DelayTime, 0);
+		Gura_PackUShort(graphicControl.DelayTime, 0);
 		graphicControl.TransparentColorIndex = 0;
 	} while (0);
 	for (;;) {
@@ -420,9 +420,9 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 		pObjImage->SetPaletteObj(Object_palette::Reference(_pObjPaletteGlobal));
 		ImageDescriptor *pImageDescriptor = GetImageDescriptor(pObjImage);
 		size_t width = pObjImage->GetWidth() +
-						XUnpackUShort(pImageDescriptor->ImageLeftPosition);
+						Gura_UnpackUShort(pImageDescriptor->ImageLeftPosition);
 		size_t height = pObjImage->GetHeight() +
-						XUnpackUShort(pImageDescriptor->ImageTopPosition);
+						Gura_UnpackUShort(pImageDescriptor->ImageTopPosition);
 		if (logicalScreenWidth < width) logicalScreenWidth = width;
 		if (logicalScreenHeight < height) logicalScreenHeight = height;
 		GraphicControlExtension *pGraphicControl = GetGraphicControl(pObjImage);
@@ -442,9 +442,9 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 		int nEntries = static_cast<int>(_pObjPaletteGlobal->CountEntries());
 		for ( ; nEntries > (1 << sizeOfGlobalColorTable); sizeOfGlobalColorTable++) ;
 		sizeOfGlobalColorTable--;
-		XPackUShort(_logicalScreenDescriptor.LogicalScreenWidth,
+		Gura_PackUShort(_logicalScreenDescriptor.LogicalScreenWidth,
 						static_cast<unsigned short>(logicalScreenWidth));
-		XPackUShort(_logicalScreenDescriptor.LogicalScreenHeight,
+		Gura_PackUShort(_logicalScreenDescriptor.LogicalScreenHeight,
 						static_cast<unsigned short>(logicalScreenHeight));
 		_logicalScreenDescriptor.PackedFields =
 				(globalColorTableFlag << 7) | (colorResolution << 4) |
@@ -552,8 +552,8 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
 {
 	ImageDescriptor imageDescriptor;
 	if (!ReadBuff(sig, stream, &imageDescriptor, 9)) return false;
-	size_t imageWidth = XUnpackUShort(imageDescriptor.ImageWidth);
-	size_t imageHeight = XUnpackUShort(imageDescriptor.ImageHeight);
+	size_t imageWidth = Gura_UnpackUShort(imageDescriptor.ImageWidth);
+	size_t imageHeight = Gura_UnpackUShort(imageDescriptor.ImageHeight);
 	if (!pObjImage->AllocBuffer(sig, imageWidth, imageHeight, 0xff)) return false;
 	Object_palette *pObjPalette = NULL;
 	if (imageDescriptor.LocalColorTableFlag()) {
@@ -865,7 +865,7 @@ void GIF::AddImage(const Value &value, unsigned short delayTime,
 			(disposalMethod << 2) |
 			(graphicControlOrg.UserInputFlag() << 1) |
 			(graphicControlOrg.TransparentColorFlag() << 0);
-		XPackUShort(graphicControl.DelayTime, delayTime);
+		Gura_PackUShort(graphicControl.DelayTime, delayTime);
 		graphicControl.TransparentColorIndex = graphicControlOrg.TransparentColorIndex;
 		pObjGraphicControl.reset(new Object_GraphicControl(graphicControl));
 	} while (0);
@@ -876,11 +876,11 @@ void GIF::AddImage(const Value &value, unsigned short delayTime,
 		if (pImageDescriptor != NULL) {
 			imageDescriptorOrg = *pImageDescriptor;
 		}
-		XPackUShort(imageDescriptor.ImageLeftPosition, imageLeftPosition);
-		XPackUShort(imageDescriptor.ImageTopPosition, imageTopPosition);
-		XPackUShort(imageDescriptor.ImageWidth,
+		Gura_PackUShort(imageDescriptor.ImageLeftPosition, imageLeftPosition);
+		Gura_PackUShort(imageDescriptor.ImageTopPosition, imageTopPosition);
+		Gura_PackUShort(imageDescriptor.ImageWidth,
 					static_cast<unsigned short>(pObjImage->GetWidth()));
-		XPackUShort(imageDescriptor.ImageHeight,
+		Gura_PackUShort(imageDescriptor.ImageHeight,
 					static_cast<unsigned short>(pObjImage->GetHeight()));
 		imageDescriptor.PackedFields =
 			(imageDescriptorOrg.LocalColorTableFlag() << 7) |
@@ -985,7 +985,7 @@ int GIF::GetPlausibleBackgroundIndex(Object_palette *pObjPalette, Object_image *
 	}
 	int idxMax = 0;
 	int histMax = histTbl[0];
-	for (int idx = 1; idx < NUMBEROF(histTbl); idx++) {
+	for (int idx = 1; idx < ArraySizeOf(histTbl); idx++) {
 		if (histMax < histTbl[idx]) {
 			idxMax = idx;
 			histMax = histTbl[idx];
@@ -1231,7 +1231,7 @@ Value Object_GraphicControl::DoGetProp(Environment &env, Signal sig, const Symbo
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TransparentColorFlag))) {
 		return Value(_gctl.TransparentColorFlag()? true : false);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(DelayTime))) {
-		return Value(XUnpackUShort(_gctl.DelayTime));
+		return Value(Gura_UnpackUShort(_gctl.DelayTime));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TransparentColorIndex))) {
 		return Value(_gctl.TransparentColorIndex);
 	}
@@ -1283,13 +1283,13 @@ Value Object_ImageDescriptor::DoGetProp(Environment &env, Signal sig, const Symb
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(ImageLeftPosition))) {
-		return Value(XUnpackUShort(_desc.ImageLeftPosition));
+		return Value(Gura_UnpackUShort(_desc.ImageLeftPosition));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ImageTopPosition))) {
-		return Value(XUnpackUShort(_desc.ImageTopPosition));
+		return Value(Gura_UnpackUShort(_desc.ImageTopPosition));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ImageWidth))) {
-		return Value(XUnpackUShort(_desc.ImageWidth));
+		return Value(Gura_UnpackUShort(_desc.ImageWidth));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ImageHeight))) {
-		return Value(XUnpackUShort(_desc.ImageHeight));
+		return Value(Gura_UnpackUShort(_desc.ImageHeight));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(LocalColorTableFlag))) {
 		return Value(_desc.LocalColorTableFlag()? true : false);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(InterlaceFlag))) {

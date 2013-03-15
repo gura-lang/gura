@@ -93,17 +93,17 @@ class LocalFileHeader {
 public:
 	enum { Signature = 0x04034b50 };
 	struct Fields {
-		XPackedULong_LE(Signature);
-		XPackedUShort_LE(VersionNeededToExtract);
-		XPackedUShort_LE(GeneralPurposeBitFlag);
-		XPackedUShort_LE(CompressionMethod);
-		XPackedUShort_LE(LastModFileTime);
-		XPackedUShort_LE(LastModFileDate);
-		XPackedULong_LE(Crc32);				// zero if Data Descriptor exists
-		XPackedULong_LE(CompressedSize);	// zero if Data Descriptor exists
-		XPackedULong_LE(UncompressedSize);	// zero if Data Descriptor exists
-		XPackedUShort_LE(FileNameLength);
-		XPackedUShort_LE(ExtraFieldLength);
+		Gura_PackedULong_LE(Signature);
+		Gura_PackedUShort_LE(VersionNeededToExtract);
+		Gura_PackedUShort_LE(GeneralPurposeBitFlag);
+		Gura_PackedUShort_LE(CompressionMethod);
+		Gura_PackedUShort_LE(LastModFileTime);
+		Gura_PackedUShort_LE(LastModFileDate);
+		Gura_PackedULong_LE(Crc32);				// zero if Data Descriptor exists
+		Gura_PackedULong_LE(CompressedSize);	// zero if Data Descriptor exists
+		Gura_PackedULong_LE(UncompressedSize);	// zero if Data Descriptor exists
+		Gura_PackedUShort_LE(FileNameLength);
+		Gura_PackedUShort_LE(ExtraFieldLength);
 		// FileName (FileNameLength bytes)
 		// ExtraField (ExtraFieldLength bytes)
 	};
@@ -112,60 +112,60 @@ private:
 	Binary _fileName;
 	Binary _extraField;
 public:
-	inline LocalFileHeader() { XPackULong(_fields.Signature, Signature); }
+	inline LocalFileHeader() { Gura_PackULong(_fields.Signature, Signature); }
 	inline Fields &GetFields() { return _fields; }
 	inline const Fields &GetFields() const { return _fields; }
 	inline bool Read(Signal sig, Stream &stream) {
 		if (!ReadStream(sig, stream, &_fields, 30 - 4, 4)) return false;
 		if (!ReadStream(sig, stream, _fileName,
-						XUnpackUShort(_fields.FileNameLength))) return false;
+						Gura_UnpackUShort(_fields.FileNameLength))) return false;
 		if (!ReadStream(sig, stream, _extraField,
-						XUnpackUShort(_fields.ExtraFieldLength))) return false;
+						Gura_UnpackUShort(_fields.ExtraFieldLength))) return false;
 		return true;
 	}
 	bool SkipOver(Signal sig, Stream &stream);
 	inline bool Write(Signal sig, Stream &stream) {
-		XPackUShort(_fields.FileNameLength, _fileName.size());
-		XPackUShort(_fields.FileNameLength, _extraField.size());
+		Gura_PackUShort(_fields.FileNameLength, _fileName.size());
+		Gura_PackUShort(_fields.FileNameLength, _extraField.size());
 		if (!WriteStream(sig, stream, &_fields, 30)) return false;
 		if (!WriteStream(sig, stream, _fileName)) return false;
 		if (!WriteStream(sig, stream, _extraField)) return false;
 		return true;
 	}
 	inline bool SkipFileData(Signal sig, Stream &stream) {
-		return SkipStream(sig, stream, XUnpackULong(_fields.CompressedSize));
+		return SkipStream(sig, stream, Gura_UnpackULong(_fields.CompressedSize));
 	}
 	inline void SetFileName(const char *fileName) { _fileName = fileName; }
 	inline const char *GetFileName() const { return _fileName.c_str(); }
 	inline bool IsEncrypted() const {
-		return (XUnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 0)) != 0;
+		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 0)) != 0;
 	}
 	inline bool IsExistDataDescriptor() const {
-		return (XUnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 3)) != 0;
+		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 3)) != 0;
 	}
 	inline bool IsStrongEncrypted() const {
-		return (XUnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 6)) != 0;
+		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 6)) != 0;
 	}
 	inline bool IsUtf8() const {
-		return (XUnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 11)) != 0;
+		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 11)) != 0;
 	}
 	inline DateTime GetLastModDateTime() const {
-		unsigned short dosTime = XUnpackUShort(_fields.LastModFileTime);
-		unsigned short dosDate = XUnpackUShort(_fields.LastModFileDate);
+		unsigned short dosTime = Gura_UnpackUShort(_fields.LastModFileTime);
+		unsigned short dosDate = Gura_UnpackUShort(_fields.LastModFileDate);
 		return MakeDateTimeFromDos(dosDate, dosTime);
 	}
 	inline void Print() const {
-		::printf("Signature              %08x\n", XUnpackULong(_fields.Signature));
-		::printf("VersionNeededToExtract %04x\n", XUnpackUShort(_fields.VersionNeededToExtract));
-		::printf("GeneralPurposeBitFlag  %04x\n", XUnpackUShort(_fields.GeneralPurposeBitFlag));
-		::printf("CompressionMethod      %04x\n", XUnpackUShort(_fields.CompressionMethod));
-		::printf("LastModFileTime        %04x\n", XUnpackUShort(_fields.LastModFileTime));
-		::printf("LastModFileDate        %04x\n", XUnpackUShort(_fields.LastModFileDate));
-		::printf("Crc32                  %08x\n", XUnpackULong(_fields.Crc32));
-		::printf("CompressedSize         %08x\n", XUnpackULong(_fields.CompressedSize));
-		::printf("UncompressedSize       %08x\n", XUnpackULong(_fields.UncompressedSize));
-		::printf("FileNameLength         %04x\n", XUnpackUShort(_fields.FileNameLength));
-		::printf("ExtraFieldLength       %04x\n", XUnpackUShort(_fields.ExtraFieldLength));
+		::printf("Signature              %08x\n", Gura_UnpackULong(_fields.Signature));
+		::printf("VersionNeededToExtract %04x\n", Gura_UnpackUShort(_fields.VersionNeededToExtract));
+		::printf("GeneralPurposeBitFlag  %04x\n", Gura_UnpackUShort(_fields.GeneralPurposeBitFlag));
+		::printf("CompressionMethod      %04x\n", Gura_UnpackUShort(_fields.CompressionMethod));
+		::printf("LastModFileTime        %04x\n", Gura_UnpackUShort(_fields.LastModFileTime));
+		::printf("LastModFileDate        %04x\n", Gura_UnpackUShort(_fields.LastModFileDate));
+		::printf("Crc32                  %08x\n", Gura_UnpackULong(_fields.Crc32));
+		::printf("CompressedSize         %08x\n", Gura_UnpackULong(_fields.CompressedSize));
+		::printf("UncompressedSize       %08x\n", Gura_UnpackULong(_fields.UncompressedSize));
+		::printf("FileNameLength         %04x\n", Gura_UnpackUShort(_fields.FileNameLength));
+		::printf("ExtraFieldLength       %04x\n", Gura_UnpackUShort(_fields.ExtraFieldLength));
 	}
 };
 
@@ -175,9 +175,9 @@ public:
 class DataDescriptor {
 public:
 	struct Fields {
-		XPackedULong_LE(Crc32);
-		XPackedULong_LE(CompressedSize);
-		XPackedULong_LE(UncompressedSize);
+		Gura_PackedULong_LE(Crc32);
+		Gura_PackedULong_LE(CompressedSize);
+		Gura_PackedULong_LE(UncompressedSize);
 	};
 private:
 	Fields _fields;
@@ -200,25 +200,25 @@ class ArchiveExtraDataRecord {
 public:
 	enum { Signature = 0x08064b50 };
 	struct Fields {
-		XPackedULong_LE(Signature);
-		XPackedULong_LE(ExtraFieldLength);
+		Gura_PackedULong_LE(Signature);
+		Gura_PackedULong_LE(ExtraFieldLength);
 		// ExtraField (ExtraFieldLength bytes)
 	};
 private:
 	Fields _fields;
 	Binary _extraField;
 public:
-	inline ArchiveExtraDataRecord() { XPackULong(_fields.Signature, Signature); }
+	inline ArchiveExtraDataRecord() { Gura_PackULong(_fields.Signature, Signature); }
 	inline Fields &GetFields() { return _fields; }
 	inline const Fields &GetFields() const { return _fields; }
 	inline bool Read(Signal sig, Stream &stream) {
 		if (!ReadStream(sig, stream, &_fields, 8 - 4, 4)) return false;
 		if (!ReadStream(sig, stream, _extraField,
-						XUnpackULong(_fields.ExtraFieldLength))) return false;
+						Gura_UnpackULong(_fields.ExtraFieldLength))) return false;
 		return true;
 	}
 	inline bool Write(Signal sig, Stream &stream) {
-		XPackULong(_fields.ExtraFieldLength, _extraField.size());
+		Gura_PackULong(_fields.ExtraFieldLength, _extraField.size());
 		if (!WriteStream(sig, stream, &_fields, 8)) return false;
 		if (!WriteStream(sig, stream, _extraField)) return false;
 		return true;
@@ -230,23 +230,23 @@ class CentralFileHeader {
 public:
 	enum { Signature = 0x02014b50 };
 	struct Fields {
-		XPackedULong_LE(Signature);
-		XPackedUShort_LE(VersionMadeBy);				// only in CentralFileHeader
-		XPackedUShort_LE(VersionNeededToExtract);
-		XPackedUShort_LE(GeneralPurposeBitFlag);
-		XPackedUShort_LE(CompressionMethod);
-		XPackedUShort_LE(LastModFileTime);
-		XPackedUShort_LE(LastModFileDate);
-		XPackedULong_LE(Crc32);
-		XPackedULong_LE(CompressedSize);
-		XPackedULong_LE(UncompressedSize);
-		XPackedUShort_LE(FileNameLength);
-		XPackedUShort_LE(ExtraFieldLength);
-		XPackedUShort_LE(FileCommentLength);			// only in CentralFileHeader
-		XPackedUShort_LE(DiskNumberStart);				// only in CentralFileHeader
-		XPackedUShort_LE(InternalFileAttributes);		// only in CentralFileHeader
-		XPackedULong_LE(ExternalFileAttributes);		// only in CentralFileHeader
-		XPackedULong_LE(RelativeOffsetOfLocalHeader);	// only in CentralFileHeader
+		Gura_PackedULong_LE(Signature);
+		Gura_PackedUShort_LE(VersionMadeBy);				// only in CentralFileHeader
+		Gura_PackedUShort_LE(VersionNeededToExtract);
+		Gura_PackedUShort_LE(GeneralPurposeBitFlag);
+		Gura_PackedUShort_LE(CompressionMethod);
+		Gura_PackedUShort_LE(LastModFileTime);
+		Gura_PackedUShort_LE(LastModFileDate);
+		Gura_PackedULong_LE(Crc32);
+		Gura_PackedULong_LE(CompressedSize);
+		Gura_PackedULong_LE(UncompressedSize);
+		Gura_PackedUShort_LE(FileNameLength);
+		Gura_PackedUShort_LE(ExtraFieldLength);
+		Gura_PackedUShort_LE(FileCommentLength);			// only in CentralFileHeader
+		Gura_PackedUShort_LE(DiskNumberStart);				// only in CentralFileHeader
+		Gura_PackedUShort_LE(InternalFileAttributes);		// only in CentralFileHeader
+		Gura_PackedULong_LE(ExternalFileAttributes);		// only in CentralFileHeader
+		Gura_PackedULong_LE(RelativeOffsetOfLocalHeader);	// only in CentralFileHeader
 		// FileName (FileNameLength bytes)
 		// ExtraField (ExtraFieldLength bytes)
 		// FileComment (FileCommentLength bytes)
@@ -257,7 +257,7 @@ private:
 	Binary _extraField;
 	Binary _fileComment;
 public:
-	inline CentralFileHeader() { XPackULong(_fields.Signature, Signature); }
+	inline CentralFileHeader() { Gura_PackULong(_fields.Signature, Signature); }
 	inline CentralFileHeader(const CentralFileHeader &hdr) :
 		_fields(hdr._fields), _fileName(hdr._fileName),
 		_extraField(hdr._extraField), _fileComment(hdr._fileComment) {}
@@ -266,17 +266,17 @@ public:
 	inline bool Read(Signal sig, Stream &stream) {
 		if (!ReadStream(sig, stream, &_fields, 46 - 4, 4)) return false;
 		if (!ReadStream(sig, stream, _fileName,
-						XUnpackUShort(_fields.FileNameLength))) return false;
+						Gura_UnpackUShort(_fields.FileNameLength))) return false;
 		if (!ReadStream(sig, stream, _extraField,
-						XUnpackUShort(_fields.ExtraFieldLength))) return false;
+						Gura_UnpackUShort(_fields.ExtraFieldLength))) return false;
 		if (!ReadStream(sig, stream, _fileComment,
-						XUnpackUShort(_fields.FileCommentLength))) return false;
+						Gura_UnpackUShort(_fields.FileCommentLength))) return false;
 		return true;
 	}
 	inline bool Write(Signal sig, Stream &stream) {
-		XPackUShort(_fields.FileNameLength, _fileName.size());
-		XPackUShort(_fields.ExtraFieldLength, _extraField.size());
-		XPackUShort(_fields.FileCommentLength, _fileComment.size());
+		Gura_PackUShort(_fields.FileNameLength, _fileName.size());
+		Gura_PackUShort(_fields.ExtraFieldLength, _extraField.size());
+		Gura_PackUShort(_fields.FileCommentLength, _fileComment.size());
 		if (!WriteStream(sig, stream, &_fields, 46)) return false;
 		if (!WriteStream(sig, stream, _fileName)) return false;
 		if (!WriteStream(sig, stream, _extraField)) return false;
@@ -286,26 +286,26 @@ public:
 	inline bool WriteAsLocalFileHeader(Signal sig, Stream &stream) {
 		LocalFileHeader hdr;
 		LocalFileHeader::Fields &fields = hdr.GetFields();
-		XPackUShort(fields.VersionNeededToExtract,
-						XUnpackUShort(_fields.VersionNeededToExtract));
-		XPackUShort(fields.GeneralPurposeBitFlag,
-						XUnpackUShort(_fields.GeneralPurposeBitFlag));
-		XPackUShort(fields.CompressionMethod,
-						XUnpackUShort(_fields.CompressionMethod));
-		XPackUShort(fields.LastModFileTime,
-						XUnpackUShort(_fields.LastModFileTime));
-		XPackUShort(fields.LastModFileDate,
-						XUnpackUShort(_fields.LastModFileDate));
-		XPackULong(fields.Crc32,
-						XUnpackULong(_fields.Crc32));
-		XPackULong(fields.CompressedSize,
-						XUnpackULong(_fields.CompressedSize));
-		XPackULong(fields.UncompressedSize,
-						XUnpackULong(_fields.UncompressedSize));
+		Gura_PackUShort(fields.VersionNeededToExtract,
+						Gura_UnpackUShort(_fields.VersionNeededToExtract));
+		Gura_PackUShort(fields.GeneralPurposeBitFlag,
+						Gura_UnpackUShort(_fields.GeneralPurposeBitFlag));
+		Gura_PackUShort(fields.CompressionMethod,
+						Gura_UnpackUShort(_fields.CompressionMethod));
+		Gura_PackUShort(fields.LastModFileTime,
+						Gura_UnpackUShort(_fields.LastModFileTime));
+		Gura_PackUShort(fields.LastModFileDate,
+						Gura_UnpackUShort(_fields.LastModFileDate));
+		Gura_PackULong(fields.Crc32,
+						Gura_UnpackULong(_fields.Crc32));
+		Gura_PackULong(fields.CompressedSize,
+						Gura_UnpackULong(_fields.CompressedSize));
+		Gura_PackULong(fields.UncompressedSize,
+						Gura_UnpackULong(_fields.UncompressedSize));
 		unsigned short fileNameLength = static_cast<unsigned short>(_fileName.size());
-		XPackUShort(fields.FileNameLength, fileNameLength);
+		Gura_PackUShort(fields.FileNameLength, fileNameLength);
 		unsigned short extraFieldLength = static_cast<unsigned short>(_extraField.size());
-		XPackUShort(fields.ExtraFieldLength, extraFieldLength);
+		Gura_PackUShort(fields.ExtraFieldLength, extraFieldLength);
 		if (!WriteStream(sig, stream, &fields, 30)) return false;
 		if (!WriteStream(sig, stream, _fileName)) return false;
 		if (!WriteStream(sig, stream, _extraField)) return false;
@@ -315,58 +315,58 @@ public:
 	inline const char *GetFileName() const { return _fileName.c_str(); }
 	inline const char *GetFileComment() const { return _fileComment.c_str(); }
 	inline bool IsEncrypted() const {
-		return (XUnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 0)) != 0;
+		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 0)) != 0;
 	}
 	inline bool IsExistDataDescriptor() const {
-		return (XUnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 3)) != 0;
+		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 3)) != 0;
 	}
 	inline bool IsStrongEncrypted() const {
-		return (XUnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 6)) != 0;
+		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 6)) != 0;
 	}
 	inline bool IsUtf8() const {
-		return (XUnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 11)) != 0;
+		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 11)) != 0;
 	}
 	inline unsigned long GetRelativeOffsetOfLocalHeader() const {
-		return XUnpackULong(_fields.RelativeOffsetOfLocalHeader);
+		return Gura_UnpackULong(_fields.RelativeOffsetOfLocalHeader);
 	}
 	inline unsigned short GetCompressionMethod() const {
-		return XUnpackUShort(_fields.CompressionMethod);
+		return Gura_UnpackUShort(_fields.CompressionMethod);
 	}
 	inline DateTime GetLastModDateTime() const {
-		unsigned short dosTime = XUnpackUShort(_fields.LastModFileTime);
-		unsigned short dosDate = XUnpackUShort(_fields.LastModFileDate);
+		unsigned short dosTime = Gura_UnpackUShort(_fields.LastModFileTime);
+		unsigned short dosDate = Gura_UnpackUShort(_fields.LastModFileDate);
 		return MakeDateTimeFromDos(dosDate, dosTime);
 	}
 	inline unsigned long GetCrc32() const {
-		return XUnpackULong(_fields.Crc32);
+		return Gura_UnpackULong(_fields.Crc32);
 	}
 	inline unsigned long GetCompressedSize() const {
-		return XUnpackULong(_fields.CompressedSize);
+		return Gura_UnpackULong(_fields.CompressedSize);
 	}
 	inline unsigned long GetUncompressedSize() const {
-		return XUnpackULong(_fields.UncompressedSize);
+		return Gura_UnpackULong(_fields.UncompressedSize);
 	}
 	inline unsigned long GetExternalFileAttributes() const {
-		return XUnpackULong(_fields.ExternalFileAttributes);
+		return Gura_UnpackULong(_fields.ExternalFileAttributes);
 	}
 	inline void Print() const {
-		::printf("Signature              %08x\n", XUnpackULong(_fields.Signature));
-		::printf("VersionMadeBy          %04x\n", XUnpackUShort(_fields.VersionMadeBy));
-		::printf("VersionNeededToExtract %04x\n", XUnpackUShort(_fields.VersionNeededToExtract));
-		::printf("GeneralPurposeBitFlag  %04x\n", XUnpackUShort(_fields.GeneralPurposeBitFlag));
-		::printf("CompressionMethod      %04x\n", XUnpackUShort(_fields.CompressionMethod));
-		::printf("LastModFileTime        %04x\n", XUnpackUShort(_fields.LastModFileTime));
-		::printf("LastModFileDate        %04x\n", XUnpackUShort(_fields.LastModFileDate));
-		::printf("Crc32                  %08x\n", XUnpackULong(_fields.Crc32));
-		::printf("CompressedSize         %08x\n", XUnpackULong(_fields.CompressedSize));
-		::printf("UncompressedSize       %08x\n", XUnpackULong(_fields.UncompressedSize));
-		::printf("FileNameLength         %04x\n", XUnpackUShort(_fields.FileNameLength));
-		::printf("ExtraFieldLength       %04x\n", XUnpackUShort(_fields.ExtraFieldLength));
-		::printf("FileCommentLength      %04x\n", XUnpackUShort(_fields.FileCommentLength));
-		::printf("DiskNumberStart        %04x\n", XUnpackUShort(_fields.DiskNumberStart));
-		::printf("InternalFileAttributes %04x\n", XUnpackUShort(_fields.InternalFileAttributes));
-		::printf("ExternalFileAttributes %08x\n", XUnpackULong(_fields.ExternalFileAttributes));
-		::printf("RelativeOffsetOfLocalHeader %08x\n", XUnpackULong(_fields.RelativeOffsetOfLocalHeader));
+		::printf("Signature              %08x\n", Gura_UnpackULong(_fields.Signature));
+		::printf("VersionMadeBy          %04x\n", Gura_UnpackUShort(_fields.VersionMadeBy));
+		::printf("VersionNeededToExtract %04x\n", Gura_UnpackUShort(_fields.VersionNeededToExtract));
+		::printf("GeneralPurposeBitFlag  %04x\n", Gura_UnpackUShort(_fields.GeneralPurposeBitFlag));
+		::printf("CompressionMethod      %04x\n", Gura_UnpackUShort(_fields.CompressionMethod));
+		::printf("LastModFileTime        %04x\n", Gura_UnpackUShort(_fields.LastModFileTime));
+		::printf("LastModFileDate        %04x\n", Gura_UnpackUShort(_fields.LastModFileDate));
+		::printf("Crc32                  %08x\n", Gura_UnpackULong(_fields.Crc32));
+		::printf("CompressedSize         %08x\n", Gura_UnpackULong(_fields.CompressedSize));
+		::printf("UncompressedSize       %08x\n", Gura_UnpackULong(_fields.UncompressedSize));
+		::printf("FileNameLength         %04x\n", Gura_UnpackUShort(_fields.FileNameLength));
+		::printf("ExtraFieldLength       %04x\n", Gura_UnpackUShort(_fields.ExtraFieldLength));
+		::printf("FileCommentLength      %04x\n", Gura_UnpackUShort(_fields.FileCommentLength));
+		::printf("DiskNumberStart        %04x\n", Gura_UnpackUShort(_fields.DiskNumberStart));
+		::printf("InternalFileAttributes %04x\n", Gura_UnpackUShort(_fields.InternalFileAttributes));
+		::printf("ExternalFileAttributes %08x\n", Gura_UnpackULong(_fields.ExternalFileAttributes));
+		::printf("RelativeOffsetOfLocalHeader %08x\n", Gura_UnpackULong(_fields.RelativeOffsetOfLocalHeader));
 	}
 };
 
@@ -374,24 +374,24 @@ class DigitalSignature {
 public:
 	enum { Signature = 0x05054b50 };
 	struct Fields {
-		XPackedULong_LE(Signature);
-		XPackedUShort_LE(SizeOfData);
+		Gura_PackedULong_LE(Signature);
+		Gura_PackedUShort_LE(SizeOfData);
 		// Data (SizeOfData bytes)
 	};
 private:
 	Fields _fields;
 	Binary _data;
 public:
-	inline DigitalSignature() { XPackULong(_fields.Signature, Signature); }
+	inline DigitalSignature() { Gura_PackULong(_fields.Signature, Signature); }
 	inline const Fields &GetFields() const { return _fields; }
 	inline bool Read(Signal sig, Stream &stream) {
 		if (!ReadStream(sig, stream, &_fields, 8 - 4, 4)) return false;
 		if (!ReadStream(sig, stream, _data,
-						XUnpackUShort(_fields.SizeOfData))) return false;
+						Gura_UnpackUShort(_fields.SizeOfData))) return false;
 		return true;
 	}
 	inline bool Write(Signal sig, Stream &stream) {
-		XPackUShort(_fields.SizeOfData, _data.size());
+		Gura_PackUShort(_fields.SizeOfData, _data.size());
 		if (!WriteStream(sig, stream, &_fields, 8)) return false;
 		if (!WriteStream(sig, stream, _data)) return false;
 		return true;
@@ -403,22 +403,22 @@ class Zip64EndOfCentralDirectory {
 public:
 	enum { Signature = 0x06064b50 };
 	struct Fields {
-		XPackedULong_LE(Signature);
-		XPackedUInt64_LE(SizeOfZip64EndOfCentralDirectoryRecord);
-		XPackedUShort_LE(VersionMadeBy);
-		XPackedUShort_LE(VersionNeededToExtract);
-		XPackedULong_LE(NumberOfThisDisk);
-		XPackedULong_LE(NumberOfTheDiskWithTheStartOfTheCentralDirectory);
-		XPackedUInt64_LE(TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk);
-		XPackedUInt64_LE(TotalNumberOfEntriesInTheCentralDirectory);
-		XPackedUInt64_LE(SizeOfTheCentralDirectory);
-		XPackedUInt64_LE(OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber);
+		Gura_PackedULong_LE(Signature);
+		Gura_PackedUInt64_LE(SizeOfZip64EndOfCentralDirectoryRecord);
+		Gura_PackedUShort_LE(VersionMadeBy);
+		Gura_PackedUShort_LE(VersionNeededToExtract);
+		Gura_PackedULong_LE(NumberOfThisDisk);
+		Gura_PackedULong_LE(NumberOfTheDiskWithTheStartOfTheCentralDirectory);
+		Gura_PackedUInt64_LE(TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk);
+		Gura_PackedUInt64_LE(TotalNumberOfEntriesInTheCentralDirectory);
+		Gura_PackedUInt64_LE(SizeOfTheCentralDirectory);
+		Gura_PackedUInt64_LE(OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber);
 		// Zip64ExtensibleDataSector (... bytes)
 	};
 private:
 	Fields _fields;
 public:
-	inline Zip64EndOfCentralDirectory() { XPackULong(_fields.Signature, Signature); }
+	inline Zip64EndOfCentralDirectory() { Gura_PackULong(_fields.Signature, Signature); }
 	inline const Fields &GetFields() const { return _fields; }
 	inline bool Read(Signal sig, Stream &stream) {
 		if (!ReadStream(sig, stream, &_fields, 56 - 4, 4)) return false;
@@ -435,15 +435,15 @@ class Zip64EndOfCentralDirectoryLocator {
 public:
 	enum { Signature = 0x07064b50 };
 	struct Fields {
-		XPackedULong_LE(Signature);
-		XPackedULong_LE(NumberOfTheDiskWithTheStartOfTheZip64EndOfCentralDirectory);
-		XPackedUInt64_LE(RelativeOffsetOfTheZip64EndOfCentralDirectoryRecord);
-		XPackedULong_LE(TotalNumberOfDisks);
+		Gura_PackedULong_LE(Signature);
+		Gura_PackedULong_LE(NumberOfTheDiskWithTheStartOfTheZip64EndOfCentralDirectory);
+		Gura_PackedUInt64_LE(RelativeOffsetOfTheZip64EndOfCentralDirectoryRecord);
+		Gura_PackedULong_LE(TotalNumberOfDisks);
 	};
 private:
 	Fields _fields;
 public:
-	inline Zip64EndOfCentralDirectoryLocator() { XPackULong(_fields.Signature, Signature); }
+	inline Zip64EndOfCentralDirectoryLocator() { Gura_PackULong(_fields.Signature, Signature); }
 	inline const Fields &GetFields() const { return _fields; }
 	inline bool Read(Signal sig, Stream &stream) {
 		return ReadStream(sig, stream, &_fields, 20 - 4, 4);
@@ -459,44 +459,44 @@ public:
 	enum { Signature = 0x06054b50 };
 	enum { MinSize = 22, MaxSize = 22 + 65536 };
 	struct Fields {
-		XPackedULong_LE(Signature);
-		XPackedUShort_LE(NumberOfThisDisk);
-		XPackedUShort_LE(NumberOfTheDiskWithTheStartOfTheCentralDirectory);
-		XPackedUShort_LE(TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk);
-		XPackedUShort_LE(TotalNumberOfEntriesInTheCentralDirectory);
-		XPackedULong_LE(SizeOfTheCentralDirectory);
-		XPackedULong_LE(OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber);
-		XPackedUShort_LE(ZIPFileCommentLength);
+		Gura_PackedULong_LE(Signature);
+		Gura_PackedUShort_LE(NumberOfThisDisk);
+		Gura_PackedUShort_LE(NumberOfTheDiskWithTheStartOfTheCentralDirectory);
+		Gura_PackedUShort_LE(TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk);
+		Gura_PackedUShort_LE(TotalNumberOfEntriesInTheCentralDirectory);
+		Gura_PackedULong_LE(SizeOfTheCentralDirectory);
+		Gura_PackedULong_LE(OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber);
+		Gura_PackedUShort_LE(ZIPFileCommentLength);
 		// ZIPFileComment (ZIPFileCommentLength bytes)
 	};
 private:
 	Fields _fields;
 	Binary _zipFileComment;
 public:
-	inline EndOfCentralDirectoryRecord() { XPackULong(_fields.Signature, Signature); }
+	inline EndOfCentralDirectoryRecord() { Gura_PackULong(_fields.Signature, Signature); }
 	inline Fields &GetFields() { return _fields; }
 	inline const Fields &GetFields() const { return _fields; }
 	inline bool Read(Signal sig, Stream &stream) {
 		if (!ReadStream(sig, stream, &_fields, 22 - 4, 4)) return false;
 		if (!ReadStream(sig, stream, _zipFileComment,
-						XUnpackUShort(_fields.ZIPFileCommentLength))) return false;
+						Gura_UnpackUShort(_fields.ZIPFileCommentLength))) return false;
 		return true;
 	}
 	inline bool Write(Signal sig, Stream &stream) {
-		XPackUShort(_fields.ZIPFileCommentLength, _zipFileComment.size());
+		Gura_PackUShort(_fields.ZIPFileCommentLength, _zipFileComment.size());
 		if (!WriteStream(sig, stream, &_fields, 22)) return false;
 		if (!WriteStream(sig, stream, _zipFileComment)) return false;
 		return true;
 	}
 	void Print() const {
-		::printf("Signature                                                         %08x\n", XUnpackULong(_fields.Signature));
-		::printf("NumberOfThisDisk                                                  %04x\n", XUnpackUShort(_fields.NumberOfThisDisk));
-		::printf("NumberOfTheDiskWithTheStartOfTheCentralDirectory                  %04x\n", XUnpackUShort(_fields.NumberOfTheDiskWithTheStartOfTheCentralDirectory));
-		::printf("TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk               %04x\n", XUnpackUShort(_fields.TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk));
-		::printf("TotalNumberOfEntriesInTheCentralDirectory                         %04x\n", XUnpackUShort(_fields.TotalNumberOfEntriesInTheCentralDirectory));
-		::printf("SizeOfTheCentralDirectory                                         %08x\n", XUnpackULong(_fields.SizeOfTheCentralDirectory));
-		::printf("OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber %08x\n", XUnpackULong(_fields.OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber));
-		::printf("ZIPFileCommentLength                                              %04x\n", XUnpackUShort(_fields.ZIPFileCommentLength));
+		::printf("Signature                                                         %08x\n", Gura_UnpackULong(_fields.Signature));
+		::printf("NumberOfThisDisk                                                  %04x\n", Gura_UnpackUShort(_fields.NumberOfThisDisk));
+		::printf("NumberOfTheDiskWithTheStartOfTheCentralDirectory                  %04x\n", Gura_UnpackUShort(_fields.NumberOfTheDiskWithTheStartOfTheCentralDirectory));
+		::printf("TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk               %04x\n", Gura_UnpackUShort(_fields.TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk));
+		::printf("TotalNumberOfEntriesInTheCentralDirectory                         %04x\n", Gura_UnpackUShort(_fields.TotalNumberOfEntriesInTheCentralDirectory));
+		::printf("SizeOfTheCentralDirectory                                         %08x\n", Gura_UnpackULong(_fields.SizeOfTheCentralDirectory));
+		::printf("OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber %08x\n", Gura_UnpackULong(_fields.OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber));
+		::printf("ZIPFileCommentLength                                              %04x\n", Gura_UnpackUShort(_fields.ZIPFileCommentLength));
 	}
 };
 
@@ -505,12 +505,12 @@ class Extra_ZIP64 {
 public:
 	enum { Tag = 0x0001 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(Size);
-		XPackedUInt64_LE(OriginalSize);
-		XPackedUInt64_LE(CompressedSize);
-		XPackedUInt64_LE(RelativeHeaderOffset);
-		XPackedULong_LE(DiskStartNumber);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(Size);
+		Gura_PackedUInt64_LE(OriginalSize);
+		Gura_PackedUInt64_LE(CompressedSize);
+		Gura_PackedUInt64_LE(RelativeHeaderOffset);
+		Gura_PackedULong_LE(DiskStartNumber);
 	};
 };
 
@@ -519,11 +519,11 @@ class Extra_OS2 {
 public:
 	enum { Tag = 0x0009 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
-		XPackedULong_LE(BSize);
-		XPackedUShort_LE(CType);
-		XPackedULong_LE(EACRC);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
+		Gura_PackedULong_LE(BSize);
+		Gura_PackedUShort_LE(CType);
+		Gura_PackedULong_LE(EACRC);
 		// CompressedBlock
 	};
 };
@@ -533,8 +533,8 @@ class Extra_NTFS {
 public:
 	enum { Tag = 0x000a };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
 		// Tag1, Size1, ...
 	};
 };
@@ -544,9 +544,9 @@ class Extra_VMS {
 public:
 	enum { Tag = 0x000c };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
-		XPackedULong_LE(CRC);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
+		Gura_PackedULong_LE(CRC);
 		// Tag1, Size1, ...
 	};
 };
@@ -556,12 +556,12 @@ class Extra_UNIX {
 public:
 	enum { Tag = 0x000d };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
-		XPackedULong_LE(Atime);
-		XPackedULong_LE(Mtime);
-		XPackedUShort_LE(Uid);
-		XPackedUShort_LE(Gid);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
+		Gura_PackedULong_LE(Atime);
+		Gura_PackedULong_LE(Mtime);
+		Gura_PackedUShort_LE(Uid);
+		Gura_PackedUShort_LE(Gid);
 		// VariableLengthDataField
 	};
 };
@@ -571,14 +571,14 @@ class Extra_Patch {
 public:
 	enum { Tag = 0x000f };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
-		XPackedUShort_LE(Version);
-		XPackedULong_LE(Flags);
-		XPackedULong_LE(OldSize);
-		XPackedULong_LE(OldCRC);
-		XPackedULong_LE(NewSize);
-		XPackedULong_LE(NewCRC);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
+		Gura_PackedUShort_LE(Version);
+		Gura_PackedULong_LE(Flags);
+		Gura_PackedULong_LE(OldSize);
+		Gura_PackedULong_LE(OldCRC);
+		Gura_PackedULong_LE(NewSize);
+		Gura_PackedULong_LE(NewCRC);
 	};
 };
 
@@ -587,8 +587,8 @@ class Extra_Store {
 public:
 	enum { Tag = 0x0014 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
 		// TData (TSize bytes)
 	};
 };
@@ -598,8 +598,8 @@ class Extra_CID {
 public:
 	enum { Tag = 0x0015 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
 		// TData (TSize bytes)
 	};
 };
@@ -609,8 +609,8 @@ class Extra_CDID {
 public:
 	enum { Tag = 0x0016 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
 		// TData (TSize bytes)
 	};
 };
@@ -620,8 +620,8 @@ class Extra_RecCTL {
 public:
 	enum { Tag = 0x0018 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(CSize);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(CSize);
 		// Tag1, Size1, Data1, ..
 	};
 };
@@ -631,8 +631,8 @@ class Extra_CStore {
 public:
 	enum { Tag = 0x0019 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
 		// TData (TSize bytes)
 	};
 };
@@ -642,9 +642,9 @@ class Extra_MVS {
 public:
 	enum { Tag = 0x0065 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
-		XPackedUInt64_LE(ID);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
+		Gura_PackedUInt64_LE(ID);
 		// AttributeData ((TSize - 4) bytes)
 	};
 };
@@ -654,9 +654,9 @@ class Extra_OS400 {
 public:
 	enum { Tag = 0x0065 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(Size);
-		XPackedUInt64_LE(ID);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(Size);
+		Gura_PackedUInt64_LE(ID);
 		// AttributeData ((TSize - 4) bytes)
 	};
 };
@@ -666,9 +666,9 @@ class Extra_Mac2 {
 public:
 	enum { Tag = 0x2605 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
-		XPackedULong_BE(Signature);	// "ZPIT"
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
+		Gura_PackedULong_BE(Signature);	// "ZPIT"
 		unsigned char FnLen;
 		// FileName, FileType, Creator
 	};
@@ -679,9 +679,9 @@ class Extra_Mac2b {
 public:
 	enum { Tag = 0x2705 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
-		XPackedULong_BE(Signature);	// "ZPIT"
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
+		Gura_PackedULong_BE(Signature);	// "ZPIT"
 		// FileType, Creator, fdFlags, reserved
 	};
 };
@@ -691,9 +691,9 @@ class Extra_Mac2c {
 public:
 	enum { Tag = 0x2805 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
-		XPackedULong_BE(Signature);	// "ZPIT"
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
+		Gura_PackedULong_BE(Signature);	// "ZPIT"
 		// frFlags, View
 	};
 };
@@ -703,10 +703,10 @@ class Extra_UCom {
 public:
 	enum { Tag = 0x6375 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
 		unsigned char Version;
-		XPackedULong_LE(ComCRC32);
+		Gura_PackedULong_LE(ComCRC32);
 		// UnicodeCom
 	};
 };
@@ -716,10 +716,10 @@ class Extra_UPath {
 public:
 	enum { Tag = 0x7075 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
 		unsigned char Version;
-		XPackedULong_LE(NameCRC32);
+		Gura_PackedULong_LE(NameCRC32);
 		// UnicodeName
 	};
 };
@@ -729,10 +729,10 @@ class Extra_MSOpen {
 public:
 	enum { Tag = 0xa220 };
 	struct Fields {
-		XPackedUShort_LE(Tag);
-		XPackedUShort_LE(TSize);
-		XPackedUShort_LE(Signature);
-		XPackedUShort_LE(PadVal);
+		Gura_PackedUShort_LE(Tag);
+		Gura_PackedUShort_LE(TSize);
+		Gura_PackedUShort_LE(Signature);
+		Gura_PackedUShort_LE(PadVal);
 		// Padding
 	};
 };

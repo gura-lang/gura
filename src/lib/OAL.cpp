@@ -643,7 +643,7 @@ String GetBaseDir()
 		if (!dirBase.empty()) return FromNativeString(dirBase.c_str());
 	} while (0);
 	char pathName[1024];
-	::GetModuleFileName(g_hModule, pathName, NUMBEROF(pathName)); // Win32 API
+	::GetModuleFileName(g_hModule, pathName, ArraySizeOf(pathName)); // Win32 API
 	char *p = pathName + ::strlen(pathName);
 	for ( ; p >= pathName; p--) {
 		if (*p == '\\') {
@@ -686,7 +686,7 @@ String GetLocalDir()
 String GetExecutable()
 {
 	char pathName[512];
-	::GetModuleFileName(NULL, pathName, NUMBEROF(pathName)); // Win32 API
+	::GetModuleFileName(NULL, pathName, ArraySizeOf(pathName)); // Win32 API
 	return FromNativeString(pathName);
 }
 
@@ -1087,7 +1087,7 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		::close(fdsStderr[i]);
 	}
 done:
-	for (int i = 0; i < NUMBEROF(argv); i++) ::free(argv[i]);
+	for (int i = 0; i < ArraySizeOf(argv); i++) ::free(argv[i]);
 	return exitCode;
 }
 

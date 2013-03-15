@@ -1248,7 +1248,7 @@ unsigned short UTF16ToCP932(unsigned short codeUTF16)
 			}
 		}
 		pCodeRow++;
-		for (int codeH = 1; codeH < NUMBEROF(_codeRows); codeH++, pCodeRow++) {
+		for (int codeH = 1; codeH < ArraySizeOf(_codeRows); codeH++, pCodeRow++) {
 			unsigned short codeCP932Base = static_cast<unsigned short>(codeH << 8);
 			for (int iCol = 0; iCol < pCodeRow->nCols; iCol++) {
 				unsigned short codeUTF16 = pCodeRow->row[iCol];

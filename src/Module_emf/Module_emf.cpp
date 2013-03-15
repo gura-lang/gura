@@ -126,17 +126,17 @@ Gura_ImplementFunction(test)
 	do {
 		EnhMetaHeader hdr;
 		stream.Read(sig, &hdr, EnhMetaHeader::Size);
-		unsigned long dSignature = XUnpackULong(hdr.dSignature);
+		unsigned long dSignature = Gura_UnpackULong(hdr.dSignature);
 		if (dSignature != _ENHMETA_SIGNATURE) {
 			sig.SetError(ERR_FormatError, "invalid signature of EMF file");
 			return Value::Null;
 		}
-		nBytes			= XUnpackULong(hdr.nBytes);
-		nRecords		= XUnpackULong(hdr.nRecords);
-		nDescription	= XUnpackULong(hdr.nDescription);
-		offDescription	= XUnpackULong(hdr.offDescription);
-		nPalEntries		= XUnpackULong(hdr.nPalEntries);
-		unsigned long nSize = XUnpackULong(hdr.nSize);
+		nBytes			= Gura_UnpackULong(hdr.nBytes);
+		nRecords		= Gura_UnpackULong(hdr.nRecords);
+		nDescription	= Gura_UnpackULong(hdr.nDescription);
+		offDescription	= Gura_UnpackULong(hdr.offDescription);
+		nPalEntries		= Gura_UnpackULong(hdr.nPalEntries);
+		unsigned long nSize = Gura_UnpackULong(hdr.nSize);
 		if (nSize > EnhMetaHeader::Size) {
 			stream.Seek(sig, nSize - EnhMetaHeader::Size, Stream::SeekCur);
 		}
@@ -145,8 +145,8 @@ Gura_ImplementFunction(test)
 	for (unsigned long iRecord = 0; iRecord < nRecords; iRecord++) {
 		EnhMetaRecord rec;
 		if (stream.Read(sig, &rec, EnhMetaRecord::Size) < EnhMetaRecord::Size) break;
-		::printf("iType = %d, nSize = %d\n", XUnpackULong(rec.iType), XUnpackULong(rec.nSize));
-		unsigned long nSize = XUnpackULong(rec.nSize);
+		::printf("iType = %d, nSize = %d\n", Gura_UnpackULong(rec.iType), Gura_UnpackULong(rec.nSize));
+		unsigned long nSize = Gura_UnpackULong(rec.nSize);
 		if (nSize > EnhMetaRecord::Size) {
 			stream.Seek(sig, nSize - EnhMetaRecord::Size, Stream::SeekCur);
 		}

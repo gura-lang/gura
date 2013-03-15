@@ -911,7 +911,7 @@ Object_color *Object_color::CreateNamedColor(Environment &env,
 	}
 	if (_pColorMap == NULL) {
 		_pColorMap = new ColorMap();
-		for (int i = 0; i < NUMBEROF(Color::ElementEntries); i++) {
+		for (int i = 0; i < ArraySizeOf(Color::ElementEntries); i++) {
 			const Color::ElementEntry &elementEntry = Color::ElementEntries[i];
 			const Symbol *pSymbol = Symbol::Add(elementEntry.name);
 			(*_pColorMap)[pSymbol] = Color(elementEntry.red,
@@ -1023,8 +1023,8 @@ Class_color::Class_color(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_color)
 		Environment &env = *this;
 		Value value;
 		ValueList &valList = value.InitAsList(env);
-		valList.reserve(NUMBEROF(Color::ElementEntries));
-		for (int i = 0; i < NUMBEROF(Color::ElementEntries); i++) {
+		valList.reserve(ArraySizeOf(Color::ElementEntries));
+		for (int i = 0; i < ArraySizeOf(Color::ElementEntries); i++) {
 			const Color::ElementEntry &elementEntry = Color::ElementEntries[i];
 			valList.push_back(Value(env, elementEntry.name));
 		}
@@ -1058,7 +1058,7 @@ bool Class_color::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 
 Object *Class_color::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	GURA_GURA_ERROREND(env, "this function must not be called");
+	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
 }
 

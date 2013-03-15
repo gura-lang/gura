@@ -340,7 +340,7 @@ Class_audio::Class_audio(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_audio)
 
 Object *Class_audio::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	GURA_GURA_ERROREND(env, "this function must not be called");
+	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
 }
 

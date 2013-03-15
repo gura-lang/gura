@@ -3720,7 +3720,7 @@ const char *GetEventTypeName(Uint8 type)
 		{ SDL_VIDEOEXPOSE,		"VideoExpose",		},
 		{ SDL_USEREVENT,		"UserEvent",		},
 	};
-	for (int i = 0; i < NUMBEROF(tbl); i++) {
+	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].type == type) return tbl[i].name;
 	}
 	return "(unknown)";

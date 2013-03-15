@@ -261,10 +261,10 @@ bool DateTime::Parse(const char *str, const char **next)
 				token += ch;
 			} else if (IsWhite(ch)) {
 				int i = 0;
-				for (i = 0; i < NUMBEROF(monthNames); i++) {
+				for (i = 0; i < ArraySizeOf(monthNames); i++) {
 					if (::strcasecmp(token.c_str(), monthNames[i]) == 0) break;
 				}
-				if (i == NUMBEROF(monthNames)) return false;
+				if (i == ArraySizeOf(monthNames)) return false;
 				month = i + 1;
 				token.clear();
 				statNext = STAT_DateAscTime_Day;
@@ -332,10 +332,10 @@ bool DateTime::Parse(const char *str, const char **next)
 				token += ch;
 			} else if (IsWhite(ch) || ch == '-') {
 				int i = 0;
-				for (i = 0; i < NUMBEROF(monthNames); i++) {
+				for (i = 0; i < ArraySizeOf(monthNames); i++) {
 					if (::strcasecmp(token.c_str(), monthNames[i]) == 0) break;
 				}
-				if (i == NUMBEROF(monthNames)) return false;
+				if (i == ArraySizeOf(monthNames)) return false;
 				month = i + 1;
 				token.clear();
 				statNext = STAT_DateRFC_Year;
@@ -501,7 +501,7 @@ bool DateTime::Parse(const char *str, const char **next)
 			{ "Y",		 12 * 60	},
 			{ "JST",	  9 * 60	},
 		};
-		for (int i = 0; i < NUMBEROF(tbl); i++) {
+		for (int i = 0; i < ArraySizeOf(tbl); i++) {
 			if (::strcasecmp(timeZone.c_str(), tbl[i].name) == 0) {
 				_tz.validFlag = true;
 				_tz.secsOffset = tbl[i].minsOffset * 60;

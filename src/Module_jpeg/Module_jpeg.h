@@ -243,86 +243,86 @@ enum {
 };
 
 struct TIFF_BE {
-	XPackedUShort_BE(Code);
-	XPackedULong_BE(Offset0thIFD);
+	Gura_PackedUShort_BE(Code);
+	Gura_PackedULong_BE(Offset0thIFD);
 };
 
 struct TIFF_LE {
-	XPackedUShort_LE(Code);
-	XPackedULong_LE(Offset0thIFD);
+	Gura_PackedUShort_LE(Code);
+	Gura_PackedULong_LE(Offset0thIFD);
 };
 
 struct IFDHeader_BE {
-	XPackedUShort_BE(TagCount);
+	Gura_PackedUShort_BE(TagCount);
 };
 
 struct IFDHeader_LE {
-	XPackedUShort_LE(TagCount);
+	Gura_PackedUShort_LE(TagCount);
 };
 
 struct RATIONAL_BE {
-	XPackedULong_BE(numerator);
-	XPackedULong_BE(denominator);
+	Gura_PackedULong_BE(numerator);
+	Gura_PackedULong_BE(denominator);
 };
 
 struct RATIONAL_LE {
-	XPackedULong_LE(numerator);
-	XPackedULong_LE(denominator);
+	Gura_PackedULong_LE(numerator);
+	Gura_PackedULong_LE(denominator);
 };
 
 struct SRATIONAL_BE {
-	XPackedULong_BE(numerator);
-	XPackedULong_BE(denominator);
+	Gura_PackedULong_BE(numerator);
+	Gura_PackedULong_BE(denominator);
 };
 
 struct SRATIONAL_LE {
-	XPackedULong_LE(numerator);
-	XPackedULong_LE(denominator);
+	Gura_PackedULong_LE(numerator);
+	Gura_PackedULong_LE(denominator);
 };
 
 struct SHORT_BE {
-	XPackedUShort_BE(num);
+	Gura_PackedUShort_BE(num);
 };
 
 struct SHORT_LE {
-	XPackedUShort_LE(num);
+	Gura_PackedUShort_LE(num);
 };
 
 struct LONG_BE {
-	XPackedULong_BE(num);
+	Gura_PackedULong_BE(num);
 };
 
 struct LONG_LE {
-	XPackedULong_LE(num);
+	Gura_PackedULong_LE(num);
 };
 
 struct SLONG_BE {
-	XPackedULong_BE(num);
+	Gura_PackedULong_BE(num);
 };
 
 struct SLONG_LE {
-	XPackedULong_LE(num);
+	Gura_PackedULong_LE(num);
 };
 
 union ValueRaw_BE {
 	char BYTE[4];
 	char ASCII[4];
 	struct {
-		XPackedUShort_BE(num);
-		XPackedUShort_BE(second);
+		Gura_PackedUShort_BE(num);
+		Gura_PackedUShort_BE(second);
 	} SHORT;
 	struct {
-		XPackedULong_BE(num);
+		Gura_PackedULong_BE(num);
 	} LONG;
 	struct {
-		XPackedULong_BE(num);
+		Gura_PackedULong_BE(num);
 	} SLONG;
 };
 
 struct TagRaw_BE {
-	XPackedUShort_BE(Id);
-	XPackedUShort_BE(Type);
-	XPackedULong_BE(Count);
+	Gura_PackedUShort_BE(Id);
+	Gura_PackedUShort_BE(Type);
+	Gura_PackedULong_BE(Count);
 	unsigned char ValueRaw;
 };
 
@@ -330,21 +330,21 @@ union ValueRaw_LE {
 	char BYTE[4];
 	char ASCII[4];
 	struct {
-		XPackedUShort_LE(num);
-		XPackedUShort_LE(second);
+		Gura_PackedUShort_LE(num);
+		Gura_PackedUShort_LE(second);
 	} SHORT;
 	struct {
-		XPackedULong_LE(num);
+		Gura_PackedULong_LE(num);
 	} LONG;
 	struct {
-		XPackedULong_LE(num);
+		Gura_PackedULong_LE(num);
 	} SLONG;
 };
 
 struct TagRaw_LE {
-	XPackedUShort_LE(Id);
-	XPackedUShort_LE(Type);
-	XPackedULong_LE(Count);
+	Gura_PackedUShort_LE(Id);
+	Gura_PackedUShort_LE(Type);
+	Gura_PackedULong_LE(Count);
 	unsigned char ValueRaw;
 };
 

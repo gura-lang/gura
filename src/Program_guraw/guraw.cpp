@@ -44,7 +44,7 @@ int MainW(int argc, const char *argv[])
 		{ "quiet",			'q', false	},
 		{ "version",		'v', false	},
 	};
-	Option opt(optInfoTbl, NUMBEROF(optInfoTbl));
+	Option opt(optInfoTbl, ArraySizeOf(optInfoTbl));
 	String strErr;
 	bool rtn = opt.Parse(argc, argv, strErr);
 	if (!rtn) {

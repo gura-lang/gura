@@ -23,7 +23,7 @@ const char *GetSignalTypeName(SignalType sigType)
 		{ SIGTYPE_ReqSaveHistory,	"req_save_history",		},
 		{ SIGTYPE_ReqClearHistory,	"req_clear_history",	},
 	};
-	for (int i = 0; i < NUMBEROF(tbl); i++) {
+	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].sigType == sigType) return tbl[i].name;
 	}
 	return "unknown";

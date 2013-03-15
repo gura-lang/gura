@@ -1038,7 +1038,7 @@ void Status::SetStatus(const char *httpVersion,
 	_httpVersion = httpVersion, _statusCode = statusCode;
 	if (reasonPhrase == NULL) {
 		const CodePhrase *p = _codePhraseTbl;
-		for (int i = 0; i < NUMBEROF(_codePhraseTbl); i++, p++) {
+		for (int i = 0; i < ArraySizeOf(_codePhraseTbl); i++, p++) {
 			if (::strcasecmp(p->statusCode, statusCode) == 0) {
 				reasonPhrase = p->reasonPhrase;
 				break;

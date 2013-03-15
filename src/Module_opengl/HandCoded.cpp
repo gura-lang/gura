@@ -554,7 +554,7 @@ static size_t LookupMaterialVarLen(GLenum pname)
 		{ GL_SHININESS,		1 },
 		{ GL_COLOR_INDEXES,	3 },
 	};
-	for (int i = 0; i < NUMBEROF(tbl); i++) {
+	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].pname == pname) return tbl[i].len;
 	}
 	return 0;

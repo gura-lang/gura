@@ -192,22 +192,22 @@ bool Object_writer::Add(Signal sig, Stream &streamSrc,
 							static_cast<unsigned long>(_pStreamDst->Tell());
 	do {
 		CentralFileHeader::Fields &fields = pHdr->GetFields();
-		XPackUShort(fields.VersionMadeBy,				version);
-		XPackUShort(fields.VersionNeededToExtract,		version);
-		XPackUShort(fields.GeneralPurposeBitFlag,		generalPurposeBitFlag);
-		XPackUShort(fields.CompressionMethod,			compressionMethod);
-		XPackUShort(fields.LastModFileTime,				lastModFileTime);
-		XPackUShort(fields.LastModFileDate,				lastModFileDate);
-		XPackULong(fields.Crc32,						0x00000000);
-		XPackULong(fields.CompressedSize,				compressedSize);
-		XPackULong(fields.UncompressedSize,				uncompressedSize);
-		XPackUShort(fields.FileNameLength,				0x0000);
-		XPackUShort(fields.ExtraFieldLength,			0x0000);
-		XPackUShort(fields.FileCommentLength,			0x0000);
-		XPackUShort(fields.DiskNumberStart,				0x0000);
-		XPackUShort(fields.InternalFileAttributes,		0x0000);
-		XPackULong(fields.ExternalFileAttributes,		externalFileAttributes);
-		XPackULong(fields.RelativeOffsetOfLocalHeader,	relativeOffsetOfLocalHeader);
+		Gura_PackUShort(fields.VersionMadeBy,				version);
+		Gura_PackUShort(fields.VersionNeededToExtract,		version);
+		Gura_PackUShort(fields.GeneralPurposeBitFlag,		generalPurposeBitFlag);
+		Gura_PackUShort(fields.CompressionMethod,			compressionMethod);
+		Gura_PackUShort(fields.LastModFileTime,				lastModFileTime);
+		Gura_PackUShort(fields.LastModFileDate,				lastModFileDate);
+		Gura_PackULong(fields.Crc32,						0x00000000);
+		Gura_PackULong(fields.CompressedSize,				compressedSize);
+		Gura_PackULong(fields.UncompressedSize,				uncompressedSize);
+		Gura_PackUShort(fields.FileNameLength,				0x0000);
+		Gura_PackUShort(fields.ExtraFieldLength,			0x0000);
+		Gura_PackUShort(fields.FileCommentLength,			0x0000);
+		Gura_PackUShort(fields.DiskNumberStart,				0x0000);
+		Gura_PackUShort(fields.InternalFileAttributes,		0x0000);
+		Gura_PackULong(fields.ExternalFileAttributes,		externalFileAttributes);
+		Gura_PackULong(fields.RelativeOffsetOfLocalHeader,	relativeOffsetOfLocalHeader);
 		pHdr->SetFileName(fileName);
 		if (!pHdr->WriteAsLocalFileHeader(sig, *_pStreamDst)) return false;
 	} while (0);
@@ -282,16 +282,16 @@ bool Object_writer::Add(Signal sig, Stream &streamSrc,
 	do {
 		DataDescriptor desc;
 		DataDescriptor::Fields &fields = desc.GetFields();
-		XPackULong(fields.Crc32,			crc32num);
-		XPackULong(fields.CompressedSize,	compressedSize);
-		XPackULong(fields.UncompressedSize,	uncompressedSize);
+		Gura_PackULong(fields.Crc32,			crc32num);
+		Gura_PackULong(fields.CompressedSize,	compressedSize);
+		Gura_PackULong(fields.UncompressedSize,	uncompressedSize);
 		if (!desc.Write(sig, *_pStreamDst)) return false;
 	} while (0);
 	do {
 		CentralFileHeader::Fields &fields = pHdr->GetFields();
-		XPackULong(fields.Crc32,			crc32num);
-		XPackULong(fields.CompressedSize,	compressedSize);
-		XPackULong(fields.UncompressedSize,	uncompressedSize);
+		Gura_PackULong(fields.Crc32,			crc32num);
+		Gura_PackULong(fields.CompressedSize,	compressedSize);
+		Gura_PackULong(fields.UncompressedSize,	uncompressedSize);
 	} while (0);
 	return true;
 }
@@ -312,14 +312,14 @@ bool Object_writer::Finish()
 	do {
 		EndOfCentralDirectoryRecord rec;
 		EndOfCentralDirectoryRecord::Fields &fields = rec.GetFields();
-		XPackUShort(fields.NumberOfThisDisk,									0x0000);
-		XPackUShort(fields.NumberOfTheDiskWithTheStartOfTheCentralDirectory,	0x0000);
-		XPackUShort(fields.TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk,	nCentralFileHeaders);
-		XPackUShort(fields.TotalNumberOfEntriesInTheCentralDirectory,			nCentralFileHeaders);
-		XPackULong(fields.SizeOfTheCentralDirectory,							sizeOfTheCentralDirectory);
-		XPackULong(fields.OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber,
+		Gura_PackUShort(fields.NumberOfThisDisk,									0x0000);
+		Gura_PackUShort(fields.NumberOfTheDiskWithTheStartOfTheCentralDirectory,	0x0000);
+		Gura_PackUShort(fields.TotalNumberOfEntriesInTheCentralDirectoryOnThisDisk,	nCentralFileHeaders);
+		Gura_PackUShort(fields.TotalNumberOfEntriesInTheCentralDirectory,			nCentralFileHeaders);
+		Gura_PackULong(fields.SizeOfTheCentralDirectory,							sizeOfTheCentralDirectory);
+		Gura_PackULong(fields.OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber,
 															offsetOfCentralDirectory);
-		XPackUShort(fields.ZIPFileCommentLength,								0x0000);
+		Gura_PackUShort(fields.ZIPFileCommentLength,								0x0000);
 		if (!rec.Write(_sig, *_pStreamDst)) return false;
 	} while (0);
 	_pStreamDst->Close();
@@ -410,7 +410,7 @@ bool Iterator_Entry::DoNext(Environment &env, Signal sig, Value &value)
 	const CentralFileHeader::Fields &fields = pHdr->GetFields();
 	Stream *pStreamSrc = _pObjZipR->GetStreamSrc();
 	if (pStreamSrc == NULL) return false;
-	long offset = XUnpackLong(fields.RelativeOffsetOfLocalHeader);
+	long offset = Gura_UnpackLong(fields.RelativeOffsetOfLocalHeader);
 	Stream *pStream = CreateStream(sig, pStreamSrc, pHdr);
 	if (sig.IsSignalled()) return false;
 	Object_stream *pObjStream = new Object_stream(env, pStream);
@@ -1050,7 +1050,7 @@ unsigned long SeekCentralDirectory(Signal sig, Stream *pStream)
 	}
 	EndOfCentralDirectoryRecord record;
 	::memcpy(&record, buffAnchor, EndOfCentralDirectoryRecord::MinSize);
-	return XUnpackULong(record.GetFields().
+	return Gura_UnpackULong(record.GetFields().
 			OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber);
 }
 
@@ -1140,10 +1140,10 @@ bool ReadStream(Signal sig, Stream &stream, void *buff, size_t bytes, size_t off
 bool ReadStream(Signal sig, Stream &stream, unsigned long *pSignature)
 {
 	struct {
-		XPackedULong_LE(Signature);
+		Gura_PackedULong_LE(Signature);
 	} buff;
 	if (!ReadStream(sig, stream, &buff, 4)) return false;
-	*pSignature = XUnpackULong(buff.Signature);
+	*pSignature = Gura_UnpackULong(buff.Signature);
 	return true;
 }
 
@@ -1187,9 +1187,9 @@ bool LocalFileHeader::SkipOver(Signal sig, Stream &stream)
 		return false;
 	}
 	size_t bytesToSkip = 0;
-	bytesToSkip += XUnpackUShort(_fields.FileNameLength);
-	bytesToSkip += XUnpackUShort(_fields.ExtraFieldLength);
-	bytesToSkip += XUnpackULong(_fields.CompressedSize);
+	bytesToSkip += Gura_UnpackUShort(_fields.FileNameLength);
+	bytesToSkip += Gura_UnpackUShort(_fields.ExtraFieldLength);
+	bytesToSkip += Gura_UnpackULong(_fields.CompressedSize);
 	if (!SkipStream(sig, stream, bytesToSkip)) return false;
 	return true;
 }

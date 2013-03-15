@@ -15,9 +15,9 @@ Gura_DeclareUserSymbol(images);
 //-----------------------------------------------------------------------------
 struct IconDir {
 	enum { Size = 6 };
-	XPackedUShort_LE(idReserved);
-	XPackedUShort_LE(idType);
-	XPackedUShort_LE(idCount);
+	Gura_PackedUShort_LE(idReserved);
+	Gura_PackedUShort_LE(idType);
+	Gura_PackedUShort_LE(idCount);
 };
 
 struct IconDirEntry {
@@ -26,10 +26,10 @@ struct IconDirEntry {
 	unsigned char bHeight;
 	unsigned char bColorCount;
 	unsigned char bReserved;
-	XPackedUShort_LE(wPlanes);
-	XPackedUShort_LE(wBitCount);
-	XPackedULong_LE(dwBytesInRes);
-	XPackedULong_LE(dwImageOffset);
+	Gura_PackedUShort_LE(wPlanes);
+	Gura_PackedUShort_LE(wBitCount);
+	Gura_PackedULong_LE(dwBytesInRes);
+	Gura_PackedULong_LE(dwImageOffset);
 };
 
 //-----------------------------------------------------------------------------

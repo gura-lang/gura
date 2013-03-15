@@ -115,7 +115,7 @@ Object_wx_EventFactory_ScrollEvent::Object_wx_EventFactory_ScrollEvent(const cha
 		wxEVT_SCROLL_THUMBTRACK,
 		wxEVT_SCROLL_THUMBRELEASE,
 	};
-	_cntEventTypes = NUMBEROF(eventTypes);
+	_cntEventTypes = ArraySizeOf(eventTypes);
 	_eventTypes = eventTypes;
 }
 
@@ -140,7 +140,7 @@ Object_wx_EventFactory_ScrollWinEvent::Object_wx_EventFactory_ScrollWinEvent(con
 		wxEVT_SCROLLWIN_THUMBTRACK,
 		wxEVT_SCROLLWIN_THUMBRELEASE,
 	};
-	_cntEventTypes = NUMBEROF(eventTypes);
+	_cntEventTypes = ArraySizeOf(eventTypes);
 	_eventTypes = eventTypes;
 }
 
@@ -161,7 +161,7 @@ Object_wx_EventFactory_JoystickEvent::Object_wx_EventFactory_JoystickEvent(const
 		wxEVT_JOY_MOVE,
 		wxEVT_JOY_ZMOVE,
 	};
-	_cntEventTypes = NUMBEROF(eventTypes);
+	_cntEventTypes = ArraySizeOf(eventTypes);
 	_eventTypes = eventTypes;
 }
 
@@ -191,7 +191,7 @@ Object_wx_EventFactory_MouseEvent::Object_wx_EventFactory_MouseEvent(const char 
 		wxEVT_LEAVE_WINDOW,
 		wxEVT_MOUSEWHEEL,
 	};
-	_cntEventTypes = NUMBEROF(eventTypes);
+	_cntEventTypes = ArraySizeOf(eventTypes);
 	_eventTypes = eventTypes;
 }
 

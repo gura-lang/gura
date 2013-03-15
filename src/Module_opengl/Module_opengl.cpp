@@ -246,7 +246,7 @@ size_t GetParamCount(GLenum pname)
 		{ GL_ZOOM_X,                                 1 },
 		{ GL_ZOOM_Y,                                 1 },
 	};
-	for (int i = 0; i < NUMBEROF(tbl); i++) {
+	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].pname == pname) return tbl[i].n;
 	}
 	return 0;
@@ -269,7 +269,7 @@ size_t GetLightParamCount(GLenum pname)
 		{ GL_LINEAR_ATTENUATION,    1 },
 		{ GL_QUADRATIC_ATTENUATION, 1 },
 	};
-	for (int i = 0; i < NUMBEROF(tbl); i++) {
+	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].pname == pname) return tbl[i].n;
 	}
 	return 0;

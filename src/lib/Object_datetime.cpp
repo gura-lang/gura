@@ -288,7 +288,7 @@ Class_datetime::Class_datetime(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 
 Object *Class_datetime::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	GURA_GURA_ERROREND(env, "this function must not be called");
+	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
 }
 

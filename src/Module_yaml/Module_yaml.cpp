@@ -560,7 +560,7 @@ const char *GetErrorText(yaml_error_type_e error)
 		{ YAML_WRITER_ERROR,	"Cannot write to the output stream."				},
 		{ YAML_EMITTER_ERROR,	"Cannot emit a YAML stream."						},
 	};
-	for (int i = 0; i < NUMBEROF(tbl); i++) {
+	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].error == error) return tbl[i].str;
 	}
 	return "unknown error";

@@ -145,7 +145,7 @@ Class_environment::Class_environment(Environment *pEnvOuter) : Class(pEnvOuter, 
 
 Object *Class_environment::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	GURA_GURA_ERROREND(env, "this function must not be called");
+	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
 }
 

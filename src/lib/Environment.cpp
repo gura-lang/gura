@@ -39,7 +39,7 @@ const char *GetEnvTypeName(EnvType envType)
 		{ ENVTYPE_instance,		"instance",	},
 		{ ENVTYPE_method,		"method",	},
 	};
-	for (int i = 0; i < NUMBEROF(tbl); i++) {
+	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].envType == envType) return tbl[i].name;
 	}
 	return "unknown";

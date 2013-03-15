@@ -124,10 +124,10 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				{ ']',	ETYPE_RBracket,		},
 				{ '\0',	ETYPE_EOF,			},
 			};
-			for (i = 0; i < NUMBEROF(tbl); i++) {
+			for (i = 0; i < ArraySizeOf(tbl); i++) {
 				if (tbl[i].ch == ch) break;
 			}
-			if (i >= NUMBEROF(tbl)) {
+			if (i >= ArraySizeOf(tbl)) {
 				SetError(sig, ERR_SyntaxError, "unexpected character '%c' (%d)", ch, ch);
 				_stat = STAT_Error;
 			} else if (tbl[i].elemType == ETYPE_DoubleChars) {
@@ -220,10 +220,10 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		} else {
 			_stat = STAT_Start;
 			continueFlag = true;
-			for (int i = 0; i < NUMBEROF(tbl); i++) {
+			for (int i = 0; i < ArraySizeOf(tbl); i++) {
 				if (tbl[i].chFirst != chFirst) continue;
 				ElemType elemType = tbl[i].elemType;
-				for (int j = 0; j < NUMBEROF(tbl[i].tblCand); j++) {
+				for (int j = 0; j < ArraySizeOf(tbl[i].tblCand); j++) {
 					if (tbl[i].tblCand[j].chSecond == '\0') break;
 					if (tbl[i].tblCand[j].chSecond != ch) continue;
 					_token.push_back(ch);
@@ -244,7 +244,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				}
 				break;
 			}
-			// tables have a bug if i reaches at NUMBEROF(tbl)
+			// tables have a bug if i reaches at ArraySizeOf(tbl)
 		}
 		break;
 	}
@@ -272,10 +272,10 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		};
 		_stat = STAT_Start;
 		continueFlag = true;
-		for (int i = 0; i < NUMBEROF(tbl); i++) {
+		for (int i = 0; i < ArraySizeOf(tbl); i++) {
 			if (_token.compare(tbl[i].strFirst) != 0) continue;
 			ElemType elemType = tbl[i].elemType;
-			for (int j = 0; j < NUMBEROF(tbl[i].tblCand); j++) {
+			for (int j = 0; j < ArraySizeOf(tbl[i].tblCand); j++) {
 				if (tbl[i].tblCand[j].chThird == '\0') break;
 				if (tbl[i].tblCand[j].chThird != ch) continue;
 				_token.push_back(ch);
@@ -294,7 +294,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			}
 			break;
 		}
-		// tables have a bug if i reaches at NUMBEROF(tbl)
+		// tables have a bug if i reaches at ArraySizeOf(tbl)
 		break;
 	}
 	case STAT_Escape: {
@@ -320,10 +320,10 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			'~',
 		};
 		int i = 0;
-		for (i = 0; i < NUMBEROF(chTbl); i++) {
+		for (i = 0; i < ArraySizeOf(chTbl); i++) {
 			if (chTbl[i] == ch) break;
 		}
-		if (i < NUMBEROF(chTbl)) {
+		if (i < ArraySizeOf(chTbl)) {
 			_quoteFlag = true;
 			continueFlag = true;
 			_stat = STAT_Start;

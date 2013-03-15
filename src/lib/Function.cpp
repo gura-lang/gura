@@ -16,7 +16,7 @@ const char *GetFuncTypeName(FunctionType funcType)
 		{ FUNCTYPE_Instance,	"instance",		},
 		{ FUNCTYPE_Block,		"block",		},
 	};
-	for (int i = 0; i < NUMBEROF(tbl); i++) {
+	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].funcType == funcType) return tbl[i].name;
 	}
 	return "unknown";

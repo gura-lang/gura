@@ -941,7 +941,7 @@ const TagInfo *TagIdToInfo(const Symbol *pSymbolOfIFD, unsigned short id)
 const TypeInfo *TypeToInfo(unsigned short type)
 {
 	const TypeInfo *pTypeInfo = g_typeInfoTbl;
-	for (int i = 0; i < NUMBEROF(g_typeInfoTbl); i++, pTypeInfo++) {
+	for (int i = 0; i < ArraySizeOf(g_typeInfoTbl); i++, pTypeInfo++) {
 		if (pTypeInfo->type == type) return pTypeInfo;
 	}
 	return NULL;

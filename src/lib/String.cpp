@@ -64,7 +64,7 @@ char GetEscaped(char ch)
 		{ '\'',	'\''	},
 		{ '"',	'"'		},
 	};
-	for (int i = 0; i < NUMBEROF(tbl); i++) {
+	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].ch == ch) return tbl[i].chConv;
 	}
 	return ch;
@@ -205,7 +205,7 @@ char ZenToHanChar(const char *str, const char **next)
 		{ "\xef\xbd\x9e", 3, 0x7e }, // ~
 		{ "\xef\xbf\xa3", 3, 0x7e }, // ~
 	};
-	for (int i = 0; i < NUMBEROF(convTbl); i++) {
+	for (int i = 0; i < ArraySizeOf(convTbl); i++) {
 		const Convert &conv = convTbl[i];
 		if (::strncmp(str, conv.zenkaku, conv.len) == 0) {
 			if (next != NULL) *next = str + conv.len;
@@ -1009,7 +1009,7 @@ CharConverter::CharConverter() :
 
 void CharConverter::Put(char ch)
 {
-	if (_idxPut >= NUMBEROF(_buff) - 1) _idxPut = 0; // This case should not happen.
+	if (_idxPut >= ArraySizeOf(_buff) - 1) _idxPut = 0; // This case should not happen.
 	if (!_enableFlag) {
 		_buff[_idxPut++] = ch;
 		_readyFlag = true;

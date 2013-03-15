@@ -103,19 +103,19 @@ Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &strea
 	char *buff = reinterpret_cast<char *>(mem.GetPointer());
 	SHORT_BE *pShort = reinterpret_cast<SHORT_BE *>(buff);
 	if (!ReadBuff(sig, stream, pShort, UNITSIZE_SHORT)) return NULL;
-	if (XUnpackUShort(pShort->num) != MARKER_SOI) {
+	if (Gura_UnpackUShort(pShort->num) != MARKER_SOI) {
 		sig.SetError(ERR_FormatError, "invalid jpeg file");
 		return NULL;
 	}
 	size_t bytesAPP1 = 0;
 	for (;;) {
 		if (!ReadBuff(sig, stream, pShort, UNITSIZE_SHORT)) return NULL;
-		unsigned short marker = XUnpackUShort(pShort->num);
+		unsigned short marker = Gura_UnpackUShort(pShort->num);
 		if (marker < MARKER_APP0 || MARKER_APP15 < marker) {
 			return NULL;	// exif doesn't exist
 		}
 		if (!ReadBuff(sig, stream, pShort, UNITSIZE_SHORT)) return NULL;
-		unsigned short bytes = XUnpackUShort(pShort->num);
+		unsigned short bytes = Gura_UnpackUShort(pShort->num);
 		if (bytes < UNITSIZE_SHORT) {
 			sig.SetError(ERR_FormatError, "invalid jpeg file");
 			return NULL;
@@ -136,11 +136,11 @@ Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &strea
 	if (::memcmp(buff, "MM", 2) == 0) {
 		pObj->_bigendianFlag = true;
 		TIFF_BE *pTIFF = reinterpret_cast<TIFF_BE *>(buff + 2);
-		if (XUnpackUShort(pTIFF->Code) != 0x002a) {
+		if (Gura_UnpackUShort(pTIFF->Code) != 0x002a) {
 			SetError_InvalidFormat(sig);
 			return NULL;
 		}
-		size_t offset = XUnpackULong(pTIFF->Offset0thIFD);
+		size_t offset = Gura_UnpackULong(pTIFF->Offset0thIFD);
 		pObj->_pObj0thIFD.reset(ParseIFD_BE(env, sig, Symbol::Add("ifd0"),
 										buff, bytesAPP1, offset, &offset));
 		if (pObj->_pObj0thIFD.IsNull()) return NULL;
@@ -152,11 +152,11 @@ Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &strea
 	} else if (::memcmp(buff, "II", 2) == 0) {
 		pObj->_bigendianFlag = false;
 		TIFF_LE *pTIFF = reinterpret_cast<TIFF_LE *>(buff + 2);
-		if (XUnpackUShort(pTIFF->Code) != 0x002a) {
+		if (Gura_UnpackUShort(pTIFF->Code) != 0x002a) {
 			SetError_InvalidFormat(sig);
 			return NULL;
 		}
-		size_t offset = XUnpackULong(pTIFF->Offset0thIFD);
+		size_t offset = Gura_UnpackULong(pTIFF->Offset0thIFD);
 		pObj->_pObj0thIFD.reset(ParseIFD_LE(env, sig, Symbol::Add("ifd0"),
 										buff, bytesAPP1, offset, &offset));
 		if (pObj->_pObj0thIFD.IsNull()) return NULL;

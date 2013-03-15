@@ -100,8 +100,8 @@ public:
 		}
 	};
 	struct LogicalScreenDescriptor {
-		XPackedUShort_LE(LogicalScreenWidth);
-		XPackedUShort_LE(LogicalScreenHeight);
+		Gura_PackedUShort_LE(LogicalScreenWidth);
+		Gura_PackedUShort_LE(LogicalScreenHeight);
 		unsigned char PackedFields;
 		unsigned char BackgroundColorIndex;
 		unsigned char PixelAspectRatio;
@@ -111,16 +111,16 @@ public:
 		inline size_t SizeOfGlobalColorTable() const { return (PackedFields >> 0) & 7; }
 	};
 	struct ImageDescriptor {
-		XPackedUShort_LE(ImageLeftPosition);
-		XPackedUShort_LE(ImageTopPosition);
-		XPackedUShort_LE(ImageWidth);
-		XPackedUShort_LE(ImageHeight);
+		Gura_PackedUShort_LE(ImageLeftPosition);
+		Gura_PackedUShort_LE(ImageTopPosition);
+		Gura_PackedUShort_LE(ImageWidth);
+		Gura_PackedUShort_LE(ImageHeight);
 		unsigned char PackedFields;
 		inline ImageDescriptor() {
-			XPackUShort(ImageLeftPosition, 0);
-			XPackUShort(ImageTopPosition, 0);
-			XPackUShort(ImageWidth, 0);
-			XPackUShort(ImageHeight, 0);
+			Gura_PackUShort(ImageLeftPosition, 0);
+			Gura_PackUShort(ImageTopPosition, 0);
+			Gura_PackUShort(ImageWidth, 0);
+			Gura_PackUShort(ImageHeight, 0);
 			PackedFields = 0x00;
 		}
 		inline unsigned char LocalColorTableFlag() const { return (PackedFields >> 7) & 1; }
@@ -131,13 +131,13 @@ public:
 	struct GraphicControlExtension {
 		unsigned char BlockSize;
 		unsigned char PackedFields;
-		XPackedUShort_LE(DelayTime);
+		Gura_PackedUShort_LE(DelayTime);
 		unsigned char TransparentColorIndex;
 		enum { Label = 0xf9 };
 		inline GraphicControlExtension() {
 			BlockSize = 4;
 			PackedFields = 0x00;
-			XPackUShort(DelayTime, 0);
+			Gura_PackUShort(DelayTime, 0);
 			TransparentColorIndex = 0;
 		}
 		inline unsigned char DisposalMethod() const { return (PackedFields >> 2) & 7; }
@@ -154,10 +154,10 @@ public:
 	};
 	struct PlainTextExtension {
 		unsigned char BlockSize;
-		XPackedUShort_LE(TextGridLeftPosition);
-		XPackedUShort_LE(TextGridTopPosition);
-		XPackedUShort_LE(TextGridWidth);
-		XPackedUShort_LE(TextGridHeight);
+		Gura_PackedUShort_LE(TextGridLeftPosition);
+		Gura_PackedUShort_LE(TextGridTopPosition);
+		Gura_PackedUShort_LE(TextGridWidth);
+		Gura_PackedUShort_LE(TextGridHeight);
 		unsigned char CharacterCellWidth;
 		unsigned char CharacterCellHeight;
 		unsigned char TextForegroundColorIndex;
@@ -167,10 +167,10 @@ public:
 		enum { Label = 0x01 };
 		inline PlainTextExtension() {
 			BlockSize = 12;
-			XPackUShort(TextGridLeftPosition, 0);
-			XPackUShort(TextGridTopPosition, 0);
-			XPackUShort(TextGridWidth, 0);
-			XPackUShort(TextGridHeight, 0);
+			Gura_PackUShort(TextGridLeftPosition, 0);
+			Gura_PackUShort(TextGridTopPosition, 0);
+			Gura_PackUShort(TextGridWidth, 0);
+			Gura_PackUShort(TextGridHeight, 0);
 			CharacterCellWidth = 0;
 			CharacterCellHeight = 0;
 			TextForegroundColorIndex = 0;

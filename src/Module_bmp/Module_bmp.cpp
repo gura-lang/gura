@@ -88,19 +88,19 @@ bool ImageStreamer_BMP::ReadStream(Signal sig, Object_image *pObjImage, Stream &
 		SetError_InvalidBMPFormat(sig);
 		return false;
 	}
-	if (XUnpackUShort(bfh.bfType) != 0x4d42) {
+	if (Gura_UnpackUShort(bfh.bfType) != 0x4d42) {
 		sig.SetError(ERR_FormatError, "Not a BMP file");
 		return false;
 	}
-	unsigned long bfOffBits = XUnpackULong(bfh.bfOffBits);
+	unsigned long bfOffBits = Gura_UnpackULong(bfh.bfOffBits);
 	BitmapInfoHeader bih;
 	if (stream.Read(sig, &bih, BitmapInfoHeader::Size) < BitmapInfoHeader::Size) {
 		sig.SetError(ERR_FormatError, "invalid DIB format");
 		return false;
 	}
-	int biWidth = XUnpackLong(bih.biWidth);
-	int biHeight = XUnpackLong(bih.biHeight);
-	unsigned short biBitCount = XUnpackUShort(bih.biBitCount);
+	int biWidth = Gura_UnpackLong(bih.biWidth);
+	int biHeight = Gura_UnpackLong(bih.biHeight);
+	unsigned short biBitCount = Gura_UnpackUShort(bih.biBitCount);
 	if (!pObjImage->ReadDIBPalette(sig, stream, biBitCount)) return false;
 	if (bfOffBits != 0) {
 		stream.Seek(sig, bfOffBits, Stream::SeekSet);
@@ -121,9 +121,9 @@ bool ImageStreamer_BMP::WriteStream(Signal sig, Object_image *pObjImage, Stream 
 		unsigned long bfOffBits = BitmapFileHeader::Size + BitmapInfoHeader::Size;
 		bfOffBits += static_cast<unsigned long>(Object_image::CalcDIBPaletteSize(biBitCount));
 		unsigned long bfSize = static_cast<unsigned long>(pObjImage->GetBufferSize() + bfOffBits);
-		XPackUShort(bfh.bfType,			0x4d42);
-		XPackULong(bfh.bfSize,			bfSize);
-		XPackULong(bfh.bfOffBits,		bfOffBits);
+		Gura_PackUShort(bfh.bfType,			0x4d42);
+		Gura_PackULong(bfh.bfSize,			bfSize);
+		Gura_PackULong(bfh.bfOffBits,		bfOffBits);
 		if (stream.Write(sig, &bfh, BitmapFileHeader::Size) < BitmapFileHeader::Size) {
 			sig.SetError(ERR_IOError, "failed to write bitmap data");
 			return false;
@@ -132,17 +132,17 @@ bool ImageStreamer_BMP::WriteStream(Signal sig, Object_image *pObjImage, Stream 
 	do {
 		BitmapInfoHeader bih;
 		::memset(&bih, 0x00, BitmapInfoHeader::Size);
-		XPackULong(bih.biSize,			BitmapInfoHeader::Size);
-		XPackULong(bih.biWidth,			biWidth);
-		XPackULong(bih.biHeight,		biHeight);
-		XPackUShort(bih.biPlanes,		1);
-		XPackUShort(bih.biBitCount,		biBitCount);
-		XPackULong(bih.biCompression,	0);
-		XPackULong(bih.biSizeImage,		0);
-		XPackULong(bih.biXPelsPerMeter,	3780);
-		XPackULong(bih.biYPelsPerMeter,	3780);
-		XPackULong(bih.biClrUsed,		0);
-		XPackULong(bih.biClrImportant,	0);
+		Gura_PackULong(bih.biSize,			BitmapInfoHeader::Size);
+		Gura_PackULong(bih.biWidth,			biWidth);
+		Gura_PackULong(bih.biHeight,		biHeight);
+		Gura_PackUShort(bih.biPlanes,		1);
+		Gura_PackUShort(bih.biBitCount,		biBitCount);
+		Gura_PackULong(bih.biCompression,	0);
+		Gura_PackULong(bih.biSizeImage,		0);
+		Gura_PackULong(bih.biXPelsPerMeter,	3780);
+		Gura_PackULong(bih.biYPelsPerMeter,	3780);
+		Gura_PackULong(bih.biClrUsed,		0);
+		Gura_PackULong(bih.biClrImportant,	0);
 		if (stream.Write(sig, &bih, BitmapInfoHeader::Size) < BitmapInfoHeader::Size) {
 			sig.SetError(ERR_IOError, "failed to write bitmap data");
 			return false;

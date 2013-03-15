@@ -32,7 +32,7 @@ const char *GetExprTypeName(ExprType exprType)
 		{ EXPRTYPE_String,			"string",			},
 		{ EXPRTYPE_TemplateString,	"templatestring",	},
 	};
-	for (int i = 0; i < NUMBEROF(tbl); i++) {
+	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].exprType == exprType) return tbl[i].name;
 	}
 	return "unknown";

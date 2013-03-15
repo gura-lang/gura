@@ -720,7 +720,7 @@ const char *SurfaceTypeToName(cairo_surface_type_t surface_type)
 		{ CAIRO_SURFACE_TYPE_SKIA		,	"skia"			},
 		{ CAIRO_SURFACE_TYPE_SUBSURFACE,	"subsurface"	},
 	};
-	for (size_t i = 0; i < NUMBEROF(infoTbl); i++) {
+	for (size_t i = 0; i < ArraySizeOf(infoTbl); i++) {
 		if (infoTbl[i].surface_type == surface_type) return infoTbl[i].name;
 	}
 	return "(unknown)";
