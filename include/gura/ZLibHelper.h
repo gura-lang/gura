@@ -21,7 +21,7 @@ public:
 		unsigned char Identification2;
 		unsigned char CompressionMethod;
 		unsigned char Flags;
-		XPackedULong_LE(ModificationTime);
+		Gura_PackedULong_LE(ModificationTime);
 		unsigned char ExtraFlags;
 		unsigned char OperatingSystem;
 		inline bool GetFTEXT() const { return (Flags & (1 << 0))? true : false; }
@@ -43,7 +43,7 @@ public:
 	inline const char *GetFileName() const { return _fileName.c_str(); }
 	inline const char *GetComment() const { return _comment.c_str(); }
 	inline void SetModificationTime(unsigned long time) {
-		XPackULong(_fields.ModificationTime, time);
+		Gura_PackULong(_fields.ModificationTime, time);
 	}
 	inline void SetExtra(const Binary &extra) {
 		_extra = extra;
@@ -86,13 +86,13 @@ bool GZHeader::Read(Signal sig, Stream &stream)
 	}
 	if (_fields.GetFEXTRA()) {
 		struct {
-			XPackedUShort_LE(ExtraLength);
+			Gura_PackedUShort_LE(ExtraLength);
 		} fields;
 		if (stream.Read(sig, &fields, 2) < 2) {
 			SetError_InvalidFormat(sig);
 			return false;
 		}
-		unsigned short ExtraLength = XUnpackUShort(fields.ExtraLength);
+		unsigned short ExtraLength = Gura_UnpackUShort(fields.ExtraLength);
 		if (!stream.Seek(sig, ExtraLength, Stream::SeekCur)) {
 			SetError_InvalidFormat(sig);
 			return false;
@@ -137,9 +137,9 @@ bool GZHeader::Write(Signal sig, Stream &stream)
 	}
 	if (_fields.GetFEXTRA()) {
 		struct {
-			XPackedUShort_LE(ExtraLength);
+			Gura_PackedUShort_LE(ExtraLength);
 		} fields;
-		XPackUShort(fields.ExtraLength, static_cast<unsigned short>(_extra.size()));
+		Gura_PackUShort(fields.ExtraLength, static_cast<unsigned short>(_extra.size()));
 		if (stream.Write(sig, &fields, 2) < 2) {
 			SetError_InvalidFormat(sig);
 			return false;
@@ -162,9 +162,9 @@ bool GZHeader::Write(Signal sig, Stream &stream)
 	if (_fields.GetFHCRC()) {
 		unsigned short crc16 = 0x0000;
 		struct {
-			XPackedUShort_LE(CRC16);
+			Gura_PackedUShort_LE(CRC16);
 		} fields;
-		XPackUShort(fields.CRC16, crc16);
+		Gura_PackUShort(fields.CRC16, crc16);
 		if (stream.Write(sig, &fields, 2) < 2) {
 			SetError_InvalidFormat(sig);
 			return false;
