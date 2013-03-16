@@ -2696,6 +2696,12 @@ Stream *Directory_Http::DoOpenStream(Environment &env, Signal sig,
 		sig.SetError(ERR_IOError, "no body");
 		return NULL;
 	}
+	Status &status = pObjClient->GetStatus();
+	if (::strcmp(status.GetStatusCode(), "200") != 0) {
+		sig.SetError(ERR_IOError, "%s %s",
+					status.GetStatusCode(), status.GetReasonPhrase());
+		return NULL;
+	}
 	return Stream::Reference(pStream);
 }
 
