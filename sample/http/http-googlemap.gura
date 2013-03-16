@@ -1,0 +1,31 @@
+#!/usr/bin/env gura
+import(tk)
+import(png)
+import(http)
+
+uri = '/maps/api/staticmap?' + [
+	//'center=Brooklyn+Bridge,New+York,NY'
+	'center=大阪'
+	'zoom=15'
+	'size=640x640'
+	//'maptype=roadmap'
+	//'maptype=satellite'
+	'maptype=hybrid'
+	//'maptype=terrain'
+	//'markers=color:blue|label:S|40.702147,-74.015794'
+	//'markers=color:green|label:G|40.711614,-74.012318'
+	//'markers=color:red|color:red|label:C|40.718217,-73.998284'
+	'sensor=false'
+].join('&')
+http.client('maps.googleapis.com') {|c|
+	resp = c.get(uri.escapeuri())
+	println(resp.code, ' ', resp.version, ' ', resp.reason)
+	println(resp['Content-Type'])
+	if (resp.code == '200') {
+		img = image(resp.body)
+		println(img)
+		img.show()
+	} else {
+		resp.body.copyto(sys.stdout)
+	}
+}
