@@ -8,7 +8,7 @@ private:
 	Gura::EnvironmentRoot _env;
 	Gura::Signal _sig;
 public:
-	inline Context() : _env(0, NULL) {}
+	inline Context() { _env.Initialize(_sig, 0, NULL); }
 	inline Gura::Environment &GetEnv() { return _env; }
 	inline Gura::Signal &GetSignal() { return _sig; }
 };
