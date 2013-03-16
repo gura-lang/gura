@@ -11,7 +11,34 @@
 //   }
 //-----------------------------------------------------------------------------
 Entry = struct(type:symbol, longName:string, shortName:string:nil,
-							help:string:nil, helpValue:string:nil, defValue)
+							help:string:nil, helpValue:string:nil, defValue) {
+	makeHelpIndex(longNameFlag:boolean, shortNameFlag:boolean) = {
+		str = ''
+		if (!shortNameFlag) {
+			strSep = ''
+		} elsif (this.shortName) {
+			str += '-' + this.shortName
+			strSep = ', '
+		} else {
+			str += '  '
+			strSep = '  '
+		}
+		if (longNameFlag &&  this.longName) {
+			str += strSep
+			str += '--'
+			str += this.longName
+		}
+		if (this.type == `flag) {
+			// nothing to do
+		} elsif (this.helpValue) {
+			str += '='
+			str += this.helpValue
+		} else {
+			str += '=X'
+		}
+		str
+	}
+}
 
 Parser = class {
 	__init__() = {
@@ -83,9 +110,9 @@ Parser = class {
 	addFlag(longName:string, shortName?:string, help?:string) = {
 		this.entries.add(Entry(`flag, longName, shortName, help, nil, false))
 	}
-	formatHelp() = {
-		format('--%-*s  %s', this.entries:*longName:*len().max(),
-						this.entries:*longName, this.entries:*help.nilto(''))
+	formatHelp(longNameFlag:boolean => true, shortNameFlag:boolean => true) = {
+		helpIndices = this.entries:*makeHelpIndex(longNameFlag, shortNameFlag)
+		format('%-*s  %s', helpIndices:*len().max(), helpIndices, this.entries:*help)
 	}
 }
 
