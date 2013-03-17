@@ -680,6 +680,11 @@ String GetLocalDir()
 	String dirName = FromNativeString(buff);
 	dirName += "\\gura";
 	MakeDir(dirName.c_str());
+	do {
+		String dirNameSub(dirName);
+		dirNameSub += "\\module";
+		MakeDir(dirNameSub.c_str());
+	} while (0);
 	return dirName;
 }
 
@@ -698,6 +703,11 @@ void SetupModulePath(StringList &strList)
 	if (!str.empty()) {
 		SplitPathList(str.c_str(), strList);
 	}
+	do {
+		String dirNameSub(GetLocalDir());
+		dirNameSub += "\\module";
+		strList.push_back(dirNameSub);
+	} while (0);
 	strList.push_back(dirBase);
 	do {
 		String dirName = dirBase;
@@ -716,7 +726,7 @@ void SetupExecutablePath()
 	String dirBase = GetBaseDir();
 	String path;
 	path += dirBase;
-	path += "\\gura-guest\\bin-x86";
+	path += "\\gura-guest\\bin-x86"; // necessary for development phase
 	path += ";";
 	path += "\\gura-guest\\bin";
 	path += ";";
@@ -1259,6 +1269,11 @@ String GetLocalDir()
 	String dirName = GetEnv("HOME");
 	dirName += "/.gura";
 	MakeDir(dirName.c_str());
+	do {
+		String dirNameSub(dirName);
+		dirNameSub += "/module";
+		MakeDir(dirNameSub.c_str());
+	} while (0);
 	return dirName;
 }
 
@@ -1274,6 +1289,11 @@ void SetupModulePath(StringList &strList)
 	if (!str.empty()) {
 		SplitPathList(str.c_str(), strList);
 	}
+	do {
+		String dirNameSub(GetLocalDir());
+		dirNameSub += "/module";
+		strList.push_back(dirNameSub);
+	} while (0);
 	strList.push_back(PKGLIBDIR);
 	strList.push_back(PKGLIBDIR "/site");
 }
