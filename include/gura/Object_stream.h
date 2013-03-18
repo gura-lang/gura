@@ -40,14 +40,13 @@ public:
 public:
 	Gura_DeclareObjectAccessor(stream)
 protected:
-	Stream *_pStream;
+	AutoPtr<Stream> _pStream;
 public:
 	inline Object_stream(Environment &env, Stream *pStream) :
 						Object(env.LookupClass(VTYPE_stream)), _pStream(pStream) {}
 	inline Object_stream(Class *pClass, Stream *pStream) :
 						Object(pClass), _pStream(pStream) {}
 	inline Stream &GetStream() { return *_pStream; }
-	virtual ~Object_stream();
 	virtual Iterator *CreateIterator(Signal sig);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,

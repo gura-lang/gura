@@ -9,11 +9,6 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object_stream
 //-----------------------------------------------------------------------------
-Object_stream::~Object_stream()
-{
-	Stream::Delete(_pStream);
-}
-
 bool Object_stream::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;

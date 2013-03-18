@@ -29,6 +29,7 @@ ValueType VTYPE_list			= static_cast<ValueType>(0);
 ValueType VTYPE_matrix			= static_cast<ValueType>(0);
 ValueType VTYPE_dict			= static_cast<ValueType>(0);
 ValueType VTYPE_stream			= static_cast<ValueType>(0);
+ValueType VTYPE_directory		= static_cast<ValueType>(0);
 ValueType VTYPE_datetime		= static_cast<ValueType>(0);
 ValueType VTYPE_timedelta		= static_cast<ValueType>(0);
 ValueType VTYPE_iterator		= static_cast<ValueType>(0);
@@ -126,6 +127,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(matrix);
 	Gura_RealizeVTYPE(dict);
 	Gura_RealizeVTYPE(stream);
+	Gura_RealizeVTYPE(directory);
 	Gura_RealizeVTYPE(datetime);
 	Gura_RealizeVTYPE(timedelta);
 	Gura_RealizeVTYPE(iterator);
@@ -170,6 +172,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(matrix	)->SetClass(new Class_matrix(pClass));
 	Gura_VTYPEInfo(dict		)->SetClass(new Class_dict(pClass));
 	Gura_VTYPEInfo(stream	)->SetClass(new Class_stream(pClass));
+	Gura_VTYPEInfo(directory)->SetClass(new Class_directory(pClass));
 	Gura_VTYPEInfo(datetime	)->SetClass(new Class_datetime(pClass));
 	Gura_VTYPEInfo(timedelta)->SetClass(new Class_timedelta(pClass));
 	Gura_VTYPEInfo(iterator	)->SetClass(new Class_iterator(pClass));
@@ -202,6 +205,7 @@ void ValueTypePool::OnModuleEntry(Environment &env, Signal sig)
 	Class_matrix::OnModuleEntry(env, sig);
 	Class_dict::OnModuleEntry(env, sig);
 	Class_stream::OnModuleEntry(env, sig);
+	Class_directory::OnModuleEntry(env, sig);
 	Class_datetime::OnModuleEntry(env, sig);
 	Class_timedelta::OnModuleEntry(env, sig);
 	Class_iterator::OnModuleEntry(env, sig);
@@ -488,6 +492,11 @@ bool Value::IsInstanceOf(ValueType valType) const
 Object_stream *Value::GetStreamObj() const
 {
 	return dynamic_cast<Object_stream *>(_u.pObj);
+}
+
+Object_directory *Value::GetDirectoryObj() const
+{
+	return dynamic_cast<Object_directory *>(_u.pObj);
 }
 
 const char *Value::GetString() const

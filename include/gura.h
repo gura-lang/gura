@@ -47,6 +47,7 @@
 #include "gura/Object_timedelta.h"
 #include "gura/Object_iterator.h"
 #include "gura/Object_stream.h"
+#include "gura/Object_directory.h"
 #include "gura/Object_expr.h"
 #include "gura/Object_environment.h"
 #include "gura/Object_error.h"

@@ -222,6 +222,7 @@
     <ClCompile Include="Object_palette.cpp" />
     <ClCompile Include="Object_semaphore.cpp" />
     <ClCompile Include="Object_stream.cpp" />
+    <ClCompile Include="Object_directory.cpp" />
     <ClCompile Include="Object_string.cpp" />
     <ClCompile Include="Object_timedelta.cpp" />
     <ClCompile Include="Object_uri.cpp" />
@@ -290,6 +291,7 @@
     <ClInclude Include="..\..\include\gura\Object_palette.h" />
     <ClInclude Include="..\..\include\gura\Object_semaphore.h" />
     <ClInclude Include="..\..\include\gura\Object_stream.h" />
+    <ClInclude Include="..\..\include\gura\Object_directory.h" />
     <ClInclude Include="..\..\include\gura\Object_string.h" />
     <ClInclude Include="..\..\include\gura\Object_Struct.h" />
     <ClInclude Include="..\..\include\gura\Object_timedelta.h" />

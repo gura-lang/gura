@@ -27,6 +27,7 @@ class Object_datetime;
 class Object_timedelta;
 class Object_iterator;
 class Object_stream;
+class Object_directory;
 class Object_expr;
 class Object_environment;
 class Object_error;
@@ -169,6 +170,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_list;
 GURA_DLLDECLARE extern ValueType VTYPE_matrix;
 GURA_DLLDECLARE extern ValueType VTYPE_dict;
 GURA_DLLDECLARE extern ValueType VTYPE_stream;
+GURA_DLLDECLARE extern ValueType VTYPE_directory;
 GURA_DLLDECLARE extern ValueType VTYPE_datetime;
 GURA_DLLDECLARE extern ValueType VTYPE_timedelta;
 GURA_DLLDECLARE extern ValueType VTYPE_iterator;
@@ -247,6 +249,7 @@ public:
 	Gura_DeclareVTYPE(matrix);
 	Gura_DeclareVTYPE(dict);
 	Gura_DeclareVTYPE(stream);
+	Gura_DeclareVTYPE(directory);
 	Gura_DeclareVTYPE(datetime);
 	Gura_DeclareVTYPE(timedelta);
 	Gura_DeclareVTYPE(iterator);
@@ -467,6 +470,7 @@ public:
 	inline bool IsMatrix() const			{ return IsType(VTYPE_matrix);		}
 	inline bool IsDict() const				{ return IsType(VTYPE_dict);		}
 	inline bool IsStream() const			{ return IsType(VTYPE_stream);		}
+	inline bool IsDirectory() const			{ return IsType(VTYPE_directory);	}
 	inline bool IsDateTime() const			{ return IsType(VTYPE_datetime);	}
 	inline bool IsTimeDelta() const			{ return IsType(VTYPE_timedelta);	}
 	inline bool IsIterator() const			{ return IsType(VTYPE_iterator);	}
@@ -505,6 +509,7 @@ public:
 	inline bool MustBeMatrix(Signal &sig) const		{ return MustBe(sig, IsMatrix(), 	"matrix");		}
 	inline bool MustBeDict(Signal &sig) const		{ return MustBe(sig, IsDict(), 		"dict");		}
 	inline bool MustBeStream(Signal &sig) const		{ return MustBe(sig, IsStream(), 	"stream");		}
+	inline bool MustBeDirectory(Signal &sig) const	{ return MustBe(sig, IsDirectory(), "directory");	}
 	inline bool MustBeDateTime(Signal &sig) const	{ return MustBe(sig, IsDateTime(), 	"datetime");	}
 	inline bool MustBeTimeDelta(Signal &sig) const	{ return MustBe(sig, IsTimeDelta(), "timedelta");	}
 	inline bool MustBeIterator(Signal &sig) const	{ return MustBe(sig, IsIterator(), 	"iterator");	}
@@ -624,6 +629,8 @@ public:
 	// VTYPE_stream
 	Stream &GetStream() const;
 	Object_stream *GetStreamObj() const;
+	// VTYPE_stream
+	Object_directory *GetDirectoryObj() const;
 	// VTYPE_datetime
 	const DateTime &GetDateTime() const;
 	// VTYPE_timedelta

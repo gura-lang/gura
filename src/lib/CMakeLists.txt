@@ -46,6 +46,7 @@ Object_matrix.cpp
 Object_palette.cpp
 Object_semaphore.cpp
 Object_stream.cpp
+Object_directory.cpp
 Object_string.cpp
 Object_timedelta.cpp
 Object_uri.cpp

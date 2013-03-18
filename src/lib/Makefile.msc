@@ -14,7 +14,7 @@ Stream.cpp Directory.cpp DateTime.cpp Image.cpp OAL.cpp DLLMain.cpp Fundamental.
 
 SRCS = $(SRCS) Class.cpp Object.cpp \
 Object_function.cpp Object_string.cpp Object_binary.cpp \
-Object_list.cpp Object_matrix.cpp Object_dict.cpp Object_stream.cpp \
+Object_list.cpp Object_matrix.cpp Object_dict.cpp Object_stream.cpp Object_directory.cpp \
 Object_datetime.cpp Object_timedelta.cpp \
 Object_expr.cpp Object_environment.cpp Object_error.cpp Object_uri.cpp \
 Object_iterator.cpp Object_semaphore.cpp \
