@@ -173,6 +173,22 @@ void Environment::AssignValue(const Symbol *pSymbol, const Value &value, bool es
 	}
 }
 
+bool Environment::ImportValue(const Symbol *pSymbol, const Value &value, bool overwriteFlag)
+{
+	foreach (FrameList, ppFrame, _frameList) {
+		Frame *pFrame = *ppFrame;
+		if (pFrame->IsType(ENVTYPE_block)) {
+			// nothing to do
+		} else if (overwriteFlag || pFrame->LookupValue(pSymbol) == NULL) {
+			pFrame->AssignValue(pSymbol, value);
+			break;
+		} else {
+			return false;
+		}
+	}
+	return true;
+}
+
 void Environment::RemoveValue(const Symbol *pSymbol)
 {
 	GetTopFrame().RemoveValue(pSymbol);
@@ -394,7 +410,14 @@ Value Environment::GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 void Environment::AssignModule(Module *pModule)
 {
 	Value value(pModule);
-	GetTopFrame().AssignValue(pModule->GetSymbol(), value);
+	foreach (FrameList, ppFrame, _frameList) {
+		Frame *pFrame = *ppFrame;
+		if (!pFrame->IsType(ENVTYPE_block)) {
+			pFrame->AssignValue(pModule->GetSymbol(), value);
+			break;
+		}
+	}
+	//GetTopFrame().AssignValue(pModule->GetSymbol(), value);
 }
 
 bool Environment::ImportModules(Signal sig,
@@ -471,70 +494,67 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 		if (!assignModuleNameFlag) {
 			// nothing to do
 		} else if (pSymbolAlias == NULL) {
-			if (LookupValue(symbolOfModule.front(), false) != NULL) {
-				sig.SetError(ERR_ValueError,
-						"module symbol conflicts with an existing variable '%s'",
-						symbolOfModule.front()->GetName());
-				return false;
-			}
 			Environment *pEnvDst = this;
 			for (SymbolList::const_iterator ppSymbol = symbolOfModule.begin();
 									ppSymbol + 1 != symbolOfModule.end(); ppSymbol++) {
 				const Symbol *pSymbol = *ppSymbol;
 				Value *pValue = pEnvDst->LookupValue(pSymbol, false);
-				if (pValue == NULL) {
+				if (pValue != NULL && pValue->IsModule()) {
+					pEnvDst = pValue->GetModule();
+				} else {
 					Module *pModuleParent = new Module(pEnvDst, pSymbol,
 													"<integrated>", NULL, NULL);
 					Value valueOfModule(pModuleParent);
-					pEnvDst->AssignValue(pSymbol, valueOfModule, false);
-					pEnvDst = pModuleParent;
-				} else if (pValue->IsModule()) {
-					pEnvDst = pValue->GetModule();
-				} else {
-					sig.SetError(ERR_IOError,
+					if (!pEnvDst->ImportValue(pSymbol, valueOfModule, false)) {
+						sig.SetError(ERR_IOError,
 							"module symbol conflicts with an existing variable '%s'",
 							symbolOfModule.Join('.').c_str());
-					return false;
+						return false;
+					}
+					pEnvDst = pModuleParent;
 				}
 			}
 			const Symbol *pSymbolOfModule = symbolOfModule.back();
 			Value valueOfModule(pModule->IncRef());
-			pEnvDst->AssignValue(pSymbolOfModule, valueOfModule, false);
+			if (!pEnvDst->ImportValue(pSymbolOfModule, valueOfModule, false)) {
+				sig.SetError(ERR_ValueError,
+						"module symbol conflicts with an existing variable '%s'",
+						symbolOfModule.front()->GetName());
+				return false;
+			}
 		} else {
-			if (LookupValue(pSymbolAlias, false) != NULL) {
+			Value valueOfModule(pModule->IncRef());
+			if (!ImportValue(pSymbolAlias, valueOfModule, false)) {
 				sig.SetError(ERR_ValueError,
 						"module symbol conflicts with an existing variable '%s'",
 						pSymbolAlias->GetName());
 				return false;
 			}
-			Value valueOfModule(pModule->IncRef());
-			AssignValue(pSymbolAlias, valueOfModule, false);
 		}
 	} else if (pSymbolsToMixIn->IsSet(Gura_Symbol(Char_Multiply))) {
 		foreach_const (ValueMap, iter, pModule->GetTopFrame().GetValueMap()) {
 			const Symbol *pSymbol = iter->first;
 			const Value &value = iter->second;
-			if (pSymbol->IsPrivateName()) continue;
-			if (!overwriteFlag && LookupValue(pSymbol, false) != NULL) {
+			if (pSymbol->IsPrivateName()) {
+				// nothing to do
+			} else if (!ImportValue(pSymbol, value, overwriteFlag)) {
 				sig.SetError(ERR_IOError,
 						"imported variable name conflicts with an existing one '%s'",
 						pSymbol->GetName());
 				return false;
 			}
-			AssignValue(pSymbol, value, false);
 		}
 	} else {
 		foreach_const (SymbolSet, ppSymbol, *pSymbolsToMixIn) {
 			const Symbol *pSymbol = *ppSymbol;
-			if (!overwriteFlag && LookupValue(pSymbol, false) != NULL) {
+			Value *pValue = pModule->LookupValue(pSymbol, false);
+			if (pValue == NULL) {
+				// nothing to do
+			} else if (!ImportValue(pSymbol, *pValue, overwriteFlag)) {
 				sig.SetError(ERR_IOError,
 						"imported variable name conflicts with an existing one '%s'",
 												pSymbol->GetName());
 				return false;
-			}
-			Value *pValue = pModule->LookupValue(pSymbol, false);
-			if (pValue != NULL) {
-				AssignValue(pSymbol, *pValue, false);
 			}
 		}
 	}

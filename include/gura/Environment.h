@@ -238,6 +238,7 @@ public:
 	void AddLackingFrame(Environment *pEnv);
 	void CacheFrame(const Symbol *pSymbol, Frame *pFrame);
 	void AssignValue(const Symbol *pSymbol, const Value &value, bool escalateFlag);
+	bool ImportValue(const Symbol *pSymbol, const Value &value, bool overwriteFlag);
 	void RemoveValue(const Symbol *pSymbol);
 	Function *AssignFunction(Function *pFunc);
 	Value *LookupValue(const Symbol *pSymbol, bool escalateFlag);
