@@ -380,10 +380,10 @@ bool Directory::Iterator_Glob::Init(Environment &env, Signal sig, const char *pa
 			field += ch;
 		}
 	}
-	Directory *pDirectory = Directory::OpenDirectory(env, sig,
-									pathName.c_str(), Directory::NF_Signal);
+	AutoPtr<Directory> pDirectory(Directory::OpenDirectory(env, sig,
+									pathName.c_str(), Directory::NF_Signal));
 	if (sig.IsSignalled()) return false;
-	_directoryQue.push_back(pDirectory);
+	_directoryQue.push_back(pDirectory.release());
 	_depthQue.push_back(0);
 	return true;
 }

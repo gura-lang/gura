@@ -554,6 +554,7 @@ public:
 	inline bool IsMatrix(size_t idxArg) const			{ return GetValue(idxArg).IsMatrix();	}
 	inline bool IsDict(size_t idxArg) const				{ return GetValue(idxArg).IsDict();		}
 	inline bool IsStream(size_t idxArg) const			{ return GetValue(idxArg).IsStream();	}
+	inline bool IsDirectory(size_t idxArg) const		{ return GetValue(idxArg).IsDirectory();}
 	inline bool IsImage(size_t idxArg) const			{ return GetValue(idxArg).IsImage();	}
 	inline bool IsColor(size_t idxArg) const			{ return GetValue(idxArg).IsColor();	}
 	inline bool IsPalette(size_t idxArg) const			{ return GetValue(idxArg).IsPalette();	}
@@ -585,6 +586,7 @@ public:
 	inline String GetStringSTL(size_t idxArg) const		{ return GetValue(idxArg).GetStringSTL(); }
 	inline const Binary &GetBinary(size_t idxArg) const	{ return GetValue(idxArg).GetBinary();	}
 	inline Object_stream *GetStreamObj(size_t idxArg)	{ return GetValue(idxArg).GetStreamObj(); }
+	inline Object_directory *GetDirectoryObj(size_t idxArg)	{ return GetValue(idxArg).GetDirectoryObj(); }
 	inline Complex GetComplex(size_t idxArg) const		{ return GetValue(idxArg).GetComplex();	}
 	inline Module *GetModule(size_t idxArg)				{ return GetValue(idxArg).GetModule();	}
 	inline const Module *GetModule(size_t idxArg) const	{ return GetValue(idxArg).GetModule();	}
@@ -606,6 +608,10 @@ public:
 	inline Stream &GetStream(size_t idxArg)				{ return GetValue(idxArg).GetStream();	}
 	inline Stream &GetStream(size_t idxArg) const		{
 		return const_cast<Args *>(this)->GetValue(idxArg).GetStream();
+	}
+	inline Directory *GetDirectory(size_t idxArg)		{ return GetValue(idxArg).GetDirectory();}
+	inline Directory *GetDirectory(size_t idxArg) const	{
+		return const_cast<Args *>(this)->GetValue(idxArg).GetDirectory();
 	}
 	inline const Expr *GetExpr(size_t idxArg) const		{ return GetValue(idxArg).GetExpr();	}
 	inline Function *GetFunction(size_t idxArg)			{ return GetValue(idxArg).GetFunction(); }

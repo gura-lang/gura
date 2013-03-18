@@ -30,7 +30,7 @@ public:
 						Object(env.LookupClass(VTYPE_directory)), _pDirectory(pDirectory) {}
 	inline Object_directory(Class *pClass, Directory *pDirectory) :
 						Object(pClass), _pDirectory(pDirectory) {}
-	inline Directory &GetDirectory() { return *_pDirectory; }
+	inline Directory *GetDirectory() { return _pDirectory.get(); }
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);

@@ -1,5 +1,6 @@
 #ifndef __GURA_DIRECTORY_H__
 #define __GURA_DIRECTORY_H__
+
 #include "Common.h"
 #include "String.h"
 #include "Iterator.h"

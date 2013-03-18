@@ -655,6 +655,11 @@ Stream &Value::GetStream() const
 	return dynamic_cast<Object_stream *>(_u.pObj)->GetStream();
 }
 
+Directory *Value::GetDirectory() const
+{
+	return dynamic_cast<Object_directory *>(_u.pObj)->GetDirectory();
+}
+
 const Expr *Value::GetExpr() const
 {
 	return IsExpr()? dynamic_cast<Object_expr *>(_u.pObj)->GetExpr() : NULL;

@@ -25,7 +25,7 @@ Value Object_directory::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 String Object_directory::ToString(Signal sig, bool exprFlag)
 {
 	String str;
-	Directory &directory = GetDirectory();
+	//Directory *pDirectory = GetDirectory();
 	str += "<directory:";
 	str += ">";
 	return str;
@@ -44,12 +44,13 @@ Class_directory::Class_directory(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 
 bool Class_directory::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-#if 0
 	if (value.IsString()) {
-		value = Value(new Object_directory(env, pStream));
+		AutoPtr<Directory> pDirectory(Directory::OpenDirectory(env, sig,
+									value.GetString(), Directory::NF_Signal));
+		if (sig.IsSignalled()) return false;
+		value = Value(new Object_directory(env, pDirectory.release()));
 		return true;
 	}
-#endif
 	return false;
 }
 

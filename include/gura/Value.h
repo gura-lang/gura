@@ -14,6 +14,7 @@ class Fundamental;
 class Environment;
 class Module;
 class Function;
+class Directory;
 class Class;
 class Object;
 class Object_function;
@@ -629,7 +630,8 @@ public:
 	// VTYPE_stream
 	Stream &GetStream() const;
 	Object_stream *GetStreamObj() const;
-	// VTYPE_stream
+	// VTYPE_directory
+	Directory *GetDirectory() const;
 	Object_directory *GetDirectoryObj() const;
 	// VTYPE_datetime
 	const DateTime &GetDateTime() const;

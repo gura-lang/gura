@@ -9,23 +9,21 @@ Gura_BeginModule(path)
 //-----------------------------------------------------------------------------
 // Gura module functions: path
 //-----------------------------------------------------------------------------
-// path.stat(pathname:string):map
+// path.stat(directory:directory):map
 Gura_DeclareFunction(stat)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "pathname", VTYPE_string);
+	DeclareArg(env, "directory", VTYPE_directory);
 	AddHelp(Gura_Symbol(en), 
 	"Returns a stat object associated with the specified item.");
 }
 
 Gura_ImplementFunction(stat)
 {
-	AutoPtr<Directory> pDirectory(Directory::OpenDirectory(env, sig,
-									args.GetString(0), Directory::NF_Signal));
+	Directory *pDirectory = args.GetDirectory(0);
+	AutoPtr<Object> pObj(pDirectory->GetStatObj(sig));
 	if (sig.IsSignalled()) return Value::Null;
-	Object *pObj = pDirectory->GetStatObj(sig);
-	if (sig.IsSignalled()) return Value::Null;
-	return Value(pObj);
+	return Value(pObj.release());
 }
 
 // path.exists(pathname:string):map
@@ -43,11 +41,11 @@ Gura_ImplementFunction(exists)
 	return Value(existFlag);
 }
 
-// path.dir(pathname?:string, pattern*:string):map:flat:[stat,icase,file,dir] {block?}
+// path.dir(directory?:directory, pattern*:string):map:flat:[stat,icase,file,dir] {block?}
 Gura_DeclareFunction(dir)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
-	DeclareArg(env, "pathname", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "directory", VTYPE_directory, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pattern", VTYPE_string, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(stat));
@@ -67,24 +65,28 @@ Gura_ImplementFunction(dir)
 	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
 	bool fileFlag = args.IsSet(Gura_Symbol(file)) || !args.IsSet(Gura_Symbol(dir));
 	bool dirFlag = args.IsSet(Gura_Symbol(dir)) || !args.IsSet(Gura_Symbol(file));
-	const char *pathName = args.IsString(0)? args.GetString(0) : "";
 	int depthMax = 0;
 	StringList patterns;
 	if (!args.GetList(1).ToStringList(sig, patterns)) return Value::Null;
-	AutoPtr<Directory> pDirectory(Directory::OpenDirectory(env, sig,
-									pathName, Directory::NF_Signal));
-	if (pDirectory.IsNull()) return Value::Null;
+	AutoPtr<Directory> pDirectory;
+	if (args.IsDirectory(0)) {
+		pDirectory.reset(Directory::Reference(args.GetDirectory(0)));
+	} else {
+		pDirectory.reset(Directory::OpenDirectory(env, sig,
+											"", Directory::NF_Signal));
+		if (pDirectory.IsNull()) return Value::Null;
+	}
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag,
 					pDirectory.release(), depthMax, patterns);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// path.walk(pathname?:string, maxdepth?:number, pattern*:string):map:flat:[stat,icase,file,dir] {block?}
+// path.walk(directory?:directory, maxdepth?:number, pattern*:string):map:flat:[stat,icase,file,dir] {block?}
 Gura_DeclareFunction(walk)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
-	DeclareArg(env, "pathname", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "directory", VTYPE_directory, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "maxdepth", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pattern", VTYPE_string, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -105,13 +107,17 @@ Gura_ImplementFunction(walk)
 	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
 	bool fileFlag = args.IsSet(Gura_Symbol(file)) || !args.IsSet(Gura_Symbol(dir));
 	bool dirFlag = args.IsSet(Gura_Symbol(dir)) || !args.IsSet(Gura_Symbol(file));
-	const char *pathName = args.IsString(0)? args.GetString(0) : "";
 	int depthMax = args.IsNumber(1)? args.GetInt(1) : -1;
 	StringList patterns;
 	if (!args.GetList(2).ToStringList(sig, patterns)) return Value::Null;
-	AutoPtr<Directory> pDirectory(Directory::OpenDirectory(env, sig,
-									pathName, Directory::NF_Signal));
-	if (pDirectory.IsNull()) return Value::Null;
+	AutoPtr<Directory> pDirectory;
+	if (args.IsDirectory(0)) {
+		pDirectory.reset(Directory::Reference(args.GetDirectory(0)));
+	} else {
+		pDirectory.reset(Directory::OpenDirectory(env, sig,
+											"", Directory::NF_Signal));
+		if (pDirectory.IsNull()) return Value::Null;
+	}
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag,
 					pDirectory.release(), depthMax, patterns);
