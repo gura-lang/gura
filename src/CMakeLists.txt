@@ -118,6 +118,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Object_palette.h
   ${GURA_INCLUDE_DIR}/gura/Object_semaphore.h
   ${GURA_INCLUDE_DIR}/gura/Object_stream.h
+  ${GURA_INCLUDE_DIR}/gura/Object_directory.h
   ${GURA_INCLUDE_DIR}/gura/Object_string.h
   ${GURA_INCLUDE_DIR}/gura/Object_timedelta.h
   ${GURA_INCLUDE_DIR}/gura/Object_uri.h
