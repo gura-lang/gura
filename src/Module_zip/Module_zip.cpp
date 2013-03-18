@@ -890,59 +890,10 @@ bool DirectoryFactory_ZIP::IsResponsible(Environment &env, Signal sig,
 Directory *DirectoryFactory_ZIP::DoOpenDirectory(Environment &env, Signal sig,
 	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
 {
-	Stream *pStream = pParent->OpenStream(env, sig, Stream::ATTR_Readable, NULL);
+	AutoPtr<Stream> pStreamSrc(pParent->OpenStream(env, sig, Stream::ATTR_Readable, NULL));
 	if (sig.IsSignalled()) return NULL;
-	if (!pStream->IsBwdSeekable()) {
-		Stream *pStreamPrefetch = Stream::Prefetch(sig, pStream, true);
-		if (sig.IsSignalled()) return NULL;
-		pStream = pStreamPrefetch;
-	}
-	Value valStream(env, pStream);	// this works like std::auto_ptr
-	AutoPtr<DirBuilder::Structure> pStructure(new DirBuilder::Structure());
-	pStructure->SetRoot(new Record_ZIP(pStructure.get(), NULL, "", true));
-	unsigned long offsetCentralDirectory = SeekCentralDirectory(sig, pStream);
-	if (sig.IsSignalled()) return NULL;
-	if (!pStream->Seek(sig, offsetCentralDirectory, Stream::SeekSet)) return NULL;
-	unsigned long signature;
-	while (ReadStream(sig, *pStream, &signature)) {
-		//::printf("%08x\n", signature);
-		if (signature == LocalFileHeader::Signature) {
-			LocalFileHeader hdr;
-			if (!hdr.Read(sig, *pStream)) return NULL;
-			if (!hdr.SkipFileData(sig, *pStream)) return NULL;
-		} else if (signature == ArchiveExtraDataRecord::Signature) {
-			ArchiveExtraDataRecord record;
-			if (!record.Read(sig, *pStream)) return NULL;
-		} else if (signature == CentralFileHeader::Signature) {
-			CentralFileHeader *pHdr = new CentralFileHeader();
-			if (!pHdr->Read(sig, *pStream)) {
-				delete pHdr;
-				return NULL;
-			}
-			Record_ZIP *pRecord = dynamic_cast<Record_ZIP *>(
-									pStructure->AddRecord(pHdr->GetFileName()));
-			pRecord->SetCentralFileHeader(pHdr);
-		} else if (signature == DigitalSignature::Signature) {
-			DigitalSignature signature;
-			if (!signature.Read(sig, *pStream)) return NULL;
-		} else if (signature == Zip64EndOfCentralDirectory::Signature) {
-			Zip64EndOfCentralDirectory dir;
-			if (!dir.Read(sig, *pStream)) return NULL;
-		} else if (signature == Zip64EndOfCentralDirectoryLocator::Signature) {
-			Zip64EndOfCentralDirectoryLocator loc;
-			if (!loc.Read(sig, *pStream)) return NULL;
-		} else if (signature == EndOfCentralDirectoryRecord::Signature) {
-			EndOfCentralDirectoryRecord record;
-			if (!record.Read(sig, *pStream)) return NULL;
-			break;
-		} else {
-			sig.SetError(ERR_FormatError, "unknown signature %08x", signature);
-			return NULL;
-		}
-	}
-	if (sig.IsSignalled()) return NULL;
-	//pStream->Close();
-	return pStructure->GenerateDirectory(sig, pParent, pPathName, notFoundMode);
+	return CreateDirectory(env, sig,
+					pStreamSrc.get(), pParent, pPathName, notFoundMode);
 }
 
 //-----------------------------------------------------------------------------
@@ -1052,6 +1003,61 @@ unsigned long SeekCentralDirectory(Signal sig, Stream *pStream)
 	::memcpy(&record, buffAnchor, EndOfCentralDirectoryRecord::MinSize);
 	return Gura_UnpackULong(record.GetFields().
 			OffsetOfStartOfCentralDirectoryWithRespectToTheStartingDiskNumber);
+}
+
+Directory *CreateDirectory(Environment &env, Signal sig, Stream *pStreamSrc,
+	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
+{
+	if (!pStreamSrc->IsBwdSeekable()) {
+		Stream *pStreamPrefetch = Stream::Prefetch(sig, pStreamSrc, true);
+		if (sig.IsSignalled()) return NULL;
+		pStreamSrc = pStreamPrefetch;
+	}
+	AutoPtr<DirBuilder::Structure> pStructure(new DirBuilder::Structure());
+	pStructure->SetRoot(new Record_ZIP(pStructure.get(), NULL, "", true));
+	unsigned long offsetCentralDirectory = SeekCentralDirectory(sig, pStreamSrc);
+	if (sig.IsSignalled()) return NULL;
+	if (!pStreamSrc->Seek(sig, offsetCentralDirectory, Stream::SeekSet)) return NULL;
+	unsigned long signature;
+	while (ReadStream(sig, *pStreamSrc, &signature)) {
+		//::printf("%08x\n", signature);
+		if (signature == LocalFileHeader::Signature) {
+			LocalFileHeader hdr;
+			if (!hdr.Read(sig, *pStreamSrc)) return NULL;
+			if (!hdr.SkipFileData(sig, *pStreamSrc)) return NULL;
+		} else if (signature == ArchiveExtraDataRecord::Signature) {
+			ArchiveExtraDataRecord record;
+			if (!record.Read(sig, *pStreamSrc)) return NULL;
+		} else if (signature == CentralFileHeader::Signature) {
+			CentralFileHeader *pHdr = new CentralFileHeader();
+			if (!pHdr->Read(sig, *pStreamSrc)) {
+				delete pHdr;
+				return NULL;
+			}
+			Record_ZIP *pRecord = dynamic_cast<Record_ZIP *>(
+									pStructure->AddRecord(pHdr->GetFileName()));
+			pRecord->SetCentralFileHeader(pHdr);
+		} else if (signature == DigitalSignature::Signature) {
+			DigitalSignature signature;
+			if (!signature.Read(sig, *pStreamSrc)) return NULL;
+		} else if (signature == Zip64EndOfCentralDirectory::Signature) {
+			Zip64EndOfCentralDirectory dir;
+			if (!dir.Read(sig, *pStreamSrc)) return NULL;
+		} else if (signature == Zip64EndOfCentralDirectoryLocator::Signature) {
+			Zip64EndOfCentralDirectoryLocator loc;
+			if (!loc.Read(sig, *pStreamSrc)) return NULL;
+		} else if (signature == EndOfCentralDirectoryRecord::Signature) {
+			EndOfCentralDirectoryRecord record;
+			if (!record.Read(sig, *pStreamSrc)) return NULL;
+			break;
+		} else {
+			sig.SetError(ERR_FormatError, "unknown signature %08x", signature);
+			return NULL;
+		}
+	}
+	if (sig.IsSignalled()) return NULL;
+	//pStreamSrc->Close();
+	return pStructure->GenerateDirectory(sig, pParent, pPathName, notFoundMode);
 }
 
 Stream *CreateStream(Signal sig, Stream *pStreamSrc, const CentralFileHeader *pHdr)

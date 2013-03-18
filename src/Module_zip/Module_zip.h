@@ -45,6 +45,8 @@ unsigned short GetDosDate(const DateTime &dt);
 DateTime MakeDateTimeFromDos(unsigned short dosDate, unsigned short dosTime);
 
 unsigned long SeekCentralDirectory(Signal sig, Stream *pStream);
+Directory *CreateDirectory(Environment &env, Signal sig, Stream *pStreamSrc,
+	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode);
 Stream *CreateStream(Signal sig, Stream *pStreamSrc, const CentralFileHeader *pHdr);
 
 bool SkipStream(Signal sig, Stream &stream, size_t bytes);

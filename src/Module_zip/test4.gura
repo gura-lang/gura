@@ -18,7 +18,7 @@ scope {
 	//buff = 'b.zip'
 	zip.writer(buff, `store).add(entries, 'entry' + (1..) + '.bin').close()
 	printf('%dbytes\n', buff.len())
-	for (entry in entries, stream in zip.reader(buff).each()) {
+	for (entry in entries, stream in zip.reader(buff).entries()) {
 		entryDec = stream.read()
 		printf('%-12s %5d %s\n', stream.stat.filename, stream.stat.size,
 									cond(entry == entryDec, 'OK', '*NG*'))
