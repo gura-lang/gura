@@ -256,23 +256,15 @@ DirectoryFactory *DirectoryFactory::FindResponsible(Environment &env, Signal sig
 // Directory::Iterator_Walk
 //-----------------------------------------------------------------------------
 Directory::Iterator_Walk::Iterator_Walk(bool addSepFlag, bool statFlag,
-						bool ignoreCaseFlag, bool fileFlag, bool dirFlag) :
+				bool ignoreCaseFlag, bool fileFlag, bool dirFlag,
+				Directory *pDirectory, int depthMax, const StringList &patterns) :
 	Iterator(false),
 	_addSepFlag(addSepFlag), _statFlag(statFlag), _ignoreCaseFlag(ignoreCaseFlag),
-	_fileFlag(fileFlag), _dirFlag(dirFlag), _pDirectory(NULL), _depthMax(0)
+	_fileFlag(fileFlag), _dirFlag(dirFlag), _pDirectory(NULL), _depthMax(0),
+	_patterns(patterns)
 {
-}
-
-bool Directory::Iterator_Walk::Init(Environment &env, Signal sig,
-					const char *dirName, int depthMax, const StringList &patterns)
-{
-	Directory *pDirectory =
-			Directory::OpenDirectory(env, sig, dirName, Directory::NF_Signal);
-	if (sig.IsSignalled()) return false;
 	_depthMax = (depthMax < 0)? -1 : pDirectory->CountDepth() + depthMax + 1;
-	_patterns = patterns;
 	_directoryQue.push_back(pDirectory);
-	return true;
 }
 
 Directory::Iterator_Walk::~Iterator_Walk()

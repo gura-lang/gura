@@ -42,10 +42,9 @@ public:
 		DirectoryDeque _directoryQue;
 	public:
 		Iterator_Walk(bool addSepFlag, bool statFlag,
-							bool ignoreCaseFlag, bool fileFlag, bool dirFlag);
+				bool ignoreCaseFlag, bool fileFlag, bool dirFlag,
+				Directory *pDirectory, int depthMax, const StringList &patterns);
 		~Iterator_Walk();
-		bool Init(Environment &env, Signal sig, const char *dirName,
-									int depthMax, const StringList &patterns);
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;

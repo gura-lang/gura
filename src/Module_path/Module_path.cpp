@@ -20,11 +20,10 @@ Gura_DeclareFunction(stat)
 
 Gura_ImplementFunction(stat)
 {
-	Directory *pDirectory = Directory::OpenDirectory(env, sig,
-									args.GetString(0), Directory::NF_Signal);
+	AutoPtr<Directory> pDirectory(Directory::OpenDirectory(env, sig,
+									args.GetString(0), Directory::NF_Signal));
 	if (sig.IsSignalled()) return Value::Null;
 	Object *pObj = pDirectory->GetStatObj(sig);
-	Directory::Delete(pDirectory);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(pObj);
 }
@@ -72,12 +71,12 @@ Gura_ImplementFunction(dir)
 	int depthMax = 0;
 	StringList patterns;
 	if (!args.GetList(1).ToStringList(sig, patterns)) return Value::Null;
+	AutoPtr<Directory> pDirectory(Directory::OpenDirectory(env, sig,
+									pathName, Directory::NF_Signal));
+	if (pDirectory.IsNull()) return Value::Null;
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
-					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag);
-	if (!pIterator->Init(env, sig, pathName, depthMax, patterns)) {
-		Iterator::Delete(pIterator);
-		return Value::Null;
-	}
+					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag,
+					pDirectory.release(), depthMax, patterns);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -110,12 +109,12 @@ Gura_ImplementFunction(walk)
 	int depthMax = args.IsNumber(1)? args.GetInt(1) : -1;
 	StringList patterns;
 	if (!args.GetList(2).ToStringList(sig, patterns)) return Value::Null;
+	AutoPtr<Directory> pDirectory(Directory::OpenDirectory(env, sig,
+									pathName, Directory::NF_Signal));
+	if (pDirectory.IsNull()) return Value::Null;
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
-					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag);
-	if (!pIterator->Init(env, sig, pathName, depthMax, patterns)) {
-		Iterator::Delete(pIterator);
-		return Value::Null;
-	}
+					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag,
+					pDirectory.release(), depthMax, patterns);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
