@@ -98,24 +98,6 @@ bool Object_reader::ReadDirectory(Environment &env, Signal sig)
 //-----------------------------------------------------------------------------
 // Gura interfaces of zip.reader
 //-----------------------------------------------------------------------------
-// zip.reader#entries() {block?}
-Gura_DeclareMethod(reader, entries)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(reader, entries)
-{
-	Object_reader *pThis = Object_reader::GetThisObj(args);
-	if (pThis->GetStreamSrc() == NULL) {
-		sig.SetError(ERR_ValueError, "zip object is not readable");
-		return Value::Null;
-	}
-	Iterator *pIterator = new Iterator_Entry(Object_reader::Reference(pThis));
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
 // zip.reader#entry(name:string) {block?}
 Gura_DeclareMethod(reader, entry)
 {
@@ -152,11 +134,29 @@ Gura_ImplementMethod(reader, entry)
 	return Value(pObjStream.release());
 }
 
+// zip.reader#entries() {block?}
+Gura_DeclareMethod(reader, entries)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(reader, entries)
+{
+	Object_reader *pThis = Object_reader::GetThisObj(args);
+	if (pThis->GetStreamSrc() == NULL) {
+		sig.SetError(ERR_ValueError, "zip object is not readable");
+		return Value::Null;
+	}
+	Iterator *pIterator = new Iterator_Entry(Object_reader::Reference(pThis));
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
 // implementation of class zip.reader
 Gura_ImplementUserClass(reader)
 {
-	Gura_AssignMethod(reader, entries);
 	Gura_AssignMethod(reader, entry);
+	Gura_AssignMethod(reader, entries);
 }
 
 //-----------------------------------------------------------------------------
