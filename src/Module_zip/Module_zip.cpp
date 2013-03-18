@@ -116,10 +116,47 @@ Gura_ImplementMethod(reader, entries)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
+// zip.reader#entry(name:string) {block?}
+Gura_DeclareMethod(reader, entry)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "name", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(reader, entry)
+{
+	Object_reader *pThis = Object_reader::GetThisObj(args);
+	Stream *pStreamSrc = pThis->GetStreamSrc();
+	if (pStreamSrc == NULL) {
+		sig.SetError(ERR_ValueError, "zip object is not readable");
+		return Value::Null;
+	}
+	AutoPtr<Object_stream> pObjStream;
+	const char *name = args.GetString(0);
+	foreach (CentralFileHeaderList, ppHdr, pThis->GetHeaderList()) {
+		const CentralFileHeader *pHdr = *ppHdr;
+		const CentralFileHeader::Fields &fields = pHdr->GetFields();
+		if (::strcmp(pHdr->GetFileName(), name) == 0) {
+			long offset = Gura_UnpackLong(fields.RelativeOffsetOfLocalHeader);
+			Stream *pStream = CreateStream(sig, pStreamSrc, pHdr);
+			if (sig.IsSignalled()) return Value::Null;
+			pObjStream.reset(new Object_stream(env, pStream));
+			break;
+		}
+	}
+	if (pObjStream.IsNull()) {
+		sig.SetError(ERR_NameError, "entry not found");
+		return Value::Null;
+	}
+	return Value(pObjStream.release());
+}
+
 // implementation of class zip.reader
 Gura_ImplementUserClass(reader)
 {
 	Gura_AssignMethod(reader, entries);
+	Gura_AssignMethod(reader, entry);
 }
 
 //-----------------------------------------------------------------------------
