@@ -43,6 +43,7 @@ unsigned short SymbolToCompressionMethod(const Symbol *pSymbol);
 unsigned short GetDosTime(const DateTime &dt);
 unsigned short GetDosDate(const DateTime &dt);
 DateTime MakeDateTimeFromDos(unsigned short dosDate, unsigned short dosTime);
+bool IsMatchedName(const char *name1, const char *name2);
 
 unsigned long SeekCentralDirectory(Signal sig, Stream *pStream);
 Directory *CreateDirectory(Environment &env, Signal sig, Stream *pStreamSrc,

@@ -119,7 +119,7 @@ Gura_ImplementMethod(reader, entry)
 	foreach (CentralFileHeaderList, ppHdr, pThis->GetHeaderList()) {
 		const CentralFileHeader *pHdr = *ppHdr;
 		const CentralFileHeader::Fields &fields = pHdr->GetFields();
-		if (::strcmp(pHdr->GetFileName(), name) == 0) {
+		if (IsMatchedName(pHdr->GetFileName(), name)) {
 			long offset = Gura_UnpackLong(fields.RelativeOffsetOfLocalHeader);
 			Stream *pStream = CreateStream(sig, pStreamSrc, pHdr);
 			if (sig.IsSignalled()) return Value::Null;
@@ -131,7 +131,7 @@ Gura_ImplementMethod(reader, entry)
 		sig.SetError(ERR_NameError, "entry not found");
 		return Value::Null;
 	}
-	return Value(pObjStream.release());
+	return ReturnValue(env, sig, args, Value(pObjStream.release()));
 }
 
 // zip.reader#entries() {block?}
@@ -997,6 +997,22 @@ DateTime MakeDateTimeFromDos(unsigned short dosDate, unsigned short dosTime)
 	long sec = static_cast<long>((dosTime >> 11) * 3600 +
 				((dosTime >> 5) & 0x3f) * 60 + ((dosTime >> 0) & 0x1f) * 2);
 	return DateTime(year, month, day, sec, 0);
+}
+
+bool IsMatchedName(const char *name1, const char *name2)
+{
+	const char *p1 = name1, *p2 = name2;
+	for ( ; ; p1++, p2++) {
+		char ch1 = *p1, ch2 = *p2;
+		if (IsFileSeparator(ch1) && IsFileSeparator(ch2)) {
+			// nothing to do
+		} else if (ch1 != ch2) {
+			return false;
+		} else if (ch1 == '\0') {
+			break;
+		}
+	}
+	return true;
 }
 
 unsigned long SeekCentralDirectory(Signal sig, Stream *pStream)
