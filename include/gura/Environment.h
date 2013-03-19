@@ -201,27 +201,31 @@ public:
 	};
 	class GURA_DLLDECLARE FrameList : public std::list<Frame *> {
 	public:
-		~FrameList();
 		inline bool IsExist(Frame *pFrame) const {
 			return std::find(begin(), end(), pFrame) != end();
 		}
 	};
+	class GURA_DLLDECLARE FrameOwner : public FrameList {
+	public:
+		~FrameOwner();
+		void Clear();
+	};
 	typedef std::map<const Symbol *, Frame *, Symbol::KeyCompare_UniqNumber> FrameCache;
 private:
-	FrameList _frameList;
-	FrameCache *_pFrameCache;
+	FrameOwner _frameOwner;
+	std::auto_ptr<FrameCache> _pFrameCache;
 	int _cntSuperSkip;
 	static IntegratedModuleOwner *_pIntegratedModuleOwner;
 public:
 	Environment(const Environment &env);
 	Environment(const Environment *pEnvOuter, EnvType envType);
 	virtual ~Environment();
-	inline FrameList &GetFrameList()			{ return _frameList;						}
-	inline const FrameList &GetFrameList() const{ return _frameList;						}
-	inline Frame &GetTopFrame()					{ return *_frameList.front();				}
-	inline const Frame &GetTopFrame() const		{ return *_frameList.front();				}
-	inline Frame &GetBottomFrame()				{ return *_frameList.back();				}
-	inline const Frame &GetBottomFrame() const	{ return *_frameList.back();				}
+	inline FrameOwner &GetFrameOwner()			{ return _frameOwner;						}
+	inline const FrameOwner &GetFrameOwner() const{ return _frameOwner;						}
+	inline Frame &GetTopFrame()					{ return *_frameOwner.front();				}
+	inline const Frame &GetTopFrame() const		{ return *_frameOwner.front();				}
+	inline Frame &GetBottomFrame()				{ return *_frameOwner.back();				}
+	inline const Frame &GetBottomFrame() const	{ return *_frameOwner.back();				}
 	inline EnvType GetEnvType() const			{ return GetTopFrame().GetEnvType(); }
 	inline const char *GetTypeName() const		{ return GetTopFrame().GetTypeName(); }
 	inline bool IsType(EnvType envType) const	{ return GetTopFrame().IsType(envType); }

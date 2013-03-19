@@ -219,7 +219,7 @@ Object *Class::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 bool Class::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag)
 {
 	if (escalateFlag) {
-		foreach_const (FrameList, ppFrame, GetFrameList()) {
+		foreach_const (FrameOwner, ppFrame, GetFrameOwner()) {
 			const Frame *pFrame = *ppFrame;
 			if (pFrame->IsType(ENVTYPE_class) || pFrame->IsType(ENVTYPE_instance)) {
 				foreach_const (ValueMap, iter, pFrame->GetValueMap()) {

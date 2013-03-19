@@ -687,7 +687,7 @@ Expr *Function::OptimizeBinary(Environment &env, Signal sig,
 
 void Function::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
-	if (_cntRef == 1 && _envScope.GetFrameList().IsExist(pFrame)) {
+	if (_cntRef == 1 && _envScope.GetFrameOwner().IsExist(pFrame)) {
 		envSet.insert(&_envScope);
 	}
 }

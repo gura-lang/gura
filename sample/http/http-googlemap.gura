@@ -5,13 +5,14 @@ import(http)
 
 uri = '/maps/api/staticmap?' + [
 	//'center=Brooklyn+Bridge,New+York,NY'
-	'center=大阪'
+	'center=神奈川県川崎市多摩区'
 	'zoom=15'
 	'size=640x640'
 	//'maptype=roadmap'
 	//'maptype=satellite'
 	'maptype=hybrid'
 	//'maptype=terrain'
+	'markers=color:blue|label:A|35.6092411,139.5560562'
 	//'markers=color:blue|label:S|40.702147,-74.015794'
 	//'markers=color:green|label:G|40.711614,-74.012318'
 	//'markers=color:red|color:red|label:C|40.718217,-73.998284'

@@ -116,7 +116,7 @@ bool Object::DirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	//foreach_const (ValueMap, iter, GetTopFrame().GetValueMap()) {
 	//	symbols.insert(iter->first);
 	//}
-	foreach_const (FrameList, ppFrame, GetFrameList()) {
+	foreach_const (FrameOwner, ppFrame, GetFrameOwner()) {
 		const Frame *pFrame = *ppFrame;
 		if (pFrame->IsType(ENVTYPE_class) || pFrame->IsType(ENVTYPE_instance)) {
 			foreach_const (ValueMap, iter, pFrame->GetValueMap()) {

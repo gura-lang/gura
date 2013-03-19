@@ -7,6 +7,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 Iterator::~Iterator()
 {
+	// virtual destructor
 }
 
 void Iterator::Delete(Iterator *pIterator)
@@ -1167,7 +1168,7 @@ String Iterator_ExplicitMap::ToString(Signal sig) const
 void Iterator_ExplicitMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
+		if (_env.GetFrameOwner().IsExist(pFrame)) envSet.insert(&_env);
 	}
 }
 
@@ -1223,7 +1224,7 @@ String Iterator_ImplicitMap::ToString(Signal sig) const
 void Iterator_ImplicitMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
+		if (_env.GetFrameOwner().IsExist(pFrame)) envSet.insert(&_env);
 		if (!_pIteratorThis.IsNull()) {
 			_pIteratorThis->GatherFollower(pFrame, envSet);
 		}
@@ -1269,7 +1270,7 @@ String Iterator_MemberMap::ToString(Signal sig) const
 void Iterator_MemberMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
+		if (_env.GetFrameOwner().IsExist(pFrame)) envSet.insert(&_env);
 		_pIterator->GatherFollower(pFrame, envSet);
 	}
 }
@@ -1305,7 +1306,7 @@ String Iterator_MethodMap::ToString(Signal sig) const
 void Iterator_MethodMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
+		if (_env.GetFrameOwner().IsExist(pFrame)) envSet.insert(&_env);
 		_pIteratorThis->GatherFollower(pFrame, envSet);
 	}
 }
@@ -1365,7 +1366,7 @@ String Iterator_FuncBinder::ToString(Signal sig) const
 void Iterator_FuncBinder::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
+		if (_env.GetFrameOwner().IsExist(pFrame)) envSet.insert(&_env);
 		_pFunc->GatherFollower(pFrame, envSet);
 		_pIterator->GatherFollower(pFrame, envSet);
 	}
@@ -1560,7 +1561,7 @@ String Iterator_FilterWithFunc::ToString(Signal sig) const
 void Iterator_FilterWithFunc::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
+		if (_env.GetFrameOwner().IsExist(pFrame)) envSet.insert(&_env);
 		_pIterator->GatherFollower(pFrame, envSet);
 		_pObjFunc->GatherFollower(pFrame, envSet);
 	}
@@ -1641,7 +1642,7 @@ String Iterator_WhileWithFunc::ToString(Signal sig) const
 void Iterator_WhileWithFunc::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
+		if (_env.GetFrameOwner().IsExist(pFrame)) envSet.insert(&_env);
 		if (!_pIterator.IsNull()) {
 			_pIterator->GatherFollower(pFrame, envSet);
 		}
@@ -1743,7 +1744,7 @@ String Iterator_UntilWithFunc::ToString(Signal sig) const
 void Iterator_UntilWithFunc::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
+		if (_env.GetFrameOwner().IsExist(pFrame)) envSet.insert(&_env);
 		if (!_pIterator.IsNull()) {
 			_pIterator->GatherFollower(pFrame, envSet);
 		}
@@ -1841,7 +1842,7 @@ String Iterator_SinceWithFunc::ToString(Signal sig) const
 void Iterator_SinceWithFunc::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
+		if (_env.GetFrameOwner().IsExist(pFrame)) envSet.insert(&_env);
 		_pIterator->GatherFollower(pFrame, envSet);
 		if (!_pObjFunc.IsNull()) {
 			_pObjFunc->GatherFollower(pFrame, envSet);
@@ -2339,7 +2340,7 @@ String Iterator_repeat::ToString(Signal sig) const
 void Iterator_repeat::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
+		if (_env.GetFrameOwner().IsExist(pFrame)) envSet.insert(&_env);
 		_pFuncBlock->GatherFollower(pFrame, envSet);
 		if (!_pIteratorSub.IsNull()) _pIteratorSub->GatherFollower(pFrame, envSet);
 	}
@@ -2406,7 +2407,7 @@ String Iterator_while::ToString(Signal sig) const
 void Iterator_while::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
+		if (_env.GetFrameOwner().IsExist(pFrame)) envSet.insert(&_env);
 		_pFuncBlock->GatherFollower(pFrame, envSet);
 		if (!_pIteratorSub.IsNull()) _pIteratorSub->GatherFollower(pFrame, envSet);
 	}
@@ -2491,7 +2492,7 @@ String Iterator_for::ToString(Signal sig) const
 void Iterator_for::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
+		if (_env.GetFrameOwner().IsExist(pFrame)) envSet.insert(&_env);
 		_pFuncBlock->GatherFollower(pFrame, envSet);
 		if (!_pIteratorSub.IsNull()) _pIteratorSub->GatherFollower(pFrame, envSet);
 		_iteratorOwner.GatherFollower(pFrame, envSet);
@@ -2587,7 +2588,7 @@ String Iterator_cross::ToString(Signal sig) const
 void Iterator_cross::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameList().IsExist(pFrame)) envSet.insert(&_env);
+		if (_env.GetFrameOwner().IsExist(pFrame)) envSet.insert(&_env);
 		_pFuncBlock->GatherFollower(pFrame, envSet);
 		if (!_pIteratorSub.IsNull()) _pIteratorSub->GatherFollower(pFrame, envSet);
 		_iteratorOwner.GatherFollower(pFrame, envSet);

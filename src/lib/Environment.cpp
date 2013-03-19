@@ -79,80 +79,75 @@ ModuleIntegrator::ModuleIntegrator(const char *name,
 //-----------------------------------------------------------------------------
 IntegratedModuleOwner *Environment::_pIntegratedModuleOwner = NULL;
 
-Environment::Environment(const Environment &env) :
-							_pFrameCache(NULL), _cntSuperSkip(env._cntSuperSkip)
+Environment::Environment(const Environment &env) : _cntSuperSkip(env._cntSuperSkip)
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
-	foreach_const (FrameList, ppFrame, env._frameList) {
+	foreach_const (FrameOwner, ppFrame, env._frameOwner) {
 		Frame *pFrame = *ppFrame;
-		_frameList.push_back(pFrame->IncRef());
+		_frameOwner.push_back(pFrame->IncRef());
 	}
 }
 
-Environment::Environment(const Environment *pEnvOuter, EnvType envType) :
-							_pFrameCache(NULL), _cntSuperSkip(0)
+Environment::Environment(const Environment *pEnvOuter, EnvType envType) : _cntSuperSkip(0)
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
 	if (pEnvOuter == NULL) {
 		SymbolPool::Initialize();
 		Global *pGlobal = new Global();
 		pGlobal->_pSymbolPool = SymbolPool::GetInstance();
-		_frameList.push_back(new Frame(ENVTYPE_root, pGlobal));
+		_frameOwner.push_back(new Frame(ENVTYPE_root, pGlobal));
 	} else if (envType == ENVTYPE_root) {
 		// reference to the root environment
-		Frame *pFrame = pEnvOuter->GetFrameList().back();
-		_frameList.push_back(pFrame->IncRef());
+		Frame *pFrame = pEnvOuter->GetFrameOwner().back();
+		_frameOwner.push_back(pFrame->IncRef());
 	} else if (envType == ENVTYPE_block) {
-		_frameList.push_back(new Frame(envType, pEnvOuter->GetGlobal()));
-		foreach_const (FrameList, ppFrame, pEnvOuter->GetFrameList()) {
+		_frameOwner.push_back(new Frame(envType, pEnvOuter->GetGlobal()));
+		foreach_const (FrameOwner, ppFrame, pEnvOuter->GetFrameOwner()) {
 			Frame *pFrame = *ppFrame;
-			_frameList.push_back(pFrame->IncRef());
+			_frameOwner.push_back(pFrame->IncRef());
 		}
 	} else if (envType == ENVTYPE_outer) {
-		const FrameList &frameList = pEnvOuter->GetFrameList();
-		FrameList::const_iterator ppFrame = frameList.begin();
-		if (frameList.size() > 1) ppFrame++;
-		for ( ; ppFrame != frameList.end(); ppFrame++) {
+		const FrameOwner &frameOwner = pEnvOuter->GetFrameOwner();
+		FrameOwner::const_iterator ppFrame = frameOwner.begin();
+		if (frameOwner.size() > 1) ppFrame++;
+		for ( ; ppFrame != frameOwner.end(); ppFrame++) {
 			Frame *pFrame = *ppFrame;
-			_frameList.push_back(pFrame->IncRef());
+			_frameOwner.push_back(pFrame->IncRef());
 		}
 	} else {
-		_frameList.push_back(new Frame(envType, pEnvOuter->GetGlobal()));
-		foreach_const (FrameList, ppFrame, pEnvOuter->GetFrameList()) {
+		_frameOwner.push_back(new Frame(envType, pEnvOuter->GetGlobal()));
+		foreach_const (FrameOwner, ppFrame, pEnvOuter->GetFrameOwner()) {
 			Frame *pFrame = *ppFrame;
-			_frameList.push_back(pFrame->IncRef());
+			_frameOwner.push_back(pFrame->IncRef());
 		}
 	}
 }
 
 Environment::~Environment()
 {
-	delete _pFrameCache;
-	foreach (FrameList, ppFrame, _frameList) {
-		Frame::Delete(*ppFrame);
-	}
+	// virtual destructor
 }
 
 void Environment::AddLackingFrame(Environment *pEnv)
 {
-	foreach (FrameList, ppFrame, pEnv->GetFrameList()) {
+	foreach (FrameOwner, ppFrame, pEnv->GetFrameOwner()) {
 		Frame *pFrame = *ppFrame;
-		if (!_frameList.IsExist(pFrame)) {
-			_frameList.push_back(pFrame->IncRef());
+		if (!_frameOwner.IsExist(pFrame)) {
+			_frameOwner.push_back(pFrame->IncRef());
 		}
 	}
 }
 
 void Environment::CacheFrame(const Symbol *pSymbol, Frame *pFrame)
 {
-	if (_pFrameCache == NULL) _pFrameCache = new FrameCache();
+	if (_pFrameCache.get() == NULL) _pFrameCache.reset(new FrameCache());
 	(*_pFrameCache)[pSymbol] = pFrame;
 }
 
 void Environment::AssignValue(const Symbol *pSymbol, const Value &value, bool escalateFlag)
 {
 	if (escalateFlag) {
-		if (_pFrameCache != NULL) {
+		if (_pFrameCache.get() != NULL) {
 			FrameCache::iterator iter = _pFrameCache->find(pSymbol);
 			if (iter != _pFrameCache->end()) {
 				Frame *pFrame = iter->second;
@@ -160,7 +155,7 @@ void Environment::AssignValue(const Symbol *pSymbol, const Value &value, bool es
 				return;
 			}
 		}
-		foreach (FrameList, ppFrame, _frameList) {
+		foreach (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
 			if (!pFrame->IsType(ENVTYPE_block)) {
 				pFrame->AssignValue(pSymbol, value);
@@ -175,7 +170,7 @@ void Environment::AssignValue(const Symbol *pSymbol, const Value &value, bool es
 
 bool Environment::ImportValue(const Symbol *pSymbol, const Value &value, bool overwriteFlag)
 {
-	foreach (FrameList, ppFrame, _frameList) {
+	foreach (FrameOwner, ppFrame, _frameOwner) {
 		Frame *pFrame = *ppFrame;
 		if (pFrame->IsType(ENVTYPE_block)) {
 			// nothing to do
@@ -205,7 +200,7 @@ Value *Environment::LookupValue(const Symbol *pSymbol, bool escalateFlag)
 			return pValue;
 		}
 	} else if (envType == ENVTYPE_method) {
-		foreach (FrameList, ppFrame, _frameList) {
+		foreach (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
 			if (pFrame->IsType(ENVTYPE_instance)) continue;
 			//if (pFrame->IsType(ENVTYPE_class)) continue;
@@ -217,7 +212,7 @@ Value *Environment::LookupValue(const Symbol *pSymbol, bool escalateFlag)
 		}
 	} else if (envType == ENVTYPE_instance || envType == ENVTYPE_class) {
 		int cntSuperSkip = _cntSuperSkip;
-		foreach (FrameList, ppFrame, _frameList) {
+		foreach (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
 			if (pFrame->IsType(ENVTYPE_instance)) {
 				Value *pValue = pFrame->LookupValue(pSymbol);
@@ -238,9 +233,9 @@ Value *Environment::LookupValue(const Symbol *pSymbol, bool escalateFlag)
 			}
 		}
 	} else if (envType == ENVTYPE_member) {
-		FrameList::iterator ppFrame = _frameList.begin();
+		FrameOwner::iterator ppFrame = _frameOwner.begin();
 		ppFrame++;
-		if (ppFrame != _frameList.end()) {
+		if (ppFrame != _frameOwner.end()) {
 			Frame *pFrame = *ppFrame;
 			Value *pValue = pFrame->LookupValue(pSymbol);
 			if (pValue != NULL) {
@@ -249,7 +244,7 @@ Value *Environment::LookupValue(const Symbol *pSymbol, bool escalateFlag)
 			}
 		}
 	} else {
-		foreach (FrameList, ppFrame, _frameList) {
+		foreach (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
 			Value *pValue = pFrame->LookupValue(pSymbol);
 			if (pValue != NULL) {
@@ -279,7 +274,7 @@ Function *Environment::LookupFunction(const Symbol *pSymbol, bool escalateFlag) 
 		}
 	} else if (envType == ENVTYPE_instance || envType == ENVTYPE_class) {
 		int cntSuperSkip = _cntSuperSkip;
-		foreach_const (FrameList, ppFrame, _frameList) {
+		foreach_const (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
 			if (pFrame->IsType(ENVTYPE_instance)) {
 				Value *pValue = pFrame->LookupValue(pSymbol);
@@ -298,7 +293,7 @@ Function *Environment::LookupFunction(const Symbol *pSymbol, bool escalateFlag) 
 			}
 		}
 	} else {
-		foreach_const (FrameList, ppFrame, _frameList) {
+		foreach_const (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
 			Value *pValue = pFrame->LookupValue(pSymbol);
 			if (pValue != NULL && pValue->IsFunction()) {
@@ -352,7 +347,7 @@ const ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList) 
 
 const ValueTypeInfo *Environment::LookupValueType(const Symbol *pSymbol) const
 {
-	foreach_const (FrameList, ppFrame, _frameList) {
+	foreach_const (FrameOwner, ppFrame, _frameOwner) {
 		const Frame *pFrame = *ppFrame;
 		const ValueTypeInfo *pValueTypeInfo = pFrame->LookupValueType(pSymbol);
 		if (pValueTypeInfo != NULL) return pValueTypeInfo;
@@ -410,7 +405,7 @@ Value Environment::GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 void Environment::AssignModule(Module *pModule)
 {
 	Value value(pModule);
-	foreach (FrameList, ppFrame, _frameList) {
+	foreach (FrameOwner, ppFrame, _frameOwner) {
 		Frame *pFrame = *ppFrame;
 		if (!pFrame->IsType(ENVTYPE_block)) {
 			pFrame->AssignValue(pModule->GetSymbol(), value);
@@ -743,7 +738,7 @@ bool Environment::AddModuleSearchPath(Signal sig, const StringList &strList)
 void Environment::DbgPrint() const
 {
 	int idx = 0;
-	foreach_const (FrameList, ppFrame, _frameList) {
+	foreach_const (FrameOwner, ppFrame, _frameOwner) {
 		idx++;
 		::printf("frame#%d ", idx);
 		(*ppFrame)->DbgPrint();
@@ -894,7 +889,7 @@ void Environment::Frame::Delete(Frame *pFrame)
 		int cntFollower = static_cast<int>(envSet.size());
 		if (pFrame->GetRefCnt() <= cntFollower + 1) {
 			foreach (EnvironmentSet, ppEnv, envSet) {
-				(*ppEnv)->GetFrameList().remove(pFrame);
+				(*ppEnv)->GetFrameOwner().remove(pFrame);
 			}
 			delete pFrame;
 		} else {
@@ -968,8 +963,22 @@ void Environment::Frame::DbgPrint() const
 //-----------------------------------------------------------------------------
 // Environment::FrameList
 //-----------------------------------------------------------------------------
-Environment::FrameList::~FrameList()
+
+//-----------------------------------------------------------------------------
+// Environment::FrameOwner
+//-----------------------------------------------------------------------------
+Environment::FrameOwner::~FrameOwner()
 {
+	Clear();
+}
+
+void Environment::FrameOwner::Clear()
+{
+	foreach (FrameOwner, ppFrame, *this) {
+		Frame *pFrame = *ppFrame;
+		Frame::Delete(pFrame);
+	}
+	clear();
 }
 
 //-----------------------------------------------------------------------------
