@@ -393,11 +393,13 @@ createSrcPackage() = {
 	printf('%s was created\n', filenameZip)
 }
 
-if (sys.platform == `windows) {
+if (sys.platform == `mswin) {
 	filenames = gatherFiles()
 	createZip(filenames)
 	createMsi(filenames)
 	createSrcPackage()
 } elsif (sys.platform == `linux) {
 	createSrcPackage()
+} else {
+	sys.stderr.printf('unknown platform %s\n', sys.platform)
 }

@@ -1,0 +1,20 @@
+#!/usr/bin/env gura
+import(http)
+import(xml)
+try {
+	import(calil_auth)
+} except {
+	sys.stderr.printf('Create a script file %s and define appkey variable in it.\n',
+			path.join(sys.localdir, 'module', 'calil_auth.gura'))
+	sys.exit(1)
+}
+uri = 'http://api.calil.jp/library?' + [
+	'appkey=' + calil_auth.appkey
+	'pref=神奈川県'
+	//'pref=東京都'
+	//'format=json'
+	'format=xml'
+].join('&')
+copy(uri.escapeuri(), 'calil-result.xml')
+//print(readlines(uri.escapeuri()))
+//println(xml.read('bb.xml'))
