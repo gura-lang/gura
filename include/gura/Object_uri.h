@@ -11,6 +11,7 @@ namespace Gura {
 class GURA_DLLDECLARE Class_uri : public Class {
 public:
 	Class_uri(Environment *pEnvOuter);
+	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	static void OnModuleEntry(Environment &env, Signal sig);
 };
@@ -35,6 +36,11 @@ public:
 	Object_uri(const Object_uri &obj);
 	virtual ~Object_uri();
 	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	bool Parse(Signal sig, const char *str);
 	inline bool IsUserValid() const { return _userValidFlag; }

@@ -1,6 +1,6 @@
 //
 // Object_uri
-// referred to RFC1738 (Uniform Resource Locators)
+// reference: RFC1738 (Uniform Resource Locators)
 
 #include "stdafx.h"
 
@@ -24,6 +24,78 @@ Object_uri::~Object_uri()
 Object *Object_uri::Clone() const
 {
 	return new Object_uri(*this);
+}
+
+bool Object_uri::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_Symbol(scheme));
+	symbols.insert(Gura_Symbol(user));
+	symbols.insert(Gura_Symbol(password));
+	symbols.insert(Gura_Symbol(host));
+	symbols.insert(Gura_Symbol(port));
+	symbols.insert(Gura_Symbol(urlpath));
+	symbols.insert(Gura_Symbol(misc));
+	return true;
+}
+
+Value Object_uri::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(scheme))) {
+		return Value(env, _scheme);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(user))) {
+		return Value(env, _user);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(password))) {
+		return Value(env, _password);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(host))) {
+		return Value(env, _host);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(port))) {
+		return Value(env, _port);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(urlpath))) {
+		return Value(env, _urlpath);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(misc))) {
+		return Value(env, _misc);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+Value Object_uri::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(scheme))) {
+		if (!value.MustBeString(sig)) return Value::Null;
+		_scheme = value.GetStringSTL();
+		return Value(env, _scheme);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(user))) {
+		if (!value.MustBeString(sig)) return Value::Null;
+		_user = value.GetStringSTL();
+		return Value(env, _user);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(password))) {
+		if (!value.MustBeString(sig)) return Value::Null;
+		_password = value.GetStringSTL();
+		return Value(env, _password);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(host))) {
+		if (!value.MustBeString(sig)) return Value::Null;
+		_host = value.GetStringSTL();
+		return Value(env, _host);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(port))) {
+		if (!value.MustBeString(sig)) return Value::Null;
+		_port = value.GetStringSTL();
+		return Value(env, _port);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(urlpath))) {
+		if (!value.MustBeString(sig)) return Value::Null;
+		_urlpath = value.GetStringSTL();
+		return Value(env, _urlpath);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(misc))) {
+		if (!value.MustBeString(sig)) return Value::Null;
+		_misc = value.GetStringSTL();
+		return Value(env, _misc);
+	}
+	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
 bool Object_uri::Parse(Signal sig, const char *str)
@@ -80,6 +152,7 @@ bool Object_uri::Parse(Signal sig, const char *str)
 			if (ch == ':') {
 				stat = STAT_Port;
 			} else if (ch == '/') {
+				_urlpath += ch;
 				stat = STAT_UrlPath;
 			} else if (ch == '@') {
 				if (_userValidFlag) {
@@ -97,6 +170,7 @@ bool Object_uri::Parse(Signal sig, const char *str)
 			}
 		} else if (stat == STAT_Port) {
 			if (ch == '/') {
+				_urlpath += ch;
 				stat = STAT_UrlPath;
 			} else if (ch == '@') {
 				if (_userValidFlag) {
@@ -150,7 +224,6 @@ String Object_uri::ToString(Signal sig, bool exprFlag)
 		rtn += _port;
 	}
 	if (!_urlpath.empty()) {
-		rtn += "/";
 		rtn += _urlpath;
 	}
 	if (!_misc.empty()) {
@@ -167,119 +240,19 @@ void Object_uri::SetError_InvalidURIFormat(Signal sig)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_uri
 //-----------------------------------------------------------------------------
-// uri#scheme(str?:string)
-Gura_DeclareMethod(uri, scheme)
+// uri(str:string):map {block?}
+Gura_DeclareFunction(uri)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), "Sets or gets scheme part of the URI.");
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(uri, scheme)
+Gura_ImplementFunction(uri)
 {
-	Object_uri *pThis = Object_uri::GetThisObj(args);
-	if (args.IsString(0)) {
-		pThis->SetScheme(args.GetString(0));
-		return args.GetThis();
-	} else {
-		return Value(env, pThis->GetScheme());
-	}
-}
-
-// uri#user(str?:string)
-Gura_DeclareMethod(uri, user)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), "Sets or gets scheme user of the URI.");
-}
-
-Gura_ImplementMethod(uri, user)
-{
-	Object_uri *pThis = Object_uri::GetThisObj(args);
-	if (args.IsString(0)) {
-		pThis->SetUser(args.GetString(0));
-		return args.GetThis();
-	} else {
-		if (!pThis->IsUserValid()) return Value::Null;
-		return Value(env, pThis->GetUser());
-	}
-}
-
-// uri#password(str?:string)
-Gura_DeclareMethod(uri, password)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), "Sets or gets password part of the URI.");
-}
-
-Gura_ImplementMethod(uri, password)
-{
-	Object_uri *pThis = Object_uri::GetThisObj(args);
-	if (args.IsString(0)) {
-		pThis->SetPassword(args.GetString(0));
-		return args.GetThis();
-	} else {
-		return Value(env, pThis->GetPassword());
-	}
-}
-
-// uri#host(str?:string)
-Gura_DeclareMethod(uri, host)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), "Sets or gets host part of the URI.");
-}
-
-Gura_ImplementMethod(uri, host)
-{
-	Object_uri *pThis = Object_uri::GetThisObj(args);
-	if (args.IsString(0)) {
-		pThis->SetHost(args.GetString(0));
-		return args.GetThis();
-	} else {
-		return Value(env, pThis->GetHost());
-	}
-}
-
-// uri#port(str?:string)
-Gura_DeclareMethod(uri, port)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), "Sets or gets port part of the URI.");
-}
-
-Gura_ImplementMethod(uri, port)
-{
-	Object_uri *pThis = Object_uri::GetThisObj(args);
-	if (args.IsString(0)) {
-		pThis->SetPort(args.GetString(0));
-		return args.GetThis();
-	} else {
-		return Value(env, pThis->GetPort());
-	}
-}
-
-// uri#urlpath(str?:string)
-Gura_DeclareMethod(uri, urlpath)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), "Sets or gets url-path part of the URI.");
-}
-
-Gura_ImplementMethod(uri, urlpath)
-{
-	Object_uri *pThis = Object_uri::GetThisObj(args);
-	if (args.IsString(0)) {
-		pThis->SetUrlPath(args.GetString(0));
-		return args.GetThis();
-	} else {
-		return Value(env, pThis->GetUrlPath());
-	}
+	AutoPtr<Object_uri> pObj(new Object_uri(env));
+	if (!pObj->Parse(sig, args.GetString(0))) return Value::Null;
+	return Value(pObj.release());
 }
 
 //-----------------------------------------------------------------------------
@@ -287,12 +260,17 @@ Gura_ImplementMethod(uri, urlpath)
 //-----------------------------------------------------------------------------
 Class_uri::Class_uri(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_uri)
 {
-	Gura_AssignMethod(uri, scheme);
-	Gura_AssignMethod(uri, user);
-	Gura_AssignMethod(uri, password);
-	Gura_AssignMethod(uri, host);
-	Gura_AssignMethod(uri, port);
-	Gura_AssignMethod(uri, urlpath);
+}
+
+bool Class_uri::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+{
+	if (value.IsString()) {
+		AutoPtr<Object_uri> pObj(new Object_uri(env));
+		if (!pObj->Parse(sig, value.GetString())) return false;
+		value = Value(pObj.release());
+		return true;
+	}
+	return false;
 }
 
 Object *Class_uri::CreateDescendant(Environment &env, Signal sig, Class *pClass)
@@ -303,6 +281,7 @@ Object *Class_uri::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 
 void Class_uri::OnModuleEntry(Environment &env, Signal sig)
 {
+	Gura_AssignFunction(uri);
 }
 
 }

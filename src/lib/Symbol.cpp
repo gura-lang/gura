@@ -374,6 +374,13 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(ka);
 	Gura_RealizeSymbol(pl);
 	Gura_RealizeSymbol(sv);
+	Gura_RealizeSymbol(scheme);
+	Gura_RealizeSymbol(user);
+	Gura_RealizeSymbol(password);
+	Gura_RealizeSymbol(host);
+	Gura_RealizeSymbol(port);
+	Gura_RealizeSymbol(urlpath);
+	Gura_RealizeSymbol(misc);
 }
 
 const Symbol *SymbolPool::Add(const char *name)

@@ -361,6 +361,13 @@ public:
 	Gura_DeclareSymbol(ka);
 	Gura_DeclareSymbol(pl);
 	Gura_DeclareSymbol(sv);
+	Gura_DeclareSymbol(scheme);
+	Gura_DeclareSymbol(user);
+	Gura_DeclareSymbol(password);
+	Gura_DeclareSymbol(host);
+	Gura_DeclareSymbol(port);
+	Gura_DeclareSymbol(urlpath);
+	Gura_DeclareSymbol(misc);
 private:
 	typedef std::set<Symbol *, Symbol::KeyCompare_Name> Content;
 private:
