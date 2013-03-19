@@ -62,14 +62,13 @@ public:
 			_cntRef(1), _cntNext(iter._cntNext), _pShare(NULL),
 			_infiniteFlag(iter._infiniteFlag), _skipInvalidFlag(iter._skipInvalidFlag) {}
 	virtual ~Iterator();
-	inline int IncRef() { _cntRef++; return _cntRef; }
 	inline int DecRef() { if (_cntRef > 0) _cntRef--; return _cntRef; }
 	inline int GetRefCnt() const { return _cntRef; }
 	static void Delete(Iterator *pIterator);
 	inline static Iterator *Reference(const Iterator *pIterator) {
 		if (pIterator == NULL) return NULL;
 		Iterator *pIteratorCasted = const_cast<Iterator *>(pIterator);
-		pIteratorCasted->IncRef();
+		pIteratorCasted->_cntRef++;
 		return pIteratorCasted;
 	}
 	inline int GetCountNext() const { return _cntNext; }

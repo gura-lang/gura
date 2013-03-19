@@ -265,9 +265,9 @@ Value::Value(const Value &value) : _valType(value._valType), _flags(value._flags
 	} else if (value.IsFraction()) {
 		_u.pFrac = new Fraction(*value._u.pFrac);
 	} else if (value.IsModule()) {
-		_u.pModule = value._u.pModule->IncRef();
+		_u.pModule = Module::Reference(value._u.pModule);
 	} else if (value.IsClass()) {
-		_u.pClass = value._u.pClass->IncRef();
+		_u.pClass = Class::Reference(value._u.pClass);
 	} else if (value.IsObject()) {
 		_u.pObj = Object::Reference(value._u.pObj);
 	} else {
@@ -421,9 +421,9 @@ Value &Value::operator=(const Value &value)
 	} else if (value.IsFraction()) {
 		_u.pFrac = new Fraction(*value._u.pFrac);
 	} else if (value.IsModule()) {
-		_u.pModule = value._u.pModule->IncRef();
+		_u.pModule = Module::Reference(value._u.pModule);
 	} else if (value.IsClass()) {
-		_u.pClass = value._u.pClass->IncRef();
+		_u.pClass = Class::Reference(value._u.pClass);
 	} else if (value.IsObject()) {
 		_u.pObj = Object::Reference(value._u.pObj);
 	} else {
@@ -460,7 +460,7 @@ Fundamental *Value::ExtractFundamental(Signal sig)
 								dynamic_cast<const Object_function *>(pFund);
 			Class *pClass = pObjFunc->GetFunction()->GetClassToConstruct();
 			if (pClass != NULL) {
-				InitAsClass(pClass->IncRef());
+				InitAsClass(Class::Reference(pClass));
 				pFund = pClass;
 			}
 		}

@@ -1414,7 +1414,7 @@ Gura_ImplementFunction(classref)
 		sig.SetError(ERR_ValueError, "not a class type");
 		return Value::Null;
 	}
-	Value result(pValueTypeInfo->GetClass()->IncRef());
+	Value result(Class::Reference(pValueTypeInfo->GetClass()));
 	return ReturnValue(env, sig, args, result);
 }
 

@@ -8,7 +8,7 @@ namespace Gura {
 bool Object::IsObject() const { return true; }
 
 Object::Object(Class *pClass) :
-			Fundamental(pClass, ENVTYPE_instance), _pClass(pClass->IncRef())
+	Fundamental(pClass, ENVTYPE_instance), _pClass(Class::Reference(pClass))
 {
 }
 

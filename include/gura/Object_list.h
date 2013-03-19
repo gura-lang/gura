@@ -194,9 +194,6 @@ public:
 	inline Object_list(const Object_list &obj) :
 									Object(obj), _valList(obj._valList) {}
 	virtual Object *Clone() const;
-	static inline Object_list *IncRef(const Object_list *pObj) {
-		return dynamic_cast<Object_list *>(Object::Reference(pObj));
-	}
 	inline ValueList &GetList() { return _valList; }
 	inline const ValueList &GetList() const { return _valList; }
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);

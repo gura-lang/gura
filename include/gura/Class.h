@@ -29,7 +29,6 @@ public:
 	virtual bool IsCustom() const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	virtual void Prepare();
-	inline Class *IncRef() { _cntRef++; return this; }
 	inline static Class *Reference(const Class *pClass) {
 		if (pClass == NULL) return NULL;
 		Class *pClassCasted = const_cast<Class *>(pClass);

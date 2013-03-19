@@ -176,7 +176,12 @@ public:
 		Frame(const Frame &frame);
 		Frame(EnvType envType, Global *pGlobal);
 		virtual ~Frame();
-		inline Frame *IncRef() { _cntRef++; return this; }
+		inline static Frame *Reference(const Frame *pFrame) {
+			if (pFrame == NULL) return NULL;
+			Frame *pFrameCasted = const_cast<Frame *>(pFrame);
+			pFrameCasted->_cntRef++;
+			return pFrameCasted;
+		}
 		inline int DecRef() { if (_cntRef > 0) _cntRef--; return _cntRef; }
 		inline int GetRefCnt() const { return _cntRef; }
 		static void Delete(Frame *pFrame);
@@ -204,6 +209,7 @@ public:
 		inline bool IsExist(Frame *pFrame) const {
 			return std::find(begin(), end(), pFrame) != end();
 		}
+		void DbgPrint() const;
 	};
 	class GURA_DLLDECLARE FrameOwner : public FrameList {
 	public:
@@ -283,7 +289,6 @@ public:
 	inline void Error(const char *fileName, int lineNo, const char *str) {
 		::fprintf(stderr, "fatal error at line.%d in %s: %s\n", lineNo, fileName, str);
 	}
-	void DbgPrint() const;
 	const char *GetPrompt(bool indentFlag);
 	void SetConsole(Stream *pConsole);
 	void SetConsoleErr(Stream *pConsole);

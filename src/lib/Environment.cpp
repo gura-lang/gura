@@ -84,7 +84,7 @@ Environment::Environment(const Environment &env) : _cntSuperSkip(env._cntSuperSk
 	// _pFrameCache will be initialized when the program reads some variable at first
 	foreach_const (FrameOwner, ppFrame, env._frameOwner) {
 		Frame *pFrame = *ppFrame;
-		_frameOwner.push_back(pFrame->IncRef());
+		_frameOwner.push_back(Frame::Reference(pFrame));
 	}
 }
 
@@ -99,12 +99,12 @@ Environment::Environment(const Environment *pEnvOuter, EnvType envType) : _cntSu
 	} else if (envType == ENVTYPE_root) {
 		// reference to the root environment
 		Frame *pFrame = pEnvOuter->GetFrameOwner().back();
-		_frameOwner.push_back(pFrame->IncRef());
+		_frameOwner.push_back(Frame::Reference(pFrame));
 	} else if (envType == ENVTYPE_block) {
 		_frameOwner.push_back(new Frame(envType, pEnvOuter->GetGlobal()));
 		foreach_const (FrameOwner, ppFrame, pEnvOuter->GetFrameOwner()) {
 			Frame *pFrame = *ppFrame;
-			_frameOwner.push_back(pFrame->IncRef());
+			_frameOwner.push_back(Frame::Reference(pFrame));
 		}
 	} else if (envType == ENVTYPE_outer) {
 		const FrameOwner &frameOwner = pEnvOuter->GetFrameOwner();
@@ -112,13 +112,13 @@ Environment::Environment(const Environment *pEnvOuter, EnvType envType) : _cntSu
 		if (frameOwner.size() > 1) ppFrame++;
 		for ( ; ppFrame != frameOwner.end(); ppFrame++) {
 			Frame *pFrame = *ppFrame;
-			_frameOwner.push_back(pFrame->IncRef());
+			_frameOwner.push_back(Frame::Reference(pFrame));
 		}
 	} else {
 		_frameOwner.push_back(new Frame(envType, pEnvOuter->GetGlobal()));
 		foreach_const (FrameOwner, ppFrame, pEnvOuter->GetFrameOwner()) {
 			Frame *pFrame = *ppFrame;
-			_frameOwner.push_back(pFrame->IncRef());
+			_frameOwner.push_back(Frame::Reference(pFrame));
 		}
 	}
 }
@@ -133,7 +133,7 @@ void Environment::AddLackingFrame(Environment *pEnv)
 	foreach (FrameOwner, ppFrame, pEnv->GetFrameOwner()) {
 		Frame *pFrame = *ppFrame;
 		if (!_frameOwner.IsExist(pFrame)) {
-			_frameOwner.push_back(pFrame->IncRef());
+			_frameOwner.push_back(Frame::Reference(pFrame));
 		}
 	}
 }
@@ -486,6 +486,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 		if (sig.IsSignalled()) return false;
 	}
 	if (pSymbolsToMixIn == NULL) {
+		// import(hoge)
 		if (!assignModuleNameFlag) {
 			// nothing to do
 		} else if (pSymbolAlias == NULL) {
@@ -510,7 +511,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 				}
 			}
 			const Symbol *pSymbolOfModule = symbolOfModule.back();
-			Value valueOfModule(pModule->IncRef());
+			Value valueOfModule(Module::Reference(pModule));
 			if (!pEnvDst->ImportValue(pSymbolOfModule, valueOfModule, false)) {
 				sig.SetError(ERR_ImportError,
 						"module symbol conflicts with an existing variable '%s'",
@@ -518,7 +519,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 				return false;
 			}
 		} else {
-			Value valueOfModule(pModule->IncRef());
+			Value valueOfModule(Module::Reference(pModule));
 			if (!ImportValue(pSymbolAlias, valueOfModule, false)) {
 				sig.SetError(ERR_ImportError,
 						"module symbol conflicts with an existing variable '%s'",
@@ -527,6 +528,8 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 			}
 		}
 	} else if (pSymbolsToMixIn->IsSet(Gura_Symbol(Char_Multiply))) {
+		// import(hoge) {*}
+		//GetFrameOwner().DbgPrint();
 		foreach_const (ValueMap, iter, pModule->GetTopFrame().GetValueMap()) {
 			const Symbol *pSymbol = iter->first;
 			const Value &value = iter->second;
@@ -540,6 +543,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 			}
 		}
 	} else {
+		// import(hoge) {foo, bar}
 		foreach_const (SymbolSet, ppSymbol, *pSymbolsToMixIn) {
 			const Symbol *pSymbol = *ppSymbol;
 			Value *pValue = pModule->LookupValue(pSymbol, false);
@@ -733,16 +737,6 @@ bool Environment::AddModuleSearchPath(Signal sig, const StringList &strList)
 		valList.push_back(value);
 	}
 	return true;
-}
-
-void Environment::DbgPrint() const
-{
-	int idx = 0;
-	foreach_const (FrameOwner, ppFrame, _frameOwner) {
-		idx++;
-		::printf("frame#%d ", idx);
-		(*ppFrame)->DbgPrint();
-	}
 }
 
 const char *Environment::GetPrompt(bool indentFlag)
@@ -963,6 +957,16 @@ void Environment::Frame::DbgPrint() const
 //-----------------------------------------------------------------------------
 // Environment::FrameList
 //-----------------------------------------------------------------------------
+void Environment::FrameList::DbgPrint() const
+{
+	int idx = 0;
+	foreach_const (FrameList, ppFrame, *this) {
+		const Frame *pFrame = *ppFrame;
+		idx++;
+		::printf("frame#%d ", idx);
+		pFrame->DbgPrint();
+	}
+}
 
 //-----------------------------------------------------------------------------
 // Environment::FrameOwner

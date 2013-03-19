@@ -108,7 +108,12 @@ public:
 	Module(Environment *pEnvOuter, const Symbol *pSymbol, const char *sourceName,
 					Expr *pExprScript, ModuleTerminateType moduleTerminate);
 	virtual ~Module();
-	inline Module *IncRef() { _cntRef++; return this; }
+	inline static Module *Reference(const Module *pModule) {
+		if (pModule == NULL) return NULL;
+		Module *pModuleCasted = const_cast<Module *>(pModule);
+		pModuleCasted->_cntRef++;
+		return pModuleCasted;
+	}
 	inline static void Delete(Module *pModule) {
 		if (pModule != NULL && pModule->DecRef() <= 0) delete pModule;
 	}
