@@ -458,13 +458,13 @@ bool Environment::ImportModule(Signal sig, const Expr *pExpr,
 		const Expr_Prefix *pExprEx = dynamic_cast<const Expr_Prefix *>(pExpr);
 		const Symbol *pSymbol = pExprEx->GetSymbol();
 		if (!pSymbol->IsIdentical(Gura_Symbol(Char_Multiply))) {
-			sig.SetError(ERR_SyntaxError, "wrong format for module name");
+			sig.SetError(ERR_ImportError, "wrong format for module name");
 		}
 		assignModuleNameFlag = false;
 		pExpr = pExprEx->GetChild();
 	}
 	if (!pExpr->GetChainedSymbolList(symbolOfModule)) {
-		sig.SetError(ERR_SyntaxError, "wrong format for module name");
+		sig.SetError(ERR_ImportError, "wrong format for module name");
 		return false;
 	}
 	return ImportModule(sig, symbolOfModule, pSymbolOfModule, pSymbolsToMixIn,
@@ -501,7 +501,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 													"<integrated>", NULL, NULL);
 					Value valueOfModule(pModuleParent);
 					if (!pEnvDst->ImportValue(pSymbol, valueOfModule, false)) {
-						sig.SetError(ERR_IOError,
+						sig.SetError(ERR_ImportError,
 							"module symbol conflicts with an existing variable '%s'",
 							symbolOfModule.Join('.').c_str());
 						return false;
@@ -512,7 +512,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 			const Symbol *pSymbolOfModule = symbolOfModule.back();
 			Value valueOfModule(pModule->IncRef());
 			if (!pEnvDst->ImportValue(pSymbolOfModule, valueOfModule, false)) {
-				sig.SetError(ERR_ValueError,
+				sig.SetError(ERR_ImportError,
 						"module symbol conflicts with an existing variable '%s'",
 						symbolOfModule.front()->GetName());
 				return false;
@@ -520,7 +520,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 		} else {
 			Value valueOfModule(pModule->IncRef());
 			if (!ImportValue(pSymbolAlias, valueOfModule, false)) {
-				sig.SetError(ERR_ValueError,
+				sig.SetError(ERR_ImportError,
 						"module symbol conflicts with an existing variable '%s'",
 						pSymbolAlias->GetName());
 				return false;
@@ -533,7 +533,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 			if (pSymbol->IsPrivateName()) {
 				// nothing to do
 			} else if (!ImportValue(pSymbol, value, overwriteFlag)) {
-				sig.SetError(ERR_IOError,
+				sig.SetError(ERR_ImportError,
 						"imported variable name conflicts with an existing one '%s'",
 						pSymbol->GetName());
 				return false;
@@ -546,7 +546,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 			if (pValue == NULL) {
 				// nothing to do
 			} else if (!ImportValue(pSymbol, *pValue, overwriteFlag)) {
-				sig.SetError(ERR_IOError,
+				sig.SetError(ERR_ImportError,
 						"imported variable name conflicts with an existing one '%s'",
 												pSymbol->GetName());
 				return false;
@@ -615,10 +615,10 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 	const Value *pValDirNameList =
 					GetModule_sys()->LookupValue(Gura_Symbol(path), false);
 	if (pValDirNameList == NULL) {
-		sig.SetError(ERR_ValueError, "variable path is not specified");
+		sig.SetError(ERR_ImportError, "variable path is not specified");
 		return false;
 	} else if (!pValDirNameList->IsList()) {
-		sig.SetError(ERR_ValueError, "wrong value of variable path");
+		sig.SetError(ERR_ImportError, "variable path must be a list");
 		return false;
 	}
 	StringList extNameList;
@@ -630,7 +630,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 									ppSymbolOfModuleEnd, OAL::FileSeparator);
 	foreach_const (ValueList, pValue, pValDirNameList->GetList()) {
 		if (!pValue->IsString()) {
-			sig.SetError(ERR_ValueError, "wrong element value of variable path");
+			sig.SetError(ERR_ImportError, "elements of variable path must be strings");
 			return false;
 		}
 		do {
@@ -660,7 +660,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 			if (sig.IsSignalled()) return false;
 		} while (0);
 	}
-	sig.SetError(ERR_IOError, "can't find a module named '%s'",
+	sig.SetError(ERR_ImportError, "can't find a module named '%s'",
 		SymbolList::Join(ppSymbolOfModule, ppSymbolOfModuleEnd, '.').c_str());
 	return false;
 }
@@ -724,7 +724,7 @@ bool Environment::AddModuleSearchPath(Signal sig, const StringList &strList)
 	Value *pValDirNameList =
 				GetModule_sys()->LookupValue(Gura_Symbol(path), false);
 	if (pValDirNameList == NULL) {
-		sig.SetError(ERR_ValueError, "path variable is not specified");
+		sig.SetError(ERR_ImportError, "path variable is not specified");
 		return false;
 	}
 	ValueList &valList = pValDirNameList->GetList();
