@@ -55,7 +55,7 @@ Gura_ModuleEntry()
 		valueBuild = Value::Null;
 #endif
 #if defined(GURA_ON_MSWIN)
-		valuePlatform = Value(Gura_Symbol(windows));
+		valuePlatform = Value(Gura_Symbol(mswin));
 #elif defined(GURA_ON_LINUX)
 		valuePlatform = Value(Gura_Symbol(linux));
 #else

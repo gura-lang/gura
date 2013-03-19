@@ -338,7 +338,7 @@ public:
 	Gura_DeclareSymbol(gnuc);
 	Gura_DeclareSymbol(file);
 	Gura_DeclareSymbol(dir);
-	Gura_DeclareSymbol(windows);
+	Gura_DeclareSymbol(mswin);
 	Gura_DeclareSymbol(linux);
 	Gura_DeclareSymbol(top);
 	Gura_DeclareSymbol(bottom);

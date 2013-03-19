@@ -351,7 +351,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(gnuc);
 	Gura_RealizeSymbol(file);
 	Gura_RealizeSymbol(dir);
-	Gura_RealizeSymbol(windows);
+	Gura_RealizeSymbol(mswin);
 	Gura_RealizeSymbol(linux);
 	Gura_RealizeSymbol(top);
 	Gura_RealizeSymbol(bottom);
