@@ -34,6 +34,7 @@ bool Object_datetime::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols
 	symbols.insert(Gura_Symbol(sec));
 	symbols.insert(Gura_Symbol(usec));
 	symbols.insert(Gura_Symbol(wday));
+	symbols.insert(Gura_Symbol(week));
 	symbols.insert(Gura_Symbol(yday));
 	symbols.insert(Gura_Symbol(unixtime));
 	return true;
@@ -59,6 +60,18 @@ Value Object_datetime::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 		return Value(static_cast<Number>(_dateTime.GetUSec()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(wday))) {
 		return Value(static_cast<Number>(_dateTime.GetDayOfWeek()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(week))) {
+		int wday = _dateTime.GetDayOfWeek();
+		const Symbol *pSymbol =
+			(wday == 0)? Gura_Symbol(sunday) :
+			(wday == 1)? Gura_Symbol(monday) :
+			(wday == 2)? Gura_Symbol(tuesday) :
+			(wday == 3)? Gura_Symbol(wednesday) :
+			(wday == 4)? Gura_Symbol(thursday) :
+			(wday == 5)? Gura_Symbol(friday) :
+			(wday == 6)? Gura_Symbol(saturday) : NULL;
+		if (pSymbol == NULL) return Value::Null; // this must not happen
+		return Value(pSymbol);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(yday))) {
 		return Value(static_cast<Number>(_dateTime.GetDayOfYear() + 1));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(unixtime))) {

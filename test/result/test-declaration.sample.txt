@@ -293,6 +293,7 @@ true:boolean = true
 try:function = try():leader {block}
 typename:function = typename(`value)
 undef:function = undef(`value+):[raise]
+uri:function = uri(str?:string):map {block?}
 while:function = while (`cond) {block}
 xlist:function = xlist(iter+:iterator)
 xset:function = xset(iter+:iterator):[and,or,xor]
