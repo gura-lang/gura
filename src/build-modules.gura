@@ -43,11 +43,12 @@ rpmFiles = []
 for (dirName in dirNames) {
 	(dirName in dirNamesExcept) && continue
 	if (!dirNamePre.isempty()) {
-		dirName = path.join(dirNamePre, dirName)
+		pathName = path.join(dirNamePre, dirName)
 	}
 	argvOrg = sys.argv
 	sys.argv = argvOrg.replace('install', 'install-root'):list
-	fs.chdir(dirName) {
+	sys.argv.append('--basedir=' + path.join(fs.getcwd(), dirName))
+	fs.chdir(pathName) {
 		println('-' * 78)
 		println(dirName)
 		scope {

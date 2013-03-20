@@ -71,7 +71,8 @@ Parser = class {
 				}
 				shortName = arg.mid(1, 1)
 				if (arg.len() > 2) {
-					value = arg.mid(2)
+					//value = arg.mid(2)
+					raise(ArgumentError, 'unknown option -' + arg.mid(1))
 				}
 				entry = this.entries.find(this.entries:*shortName == shortName)
 				!entry && raise(ArgumentError, 'unknown option -' + shortName)
