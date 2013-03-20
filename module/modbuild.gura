@@ -274,14 +274,19 @@ if (sys.build == `msc) {
 			this.precompile && objsEx.append(this.makeObjName(this.precompile))
 			this.debugFlag && ldflags.append('-g')
 			if (!path.exists(target) || (path.stat(target).mtime < path.stat(objs):*mtime).or()) {
-				!this.execute('gcc', ldflags*, '-o', target, objs*, libs*) && return(false)
+				fileNameCmd = path.join(this.outDir, 'linker.cmd')
+				open(fileNameCmd, 'w').println(objs)
+				!this.execute('gcc', ldflags*,
+							'-o' + target, '@' + fileNameCmd, libs*) && return(false)
+				//!this.execute('gcc', ldflags*,
+				//			'-o', target, objs*, libs*) && return(false)
 				println(target, ' was created')
 			}
 			true
 		}
 		doClean(target:string) = {
 			!path.exists(this.outDir) && return
-			fileNames = path.dir(this.outDir, target, '*.o'):list
+			fileNames = path.dir(this.outDir, target, '*.o', '*.cmd'):list
 			fileNames.append(path.dir('.', '*.gch'))
 			for (fileName in fileNames) {
 				fs.remove(fileName)
