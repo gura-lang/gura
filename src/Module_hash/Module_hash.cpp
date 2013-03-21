@@ -44,9 +44,7 @@ Value Object_hash::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 {
 	if (pSymbol->IsIdentical(Gura_UserSymbol(digest))) {
 		evaluatedFlag = true;
-		Value result;
-		result.InitAsBinary(env, GetHash().GetDigest(), true);
-		return result;
+		return Value(new Object_binary(env, GetHash().GetDigest(), true));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(hexdigest))) {
 		evaluatedFlag = true;
 		const Binary &digest = GetHash().GetDigest();

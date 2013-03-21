@@ -17,8 +17,6 @@ class Function;
 class Directory;
 class Class;
 class Object;
-class Object_binary;
-class Object_binaryptr;
 
 class ValueList;
 class ValueDict;
@@ -629,12 +627,6 @@ public:
 	ValueList &InitAsList(Environment &env, size_t n);
 	ValueList &InitAsList(Environment &env, size_t n, const Value &value);
 	ValueDict &InitAsDict(Environment &env, bool ignoreCaseFlag);
-	Object_binary *InitAsBinary(Environment &env);
-	Object_binary *InitAsBinary(Environment &env, const Binary &binary, bool writableFlag);
-	Object_binary *InitAsBinary(Environment &env,
-								const char *buff, size_t size, bool writableFlag);
-	Object_binaryptr *InitAsBinaryPtr(Environment &env,
-							Object_binary *pObjBinary, size_t offset);
 public:
 	static int Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag = false);
 	inline bool operator<(const Value &value) const {

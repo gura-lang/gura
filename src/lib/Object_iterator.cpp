@@ -820,9 +820,7 @@ Gura_ImplementMethod(iterator, joinb)
 		buff += value.GetBinary();
 	}
 	if (sig.IsSignalled()) return Value::Null;
-	Value result;
-	result.InitAsBinary(env, buff, true);
-	return result;
+	return Value(new Object_binary(env, buff, true));
 }
 
 // iterator#format(format:string) {block?}

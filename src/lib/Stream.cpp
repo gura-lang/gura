@@ -423,8 +423,7 @@ bool Stream::ReadToStream(Environment &env, Signal sig, Stream &streamDst,
 		size_t bytesRead = Read(sig, buff, bytesUnit);
 		if (bytesRead == 0) break;
 		if (pFuncFilter != NULL) {
-			Value value;
-			value.InitAsBinary(env, buff, bytesUnit, false);
+			Value value(new Object_binary(env, buff, bytesUnit, false));
 			ValueList valListArg(value);
 			Args argsSub(valListArg);
 			Value rtn = pFuncFilter->Eval(env, sig, argsSub);

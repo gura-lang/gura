@@ -2005,7 +2005,7 @@ bool Iterator_Pack::DoNext(Environment &env, Signal sig, Value &value)
 {
 	Value valueSrc;
 	if (!_pIterator->Next(env, sig, valueSrc)) return false;
-	Object_binary *pObjBinary = value.InitAsBinary(env);
+	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	size_t offset = 0;
 	if (valueSrc.IsList()) {
 		pObjBinary->GetBinary().Pack(env, sig, offset, _format.c_str(), valueSrc.GetList());
@@ -2013,10 +2013,8 @@ bool Iterator_Pack::DoNext(Environment &env, Signal sig, Value &value)
 		ValueList valList(valueSrc);
 		pObjBinary->GetBinary().Pack(env, sig, offset, _format.c_str(), valList);
 	}
-	if (sig.IsSignalled()) {
-		value = Value::Null;
-		return false;
-	}
+	if (sig.IsSignalled()) return false;
+	value = Value(pObjBinary.release());
 	return true;
 }
 

@@ -101,7 +101,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					}
 					p = buff + offset;
 				}
-				value.InitAsBinary(env, p, count, false);
+				value = Value(new Object_binary(env, p, count, false));
 				break;
 			}
 			case TYPE_ASCII: {
@@ -205,7 +205,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					}
 					p = buff + offset;
 				}
-				value.InitAsBinary(env, p, count, false);
+				value = Value(new Object_binary(env, p, count, false));
 				break;
 			}
 			case TYPE_SLONG: {

@@ -115,9 +115,7 @@ Gura_ImplementFunction(tonative)
 {
 	const char *str = args.GetString(0);
 	String buff = OAL::ToNativeString(str);
-	Value rtn;
-	rtn.InitAsBinary(env, buff.data(), buff.size(), true);
-	return rtn;
+	return Value(new Object_binary(env, buff.data(), buff.size(), true));
 }
 
 // os.getenv(name:string):map

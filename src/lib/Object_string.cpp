@@ -793,10 +793,8 @@ Gura_DeclareMethodPrimitive(string, binary)
 
 Gura_ImplementMethod(string, binary)
 {
-	Value result;
 	const char *str = args.GetThis().GetString();
-	result.InitAsBinary(env, str, ::strlen(str), true);
-	return result;
+	return Value(new Object_binary(env, str, ::strlen(str), true));
 }
 
 // string#encode(codec:codec)
@@ -813,9 +811,7 @@ Gura_ImplementMethod(string, encode)
 	if (!pObjCodec->GetEncoder()->Encode(sig, buff, args.GetThis().GetString())) {
 		return Value::Null;
 	}
-	Value result;
-	result.InitAsBinary(env, buff, true);
-	return result;
+	return Value(new Object_binary(env, buff, true));
 }
 
 // string#reader() {block?}

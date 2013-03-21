@@ -1190,7 +1190,7 @@ Value RegDataToValue(Environment &env, Signal sig,
 {
 	Value result;
 	if (dwType == REG_BINARY) {
-		result.InitAsBinary(env, reinterpret_cast<const char *>(lpData), cbData, true);
+		result = Value(new Object_binary(env, reinterpret_cast<const char *>(lpData), cbData, true));
 	} else if (dwType == REG_DWORD || dwType == REG_DWORD_LITTLE_ENDIAN) {
 		result = Value(*reinterpret_cast<const DWORD *>(lpData));
 	} else if (dwType == REG_DWORD_BIG_ENDIAN) {

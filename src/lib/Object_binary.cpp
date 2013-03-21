@@ -215,8 +215,7 @@ Gura_DeclareFunction(binary)
 
 Gura_ImplementFunction(binary)
 {
-	Value result;
-	Object_binary *pObjBinary = result.InitAsBinary(env);
+	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	Binary &binary = pObjBinary->GetBinary();
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		if (pValue->IsString()) {
@@ -228,7 +227,7 @@ Gura_ImplementFunction(binary)
 			return Value::Null;
 		}
 	}
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, sig, args, Value(pObjBinary.release()));
 }
 
 //-----------------------------------------------------------------------------
@@ -276,11 +275,9 @@ Gura_DeclareMethod(binary, pointer)
 Gura_ImplementMethod(binary, pointer)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
-	Object_binary *pObj = Object_binary::Reference(pThis);
+	Object_binary *pObjBinary = Object_binary::Reference(pThis);
 	size_t offset = args.GetSizeT(0);
-	Value result;
-	result.InitAsBinaryPtr(env, pObj, offset);
-	return result;
+	return Value(new Object_binaryptr(env, pObjBinary, offset));
 }
 
 // binary.pack(format:string, value*):map
@@ -293,12 +290,11 @@ Gura_DeclareClassMethod(binary, pack)
 
 Gura_ImplementClassMethod(binary, pack)
 {
-	Value result;
-	Object_binary *pObjBinary = result.InitAsBinary(env);
+	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	size_t offset = 0;
 	pObjBinary->GetBinary().Pack(env, sig, offset, args.GetString(0), args.GetList(1));
 	if (sig.IsSignalled()) return Value::Null;
-	return result;
+	return Value(pObjBinary.release());
 }
 
 // binary#unpack(format:string, offset:number => 0)

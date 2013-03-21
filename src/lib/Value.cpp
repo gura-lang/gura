@@ -830,36 +830,6 @@ ValueDict &Value::InitAsDict(Environment &env, bool ignoreCaseFlag)
 	return pObj->GetDict();
 }
 
-Object_binary *Value::InitAsBinary(Environment &env)
-{
-	Object_binary *pObj = new Object_binary(env);
-	InitAsObject(pObj);
-	return pObj;
-}
-
-Object_binary *Value::InitAsBinary(Environment &env, const Binary &binary, bool writableFlag)
-{
-	Object_binary *pObj = new Object_binary(env, binary, writableFlag);
-	InitAsObject(pObj);
-	return pObj;
-}
-
-Object_binary *Value::InitAsBinary(Environment &env,
-						const char *buff, size_t size, bool writableFlag)
-{
-	Object_binary *pObj = new Object_binary(env, buff, size, writableFlag);
-	InitAsObject(pObj);
-	return pObj;
-}
-
-Object_binaryptr *Value::InitAsBinaryPtr(Environment &env,
-									Object_binary *pObjBinary, size_t offset)
-{
-	Object_binaryptr *pObj = new Object_binaryptr(env, pObjBinary, offset);
-	InitAsObject(pObj);
-	return pObj;
-}
-
 Value Value::CreateAsList(Environment &env, const Value &v1)
 {
 	Value rtn;

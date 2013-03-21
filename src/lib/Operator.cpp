@@ -266,18 +266,18 @@ Value Func_Plus::DoEval(Environment &env, Signal sig, Args &args) const
 	} else if (valueLeft.IsBinary() && valueRight.IsBinary()) {
 		Binary buff(valueLeft.GetBinary());
 		buff += valueRight.GetBinary();
-		result.InitAsBinary(env, buff, true);
+		result = Value(new Object_binary(env, buff, true));
 		return result;
 	} else if (valueLeft.IsBinary() && valueRight.IsString()) {
 		Binary buff(valueLeft.GetBinary());
 		buff += valueRight.GetString();
-		result.InitAsBinary(env, buff, true);
+		result = Value(new Object_binary(env, buff, true));
 		return result;
 	} else if (valueLeft.IsString() && valueRight.IsBinary()) {
 		Binary buff;
 		buff += valueLeft.GetString();
 		buff += valueRight.GetBinary();
-		result.InitAsBinary(env, buff, true);
+		result = Value(new Object_binary(env, buff, true));
 		return result;
 	} else if (valueLeft.IsBinaryPtr() && valueRight.IsNumber()) {
 		Object_binaryptr *pObj =
@@ -748,14 +748,14 @@ Value Func_Multiply::DoEval(Environment &env, Signal sig, Args &args) const
 		for (int cnt = static_cast<int>(valueRight.GetNumber()); cnt > 0; cnt--) {
 			buff += valueLeft.GetBinary();
 		}
-		result.InitAsBinary(env, buff, true);
+		result = Value(new Object_binary(env, buff, true));
 		return result;
 	} else if (valueLeft.IsNumber() && valueRight.IsBinary()) {
 		Binary buff;
 		for (int cnt = static_cast<int>(valueLeft.GetNumber()); cnt > 0; cnt--) {
 			buff += valueRight.GetBinary();
 		}
-		result.InitAsBinary(env, buff, true);
+		result = Value(new Object_binary(env, buff, true));
 		return result;
 	} else {
 		bool evaluatedFlag = false;

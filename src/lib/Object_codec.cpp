@@ -110,9 +110,7 @@ Gura_ImplementMethod(codec, encode)
 	if (!pThis->GetEncoder()->Encode(sig, dst, args.GetString(0))) {
 		return Value::Null;
 	}
-	Value result;
-	result.InitAsBinary(env, dst, true);
-	return result;
+	return Value(new Object_binary(env, dst, true));
 }
 
 // codec#decode(buff:binary):map

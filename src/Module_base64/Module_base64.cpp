@@ -49,14 +49,13 @@ Gura_DeclareFunction(decode)
 
 Gura_ImplementFunction(decode)
 {
-	Value rtn;
-	Object_binary *pObjBinary = rtn.InitAsBinary(env);
+	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	AutoPtr<Stream> pStreamSrc(new Stream_Base64Reader(sig,
 									Stream::Reference(&args.GetStream(0))));
 	AutoPtr<Stream> pStreamDst(new Stream_Binary(sig,
-									Object_binary::Reference(pObjBinary), true));
+									Object_binary::Reference(pObjBinary.get()), true));
 	if (!pStreamSrc->ReadToStream(env, sig, *pStreamDst)) return Value::Null;
-	return rtn;
+	return Value(pObjBinary.release());
 }
 
 // base64.encode(stream:stream:r, linelen:number => 76)
@@ -70,13 +69,12 @@ Gura_DeclareFunction(encode)
 Gura_ImplementFunction(encode)
 {
 	int nCharsPerLine = args.IsNumber(1)? args.GetInt(1) : -1;
-	Value rtn;
-	Object_binary *pObjBinary = rtn.InitAsBinary(env);
+	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	Stream &streamSrc = args.GetStream(0);
 	AutoPtr<Stream> pStreamDst(new Stream_Base64Writer(sig,
-		new Stream_Binary(sig, Object_binary::Reference(pObjBinary), true), nCharsPerLine));
+		new Stream_Binary(sig, Object_binary::Reference(pObjBinary.get()), true), nCharsPerLine));
 	if (!streamSrc.ReadToStream(env, sig, *pStreamDst)) return Value::Null;
-	return rtn;
+	return Value(pObjBinary.release());
 }
 
 //-----------------------------------------------------------------------------

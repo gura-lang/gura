@@ -249,25 +249,24 @@ Gura_ImplementMethod(stream, read)
 			delete [] buff;
 			return Value::Null;
 		}
-		result.InitAsBinary(env, Binary(buff, lenRead), true);
+		result = Value(new Object_binary(env, Binary(buff, lenRead), true));
 		delete [] buff;
 	} else if (stream.IsInfinite()) {
 		sig.SetError(ERR_IOError, "specify a reading size for infinite stream");
 		return Value::Null;
 	} else {
 		const int bytesBuff = 4096;
-		Object_binary *pObjBinary = result.InitAsBinary(env);
+		AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 		Binary &buff = pObjBinary->GetBinary();
 		OAL::Memory memory(bytesBuff);
 		char *buffSeg = reinterpret_cast<char *>(memory.GetPointer());
 		size_t lenRead = stream.Read(sig, buffSeg, bytesBuff);
-		if (lenRead == 0) {
-			return Value::Null;
-		}
+		if (lenRead == 0) return Value::Null;
 		do {
 			buff.append(buffSeg, lenRead);
 		} while ((lenRead = stream.Read(sig, buffSeg, bytesBuff)) > 0);
 		if (sig.IsSignalled()) return Value::Null;
+		result = Value(pObjBinary.release());
 	}
 	return result;
 }
@@ -291,7 +290,7 @@ Gura_ImplementMethod(stream, peek)
 		delete [] buff;
 		return Value::Null;
 	}
-	result.InitAsBinary(env, Binary(buff, lenRead), true);
+	result = Value(new Object_binary(env, Binary(buff, lenRead), true));
 	delete [] buff;
 	return result;
 }

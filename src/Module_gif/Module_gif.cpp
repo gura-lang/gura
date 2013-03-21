@@ -28,13 +28,9 @@ Value Object_Header::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 	evaluatedFlag = true;
 	GIF::Header &hdr = gif.GetHeader();
 	if (pSymbol->IsIdentical(Gura_UserSymbol(Signature))) {
-		Value value;
-		value.InitAsBinary(env, hdr.Signature, sizeof(hdr.Signature), true);
-		return value;
+		return Value(new Object_binary(env, hdr.Signature, sizeof(hdr.Signature), true));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(Version))) {
-		Value value;
-		value.InitAsBinary(env, hdr.Version, sizeof(hdr.Version), true);
-		return value;
+		return Value(new Object_binary(env, hdr.Version, sizeof(hdr.Version), true));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -139,9 +135,7 @@ Value Object_CommentExtension::DoGetProp(Environment &env, Signal sig, const Sym
 	if (!exts.comment.validFlag) return Value::Null;
 	GIF::CommentExtension &cmnt = exts.comment;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(CommentData))) {
-		Value value;
-		value.InitAsBinary(env, cmnt.CommentData, true);
-		return value;
+		return Value(new Object_binary(env, cmnt.CommentData, true));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -204,9 +198,7 @@ Value Object_PlainTextExtension::DoGetProp(Environment &env, Signal sig, const S
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(TextBackgroundColorIndex))) {
 		return Value(pltxt.TextBackgroundColorIndex);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(PlainTextData))) {
-		Value value;
-		value.InitAsBinary(env, pltxt.PlainTextData, true);
-		return value;
+		return Value(new Object_binary(env, pltxt.PlainTextData, true));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -247,17 +239,11 @@ Value Object_ApplicationExtension::DoGetProp(Environment &env, Signal sig, const
 	if (!exts.application.validFlag) return Value::Null;
 	GIF::ApplicationExtension &app = exts.application;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(ApplicationIdentifier))) {
-		Value value;
-		value.InitAsBinary(env, app.ApplicationIdentifier, sizeof(app.ApplicationIdentifier), true);
-		return value;
+		return Value(new Object_binary(env, app.ApplicationIdentifier, sizeof(app.ApplicationIdentifier), true));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(AuthenticationCode))) {
-		Value value;
-		value.InitAsBinary(env, app.AuthenticationCode, sizeof(app.AuthenticationCode), true);
-		return value;
+		return Value(new Object_binary(env, app.AuthenticationCode, sizeof(app.AuthenticationCode), true));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ApplicationData))) {
-		Value value;
-		value.InitAsBinary(env, app.ApplicationData, true);
-		return value;
+		return Value(new Object_binary(env, app.ApplicationData, true));
 	}
 	evaluatedFlag = false;
 	return Value::Null;

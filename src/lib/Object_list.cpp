@@ -1604,12 +1604,11 @@ Gura_DeclareMethod(list, pack)
 Gura_ImplementMethod(list, pack)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	Value result;
-	Object_binary *pObjBinary = result.InitAsBinary(env);
+	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	size_t offset = 0;
 	pObjBinary->GetBinary().Pack(env, sig, offset, args.GetString(0), pThis->GetList());
 	if (sig.IsSignalled()) return Value::Null;
-	return result;
+	return Value(pObjBinary.release());
 }
 
 // list#each() {block?}

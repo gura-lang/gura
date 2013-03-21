@@ -108,9 +108,7 @@ Value Object_interp::ConvFromTclObj(Environment &env, Signal sig, Tcl_Obj *objPt
 	} else if (typePtr == ObjType_bytearray) {
 		int length;
 		unsigned char *binary = ::Tcl_GetByteArrayFromObj(objPtr, &length);
-		Value result;
-		result.InitAsBinary(env, Binary(reinterpret_cast<char *>(binary), length), true);
-		return result;
+		return Value(new Object_binary(env, Binary(reinterpret_cast<char *>(binary), length), true));
 	} else if (typePtr == ObjType_double) {
 		double value;
 		::Tcl_GetDoubleFromObj(_interp, objPtr, &value);
