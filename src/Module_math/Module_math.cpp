@@ -826,42 +826,40 @@ Gura_ImplementFunction(bezier)
 	return result;
 }
 
-// math.diff(expr:expr, var:symbol):map
+// math.diff(expr:expr, var:symbol):map {block?}
 Gura_DeclareFunction(diff)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "expr", VTYPE_expr);
 	DeclareArg(env, "var", VTYPE_symbol);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), 
 	"Returns a mathematical differential expression of the given expr\n"
 	"by a variable var.\n"
 	"Example:\n"
-	"math.diff(`(sin(x ** 2)), `x)");
+	"math.diff(`(math.sin(x ** 2)), `x)");
 }
 
 Gura_ImplementFunction(diff)
 {
 	Expr *pExprDiff = args.GetExpr(0)->MathDiff(env, sig, args.GetSymbol(1));
 	if (sig.IsSignalled()) return Value::Null;
-	Value result;
-	result.InitAsExpr(env, pExprDiff);
-	return result;
+	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExprDiff)));
 }
 
-// math.optimize(expr:expr):map
+// math.optimize(expr:expr):map {block?}
 Gura_DeclareFunction(optimize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "expr", VTYPE_expr);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(optimize)
 {
 	Expr *pExprOpt = args.GetExpr(0)->MathOptimize(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Value result;
-	result.InitAsExpr(env, pExprOpt);
-	return result;
+	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExprOpt)));
 }
 
 // math.fft(seq[])

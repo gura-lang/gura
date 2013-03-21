@@ -815,39 +815,6 @@ ValueList &Value::InitAsList(Environment &env, size_t n)
 	return pObj->GetList();
 }
 
-Object_matrix *Value::InitAsMatrix(Environment &env,
-								int nRows, int nCols, const Value &valueElem)
-{
-	Object_matrix *pObj = new Object_matrix(env, nRows, nCols, valueElem);
-	InitAsObject(pObj);
-	return pObj;
-}
-
-Object_matrix *Value::InitAsMatrix(Environment &env, Signal sig, const ValueList &valList)
-{
-	size_t nRows, nCols;
-	if (!valList.CheckMatrix(&nRows, &nCols)) {
-		sig.SetError(ERR_ValueError, "invalid matrix initialization");
-		return NULL;
-	}
-	Object_list *pObjList = new Object_list(env);
-	ValueList &valListDst = pObjList->GetList();
-	valListDst.reserve(nRows * nCols);
-	foreach_const (ValueList, pValue, valList) {
-		if (pValue->IsList()) {
-			foreach_const (ValueList, pValueElem, pValue->GetList()) {
-				valListDst.push_back(*pValueElem);
-			}
-		} else {
-			valListDst.push_back(*pValue);
-		}
-	}
-	Object_matrix *pObj =
-			new Object_matrix(env, pObjList, 0, 0, nRows, nCols, nCols, false);
-	InitAsObject(pObj);
-	return pObj;
-}
-
 ValueList &Value::InitAsList(Environment &env, size_t n, const Value &value)
 {
 	Object_list *pObj =
@@ -891,18 +858,6 @@ Object_binaryptr *Value::InitAsBinaryPtr(Environment &env,
 	Object_binaryptr *pObj = new Object_binaryptr(env, pObjBinary, offset);
 	InitAsObject(pObj);
 	return pObj;
-}
-
-void Value::InitAsExpr(Environment &env, Expr *pExpr)
-{
-	Object_expr *pObj = new Object_expr(env, pExpr);
-	InitAsObject(pObj);
-}
-
-void Value::InitAsEnvironment(Environment &env)
-{
-	Object_environment *pObj = new Object_environment(env);
-	InitAsObject(pObj);
 }
 
 Value Value::CreateAsList(Environment &env, const Value &v1)

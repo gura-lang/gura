@@ -94,10 +94,9 @@ Gura_ImplementMethod(expr, child)
 		sig.SetError(ERR_ValueError, "not a unary expression");
 		return Value::Null;
 	}
-	Value result;
-	result.InitAsExpr(env,
+	Object_expr *pObj = new Object_expr(env,
 			dynamic_cast<const Expr_Unary *>(pExpr)->GetChild()->IncRef());
-	return result;
+	return Value(pObj);
 }
 
 // expr#left()
@@ -113,10 +112,9 @@ Gura_ImplementMethod(expr, left)
 		sig.SetError(ERR_ValueError, "not a binary expression");
 		return Value::Null;
 	}
-	Value result;
-	result.InitAsExpr(env,
+	Object_expr *pObj = new Object_expr(env,
 			dynamic_cast<const Expr_Binary *>(pExpr)->GetLeft()->IncRef());
-	return result;
+	return Value(pObj);
 }
 
 // expr#right()
@@ -132,10 +130,9 @@ Gura_ImplementMethod(expr, right)
 		sig.SetError(ERR_ValueError, "not a binary expression");
 		return Value::Null;
 	}
-	Value result;
-	result.InitAsExpr(env,
+	Object_expr *pObj = new Object_expr(env,
 			dynamic_cast<const Expr_Binary *>(pExpr)->GetRight()->IncRef());
-	return result;
+	return Value(pObj);
 }
 
 // expr#each() {block?}
@@ -170,10 +167,9 @@ Gura_ImplementMethod(expr, car)
 		sig.SetError(ERR_ValueError, "not a compound expression");
 		return Value::Null;
 	}
-	Value result;
-	result.InitAsExpr(env,
+	Object_expr *pObj = new Object_expr(env,
 			dynamic_cast<const Expr_Compound *>(pExpr)->GetCar()->IncRef());
-	return result;
+	return Value(pObj);
 }
 
 // expr#cdr()
@@ -194,9 +190,8 @@ Gura_ImplementMethod(expr, cdr)
 	foreach_const (ExprList, ppExpr,
 					dynamic_cast<const Expr_Compound *>(pExpr)->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
-		Value value;
-		value.InitAsExpr(env, pExpr->IncRef());
-		valList.push_back(value);
+		Object_expr *pObj = new Object_expr(env, pExpr->IncRef());
+		valList.push_back(Value(pObj));
 	}
 	return result;
 }
@@ -210,9 +205,8 @@ Gura_DeclareMethod(expr, unquote)
 Gura_ImplementMethod(expr, unquote)
 {
 	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	Value result;
-	result.InitAsExpr(env, pExpr->Unquote()->IncRef());
-	return result;
+	Object_expr *pObj = new Object_expr(env, pExpr->Unquote()->IncRef());
+	return Value(pObj);
 }
 
 // expr#block()
@@ -231,9 +225,8 @@ Gura_ImplementMethod(expr, block)
 	const Expr_Block *pExprBlock =
 						dynamic_cast<const Expr_Caller *>(pExpr)->GetBlock();
 	if (pExprBlock == NULL) return Value::Null;
-	Value result;
-	result.InitAsExpr(env, pExprBlock->IncRef());
-	return result;
+	Object_expr *pObj = new Object_expr(env, pExprBlock->IncRef());
+	return Value(pObj);
 }
 
 // expr#exprname()
@@ -394,7 +387,7 @@ bool Class_expr::CastFrom(Environment &env, Signal sig, Value &value, const Decl
 {
 	if (value.IsSymbol()) {		// cast Symbol to Expr
 		const Symbol *pSymbol = value.GetSymbol();
-		value.InitAsExpr(env, new Expr_Symbol(pSymbol));
+		value = Value(new Object_expr(env, new Expr_Symbol(pSymbol)));
 		return true;
 	}
 	return false;

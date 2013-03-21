@@ -108,6 +108,7 @@ BuilderBase = class {
 		dirName = path.dirname(targetPath)
 		!path.exists(dirName) && fs.mkdir(dirName):tree
 		copy(path.join(this.outDir, target), open(targetPath, 'w'))
+		println('installed: ', targetPath)
 	}
 	printHelp(p:argopt.Parser) = {
 		sys.stderr.printf('usage: %s [options] command\n', path.filename(sys.argv[0]))
@@ -215,7 +216,7 @@ if (sys.build == `msc) {
 				//			'/OUT:' + target, objs*, objsEx*, libs*) && return(false)
 				!this.execute('link', ldflags*,
 							'/OUT:' + target, '@' + fileNameCmd, objsEx*, libs*) && return(false)
-				println(target, ' was created')
+				println('created: ', target)
 			}
 			true
 		}
@@ -280,7 +281,7 @@ if (sys.build == `msc) {
 							'-o' + target, '@' + fileNameCmd, libs*) && return(false)
 				//!this.execute('gcc', ldflags*,
 				//			'-o', target, objs*, libs*) && return(false)
-				println(target, ' was created')
+				println('created: ', target)
 			}
 			true
 		}

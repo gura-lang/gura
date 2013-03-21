@@ -19,7 +19,6 @@ class Class;
 class Object;
 class Object_binary;
 class Object_binaryptr;
-class Object_matrix;
 
 class ValueList;
 class ValueDict;
@@ -629,9 +628,6 @@ public:
 	ValueList &InitAsList(Environment &env);
 	ValueList &InitAsList(Environment &env, size_t n);
 	ValueList &InitAsList(Environment &env, size_t n, const Value &value);
-	Object_matrix *InitAsMatrix(Environment &env,
-								int nRows, int nCols, const Value &valueElem);
-	Object_matrix *InitAsMatrix(Environment &env, Signal sig, const ValueList &valList);
 	ValueDict &InitAsDict(Environment &env, bool ignoreCaseFlag);
 	Object_binary *InitAsBinary(Environment &env);
 	Object_binary *InitAsBinary(Environment &env, const Binary &binary, bool writableFlag);
@@ -639,8 +635,6 @@ public:
 								const char *buff, size_t size, bool writableFlag);
 	Object_binaryptr *InitAsBinaryPtr(Environment &env,
 							Object_binary *pObjBinary, size_t offset);
-	void InitAsExpr(Environment &env, Expr *pExpr);
-	void InitAsEnvironment(Environment &env);
 public:
 	static int Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag = false);
 	inline bool operator<(const Value &value) const {

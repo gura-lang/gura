@@ -296,8 +296,8 @@ bool DeclarationList::Compensate(Environment &env, Signal sig, ValueList &valLis
 				return false;
 			}
 		} else if (pDecl->IsQuote()) {
-			value.InitAsExpr(env, pExprArg->IncRef());
-			valList.push_back(value);
+			value = Value(new Object_expr(env, pExprArg->IncRef()));
+			//valList.push_back(value);
 		} else if (pDecl->IsType(VTYPE_symbol)) {
 			const Expr *pExpr = pExprArg;
 			if (pExpr->IsQuote()) {
@@ -571,8 +571,8 @@ bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 				return false;
 			}
 		} else if (pDecl->IsQuote()) {
-			value.InitAsExpr(env, pExprArg->IncRef());
-			valListArg.push_back(value);
+			value = Value(new Object_expr(env, pExprArg->IncRef()));
+			//valListArg.push_back(value);
 		} else if (pDecl->IsType(VTYPE_symbol)) {
 			const Expr *pExpr = pExprArg;
 			if (pExpr->IsQuote()) {

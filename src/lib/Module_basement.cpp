@@ -258,12 +258,13 @@ Gura_ImplementFunction(scope)
 	return Value::Null;
 }
 
-// locals(module?:module)
+// locals(module?:module) {block?}
 Gura_DeclareFunction(locals)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "module", VTYPE_Module, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), 
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
 	"Returns an environment object that belongs to a specified module.\n"
 	"If module is omitted, it returns an environment object of the current scope.");
 }
@@ -272,26 +273,25 @@ Gura_ImplementFunction(locals)
 {
 	Value value;
 	if (args.IsModule(0)) {
-		value.InitAsEnvironment(*args.GetModule(0));
+		value = Value(new Object_environment(*args.GetModule(0)));
 	} else {
-		value.InitAsEnvironment(env);
+		value = Value(new Object_environment(env));
 	}
-	return value;
+	return ReturnValue(env, sig, args, value);
 }
 
-// outers()
+// outers() {block?}
 Gura_DeclareFunction(outers)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), "Returns an environment object that accesses to an outer scope.");
 }
 
 Gura_ImplementFunction(outers)
 {
-	Value value;
 	Environment envOuter(&env, ENVTYPE_outer);
-	value.InitAsEnvironment(envOuter);
-	return value;
+	return ReturnValue(env, sig, args, Value(new Object_environment(envOuter)));
 }
 
 // extern(`syms+)

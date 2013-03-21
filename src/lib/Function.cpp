@@ -546,9 +546,8 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 		// _blockInfo.pSymbol
 		pEnvLocal->AssignValue(_blockInfo.pSymbol, Value::Null, false);
 	} else if (_blockInfo.quoteFlag) {
-		Value value;
-		value.InitAsExpr(env, pExprBlock->IncRef());
-		pEnvLocal->AssignValue(_blockInfo.pSymbol, value, false);
+		Object_expr *pObj = new Object_expr(env, pExprBlock->IncRef());
+		pEnvLocal->AssignValue(_blockInfo.pSymbol, Value(pObj), false);
 	} else {
 		Environment *pEnv =
 				(_blockInfo.blockScope == BLKSCOPE_Inside)? pEnvLocal : &env;

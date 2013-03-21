@@ -849,11 +849,9 @@ Gura_DeclareFunction(matrix)
 
 Gura_ImplementFunction(matrix)
 {
-	Value result;
 	Value valueZero(0.);
-	result.InitAsMatrix(env, args.GetInt(0), args.GetInt(1),
-					args.IsValid(2)? args.GetValue(2) : valueZero);
-	return ReturnValue(env, sig, args, result);
+	return Value(new Object_matrix(env, args.GetInt(0), args.GetInt(1),
+							args.IsValid(2)? args.GetValue(2) : valueZero));
 }
 
 // @@ {block}
@@ -870,10 +868,25 @@ Gura_ImplementFunction(MatrixInit)
 	Environment envLister(&env, ENVTYPE_lister);
 	Value valueInit = pExprBlock->GetExprOwner().ExecForList(envLister, sig, false, false);
 	if (sig.IsSignalled()) return Value::Null;
-	Value result;
-	result.InitAsMatrix(env, sig, valueInit.GetList());
-	if (sig.IsSignalled()) return Value::Null;
-	return result;
+	size_t nRows = 0, nCols = 0;
+	ValueList &valList = valueInit.GetList();
+	if (!valList.CheckMatrix(&nRows, &nCols)) {
+		sig.SetError(ERR_ValueError, "invalid matrix initialization");
+		return Value::Null;
+	}
+	Object_list *pObjList = new Object_list(env);
+	ValueList &valListDst = pObjList->GetList();
+	valListDst.reserve(nRows * nCols);
+	foreach_const (ValueList, pValue, valList) {
+		if (pValue->IsList()) {
+			foreach_const (ValueList, pValueElem, pValue->GetList()) {
+				valListDst.push_back(*pValueElem);
+			}
+		} else {
+			valListDst.push_back(*pValue);
+		}
+	}
+	return Value(new Object_matrix(env, pObjList, 0, 0, nRows, nCols, nCols, false));
 }
 
 //-----------------------------------------------------------------------------
@@ -889,14 +902,13 @@ Gura_DeclareClassMethod(matrix, identity)
 
 Gura_ImplementClassMethod(matrix, identity)
 {
-	Value result;
 	Value valueZero(0.), valueOne(1.);
 	int n = args.GetInt(0);
-	Object_matrix *pObj = result.InitAsMatrix(env, n, n, valueZero);
+	AutoPtr<Object_matrix> pObj(new Object_matrix(env, n, n, valueZero));
 	for (int i = 0; i < n; i++) {
 		pObj->SetElement(i, i, valueOne);
 	}
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
 // matrix#set(value)

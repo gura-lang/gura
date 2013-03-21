@@ -82,9 +82,8 @@ bool Expr::ExecInArg(Environment &env, Signal sig,
 					ValueList &valListArg, size_t &nElems, bool quoteFlag) const
 {
 	if (quoteFlag) {
-		Value value;
-		value.InitAsExpr(env, IncRef());
-		valListArg.push_back(value);
+		Object_expr *pObj = new Object_expr(env, IncRef());
+		valListArg.push_back(Value(pObj));
 		nElems = 1;
 	} else if (IsSuffix()) {
 		const Expr_Suffix *pExprSuffix = dynamic_cast<const Expr_Suffix *>(this);
@@ -2257,7 +2256,7 @@ Value Expr_Quote::Exec(Environment &env, Signal sig) const
 						dynamic_cast<const Expr_Symbol *>(GetChild());
 		value.SetSymbol(pExprSym->GetSymbol());
 	} else {
-		value.InitAsExpr(env, GetChild()->IncRef());
+		value = Value(new Object_expr(env, GetChild()->IncRef()));
 	}
 	return value;
 }
@@ -2477,7 +2476,7 @@ Value Expr_Assign::Exec(Environment &env, Signal sig,
 			}
 		} else {
 			Expr *pExprBody = GetRight()->Unquote()->IncRef();
-			value.InitAsExpr(env, pExprBody);
+			value = Value(new Object_expr(env, pExprBody));
 		}
 	} else {
 		value = GetRight()->Exec(env, sig);
