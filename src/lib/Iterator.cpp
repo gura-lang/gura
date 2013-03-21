@@ -2187,7 +2187,7 @@ bool Iterator_Fold::DoNext(Environment &env, Signal sig, Value &value)
 		bool excludeNilFlag = false;
 		value = pIterator->ToList(env, sig, true, excludeNilFlag);
 	} else {
-		value.InitAsIterator(env, pIterator.release());
+		value = Value(env, pIterator.release());
 	}
 	return true;
 }

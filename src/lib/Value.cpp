@@ -801,12 +801,6 @@ void Value::InitAsObject(Object *pObj)
 	_flags = FLAG_Owner;
 }
 
-void Value::InitAsIterator(Environment &env, Iterator *pIterator)
-{
-	Object_iterator *pObj = new Object_iterator(env, pIterator);
-	InitAsObject(pObj);
-}
-
 ValueList &Value::InitAsList(Environment &env)
 {
 	Object_list *pObj = new Object_list(env);

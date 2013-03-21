@@ -365,7 +365,7 @@ bool Object_list::IteratorFold::DoNext(Environment &env, Signal sig, Value &valu
 		bool excludeNilFlag = false;
 		value = pIterator->ToList(env, sig, true, excludeNilFlag);
 	} else {
-		value.InitAsIterator(env, pIterator.release());
+		value = Value(env, pIterator.release());
 	}
 	_offset += _cntStep;
 	return true;

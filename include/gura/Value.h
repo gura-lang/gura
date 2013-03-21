@@ -616,8 +616,6 @@ public:
 		return const_cast<Value *>(this)->ExtractFundamental(sig);
 	}
 	Expr *CloneExpr() const;
-	//inline Object *GetObj() { return IsObject()? _u.pObj : NULL; }
-	//inline Object *GetObj() const { return IsObject()? _u.pObj : NULL; }
 	inline Object *GetObject() { return IsObject()? _u.pObj : NULL; }
 	inline Object *GetObject() const { return IsObject()? _u.pObj : NULL; }
 	Fundamental *GetFundamental();
@@ -642,7 +640,6 @@ public:
 	Object_binaryptr *InitAsBinaryPtr(Environment &env,
 							Object_binary *pObjBinary, size_t offset);
 	void InitAsExpr(Environment &env, Expr *pExpr);
-	void InitAsIterator(Environment &env, Iterator *pIterator);
 	void InitAsEnvironment(Environment &env);
 public:
 	static int Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag = false);
