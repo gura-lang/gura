@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_EvtHandler, Connect)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	Object_wx_EventFactory *pObjEventFactory =
 							Object_wx_EventFactory::GetObject(args, 0);
-	Object_function *pObjFunc = args.GetFunctionObj(1);
+	Object_function *pObjFunc = Object_function::GetObject(args, 1);
 	int id = args.IsValid(2)? args.GetInt(1) : wxID_ANY;
 	int lastId = args.IsValid(3)? args.GetInt(2) : wxID_ANY;
 	wxEvtHandler *pEvtHandler = wxDynamicCast(pThis->GetEntity(), wxEvtHandler);

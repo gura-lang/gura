@@ -61,14 +61,14 @@ void Object_palette::IndexSet(Environment &env, Signal sig, const Value &valueId
 		return;
 	}
 	if (value.IsColor()) {
-		SetColorObj(idx, value.GetColorObj());
+		SetColorObj(idx, Object_color::GetObject(value));
 	} else {
 		Value valueCasted = value;
 		if (!env.LookupClass(VTYPE_color)->CastFrom(env, sig, valueCasted, NULL)) {
 			sig.SetError(ERR_ValueError, "color must be specified");
 			return;
 		}
-		SetColorObj(idx, valueCasted.GetColorObj());
+		SetColorObj(idx, Object_color::GetObject(valueCasted));
 	}
 }
 
@@ -872,7 +872,7 @@ Gura_DeclareMethod(palette, nearest)
 Gura_ImplementMethod(palette, nearest)
 {
 	Object_palette *pThis = Object_palette::GetThisObj(args);
-	size_t idx = pThis->LookupNearest(args.GetColorObj(0));
+	size_t idx = pThis->LookupNearest(Object_color::GetObject(args, 0));
 	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<unsigned int>(idx));
 	return pThis->GetColorValue(idx);
 }
@@ -900,11 +900,11 @@ Gura_ImplementMethod(palette, updateby)
 				Object_palette::ShrinkAlign : Object_palette::ShrinkMinimum;
 	}
 	if (args.IsImage(0)) {
-		if (!pThis->UpdateByImage(sig, args.GetImageObj(0), shrinkMode)) {
+		if (!pThis->UpdateByImage(sig, Object_image::GetObject(args, 0), shrinkMode)) {
 			return Value::Null;
 		}
 	} else if (args.IsPalette(0)) {
-		if (!pThis->UpdateByPalette(sig, args.GetPaletteObj(0), shrinkMode)) {
+		if (!pThis->UpdateByPalette(sig, Object_palette::GetObject(args, 0), shrinkMode)) {
 			return Value::Null;
 		}
 	} else {

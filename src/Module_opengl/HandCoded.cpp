@@ -189,7 +189,7 @@ Gura_DeclareFunction(glDrawPixels)
 
 Gura_ImplementFunction(glDrawPixels)
 {
-	Object_image *pObjImage = args.GetImageObj(0);
+	Object_image *pObjImage = Object_image::GetObject(args, 0);
 	GLsizei width = static_cast<GLsizei>(pObjImage->GetWidth());
 	GLsizei height = static_cast<GLsizei>(pObjImage->GetHeight());
 	GLenum format = GetImageFormat(sig, pObjImage);
@@ -1275,7 +1275,7 @@ Gura_DeclareFunction(glTexImage1D)
 
 Gura_ImplementFunction(glTexImage1D)
 {
-	Object_image *pObjImage = args.GetImageObj(4);
+	Object_image *pObjImage = Object_image::GetObject(args, 4);
 	GLenum target = args.GetUInt(0);
 	GLint level = args.GetInt(1);
 	GLint internalformat = args.GetInt(2);
@@ -1304,7 +1304,7 @@ Gura_DeclareFunction(glTexImage2D)
 
 Gura_ImplementFunction(glTexImage2D)
 {
-	Object_image *pObjImage = args.GetImageObj(4);
+	Object_image *pObjImage = Object_image::GetObject(args, 4);
 	GLenum target = args.GetUInt(0);
 	GLint level = args.GetInt(1);
 	GLint internalformat = args.GetInt(2);
@@ -1332,7 +1332,7 @@ Gura_DeclareFunction(glTexSubImage1D)
 
 Gura_ImplementFunction(glTexSubImage1D)
 {
-	Object_image *pObjImage = args.GetImageObj(3);
+	Object_image *pObjImage = Object_image::GetObject(args, 3);
 	GLenum target = args.GetUInt(0);
 	GLint level = args.GetInt(1);
 	GLint xoffset = args.GetInt(2);
@@ -1359,7 +1359,7 @@ Gura_DeclareFunction(glTexSubImage2D)
 
 Gura_ImplementFunction(glTexSubImage2D)
 {
-	Object_image *pObjImage = args.GetImageObj(4);
+	Object_image *pObjImage = Object_image::GetObject(args, 4);
 	GLenum target = args.GetUInt(0);
 	GLint level = args.GetInt(1);
 	GLint xoffset = args.GetInt(2);

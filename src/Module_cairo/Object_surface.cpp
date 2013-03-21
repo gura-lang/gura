@@ -536,7 +536,7 @@ Gura_ImplementUserClassWithCast(surface)
 Gura_ImplementCastFrom(surface)
 {
 	if (value.IsImage()) {
-		Object_image *pObjImage = Object_image::Reference(value.GetImageObj());
+		Object_image *pObjImage = Object_image::Reference(Object_image::GetObject(value));
 		cairo_surface_t *surface = CreateSurfaceFromImage(sig, pObjImage);
 		if (sig.IsSignalled()) {
 			Object_image::Delete(pObjImage);

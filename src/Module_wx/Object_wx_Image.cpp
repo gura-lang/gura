@@ -1909,7 +1909,7 @@ Gura_ImplementDescendantCreator(wx_Image)
 Gura_ImplementCastFrom(wx_Image)
 {
 	if (value.IsImage()) {
-		Object_image *pObjImage = value.GetImageObj();
+		Object_image *pObjImage = Object_image::GetObject(value);
 		wx_Image *pImage = new wx_Image(pObjImage->GetWidth(), pObjImage->GetHeight(), false);
 		ConvertToWxImage(pObjImage, pImage);
 		Object_wx_Image *pObj = new Object_wx_Image(pImage, pImage, OwnerTrue);

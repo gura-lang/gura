@@ -26,6 +26,7 @@ namespace Gura {
 class Expr_Caller;
 class Args;
 class IteratorOwner;
+class Object_function;
 
 //-----------------------------------------------------------------------------
 // Iterator

@@ -1249,7 +1249,7 @@ Gura_DeclareFunction(help)
 
 Gura_ImplementFunction(help)
 {
-	Object_function *pFuncObj = args.GetFunctionObj(0);
+	Object_function *pFuncObj = Object_function::GetObject(args, 0);
 	const Symbol *pSymbol = Gura_Symbol(en);
 	Stream *pConsole = env.GetConsole();
 	pConsole->Println(sig, pFuncObj->ToString(sig, true).c_str());

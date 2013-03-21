@@ -412,7 +412,7 @@ Gura_DeclareMethod(Face, setcolor)
 Gura_ImplementMethod(Face, setcolor)
 {
 	Object_Face *pThis = Object_Face::GetThisObj(args);
-	pThis->SetColor(args.GetColorObj(0)->GetColor());
+	pThis->SetColor(Object_color::GetObject(args, 0)->GetColor());
 	return args.GetThis();
 }
 

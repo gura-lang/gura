@@ -552,7 +552,7 @@ Iterator *Iterator::Filter(Environment &env, Signal sig, const Value &criteria)
 {
 	if (criteria.IsFunction()) {
 		Object_function *pFuncObjCriteria =
-			Object_function::Reference(criteria.GetFunctionObj());
+			Object_function::Reference(Object_function::GetObject(criteria));
 		return new Iterator_FilterWithFunc(env, this, pFuncObjCriteria);
 	} else if (criteria.IsList() || criteria.IsIterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
@@ -568,7 +568,7 @@ Iterator *Iterator::While(Environment &env, Signal sig, const Value &criteria)
 {
 	if (criteria.IsFunction()) {
 		Object_function *pFuncObjCriteria = 
-			Object_function::Reference(criteria.GetFunctionObj());
+			Object_function::Reference(Object_function::GetObject(criteria));
 		return new Iterator_WhileWithFunc(env, this, pFuncObjCriteria);
 	} else if (criteria.IsList() || criteria.IsIterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
@@ -585,7 +585,7 @@ Iterator *Iterator::Since(Environment &env, Signal sig,
 {
 	if (criteria.IsFunction()) {
 		Object_function *pFuncObjCriteria = 
-			Object_function::Reference(criteria.GetFunctionObj());
+			Object_function::Reference(Object_function::GetObject(criteria));
 		return new Iterator_SinceWithFunc(env, this, pFuncObjCriteria, containFirstFlag);
 	} else if (criteria.IsList() || criteria.IsIterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
@@ -602,7 +602,7 @@ Iterator *Iterator::Until(Environment &env, Signal sig,
 {
 	if (criteria.IsFunction()) {
 		Object_function *pFuncObjCriteria = 
-			Object_function::Reference(criteria.GetFunctionObj());
+			Object_function::Reference(Object_function::GetObject(criteria));
 		return new Iterator_UntilWithFunc(env, this, pFuncObjCriteria, containLastFlag);
 	} else if (criteria.IsList() || criteria.IsIterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);

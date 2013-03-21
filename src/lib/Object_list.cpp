@@ -180,7 +180,7 @@ Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
 			valListResult.push_back(*valuePtrMap[pValueKey]);
 		}
 	}
-	return Object_list::Reference(result.GetListObj());
+	return Object_list::Reference(Object_list::GetObject(result));
 }
 
 void Object_list::ValueVisitor_Index::Visit(Signal sig, const Value &value)
@@ -1402,7 +1402,7 @@ Gura_ImplementMethod(list, map)
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
 	Iterator *pIterator = new Iterator_ExplicitMap(env, sig, pIteratorSrc,
-						Object_function::Reference(args.GetFunctionObj(0)));
+			Object_function::Reference(Object_function::GetObject(args, 0)));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -1958,7 +1958,7 @@ bool Class_list::CastFrom(Environment &env, Signal sig, Value &value, const Decl
 		value = result;
 		return true;
 	} else if (value.IsMatrix()) {
-		const Object_matrix *pObjMat = value.GetMatrixObj();
+		const Object_matrix *pObjMat = Object_matrix::GetObject(value);
 		if (pObjMat->GetRows() == 1) {
 			Value result = pObjMat->GetRow(env, sig, 0);
 			value = result;

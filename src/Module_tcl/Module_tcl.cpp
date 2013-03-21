@@ -69,7 +69,7 @@ Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal sig, const Value &
 		return ::Tcl_NewStringObj(str, static_cast<int>(::strlen(str)));
 	} else if (value.IsFunction()) {
 		Handler *pHandler = new Handler(Object_interp::Reference(this),
-					Object_function::Reference(value.GetFunctionObj()), sig);
+				Object_function::Reference(Object_function::GetObject(value)), sig);
 		String cmdName = NewCommandName();
 		::Tcl_CreateCommand(_interp, cmdName.c_str(), CommandProc,
 											pHandler, CommandDeleteProc);
@@ -366,7 +366,7 @@ Gura_ImplementMethod(interp, command)
 	Object_interp *pThis = Object_interp::GetThisObj(args);
 	Tcl_Interp *interp = pThis->GetInterp();
 	Handler *pHandler = new Handler(Object_interp::Reference(pThis),
-					Object_function::Reference(args.GetFunctionObj(0)), sig);
+			Object_function::Reference(Object_function::GetObject(args, 0)), sig);
 	String cmdName = pThis->NewCommandName();
 	::Tcl_CreateCommand(interp, cmdName.c_str(), Object_interp::CommandProc,
 									pHandler, Object_interp::CommandDeleteProc);

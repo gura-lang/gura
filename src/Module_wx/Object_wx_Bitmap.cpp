@@ -82,7 +82,7 @@ Gura_DeclareFunction(Bitmap)
 Gura_ImplementFunction(Bitmap)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	Object_image *pObjImage = args.GetImageObj(0);
+	Object_image *pObjImage = Object_image::GetObject(args, 0);
 	std::auto_ptr<wxImage> pImage(new wxImage(
 						pObjImage->GetWidth(), pObjImage->GetHeight(), false));
 	ConvertToWxImage(pObjImage, pImage.get());
@@ -832,7 +832,7 @@ Gura_ImplementDescendantCreator(wx_Bitmap)
 Gura_ImplementCastFrom(wx_Bitmap)
 {
 	if (!value.IsImage()) return false;
-	Object_image *pObjImage = value.GetImageObj();
+	Object_image *pObjImage = Object_image::GetObject(value);
 	std::auto_ptr<wxImage> pImage(new wxImage(
 						pObjImage->GetWidth(), pObjImage->GetHeight(), false));
 	ConvertToWxImage(pObjImage, pImage.get());

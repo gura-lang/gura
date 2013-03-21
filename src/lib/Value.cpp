@@ -489,16 +489,6 @@ bool Value::IsInstanceOf(ValueType valType) const
 	return false;
 }
 
-Object_stream *Value::GetStreamObj() const
-{
-	return dynamic_cast<Object_stream *>(_u.pObj);
-}
-
-Object_directory *Value::GetDirectoryObj() const
-{
-	return dynamic_cast<Object_directory *>(_u.pObj);
-}
-
 const char *Value::GetString() const
 {
 	if (GetTinyBuffFlag()) return _u.tinyBuff;
@@ -514,11 +504,6 @@ String Value::GetStringSTL() const
 const Binary &Value::GetBinary() const
 {
 	return dynamic_cast<Object_binary *>(_u.pObj)->GetBinary();
-}
-
-Object_binaryptr *Value::GetBinaryPtr() const
-{
-	return dynamic_cast<Object_binaryptr *>(_u.pObj);
 }
 
 const DateTime &Value::GetDateTime() const
@@ -563,56 +548,6 @@ ErrorType Value::GetErrorType() const
 	return dynamic_cast<Object_error *>(_u.pObj)->GetErrorType();
 }
 
-Object_list *Value::GetListObj()
-{
-	return dynamic_cast<Object_list *>(_u.pObj);
-}
-
-Object_list *Value::GetListObj() const
-{
-	return dynamic_cast<Object_list *>(_u.pObj);
-}
-
-Object_matrix *Value::GetMatrixObj()
-{
-	return dynamic_cast<Object_matrix *>(_u.pObj);
-}
-
-Object_matrix *Value::GetMatrixObj() const
-{
-	return dynamic_cast<Object_matrix *>(_u.pObj);
-}
-
-Object_image *Value::GetImageObj()
-{
-	return dynamic_cast<Object_image *>(_u.pObj);
-}
-
-Object_image *Value::GetImageObj() const
-{
-	return dynamic_cast<Object_image *>(_u.pObj);
-}
-
-Object_color *Value::GetColorObj()
-{
-	return dynamic_cast<Object_color *>(_u.pObj);
-}
-
-Object_color *Value::GetColorObj() const
-{
-	return dynamic_cast<Object_color *>(_u.pObj);
-}
-
-Object_palette *Value::GetPaletteObj()
-{
-	return dynamic_cast<Object_palette *>(_u.pObj);
-}
-
-Object_palette *Value::GetPaletteObj() const
-{
-	return dynamic_cast<Object_palette *>(_u.pObj);
-}
-
 ValueList &Value::GetList()
 {
 	return dynamic_cast<Object_list *>(_u.pObj)->GetList();
@@ -632,16 +567,6 @@ const ValueDict &Value::GetDict() const
 {
 	return IsDict()?
 		dynamic_cast<const Object_dict *>(_u.pObj)->GetDict() : ValueDict::Null;
-}
-
-Object_dict *Value::GetDictObj()
-{
-	return dynamic_cast<Object_dict *>(_u.pObj);
-}
-
-Object_dict *Value::GetDictObj() const
-{
-	return dynamic_cast<Object_dict *>(_u.pObj);
 }
 
 Iterator *Value::GetIterator() const
@@ -668,11 +593,6 @@ const Expr *Value::GetExpr() const
 Function *Value::GetFunction()
 {
 	return IsFunction()? dynamic_cast<Object_function *>(_u.pObj)->GetFunction() : NULL;
-}
-
-Object_function *Value::GetFunctionObj()
-{
-	return IsFunction()? dynamic_cast<Object_function *>(_u.pObj) : NULL;
 }
 
 Expr *Value::CloneExpr() const

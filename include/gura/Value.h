@@ -17,30 +17,9 @@ class Function;
 class Directory;
 class Class;
 class Object;
-class Object_function;
-class Object_string;
 class Object_binary;
 class Object_binaryptr;
-class Object_list;
 class Object_matrix;
-class Object_dict;
-class Object_datetime;
-class Object_timedelta;
-class Object_iterator;
-class Object_stream;
-class Object_directory;
-class Object_expr;
-class Object_environment;
-class Object_error;
-class Object_uri;
-class Object_semaphore;
-class Object_image;
-class Object_color;
-class Object_palette;
-class Object_audio;
-class Object_codec;
-class Object_args;
-class StructObject;
 
 class ValueList;
 class ValueDict;
@@ -600,39 +579,24 @@ public:
 	inline const Class *GetClass() const { return IsClass()? _u.pClass : NULL; }
 	// VTYPE_function
 	Function *GetFunction();
-	Object_function *GetFunctionObj();
 	inline const Function *GetFunction() const {
 		return const_cast<Value *>(this)->GetFunction();
-	}
-	inline const Object_function *GetFunctionObj() const {
-		return const_cast<Value *>(this)->GetFunctionObj();
 	}
 	// VTYPE_string
 	const char *GetString() const;
 	String GetStringSTL() const;
 	// VTYPE_binary
 	const Binary &GetBinary() const;
-	// VTYPE_binaryptr
-	Object_binaryptr *GetBinaryPtr() const;
 	// VTYPE_list
 	ValueList &GetList();
 	const ValueList &GetList() const;
-	Object_list *GetListObj();
-	Object_list *GetListObj() const;
-	// VTYPE_matrix
-	Object_matrix *GetMatrixObj();
-	Object_matrix *GetMatrixObj() const;
 	// VTYPE_dict
 	ValueDict &GetDict();
 	const ValueDict &GetDict() const;
-	Object_dict *GetDictObj();
-	Object_dict *GetDictObj() const;
 	// VTYPE_stream
 	Stream &GetStream() const;
-	Object_stream *GetStreamObj() const;
 	// VTYPE_directory
 	Directory *GetDirectory() const;
-	Object_directory *GetDirectoryObj() const;
 	// VTYPE_datetime
 	const DateTime &GetDateTime() const;
 	// VTYPE_timedelta
@@ -641,15 +605,6 @@ public:
 	Iterator *GetIterator() const;
 	// VTYPE_expr
 	const Expr *GetExpr() const;
-	// VTYPE_image
-	Object_image *GetImageObj();
-	Object_image *GetImageObj() const;
-	// VTYPE_color
-	Object_color *GetColorObj();
-	Object_color *GetColorObj() const;
-	// VTYPE_palette
-	Object_palette *GetPaletteObj();
-	Object_palette *GetPaletteObj() const;
 	//-----------------------
 	bool DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag);
 	void DirValueType(SymbolSet &symbols, bool escalateFlag);
@@ -661,8 +616,8 @@ public:
 		return const_cast<Value *>(this)->ExtractFundamental(sig);
 	}
 	Expr *CloneExpr() const;
-	inline Object *GetObj() { return IsObject()? _u.pObj : NULL; }
-	inline Object *GetObj() const { return IsObject()? _u.pObj : NULL; }
+	//inline Object *GetObj() { return IsObject()? _u.pObj : NULL; }
+	//inline Object *GetObj() const { return IsObject()? _u.pObj : NULL; }
 	inline Object *GetObject() { return IsObject()? _u.pObj : NULL; }
 	inline Object *GetObject() const { return IsObject()? _u.pObj : NULL; }
 	Fundamental *GetFundamental();

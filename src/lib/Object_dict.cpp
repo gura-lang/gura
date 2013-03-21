@@ -514,7 +514,7 @@ Class_dict::Class_dict(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_dict)
 
 bool Class_dict::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
-	bool ignoreCaseFlag = value.GetDictObj()->GetIgnoreCaseFlag();
+	bool ignoreCaseFlag = Object_dict::GetObject(value)->GetIgnoreCaseFlag();
 	if (!stream.SerializeBoolean(sig, ignoreCaseFlag)) return false;
 	return value.GetDict().Serialize(env, sig, stream);
 }

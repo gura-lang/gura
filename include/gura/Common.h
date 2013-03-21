@@ -18,6 +18,7 @@ namespace Gura {
 #define GURA_ON_MSWIN
 #undef SetProp
 #undef GetProp
+#undef GetObject
 #pragma warning(disable:4251)
 #pragma warning(disable:4275)
 #pragma warning(disable:4355)

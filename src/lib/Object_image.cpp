@@ -40,7 +40,7 @@ Value Object_image::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbo
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(palette))) {
 		if (value.IsPalette()) {
-			_pObjPalette.reset(Object_palette::Reference(value.GetPaletteObj()));
+			_pObjPalette.reset(Object_palette::Reference(Object_palette::GetObject(value)));
 			return Value(Object_palette::Reference(_pObjPalette.get()));
 		} else if (value.IsInvalid()) {
 			_pObjPalette.reset(NULL);
@@ -1373,7 +1373,7 @@ Gura_ImplementFunction(image)
 				Declaration(Gura_Symbol(color), VTYPE_color).
 										ValidateAndCast(env, sig, valList[3]);
 				if (sig.IsSignalled()) return Value::Null;
-				pObj->Fill(valList[3].GetColorObj());
+				pObj->Fill(Object_color::GetObject(valList[3]));
 			}
 		}
 	} else {
@@ -1436,7 +1436,7 @@ Gura_ImplementMethod(image, allocbuff)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->CheckEmpty(sig)) return Value::Null;
 	pThis->AllocBuffer(sig, args.GetSizeT(0), args.GetSizeT(1), 0x00);
-	if (args.IsColor(2)) pThis->Fill(args.GetColorObj(2));
+	if (args.IsColor(2)) pThis->Fill(Object_color::GetObject(args, 2));
 	return Value::Null;
 }
 
@@ -1456,7 +1456,7 @@ Gura_ImplementMethod(image, putpixel)
 	int x = args.GetInt(0), y = args.GetInt(1);
 	if (!pThis->CheckCoord(sig, x, y)) return Value::Null;
 	unsigned char *p = pThis->GetPointer(x, y);
-	pThis->PutPixel(p, args.GetColorObj(2));
+	pThis->PutPixel(p, Object_color::GetObject(args, 2));
 	return Value::Null;
 }
 
@@ -1502,7 +1502,7 @@ Gura_ImplementMethod(image, store)
 	if (!pThis->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Null;
 	const Symbol *pSymbol = args.GetSymbol(4);
 	if (args.IsMatrix(5)) {
-		pThis->Store(sig, x, y, width, height, pSymbol, args.GetMatrixObj(5));
+		pThis->Store(sig, x, y, width, height, pSymbol, Object_matrix::GetObject(args, 5));
 	} else if (args.IsList(5) || args.IsIterator(5)) {
 		AutoPtr<Iterator> pIterator(args.GetValue(5).CreateIterator(sig));
 		pThis->Store(sig, x, y, width, height, pSymbol, pIterator.get());
@@ -1535,9 +1535,9 @@ Gura_ImplementMethod(image, extract)
 	if (!pThis->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Null;
 	const Symbol *pSymbol = args.GetSymbol(4);
 	if (args.IsMatrix(5)) {
-		pThis->Extract(sig, x, y, width, height, pSymbol, args.GetMatrixObj(5));
+		pThis->Extract(sig, x, y, width, height, pSymbol, Object_matrix::GetObject(args, 5));
 	} else if (args.IsList(5)) {
-		pThis->Extract(sig, x, y, width, height, pSymbol, args.GetListObj(5));
+		pThis->Extract(sig, x, y, width, height, pSymbol, Object_list::GetObject(args, 5));
 	} else {
 		sig.SetError(ERR_ValueError, "invalid object for image's destination");
 		return Value::Null;
@@ -1557,7 +1557,7 @@ Gura_ImplementMethod(image, replacecolor)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->CheckValid(sig)) return Value::Null;
-	pThis->ReplaceColor(args.GetColorObj(0), args.GetColorObj(1));
+	pThis->ReplaceColor(Object_color::GetObject(args, 0), Object_color::GetObject(args, 1));
 	return Value::Null;
 }
 
@@ -1572,7 +1572,7 @@ Gura_ImplementMethod(image, fill)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->CheckValid(sig)) return Value::Null;
-	pThis->Fill(args.GetColorObj(0));
+	pThis->Fill(Object_color::GetObject(args, 0));
 	return Value::Null;
 }
 
@@ -1594,7 +1594,7 @@ Gura_ImplementMethod(image, fillrect)
 	int x = args.GetInt(0), y = args.GetInt(1);
 	int width = args.GetInt(2), height = args.GetInt(3);
 	if (!pThis->AdjustCoord(x, y, width, height)) return Value::Null;
-	pThis->FillRect(x, y, width, height, args.GetColorObj(4));
+	pThis->FillRect(x, y, width, height, Object_color::GetObject(args, 4));
 	return Value::Null;
 }
 
@@ -1614,7 +1614,7 @@ Gura_ImplementMethod(image, setalpha)
 		sig.SetError(ERR_ValueError, "only RGBA format contains alpha element");
 		return 0;
 	}
-	pThis->FillAlpha(args.GetUChar(0), args.IsValid(1)? args.GetColorObj(1) : NULL);
+	pThis->FillAlpha(args.GetUChar(0), args.IsValid(1)? Object_color::GetObject(args, 1) : NULL);
 	return args.GetThis();
 }
 
@@ -1630,7 +1630,7 @@ Gura_ImplementMethod(image, reducecolor)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	const Object_palette *pObjPalette = pThis->GetPaletteObj();
 	if (args.IsPalette(0)) {
-		pObjPalette = args.GetPaletteObj(0);
+		pObjPalette = Object_palette::GetObject(args, 0);
 	} else if (pObjPalette == NULL) {
 		sig.SetError(ERR_ValueError, "palette must be specified");
 		return Value::Null;
@@ -1713,7 +1713,7 @@ Gura_ImplementMethod(image, rotate)
 		valueBg = Value(new Object_color(env, 0, 0, 0, 0));
 	}
 	Object_image *pObj = pThis->Rotate(sig,
-					args.GetNumber(0), valueBg.GetColorObj());
+					args.GetNumber(0), Object_color::GetObject(valueBg));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(pObj);
 }
@@ -1870,7 +1870,7 @@ Gura_ImplementMethod(image, paste)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->CheckValid(sig)) return Value::Null;
-	Object_image *pObjImg = args.GetImageObj(2);
+	Object_image *pObjImg = Object_image::GetObject(args, 2);
 	if (!pObjImg->CheckValid(sig)) return Value::Null;
 	size_t x = args.GetSizeT(0);
 	size_t y = args.GetSizeT(1);

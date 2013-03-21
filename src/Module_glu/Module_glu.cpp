@@ -1060,7 +1060,7 @@ Gura_DeclareFunction(gluScaleImage)
 
 Gura_ImplementFunction(gluScaleImage)
 {
-	Object_image *pObjImageIn = args.GetImageObj(0);
+	Object_image *pObjImageIn = Object_image::GetObject(args, 0);
 	GLenum format = GetImageFormat(sig, pObjImageIn);
 	if (sig.IsSignalled()) return Value::Null;
 	GLsizei wIn = static_cast<GLsizei>(pObjImageIn->GetWidth());
@@ -1099,7 +1099,7 @@ Gura_ImplementFunction(gluBuild1DMipmaps)
 {
 	GLenum target = args.GetUInt(0);
 	GLint internalFormat = args.GetInt(1);
-	Object_image *pObjImage = args.GetImageObj(2);
+	Object_image *pObjImage = Object_image::GetObject(args, 2);
 	GLsizei width = static_cast<GLsizei>(pObjImage->GetWidth());
 	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, pObjImage));
 	if (sig.IsSignalled()) return Value::Null;
@@ -1123,7 +1123,7 @@ Gura_ImplementFunction(gluBuild2DMipmaps)
 {
 	GLenum target = args.GetUInt(0);
 	GLint internalFormat = args.GetInt(1);
-	Object_image *pObjImage = args.GetImageObj(2);
+	Object_image *pObjImage = Object_image::GetObject(args, 2);
 	Image::Format fmt = pObjImage->GetFormat();
 	GLsizei width = static_cast<GLsizei>(pObjImage->GetWidth());
 	GLsizei height = static_cast<GLsizei>(pObjImage->GetHeight());

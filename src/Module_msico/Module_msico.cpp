@@ -92,7 +92,7 @@ bool Object_content::Write(Environment &env, Signal sig, Stream &stream)
 	} while (0);
 	unsigned long dwImageOffset = IconDir::Size + IconDirEntry::Size * cntIcons;
 	foreach (ValueList, pValue, _valList) {
-		Object_image *pObjImage = pValue->GetImageObj();
+		Object_image *pObjImage = Object_image::GetObject(*pValue);
 		size_t width = pObjImage->GetWidth(), height = pObjImage->GetHeight();
 		if (width > 256 || height > 256) {
 			sig.SetError(ERR_FormatError, "image %dx%d is too big for icon format",
@@ -122,7 +122,7 @@ bool Object_content::Write(Environment &env, Signal sig, Stream &stream)
 		dwImageOffset += dwBytesInRes;
 	}
 	foreach (ValueList, pValue, _valList) {
-		Object_image *pObjImage = pValue->GetImageObj();
+		Object_image *pObjImage = Object_image::GetObject(*pValue);
 		size_t width = pObjImage->GetWidth(), height = pObjImage->GetHeight();
 		int biBitCount = pObjImage->CalcDIBBitCount();
 		BitmapInfoHeader bih;
@@ -162,7 +162,7 @@ String Object_content::ToString(Signal sig, bool exprFlag)
 		bool followFlag = false;
 		foreach_const (ValueList, pValue, _valList) {
 			if (!pValue->IsImage()) continue;
-			Object_image *pObjImage = pValue->GetImageObj();
+			Object_image *pObjImage = Object_image::GetObject(*pValue);
 			char buff[64];
 			if (followFlag) str += ",";
 			::sprintf(buff, "%dx%d-%dbpp",

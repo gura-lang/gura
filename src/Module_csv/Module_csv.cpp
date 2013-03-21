@@ -157,7 +157,7 @@ Gura_DeclareFunction(reader)
 
 Gura_ImplementFunction(reader)
 {
-	Object_stream *pObjStream = args.GetStreamObj(0);
+	Object_stream *pObjStream = Object_stream::GetObject(args, 0);
 	Iterator *pIterator = new Iterator_reader(new ReaderStream(
 							Stream::Reference(&pObjStream->GetStream())));
 	return ReturnIterator(env, sig, args, pIterator);
@@ -175,7 +175,7 @@ Gura_DeclareFunction(writer)
 
 Gura_ImplementFunction(writer)
 {
-	Object_stream *pObjStream = args.GetStreamObj(0);
+	Object_stream *pObjStream = Object_stream::GetObject(args, 0);
 	const char *format = args.IsString(1)? args.GetString(1) : DEFAULT_FORMAT;
 	Object_writer *pObj = new Object_writer(
 						Stream::Reference(&pObjStream->GetStream()), format);

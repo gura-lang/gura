@@ -655,7 +655,7 @@ Gura_ImplementMethod(iterator, map)
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Iterator *pIterator = new Iterator_ExplicitMap(env, sig,
 			pThis->GetIterator()->Clone(),
-			Object_function::Reference(args.GetFunctionObj(0)));
+			Object_function::Reference(Object_function::GetObject(args, 0)));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -738,7 +738,7 @@ Gura_ImplementMethod(iterator, sort)
 	if (sig.IsSignalled()) return Value::Null;
 	if (value.IsInvalid()) return args.GetThis();
 	GURA_ASSUME(env, value.IsList());
-	Object_list *pObj = value.GetListObj()->SortRank(sig, args.GetValue(0),
+	Object_list *pObj = Object_list::GetObject(value)->SortRank(sig, args.GetValue(0),
 						args.IsList(1)? &args.GetList(1) : NULL,
 						false, args.IsSet(Gura_Symbol(stable)));
 	if (sig.IsSignalled()) return Value::Null;
@@ -761,7 +761,7 @@ Gura_ImplementMethod(iterator, rank)
 	Value value = pIteratorSrc->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	GURA_ASSUME(env, value.IsList());
-	Object_list *pObj = value.GetListObj()->SortRank(sig, args.GetValue(0), NULL,
+	Object_list *pObj = Object_list::GetObject(value)->SortRank(sig, args.GetValue(0), NULL,
 							true, args.IsSet(Gura_Symbol(stable)));
 	if (sig.IsSignalled()) return Value::Null;
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
@@ -1031,7 +1031,7 @@ Gura_ImplementMethod(iterator, tail)
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	GURA_ASSUME(env, value.IsList());
 	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
-	Object_list *pObj = dynamic_cast<Object_list *>(Object::Reference(value.GetListObj()));
+	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	int cnt = args.GetInt(0);
 	int cntMax = static_cast<int>(pObj->GetList().size());
 	size_t offset = (cntMax > cnt)? cntMax - cnt : cntMax;
@@ -1053,7 +1053,7 @@ Gura_ImplementMethod(iterator, reverse)
 	Value value = pIterator->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	GURA_ASSUME(env, value.IsList());
-	Object_list *pObj = dynamic_cast<Object_list *>(Object::Reference(value.GetListObj()));
+	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	return ReturnIterator(env, sig, args,
 							new Object_list::IteratorReverse(pObj));
 }
@@ -1075,7 +1075,7 @@ Gura_ImplementMethod(iterator, round)
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	GURA_ASSUME(env, value.IsList());
 	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
-	Object_list *pObj = dynamic_cast<Object_list *>(Object::Reference(value.GetListObj()));
+	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	return ReturnIterator(env, sig, args,
 							new Object_list::IteratorRound(pObj, cnt));
 }
@@ -1104,7 +1104,7 @@ Gura_ImplementMethod(iterator, pingpong)
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
 	GURA_ASSUME(env, value.IsList());
 	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
-	Object_list *pObj = dynamic_cast<Object_list *>(Object::Reference(value.GetListObj()));
+	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	return ReturnIterator(env, sig, args,
 			new Object_list::IteratorPingpong(pObj, cnt, stickyFlagL, stickyFlagR));
 }

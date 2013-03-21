@@ -1202,7 +1202,7 @@ Class_matrix::Class_matrix(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_matr
 
 bool Class_matrix::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
-	Object_matrix *pObj = value.GetMatrixObj();
+	Object_matrix *pObj = Object_matrix::GetObject(value);
 	if (!pObj->GetList().Serialize(env, sig, stream)) return false;
 	if (!stream.SerializePackedULong(sig, static_cast<unsigned long>(pObj->GetRowOff()))) return false;
 	if (!stream.SerializePackedULong(sig, static_cast<unsigned long>(pObj->GetColOff()))) return false;

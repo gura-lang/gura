@@ -5,13 +5,13 @@
 
 #define Gura_DeclareObjectAccessorEx(T) \
 inline static T *GetObject(const Value &value) { \
-	return dynamic_cast<T *>(value.GetObj()); \
+	return dynamic_cast<T *>(value.GetObject()); \
 } \
 inline static T *GetObject(Args &args, size_t idxArg) { \
-	return dynamic_cast<T *>(args.GetObj(idxArg)); \
+	return dynamic_cast<T *>(args.GetObject(idxArg)); \
 } \
 inline static T *GetThisObj(Args &args) { \
-	return dynamic_cast<T *>(args.GetThis().GetObj()); \
+	return dynamic_cast<T *>(args.GetThis().GetObject()); \
 } \
 inline static T *Reference(const T *pObj) { \
 	return dynamic_cast<T *>(Object::Reference(pObj)); \

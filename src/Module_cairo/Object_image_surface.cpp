@@ -40,7 +40,7 @@ Gura_DeclareClassMethod(image_surface, create)
 
 Gura_ImplementClassMethod(image_surface, create)
 {
-	Object_image *pObjImage = Object_image::Reference(args.GetImageObj(0));
+	Object_image *pObjImage = Object_image::Reference(Object_image::GetObject(args, 0));
 	cairo_surface_t *surface = CreateSurfaceFromImage(sig, pObjImage);
 	if (sig.IsSignalled()) {
 		Object_image::Delete(pObjImage);

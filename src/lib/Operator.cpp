@@ -119,7 +119,7 @@ Value Func_Neg::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetComplex(-value.GetComplex());
 		return result;
 	} else if (value.IsMatrix()) {
-		return Object_matrix::OperatorNeg(env, sig, value.GetMatrixObj());
+		return Object_matrix::OperatorNeg(env, sig, Object_matrix::GetObject(value));
 	} else if (value.IsTimeDelta()) {
 		TimeDelta td = value.GetTimeDelta();
 		return Value(env, TimeDelta(-td.GetDays(), -td.GetSecsRaw(), -td.GetUSecs()));
@@ -242,7 +242,7 @@ Value Func_Plus::DoEval(Environment &env, Signal sig, Args &args) const
 		return result;
 	} else if (valueLeft.IsMatrix() && valueRight.IsMatrix()) {
 		return Object_matrix::OperatorPlusMinus(env, sig, env.GetOpFunc(OPTYPE_Plus),
-						valueLeft.GetMatrixObj(), valueRight.GetMatrixObj());
+			Object_matrix::GetObject(valueLeft), Object_matrix::GetObject(valueRight));
 	} else if (valueLeft.IsDateTime() && valueRight.IsTimeDelta()) {
 		DateTime dateTime = valueLeft.GetDateTime();
 		dateTime.Plus(valueRight.GetTimeDelta());
@@ -281,7 +281,7 @@ Value Func_Plus::DoEval(Environment &env, Signal sig, Args &args) const
 		return result;
 	} else if (valueLeft.IsBinaryPtr() && valueRight.IsNumber()) {
 		Object_binaryptr *pObj =
-			dynamic_cast<Object_binaryptr *>(valueLeft.GetBinaryPtr()->Clone());
+			dynamic_cast<Object_binaryptr *>(Object_binaryptr::GetObject(valueLeft)->Clone());
 		pObj->UnpackForward(sig,
 							static_cast<int>(valueRight.GetNumber()), true);
 		if (sig.IsSignalled()) return Value::Null;
@@ -448,7 +448,7 @@ Value Func_Minus::DoEval(Environment &env, Signal sig, Args &args) const
 		return result;
 	} else if (valueLeft.IsMatrix() && valueRight.IsMatrix()) {
 		return Object_matrix::OperatorPlusMinus(env, sig, env.GetOpFunc(OPTYPE_Minus),
-						valueLeft.GetMatrixObj(), valueRight.GetMatrixObj());
+			Object_matrix::GetObject(valueLeft), Object_matrix::GetObject(valueRight));
 	} else if (valueLeft.IsDateTime() && valueRight.IsTimeDelta()) {
 		DateTime dateTime = valueLeft.GetDateTime();
 		dateTime.Minus(valueRight.GetTimeDelta());
@@ -470,12 +470,12 @@ Value Func_Minus::DoEval(Environment &env, Signal sig, Args &args) const
 				td1.GetSecsRaw() - td2.GetSecsRaw(),
 				td1.GetUSecs() - td2.GetUSecs()));
 	} else if (valueLeft.IsColor() && valueRight.IsColor()) {
-		const Color &color1 = valueLeft.GetColorObj()->GetColor();
-		const Color &color2 = valueRight.GetColorObj()->GetColor();
+		const Color &color1 = Object_color::GetObject(valueLeft)->GetColor();
+		const Color &color2 = Object_color::GetObject(valueRight)->GetColor();
 		return Value(::sqrt(static_cast<double>(color1.CalcDist(color2))));
 	} else if (valueLeft.IsBinaryPtr() && valueRight.IsNumber()) {
 		Object_binaryptr *pObj =
-			dynamic_cast<Object_binaryptr *>(valueLeft.GetBinaryPtr()->Clone());
+			dynamic_cast<Object_binaryptr *>(Object_binaryptr::GetObject(valueLeft)->Clone());
 		pObj->UnpackForward(sig,
 							-static_cast<int>(valueRight.GetNumber()), true);
 		if (sig.IsSignalled()) return Value::Null;
@@ -483,8 +483,8 @@ Value Func_Minus::DoEval(Environment &env, Signal sig, Args &args) const
 		result.InitAsObject(pObj);
 		return result;
 	} else if (valueLeft.IsBinaryPtr() && valueRight.IsBinaryPtr()) {
-		const Object_binaryptr *pObj1 = valueLeft.GetBinaryPtr();
-		const Object_binaryptr *pObj2 = valueRight.GetBinaryPtr();
+		const Object_binaryptr *pObj1 = Object_binaryptr::GetObject(valueLeft);
+		const Object_binaryptr *pObj2 = Object_binaryptr::GetObject(valueRight);
 		if (&pObj1->GetBinary() != &pObj2->GetBinary()) {
 			sig.SetError(ERR_ValueError,
 				"cannot calculate difference between pointers of different binaries");
@@ -656,14 +656,14 @@ Value Func_Multiply::EvalExpr(Environment &env, Signal sig, Args &args) const
 			if (sig.IsSignalled()) return Value::Null;
 			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(env,
 						Function::Reference(pFunc),
-						valueLeft.GetFunctionObj()->GetThis(), pIterator.release()));
+						Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
 			return pIteratorFuncBinder->Eval(env, sig, argsSub);
 		} else if (valueRight.IsIterator()) {
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
 			if (sig.IsSignalled()) return Value::Null;
 			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(env,
 						Function::Reference(pFunc),
-						valueLeft.GetFunctionObj()->GetThis(), pIterator.release()));
+						Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
 			if (pFunc->IsRsltNormal() ||
 						pFunc->IsRsltIterator() || pFunc->IsRsltXIterator()) {
 				return Value(env, pIteratorFuncBinder.release());
@@ -701,13 +701,13 @@ Value Func_Multiply::DoEval(Environment &env, Signal sig, Args &args) const
 		return result;
 	} else if (valueLeft.IsMatrix() && valueRight.IsMatrix()) {
 		return Object_matrix::OperatorMultiply(env, sig,
-						valueLeft.GetMatrixObj(), valueRight.GetMatrixObj());
+			Object_matrix::GetObject(valueLeft), Object_matrix::GetObject(valueRight));
 	} else if (valueRight.IsMatrix()) {
 		return Object_matrix::OperatorMultiply(env, sig,
-						valueLeft, valueRight.GetMatrixObj());
+						valueLeft, Object_matrix::GetObject(valueRight));
 	} else if (valueLeft.IsMatrix()) {
 		return Object_matrix::OperatorMultiply(env, sig,
-						valueLeft.GetMatrixObj(), valueRight);
+						Object_matrix::GetObject(valueLeft), valueRight);
 	} else if (valueLeft.IsTimeDelta() && valueRight.IsNumber()) {
 		const TimeDelta &td = valueLeft.GetTimeDelta();
 		long num = valueRight.GetLong();
@@ -719,7 +719,7 @@ Value Func_Multiply::DoEval(Environment &env, Signal sig, Args &args) const
 		return Value(env,
 			TimeDelta(td.GetDays() * num, td.GetSecsRaw() * num, td.GetUSecs() * num));
 	} else if (valueLeft.IsFunction()) {
-		const Object_function *pObj = valueLeft.GetFunctionObj();
+		const Object_function *pObj = Object_function::GetObject(valueLeft);
 		if (pObj->GetFunction()->IsUnary()) {
 			ValueList valListArg(valueRight);
 			result = pObj->Eval(env, sig, valListArg);
@@ -962,7 +962,7 @@ Value Func_Divide::DoEval(Environment &env, Signal sig, Args &args) const
 		return result;
 	} else if (valueLeft.IsMatrix() && !valueRight.IsMatrix()) {
 		return Object_matrix::OperatorDivide(env, sig,
-						valueLeft.GetMatrixObj(), valueRight);
+						Object_matrix::GetObject(valueLeft), valueRight);
 	} else {
 		bool evaluatedFlag = false;
 		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);

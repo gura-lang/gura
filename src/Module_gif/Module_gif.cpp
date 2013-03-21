@@ -375,7 +375,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 	ValueList &valList = GetList();
 	foreach (ValueList, pValue, valList) {
 		if (!pValue->IsImage()) continue;
-		const Object_image *pObjImage = pValue->GetImageObj();
+		const Object_image *pObjImage = Object_image::GetObject(*pValue);
 		const Object_palette *pObjPalette = pObjImage->GetPaletteObj();
 		if (pObjPalette != NULL && pObjPalette->CountEntries() <= 256) {
 			if (_pObjPaletteGlobal->UpdateByPalette(pObjPalette,
@@ -415,7 +415,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 	}
 	foreach (ValueList, pValue, valList) {
 		if (!pValue->IsImage()) continue;
-		Object_image *pObjImage = pValue->GetImageObj();
+		Object_image *pObjImage = Object_image::GetObject(*pValue);
 		if (!pObjImage->CheckValid(sig)) return false;
 		pObjImage->SetPaletteObj(Object_palette::Reference(_pObjPaletteGlobal));
 		ImageDescriptor *pImageDescriptor = GetImageDescriptor(pObjImage);
@@ -484,7 +484,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 	}
 	foreach (ValueList, pValue, GetList()) {
 		if (!pValue->IsImage()) continue;
-		Object_image *pObjImage = pValue->GetImageObj();
+		Object_image *pObjImage = Object_image::GetObject(*pValue);
 		GraphicControlExtension *pGraphicControl = GetGraphicControl(pObjImage);
 		if (pGraphicControl == NULL) continue;
 		if (!WriteGraphicControl(sig, stream, *pGraphicControl)) return false;

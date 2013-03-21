@@ -578,32 +578,18 @@ public:
 	inline double GetDouble(size_t idxArg) const		{ return GetValue(idxArg).GetDouble();	}
 	inline bool GetBoolean(size_t idxArg) const			{ return GetValue(idxArg).GetBoolean();	}
 	inline const Symbol *GetSymbol(size_t idxArg) const	{ return GetValue(idxArg).GetSymbol();	}
-	inline Object *GetObj(size_t idxArg)				{ return GetValue(idxArg).GetObject();	}
-	inline Object *GetObj(size_t idxArg) const			{ return GetValue(idxArg).GetObject();	}
 	inline Object *GetObject(size_t idxArg)				{ return GetValue(idxArg).GetObject();	}
 	inline Object *GetObject(size_t idxArg) const		{ return GetValue(idxArg).GetObject();	}
 	inline const char *GetString(size_t idxArg) const	{ return GetValue(idxArg).GetString();	}
 	inline String GetStringSTL(size_t idxArg) const		{ return GetValue(idxArg).GetStringSTL(); }
 	inline const Binary &GetBinary(size_t idxArg) const	{ return GetValue(idxArg).GetBinary();	}
-	inline Object_stream *GetStreamObj(size_t idxArg)	{ return GetValue(idxArg).GetStreamObj(); }
-	inline Object_directory *GetDirectoryObj(size_t idxArg)	{ return GetValue(idxArg).GetDirectoryObj(); }
 	inline Complex GetComplex(size_t idxArg) const		{ return GetValue(idxArg).GetComplex();	}
 	inline Module *GetModule(size_t idxArg)				{ return GetValue(idxArg).GetModule();	}
 	inline const Module *GetModule(size_t idxArg) const	{ return GetValue(idxArg).GetModule();	}
 	inline Class *GetClass(size_t idxArg)				{ return GetValue(idxArg).GetClass();	}
 	inline const Class *GetClass(size_t idxArg) const	{ return GetValue(idxArg).GetClass();	}
 	inline const ValueList &GetList(size_t idxArg) const{ return GetValue(idxArg).GetList();	}
-	inline Object_list *GetListObj(size_t idxArg)		{ return GetValue(idxArg).GetListObj(); }
-	inline const Object_list *GetListObj(size_t idxArg) const{ return GetValue(idxArg).GetListObj(); }
 	inline const ValueDict &GetDict(size_t idxArg) const{ return GetValue(idxArg).GetDict();	}
-	inline Object_matrix *GetMatrixObj(size_t idxArg)	{ return GetValue(idxArg).GetMatrixObj(); }
-	inline const Object_matrix *GetMatrixObj(size_t idxArg) const{ return GetValue(idxArg).GetMatrixObj(); }
-	inline Object_image *GetImageObj(size_t idxArg)		{ return GetValue(idxArg).GetImageObj(); }
-	inline const Object_image *GetImageObj(size_t idxArg) const{ return GetValue(idxArg).GetImageObj(); }
-	inline Object_color *GetColorObj(size_t idxArg)		{ return GetValue(idxArg).GetColorObj(); }
-	inline const Object_color *GetColorObj(size_t idxArg) const{ return GetValue(idxArg).GetColorObj(); }
-	inline Object_palette *GetPaletteObj(size_t idxArg)	{ return GetValue(idxArg).GetPaletteObj(); }
-	inline const Object_palette *GetPaletteObj(size_t idxArg) const{ return GetValue(idxArg).GetPaletteObj(); }
 	inline Iterator *GetIterator(size_t idxArg) const	{ return GetValue(idxArg).GetIterator();}
 	inline Stream &GetStream(size_t idxArg)				{ return GetValue(idxArg).GetStream();	}
 	inline Stream &GetStream(size_t idxArg) const		{
@@ -616,8 +602,6 @@ public:
 	inline const Expr *GetExpr(size_t idxArg) const		{ return GetValue(idxArg).GetExpr();	}
 	inline Function *GetFunction(size_t idxArg)			{ return GetValue(idxArg).GetFunction(); }
 	inline const Function *GetFunction(size_t idxArg) const	{ return GetValue(idxArg).GetFunction(); }
-	inline Object_function *GetFunctionObj(size_t idxArg) { return GetValue(idxArg).GetFunctionObj(); }
-	inline const Object_function *GetFunctionObj(size_t idxArg) const { return GetValue(idxArg).GetFunctionObj(); }
 	inline ErrorType GetErrorType(size_t idxArg) const	{ return GetValue(idxArg).GetErrorType(); }
 	inline const Value &GetValueWithDict() const		{ return _valueWithDict;				}
 	inline const ValueDict &GetDictArg() const {

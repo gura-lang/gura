@@ -451,7 +451,7 @@ Gura_ImplementMethod(pattern, set_matrix)
 {
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
-	Object_matrix *pObjMatrix = args.GetMatrixObj(0);
+	Object_matrix *pObjMatrix = Object_matrix::GetObject(args, 0);
 	cairo_matrix_t matrix;
 	if (!MatrixToCairo(sig, matrix, pObjMatrix)) return Value::Null;
 	::cairo_pattern_set_matrix(pattern, &matrix);

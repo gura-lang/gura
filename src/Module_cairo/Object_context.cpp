@@ -294,7 +294,7 @@ Gura_ImplementMethod(context, set_source_color)
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Null;
-	const Color &color = args.GetColorObj(0)->GetColor();
+	const Color &color = Object_color::GetObject(args, 0)->GetColor();
 	double red = static_cast<double>(color.GetRed()) / 255;
 	double green = static_cast<double>(color.GetGreen()) / 255;
 	double blue = static_cast<double>(color.GetBlue()) / 255;
@@ -1502,7 +1502,7 @@ Gura_ImplementMethod(context, transform)
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Null;
-	Object_matrix *pObjMatrix = args.GetMatrixObj(0);
+	Object_matrix *pObjMatrix = Object_matrix::GetObject(args, 0);
 	cairo_matrix_t matrix;
 	if (!MatrixToCairo(sig, matrix, pObjMatrix)) return Value::Null;
 	::cairo_transform(cr, &matrix);
@@ -1522,7 +1522,7 @@ Gura_ImplementMethod(context, set_matrix)
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Null;
-	Object_matrix *pObjMatrix = args.GetMatrixObj(0);
+	Object_matrix *pObjMatrix = Object_matrix::GetObject(args, 0);
 	cairo_matrix_t matrix;
 	if (!MatrixToCairo(sig, matrix, pObjMatrix)) return Value::Null;
 	::cairo_set_matrix(cr, &matrix);

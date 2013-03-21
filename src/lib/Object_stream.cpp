@@ -198,13 +198,13 @@ Gura_ImplementFunction(readlines)
 {
 	Object_stream *pObjStream = NULL;
 	if (args.IsStream(0)) {
-		pObjStream = args.GetStreamObj(0);
+		pObjStream = Object_stream::GetObject(args, 0);
 	} else {
 		Module *pModuleSys = env.GetModule_sys();
 		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdin), false);
 		if (pValue == NULL) return Value::Null;
 		if (!pValue->IsStream()) return Value::Null;
-		pObjStream = pValue->GetStreamObj();
+		pObjStream = Object_stream::GetObject(*pValue);
 	}
 	if (!pObjStream->GetStream().CheckReadable(sig)) return Value::Null;
 	bool includeEOLFlag = !args.IsSet(Gura_Symbol(chop));

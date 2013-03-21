@@ -557,7 +557,7 @@ Gura_ImplementUserClassWithCast(Color)
 Gura_ImplementCastFrom(Color)
 {
 	if (value.IsType(VTYPE_color)) {
-		Gura::Object_color *pObjColor = value.GetColorObj();
+		Gura::Object_color *pObjColor = Object_color::GetObject(value);
 		SDL_Color color;
 		color.r = pObjColor->GetRed();
 		color.g = pObjColor->GetGreen();
@@ -1188,7 +1188,7 @@ Gura_ImplementUserClassWithCast(Surface)
 Gura_ImplementCastFrom(Surface)
 {
 	if (value.IsImage()) {
-		Object_image *pObjImage = value.GetImageObj();
+		Object_image *pObjImage = Object_image::GetObject(value);
 		Object_Surface *pObjSurface =
 					Object_Surface::CreateSurfaceFromImage(sig, pObjImage);
 		if (sig.IsSignalled()) return false;
@@ -2246,7 +2246,7 @@ Gura_DeclareFunction(CreateRGBSurfaceFrom)
 
 Gura_ImplementFunction(CreateRGBSurfaceFrom)
 {
-	Object_image *pObjImg = args.GetImageObj(0);
+	Object_image *pObjImg = Object_image::GetObject(args, 0);
 	Object_Surface *pObj = Object_Surface::CreateSurfaceFromImage(sig, pObjImg);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObj));
@@ -3141,7 +3141,7 @@ Gura_ImplementFunction(AddTimer)
 {
 	Object_function *pObjFunc;
 	if (args.IsFunction(1)) {
-		pObjFunc = Object_function::Reference(args.GetFunctionObj(1));
+		pObjFunc = Object_function::Reference(Object_function::GetObject(args, 1));
 	} else if (args.IsBlockSpecified()) {
 		const Function *pFunc = args.GetBlockFunc(env, sig, GetSymbolForBlock());
 		if (sig.IsSignalled()) return Value::Null;

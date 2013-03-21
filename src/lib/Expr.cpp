@@ -2693,7 +2693,7 @@ Value Expr_Member::Exec(Environment &env, Signal sig) const
 	}
 	if (result.IsFunction()) {
 		Object_function *pObjFunc =
-			dynamic_cast<Object_function *>(result.GetFunctionObj()->Clone());
+			dynamic_cast<Object_function *>(Object_function::GetObject(result)->Clone());
 		pObjFunc->SetThis(valueThis);
 		result = Value(pObjFunc);
 	}

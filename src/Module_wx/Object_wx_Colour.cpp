@@ -356,7 +356,7 @@ Gura_ImplementUserInheritableClassWithCast(wx_Colour)
 Gura_ImplementCastFrom(wx_Colour)
 {
 	if (value.IsColor()) {
-		const Object_color *pObjColor = value.GetColorObj();
+		const Object_color *pObjColor = Object_color::GetObject(value);
 		wx_Colour *pEntity = new wx_Colour(
 						pObjColor->GetRed(), pObjColor->GetGreen(),
 						pObjColor->GetBlue(), pObjColor->GetAlpha());

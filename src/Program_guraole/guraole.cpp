@@ -386,7 +386,7 @@ HRESULT STDMETHODCALLTYPE CMain::Invoke(
 	}
 	if (wFlags == DISPATCH_METHOD) {
 		if (!value.IsFunction()) return E_INVALIDARG;
-		Gura::Object_function *pObjFunc = value.GetFunctionObj();
+		Gura::Object_function *pObjFunc = Gura::Object_function::GetObject(value);
 		Gura::Value result = pObjFunc->Eval(_env, _sig, valListArg);
 		if (_sig.IsSignalled()) {
 			pExcepInfo->bstrDescription = L"*************";
