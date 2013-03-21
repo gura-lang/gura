@@ -1,3 +1,29 @@
+<datetime:2013-01-01T00:00:00Z>, unixtime=1356998400, yday=1, wday=2, week=tuesday
+<datetime:2013-02-01T00:00:00Z>, unixtime=1359676800, yday=32, wday=5, week=friday
+<datetime:2013-03-01T00:00:00Z>, unixtime=1362096000, yday=60, wday=5, week=friday
+<datetime:2013-04-01T00:00:00Z>, unixtime=1364774400, yday=91, wday=1, week=monday
+<datetime:2013-05-01T00:00:00Z>, unixtime=1367366400, yday=121, wday=3, week=wednesday
+<datetime:2013-06-01T00:00:00Z>, unixtime=1370044800, yday=152, wday=6, week=saturday
+<datetime:2013-07-01T00:00:00Z>, unixtime=1372636800, yday=182, wday=1, week=monday
+<datetime:2013-08-01T00:00:00Z>, unixtime=1375315200, yday=213, wday=4, week=thursday
+<datetime:2013-09-01T00:00:00Z>, unixtime=1377993600, yday=244, wday=0, week=sunday
+<datetime:2013-10-01T00:00:00Z>, unixtime=1380585600, yday=274, wday=2, week=tuesday
+<datetime:2013-11-01T00:00:00Z>, unixtime=1383264000, yday=305, wday=5, week=friday
+<datetime:2013-12-01T00:00:00Z>, unixtime=1385856000, yday=335, wday=0, week=sunday
+<datetime:2013-01-21T00:00:00Z>, unixtime=1358726400, yday=21, wday=1, week=monday
+<datetime:2013-02-21T00:00:00Z>, unixtime=1361404800, yday=52, wday=4, week=thursday
+<datetime:2013-03-21T00:00:00Z>, unixtime=1363824000, yday=80, wday=4, week=thursday
+<datetime:2013-04-21T00:00:00Z>, unixtime=1366502400, yday=111, wday=0, week=sunday
+<datetime:2013-05-21T00:00:00Z>, unixtime=1369094400, yday=141, wday=2, week=tuesday
+<datetime:2013-06-21T00:00:00Z>, unixtime=1371772800, yday=172, wday=5, week=friday
+<datetime:2013-07-21T00:00:00Z>, unixtime=1374364800, yday=202, wday=0, week=sunday
+<datetime:2013-08-21T00:00:00Z>, unixtime=1377043200, yday=233, wday=3, week=wednesday
+<datetime:2013-09-21T00:00:00Z>, unixtime=1379721600, yday=264, wday=6, week=saturday
+<datetime:2013-10-21T00:00:00Z>, unixtime=1382313600, yday=294, wday=1, week=monday
+<datetime:2013-11-21T00:00:00Z>, unixtime=1384992000, yday=325, wday=4, week=thursday
+<datetime:2013-12-21T00:00:00Z>, unixtime=1387584000, yday=355, wday=6, week=saturday
+<datetime:2012-12-31T00:00:00Z>, unixtime=1356912000, yday=366, wday=1, week=monday
+<datetime:2013-12-31T00:00:00Z>, unixtime=1388448000, yday=365, wday=2, week=tuesday
 <timedelta:0days,0secs(00:00:00),0usecs>
 <timedelta:366days,0secs(00:00:00),0usecs>
 <timedelta:731days,0secs(00:00:00),0usecs>

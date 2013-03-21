@@ -2,6 +2,16 @@
 import(testutil) {*}
 
 scope {
+	d = iterator(
+		time.datetime(2013, 1..12, 1, minsoff => 0)
+		time.datetime(2013, 1..12, 21, minsoff => 0)
+		time.datetime(2012, 12, 31, minsoff => 0)
+		time.datetime(2013, 12, 31, minsoff => 0)
+	)
+	printf('%s, unixtime=%d, yday=%d, wday=%d, week=%s\n', d,
+							d:*unixtime, d:*yday, d:*wday, d:*week)
+}
+scope {
 	println(time.datetime(2000, 1, 1) - time.datetime(2000, 1, 1))
 	println(time.datetime(2001, 1, 1) - time.datetime(2000, 1, 1))
 	println(time.datetime(2002, 1, 1) - time.datetime(2000, 1, 1))
