@@ -80,19 +80,27 @@ Gura_ImplementFunction(clear)
 Gura_ImplementFunction(setcolor)
 {
 	int fg = 0, bg = 0;
+	String str;
+	bool brightFlag = false;
 	if (!args.IsSymbol(0)) {
 		// nothing to do
 	} else if (!SymbolToNumber(sig, args.GetSymbol(0), &fg)) {
 		return Value::Null;
 	} else {
-		::printf("\033[%d;3%dm", (fg >> 3) & 1, fg & 7);
+		str += '3';
+		str += ('0' + (fg & 7));
 	}
 	if (!args.IsSymbol(1)) {
 		// nothing to do
 	} else if (!SymbolToNumber(sig, args.GetSymbol(1), &bg)) {
 		return Value::Null;
 	} else {
-		::printf("\033[%d;4%dm", (fg >> 3) & 1, fg & 7);
+		if (!str.empty()) str += ';';
+		str += '4';
+		str += ('0' + (bg & 7));
+	}
+	if (!str.empty()) {
+		::printf("\033[%s%sm", ((fg & 8) || (bg & 8))? "1;" : "", str.c_str());
 	}
 	Value value;
 	if (args.IsBlockSpecified()) {
