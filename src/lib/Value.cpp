@@ -256,6 +256,8 @@ Value::Value(const Value &value) : _valType(value._valType), _flags(value._flags
 		_u.num = value._u.num;
 	} else if (value.IsBoolean()) {
 		_u.flag = value._u.flag;
+	} else if (value.IsObject()) {
+		_u.pObj = Object::Reference(value._u.pObj);
 	} else if (value.IsSymbol()) {
 		_u.pSymbol = value._u.pSymbol;
 	} else if (value.IsComplex()) {
@@ -266,19 +268,13 @@ Value::Value(const Value &value) : _valType(value._valType), _flags(value._flags
 		_u.pModule = Module::Reference(value._u.pModule);
 	} else if (value.IsClass()) {
 		_u.pClass = Class::Reference(value._u.pClass);
-	} else if (value.IsObject()) {
-		_u.pObj = Object::Reference(value._u.pObj);
 	} else {
 		// nothing to do
 	}
 }
 
-Value::Value(Object *pObj) : _valType(pObj->GetValueType()), _flags(FLAG_Owner)
-{
-	_u.pObj = pObj;
-}
-
-Value::Value(Object *pObj, unsigned short flags) : _valType(pObj->GetValueType()), _flags(flags)
+Value::Value(Object *pObj, unsigned short flags) :
+						_valType(pObj->GetValueType()), _flags(flags)
 {
 	_u.pObj = pObj;
 }

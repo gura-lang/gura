@@ -303,9 +303,9 @@ public:
 		// b15-b8 are reserved for super-skip count
 	};
 private:
-	unsigned short _valType;
-	unsigned short _flags;
-	union {
+	unsigned short _valType;	// 2 bytes
+	unsigned short _flags;		// 2 bytes
+	union {						// 8 bytes
 		Number num;				// VTYPE_number
 		bool flag;				// VTYPE_boolean
 		const Symbol *pSymbol;	// VTYPE_symbol
@@ -328,22 +328,17 @@ public:
 	inline Value() : _valType(VTYPE_nil), _flags(FLAG_Owner) {}
 	inline Value(ValueType valType, unsigned short flags) : _valType(valType), _flags(flags) {}
 	// VTYPE_module
-	inline Value(Module *pModule) : _valType(VTYPE_Module), _flags(FLAG_Owner) {
-		_u.pModule = pModule;
-	}
-	inline Value(Module *pModule, unsigned short flags) : _valType(VTYPE_Module), _flags(flags) {
+	inline Value(Module *pModule, unsigned short flags = FLAG_Owner) :
+								_valType(VTYPE_Module), _flags(flags) {
 		_u.pModule = pModule;
 	}
 	// VTYPE_class
-	inline Value(Class *pClass) : _valType(VTYPE_Class), _flags(FLAG_Owner) {
-		_u.pClass = pClass;
-	}
-	inline Value(Class *pClass, unsigned short flags) : _valType(VTYPE_Class), _flags(flags) {
+	inline Value(Class *pClass, unsigned short flags = FLAG_Owner) :
+								_valType(VTYPE_Class), _flags(flags) {
 		_u.pClass = pClass;
 	}
 	// VTYPE_object etc
-	Value(Object *pObj);
-	Value(Object *pObj, unsigned short flags);
+	Value(Object *pObj, unsigned short flags = FLAG_Owner);
 	// VTYPE_number
 	inline Value(Number num) : _valType(VTYPE_number), _flags(FLAG_Owner) {
 		_u.num = num;
