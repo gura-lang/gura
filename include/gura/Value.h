@@ -641,6 +641,26 @@ private:
 };
 
 //-----------------------------------------------------------------------------
+// ValueWithAttr
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE ValueWithAttr : public Value {
+private:
+	unsigned long _attr;
+public:
+	inline ValueWithAttr(unsigned long attr = 0) : _attr(attr) {}
+	inline ValueWithAttr(const Value &value, unsigned long attr = 0) :
+						Value(value), _attr(attr) {}
+	inline ValueWithAttr(const ValueWithAttr &valueWithAttr) :
+						Value(valueWithAttr), _attr(valueWithAttr._attr) {}
+	inline unsigned long GetAttr() const { return _attr; }
+	inline ValueWithAttr &operator=(const ValueWithAttr &valueWithAttr) {
+		Value::operator=(valueWithAttr);
+		_attr = valueWithAttr._attr;
+		return *this;
+	}
+};
+
+//-----------------------------------------------------------------------------
 // ValueList
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ValueList : public std::vector<Value> {
@@ -686,7 +706,7 @@ typedef std::vector<const Value *> ValuePtrList;
 //-----------------------------------------------------------------------------
 // ValueMap
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueMap : public std::map<const Symbol *, Value, Symbol::KeyCompare_UniqNumber> {
+class GURA_DLLDECLARE ValueMap : public std::map<const Symbol *, ValueWithAttr, Symbol::KeyCompare_UniqNumber> {
 public:
 	static const ValueMap Null;
 public:
@@ -694,11 +714,8 @@ public:
 	inline bool IsSet(const Symbol *pSymbol) const {
 		return find(pSymbol) != const_cast<ValueMap *>(this)->end();
 	}
-	inline void Insert(const Symbol *pSymbol) {
-		insert(value_type(pSymbol, Value::Null));
-	}
-	inline void Insert(const Symbol *pSymbol, const Value &value) {
-		insert(value_type(pSymbol, value));
+	inline void Insert(const Symbol *pSymbol, const Value &value, unsigned long attr = 0) {
+		insert(value_type(pSymbol, ValueWithAttr(value, attr)));
 	}
 };
 
