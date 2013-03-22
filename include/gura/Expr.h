@@ -247,6 +247,9 @@ private:
 public:
 	Expr_Unary(ExprType exprType, Expr *pExprChild);
 	Expr_Unary(const Expr_Unary &expr);
+	inline static Expr_Unary *Reference(const Expr_Unary *pExpr) {
+		return dynamic_cast<Expr_Unary *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Unary();
 	virtual bool IsUnary() const;
 	virtual void Accept(ExprVisitor &visitor) const;
@@ -267,6 +270,9 @@ private:
 public:
 	Expr_Binary(ExprType exprType, Expr *pExprLeft, Expr *pExprRight);
 	Expr_Binary(const Expr_Binary &expr);
+	inline static Expr_Binary *Reference(const Expr_Binary *pExpr) {
+		return dynamic_cast<Expr_Binary *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Binary();
 	virtual bool IsBinary() const;
 	virtual void Accept(ExprVisitor &visitor) const;
@@ -344,6 +350,9 @@ public:
 	inline Expr_String(const String &str) : Expr(EXPRTYPE_String), _str(str) {}
 	inline Expr_String(const Expr_String &expr) : Expr(expr), _str(expr._str) {}
 	inline const char *GetString() const { return _str.c_str(); }
+	inline static Expr_String *Reference(const Expr_String *pExpr) {
+		return dynamic_cast<Expr_String *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_String();
 	virtual bool IsString() const;
 	virtual Expr *Clone() const;
@@ -369,6 +378,9 @@ public:
 				Expr(expr), _streamDst(expr._streamDst), _str(expr._str) {}
 	inline SimpleStream &GetStreamDst() { return _streamDst;; }
 	inline const char *GetString() const { return _str.c_str(); }
+	inline static Expr_TemplateString *Reference(const Expr_TemplateString *pExpr) {
+		return dynamic_cast<Expr_TemplateString *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_TemplateString();
 	virtual bool IsTemplateString() const;
 	virtual Expr *Clone() const;
@@ -393,6 +405,9 @@ public:
 	inline Expr_Symbol(const Symbol *pSymbol) : Expr(EXPRTYPE_Symbol), _pSymbol(pSymbol) {}
 	inline Expr_Symbol(const Expr_Symbol &expr) : Expr(expr),
 							_pSymbol(expr._pSymbol), _attrs(expr._attrs) {}
+	inline static Expr_Symbol *Reference(const Expr_Symbol *pExpr) {
+		return dynamic_cast<Expr_Symbol *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Symbol();
 	virtual bool IsSymbol() const;
 	virtual Expr *Clone() const;
@@ -427,6 +442,9 @@ public:
 						Expr_Container(EXPRTYPE_Root), _pathName(pathName) {}
 	inline Expr_Root(const Expr_Root &expr) :
 						Expr_Container(expr), _pathName(expr._pathName) {}
+	inline static Expr_Root *Reference(const Expr_Root *pExpr) {
+		return dynamic_cast<Expr_Root *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Root();
 	virtual bool IsRoot() const;
 	virtual Expr *Clone() const;
@@ -445,6 +463,9 @@ class GURA_DLLDECLARE Expr_BlockParam : public Expr_Container {
 public:
 	inline Expr_BlockParam() : Expr_Container(EXPRTYPE_BlockParam) {}
 	inline Expr_BlockParam(const Expr_BlockParam &expr) : Expr_Container(expr) {}
+	inline static Expr_BlockParam *Reference(const Expr_BlockParam *pExpr) {
+		return dynamic_cast<Expr_BlockParam *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_BlockParam();
 	virtual bool IsBlockParam() const;
 	virtual Expr *Clone() const;
@@ -464,6 +485,9 @@ protected:
 public:
 	inline Expr_Block() : Expr_Container(EXPRTYPE_Block), _pExprBlockParam(NULL) {}
 	Expr_Block(const Expr_Block &expr);
+	inline static Expr_Block *Reference(const Expr_Block *pExpr) {
+		return dynamic_cast<Expr_Block *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Block();
 	virtual bool IsBlock() const;
 	virtual Expr *Clone() const;
@@ -490,6 +514,9 @@ public:
 		AddExpr(pExpr);
 	}
 	inline Expr_Lister(const Expr_Lister &expr) : Expr_Container(expr) {}
+	inline static Expr_Lister *Reference(const Expr_Lister *pExpr) {
+		return dynamic_cast<Expr_Lister *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Lister();
 	virtual bool IsLister() const;
 	virtual Expr *Clone() const;
@@ -526,6 +553,9 @@ public:
 	inline SimpleStream &GetStreamDst() { return _streamDst;; }
 	inline void SetStringIndent(const String &strIndent) { _strIndent = strIndent; }
 	inline void SetStringPost(const String &strPost) { _strPost = strPost; }
+	inline static Expr_TemplateScript *Reference(const Expr_TemplateScript *pExpr) {
+		return dynamic_cast<Expr_TemplateScript *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_TemplateScript();
 	virtual bool IsTemplateScript() const;
 	virtual Expr *Clone() const;
@@ -546,6 +576,9 @@ protected:
 public:
 	Expr_Compound(ExprType exprType, Expr *pExprCar, Expr_Lister *pExprLister);
 	Expr_Compound(const Expr_Compound &expr);
+	inline static Expr_Compound *Reference(const Expr_Compound *pExpr) {
+		return dynamic_cast<Expr_Compound *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Compound();
 	virtual bool IsCompound() const;
 	virtual bool IsParentOf(const Expr *pExpr) const;
@@ -567,6 +600,9 @@ public:
 	inline Expr_Indexer(Expr *pExprCar, Expr_Lister *pExprLister) :
 			Expr_Compound(EXPRTYPE_Indexer, pExprCar, pExprLister) {}
 	inline Expr_Indexer(const Expr_Indexer &expr) : Expr_Compound(expr) {}
+	inline static Expr_Indexer *Reference(const Expr_Indexer *pExpr) {
+		return dynamic_cast<Expr_Indexer *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Indexer();
 	virtual bool IsIndexer() const;
 	virtual Expr *Clone() const;
@@ -652,6 +688,9 @@ public:
 					Expr_Unary(expr),
 					_pFunc(expr._pFunc), _suffixSymbolFlag(expr._suffixSymbolFlag) {}
 	inline const Function &GetFunction() const { return *_pFunc; }
+	inline static Expr_UnaryOp *Reference(const Expr_UnaryOp *pExpr) {
+		return dynamic_cast<Expr_UnaryOp *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_UnaryOp();
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
@@ -676,6 +715,9 @@ public:
 	inline Expr_BinaryOp(const Expr_BinaryOp &expr) :
 					Expr_Binary(expr), _pFunc(expr._pFunc) {}
 	inline const Function &GetFunction() const { return *_pFunc; }
+	inline static Expr_BinaryOp *Reference(const Expr_BinaryOp *pExpr) {
+		return dynamic_cast<Expr_BinaryOp *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_BinaryOp();
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
@@ -695,6 +737,9 @@ class GURA_DLLDECLARE Expr_Quote : public Expr_Unary {
 public:
 	inline Expr_Quote(Expr *pExprChild) : Expr_Unary(EXPRTYPE_Quote, pExprChild) {}
 	inline Expr_Quote(const Expr_Quote &expr) : Expr_Unary(expr) {}
+	inline static Expr_Quote *Reference(const Expr_Quote *pExpr) {
+		return dynamic_cast<Expr_Quote *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Quote();
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
@@ -713,6 +758,9 @@ class GURA_DLLDECLARE Expr_Force : public Expr_Unary {
 public:
 	inline Expr_Force(Expr *pExprChild) : Expr_Unary(EXPRTYPE_Force, pExprChild) {}
 	inline Expr_Force(const Expr_Force &expr) : Expr_Unary(expr) {}
+	inline static Expr_Force *Reference(const Expr_Force *pExpr) {
+		return dynamic_cast<Expr_Force *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Force();
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
@@ -734,6 +782,9 @@ public:
 					Expr_Unary(EXPRTYPE_Prefix, pExprChild), _pSymbol(pSymbol) {}
 	inline Expr_Prefix(const Expr_Prefix &expr) :
 					Expr_Unary(expr), _pSymbol(expr._pSymbol) {}
+	inline static Expr_Prefix *Reference(const Expr_Prefix *pExpr) {
+		return dynamic_cast<Expr_Prefix *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Prefix();
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
@@ -756,6 +807,9 @@ public:
 					Expr_Unary(EXPRTYPE_Suffix, pExprChild), _pSymbol(pSymbol) {}
 	inline Expr_Suffix(const Expr_Suffix &expr) :
 					Expr_Unary(expr), _pSymbol(expr._pSymbol) {}
+	inline static Expr_Suffix *Reference(const Expr_Suffix *pExpr) {
+		return dynamic_cast<Expr_Suffix *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Suffix();
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
@@ -779,6 +833,9 @@ public:
 				Expr_Binary(EXPRTYPE_Assign, pExprLeft, pExprRight), _pFuncToApply(pFuncToApply) {}
 	inline Expr_Assign(const Expr_Assign &expr) :
 				Expr_Binary(expr), _pFuncToApply(expr._pFuncToApply) {}
+	inline static Expr_Assign *Reference(const Expr_Assign *pExpr) {
+		return dynamic_cast<Expr_Assign *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Assign();
 	virtual Value Exec(Environment &env, Signal sig) const;
 	Value Exec(Environment &env, Signal sig,
@@ -799,6 +856,9 @@ public:
 	inline Expr_DictAssign(Expr *pExprLeft, Expr *pExprRight) :
 				Expr_Binary(EXPRTYPE_DictAssign, pExprLeft, pExprRight) {}
 	inline Expr_DictAssign(const Expr_DictAssign &expr) : Expr_Binary(expr) {}
+	inline static Expr_DictAssign *Reference(const Expr_DictAssign *pExpr) {
+		return dynamic_cast<Expr_DictAssign *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_DictAssign();
 	virtual Value Exec(Environment &env, Signal sig) const;
 	virtual Expr *Clone() const;
@@ -829,6 +889,9 @@ public:
 				Expr_Binary(EXPRTYPE_Member, pExprLeft, pExprRight), _mode(mode) {}
 	inline Expr_Member(const Expr_Member &expr) : Expr_Binary(expr), _mode(expr._mode) {}
 	inline Mode GetMode() const { return _mode; }
+	inline static Expr_Member *Reference(const Expr_Member *pExpr) {
+		return dynamic_cast<Expr_Member *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Member();
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
