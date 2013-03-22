@@ -123,7 +123,7 @@ void Signal::SetSignal(SignalType sigType, const Value &value)
 
 void Signal::AddExprCause(const Expr *pExpr)
 {
-	_pMsg->pExprCauseOwner->push_back(pExpr->IncRef());
+	_pMsg->pExprCauseOwner->push_back(Expr::Reference(pExpr));
 }
 
 Signal::Message::Message() : sigType(SIGTYPE_None),

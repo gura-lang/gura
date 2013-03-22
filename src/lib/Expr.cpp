@@ -66,13 +66,6 @@ Expr::~Expr()
 {
 }
 
-Expr *Expr::IncRef() const
-{
-	Expr *pExpr = const_cast<Expr *>(this);
-	pExpr->_cntRef++;
-	return pExpr;
-}
-
 const char *Expr::GetPathName() const
 {
 	return (_pExprParent == NULL)? NULL : _pExprParent->GetPathName();
@@ -82,7 +75,7 @@ bool Expr::ExecInArg(Environment &env, Signal sig,
 					ValueList &valListArg, size_t &nElems, bool quoteFlag) const
 {
 	if (quoteFlag) {
-		Object_expr *pObj = new Object_expr(env, IncRef());
+		Object_expr *pObj = new Object_expr(env, Expr::Reference(this));
 		valListArg.push_back(Value(pObj));
 		nElems = 1;
 	} else if (IsSuffix()) {
@@ -144,10 +137,10 @@ Function *Expr::ToFunction(Environment &env, Signal sig,
 {
 	Expr_Block *pExprBlock;
 	if (IsBlock()) {
-		pExprBlock = dynamic_cast<Expr_Block *>(IncRef());
+		pExprBlock = dynamic_cast<Expr_Block *>(Expr::Reference(this));
 	} else {
 		pExprBlock = new Expr_Block();
-		pExprBlock->AddExpr(IncRef());
+		pExprBlock->AddExpr(Expr::Reference(this));
 	}
 	Value result;
 	AutoPtr<FunctionCustom> pFunc(FunctionCustom::CreateBlockFunc(env, sig,
@@ -497,12 +490,6 @@ Expr_Unary::~Expr_Unary()
 	_exprOwner.SetParent(GetParent());
 }
 
-Expr *Expr_Unary::IncRef() const
-{
-	GetChild()->IncRef();
-	return Expr::IncRef();
-}
-
 void Expr_Unary::Accept(ExprVisitor &visitor) const
 {
 	if (visitor.Visit(this)) {
@@ -549,13 +536,6 @@ Expr_Binary::~Expr_Binary()
 	_exprOwner.SetParent(GetParent());
 }
 
-Expr *Expr_Binary::IncRef() const
-{
-	GetLeft()->IncRef();
-	GetRight()->IncRef();
-	return Expr::IncRef();
-}
-
 void Expr_Binary::Accept(ExprVisitor &visitor) const
 {
 	if (visitor.Visit(this)) {
@@ -596,12 +576,6 @@ Expr_Container::~Expr_Container()
 	_exprOwner.SetParent(GetParent());
 }
 
-Expr *Expr_Container::IncRef() const
-{
-	_exprOwner.IncRef();
-	return Expr::IncRef();
-}
-
 void Expr_Container::Accept(ExprVisitor &visitor) const
 {
 	if (visitor.Visit(this)) {
@@ -631,11 +605,6 @@ bool Expr_Value::IsValue() const { return true; }
 
 Expr_Value::~Expr_Value()
 {
-}
-
-Expr *Expr_Value::IncRef() const
-{
-	return Expr::IncRef();
 }
 
 Expr *Expr_Value::Clone() const
@@ -702,11 +671,6 @@ Expr_String::~Expr_String()
 {
 }
 
-Expr *Expr_String::IncRef() const
-{
-	return Expr::IncRef();
-}
-
 Expr *Expr_String::Clone() const
 {
 	return new Expr_String(*this);
@@ -750,11 +714,6 @@ bool Expr_TemplateString::IsTemplateString() const { return true; }
 
 Expr_TemplateString::~Expr_TemplateString()
 {
-}
-
-Expr *Expr_TemplateString::IncRef() const
-{
-	return Expr::IncRef();
 }
 
 Expr *Expr_TemplateString::Clone() const
@@ -807,11 +766,6 @@ bool Expr_Symbol::IsSymbol() const { return true; }
 
 Expr_Symbol::~Expr_Symbol()
 {
-}
-
-Expr *Expr_Symbol::IncRef() const
-{
-	return Expr::IncRef();
 }
 
 Expr *Expr_Symbol::Clone() const
@@ -1426,13 +1380,6 @@ Expr_Compound::~Expr_Compound()
 	if (!_pExprLister.IsNull()) _pExprLister->SetParent(GetParent());
 }
 
-Expr *Expr_Compound::IncRef() const
-{
-	if (!_pExprCar.IsNull()) _pExprCar->IncRef();
-	if (!_pExprLister.IsNull()) _pExprLister->IncRef();
-	return Expr::IncRef();
-}
-
 bool Expr_Compound::IsParentOf(const Expr *pExpr) const
 {
 	return _pExprCar.get() == pExpr || _pExprLister.get() == pExpr ||
@@ -1470,11 +1417,6 @@ bool Expr_Indexer::IsIndexer() const { return true; }
 
 Expr_Indexer::~Expr_Indexer()
 {
-}
-
-Expr *Expr_Indexer::IncRef() const
-{
-	return Expr_Compound::IncRef();
 }
 
 Expr *Expr_Indexer::Clone() const
@@ -1705,13 +1647,6 @@ Expr_Caller::~Expr_Caller()
 	if (!_pExprTrailer.IsNull()) _pExprTrailer->SetParent(GetParent());
 }
 
-Expr *Expr_Caller::IncRef() const
-{
-	if (!_pExprBlock.IsNull()) _pExprBlock->IncRef();
-	if (!_pExprTrailer.IsNull()) _pExprTrailer->IncRef();
-	return Expr_Compound::IncRef();
-}
-
 Expr *Expr_Caller::Clone() const
 {
 	return new Expr_Caller(*this);
@@ -1795,7 +1730,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig,
 						pIteratorThis, valueThis.IsList(), ppFuncLeader);
 		} else {
 			AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(env, sig,
-						pIteratorThis, dynamic_cast<Expr_Caller *>(IncRef())));
+								pIteratorThis, Expr_Caller::Reference(this)));
 			if (mode == Expr_Member::MODE_MapToIter) {
 				return Value(env, pIteratorMap.release());
 			}
@@ -1870,7 +1805,7 @@ Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &value,
 		SetError(sig, ERR_SyntaxError, "invalid function expression");
 		return Value::Null;
 	}
-	Expr *pExprBody = value.GetExpr()->IncRef();
+	Expr *pExprBody = Expr::Reference(value.GetExpr());
 	// get symbol part of function's declaration
 	const Symbol *pSymbol;
 	if (GetCar()->IsMember()) {
@@ -2256,7 +2191,7 @@ Value Expr_Quote::Exec(Environment &env, Signal sig) const
 						dynamic_cast<const Expr_Symbol *>(GetChild());
 		value.SetSymbol(pExprSym->GetSymbol());
 	} else {
-		value = Value(new Object_expr(env, GetChild()->IncRef()));
+		value = Value(new Object_expr(env, Expr::Reference(GetChild())));
 	}
 	return value;
 }
@@ -2475,7 +2410,7 @@ Value Expr_Assign::Exec(Environment &env, Signal sig,
 				return Value::Null;
 			}
 		} else {
-			Expr *pExprBody = GetRight()->Unquote()->IncRef();
+			Expr *pExprBody = Expr::Reference(GetRight()->Unquote());
 			value = Value(new Object_expr(env, pExprBody));
 		}
 	} else {
@@ -2671,7 +2606,7 @@ Value Expr_Member::Exec(Environment &env, Signal sig) const
 		}
 		if (pIterator != NULL) {
 			AutoPtr<Iterator> pIteratorMap(new Iterator_MemberMap(
-								env, sig, pIterator, GetRight()->IncRef()));
+						env, sig, pIterator, Expr::Reference(GetRight())));
 			if (mode == MODE_MapToIter) {
 				return Value(env, pIteratorMap.release());
 			}
@@ -2806,13 +2741,6 @@ String Expr_Member::ToString() const
 // ExprList
 //-----------------------------------------------------------------------------
 const ExprList ExprList::Null;
-
-void ExprList::IncRef() const
-{
-	foreach (ExprList, ppExpr, *const_cast<ExprList *>(this)) {
-		(*ppExpr)->IncRef();
-	}
-}
 
 Value ExprList::Exec(Environment &env, Signal sig, bool evalSymFuncFlag) const
 {
@@ -2968,14 +2896,14 @@ void ExprList::SetParent(const Expr *pExpr)
 ExprOwner::ExprOwner(const ExprList &exprList)
 {
 	foreach_const (ExprList, ppExpr, exprList) {
-		push_back((*ppExpr)->IncRef());
+		push_back(Expr::Reference(*ppExpr));
 	}
 }
 
 ExprOwner::ExprOwner(const ExprOwner &exprOwner)
 {
 	foreach_const (ExprOwner, ppExpr, exprOwner) {
-		push_back((*ppExpr)->IncRef());
+		push_back(Expr::Reference(*ppExpr));
 	}
 }
 

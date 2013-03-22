@@ -14,7 +14,7 @@ inline bool IsSuffixed(const Expr *pExpr, const Symbol *pSymbol)
 Declaration::Declaration(const Declaration &decl) :
 	_pSymbol(decl._pSymbol), _valType(decl._valType),
 	_occurPattern(decl._occurPattern), _flags(decl._flags),
-	_pExprDefault(decl._pExprDefault.IsNull()? NULL : decl._pExprDefault->IncRef())
+	_pExprDefault(Expr::Reference(decl._pExprDefault.get()))
 {
 }
 
@@ -51,7 +51,7 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 			if (sig.IsSignalled()) return NULL;
 			pExprDefault = new Expr_Value(value);
 		} else {
-			pExprDefault = pExprRight->IncRef();
+			pExprDefault = Expr::Reference(pExprRight);
 		}
 	}
 	if (pExpr->IsSuffix()) {
@@ -296,7 +296,7 @@ bool DeclarationList::Compensate(Environment &env, Signal sig, ValueList &valLis
 				return false;
 			}
 		} else if (pDecl->IsQuote()) {
-			value = Value(new Object_expr(env, pExprArg->IncRef()));
+			value = Value(new Object_expr(env, Expr::Reference(pExprArg)));
 			//valList.push_back(value);
 		} else if (pDecl->IsType(VTYPE_symbol)) {
 			const Expr *pExpr = pExprArg;
@@ -516,7 +516,7 @@ bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 				if (valueKey.IsSymbol()) {
 					Expr *pExpr;
 					if (value.IsExpr()) {
-						pExpr = new Expr_Quote(value.GetExpr()->IncRef());
+						pExpr = new Expr_Quote(Expr::Reference(value.GetExpr()));
 					} else {
 						pExpr = new Expr_Value(value);
 					}
@@ -571,7 +571,7 @@ bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 				return false;
 			}
 		} else if (pDecl->IsQuote()) {
-			value = Value(new Object_expr(env, pExprArg->IncRef()));
+			value = Value(new Object_expr(env, Expr::Reference(pExprArg)));
 			//valListArg.push_back(value);
 		} else if (pDecl->IsType(VTYPE_symbol)) {
 			const Expr *pExpr = pExprArg;

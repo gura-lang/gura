@@ -54,7 +54,7 @@ Function *CustomClass::Prepare(Environment &env, Signal sig)
 								LookupFunction(Gura_Symbol(__init__), false));
 	if (pFuncInit != NULL) {
 		pFunc.reset(new ClassPrototype(env, Gura_Symbol(_anonymous_),
-								pFuncInit->GetExprBody()->IncRef(), funcType));
+						Expr::Reference(pFuncInit->GetExprBody()), funcType));
 		pFunc->CopyDeclare(*pFuncInit);
 	} else if (!_pClassSuper.IsNull() && _pClassSuper->GetConstructor() != NULL) {
 		Function *pConstructorSuper = _pClassSuper->GetConstructor();

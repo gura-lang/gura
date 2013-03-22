@@ -149,7 +149,7 @@ Gura_ImplementDiffUnary(acos)
 			CreateFuncExpr("sqrt", new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Minus),
 					new Expr_Value(1),
 					new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Power),
-							pExprArg->IncRef(), new Expr_Value(2)))));
+							Expr::Reference(pExprArg), new Expr_Value(2)))));
 }
 
 // math.asin(num):map
@@ -179,7 +179,7 @@ Gura_ImplementDiffUnary(asin)
 			CreateFuncExpr("sqrt", new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Minus),
 					new Expr_Value(1),
 					new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Power),
-							pExprArg->IncRef(), new Expr_Value(2)))));
+							Expr::Reference(pExprArg), new Expr_Value(2)))));
 }
 
 // math.atan(num):map
@@ -209,7 +209,7 @@ Gura_ImplementDiffUnary(atan)
 			new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Plus),
 					new Expr_Value(1),
 					new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Power),
-							pExprArg->IncRef(), new Expr_Value(2))));
+							Expr::Reference(pExprArg), new Expr_Value(2))));
 }
 
 // math.atan2(num1, num2):map
@@ -281,7 +281,7 @@ Gura_ImplementDiffUnary(cos)
 {
 	// cos(x)' = -sin(x)
 	return new Expr_UnaryOp(env.GetOpFunc(OPTYPE_Neg),
-					CreateFuncExpr("sin", pExprArg->IncRef()), false);
+					CreateFuncExpr("sin", Expr::Reference(pExprArg)), false);
 }
 
 // math.cosh(num):map
@@ -331,7 +331,7 @@ Gura_ImplementFunction(exp)
 Gura_ImplementDiffUnary(exp)
 {
 	// exp(x)' = exp(x)
-	return CreateFuncExpr("exp", pExprArg->IncRef());
+	return CreateFuncExpr("exp", Expr::Reference(pExprArg));
 }
 
 // math.abs(num):map
@@ -407,7 +407,7 @@ Gura_ImplementDiffUnary(log)
 {
 	// log(x)' = 1 / x
 	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Divide),
-								new Expr_Value(1), pExprArg->IncRef());
+							new Expr_Value(1), Expr::Reference(pExprArg));
 }
 
 // math.log10(num):map
@@ -441,7 +441,7 @@ Gura_ImplementDiffUnary(log10)
 	// log10(x)' = 1 / (x * log(10))
 	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Divide), new Expr_Value(1),
 			new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Multiply),
-				pExprArg->IncRef(), CreateFuncExpr("log", new Expr_Value(10))));
+				Expr::Reference(pExprArg), CreateFuncExpr("log", new Expr_Value(10))));
 }
 
 // math.sin(num):map
@@ -469,7 +469,7 @@ Gura_ImplementFunction(sin)
 Gura_ImplementDiffUnary(sin)
 {
 	// sin(x)' = cos(x)
-	return CreateFuncExpr("cos", pExprArg->IncRef());
+	return CreateFuncExpr("cos", Expr::Reference(pExprArg));
 }
 
 // math.sinh(num):map
@@ -526,7 +526,7 @@ Gura_ImplementDiffUnary(sqrt)
 	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Divide), new Expr_Value(1),
 			new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Multiply),
 					new Expr_Value(2),
-					CreateFuncExpr("sqrt", pExprArg->IncRef())));
+					CreateFuncExpr("sqrt", Expr::Reference(pExprArg))));
 }
 
 // math.tan(num):map
@@ -556,7 +556,7 @@ Gura_ImplementDiffUnary(tan)
 	// tan(x)' = 1 / cos(x) ** 2
 	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Divide), new Expr_Value(1),
 			new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Power),
-					CreateFuncExpr("cos", pExprArg->IncRef()),
+					CreateFuncExpr("cos", Expr::Reference(pExprArg)),
 					new Expr_Value(2)));
 }
 

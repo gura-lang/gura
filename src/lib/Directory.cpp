@@ -20,12 +20,6 @@ Directory::~Directory()
 {
 }
 
-int Directory::IncRef()
-{
-	_cntRef++;
-	return _cntRef;
-}
-
 int Directory::DecRef()
 {
 	if (_cntRef > 0) _cntRef--;

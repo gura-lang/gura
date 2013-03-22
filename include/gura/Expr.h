@@ -111,7 +111,6 @@ public:
 		pExprCasted->_cntRef++;
 		return pExprCasted;
 	}
-	virtual Expr *IncRef() const;
 	inline int DecRef() { if (_cntRef > 0) _cntRef--; return _cntRef; }
 	inline int GetRefCnt() const { return _cntRef; }
 	inline static void Delete(Expr *pExpr) {
@@ -216,7 +215,6 @@ public:
 	Value ExecInRoot(Environment &env, Signal sig) const;
 	Value ExecForList(Environment &env, Signal sig,
 							bool flattenFlag, bool evalSymFuncFlag) const;
-	void IncRef() const;
 	bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	bool Serialize(Environment &env, Signal sig, Stream &stream) const;
 	String ToString(const char *sep = ", ") const;
@@ -251,7 +249,6 @@ public:
 	Expr_Unary(const Expr_Unary &expr);
 	virtual ~Expr_Unary();
 	virtual bool IsUnary() const;
-	virtual Expr *IncRef() const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const;
@@ -272,7 +269,6 @@ public:
 	Expr_Binary(const Expr_Binary &expr);
 	virtual ~Expr_Binary();
 	virtual bool IsBinary() const;
-	virtual Expr *IncRef() const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const;
@@ -293,9 +289,11 @@ protected:
 public:
 	inline Expr_Container(ExprType exprType) : Expr(exprType) {}
 	Expr_Container(const Expr_Container &expr);
+	inline static Expr_Container *Reference(const Expr_Container *pExpr) {
+		return dynamic_cast<Expr_Container *>(Expr::Reference(pExpr));
+	}
 	virtual bool IsContainer() const;
 	virtual ~Expr_Container();
-	virtual Expr *IncRef() const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const;
@@ -320,8 +318,10 @@ public:
 	inline Expr_Value(const Value &value) : Expr(EXPRTYPE_Value), _value(value) {}
 	inline Expr_Value(const Expr_Value &expr) : Expr(expr), _value(expr._value) {}
 	inline const Value &GetValue() const { return _value; }
+	inline static Expr_Value *Reference(const Expr_Value *pExpr) {
+		return dynamic_cast<Expr_Value *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Value();
-	virtual Expr *IncRef() const;
 	virtual bool IsValue() const;
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
@@ -345,7 +345,6 @@ public:
 	inline Expr_String(const Expr_String &expr) : Expr(expr), _str(expr._str) {}
 	inline const char *GetString() const { return _str.c_str(); }
 	virtual ~Expr_String();
-	virtual Expr *IncRef() const;
 	virtual bool IsString() const;
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
@@ -371,7 +370,6 @@ public:
 	inline SimpleStream &GetStreamDst() { return _streamDst;; }
 	inline const char *GetString() const { return _str.c_str(); }
 	virtual ~Expr_TemplateString();
-	virtual Expr *IncRef() const;
 	virtual bool IsTemplateString() const;
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
@@ -396,7 +394,6 @@ public:
 	inline Expr_Symbol(const Expr_Symbol &expr) : Expr(expr),
 							_pSymbol(expr._pSymbol), _attrs(expr._attrs) {}
 	virtual ~Expr_Symbol();
-	virtual Expr *IncRef() const;
 	virtual bool IsSymbol() const;
 	virtual Expr *Clone() const;
 	virtual ICallable *LookupCallable(Environment &env, Signal sig) const;
@@ -551,7 +548,6 @@ public:
 	Expr_Compound(const Expr_Compound &expr);
 	virtual ~Expr_Compound();
 	virtual bool IsCompound() const;
-	virtual Expr *IncRef() const;
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Environment &env, Signal sig, Stream &stream);
@@ -572,7 +568,6 @@ public:
 			Expr_Compound(EXPRTYPE_Indexer, pExprCar, pExprLister) {}
 	inline Expr_Indexer(const Expr_Indexer &expr) : Expr_Compound(expr) {}
 	virtual ~Expr_Indexer();
-	virtual Expr *IncRef() const;
 	virtual bool IsIndexer() const;
 	virtual Expr *Clone() const;
 	virtual Value Exec(Environment &env, Signal sig) const;
@@ -598,8 +593,10 @@ protected:
 public:
 	Expr_Caller(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock);
 	Expr_Caller(const Expr_Caller &expr);
+	inline static Expr_Caller *Reference(const Expr_Caller *pExpr) {
+		return dynamic_cast<Expr_Caller *>(Expr::Reference(pExpr));
+	}
 	virtual ~Expr_Caller();
-	virtual Expr *IncRef() const;
 	virtual bool IsCaller() const;
 	virtual Expr *Clone() const;
 	virtual ICallable *LookupCallable(Environment &env, Signal sig) const;

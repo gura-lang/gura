@@ -546,7 +546,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 		// _blockInfo.pSymbol
 		pEnvLocal->AssignValue(_blockInfo.pSymbol, Value::Null, false);
 	} else if (_blockInfo.quoteFlag) {
-		Object_expr *pObj = new Object_expr(env, pExprBlock->IncRef());
+		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprBlock));
 		pEnvLocal->AssignValue(_blockInfo.pSymbol, Value(pObj), false);
 	} else {
 		Environment *pEnv =
@@ -968,7 +968,7 @@ FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env, Signal sig,
 {
 	const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
-								pSymbol, pExprBlock->IncRef(), funcType));
+							pSymbol, Expr::Reference(pExprBlock), funcType));
 	pFunc->_declOwner.AllowTooManyArgs(true);
 	Args args(pExprBlockParam->GetExprOwner());
 	if (pExprBlockParam != NULL &&

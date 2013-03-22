@@ -51,7 +51,7 @@ Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 		if (!GetFunction()->IsCustom()) return Value::Null;
 		const FunctionCustom *pFuncCustom =
 						dynamic_cast<const FunctionCustom *>(GetFunction());
-		return Value(env, pFuncCustom->GetExprBody()->IncRef());
+		return Value(env, Expr::Reference(pFuncCustom->GetExprBody()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(help))) {
 		const Symbol *pSymbol = Gura_Symbol(en);
 		const char *helpStr = GetFunction()->GetHelp(pSymbol);
@@ -217,7 +217,7 @@ Gura_ImplementFunction(function)
 		pExprListArg = &pExprBlockParam->GetExprOwner();
 	}
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
-			Gura_Symbol(_anonymous_), pExprBlock->IncRef(), FUNCTYPE_Function));
+			Gura_Symbol(_anonymous_), Expr::Reference(pExprBlock), FUNCTYPE_Function));
 	Args argsSub(*pExprListArg, Value::Null, NULL, false, NULL, args.GetAttrs());
 	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, argsSub)) return Value::Null;
 	return Value(env, pFunc.release(), Value::Null);

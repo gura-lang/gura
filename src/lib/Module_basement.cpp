@@ -652,7 +652,7 @@ Gura_ImplementFunction(while_)
 	if (pFuncBlock == NULL) return Value::Null;
 	bool standaloneFlag = (args.IsRsltIterator() || args.IsRsltXIterator());
 	Iterator *pIterator = new Iterator_while(envBlock, sig, Function::Reference(pFuncBlock),
-			args.IsRsltXIterator(), standaloneFlag, args.GetExpr(0)->IncRef());
+			args.IsRsltXIterator(), standaloneFlag, Expr::Reference(args.GetExpr(0)));
 	return DoRepeater(env, sig, args, pIterator);
 }
 

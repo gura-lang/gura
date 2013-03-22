@@ -2351,7 +2351,7 @@ Iterator_while::Iterator_while(Environment &env, Signal sig, Function *pFuncBloc
 					bool skipInvalidFlag, bool standaloneFlag, Expr *pExpr) :
 		Iterator(false, skipInvalidFlag), _env(env), _pFuncBlock(pFuncBlock),
 		_standaloneFlag(standaloneFlag),
-		_pIteratorSub(NULL), _pExpr(pExpr->IncRef()), _idx(0)
+		_pIteratorSub(NULL), _pExpr(Expr::Reference(pExpr)), _idx(0)
 {
 }
 

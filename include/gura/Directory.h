@@ -86,12 +86,11 @@ protected:
 public:
 	Directory(Directory *pParent, const char *name, Type type, char chSeparator);
 	Directory(const Directory &directory);
-	virtual int IncRef();
 	virtual int DecRef();
 	inline static Directory *Reference(const Directory *pDirectory) {
 		if (pDirectory == NULL) return NULL;
 		Directory *pDirectoryCasted = const_cast<Directory *>(pDirectory);
-		pDirectoryCasted->IncRef();
+		pDirectoryCasted->_cntRef++;
 		return pDirectoryCasted;
 	}
 	inline static void Delete(Directory *pDirectory) {

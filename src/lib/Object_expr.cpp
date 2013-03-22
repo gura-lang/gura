@@ -16,7 +16,7 @@ namespace Gura {
 // Object_expr
 //-----------------------------------------------------------------------------
 Object_expr::Object_expr(const Object_expr &obj) :
-								Object(obj), _pExpr(obj._pExpr->IncRef())
+							Object(obj), _pExpr(Expr::Reference(obj._pExpr))
 {
 }
 
@@ -62,7 +62,7 @@ Iterator *Object_expr::Iterator_Each::GetSource()
 bool Object_expr::Iterator_Each::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_ppExpr == _pExprContainer->GetExprOwner().end()) return false;
-	Object_expr *pObj = new Object_expr(_env, (*_ppExpr)->IncRef());
+	Object_expr *pObj = new Object_expr(_env, Expr::Reference(*_ppExpr));
 	value = Value(pObj);
 	_ppExpr++;
 	return true;
@@ -95,7 +95,7 @@ Gura_ImplementMethod(expr, child)
 		return Value::Null;
 	}
 	Object_expr *pObj = new Object_expr(env,
-			dynamic_cast<const Expr_Unary *>(pExpr)->GetChild()->IncRef());
+		Expr::Reference(dynamic_cast<const Expr_Unary *>(pExpr)->GetChild()));
 	return Value(pObj);
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(expr, left)
 		return Value::Null;
 	}
 	Object_expr *pObj = new Object_expr(env,
-			dynamic_cast<const Expr_Binary *>(pExpr)->GetLeft()->IncRef());
+		Expr::Reference(dynamic_cast<const Expr_Binary *>(pExpr)->GetLeft()));
 	return Value(pObj);
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(expr, right)
 		return Value::Null;
 	}
 	Object_expr *pObj = new Object_expr(env,
-			dynamic_cast<const Expr_Binary *>(pExpr)->GetRight()->IncRef());
+		Expr::Reference(dynamic_cast<const Expr_Binary *>(pExpr)->GetRight()));
 	return Value(pObj);
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(expr, each)
 		return Value::Null;
 	}
 	Iterator *pIterator = new Object_expr::Iterator_Each(env, 
-							dynamic_cast<Expr_Container *>(pExpr->IncRef()));
+		Expr_Container::Reference(dynamic_cast<const Expr_Container *>(pExpr)));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -168,7 +168,7 @@ Gura_ImplementMethod(expr, car)
 		return Value::Null;
 	}
 	Object_expr *pObj = new Object_expr(env,
-			dynamic_cast<const Expr_Compound *>(pExpr)->GetCar()->IncRef());
+			Expr::Reference(dynamic_cast<const Expr_Compound *>(pExpr)->GetCar()));
 	return Value(pObj);
 }
 
@@ -190,7 +190,7 @@ Gura_ImplementMethod(expr, cdr)
 	foreach_const (ExprList, ppExpr,
 					dynamic_cast<const Expr_Compound *>(pExpr)->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
-		Object_expr *pObj = new Object_expr(env, pExpr->IncRef());
+		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr));
 		valList.push_back(Value(pObj));
 	}
 	return result;
@@ -205,7 +205,7 @@ Gura_DeclareMethod(expr, unquote)
 Gura_ImplementMethod(expr, unquote)
 {
 	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	Object_expr *pObj = new Object_expr(env, pExpr->Unquote()->IncRef());
+	Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr->Unquote()));
 	return Value(pObj);
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(expr, block)
 	const Expr_Block *pExprBlock =
 						dynamic_cast<const Expr_Caller *>(pExpr)->GetBlock();
 	if (pExprBlock == NULL) return Value::Null;
-	Object_expr *pObj = new Object_expr(env, pExprBlock->IncRef());
+	Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprBlock));
 	return Value(pObj);
 }
 

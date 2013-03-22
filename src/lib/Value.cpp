@@ -597,8 +597,9 @@ Function *Value::GetFunction()
 
 Expr *Value::CloneExpr() const
 {
-	return IsExpr()? dynamic_cast<Object_expr *>(_u.pObj)->GetExpr()->IncRef() :
-			IsSymbol()? new Expr_Symbol(_u.pSymbol) : NULL;
+	return
+		IsExpr()? Expr::Reference(dynamic_cast<Object_expr *>(_u.pObj)->GetExpr()) :
+		IsSymbol()? new Expr_Symbol(_u.pSymbol) : NULL;
 }
 
 Fundamental *Value::GetFundamental()
