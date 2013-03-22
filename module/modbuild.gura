@@ -196,7 +196,7 @@ if (sys.build == `msc) {
 				this.precompile && cflags.append('/Yu' + this.precompile)
 			}
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
-				this.progressFlag && printf('-- compiling %*d/%d: %s\n',
+				this.progressFlag && printf('-- compiling: %*d/%d %s\n',
 									format('%d', cnt).len(), idx + 1, cnt, src)
 				!this.execute('cl', cflags*, '/Fo' + obj, '/c', src) && return(false)
 			}
@@ -263,7 +263,7 @@ if (sys.build == `msc) {
 			this.debugFlag && cflags.append('-g')
 			firstFlag && cflags.append('-DGURA_MODULE_MAIN')
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
-				this.progressFlag && printf('-- compiling %*d/%d: %s\n',
+				this.progressFlag && printf('-- compiling: %*d/%d %s\n',
 									format('%d', cnt).len(), idx + 1, cnt, src)
 				!this.execute('gcc', cflags*, '-o', obj, '-c', src) && return(false)
 			}
