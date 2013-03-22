@@ -178,7 +178,7 @@ if (sys.build == `msc) {
 			this.debugFlag && cflags.append('/ZI')
 			cflags.append('/Yc' + this.precompile)
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
-				this.progressFlag && println('compile: ', src)
+				this.progressFlag && println('-- compiling: ', src)
 				!this.execute('cl', cflags*, '/Fo' + obj, '/c', src) && return(false)
 			}
 			true
@@ -196,7 +196,8 @@ if (sys.build == `msc) {
 				this.precompile && cflags.append('/Yu' + this.precompile)
 			}
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
-				this.progressFlag && printf('compile %d/%d: %s\n', idx + 1, cnt, src)
+				this.progressFlag && printf('-- compiling %*d/%d: %s\n',
+									format('%d', cnt).len(), idx + 1, cnt, src)
 				!this.execute('cl', cflags*, '/Fo' + obj, '/c', src) && return(false)
 			}
 			true
@@ -216,7 +217,7 @@ if (sys.build == `msc) {
 				//			'/OUT:' + target, objs*, objsEx*, libs*) && return(false)
 				!this.execute('link', ldflags*,
 							'/OUT:' + target, '@' + fileNameCmd, objsEx*, libs*) && return(false)
-				println('created: ', target)
+				println('-- created: ', target)
 			}
 			true
 		}
@@ -224,9 +225,9 @@ if (sys.build == `msc) {
 			!path.exists(this.outDir) && return
 			for (fileName in path.dir(this.outDir, target, '*.obj', '*.exp', '*.lib', '*.cmd')) {
 				fs.remove(fileName)
-				this.verboseFlag && println('deleted: ', fileName)
+				this.verboseFlag && println('-- deleted: ', fileName)
 			}
-			println('cleaned')
+			println('-- cleaned')
 		}
 	}
 } elsif (sys.build == `gnuc) {
@@ -249,7 +250,7 @@ if (sys.build == `msc) {
 			cflags.append('-I' + this.incDirs)
 			this.debugFlag && cflags.append('-g')
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
-				this.progressFlag && println('compile: ', src)
+				this.progressFlag && println('-- compiling: ', src)
 				!this.execute('gcc', cflags*, '-x', 'c++-header', src) && return(false)
 			}
 			true
@@ -262,7 +263,8 @@ if (sys.build == `msc) {
 			this.debugFlag && cflags.append('-g')
 			firstFlag && cflags.append('-DGURA_MODULE_MAIN')
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
-				this.progressFlag && printf('compile %d/%d: %s\n', idx + 1, cnt, src)
+				this.progressFlag && printf('-- compiling %*d/%d: %s\n',
+									format('%d', cnt).len(), idx + 1, cnt, src)
 				!this.execute('gcc', cflags*, '-o', obj, '-c', src) && return(false)
 			}
 			true
@@ -281,7 +283,7 @@ if (sys.build == `msc) {
 							'-o' + target, '@' + fileNameCmd, libs*) && return(false)
 				//!this.execute('gcc', ldflags*,
 				//			'-o', target, objs*, libs*) && return(false)
-				println('created: ', target)
+				println('-- created: ', target)
 			}
 			true
 		}
@@ -291,9 +293,9 @@ if (sys.build == `msc) {
 			fileNames.append(path.dir('.', '*.gch'))
 			for (fileName in fileNames) {
 				fs.remove(fileName)
-				this.verboseFlag && println('deleted: ', fileName)
+				this.verboseFlag && println('-- deleted: ', fileName)
 			}
-			println('cleaned')
+			println('-- cleaned')
 		}
 	}
 } else {
