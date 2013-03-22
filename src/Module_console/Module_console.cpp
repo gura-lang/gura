@@ -17,7 +17,18 @@ Gura_DeclareFunction(clear)
 	AddHelp(Gura_Symbol(en), "clear screen");
 }
 
+// console.setcolor(fg:symbol:nil, bg?:symbol):map {block?}
+Gura_DeclareFunction(setcolor)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "fg", VTYPE_symbol, OCCUR_Once, FLAG_Nil);
+	DeclareArg(env, "bg", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), "set text color");
+}
+
 #if defined(GURA_ON_MSWIN)
+
 Gura_ImplementFunction(clear)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -33,25 +44,7 @@ Gura_ImplementFunction(clear)
 	::SetConsoleCursorPosition(hConsole, coordScreen);
 	return Value::Null;
 }
-#else
-Gura_ImplementFunction(clear)
-{
-	::printf("\033[2J");
-	return Value::Null;
-}
-#endif
 
-// console.setcolor(fg:symbol:nil, bg?:symbol) {block?}
-Gura_DeclareFunction(setcolor)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "fg", VTYPE_symbol, OCCUR_Once, FLAG_Nil);
-	DeclareArg(env, "bg", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), "set text color");
-}
-
-#if defined(GURA_ON_MSWIN)
 Gura_ImplementFunction(setcolor)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -75,7 +68,15 @@ Gura_ImplementFunction(setcolor)
 	}
 	return value;
 }
-#else
+
+#elif defined(GURA_ON_LINUX)
+
+Gura_ImplementFunction(clear)
+{
+	::printf("\033[2J");
+	return Value::Null;
+}
+
 Gura_ImplementFunction(setcolor)
 {
 	if (!args.IsSymbol(0)) {
@@ -101,6 +102,9 @@ Gura_ImplementFunction(setcolor)
 	}
 	return value;
 }
+
+#else
+#error unsupported platform
 #endif
 
 //-----------------------------------------------------------------------------
@@ -122,23 +126,53 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 bool SymbolToNumber(Signal sig, const Symbol *pSymbol, int *pNum)
 {
+#if defined(GURA_ON_MSWIN)
 	int num =
-		(pSymbol == Gura_Symbol(black))?		0 :
-		(pSymbol == Gura_Symbol(blue))?			1 :
-		(pSymbol == Gura_Symbol(green))?		2 :
-		(pSymbol == Gura_Symbol(aqua))?			3 :
-		(pSymbol == Gura_Symbol(red))?			4 :
-		(pSymbol == Gura_Symbol(purple))?		5 :
-		(pSymbol == Gura_Symbol(yellow))?		6 :
-		(pSymbol == Gura_Symbol(white))?		7 :
-		(pSymbol == Gura_Symbol(gray))?			8 :
-		(pSymbol == Gura_Symbol(light_blue))?	9 :
-		(pSymbol == Gura_Symbol(light_green))?	10 :
-		(pSymbol == Gura_Symbol(light_aqua))?	11 :
-		(pSymbol == Gura_Symbol(light_red))?	12 :
-		(pSymbol == Gura_Symbol(light_purple))?	13 :
-		(pSymbol == Gura_Symbol(light_yellow))?	14 :
-		(pSymbol == Gura_Symbol(bright_white))?	15 : -1;
+		(pSymbol == Gura_Symbol(black))?			0 :
+		(pSymbol == Gura_Symbol(blue))?				1 :
+		(pSymbol == Gura_Symbol(green))?			2 :
+		(pSymbol == Gura_Symbol(aqua))?				3 :
+		(pSymbol == Gura_Symbol(cyan))?				3 :
+		(pSymbol == Gura_Symbol(red))?				4 :
+		(pSymbol == Gura_Symbol(purple))?			5 :
+		(pSymbol == Gura_Symbol(magenta))?			5 :
+		(pSymbol == Gura_Symbol(yellow))?			6 :
+		(pSymbol == Gura_Symbol(white))?			7 :
+		(pSymbol == Gura_Symbol(gray))?				8 :
+		(pSymbol == Gura_Symbol(bright_blue))?		9 :
+		(pSymbol == Gura_Symbol(bright_green))?		10 :
+		(pSymbol == Gura_Symbol(bright_aqua))?		11 :
+		(pSymbol == Gura_Symbol(bright_cyan))?		11 :
+		(pSymbol == Gura_Symbol(bright_red))?		12 :
+		(pSymbol == Gura_Symbol(bright_purple))?	13 :
+		(pSymbol == Gura_Symbol(bright_magenta))?	13 :
+		(pSymbol == Gura_Symbol(bright_yellow))?	14 :
+		(pSymbol == Gura_Symbol(bright_white))?		15 : -1;
+#elif defined(GURA_ON_LINUX)
+	int num =
+		(pSymbol == Gura_Symbol(black))?			0 :
+		(pSymbol == Gura_Symbol(red))?				1 :
+		(pSymbol == Gura_Symbol(green))?			2 :
+		(pSymbol == Gura_Symbol(yellow))?			3 :
+		(pSymbol == Gura_Symbol(blue))?				4 :
+		(pSymbol == Gura_Symbol(purple))?			5 :
+		(pSymbol == Gura_Symbol(magenta))?			5 :
+		(pSymbol == Gura_Symbol(aqua))?				6 :
+		(pSymbol == Gura_Symbol(cyan))?				6 :
+		(pSymbol == Gura_Symbol(white))?			7 :
+		(pSymbol == Gura_Symbol(gray))?				8 :
+		(pSymbol == Gura_Symbol(bright_red))?		9 :
+		(pSymbol == Gura_Symbol(bright_green))?		10 :
+		(pSymbol == Gura_Symbol(bright_yellow))?	11 :
+		(pSymbol == Gura_Symbol(bright_blue))?		12 :
+		(pSymbol == Gura_Symbol(bright_purple))?	13 :
+		(pSymbol == Gura_Symbol(bright_magenta))?	13 :
+		(pSymbol == Gura_Symbol(bright_aqua))?		14 :
+		(pSymbol == Gura_Symbol(bright_cyan))?		14 :
+		(pSymbol == Gura_Symbol(bright_white))?		15 : -1;
+#else
+#error unsupported platform
+#endif
 	if (num < 0) {
 		sig.SetError(ERR_ValueError, "invalid symbol for color: %s", pSymbol->GetName());
 		return false;

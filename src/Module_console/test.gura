@@ -1,0 +1,13 @@
+#!/usr/bin/env gura
+import(console)
+colors = [
+	`black, `blue, `green, `cyan, `red, `magenta, `yellow, `white
+	`gray, `bright_blue, `bright_green, `bright_cyan,
+	`bright_red, `bright_magenta, `bright_yellow, `bright_white
+]
+console.setcolor(colors, `black) {
+	console.setcolor(nil, colors) {
+		print('####')
+	}
+	println()
+}
