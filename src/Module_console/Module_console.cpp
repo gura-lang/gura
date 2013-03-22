@@ -5,22 +5,103 @@
 
 Gura_BeginModule(console)
 
+bool SymbolToNumber(Signal sig, const Symbol *pSymbol, int *pNum);
+
 //-----------------------------------------------------------------------------
 // Gura module functions: console
 //-----------------------------------------------------------------------------
-// console.test(num1:number, num2:number)
-Gura_DeclareFunction(test)
+// console.clear():void
+Gura_DeclareFunction(clear)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "num1", VTYPE_number);
-	DeclareArg(env, "num2", VTYPE_number);
-	AddHelp(Gura_Symbol(en), "adds two numbers and returns the result.");
+	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en), "clear screen");
 }
 
-Gura_ImplementFunction(test)
+#if defined(GURA_ON_MSWIN)
+Gura_ImplementFunction(clear)
 {
-	return Value(args.GetNumber(0) + args.GetNumber(1));
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	static const COORD coordScreen = { 0, 0 };
+	::GetConsoleScreenBufferInfo(hConsole, &csbi);
+	DWORD cCharsWritten;
+	DWORD dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
+	::FillConsoleOutputCharacter(hConsole, ' ',
+							dwConSize, coordScreen, &cCharsWritten);
+	::FillConsoleOutputAttribute(hConsole, csbi.wAttributes,
+							dwConSize, coordScreen, &cCharsWritten );
+	::SetConsoleCursorPosition(hConsole, coordScreen);
+	return Value::Null;
 }
+#else
+Gura_ImplementFunction(clear)
+{
+	::printf("\033[2J");
+	return Value::Null;
+}
+#endif
+
+// console.setcolor(fg:symbol:nil, bg?:symbol) {block?}
+Gura_DeclareFunction(setcolor)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "fg", VTYPE_symbol, OCCUR_Once, FLAG_Nil);
+	DeclareArg(env, "bg", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), "set text color");
+}
+
+#if defined(GURA_ON_MSWIN)
+Gura_ImplementFunction(setcolor)
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	::GetConsoleScreenBufferInfo(hConsole, &csbi);
+	int fg = csbi.wAttributes & 0x000f;
+	int bg = (csbi.wAttributes & 0x00f0) >> 4;
+	if (args.IsSymbol(0) && !SymbolToNumber(sig, args.GetSymbol(0), &fg)) {
+		return Value::Null;
+	}
+	if (args.IsSymbol(1) && !SymbolToNumber(sig, args.GetSymbol(1), &bg)) {
+		return Value::Null;
+	}
+	::SetConsoleTextAttribute(hConsole, fg + (bg << 4));
+	Value value;
+	if (args.IsBlockSpecified()) {
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		value = pExprBlock->Exec(env, sig);
+		::SetConsoleTextAttribute(hConsole, csbi.wAttributes);
+	}
+	return value;
+}
+#else
+Gura_ImplementFunction(setcolor)
+{
+	if (!args.IsSymbol(0)) {
+		// nothing to do
+	} else if (!SymbolToNumber(sig, args.GetSymbol(0), &fg)) {
+		return Value::Null;
+	} else {
+		::printf("\033[%d;3%dm", (fg >> 3) & 1, fg & 7);
+	}
+	if (!args.IsSymbol(1)) {
+		// nothing to do
+	} else if (!SymbolToNumber(sig, args.GetSymbol(1), &bg)) {
+		return Value::Null;
+	} else {
+		::printf("\033[%d;4%dm", (fg >> 3) & 1, fg & 7);
+	}
+	Value value;
+	if (args.IsBlockSpecified()) {
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		value = pExprBlock->Exec(env, sig);
+		::printf("\033[0m");
+	}
+	return value;
+}
+#endif
 
 //-----------------------------------------------------------------------------
 // Module entry
@@ -28,11 +109,42 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// function assignment
-	Gura_AssignFunction(test);
+	Gura_AssignFunction(clear);
+	Gura_AssignFunction(setcolor);
 }
 
 Gura_ModuleTerminate()
 {
+}
+
+//-----------------------------------------------------------------------------
+// utility function
+//-----------------------------------------------------------------------------
+bool SymbolToNumber(Signal sig, const Symbol *pSymbol, int *pNum)
+{
+	int num =
+		(pSymbol == Gura_Symbol(black))?		0 :
+		(pSymbol == Gura_Symbol(blue))?			1 :
+		(pSymbol == Gura_Symbol(green))?		2 :
+		(pSymbol == Gura_Symbol(aqua))?			3 :
+		(pSymbol == Gura_Symbol(red))?			4 :
+		(pSymbol == Gura_Symbol(purple))?		5 :
+		(pSymbol == Gura_Symbol(yellow))?		6 :
+		(pSymbol == Gura_Symbol(white))?		7 :
+		(pSymbol == Gura_Symbol(gray))?			8 :
+		(pSymbol == Gura_Symbol(light_blue))?	9 :
+		(pSymbol == Gura_Symbol(light_green))?	10 :
+		(pSymbol == Gura_Symbol(light_aqua))?	11 :
+		(pSymbol == Gura_Symbol(light_red))?	12 :
+		(pSymbol == Gura_Symbol(light_purple))?	13 :
+		(pSymbol == Gura_Symbol(light_yellow))?	14 :
+		(pSymbol == Gura_Symbol(bright_white))?	15 : -1;
+	if (num < 0) {
+		sig.SetError(ERR_ValueError, "invalid symbol for color: %s", pSymbol->GetName());
+		return false;
+	}
+	*pNum = num;
+	return true;
 }
 
 Gura_EndModule(console, console)
