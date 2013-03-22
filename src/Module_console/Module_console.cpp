@@ -79,6 +79,7 @@ Gura_ImplementFunction(clear)
 
 Gura_ImplementFunction(setcolor)
 {
+	int fg = 0, bg = 0;
 	if (!args.IsSymbol(0)) {
 		// nothing to do
 	} else if (!SymbolToNumber(sig, args.GetSymbol(0), &fg)) {
