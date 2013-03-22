@@ -87,6 +87,7 @@ Gura_ImplementFunction(setcolor)
 	} else if (!SymbolToNumber(sig, args.GetSymbol(0), &fg)) {
 		return Value::Null;
 	} else {
+		if (fg & 8) str += "1;";
 		str += '3';
 		str += ('0' + (fg & 7));
 	}
@@ -100,7 +101,7 @@ Gura_ImplementFunction(setcolor)
 		str += ('0' + (bg & 7));
 	}
 	if (!str.empty()) {
-		::printf("\033[%s%sm", ((fg & 8) || (bg & 8))? "1;" : "", str.c_str());
+		::printf("\033[%sm", str.c_str());
 	}
 	Value value;
 	if (args.IsBlockSpecified()) {
