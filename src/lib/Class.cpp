@@ -5,6 +5,42 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class
 //-----------------------------------------------------------------------------
+// object.private():void {block}
+Gura_DeclareClassMethodAlias(Object, private_, "private")
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_Once);
+}
+
+Gura_ImplementClassMethod(Object, private_)
+{
+	return Value::Null;
+}
+
+// object.protected():void {block}
+Gura_DeclareClassMethodAlias(Object, protected_, "protected")
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_Once);
+}
+
+Gura_ImplementClassMethod(Object, protected_)
+{
+	return Value::Null;
+}
+
+// object.public():void {block}
+Gura_DeclareClassMethodAlias(Object, public_, "public")
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_Once);
+}
+
+Gura_ImplementClassMethod(Object, public_)
+{
+	return Value::Null;
+}
+
 // object#istype(type:expr):map
 Gura_DeclareMethodPrimitive(Object, istype)
 {
@@ -228,7 +264,7 @@ bool Class::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escal
 			}
 		}
 	} else {
-		foreach_const (ValueMap, iter, GetTopFrame().GetValueMap()) {
+		foreach_const (ValueMap, iter, GetTopFrame()->GetValueMap()) {
 			symbols.insert(iter->first);
 		}
 	}
@@ -257,6 +293,9 @@ String Class::ToString(Signal sig, bool exprFlag)
 // assignment
 void Class::Prepare()
 {
+	Gura_AssignMethod(Object, private_);
+	Gura_AssignMethod(Object, protected_);
+	Gura_AssignMethod(Object, public_);
 	Gura_AssignMethod(Object, istype);		// primitive method
 	Gura_AssignMethod(Object, tonumber);	// primitive method
 	Gura_AssignMethod(Object, tostring);	// primitive method
@@ -277,6 +316,39 @@ bool Class::Deserialize(Environment &env, Signal sig, Stream &stream, Value &val
 {
 	sig.SetError(ERR_IOError, "can't deserialize class or module");
 	return false;
+}
+
+bool Class::BuildContent(Environment &env, Signal sig, const Value &valueThis,
+			const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable)
+{
+	//Environment envLocal(&env, ENVTYPE_local);
+	Environment envLocal(this, ENVTYPE_local);
+	//envLocal.AssignValue(Gura_Symbol(this), valueThis, false);
+	foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
+		const Expr *pExpr = *ppExpr;
+		if (pExpr->IsAssign()) {
+			const Expr_Assign *pExprAssign =
+								dynamic_cast<const Expr_Assign *>(pExpr);
+			pExprAssign->Exec(envLocal, sig, *this, pSymbolsAssignable);
+		} else if (pExpr->IsCaller()) {
+			const Expr_Caller *pExprCaller =
+								dynamic_cast<const Expr_Caller *>(pExpr);
+			Value valueCar = pExprCaller->GetCar()->Exec(envLocal, sig);
+			if (sig.IsSignalled()) return false;
+			ICallable *pCallable = valueCar.GetObject();
+			if (pCallable == NULL) {
+				sig.SetError(ERR_TypeError, "object is not callable");
+			} else {
+				const Function *pFuncLeader = NULL;
+				pCallable->Call(env, sig, valueThis, NULL, false,
+						pExprCaller, pExprCaller->GetExprOwner(), &pFuncLeader);
+			}
+		} else {
+			sig.SetError(ERR_SyntaxError, "invalid element in class constructor");
+		}
+		if (sig.IsSignalled()) return false;
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------

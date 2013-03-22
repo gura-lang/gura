@@ -1187,7 +1187,7 @@ Gura_ImplementFunction(dir)
 			symbolList.push_back(pSymbol);
 		}
 	} else {
-		foreach_const (ValueMap, iter, env.GetBottomFrame().GetValueMap()) {
+		foreach_const (ValueMap, iter, env.GetBottomFrame()->GetValueMap()) {
 			const Symbol *pSymbol = iter->first;
 			symbolList.push_back(pSymbol);
 		}
@@ -1223,7 +1223,7 @@ Gura_ImplementFunction(dirtype)
 			symbolList.push_back(pSymbol);
 		}
 	} else {
-		foreach_const (ValueTypeMap, iter, env.GetBottomFrame().GetValueTypeMap()) {
+		foreach_const (ValueTypeMap, iter, env.GetBottomFrame()->GetValueTypeMap()) {
 			const Symbol *pSymbol = iter->first;
 			symbolList.push_back(pSymbol);
 		}

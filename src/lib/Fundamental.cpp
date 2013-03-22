@@ -65,25 +65,6 @@ Fundamental::~Fundamental()
 
 bool Fundamental::IsFunction() const { return false; }
 
-bool Fundamental::BuildContent(Environment &env, Signal sig, const Value &valueThis,
-			const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable)
-{
-	Environment envLocal(&env, ENVTYPE_local);
-	envLocal.AssignValue(Gura_Symbol(this), valueThis, false);
-	foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
-		const Expr *pExpr = *ppExpr;
-		if (pExpr->IsAssign()) {
-			const Expr_Assign *pExprAssign =
-								dynamic_cast<const Expr_Assign *>(pExpr);
-			pExprAssign->Exec(envLocal, sig, *this, pSymbolsAssignable);
-		} else {
-			pExpr->Exec(envLocal, sig);
-		}
-		if (sig.IsSignalled()) return false;
-	}
-	return true;
-}
-
 Iterator *Fundamental::CreateIterator(Signal sig)
 {
 	sig.SetError(ERR_ValueError, "object cannot generate iterator");

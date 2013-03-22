@@ -58,6 +58,8 @@ public:
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+	bool BuildContent(Environment &env, Signal sig, const Value &valueThis,
+		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = NULL);
 };
 
 //-----------------------------------------------------------------------------

@@ -46,7 +46,7 @@ String Module::ToString(Signal sig, bool exprFlag)
 
 bool Module::DirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
-	foreach_const (ValueMap, iter, GetTopFrame().GetValueMap()) {
+	foreach_const (ValueMap, iter, GetTopFrame()->GetValueMap()) {
 		symbols.insert(iter->first);
 	}
 	return DoDirProp(env, sig, symbols);
@@ -54,7 +54,7 @@ bool Module::DirProp(Environment &env, Signal sig, SymbolSet &symbols)
 
 void Module::DirValueType(SymbolSet &symbols) const
 {
-	foreach_const (ValueTypeMap, iter, GetTopFrame().GetValueTypeMap()) {
+	foreach_const (ValueTypeMap, iter, GetTopFrame()->GetValueTypeMap()) {
 		symbols.insert(iter->first);
 	}
 }

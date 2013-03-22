@@ -197,7 +197,7 @@ public:
 		inline const ValueTypeMap &GetValueTypeMap() const {
 			return (_pValueTypeMap.get() == NULL)? ValueTypeMap::Null : *_pValueTypeMap;
 		}
-		void AssignValue(const Symbol *pSymbol, const Value &value);
+		void AssignValue(const Symbol *pSymbol, const Value &value, unsigned long attr);
 		void RemoveValue(const Symbol *pSymbol);
 		Value *LookupValue(const Symbol *pSymbol);
 		void AssignValueType(const ValueTypeInfo *pValueTypeInfo);
@@ -228,15 +228,15 @@ public:
 	virtual ~Environment();
 	inline FrameOwner &GetFrameOwner()			{ return _frameOwner;						}
 	inline const FrameOwner &GetFrameOwner() const{ return _frameOwner;						}
-	inline Frame &GetTopFrame()					{ return *_frameOwner.front();				}
-	inline const Frame &GetTopFrame() const		{ return *_frameOwner.front();				}
-	inline Frame &GetBottomFrame()				{ return *_frameOwner.back();				}
-	inline const Frame &GetBottomFrame() const	{ return *_frameOwner.back();				}
-	inline EnvType GetEnvType() const			{ return GetTopFrame().GetEnvType(); }
-	inline const char *GetTypeName() const		{ return GetTopFrame().GetTypeName(); }
-	inline bool IsType(EnvType envType) const	{ return GetTopFrame().IsType(envType); }
-	inline Global *GetGlobal()					{ return GetTopFrame().GetGlobal();			}
-	inline Global *GetGlobal() const			{ return GetTopFrame().GetGlobal();			}
+	inline Frame *GetTopFrame()					{ return _frameOwner.front();				}
+	inline const Frame *GetTopFrame() const		{ return _frameOwner.front();				}
+	inline Frame *GetBottomFrame()				{ return _frameOwner.back();				}
+	inline const Frame *GetBottomFrame() const	{ return _frameOwner.back();				}
+	inline EnvType GetEnvType() const			{ return GetTopFrame()->GetEnvType(); }
+	inline const char *GetTypeName() const		{ return GetTopFrame()->GetTypeName(); }
+	inline bool IsType(EnvType envType) const	{ return GetTopFrame()->IsType(envType); }
+	inline Global *GetGlobal()					{ return GetTopFrame()->GetGlobal();			}
+	inline Global *GetGlobal() const			{ return GetTopFrame()->GetGlobal();			}
 	inline void SetSuperSkipCount(int cntSuperSkip) { _cntSuperSkip = cntSuperSkip; }
 	inline const Function *GetOpFunc(OpType opType) { return GetGlobal()->_pOpFuncTbl[opType];	}
 	inline const Function *GetOpFuncWithCheck(OpType opType) {

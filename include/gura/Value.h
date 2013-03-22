@@ -714,9 +714,6 @@ public:
 	inline bool IsSet(const Symbol *pSymbol) const {
 		return find(pSymbol) != const_cast<ValueMap *>(this)->end();
 	}
-	inline void Insert(const Symbol *pSymbol, const Value &value, unsigned long attr = 0) {
-		insert(value_type(pSymbol, ValueWithAttr(value, attr)));
-	}
 };
 
 //-----------------------------------------------------------------------------

@@ -37,8 +37,6 @@ protected:
 	Fundamental(Environment *pEnvOuter, EnvType envType);
 public:
 	virtual ~Fundamental();
-	bool BuildContent(Environment &env, Signal sig, const Value &valueThis,
-		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = NULL);
 	inline int DecRef() { if (_cntRef > 0) _cntRef--; return _cntRef; }
 	inline int GetRefCnt() const { return _cntRef; }
 	virtual bool IsFunction() const;

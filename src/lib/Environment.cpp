@@ -146,36 +146,38 @@ void Environment::CacheFrame(const Symbol *pSymbol, Frame *pFrame)
 
 void Environment::AssignValue(const Symbol *pSymbol, const Value &value, bool escalateFlag)
 {
+	unsigned long attr = 0;
 	if (escalateFlag) {
 		if (_pFrameCache.get() != NULL) {
 			FrameCache::iterator iter = _pFrameCache->find(pSymbol);
 			if (iter != _pFrameCache->end()) {
 				Frame *pFrame = iter->second;
-				pFrame->AssignValue(pSymbol, value);
+				pFrame->AssignValue(pSymbol, value, attr);
 				return;
 			}
 		}
 		foreach (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
 			if (!pFrame->IsType(ENVTYPE_block)) {
-				pFrame->AssignValue(pSymbol, value);
+				pFrame->AssignValue(pSymbol, value, attr);
 				break;
 			}
 		}
 	} else {
-		GetTopFrame().AssignValue(pSymbol, value);
-		CacheFrame(pSymbol, &GetTopFrame());
+		GetTopFrame()->AssignValue(pSymbol, value, attr);
+		CacheFrame(pSymbol, GetTopFrame());
 	}
 }
 
 bool Environment::ImportValue(const Symbol *pSymbol, const Value &value, bool overwriteFlag)
 {
+	unsigned long attr = 0;
 	foreach (FrameOwner, ppFrame, _frameOwner) {
 		Frame *pFrame = *ppFrame;
 		if (pFrame->IsType(ENVTYPE_block)) {
 			// nothing to do
 		} else if (overwriteFlag || pFrame->LookupValue(pSymbol) == NULL) {
-			pFrame->AssignValue(pSymbol, value);
+			pFrame->AssignValue(pSymbol, value, attr);
 			break;
 		} else {
 			return false;
@@ -186,14 +188,14 @@ bool Environment::ImportValue(const Symbol *pSymbol, const Value &value, bool ov
 
 void Environment::RemoveValue(const Symbol *pSymbol)
 {
-	GetTopFrame().RemoveValue(pSymbol);
+	GetTopFrame()->RemoveValue(pSymbol);
 }
 
 Value *Environment::LookupValue(const Symbol *pSymbol, bool escalateFlag)
 {
-	EnvType envType = GetTopFrame().GetEnvType();
+	EnvType envType = GetTopFrame()->GetEnvType();
 	if (!escalateFlag) {
-		Frame *pFrame = &GetTopFrame();
+		Frame *pFrame = GetTopFrame();
 		Value *pValue = pFrame->LookupValue(pSymbol);
 		if (pValue != NULL) {
 			CacheFrame(pSymbol, pFrame);
@@ -258,16 +260,17 @@ Value *Environment::LookupValue(const Symbol *pSymbol, bool escalateFlag)
 
 Function *Environment::AssignFunction(Function *pFunc)
 {
+	unsigned long attr = 0;
 	Value value(*this, pFunc, Value::Null);
-	GetTopFrame().AssignValue(pFunc->GetSymbol(), value);
+	GetTopFrame()->AssignValue(pFunc->GetSymbol(), value, attr);
 	return pFunc;
 }
 
 Function *Environment::LookupFunction(const Symbol *pSymbol, bool escalateFlag) const
 {
-	EnvType envType = GetTopFrame().GetEnvType();
+	EnvType envType = GetTopFrame()->GetEnvType();
 	if (!escalateFlag) {
-		Frame *pFrame = const_cast<Frame *>(&GetTopFrame());
+		Frame *pFrame = const_cast<Frame *>(GetTopFrame());
 		Value *pValue = pFrame->LookupValue(pSymbol);
 		if (pValue != NULL && pValue->IsFunction()) {
 			return pValue->GetFunction();
@@ -313,7 +316,7 @@ FunctionCustom *Environment::LookupFunctionCustom(const Symbol *pSymbol, bool es
 
 void Environment::AssignValueType(const ValueTypeInfo *pValueTypeInfo)
 {
-	GetTopFrame().AssignValueType(pValueTypeInfo);
+	GetTopFrame()->AssignValueType(pValueTypeInfo);
 }
 
 const ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList) const
@@ -404,15 +407,15 @@ Value Environment::GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 
 void Environment::AssignModule(Module *pModule)
 {
+	unsigned long attr = 0;
 	Value value(pModule);
 	foreach (FrameOwner, ppFrame, _frameOwner) {
 		Frame *pFrame = *ppFrame;
 		if (!pFrame->IsType(ENVTYPE_block)) {
-			pFrame->AssignValue(pModule->GetSymbol(), value);
+			pFrame->AssignValue(pModule->GetSymbol(), value, attr);
 			break;
 		}
 	}
-	//GetTopFrame().AssignValue(pModule->GetSymbol(), value);
 }
 
 bool Environment::ImportModules(Signal sig,
@@ -530,7 +533,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 	} else if (pSymbolsToMixIn->IsSet(Gura_Symbol(Char_Multiply))) {
 		// import(hoge) {*}
 		//GetFrameOwner().DbgPrint();
-		foreach_const (ValueMap, iter, pModule->GetTopFrame().GetValueMap()) {
+		foreach_const (ValueMap, iter, pModule->GetTopFrame()->GetValueMap()) {
 			const Symbol *pSymbol = iter->first;
 			const Value &value = iter->second;
 			if (pSymbol->IsPrivateName()) {
@@ -558,7 +561,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 		}
 	}
 	if (mixinTypeFlag) {
-		foreach_const (ValueTypeMap, iter, pModule->GetTopFrame().GetValueTypeMap()) {
+		foreach_const (ValueTypeMap, iter, pModule->GetTopFrame()->GetValueTypeMap()) {
 			const ValueTypeInfo *pValueTypeInfo = iter->second;
 			AssignValueType(pValueTypeInfo);
 		}
@@ -895,10 +898,11 @@ void Environment::Frame::Delete(Frame *pFrame)
 	}
 }
 
-void Environment::Frame::AssignValue(const Symbol *pSymbol, const Value &value)
+void Environment::Frame::AssignValue(const Symbol *pSymbol,
+									const Value &value, unsigned long attr)
 {
 	if (_pValueMap.get() == NULL) _pValueMap.reset(new ValueMap());
-	(*_pValueMap)[pSymbol] = value;
+	(*_pValueMap)[pSymbol] = ValueWithAttr(value, attr);
 }
 
 void Environment::Frame::RemoveValue(const Symbol *pSymbol)
