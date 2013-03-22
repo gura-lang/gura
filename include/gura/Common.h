@@ -71,11 +71,25 @@ GURA_DLLDECLARE const char *GetOpening();
 // Simple type declarations
 //-----------------------------------------------------------------------------
 typedef double Number;
-typedef std::complex<Number> Complex;
 
-struct Fraction {
+class Complex : public std::complex<Number> {
+public:
+	static const Complex Zero;
+public:
+	inline Complex() : std::complex<Number>(0.) {}
+	inline Complex(const Complex &comp) : std::complex<Number>(comp) {}
+	inline Complex(const std::complex<Number> &comp) : std::complex<Number>(comp) {}
+	inline Complex(Number real) : std::complex<Number>(real) {}
+	inline Complex(Number real, Number imag) : std::complex<Number>(real, imag) {}
+};
+
+class Fraction {
+public:
 	Number numerator;
 	Number denominator;
+public:
+	static const Fraction Zero;
+public:
 	inline Fraction() : numerator(0), denominator(1) {}
 	inline Fraction(Number numerator_, Number denominator_) :
 			numerator(numerator_), denominator(denominator_) {}

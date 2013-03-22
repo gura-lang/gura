@@ -316,9 +316,6 @@ private:
 		Object *pObj;			// objects
 		char tinyBuff[1];
 	} _u;
-private:
-	static const Complex _compZero;
-	static const Fraction _fracZero;
 public:
 	static const Value Null;
 	static const Value Undefined;
@@ -556,14 +553,14 @@ public:
 	inline double GetDouble() const			{ return static_cast<double>(GetNumber());			}
 	// VTYPE_complex
 	inline Complex GetComplex() const {
-		return IsComplex()? *_u.pComp : IsNumber()? Complex(GetNumber()) : _compZero;
+		return IsComplex()? *_u.pComp : IsNumber()? Complex(GetNumber()) : Complex::Zero;
 	}
 	inline const Complex *GetComplexPtr() const {
 		return _u.pComp;
 	}
 	// VTYPE_fraction
 	inline Fraction GetFraction() const {
-		return IsFraction()? *_u.pFrac : IsNumber()? Fraction(GetNumber(), 1) : _fracZero;
+		return IsFraction()? *_u.pFrac : IsNumber()? Fraction(GetNumber(), 1) : Fraction::Zero;
 	}
 	inline const Fraction *GetFractionPtr() const {
 		return _u.pFrac;

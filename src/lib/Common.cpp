@@ -4,29 +4,15 @@ extern "C" {
 #include "../dSFMT-src-2.2.1/dSFMT.h"
 }
 
-//-----------------------------------------------------------------------------
-// Heap access functions
-//-----------------------------------------------------------------------------
-#if defined(__BORLANDC__)
-// malloc() and free() don't work correctly when they're used across
-// Windows' DLL boundary. see KB190799 in MSDN.
-DLLDECLARE void *operator new (size_t bytes)
-{
-	return ::LocalAlloc(LMEM_FIXED, bytes);
-}
-
-DLLDECLARE void operator delete (void *p)
-{
-	::LocalFree(p);
-}
-#endif
-
 namespace Gura {
 
 const int MAX_STACK_LEVEL = 20000;
 const size_t InvalidSize = static_cast<size_t>(-1);
 
 const Number RoundOffThreshold = 1e-10;
+
+const Complex Complex::Zero;
+const Fraction Fraction::Zero;
 
 bool IsBigEndian()
 {

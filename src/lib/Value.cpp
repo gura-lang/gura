@@ -51,8 +51,6 @@ ValueType VTYPE_Struct			= static_cast<ValueType>(0);
 //-----------------------------------------------------------------------------
 ValueTypePool *ValueTypePool::_pInst = NULL;
 
-const Complex Value::_compZero;
-const Fraction Value::_fracZero;
 const Value Value::Null;
 const Value Value::Undefined(VTYPE_undefined, Value::FLAG_Owner);
 const Value::KeyCompare Value::KeyCompareCase(false);
