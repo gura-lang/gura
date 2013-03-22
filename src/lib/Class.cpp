@@ -5,30 +5,6 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class
 //-----------------------------------------------------------------------------
-// object.private():void {block}
-Gura_DeclareClassMethodAlias(Object, private_, "private")
-{
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareBlock(OCCUR_Once);
-}
-
-Gura_ImplementClassMethod(Object, private_)
-{
-	return Value::Null;
-}
-
-// object.protected():void {block}
-Gura_DeclareClassMethodAlias(Object, protected_, "protected")
-{
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareBlock(OCCUR_Once);
-}
-
-Gura_ImplementClassMethod(Object, protected_)
-{
-	return Value::Null;
-}
-
 // object.public():void {block}
 Gura_DeclareClassMethodAlias(Object, public_, "public")
 {
@@ -38,6 +14,18 @@ Gura_DeclareClassMethodAlias(Object, public_, "public")
 
 Gura_ImplementClassMethod(Object, public_)
 {
+	Class *pClass = args.GetThisClass();
+	SymbolSet *pSymbolSet = pClass->PrepareSymbolSetForPublic();
+	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
+		const Expr *pExpr = *ppExpr;
+		if (!pExpr->IsSymbol()) {
+			sig.SetError(ERR_ValueError, "elements of public must be symbol");
+			return Value::Null;
+		}
+		const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExpr);
+		pSymbolSet->Insert(pExprSymbol->GetSymbol());
+	}
 	return Value::Null;
 }
 
@@ -293,8 +281,6 @@ String Class::ToString(Signal sig, bool exprFlag)
 // assignment
 void Class::Prepare()
 {
-	Gura_AssignMethod(Object, private_);
-	Gura_AssignMethod(Object, protected_);
 	Gura_AssignMethod(Object, public_);
 	Gura_AssignMethod(Object, istype);		// primitive method
 	Gura_AssignMethod(Object, tonumber);	// primitive method
@@ -321,9 +307,7 @@ bool Class::Deserialize(Environment &env, Signal sig, Stream &stream, Value &val
 bool Class::BuildContent(Environment &env, Signal sig, const Value &valueThis,
 			const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable)
 {
-	//Environment envLocal(&env, ENVTYPE_local);
 	Environment envLocal(this, ENVTYPE_local);
-	//envLocal.AssignValue(Gura_Symbol(this), valueThis, false);
 	foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsAssign()) {

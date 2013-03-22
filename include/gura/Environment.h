@@ -220,6 +220,7 @@ public:
 private:
 	FrameOwner _frameOwner;
 	std::auto_ptr<FrameCache> _pFrameCache;
+	std::auto_ptr<SymbolSet> _pSymbolSetForPublic;
 	int _cntSuperSkip;
 	static IntegratedModuleOwner *_pIntegratedModuleOwner;
 public:
@@ -245,6 +246,14 @@ public:
 	inline Module *GetModule_sys()				{ return GetGlobal()->_pModule_sys;			}
 	inline void SetEchoFlag(bool echoFlag)		{ GetGlobal()->_echoFlag = echoFlag;		}
 	inline bool GetEchoFlag() const				{ return GetGlobal()->_echoFlag;			}
+	inline SymbolSet *GetSymbolSetForPublic() { return _pSymbolSetForPublic.get(); }
+	inline const SymbolSet *GetSymbolSetForPublic() const { return _pSymbolSetForPublic.get(); }
+	inline SymbolSet *PrepareSymbolSetForPublic() {
+		if (_pSymbolSetForPublic.get() == NULL) {
+			_pSymbolSetForPublic.reset(new SymbolSet());
+		}
+		return _pSymbolSetForPublic.get();
+	}
 	void AddLackingFrame(Environment *pEnv);
 	void CacheFrame(const Symbol *pSymbol, Frame *pFrame);
 	void AssignValue(const Symbol *pSymbol, const Value &value, bool escalateFlag);
