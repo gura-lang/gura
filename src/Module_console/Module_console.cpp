@@ -191,7 +191,7 @@ Gura_ImplementFunction(moveto)
 	int y = args.GetInt(1);
 	if (args.IsBlockSpecified()) {
 		::printf("\033[s");
-		::printf("\033[%d;%dH", y, x);
+		::printf("\033[%d;%dH", y + 1, x + 1);
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec(env, sig);
