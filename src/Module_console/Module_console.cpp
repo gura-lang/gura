@@ -10,10 +10,11 @@ bool SymbolToNumber(Signal sig, const Symbol *pSymbol, int *pNum);
 //-----------------------------------------------------------------------------
 // Gura module functions: console
 //-----------------------------------------------------------------------------
-// console.clear():void
+// console.clear(region?:symbol):void
 Gura_DeclareFunction(clear)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "region", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), "clear screen");
 }
 
@@ -43,15 +44,46 @@ Gura_ImplementFunction(clear)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
-	static const COORD coordScreen = { 0, 0 };
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
-	DWORD cCharsWritten;
-	DWORD dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
-	::FillConsoleOutputCharacter(hConsole, ' ',
-							dwConSize, coordScreen, &cCharsWritten);
-	::FillConsoleOutputAttribute(hConsole, csbi.wAttributes,
-							dwConSize, coordScreen, &cCharsWritten );
-	::SetConsoleCursorPosition(hConsole, coordScreen);
+	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
+	COORD coordStart = { 0, 0 };
+	COORD coordHome = { 0, 0 };
+	DWORD dwConSize = 0;
+	if (pSymbol == NULL) {
+		dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
+	} else if (pSymbol == Gura_Symbol(up)) {
+		int height = csbi.dwCursorPosition.Y + 1;
+		coordHome = csbi.dwCursorPosition;
+		dwConSize = csbi.dwSize.X * height;
+	} else if (pSymbol == Gura_Symbol(down)) {
+		int height = csbi.dwSize.Y - csbi.dwCursorPosition.Y;
+		coordStart = csbi.dwCursorPosition;
+		coordStart.X = 0;
+		coordHome = csbi.dwCursorPosition;
+		dwConSize = csbi.dwSize.X * height;
+	} else if (pSymbol == Gura_Symbol(left)) {
+		int width = csbi.dwCursorPosition.X + 1;
+		coordStart = csbi.dwCursorPosition;
+		coordStart.X = 0;
+		coordHome = csbi.dwCursorPosition;
+		dwConSize = width;
+	} else if (pSymbol == Gura_Symbol(right)) {
+		int width = csbi.dwSize.X - csbi.dwCursorPosition.X;
+		coordStart = csbi.dwCursorPosition;
+		coordHome = csbi.dwCursorPosition;
+		dwConSize = width;
+	} else {
+		sig.SetError(ERR_ValueError, "invalid symbol %s", pSymbol->GetName());
+		return Value::Null;
+	}
+	do {
+		DWORD cCharsWritten;
+		::FillConsoleOutputCharacter(hConsole, ' ',
+							dwConSize, coordStart, &cCharsWritten);
+		::FillConsoleOutputAttribute(hConsole, csbi.wAttributes,
+							dwConSize, coordStart, &cCharsWritten );
+		::SetConsoleCursorPosition(hConsole, coordHome);
+	} while (0);
 	return Value::Null;
 }
 
@@ -85,7 +117,7 @@ Gura_ImplementFunction(moveto)
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
-	COORD pos = {x, y};
+	COORD pos = { x, y };
 	::SetConsoleCursorPosition(hConsole, pos);
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
@@ -100,8 +132,21 @@ Gura_ImplementFunction(moveto)
 
 Gura_ImplementFunction(clear)
 {
-	::printf("\033[2J");
-	::printf("\033[H");
+	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
+	if (pSymbol == NULL) {
+		::printf("\033[2J");
+	} else if (pSymbol == Gura_Symbol(up)) {
+		::printf("\033[1J");
+	} else if (pSymbol == Gura_Symbol(down)) {
+		::printf("\033[J");
+	} else if (pSymbol == Gura_Symbol(left)) {
+		::printf("\033[1K");
+	} else if (pSymbol == Gura_Symbol(right)) {
+		::printf("\033[K");
+	} else {
+		sig.SetError(ERR_ValueError, "invalid symbol %s", pSymbol->GetName());
+		return Value::Null;
+	}
 	return Value::Null;
 }
 
@@ -109,6 +154,7 @@ Gura_ImplementFunction(setcolor)
 {
 	int fg = 0, bg = 0;
 	String str;
+	bool brightFlag = false;
 	if (!args.IsSymbol(0)) {
 		// nothing to do
 	} else if (!SymbolToNumber(sig, args.GetSymbol(0), &fg)) {

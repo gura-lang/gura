@@ -1,0 +1,10 @@
+import(console)
+
+txt = chr(0x30 + [0..9].round(64)).join()
+for (region in [`up, `down, `left, `right]) {
+	console.clear()
+	printf('%s %d\n', txt, 0..19)
+	console.moveto(20, 5)
+	console.clear(region)
+	sys.stdin.readline()
+}
