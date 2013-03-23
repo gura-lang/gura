@@ -27,6 +27,16 @@ Gura_DeclareFunction(setcolor)
 	AddHelp(Gura_Symbol(en), "set text color");
 }
 
+// console.moveto(x:number, y:number):map {block?}
+Gura_DeclareFunction(moveto)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_number);
+	DeclareArg(env, "y", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), "move cursor to specified position");
+}
+
 #if defined(GURA_ON_MSWIN)
 
 Gura_ImplementFunction(clear)
@@ -65,6 +75,25 @@ Gura_ImplementFunction(setcolor)
 		if (sig.IsSignalled()) return Value::Null;
 		value = pExprBlock->Exec(env, sig);
 		::SetConsoleTextAttribute(hConsole, csbi.wAttributes);
+	}
+	return value;
+}
+
+Gura_ImplementFunction(moveto)
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	::GetConsoleScreenBufferInfo(hConsole, &csbi);
+	int x = args.GetInt(0);
+	int y = args.GetInt(1);
+	COORD pos = {x, y};
+	::SetConsoleCursorPosition(hConsole, pos);
+	Value value;
+	if (args.IsBlockSpecified()) {
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		value = pExprBlock->Exec(env, sig);
+		::SetConsoleCursorPosition(hConsole, csbi.dwCursorPosition);
 	}
 	return value;
 }
@@ -113,6 +142,24 @@ Gura_ImplementFunction(setcolor)
 	return value;
 }
 
+Gura_ImplementFunction(moveto)
+{
+	int x = args.GetInt(0);
+	int y = args.GetInt(1);
+	Value value;
+	if (args.IsBlockSpecified()) {
+		::printf("\033[s");
+		::printf("\033[%d;%dH", y, x);
+		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		value = pExprBlock->Exec(env, sig);
+		::printf("\033[u");
+	} else {
+		::printf("\033[%d;%dH", y, x);
+	}
+	return value;
+}
+
 #else
 #error unsupported platform
 #endif
@@ -125,6 +172,7 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(clear);
 	Gura_AssignFunction(setcolor);
+	Gura_AssignFunction(moveto);
 }
 
 Gura_ModuleTerminate()
