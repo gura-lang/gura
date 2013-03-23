@@ -51,6 +51,12 @@ Gura_ImplementFunction(clear)
 	DWORD dwConSize = 0;
 	if (pSymbol == NULL) {
 		dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
+	} else if (pSymbol == Gura_Symbol(line)) {
+		int width = csbi.dwSize.X;
+		coordStart = csbi.dwCursorPosition;
+		coordStart.X = 0;
+		coordHome = coordStart;
+		dwConSize = width;
 	} else if (pSymbol == Gura_Symbol(up)) {
 		int height = csbi.dwCursorPosition.Y + 1;
 		coordHome = csbi.dwCursorPosition;
@@ -136,6 +142,8 @@ Gura_ImplementFunction(clear)
 	if (pSymbol == NULL) {
 		::printf("\033[2J");
 		::printf("\033[H");
+	} else if (pSymbol == Gura_Symbol(line)) {
+		::printf("\033[2K");
 	} else if (pSymbol == Gura_Symbol(up)) {
 		::printf("\033[D");
 		::printf("\033[1J");

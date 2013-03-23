@@ -392,6 +392,7 @@ public:
 	Gura_DeclareSymbol(port);
 	Gura_DeclareSymbol(urlpath);
 	Gura_DeclareSymbol(misc);
+	Gura_DeclareSymbol(line);
 private:
 	typedef std::set<Symbol *, Symbol::KeyCompare_Name> Content;
 private:

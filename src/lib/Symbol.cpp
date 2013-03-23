@@ -405,6 +405,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(port);
 	Gura_RealizeSymbol(urlpath);
 	Gura_RealizeSymbol(misc);
+	Gura_RealizeSymbol(line);
 }
 
 const Symbol *SymbolPool::Add(const char *name)
