@@ -14,6 +14,6 @@ for (fg in colors) {
 	}
 	println()
 }
-console.moveto(1..20, 1..20) {
+console.moveto(3..20, 1..) {
 	print('hello')
 }
