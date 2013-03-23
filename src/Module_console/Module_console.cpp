@@ -101,6 +101,7 @@ Gura_ImplementFunction(moveto)
 Gura_ImplementFunction(clear)
 {
 	::printf("\033[2J");
+	::printf("\033[H");
 	return Value::Null;
 }
 
@@ -108,7 +109,6 @@ Gura_ImplementFunction(setcolor)
 {
 	int fg = 0, bg = 0;
 	String str;
-	bool brightFlag = false;
 	if (!args.IsSymbol(0)) {
 		// nothing to do
 	} else if (!SymbolToNumber(sig, args.GetSymbol(0), &fg)) {
