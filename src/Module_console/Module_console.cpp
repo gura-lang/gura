@@ -135,7 +135,9 @@ Gura_ImplementFunction(clear)
 	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
 	if (pSymbol == NULL) {
 		::printf("\033[2J");
+		::printf("\033[H");
 	} else if (pSymbol == Gura_Symbol(up)) {
+		::printf("\033[D");
 		::printf("\033[1J");
 	} else if (pSymbol == Gura_Symbol(down)) {
 		::printf("\033[J");
@@ -197,7 +199,7 @@ Gura_ImplementFunction(moveto)
 		pExprBlock->Exec(env, sig);
 		::printf("\033[u");
 	} else {
-		::printf("\033[%d;%dH", y, x);
+		::printf("\033[%d;%dH", y + 1, x + 1);
 	}
 	return Value::Null;
 }
