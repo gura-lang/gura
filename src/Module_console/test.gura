@@ -5,9 +5,13 @@ colors = [
 	`gray, `bright_blue, `bright_green, `bright_cyan,
 	`bright_red, `bright_magenta, `bright_yellow, `bright_white
 ]
+console.clear()
 console.setcolor(colors, `black) {
 	console.setcolor(nil, colors) {
 		print('####')
 	}
 	println()
+}
+console.moveto(0..10, 0..10) {
+	print('hello')
 }
