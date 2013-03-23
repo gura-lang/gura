@@ -17,20 +17,20 @@ Gura_DeclareFunction(clear)
 	AddHelp(Gura_Symbol(en), "clear screen");
 }
 
-// console.setcolor(fg:symbol:nil, bg?:symbol):map {block?}
+// console.setcolor(fg:symbol:nil, bg?:symbol):map:void {block?}
 Gura_DeclareFunction(setcolor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "fg", VTYPE_symbol, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "bg", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), "set text color");
 }
 
-// console.moveto(x:number, y:number):map {block?}
+// console.moveto(x:number, y:number):map:void {block?}
 Gura_DeclareFunction(moveto)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -69,14 +69,13 @@ Gura_ImplementFunction(setcolor)
 		return Value::Null;
 	}
 	::SetConsoleTextAttribute(hConsole, fg + (bg << 4));
-	Value value;
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		value = pExprBlock->Exec(env, sig);
+		pExprBlock->Exec(env, sig);
 		::SetConsoleTextAttribute(hConsole, csbi.wAttributes);
 	}
-	return value;
+	return Value::Null;
 }
 
 Gura_ImplementFunction(moveto)
@@ -88,14 +87,13 @@ Gura_ImplementFunction(moveto)
 	int y = args.GetInt(1);
 	COORD pos = {x, y};
 	::SetConsoleCursorPosition(hConsole, pos);
-	Value value;
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		value = pExprBlock->Exec(env, sig);
+		pExprBlock->Exec(env, sig);
 		::SetConsoleCursorPosition(hConsole, csbi.dwCursorPosition);
 	}
-	return value;
+	return Value::Null;
 }
 
 #elif defined(GURA_ON_LINUX)
@@ -132,32 +130,30 @@ Gura_ImplementFunction(setcolor)
 	if (!str.empty()) {
 		::printf("\033[%sm", str.c_str());
 	}
-	Value value;
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		value = pExprBlock->Exec(env, sig);
+		pExprBlock->Exec(env, sig);
 		::printf("\033[0m");
 	}
-	return value;
+	return Value::Null;
 }
 
 Gura_ImplementFunction(moveto)
 {
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
-	Value value;
 	if (args.IsBlockSpecified()) {
 		::printf("\033[s");
 		::printf("\033[%d;%dH", y, x);
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		value = pExprBlock->Exec(env, sig);
+		pExprBlock->Exec(env, sig);
 		::printf("\033[u");
 	} else {
 		::printf("\033[%d;%dH", y, x);
 	}
-	return value;
+	return Value::Null;
 }
 
 #else
