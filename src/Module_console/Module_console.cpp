@@ -55,7 +55,7 @@ Gura_ImplementFunction(clear)
 		int width = csbi.dwSize.X;
 		coordStart = csbi.dwCursorPosition;
 		coordStart.X = 0;
-		coordHome = coordStart;
+		coordHome = csbi.dwCursorPosition;
 		dwConSize = width;
 	} else if (pSymbol == Gura_Symbol(up)) {
 		int height = csbi.dwCursorPosition.Y + 1;
