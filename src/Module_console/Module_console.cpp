@@ -2,6 +2,12 @@
 // Gura console module
 //-----------------------------------------------------------------------------
 #include "Module_console.h"
+#if defined(GURA_ON_MSWIN)
+#include <conio.h>
+#elif defined(GURA_ON_LINUX)
+#else
+#error unsupported platform
+#endif
 
 Gura_BeginModule(console)
 
@@ -36,6 +42,13 @@ Gura_DeclareFunction(moveto)
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), "move cursor to specified position");
+}
+
+// console.waitkey()
+Gura_DeclareFunction(waitkey)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), "get one character from keyboard");
 }
 
 #if defined(GURA_ON_MSWIN)
@@ -134,6 +147,12 @@ Gura_ImplementFunction(moveto)
 	return Value::Null;
 }
 
+Gura_ImplementFunction(waitkey)
+{
+	int ch = ::_getch();
+	return Value(ch);
+}
+
 #elif defined(GURA_ON_LINUX)
 
 Gura_ImplementFunction(clear)
@@ -212,6 +231,12 @@ Gura_ImplementFunction(moveto)
 	return Value::Null;
 }
 
+Gura_ImplementFunction(waitkey)
+{
+	int ch = ::getchar();
+	return Value(ch);
+}
+
 #else
 #error unsupported platform
 #endif
@@ -225,6 +250,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(clear);
 	Gura_AssignFunction(setcolor);
 	Gura_AssignFunction(moveto);
+	Gura_AssignFunction(waitkey);
 }
 
 Gura_ModuleTerminate()
