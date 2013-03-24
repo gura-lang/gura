@@ -11,7 +11,7 @@
 #error unsupported platform
 #endif
 
-#define Gura_AssignValueEx(v) Gura_AssignValue(v, v)
+#define Gura_AssignValueOf(v) Gura_AssignValue(v, v)
 
 Gura_BeginModule(console)
 
@@ -67,10 +67,11 @@ Gura_DeclareFunction(moveto)
 	AddHelp(Gura_Symbol(en), "move cursor to specified position");
 }
 
-// console.waitkey()
+// console.waitkey():[raise]
 Gura_DeclareFunction(waitkey)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(raise));
 	AddHelp(Gura_Symbol(en), "get one character from keyboard");
 }
 
@@ -172,8 +173,65 @@ Gura_ImplementFunction(moveto)
 
 Gura_ImplementFunction(waitkey)
 {
-	int ch = ::_getch();
-	return Value(ch);
+	bool raiseFlag = args.IsSet(Gura_Symbol(raise));
+	int chRtn = 0;
+	enum {
+		STAT_None, STAT_Special,
+	} stat = STAT_None;
+	for (;;) {
+		int ch = ::_getch();
+		//::printf("- %02x\n", ch);
+		if (stat == STAT_None) {
+			if (ch == 0xe0) {
+				stat = STAT_Special;
+			} else if (ch == 0x0d) {
+				chRtn = K_RETURN;
+				break;
+			} else if (raiseFlag && ch == 0x03) {
+				sig.SetSignal(SIGTYPE_Terminate, Value::Null);
+				break;
+			} else {
+				chRtn = ch;
+				break;
+			}
+		} else if (stat == STAT_Special) {
+			if (ch == 0x52) {			// E0 52
+				chRtn = K_INSERT;
+				break;
+			} else if (ch == 0x53) {	// E0 53
+				chRtn = K_DELETE;
+				break;
+			} else if (ch == 0x49) {	// E0 49
+				chRtn = K_PAGEUP;
+				break;
+			} else if (ch == 0x51) {	// E0 51
+				chRtn = K_PAGEDOWN;
+				break;
+			} else if (ch == 0x47) {	// E0 47
+				chRtn = K_HOME;
+				break;
+			} else if (ch == 0x4f) {	// E0 4F
+				chRtn = K_END;
+				break;
+			} else if (ch == 0x48) {	// E0 48
+				chRtn = K_UP;
+				break;
+			} else if (ch == 0x50) {	// E0 50
+				chRtn = K_DOWN;
+				break;
+			} else if (ch == 0x4d) {	// E0 4D
+				chRtn = K_RIGHT;
+				break;
+			} else if (ch == 0x4b) {	// E0 4B
+				chRtn = K_LEFT;
+				break;
+			} else {
+				chRtn = ch;
+				break;
+			}
+		}
+	}
+	return Value(chRtn);
 }
 
 #elif defined(GURA_ON_LINUX)
@@ -256,23 +314,28 @@ Gura_ImplementFunction(moveto)
 
 Gura_ImplementFunction(waitkey)
 {
-	enum {
-		STAT_None, STAT_ESC, STAT_LBracket, STAT_O, STAT_SkipChar,
-	} stat = STAT_None;
+	bool raiseFlag = args.IsSet(Gura_Symbol(raise));
 	struct termios termios_org, termios_new;
 	::tcgetattr(STDIN_FILENO, &termios_org);
 	termios_new = termios_org;
 	termios_new.c_lflag &= ~ICANON;	// cancel canonical mode
 	termios_new.c_lflag &= ~ECHO;	// cancel echo
-	//termios_new.c_lflag &= ~ISIG;	// disable signal
+	termios_new.c_lflag &= ~ISIG;	// disable signal
 	::tcsetattr(STDIN_FILENO, TCSANOW, &termios_new);
 	int chRtn = 0;
+	enum {
+		STAT_None, STAT_ESC, STAT_LBracket, STAT_O, STAT_SkipChar,
+	} stat = STAT_None;
 	for (;;) {
 		int ch = ::getchar();
 		//::printf("- %02x\n", ch);
 		if (stat == STAT_None) {
 			if (ch == 0x1b) {
 				stat = STAT_ESC;
+			} else if (raiseFlag && ch == 0x03) {
+				sig.SetSignal(SIGTYPE_Terminate, Value::Null);
+				::tcsetattr(STDIN_FILENO, TCSANOW, &termios_org);
+				return Value::Null;
 			} else {
 				chRtn = ch;
 				break;
@@ -349,21 +412,21 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(moveto);
 	Gura_AssignFunction(waitkey);
 	// value assignment
-	Gura_AssignValueEx(K_BACKSPACE);
-	Gura_AssignValueEx(K_TAB);
-	Gura_AssignValueEx(K_RETURN);
-	Gura_AssignValueEx(K_ESCAPE);
-	Gura_AssignValueEx(K_SPACE);
-	Gura_AssignValueEx(K_UP);
-	Gura_AssignValueEx(K_DOWN);
-	Gura_AssignValueEx(K_RIGHT);
-	Gura_AssignValueEx(K_LEFT);
-	Gura_AssignValueEx(K_INSERT);
-	Gura_AssignValueEx(K_HOME);
-	Gura_AssignValueEx(K_END);
-	Gura_AssignValueEx(K_PAGEUP);
-	Gura_AssignValueEx(K_PAGEDOWN);
-	Gura_AssignValueEx(K_DELETE);
+	Gura_AssignValueOf(K_BACKSPACE);
+	Gura_AssignValueOf(K_TAB);
+	Gura_AssignValueOf(K_RETURN);
+	Gura_AssignValueOf(K_ESCAPE);
+	Gura_AssignValueOf(K_SPACE);
+	Gura_AssignValueOf(K_UP);
+	Gura_AssignValueOf(K_DOWN);
+	Gura_AssignValueOf(K_RIGHT);
+	Gura_AssignValueOf(K_LEFT);
+	Gura_AssignValueOf(K_INSERT);
+	Gura_AssignValueOf(K_HOME);
+	Gura_AssignValueOf(K_END);
+	Gura_AssignValueOf(K_PAGEUP);
+	Gura_AssignValueOf(K_PAGEDOWN);
+	Gura_AssignValueOf(K_DELETE);
 }
 
 Gura_ModuleTerminate()
