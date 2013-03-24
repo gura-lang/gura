@@ -5,11 +5,34 @@
 #if defined(GURA_ON_MSWIN)
 #include <conio.h>
 #elif defined(GURA_ON_LINUX)
+#include <termios.h>
+#include <unistd.h>
 #else
 #error unsupported platform
 #endif
 
+#define Gura_AssignValueEx(v) Gura_AssignValue(v, v)
+
 Gura_BeginModule(console)
+
+enum {
+	K_BACKSPACE	= 0x7f,
+	K_TAB		= 0x09,
+	K_RETURN	= 0x0a,
+	K_ESCAPE	= 0x1b,
+	K_SPACE		= 0x20,
+	// special key code
+	K_UP		= 0x80,
+	K_DOWN,
+	K_RIGHT,
+	K_LEFT,
+	K_INSERT,
+	K_HOME,
+	K_END,
+	K_PAGEUP,
+	K_PAGEDOWN,
+	K_DELETE,
+};
 
 bool SymbolToNumber(Signal sig, const Symbol *pSymbol, int *pNum);
 
@@ -233,8 +256,82 @@ Gura_ImplementFunction(moveto)
 
 Gura_ImplementFunction(waitkey)
 {
-	int ch = ::getchar();
-	return Value(ch);
+	enum {
+		STAT_None, STAT_ESC, STAT_LBracket, STAT_O, STAT_SkipChar,
+	} stat = STAT_None;
+	struct termios termios_org, termios_new;
+	::tcgetattr(STDIN_FILENO, &termios_org);
+	termios_new = termios_org;
+	termios_new.c_lflag &= ~ICANON;	// cancel canonical mode
+	termios_new.c_lflag &= ~ECHO;	// cancel echo
+	//termios_new.c_lflag &= ~ISIG;	// disable signal
+	::tcsetattr(STDIN_FILENO, TCSANOW, &termios_new);
+	int chRtn = 0;
+	for (;;) {
+		int ch = ::getchar();
+		//::printf("- %02x\n", ch);
+		if (stat == STAT_None) {
+			if (ch == 0x1b) {
+				stat = STAT_ESC;
+			} else {
+				chRtn = ch;
+				break;
+			}
+		} else if (stat == STAT_ESC) {
+			if (ch == '[') {
+				stat = STAT_LBracket;
+			} else if (ch == 'O') {
+				stat = STAT_O;
+			} else {
+				chRtn = ch;
+				break;
+			}
+		} else if (stat == STAT_LBracket) {
+			if (ch == '2') {			// ESC [2
+				chRtn = K_INSERT;
+				stat = STAT_SkipChar;
+			} else if (ch == '3') {		// ESC [3
+				chRtn = K_DELETE;
+				stat = STAT_SkipChar;
+			} else if (ch == '5') {		// ESC [5
+				chRtn = K_PAGEUP;
+				stat = STAT_SkipChar;
+			} else if (ch == '6') {		// ESC [6
+				chRtn = K_PAGEDOWN;
+				stat = STAT_SkipChar;
+			} else if (ch == 'A') {		// ESC [A
+				chRtn = K_UP;
+				break;
+			} else if (ch == 'B') {		// ESC [B 
+				chRtn = K_DOWN;
+				break;
+			} else if (ch == 'C') {		// ESC [C
+				chRtn = K_RIGHT;
+				break;
+			} else if (ch == 'D') {		// ESC [D
+				chRtn = K_LEFT;
+				break;
+			} else {
+				chRtn = ch;
+				break;
+			}
+		} else if (stat == STAT_O) {
+			if (ch == 'F') {			// ESC OF
+				chRtn = K_END;
+				break;
+			} else if (ch == 'H') {		// ESC OH
+				chRtn = K_HOME;
+				break;
+			} else {
+				chRtn = ch;
+				break;
+			}
+		} else if (stat == STAT_SkipChar) {
+			break;
+		}
+	}
+	::tcsetattr(STDIN_FILENO, TCSANOW, &termios_org);
+	return Value(chRtn);
 }
 
 #else
@@ -251,6 +348,22 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(setcolor);
 	Gura_AssignFunction(moveto);
 	Gura_AssignFunction(waitkey);
+	// value assignment
+	Gura_AssignValueEx(K_BACKSPACE);
+	Gura_AssignValueEx(K_TAB);
+	Gura_AssignValueEx(K_RETURN);
+	Gura_AssignValueEx(K_ESCAPE);
+	Gura_AssignValueEx(K_SPACE);
+	Gura_AssignValueEx(K_UP);
+	Gura_AssignValueEx(K_DOWN);
+	Gura_AssignValueEx(K_RIGHT);
+	Gura_AssignValueEx(K_LEFT);
+	Gura_AssignValueEx(K_INSERT);
+	Gura_AssignValueEx(K_HOME);
+	Gura_AssignValueEx(K_END);
+	Gura_AssignValueEx(K_PAGEUP);
+	Gura_AssignValueEx(K_PAGEDOWN);
+	Gura_AssignValueEx(K_DELETE);
 }
 
 Gura_ModuleTerminate()
