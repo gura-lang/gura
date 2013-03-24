@@ -1,28 +1,28 @@
 #!/usr/bin/env gura
-import(console)
+import(conio)
 
 txt = chr(0x30 + [0..9].round(64)).join()
 for (region in [`up, `down, `line]) {
-	console.clear()
+	conio.clear()
 	printf('%s %d\n', txt, 0..19)
 	[x, y] = [0, 5]
-	console.moveto(x, y)
+	conio.moveto(x, y)
 	print('#')
-	console.moveto(x, y)
+	conio.moveto(x, y)
 	sys.stdin.readline()
-	console.moveto(x, y)
-	console.clear(region)
+	conio.moveto(x, y)
+	conio.clear(region)
 	sys.stdin.readline()
 }
 for (region in [`left, `right, `line]) {
-	console.clear()
+	conio.clear()
 	printf('%s %d\n', txt, 0..19)
 	[x, y] = [20, 5]
-	console.moveto(x, y)
+	conio.moveto(x, y)
 	print('#')
-	console.moveto(x, y)
+	conio.moveto(x, y)
 	sys.stdin.readline()
-	console.moveto(x, y)
-	console.clear(region)
+	conio.moveto(x, y)
+	conio.clear(region)
 	sys.stdin.readline()
 }

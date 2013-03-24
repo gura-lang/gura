@@ -1,4 +1,4 @@
 #!/usr/bin/env gura
 import(modbuild)
 builder = modbuild.Builder()
-builder.build('console', ['Module_console.cpp'])
+builder.build('conio', ['Module_conio.cpp'])

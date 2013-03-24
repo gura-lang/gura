@@ -1,0 +1,6 @@
+#!/usr/bin/env gura
+import(conio)
+
+repeat {
+	printf('%02x\n', conio.waitkey():raise)
+}

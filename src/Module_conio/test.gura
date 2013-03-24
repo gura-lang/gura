@@ -1,19 +1,19 @@
 #!/usr/bin/env gura
-import(console)
+import(conio)
 colors = [
 	`black, `blue, `green, `cyan, `red, `magenta, `yellow, `white
 	`gray, `bright_blue, `bright_green, `bright_cyan,
 	`bright_red, `bright_magenta, `bright_yellow, `bright_white
 ]
-console.clear()
+conio.clear()
 for (fg in colors) {
 	for (bg in colors) {
-		console.setcolor(fg, bg) {
+		conio.setcolor(fg, bg) {
 			print('####')
 		}
 	}
 	println()
 }
-console.moveto(3..20, 1..) {
+conio.moveto(3..20, 1..) {
 	print('hello')
 }

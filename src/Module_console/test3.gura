@@ -1,6 +1,0 @@
-#!/usr/bin/env gura
-import(console)
-
-repeat {
-	printf('%02x\n', console.waitkey():raise)
-}

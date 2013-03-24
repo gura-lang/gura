@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
-// Gura console module
+// Gura conio module
 //-----------------------------------------------------------------------------
-#include "Module_console.h"
+#include "Module_conio.h"
 #if defined(GURA_ON_MSWIN)
 #include <conio.h>
 #elif defined(GURA_ON_LINUX)
@@ -13,7 +13,7 @@
 
 #define Gura_AssignValueOf(v) Gura_AssignValue(v, v)
 
-Gura_BeginModule(console)
+Gura_BeginModule(conio)
 
 enum {
 	K_BACKSPACE	= 0x7f,
@@ -37,9 +37,9 @@ enum {
 bool SymbolToNumber(Signal sig, const Symbol *pSymbol, int *pNum);
 
 //-----------------------------------------------------------------------------
-// Gura module functions: console
+// Gura module functions: conio
 //-----------------------------------------------------------------------------
-// console.clear(region?:symbol):void
+// conio.clear(region?:symbol):void
 Gura_DeclareFunction(clear)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -47,7 +47,7 @@ Gura_DeclareFunction(clear)
 	AddHelp(Gura_Symbol(en), "clear screen");
 }
 
-// console.setcolor(fg:symbol:nil, bg?:symbol):map:void {block?}
+// conio.setcolor(fg:symbol:nil, bg?:symbol):map:void {block?}
 Gura_DeclareFunction(setcolor)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -57,7 +57,7 @@ Gura_DeclareFunction(setcolor)
 	AddHelp(Gura_Symbol(en), "set text color");
 }
 
-// console.moveto(x:number, y:number):map:void {block?}
+// conio.moveto(x:number, y:number):map:void {block?}
 Gura_DeclareFunction(moveto)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -67,7 +67,7 @@ Gura_DeclareFunction(moveto)
 	AddHelp(Gura_Symbol(en), "move cursor to specified position");
 }
 
-// console.waitkey():[raise]
+// conio.waitkey():[raise]
 Gura_DeclareFunction(waitkey)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -493,6 +493,6 @@ bool SymbolToNumber(Signal sig, const Symbol *pSymbol, int *pNum)
 	return true;
 }
 
-Gura_EndModule(console, console)
+Gura_EndModule(conio, conio)
 
-Gura_RegisterModule(console)
+Gura_RegisterModule(conio)
