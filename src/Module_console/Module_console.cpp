@@ -189,7 +189,7 @@ Gura_ImplementFunction(waitkey)
 				break;
 			} else if (raiseFlag && ch == 0x03) {
 				sig.SetSignal(SIGTYPE_Terminate, Value::Null);
-				break;
+				return Value::Null;
 			} else {
 				chRtn = ch;
 				break;
