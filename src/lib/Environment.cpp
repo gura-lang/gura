@@ -17,6 +17,7 @@ Gura_IncludeModule(os)
 Gura_IncludeModule(path)
 Gura_IncludeModule(time)
 Gura_IncludeModule(math)
+Gura_IncludeModule(conio)
 
 namespace Gura {
 
@@ -1029,43 +1030,28 @@ bool EnvironmentRoot::Initialize(Signal sig, int argc, const char *argv[])
 		Module *pModule = new Module(&env, Symbol::Add("codecs"),
 											"<integrated>", NULL, NULL);
 		env.AssignModule(pModule);
-		do { // import(codecs.basic)
-			Gura_Module(codecs_basic)::Import(*pModule, sig);
-			if (sig.IsSignalled()) return false;
-		} while (0);
-		do { // import(codecs.iso8859)
-			Gura_Module(codecs_iso8859)::Import(*pModule, sig);
-			if (sig.IsSignalled()) return false;
-		} while (0);
-		do { // import(codecs.japanese)
-			Gura_Module(codecs_japanese)::Import(*pModule, sig);
-			if (sig.IsSignalled()) return false;
-		} while (0);
+		// import(codecs.basic)
+		if (Gura_Module(codecs_basic)::Import(*pModule, sig) == NULL) return false;
+		// import(codecs.iso8859)
+		if (Gura_Module(codecs_iso8859)::Import(*pModule, sig) == NULL) return false;
+		// import(codecs.japanese)
+		if (Gura_Module(codecs_japanese)::Import(*pModule, sig) == NULL) return false;
 	} while (0);
-	do { // import(base64)
-		Gura_Module(base64)::Import(env, sig);
-		if (sig.IsSignalled()) return false;
-	} while (0);
-	do { // import(fs)
-		Gura_Module(fs)::Import(env, sig);
-		if (sig.IsSignalled()) return false;
-	} while (0);
-	do { // import(os)
-		Gura_Module(os)::Import(env, sig);
-		if (sig.IsSignalled()) return false;
-	} while (0);
-	do { // import(path)
-		Gura_Module(path)::Import(env, sig);
-		if (sig.IsSignalled()) return false;
-	} while (0);
-	do { // import(time)
-		Gura_Module(time)::Import(env, sig);
-		if (sig.IsSignalled()) return false;
-	} while (0);
-	do { // import(math)
-		Gura_Module(math)::Import(env, sig);
-		if (sig.IsSignalled()) return false;
-	} while (0);
+	// import(base64)
+	if (Gura_Module(base64)::Import(env, sig) == NULL) return false;
+	// import(fs)
+	if (Gura_Module(fs)::Import(env, sig) == NULL) return false;
+	// import(os)
+	if (Gura_Module(os)::Import(env, sig) == NULL) return false;
+	// import(path)
+	if (Gura_Module(path)::Import(env, sig) == NULL) return false;
+	// import(time)
+	if (Gura_Module(time)::Import(env, sig) == NULL) return false;
+	// import(math)
+	if (Gura_Module(math)::Import(env, sig) == NULL) return false;
+	// import(conio)
+	if (Gura_Module(conio)::Import(env, sig) == NULL) return false;
+	// setup values in sys module
 	if (!Gura_Module(sys)::SetupValues(GetModule_sys(), sig, argc, argv)) {
 		return false;
 	}

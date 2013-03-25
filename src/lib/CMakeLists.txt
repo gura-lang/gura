@@ -63,6 +63,7 @@ Module_sys.cpp
 ../Module_os/Module_os.cpp
 ../Module_path/Module_path.cpp
 ../Module_time/Module_time.cpp
+../Module_conio/Module_conio.cpp
 )
 
 target_link_libraries(guracore dl pthread)
