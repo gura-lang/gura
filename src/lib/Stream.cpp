@@ -192,10 +192,6 @@ int Stream::GetChar(Signal sig)
 	return static_cast<unsigned char>(chConv);
 }
 
-void Stream::FlushConsole()
-{
-}
-
 bool Stream::GetAttribute(Attribute &attr)
 {
 	return false;

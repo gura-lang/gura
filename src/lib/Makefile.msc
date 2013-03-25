@@ -33,7 +33,8 @@ Module_sys.cpp \
 ..\Module_os\Module_os.cpp \
 ..\Module_path\Module_path.cpp \
 ..\Module_time\Module_time.cpp \
-..\Module_math\Module_math.cpp
+..\Module_math\Module_math.cpp \
+..\Module_conio\Module_conio.cpp
 
 OBJS = $(SRCS:.cpp=.obj)
 

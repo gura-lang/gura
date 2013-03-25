@@ -121,7 +121,6 @@ public:
 	inline Codec_Encoder *GetEncoder() { return _pEncoder.get(); }
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
-	virtual void FlushConsole();
 	virtual const char *GetName() const = 0;
 	virtual const char *GetIdentifier() const = 0;
 	virtual bool GetAttribute(Attribute &attr);
