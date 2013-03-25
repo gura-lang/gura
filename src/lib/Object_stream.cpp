@@ -356,6 +356,19 @@ Gura_ImplementMethod(stream, tell)
 	return Value(static_cast<unsigned long>(stream.Tell()));
 }
 
+// stream#flush();void
+Gura_DeclareMethod(stream, flush)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(stream, flush)
+{
+	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	stream.Flush(sig);
+	return Value::Null;
+}
+
 // stream#compare(stream:stream:r):map
 Gura_DeclareMethod(stream, compare)
 {
@@ -721,6 +734,7 @@ Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stre
 	Gura_AssignMethod(stream, write);
 	Gura_AssignMethod(stream, seek);
 	Gura_AssignMethod(stream, tell);
+	Gura_AssignMethod(stream, flush);
 	Gura_AssignMethod(stream, compare);
 	Gura_AssignMethod(stream, copyto);
 	Gura_AssignMethod(stream, copyfrom);
