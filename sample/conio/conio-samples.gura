@@ -3,6 +3,23 @@
 scope {
 	conio.clear()
 	[w, h] = conio.getwinsize()
+	txt = chr(0x30 + [0..9].round(w - 4)).join()
+	for (region in [`left, `right, `line]) {
+		conio.clear()
+		printf('%s%4d', txt, range(h))
+		[x, y] = [int(w / 2), int(h / 2)]
+		conio.moveto(x, y)
+		print('#')
+		conio.moveto(x, y)
+		conio.waitkey()
+		conio.moveto(x, y)
+		conio.clear(region)
+		conio.waitkey()
+	}
+}
+scope {
+	conio.clear()
+	[w, h] = conio.getwinsize()
 	conio.moveto(0, 0) {
 		print('left-top')
 	}
@@ -29,9 +46,9 @@ scope {
 	conio.moveto(0, h - 1) {
 		print('*' * w)
 	}
-	[x, y] = [10, 10]
+	[x, y] = [int(w / 2), int(h / 2)]
 	[xDir, yDir] = [1, 1]
-	repeat(200) {
+	repeat(100) {
 		conio.moveto(x, y) { print('#') }
 		sys.stdout.flush()
 		if (x + xDir == 0) {
