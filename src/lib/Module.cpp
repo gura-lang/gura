@@ -16,7 +16,7 @@ Module::Module(const Module &module) :
 
 Module::Module(Environment *pEnvOuter, const Symbol *pSymbol, const char *sourceName,
 						Expr *pExprScript, ModuleTerminateType moduleTerminate) :
-	Fundamental(pEnvOuter, ENVTYPE_module), _pSymbol(pSymbol),
+	Fundamental(pEnvOuter, ENVTYPE_local), _pSymbol(pSymbol),
 	_pExprScript(pExprScript), _moduleTerminate(moduleTerminate)
 {
 	Environment &env = *this;

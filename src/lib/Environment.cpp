@@ -30,15 +30,16 @@ const char *GetEnvTypeName(EnvType envType)
 		EnvType envType;
 		const char *name;
 	} tbl[] = {
-		{ ENVTYPE_invalid,		"invalid",	},
-		{ ENVTYPE_root,			"root",		},
-		{ ENVTYPE_local,		"local",	},
-		{ ENVTYPE_block,		"block",	},
-		{ ENVTYPE_module,		"module",	},
-		{ ENVTYPE_member,		"member",	},
-		{ ENVTYPE_class,		"class",	},
-		{ ENVTYPE_instance,		"instance",	},
-		{ ENVTYPE_method,		"method",	},
+		{ ENVTYPE_invalid,			"invalid",			},
+		{ ENVTYPE_root,				"root",				},
+		{ ENVTYPE_local,			"local",			},
+		{ ENVTYPE_block,			"block",			},
+		{ ENVTYPE_module_member,	"module_member",	},
+		{ ENVTYPE_class,			"class",			},
+		{ ENVTYPE_instance,			"instance",			},
+		{ ENVTYPE_method,			"method",			},
+		{ ENVTYPE_lister,			"lister",			},
+		{ ENVTYPE_outer,			"outer",			},
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].envType == envType) return tbl[i].name;
@@ -235,7 +236,7 @@ Value *Environment::LookupValue(const Symbol *pSymbol, bool escalateFlag)
 				}
 			}
 		}
-	} else if (envType == ENVTYPE_member) {
+	} else if (envType == ENVTYPE_module_member) {
 		FrameOwner::iterator ppFrame = _frameOwner.begin();
 		ppFrame++;
 		if (ppFrame != _frameOwner.end()) {
