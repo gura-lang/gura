@@ -6,7 +6,9 @@ scope {
 	txt = chr(0x30 + [0..9].round(w - 4)).join()
 	for (region in [`left, `right, `line]) {
 		conio.clear()
-		printf('%s%4d', txt, range(h))
+		range(h) {|y|
+			conio.moveto(0, y) { printf('%s%4d', txt, y) }
+		}
 		[x, y] = [int(w / 2), int(h / 2)]
 		conio.moveto(x, y)
 		print('#')
