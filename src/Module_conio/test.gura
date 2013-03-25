@@ -1,5 +1,24 @@
 #!/usr/bin/env gura
 import(conio)
+
+scope {
+	conio.clear()
+	[w, h] = conio.getwinsize()
+	conio.moveto(0, 0) {
+		print('left-top')
+	}
+	conio.moveto(0, h - 1) {
+		print('left-bottom')
+	}
+	conio.moveto(w - 12, h - 1) {
+		print('right-bottom')
+	}
+	conio.moveto(w - 9, 0) {
+		print('right-top')
+	}
+	conio.waitkey()
+}
+sys.exit()
 colors = [
 	`black, `blue, `green, `cyan, `red, `magenta, `yellow, `white
 	`gray, `bright_blue, `bright_green, `bright_cyan,

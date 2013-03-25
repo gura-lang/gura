@@ -5,6 +5,7 @@
 #if defined(GURA_ON_MSWIN)
 #include <conio.h>
 #elif defined(GURA_ON_LINUX)
+#include <sys/ioctl.h>
 #include <termios.h>
 #include <unistd.h>
 #else
@@ -45,6 +46,13 @@ Gura_DeclareFunction(clear)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "region", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), "clear screen");
+}
+
+// conio.getwinsize()
+Gura_DeclareFunction(getwinsize)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), "get window size");
 }
 
 // conio.setcolor(fg:symbol:nil, bg?:symbol):map:void {block?}
@@ -128,6 +136,15 @@ Gura_ImplementFunction(clear)
 		::SetConsoleCursorPosition(hConsole, coordHome);
 	} while (0);
 	return Value::Null;
+}
+
+Gura_ImplementFunction(getwinsize)
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	::GetConsoleScreenBufferInfo(hConsole, &csbi);
+	return ReturnValue(env, sig, args,
+		Value::CreateAsList(env, Value(.dwSize.X), Value(csbi.dwSize.Y)));
 }
 
 Gura_ImplementFunction(setcolor)
@@ -258,6 +275,14 @@ Gura_ImplementFunction(clear)
 		return Value::Null;
 	}
 	return Value::Null;
+}
+
+Gura_ImplementFunction(getwinsize)
+{
+	struct winsize ws;
+	::ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws);
+	return ReturnValue(env, sig, args,
+		Value::CreateAsList(env, Value(ws.ws_col), Value(ws.ws_row)));
 }
 
 Gura_ImplementFunction(setcolor)
@@ -408,6 +433,7 @@ Gura_ModuleEntry()
 {
 	// function assignment
 	Gura_AssignFunction(clear);
+	Gura_AssignFunction(getwinsize);
 	Gura_AssignFunction(setcolor);
 	Gura_AssignFunction(moveto);
 	Gura_AssignFunction(waitkey);
