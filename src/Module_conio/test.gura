@@ -1,5 +1,4 @@
 #!/usr/bin/env gura
-import(conio)
 
 scope {
 	conio.clear()
