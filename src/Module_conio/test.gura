@@ -34,6 +34,7 @@ scope {
 	[xDir, yDir] = [1, 1]
 	repeat(200) {
 		conio.moveto(x, y) { print('#') }
+		sys.stdout.flush()
 		if (x + xDir == 0) {
 			xDir = 1
 		} elsif (x + xDir == w - 1) {
