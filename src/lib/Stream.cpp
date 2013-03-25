@@ -25,11 +25,12 @@ void SimpleStream::Printf(Signal sig, const char *format, const ValueList &valLi
 
 void SimpleStream::PrintSignal(Signal sig, const Signal &sigToPrint)
 {
-	if (sig.GetSignalType() == SIGTYPE_Error) {
+	if (sig.IsError()) {
 		Println(sig, sigToPrint.GetErrString().c_str());
 		Print(sig, sigToPrint.GetErrTrace().c_str());
 	} else {
-		Println(sig, sigToPrint.GetSignalName());
+		Value value = sigToPrint.GetValue();
+		if (value.IsValid()) Println(sig, value.ToString(sig).c_str());
 	}
 }
 

@@ -2777,32 +2777,19 @@ Value ExprList::ExecInRoot(Environment &env, Signal sig) const
 	foreach_const (ExprList, ppExpr, *this) {
 		result = (*ppExpr)->Exec(env, sig);
 		if (sig.IsError()) {
-			// pConsole must be retrieved here.
-			//Stream *pConsole = env.GetConsoleErr();
-			//if (pConsole != NULL) {
-			//	String str;
-			//	str += sig.GetErrString();
-			//	str += "\n";
-			//	str += sig.GetErrTrace();
-			//	pConsole->Print(sig, str.c_str());
-			//}
-			//sig.ClearSignal();
+			return Value::Null;
+		} else if (sig.IsTerminate()) {
+			env.GetConsoleErr()->PrintSignal(sig, sig);
+			sig.ClearSignal();
 			return Value::Null;
 		} else if (sig.IsSignalled()) {
-			// pConsole must be retrieved here.
-			Stream *pConsole = env.GetConsoleErr();
-			if (pConsole != NULL) {
-				pConsole->Println(sig, sig.GetSignalName());
-			}
+			env.GetConsoleErr()->PrintSignal(sig, sig);
 			sig.ClearSignal();
 		} else if (!env.GetEchoFlag()) {
 			// nothing to do
 		} else if (result.IsValid()) {
 			// pConsole must be retrieved here.
-			Stream *pConsole = env.GetConsole();
-			if (pConsole != NULL) {
-				pConsole->Println(sig, result.ToString(sig).c_str());
-			}
+			env.GetConsole()->Println(sig, result.ToString(sig).c_str());
 		}
 	}
 	return result;
