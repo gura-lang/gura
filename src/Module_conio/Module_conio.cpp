@@ -84,6 +84,7 @@ Gura_DeclareFunction(waitkey)
 }
 
 #if defined(GURA_ON_MSWIN)
+static WORD g_wAttributesOrg = 0;
 
 Gura_ImplementFunction(clear)
 {
@@ -144,7 +145,9 @@ Gura_ImplementFunction(getwinsize)
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
 	return ReturnValue(env, sig, args,
-		Value::CreateAsList(env, Value(.dwSize.X), Value(csbi.dwSize.Y)));
+		Value::CreateAsList(env,
+				Value(csbi.srWindow.Right + 1 - csbi.srWindow.Left),
+				Value(csbi.srWindow.Bottom + 1 - csbi.srWindow.Top)));
 }
 
 Gura_ImplementFunction(setcolor)
@@ -165,7 +168,7 @@ Gura_ImplementFunction(setcolor)
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec(env, sig);
-		::SetConsoleTextAttribute(hConsole, csbi.wAttributes);
+		::SetConsoleTextAttribute(hConsole, g_wAttributesOrg);
 	}
 	return Value::Null;
 }
@@ -431,6 +434,14 @@ Gura_ImplementFunction(waitkey)
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
+#if defined(GURA_ON_MSWIN)
+	do {
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		CONSOLE_SCREEN_BUFFER_INFO csbi;
+		::GetConsoleScreenBufferInfo(hConsole, &csbi);
+		g_wAttributesOrg = csbi.wAttributes;
+	} while (0);
+#endif
 	// function assignment
 	Gura_AssignFunction(clear);
 	Gura_AssignFunction(getwinsize);

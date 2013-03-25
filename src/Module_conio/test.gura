@@ -18,21 +18,55 @@ scope {
 	}
 	conio.waitkey()
 }
-sys.exit()
-colors = [
-	`black, `blue, `green, `cyan, `red, `magenta, `yellow, `white
-	`gray, `bright_blue, `bright_green, `bright_cyan,
-	`bright_red, `bright_magenta, `bright_yellow, `bright_white
-]
-conio.clear()
-for (fg in colors) {
-	for (bg in colors) {
-		conio.setcolor(fg, bg) {
-			print('####')
-		}
+scope {
+	conio.clear()
+	[w, h] = conio.getwinsize()
+	conio.moveto(0, 0) {
+		print('*' * w)
 	}
-	println()
+	conio.moveto(0, 1 .. (h - 2)) {
+		print('*', ' ' * (w - 2), '*')
+	}
+	conio.moveto(0, h - 1) {
+		print('*' * w)
+	}
+	[x, y] = [10, 10]
+	[xDir, yDir] = [1, 1]
+	repeat(200) {
+		conio.moveto(x, y) { print('#') }
+		if (x + xDir == 0) {
+			xDir = 1
+		} elsif (x + xDir == w - 1) {
+			xDir = -1
+		}
+		if (y + yDir == 0) {
+			yDir = 1
+		} elsif (y + yDir == h - 1) {
+			yDir = -1
+		}
+		time.sleep(.05)
+		conio.moveto(x, y) { print('.') }
+		x += xDir, y += yDir
+	}
+	conio.waitkey()
 }
-conio.moveto(3..20, 1..) {
-	print('hello')
+scope {
+	conio.clear()
+	colors = [
+		`black, `blue, `green, `cyan, `red, `magenta, `yellow, `white
+		`gray, `bright_blue, `bright_green, `bright_cyan,
+		`bright_red, `bright_magenta, `bright_yellow, `bright_white
+	]
+	for (fg in colors) {
+		for (bg in colors) {
+			conio.setcolor(fg, bg) {
+				print('####')
+			}
+		}
+		println()
+	}
+	conio.moveto(3..20, 1..) {
+		print('hello')
+	}
+	conio.waitkey()
 }
