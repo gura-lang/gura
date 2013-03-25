@@ -100,14 +100,13 @@ class Signal;
 class GURA_DLLDECLARE Module : public Fundamental {
 protected:
 	const Symbol *_pSymbol;
-	Expr *_pExprScript;		// this is set to NULL in binary modules
+	AutoPtr<Expr> _pExprScript;		// this is set to NULL in binary modules
 	ModuleTerminateType _moduleTerminate;
 private:
 	Module(const Module &module);
 public:
 	Module(Environment *pEnvOuter, const Symbol *pSymbol, const char *sourceName,
 					Expr *pExprScript, ModuleTerminateType moduleTerminate);
-	virtual ~Module();
 	inline static Module *Reference(const Module *pModule) {
 		if (pModule == NULL) return NULL;
 		Module *pModuleCasted = const_cast<Module *>(pModule);

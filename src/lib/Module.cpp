@@ -9,7 +9,7 @@ bool Module::IsModule() const { return true; }
 
 Module::Module(const Module &module) :
 	Fundamental(module), _pSymbol(module._pSymbol),
-	_pExprScript((module._pExprScript == NULL)? NULL : module._pExprScript->Clone()),
+	_pExprScript(module._pExprScript.IsNull()? NULL : module._pExprScript->Clone()),
 	_moduleTerminate(module._moduleTerminate)
 {
 }
@@ -23,11 +23,6 @@ Module::Module(Environment *pEnvOuter, const Symbol *pSymbol, const char *source
 	AssignValue(Gura_Symbol(__name__), Value(env, GetName()), false);
 	AssignValue(Gura_Symbol(__symbol__), Value(GetSymbol()), false);
 	AssignValue(Gura_Symbol(__source__), Value(env, sourceName), false);
-}
-
-Module::~Module()
-{
-	Expr::Delete(_pExprScript);
 }
 
 Module *Module::Clone() const
