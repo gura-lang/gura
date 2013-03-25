@@ -12,7 +12,7 @@
 
 namespace Gura {
 
-#define GURA_VERSION "0.3.1"
+#define GURA_VERSION "0.4.0"
 
 #if defined(_MSC_VER)
 #define GURA_ON_MSWIN
