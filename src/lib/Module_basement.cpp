@@ -290,7 +290,8 @@ Gura_DeclareFunction(outers)
 
 Gura_ImplementFunction(outers)
 {
-	Environment envOuter(&env, ENVTYPE_outer);
+	Environment envOuter;
+	envOuter.AddOuterFrame(env.GetFrameOwner());
 	return ReturnValue(env, sig, args, Value(new Object_environment(envOuter)));
 }
 

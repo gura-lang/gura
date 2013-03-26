@@ -39,7 +39,6 @@ const char *GetEnvTypeName(EnvType envType)
 		{ ENVTYPE_instance,			"instance",			},
 		{ ENVTYPE_method,			"method",			},
 		{ ENVTYPE_lister,			"lister",			},
-		{ ENVTYPE_outer,			"outer",			},
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].envType == envType) return tbl[i].name;
@@ -81,10 +80,14 @@ ModuleIntegrator::ModuleIntegrator(const char *name,
 //-----------------------------------------------------------------------------
 IntegratedModuleOwner *Environment::_pIntegratedModuleOwner = NULL;
 
+Environment::Environment() : _cntSuperSkip(0)
+{
+}
+
 Environment::Environment(const Environment &env) : _cntSuperSkip(env._cntSuperSkip)
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
-	foreach_const (FrameOwner, ppFrame, env._frameOwner) {
+	foreach_const (FrameOwner, ppFrame, env.GetFrameOwner()) {
 		Frame *pFrame = *ppFrame;
 		_frameOwner.push_back(Frame::Reference(pFrame));
 	}
@@ -93,35 +96,10 @@ Environment::Environment(const Environment &env) : _cntSuperSkip(env._cntSuperSk
 Environment::Environment(const Environment *pEnvOuter, EnvType envType) : _cntSuperSkip(0)
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
-	if (pEnvOuter == NULL) {
-		SymbolPool::Initialize();
-		Global *pGlobal = new Global();
-		pGlobal->_pSymbolPool = SymbolPool::GetInstance();
-		_frameOwner.push_back(new Frame(ENVTYPE_root, pGlobal));
-	} else if (envType == ENVTYPE_root) {
-		// reference to the root environment
-		Frame *pFrame = pEnvOuter->GetFrameOwner().back();
+	_frameOwner.push_back(new Frame(envType, pEnvOuter->GetGlobal()));
+	foreach_const (FrameOwner, ppFrame, pEnvOuter->GetFrameOwner()) {
+		Frame *pFrame = *ppFrame;
 		_frameOwner.push_back(Frame::Reference(pFrame));
-	} else if (envType == ENVTYPE_block) {
-		_frameOwner.push_back(new Frame(envType, pEnvOuter->GetGlobal()));
-		foreach_const (FrameOwner, ppFrame, pEnvOuter->GetFrameOwner()) {
-			Frame *pFrame = *ppFrame;
-			_frameOwner.push_back(Frame::Reference(pFrame));
-		}
-	} else if (envType == ENVTYPE_outer) {
-		const FrameOwner &frameOwner = pEnvOuter->GetFrameOwner();
-		FrameOwner::const_iterator ppFrame = frameOwner.begin();
-		if (frameOwner.size() > 1) ppFrame++;
-		for ( ; ppFrame != frameOwner.end(); ppFrame++) {
-			Frame *pFrame = *ppFrame;
-			_frameOwner.push_back(Frame::Reference(pFrame));
-		}
-	} else {
-		_frameOwner.push_back(new Frame(envType, pEnvOuter->GetGlobal()));
-		foreach_const (FrameOwner, ppFrame, pEnvOuter->GetFrameOwner()) {
-			Frame *pFrame = *ppFrame;
-			_frameOwner.push_back(Frame::Reference(pFrame));
-		}
 	}
 }
 
@@ -130,9 +108,28 @@ Environment::~Environment()
 	// virtual destructor
 }
 
-void Environment::AddLackingFrame(Environment *pEnv)
+void Environment::AddRootFrame(const FrameList &frameListSrc)
 {
-	foreach (FrameOwner, ppFrame, pEnv->GetFrameOwner()) {
+	// reference to the root environment
+	if (frameListSrc.empty()) return;
+	Frame *pFrame = frameListSrc.back();
+	_frameOwner.push_back(Frame::Reference(pFrame));
+}
+
+void Environment::AddOuterFrame(const FrameList &frameListSrc)
+{
+	if (frameListSrc.size() <= 1) return;
+	FrameList::const_iterator ppFrame = frameListSrc.begin();
+	ppFrame++;
+	for ( ; ppFrame != frameListSrc.end(); ppFrame++) {
+		Frame *pFrame = *ppFrame;
+		_frameOwner.push_back(Frame::Reference(pFrame));
+	}
+}
+
+void Environment::AddLackingFrame(const FrameList &frameListSrc)
+{
+	foreach_const (FrameList, ppFrame, frameListSrc) {
 		Frame *pFrame = *ppFrame;
 		if (!_frameOwner.IsExist(pFrame)) {
 			_frameOwner.push_back(Frame::Reference(pFrame));
@@ -329,7 +326,9 @@ const ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList) 
 	const Environment *pEnv = this;
 	if ((*ppSymbol)->IsIdentical(Gura_Symbol(root))) {
 		// make a reference to the root environment
-		pEnvRoot.reset(new Environment(this, ENVTYPE_root));
+		//pEnvRoot.reset(new Environment(this, ENVTYPE_root));
+		pEnvRoot.reset(new Environment());
+		pEnvRoot->AddRootFrame(GetFrameOwner());
 		pEnv = pEnvRoot.get();
 		ppSymbol++;
 		if (ppSymbol == symbolList.end()) return NULL;
@@ -994,8 +993,12 @@ void Environment::FrameOwner::Clear()
 //-----------------------------------------------------------------------------
 // EnvironmentRoot
 //-----------------------------------------------------------------------------
-EnvironmentRoot::EnvironmentRoot() : Environment(NULL, ENVTYPE_root)
+EnvironmentRoot::EnvironmentRoot()
 {
+	SymbolPool::Initialize();
+	Global *pGlobal = new Global();
+	pGlobal->_pSymbolPool = SymbolPool::GetInstance();
+	_frameOwner.push_back(new Frame(ENVTYPE_root, pGlobal));
 }
 
 EnvironmentRoot::~EnvironmentRoot()

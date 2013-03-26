@@ -40,7 +40,6 @@ enum EnvType {
 	ENVTYPE_instance,
 	ENVTYPE_method,
 	ENVTYPE_lister,
-	ENVTYPE_outer,	// this type is not used as type of each actual frame
 };
 
 enum OpType {
@@ -216,13 +215,14 @@ public:
 		void Clear();
 	};
 	typedef std::map<const Symbol *, Frame *, Symbol::KeyCompare_UniqNumber> FrameCache;
-private:
+protected:
 	FrameOwner _frameOwner;
 	std::auto_ptr<FrameCache> _pFrameCache;
 	std::auto_ptr<SymbolSet> _pSymbolSetForPublic;
 	int _cntSuperSkip;
 	static IntegratedModuleOwner *_pIntegratedModuleOwner;
 public:
+	Environment();
 	Environment(const Environment &env);
 	Environment(const Environment *pEnvOuter, EnvType envType);
 	virtual ~Environment();
@@ -253,7 +253,9 @@ public:
 		}
 		return _pSymbolSetForPublic.get();
 	}
-	void AddLackingFrame(Environment *pEnv);
+	void AddRootFrame(const FrameList &frameListSrc);
+	void AddOuterFrame(const FrameList &frameListSrc);
+	void AddLackingFrame(const FrameList &frameListSrc);
 	void CacheFrame(const Symbol *pSymbol, Frame *pFrame);
 	void AssignValue(const Symbol *pSymbol, const Value &value, bool escalateFlag);
 	bool ImportValue(const Symbol *pSymbol, const Value &value, bool overwriteFlag);

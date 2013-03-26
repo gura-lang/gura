@@ -1,5 +1,5 @@
 //
-// CustomObject
+// CustomClass
 //
 
 #include "stdafx.h"
@@ -21,7 +21,7 @@ CustomClass::CustomClass(Environment *pEnv, Class *pClassSuper,
 				ValueType valType, Expr_Block *pExprContent, Signal sig) :
 	Class(pClassSuper, valType), _pExprContent(pExprContent), _sig(sig)
 {
-	AddLackingFrame(pEnv);
+	AddLackingFrame(pEnv->GetFrameOwner());
 }
 
 CustomClass::~CustomClass()
