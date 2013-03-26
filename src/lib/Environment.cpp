@@ -111,9 +111,13 @@ Environment::~Environment()
 void Environment::AddRootFrame(const FrameList &frameListSrc)
 {
 	// reference to the root environment
-	if (frameListSrc.empty()) return;
-	Frame *pFrame = frameListSrc.back();
-	_frameOwner.push_back(Frame::Reference(pFrame));
+	foreach_const (FrameList, ppFrame, frameListSrc) {
+		Frame *pFrame = *ppFrame;
+		if (pFrame->GetEnvType() == ENVTYPE_root) {
+			_frameOwner.push_back(Frame::Reference(pFrame));
+			break;
+		}
+	}
 }
 
 void Environment::AddOuterFrame(const FrameList &frameListSrc)
