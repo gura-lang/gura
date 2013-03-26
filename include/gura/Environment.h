@@ -45,7 +45,7 @@ enum EnvRefMode {
 	ENVREFMODE_Normal,
 	ENVREFMODE_Module,
 	ENVREFMODE_Member,
-	ENVREFMODE_ThisMember,
+	ENVREFMODE_MemberPrivilege,
 };
 
 enum OpType {
