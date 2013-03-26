@@ -34,7 +34,6 @@ const char *GetEnvTypeName(EnvType envType)
 		{ ENVTYPE_root,				"root",				},
 		{ ENVTYPE_local,			"local",			},
 		{ ENVTYPE_block,			"block",			},
-		{ ENVTYPE_module_member,	"module_member",	},
 		{ ENVTYPE_class,			"class",			},
 		{ ENVTYPE_instance,			"instance",			},
 		{ ENVTYPE_method,			"method",			},
@@ -80,11 +79,12 @@ ModuleIntegrator::ModuleIntegrator(const char *name,
 //-----------------------------------------------------------------------------
 IntegratedModuleOwner *Environment::_pIntegratedModuleOwner = NULL;
 
-Environment::Environment() : _cntSuperSkip(0)
+Environment::Environment() : _envRefMode(ENVREFMODE_Normal), _cntSuperSkip(0)
 {
 }
 
-Environment::Environment(const Environment &env) : _cntSuperSkip(env._cntSuperSkip)
+Environment::Environment(const Environment &env) :
+				_envRefMode(ENVREFMODE_Normal), _cntSuperSkip(env._cntSuperSkip)
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
 	foreach_const (FrameOwner, ppFrame, env.GetFrameOwner()) {
@@ -93,7 +93,8 @@ Environment::Environment(const Environment &env) : _cntSuperSkip(env._cntSuperSk
 	}
 }
 
-Environment::Environment(const Environment *pEnvOuter, EnvType envType) : _cntSuperSkip(0)
+Environment::Environment(const Environment *pEnvOuter, EnvType envType) :
+							_envRefMode(ENVREFMODE_Normal), _cntSuperSkip(0)
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
 	_frameOwner.push_back(new Frame(envType, pEnvOuter->GetGlobal()));
@@ -197,7 +198,7 @@ void Environment::RemoveValue(const Symbol *pSymbol)
 Value *Environment::LookupValue(const Symbol *pSymbol, bool escalateFlag)
 {
 	EnvType envType = GetTopFrame()->GetEnvType();
-	if (!escalateFlag) {
+	if (_envRefMode == ENVREFMODE_Module || !escalateFlag) {
 		Frame *pFrame = GetTopFrame();
 		Value *pValue = pFrame->LookupValue(pSymbol);
 		if (pValue != NULL) {
@@ -235,17 +236,6 @@ Value *Environment::LookupValue(const Symbol *pSymbol, bool escalateFlag)
 						return pValue;
 					}
 				}
-			}
-		}
-	} else if (envType == ENVTYPE_module_member) {
-		FrameOwner::iterator ppFrame = _frameOwner.begin();
-		ppFrame++;
-		if (ppFrame != _frameOwner.end()) {
-			Frame *pFrame = *ppFrame;
-			Value *pValue = pFrame->LookupValue(pSymbol);
-			if (pValue != NULL) {
-				CacheFrame(pSymbol, pFrame);
-				return pValue;
 			}
 		}
 	} else {

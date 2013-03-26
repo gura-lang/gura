@@ -1774,7 +1774,8 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 		//*** WATCH THIS PART ***
 		int cntSuperSkip = 0;
 		if (pFund->IsModule()) {
-			Environment envLocal(pFund, ENVTYPE_module_member);
+			Environment envLocal(*pFund);
+			envLocal.SetEnvRefMode(ENVREFMODE_Module);
 			valueCar = pExprRight->Exec(envLocal, sig);
 		} else if ((cntSuperSkip = valueThis.GetSuperSkipCount()) > 0) {
 			Environment envLocal(pFund, pFund->GetEnvType());
@@ -2620,7 +2621,8 @@ Value Expr_Member::Exec(Environment &env, Signal sig) const
 	}
 	Value result;
 	if (pFund->IsModule()) {
-		Environment envLocal(pFund, ENVTYPE_module_member);
+		Environment envLocal(*pFund);
+		envLocal.SetEnvRefMode(ENVREFMODE_Module);
 		result = GetRight()->Exec(envLocal, sig);
 	} else {
 		result = GetRight()->Exec(*pFund, sig);

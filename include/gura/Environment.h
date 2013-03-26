@@ -35,11 +35,17 @@ enum EnvType {
 	ENVTYPE_root,
 	ENVTYPE_local,
 	ENVTYPE_block,
-	ENVTYPE_module_member,
 	ENVTYPE_class,
 	ENVTYPE_instance,
 	ENVTYPE_method,
 	ENVTYPE_lister,
+};
+
+enum EnvRefMode {
+	ENVREFMODE_Normal,
+	ENVREFMODE_Module,
+	ENVREFMODE_Member,
+	ENVREFMODE_ThisMember,
 };
 
 enum OpType {
@@ -219,6 +225,7 @@ protected:
 	FrameOwner _frameOwner;
 	std::auto_ptr<FrameCache> _pFrameCache;
 	std::auto_ptr<SymbolSet> _pSymbolSetForPublic;
+	EnvRefMode _envRefMode;
 	int _cntSuperSkip;
 	static IntegratedModuleOwner *_pIntegratedModuleOwner;
 public:
@@ -237,6 +244,7 @@ public:
 	inline bool IsType(EnvType envType) const	{ return GetTopFrame()->IsType(envType); }
 	inline Global *GetGlobal()					{ return GetTopFrame()->GetGlobal();			}
 	inline Global *GetGlobal() const			{ return GetTopFrame()->GetGlobal();			}
+	inline void SetEnvRefMode(EnvRefMode envRefMode) { _envRefMode = envRefMode; }
 	inline void SetSuperSkipCount(int cntSuperSkip) { _cntSuperSkip = cntSuperSkip; }
 	inline const Function *GetOpFunc(OpType opType) { return GetGlobal()->_pOpFuncTbl[opType];	}
 	inline const Function *GetOpFuncWithCheck(OpType opType) {
