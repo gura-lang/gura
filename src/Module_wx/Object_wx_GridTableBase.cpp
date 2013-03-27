@@ -68,7 +68,7 @@ void wx_GridTableBase::GuraObjectDeleted()
 
 int wx_GridTableBase::GetNumberRows()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetNumberRows), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetNumberRows), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#GetNumberRows method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
@@ -81,7 +81,7 @@ int wx_GridTableBase::GetNumberRows()
 
 int wx_GridTableBase::GetNumberCols()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetNumberCols), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetNumberCols), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#GetNumberCols method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
@@ -94,7 +94,7 @@ int wx_GridTableBase::GetNumberCols()
 
 bool wx_GridTableBase::IsEmptyCell(int row, int col)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(IsEmptyCell), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(IsEmptyCell), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#IsEmptyCell method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
@@ -111,7 +111,7 @@ bool wx_GridTableBase::IsEmptyCell(int row, int col)
 
 wxString wx_GridTableBase::GetValue(int row, int col)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetValue), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetValue), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#GetValue method is missing");
 		return wxEmptyString;
@@ -127,7 +127,7 @@ wxString wx_GridTableBase::GetValue(int row, int col)
 
 void wx_GridTableBase::SetValue(int row, int col, const wxString &value)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetValue), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetValue), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		_sig.SetError(ERR_NotImplementedError, "wx.GridTableBase#SetValue method is missing");
 		return;
@@ -144,7 +144,7 @@ void wx_GridTableBase::SetValue(int row, int col, const wxString &value)
 
 wxString wx_GridTableBase::GetTypeName(int row, int col)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetTypeName), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetTypeName), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxGridTableBase::GetTypeName(row, col);
 	ValueList valList;
 	valList.reserve(2);
@@ -157,7 +157,7 @@ wxString wx_GridTableBase::GetTypeName(int row, int col)
 
 bool wx_GridTableBase::CanGetValueAs(int row, int col, const wxString& typeName)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(CanGetValueAs), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(CanGetValueAs), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxGridTableBase::CanGetValueAs(row, col, typeName);
 	Environment &env = *_pObj;
 	ValueList valList;
@@ -172,7 +172,7 @@ bool wx_GridTableBase::CanGetValueAs(int row, int col, const wxString& typeName)
 
 bool wx_GridTableBase::CanSetValueAs(int row, int col, const wxString& typeName)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(CanSetValueAs), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(CanSetValueAs), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxGridTableBase::CanSetValueAs(row, col, typeName);
 	Environment &env = *_pObj;
 	ValueList valList;
@@ -187,7 +187,7 @@ bool wx_GridTableBase::CanSetValueAs(int row, int col, const wxString& typeName)
 
 long wx_GridTableBase::GetValueAsLong(int row, int col)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetValueAsLong), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetValueAsLong), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxGridTableBase::GetValueAsLong(row, col);
 	ValueList valList;
 	valList.reserve(2);
@@ -200,7 +200,7 @@ long wx_GridTableBase::GetValueAsLong(int row, int col)
 
 double wx_GridTableBase::GetValueAsDouble(int row, int col)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetValueAsDouble), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetValueAsDouble), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxGridTableBase::GetValueAsDouble(row, col);
 	ValueList valList;
 	valList.reserve(2);
@@ -213,7 +213,7 @@ double wx_GridTableBase::GetValueAsDouble(int row, int col)
 
 bool wx_GridTableBase::GetValueAsBool(int row, int col)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetValueAsBool), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetValueAsBool), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxGridTableBase::GetValueAsBool(row, col);
 	ValueList valList;
 	valList.reserve(2);
@@ -226,7 +226,7 @@ bool wx_GridTableBase::GetValueAsBool(int row, int col)
 
 void wx_GridTableBase::SetValueAsLong(int row, int col, long value)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetValueAsLong), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetValueAsLong), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxGridTableBase::SetValueAsLong(row, col, value);
 	ValueList valList;
 	valList.reserve(3);
@@ -239,7 +239,7 @@ void wx_GridTableBase::SetValueAsLong(int row, int col, long value)
 
 void wx_GridTableBase::SetValueAsDouble(int row, int col, double value)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetValueAsDouble), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetValueAsDouble), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		wxGridTableBase::SetValueAsDouble(row, col, value);
 		return;
@@ -255,7 +255,7 @@ void wx_GridTableBase::SetValueAsDouble(int row, int col, double value)
 
 void wx_GridTableBase::SetValueAsBool(int row, int col, bool value)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetValueAsBool), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetValueAsBool), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		wxGridTableBase::SetValueAsBool(row, col, value);
 		return;
@@ -272,7 +272,7 @@ void wx_GridTableBase::SetValueAsBool(int row, int col, bool value)
 wxString wx_GridTableBase::GetRowLabelValue(int row)
 {
 	Function *pFunc = _pObj->LookupFunctionCustom(
-									Gura_UserSymbol(GetRowLabelValue), true);
+									Gura_UserSymbol(GetRowLabelValue), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxGridTableBase::GetRowLabelValue(row);
 	ValueList valListArg;
 	valListArg.reserve(1);
@@ -285,7 +285,7 @@ wxString wx_GridTableBase::GetRowLabelValue(int row)
 wxString wx_GridTableBase::GetColLabelValue(int col)
 {
 	Function *pFunc = _pObj->LookupFunctionCustom(
-									Gura_UserSymbol(GetColLabelValue), true);
+									Gura_UserSymbol(GetColLabelValue), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxGridTableBase::GetColLabelValue(col);
 	ValueList valListArg;
 	valListArg.reserve(1);

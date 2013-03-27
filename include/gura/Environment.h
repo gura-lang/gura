@@ -43,7 +43,7 @@ enum EnvType {
 
 enum EnvRefMode {
 	ENVREFMODE_Normal,
-	ENVREFMODE_Module,
+	ENVREFMODE_NoEscalate,
 	ENVREFMODE_Member,
 	ENVREFMODE_MemberPrivilege,
 };
@@ -225,8 +225,6 @@ protected:
 	FrameOwner _frameOwner;
 	std::auto_ptr<FrameCache> _pFrameCache;
 	std::auto_ptr<SymbolSet> _pSymbolSetForPublic;
-	EnvRefMode _envRefMode;
-	int _cntSuperSkip;
 	static IntegratedModuleOwner *_pIntegratedModuleOwner;
 public:
 	Environment();
@@ -244,8 +242,6 @@ public:
 	inline bool IsType(EnvType envType) const	{ return GetTopFrame()->IsType(envType); }
 	inline Global *GetGlobal()					{ return GetTopFrame()->GetGlobal();			}
 	inline Global *GetGlobal() const			{ return GetTopFrame()->GetGlobal();			}
-	inline void SetEnvRefMode(EnvRefMode envRefMode) { _envRefMode = envRefMode; }
-	inline void SetSuperSkipCount(int cntSuperSkip) { _cntSuperSkip = cntSuperSkip; }
 	inline const Function *GetOpFunc(OpType opType) { return GetGlobal()->_pOpFuncTbl[opType];	}
 	inline const Function *GetOpFuncWithCheck(OpType opType) {
 		return (opType < OPTYPE_max)? GetGlobal()->_pOpFuncTbl[opType] : NULL;
@@ -269,13 +265,14 @@ public:
 	bool ImportValue(const Symbol *pSymbol, const Value &value, bool overwriteFlag);
 	void RemoveValue(const Symbol *pSymbol);
 	Function *AssignFunction(Function *pFunc);
-	Value *LookupValue(const Symbol *pSymbol, bool escalateFlag);
-	inline const Value *LookupValue(const Symbol *pSymbol, bool escalateFlag) const {
-		return const_cast<const Value *>(
-				const_cast<Environment *>(this)->LookupValue(pSymbol, escalateFlag));
+	Value *LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip);
+	inline const Value *LookupValue(const Symbol *pSymbol,
+								EnvRefMode envRefMode, int cntSuperSkip) const {
+		return const_cast<const Value *>(const_cast<Environment *>(this)->
+								LookupValue(pSymbol, envRefMode, cntSuperSkip));
 	}
-	Function *LookupFunction(const Symbol *pSymbol, bool escalateFlag) const;
-	FunctionCustom *LookupFunctionCustom(const Symbol *pSymbol, bool escalateFlag) const;
+	Function *LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const;
+	FunctionCustom *LookupFunctionCustom(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const;
 	void AssignValueType(const ValueTypeInfo *pValueTypeInfo);
 	const ValueTypeInfo *LookupValueType(const SymbolList &symbolList) const;
 	const ValueTypeInfo *LookupValueType(const Symbol *pSymbol) const;
@@ -285,7 +282,8 @@ public:
 										const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual ICallable *GetCallable(Signal sig, const Symbol *pSymbol);
 	Value GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-						const SymbolSet &attrs, const Value *pValueDefault = NULL);
+				const SymbolSet &attrs, const Value *pValueDefault = NULL,
+				EnvRefMode envRefMode = ENVREFMODE_Normal, int cntSuperSkip = 0);
 	inline Class *LookupClass(ValueType valType) const {
 		return GetGlobal()->LookupClass(valType);
 	}

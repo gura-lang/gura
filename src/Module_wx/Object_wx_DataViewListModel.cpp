@@ -61,7 +61,7 @@ void wx_DataViewListModel::GuraObjectDeleted()
 // pure virtual function
 wxString wx_DataViewListModel::GetColType(unsigned int col)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetColType), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetColType), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		_sig.SetError(ERR_NotImplementedError, "wx.DataViewListModel#GetColType method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
@@ -78,7 +78,7 @@ wxString wx_DataViewListModel::GetColType(unsigned int col)
 // pure virtual function
 unsigned int wx_DataViewListModel::GetNumberOfCols()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetNumberOfCols), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetNumberOfCols), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		_sig.SetError(ERR_NotImplementedError, "wx.DataViewListModel#GetNumberOfCols method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
@@ -92,7 +92,7 @@ unsigned int wx_DataViewListModel::GetNumberOfCols()
 // pure virtual function
 unsigned int wx_DataViewListModel::GetNumberOfRows()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetNumberOfRows), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetNumberOfRows), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		_sig.SetError(ERR_NotImplementedError, "wx.DataViewListModel#GetNumberOfRows method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
@@ -106,7 +106,7 @@ unsigned int wx_DataViewListModel::GetNumberOfRows()
 // pure virtual function
 void wx_DataViewListModel::GetValue(wxVariant& variant, unsigned int col, unsigned int row)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetValue), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetValue), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		_sig.SetError(ERR_NotImplementedError, "wx.DataViewListModel#GetValue method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
@@ -123,7 +123,7 @@ void wx_DataViewListModel::GetValue(wxVariant& variant, unsigned int col, unsign
 
 bool wx_DataViewListModel::RowAppended()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(RowAppended), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(RowAppended), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxDataViewListModel::RowAppended();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
@@ -132,7 +132,7 @@ bool wx_DataViewListModel::RowAppended()
 
 bool wx_DataViewListModel::RowChanged(unsigned int row)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(RowChanged), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(RowChanged), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxDataViewListModel::RowChanged(row);
 	ValueList valListArg;
 	valListArg.reserve(1);
@@ -144,7 +144,7 @@ bool wx_DataViewListModel::RowChanged(unsigned int row)
 
 bool wx_DataViewListModel::RowDeleted(unsigned int row)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(RowDeleted), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(RowDeleted), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxDataViewListModel::RowDeleted(row);
 	ValueList valListArg;
 	valListArg.reserve(1);
@@ -156,7 +156,7 @@ bool wx_DataViewListModel::RowDeleted(unsigned int row)
 
 bool wx_DataViewListModel::RowInserted(unsigned int before)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(RowInserted), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(RowInserted), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxDataViewListModel::RowInserted(before);
 	ValueList valListArg;
 	valListArg.reserve(1);
@@ -168,7 +168,7 @@ bool wx_DataViewListModel::RowInserted(unsigned int before)
 
 bool wx_DataViewListModel::RowPrepended()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(RowPrepended), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(RowPrepended), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxDataViewListModel::RowPrepended();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
@@ -178,7 +178,7 @@ bool wx_DataViewListModel::RowPrepended()
 bool wx_DataViewListModel::RowsReordered(unsigned int* new_order)
 {
 	Environment &env = *_pObj;
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(RowsReordered), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(RowsReordered), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxDataViewListModel::RowsReordered(new_order);
 	size_t nRows = GetNumberOfRows();
 	if (_sig.IsSignalled()) return false;
@@ -199,7 +199,7 @@ bool wx_DataViewListModel::RowsReordered(unsigned int* new_order)
 // pure virtual function
 bool wx_DataViewListModel::SetValue(wxVariant& variant, unsigned int col, unsigned int row)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetValue), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetValue), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		_sig.SetError(ERR_NotImplementedError, "wx.DataViewListModel#SetValue method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
@@ -217,7 +217,7 @@ bool wx_DataViewListModel::SetValue(wxVariant& variant, unsigned int col, unsign
 
 bool wx_DataViewListModel::ValueChanged(unsigned int col, unsigned int row)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(ValueChanged), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(ValueChanged), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxDataViewListModel::ValueChanged(col, row);
 	ValueList valListArg;
 	valListArg.reserve(2);

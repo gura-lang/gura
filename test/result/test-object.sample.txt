@@ -31,14 +31,23 @@ C.func()
 B.func()
 A.func()
 ----
+D.func()
 C.func()
 B.func()
 A.func()
+X in D
+----
+C.func()
+B.func()
+A.func()
+X in C
 ----
 B.func()
 A.func()
+X in B
 ----
 A.func()
+X in A
 Inari      is 23 years old.
 Maruyama   is 27 years old.
 Akai       is 23 years old.

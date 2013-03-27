@@ -53,7 +53,7 @@ wx_ListCtrl::~wx_ListCtrl()
 
 wxListItemAttr *wx_ListCtrl::OnGetItemAttr(long item) const
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnGetItemAttr), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnGetItemAttr), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxListCtrl::OnGetItemAttr(item);
 	Environment &env = *_pObj;
 	ValueList valList;
@@ -66,7 +66,7 @@ wxListItemAttr *wx_ListCtrl::OnGetItemAttr(long item) const
 
 int wx_ListCtrl::OnGetItemImage(long item) const
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnGetItemImage), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnGetItemImage), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxListCtrl::OnGetItemImage(item);
 	Environment &env = *_pObj;
 	ValueList valList;
@@ -79,7 +79,7 @@ int wx_ListCtrl::OnGetItemImage(long item) const
 
 int wx_ListCtrl::OnGetItemColumnImage(long item, long column) const
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnGetItemColumnImage), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnGetItemColumnImage), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxListCtrl::OnGetItemColumnImage(item, column);
 	Environment &env = *_pObj;
 	ValueList valList;
@@ -93,7 +93,7 @@ int wx_ListCtrl::OnGetItemColumnImage(long item, long column) const
 
 wxString wx_ListCtrl::OnGetItemText(long item, long column) const
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnGetItemText), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnGetItemText), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxListCtrl::OnGetItemText(item, column);
 	Environment &env = *_pObj;
 	ValueList valList;

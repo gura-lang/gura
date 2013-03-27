@@ -166,7 +166,7 @@ Value Gura_Method(Object, call_X)::EvalExpr(Environment &env, Signal sig, Args &
 	}
 	const Symbol *pSymbol = value.GetSymbol();
 	Value valueFunc;
-	const Value *pValue = pThis->LookupValue(pSymbol, true);
+	const Value *pValue = pThis->LookupValue(pSymbol, ENVREFMODE_Normal, 0);
 	if (pValue == NULL) {
 		const SymbolSet &attrs = SymbolSet::Null;
 		valueFunc = pThis->GetProp(env, sig, pSymbol, attrs);

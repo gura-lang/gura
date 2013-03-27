@@ -51,7 +51,7 @@ Function *CustomClass::Prepare(Environment &env, Signal sig)
 	//FunctionType funcType = args.IsSet(Gura_Symbol(static_))?
 	//										FUNCTYPE_Class : FUNCTYPE_Function;
 	FunctionCustom *pFuncInit = dynamic_cast<FunctionCustom *>(
-								LookupFunction(Gura_Symbol(__init__), false));
+					LookupFunction(Gura_Symbol(__init__), ENVREFMODE_NoEscalate, 0));
 	if (pFuncInit != NULL) {
 		pFunc.reset(new ClassPrototype(env, Gura_Symbol(_anonymous_),
 						Expr::Reference(pFuncInit->GetExprBody()), funcType));

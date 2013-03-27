@@ -785,7 +785,22 @@ ICallable *Expr_Symbol::LookupCallable(Environment &env, Signal sig) const
 
 Value Expr_Symbol::Exec(Environment &env, Signal sig) const
 {
+#if 0
 	Value rtn = env.GetProp(env, sig, GetSymbol(), GetAttrs());
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(this);
+		return Value::Null;
+	}
+	return rtn;
+#endif
+	return Exec(env, sig, ENVREFMODE_Normal, 0);
+}
+
+Value Expr_Symbol::Exec(Environment &env, Signal sig,
+							EnvRefMode envRefMode, int cntSuperSkip) const
+{
+	Value rtn = env.GetProp(env, sig, GetSymbol(), GetAttrs(),
+										NULL, envRefMode, cntSuperSkip);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
@@ -810,7 +825,7 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 	}
 	if (_attrs.IsSet(Gura_Symbol(extern_))) {
 		escalateFlag = true;
-		if (env.LookupValue(GetSymbol(), true) == NULL) {
+		if (env.LookupValue(GetSymbol(), ENVREFMODE_Normal, 0) == NULL) {
 			SetError(sig, ERR_ValueError, "undefined symbol '%s'",
 												GetSymbol()->GetName());
 			return Value::Null;
@@ -1770,12 +1785,13 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 			return Value::Null;
 		}
 	}
+#if 0
 	if (pCallable == NULL) {
 		//*** WATCH THIS PART ***
 		int cntSuperSkip = 0;
 		if (pFund->IsModule()) {
 			Environment envLocal(*pFund);
-			envLocal.SetEnvRefMode(ENVREFMODE_Module);
+			envLocal.SetEnvRefMode(ENVREFMODE_NoEscalate);
 			valueCar = pExprRight->Exec(envLocal, sig);
 		} else if ((cntSuperSkip = valueThis.GetSuperSkipCount()) > 0) {
 			Environment envLocal(pFund, pFund->GetEnvType());
@@ -1785,6 +1801,24 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 			valueCar = pExprRight->Exec(*pFund, sig);
 		}
 		//*** WATCH THIS PART ***
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(this);
+			return Value::Null;
+		}
+		pCallable = valueCar.GetObject();
+	}
+#endif
+	if (pCallable == NULL) {
+		if (pExprRight->IsSymbol()) {
+			const Expr_Symbol *pExprSymbol =
+								dynamic_cast<const Expr_Symbol *>(pExprRight);
+			EnvRefMode envRefMode = pFund->IsModule()?
+								ENVREFMODE_NoEscalate : ENVREFMODE_Normal;
+			int cntSuperSkip = valueThis.GetSuperSkipCount();
+			valueCar = pExprSymbol->Exec(*pFund, sig, envRefMode, cntSuperSkip);
+		} else {
+			valueCar = pExprRight->Exec(*pFund, sig);
+		}
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
@@ -2620,12 +2654,25 @@ Value Expr_Member::Exec(Environment &env, Signal sig) const
 		}
 	}
 	Value result;
+#if 0
 	if (pFund->IsModule()) {
 		Environment envLocal(*pFund);
-		envLocal.SetEnvRefMode(ENVREFMODE_Module);
+		envLocal.SetEnvRefMode(ENVREFMODE_NoEscalate);
 		result = GetRight()->Exec(envLocal, sig);
 	} else {
 		result = GetRight()->Exec(*pFund, sig);
+	}
+#endif
+	const Expr *pExprRight = GetRight();
+	if (pExprRight->IsSymbol()) {
+		const Expr_Symbol *pExprSymbol =
+							dynamic_cast<const Expr_Symbol *>(pExprRight);
+		EnvRefMode envRefMode = pFund->IsModule()?
+							ENVREFMODE_NoEscalate : ENVREFMODE_Normal;
+		int cntSuperSkip = valueThis.GetSuperSkipCount();
+		result = pExprSymbol->Exec(*pFund, sig, envRefMode, cntSuperSkip);
+	} else {
+		result = pExprRight->Exec(*pFund, sig);
 	}
 	if (result.IsFunction()) {
 		Object_function *pObjFunc =

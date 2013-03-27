@@ -312,7 +312,7 @@ Gura_ImplementFunction(extern_)
 			return Value::Null;
 		}
 		const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
-		if (env.LookupValue(pSymbol, true) == NULL) {
+		if (env.LookupValue(pSymbol, ENVREFMODE_Normal, 0) == NULL) {
 			sig.SetError(ERR_ValueError, "undefined symbol '%s'", pSymbol->GetName());
 		}
 	}
@@ -336,7 +336,7 @@ Gura_ImplementFunction(local)
 			return Value::Null;
 		}
 		const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
-		if (env.LookupValue(pSymbol, false) == NULL) {
+		if (env.LookupValue(pSymbol, ENVREFMODE_NoEscalate, 0) == NULL) {
 			env.AssignValue(pSymbol, Value::Null, false);
 		}
 	}
@@ -1468,7 +1468,7 @@ Gura_ImplementFunction(undef_)
 			}
 			for (SymbolList::iterator ppSymbol = symbolList.begin();
 								ppSymbol + 1 != symbolList.end(); ppSymbol++) {
-				Value *pValue = pEnv->LookupValue(*ppSymbol, false);
+				Value *pValue = pEnv->LookupValue(*ppSymbol, ENVREFMODE_NoEscalate, 0);
 				if (pValue == NULL) {
 					if (raiseFlag) {
 						sig.SetError(ERR_ValueError, "undefined symbol");
@@ -1488,7 +1488,7 @@ Gura_ImplementFunction(undef_)
 			}
 			pSymbol = symbolList.back();
 		}
-		if (raiseFlag && !pEnv->LookupValue(pSymbol, false)) {
+		if (raiseFlag && !pEnv->LookupValue(pSymbol, ENVREFMODE_NoEscalate, 0)) {
 			sig.SetError(ERR_ValueError, "undefined symbol");
 			return Value::Null;
 		}

@@ -32,7 +32,7 @@ bool Object_environment::DoDirProp(Environment &env, Signal sig, SymbolSet &symb
 Value Object_environment::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	const Value *pValue = GetEnv().LookupValue(pSymbol, true);
+	const Value *pValue = GetEnv().LookupValue(pSymbol, ENVREFMODE_Normal, 0);
 	if (pValue == NULL) return Value::Null;
 	evaluatedFlag = true;
 	return *pValue;
@@ -70,7 +70,7 @@ Gura_ImplementMethod(environment, getprop_X)
 {
 	Object_environment *pThis = Object_environment::GetThisObj(args);
 	const Symbol *pSymbol = args.GetSymbol(0);
-	const Value *pValue = pThis->GetEnv().LookupValue(pSymbol, false);
+	const Value *pValue = pThis->GetEnv().LookupValue(pSymbol, ENVREFMODE_NoEscalate, 0);
 	if (pValue == NULL) {
 		sig.SetError(ERR_ValueError,
 			"environment doesn't have a property named '%s'", pSymbol->GetName());
@@ -126,8 +126,8 @@ Gura_DeclareMethod(environment, lookup)
 Gura_ImplementMethod(environment, lookup)
 {
 	Object_environment *pThis = Object_environment::GetThisObj(args);
-	const Value *pValue = pThis->GetEnv().LookupValue(
-								args.GetSymbol(0), args.GetBoolean(1));
+	EnvRefMode envRefMode = args.GetBoolean(1)? ENVREFMODE_Normal : ENVREFMODE_NoEscalate;
+	const Value *pValue = pThis->GetEnv().LookupValue(args.GetSymbol(0), envRefMode, 0);
 	if (pValue == NULL) return Value::Null;
 	return *pValue;
 }

@@ -71,23 +71,27 @@ scope {
 }
 scope {
 	A = class {
+		x = 'X in A'
 		func() = {
 			println('A.func()')
 		}
 	}
 	B = class(A) {
+		x = 'X in B'
 		func() = {
 			println('B.func()')
 			super(this).func()
 		}
 	}
 	C = class(B) {
+		x = 'X in C'
 		func() = {
 			println('C.func()')
 			super(this).func()
 		}
 	}
 	D = class(C) {
+		x = 'X in D'
 		func() = {
 			println('D.func()')
 			super(this).func()
@@ -102,11 +106,17 @@ scope {
 	D().func()
 	println('----')
 	d = D()
+	d.func()
+	println(d.x)
+	println('----')
 	super(d).func()
+	println(super(d).x)
 	println('----')
 	super(super(d)).func()
+	println(super(super(d)).x)
 	println('----')
 	super(super(super(d))).func()
+	println(super(super(super(d))).x)
 }
 scope {
 	Person = class {

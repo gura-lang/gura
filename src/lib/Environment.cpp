@@ -79,12 +79,11 @@ ModuleIntegrator::ModuleIntegrator(const char *name,
 //-----------------------------------------------------------------------------
 IntegratedModuleOwner *Environment::_pIntegratedModuleOwner = NULL;
 
-Environment::Environment() : _envRefMode(ENVREFMODE_Normal), _cntSuperSkip(0)
+Environment::Environment()
 {
 }
 
-Environment::Environment(const Environment &env) :
-				_envRefMode(ENVREFMODE_Normal), _cntSuperSkip(env._cntSuperSkip)
+Environment::Environment(const Environment &env)
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
 	foreach_const (FrameOwner, ppFrame, env.GetFrameOwner()) {
@@ -93,8 +92,7 @@ Environment::Environment(const Environment &env) :
 	}
 }
 
-Environment::Environment(const Environment *pEnvOuter, EnvType envType) :
-							_envRefMode(ENVREFMODE_Normal), _cntSuperSkip(0)
+Environment::Environment(const Environment *pEnvOuter, EnvType envType)
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
 	_frameOwner.push_back(new Frame(envType, pEnvOuter->GetGlobal()));
@@ -195,10 +193,10 @@ void Environment::RemoveValue(const Symbol *pSymbol)
 	GetTopFrame()->RemoveValue(pSymbol);
 }
 
-Value *Environment::LookupValue(const Symbol *pSymbol, bool escalateFlag)
+Value *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip)
 {
 	EnvType envType = GetTopFrame()->GetEnvType();
-	if (_envRefMode == ENVREFMODE_Module || !escalateFlag) {
+	if (envRefMode == ENVREFMODE_NoEscalate) {
 		Frame *pFrame = GetTopFrame();
 		Value *pValue = pFrame->LookupValue(pSymbol);
 		if (pValue != NULL) {
@@ -217,7 +215,6 @@ Value *Environment::LookupValue(const Symbol *pSymbol, bool escalateFlag)
 			}
 		}
 	} else if (envType == ENVTYPE_instance || envType == ENVTYPE_class) {
-		int cntSuperSkip = _cntSuperSkip;
 		foreach (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
 			if (pFrame->IsType(ENVTYPE_instance)) {
@@ -259,17 +256,16 @@ Function *Environment::AssignFunction(Function *pFunc)
 	return pFunc;
 }
 
-Function *Environment::LookupFunction(const Symbol *pSymbol, bool escalateFlag) const
+Function *Environment::LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const
 {
 	EnvType envType = GetTopFrame()->GetEnvType();
-	if (!escalateFlag) {
+	if (envRefMode == ENVREFMODE_NoEscalate) {
 		Frame *pFrame = const_cast<Frame *>(GetTopFrame());
 		Value *pValue = pFrame->LookupValue(pSymbol);
 		if (pValue != NULL && pValue->IsFunction()) {
 			return pValue->GetFunction();
 		}
 	} else if (envType == ENVTYPE_instance || envType == ENVTYPE_class) {
-		int cntSuperSkip = _cntSuperSkip;
 		foreach_const (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
 			if (pFrame->IsType(ENVTYPE_instance)) {
@@ -300,9 +296,9 @@ Function *Environment::LookupFunction(const Symbol *pSymbol, bool escalateFlag) 
 	return NULL;
 }
 
-FunctionCustom *Environment::LookupFunctionCustom(const Symbol *pSymbol, bool escalateFlag) const
+FunctionCustom *Environment::LookupFunctionCustom(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const
 {
-	Function *pFunc = LookupFunction(pSymbol, escalateFlag);
+	Function *pFunc = LookupFunction(pSymbol, envRefMode, cntSuperSkip);
 	return (pFunc != NULL && pFunc->IsCustom())?
 						dynamic_cast<FunctionCustom *>(pFunc) : NULL;
 }
@@ -314,7 +310,6 @@ void Environment::AssignValueType(const ValueTypeInfo *pValueTypeInfo)
 
 const ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList) const
 {
-	bool escalateFlag = true;
 	std::auto_ptr<Environment> pEnvRoot;
 	SymbolList::const_iterator ppSymbol = symbolList.begin();
 	const Environment *pEnv = this;
@@ -327,18 +322,13 @@ const ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList) 
 		ppSymbol++;
 		if (ppSymbol == symbolList.end()) return NULL;
 	}
+	EnvRefMode envRefMode = ENVREFMODE_Normal;
+	int cntSuperSkip = 0;
 	for ( ; ppSymbol + 1 != symbolList.end(); ppSymbol++) {
-		const Value *pValue = pEnv->LookupValue(*ppSymbol, escalateFlag);
-		if (pValue == NULL) {
-			return NULL;
-		} else if (pValue->IsModule()) {
-			pEnv = pValue->GetModule();
-		} else if (pValue->IsClass()) {
-			pEnv = pValue->GetClass();
-		} else {
-			return NULL;
-		}
-		escalateFlag = false;
+		const Value *pValue = pEnv->LookupValue(*ppSymbol, envRefMode, cntSuperSkip);
+		if (pValue == NULL || !pValue->IsModule()) return NULL;
+		pEnv = pValue->GetModule();
+		envRefMode = ENVREFMODE_NoEscalate;
 	}
 	return pEnv->LookupValueType(*ppSymbol);
 }
@@ -371,9 +361,10 @@ ICallable *Environment::GetCallable(Signal sig, const Symbol *pSymbol)
 }
 
 Value Environment::GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-						const SymbolSet &attrs, const Value *pValueDefault)
+						const SymbolSet &attrs, const Value *pValueDefault,
+						EnvRefMode envRefMode, int cntSuperSkip)
 {
-	const Value *pValue = LookupValue(pSymbol, true);
+	const Value *pValue = LookupValue(pSymbol, envRefMode, cntSuperSkip);
 	if (pValue != NULL) return *pValue;
 	bool evaluatedFlag = false;
 	Value result = DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
@@ -492,7 +483,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 			for (SymbolList::const_iterator ppSymbol = symbolOfModule.begin();
 									ppSymbol + 1 != symbolOfModule.end(); ppSymbol++) {
 				const Symbol *pSymbol = *ppSymbol;
-				Value *pValue = pEnvDst->LookupValue(pSymbol, false);
+				Value *pValue = pEnvDst->LookupValue(pSymbol, ENVREFMODE_NoEscalate, 0);
 				if (pValue != NULL && pValue->IsModule()) {
 					pEnvDst = pValue->GetModule();
 				} else {
@@ -544,7 +535,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 		// import(hoge) {foo, bar}
 		foreach_const (SymbolSet, ppSymbol, *pSymbolsToMixIn) {
 			const Symbol *pSymbol = *ppSymbol;
-			Value *pValue = pModule->LookupValue(pSymbol, false);
+			Value *pValue = pModule->LookupValue(pSymbol, ENVREFMODE_NoEscalate, 0);
 			if (pValue == NULL) {
 				// nothing to do
 			} else if (!ImportValue(pSymbol, *pValue, overwriteFlag)) {
@@ -615,7 +606,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 {
 	Environment &env = *this;
 	const Value *pValDirNameList =
-					GetModule_sys()->LookupValue(Gura_Symbol(path), false);
+			GetModule_sys()->LookupValue(Gura_Symbol(path), ENVREFMODE_NoEscalate, 0);
 	if (pValDirNameList == NULL) {
 		sig.SetError(ERR_ImportError, "variable path is not specified");
 		return false;
@@ -724,7 +715,7 @@ bool Environment::AddModuleSearchPath(Signal sig, const StringList &strList)
 {
 	Environment &env = *this;
 	Value *pValDirNameList =
-				GetModule_sys()->LookupValue(Gura_Symbol(path), false);
+			GetModule_sys()->LookupValue(Gura_Symbol(path), ENVREFMODE_NoEscalate, 0);
 	if (pValDirNameList == NULL) {
 		sig.SetError(ERR_ImportError, "path variable is not specified");
 		return false;
@@ -740,13 +731,13 @@ bool Environment::AddModuleSearchPath(Signal sig, const StringList &strList)
 const char *Environment::GetPrompt(bool indentFlag)
 {
 	Value *pValue = GetModule_sys()->LookupValue(
-				indentFlag? Gura_Symbol(ps2) : Gura_Symbol(ps1), false);
+			indentFlag? Gura_Symbol(ps2) : Gura_Symbol(ps1), ENVREFMODE_NoEscalate, 0);
 	return (pValue == NULL || !pValue->IsString())? "" : pValue->GetString();
 }
 
 Stream *Environment::GetConsole()
 {
-	Value *pValue = GetModule_sys()->LookupValue(Gura_Symbol(stdout), false);
+	Value *pValue = GetModule_sys()->LookupValue(Gura_Symbol(stdout), ENVREFMODE_NoEscalate, 0);
 	if (pValue == NULL || !pValue->IsInstanceOf(VTYPE_stream)) {
 		return GetConsoleDumb();
 	}
@@ -755,7 +746,7 @@ Stream *Environment::GetConsole()
 
 Stream *Environment::GetConsoleErr()
 {
-	Value *pValue = GetModule_sys()->LookupValue(Gura_Symbol(stderr), false);
+	Value *pValue = GetModule_sys()->LookupValue(Gura_Symbol(stderr), ENVREFMODE_NoEscalate, 0);
 	if (pValue == NULL || !pValue->IsInstanceOf(VTYPE_stream)) {
 		return GetConsoleDumb();
 	}

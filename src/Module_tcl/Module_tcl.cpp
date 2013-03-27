@@ -82,7 +82,7 @@ Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal sig, const Value &
 	} else if (value.IsObject()) {
 		Object *pObj = value.GetObject();
 		const Function *pFunc =
-					pObj->LookupFunction(Gura_UserSymbol(__tclname__), true);
+					pObj->LookupFunction(Gura_UserSymbol(__tclname__), ENVREFMODE_Normal, 0);
 		if (pFunc != NULL) {
 			Value valueThis(pObj, Value::FLAG_NoOwner); // reference to self
 			Args args(ValueList::Null, valueThis);

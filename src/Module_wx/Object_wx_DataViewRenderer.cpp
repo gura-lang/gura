@@ -50,7 +50,7 @@ void wx_DataViewRenderer::GuraObjectDeleted()
 
 wxDataViewCellMode wx_DataViewRenderer::GetMode()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetMode), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetMode), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxDataViewRenderer::GetMode();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return wxDATAVIEW_CELL_INERT;
@@ -59,7 +59,7 @@ wxDataViewCellMode wx_DataViewRenderer::GetMode()
 
 wxDataViewColumn* wx_DataViewRenderer::GetOwner()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetOwner), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetOwner), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxDataViewRenderer::GetOwner();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_DataViewColumn)) return NULL;
@@ -68,7 +68,7 @@ wxDataViewColumn* wx_DataViewRenderer::GetOwner()
 
 bool wx_DataViewRenderer::GetValue(wxVariant& value)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetValue), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetValue), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxDataViewRenderer::GetValue(value);
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_Variant, true)) return false;
@@ -79,7 +79,7 @@ bool wx_DataViewRenderer::GetValue(wxVariant& value)
 
 wxString wx_DataViewRenderer::GetVariantType()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetVariantType), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetVariantType), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxDataViewRenderer::GetVariantType();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_string)) return wxEmptyString;
@@ -88,7 +88,7 @@ wxString wx_DataViewRenderer::GetVariantType()
 
 void wx_DataViewRenderer::SetOwner(wxDataViewColumn* owner)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetOwner), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetOwner), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxDataViewRenderer::SetOwner(owner);
 	ValueList valListArg;
 	valListArg.reserve(1);
@@ -99,7 +99,7 @@ void wx_DataViewRenderer::SetOwner(wxDataViewColumn* owner)
 
 bool wx_DataViewRenderer::SetValue(const wxVariant& value)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetValue), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetValue), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxDataViewRenderer::SetValue(value);
 	ValueList valListArg;
 	valListArg.reserve(1);
@@ -111,7 +111,7 @@ bool wx_DataViewRenderer::SetValue(const wxVariant& value)
 
 bool wx_DataViewRenderer::Validate(wxVariant& value)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(Validate), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(Validate), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxDataViewRenderer::Validate(value);
 	ValueList valListArg;
 	valListArg.reserve(1);

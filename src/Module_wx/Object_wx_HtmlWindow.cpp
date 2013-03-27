@@ -70,7 +70,7 @@ void wx_HtmlWindow::GuraObjectDeleted()
 
 bool wx_HtmlWindow::OnCellClicked(wxHtmlCell *cell, wxCoord x, wxCoord y, const wxMouseEvent& event)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnCellClicked), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnCellClicked), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxHtmlWindow::OnCellClicked(cell, x, y, event);
 	Environment &env = *_pObj;
 	ValueList valList;
@@ -86,7 +86,7 @@ bool wx_HtmlWindow::OnCellClicked(wxHtmlCell *cell, wxCoord x, wxCoord y, const 
 
 void wx_HtmlWindow::OnCellMouseHover(wxHtmlCell *cell, wxCoord x, wxCoord y)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnCellMouseHover), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnCellMouseHover), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		wxHtmlWindow::OnCellMouseHover(cell, x, y);
 		return;
@@ -103,7 +103,7 @@ void wx_HtmlWindow::OnCellMouseHover(wxHtmlCell *cell, wxCoord x, wxCoord y)
 
 void wx_HtmlWindow::OnLinkClicked(const wxHtmlLinkInfo& link)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnLinkClicked), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnLinkClicked), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		wxHtmlWindow::OnLinkClicked(link);
 		return;
@@ -118,7 +118,7 @@ void wx_HtmlWindow::OnLinkClicked(const wxHtmlLinkInfo& link)
 
 wxHtmlOpeningStatus wx_HtmlWindow::OnOpeningURL(wxHtmlURLType type, const wxString& url, wxString * redirect)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnOpeningURL), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnOpeningURL), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxHtmlWindow::OnOpeningURL(type, url, redirect);
 	Environment &env = *_pObj;
 	ValueList valList;
@@ -142,7 +142,7 @@ wxHtmlOpeningStatus wx_HtmlWindow::OnOpeningURL(wxHtmlURLType type, const wxStri
 
 void wx_HtmlWindow::OnSetTitle(const wxString& title)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnSetTitle), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnSetTitle), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) {
 		wxHtmlWindow::OnSetTitle(title);
 		return;

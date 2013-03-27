@@ -37,7 +37,7 @@ String StructObject::ToString(Signal sig, bool exprFlag)
 		if (ppDecl != declList.begin()) str += ", ";
 		str += pDecl->GetSymbol()->GetName();
 		str += " => ";
-		const Value *pValue = LookupValue(pDecl->GetSymbol(), false);
+		const Value *pValue = LookupValue(pDecl->GetSymbol(), ENVREFMODE_NoEscalate, 0);
 		if (pValue == NULL) {
 			str += "nil";
 		} else {
@@ -77,7 +77,7 @@ Gura_ImplementMethod(Struct, tolist)
 	ValueList &valList = result.InitAsList(env);
 	const DeclarationList &declList = pThis->GetDeclList();
 	foreach_const (DeclarationList, ppDecl, declList) {
-		const Value *pValue = pThis->LookupValue((*ppDecl)->GetSymbol(), false);
+		const Value *pValue = pThis->LookupValue((*ppDecl)->GetSymbol(), ENVREFMODE_NoEscalate, 0);
 		if (pValue == NULL) {
 			valList.push_back(Value::Null);
 		} else {

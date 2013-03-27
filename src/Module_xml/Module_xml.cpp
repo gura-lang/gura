@@ -559,7 +559,7 @@ String Object_element::Format(Signal sig, int indentLevel) const
 	String indent;
 	for (int i = 0; i < indentLevel; i++) indent += indentUnit;
 	do {
-		const Value *pValue = LookupValue(Gura_Symbol(name), false);
+		const Value *pValue = LookupValue(Gura_Symbol(name), ENVREFMODE_NoEscalate, 0);
 		if (pValue != NULL) name = pValue->ToString(sig, false);
 	} while (0);
 	str += indent;
@@ -572,7 +572,7 @@ String Object_element::Format(Signal sig, int indentLevel) const
 		str += iter->second.ToString(sig, false);
 		str += "\"";
 	}
-	const Value *pValChildren = LookupValue(Gura_Symbol(children), false);
+	const Value *pValChildren = LookupValue(Gura_Symbol(children), ENVREFMODE_NoEscalate, 0);
 	if (pValChildren == NULL || !pValChildren->IsList() ||
 									pValChildren->GetList().empty()) {
 		str += " />";
@@ -602,7 +602,7 @@ String Object_element::Format(Signal sig, int indentLevel) const
 String Object_element::GetText(Signal sig) const
 {
 	String str;
-	const Value *pValChildren = LookupValue(Gura_Symbol(children), false);
+	const Value *pValChildren = LookupValue(Gura_Symbol(children), ENVREFMODE_NoEscalate, 0);
 	if (pValChildren != NULL && pValChildren->IsList() &&
 									!pValChildren->GetList().empty()) {
 		foreach_const (ValueList, pValue, pValChildren->GetList()) {
@@ -620,7 +620,7 @@ String Object_element::GetText(Signal sig) const
 String Object_element::ToString(Signal sig, bool exprFlag)
 {
 	String str;
-	const Value *pValue = LookupValue(Gura_Symbol(name), false);
+	const Value *pValue = LookupValue(Gura_Symbol(name), ENVREFMODE_NoEscalate, 0);
 	if (pValue == NULL) {
 		str = "<xml.element>";
 	} else {

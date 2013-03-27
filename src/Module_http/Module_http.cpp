@@ -2194,7 +2194,7 @@ bool Object_client::Prepare(Signal sig, const char *addr, short port,
 				const char *userIdProxy, const char *passwordProxy)
 {
 	if (addrProxy == NULL) {
-		const Value *pValueOfList = _pEnvThis->LookupValue(Gura_UserSymbol(proxies), false);
+		const Value *pValueOfList = _pEnvThis->LookupValue(Gura_UserSymbol(proxies), ENVREFMODE_NoEscalate, 0);
 		if (pValueOfList != NULL && pValueOfList->IsList()) {
 			foreach_const_reverse (ValueList, pValue, pValueOfList->GetList()) {
 				if (!pValue->IsType(VTYPE_proxy)) continue;
@@ -2550,7 +2550,7 @@ Gura_DeclareFunction(addproxy)
 Gura_ImplementFunction(addproxy)
 {
 	ValueList *pValList = NULL;
-	Value *pValue = _pEnvThis->LookupValue(Gura_UserSymbol(proxies), false);
+	Value *pValue = _pEnvThis->LookupValue(Gura_UserSymbol(proxies), ENVREFMODE_NoEscalate, 0);
 	if (pValue == NULL || !pValue->IsList()) {
 		Value value;
 		pValList = &value.InitAsList(env);

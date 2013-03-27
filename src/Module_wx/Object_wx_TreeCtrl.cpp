@@ -41,7 +41,7 @@ void wx_TreeCtrl::GuraObjectDeleted()
 
 int wx_TreeCtrl::OnCompareItems(const wxTreeItemId& item1, const wxTreeItemId& item2)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnCompareItems), true);
+	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnCompareItems), ENVREFMODE_Normal, 0);
 	if (pFunc == NULL) return wxTreeCtrl::OnCompareItems(item1, item2);
 	ValueList valList;
 	valList.reserve(2);

@@ -335,7 +335,7 @@ HRESULT STDMETHODCALLTYPE CMain::GetIDsOfNames(
 	for (UINT iName = 0; iName < cNames; iName++) {
 		const Gura::Symbol *pSymbol =
 			Gura::Symbol::Add(Gura::Gura_Module(mswin)::BSTRToString(rgszNames[iName]).c_str());
-		const Gura::Value *pValue = _env.LookupValue(pSymbol, false);
+		const Gura::Value *pValue = _env.LookupValue(pSymbol, Gura::ENVREFMODE_NoEscalate, 0);
 		if (pValue == NULL) {
 			return E_INVALIDARG;
 		} else {
