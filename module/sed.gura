@@ -1,0 +1,30 @@
+#!/usr/bin/env gura
+import(re)
+
+exec(fileName:string, silentFlag:boolean) {block} = {
+	lines = readlines(fileName):list
+	linesSub = block(lines):map
+	cntReplaced = 0
+	(lines != linesSub).filter() {|v, i1, i2|
+		if (!silentFlag) {
+			(i1 == 0) && printf('%s\n', fileName)
+			printf('-- replaced at line.%d\n', i2 + 1)
+		}
+		cntReplaced += 1
+	}
+	(cntReplaced > 0) && open(fileName, 'w').dosmode(false).print(linesSub)
+}
+
+glob(pattern:string):[silent] {`block} = {
+	silentFlag = __args__.isset(`silent)
+	path.glob(pattern) {|fileName|
+		exec(fileName, silentFlag) {|block|}
+	}
+}
+
+walk(directory?:directory, maxdepth?:number, pattern*:string):[silent] {`block} = {
+	silentFlag = __args__.isset(`silent)
+	path.walk(directory, maxdepth, pattern*) {|fileName|
+		exec(fileName, silentFlag) {|block|}
+	}
+}

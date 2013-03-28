@@ -37,7 +37,7 @@ void wx_ScrolledWindow::GuraObjectDeleted()
 
 void wx_ScrolledWindow::OnDraw(wxDC& dc)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnDraw), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnDraw);
 	if (pFunc == NULL) {
 		wxScrolledWindow::OnDraw(dc);
 		return;

@@ -25,6 +25,9 @@ Gura_AssignValue(name, Value(new Object_wx_##className(const_cast<wx##className 
 #define Gura_AssignMacroValue(name) \
 Gura_AssignValue(name, Value(name))
 
+#define Gura_LookupWxMethod(pObj, name) \
+pObj->LookupFunctionCustom(Gura_UserSymbol(name), ENVREFMODE_Normal, 0)
+
 Gura_BeginModule(wx)
 
 extern const bool OwnerFalse;

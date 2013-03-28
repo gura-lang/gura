@@ -36,7 +36,7 @@ wx_GridCellAttrProvider::~wx_GridCellAttrProvider()
 
 wxGridCellAttr *wx_GridCellAttrProvider::GetAttr(int row, int col, wxGridCellAttr::wxAttrKind kind) const
 {
-	Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetAttr), ENVREFMODE_Normal, 0);
+	Function *pFunc = Gura_LookupWxMethod(_pObj, GetAttr);
 	if (pFunc == NULL) {
 		return wxGridCellAttrProvider::GetAttr(row, col, kind);
 	}

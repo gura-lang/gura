@@ -66,7 +66,7 @@ void wx_DataViewCustomRenderer::GuraObjectDeleted()
 
 wxDataViewCellMode wx_DataViewCustomRenderer::GetMode()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetMode), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetMode);
 	if (pFunc == NULL) return wxDataViewCustomRenderer::GetMode();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return wxDATAVIEW_CELL_INERT;
@@ -75,7 +75,7 @@ wxDataViewCellMode wx_DataViewCustomRenderer::GetMode()
 
 wxDataViewColumn* wx_DataViewCustomRenderer::GetOwner()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetOwner), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetOwner);
 	if (pFunc == NULL) return wxDataViewCustomRenderer::GetOwner();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_DataViewColumn)) return NULL;
@@ -84,7 +84,7 @@ wxDataViewColumn* wx_DataViewCustomRenderer::GetOwner()
 
 bool wx_DataViewCustomRenderer::GetValue(wxVariant& value)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetValue), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetValue);
 	if (pFunc == NULL) return wxDataViewCustomRenderer::GetValue(value);
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_Variant, true)) return false;
@@ -95,7 +95,7 @@ bool wx_DataViewCustomRenderer::GetValue(wxVariant& value)
 
 wxString wx_DataViewCustomRenderer::GetVariantType()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetVariantType), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetVariantType);
 	if (pFunc == NULL) return wxDataViewCustomRenderer::GetVariantType();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_string)) return wxEmptyString;
@@ -104,7 +104,7 @@ wxString wx_DataViewCustomRenderer::GetVariantType()
 
 void wx_DataViewCustomRenderer::SetOwner(wxDataViewColumn* owner)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetOwner), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, SetOwner);
 	if (pFunc == NULL) return wxDataViewCustomRenderer::SetOwner(owner);
 	ValueList valListArg;
 	valListArg.reserve(1);
@@ -115,7 +115,7 @@ void wx_DataViewCustomRenderer::SetOwner(wxDataViewColumn* owner)
 
 bool wx_DataViewCustomRenderer::SetValue(const wxVariant& value)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(SetValue), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, SetValue);
 	if (pFunc == NULL) return wxDataViewCustomRenderer::SetValue(value);
 	ValueList valListArg;
 	valListArg.reserve(1);
@@ -127,7 +127,7 @@ bool wx_DataViewCustomRenderer::SetValue(const wxVariant& value)
 
 bool wx_DataViewCustomRenderer::Validate(wxVariant& value)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(Validate), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, Validate);
 	if (pFunc == NULL) return wxDataViewCustomRenderer::Validate(value);
 	ValueList valListArg;
 	valListArg.reserve(1);
@@ -139,7 +139,7 @@ bool wx_DataViewCustomRenderer::Validate(wxVariant& value)
 
 bool wx_DataViewCustomRenderer::Activate(wxRect cell, wxDataViewListModel* model, unsigned int col, unsigned int row)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(Activate), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, Activate);
 	if (pFunc == NULL) return wxDataViewCustomRenderer::Activate(cell, model, col, row);
 	ValueList valListArg;
 	valListArg.reserve(4);
@@ -154,7 +154,7 @@ bool wx_DataViewCustomRenderer::Activate(wxRect cell, wxDataViewListModel* model
 
 wxDC* wx_DataViewCustomRenderer::GetDC()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetDC), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetDC);
 	if (pFunc == NULL) return wxDataViewCustomRenderer::GetDC();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_DC)) return NULL;
@@ -164,7 +164,7 @@ wxDC* wx_DataViewCustomRenderer::GetDC()
 // pure virtual function
 wxSize wx_DataViewCustomRenderer::GetSize()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(GetSize), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetSize);
 	if (pFunc == NULL) {
 		_sig.SetError(ERR_NotImplementedError, "wx.DataViewCustomRenderer#GetSize method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
@@ -177,7 +177,7 @@ wxSize wx_DataViewCustomRenderer::GetSize()
 
 bool wx_DataViewCustomRenderer::LeftClick(wxPoint cursor, wxRect cell, wxDataViewListModel* model, unsigned int col, unsigned int row)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(LeftClick), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, LeftClick);
 	if (pFunc == NULL) return wxDataViewCustomRenderer::LeftClick(cursor, cell, model, col, row);
 	ValueList valListArg;
 	valListArg.reserve(5);
@@ -194,7 +194,7 @@ bool wx_DataViewCustomRenderer::LeftClick(wxPoint cursor, wxRect cell, wxDataVie
 // pure virtual function
 bool wx_DataViewCustomRenderer::Render(wxRect cell, wxDC* dc, int state)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(Render), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, Render);
 	if (pFunc == NULL) {
 		_sig.SetError(ERR_NotImplementedError, "wx.DataViewCustomRenderer#Render method is missing");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
@@ -212,7 +212,7 @@ bool wx_DataViewCustomRenderer::Render(wxRect cell, wxDC* dc, int state)
 
 bool wx_DataViewCustomRenderer::RightClick(wxPoint cursor, wxRect cell, wxDataViewListModel* model, unsigned int col, unsigned int row)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(RightClick), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, RightClick);
 	if (pFunc == NULL) return wxDataViewCustomRenderer::RightClick(cursor, cell, model, col, row);
 	ValueList valListArg;
 	valListArg.reserve(5);
@@ -228,7 +228,7 @@ bool wx_DataViewCustomRenderer::RightClick(wxPoint cursor, wxRect cell, wxDataVi
 
 bool wx_DataViewCustomRenderer::StartDrag(wxPoint cursor, wxRect cell, wxDataViewListModel* model, unsigned int col, unsigned int row)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(StartDrag), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, StartDrag);
 	if (pFunc == NULL) return wxDataViewCustomRenderer::StartDrag(cursor, cell, model, col, row);
 	ValueList valListArg;
 	valListArg.reserve(5);

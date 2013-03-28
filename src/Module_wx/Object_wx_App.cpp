@@ -71,7 +71,7 @@ bool wx_App::OnInit()
 {
 	SetWxReadyFlag(true);
 	InitializeObjects(*_pEnv);
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnInit), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnInit);
 	if (pFunc == NULL) return wxApp::OnInit();
 	Environment &env = *_pObj;
 	ValueList valList;
@@ -82,7 +82,7 @@ bool wx_App::OnInit()
 
 int wx_App::OnExit()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnExit), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnExit);
 	if (pFunc == NULL) return wxApp::OnExit();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_number)) return 0;
@@ -91,7 +91,7 @@ int wx_App::OnExit()
 
 void wx_App::OnUnhandledException()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnUnhandledException), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnUnhandledException);
 	if (pFunc == NULL) {
 		wxApp::OnUnhandledException();
 		return;

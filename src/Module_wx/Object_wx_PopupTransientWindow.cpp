@@ -52,7 +52,7 @@ void wx_PopupTransientWindow::GuraObjectDeleted()
 
 void wx_PopupTransientWindow::Popup(wxWindow *focus)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(Popup), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, Popup);
 	if (pFunc == NULL) {
 		wxPopupTransientWindow::Popup(focus);
 		return;
@@ -66,7 +66,7 @@ void wx_PopupTransientWindow::Popup(wxWindow *focus)
 
 void wx_PopupTransientWindow::Dismiss()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(Dismiss), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, Dismiss);
 	if (pFunc == NULL) {
 		wxPopupTransientWindow::Dismiss();
 		return;
@@ -77,7 +77,7 @@ void wx_PopupTransientWindow::Dismiss()
 
 bool wx_PopupTransientWindow::CanDismiss()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(CanDismiss), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, CanDismiss);
 	if (pFunc == NULL) return wxPopupTransientWindow::CanDismiss();
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
@@ -86,7 +86,7 @@ bool wx_PopupTransientWindow::CanDismiss()
 
 bool wx_PopupTransientWindow::ProcessLeftDown(wxMouseEvent& event)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(ProcessLeftDown), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, ProcessLeftDown);
 	if (pFunc == NULL) return wxPopupTransientWindow::ProcessLeftDown(event);
 	ValueList valList;
 	valList.reserve(1);
@@ -98,7 +98,7 @@ bool wx_PopupTransientWindow::ProcessLeftDown(wxMouseEvent& event)
 
 bool wx_PopupTransientWindow::Show(bool show)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(Show), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, Show);
 	if (pFunc == NULL) return wxPopupTransientWindow::Show(show);
 	ValueList valList;
 	valList.reserve(1);
@@ -110,7 +110,7 @@ bool wx_PopupTransientWindow::Show(bool show)
 
 void wx_PopupTransientWindow::OnDismiss()
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnDismiss), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnDismiss);
 	if (pFunc == NULL) {
 		wxPopupTransientWindow::OnDismiss();
 		return;

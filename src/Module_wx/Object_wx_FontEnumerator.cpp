@@ -44,7 +44,7 @@ void wx_FontEnumerator::GuraObjectDeleted()
 
 bool wx_FontEnumerator::EnumerateFacenames(wxFontEncoding encoding, bool fixedWidthOnly)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(EnumerateFacenames), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, EnumerateFacenames);
 	if (pFunc == NULL) return wxFontEnumerator::EnumerateFacenames(encoding, fixedWidthOnly);
 	ValueList valList;
 	valList.reserve(2);
@@ -57,7 +57,7 @@ bool wx_FontEnumerator::EnumerateFacenames(wxFontEncoding encoding, bool fixedWi
 
 bool wx_FontEnumerator::EnumerateEncodings(const wxString& font)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(EnumerateEncodings), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, EnumerateEncodings);
 	if (pFunc == NULL) return wxFontEnumerator::EnumerateEncodings(font);
 	Environment &env = *_pObj;
 	ValueList valList;
@@ -70,7 +70,7 @@ bool wx_FontEnumerator::EnumerateEncodings(const wxString& font)
 
 bool wx_FontEnumerator::OnFacename(const wxString& font)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnFacename), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnFacename);
 	if (pFunc == NULL) return wxFontEnumerator::OnFacename(font);
 	Environment &env = *_pObj;
 	ValueList valList;
@@ -83,7 +83,7 @@ bool wx_FontEnumerator::OnFacename(const wxString& font)
 
 bool wx_FontEnumerator::OnFontEncoding(const wxString& font, const wxString& encoding)
 {
-	const Function *pFunc = _pObj->LookupFunctionCustom(Gura_UserSymbol(OnFontEncoding), ENVREFMODE_Normal, 0);
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnFontEncoding);
 	if (pFunc == NULL) return wxFontEnumerator::EnumerateEncodings(font);
 	Environment &env = *_pObj;
 	ValueList valList;
