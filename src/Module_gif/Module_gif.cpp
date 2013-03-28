@@ -926,14 +926,14 @@ unsigned char GIF::DisposalMethodFromSymbol(Signal sig, const Symbol *pSymbol)
 
 GIF::GraphicControlExtension *GIF::GetGraphicControl(const Object_image *pObjImage)
 {
-	const Value *pValue = pObjImage->LookupValue(Gura_UserSymbol(gif), ENVREFMODE_NoEscalate, 0);
+	const Value *pValue = pObjImage->LookupValue(Gura_UserSymbol(gif), ENVREF_NoEscalate);
 	if (pValue == NULL || !pValue->IsType(VTYPE_imgprop)) return NULL;
 	return dynamic_cast<Object_imgprop *>(pValue->GetObject())->GetGraphicControl();
 }
 
 GIF::ImageDescriptor *GIF::GetImageDescriptor(const Object_image *pObjImage)
 {
-	const Value *pValue = pObjImage->LookupValue(Gura_UserSymbol(gif), ENVREFMODE_NoEscalate, 0);
+	const Value *pValue = pObjImage->LookupValue(Gura_UserSymbol(gif), ENVREF_NoEscalate);
 	if (pValue == NULL || !pValue->IsType(VTYPE_imgprop)) return NULL;
 	return dynamic_cast<Object_imgprop *>(pValue->GetObject())->GetImageDescriptor();
 }

@@ -46,7 +46,7 @@ const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
 		}
 		const Expr_Symbol *pExprSymbol =
 							dynamic_cast<const Expr_Symbol *>(exprList.front());
-		const Value *pValue = env.LookupValue(pExprSymbol->GetSymbol(), ENVREFMODE_Normal, 0);
+		const Value *pValue = env.LookupValue(pExprSymbol->GetSymbol(), ENVREF_Escalate);
 		if (pValue == NULL) {
 			break;
 		} else if (pValue->IsExpr()) {

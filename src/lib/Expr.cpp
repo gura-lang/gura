@@ -793,7 +793,7 @@ Value Expr_Symbol::Exec(Environment &env, Signal sig) const
 	}
 	return rtn;
 #endif
-	return Exec(env, sig, ENVREFMODE_Normal, 0);
+	return Exec(env, sig, ENVREF_Escalate, 0);
 }
 
 Value Expr_Symbol::Exec(Environment &env, Signal sig,
@@ -825,7 +825,7 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 	}
 	if (_attrs.IsSet(Gura_Symbol(extern_))) {
 		escalateFlag = true;
-		if (env.LookupValue(GetSymbol(), ENVREFMODE_Normal, 0) == NULL) {
+		if (env.LookupValue(GetSymbol(), ENVREF_Escalate) == NULL) {
 			SetError(sig, ERR_ValueError, "undefined symbol '%s'",
 												GetSymbol()->GetName());
 			return Value::Null;
@@ -1791,7 +1791,7 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 		int cntSuperSkip = 0;
 		if (pFund->IsModule()) {
 			Environment envLocal(*pFund);
-			envLocal.SetEnvRefMode(ENVREFMODE_NoEscalate);
+			envLocal.SetEnvRefMode(ENVREF_NoEscalate);
 			valueCar = pExprRight->Exec(envLocal, sig);
 		} else if ((cntSuperSkip = valueThis.GetSuperSkipCount()) > 0) {
 			Environment envLocal(pFund, pFund->GetEnvType());
@@ -1813,7 +1813,7 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 			const Expr_Symbol *pExprSymbol =
 								dynamic_cast<const Expr_Symbol *>(pExprRight);
 			EnvRefMode envRefMode = pFund->IsModule()?
-								ENVREFMODE_NoEscalate : ENVREFMODE_Normal;
+								ENVREF_NoEscalate : ENVREF_Escalate;
 			int cntSuperSkip = valueThis.GetSuperSkipCount();
 			valueCar = pExprSymbol->Exec(*pFund, sig, envRefMode, cntSuperSkip);
 		} else {
@@ -2657,7 +2657,7 @@ Value Expr_Member::Exec(Environment &env, Signal sig) const
 #if 0
 	if (pFund->IsModule()) {
 		Environment envLocal(*pFund);
-		envLocal.SetEnvRefMode(ENVREFMODE_NoEscalate);
+		envLocal.SetEnvRefMode(ENVREF_NoEscalate);
 		result = GetRight()->Exec(envLocal, sig);
 	} else {
 		result = GetRight()->Exec(*pFund, sig);
@@ -2668,7 +2668,7 @@ Value Expr_Member::Exec(Environment &env, Signal sig) const
 		const Expr_Symbol *pExprSymbol =
 							dynamic_cast<const Expr_Symbol *>(pExprRight);
 		EnvRefMode envRefMode = pFund->IsModule()?
-							ENVREFMODE_NoEscalate : ENVREFMODE_Normal;
+							ENVREF_NoEscalate : ENVREF_Escalate;
 		int cntSuperSkip = valueThis.GetSuperSkipCount();
 		result = pExprSymbol->Exec(*pFund, sig, envRefMode, cntSuperSkip);
 	} else {

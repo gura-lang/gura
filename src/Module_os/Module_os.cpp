@@ -25,13 +25,13 @@ Gura_ImplementFunction(redirect)
 {
 	Value *pValue = NULL;
 	Value value_stdin, value_stdout, value_stderr;
-	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdin), ENVREFMODE_NoEscalate, 0)) != NULL) {
+	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate)) != NULL) {
 		value_stdin = *pValue;
 	}
-	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdout), ENVREFMODE_NoEscalate, 0)) != NULL) {
+	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdout), ENVREF_NoEscalate)) != NULL) {
 		value_stdout = *pValue;
 	}
-	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), ENVREFMODE_NoEscalate, 0)) != NULL) {
+	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate)) != NULL) {
 		value_stderr = *pValue;
 	}
 	_pEnvThis->AssignValue(Gura_Symbol(stdin), args.GetValue(0), false);
@@ -74,10 +74,10 @@ Gura_ImplementFunction(exec)
 		return Value::Null;
 	}
 	const Value *pValue = NULL;
-	pValue = _pEnvThis->LookupValue(Gura_Symbol(stdout), ENVREFMODE_NoEscalate, 0);
+	pValue = _pEnvThis->LookupValue(Gura_Symbol(stdout), ENVREF_NoEscalate);
 	Stream *pStreamStdout = (pValue != NULL && pValue->IsStream())?
 										&pValue->GetStream() : NULL;
-	pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), ENVREFMODE_NoEscalate, 0);
+	pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate);
 	Stream *pStreamStderr = (pValue != NULL && pValue->IsStream())?
 										&pValue->GetStream() : NULL;
 	int rtn = OAL::ExecProgram(env, sig, pathName, args.GetList(1),
@@ -154,17 +154,17 @@ Gura_ModuleEntry()
 	// value assignment
 	Module *pModuleSys = env.GetModule_sys();
 	do {
-		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdin), ENVREFMODE_NoEscalate, 0);
+		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate);
 		if (pValue == NULL) pValue = &Value::Null;
 		Gura_AssignValue(stdin, *pValue);
 	} while (0);
 	do {
-		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdout), ENVREFMODE_NoEscalate, 0);
+		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdout), ENVREF_NoEscalate);
 		if (pValue == NULL) pValue = &Value::Null;
 		Gura_AssignValue(stdout, *pValue);
 	} while (0);
 	do {
-		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stderr), ENVREFMODE_NoEscalate, 0);
+		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate);
 		if (pValue == NULL) pValue = &Value::Null;
 		Gura_AssignValue(stderr, *pValue);
 	} while (0);

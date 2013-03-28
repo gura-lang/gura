@@ -152,7 +152,7 @@ void Object_wx_GridCellRenderer::EvalMethod_Draw(Signal sig, bool &evaluatedFlag
 			const wxRect &rect, int row, int col, bool isSelected)
 {
 	evaluatedFlag = false;
-	const Function *pFunc = LookupFunctionCustom(Gura_UserSymbol(Draw), ENVREFMODE_Normal, 0);
+	const Function *pFunc = LookupFunctionCustom(Gura_UserSymbol(Draw), ENVREF_Escalate);
 	if (pFunc == NULL) return;
 	evaluatedFlag = true;
 	ValueList valList;

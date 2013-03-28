@@ -196,7 +196,7 @@ void Environment::RemoveValue(const Symbol *pSymbol)
 Value *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip)
 {
 	EnvType envType = GetTopFrame()->GetEnvType();
-	if (envRefMode == ENVREFMODE_NoEscalate) {
+	if (envRefMode == ENVREF_NoEscalate) {
 		Frame *pFrame = GetTopFrame();
 		Value *pValue = pFrame->LookupValue(pSymbol);
 		if (pValue != NULL) {
@@ -259,7 +259,7 @@ Function *Environment::AssignFunction(Function *pFunc)
 Function *Environment::LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const
 {
 	EnvType envType = GetTopFrame()->GetEnvType();
-	if (envRefMode == ENVREFMODE_NoEscalate) {
+	if (envRefMode == ENVREF_NoEscalate) {
 		Frame *pFrame = const_cast<Frame *>(GetTopFrame());
 		Value *pValue = pFrame->LookupValue(pSymbol);
 		if (pValue != NULL && pValue->IsFunction()) {
@@ -322,13 +322,13 @@ const ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList) 
 		ppSymbol++;
 		if (ppSymbol == symbolList.end()) return NULL;
 	}
-	EnvRefMode envRefMode = ENVREFMODE_Normal;
+	EnvRefMode envRefMode = ENVREF_Escalate;
 	int cntSuperSkip = 0;
 	for ( ; ppSymbol + 1 != symbolList.end(); ppSymbol++) {
 		const Value *pValue = pEnv->LookupValue(*ppSymbol, envRefMode, cntSuperSkip);
 		if (pValue == NULL || !pValue->IsModule()) return NULL;
 		pEnv = pValue->GetModule();
-		envRefMode = ENVREFMODE_NoEscalate;
+		envRefMode = ENVREF_NoEscalate;
 	}
 	return pEnv->LookupValueType(*ppSymbol);
 }
@@ -483,7 +483,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 			for (SymbolList::const_iterator ppSymbol = symbolOfModule.begin();
 									ppSymbol + 1 != symbolOfModule.end(); ppSymbol++) {
 				const Symbol *pSymbol = *ppSymbol;
-				Value *pValue = pEnvDst->LookupValue(pSymbol, ENVREFMODE_NoEscalate, 0);
+				Value *pValue = pEnvDst->LookupValue(pSymbol, ENVREF_NoEscalate);
 				if (pValue != NULL && pValue->IsModule()) {
 					pEnvDst = pValue->GetModule();
 				} else {
@@ -535,7 +535,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 		// import(hoge) {foo, bar}
 		foreach_const (SymbolSet, ppSymbol, *pSymbolsToMixIn) {
 			const Symbol *pSymbol = *ppSymbol;
-			Value *pValue = pModule->LookupValue(pSymbol, ENVREFMODE_NoEscalate, 0);
+			Value *pValue = pModule->LookupValue(pSymbol, ENVREF_NoEscalate);
 			if (pValue == NULL) {
 				// nothing to do
 			} else if (!ImportValue(pSymbol, *pValue, overwriteFlag)) {
@@ -606,7 +606,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 {
 	Environment &env = *this;
 	const Value *pValDirNameList =
-			GetModule_sys()->LookupValue(Gura_Symbol(path), ENVREFMODE_NoEscalate, 0);
+			GetModule_sys()->LookupValue(Gura_Symbol(path), ENVREF_NoEscalate);
 	if (pValDirNameList == NULL) {
 		sig.SetError(ERR_ImportError, "variable path is not specified");
 		return false;
@@ -715,7 +715,7 @@ bool Environment::AddModuleSearchPath(Signal sig, const StringList &strList)
 {
 	Environment &env = *this;
 	Value *pValDirNameList =
-			GetModule_sys()->LookupValue(Gura_Symbol(path), ENVREFMODE_NoEscalate, 0);
+			GetModule_sys()->LookupValue(Gura_Symbol(path), ENVREF_NoEscalate);
 	if (pValDirNameList == NULL) {
 		sig.SetError(ERR_ImportError, "path variable is not specified");
 		return false;
@@ -731,13 +731,13 @@ bool Environment::AddModuleSearchPath(Signal sig, const StringList &strList)
 const char *Environment::GetPrompt(bool indentFlag)
 {
 	Value *pValue = GetModule_sys()->LookupValue(
-			indentFlag? Gura_Symbol(ps2) : Gura_Symbol(ps1), ENVREFMODE_NoEscalate, 0);
+			indentFlag? Gura_Symbol(ps2) : Gura_Symbol(ps1), ENVREF_NoEscalate);
 	return (pValue == NULL || !pValue->IsString())? "" : pValue->GetString();
 }
 
 Stream *Environment::GetConsole()
 {
-	Value *pValue = GetModule_sys()->LookupValue(Gura_Symbol(stdout), ENVREFMODE_NoEscalate, 0);
+	Value *pValue = GetModule_sys()->LookupValue(Gura_Symbol(stdout), ENVREF_NoEscalate);
 	if (pValue == NULL || !pValue->IsInstanceOf(VTYPE_stream)) {
 		return GetConsoleDumb();
 	}
@@ -746,7 +746,7 @@ Stream *Environment::GetConsole()
 
 Stream *Environment::GetConsoleErr()
 {
-	Value *pValue = GetModule_sys()->LookupValue(Gura_Symbol(stderr), ENVREFMODE_NoEscalate, 0);
+	Value *pValue = GetModule_sys()->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate);
 	if (pValue == NULL || !pValue->IsInstanceOf(VTYPE_stream)) {
 		return GetConsoleDumb();
 	}

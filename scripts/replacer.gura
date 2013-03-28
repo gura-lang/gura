@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 import(sed)
 
-sed.walk('', -1, '*.cpp') {|line|
-	line.sub('Gura_LookupWxMethod', 'Gura_LookupWxMethod')
+sed.walk('', -1, '*.cpp', '*.h') {|line|
+	line.sub('ENVREFMODE_Normal', 'ENVREFMODE_Escalate')
 }

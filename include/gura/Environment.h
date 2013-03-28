@@ -42,10 +42,10 @@ enum EnvType {
 };
 
 enum EnvRefMode {
-	ENVREFMODE_Normal,
-	ENVREFMODE_NoEscalate,
-	ENVREFMODE_Member,
-	ENVREFMODE_MemberPrivilege,
+	ENVREF_Escalate,
+	ENVREF_NoEscalate,
+	ENVREF_Member,
+	ENVREF_MemberPrivilege,
 };
 
 enum OpType {
@@ -265,25 +265,26 @@ public:
 	bool ImportValue(const Symbol *pSymbol, const Value &value, bool overwriteFlag);
 	void RemoveValue(const Symbol *pSymbol);
 	Function *AssignFunction(Function *pFunc);
-	Value *LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip);
+	Value *LookupValue(const Symbol *pSymbol,
+						EnvRefMode envRefMode, int cntSuperSkip = 0);
 	inline const Value *LookupValue(const Symbol *pSymbol,
-								EnvRefMode envRefMode, int cntSuperSkip) const {
+						EnvRefMode envRefMode, int cntSuperSkip = 0) const {
 		return const_cast<const Value *>(const_cast<Environment *>(this)->
-								LookupValue(pSymbol, envRefMode, cntSuperSkip));
+						LookupValue(pSymbol, envRefMode, cntSuperSkip));
 	}
-	Function *LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const;
-	FunctionCustom *LookupFunctionCustom(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const;
+	Function *LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
+	FunctionCustom *LookupFunctionCustom(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
 	void AssignValueType(const ValueTypeInfo *pValueTypeInfo);
 	const ValueTypeInfo *LookupValueType(const SymbolList &symbolList) const;
 	const ValueTypeInfo *LookupValueType(const Symbol *pSymbol) const;
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-										const SymbolSet &attrs, bool &evaluatedFlag);
+						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
-										const SymbolSet &attrs, bool &evaluatedFlag);
+						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual ICallable *GetCallable(Signal sig, const Symbol *pSymbol);
 	Value GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-				const SymbolSet &attrs, const Value *pValueDefault = NULL,
-				EnvRefMode envRefMode = ENVREFMODE_Normal, int cntSuperSkip = 0);
+						const SymbolSet &attrs, const Value *pValueDefault = NULL,
+						EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0);
 	inline Class *LookupClass(ValueType valType) const {
 		return GetGlobal()->LookupClass(valType);
 	}

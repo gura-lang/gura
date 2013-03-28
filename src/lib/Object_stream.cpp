@@ -201,7 +201,7 @@ Gura_ImplementFunction(readlines)
 		pObjStream = Object_stream::GetObject(args, 0);
 	} else {
 		Module *pModuleSys = env.GetModule_sys();
-		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdin), ENVREFMODE_NoEscalate, 0);
+		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate);
 		if (pValue == NULL) return Value::Null;
 		if (!pValue->IsStream()) return Value::Null;
 		pObjStream = Object_stream::GetObject(*pValue);
