@@ -171,9 +171,9 @@ void Environment::AssignValue(const Symbol *pSymbol, const Value &value, bool es
 	}
 }
 
-bool Environment::ImportValue(const Symbol *pSymbol, const Value &value, bool overwriteFlag)
+bool Environment::ImportValue(const Symbol *pSymbol, const Value &value,
+										unsigned long extra, bool overwriteFlag)
 {
-	unsigned long extra = EXTRA_Public;
 	foreach (FrameOwner, ppFrame, _frameOwner) {
 		Frame *pFrame = *ppFrame;
 		if (pFrame->IsType(ENVTYPE_block)) {
@@ -402,7 +402,7 @@ Value Environment::GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 
 void Environment::AssignModule(Module *pModule)
 {
-	unsigned long extra = 0;
+	unsigned long extra = EXTRA_Public;
 	Value value(pModule);
 	foreach (FrameOwner, ppFrame, _frameOwner) {
 		Frame *pFrame = *ppFrame;
@@ -499,7 +499,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 					Module *pModuleParent = new Module(pEnvDst, pSymbol,
 													"<integrated>", NULL, NULL);
 					Value valueOfModule(pModuleParent);
-					if (!pEnvDst->ImportValue(pSymbol, valueOfModule, false)) {
+					if (!pEnvDst->ImportValue(pSymbol, valueOfModule, EXTRA_Public, false)) {
 						sig.SetError(ERR_ImportError,
 							"module symbol conflicts with an existing variable '%s'",
 							symbolOfModule.Join('.').c_str());
@@ -510,7 +510,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 			}
 			const Symbol *pSymbolOfModule = symbolOfModule.back();
 			Value valueOfModule(Module::Reference(pModule));
-			if (!pEnvDst->ImportValue(pSymbolOfModule, valueOfModule, false)) {
+			if (!pEnvDst->ImportValue(pSymbolOfModule, valueOfModule, EXTRA_Public, false)) {
 				sig.SetError(ERR_ImportError,
 						"module symbol conflicts with an existing variable '%s'",
 						symbolOfModule.front()->GetName());
@@ -518,7 +518,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 			}
 		} else {
 			Value valueOfModule(Module::Reference(pModule));
-			if (!ImportValue(pSymbolAlias, valueOfModule, false)) {
+			if (!ImportValue(pSymbolAlias, valueOfModule, EXTRA_Public, false)) {
 				sig.SetError(ERR_ImportError,
 						"module symbol conflicts with an existing variable '%s'",
 						pSymbolAlias->GetName());
@@ -530,10 +530,10 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 		//GetFrameOwner().DbgPrint();
 		foreach_const (ValueMap, iter, pModule->GetTopFrame()->GetValueMap()) {
 			const Symbol *pSymbol = iter->first;
-			const Value &value = iter->second;
+			const ValueEx &valueEx = iter->second;
 			if (pSymbol->IsPrivateName()) {
 				// nothing to do
-			} else if (!ImportValue(pSymbol, value, overwriteFlag)) {
+			} else if (!ImportValue(pSymbol, valueEx, valueEx.GetExtra(), overwriteFlag)) {
 				sig.SetError(ERR_ImportError,
 						"imported variable name conflicts with an existing one '%s'",
 						pSymbol->GetName());
@@ -544,10 +544,10 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 		// import(hoge) {foo, bar}
 		foreach_const (SymbolSet, ppSymbol, *pSymbolsToMixIn) {
 			const Symbol *pSymbol = *ppSymbol;
-			Value *pValue = pModule->LookupValue(pSymbol, ENVREF_NoEscalate);
-			if (pValue == NULL) {
+			ValueEx *pValueEx = pModule->LookupValue(pSymbol, ENVREF_NoEscalate);
+			if (pValueEx == NULL) {
 				// nothing to do
-			} else if (!ImportValue(pSymbol, *pValue, overwriteFlag)) {
+			} else if (!ImportValue(pSymbol, *pValueEx, pValueEx->GetExtra(), overwriteFlag)) {
 				sig.SetError(ERR_ImportError,
 						"imported variable name conflicts with an existing one '%s'",
 												pSymbol->GetName());

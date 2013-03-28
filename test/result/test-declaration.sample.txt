@@ -15,6 +15,7 @@ ImportError:error = <error:ImportError>
 IndexError:error = <error:IndexError>
 IteratorError:error = <error:IteratorError>
 KeyError:error = <error:KeyError>
+MemberAccessError:error = <error:MemberAccessError>
 MemoryError:error = <error:MemoryError>
 NameError:error = <error:NameError>
 None:error = <error:None>
