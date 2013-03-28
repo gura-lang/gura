@@ -413,8 +413,7 @@ public:
 	virtual Expr *Clone() const;
 	virtual ICallable *LookupCallable(Environment &env, Signal sig) const;
 	virtual Value Exec(Environment &env, Signal sig) const;
-	Value Exec(Environment &env, Signal sig,
-					EnvRefMode envRefMode, int cntSuperSkip) const;
+	Value Exec(Environment &env, Signal sig, const Value &valueThis) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor) const;

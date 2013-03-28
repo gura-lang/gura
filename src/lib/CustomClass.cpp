@@ -41,7 +41,7 @@ Object *CustomClass::CreateDescendant(Environment &env, Signal sig, Class *pClas
 
 Function *CustomClass::Prepare(Environment &env, Signal sig)
 {
-	Value valueThis(this, Value::FLAG_NoOwner);
+	Value valueThis(this, Value::FLAG_NoOwner | Value::FLAG_Privileged);
 	if (!_pExprContent.IsNull() &&
 					!BuildContent(env, sig, valueThis, _pExprContent.get())) {
 		return NULL;

@@ -180,6 +180,14 @@ enum {
 };
 
 //-----------------------------------------------------------------------------
+// Extra
+//-----------------------------------------------------------------------------
+enum {
+	EXTRA_None			= 0,
+	EXTRA_Public		= (1 << 0),
+};
+
+//-----------------------------------------------------------------------------
 // AutoPtr
 // The destroyer executes "T::Delete(p)" instead of "delete p".
 // Class T must have a static function named Delete() that deletes the pointed

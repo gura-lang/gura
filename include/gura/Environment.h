@@ -36,16 +36,15 @@ enum EnvType {
 	ENVTYPE_local,
 	ENVTYPE_block,
 	ENVTYPE_class,
-	ENVTYPE_instance,
+	ENVTYPE_object,
 	ENVTYPE_method,
 	ENVTYPE_lister,
 };
 
 enum EnvRefMode {
-	ENVREF_Escalate,
 	ENVREF_NoEscalate,
-	ENVREF_Member,
-	ENVREF_MemberPrivilege,
+	ENVREF_Escalate,
+	ENVREF_Restricted,
 };
 
 enum OpType {
@@ -201,9 +200,9 @@ public:
 		inline const ValueTypeMap &GetValueTypeMap() const {
 			return (_pValueTypeMap.get() == NULL)? ValueTypeMap::Null : *_pValueTypeMap;
 		}
-		void AssignValue(const Symbol *pSymbol, const Value &value, unsigned long attr);
+		void AssignValue(const Symbol *pSymbol, const Value &value, unsigned long extra);
 		void RemoveValue(const Symbol *pSymbol);
-		Value *LookupValue(const Symbol *pSymbol);
+		ValueEx *LookupValue(const Symbol *pSymbol);
 		void AssignValueType(const ValueTypeInfo *pValueTypeInfo);
 		const ValueTypeInfo *LookupValueType(const Symbol *pSymbol) const;
 		void DbgPrint() const;
@@ -224,7 +223,7 @@ public:
 protected:
 	FrameOwner _frameOwner;
 	std::auto_ptr<FrameCache> _pFrameCache;
-	std::auto_ptr<SymbolSet> _pSymbolSetForPublic;
+	std::auto_ptr<SymbolSet> _pSymbolsPublic;
 	static IntegratedModuleOwner *_pIntegratedModuleOwner;
 public:
 	Environment();
@@ -249,13 +248,13 @@ public:
 	inline Module *GetModule_sys()				{ return GetGlobal()->_pModule_sys;			}
 	inline void SetEchoFlag(bool echoFlag)		{ GetGlobal()->_echoFlag = echoFlag;		}
 	inline bool GetEchoFlag() const				{ return GetGlobal()->_echoFlag;			}
-	inline SymbolSet *GetSymbolSetForPublic() { return _pSymbolSetForPublic.get(); }
-	inline const SymbolSet *GetSymbolSetForPublic() const { return _pSymbolSetForPublic.get(); }
-	inline SymbolSet *PrepareSymbolSetForPublic() {
-		if (_pSymbolSetForPublic.get() == NULL) {
-			_pSymbolSetForPublic.reset(new SymbolSet());
+	inline SymbolSet *GetSymbolsPublic() { return _pSymbolsPublic.get(); }
+	inline const SymbolSet *GetSymbolsPublic() const { return _pSymbolsPublic.get(); }
+	inline SymbolSet *PrepareSymbolsPublic() {
+		if (_pSymbolsPublic.get() == NULL) {
+			_pSymbolsPublic.reset(new SymbolSet());
 		}
-		return _pSymbolSetForPublic.get();
+		return _pSymbolsPublic.get();
 	}
 	void AddRootFrame(const FrameList &frameListSrc);
 	void AddOuterFrame(const FrameList &frameListSrc);
@@ -265,11 +264,11 @@ public:
 	bool ImportValue(const Symbol *pSymbol, const Value &value, bool overwriteFlag);
 	void RemoveValue(const Symbol *pSymbol);
 	Function *AssignFunction(Function *pFunc);
-	Value *LookupValue(const Symbol *pSymbol,
+	ValueEx *LookupValue(const Symbol *pSymbol,
 						EnvRefMode envRefMode, int cntSuperSkip = 0);
-	inline const Value *LookupValue(const Symbol *pSymbol,
+	inline const ValueEx *LookupValue(const Symbol *pSymbol,
 						EnvRefMode envRefMode, int cntSuperSkip = 0) const {
-		return const_cast<const Value *>(const_cast<Environment *>(this)->
+		return const_cast<const ValueEx *>(const_cast<Environment *>(this)->
 						LookupValue(pSymbol, envRefMode, cntSuperSkip));
 	}
 	Function *LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;

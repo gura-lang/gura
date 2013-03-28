@@ -83,7 +83,7 @@ Gura_ImplementFunction(struct_)
 	CustomClass *pClassCustom = new CustomClass(&env, pClassSuper,
 			pClassSuper->GetValueType(),
 			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)), sig);
-	Value valueThis(pClassCustom, Value::FLAG_NoOwner);
+	Value valueThis(pClassCustom, Value::FLAG_NoOwner | Value::FLAG_Privileged);
 	if (pExprBlock != NULL &&
 				!pClassCustom->BuildContent(env, sig, valueThis, pExprBlock)) {
 		Class::Delete(pClassCustom);

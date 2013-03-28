@@ -60,6 +60,7 @@ static const ErrorTypeInfo _errorTypeInfoTbl[] = {
 	{ ERR_MemoryError,			"MemoryError"			},
 	{ ERR_FormatError,			"FormatError"			},
 	{ ERR_ResourceError,		"ResourceError"			},
+	{ ERR_MemberAccessError,	"MemberAccessError"		},
 	{ ERR_None,					NULL					},
 };
 

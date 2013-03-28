@@ -36,6 +36,7 @@ enum ErrorType {
 	ERR_MemoryError,
 	ERR_FormatError,
 	ERR_ResourceError,
+	ERR_MemberAccessError,
 };
 
 const char *GetErrorTypeName(ErrorType errType);

@@ -35,7 +35,7 @@ const char *GetEnvTypeName(EnvType envType)
 		{ ENVTYPE_local,			"local",			},
 		{ ENVTYPE_block,			"block",			},
 		{ ENVTYPE_class,			"class",			},
-		{ ENVTYPE_instance,			"instance",			},
+		{ ENVTYPE_object,			"object",			},
 		{ ENVTYPE_method,			"method",			},
 		{ ENVTYPE_lister,			"lister",			},
 	};
@@ -148,38 +148,38 @@ void Environment::CacheFrame(const Symbol *pSymbol, Frame *pFrame)
 
 void Environment::AssignValue(const Symbol *pSymbol, const Value &value, bool escalateFlag)
 {
-	unsigned long attr = 0;
+	unsigned long extra = EXTRA_Public;
 	if (escalateFlag) {
 		if (_pFrameCache.get() != NULL) {
 			FrameCache::iterator iter = _pFrameCache->find(pSymbol);
 			if (iter != _pFrameCache->end()) {
 				Frame *pFrame = iter->second;
-				pFrame->AssignValue(pSymbol, value, attr);
+				pFrame->AssignValue(pSymbol, value, extra);
 				return;
 			}
 		}
 		foreach (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
 			if (!pFrame->IsType(ENVTYPE_block)) {
-				pFrame->AssignValue(pSymbol, value, attr);
+				pFrame->AssignValue(pSymbol, value, extra);
 				break;
 			}
 		}
 	} else {
-		GetTopFrame()->AssignValue(pSymbol, value, attr);
+		GetTopFrame()->AssignValue(pSymbol, value, extra);
 		CacheFrame(pSymbol, GetTopFrame());
 	}
 }
 
 bool Environment::ImportValue(const Symbol *pSymbol, const Value &value, bool overwriteFlag)
 {
-	unsigned long attr = 0;
+	unsigned long extra = EXTRA_Public;
 	foreach (FrameOwner, ppFrame, _frameOwner) {
 		Frame *pFrame = *ppFrame;
 		if (pFrame->IsType(ENVTYPE_block)) {
 			// nothing to do
 		} else if (overwriteFlag || pFrame->LookupValue(pSymbol) == NULL) {
-			pFrame->AssignValue(pSymbol, value, attr);
+			pFrame->AssignValue(pSymbol, value, extra);
 			break;
 		} else {
 			return false;
@@ -193,12 +193,12 @@ void Environment::RemoveValue(const Symbol *pSymbol)
 	GetTopFrame()->RemoveValue(pSymbol);
 }
 
-Value *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip)
+ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip)
 {
 	EnvType envType = GetTopFrame()->GetEnvType();
 	if (envRefMode == ENVREF_NoEscalate) {
 		Frame *pFrame = GetTopFrame();
-		Value *pValue = pFrame->LookupValue(pSymbol);
+		ValueEx *pValue = pFrame->LookupValue(pSymbol);
 		if (pValue != NULL) {
 			CacheFrame(pSymbol, pFrame);
 			return pValue;
@@ -206,19 +206,19 @@ Value *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, in
 	} else if (envType == ENVTYPE_method) {
 		foreach (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
-			if (pFrame->IsType(ENVTYPE_instance)) continue;
+			if (pFrame->IsType(ENVTYPE_object)) continue;
 			//if (pFrame->IsType(ENVTYPE_class)) continue;
-			Value *pValue = pFrame->LookupValue(pSymbol);
+			ValueEx *pValue = pFrame->LookupValue(pSymbol);
 			if (pValue != NULL) {
 				CacheFrame(pSymbol, pFrame);
 				return pValue;
 			}
 		}
-	} else if (envType == ENVTYPE_instance || envType == ENVTYPE_class) {
+	} else if (envType == ENVTYPE_object || envType == ENVTYPE_class) {
 		foreach (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
-			if (pFrame->IsType(ENVTYPE_instance)) {
-				Value *pValue = pFrame->LookupValue(pSymbol);
+			if (pFrame->IsType(ENVTYPE_object)) {
+				ValueEx *pValue = pFrame->LookupValue(pSymbol);
 				if (pValue != NULL) {
 					CacheFrame(pSymbol, pFrame);
 					return pValue;
@@ -227,7 +227,7 @@ Value *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, in
 				if (cntSuperSkip > 0) {
 					cntSuperSkip--;
 				} else {
-					Value *pValue = pFrame->LookupValue(pSymbol);
+					ValueEx *pValue = pFrame->LookupValue(pSymbol);
 					if (pValue != NULL) {
 						CacheFrame(pSymbol, pFrame);
 						return pValue;
@@ -238,7 +238,7 @@ Value *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, in
 	} else {
 		foreach (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
-			Value *pValue = pFrame->LookupValue(pSymbol);
+			ValueEx *pValue = pFrame->LookupValue(pSymbol);
 			if (pValue != NULL) {
 				CacheFrame(pSymbol, pFrame);
 				return pValue;
@@ -250,9 +250,9 @@ Value *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, in
 
 Function *Environment::AssignFunction(Function *pFunc)
 {
-	unsigned long attr = 0;
+	unsigned long extra = EXTRA_Public;
 	Value value(*this, pFunc, Value::Null);
-	GetTopFrame()->AssignValue(pFunc->GetSymbol(), value, attr);
+	GetTopFrame()->AssignValue(pFunc->GetSymbol(), value, extra);
 	return pFunc;
 }
 
@@ -265,10 +265,10 @@ Function *Environment::LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMo
 		if (pValue != NULL && pValue->IsFunction()) {
 			return pValue->GetFunction();
 		}
-	} else if (envType == ENVTYPE_instance || envType == ENVTYPE_class) {
+	} else if (envType == ENVTYPE_object || envType == ENVTYPE_class) {
 		foreach_const (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
-			if (pFrame->IsType(ENVTYPE_instance)) {
+			if (pFrame->IsType(ENVTYPE_object)) {
 				Value *pValue = pFrame->LookupValue(pSymbol);
 				if (pValue != NULL && pValue->IsFunction()) {
 					return pValue->GetFunction();
@@ -315,7 +315,6 @@ const ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList) 
 	const Environment *pEnv = this;
 	if ((*ppSymbol)->IsIdentical(Gura_Symbol(root))) {
 		// make a reference to the root environment
-		//pEnvRoot.reset(new Environment(this, ENVTYPE_root));
 		pEnvRoot.reset(new Environment());
 		pEnvRoot->AddRootFrame(GetFrameOwner());
 		pEnv = pEnvRoot.get();
@@ -364,8 +363,18 @@ Value Environment::GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, const Value *pValueDefault,
 						EnvRefMode envRefMode, int cntSuperSkip)
 {
-	const Value *pValue = LookupValue(pSymbol, envRefMode, cntSuperSkip);
-	if (pValue != NULL) return *pValue;
+	const ValueEx *pValue = LookupValue(pSymbol, envRefMode, cntSuperSkip);
+	if (pValue == NULL) {
+		// nothing to do
+	} else if (envRefMode != ENVREF_Restricted) {
+		return *pValue;
+	} else if (pValue->GetExtra() & EXTRA_Public) {
+		return *pValue;
+	} else {
+		sig.SetError(ERR_MemberAccessError,
+				"can't access private member property %s", pSymbol->GetName());
+		return Value::Null;
+	}
 	bool evaluatedFlag = false;
 	Value result = DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 	if (sig.IsSignalled()) return Value::Null;
@@ -393,12 +402,12 @@ Value Environment::GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 
 void Environment::AssignModule(Module *pModule)
 {
-	unsigned long attr = 0;
+	unsigned long extra = 0;
 	Value value(pModule);
 	foreach (FrameOwner, ppFrame, _frameOwner) {
 		Frame *pFrame = *ppFrame;
 		if (!pFrame->IsType(ENVTYPE_block)) {
-			pFrame->AssignValue(pModule->GetSymbol(), value, attr);
+			pFrame->AssignValue(pModule->GetSymbol(), value, extra);
 			break;
 		}
 	}
@@ -885,10 +894,10 @@ void Environment::Frame::Delete(Frame *pFrame)
 }
 
 void Environment::Frame::AssignValue(const Symbol *pSymbol,
-									const Value &value, unsigned long attr)
+									const Value &value, unsigned long extra)
 {
 	if (_pValueMap.get() == NULL) _pValueMap.reset(new ValueMap());
-	(*_pValueMap)[pSymbol] = ValueWithAttr(value, attr);
+	(*_pValueMap)[pSymbol] = ValueEx(value, extra);
 }
 
 void Environment::Frame::RemoveValue(const Symbol *pSymbol)
@@ -897,7 +906,7 @@ void Environment::Frame::RemoveValue(const Symbol *pSymbol)
 	_pValueMap->erase(pSymbol);
 }
 
-Value *Environment::Frame::LookupValue(const Symbol *pSymbol)
+ValueEx *Environment::Frame::LookupValue(const Symbol *pSymbol)
 {
 	if (_pValueMap.get() == NULL) return NULL;
 	ValueMap::iterator iter = _pValueMap->find(pSymbol);

@@ -15,7 +15,7 @@ Gura_DeclareClassMethodAlias(Object, public_, "public")
 Gura_ImplementClassMethod(Object, public_)
 {
 	Class *pClass = args.GetThisClass();
-	SymbolSet *pSymbolSet = pClass->PrepareSymbolSetForPublic();
+	SymbolSet *pSymbolsPublic = pClass->PrepareSymbolsPublic();
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
@@ -24,7 +24,7 @@ Gura_ImplementClassMethod(Object, public_)
 			return Value::Null;
 		}
 		const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExpr);
-		pSymbolSet->Insert(pExprSymbol->GetSymbol());
+		pSymbolsPublic->Insert(pExprSymbol->GetSymbol());
 	}
 	return Value::Null;
 }
@@ -245,7 +245,7 @@ bool Class::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escal
 	if (escalateFlag) {
 		foreach_const (FrameOwner, ppFrame, GetFrameOwner()) {
 			const Frame *pFrame = *ppFrame;
-			if (pFrame->IsType(ENVTYPE_class) || pFrame->IsType(ENVTYPE_instance)) {
+			if (pFrame->IsType(ENVTYPE_class) || pFrame->IsType(ENVTYPE_object)) {
 				foreach_const (ValueMap, iter, pFrame->GetValueMap()) {
 					symbols.insert(iter->first);
 				}

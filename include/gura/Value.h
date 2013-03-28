@@ -300,6 +300,7 @@ public:
 		FLAG_NoOwner	= (0 << 0),
 		FLAG_Owner		= (1 << 0),
 		FLAG_TinyBuff	= (1 << 1),
+		FLAG_Privileged	= (1 << 2),
 		// b15-b8 are reserved for super-skip count
 	};
 private:
@@ -409,6 +410,7 @@ public:
 	inline unsigned short GetFlags() const { return _flags; }
 	inline void SetFlags(unsigned short flags) { _flags = flags; }
 	inline bool IsOwner() const { return (_flags & FLAG_Owner)? true : false; }
+	inline bool IsPrivileged() const { return (_flags & FLAG_Privileged)? true : false; }
 	inline bool GetTinyBuffFlag() const { return (_flags & FLAG_TinyBuff)? true : false; }
 	inline int GetSuperSkipCount() const { return (_flags >> 8) & 0xff; }
 	inline void SetSuperSkipCount(int cntSuperSkip) {
@@ -641,21 +643,21 @@ private:
 };
 
 //-----------------------------------------------------------------------------
-// ValueWithAttr
+// ValueEx
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueWithAttr : public Value {
+class GURA_DLLDECLARE ValueEx : public Value {
 private:
-	unsigned long _attr;
+	unsigned long _extra;
 public:
-	inline ValueWithAttr(unsigned long attr = 0) : _attr(attr) {}
-	inline ValueWithAttr(const Value &value, unsigned long attr = 0) :
-						Value(value), _attr(attr) {}
-	inline ValueWithAttr(const ValueWithAttr &valueWithAttr) :
-						Value(valueWithAttr), _attr(valueWithAttr._attr) {}
-	inline unsigned long GetAttr() const { return _attr; }
-	inline ValueWithAttr &operator=(const ValueWithAttr &valueWithAttr) {
-		Value::operator=(valueWithAttr);
-		_attr = valueWithAttr._attr;
+	inline ValueEx(unsigned long extra = 0) : _extra(extra) {}
+	inline ValueEx(const Value &value, unsigned long extra = 0) :
+						Value(value), _extra(extra) {}
+	inline ValueEx(const ValueEx &valueEx) :
+						Value(valueEx), _extra(valueEx._extra) {}
+	inline unsigned long GetExtra() const { return _extra; }
+	inline ValueEx &operator=(const ValueEx &valueEx) {
+		Value::operator=(valueEx);
+		_extra = valueEx._extra;
 		return *this;
 	}
 };
@@ -706,7 +708,7 @@ typedef std::vector<const Value *> ValuePtrList;
 //-----------------------------------------------------------------------------
 // ValueMap
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueMap : public std::map<const Symbol *, ValueWithAttr, Symbol::KeyCompare_UniqNumber> {
+class GURA_DLLDECLARE ValueMap : public std::map<const Symbol *, ValueEx, Symbol::KeyCompare_UniqNumber> {
 public:
 	static const ValueMap Null;
 public:
