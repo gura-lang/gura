@@ -13,13 +13,8 @@ http.client('www.nifty.com') {|c|
 		'Keep-Alive'		=> '300'
 		'User-Agent'		=> 'Gura')
 	println(resp.code, ' ', resp.version, ' ', resp.reason)
-	println('Connection    ', resp['Connection'])
-	println('Content-Type  ', resp['Content-Type'])
-	println('Date          ', resp['Date'])
-	println('ETag          ', resp['ETag'])
-	println('Last-Modified ', resp['Last-Modified'])
-	println('Via           ', resp['Via'])
-	println('Expires       ', resp['Expires'])
+	fieldNames = resp.field_names
+	printf('%-*s %s\n', fieldNames:*len().max(), fieldNames, resp[fieldNames])
 	resp.body.copyto('nifty.html')
 }
 http.client('www.asahi.com') {|c|
@@ -32,12 +27,7 @@ http.client('www.asahi.com') {|c|
 		'Keep-Alive'		=> '300'
 		'User-Agent'		=> 'Gura')
 	println(resp.code, ' ', resp.version, ' ', resp.reason)
-	println('Connection    ', resp['Connection'])
-	println('Content-Type  ', resp['Content-Type'])
-	println('Date          ', resp['Date'])
-	println('ETag          ', resp['ETag'])
-	println('Last-Modified ', resp['Last-Modified'])
-	println('Via           ', resp['Via'])
-	println('Expires       ', resp['Expires'])
+	fieldNames = resp.field_names
+	printf('%-*s %s\n', fieldNames:*len().max(), fieldNames, resp[fieldNames])
 	resp.body.copyto('asahi.html')
 }
