@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include <dshow.h>
-#include <qedit.h> // SampleGrabberóp
+#include <qedit.h> // SampleGrabberÁî®
 
 int
 main()
@@ -10,9 +10,9 @@ main()
  ICaptureGraphBuilder2 *pCaptureGraphBuilder2;
  IMediaControl *pMediaControl;
 
- // ï‚ë´èÓïÒÅjâpíPåÍÇÃì˙ñ{åÍñÛ
- //   Enumerate : óÒãìÅAàÍóó
- //   Moniker   : Ç†Çæñº
+ // Ë£úË∂≥ÊÉÖÂ†±ÔºâËã±ÂçòË™û„ÅÆÊó•Êú¨Ë™ûË®≥
+ //   Enumerate : ÂàóÊåô„ÄÅ‰∏ÄË¶ß
+ //   Moniker   : „ÅÇ„Å†Âêç
  ICreateDevEnum *pCreateDevEnum = NULL;
  IEnumMoniker *pEnumMoniker = NULL;
  IMoniker *pMoniker = NULL;
@@ -20,10 +20,10 @@ main()
  ULONG nFetched = 0;
  IBaseFilter *pDeviceFilter;
 
- // COMÇèâä˙âª
+ // COM„ÇíÂàùÊúüÂåñ
  CoInitialize(NULL);
 
- // FilterGraphÇê∂ê¨
+ // FilterGraph„ÇíÁîüÊàê
  CoCreateInstance(CLSID_FilterGraph,
 	NULL,
 	CLSCTX_INPROC,
@@ -31,142 +31,142 @@ main()
 	(LPVOID *)&pGraphBuilder);
 
  //
- // SampleGrabberèÄîı
+ // SampleGrabberÊ∫ñÂÇô
  //
 
  IBaseFilter *pSampleGrabberFilter;
  ISampleGrabber *pSampleGrabber;
  AM_MEDIA_TYPE am_media_type;
 
- // SampleGrabber(Filter)Çê∂ê¨
+ // SampleGrabber(Filter)„ÇíÁîüÊàê
  CoCreateInstance(CLSID_SampleGrabber,
 	 NULL,
 	 CLSCTX_INPROC,
 	 IID_IBaseFilter,
 	 (LPVOID *)&pSampleGrabberFilter);
 
- // FilterÇ©ÇÁISampleGrabberÉCÉìÉ^Å[ÉtÉFÅ[ÉXÇéÊìæÇµÇ‹Ç∑
+ // Filter„Åã„ÇâISampleGrabber„Ç§„É≥„Çø„Éº„Éï„Çß„Éº„Çπ„ÇíÂèñÂæó„Åó„Åæ„Åô
  pSampleGrabberFilter->QueryInterface(IID_ISampleGrabber,
 	 (LPVOID *)&pSampleGrabber);
 
- // SampleGrabberÇê⁄ë±Ç∑ÇÈÉtÉHÅ[É}ÉbÉgÇéwíËÅB
- // Ç±Ç±Ç™É|ÉCÉìÉgÇ≈Ç∑ÅB
- // Ç±Ç±ÇÃéwíËÇÃédï˚Ç…ÇÊÇËSampleGrabberÇÃë}ì¸â”èäÇ
- // åàíËÇ≈Ç´Ç‹Ç∑ÅBÇ±ÇÃÉTÉìÉvÉãÇÃÇÊÇ§Ç»éwíËÇÇ∑ÇÈÇ∆
- // âÊñ èoóÕÇÃê°ëOÇ≈ÉTÉìÉvÉãÇéÊìæÇ≈Ç´Ç‹Ç∑ÅB
+ // SampleGrabber„ÇíÊé•Á∂ö„Åô„Çã„Éï„Ç©„Éº„Éû„ÉÉ„Éà„ÇíÊåáÂÆö„ÄÇ
+ // „Åì„Åì„Åå„Éù„Ç§„É≥„Éà„Åß„Åô„ÄÇ
+ // „Åì„Åì„ÅÆÊåáÂÆö„ÅÆ‰ªïÊñπ„Å´„Çà„ÇäSampleGrabber„ÅÆÊåøÂÖ•ÁÆáÊâÄ„Çí
+ // Ê±∫ÂÆö„Åß„Åç„Åæ„Åô„ÄÇ„Åì„ÅÆ„Çµ„É≥„Éó„É´„ÅÆ„Çà„ÅÜ„Å™ÊåáÂÆö„Çí„Åô„Çã„Å®
+ // ÁîªÈù¢Âá∫Âäõ„ÅÆÂØ∏Ââç„Åß„Çµ„É≥„Éó„É´„ÇíÂèñÂæó„Åß„Åç„Åæ„Åô„ÄÇ
  ZeroMemory(&am_media_type, sizeof(am_media_type));
  am_media_type.majortype = MEDIATYPE_Video;
  am_media_type.subtype = MEDIASUBTYPE_RGB24;
  am_media_type.formattype = FORMAT_VideoInfo;
  pSampleGrabber->SetMediaType(&am_media_type);
 
- // GraphÇ…SampleGrabber FilterÇí«â¡
+ // Graph„Å´SampleGrabber Filter„ÇíËøΩÂä†
  pGraphBuilder->AddFilter(pSampleGrabberFilter,
 	 L"Sample Grabber");
 
  //
- // ÉLÉÉÉvÉ`ÉÉópÉfÉoÉCÉXéÊìæ
+ // „Ç≠„É£„Éó„ÉÅ„É£Áî®„Éá„Éê„Ç§„ÇπÂèñÂæó
  //
 
- // CaptureGraphBuilder2Ç∆Ç¢Ç§ÉLÉÉÉvÉ`ÉÉópGraphBuilderÇê∂ê¨Ç∑ÇÈ
+ // CaptureGraphBuilder2„Å®„ÅÑ„ÅÜ„Ç≠„É£„Éó„ÉÅ„É£Áî®GraphBuilder„ÇíÁîüÊàê„Åô„Çã
  CoCreateInstance(CLSID_CaptureGraphBuilder2, NULL, CLSCTX_INPROC, 
    IID_ICaptureGraphBuilder2, 
    (LPVOID *)&pCaptureGraphBuilder2);
 
- // FilterGraphÇÉZÉbÉgÇ∑ÇÈ
+ // FilterGraph„Çí„Çª„ÉÉ„Éà„Åô„Çã
  pCaptureGraphBuilder2->SetFiltergraph(pGraphBuilder);
 
- // MediaControlÉCÉìÉ^Å[ÉtÉFÅ[ÉXéÊìæ
+ // MediaControl„Ç§„É≥„Çø„Éº„Éï„Çß„Éº„ÇπÂèñÂæó
  pGraphBuilder->QueryInterface(IID_IMediaControl,
 	(LPVOID *)&pMediaControl);
 
- // ÉfÉoÉCÉXÇóÒãìÇ∑ÇÈÇΩÇﬂÇÃCreateDevEnumÇê∂ê¨
+ // „Éá„Éê„Ç§„Çπ„ÇíÂàóÊåô„Åô„Çã„Åü„ÇÅ„ÅÆCreateDevEnum„ÇíÁîüÊàê
  CoCreateInstance(CLSID_SystemDeviceEnum, NULL, CLSCTX_INPROC_SERVER, 
    IID_ICreateDevEnum, (PVOID *)&pCreateDevEnum);
 
- // VideoInputDeviceÇóÒãìÇ∑ÇÈÇΩÇﬂÇÃEnumMonikerÇê∂ê¨ 
+ // VideoInputDevice„ÇíÂàóÊåô„Åô„Çã„Åü„ÇÅ„ÅÆEnumMoniker„ÇíÁîüÊàê 
  pCreateDevEnum->CreateClassEnumerator(CLSID_VideoInputDeviceCategory,
    &pEnumMoniker, 0);
  if (pEnumMoniker == NULL) {
-   // ê⁄ë±Ç≥ÇÍÇΩâfëúì¸óÕÉfÉoÉCÉXÇ™àÍÇ¬Ç‡ñ≥Ç¢èÍçáÇ…ÇÕÇ±ÇÃifï∂Ç…ì¸ÇËÇ‹Ç∑
+   // Êé•Á∂ö„Åï„Çå„ÅüÊò†ÂÉèÂÖ•Âäõ„Éá„Éê„Ç§„Çπ„Åå‰∏Ä„Å§„ÇÇÁÑ°„ÅÑÂ†¥Âêà„Å´„ÅØ„Åì„ÅÆifÊñá„Å´ÂÖ•„Çä„Åæ„Åô
    printf("no device\n");
    return 0;
  }
 
- // EnumMonikerÇResetÇ∑ÇÈ
- // ResetÇ∑ÇÈÇ∆ÅAêÊì™Ç©ÇÁêîÇ¶Ç»Ç®ÇµÇ‹Ç∑
+ // EnumMoniker„ÇíReset„Åô„Çã
+ // Reset„Åô„Çã„Å®„ÄÅÂÖàÈ†≠„Åã„ÇâÊï∞„Åà„Å™„Åä„Åó„Åæ„Åô
  pEnumMoniker->Reset();
 
- // ç≈èâÇÃMonikerÇéÊìæ
+ // ÊúÄÂàù„ÅÆMoniker„ÇíÂèñÂæó
  pEnumMoniker->Next(1, &pMoniker, &nFetched);
 
- // MonkierÇFilterÇ…BindÇ∑ÇÈ
+ // Monkier„ÇíFilter„Å´Bind„Åô„Çã
  pMoniker->BindToObject(0, 0, IID_IBaseFilter, (void**)&pDeviceFilter );
 
- // FilterGraphÇ…ÉfÉoÉCÉXÉtÉBÉãÉ^Çí«â¡Ç∑ÇÈ
+ // FilterGraph„Å´„Éá„Éê„Ç§„Çπ„Éï„Ç£„É´„Çø„ÇíËøΩÂä†„Åô„Çã
  pGraphBuilder->AddFilter(pDeviceFilter, L"Device Filter");
 
- // Ç±ÇÃéûì_Ç≈MonkierånÅAEnumeratorånÇÕópçœÇ›
+ // „Åì„ÅÆÊôÇÁÇπ„ÅßMonkierÁ≥ª„ÄÅEnumeratorÁ≥ª„ÅØÁî®Ê∏à„Åø
  pMoniker->Release();
  pEnumMoniker->Release();
  pCreateDevEnum->Release();
 
- // GraphÇê∂ê¨Ç∑ÇÈ
+ // Graph„ÇíÁîüÊàê„Åô„Çã
  pCaptureGraphBuilder2->RenderStream(&PIN_CATEGORY_PREVIEW,
    NULL, pDeviceFilter, NULL, pSampleGrabberFilter);
 
  //
- // SampleGrabberÇ©ÇÁèÓïÒÇéÊìæ
+ // SampleGrabber„Åã„ÇâÊÉÖÂ†±„ÇíÂèñÂæó
  //
 
- // ê⁄ë±èÓïÒéÊìæÅB
- // Ç±ÇÃèàóùÇÕRenderFileÇ…ÇÊÇËGraphÇ™ç\ê¨Ç≥ÇÍÇΩå„Ç…
- // çsÇ§ïKóvÇ™Ç†ÇËÇ‹Ç∑ÅB
+ // Êé•Á∂öÊÉÖÂ†±ÂèñÂæó„ÄÇ
+ // „Åì„ÅÆÂá¶ÁêÜ„ÅØRenderFile„Å´„Çà„ÇäGraph„ÅåÊßãÊàê„Åï„Çå„ÅüÂæå„Å´
+ // Ë°å„ÅÜÂøÖË¶Å„Åå„ÅÇ„Çä„Åæ„Åô„ÄÇ
  pSampleGrabber->GetConnectedMediaType(&am_media_type);
  VIDEOINFOHEADER *pVideoInfoHeader =
      (VIDEOINFOHEADER *)am_media_type.pbFormat;
 
- // âÊëúÅiâfëúÅjÇÃïùÇ∆çÇÇ≥Çï\é¶
- // ÉTÉìÉvÉãÇÇÌÇ©ÇËÇ‚Ç∑Ç≠Ç∑ÇÈÇΩÇﬂÇ…ï\é¶ÇµÇƒÇ¢ÇÈÇæÇØÇ»ÇÃÇ≈ÅA
- // ïKÇ∏ïKóvÇ∆Ç¢Ç§ÇÌÇØÇ≈ÇÕÇ†ÇËÇ‹ÇπÇÒÅB
+ // ÁîªÂÉèÔºàÊò†ÂÉèÔºâ„ÅÆÂπÖ„Å®È´ò„Åï„ÇíË°®Á§∫
+ // „Çµ„É≥„Éó„É´„Çí„Çè„Åã„Çä„ÇÑ„Åô„Åè„Åô„Çã„Åü„ÇÅ„Å´Ë°®Á§∫„Åó„Å¶„ÅÑ„Çã„Å†„Åë„Å™„ÅÆ„Åß„ÄÅ
+ // ÂøÖ„ÅöÂøÖË¶Å„Å®„ÅÑ„ÅÜ„Çè„Åë„Åß„ÅØ„ÅÇ„Çä„Åæ„Åõ„Çì„ÄÇ
  printf("size = %dx%d\n",
 	 pVideoInfoHeader->bmiHeader.biWidth,
 	 pVideoInfoHeader->bmiHeader.biHeight);
 
- // ÉfÅ[É^ÉTÉCÉYÇï\é¶
- // Ç±ÇÍÇ‡ê‡ñæÇÃÇΩÇﬂÇ…ï\é¶ÇµÇƒÇ¢Ç‹Ç∑ÅB
+ // „Éá„Éº„Çø„Çµ„Ç§„Ç∫„ÇíË°®Á§∫
+ // „Åì„Çå„ÇÇË™¨Êòé„ÅÆ„Åü„ÇÅ„Å´Ë°®Á§∫„Åó„Å¶„ÅÑ„Åæ„Åô„ÄÇ
  printf("sample size = %d\n",
 	 am_media_type.lSampleSize);
 
- // GrabÇçsÇ§éñÇê›íË
- // SetBufferSamplesÇçsÇÌÇ»Ç¢Ç∆ÉoÉbÉtÉ@Ç©ÇÁ
- // ÉfÅ[É^ÇéÊìæÇ≈Ç´Ç‹ÇπÇÒÅB
- // ïsïKóvÇ…ïââ◊ÇÇ©ÇØÇΩÇ≠Ç»Ç¢èÍçáÇ…ÇÕFALSEÇ…ÇµÇƒÇ®Ç¢ÇƒÅA
- // ÉfÅ[É^ÇéÊìæÇµÇΩÇ≠Ç»Ç¡ÇΩÇÁÅATRUEÇ…ïœÇ¶ÇÈ
- // Ç∆Ç¢Ç§ï˚ñ@Ç‡Ç≈Ç´Ç‹Ç∑ÅB
+ // Grab„ÇíË°å„ÅÜ‰∫ã„ÇíË®≠ÂÆö
+ // SetBufferSamples„ÇíË°å„Çè„Å™„ÅÑ„Å®„Éê„ÉÉ„Éï„Ç°„Åã„Çâ
+ // „Éá„Éº„Çø„ÇíÂèñÂæó„Åß„Åç„Åæ„Åõ„Çì„ÄÇ
+ // ‰∏çÂøÖË¶Å„Å´Ë≤†Ëç∑„Çí„Åã„Åë„Åü„Åè„Å™„ÅÑÂ†¥Âêà„Å´„ÅØFALSE„Å´„Åó„Å¶„Åä„ÅÑ„Å¶„ÄÅ
+ // „Éá„Éº„Çø„ÇíÂèñÂæó„Åó„Åü„Åè„Å™„Å£„Åü„Çâ„ÄÅTRUE„Å´Â§â„Åà„Çã
+ // „Å®„ÅÑ„ÅÜÊñπÊ≥ï„ÇÇ„Åß„Åç„Åæ„Åô„ÄÇ
  pSampleGrabber->SetBufferSamples(TRUE);
 
- // çƒê∂äJén
+ // ÂÜçÁîüÈñãÂßã
  pMediaControl->Run();
 
- // OKÇ™âüÇ≥ÇÍÇÈÇ∆BITMAPÇï€ë∂ÇµÇ‹Ç∑
+ // OK„ÅåÊäº„Åï„Çå„Çã„Å®BITMAP„Çí‰øùÂ≠ò„Åó„Åæ„Åô
  MessageBox(NULL,
 	 "Block Execution", "Block", MB_OK);
 
- // BITMAPÇï€ë∂Ç∑ÇÈ
+ // BITMAP„Çí‰øùÂ≠ò„Åô„Çã
 
- // ÉoÉbÉtÉ@Çópà”
+ // „Éê„ÉÉ„Éï„Ç°„ÇíÁî®ÊÑè
  long nBufferSize = am_media_type.lSampleSize;
  long *pBuffer = (long *)malloc(nBufferSize);
 
- // åªç›ï\é¶Ç≥ÇÍÇƒÇ¢ÇÈâfëúÇê√é~âÊÇ∆ÇµÇƒéÊìæ
+ // ÁèæÂú®Ë°®Á§∫„Åï„Çå„Å¶„ÅÑ„ÇãÊò†ÂÉè„ÇíÈùôÊ≠¢Áîª„Å®„Åó„Å¶ÂèñÂæó
  pSampleGrabber->GetCurrentBuffer(&nBufferSize,
      pBuffer);
 
  //
- // BitmapÇ…ï€ë∂ÅB
- // Ç±ÇÃÉTÉìÉvÉãÇ≈ÇÕÉLÉÉÉvÉ`ÉÉåãâ Çå©ÇÈÇΩÇﬂÇ…
- // BitmapÇ…ï€ë∂ÇµÇƒÇ¢Ç‹Ç∑ÅB
+ // Bitmap„Å´‰øùÂ≠ò„ÄÇ
+ // „Åì„ÅÆ„Çµ„É≥„Éó„É´„Åß„ÅØ„Ç≠„É£„Éó„ÉÅ„É£ÁµêÊûú„ÇíË¶ã„Çã„Åü„ÇÅ„Å´
+ // Bitmap„Å´‰øùÂ≠ò„Åó„Å¶„ÅÑ„Åæ„Åô„ÄÇ
  //
  HANDLE fh;
  BITMAPFILEHEADER bmphdr;
@@ -190,16 +190,16 @@ main()
 
  free(pBuffer);
 
- // éëåπÇâï˙
+ // Ë≥áÊ∫ê„ÇíËß£Êîæ
  pSampleGrabber->Release();
  pSampleGrabberFilter->Release();
 
- // éëåπÇâï˙
+ // Ë≥áÊ∫ê„ÇíËß£Êîæ
  pMediaControl->Release();
  pCaptureGraphBuilder2->Release();
  pGraphBuilder->Release();
 
- // COMèIóπ
+ // COMÁµÇ‰∫Ü
  CoUninitialize();
 
  return 0;

@@ -710,6 +710,18 @@ Value Header::GetField(Environment &env,
 	return value;
 }
 
+Value Header::GetFieldNames(Environment &env, Signal sig) const
+{
+	Value valueRtn;
+	ValueList &valListRtn = valueRtn.InitAsList(env);
+	valListRtn.reserve(_dict.size());
+	foreach_const(Dict, iter, _dict) {
+		const String &fieldName = iter->first;
+		valListRtn.push_back(Value(env, fieldName));
+	}
+	return valueRtn;
+}
+
 Value Header::IndexGet(Environment &env, Signal sig, const Value &valueIdx) const
 {
 	if (!valueIdx.IsString()) {
@@ -1862,6 +1874,8 @@ Value Object_response::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 		return Value(env, status.GetStatusCode());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(reason))) {
 		return Value(env, status.GetReasonPhrase());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(field_names))) {
+		return header.GetFieldNames(env, sig);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(body))) {
 		Stream *pStream = _pObjClient->GetStream();
 		if (pStream == NULL) return Value::Null;
@@ -2770,6 +2784,7 @@ Gura_ModuleEntry()
 	// symbol realization
 	Gura_RealizeUserSymbol(request);
 	Gura_RealizeUserSymbol(status);
+	Gura_RealizeUserSymbol(field_names);
 	Gura_RealizeUserSymbol(method);
 	Gura_RealizeUserSymbol(uri);
 	Gura_RealizeUserSymbol(scheme);

@@ -18,6 +18,7 @@ struct KeyCompare_Dict {
 
 Gura_DeclareUserSymbol(request);
 Gura_DeclareUserSymbol(status);
+Gura_DeclareUserSymbol(field_names);
 Gura_DeclareUserSymbol(method);
 Gura_DeclareUserSymbol(uri);
 Gura_DeclareUserSymbol(scheme);
@@ -174,6 +175,7 @@ public:
 	void SetField(const char *fieldName, const char *fieldValue);
 	bool GetField(const char *fieldName, StringList **ppStringList) const;
 	Value GetField(Environment &env, Signal sig, const char *fieldName, bool signalFlag) const;
+	Value GetFieldNames(Environment &env, Signal sig) const;
 	Value IndexGet(Environment &env, Signal sig, const Value &valueIdx) const;
 	bool GetTimeField(Environment &env, Signal sig, const Symbol *pSymbol, Value &value) const;
 	bool IsField(const char *fieldName, const char *value, bool *pFoundFlag = NULL) const;
