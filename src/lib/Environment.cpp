@@ -36,7 +36,6 @@ const char *GetEnvTypeName(EnvType envType)
 		{ ENVTYPE_block,			"block",			},
 		{ ENVTYPE_class,			"class",			},
 		{ ENVTYPE_object,			"object",			},
-		{ ENVTYPE_method,			"method",			},
 		{ ENVTYPE_lister,			"lister",			},
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
@@ -202,17 +201,6 @@ ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, 
 		if (pValue != NULL) {
 			CacheFrame(pSymbol, pFrame);
 			return pValue;
-		}
-	} else if (envType == ENVTYPE_method) {
-		foreach (FrameOwner, ppFrame, _frameOwner) {
-			Frame *pFrame = *ppFrame;
-			if (pFrame->IsType(ENVTYPE_object)) continue;
-			//if (pFrame->IsType(ENVTYPE_class)) continue;
-			ValueEx *pValue = pFrame->LookupValue(pSymbol);
-			if (pValue != NULL) {
-				CacheFrame(pSymbol, pFrame);
-				return pValue;
-			}
 		}
 	} else if (envType == ENVTYPE_object || envType == ENVTYPE_class) {
 		foreach (FrameOwner, ppFrame, _frameOwner) {

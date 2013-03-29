@@ -37,7 +37,6 @@ enum EnvType {
 	ENVTYPE_block,
 	ENVTYPE_class,
 	ENVTYPE_object,
-	ENVTYPE_method,
 	ENVTYPE_lister,
 };
 

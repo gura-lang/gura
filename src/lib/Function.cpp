@@ -508,11 +508,7 @@ Value Function::EvalOverrideBinary(Environment &env, Signal sig, Args &args, boo
 
 Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &args) const
 {
-	EnvType envType = 
-		(_funcType == FUNCTYPE_Class)?		ENVTYPE_method :
-		(_funcType == FUNCTYPE_Instance)?	ENVTYPE_method :
-		(_funcType == FUNCTYPE_Block)?		ENVTYPE_block :
-		ENVTYPE_local;
+	EnvType envType = (_funcType == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
 	Environment *pEnvOuter = GetDynamicScopeFlag()?
 							&env : const_cast<Environment *>(&_envScope);
 	std::auto_ptr<Environment> pEnvLocal(new Environment(pEnvOuter, envType));
@@ -1004,7 +1000,7 @@ Value ClassPrototype::DoEval(Environment &env, Signal sig, Args &args) const
 				pExprList = &pExprParam->GetExprOwner();
 			}
 		}
-		Environment envSuper(pEnvLocal.get(), ENVTYPE_method);
+		Environment envSuper(pEnvLocal.get(), ENVTYPE_local);
 		Args argsSub(*pExprList, valueThis);
 		pConstructorSuper->EvalExpr(envSuper, sig, argsSub);
 		if (sig.IsSignalled()) return Value::Null;
