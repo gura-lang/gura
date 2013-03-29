@@ -81,4 +81,5 @@ Source URLs of Guest Libraries
 
 <table>
 <tr><td>dSFMT-src-2.2.1.zip</td><td>http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/index.html</td></tr>
+<tr><td>combination.hpp</td><td>http://photon.poly.edu/~hbr/boost/combinations.html</td></tr>
 </table>
