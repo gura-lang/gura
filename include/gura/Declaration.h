@@ -114,8 +114,6 @@ public:
 		return Declare(env, Symbol::Add(name), valType, occurPattern, flags, pExprDefault);
 	}
 	bool Declare(Environment &env, Signal sig, const ExprList &exprList);
-	bool PrepareArgsForUnary(Environment &env, Signal sig,
-		const ExprList &exprListArg, ValueList &valListArg, Value &valueWithDict) const;
 	bool PrepareArgs(Environment &env, Signal sig,
 		const ExprList &exprListArg, ValueList &valListArg, Value &valueWithDict) const;
 	bool ValidateAndCast(Environment &env, Signal sig,

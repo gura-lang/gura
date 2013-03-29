@@ -520,7 +520,7 @@ scope {
 	println('==== Test of list operation (1) ====')
 	t = [0..3]
 	tester(`t)
-	tester(`math.sin(t, t, t))
+	tester(`math.sin([t, t, t]))
 	tester(`math.sin([t, [t, t], t]))
 	a = ['aaa', 'bbbb', 'ccc'] + ['3', '4', '5']
 	b = a * 4

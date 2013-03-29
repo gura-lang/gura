@@ -433,52 +433,6 @@ bool DeclarationOwner::Declare(Environment &env, Signal sig, const ExprList &exp
 	return true;
 }
 
-bool DeclarationOwner::PrepareArgsForUnary(Environment &env, Signal sig,
-		const ExprList &exprListArg, ValueList &valListArg, Value &valueWithDict) const
-{
-	Value value;
-	ValueList &valList = value.InitAsList(env);
-	ValueDict &valDict = valueWithDict.GetDict();
-	const Declaration *pDecl = front();
-	bool quoteFlag = pDecl->IsQuote();
-	foreach_const (ExprList, ppExprArg, exprListArg) {
-		const Expr *pExprArg = *ppExprArg;
-		size_t nElems = 0;
-		if (!quoteFlag && pExprArg->IsDictAssign()) {
-			if (GetSymbolDict() == NULL) {
-				sig.SetError(ERR_ValueError, "dictionary assignment is not effective");
-				return false;
-			}
-			const Expr_DictAssign *pExprDictAssign =
-						dynamic_cast<const Expr_DictAssign *>(pExprArg);
-			Value valueKey = pExprDictAssign->GetKey(env, sig);
-			if (sig.IsSignalled()) return false;
-			Value value = pExprDictAssign->GetRight()->Exec(env, sig);
-			if (sig.IsSignalled()) return false;
-			valDict[valueKey] = value;
-		} else if (!quoteFlag && IsSuffixed(pExprArg, Gura_Symbol(Char_Modulo))) {
-			if (GetSymbolDict() == NULL) {
-				sig.SetError(ERR_ValueError, "dictionary assignment is not effective");
-				return false;
-			}
-			pExprArg = dynamic_cast<const Expr_Suffix *>(pExprArg)->GetChild();
-			Value value = pExprArg->Exec(env, sig);
-			if (sig.IsSignalled()) return false;
-			if (!value.IsDict()) {
-				sig.SetError(ERR_ValueError, "modulo argument must take a dictionary");
-				return false;
-			}
-			foreach_const (ValueDict, item, value.GetDict()) {
-				valDict.insert(*item);
-			}
-		} else if (!pExprArg->ExecInArg(env, sig, valList, nElems, quoteFlag)) {
-			return false;
-		}
-	}
-	valListArg.push_back(value);
-	return true;
-}
-
 bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 		const ExprList &exprListArg, ValueList &valListArg, Value &valueWithDict) const
 {

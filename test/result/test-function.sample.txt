@@ -68,8 +68,6 @@ f(% { a => 1, b => 2 }%, % { c => 3 }%, d => 4) .. a=1 b=2 c=3 d=4 %{}
 f(1, 2, 3, 4, % { a => 1, b => 2, c => 3, d => 4 }%) .. a=1 b=2 c=3 d=4 %{a => 1, b => 2, c => 3, d => 4}
 f(1, 2, 3, 4, % { 'a' => 1, 'b' => 2, 'c' => 3, 'd' => 4 }%) .. a=1 b=2 c=3 d=4 %{'a' => 1, 'b' => 2, 'c' => 3, 'd' => 4}
 f(1, % { a => 1, b => 2, c => 3, d => 4 }%) .. a=1 %{a => 1, b => 2, c => 3, d => 4}
-expected error occurs: ValueError: dictionary assignment is not effective
-expected error occurs: ValueError: dictionary assignment is not effective
 funcorg() = { }
 funcnew() = { }
 funcnew1() = { }

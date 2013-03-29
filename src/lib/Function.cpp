@@ -378,12 +378,7 @@ Value Function::EvalExpr(Environment &env, Signal sig, Args &args) const
 	ValueList valListArg;
 	Value valueWithDict;
 	valueWithDict.InitAsDict(env, false);
-	if (mapFlag && IsUnary() && (exprListArg.size() > 1 ||
-						!exprListArg.empty() && exprListArg.front()->IsSuffix())) {
-		if (!_declOwner.PrepareArgsForUnary(env, sig, exprListArg, valListArg, valueWithDict)) {
-			return Value::Null;
-		}
-	} else if (!_declOwner.PrepareArgs(env, sig, exprListArg, valListArg, valueWithDict)) {
+	if (!_declOwner.PrepareArgs(env, sig, exprListArg, valListArg, valueWithDict)) {
 		return Value::Null;
 	}
 	Args argsSub(args, valListArg, valueWithDict, resultMode, flags);
