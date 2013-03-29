@@ -678,7 +678,7 @@ String GetLocalDir()
 	char buff[MAX_PATH];
 	::SHGetSpecialFolderPath(NULL, buff, CSIDL_LOCAL_APPDATA, FALSE);
 	String dirName = FromNativeString(buff);
-	dirName += "\\gura";
+	dirName += "\\Gura";
 	MakeDir(dirName.c_str());
 	do {
 		String dirNameSub(dirName);
