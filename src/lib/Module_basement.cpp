@@ -343,6 +343,29 @@ Gura_ImplementFunction(local)
 	return Value::Null;
 }
 
+// public():void {block}
+Gura_DeclareFunctionAlias(public_, "public")
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_Once);
+}
+
+Gura_ImplementFunction(public_)
+{
+	SymbolSet &symbolsPublic = env.PrepareSymbolsPublic();
+	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
+		const Expr *pExpr = *ppExpr;
+		if (!pExpr->IsSymbol()) {
+			sig.SetError(ERR_ValueError, "elements of public must be symbol");
+			return Value::Null;
+		}
+		const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExpr);
+		symbolsPublic.Insert(pExprSymbol->GetSymbol());
+	}
+	return Value::Null;
+}
+
 // try ():leader {block}
 Gura_DeclareFunctionLeaderAlias(try_, "try")
 {
@@ -1559,6 +1582,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(struct_);
 	Gura_AssignFunction(super);
 	Gura_AssignFunction(module);
+	Gura_AssignFunction(public_);
 	Gura_AssignFunction(try_);
 	Gura_AssignFunction(except_);
 	Gura_AssignFunction(finally_);

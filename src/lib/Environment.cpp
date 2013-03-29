@@ -926,6 +926,14 @@ const ValueTypeInfo *Environment::Frame::LookupValueType(const Symbol *pSymbol) 
 	return (iter == _pValueTypeMap->end())? NULL : iter->second;
 }
 
+SymbolSet &Environment::Frame::PrepareSymbolsPublic()
+{
+	if (_pSymbolsPublic.get() == NULL) {
+		_pSymbolsPublic.reset(new SymbolSet());
+	}
+	return *_pSymbolsPublic;
+}
+
 void Environment::Frame::DbgPrint() const
 {
 	::printf("%p %-10s\n", this, GetEnvTypeName(GetEnvType()));

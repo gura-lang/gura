@@ -264,6 +264,7 @@ print:function = print(value*):map:void
 print_func:function = print_func(func:function)
 printf:function = printf(format:string, values*):map:void
 println:function = println(value*):map:void
+public:function = public():void {block}
 raise:function = raise(error:error, msg:string => 'error', value?)
 rand:function = rand(range?:number) {block?}
 rands:function = rands(num?:number, range?:number) {block?}

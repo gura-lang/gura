@@ -5,30 +5,6 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class
 //-----------------------------------------------------------------------------
-// object.public():void {block}
-Gura_DeclareClassMethodAlias(Object, public_, "public")
-{
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareBlock(OCCUR_Once);
-}
-
-Gura_ImplementClassMethod(Object, public_)
-{
-	Class *pClass = args.GetThisClass();
-	SymbolSet *pSymbolsPublic = pClass->PrepareSymbolsPublic();
-	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
-		const Expr *pExpr = *ppExpr;
-		if (!pExpr->IsSymbol()) {
-			sig.SetError(ERR_ValueError, "elements of public must be symbol");
-			return Value::Null;
-		}
-		const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExpr);
-		pSymbolsPublic->Insert(pExprSymbol->GetSymbol());
-	}
-	return Value::Null;
-}
-
 // object#istype(type:expr):map
 Gura_DeclareMethodPrimitive(Object, istype)
 {
@@ -281,7 +257,6 @@ String Class::ToString(Signal sig, bool exprFlag)
 // assignment
 void Class::Prepare()
 {
-	Gura_AssignMethod(Object, public_);
 	Gura_AssignMethod(Object, istype);		// primitive method
 	Gura_AssignMethod(Object, tonumber);	// primitive method
 	Gura_AssignMethod(Object, tostring);	// primitive method

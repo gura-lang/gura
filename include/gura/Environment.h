@@ -175,6 +175,7 @@ public:
 		Global *_pGlobal;
 		std::auto_ptr<ValueMap> _pValueMap;
 		std::auto_ptr<ValueTypeMap> _pValueTypeMap;
+		std::auto_ptr<SymbolSet> _pSymbolsPublic;
 	public:
 		Frame(const Frame &frame);
 		Frame(EnvType envType, Global *pGlobal);
@@ -200,11 +201,15 @@ public:
 		inline const ValueTypeMap &GetValueTypeMap() const {
 			return (_pValueTypeMap.get() == NULL)? ValueTypeMap::Null : *_pValueTypeMap;
 		}
+		inline const SymbolSet &GetSymbolsPublic() const {
+			return (_pSymbolsPublic.get() == NULL)? SymbolSet::Null : *_pSymbolsPublic;
+		}
 		void AssignValue(const Symbol *pSymbol, const Value &value, unsigned long extra);
 		void RemoveValue(const Symbol *pSymbol);
 		ValueEx *LookupValue(const Symbol *pSymbol);
 		void AssignValueType(const ValueTypeInfo *pValueTypeInfo);
 		const ValueTypeInfo *LookupValueType(const Symbol *pSymbol) const;
+		SymbolSet &PrepareSymbolsPublic();
 		void DbgPrint() const;
 	};
 	class GURA_DLLDECLARE FrameList : public std::list<Frame *> {
@@ -223,7 +228,6 @@ public:
 protected:
 	FrameOwner _frameOwner;
 	std::auto_ptr<FrameCache> _pFrameCache;
-	std::auto_ptr<SymbolSet> _pSymbolsPublic;
 	static IntegratedModuleOwner *_pIntegratedModuleOwner;
 public:
 	Environment();
@@ -248,14 +252,8 @@ public:
 	inline Module *GetModule_sys()				{ return GetGlobal()->_pModule_sys;			}
 	inline void SetEchoFlag(bool echoFlag)		{ GetGlobal()->_echoFlag = echoFlag;		}
 	inline bool GetEchoFlag() const				{ return GetGlobal()->_echoFlag;			}
-	inline SymbolSet *GetSymbolsPublic() { return _pSymbolsPublic.get(); }
-	inline const SymbolSet *GetSymbolsPublic() const { return _pSymbolsPublic.get(); }
-	inline SymbolSet *PrepareSymbolsPublic() {
-		if (_pSymbolsPublic.get() == NULL) {
-			_pSymbolsPublic.reset(new SymbolSet());
-		}
-		return _pSymbolsPublic.get();
-	}
+	inline const SymbolSet &GetSymbolsPublic() const { return GetTopFrame()->GetSymbolsPublic(); }
+	inline SymbolSet &PrepareSymbolsPublic()	{ return GetTopFrame()->PrepareSymbolsPublic(); }
 	void AddRootFrame(const FrameList &frameListSrc);
 	void AddOuterFrame(const FrameList &frameListSrc);
 	void AddLackingFrame(const FrameList &frameListSrc);
