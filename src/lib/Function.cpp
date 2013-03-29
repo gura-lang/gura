@@ -520,7 +520,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 		ENVTYPE_local;
 	Environment *pEnvOuter = GetDynamicScopeFlag()?
 							&env : const_cast<Environment *>(&_envScope);
-	Environment *pEnvLocal = new Environment(pEnvOuter, envType);
+	std::auto_ptr<Environment> pEnvLocal(new Environment(pEnvOuter, envType));
 	const ValueList &valListArg = args.GetArgs();
 	ValueList::const_iterator pValue = valListArg.begin();
 	DeclarationList::const_iterator ppDecl = _declOwner.begin();
@@ -535,12 +535,9 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 		}
 		pEnvLocal->AssignValue(_declOwner.GetSymbolDict(), valueWithDict, false);
 	}
-	if (_blockInfo.pSymbol == NULL) return pEnvLocal;
+	if (_blockInfo.pSymbol == NULL) return pEnvLocal.release();
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
-	if (sig.IsSignalled()) {
-		delete pEnvLocal;
-		return NULL;
-	}
+	if (sig.IsSignalled()) return NULL;
 	if (pExprBlock == NULL) {
 		// set nil value to the variable with a symbol specified by
 		// _blockInfo.pSymbol
@@ -550,18 +547,15 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 		pEnvLocal->AssignValue(_blockInfo.pSymbol, Value(pObj), false);
 	} else {
 		Environment *pEnv =
-				(_blockInfo.blockScope == BLKSCOPE_Inside)? pEnvLocal : &env;
+				(_blockInfo.blockScope == BLKSCOPE_Inside)? pEnvLocal.get() : &env;
 		FunctionType funcType = (_blockInfo.blockScope == BLKSCOPE_SameAsFunc)?
 											FUNCTYPE_Function : FUNCTYPE_Block;
 		FunctionCustom *pFuncBlock = FunctionCustom::CreateBlockFunc(*pEnv, sig,
 								_blockInfo.pSymbol, pExprBlock, funcType);
-		if (pFuncBlock == NULL) {
-			delete pEnvLocal;
-			return NULL;
-		}
+		if (pFuncBlock == NULL) return NULL;
 		pEnvLocal->AssignFunction(pFuncBlock);
 	}
-	return pEnvLocal;
+	return pEnvLocal.release();
 }
 
 bool Function::CheckIfTrailer(const ICallable *pCallable) const
