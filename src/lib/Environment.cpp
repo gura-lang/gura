@@ -106,11 +106,6 @@ Environment::~Environment()
 	// virtual destructor
 }
 
-bool Environment::IsSymbolPublic(const Symbol *pSymbol) const
-{
-	return true;
-}
-
 void Environment::AddRootFrame(const FrameList &frameListSrc)
 {
 	// reference to the root environment
@@ -148,6 +143,25 @@ void Environment::CacheFrame(const Symbol *pSymbol, Frame *pFrame)
 {
 	if (_pFrameCache.get() == NULL) _pFrameCache.reset(new FrameCache());
 	(*_pFrameCache)[pSymbol] = pFrame;
+}
+
+bool Environment::IsSymbolPublic(const Symbol *pSymbol) const
+{
+#if 0
+	EnvType envType = GetTopFrame()->GetEnvType();
+	if (envType == ENVTYPE_class || envType == ENVTYPE_object) {
+		foreach_const (FrameOwner, ppFrame, _frameOwner) {
+			const Frame *pFrame = *ppFrame;
+			if (pFrame->IsType(ENVTYPE_class) && pFrame->IsSymbolPublic(pSymbol)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	const Frame *pFrame = GetTopFrame();
+	return pFrame->IsSymbolPublic(pSymbol);
+#endif
+	return true;
 }
 
 void Environment::AssignValue(const Symbol *pSymbol, const Value &value, unsigned long extra)
@@ -209,7 +223,7 @@ ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, 
 			CacheFrame(pSymbol, pFrame);
 			return pValue;
 		}
-	} else if (envType == ENVTYPE_object || envType == ENVTYPE_class) {
+	} else if (envType == ENVTYPE_class || envType == ENVTYPE_object) {
 		foreach (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
 			if (pFrame->IsType(ENVTYPE_object)) {

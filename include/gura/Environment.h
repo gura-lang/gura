@@ -298,11 +298,11 @@ public:
 	inline bool GetEchoFlag() const				{ return GetGlobal()->_echoFlag;			}
 	inline const SymbolSet &GetSymbolsPublic() const { return GetTopFrame()->GetSymbolsPublic(); }
 	inline SymbolSet &PrepareSymbolsPublic()	{ return GetTopFrame()->PrepareSymbolsPublic(); }
-	bool IsSymbolPublic(const Symbol *pSymbol) const;
 	void AddRootFrame(const FrameList &frameListSrc);
 	void AddOuterFrame(const FrameList &frameListSrc);
 	void AddLackingFrame(const FrameList &frameListSrc);
 	void CacheFrame(const Symbol *pSymbol, Frame *pFrame);
+	bool IsSymbolPublic(const Symbol *pSymbol) const;
 	void AssignValue(const Symbol *pSymbol, const Value &value, unsigned long extra);
 	void AssignValueFromBlock(const Symbol *pSymbol, const Value &value, unsigned long extra);
 	bool ImportValue(const Symbol *pSymbol, const Value &value,
