@@ -881,9 +881,9 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 		}
 	}
 	if (escalateFlag) {
-		env.AssignValue(GetSymbol(), value);
+		env.AssignValueFromBlock(GetSymbol(), value);
 	} else {
-		env.AssignValueLocal(GetSymbol(), value);
+		env.AssignValue(GetSymbol(), value);
 	}
 	return value;
 }

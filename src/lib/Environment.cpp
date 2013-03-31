@@ -148,6 +148,13 @@ void Environment::CacheFrame(const Symbol *pSymbol, Frame *pFrame)
 void Environment::AssignValue(const Symbol *pSymbol, const Value &value)
 {
 	unsigned long extra = EXTRA_Public;
+	GetTopFrame()->AssignValue(pSymbol, value, extra);
+	CacheFrame(pSymbol, GetTopFrame());
+}
+
+void Environment::AssignValueFromBlock(const Symbol *pSymbol, const Value &value)
+{
+	unsigned long extra = EXTRA_Public;
 	if (_pFrameCache.get() != NULL) {
 		FrameCache::iterator iter = _pFrameCache->find(pSymbol);
 		if (iter != _pFrameCache->end()) {
@@ -163,13 +170,6 @@ void Environment::AssignValue(const Symbol *pSymbol, const Value &value)
 			break;
 		}
 	}
-}
-
-void Environment::AssignValueLocal(const Symbol *pSymbol, const Value &value)
-{
-	unsigned long extra = EXTRA_Public;
-	GetTopFrame()->AssignValue(pSymbol, value, extra);
-	CacheFrame(pSymbol, GetTopFrame());
 }
 
 bool Environment::ImportValue(const Symbol *pSymbol, const Value &value,

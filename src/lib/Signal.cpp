@@ -76,7 +76,7 @@ void AssignErrorTypes(Environment &env)
 {
 	for (const ErrorTypeInfo *p = _errorTypeInfoTbl; p->name != NULL; p++) {
 		Object *pObj = new Object_error(env, p->errType);
-		env.AssignValueLocal(Symbol::Add(p->name), Value(pObj));
+		env.AssignValue(Symbol::Add(p->name), Value(pObj));
 	}
 }
 

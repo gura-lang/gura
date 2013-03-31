@@ -4,6 +4,48 @@
 #include "Value.h"
 #include "String.h"
 
+#define Gura_AssignFunction(name) \
+env.AssignFunction(new Func_##name(env))
+
+#define Gura_AssignFunctionEx(name, arg1) \
+env.AssignFunction(new Func_##name(env, arg1))
+
+#define Gura_AssignFunctionExx(name, arg1, arg2) \
+env.AssignFunction(new Func_##name(env, arg1, arg2))
+
+#define Gura_AssignMethod(className, name) \
+AssignFunction(new Func_##className##__##name(*this))
+
+#define Gura_AssignClassMethod(className, name) \
+AssignFunction(new Func_##className##__##name(*this))
+
+#define Gura_AssignMethodTo(valType, className, name) \
+do { \
+	Class *pClass = env.LookupClass(valType); \
+	pClass->AssignFunction(new Func_##className##__##name(*pClass)); \
+} while (0)
+
+#define Gura_AssignMethodEx(className, name, arg1) \
+AssignFunction(new Func_##className##__##name(*this, arg1))
+
+#define Gura_AssignMethodExx(className, name, arg1, arg2) \
+AssignFunction(new Func_##className##__##name(*this, arg1, arg2))
+
+#define Gura_AssignValue(name, value) \
+env.AssignValue(Symbol::Add(#name), value)
+
+#define Gura_AssignClassValue(name, value) \
+AssignValue(Symbol::Add(#name), value)
+
+#define Gura_AssignValueTo(valType, name, value) \
+do { \
+	Class *pClass = env.LookupClass(valType); \
+	pClass->AssignValue(Symbol::Add(#name), value); \
+} while (0)
+
+#define Gura_AssignValueEx(name, value) \
+env.AssignValue(Symbol::Add(name), value)
+
 namespace Gura {
 
 class Class;
@@ -258,7 +300,7 @@ public:
 	void AddLackingFrame(const FrameList &frameListSrc);
 	void CacheFrame(const Symbol *pSymbol, Frame *pFrame);
 	void AssignValue(const Symbol *pSymbol, const Value &value);
-	void AssignValueLocal(const Symbol *pSymbol, const Value &value);
+	void AssignValueFromBlock(const Symbol *pSymbol, const Value &value);
 	bool ImportValue(const Symbol *pSymbol, const Value &value,
 										unsigned long extra, bool overwriteFlag);
 	void RemoveValue(const Symbol *pSymbol);

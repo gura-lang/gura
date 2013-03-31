@@ -90,7 +90,7 @@ Gura_DeclareMethodAlias(environment, setprop_X, "setprop!")
 Gura_ImplementMethod(environment, setprop_X)
 {
 	Object_environment *pThis = Object_environment::GetThisObj(args);
-	pThis->GetEnv().AssignValueLocal(args.GetSymbol(0), args.GetValue(1));
+	pThis->GetEnv().AssignValue(args.GetSymbol(0), args.GetValue(1));
 	return Value::Null;
 }
 
