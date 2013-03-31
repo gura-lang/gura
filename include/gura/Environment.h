@@ -84,6 +84,7 @@ enum EnvType {
 
 enum EnvRefMode {
 	ENVREF_NoEscalate,
+	ENVREF_Module,
 	ENVREF_Escalate,
 	ENVREF_Restricted,
 };
@@ -296,8 +297,8 @@ public:
 	inline Module *GetModule_sys()				{ return GetGlobal()->_pModule_sys;			}
 	inline void SetEchoFlag(bool echoFlag)		{ GetGlobal()->_echoFlag = echoFlag;		}
 	inline bool GetEchoFlag() const				{ return GetGlobal()->_echoFlag;			}
-	inline const SymbolSet &GetSymbolsPublic() const { return GetTopFrame()->GetSymbolsPublic(); }
-	inline SymbolSet &PrepareSymbolsPublic()	{ return GetTopFrame()->PrepareSymbolsPublic(); }
+	const SymbolSet &GetSymbolsPublic() const;
+	SymbolSet &PrepareSymbolsPublic();
 	void AddRootFrame(const FrameList &frameListSrc);
 	void AddOuterFrame(const FrameList &frameListSrc);
 	void AddLackingFrame(const FrameList &frameListSrc);

@@ -11,6 +11,7 @@ expected error occurs
 expected error occurs
 expected error occurs
 expected error occurs
+expected error occurs
 A B C D
 expected error occurs
 expected error occurs

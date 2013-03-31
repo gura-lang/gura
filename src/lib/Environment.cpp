@@ -106,6 +106,28 @@ Environment::~Environment()
 	// virtual destructor
 }
 
+const SymbolSet &Environment::GetSymbolsPublic() const
+{
+	foreach_const (FrameOwner, ppFrame, GetFrameOwner()) {
+		Frame *pFrame = *ppFrame;
+		if (pFrame->GetEnvType() != ENVTYPE_block) {
+			return pFrame->GetSymbolsPublic();
+		}
+	}
+	return GetTopFrame()->GetSymbolsPublic(); // this must not happen
+}
+
+SymbolSet &Environment::PrepareSymbolsPublic()
+{
+	foreach (FrameOwner, ppFrame, GetFrameOwner()) {
+		Frame *pFrame = *ppFrame;
+		if (pFrame->GetEnvType() != ENVTYPE_block) {
+			return pFrame->PrepareSymbolsPublic();
+		}
+	}
+	return GetTopFrame()->PrepareSymbolsPublic(); // this must not happen
+}
+
 void Environment::AddRootFrame(const FrameList &frameListSrc)
 {
 	// reference to the root environment
@@ -167,14 +189,18 @@ bool Environment::IsSymbolPublic(const Symbol *pSymbol) const
 
 void Environment::AssignValue(const Symbol *pSymbol, const Value &value, unsigned long extra)
 {
-	if ((extra & EXTRA_Public) == 0 && IsSymbolPublic(pSymbol)) extra |= EXTRA_Public;
+	if ((extra & EXTRA_Public) == 0 && IsSymbolPublic(pSymbol)) {
+		extra |= EXTRA_Public;
+	}
 	GetTopFrame()->AssignValue(pSymbol, value, extra);
 	CacheFrame(pSymbol, GetTopFrame());
 }
 
 void Environment::AssignValueFromBlock(const Symbol *pSymbol, const Value &value, unsigned long extra)
 {
-	if ((extra & EXTRA_Public) == 0 && IsSymbolPublic(pSymbol)) extra |= EXTRA_Public;
+	if ((extra & EXTRA_Public) == 0 && IsSymbolPublic(pSymbol)) {
+		extra |= EXTRA_Public;
+	}
 	if (_pFrameCache.get() != NULL) {
 		FrameCache::iterator iter = _pFrameCache->find(pSymbol);
 		if (iter != _pFrameCache->end()) {
@@ -217,7 +243,7 @@ void Environment::RemoveValue(const Symbol *pSymbol)
 ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip)
 {
 	EnvType envType = GetTopFrame()->GetEnvType();
-	if (envRefMode == ENVREF_NoEscalate) {
+	if (envRefMode == ENVREF_NoEscalate || envRefMode == ENVREF_Module) {
 		Frame *pFrame = GetTopFrame();
 		ValueEx *pValue = pFrame->LookupValue(pSymbol);
 		if (pValue != NULL) {
@@ -269,7 +295,7 @@ Function *Environment::AssignFunction(Function *pFunc)
 Function *Environment::LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const
 {
 	EnvType envType = GetTopFrame()->GetEnvType();
-	if (envRefMode == ENVREF_NoEscalate) {
+	if (envRefMode == ENVREF_NoEscalate || envRefMode == ENVREF_Module) {
 		Frame *pFrame = const_cast<Frame *>(GetTopFrame());
 		Value *pValue = pFrame->LookupValue(pSymbol);
 		if (pValue != NULL && pValue->IsFunction()) {
@@ -376,7 +402,7 @@ Value Environment::GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	const ValueEx *pValue = LookupValue(pSymbol, envRefMode, cntSuperSkip);
 	if (pValue == NULL) {
 		// nothing to do
-	} else if (envRefMode != ENVREF_Restricted) {
+	} else if (envRefMode != ENVREF_Restricted && envRefMode != ENVREF_Module) {
 		return *pValue;
 	} else if (pValue->GetExtra() & EXTRA_Public) {
 		return *pValue;

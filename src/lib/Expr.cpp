@@ -796,7 +796,7 @@ Value Expr_Symbol::Exec(Environment &env, Signal sig) const
 Value Expr_Symbol::Exec(Environment &env, Signal sig, const Value &valueThis) const
 {
 	EnvRefMode envRefMode =
-			env.IsModule()? ENVREF_NoEscalate :
+			env.IsModule()? ENVREF_Module :
 			!(env.IsClass() || env.IsObject())? ENVREF_Escalate :
 			valueThis.IsPrivileged()? ENVREF_Escalate : ENVREF_Restricted;
 	int cntSuperSkip = valueThis.GetSuperSkipCount();

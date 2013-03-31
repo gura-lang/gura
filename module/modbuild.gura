@@ -130,7 +130,7 @@ BuilderBase = class {
 //-----------------------------------------------------------------------------
 if (sys.build == `msc) {
 	guraDir:local = sys.datadir
-	guestDir = path.join(guraDir, 'gura-guest')
+	guestDir:public = path.join(guraDir, 'gura-guest')
 	Builder = class(BuilderBase) {
 		public {
 			incDirs

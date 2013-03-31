@@ -104,9 +104,11 @@ scope {
 			__init__(name) = { this.name = name }
 			func() = { println('message from ', this.name) }
 		}
-		obj1 = A('object-1')
-		obj2 = A('object-2')
-		obj3 = A('object-3')
+		public {
+			obj1 = A('object-1')
+			obj2 = A('object-2')
+			obj3 = A('object-3')
+		}
 		f1 = obj1.func
 		f2 = obj2.func
 		f3 = obj3.func

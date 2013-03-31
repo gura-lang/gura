@@ -48,9 +48,17 @@ scope {
 	try { d } except(ValueError) { printf('expected error occurs\n') }
 	hoge = module {
 		a = 'A'
-		b = 'B'
-		c = 'C'
-		d = 'D'
+	}
+	try {
+		println(hoge.a)
+	} except(MemberAccessError) { printf('expected error occurs\n') }
+	hoge = module {
+		public {
+			a = 'A'
+			b = 'B'
+			c = 'C'
+			d = 'D'
+		}
 	}
 	println([hoge.a, hoge.b, hoge.c, hoge.d].join(' '))
 	undef(hoge.a, hoge.b, hoge.c, hoge.d)
@@ -60,10 +68,12 @@ scope {
 	try { hoge.d } except(ValueError) { printf('expected error occurs\n') }
 	hoge = module {
 		foo = module {
-			a = 'A'
-			b = 'B'
-			c = 'C'
-			d = 'D'
+			public {
+				a = 'A'
+				b = 'B'
+				c = 'C'
+				d = 'D'
+			}
 		}
 	}
 	println([hoge.foo.a, hoge.foo.b, hoge.foo.c, hoge.foo.d].join(' '))
