@@ -359,8 +359,18 @@ Gura_ImplementFunction(public_)
 		if (pExpr->IsSymbol()) {
 			const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExpr);
 			symbolsPublic.Insert(pExprSymbol->GetSymbol());
+		} else if (pExpr->IsAssign()) {
+			const Expr_Assign *pExprAssign = dynamic_cast<const Expr_Assign *>(pExpr);
+			if (!pExprAssign->GetLeft()->IsSymbol()) {
+				sig.SetError(ERR_ValueError, "invalid element for public");
+				return Value::Null;
+			}
+			const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExprAssign->GetLeft());
+			symbolsPublic.Insert(pExprSymbol->GetSymbol());
+			pExprAssign->Exec(env, sig);
+			if (sig.IsSignalled()) return Value::Null;
 		} else {
-			sig.SetError(ERR_ValueError, "elements of public must be symbol");
+			sig.SetError(ERR_ValueError, "invalid element for public");
 			return Value::Null;
 		}
 	}

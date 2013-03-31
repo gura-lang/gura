@@ -299,7 +299,7 @@ bool Class::BuildContent(Environment &env, Signal sig, const Value &valueThis,
 				sig.SetError(ERR_TypeError, "object is not callable");
 			} else {
 				const Function *pFuncLeader = NULL;
-				pCallable->Call(env, sig, valueThis, NULL, false,
+				pCallable->Call(*this, sig, valueThis, NULL, false,
 						pExprCaller, pExprCaller->GetExprOwner(), &pFuncLeader);
 			}
 		} else {

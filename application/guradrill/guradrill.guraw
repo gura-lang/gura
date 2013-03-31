@@ -70,6 +70,18 @@ PaperInfo = class {
 // App
 //-----------------------------------------------------------------------------
 App = class(wx.App) {
+	public {
+		wdCanvas, htCanvas
+		cfg
+		composers
+		paperInfo
+		imgList
+		IMG_History
+		IMG_Plus
+		IMG_Minus
+		IMG_Multiply
+		IMG_Divide
+	}
 	OnInit() = {
 		this.paperInfo = PaperInfo(210, 297, 10, 10, 10, 15)
 		[this.wdCanvas, this.htCanvas] = [210, 297] * 2.0
@@ -184,7 +196,8 @@ App = class(wx.App) {
 				composer.attrCur = ComposerAttr(cfgComposer['attrCur'])
 				composer.attrCur.name = ''
 			}
-		} except {
+		} except {|e|
+			println(e.message)
 			fs.remove(this.fileNameCfg)
 			sys.exit(1)
 		}
@@ -291,6 +304,15 @@ Page = struct(questions[] => [])
 // ComposerAttr
 //-----------------------------------------------------------------------------
 ComposerAttr = class {
+	public {
+		fileNamePDF
+		cntHorz, cntVert
+		nPages
+		kanjiFlag
+		answerFlag
+		scoreBoxFlag
+		seed
+	}
 	__init__(cfg?:dict):map = {
 		if (cfg) {
 			this.name			= cfg['name']
@@ -354,6 +376,15 @@ ComposerAttr = class {
 // Composer
 //-----------------------------------------------------------------------------
 Composer = class {
+	public {
+		attrCur
+		imgIcon
+		composerName
+		category
+		iPageCur
+		attrsHist
+		cntHorzMax, cntVertMax
+	}
 	wdScoreBox = 30
 	htTitle = 16
 	htName = 12
@@ -1422,7 +1453,7 @@ Panel = class(wx.Panel) {
 				sash.SetOrientation(wx.LAYOUT_VERTICAL);
 				sash.SetAlignment(wx.LAYOUT_LEFT);
 				sash.SetSashVisible(wx.SASH_RIGHT, true);
-				panel.sashLeft = sash
+				panel.sashLeft:public = sash
 			}
 			wx.Panel(panel.sashLeft) {|panelNavi|
 				outerBox = wx.BoxSizer(wx.VERTICAL)

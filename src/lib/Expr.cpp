@@ -843,6 +843,9 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 		}
 	}
 	unsigned long extra = EXTRA_None;
+	if (_attrs.IsSet(Gura_Symbol(public_))) {
+		extra = EXTRA_Public;
+	}
 	if (value.IsModule()) {
 		Module *pModule = value.GetModule();
 		if (pModule->IsAnonymous()) {

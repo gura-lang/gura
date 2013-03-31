@@ -705,6 +705,9 @@ TooltipFont			= FontT('TkTooltipFont')
 // Image
 //-----------------------------------------------------------------------------
 Image = class {
+	public {
+		_imagename
+	}
 	__init__(type:string, opts%) = {
 		this._imagename = tclEval('image', 'create', type, opts%)
 	}

@@ -21,7 +21,8 @@ sdl.AddTimer(1000) {
 	img = image(fileName).thumbnail(wdScreen, htScreen)
 	screen.FillRect(sdl.Rect(0, 0, wdScreen, htScreen), bgColor)
 	[x, y] = [(wdScreen - img.width) / 2, (htScreen - img.height) / 2]
-	screen.PutSurface(img, x, y)
+	sdl.BlitSurface(img, nil, screen, sdl.Rect(x, y, 0, 0))
+	//screen.PutSurface(img, x, y)
 	//font.RenderText_Blended(path.filename(fileName), fgFont) {|surface|
 	//	screen.PutSurface(surface, 10, 10)
 	//}

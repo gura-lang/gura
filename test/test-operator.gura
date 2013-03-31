@@ -31,7 +31,9 @@ scope {
 		__setitemx__(v) = println('__setitemx__ ', v)			// a[] = v
 		__getprop__(attr) = println('__getprop__ ', attr)		// a.attr
 		__setprop__(attr, v) = printf('__setprop__ %s %s\n', attr, v)	// a.attr = v
-		a = 3
+		public {
+			a = 3
+		}
 	}
 	a1 = A()
 	a2 = A()

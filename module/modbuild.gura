@@ -5,6 +5,10 @@ import(argopt)
 // BuilderBase
 //-----------------------------------------------------------------------------
 BuilderBase = class {
+	public {
+		debFiles
+		rpmFiles
+	}
 	__init__(outDir:string) = {
 		argopt.Parser {|p|
 			p.addFlag('verbose',	'v', 'verbose mode')

@@ -71,27 +71,35 @@ scope {
 }
 scope {
 	A = class {
-		x = 'X in A'
+		public {
+			x = 'X in A'
+		}
 		func() = {
 			println('A.func()')
 		}
 	}
 	B = class(A) {
-		x = 'X in B'
+		public {
+			x = 'X in B'
+		}
 		func() = {
 			println('B.func()')
 			super(this).func()
 		}
 	}
 	C = class(B) {
-		x = 'X in C'
+		public {
+			x = 'X in C'
+		}
 		func() = {
 			println('C.func()')
 			super(this).func()
 		}
 	}
 	D = class(C) {
-		x = 'X in D'
+		public {
+			x = 'X in D'
+		}
 		func() = {
 			println('D.func()')
 			super(this).func()
@@ -120,6 +128,9 @@ scope {
 }
 scope {
 	Person = class {
+		public {
+			name, age
+		}
 		__init__(name:string => '(no name)', age:number => 0) = {
 			[this.name, this.age] = [name, age]
 		}
@@ -427,6 +438,9 @@ scope {
 }
 scope {
 	Person = class {
+		public {
+			name, age
+		}
 		__init__(name:string, age:number) = {
 			this.name = name
 			this.age = age
@@ -450,7 +464,9 @@ scope {
 	people.sort(&{$person1.age <=> $person2.age})::Print()
 }
 scope {
-	Object = class()
+	Object = class {
+		public {a, b}
+	}
 	obj = Object()
 	obj.a = 10
 	obj.b = 20
@@ -465,8 +481,10 @@ scope {
 }
 scope {
 	Person = class {
-		name = 'aaa'
-		age = 10
+		public {
+			name = 'aaa'
+			age = 10
+		}
 		__str__() = format('name: %s, age:%s', this.name, this.age)
 		Print() = {
 			print(this.name, ' is ', this.age, ' years old', '  pi=', math.pi, '\n')
@@ -616,6 +634,9 @@ function {
 }
 scope {
 	A = class {
+		public {
+			hoge
+		}
 		val1 = 1
 		val2 = 'hello'
 		func1():static = { println(this.val1) }
