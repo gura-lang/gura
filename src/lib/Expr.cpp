@@ -842,11 +842,13 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 			valTypeCast = pValueTypeInfo->GetValueType();
 		}
 	}
+	unsigned long extra = EXTRA_None;
 	if (value.IsModule()) {
 		Module *pModule = value.GetModule();
 		if (pModule->IsAnonymous()) {
 			pModule->SetSymbol(GetSymbol());
 		}
+		extra = EXTRA_Public;
 	} else if (value.IsClass() && value.GetClass()->IsCustom()) {
 		CustomClass *pClass = dynamic_cast<CustomClass *>(value.GetClass());
 		if (pClass->IsAnonymous()) {
@@ -858,6 +860,7 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 			if (pFunc == NULL) return Value::Null;
 			value = Value(env, pFunc, Value::Null);
 		}
+		extra = EXTRA_Public;
 	} else if (value.IsFunction()) {
 		Function *pFunc = value.GetFunction();
 		if (pFunc->IsAnonymous()) {
@@ -870,6 +873,7 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 			pValueTypeInfo->SetClass(pClassToConstruct);
 			env.AssignValueType(pValueTypeInfo);
 		}
+		extra = EXTRA_Public;
 	}
 	if (valTypeCast != VTYPE_any) {
 		AutoPtr<Declaration> pDecl(
@@ -880,7 +884,6 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 			return Value::Null;
 		}
 	}
-	unsigned long extra = EXTRA_None;
 	if (escalateFlag) {
 		env.AssignValueFromBlock(GetSymbol(), value, extra);
 	} else {

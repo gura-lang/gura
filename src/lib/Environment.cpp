@@ -106,6 +106,11 @@ Environment::~Environment()
 	// virtual destructor
 }
 
+bool Environment::IsSymbolPublic(const Symbol *pSymbol) const
+{
+	return true;
+}
+
 void Environment::AddRootFrame(const FrameList &frameListSrc)
 {
 	// reference to the root environment
@@ -147,14 +152,14 @@ void Environment::CacheFrame(const Symbol *pSymbol, Frame *pFrame)
 
 void Environment::AssignValue(const Symbol *pSymbol, const Value &value, unsigned long extra)
 {
-	extra = EXTRA_Public;
+	if ((extra & EXTRA_Public) == 0 && IsSymbolPublic(pSymbol)) extra |= EXTRA_Public;
 	GetTopFrame()->AssignValue(pSymbol, value, extra);
 	CacheFrame(pSymbol, GetTopFrame());
 }
 
 void Environment::AssignValueFromBlock(const Symbol *pSymbol, const Value &value, unsigned long extra)
 {
-	extra = EXTRA_Public;
+	if ((extra & EXTRA_Public) == 0 && IsSymbolPublic(pSymbol)) extra |= EXTRA_Public;
 	if (_pFrameCache.get() != NULL) {
 		FrameCache::iterator iter = _pFrameCache->find(pSymbol);
 		if (iter != _pFrameCache->end()) {

@@ -245,6 +245,9 @@ public:
 		inline const SymbolSet &GetSymbolsPublic() const {
 			return (_pSymbolsPublic.get() == NULL)? SymbolSet::Null : *_pSymbolsPublic;
 		}
+		inline bool IsSymbolPublic(const Symbol *pSymbol) const {
+			return _pSymbolsPublic.get() != NULL && _pSymbolsPublic->IsSet(pSymbol);
+		}
 		void AssignValue(const Symbol *pSymbol, const Value &value, unsigned long extra);
 		void RemoveValue(const Symbol *pSymbol);
 		ValueEx *LookupValue(const Symbol *pSymbol);
@@ -295,6 +298,7 @@ public:
 	inline bool GetEchoFlag() const				{ return GetGlobal()->_echoFlag;			}
 	inline const SymbolSet &GetSymbolsPublic() const { return GetTopFrame()->GetSymbolsPublic(); }
 	inline SymbolSet &PrepareSymbolsPublic()	{ return GetTopFrame()->PrepareSymbolsPublic(); }
+	bool IsSymbolPublic(const Symbol *pSymbol) const;
 	void AddRootFrame(const FrameList &frameListSrc);
 	void AddOuterFrame(const FrameList &frameListSrc);
 	void AddLackingFrame(const FrameList &frameListSrc);
