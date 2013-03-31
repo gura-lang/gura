@@ -218,6 +218,10 @@ bool Function::CustomDeclare(Environment &env, Signal sig,
 			_flags |= FLAG_Trailer;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(end_marker))) {
 			_flags |= FLAG_EndMarker;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(public_))) {
+			_flags |= FLAG_Public;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(private_))) {
+			_flags |= FLAG_Private;
 		} else if (attrsAcceptable.IsSet(pSymbol)) {
 			// nothing to do
 		} else {
@@ -715,6 +719,18 @@ String Function::ToString() const
 	if (GetTrailerFlag()) {
 		str += ":";
 		str += Gura_Symbol(trailer)->GetName();
+	}
+	if (GetEndMarkerFlag()) {
+		str += ":";
+		str += Gura_Symbol(end_marker)->GetName();
+	}
+	if (GetPublicFlag()) {
+		str += ":";
+		str += Gura_Symbol(public_)->GetName();
+	}
+	if (GetPrivateFlag()) {
+		str += ":";
+		str += Gura_Symbol(end_marker)->GetName();
 	}
 	if (_resultMode == RSLTMODE_List) {
 		str += ":";

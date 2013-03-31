@@ -177,6 +177,8 @@ enum {
 	FLAG_Leader			= (1 << 11),	// :leader
 	FLAG_Trailer		= (1 << 12),	// :trailer
 	FLAG_EndMarker		= (1 << 13),	// :end_marker
+	FLAG_Public			= (1 << 14),	// :public
+	FLAG_Private		= (1 << 15),	// :private
 };
 
 //-----------------------------------------------------------------------------

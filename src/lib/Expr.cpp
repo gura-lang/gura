@@ -876,7 +876,8 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 			pValueTypeInfo->SetClass(pClassToConstruct);
 			env.AssignValueType(pValueTypeInfo);
 		}
-		extra = EXTRA_Public;
+		//extra = EXTRA_Public;
+		if (!pFunc->GetPrivateFlag()) extra = EXTRA_Public;
 	}
 	if (valTypeCast != VTYPE_any) {
 		AutoPtr<Declaration> pDecl(
