@@ -34,12 +34,12 @@ Gura_ImplementFunction(redirect)
 	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate)) != NULL) {
 		value_stderr = *pValue;
 	}
-	_pEnvThis->AssignValue(Gura_Symbol(stdin), args.GetValue(0));
-	_pEnvThis->AssignValue(Gura_Symbol(stdout), args.GetValue(1));
+	_pEnvThis->AssignValue(Gura_Symbol(stdin), args.GetValue(0), EXTRA_Public);
+	_pEnvThis->AssignValue(Gura_Symbol(stdout), args.GetValue(1), EXTRA_Public);
 	if (args.IsDefined(2)) {
-		_pEnvThis->AssignValue(Gura_Symbol(stderr), args.GetValue(2));
+		_pEnvThis->AssignValue(Gura_Symbol(stderr), args.GetValue(2), EXTRA_Public);
 	} else {
-		_pEnvThis->AssignValue(Gura_Symbol(stderr), args.GetValue(1));
+		_pEnvThis->AssignValue(Gura_Symbol(stderr), args.GetValue(1), EXTRA_Public);
 	}
 	Value result;
 	if (args.IsBlockSpecified()) {
@@ -47,9 +47,9 @@ Gura_ImplementFunction(redirect)
 		const Expr_Block *pExprBlock = args.GetBlock(envBlock, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		result = pExprBlock->Exec(envBlock, sig);
-		_pEnvThis->AssignValue(Gura_Symbol(stdin), value_stdin);
-		_pEnvThis->AssignValue(Gura_Symbol(stdout), value_stdout);
-		_pEnvThis->AssignValue(Gura_Symbol(stderr), value_stderr);
+		_pEnvThis->AssignValue(Gura_Symbol(stdin), value_stdin, EXTRA_Public);
+		_pEnvThis->AssignValue(Gura_Symbol(stdout), value_stdout, EXTRA_Public);
+		_pEnvThis->AssignValue(Gura_Symbol(stderr), value_stderr, EXTRA_Public);
 	}
 	return result;
 }

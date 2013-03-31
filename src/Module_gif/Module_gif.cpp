@@ -556,7 +556,7 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
 		AutoPtr<Object_ImageDescriptor> pObjImageDescriptor(
 								new Object_ImageDescriptor(imageDescriptor));
 		pObjImage->AssignValue(Gura_UserSymbol(gif), Value(new Object_imgprop(
-			pObjGraphicControl.release(), pObjImageDescriptor.release())));
+			pObjGraphicControl.release(), pObjImageDescriptor.release())), EXTRA_Public);
 	} while (0);
 	short transparentColorIndex = graphicControl.TransparentColorIndex;
 	if (!graphicControl.TransparentColorFlag() ||
@@ -876,7 +876,7 @@ void GIF::AddImage(const Value &value, unsigned short delayTime,
 		pObjImageDescriptor.reset(new Object_ImageDescriptor(imageDescriptor));
 	} while (0);
 	pObjImage->AssignValue(Gura_UserSymbol(gif), Value(new Object_imgprop(
-		pObjGraphicControl.release(), pObjImageDescriptor.release())));
+		pObjGraphicControl.release(), pObjImageDescriptor.release())), EXTRA_Public);
 	GetList().push_back(value);
 }
 

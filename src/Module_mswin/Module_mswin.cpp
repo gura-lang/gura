@@ -367,7 +367,7 @@ bool Object_ole::ImportConstant(Environment &env, Signal sig)
 			if (pSymbol != NULL) {
 				Value value;
 				if (!VariantToValue(*this, sig, value, *pVarDesc->lpvarValue)) return false;
-				env.AssignValue(pSymbol, value);
+				env.AssignValue(pSymbol, value, EXTRA_Public);
 			}
 			pTypeInfo->ReleaseVarDesc(pVarDesc);
 		}

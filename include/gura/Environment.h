@@ -32,19 +32,19 @@ AssignFunction(new Func_##className##__##name(*this, arg1))
 AssignFunction(new Func_##className##__##name(*this, arg1, arg2))
 
 #define Gura_AssignValue(name, value) \
-env.AssignValue(Symbol::Add(#name), value)
+env.AssignValue(Symbol::Add(#name), value, EXTRA_Public)
 
 #define Gura_AssignClassValue(name, value) \
-AssignValue(Symbol::Add(#name), value)
+AssignValue(Symbol::Add(#name), value, EXTRA_Public)
 
 #define Gura_AssignValueTo(valType, name, value) \
 do { \
 	Class *pClass = env.LookupClass(valType); \
-	pClass->AssignValue(Symbol::Add(#name), value); \
+	pClass->AssignValue(Symbol::Add(#name), value, EXTRA_Public); \
 } while (0)
 
 #define Gura_AssignValueEx(name, value) \
-env.AssignValue(Symbol::Add(name), value)
+env.AssignValue(Symbol::Add(name), value, EXTRA_Public)
 
 namespace Gura {
 
@@ -299,8 +299,8 @@ public:
 	void AddOuterFrame(const FrameList &frameListSrc);
 	void AddLackingFrame(const FrameList &frameListSrc);
 	void CacheFrame(const Symbol *pSymbol, Frame *pFrame);
-	void AssignValue(const Symbol *pSymbol, const Value &value);
-	void AssignValueFromBlock(const Symbol *pSymbol, const Value &value);
+	void AssignValue(const Symbol *pSymbol, const Value &value, unsigned long extra);
+	void AssignValueFromBlock(const Symbol *pSymbol, const Value &value, unsigned long extra);
 	bool ImportValue(const Symbol *pSymbol, const Value &value,
 										unsigned long extra, bool overwriteFlag);
 	void RemoveValue(const Symbol *pSymbol);

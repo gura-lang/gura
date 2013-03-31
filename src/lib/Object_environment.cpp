@@ -41,7 +41,7 @@ Value Object_environment::DoGetProp(Environment &env, Signal sig, const Symbol *
 Value Object_environment::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	GetEnv().AssignValue(pSymbol, value);
+	GetEnv().AssignValue(pSymbol, value, EXTRA_Public);
 	evaluatedFlag = true;
 	return value;
 }
@@ -90,7 +90,7 @@ Gura_DeclareMethodAlias(environment, setprop_X, "setprop!")
 Gura_ImplementMethod(environment, setprop_X)
 {
 	Object_environment *pThis = Object_environment::GetThisObj(args);
-	pThis->GetEnv().AssignValue(args.GetSymbol(0), args.GetValue(1));
+	pThis->GetEnv().AssignValue(args.GetSymbol(0), args.GetValue(1), EXTRA_Public);
 	return Value::Null;
 }
 

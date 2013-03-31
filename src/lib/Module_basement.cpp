@@ -337,7 +337,7 @@ Gura_ImplementFunction(local)
 		}
 		const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
 		if (env.LookupValue(pSymbol, ENVREF_NoEscalate) == NULL) {
-			env.AssignValue(pSymbol, Value::Null);
+			env.AssignValue(pSymbol, Value::Null, EXTRA_Public);
 		}
 	}
 	return Value::Null;
@@ -429,10 +429,10 @@ Gura_ImplementFunction(except_)
 	}
 	Object_error *pObj = new Object_error(env, sig.GetErrorType());
 	pObj->AssignValue(Gura_Symbol(text),
-				Value(env, sig.GetErrString(false).c_str()));
+				Value(env, sig.GetErrString(false).c_str()), EXTRA_Public);
 	pObj->AssignValue(Gura_Symbol(message),
-				Value(env, sig.GetErrString(true).c_str()));
-	pObj->AssignValue(Gura_Symbol(value), sig.GetValue());
+				Value(env, sig.GetErrString(true).c_str()), EXTRA_Public);
+	pObj->AssignValue(Gura_Symbol(value), sig.GetValue(), EXTRA_Public);
 	Value value(pObj);
 	ValueList valListArg(value);
 	sig.ClearSignal(); // clear even the suspended state

@@ -2568,7 +2568,7 @@ Gura_ImplementFunction(addproxy)
 	if (pValue == NULL || !pValue->IsList()) {
 		Value value;
 		pValList = &value.InitAsList(env);
-		_pEnvThis->AssignValue(Gura_UserSymbol(proxies), value);
+		_pEnvThis->AssignValue(Gura_UserSymbol(proxies), value, EXTRA_Public);
 	} else {
 		pValList = &pValue->GetList();
 	}

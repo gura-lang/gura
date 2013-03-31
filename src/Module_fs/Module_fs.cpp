@@ -848,19 +848,19 @@ Gura_ModuleEntry()
 		Stream_File *pStream = new Stream_File(sig);
 		pStream->OpenStdin();
 		pModuleSys->AssignValue(Gura_Symbol(stdin),
-							Value(new Object_stream(env, pStream)));
+					Value(new Object_stream(env, pStream)), EXTRA_Public);
 	} while (0);
 	do {
 		Stream_File *pStream = new Stream_File(sig);
 		pStream->OpenStdout();
 		pModuleSys->AssignValue(Gura_Symbol(stdout),
-							Value(new Object_stream(env, pStream)));
+					Value(new Object_stream(env, pStream)), EXTRA_Public);
 	} while (0);
 	do {
 		Stream_File *pStream = new Stream_File(sig);
 		pStream->OpenStderr();
 		pModuleSys->AssignValue(Gura_Symbol(stderr),
-							Value(new Object_stream(env, pStream)));
+					Value(new Object_stream(env, pStream)), EXTRA_Public);
 	} while (0);
 	// function assignment
 	Gura_AssignFunction(rename);

@@ -880,10 +880,11 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 			return Value::Null;
 		}
 	}
+	unsigned long extra = EXTRA_None;
 	if (escalateFlag) {
-		env.AssignValueFromBlock(GetSymbol(), value);
+		env.AssignValueFromBlock(GetSymbol(), value, extra);
 	} else {
-		env.AssignValue(GetSymbol(), value);
+		env.AssignValue(GetSymbol(), value, extra);
 	}
 	return value;
 }
