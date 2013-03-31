@@ -20,9 +20,9 @@ Module::Module(Environment *pEnvOuter, const Symbol *pSymbol, const char *source
 	_pExprScript(pExprScript), _moduleTerminate(moduleTerminate)
 {
 	Environment &env = *this;
-	AssignValue(Gura_Symbol(__name__), Value(env, GetName()), false);
-	AssignValue(Gura_Symbol(__symbol__), Value(GetSymbol()), false);
-	AssignValue(Gura_Symbol(__source__), Value(env, sourceName), false);
+	AssignValueLocal(Gura_Symbol(__name__), Value(env, GetName()));
+	AssignValueLocal(Gura_Symbol(__symbol__), Value(GetSymbol()));
+	AssignValueLocal(Gura_Symbol(__source__), Value(env, sourceName));
 }
 
 Module *Module::Clone() const

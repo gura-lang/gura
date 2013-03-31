@@ -517,14 +517,14 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 	DeclarationList::const_iterator ppDecl = _declOwner.begin();
 	for ( ; pValue != valListArg.end() && ppDecl != _declOwner.end();
 														pValue++, ppDecl++) {
-		pEnvLocal->AssignValue((*ppDecl)->GetSymbol(), *pValue, false);
+		pEnvLocal->AssignValueLocal((*ppDecl)->GetSymbol(), *pValue);
 	}
 	if (_declOwner.GetSymbolDict() != NULL) {
 		Value valueWithDict = args.GetValueWithDict();
 		if (valueWithDict.IsInvalid()) {
 			valueWithDict.InitAsDict(env, false);
 		}
-		pEnvLocal->AssignValue(_declOwner.GetSymbolDict(), valueWithDict, false);
+		pEnvLocal->AssignValueLocal(_declOwner.GetSymbolDict(), valueWithDict);
 	}
 	if (_blockInfo.pSymbol == NULL) return pEnvLocal.release();
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
@@ -532,10 +532,10 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 	if (pExprBlock == NULL) {
 		// set nil value to the variable with a symbol specified by
 		// _blockInfo.pSymbol
-		pEnvLocal->AssignValue(_blockInfo.pSymbol, Value::Null, false);
+		pEnvLocal->AssignValueLocal(_blockInfo.pSymbol, Value::Null);
 	} else if (_blockInfo.quoteFlag) {
 		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprBlock));
-		pEnvLocal->AssignValue(_blockInfo.pSymbol, Value(pObj), false);
+		pEnvLocal->AssignValueLocal(_blockInfo.pSymbol, Value(pObj));
 	} else {
 		Environment *pEnv =
 				(_blockInfo.blockScope == BLKSCOPE_Inside)? pEnvLocal.get() : &env;
@@ -918,11 +918,11 @@ Value FunctionCustom::DoEval(Environment &env, Signal sig, Args &args) const
 	std::auto_ptr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
 	if (pEnvLocal.get() == NULL) return Value::Null;
 	if (_funcType != FUNCTYPE_Block) {
-		pEnvLocal->AssignValue(Gura_Symbol(this), args.GetThis(), false);
+		pEnvLocal->AssignValueLocal(Gura_Symbol(this), args.GetThis());
 	}
 	do {
 		Object_args *pObjArgs = new Object_args(env, args);
-		pEnvLocal->AssignValue(Gura_Symbol(__args__), Value(pObjArgs), false);
+		pEnvLocal->AssignValueLocal(Gura_Symbol(__args__), Value(pObjArgs));
 	} while (0);
 	EnvType envType = pEnvLocal->GetEnvType();
 	Value result = GetExprBody()->Exec(*pEnvLocal, sig);
@@ -1005,7 +1005,7 @@ Value ClassPrototype::DoEval(Environment &env, Signal sig, Args &args) const
 		pConstructorSuper->EvalExpr(envSuper, sig, argsSub);
 		if (sig.IsSignalled()) return Value::Null;
 	}
-	pEnvLocal->AssignValue(Gura_Symbol(this), valueThis, false);
+	pEnvLocal->AssignValueLocal(Gura_Symbol(this), valueThis);
 	GetExprBody()->Exec(*pEnvLocal, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, valueThis);
@@ -1040,7 +1040,7 @@ Value StructPrototype::DoEval(Environment &env, Signal sig, Args &args) const
 	for ( ; pValue != args.GetArgs().end() && ppDecl != GetDeclOwner().end();
 														pValue++, ppDecl++) {
 		const Declaration *pDecl = *ppDecl;
-		pObjThis->AssignValue(pDecl->GetSymbol(), *pValue, false);
+		pObjThis->AssignValueLocal(pDecl->GetSymbol(), *pValue);
 	}
 	return ReturnValue(env, sig, args, valueThis);
 }

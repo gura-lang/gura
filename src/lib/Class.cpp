@@ -101,7 +101,7 @@ Gura_DeclareClassMethod(Object, setprop_X)
 Gura_ImplementClassMethod(Object, setprop_X)
 {
 	Fundamental *pThis = args.GetThisFundamental();
-	pThis->AssignValue(args.GetSymbol(0), args.GetValue(1), false);
+	pThis->AssignValueLocal(args.GetSymbol(0), args.GetValue(1));
 	return Value::Null;
 }
 

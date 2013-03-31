@@ -534,7 +534,7 @@ Gura_ImplementDescendantCreator(parser)
 Object_element::Object_element(Environment &env, const char *name, const char **atts) :
 					Object_dict(env.LookupClass(VTYPE_element), false)
 {
-	AssignValue(Gura_Symbol(name), Value(env, name), false);
+	AssignValueLocal(Gura_Symbol(name), Value(env, name));
 	if (atts != NULL) {
 		ValueDict &valDict = GetDict();
 		for (const char **p = atts; *p != NULL && *(p + 1) != NULL; p += 2) {
@@ -543,7 +543,7 @@ Object_element::Object_element(Environment &env, const char *name, const char **
 	}
 	Value valueOfList;
 	_pValList = &valueOfList.InitAsList(env);
-	AssignValue(Gura_Symbol(children), valueOfList, false);
+	AssignValueLocal(Gura_Symbol(children), valueOfList);
 }
 
 void Object_element::AddChild(const Value &value)
@@ -839,7 +839,7 @@ Gura_ImplementFunction(element)
 		foreach_const (ValueList, pValue, valueRaw.GetList()) {
 			valList.push_back(*pValue);
 		}
-		pObjElem->AssignValue(Gura_Symbol(children), result, false);
+		pObjElem->AssignValueLocal(Gura_Symbol(children), result);
 	}
 	return Value(pObjElem);
 }

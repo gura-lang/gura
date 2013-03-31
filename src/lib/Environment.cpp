@@ -145,29 +145,31 @@ void Environment::CacheFrame(const Symbol *pSymbol, Frame *pFrame)
 	(*_pFrameCache)[pSymbol] = pFrame;
 }
 
-void Environment::AssignValue(const Symbol *pSymbol, const Value &value, bool escalateFlag)
+void Environment::AssignValue(const Symbol *pSymbol, const Value &value)
 {
 	unsigned long extra = EXTRA_Public;
-	if (escalateFlag) {
-		if (_pFrameCache.get() != NULL) {
-			FrameCache::iterator iter = _pFrameCache->find(pSymbol);
-			if (iter != _pFrameCache->end()) {
-				Frame *pFrame = iter->second;
-				pFrame->AssignValue(pSymbol, value, extra);
-				return;
-			}
+	if (_pFrameCache.get() != NULL) {
+		FrameCache::iterator iter = _pFrameCache->find(pSymbol);
+		if (iter != _pFrameCache->end()) {
+			Frame *pFrame = iter->second;
+			pFrame->AssignValue(pSymbol, value, extra);
+			return;
 		}
-		foreach (FrameOwner, ppFrame, _frameOwner) {
-			Frame *pFrame = *ppFrame;
-			if (!pFrame->IsType(ENVTYPE_block)) {
-				pFrame->AssignValue(pSymbol, value, extra);
-				break;
-			}
-		}
-	} else {
-		GetTopFrame()->AssignValue(pSymbol, value, extra);
-		CacheFrame(pSymbol, GetTopFrame());
 	}
+	foreach (FrameOwner, ppFrame, _frameOwner) {
+		Frame *pFrame = *ppFrame;
+		if (!pFrame->IsType(ENVTYPE_block)) {
+			pFrame->AssignValue(pSymbol, value, extra);
+			break;
+		}
+	}
+}
+
+void Environment::AssignValueLocal(const Symbol *pSymbol, const Value &value)
+{
+	unsigned long extra = EXTRA_Public;
+	GetTopFrame()->AssignValue(pSymbol, value, extra);
+	CacheFrame(pSymbol, GetTopFrame());
 }
 
 bool Environment::ImportValue(const Symbol *pSymbol, const Value &value,

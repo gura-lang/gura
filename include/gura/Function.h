@@ -138,19 +138,19 @@ AssignFunction(new Func_##className##__##name(*this, arg1))
 AssignFunction(new Func_##className##__##name(*this, arg1, arg2))
 
 #define Gura_AssignValue(name, value) \
-env.AssignValue(Symbol::Add(#name), value, false)
+env.AssignValueLocal(Symbol::Add(#name), value)
 
 #define Gura_AssignClassValue(name, value) \
-AssignValue(Symbol::Add(#name), value, false)
+AssignValueLocal(Symbol::Add(#name), value)
 
 #define Gura_AssignValueTo(valType, name, value) \
 do { \
 	Class *pClass = env.LookupClass(valType); \
-	pClass->AssignValue(Symbol::Add(#name), value, false); \
+	pClass->AssignValueLocal(Symbol::Add(#name), value); \
 } while (0)
 
 #define Gura_AssignValueEx(name, value) \
-env.AssignValue(Symbol::Add(name), value, false)
+env.AssignValueLocal(Symbol::Add(name), value)
 
 namespace Gura {
 

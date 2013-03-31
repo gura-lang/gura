@@ -880,7 +880,11 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 			return Value::Null;
 		}
 	}
-	env.AssignValue(GetSymbol(), value, escalateFlag);
+	if (escalateFlag) {
+		env.AssignValue(GetSymbol(), value);
+	} else {
+		env.AssignValueLocal(GetSymbol(), value);
+	}
 	return value;
 }
 

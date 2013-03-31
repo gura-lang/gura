@@ -128,7 +128,7 @@ bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[])
 				valList.push_back(Value(env, arg));
 			}
 		}
-		env.AssignValue(Symbol::Add("argv"), value, false);
+		env.AssignValueLocal(Symbol::Add("argv"), value);
 	} while (0);
 	do {
 		Value value;
@@ -142,7 +142,7 @@ bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[])
 			valList.push_back(Value(env,
 				OAL::MakeAbsPathName(OAL::FileSeparator, argv[1]).c_str()));
 		}
-		env.AssignValue(Symbol::Add("path"), value, false);
+		env.AssignValueLocal(Symbol::Add("path"), value);
 	} while (0);
 	do {
 		std::string str;
@@ -156,7 +156,7 @@ bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[])
 				str = dirName;
 			}
 		}
-		env.AssignValue(Symbol::Add("maindir"), Value(env, str.c_str()), false);
+		env.AssignValueLocal(Symbol::Add("maindir"), Value(env, str.c_str()));
 	} while (0);
 	return true;
 }

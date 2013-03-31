@@ -257,7 +257,8 @@ public:
 	void AddOuterFrame(const FrameList &frameListSrc);
 	void AddLackingFrame(const FrameList &frameListSrc);
 	void CacheFrame(const Symbol *pSymbol, Frame *pFrame);
-	void AssignValue(const Symbol *pSymbol, const Value &value, bool escalateFlag);
+	void AssignValue(const Symbol *pSymbol, const Value &value);
+	void AssignValueLocal(const Symbol *pSymbol, const Value &value);
 	bool ImportValue(const Symbol *pSymbol, const Value &value,
 										unsigned long extra, bool overwriteFlag);
 	void RemoveValue(const Symbol *pSymbol);

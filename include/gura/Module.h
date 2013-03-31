@@ -122,7 +122,7 @@ public:
 	}
 	inline void SetSymbol(const Symbol *pSymbol) {
 		_pSymbol = pSymbol; 
-		AssignValue(Gura_Symbol(__name__), Value(*this, GetName()), false);
+		AssignValueLocal(Gura_Symbol(__name__), Value(*this, GetName()));
 	}
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	bool DirProp(Environment &env, Signal sig, SymbolSet &symbols);
