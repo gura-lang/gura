@@ -409,6 +409,7 @@ public:
 	Value &operator=(const Value &value);
 	inline unsigned short GetFlags() const { return _flags; }
 	inline void SetFlags(unsigned short flags) { _flags = flags; }
+	inline void AddFlags(unsigned short flags) { _flags |= flags; }
 	inline bool IsOwner() const { return (_flags & FLAG_Owner)? true : false; }
 	inline bool IsPrivileged() const { return (_flags & FLAG_Privileged)? true : false; }
 	inline bool GetTinyBuffFlag() const { return (_flags & FLAG_TinyBuff)? true : false; }

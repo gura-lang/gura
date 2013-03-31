@@ -918,7 +918,9 @@ Value FunctionCustom::DoEval(Environment &env, Signal sig, Args &args) const
 	std::auto_ptr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
 	if (pEnvLocal.get() == NULL) return Value::Null;
 	if (_funcType != FUNCTYPE_Block) {
-		pEnvLocal->AssignValue(Gura_Symbol(this), args.GetThis(), EXTRA_Public);
+		Value valueThis(args.GetThis());
+		valueThis.AddFlags(Value::FLAG_Privileged);
+		pEnvLocal->AssignValue(Gura_Symbol(this), valueThis, EXTRA_Public);
 	}
 	do {
 		Object_args *pObjArgs = new Object_args(env, args);
@@ -1005,6 +1007,7 @@ Value ClassPrototype::DoEval(Environment &env, Signal sig, Args &args) const
 		pConstructorSuper->EvalExpr(envSuper, sig, argsSub);
 		if (sig.IsSignalled()) return Value::Null;
 	}
+	valueThis.AddFlags(Value::FLAG_Privileged);
 	pEnvLocal->AssignValue(Gura_Symbol(this), valueThis, EXTRA_Public);
 	GetExprBody()->Exec(*pEnvLocal, sig);
 	if (sig.IsSignalled()) return Value::Null;
