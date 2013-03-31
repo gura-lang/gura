@@ -160,8 +160,9 @@ bool Environment::IsSymbolPublic(const Symbol *pSymbol) const
 	}
 	const Frame *pFrame = GetTopFrame();
 	return pFrame->IsSymbolPublic(pSymbol);
-#endif
+#else
 	return true;
+#endif
 }
 
 void Environment::AssignValue(const Symbol *pSymbol, const Value &value, unsigned long extra)
@@ -906,6 +907,10 @@ void Environment::Frame::AssignValue(const Symbol *pSymbol,
 									const Value &value, unsigned long extra)
 {
 	if (_pValueMap.get() == NULL) _pValueMap.reset(new ValueMap());
+	ValueMap::iterator iter = _pValueMap->find(pSymbol);
+	if (iter != _pValueMap->end() && (iter->second.GetExtra() & EXTRA_Public) != 0) {
+		extra |= EXTRA_Public;
+	}
 	(*_pValueMap)[pSymbol] = ValueEx(value, extra);
 }
 

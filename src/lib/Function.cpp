@@ -984,10 +984,10 @@ Value ClassPrototype::DoEval(Environment &env, Signal sig, Args &args) const
 	std::auto_ptr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
 	if (pEnvLocal.get() == NULL) return Value::Null;
 	EnvType envType = pEnvLocal->GetEnvType();
-	Value valueThis(args.GetThis());
-	if (!valueThis.IsObject()) {
+	Value valueRtn(args.GetThis());
+	if (!valueRtn.IsObject()) {
 		Object *pObj = _pClassToConstruct->CreateDescendant(*pEnvLocal, sig, _pClassToConstruct);
-		valueThis.InitAsObject(pObj);
+		valueRtn.InitAsObject(pObj);
 	}
 	Class *pClassSuper = _pClassToConstruct->GetClassSuper();
 	Function *pConstructorSuper =
@@ -1003,15 +1003,16 @@ Value ClassPrototype::DoEval(Environment &env, Signal sig, Args &args) const
 			}
 		}
 		Environment envSuper(pEnvLocal.get(), ENVTYPE_local);
-		Args argsSub(*pExprList, valueThis);
+		Args argsSub(*pExprList, valueRtn);
 		pConstructorSuper->EvalExpr(envSuper, sig, argsSub);
 		if (sig.IsSignalled()) return Value::Null;
 	}
+	Value valueThis(valueRtn);
 	valueThis.AddFlags(Value::FLAG_Privileged);
 	pEnvLocal->AssignValue(Gura_Symbol(this), valueThis, EXTRA_Public);
 	GetExprBody()->Exec(*pEnvLocal, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, valueThis);
+	return ReturnValue(env, sig, args, valueRtn);
 }
 
 //-----------------------------------------------------------------------------
@@ -1031,12 +1032,12 @@ StructPrototype::~StructPrototype()
 Value StructPrototype::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	Object *pObjThis = NULL;
-	Value valueThis(args.GetThis());
-	if (valueThis.IsObject()) {
-		pObjThis = valueThis.GetObject();
+	Value valueRtn(args.GetThis());
+	if (valueRtn.IsObject()) {
+		pObjThis = valueRtn.GetObject();
 	} else {
 		pObjThis = _pClassToConstruct->CreateDescendant(env, sig, _pClassToConstruct);
-		valueThis.InitAsObject(pObjThis);
+		valueRtn.InitAsObject(pObjThis);
 	}
 	ValueList::const_iterator pValue = args.GetArgs().begin();
 	DeclarationList::const_iterator ppDecl = GetDeclOwner().begin();
@@ -1045,7 +1046,7 @@ Value StructPrototype::DoEval(Environment &env, Signal sig, Args &args) const
 		const Declaration *pDecl = *ppDecl;
 		pObjThis->AssignValue(pDecl->GetSymbol(), *pValue, EXTRA_Public);
 	}
-	return ReturnValue(env, sig, args, valueThis);
+	return ReturnValue(env, sig, args, valueRtn);
 }
 
 }

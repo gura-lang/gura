@@ -356,12 +356,13 @@ Gura_ImplementFunction(public_)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
-		if (!pExpr->IsSymbol()) {
+		if (pExpr->IsSymbol()) {
+			const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExpr);
+			symbolsPublic.Insert(pExprSymbol->GetSymbol());
+		} else {
 			sig.SetError(ERR_ValueError, "elements of public must be symbol");
 			return Value::Null;
 		}
-		const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExpr);
-		symbolsPublic.Insert(pExprSymbol->GetSymbol());
 	}
 	return Value::Null;
 }
