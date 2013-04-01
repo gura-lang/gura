@@ -8,6 +8,12 @@ BuilderBase = class {
 	public {
 		debFiles
 		rpmFiles
+		incDirs
+		cflags
+		ldflags
+		libs
+		dlls
+		precompile
 	}
 	__init__(outDir:string) = {
 		argopt.Parser {|p|
@@ -132,14 +138,6 @@ if (sys.build == `msc) {
 	guraDir:local = sys.datadir
 	guestDir:public = path.join(guraDir, 'gura-guest')
 	Builder = class(BuilderBase) {
-		public {
-			incDirs
-			cflags
-			ldflags
-			libs
-			dlls
-			precompile
-		}
 		__init__() = {|'msc'|
 			this.incDirs = []
 			this.cflags = [
