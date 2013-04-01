@@ -2,15 +2,18 @@
 import(re)
 
 exec(fileName:string, silentFlag:boolean) {block} = {
-	lines = readlines(fileName):list
-	linesSub = block(lines, 0..):map
+	linesSub = []
 	cntReplaced = 0
-	(lines != linesSub).filter() {|v, i1, i2|
-		if (!silentFlag) {
-			(i1 == 0) && printf('%s\n', fileName)
-			printf('-- replaced at line.%d\n', i2 + 1)
+	readlines(fileName) {|line, iLine|
+		rtn = block(line, iLine)
+		if (islist(rtn) || line != rtn) {
+			if (!silentFlag) {
+				(cntReplaced == 0) && printf('%s\n', fileName)
+				printf('-- replaced at line.%d\n', iLine + 1)
+			}
+			cntReplaced += 1
 		}
-		cntReplaced += 1
+		rtn && linesSub.append(rtn)
 	}
 	(cntReplaced > 0) && open(fileName, 'w').dosmode(false).print(linesSub)
 }
