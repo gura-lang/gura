@@ -201,7 +201,7 @@ gatherFiles() = {
 		]
 	}
 	fs.chdir(path.join(dirnameScript, '..')) {
-		filenames.append(path.glob(
+		filenames.append(path.glob([
 			'module/*.gura'
 			'module/*.gurd'
 			'module/codecs/*.gura'
@@ -265,7 +265,7 @@ gatherFiles() = {
 			//----------------------------------
 			'include/*.h'
 			'include/gura/*.h'
-		):list)
+		]):list)
 		filenames.append(path.glob('gura-guest/tcl/bin/*.dll'):list)
 		filenames.append(path.walk('gura-guest/tcl/lib', nil):file)
 	}
