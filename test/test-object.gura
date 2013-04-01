@@ -3,6 +3,60 @@ import(testutil) {*}
 
 sys.echo(false)
 scope {
+	M = module {
+		varPrivate = 3
+		public {
+			varPublic = 4
+		}
+		varPublic2:public = 5
+	}
+	try {
+		println(M.varPrivate)
+	} except {|e|
+		println('expected error: ', e.text)
+	}
+	println('varPublic = ', M.varPublic)
+	println('varPublic2 = ', M.varPublic2)
+	A = class {
+		public {
+			namePublic
+			varPublic = 100
+		}
+		varPrivate = 200
+		__init__() = {
+			this.namePublic = 'hoge'
+			this.namePrivate = 'hoge2'
+			this.namePublic2:public = 'hoge3'
+		}
+		funcPublic() = {
+			this.funcPrivate()
+		}
+		funcPrivate():private = {
+			println('funcPrivate: ', this.namePrivate)
+		}
+	}
+	a = A()
+	println('a.namePublic  = ', a.namePublic)
+	println('a.varPublic   = ', a.varPublic)
+	println('a.namePublic2 = ', a.namePublic2)
+	try {
+		println(a.namePrivate)
+	} except {|e|
+		println('expected error: ', e.text)
+	}
+	try {
+		println(a.varPrivate)
+	} except {|e|
+		println('expected error: ', e.text)
+	}
+	a.funcPublic()
+	try {
+		a.funcPrivate()
+	} except {|e|
+		println('expected error: ', e.text)
+	}
+}
+scope {
 	A = struct(x, y, z)
 	f(a1:A, a2:A) = {
 		println(a1.x, ' ', a1.y, ' ', a1.z)

@@ -1,3 +1,13 @@
+expected error: MemberAccessError: can't access module member M.varPrivate
+varPublic = 4
+varPublic2 = 5
+a.namePublic  = hoge
+a.varPublic   = 100
+a.namePublic2 = hoge3
+expected error: MemberAccessError: can't access object member A#namePrivate
+expected error: MemberAccessError: can't access object member A#varPrivate
+funcPrivate: hoge2
+expected error: MemberAccessError: can't access object member A#funcPrivate
 1 2 3
 4 5 6
 knots_t(a => point_t(x => 0, y => 0), b => point_t(x => 0, y => 100), c => point_t(x => 100, y => 100), d => point_t(x => 100, y => 0))
