@@ -105,15 +105,15 @@ Gura_ImplementClassMethod(Object, setprop_X)
 	return Value::Null;
 }
 
-// object.call!(symbol:symbol, args*, dict%):map {block?}
-class Gura_Method(Object, call_X) : public Function {
+// object.__call__(symbol:symbol, args*, dict%):map {block?}
+class Gura_Method(Object, __call__) : public Function {
 public:
-	Gura_Method(Object, call_X)(Environment &env, const char *name);
+	Gura_Method(Object, __call__)(Environment &env, const char *name = "__call__");
 	virtual Value EvalExpr(Environment &env, Signal sig, Args &args) const;
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
 };
 
-Gura_Method(Object, call_X)::Gura_Method(Object, call_X)(Environment &env, const char *name) :
+Gura_Method(Object, __call__)::Gura_Method(Object, __call__)(Environment &env, const char *name) :
 						Function(env, Symbol::Add(name), FUNCTYPE_Class, FLAG_None)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -123,7 +123,7 @@ Gura_Method(Object, call_X)::Gura_Method(Object, call_X)(Environment &env, const
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Value Gura_Method(Object, call_X)::EvalExpr(Environment &env, Signal sig, Args &args) const
+Value Gura_Method(Object, __call__)::EvalExpr(Environment &env, Signal sig, Args &args) const
 {
 	Fundamental *pThis = args.GetThisFundamental();
 	ExprOwner exprOwnerArgs(args.GetExprListArg());
@@ -132,12 +132,12 @@ Value Gura_Method(Object, call_X)::EvalExpr(Environment &env, Signal sig, Args &
 	ValueList valListArg;
 	if (!pExprArg->ExecInArg(env, sig, valListArg, nElems, false)) return Value::Null;
 	if (valListArg.size() != 1) {
-		sig.SetError(ERR_ValueError, "invalid argument for call!()");
+		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
 		return Value::Null;
 	}
 	const Value &value = valListArg.front();
 	if (!value.IsSymbol()) {
-		sig.SetError(ERR_ValueError, "invalid argument for call!()");
+		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
 		return Value::Null;
 	}
 	const Symbol *pSymbol = value.GetSymbol();
@@ -151,7 +151,7 @@ Value Gura_Method(Object, call_X)::EvalExpr(Environment &env, Signal sig, Args &
 		valueFunc = *pValue;
 	}
 	if (!valueFunc.IsFunction()) {
-		sig.SetError(ERR_ValueError, "invalid argument for call!()");
+		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
 		return Value::Null;
 	}
 	const Function *pFunc = valueFunc.GetFunction();
@@ -160,7 +160,7 @@ Value Gura_Method(Object, call_X)::EvalExpr(Environment &env, Signal sig, Args &
 	return pFunc->EvalExpr(env, sig, argsSub);
 }
 
-Value Gura_Method(Object, call_X)::DoEval(Environment &env, Signal sig, Args &args) const
+Value Gura_Method(Object, __call__)::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	return Value::Null;
 }
@@ -262,7 +262,7 @@ void Class::Prepare()
 	Gura_AssignMethod(Object, tostring);	// primitive method
 	Gura_AssignMethodEx(Object, setprop_X,	"setprop!");
 	Gura_AssignMethodEx(Object, getprop_X,	"getprop!");
-	Gura_AssignMethodEx(Object, call_X,		"call!");
+	Gura_AssignMethod(Object, __call__);
 	Gura_AssignMethod(Object, clone);
 	Gura_AssignMethod(Object, __iter__);
 }

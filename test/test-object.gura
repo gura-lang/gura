@@ -259,10 +259,10 @@ scope {
 		func2(args*) = 'func2 OK (' + args.join(',') + ') ' + this.prop
 	}
 	a = A()
-	tester(`a.call!(`dynamic1, 1, 2, 3, 4))
-	tester(`a.call!(`dynamic2, 1, 2, 3, 4))
-	tester(`a.call!(`func1, 1, 2, 3, 4))
-	tester(`a.call!(`func2, 1, 2, 3, 4))
+	tester(`a.__call__(`dynamic1, 1, 2, 3, 4))
+	tester(`a.__call__(`dynamic2, 1, 2, 3, 4))
+	tester(`a.__call__(`func1, 1, 2, 3, 4))
+	tester(`a.__call__(`func2, 1, 2, 3, 4))
 }
 scope {
 	A = class {
