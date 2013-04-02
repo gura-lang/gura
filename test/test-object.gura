@@ -58,7 +58,19 @@ scope {
 			println('funcPrivate: ', this.namePrivate)
 		}
 	}
+	funcOut(a:A) = {
+		println(a.namePrivate)
+	}
+	funcOutPrivileged(a:A:privileged) = {
+		println(a.namePrivate)
+	}
 	a = A()
+	try {
+		funcOut(a)
+	} except {|e|
+		println('expected error: ', e.text)
+	}
+	funcOutPrivileged(a)
 	println('a.namePublic  = ', a.namePublic)
 	println('a.varPublic   = ', a.varPublic)
 	println('a.namePublic2 = ', a.namePublic2)

@@ -105,6 +105,8 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 			flags |= FLAG_Write;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(nocast))) {
 			flags |= FLAG_NoCast;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(privileged))) {
+			flags |= FLAG_Privileged;
 		} else if (pSymbolForType == NULL || !pSymbol->IsIdentical(pSymbolForType)) {
 			sig.SetError(ERR_SyntaxError,
 				"cannot accept a symbol %s in argument declaration", pSymbol->GetName());
@@ -128,9 +130,9 @@ bool Declaration::ValidateAndCast(Environment &env, Signal sig,
 					return false;
 				}
 			}
-			return true;
+			goto done;
 		} else if (IsOptional() && value.IsInvalid()) {
-			return true;
+			goto done;
 		} else {
 			SetError_ArgumentMustBeList(sig, value);
 			return false;
@@ -138,7 +140,7 @@ bool Declaration::ValidateAndCast(Environment &env, Signal sig,
 	}
 	if (((IsOptional() || GetNilFlag()) && value.IsInvalid()) ||
 												GetValueType() == VTYPE_quote) {
-		return true;
+		goto done;
 	} else if (GetValueType() == VTYPE_any || value.IsInstanceOf(GetValueType())) {
 		if (value.IsIterator()) {
 			// make a clone of the iterator
@@ -146,7 +148,7 @@ bool Declaration::ValidateAndCast(Environment &env, Signal sig,
 			if (pIterator == NULL) return false;
 			value = Value(env, pIterator);
 		}
-		return true;
+		goto done;
 	} else if (GetValueType() == VTYPE_Class && value.IsInstanceOf(VTYPE_function)) {
 		const Function *pFunc = value.GetFunction();
 		Class *pClass = pFunc->GetClassToConstruct();
@@ -155,7 +157,7 @@ bool Declaration::ValidateAndCast(Environment &env, Signal sig,
 			return false;
 		}
 		value = Value(pClass);
-		return true;
+		goto done;
 	}
 	if (!GetNoCastFlag()) {
 		Class *pClass = env.LookupClass(GetValueType());
@@ -164,17 +166,20 @@ bool Declaration::ValidateAndCast(Environment &env, Signal sig,
 				sig.SetError(ERR_TypeError, "type '%s' is not defined", pClass->GetName());
 				return false;
 			}
-			if (pClass->CastFrom(env, sig, value, this)) return true;
+			if (pClass->CastFrom(env, sig, value, this)) goto done;
 			if (sig.IsSignalled()) return false;
 		}
 		pClass = env.LookupClass(value.GetType());
 		for ( ; pClass != NULL; pClass = pClass->GetClassSuper()) {
-			if (pClass->CastTo(env, sig, value, *this)) return true;
+			if (pClass->CastTo(env, sig, value, *this)) goto done;
 			if (sig.IsSignalled()) return false;
 		}
 	}
 	SetError_ArgumentType(sig, value);
 	return false;
+done:
+	if (GetPrivilegedFlag()) value.AddFlags(VFLAG_Privileged);
+	return true;
 }
 
 void Declaration::SetError_ArgumentType(Signal sig, const Value &value) const
@@ -222,6 +227,10 @@ String Declaration::ToString() const
 	if (GetNoCastFlag()) {
 		str += ":";
 		str += Gura_Symbol(nocast)->GetName();
+	}
+	if (GetPrivilegedFlag()) {
+		str += ":";
+		str += Gura_Symbol(privileged)->GetName();
 	}
 	if (!_pExprDefault.IsNull()) {
 		str += " ";

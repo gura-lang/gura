@@ -179,6 +179,7 @@ enum {
 	FLAG_EndMarker		= (1 << 13),	// :end_marker
 	FLAG_Public			= (1 << 14),	// :public
 	FLAG_Private		= (1 << 15),	// :private
+	FLAG_Privileged		= (1 << 16),	// :privileged
 };
 
 //-----------------------------------------------------------------------------

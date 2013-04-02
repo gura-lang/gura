@@ -5,6 +5,8 @@ expected error: DeclarationError: struct can't have constructor
 expected error: MemberAccessError: can't access module member M.varPrivate
 varPublic = 4
 varPublic2 = 5
+expected error: MemberAccessError: can't access object member A#namePrivate
+hoge2
 a.namePublic  = hoge
 a.varPublic   = 100
 a.namePublic2 = hoge3

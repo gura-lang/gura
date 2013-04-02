@@ -38,6 +38,7 @@ public:
 	inline bool GetReadFlag() const { return (_flags & FLAG_Read)? true : false; }
 	inline bool GetWriteFlag() const { return (_flags & FLAG_Write)? true : false; }
 	inline bool GetNoCastFlag() const { return (_flags & FLAG_NoCast)? true : false; }
+	inline bool GetPrivilegedFlag() const { return (_flags & FLAG_Privileged)? true : false; }
 	inline void SetOccurPattern(OccurPattern occurPattern) { _occurPattern = occurPattern; }
 	inline OccurPattern GetOccurPattern() const { return _occurPattern; }
 	inline const Expr *GetExprDefault() const { return _pExprDefault.get(); }
