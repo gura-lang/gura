@@ -231,7 +231,9 @@ if (sys.build == `msc) {
 		}
 		doClean(target:string) = {
 			!path.exists(this.outDir) && return
-			for (fileName in path.dir(this.outDir, target, '*.obj', '*.exp', '*.lib', '*.cmd')) {
+			fileNames = path.dir(this.outDir, target, '*.obj', '*.exp', '*.lib', '*.cmd')
+			fileNames.isempty() && return
+			fileNames.each {|fileName|
 				fs.remove(fileName)
 				this.verboseFlag && println('-- deleted: ', fileName)
 			}
@@ -294,10 +296,14 @@ if (sys.build == `msc) {
 			true
 		}
 		doClean(target:string) = {
-			!path.exists(this.outDir) && return
-			fileNames = path.dir(this.outDir, target, '*.o', '*.cmd'):list
+			if (path.exists(this.outDir)) {
+				fileNames = path.dir(this.outDir, target, '*.o', '*.cmd'):list
+			} else {
+				fileNames = []
+			}
 			fileNames.append(path.dir('.', '*.gch'))
-			for (fileName in fileNames) {
+			fileNames.isempty() && return
+			fileNames.each {|fileName|
 				fs.remove(fileName)
 				this.verboseFlag && println('-- deleted: ', fileName)
 			}
