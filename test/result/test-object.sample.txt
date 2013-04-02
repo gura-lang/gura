@@ -1,3 +1,7 @@
+7, 5, 3
+0, 0, 0
+7, 5, 3
+expected error: DeclarationError: struct can't have constructor
 expected error: MemberAccessError: can't access module member M.varPrivate
 varPublic = 4
 varPublic2 = 5
