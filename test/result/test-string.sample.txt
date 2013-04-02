@@ -1,3 +1,27 @@
+telnet://user:password@host:port/
+  scheme:   telnet
+  user:     user
+  password: password
+  host:     host
+  port:     port
+  urlpath:  /
+  misc:     
+file://vms.host.edu/disk$user/my/notes/note12345.txt
+  scheme:   file
+  user:     
+  password: 
+  host:     vms.host.edu
+  port:     
+  urlpath:  /disk$user/my/notes/note12345.txt
+  misc:     
+http://host:port/path?searchpart
+  scheme:   http
+  user:     
+  password: 
+  host:     host
+  port:     port
+  urlpath:  /path?searchpart
+  misc:     
 ''.chop() .. 
 'abcdef'.chop() .. abcde
 'abcdef'.chop('f') .. abcde
