@@ -20,6 +20,7 @@ enum ErrorType {
 	ERR_TypeError,
 	ERR_ZeroDivisionError,
 	ERR_ValueError,
+	ERR_DeclarationError,
 	ERR_SystemError,
 	ERR_IOError,
 	ERR_IndexError,

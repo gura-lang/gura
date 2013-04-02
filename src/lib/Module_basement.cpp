@@ -76,28 +76,22 @@ Gura_ImplementFunction(struct_)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	Class *pClassSuper = env.LookupClass(VTYPE_Struct);
+	CustomClass *pClassCustom = new CustomClass(&env, pClassSuper,
+			pClassSuper->GetValueType(),
+			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)), sig);
 	ExprList exprListArg;
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		exprListArg.push_back(const_cast<Expr *>(pValue->GetExpr()));
 	}
-	CustomClass *pClassCustom = new CustomClass(&env, pClassSuper,
-			pClassSuper->GetValueType(),
-			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)), sig);
-	Value valueThis(pClassCustom, Value::FLAG_NoOwner | Value::FLAG_Privileged);
-	if (pExprBlock != NULL &&
-				!pClassCustom->BuildContent(env, sig, valueThis, pExprBlock)) {
-		Class::Delete(pClassCustom);
-		return Value::Null;
-	}
 	AutoPtr<StructPrototype> pFunc(new StructPrototype(env));
-	pFunc->SetClassToConstruct(pClassCustom);
+	pFunc->SetClassToConstruct(pClassCustom); // constructor is registered in this class
 	pFunc->DeclareBlock(OCCUR_ZeroOrOnce);
 	Args argsSub(exprListArg, Value::Null, NULL, false, NULL, args.GetAttrs());
 	if (!pFunc->CustomDeclare(env, sig, _attrsOpt, argsSub)) return false;
 	if (args.IsSet(Gura_Symbol(loose))) {
 		pFunc->GetDeclOwner().SetAsLoose();
 	}
-	return Value(env, pFunc.release(), Value::Null);
+	return Value(pClassCustom);
 }
 
 // super(obj) {block?}

@@ -39,22 +39,27 @@ Object *CustomClass::CreateDescendant(Environment &env, Signal sig, Class *pClas
 	return pObj;
 }
 
-Function *CustomClass::Prepare(Environment &env, Signal sig)
+Function *CustomClass::PrepareConstructor(Environment &env, Signal sig)
 {
 	Value valueThis(this, Value::FLAG_NoOwner | Value::FLAG_Privileged);
 	if (!_pExprContent.IsNull() &&
 					!BuildContent(env, sig, valueThis, _pExprContent.get())) {
 		return NULL;
 	}
-	AutoPtr<ClassPrototype> pFunc;
-	FunctionType funcType = FUNCTYPE_Function;
-	//FunctionType funcType = args.IsSet(Gura_Symbol(static_))?
-	//										FUNCTYPE_Class : FUNCTYPE_Function;
 	FunctionCustom *pFuncInit = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__init__), ENVREF_NoEscalate));
+	if (GetConstructor() == NULL) {
+		// nothing to do
+	} else if (pFuncInit == NULL) {
+		return GetConstructor();
+	} else {
+		sig.SetError(ERR_DeclarationError, "struct can't have constructor");
+		return NULL;
+	}
+	AutoPtr<ClassPrototype> pFunc;
 	if (pFuncInit != NULL) {
 		pFunc.reset(new ClassPrototype(env, Gura_Symbol(_anonymous_),
-						Expr::Reference(pFuncInit->GetExprBody()), funcType));
+						Expr::Reference(pFuncInit->GetExprBody()), FUNCTYPE_Function));
 		pFunc->CopyDeclare(*pFuncInit);
 	} else if (!_pClassSuper.IsNull() && _pClassSuper->GetConstructor() != NULL) {
 		Function *pConstructorSuper = _pClassSuper->GetConstructor();
@@ -65,16 +70,16 @@ Function *CustomClass::Prepare(Environment &env, Signal sig)
 		}
 		pExprBlock->SetParam(pExprBlockParam);
 		pFunc.reset(new ClassPrototype(env, Gura_Symbol(_anonymous_),
-												pExprBlock, funcType));
+												pExprBlock, FUNCTYPE_Function));
 		pFunc->CopyDeclare(*pConstructorSuper);
 	} else {
 		pFunc.reset(new ClassPrototype(env, Gura_Symbol(_anonymous_),
-												new Expr_Block(), funcType));
+												new Expr_Block(), FUNCTYPE_Function));
 		Args argsSub(ExprList::Null);
 		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, argsSub)) return NULL;
 	}
 	pFunc->SetSymbol(_pSymbol);
-	pFunc->SetClassToConstruct(this);
+	pFunc->SetClassToConstruct(this); // constructor is registered in this class
 	pFunc->DeclareBlock(OCCUR_ZeroOrOnce);
 	return pFunc.release();
 }

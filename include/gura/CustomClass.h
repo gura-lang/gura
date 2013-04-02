@@ -17,7 +17,7 @@ public:
 	virtual ~CustomClass();
 	virtual bool IsCustom() const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	Function *Prepare(Environment &env, Signal sig);
+	Function *PrepareConstructor(Environment &env, Signal sig);
 	static void OnModuleEntry(Environment &env, Signal sig);
 	inline Signal &GetSignal() { return _sig; }
 	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;

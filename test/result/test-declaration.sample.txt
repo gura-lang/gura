@@ -8,6 +8,7 @@ ArithmeticError:error = <error:ArithmeticError>
 AttributeError:error = <error:AttributeError>
 CodecError:error = <error:CodecError>
 CommandError:error = <error:CommandError>
+DeclarationError:error = <error:DeclarationError>
 FormatError:error = <error:FormatError>
 I:function = I(filename:string)
 IOError:error = <error:IOError>

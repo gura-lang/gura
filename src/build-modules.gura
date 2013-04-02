@@ -1,7 +1,8 @@
 #!/usr/bin/env gura
 
 dirNamesExcept = sys.argv.offset(1).filter(&{$x.startswith('!')}):*mid(1)
-dirInfos = struct(dirName:string, platforms[]:symbol) * [
+DirInfo = struct(dirName:string, platforms[]:symbol)
+dirInfos = @(DirInfo) {
 	['Module_sample',		[`mswin, `linux]]
 	['Module_csv',			[`mswin, `linux]]
 	['Module_re',			[`mswin, `linux]]
@@ -35,7 +36,7 @@ dirInfos = struct(dirName:string, platforms[]:symbol) * [
 	['Module_uuid',			[`mswin]]
 	['Module_canvas',		[`mswin]]
 	['Module_mswin',		[`mswin]]
-]
+}
 dirNames = dirInfos.filter(dirInfos:*platforms:*iscontain(sys.platform))::dirName
 dirNamePre = path.dirname(sys.argv[0])
 debFiles = []

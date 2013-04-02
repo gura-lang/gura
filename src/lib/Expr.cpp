@@ -859,7 +859,7 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 								ValueTypePool::GetInstance()->Add(GetSymbol());
 			pValueTypeInfo->SetClass(Class::Reference(pClass));
 			env.AssignValueType(pValueTypeInfo);
-			Function *pFunc = pClass->Prepare(env, sig);
+			Function *pFunc = pClass->PrepareConstructor(env, sig);
 			if (pFunc == NULL) return Value::Null;
 			value = Value(env, pFunc, Value::Null);
 		}

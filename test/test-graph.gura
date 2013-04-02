@@ -125,8 +125,8 @@ function(fileNameEmf:string) {
 		tonumber(re.split(r'\s+', lines)):list
 	}
 	graph.create_emf(fileNameEmf, 150, 150) {|c|
-		tbl = struct(day, Site01, Site02, Site03) * \
-							read_table('temperature.txt', header => true)
+		Table = struct(day, Site01, Site02, Site03)
+		tbl = Table * read_table('temperature.txt', header => true)
 		graph.draw(c,
 				graph.item(tbl:*day, tbl:*Site01, `solid)
 				graph.item(tbl:*day, tbl:*Site02, `solid)

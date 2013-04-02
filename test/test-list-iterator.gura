@@ -428,13 +428,6 @@ scope {
 		{1, 2, 3, {4, 5, 6, {7, 8, 9}, 10, 11}, 12}, 13, 14
 	}
 	println(list):nomap
-	list = @(struct(name:string, email:string, age:number)) {
-		{ 'hayasaka hiroko',	'hayasaka_hiroko@example.com',	33	},
-		{ 'hannda takashi',		'hannda_takashi@example.com',	75	},
-		{ 'honma masahiko',		'honma_masahiko@example.com',	46	},
-		{ 'kawahata nana',		'kawahata_nana@example.com',	47	},
-	}
-	println(list):nomap
 	Person = struct(name:string, email:string, age:number)
 	people = @(Person) {
 		{ 'hayasaka hiroko',	'hayasaka_hiroko@example.com',	33	},

@@ -44,6 +44,7 @@ static const ErrorTypeInfo _errorTypeInfoTbl[] = {
 	{ ERR_TypeError,			"TypeError"				},
 	{ ERR_ZeroDivisionError,	"ZeroDivisionError"		},
 	{ ERR_ValueError,			"ValueError"			},
+	{ ERR_DeclarationError,		"DeclarationError"		},
 	{ ERR_SystemError,			"SystemError"			},
 	{ ERR_IOError,				"IOError"				},
 	{ ERR_IndexError,			"IndexError"			},

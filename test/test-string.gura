@@ -296,7 +296,8 @@ scope {
 	tester(`str.replace('', '*', 3))
 }
 scope {
-	x = @(struct(a, b, c, d, e):loose) {
+	Struct = struct(a, b, c, d, e):loose
+	x = @(Struct) {
 		[1, 2, 3, 4, 5],
 		[3, 4, 2, 1],
 		[2, 3, 4],
