@@ -34,7 +34,7 @@ calendar(year:number, weekoffset:number => 0, ncols:number => 3) = {
 		rtn.add(lines)
 	}
 }
-calendar.help('''\
+calendar.addhelp(`en, '''\
 
 ''')
 
