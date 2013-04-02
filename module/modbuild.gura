@@ -231,7 +231,7 @@ if (sys.build == `msc) {
 		}
 		doClean(target:string) = {
 			!path.exists(this.outDir) && return
-			fileNames = path.dir(this.outDir, target, '*.obj', '*.exp', '*.lib', '*.cmd')
+			fileNames = path.dir(this.outDir, target, '*.obj', '*.exp', '*.lib', '*.cmd'):list
 			fileNames.isempty() && return
 			fileNames.each {|fileName|
 				fs.remove(fileName)
