@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_TarEntry, GetGroupName)
 	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetUserName_)
+Gura_DeclareMethodAlias(wx_TarEntry, GetUserName_, "GetUserName")
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -419,7 +419,7 @@ Gura_ImplementMethod(wx_TarEntry, GetMode)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
-Gura_DeclareMethod(wx_TarEntry, SetMode_)
+Gura_DeclareMethodAlias(wx_TarEntry, SetMode_, "SetMode")
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
@@ -541,7 +541,7 @@ Gura_ImplementUserInheritableClass(wx_TarEntry)
 	Gura_AssignMethod(wx_TarEntry, SetGroupId);
 	Gura_AssignMethod(wx_TarEntry, SetUserId);
 	Gura_AssignMethod(wx_TarEntry, GetGroupName);
-	Gura_AssignMethodEx(wx_TarEntry, GetUserName_, "GetUserName");
+	Gura_AssignMethod(wx_TarEntry, GetUserName_);
 	Gura_AssignMethod(wx_TarEntry, SetGroupName);
 	Gura_AssignMethod(wx_TarEntry, SetUserName);
 	Gura_AssignMethod(wx_TarEntry, GetInternalName);
@@ -549,7 +549,7 @@ Gura_ImplementUserInheritableClass(wx_TarEntry)
 	Gura_AssignMethod(wx_TarEntry, GetLinkName);
 	Gura_AssignMethod(wx_TarEntry, SetLinkName);
 	Gura_AssignMethod(wx_TarEntry, GetMode);
-	Gura_AssignMethodEx(wx_TarEntry, SetMode_, "SetMode");
+	Gura_AssignMethod(wx_TarEntry, SetMode_);
 	Gura_AssignMethod(wx_TarEntry, SetSize);
 	Gura_AssignMethod(wx_TarEntry, GetSize);
 	Gura_AssignMethod(wx_TarEntry, GetTypeFlag);

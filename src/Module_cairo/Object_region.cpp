@@ -362,7 +362,7 @@ Gura_ImplementMethod(region, subtract_rectangle)
 }
 
 // cairo.region#union(other:cairo.region)
-Gura_DeclareMethod(region, union_)
+Gura_DeclareMethodAlias(region, union_, "union")
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "other", VTYPE_region);
@@ -487,7 +487,7 @@ Gura_ImplementUserClass(region)
 	Gura_AssignMethod(region, intersect_rectangle);
 	Gura_AssignMethod(region, subtract);
 	Gura_AssignMethod(region, subtract_rectangle);
-	Gura_AssignMethodEx(region, union_, "union");
+	Gura_AssignMethod(region, union_);
 	Gura_AssignMethod(region, union_rectangle);
 	Gura_AssignMethod(region, xor_);
 	Gura_AssignMethod(region, xor_rectangle);

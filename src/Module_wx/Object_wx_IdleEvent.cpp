@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_IdleEvent, MoreRequested)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
-Gura_DeclareClassMethod(wx_IdleEvent, SetMode_)
+Gura_DeclareClassMethodAlias(wx_IdleEvent, SetMode_, "SetMode")
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
@@ -169,7 +169,7 @@ Gura_ImplementUserInheritableClass(wx_IdleEvent)
 	Gura_AssignMethod(wx_IdleEvent, GetMode);
 	Gura_AssignMethod(wx_IdleEvent, RequestMore);
 	Gura_AssignMethod(wx_IdleEvent, MoreRequested);
-	Gura_AssignMethodEx(wx_IdleEvent, SetMode_, "SetMode");
+	Gura_AssignMethod(wx_IdleEvent, SetMode_);
 }
 
 Gura_ImplementDescendantCreator(wx_IdleEvent)

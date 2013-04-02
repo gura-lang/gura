@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_TextOutputStream, PutChar)
 	return Value::Null;
 }
 
-Gura_DeclareMethod(wx_TextOutputStream, SetMode_)
+Gura_DeclareMethodAlias(wx_TextOutputStream, SetMode_, "SetMode")
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 }
@@ -252,7 +252,7 @@ Gura_ImplementUserInheritableClass(wx_TextOutputStream)
 {
 	Gura_AssignMethod(wx_TextOutputStream, GetMode);
 	Gura_AssignMethod(wx_TextOutputStream, PutChar);
-	Gura_AssignMethodEx(wx_TextOutputStream, SetMode_, "SetMode");
+	Gura_AssignMethod(wx_TextOutputStream, SetMode_);
 	Gura_AssignMethod(wx_TextOutputStream, Write8);
 	Gura_AssignMethod(wx_TextOutputStream, Write16);
 	Gura_AssignMethod(wx_TextOutputStream, Write32);

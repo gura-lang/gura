@@ -71,7 +71,7 @@ Gura_ImplementMethod(Object, tostring)
 }
 
 // object.getprop!(symbol:symbol, default?:nomap):map
-Gura_DeclareClassMethod(Object, getprop_X)
+Gura_DeclareClassMethodAlias(Object, getprop_X, "getprop!")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);
@@ -91,7 +91,7 @@ Gura_ImplementClassMethod(Object, getprop_X)
 }
 
 // object.setprop!(symbol:symbol, value):map
-Gura_DeclareClassMethod(Object, setprop_X)
+Gura_DeclareClassMethodAlias(Object, setprop_X, "setprop!")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);
@@ -260,8 +260,8 @@ void Class::Prepare()
 	Gura_AssignMethod(Object, istype);		// primitive method
 	Gura_AssignMethod(Object, tonumber);	// primitive method
 	Gura_AssignMethod(Object, tostring);	// primitive method
-	Gura_AssignMethodEx(Object, setprop_X,	"setprop!");
-	Gura_AssignMethodEx(Object, getprop_X,	"getprop!");
+	Gura_AssignMethod(Object, setprop_X);
+	Gura_AssignMethod(Object, getprop_X);
 	Gura_AssignMethod(Object, __call__);
 	Gura_AssignMethod(Object, clone);
 	Gura_AssignMethod(Object, __iter__);

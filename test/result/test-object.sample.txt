@@ -81,10 +81,10 @@ Maruyama  :32 Inari     :23 .. false:false
 Maruyama  :32 Maruyama  :27 .. true :false
 Maruyama  :32 Akai      :23 .. false:false
 31 7 15
-a.call!(`dynamic1, 1, 2, 3, 4) .. dynamic1 OK (1,2,3,4) property
-a.call!(`dynamic2, 1, 2, 3, 4) .. dynamic2 OK (1,2,3,4) property
-a.call!(`func1, 1, 2, 3, 4) .. func1 OK (1,2,3,4) property
-a.call!(`func2, 1, 2, 3, 4) .. func2 OK (1,2,3,4) property
+a.__call__(`dynamic1, 1, 2, 3, 4) .. dynamic1 OK (1,2,3,4) property
+a.__call__(`dynamic2, 1, 2, 3, 4) .. dynamic2 OK (1,2,3,4) property
+a.__call__(`func1, 1, 2, 3, 4) .. func1 OK (1,2,3,4) property
+a.__call__(`func2, 1, 2, 3, 4) .. func2 OK (1,2,3,4) property
 a['hello'] .. indexed at hello
 a['hoge'] .. indexed at hoge
 a[[1, 2]] .. ['indexed at 1', 'indexed at 2']

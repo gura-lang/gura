@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_Menu, Append)
 	return ReturnValue(env, sig, args, Value(new Object_wx_MenuItem(rtn, NULL, OwnerFalse)));
 }
 
-Gura_DeclareMethod(wx_Menu, AppendMenu_)
+Gura_DeclareMethodAlias(wx_Menu, AppendMenu_, "AppendMenu")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -852,7 +852,7 @@ void Object_wx_Menu::OnModuleEntry(Environment &env, Signal sig)
 Gura_ImplementUserInheritableClass(wx_Menu)
 {
 	Gura_AssignMethod(wx_Menu, Append);
-	Gura_AssignMethodEx(wx_Menu, AppendMenu_, "AppendMenu");
+	Gura_AssignMethod(wx_Menu, AppendMenu_);
 	Gura_AssignMethod(wx_Menu, AppendItem);
 	Gura_AssignMethod(wx_Menu, AppendCheckItem);
 	Gura_AssignMethod(wx_Menu, AppendRadioItem);

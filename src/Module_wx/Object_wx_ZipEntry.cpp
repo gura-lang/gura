@@ -405,7 +405,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetMode)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
-Gura_DeclareMethod(wx_ZipEntry, SetMode_)
+Gura_DeclareMethodAlias(wx_ZipEntry, SetMode_, "SetMode")
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
@@ -576,7 +576,7 @@ Gura_ImplementUserInheritableClass(wx_ZipEntry)
 	Gura_AssignMethod(wx_ZipEntry, GetMethod);
 	Gura_AssignMethod(wx_ZipEntry, SetMethod);
 	Gura_AssignMethod(wx_ZipEntry, GetMode);
-	Gura_AssignMethodEx(wx_ZipEntry, SetMode_, "SetMode");
+	Gura_AssignMethod(wx_ZipEntry, SetMode_);
 	Gura_AssignMethod(wx_ZipEntry, SetNotifier);
 	Gura_AssignMethod(wx_ZipEntry, UnsetNotifier);
 	Gura_AssignMethod(wx_ZipEntry, GetSystemMadeBy);

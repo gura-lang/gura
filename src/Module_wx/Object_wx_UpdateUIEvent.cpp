@@ -271,7 +271,7 @@ Gura_ImplementClassMethod(wx_UpdateUIEvent, ResetUpdateTime)
 	return Value::Null;
 }
 
-Gura_DeclareClassMethod(wx_UpdateUIEvent, SetMode_)
+Gura_DeclareClassMethodAlias(wx_UpdateUIEvent, SetMode_, "SetMode")
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
@@ -364,7 +364,7 @@ Gura_ImplementUserInheritableClass(wx_UpdateUIEvent)
 	Gura_AssignMethod(wx_UpdateUIEvent, GetMode);
 	Gura_AssignMethod(wx_UpdateUIEvent, GetUpdateInterval);
 	Gura_AssignMethod(wx_UpdateUIEvent, ResetUpdateTime);
-	Gura_AssignMethodEx(wx_UpdateUIEvent, SetMode_, "SetMode");
+	Gura_AssignMethod(wx_UpdateUIEvent, SetMode_);
 	Gura_AssignMethod(wx_UpdateUIEvent, SetText);
 	Gura_AssignMethod(wx_UpdateUIEvent, SetUpdateInterval);
 }

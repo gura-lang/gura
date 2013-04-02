@@ -156,7 +156,7 @@ Gura_ImplementFunction(copy)
 }
 
 // template(src:stream:r, dst?:stream:w):map:[noindent,lasteol]
-Gura_DeclareFunction(template_)
+Gura_DeclareFunctionAlias(template_, "template")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
@@ -565,7 +565,7 @@ Gura_ImplementMethod(stream, parse)
 }
 
 // stream#template(dst?:stream:w):map:[noindent,lasteol]
-Gura_DeclareMethod(stream, template_)
+Gura_DeclareMethodAlias(stream, template_, "template")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
@@ -744,7 +744,7 @@ Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stre
 	Gura_AssignMethod(stream, readlines);
 	Gura_AssignMethod(stream, readtext);
 	Gura_AssignMethod(stream, parse);
-	Gura_AssignMethodEx(stream, template_, "template");
+	Gura_AssignMethod(stream, template_);
 	Gura_AssignMethod(stream, print);
 	Gura_AssignMethod(stream, println);
 	Gura_AssignMethod(stream, printf);
@@ -788,7 +788,7 @@ void Class_stream::OnModuleEntry(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(open);
 	Gura_AssignFunction(copy);
-	Gura_AssignFunctionEx(template_, "template");
+	Gura_AssignFunction(template_);
 	Gura_AssignFunction(readlines);
 }
 

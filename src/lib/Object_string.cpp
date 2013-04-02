@@ -845,7 +845,7 @@ Gura_ImplementMethod(string, parse)
 }
 
 // string#template(dst?:stream:w):[noindent,lasteol]
-Gura_DeclareMethod(string, template_)
+Gura_DeclareMethodAlias(string, template_, "template")
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
@@ -913,7 +913,7 @@ Class_string::Class_string(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stri
 	Gura_AssignMethod(string, encode);
 	Gura_AssignMethod(string, reader);
 	Gura_AssignMethod(string, parse);
-	Gura_AssignMethodEx(string, template_, "template");
+	Gura_AssignMethod(string, template_);
 }
 
 bool Class_string::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

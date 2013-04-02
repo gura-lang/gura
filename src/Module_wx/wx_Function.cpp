@@ -973,7 +973,7 @@ Gura_ImplementFunction(ConcatFiles)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
-Gura_DeclareFunction(CopyFile_)
+Gura_DeclareFunctionAlias(CopyFile_, "CopyFile")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "file1", VTYPE_string, OCCUR_Once);
@@ -2249,7 +2249,7 @@ Gura_ImplementFunction(IsBusy)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
-Gura_DeclareFunction(MessageBox_)
+Gura_DeclareFunctionAlias(MessageBox_, "MessageBox")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
@@ -5126,7 +5126,7 @@ void RegisterFunctions(Environment &env, Signal sig)
 	Gura_AssignFunction(Unix2DosFilename);
 	Gura_AssignFunction(CHANGE_UMASK);
 	Gura_AssignFunction(ConcatFiles);
-	Gura_AssignFunctionEx(CopyFile_, "CopyFile");
+	Gura_AssignFunction(CopyFile_);
 	Gura_AssignFunction(GetCwd);
 	Gura_AssignFunction(IsWild);
 	Gura_AssignFunction(MatchWild);
@@ -5188,7 +5188,7 @@ void RegisterFunctions(Environment &env, Signal sig)
 	Gura_AssignFunction(GetSingleChoiceData);
 	Gura_AssignFunction(GetSingleChoiceData_1);
 	Gura_AssignFunction(IsBusy);
-	Gura_AssignFunctionEx(MessageBox_, "MessageBox");
+	Gura_AssignFunction(MessageBox_);
 	Gura_AssignFunction(ShowTip);
 	Gura_AssignFunction(Finite);
 	Gura_AssignFunction(IsNaN);
