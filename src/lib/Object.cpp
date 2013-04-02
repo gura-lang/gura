@@ -20,7 +20,7 @@ Object::~Object()
 			pClassCustom->LookupFunction(Gura_Symbol(__del__), ENVREF_NoEscalate);
 	if (pFunc == NULL) return;
 	Signal &sig = pClassCustom->GetSignal();
-	Value valueThis(this, Value::FLAG_NoOwner | Value::FLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	Args args(ValueList::Null, valueThis);
 	pFunc->Eval(*this, sig, args);
 }
@@ -63,7 +63,7 @@ Value Object::EmptyIndexGet(Environment &env, Signal sig)
 		sig.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
 		return Value::Null;
 	}
-	Value valueThis(this, Value::FLAG_NoOwner | Value::FLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	Args args(ValueList::Null, valueThis);
 	return pFunc->Eval(*this, sig, args);
 }
@@ -75,7 +75,7 @@ void Object::EmptyIndexSet(Environment &env, Signal sig, const Value &value)
 		sig.SetError(ERR_ValueError, "empty-indexed setting access is not supported");
 		return;
 	}
-	Value valueThis(this, Value::FLAG_NoOwner | Value::FLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(value);
@@ -90,7 +90,7 @@ Value Object::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 		sig.SetError(ERR_ValueError, "indexed getting access is not supported");
 		return Value::Null;
 	}
-	Value valueThis(this, Value::FLAG_NoOwner | Value::FLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(valueIdx);
@@ -105,7 +105,7 @@ void Object::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const
 		sig.SetError(ERR_ValueError, "indexed setting access is not supported");
 		return;
 	}
-	Value valueThis(this, Value::FLAG_NoOwner | Value::FLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	ValueList valListArg(valueIdx, value);
 	Args args(valListArg, valueThis);
 	pFunc->Eval(*this, sig, args);
@@ -130,7 +130,7 @@ bool Object::DirProp(Environment &env, Signal sig, SymbolSet &symbols)
 Value Object::EvalMethod(Environment &env, Signal sig, const Function *pFunc, const ValueList &valListArg)
 {
 	const Function *pFuncLeader = NULL;
-	Value valueThis(this, Value::FLAG_NoOwner | Value::FLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	Args args(valListArg, valueThis, NULL, false, &pFuncLeader);
 	return pFunc->Eval(env, sig, args);
 }
@@ -142,7 +142,7 @@ Value Object::EvalMethod(Environment &env, Signal sig, const Symbol *pSymbol,
 	evaluatedFlag = false;
 	const Function *pFunc = LookupFunction(pSymbol, ENVREF_Escalate);
 	if (pFunc == NULL) return Value::Null;
-	Value valueThis(this, Value::FLAG_NoOwner | Value::FLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	evaluatedFlag = true;
 	Args args(valListArg, valueThis, NULL, false, &pFuncLeader);
 	return pFunc->Eval(env, sig, args);
@@ -154,7 +154,7 @@ Value Object::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getprop__), ENVREF_Escalate);
 	if (pFunc == NULL) return Value::Null;
 	evaluatedFlag = true;
-	Value valueThis(this, Value::FLAG_NoOwner | Value::FLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(pSymbol));
@@ -167,7 +167,7 @@ Value Object::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, con
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setprop__), ENVREF_Escalate);
 	if (pFunc == NULL) return Value::Null;
-	Value valueThis(this, Value::FLAG_NoOwner | Value::FLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	ValueList valListArg(Value(pSymbol), value);
 	Args args(valListArg, valueThis);
 	Value result = pFunc->Eval(*this, sig, args);

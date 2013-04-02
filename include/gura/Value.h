@@ -40,6 +40,15 @@ class ValueList;
 class ValueDict;
 class Iterator;
 
+enum {
+	VFLAG_None			= 0,
+	VFLAG_NoOwner		= (0 << 0),
+	VFLAG_Owner			= (1 << 0),
+	VFLAG_TinyBuff		= (1 << 1),
+	VFLAG_Privileged	= (1 << 2),
+	// b15-b8 are reserved for super-skip count
+};
+
 //-----------------------------------------------------------------------------
 // ValueType
 //-----------------------------------------------------------------------------
@@ -218,17 +227,9 @@ public:
 	enum {
 		MaxSuperSkipCount = 255,
 	};
-	enum {
-		FLAG_None		= 0,
-		FLAG_NoOwner	= (0 << 0),
-		FLAG_Owner		= (1 << 0),
-		FLAG_TinyBuff	= (1 << 1),
-		FLAG_Privileged	= (1 << 2),
-		// b15-b8 are reserved for super-skip count
-	};
 private:
 	unsigned short _valType;	// 2 bytes
-	unsigned short _flags;		// 2 bytes
+	unsigned short _valFlags;	// 2 bytes
 	union {						// 8 bytes
 		Number num;				// VTYPE_number
 		bool flag;				// VTYPE_boolean
@@ -249,68 +250,68 @@ public:
 	Value(const Value &value);
 	~Value();
 	// VTYPE_nil
-	inline Value() : _valType(VTYPE_nil), _flags(FLAG_Owner) {}
-	inline Value(ValueType valType, unsigned short flags) : _valType(valType), _flags(flags) {}
+	inline Value() : _valType(VTYPE_nil), _valFlags(VFLAG_Owner) {}
+	inline Value(ValueType valType, unsigned short valFlags) : _valType(valType), _valFlags(valFlags) {}
 	// VTYPE_module
-	inline Value(Module *pModule, unsigned short flags = FLAG_Owner) :
-								_valType(VTYPE_Module), _flags(flags) {
+	inline Value(Module *pModule, unsigned short valFlags = VFLAG_Owner) :
+								_valType(VTYPE_Module), _valFlags(valFlags) {
 		_u.pModule = pModule;
 	}
 	// VTYPE_class
-	inline Value(Class *pClass, unsigned short flags = FLAG_Owner) :
-								_valType(VTYPE_Class), _flags(flags) {
+	inline Value(Class *pClass, unsigned short valFlags = VFLAG_Owner) :
+								_valType(VTYPE_Class), _valFlags(valFlags) {
 		_u.pClass = pClass;
 	}
 	// VTYPE_object etc
-	Value(Object *pObj, unsigned short flags = FLAG_Owner);
+	Value(Object *pObj, unsigned short valFlags = VFLAG_Owner);
 	// VTYPE_number
-	inline Value(Number num) : _valType(VTYPE_number), _flags(FLAG_Owner) {
+	inline Value(Number num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = num;
 	}
-	inline Value(int num) : _valType(VTYPE_number), _flags(FLAG_Owner) {
+	inline Value(int num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(unsigned int num) : _valType(VTYPE_number), _flags(FLAG_Owner) {
+	inline Value(unsigned int num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(char num) : _valType(VTYPE_number), _flags(FLAG_Owner) {
+	inline Value(char num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(unsigned char num) : _valType(VTYPE_number), _flags(FLAG_Owner) {
+	inline Value(unsigned char num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(short num) : _valType(VTYPE_number), _flags(FLAG_Owner) {
+	inline Value(short num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(unsigned short num) : _valType(VTYPE_number), _flags(FLAG_Owner) {
+	inline Value(unsigned short num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(long num) : _valType(VTYPE_number), _flags(FLAG_Owner) {
+	inline Value(long num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(unsigned long num) : _valType(VTYPE_number), _flags(FLAG_Owner) {
+	inline Value(unsigned long num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(int64 num) : _valType(VTYPE_number), _flags(FLAG_Owner) {
+	inline Value(int64 num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(uint64 num) : _valType(VTYPE_number), _flags(FLAG_Owner) {
+	inline Value(uint64 num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
 	// VTYPE_boolean
-	inline Value(bool flag) : _valType(VTYPE_boolean), _flags(FLAG_Owner) {
+	inline Value(bool flag) : _valType(VTYPE_boolean), _valFlags(VFLAG_Owner) {
 		_u.flag = flag;
 	}
 	// VTYPE_symbol
-	inline Value(const Symbol *pSymbol) : _valType(VTYPE_symbol), _flags(FLAG_Owner) {
+	inline Value(const Symbol *pSymbol) : _valType(VTYPE_symbol), _valFlags(VFLAG_Owner) {
 		_u.pSymbol = pSymbol;
 	}
 	// VTYPE_complex
-	inline Value(const Complex &comp) : _valType(VTYPE_complex), _flags(FLAG_Owner) {
+	inline Value(const Complex &comp) : _valType(VTYPE_complex), _valFlags(VFLAG_Owner) {
 		_u.pComp = new Complex(comp);
 	}
 	// VTYPE_fraction
-	inline Value(const Fraction &frac) : _valType(VTYPE_fraction), _flags(FLAG_Owner) {
+	inline Value(const Fraction &frac) : _valType(VTYPE_fraction), _valFlags(VFLAG_Owner) {
 		_u.pFrac = new Fraction(frac);
 	}
 	// VTYPE_string, VTYPE_binary
@@ -330,15 +331,15 @@ public:
 	// VTYPE_timedelta
 	Value(Environment &env, const TimeDelta &timeDelta);
 	Value &operator=(const Value &value);
-	inline unsigned short GetFlags() const { return _flags; }
-	inline void SetFlags(unsigned short flags) { _flags = flags; }
-	inline void AddFlags(unsigned short flags) { _flags |= flags; }
-	inline bool IsOwner() const { return (_flags & FLAG_Owner)? true : false; }
-	inline bool IsPrivileged() const { return (_flags & FLAG_Privileged)? true : false; }
-	inline bool GetTinyBuffFlag() const { return (_flags & FLAG_TinyBuff)? true : false; }
-	inline int GetSuperSkipCount() const { return (_flags >> 8) & 0xff; }
+	inline unsigned short GetFlags() const { return _valFlags; }
+	inline void SetFlags(unsigned short valFlags) { _valFlags = valFlags; }
+	inline void AddFlags(unsigned short valFlags) { _valFlags |= valFlags; }
+	inline bool IsOwner() const { return (_valFlags & VFLAG_Owner)? true : false; }
+	inline bool IsPrivileged() const { return (_valFlags & VFLAG_Privileged)? true : false; }
+	inline bool GetTinyBuffFlag() const { return (_valFlags & VFLAG_TinyBuff)? true : false; }
+	inline int GetSuperSkipCount() const { return (_valFlags >> 8) & 0xff; }
 	inline void SetSuperSkipCount(int cntSuperSkip) {
-		_flags = (_flags & 0x00ff) | (static_cast<unsigned short>(cntSuperSkip & 0xff) << 8);
+		_valFlags = (_valFlags & 0x00ff) | (static_cast<unsigned short>(cntSuperSkip & 0xff) << 8);
 	}
 	const char *GetTypeName() const;
 	inline ValueType GetType() const { return _valType; }

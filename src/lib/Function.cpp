@@ -935,7 +935,7 @@ Value FunctionCustom::DoEval(Environment &env, Signal sig, Args &args) const
 	if (pEnvLocal.get() == NULL) return Value::Null;
 	if (_funcType != FUNCTYPE_Block) {
 		Value valueThis(args.GetThis());
-		valueThis.AddFlags(Value::FLAG_Privileged);
+		valueThis.AddFlags(VFLAG_Privileged);
 		pEnvLocal->AssignValue(Gura_Symbol(this), valueThis, EXTRA_Public);
 	}
 	do {
@@ -1024,7 +1024,7 @@ Value ClassPrototype::DoEval(Environment &env, Signal sig, Args &args) const
 		if (sig.IsSignalled()) return Value::Null;
 	}
 	Value valueThis(valueRtn);
-	valueThis.AddFlags(Value::FLAG_Privileged);
+	valueThis.AddFlags(VFLAG_Privileged);
 	pEnvLocal->AssignValue(Gura_Symbol(this), valueThis, EXTRA_Public);
 	GetExprBody()->Exec(*pEnvLocal, sig);
 	if (sig.IsSignalled()) return Value::Null;

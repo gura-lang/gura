@@ -52,7 +52,7 @@ ValueType VTYPE_Struct			= static_cast<ValueType>(0);
 ValueTypePool *ValueTypePool::_pInst = NULL;
 
 const Value Value::Null;
-const Value Value::Undefined(VTYPE_undefined, Value::FLAG_Owner);
+const Value Value::Undefined(VTYPE_undefined, VFLAG_Owner);
 const Value::KeyCompare Value::KeyCompareCase(false);
 const Value::KeyCompare Value::KeyCompareIgnoreCase(true);
 const ValueList ValueList::Null;
@@ -248,7 +248,7 @@ ValueTypePool *ValueTypePool::GetInstance()
 //-----------------------------------------------------------------------------
 // Value
 //-----------------------------------------------------------------------------
-Value::Value(const Value &value) : _valType(value._valType), _flags(value._flags)
+Value::Value(const Value &value) : _valType(value._valType), _valFlags(value._valFlags)
 {
 	if (value.GetTinyBuffFlag()) {
 		_u = value._u;
@@ -273,8 +273,8 @@ Value::Value(const Value &value) : _valType(value._valType), _flags(value._flags
 	}
 }
 
-Value::Value(Object *pObj, unsigned short flags) :
-						_valType(pObj->GetValueType()), _flags(flags)
+Value::Value(Object *pObj, unsigned short valFlags) :
+						_valType(pObj->GetValueType()), _valFlags(valFlags)
 {
 	_u.pObj = pObj;
 }
@@ -291,12 +291,12 @@ Value::~Value()
 }
 
 // VTYPE_string
-Value::Value(Environment &env, const String &str) : _valType(VTYPE_string), _flags(FLAG_Owner)
+Value::Value(Environment &env, const String &str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 {
 #if USE_TINYBUFF
 	size_t len = str.size();
 	if (len < sizeof(_u) - 1) {
-		_flags |= FLAG_TinyBuff;
+		_valFlags |= VFLAG_TinyBuff;
 		::memcpy(_u.tinyBuff, str, len + 1);
 	} else {
 		_u.pObj = new Object_string(env, str);
@@ -306,12 +306,12 @@ Value::Value(Environment &env, const String &str) : _valType(VTYPE_string), _fla
 #endif
 }
 
-Value::Value(Environment &env, const char *str) : _valType(VTYPE_string), _flags(FLAG_Owner)
+Value::Value(Environment &env, const char *str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 {
 #if USE_TINYBUFF
 	size_t len = ::strlen(str);
 	if (len < sizeof(_u) - 1) {
-		_flags |= FLAG_TinyBuff;
+		_valFlags |= VFLAG_TinyBuff;
 		::memcpy(_u.tinyBuff, str, len + 1);
 	} else {
 		_u.pObj = new Object_string(env, str);
@@ -321,11 +321,11 @@ Value::Value(Environment &env, const char *str) : _valType(VTYPE_string), _flags
 #endif
 }
 
-Value::Value(Environment &env, const char *str, size_t len) : _valType(VTYPE_string), _flags(FLAG_Owner)
+Value::Value(Environment &env, const char *str, size_t len) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 {
 #if USE_TINYBUFF
 	if (len < sizeof(_u) - 1) {
-		_flags |= FLAG_TinyBuff;
+		_valFlags |= VFLAG_TinyBuff;
 		::memcpy(_u.tinyBuff, str, len + 1);
 	} else {
 		_u.pObj = new Object_string(env, str, len);
@@ -336,38 +336,38 @@ Value::Value(Environment &env, const char *str, size_t len) : _valType(VTYPE_str
 }
 
 // VTYPE_iterator
-Value::Value(Environment &env, Iterator *pIterator) : _valType(VTYPE_iterator), _flags(FLAG_Owner)
+Value::Value(Environment &env, Iterator *pIterator) : _valType(VTYPE_iterator), _valFlags(VFLAG_Owner)
 {
 	_u.pObj = new Object_iterator(env, pIterator);
 }
 
 // VTYPE_stream
-Value::Value(Environment &env, Stream *pStream) : _valType(VTYPE_stream), _flags(FLAG_Owner)
+Value::Value(Environment &env, Stream *pStream) : _valType(VTYPE_stream), _valFlags(VFLAG_Owner)
 {
 	_u.pObj = new Object_stream(env, pStream);
 }
 
 // VTYPE_function
 Value::Value(Environment &env, Function *pFunc, const Value &valueThis) :
-									_valType(VTYPE_function), _flags(FLAG_Owner)
+									_valType(VTYPE_function), _valFlags(VFLAG_Owner)
 {
 	_u.pObj = new Object_function(env, pFunc, valueThis);
 }
 
 // VTYPE_expr
-Value::Value(Environment &env, Expr *pExpr) : _valType(VTYPE_expr), _flags(FLAG_Owner)
+Value::Value(Environment &env, Expr *pExpr) : _valType(VTYPE_expr), _valFlags(VFLAG_Owner)
 {
 	_u.pObj = new Object_expr(env, pExpr);
 }
 
 // VTYPE_datetime
-Value::Value(Environment &env, const DateTime &dateTime) : _valType(VTYPE_datetime), _flags(FLAG_Owner)
+Value::Value(Environment &env, const DateTime &dateTime) : _valType(VTYPE_datetime), _valFlags(VFLAG_Owner)
 {
 	_u.pObj = new Object_datetime(env, dateTime);
 }
 
 // VTYPE_timedelta
-Value::Value(Environment &env, const TimeDelta &timeDelta) : _valType(VTYPE_timedelta), _flags(FLAG_Owner)
+Value::Value(Environment &env, const TimeDelta &timeDelta) : _valType(VTYPE_timedelta), _valFlags(VFLAG_Owner)
 {
 	_u.pObj = new Object_timedelta(env, timeDelta);
 }
@@ -401,7 +401,7 @@ Value &Value::operator=(const Value &value)
 {
 	FreeResource();
 	_valType = value._valType;
-	_flags = value._flags;
+	_valFlags = value._valFlags;
 	if (GetTinyBuffFlag()) {
 		_u = value._u;
 	} else if (value.IsNumber()) {
@@ -793,7 +793,7 @@ void Value::InitAsObject(Object *pObj)
 {
 	FreeResource();
 	_valType = pObj->GetValueType(), _u.pObj = pObj;
-	_flags = FLAG_Owner;
+	_valFlags = VFLAG_Owner;
 }
 
 ValueList &Value::InitAsList(Environment &env)

@@ -167,6 +167,7 @@ public:
 	Gura_DeclareSymbol(private_);
 	Gura_DeclareSymbol(protected_);
 	Gura_DeclareSymbol(default_);
+	Gura_DeclareSymbol(privileged);
 	Gura_DeclareSymbol(dynamic_scope);
 	Gura_DeclareSymbol(inside_scope);
 	Gura_DeclareSymbol(func_scope);

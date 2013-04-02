@@ -180,6 +180,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbolAlias(private_,		"private");
 	Gura_RealizeSymbolAlias(protected_,		"protected");
 	Gura_RealizeSymbolAlias(default_,		"default");
+	Gura_RealizeSymbol(privileged);
 	Gura_RealizeSymbol(dynamic_scope);
 	Gura_RealizeSymbol(inside_scope);
 	Gura_RealizeSymbol(func_scope);
