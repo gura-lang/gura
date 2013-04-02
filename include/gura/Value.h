@@ -6,27 +6,9 @@
 #include "Stream.h"
 #include "DateTime.h"
 
-namespace Gura {
-
-class Expr;
-class Binary;
-class Fundamental;
-class Environment;
-class Module;
-class Function;
-class Directory;
-class Class;
-class Object;
-
-class ValueList;
-class ValueDict;
-
-class Iterator;
-
 //-----------------------------------------------------------------------------
-// ValueType
+// macros
 //-----------------------------------------------------------------------------
-typedef unsigned short ValueType;
 
 #define Gura_VTYPEInfo(name) \
 (ValueTypePool::GetInstance()->_pValueTypeInfo_##name)
@@ -43,84 +25,25 @@ ValueTypeInfo *_pValueTypeInfo_##name
 #define Gura_RealizeVTYPE(name) \
 Gura_RealizeVTYPEEx(name, #name)
 
-#define Gura_UserClass(name) \
-(Class_##name::_pValueTypeInfo->GetClass())
+namespace Gura {
 
-#define Gura_ImplementClass(name) \
-Class_##name::Class_##name(Environment *pEnvOuter) : Class(pEnvOuter)
+class Expr;
+class Binary;
+class Fundamental;
+class Environment;
+class Module;
+class Function;
+class Directory;
+class Class;
+class Object;
+class ValueList;
+class ValueDict;
+class Iterator;
 
-#define Gura_DeclareUserClass(name) \
-class GURA_DLLEXPORT Class_##name : public Class { \
-public: \
-	inline Class_##name(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {} \
-	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl); \
-	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl); \
-	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass); \
-	virtual void Prepare(); \
-public: \
-	static ValueTypeInfo *_pValueTypeInfo; \
-}; \
-GURA_DLLEXPORT extern ValueType VTYPE_##name;
-
-#define Gura_ImplementUserClass(name) \
-ValueTypeInfo *Class_##name::_pValueTypeInfo = NULL; \
-ValueType VTYPE_##name = static_cast<ValueType>(0); \
-bool Class_##name::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl) { return false; } \
-bool Class_##name::CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl) { return false; } \
-Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pClass) { return Class::CreateDescendant(env, sig, pClass); } \
-void Class_##name::Prepare()
-
-#define Gura_ImplementUserClassWithCast(name) \
-ValueTypeInfo *Class_##name::_pValueTypeInfo = NULL; \
-ValueType VTYPE_##name = static_cast<ValueType>(0); \
-Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pClass) { return Class::CreateDescendant(env, sig, pClass); } \
-void Class_##name::Prepare()
-
-#define Gura_ImplementUserInheritableClass(name) \
-ValueTypeInfo *Class_##name::_pValueTypeInfo = NULL; \
-ValueType VTYPE_##name = static_cast<ValueType>(0); \
-bool Class_##name::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl) { return false; } \
-bool Class_##name::CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl) { return false; } \
-void Class_##name::Prepare()
-
-#define Gura_ImplementUserInheritableClassWithCast(name) \
-ValueTypeInfo *Class_##name::_pValueTypeInfo = NULL; \
-ValueType VTYPE_##name = static_cast<ValueType>(0); \
-void Class_##name::Prepare()
-
-#define Gura_ImplementCastFrom(name) \
-bool Class_##name::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
-
-#define Gura_ImplementCastTo(name) \
-bool Class_##name::CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl)
-
-#define Gura_ImplementDescendantCreator(name) \
-Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pClass)
-
-#define Gura_RealizeUserClassEx(name, str, pClassBase) do { \
-	Class_##name::_pValueTypeInfo = ValueTypePool::GetInstance()->Add(Symbol::Add(str)); \
-	env.AssignValueType(Class_##name::_pValueTypeInfo); \
-	VTYPE_##name = Class_##name::_pValueTypeInfo->GetValueType(); \
-	Class_##name *pClass = new Class_##name(pClassBase, \
-						Class_##name::_pValueTypeInfo->GetValueType()); \
-	Class_##name::_pValueTypeInfo->SetClass(pClass); \
-	pClass->Prepare(); \
-} while (0)
-
-#define Gura_RealizeUserClassExWithoutPrepare(name, str, pClassBase) do { \
-	Class_##name::_pValueTypeInfo = ValueTypePool::GetInstance()->Add(Symbol::Add(str)); \
-	env.AssignValueType(Class_##name::_pValueTypeInfo); \
-	VTYPE_##name = Class_##name::_pValueTypeInfo->GetValueType(); \
-	Class_##name *pClass = new Class_##name(pClassBase, \
-						Class_##name::_pValueTypeInfo->GetValueType()); \
-	Class_##name::_pValueTypeInfo->SetClass(pClass); \
-} while (0)
-
-#define Gura_RealizeUserClass(name, pClassBase) \
-Gura_RealizeUserClassEx(name, #name, pClassBase)
-
-#define Gura_RealizeUserClassWithoutPrepare(name, pClassBase) \
-Gura_RealizeUserClassExWithoutPrepare(name, #name, pClassBase)
+//-----------------------------------------------------------------------------
+// ValueType
+//-----------------------------------------------------------------------------
+typedef unsigned short ValueType;
 
 // nil / undefined
 GURA_DLLDECLARE extern ValueType VTYPE_nil;

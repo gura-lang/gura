@@ -4,6 +4,9 @@
 #include "Value.h"
 #include "String.h"
 
+//-----------------------------------------------------------------------------
+// macros
+//-----------------------------------------------------------------------------
 #define Gura_AssignFunction(name) \
 env.AssignFunction(new Func_##name(env))
 
