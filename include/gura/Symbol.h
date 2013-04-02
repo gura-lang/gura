@@ -11,7 +11,7 @@ const Symbol *_pSymbol_##name
 #define Gura_RealizeSymbol(name) \
 _pSymbol_##name = Symbol::Add(#name);
 
-#define Gura_RealizeSymbolEx(name, str) \
+#define Gura_RealizeSymbolAlias(name, str) \
 _pSymbol_##name = Symbol::Add(str);
 
 #define Gura_UserSymbol(name) (_pUserSymbol_##name)
@@ -30,7 +30,7 @@ static const Symbol *_pUserSymbol_##name = NULL;
 #define Gura_RealizeUserSymbol(name) \
 _pUserSymbol_##name = Symbol::Add(#name);
 
-#define Gura_RealizeUserSymbolEx(name, str) \
+#define Gura_RealizeUserSymbolAlias(name, str) \
 _pUserSymbol_##name = Symbol::Add(str);
 
 namespace Gura {

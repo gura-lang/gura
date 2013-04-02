@@ -3358,7 +3358,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(cur_track)
 	Gura_RealizeUserSymbol(cur_frame)
 	// symbols for other purposes
-	Gura_RealizeUserSymbolEx(thread_, "thread")
+	Gura_RealizeUserSymbolAlias(thread_, "thread")
 	// class realization
 	Gura_RealizeUserClass(Cursor,		env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Timer,		env.LookupClass(VTYPE_object));
