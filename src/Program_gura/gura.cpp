@@ -120,7 +120,10 @@ int Main(int argc, const char *argv[])
 	if (opt.IsSet("template")) {
 		foreach_const (StringList, pPathName, opt.GetStringList("template")) {
 			AutoPtr<Stream> pStreamSrc(Directory::OpenStream(env, sig,
-					pPathName->c_str(), Stream::ATTR_Readable, encoding));
+								pPathName->c_str(), Stream::ATTR_Readable));
+			
+			// encoding
+			
 			if (sig.IsSignalled()) {
 				env.GetConsoleErr()->PrintSignal(sig, sig);
 				return 1;

@@ -9,6 +9,13 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object_codec
 //-----------------------------------------------------------------------------
+Object_codec::Object_codec(const Object_codec &obj) :
+	Object(obj), _encoding(obj._encoding),
+	_pDecoder((obj._pDecoder.get() == NULL)? NULL : obj._pDecoder->Duplicate()),
+	_pEncoder((obj._pEncoder.get() == NULL)? NULL : obj._pEncoder->Duplicate())
+{
+}
+
 Object_codec::~Object_codec()
 {
 	ReleaseCodec();
@@ -16,7 +23,7 @@ Object_codec::~Object_codec()
 
 Object *Object_codec::Clone() const
 {
-	return NULL;
+	return new Object_codec(*this);
 }
 
 bool Object_codec::InstallCodec(Signal sig, const char *encoding, bool processEOLFlag)

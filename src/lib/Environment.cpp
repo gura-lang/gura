@@ -724,7 +724,7 @@ Module *Environment::ImportSeparatedModule_Script(Signal sig, Environment *pEnvO
 {
 	Environment &env = *this;
 	AutoPtr<Stream> pStream(Directory::OpenStream(env, sig,
-										pathName, Stream::ATTR_Readable, NULL));
+										pathName, Stream::ATTR_Readable));
 	if (sig.IsError()) return NULL;
 	Expr *pExpr = Parser().ParseStream(*pEnvOuter, sig, *pStream);
 	if (sig.IsSignalled()) return NULL;
@@ -854,11 +854,11 @@ Environment::Global::~Global()
 	}
 }
 
-void Environment::Global::Prepare(Signal sig)
+void Environment::Global::Prepare(Environment &env, Signal sig)
 {
 	_workingDirList.push_back(OAL::GetCurDir());
 	_pValueTypePool = ValueTypePool::GetInstance();
-	_pConsoleDumb.reset(new StreamDumb(sig));
+	_pConsoleDumb.reset(new StreamDumb(env, sig));
 }
 
 Class *Environment::Global::LookupClass(ValueType valType) const
@@ -1073,7 +1073,7 @@ bool EnvironmentRoot::Initialize(Signal sig, int argc, const char *argv[])
 #endif
 	RandomGenerator::Initialize(1234);	// initialize random generator SFMT
 	ValueTypePool::Initialize(env);
-	GetGlobal()->Prepare(sig);
+	GetGlobal()->Prepare(env, sig);
 	AssignErrorTypes(env);	// Signal.cpp
 	AssignOperators(env);	// Operators.cpp
 	do {

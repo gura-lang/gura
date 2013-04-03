@@ -26,10 +26,9 @@ int Directory::DecRef()
 	return _cntRef;
 }
 
-Stream *Directory::OpenStream(Environment &env, Signal sig,
-									unsigned long attr, const char *encoding)
+Stream *Directory::OpenStream(Environment &env, Signal sig, unsigned long attr)
 {
-	return DoOpenStream(env, sig, attr, encoding);
+	return DoOpenStream(env, sig, attr);
 }
 
 Directory *Directory::Next(Environment &env, Signal sig)
@@ -184,7 +183,7 @@ Directory *Directory::OpenDirectory(Environment &env, Signal sig,
 }
 
 Stream *Directory::OpenStream(Environment &env, Signal sig,
-				const char *pathName, unsigned long attr, const char *encoding)
+								const char *pathName, unsigned long attr)
 {
 	if (*pathName == '>') {
 		pathName++;
@@ -198,7 +197,7 @@ Stream *Directory::OpenStream(Environment &env, Signal sig,
 									Directory::NF_Wouldbe : Directory::NF_Signal;
 	AutoPtr<Directory> pDirectory(OpenDirectory(env, sig, pathName, notFoundMode));
 	if (sig.IsSignalled()) return NULL;
-	return pDirectory->OpenStream(env, sig, attr, encoding);
+	return pDirectory->OpenStream(env, sig, attr);
 }
 
 //-----------------------------------------------------------------------------

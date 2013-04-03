@@ -824,7 +824,7 @@ Gura_DeclareMethod(string, reader)
 Gura_ImplementMethod(string, reader)
 {
 	return ReturnValue(env, sig, args, Value(new Object_stream(env,
-				new Stream_StringReader(sig, args.GetThis().GetStringSTL()))));
+		new Stream_StringReader(env, sig, args.GetThis().GetStringSTL()))));
 }
 
 // string#parse() {block?}
@@ -947,8 +947,8 @@ void Class_string::OnModuleEntry(Environment &env, Signal sig)
 //-----------------------------------------------------------------------------
 // Stream_StringReader
 //-----------------------------------------------------------------------------
-Stream_StringReader::Stream_StringReader(Signal sig, const String &str) :
-					Stream(sig, ATTR_Readable), _str(str), _offset(0)
+Stream_StringReader::Stream_StringReader(Environment &env, Signal sig, const String &str) :
+					Stream(env, sig, ATTR_Readable), _str(str), _offset(0)
 {
 }
 

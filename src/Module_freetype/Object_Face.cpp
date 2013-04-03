@@ -393,7 +393,7 @@ Gura_ImplementClassMethod(Face, New)
 	AutoPtr<Stream> pStream(Stream::Reference(&args.GetStream(0)));
 	int index = args.GetInt(1);
 	if (!pStream->IsBwdSeekable()) {
-		pStream.reset(Stream::Prefetch(sig, pStream.release(), true));
+		pStream.reset(Stream::Prefetch(env, sig, pStream.release(), true));
 		if (sig.IsSignalled()) return Value::Null;
 	}
 	AutoPtr<Object_Face> pObjFace(new Object_Face());

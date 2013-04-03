@@ -847,11 +847,11 @@ Expr *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
 			Value value = sig.GetValue();
 			if (value.IsString()) {
 				const char *encoding = value.GetString();
-				if (!stream.InstallCodec(encoding, processEOLFlag)) {
-					SetError(sig, ERR_CodecError,
-									"unsupported encoding '%s'", encoding);
+				AutoPtr<Object_codec> pObjCodec(new Object_codec(env));
+				if (!pObjCodec->InstallCodec(sig, encoding, processEOLFlag)) {
 					return NULL;
 				}
+				stream.SetCodec(pObjCodec.release());
 			}
 			sig.ClearSignal();
 		} else if (pExpr != NULL) {
@@ -885,8 +885,11 @@ Expr *Parser::ParseStream(Environment &env, Signal sig, const char *pathName, co
 		if (zippedFlag && !env.ImportModules(sig, "zip", false, false)) return NULL;
 	} while (0);
 	AutoPtr<Stream> pStream(Directory::OpenStream(env, sig,
-					pathNameMod.c_str(), Stream::ATTR_Readable, encoding));
+									pathNameMod.c_str(), Stream::ATTR_Readable));
 	if (sig.IsSignalled()) return NULL;
+	
+	// encoding
+	
 	Expr *pExpr = ParseStream(env, sig, *pStream);
 	return pExpr;
 }

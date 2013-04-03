@@ -204,7 +204,7 @@ public:
 		inline static void Delete(Global *pGlobal) {
 			delete pGlobal;
 		}
-		void Prepare(Signal sig);
+		void Prepare(Environment &env, Signal sig);
 		Class *LookupClass(ValueType valType) const;
 		Module *LookupIntegratedModule(int id) const;
 		void RegisterIntegratedModule(int id, Module *pModule);

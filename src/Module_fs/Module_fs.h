@@ -54,9 +54,9 @@ private:
 	bool _needCloseFlag;
 	String _fileName;
 public:
-	Stream_File(Signal sig);
+	Stream_File(Environment &env, Signal sig);
 	~Stream_File();
-	bool Open(Signal sig, const char *fileName, unsigned long attr, const char *encoding);
+	bool Open(Signal sig, const char *fileName, unsigned long attr);
 	bool OpenStdin();
 	bool OpenStdout();
 	bool OpenStderr();
@@ -72,7 +72,8 @@ public:
 	virtual size_t DoGetSize();
 	virtual Object *DoGetStatObj(Signal sig);
 private:
-	inline Stream_File(Signal sig, const Stream_File &file) : Stream(sig, ATTR_None) {}
+	inline Stream_File(Environment &env, Signal sig, const Stream_File &file) :
+											Stream(env, sig, ATTR_None) {}
 };
 
 //-----------------------------------------------------------------------------
@@ -96,8 +97,7 @@ public:
 	static bool IsDir(Signal sig, const char *pathName);
 protected:
 	virtual Directory *DoNext(Environment &env, Signal sig);
-	virtual Stream *DoOpenStream(Environment &env, Signal sig,
-									unsigned long attr, const char *encoding);
+	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr);
 };
 
 //-----------------------------------------------------------------------------

@@ -824,8 +824,8 @@ String Header::GetString() const
 	return str;
 }
 
-Stream_Http *Header::GenerateDownStream(Signal sig,
-				Object *pObjOwner, int sock, const char *name) const
+Stream_Http *Header::GenerateDownStream(Environment &env, Signal sig,
+						Object *pObjOwner, int sock, const char *name) const
 {
 	bool chunkedFlag = false;
 	bool gzipFlag = false;
@@ -861,10 +861,10 @@ Stream_Http *Header::GenerateDownStream(Signal sig,
 			gzipFlag = true;
 		}
 	}
-	Stream *pStream = new Stream_Socket(sig, Object::Reference(pObjOwner), sock);
+	Stream *pStream = new Stream_Socket(env, sig, Object::Reference(pObjOwner), sock);
 	if (chunkedFlag) {
 		Stream_Chunked *pStreamChunked =
-						new Stream_Chunked(sig, pStream, Stream::ATTR_Readable);
+						new Stream_Chunked(env, sig, pStream, Stream::ATTR_Readable);
 		pStream = pStreamChunked;
 	}
 	if (gzipFlag) {
@@ -872,18 +872,19 @@ Stream_Http *Header::GenerateDownStream(Signal sig,
 		ZLib::GZHeader hdr;
 		hdr.Read(sig, *pStream);	// skip gz header
 		ZLib::Stream_Inflater *pStreamInflater =
-							new ZLib::Stream_Inflater(sig, pStream, InvalidSize);
+							new ZLib::Stream_Inflater(env, sig, pStream, InvalidSize);
 		pStreamInflater->Initialize(sig, -15);
 		pStream = pStreamInflater;
 	}
-	Stream_Http *pStreamHttp = new Stream_Http(sig, pStream,
+	Stream_Http *pStreamHttp = new Stream_Http(env, sig, pStream,
 								Stream::ATTR_Readable, name, bytes, *this);
 	const char *type = contentType.GetType();
 	if (::strcasecmp(type, "text/html") == 0 || ::strcasecmp(type, "text/xml") == 0) {
 		pStreamHttp->ActivateEncodingDetector();
 	}
 	if (contentType.IsValidCharset()) {
-		pStreamHttp->InstallCodec(contentType.GetCharset(), false);
+		//pStreamHttp->InstallCodec(contentType.GetCharset(), false);
+		// encoding
 	}
 	return pStreamHttp;
 }
@@ -1162,8 +1163,8 @@ bool Status::Receive(Signal sig, int sock)
 //-----------------------------------------------------------------------------
 // Stream_Socket implementation
 //-----------------------------------------------------------------------------
-Stream_Socket::Stream_Socket(Signal sig, Object *pObjOwner, int sock) :
-		Stream(sig, ATTR_Readable | ATTR_Writable), _pObjOwner(pObjOwner), _sock(sock)
+Stream_Socket::Stream_Socket(Environment &env, Signal sig, Object *pObjOwner, int sock) :
+		Stream(env, sig, ATTR_Readable | ATTR_Writable), _pObjOwner(pObjOwner), _sock(sock)
 {
 }
 
@@ -1232,8 +1233,8 @@ Object *Stream_Socket::DoGetStatObj(Signal sig)
 //-----------------------------------------------------------------------------
 // Stream_Chunked implementation
 //-----------------------------------------------------------------------------
-Stream_Chunked::Stream_Chunked(Signal sig, Stream *pStream, unsigned long attr) :
-		Stream(sig, attr), _pStream(pStream), _bytesChunk(0), _doneFlag(false)
+Stream_Chunked::Stream_Chunked(Environment &env, Signal sig, Stream *pStream, unsigned long attr) :
+		Stream(env, sig, attr), _pStream(pStream), _bytesChunk(0), _doneFlag(false)
 {
 }
 
@@ -1341,9 +1342,9 @@ size_t Stream_Chunked::DoGetSize()
 //-----------------------------------------------------------------------------
 // Stream_Http implementation
 //-----------------------------------------------------------------------------
-Stream_Http::Stream_Http(Signal sig, Stream *pStream, unsigned long attr,
+Stream_Http::Stream_Http(Environment &env, Signal sig, Stream *pStream, unsigned long attr,
 					const char *name, size_t bytes, const Header &header) :
-		Stream(sig, attr), _pStream(pStream), _name(name),
+		Stream(env, sig, attr), _pStream(pStream), _name(name),
 		_bytesRead(bytes), _header(header)
 {
 }
@@ -1381,7 +1382,11 @@ size_t Stream_Http::DoRead(Signal sig, void *buff, size_t bytes)
 			}
 			if (_encodingDetector.IsValidEncoding()) {
 				//::printf("** encoding:%s **\n", _encodingDetector.GetEncoding());
-				InstallCodec(_encodingDetector.GetEncoding(), false);
+				//InstallCodec(_encodingDetector.GetEncoding(), false);
+				// encoding
+				//AutoPtr<Object_codec> pObjCodec(new Object_codec(env));
+				
+				//SetCodec(pObjCodec.release());
 			}
 		}
 		_bytesRead -= bytesRecved;
@@ -1591,10 +1596,11 @@ String Object_session::ToString(Signal sig, bool exprFlag)
 
 bool Object_session::ReceiveRequest(Signal sig)
 {
+	Environment &env = *this;
 	if (!_request.Receive(sig, _sock)) return false;
 	if (_request.HasBody()) {
 		Header &header = _request.GetHeader();
-		_pStreamHttp.reset(header.GenerateDownStream(sig, this, _sock, ""));
+		_pStreamHttp.reset(header.GenerateDownStream(env, sig, this, _sock, ""));
 		if (sig.IsSignalled()) return false;
 	}
 	return true;
@@ -1740,15 +1746,16 @@ Stream *Object_request::SendRespChunk(Signal sig,
 		const char *statusCode, const char *reasonPhrase,
 		const char *httpVersion, const ValueDict &valueDict)
 {
+	Environment &env = *this;
 	int sock = _pObjSession->GetSocket();
 	Header &header = _status.GetHeader();
 	_status.SetStatus(httpVersion, statusCode, reasonPhrase);
 	if (!header.SetFields(sig, valueDict, NULL)) return NULL;
 	header.SetField("Transfer-Encoding", "chunked");
 	if (!_status.Send(sig, sock)) return NULL;
-	AutoPtr<Stream> pStream(new Stream_Socket(sig, Object::Reference(this), sock));
+	AutoPtr<Stream> pStream(new Stream_Socket(env, sig, Object::Reference(this), sock));
 	if (sig.IsSignalled()) return NULL;
-	pStream.reset(new Stream_Chunked(sig, pStream.release(), Stream::ATTR_Writable));
+	pStream.reset(new Stream_Chunked(env, sig, pStream.release(), Stream::ATTR_Writable));
 	if (sig.IsSignalled()) return NULL;
 	return pStream.release();
 }
@@ -2266,6 +2273,7 @@ Object_response *Object_client::SendRequest(Signal sig,
 		const char *method, const char *uri, Stream *pStreamBody,
 		const char *httpVersion, const ValueDict &valueDict)
 {
+	Environment &env = *this;
 	if (!CleanupResponse(sig)) return NULL;
 	if (_sock < 0) {
 		sig.SetError(ERR_IOError, "access to invalid socket");
@@ -2295,7 +2303,7 @@ Object_response *Object_client::SendRequest(Signal sig,
 		do {
 			Environment &env = *this;
 			Object_binary *pObjBinary = new Object_binary(env);
-			Stream_Base64Writer stream(sig, new Stream_Binary(sig, pObjBinary, false), 0);
+			Stream_Base64Writer stream(env, sig, new Stream_Binary(env, sig, pObjBinary, false), 0);
 			stream.Write(sig, str.data(), str.size());
 			if (sig.IsSignalled()) return NULL;
 			buff += pObjBinary->GetBinary();
@@ -2309,7 +2317,7 @@ Object_response *Object_client::SendRequest(Signal sig,
 	if (!_status.Receive(sig, _sock)) return NULL;
 	if (::strcasecmp(method, "HEAD") != 0 && _status.HasBody()) {
 		Header &header = _status.GetHeader();
-		_pStreamHttp.reset(header.GenerateDownStream(sig, this, _sock, uriFull.c_str()));
+		_pStreamHttp.reset(header.GenerateDownStream(env, sig, this, _sock, uriFull.c_str()));
 		if (sig.IsSignalled()) return NULL;
 	}
 	return new Object_response(Object_client::Reference(this));
@@ -2661,8 +2669,7 @@ Directory *Directory_Http::DoNext(Environment &env, Signal sig)
 	return NULL;
 }
 
-Stream *Directory_Http::DoOpenStream(Environment &env, Signal sig,
-									unsigned long attr, const char *encoding)
+Stream *Directory_Http::DoOpenStream(Environment &env, Signal sig, unsigned long attr)
 {
 	AutoPtr<Object_client> pObjClient(new Object_client());
 	String pathName;

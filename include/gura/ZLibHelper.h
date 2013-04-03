@@ -188,7 +188,7 @@ private:
 	unsigned char *_buffOut;
 	unsigned char *_buffIn;
 public:
-	Stream_Inflater(Signal sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff = 32768);
+	Stream_Inflater(Environment &env, Signal sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff = 32768);
 	~Stream_Inflater();
 	bool Initialize(Signal sig, int windowBits = 15);
 	virtual const char *GetName() const;
@@ -200,8 +200,8 @@ public:
 	virtual bool DoClose(Signal sig);
 };
 
-Stream_Inflater::Stream_Inflater(Signal sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff) :
-		Stream(sig, ATTR_Readable), _pStream(pStream), _bytesSrc(bytesSrc),
+Stream_Inflater::Stream_Inflater(Environment &env, Signal sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff) :
+		Stream(env, sig, ATTR_Readable), _pStream(pStream), _bytesSrc(bytesSrc),
 		_bytesBuff(bytesBuff), _bytesOut(0),
 		_offsetOut(0), _buffOut(NULL), _buffIn(NULL)
 {
@@ -339,7 +339,7 @@ private:
 	unsigned char *_buffOut;
 	unsigned char *_buffIn;
 public:
-	Stream_Deflater(Signal sig, Stream *pStream, size_t bytesBuff = 32768);
+	Stream_Deflater(Environment &env, Signal sig, Stream *pStream, size_t bytesBuff = 32768);
 	~Stream_Deflater();
 	bool Initialize(Signal sig, int level, int windowBits, int memLevel, int strategy);
 	virtual const char *GetName() const;
@@ -351,8 +351,8 @@ public:
 	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
 };
 
-Stream_Deflater::Stream_Deflater(Signal sig, Stream *pStream, size_t bytesBuff) :
-		Stream(sig, ATTR_Writable), _pStream(pStream),
+Stream_Deflater::Stream_Deflater(Environment &env, Signal sig, Stream *pStream, size_t bytesBuff) :
+		Stream(env, sig, ATTR_Writable), _pStream(pStream),
 		_bytesBuff(bytesBuff), _offsetOut(0), _buffOut(NULL), _buffIn(NULL)
 {
 	CopyCodec(pStream);

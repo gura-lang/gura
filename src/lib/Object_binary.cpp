@@ -444,7 +444,7 @@ Gura_DeclareMethod(binary, reader)
 Gura_ImplementMethod(binary, reader)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
-	Stream *pStream = new Stream_Binary(sig, Object_binary::Reference(pThis), false);
+	Stream *pStream = new Stream_Binary(env, sig, Object_binary::Reference(pThis), false);
 	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
 }
 
@@ -458,7 +458,7 @@ Gura_DeclareMethod(binary, writer)
 Gura_ImplementMethod(binary, writer)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
-	Stream *pStream = new Stream_Binary(sig, Object_binary::Reference(pThis), true);
+	Stream *pStream = new Stream_Binary(env, sig, Object_binary::Reference(pThis), true);
 	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
 }
 
@@ -704,8 +704,8 @@ void Class_binaryptr::OnModuleEntry(Environment &env, Signal sig)
 //-----------------------------------------------------------------------------
 // Stream_Binary
 //-----------------------------------------------------------------------------
-Stream_Binary::Stream_Binary(Signal sig, Object_binary *pObjBinary, bool seekEndFlag) :
-	Stream(sig, ATTR_BwdSeekable | ATTR_Readable | (pObjBinary->IsWritable()? ATTR_Writable : 0)),
+Stream_Binary::Stream_Binary(Environment &env, Signal sig, Object_binary *pObjBinary, bool seekEndFlag) :
+	Stream(env, sig, ATTR_BwdSeekable | ATTR_Readable | (pObjBinary->IsWritable()? ATTR_Writable : 0)),
 	_pObjBinary(pObjBinary), _offset(seekEndFlag? pObjBinary->GetBinary().size() : 0)
 {
 }

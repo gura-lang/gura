@@ -19,7 +19,7 @@ protected:
 	Value _value;
 	Binary _digest;
 public:
-	inline HashBase(Signal sig) : Stream(sig, ATTR_Infinite | ATTR_Writable) {}
+	inline HashBase(Environment &env, Signal sig) : Stream(env, sig, ATTR_Infinite | ATTR_Writable) {}
 	virtual const char *GetIdentifier() const;
 	virtual void Init() = 0;
 	virtual void Finish() = 0;
@@ -63,7 +63,7 @@ class Hash_MD5 : public HashBase {
 private:
 	md5_state_t _state;
 public:
-	Hash_MD5(Signal sig);
+	Hash_MD5(Environment &env, Signal sig);
 	virtual void Init();
 	virtual const char *GetName() const;
 	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
@@ -78,7 +78,7 @@ class Hash_SHA1 : public HashBase {
 private:
     sha1_context _ctx;
 public:
-	Hash_SHA1(Signal sig);
+	Hash_SHA1(Environment &env, Signal sig);
 	virtual void Init();
 	virtual const char *GetName() const;
 	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
@@ -93,7 +93,7 @@ class Hash_CRC32 : public HashBase {
 private:
 	CRC32 _crc32;
 public:
-	Hash_CRC32(Signal sig);
+	Hash_CRC32(Environment &env, Signal sig);
 	virtual void Init();
 	virtual const char *GetName() const;
 	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);

@@ -28,8 +28,7 @@ private:
 	std::auto_ptr<Codec_Encoder> _pEncoder;
 	std::auto_ptr<Codec_Decoder> _pDecoder;
 public:
-	inline Object_codec(const Object_codec &obj) :
-								Object(obj), _encoding(obj._encoding) {}
+	Object_codec(const Object_codec &obj);
 	inline Object_codec(Environment &env) : Object(env.LookupClass(VTYPE_codec)) {}
 	inline Object_codec(Class *pClass) : Object(pClass), _pEncoder(NULL) {}
 	inline const char *GetEncoding() const { return _encoding.c_str(); }

@@ -75,7 +75,7 @@ Value Object_exif::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 					pScannerDst->StorePixel(red, green, blue, 0);
 				} while (pScannerDst->Next());
 			} else {
-				Stream_Binary stream(sig,
+				Stream_Binary stream(env, sig,
 					Object_binary::Reference(_pObjBinaryThumbnail.get()), false);
 				if (!ImageStreamer_JPEG::ReadStream(sig, pObjImage.get(), stream)) {
 					return Value::Null;

@@ -147,19 +147,19 @@ bool Stream_File::GetAttribute(Attribute &attr)
 }
 
 #if defined(GURA_ON_MSWIN)
-Stream_File::Stream_File(Signal sig) : Stream(sig, ATTR_BwdSeekable), _hFile(INVALID_HANDLE_VALUE), _needCloseFlag(false)
+Stream_File::Stream_File(Environment &env, Signal sig) :
+	Stream(env, sig, ATTR_BwdSeekable), _hFile(INVALID_HANDLE_VALUE), _needCloseFlag(false)
 {
 }
 
-bool Stream_File::Open(Signal sig, const char *fileName,
-								unsigned long attr, const char *encoding)
+bool Stream_File::Open(Signal sig, const char *fileName, unsigned long attr)
 {
 	Close();
 	_attr |= attr;
-	if (!InstallCodec(encoding, true)) {
-		sig.SetError(ERR_CodecError, "unsupported encoding '%s'", encoding);
-		return false;
-	}
+	//if (!InstallCodec(encoding, true)) {
+	//	sig.SetError(ERR_CodecError, "unsupported encoding '%s'", encoding);
+	//	return false;
+	//}
 	_fileName = OAL::MakeAbsPathName(OAL::FileSeparator, fileName);
 	DWORD dwDesiredAccess =
 			IsAppend()? GENERIC_WRITE :
@@ -210,7 +210,7 @@ bool Stream_File::OpenStdin()
 	_hFile = ::GetStdHandle(STD_INPUT_HANDLE);
 	if (_hFile != INVALID_HANDLE_VALUE) {
 		_fileName = "stdin", SetReadable(true), SetWritable(false);
-		InstallCodec("cp932", true);
+		//InstallCodec("cp932", true);
 	}
 	return true;
 }
@@ -221,7 +221,7 @@ bool Stream_File::OpenStdout()
 	_hFile = ::GetStdHandle(STD_OUTPUT_HANDLE);
 	if (_hFile != INVALID_HANDLE_VALUE) {
 		_fileName = "stdout", SetReadable(false), SetWritable(true);
-		InstallCodec("cp932", true);
+		//InstallCodec("cp932", true);
 	}
 	return true;
 }
@@ -232,7 +232,7 @@ bool Stream_File::OpenStderr()
 	_hFile = ::GetStdHandle(STD_ERROR_HANDLE);
 	if (_hFile != INVALID_HANDLE_VALUE) {
 		_fileName = "stderr", SetReadable(false), SetWritable(true);
-		InstallCodec("cp932", true);
+		//InstallCodec("cp932", true);
 	}
 	return true;
 }
@@ -349,19 +349,19 @@ Object *Stream_File::DoGetStatObj(Signal sig)
 }
 
 #else // !defined(GURA_ON_MSWIN)
-Stream_File::Stream_File(Signal sig) : Stream(sig, ATTR_BwdSeekable), _fp(NULL), _needCloseFlag(false)
+Stream_File::Stream_File(Environment &env, Signal sig) :
+		Stream(env, sig, ATTR_BwdSeekable), _fp(NULL), _needCloseFlag(false)
 {
 }
 
-bool Stream_File::Open(Signal sig, const char *fileName,
-								unsigned long attr, const char *encoding)
+bool Stream_File::Open(Signal sig, const char *fileName, unsigned long attr)
 {
 	Close();
 	_attr |= attr;
-	if (!InstallCodec(encoding, false)) {
-		sig.SetError(ERR_CodecError, "unsupported encoding '%s'", encoding);
-		return false;
-	}
+	//if (!InstallCodec(encoding, false)) {
+	//	sig.SetError(ERR_CodecError, "unsupported encoding '%s'", encoding);
+	//	return false;
+	//}
 	_fileName = OAL::MakeAbsPathName(OAL::FileSeparator, fileName);
 	char modeMod[8];
 	if (IsAppend()) {
@@ -389,7 +389,7 @@ bool Stream_File::OpenStdin()
 {
 	_fp = stdin;
 	_fileName = "stdin", SetReadable(true), SetWritable(false);
-	InstallCodec(Codec::EncodingFromLANG(), false);
+	//InstallCodec(Codec::EncodingFromLANG(), false);
 	return true;
 }
 
@@ -397,7 +397,7 @@ bool Stream_File::OpenStdout()
 {
 	_fp = stdout;
 	_fileName = "stdout", SetReadable(false), SetWritable(true);
-	InstallCodec(Codec::EncodingFromLANG(), false);
+	//InstallCodec(Codec::EncodingFromLANG(), false);
 	return true;
 }
 
@@ -405,7 +405,7 @@ bool Stream_File::OpenStderr()
 {
 	_fp = stderr;
 	_fileName = "stderr", SetReadable(false), SetWritable(true);
-	InstallCodec(Codec::EncodingFromLANG(), false);
+	//InstallCodec(Codec::EncodingFromLANG(), false);
 	return true;
 }
 
@@ -599,11 +599,10 @@ Object *Directory_FileSys::DoGetStatObj(Signal sig)
 	return new Object_Stat(*_pFileStat);
 }
 
-Stream *Directory_FileSys::DoOpenStream(Environment &env, Signal sig,
-										unsigned long attr, const char *encoding)
+Stream *Directory_FileSys::DoOpenStream(Environment &env, Signal sig, unsigned long attr)
 {
-	Stream_File *pStream = new Stream_File(sig);
-	if (!pStream->Open(sig, MakePathName(false).c_str(), attr, encoding)) {
+	Stream_File *pStream = new Stream_File(env, sig);
+	if (!pStream->Open(sig, MakePathName(false).c_str(), attr)) {
 		return NULL;
 	}
 	return pStream;
@@ -845,19 +844,19 @@ Gura_ModuleEntry()
 	// assign symbols in sys module
 	Module *pModuleSys = env.GetModule_sys();
 	do {
-		Stream_File *pStream = new Stream_File(sig);
+		Stream_File *pStream = new Stream_File(env, sig);
 		pStream->OpenStdin();
 		pModuleSys->AssignValue(Gura_Symbol(stdin),
 					Value(new Object_stream(env, pStream)), EXTRA_Public);
 	} while (0);
 	do {
-		Stream_File *pStream = new Stream_File(sig);
+		Stream_File *pStream = new Stream_File(env, sig);
 		pStream->OpenStdout();
 		pModuleSys->AssignValue(Gura_Symbol(stdout),
 					Value(new Object_stream(env, pStream)), EXTRA_Public);
 	} while (0);
 	do {
-		Stream_File *pStream = new Stream_File(sig);
+		Stream_File *pStream = new Stream_File(env, sig);
 		pStream->OpenStderr();
 		pModuleSys->AssignValue(Gura_Symbol(stderr),
 					Value(new Object_stream(env, pStream)), EXTRA_Public);

@@ -100,7 +100,7 @@ void SimpleStream_StringWrite::PutChar(Signal sig, char ch)
 //-----------------------------------------------------------------------------
 // Stream
 //-----------------------------------------------------------------------------
-Stream::Stream(Signal sig, unsigned long attr) :
+Stream::Stream(Environment &env, Signal sig, unsigned long attr) :
 						_cntRef(1), _sig(sig), _attr(attr), _offsetCur(0)
 {
 	_peek.buff = NULL;
@@ -120,54 +120,73 @@ void Stream::Close()
 	_attr &= ~(ATTR_Readable | ATTR_Writable | ATTR_Append);
 }
 
-bool Stream::InstallCodec(const char *encoding, bool processEOLFlag)
+void Stream::SetCodec(Object_codec *pObjCodec)
 {
-	if (encoding == NULL) {
-		ReleaseCodec();
-		return true;
-	}
-	CodecFactory *pCodecFactory = CodecFactory::Lookup(encoding);
-	if (pCodecFactory == NULL) return false;
-	ReleaseCodec();
-	_encoding = encoding;
-	_pDecoder.reset(pCodecFactory->CreateDecoder(true));
-	_pEncoder.reset(pCodecFactory->CreateEncoder(processEOLFlag));
-	return true;
+	_pObjCodec.reset(pObjCodec);
+	//ReleaseCodec();
+	//if (encoding == NULL) return true;
+	//CodecFactory *pCodecFactory = CodecFactory::Lookup(encoding);
+	//if (pCodecFactory == NULL) return false;
+	//AutoPtr<Object_codec> pObjCodec(new Object_codec(env));
+	//_encoding = encoding;
+	//_pDecoder.reset(pCodecFactory->CreateDecoder(true));
+	//_pEncoder.reset(pCodecFactory->CreateEncoder(processEOLFlag));
+	//return true;
 }
 
 void Stream::CopyCodec(Stream *pStream)
 {
-	Codec_Decoder *pDecoder = pStream->GetDecoder();
-	Codec_Encoder *pEncoder = pStream->GetEncoder();
-	_pDecoder.reset((pDecoder == NULL)? NULL : pDecoder->Duplicate());
-	_pEncoder.reset((pEncoder == NULL)? NULL : pEncoder->Duplicate());
+	//Codec_Decoder *pDecoder = pStream->GetDecoder();
+	//Codec_Encoder *pEncoder = pStream->GetEncoder();
+	//_pDecoder.reset((pDecoder == NULL)? NULL : pDecoder->Duplicate());
+	//_pEncoder.reset((pEncoder == NULL)? NULL : pEncoder->Duplicate());
+	CopyCodec(pStream->GetObjCodec());
 }
 
-void Stream::CopyCodec(Object_codec *pObjCodec)
+void Stream::CopyCodec(const Object_codec *pObjCodec)
 {
-	Codec_Decoder *pDecoder = pObjCodec->GetDecoder();
-	Codec_Encoder *pEncoder = pObjCodec->GetEncoder();
-	_pDecoder.reset((pDecoder == NULL)? NULL : pDecoder->Duplicate());
-	_pEncoder.reset((pEncoder == NULL)? NULL : pEncoder->Duplicate());
+	//Codec_Decoder *pDecoder = pObjCodec->GetDecoder();
+	//Codec_Encoder *pEncoder = pObjCodec->GetEncoder();
+	//_pDecoder.reset((pDecoder == NULL)? NULL : pDecoder->Duplicate());
+	//_pEncoder.reset((pEncoder == NULL)? NULL : pEncoder->Duplicate());
+	_pObjCodec.reset((pObjCodec == NULL)? NULL :
+						dynamic_cast<Object_codec *>(pObjCodec->Clone()));
 }
 
 void Stream::ReleaseCodec()
 {
-	_encoding.clear();
-	_pDecoder.reset(NULL);
-	_pEncoder.reset(NULL);
+	_pObjCodec.reset(NULL);
+	//_encoding.clear();
+	//_pDecoder.reset(NULL);
+	//_pEncoder.reset(NULL);
+}
+
+const char *Stream::GetEncoding() const
+{
+	return _pObjCodec.IsNull()? "" : _pObjCodec->GetEncoding();
+}
+
+Codec_Decoder *Stream::GetDecoder()
+{
+	return _pObjCodec.IsNull()? NULL : _pObjCodec->GetDecoder();
+}
+
+Codec_Encoder *Stream::GetEncoder()
+{
+	return _pObjCodec.IsNull()? NULL : _pObjCodec->GetEncoder();
 }
 
 void Stream::PutChar(Signal sig, char ch)
 {
-	if (_pEncoder.get() == NULL) {
+	Codec_Encoder *pEncoder = GetEncoder();
+	if (pEncoder == NULL) {
 		DoPutChar(sig, ch);
 	} else {
 		char chConv;
-		Codec::Result rtn = _pEncoder->FeedChar(ch, chConv);
+		Codec::Result rtn = pEncoder->FeedChar(ch, chConv);
 		if (rtn == Codec::RESULT_Complete) {
 			DoPutChar(sig, chConv);
-			while (_pEncoder->FollowChar(chConv)) DoPutChar(sig, chConv);
+			while (pEncoder->FollowChar(chConv)) DoPutChar(sig, chConv);
 		} else if (rtn == Codec::RESULT_Error) {
 			// nothing to do
 		}
@@ -176,17 +195,18 @@ void Stream::PutChar(Signal sig, char ch)
 
 int Stream::GetChar(Signal sig)
 {
-	if (_pDecoder.get() == NULL) return DoGetChar(sig);
+	Codec_Decoder *pDecoder = GetDecoder();
+	if (pDecoder == NULL) return DoGetChar(sig);
 	char chConv;
-	if (_pDecoder->FollowChar(chConv)) return static_cast<unsigned char>(chConv);
+	if (pDecoder->FollowChar(chConv)) return static_cast<unsigned char>(chConv);
 	for (;;) {
 		int ch = DoGetChar(sig);
 		if (ch < 0) return ch;
-		Codec::Result rtn = _pDecoder->FeedChar(static_cast<char>(ch), chConv);
+		Codec::Result rtn = pDecoder->FeedChar(static_cast<char>(ch), chConv);
 		if (rtn == Codec::RESULT_Complete) {
 			break;
 		} else if (rtn == Codec::RESULT_Error) {
-			sig.SetError(ERR_CodecError, "not a valid character of %s", _pDecoder->GetName());
+			sig.SetError(ERR_CodecError, "not a valid character of %s", pDecoder->GetName());
 			return -1;
 		}
 	}
@@ -701,11 +721,11 @@ bool Stream::DeserializePackedULong(Signal sig, unsigned long &num)
 	return true;
 }
 
-Stream *Stream::Prefetch(Signal sig, Stream *pStreamSrc,
+Stream *Stream::Prefetch(Environment &env, Signal sig, Stream *pStreamSrc,
 										bool deleteSrcFlag, size_t bytesUnit)
 {
 	Stream_Prefetch *pStreamPrefetch =
-			new Stream_Prefetch(sig, Stream::Reference(pStreamSrc), bytesUnit);
+			new Stream_Prefetch(env, sig, Stream::Reference(pStreamSrc), bytesUnit);
 	pStreamPrefetch->DoPrefetch(sig);
 	if (deleteSrcFlag) Stream::Delete(pStreamSrc);
 	if (sig.IsSignalled()) {
@@ -745,7 +765,7 @@ unsigned long Stream::ParseOpenMode(Signal sig, const char *mode)
 //-----------------------------------------------------------------------------
 // StreamDumb
 //-----------------------------------------------------------------------------
-StreamDumb::StreamDumb(Signal sig) : Stream(sig, ATTR_Writable)
+StreamDumb::StreamDumb(Environment &env, Signal sig) : Stream(env, sig, ATTR_Writable)
 {
 }
 
@@ -806,8 +826,8 @@ size_t StreamDumb::DoGetSize()
 //-----------------------------------------------------------------------------
 // StreamMemReader
 //-----------------------------------------------------------------------------
-StreamMemReader::StreamMemReader(Signal sig, const void *buff, size_t bytes) :
-				Stream(sig, ATTR_BwdSeekable | ATTR_Readable),
+StreamMemReader::StreamMemReader(Environment &env, Signal sig, const void *buff, size_t bytes) :
+				Stream(env, sig, ATTR_BwdSeekable | ATTR_Readable),
 				_buff(reinterpret_cast<const char *>(buff)), _bytes(bytes)
 {
 }
@@ -882,8 +902,8 @@ size_t StreamMemReader::DoGetSize()
 //-----------------------------------------------------------------------------
 // Stream_Prefetch
 //-----------------------------------------------------------------------------
-Stream_Prefetch::Stream_Prefetch(Signal sig, Stream *pStreamSrc, size_t bytesUnit) :
-			Stream(sig, ATTR_Readable), _pStreamSrc(pStreamSrc),
+Stream_Prefetch::Stream_Prefetch(Environment &env, Signal sig, Stream *pStreamSrc, size_t bytesUnit) :
+			Stream(env, sig, ATTR_Readable), _pStreamSrc(pStreamSrc),
 			_offset(0), _bytesAll(0), _bytesUnit(bytesUnit)
 {
 	CopyCodec(pStreamSrc);
@@ -995,8 +1015,8 @@ bool Stream_Prefetch::DoPrefetch(Signal sig)
 //-----------------------------------------------------------------------------
 // Stream_Base64Reader
 //-----------------------------------------------------------------------------
-Stream_Base64Reader::Stream_Base64Reader(Signal sig, Stream *pStreamSrc) :
-			Stream(sig, ATTR_Readable), _pStreamSrc(pStreamSrc),
+Stream_Base64Reader::Stream_Base64Reader(Environment &env, Signal sig, Stream *pStreamSrc) :
+			Stream(env, sig, ATTR_Readable), _pStreamSrc(pStreamSrc),
 			_nChars(0), _nInvalid(0), _accum(0), _iBuffWork(0)
 {
 	CopyCodec(pStreamSrc);
@@ -1114,8 +1134,8 @@ size_t Stream_Base64Reader::DoGetSize()
 const char Stream_Base64Writer::_chars[] =
 	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-Stream_Base64Writer::Stream_Base64Writer(Signal sig, Stream *pStreamDst, int nCharsPerLine) :
-			Stream(sig, ATTR_Writable), _pStreamDst(pStreamDst),
+Stream_Base64Writer::Stream_Base64Writer(Environment &env, Signal sig, Stream *pStreamDst, int nCharsPerLine) :
+			Stream(env, sig, ATTR_Writable), _pStreamDst(pStreamDst),
 			_nCharsPerLine(nCharsPerLine), _nChars(0), _iBuffWork(0)
 {
 	CopyCodec(pStreamDst);
@@ -1249,8 +1269,8 @@ size_t Stream_Base64Writer::DoGetSize()
 //-----------------------------------------------------------------------------
 // Stream_CRC32
 //-----------------------------------------------------------------------------
-Stream_CRC32::Stream_CRC32(Signal sig, Stream *pStreamDst) :
-		Stream(sig, (pStreamDst == NULL)? ATTR_Writable : pStreamDst->GetAttr()),
+Stream_CRC32::Stream_CRC32(Environment &env, Signal sig, Stream *pStreamDst) :
+		Stream(env, sig, (pStreamDst == NULL)? ATTR_Writable : pStreamDst->GetAttr()),
 		_pStreamDst(pStreamDst)
 {
 	CopyCodec(pStreamDst);

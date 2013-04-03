@@ -114,7 +114,7 @@ private:
 	String _str;
 	size_t _offset;
 public:
-	Stream_StringReader(Signal sig, const String &str);
+	Stream_StringReader(Environment &env, Signal sig, const String &str);
 	virtual ~Stream_StringReader();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;

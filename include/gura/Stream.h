@@ -86,9 +86,10 @@ protected:
 	Signal _sig;
 	unsigned long _attr;
 	size_t _offsetCur;
-	String _encoding;
-	std::auto_ptr<Codec_Decoder> _pDecoder;
-	std::auto_ptr<Codec_Encoder> _pEncoder;
+	//String _encoding;
+	//std::auto_ptr<Codec_Decoder> _pDecoder;
+	//std::auto_ptr<Codec_Encoder> _pEncoder;
+	AutoPtr<Object_codec> _pObjCodec;
 	struct {
 		char *buff;
 		size_t bytes;
@@ -109,16 +110,17 @@ public:
 protected:
 	virtual ~Stream();
 public:
-	Stream(Signal sig, unsigned long attr);
+	Stream(Environment &env, Signal sig, unsigned long attr);
 	void Close();
-	bool InstallCodec(const char *encoding, bool processEOLFlag);
+	void SetCodec(Object_codec *pObjCodec);
 	void CopyCodec(Stream *pStream);
-	void CopyCodec(Object_codec *pObjCodec);
+	void CopyCodec(const Object_codec *pObjCodec);
 	void ReleaseCodec();
-	inline bool IsCodecInstalled() const { return !_encoding.empty(); }
-	inline const char *GetEncoding() const { return _encoding.c_str(); }
-	inline Codec_Decoder *GetDecoder() { return _pDecoder.get(); }
-	inline Codec_Encoder *GetEncoder() { return _pEncoder.get(); }
+	inline Object_codec *GetObjCodec() { return _pObjCodec.get(); }
+	inline bool IsCodecInstalled() const { return !_pObjCodec.IsNull(); }
+	const char *GetEncoding() const;
+	Codec_Decoder *GetDecoder();
+	Codec_Encoder *GetEncoder();
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
 	virtual const char *GetName() const = 0;
@@ -191,7 +193,7 @@ public:
 	bool SerializePackedULong(Signal sig, unsigned long num);
 	bool DeserializePackedULong(Signal sig, unsigned long &num);
 public:
-	static Stream *Prefetch(Signal sig, Stream *pStreamSrc,
+	static Stream *Prefetch(Environment &env, Signal sig, Stream *pStreamSrc,
 							bool deleteSrcFlag, size_t bytesUnit = 0x10000);
 	static unsigned long ParseOpenMode(Signal sig, const char *mode);
 };
@@ -201,7 +203,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE StreamDumb : public Stream {
 public:
-	StreamDumb(Signal sig);
+	StreamDumb(Environment &env, Signal sig);
 	virtual ~StreamDumb();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
@@ -223,7 +225,7 @@ private:
 	const char *_buff;
 	size_t _bytes;
 public:
-	StreamMemReader(Signal sig, const void *buff, size_t bytes);
+	StreamMemReader(Environment &env, Signal sig, const void *buff, size_t bytes);
 	virtual ~StreamMemReader();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
@@ -250,7 +252,7 @@ private:
 	size_t _bytesUnit;
 	MemoryList _memoryList;
 public:
-	Stream_Prefetch(Signal sig, Stream *pStreamSrc, size_t bytesUnit);
+	Stream_Prefetch(Environment &env, Signal sig, Stream *pStreamSrc, size_t bytesUnit);
 	virtual ~Stream_Prefetch();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
@@ -277,7 +279,7 @@ private:
 	size_t _iBuffWork;
 	unsigned char _buffWork[8];
 public:
-	Stream_Base64Reader(Signal sig, Stream *pStreamSrc);
+	Stream_Base64Reader(Environment &env, Signal sig, Stream *pStreamSrc);
 	virtual ~Stream_Base64Reader();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
@@ -303,7 +305,7 @@ private:
 	unsigned char _buffWork[8];
 	static const char _chars[];
 public:
-	Stream_Base64Writer(Signal sig, Stream *pStreamDst, int nCharsPerLine);
+	Stream_Base64Writer(Environment &env, Signal sig, Stream *pStreamDst, int nCharsPerLine);
 	virtual ~Stream_Base64Writer();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
@@ -325,7 +327,7 @@ private:
 	AutoPtr<Stream> _pStreamDst;
 	CRC32 _crc32;
 public:
-	Stream_CRC32(Signal sig, Stream *pStreamDst);
+	Stream_CRC32(Environment &env, Signal sig, Stream *pStreamDst);
 	virtual ~Stream_CRC32();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;

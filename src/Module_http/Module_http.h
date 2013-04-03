@@ -183,7 +183,7 @@ public:
 		sig.SetError(ERR_FormatError, "invalid format of HTTP header");
 	}
 	String GetString() const;
-	Stream_Http *GenerateDownStream(Signal sig,
+	Stream_Http *GenerateDownStream(Environment &env, Signal sig,
 					Object *pObjOwner, int sock, const char *name) const;
 	static void DoDirProp(SymbolSet &symbols);
 };
@@ -348,7 +348,7 @@ private:
 	AutoPtr<Object> _pObjOwner;
 	int _sock;
 public:
-	Stream_Socket(Signal sig, Object *pObjOwner, int sock);
+	Stream_Socket(Environment &env, Signal sig, Object *pObjOwner, int sock);
 	~Stream_Socket();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
@@ -371,7 +371,7 @@ private:
 	bool _doneFlag;
 	OAL::Memory _memory;
 public:
-	Stream_Chunked(Signal sig, Stream *pStream, unsigned long attr);
+	Stream_Chunked(Environment &env, Signal sig, Stream *pStream, unsigned long attr);
 	~Stream_Chunked();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
@@ -395,7 +395,7 @@ private:
 	EncodingDetector _encodingDetector;
 	OAL::Memory _memory;
 public:
-	Stream_Http(Signal sig, Stream *pStream, unsigned long attr,
+	Stream_Http(Environment &env, Signal sig, Stream *pStream, unsigned long attr,
 						const char *name, size_t bytes, const Header &header);
 	~Stream_Http();
 	virtual const char *GetName() const;
@@ -643,8 +643,7 @@ public:
 	Directory_Http(Directory *pParent, const char *name, Type type);
 	virtual ~Directory_Http();
 	virtual Directory *DoNext(Environment &env, Signal sig);
-	virtual Stream *DoOpenStream(Environment &env, Signal sig,
-									unsigned long attr, const char *encoding);
+	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr);
 	inline void SetScheme(const char *scheme) { _scheme = scheme; }
 	inline void SetAuthority(const char *authority) { _authority = authority; }
 	inline void SetQuery(const char *query) { _query = query; }

@@ -45,9 +45,9 @@ enum CompressionType {
 // utilities
 //-----------------------------------------------------------------------------
 Header *ReadHeader(Signal sig, Stream *pStream, void *buffBlock);
-Stream *DecorateReaderStream(Signal sig, Stream *pStreamSrc,
+Stream *DecorateReaderStream(Environment &env, Signal sig, Stream *pStreamSrc,
 						const char *name, CompressionType compressionType);
-Stream *DecorateWriterStream(Signal sig, Stream *pStreamDst,
+Stream *DecorateWriterStream(Environment &env, Signal sig, Stream *pStreamDst,
 						const char *name, CompressionType compressionType);
 unsigned long OctetToULong(Signal sig, const char *octet, size_t len);
 
@@ -192,7 +192,7 @@ protected:
 	String _name;
 	size_t _offsetTop;
 public:
-	Stream_Entry(Signal sig, Stream *pStreamSrc, const Header &hdr);
+	Stream_Entry(Environment &env, Signal sig, Stream *pStreamSrc, const Header &hdr);
 	virtual ~Stream_Entry();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
@@ -224,8 +224,7 @@ public:
 		Type type, DirBuilder::Structure *pStructure, Record_TAR *pRecord);
 	virtual ~Directory_TAR();
 	virtual Directory *DoNext(Environment &env, Signal sig);
-	virtual Stream *DoOpenStream(Environment &env, Signal sig,
-									unsigned long attr, const char *encoding);
+	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr);
 	virtual Object *DoGetStatObj(Signal sig);
 };
 

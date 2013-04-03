@@ -126,7 +126,7 @@ private:
 	AutoPtr<Object_binary> _pObjBinary;
 	size_t _offset;
 public:
-	Stream_Binary(Signal sig, Object_binary *pObjBinary, bool seekEndFlag);
+	Stream_Binary(Environment &env, Signal sig, Object_binary *pObjBinary, bool seekEndFlag);
 	virtual ~Stream_Binary();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;

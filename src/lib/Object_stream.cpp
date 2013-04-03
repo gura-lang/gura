@@ -79,22 +79,23 @@ Gura_DeclareFunction(open)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareArg(env, "mode", VTYPE_string, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "encoding", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "codec", VTYPE_codec, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(open)
 {
 	unsigned long attr = Stream::ATTR_Readable;
-	const char *encoding = "utf-8";
 	if (args.IsValid(1)) {
 		attr = Stream::ParseOpenMode(sig, args.GetString(1));
 		if (sig.IsSignalled()) return Value::Null;
 	}
-	if (args.IsValid(2)) encoding = args.GetString(2);
-	Stream *pStream = Directory::OpenStream(env, sig,
-									args.GetString(0), attr, encoding);
+	Stream *pStream = Directory::OpenStream(env, sig, args.GetString(0), attr);
 	if (sig.IsSignalled()) return Value::Null;
+	if (args.IsValid(2)) {
+		Object_codec *pObjCodec = Object_codec::GetObject(args, 2);
+		pStream->SetCodec(Object_codec::Reference(pObjCodec));
+	}
 	Value result(new Object_stream(env, pStream));
 	if (args.IsBlockSpecified()) {
 		const Function *pFuncBlock =
@@ -435,10 +436,9 @@ Gura_ImplementMethod(stream, setencoding)
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	const char *encoding = args.GetString(0);
 	bool processEOLFlag = args.IsBoolean(1)? args.GetBoolean(1) : true;
-	if (!pThis->GetStream().InstallCodec(encoding, processEOLFlag)) {
-		sig.SetError(ERR_CodecError, "unsupported encoding '%s'", encoding);
-		return Value::Null;
-	}
+	AutoPtr<Object_codec> pObjCodec(new Object_codec(env));
+	if (!pObjCodec->InstallCodec(sig, encoding, processEOLFlag)) return Value::Null;
+	pThis->GetStream().SetCodec(pObjCodec.release());
 	return args.GetThis();
 }
 
@@ -739,13 +739,11 @@ bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const De
 {
 	if (value.IsString()) {
 		unsigned long attr = Stream::ATTR_Readable;
-		const char *encoding = "utf-8";
 		if (pDecl != NULL) {
 			if (pDecl->GetWriteFlag()) attr = Stream::ATTR_Writable;
 			if (pDecl->GetReadFlag()) attr |= Stream::ATTR_Readable;
 		}
-		Stream *pStream = Directory::OpenStream(env, sig,
-									value.GetString(), attr, encoding);
+		Stream *pStream = Directory::OpenStream(env, sig, value.GetString(), attr);
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_stream(env, pStream));
 		return true;
@@ -754,7 +752,7 @@ bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const De
 						dynamic_cast<Object_binary *>(value.GetObject()));
 		bool seekEndFlag = pDecl->GetWriteFlag();
 		Object *pObj = new Object_stream(env,
-						new Stream_Binary(sig, pObjBinary, seekEndFlag));
+					new Stream_Binary(env, sig, pObjBinary, seekEndFlag));
 		value = Value(pObj);
 		return true;
 	}

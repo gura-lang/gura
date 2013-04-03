@@ -1990,7 +1990,7 @@ bool Class_image::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 {
 	if (value.IsString()) {
 		AutoPtr<Stream> pStream(Directory::OpenStream(env, sig,
-								value.GetString(), Stream::ATTR_Readable, NULL));
+								value.GetString(), Stream::ATTR_Readable));
 		if (sig.IsSignalled()) return false;
 		AutoPtr<Object_image> pObjImage(new Object_image(env, Image::FORMAT_RGBA));
 		pObjImage->Read(sig, *pStream, NULL);

@@ -48,7 +48,7 @@ bool IsMatchedName(const char *name1, const char *name2);
 unsigned long SeekCentralDirectory(Signal sig, Stream *pStream);
 Directory *CreateDirectory(Environment &env, Signal sig, Stream *pStreamSrc,
 	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode);
-Stream *CreateStream(Signal sig, Stream *pStreamSrc, const CentralFileHeader *pHdr);
+Stream *CreateStream(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader *pHdr);
 
 bool SkipStream(Signal sig, Stream &stream, size_t bytes);
 bool ReadStream(Signal sig, Stream &stream, void *buff, size_t bytes, size_t offset = 0);
@@ -806,7 +806,7 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline Stream *GetStreamDst() { return _pStreamDst.get(); }
-	bool Add(Signal sig, Stream &streamSrc,
+	bool Add(Environment &env, Signal sig, Stream &streamSrc,
 					const char *fileName, unsigned short compressionMethod);
 	bool Finish();
 	inline unsigned short GetCompressionMethod() const { return _compressionMethod; }
@@ -842,8 +842,7 @@ public:
 		Type type, DirBuilder::Structure *pStructure, Record_ZIP *pRecord);
 	virtual ~Directory_ZIP();
 	virtual Directory *DoNext(Environment &env, Signal sig);
-	virtual Stream *DoOpenStream(Environment &env, Signal sig,
-									unsigned long attr, const char *encoding);
+	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr);
 	virtual Object *DoGetStatObj(Signal sig);
 	inline Record_ZIP &GetRecord() { return *_pRecord; }
 };
@@ -889,9 +888,9 @@ protected:
 	bool _seekedFlag;
 	CRC32 _crc32;
 public:
-	Stream_reader(Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr);
+	Stream_reader(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr);
 	virtual ~Stream_reader();
-	virtual bool Initialize(Signal sig) = 0;
+	virtual bool Initialize(Environment &env, Signal sig) = 0;
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
@@ -912,9 +911,9 @@ class Stream_reader_Store : public Stream_reader {
 private:
 	size_t _offsetTop;
 public:
-	Stream_reader_Store(Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr);
+	Stream_reader_Store(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr);
 	virtual ~Stream_reader_Store();
-	virtual bool Initialize(Signal sig);
+	virtual bool Initialize(Environment &env, Signal sig);
 	virtual size_t DoRead(Signal sig, void *buff, size_t bytes);
 	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
 };
@@ -927,9 +926,9 @@ class Stream_reader_Deflate : public Stream_reader {
 private:
 	AutoPtr<ZLib::Stream_Inflater> _pStreamInflater;
 public:
-	Stream_reader_Deflate(Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr);
+	Stream_reader_Deflate(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr);
 	virtual ~Stream_reader_Deflate();
-	virtual bool Initialize(Signal sig);
+	virtual bool Initialize(Environment &env, Signal sig);
 	virtual size_t DoRead(Signal sig, void *buff, size_t len);
 	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
 };
@@ -942,9 +941,9 @@ class Stream_reader_BZIP2 : public Stream_reader {
 private:
 	AutoPtr<BZLib::Stream_Decompressor> _pStreamDecompressor;
 public:
-	Stream_reader_BZIP2(Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr);
+	Stream_reader_BZIP2(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr);
 	virtual ~Stream_reader_BZIP2();
-	virtual bool Initialize(Signal sig);
+	virtual bool Initialize(Environment &env, Signal sig);
 	virtual size_t DoRead(Signal sig, void *buff, size_t len);
 	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
 };
@@ -955,9 +954,9 @@ public:
 //-----------------------------------------------------------------------------
 class Stream_reader_Deflate64 : public Stream_reader {
 public:
-	Stream_reader_Deflate64(Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr);
+	Stream_reader_Deflate64(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader &hdr);
 	virtual ~Stream_reader_Deflate64();
-	virtual bool Initialize(Signal sig);
+	virtual bool Initialize(Environment &env, Signal sig);
 	virtual size_t DoRead(Signal sig, void *buff, size_t len);
 	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
 };

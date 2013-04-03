@@ -132,7 +132,7 @@ const Value &HashBase::GetValue()
 //-----------------------------------------------------------------------------
 // Hash_MD5 implementation
 //-----------------------------------------------------------------------------
-Hash_MD5::Hash_MD5(Signal sig) : HashBase(sig)
+Hash_MD5::Hash_MD5(Environment &env, Signal sig) : HashBase(env, sig)
 {
 	_digest.clear();
 	::md5_init(&_state);
@@ -171,7 +171,7 @@ const Binary &Hash_MD5::GetDigest()
 //-----------------------------------------------------------------------------
 // Hash_SHA1 implementation
 //-----------------------------------------------------------------------------
-Hash_SHA1::Hash_SHA1(Signal sig) : HashBase(sig)
+Hash_SHA1::Hash_SHA1(Environment &env, Signal sig) : HashBase(env, sig)
 {
 	_digest.clear();
 	::sha1_starts(&_ctx);
@@ -211,7 +211,7 @@ const Binary &Hash_SHA1::GetDigest()
 //-----------------------------------------------------------------------------
 // Hash_CRC32 implementation
 //-----------------------------------------------------------------------------
-Hash_CRC32::Hash_CRC32(Signal sig) : HashBase(sig)
+Hash_CRC32::Hash_CRC32(Environment &env, Signal sig) : HashBase(env, sig)
 {
 	_digest.clear();
 }
@@ -270,7 +270,7 @@ Gura_DeclareFunction(md5)
 
 Gura_ImplementFunction(md5)
 {
-	Object_hash *pObj = new Object_hash(env, new Hash_MD5(sig), "md5");
+	Object_hash *pObj = new Object_hash(env, new Hash_MD5(env, sig), "md5");
 	if (args.IsStream(0)) {
 		args.GetStream(0).ReadToStream(env, sig, pObj->GetHash(), 0x10000, false);
 	}
@@ -287,7 +287,7 @@ Gura_DeclareFunction(sha1)
 
 Gura_ImplementFunction(sha1)
 {
-	Object_hash *pObj = new Object_hash(env, new Hash_SHA1(sig), "sha1");
+	Object_hash *pObj = new Object_hash(env, new Hash_SHA1(env, sig), "sha1");
 	if (args.IsStream(0)) {
 		args.GetStream(0).ReadToStream(env, sig, pObj->GetHash(), 0x10000, false);
 	}
@@ -304,7 +304,7 @@ Gura_DeclareFunction(crc32)
 
 Gura_ImplementFunction(crc32)
 {
-	Object_hash *pObj = new Object_hash(env, new Hash_CRC32(sig), "crc32");
+	Object_hash *pObj = new Object_hash(env, new Hash_CRC32(env, sig), "crc32");
 	if (args.IsStream(0)) {
 		args.GetStream(0).ReadToStream(env, sig, pObj->GetHash(), 0x10000, false);
 	}

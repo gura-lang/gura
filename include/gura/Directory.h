@@ -120,8 +120,7 @@ public:
 	inline bool IsMatchName(const char *pattern, bool ignoreCaseFlag) const {
 		return IsMatchName(pattern, GetName(), ignoreCaseFlag);
 	}
-	Stream *OpenStream(Environment &env, Signal sig,
-							unsigned long attr, const char *encoding);
+	Stream *OpenStream(Environment &env, Signal sig, unsigned long attr);
 	Directory *Next(Environment &env, Signal sig);
 	inline Object *GetStatObj(Signal sig) { return DoGetStatObj(sig); }
 	String MakePathName(bool addSepFlag, const char *pathNameTrail = NULL) const;
@@ -144,11 +143,10 @@ public:
 	static bool IsContainer(Environment &env, Signal sig, const char *pathName);
 	static Directory *OpenDirectory(Environment &env, Signal sig,
 							const char *pathName, NotFoundMode notFoundMode);
-	static Stream *OpenStream(Environment &env, Signal sig, const char *pathName,
-							unsigned long attr, const char *encoding);
+	static Stream *OpenStream(Environment &env, Signal sig,
+							const char *pathName, unsigned long attr);
 protected:
-	virtual Stream *DoOpenStream(Environment &env, Signal sig,
-							unsigned long attr, const char *encoding) = 0;
+	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr) = 0;
 	virtual Directory *DoNext(Environment &env, Signal sig) = 0;
 	virtual Object *DoGetStatObj(Signal sig);
 };

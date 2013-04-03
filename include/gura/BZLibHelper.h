@@ -24,7 +24,7 @@ private:
 	char *_buffOut;
 	char *_buffIn;
 public:
-	Stream_Decompressor(Signal sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff = 32768);
+	Stream_Decompressor(Environment &env, Signal sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff = 32768);
 	~Stream_Decompressor();
 	bool Initialize(Signal sig, int verbosity, int small);
 	virtual const char *GetName() const;
@@ -36,8 +36,8 @@ public:
 	virtual bool DoClose(Signal sig);
 };
 
-Stream_Decompressor::Stream_Decompressor(Signal sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff) :
-		Stream(sig, ATTR_Readable), _pStream(pStream), _bytesSrc(bytesSrc),
+Stream_Decompressor::Stream_Decompressor(Environment &env, Signal sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff) :
+		Stream(env, sig, ATTR_Readable), _pStream(pStream), _bytesSrc(bytesSrc),
 		_bytesBuff(bytesBuff), _bytesOut(0),
 		_offsetOut(0), _buffOut(NULL), _buffIn(NULL)
 {
@@ -173,7 +173,7 @@ private:
 	char *_buffOut;
 	char *_buffIn;
 public:
-	Stream_Compressor(Signal sig, Stream *pStream, size_t bytesBuff = 32768);
+	Stream_Compressor(Environment &env, Signal sig, Stream *pStream, size_t bytesBuff = 32768);
 	~Stream_Compressor();
 	bool Initialize(Signal sig, int blockSize100k, int verbosity, int workFactor);
 	virtual const char *GetName() const;
@@ -185,8 +185,8 @@ public:
 	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
 };
 
-Stream_Compressor::Stream_Compressor(Signal sig, Stream *pStream, size_t bytesBuff) :
-		Stream(sig, ATTR_Writable), _pStream(pStream),
+Stream_Compressor::Stream_Compressor(Environment &env, Signal sig, Stream *pStream, size_t bytesBuff) :
+		Stream(env, sig, ATTR_Writable), _pStream(pStream),
 		_bytesBuff(bytesBuff), _offsetOut(0), _buffOut(NULL), _buffIn(NULL)
 {
 	CopyCodec(pStream);
