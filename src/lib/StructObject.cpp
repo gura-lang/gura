@@ -52,7 +52,7 @@ const DeclarationList &StructObject::GetDeclList() const
 {
 	const Class *pClass = _pClass.get();
 	for ( ; pClass != NULL; pClass = pClass->GetClassSuper()) {
-		if (pClass->GetConstructor()->IsStructPrototype()) break;
+		if (pClass->GetConstructor()->IsConstructorOfStruct()) break;
 	}
 	if (pClass == NULL) pClass = _pClass.get();
 	return pClass->GetConstructor()->GetDeclOwner();

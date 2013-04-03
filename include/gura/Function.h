@@ -234,7 +234,7 @@ public:
 	virtual bool IsPower() const;
 	virtual bool IsContainCheck() const;
 	virtual bool IsSequence() const;
-	virtual bool IsStructPrototype() const;
+	virtual bool IsConstructorOfStruct() const;
 	virtual Value EvalExpr(Environment &env, Signal sig, Args &args) const;
 	Value Eval(Environment &env, Signal sig, Args &args) const;
 	Value EvalFuncBinder(Environment &env, Signal sig, const ValueList &valListArg) const;
@@ -351,33 +351,6 @@ public:
 	static FunctionCustom *CreateBlockFunc(Environment &env, Signal sig,
 		const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType);
 private:
-	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
-};
-
-//-----------------------------------------------------------------------------
-// ClassPrototype
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ClassPrototype : public Function {
-private:
-	Environment _envScope;
-	AutoPtr<Expr> _pExprBody;
-public:
-	ClassPrototype(Environment &envScope, const Symbol *pSymbol, Expr *pExpr,
-													FunctionType funcType);
-	virtual ~ClassPrototype();
-	inline const Expr *GetExprBody() const { return _pExprBody.get(); }
-private:
-	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
-};
-
-//-----------------------------------------------------------------------------
-// StructPrototype
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE StructPrototype : public Function {
-public:
-	StructPrototype(Environment &env);
-	virtual ~StructPrototype();
-	virtual bool IsStructPrototype() const;
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
 };
 

@@ -137,7 +137,7 @@ bool Function::IsModulo() const			{ return false; }
 bool Function::IsPower() const			{ return false; }
 bool Function::IsContainCheck() const	{ return false; }
 bool Function::IsSequence() const		{ return false; }
-bool Function::IsStructPrototype() const{ return false; }
+bool Function::IsConstructorOfStruct() const{ return false; }
 
 Function::Function(const Function &func) : _cntRef(1),
 	_pSymbol(func._pSymbol), _pClassToConstruct(func._pClassToConstruct),
@@ -979,90 +979,6 @@ FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env, Signal sig,
 		return NULL;
 	}
 	return pFunc.release();
-}
-
-//-----------------------------------------------------------------------------
-// ClassPrototype
-//-----------------------------------------------------------------------------
-ClassPrototype::ClassPrototype(Environment &envScope, const Symbol *pSymbol,
-									Expr *pExprBody, FunctionType funcType) :
-		Function(envScope, pSymbol, funcType, FLAG_None), _envScope(envScope),
-		_pExprBody(pExprBody)
-{
-}
-
-ClassPrototype::~ClassPrototype()
-{
-}
-
-Value ClassPrototype::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	std::auto_ptr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
-	if (pEnvLocal.get() == NULL) return Value::Null;
-	EnvType envType = pEnvLocal->GetEnvType();
-	Value valueRtn(args.GetThis());
-	if (!valueRtn.IsObject()) {
-		Object *pObj = _pClassToConstruct->CreateDescendant(*pEnvLocal, sig, _pClassToConstruct);
-		valueRtn.InitAsObject(pObj);
-	}
-	Class *pClassSuper = _pClassToConstruct->GetClassSuper();
-	Function *pConstructorSuper =
-				(pClassSuper == NULL)? NULL : pClassSuper->GetConstructor();
-	if (pConstructorSuper != NULL) {
-		const Expr *pExpr = GetExprBody();
-		const ExprList *pExprList = &ExprList::Null;
-		if (pExpr->IsBlock()) {
-			const Expr_Block *pExprBlock = dynamic_cast<const Expr_Block *>(pExpr);
-			const Expr_BlockParam *pExprParam = pExprBlock->GetParam();
-			if (pExprParam != NULL) {
-				pExprList = &pExprParam->GetExprOwner();
-			}
-		}
-		Environment envSuper(pEnvLocal.get(), ENVTYPE_local);
-		Args argsSub(*pExprList, valueRtn);
-		pConstructorSuper->EvalExpr(envSuper, sig, argsSub);
-		if (sig.IsSignalled()) return Value::Null;
-	}
-	Value valueThis(valueRtn);
-	valueThis.AddFlags(VFLAG_Privileged);
-	pEnvLocal->AssignValue(Gura_Symbol(this), valueThis, EXTRA_Public);
-	GetExprBody()->Exec(*pEnvLocal, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, valueRtn);
-}
-
-//-----------------------------------------------------------------------------
-// StructPrototype
-//-----------------------------------------------------------------------------
-bool StructPrototype::IsStructPrototype() const { return true; }
-
-StructPrototype::StructPrototype(Environment &env) :
-		Function(env, Gura_Symbol(_anonymous_), FUNCTYPE_Function, FLAG_None)
-{
-}
-
-StructPrototype::~StructPrototype()
-{
-}
-
-Value StructPrototype::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	Object *pObjThis = NULL;
-	Value valueRtn(args.GetThis());
-	if (valueRtn.IsObject()) {
-		pObjThis = valueRtn.GetObject();
-	} else {
-		pObjThis = _pClassToConstruct->CreateDescendant(env, sig, _pClassToConstruct);
-		valueRtn.InitAsObject(pObjThis);
-	}
-	ValueList::const_iterator pValue = args.GetArgs().begin();
-	DeclarationList::const_iterator ppDecl = GetDeclOwner().begin();
-	for ( ; pValue != args.GetArgs().end() && ppDecl != GetDeclOwner().end();
-														pValue++, ppDecl++) {
-		const Declaration *pDecl = *ppDecl;
-		pObjThis->AssignValue(pDecl->GetSymbol(), *pValue, EXTRA_Public);
-	}
-	return ReturnValue(env, sig, args, valueRtn);
 }
 
 }

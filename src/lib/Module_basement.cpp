@@ -83,7 +83,7 @@ Gura_ImplementFunction(struct_)
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		exprListArg.push_back(const_cast<Expr *>(pValue->GetExpr()));
 	}
-	AutoPtr<StructPrototype> pFunc(new StructPrototype(env));
+	AutoPtr<ConstructorOfStruct> pFunc(new ConstructorOfStruct(env));
 	pFunc->SetClassToConstruct(pClassCustom); // constructor is registered in this class
 	pFunc->DeclareBlock(OCCUR_ZeroOrOnce);
 	Args argsSub(exprListArg, Value::Null, NULL, false, NULL, args.GetAttrs());

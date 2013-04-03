@@ -24,6 +24,31 @@ public:
 	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;
 };
 
+//-----------------------------------------------------------------------------
+// ConstructorOfCustomClass
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE ConstructorOfCustomClass : public Function {
+private:
+	Environment _envScope;
+	AutoPtr<Expr> _pExprBody;
+public:
+	ConstructorOfCustomClass(Environment &envScope, const Symbol *pSymbol, Expr *pExpr,
+													FunctionType funcType);
+	inline const Expr *GetExprBody() const { return _pExprBody.get(); }
+private:
+	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
+};
+
+//-----------------------------------------------------------------------------
+// ConstructorOfStruct
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE ConstructorOfStruct : public Function {
+public:
+	ConstructorOfStruct(Environment &env);
+	virtual bool IsConstructorOfStruct() const;
+	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
+};
+
 }
 
 #endif
