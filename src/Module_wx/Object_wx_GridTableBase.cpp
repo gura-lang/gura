@@ -271,7 +271,7 @@ void wx_GridTableBase::SetValueAsBool(int row, int col, bool value)
 
 wxString wx_GridTableBase::GetRowLabelValue(int row)
 {
-	Function *pFunc = _pObj->LookupFunctionCustom(
+	Function *pFunc = _pObj->LookupCustomFunction(
 									Gura_UserSymbol(GetRowLabelValue), ENVREF_Escalate);
 	if (pFunc == NULL) return wxGridTableBase::GetRowLabelValue(row);
 	ValueList valListArg;
@@ -284,7 +284,7 @@ wxString wx_GridTableBase::GetRowLabelValue(int row)
 
 wxString wx_GridTableBase::GetColLabelValue(int col)
 {
-	Function *pFunc = _pObj->LookupFunctionCustom(
+	Function *pFunc = _pObj->LookupCustomFunction(
 									Gura_UserSymbol(GetColLabelValue), ENVREF_Escalate);
 	if (pFunc == NULL) return wxGridTableBase::GetColLabelValue(col);
 	ValueList valListArg;

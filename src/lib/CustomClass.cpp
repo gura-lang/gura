@@ -46,7 +46,7 @@ Function *CustomClass::PrepareConstructor(Environment &env, Signal sig)
 					!BuildContent(env, sig, valueThis, _pExprContent.get())) {
 		return NULL;
 	}
-	FunctionCustom *pFuncInit = dynamic_cast<FunctionCustom *>(
+	CustomFunction *pFuncInit = dynamic_cast<CustomFunction *>(
 					LookupFunction(Gura_Symbol(__init__), ENVREF_NoEscalate));
 	if (GetConstructor() == NULL) {
 		// nothing to do

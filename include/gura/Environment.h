@@ -70,7 +70,7 @@ class Class_Struct;
 class Module;
 
 class ICallable;
-class FunctionCustom;
+class CustomFunction;
 
 //-----------------------------------------------------------------------------
 // EnvType
@@ -321,7 +321,7 @@ public:
 						LookupValue(pSymbol, envRefMode, cntSuperSkip));
 	}
 	Function *LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
-	FunctionCustom *LookupFunctionCustom(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
+	CustomFunction *LookupCustomFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
 	void AssignValueType(const ValueTypeInfo *pValueTypeInfo);
 	const ValueTypeInfo *LookupValueType(const SymbolList &symbolList) const;
 	const ValueTypeInfo *LookupValueType(const Symbol *pSymbol) const;

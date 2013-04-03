@@ -143,7 +143,7 @@ Function *Expr::ToFunction(Environment &env, Signal sig,
 		pExprBlock->AddExpr(Expr::Reference(this));
 	}
 	Value result;
-	AutoPtr<FunctionCustom> pFunc(FunctionCustom::CreateBlockFunc(env, sig,
+	AutoPtr<CustomFunction> pFunc(CustomFunction::CreateBlockFunc(env, sig,
 					Gura_Symbol(_anonymous_), pExprBlock, FUNCTYPE_Function));
 	if (sig.IsSignalled()) return NULL;
 	if (!valListArg.empty()) {
@@ -1852,7 +1852,7 @@ Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &value,
 	}
 	FunctionType funcType = !env.IsClass()? FUNCTYPE_Function :
 		GetAttrs().IsSet(Gura_Symbol(static_))? FUNCTYPE_Class : FUNCTYPE_Instance;
-	FunctionCustom *pFunc = new FunctionCustom(env, pSymbol, pExprBody, funcType);
+	CustomFunction *pFunc = new CustomFunction(env, pSymbol, pExprBody, funcType);
 	Args args(GetExprOwner(), Value::Null, NULL, false,
 								NULL, GetAttrs(), GetAttrsOpt(), GetBlock());
 	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, args)) {

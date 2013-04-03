@@ -117,7 +117,7 @@ class ExprList;
 class Expr_Block;
 class Expr_Caller;
 class CustomClass;
-class FunctionCustom;
+class CustomFunction;
 class Object_dict;
 class ICallable;
 class Iterator;
@@ -334,21 +334,21 @@ private:
 };
 
 //-----------------------------------------------------------------------------
-// FunctionCustom
+// CustomFunction
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE FunctionCustom : public Function {
+class GURA_DLLDECLARE CustomFunction : public Function {
 private:
 	AutoPtr<Expr> _pExprBody;
 public:
-	FunctionCustom(Environment &envScope, const Symbol *pSymbol,
+	CustomFunction(Environment &envScope, const Symbol *pSymbol,
 									Expr *pExprBody, FunctionType funcType);
-	virtual ~FunctionCustom();
+	virtual ~CustomFunction();
 	virtual bool IsCustom() const;
 	inline const Expr *GetExprBody() const { return _pExprBody.get(); }
 	inline void SetExprBody(Expr *pExprBody) { _pExprBody.reset(pExprBody); }
 	virtual Expr *DiffUnary(Environment &env, Signal sig,
 						const Expr *pExprArg, const Symbol *pSymbol) const;
-	static FunctionCustom *CreateBlockFunc(Environment &env, Signal sig,
+	static CustomFunction *CreateBlockFunc(Environment &env, Signal sig,
 		const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType);
 private:
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;

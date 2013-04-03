@@ -85,7 +85,7 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 	const Expr_Block *pExprBlock = GetBlock(env, sig);
 	if (pExprBlock == NULL || pSymbol == NULL) return NULL;
 	if (_pFuncBlock.IsNull()) {
-		_pFuncBlock.reset(FunctionCustom::CreateBlockFunc(env, sig,
+		_pFuncBlock.reset(CustomFunction::CreateBlockFunc(env, sig,
 										pSymbol, pExprBlock, FUNCTYPE_Block));
 	}
 	return _pFuncBlock.get();
@@ -545,7 +545,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 				(_blockInfo.blockScope == BLKSCOPE_Inside)? pEnvLocal.get() : &env;
 		FunctionType funcType = (_blockInfo.blockScope == BLKSCOPE_SameAsFunc)?
 											FUNCTYPE_Function : FUNCTYPE_Block;
-		FunctionCustom *pFuncBlock = FunctionCustom::CreateBlockFunc(*pEnv, sig,
+		CustomFunction *pFuncBlock = CustomFunction::CreateBlockFunc(*pEnv, sig,
 								_blockInfo.pSymbol, pExprBlock, funcType);
 		if (pFuncBlock == NULL) return NULL;
 		pEnvLocal->AssignFunction(pFuncBlock);
@@ -915,21 +915,21 @@ void Function::ResultComposer::Store(const Value &value)
 }
 
 //-----------------------------------------------------------------------------
-// FunctionCustom
+// CustomFunction
 //-----------------------------------------------------------------------------
-bool FunctionCustom::IsCustom() const { return true; }
+bool CustomFunction::IsCustom() const { return true; }
 
-FunctionCustom::FunctionCustom(Environment &envScope,
+CustomFunction::CustomFunction(Environment &envScope,
 				const Symbol *pSymbol, Expr *pExprBody, FunctionType funcType) :
 		Function(envScope, pSymbol, funcType, FLAG_None), _pExprBody(pExprBody)
 {
 }
 
-FunctionCustom::~FunctionCustom()
+CustomFunction::~CustomFunction()
 {
 }
 
-Value FunctionCustom::DoEval(Environment &env, Signal sig, Args &args) const
+Value CustomFunction::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	std::auto_ptr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
 	if (pEnvLocal.get() == NULL) return Value::Null;
@@ -959,18 +959,18 @@ Value FunctionCustom::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
-Expr *FunctionCustom::DiffUnary(Environment &env, Signal sig,
+Expr *CustomFunction::DiffUnary(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const
 {
 	SetError_MathDiffError(sig);
 	return NULL;
 }
 
-FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env, Signal sig,
+CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
 	const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType)
 {
 	const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
-	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
+	AutoPtr<CustomFunction> pFunc(new CustomFunction(env,
 							pSymbol, Expr::Reference(pExprBlock), funcType));
 	pFunc->_declOwner.AllowTooManyArgs(true);
 	Args args(pExprBlockParam->GetExprOwner());

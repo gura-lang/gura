@@ -49,8 +49,8 @@ Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 		return result;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(expr))) {
 		if (!GetFunction()->IsCustom()) return Value::Null;
-		const FunctionCustom *pFuncCustom =
-						dynamic_cast<const FunctionCustom *>(GetFunction());
+		const CustomFunction *pFuncCustom =
+						dynamic_cast<const CustomFunction *>(GetFunction());
 		return Value(env, Expr::Reference(pFuncCustom->GetExprBody()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(help))) {
 		const Symbol *pSymbol = Gura_Symbol(en);
@@ -86,7 +86,7 @@ Value Object_function::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 			sig.SetError(ERR_TypeError, "expr must be specified");
 			return Value::Null;
 		}
-		FunctionCustom *pFuncCustom = dynamic_cast<FunctionCustom *>(GetFunction());
+		CustomFunction *pFuncCustom = dynamic_cast<CustomFunction *>(GetFunction());
 		pFuncCustom->SetExprBody(Expr::Reference(value.GetExpr()));
 		return value;
 	}
@@ -216,7 +216,7 @@ Gura_ImplementFunction(function)
 	} else {
 		pExprListArg = &pExprBlockParam->GetExprOwner();
 	}
-	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
+	AutoPtr<CustomFunction> pFunc(new CustomFunction(env,
 			Gura_Symbol(_anonymous_), Expr::Reference(pExprBlock), FUNCTYPE_Function));
 	Args argsSub(*pExprListArg, Value::Null, NULL, false, NULL, args.GetAttrs());
 	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, argsSub)) return Value::Null;
@@ -280,7 +280,7 @@ Gura_ImplementMethod(function, diff)
 	}
 	AutoPtr<Expr> pExprDiff;
 	if (pFunc->IsCustom()) {
-		const FunctionCustom *pFuncCustom = dynamic_cast<const FunctionCustom *>(pFunc);
+		const CustomFunction *pFuncCustom = dynamic_cast<const CustomFunction *>(pFunc);
 		pExprDiff.reset(pFuncCustom->GetExprBody()->MathDiff(env, sig, pSymbol));
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
@@ -288,7 +288,7 @@ Gura_ImplementMethod(function, diff)
 		pExprDiff.reset(pFunc->DiffUnary(env, sig, pExprArg.get(), pSymbol));
 		if (sig.IsSignalled()) return Value::Null;
 	}
-	AutoPtr<FunctionCustom> pFuncDiff(new FunctionCustom(env,
+	AutoPtr<CustomFunction> pFuncDiff(new CustomFunction(env,
 			Gura_Symbol(_anonymous_), pExprDiff.release(), FUNCTYPE_Function));
 	pFuncDiff->CopyDeclare(*pFunc);
 	return Value(env, pFuncDiff.release(), Value::Null);

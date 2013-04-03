@@ -332,11 +332,11 @@ Function *Environment::LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMo
 	return NULL;
 }
 
-FunctionCustom *Environment::LookupFunctionCustom(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const
+CustomFunction *Environment::LookupCustomFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const
 {
 	Function *pFunc = LookupFunction(pSymbol, envRefMode, cntSuperSkip);
 	return (pFunc != NULL && pFunc->IsCustom())?
-						dynamic_cast<FunctionCustom *>(pFunc) : NULL;
+						dynamic_cast<CustomFunction *>(pFunc) : NULL;
 }
 
 void Environment::AssignValueType(const ValueTypeInfo *pValueTypeInfo)
