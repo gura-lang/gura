@@ -73,46 +73,27 @@ String Object_stream::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Global functions
 //-----------------------------------------------------------------------------
-// open(name:string, mode:string => "r", encoding:string => "utf-8"):map {block?}
+// open(name:string, mode?:string, encoding?:string):map {block?}
 Gura_DeclareFunction(open)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
-	DeclareArg(env, "mode", VTYPE_string, OCCUR_Once, FLAG_None,
-												new Expr_String("r"));
-	DeclareArg(env, "encoding", VTYPE_string, OCCUR_Once, FLAG_None,
-												new Expr_String("utf-8"));
+	DeclareArg(env, "mode", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "encoding", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(open)
 {
-	unsigned long attr = Stream::ATTR_None;
-	do {
-		const char *p = args.GetString(1);
-		if (*p == 'r') {
-			attr |= Stream::ATTR_Readable;
-		} else if (*p == 'w') {
-			attr |= Stream::ATTR_Writable;
-		} else if (*p == 'a') {
-			attr |= Stream::ATTR_Writable | Stream::ATTR_Append;
-		} else {
-			sig.SetError(ERR_IOError, "invalid open mode");
-			return Value::Null;
-		}
-		p++;
-		for ( ; *p != '\0'; p++) {
-			char ch = *p;
-			if (ch == '+') {
-				attr |= Stream::ATTR_Readable | Stream::ATTR_Writable;
-			} else {
-				sig.SetError(ERR_IOError, "invalid open mode");
-				return Value::Null;
-			}
-		}
-	} while (0);
+	unsigned long attr = Stream::ATTR_Readable;
+	const char *encoding = "utf-8";
+	if (args.IsValid(1)) {
+		attr = Stream::ParseOpenMode(sig, args.GetString(1));
+		if (sig.IsSignalled()) return Value::Null;
+	}
+	if (args.IsValid(2)) encoding = args.GetString(2);
 	Stream *pStream = Directory::OpenStream(env, sig,
-							args.GetString(0), attr, args.GetString(2));
+									args.GetString(0), attr, encoding);
 	if (sig.IsSignalled()) return Value::Null;
 	Value result(new Object_stream(env, pStream));
 	if (args.IsBlockSpecified()) {
@@ -758,12 +739,13 @@ bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const De
 {
 	if (value.IsString()) {
 		unsigned long attr = Stream::ATTR_Readable;
+		const char *encoding = "utf-8";
 		if (pDecl != NULL) {
 			if (pDecl->GetWriteFlag()) attr = Stream::ATTR_Writable;
 			if (pDecl->GetReadFlag()) attr |= Stream::ATTR_Readable;
 		}
 		Stream *pStream = Directory::OpenStream(env, sig,
-									value.GetString(), attr, "utf-8");
+									value.GetString(), attr, encoding);
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_stream(env, pStream));
 		return true;

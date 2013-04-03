@@ -715,6 +715,33 @@ Stream *Stream::Prefetch(Signal sig, Stream *pStreamSrc,
 	return pStreamPrefetch;
 }
 
+unsigned long Stream::ParseOpenMode(Signal sig, const char *mode)
+{
+	unsigned long attr = ATTR_None;
+	const char *p = mode;
+	if (*p == 'r') {
+		attr |= ATTR_Readable;
+	} else if (*p == 'w') {
+		attr |= ATTR_Writable;
+	} else if (*p == 'a') {
+		attr |= ATTR_Writable | ATTR_Append;
+	} else {
+		sig.SetError(ERR_IOError, "invalid open mode");
+		return 0;
+	}
+	p++;
+	for ( ; *p != '\0'; p++) {
+		char ch = *p;
+		if (ch == '+') {
+			attr |= ATTR_Readable | ATTR_Writable;
+		} else {
+			sig.SetError(ERR_IOError, "invalid open mode");
+			return 0;
+		}
+	}
+	return attr;
+}
+
 //-----------------------------------------------------------------------------
 // StreamDumb
 //-----------------------------------------------------------------------------

@@ -228,7 +228,7 @@ mod:function = mod(n, m):map
 module:function = module() {block}
 nil:nil = nil
 object:function = object()
-open:function = open(name:string, mode:string => 'r', encoding:string => 'utf-8'):map {block?}
+open:function = open(name:string, mode?:string, encoding?:string):map {block?}
 ord:function = ord(str:string):map
 os:module = <module:os>
   __name__:string = os

@@ -193,6 +193,7 @@ public:
 public:
 	static Stream *Prefetch(Signal sig, Stream *pStreamSrc,
 							bool deleteSrcFlag, size_t bytesUnit = 0x10000);
+	static unsigned long ParseOpenMode(Signal sig, const char *mode);
 };
 
 //-----------------------------------------------------------------------------
