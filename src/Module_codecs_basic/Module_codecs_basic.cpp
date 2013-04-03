@@ -7,6 +7,29 @@
 Gura_BeginModule(codecs_basic)
 
 //-----------------------------------------------------------------------------
+// None
+//-----------------------------------------------------------------------------
+Codec::Result Codec_Encoder_None::FeedChar(char ch, char &chConv)
+{
+	if (IsProcessEOL() && ch == '\n') {
+		StoreChar('\n');
+		chConv = '\r';
+	} else {
+		chConv = ch;
+	}
+	return RESULT_Complete;
+}
+
+Codec::Result Codec_Decoder_None::FeedChar(char ch, char &chConv)
+{
+	if (IsProcessEOL() && ch == '\r') return RESULT_None;
+	chConv = ch;
+	return RESULT_Complete;
+}
+
+Gura_ImplementCodecFactory(None, "none")
+
+//-----------------------------------------------------------------------------
 // USASCII
 //-----------------------------------------------------------------------------
 Codec::Result Codec_Encoder_USASCII::FeedChar(char ch, char &chConv)
@@ -161,6 +184,7 @@ Gura_ImplementCodecFactory(UTF16LE, "utf-16")
 // Module entry
 Gura_ModuleEntry()
 {
+	Gura_RegisterCodecFactory(None);
 	Gura_RegisterCodecFactory(USASCII);
 	Gura_RegisterCodecFactory(UTF8);
 	Gura_RegisterCodecFactory(UTF16LE);

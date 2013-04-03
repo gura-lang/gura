@@ -876,17 +876,17 @@ Stream_Http *Header::GenerateDownStream(Environment &env, Signal sig,
 		pStreamInflater->Initialize(sig, -15);
 		pStream = pStreamInflater;
 	}
-	Stream_Http *pStreamHttp = new Stream_Http(env, sig, pStream,
-								Stream::ATTR_Readable, name, bytes, *this);
+	AutoPtr<Stream_Http> pStreamHttp(new Stream_Http(env, sig, pStream,
+								Stream::ATTR_Readable, name, bytes, *this));
 	const char *type = contentType.GetType();
 	if (::strcasecmp(type, "text/html") == 0 || ::strcasecmp(type, "text/xml") == 0) {
 		pStreamHttp->ActivateEncodingDetector();
 	}
-	if (contentType.IsValidCharset()) {
-		//pStreamHttp->InstallCodec(contentType.GetCharset(), false);
-		// encoding
+	if (contentType.IsValidCharset() && !pStreamHttp->GetCodec()->
+							InstallCodec(sig, contentType.GetCharset(), false)) {
+		return NULL;
 	}
-	return pStreamHttp;
+	return pStreamHttp.release();
 }
 
 void Header::DoDirProp(SymbolSet &symbols)
@@ -1378,15 +1378,11 @@ size_t Stream_Http::DoRead(Signal sig, void *buff, size_t bytes)
 		if (_encodingDetector.IsActive()) {
 			for (size_t i = 0; i < bytesRecved && _encodingDetector.IsActive(); i++) {
 				char ch = *(buffp + offset + i);
-				if (!_encodingDetector.ParseChar(sig, ch)) return false;
+				if (!_encodingDetector.ParseChar(sig, ch)) return 0;
 			}
-			if (_encodingDetector.IsValidEncoding()) {
-				//::printf("** encoding:%s **\n", _encodingDetector.GetEncoding());
-				//InstallCodec(_encodingDetector.GetEncoding(), false);
-				// encoding
-				//AutoPtr<Object_codec> pObjCodec(new Object_codec(env));
-				
-				//SetCodec(pObjCodec.release());
+			if (_encodingDetector.IsValidEncoding() && !GetCodec()->
+						InstallCodec(sig, _encodingDetector.GetEncoding(), false)) {
+				return 0;
 			}
 		}
 		_bytesRead -= bytesRecved;

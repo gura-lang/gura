@@ -9,6 +9,23 @@
 Gura_BeginModule(codecs_basic)
 
 //-----------------------------------------------------------------------------
+// None
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Codec_Encoder_None : public Codec_Encoder {
+public:
+	inline Codec_Encoder_None(CodecFactory *pCodecFactory, bool processEOLFlag) :
+			Codec_Encoder(pCodecFactory, processEOLFlag) {}
+	virtual Result FeedChar(char ch, char &chConv);
+};
+
+class GURA_DLLDECLARE Codec_Decoder_None : public Codec_Decoder {
+public:
+	inline Codec_Decoder_None(CodecFactory *pCodecFactory, bool processEOLFlag) :
+			Codec_Decoder(pCodecFactory, processEOLFlag) {}
+	virtual Result FeedChar(char ch, char &chConv);
+};
+
+//-----------------------------------------------------------------------------
 // USASCII
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Codec_Encoder_USASCII : public Codec_Encoder {

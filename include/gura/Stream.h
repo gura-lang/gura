@@ -116,7 +116,6 @@ public:
 	void CopyCodec(Stream *pStream);
 	void CopyCodec(const Object_codec *pObjCodec);
 	inline Object_codec *GetCodec() { return _pObjCodec.get(); }
-	inline bool IsCodecInstalled() const { return !_pObjCodec.IsNull(); }
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
 	virtual const char *GetName() const = 0;

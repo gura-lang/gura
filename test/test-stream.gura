@@ -42,30 +42,30 @@ scope {
 }
 scope {
 	buff = binary()
-	buff.writer().setencoding('shift_jis').println('こんにちは、世界')
+	buff.writer().setcodec('shift_jis').println('こんにちは、世界')
 	buff.dump()
 }
 scope {
 	buff = binary()
-	gzip.writer(buff.writer().setencoding('shift_jis')).println('こんにちは、世界')
+	gzip.writer(buff.writer().setcodec('shift_jis')).println('こんにちは、世界')
 	//buff.dump()
 	gzip.reader(buff).read().dump()
 }
 scope {
 	buff = binary()
-	gzip.writer(buff).setencoding('shift_jis').println('こんにちは、世界')
+	gzip.writer(buff).setcodec('shift_jis').println('こんにちは、世界')
 	//buff.dump()
 	gzip.reader(buff).read().dump()
 }
 scope {
 	buff = binary()
-	bzip2.writer(buff.writer().setencoding('shift_jis')).println('こんにちは、世界')
+	bzip2.writer(buff.writer().setcodec('shift_jis')).println('こんにちは、世界')
 	//buff.dump()
 	bzip2.reader(buff).read().dump()
 }
 scope {
 	buff = binary()
-	bzip2.writer(buff).setencoding('shift_jis').println('こんにちは、世界')
+	bzip2.writer(buff).setcodec('shift_jis').println('こんにちは、世界')
 	//buff.dump()
 	bzip2.reader(buff).read().dump()
 }

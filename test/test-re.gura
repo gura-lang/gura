@@ -2,7 +2,7 @@
 import(re)
 import(testutil) {*}
 
-sys.stdout.setencoding('shift_jis', false)
+sys.stdout.setcodec('shift_jis').dosmode(false)
 
 scope {
 	x = ['hoge 123 foo', 'no number here', '456 aaaaaa 111']

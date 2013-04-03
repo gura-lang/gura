@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(testutil) {*}
 
-sys.stdout.setencoding('shift_jis', false)
+sys.stdout.setcodec('shift_jis').dosmode(false)
 
 dump(buff:binary) = {
 	tochar(num:number):map = {

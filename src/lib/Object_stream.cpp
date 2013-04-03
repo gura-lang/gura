@@ -54,7 +54,7 @@ String Object_stream::ToString(Signal sig, bool exprFlag)
 	str += "<stream:";
 	if (stream.IsReadable()) str += "R";
 	if (stream.IsWritable()) str += "W";
-	if (stream.IsCodecInstalled()) {
+	if (stream.GetCodec()->IsInstalled()) {
 		str += ":";
 		str += stream.GetCodec()->GetEncoding();
 		Codec_Encoder *pEncoder = stream.GetCodec()->GetEncoder();
@@ -85,6 +85,7 @@ Gura_DeclareFunction(open)
 
 Gura_ImplementFunction(open)
 {
+	bool processEOLFlag = true;
 	unsigned long attr = Stream::ATTR_Readable;
 	if (args.IsValid(1)) {
 		attr = Stream::ParseOpenMode(sig, args.GetString(1));
@@ -95,6 +96,10 @@ Gura_ImplementFunction(open)
 	if (args.IsValid(2)) {
 		Object_codec *pObjCodec = Object_codec::GetObject(args, 2);
 		pStream->SetCodec(Object_codec::Reference(pObjCodec));
+	} else {
+		Object_codec *pObjCodec = new Object_codec(env);
+		pObjCodec->InstallCodec(sig, NULL, processEOLFlag);
+		pStream->SetCodec(pObjCodec);
 	}
 	Value result(new Object_stream(env, pStream));
 	if (args.IsBlockSpecified()) {
@@ -423,22 +428,18 @@ Gura_ImplementMethod(stream, copyfrom)
 	return args.GetThis();
 }
 
-// stream#setencoding(encoding:string, dos_flag?:boolean):reduce
-Gura_DeclareMethod(stream, setencoding)
+// stream#setcodec(codec:codec):reduce
+Gura_DeclareMethod(stream, setcodec)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "encoding", VTYPE_string);
-	DeclareArg(env, "dos_flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "codec", VTYPE_codec);
 }
 
-Gura_ImplementMethod(stream, setencoding)
+Gura_ImplementMethod(stream, setcodec)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
-	const char *encoding = args.GetString(0);
-	bool processEOLFlag = args.IsBoolean(1)? args.GetBoolean(1) : true;
-	AutoPtr<Object_codec> pObjCodec(new Object_codec(env));
-	if (!pObjCodec->InstallCodec(sig, encoding, processEOLFlag)) return Value::Null;
-	pThis->GetStream().SetCodec(pObjCodec.release());
+	Object_codec *pObjCodec = Object_codec::GetObject(args, 0);
+	pThis->GetStream().SetCodec(Object_codec::Reference(pObjCodec));
 	return args.GetThis();
 }
 
@@ -719,7 +720,7 @@ Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stre
 	Gura_AssignMethod(stream, compare);
 	Gura_AssignMethod(stream, copyto);
 	Gura_AssignMethod(stream, copyfrom);
-	Gura_AssignMethod(stream, setencoding);
+	Gura_AssignMethod(stream, setcodec);
 	Gura_AssignMethod(stream, dosmode);
 	Gura_AssignMethod(stream, readline);
 	Gura_AssignMethod(stream, readlines);
@@ -738,6 +739,7 @@ Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stre
 bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsString()) {
+		bool processEOLFlag = false;
 		unsigned long attr = Stream::ATTR_Readable;
 		if (pDecl != NULL) {
 			if (pDecl->GetWriteFlag()) attr = Stream::ATTR_Writable;
@@ -745,6 +747,7 @@ bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const De
 		}
 		Stream *pStream = Directory::OpenStream(env, sig, value.GetString(), attr);
 		if (sig.IsSignalled()) return false;
+		pStream->GetCodec()->InstallCodec(sig, NULL, processEOLFlag);
 		value = Value(new Object_stream(env, pStream));
 		return true;
 	} else if (value.IsBinary()) {

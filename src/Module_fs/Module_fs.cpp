@@ -156,10 +156,6 @@ bool Stream_File::Open(Signal sig, const char *fileName, unsigned long attr)
 {
 	Close();
 	_attr |= attr;
-	//if (!InstallCodec(encoding, true)) {
-	//	sig.SetError(ERR_CodecError, "unsupported encoding '%s'", encoding);
-	//	return false;
-	//}
 	_fileName = OAL::MakeAbsPathName(OAL::FileSeparator, fileName);
 	DWORD dwDesiredAccess =
 			IsAppend()? GENERIC_WRITE :
@@ -210,7 +206,7 @@ bool Stream_File::OpenStdin()
 	_hFile = ::GetStdHandle(STD_INPUT_HANDLE);
 	if (_hFile != INVALID_HANDLE_VALUE) {
 		_fileName = "stdin", SetReadable(true), SetWritable(false);
-		//InstallCodec("cp932", true);
+		GetCodec()->InstallCodec(_sig, "cp932", true);
 	}
 	return true;
 }
@@ -221,7 +217,7 @@ bool Stream_File::OpenStdout()
 	_hFile = ::GetStdHandle(STD_OUTPUT_HANDLE);
 	if (_hFile != INVALID_HANDLE_VALUE) {
 		_fileName = "stdout", SetReadable(false), SetWritable(true);
-		//InstallCodec("cp932", true);
+		GetCodec()->InstallCodec(_sig, "cp932", true);
 	}
 	return true;
 }
@@ -232,7 +228,7 @@ bool Stream_File::OpenStderr()
 	_hFile = ::GetStdHandle(STD_ERROR_HANDLE);
 	if (_hFile != INVALID_HANDLE_VALUE) {
 		_fileName = "stderr", SetReadable(false), SetWritable(true);
-		//InstallCodec("cp932", true);
+		GetCodec()->InstallCodec(_sig, "cp932", true);
 	}
 	return true;
 }
@@ -357,10 +353,6 @@ bool Stream_File::Open(Signal sig, const char *fileName, unsigned long attr)
 {
 	Close();
 	_attr |= attr;
-	//if (!InstallCodec(encoding, false)) {
-	//	sig.SetError(ERR_CodecError, "unsupported encoding '%s'", encoding);
-	//	return false;
-	//}
 	_fileName = OAL::MakeAbsPathName(OAL::FileSeparator, fileName);
 	char modeMod[8];
 	if (IsAppend()) {
@@ -388,7 +380,7 @@ bool Stream_File::OpenStdin()
 {
 	_fp = stdin;
 	_fileName = "stdin", SetReadable(true), SetWritable(false);
-	//InstallCodec(Codec::EncodingFromLANG(), false);
+	GetCodec()->InstallCodec(_sig, Codec::EncodingFromLANG(), false);
 	return true;
 }
 
@@ -396,7 +388,7 @@ bool Stream_File::OpenStdout()
 {
 	_fp = stdout;
 	_fileName = "stdout", SetReadable(false), SetWritable(true);
-	//InstallCodec(Codec::EncodingFromLANG(), false);
+	GetCodec()->InstallCodec(_sig, Codec::EncodingFromLANG(), false);
 	return true;
 }
 
@@ -404,7 +396,7 @@ bool Stream_File::OpenStderr()
 {
 	_fp = stderr;
 	_fileName = "stderr", SetReadable(false), SetWritable(true);
-	//InstallCodec(Codec::EncodingFromLANG(), false);
+	GetCodec()->InstallCodec(_sig, Codec::EncodingFromLANG(), false);
 	return true;
 }
 
@@ -448,7 +440,6 @@ bool Stream_File::DoClose(Signal sig)
 		::fclose(_fp);
 		_fp = NULL;
 		_needCloseFlag = false;
-		ReleaseCodec();
 	}
 	return true;
 }

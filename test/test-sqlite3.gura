@@ -4,7 +4,7 @@ import(csv)
 import(sqlite3)
 import(testutil) {*}
 
-sys.stdout.setencoding('shift_jis', false)
+sys.stdout.setcodec('shift_jis').dosmode(false)
 
 scope {
 	try {fs.remove('50records-en.sqlite3')} except {}

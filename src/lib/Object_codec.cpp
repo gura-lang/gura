@@ -16,11 +16,6 @@ Object_codec::Object_codec(const Object_codec &obj) :
 {
 }
 
-Object_codec::~Object_codec()
-{
-	ReleaseCodec();
-}
-
 Object *Object_codec::Clone() const
 {
 	return new Object_codec(*this);
@@ -28,24 +23,16 @@ Object *Object_codec::Clone() const
 
 bool Object_codec::InstallCodec(Signal sig, const char *encoding, bool processEOLFlag)
 {
-	if (encoding == NULL) encoding = "us-ascii";
+	if (encoding == NULL) encoding = "none";
 	CodecFactory *pCodecFactory = CodecFactory::Lookup(encoding);
 	if (pCodecFactory == NULL) {
 		sig.SetError(ERR_CodecError, "unsupported encoding name %s", encoding);
 		return false;
 	}
-	ReleaseCodec();
 	_encoding = encoding;
 	_pEncoder.reset(pCodecFactory->CreateEncoder(processEOLFlag));
 	_pDecoder.reset(pCodecFactory->CreateDecoder(processEOLFlag));
 	return true;
-}
-
-void Object_codec::ReleaseCodec()
-{
-	_encoding.clear();
-	_pEncoder.reset(NULL);
-	_pDecoder.reset(NULL);
 }
 
 String Object_codec::ToString(Signal sig, bool exprFlag)
