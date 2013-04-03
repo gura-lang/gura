@@ -2,6 +2,8 @@
 import(re)
 import(argopt)
 
+sys.stdout.setcodec(nil)
+
 argopt.Parser {|p|
 	p.addFlag('line-number',	'n', 'print line number with output lines')
 	p.addFlag('recursive',		'r', 'recursively search subdirectories')

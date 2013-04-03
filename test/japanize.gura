@@ -3,7 +3,7 @@
 scope(root) {
 	もし				= if
 	ちがえば			= else
-	ちがもし			= elsif
+	もしくは			= elsif
 	それぞれ			= for
 	回数				= repeat
 	もしもし			= while

@@ -428,18 +428,25 @@ Gura_ImplementMethod(stream, copyfrom)
 	return args.GetThis();
 }
 
-// stream#setcodec(codec:codec):reduce
+// stream#setcodec(codec:codec:nil):reduce
 Gura_DeclareMethod(stream, setcodec)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "codec", VTYPE_codec);
+	DeclareArg(env, "codec", VTYPE_codec, OCCUR_Once, FLAG_Nil);
 }
 
 Gura_ImplementMethod(stream, setcodec)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
-	Object_codec *pObjCodec = Object_codec::GetObject(args, 0);
-	pThis->GetStream().SetCodec(Object_codec::Reference(pObjCodec));
+	Object_codec *pObjCodec = NULL;
+	if (args.IsValid(0)) {
+		pObjCodec = Object_codec::Reference(Object_codec::GetObject(args, 0));
+	} else {
+		bool processEOLFlag = false;
+		pObjCodec = new Object_codec(env);
+		pObjCodec->InstallCodec(sig, NULL, processEOLFlag);
+	}
+	pThis->GetStream().SetCodec(pObjCodec);
 	return args.GetThis();
 }
 
