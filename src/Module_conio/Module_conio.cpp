@@ -379,11 +379,17 @@ Gura_ImplementFunction(waitkey)
 				break;
 			}
 		} else if (stat == STAT_LBracket) {
-			if (ch == '2') {			// ESC [2
+			if (ch == '1') {			// ESC [1
+				chRtn = K_HOME;
+				stat = STAT_SkipChar;
+			} else if (ch == '2') {		// ESC [2
 				chRtn = K_INSERT;
 				stat = STAT_SkipChar;
 			} else if (ch == '3') {		// ESC [3
 				chRtn = K_DELETE;
+				stat = STAT_SkipChar;
+			} else if (ch == '4') {		// ESC [4
+				chRtn = K_END;
 				stat = STAT_SkipChar;
 			} else if (ch == '5') {		// ESC [5
 				chRtn = K_PAGEUP;
