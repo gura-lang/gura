@@ -473,8 +473,8 @@ MyPanel = class(wx.Panel) {
 		this.Bind(wx.EVT_CHECKBOX, ID_SIZER_CHECK14) {|event| this.OnSizerCheck(event) }
 		this.Bind(wx.EVT_CHECKBOX, ID_SIZER_CHECKBIG) {|event| this.OnSizerCheck(event) }
 	}
-	s_selCombo = INVALID_SELECTION
-	s_selChoice = INVALID_SELECTION
+	s_selCombo:public = INVALID_SELECTION
+	s_selChoice:public = INVALID_SELECTION
 	OnIdle(event:wx.IdleEvent) = {
 		if (!this.m_combo || !this.m_choice) {
 			event.Skip()
