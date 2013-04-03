@@ -115,7 +115,6 @@ Gura_ImplementFunction(super)
 	return ReturnValue(env, sig, args, rtn);
 }
 
-
 // module {block}
 Gura_DeclareFunction(module)
 {
