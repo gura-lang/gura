@@ -101,7 +101,8 @@ void SimpleStream_StringWrite::PutChar(Signal sig, char ch)
 // Stream
 //-----------------------------------------------------------------------------
 Stream::Stream(Environment &env, Signal sig, unsigned long attr) :
-						_cntRef(1), _sig(sig), _attr(attr), _offsetCur(0)
+		_cntRef(1), _sig(sig), _attr(attr), _offsetCur(0),
+		_pObjCodec(new Object_codec(env))
 {
 	_peek.buff = NULL;
 	_peek.bytes = 0;
@@ -110,7 +111,6 @@ Stream::Stream(Environment &env, Signal sig, unsigned long attr) :
 
 Stream::~Stream()
 {
-	ReleaseCodec();
 	delete[] _peek.buff;
 }
 
@@ -140,7 +140,7 @@ void Stream::CopyCodec(Stream *pStream)
 	//Codec_Encoder *pEncoder = pStream->GetEncoder();
 	//_pDecoder.reset((pDecoder == NULL)? NULL : pDecoder->Duplicate());
 	//_pEncoder.reset((pEncoder == NULL)? NULL : pEncoder->Duplicate());
-	CopyCodec(pStream->GetObjCodec());
+	CopyCodec(pStream->GetCodec());
 }
 
 void Stream::CopyCodec(const Object_codec *pObjCodec)
@@ -149,36 +149,14 @@ void Stream::CopyCodec(const Object_codec *pObjCodec)
 	//Codec_Encoder *pEncoder = pObjCodec->GetEncoder();
 	//_pDecoder.reset((pDecoder == NULL)? NULL : pDecoder->Duplicate());
 	//_pEncoder.reset((pEncoder == NULL)? NULL : pEncoder->Duplicate());
-	_pObjCodec.reset((pObjCodec == NULL)? NULL :
-						dynamic_cast<Object_codec *>(pObjCodec->Clone()));
-}
-
-void Stream::ReleaseCodec()
-{
-	_pObjCodec.reset(NULL);
-	//_encoding.clear();
-	//_pDecoder.reset(NULL);
-	//_pEncoder.reset(NULL);
-}
-
-const char *Stream::GetEncoding() const
-{
-	return _pObjCodec.IsNull()? "" : _pObjCodec->GetEncoding();
-}
-
-Codec_Decoder *Stream::GetDecoder()
-{
-	return _pObjCodec.IsNull()? NULL : _pObjCodec->GetDecoder();
-}
-
-Codec_Encoder *Stream::GetEncoder()
-{
-	return _pObjCodec.IsNull()? NULL : _pObjCodec->GetEncoder();
+	if (pObjCodec != NULL) {
+		_pObjCodec.reset(dynamic_cast<Object_codec *>(pObjCodec->Clone()));
+	}
 }
 
 void Stream::PutChar(Signal sig, char ch)
 {
-	Codec_Encoder *pEncoder = GetEncoder();
+	Codec_Encoder *pEncoder = _pObjCodec->GetEncoder();
 	if (pEncoder == NULL) {
 		DoPutChar(sig, ch);
 	} else {
@@ -195,7 +173,7 @@ void Stream::PutChar(Signal sig, char ch)
 
 int Stream::GetChar(Signal sig)
 {
-	Codec_Decoder *pDecoder = GetDecoder();
+	Codec_Decoder *pDecoder = _pObjCodec->GetDecoder();
 	if (pDecoder == NULL) return DoGetChar(sig);
 	char chConv;
 	if (pDecoder->FollowChar(chConv)) return static_cast<unsigned char>(chConv);

@@ -324,7 +324,6 @@ bool Stream_File::DoClose(Signal sig)
 		::CloseHandle(_hFile);
 		_hFile = INVALID_HANDLE_VALUE;
 		_needCloseFlag = false;
-		ReleaseCodec();
 	}
 	return true;
 }

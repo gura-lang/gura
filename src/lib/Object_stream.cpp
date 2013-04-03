@@ -56,8 +56,8 @@ String Object_stream::ToString(Signal sig, bool exprFlag)
 	if (stream.IsWritable()) str += "W";
 	if (stream.IsCodecInstalled()) {
 		str += ":";
-		str += stream.GetEncoding();
-		Codec_Encoder *pEncoder = stream.GetEncoder();
+		str += stream.GetCodec()->GetEncoding();
+		Codec_Encoder *pEncoder = stream.GetCodec()->GetEncoder();
 		if (pEncoder != NULL && pEncoder->IsProcessEOL()) {
 			str += ":dosmode";
 		}
@@ -452,7 +452,7 @@ Gura_DeclareMethod(stream, dosmode)
 Gura_ImplementMethod(stream, dosmode)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
-	Codec_Encoder *pEncoder = pThis->GetStream().GetEncoder();
+	Codec_Encoder *pEncoder = pThis->GetStream().GetCodec()->GetEncoder();
 	if (pEncoder != NULL) {
 		pEncoder->SetProcessEOLFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	}
