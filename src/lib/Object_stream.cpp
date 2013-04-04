@@ -37,6 +37,8 @@ Value Object_stream::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 		return Value(GetStream().IsReadable());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(writable))) {
 		return Value(GetStream().IsWritable());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(codec))) {
+		return Value(Object_codec::Reference(GetStream().GetCodec()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
