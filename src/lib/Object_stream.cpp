@@ -17,6 +17,7 @@ bool Object_stream::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_Symbol(identifier));
 	symbols.insert(Gura_Symbol(readable));
 	symbols.insert(Gura_Symbol(writable));
+	symbols.insert(Gura_Symbol(codec));
 	return true;
 }
 
