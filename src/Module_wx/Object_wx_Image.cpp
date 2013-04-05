@@ -1910,8 +1910,9 @@ Gura_ImplementCastFrom(wx_Image)
 {
 	if (value.IsImage()) {
 		Object_image *pObjImage = Object_image::GetObject(value);
-		wx_Image *pImage = new wx_Image(pObjImage->GetWidth(), pObjImage->GetHeight(), false);
-		ConvertToWxImage(pObjImage, pImage);
+		wx_Image *pImage = new wx_Image(pObjImage->GetImage()->GetWidth(),
+									pObjImage->GetImage()->GetHeight(), false);
+		ConvertToWxImage(pObjImage->GetImage(), pImage);
 		Object_wx_Image *pObj = new Object_wx_Image(pImage, pImage, OwnerTrue);
 		pImage->AssocWithGura(sig, pObj);
 		value = Value(pObj);

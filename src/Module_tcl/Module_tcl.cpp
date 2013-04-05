@@ -692,7 +692,8 @@ Gura_DeclareMethod(image, readtcl)
 Gura_ImplementMethod(image, readtcl)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->CheckEmpty(sig)) return Value::Null;
+	Image *pImage = pThis->GetImage();
+	if (!pImage->CheckEmpty(sig)) return Value::Null;
 	Object_interp *pObjInterp = reinterpret_cast<Object_interp *>(args.GetObject(0));
 	Tcl_Interp *interp = pObjInterp->GetInterp();
 	const char *imageName = args.GetString(1);
@@ -703,13 +704,13 @@ Gura_ImplementMethod(image, readtcl)
 	}
 	int width, height;
 	::Tk_PhotoGetSize(handle, &width, &height);
-	if (!pThis->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
+	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
 	Tk_PhotoImageBlock photoImageBlock;
-	photoImageBlock.pixelPtr = reinterpret_cast<unsigned char *>(pThis->GetBuffer());
+	photoImageBlock.pixelPtr = reinterpret_cast<unsigned char *>(pImage->GetBuffer());
 	photoImageBlock.width = width;
 	photoImageBlock.height = height;
-	photoImageBlock.pitch = static_cast<int>(pThis->GetBytesPerLine());
-	photoImageBlock.pixelSize = static_cast<int>(pThis->GetBytesPerPixel());
+	photoImageBlock.pitch = static_cast<int>(pImage->GetBytesPerLine());
+	photoImageBlock.pixelSize = static_cast<int>(pImage->GetBytesPerPixel());
 	photoImageBlock.offset[0] = Image::OffsetRed;
 	photoImageBlock.offset[1] = Image::OffsetGreen;
 	photoImageBlock.offset[2] = Image::OffsetBlue;
@@ -730,7 +731,8 @@ Gura_DeclareMethod(image, writetcl)
 Gura_ImplementMethod(image, writetcl)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->CheckValid(sig)) return Value::Null;
+	Image *pImage = pThis->GetImage();
+	if (!pImage->CheckValid(sig)) return Value::Null;
 	Object_interp *pObjInterp = reinterpret_cast<Object_interp *>(args.GetObject(0));
 	Tcl_Interp *interp = pObjInterp->GetInterp();
 	const char *imageName = args.GetString(1);
@@ -739,14 +741,14 @@ Gura_ImplementMethod(image, writetcl)
 		sig.SetError(ERR_ValueError, "invalid image name %s", imageName);
 		return Value::Null;
 	}
-	int width = static_cast<int>(pThis->GetWidth());
-	int height = static_cast<int>(pThis->GetHeight());
+	int width = static_cast<int>(pImage->GetWidth());
+	int height = static_cast<int>(pImage->GetHeight());
 	Tk_PhotoImageBlock photoImageBlock;
-	photoImageBlock.pixelPtr = reinterpret_cast<unsigned char *>(pThis->GetBuffer());
+	photoImageBlock.pixelPtr = reinterpret_cast<unsigned char *>(pImage->GetBuffer());
 	photoImageBlock.width = width;
 	photoImageBlock.height = height;
-	photoImageBlock.pitch = static_cast<int>(pThis->GetBytesPerLine());
-	photoImageBlock.pixelSize = static_cast<int>(pThis->GetBytesPerPixel());
+	photoImageBlock.pitch = static_cast<int>(pImage->GetBytesPerLine());
+	photoImageBlock.pixelSize = static_cast<int>(pImage->GetBytesPerPixel());
 	photoImageBlock.offset[0] = Image::OffsetRed;
 	photoImageBlock.offset[1] = Image::OffsetGreen;
 	photoImageBlock.offset[2] = Image::OffsetBlue;

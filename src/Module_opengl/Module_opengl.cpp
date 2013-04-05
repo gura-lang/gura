@@ -275,10 +275,10 @@ size_t GetLightParamCount(GLenum pname)
 	return 0;
 }
 
-GLenum GetImageFormat(Signal sig, const Object_image *pObjImage)
+GLenum GetImageFormat(Signal sig, const Image *pImage)
 {
 	GLenum format = 0;
-	Image::Format fmt = pObjImage->GetFormat();
+	Image::Format fmt = pImage->GetFormat();
 	format =
 		(fmt == Image::FORMAT_RGB)? GL_BGR_EXT :
 		(fmt == Image::FORMAT_RGBA)? GL_BGRA_EXT : 0;
@@ -302,8 +302,8 @@ Gura_DeclareMethod(image, opengl)
 Gura_ImplementMethod(image, opengl)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->CheckValid(sig)) return Value::Null;
-	if (!DoGLSection(env, sig, args, pThis)) return Value::Null;
+	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
+	if (!DoGLSection(env, sig, args, pThis->GetImage())) return Value::Null;
 	return args.GetThis();
 }
 
@@ -327,16 +327,16 @@ Gura_ModuleTerminate()
 // utilities
 //-----------------------------------------------------------------------------
 #if GURA_USE_MSWIN_DIB
-bool DoGLSection(Environment &env, Signal sig, Args &args, Object_image *pObjImg)
+bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
 {
 	PIXELFORMATDESCRIPTOR pfd = { 
 		sizeof(PIXELFORMATDESCRIPTOR), 1,
 		PFD_DRAW_TO_BITMAP | PFD_SUPPORT_OPENGL, PFD_TYPE_RGBA,
-		static_cast<BYTE>(pObjImg->GetBitsPerPixel()), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		static_cast<BYTE>(pImage->GetBitsPerPixel()), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		32, 0, 0, PFD_MAIN_PLANE, 0, 0, 0, 0
 	}; 
 	HDC hdc = ::CreateCompatibleDC(NULL);
-	HBITMAP hBmp = pObjImg->GetHBITMAP();
+	HBITMAP hBmp = pImage->GetHBITMAP();
 	HBITMAP hBmpOld = reinterpret_cast<HBITMAP>(::SelectObject(hdc, hBmp));
 	int iPixelFormat = ::ChoosePixelFormat(hdc, &pfd);
 	::SetPixelFormat(hdc, iPixelFormat, &pfd);
@@ -353,11 +353,11 @@ bool DoGLSection(Environment &env, Signal sig, Args &args, Object_image *pObjImg
 	return true;
 }
 #else
-bool DoGLSection(Environment &env, Signal sig, Args &args, Object_image *pObjImg)
+bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
 {
 #if 0
-	int width = static_cast<int>(pObjImg->GetWidth());
-	int height = static_cast<int>(pObjImg->GetHeight());
+	int width = static_cast<int>(pImage->GetWidth());
+	int height = static_cast<int>(pImage->GetHeight());
 	GLXFBConfig config;
 	Pixmap pixmap = ::XCreatePixmap(NULL, d, width, height, 32);
 	GLXPixmap xid = ::glXCreatePixmap(NULL, config, pixmap, NULL);
@@ -368,7 +368,7 @@ bool DoGLSection(Environment &env, Signal sig, Args &args, Object_image *pObjImg
 		pExprBlock->Exec(env, sig);
 	}
 	::glReadPixels(0, 0, width, height, GL_BGRA_EXT,
-									GL_UNSIGNED_BYTE, pObjImg->GetBuffer());
+									GL_UNSIGNED_BYTE, pImage->GetBuffer());
 #endif
 	return true;
 }

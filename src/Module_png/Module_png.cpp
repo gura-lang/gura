@@ -22,7 +22,7 @@ Gura_DeclareMethod(image, pngread)
 Gura_ImplementMethod(image, pngread)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_PNG::ReadStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	if (!ImageStreamer_PNG::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
@@ -37,7 +37,7 @@ Gura_DeclareMethod(image, pngwrite)
 Gura_ImplementMethod(image, pngwrite)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_PNG::WriteStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	if (!ImageStreamer_PNG::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
@@ -72,20 +72,20 @@ bool ImageStreamer_PNG::IsResponsible(Signal sig, Stream &stream)
 }
 
 bool ImageStreamer_PNG::Read(Environment &env, Signal sig,
-									Object_image *pObjImage, Stream &stream)
+									Image *pImage, Stream &stream)
 {
-	return ReadStream(sig, pObjImage, stream);
+	return ReadStream(env, sig, pImage, stream);
 }
 
 bool ImageStreamer_PNG::Write(Environment &env, Signal sig,
-									Object_image *pObjImage, Stream &stream)
+									Image *pImage, Stream &stream)
 {
-	return WriteStream(sig, pObjImage, stream);
+	return WriteStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_PNG::ReadStream(Signal sig, Object_image *pObjImage, Stream &stream)
+bool ImageStreamer_PNG::ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
 {
-	if (!pObjImage->CheckEmpty(sig)) return false;
+	if (!pImage->CheckEmpty(sig)) return false;
 	Handler handler(sig, stream);
 	png_structp png_ptr = ::png_create_read_struct(
 			PNG_LIBPNG_VER_STRING, &handler, Handler::Error, Handler::Warning);
@@ -107,18 +107,18 @@ bool ImageStreamer_PNG::ReadStream(Signal sig, Object_image *pObjImage, Stream &
 	if (color_type == PNG_COLOR_TYPE_GRAY) {
 		::png_set_expand(png_ptr);
 		::png_set_add_alpha(png_ptr, 0x00, PNG_FILLER_AFTER);
-		if (pObjImage->GetFormat() == Image::FORMAT_RGBA) {
+		if (pImage->GetFormat() == Image::FORMAT_RGBA) {
 			::png_set_add_alpha(png_ptr, 0x00, PNG_FILLER_AFTER);
 		}
 	} else if (color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
 		::png_set_gray_to_rgb(png_ptr);
-		if (pObjImage->GetFormat() == Image::FORMAT_RGB) {
+		if (pImage->GetFormat() == Image::FORMAT_RGB) {
 			::png_set_strip_alpha(png_ptr);
 		}
 	} else if (color_type == PNG_COLOR_TYPE_PALETTE) {
 		::png_set_palette_to_rgb(png_ptr);
 		SetRGBOrder(png_ptr);
-		if (pObjImage->GetFormat() != Image::FORMAT_RGBA) {
+		if (pImage->GetFormat() != Image::FORMAT_RGBA) {
 			::png_set_strip_alpha(png_ptr);
 		} else if (::png_get_valid(png_ptr, info_ptr, PNG_INFO_tRNS)) {
 			::png_set_tRNS_to_alpha(png_ptr);
@@ -127,12 +127,12 @@ bool ImageStreamer_PNG::ReadStream(Signal sig, Object_image *pObjImage, Stream &
 		}
 	} else if (color_type == PNG_COLOR_TYPE_RGB) {
 		SetRGBOrder(png_ptr);
-		if (pObjImage->GetFormat() == Image::FORMAT_RGBA) {
+		if (pImage->GetFormat() == Image::FORMAT_RGBA) {
 			::png_set_add_alpha(png_ptr, 0xff, PNG_FILLER_AFTER);
 		}
 	} else if (color_type == PNG_COLOR_TYPE_RGB_ALPHA) {
 		SetRGBOrder(png_ptr);
-		if (pObjImage->GetFormat() == Image::FORMAT_RGB) {
+		if (pImage->GetFormat() == Image::FORMAT_RGB) {
 			::png_set_strip_alpha(png_ptr);
 		}
 	}
@@ -141,7 +141,7 @@ bool ImageStreamer_PNG::ReadStream(Signal sig, Object_image *pObjImage, Stream &
 		int num_palette;
 		::png_get_PLTE(png_ptr, info_ptr, &palette, &num_palette);
 		if (num_palette > 0) {
-			Object_palette *pObjPalette = pObjImage->CreateEmptyPalette(num_palette);
+			Object_palette *pObjPalette = pImage->CreateEmptyPalette(env, num_palette);
 			for (int i = 0; i < num_palette; i++, palette++) {
 				pObjPalette->SetEntry(i, palette->red, palette->green, palette->blue);
 			}
@@ -151,13 +151,13 @@ bool ImageStreamer_PNG::ReadStream(Signal sig, Object_image *pObjImage, Stream &
 	::png_read_update_info(png_ptr, info_ptr);
 	::png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth,
 							&color_type, &interlace_type, NULL, NULL);
-	if (!pObjImage->AllocBuffer(sig, width, height, 0xff)) {
+	if (!pImage->AllocBuffer(sig, width, height, 0xff)) {
 		::png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
 		return false;
 	}
 	png_bytep *row_pointers = new png_bytep [height];
 	for (size_t y = 0; y < static_cast<size_t>(height); y++) {
-		row_pointers[y] = reinterpret_cast<png_bytep>(pObjImage->GetPointer(y));
+		row_pointers[y] = reinterpret_cast<png_bytep>(pImage->GetPointer(y));
 	}
 	::png_read_image(png_ptr, row_pointers);
 	::png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
@@ -166,9 +166,9 @@ bool ImageStreamer_PNG::ReadStream(Signal sig, Object_image *pObjImage, Stream &
 	return true;
 }
 
-bool ImageStreamer_PNG::WriteStream(Signal sig, Object_image *pObjImage, Stream &stream)
+bool ImageStreamer_PNG::WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
 {
-	if (!pObjImage->CheckValid(sig)) return false;
+	if (!pImage->CheckValid(sig)) return false;
 	Handler handler(sig, stream);
 	png_structp png_ptr = ::png_create_write_struct(
 			PNG_LIBPNG_VER_STRING, &handler, Handler::Error, Handler::Warning);
@@ -178,12 +178,12 @@ bool ImageStreamer_PNG::WriteStream(Signal sig, Object_image *pObjImage, Stream 
 		return false;
 	}
 	::png_set_write_fn(png_ptr, &handler, Handler::WriteData, Handler::FlushData);
-	png_uint_32 width = static_cast<png_uint_32>(pObjImage->GetWidth());
-	png_uint_32 height = static_cast<png_uint_32>(pObjImage->GetHeight());
+	png_uint_32 width = static_cast<png_uint_32>(pImage->GetWidth());
+	png_uint_32 height = static_cast<png_uint_32>(pImage->GetHeight());
 	int bit_depth = 8;
 	int color_type = 
-		(pObjImage->GetFormat() == Image::FORMAT_RGB)? PNG_COLOR_TYPE_RGB :
-		(pObjImage->GetFormat() == Image::FORMAT_RGBA)? PNG_COLOR_TYPE_RGB_ALPHA :
+		(pImage->GetFormat() == Image::FORMAT_RGB)? PNG_COLOR_TYPE_RGB :
+		(pImage->GetFormat() == Image::FORMAT_RGBA)? PNG_COLOR_TYPE_RGB_ALPHA :
 		PNG_COLOR_TYPE_RGB;
 	int interlace_type = PNG_INTERLACE_NONE;
 	int compression_type = PNG_COMPRESSION_TYPE_DEFAULT;
@@ -194,7 +194,7 @@ bool ImageStreamer_PNG::WriteStream(Signal sig, Object_image *pObjImage, Stream 
 	::png_write_info(png_ptr, info_ptr);
 	png_bytep *row_pointers = new png_bytep [height];
 	for (size_t y = 0; y < static_cast<size_t>(height); y++) {
-		row_pointers[y] = reinterpret_cast<png_bytep>(pObjImage->GetPointer(y));
+		row_pointers[y] = reinterpret_cast<png_bytep>(pImage->GetPointer(y));
 	}
 	::png_write_image(png_ptr, row_pointers);
 	::png_write_end(png_ptr, info_ptr);

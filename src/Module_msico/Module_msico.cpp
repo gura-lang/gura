@@ -68,12 +68,12 @@ bool Object_content::Read(Environment &env, Signal sig,
 		int biWidth = Gura_UnpackLong(bih.biWidth);
 		int biHeight = Gura_UnpackLong(bih.biHeight) / 2;
 		unsigned short biBitCount = Gura_UnpackUShort(bih.biBitCount);
-		Object_image *pObjImage = new Object_image(env, format);
-		if (!pObjImage->ReadDIBPalette(sig, stream, biBitCount)) return false;
-		if (!pObjImage->ReadDIB(sig, stream, biWidth, biHeight, biBitCount, true)) {
+		AutoPtr<Image> pImage(new Image(format));
+		if (!pImage->ReadDIBPalette(env, sig, stream, biBitCount)) return false;
+		if (!pImage->ReadDIB(sig, stream, biWidth, biHeight, biBitCount, true)) {
 			return false;
 		}
-		_valList.push_back(Value(pObjImage));
+		_valList.push_back(Value(new Object_image(env, pImage.release())));
 	}
 	return true;
 }
@@ -92,18 +92,18 @@ bool Object_content::Write(Environment &env, Signal sig, Stream &stream)
 	} while (0);
 	unsigned long dwImageOffset = IconDir::Size + IconDirEntry::Size * cntIcons;
 	foreach (ValueList, pValue, _valList) {
-		Object_image *pObjImage = Object_image::GetObject(*pValue);
-		size_t width = pObjImage->GetWidth(), height = pObjImage->GetHeight();
+		Image *pImage = Object_image::GetObject(*pValue)->GetImage();
+		size_t width = pImage->GetWidth(), height = pImage->GetHeight();
 		if (width > 256 || height > 256) {
 			sig.SetError(ERR_FormatError, "image %dx%d is too big for icon format",
 																width, height);
 			return false;
 		}
-		int biBitCount = pObjImage->CalcDIBBitCount();
+		int biBitCount = pImage->CalcDIBBitCount();
 		unsigned long dwBytesInRes = static_cast<unsigned long>(
 						BitmapInfoHeader::Size +
-						Object_image::CalcDIBPaletteSize(biBitCount) +
-						pObjImage->CalcDIBImageSize(biBitCount, true));
+						Image::CalcDIBPaletteSize(biBitCount) +
+						pImage->CalcDIBImageSize(biBitCount, true));
 		IconDirEntry iconDirEntry;
 		::memset(&iconDirEntry, 0x00, sizeof(iconDirEntry));
 		iconDirEntry.bWidth = static_cast<unsigned char>(width & 0xff);
@@ -122,9 +122,9 @@ bool Object_content::Write(Environment &env, Signal sig, Stream &stream)
 		dwImageOffset += dwBytesInRes;
 	}
 	foreach (ValueList, pValue, _valList) {
-		Object_image *pObjImage = Object_image::GetObject(*pValue);
-		size_t width = pObjImage->GetWidth(), height = pObjImage->GetHeight();
-		int biBitCount = pObjImage->CalcDIBBitCount();
+		Image *pImage = Object_image::GetObject(*pValue)->GetImage();
+		size_t width = pImage->GetWidth(), height = pImage->GetHeight();
+		int biBitCount = pImage->CalcDIBBitCount();
 		BitmapInfoHeader bih;
 		::memset(&bih, 0x00, sizeof(bih));
 		Gura_PackULong(bih.biSize,			BitmapInfoHeader::Size);
@@ -140,8 +140,8 @@ bool Object_content::Write(Environment &env, Signal sig, Stream &stream)
 		Gura_PackULong(bih.biClrImportant,	0);	// just set to zero
 		stream.Write(sig, &bih, BitmapInfoHeader::Size);
 		if (sig.IsSignalled()) return false;
-		if (!pObjImage->WriteDIBPalette(sig, stream, biBitCount)) return false;
-		if (!pObjImage->WriteDIB(sig, stream, biBitCount, true)) return false;
+		if (!pImage->WriteDIBPalette(env, sig, stream, biBitCount)) return false;
+		if (!pImage->WriteDIB(sig, stream, biBitCount, true)) return false;
 	}
 	if (!stream.Flush(sig)) return false;
 	return true;
@@ -162,11 +162,11 @@ String Object_content::ToString(Signal sig, bool exprFlag)
 		bool followFlag = false;
 		foreach_const (ValueList, pValue, _valList) {
 			if (!pValue->IsImage()) continue;
-			Object_image *pObjImage = Object_image::GetObject(*pValue);
+			Image *pImage = Object_image::GetObject(*pValue)->GetImage();
 			char buff[64];
 			if (followFlag) str += ",";
 			::sprintf(buff, "%dx%d-%dbpp",
-				pObjImage->GetWidth(), pObjImage->GetHeight(), pObjImage->CalcDIBBitCount());
+				pImage->GetWidth(), pImage->GetHeight(), pImage->CalcDIBBitCount());
 			str += buff;
 			followFlag = true;
 		}
@@ -232,7 +232,7 @@ Gura_DeclareMethod(image, msicoread)
 Gura_ImplementMethod(image, msicoread)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_ICO::ReadStream(sig, pThis,
+	if (!ImageStreamer_ICO::ReadStream(env, sig, pThis->GetImage(),
 					args.GetStream(0), args.GetInt(1))) return Value::Null;
 	return args.GetThis();
 }
@@ -255,7 +255,7 @@ Gura_ImplementFunction(content)
 	Object_content *pObj = new Object_content();
 	if (args.IsStream(0)) {
 		Stream &stream = args.GetStream(0);
-		Image::Format format = Object_image::SymbolToFormat(sig, args.GetSymbol(1));
+		Image::Format format = Image::SymbolToFormat(sig, args.GetSymbol(1));
 		if (sig.IsSignalled()) return Value::Null;
 		if (!pObj->Read(env, sig, stream, format)) return Value::Null;
 	}
@@ -291,21 +291,21 @@ bool ImageStreamer_ICO::IsResponsible(Signal sig, Stream &stream)
 }
 
 bool ImageStreamer_ICO::Read(Environment &env, Signal sig,
-									Object_image *pObjImage, Stream &stream)
+									Image *pImage, Stream &stream)
 {
-	return ReadStream(sig, pObjImage, stream, 0);
+	return ReadStream(env, sig, pImage, stream, 0);
 }
 
 bool ImageStreamer_ICO::Write(Environment &env, Signal sig,
-									Object_image *pObjImage, Stream &stream)
+									Image *pImage, Stream &stream)
 {
 	sig.SetError(ERR_SystemError, "not implemented yet");
 	return false;
-	//return pObjImage->WriteICO(sig, stream, false);
+	//return pImage->WriteICO(sig, stream, false);
 }
 
-bool ImageStreamer_ICO::ReadStream(Signal sig,
-						Object_image *pObjImage, Stream &stream, int idx)
+bool ImageStreamer_ICO::ReadStream(Environment &env, Signal sig,
+						Image *pImage, Stream &stream, int idx)
 {
 	int cntIcons = 0;
 	do {
@@ -340,8 +340,8 @@ bool ImageStreamer_ICO::ReadStream(Signal sig,
 		int biWidth = Gura_UnpackLong(bih.biWidth);
 		int biHeight = Gura_UnpackLong(bih.biHeight) / 2;
 		unsigned short biBitCount = Gura_UnpackUShort(bih.biBitCount);
-		if (!pObjImage->ReadDIBPalette(sig, stream, biBitCount)) return false;
-		if (!pObjImage->ReadDIB(sig, stream, biWidth, biHeight, biBitCount, true)) {
+		if (!pImage->ReadDIBPalette(env, sig, stream, biBitCount)) return false;
+		if (!pImage->ReadDIB(sig, stream, biWidth, biHeight, biBitCount, true)) {
 			return false;
 		}
 	} while (0);

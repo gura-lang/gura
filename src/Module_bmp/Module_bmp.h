@@ -14,11 +14,11 @@ class ImageStreamer_BMP : public ImageStreamer {
 public:
 	inline ImageStreamer_BMP() : ImageStreamer("bmp") {}
 	virtual bool IsResponsible(Signal sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal sig, Object_image *pObjImage, Stream &stream);
-	virtual bool Write(Environment &env, Signal sig, Object_image *pObjImage, Stream &stream);
+	virtual bool Read(Environment &env, Signal sig, Image *pImage, Stream &stream);
+	virtual bool Write(Environment &env, Signal sig, Image *pImage, Stream &stream);
 public:
-	static bool ReadStream(Signal sig, Object_image *pObjImage, Stream &stream);
-	static bool WriteStream(Signal sig, Object_image *pObjImage, Stream &stream);
+	static bool ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream);
+	static bool WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream);
 	static void SetError_InvalidBMPFormat(Signal sig);
 };
 

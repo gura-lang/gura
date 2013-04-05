@@ -153,16 +153,16 @@ size_t Object_palette::LookupNearest(unsigned char red, unsigned char green, uns
 	return idxMin;
 }
 
-bool Object_palette::UpdateByImage(const Object_image *pObjImage, ShrinkMode shrinkMode)
+bool Object_palette::UpdateByImage(const Image *pImage, ShrinkMode shrinkMode)
 {
 	ColorSet colorSet;
 	size_t idxBlank = NextBlankIndex(colorSet);
-	size_t bytesPerPixel = pObjImage->GetBytesPerPixel();
-	size_t bytesPerLine = pObjImage->GetBytesPerLine();
-	const unsigned char *pLine = pObjImage->GetPointer(0);
-	for (size_t y = 0; y < pObjImage->GetHeight(); y++) {
+	size_t bytesPerPixel = pImage->GetBytesPerPixel();
+	size_t bytesPerLine = pImage->GetBytesPerLine();
+	const unsigned char *pLine = pImage->GetPointer(0);
+	for (size_t y = 0; y < pImage->GetHeight(); y++) {
 		const unsigned char *pPixel = pLine;
-		for (size_t x = 0; x < pObjImage->GetWidth(); x++) {
+		for (size_t x = 0; x < pImage->GetWidth(); x++) {
 			Color color(pPixel[OffsetRed], pPixel[OffsetGreen], pPixel[OffsetBlue]);
 			std::pair<ColorSet::iterator, bool> rtn = colorSet.insert(color);
 			if (!rtn.second) {
@@ -182,9 +182,9 @@ bool Object_palette::UpdateByImage(const Object_image *pObjImage, ShrinkMode shr
 }
 
 bool Object_palette::UpdateByImage(Signal sig,
-								const Object_image *pObjImage, ShrinkMode shrinkMode)
+							const Image *pImage, ShrinkMode shrinkMode)
 {
-	if (UpdateByImage(pObjImage, shrinkMode)) return true;
+	if (UpdateByImage(pImage, shrinkMode)) return true;
 	sig.SetError(ERR_ValueError,
 				"number of palette elements exceeds maximum %d", _nEntries);
 	return false;
@@ -899,7 +899,8 @@ Gura_ImplementMethod(palette, updateby)
 				Object_palette::ShrinkAlign : Object_palette::ShrinkMinimum;
 	}
 	if (args.IsImage(0)) {
-		if (!pThis->UpdateByImage(sig, Object_image::GetObject(args, 0), shrinkMode)) {
+		if (!pThis->UpdateByImage(sig,
+				Object_image::GetObject(args, 0)->GetImage(), shrinkMode)) {
 			return Value::Null;
 		}
 	} else if (args.IsPalette(0)) {

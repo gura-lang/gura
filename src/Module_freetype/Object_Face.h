@@ -47,8 +47,7 @@ public:
 	bool Initialize(Signal sig, Stream *pSstream, int index);
 	bool SetPixelSizes(Signal sig, size_t width, size_t height);
 	bool CalcSize(Signal sig, const String &str, size_t &width, size_t &height);
-	bool DrawOnImage(Signal sig,
-				Object_image *pObjImage, int x, int y, const String &str);
+	bool DrawOnImage(Signal sig, Image *pImage, int x, int y, const String &str);
 	inline void SetStrength(double strength) { _deco.strength = strength; }
 	inline void SetSlant(double slant) { _deco.slant = slant; }
 	inline void SetRotate(double degree) {
@@ -58,10 +57,10 @@ public:
 	}
 private:
 	FT_GlyphSlot LoadChar(unsigned long codeUTF32);
-	void DrawMonoOnImage(Object_image *pObjImage, int x, int y,
+	void DrawMonoOnImage(Image *pImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset);
-	void DrawGrayOnImage(Object_image *pObjImage, int x, int y,
+	void DrawGrayOnImage(Image *pImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset);
 };

@@ -55,9 +55,9 @@ Value Object_exif::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(thumbnail))) {
 		if (_pObjBinaryThumbnail.IsNull()) return Value::Null;
 		if (_pObjImageThumbnail.IsNull()) {
-			AutoPtr<Object_image> pObjImage(new Object_image(env, Image::FORMAT_RGBA));
+			AutoPtr<Object_image> pObjImage(new Object_image(env, new Image(Image::FORMAT_RGBA)));
 			if (_strip.validFlag) {
-				if (!pObjImage->AllocBuffer(sig, _strip.width, _strip.height, 0x00)) {
+				if (!pObjImage->GetImage()->AllocBuffer(sig, _strip.width, _strip.height, 0x00)) {
 					return Value::Null;
 				}
 				const Binary &buff = _pObjBinaryThumbnail->GetBinary();
@@ -66,8 +66,8 @@ Value Object_exif::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 					return Value::Null;
 				}
 				Binary::const_iterator p = buff.begin();
-				std::auto_ptr<Object_image::Scanner> pScannerDst(
-								pObjImage->CreateScanner(Image::SCAN_LeftTopHorz));
+				std::auto_ptr<Image::Scanner> pScannerDst(
+					pObjImage->GetImage()->CreateScanner(Image::SCAN_LeftTopHorz));
 				do {
 					unsigned char red = *p++;
 					unsigned char green = *p++;
@@ -77,7 +77,7 @@ Value Object_exif::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			} else {
 				Stream_Binary stream(env, sig,
 					Object_binary::Reference(_pObjBinaryThumbnail.get()), false);
-				if (!ImageStreamer_JPEG::ReadStream(sig, pObjImage.get(), stream)) {
+				if (!ImageStreamer_JPEG::ReadStream(env, sig, pObjImage->GetImage(), stream)) {
 					return Value::Null;
 				}
 			}

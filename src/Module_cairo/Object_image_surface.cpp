@@ -40,13 +40,13 @@ Gura_DeclareClassMethod(image_surface, create)
 
 Gura_ImplementClassMethod(image_surface, create)
 {
-	Object_image *pObjImage = Object_image::Reference(Object_image::GetObject(args, 0));
-	cairo_surface_t *surface = CreateSurfaceFromImage(sig, pObjImage);
+	Image *pImage = Image::Reference(Object_image::GetObject(args, 0)->GetImage());
+	cairo_surface_t *surface = CreateSurfaceFromImage(sig, pImage);
 	if (sig.IsSignalled()) {
-		Object_image::Delete(pObjImage);
+		Image::Delete(pImage);
 		return Value::Null;
 	}
-	Object_image_surface *pObjSurface = new Object_image_surface(surface, pObjImage);
+	Object_image_surface *pObjSurface = new Object_image_surface(surface, pImage);
 	return ReturnValue(env, sig, args, Value(pObjSurface));
 }
 

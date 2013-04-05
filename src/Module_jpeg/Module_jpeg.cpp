@@ -194,7 +194,7 @@ Gura_DeclareMethod(image, jpegread)
 Gura_ImplementMethod(image, jpegread)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_JPEG::ReadStream(sig, pThis, args.GetStream(0))) {
+	if (!ImageStreamer_JPEG::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -213,8 +213,8 @@ Gura_DeclareMethod(image, jpegwrite)
 Gura_ImplementMethod(image, jpegwrite)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_JPEG::WriteStream(sig,
-							pThis, args.GetStream(0), args.GetInt(1))) {
+	if (!ImageStreamer_JPEG::WriteStream(env, sig,
+							pThis->GetImage(), args.GetStream(0), args.GetInt(1))) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -631,20 +631,20 @@ bool ImageStreamer_JPEG::IsResponsible(Signal sig, Stream &stream)
 }
 
 bool ImageStreamer_JPEG::Read(Environment &env, Signal sig,
-									Object_image *pObjImage, Stream &stream)
+									Image *pImage, Stream &stream)
 {
-	return ReadStream(sig, pObjImage, stream);
+	return ReadStream(env, sig, pImage, stream);
 }
 
 bool ImageStreamer_JPEG::Write(Environment &env, Signal sig,
-									Object_image *pObjImage, Stream &stream)
+									Image *pImage, Stream &stream)
 {
-	return WriteStream(sig, pObjImage, stream, 75);
+	return WriteStream(env, sig, pImage, stream, 75);
 }
 
-bool ImageStreamer_JPEG::ReadStream(Signal sig, Object_image *pObjImage, Stream &stream)
+bool ImageStreamer_JPEG::ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
 {
-	if (!pObjImage->CheckEmpty(sig)) return false;
+	if (!pImage->CheckEmpty(sig)) return false;
 	ErrorMgr errMgr(sig);
 	jpeg_decompress_struct cinfo;
 	cinfo.err = ::jpeg_std_error(&errMgr.pub);
@@ -657,7 +657,7 @@ bool ImageStreamer_JPEG::ReadStream(Signal sig, Object_image *pObjImage, Stream 
 	SourceMgr::Setup(&cinfo, &sig, &stream);
 	::jpeg_read_header(&cinfo, TRUE);
 	::jpeg_start_decompress(&cinfo);
-	if (!pObjImage->AllocBuffer(sig, cinfo.image_width, cinfo.image_height, 0xff)) {
+	if (!pImage->AllocBuffer(sig, cinfo.image_width, cinfo.image_height, 0xff)) {
 		::jpeg_destroy_decompress(&cinfo);
 		return false;
 	}
@@ -672,12 +672,12 @@ bool ImageStreamer_JPEG::ReadStream(Signal sig, Object_image *pObjImage, Stream 
 			return false;
 		}
 		const unsigned char *srcp = scanlines[0];
-		unsigned char *dstp = pObjImage->GetPointer(0, cinfo.output_scanline - 1);
+		unsigned char *dstp = pImage->GetPointer(0, cinfo.output_scanline - 1);
 		for (unsigned int i = 0; i < cinfo.image_width; i++) {
 			*(dstp + Image::OffsetRed) = *srcp++;
 			*(dstp + Image::OffsetGreen) = *srcp++;
 			*(dstp + Image::OffsetBlue) = *srcp++;
-			dstp += pObjImage->GetBytesPerPixel();
+			dstp += pImage->GetBytesPerPixel();
 		}
 	}
 	::jpeg_finish_decompress(&cinfo);
@@ -685,10 +685,10 @@ bool ImageStreamer_JPEG::ReadStream(Signal sig, Object_image *pObjImage, Stream 
 	return true;
 }
 
-bool ImageStreamer_JPEG::WriteStream(Signal sig,
-						Object_image *pObjImage, Stream &stream, int quality)
+bool ImageStreamer_JPEG::WriteStream(Environment &env, Signal sig,
+						Image *pImage, Stream &stream, int quality)
 {
-	if (!pObjImage->CheckValid(sig)) return false;
+	if (!pImage->CheckValid(sig)) return false;
 	ErrorMgr errMgr(sig);
 	jpeg_compress_struct cinfo;
 	cinfo.err = ::jpeg_std_error(&errMgr.pub);
@@ -699,8 +699,8 @@ bool ImageStreamer_JPEG::WriteStream(Signal sig,
 	}
 	::jpeg_create_compress(&cinfo);
 	DestinationMgr::Setup(&cinfo, &sig, &stream);
-	cinfo.image_width		= static_cast<JDIMENSION>(pObjImage->GetWidth());
-	cinfo.image_height		= static_cast<JDIMENSION>(pObjImage->GetHeight());
+	cinfo.image_width		= static_cast<JDIMENSION>(pImage->GetWidth());
+	cinfo.image_height		= static_cast<JDIMENSION>(pImage->GetHeight());
 	cinfo.input_components	= 3;
 	cinfo.in_color_space	= JCS_RGB;
 	::jpeg_set_defaults(&cinfo);
@@ -709,13 +709,13 @@ bool ImageStreamer_JPEG::WriteStream(Signal sig,
 	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
 					JPOOL_IMAGE, cinfo.image_width * cinfo.input_components, 1);
 	while (cinfo.next_scanline < cinfo.image_height) {
-		const unsigned char *srcp = pObjImage->GetPointer(0, cinfo.next_scanline);
+		const unsigned char *srcp = pImage->GetPointer(0, cinfo.next_scanline);
 		unsigned char *dstp = scanlines[0];
 		for (unsigned int i = 0; i < cinfo.image_width; i++) {
 			*dstp++ = *(srcp + Image::OffsetRed);
 			*dstp++ = *(srcp + Image::OffsetGreen);
 			*dstp++ = *(srcp + Image::OffsetBlue);
-			srcp += pObjImage->GetBytesPerPixel();
+			srcp += pImage->GetBytesPerPixel();
 		}
 		::jpeg_write_scanlines(&cinfo, scanlines, 1);
 	}

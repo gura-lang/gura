@@ -22,7 +22,7 @@ Gura_DeclareMethod(image, xpmread)
 Gura_ImplementMethod(image, xpmread)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_xpm::ReadStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	if (!ImageStreamer_xpm::ReadStream(env, sig, pThis, args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 #endif
@@ -38,7 +38,7 @@ Gura_DeclareMethod(image, xpmwrite)
 Gura_ImplementMethod(image, xpmwrite)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_xpm::WriteStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	if (!ImageStreamer_xpm::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
@@ -54,7 +54,8 @@ Gura_ImplementMethod(image, xpmdata)
 {
 	typedef std::map<String, Color> ColorMap;
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->CheckEmpty(sig)) return Value::Null;
+	Image *pImage = pThis->GetImage();
+	if (!pImage->CheckEmpty(sig)) return Value::Null;
 	const ValueList &valList = args.GetList(0);
 	ValueList::const_iterator pValue = valList.begin();
 	if (pValue == valList.end()) {
@@ -219,10 +220,10 @@ Gura_ImplementMethod(image, xpmdata)
 		sig.SetError(ERR_FormatError, "invalid XPM header");
 		return Value::Null;
 	}
-	if (!pThis->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
-	std::auto_ptr<Object_image::Scanner>
-					pScannerDst(pThis->CreateScanner(Image::SCAN_LeftTopHorz));
-	bool alphaFlag = (pThis->GetFormat() == Image::FORMAT_RGBA);
+	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
+	std::auto_ptr<Image::Scanner>
+					pScannerDst(pImage->CreateScanner(Image::SCAN_LeftTopHorz));
+	bool alphaFlag = (pImage->GetFormat() == Image::FORMAT_RGBA);
 	for (int y = 0; y < height && pValue != valList.end(); y++, pValue++) {
 		const char *p = pValue->GetString();
 		String symbol;
@@ -283,24 +284,24 @@ bool ImageStreamer_xpm::IsResponsible(Signal sig, Stream &stream)
 }
 
 bool ImageStreamer_xpm::Read(Environment &env, Signal sig,
-									Object_image *pObjImage, Stream &stream)
+									Image *pImage, Stream &stream)
 {
-	return ImageStreamer_xpm::ReadStream(sig, pObjImage, stream);
+	return ImageStreamer_xpm::ReadStream(env, sig, pImage, stream);
 }
 
 bool ImageStreamer_xpm::Write(Environment &env, Signal sig,
-									Object_image *pObjImage, Stream &stream)
+									Image *pImage, Stream &stream)
 {
-	return ImageStreamer_xpm::WriteStream(sig, pObjImage, stream);
+	return ImageStreamer_xpm::WriteStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_xpm::ReadStream(Signal sig, Object_image *pObjImage, Stream &stream)
+bool ImageStreamer_xpm::ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
 {
-	if (!pObjImage->CheckEmpty(sig)) return false;
+	if (!pImage->CheckEmpty(sig)) return false;
 	return false;
 }
 
-bool ImageStreamer_xpm::WriteStream(Signal sig, Object_image *pObjImage, Stream &stream)
+bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
 {
 	const int nCharsPerPixel = 2;
 	const int xHotspot = 0, yHotspot = 0;
@@ -323,8 +324,7 @@ bool ImageStreamer_xpm::WriteStream(Signal sig, Object_image *pObjImage, Stream 
 			convTbl[nEntries * nCharsPerPixel + 1] = chSecond;
 		}
 	}
-	Environment &env = *pObjImage;
-	if (!pObjImage->CheckValid(sig)) return false;
+	if (!pImage->CheckValid(sig)) return false;
 	String varName = "noname";
 	do {
 		String baseName;
@@ -342,14 +342,14 @@ bool ImageStreamer_xpm::WriteStream(Signal sig, Object_image *pObjImage, Stream 
 	stream.Println(sig, "_xpm[] = {");
 	if (sig.IsSignalled()) return false;
 	Object_palette *pObjPalette = new Object_palette(env, nEntries);
-	if (!pObjPalette->UpdateByImage(pObjImage, Object_palette::ShrinkMinimum)) {
+	if (!pObjPalette->UpdateByImage(pImage, Object_palette::ShrinkMinimum)) {
 		sig.SetError(ERR_ValueError, "too many number of colors");
 		return false;
 	}
 	do {
 		char buff[64];
 		::sprintf(buff, "\"%d %d %d %d %d %d\",",
-				pObjImage->GetWidth(), pObjImage->GetHeight(),
+				pImage->GetWidth(), pImage->GetHeight(),
 				pObjPalette->CountEntries() + 1, nCharsPerPixel,
 				xHotspot, yHotspot);
 		stream.Println(sig, buff);
@@ -372,9 +372,9 @@ bool ImageStreamer_xpm::WriteStream(Signal sig, Object_image *pObjImage, Stream 
 		Object::Delete(pObjPalette);
 		return false;
 	}
-	std::auto_ptr<Object_image::Scanner> pScanner(pObjImage->CreateScanner());
+	std::auto_ptr<Image::Scanner> pScanner(pImage->CreateScanner());
 	String str = "\"";
-	bool hasAlphaFlag = (pObjImage->GetFormat() == Image::FORMAT_RGBA);
+	bool hasAlphaFlag = (pImage->GetFormat() == Image::FORMAT_RGBA);
 	for (;;) {
 		if (hasAlphaFlag && pScanner->GetAlpha() < 128) {
 			str += "  ";

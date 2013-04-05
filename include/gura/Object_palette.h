@@ -5,8 +5,6 @@
 
 namespace Gura {
 
-class Object_image;
-
 //-----------------------------------------------------------------------------
 // Class_palette
 //-----------------------------------------------------------------------------
@@ -90,8 +88,8 @@ public:
 	Value GetColorValue(size_t idx);
 	void SetColor(size_t idx, const Color &color);
 	size_t LookupNearest(unsigned char red, unsigned char green, unsigned char blue) const;
-	bool UpdateByImage(const Object_image *pObjImage, ShrinkMode shrinkMode);
-	bool UpdateByImage(Signal sig, const Object_image *pObjImage, ShrinkMode shrinkMode);
+	bool UpdateByImage(const Image *pImage, ShrinkMode shrinkMode);
+	bool UpdateByImage(Signal sig, const Image *pImage, ShrinkMode shrinkMode);
 	bool UpdateByPalette(const Object_palette *pObjPalette, ShrinkMode shrinkMode);
 	bool UpdateByPalette(Signal sig, const Object_palette *pObjPalette, ShrinkMode shrinkMode);
 	void Shrink(size_t nEntries, bool alignFlag);

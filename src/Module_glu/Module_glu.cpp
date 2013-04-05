@@ -56,10 +56,10 @@ ToArrayTemplate(GLuint,		GetUInt)
 ToArrayTemplate(GLfloat,	GetFloat)
 ToArrayTemplate(GLdouble,	GetDouble)
 
-GLenum GetImageFormat(Signal sig, Object_image *pObjImage)
+GLenum GetImageFormat(Signal sig, Image *pImage)
 {
 	GLenum format = 0;
-	Image::Format fmt = pObjImage->GetFormat();
+	Image::Format fmt = pImage->GetFormat();
 	format =
 		(fmt == Image::FORMAT_RGB)? GL_BGR_EXT :
 		(fmt == Image::FORMAT_RGBA)? GL_BGRA_EXT : 0;
@@ -1060,30 +1060,29 @@ Gura_DeclareFunction(gluScaleImage)
 
 Gura_ImplementFunction(gluScaleImage)
 {
-	Object_image *pObjImageIn = Object_image::GetObject(args, 0);
-	GLenum format = GetImageFormat(sig, pObjImageIn);
+	Image *pImageIn = Object_image::GetObject(args, 0)->GetImage();
+	GLenum format = GetImageFormat(sig, pImageIn);
 	if (sig.IsSignalled()) return Value::Null;
-	GLsizei wIn = static_cast<GLsizei>(pObjImageIn->GetWidth());
-	GLsizei hIn = static_cast<GLsizei>(pObjImageIn->GetHeight());
+	GLsizei wIn = static_cast<GLsizei>(pImageIn->GetWidth());
+	GLsizei hIn = static_cast<GLsizei>(pImageIn->GetHeight());
 	GLenum typeIn = GL_UNSIGNED_BYTE;
-	const void *dataIn = pObjImageIn->GetBuffer();
+	const void *dataIn = pImageIn->GetBuffer();
 	GLsizei wOut = args.GetInt(1);
 	GLsizei hOut = args.GetInt(2);
 	GLenum typeOut = GL_UNSIGNED_BYTE;
 	if (sig.IsSignalled()) return Value::Null;
-	Object_image *pObjImageOut = new Object_image(env, pObjImageIn->GetFormat());
-	if (!pObjImageOut->AllocBuffer(sig, wOut, hOut, 0xff)) {
-		delete pObjImageOut;
+	AutoPtr<Image> pImageOut(new Image(pImageIn->GetFormat()));
+	if (!pImageOut->AllocBuffer(sig, wOut, hOut, 0xff)) {
 		return Value::Null;
 	}
-	GLvoid *dataOut = pObjImageOut->GetBuffer();
+	GLvoid *dataOut = pImageOut->GetBuffer();
 	GLint rtn = ::gluScaleImage(format, wIn, hIn, typeIn, dataIn,
 										 	wOut, hOut, typeOut, dataOut);
 	if (rtn != 0) {
 		sig.SetError(ERR_RuntimeError, "gluScaleImage error");
 		return Value::Null;
 	}
-	return Value(pObjImageOut);
+	return Value(new Object_image(env, pImageOut.release()));
 }
 
 // glu.gluBuild1DMipmaps(target:number, internalFormat:number, image:image):map
@@ -1099,12 +1098,12 @@ Gura_ImplementFunction(gluBuild1DMipmaps)
 {
 	GLenum target = args.GetUInt(0);
 	GLint internalFormat = args.GetInt(1);
-	Object_image *pObjImage = Object_image::GetObject(args, 2);
-	GLsizei width = static_cast<GLsizei>(pObjImage->GetWidth());
-	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, pObjImage));
+	Image *pImage = Object_image::GetObject(args, 2)->GetImage();
+	GLsizei width = static_cast<GLsizei>(pImage->GetWidth());
+	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, pImage));
 	if (sig.IsSignalled()) return Value::Null;
 	GLenum type = GL_UNSIGNED_BYTE;
-	const void *data = pObjImage->GetBuffer();
+	const void *data = pImage->GetBuffer();
 	GLint rtn = ::gluBuild1DMipmaps(target,
 					internalFormat, width, format, type, data);
 	return Value(rtn);
@@ -1123,14 +1122,14 @@ Gura_ImplementFunction(gluBuild2DMipmaps)
 {
 	GLenum target = args.GetUInt(0);
 	GLint internalFormat = args.GetInt(1);
-	Object_image *pObjImage = Object_image::GetObject(args, 2);
-	Image::Format fmt = pObjImage->GetFormat();
-	GLsizei width = static_cast<GLsizei>(pObjImage->GetWidth());
-	GLsizei height = static_cast<GLsizei>(pObjImage->GetHeight());
-	GLenum format = GetImageFormat(sig, pObjImage);
+	Image *pImage = Object_image::GetObject(args, 2)->GetImage();
+	Image::Format fmt = pImage->GetFormat();
+	GLsizei width = static_cast<GLsizei>(pImage->GetWidth());
+	GLsizei height = static_cast<GLsizei>(pImage->GetHeight());
+	GLenum format = GetImageFormat(sig, pImage);
 	if (sig.IsSignalled()) return Value::Null;
 	GLenum type = GL_UNSIGNED_BYTE;
-	const void *data = pObjImage->GetBuffer();
+	const void *data = pImage->GetBuffer();
 	GLint rtn = ::gluBuild2DMipmaps(target,
 					internalFormat, width, height, format, type, data);
 	return Value(rtn);

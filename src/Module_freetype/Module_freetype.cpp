@@ -82,7 +82,7 @@ Gura_ImplementMethod(image, drawtext)
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	String str = args.GetStringSTL(3);
-	if (pObjFace->DrawOnImage(sig, pObjImage, x, y, str)) return Value::Null;
+	if (pObjFace->DrawOnImage(sig, pObjImage->GetImage(), x, y, str)) return Value::Null;
 	return args.GetThis();
 }
 

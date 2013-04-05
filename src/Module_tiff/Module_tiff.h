@@ -19,11 +19,11 @@ class ImageStreamer_TIFF : public ImageStreamer {
 public:
 	inline ImageStreamer_TIFF() : ImageStreamer("tiff") {}
 	virtual bool IsResponsible(Signal sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal sig, Object_image *pObjImage, Stream &stream);
-	virtual bool Write(Environment &env, Signal sig, Object_image *pObjImage, Stream &stream);
+	virtual bool Read(Environment &env, Signal sig, Image *pImage, Stream &stream);
+	virtual bool Write(Environment &env, Signal sig, Image *pImage, Stream &stream);
 public:
-	static bool ReadStream(Signal sig, Object_image *pObjImage, Stream &stream);
-	static bool WriteStream(Signal sig, Object_image *pObjImage, Stream &stream);
+	static bool ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream);
+	static bool WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream);
 };
 
 //-----------------------------------------------------------------------------

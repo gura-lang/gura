@@ -20,7 +20,7 @@ Gura_DeclareMethod(image, bmpread)
 Gura_ImplementMethod(image, bmpread)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_BMP::ReadStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	if (!ImageStreamer_BMP::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
@@ -35,7 +35,7 @@ Gura_DeclareMethod(image, bmpwrite)
 Gura_ImplementMethod(image, bmpwrite)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_BMP::WriteStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	if (!ImageStreamer_BMP::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
@@ -69,20 +69,20 @@ bool ImageStreamer_BMP::IsResponsible(Signal sig, Stream &stream)
 }
 
 bool ImageStreamer_BMP::Read(Environment &env, Signal sig,
-									Object_image *pObjImage, Stream &stream)
+									Image *pImage, Stream &stream)
 {
-	return ImageStreamer_BMP::ReadStream(sig, pObjImage, stream);
+	return ImageStreamer_BMP::ReadStream(env, sig, pImage, stream);
 }
 
 bool ImageStreamer_BMP::Write(Environment &env, Signal sig,
-									Object_image *pObjImage, Stream &stream)
+									Image *pImage, Stream &stream)
 {
-	return ImageStreamer_BMP::WriteStream(sig, pObjImage, stream);
+	return ImageStreamer_BMP::WriteStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_BMP::ReadStream(Signal sig, Object_image *pObjImage, Stream &stream)
+bool ImageStreamer_BMP::ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
 {
-	if (!pObjImage->CheckEmpty(sig)) return false;
+	if (!pImage->CheckEmpty(sig)) return false;
 	BitmapFileHeader bfh;
 	if (stream.Read(sig, &bfh, BitmapFileHeader::Size) < BitmapFileHeader::Size) {
 		SetError_InvalidBMPFormat(sig);
@@ -101,26 +101,26 @@ bool ImageStreamer_BMP::ReadStream(Signal sig, Object_image *pObjImage, Stream &
 	int biWidth = Gura_UnpackLong(bih.biWidth);
 	int biHeight = Gura_UnpackLong(bih.biHeight);
 	unsigned short biBitCount = Gura_UnpackUShort(bih.biBitCount);
-	if (!pObjImage->ReadDIBPalette(sig, stream, biBitCount)) return false;
+	if (!pImage->ReadDIBPalette(env, sig, stream, biBitCount)) return false;
 	if (bfOffBits != 0) {
 		stream.Seek(sig, bfOffBits, Stream::SeekSet);
 		if (sig.IsSignalled()) return false;
 	}
-	return pObjImage->ReadDIB(sig, stream, biWidth, biHeight, biBitCount, false);
+	return pImage->ReadDIB(sig, stream, biWidth, biHeight, biBitCount, false);
 }
 
-bool ImageStreamer_BMP::WriteStream(Signal sig, Object_image *pObjImage, Stream &stream)
+bool ImageStreamer_BMP::WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
 {
-	if (!pObjImage->CheckValid(sig)) return false;
-	int biWidth = static_cast<int>(pObjImage->GetWidth());
-	int biHeight = static_cast<int>(pObjImage->GetHeight());
-	int biBitCount = pObjImage->CalcDIBBitCount();
+	if (!pImage->CheckValid(sig)) return false;
+	int biWidth = static_cast<int>(pImage->GetWidth());
+	int biHeight = static_cast<int>(pImage->GetHeight());
+	int biBitCount = pImage->CalcDIBBitCount();
 	do {
 		BitmapFileHeader bfh;
 		::memset(&bfh, 0x00, BitmapFileHeader::Size);
 		unsigned long bfOffBits = BitmapFileHeader::Size + BitmapInfoHeader::Size;
-		bfOffBits += static_cast<unsigned long>(Object_image::CalcDIBPaletteSize(biBitCount));
-		unsigned long bfSize = static_cast<unsigned long>(pObjImage->GetBufferSize() + bfOffBits);
+		bfOffBits += static_cast<unsigned long>(Image::CalcDIBPaletteSize(biBitCount));
+		unsigned long bfSize = static_cast<unsigned long>(pImage->GetBufferSize() + bfOffBits);
 		Gura_PackUShort(bfh.bfType,			0x4d42);
 		Gura_PackULong(bfh.bfSize,			bfSize);
 		Gura_PackULong(bfh.bfOffBits,		bfOffBits);
@@ -148,8 +148,8 @@ bool ImageStreamer_BMP::WriteStream(Signal sig, Object_image *pObjImage, Stream 
 			return false;
 		}
 	} while (0);
-	if (!pObjImage->WriteDIBPalette(sig, stream, biBitCount)) return false;
-	return pObjImage->WriteDIB(sig, stream, biBitCount, false);
+	if (!pImage->WriteDIBPalette(env, sig, stream, biBitCount)) return false;
+	return pImage->WriteDIB(sig, stream, biBitCount, false);
 }
 
 void ImageStreamer_BMP::SetError_InvalidBMPFormat(Signal sig)

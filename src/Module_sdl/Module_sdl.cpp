@@ -853,15 +853,15 @@ String Object_Surface::ToString(Signal sig, bool exprFlag)
 	return String("<sdl.Surface>");
 }
 
-Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal sig, Object_image *pObjImg)
+Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal sig, Image *pImage)
 {
-	void *pixels = pObjImg->GetBuffer();
-	int width = static_cast<int>(pObjImg->GetWidth());
-	int height = static_cast<int>(pObjImg->GetHeight());
-	int depth = static_cast<int>(pObjImg->GetBitsPerPixel());
-	int pitch = static_cast<int>(pObjImg->GetBytesPerLine());
+	void *pixels = pImage->GetBuffer();
+	int width = static_cast<int>(pImage->GetWidth());
+	int height = static_cast<int>(pImage->GetHeight());
+	int depth = static_cast<int>(pImage->GetBitsPerPixel());
+	int pitch = static_cast<int>(pImage->GetBytesPerLine());
 	Uint32 Rmask, Gmask, Bmask, Amask;
-	Image::Format fmt = pObjImg->GetFormat();
+	Image::Format fmt = pImage->GetFormat();
 	if (fmt == Image::FORMAT_RGB) {
 		Rmask = 0x00ff0000;
 		Gmask = 0x0000ff00;
@@ -878,8 +878,7 @@ Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal sig, Object_image 
 	}
 	SDL_Surface *pSurface = ::SDL_CreateRGBSurfaceFrom(
 				pixels, width, height, depth, pitch, Rmask, Gmask, Bmask, Amask);
-	Object_Surface *pObj = new Object_Surface(pSurface,
-										Object_image::Reference(pObjImg));
+	Object_Surface *pObj = new Object_Surface(pSurface, Image::Reference(pImage));
 	return pObj;
 }
 
@@ -1188,9 +1187,9 @@ Gura_ImplementUserClassWithCast(Surface)
 Gura_ImplementCastFrom(Surface)
 {
 	if (value.IsImage()) {
-		Object_image *pObjImage = Object_image::GetObject(value);
+		Image *pImage = Object_image::GetObject(value)->GetImage();
 		Object_Surface *pObjSurface =
-					Object_Surface::CreateSurfaceFromImage(sig, pObjImage);
+					Object_Surface::CreateSurfaceFromImage(sig, pImage);
 		if (sig.IsSignalled()) return false;
 		value = Value(pObjSurface);
 		return true;
@@ -2246,8 +2245,8 @@ Gura_DeclareFunction(CreateRGBSurfaceFrom)
 
 Gura_ImplementFunction(CreateRGBSurfaceFrom)
 {
-	Object_image *pObjImg = Object_image::GetObject(args, 0);
-	Object_Surface *pObj = Object_Surface::CreateSurfaceFromImage(sig, pObjImg);
+	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
+	Object_Surface *pObj = Object_Surface::CreateSurfaceFromImage(sig, pImage);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObj));
 }

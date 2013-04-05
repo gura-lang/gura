@@ -9,7 +9,7 @@
 
 Gura_BeginModule(opengl)
 
-bool DoGLSection(Environment &env, Signal sig, Args &args, Object_image *pObjImg);
+bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage);
 
 //-----------------------------------------------------------------------------
 // helper
@@ -48,7 +48,7 @@ if (!ToArray(sig, varName, args.GetList(iParam), n_##varName, true, GetName(), #
 
 size_t GetParamCount(GLenum pname);
 size_t GetLightParamCount(GLenum pname);
-GLenum GetImageFormat(Signal sig, const Object_image *pObjImage);
+GLenum GetImageFormat(Signal sig, const Image *pImage);
 
 }}
 

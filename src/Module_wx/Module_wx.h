@@ -51,7 +51,7 @@ Value ArrayStringToValue(Environment &env, const wxArrayString &array);
 Value ArrayStringToValue(Environment &env, const wxString *array, int n);
 void AddToArrayString(wxArrayString &array, const ValueList &valList);
 void AddToArrayInt(wxArrayInt &array, const ValueList &valList);
-void ConvertToWxImage(Object_image *pObjImage, wxImage *pImage);
+void ConvertToWxImage(Image *pImageGura, wxImage *pImage);
 bool CheckMethodResult(Signal sig);
 bool CheckMethodResult(Signal sig, const Value &rtn,
 					ValueType valueType, bool invalidAcceptableFlag = false);

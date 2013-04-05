@@ -28,13 +28,13 @@ Gura_DeclareMethod(image, cairo)
 Gura_ImplementMethod(image, cairo)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	Object_image *pObjImage = Object_image::Reference(pThis);
-	cairo_surface_t *surface = CreateSurfaceFromImage(sig, pObjImage);
+	Image *pImage = Image::Reference(pThis->GetImage());
+	cairo_surface_t *surface = CreateSurfaceFromImage(sig, pImage);
 	if (sig.IsSignalled()) {
-		Object_image::Delete(pObjImage);
+		Image::Delete(pImage);
 		return Value::Null;
 	}
-	Object_surface *pObjSurface = new Object_image_surface(surface, pObjImage);
+	Object_surface *pObjSurface = new Object_image_surface(surface, pImage);
 	cairo_t *cr = ::cairo_create(surface);
 	return ReturnValue(env, sig, args, Value(new Object_context(cr, pObjSurface)));
 }
@@ -858,19 +858,19 @@ Value CreateValueList(Environment &env,
 	return result;
 }
 
-cairo_surface_t *CreateSurfaceFromImage(Signal sig, Object_image *pObjImage)
+cairo_surface_t *CreateSurfaceFromImage(Signal sig, Image *pImage)
 {
-	if (!pObjImage->CheckValid(sig)) return NULL;
-	if (pObjImage->GetFormat() != Image::FORMAT_RGBA) {
+	if (!pImage->CheckValid(sig)) return NULL;
+	if (pImage->GetFormat() != Image::FORMAT_RGBA) {
 		sig.SetError(ERR_FormatError, "cairo can only be applied to image in `rgba format");
 		return NULL;
 	}
-	size_t width = pObjImage->GetWidth();
-	size_t height = pObjImage->GetHeight();
+	size_t width = pImage->GetWidth();
+	size_t height = pImage->GetHeight();
 	cairo_surface_t *surface = ::cairo_image_surface_create_for_data(
-				pObjImage->GetBuffer(), CAIRO_FORMAT_ARGB32,
+				pImage->GetBuffer(), CAIRO_FORMAT_ARGB32,
 				static_cast<int>(width), static_cast<int>(height),
-				static_cast<int>(pObjImage->GetBytesPerLine()));
+				static_cast<int>(pImage->GetBytesPerLine()));
 	return surface;
 }
 

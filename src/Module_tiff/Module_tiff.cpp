@@ -72,7 +72,7 @@ Gura_DeclareMethod(image, tiffread)
 Gura_ImplementMethod(image, tiffread)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_TIFF::ReadStream(sig, pThis, args.GetStream(0))) {
+	if (!ImageStreamer_TIFF::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -120,20 +120,20 @@ bool ImageStreamer_TIFF::IsResponsible(Signal sig, Stream &stream)
 }
 
 bool ImageStreamer_TIFF::Read(Environment &env, Signal sig,
-									Object_image *pObjImage, Stream &stream)
+											Image *pImage, Stream &stream)
 {
-	return ReadStream(sig, pObjImage, stream);
+	return ReadStream(env, sig, pImage, stream);
 }
 
 bool ImageStreamer_TIFF::Write(Environment &env, Signal sig,
-									Object_image *pObjImage, Stream &stream)
+											Image *pImage, Stream &stream)
 {
-	return WriteStream(sig, pObjImage, stream);
+	return WriteStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_TIFF::ReadStream(Signal sig, Object_image *pObjImage, Stream &stream)
+bool ImageStreamer_TIFF::ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
 {
-	if (!pObjImage->CheckEmpty(sig)) return false;
+	if (!pImage->CheckEmpty(sig)) return false;
 	Handler handler(sig, stream);
 	TIFF *tiff = ::TIFFClientOpen("Gura", "rm",
 		reinterpret_cast<thandle_t>(&handler),
@@ -142,7 +142,7 @@ bool ImageStreamer_TIFF::ReadStream(Signal sig, Object_image *pObjImage, Stream 
 	uint32 width, height;
 	::TIFFGetField(tiff, TIFFTAG_IMAGEWIDTH, &width);
 	::TIFFGetField(tiff, TIFFTAG_IMAGELENGTH, &height);
-	if (!pObjImage->AllocBuffer(sig, width, height, 0xff)) {
+	if (!pImage->AllocBuffer(sig, width, height, 0xff)) {
 		::TIFFClose(tiff);
 		return false;
 	}
@@ -155,9 +155,9 @@ bool ImageStreamer_TIFF::ReadStream(Signal sig, Object_image *pObjImage, Stream 
 		return false;
 	}
 	uint32 *pSrc = raster;
-	std::auto_ptr<Object_image::Scanner>
-			pScannerDst(pObjImage->CreateScanner(Image::SCAN_LeftBottomHorz));
-	if (pObjImage->GetFormat() == Image::FORMAT_RGBA) {
+	std::auto_ptr<Image::Scanner>
+			pScannerDst(pImage->CreateScanner(Image::SCAN_LeftBottomHorz));
+	if (pImage->GetFormat() == Image::FORMAT_RGBA) {
 		do {
 			pScannerDst->StorePixel(
 				static_cast<unsigned char>(*pSrc & 0xff),
@@ -179,9 +179,9 @@ bool ImageStreamer_TIFF::ReadStream(Signal sig, Object_image *pObjImage, Stream 
 	return true;
 }
 
-bool ImageStreamer_TIFF::WriteStream(Signal sig, Object_image *pObjImage, Stream &stream)
+bool ImageStreamer_TIFF::WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
 {
-	if (!pObjImage->CheckValid(sig)) return false;
+	if (!pImage->CheckValid(sig)) return false;
 	return true;
 }
 

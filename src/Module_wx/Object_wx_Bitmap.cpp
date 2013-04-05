@@ -84,8 +84,8 @@ Gura_ImplementFunction(Bitmap)
 	if (!CheckWxReady(sig)) return Value::Null;
 	Object_image *pObjImage = Object_image::GetObject(args, 0);
 	std::auto_ptr<wxImage> pImage(new wxImage(
-						pObjImage->GetWidth(), pObjImage->GetHeight(), false));
-	ConvertToWxImage(pObjImage, pImage.get());
+		pObjImage->GetImage()->GetWidth(), pObjImage->GetImage()->GetHeight(), false));
+	ConvertToWxImage(pObjImage->GetImage(), pImage.get());
 	wx_Bitmap *pEntity = new wx_Bitmap(*pImage, -1);
 	Object_wx_Bitmap *pObj = Object_wx_Bitmap::GetThisObj(args);
 	if (pObj == NULL) {
@@ -834,8 +834,8 @@ Gura_ImplementCastFrom(wx_Bitmap)
 	if (!value.IsImage()) return false;
 	Object_image *pObjImage = Object_image::GetObject(value);
 	std::auto_ptr<wxImage> pImage(new wxImage(
-						pObjImage->GetWidth(), pObjImage->GetHeight(), false));
-	ConvertToWxImage(pObjImage, pImage.get());
+		pObjImage->GetImage()->GetWidth(), pObjImage->GetImage()->GetHeight(), false));
+	ConvertToWxImage(pObjImage->GetImage(), pImage.get());
 	wx_Bitmap *pBitmap = new wx_Bitmap(*pImage, -1);
 	Object_wx_Bitmap *pObj = new Object_wx_Bitmap(pBitmap, pBitmap, OwnerTrue);
 	pBitmap->AssocWithGura(sig, pObj);

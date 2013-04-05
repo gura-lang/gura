@@ -189,13 +189,13 @@ Gura_DeclareFunction(glDrawPixels)
 
 Gura_ImplementFunction(glDrawPixels)
 {
-	Object_image *pObjImage = Object_image::GetObject(args, 0);
-	GLsizei width = static_cast<GLsizei>(pObjImage->GetWidth());
-	GLsizei height = static_cast<GLsizei>(pObjImage->GetHeight());
-	GLenum format = GetImageFormat(sig, pObjImage);
+	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
+	GLsizei width = static_cast<GLsizei>(pImage->GetWidth());
+	GLsizei height = static_cast<GLsizei>(pImage->GetHeight());
+	GLenum format = GetImageFormat(sig, pImage);
 	if (sig.IsSignalled()) return Value::Null;
 	GLenum type = GL_UNSIGNED_BYTE;
-	const GLvoid *pixels = pObjImage->GetBuffer();
+	const GLvoid *pixels = pImage->GetBuffer();
 	// GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels
 	::glDrawPixels(width, height, format, type, pixels);
 	return Value::Null;
@@ -1145,16 +1145,15 @@ Gura_ImplementFunction(glReadPixels)
 	GLint y = args.GetInt(1);
 	GLsizei width = args.GetInt(2);
 	GLsizei height = args.GetInt(3);
-	Image::Format fmt =
-				Object_image::SymbolToFormat(sig, args.GetSymbol(4));
+	Image::Format fmt = Image::SymbolToFormat(sig, args.GetSymbol(4));
 	if (sig.IsSignalled()) return Value::Null;
-	Object_image *pObjImage = new Object_image(env, fmt);
-	GLenum format = GetImageFormat(sig, pObjImage);
+	AutoPtr<Image> pImage(new Image(fmt));
+	GLenum format = GetImageFormat(sig, pImage.get());
 	if (sig.IsSignalled()) return Value::Null;
-	if (!pObjImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
+	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Null;
 	GLenum type = GL_UNSIGNED_BYTE;
-	::glReadPixels(x, y, width, height, format, type, pObjImage->GetBuffer());
-	return Value(pObjImage);
+	::glReadPixels(x, y, width, height, format, type, pImage->GetBuffer());
+	return Value(new Object_image(env, pImage.release()));
 }
 
 // opengl.glRectdv(v1[]:number, v2[]:number):void
@@ -1275,16 +1274,16 @@ Gura_DeclareFunction(glTexImage1D)
 
 Gura_ImplementFunction(glTexImage1D)
 {
-	Object_image *pObjImage = Object_image::GetObject(args, 4);
+	Image *pImage = Object_image::GetObject(args, 4)->GetImage();
 	GLenum target = args.GetUInt(0);
 	GLint level = args.GetInt(1);
 	GLint internalformat = args.GetInt(2);
 	GLint border = args.GetInt(3);
-	GLsizei width = static_cast<GLsizei>(pObjImage->GetWidth()) + border * 2;
-	GLenum format = GetImageFormat(sig, pObjImage);
+	GLsizei width = static_cast<GLsizei>(pImage->GetWidth()) + border * 2;
+	GLenum format = GetImageFormat(sig, pImage);
 	if (sig.IsSignalled()) return Value::Null;
 	GLenum type = GL_UNSIGNED_BYTE;
-	const GLvoid *pixels = pObjImage->GetBuffer();
+	const GLvoid *pixels = pImage->GetBuffer();
 	// GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const GLvoid *pixels
 	::glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
 	return Value::Null;
@@ -1304,17 +1303,17 @@ Gura_DeclareFunction(glTexImage2D)
 
 Gura_ImplementFunction(glTexImage2D)
 {
-	Object_image *pObjImage = Object_image::GetObject(args, 4);
+	Image *pImage = Object_image::GetObject(args, 4)->GetImage();
 	GLenum target = args.GetUInt(0);
 	GLint level = args.GetInt(1);
 	GLint internalformat = args.GetInt(2);
 	GLint border = args.GetInt(3);
-	GLsizei width = static_cast<GLsizei>(pObjImage->GetWidth()) + border * 2;
-	GLsizei height = static_cast<GLsizei>(pObjImage->GetHeight()) + border * 2;
-	GLenum format = GetImageFormat(sig, pObjImage);
+	GLsizei width = static_cast<GLsizei>(pImage->GetWidth()) + border * 2;
+	GLsizei height = static_cast<GLsizei>(pImage->GetHeight()) + border * 2;
+	GLenum format = GetImageFormat(sig, pImage);
 	if (sig.IsSignalled()) return Value::Null;
 	GLenum type = GL_UNSIGNED_BYTE;
-	const GLvoid *pixels = pObjImage->GetBuffer();
+	const GLvoid *pixels = pImage->GetBuffer();
 	// GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels
 	::glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
 	return Value::Null;
@@ -1332,15 +1331,15 @@ Gura_DeclareFunction(glTexSubImage1D)
 
 Gura_ImplementFunction(glTexSubImage1D)
 {
-	Object_image *pObjImage = Object_image::GetObject(args, 3);
+	Image *pImage = Object_image::GetObject(args, 3)->GetImage();
 	GLenum target = args.GetUInt(0);
 	GLint level = args.GetInt(1);
 	GLint xoffset = args.GetInt(2);
-	GLsizei width = static_cast<GLsizei>(pObjImage->GetWidth());
-	GLenum format = GetImageFormat(sig, pObjImage);
+	GLsizei width = static_cast<GLsizei>(pImage->GetWidth());
+	GLenum format = GetImageFormat(sig, pImage);
 	if (sig.IsSignalled()) return Value::Null;
 	GLenum type = GL_UNSIGNED_BYTE;
-	const GLvoid *pixels = pObjImage->GetBuffer();
+	const GLvoid *pixels = pImage->GetBuffer();
 	// GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const GLvoid *pixels
 	::glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
 	return Value::Null;
@@ -1359,17 +1358,17 @@ Gura_DeclareFunction(glTexSubImage2D)
 
 Gura_ImplementFunction(glTexSubImage2D)
 {
-	Object_image *pObjImage = Object_image::GetObject(args, 4);
+	Image *pImage = Object_image::GetObject(args, 4)->GetImage();
 	GLenum target = args.GetUInt(0);
 	GLint level = args.GetInt(1);
 	GLint xoffset = args.GetInt(2);
 	GLint yoffset = args.GetInt(3);
-	GLsizei width = static_cast<GLsizei>(pObjImage->GetWidth());
-	GLsizei height = static_cast<GLsizei>(pObjImage->GetHeight());
-	GLenum format = GetImageFormat(sig, pObjImage);
+	GLsizei width = static_cast<GLsizei>(pImage->GetWidth());
+	GLsizei height = static_cast<GLsizei>(pImage->GetHeight());
+	GLenum format = GetImageFormat(sig, pImage);
 	if (sig.IsSignalled()) return Value::Null;
 	GLenum type = GL_UNSIGNED_BYTE;
-	const GLvoid *pixels = pObjImage->GetBuffer();
+	const GLvoid *pixels = pImage->GetBuffer();
 	// GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels
 	::glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
 	return Value::Null;

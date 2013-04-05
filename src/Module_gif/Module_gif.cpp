@@ -271,7 +271,7 @@ GIF::~GIF()
 }
 
 bool GIF::Read(Environment &env, Signal sig, Stream &stream,
-						Object_image *pObjImageTgt, Image::Format format)
+								Image *pImageTgt, Image::Format format)
 {
 	if (!ReadBuff(sig, stream, &_header, 6)) return false;
 	if (::memcmp(_header.Signature, "GIF", 3) != 0) {
@@ -305,16 +305,18 @@ bool GIF::Read(Environment &env, Signal sig, Stream &stream,
 		if (bytesRead < 1) break;
 		//::printf("%02x\n", imageSeparator);
 		if (imageSeparator == SEP_ImageDescriptor) {
-			if (pObjImageTgt != NULL) {
-				ReadImageDescriptor(env, sig, stream, graphicControl, pObjImageTgt);
+			if (pImageTgt != NULL) {
+				ReadImageDescriptor(env, sig, stream, graphicControl, pImageTgt, NULL);
 				break;
 			} else if (format == Image::FORMAT_None) {
 				if (!SkipImageDescriptor(sig, stream)) break;
 			} else {
-				Object_image *pObjImage = new Object_image(env, format);
-				if (!ReadImageDescriptor(env, sig, stream, graphicControl, pObjImage)) break;
-				Value value(pObjImage);
-				GetList().push_back(value);
+				AutoPtr<Object_image> pObjImage(new Object_image(env, new Image(format)));
+				Value valueGIF;
+				if (!ReadImageDescriptor(env, sig, stream,
+						graphicControl, pObjImage->GetImage(), &valueGIF)) break;
+				pObjImage->AssignValue(Gura_UserSymbol(gif), valueGIF, EXTRA_Public);
+				GetList().push_back(Value(pObjImage.release()));
 			}
 		} else if (imageSeparator == SEP_ExtensionIntroducer) {
 			unsigned char label;
@@ -362,7 +364,8 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 	foreach (ValueList, pValue, valList) {
 		if (!pValue->IsImage()) continue;
 		const Object_image *pObjImage = Object_image::GetObject(*pValue);
-		const Object_palette *pObjPalette = pObjImage->GetPaletteObj();
+		const Image *pImage = pObjImage->GetImage();
+		const Object_palette *pObjPalette = pImage->GetPaletteObj();
 		if (pObjPalette != NULL && pObjPalette->CountEntries() <= 256) {
 			if (_pObjPaletteGlobal->UpdateByPalette(pObjPalette,
 											Object_palette::ShrinkNone)) {
@@ -372,7 +375,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 			} else {
 				return false;
 			}
-		} else if (_pObjPaletteGlobal->UpdateByImage(pObjImage,
+		} else if (_pObjPaletteGlobal->UpdateByImage(pImage,
 											Object_palette::ShrinkNone)) {
 			// nothing to do
 		} else if (_pObjPaletteGlobal->Prepare(sig, Gura_Symbol(websafe))) {
@@ -402,12 +405,13 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 	foreach (ValueList, pValue, valList) {
 		if (!pValue->IsImage()) continue;
 		Object_image *pObjImage = Object_image::GetObject(*pValue);
-		if (!pObjImage->CheckValid(sig)) return false;
-		pObjImage->SetPaletteObj(Object_palette::Reference(_pObjPaletteGlobal));
+		Image *pImage = pObjImage->GetImage();
+		if (!pImage->CheckValid(sig)) return false;
+		pImage->SetPaletteObj(Object_palette::Reference(_pObjPaletteGlobal));
 		ImageDescriptor *pImageDescriptor = GetImageDescriptor(pObjImage);
-		size_t width = pObjImage->GetWidth() +
+		size_t width = pImage->GetWidth() +
 						Gura_UnpackUShort(pImageDescriptor->ImageLeftPosition);
-		size_t height = pObjImage->GetHeight() +
+		size_t height = pImage->GetHeight() +
 						Gura_UnpackUShort(pImageDescriptor->ImageTopPosition);
 		if (logicalScreenWidth < width) logicalScreenWidth = width;
 		if (logicalScreenHeight < height) logicalScreenHeight = height;
@@ -471,6 +475,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 	foreach (ValueList, pValue, GetList()) {
 		if (!pValue->IsImage()) continue;
 		Object_image *pObjImage = Object_image::GetObject(*pValue);
+		Image *pImage = pObjImage->GetImage();
 		GraphicControlExtension *pGraphicControl = GetGraphicControl(pObjImage);
 		if (pGraphicControl == NULL) continue;
 		if (!WriteGraphicControl(sig, stream, *pGraphicControl)) return false;
@@ -534,33 +539,32 @@ bool GIF::SkipImageDescriptor(Signal sig, Stream &stream)
 }
 
 bool GIF::ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
-		const GraphicControlExtension &graphicControl, Object_image *pObjImage)
+	const GraphicControlExtension &graphicControl, Image *pImage, Value *pValueGIF)
 {
 	ImageDescriptor imageDescriptor;
 	if (!ReadBuff(sig, stream, &imageDescriptor, 9)) return false;
 	size_t imageWidth = Gura_UnpackUShort(imageDescriptor.ImageWidth);
 	size_t imageHeight = Gura_UnpackUShort(imageDescriptor.ImageHeight);
-	if (!pObjImage->AllocBuffer(sig, imageWidth, imageHeight, 0xff)) return false;
+	if (!pImage->AllocBuffer(sig, imageWidth, imageHeight, 0xff)) return false;
 	Object_palette *pObjPalette = NULL;
 	if (imageDescriptor.LocalColorTableFlag()) {
 		size_t nEntries = 1 << (imageDescriptor.SizeOfLocalColorTable() + 1);
-		pObjPalette = pObjImage->CreateEmptyPalette(nEntries);
+		pObjPalette = pImage->CreateEmptyPalette(env, nEntries);
 		if (!ReadColorTable(sig, stream, pObjPalette)) return false;
 	} else {
 		pObjPalette = _pObjPaletteGlobal;
-		pObjImage->SetPaletteObj(Object_palette::Reference(pObjPalette));
+		pImage->SetPaletteObj(Object_palette::Reference(pObjPalette));
 	}
-	do {
+	if (pValueGIF != NULL) {
 		AutoPtr<Object_GraphicControl> pObjGraphicControl(
 								new Object_GraphicControl(graphicControl));
 		AutoPtr<Object_ImageDescriptor> pObjImageDescriptor(
 								new Object_ImageDescriptor(imageDescriptor));
-		pObjImage->AssignValue(Gura_UserSymbol(gif), Value(new Object_imgprop(
-			pObjGraphicControl.release(), pObjImageDescriptor.release())), EXTRA_Public);
-	} while (0);
+		*pValueGIF = Value(new Object_imgprop(pObjGraphicControl.release(), pObjImageDescriptor.release()));
+	}
 	short transparentColorIndex = graphicControl.TransparentColorIndex;
 	if (!graphicControl.TransparentColorFlag() ||
-					pObjImage->GetFormat() != Image::FORMAT_RGBA) {
+					pImage->GetFormat() != Image::FORMAT_RGBA) {
 		transparentColorIndex = -1;
 	}
 	const int maximumBitsOfCode = 12;
@@ -593,7 +597,7 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
 	ImageDataBlock imageDataBlock;
 	size_t x = 0, y = 0;
 	int iPass = 0;
-	unsigned char *dstp = pObjImage->GetPointer(0);
+	unsigned char *dstp = pImage->GetPointer(0);
 	for (;;) {
 		unsigned short code = 0;
 		if (pCodeStack > codeStack) {
@@ -672,14 +676,14 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
 				y++;
 				if (y >= imageHeight) break;
 			}
-			dstp = pObjImage->GetPointer(y);
+			dstp = pImage->GetPointer(y);
 		}
 		//::printf("+ %3d,%3d code = %03x\n", x, y, code);
 		*(dstp + 0) = *srcp++;
 		*(dstp + 1) = *srcp++;
 		*(dstp + 2) = *srcp++;
 		if (code == transparentColorIndex) *(dstp + 3) = 0x00;
-		dstp += pObjImage->GetBytesPerPixel();
+		dstp += pImage->GetBytesPerPixel();
 		x++;
 	}
 done:
@@ -702,8 +706,9 @@ bool GIF::WriteGraphicControl(Signal sig, Stream &stream,
 }
 
 bool GIF::WriteImageDescriptor(Environment &env, Signal sig, Stream &stream,
-		const GraphicControlExtension &graphicControl, Object_image *pObjImage)
+				const GraphicControlExtension &graphicControl, Object_image *pObjImage)
 {
+	Image *pImage = pObjImage->GetImage();
 	do {
 		const unsigned char buff[] = { SEP_ImageDescriptor };
 		if (!WriteBuff(sig, stream, buff, 1)) return false;
@@ -718,7 +723,7 @@ bool GIF::WriteImageDescriptor(Environment &env, Signal sig, Stream &stream,
 		if (!WriteColorTable(sig, stream, pObjPalette)) return false;
 	}
 	unsigned char transparentColorIndex = graphicControl.TransparentColorIndex;
-	bool transparentColorFlag = (pObjImage->GetFormat() == Image::FORMAT_RGBA) &&
+	bool transparentColorFlag = (pImage->GetFormat() == Image::FORMAT_RGBA) &&
 					(graphicControl.TransparentColorFlag() != 0);
 	const int maximumBitsOfCode = 12;
 	unsigned char minimumBitsOfCode = 8;
@@ -734,13 +739,13 @@ bool GIF::WriteImageDescriptor(Environment &env, Signal sig, Stream &stream,
 	TransMap transMap;
 	ImageDataBlock imageDataBlock;
 	if (!imageDataBlock.WriteCode(sig, stream, codeClear, bitsOfCode)) return false;
-	for (size_t y = 0; y < pObjImage->GetHeight(); y++) {
-		const unsigned char *pPixel = pObjImage->GetPointer(y);
-		for (size_t x = 0; x < pObjImage->GetWidth();
-							x++, pPixel += pObjImage->GetBytesPerPixel()) {
+	for (size_t y = 0; y < pImage->GetHeight(); y++) {
+		const unsigned char *pPixel = pImage->GetPointer(y);
+		for (size_t x = 0; x < pImage->GetWidth();
+							x++, pPixel += pImage->GetBytesPerPixel()) {
 			// LZW (Lempel-Ziv-Welch) compression algorithm
 			unsigned char k;
-			if (transparentColorFlag && Object_image::GetPixelA(pPixel) < 128) {
+			if (transparentColorFlag && Image::GetPixelA(pPixel) < 128) {
 				k = transparentColorIndex;
 			} else {
 				k = static_cast<unsigned char>(pObjPalette->LookupNearest(pPixel));
@@ -838,6 +843,7 @@ void GIF::AddImage(const Value &value, unsigned short delayTime,
 		unsigned char disposalMethod)
 {
 	Object_image *pObjImage = dynamic_cast<Object_image *>(value.GetObject());
+	Image *pImage = pObjImage->GetImage();
 	AutoPtr<Object_GraphicControl> pObjGraphicControl;
 	AutoPtr<Object_ImageDescriptor> pObjImageDescriptor;
 	do {
@@ -865,9 +871,9 @@ void GIF::AddImage(const Value &value, unsigned short delayTime,
 		Gura_PackUShort(imageDescriptor.ImageLeftPosition, imageLeftPosition);
 		Gura_PackUShort(imageDescriptor.ImageTopPosition, imageTopPosition);
 		Gura_PackUShort(imageDescriptor.ImageWidth,
-					static_cast<unsigned short>(pObjImage->GetWidth()));
+					static_cast<unsigned short>(pImage->GetWidth()));
 		Gura_PackUShort(imageDescriptor.ImageHeight,
-					static_cast<unsigned short>(pObjImage->GetHeight()));
+					static_cast<unsigned short>(pImage->GetHeight()));
 		imageDescriptor.PackedFields =
 			(imageDescriptorOrg.LocalColorTableFlag() << 7) |
 			(imageDescriptorOrg.InterlaceFlag() << 6) |
@@ -940,9 +946,10 @@ GIF::ImageDescriptor *GIF::GetImageDescriptor(const Object_image *pObjImage)
 
 int GIF::GetPlausibleBackgroundIndex(Object_palette *pObjPalette, Object_image *pObjImage)
 {
+	Image *pImage = pObjImage->GetImage();
 	int histTbl[256];
 	::memset(histTbl, 0x00, sizeof(histTbl));
-	std::auto_ptr<Object_image::Scanner> pScanner(pObjImage->CreateScanner());
+	std::auto_ptr<Image::Scanner> pScanner(pImage->CreateScanner());
 	size_t iPixelEnd = pScanner->CountPixels() - 1;
 	size_t iLineEnd = pScanner->CountLines() - 1;
 	for (;;) {
@@ -1363,9 +1370,10 @@ Gura_DeclareMethod(image, gifread)
 Gura_ImplementMethod(image, gifread)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->CheckEmpty(sig)) return Value::Null;
+	Image *pImage = pThis->GetImage();
+	if (!pImage->CheckEmpty(sig)) return Value::Null;
 	Stream &stream = args.GetStream(0);
-	if (!GIF().Read(env, sig, stream, pThis, pThis->GetFormat())) {
+	if (!GIF().Read(env, sig, stream, pImage, pImage->GetFormat())) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -1382,7 +1390,8 @@ Gura_DeclareMethod(image, gifwrite)
 Gura_ImplementMethod(image, gifwrite)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->CheckValid(sig)) return Value::Null;
+	Image *pImage = pThis->GetImage();
+	if (!pImage->CheckValid(sig)) return Value::Null;
 	Stream &stream = args.GetStream(0);
 	GIF gif;
 	gif.AddImage(args.GetThis(), 0, 0, 0, 1);
@@ -1419,7 +1428,7 @@ Gura_ImplementFunction(content)
 		const Symbol *pSymbol = args.GetSymbol(1);
 		Image::Format format = Image::FORMAT_None;
 		if (!pSymbol->IsIdentical(Gura_UserSymbol(noimage))) {
-			format = Object_image::SymbolToFormat(sig, pSymbol);
+			format = Image::SymbolToFormat(sig, pSymbol);
 			if (sig.IsSignalled()) return Value::Null;
 		}
 		if (!pObjContent->GetGIF().Read(env, sig, stream, NULL, format)) {
@@ -1522,18 +1531,18 @@ bool ImageStreamer_GIF::IsResponsible(Signal sig, Stream &stream)
 }
 
 bool ImageStreamer_GIF::Read(Environment &env, Signal sig,
-								Object_image *pObjImage, Stream &stream)
+										Image *pImage, Stream &stream)
 {
-	if (!pObjImage->CheckEmpty(sig)) return false;
-	return GIF().Read(env, sig, stream, pObjImage, pObjImage->GetFormat());
+	if (!pImage->CheckEmpty(sig)) return false;
+	return GIF().Read(env, sig, stream, pImage, pImage->GetFormat());
 }
 
 bool ImageStreamer_GIF::Write(Environment &env, Signal sig,
-								Object_image *pObjImage, Stream &stream)
+										Image *pImage, Stream &stream)
 {
-	if (!pObjImage->CheckValid(sig)) return false;
+	if (!pImage->CheckValid(sig)) return false;
 	GIF gif;
-	Value value(Object_image::Reference(pObjImage));
+	Value value(new Object_image(env, Image::Reference(pImage)));
 	gif.AddImage(value, 0, 0, 0, 1);
 	unsigned short loopCount = 0;
 	return gif.Write(env, sig, stream, Color::Zero, false, loopCount);

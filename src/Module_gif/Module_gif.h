@@ -77,8 +77,8 @@ class ImageStreamer_GIF : public ImageStreamer {
 public:
 	inline ImageStreamer_GIF() : ImageStreamer("gif") {}
 	virtual bool IsResponsible(Signal sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal sig, Object_image *pObjImage, Stream &stream);
-	virtual bool Write(Environment &env, Signal sig, Object_image *pObjImage, Stream &stream);
+	virtual bool Read(Environment &env, Signal sig, Image *pImage, Stream &stream);
+	virtual bool Write(Environment &env, Signal sig, Image *pImage, Stream &stream);
 };
 
 //-----------------------------------------------------------------------------
@@ -219,7 +219,7 @@ public:
 	GIF();
 	~GIF();
 	bool Read(Environment &env, Signal sig, Stream &stream,
-					Object_image *pObjImageTgt, Image::Format format);
+								Image *pImageTgt, Image::Format format);
 	bool Write(Environment &env, Signal sig, Stream &stream,
 		const Color &colorBackground, bool validBackgroundFlag, unsigned short loopCount);
 	bool ReadColorTable(Signal sig, Stream &stream, Object_palette *pObjPalette);
@@ -228,9 +228,10 @@ public:
 	bool WriteDataBlocks(Signal sig, Stream &stream, const Binary &binary);
 	bool SkipImageDescriptor(Signal sig, Stream &stream);
 	bool ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
-		const GraphicControlExtension &graphicControl, Object_image *pObjImage);
+								const GraphicControlExtension &graphicControl,
+								Image *pImage, Value *pValueGIF);
 	bool WriteGraphicControl(Signal sig, Stream &stream,
-									const GraphicControlExtension &graphiControl);
+								const GraphicControlExtension &graphiControl);
 	bool WriteImageDescriptor(Environment &env, Signal sig, Stream &stream,
 		const GraphicControlExtension &graphicControl, Object_image *pObjImage);
 	inline Header &GetHeader() { return _header; }

@@ -180,7 +180,7 @@ bool Object_Face::CalcSize(Signal sig, const String &str, size_t &width, size_t 
 }
 
 bool Object_Face::DrawOnImage(Signal sig,
-				Object_image *pObjImage, int x, int y, const String &str)
+						Image *pImage, int x, int y, const String &str)
 {
 	unsigned long redFg = _color.GetRed();
 	unsigned long greenFg = _color.GetGreen();
@@ -201,13 +201,13 @@ bool Object_Face::DrawOnImage(Signal sig,
 			int height = bitmap.rows;
 			if (bitmap.buffer == NULL) {
 				// nothing to do
-			} else if (!pObjImage->AdjustCoord(xAdj, yAdj, width, height)) {
+			} else if (!pImage->AdjustCoord(xAdj, yAdj, width, height)) {
 				// nothing to do
 			} else if (bitmap.pixel_mode == FT_PIXEL_MODE_MONO) {
-				DrawMonoOnImage(pObjImage, xAdj, yAdj, bitmap.buffer,
+				DrawMonoOnImage(pImage, xAdj, yAdj, bitmap.buffer,
 							width, height, bitmap.pitch, xAdj - xOrg, yAdj - yOrg);
 			} else if (bitmap.pixel_mode == FT_PIXEL_MODE_GRAY) {
-				DrawGrayOnImage(pObjImage, xAdj, yAdj, bitmap.buffer,
+				DrawGrayOnImage(pImage, xAdj, yAdj, bitmap.buffer,
 							width, height, bitmap.pitch, xAdj - xOrg, yAdj - yOrg);
 			}
 		}
@@ -291,20 +291,20 @@ FT_GlyphSlot Object_Face::LoadChar(unsigned long codeUTF32)
 	return glyphSlot;
 }
 
-void Object_Face::DrawMonoOnImage(Object_image *pObjImage, int x, int y,
+void Object_Face::DrawMonoOnImage(Image *pImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset)
 {
 	unsigned char red = _color.GetRed();
 	unsigned char green = _color.GetGreen();
 	unsigned char blue = _color.GetBlue();
-	std::auto_ptr<Object_image::Scanner>
-				pScanner(pObjImage->CreateScanner(x, y, width, height));
+	std::auto_ptr<Image::Scanner>
+				pScanner(pImage->CreateScanner(x, y, width, height));
 	int bitOffset = xOffset % 8;
 	unsigned char mask = 1 << (7 - bitOffset);
 	const unsigned char *pLine = buffer + (xOffset / 8) + yOffset * pitch;
 	const unsigned char *pPixel = pLine;
-	bool alphaFlag = (pObjImage->GetFormat() == Image::FORMAT_RGBA);
+	bool alphaFlag = (pImage->GetFormat() == Image::FORMAT_RGBA);
 	for (;;) {
 		if (!(*pPixel & mask)) {
 			// nothing to do
@@ -329,18 +329,18 @@ void Object_Face::DrawMonoOnImage(Object_image *pObjImage, int x, int y,
 	}
 }
 
-void Object_Face::DrawGrayOnImage(Object_image *pObjImage, int x, int y,
+void Object_Face::DrawGrayOnImage(Image *pImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset)
 {
 	unsigned long redFg = _color.GetRed();
 	unsigned long greenFg = _color.GetGreen();
 	unsigned long blueFg = _color.GetBlue();
-	std::auto_ptr<Object_image::Scanner>
-				pScanner(pObjImage->CreateScanner(x, y, width, height));
+	std::auto_ptr<Image::Scanner>
+				pScanner(pImage->CreateScanner(x, y, width, height));
 	const unsigned char *pLine = buffer + xOffset + yOffset * pitch;
 	const unsigned char *pPixel = pLine;
-	bool alphaFlag = (pObjImage->GetFormat() == Image::FORMAT_RGBA);
+	bool alphaFlag = (pImage->GetFormat() == Image::FORMAT_RGBA);
 	for (;;) {
 		if (alphaFlag) {
 			pScanner->StorePixel(
@@ -528,11 +528,11 @@ Gura_DeclareMethod(Face, drawtext)
 Gura_ImplementMethod(Face, drawtext)
 {
 	Object_Face *pObjFace = Object_Face::GetThisObj(args);
-	Object_image *pObjImage = Object_image::GetObject(args, 0);
+	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	String str = args.GetStringSTL(3);
-	if (pObjFace->DrawOnImage(sig, pObjImage, x, y, str)) return Value::Null;
+	if (pObjFace->DrawOnImage(sig, pImage, x, y, str)) return Value::Null;
 	return args.GetThis();
 }
 

@@ -63,10 +63,10 @@ class ImageStreamer_ICO : public ImageStreamer {
 public:
 	inline ImageStreamer_ICO() : ImageStreamer("msico") {}
 	virtual bool IsResponsible(Signal sig, Stream &stream);
-	virtual bool Read(Environment &env, Signal sig, Object_image *pObjImage, Stream &stream);
-	virtual bool Write(Environment &env, Signal sig, Object_image *pObjImage, Stream &stream);
+	virtual bool Read(Environment &env, Signal sig, Image *pImage, Stream &stream);
+	virtual bool Write(Environment &env, Signal sig, Image *pImage, Stream &stream);
 public:
-	static bool ReadStream(Signal sig, Object_image *pObjImage, Stream &stream, int idx);
+	static bool ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream, int idx);
 };
 
 }}

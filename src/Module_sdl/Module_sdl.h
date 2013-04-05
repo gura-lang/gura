@@ -285,12 +285,12 @@ public:
 	Gura_DeclareObjectAccessor(Surface)
 private:
 	SDL_Surface *_pSurface;
-	AutoPtr<Object_image> _pObjImage;
+	AutoPtr<Image> _pImage;
 public:
-	inline Object_Surface(SDL_Surface *pSurface, Object_image *pObjImage) :
-				Object(Gura_UserClass(Surface)), _pSurface(pSurface), _pObjImage(pObjImage) {}
+	inline Object_Surface(SDL_Surface *pSurface, Image *pImage) :
+				Object(Gura_UserClass(Surface)), _pSurface(pSurface), _pImage(pImage) {}
 	inline Object_Surface(const Object_Surface &obj) : Object(obj),
-				_pObjImage(Object_image::Reference(obj._pObjImage.get())) {}
+				_pImage(Image::Reference(obj._pImage.get())) {}
 	inline SDL_Surface *GetSurface() { return _pSurface; }
 	virtual ~Object_Surface();
 	virtual Object *Clone() const;
@@ -298,10 +298,10 @@ public:
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline static Value CreateValue(SDL_Surface *pSurface, Object_image *pObjImage) {
-		return Value(new Object_Surface(pSurface, pObjImage));
+	inline static Value CreateValue(SDL_Surface *pSurface, Image *pImage) {
+		return Value(new Object_Surface(pSurface, pImage));
 	}
-	static Object_Surface *CreateSurfaceFromImage(Signal sig, Object_image *pObjImg);
+	static Object_Surface *CreateSurfaceFromImage(Signal sig, Image *pImage);
 };
 
 //-----------------------------------------------------------------------------

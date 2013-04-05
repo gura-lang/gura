@@ -22,7 +22,7 @@ Gura_DeclareMethod(image, ppmread)
 Gura_ImplementMethod(image, ppmread)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_PPM::ReadStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	if (!ImageStreamer_PPM::ReadStream(env, sig, pThis->GetImage(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
@@ -38,7 +38,7 @@ Gura_DeclareMethod(image, ppmwrite)
 Gura_ImplementMethod(image, ppmwrite)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!ImageStreamer_PPM::WriteStream(sig, pThis, args.GetStream(0), args.IsSet(Gura_Symbol(gray)))) {
+	if (!ImageStreamer_PPM::WriteStream(env, sig, pThis->GetImage(), args.GetStream(0), args.IsSet(Gura_Symbol(gray)))) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -75,20 +75,20 @@ bool ImageStreamer_PPM::IsResponsible(Signal sig, Stream &stream)
 }
 
 bool ImageStreamer_PPM::Read(Environment &env, Signal sig,
-									Object_image *pObjImage, Stream &stream)
+									Image *pImage, Stream &stream)
 {
-	return ReadStream(sig, pObjImage, stream);
+	return ReadStream(env, sig, pImage, stream);
 }
 
 bool ImageStreamer_PPM::Write(Environment &env, Signal sig,
-									Object_image *pObjImage, Stream &stream)
+									Image *pImage, Stream &stream)
 {
-	return WriteStream(sig, pObjImage, stream, false);
+	return WriteStream(env, sig, pImage, stream, false);
 }
 
-bool ImageStreamer_PPM::ReadStream(Signal sig, Object_image *pObjImage, Stream &stream)
+bool ImageStreamer_PPM::ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream)
 {
-	if (!pObjImage->CheckEmpty(sig)) return false;
+	if (!pImage->CheckEmpty(sig)) return false;
 	char format = '\0';
 	size_t width = 0, height = 0, depth = 0;
 	do {
@@ -182,14 +182,14 @@ bool ImageStreamer_PPM::ReadStream(Signal sig, Object_image *pObjImage, Stream &
 			return false;
 		}
 	} while (0);
-	if (!pObjImage->AllocBuffer(sig, width, height, 0xff)) return false;
+	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return false;
 	if (format == '2') {
 		sig.SetError(ERR_FormatError, "unsupported PPM format");
 		return false;
 	} else if (format == '3') {
 		size_t iLine = 0, iPixel = 0;
-		size_t bytesPitch = pObjImage->GetBytesPerLine();
-		unsigned char *pLine = pObjImage->GetPointer(0);
+		size_t bytesPitch = pImage->GetBytesPerLine();
+		unsigned char *pLine = pImage->GetPointer(0);
 		unsigned char *pPixel = pLine;
 		unsigned long red = 0, green = 0, blue = 0;
 		enum {
@@ -235,11 +235,11 @@ bool ImageStreamer_PPM::ReadStream(Signal sig, Object_image *pObjImage, Stream &
 						green = green * 255 / depth;
 						blue = blue * 255 / depth;
 					}
-					Object_image::StorePixel(pPixel,
+					Image::StorePixel(pPixel,
 						 static_cast<unsigned char>(red),
 						 static_cast<unsigned char>(green),
 						 static_cast<unsigned char>(blue));
-					pPixel += pObjImage->GetBytesPerPixel();
+					pPixel += pImage->GetBytesPerPixel();
 					iPixel++;
 					if (iPixel >= width) {
 						if (++iLine >= height) {
@@ -264,16 +264,16 @@ bool ImageStreamer_PPM::ReadStream(Signal sig, Object_image *pObjImage, Stream &
 	} else if (format == '6') {
 		unsigned char buff[3];
 		size_t iLine = 0, iPixel = 0;
-		size_t bytesPitch = pObjImage->GetBytesPerLine();
-		unsigned char *pLine = pObjImage->GetPointer(0);
+		size_t bytesPitch = pImage->GetBytesPerLine();
+		unsigned char *pLine = pImage->GetPointer(0);
 		unsigned char *pPixel = pLine;
 		while (stream.Read(sig, buff, 3) == 3) {
 			if (iPixel >= width) {
 				if (++iLine >= height) break;
 				iPixel = 0, pLine += bytesPitch, pPixel = pLine;
 			}
-			Object_image::StorePixel(pPixel, buff[0], buff[1], buff[2]);
-			pPixel += pObjImage->GetBytesPerPixel();
+			Image::StorePixel(pPixel, buff[0], buff[1], buff[2]);
+			pPixel += pImage->GetBytesPerPixel();
 			iPixel++;
 		}
 		if (sig.IsSignalled()) return false;
@@ -281,29 +281,29 @@ bool ImageStreamer_PPM::ReadStream(Signal sig, Object_image *pObjImage, Stream &
 	return true;
 }
 
-bool ImageStreamer_PPM::WriteStream(Signal sig, Object_image *pObjImage, Stream &stream, bool grayFlag)
+bool ImageStreamer_PPM::WriteStream(Environment &env, Signal sig, Image *pImage, Stream &stream, bool grayFlag)
 {
-	if (!pObjImage->CheckValid(sig)) return false;
+	if (!pImage->CheckValid(sig)) return false;
 	char buff[64];
-	size_t width = pObjImage->GetWidth(), height = pObjImage->GetHeight();
+	size_t width = pImage->GetWidth(), height = pImage->GetHeight();
 	::sprintf(buff, "P%d %d %d 255\n", grayFlag? 2 : 6, width, height);
 	stream.Write(sig, buff, ::strlen(buff));
 	size_t iLine = 0, iPixel = 0;
-	unsigned char *pLine = pObjImage->GetPointer(0);
+	unsigned char *pLine = pImage->GetPointer(0);
 	unsigned char *pPixel = pLine;
-	size_t bytesPitch = pObjImage->GetBytesPerLine();
+	size_t bytesPitch = pImage->GetBytesPerLine();
 	if (grayFlag) {
 		for (;;) {
 			if (iPixel >= width) {
 				if (++iLine >= height) break;
 				iPixel = 0, pLine += bytesPitch, pPixel = pLine;
 			}
-			buff[0] = Object_image::GetPixelGray(pPixel);
+			buff[0] = Image::GetPixelGray(pPixel);
 			if (stream.Write(sig, buff, 1) < 1) {
 				sig.SetError(ERR_IOError, "failed to write bitmap data");
 				return false;
 			}
-			pPixel += pObjImage->GetBytesPerPixel();
+			pPixel += pImage->GetBytesPerPixel();
 			iPixel++;
 		}
 	} else {
@@ -312,14 +312,14 @@ bool ImageStreamer_PPM::WriteStream(Signal sig, Object_image *pObjImage, Stream 
 				if (++iLine >= height) break;
 				iPixel = 0, pLine += bytesPitch, pPixel = pLine;
 			}
-			buff[0] = Object_image::GetPixelR(pPixel);
-			buff[1] = Object_image::GetPixelG(pPixel);
-			buff[2] = Object_image::GetPixelB(pPixel);
+			buff[0] = Image::GetPixelR(pPixel);
+			buff[1] = Image::GetPixelG(pPixel);
+			buff[2] = Image::GetPixelB(pPixel);
 			if (stream.Write(sig, buff, 3) < 3) {
 				sig.SetError(ERR_IOError, "failed to write bitmap data");
 				return false;
 			}
-			pPixel += pObjImage->GetBytesPerPixel();
+			pPixel += pImage->GetBytesPerPixel();
 			iPixel++;
 		}
 	}

@@ -689,17 +689,17 @@ FontT = class {
 	names(args*, opts%):static = tclEval('font', 'names', args*, opts%)
 }
 
-Font(opts%)			= FontT(tclEval('font', 'create', opts%))
+Font(opts%)				= FontT(tclEval('font', 'create', opts%))
 
-DefaultFont			= FontT('TkDefaultFont')
-TextFont			= FontT('TkTextFont')
-FixedFont			= FontT('TkFixedFont')
-MenuFont			= FontT('TkMenuFont')
-HeadingFont			= FontT('TkHeadingFont')
-CaptionFont			= FontT('TkCaptionFont')
-SmallCaptionFont	= FontT('TkSmallCaptionFont')
-IconFont			= FontT('TkIconFont')
-TooltipFont			= FontT('TkTooltipFont')
+DefaultFont:public		= FontT('TkDefaultFont')
+TextFont:public			= FontT('TkTextFont')
+FixedFont:public		= FontT('TkFixedFont')
+MenuFont:public			= FontT('TkMenuFont')
+HeadingFont:public		= FontT('TkHeadingFont')
+CaptionFont:public		= FontT('TkCaptionFont')
+SmallCaptionFont:public	= FontT('TkSmallCaptionFont')
+IconFont:public			= FontT('TkIconFont')
+TooltipFont:public		= FontT('TkTooltipFont')
 
 //-----------------------------------------------------------------------------
 // Image
@@ -769,18 +769,18 @@ winfo$containing		= genFunction('winfo', 'containing')
 winfo$interps			= genFunction('winfo', 'interps')
 winfo$pathname			= genFunction('winfo', 'pathname')
 
-variable				= _interp.variable
+variable:public			= _interp.variable
 
-tclLibrary				= variable(varName => 'tcl_library')
-tclVersion				= variable(varName => 'tcl_version')
-tclPatchLevel			= variable(varName => 'tcl_patchLevel')
+tclLibrary:public		= variable(varName => 'tcl_library')
+tclVersion:public		= variable(varName => 'tcl_version')
+tclPatchLevel:public	= variable(varName => 'tcl_patchLevel')
 
-tkLibrary				= variable(varName => 'tk_library')
-tkVersion				= variable(varName => 'tk_version')
-tkPatchLevel			= variable(varName => 'tk_patchLevel')
-tkStrictMotif			= variable(varName => 'tk_strictMotif')
-tkTextRedraw			= variable(varName => 'tk_textRedraw')
-tkTextRelayout			= variable(varName => 'tk_textRelayout')
+tkLibrary:public		= variable(varName => 'tk_library')
+tkVersion:public		= variable(varName => 'tk_version')
+tkPatchLevel:public		= variable(varName => 'tk_patchLevel')
+tkStrictMotif:public	= variable(varName => 'tk_strictMotif')
+tkTextRedraw:public		= variable(varName => 'tk_textRedraw')
+tkTextRelayout:public	= variable(varName => 'tk_textRelayout')
 
 tk$FocusFollowsMouse	= genFunction('tk_focusFollowsMouse')
 tk$SetPalette			= genFunction('tk_setPalette')

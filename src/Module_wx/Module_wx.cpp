@@ -3939,11 +3939,10 @@ void AddToArrayInt(wxArrayInt &array, const ValueList &valList)
 	}
 }
 
-void ConvertToWxImage(Object_image *pObjImage, wxImage *pImage)
+void ConvertToWxImage(Image *pImageGura, wxImage *pImage)
 {
-	//wxImage *pImage = new wxImage(pObjImage->GetWidth(), pObjImage->GetHeight(), false);
 	do {
-		std::auto_ptr<Object_image::Scanner> pScanner(pObjImage->CreateScanner());
+		std::auto_ptr<Image::Scanner> pScanner(pImageGura->CreateScanner());
 		unsigned char *pBuffDst = pImage->GetData();
 		do {
 			unsigned char *pPixel = pScanner->GetPointer();
@@ -3953,9 +3952,9 @@ void ConvertToWxImage(Object_image *pObjImage, wxImage *pImage)
 			pBuffDst += 3;
 		} while (pScanner->Next());
 	} while (0);
-	if (pObjImage->GetFormat() == Image::FORMAT_RGBA) {
+	if (pImageGura->GetFormat() == Image::FORMAT_RGBA) {
 		pImage->SetAlpha();
-		std::auto_ptr<Object_image::Scanner> pScanner(pObjImage->CreateScanner());
+		std::auto_ptr<Image::Scanner> pScanner(pImageGura->CreateScanner());
 		unsigned char *pBuffDst = pImage->GetAlpha();
 		do {
 			unsigned char *pPixel = pScanner->GetPointer();
