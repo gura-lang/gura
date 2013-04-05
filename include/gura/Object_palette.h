@@ -6,7 +6,6 @@
 namespace Gura {
 
 class Object_image;
-class Object_color;
 
 //-----------------------------------------------------------------------------
 // Class_palette
@@ -89,7 +88,7 @@ public:
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	Value GetColorValue(size_t idx);
-	void SetColorObj(size_t idx, const Object_color *pObjColor);
+	void SetColor(size_t idx, const Color &color);
 	size_t LookupNearest(unsigned char red, unsigned char green, unsigned char blue) const;
 	bool UpdateByImage(const Object_image *pObjImage, ShrinkMode shrinkMode);
 	bool UpdateByImage(Signal sig, const Object_image *pObjImage, ShrinkMode shrinkMode);
@@ -101,9 +100,6 @@ public:
 	}
 	inline size_t LookupNearest(const Color &color) const {
 		return LookupNearest(color.GetRed(), color.GetGreen(), color.GetBlue());
-	}
-	inline size_t LookupNearest(const Object_color *pObjColor) const {
-		return LookupNearest(pObjColor->GetRed(), pObjColor->GetGreen(), pObjColor->GetBlue());
 	}
 	size_t NextBlankIndex() const;
 	size_t NextBlankIndex(ColorSet &colorSet) const;

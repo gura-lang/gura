@@ -33,13 +33,11 @@ public:
 					_color(obj._color) {}
 	inline Object_color(Environment &env, unsigned char red, unsigned char green,
 									unsigned char blue, unsigned char alpha) :
-					Object(env.LookupClass(VTYPE_color)),
-					_color(red, green, blue, alpha) {}
+			Object(env.LookupClass(VTYPE_color)), _color(red, green, blue, alpha) {}
+	inline Object_color(Environment &env, const Color &color) :
+			Object(env.LookupClass(VTYPE_color)), _color(color) {}
 	inline Object_color(Class *pClass) : Object(pClass) {}
-	inline void Set(unsigned char red, unsigned char green,
-									unsigned char blue, unsigned char alpha) {
-		_color = Color(red, green, blue, alpha);
-	}
+	inline void SetColor(Color &color) { _color = color; }
 	inline Color &GetColor() { return _color; }
 	inline const Color &GetColor() const { return _color; }
 	inline unsigned char GetRed() const { return _color.GetRed(); }

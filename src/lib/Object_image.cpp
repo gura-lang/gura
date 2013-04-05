@@ -185,26 +185,26 @@ bool Object_image::AdjustCoord(int &x, int &y, int &width, int &height) const
 	return true;
 }
 
-void Object_image::PutPixel(unsigned char *buff, const Object_color *pObjColor)
+void Object_image::PutPixel(unsigned char *buff, const Color &color)
 {
 	if (_format == Image::FORMAT_RGB) {
-		*(buff + Image::OffsetRed)		= pObjColor->GetRed();
-		*(buff + Image::OffsetGreen)	= pObjColor->GetGreen();
-		*(buff + Image::OffsetBlue)		= pObjColor->GetBlue();
+		*(buff + Image::OffsetRed)		= color.GetRed();
+		*(buff + Image::OffsetGreen)	= color.GetGreen();
+		*(buff + Image::OffsetBlue)		= color.GetBlue();
 	} else if (_format == Image::FORMAT_RGBA) {
-		*(buff + Image::OffsetRed)		= pObjColor->GetRed();
-		*(buff + Image::OffsetGreen)	= pObjColor->GetGreen();
-		*(buff + Image::OffsetBlue)		= pObjColor->GetBlue();
-		*(buff + Image::OffsetAlpha)	= pObjColor->GetAlpha();
+		*(buff + Image::OffsetRed)		= color.GetRed();
+		*(buff + Image::OffsetGreen)	= color.GetGreen();
+		*(buff + Image::OffsetBlue)		= color.GetBlue();
+		*(buff + Image::OffsetAlpha)	= color.GetAlpha();
 	}
 }
 
-void Object_image::GetPixel(const unsigned char *buff, Object_color *pObjColor)
+void Object_image::GetPixel(const unsigned char *buff, Color &color)
 {
 	if (_format == Image::FORMAT_RGB) {
-		pObjColor->Set(GetPixelR(buff), GetPixelG(buff), GetPixelB(buff), 255);
+		color = Color(GetPixelR(buff), GetPixelG(buff), GetPixelB(buff), 255);
 	} else if (_format == Image::FORMAT_RGBA) {
-		pObjColor->Set(GetPixelR(buff), GetPixelG(buff), GetPixelB(buff), GetPixelA(buff));
+		color = Color(GetPixelR(buff), GetPixelG(buff), GetPixelB(buff), GetPixelA(buff));
 	}
 }
 
@@ -298,12 +298,12 @@ bool Object_image::Extract(Signal sig, size_t x, size_t y, size_t width, size_t 
 }
 
 void Object_image::ReplaceColorRect(size_t x, size_t y, size_t width, size_t height,
-				const Object_color *pObjColorOrg, const Object_color *pObjColor)
+				const Color &colorOrg, const Color &color)
 {
 	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
 	unsigned char buffOrg[8], buff[8];
-	PutPixel(buffOrg, pObjColorOrg);
-	PutPixel(buff, pObjColor);
+	PutPixel(buffOrg, colorOrg);
+	PutPixel(buff, color);
 	if (_format == Image::FORMAT_RGBA) {
 		do {
 			unsigned char *pPixel = pScanner->GetPointer();
@@ -323,10 +323,10 @@ void Object_image::ReplaceColorRect(size_t x, size_t y, size_t width, size_t hei
 }
 
 void Object_image::FillRect(size_t x, size_t y, size_t width, size_t height,
-												const Object_color *pObjColor)
+												const Color &color)
 {
 	unsigned char buff[8];
-	PutPixel(buff, pObjColor);
+	PutPixel(buff, color);
 	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
 	if (_format == Image::FORMAT_RGBA) {
 		do {
@@ -339,25 +339,28 @@ void Object_image::FillRect(size_t x, size_t y, size_t width, size_t height,
 	}
 }
 
-void Object_image::FillRectAlpha(size_t x, size_t y, size_t width, size_t height,
-							unsigned char alpha, const Object_color *pObjColor)
+void Object_image::FillRectAlpha(size_t x, size_t y,
+					size_t width, size_t height, unsigned char alpha)
 {
 	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
-	if (pObjColor == NULL) {
-		do {
-			unsigned char *pPixel = pScanner->GetPointer();
+	do {
+		unsigned char *pPixel = pScanner->GetPointer();
+		*(pPixel + Image::OffsetAlpha) = alpha;
+	} while (pScanner->Next());
+}
+
+void Object_image::FillRectAlpha(size_t x, size_t y,
+		size_t width, size_t height, unsigned char alpha, const Color &color)
+{
+	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
+	unsigned char buff[8];
+	PutPixel(buff, color);
+	do {
+		unsigned char *pPixel = pScanner->GetPointer();
+		if (::memcmp(pPixel, buff, 3) == 0) {
 			*(pPixel + Image::OffsetAlpha) = alpha;
-		} while (pScanner->Next());
-	} else {
-		unsigned char buff[8];
-		PutPixel(buff, pObjColor);
-		do {
-			unsigned char *pPixel = pScanner->GetPointer();
-			if (::memcmp(pPixel, buff, 3) == 0) {
-				*(pPixel + Image::OffsetAlpha) = alpha;
-			}
-		} while (pScanner->Next());
-	}
+		}
+	} while (pScanner->Next());
 }
 
 Object_image *Object_image::ReduceColor(Signal sig, const Object_palette *pObjPalette)
@@ -459,8 +462,7 @@ Object_image *Object_image::Rotate90(Signal sig, bool clockwiseFlag)
 	return pObj;
 }
 
-Object_image *Object_image::Rotate(Signal sig,
-							double angle, const Object_color *pObjColor)
+Object_image *Object_image::Rotate(Signal sig, double angle, const Color &color)
 {
 	int angleInt = static_cast<int>(angle);
 	if (static_cast<double>(angleInt) != angle) {
@@ -504,7 +506,7 @@ Object_image *Object_image::Rotate(Signal sig,
 	size_t bytesPerLineDst = pObj->GetBytesPerLine();
 	size_t bytesPerPixel = GetBytesPerPixel();
 	unsigned char buffBlank[8];
-	PutPixel(buffBlank, pObjColor);
+	PutPixel(buffBlank, color);
 	for (int y = 0; y < height; y++) {
 		unsigned char *pPixelDst = pLineDst;
 		for (int x = 0; x < width; x++) {
@@ -1373,7 +1375,7 @@ Gura_ImplementFunction(image)
 				Declaration(Gura_Symbol(color), VTYPE_color).
 										ValidateAndCast(env, sig, valList[3]);
 				if (sig.IsSignalled()) return Value::Null;
-				pObj->Fill(Object_color::GetObject(valList[3]));
+				pObj->Fill(Object_color::GetObject(valList[3])->GetColor());
 			}
 		}
 	} else {
@@ -1436,7 +1438,7 @@ Gura_ImplementMethod(image, allocbuff)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->CheckEmpty(sig)) return Value::Null;
 	pThis->AllocBuffer(sig, args.GetSizeT(0), args.GetSizeT(1), 0x00);
-	if (args.IsColor(2)) pThis->Fill(Object_color::GetObject(args, 2));
+	if (args.IsColor(2)) pThis->Fill(Object_color::GetObject(args, 2)->GetColor());
 	return Value::Null;
 }
 
@@ -1456,7 +1458,7 @@ Gura_ImplementMethod(image, putpixel)
 	int x = args.GetInt(0), y = args.GetInt(1);
 	if (!pThis->CheckCoord(sig, x, y)) return Value::Null;
 	unsigned char *p = pThis->GetPointer(x, y);
-	pThis->PutPixel(p, Object_color::GetObject(args, 2));
+	pThis->PutPixel(p, Object_color::GetObject(args, 2)->GetColor());
 	return Value::Null;
 }
 
@@ -1475,9 +1477,9 @@ Gura_ImplementMethod(image, getpixel)
 	int x = args.GetInt(0), y = args.GetInt(1);
 	if (!pThis->CheckCoord(sig, x, y)) return Value::Null;
 	unsigned char *p = pThis->GetPointer(x, y);
-	Object_color *pObjColor = new Object_color(env, 0, 0, 0, 0);
-	pThis->GetPixel(p, pObjColor);
-	return Value(pObjColor);
+	Color color;
+	pThis->GetPixel(p, color);
+	return Value(new Object_color(env, color));
 }
 
 // image#store(x:number, y:number, width:number, height:number, element:symbol, src):void
@@ -1557,7 +1559,8 @@ Gura_ImplementMethod(image, replacecolor)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->CheckValid(sig)) return Value::Null;
-	pThis->ReplaceColor(Object_color::GetObject(args, 0), Object_color::GetObject(args, 1));
+	pThis->ReplaceColor(Object_color::GetObject(args, 0)->GetColor(),
+							Object_color::GetObject(args, 1)->GetColor());
 	return Value::Null;
 }
 
@@ -1571,8 +1574,7 @@ Gura_ImplementMethod(image, clear)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->CheckValid(sig)) return Value::Null;
-	AutoPtr<Object_color> pObjColor(new Object_color(env, 0, 0, 0, 0));
-	pThis->Fill(pObjColor.get());
+	pThis->Fill(Color::Zero);
 	return Value::Null;
 }
 
@@ -1587,7 +1589,7 @@ Gura_ImplementMethod(image, fill)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->CheckValid(sig)) return Value::Null;
-	pThis->Fill(Object_color::GetObject(args, 0));
+	pThis->Fill(Object_color::GetObject(args, 0)->GetColor());
 	return Value::Null;
 }
 
@@ -1609,7 +1611,7 @@ Gura_ImplementMethod(image, fillrect)
 	int x = args.GetInt(0), y = args.GetInt(1);
 	int width = args.GetInt(2), height = args.GetInt(3);
 	if (!pThis->AdjustCoord(x, y, width, height)) return Value::Null;
-	pThis->FillRect(x, y, width, height, Object_color::GetObject(args, 4));
+	pThis->FillRect(x, y, width, height, Object_color::GetObject(args, 4)->GetColor());
 	return Value::Null;
 }
 
@@ -1629,7 +1631,11 @@ Gura_ImplementMethod(image, setalpha)
 		sig.SetError(ERR_ValueError, "only RGBA format contains alpha element");
 		return 0;
 	}
-	pThis->FillAlpha(args.GetUChar(0), args.IsValid(1)? Object_color::GetObject(args, 1) : NULL);
+	if (args.IsValid(1)) {
+		pThis->FillAlpha(args.GetUChar(0), Object_color::GetObject(args, 1)->GetColor());
+	} else {
+		pThis->FillAlpha(args.GetUChar(0));
+	}
 	return args.GetThis();
 }
 
@@ -1723,12 +1729,11 @@ Gura_ImplementMethod(image, rotate)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->CheckValid(sig)) return Value::Null;
-	Value valueBg = args.GetValue(1);
-	if (!valueBg.IsColor()) {
-		valueBg = Value(new Object_color(env, 0, 0, 0, 0));
+	Color color;
+	if (args.IsColor(1)) {
+		color = Object_color::GetObject(1)->GetColor();
 	}
-	Object_image *pObj = pThis->Rotate(sig,
-					args.GetNumber(0), Object_color::GetObject(valueBg));
+	Object_image *pObj = pThis->Rotate(sig, args.GetNumber(0), color);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(pObj);
 }

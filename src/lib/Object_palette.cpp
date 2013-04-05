@@ -61,14 +61,14 @@ void Object_palette::IndexSet(Environment &env, Signal sig, const Value &valueId
 		return;
 	}
 	if (value.IsColor()) {
-		SetColorObj(idx, Object_color::GetObject(value));
+		SetColor(idx, Object_color::GetObject(value)->GetColor());
 	} else {
 		Value valueCasted = value;
 		if (!env.LookupClass(VTYPE_color)->CastFrom(env, sig, valueCasted, NULL)) {
 			sig.SetError(ERR_ValueError, "color must be specified");
 			return;
 		}
-		SetColorObj(idx, Object_color::GetObject(valueCasted));
+		SetColor(idx, Object_color::GetObject(valueCasted)->GetColor());
 	}
 }
 
@@ -129,10 +129,9 @@ Value Object_palette::GetColorValue(size_t idx)
 		entry[OffsetRed], entry[OffsetGreen], entry[OffsetBlue], entry[OffsetAlpha]));
 }
 
-void Object_palette::SetColorObj(size_t idx, const Object_color *pObjColor)
+void Object_palette::SetColor(size_t idx, const Color &color)
 {
-	SetEntry(idx, pObjColor->GetRed(), pObjColor->GetGreen(),
-								pObjColor->GetBlue(), pObjColor->GetAlpha());
+	SetEntry(idx, color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha());
 }
 
 size_t Object_palette::LookupNearest(unsigned char red, unsigned char green, unsigned char blue) const
@@ -872,7 +871,7 @@ Gura_DeclareMethod(palette, nearest)
 Gura_ImplementMethod(palette, nearest)
 {
 	Object_palette *pThis = Object_palette::GetThisObj(args);
-	size_t idx = pThis->LookupNearest(Object_color::GetObject(args, 0));
+	size_t idx = pThis->LookupNearest(Object_color::GetObject(args, 0)->GetColor());
 	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<unsigned int>(idx));
 	return pThis->GetColorValue(idx);
 }

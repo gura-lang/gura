@@ -2,7 +2,6 @@
 #define __GURA_OBJECT_IMAGE_H__
 
 #include "Object.h"
-#include "Object_color.h"
 #include "Object_palette.h"
 
 namespace Gura {
@@ -231,8 +230,8 @@ public:
 	}
 	bool CheckCoord(Signal sig, size_t x, size_t y) const;
 	bool AdjustCoord(int &x, int &y, int &width, int &height) const;
-	void PutPixel(unsigned char *buff, const Object_color *pObjColor);
-	void GetPixel(const unsigned char *buff, Object_color *pObjColor);
+	void PutPixel(unsigned char *buff, const Color &color);
+	void GetPixel(const unsigned char *buff, Color &color);
 	bool Store(Signal sig, size_t x, size_t y, size_t width, size_t height,
 						const Symbol *pSymbol, const Object_matrix *pObjMat);
 	bool Store(Signal sig, size_t x, size_t y, size_t width, size_t height,
@@ -242,18 +241,23 @@ public:
 	bool Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
 				const Symbol *pSymbol, Object_list *pObjList);
 	void ReplaceColorRect(size_t x, size_t y, size_t width, size_t height,
-				const Object_color *pObjColorOrg, const Object_color *pObjColor);
-	inline void ReplaceColor(const Object_color *pObjColorOrg, const Object_color *pObjColor) {
-		ReplaceColorRect(0, 0, _width, _height, pObjColorOrg, pObjColor);
+				const Color &colorOrg, const Color &color);
+	inline void ReplaceColor(const Color &colorOrg, Color &color) {
+		ReplaceColorRect(0, 0, _width, _height, colorOrg, color);
 	}
-	void FillRect(size_t x, size_t y, size_t width, size_t height, const Object_color *pObjColor);
-	inline void Fill(const Object_color *pObjColor) {
-		FillRect(0, 0, _width, _height, pObjColor);
+	void FillRect(size_t x, size_t y, size_t width, size_t height, const Color &color);
+	inline void Fill(const Color &color) {
+		FillRect(0, 0, _width, _height, color);
 	}
-	void FillRectAlpha(size_t x, size_t y, size_t width, size_t height,
-				unsigned char alpha, const Object_color *pObjColor);
-	inline void FillAlpha(unsigned char alpha, const Object_color *pObjColor) {
-		FillRectAlpha(0, 0, _width, _height, alpha, pObjColor);
+	void FillRectAlpha(size_t x, size_t y,
+			size_t width, size_t height, unsigned char alpha);
+	void FillRectAlpha(size_t x, size_t y,
+			size_t width, size_t height, unsigned char alpha, const Color &color);
+	inline void FillAlpha(unsigned char alpha) {
+		FillRectAlpha(0, 0, _width, _height, alpha);
+	}
+	inline void FillAlpha(unsigned char alpha, const Color &color) {
+		FillRectAlpha(0, 0, _width, _height, alpha, color);
 	}
 	const Object_palette *GetPaletteObj() const { return _pObjPalette.get(); }
 	Object_image *ReduceColor(Signal sig, const Object_palette *pObjPalette);
@@ -261,7 +265,7 @@ public:
 	Object_image *Blur(Signal sig, int radius);
 	Object_image *Flip(Signal sig, bool horzFlag, bool vertFlag);
 	Object_image *Rotate90(Signal sig, bool clockwiseFlag);
-	Object_image *Rotate(Signal sig, double angle, const Object_color *pObjColor);
+	Object_image *Rotate(Signal sig, double angle, const Color &color);
 	Object_image *Crop(Signal sig, size_t x, size_t y, size_t width, size_t height);
 	Object_image *Resize(Signal sig, size_t width, size_t height);
 	void Paste(size_t x, size_t y, Object_image *pObj,
