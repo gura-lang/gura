@@ -1561,6 +1561,21 @@ Gura_ImplementMethod(image, replacecolor)
 	return Value::Null;
 }
 
+// image#clear():void
+Gura_DeclareMethod(image, clear)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(image, clear)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!pThis->CheckValid(sig)) return Value::Null;
+	AutoPtr<Object_color> pObjColor(new Object_color(env, 0, 0, 0, 0));
+	pThis->Fill(pObjColor.get());
+	return Value::Null;
+}
+
 // image#fill(color:color):void
 Gura_DeclareMethod(image, fill)
 {
@@ -1969,6 +1984,7 @@ Class_image::Class_image(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_image)
 	Gura_AssignMethod(image, store);
 	Gura_AssignMethod(image, extract);
 	Gura_AssignMethod(image, replacecolor);
+	Gura_AssignMethod(image, clear);
 	Gura_AssignMethod(image, fill);
 	Gura_AssignMethod(image, fillrect);
 	Gura_AssignMethod(image, setalpha);

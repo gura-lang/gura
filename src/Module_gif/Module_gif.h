@@ -221,7 +221,7 @@ public:
 	bool Read(Environment &env, Signal sig, Stream &stream,
 					Object_image *pObjImageTgt, Image::Format format);
 	bool Write(Environment &env, Signal sig, Stream &stream,
-					const Color &colorBackground, unsigned short loopCount);
+		const Color &colorBackground, bool validBackgroundFlag, unsigned short loopCount);
 	bool ReadColorTable(Signal sig, Stream &stream, Object_palette *pObjPalette);
 	bool WriteColorTable(Signal sig, Stream &stream, const Object_palette *pObjPalette);
 	bool ReadDataBlocks(Signal sig, Stream &stream, Binary &binary);

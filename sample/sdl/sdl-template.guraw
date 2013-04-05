@@ -1,0 +1,9 @@
+#!/usr/bin/env gura
+import(sdl)
+
+sdl.Init(sdl.INIT_EVERYTHING)
+screen = sdl.SetVideoMode(640, 480, 16, sdl.SWSURFACE)
+repeat {
+	event = sdl.WaitEvent()
+	(event.type == sdl.QUIT) && break
+}

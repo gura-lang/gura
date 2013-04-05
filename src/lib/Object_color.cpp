@@ -6,10 +6,11 @@
 
 namespace Gura {
 
+
 //-----------------------------------------------------------------------------
 // Color
 //-----------------------------------------------------------------------------
-const Color Color::Null(0xffffffff);
+const Color Color::Zero;
 
 const Color::ElementEntry Color::ElementEntries[] = {
 	// basic color
@@ -823,7 +824,7 @@ Value Object_color::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		return Value(_color.GetBlue());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(alpha))) {
 		evaluatedFlag = true;
-		return Value(_alpha);
+		return Value(_color.GetAlpha());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(gray))) {
 		evaluatedFlag = true;
 		return Value(_color.GetGray());
@@ -851,8 +852,9 @@ Value Object_color::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		return Value(blue);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(alpha))) {
 		evaluatedFlag = true;
-		_alpha = value.GetUChar();
-		return Value(_alpha);
+		unsigned char alpha = value.GetUChar();
+		_color.SetAlpha(alpha);
+		return Value(alpha);
 	}
 	return Value::Null;
 }
@@ -863,7 +865,7 @@ String Object_color::ToString(Signal sig, bool exprFlag)
 	str += "<color:";
 	str += _color.GetHTML();
 	char buff[32];
-	::sprintf(buff, ",alpha:%02x", _alpha);
+	::sprintf(buff, ",alpha:%02x", _color.GetAlpha());
 	str += buff;
 	str += ">";
 	return str;
@@ -907,7 +909,7 @@ Object_color *Object_color::CreateNamedColor(Environment &env,
 			sig.SetError(ERR_ValueError, "invalid color name");
 			return NULL;
 		}
-		return new Object_color(env, red, green, blue, 255);
+		return new Object_color(env, red, green, blue, alpha);
 	}
 	if (_pColorMap == NULL) {
 		_pColorMap = new ColorMap();
@@ -926,7 +928,7 @@ Object_color *Object_color::CreateNamedColor(Environment &env,
 	}
 	const Color &color = iter->second;
 	return new Object_color(env,
-			color.GetRed(), color.GetGreen(), color.GetBlue(), 255);
+			color.GetRed(), color.GetGreen(), color.GetBlue(), alpha);
 }
 
 //-----------------------------------------------------------------------------

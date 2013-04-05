@@ -2,6 +2,7 @@
 import(sdl)
 import(gif)
 import(jpeg)
+import(freetype)
 
 I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 sdl.Init(sdl.INIT_EVERYTHING)
@@ -9,9 +10,11 @@ sdl.Init(sdl.INIT_EVERYTHING)
 screen = sdl.SetVideoMode(wdScreen, htScreen, 16, sdl.SWSURFACE)
 wdImage = 200
 imageBg = image(I('Winter.jpg'), `rgb).resize(wdScreen, htScreen)
+imageText = image(`rgba, wdScreen, htScreen)
 imagesL = gif.content(I('chicken-anim.gif'), `rgba).images::resize(wdImage)
 imagesR = imagesL::flip(`horz)
 xStep = wdImage / 10
+fontFace = freetype.Face.New(I('Kaufmann_Bold_BT.ttf')).setheight(32).setcolor(`white)
 
 Chicken = class {
 	__init__(x:number, y:number, dir:symbol) = {
@@ -44,19 +47,19 @@ chickens = repeat(3):list {
 //font = sdl.OpenFont(path.join(os.getenv('SystemRoot'), 'Fonts', 'arial.ttf'), 32)
 sdl.AddTimer(100) {
 	sdl.BlitSurface(imageBg, nil, screen, nil)
-	text = 'Chickens: %d' % chickens.len()
-	//font.RenderText_Blended(text, color(`white)) {|surface|
-	//	screen.PutSurface(surface, 10, 10)
-	//}
+	imageText.clear()
+	imageText.drawtext(fontFace, 10, 50, 'Chickens: %d' % chickens.len())
+	sdl.BlitSurface(imageText, nil, screen, nil)
 	chickens::doAction()
 	screen.UpdateRect()
 	true
 }
 repeat {
 	event = sdl.WaitEvent()
-	if (event.type == sdl.QUIT || \
-				(event.type == sdl.KEYDOWN && event.sym == sdl.K_ESCAPE)) {
+	if (event.type == sdl.QUIT) {
 		break
+	} elsif (event.type == sdl.KEYDOWN) {
+		(event.sym == sdl.K_ESCAPE) && break
 	} elsif (event.type == sdl.MOUSEBUTTONDOWN) {
 		dir = choose(event.button, `left, `left, `right, `right)
 		chickens.add(Chicken(event.x, event.y, dir))

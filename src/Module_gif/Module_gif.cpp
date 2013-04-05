@@ -349,7 +349,7 @@ bool GIF::Read(Environment &env, Signal sig, Stream &stream,
 }
 
 bool GIF::Write(Environment &env, Signal sig, Stream &stream,
-						const Color &colorBackground, unsigned short loopCount)
+	const Color &colorBackground, bool validBackgroundFlag, unsigned short loopCount)
 {
 	if (GetList().empty()) {
 		sig.SetError(ERR_ValueError, "no image to write");
@@ -395,7 +395,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 		}
 		_pObjPaletteGlobal->Shrink(idxBlank, true);
 	} while (0);
-	if (colorBackground.IsValid()) {
+	if (validBackgroundFlag) {
 		backgroundColorIndex = static_cast<int>(
 				_pObjPaletteGlobal->LookupNearest(colorBackground));
 	}
@@ -1137,7 +1137,7 @@ Gura_ImplementMethod(content, write)
 	GIF &gif = Object_content::GetThisObj(args)->GetGIF();
 	Stream &stream = args.GetStream(0);
 	unsigned short loopCount = 0;
-	if (!gif.Write(env, sig, stream, Color::Null, loopCount)) {
+	if (!gif.Write(env, sig, stream, Color::Zero, false, loopCount)) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -1387,7 +1387,7 @@ Gura_ImplementMethod(image, gifwrite)
 	GIF gif;
 	gif.AddImage(args.GetThis(), 0, 0, 0, 1);
 	unsigned short loopCount = 0;
-	if (!gif.Write(env, sig, stream, Color::Null, loopCount)) {
+	if (!gif.Write(env, sig, stream, Color::Zero, false, loopCount)) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -1536,7 +1536,7 @@ bool ImageStreamer_GIF::Write(Environment &env, Signal sig,
 	Value value(Object_image::Reference(pObjImage));
 	gif.AddImage(value, 0, 0, 0, 1);
 	unsigned short loopCount = 0;
-	return gif.Write(env, sig, stream, Color::Null, loopCount);
+	return gif.Write(env, sig, stream, Color::Zero, false, loopCount);
 }
 
 Gura_EndModule(gif, gif)

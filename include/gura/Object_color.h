@@ -17,7 +17,7 @@ public:
 private:
 	unsigned long _num;
 public:
-	static const Color Null;
+	static const Color Zero;
 	static const ElementEntry ElementEntries[];
 public:
 	inline Color() : _num(0x00000000) {}
@@ -26,8 +26,10 @@ public:
 	inline Color(unsigned char red, unsigned char green, unsigned char blue) :
 		_num((static_cast<unsigned long>(red) << 16) +
 			 (static_cast<unsigned long>(green) << 8) + blue) {}
-	inline bool IsValid() const { return _num < 0x1000000; }
-	inline bool IsInvalid() const { return !IsValid(); }
+	inline Color(unsigned char red, unsigned char green, unsigned char blue, unsigned alpha) :
+		_num((static_cast<unsigned long>(alpha) << 24) +
+			 (static_cast<unsigned long>(red) << 16) +
+			 (static_cast<unsigned long>(green) << 8) + blue) {}
 	inline unsigned long GetULong() const { return _num; }
 	inline unsigned char GetRed() const {
 		return static_cast<unsigned char>(_num >> 16);
@@ -37,6 +39,9 @@ public:
 	}
 	inline unsigned char GetBlue() const {
 		return static_cast<unsigned char>(_num >> 0);
+	}
+	inline unsigned char GetAlpha() const {
+		return static_cast<unsigned char>(_num >> 24);
 	}
 	inline unsigned char GetGray() const {
 		return CalcGray(GetRed(), GetGreen(), GetBlue());
@@ -50,7 +55,12 @@ public:
 	inline void SetBlue(unsigned char blue) {
 		_num = _num & ~(0xff << 0) | (static_cast<unsigned long>(blue) << 0);
 	}
-	inline bool operator<(const Color &c) const { return GetULong() < c.GetULong(); }
+	inline void SetAlpha(unsigned char alpha) {
+		_num = _num & ~(0xff << 24) | (static_cast<unsigned long>(alpha) << 24);
+	}
+	inline bool operator<(const Color &c) const {
+		return (GetULong() & 0xffffff) < (c.GetULong() & 0xffffff);
+	}
 	inline size_t CalcDist(unsigned char red, unsigned char green, unsigned char blue) const {
 		return CalcDistRGB(GetRed(), GetGreen(), GetBlue(), red, green, blue);
 	}
@@ -59,7 +69,7 @@ public:
 	}
 	inline String GetHTML() const {
 		char buff[32];
-		::sprintf(buff, "#%06x", static_cast<unsigned int>(_num));
+		::sprintf(buff, "#%06x", static_cast<unsigned int>(_num & 0xffffff));
 		return String(buff);
 	}
 	static inline size_t CalcDistRGB(
@@ -102,30 +112,29 @@ public:
 	Gura_DeclareObjectAccessor(color)
 private:
 	Color _color;
-	unsigned char _alpha;
 	static ColorMap *_pColorMap;
 public:
 	inline Object_color(const Object_color &obj) : Object(obj),
-					_color(obj._color), _alpha(obj._alpha) {}
+					_color(obj._color) {}
 	inline Object_color(Environment &env, unsigned char red, unsigned char green,
 									unsigned char blue, unsigned char alpha) :
 					Object(env.LookupClass(VTYPE_color)),
-					_color(red, green, blue), _alpha(alpha) {}
-	inline Object_color(Class *pClass) : Object(pClass), _alpha(0) {}
+					_color(red, green, blue, alpha) {}
+	inline Object_color(Class *pClass) : Object(pClass) {}
 	inline void Set(unsigned char red, unsigned char green,
 									unsigned char blue, unsigned char alpha) {
-		_color = Color(red, green, blue), _alpha = alpha;
+		_color = Color(red, green, blue, alpha);
 	}
 	inline Color &GetColor() { return _color; }
 	inline const Color &GetColor() const { return _color; }
 	inline unsigned char GetRed() const { return _color.GetRed(); }
 	inline unsigned char GetGreen() const { return _color.GetGreen(); }
 	inline unsigned char GetBlue() const { return _color.GetBlue(); }
-	inline unsigned char GetAlpha() const { return _alpha; }
+	inline unsigned char GetAlpha() const { return _color.GetAlpha(); }
 	inline void SetRed(unsigned char red) { _color.SetRed(red); }
 	inline void SetGreen(unsigned char green) { _color.SetGreen(green); }
 	inline void SetBlue(unsigned char blue) { _color.SetBlue(blue); }
-	inline void SetAlpha(unsigned char alpha) { _alpha = alpha; }
+	inline void SetAlpha(unsigned char alpha) { _color.SetAlpha(alpha); }
 	virtual ~Object_color();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
