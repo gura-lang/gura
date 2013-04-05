@@ -284,8 +284,9 @@ createZip(filenames) = {
 		try { fs.remove(filenameZip) } except {}
 		os.exec('7z', 'a', '-r-', filenameZip, '@' + filenameList)
 	} != 0) && sys.exit(1)
-	printf('%s was created\n', path.filename(filenameZip))
-	//printf('%s was created\n', path.filename(filenameList))
+	conio.setcolor(`bright_red) {
+		printf('generated: %s\n', path.filename(filenameZip))
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -372,8 +373,9 @@ createMsi(filenames) = {
 		}
 		fs.remove(filenameWixobj)
 	}
-	printf('%s was created\n', path.filename(filenameMsi))
-	//printf('%s was created\n', path.filename(filenameWxs))
+	conio.setcolor(`bright_red) {
+		printf('generated: %s\n', path.filename(filenameMsi))
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -389,8 +391,10 @@ createSrcPackage() = {
 		(os.exec('git', 'archive', '--format=zip', '--prefix=' + prefix + '/',
 				 '--output=src/' + filenameZip, 'HEAD') != 0)
 	} && sys.exit(1)
-	printf('%s was created\n', filenameTar)
-	printf('%s was created\n', filenameZip)
+	conio.setcolor(`bright_red) {
+		printf('generated: %s\n', filenameTar)
+		printf('generated: %s\n', filenameZip)
+	}
 }
 
 if (sys.platform == `mswin) {
