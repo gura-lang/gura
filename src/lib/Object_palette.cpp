@@ -139,12 +139,12 @@ size_t Object_palette::LookupNearest(unsigned char red, unsigned char green, uns
 {
 	size_t idxMin = 0;
 	const unsigned char *entry = _buff;
-	size_t distMin = Color::CalcDistRGB(red, green, blue,
+	size_t distMin = Color::CalcDist(red, green, blue,
 						entry[OffsetRed], entry[OffsetGreen], entry[OffsetBlue]);
 	if (distMin == 0) return idxMin;
 	entry += 4;
 	for (size_t idx = 1; idx < _nEntries; idx++, entry += 4) {
-		size_t dist = Color::CalcDistRGB(red, green, blue,
+		size_t dist = Color::CalcDist(red, green, blue,
 						entry[OffsetRed], entry[OffsetGreen], entry[OffsetBlue]);
 		if (distMin > dist) {
 			if (dist == 0) return idx;

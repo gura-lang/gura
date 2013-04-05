@@ -72,31 +72,6 @@ GURA_DLLDECLARE const char *GetOpening();
 //-----------------------------------------------------------------------------
 typedef double Number;
 
-class Complex : public std::complex<Number> {
-public:
-	static const Complex Zero;
-public:
-	inline Complex() : std::complex<Number>(0.) {}
-	inline Complex(const Complex &comp) : std::complex<Number>(comp) {}
-	inline Complex(const std::complex<Number> &comp) : std::complex<Number>(comp) {}
-	inline Complex(Number real) : std::complex<Number>(real) {}
-	inline Complex(Number real, Number imag) : std::complex<Number>(real, imag) {}
-};
-
-class Fraction {
-public:
-	Number numerator;
-	Number denominator;
-public:
-	static const Fraction Zero;
-public:
-	inline Fraction() : numerator(0), denominator(1) {}
-	inline Fraction(Number numerator_, Number denominator_) :
-			numerator(numerator_), denominator(denominator_) {}
-	inline Fraction(const Fraction &frac) :
-			numerator(frac.numerator), denominator(frac.denominator) {}
-};
-
 GURA_DLLDECLARE extern const Number RoundOffThreshold;
 
 typedef std::vector<char> CharList;
@@ -110,8 +85,6 @@ typedef std::vector<unsigned short> UShortList;
 typedef std::vector<unsigned int> UIntList;
 typedef std::vector<unsigned long> ULongList;
 typedef std::vector<Number> NumberList;
-typedef std::vector<Complex> ComplexList;
-typedef std::vector<Fraction> FractionList;
 
 typedef std::deque<char> CharDeque;
 typedef std::deque<short> ShortDeque;
@@ -124,11 +97,6 @@ typedef std::deque<unsigned short> UShortDeque;
 typedef std::deque<unsigned int> UIntDeque;
 typedef std::deque<unsigned long> ULongDeque;
 typedef std::deque<Number> NumberDeque;
-typedef std::deque<Complex> ComplexDeque;
-typedef std::deque<Fraction> FractionDeque;
-
-typedef std::basic_string<char> String;
-typedef std::deque<String> StringDeque;
 
 //-----------------------------------------------------------------------------
 // OccurPattern
@@ -217,9 +185,52 @@ private:
 };
 
 //-----------------------------------------------------------------------------
+// String
+//-----------------------------------------------------------------------------
+typedef std::basic_string<char> String;
+typedef std::deque<String> StringDeque;
+
+//-----------------------------------------------------------------------------
+// Complex
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Complex : public std::complex<Number> {
+public:
+	static const Complex Zero;
+public:
+	inline Complex() : std::complex<Number>(0.) {}
+	inline Complex(const Complex &comp) : std::complex<Number>(comp) {}
+	inline Complex(const std::complex<Number> &comp) : std::complex<Number>(comp) {}
+	inline Complex(Number real) : std::complex<Number>(real) {}
+	inline Complex(Number real, Number imag) : std::complex<Number>(real, imag) {}
+};
+
+typedef std::vector<Complex> ComplexList;
+typedef std::deque<Complex> ComplexDeque;
+
+//-----------------------------------------------------------------------------
+// Fraction
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Fraction {
+public:
+	Number numerator;
+	Number denominator;
+public:
+	static const Fraction Zero;
+public:
+	inline Fraction() : numerator(0), denominator(1) {}
+	inline Fraction(Number numerator_, Number denominator_) :
+			numerator(numerator_), denominator(denominator_) {}
+	inline Fraction(const Fraction &frac) :
+			numerator(frac.numerator), denominator(frac.denominator) {}
+};
+
+typedef std::vector<Fraction> FractionList;
+typedef std::deque<Fraction> FractionDeque;
+
+//-----------------------------------------------------------------------------
 // RandomGenerator
 //-----------------------------------------------------------------------------
-class RandomGenerator {
+class GURA_DLLDECLARE RandomGenerator {
 public:
 	static void Initialize(unsigned long seed);
 	static double Real2();
@@ -252,6 +263,98 @@ struct BitmapInfoHeader {
 	Gura_PackedULong_LE(biClrUsed);
 	Gura_PackedULong_LE(biClrImportant);
 };
+
+//-----------------------------------------------------------------------------
+// Color
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Color {
+public:
+	struct ElementEntry {
+		const char *name;
+		unsigned char red, green, blue;
+	};
+private:
+	unsigned char _red, _green, _blue, _alpha;
+public:
+	static const Color Zero;
+	static const ElementEntry ElementEntries[];
+public:
+	inline Color() : _red(0), _green(0), _blue(0), _alpha(0) {}
+	inline Color(const Color &color) : _red(color._red), _green(color._green),
+					_blue(color._blue), _alpha(color._alpha) {}
+	inline Color(unsigned char red, unsigned char green, unsigned char blue) :
+					_red(red), _green(green), _blue(blue), _alpha(0) {}
+	inline Color(unsigned char red, unsigned char green, unsigned char blue, unsigned alpha) :
+					_red(red), _green(green), _blue(blue), _alpha(alpha) {}
+	inline unsigned char GetRed() const { return _red; }
+	inline unsigned char GetGreen() const { return _green; }
+	inline unsigned char GetBlue() const { return _blue; }
+	inline unsigned char GetAlpha() const { return _alpha; }
+	inline void SetRed(unsigned char red) { _red = red; }
+	inline void SetGreen(unsigned char green) { _green = green; }
+	inline void SetBlue(unsigned char blue) { _blue = blue; }
+	inline void SetAlpha(unsigned char alpha) { _alpha = alpha; }
+	inline unsigned char GetGray() const {
+		return CalcGray(GetRed(), GetGreen(), GetBlue());
+	}
+	inline unsigned long GetARGB() const {
+		return
+			(static_cast<unsigned long>(GetAlpha()) << 24) +
+			(static_cast<unsigned long>(GetRed()) << 16) +
+			(static_cast<unsigned long>(GetGreen()) << 8) +
+			(static_cast<unsigned long>(GetBlue()) << 0);
+	}
+	inline unsigned long GetABGR() const {
+		return
+			(static_cast<unsigned long>(GetAlpha()) << 24) +
+			(static_cast<unsigned long>(GetBlue()) << 16) +
+			(static_cast<unsigned long>(GetGreen()) << 8) +
+			(static_cast<unsigned long>(GetRed()) << 0);
+	}
+	inline unsigned long GetRGB() const {
+		return
+			(static_cast<unsigned long>(GetRed()) << 16) +
+			(static_cast<unsigned long>(GetGreen()) << 8) +
+			(static_cast<unsigned long>(GetBlue()) << 0);
+	}
+	inline unsigned long GetBGR() const {
+		return
+			(static_cast<unsigned long>(GetBlue()) << 16) +
+			(static_cast<unsigned long>(GetGreen()) << 8) +
+			(static_cast<unsigned long>(GetRed()) << 0);
+	}
+	inline bool operator<(const Color &c) const { return GetRGB() < c.GetRGB(); }
+	inline size_t CalcDist(unsigned char red, unsigned char green, unsigned char blue) const {
+		return CalcDist(GetRed(), GetGreen(), GetBlue(), red, green, blue);
+	}
+	inline size_t CalcDist(const Color &c) const {
+		return CalcDist(GetRed(), GetGreen(), GetBlue(), c.GetRed(), c.GetGreen(), c.GetBlue());
+	}
+	inline String GetHTML() const {
+		char buff[32];
+		::sprintf(buff, "#%06x", GetRGB());
+		return String(buff);
+	}
+	static inline size_t CalcDist(
+				unsigned char red1, unsigned char green1, unsigned char blue1,
+				unsigned char red2, unsigned char green2, unsigned char blue2) {
+		long distR = static_cast<long>(red1) - static_cast<long>(red2);
+		long distG = static_cast<long>(green1) - static_cast<long>(green2);
+		long distB = static_cast<long>(blue1) - static_cast<long>(blue2);
+		return distR * distR + distG * distG + distB * distB;
+	}
+	// revise this equation to convert a color into gray scale.
+	static inline unsigned char CalcGray(unsigned char red, unsigned char green, unsigned char blue) {
+		return static_cast<unsigned char>(
+			(static_cast<unsigned long>(red) * 299 +
+			 static_cast<unsigned long>(green) * 587 +
+			 static_cast<unsigned long>(blue) * 114) / 1000);
+	}
+};
+
+typedef std::vector<Color> ColorList;
+typedef std::deque<Color> ColorDeque;
+typedef std::set<Color> ColorSet;
 
 }
 #endif
