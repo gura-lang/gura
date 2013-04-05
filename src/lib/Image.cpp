@@ -1205,7 +1205,7 @@ Image::~Image()
 	FreeBuffer();
 }
 
-Object *Image::Clone() const
+Image *Image::Clone() const
 {
 	return new Image(*this);
 }

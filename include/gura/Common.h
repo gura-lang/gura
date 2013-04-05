@@ -332,7 +332,7 @@ public:
 	}
 	inline String GetHTML() const {
 		char buff[32];
-		::sprintf(buff, "#%06x", GetRGB());
+		::sprintf(buff, "#%06lx", GetRGB());
 		return String(buff);
 	}
 	static inline size_t CalcDist(
