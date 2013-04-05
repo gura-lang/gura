@@ -38,13 +38,14 @@ Chicken = class {
 		(this.x < 0) && this.turnRight()
 	}
 }
+
 chickens = repeat(3):list {
 	x = rand(wdScreen - wdImage)
 	y = rand(htScreen - wdImage) + wdImage
 	dir = cond(rand() < .5, `left, `right)
 	Chicken(x, y, dir)
 }
-//font = sdl.OpenFont(path.join(os.getenv('SystemRoot'), 'Fonts', 'arial.ttf'), 32)
+
 sdl.AddTimer(100) {
 	sdl.BlitSurface(imageBg, nil, screen, nil)
 	imageText.clear()
@@ -54,6 +55,7 @@ sdl.AddTimer(100) {
 	screen.UpdateRect()
 	true
 }
+
 repeat {
 	event = sdl.WaitEvent()
 	if (event.type == sdl.QUIT) {

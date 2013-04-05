@@ -342,22 +342,22 @@ void Object_Face::DrawGrayOnImage(Object_image *pObjImage, int x, int y,
 	const unsigned char *pPixel = pLine;
 	bool alphaFlag = (pObjImage->GetFormat() == Image::FORMAT_RGBA);
 	for (;;) {
-		unsigned long ratioFg = *pPixel;
-		unsigned long ratioBg = 255 - ratioFg;
-		unsigned long redBg = pScanner->GetRed();
-		unsigned long greenBg = pScanner->GetGreen();
-		unsigned long blueBg = pScanner->GetBlue();
-		unsigned long red = redFg * ratioFg + redBg * ratioBg;
-		unsigned long green = greenFg * ratioFg + greenBg * ratioBg;
-		unsigned long blue = blueFg * ratioFg + blueBg * ratioBg;
-		red /= 255, green /= 255, blue /= 255;
 		if (alphaFlag) {
 			pScanner->StorePixel(
-					static_cast<unsigned char>(red),
-					static_cast<unsigned char>(green),
-					static_cast<unsigned char>(blue),
-					_alpha);
+					static_cast<unsigned char>(redFg),
+					static_cast<unsigned char>(greenFg),
+					static_cast<unsigned char>(blueFg),
+					*pPixel);
 		} else {
+			unsigned long ratioFg = *pPixel;
+			unsigned long ratioBg = 255 - ratioFg;
+			unsigned long redBg = pScanner->GetRed();
+			unsigned long greenBg = pScanner->GetGreen();
+			unsigned long blueBg = pScanner->GetBlue();
+			unsigned long red = redFg * ratioFg + redBg * ratioBg;
+			unsigned long green = greenFg * ratioFg + greenBg * ratioBg;
+			unsigned long blue = blueFg * ratioFg + blueBg * ratioBg;
+			red /= 255, green /= 255, blue /= 255;
 			pScanner->StorePixel(
 					static_cast<unsigned char>(red),
 					static_cast<unsigned char>(green),
