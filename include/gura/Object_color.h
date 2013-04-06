@@ -23,6 +23,12 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_color : public Object {
 public:
+	struct ElementEntry {
+		const char *name;
+		unsigned char red, green, blue;
+	};
+public:
+	static const ElementEntry ElementEntries[];
 public:
 	Gura_DeclareObjectAccessor(color)
 private:

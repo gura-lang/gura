@@ -6,13 +6,10 @@
 
 namespace Gura {
 
-
 //-----------------------------------------------------------------------------
-// Color
+// Object_color
 //-----------------------------------------------------------------------------
-const Color Color::Zero;
-
-const Color::ElementEntry Color::ElementEntries[] = {
+const Object_color::ElementEntry Object_color::ElementEntries[] = {
 	// basic color
 	{ "black",					  0,   0,   0 },
 	{ "maroon",					128,   0,   0 },
@@ -785,9 +782,6 @@ const Color::ElementEntry Color::ElementEntries[] = {
 	{ "LightGreen",				144, 238, 144 },
 };
 
-//-----------------------------------------------------------------------------
-// Object_color
-//-----------------------------------------------------------------------------
 ColorMap *Object_color::_pColorMap = NULL;
 
 Object_color::~Object_color()
@@ -913,8 +907,8 @@ Object_color *Object_color::CreateNamedColor(Environment &env,
 	}
 	if (_pColorMap == NULL) {
 		_pColorMap = new ColorMap();
-		for (int i = 0; i < ArraySizeOf(Color::ElementEntries); i++) {
-			const Color::ElementEntry &elementEntry = Color::ElementEntries[i];
+		for (int i = 0; i < ArraySizeOf(ElementEntries); i++) {
+			const ElementEntry &elementEntry = ElementEntries[i];
 			const Symbol *pSymbol = Symbol::Add(elementEntry.name);
 			(*_pColorMap)[pSymbol] = Color(elementEntry.red,
 									elementEntry.green, elementEntry.blue);
@@ -1025,9 +1019,9 @@ Class_color::Class_color(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_color)
 		Environment &env = *this;
 		Value value;
 		ValueList &valList = value.InitAsList(env);
-		valList.reserve(ArraySizeOf(Color::ElementEntries));
-		for (int i = 0; i < ArraySizeOf(Color::ElementEntries); i++) {
-			const Color::ElementEntry &elementEntry = Color::ElementEntries[i];
+		valList.reserve(ArraySizeOf(Object_color::ElementEntries));
+		for (int i = 0; i < ArraySizeOf(Object_color::ElementEntries); i++) {
+			const Object_color::ElementEntry &elementEntry = Object_color::ElementEntries[i];
 			valList.push_back(Value(env, elementEntry.name));
 		}
 		Gura_AssignValue(names, value);

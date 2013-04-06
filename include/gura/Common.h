@@ -268,16 +268,10 @@ struct BitmapInfoHeader {
 // Color
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Color {
-public:
-	struct ElementEntry {
-		const char *name;
-		unsigned char red, green, blue;
-	};
 private:
 	unsigned char _red, _green, _blue, _alpha;
 public:
 	static const Color Zero;
-	static const ElementEntry ElementEntries[];
 public:
 	inline Color() : _red(0), _green(0), _blue(0), _alpha(0) {}
 	inline Color(const Color &color) : _red(color._red), _green(color._green),
