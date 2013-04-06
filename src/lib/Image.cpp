@@ -209,9 +209,9 @@ bool Image::Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
 }
 
 bool Image::Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
-					const Symbol *pSymbol, Object_list *pObjList)
+									const Symbol *pSymbol, ValueList &valList)
 {
-	if (pObjList->GetList().size() < height * width) {
+	if (valList.size() < height * width) {
 		sig.SetError(ERR_ValueError, "list size is too small");
 		return false;
 	}
@@ -220,7 +220,7 @@ bool Image::Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
 	const unsigned char *pLine = GetPointer(x, y);
 	size_t offPixel = SymbolToPixelOffset(sig, pSymbol);
 	if (sig.IsSignalled()) return false;
-	ValueList::iterator pValueElem = pObjList->GetList().begin();
+	ValueList::iterator pValueElem = valList.begin();
 	for (size_t iLine = 0; iLine < height; iLine++, pLine += bytesPerLine) {
 		const unsigned char *pPixel = pLine + offPixel;
 		for (size_t iPixel = 0; iPixel < width;

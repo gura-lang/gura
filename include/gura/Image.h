@@ -6,7 +6,6 @@
 
 namespace Gura {
 
-class Object_list;
 class Object_matrix;
 
 //-----------------------------------------------------------------------------
@@ -253,7 +252,7 @@ public:
 	bool Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
 				const Symbol *pSymbol, Object_matrix *pObjMat);
 	bool Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
-				const Symbol *pSymbol, Object_list *pObjList);
+				const Symbol *pSymbol, ValueList &valList);
 	void ReplaceColorRect(size_t x, size_t y, size_t width, size_t height,
 				const Color &colorOrg, const Color &color);
 	inline void ReplaceColor(const Color &colorOrg, Color &color) {

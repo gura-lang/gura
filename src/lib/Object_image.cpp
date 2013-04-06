@@ -311,7 +311,7 @@ Gura_ImplementMethod(image, extract)
 	if (args.IsMatrix(5)) {
 		pThis->GetImage()->Extract(sig, x, y, width, height, pSymbol, Object_matrix::GetObject(args, 5));
 	} else if (args.IsList(5)) {
-		pThis->GetImage()->Extract(sig, x, y, width, height, pSymbol, Object_list::GetObject(args, 5));
+		pThis->GetImage()->Extract(sig, x, y, width, height, pSymbol, Object_list::GetObject(args, 5)->GetList());
 	} else {
 		sig.SetError(ERR_ValueError, "invalid object for image's destination");
 		return Value::Null;
