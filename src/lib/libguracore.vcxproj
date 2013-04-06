@@ -191,6 +191,9 @@
     <ClCompile Include="Fundamental.cpp" />
     <ClCompile Include="Iterator.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Palette.cpp" />
+    <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Module.cpp" />
     <ClCompile Include="Module_basement.cpp" />
     <ClCompile Include="..\Module_codecs_basic\Module_codecs_basic.cpp" />

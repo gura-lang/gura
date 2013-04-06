@@ -10,7 +10,8 @@ Common.cpp Parser.cpp TemplateEngine.cpp Expr.cpp Value.cpp Iterator.cpp \
 Symbol.cpp String.cpp Binary.cpp Environment.cpp Signal.cpp Formatter.cpp Option.cpp \
 Function.cpp Operator.cpp Declaration.cpp \
 Algorithm.cpp Codec.cpp \
-Stream.cpp Directory.cpp DateTime.cpp Image.cpp OAL.cpp DllMain.cpp Fundamental.cpp
+Stream.cpp Directory.cpp DateTime.cpp Image.cpp Palette.cpp Audio.cpp Matrix.cpp \
+OAL.cpp DllMain.cpp Fundamental.cpp
 
 SRCS = $(SRCS) Class.cpp Object.cpp \
 Object_function.cpp Object_string.cpp Object_binary.cpp \

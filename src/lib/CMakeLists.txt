@@ -2,6 +2,7 @@ add_library(guracore SHARED
 ../dSFMT-src-2.2.1/dSFMT.c
 OAL.cpp
 Algorithm.cpp
+Audio.cpp
 Binary.cpp
 Codec.cpp
 Common.cpp
@@ -15,8 +16,10 @@ Formatter.cpp
 Function.cpp
 Image.cpp
 Iterator.cpp
+Matrix.cpp
 Operator.cpp
 Option.cpp
+Palette.cpp
 Parser.cpp
 TemplateEngine.cpp
 Signal.cpp

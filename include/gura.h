@@ -36,6 +36,9 @@
 #include "gura/Iterator.h"
 #include "gura/Expr.h"
 #include "gura/Image.h"
+#include "gura/Palette.h"
+#include "gura/Audio.h"
+#include "gura/Matrix.h"
 
 #include "gura/Object_function.h"
 #include "gura/Object_string.h"
