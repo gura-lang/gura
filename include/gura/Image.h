@@ -2,11 +2,11 @@
 #define __GURA_IMAGE_H__
 
 #include "Common.h"
+#include "Palette.h"
 
 namespace Gura {
 
 class Object_list;
-class Object_palette;
 class Object_matrix;
 
 //-----------------------------------------------------------------------------
@@ -182,7 +182,7 @@ protected:
 		size_t bytesPerPixel;
 		size_t bytesPerLine;
 	} _metrics;
-	AutoPtr<Object_palette> _pObjPalette;
+	AutoPtr<Palette> _pPalette;
 public:
 	inline static Image *Reference(const Image *pImage) {
 		if (pImage == NULL) return NULL;
@@ -273,8 +273,8 @@ public:
 	inline void FillAlpha(unsigned char alpha, const Color &color) {
 		FillRectAlpha(0, 0, _width, _height, alpha, color);
 	}
-	const Object_palette *GetPaletteObj() const { return _pObjPalette.get(); }
-	Image *ReduceColor(Signal sig, const Object_palette *pObjPalette);
+	const Palette *GetPalette() const { return _pPalette.get(); }
+	Image *ReduceColor(Signal sig, const Palette *pPalette);
 	Image *GrayScale(Signal sig);
 	Image *Blur(Signal sig, int radius);
 	Image *Flip(Signal sig, bool horzFlag, bool vertFlag);
@@ -284,8 +284,8 @@ public:
 	Image *Resize(Signal sig, size_t width, size_t height);
 	void Paste(size_t x, size_t y, Image *pImage,
 		size_t width, size_t height, size_t xOffset, size_t yOffset, unsigned char alpha);
-	Object_palette *CreateEmptyPalette(Environment &env, size_t nEntries);
-	void SetPaletteObj(Object_palette *pObjPalette);
+	Palette *CreateEmptyPalette(Environment &env, size_t nEntries);
+	void SetPalette(Palette *pPalette);
 	bool Read(Environment &env, Signal sig, Stream &stream, const char *imgType);
 	bool Write(Environment &env, Signal sig, Stream &stream, const char *imgType);
 	int CalcDIBBitCount() const;
@@ -365,7 +365,7 @@ public:
 private:
 	void InitMetrics();
 	Image *CreateDerivation(Signal sig,
-				size_t width, size_t height, Object_palette *pObjPalette = NULL);
+				size_t width, size_t height, Palette *pPalette = NULL);
 };
 
 //-----------------------------------------------------------------------------

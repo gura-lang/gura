@@ -212,7 +212,7 @@ public:
 private:
 	Header _header;
 	LogicalScreenDescriptor _logicalScreenDescriptor;
-	Object_palette *_pObjPaletteGlobal;
+	AutoPtr<Palette> _pPaletteGlobal;
 	Extensions _exts;
 	ValueList _valList;
 public:
@@ -222,8 +222,8 @@ public:
 								Image *pImageTgt, Image::Format format);
 	bool Write(Environment &env, Signal sig, Stream &stream,
 		const Color &colorBackground, bool validBackgroundFlag, unsigned short loopCount);
-	bool ReadColorTable(Signal sig, Stream &stream, Object_palette *pObjPalette);
-	bool WriteColorTable(Signal sig, Stream &stream, const Object_palette *pObjPalette);
+	bool ReadColorTable(Signal sig, Stream &stream, Palette *pPalette);
+	bool WriteColorTable(Signal sig, Stream &stream, const Palette *pPalette);
 	bool ReadDataBlocks(Signal sig, Stream &stream, Binary &binary);
 	bool WriteDataBlocks(Signal sig, Stream &stream, const Binary &binary);
 	bool SkipImageDescriptor(Signal sig, Stream &stream);
@@ -238,7 +238,7 @@ public:
 	inline LogicalScreenDescriptor &GetLogicalScreenDescriptor() {
 		return _logicalScreenDescriptor;
 	}
-	inline Object_palette *GetGlobalPaletteObj() { return _pObjPaletteGlobal; }
+	inline Palette *GetGlobalPalette() { return _pPaletteGlobal.get(); }
 	inline Extensions &GetExtensions() { return _exts; }
 	inline ValueList &GetList() { return _valList; }
 	void AddImage(const Value &value,
@@ -251,7 +251,7 @@ public:
 	static unsigned char DisposalMethodFromSymbol(Signal sig, const Symbol *pSymbol);
 	static ImageDescriptor *GetImageDescriptor(const Object_image *pObjImage);
 	static GraphicControlExtension *GetGraphicControl(const Object_image *pObjImage);
-	static int GetPlausibleBackgroundIndex(Object_palette *pObjPalette, Object_image *pObjImage);
+	static int GetPlausibleBackgroundIndex(Palette *pPalette, Image *pImage);
 };
 
 //-----------------------------------------------------------------------------

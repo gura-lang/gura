@@ -48,9 +48,9 @@ Value Object_image::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	} else if (pSymbol->IsIdentical(Gura_Symbol(height))) {
 		return Value(static_cast<unsigned int>(GetImage()->GetHeight()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(palette))) {
-		const Object_palette *pObjPalette = GetImage()->GetPaletteObj();
-		if (pObjPalette == NULL) return Value::Null;
-		return Value(Object_palette::Reference(pObjPalette));
+		const Palette *pPalette = GetImage()->GetPalette();
+		if (pPalette == NULL) return Value::Null;
+		return Value(new Object_palette(env, Palette::Reference(pPalette)));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -61,10 +61,10 @@ Value Object_image::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbo
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(palette))) {
 		if (value.IsPalette()) {
-			GetImage()->SetPaletteObj(Object_palette::Reference(Object_palette::GetObject(value)));
-			return Value(Object_palette::Reference(GetImage()->GetPaletteObj()));
+			GetImage()->SetPalette(Palette::Reference(Object_palette::GetObject(value)->GetPalette()));
+			return value;
 		} else if (value.IsInvalid()) {
-			GetImage()->SetPaletteObj(NULL);
+			GetImage()->SetPalette(NULL);
 			return Value::Null;
 		} else {
 			sig.SetError(ERR_ValueError, "palette object must be specified");
@@ -421,14 +421,14 @@ Gura_DeclareMethod(image, reducecolor)
 Gura_ImplementMethod(image, reducecolor)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	const Object_palette *pObjPalette = pThis->GetImage()->GetPaletteObj();
+	const Palette *pPalette = pThis->GetImage()->GetPalette();
 	if (args.IsPalette(0)) {
-		pObjPalette = Object_palette::GetObject(args, 0);
-	} else if (pObjPalette == NULL) {
+		pPalette = Object_palette::GetObject(args, 0)->GetPalette();
+	} else if (pPalette == NULL) {
 		sig.SetError(ERR_ValueError, "palette must be specified");
 		return Value::Null;
 	}
-	AutoPtr<Image> pImage(pThis->GetImage()->ReduceColor(sig, pObjPalette));
+	AutoPtr<Image> pImage(pThis->GetImage()->ReduceColor(sig, pPalette));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(new Object_image(env, pImage.release()));
 }
@@ -442,7 +442,6 @@ Gura_DeclareMethod(image, grayscale)
 Gura_ImplementMethod(image, grayscale)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	const Object_palette *pObjPalette = pThis->GetImage()->GetPaletteObj();
 	AutoPtr<Image> pImage(pThis->GetImage()->GrayScale(sig));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(new Object_image(env, pImage.release()));
@@ -457,7 +456,7 @@ Gura_DeclareMethod(image, delpalette)
 Gura_ImplementMethod(image, delpalette)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	pThis->GetImage()->SetPaletteObj(NULL);
+	pThis->GetImage()->SetPalette(NULL);
 	return args.GetThis();
 }
 

@@ -141,9 +141,9 @@ bool ImageStreamer_PNG::ReadStream(Environment &env, Signal sig, Image *pImage, 
 		int num_palette;
 		::png_get_PLTE(png_ptr, info_ptr, &palette, &num_palette);
 		if (num_palette > 0) {
-			Object_palette *pObjPalette = pImage->CreateEmptyPalette(env, num_palette);
+			AutoPtr<Palette> pPalette(pImage->CreateEmptyPalette(env, num_palette));
 			for (int i = 0; i < num_palette; i++, palette++) {
-				pObjPalette->SetEntry(i, palette->red, palette->green, palette->blue);
+				pPalette->SetEntry(i, palette->red, palette->green, palette->blue);
 			}
 		}
 	}

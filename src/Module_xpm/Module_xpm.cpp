@@ -341,8 +341,9 @@ bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage,
 	stream.Print(sig, varName.c_str());
 	stream.Println(sig, "_xpm[] = {");
 	if (sig.IsSignalled()) return false;
-	Object_palette *pObjPalette = new Object_palette(env, nEntries);
-	if (!pObjPalette->UpdateByImage(pImage, Object_palette::ShrinkMinimum)) {
+	AutoPtr<Palette> pPalette(new Palette());
+	pPalette->AllocBuff(nEntries);
+	if (!pPalette->UpdateByImage(pImage, Palette::ShrinkMinimum)) {
 		sig.SetError(ERR_ValueError, "too many number of colors");
 		return false;
 	}
@@ -350,28 +351,25 @@ bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage,
 		char buff[64];
 		::sprintf(buff, "\"%d %d %d %d %d %d\",",
 				pImage->GetWidth(), pImage->GetHeight(),
-				pObjPalette->CountEntries() + 1, nCharsPerPixel,
+				pPalette->CountEntries() + 1, nCharsPerPixel,
 				xHotspot, yHotspot);
 		stream.Println(sig, buff);
 	} while (0);
 	do {
 		stream.Println(sig, "\"   c None\",");
 	} while (0);
-	for (int i = 0; i < pObjPalette->CountEntries(); i++) {
-		const unsigned char *entry = pObjPalette->GetEntry(i);
+	for (int i = 0; i < pPalette->CountEntries(); i++) {
+		const unsigned char *entry = pPalette->GetEntry(i);
 		char buff[64];
 		buff[0] = '"';
 		::memcpy(buff + 1, convTbl + i * nCharsPerPixel, nCharsPerPixel);
 		::sprintf(buff + 1 + nCharsPerPixel, " c #%02x%02x%02x\",",
-					entry[Object_palette::OffsetRed],
-					entry[Object_palette::OffsetGreen],
-					entry[Object_palette::OffsetBlue]);
+					entry[Palette::OffsetRed],
+					entry[Palette::OffsetGreen],
+					entry[Palette::OffsetBlue]);
 		stream.Println(sig, buff);
 	} while (0);
-	if (sig.IsSignalled()) {
-		Object::Delete(pObjPalette);
-		return false;
-	}
+	if (sig.IsSignalled()) return false;
 	std::auto_ptr<Image::Scanner> pScanner(pImage->CreateScanner());
 	String str = "\"";
 	bool hasAlphaFlag = (pImage->GetFormat() == Image::FORMAT_RGBA);
@@ -379,7 +377,7 @@ bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage,
 		if (hasAlphaFlag && pScanner->GetAlpha() < 128) {
 			str += "  ";
 		} else {
-			int idx = static_cast<int>(pObjPalette->LookupNearest(pScanner->GetPointer()));
+			int idx = static_cast<int>(pPalette->LookupNearest(pScanner->GetPointer()));
 			str += convTbl[idx * nCharsPerPixel + 0];
 			str += convTbl[idx * nCharsPerPixel + 1];
 		}
@@ -394,7 +392,6 @@ bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage,
 			str = "\"";
 		}
 	}
-	Object::Delete(pObjPalette);
 	return true;
 }
 

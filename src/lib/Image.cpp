@@ -75,17 +75,17 @@ void Image::InitMetrics()
 }
 
 Image *Image::CreateDerivation(Signal sig,
-						size_t width, size_t height, Object_palette *pObjPalette)
+						size_t width, size_t height, Palette *pPalette)
 {
 	Image *pImage = new Image(_format);
 	if (!pImage->AllocBuffer(sig, width, height, 0x00)) {
 		delete pImage;
 		return NULL;
 	}
-	if (pObjPalette != NULL) {
-		pImage->_pObjPalette.reset(pObjPalette);
-	} else if (!_pObjPalette.IsNull()) {
-		pImage->_pObjPalette.reset(Object_palette::Reference(_pObjPalette.get()));
+	if (pPalette != NULL) {
+		pImage->_pPalette.reset(pPalette);
+	} else if (!_pPalette.IsNull()) {
+		pImage->_pPalette.reset(Palette::Reference(_pPalette.get()));
 	}
 	return pImage;
 }
@@ -297,23 +297,23 @@ void Image::FillRectAlpha(size_t x, size_t y,
 	} while (pScanner->Next());
 }
 
-Image *Image::ReduceColor(Signal sig, const Object_palette *pObjPalette)
+Image *Image::ReduceColor(Signal sig, const Palette *pPalette)
 {
 	Image *pImage = CreateDerivation(sig, _width, _height,
-										Object_palette::Reference(pObjPalette));
+										Palette::Reference(pPalette));
 	if (sig.IsSignalled()) return NULL;
 	std::auto_ptr<Scanner> pScannerSrc(CreateScanner());
 	std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner());
 	if (_format == Image::FORMAT_RGBA) {
 		do {
-			size_t idx = pObjPalette->LookupNearest(pScannerSrc->GetPointer());
+			size_t idx = pPalette->LookupNearest(pScannerSrc->GetPointer());
 			StorePixelRGBA(pScannerDst->GetPointer(),
-						pObjPalette->GetEntry(idx), pScannerSrc->GetAlpha());
+						pPalette->GetEntry(idx), pScannerSrc->GetAlpha());
 		} while (pScannerSrc->Next(*pScannerDst));
 	} else {
 		do {
-			size_t idx = pObjPalette->LookupNearest(pScannerSrc->GetPointer());
-			StorePixelRGB(pScannerDst->GetPointer(), pObjPalette->GetEntry(idx));
+			size_t idx = pPalette->LookupNearest(pScannerSrc->GetPointer());
+			StorePixelRGB(pScannerDst->GetPointer(), pPalette->GetEntry(idx));
 		} while (pScannerSrc->Next(*pScannerDst));
 	}
 	return pImage;
@@ -656,15 +656,16 @@ void Image::Paste(size_t x, size_t y, Image *pImage,
 	}
 }
 
-Object_palette *Image::CreateEmptyPalette(Environment &env, size_t nEntries)
+Palette *Image::CreateEmptyPalette(Environment &env, size_t nEntries)
 {
-	_pObjPalette.reset(new Object_palette(env, nEntries));
-	return _pObjPalette.get();
+	_pPalette.reset(new Palette());
+	_pPalette->AllocBuff(nEntries);
+	return _pPalette.get();
 }
 
-void Image::SetPaletteObj(Object_palette *pObjPalette)
+void Image::SetPalette(Palette *pPalette)
 {
-	_pObjPalette.reset(pObjPalette);
+	_pPalette.reset(pPalette);
 }
 
 bool Image::Read(Environment &env, Signal sig, Stream &stream, const char *imgType)
@@ -693,8 +694,8 @@ bool Image::Write(Environment &env, Signal sig, Stream &stream, const char *imgT
 
 int Image::CalcDIBBitCount() const
 {
-	if (GetPaletteObj() == NULL) return static_cast<int>(GetBitsPerPixel());
-	size_t nEntries = GetPaletteObj()->CountEntries();
+	if (GetPalette() == NULL) return static_cast<int>(GetBitsPerPixel());
+	size_t nEntries = GetPalette()->CountEntries();
 	size_t nBits = 1;
 	for ( ; nEntries > static_cast<size_t>(1 << nBits); nBits++) ;
 	nBits =
@@ -741,7 +742,7 @@ bool Image::ReadDIBPalette(Environment &env, Signal sig, Stream &stream, int biB
 			sig.SetError(ERR_FormatError, "failed to read DIB palette");
 			return false;
 		}
-		_pObjPalette->SetEntry(idx, buff[2], buff[1], buff[0]);
+		_pPalette->SetEntry(idx, buff[2], buff[1], buff[0]);
 	}
 	return true;
 }
@@ -754,22 +755,22 @@ bool Image::WriteDIBPalette(Environment &env, Signal sig, Stream &stream, int bi
 		return false;
 	}
 	size_t nEntries = 1 << biBitCount;
-	if (_pObjPalette.IsNull()) {
-		_pObjPalette.reset(new Object_palette(env));
+	if (_pPalette.IsNull()) {
+		_pPalette.reset(new Palette());
 		if (biBitCount == 1) {
-			_pObjPalette->Prepare(sig, Gura_Symbol(mono));
+			_pPalette->Prepare(sig, Gura_Symbol(mono));
 		} else if (biBitCount == 4) {
-			_pObjPalette->Prepare(sig, Gura_Symbol(basic));
+			_pPalette->Prepare(sig, Gura_Symbol(basic));
 		} else { // biBitCount == 8
-			_pObjPalette->Prepare(sig, Gura_Symbol(win256));
+			_pPalette->Prepare(sig, Gura_Symbol(win256));
 		}
 		if (sig.IsSignalled()) return false;
 	}
 	size_t idx = 0;
-	size_t idxMax = ChooseMin(nEntries, _pObjPalette->CountEntries());
+	size_t idxMax = ChooseMin(nEntries, _pPalette->CountEntries());
 	unsigned char buff[4];
 	for ( ; idx < idxMax; idx++) {
-		const unsigned char *pEntry = _pObjPalette->GetEntry(idx);
+		const unsigned char *pEntry = _pPalette->GetEntry(idx);
 		buff[0] = GetPixelB(pEntry);
 		buff[1] = GetPixelG(pEntry);
 		buff[2] = GetPixelR(pEntry);
@@ -818,7 +819,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 			}
 			unsigned char idx = ch >> 7;
 			ch <<= 1, bitsRest--;
-			StorePixelRGB(pPixel, _pObjPalette->GetEntry(idx));
+			StorePixelRGB(pPixel, _pPalette->GetEntry(idx));
 			pPixel += GetBytesPerPixel();
 			iPixel++;
 		}
@@ -834,7 +835,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 		for (;;) {
 			unsigned char idx = ch >> 4;
 			ch <<= 4, bitsRest -= 4;
-			StorePixelRGB(pScanner->GetPointer(), _pObjPalette->GetEntry(idx));
+			StorePixelRGB(pScanner->GetPointer(), _pPalette->GetEntry(idx));
 			if (!pScanner->NextPixel()) {
 				if (!pScanner->NextLine()) break;
 				stream.Seek(sig, static_cast<long>(bytesAlign), Stream::SeekCur);
@@ -854,7 +855,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 				vertRevFlag? Image::SCAN_LeftBottomHorz : Image::SCAN_LeftTopHorz));
 		if (stream.Read(sig, &ch, 1) < 1) return false;
 		for (;;) {
-			StorePixelRGB(pScanner->GetPointer(), _pObjPalette->GetEntry(ch));
+			StorePixelRGB(pScanner->GetPointer(), _pPalette->GetEntry(ch));
 			if (!pScanner->NextPixel()) {
 				if (!pScanner->NextLine()) break;
 				stream.Seek(sig, static_cast<long>(bytesAlign), Stream::SeekCur);
@@ -944,7 +945,7 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 	int biWidth = static_cast<int>(GetWidth());
 	int biHeight = static_cast<int>(GetHeight());
 	if (biBitCount == 1) {
-		if (_pObjPalette.IsNull()) return false;
+		if (_pPalette.IsNull()) return false;
 		size_t bytesPerLine = (biWidth + 7) / 8;
 		size_t bytesAlign = (bytesPerLine + 3) / 4 * 4 - bytesPerLine;
 		int bitsAccum = 0;
@@ -952,7 +953,7 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 		std::auto_ptr<Scanner> pScanner(CreateScanner(Image::SCAN_LeftBottomHorz));
 		for (;;) {
 			unsigned char ch = static_cast<unsigned char>(
-							_pObjPalette->LookupNearest(pScanner->GetPointer()));
+							_pPalette->LookupNearest(pScanner->GetPointer()));
 			chAccum |= ch << ((8 - 1) - bitsAccum);
 			bitsAccum += 1;
 			if (bitsAccum >= 8) {
@@ -974,7 +975,7 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 			}
 		}
 	} else if (biBitCount == 4) {
-		if (_pObjPalette.IsNull()) return false;
+		if (_pPalette.IsNull()) return false;
 		size_t bytesPerLine = (biWidth + 1) / 2;
 		size_t bytesAlign = (bytesPerLine + 3) / 4 * 4 - bytesPerLine;
 		int bitsAccum = 0;
@@ -982,7 +983,7 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 		std::auto_ptr<Scanner> pScanner(CreateScanner(Image::SCAN_LeftBottomHorz));
 		for (;;) {
 			unsigned char ch = static_cast<unsigned char>(
-							_pObjPalette->LookupNearest(pScanner->GetPointer()));
+							_pPalette->LookupNearest(pScanner->GetPointer()));
 			chAccum |= ch << ((8 - 4) - bitsAccum);
 			bitsAccum += 4;
 			if (bitsAccum >= 8) {
@@ -1004,12 +1005,12 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 			}
 		}
 	} else if (biBitCount == 8) {
-		if (_pObjPalette.IsNull()) return false;
+		if (_pPalette.IsNull()) return false;
 		size_t bytesAlign = (biWidth + 3) / 4 * 4 - biWidth;
 		std::auto_ptr<Scanner> pScanner(CreateScanner(Image::SCAN_LeftBottomHorz));
 		for (;;) {
 			unsigned char ch = static_cast<unsigned char>(
-							_pObjPalette->LookupNearest(pScanner->GetPointer()));
+							_pPalette->LookupNearest(pScanner->GetPointer()));
 			stream.Write(sig, &ch, 1);
 			if (sig.IsSignalled()) return false;
 			if (!pScanner->NextPixel()) {
@@ -1111,14 +1112,14 @@ void Image::SetBuffer(size_t width, size_t height, unsigned char *buff,
 //-----------------------------------------------------------------------------
 Image::Image(Format format) : _cntRef(1),
 		_format(format), _width(0), _height(0), _buff(NULL),
-		_hBmp(NULL), _pObjPalette(NULL)
+		_hBmp(NULL), _pPalette(NULL)
 {
 	InitMetrics();
 }
 
 Image::Image(const Image &image) : _cntRef(1),
 		_format(image._format), _width(0), _height(0), _buff(NULL),
-		_hBmp(NULL), _pObjPalette(Object_palette::Reference(image._pObjPalette.get()))
+		_hBmp(NULL), _pPalette(Palette::Reference(image.GetPalette()))
 {
 	Signal sig;
 	if (AllocBuffer(sig, image._width, image._height, 0x00)) {
@@ -1185,14 +1186,14 @@ void Image::FreeBuffer()
 // Image (on memory)
 //-----------------------------------------------------------------------------
 Image::Image(Format format) : _cntRef(1),
-		_format(format), _width(0), _height(0), _buff(NULL), _pObjPalette(NULL)
+		_format(format), _width(0), _height(0), _buff(NULL), _pPalette(NULL)
 {
 	InitMetrics();
 }
 
 Image::Image(const Image &image) : _cntRef(1),
 		_format(image._format), _width(0), _height(0), _buff(NULL),
-		_pObjPalette(Object_palette::Reference(image._pObjPalette.get()))
+		_pPalette(Palette::Reference(image.GetPalette()))
 {
 	Signal sig;
 	if (AllocBuffer(sig, image._width, image._height, 0x00)) {

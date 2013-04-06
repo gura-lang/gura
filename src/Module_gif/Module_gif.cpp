@@ -90,11 +90,11 @@ Value Object_LogicalScreenDescriptor::DoGetProp(Environment &env, Signal sig, co
 		return Value(lsd.BackgroundColorIndex);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(BackgroundColor))) {
 		size_t idx = lsd.BackgroundColorIndex;
-		Object_palette *pObjPalette = gif.GetGlobalPaletteObj();
-		if (pObjPalette == NULL || pObjPalette->CountEntries() < idx) {
+		Palette *pPalette = gif.GetGlobalPalette();
+		if (pPalette == NULL || pPalette->CountEntries() < idx) {
 			return Value::Null;
 		}
-		return pObjPalette->GetColorValue(idx);
+		return pPalette->GetColorValue(env, idx);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(PixelAspectRatio))) {
 		return Value(lsd.PixelAspectRatio);
 	}
@@ -261,13 +261,12 @@ Gura_ImplementUserClass(ApplicationExtension)
 //-----------------------------------------------------------------------------
 // GIF
 //-----------------------------------------------------------------------------
-GIF::GIF() : _pObjPaletteGlobal(NULL)
+GIF::GIF()
 {
 }
 
 GIF::~GIF()
 {
-	Object::Delete(_pObjPaletteGlobal);
 }
 
 bool GIF::Read(Environment &env, Signal sig, Stream &stream,
@@ -286,9 +285,9 @@ bool GIF::Read(Environment &env, Signal sig, Stream &stream,
 	if (!ReadBuff(sig, stream, &_logicalScreenDescriptor, 7)) return false;
 	if (_logicalScreenDescriptor.GlobalColorTableFlag()) {
 		int nEntries = 1 << (_logicalScreenDescriptor.SizeOfGlobalColorTable() + 1);
-		Object::Delete(_pObjPaletteGlobal);
-		_pObjPaletteGlobal = new Object_palette(env, nEntries);
-		if (!ReadColorTable(sig, stream, _pObjPaletteGlobal)) return false;
+		_pPaletteGlobal.reset(new Palette());
+		_pPaletteGlobal->AllocBuff(nEntries);
+		if (!ReadColorTable(sig, stream, _pPaletteGlobal.get())) return false;
 	}
 	GetList().clear();
 	GraphicControlExtension graphicControl;
@@ -357,28 +356,26 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 		sig.SetError(ERR_ValueError, "no image to write");
 		return false;
 	}
-	Object::Delete(_pObjPaletteGlobal);
-	_pObjPaletteGlobal = new Object_palette(env, 256);
+	_pPaletteGlobal.reset(new Palette());
+	_pPaletteGlobal->AllocBuff(256);
 	size_t logicalScreenWidth = 0, logicalScreenHeight = 0;
 	ValueList &valList = GetList();
 	foreach (ValueList, pValue, valList) {
 		if (!pValue->IsImage()) continue;
 		const Object_image *pObjImage = Object_image::GetObject(*pValue);
 		const Image *pImage = pObjImage->GetImage();
-		const Object_palette *pObjPalette = pImage->GetPaletteObj();
-		if (pObjPalette != NULL && pObjPalette->CountEntries() <= 256) {
-			if (_pObjPaletteGlobal->UpdateByPalette(pObjPalette,
-											Object_palette::ShrinkNone)) {
+		const Palette *pPalette = pImage->GetPalette();
+		if (pPalette != NULL && pPalette->CountEntries() <= 256) {
+			if (_pPaletteGlobal->UpdateByPalette(pPalette, Palette::ShrinkNone)) {
 				// nothing to do
-			} else if (_pObjPaletteGlobal->Prepare(sig, Gura_Symbol(websafe))) {
+			} else if (_pPaletteGlobal->Prepare(sig, Gura_Symbol(websafe))) {
 				break;
 			} else {
 				return false;
 			}
-		} else if (_pObjPaletteGlobal->UpdateByImage(pImage,
-											Object_palette::ShrinkNone)) {
+		} else if (_pPaletteGlobal->UpdateByImage(pImage, Palette::ShrinkNone)) {
 			// nothing to do
-		} else if (_pObjPaletteGlobal->Prepare(sig, Gura_Symbol(websafe))) {
+		} else if (_pPaletteGlobal->Prepare(sig, Gura_Symbol(websafe))) {
 			break;
 		} else {
 			return false;
@@ -388,26 +385,26 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 	unsigned char transparentColorIndex = 0;
 	unsigned char transparentColorFlag = 0;
 	do {
-		size_t idxBlank = _pObjPaletteGlobal->NextBlankIndex();
-		if (idxBlank < _pObjPaletteGlobal->CountEntries()) {
+		size_t idxBlank = _pPaletteGlobal->NextBlankIndex();
+		if (idxBlank < _pPaletteGlobal->CountEntries()) {
 			// add an entry for transparent color
-			_pObjPaletteGlobal->SetEntry(idxBlank, 128, 128, 128, 0);
+			_pPaletteGlobal->SetEntry(idxBlank, 128, 128, 128, 0);
 			transparentColorIndex = static_cast<unsigned char>(idxBlank);
 			transparentColorFlag = 1;
 			idxBlank++;
 		}
-		_pObjPaletteGlobal->Shrink(idxBlank, true);
+		_pPaletteGlobal->Shrink(idxBlank, true);
 	} while (0);
 	if (validBackgroundFlag) {
 		backgroundColorIndex = static_cast<int>(
-				_pObjPaletteGlobal->LookupNearest(colorBackground));
+				_pPaletteGlobal->LookupNearest(colorBackground));
 	}
 	foreach (ValueList, pValue, valList) {
 		if (!pValue->IsImage()) continue;
 		Object_image *pObjImage = Object_image::GetObject(*pValue);
 		Image *pImage = pObjImage->GetImage();
 		if (!pImage->CheckValid(sig)) return false;
-		pImage->SetPaletteObj(Object_palette::Reference(_pObjPaletteGlobal));
+		pImage->SetPalette(Palette::Reference(_pPaletteGlobal.get()));
 		ImageDescriptor *pImageDescriptor = GetImageDescriptor(pObjImage);
 		size_t width = pImage->GetWidth() +
 						Gura_UnpackUShort(pImageDescriptor->ImageLeftPosition);
@@ -420,7 +417,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 		pGraphicControl->PackedFields |= transparentColorFlag;
 		if (backgroundColorIndex < 0) {
 			backgroundColorIndex = GetPlausibleBackgroundIndex(
-											_pObjPaletteGlobal, pObjImage);
+											_pPaletteGlobal.get(), pImage);
 		}
 	}
 	if (backgroundColorIndex < 0) backgroundColorIndex = 0;
@@ -429,7 +426,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 		unsigned char colorResolution = 7;
 		unsigned char sortFlag = 0;
 		unsigned char sizeOfGlobalColorTable = 0;
-		int nEntries = static_cast<int>(_pObjPaletteGlobal->CountEntries());
+		int nEntries = static_cast<int>(_pPaletteGlobal->CountEntries());
 		for ( ; nEntries > (1 << sizeOfGlobalColorTable); sizeOfGlobalColorTable++) ;
 		sizeOfGlobalColorTable--;
 		Gura_PackUShort(_logicalScreenDescriptor.LogicalScreenWidth,
@@ -461,7 +458,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 	if (!WriteBuff(sig, stream, &_logicalScreenDescriptor, 7)) return false;
 	// Global Color Table
 	if (_logicalScreenDescriptor.GlobalColorTableFlag()) {
-		if (!WriteColorTable(sig, stream, _pObjPaletteGlobal)) return false;
+		if (!WriteColorTable(sig, stream, _pPaletteGlobal.get())) return false;
 	}
 	if (_exts.application.validFlag) {
 		// Application
@@ -546,14 +543,14 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
 	size_t imageWidth = Gura_UnpackUShort(imageDescriptor.ImageWidth);
 	size_t imageHeight = Gura_UnpackUShort(imageDescriptor.ImageHeight);
 	if (!pImage->AllocBuffer(sig, imageWidth, imageHeight, 0xff)) return false;
-	Object_palette *pObjPalette = NULL;
+	Palette *pPalette = NULL;
 	if (imageDescriptor.LocalColorTableFlag()) {
 		size_t nEntries = 1 << (imageDescriptor.SizeOfLocalColorTable() + 1);
-		pObjPalette = pImage->CreateEmptyPalette(env, nEntries);
-		if (!ReadColorTable(sig, stream, pObjPalette)) return false;
+		pPalette = pImage->CreateEmptyPalette(env, nEntries);
+		if (!ReadColorTable(sig, stream, pPalette)) return false;
 	} else {
-		pObjPalette = _pObjPaletteGlobal;
-		pImage->SetPaletteObj(Object_palette::Reference(pObjPalette));
+		pPalette = Palette::Reference(_pPaletteGlobal.get());
+		pImage->SetPalette(pPalette);
 	}
 	if (pValueGIF != NULL) {
 		AutoPtr<Object_GraphicControl> pObjGraphicControl(
@@ -661,7 +658,7 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
 				}
 			}
 		}
-		const unsigned char *srcp = pObjPalette->GetEntry(code);
+		const unsigned char *srcp = pPalette->GetEntry(code);
 		if (x >= imageWidth) {
 			x = 0;
 			if (interlaceFlag) {
@@ -713,14 +710,14 @@ bool GIF::WriteImageDescriptor(Environment &env, Signal sig, Stream &stream,
 		const unsigned char buff[] = { SEP_ImageDescriptor };
 		if (!WriteBuff(sig, stream, buff, 1)) return false;
 	} while (0);
-	const Object_palette *pObjPalette = _pObjPaletteGlobal;
+	const Palette *pPalette = _pPaletteGlobal.get();
 	ImageDescriptor *pImageDescriptor = GetImageDescriptor(pObjImage);
 	if (pImageDescriptor == NULL) {
 		return false;
 	}
 	if (!WriteBuff(sig, stream, pImageDescriptor, 9)) return false;
 	if (pImageDescriptor->LocalColorTableFlag()) {
-		if (!WriteColorTable(sig, stream, pObjPalette)) return false;
+		if (!WriteColorTable(sig, stream, pPalette)) return false;
 	}
 	unsigned char transparentColorIndex = graphicControl.TransparentColorIndex;
 	bool transparentColorFlag = (pImage->GetFormat() == Image::FORMAT_RGBA) &&
@@ -748,7 +745,7 @@ bool GIF::WriteImageDescriptor(Environment &env, Signal sig, Stream &stream,
 			if (transparentColorFlag && Image::GetPixelA(pPixel) < 128) {
 				k = transparentColorIndex;
 			} else {
-				k = static_cast<unsigned char>(pObjPalette->LookupNearest(pPixel));
+				k = static_cast<unsigned char>(pPalette->LookupNearest(pPixel));
 			}
 			//::printf("- %3d,%3d code = %03x\n", x, y, k);
 			if (word.empty()) {
@@ -806,24 +803,24 @@ bool GIF::WriteBuff(Signal sig, Stream &stream, const void *buff, size_t bytes)
 	return !sig.IsSignalled();
 }
 
-bool GIF::ReadColorTable(Signal sig, Stream &stream, Object_palette *pObjPalette)
+bool GIF::ReadColorTable(Signal sig, Stream &stream, Palette *pPalette)
 {
 	unsigned char buff[3];
-	size_t nEntries = pObjPalette->CountEntries();
+	size_t nEntries = pPalette->CountEntries();
 	for (size_t idx = 0; idx < nEntries; idx++) {
 		if (!GIF::ReadBuff(sig, stream, buff, 3)) return false;
-		pObjPalette->SetEntry(idx, buff[0], buff[1], buff[2]);
+		pPalette->SetEntry(idx, buff[0], buff[1], buff[2]);
 	}
 	return true;
 }
 
-bool GIF::WriteColorTable(Signal sig, Stream &stream, const Object_palette *pObjPalette)
+bool GIF::WriteColorTable(Signal sig, Stream &stream, const Palette *pPalette)
 {
 	unsigned char buff[3];
-	int nEntries = static_cast<int>(pObjPalette->CountEntries());
+	int nEntries = static_cast<int>(pPalette->CountEntries());
 	int idx = 0;
 	for ( ; idx < nEntries; idx++) {
-		const unsigned char *pEntry = pObjPalette->GetEntry(idx);
+		const unsigned char *pEntry = pPalette->GetEntry(idx);
 		buff[0] = *(pEntry + Image::OffsetRed);
 		buff[1] = *(pEntry + Image::OffsetGreen);
 		buff[2] = *(pEntry + Image::OffsetBlue);
@@ -944,34 +941,33 @@ GIF::ImageDescriptor *GIF::GetImageDescriptor(const Object_image *pObjImage)
 	return dynamic_cast<Object_imgprop *>(pValue->GetObject())->GetImageDescriptor();
 }
 
-int GIF::GetPlausibleBackgroundIndex(Object_palette *pObjPalette, Object_image *pObjImage)
+int GIF::GetPlausibleBackgroundIndex(Palette *pPalette, Image *pImage)
 {
-	Image *pImage = pObjImage->GetImage();
 	int histTbl[256];
 	::memset(histTbl, 0x00, sizeof(histTbl));
 	std::auto_ptr<Image::Scanner> pScanner(pImage->CreateScanner());
 	size_t iPixelEnd = pScanner->CountPixels() - 1;
 	size_t iLineEnd = pScanner->CountLines() - 1;
 	for (;;) {
-		int idx = static_cast<int>(pObjPalette->LookupNearest(pScanner->GetPointer()));
+		int idx = static_cast<int>(pPalette->LookupNearest(pScanner->GetPointer()));
 		histTbl[idx]++;
 		if (pScanner->GetPixelIdx() >= iPixelEnd) break;
 		pScanner->FwdPixel();
 	}
 	for (;;) {
-		int idx = static_cast<int>(pObjPalette->LookupNearest(pScanner->GetPointer()));
+		int idx = static_cast<int>(pPalette->LookupNearest(pScanner->GetPointer()));
 		histTbl[idx]++;
 		if (pScanner->GetLineIdx() >= iLineEnd) break;
 		pScanner->FwdLine();
 	}
 	for (;;) {
-		int idx = static_cast<int>(pObjPalette->LookupNearest(pScanner->GetPointer()));
+		int idx = static_cast<int>(pPalette->LookupNearest(pScanner->GetPointer()));
 		histTbl[idx]++;
 		if (pScanner->GetPixelIdx() == 0) break;
 		pScanner->BwdPixel();
 	}
 	for (;;) {
-		int idx = static_cast<int>(pObjPalette->LookupNearest(pScanner->GetPointer()));
+		int idx = static_cast<int>(pPalette->LookupNearest(pScanner->GetPointer()));
 		histTbl[idx]++;
 		if (pScanner->GetLineIdx() == 0) break;
 		pScanner->BwdLine();
