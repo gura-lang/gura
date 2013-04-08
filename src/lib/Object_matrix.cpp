@@ -545,8 +545,8 @@ bool Class_matrix::Serialize(Environment &env, Signal sig, Stream &stream, const
 
 bool Class_matrix::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
-	Object_list *pObjList = new Object_list(env);
-	if (!pObjList->GetList().Deserialize(env, sig, stream)) return false;
+	AutoPtr<Matrix::Elements> pElements(new Matrix::Elements());
+	if (!pElements->GetList().Deserialize(env, sig, stream)) return false;
 	unsigned long iRowOff = 0, iColOff = 0;
 	unsigned long nRows = 0, nCols = 0;
 	unsigned long nFold = 0;
@@ -557,16 +557,16 @@ bool Class_matrix::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 	if (!stream.DeserializePackedULong(sig, nCols)) return false;
 	if (!stream.DeserializePackedULong(sig, nFold)) return false;
 	if (!stream.DeserializeBoolean(sig, indexForColFlag)) return false;
-	unsigned long nElems = static_cast<unsigned long>(pObjList->GetList().size());
+	unsigned long nElems = static_cast<unsigned long>(pElements->GetList().size());
 	//::printf("%d %d %d %d %d %d\n", nElems, iRowOff, iColOff, nRows, nCols, nFold);
 	if (nFold * nRows > nElems || iColOff + nCols > nFold) {
 		sig.SetError(ERR_ValueError, "invalid parameter for matrix");
 		return false;
 	}
-	//AutoPtr<Matrix> pMat(new Matrix(pObjList,
-	//		static_cast<size_t>(iRowOff), static_cast<size_t>(iColOff),
-	//		static_cast<size_t>(nRows), static_cast<size_t>(nCols),
-	//		static_cast<size_t>(nFold), indexForColFlag));
+	AutoPtr<Matrix> pMat(new Matrix(pElements.release(),
+			static_cast<size_t>(iRowOff), static_cast<size_t>(iColOff),
+			static_cast<size_t>(nRows), static_cast<size_t>(nCols),
+			static_cast<size_t>(nFold), indexForColFlag));
 	return true;
 }
 
