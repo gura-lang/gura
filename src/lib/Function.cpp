@@ -105,7 +105,6 @@ const char *Function::_mathSymbolTbl[] = {
 	"*",	// OPTYPE_Multiply
 	"/",	// OPTYPE_Divide
 	"%",	// OPTYPE_Modulo
-	"%",	// OPTYPE_format
 	"**",	// OPTYPE_Power
 	"==",	// OPTYPE_Equal
 	"!=",	// OPTYPE_NotEqual

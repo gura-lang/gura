@@ -1194,6 +1194,19 @@ Gura_ImplementFunction(printf)
 	return Value::Null;
 }
 
+// format(format, value*):map
+Gura_DeclareFunction(format)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "format", VTYPE_string);
+	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
+}
+
+Gura_ImplementFunction(format)
+{
+	return Value(env, Formatter::Format(sig, args.GetString(0), args.GetList(1)));
+}
+
 // dir(obj?):[noesc]
 Gura_DeclareFunction(dir)
 {
@@ -1628,6 +1641,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(print);
 	Gura_AssignFunction(println);
 	Gura_AssignFunction(printf);
+	Gura_AssignFunction(format);
 	Gura_AssignFunction(dir);
 	Gura_AssignFunction(dirtype);
 	Gura_AssignFunction(help);

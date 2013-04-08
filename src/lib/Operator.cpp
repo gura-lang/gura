@@ -22,7 +22,6 @@ void AssignOperators(Environment &env)
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Multiply]	= new Func_Multiply(env)));
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Divide]		= new Func_Divide(env)));
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Modulo]		= new Func_Modulo(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_format]		= new Func_format(env)));
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Power]		= new Func_Power(env)));
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Equal]		= new Func_Equal(env)));
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_NotEqual]	= new Func_NotEqual(env)));
@@ -1200,21 +1199,6 @@ Value Func_Modulo::DoEval(Environment &env, Signal sig, Args &args) const
 	}
 	SetError_InvalidValType(sig, valueLeft, valueRight);
 	return result;
-}
-
-// format(format, value*):map
-Func_format::Func_format(Environment &env) :
-			Function(env, Symbol::Add("format"), FUNCTYPE_Function, FLAG_None)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
-}
-
-Value Func_format::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	return Value(env, Formatter::Format(sig,
-						args.GetString(0), args.GetList(1)).c_str());
 }
 
 // n ** m
