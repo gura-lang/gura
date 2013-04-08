@@ -1958,11 +1958,11 @@ bool Class_list::CastFrom(Environment &env, Signal sig, Value &value, const Decl
 		return true;
 	} else if (value.IsMatrix()) {
 		const Object_matrix *pObjMat = Object_matrix::GetObject(value);
-		if (pObjMat->GetRows() == 1) {
-			Value result = pObjMat->GetRow(env, sig, 0);
+		if (pObjMat->GetMatrix()->GetRows() == 1) {
+			Value result = pObjMat->GetMatrix()->GetRow(env, sig, 0);
 			value = result;
-		} else if (pObjMat->GetCols() == 1) {
-			Value result = pObjMat->GetCol(env, sig, 0);
+		} else if (pObjMat->GetMatrix()->GetCols() == 1) {
+			Value result = pObjMat->GetMatrix()->GetCol(env, sig, 0);
 			value = result;
 		}
 		return true;

@@ -41,7 +41,7 @@ tk.mainwindow {|mw|
 			items:extern = path.dir(dirname,
 					patternImgList*, patternAviList*):icase:list:file {|filename|
 				item = tv.Item(values => [path.filename(filename)])
-				item.filename = filename
+				item.filename:public = filename
 				item
 			}
 		}

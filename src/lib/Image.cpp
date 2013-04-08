@@ -144,9 +144,9 @@ void Image::GetPixel(const unsigned char *buff, Color &color)
 }
 
 bool Image::Store(Signal sig, size_t x, size_t y, size_t width, size_t height,
-					const Symbol *pSymbol, const Object_matrix *pObjMat)
+							const Symbol *pSymbol, const Matrix *pMat)
 {
-	if (pObjMat->GetRows() < height || pObjMat->GetCols() < width) {
+	if (pMat->GetRows() < height || pMat->GetCols() < width) {
 		sig.SetError(ERR_ValueError, "matrix size is too small");
 		return false;
 	}
@@ -157,7 +157,7 @@ bool Image::Store(Signal sig, size_t x, size_t y, size_t width, size_t height,
 	if (sig.IsSignalled()) return false;
 	for (size_t iLine = 0; iLine < height; iLine++, pLine += bytesPerLine) {
 		unsigned char *pPixel = pLine + offPixel;
-		ValueList::const_iterator pValueElem = pObjMat->GetPointer(iLine, 0);
+		ValueList::const_iterator pValueElem = pMat->GetPointer(iLine, 0);
 		for (size_t iPixel = 0; iPixel < width;
 							iPixel++, pPixel += bytesPerPixel, pValueElem++) {
 			*pPixel = pValueElem->GetUChar();
@@ -167,7 +167,7 @@ bool Image::Store(Signal sig, size_t x, size_t y, size_t width, size_t height,
 }
 
 bool Image::Store(Environment &env, Signal sig, size_t x, size_t y, size_t width, size_t height,
-					const Symbol *pSymbol, Iterator *pIterator)
+							const Symbol *pSymbol, Iterator *pIterator)
 {
 	size_t bytesPerLine = GetBytesPerLine();
 	size_t bytesPerPixel = GetBytesPerPixel();
@@ -186,9 +186,9 @@ bool Image::Store(Environment &env, Signal sig, size_t x, size_t y, size_t width
 }
 
 bool Image::Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
-					const Symbol *pSymbol, Object_matrix *pObjMat)
+							const Symbol *pSymbol, Matrix *pMat)
 {
-	if (pObjMat->GetRows() < height || pObjMat->GetCols() < width) {
+	if (pMat->GetRows() < height || pMat->GetCols() < width) {
 		sig.SetError(ERR_ValueError, "matrix size is too small");
 		return false;
 	}
@@ -199,7 +199,7 @@ bool Image::Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
 	if (sig.IsSignalled()) return false;
 	for (size_t iLine = 0; iLine < height; iLine++, pLine += bytesPerLine) {
 		const unsigned char *pPixel = pLine + offPixel;
-		ValueList::iterator pValueElem = pObjMat->GetPointer(iLine, 0);
+		ValueList::iterator pValueElem = pMat->GetPointer(iLine, 0);
 		for (size_t iPixel = 0; iPixel < width;
 							iPixel++, pPixel += bytesPerPixel, pValueElem++) {
 			*pValueElem = Value(*pPixel);

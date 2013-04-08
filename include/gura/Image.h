@@ -3,10 +3,9 @@
 
 #include "Common.h"
 #include "Palette.h"
+#include "Matrix.h"
 
 namespace Gura {
-
-class Object_matrix;
 
 //-----------------------------------------------------------------------------
 // Image
@@ -246,15 +245,15 @@ public:
 	void PutPixel(unsigned char *buff, const Color &color);
 	void GetPixel(const unsigned char *buff, Color &color);
 	bool Store(Signal sig, size_t x, size_t y, size_t width, size_t height,
-						const Symbol *pSymbol, const Object_matrix *pObjMat);
+						const Symbol *pSymbol, const Matrix *pMat);
 	bool Store(Environment &env, Signal sig, size_t x, size_t y, size_t width, size_t height,
 						const Symbol *pSymbol, Iterator *pIterator);
 	bool Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
-				const Symbol *pSymbol, Object_matrix *pObjMat);
+						const Symbol *pSymbol, Matrix *pMat);
 	bool Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
-				const Symbol *pSymbol, ValueList &valList);
+						const Symbol *pSymbol, ValueList &valList);
 	void ReplaceColorRect(size_t x, size_t y, size_t width, size_t height,
-				const Color &colorOrg, const Color &color);
+						const Color &colorOrg, const Color &color);
 	inline void ReplaceColor(const Color &colorOrg, Color &color) {
 		ReplaceColorRect(0, 0, _width, _height, colorOrg, color);
 	}

@@ -67,6 +67,19 @@ GURA_DLLDECLARE bool IsBigEndian();
 GURA_DLLDECLARE const char *GetVersion();
 GURA_DLLDECLARE const char *GetOpening();
 
+#define Gura_DeclareReferenceAccessor(T) \
+inline static T *Reference(const T *p) { \
+	if (p == NULL) return NULL; \
+	T *pCasted = const_cast<T *>(p); \
+	pCasted->_cntRef++; \
+	return pCasted; \
+} \
+inline static void Delete(T *p) { \
+	if (p == NULL) return; \
+	p->_cntRef--; \
+	if (p->_cntRef <= 0) delete p; \
+}
+
 //-----------------------------------------------------------------------------
 // Simple type declarations
 //-----------------------------------------------------------------------------

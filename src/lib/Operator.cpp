@@ -119,7 +119,7 @@ Value Func_Neg::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetComplex(-value.GetComplex());
 		return result;
 	} else if (value.IsMatrix()) {
-		return Object_matrix::OperatorNeg(env, sig, Object_matrix::GetObject(value));
+		return Matrix::OperatorNeg(env, sig, Object_matrix::GetObject(value)->GetMatrix());
 	} else if (value.IsTimeDelta()) {
 		TimeDelta td = value.GetTimeDelta();
 		return Value(env, TimeDelta(-td.GetDays(), -td.GetSecsRaw(), -td.GetUSecs()));
@@ -241,8 +241,8 @@ Value Func_Plus::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetComplex(valueLeft.GetComplex() + valueRight.GetNumber());
 		return result;
 	} else if (valueLeft.IsMatrix() && valueRight.IsMatrix()) {
-		return Object_matrix::OperatorPlusMinus(env, sig, env.GetOpFunc(OPTYPE_Plus),
-			Object_matrix::GetObject(valueLeft), Object_matrix::GetObject(valueRight));
+		return Matrix::OperatorPlusMinus(env, sig, env.GetOpFunc(OPTYPE_Plus),
+			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 	} else if (valueLeft.IsDateTime() && valueRight.IsTimeDelta()) {
 		DateTime dateTime = valueLeft.GetDateTime();
 		dateTime.Plus(valueRight.GetTimeDelta());
@@ -447,8 +447,8 @@ Value Func_Minus::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetComplex(valueLeft.GetComplex() - valueRight.GetNumber());
 		return result;
 	} else if (valueLeft.IsMatrix() && valueRight.IsMatrix()) {
-		return Object_matrix::OperatorPlusMinus(env, sig, env.GetOpFunc(OPTYPE_Minus),
-			Object_matrix::GetObject(valueLeft), Object_matrix::GetObject(valueRight));
+		return Matrix::OperatorPlusMinus(env, sig, env.GetOpFunc(OPTYPE_Minus),
+			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 	} else if (valueLeft.IsDateTime() && valueRight.IsTimeDelta()) {
 		DateTime dateTime = valueLeft.GetDateTime();
 		dateTime.Minus(valueRight.GetTimeDelta());
@@ -700,14 +700,14 @@ Value Func_Multiply::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetComplex(valueLeft.GetComplex() * valueRight.GetNumber());
 		return result;
 	} else if (valueLeft.IsMatrix() && valueRight.IsMatrix()) {
-		return Object_matrix::OperatorMultiply(env, sig,
-			Object_matrix::GetObject(valueLeft), Object_matrix::GetObject(valueRight));
+		return Matrix::OperatorMultiply(env, sig,
+			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 	} else if (valueRight.IsMatrix()) {
-		return Object_matrix::OperatorMultiply(env, sig,
-						valueLeft, Object_matrix::GetObject(valueRight));
+		return Matrix::OperatorMultiply(env, sig,
+						valueLeft, Object_matrix::GetObject(valueRight)->GetMatrix());
 	} else if (valueLeft.IsMatrix()) {
-		return Object_matrix::OperatorMultiply(env, sig,
-						Object_matrix::GetObject(valueLeft), valueRight);
+		return Matrix::OperatorMultiply(env, sig,
+						Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
 	} else if (valueLeft.IsTimeDelta() && valueRight.IsNumber()) {
 		const TimeDelta &td = valueLeft.GetTimeDelta();
 		long num = valueRight.GetLong();
@@ -961,8 +961,8 @@ Value Func_Divide::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetComplex(valueLeft.GetComplex() / numRight);
 		return result;
 	} else if (valueLeft.IsMatrix() && !valueRight.IsMatrix()) {
-		return Object_matrix::OperatorDivide(env, sig,
-						Object_matrix::GetObject(valueLeft), valueRight);
+		return Matrix::OperatorDivide(env, sig,
+						Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
 	} else {
 		bool evaluatedFlag = false;
 		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);

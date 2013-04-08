@@ -1504,7 +1504,7 @@ Gura_ImplementMethod(context, transform)
 	if (IsInvalid(sig, cr)) return Value::Null;
 	Object_matrix *pObjMatrix = Object_matrix::GetObject(args, 0);
 	cairo_matrix_t matrix;
-	if (!MatrixToCairo(sig, matrix, pObjMatrix)) return Value::Null;
+	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Null;
 	::cairo_transform(cr, &matrix);
 	if (IsError(sig, cr)) return Value::Null;
 	return args.GetThis();
@@ -1524,7 +1524,7 @@ Gura_ImplementMethod(context, set_matrix)
 	if (IsInvalid(sig, cr)) return Value::Null;
 	Object_matrix *pObjMatrix = Object_matrix::GetObject(args, 0);
 	cairo_matrix_t matrix;
-	if (!MatrixToCairo(sig, matrix, pObjMatrix)) return Value::Null;
+	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Null;
 	::cairo_set_matrix(cr, &matrix);
 	if (IsError(sig, cr)) return Value::Null;
 	return args.GetThis();
@@ -1544,8 +1544,8 @@ Gura_ImplementMethod(context, get_matrix)
 	cairo_matrix_t matrix;
 	::cairo_get_matrix(cr, &matrix);
 	if (IsError(sig, cr)) return Value::Null;
-	Object_matrix *pObjMatrix = CairoToMatrix(env, matrix);
-	return Value(pObjMatrix);
+	AutoPtr<Matrix> pMat(CairoToMatrix(env, matrix));
+	return Value(new Object_matrix(env, pMat.release()));
 }
 
 // cairo.context#identity_matrix():reduce
@@ -1703,7 +1703,7 @@ Gura_ImplementMethod(context, set_font_matrix)
 	if (IsInvalid(sig, cr)) return Value::Null;
 	Object_matrix *pObjMatrix = Object_matrix::GetObject(args, 0);
 	cairo_matrix_t matrix;
-	if (!MatrixToCairo(sig, matrix, pObjMatrix)) return Value::Null;
+	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Null;
 	::cairo_set_font_matrix(cr, &matrix);
 	if (IsError(sig, cr)) return Value::Null;
 	return args.GetThis();
@@ -1723,8 +1723,8 @@ Gura_ImplementMethod(context, get_font_matrix)
 	cairo_matrix_t matrix;
 	::cairo_get_font_matrix(cr, &matrix);
 	if (IsError(sig, cr)) return Value::Null;
-	Object_matrix *pObjMatrix = CairoToMatrix(env, matrix);
-	return Value(pObjMatrix);
+	AutoPtr<Matrix> pMat(CairoToMatrix(env, matrix));
+	return Value(new Object_matrix(env, pMat.release()));
 }
 
 // cairo.context#set_font_options(options:cairo.font_options):reduce

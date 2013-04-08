@@ -453,7 +453,7 @@ Gura_ImplementMethod(pattern, set_matrix)
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	Object_matrix *pObjMatrix = Object_matrix::GetObject(args, 0);
 	cairo_matrix_t matrix;
-	if (!MatrixToCairo(sig, matrix, pObjMatrix)) return Value::Null;
+	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Null;
 	::cairo_pattern_set_matrix(pattern, &matrix);
 	if (IsError(sig, pattern)) return Value::Null;
 	return args.GetThis();
@@ -472,8 +472,8 @@ Gura_ImplementMethod(pattern, get_matrix)
 	cairo_matrix_t matrix;
 	::cairo_pattern_get_matrix(pattern, &matrix);
 	if (IsError(sig, pattern)) return Value::Null;
-	Object_matrix *pObjMatrix = CairoToMatrix(env, matrix);
-	return Value(pObjMatrix);
+	AutoPtr<Matrix> pMat(CairoToMatrix(env, matrix));
+	return Value(new Object_matrix(env, pMat.release()));
 }
 
 // cairo.pattern#get_type()

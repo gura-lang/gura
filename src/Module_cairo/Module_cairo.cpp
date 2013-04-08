@@ -768,31 +768,31 @@ bool ValueListToRectangle(Signal sig, cairo_rectangle_int_t &rectangle, const Va
 	return true;
 }
 
-Object_matrix *CairoToMatrix(Environment &env, cairo_matrix_t &matrix)
+Matrix *CairoToMatrix(Environment &env, cairo_matrix_t &matrix)
 {
-	Object_matrix *pObjMatrix = new Object_matrix(env, 3, 3);
-	pObjMatrix->SetElement(0, 0, Value(matrix.xx));
-	pObjMatrix->SetElement(0, 1, Value(matrix.xy));
-	pObjMatrix->SetElement(1, 0, Value(matrix.yx));
-	pObjMatrix->SetElement(1, 1, Value(matrix.yy));
-	pObjMatrix->SetElement(0, 2, Value(matrix.x0));
-	pObjMatrix->SetElement(1, 2, Value(matrix.y0));
-	pObjMatrix->SetElement(2, 2, Value(1.));
-	return pObjMatrix;
+	Matrix *pMat = new Matrix(3, 3);
+	pMat->SetElement(0, 0, Value(matrix.xx));
+	pMat->SetElement(0, 1, Value(matrix.xy));
+	pMat->SetElement(1, 0, Value(matrix.yx));
+	pMat->SetElement(1, 1, Value(matrix.yy));
+	pMat->SetElement(0, 2, Value(matrix.x0));
+	pMat->SetElement(1, 2, Value(matrix.y0));
+	pMat->SetElement(2, 2, Value(1.));
+	return pMat;
 }
 
-bool MatrixToCairo(Signal sig, cairo_matrix_t &matrix, Object_matrix *pObjMatrix)
+bool MatrixToCairo(Signal sig, cairo_matrix_t &matrix, Matrix *pMat)
 {
-	if (pObjMatrix->GetRows() != 3 || pObjMatrix->GetCols() != 3) {
+	if (pMat->GetRows() != 3 || pMat->GetCols() != 3) {
 		sig.SetError(ERR_ValueError, "matrix size must be 3x3");
 		return false;
 	}
-	matrix.xx = pObjMatrix->GetElement(0, 0).GetDouble();
-	matrix.xy = pObjMatrix->GetElement(0, 1).GetDouble();
-	matrix.yx = pObjMatrix->GetElement(1, 0).GetDouble();
-	matrix.yy = pObjMatrix->GetElement(1, 1).GetDouble();
-	matrix.x0 = pObjMatrix->GetElement(0, 2).GetDouble();
-	matrix.y0 = pObjMatrix->GetElement(1, 2).GetDouble();
+	matrix.xx = pMat->GetElement(0, 0).GetDouble();
+	matrix.xy = pMat->GetElement(0, 1).GetDouble();
+	matrix.yx = pMat->GetElement(1, 0).GetDouble();
+	matrix.yy = pMat->GetElement(1, 1).GetDouble();
+	matrix.x0 = pMat->GetElement(0, 2).GetDouble();
+	matrix.y0 = pMat->GetElement(1, 2).GetDouble();
 	return true;
 }
 

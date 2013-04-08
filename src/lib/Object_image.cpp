@@ -276,7 +276,8 @@ Gura_ImplementMethod(image, store)
 	if (!pThis->GetImage()->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Null;
 	const Symbol *pSymbol = args.GetSymbol(4);
 	if (args.IsMatrix(5)) {
-		pThis->GetImage()->Store(sig, x, y, width, height, pSymbol, Object_matrix::GetObject(args, 5));
+		pThis->GetImage()->Store(sig, x, y, width, height, pSymbol,
+							Object_matrix::GetObject(args, 5)->GetMatrix());
 	} else if (args.IsList(5) || args.IsIterator(5)) {
 		AutoPtr<Iterator> pIterator(args.GetValue(5).CreateIterator(sig));
 		pThis->GetImage()->Store(env, sig, x, y, width, height, pSymbol, pIterator.get());
@@ -309,7 +310,7 @@ Gura_ImplementMethod(image, extract)
 	if (!pThis->GetImage()->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Null;
 	const Symbol *pSymbol = args.GetSymbol(4);
 	if (args.IsMatrix(5)) {
-		pThis->GetImage()->Extract(sig, x, y, width, height, pSymbol, Object_matrix::GetObject(args, 5));
+		pThis->GetImage()->Extract(sig, x, y, width, height, pSymbol, Object_matrix::GetObject(args, 5)->GetMatrix());
 	} else if (args.IsList(5)) {
 		pThis->GetImage()->Extract(sig, x, y, width, height, pSymbol, Object_list::GetObject(args, 5)->GetList());
 	} else {
