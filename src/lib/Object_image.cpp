@@ -310,9 +310,11 @@ Gura_ImplementMethod(image, extract)
 	if (!pThis->GetImage()->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Null;
 	const Symbol *pSymbol = args.GetSymbol(4);
 	if (args.IsMatrix(5)) {
-		pThis->GetImage()->Extract(sig, x, y, width, height, pSymbol, Object_matrix::GetObject(args, 5)->GetMatrix());
+		pThis->GetImage()->Extract(sig, x, y, width, height,
+					pSymbol, Object_matrix::GetObject(args, 5)->GetMatrix());
 	} else if (args.IsList(5)) {
-		pThis->GetImage()->Extract(sig, x, y, width, height, pSymbol, Object_list::GetObject(args, 5)->GetList());
+		pThis->GetImage()->Extract(sig, x, y, width, height,
+					pSymbol, Object_list::GetObject(args, 5)->GetList());
 	} else {
 		sig.SetError(ERR_ValueError, "invalid object for image's destination");
 		return Value::Null;

@@ -364,9 +364,9 @@ bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage,
 		buff[0] = '"';
 		::memcpy(buff + 1, convTbl + i * nCharsPerPixel, nCharsPerPixel);
 		::sprintf(buff + 1 + nCharsPerPixel, " c #%02x%02x%02x\",",
-					entry[Palette::OffsetRed],
-					entry[Palette::OffsetGreen],
-					entry[Palette::OffsetBlue]);
+					entry[Image::OffsetRed],
+					entry[Image::OffsetGreen],
+					entry[Image::OffsetBlue]);
 		stream.Println(sig, buff);
 	} while (0);
 	if (sig.IsSignalled()) return false;

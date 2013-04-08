@@ -2,22 +2,15 @@
 #define __GURA_PALETTE_H__
 
 #include "Common.h"
+#include "Image.h"
 
 namespace Gura {
-
-class Image;
 
 //-----------------------------------------------------------------------------
 // Palette
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Palette {
 public:
-	enum {
-		OffsetRed	= 2,
-		OffsetGreen	= 1,
-		OffsetBlue	= 0,
-		OffsetAlpha	= 3,
-	};
 	enum ShrinkMode {
 		ShrinkNone,
 		ShrinkAlign,
@@ -71,10 +64,10 @@ public:
 	inline void SetEntry(size_t idx, unsigned char red,
 			unsigned char green, unsigned char blue, unsigned char alpha = 255) {
 		unsigned char *entry = GetEntry(idx);
-		entry[OffsetRed] = red;
-		entry[OffsetGreen] = green;
-		entry[OffsetBlue] = blue;
-		entry[OffsetAlpha] = alpha;
+		entry[Image::OffsetRed] = red;
+		entry[Image::OffsetGreen] = green;
+		entry[Image::OffsetBlue] = blue;
+		entry[Image::OffsetAlpha] = alpha;
 	}
 	inline void SetEntry(size_t idx, const Color &c, unsigned char alpha = 255) {
 		SetEntry(idx, c.GetRed(), c.GetGreen(), c.GetBlue(), alpha);
@@ -92,7 +85,7 @@ public:
 	bool UpdateByPalette(Signal sig, const Palette *pPalette, ShrinkMode shrinkMode);
 	void Shrink(size_t nEntries, bool alignFlag);
 	inline size_t LookupNearest(const unsigned char *pPixel) const {
-		return LookupNearest(pPixel[OffsetRed], pPixel[OffsetGreen], pPixel[OffsetBlue]);
+		return LookupNearest(pPixel[Image::OffsetRed], pPixel[Image::OffsetGreen], pPixel[Image::OffsetBlue]);
 	}
 	inline size_t LookupNearest(const Color &color) const {
 		return LookupNearest(color.GetRed(), color.GetGreen(), color.GetBlue());

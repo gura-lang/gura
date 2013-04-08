@@ -2,10 +2,11 @@
 #define __GURA_IMAGE_H__
 
 #include "Common.h"
-#include "Palette.h"
-#include "Matrix.h"
 
 namespace Gura {
+
+class Matrix;
+class Palette;
 
 //-----------------------------------------------------------------------------
 // Image

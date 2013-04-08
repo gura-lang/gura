@@ -31,7 +31,7 @@ void Palette::AllocBuff(size_t nEntries)
 		_buff = reinterpret_cast<unsigned char *>(_memory.Allocate(GetBuffSize()));
 		::memset(_buff, 0x00, GetBuffSize());
 		for (size_t idx = 0; idx < nEntries; idx++) {
-			GetEntry(idx)[OffsetAlpha] = 0xff;
+			GetEntry(idx)[Image::OffsetAlpha] = 0xff;
 		}
 	}
 }
@@ -44,7 +44,7 @@ void Palette::ResizeBuff(size_t nEntries, size_t nEntriesToCopy)
 								_memory.Resize(GetBuffSize(), bytesToCopy));
 	::memset(_buff + bytesToCopy, 0x00, GetBuffSize() - bytesToCopy);
 	for (size_t idx = nEntriesToCopy; idx < nEntries; idx++) {
-		GetEntry(idx)[OffsetAlpha] = 0xff;
+		GetEntry(idx)[Image::OffsetAlpha] = 0xff;
 	}
 }
 
@@ -75,7 +75,7 @@ Value Palette::GetColorValue(Environment &env, size_t idx)
 {
 	const unsigned char *entry = GetEntry(idx);
 	return Value(new Object_color(env,
-		entry[OffsetRed], entry[OffsetGreen], entry[OffsetBlue], entry[OffsetAlpha]));
+		entry[Image::OffsetRed], entry[Image::OffsetGreen], entry[Image::OffsetBlue], entry[Image::OffsetAlpha]));
 }
 
 void Palette::SetColor(size_t idx, const Color &color)
@@ -88,12 +88,12 @@ size_t Palette::LookupNearest(unsigned char red, unsigned char green, unsigned c
 	size_t idxMin = 0;
 	const unsigned char *entry = _buff;
 	size_t distMin = Color::CalcDist(red, green, blue,
-						entry[OffsetRed], entry[OffsetGreen], entry[OffsetBlue]);
+						entry[Image::OffsetRed], entry[Image::OffsetGreen], entry[Image::OffsetBlue]);
 	if (distMin == 0) return idxMin;
 	entry += 4;
 	for (size_t idx = 1; idx < _nEntries; idx++, entry += 4) {
 		size_t dist = Color::CalcDist(red, green, blue,
-						entry[OffsetRed], entry[OffsetGreen], entry[OffsetBlue]);
+						entry[Image::OffsetRed], entry[Image::OffsetGreen], entry[Image::OffsetBlue]);
 		if (distMin > dist) {
 			if (dist == 0) return idx;
 			idxMin = idx, distMin = dist;
@@ -112,7 +112,7 @@ bool Palette::UpdateByImage(const Image *pImage, ShrinkMode shrinkMode)
 	for (size_t y = 0; y < pImage->GetHeight(); y++) {
 		const unsigned char *pPixel = pLine;
 		for (size_t x = 0; x < pImage->GetWidth(); x++) {
-			Color color(pPixel[OffsetRed], pPixel[OffsetGreen], pPixel[OffsetBlue]);
+			Color color(pPixel[Image::OffsetRed], pPixel[Image::OffsetGreen], pPixel[Image::OffsetBlue]);
 			std::pair<ColorSet::iterator, bool> rtn = colorSet.insert(color);
 			if (!rtn.second) {
 				// nothing to do
@@ -144,7 +144,7 @@ bool Palette::UpdateByPalette(const Palette *pPalette, ShrinkMode shrinkMode)
 	size_t idxBlank = NextBlankIndex(colorSet);
 	for (size_t idx = 0; idx < pPalette->CountEntries(); idx++) {
 		const unsigned char *pEntry = pPalette->GetEntry(idx);
-		Color color(pEntry[OffsetRed], pEntry[OffsetGreen], pEntry[OffsetBlue]);
+		Color color(pEntry[Image::OffsetRed], pEntry[Image::OffsetGreen], pEntry[Image::OffsetBlue]);
 		std::pair<ColorSet::iterator, bool> rtn = colorSet.insert(color);
 		if (!rtn.second) {
 		} else if (idxBlank < _nEntries) {
@@ -188,7 +188,7 @@ size_t Palette::NextBlankIndex(ColorSet &colorSet) const
 	size_t idxMax = 0;
 	for (size_t idx = 0; idx < _nEntries; idx++) {
 		const unsigned char *pEntry = GetEntry(idx);
-		Color color(pEntry[OffsetRed], pEntry[OffsetGreen], pEntry[OffsetBlue]);
+		Color color(pEntry[Image::OffsetRed], pEntry[Image::OffsetGreen], pEntry[Image::OffsetBlue]);
 		std::pair<ColorSet::iterator, bool> rtn = colorSet.insert(color);
 		if (rtn.second) idxMax = idx;
 	}
