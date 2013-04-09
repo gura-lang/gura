@@ -37,6 +37,7 @@ bool Object_exif::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(ifd0));
 	symbols.insert(Gura_UserSymbol(ifd1));
 	symbols.insert(Gura_UserSymbol(thumbnail));
+	symbols.insert(Gura_UserSymbol(thumbnail_jpeg));
 	return _pObj0thIFD->DoDirProp(env, sig, symbols);
 }
 
