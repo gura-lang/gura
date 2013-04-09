@@ -183,17 +183,7 @@ protected:
 	} _metrics;
 	AutoPtr<Palette> _pPalette;
 public:
-	inline static Image *Reference(const Image *pImage) {
-		if (pImage == NULL) return NULL;
-		Image *pImageCasted = const_cast<Image *>(pImage);
-		pImageCasted->_cntRef++;
-		return pImageCasted;
-	}
-	inline static void Delete(Image *pImage) {
-		if (pImage == NULL) return;
-		pImage->_cntRef--;
-		if (pImage->_cntRef <= 0) delete pImage;
-	}
+	Gura_DeclareReferenceAccessor(Image);
 public:
 	Image(Format format);
 	Image(const Image &image);

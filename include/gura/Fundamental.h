@@ -37,8 +37,6 @@ protected:
 	Fundamental(Environment *pEnvOuter, EnvType envType);
 public:
 	virtual ~Fundamental();
-	inline int DecRef() { if (_cntRef > 0) _cntRef--; return _cntRef; }
-	inline int GetRefCnt() const { return _cntRef; }
 	virtual bool IsFunction() const;
 	virtual Iterator *CreateIterator(Signal sig);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);

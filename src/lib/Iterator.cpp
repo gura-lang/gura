@@ -10,12 +10,6 @@ Iterator::~Iterator()
 	// virtual destructor
 }
 
-void Iterator::Delete(Iterator *pIterator)
-{
-	if (pIterator == NULL) return;
-	if (pIterator->DecRef() <= 0) delete pIterator;
-}
-
 bool Iterator::IsSequence() const { return false; }
 bool Iterator::IsSequenceInf() const { return false; }
 

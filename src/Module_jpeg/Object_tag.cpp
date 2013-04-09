@@ -74,7 +74,7 @@ String Object_tag::ToString(Signal sig, bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Tag
+// Gura interfaces for jpeg.tag
 //-----------------------------------------------------------------------------
 // implementation of class tag
 Gura_ImplementUserClass(tag)

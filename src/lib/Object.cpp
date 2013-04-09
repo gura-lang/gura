@@ -30,11 +30,6 @@ Object *Object::Clone() const
 	return new Object(*this);
 }
 
-void Object::Delete(Object *pObj)
-{
-	if (pObj != NULL && pObj->DecRef() <= 0) delete pObj;
-}
-
 const char *Object::GetClassName() const
 {
 	return (_pClass.IsNull())? "class" : _pClass->GetName();

@@ -81,29 +81,13 @@ protected:
 	String _name;
 	Type _type;
 	char _chSeparator;
+public:
+	Gura_DeclareReferenceAccessor(Directory);
 protected:
 	virtual ~Directory();
 public:
 	Directory(Directory *pParent, const char *name, Type type, char chSeparator);
 	Directory(const Directory &directory);
-	virtual int DecRef();
-	inline static Directory *Reference(const Directory *pDirectory) {
-		if (pDirectory == NULL) return NULL;
-		Directory *pDirectoryCasted = const_cast<Directory *>(pDirectory);
-		pDirectoryCasted->_cntRef++;
-		return pDirectoryCasted;
-	}
-	inline static void Delete(Directory *pDirectory) {
-		if (pDirectory != NULL && pDirectory->DecRef() <= 0) {
-			Delete(pDirectory->GetParent());
-			delete pDirectory;
-		}
-	}
-	inline static void DeleteChild(Directory *pDirectory) {
-		if (pDirectory != NULL && pDirectory->DecRef() <= 0) {
-			delete pDirectory;
-		}
-	}
 	inline const char *GetName() const { return _name.c_str(); }
 	inline Directory *GetParent() const { return _pParent; }
 	inline char GetSeparator() const { return _chSeparator; }
@@ -162,17 +146,9 @@ protected:
 private:
 	static List *_pList;
 public:
+	Gura_DeclareReferenceAccessor(DirectoryFactory);
+public:
 	inline DirectoryFactory() : _cntRef(1) {}
-	inline int DecRef() { if (_cntRef > 0) _cntRef--; return _cntRef; }
-	inline static DirectoryFactory *Reference(const DirectoryFactory *pFactory) {
-		if (pFactory == NULL) return NULL;
-		DirectoryFactory *pFactoryCasted = const_cast<DirectoryFactory *>(pFactory);
-		pFactoryCasted->_cntRef++;
-		return pFactoryCasted;
-	}
-	inline static void Delete(DirectoryFactory *pFactory) {
-		if (pFactory != NULL && pFactory->DecRef() <= 0) delete pFactory;
-	}
 	virtual bool IsResponsible(Environment &env, Signal sig,
 								const Directory *pParent, const char *pathName) = 0;
 public:
@@ -247,17 +223,7 @@ private:
 	int _cntRef;
 	Record *_pRecordRoot;
 public:
-	inline static Structure *Reference(const Structure *pStructure) {
-		if (pStructure == NULL) return NULL;
-		Structure *pStructureCasted = const_cast<Structure *>(pStructure);
-		pStructureCasted->_cntRef++;
-		return pStructureCasted;
-	}
-	inline static void Delete(Structure *pStructure) {
-		if (pStructure == NULL) return;
-		pStructure->_cntRef--;
-		if (pStructure->_cntRef <= 0) delete pStructure;
-	}
+	Gura_DeclareReferenceAccessor(Structure);
 private:
 	~Structure();
 public:

@@ -235,9 +235,9 @@ Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &strea
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for exif
+// Gura interfaces for jpeg.exif
 //-----------------------------------------------------------------------------
-// cairo.exif#each() {block?}
+// jpeg.exif#each() {block?}
 Gura_DeclareMethod(exif, each)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);

@@ -36,14 +36,9 @@ public:
 protected:
 	virtual ~Object();
 public:
+	Gura_DeclareReferenceAccessor(Object);
+public:
 	virtual Object *Clone() const;
-	inline static Object *Reference(const Object *pObj) {
-		if (pObj == NULL) return NULL;
-		Object *pObjCasted = const_cast<Object *>(pObj);
-		pObjCasted->_cntRef++;
-		return pObjCasted;
-	}
-	static void Delete(Object *pObj);
 	virtual bool IsObject() const;
 	inline Class *GetClass() { return _pClass.get(); }
 	inline const Class *GetClass() const { return _pClass.get(); }

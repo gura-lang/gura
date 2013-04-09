@@ -102,20 +102,13 @@ protected:
 	const Symbol *_pSymbol;
 	AutoPtr<Expr> _pExprScript;		// this is set to NULL in binary modules
 	ModuleTerminateType _moduleTerminate;
+public:
+	Gura_DeclareReferenceAccessor(Module);
 private:
 	Module(const Module &module);
 public:
 	Module(Environment *pEnvOuter, const Symbol *pSymbol, const char *sourceName,
 					Expr *pExprScript, ModuleTerminateType moduleTerminate);
-	inline static Module *Reference(const Module *pModule) {
-		if (pModule == NULL) return NULL;
-		Module *pModuleCasted = const_cast<Module *>(pModule);
-		pModuleCasted->_cntRef++;
-		return pModuleCasted;
-	}
-	inline static void Delete(Module *pModule) {
-		if (pModule != NULL && pModule->DecRef() <= 0) delete pModule;
-	}
 	inline const char *GetName() const { return _pSymbol->GetName(); }
 	inline bool IsAnonymous() const {
 		return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_));

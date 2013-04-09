@@ -20,12 +20,6 @@ Directory::~Directory()
 {
 }
 
-int Directory::DecRef()
-{
-	if (_cntRef > 0) _cntRef--;
-	return _cntRef;
-}
-
 Stream *Directory::OpenStream(Environment &env, Signal sig, unsigned long attr)
 {
 	return DoOpenStream(env, sig, attr);

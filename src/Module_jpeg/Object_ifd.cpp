@@ -397,7 +397,7 @@ String Object_ifd::ToString(Signal sig, bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for ifd
+// Gura interfaces for jpeg.ifd
 //-----------------------------------------------------------------------------
 // jpeg.ifd#each() {block?}
 Gura_DeclareMethod(ifd, each)

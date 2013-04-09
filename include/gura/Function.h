@@ -188,21 +188,12 @@ protected:
 	} _blockInfo;
 	static const char *_mathSymbolTbl[];
 public:
+	Gura_DeclareReferenceAccessor(Function);
+public:
 	Function(const Function &func);
 	Function(Environment &envScope, const Symbol *pSymbol,
 								FunctionType funcType, unsigned long flags);
 	virtual ~Function();
-	inline int DecRef() { if (_cntRef > 0) _cntRef--; return _cntRef; }
-	inline int GetRefCnt() const { return _cntRef; }
-	inline static Function *Reference(const Function *pFunc) {
-		if (pFunc == NULL) return NULL;
-		Function *pFuncCasted = const_cast<Function *>(pFunc);
-		pFuncCasted->_cntRef++;
-		return pFuncCasted;
-	}
-	inline static void Delete(Function *pFunc) {
-		if (pFunc != NULL && pFunc->DecRef() <= 0) delete pFunc;
-	}
 	inline void SetOperatorInfo(Parser::ElemType elemType, OpType opType) {
 		_elemType = elemType; _opType = opType;
 	}

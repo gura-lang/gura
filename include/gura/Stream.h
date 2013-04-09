@@ -86,9 +86,6 @@ protected:
 	Signal _sig;
 	unsigned long _attr;
 	size_t _offsetCur;
-	//String _encoding;
-	//std::auto_ptr<Codec_Decoder> _pDecoder;
-	//std::auto_ptr<Codec_Encoder> _pEncoder;
 	AutoPtr<Object_codec> _pObjCodec;
 	struct {
 		char *buff;
@@ -96,17 +93,7 @@ protected:
 		size_t offsetRead;
 	} _peek;
 public:
-	inline static Stream *Reference(const Stream *pStream) {
-		if (pStream == NULL) return NULL;
-		Stream *pStreamCasted = const_cast<Stream *>(pStream);
-		pStreamCasted->_cntRef++;
-		return pStreamCasted;
-	}
-	inline static void Delete(Stream *pStream) {
-		if (pStream == NULL) return;
-		pStream->_cntRef--;
-		if (pStream->_cntRef <= 0) delete pStream;
-	}
+	Gura_DeclareReferenceAccessor(Stream);
 protected:
 	virtual ~Stream();
 public:

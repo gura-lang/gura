@@ -56,6 +56,8 @@ protected:
 	bool _infiniteFlag;
 	bool _skipInvalidFlag;
 public:
+	Gura_DeclareReferenceAccessor(Iterator);
+public:
 	inline Iterator(bool infiniteFlag, bool skipInvalidFlag = false) :
 			_cntRef(1), _cntNext(0), _pShare(NULL),
 			_infiniteFlag(infiniteFlag), _skipInvalidFlag(skipInvalidFlag) {}
@@ -63,15 +65,6 @@ public:
 			_cntRef(1), _cntNext(iter._cntNext), _pShare(NULL),
 			_infiniteFlag(iter._infiniteFlag), _skipInvalidFlag(iter._skipInvalidFlag) {}
 	virtual ~Iterator();
-	inline int DecRef() { if (_cntRef > 0) _cntRef--; return _cntRef; }
-	inline int GetRefCnt() const { return _cntRef; }
-	static void Delete(Iterator *pIterator);
-	inline static Iterator *Reference(const Iterator *pIterator) {
-		if (pIterator == NULL) return NULL;
-		Iterator *pIteratorCasted = const_cast<Iterator *>(pIterator);
-		pIteratorCasted->_cntRef++;
-		return pIteratorCasted;
-	}
 	inline int GetCountNext() const { return _cntNext; }
 	inline bool IsVirgin() const { return _cntNext == 0 && _pShare.get() == NULL; }
 	inline bool IsInfinite() const { return _infiniteFlag; }

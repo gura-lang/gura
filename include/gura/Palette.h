@@ -39,17 +39,7 @@ private:
 	static const unsigned char _rgb_Win256[];
 	static const unsigned char _rgb_WebSafe[];
 public:
-	inline static Palette *Reference(const Palette *pPalette) {
-		if (pPalette == NULL) return NULL;
-		Palette *pPaletteCasted = const_cast<Palette *>(pPalette);
-		pPaletteCasted->_cntRef++;
-		return pPaletteCasted;
-	}
-	inline static void Delete(Palette *pPalette) {
-		if (pPalette == NULL) return;
-		pPalette->_cntRef--;
-		if (pPalette->_cntRef <= 0) delete pPalette;
-	}
+	Gura_DeclareReferenceAccessor(Palette);
 public:
 	Palette();
 	Palette(const Palette &palette);

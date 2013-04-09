@@ -98,6 +98,8 @@ private:
 	int _lineNoTop, _lineNoBtm;
 	const Expr *_pExprParent;
 public:
+	Gura_DeclareReferenceAccessor(Expr);
+public:
 	inline Expr(ExprType exprType) : _exprType(exprType),
 		_cntRef(1), _lineNoTop(0), _lineNoBtm(0), _pExprParent(NULL) {}
 	inline Expr(const Expr &expr) : _exprType(expr._exprType),
@@ -105,17 +107,6 @@ public:
 protected:
 	virtual ~Expr();
 public:
-	inline static Expr *Reference(const Expr *pExpr) {
-		if (pExpr == NULL) return NULL;
-		Expr *pExprCasted = const_cast<Expr *>(pExpr);
-		pExprCasted->_cntRef++;
-		return pExprCasted;
-	}
-	inline int DecRef() { if (_cntRef > 0) _cntRef--; return _cntRef; }
-	inline int GetRefCnt() const { return _cntRef; }
-	inline static void Delete(Expr *pExpr) {
-		if (pExpr != NULL && pExpr->DecRef() <= 0) delete pExpr;
-	}
 	inline void SetLineNo(int lineNoTop, int lineNoBtm) {
 		_lineNoTop = lineNoTop, _lineNoBtm = lineNoBtm;
 	}

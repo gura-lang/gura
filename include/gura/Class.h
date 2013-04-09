@@ -100,6 +100,8 @@ protected:
 	ValueType _valType;
 	const Symbol *_pSymbol;
 	AutoPtr<Function> _pConstructor;
+public:
+	Gura_DeclareReferenceAccessor(Class);
 protected:
 	inline Class(const Class &cls) : Fundamental(cls),
 		_pClassSuper(Class::Reference(cls._pClassSuper.get())), _valType(cls._valType),
@@ -111,15 +113,6 @@ public:
 	virtual bool IsCustom() const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	virtual void Prepare();
-	inline static Class *Reference(const Class *pClass) {
-		if (pClass == NULL) return NULL;
-		Class *pClassCasted = const_cast<Class *>(pClass);
-		pClassCasted->_cntRef++;
-		return pClassCasted;
-	}
-	inline static void Delete(Class *pClass) {
-		if (pClass != NULL && pClass->DecRef() <= 0) delete pClass;
-	}
 	inline bool IsAnonymous() const {
 		return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_));
 	}
