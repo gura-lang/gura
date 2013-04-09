@@ -1,0 +1,63 @@
+#!/usr/bin/env gura
+//-----------------------------------------------------------------------------
+// renamer.gura
+//-----------------------------------------------------------------------------
+import(re)
+import(jpeg)
+import(argopt)
+
+MakeUniqPathName(pathName:string):map = {
+	try {
+		stat = path.stat(pathName)
+	} except { stat = nil }
+	(!stat || stat.isdir) && return(nil)
+	charsAtoZ = chr(ord('A')..ord('Z'))
+	try { exif = jpeg.exif(pathName) } except { exif = nil }
+	if (exif) {
+		try {
+			exif.DateTime.value.match(r'(\d{4}):(\d{2}):(\d{2})\s+(\d{2}):(\d{2}):(\d{2})') {|m|
+				[year, month, day, hour, min, sec] = int(m[1..6])
+			}
+		} except { exif = nil }
+	}
+	if (!exif) {
+		mtime = stat.mtime
+		[year, month, day, hour, min, sec] = \
+			[mtime.year, mtime.month, mtime.day, mtime.hour, mtime.min, mtime.sec]
+	}
+	[dirName, fileName] = path.split(pathName)
+	[baseName, extName] = path.splitext(fileName)
+	cross (upper in charsAtoZ, lower in charsAtoZ) {
+		fileNameUniq = format('%04d_%02d%02d_%02d%02d%02d%s%s.%s',
+			year, month, day, hour, min, sec, upper, lower, extName)
+		pathNameUniq = path.join(dirName, fileNameUniq)
+		!path.exists(pathNameUniq) && break
+		pathNameUniq = nil
+	}
+	pathNameUniq
+}
+
+argopt.Parser {|p|
+	p.addFlag('test', 't', 'just prints renaming result')
+	try {
+		[cfg, argv] = p.parse(sys.argv)
+	} except {|e|
+		println(e.text)
+		sys.exit(1)
+	}
+	if (argv.len() < 1) {
+		sys.stderr.println('usage: renamer.gura file ...')
+		println('options:')
+		println('  ', p.formatHelp())
+		sys.exit(1)
+	}
+}
+testFlag = cfg['test']
+pathNames = path.glob(argv[0..]):list
+nPads = pathNames:*len().max()
+pathNames.each {|pathName|
+	if (pathNameUniq = MakeUniqPathName(pathName)) {
+		!testFlag && fs.rename(pathName, pathNameUniq)
+		printf('%-*s -> %s\n', nPads, pathName, pathNameUniq)
+	}
+}
