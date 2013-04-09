@@ -21,7 +21,7 @@ R'''
 import(modbuild)
 builder = modbuild.Builder()
 builder.build('${slashName}', ['Module_${ubarName}.cpp'])
-'''.template(open(fileBuild, 'w').dosmode(false))
+'''.template(open(fileBuild, 'w').addcr(false))
 fs.chmod('a+x', fileBuild)
 R'''
 //-----------------------------------------------------------------------------
@@ -35,7 +35,7 @@ Gura_BeginModule(${ubarName})
 }}
 
 #endif
-'''.template(open(fileHdr, 'w').dosmode(false))
+'''.template(open(fileHdr, 'w').addcr(false))
 R'''
 //-----------------------------------------------------------------------------
 // Gura ${dotName} module
@@ -77,7 +77,7 @@ Gura_ModuleTerminate()
 Gura_EndModule(${ubarName}, ${localName})
 
 Gura_RegisterModule(${ubarName})
-'''.template(open(fileSrc, 'w').dosmode(false))
+'''.template(open(fileSrc, 'w').addcr(false))
 
 println(fileBuild, ', ', fileHdr, ' and ', fileSrc, ' were created')
 /*

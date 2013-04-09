@@ -1,4 +1,4 @@
-sys.stdout.dosmode(false)
+sys.stdout.addcr(false)
 
 print_func(func:function) = printf('%s = %s\n', func, func.expr)
 tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap

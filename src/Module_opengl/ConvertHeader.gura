@@ -108,7 +108,7 @@ typemapInImpl = %{
 	"GLclampd" => "GetDouble"
 }
 lines = open(sys.argv[1]).readlines()
-file = open("Converted.cpp", "w").dosmode(false)
+file = open("Converted.cpp", "w").addcr(false)
 consts = (re.match(r"^#define\s+(GL_\w+)", lines):xiter):*group(1)
 funcmatches = re.match(r"(\w+)[\s\*]+APIENTRY\s+(\w+)\s*\(([^\)]*)\)", lines):xiter
 funcnames = funcmatches:*group(2)

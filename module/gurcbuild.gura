@@ -13,7 +13,7 @@ build(pathNames[]:string, dirName?:string) = {
 		!path.exists(dirName) && fs.mkdir(dirName)
 	}
 	open(tgtName, 'w') {|f|
-		f.dosmode(false)
+		f.addcr(false)
 		f.println('#!/usr/bin/env gura')
 		zip.writer(f).add(pathNames, pathNames).close()
 		f.close()

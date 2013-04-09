@@ -15,7 +15,7 @@ exec(fileName:string, silentFlag:boolean) {block} = {
 		}
 		rtn && linesSub.append(rtn)
 	}
-	(cntReplaced > 0) && open(fileName, 'w').dosmode(false).print(linesSub)
+	(cntReplaced > 0) && open(fileName, 'w').addcr(false).print(linesSub)
 }
 
 glob(pattern:string):[silent] {`block} = {

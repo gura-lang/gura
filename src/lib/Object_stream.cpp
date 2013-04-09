@@ -60,9 +60,13 @@ String Object_stream::ToString(Signal sig, bool exprFlag)
 	if (stream.GetCodec()->IsInstalled()) {
 		str += ":";
 		str += stream.GetCodec()->GetEncoding();
+		Codec_Decoder *pDecoder = stream.GetCodec()->GetDecoder();
+		if (pDecoder != NULL && pDecoder->IsProcessEOL()) {
+			str += ":delcr";
+		}
 		Codec_Encoder *pEncoder = stream.GetCodec()->GetEncoder();
 		if (pEncoder != NULL && pEncoder->IsProcessEOL()) {
-			str += ":dosmode";
+			str += ":addcr";
 		}
 	}
 	if (*stream.GetName() != '\0') {
@@ -453,19 +457,36 @@ Gura_ImplementMethod(stream, setcodec)
 	return args.GetThis();
 }
 
-// stream#dosmode(dos_flag?:boolean):reduce
-Gura_DeclareMethod(stream, dosmode)
+// stream#addcr(flag?:boolean):reduce
+Gura_DeclareMethod(stream, addcr)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "dos_flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(stream, dosmode)
+Gura_ImplementMethod(stream, addcr)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	Codec_Encoder *pEncoder = pThis->GetStream().GetCodec()->GetEncoder();
 	if (pEncoder != NULL) {
 		pEncoder->SetProcessEOLFlag(args.IsValid(0)? args.GetBoolean(0) : true);
+	}
+	return args.GetThis();
+}
+
+// stream#delcr(flag?:boolean):reduce
+Gura_DeclareMethod(stream, delcr)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(stream, delcr)
+{
+	Object_stream *pThis = Object_stream::GetThisObj(args);
+	Codec_Decoder *pDecoder = pThis->GetStream().GetCodec()->GetDecoder();
+	if (pDecoder != NULL) {
+		pDecoder->SetProcessEOLFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	}
 	return args.GetThis();
 }
@@ -731,7 +752,8 @@ Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stre
 	Gura_AssignMethod(stream, copyto);
 	Gura_AssignMethod(stream, copyfrom);
 	Gura_AssignMethod(stream, setcodec);
-	Gura_AssignMethod(stream, dosmode);
+	Gura_AssignMethod(stream, addcr);
+	Gura_AssignMethod(stream, delcr);
 	Gura_AssignMethod(stream, readline);
 	Gura_AssignMethod(stream, readlines);
 	Gura_AssignMethod(stream, readtext);

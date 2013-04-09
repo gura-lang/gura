@@ -15,7 +15,7 @@ os.stdout = buff.stream()
 sys.stderr.println('accessing ', uri)
 os.exec('svn', 'log', uri)
 //buff = open('test.bin').read()
-buff.stream().dosmode(true).readlines() {|line|
+buff.stream().addcr(true).readlines() {|line|
 	line = line.strip()
 	if (stat == `STAT_Start) {
 		if (isSeparator(line)) {

@@ -40,9 +40,13 @@ String Object_codec::ToString(Signal sig, bool exprFlag)
 	String str;
 	str += "<codec:";
 	str += _encoding;
+	Codec_Decoder *pDecoder = GetDecoder();
+	if (pDecoder != NULL && pDecoder->IsProcessEOL()) {
+		str += ":delcr";
+	}
 	Codec_Encoder *pEncoder = GetEncoder();
 	if (pEncoder != NULL && pEncoder->IsProcessEOL()) {
-		str += ":dosmode";
+		str += ":addcr";
 	}
 	str += ">";
 	return str;
