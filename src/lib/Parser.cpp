@@ -887,11 +887,7 @@ Expr *Parser::ParseStream(Environment &env, Signal sig, const char *pathName, co
 	AutoPtr<Stream> pStream(Directory::OpenStream(env, sig,
 									pathNameMod.c_str(), Stream::ATTR_Readable));
 	if (sig.IsSignalled()) return NULL;
-	
-	// encoding
-	
-	Expr *pExpr = ParseStream(env, sig, *pStream);
-	return pExpr;
+	return ParseStream(env, sig, *pStream);
 }
 
 bool Parser::ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
