@@ -6,7 +6,7 @@ import(re)
 import(jpeg)
 import(argopt)
 
-MakeUniqPathName(pathName:string):map = {
+MakeUniqPathName(pathName:string, dirNameOut:string:nil):map = {
 	try {
 		stat = path.stat(pathName)
 	} except { stat = nil }
@@ -27,6 +27,9 @@ MakeUniqPathName(pathName:string):map = {
 	}
 	[dirName, fileName] = path.split(pathName)
 	[baseName, extName] = path.splitext(fileName)
+	if (dirNameOut) {
+		dirName = dirNameOut
+	}
 	cross (upper in charsAtoZ, lower in charsAtoZ) {
 		fileNameUniq = format('%04d_%02d%02d_%02d%02d%02d%s%s.%s',
 			year, month, day, hour, min, sec, upper, lower, extName)
@@ -38,8 +41,9 @@ MakeUniqPathName(pathName:string):map = {
 }
 
 argopt.Parser {|p|
-	p.addFlag('rename',	'r', 'rename existing files')
-	p.addFlag('test',	't', 'just prints renaming result')
+	p.addParam('outdir',	'o', 'specify output directory')
+	p.addFlag('rename',		'r', 'rename existing files')
+	p.addFlag('test',		't', 'just prints renaming result')
 	try {
 		[cfg, argv] = p.parse(sys.argv)
 	} except {|e|
@@ -53,21 +57,24 @@ argopt.Parser {|p|
 		sys.exit(1)
 	}
 }
-[renameFlag, testFlag] = cfg['rename', 'test']
+[dirNameOut, renameFlag, testFlag] = cfg['outdir', 'rename', 'test']
 pathNames = path.glob(argv[0..]):list
 nPads = pathNames:*len().max()
+if (dirNameOut && !path.exists(dirNameOut)) {
+	fs.mkdir(dirNameOut):tree
+}
 pathNames.each {|pathName|
-	if (pathNameUniq = MakeUniqPathName(pathName)) {
+	if (pathNameUniq = MakeUniqPathName(pathName, dirNameOut)) {
 		if (testFlag) {
-			// nothing to do
+			printf('test: %-*s -> %s\n', nPads, pathName, pathNameUniq)
 		} elsif (pathName == pathNameUniq) {
-			// nothing to do
+			printf('skip: %-*s\n', nPads, pathName)
 		} elsif (renameFlag) {
 			fs.rename(pathName, pathNameUniq)
-			printf('rename: %-*s -> %s\n', nPads, pathName, pathNameUniq)
+			printf('ren:  %-*s -> %s\n', nPads, pathName, pathNameUniq)
 		} else {
 			copy(pathName, pathNameUniq)
-			printf('copy:   %-*s -> %s\n', nPads, pathName, pathNameUniq)
+			printf('copy: %-*s -> %s\n', nPads, pathName, pathNameUniq)
 		}
 	}
 }
