@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 //-----------------------------------------------------------------------------
-// renamer.gura
+// stamper.gura
 //-----------------------------------------------------------------------------
 import(re)
 import(jpeg)
@@ -38,7 +38,8 @@ MakeUniqPathName(pathName:string):map = {
 }
 
 argopt.Parser {|p|
-	p.addFlag('test', 't', 'just prints renaming result')
+	p.addFlag('rename',	'r', 'rename existing files')
+	p.addFlag('test',	't', 'just prints renaming result')
 	try {
 		[cfg, argv] = p.parse(sys.argv)
 	} except {|e|
@@ -46,18 +47,27 @@ argopt.Parser {|p|
 		sys.exit(1)
 	}
 	if (argv.len() < 1) {
-		sys.stderr.println('usage: renamer.gura file ...')
+		sys.stderr.println('usage: stamper.gura file ...')
 		println('options:')
 		println('  ', p.formatHelp())
 		sys.exit(1)
 	}
 }
-testFlag = cfg['test']
+[renameFlag, testFlag] = cfg['rename', 'test']
 pathNames = path.glob(argv[0..]):list
 nPads = pathNames:*len().max()
 pathNames.each {|pathName|
 	if (pathNameUniq = MakeUniqPathName(pathName)) {
-		!testFlag && fs.rename(pathName, pathNameUniq)
-		printf('%-*s -> %s\n', nPads, pathName, pathNameUniq)
+		if (testFlag) {
+			// nothing to do
+		} elsif (pathName == pathNameUniq) {
+			// nothing to do
+		} elsif (renameFlag) {
+			fs.rename(pathName, pathNameUniq)
+			printf('rename: %-*s -> %s\n', nPads, pathName, pathNameUniq)
+		} else {
+			copy(pathName, pathNameUniq)
+			printf('copy:   %-*s -> %s\n', nPads, pathName, pathNameUniq)
+		}
 	}
 }
