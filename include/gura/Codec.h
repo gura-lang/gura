@@ -8,6 +8,8 @@ namespace Gura {
 
 class Binary;
 class CodecFactory;
+class CodecDecoder;
+class CodecEncoder;
 
 //-----------------------------------------------------------------------------
 // Codec
@@ -19,6 +21,21 @@ public:
 		RESULT_Complete,
 		RESULT_Error,
 	};
+private:
+	int _cntRef;
+	String _encoding;
+	std::auto_ptr<CodecEncoder> _pEncoder;
+	std::auto_ptr<CodecDecoder> _pDecoder;
+public:
+	Gura_DeclareReferenceAccessor(Codec);
+public:
+	Codec();
+	Codec(const Codec &codec);
+	inline const char *GetEncoding() const { return _encoding.c_str(); }
+	inline bool IsInstalled() const { return !_encoding.empty(); }
+	inline CodecEncoder *GetEncoder() { return _pEncoder.get(); }
+	inline CodecDecoder *GetDecoder() { return _pDecoder.get(); }
+	bool InstallCodec(Signal sig, const char *encoding, bool processEOLFlag);
 };
 
 //-----------------------------------------------------------------------------

@@ -39,7 +39,7 @@ Value Object_stream::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 	} else if (pSymbol->IsIdentical(Gura_Symbol(writable))) {
 		return Value(GetStream().IsWritable());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(codec))) {
-		return Value(Object_codec::Reference(GetStream().GetCodec()));
+		return Value(new Object_codec(env, Codec::Reference(GetStream().GetCodec())));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -101,12 +101,12 @@ Gura_ImplementFunction(open)
 	Stream *pStream = Directory::OpenStream(env, sig, args.GetString(0), attr);
 	if (sig.IsSignalled()) return Value::Null;
 	if (args.IsValid(2)) {
-		Object_codec *pObjCodec = Object_codec::GetObject(args, 2);
-		pStream->SetCodec(Object_codec::Reference(pObjCodec));
+		Codec *pCodec = Object_codec::GetObject(args, 2)->GetCodec();
+		pStream->SetCodec(Codec::Reference(pCodec));
 	} else {
-		Object_codec *pObjCodec = new Object_codec(env);
-		pObjCodec->InstallCodec(sig, NULL, processEOLFlag);
-		pStream->SetCodec(pObjCodec);
+		Codec *pCodec = new Codec();
+		pCodec->InstallCodec(sig, NULL, processEOLFlag);
+		pStream->SetCodec(pCodec);
 	}
 	Value result(new Object_stream(env, pStream));
 	if (args.IsBlockSpecified()) {
@@ -445,15 +445,15 @@ Gura_DeclareMethod(stream, setcodec)
 Gura_ImplementMethod(stream, setcodec)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
-	Object_codec *pObjCodec = NULL;
+	Codec *pCodec = NULL;
 	if (args.IsValid(0)) {
-		pObjCodec = Object_codec::Reference(Object_codec::GetObject(args, 0));
+		pCodec = Codec::Reference(Object_codec::GetObject(args, 0)->GetCodec());
 	} else {
 		bool processEOLFlag = false;
-		pObjCodec = new Object_codec(env);
-		pObjCodec->InstallCodec(sig, NULL, processEOLFlag);
+		pCodec = new Codec();
+		pCodec->InstallCodec(sig, NULL, processEOLFlag);
 	}
-	pThis->GetStream().SetCodec(pObjCodec);
+	pThis->GetStream().SetCodec(pCodec);
 	return args.GetThis();
 }
 

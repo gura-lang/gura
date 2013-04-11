@@ -11,7 +11,6 @@ namespace Gura {
 class Object;
 class ValueList;
 class Function;
-class Object_codec;
 
 //-----------------------------------------------------------------------------
 // SimpleStream
@@ -86,7 +85,7 @@ protected:
 	Signal _sig;
 	unsigned long _attr;
 	size_t _offsetCur;
-	AutoPtr<Object_codec> _pObjCodec;
+	AutoPtr<Codec> _pCodec;
 	struct {
 		char *buff;
 		size_t bytes;
@@ -99,10 +98,10 @@ protected:
 public:
 	Stream(Environment &env, Signal sig, unsigned long attr);
 	void Close();
-	void SetCodec(Object_codec *pObjCodec);
+	void SetCodec(Codec *pCodec);
 	void CopyCodec(Stream *pStream);
-	void CopyCodec(const Object_codec *pObjCodec);
-	inline Object_codec *GetCodec() { return _pObjCodec.get(); }
+	void CopyCodec(const Codec *pCodec);
+	inline Codec *GetCodec() { return _pCodec.get(); }
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
 	virtual const char *GetName() const = 0;

@@ -101,8 +101,7 @@ void SimpleStream_StringWrite::PutChar(Signal sig, char ch)
 // Stream
 //-----------------------------------------------------------------------------
 Stream::Stream(Environment &env, Signal sig, unsigned long attr) :
-		_cntRef(1), _sig(sig), _attr(attr), _offsetCur(0),
-		_pObjCodec(new Object_codec(env))
+	_cntRef(1), _sig(sig), _attr(attr), _offsetCur(0), _pCodec(new Codec())
 {
 	_peek.buff = NULL;
 	_peek.bytes = 0;
@@ -120,9 +119,9 @@ void Stream::Close()
 	_attr &= ~(ATTR_Readable | ATTR_Writable | ATTR_Append);
 }
 
-void Stream::SetCodec(Object_codec *pObjCodec)
+void Stream::SetCodec(Codec *pCodec)
 {
-	_pObjCodec.reset(pObjCodec);
+	_pCodec.reset(pCodec);
 }
 
 void Stream::CopyCodec(Stream *pStream)
@@ -130,10 +129,10 @@ void Stream::CopyCodec(Stream *pStream)
 	CopyCodec(pStream->GetCodec());
 }
 
-void Stream::CopyCodec(const Object_codec *pObjCodec)
+void Stream::CopyCodec(const Codec *pCodec)
 {
-	if (pObjCodec != NULL) {
-		_pObjCodec.reset(dynamic_cast<Object_codec *>(pObjCodec->Clone()));
+	if (pCodec != NULL) {
+		_pCodec.reset(new Codec(*pCodec));
 	}
 }
 

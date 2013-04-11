@@ -472,9 +472,9 @@ Gura_DeclareMethodPrimitive(binary, decode)
 Gura_ImplementMethod(binary, decode)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
-	Object_codec *pObjCodec = dynamic_cast<Object_codec *>(args.GetObject(0));
+	Codec *pCodec = Object_codec::GetObject(args, 0)->GetCodec();
 	String str;
-	if (!pObjCodec->GetDecoder()->Decode(sig, str, pThis->GetBinary())) {
+	if (!pCodec->GetDecoder()->Decode(sig, str, pThis->GetBinary())) {
 		return Value::Null;
 	}
 	return Value(env, str.c_str());

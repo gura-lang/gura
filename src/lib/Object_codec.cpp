@@ -10,9 +10,7 @@ namespace Gura {
 // Object_codec
 //-----------------------------------------------------------------------------
 Object_codec::Object_codec(const Object_codec &obj) :
-	Object(obj), _encoding(obj._encoding),
-	_pDecoder((obj._pDecoder.get() == NULL)? NULL : obj._pDecoder->Duplicate()),
-	_pEncoder((obj._pEncoder.get() == NULL)? NULL : obj._pEncoder->Duplicate())
+					Object(obj), _pCodec(new Codec(*obj.GetCodec()))
 {
 }
 
@@ -21,30 +19,16 @@ Object *Object_codec::Clone() const
 	return new Object_codec(*this);
 }
 
-bool Object_codec::InstallCodec(Signal sig, const char *encoding, bool processEOLFlag)
-{
-	if (encoding == NULL) encoding = "none";
-	CodecFactory *pCodecFactory = CodecFactory::Lookup(encoding);
-	if (pCodecFactory == NULL) {
-		sig.SetError(ERR_CodecError, "unsupported encoding name %s", encoding);
-		return false;
-	}
-	_encoding = encoding;
-	_pEncoder.reset(pCodecFactory->CreateEncoder(processEOLFlag));
-	_pDecoder.reset(pCodecFactory->CreateDecoder(processEOLFlag));
-	return true;
-}
-
 String Object_codec::ToString(Signal sig, bool exprFlag)
 {
 	String str;
 	str += "<codec:";
-	str += _encoding;
-	CodecDecoder *pDecoder = GetDecoder();
+	str += GetCodec()->GetEncoding();
+	CodecDecoder *pDecoder = GetCodec()->GetDecoder();
 	if (pDecoder != NULL && pDecoder->IsProcessEOL()) {
 		str += ":delcr";
 	}
-	CodecEncoder *pEncoder = GetEncoder();
+	CodecEncoder *pEncoder = GetCodec()->GetEncoder();
 	if (pEncoder != NULL && pEncoder->IsProcessEOL()) {
 		str += ":addcr";
 	}
@@ -68,11 +52,11 @@ Gura_DeclareFunction(codec)
 
 Gura_ImplementFunction(codec)
 {
-	Object_codec *pObj = new Object_codec(env);
-	if (!pObj->InstallCodec(sig, args.GetString(0), args.GetBoolean(1))) {
+	AutoPtr<Codec> pCodec(new Codec());
+	if (!pCodec->InstallCodec(sig, args.GetString(0), args.GetBoolean(1))) {
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(pObj));
+	return ReturnValue(env, sig, args, Value(new Object_codec(env, pCodec.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -109,7 +93,7 @@ Gura_ImplementMethod(codec, encode)
 {
 	Object_codec *pThis = Object_codec::GetThisObj(args);
 	Binary dst;
-	if (!pThis->GetEncoder()->Encode(sig, dst, args.GetString(0))) {
+	if (!pThis->GetCodec()->GetEncoder()->Encode(sig, dst, args.GetString(0))) {
 		return Value::Null;
 	}
 	return Value(new Object_binary(env, dst, true));
@@ -127,7 +111,7 @@ Gura_ImplementMethod(codec, decode)
 {
 	Object_codec *pThis = Object_codec::GetThisObj(args);
 	String dst;
-	if (!pThis->GetDecoder()->Decode(sig, dst, args.GetBinary(0))) {
+	if (!pThis->GetCodec()->GetDecoder()->Decode(sig, dst, args.GetBinary(0))) {
 		return Value::Null;
 	}
 	return Value(env, dst.c_str());
@@ -146,11 +130,11 @@ Class_codec::Class_codec(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_codec)
 bool Class_codec::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsString()) {
-		Object_codec *pObj = new Object_codec(env);
-		if (!pObj->InstallCodec(sig, value.GetString(), false)) {
+		AutoPtr<Codec> pCodec(new Codec());
+		if (!pCodec->InstallCodec(sig, value.GetString(), false)) {
 			return false;
 		}
-		value = Value(pObj);
+		value = Value(new Object_codec(env, pCodec.release()));
 		return true;
 	}
 	return false;

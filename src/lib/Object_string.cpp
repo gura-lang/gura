@@ -806,9 +806,9 @@ Gura_DeclareMethodPrimitive(string, encode)
 
 Gura_ImplementMethod(string, encode)
 {
-	Object_codec *pObjCodec = dynamic_cast<Object_codec *>(args.GetObject(0));
+	Codec *pCodec = Object_codec::GetObject(args, 0)->GetCodec();
 	Binary buff;
-	if (!pObjCodec->GetEncoder()->Encode(sig, buff, args.GetThis().GetString())) {
+	if (!pCodec->GetEncoder()->Encode(sig, buff, args.GetThis().GetString())) {
 		return Value::Null;
 	}
 	return Value(new Object_binary(env, buff, true));

@@ -847,11 +847,11 @@ Expr *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
 			Value value = sig.GetValue();
 			if (value.IsString()) {
 				const char *encoding = value.GetString();
-				AutoPtr<Object_codec> pObjCodec(new Object_codec(env));
-				if (!pObjCodec->InstallCodec(sig, encoding, processEOLFlag)) {
+				AutoPtr<Codec> pCodec(new Codec());
+				if (!pCodec->InstallCodec(sig, encoding, processEOLFlag)) {
 					return NULL;
 				}
-				stream.SetCodec(pObjCodec.release());
+				stream.SetCodec(pCodec.release());
 			}
 			sig.ClearSignal();
 		} else if (pExpr != NULL) {

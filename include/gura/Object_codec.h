@@ -21,23 +21,20 @@ public:
 // Object_codec
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_codec : public Object {
+private:
+	AutoPtr<Codec> _pCodec;
 public:
 	Gura_DeclareObjectAccessor(codec)
-private:
-	String _encoding;
-	std::auto_ptr<CodecEncoder> _pEncoder;
-	std::auto_ptr<CodecDecoder> _pDecoder;
 public:
 	Object_codec(const Object_codec &obj);
-	inline Object_codec(Environment &env) : Object(env.LookupClass(VTYPE_codec)) {}
-	inline Object_codec(Class *pClass) : Object(pClass), _pEncoder(NULL) {}
-	inline const char *GetEncoding() const { return _encoding.c_str(); }
-	inline bool IsInstalled() const { return !_encoding.empty(); }
-	inline CodecEncoder *GetEncoder() { return _pEncoder.get(); }
-	inline CodecDecoder *GetDecoder() { return _pDecoder.get(); }
+	inline Object_codec(Environment &env, Codec *pCodec) :
+						Object(env.LookupClass(VTYPE_codec)), _pCodec(pCodec) {}
+	inline Object_codec(Class *pClass, Codec *pCodec) :
+						Object(pClass), _pCodec(pCodec) {}
 	virtual Object *Clone() const;
-	bool InstallCodec(Signal sig, const char *encoding, bool processEOLFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
+	inline Codec *GetCodec() { return _pCodec.get(); }
+	inline const Codec *GetCodec() const { return _pCodec.get(); }
 };
 
 }

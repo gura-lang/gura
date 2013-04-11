@@ -7,6 +7,34 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
+// Codec
+//-----------------------------------------------------------------------------
+Codec::Codec() : _cntRef(1)
+{
+}
+
+Codec::Codec(const Codec &codec) : _cntRef(1),
+	_encoding(codec._encoding),
+	_pDecoder((codec._pDecoder.get() == NULL)? NULL : codec._pDecoder->Duplicate()),
+	_pEncoder((codec._pEncoder.get() == NULL)? NULL : codec._pEncoder->Duplicate())
+{
+}
+
+bool Codec::InstallCodec(Signal sig, const char *encoding, bool processEOLFlag)
+{
+	if (encoding == NULL) encoding = "none";
+	CodecFactory *pCodecFactory = CodecFactory::Lookup(encoding);
+	if (pCodecFactory == NULL) {
+		sig.SetError(ERR_CodecError, "unsupported encoding name %s", encoding);
+		return false;
+	}
+	_encoding = encoding;
+	_pEncoder.reset(pCodecFactory->CreateEncoder(processEOLFlag));
+	_pDecoder.reset(pCodecFactory->CreateDecoder(processEOLFlag));
+	return true;
+}
+
+//-----------------------------------------------------------------------------
 // CodecBase
 //-----------------------------------------------------------------------------
 const char *CodecBase::GetName() const
