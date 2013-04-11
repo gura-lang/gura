@@ -883,7 +883,7 @@ Stream_Http *Header::GenerateDownStream(Environment &env, Signal sig,
 		pStreamHttp->ActivateEncodingDetector();
 	}
 	if (contentType.IsValidCharset() && !pStreamHttp->GetCodec()->
-							InstallCodec(sig, contentType.GetCharset(), false)) {
+						InstallCodec(sig, contentType.GetCharset(), true, false)) {
 		return NULL;
 	}
 	return pStreamHttp.release();
@@ -1381,7 +1381,7 @@ size_t Stream_Http::DoRead(Signal sig, void *buff, size_t bytes)
 				if (!_encodingDetector.ParseChar(sig, ch)) return 0;
 			}
 			if (_encodingDetector.IsValidEncoding() && !GetCodec()->
-						InstallCodec(sig, _encodingDetector.GetEncoding(), false)) {
+					InstallCodec(sig, _encodingDetector.GetEncoding(), true, false)) {
 				return 0;
 			}
 		}

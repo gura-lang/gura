@@ -92,7 +92,6 @@ Gura_DeclareFunction(open)
 
 Gura_ImplementFunction(open)
 {
-	bool processEOLFlag = true;
 	unsigned long attr = Stream::ATTR_Readable;
 	if (args.IsValid(1)) {
 		attr = Stream::ParseOpenMode(sig, args.GetString(1));
@@ -105,7 +104,7 @@ Gura_ImplementFunction(open)
 		pStream->SetCodec(Codec::Reference(pCodec));
 	} else {
 		Codec *pCodec = new Codec();
-		pCodec->InstallCodec(sig, NULL, processEOLFlag);
+		pCodec->InstallCodec(sig, NULL, true, false);
 		pStream->SetCodec(pCodec);
 	}
 	Value result(new Object_stream(env, pStream));
@@ -449,9 +448,8 @@ Gura_ImplementMethod(stream, setcodec)
 	if (args.IsValid(0)) {
 		pCodec = Codec::Reference(Object_codec::GetObject(args, 0)->GetCodec());
 	} else {
-		bool processEOLFlag = false;
 		pCodec = new Codec();
-		pCodec->InstallCodec(sig, NULL, processEOLFlag);
+		pCodec->InstallCodec(sig, NULL, true, false);
 	}
 	pThis->GetStream().SetCodec(pCodec);
 	return args.GetThis();
@@ -771,7 +769,6 @@ Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stre
 bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsString()) {
-		bool processEOLFlag = false;
 		unsigned long attr = Stream::ATTR_Readable;
 		if (pDecl != NULL) {
 			if (pDecl->GetWriteFlag()) attr = Stream::ATTR_Writable;
@@ -779,7 +776,7 @@ bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const De
 		}
 		Stream *pStream = Directory::OpenStream(env, sig, value.GetString(), attr);
 		if (sig.IsSignalled()) return false;
-		pStream->GetCodec()->InstallCodec(sig, NULL, processEOLFlag);
+		pStream->GetCodec()->InstallCodec(sig, NULL, true, false);
 		value = Value(new Object_stream(env, pStream));
 		return true;
 	} else if (value.IsBinary()) {

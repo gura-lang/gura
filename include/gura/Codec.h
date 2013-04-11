@@ -35,7 +35,7 @@ public:
 	inline bool IsInstalled() const { return !_encoding.empty(); }
 	inline CodecEncoder *GetEncoder() { return _pEncoder.get(); }
 	inline CodecDecoder *GetDecoder() { return _pDecoder.get(); }
-	bool InstallCodec(Signal sig, const char *encoding, bool processEOLFlag);
+	bool InstallCodec(Signal sig, const char *encoding, bool delcrFlag, bool addcrFlag);
 };
 
 //-----------------------------------------------------------------------------

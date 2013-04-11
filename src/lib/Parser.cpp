@@ -830,7 +830,6 @@ bool Parser::CheckStringPrefix(StringInfo &stringInfo, const String &token)
 Expr *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
 {
 	Value result;
-	bool processEOLFlag = true;
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root(stream.GetName()));
 	SetSourceName(stream.GetName());
 	for (;;) {
@@ -848,7 +847,7 @@ Expr *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
 			if (value.IsString()) {
 				const char *encoding = value.GetString();
 				AutoPtr<Codec> pCodec(new Codec());
-				if (!pCodec->InstallCodec(sig, encoding, processEOLFlag)) {
+				if (!pCodec->InstallCodec(sig, encoding, true, false)) {
 					return NULL;
 				}
 				stream.SetCodec(pCodec.release());

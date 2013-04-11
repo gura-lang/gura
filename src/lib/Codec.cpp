@@ -20,7 +20,7 @@ Codec::Codec(const Codec &codec) : _cntRef(1),
 {
 }
 
-bool Codec::InstallCodec(Signal sig, const char *encoding, bool processEOLFlag)
+bool Codec::InstallCodec(Signal sig, const char *encoding, bool delcrFlag, bool addcrFlag)
 {
 	if (encoding == NULL) encoding = "none";
 	CodecFactory *pCodecFactory = CodecFactory::Lookup(encoding);
@@ -29,8 +29,8 @@ bool Codec::InstallCodec(Signal sig, const char *encoding, bool processEOLFlag)
 		return false;
 	}
 	_encoding = encoding;
-	_pEncoder.reset(pCodecFactory->CreateEncoder(processEOLFlag));
-	_pDecoder.reset(pCodecFactory->CreateDecoder(processEOLFlag));
+	_pEncoder.reset(pCodecFactory->CreateEncoder(addcrFlag));
+	_pDecoder.reset(pCodecFactory->CreateDecoder(delcrFlag));
 	return true;
 }
 

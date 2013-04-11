@@ -39,13 +39,11 @@ String Object_codec::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Global functions
 //-----------------------------------------------------------------------------
-// codec(encoding:string, process_eol:boolean => false) {block?}
+// codec(encoding:string) {block?}
 Gura_DeclareFunction(codec)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "encoding", VTYPE_string);
-	DeclareArg(env, "process_eol", VTYPE_boolean,
-						OCCUR_Once, FLAG_None, new Expr_Value(Value(false)));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_codec));
 }
@@ -53,7 +51,7 @@ Gura_DeclareFunction(codec)
 Gura_ImplementFunction(codec)
 {
 	AutoPtr<Codec> pCodec(new Codec());
-	if (!pCodec->InstallCodec(sig, args.GetString(0), args.GetBoolean(1))) {
+	if (!pCodec->InstallCodec(sig, args.GetString(0), true, false)) {
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_codec(env, pCodec.release())));
@@ -79,6 +77,40 @@ Gura_ImplementClassMethod(codec, dir)
 		valList.push_back(Value(env, pCodecFactory->GetName()));
 	}
 	return result;
+}
+
+// codec#addcr(flag?:boolean):reduce
+Gura_DeclareMethod(codec, addcr)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(codec, addcr)
+{
+	Object_codec *pThis = Object_codec::GetThisObj(args);
+	CodecEncoder *pEncoder = pThis->GetCodec()->GetEncoder();
+	if (pEncoder != NULL) {
+		pEncoder->SetProcessEOLFlag(args.IsValid(0)? args.GetBoolean(0) : true);
+	}
+	return args.GetThis();
+}
+
+// codec#delcr(flag?:boolean):reduce
+Gura_DeclareMethod(codec, delcr)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(codec, delcr)
+{
+	Object_codec *pThis = Object_codec::GetThisObj(args);
+	CodecDecoder *pDecoder = pThis->GetCodec()->GetDecoder();
+	if (pDecoder != NULL) {
+		pDecoder->SetProcessEOLFlag(args.IsValid(0)? args.GetBoolean(0) : true);
+	}
+	return args.GetThis();
 }
 
 // codec#encode(string:string):map
@@ -123,6 +155,8 @@ Gura_ImplementMethod(codec, decode)
 Class_codec::Class_codec(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_codec)
 {
 	Gura_AssignMethod(codec, dir);
+	Gura_AssignMethod(codec, addcr);
+	Gura_AssignMethod(codec, delcr);
 	Gura_AssignMethod(codec, encode);
 	Gura_AssignMethod(codec, decode);
 }
@@ -131,7 +165,7 @@ bool Class_codec::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 {
 	if (value.IsString()) {
 		AutoPtr<Codec> pCodec(new Codec());
-		if (!pCodec->InstallCodec(sig, value.GetString(), false)) {
+		if (!pCodec->InstallCodec(sig, value.GetString(), true, false)) {
 			return false;
 		}
 		value = Value(new Object_codec(env, pCodec.release()));
