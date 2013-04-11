@@ -34,27 +34,7 @@ bool Codec::InstallCodec(Signal sig, const char *encoding, bool delcrFlag, bool 
 	return true;
 }
 
-//-----------------------------------------------------------------------------
-// CodecBase
-//-----------------------------------------------------------------------------
-const char *CodecBase::GetName() const
-{
-	return (_pCodecFactory == NULL)? "none" : _pCodecFactory->GetName();
-}
-
-bool CodecBase::FollowChar(char &chConv)
-{
-	if (_idxBuff <= 0) return false;
-	chConv = _buffOut[--_idxBuff];
-	return true;
-}
-
-Codec::Result CodecBase::Flush(char &chConv)
-{
-	return Codec::RESULT_None;
-}
-
-const char *CodecBase::EncodingFromLANG()
+const char *Codec::EncodingFromLANG()
 {
 	const char *encodingDefault = "utf-8";
 	struct AssocInfo {
@@ -101,6 +81,26 @@ const char *CodecBase::EncodingFromLANG()
 		}
 	}
 	return encodingDefault;
+}
+
+//-----------------------------------------------------------------------------
+// CodecBase
+//-----------------------------------------------------------------------------
+const char *CodecBase::GetName() const
+{
+	return (_pCodecFactory == NULL)? "none" : _pCodecFactory->GetName();
+}
+
+bool CodecBase::FollowChar(char &chConv)
+{
+	if (_idxBuff <= 0) return false;
+	chConv = _buffOut[--_idxBuff];
+	return true;
+}
+
+Codec::Result CodecBase::Flush(char &chConv)
+{
+	return Codec::RESULT_None;
 }
 
 //-----------------------------------------------------------------------------

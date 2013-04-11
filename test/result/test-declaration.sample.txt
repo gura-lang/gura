@@ -69,7 +69,7 @@ choose:function = choose(index:number, values+):map
 chr:function = chr(num:number):map
 class:function = class(superclass?:function) {block?}
 classref:function = classref(type+:expr):map {block?}
-codec:function = codec(encoding:string, process_eol:boolean => false) {block?}
+codec:function = codec(encoding:string) {block?}
 codecs:module = <module:codecs>
   __name__:string = codecs
   __source__:string = <integrated>

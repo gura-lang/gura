@@ -36,6 +36,8 @@ public:
 	inline CodecEncoder *GetEncoder() { return _pEncoder.get(); }
 	inline CodecDecoder *GetDecoder() { return _pDecoder.get(); }
 	bool InstallCodec(Signal sig, const char *encoding, bool delcrFlag, bool addcrFlag);
+public:
+	static const char *EncodingFromLANG();
 };
 
 //-----------------------------------------------------------------------------
@@ -60,7 +62,6 @@ public:
 	const char *GetName() const;
 	virtual Codec::Result FeedChar(char ch, char &chConv) = 0;
 	virtual Codec::Result Flush(char &chConv);
-	static const char *EncodingFromLANG();
 protected:
 	inline void StoreChar(char ch) { _buffOut[_idxBuff++] = ch; }
 };
