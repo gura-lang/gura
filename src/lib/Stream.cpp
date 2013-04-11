@@ -139,7 +139,7 @@ void Stream::CopyCodec(const Object_codec *pObjCodec)
 
 void Stream::PutChar(Signal sig, char ch)
 {
-	Codec_Encoder *pEncoder = GetCodec()->GetEncoder();
+	CodecEncoder *pEncoder = GetCodec()->GetEncoder();
 	if (pEncoder == NULL) {
 		DoPutChar(sig, ch);
 	} else {
@@ -156,7 +156,7 @@ void Stream::PutChar(Signal sig, char ch)
 
 int Stream::GetChar(Signal sig)
 {
-	Codec_Decoder *pDecoder = GetCodec()->GetDecoder();
+	CodecDecoder *pDecoder = GetCodec()->GetDecoder();
 	if (pDecoder == NULL) return DoGetChar(sig);
 	char chConv;
 	if (pDecoder->FollowChar(chConv)) return static_cast<unsigned char>(chConv);

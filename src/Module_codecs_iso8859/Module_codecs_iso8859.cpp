@@ -7,9 +7,9 @@
 Gura_BeginModule(codecs_iso8859)
 
 //-----------------------------------------------------------------------------
-// Codec_Encoder_ISO8859
+// CodecEncoder_ISO8859
 //-----------------------------------------------------------------------------
-Codec::Result Codec_Encoder_ISO8859::FeedUTF32(unsigned long codeUTF32, char &chConv)
+Codec::Result CodecEncoder_ISO8859::FeedUTF32(unsigned long codeUTF32, char &chConv)
 {
 	if (_pMap == NULL) {
 		_pMap = new Map();
@@ -21,18 +21,18 @@ Codec::Result Codec_Encoder_ISO8859::FeedUTF32(unsigned long codeUTF32, char &ch
 		}
 	}
 	Map::iterator iter = _pMap->find(static_cast<unsigned short>(codeUTF32));
-	if (iter == _pMap->end()) return RESULT_Error;
+	if (iter == _pMap->end()) return Codec::RESULT_Error;
 	chConv = static_cast<unsigned char>(iter->second);
-	return RESULT_Complete;
+	return Codec::RESULT_Complete;
 }
 
 //-----------------------------------------------------------------------------
-// Codec_Decoder_ISO8859
+// CodecDecoder_ISO8859
 //-----------------------------------------------------------------------------
-Codec::Result Codec_Decoder_ISO8859::FeedChar(char ch, char &chConv)
+Codec::Result CodecDecoder_ISO8859::FeedChar(char ch, char &chConv)
 {
 	chConv = static_cast<unsigned char>(_codeTbl[static_cast<unsigned char>(ch)]);
-	return (chConv == '\0')? RESULT_Error : RESULT_Complete;
+	return (chConv == '\0')? Codec::RESULT_Error : Codec::RESULT_Complete;
 }
 
 //-----------------------------------------------------------------------------
@@ -73,13 +73,13 @@ static const unsigned short _codeTbl_ISO8859_1[] = {
 	0x00f8, 0x00f9, 0x00fa, 0x00fb, 0x00fc, 0x00fd, 0x00fe, 0x00ff,
 };
 
-static Codec::Map *_pMap_ISO8859_1 = NULL;
+static CodecBase::Map *_pMap_ISO8859_1 = NULL;
 
-Codec_Encoder_ISO8859_1::Codec_Encoder_ISO8859_1(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_1, _pMap_ISO8859_1) {}
+CodecEncoder_ISO8859_1::CodecEncoder_ISO8859_1(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_1, _pMap_ISO8859_1) {}
 
-Codec_Decoder_ISO8859_1::Codec_Decoder_ISO8859_1(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_1) {}
+CodecDecoder_ISO8859_1::CodecDecoder_ISO8859_1(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_1) {}
 
 //-----------------------------------------------------------------------------
 // ISO8859-2
@@ -119,13 +119,13 @@ static const unsigned short _codeTbl_ISO8859_2[] = {
 	0x0159, 0x016f, 0x00fa, 0x0171, 0x00fc, 0x00fd, 0x0163, 0x02d9,
 };
 
-static Codec::Map *_pMap_ISO8859_2 = NULL;
+static CodecBase::Map *_pMap_ISO8859_2 = NULL;
 
-Codec_Encoder_ISO8859_2::Codec_Encoder_ISO8859_2(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_2, _pMap_ISO8859_2) {}
+CodecEncoder_ISO8859_2::CodecEncoder_ISO8859_2(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_2, _pMap_ISO8859_2) {}
 
-Codec_Decoder_ISO8859_2::Codec_Decoder_ISO8859_2(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_2) {}
+CodecDecoder_ISO8859_2::CodecDecoder_ISO8859_2(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_2) {}
 
 //-----------------------------------------------------------------------------
 // ISO8859-3
@@ -165,13 +165,13 @@ static const unsigned short _codeTbl_ISO8859_3[] = {
 	0x011d, 0x00f9, 0x00fa, 0x00fb, 0x00fc, 0x016d, 0x015d, 0x02d9,
 };
 
-static Codec::Map *_pMap_ISO8859_3 = NULL;
+static CodecBase::Map *_pMap_ISO8859_3 = NULL;
 
-Codec_Encoder_ISO8859_3::Codec_Encoder_ISO8859_3(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_3, _pMap_ISO8859_3) {}
+CodecEncoder_ISO8859_3::CodecEncoder_ISO8859_3(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_3, _pMap_ISO8859_3) {}
 
-Codec_Decoder_ISO8859_3::Codec_Decoder_ISO8859_3(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_3) {}
+CodecDecoder_ISO8859_3::CodecDecoder_ISO8859_3(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_3) {}
 
 //-----------------------------------------------------------------------------
 // ISO8859-4
@@ -211,13 +211,13 @@ static const unsigned short _codeTbl_ISO8859_4[] = {
 	0x00f8, 0x0173, 0x00fa, 0x00fb, 0x00fc, 0x0169, 0x016b, 0x02d9,
 };
 
-static Codec::Map *_pMap_ISO8859_4 = NULL;
+static CodecBase::Map *_pMap_ISO8859_4 = NULL;
 
-Codec_Encoder_ISO8859_4::Codec_Encoder_ISO8859_4(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_4, _pMap_ISO8859_4) {}
+CodecEncoder_ISO8859_4::CodecEncoder_ISO8859_4(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_4, _pMap_ISO8859_4) {}
 
-Codec_Decoder_ISO8859_4::Codec_Decoder_ISO8859_4(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_4) {}
+CodecDecoder_ISO8859_4::CodecDecoder_ISO8859_4(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_4) {}
 
 //-----------------------------------------------------------------------------
 // ISO8859-5
@@ -257,13 +257,13 @@ static const unsigned short _codeTbl_ISO8859_5[] = {
 	0x0458, 0x0459, 0x045a, 0x045b, 0x045c, 0x00a7, 0x045e, 0x045f,
 };
 
-static Codec::Map *_pMap_ISO8859_5 = NULL;
+static CodecBase::Map *_pMap_ISO8859_5 = NULL;
 
-Codec_Encoder_ISO8859_5::Codec_Encoder_ISO8859_5(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_5, _pMap_ISO8859_5) {}
+CodecEncoder_ISO8859_5::CodecEncoder_ISO8859_5(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_5, _pMap_ISO8859_5) {}
 
-Codec_Decoder_ISO8859_5::Codec_Decoder_ISO8859_5(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_5) {}
+CodecDecoder_ISO8859_5::CodecDecoder_ISO8859_5(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_5) {}
 
 //-----------------------------------------------------------------------------
 // ISO8859-6
@@ -303,13 +303,13 @@ static const unsigned short _codeTbl_ISO8859_6[] = {
 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
 };
 
-static Codec::Map *_pMap_ISO8859_6 = NULL;
+static CodecBase::Map *_pMap_ISO8859_6 = NULL;
 
-Codec_Encoder_ISO8859_6::Codec_Encoder_ISO8859_6(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_6, _pMap_ISO8859_6) {}
+CodecEncoder_ISO8859_6::CodecEncoder_ISO8859_6(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_6, _pMap_ISO8859_6) {}
 
-Codec_Decoder_ISO8859_6::Codec_Decoder_ISO8859_6(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_6) {}
+CodecDecoder_ISO8859_6::CodecDecoder_ISO8859_6(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_6) {}
 
 //-----------------------------------------------------------------------------
 // ISO8859-7
@@ -349,13 +349,13 @@ static const unsigned short _codeTbl_ISO8859_7[] = {
 	0x03c8, 0x03c9, 0x03ca, 0x03cb, 0x03cc, 0x03cd, 0x03ce, 0x0000,
 };
 
-static Codec::Map *_pMap_ISO8859_7 = NULL;
+static CodecBase::Map *_pMap_ISO8859_7 = NULL;
 
-Codec_Encoder_ISO8859_7::Codec_Encoder_ISO8859_7(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_7, _pMap_ISO8859_7) {}
+CodecEncoder_ISO8859_7::CodecEncoder_ISO8859_7(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_7, _pMap_ISO8859_7) {}
 
-Codec_Decoder_ISO8859_7::Codec_Decoder_ISO8859_7(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_7) {}
+CodecDecoder_ISO8859_7::CodecDecoder_ISO8859_7(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_7) {}
 
 //-----------------------------------------------------------------------------
 // ISO8859-8
@@ -395,13 +395,13 @@ static const unsigned short _codeTbl_ISO8859_8[] = {
 	0x05e8, 0x05e9, 0x05ea, 0x0000, 0x0000, 0x200e, 0x200f, 0x0000,
 };
 
-static Codec::Map *_pMap_ISO8859_8 = NULL;
+static CodecBase::Map *_pMap_ISO8859_8 = NULL;
 
-Codec_Encoder_ISO8859_8::Codec_Encoder_ISO8859_8(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_8, _pMap_ISO8859_8) {}
+CodecEncoder_ISO8859_8::CodecEncoder_ISO8859_8(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_8, _pMap_ISO8859_8) {}
 
-Codec_Decoder_ISO8859_8::Codec_Decoder_ISO8859_8(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_8) {}
+CodecDecoder_ISO8859_8::CodecDecoder_ISO8859_8(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_8) {}
 
 //-----------------------------------------------------------------------------
 // ISO8859-9
@@ -441,13 +441,13 @@ static const unsigned short _codeTbl_ISO8859_9[] = {
 	0x00f8, 0x00f9, 0x00fa, 0x00fb, 0x00fc, 0x0131, 0x015f, 0x00ff,
 };
 
-static Codec::Map *_pMap_ISO8859_9 = NULL;
+static CodecBase::Map *_pMap_ISO8859_9 = NULL;
 
-Codec_Encoder_ISO8859_9::Codec_Encoder_ISO8859_9(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_9, _pMap_ISO8859_9) {}
+CodecEncoder_ISO8859_9::CodecEncoder_ISO8859_9(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_9, _pMap_ISO8859_9) {}
 
-Codec_Decoder_ISO8859_9::Codec_Decoder_ISO8859_9(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_9) {}
+CodecDecoder_ISO8859_9::CodecDecoder_ISO8859_9(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_9) {}
 
 //-----------------------------------------------------------------------------
 // ISO8859-10
@@ -487,13 +487,13 @@ static const unsigned short _codeTbl_ISO8859_10[] = {
 	0x00f8, 0x0173, 0x00fa, 0x00fb, 0x00fc, 0x00fd, 0x00fe, 0x0138,
 };
 
-static Codec::Map *_pMap_ISO8859_10 = NULL;
+static CodecBase::Map *_pMap_ISO8859_10 = NULL;
 
-Codec_Encoder_ISO8859_10::Codec_Encoder_ISO8859_10(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_10, _pMap_ISO8859_10) {}
+CodecEncoder_ISO8859_10::CodecEncoder_ISO8859_10(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_10, _pMap_ISO8859_10) {}
 
-Codec_Decoder_ISO8859_10::Codec_Decoder_ISO8859_10(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_10) {}
+CodecDecoder_ISO8859_10::CodecDecoder_ISO8859_10(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_10) {}
 
 //-----------------------------------------------------------------------------
 // ISO8859-11
@@ -533,13 +533,13 @@ static const unsigned short _codeTbl_ISO8859_11[] = {
 	0x0e58, 0x0e59, 0x0e5a, 0x0e5b, 0x0000, 0x0000, 0x0000, 0x0000,
 };
 
-static Codec::Map *_pMap_ISO8859_11 = NULL;
+static CodecBase::Map *_pMap_ISO8859_11 = NULL;
 
-Codec_Encoder_ISO8859_11::Codec_Encoder_ISO8859_11(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_11, _pMap_ISO8859_11) {}
+CodecEncoder_ISO8859_11::CodecEncoder_ISO8859_11(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_11, _pMap_ISO8859_11) {}
 
-Codec_Decoder_ISO8859_11::Codec_Decoder_ISO8859_11(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_11) {}
+CodecDecoder_ISO8859_11::CodecDecoder_ISO8859_11(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_11) {}
 
 //-----------------------------------------------------------------------------
 // ISO8859-13
@@ -579,13 +579,13 @@ static const unsigned short _codeTbl_ISO8859_13[] = {
 	0x0173, 0x0142, 0x015b, 0x016b, 0x00fc, 0x017c, 0x017e, 0x2019,
 };
 
-static Codec::Map *_pMap_ISO8859_13 = NULL;
+static CodecBase::Map *_pMap_ISO8859_13 = NULL;
 
-Codec_Encoder_ISO8859_13::Codec_Encoder_ISO8859_13(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_13, _pMap_ISO8859_13) {}
+CodecEncoder_ISO8859_13::CodecEncoder_ISO8859_13(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_13, _pMap_ISO8859_13) {}
 
-Codec_Decoder_ISO8859_13::Codec_Decoder_ISO8859_13(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_13) {}
+CodecDecoder_ISO8859_13::CodecDecoder_ISO8859_13(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_13) {}
 
 //-----------------------------------------------------------------------------
 // ISO8859-14
@@ -625,13 +625,13 @@ static const unsigned short _codeTbl_ISO8859_14[] = {
 	0x00f8, 0x00f9, 0x00fa, 0x00fb, 0x00fc, 0x00fd, 0x0177, 0x00ff,
 };
 
-static Codec::Map *_pMap_ISO8859_14 = NULL;
+static CodecBase::Map *_pMap_ISO8859_14 = NULL;
 
-Codec_Encoder_ISO8859_14::Codec_Encoder_ISO8859_14(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_14, _pMap_ISO8859_14) {}
+CodecEncoder_ISO8859_14::CodecEncoder_ISO8859_14(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_14, _pMap_ISO8859_14) {}
 
-Codec_Decoder_ISO8859_14::Codec_Decoder_ISO8859_14(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_14) {}
+CodecDecoder_ISO8859_14::CodecDecoder_ISO8859_14(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_14) {}
 
 //-----------------------------------------------------------------------------
 // ISO8859-15
@@ -671,13 +671,13 @@ static const unsigned short _codeTbl_ISO8859_15[] = {
 	0x00f8, 0x00f9, 0x00fa, 0x00fb, 0x00fc, 0x00fd, 0x00fe, 0x00ff,
 };
 
-static Codec::Map *_pMap_ISO8859_15 = NULL;
+static CodecBase::Map *_pMap_ISO8859_15 = NULL;
 
-Codec_Encoder_ISO8859_15::Codec_Encoder_ISO8859_15(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_15, _pMap_ISO8859_15) {}
+CodecEncoder_ISO8859_15::CodecEncoder_ISO8859_15(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_15, _pMap_ISO8859_15) {}
 
-Codec_Decoder_ISO8859_15::Codec_Decoder_ISO8859_15(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_15) {}
+CodecDecoder_ISO8859_15::CodecDecoder_ISO8859_15(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_15) {}
 
 //-----------------------------------------------------------------------------
 // ISO8859-16
@@ -717,13 +717,13 @@ static const unsigned short _codeTbl_ISO8859_16[] = {
 	0x0171, 0x00f9, 0x00fa, 0x00fb, 0x00fc, 0x0119, 0x021b, 0x00ff,
 };
 
-static Codec::Map *_pMap_ISO8859_16 = NULL;
+static CodecBase::Map *_pMap_ISO8859_16 = NULL;
 
-Codec_Encoder_ISO8859_16::Codec_Encoder_ISO8859_16(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Encoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_16, _pMap_ISO8859_16) {}
+CodecEncoder_ISO8859_16::CodecEncoder_ISO8859_16(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecEncoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_16, _pMap_ISO8859_16) {}
 
-Codec_Decoder_ISO8859_16::Codec_Decoder_ISO8859_16(CodecFactory *pCodecFactory, bool processEOLFlag) :
-	Codec_Decoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_16) {}
+CodecDecoder_ISO8859_16::CodecDecoder_ISO8859_16(CodecFactory *pCodecFactory, bool processEOLFlag) :
+	CodecDecoder_ISO8859(pCodecFactory, processEOLFlag, _codeTbl_ISO8859_16) {}
 
 Gura_ImplementCodecFactory(ISO8859_1, "iso-8859-1")
 Gura_ImplementCodecFactory(ISO8859_2, "iso-8859-2")

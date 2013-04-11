@@ -9,12 +9,12 @@ Gura_BeginModule(codecs_japanese)
 //-----------------------------------------------------------------------------
 // CP932
 //-----------------------------------------------------------------------------
-Codec::Result Codec_Encoder_CP932::FeedUTF32(unsigned long codeUTF32, char &chConv)
+Codec::Result CodecEncoder_CP932::FeedUTF32(unsigned long codeUTF32, char &chConv)
 {
 	unsigned short codeCP932 = UTF16ToCP932(static_cast<unsigned short>(codeUTF32));
 	if (codeCP932 == 0x0000) {
 		chConv = '\0';
-		return RESULT_Error;
+		return Codec::RESULT_Error;
 	} else if ((codeCP932 & ~0xff) == 0) {
 		char ch = static_cast<char>(codeCP932 & 0xff);
 		if (IsProcessEOL() && ch == '\n') {
@@ -27,16 +27,16 @@ Codec::Result Codec_Encoder_CP932::FeedUTF32(unsigned long codeUTF32, char &chCo
 		StoreChar(static_cast<char>(codeCP932 & 0xff));
 		chConv = static_cast<char>(codeCP932 >> 8);
 	}
-	return RESULT_Complete;
+	return Codec::RESULT_Complete;
 }
 
-Codec::Result Codec_Decoder_CP932::FeedChar(char ch, char &chConv)
+Codec::Result CodecDecoder_CP932::FeedChar(char ch, char &chConv)
 {
 	unsigned long codeUTF32 = 0x00000000;
 	if (_codeCP932 == 0x0000) {
 		if (IsSJISFirst(ch)) {
 			_codeCP932 = static_cast<unsigned char>(ch);
-			return RESULT_None;
+			return Codec::RESULT_None;
 		}
 		codeUTF32 = CP932ToUTF16(static_cast<unsigned char>(ch));
 	} else {
@@ -44,20 +44,20 @@ Codec::Result Codec_Decoder_CP932::FeedChar(char ch, char &chConv)
 		codeUTF32 = CP932ToUTF16(_codeCP932);
 		_codeCP932 = 0x0000;
 	}
-	if (IsProcessEOL() && codeUTF32 == '\r') return RESULT_None;
+	if (IsProcessEOL() && codeUTF32 == '\r') return Codec::RESULT_None;
 	return FeedUTF32(codeUTF32, chConv);
 }
 
 //-----------------------------------------------------------------------------
 // EUCJP
 //-----------------------------------------------------------------------------
-Codec::Result Codec_Encoder_EUCJP::FeedUTF32(unsigned long codeUTF32, char &chConv)
+Codec::Result CodecEncoder_EUCJP::FeedUTF32(unsigned long codeUTF32, char &chConv)
 {
 	unsigned short codeCP932 = UTF16ToCP932(static_cast<unsigned short>(codeUTF32));
 	unsigned short codeEUCJP = CP932ToEUCJP(codeCP932);
 	if (codeEUCJP == 0x0000) {
 		chConv = '\0';
-		return RESULT_Error;
+		return Codec::RESULT_Error;
 	} else if ((codeEUCJP & ~0xff) == 0) {
 		char ch = static_cast<char>(codeEUCJP & 0xff);
 		if (IsProcessEOL() && ch == '\n') {
@@ -70,16 +70,16 @@ Codec::Result Codec_Encoder_EUCJP::FeedUTF32(unsigned long codeUTF32, char &chCo
 		StoreChar(static_cast<char>(codeEUCJP & 0xff));
 		chConv = static_cast<char>(codeEUCJP >> 8);
 	}
-	return RESULT_Complete;
+	return Codec::RESULT_Complete;
 }
 
-Codec::Result Codec_Decoder_EUCJP::FeedChar(char ch, char &chConv)
+Codec::Result CodecDecoder_EUCJP::FeedChar(char ch, char &chConv)
 {
 	unsigned long codeUTF32 = 0x00000000;
 	if (_codeEUCJP == 0x0000) {
 		if (ch & 0x80) {
 			_codeEUCJP = static_cast<unsigned char>(ch);
-			return RESULT_None;
+			return Codec::RESULT_None;
 		}
 		codeUTF32 = CP932ToUTF16(static_cast<unsigned char>(ch));
 	} else {
@@ -88,14 +88,14 @@ Codec::Result Codec_Decoder_EUCJP::FeedChar(char ch, char &chConv)
 		codeUTF32 = CP932ToUTF16(codeCP932);
 		_codeEUCJP = 0x0000;
 	}
-	if (IsProcessEOL() && codeUTF32 == '\r') return RESULT_None;
+	if (IsProcessEOL() && codeUTF32 == '\r') return Codec::RESULT_None;
 	return FeedUTF32(codeUTF32, chConv);
 }
 
-typedef Codec_Encoder_CP932 Codec_Encoder_Shift_JIS;
-typedef Codec_Decoder_CP932 Codec_Decoder_Shift_JIS;
-typedef Codec_Encoder_CP932 Codec_Encoder_MS_Kanji;
-typedef Codec_Decoder_CP932 Codec_Decoder_MS_Kanji;
+typedef CodecEncoder_CP932 CodecEncoder_Shift_JIS;
+typedef CodecDecoder_CP932 CodecDecoder_Shift_JIS;
+typedef CodecEncoder_CP932 CodecEncoder_MS_Kanji;
+typedef CodecDecoder_CP932 CodecDecoder_MS_Kanji;
 
 Gura_ImplementCodecFactory(EUCJP, "euc-jp")
 Gura_ImplementCodecFactory(CP932, "cp932")
@@ -105,7 +105,7 @@ Gura_ImplementCodecFactory(MS_Kanji, "ms_kanji")
 //-----------------------------------------------------------------------------
 // JIS
 //-----------------------------------------------------------------------------
-Codec::Result Codec_Encoder_JIS::FeedUTF32(unsigned long codeUTF32, char &chConv)
+Codec::Result CodecEncoder_JIS::FeedUTF32(unsigned long codeUTF32, char &chConv)
 {
 	unsigned short codeCP932 = UTF16ToCP932(static_cast<unsigned short>(codeUTF32));
 	if (codeCP932 < 0x80) {
@@ -138,12 +138,12 @@ Codec::Result Codec_Encoder_JIS::FeedUTF32(unsigned long codeUTF32, char &chConv
 		}
 		chConv = static_cast<unsigned char>(codeCP932 - 0x80);
 	} else if (codeCP932 < 0x100) {
-		return RESULT_Error;
+		return Codec::RESULT_Error;
 	} else {
 		unsigned short codeJIS = CP932ToJIS(codeCP932);
 		if (codeJIS == 0x0000) {
 			chConv = '\0';
-			return RESULT_Error;
+			return Codec::RESULT_Error;
 		}
 		if (_mode == MODE_JISC) {
 			StoreChar(static_cast<char>(codeJIS & 0xff));
@@ -157,16 +157,16 @@ Codec::Result Codec_Encoder_JIS::FeedUTF32(unsigned long codeUTF32, char &chConv
 			_mode = MODE_JISC;
 		}
 	}
-	return RESULT_Complete;
+	return Codec::RESULT_Complete;
 }
 
-Codec::Result Codec_Decoder_JIS::FeedChar(char ch, char &chConv)
+Codec::Result CodecDecoder_JIS::FeedChar(char ch, char &chConv)
 {
 	if (_stat == STAT_Start) {
 		if (ch == 0x1b) {
 			_codeJIS = 0x0000;
 			_stat = STAT_Escape;
-			return RESULT_None;
+			return Codec::RESULT_None;
 		}
 	} else if (_stat == STAT_Escape) {
 		if (ch == '$') {
@@ -176,9 +176,9 @@ Codec::Result Codec_Decoder_JIS::FeedChar(char ch, char &chConv)
 		} else if (ch == '(') {
 			_stat = STAT_LParenthesis;
 		} else {
-			return RESULT_Error;
+			return Codec::RESULT_Error;
 		}
-		return RESULT_None;
+		return Codec::RESULT_None;
 	} else if (_stat == STAT_Dollar) {
 		if (ch == '@') {
 			_mode = MODE_JISC;
@@ -187,16 +187,16 @@ Codec::Result Codec_Decoder_JIS::FeedChar(char ch, char &chConv)
 			_mode = MODE_JISX1983;
 			_stat = STAT_Start;
 		} else {
-			return RESULT_Error;
+			return Codec::RESULT_Error;
 		}
-		return RESULT_None;
+		return Codec::RESULT_None;
 	} else if (_stat == STAT_Ampersand) {
 		if (ch == '@') {
 			_stat = STAT_JISX1990;
 		} else {
-			return RESULT_Error;
+			return Codec::RESULT_Error;
 		}
-		return RESULT_None;
+		return Codec::RESULT_None;
 	} else if (_stat == STAT_LParenthesis) {
 		if (ch == 'B') {
 			_mode = MODE_ASCII;
@@ -208,37 +208,37 @@ Codec::Result Codec_Decoder_JIS::FeedChar(char ch, char &chConv)
 			_mode = MODE_JISKANA;
 			_stat = STAT_Start;
 		} else {
-			return RESULT_Error;
+			return Codec::RESULT_Error;
 		}
-		return RESULT_None;
+		return Codec::RESULT_None;
 	} else if (_stat == STAT_JISX1990) {
 		if (ch == 0x1b) {
 			_stat = STAT_Escape2nd;
 		} else {
-			return RESULT_Error;
+			return Codec::RESULT_Error;
 		}
-		return RESULT_None;
+		return Codec::RESULT_None;
 	} else if (_stat == STAT_Escape2nd) {
 		if (ch == '$') {
 			_stat = STAT_Dollar2nd;
 		} else {
-			return RESULT_Error;
+			return Codec::RESULT_Error;
 		}
-		return RESULT_None;
+		return Codec::RESULT_None;
 	} else if (_stat == STAT_Dollar2nd) {
 		if (ch == 'B') {
 			_mode = MODE_JISX1990;
 			_stat = STAT_Start;
 		} else {
-			return RESULT_Error;
+			return Codec::RESULT_Error;
 		}
-		return RESULT_None;
+		return Codec::RESULT_None;
 	}
 	unsigned short codeCP932 = 0x0000;
 	if (_mode == MODE_JISC || _mode == MODE_JISX1983 || _mode == MODE_JISX1990) {
 		if (_codeJIS == 0x0000) {
 			_codeJIS = ch;
-			return RESULT_None;
+			return Codec::RESULT_None;
 		}
 		_codeJIS = (_codeJIS << 8) | ch;
 		codeCP932 = JISToCP932(_codeJIS);
@@ -250,17 +250,17 @@ Codec::Result Codec_Decoder_JIS::FeedChar(char ch, char &chConv)
 		if (0x20 < ch && ch < 0x60) {
 			codeCP932 = static_cast<unsigned char>(ch) + 0x80;
 		} else {
-			return RESULT_Error;
+			return Codec::RESULT_Error;
 		}
 	}
-	if (IsProcessEOL() && codeCP932 == '\r') return RESULT_None;
+	if (IsProcessEOL() && codeCP932 == '\r') return Codec::RESULT_None;
 	unsigned long codeUTF32 = CP932ToUTF16(codeCP932);
 	_codeJIS = 0x0000;
 	return FeedUTF32(codeUTF32, chConv);
 }
 
-typedef Codec_Encoder_JIS Codec_Encoder_ISO2022JP;
-typedef Codec_Decoder_JIS Codec_Decoder_ISO2022JP;
+typedef CodecEncoder_JIS CodecEncoder_ISO2022JP;
+typedef CodecDecoder_JIS CodecDecoder_ISO2022JP;
 
 Gura_ImplementCodecFactory(JIS, "jis")
 Gura_ImplementCodecFactory(ISO2022JP, "iso-2022-jp")

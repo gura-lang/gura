@@ -9,7 +9,7 @@ Gura_BeginModule(codecs_basic)
 //-----------------------------------------------------------------------------
 // None
 //-----------------------------------------------------------------------------
-Codec::Result Codec_Encoder_None::FeedChar(char ch, char &chConv)
+Codec::Result CodecEncoder_None::FeedChar(char ch, char &chConv)
 {
 	if (IsProcessEOL() && ch == '\n') {
 		StoreChar('\n');
@@ -17,14 +17,14 @@ Codec::Result Codec_Encoder_None::FeedChar(char ch, char &chConv)
 	} else {
 		chConv = ch;
 	}
-	return RESULT_Complete;
+	return Codec::RESULT_Complete;
 }
 
-Codec::Result Codec_Decoder_None::FeedChar(char ch, char &chConv)
+Codec::Result CodecDecoder_None::FeedChar(char ch, char &chConv)
 {
-	if (IsProcessEOL() && ch == '\r') return RESULT_None;
+	if (IsProcessEOL() && ch == '\r') return Codec::RESULT_None;
 	chConv = ch;
-	return RESULT_Complete;
+	return Codec::RESULT_Complete;
 }
 
 Gura_ImplementCodecFactory(None, "none")
@@ -32,26 +32,26 @@ Gura_ImplementCodecFactory(None, "none")
 //-----------------------------------------------------------------------------
 // USASCII
 //-----------------------------------------------------------------------------
-Codec::Result Codec_Encoder_USASCII::FeedChar(char ch, char &chConv)
+Codec::Result CodecEncoder_USASCII::FeedChar(char ch, char &chConv)
 {
 	// acceptable character code is between 0x00 and 0x7f
-	if (ch & 0x80) return RESULT_Error;
+	if (ch & 0x80) return Codec::RESULT_Error;
 	if (IsProcessEOL() && ch == '\n') {
 		StoreChar('\n');
 		chConv = '\r';
 	} else {
 		chConv = ch;
 	}
-	return RESULT_Complete;
+	return Codec::RESULT_Complete;
 }
 
-Codec::Result Codec_Decoder_USASCII::FeedChar(char ch, char &chConv)
+Codec::Result CodecDecoder_USASCII::FeedChar(char ch, char &chConv)
 {
 	// acceptable character code is between 0x00 and 0x7f
-	if (ch & 0x80) return RESULT_Error;
-	if (IsProcessEOL() && ch == '\r') return RESULT_None;
+	if (ch & 0x80) return Codec::RESULT_Error;
+	if (IsProcessEOL() && ch == '\r') return Codec::RESULT_None;
 	chConv = ch;
-	return RESULT_Complete;
+	return Codec::RESULT_Complete;
 }
 
 Gura_ImplementCodecFactory(USASCII, "us-ascii")
@@ -59,15 +59,15 @@ Gura_ImplementCodecFactory(USASCII, "us-ascii")
 //-----------------------------------------------------------------------------
 // UTF8
 //-----------------------------------------------------------------------------
-Codec::Result Codec_Encoder_UTF8::FeedChar(char ch, char &chConv)
+Codec::Result CodecEncoder_UTF8::FeedChar(char ch, char &chConv)
 {
 	if (IsProcessEOL() && ch == '\n') {
 		StoreChar('\n');
 		chConv = '\r';
-		return RESULT_Complete;
+		return Codec::RESULT_Complete;
 	}
 	if (_cntTrails > 0) {
-		if ((ch & 0xc0) != 0x80) return RESULT_Error;
+		if ((ch & 0xc0) != 0x80) return Codec::RESULT_Error;
 		_cntTrails--;
 	} else if ((ch & 0x80) == 0x00) {
 		// nothing to do
@@ -82,17 +82,17 @@ Codec::Result Codec_Encoder_UTF8::FeedChar(char ch, char &chConv)
 	} else if ((ch & 0xfe) == 0xfc) {
 		_cntTrails = 5;
 	} else {
-		return RESULT_Error;
+		return Codec::RESULT_Error;
 	}
 	chConv = ch;
-	return RESULT_Complete;
+	return Codec::RESULT_Complete;
 }
 
-Codec::Result Codec_Decoder_UTF8::FeedChar(char ch, char &chConv)
+Codec::Result CodecDecoder_UTF8::FeedChar(char ch, char &chConv)
 {
-	if (IsProcessEOL() && ch == '\r') return RESULT_None;
+	if (IsProcessEOL() && ch == '\r') return Codec::RESULT_None;
 	if (_cntTrails > 0) {
-		if ((ch & 0xc0) != 0x80) return RESULT_Error;
+		if ((ch & 0xc0) != 0x80) return Codec::RESULT_Error;
 		_cntTrails--;
 	} else if ((ch & 0x80) == 0x00) {
 		// nothing to do
@@ -107,10 +107,10 @@ Codec::Result Codec_Decoder_UTF8::FeedChar(char ch, char &chConv)
 	} else if ((ch & 0xfe) == 0xfc) {
 		_cntTrails = 5;
 	} else {
-		return RESULT_Error;
+		return Codec::RESULT_Error;
 	}
 	chConv = ch;
-	return RESULT_Complete;
+	return Codec::RESULT_Complete;
 }
 
 Gura_ImplementCodecFactory(UTF8, "utf-8")
@@ -118,7 +118,7 @@ Gura_ImplementCodecFactory(UTF8, "utf-8")
 //-----------------------------------------------------------------------------
 // UTF16LE
 //-----------------------------------------------------------------------------
-Codec::Result Codec_Encoder_UTF16LE::FeedUTF32(unsigned long codeUTF32, char &chConv)
+Codec::Result CodecEncoder_UTF16LE::FeedUTF32(unsigned long codeUTF32, char &chConv)
 {
 	if (IsProcessEOL() && codeUTF32 == '\n') {
 		StoreChar('\0');
@@ -138,10 +138,10 @@ Codec::Result Codec_Encoder_UTF16LE::FeedUTF32(unsigned long codeUTF32, char &ch
 		StoreChar(static_cast<char>((codeUpper >> 8) & 0xff));
 		chConv = static_cast<char>((codeUpper >> 0) & 0xff);
 	}
-	return RESULT_Complete;
+	return Codec::RESULT_Complete;
 }
 
-Codec::Result Codec_Decoder_UTF16LE::FeedChar(char ch, char &chConv)
+Codec::Result CodecDecoder_UTF16LE::FeedChar(char ch, char &chConv)
 {
 	unsigned long chCasted =
 				static_cast<unsigned long>(static_cast<unsigned char>(ch));
@@ -173,7 +173,7 @@ Codec::Result Codec_Decoder_UTF16LE::FeedChar(char ch, char &chConv)
 		}
 		_stat = STAT_First;
 	}
-	return RESULT_None;
+	return Codec::RESULT_None;
 }
 
 Gura_ImplementCodecFactory(UTF16LE, "utf-16")

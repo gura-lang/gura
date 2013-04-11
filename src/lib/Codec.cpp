@@ -7,26 +7,26 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Codec
+// CodecBase
 //-----------------------------------------------------------------------------
-const char *Codec::GetName() const
+const char *CodecBase::GetName() const
 {
 	return (_pCodecFactory == NULL)? "none" : _pCodecFactory->GetName();
 }
 
-bool Codec::FollowChar(char &chConv)
+bool CodecBase::FollowChar(char &chConv)
 {
 	if (_idxBuff <= 0) return false;
 	chConv = _buffOut[--_idxBuff];
 	return true;
 }
 
-Codec::Result Codec::Flush(char &chConv)
+Codec::Result CodecBase::Flush(char &chConv)
 {
-	return RESULT_None;
+	return Codec::RESULT_None;
 }
 
-const char *Codec::EncodingFromLANG()
+const char *CodecBase::EncodingFromLANG()
 {
 	const char *encodingDefault = "utf-8";
 	struct AssocInfo {
@@ -110,13 +110,13 @@ CodecFactory *CodecFactory::Lookup(const char *name)
 Codec::Result Codec_None::FeedChar(char ch, char &chConv)
 {
 	chConv = ch;
-	return RESULT_Complete;
+	return Codec::RESULT_Complete;
 }
 
 //-----------------------------------------------------------------------------
-// Codec_Encoder
+// CodecEncoder
 //-----------------------------------------------------------------------------
-bool Codec_Encoder::Encode(Signal sig, Binary &dst, const char *str)
+bool CodecEncoder::Encode(Signal sig, Binary &dst, const char *str)
 {
 	char ch;
 	for (const char *p = str; *p != '\0'; p++) {
@@ -136,15 +136,15 @@ bool Codec_Encoder::Encode(Signal sig, Binary &dst, const char *str)
 	return true;
 }
 
-Codec_Encoder *Codec_Encoder::Duplicate() const
+CodecEncoder *CodecEncoder::Duplicate() const
 {
 	return _pCodecFactory->CreateEncoder(_processEOLFlag);
 }
 
 //-----------------------------------------------------------------------------
-// Codec_Decoder
+// CodecDecoder
 //-----------------------------------------------------------------------------
-bool Codec_Decoder::Decode(Signal sig, String &dst, const char *buff, size_t bytes)
+bool CodecDecoder::Decode(Signal sig, String &dst, const char *buff, size_t bytes)
 {
 	char ch;
 	for (const char *p = buff; bytes > 0; p++, bytes--) {
@@ -164,12 +164,12 @@ bool Codec_Decoder::Decode(Signal sig, String &dst, const char *buff, size_t byt
 	return true;
 }
 
-bool Codec_Decoder::Decode(Signal sig, String &dst, const Binary &src)
+bool CodecDecoder::Decode(Signal sig, String &dst, const Binary &src)
 {
 	return Decode(sig, dst, src.data(), src.size());
 }
 
-Codec_Decoder *Codec_Decoder::Duplicate() const
+CodecDecoder *CodecDecoder::Duplicate() const
 {
 	return _pCodecFactory->CreateDecoder(_processEOLFlag);
 }
@@ -177,9 +177,9 @@ Codec_Decoder *Codec_Decoder::Duplicate() const
 //-----------------------------------------------------------------------------
 // UTF
 //-----------------------------------------------------------------------------
-Codec::Result Codec_Encoder_UTF::FeedChar(char ch, char &chConv)
+Codec::Result CodecEncoder_UTF::FeedChar(char ch, char &chConv)
 {
-	Result rtn = RESULT_None;
+	Codec::Result rtn = Codec::RESULT_None;
 	if ((ch & 0x80) == 0x00) {
 		rtn = FeedUTF32(static_cast<unsigned char>(ch), chConv);
 		_cntChars = 0;
@@ -214,31 +214,31 @@ Codec::Result Codec_Encoder_UTF::FeedChar(char ch, char &chConv)
 	return rtn;
 }
 
-Codec::Result Codec_Decoder_UTF::FeedUTF32(unsigned long codeUTF32, char &chConv)
+Codec::Result CodecDecoder_UTF::FeedUTF32(unsigned long codeUTF32, char &chConv)
 {
 	_idxBuff = 0;
 	if ((codeUTF32 & ~0x7f) == 0) {
 		chConv = static_cast<char>(codeUTF32);
-		return RESULT_Complete;
+		return Codec::RESULT_Complete;
 	}
 	StoreChar(0x80 | static_cast<char>(codeUTF32 & 0x3f)); codeUTF32 >>= 6;
 	if ((codeUTF32 & ~0x1f) == 0) {
 		chConv = 0xc0 | static_cast<char>(codeUTF32);
-		return RESULT_Complete;
+		return Codec::RESULT_Complete;
 	}
 	StoreChar(0x80 | static_cast<char>(codeUTF32 & 0x3f)); codeUTF32 >>= 6;
 	if ((codeUTF32 & ~0x0f) == 0) {
 		chConv = 0xe0 | static_cast<char>(codeUTF32);
-		return RESULT_Complete;
+		return Codec::RESULT_Complete;
 	}
 	StoreChar(0x80 | static_cast<char>(codeUTF32 & 0x3f)); codeUTF32 >>= 6;
 	if ((codeUTF32 & ~0x07) == 0) {
 		chConv = 0xf0 | static_cast<char>(codeUTF32);
-		return RESULT_Complete;
+		return Codec::RESULT_Complete;
 	}
 	_idxBuff = 0;
 	chConv = '\0';
-	return RESULT_Error;
+	return Codec::RESULT_Error;
 }
 
 }

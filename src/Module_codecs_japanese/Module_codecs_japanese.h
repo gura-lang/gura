@@ -21,54 +21,54 @@ enum Mode {
 //-----------------------------------------------------------------------------
 // CP932
 //-----------------------------------------------------------------------------
-class Codec_Encoder_CP932 : public Codec_Encoder_UTF {
+class CodecEncoder_CP932 : public CodecEncoder_UTF {
 public:
-	inline Codec_Encoder_CP932(CodecFactory *pCodecFactory, bool processEOLFlag) :
-				Codec_Encoder_UTF(pCodecFactory, processEOLFlag) {}
-	virtual Result FeedUTF32(unsigned long codeUTF32, char &chConv);
+	inline CodecEncoder_CP932(CodecFactory *pCodecFactory, bool processEOLFlag) :
+				CodecEncoder_UTF(pCodecFactory, processEOLFlag) {}
+	virtual Codec::Result FeedUTF32(unsigned long codeUTF32, char &chConv);
 };
 
-class Codec_Decoder_CP932 : public Codec_Decoder_UTF {
+class CodecDecoder_CP932 : public CodecDecoder_UTF {
 private:
 	unsigned short _codeCP932;
 public:
-	inline Codec_Decoder_CP932(CodecFactory *pCodecFactory, bool processEOLFlag) :
-				Codec_Decoder_UTF(pCodecFactory, processEOLFlag), _codeCP932(0x0000) {}
-	virtual Result FeedChar(char ch, char &chConv);
+	inline CodecDecoder_CP932(CodecFactory *pCodecFactory, bool processEOLFlag) :
+				CodecDecoder_UTF(pCodecFactory, processEOLFlag), _codeCP932(0x0000) {}
+	virtual Codec::Result FeedChar(char ch, char &chConv);
 };
 
 //-----------------------------------------------------------------------------
 // EUCJP
 //-----------------------------------------------------------------------------
-class Codec_Encoder_EUCJP : public Codec_Encoder_UTF {
+class CodecEncoder_EUCJP : public CodecEncoder_UTF {
 public:
-	inline Codec_Encoder_EUCJP(CodecFactory *pCodecFactory, bool processEOLFlag) :
-				Codec_Encoder_UTF(pCodecFactory, processEOLFlag) {}
-	virtual Result FeedUTF32(unsigned long codeUTF32, char &chConv);
+	inline CodecEncoder_EUCJP(CodecFactory *pCodecFactory, bool processEOLFlag) :
+				CodecEncoder_UTF(pCodecFactory, processEOLFlag) {}
+	virtual Codec::Result FeedUTF32(unsigned long codeUTF32, char &chConv);
 };
 
-class Codec_Decoder_EUCJP : public Codec_Decoder_UTF {
+class CodecDecoder_EUCJP : public CodecDecoder_UTF {
 private:
 	unsigned short _codeEUCJP;
 public:
-	inline Codec_Decoder_EUCJP(CodecFactory *pCodecFactory, bool processEOLFlag) :
-				Codec_Decoder_UTF(pCodecFactory, processEOLFlag), _codeEUCJP(0x0000) {}
-	virtual Result FeedChar(char ch, char &chConv);
+	inline CodecDecoder_EUCJP(CodecFactory *pCodecFactory, bool processEOLFlag) :
+				CodecDecoder_UTF(pCodecFactory, processEOLFlag), _codeEUCJP(0x0000) {}
+	virtual Codec::Result FeedChar(char ch, char &chConv);
 };
 
 //-----------------------------------------------------------------------------
 // JIS
 //-----------------------------------------------------------------------------
-class Codec_Encoder_JIS : public Codec_Encoder_UTF {
+class CodecEncoder_JIS : public CodecEncoder_UTF {
 private:
 	Mode _mode;
 public:
-	inline Codec_Encoder_JIS(CodecFactory *pCodecFactory, bool processEOLFlag) :
-			Codec_Encoder_UTF(pCodecFactory, processEOLFlag), _mode(MODE_ASCII) {}
-	virtual Result FeedUTF32(unsigned long codeUTF32, char &chConv);
+	inline CodecEncoder_JIS(CodecFactory *pCodecFactory, bool processEOLFlag) :
+			CodecEncoder_UTF(pCodecFactory, processEOLFlag), _mode(MODE_ASCII) {}
+	virtual Codec::Result FeedUTF32(unsigned long codeUTF32, char &chConv);
 };
 
-class Codec_Decoder_JIS : public Codec_Decoder_UTF {
+class CodecDecoder_JIS : public CodecDecoder_UTF {
 public:
 	enum Stat {
 		STAT_Start,
@@ -82,10 +82,10 @@ private:
 	Stat _stat;
 	unsigned short _codeJIS;
 public:
-	inline Codec_Decoder_JIS(CodecFactory *pCodecFactory, bool processEOLFlag) :
-			Codec_Decoder_UTF(pCodecFactory, processEOLFlag),
+	inline CodecDecoder_JIS(CodecFactory *pCodecFactory, bool processEOLFlag) :
+			CodecDecoder_UTF(pCodecFactory, processEOLFlag),
 			_mode(MODE_ASCII), _stat(STAT_Start), _codeJIS(0x0000) {}
-	virtual Result FeedChar(char ch, char &chConv);
+	virtual Codec::Result FeedChar(char ch, char &chConv);
 };
 
 }}

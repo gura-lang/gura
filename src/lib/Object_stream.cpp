@@ -60,11 +60,11 @@ String Object_stream::ToString(Signal sig, bool exprFlag)
 	if (stream.GetCodec()->IsInstalled()) {
 		str += ":";
 		str += stream.GetCodec()->GetEncoding();
-		Codec_Decoder *pDecoder = stream.GetCodec()->GetDecoder();
+		CodecDecoder *pDecoder = stream.GetCodec()->GetDecoder();
 		if (pDecoder != NULL && pDecoder->IsProcessEOL()) {
 			str += ":delcr";
 		}
-		Codec_Encoder *pEncoder = stream.GetCodec()->GetEncoder();
+		CodecEncoder *pEncoder = stream.GetCodec()->GetEncoder();
 		if (pEncoder != NULL && pEncoder->IsProcessEOL()) {
 			str += ":addcr";
 		}
@@ -467,7 +467,7 @@ Gura_DeclareMethod(stream, addcr)
 Gura_ImplementMethod(stream, addcr)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
-	Codec_Encoder *pEncoder = pThis->GetStream().GetCodec()->GetEncoder();
+	CodecEncoder *pEncoder = pThis->GetStream().GetCodec()->GetEncoder();
 	if (pEncoder != NULL) {
 		pEncoder->SetProcessEOLFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	}
@@ -484,7 +484,7 @@ Gura_DeclareMethod(stream, delcr)
 Gura_ImplementMethod(stream, delcr)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
-	Codec_Decoder *pDecoder = pThis->GetStream().GetCodec()->GetDecoder();
+	CodecDecoder *pDecoder = pThis->GetStream().GetCodec()->GetDecoder();
 	if (pDecoder != NULL) {
 		pDecoder->SetProcessEOLFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	}

@@ -40,11 +40,11 @@ String Object_codec::ToString(Signal sig, bool exprFlag)
 	String str;
 	str += "<codec:";
 	str += _encoding;
-	Codec_Decoder *pDecoder = GetDecoder();
+	CodecDecoder *pDecoder = GetDecoder();
 	if (pDecoder != NULL && pDecoder->IsProcessEOL()) {
 		str += ":delcr";
 	}
-	Codec_Encoder *pEncoder = GetEncoder();
+	CodecEncoder *pEncoder = GetEncoder();
 	if (pEncoder != NULL && pEncoder->IsProcessEOL()) {
 		str += ":addcr";
 	}

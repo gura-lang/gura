@@ -17,7 +17,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 	bool bigEndianFlag = IsBigEndian();
 	int nRepeat = 1;
 	String encoding;
-	std::auto_ptr<Codec> pCodec(new Codec_None());
+	std::auto_ptr<CodecBase> pCodec(new Codec_None());
 	for (const char *p = format; *p != '\0'; ) {
 		char ch = *p;
 		bool eatNextFlag = true;
@@ -264,7 +264,7 @@ Value Binary::Unpack(Environment &env, Signal sig,
 	bool bigEndianFlag = IsBigEndian();
 	int nRepeat = 1;
 	String encoding;
-	std::auto_ptr<Codec> pCodec(new Codec_None());
+	std::auto_ptr<CodecBase> pCodec(new Codec_None());
 	for (const char *p = format; *p != '\0'; ) {
 		char ch = *p;
 		bool eatNextFlag = true;
