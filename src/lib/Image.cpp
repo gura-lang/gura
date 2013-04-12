@@ -77,17 +77,14 @@ void Image::InitMetrics()
 Image *Image::CreateDerivation(Signal sig,
 						size_t width, size_t height, Palette *pPalette)
 {
-	Image *pImage = new Image(_format);
-	if (!pImage->AllocBuffer(sig, width, height, 0x00)) {
-		delete pImage;
-		return NULL;
-	}
+	AutoPtr<Image> pImage(new Image(_format));
+	if (!pImage->AllocBuffer(sig, width, height, 0x00)) return NULL;
 	if (pPalette != NULL) {
 		pImage->_pPalette.reset(pPalette);
 	} else if (!_pPalette.IsNull()) {
 		pImage->_pPalette.reset(Palette::Reference(_pPalette.get()));
 	}
-	return pImage;
+	return pImage.release();
 }
 
 bool Image::CheckCoord(Signal sig, size_t x, size_t y) const
@@ -299,8 +296,8 @@ void Image::FillRectAlpha(size_t x, size_t y,
 
 Image *Image::ReduceColor(Signal sig, const Palette *pPalette)
 {
-	Image *pImage = CreateDerivation(sig, _width, _height,
-										Palette::Reference(pPalette));
+	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height,
+										Palette::Reference(pPalette)));
 	if (sig.IsSignalled()) return NULL;
 	std::auto_ptr<Scanner> pScannerSrc(CreateScanner());
 	std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner());
@@ -316,12 +313,12 @@ Image *Image::ReduceColor(Signal sig, const Palette *pPalette)
 			StorePixelRGB(pScannerDst->GetPointer(), pPalette->GetEntry(idx));
 		} while (pScannerSrc->Next(*pScannerDst));
 	}
-	return pImage;
+	return pImage.release();
 }
 
 Image *Image::GrayScale(Signal sig)
 {
-	Image *pImage = CreateDerivation(sig, _width, _height);
+	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
 	if (sig.IsSignalled()) return NULL;
 	std::auto_ptr<Scanner> pScannerSrc(CreateScanner());
 	std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner());
@@ -336,7 +333,7 @@ Image *Image::GrayScale(Signal sig)
 			pScannerDst->StorePixel(gray, gray, gray);
 		} while (pScannerSrc->Next(*pScannerDst));
 	}
-	return pImage;
+	return pImage.release();
 }
 
 Image *Image::Blur(Signal sig, int radius)
@@ -348,7 +345,7 @@ Image *Image::Blur(Signal sig, int radius)
 
 Image *Image::Flip(Signal sig, bool horzFlag, bool vertFlag)
 {
-	Image *pImage = CreateDerivation(sig, _width, _height);
+	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
 	if (sig.IsSignalled()) return NULL;
 	if (horzFlag) {
 		std::auto_ptr<Scanner> pScannerSrc(CreateScanner());
@@ -373,13 +370,13 @@ Image *Image::Flip(Signal sig, bool horzFlag, bool vertFlag)
 			pLineSrc += bytesPerLine;
 		}
 	}
-	return pImage;
+	return pImage.release();
 }
 
 Image *Image::Rotate90(Signal sig, bool clockwiseFlag)
 {
 	size_t width = _height, height = _width;
-	Image *pImage = CreateDerivation(sig, width, height);
+	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
 	if (sig.IsSignalled()) return NULL;
 	std::auto_ptr<Scanner> pScannerSrc(CreateScanner());
 	std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner(
@@ -393,7 +390,7 @@ Image *Image::Rotate90(Signal sig, bool clockwiseFlag)
 			StorePixelRGB(pScannerDst->GetPointer(), pScannerSrc->GetPointer());
 		} while (pScannerSrc->Next(*pScannerDst));
 	}
-	return pImage;
+	return pImage.release();
 }
 
 Image *Image::Rotate(Signal sig, double angle, const Color &color)
@@ -434,7 +431,7 @@ Image *Image::Rotate(Signal sig, double angle, const Color &color)
 		xCenterNew = width / 2;
 		yCenterNew = height / 2;
 	} while (0);
-	Image *pImage = CreateDerivation(sig, width, height);
+	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
 	if (sig.IsSignalled()) return NULL;
 	unsigned char *pLineDst = pImage->GetPointer(0);
 	size_t bytesPerLineDst = pImage->GetBytesPerLine();
@@ -458,12 +455,12 @@ Image *Image::Rotate(Signal sig, double angle, const Color &color)
 		}
 		pLineDst += bytesPerLineDst;
 	}
-	return pImage;
+	return pImage.release();
 }
 
 Image *Image::Crop(Signal sig, size_t x, size_t y, size_t width, size_t height)
 {
-	Image *pImage = CreateDerivation(sig, width, height);
+	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
 	if (sig.IsSignalled()) return NULL;
 	const unsigned char *pLineSrc = GetPointer(x, y);
 	unsigned char *pLineDst = pImage->GetPointer(0);
@@ -474,13 +471,13 @@ Image *Image::Crop(Signal sig, size_t x, size_t y, size_t width, size_t height)
 		pLineSrc += bytesPerLineSrc;
 		pLineDst += bytesPerLineDst;
 	}
-	return pImage;
+	return pImage.release();
 }
 
 
 Image *Image::Resize(Signal sig, size_t width, size_t height)
 {
-	Image *pImage = CreateDerivation(sig, width, height);
+	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
 	if (sig.IsSignalled()) return NULL;
 	const unsigned char *pLineSrc = GetPointer(0);
 	unsigned char *pLineDst = pImage->GetPointer(0);
@@ -610,7 +607,7 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 			}
 		}
 	}
-	return pImage;
+	return pImage.release();
 }
 
 void Image::Paste(size_t x, size_t y, Image *pImage,
