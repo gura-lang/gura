@@ -339,8 +339,24 @@ Image *Image::GrayScale(Signal sig)
 Image *Image::Blur(Signal sig, int radius)
 {
 	//int kernel[17];
-	
-	return NULL;
+	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
+	if (sig.IsSignalled()) return NULL;
+#if 0
+	std::auto_ptr<Scanner> pScannerSrc(CreateScanner());
+	std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner());
+	if (_format == FORMAT_RGBA) {
+		do {
+			unsigned char gray = GetPixelGray(pScannerSrc->GetPointer());
+			pScannerDst->StorePixel(gray, gray, gray, pScannerSrc->GetAlpha());
+		} while (pScannerSrc->Next(*pScannerDst));
+	} else {
+		do {
+			unsigned char gray = GetPixelGray(pScannerSrc->GetPointer());
+			pScannerDst->StorePixel(gray, gray, gray);
+		} while (pScannerSrc->Next(*pScannerDst));
+	}
+#endif
+	return pImage.release();
 }
 
 Image *Image::Flip(Signal sig, bool horzFlag, bool vertFlag)
@@ -360,7 +376,7 @@ Image *Image::Flip(Signal sig, bool horzFlag, bool vertFlag)
 				StorePixelRGB(pScannerDst->GetPointer(), pScannerSrc->GetPointer());
 			} while (pScannerSrc->Next(*pScannerDst));
 		}
-	} else if (vertFlag) {
+	} else if (vertFlag) { // !horzFlag
 		const unsigned char *pLineSrc = GetPointer(0);
 		unsigned char *pLineDst = pImage->GetPointer(_height);
 		size_t bytesPerLine = GetBytesPerLine();
@@ -473,7 +489,6 @@ Image *Image::Crop(Signal sig, size_t x, size_t y, size_t width, size_t height)
 	}
 	return pImage.release();
 }
-
 
 Image *Image::Resize(Signal sig, size_t width, size_t height)
 {

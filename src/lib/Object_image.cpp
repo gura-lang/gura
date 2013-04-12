@@ -450,6 +450,21 @@ Gura_ImplementMethod(image, grayscale)
 	return Value(new Object_image(env, pImage.release()));
 }
 
+// image#blur(radius:number)
+Gura_DeclareMethod(image, blur)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "radius", VTYPE_number);
+}
+
+Gura_ImplementMethod(image, blur)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	AutoPtr<Image> pImage(pThis->GetImage()->Blur(sig, args.GetInt(0)));
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(new Object_image(env, pImage.release()));
+}
+
 // image#delpalette():reduce
 Gura_DeclareMethod(image, delpalette)
 {
@@ -773,6 +788,7 @@ Class_image::Class_image(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_image)
 	Gura_AssignMethod(image, setalpha);
 	Gura_AssignMethod(image, reducecolor);
 	Gura_AssignMethod(image, grayscale);
+	//Gura_AssignMethod(image, blur);
 	Gura_AssignMethod(image, delpalette);
 	Gura_AssignMethod(image, flip);
 	Gura_AssignMethod(image, rotate);
