@@ -11,15 +11,19 @@ import(msico)
 // main module
 //-----------------------------------------------------------------------------
 main = module {
-	patternImgList = ['*.jpg']
-	patternAviList = ['*.avi', '*.mov']
-	charsAtoZ = chr(ord('A')..ord('Z'))
+	patternImgList:public = ['*.jpg']
+	patternAviList:public = ['*.avi', '*.mov']
+	charsAtoZ:public = chr(ord('A')..ord('Z'))
 	if (sys.argv.len() < 2) {
-		fileNameCfg = path.join(sys.localdir, 'getterphoto.yml')
+		fileNameCfg:public = path.join(sys.localdir, 'getterphoto.yml')
 	} else {
-		fileNameCfg = sys.argv[1]
+		fileNameCfg:public = sys.argv[1]
 	}
-	try { cfg = yaml.read(fileNameCfg) } except { cfg = %{} }
+	try {
+		cfg:public = yaml.read(fileNameCfg)
+	} except {
+		cfg:public = %{}
+	}
 	main() = {
 		cfg.store():default {
 			'wdFrame'		=> 480
@@ -128,7 +132,7 @@ Panel = class(wx.Panel) {
 		this.listFileNames.DeleteAllItems()
 		pathNames = path.dir(dirName, main.patternImgList*,
 								main.patternAviList*):icase:file:list
-		this.listFileNames.pathNames = pathNames
+		this.listFileNames.pathNames:public = pathNames
 		this.listFileNames.InsertStringItem(0.., path.filename(pathNames))
 		this.btnGetPhoto.Enable(!pathNames.isempty())
 	}
