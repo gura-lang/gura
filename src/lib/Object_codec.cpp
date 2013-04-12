@@ -85,7 +85,7 @@ Gura_DeclareMethod(codec, addcr)
 Gura_ImplementMethod(codec, addcr)
 {
 	Object_codec *pThis = Object_codec::GetThisObj(args);
-	CodecEncoder *pEncoder = pThis->GetCodec()->GetEncoder();
+	Codec::Encoder *pEncoder = pThis->GetCodec()->GetEncoder();
 	pEncoder->SetAddcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	return args.GetThis();
 }
@@ -100,7 +100,7 @@ Gura_DeclareMethod(codec, delcr)
 Gura_ImplementMethod(codec, delcr)
 {
 	Object_codec *pThis = Object_codec::GetThisObj(args);
-	CodecDecoder *pDecoder = pThis->GetCodec()->GetDecoder();
+	Codec::Decoder *pDecoder = pThis->GetCodec()->GetDecoder();
 	pDecoder->SetDelcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	return args.GetThis();
 }

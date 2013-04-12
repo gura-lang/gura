@@ -458,7 +458,7 @@ Gura_DeclareMethod(stream, addcr)
 Gura_ImplementMethod(stream, addcr)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
-	CodecEncoder *pEncoder = pThis->GetStream().GetCodec()->GetEncoder();
+	Codec::Encoder *pEncoder = pThis->GetStream().GetCodec()->GetEncoder();
 	pEncoder->SetAddcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	return args.GetThis();
 }
@@ -473,7 +473,7 @@ Gura_DeclareMethod(stream, delcr)
 Gura_ImplementMethod(stream, delcr)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
-	CodecDecoder *pDecoder = pThis->GetStream().GetCodec()->GetDecoder();
+	Codec::Decoder *pDecoder = pThis->GetStream().GetCodec()->GetDecoder();
 	pDecoder->SetDelcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	return args.GetThis();
 }

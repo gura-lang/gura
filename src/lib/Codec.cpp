@@ -11,7 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 CodecFactory *Codec::_pFactory_None = NULL;
 
-Codec::Codec(CodecFactory *pFactory, CodecDecoder *pDecoder, CodecEncoder *pEncoder) :
+Codec::Codec(CodecFactory *pFactory, Decoder *pDecoder, Encoder *pEncoder) :
 	_cntRef(1), _pFactory(pFactory), _pDecoder(pDecoder), _pEncoder(pEncoder)
 {
 }
@@ -93,16 +93,16 @@ void Codec::Initialize()
 }
 
 //-----------------------------------------------------------------------------
-// CodecBase
+// Codec::DecEncBase
 //-----------------------------------------------------------------------------
-bool CodecBase::FollowChar(char &chConv)
+bool Codec::DecEncBase::FollowChar(char &chConv)
 {
 	if (_idxBuff <= 0) return false;
 	chConv = _buffOut[--_idxBuff];
 	return true;
 }
 
-Codec::Result CodecBase::Flush(char &chConv)
+Codec::Result Codec::DecEncBase::Flush(char &chConv)
 {
 	return Codec::RESULT_None;
 }
@@ -137,9 +137,9 @@ CodecFactory *CodecFactory::Lookup(const char *encoding)
 }
 
 //-----------------------------------------------------------------------------
-// CodecDecoder
+// Codec::Decoder
 //-----------------------------------------------------------------------------
-bool CodecDecoder::Decode(Signal sig, String &dst, const char *buff, size_t bytes)
+bool Codec::Decoder::Decode(Signal sig, String &dst, const char *buff, size_t bytes)
 {
 	char ch;
 	for (const char *p = buff; bytes > 0; p++, bytes--) {
@@ -159,15 +159,15 @@ bool CodecDecoder::Decode(Signal sig, String &dst, const char *buff, size_t byte
 	return true;
 }
 
-bool CodecDecoder::Decode(Signal sig, String &dst, const Binary &src)
+bool Codec::Decoder::Decode(Signal sig, String &dst, const Binary &src)
 {
 	return Decode(sig, dst, src.data(), src.size());
 }
 
 //-----------------------------------------------------------------------------
-// CodecEncoder
+// Codec::Encoder
 //-----------------------------------------------------------------------------
-bool CodecEncoder::Encode(Signal sig, Binary &dst, const char *str)
+bool Codec::Encoder::Encode(Signal sig, Binary &dst, const char *str)
 {
 	char ch;
 	for (const char *p = str; *p != '\0'; p++) {
@@ -193,18 +193,18 @@ bool CodecEncoder::Encode(Signal sig, Binary &dst, const char *str)
 Codec *CodecFactory_None::CreateCodec(bool delcrFlag, bool addcrFlag)
 {
 	return new Codec(this,																\
-			new CodecDecoder_None(delcrFlag),
-			new CodecEncoder_None(addcrFlag));
+			new Codec_None::Decoder(delcrFlag),
+			new Codec_None::Encoder(addcrFlag));
 }
 
-Codec::Result CodecDecoder_None::FeedChar(char ch, char &chConv)
+Codec::Result Codec_None::Decoder::FeedChar(char ch, char &chConv)
 {
 	if (GetDelcrFlag() && ch == '\r') return Codec::RESULT_None;
 	chConv = ch;
 	return Codec::RESULT_Complete;
 }
 
-Codec::Result CodecEncoder_None::FeedChar(char ch, char &chConv)
+Codec::Result Codec_None::Encoder::FeedChar(char ch, char &chConv)
 {
 	if (GetAddcrFlag() && ch == '\n') {
 		StoreChar('\n');
@@ -218,7 +218,7 @@ Codec::Result CodecEncoder_None::FeedChar(char ch, char &chConv)
 //-----------------------------------------------------------------------------
 // UTF
 //-----------------------------------------------------------------------------
-Codec::Result CodecDecoder_UTF::FeedUTF32(unsigned long codeUTF32, char &chConv)
+Codec::Result Codec_UTF::Decoder::FeedUTF32(unsigned long codeUTF32, char &chConv)
 {
 	_idxBuff = 0;
 	if ((codeUTF32 & ~0x7f) == 0) {
@@ -245,7 +245,7 @@ Codec::Result CodecDecoder_UTF::FeedUTF32(unsigned long codeUTF32, char &chConv)
 	return Codec::RESULT_Error;
 }
 
-Codec::Result CodecEncoder_UTF::FeedChar(char ch, char &chConv)
+Codec::Result Codec_UTF::Encoder::FeedChar(char ch, char &chConv)
 {
 	Codec::Result rtn = Codec::RESULT_None;
 	if ((ch & 0x80) == 0x00) {

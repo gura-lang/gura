@@ -11,59 +11,65 @@ Gura_BeginModule(codecs_basic)
 //-----------------------------------------------------------------------------
 // USASCII
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE CodecDecoder_USASCII : public CodecDecoder {
+class GURA_DLLDECLARE Codec_USASCII : public Codec {
 public:
-	inline CodecDecoder_USASCII(bool delcrFlag) : CodecDecoder(delcrFlag) {}
-	virtual Codec::Result FeedChar(char ch, char &chConv);
-};
-
-class GURA_DLLDECLARE CodecEncoder_USASCII : public CodecEncoder {
-public:
-	inline CodecEncoder_USASCII(bool addcrFlag) : CodecEncoder(addcrFlag) {}
-	virtual Codec::Result FeedChar(char ch, char &chConv);
+	class GURA_DLLDECLARE Decoder : public Codec::Decoder {
+	public:
+		inline Decoder(bool delcrFlag) : Codec::Decoder(delcrFlag) {}
+		virtual Result FeedChar(char ch, char &chConv);
+	};
+	class GURA_DLLDECLARE Encoder : public Codec::Encoder {
+	public:
+		inline Encoder(bool addcrFlag) : Codec::Encoder(addcrFlag) {}
+		virtual Result FeedChar(char ch, char &chConv);
+	};
 };
 
 //-----------------------------------------------------------------------------
 // UTF8
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE CodecDecoder_UTF8 : public CodecDecoder {
-private:
-	int _cntTrails;
+class GURA_DLLDECLARE Codec_UTF8 : public Codec {
 public:
-	inline CodecDecoder_UTF8(bool delcrFlag) : CodecDecoder(delcrFlag), _cntTrails(0) {}
-	virtual Codec::Result FeedChar(char ch, char &chConv);
-};
-
-class GURA_DLLDECLARE CodecEncoder_UTF8 : public CodecEncoder {
-private:
-	int _cntTrails;
-public:
-	inline CodecEncoder_UTF8(bool addcrFlag) : CodecEncoder(addcrFlag), _cntTrails(0) {}
-	virtual Codec::Result FeedChar(char ch, char &chConv);
+	class GURA_DLLDECLARE Decoder : public Codec::Decoder {
+	private:
+		int _cntTrails;
+	public:
+		inline Decoder(bool delcrFlag) : Codec::Decoder(delcrFlag), _cntTrails(0) {}
+		virtual Result FeedChar(char ch, char &chConv);
+	};
+	class GURA_DLLDECLARE Encoder : public Codec::Encoder {
+	private:
+		int _cntTrails;
+	public:
+		inline Encoder(bool addcrFlag) : Codec::Encoder(addcrFlag), _cntTrails(0) {}
+		virtual Result FeedChar(char ch, char &chConv);
+	};
 };
 
 //-----------------------------------------------------------------------------
 // UTF16LE
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE CodecDecoder_UTF16LE : public CodecDecoder_UTF {
+class GURA_DLLDECLARE Codec_UTF16LE : public Codec_UTF {
 public:
-	enum Stat {
-		STAT_First, STAT_Second, STAT_LowerFirst, STAT_LowerSecond,
+	class GURA_DLLDECLARE Decoder : public Codec_UTF::Decoder {
+	public:
+		enum Stat {
+			STAT_First, STAT_Second, STAT_LowerFirst, STAT_LowerSecond,
+		};
+	private:
+		Stat _stat;
+		unsigned long _code;
+		unsigned long _codeLower;
+	public:
+		inline Decoder(bool delcrFlag) : Codec_UTF::Decoder(delcrFlag),
+				_stat(STAT_First), _code(0), _codeLower(0) {}
+		virtual Result FeedChar(char ch, char &chConv);
 	};
-private:
-	Stat _stat;
-	unsigned long _code;
-	unsigned long _codeLower;
-public:
-	inline CodecDecoder_UTF16LE(bool delcrFlag) : CodecDecoder_UTF(delcrFlag),
-			_stat(STAT_First), _code(0), _codeLower(0) {}
-	virtual Codec::Result FeedChar(char ch, char &chConv);
-};
-
-class GURA_DLLDECLARE CodecEncoder_UTF16LE : public CodecEncoder_UTF {
-public:
-	inline CodecEncoder_UTF16LE(bool addcrFlag) : CodecEncoder_UTF(addcrFlag) {}
-	virtual Codec::Result FeedUTF32(unsigned long codeUTF32, char &chConv);
+	class GURA_DLLDECLARE Encoder : public Codec_UTF::Encoder {
+	public:
+		inline Encoder(bool addcrFlag) : Codec_UTF::Encoder(addcrFlag) {}
+		virtual Result FeedUTF32(unsigned long codeUTF32, char &chConv);
+	};
 };
 
 }}

@@ -1236,9 +1236,9 @@ unsigned short CP932ToUTF16(unsigned short codeCP932)
 
 unsigned short UTF16ToCP932(unsigned short codeUTF16)
 {
-	static CodecBase::Map *pMap = NULL;
+	static Codec::Map *pMap = NULL;
 	if (pMap == NULL) {
-		pMap = new CodecBase::Map();
+		pMap = new Codec::Map();
 		const CodeRow *pCodeRow = _codeRows;
 		for (int codeL = 0; codeL < pCodeRow->nCols; codeL++) {
 			unsigned short codeUTF16 = pCodeRow->row[codeL];
@@ -1262,7 +1262,7 @@ unsigned short UTF16ToCP932(unsigned short codeUTF16)
 			}
 		}
 	}
-	CodecBase::Map::iterator iter = pMap->find(codeUTF16);
+	Codec::Map::iterator iter = pMap->find(codeUTF16);
 	return (iter == pMap->end())? 0x0000 : iter->second;
 }
 

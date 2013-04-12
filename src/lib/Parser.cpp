@@ -912,7 +912,7 @@ void Parser::EvalConsoleChar(Environment &env, Signal sig,
 					ExprOwner &exprOwner, Stream *pConsole, char ch)
 {
 	char chConv = '\0';
-	CodecDecoder *pDecoder = pConsole->GetCodec()->GetDecoder();
+	Codec::Decoder *pDecoder = pConsole->GetCodec()->GetDecoder();
 	Codec::Result rtn = pDecoder->FeedChar(ch, chConv);
 	if (rtn != Codec::RESULT_Complete) return;
 	do {

@@ -9,26 +9,26 @@ Gura_BeginModule(codecs_basic)
 //-----------------------------------------------------------------------------
 // USASCII
 //-----------------------------------------------------------------------------
-Codec::Result CodecDecoder_USASCII::FeedChar(char ch, char &chConv)
+Codec::Result Codec_USASCII::Decoder::FeedChar(char ch, char &chConv)
 {
 	// acceptable character code is between 0x00 and 0x7f
-	if (ch & 0x80) return Codec::RESULT_Error;
-	if (GetDelcrFlag() && ch == '\r') return Codec::RESULT_None;
+	if (ch & 0x80) return RESULT_Error;
+	if (GetDelcrFlag() && ch == '\r') return RESULT_None;
 	chConv = ch;
-	return Codec::RESULT_Complete;
+	return RESULT_Complete;
 }
 
-Codec::Result CodecEncoder_USASCII::FeedChar(char ch, char &chConv)
+Codec::Result Codec_USASCII::Encoder::FeedChar(char ch, char &chConv)
 {
 	// acceptable character code is between 0x00 and 0x7f
-	if (ch & 0x80) return Codec::RESULT_Error;
+	if (ch & 0x80) return RESULT_Error;
 	if (GetAddcrFlag() && ch == '\n') {
 		StoreChar('\n');
 		chConv = '\r';
 	} else {
 		chConv = ch;
 	}
-	return Codec::RESULT_Complete;
+	return RESULT_Complete;
 }
 
 Gura_ImplementCodecFactory(USASCII, "us-ascii")
@@ -36,11 +36,11 @@ Gura_ImplementCodecFactory(USASCII, "us-ascii")
 //-----------------------------------------------------------------------------
 // UTF8
 //-----------------------------------------------------------------------------
-Codec::Result CodecDecoder_UTF8::FeedChar(char ch, char &chConv)
+Codec::Result Codec_UTF8::Decoder::FeedChar(char ch, char &chConv)
 {
-	if (GetDelcrFlag() && ch == '\r') return Codec::RESULT_None;
+	if (GetDelcrFlag() && ch == '\r') return RESULT_None;
 	if (_cntTrails > 0) {
-		if ((ch & 0xc0) != 0x80) return Codec::RESULT_Error;
+		if ((ch & 0xc0) != 0x80) return RESULT_Error;
 		_cntTrails--;
 	} else if ((ch & 0x80) == 0x00) {
 		// nothing to do
@@ -55,21 +55,21 @@ Codec::Result CodecDecoder_UTF8::FeedChar(char ch, char &chConv)
 	} else if ((ch & 0xfe) == 0xfc) {
 		_cntTrails = 5;
 	} else {
-		return Codec::RESULT_Error;
+		return RESULT_Error;
 	}
 	chConv = ch;
-	return Codec::RESULT_Complete;
+	return RESULT_Complete;
 }
 
-Codec::Result CodecEncoder_UTF8::FeedChar(char ch, char &chConv)
+Codec::Result Codec_UTF8::Encoder::FeedChar(char ch, char &chConv)
 {
 	if (GetAddcrFlag() && ch == '\n') {
 		StoreChar('\n');
 		chConv = '\r';
-		return Codec::RESULT_Complete;
+		return RESULT_Complete;
 	}
 	if (_cntTrails > 0) {
-		if ((ch & 0xc0) != 0x80) return Codec::RESULT_Error;
+		if ((ch & 0xc0) != 0x80) return RESULT_Error;
 		_cntTrails--;
 	} else if ((ch & 0x80) == 0x00) {
 		// nothing to do
@@ -84,10 +84,10 @@ Codec::Result CodecEncoder_UTF8::FeedChar(char ch, char &chConv)
 	} else if ((ch & 0xfe) == 0xfc) {
 		_cntTrails = 5;
 	} else {
-		return Codec::RESULT_Error;
+		return RESULT_Error;
 	}
 	chConv = ch;
-	return Codec::RESULT_Complete;
+	return RESULT_Complete;
 }
 
 Gura_ImplementCodecFactory(UTF8, "utf-8")
@@ -95,7 +95,7 @@ Gura_ImplementCodecFactory(UTF8, "utf-8")
 //-----------------------------------------------------------------------------
 // UTF16LE
 //-----------------------------------------------------------------------------
-Codec::Result CodecDecoder_UTF16LE::FeedChar(char ch, char &chConv)
+Codec::Result Codec_UTF16LE::Decoder::FeedChar(char ch, char &chConv)
 {
 	unsigned long chCasted =
 				static_cast<unsigned long>(static_cast<unsigned char>(ch));
@@ -127,10 +127,10 @@ Codec::Result CodecDecoder_UTF16LE::FeedChar(char ch, char &chConv)
 		}
 		_stat = STAT_First;
 	}
-	return Codec::RESULT_None;
+	return RESULT_None;
 }
 
-Codec::Result CodecEncoder_UTF16LE::FeedUTF32(unsigned long codeUTF32, char &chConv)
+Codec::Result Codec_UTF16LE::Encoder::FeedUTF32(unsigned long codeUTF32, char &chConv)
 {
 	if (GetAddcrFlag() && codeUTF32 == '\n') {
 		StoreChar('\0');
@@ -150,7 +150,7 @@ Codec::Result CodecEncoder_UTF16LE::FeedUTF32(unsigned long codeUTF32, char &chC
 		StoreChar(static_cast<char>((codeUpper >> 8) & 0xff));
 		chConv = static_cast<char>((codeUpper >> 0) & 0xff);
 	}
-	return Codec::RESULT_Complete;
+	return RESULT_Complete;
 }
 
 Gura_ImplementCodecFactory(UTF16LE, "utf-16")
