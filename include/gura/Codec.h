@@ -32,7 +32,8 @@ class CodecFactoryTmpl : public CodecFactory {
 public:
 	inline CodecFactoryTmpl(const char *encoding) : CodecFactory(encoding) {}
 	virtual Codec *CreateCodec(bool delcrFlag, bool addcrFlag) {
-		return new Codec(this, new T::Decoder(delcrFlag), new T::Encoder(addcrFlag));
+		return new Codec(this, new typename T::Decoder(delcrFlag),
+								new typename T::Encoder(addcrFlag));
 	}
 };
 
