@@ -51,7 +51,7 @@ argopt.Parser {|p|
 		sys.exit(1)
 	}
 	if (argv.len() < 1) {
-		sys.stderr.println('usage: stamper.gura file ...')
+		sys.stderr.println('usage: stamper.gura [options] file ...')
 		println('options:')
 		println('  ', p.formatHelp())
 		sys.exit(1)

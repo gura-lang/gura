@@ -5,7 +5,7 @@
 #define __MODULE_XML_H__
 #include <gura.h>
 #include <expat.h>
-#include <Conv_Japanese.h>
+#include "Conv_Japanese.h"
 
 Gura_BeginModule(xml)
 
