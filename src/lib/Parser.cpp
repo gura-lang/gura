@@ -843,16 +843,14 @@ Expr *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
 		Expr *pExpr = ParseChar(env, sig, ch);
 		if (sig.IsSignalled()) {
 			if (!sig.IsDetectEncoding()) return NULL;
+			sig.ClearSignal();
 			Value value = sig.GetValue();
 			if (value.IsString()) {
 				const char *encoding = value.GetString();
-				AutoPtr<Codec> pCodec(new Codec());
-				if (!pCodec->InstallCodec(sig, encoding, true, false)) {
-					return NULL;
-				}
+				AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, encoding, true, false));
+				if (sig.IsSignalled()) return NULL;
 				stream.SetCodec(pCodec.release());
 			}
-			sig.ClearSignal();
 		} else if (pExpr != NULL) {
 			pExprRoot->AddExpr(pExpr);
 		}

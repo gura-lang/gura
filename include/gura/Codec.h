@@ -7,9 +7,27 @@
 namespace Gura {
 
 class Binary;
-class CodecFactory;
+class Codec;
 class CodecDecoder;
 class CodecEncoder;
+
+//-----------------------------------------------------------------------------
+// CodecFactory
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE CodecFactory {
+public:
+	typedef std::vector<CodecFactory *> List;
+private:
+	static List *_pList;
+	String _encoding;
+public:
+	CodecFactory(const char *encoding);
+	inline const char *GetEncoding() const { return _encoding.c_str(); }
+	virtual Codec *CreateCodec(bool delcrFlag, bool addcrFlag) = 0;
+	static void Register(CodecFactory *pFactory);
+	static CodecFactory *Lookup(const char *name);
+	static inline const List &GetList() { return *_pList; }
+};
 
 //-----------------------------------------------------------------------------
 // Codec
@@ -23,19 +41,26 @@ public:
 	};
 private:
 	int _cntRef;
-	String _encoding;
-	std::auto_ptr<CodecEncoder> _pEncoder;
+	CodecFactory *_pFactory;
 	std::auto_ptr<CodecDecoder> _pDecoder;
+	std::auto_ptr<CodecEncoder> _pEncoder;
+	static CodecFactory *_pFactory_None;
 public:
 	Gura_DeclareReferenceAccessor(Codec);
 public:
-	Codec();
-	Codec(const Codec &codec);
-	inline const char *GetEncoding() const { return _encoding.c_str(); }
-	inline bool IsInstalled() const { return !_encoding.empty(); }
-	inline CodecEncoder *GetEncoder() { return _pEncoder.get(); }
+	Codec(CodecFactory *pFactory, CodecDecoder *pDecoder, CodecEncoder *pEncoder);
+private:
+	inline Codec(const Codec &codec) {}
+public:
+	inline const char *GetEncoding() const { return _pFactory->GetEncoding(); }
+	inline CodecFactory *GetFactory() { return _pFactory; }
+	inline const CodecFactory *GetFactory() const { return _pFactory; }
 	inline CodecDecoder *GetDecoder() { return _pDecoder.get(); }
-	bool InstallCodec(Signal sig, const char *encoding, bool delcrFlag, bool addcrFlag);
+	inline CodecEncoder *GetEncoder() { return _pEncoder.get(); }
+	Codec *Duplicate() const;
+	static Codec *CreateCodecNone(bool delcrFlag, bool addcrFlag);
+	static Codec *CreateCodec(Signal sig, const char *encoding, bool delcrFlag, bool addcrFlag);
+	static void Initialize();
 public:
 	static const char *EncodingFromLANG();
 };
@@ -47,19 +72,11 @@ class GURA_DLLDECLARE CodecBase {
 public:
 	typedef std::map<unsigned short, unsigned short> Map;
 protected:
-	CodecFactory *_pCodecFactory;
 	int _idxBuff;
-	bool _processEOLFlag;
 	char _buffOut[8];
 public:
-	inline CodecBase(CodecFactory *pCodecFactory, bool processEOLFlag) :
-		_pCodecFactory(pCodecFactory), _idxBuff(0), _processEOLFlag(processEOLFlag) {}
+	inline CodecBase() : _idxBuff(0) {}
 	bool FollowChar(char &chConv);
-	inline void SetProcessEOLFlag(bool processEOLFlag) {
-		_processEOLFlag = processEOLFlag;
-	}
-	inline bool IsProcessEOL() const { return _processEOLFlag; }
-	const char *GetName() const;
 	virtual Codec::Result FeedChar(char ch, char &chConv) = 0;
 	virtual Codec::Result Flush(char &chConv);
 protected:
@@ -67,22 +84,31 @@ protected:
 };
 
 //-----------------------------------------------------------------------------
-// Codec_None
+// CodecDecoder
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Codec_None : public CodecBase {
+class GURA_DLLDECLARE CodecDecoder : public CodecBase {
+private:
+	bool _delcrFlag;
 public:
-	inline Codec_None() : CodecBase(NULL, false) {}
-	virtual Codec::Result FeedChar(char ch, char &chConv);
+	inline CodecDecoder(bool delcrFlag) : _delcrFlag(delcrFlag) {}
+	inline void SetDelcrFlag(bool delcrFlag) { _delcrFlag = delcrFlag; }
+	inline bool GetDelcrFlag() const { return _delcrFlag; }
+	bool Decode(Signal sig, String &dst, const char *buff, size_t bytes);
+	bool Decode(Signal sig, String &dst, const Binary &src);
+	CodecDecoder *Duplicate() const;
 };
 
 //-----------------------------------------------------------------------------
 // CodecEncoder
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE CodecEncoder : public CodecBase {
+private:
+	bool _addcrFlag;
 public:
-	inline CodecEncoder(CodecFactory *pCodecFactory, bool processEOLFlag) :
-										CodecBase(pCodecFactory, processEOLFlag) {}
+	inline CodecEncoder(bool addcrFlag) : _addcrFlag(addcrFlag) {}
 	bool Encode(Signal sig, Binary &dst, const char *str);
+	inline void SetAddcrFlag(bool addcrFlag) { _addcrFlag = addcrFlag; }
+	inline bool GetAddcrFlag() const { return _addcrFlag; }
 	inline bool Encode(Signal sig, Binary &dst, const String &src) {
 		return Encode(sig, dst, src.c_str());
 	}
@@ -90,56 +116,45 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// CodecDecoder
+// None
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE CodecDecoder : public CodecBase {
+class GURA_DLLDECLARE CodecFactory_None : public CodecFactory {
 public:
-	inline CodecDecoder(CodecFactory *pCodecFactory, bool processEOLFlag) :
-										CodecBase(pCodecFactory, processEOLFlag) {}
-	bool Decode(Signal sig, String &dst, const char *buff, size_t bytes);
-	bool Decode(Signal sig, String &dst, const Binary &src);
-	CodecDecoder *Duplicate() const;
+	inline CodecFactory_None(const char *name = "none") : CodecFactory(name) {}
+	virtual Codec *CreateCodec(bool delcrFlag, bool addcrFlag);
 };
 
-//-----------------------------------------------------------------------------
-// CodecFactory
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE CodecFactory {
+class GURA_DLLDECLARE CodecDecoder_None : public CodecDecoder {
 public:
-	typedef std::vector<CodecFactory *> List;
-private:
-	static List *_pList;
-	String _name;
+	inline CodecDecoder_None(bool delcrFlag) : CodecDecoder(delcrFlag) {}
+	virtual Codec::Result FeedChar(char ch, char &chConv);
+};
+
+class GURA_DLLDECLARE CodecEncoder_None : public CodecEncoder {
 public:
-	CodecFactory(const char *name);
-	inline const char *GetName() const { return _name.c_str(); }
-	virtual CodecEncoder *CreateEncoder(bool processEOLFlag) = 0;
-	virtual CodecDecoder *CreateDecoder(bool processEOLFlag) = 0;
-	static void Register(CodecFactory *pCodecFactory);
-	static CodecFactory *Lookup(const char *name);
-	static inline const List &GetList() { return *_pList; }
+	inline CodecEncoder_None(bool addcrFlag) : CodecEncoder(addcrFlag) {}
+	virtual Codec::Result FeedChar(char ch, char &chConv);
 };
 
 //-----------------------------------------------------------------------------
 // UTF
 //-----------------------------------------------------------------------------
+class GURA_DLLDECLARE CodecDecoder_UTF : public CodecDecoder {
+public:
+	inline CodecDecoder_UTF(bool delcrFlag) : CodecDecoder(delcrFlag) {}
+	Codec::Result FeedUTF32(unsigned long codeUTF32, char &chConv);
+};
+
 class GURA_DLLDECLARE CodecEncoder_UTF : public CodecEncoder {
 protected:
 	int _cntChars;
 	unsigned long _codeUTF32;
 public:
-	inline CodecEncoder_UTF(CodecFactory *pCodecFactory, bool processEOLFlag) :
-		CodecEncoder(pCodecFactory, processEOLFlag), _cntChars(0), _codeUTF32(0x00000000) {}
+	inline CodecEncoder_UTF(bool addcrFlag) :
+			CodecEncoder(addcrFlag), _cntChars(0), _codeUTF32(0x00000000) {}
 	inline unsigned long GetUTF32() const { return _codeUTF32; }
 	virtual Codec::Result FeedChar(char ch, char &chConv);
 	virtual Codec::Result FeedUTF32(unsigned long codeUTF32, char &chConv) = 0;
-};
-
-class GURA_DLLDECLARE CodecDecoder_UTF : public CodecDecoder {
-public:
-	inline CodecDecoder_UTF(CodecFactory *pCodecFactory, bool processEOLFlag) :
-		CodecDecoder(pCodecFactory, processEOLFlag) {}
-	Codec::Result FeedUTF32(unsigned long codeUTF32, char &chConv);
 };
 
 }
@@ -147,15 +162,17 @@ public:
 //-----------------------------------------------------------------------------
 // macros
 //-----------------------------------------------------------------------------
-#define Gura_ImplementCodecFactory(symbol, dispname) \
+#define Gura_ImplementCodecFactory(symbol, encoding_) \
 class CodecFactory_##symbol : public CodecFactory {										\
 public:																					\
-	inline CodecFactory_##symbol(const char *name = (dispname)) : CodecFactory(name) {}	\
-	virtual CodecEncoder *CreateEncoder(bool processEOLFlag);									\
-	virtual CodecDecoder *CreateDecoder(bool processEOLFlag);									\
+	inline CodecFactory_##symbol(const char *encoding = (encoding_)) : CodecFactory(encoding) {}	\
+	virtual Codec *CreateCodec(bool delcrFlag, bool addcrFlag);							\
 };																						\
-CodecEncoder *CodecFactory_##symbol::CreateEncoder(bool processEOLFlag) { return new CodecEncoder_##symbol(this, processEOLFlag); } \
-CodecDecoder *CodecFactory_##symbol::CreateDecoder(bool processEOLFlag) { return new CodecDecoder_##symbol(this, processEOLFlag); }
+Codec *CodecFactory_##symbol::CreateCodec(bool delcrFlag, bool addcrFlag) {				\
+	return new Codec(this,																\
+			new CodecDecoder_##symbol(delcrFlag),										\
+			new CodecEncoder_##symbol(addcrFlag));										\
+}
 
 #define Gura_RegisterCodecFactory(symbol) \
 CodecFactory::Register(new CodecFactory_##symbol())

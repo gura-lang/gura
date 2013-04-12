@@ -101,7 +101,8 @@ void SimpleStream_StringWrite::PutChar(Signal sig, char ch)
 // Stream
 //-----------------------------------------------------------------------------
 Stream::Stream(Environment &env, Signal sig, unsigned long attr) :
-	_cntRef(1), _sig(sig), _attr(attr), _offsetCur(0), _pCodec(new Codec())
+			_cntRef(1), _sig(sig), _attr(attr), _offsetCur(0),
+			_pCodec(Codec::CreateCodecNone(true, false))
 {
 	_peek.buff = NULL;
 	_peek.bytes = 0;
@@ -132,7 +133,7 @@ void Stream::CopyCodec(Stream *pStream)
 void Stream::CopyCodec(const Codec *pCodec)
 {
 	if (pCodec != NULL) {
-		_pCodec.reset(new Codec(*pCodec));
+		_pCodec.reset(pCodec->Duplicate());
 	}
 }
 
@@ -166,7 +167,7 @@ int Stream::GetChar(Signal sig)
 		if (rtn == Codec::RESULT_Complete) {
 			break;
 		} else if (rtn == Codec::RESULT_Error) {
-			sig.SetError(ERR_CodecError, "not a valid character of %s", pDecoder->GetName());
+			sig.SetError(ERR_CodecError, "not a valid character of %s", GetCodec()->GetEncoding());
 			return -1;
 		}
 	}

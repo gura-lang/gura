@@ -57,17 +57,13 @@ String Object_stream::ToString(Signal sig, bool exprFlag)
 	str += "<stream:";
 	if (stream.IsReadable()) str += "R";
 	if (stream.IsWritable()) str += "W";
-	if (stream.GetCodec()->IsInstalled()) {
-		str += ":";
-		str += stream.GetCodec()->GetEncoding();
-		CodecDecoder *pDecoder = stream.GetCodec()->GetDecoder();
-		if (pDecoder != NULL && pDecoder->IsProcessEOL()) {
-			str += ":delcr";
-		}
-		CodecEncoder *pEncoder = stream.GetCodec()->GetEncoder();
-		if (pEncoder != NULL && pEncoder->IsProcessEOL()) {
-			str += ":addcr";
-		}
+	str += ":";
+	str += stream.GetCodec()->GetEncoding();
+	if (stream.GetCodec()->GetDecoder()->GetDelcrFlag()) {
+		str += ":delcr";
+	}
+	if (stream.GetCodec()->GetEncoder()->GetAddcrFlag()) {
+		str += ":addcr";
 	}
 	if (*stream.GetName() != '\0') {
 		str += ":";
@@ -103,9 +99,7 @@ Gura_ImplementFunction(open)
 		Codec *pCodec = Object_codec::GetObject(args, 2)->GetCodec();
 		pStream->SetCodec(Codec::Reference(pCodec));
 	} else {
-		Codec *pCodec = new Codec();
-		pCodec->InstallCodec(sig, NULL, true, false);
-		pStream->SetCodec(pCodec);
+		pStream->SetCodec(Codec::CreateCodecNone(true, false));
 	}
 	Value result(new Object_stream(env, pStream));
 	if (args.IsBlockSpecified()) {
@@ -448,8 +442,7 @@ Gura_ImplementMethod(stream, setcodec)
 	if (args.IsValid(0)) {
 		pCodec = Codec::Reference(Object_codec::GetObject(args, 0)->GetCodec());
 	} else {
-		pCodec = new Codec();
-		pCodec->InstallCodec(sig, NULL, true, false);
+		pCodec = Codec::CreateCodecNone(true, false);
 	}
 	pThis->GetStream().SetCodec(pCodec);
 	return args.GetThis();
@@ -466,9 +459,7 @@ Gura_ImplementMethod(stream, addcr)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	CodecEncoder *pEncoder = pThis->GetStream().GetCodec()->GetEncoder();
-	if (pEncoder != NULL) {
-		pEncoder->SetProcessEOLFlag(args.IsValid(0)? args.GetBoolean(0) : true);
-	}
+	pEncoder->SetAddcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	return args.GetThis();
 }
 
@@ -483,9 +474,7 @@ Gura_ImplementMethod(stream, delcr)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	CodecDecoder *pDecoder = pThis->GetStream().GetCodec()->GetDecoder();
-	if (pDecoder != NULL) {
-		pDecoder->SetProcessEOLFlag(args.IsValid(0)? args.GetBoolean(0) : true);
-	}
+	pDecoder->SetDelcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	return args.GetThis();
 }
 
@@ -776,7 +765,6 @@ bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const De
 		}
 		Stream *pStream = Directory::OpenStream(env, sig, value.GetString(), attr);
 		if (sig.IsSignalled()) return false;
-		pStream->GetCodec()->InstallCodec(sig, NULL, true, false);
 		value = Value(new Object_stream(env, pStream));
 		return true;
 	} else if (value.IsBinary()) {

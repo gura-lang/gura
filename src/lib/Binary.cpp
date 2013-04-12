@@ -17,7 +17,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 	bool bigEndianFlag = IsBigEndian();
 	int nRepeat = 1;
 	String encoding;
-	std::auto_ptr<CodecBase> pCodec(new Codec_None());
+	AutoPtr<Codec> pCodec(Codec::CreateCodecNone(false, false));
 	for (const char *p = format; *p != '\0'; ) {
 		char ch = *p;
 		bool eatNextFlag = true;
@@ -31,16 +31,10 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 		} else if (stat == STAT_Encoding) {
 			if (ch == '}') {
 				if (encoding.empty()) {
-					pCodec.reset(new Codec_None());
+					pCodec.reset(Codec::CreateCodecNone(false, false));
 				} else {
-					CodecFactory *pCodecFactory =
-									CodecFactory::Lookup(encoding.c_str());
-					if (pCodecFactory == NULL) {
-						sig.SetError(ERR_CodecError,
-								"unsupported encoding '%s'", encoding.c_str());
-						return false;
-					}
-					pCodec.reset(pCodecFactory->CreateEncoder(false));
+					pCodec.reset(Codec::CreateCodec(sig, encoding.c_str(), false, false));
+					if (sig.IsSignalled()) return false;
 				}
 				stat = STAT_Format;
 			} else {
@@ -217,14 +211,14 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			int nPacked = 0;
 			char chConv;
 			for ( ; nPacked < nRepeat && *p != '\0'; p++) {
-				Codec::Result result = pCodec->FeedChar(*p, chConv);
+				Codec::Result result = pCodec->GetEncoder()->FeedChar(*p, chConv);
 				if (result == Codec::RESULT_Error) {
 					sig.SetError(ERR_CodecError,
 						"encoding error. specify a proper coding name by {coding}");
 					return false;
 				} else if (result == Codec::RESULT_Complete) {
 					*pByte++ = chConv, nPacked++;
-					while (pCodec->FollowChar(chConv) && nPacked < nRepeat) {
+					while (pCodec->GetEncoder()->FollowChar(chConv) && nPacked < nRepeat) {
 						*pByte++ = chConv, nPacked++;
 					}
 				}
@@ -264,7 +258,7 @@ Value Binary::Unpack(Environment &env, Signal sig,
 	bool bigEndianFlag = IsBigEndian();
 	int nRepeat = 1;
 	String encoding;
-	std::auto_ptr<CodecBase> pCodec(new Codec_None());
+	AutoPtr<Codec> pCodec(Codec::CreateCodecNone(false, false));
 	for (const char *p = format; *p != '\0'; ) {
 		char ch = *p;
 		bool eatNextFlag = true;
@@ -278,16 +272,10 @@ Value Binary::Unpack(Environment &env, Signal sig,
 		} else if (stat == STAT_Encoding) {
 			if (ch == '}') {
 				if (encoding.empty()) {
-					pCodec.reset(new Codec_None());
+					pCodec.reset(Codec::CreateCodecNone(false, false));
 				} else {
-					CodecFactory *pCodecFactory =
-									CodecFactory::Lookup(encoding.c_str());
-					if (pCodecFactory == NULL) {
-						sig.SetError(ERR_CodecError,
-								"unsupported encoding '%s'", encoding.c_str());
-						return Value::Null;
-					}
-					pCodec.reset(pCodecFactory->CreateDecoder(false));
+					pCodec.reset(Codec::CreateCodec(sig, encoding.c_str(), false, false));
+					if (sig.IsSignalled()) return Value::Null;
 				}
 				stat = STAT_Format;
 			} else {
@@ -430,18 +418,18 @@ Value Binary::Unpack(Environment &env, Signal sig,
 			//str.reserve(nRepeat);
 			char chConv;
 			for (int nUnpacked = 0; nUnpacked < nRepeat; nUnpacked++, pByte++) {
-				Codec::Result result = pCodec->FeedChar(*pByte, chConv);
+				Codec::Result result = pCodec->GetDecoder()->FeedChar(*pByte, chConv);
 				if (result == Codec::RESULT_Error) {
 					sig.SetError(ERR_CodecError,
 						"decoding error. specify a proper coding name by {coding}");
 					return false;
 				} else if (result == Codec::RESULT_Complete) {
 					str.push_back(chConv);
-					while (pCodec->FollowChar(chConv)) str.push_back(chConv);
+					while (pCodec->GetDecoder()->FollowChar(chConv)) str.push_back(chConv);
 				}
 			}
 			// flush unprocessed characters
-			if (pCodec->Flush(chConv)) while (pCodec->FollowChar(chConv)) ;
+			if (pCodec->GetDecoder()->Flush(chConv)) while (pCodec->GetDecoder()->FollowChar(chConv)) ;
 			valList.push_back(Value(env, str.c_str()));
 			nRepeat = 1;
 		} else if (ch == 'p') {

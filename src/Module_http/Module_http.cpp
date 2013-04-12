@@ -882,9 +882,10 @@ Stream_Http *Header::GenerateDownStream(Environment &env, Signal sig,
 	if (::strcasecmp(type, "text/html") == 0 || ::strcasecmp(type, "text/xml") == 0) {
 		pStreamHttp->ActivateEncodingDetector();
 	}
-	if (contentType.IsValidCharset() && !pStreamHttp->GetCodec()->
-						InstallCodec(sig, contentType.GetCharset(), true, false)) {
-		return NULL;
+	if (contentType.IsValidCharset()) {
+		AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, contentType.GetCharset(), true, false));
+		if (sig.IsSignalled()) return NULL;
+		pStreamHttp->SetCodec(pCodec.release());
 	}
 	return pStreamHttp.release();
 }
@@ -1380,8 +1381,10 @@ size_t Stream_Http::DoRead(Signal sig, void *buff, size_t bytes)
 				char ch = *(buffp + offset + i);
 				if (!_encodingDetector.ParseChar(sig, ch)) return 0;
 			}
-			if (_encodingDetector.IsValidEncoding() && !GetCodec()->
-					InstallCodec(sig, _encodingDetector.GetEncoding(), true, false)) {
+			if (_encodingDetector.IsValidEncoding()) {
+				AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, _encodingDetector.GetEncoding(), true, false));
+				if (sig.IsSignalled()) return NULL;
+				SetCodec(pCodec.release());
 				return 0;
 			}
 		}

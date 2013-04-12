@@ -10,7 +10,7 @@ namespace Gura {
 // Object_codec
 //-----------------------------------------------------------------------------
 Object_codec::Object_codec(const Object_codec &obj) :
-					Object(obj), _pCodec(new Codec(*obj.GetCodec()))
+					Object(obj), _pCodec(obj.GetCodec()->Duplicate())
 {
 }
 
@@ -24,12 +24,10 @@ String Object_codec::ToString(Signal sig, bool exprFlag)
 	String str;
 	str += "<codec:";
 	str += GetCodec()->GetEncoding();
-	CodecDecoder *pDecoder = GetCodec()->GetDecoder();
-	if (pDecoder != NULL && pDecoder->IsProcessEOL()) {
+	if (GetCodec()->GetDecoder()->GetDelcrFlag()) {
 		str += ":delcr";
 	}
-	CodecEncoder *pEncoder = GetCodec()->GetEncoder();
-	if (pEncoder != NULL && pEncoder->IsProcessEOL()) {
+	if (GetCodec()->GetEncoder()->GetAddcrFlag()) {
 		str += ":addcr";
 	}
 	str += ">";
@@ -50,10 +48,8 @@ Gura_DeclareFunction(codec)
 
 Gura_ImplementFunction(codec)
 {
-	AutoPtr<Codec> pCodec(new Codec());
-	if (!pCodec->InstallCodec(sig, args.GetString(0), true, false)) {
-		return Value::Null;
-	}
+	AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, args.GetString(0), true, false));
+	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(new Object_codec(env, pCodec.release())));
 }
 
@@ -74,7 +70,7 @@ Gura_ImplementClassMethod(codec, dir)
 	ValueList &valList = result.InitAsList(env);
 	foreach_const (CodecFactory::List, ppCodecFactory, CodecFactory::GetList()) {
 		const CodecFactory *pCodecFactory = *ppCodecFactory;
-		valList.push_back(Value(env, pCodecFactory->GetName()));
+		valList.push_back(Value(env, pCodecFactory->GetEncoding()));
 	}
 	return result;
 }
@@ -90,9 +86,7 @@ Gura_ImplementMethod(codec, addcr)
 {
 	Object_codec *pThis = Object_codec::GetThisObj(args);
 	CodecEncoder *pEncoder = pThis->GetCodec()->GetEncoder();
-	if (pEncoder != NULL) {
-		pEncoder->SetProcessEOLFlag(args.IsValid(0)? args.GetBoolean(0) : true);
-	}
+	pEncoder->SetAddcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	return args.GetThis();
 }
 
@@ -107,9 +101,7 @@ Gura_ImplementMethod(codec, delcr)
 {
 	Object_codec *pThis = Object_codec::GetThisObj(args);
 	CodecDecoder *pDecoder = pThis->GetCodec()->GetDecoder();
-	if (pDecoder != NULL) {
-		pDecoder->SetProcessEOLFlag(args.IsValid(0)? args.GetBoolean(0) : true);
-	}
+	pDecoder->SetDelcrFlag(args.IsValid(0)? args.GetBoolean(0) : true);
 	return args.GetThis();
 }
 
@@ -164,10 +156,8 @@ Class_codec::Class_codec(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_codec)
 bool Class_codec::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsString()) {
-		AutoPtr<Codec> pCodec(new Codec());
-		if (!pCodec->InstallCodec(sig, value.GetString(), true, false)) {
-			return false;
-		}
+		AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, value.GetString(), true, false));
+		if (sig.IsSignalled()) return false;
 		value = Value(new Object_codec(env, pCodec.release()));
 		return true;
 	}

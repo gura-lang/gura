@@ -9,29 +9,32 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Codec
 //-----------------------------------------------------------------------------
-Codec::Codec() : _cntRef(1)
+CodecFactory *Codec::_pFactory_None = NULL;
+
+Codec::Codec(CodecFactory *pFactory, CodecDecoder *pDecoder, CodecEncoder *pEncoder) :
+	_cntRef(1), _pFactory(pFactory), _pDecoder(pDecoder), _pEncoder(pEncoder)
 {
 }
 
-Codec::Codec(const Codec &codec) : _cntRef(1),
-	_encoding(codec._encoding),
-	_pDecoder((codec._pDecoder.get() == NULL)? NULL : codec._pDecoder->Duplicate()),
-	_pEncoder((codec._pEncoder.get() == NULL)? NULL : codec._pEncoder->Duplicate())
+Codec *Codec::Duplicate() const
 {
+	return _pFactory->CreateCodec(_pDecoder->GetDelcrFlag(), _pEncoder->GetAddcrFlag());
 }
 
-bool Codec::InstallCodec(Signal sig, const char *encoding, bool delcrFlag, bool addcrFlag)
+Codec *Codec::CreateCodecNone(bool delcrFlag, bool addcrFlag)
+{
+	return _pFactory_None->CreateCodec(delcrFlag, addcrFlag);
+}
+
+Codec *Codec::CreateCodec(Signal sig, const char *encoding, bool delcrFlag, bool addcrFlag)
 {
 	if (encoding == NULL) encoding = "none";
-	CodecFactory *pCodecFactory = CodecFactory::Lookup(encoding);
-	if (pCodecFactory == NULL) {
-		sig.SetError(ERR_CodecError, "unsupported encoding name %s", encoding);
+	CodecFactory *pFactory = CodecFactory::Lookup(encoding);
+	if (pFactory == NULL) {
+		sig.SetError(ERR_CodecError, "unsupported encoding %s", encoding);
 		return false;
 	}
-	_encoding = encoding;
-	_pEncoder.reset(pCodecFactory->CreateEncoder(addcrFlag));
-	_pDecoder.reset(pCodecFactory->CreateDecoder(delcrFlag));
-	return true;
+	return pFactory->CreateCodec(delcrFlag, addcrFlag);
 }
 
 const char *Codec::EncodingFromLANG()
@@ -83,14 +86,15 @@ const char *Codec::EncodingFromLANG()
 	return encodingDefault;
 }
 
+void Codec::Initialize()
+{
+	_pFactory_None = new CodecFactory_None();
+	CodecFactory::Register(_pFactory_None);
+}
+
 //-----------------------------------------------------------------------------
 // CodecBase
 //-----------------------------------------------------------------------------
-const char *CodecBase::GetName() const
-{
-	return (_pCodecFactory == NULL)? "none" : _pCodecFactory->GetName();
-}
-
 bool CodecBase::FollowChar(char &chConv)
 {
 	if (_idxBuff <= 0) return false;
@@ -108,65 +112,28 @@ Codec::Result CodecBase::Flush(char &chConv)
 //-----------------------------------------------------------------------------
 CodecFactory::List *CodecFactory::_pList = NULL;
 
-CodecFactory::CodecFactory(const char *name) : _name(name)
+CodecFactory::CodecFactory(const char *encoding) : _encoding(encoding)
 {
 }
 
-void CodecFactory::Register(CodecFactory *pCodecFactory)
+void CodecFactory::Register(CodecFactory *pFactory)
 {
 	if (_pList == NULL) {
 		_pList = new List();
 	}
-	_pList->push_back(pCodecFactory);
+	_pList->push_back(pFactory);
 }
 
-CodecFactory *CodecFactory::Lookup(const char *name)
+CodecFactory *CodecFactory::Lookup(const char *encoding)
 {
-	if (name == NULL || _pList == NULL) return NULL;
-	foreach (List, ppCodecFactory, *_pList) {
-		CodecFactory *pCodecFactory = *ppCodecFactory;
-		if (::strcasecmp(pCodecFactory->GetName(), name) == 0) {
-			return pCodecFactory;
+	if (encoding == NULL || _pList == NULL) return NULL;
+	foreach (List, ppFactory, *_pList) {
+		CodecFactory *pFactory = *ppFactory;
+		if (::strcasecmp(pFactory->GetEncoding(), encoding) == 0) {
+			return pFactory;
 		}
 	}
 	return NULL;
-}
-
-//-----------------------------------------------------------------------------
-// Codec_None
-//-----------------------------------------------------------------------------
-Codec::Result Codec_None::FeedChar(char ch, char &chConv)
-{
-	chConv = ch;
-	return Codec::RESULT_Complete;
-}
-
-//-----------------------------------------------------------------------------
-// CodecEncoder
-//-----------------------------------------------------------------------------
-bool CodecEncoder::Encode(Signal sig, Binary &dst, const char *str)
-{
-	char ch;
-	for (const char *p = str; *p != '\0'; p++) {
-		Codec::Result rtn = FeedChar(*p, ch);
-		if (rtn == Codec::RESULT_Complete) {
-			dst.push_back(ch);
-			while (FollowChar(ch)) dst.push_back(ch);
-		} else if (rtn == Codec::RESULT_Error) {
-			sig.SetError(ERR_CodecError, "failed to encode a string");
-			return false;
-		}
-	}
-	if (Flush(ch) == Codec::RESULT_Complete) {
-		dst.push_back(ch);
-		while (FollowChar(ch)) dst.push_back(ch);
-	}
-	return true;
-}
-
-CodecEncoder *CodecEncoder::Duplicate() const
-{
-	return _pCodecFactory->CreateEncoder(_processEOLFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -197,14 +164,87 @@ bool CodecDecoder::Decode(Signal sig, String &dst, const Binary &src)
 	return Decode(sig, dst, src.data(), src.size());
 }
 
-CodecDecoder *CodecDecoder::Duplicate() const
+//-----------------------------------------------------------------------------
+// CodecEncoder
+//-----------------------------------------------------------------------------
+bool CodecEncoder::Encode(Signal sig, Binary &dst, const char *str)
 {
-	return _pCodecFactory->CreateDecoder(_processEOLFlag);
+	char ch;
+	for (const char *p = str; *p != '\0'; p++) {
+		Codec::Result rtn = FeedChar(*p, ch);
+		if (rtn == Codec::RESULT_Complete) {
+			dst.push_back(ch);
+			while (FollowChar(ch)) dst.push_back(ch);
+		} else if (rtn == Codec::RESULT_Error) {
+			sig.SetError(ERR_CodecError, "failed to encode a string");
+			return false;
+		}
+	}
+	if (Flush(ch) == Codec::RESULT_Complete) {
+		dst.push_back(ch);
+		while (FollowChar(ch)) dst.push_back(ch);
+	}
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// None
+//-----------------------------------------------------------------------------
+Codec *CodecFactory_None::CreateCodec(bool delcrFlag, bool addcrFlag)
+{
+	return new Codec(this,																\
+			new CodecDecoder_None(delcrFlag),
+			new CodecEncoder_None(addcrFlag));
+}
+
+Codec::Result CodecDecoder_None::FeedChar(char ch, char &chConv)
+{
+	if (GetDelcrFlag() && ch == '\r') return Codec::RESULT_None;
+	chConv = ch;
+	return Codec::RESULT_Complete;
+}
+
+Codec::Result CodecEncoder_None::FeedChar(char ch, char &chConv)
+{
+	if (GetAddcrFlag() && ch == '\n') {
+		StoreChar('\n');
+		chConv = '\r';
+	} else {
+		chConv = ch;
+	}
+	return Codec::RESULT_Complete;
 }
 
 //-----------------------------------------------------------------------------
 // UTF
 //-----------------------------------------------------------------------------
+Codec::Result CodecDecoder_UTF::FeedUTF32(unsigned long codeUTF32, char &chConv)
+{
+	_idxBuff = 0;
+	if ((codeUTF32 & ~0x7f) == 0) {
+		chConv = static_cast<char>(codeUTF32);
+		return Codec::RESULT_Complete;
+	}
+	StoreChar(0x80 | static_cast<char>(codeUTF32 & 0x3f)); codeUTF32 >>= 6;
+	if ((codeUTF32 & ~0x1f) == 0) {
+		chConv = 0xc0 | static_cast<char>(codeUTF32);
+		return Codec::RESULT_Complete;
+	}
+	StoreChar(0x80 | static_cast<char>(codeUTF32 & 0x3f)); codeUTF32 >>= 6;
+	if ((codeUTF32 & ~0x0f) == 0) {
+		chConv = 0xe0 | static_cast<char>(codeUTF32);
+		return Codec::RESULT_Complete;
+	}
+	StoreChar(0x80 | static_cast<char>(codeUTF32 & 0x3f)); codeUTF32 >>= 6;
+	if ((codeUTF32 & ~0x07) == 0) {
+		chConv = 0xf0 | static_cast<char>(codeUTF32);
+		return Codec::RESULT_Complete;
+	}
+	_idxBuff = 0;
+	chConv = '\0';
+	return Codec::RESULT_Error;
+}
+
 Codec::Result CodecEncoder_UTF::FeedChar(char ch, char &chConv)
 {
 	Codec::Result rtn = Codec::RESULT_None;
@@ -240,33 +280,6 @@ Codec::Result CodecEncoder_UTF::FeedChar(char ch, char &chConv)
 		_cntChars = 5;
 	}
 	return rtn;
-}
-
-Codec::Result CodecDecoder_UTF::FeedUTF32(unsigned long codeUTF32, char &chConv)
-{
-	_idxBuff = 0;
-	if ((codeUTF32 & ~0x7f) == 0) {
-		chConv = static_cast<char>(codeUTF32);
-		return Codec::RESULT_Complete;
-	}
-	StoreChar(0x80 | static_cast<char>(codeUTF32 & 0x3f)); codeUTF32 >>= 6;
-	if ((codeUTF32 & ~0x1f) == 0) {
-		chConv = 0xc0 | static_cast<char>(codeUTF32);
-		return Codec::RESULT_Complete;
-	}
-	StoreChar(0x80 | static_cast<char>(codeUTF32 & 0x3f)); codeUTF32 >>= 6;
-	if ((codeUTF32 & ~0x0f) == 0) {
-		chConv = 0xe0 | static_cast<char>(codeUTF32);
-		return Codec::RESULT_Complete;
-	}
-	StoreChar(0x80 | static_cast<char>(codeUTF32 & 0x3f)); codeUTF32 >>= 6;
-	if ((codeUTF32 & ~0x07) == 0) {
-		chConv = 0xf0 | static_cast<char>(codeUTF32);
-		return Codec::RESULT_Complete;
-	}
-	_idxBuff = 0;
-	chConv = '\0';
-	return Codec::RESULT_Error;
 }
 
 }

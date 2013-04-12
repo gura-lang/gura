@@ -1054,6 +1054,7 @@ void Environment::FrameOwner::Clear()
 EnvironmentRoot::EnvironmentRoot()
 {
 	SymbolPool::Initialize();
+	Codec::Initialize();
 	Global *pGlobal = new Global();
 	pGlobal->_pSymbolPool = SymbolPool::GetInstance();
 	_frameOwner.push_back(new Frame(ENVTYPE_root, pGlobal));
