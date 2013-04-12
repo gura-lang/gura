@@ -88,7 +88,7 @@ const char *Codec::EncodingFromLANG()
 
 void Codec::Initialize()
 {
-	_pFactory_None = new CodecFactory_None();
+	_pFactory_None = new CodecFactoryTmpl<Codec_None>("none");
 	CodecFactory::Register(_pFactory_None);
 }
 
@@ -188,15 +188,8 @@ bool Codec::Encoder::Encode(Signal sig, Binary &dst, const char *str)
 }
 
 //-----------------------------------------------------------------------------
-// None
+// Codec_None
 //-----------------------------------------------------------------------------
-Codec *CodecFactory_None::CreateCodec(bool delcrFlag, bool addcrFlag)
-{
-	return new Codec(this,																\
-			new Codec_None::Decoder(delcrFlag),
-			new Codec_None::Encoder(addcrFlag));
-}
-
 Codec::Result Codec_None::Decoder::FeedChar(char ch, char &chConv)
 {
 	if (GetDelcrFlag() && ch == '\r') return Codec::RESULT_None;
@@ -216,7 +209,7 @@ Codec::Result Codec_None::Encoder::FeedChar(char ch, char &chConv)
 }
 
 //-----------------------------------------------------------------------------
-// UTF
+// Codec_UTF
 //-----------------------------------------------------------------------------
 Codec::Result Codec_UTF::Decoder::FeedUTF32(unsigned long codeUTF32, char &chConv)
 {

@@ -16,8 +16,8 @@ class GURA_DLLDECLARE CodecFactory {
 public:
 	typedef std::vector<CodecFactory *> List;
 private:
-	static List *_pList;
 	String _encoding;
+	static List *_pList;
 public:
 	CodecFactory(const char *encoding);
 	inline const char *GetEncoding() const { return _encoding.c_str(); }
@@ -25,6 +25,15 @@ public:
 	static void Register(CodecFactory *pFactory);
 	static CodecFactory *Lookup(const char *name);
 	static inline const List &GetList() { return *_pList; }
+};
+
+template<typename T>
+class CodecFactoryTmpl : public CodecFactory {
+public:
+	inline CodecFactoryTmpl(const char *encoding) : CodecFactory(encoding) {}
+	virtual Codec *CreateCodec(bool delcrFlag, bool addcrFlag) {
+		return new Codec(this, new T::Decoder(delcrFlag), new T::Encoder(addcrFlag));
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -102,14 +111,8 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// None
+// Codec_None
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE CodecFactory_None : public CodecFactory {
-public:
-	inline CodecFactory_None(const char *name = "none") : CodecFactory(name) {}
-	virtual Codec *CreateCodec(bool delcrFlag, bool addcrFlag);
-};
-
 class GURA_DLLDECLARE Codec_None : public Codec {
 public:
 	class GURA_DLLDECLARE Decoder : public Codec::Decoder {
@@ -125,7 +128,7 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// UTF
+// Codec_UTF
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Codec_UTF : public Codec {
 public:
@@ -148,23 +151,5 @@ public:
 };
 
 }
-
-//-----------------------------------------------------------------------------
-// macros
-//-----------------------------------------------------------------------------
-#define Gura_ImplementCodecFactory(symbol, encoding_) \
-class CodecFactory_##symbol : public CodecFactory {										\
-public:																					\
-	inline CodecFactory_##symbol(const char *encoding = (encoding_)) : CodecFactory(encoding) {}	\
-	virtual Codec *CreateCodec(bool delcrFlag, bool addcrFlag);							\
-};																						\
-Codec *CodecFactory_##symbol::CreateCodec(bool delcrFlag, bool addcrFlag) {				\
-	return new Codec(this,																\
-			new Codec_##symbol::Decoder(delcrFlag),										\
-			new Codec_##symbol::Encoder(addcrFlag));									\
-}
-
-#define Gura_RegisterCodecFactory(symbol) \
-CodecFactory::Register(new CodecFactory_##symbol())
 
 #endif

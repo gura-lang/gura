@@ -7,7 +7,7 @@
 Gura_BeginModule(codecs_japanese)
 
 //-----------------------------------------------------------------------------
-// CP932
+// Codec_CP932
 //-----------------------------------------------------------------------------
 Codec::Result Codec_CP932::Decoder::FeedChar(char ch, char &chConv)
 {
@@ -49,7 +49,7 @@ Codec::Result Codec_CP932::Encoder::FeedUTF32(unsigned long codeUTF32, char &chC
 }
 
 //-----------------------------------------------------------------------------
-// EUCJP
+// Codec_EUCJP
 //-----------------------------------------------------------------------------
 Codec::Result Codec_EUCJP::Decoder::FeedChar(char ch, char &chConv)
 {
@@ -92,16 +92,8 @@ Codec::Result Codec_EUCJP::Encoder::FeedUTF32(unsigned long codeUTF32, char &chC
 	return RESULT_Complete;
 }
 
-typedef Codec_CP932 Codec_Shift_JIS;
-typedef Codec_CP932 Codec_MS_Kanji;
-
-Gura_ImplementCodecFactory(EUCJP, "euc-jp")
-Gura_ImplementCodecFactory(CP932, "cp932")
-Gura_ImplementCodecFactory(Shift_JIS, "shift_jis")
-Gura_ImplementCodecFactory(MS_Kanji, "ms_kanji")
-
 //-----------------------------------------------------------------------------
-// JIS
+// Codec_JIS
 //-----------------------------------------------------------------------------
 Codec::Result Codec_JIS::Decoder::FeedChar(char ch, char &chConv)
 {
@@ -257,23 +249,18 @@ Codec::Result Codec_JIS::Encoder::FeedUTF32(unsigned long codeUTF32, char &chCon
 	return RESULT_Complete;
 }
 
-typedef Codec_JIS Codec_ISO2022JP;
-
-Gura_ImplementCodecFactory(JIS, "jis")
-Gura_ImplementCodecFactory(ISO2022JP, "iso-2022-jp")
-
 //-----------------------------------------------------------------------------
 // Gura module functions: japanese
 //-----------------------------------------------------------------------------
 // Module entry
 Gura_ModuleEntry()
 {
-	Gura_RegisterCodecFactory(EUCJP);
-	Gura_RegisterCodecFactory(CP932);
-	Gura_RegisterCodecFactory(Shift_JIS);
-	Gura_RegisterCodecFactory(MS_Kanji);
-	Gura_RegisterCodecFactory(JIS);
-	Gura_RegisterCodecFactory(ISO2022JP);
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_EUCJP>("euc-jp"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_CP932>("cp932"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_CP932>("shift_jis"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_CP932>("ms_kanji"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_JIS>("jis"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_JIS>("iso-2022-jp"));
 }
 
 Gura_ModuleTerminate()

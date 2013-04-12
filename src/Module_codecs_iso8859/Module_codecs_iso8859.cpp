@@ -7,7 +7,7 @@
 Gura_BeginModule(codecs_iso8859)
 
 //-----------------------------------------------------------------------------
-// ISO8859
+// Codec_ISO8859
 //-----------------------------------------------------------------------------
 Codec::Result Codec_ISO8859::Decoder::FeedChar(char ch, char &chConv)
 {
@@ -33,7 +33,7 @@ Codec::Result Codec_ISO8859::Encoder::FeedUTF32(unsigned long codeUTF32, char &c
 }
 
 //-----------------------------------------------------------------------------
-// ISO8859-1
+// Codec_ISO8859_1
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_1[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -79,7 +79,7 @@ Codec_ISO8859_1::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_1, _pMap_ISO8859_1) {}
 
 //-----------------------------------------------------------------------------
-// ISO8859-2
+// Codec_ISO8859_2
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_2[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -125,7 +125,7 @@ Codec_ISO8859_2::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_2, _pMap_ISO8859_2) {}
 
 //-----------------------------------------------------------------------------
-// ISO8859-3
+// Codec_ISO8859_3
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_3[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -171,7 +171,7 @@ Codec_ISO8859_3::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_3, _pMap_ISO8859_3) {}
 
 //-----------------------------------------------------------------------------
-// ISO8859-4
+// Codec_ISO8859_4
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_4[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -217,7 +217,7 @@ Codec_ISO8859_4::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_4, _pMap_ISO8859_4) {}
 
 //-----------------------------------------------------------------------------
-// ISO8859-5
+// Codec_ISO8859_5
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_5[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -263,7 +263,7 @@ Codec_ISO8859_5::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_5, _pMap_ISO8859_5) {}
 
 //-----------------------------------------------------------------------------
-// ISO8859-6
+// Codec_ISO8859_6
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_6[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -309,7 +309,7 @@ Codec_ISO8859_6::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_6, _pMap_ISO8859_6) {}
 
 //-----------------------------------------------------------------------------
-// ISO8859-7
+// Codec_ISO8859_7
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_7[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -355,7 +355,7 @@ Codec_ISO8859_7::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_7, _pMap_ISO8859_7) {}
 
 //-----------------------------------------------------------------------------
-// ISO8859-8
+// Codec_ISO8859_8
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_8[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -401,7 +401,7 @@ Codec_ISO8859_8::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_8, _pMap_ISO8859_8) {}
 
 //-----------------------------------------------------------------------------
-// ISO8859-9
+// Codec_ISO8859_9
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_9[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -447,7 +447,7 @@ Codec_ISO8859_9::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_9, _pMap_ISO8859_9) {}
 
 //-----------------------------------------------------------------------------
-// ISO8859-10
+// Codec_ISO8859_10
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_10[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -493,7 +493,7 @@ Codec_ISO8859_10::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_10, _pMap_ISO8859_10) {}
 
 //-----------------------------------------------------------------------------
-// ISO8859-11
+// Codec_ISO8859_11
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_11[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -539,7 +539,7 @@ Codec_ISO8859_11::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_11, _pMap_ISO8859_11) {}
 
 //-----------------------------------------------------------------------------
-// ISO8859-13
+// Codec_ISO8859_13
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_13[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -585,7 +585,7 @@ Codec_ISO8859_13::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_13, _pMap_ISO8859_13) {}
 
 //-----------------------------------------------------------------------------
-// ISO8859-14
+// Codec_ISO8859_14
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_14[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -631,7 +631,7 @@ Codec_ISO8859_14::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_14, _pMap_ISO8859_14) {}
 
 //-----------------------------------------------------------------------------
-// ISO8859-15
+// Codec_ISO8859_15
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_15[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -677,7 +677,7 @@ Codec_ISO8859_15::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_15, _pMap_ISO8859_15) {}
 
 //-----------------------------------------------------------------------------
-// ISO8859-16
+// Codec_ISO8859_16
 //-----------------------------------------------------------------------------
 static const unsigned short _codeTbl_ISO8859_16[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
@@ -722,43 +722,27 @@ Codec_ISO8859_16::Decoder::Decoder(bool delcrFlag) :
 Codec_ISO8859_16::Encoder::Encoder(bool addcrFlag) :
 	Codec_ISO8859::Encoder(addcrFlag, _codeTbl_ISO8859_16, _pMap_ISO8859_16) {}
 
-Gura_ImplementCodecFactory(ISO8859_1, "iso-8859-1")
-Gura_ImplementCodecFactory(ISO8859_2, "iso-8859-2")
-Gura_ImplementCodecFactory(ISO8859_3, "iso-8859-3")
-Gura_ImplementCodecFactory(ISO8859_4, "iso-8859-4")
-Gura_ImplementCodecFactory(ISO8859_5, "iso-8859-5")
-Gura_ImplementCodecFactory(ISO8859_6, "iso-8859-6")
-Gura_ImplementCodecFactory(ISO8859_7, "iso-8859-7")
-Gura_ImplementCodecFactory(ISO8859_8, "iso-8859-8")
-Gura_ImplementCodecFactory(ISO8859_9, "iso-8859-9")
-Gura_ImplementCodecFactory(ISO8859_10, "iso-8859-10")
-Gura_ImplementCodecFactory(ISO8859_11, "iso-8859-11")
-Gura_ImplementCodecFactory(ISO8859_13, "iso-8859-13")
-Gura_ImplementCodecFactory(ISO8859_14, "iso-8859-14")
-Gura_ImplementCodecFactory(ISO8859_15, "iso-8859-15")
-Gura_ImplementCodecFactory(ISO8859_16, "iso-8859-16")
-
 //-----------------------------------------------------------------------------
 // Gura module functions: iso8859
 //-----------------------------------------------------------------------------
 // Module entry
 Gura_ModuleEntry()
 {
-	Gura_RegisterCodecFactory(ISO8859_1);
-	Gura_RegisterCodecFactory(ISO8859_2);
-	Gura_RegisterCodecFactory(ISO8859_3);
-	Gura_RegisterCodecFactory(ISO8859_4);
-	Gura_RegisterCodecFactory(ISO8859_5);
-	Gura_RegisterCodecFactory(ISO8859_6);
-	Gura_RegisterCodecFactory(ISO8859_7);
-	Gura_RegisterCodecFactory(ISO8859_8);
-	Gura_RegisterCodecFactory(ISO8859_9);
-	Gura_RegisterCodecFactory(ISO8859_10);
-	Gura_RegisterCodecFactory(ISO8859_11);
-	Gura_RegisterCodecFactory(ISO8859_13);
-	Gura_RegisterCodecFactory(ISO8859_14);
-	Gura_RegisterCodecFactory(ISO8859_15);
-	Gura_RegisterCodecFactory(ISO8859_16);
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_1>("iso-8859-1"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_2>("iso-8859-2"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_3>("iso-8859-3"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_4>("iso-8859-4"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_5>("iso-8859-5"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_6>("iso-8859-6"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_7>("iso-8859-7"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_8>("iso-8859-8"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_9>("iso-8859-9"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_10>("iso-8859-10"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_11>("iso-8859-11"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_13>("iso-8859-13"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_14>("iso-8859-14"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_15>("iso-8859-15"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_16>("iso-8859-16"));
 }
 
 Gura_ModuleTerminate()

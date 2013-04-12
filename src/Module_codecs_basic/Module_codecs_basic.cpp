@@ -7,7 +7,7 @@
 Gura_BeginModule(codecs_basic)
 
 //-----------------------------------------------------------------------------
-// USASCII
+// Codec_USASCII
 //-----------------------------------------------------------------------------
 Codec::Result Codec_USASCII::Decoder::FeedChar(char ch, char &chConv)
 {
@@ -31,10 +31,8 @@ Codec::Result Codec_USASCII::Encoder::FeedChar(char ch, char &chConv)
 	return RESULT_Complete;
 }
 
-Gura_ImplementCodecFactory(USASCII, "us-ascii")
-
 //-----------------------------------------------------------------------------
-// UTF8
+// Codec_UTF8
 //-----------------------------------------------------------------------------
 Codec::Result Codec_UTF8::Decoder::FeedChar(char ch, char &chConv)
 {
@@ -90,10 +88,8 @@ Codec::Result Codec_UTF8::Encoder::FeedChar(char ch, char &chConv)
 	return RESULT_Complete;
 }
 
-Gura_ImplementCodecFactory(UTF8, "utf-8")
-
 //-----------------------------------------------------------------------------
-// UTF16LE
+// Codec_UTF16LE
 //-----------------------------------------------------------------------------
 Codec::Result Codec_UTF16LE::Decoder::FeedChar(char ch, char &chConv)
 {
@@ -153,17 +149,15 @@ Codec::Result Codec_UTF16LE::Encoder::FeedUTF32(unsigned long codeUTF32, char &c
 	return RESULT_Complete;
 }
 
-Gura_ImplementCodecFactory(UTF16LE, "utf-16")
-
 //-----------------------------------------------------------------------------
 // Gura module functions: codecs.basic
 //-----------------------------------------------------------------------------
 // Module entry
 Gura_ModuleEntry()
 {
-	Gura_RegisterCodecFactory(USASCII);
-	Gura_RegisterCodecFactory(UTF8);
-	Gura_RegisterCodecFactory(UTF16LE);
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_USASCII>("us-ascii"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_UTF8>("utf-8"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_UTF16LE>("utf-16"));
 }
 
 Gura_ModuleTerminate()
