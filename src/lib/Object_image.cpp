@@ -450,17 +450,20 @@ Gura_ImplementMethod(image, grayscale)
 	return Value(new Object_image(env, pImage.release()));
 }
 
-// image#blur(radius:number)
+// image#blur(radius:number, sigma:number)
 Gura_DeclareMethod(image, blur)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "radius", VTYPE_number);
+	DeclareArg(env, "sigma", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(image, blur)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	AutoPtr<Image> pImage(pThis->GetImage()->Blur(sig, args.GetInt(0)));
+	int radius = args.GetInt(0);
+	Number sigma = args.IsNumber(1)? args.GetNumber(1) : 1.5;
+	AutoPtr<Image> pImage(pThis->GetImage()->Blur(sig, radius, sigma));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(new Object_image(env, pImage.release()));
 }

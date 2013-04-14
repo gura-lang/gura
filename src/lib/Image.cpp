@@ -336,8 +336,11 @@ Image *Image::GrayScale(Signal sig)
 	return pImage.release();
 }
 
-Image *Image::Blur(Signal sig, int radius)
+Image *Image::Blur(Signal sig, int radius, Number sigma)
 {
+	int diamete = radius * 2 + 1;
+	
+	
 	//int kernel[17];
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
 	if (sig.IsSignalled()) return NULL;
@@ -1307,6 +1310,13 @@ Image::Scanner::Scanner(Image *pImage,
 	default:
 		break;
 	}
+}
+
+Image::Scanner::Scanner(Scanner *pScanner, size_t nPixels, size_t nLines) :
+	_pImage(Image::Reference(pScanner->_pImage.get())), _iPixel(0), _iLine(0),
+	_pPixel(pScanner->_pPixel), _nPixels(nPixels), _nLines(nLines),
+	_pitchPixel(pScanner->_pitchPixel), _pitchLine(pScanner->_pitchLine)
+{
 }
 
 Image::Scanner::~Scanner()

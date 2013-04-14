@@ -83,6 +83,7 @@ public:
 	public:
 		Scanner(Image *pImage, size_t x, size_t y,
 								size_t width, size_t height, ScanDir scanDir);
+		Scanner(Scanner *pScanner, size_t nPixels, size_t nLines);
 		~Scanner();
 		inline Image *GetImage() { return _pImage.get(); }
 		inline unsigned char *GetPointer() { return _pPixel; }
@@ -265,7 +266,7 @@ public:
 	const Palette *GetPalette() const { return _pPalette.get(); }
 	Image *ReduceColor(Signal sig, const Palette *pPalette);
 	Image *GrayScale(Signal sig);
-	Image *Blur(Signal sig, int radius);
+	Image *Blur(Signal sig, int radius, Number sigma);
 	Image *Flip(Signal sig, bool horzFlag, bool vertFlag);
 	Image *Rotate90(Signal sig, bool clockwiseFlag);
 	Image *Rotate(Signal sig, double angle, const Color &color);
