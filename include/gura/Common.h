@@ -285,6 +285,22 @@ private:
 	unsigned char _red, _green, _blue, _alpha;
 public:
 	static const Color Zero;
+	static const Color black;
+	static const Color maroon;
+	static const Color green;
+	static const Color olive;
+	static const Color navy;
+	static const Color purple;
+	static const Color teal;
+	static const Color gray;
+	static const Color silver;
+	static const Color red;
+	static const Color lime;
+	static const Color yellow;
+	static const Color blue;
+	static const Color fuchsia;
+	static const Color aqua;
+	static const Color white;
 public:
 	inline Color() : _red(0), _green(0), _blue(0), _alpha(0) {}
 	inline Color(const Color &color) : _red(color._red), _green(color._green),
