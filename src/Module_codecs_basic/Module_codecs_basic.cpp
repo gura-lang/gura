@@ -96,7 +96,7 @@ Codec::Result Codec_UTF16LE::Decoder::FeedChar(char ch, char &chConv)
 	unsigned long chCasted =
 				static_cast<unsigned long>(static_cast<unsigned char>(ch));
 	if (_stat == STAT_First) {
-		_code = chCasted;
+		_code = (chCasted << 0);
 		_stat = STAT_Second;
 	} else if (_stat == STAT_Second) {
 		_code |= (chCasted << 8);
@@ -110,7 +110,7 @@ Codec::Result Codec_UTF16LE::Decoder::FeedChar(char ch, char &chConv)
 			return FeedUTF32(_code, chConv);
 		}
 	} else if (_stat == STAT_LowerFirst) {
-		_codeLower = chCasted;
+		_codeLower = (chCasted << 0);
 		_stat = STAT_LowerSecond;
 	} else if (_stat == STAT_LowerSecond) {
 		_codeLower |= (chCasted << 8);
@@ -128,11 +128,12 @@ Codec::Result Codec_UTF16LE::Decoder::FeedChar(char ch, char &chConv)
 
 Codec::Result Codec_UTF16LE::Encoder::FeedUTF32(unsigned long codeUTF32, char &chConv)
 {
+	const unsigned long codeLF = '\n', codeCR = '\r';
 	if (GetAddcrFlag() && codeUTF32 == '\n') {
-		StoreChar('\0');
-		StoreChar('\n');
-		StoreChar('\0');
-		chConv = '\r';
+		StoreChar(static_cast<char>((codeLF >> 8) & 0xff));
+		StoreChar(static_cast<char>((codeLF >> 0) & 0xff));
+		StoreChar(static_cast<char>((codeCR >> 8) & 0xff));
+		chConv = static_cast<char>((codeCR >> 0) & 0xff);
 	} else if (codeUTF32 < 0x10000) {
 		StoreChar(static_cast<char>((codeUTF32 >> 8) & 0xff));
 		chConv = static_cast<char>((codeUTF32 >> 0) & 0xff);

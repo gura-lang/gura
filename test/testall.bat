@@ -13,6 +13,7 @@ set files=%files% test-repeater.gura
 set files=%files% test-block.gura
 set files=%files% test-re.gura
 set files=%files% test-string.gura
+set files=%files% test-codec.gura
 set files=%files% test-template.gura
 set files=%files% test-application.gura
 set files=%files% test-error.gura

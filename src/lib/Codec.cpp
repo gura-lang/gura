@@ -11,6 +11,10 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 CodecFactory *Codec::_pFactory_None = NULL;
 
+const char *Codec::BOM_UTF8 = "\xef\xbb\xbf";
+const char *Codec::BOM_UTF16BE = "\xfe\xff";
+const char *Codec::BOM_UTF16LE = "\xff\xfe";
+
 Codec::Codec(CodecFactory *pFactory, Decoder *pDecoder, Encoder *pEncoder) :
 	_cntRef(1), _pFactory(pFactory), _pDecoder(pDecoder), _pEncoder(pEncoder)
 {

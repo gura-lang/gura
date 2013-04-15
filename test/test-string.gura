@@ -81,23 +81,6 @@ scope {
 	tester(`str.fold(5, 10):list)
 }
 scope {
-	'あいうえお'.binary().dump()
-	codec('utf-8') {|c|
-		c.encode('あいうえお').dump()
-		c.decode('\xe3\x81\x82\xe3\x81\x84\xe3\x81\x86\xe3\x81\x88\xe3\x81\x8a').println()
-	}
-	codec('utf-16') {|c|
-		c.encode('あいうえお').dump()
-		c.decode('\x42\x30\x44\x30\x46\x30\x48\x30\x4a\x30').println()
-	}
-	codec('shift_jis') {|c|
-		c.encode('あいうえお').dump()
-		c.decode('\x82\xa0\x82\xa2\x82\xa4\x82\xa6\x82\xa8').println()
-	}
-	tester(`hex('あいうえおかきくけこさしすせそたちつてとなにぬねの'.each():utf8):list)
-	tester(`hex('あいうえおかきくけこさしすせそたちつてとなにぬねの'.each():utf32):list)
-}
-scope {
 	tester(`'x < 0 & y > 1'.escapehtml());
 	tester(`'x &lt; 0 &amp; y &gt; 1'.unescapehtml());
 	tester(`'&quot;hello world&quot;'.unescapehtml());

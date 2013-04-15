@@ -1,0 +1,29 @@
+#!/usr/bin/env gura
+# -*- coding: utf-8 -*-
+import(testutil) {*}
+
+sys.echo(false)
+sys.stdout.setcodec('shift_jis').addcr(false)
+
+scope {
+	tester(`codec.bom_utf8)
+	tester(`codec.bom_utf16le)
+	tester(`codec.bom_utf16be)
+}
+scope {
+	'あいうえお'.binary().dump()
+	codec('utf-8') {|c|
+		c.encode('あいうえお').dump()
+		c.decode('\xe3\x81\x82\xe3\x81\x84\xe3\x81\x86\xe3\x81\x88\xe3\x81\x8a').println()
+	}
+	codec('utf-16') {|c|
+		c.encode('あいうえお').dump()
+		c.decode('\x42\x30\x44\x30\x46\x30\x48\x30\x4a\x30').println()
+	}
+	codec('shift_jis') {|c|
+		c.encode('あいうえお').dump()
+		c.decode('\x82\xa0\x82\xa2\x82\xa4\x82\xa6\x82\xa8').println()
+	}
+	tester(`hex('あいうえおかきくけこさしすせそたちつてとなにぬねの'.each():utf8):list)
+	tester(`hex('あいうえおかきくけこさしすせそたちつてとなにぬねの'.each():utf32):list)
+}

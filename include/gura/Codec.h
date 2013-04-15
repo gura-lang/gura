@@ -92,6 +92,10 @@ private:
 	std::auto_ptr<Encoder> _pEncoder;
 	static CodecFactory *_pFactory_None;
 public:
+	static const char *BOM_UTF8;
+	static const char *BOM_UTF16BE;
+	static const char *BOM_UTF16LE;
+public:
 	Gura_DeclareReferenceAccessor(Codec);
 public:
 	Codec(CodecFactory *pFactory, Decoder *pDecoder, Encoder *pEncoder);

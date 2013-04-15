@@ -151,6 +151,12 @@ Class_codec::Class_codec(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_codec)
 	Gura_AssignMethod(codec, delcr);
 	Gura_AssignMethod(codec, encode);
 	Gura_AssignMethod(codec, decode);
+	do {
+		Environment &env = *this;
+		Gura_AssignValue(bom_utf8, Value(new Object_binary(env, Codec::BOM_UTF8, false)));
+		Gura_AssignValue(bom_utf16le, Value(new Object_binary(env, Codec::BOM_UTF16LE, false)));
+		Gura_AssignValue(bom_utf16be, Value(new Object_binary(env, Codec::BOM_UTF16BE, false)));
+	} while (0);
 }
 
 bool Class_codec::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
