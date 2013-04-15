@@ -338,27 +338,85 @@ Image *Image::GrayScale(Signal sig)
 
 Image *Image::Blur(Signal sig, int radius, Number sigma)
 {
-	int diamete = radius * 2 + 1;
-	
-	
-	//int kernel[17];
+	int diameter = radius * 2 + 1;
 	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
 	if (sig.IsSignalled()) return NULL;
+	int nKernels = diameter * diameter;
+	Number *kernel = new Number[nKernels];
+	Number factor = 2 * sigma * sigma;
+	do {
+		int iKernel = 0;
+		for (int y = 0; y < diameter; y++) {
+			for (int x = 0; x < diameter; x++) {
+				Number distX = x - radius, distY = y - radius;
+				Number elemKernel = ::exp(-(distX * distX + distY * distY) / factor);
+				kernel[iKernel++] = elemKernel;
+			}
+		}
+		Number sum = 0;
+		Number *p = kernel;
+		for (int iKernel = 0; iKernel < nKernels; iKernel++, p++) sum += *p;
+		if (sum > 0) {
+			Number *p = kernel;
+			for (int iKernel = 0; iKernel < nKernels; iKernel++, p++) *p /= sum;
+		}
 #if 0
-	std::auto_ptr<Scanner> pScannerSrc(CreateScanner());
-	std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner());
-	if (_format == FORMAT_RGBA) {
 		do {
-			unsigned char gray = GetPixelGray(pScannerSrc->GetPointer());
-			pScannerDst->StorePixel(gray, gray, gray, pScannerSrc->GetAlpha());
+			int iKernel = 0;
+			for (int y = 0; y < diameter; y++) {
+				for (int x = 0; x < diameter; x++) {
+					::printf("%10f", kernel[iKernel]);
+					iKernel++;
+				}
+				::printf("\n");
+			}
+		} while (0);
+#endif
+	} while (0);
+	//pImage->Fill(Color(255, 0, 0, 255));
+	size_t width = GetWidth() - diameter, height = GetHeight() - diameter;
+	std::auto_ptr<Scanner> pScannerSrc(CreateScanner(0, 0, width, height));
+	std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner(radius, radius, width, height));
+	std::auto_ptr<Scanner> pScanner(pImage->CreateScanner(0, 0, diameter, diameter));
+	if (_format == FORMAT_RGBA) {
+		//
+		// image processing around border has not been implemented yet.
+		//
+		do {
+			Number red = 0, green = 0, blue = 0;
+			unsigned char alpha = 255;
+			Number *p = kernel;
+			pScanner->SetPointer(pScannerSrc->GetPointer());
+			pScanner->ResetIndex();
+			do {
+				red += *p * pScanner->GetRed();
+				green += *p * pScanner->GetGreen();
+				blue += *p * pScanner->GetBlue();
+				p++;
+			} while (pScanner->Next());
+			pScannerDst->StorePixel(
+					static_cast<unsigned char>(red),
+					static_cast<unsigned char>(green),
+					static_cast<unsigned char>(blue), alpha);
 		} while (pScannerSrc->Next(*pScannerDst));
 	} else {
 		do {
-			unsigned char gray = GetPixelGray(pScannerSrc->GetPointer());
-			pScannerDst->StorePixel(gray, gray, gray);
+			Number red = 0, green = 0, blue = 0;
+			Number *p = kernel;
+			pScanner->SetPointer(pScannerSrc->GetPointer());
+			pScanner->ResetIndex();
+			do {
+				red += *p * pScanner->GetRed();
+				green += *p * pScanner->GetGreen();
+				blue += *p * pScanner->GetBlue();
+				p++;
+			} while (pScanner->Next());
+			pScannerDst->StorePixel(
+					static_cast<unsigned char>(red),
+					static_cast<unsigned char>(green),
+					static_cast<unsigned char>(blue));
 		} while (pScannerSrc->Next(*pScannerDst));
 	}
-#endif
 	return pImage.release();
 }
 
@@ -1310,13 +1368,6 @@ Image::Scanner::Scanner(Image *pImage,
 	default:
 		break;
 	}
-}
-
-Image::Scanner::Scanner(Scanner *pScanner, size_t nPixels, size_t nLines) :
-	_pImage(Image::Reference(pScanner->_pImage.get())), _iPixel(0), _iLine(0),
-	_pPixel(pScanner->_pPixel), _nPixels(nPixels), _nLines(nLines),
-	_pitchPixel(pScanner->_pitchPixel), _pitchLine(pScanner->_pitchLine)
-{
 }
 
 Image::Scanner::~Scanner()

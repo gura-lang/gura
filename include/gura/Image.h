@@ -83,8 +83,9 @@ public:
 	public:
 		Scanner(Image *pImage, size_t x, size_t y,
 								size_t width, size_t height, ScanDir scanDir);
-		Scanner(Scanner *pScanner, size_t nPixels, size_t nLines);
 		~Scanner();
+		inline void SetPointer(unsigned char *pPixel) { _pPixel = pPixel; }
+		inline void ResetIndex() { _iPixel = 0, _iLine = 0; }
 		inline Image *GetImage() { return _pImage.get(); }
 		inline unsigned char *GetPointer() { return _pPixel; }
 		inline unsigned char GetRed() const { return _pPixel[OffsetRed]; }

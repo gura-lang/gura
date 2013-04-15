@@ -791,7 +791,7 @@ Class_image::Class_image(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_image)
 	Gura_AssignMethod(image, setalpha);
 	Gura_AssignMethod(image, reducecolor);
 	Gura_AssignMethod(image, grayscale);
-	//Gura_AssignMethod(image, blur);
+	Gura_AssignMethod(image, blur);
 	Gura_AssignMethod(image, delpalette);
 	Gura_AssignMethod(image, flip);
 	Gura_AssignMethod(image, rotate);
