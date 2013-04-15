@@ -192,8 +192,9 @@ void Environment::AssignValue(const Symbol *pSymbol, const Value &value, unsigne
 	if ((extra & EXTRA_Public) == 0 && IsSymbolPublic(pSymbol)) {
 		extra |= EXTRA_Public;
 	}
-	GetTopFrame()->AssignValue(pSymbol, value, extra);
-	CacheFrame(pSymbol, GetTopFrame());
+	Frame *pFrame = GetTopFrame();
+	pFrame->AssignValue(pSymbol, value, extra);
+	CacheFrame(pSymbol, pFrame);
 }
 
 void Environment::AssignValueFromBlock(const Symbol *pSymbol, const Value &value, unsigned long extra)

@@ -876,7 +876,6 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 			pValueTypeInfo->SetClass(pClassToConstruct);
 			env.AssignValueType(pValueTypeInfo);
 		}
-		//extra = EXTRA_Public;
 		if (!pFunc->GetPrivateFlag()) extra = EXTRA_Public;
 	}
 	if (valTypeCast != VTYPE_any) {
@@ -889,8 +888,10 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 		}
 	}
 	if (escalateFlag) {
+		//ValueEx *pValue = env.LookupValue(GetSymbol(), ENVREF_Escalate, 0);
 		env.AssignValueFromBlock(GetSymbol(), value, extra);
 	} else {
+		//ValueEx *pValue = env.LookupValue(GetSymbol(), ENVREF_NoEscalate, 0);
 		env.AssignValue(GetSymbol(), value, extra);
 	}
 	return value;
