@@ -11,6 +11,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 CodecFactory *Codec::_pFactory_None = NULL;
 
+// Byte Order Mark of Unicode
 const char *Codec::BOM_UTF8 = "\xef\xbb\xbf";
 const char *Codec::BOM_UTF16BE = "\xfe\xff";
 const char *Codec::BOM_UTF16LE = "\xff\xfe";
