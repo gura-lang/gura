@@ -3,6 +3,27 @@ import(gif)
 import(testutil) {*}
 
 scope {
+	colors = [
+		color.Black
+		color.Maroon
+		color.Green
+		color.Olive
+		color.Navy
+		color.Purple
+		color.Teal
+		color.Gray
+		color.Silver
+		color.Red
+		color.Lime
+		color.Yellow
+		color.Blue
+		color.Fuchsia
+		color.Aqua
+		color.White
+	]
+	println(colors)
+}
+scope {
 	['red', `blue, [128, 128, 0], [255, 255, 255, 64]].each() {|d|
 		c:color = d
 		println(c)

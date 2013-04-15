@@ -64,22 +64,22 @@ int RandomGenerator::operator()(int n)
 //-----------------------------------------------------------------------------
 const Color Color::Zero;
 
-const Color Color::black(	  0,   0,   0, 255);
-const Color Color::maroon(	128,   0,   0, 255);
-const Color Color::green(	  0, 128,   0, 255);
-const Color Color::olive(	128, 128,   0, 255);
-const Color Color::navy(	  0,   0, 128, 255);
-const Color Color::purple(	128,   0, 128, 255);
-const Color Color::teal(	  0, 128, 128, 255);
-const Color Color::gray(	128, 128, 128, 255);
-const Color Color::silver(	192, 192, 192, 255);
-const Color Color::red(		255,   0,   0, 255);
-const Color Color::lime(	  0, 255,   0, 255);
-const Color Color::yellow(	255, 255,   0, 255);
-const Color Color::blue(	  0,   0, 255, 255);
-const Color Color::fuchsia(	255,   0, 255, 255);
-const Color Color::aqua(	  0, 255, 255, 255);
-const Color Color::white(	255, 255, 255, 255);
+const Color Color::Black(	  0,   0,   0, 255);
+const Color Color::Maroon(	128,   0,   0, 255);
+const Color Color::Green(	  0, 128,   0, 255);
+const Color Color::Olive(	128, 128,   0, 255);
+const Color Color::Navy(	  0,   0, 128, 255);
+const Color Color::Purple(	128,   0, 128, 255);
+const Color Color::Teal(	  0, 128, 128, 255);
+const Color Color::Gray(	128, 128, 128, 255);
+const Color Color::Silver(	192, 192, 192, 255);
+const Color Color::Red(		255,   0,   0, 255);
+const Color Color::Lime(	  0, 255,   0, 255);
+const Color Color::Yellow(	255, 255,   0, 255);
+const Color Color::Blue(	  0,   0, 255, 255);
+const Color Color::Fuchsia(	255,   0, 255, 255);
+const Color Color::Aqua(	  0, 255, 255, 255);
+const Color Color::White(	255, 255, 255, 255);
 
 
 }

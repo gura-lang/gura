@@ -1060,7 +1060,27 @@ Object *Class_color::CreateDescendant(Environment &env, Signal sig, Class *pClas
 
 void Class_color::OnModuleEntry(Environment &env, Signal sig)
 {
+	Class *pClass = env.LookupClass(VTYPE_color);
 	Gura_AssignFunction(color);
+	do {
+		Environment &env = *pClass;
+		Gura_AssignValue(Black,		Value(new Object_color(env, Color::Black)));
+		Gura_AssignValue(Maroon,	Value(new Object_color(env, Color::Maroon)));
+		Gura_AssignValue(Green,		Value(new Object_color(env, Color::Green)));
+		Gura_AssignValue(Olive,		Value(new Object_color(env, Color::Olive)));
+		Gura_AssignValue(Navy,		Value(new Object_color(env, Color::Navy)));
+		Gura_AssignValue(Purple,	Value(new Object_color(env, Color::Purple)));
+		Gura_AssignValue(Teal,		Value(new Object_color(env, Color::Teal)));
+		Gura_AssignValue(Gray,		Value(new Object_color(env, Color::Gray)));
+		Gura_AssignValue(Silver,	Value(new Object_color(env, Color::Silver)));
+		Gura_AssignValue(Red,		Value(new Object_color(env, Color::Red)));
+		Gura_AssignValue(Lime,		Value(new Object_color(env, Color::Lime)));
+		Gura_AssignValue(Yellow,	Value(new Object_color(env, Color::Yellow)));
+		Gura_AssignValue(Blue,		Value(new Object_color(env, Color::Blue)));
+		Gura_AssignValue(Fuchsia,	Value(new Object_color(env, Color::Fuchsia)));
+		Gura_AssignValue(Aqua,		Value(new Object_color(env, Color::Aqua)));
+		Gura_AssignValue(White,		Value(new Object_color(env, Color::White)));
+	} while (0);
 }
 
 }
