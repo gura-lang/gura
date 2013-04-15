@@ -45,7 +45,10 @@ void AssignOperators(Environment &env)
 //-----------------------------------------------------------------------------
 // basic operator
 //-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 // +n
+//-----------------------------------------------------------------------------
 bool Func_Pos::IsPos() const { return true; }
 
 Func_Pos::Func_Pos(Environment &env) :
@@ -96,7 +99,9 @@ Expr *Func_Pos::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
 	return pExprChild;
 }
 
+//-----------------------------------------------------------------------------
 // -n
+//-----------------------------------------------------------------------------
 bool Func_Neg::IsNeg() const { return true; }
 
 Func_Neg::Func_Neg(Environment &env) :
@@ -163,7 +168,9 @@ Expr *Func_Neg::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
 	}
 }
 
+//-----------------------------------------------------------------------------
 // ~x
+//-----------------------------------------------------------------------------
 Func_Invert::Func_Invert(Environment &env) :
 			Function(env, Symbol::Add("__invert__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -189,7 +196,9 @@ Value Func_Invert::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // !n
+//-----------------------------------------------------------------------------
 Func_Not::Func_Not(Environment &env) :
 			Function(env, Symbol::Add("__not__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -210,7 +219,9 @@ Value Func_Not::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n + m
+//-----------------------------------------------------------------------------
 bool Func_Plus::IsPlus() const { return true; }
 
 Func_Plus::Func_Plus(Environment &env) :
@@ -416,7 +427,9 @@ Expr *Func_Plus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Ex
 	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Plus), pExprLeft, pExprRight);
 }
 
+//-----------------------------------------------------------------------------
 // n - m
+//-----------------------------------------------------------------------------
 bool Func_Minus::IsMinus() const { return true; }
 
 Func_Minus::Func_Minus(Environment &env) :
@@ -612,7 +625,9 @@ Expr *Func_Minus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Minus), pExprLeft, pExprRight);
 }
 
+//-----------------------------------------------------------------------------
 // n * m
+//-----------------------------------------------------------------------------
 bool Func_Multiply::IsMultiply() const { return true; }
 
 Func_Multiply::Func_Multiply(Environment &env) :
@@ -910,7 +925,9 @@ Expr *Func_Multiply::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft
 	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Multiply), pExprLeft, pExprRight);
 }
 
+//-----------------------------------------------------------------------------
 // n / m
+//-----------------------------------------------------------------------------
 bool Func_Divide::IsDivide() const { return true; }
 
 Func_Divide::Func_Divide(Environment &env) :
@@ -1105,7 +1122,9 @@ Expr *Func_Divide::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Divide), pExprLeft, pExprRight);
 }
 
+//-----------------------------------------------------------------------------
 // mod(n, m):map
+//-----------------------------------------------------------------------------
 bool Func_Modulo::IsModulo() const { return true; }
 
 Func_Modulo::Func_Modulo(Environment &env) :
@@ -1201,7 +1220,9 @@ Value Func_Modulo::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n ** m
+//-----------------------------------------------------------------------------
 bool Func_Power::IsPower() const { return true; }
 
 Func_Power::Func_Power(Environment &env) :
@@ -1313,7 +1334,9 @@ Expr *Func_Power::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Power), pExprLeft, pExprRight);
 }
 
+//-----------------------------------------------------------------------------
 // n == m
+//-----------------------------------------------------------------------------
 Func_Equal::Func_Equal(Environment &env) :
 			Function(env, Symbol::Add("__eq__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -1336,7 +1359,9 @@ Value Func_Equal::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n != m
+//-----------------------------------------------------------------------------
 Func_NotEqual::Func_NotEqual(Environment &env) :
 			Function(env, Symbol::Add("__ne__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -1359,7 +1384,9 @@ Value Func_NotEqual::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n > m
+//-----------------------------------------------------------------------------
 Func_Greater::Func_Greater(Environment &env) :
 			Function(env, Symbol::Add("__gt__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -1382,7 +1409,9 @@ Value Func_Greater::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n < m
+//-----------------------------------------------------------------------------
 Func_Less::Func_Less(Environment &env) :
 			Function(env, Symbol::Add("__lt__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -1405,7 +1434,9 @@ Value Func_Less::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n >= m
+//-----------------------------------------------------------------------------
 Func_GreaterEq::Func_GreaterEq(Environment &env) :
 			Function(env, Symbol::Add("__ge__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -1428,7 +1459,9 @@ Value Func_GreaterEq::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n <= m
+//-----------------------------------------------------------------------------
 Func_LessEq::Func_LessEq(Environment &env) :
 			Function(env, Symbol::Add("__le__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -1451,7 +1484,9 @@ Value Func_LessEq::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n <=> m
+//-----------------------------------------------------------------------------
 Func_Compare::Func_Compare(Environment &env) :
 			Function(env, Symbol::Add("__cmp__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -1472,7 +1507,9 @@ Value Func_Compare::DoEval(Environment &env, Signal sig, Args &args) const
 	return Value(static_cast<Number>(cmp));
 }
 
+//-----------------------------------------------------------------------------
 // n in m
+//-----------------------------------------------------------------------------
 bool Func_ContainCheck::IsContainCheck() const { return true; }
 
 Func_ContainCheck::Func_ContainCheck(Environment &env) :
@@ -1539,7 +1576,9 @@ Value Func_ContainCheck::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n | m
+//-----------------------------------------------------------------------------
 Func_Or::Func_Or(Environment &env) :
 			Function(env, Symbol::Add("__or__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -1573,7 +1612,9 @@ Value Func_Or::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n & m
+//-----------------------------------------------------------------------------
 Func_And::Func_And(Environment &env) :
 			Function(env, Symbol::Add("__and__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -1608,7 +1649,9 @@ Value Func_And::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n ^ m
+//-----------------------------------------------------------------------------
 Func_Xor::Func_Xor(Environment &env) :
 			Function(env, Symbol::Add("__xor__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -1641,7 +1684,9 @@ Value Func_Xor::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n << m
+//-----------------------------------------------------------------------------
 Func_ShiftL::Func_ShiftL(Environment &env) :
 			Function(env, Symbol::Add("__shl__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -1670,7 +1715,9 @@ Value Func_ShiftL::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n >> m
+//-----------------------------------------------------------------------------
 Func_ShiftR::Func_ShiftR(Environment &env) :
 			Function(env, Symbol::Add("__shr__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -1699,9 +1746,11 @@ Value Func_ShiftR::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n || m
 // this function takes quoted values as its arguments to implement
 // a short-circuit evaluation.
+//-----------------------------------------------------------------------------
 Func_OrOr::Func_OrOr(Environment &env) :
 			Function(env, Symbol::Add("__oror__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -1722,9 +1771,11 @@ Value Func_OrOr::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n && m
 // this function takes quoted values as its arguments to implement
 // a short-circuit evaluation.
+//-----------------------------------------------------------------------------
 Func_AndAnd::Func_AndAnd(Environment &env) :
 			Function(env, Symbol::Add("__andand__"), FUNCTYPE_Function, FLAG_None)
 {
@@ -1745,7 +1796,9 @@ Value Func_AndAnd::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n .. m
+//-----------------------------------------------------------------------------
 bool Func_Sequence::IsSequence() const { return true; }
 
 Func_Sequence::Func_Sequence(Environment &env) :
@@ -1776,7 +1829,9 @@ Value Func_Sequence::DoEval(Environment &env, Signal sig, Args &args) const
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 // n ..
+//-----------------------------------------------------------------------------
 Func_SequenceInf::Func_SequenceInf(Environment &env) :
 			Function(env, Symbol::Add("__seqinf__"), FUNCTYPE_Function, FLAG_None)
 {
