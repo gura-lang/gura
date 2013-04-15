@@ -156,6 +156,8 @@ Class_codec::Class_codec(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_codec)
 		Gura_AssignValue(bom_utf8, Value(new Object_binary(env, Codec::BOM_UTF8, false)));
 		Gura_AssignValue(bom_utf16le, Value(new Object_binary(env, Codec::BOM_UTF16LE, false)));
 		Gura_AssignValue(bom_utf16be, Value(new Object_binary(env, Codec::BOM_UTF16BE, false)));
+		Gura_AssignValue(bom_utf32le, Value(new Object_binary(env, Binary(Codec::BOM_UTF32LE, 4), false)));
+		Gura_AssignValue(bom_utf32be, Value(new Object_binary(env, Binary(Codec::BOM_UTF32BE, 4), false)));
 	} while (0);
 }
 

@@ -9,6 +9,8 @@ scope {
 	tester(`codec.bom_utf8)
 	tester(`codec.bom_utf16le)
 	tester(`codec.bom_utf16be)
+	tester(`codec.bom_utf32le)
+	tester(`codec.bom_utf32be)
 }
 scope {
 	'あいうえお'.binary().dump()
@@ -17,6 +19,14 @@ scope {
 		c.decode('\xe3\x81\x82\xe3\x81\x84\xe3\x81\x86\xe3\x81\x88\xe3\x81\x8a').println()
 	}
 	codec('utf-16') {|c|
+		c.encode('あいうえお').dump()
+		c.decode('\x30\x42\x30\x44\x30\x46\x30\x48\x30\x4a').println()
+	}
+	codec('utf-16be') {|c|
+		c.encode('あいうえお').dump()
+		c.decode('\x30\x42\x30\x44\x30\x46\x30\x48\x30\x4a').println()
+	}
+	codec('utf-16le') {|c|
 		c.encode('あいうえお').dump()
 		c.decode('\x42\x30\x44\x30\x46\x30\x48\x30\x4a\x30').println()
 	}

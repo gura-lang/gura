@@ -160,11 +160,29 @@ format: {shift_jis}13s
 unpacked: あい構うえお
 
 format: {utf-16}32s
+30 42 30 44 69 cb 30 46 30 48 30 4a 6f 22 5b 57  0B0Di.0F0H0Jo"[W
+30 6e 8a 66 9a 13 00 00 00 00 00 00 00 00 00 00  0n.f............
+unpacked: あい構うえお漢字の試験
+
+format: {utf-16}13s
+30 42 30 44 69 cb 30 46 30 48 30 4a 6f           0B0Di.0F0H0Jo
+unpacked: あい構うえお
+
+format: {utf-16be}32s
+30 42 30 44 69 cb 30 46 30 48 30 4a 6f 22 5b 57  0B0Di.0F0H0Jo"[W
+30 6e 8a 66 9a 13 00 00 00 00 00 00 00 00 00 00  0n.f............
+unpacked: あい構うえお漢字の試験
+
+format: {utf-16be}13s
+30 42 30 44 69 cb 30 46 30 48 30 4a 6f           0B0Di.0F0H0Jo
+unpacked: あい構うえお
+
+format: {utf-16le}32s
 42 30 44 30 cb 69 46 30 48 30 4a 30 22 6f 57 5b  B0D0.iF0H0J0"oW[
 6e 30 66 8a 13 9a 00 00 00 00 00 00 00 00 00 00  n0f.............
 unpacked: あい構うえお漢字の試験
 
-format: {utf-16}13s
+format: {utf-16le}13s
 42 30 44 30 cb 69 46 30 48 30 4a 30 22           B0D0.iF0H0J0"
 unpacked: あい構うえお
 

@@ -89,68 +89,6 @@ Codec::Result Codec_UTF8::Encoder::FeedChar(char ch, char &chConv)
 }
 
 //-----------------------------------------------------------------------------
-// Codec_UTF16LE
-//-----------------------------------------------------------------------------
-Codec::Result Codec_UTF16LE::Decoder::FeedChar(char ch, char &chConv)
-{
-	unsigned long chCasted =
-				static_cast<unsigned long>(static_cast<unsigned char>(ch));
-	if (_stat == STAT_First) {
-		_code = (chCasted << 0);
-		_stat = STAT_Second;
-	} else if (_stat == STAT_Second) {
-		_code |= (chCasted << 8);
-		if (GetDelcrFlag() && _code == '\r') {
-			_stat = STAT_First;
-		} else if (0xd800 <= _code && _code <= 0xdbff) {
-			// surrogate pair
-			_stat = STAT_LowerFirst;
-		} else {
-			_stat = STAT_First;
-			return FeedUTF32(_code, chConv);
-		}
-	} else if (_stat == STAT_LowerFirst) {
-		_codeLower = (chCasted << 0);
-		_stat = STAT_LowerSecond;
-	} else if (_stat == STAT_LowerSecond) {
-		_codeLower |= (chCasted << 8);
-		if (0xdc00 <= _codeLower && _codeLower <= 0xdfff) {
-			unsigned long codeUTF32 = 0x10000 +
-						((_code - 0xd800) << 10) + (_codeLower - 0xdc00);
-			return FeedUTF32(codeUTF32, chConv);
-		} else {
-			// just ignore illegal codes
-		}
-		_stat = STAT_First;
-	}
-	return RESULT_None;
-}
-
-Codec::Result Codec_UTF16LE::Encoder::FeedUTF32(unsigned long codeUTF32, char &chConv)
-{
-	const unsigned long codeLF = '\n', codeCR = '\r';
-	if (GetAddcrFlag() && codeUTF32 == '\n') {
-		StoreChar(static_cast<char>((codeLF >> 8) & 0xff));
-		StoreChar(static_cast<char>((codeLF >> 0) & 0xff));
-		StoreChar(static_cast<char>((codeCR >> 8) & 0xff));
-		chConv = static_cast<char>((codeCR >> 0) & 0xff);
-	} else if (codeUTF32 < 0x10000) {
-		StoreChar(static_cast<char>((codeUTF32 >> 8) & 0xff));
-		chConv = static_cast<char>((codeUTF32 >> 0) & 0xff);
-	} else {
-		// surrogate pair
-		unsigned long code = (codeUTF32 - 0x10000) & 0xfffff;
-		unsigned long codeUpper = (code >> 12) + 0xd800;
-		unsigned long codeLower = (code & 0x3ff) + 0xdc00;
-		StoreChar(static_cast<char>((codeLower >> 8) & 0xff));
-		StoreChar(static_cast<char>((codeLower >> 0) & 0xff));
-		StoreChar(static_cast<char>((codeUpper >> 8) & 0xff));
-		chConv = static_cast<char>((codeUpper >> 0) & 0xff);
-	}
-	return RESULT_Complete;
-}
-
-//-----------------------------------------------------------------------------
 // Gura module functions: codecs.basic
 //-----------------------------------------------------------------------------
 // Module entry
@@ -158,7 +96,9 @@ Gura_ModuleEntry()
 {
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_USASCII>("us-ascii"));
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_UTF8>("utf-8"));
-	CodecFactory::Register(new CodecFactoryTmpl<Codec_UTF16LE>("utf-16"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_UTF16<8, 0> >("utf-16"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_UTF16<0, 8> >("utf-16le"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_UTF16<8, 0> >("utf-16be"));
 }
 
 Gura_ModuleTerminate()

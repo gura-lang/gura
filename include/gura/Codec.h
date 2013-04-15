@@ -95,6 +95,8 @@ public:
 	static const char *BOM_UTF8;
 	static const char *BOM_UTF16BE;
 	static const char *BOM_UTF16LE;
+	static const char *BOM_UTF32BE;
+	static const char *BOM_UTF32LE;
 public:
 	Gura_DeclareReferenceAccessor(Codec);
 public:
