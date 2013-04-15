@@ -39,6 +39,7 @@ dirInfos = @(DirInfo) {
 }
 dirNames = dirInfos.filter(dirInfos:*platforms:*iscontain(sys.platform))::dirName
 dirNamePre = path.dirname(sys.argv[0])
+dirNamesError = []
 debFiles = []
 rpmFiles = []
 for (dirName in dirNames) {
@@ -54,6 +55,7 @@ for (dirName in dirNames) {
 		printf('[%s]\n', dirName)
 		scope {
 			builder = open('build.gura').parse().eval()
+			builder.errorFlag && dirNamesError.append(dirName)
 			builder.debFiles && debFiles.append(builder.debFiles)
 			builder.rpmFiles && rpmFiles.append(builder.rpmFiles)
 		}
@@ -61,6 +63,9 @@ for (dirName in dirNames) {
 	}
 }
 if (sys.argv.len() < 2 || sys.argv[1] != 'install') {
+	if (!dirNamesError.isempty()) {
+		println('**** error in ', dirNamesError)
+	}
 	if (!debFiles.isempty()) {
 		fileName = 'install-deb.sh'
 		open(fileName, 'w').println('apt-get install -y ', set(debFiles))

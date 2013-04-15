@@ -6,6 +6,7 @@ import(argopt)
 //-----------------------------------------------------------------------------
 BuilderBase = class {
 	public {
+		errorFlag
 		debFiles
 		rpmFiles
 		incDirs
@@ -46,6 +47,7 @@ BuilderBase = class {
 				sys.exit(1)
 			}
 		}
+		this.errorFlag = false
 		this.debFiles = nil
 		this.rpmFiles = nil
 		this.hint = nil
@@ -189,7 +191,10 @@ if (sys.build == `msc) {
 			cflags.append('/Yc' + this.precompile)
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
 				this.progressFlag && println('-- compiling: ', src)
-				!this.execute('cl', cflags*, '/Fo' + obj, '/c', src) && return(false)
+				if (!this.execute('cl', cflags*, '/Fo' + obj, '/c', src)) {
+					this.errorFlag = true
+					return(false)
+				}
 			}
 			true
 		}
@@ -208,7 +213,10 @@ if (sys.build == `msc) {
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
 				this.progressFlag && printf('-- compiling: %*d/%d %s\n',
 									format('%d', cnt).len(), idx + 1, cnt, src)
-				!this.execute('cl', cflags*, '/Fo' + obj, '/c', src) && return(false)
+				if (!this.execute('cl', cflags*, '/Fo' + obj, '/c', src)) {
+					this.errorFlag = true
+					return(false)
+				}
 			}
 			true
 		}
@@ -223,8 +231,11 @@ if (sys.build == `msc) {
 			if (!path.exists(target) || (path.stat(target).mtime < path.stat(objs):*mtime).or()) {
 				fileNameCmd = path.join(this.outDir, 'linker.cmd')
 				open(fileNameCmd, 'w').println(objs)
-				!this.execute('link', ldflags*,
-							'/OUT:' + target, '@' + fileNameCmd, objsEx*, libs*) && return(false)
+				if (!this.execute('link', ldflags*,
+							'/OUT:' + target, '@' + fileNameCmd, objsEx*, libs*)) {
+					this.errorFlag = true
+					return(false)
+				}
 				println('-- generated: ', target)
 			}
 			true
@@ -261,7 +272,10 @@ if (sys.build == `msc) {
 			this.debugFlag && cflags.append('-g')
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
 				this.progressFlag && println('-- compiling: ', src)
-				!this.execute('gcc', cflags*, '-x', 'c++-header', src) && return(false)
+				if (!this.execute('gcc', cflags*, '-x', 'c++-header', src)) {
+					this.errorFlag = true
+					return(false)
+				}
 			}
 			true
 		}
@@ -275,7 +289,10 @@ if (sys.build == `msc) {
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
 				this.progressFlag && printf('-- compiling: %*d/%d %s\n',
 									format('%d', cnt).len(), idx + 1, cnt, src)
-				!this.execute('gcc', cflags*, '-o', obj, '-c', src) && return(false)
+				if (!this.execute('gcc', cflags*, '-o', obj, '-c', src)) {
+					this.errorFlag = true
+					return(false)
+				}
 			}
 			true
 		}
@@ -289,8 +306,11 @@ if (sys.build == `msc) {
 			if (!path.exists(target) || (path.stat(target).mtime < path.stat(objs):*mtime).or()) {
 				fileNameCmd = path.join(this.outDir, 'linker.cmd')
 				open(fileNameCmd, 'w').println(objs)
-				!this.execute('gcc', ldflags*,
-							'-o' + target, '@' + fileNameCmd, libs*) && return(false)
+				if (!this.execute('gcc', ldflags*,
+								'-o' + target, '@' + fileNameCmd, libs*)) {
+					this.errorFlag = true
+					return(false)
+				}
 				println('-- generated: ', target)
 			}
 			true
