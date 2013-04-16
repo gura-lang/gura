@@ -245,6 +245,9 @@ public:
 	static const Value Null;
 	static const Value Undefined;
 	static const Value Zero;
+	static const Value One;
+	static const Value True;
+	static const Value False;
 	static const KeyCompare KeyCompareCase;
 	static const KeyCompare KeyCompareIgnoreCase;
 public:

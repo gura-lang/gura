@@ -220,11 +220,10 @@ Gura_DeclareClassMethod(matrix, identity)
 
 Gura_ImplementClassMethod(matrix, identity)
 {
-	Value valueZero(0.), valueOne(1.);
 	int n = args.GetInt(0);
-	AutoPtr<Matrix> pMat(new Matrix(n, n, valueZero));
+	AutoPtr<Matrix> pMat(new Matrix(n, n, Value::Zero));
 	for (int i = 0; i < n; i++) {
-		pMat->SetElement(i, i, valueOne);
+		pMat->SetElement(i, i, Value::One);
 	}
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
