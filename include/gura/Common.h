@@ -215,6 +215,7 @@ public:
 	inline Complex(const std::complex<Number> &comp) : std::complex<Number>(comp) {}
 	inline Complex(Number real) : std::complex<Number>(real) {}
 	inline Complex(Number real, Number imag) : std::complex<Number>(real, imag) {}
+	inline bool IsZero() const { return real() == 0 && imag() == 0; }
 };
 
 typedef std::vector<Complex> ComplexList;

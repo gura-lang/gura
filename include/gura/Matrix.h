@@ -122,12 +122,16 @@ public:
 	Value Transpose(Environment &env, Signal sig);
 	Value Invert(Environment &env, Signal sig);
 	static Value OperatorNeg(Environment &env, Signal sig, const Matrix *pMat);
-	static Value OperatorPlusMinus(Environment &env, Signal sig, const Function *pFunc,
+	static Value OperatorPlusMinus(Environment &env, Signal sig, OpType opType,
 				const Matrix *pMat1, const Matrix *pMat2);
 	static Value OperatorMultiply(Environment &env, Signal sig,
 				const Matrix *pMat1, const Matrix *pMat2);
+	static Value OperatorMultiply(Environment &env, Signal sig,
+				const Matrix *pMat, const ValueList &valList);
 	static Value OperatorMultiply(Environment &env, Signal sig,
 				const Matrix *pMat, const Value &value);
+	static Value OperatorMultiply(Environment &env, Signal sig,
+				const ValueList &valList, const Matrix *pMat);
 	static Value OperatorMultiply(Environment &env, Signal sig,
 				const Value &value, const Matrix *pMat);
 	static Value OperatorDivide(Environment &env, Signal sig,
@@ -135,7 +139,8 @@ public:
 	static void SetError_MatrixSizeMismatch(Signal sig);
 	static void SetError_IndexOutOfRange(Signal sig);
 private:
-	ValueType CheckValueType() const;
+	static ValueType CheckValueType(const ValueList &valList);
+	static ValueType CheckValueType(const Matrix &mat);
 	static bool GetElemIndex(Environment &env, Signal sig,
 		const Expr *pExprIdx, size_t nElemsSrc, size_t &iElem, size_t &nElems);
 };

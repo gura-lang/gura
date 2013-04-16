@@ -8,11 +8,11 @@ namespace Gura {
 ValueType VTYPE_nil				= static_cast<ValueType>(0);
 ValueType VTYPE_undefined		= static_cast<ValueType>(1);
 // primitive types
-ValueType VTYPE_symbol			= static_cast<ValueType>(0);
-ValueType VTYPE_boolean			= static_cast<ValueType>(0);
-ValueType VTYPE_number			= static_cast<ValueType>(0);
-ValueType VTYPE_complex			= static_cast<ValueType>(0);
-ValueType VTYPE_fraction		= static_cast<ValueType>(0);
+ValueType VTYPE_symbol			= static_cast<ValueType>(2);
+ValueType VTYPE_boolean			= static_cast<ValueType>(3);
+ValueType VTYPE_number			= static_cast<ValueType>(4);
+ValueType VTYPE_complex			= static_cast<ValueType>(5);
+ValueType VTYPE_fraction		= static_cast<ValueType>(6);
 // for declaration
 ValueType VTYPE_quote			= static_cast<ValueType>(0);
 ValueType VTYPE_any				= static_cast<ValueType>(0);
@@ -53,6 +53,7 @@ ValueTypePool *ValueTypePool::_pInst = NULL;
 
 const Value Value::Null;
 const Value Value::Undefined(VTYPE_undefined, VFLAG_Owner);
+const Value Value::Zero(0);
 const Value::KeyCompare Value::KeyCompareCase(false);
 const Value::KeyCompare Value::KeyCompareIgnoreCase(true);
 const ValueList ValueList::Null;
@@ -101,14 +102,14 @@ void ValueTypePool::_Initialize(Environment &env)
 {
 	// primitive types (this order is significant for IsPrimitive())
 	// nil / undefined
-	Gura_RealizeVTYPE(nil);			// must be at first
-	Gura_RealizeVTYPE(undefined);	// must be at second
+	Gura_RealizeVTYPE(nil);			// must be at 1st
+	Gura_RealizeVTYPE(undefined);	// must be at 2nd
 	// primitive types
-	Gura_RealizeVTYPE(symbol);
-	Gura_RealizeVTYPE(boolean);
-	Gura_RealizeVTYPE(number);
-	Gura_RealizeVTYPE(complex);
-	Gura_RealizeVTYPE(fraction);
+	Gura_RealizeVTYPE(symbol);		// must be at 3rd
+	Gura_RealizeVTYPE(boolean);		// must be at 4th
+	Gura_RealizeVTYPE(number);		// must be at 5th
+	Gura_RealizeVTYPE(complex);		// must be at 6th
+	Gura_RealizeVTYPE(fraction);	// must be at 7th
 	// for declaration
 	Gura_RealizeVTYPE(quote);
 	Gura_RealizeVTYPE(any);

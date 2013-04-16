@@ -251,7 +251,7 @@ Value Func_Plus::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetComplex(valueLeft.GetComplex() + valueRight.GetNumber());
 		return result;
 	} else if (valueLeft.IsMatrix() && valueRight.IsMatrix()) {
-		return Matrix::OperatorPlusMinus(env, sig, env.GetOpFunc(OPTYPE_Plus),
+		return Matrix::OperatorPlusMinus(env, sig, OPTYPE_Plus,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 	} else if (valueLeft.IsDateTime() && valueRight.IsTimeDelta()) {
 		DateTime dateTime = valueLeft.GetDateTime();
@@ -459,7 +459,7 @@ Value Func_Minus::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetComplex(valueLeft.GetComplex() - valueRight.GetNumber());
 		return result;
 	} else if (valueLeft.IsMatrix() && valueRight.IsMatrix()) {
-		return Matrix::OperatorPlusMinus(env, sig, env.GetOpFunc(OPTYPE_Minus),
+		return Matrix::OperatorPlusMinus(env, sig, OPTYPE_Minus,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 	} else if (valueLeft.IsDateTime() && valueRight.IsTimeDelta()) {
 		DateTime dateTime = valueLeft.GetDateTime();
@@ -717,11 +717,21 @@ Value Func_Multiply::DoEval(Environment &env, Signal sig, Args &args) const
 		return Matrix::OperatorMultiply(env, sig,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 	} else if (valueRight.IsMatrix()) {
-		return Matrix::OperatorMultiply(env, sig,
-						valueLeft, Object_matrix::GetObject(valueRight)->GetMatrix());
+		if (valueLeft.IsList()) {
+			return Matrix::OperatorMultiply(env, sig,
+					valueLeft.GetList(), Object_matrix::GetObject(valueRight)->GetMatrix());
+		} else {
+			return Matrix::OperatorMultiply(env, sig,
+					valueLeft, Object_matrix::GetObject(valueRight)->GetMatrix());
+		}
 	} else if (valueLeft.IsMatrix()) {
-		return Matrix::OperatorMultiply(env, sig,
-						Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
+		if (valueRight.IsList()) {
+			return Matrix::OperatorMultiply(env, sig,
+					Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight.GetList());
+		} else {
+			return Matrix::OperatorMultiply(env, sig,
+					Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
+		}
 	} else if (valueLeft.IsTimeDelta() && valueRight.IsNumber()) {
 		const TimeDelta &td = valueLeft.GetTimeDelta();
 		long num = valueRight.GetLong();

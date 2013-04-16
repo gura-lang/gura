@@ -168,9 +168,8 @@ Gura_DeclareFunction(matrix)
 
 Gura_ImplementFunction(matrix)
 {
-	Value valueZero(0.);
 	AutoPtr<Matrix> pMat(new Matrix(args.GetInt(0), args.GetInt(1),
-							args.IsValid(2)? args.GetValue(2) : valueZero));
+							args.IsValid(2)? args.GetValue(2) : Value::Zero));
 	return Value(new Object_matrix(env, pMat.release()));
 }
 
