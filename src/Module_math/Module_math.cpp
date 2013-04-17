@@ -1082,8 +1082,8 @@ Gura_ImplementFunction(lcm)
 Gura_ModuleEntry()
 {
 	// value assignment
-	Gura_AssignValue(e,	Value(2.71828182845904523536));
-	Gura_AssignValue(pi,	Value(3.14159265358979323846));
+	Gura_AssignValue(e,		Value(Math_E));
+	Gura_AssignValue(pi,	Value(Math_PI));
 	// function assignment
 	Gura_AssignFunction(real);
 	Gura_AssignFunction(imag);

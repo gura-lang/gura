@@ -273,6 +273,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(x);
 	Gura_RealizeSymbol(y);
 	Gura_RealizeSymbol(z);
+	Gura_RealizeSymbol(deg);
 	Gura_RealizeSymbol(box);
 	Gura_RealizeSymbol(imgtype);
 	Gura_RealizeSymbol(format);

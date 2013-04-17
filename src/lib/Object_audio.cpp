@@ -53,7 +53,7 @@ void Object_audio::FreeBuffer()
 bool Object_audio::SetSineWave(Signal sig, size_t iChannel,
 			size_t pitch, int phase, int amplitude, size_t offset, size_t len)
 {
-	const double PI2 = 3.14159265358979323846 * 2;
+	const double PI2 = Math_PI * 2;
 	int amplitudeMax =
 		(_format == FORMAT_U8 || _format == FORMAT_S8)? 0x7f :
 		(_format == FORMAT_U16LE || _format == FORMAT_S16LE ||

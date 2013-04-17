@@ -9,6 +9,8 @@ namespace Gura {
 const int MAX_STACK_LEVEL = 20000;
 const size_t InvalidSize = static_cast<size_t>(-1);
 
+const Number Math_PI = 3.14159265358979323846;
+const Number Math_E = 2.71828182845904523536;
 const Number RoundOffThreshold = 1e-10;
 
 const Complex Complex::Zero;

@@ -44,6 +44,79 @@ Matrix::Matrix(Elements *pElements,
 {
 }
 
+Matrix *Matrix::CreateIdentity(int n)
+{
+	AutoPtr<Matrix> pMat(new Matrix(n, n, Value::Zero));
+	for (int i = 0; i < n; i++) {
+		pMat->SetElement(i, i, Value::One);
+	}
+	return pMat.release();
+}
+
+Matrix *Matrix::CreateRotation(double rad)
+{
+	Number numCos = ::cos(rad), numSin = ::sin(rad);
+	AutoPtr<Matrix> pMat(new Matrix(2, 2));
+	ValueList &valList = pMat->GetList();
+	valList.push_back(Value(numCos));
+	valList.push_back(Value(-numSin));
+	valList.push_back(Value(numSin));
+	valList.push_back(Value(numCos));
+	return pMat.release();
+}
+
+Matrix *Matrix::CreateRotationX(double rad)
+{
+	Number numCos = ::cos(rad), numSin = ::sin(rad);
+	AutoPtr<Matrix> pMat(new Matrix(3, 3));
+	ValueList &valList = pMat->GetList();
+	valList.push_back(Value::One);
+	valList.push_back(Value::Zero);
+	valList.push_back(Value::Zero);
+	valList.push_back(Value::Zero);
+	valList.push_back(Value(numCos));
+	valList.push_back(Value(-numSin));
+	valList.push_back(Value::Zero);
+	valList.push_back(Value(numSin));
+	valList.push_back(Value(numCos));
+	return pMat.release();
+}
+
+Matrix *Matrix::CreateRotationY(double rad)
+{
+	Number numCos = ::cos(rad), numSin = ::sin(rad);
+	AutoPtr<Matrix> pMat(new Matrix(3, 3));
+	ValueList &valList = pMat->GetList();
+	valList.push_back(Value(numCos));
+	valList.push_back(Value::Zero);
+	valList.push_back(Value(numSin));
+	valList.push_back(Value::Zero);
+	valList.push_back(Value::One);
+	valList.push_back(Value::Zero);
+	valList.push_back(Value(-numSin));
+	valList.push_back(Value::Zero);
+	valList.push_back(Value(numCos));
+	
+	return pMat.release();
+}
+
+Matrix *Matrix::CreateRotationZ(double rad)
+{
+	Number numCos = ::cos(rad), numSin = ::sin(rad);
+	AutoPtr<Matrix> pMat(new Matrix(3, 3));
+	ValueList &valList = pMat->GetList();
+	valList.push_back(Value(numCos));
+	valList.push_back(Value(-numSin));
+	valList.push_back(Value::Zero);
+	valList.push_back(Value(numSin));
+	valList.push_back(Value(numCos));
+	valList.push_back(Value::Zero);
+	valList.push_back(Value::Zero);
+	valList.push_back(Value::Zero);
+	valList.push_back(Value::One);
+	return pMat.release();
+}
+
 void Matrix::ToList(Environment &env, ValueList &valList, bool transposeFlag, bool flattenFlag)
 {
 	if (_nRows == 1) {

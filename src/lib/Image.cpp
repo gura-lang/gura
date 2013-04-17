@@ -482,7 +482,7 @@ Image *Image::Rotate(Signal sig, double angle, const Color &color)
 	} else if ((angleInt + 90) % 360 == 0) {
 		return Rotate90(sig, false);
 	}
-	double rad = angle * 3.14159265358979323846 / 180;
+	double rad = DegToRad(angle);
 	int cos1024 = static_cast<int>(::cos(rad) * 1024);
 	int sin1024 = -static_cast<int>(::sin(rad) * 1024);
 	int width, height;

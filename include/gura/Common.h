@@ -80,11 +80,14 @@ inline static void Delete(T *p) { \
 	if (p->_cntRef <= 0) delete p; \
 }
 
+
 //-----------------------------------------------------------------------------
 // Simple type declarations
 //-----------------------------------------------------------------------------
 typedef double Number;
 
+GURA_DLLDECLARE extern const Number Math_PI;
+GURA_DLLDECLARE extern const Number Math_E;
 GURA_DLLDECLARE extern const Number RoundOffThreshold;
 
 typedef std::vector<char> CharList;

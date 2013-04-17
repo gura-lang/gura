@@ -260,6 +260,7 @@ public:
 	Gura_DeclareSymbol(x);
 	Gura_DeclareSymbol(y);
 	Gura_DeclareSymbol(z);
+	Gura_DeclareSymbol(deg);
 	Gura_DeclareSymbol(box);
 	Gura_DeclareSymbol(imgtype);
 	Gura_DeclareSymbol(format);
