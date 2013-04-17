@@ -1,12 +1,12 @@
-math.sin(num):map -> math.cos(num)
-math.cos(num):map -> -math.sin(num)
-math.tan(num):map -> 1 / math.cos(num) ** 2
+math.sin(num):map:[deg] -> math.cos(num)
+math.cos(num):map:[deg] -> -math.sin(num)
+math.tan(num):map:[deg] -> 1 / math.cos(num) ** 2
 math.exp(num):map -> math.exp(num)
 math.log(num):map -> 1 / num
 math.log10(num):map -> 1 / (num * math.log(10))
-math.asin(num):map -> 1 / math.sqrt(1 - num ** 2)
-math.acos(num):map -> (-1) / math.sqrt(1 - num ** 2)
-math.atan(num):map -> 1 / (1 + num ** 2)
+math.asin(num):map:[deg] -> 1 / math.sqrt(1 - num ** 2)
+math.acos(num):map:[deg] -> (-1) / math.sqrt(1 - num ** 2)
+math.atan(num):map:[deg] -> 1 / (1 + num ** 2)
 math.sqrt(num):map -> 1 / (2 * math.sqrt(num))
 { x ** 2 } -> 2 * x
 { x ** 3 } -> 3 * x ** 2
