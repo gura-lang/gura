@@ -2,6 +2,31 @@
 
 namespace Gura {
 
+int CalcGCD(int a, int b)
+{
+	if (a < 0) a = -a;
+	if (b < 0) b = -b;
+	if (a == b) return a;
+	int left = a, right = b;
+	if (a < b) {
+		left = b, right = a;
+	}
+	int gcd = right;
+	for (;;) {
+		int div = left / right;
+		int rest = left - div * right;
+		if (rest == 0) break;
+		gcd = rest;
+		left = right, right = rest;
+	}
+	return gcd;
+}
+
+int CalcLCM(int a, int b)
+{
+	return a * b / CalcGCD(a, b);
+}
+
 //-----------------------------------------------------------------------------
 // CRC32
 //-----------------------------------------------------------------------------

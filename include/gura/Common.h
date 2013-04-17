@@ -229,16 +229,17 @@ typedef std::deque<Complex> ComplexDeque;
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Fraction {
 public:
-	Number numerator;
-	Number denominator;
+	int numerator;
+	int denominator;
 public:
 	static const Fraction Zero;
 public:
 	inline Fraction() : numerator(0), denominator(1) {}
-	inline Fraction(Number numerator_, Number denominator_) :
+	inline Fraction(int numerator_, int denominator_) :
 			numerator(numerator_), denominator(denominator_) {}
 	inline Fraction(const Fraction &frac) :
 			numerator(frac.numerator), denominator(frac.denominator) {}
+	Fraction Reduce() const;
 };
 
 typedef std::vector<Fraction> FractionList;

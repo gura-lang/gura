@@ -44,6 +44,16 @@ const char *GetOpening()
 }
 
 //-----------------------------------------------------------------------------
+// Fraction
+//-----------------------------------------------------------------------------
+Fraction Fraction::Reduce() const
+{
+	int gcd = CalcGCD(numerator, denominator);
+	if (gcd == 0) return *this;
+	return Fraction(numerator / gcd, denominator / gcd);
+}
+
+//-----------------------------------------------------------------------------
 // RandomGenerator
 //-----------------------------------------------------------------------------
 void RandomGenerator::Initialize(unsigned long seed)

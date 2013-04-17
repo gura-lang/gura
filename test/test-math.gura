@@ -2,6 +2,9 @@
 import(testutil) {*}
 
 scope {
+	tester(`fraction(260, 364).reduce())
+}
+scope {
 	tester(`math.hypot(3, 4))
 }
 scope {

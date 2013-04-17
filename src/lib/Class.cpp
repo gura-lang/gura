@@ -637,13 +637,26 @@ Gura_DeclareMethodPrimitive(fraction, denominator)
 Gura_ImplementMethod(fraction, denominator)
 {
 	const Fraction &num = args.GetThis().GetFraction();
-	return Value(num.numerator);
+	return Value(num.denominator);
+}
+
+// fraction#reduce()
+Gura_DeclareMethodPrimitive(fraction, reduce)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(fraction, reduce)
+{
+	const Fraction &num = args.GetThis().GetFraction();
+	return Value(num.Reduce());
 }
 
 Class_fraction::Class_fraction(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_fraction)
 {
 	Gura_AssignMethod(fraction, numerator);		// primitive method
 	Gura_AssignMethod(fraction, denominator);	// primitive method
+	Gura_AssignMethod(fraction, reduce);		// primitive method
 }
 
 bool Class_fraction::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
@@ -671,7 +684,7 @@ bool Class_fraction::Deserialize(Environment &env, Signal sig, Stream &stream, V
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 		return false;
 	}
-	value = Value(Fraction(numerator, denominator));
+	value = Value(Fraction(static_cast<int>(numerator), static_cast<int>(denominator)));
 	return true;
 }
 

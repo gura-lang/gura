@@ -10,6 +10,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 inline double RadToDeg(double n) { return 180 * n / Math_PI; }
 inline double DegToRad(double n) { return Math_PI * n / 180; }
+int CalcGCD(int a, int b);
+int CalcLCM(int a, int b);
 
 //-----------------------------------------------------------------------------
 // CRC32

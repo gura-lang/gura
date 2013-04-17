@@ -6,9 +6,6 @@
 
 Gura_BeginModule(math)
 
-static int CalcGCD(int a, int b);
-static int CalcLCM(int a, int b);
-
 //-----------------------------------------------------------------------------
 // Gura module functions
 //-----------------------------------------------------------------------------
@@ -1123,34 +1120,6 @@ Gura_ModuleEntry()
 
 Gura_ModuleTerminate()
 {
-}
-
-//-----------------------------------------------------------------------------
-// Internal functions
-//-----------------------------------------------------------------------------
-static int CalcGCD(int a, int b)
-{
-	if (a < 0) a = -a;
-	if (b < 0) b = -b;
-	if (a == b) return a;
-	int left = a, right = b;
-	if (a < b) {
-		left = b, right = a;
-	}
-	int gcd = right;
-	for (;;) {
-		int div = left / right;
-		int rest = left - div * right;
-		if (rest == 0) break;
-		gcd = rest;
-		left = right, right = rest;
-	}
-	return gcd;
-}
-
-static int CalcLCM(int a, int b)
-{
-	return a * b / CalcGCD(a, b);
 }
 
 Gura_EndModule(math, math)

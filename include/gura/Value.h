@@ -486,7 +486,7 @@ public:
 	}
 	// VTYPE_fraction
 	inline Fraction GetFraction() const {
-		return IsFraction()? *_u.pFrac : IsNumber()? Fraction(GetNumber(), 1) : Fraction::Zero;
+		return IsFraction()? *_u.pFrac : Fraction::Zero;
 	}
 	inline const Fraction *GetFractionPtr() const {
 		return _u.pFrac;

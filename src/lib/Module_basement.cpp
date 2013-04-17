@@ -895,8 +895,8 @@ Gura_DeclareFunction(fraction)
 
 Gura_ImplementFunction(fraction)
 {
-	Number numerator = args.GetNumber(0);
-	Number denominator = args.IsNumber(1)? args.GetNumber(1) : 1;
+	int numerator = args.GetInt(0);
+	int denominator = args.IsNumber(1)? args.GetInt(1) : 1;
 	if (denominator == 0) {
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 		return Value::Null;
