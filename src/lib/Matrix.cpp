@@ -770,21 +770,7 @@ ValueType Matrix::CheckValueType(const ValueList &valList)
 
 ValueType Matrix::CheckValueType(const Matrix &mat)
 {
-	ValueType valType = VTYPE_nil;
-	size_t nCols = mat.GetCols(), nRows = mat.GetRows();
-	for (size_t iRow = 0; iRow < nRows; iRow++) {
-		ValueList::const_iterator pValueElem = mat.GetPointer(iRow, 0);
-		for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-			if (pValueElem->IsNumber()) {
-				if (valType == VTYPE_nil) valType = VTYPE_number;
-			} else if (pValueElem->IsComplex()) {
-				valType = VTYPE_complex;
-			} else {
-				return VTYPE_nil;
-			}
-		}
-	}
-	return valType;
+	return CheckValueType(mat.GetElements()->GetList());
 }
 
 void Matrix::SetError_MatrixSizeMismatch(Signal sig)
