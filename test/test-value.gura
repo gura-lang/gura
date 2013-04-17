@@ -144,7 +144,7 @@ scope {
 	printf('%-14s isdefined:%-6s %s\n', 'hoge', isdefined(hoge), typename(hoge))
 	printf('%-14s isdefined:%-6s %s\n', 'function', isdefined(function), typename(function))
 	printf('%-14s isdefined:%-6s %s\n', 'math.sin', isdefined(math.sin), typename(math.sin))
-	for (x in [0, 3.14, 1 + 2j, frac(1, 3), true, sys, 'foo', [], %{}, &{}, `sym, ]) {
+	for (x in [0, 3.14, 1 + 2j, fraction(1, 3), true, sys, 'foo', [], %{}, &{}, `sym, ]) {
 		printf('%-6s %-8s defined:%s symbol:%s boolean:%s' \
 			' number:%s complex:%s fraction:%s string:%s module:%s class:%s %s\n',
 					tostring(x), typename(x),

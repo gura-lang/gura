@@ -395,7 +395,66 @@ bool Class_boolean::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 //-----------------------------------------------------------------------------
 // Class_number
 //-----------------------------------------------------------------------------
-// object#roundoff(threshold:number => 1e-10)
+// number#real()
+Gura_DeclareMethodPrimitive(number, real)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(number, real)
+{
+	Number num = args.GetThis().GetNumber();
+	return Value(num);
+}
+
+// number#imag()
+Gura_DeclareMethodPrimitive(number, imag)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(number, imag)
+{
+	return Value::Zero;
+}
+
+// number#norm()
+Gura_DeclareMethodPrimitive(number, norm)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(number, norm)
+{
+	Number num = args.GetThis().GetNumber();
+	return Value(num * num);
+}
+
+// number#abs()
+Gura_DeclareMethodPrimitive(number, abs)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(number, abs)
+{
+	Number num = args.GetThis().GetNumber();
+	return Value(::fabs(num));
+}
+
+// number#arg():[deg]
+Gura_DeclareMethodPrimitive(number, arg)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(deg));
+}
+
+Gura_ImplementMethod(number, arg)
+{
+	return Value::Zero;
+}
+
+// number#roundoff(threshold:number => 1e-10)
 Gura_DeclareMethodPrimitive(number, roundoff)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -412,6 +471,11 @@ Gura_ImplementMethod(number, roundoff)
 
 Class_number::Class_number(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_number)
 {
+	Gura_AssignMethod(number, real);		// primitive method
+	Gura_AssignMethod(number, imag);		// primitive method
+	Gura_AssignMethod(number, norm);		// primitive method
+	Gura_AssignMethod(number, abs);			// primitive method
+	Gura_AssignMethod(number, arg);			// primitive method
 	Gura_AssignMethod(number, roundoff);	// primitive method
 }
 
@@ -444,8 +508,76 @@ bool Class_number::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 //-----------------------------------------------------------------------------
 // Class_complex
 //-----------------------------------------------------------------------------
+// complex#real()
+Gura_DeclareMethodPrimitive(complex, real)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(complex, real)
+{
+	Complex num = args.GetThis().GetComplex();
+	return Value(num.real());
+}
+
+// complex#imag()
+Gura_DeclareMethodPrimitive(complex, imag)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(complex, imag)
+{
+	Complex num = args.GetThis().GetComplex();
+	return Value(num.imag());
+}
+
+// complex#norm()
+Gura_DeclareMethodPrimitive(complex, norm)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(complex, norm)
+{
+	Complex num = args.GetThis().GetComplex();
+	return Value(std::norm(num));
+}
+
+// complex#abs()
+Gura_DeclareMethodPrimitive(complex, abs)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(complex, abs)
+{
+	Complex num = args.GetThis().GetComplex();
+	return Value(std::abs(num));
+}
+
+// complex#arg():[deg]
+Gura_DeclareMethodPrimitive(complex, arg)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(deg));
+}
+
+Gura_ImplementMethod(complex, arg)
+{
+	Complex num = args.GetThis().GetComplex();
+	double angle = std::arg(num);
+	if (args.IsSet(Gura_Symbol(deg))) angle = RadToDeg(angle);
+	return Value(angle);
+}
+
 Class_complex::Class_complex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_complex)
 {
+	Gura_AssignMethod(complex, real);	// primitive method
+	Gura_AssignMethod(complex, imag);	// primitive method
+	Gura_AssignMethod(complex, norm);	// primitive method
+	Gura_AssignMethod(complex, abs);	// primitive method
+	Gura_AssignMethod(complex, arg);	// primitive method
 }
 
 bool Class_complex::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
@@ -482,10 +614,36 @@ bool Class_complex::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 }
 
 //-----------------------------------------------------------------------------
-// Class_
+// Class_fraction
 //-----------------------------------------------------------------------------
+// fraction#numerator()
+Gura_DeclareMethodPrimitive(fraction, numerator)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(fraction, numerator)
+{
+	const Fraction &num = args.GetThis().GetFraction();
+	return Value(num.numerator);
+}
+
+// fraction#denominator()
+Gura_DeclareMethodPrimitive(fraction, denominator)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(fraction, denominator)
+{
+	const Fraction &num = args.GetThis().GetFraction();
+	return Value(num.numerator);
+}
+
 Class_fraction::Class_fraction(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_fraction)
 {
+	Gura_AssignMethod(fraction, numerator);		// primitive method
+	Gura_AssignMethod(fraction, denominator);	// primitive method
 }
 
 bool Class_fraction::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

@@ -663,7 +663,7 @@ String Value::ToString(Signal sig, bool exprFlag) const
 		const Fraction &frac = *_u.pFrac;
 		String str;
 		if (exprFlag) {
-			str += "frac(";
+			str += "fraction(";
 			str += NumberToString(frac.numerator);
 			str += ", ";
 			str += NumberToString(frac.denominator);
