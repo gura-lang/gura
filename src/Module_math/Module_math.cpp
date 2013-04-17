@@ -53,26 +53,29 @@ Gura_ImplementFunction(imag)
 	return result;
 }
 
-// math.arg(num):map
+// math.arg(num):map:[deg]
 Gura_DeclareFunction(arg)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
+	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(Gura_Symbol(en), "Returns an argument value of a complex number in radian.");
 }
 
 Gura_ImplementFunction(arg)
 {
 	const Value &value = args.GetValue(0);
-	Value result;
+	double result = 0;
 	if (value.IsNumber()) {
-		result.SetNumber(0.);
+		// nothing to do
 	} else if (value.IsComplex()) {
-		result.SetNumber(std::arg(value.GetComplex()));
+		result = std::arg(value.GetComplex());
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
+		return Value::Null;
 	}
-	return result;
+	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
+	return Value(result);
 }
 
 // math.norm(num):map
@@ -119,24 +122,27 @@ Gura_ImplementFunction(conj)
 	return result;
 }
 
-// math.acos(num):map
+// math.acos(num):map:[deg]
 Gura_DeclareFunctionWithDiffUnary(acos)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
+	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(Gura_Symbol(en), "Returns an inverse cosine value.");
 }
 
 Gura_ImplementFunction(acos)
 {
 	const Value &value = args.GetValue(0);
-	Value result;
+	double result = 0;
 	if (value.IsNumber()) {
-		result.SetNumber(::acos(value.GetNumber()));
+		result = ::acos(value.GetNumber());
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
+		return Value::Null;
 	}
-	return result;
+	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
+	return Value(result);
 }
 
 Gura_ImplementDiffUnary(acos)
@@ -149,24 +155,27 @@ Gura_ImplementDiffUnary(acos)
 							Expr::Reference(pExprArg), new Expr_Value(2)))));
 }
 
-// math.asin(num):map
+// math.asin(num):map:[deg]
 Gura_DeclareFunctionWithDiffUnary(asin)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
+	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(Gura_Symbol(en), "Returns an inverse sine value.");
 }
 
 Gura_ImplementFunction(asin)
 {
 	const Value &value = args.GetValue(0);
-	Value result;
+	double result = 0;
 	if (value.IsNumber()) {
-		result.SetNumber(::asin(value.GetNumber()));
+		result = ::asin(value.GetNumber());
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
+		return Value::Null;
 	}
-	return result;
+	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
+	return Value(result);
 }
 
 Gura_ImplementDiffUnary(asin)
@@ -179,24 +188,27 @@ Gura_ImplementDiffUnary(asin)
 							Expr::Reference(pExprArg), new Expr_Value(2)))));
 }
 
-// math.atan(num):map
+// math.atan(num):map:[deg]
 Gura_DeclareFunctionWithDiffUnary(atan)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
+	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(Gura_Symbol(en), "Returns an inverse tangent value.");
 }
 
 Gura_ImplementFunction(atan)
 {
 	const Value &value = args.GetValue(0);
-	Value result;
+	double result = 0;
 	if (value.IsNumber()) {
-		result.SetNumber(::atan(value.GetNumber()));
+		result = ::atan(value.GetNumber());
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
+		return Value::Null;
 	}
-	return result;
+	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
+	return Value(result);
 }
 
 Gura_ImplementDiffUnary(atan)
@@ -209,12 +221,13 @@ Gura_ImplementDiffUnary(atan)
 							Expr::Reference(pExprArg), new Expr_Value(2))));
 }
 
-// math.atan2(num1, num2):map
+// math.atan2(num1, num2):map:[deg]
 Gura_DeclareFunction(atan2)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num1", VTYPE_any);
 	DeclareArg(env, "num2", VTYPE_any);
+	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(Gura_Symbol(en), "Returns an inverse tangent value of a fraction of num1 and num2.");
 }
 
@@ -222,13 +235,15 @@ Gura_ImplementFunction(atan2)
 {
 	const Value &value1 = args.GetValue(0);
 	const Value &value2 = args.GetValue(1);
-	Value result;
+	double result = 0;
 	if (value1.IsNumber() && value2.IsNumber()) {
-		result.SetNumber(::atan2(value1.GetNumber(), value2.GetNumber()));
+		result = ::atan2(value1.GetNumber(), value2.GetNumber());
 	} else if (value1.IsValid() && value2.IsValid()) {
 		SetError_InvalidValType(sig, value1, value2);
+		return Value::Null;
 	}
-	return result;
+	if (args.IsSet(Gura_Symbol(deg))) result = RadToDeg(result);
+	return Value(result);
 }
 
 // math.ceil(num):map
@@ -252,11 +267,12 @@ Gura_ImplementFunction(ceil)
 	return result;
 }
 
-// math.cos(num):map
+// math.cos(num):map:[deg]
 Gura_DeclareFunctionWithDiffUnary(cos)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
+	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(Gura_Symbol(en), "Returns a cosine value.");
 }
 
@@ -265,7 +281,9 @@ Gura_ImplementFunction(cos)
 	const Value &value = args.GetValue(0);
 	Value result;
 	if (value.IsNumber()) {
-		result.SetNumber(::cos(value.GetNumber()));
+		double num = value.GetNumber();
+		if (args.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
+		result.SetNumber(::cos(num));
 	} else if (value.IsComplex()) {
 		result.SetComplex(std::cos(value.GetComplex()));
 	} else if (value.IsValid()) {
@@ -441,11 +459,12 @@ Gura_ImplementDiffUnary(log10)
 				Expr::Reference(pExprArg), CreateFuncExpr("log", new Expr_Value(10))));
 }
 
-// math.sin(num):map
+// math.sin(num):map:[deg]
 Gura_DeclareFunctionWithDiffUnary(sin)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
+	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(Gura_Symbol(en), "Returns a sine value.");
 }
 
@@ -454,7 +473,9 @@ Gura_ImplementFunction(sin)
 	const Value &value = args.GetValue(0);
 	Value result;
 	if (value.IsNumber()) {
-		result.SetNumber(::sin(value.GetNumber()));
+		double num = value.GetNumber();
+		if (args.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
+		result.SetNumber(::sin(num));
 	} else if (value.IsComplex()) {
 		result.SetComplex(std::sin(value.GetComplex()));
 	} else if (value.IsValid()) {
@@ -526,11 +547,12 @@ Gura_ImplementDiffUnary(sqrt)
 					CreateFuncExpr("sqrt", Expr::Reference(pExprArg))));
 }
 
-// math.tan(num):map
+// math.tan(num):map:[deg]
 Gura_DeclareFunctionWithDiffUnary(tan)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
+	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(Gura_Symbol(en), "Returns a tangent value.");
 }
 
@@ -539,7 +561,9 @@ Gura_ImplementFunction(tan)
 	const Value &value = args.GetValue(0);
 	Value result;
 	if (value.IsNumber()) {
-		result.SetNumber(::tan(value.GetNumber()));
+		double num = value.GetNumber();
+		if (args.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
+		result.SetNumber(::tan(num));
 	} else if (value.IsComplex()) {
 		result.SetComplex(std::tan(value.GetComplex()));
 	} else if (value.IsValid()) {
