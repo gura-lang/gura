@@ -84,10 +84,14 @@ public:
 			size_t iRowOff, size_t iColOff, size_t nRows, size_t nCols,
 			size_t nFold, bool indexForColFlag);
 	static Matrix *CreateIdentity(int n);
-	static Matrix *CreateRotation(Number rad);
-	static Matrix *CreateRotationX(Number rad);
-	static Matrix *CreateRotationY(Number rad);
-	static Matrix *CreateRotationZ(Number rad);
+	static Matrix *CreateRotation(double rad,
+				bool transFlag, double xTrans, double yTrans);
+	static Matrix *CreateRotationX(double rad,
+				bool transFlag, double xTrans, double yTrans, double zTrans);
+	static Matrix *CreateRotationY(double rad,
+				bool transFlag, double xTrans, double yTrans, double zTrans);
+	static Matrix *CreateRotationZ(double rad,
+				bool transFlag, double xTrans, double yTrans, double zTrans);
 	void ToList(Environment &env, ValueList &valList, bool transposeFlag, bool flattenFlag);
 	inline void SetRowOff(size_t iRowOff) { _iRowOff = iRowOff; }
 	inline void SetColOff(size_t iColOff) { _iColOff = iColOff; }

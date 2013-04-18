@@ -224,11 +224,13 @@ Gura_ImplementClassMethod(matrix, identity)
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
 
-// matrix.rotation(angle:number):static:map:[deg] {block?}
+// matrix.rotation(angle:number, tx?:number, ty?:number):static:map:[deg] {block?}
 Gura_DeclareClassMethod(matrix, rotation)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
+	DeclareArg(env, "tx", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "ty", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -237,16 +239,30 @@ Gura_DeclareClassMethod(matrix, rotation)
 Gura_ImplementClassMethod(matrix, rotation)
 {
 	double angle = args.GetDouble(0);
+	bool transFlag = false;
+	double xTrans = 0;
+	double yTrans = 0;
+	if (args.IsNumber(1)) {
+		transFlag = true;
+		xTrans = args.GetDouble(1);
+	}
+	if (args.IsNumber(2)) {
+		transFlag = true;
+		yTrans = args.GetDouble(2);
+	}
 	if (args.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
-	AutoPtr<Matrix> pMat(Matrix::CreateRotation(angle));
+	AutoPtr<Matrix> pMat(Matrix::CreateRotation(angle, transFlag, xTrans, yTrans));
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
 
-// matrix.rotation_x(angle:number):static:map:[deg] {block?}
+// matrix.rotation_x(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
 Gura_DeclareClassMethod(matrix, rotation_x)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
+	DeclareArg(env, "tx", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "ty", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "tz", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -254,16 +270,35 @@ Gura_DeclareClassMethod(matrix, rotation_x)
 Gura_ImplementClassMethod(matrix, rotation_x)
 {
 	double angle = args.GetDouble(0);
+	bool transFlag = false;
+	double xTrans = 0;
+	double yTrans = 0;
+	double zTrans = 0;
+	if (args.IsNumber(1)) {
+		transFlag = true;
+		xTrans = args.GetDouble(1);
+	}
+	if (args.IsNumber(2)) {
+		transFlag = true;
+		yTrans = args.GetDouble(2);
+	}
+	if (args.IsNumber(3)) {
+		transFlag = true;
+		zTrans = args.GetDouble(3);
+	}
 	if (args.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
-	AutoPtr<Matrix> pMat(Matrix::CreateRotationX(angle));
+	AutoPtr<Matrix> pMat(Matrix::CreateRotationX(angle, transFlag, xTrans, yTrans, zTrans));
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
 
-// matrix.rotation_y(angle:number):static:map:[deg] {block?}
+// matrix.rotation_y(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
 Gura_DeclareClassMethod(matrix, rotation_y)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
+	DeclareArg(env, "tx", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "ty", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "tz", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -271,16 +306,35 @@ Gura_DeclareClassMethod(matrix, rotation_y)
 Gura_ImplementClassMethod(matrix, rotation_y)
 {
 	double angle = args.GetDouble(0);
+	bool transFlag = false;
+	double xTrans = 0;
+	double yTrans = 0;
+	double zTrans = 0;
+	if (args.IsNumber(1)) {
+		transFlag = true;
+		xTrans = args.GetDouble(1);
+	}
+	if (args.IsNumber(2)) {
+		transFlag = true;
+		yTrans = args.GetDouble(2);
+	}
+	if (args.IsNumber(3)) {
+		transFlag = true;
+		zTrans = args.GetDouble(3);
+	}
 	if (args.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
-	AutoPtr<Matrix> pMat(Matrix::CreateRotationY(angle));
+	AutoPtr<Matrix> pMat(Matrix::CreateRotationY(angle, transFlag, xTrans, yTrans, zTrans));
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
 
-// matrix.rotation_z(angle:number):static:map:[deg] {block?}
+// matrix.rotation_z(angle:number, tx?:number, ty?:number, tz?:number):static:map:[deg] {block?}
 Gura_DeclareClassMethod(matrix, rotation_z)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
+	DeclareArg(env, "tx", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "ty", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "tz", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -288,8 +342,24 @@ Gura_DeclareClassMethod(matrix, rotation_z)
 Gura_ImplementClassMethod(matrix, rotation_z)
 {
 	double angle = args.GetDouble(0);
+	bool transFlag = false;
+	double xTrans = 0;
+	double yTrans = 0;
+	double zTrans = 0;
+	if (args.IsNumber(1)) {
+		transFlag = true;
+		xTrans = args.GetDouble(1);
+	}
+	if (args.IsNumber(2)) {
+		transFlag = true;
+		yTrans = args.GetDouble(2);
+	}
+	if (args.IsNumber(3)) {
+		transFlag = true;
+		zTrans = args.GetDouble(3);
+	}
 	if (args.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
-	AutoPtr<Matrix> pMat(Matrix::CreateRotationZ(angle));
+	AutoPtr<Matrix> pMat(Matrix::CreateRotationZ(angle, transFlag, xTrans, yTrans, zTrans));
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
 

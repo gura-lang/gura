@@ -53,67 +53,133 @@ Matrix *Matrix::CreateIdentity(int n)
 	return pMat.release();
 }
 
-Matrix *Matrix::CreateRotation(double rad)
+Matrix *Matrix::CreateRotation(double rad, bool transFlag, double xTrans, double yTrans)
 {
+	int sizeMat = transFlag? 3 : 2;
 	Number numCos = ::cos(rad), numSin = ::sin(rad);
-	AutoPtr<Matrix> pMat(new Matrix(2, 2));
+	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
 	ValueList &valList = pMat->GetList();
+	// row-1
 	valList.push_back(Value(numCos));
 	valList.push_back(Value(-numSin));
+	if (transFlag) {
+		valList.push_back(Value(xTrans));
+	}
+	// row-2
 	valList.push_back(Value(numSin));
 	valList.push_back(Value(numCos));
+	if (transFlag) {
+		valList.push_back(Value(yTrans));
+		// row-3
+		valList.push_back(Value::Zero);
+		valList.push_back(Value::Zero);
+		valList.push_back(Value::One);
+	}
 	return pMat.release();
 }
 
-Matrix *Matrix::CreateRotationX(double rad)
+Matrix *Matrix::CreateRotationX(double rad, bool transFlag, double xTrans, double yTrans, double zTrans)
 {
+	int sizeMat = transFlag? 4 : 3;
 	Number numCos = ::cos(rad), numSin = ::sin(rad);
-	AutoPtr<Matrix> pMat(new Matrix(3, 3));
+	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
 	ValueList &valList = pMat->GetList();
+	// row-1
 	valList.push_back(Value::One);
 	valList.push_back(Value::Zero);
 	valList.push_back(Value::Zero);
+	if (transFlag) {
+		valList.push_back(Value(xTrans));
+	}
+	// row-2
 	valList.push_back(Value::Zero);
 	valList.push_back(Value(numCos));
 	valList.push_back(Value(-numSin));
+	if (transFlag) {
+		valList.push_back(Value(yTrans));
+	}
+	// row-3
 	valList.push_back(Value::Zero);
 	valList.push_back(Value(numSin));
 	valList.push_back(Value(numCos));
+	if (transFlag) {
+		valList.push_back(Value(zTrans));
+		// row-4
+		valList.push_back(Value::Zero);
+		valList.push_back(Value::Zero);
+		valList.push_back(Value::Zero);
+		valList.push_back(Value::One);
+	}
 	return pMat.release();
 }
 
-Matrix *Matrix::CreateRotationY(double rad)
+Matrix *Matrix::CreateRotationY(double rad, bool transFlag, double xTrans, double yTrans, double zTrans)
 {
+	int sizeMat = transFlag? 4 : 3;
 	Number numCos = ::cos(rad), numSin = ::sin(rad);
-	AutoPtr<Matrix> pMat(new Matrix(3, 3));
+	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
 	ValueList &valList = pMat->GetList();
+	// row-1
 	valList.push_back(Value(numCos));
 	valList.push_back(Value::Zero);
 	valList.push_back(Value(numSin));
+	if (transFlag) {
+		valList.push_back(Value(xTrans));
+	}
+	// row-2
 	valList.push_back(Value::Zero);
 	valList.push_back(Value::One);
 	valList.push_back(Value::Zero);
+	if (transFlag) {
+		valList.push_back(Value(yTrans));
+	}
+	// row-3
 	valList.push_back(Value(-numSin));
 	valList.push_back(Value::Zero);
 	valList.push_back(Value(numCos));
-	
+	if (transFlag) {
+		valList.push_back(Value(zTrans));
+		// row-4
+		valList.push_back(Value::Zero);
+		valList.push_back(Value::Zero);
+		valList.push_back(Value::Zero);
+		valList.push_back(Value::One);
+	}
 	return pMat.release();
 }
 
-Matrix *Matrix::CreateRotationZ(double rad)
+Matrix *Matrix::CreateRotationZ(double rad, bool transFlag, double xTrans, double yTrans, double zTrans)
 {
+	int sizeMat = transFlag? 4 : 3;
 	Number numCos = ::cos(rad), numSin = ::sin(rad);
-	AutoPtr<Matrix> pMat(new Matrix(3, 3));
+	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
 	ValueList &valList = pMat->GetList();
+	// row-1
 	valList.push_back(Value(numCos));
 	valList.push_back(Value(-numSin));
 	valList.push_back(Value::Zero);
+	if (transFlag) {
+		valList.push_back(Value(xTrans));
+	}
+	// row-2
 	valList.push_back(Value(numSin));
 	valList.push_back(Value(numCos));
 	valList.push_back(Value::Zero);
+	if (transFlag) {
+		valList.push_back(Value(yTrans));
+	}
+	// row-3
 	valList.push_back(Value::Zero);
 	valList.push_back(Value::Zero);
 	valList.push_back(Value::One);
+	if (transFlag) {
+		valList.push_back(Value(zTrans));
+		// row-4
+		valList.push_back(Value::Zero);
+		valList.push_back(Value::Zero);
+		valList.push_back(Value::Zero);
+		valList.push_back(Value::One);
+	}
 	return pMat.release();
 }
 
