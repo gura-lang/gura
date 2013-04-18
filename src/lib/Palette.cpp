@@ -61,7 +61,7 @@ bool Palette::Prepare(Signal sig, const Symbol *pSymbol)
 	} else if (pSymbol->IsIdentical(Gura_Symbol(websafe))) {
 		nEntries = 256, rgb = _rgb_WebSafe;
 	} else {
-		sig.SetError(ERR_ValueError, "invalid palette symbol %s", pSymbol->GetName());
+		sig.SetError(ERR_ValueError, "invalid palette symbol `%s", pSymbol->GetName());
 		return false;
 	}
 	AllocBuff(nEntries);

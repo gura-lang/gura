@@ -277,6 +277,7 @@ root:environment = <environment:root>
 scope:function = scope(target?) {block}
 semaphore:function = semaphore()
 set:function = set(iter+:iterator):[and,or,xor]
+stream:function = stream(name:string, mode?:string, codec?:codec):map {block?}
 struct:function = struct(`args+):[loose] {block?}
 super:function = super(obj):map {block?}
 switch:function = switch() {block}

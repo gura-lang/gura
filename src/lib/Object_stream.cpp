@@ -76,17 +76,18 @@ String Object_stream::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Global functions
 //-----------------------------------------------------------------------------
-// open(name:string, mode?:string, encoding?:string):map {block?}
-Gura_DeclareFunction(open)
+// stream(name:string, mode?:string, encoding?:string):map {block?}
+Gura_DeclareFunction(stream)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareArg(env, "mode", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "codec", VTYPE_codec, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(env.LookupClass(VTYPE_stream));
 }
 
-Gura_ImplementFunction(open)
+Gura_ImplementFunction(stream)
 {
 	unsigned long attr = Stream::ATTR_Readable;
 	if (args.IsValid(1)) {
@@ -323,7 +324,7 @@ Gura_ImplementMethod(stream, seek)
 		} else if (pSymbol->IsIdentical(Gura_Symbol(cur))) {
 			seekMode = Stream::SeekCur;
 		} else {
-			sig.SetError(ERR_ValueError, "invalid seek mode %s", pSymbol->GetName());
+			sig.SetError(ERR_ValueError, "invalid seek mode '%s'", pSymbol->GetName());
 			return Value::Null;
 		}
 	}
@@ -786,7 +787,8 @@ Object *Class_stream::CreateDescendant(Environment &env, Signal sig, Class *pCla
 
 void Class_stream::OnModuleEntry(Environment &env, Signal sig)
 {
-	Gura_AssignFunction(open);
+	Gura_AssignFunctionEx(stream, "open");
+	Gura_AssignFunction(stream);
 	Gura_AssignFunction(copy);
 	Gura_AssignFunction(template_);
 	Gura_AssignFunction(readlines);

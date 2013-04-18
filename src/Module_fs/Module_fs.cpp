@@ -640,7 +640,7 @@ Directory *DirectoryFactory_FileSys::DoOpenDirectory(Environment &env, Signal si
 					type = IsFileSeparator(ch)?
 								Directory::TYPE_Container : Directory::TYPE_Item;
 				} else if (notFoundMode == Directory::NF_Signal) {
-					sig.SetError(ERR_IOError, "path not exist: %s", pathAccum.c_str());
+					sig.SetError(ERR_IOError, "path not exist '%s'", pathAccum.c_str());
 					return NULL;
 				} else {
 					return NULL;

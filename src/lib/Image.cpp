@@ -36,7 +36,7 @@ size_t Image::SymbolToPixelOffset(Signal sig, const Symbol *pSymbol) const
 		}
 		return OffsetAlpha;
 	}
-	sig.SetError(ERR_FormatError, "unsupported image element: %s", pSymbol->GetName());
+	sig.SetError(ERR_FormatError, "unsupported image element '%s'", pSymbol->GetName());
 	return 0;
 }
 

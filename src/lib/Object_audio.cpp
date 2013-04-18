@@ -96,7 +96,7 @@ Object_audio::Format Object_audio::SymbolToFormat(Signal sig, const Symbol *pSym
 	} else if (pSymbol->IsIdentical(Gura_Symbol(s16be))) {
 		return FORMAT_S16BE;
 	} else {
-		sig.SetError(ERR_ValueError, "unsupported audio format: %s", pSymbol->GetName());
+		sig.SetError(ERR_ValueError, "unsupported audio format '%s'", pSymbol->GetName());
 		return FORMAT_None;
 	}
 }

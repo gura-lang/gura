@@ -223,7 +223,7 @@ Gura_ImplementMethod(datetime, format)
 				dateTime.GetHour(), dateTime.GetMin(), dateTime.GetSec(),
 				strTZ.c_str(), dateTime.GetYear());
 		} else {
-			sig.SetError(ERR_ValueError, "unknown format symbol %s", pSymbol->GetName());
+			sig.SetError(ERR_ValueError, "unknown format symbol `%s", pSymbol->GetName());
 			return Value::Null;
 		}
 		return Value(env, str);
