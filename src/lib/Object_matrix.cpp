@@ -210,10 +210,10 @@ Gura_ImplementFunction(MatrixInit)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_matrix
 //-----------------------------------------------------------------------------
-// matrix.identity(n:number) {block?}
+// matrix.identity(n:number):static:map {block?}
 Gura_DeclareClassMethod(matrix, identity)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -224,10 +224,10 @@ Gura_ImplementClassMethod(matrix, identity)
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
 
-// matrix.rotation(angle:number):[deg] {block?}
+// matrix.rotation(angle:number):static:map:[deg] {block?}
 Gura_DeclareClassMethod(matrix, rotation)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -242,10 +242,10 @@ Gura_ImplementClassMethod(matrix, rotation)
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
 
-// matrix.rotation_x(angle:number):[deg] {block?}
+// matrix.rotation_x(angle:number):static:map:[deg] {block?}
 Gura_DeclareClassMethod(matrix, rotation_x)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -259,10 +259,10 @@ Gura_ImplementClassMethod(matrix, rotation_x)
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
 
-// matrix.rotation_y(angle:number):[deg] {block?}
+// matrix.rotation_y(angle:number):static:map:[deg] {block?}
 Gura_DeclareClassMethod(matrix, rotation_y)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -276,10 +276,10 @@ Gura_ImplementClassMethod(matrix, rotation_y)
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
 
-// matrix.rotation_z(angle:number):[deg] {block?}
+// matrix.rotation_z(angle:number):static:map:[deg] {block?}
 Gura_DeclareClassMethod(matrix, rotation_z)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "angle", VTYPE_number);
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
