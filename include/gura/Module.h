@@ -100,6 +100,7 @@ class Signal;
 class GURA_DLLDECLARE Module : public Fundamental {
 protected:
 	const Symbol *_pSymbol;
+	String _sourceName;
 	AutoPtr<Expr> _pExprScript;		// this is set to NULL in binary modules
 	ModuleTerminateType _moduleTerminate;
 public:
@@ -118,6 +119,7 @@ public:
 		AssignValue(Gura_Symbol(__name__), Value(*this, GetName()), EXTRA_Public);
 	}
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
+	inline const char *GetSourceName() const { return _sourceName.c_str(); }
 	bool DirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	void DirValueType(SymbolSet &symbols) const;
 	virtual bool IsModule() const;

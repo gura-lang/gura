@@ -8,7 +8,7 @@ namespace Gura {
 bool Module::IsModule() const { return true; }
 
 Module::Module(const Module &module) :
-	Fundamental(module), _pSymbol(module._pSymbol),
+	Fundamental(module), _pSymbol(module._pSymbol), _sourceName(module._sourceName),
 	_pExprScript(module._pExprScript.IsNull()? NULL : module._pExprScript->Clone()),
 	_moduleTerminate(module._moduleTerminate)
 {
@@ -16,7 +16,7 @@ Module::Module(const Module &module) :
 
 Module::Module(Environment *pEnvOuter, const Symbol *pSymbol, const char *sourceName,
 						Expr *pExprScript, ModuleTerminateType moduleTerminate) :
-	Fundamental(pEnvOuter, ENVTYPE_local), _pSymbol(pSymbol),
+	Fundamental(pEnvOuter, ENVTYPE_local), _pSymbol(pSymbol), _sourceName(sourceName),
 	_pExprScript(pExprScript), _moduleTerminate(moduleTerminate)
 {
 	Environment &env = *this;
@@ -35,6 +35,8 @@ String Module::ToString(Signal sig, bool exprFlag)
 	String str;
 	str += "<module:";
 	str += GetName();
+	str += ":";
+	str += GetSourceName();
 	str += ">";
 	return str;
 }
