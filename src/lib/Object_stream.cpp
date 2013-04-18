@@ -479,6 +479,21 @@ Gura_ImplementMethod(stream, delcr)
 	return args.GetThis();
 }
 
+// stream#readchar()
+Gura_DeclareMethod(stream, readchar)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(stream, readchar)
+{
+	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
+	if (!stream.CheckReadable(sig)) return Value::Null;
+	String str = stream.ReadChar(sig);
+	if (str.empty()) return Value::Null;
+	return Value(env, str);
+}
+
 // stream#readline():[chop]
 Gura_DeclareMethod(stream, readline)
 {
@@ -499,12 +514,12 @@ Gura_ImplementMethod(stream, readline)
 		if (ch < 0) break;
 		if (ch == '\n') {
 			if (includeEOLFlag) str += '\n';
-			return Value(env, str.c_str());
+			return Value(env, str);
 		}
 		str += ch;
 	}
 	if (str.empty()) return Value::Null;
-	return Value(env, str.c_str());
+	return Value(env, str);
 }
 
 // stream#readlines(nlines?:number):[chop] {block?}
@@ -742,6 +757,7 @@ Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stre
 	Gura_AssignMethod(stream, setcodec);
 	Gura_AssignMethod(stream, addcr);
 	Gura_AssignMethod(stream, delcr);
+	Gura_AssignMethod(stream, readchar);
 	Gura_AssignMethod(stream, readline);
 	Gura_AssignMethod(stream, readlines);
 	Gura_AssignMethod(stream, readtext);

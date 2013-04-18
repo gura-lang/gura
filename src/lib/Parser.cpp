@@ -817,9 +817,13 @@ bool Parser::CheckStringPrefix(StringInfo &stringInfo, const String &token)
 			if (stringInfo.rawFlag) return false;
 			stringInfo.rawFlag = true;
 			stringInfo.skipFirstEOLFlag = true;
-		} else if (ch == 'b' || ch == 'B') {
+		} else if (ch == 'b') {
 			if (stringInfo.binaryFlag) return false;
 			stringInfo.binaryFlag = true;
+		} else if (ch == 'B') {
+			if (stringInfo.binaryFlag) return false;
+			stringInfo.binaryFlag = true;
+			stringInfo.skipFirstEOLFlag = true;
 		} else {
 			return false;
 		}

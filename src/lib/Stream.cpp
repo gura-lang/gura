@@ -154,11 +154,31 @@ void Stream::PutChar(Signal sig, char ch)
 	}
 }
 
+String Stream::ReadChar(Signal sig)
+{
+	char chConv = '\0';
+	String str;
+	Codec::Decoder *pDecoder = GetCodec()->GetDecoder();
+	for (;;) {
+		int ch = DoGetChar(sig);
+		if (ch < 0) break;
+		Codec::Result rtn = pDecoder->FeedChar(static_cast<char>(ch), chConv);
+		if (rtn == Codec::RESULT_Complete) {
+			str += chConv;
+			break;
+		} else if (rtn == Codec::RESULT_Error) {
+			sig.SetError(ERR_CodecError, "not a valid character of %s", GetCodec()->GetEncoding());
+			return "";
+		}
+	}
+	while (pDecoder->FollowChar(chConv)) str += chConv;
+	return str;
+}
+
 int Stream::GetChar(Signal sig)
 {
+	char chConv = '\0';
 	Codec::Decoder *pDecoder = GetCodec()->GetDecoder();
-	if (pDecoder == NULL) return DoGetChar(sig);
-	char chConv;
 	if (pDecoder->FollowChar(chConv)) return static_cast<unsigned char>(chConv);
 	for (;;) {
 		int ch = DoGetChar(sig);

@@ -7,6 +7,19 @@ import(bzip2)
 import(testutil) {*}
 
 scope {
+	src = B'''
+Hello world
+first line
+second line
+third line
+'''
+	src.reader() {|s|
+		while (ch = s.readchar()) {
+			print(ch)
+		}
+	}
+}
+scope {
 	entries = [
 		b'a' * 38009
 		b'b' * 43643

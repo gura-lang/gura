@@ -1,3 +1,7 @@
+Hello world
+first line
+second line
+third line
 tar compression: none
 entry1.bin   38009 OK
 entry2.bin   43643 OK

@@ -102,6 +102,7 @@ public:
 	void CopyCodec(Stream *pStream);
 	void CopyCodec(const Codec *pCodec);
 	inline Codec *GetCodec() { return _pCodec.get(); }
+	String ReadChar(Signal sig);
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
 	virtual const char *GetName() const = 0;
