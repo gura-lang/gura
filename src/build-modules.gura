@@ -83,9 +83,9 @@ for (dirName in dirNames) {
 		pathName = path.join(dirNamePre, dirName)
 	}
 	argvOrg = sys.argv
-	sys.argv = []
+	sys.argv = ['build.gura']
 	if (command == `build) {
-		sys.argv.append('build')
+		// nothing to do
 	} elsif (command == `clean) {
 		sys.argv.append('clean')
 	} elsif (command == `install) {
