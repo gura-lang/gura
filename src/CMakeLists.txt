@@ -98,6 +98,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Audio.h
   ${GURA_INCLUDE_DIR}/gura/Matrix.h
   ${GURA_INCLUDE_DIR}/gura/Iterator.h
+  ${GURA_INCLUDE_DIR}/gura/Memory.h
   ${GURA_INCLUDE_DIR}/gura/Module.h
   ${GURA_INCLUDE_DIR}/gura/OAL.h
   ${GURA_INCLUDE_DIR}/gura/Fundamental.h
