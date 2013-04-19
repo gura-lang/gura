@@ -173,7 +173,7 @@ protected:
 		size_t bytesPerPixel;
 		size_t bytesPerLine;
 	} _metrics;
-	AutoPtr<OAL::Memory> _pMemory;
+	AutoPtr<Memory> _pMemory;
 	AutoPtr<Palette> _pPalette;
 public:
 	Gura_DeclareReferenceAccessor(Image);
@@ -184,8 +184,8 @@ protected:
 	virtual ~Image();
 public:
 	Image *Clone() const;
-	inline OAL::Memory *GetMemory() { return _pMemory.get(); }
-	inline const OAL::Memory *GetMemory() const { return _pMemory.get(); }
+	inline Memory *GetMemory() { return _pMemory.get(); }
+	inline const Memory *GetMemory() const { return _pMemory.get(); }
 	inline Format GetFormat() const { return _format; }
 	inline size_t GetWidth() const { return _width; }
 	inline size_t GetHeight() const { return _height; }
@@ -353,7 +353,7 @@ public:
 #if GURA_USE_MSWIN_DIB
 public:
 	inline HBITMAP GetHBITMAP() {
-		return dynamic_cast<OAL::MemoryDIB *>(GetMemory())->GetHBITMAP();
+		return dynamic_cast<MemoryDIB *>(GetMemory())->GetHBITMAP();
 	}
 #endif
 private:

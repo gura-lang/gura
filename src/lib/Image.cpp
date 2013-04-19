@@ -39,7 +39,7 @@ bool Image::AllocBuffer(size_t width, size_t height, unsigned char fillValue)
 	InitMetrics();
 #if GURA_USE_MSWIN_DIB
 	do {
-		AutoPtr<OAL::MemoryDIB> pMemory(new OAL::MemoryDIB());
+		AutoPtr<MemoryDIB> pMemory(new MemoryDIB());
 		if (!pMemory->AllocBuffer(width, height,
 				(_format == FORMAT_RGB)? 24 : (_format == FORMAT_RGBA)? 32 : 32)) {
 			return false;
@@ -47,7 +47,7 @@ bool Image::AllocBuffer(size_t width, size_t height, unsigned char fillValue)
 		_pMemory.reset(pMemory.release());
 	} while (0);
 #else
-	_pMemory.reset(new OAL::MemoryHeap(GetBufferSize()));
+	_pMemory.reset(new MemoryHeap(GetBufferSize()));
 #endif
 	::memset(GetBuffer(), fillValue, GetBufferSize());
 	return true;
@@ -621,7 +621,7 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 	size_t bytesPerLineSrc = GetBytesPerLine();
 	size_t bytesPerLineDst = pImage->GetBytesPerLine();
 	size_t accumsSize = width * sizeof(Accum);
-	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(accumsSize));
+	AutoPtr<Memory> pMemory(new MemoryHeap(accumsSize));
 	Accum *accums = reinterpret_cast<Accum *>(pMemory->GetPointer());
 	::memset(accums, 0x00, accumsSize);
 	size_t numerY = 0;

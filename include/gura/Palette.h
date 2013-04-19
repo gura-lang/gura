@@ -33,7 +33,7 @@ private:
 	int _cntRef;
 	size_t _nEntries;
 	unsigned char *_buff;
-	AutoPtr<OAL::Memory> _pMemory;
+	AutoPtr<Memory> _pMemory;
 	static const unsigned char _rgb_Mono[];
 	static const unsigned char _rgb_Basic[];
 	static const unsigned char _rgb_Win256[];

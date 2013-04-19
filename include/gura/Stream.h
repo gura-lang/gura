@@ -186,7 +186,6 @@ public:
 class GURA_DLLDECLARE StreamDumb : public Stream {
 public:
 	StreamDumb(Environment &env, Signal sig);
-	virtual ~StreamDumb();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
@@ -208,7 +207,6 @@ private:
 	size_t _bytes;
 public:
 	StreamMemReader(Environment &env, Signal sig, const void *buff, size_t bytes);
-	virtual ~StreamMemReader();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
@@ -225,17 +223,14 @@ public:
 // Stream_Prefetch
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Stream_Prefetch : public Stream {
-public:
-	typedef std::vector<OAL::Memory *> MemoryList;
 private:
 	AutoPtr<Stream> _pStreamSrc;
 	size_t _offset;
 	size_t _bytesAll;
 	size_t _bytesUnit;
-	MemoryList _memoryList;
+	MemoryOwner _memoryOwner;
 public:
 	Stream_Prefetch(Environment &env, Signal sig, Stream *pStreamSrc, size_t bytesUnit);
-	virtual ~Stream_Prefetch();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
@@ -262,7 +257,6 @@ private:
 	unsigned char _buffWork[8];
 public:
 	Stream_Base64Reader(Environment &env, Signal sig, Stream *pStreamSrc);
-	virtual ~Stream_Base64Reader();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
@@ -288,7 +282,6 @@ private:
 	static const char _chars[];
 public:
 	Stream_Base64Writer(Environment &env, Signal sig, Stream *pStreamDst, int nCharsPerLine);
-	virtual ~Stream_Base64Writer();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual bool GetAttribute(Attribute &attr);
@@ -310,7 +303,6 @@ private:
 	CRC32 _crc32;
 public:
 	Stream_CRC32(Environment &env, Signal sig, Stream *pStreamDst);
-	virtual ~Stream_CRC32();
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual size_t DoRead(Signal sig, void *buff, size_t len);

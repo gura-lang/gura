@@ -369,7 +369,7 @@ private:
 	AutoPtr<Stream> _pStream;
 	size_t _bytesChunk;
 	bool _doneFlag;
-	AutoPtr<OAL::Memory> _pMemory;
+	AutoPtr<Memory> _pMemory;
 public:
 	Stream_Chunked(Environment &env, Signal sig, Stream *pStream, unsigned long attr);
 	~Stream_Chunked();
@@ -393,7 +393,7 @@ private:
 	size_t _bytesRead;
 	Header _header;
 	EncodingDetector _encodingDetector;
-	AutoPtr<OAL::Memory> _pMemory;
+	AutoPtr<Memory> _pMemory;
 public:
 	Stream_Http(Environment &env, Signal sig, Stream *pStream, unsigned long attr,
 						const char *name, size_t bytes, const Header &header);

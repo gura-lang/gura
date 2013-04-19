@@ -32,7 +32,7 @@ private:
 	size_t _nChannels;
 	size_t _len;
 	unsigned char *_buff;
-	AutoPtr<OAL::Memory> _pMemory;
+	AutoPtr<Memory> _pMemory;
 public:
 	inline Object_audio(Environment &env, Format format, size_t nChannels) :
 				Object(env.LookupClass(VTYPE_audio)), _format(format), _nChannels(nChannels),

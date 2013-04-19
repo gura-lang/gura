@@ -22,6 +22,7 @@
 #include <memory>
 #include <algorithm>
 
+#include "gura/Memory.h"
 #include "gura/Binary.h"
 #include "gura/String.h"
 #include "gura/PackedNumber.h"

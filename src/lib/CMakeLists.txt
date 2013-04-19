@@ -17,6 +17,7 @@ Function.cpp
 Image.cpp
 Iterator.cpp
 Matrix.cpp
+Memory.cpp
 Operator.cpp
 Option.cpp
 Palette.cpp

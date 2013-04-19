@@ -385,7 +385,7 @@ bool Stream::Compare(Signal sig, Stream &stream)
 {
 	if (!CheckReadable(sig) || !stream.CheckReadable(sig)) return false;
 	const size_t bytesBuff = 1024 * 16;
-	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(bytesBuff * 2));
+	AutoPtr<Memory> pMemory(new MemoryHeap(bytesBuff * 2));
 	void *buff1 = pMemory->GetPointer(0);
 	void *buff2 = pMemory->GetPointer(bytesBuff);
 	bool sameFlag = false;
@@ -415,7 +415,7 @@ bool Stream::ReadToStream(Environment &env, Signal sig, Stream &streamDst,
 	if (finalizeFlag) {
 		validAttrFlag = GetAttribute(attr);
 	}
-	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(bytesUnit));
+	AutoPtr<Memory> pMemory(new MemoryHeap(bytesUnit));
 	char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 	for (;;) {
 		size_t bytesRead = Read(sig, buff, bytesUnit);
@@ -750,10 +750,6 @@ StreamDumb::StreamDumb(Environment &env, Signal sig) : Stream(env, sig, ATTR_Wri
 {
 }
 
-StreamDumb::~StreamDumb()
-{
-}
-
 const char *StreamDumb::GetName() const
 {
 	return "dumb";
@@ -810,10 +806,6 @@ size_t StreamDumb::DoGetSize()
 StreamMemReader::StreamMemReader(Environment &env, Signal sig, const void *buff, size_t bytes) :
 				Stream(env, sig, ATTR_BwdSeekable | ATTR_Readable),
 				_buff(reinterpret_cast<const char *>(buff)), _bytes(bytes)
-{
-}
-
-StreamMemReader::~StreamMemReader()
 {
 }
 
@@ -890,14 +882,6 @@ Stream_Prefetch::Stream_Prefetch(Environment &env, Signal sig, Stream *pStreamSr
 	CopyCodec(pStreamSrc);
 }
 
-Stream_Prefetch::~Stream_Prefetch()
-{
-	foreach (MemoryList, ppMemory, _memoryList) {
-		OAL::Memory *pMemory = *ppMemory;
-		OAL::Memory::Delete(pMemory);
-	}
-}
-
 const char *Stream_Prefetch::GetName() const
 {
 	return _pStreamSrc->GetName();
@@ -921,17 +905,17 @@ bool Stream_Prefetch::SetAttribute(const Attribute &attr)
 size_t Stream_Prefetch::DoRead(Signal sig, void *buff, size_t len)
 {
 	size_t iMemory = _offset / _bytesUnit;
-	if (iMemory >= _memoryList.size()) {
+	if (iMemory >= _memoryOwner.size()) {
 		sig.SetError(ERR_IndexError, "out of range");
 		return 0;
 	}
-	MemoryList::iterator ppMemory = _memoryList.begin() + iMemory;
+	MemoryList::iterator ppMemory = _memoryOwner.begin() + iMemory;
 	char *buffDst = reinterpret_cast<char *>(buff);
 	size_t offsetUnit = _offset % _bytesUnit;
 	size_t bytesCopied = 0;
 	size_t bytesRest = len;
-	for ( ; ppMemory != _memoryList.end() && bytesRest > 0; ppMemory++) {
-		OAL::Memory *pMemory = *ppMemory;
+	for ( ; ppMemory != _memoryOwner.end() && bytesRest > 0; ppMemory++) {
+		Memory *pMemory = *ppMemory;
 		size_t bytesToCopy = _bytesUnit - offsetUnit;
 		bytesToCopy = ChooseMin(bytesToCopy, bytesRest);
 		::memcpy(buffDst + bytesCopied, pMemory->GetPointer(offsetUnit), bytesToCopy);
@@ -977,14 +961,14 @@ bool Stream_Prefetch::DoPrefetch(Signal sig)
 {
 	_bytesAll = 0;
 	for (;;) {
-		AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(_bytesUnit));
+		AutoPtr<Memory> pMemory(new MemoryHeap(_bytesUnit));
 		size_t bytes = _pStreamSrc->Read(sig, pMemory->GetPointer(), _bytesUnit);
 		if (sig.IsSignalled()) {
 			return false;
 		} else if (bytes == 0 || sig.IsSignalled()) {
 			break;
 		}
-		_memoryList.push_back(pMemory.release());
+		_memoryOwner.push_back(pMemory.release());
 		_bytesAll += bytes;
 		if (bytes < _bytesUnit) break;
 	}
@@ -999,10 +983,6 @@ Stream_Base64Reader::Stream_Base64Reader(Environment &env, Signal sig, Stream *p
 			_nChars(0), _nInvalid(0), _accum(0), _iBuffWork(0)
 {
 	CopyCodec(pStreamSrc);
-}
-
-Stream_Base64Reader::~Stream_Base64Reader()
-{
 }
 
 const char *Stream_Base64Reader::GetName() const
@@ -1119,10 +1099,6 @@ Stream_Base64Writer::Stream_Base64Writer(Environment &env, Signal sig, Stream *p
 {
 	CopyCodec(pStreamDst);
 	_nCharsPerLine = (_nCharsPerLine + 3) / 4 * 4;
-}
-
-Stream_Base64Writer::~Stream_Base64Writer()
-{
 }
 
 const char *Stream_Base64Writer::GetName() const
@@ -1253,10 +1229,6 @@ Stream_CRC32::Stream_CRC32(Environment &env, Signal sig, Stream *pStreamDst) :
 		_pStreamDst(pStreamDst)
 {
 	CopyCodec(pStreamDst);
-}
-
-Stream_CRC32::~Stream_CRC32()
-{
 }
 
 const char *Stream_CRC32::GetName() const

@@ -14,7 +14,7 @@ Palette::Palette() : _cntRef(1), _nEntries(0), _buff(NULL)
 Palette::Palette(const Palette &palette) : _cntRef(1), _nEntries(palette._nEntries)
 {
 	size_t bytes = palette._pMemory->GetSize();
-	_pMemory.reset(new OAL::MemoryHeap(bytes));
+	_pMemory.reset(new MemoryHeap(bytes));
 	_buff = reinterpret_cast<unsigned char *>(_pMemory->GetPointer());
 	::memcpy(_buff, palette._buff, bytes);
 }
@@ -28,7 +28,7 @@ void Palette::AllocBuff(size_t nEntries)
 	_buff = NULL;
 	_nEntries = nEntries;
 	if (_nEntries > 0) {
-		_pMemory.reset(new OAL::MemoryHeap(GetBuffSize()));
+		_pMemory.reset(new MemoryHeap(GetBuffSize()));
 		_buff = reinterpret_cast<unsigned char *>(_pMemory->GetPointer());
 		::memset(_buff, 0x00, GetBuffSize());
 		for (size_t idx = 0; idx < nEntries; idx++) {
@@ -41,7 +41,7 @@ void Palette::ResizeBuff(size_t nEntries, size_t nEntriesToCopy)
 {
 	_nEntries = nEntries;
 	size_t bytesToCopy = CalcBuffSize(nEntriesToCopy);
-	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(GetBuffSize()));
+	AutoPtr<Memory> pMemory(new MemoryHeap(GetBuffSize()));
 	unsigned char *buff = reinterpret_cast<unsigned char *>(pMemory->GetPointer());
 	::memcpy(buff, _buff, bytesToCopy);
 	::memset(buff + bytesToCopy, 0x00, GetBuffSize() - bytesToCopy);

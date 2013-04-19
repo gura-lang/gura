@@ -163,7 +163,7 @@ void Header::ComposeHeaderBlock(void *memBlock)
 // Implementation of Object_reader
 //-----------------------------------------------------------------------------
 Object_reader::Object_reader() : Object(Gura_UserClass(reader)),
-							_pMemoryBlock(new OAL::MemoryHeap(BLOCKSIZE))
+							_pMemoryBlock(new MemoryHeap(BLOCKSIZE))
 {
 }
 
@@ -229,7 +229,7 @@ Gura_ImplementUserClass(reader)
 // Implementation of Object_writer
 //-----------------------------------------------------------------------------
 Object_writer::Object_writer(Signal sig) : Object(Gura_UserClass(writer)),
-					_sig(sig), _pMemoryBlock(new OAL::MemoryHeap(BLOCKSIZE))
+					_sig(sig), _pMemoryBlock(new MemoryHeap(BLOCKSIZE))
 {
 }
 
@@ -273,7 +273,7 @@ bool Object_writer::Add(Stream &streamSrc, const char *fileName)
 	size_t bytesBody = streamSrc.GetSize();
 	size_t bytesPadding = (bytesBody + BLOCKSIZE - 1) /
 										BLOCKSIZE * BLOCKSIZE - bytesBody;
-	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(32768));
+	AutoPtr<Memory> pMemory(new MemoryHeap(32768));
 	void *buff = pMemory->GetPointer();
 	Header hdr;
 	hdr.SetName(fileName);
@@ -320,7 +320,7 @@ bool Object_writer::Close()
 {
 	if (_pStreamDst.IsNull()) return true;
 	const size_t bytesTerminator = BLOCKSIZE * 2;
-	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(bytesTerminator));
+	AutoPtr<Memory> pMemory(new MemoryHeap(bytesTerminator));
 	void *buff = pMemory->GetPointer();
 	::memset(buff, 0x00, bytesTerminator);
 	_pStreamDst->Write(_sig, buff, bytesTerminator);
@@ -690,7 +690,7 @@ Directory *DirectoryFactory_TAR::DoOpenDirectory(Environment &env, Signal sig,
 	pStream.reset(DecorateReaderStream(env, sig,
 					pStream.release(), pParent->GetName(), COMPRESS_Auto));
 	if (sig.IsSignalled()) return NULL;
-	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(BLOCKSIZE));
+	AutoPtr<Memory> pMemory(new MemoryHeap(BLOCKSIZE));
 	void *buffBlock = pMemory->GetPointer();
 	AutoPtr<DirBuilder::Structure> pStructure(new DirBuilder::Structure());
 	pStructure->SetRoot(new Record_TAR(pStructure.get(), NULL, "", true));

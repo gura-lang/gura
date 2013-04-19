@@ -284,7 +284,7 @@ Gura_DeclareUserClass(reader);
 class Object_reader : public Object {
 private:
 	AutoPtr<Stream> _pStreamSrc;
-	AutoPtr<OAL::Memory> _pMemoryBlock;
+	AutoPtr<Memory> _pMemoryBlock;
 public:
 	Gura_DeclareObjectAccessor(reader)
 public:
@@ -306,7 +306,7 @@ class Object_writer : public Object {
 private:
 	Signal _sig;
 	AutoPtr<Stream> _pStreamDst;
-	AutoPtr<OAL::Memory> _pMemoryBlock;
+	AutoPtr<Memory> _pMemoryBlock;
 public:
 	Gura_DeclareObjectAccessor(writer)
 public:

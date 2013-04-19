@@ -22,7 +22,7 @@ Object *Object_audio::Clone() const
 bool Object_audio::AllocBuffer(Signal sig, size_t len)
 {
 	FreeBuffer();
-	_pMemory.reset(new OAL::MemoryHeap(_nChannels * len * GetBytesPerData()));
+	_pMemory.reset(new MemoryHeap(_nChannels * len * GetBytesPerData()));
 	_buff = reinterpret_cast<unsigned char *>(_pMemory->GetPointer());
 	_len = len;
 	return true;

@@ -252,6 +252,7 @@
     </ClCompile>
     <ClCompile Include="Stream.cpp" />
     <ClCompile Include="String.cpp" />
+    <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Binary.cpp" />
     <ClCompile Include="Symbol.cpp" />
     <ClCompile Include="Value.cpp" />

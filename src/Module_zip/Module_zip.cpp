@@ -301,7 +301,7 @@ bool Object_writer::Add(Environment &env, Signal sig, Stream &streamSrc,
 		return false;
 	}
 	CRC32 crc32;
-	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(32768));
+	AutoPtr<Memory> pMemory(new MemoryHeap(32768));
 	void *buff = pMemory->GetPointer();
 	for (;;) {
 		size_t bytesRead = streamSrc.Read(sig, buff, pMemory->GetSize());
@@ -1037,7 +1037,7 @@ unsigned long SeekCentralDirectory(Signal sig, Stream *pStream)
 		}
 		bytesBuff = EndOfCentralDirectoryRecord::MaxSize;
 	}
-	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(bytesBuff));
+	AutoPtr<Memory> pMemory(new MemoryHeap(bytesBuff));
 	char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 	pStream->Read(sig, buff, bytesBuff);
 	if (sig.IsSignalled()) return NULL;
