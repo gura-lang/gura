@@ -85,8 +85,6 @@ Gura_DeclareFunction(waitkey)
 }
 
 #if defined(GURA_ON_MSWIN)
-static WORD g_wAttributesOrg = 0;
-
 Gura_ImplementFunction(clear)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -169,7 +167,7 @@ Gura_ImplementFunction(setcolor)
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		pExprBlock->Exec(env, sig);
-		::SetConsoleTextAttribute(hConsole, g_wAttributesOrg);
+		::SetConsoleTextAttribute(hConsole, csbi.wAttributes);
 	}
 	return Value::Null;
 }
@@ -289,6 +287,8 @@ Gura_ImplementFunction(getwinsize)
 		Value::CreateAsList(env, Value(ws.ws_col), Value(ws.ws_row)));
 }
 
+StringList g_attrStack;
+
 Gura_ImplementFunction(setcolor)
 {
 	int fg = 0, bg = 0;
@@ -318,8 +318,18 @@ Gura_ImplementFunction(setcolor)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
+		g_attrStack.push_back(str);
 		pExprBlock->Exec(env, sig);
-		::printf("\033[0m");
+		g_attrStack.pop_back();
+		if (g_attrStack.empty()) {
+			::printf("\033[0m");
+		} else {
+			::printf("\033[%sm", g_attrStack.back());
+			g_attrStack.pop_back();
+		}
+	} else {
+		if (!g_attrStack.empty()) g_attrStack.pop_back();
+		g_attrStack.push_back(str);
 	}
 	return Value::Null;
 }
@@ -441,14 +451,6 @@ Gura_ImplementFunction(waitkey)
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
-#if defined(GURA_ON_MSWIN)
-	do {
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		CONSOLE_SCREEN_BUFFER_INFO csbi;
-		::GetConsoleScreenBufferInfo(hConsole, &csbi);
-		g_wAttributesOrg = csbi.wAttributes;
-	} while (0);
-#endif
 	// function assignment
 	Gura_AssignFunction(clear);
 	Gura_AssignFunction(getwinsize);
