@@ -560,9 +560,9 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 	size_t bytesPerPixel = GetBytesPerPixel();
 	size_t bytesPerLineSrc = GetBytesPerLine();
 	size_t bytesPerLineDst = pImage->GetBytesPerLine();
-	OAL::Memory memory;
 	size_t accumsSize = width * sizeof(Accum);
-	Accum *accums = reinterpret_cast<Accum *>(memory.Allocate(accumsSize));
+	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(accumsSize));
+	Accum *accums = reinterpret_cast<Accum *>(pMemory->GetPointer());
 	::memset(accums, 0x00, accumsSize);
 	size_t numerY = 0;
 	if (_format == FORMAT_RGB) {
@@ -1287,21 +1287,21 @@ Image *Image::Clone() const
 bool Image::AllocBuffer(Signal sig,
 					size_t width, size_t height, unsigned char fillValue)
 {
-	_memory.Free();
 	if (width == 0 || height == 0) {
 		sig.SetError(ERR_MemoryError, "failed to allocate image buffer");
 		return false;
 	}
 	_width = width, _height = height;
 	InitMetrics();
-	_buff = reinterpret_cast<unsigned char *>(_memory.Allocate(GetBufferSize()));
+	_pMemory.reset(new OAL::MemoryHeap(GetBufferSize()));
+	_buff = reinterpret_cast<unsigned char *>(_pMemory->GetPointer());
 	::memset(_buff, fillValue, GetBufferSize());
 	return true;
 }
 
 void Image::FreeBuffer()
 {
-	_memory.Free();
+	_pMemory.reset(NULL);
 	_width = 0, _height = 0;
 	_buff = NULL;
 }

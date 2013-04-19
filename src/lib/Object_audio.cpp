@@ -19,33 +19,18 @@ Object *Object_audio::Clone() const
 	return NULL; //new Object_audio(*this);
 }
 
-void Object_audio::ReferenceBuffer(Object *pObjRef, unsigned char *buff, size_t len)
-{
-	_memory.Free();
-	_pObjRef = pObjRef;
-	_buff = buff;
-	_len = len;
-}
-
 bool Object_audio::AllocBuffer(Signal sig, size_t len)
 {
 	FreeBuffer();
-	_pObjRef = NULL;
-	_buff = reinterpret_cast<unsigned char *>(
-					_memory.Allocate(_nChannels * len * GetBytesPerData()));
-	if (_buff == 0) {
-		sig.SetError(ERR_MemoryError, "failed to allocate audio buffer");
-		return false;
-	}
+	_pMemory.reset(new OAL::MemoryHeap(_nChannels * len * GetBytesPerData()));
+	_buff = reinterpret_cast<unsigned char *>(_pMemory->GetPointer());
 	_len = len;
 	return true;
 }
 
 void Object_audio::FreeBuffer()
 {
-	_memory.Free();
-	Object::Delete(_pObjRef);
-	_pObjRef = NULL;
+	_pMemory.reset(NULL);
 	_buff = NULL;
 	_len = 0;
 }

@@ -162,8 +162,8 @@ void Header::ComposeHeaderBlock(void *memBlock)
 //-----------------------------------------------------------------------------
 // Implementation of Object_reader
 //-----------------------------------------------------------------------------
-Object_reader::Object_reader() :
-			Object(Gura_UserClass(reader)), _memBlock(BLOCKSIZE)
+Object_reader::Object_reader() : Object(Gura_UserClass(reader)),
+							_pMemoryBlock(new OAL::MemoryHeap(BLOCKSIZE))
 {
 }
 
@@ -199,7 +199,7 @@ bool Object_reader::Open(Environment &env, Signal sig,
 
 Header *Object_reader::NextHeader(Signal sig)
 {
-	return ReadHeader(sig, _pStreamSrc.get(), _memBlock.GetPointer());
+	return ReadHeader(sig, _pStreamSrc.get(), _pMemoryBlock->GetPointer());
 }
 
 //-----------------------------------------------------------------------------
@@ -228,8 +228,8 @@ Gura_ImplementUserClass(reader)
 //-----------------------------------------------------------------------------
 // Implementation of Object_writer
 //-----------------------------------------------------------------------------
-Object_writer::Object_writer(Signal sig) :
-			Object(Gura_UserClass(writer)), _sig(sig), _memBlock(BLOCKSIZE)
+Object_writer::Object_writer(Signal sig) : Object(Gura_UserClass(writer)),
+					_sig(sig), _pMemoryBlock(new OAL::MemoryHeap(BLOCKSIZE))
 {
 }
 
@@ -273,8 +273,8 @@ bool Object_writer::Add(Stream &streamSrc, const char *fileName)
 	size_t bytesBody = streamSrc.GetSize();
 	size_t bytesPadding = (bytesBody + BLOCKSIZE - 1) /
 										BLOCKSIZE * BLOCKSIZE - bytesBody;
-	OAL::Memory memory;
-	void *buff = memory.Allocate(32768);
+	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(32768));
+	void *buff = pMemory->GetPointer();
 	Header hdr;
 	hdr.SetName(fileName);
 	hdr.SetLinkName("");
@@ -304,7 +304,7 @@ bool Object_writer::Add(Stream &streamSrc, const char *fileName)
 	_pStreamDst->Write(_sig, buff, BLOCKSIZE);
 	if (_sig.IsSignalled()) return false;
 	for (;;) {
-		size_t bytesRead = streamSrc.Read(_sig, buff, memory.GetSize());
+		size_t bytesRead = streamSrc.Read(_sig, buff, pMemory->GetSize());
 		if (_sig.IsSignalled()) break;
 		if (bytesRead == 0) break;
 		_pStreamDst->Write(_sig, buff, bytesRead);
@@ -320,8 +320,8 @@ bool Object_writer::Close()
 {
 	if (_pStreamDst.IsNull()) return true;
 	const size_t bytesTerminator = BLOCKSIZE * 2;
-	OAL::Memory memory;
-	void *buff = memory.Allocate(bytesTerminator);
+	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(bytesTerminator));
+	void *buff = pMemory->GetPointer();
 	::memset(buff, 0x00, bytesTerminator);
 	_pStreamDst->Write(_sig, buff, bytesTerminator);
 	if (_sig.IsSignalled()) return false;
@@ -690,8 +690,8 @@ Directory *DirectoryFactory_TAR::DoOpenDirectory(Environment &env, Signal sig,
 	pStream.reset(DecorateReaderStream(env, sig,
 					pStream.release(), pParent->GetName(), COMPRESS_Auto));
 	if (sig.IsSignalled()) return NULL;
-	OAL::Memory memory;
-	void *buffBlock = memory.Allocate(BLOCKSIZE);
+	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(BLOCKSIZE));
+	void *buffBlock = pMemory->GetPointer();
 	AutoPtr<DirBuilder::Structure> pStructure(new DirBuilder::Structure());
 	pStructure->SetRoot(new Record_TAR(pStructure.get(), NULL, "", true));
 	for (;;) {

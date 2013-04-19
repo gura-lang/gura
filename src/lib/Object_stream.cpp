@@ -246,8 +246,8 @@ Gura_ImplementMethod(stream, read)
 		const int bytesBuff = 4096;
 		AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 		Binary &buff = pObjBinary->GetBinary();
-		OAL::Memory memory(bytesBuff);
-		char *buffSeg = reinterpret_cast<char *>(memory.GetPointer());
+		AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(bytesBuff));
+		char *buffSeg = reinterpret_cast<char *>(pMemory->GetPointer());
 		size_t lenRead = stream.Read(sig, buffSeg, bytesBuff);
 		if (lenRead == 0) return Value::Null;
 		do {

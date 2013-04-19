@@ -346,6 +346,15 @@ static void AppendCmdLine(String &cmdLine, const char *arg)
 	}
 }
 
+//-----------------------------------------------------------------------------
+// Memory
+//-----------------------------------------------------------------------------
+Memory::~Memory()
+{
+	// virtual destructor
+}
+
+
 #if defined(GURA_ON_MSWIN)
 //=============================================================================
 // Windows API
@@ -413,7 +422,7 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		return -1;
 	}
 	::WaitForInputIdle(ps.hProcess, INFINITE);
-	Memory memory(32768);
+	AutoPtr<Memory> pMemory(new MemoryHeap(32768));
 	DWORD exitCode = 0;
 	for (;;) {
 		bool dataAvailFlag = false;
@@ -422,10 +431,10 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 			::PeekNamedPipe(hStdoutWatch, NULL, NULL, NULL, &bytesAvail, NULL);
 			if (bytesAvail > 0) {
 				dataAvailFlag = true;
-				char *buff = reinterpret_cast<char *>(memory.GetPointer());
+				char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 				DWORD bytesRead;
 				::ReadFile(hStdoutWatch, buff,
-							static_cast<DWORD>(memory.GetSize()), &bytesRead, NULL);
+							static_cast<DWORD>(pMemory->GetSize()), &bytesRead, NULL);
 				pStreamStdout->Write(sig, buff, bytesRead);
 			}
 		}
@@ -434,10 +443,10 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 			::PeekNamedPipe(hStderrWatch, NULL, NULL, NULL, &bytesAvail, NULL);
 			if (bytesAvail > 0) {
 				dataAvailFlag = true;
-				char *buff = reinterpret_cast<char *>(memory.GetPointer());
+				char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 				DWORD bytesRead;
 				::ReadFile(hStderrWatch, buff,
-							static_cast<DWORD>(memory.GetSize()), &bytesRead, NULL);
+							static_cast<DWORD>(pMemory->GetSize()), &bytesRead, NULL);
 				pStreamStderr->Write(sig, buff, bytesRead);
 			}
 		}
@@ -907,47 +916,17 @@ void *DynamicLibrary::GetEntry(Signal sig, const char *name)
 }
 
 //-----------------------------------------------------------------------------
-// Memory
+// MemoryHeap
 //-----------------------------------------------------------------------------
-Memory::Memory(size_t bytes) : _bytes(bytes), _buff(NULL)
+MemoryHeap::MemoryHeap(size_t bytes)
 {
-	if (bytes > 0) Allocate(bytes);
-}
-
-Memory::~Memory()
-{
-	::LocalFree(_buff);
-}
-
-void *Memory::Allocate(size_t bytes)
-{
-	if (bytes < _bytes) return _buff;
-	::LocalFree(_buff);
 	_bytes = bytes;
 	_buff = reinterpret_cast<char *>(::LocalAlloc(LMEM_FIXED, _bytes));
-	return _buff;
 }
 
-void *Memory::Resize(size_t bytes, size_t bytesToCopy)
-{
-	_bytes = bytes;
-	char *buffNew = reinterpret_cast<char *>(::LocalAlloc(LMEM_FIXED, _bytes));
-	::memcpy(buffNew, _buff, bytesToCopy);
-	::LocalFree(_buff);
-	_buff = buffNew;
-	return _buff;
-}
-
-void Memory::Free()
+MemoryHeap::~MemoryHeap()
 {
 	::LocalFree(_buff);
-	_bytes = 0;
-	_buff = NULL;
-}
-
-void *Memory::GetPointer(size_t offset) const
-{
-	return _buff + offset;
 }
 
 //-----------------------------------------------------------------------------
@@ -1023,7 +1002,7 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 {
 	int exitCode = 0;
 	pid_t pid = 0;
-	Memory memory(32768);
+	AutoPtr<Memory> pMemory(new MemoryHeap(32768));
 	char *argv[4];
 	argv[0] = ::strdup("/bin/sh");
 	argv[1] = ::strdup("-c");
@@ -1071,15 +1050,15 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		bool idleFlag = true;
 		if (FD_ISSET(fdsStdout[0], &fdsRead)) {
 			idleFlag = false;
-			char *buff = reinterpret_cast<char *>(memory.GetPointer());
-			size_t bytesRead = ::read(fdsStdout[0], buff, memory.GetSize());
+			char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
+			size_t bytesRead = ::read(fdsStdout[0], buff, pMemory->GetSize());
 			pStreamStdout->Write(sig, buff, bytesRead);
 			if (sig.IsSignalled()) return -1;
 		}
 		if (FD_ISSET(fdsStderr[0], &fdsRead)) {
 			idleFlag = false;
-			char *buff = reinterpret_cast<char *>(memory.GetPointer());
-			size_t bytesRead = ::read(fdsStderr[0], buff, memory.GetSize());
+			char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
+			size_t bytesRead = ::read(fdsStderr[0], buff, pMemory->GetSize());
 			pStreamStderr->Write(sig, buff, bytesRead);
 			if (sig.IsSignalled()) return -1;
 		}
@@ -1410,46 +1389,17 @@ void *DynamicLibrary::GetEntry(Signal sig, const char *name)
 }
 
 //-----------------------------------------------------------------------------
-// Memory
+// MemoryHeap
 //-----------------------------------------------------------------------------
-Memory::Memory(size_t bytes) : _bytes(bytes), _buff(NULL)
+MemoryHeap::MemoryHeap(size_t bytes)
 {
-	if (bytes > 0) Allocate(bytes);
-}
-
-Memory::~Memory()
-{
-	::free(_buff);
-}
-
-void *Memory::Allocate(size_t bytes)
-{
-	::free(_buff);
 	_bytes = bytes;
 	_buff = reinterpret_cast<char *>(::malloc(_bytes));
-	return _buff;
 }
 
-void *Memory::Resize(size_t bytes, size_t bytesToCopy)
-{
-	_bytes = bytes;
-	char *buffNew = reinterpret_cast<char *>(::malloc(_bytes));
-	::memcpy(buffNew, _buff, bytesToCopy);
-	::free(_buff);
-	_buff = buffNew;
-	return _buff;
-}
-
-void Memory::Free()
+MemoryHeap::~MemoryHeap()
 {
 	::free(_buff);
-	_bytes = 0;
-	_buff = NULL;
-}
-
-void *Memory::GetPointer(size_t offset) const
-{
-	return _buff + offset;
 }
 
 //-----------------------------------------------------------------------------

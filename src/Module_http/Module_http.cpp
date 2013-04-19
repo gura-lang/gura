@@ -31,8 +31,8 @@ static const char *HTTP_VERSION = "HTTP/1.1";
 bool SendStreamBody(Signal sig, int sock, Stream &stream)
 {
 	const size_t bytesBuff = 32768;
-	OAL::Memory memory;
-	char *buff = reinterpret_cast<char *>(memory.Allocate(bytesBuff));
+	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(bytesBuff));
+	char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 	size_t bytesRead;
 	while ((bytesRead = stream.Read(sig, buff, bytesBuff)) > 0) {
 		::send(sock, buff, static_cast<int>(bytesRead), 0);
@@ -1305,7 +1305,8 @@ bool Stream_Chunked::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode
 		if (offset > 0) bytesToSkip = static_cast<size_t>(offset);
 	}
 	const size_t bytesBuff = 32768;
-	void *buff = _memory.Allocate(bytesBuff);
+	_pMemory.reset(new OAL::MemoryHeap(bytesBuff));
+	void *buff = _pMemory->GetPointer();
 	while (bytesToSkip > 0) {
 		size_t bytesToRead = ChooseMin(bytesToSkip, bytesBuff);
 		size_t bytesRead = DoRead(sig, buff, bytesToRead);
@@ -1418,7 +1419,8 @@ bool Stream_Http::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode se
 		if (offset > 0) bytesToSkip = static_cast<size_t>(offset);
 	}
 	const size_t bytesBuff = 32768;
-	void *buff = _memory.Allocate(bytesBuff);
+	_pMemory.reset(new OAL::MemoryHeap(bytesBuff));
+	void *buff = _pMemory->GetPointer();
 	while (bytesToSkip > 0) {
 		size_t bytesToRead = ChooseMin(bytesToSkip, bytesBuff);
 		size_t bytesRead = DoRead(sig, buff, bytesToRead);
@@ -1456,7 +1458,8 @@ bool Stream_Http::Cleanup(Signal sig)
 {
 	if (GetSize() == InvalidSize) return true;
 	const size_t bytesBuff = 32768;
-	void *buff = _memory.Allocate(bytesBuff);
+	_pMemory.reset(new OAL::MemoryHeap(bytesBuff));
+	void *buff = _pMemory->GetPointer();
 	for (;;) {
 		size_t bytesRead = Read(sig, buff, bytesBuff);
 		if (bytesRead == 0) break;

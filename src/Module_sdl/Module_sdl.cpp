@@ -1546,7 +1546,6 @@ void Object_AudioSpec::Callback(Uint8 *stream, int len)
 			(_pAudioSpec->format == AUDIO_S16MSB)? Object_audio::FORMAT_S16BE :
 			Object_audio::FORMAT_U8;
 	}
-	Object_audio *pObjAudio = new Object_audio(env, fmt, _pAudioSpec->channels);
 	::SDL_LockAudio();
 #if 0
 	do {
@@ -1559,12 +1558,14 @@ void Object_AudioSpec::Callback(Uint8 *stream, int len)
 		}
 	} while (0);
 #endif
-#if 1
+#if 0
 	do {
+		AutoPtr<Object_audio> pObjAudio(new Object_audio(env,
+										fmt, _pAudioSpec->channels));
 		pObjAudio->ReferenceBuffer(NULL, stream, len);
 		ValueList valList;
 		valList.reserve(1);
-		valList.push_back(Value(pObjAudio));
+		valList.push_back(Value(pObjAudio.release()));
 		Args args(valList);
 		_pFuncCallback->Eval(env, _sig, args);
 	} while (0);

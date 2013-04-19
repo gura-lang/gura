@@ -99,9 +99,8 @@ String Object_exif::ToString(Signal sig, bool exprFlag)
 
 Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &stream)
 {
-	OAL::Memory mem;
-	mem.Allocate(65536);
-	char *buff = reinterpret_cast<char *>(mem.GetPointer());
+	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(65536));
+	char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 	SHORT_BE *pShort = reinterpret_cast<SHORT_BE *>(buff);
 	if (!ReadBuff(sig, stream, pShort, UNITSIZE_SHORT)) return NULL;
 	if (Gura_UnpackUShort(pShort->num) != MARKER_SOI) {

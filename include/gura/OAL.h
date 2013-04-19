@@ -184,21 +184,27 @@ public:
 // Memory
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Memory {
-private:
+protected:
+	int _cntRef;
 	size_t _bytes;
 	char *_buff;
 public:
-	inline Memory(const Memory &memory) :
-								_bytes(memory._bytes), _buff(NULL) {
-		::memcpy(Allocate(_bytes), memory.GetPointer(), _bytes);
-	}
-	Memory(size_t bytes = 0);
-	~Memory();
+	Gura_DeclareReferenceAccessor(Memory);
+public:
+	inline Memory() : _cntRef(1), _bytes(0), _buff(NULL) {}
+protected:
+	virtual ~Memory();
+public:
 	inline size_t GetSize() const { return _bytes; }
-	void *Allocate(size_t bytes);
-	void *Resize(size_t bytes, size_t bytesToCopy);
-	void Free();
-	void *GetPointer(size_t offset = 0) const;
+	inline void *GetPointer(size_t offset = 0) const { return _buff + offset; }
+private:
+	inline Memory(const Memory &memory) {}
+};
+
+class GURA_DLLDECLARE MemoryHeap : public Memory {
+public:
+	MemoryHeap(size_t bytes);
+	virtual ~MemoryHeap();
 };
 
 //-----------------------------------------------------------------------------

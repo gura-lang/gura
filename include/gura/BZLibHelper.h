@@ -15,7 +15,7 @@ namespace BZLib {
 class Stream_Decompressor : public Stream {
 private:
 	Stream *_pStream;
-	OAL::Memory _memory;
+	AutoPtr<OAL::Memory> _pMemory;
 	size_t _bytesSrc;
 	size_t _bytesBuff;
 	size_t _bytesOut;
@@ -61,9 +61,9 @@ bool Stream_Decompressor::Initialize(Signal sig, int verbosity, int small)
 		sig.SetError(ERR_IOError, "bzlib error");
 		return false;
 	}
-	_memory.Allocate(_bytesBuff * 2);
-	_buffOut = reinterpret_cast<char *>(_memory.GetPointer(0));
-	_buffIn = reinterpret_cast<char *>(_memory.GetPointer(_bytesBuff));
+	_pMemory.reset(new OAL::MemoryHeap(_bytesBuff * 2));
+	_buffOut = reinterpret_cast<char *>(_pMemory->GetPointer(0));
+	_buffIn = reinterpret_cast<char *>(_pMemory->GetPointer(_bytesBuff));
 	return true;
 }
 
@@ -166,7 +166,7 @@ bool Stream_Decompressor::DoClose(Signal sig)
 class Stream_Compressor : public Stream {
 private:
 	Stream *_pStream;
-	OAL::Memory _memory;
+	AutoPtr<OAL::Memory> _pMemory;
 	size_t _bytesBuff;
 	size_t _offsetOut;
 	bz_stream _bzstrm;
@@ -208,9 +208,9 @@ bool Stream_Compressor::Initialize(Signal sig,
 		sig.SetError(ERR_IOError, "bzlib error");
 		return false;
 	}
-	_memory.Allocate(_bytesBuff * 2);
-	_buffOut = reinterpret_cast<char *>(_memory.GetPointer(0));
-	_buffIn = reinterpret_cast<char *>(_memory.GetPointer(_bytesBuff));
+	_pMemory.reset(new OAL::MemoryHeap(_bytesBuff * 2));
+	_buffOut = reinterpret_cast<char *>(_pMemory->GetPointer(0));
+	_buffIn = reinterpret_cast<char *>(_pMemory->GetPointer(_bytesBuff));
 	_bzstrm.next_out = _buffOut;
 	_bzstrm.avail_out = static_cast<unsigned int>(_bytesBuff);
 	return true;

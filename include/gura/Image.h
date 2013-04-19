@@ -36,7 +36,7 @@ public:
 	inline HBITMAP GetHBITMAP() { return _hBmp; }
 #else
 protected:
-	OAL::Memory _memory;
+	AutoPtr<OAL::Memory> _pMemory;
 #endif
 public:
 	struct Accum {

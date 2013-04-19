@@ -179,7 +179,7 @@ bool GZHeader::Write(Signal sig, Stream &stream)
 class Stream_Inflater : public Stream {
 private:
 	Stream *_pStream;
-	OAL::Memory _memory;
+	AutoPtr<OAL::Memory> _pMemory;
 	size_t _bytesSrc;
 	size_t _bytesBuff;
 	size_t _bytesOut;
@@ -226,9 +226,9 @@ bool Stream_Inflater::Initialize(Signal sig, int windowBits)
 					(_zstrm.msg == NULL)? "zlib error" : _zstrm.msg);
 		return false;
 	}
-	_memory.Allocate(_bytesBuff * 2);
-	_buffOut = reinterpret_cast<unsigned char *>(_memory.GetPointer(0));
-	_buffIn = reinterpret_cast<unsigned char *>(_memory.GetPointer(_bytesBuff));
+	_pMemory.reset(new OAL::MemoryHeap(_bytesBuff * 2));
+	_buffOut = reinterpret_cast<unsigned char *>(_pMemory->GetPointer(0));
+	_buffIn = reinterpret_cast<unsigned char *>(_pMemory->GetPointer(_bytesBuff));
 	return true;
 }
 
@@ -332,7 +332,7 @@ bool Stream_Inflater::DoClose(Signal sig)
 class Stream_Deflater : public Stream {
 private:
 	Stream *_pStream;
-	OAL::Memory _memory;
+	AutoPtr<OAL::Memory> _pMemory;
 	size_t _bytesBuff;
 	size_t _offsetOut;
 	z_stream _zstrm;
@@ -376,9 +376,9 @@ bool Stream_Deflater::Initialize(Signal sig, int level,
 					(_zstrm.msg == NULL)? "zlib error" : _zstrm.msg);
 		return false;
 	}
-	_memory.Allocate(_bytesBuff * 2);
-	_buffOut = reinterpret_cast<unsigned char *>(_memory.GetPointer(0));
-	_buffIn = reinterpret_cast<unsigned char *>(_memory.GetPointer(_bytesBuff));
+	_pMemory.reset(new OAL::MemoryHeap(_bytesBuff * 2));
+	_buffOut = reinterpret_cast<unsigned char *>(_pMemory->GetPointer(0));
+	_buffIn = reinterpret_cast<unsigned char *>(_pMemory->GetPointer(_bytesBuff));
 	_zstrm.next_out = _buffOut;
 	_zstrm.avail_out = static_cast<uInt>(_bytesBuff);
 	return true;

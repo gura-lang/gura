@@ -31,16 +31,15 @@ private:
 	Format _format;
 	size_t _nChannels;
 	size_t _len;
-	Object *_pObjRef;
 	unsigned char *_buff;
-	OAL::Memory _memory;
+	AutoPtr<OAL::Memory> _pMemory;
 public:
 	inline Object_audio(Environment &env, Format format, size_t nChannels) :
 				Object(env.LookupClass(VTYPE_audio)), _format(format), _nChannels(nChannels),
-				_len(0), _pObjRef(NULL), _buff(NULL) {}
+				_len(0), _buff(NULL) {}
 	inline Object_audio(Class *pClass, Format format, size_t nChannels) :
 				Object(pClass), _format(format), _nChannels(nChannels),
-				_len(0), _pObjRef(NULL), _buff(NULL) {}
+				_len(0), _buff(NULL) {}
 	virtual ~Object_audio();
 	virtual Object *Clone() const;
 	inline bool IsValid() const { return _buff != NULL; }
@@ -74,7 +73,6 @@ public:
 			*(buffp + 1) = static_cast<unsigned char>(num);
 		}
 	}
-	void ReferenceBuffer(Object *pObjRef, unsigned char *buff, size_t len);
 	bool AllocBuffer(Signal sig, size_t len);
 	void FreeBuffer();
 	bool SetSineWave(Signal sig, size_t iChannel,

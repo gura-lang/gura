@@ -385,9 +385,9 @@ bool Stream::Compare(Signal sig, Stream &stream)
 {
 	if (!CheckReadable(sig) || !stream.CheckReadable(sig)) return false;
 	const size_t bytesBuff = 1024 * 16;
-	OAL::Memory memory(bytesBuff * 2);
-	void *buff1 = memory.GetPointer(0);
-	void *buff2 = memory.GetPointer(bytesBuff);
+	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(bytesBuff * 2));
+	void *buff1 = pMemory->GetPointer(0);
+	void *buff2 = pMemory->GetPointer(bytesBuff);
 	bool sameFlag = false;
 	for (;;) {
 		size_t bytesRead1 = Read(sig, buff1, bytesBuff);
@@ -415,8 +415,8 @@ bool Stream::ReadToStream(Environment &env, Signal sig, Stream &streamDst,
 	if (finalizeFlag) {
 		validAttrFlag = GetAttribute(attr);
 	}
-	OAL::Memory memory(bytesUnit);
-	char *buff = reinterpret_cast<char *>(memory.GetPointer());
+	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(bytesUnit));
+	char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 	for (;;) {
 		size_t bytesRead = Read(sig, buff, bytesUnit);
 		if (bytesRead == 0) break;
@@ -894,7 +894,7 @@ Stream_Prefetch::~Stream_Prefetch()
 {
 	foreach (MemoryList, ppMemory, _memoryList) {
 		OAL::Memory *pMemory = *ppMemory;
-		delete pMemory;
+		OAL::Memory::Delete(pMemory);
 	}
 }
 
@@ -977,16 +977,14 @@ bool Stream_Prefetch::DoPrefetch(Signal sig)
 {
 	_bytesAll = 0;
 	for (;;) {
-		OAL::Memory *pMemory = new OAL::Memory(_bytesUnit);
+		AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(_bytesUnit));
 		size_t bytes = _pStreamSrc->Read(sig, pMemory->GetPointer(), _bytesUnit);
 		if (sig.IsSignalled()) {
-			delete pMemory;
 			return false;
 		} else if (bytes == 0 || sig.IsSignalled()) {
-			delete pMemory;
 			break;
 		}
-		_memoryList.push_back(pMemory);
+		_memoryList.push_back(pMemory.release());
 		_bytesAll += bytes;
 		if (bytes < _bytesUnit) break;
 	}

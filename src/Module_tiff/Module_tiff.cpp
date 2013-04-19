@@ -147,8 +147,8 @@ bool ImageStreamer_TIFF::ReadStream(Environment &env, Signal sig, Image *pImage,
 		return false;
 	}
 	size_t bytesRaster = (width * height + 1) * sizeof(uint32);
-	OAL::Memory memory;
-	uint32 *raster = reinterpret_cast<uint32 *>(memory.Allocate(bytesRaster));
+	AutoPtr<OAL::Memory> pMemory(new OAL::MemoryHeap(bytesRaster));
+	uint32 *raster = reinterpret_cast<uint32 *>(pMemory->GetPointer());
 	if (!::TIFFReadRGBAImage(tiff, width, height, raster, 0)) {
 		sig.SetError(ERR_FormatError, "invalid TIFF image");
 		::TIFFClose(tiff);
