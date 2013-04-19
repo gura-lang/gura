@@ -196,7 +196,8 @@ protected:
 	virtual ~Memory();
 public:
 	inline size_t GetSize() const { return _bytes; }
-	inline void *GetPointer(size_t offset = 0) const { return _buff + offset; }
+	inline char *GetPointer(size_t offset = 0) { return _buff + offset; }
+	inline const char *GetPointer(size_t offset = 0) const { return _buff + offset; }
 private:
 	inline Memory(const Memory &memory) {}
 };

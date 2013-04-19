@@ -7,6 +7,66 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Image
 //-----------------------------------------------------------------------------
+Image::Image(Format format) : _cntRef(1),
+			_format(format), _width(0), _height(0), _pPalette(NULL)
+{
+	InitMetrics();
+}
+
+Image::Image(const Image &image) : _cntRef(1),
+			_format(image._format), _width(0), _height(0),
+			_pPalette(Palette::Reference(image.GetPalette()))
+{
+	if (AllocBuffer(image._width, image._height, 0x00)) {
+		::memcpy(GetBuffer(), image.GetBuffer(), GetBufferSize());
+	}
+}
+
+Image::~Image()
+{
+	FreeBuffer();
+}
+
+Image *Image::Clone() const
+{
+	return new Image(*this);
+}
+
+bool Image::AllocBuffer(size_t width, size_t height, unsigned char fillValue)
+{
+	if (width == 0 || height == 0) return false;
+	_width = width, _height = height;
+	InitMetrics();
+#if GURA_USE_MSWIN_DIB
+	do {
+		AutoPtr<OAL::MemoryDIB> pMemory(new OAL::MemoryDIB());
+		if (!pMemory->AllocBuffer(width, height,
+				(_format == FORMAT_RGB)? 24 : (_format == FORMAT_RGBA)? 32 : 32)) {
+			return false;
+		}
+		_pMemory.reset(pMemory.release());
+	} while (0);
+#else
+	_pMemory.reset(new OAL::MemoryHeap(GetBufferSize()));
+#endif
+	::memset(GetBuffer(), fillValue, GetBufferSize());
+	return true;
+}
+
+bool Image::AllocBuffer(Signal sig,
+					size_t width, size_t height, unsigned char fillValue)
+{
+	if (AllocBuffer(width, height, fillValue)) return true;
+	sig.SetError(ERR_MemoryError, "failed to allocate image buffer");
+	return false;
+}
+
+void Image::FreeBuffer()
+{
+	_pMemory.reset(NULL);
+	_width = 0, _height = 0;
+}
+
 bool Image::CheckEmpty(Signal sig) const
 {
 	if (!IsValid()) return true;
@@ -1169,144 +1229,6 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 	return true;
 }
 
-void Image::SetBuffer(size_t width, size_t height, unsigned char *buff,
-									size_t bytesPerPixel, size_t bytesPerLine)
-{
-	_width = width, _height = height;
-	_buff = buff;
-	_metrics.bitsPerPixel = bytesPerPixel * 8;
-	_metrics.bytesPerPixel = bytesPerPixel;
-	_metrics.bytesPerLine = bytesPerLine;
-}
-
-#if GURA_USE_MSWIN_DIB
-//-----------------------------------------------------------------------------
-// Image (Windows DIB section)
-//-----------------------------------------------------------------------------
-Image::Image(Format format) : _cntRef(1),
-		_format(format), _width(0), _height(0), _buff(NULL),
-		_hBmp(NULL), _pPalette(NULL)
-{
-	InitMetrics();
-}
-
-Image::Image(const Image &image) : _cntRef(1),
-		_format(image._format), _width(0), _height(0), _buff(NULL),
-		_hBmp(NULL), _pPalette(Palette::Reference(image.GetPalette()))
-{
-	Signal sig;
-	if (AllocBuffer(sig, image._width, image._height, 0x00)) {
-		::memcpy(_buff, image._buff, GetBufferSize());
-	}
-}
-
-Image::~Image()
-{
-	FreeBuffer();
-}
-
-Image *Image::Clone() const
-{
-	return new Image(*this);
-}
-
-bool Image::AllocBuffer(Signal sig,
-					size_t width, size_t height, unsigned char fillValue)
-{
-	FreeBuffer();
-	if (width == 0 || height == 0) {
-		sig.SetError(ERR_MemoryError, "failed to allocate image buffer");
-		return false;
-	}
-	BITMAPINFO bmi;
-	BITMAPINFOHEADER &hdr = bmi.bmiHeader;
-	::memset(&bmi, 0, sizeof(BITMAPINFO));
-	hdr.biSize = sizeof(BITMAPINFOHEADER);
-	hdr.biWidth = static_cast<int>(width);
-	hdr.biHeight = -static_cast<int>(height);
-	hdr.biPlanes = 1;
-	hdr.biBitCount =
-		(_format == FORMAT_RGB)? 24 :
-		(_format == FORMAT_RGBA)? 32 : 32;
-	hdr.biCompression = BI_RGB;
-	hdr.biSizeImage = 0;
-	hdr.biXPelsPerMeter = 0;
-	hdr.biYPelsPerMeter = 0;
-	hdr.biClrUsed = 0;
-	hdr.biClrImportant = 0;
-	void *buff = NULL;
-	_hBmp = ::CreateDIBSection(NULL, &bmi, DIB_RGB_COLORS, &buff, NULL, 0);
-	if (_hBmp == NULL || buff == NULL) {
-		sig.SetError(ERR_MemoryError, "failed to allocate image buffer");
-		return false;
-	}
-	_width = width, _height = height;
-	_buff = reinterpret_cast<unsigned char *>(buff);
-	InitMetrics();
-	::memset(_buff, fillValue, GetBufferSize());
-	return true;
-}
-
-void Image::FreeBuffer()
-{
-	if (_hBmp != NULL) ::DeleteObject(_hBmp);
-	_width = 0, _height = 0;
-	_buff = NULL;
-	_hBmp = NULL;
-}
-#else // GURA_USE_MSWIN_DIB
-//-----------------------------------------------------------------------------
-// Image (on memory)
-//-----------------------------------------------------------------------------
-Image::Image(Format format) : _cntRef(1),
-		_format(format), _width(0), _height(0), _buff(NULL), _pPalette(NULL)
-{
-	InitMetrics();
-}
-
-Image::Image(const Image &image) : _cntRef(1),
-		_format(image._format), _width(0), _height(0), _buff(NULL),
-		_pPalette(Palette::Reference(image.GetPalette()))
-{
-	Signal sig;
-	if (AllocBuffer(sig, image._width, image._height, 0x00)) {
-		::memcpy(_buff, image._buff, GetBufferSize());
-	}
-}
-
-Image::~Image()
-{
-	FreeBuffer();
-}
-
-Image *Image::Clone() const
-{
-	return new Image(*this);
-}
-
-bool Image::AllocBuffer(Signal sig,
-					size_t width, size_t height, unsigned char fillValue)
-{
-	if (width == 0 || height == 0) {
-		sig.SetError(ERR_MemoryError, "failed to allocate image buffer");
-		return false;
-	}
-	_width = width, _height = height;
-	InitMetrics();
-	_pMemory.reset(new OAL::MemoryHeap(GetBufferSize()));
-	_buff = reinterpret_cast<unsigned char *>(_pMemory->GetPointer());
-	::memset(_buff, fillValue, GetBufferSize());
-	return true;
-}
-
-void Image::FreeBuffer()
-{
-	_pMemory.reset(NULL);
-	_width = 0, _height = 0;
-	_buff = NULL;
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Image::Scanner
 //-----------------------------------------------------------------------------
@@ -1385,7 +1307,6 @@ Iterator *Image::IteratorEach::GetSource()
 bool Image::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 {
 	Image *pImage = _scanner.GetImage();
-	//Environment &env = *pObjImage;
 	if (_doneFlag) return false;
 	unsigned char red = _scanner.GetRed();
 	unsigned char green = _scanner.GetGreen();

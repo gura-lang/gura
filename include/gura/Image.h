@@ -29,15 +29,6 @@ public:
 		SCAN_LeftBottomHorz, SCAN_LeftBottomVert,
 		SCAN_RightBottomHorz, SCAN_RightBottomVert,
 	};
-#if GURA_USE_MSWIN_DIB
-protected:
-	HBITMAP _hBmp;
-public:
-	inline HBITMAP GetHBITMAP() { return _hBmp; }
-#else
-protected:
-	AutoPtr<OAL::Memory> _pMemory;
-#endif
 public:
 	struct Accum {
 		size_t red;
@@ -177,12 +168,12 @@ protected:
 	int _cntRef;
 	Format _format;
 	size_t _width, _height;
-	unsigned char *_buff;
 	struct {
 		size_t bitsPerPixel;
 		size_t bytesPerPixel;
 		size_t bytesPerLine;
 	} _metrics;
+	AutoPtr<OAL::Memory> _pMemory;
 	AutoPtr<Palette> _pPalette;
 public:
 	Gura_DeclareReferenceAccessor(Image);
@@ -193,11 +184,18 @@ protected:
 	virtual ~Image();
 public:
 	Image *Clone() const;
+	inline OAL::Memory *GetMemory() { return _pMemory.get(); }
+	inline const OAL::Memory *GetMemory() const { return _pMemory.get(); }
 	inline Format GetFormat() const { return _format; }
 	inline size_t GetWidth() const { return _width; }
 	inline size_t GetHeight() const { return _height; }
-	inline unsigned char *GetBuffer() { return _buff; }
-	inline bool IsValid() const { return _buff != NULL; }
+	inline unsigned char *GetBuffer() {
+		return reinterpret_cast<unsigned char *>(_pMemory->GetPointer());
+	}
+	inline const unsigned char *GetBuffer() const {
+		return reinterpret_cast<const unsigned char *>(_pMemory->GetPointer());
+	}
+	inline bool IsValid() const { return !_pMemory.IsNull(); }
 	inline size_t GetBitsPerPixel() const { return _metrics.bitsPerPixel; }
 	inline size_t GetBytesPerPixel() const { return _metrics.bytesPerPixel; }
 	inline size_t GetBytesPerLine() const { return _metrics.bytesPerLine; }
@@ -205,16 +203,16 @@ public:
 		return GetBytesPerLine() * _height;
 	}
 	inline unsigned char *GetPointer(size_t y) {
-		return _buff + GetBytesPerLine() * y;
+		return GetBuffer() + GetBytesPerLine() * y;
 	}
 	inline unsigned char *GetPointer(size_t x, size_t y) {
-		return _buff + GetBytesPerLine() * y + GetBytesPerPixel() * x;
+		return GetBuffer() + GetBytesPerLine() * y + GetBytesPerPixel() * x;
 	}
 	inline const unsigned char *GetPointer(size_t y) const {
-		return _buff + GetBytesPerLine() * y;
+		return GetBuffer() + GetBytesPerLine() * y;
 	}
 	inline const unsigned char *GetPointer(size_t x, size_t y) const {
-		return _buff + GetBytesPerLine() * y + GetBytesPerPixel() * x;
+		return GetBuffer() + GetBytesPerLine() * y + GetBytesPerPixel() * x;
 	}
 	inline Scanner *CreateScanner(size_t x, size_t y,
 				size_t width, size_t height, ScanDir scanDir = SCAN_LeftTopHorz) {
@@ -225,9 +223,8 @@ public:
 	}
 	bool CheckEmpty(Signal sig) const;
 	bool CheckValid(Signal sig) const;
+	bool AllocBuffer(size_t width, size_t height, unsigned char fillValue);
 	bool AllocBuffer(Signal sig, size_t width, size_t height, unsigned char fillValue);
-	void SetBuffer(size_t width, size_t height, unsigned char *buff,
-									size_t bytesPerPixel, size_t bytesPerLine);
 	void FreeBuffer();
 	inline bool CheckCoord(int x, int y) const {
 		return 0 <= x && x < static_cast<int>(_width) &&
@@ -353,6 +350,12 @@ public:
 		xm = (x * cos1024 - y * sin1024) >> 10;
 		ym = (x * sin1024 + y * cos1024) >> 10;
 	}
+#if GURA_USE_MSWIN_DIB
+public:
+	inline HBITMAP GetHBITMAP() {
+		return dynamic_cast<OAL::MemoryDIB *>(GetMemory())->GetHBITMAP();
+	}
+#endif
 private:
 	void InitMetrics();
 	Image *CreateDerivation(Signal sig,
