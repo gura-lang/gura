@@ -2,6 +2,31 @@
 
 scope {
 	conio.clear()
+	conio.setcolor(`red) {
+		println('red')
+		conio.setcolor(`blue) {
+			println('blue')
+			conio.setcolor(`green) {
+				println('green')
+				conio.setcolor(`yellow) {
+					println('yellow')
+				}
+				println('green again')
+				conio.setcolor(`bright_red)
+				println('bright_red')
+				conio.setcolor(`bright_blue)
+				println('bright_blue')
+				conio.setcolor(`bright_green)
+				println('bright_green')
+			}
+			println('blue again')
+		}
+		println('red again')
+	}
+	conio.waitkey():raise
+}
+scope {
+	conio.clear()
 	[w, h] = conio.getwinsize()
 	txt = chr(0x30 + [0..9].round(w - 4)).join()
 	for (region in [`left, `right, `line]) {
@@ -13,10 +38,10 @@ scope {
 		conio.moveto(x, y)
 		print('#')
 		conio.moveto(x, y)
-		conio.waitkey()
+		conio.waitkey():raise
 		conio.moveto(x, y)
 		conio.clear(region)
-		conio.waitkey()
+		conio.waitkey():raise
 	}
 }
 scope {
@@ -34,7 +59,7 @@ scope {
 	conio.moveto(w - 9, 0) {
 		print('right-top')
 	}
-	conio.waitkey()
+	conio.waitkey():raise
 }
 scope {
 	conio.clear()
@@ -67,7 +92,7 @@ scope {
 		conio.moveto(x, y) { print('.') }
 		x += xDir, y += yDir
 	}
-	conio.waitkey()
+	conio.waitkey():raise
 }
 scope {
 	conio.clear()
@@ -87,5 +112,5 @@ scope {
 	conio.moveto(3..20, 1..) {
 		print('hello')
 	}
-	conio.waitkey()
+	conio.waitkey():raise
 }

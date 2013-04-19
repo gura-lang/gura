@@ -293,13 +293,16 @@ Gura_ImplementFunction(setcolor)
 {
 	int fg = 0, bg = 0;
 	String str;
-	bool brightFlag = false;
 	if (!args.IsSymbol(0)) {
 		// nothing to do
 	} else if (!SymbolToNumber(sig, args.GetSymbol(0), &fg)) {
 		return Value::Null;
 	} else {
-		if (fg & 8) str += "1;";
+		if (fg & 8) {
+			str += "1;";
+		} else {
+			str += "0;";
+		}
 		str += '3';
 		str += ('0' + (fg & 7));
 	}
@@ -320,12 +323,11 @@ Gura_ImplementFunction(setcolor)
 		if (sig.IsSignalled()) return Value::Null;
 		g_attrStack.push_back(str);
 		pExprBlock->Exec(env, sig);
-		g_attrStack.pop_back();
+		if (!g_attrStack.empty()) g_attrStack.pop_back();
 		if (g_attrStack.empty()) {
 			::printf("\033[0m");
 		} else {
-			::printf("\033[%sm", g_attrStack.back());
-			g_attrStack.pop_back();
+			::printf("\033[%sm", g_attrStack.back().c_str());
 		}
 	} else {
 		if (!g_attrStack.empty()) g_attrStack.pop_back();
