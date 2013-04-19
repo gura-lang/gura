@@ -1,6 +1,36 @@
 #!/usr/bin/env gura
+import(argopt)
 
-dirNamesExcept = sys.argv.offset(1).filter(&{$x.startswith('!')}):*mid(1)
+argopt.Parser {|p|
+	p.addFlag('verbose',	'v', 'verbose mode')
+	p.addFlag('debug',		'd', 'build module with debug information')
+	p.addFlag('rebuild',	'r', 'clean output files before building')
+	p.addParam('exclude',	'x', 'specify module to exclude', 'NAME', '')
+	try {
+		[cfg, argv] = p.parse(sys.argv)
+	} except {|e|
+		sys.stderr.println(e.text)
+		sys.exit(1)
+	}
+	command = if (argv.len() == 0) {
+		`build
+	} elsif (argv[0] == 'help') {
+		sys.stderr.printf('usage: %s [options] command\n', path.filename(sys.argv[0]))
+		sys.stderr.println('command:')
+		sys.stderr.println(' clean    clean output files')
+		sys.stderr.println(' install  install produced files to root directory')
+		sys.stderr.println('options:')
+		sys.stderr.println(' ', p.formatHelp())
+		sys.exit(1)
+	} elsif (argv[0] == 'clean') {
+		`clean
+	} elsif (argv[0] == 'install') {
+		`install
+	} else {
+		sys.stderr.println('unknown command: ', argv[0])
+		sys.exit(1)
+	}
+}
 DirInfo = struct(dirName:string, platforms[]:symbol)
 dirInfos = @(DirInfo) {
 	['Module_sample',		[`mswin, `linux]]
@@ -37,22 +67,37 @@ dirInfos = @(DirInfo) {
 	['Module_canvas',		[`mswin]]
 	['Module_mswin',		[`mswin]]
 }
+dirNamesExcept = 'Module_' + cfg['exclude'].split(',')
 dirNames = dirInfos.filter(dirInfos:*platforms:*iscontain(sys.platform))::dirName
 dirNamePre = path.dirname(sys.argv[0])
 dirNamesError = []
 debFiles = []
 rpmFiles = []
 for (dirName in dirNames) {
-	(dirName in dirNamesExcept) && continue
+	if (dirName in dirNamesExcept) {
+		printf('[%s] .. skipped\n', dirName)
+		continue
+	}
+	printf('[%s]\n', dirName)
 	if (!dirNamePre.isempty()) {
 		pathName = path.join(dirNamePre, dirName)
 	}
 	argvOrg = sys.argv
-	sys.argv = argvOrg.replace('install', 'install-root'):list
+	sys.argv = []
+	if (command == `build) {
+		sys.argv.append('build')
+	} elsif (command == `clean) {
+		sys.argv.append('clean')
+	} elsif (command == `install) {
+		sys.argv.append('install-root')
+	} else {
+		// nothing to do
+	}
+	cfg['verbose'] && sys.argv.append('--verbose')
+	cfg['debug'] && sys.argv.append('--debug')
+	cfg['rebuild'] && sys.argv.append('--rebuild')
 	sys.argv.append('--basedir=' + path.join(fs.getcwd(), dirName))
 	fs.chdir(pathName) {
-		//println('-' * 78)
-		printf('[%s]\n', dirName)
 		scope {
 			builder = open('build.gura').parse().eval()
 			builder.errorFlag && dirNamesError.append(dirName)
@@ -62,7 +107,7 @@ for (dirName in dirNames) {
 		sys.argv = argvOrg
 	}
 }
-if (sys.argv.len() < 2 || sys.argv[1] != 'install') {
+if (sys.argv.len() < 2 || command != `install) {
 	if (!dirNamesError.isempty()) {
 		println('**** error in ', dirNamesError)
 	}

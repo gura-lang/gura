@@ -126,8 +126,8 @@ BuilderBase = class {
 		sys.stderr.printf('usage: %s [options] command\n', path.filename(sys.argv[0]))
 		sys.stderr.println('command:')
 		sys.stderr.println(' clean        clean output files')
-		sys.stderr.println(' install      install output files')
-		sys.stderr.println(' install-root install output files to root directory')
+		sys.stderr.println(' install      install produced files')
+		sys.stderr.println(' install-root install produced files to root directory')
 		sys.stderr.println('options:')
 		sys.stderr.println(' ', p.formatHelp())
 	}
