@@ -78,4 +78,5 @@ if (sys.argv.len() < 2 || sys.argv[1] != 'install') {
 		fs.chmod('a+x', fileName)
 		println(fileName, ' was created. Execute this to install RPM packages.')
 	}
+	!dirNamesError.isempty() && sys.exit(1);
 }
