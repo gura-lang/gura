@@ -201,11 +201,32 @@ private:
 	inline Memory(const Memory &memory) {}
 };
 
+//-----------------------------------------------------------------------------
+// MemoryHeap
+//-----------------------------------------------------------------------------
 class GURA_DLLDECLARE MemoryHeap : public Memory {
 public:
 	MemoryHeap(size_t bytes);
+protected:
 	virtual ~MemoryHeap();
 };
+
+//-----------------------------------------------------------------------------
+// MemoryDIB
+//-----------------------------------------------------------------------------
+#if defined(GURA_ON_MSWIN)
+class GURA_DLLDECLARE MemoryDIB : public Memory {
+private:
+	HBITMAP _hBitmap;
+public:
+	MemoryDIB();
+protected:
+	virtual ~MemoryDIB();
+public:
+	inline HBITMAP GetHBITMAP() { return _hBitmap; }
+	bool AllocBuffer(size_t width, size_t height, size_t bitsPerPixel);
+};
+#endif
 
 //-----------------------------------------------------------------------------
 // Thread
