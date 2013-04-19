@@ -57,10 +57,10 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)..\bin-x64-dbg\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\bin-x86-dbg\gura.exe build-modules.gura --debug install-root</NMakeBuildCommandLine>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)..\bin-x64-dbg\gura.exe build-modules.gura --debug install-root</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\bin-x86-dbg\gura.exe build-modules.gura --debug --rebuild install-root</NMakeReBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)..\bin-x64-dbg\gura.exe build-modules.gura --debug --rebuild install-root</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\bin-x86-dbg\gura.exe build-modules.gura --debug install</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)..\bin-x64-dbg\gura.exe build-modules.gura --debug install</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\bin-x86-dbg\gura.exe build-modules.gura --debug --rebuild install</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)..\bin-x64-dbg\gura.exe build-modules.gura --debug --rebuild install</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\bin-x86-dbg\gura.exe build-modules.gura --debug clean</NMakeCleanCommandLine>
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)..\bin-x64-dbg\gura.exe build-modules.gura --debug clean</NMakeCleanCommandLine>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
@@ -79,10 +79,10 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)..\bin-x64\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\bin-x86\gura.exe build-modules.gura install-root</NMakeBuildCommandLine>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)..\bin-x64\gura.exe build-modules.gura install-root</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\bin-x86\gura.exe build-modules.gura --rebuild install-root</NMakeReBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)..\bin-x64\gura.exe build-modules.gura --rebuild install-root</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\bin-x86\gura.exe build-modules.gura install</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)..\bin-x64\gura.exe build-modules.gura install</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\bin-x86\gura.exe build-modules.gura --rebuild install</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)..\bin-x64\gura.exe build-modules.gura --rebuild install</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\bin-x86\gura.exe build-modules.gura clean</NMakeCleanCommandLine>
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)..\bin-x64\gura.exe build-modules.gura clean</NMakeCleanCommandLine>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
