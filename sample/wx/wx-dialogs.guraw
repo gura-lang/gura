@@ -61,8 +61,8 @@ myCanvas = nil
 MyApp = class(wx.App) {
 	OnInit() = {
 		wx.InitAllImageHandlers()
-		this.m_canvasTextColour = wx.BLACK
-		this.m_canvasFont = wx.NORMAL_FONT
+		this.m_canvasTextColour:public = wx.BLACK
+		this.m_canvasFont:public = wx.NORMAL_FONT
 		// Create the main frame window
 		frame = MyFrame(nil, 'wxWidgets dialogs example')
 		// Make a menubar
