@@ -1,22 +1,23 @@
 #!/usr/bin/env gura
 
 scope {
+	bg = `black
 	conio.clear()
-	conio.setcolor(`red) {
+	conio.setcolor(`red, bg) {
 		println('red')
-		conio.setcolor(`blue) {
+		conio.setcolor(`blue, bg) {
 			println('blue')
-			conio.setcolor(`green) {
+			conio.setcolor(`green, bg) {
 				println('green')
-				conio.setcolor(`yellow) {
+				conio.setcolor(`yellow, bg) {
 					println('yellow')
 				}
 				println('green again')
-				conio.setcolor(`bright_red)
+				conio.setcolor(`bright_red, bg)
 				println('bright_red')
-				conio.setcolor(`bright_blue)
+				conio.setcolor(`bright_blue, bg)
 				println('bright_blue')
-				conio.setcolor(`bright_green)
+				conio.setcolor(`bright_green, bg)
 				println('bright_green')
 			}
 			println('blue again')
