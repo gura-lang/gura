@@ -2,6 +2,7 @@
 // Gura curl module
 //-----------------------------------------------------------------------------
 #include "Module_curl.h"
+#include <curl/curl.h>
 
 Gura_BeginModule(curl)
 
