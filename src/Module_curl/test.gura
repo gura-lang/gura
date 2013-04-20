@@ -2,7 +2,7 @@
 import(curl)
 
 curl.easy_init {|c|
-	//c.SetStreamOut('aa')
+	c.SetStreamOut('result.html')
 	c.easy_setopt(curl.OPT_URL, 'http://example.com/')
 	//c.easy_setopt(curl.OPT_URL,
 	//	'ftp://ftp.example.com/pub/www/utilities/curl/curl-7.9.2.tar.gz')
