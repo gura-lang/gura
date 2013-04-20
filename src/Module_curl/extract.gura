@@ -1,0 +1,35 @@
+#!/usr/bin/env gura
+import(re)
+
+fileName = 'curl.h'
+nTabsAlign = 15
+println('// CURLINFO')
+scope {
+	ms = readlines(fileName):*match(r'^\s*CURLINFO_(\w+)').skipnil()
+	declares = format('Gura_AssignValueCURLINFO(%s);', ms:*group(1))
+	printf('%s\n', declares)
+}
+println('// CURLcode')
+scope {
+	ms = readlines(fileName):*match(r'^\s*CURLE_(\w+)').skipnil()
+	declares = format('Gura_AssignValueCURLE(%s);', ms:*group(1))
+	printf('%s\n', declares)
+}
+println('// CURLoption')
+scope {
+	ms = readlines(fileName):*match(r'^\s*CINIT\(\s*(\w+),\s*(\w+)').skipnil()
+	declares = format('Gura_AssignValueCURLOPT(%s);', ms:*group(1))
+	tabs = '\t' * (nTabsAlign - int((declares:*len() + 4) / 4))
+	printf('%s%s// %s\n', declares, tabs, ms:*group(2))
+}
+scope {
+	ms = readlines(fileName):*match(r'^#define\s+CURLOPT_(\w+)').skipnil()
+	declares = format('Gura_AssignValueCURLOPT(%s);', ms:*group(1))
+	printf('%s\n', declares)
+}
+println('// CURLformoption')
+scope {
+	ms = readlines(fileName):*match(r'^\s*CFINIT\(\s*(\w+)').skipnil()
+	declares = format('Gura_AssignValueCURLFORM(%s);', ms:*group(1))
+	printf('%s\n', declares)
+}
