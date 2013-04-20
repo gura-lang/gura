@@ -187,9 +187,13 @@ Gura_ModuleEntry()
 	Gura_AssignValueCURLE(COULDNT_CONNECT);
 	Gura_AssignValueCURLE(FTP_WEIRD_SERVER_REPLY);
 	Gura_AssignValueCURLE(REMOTE_ACCESS_DENIED);
+#if 0
 	Gura_AssignValueCURLE(FTP_ACCEPT_FAILED);
+#endif
 	Gura_AssignValueCURLE(FTP_WEIRD_PASS_REPLY);
+#if 0
 	Gura_AssignValueCURLE(FTP_ACCEPT_TIMEOUT);
+#endif
 	Gura_AssignValueCURLE(FTP_WEIRD_PASV_REPLY);
 	Gura_AssignValueCURLE(FTP_WEIRD_227_FORMAT);
 	Gura_AssignValueCURLE(FTP_CANT_GET_HOST);
@@ -266,7 +270,9 @@ Gura_ModuleEntry()
 	Gura_AssignValueCURLE(RTSP_SESSION_ERROR);
 	Gura_AssignValueCURLE(FTP_BAD_FILE_LIST);
 	Gura_AssignValueCURLE(CHUNK_FAILED);
+#if 0
 	Gura_AssignValueCURLE(NO_CONNECTION_AVAILABLE);
+#endif
 	// CURLoption
 	Gura_AssignValueCURLOPT(FILE);							// OBJECTPOINT
 	Gura_AssignValueCURLOPT(URL);							// OBJECTPOINT
@@ -460,6 +466,7 @@ Gura_ModuleEntry()
 	Gura_AssignValueCURLOPT(CLOSESOCKETFUNCTION);			// FUNCTIONPOINT
 	Gura_AssignValueCURLOPT(CLOSESOCKETDATA);				// OBJECTPOINT
 	Gura_AssignValueCURLOPT(GSSAPI_DELEGATION);				// LONG
+#if 0
 	Gura_AssignValueCURLOPT(DNS_SERVERS);					// OBJECTPOINT
 	Gura_AssignValueCURLOPT(ACCEPTTIMEOUT_MS);				// LONG
 	Gura_AssignValueCURLOPT(TCP_KEEPALIVE);					// LONG
@@ -467,6 +474,7 @@ Gura_ModuleEntry()
 	Gura_AssignValueCURLOPT(TCP_KEEPINTVL);					// LONG
 	Gura_AssignValueCURLOPT(SSL_OPTIONS);					// LONG
 	Gura_AssignValueCURLOPT(MAIL_AUTH);						// OBJECTPOINT
+#endif
 	Gura_AssignValueCURLOPT(ENCODING);
 	Gura_AssignValueCURLOPT(SERVER_RESPONSE_TIMEOUT);
 	Gura_AssignValueCURLOPT(POST301);
