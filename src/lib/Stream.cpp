@@ -801,6 +801,85 @@ size_t StreamDumb::DoGetSize()
 }
 
 //-----------------------------------------------------------------------------
+// StreamFIFO
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE StreamFIFO : public Stream {
+private:
+	AutoPtr<Memory> _pMemory;
+	std::auto_ptr<OAL::Event> _pEventWrite;
+	std::auto_ptr<OAL::Event> _pEventRequest;
+public:
+	StreamFIFO(Environment &env, Signal sig, size_t bytesBuff);
+	virtual const char *GetName() const;
+	virtual const char *GetIdentifier() const;
+	virtual bool GetAttribute(Attribute &attr);
+	virtual bool SetAttribute(const Attribute &attr);
+	virtual size_t DoRead(Signal sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal sig);
+	virtual bool DoClose(Signal sig);
+	virtual size_t DoGetSize();
+};
+
+StreamFIFO::StreamFIFO(Environment &env, Signal sig, size_t bytesBuff) :
+		Stream(env, sig, ATTR_Readable | ATTR_Writable),
+		_pMemory(new MemoryHeap(bytesBuff)),
+		_pEventWrite(new OAL::Event()), _pEventRequest(new OAL::Event())
+{
+}
+
+const char *StreamFIFO::GetName() const
+{
+	return "FIFO";
+}
+
+const char *StreamFIFO::GetIdentifier() const
+{
+	return NULL;
+}
+
+bool StreamFIFO::GetAttribute(Attribute &attr)
+{
+	return false;
+}
+
+bool StreamFIFO::SetAttribute(const Attribute &attr)
+{
+	return false;
+}
+
+size_t StreamFIFO::DoRead(Signal sig, void *buff, size_t len)
+{
+	return 0;
+}
+
+size_t StreamFIFO::DoWrite(Signal sig, const void *buff, size_t len)
+{
+	return 0;
+}
+
+bool StreamFIFO::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+{
+	return false;
+}
+
+bool StreamFIFO::DoFlush(Signal sig)
+{
+	return true;
+}
+
+bool StreamFIFO::DoClose(Signal sig)
+{
+	return true;
+}
+
+size_t StreamFIFO::DoGetSize()
+{
+	return 0;
+}
+
+//-----------------------------------------------------------------------------
 // StreamMemReader
 //-----------------------------------------------------------------------------
 StreamMemReader::StreamMemReader(Environment &env, Signal sig, const void *buff, size_t bytes) :
