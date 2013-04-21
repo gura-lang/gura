@@ -9,6 +9,7 @@ ubarName = fields.join('_')
 slashName = fields.join('/')
 localName = fields[-1]
 fileBuild = 'build.gura'
+fileTest = 'test-' + ubarName + '.gura'
 fileHdr = 'Module_' + ubarName + '.h'
 fileSrc = 'Module_' + ubarName + '.cpp'
 incOnceMacroName = '__MODULE_' + ubarName.upper()  + '_H__'
@@ -19,10 +20,18 @@ if (path.exists(fileBuild) || path.exists(fileHdr) || path.exists(fileSrc)) {
 R'''
 #!/usr/bin/env gura
 import(modbuild)
+
 builder = modbuild.Builder()
 builder.build('${slashName}', ['Module_${ubarName}.cpp'])
 '''.template(open(fileBuild, 'w').addcr(false))
 fs.chmod('a+x', fileBuild)
+R'''
+#!/usr/bin/env gura
+import(${dotName})
+
+println(${dotName}.test(3, 4))
+'''.template(open(fileTest, 'w').addcr(false))
+fs.chmod('a+x', fileTest)
 R'''
 //-----------------------------------------------------------------------------
 // Gura ${dotName} module
@@ -79,7 +88,7 @@ Gura_EndModule(${ubarName}, ${localName})
 Gura_RegisterModule(${ubarName})
 '''.template(open(fileSrc, 'w').addcr(false))
 
-println(fileBuild, ', ', fileHdr, ' and ', fileSrc, ' were created')
+println(fileBuild, ', ', fileTest, ', ', fileHdr, ' and ', fileSrc, ' were created')
 /*
 print('''\
 To create a module binary file, execute the following command:
