@@ -214,6 +214,7 @@ private:
 #if defined(GURA_ON_MSWIN)
 	HANDLE _hEvent;
 #else
+	pthread_mutex_t _mutex;
 #endif
 public:
 	Event();

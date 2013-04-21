@@ -20,6 +20,7 @@ typedef int mode_t;
 #else
 #include <unistd.h>
 #include <dlfcn.h>
+#include <pthread.h>
 #include <sys/time.h>
 #include <sys/wait.h>
 #endif
@@ -1369,8 +1370,17 @@ void *DynamicLibrary::GetEntry(Signal sig, const char *name)
 //-----------------------------------------------------------------------------
 // Thread
 //-----------------------------------------------------------------------------
+static void *start_routine(void *arg)
+{
+	::pthread_detach(::pthread_self());
+	reinterpret_cast<Thread *>(arg)->Run();
+	return 0;
+}
+
 void Thread::Start()
 {
+	pthread_t pt;
+	::pthread_create(&pt, NULL, &start_routine, this);
 }
 
 //-----------------------------------------------------------------------------
@@ -1399,24 +1409,27 @@ void Semaphore::Release()
 //-----------------------------------------------------------------------------
 // Event
 //-----------------------------------------------------------------------------
-#if defined(HAVE_SEMAPHORE_H)
 Event::Event()
 {
+	pthread_mutexattr_t mutexattr;
+	::pthread_mutexattr_init(&mutexattr);
+	::pthread_mutex_init(&_mutex, &mutexattr);
 }
 
 Event::~Event()
 {
+	::pthred_mutex_destroy(&_mutex);
 }
 
 void Event::Wait()
 {
+	::pthread_mutex_lock(&_mutex);
 }
 
 void Event::Notify()
 {
+	::pthread_mutex_unlock(&_mutex);
 }
-#else
-#endif
 
 #endif
 
