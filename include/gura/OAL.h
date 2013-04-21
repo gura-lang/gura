@@ -184,7 +184,14 @@ public:
 // Thread
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Thread {
+private:
+#if defined(GURA_ON_MSWIN)
+	DWORD _threadId;
+#else
+	pthread_t _pt;
+#endif
 public:
+	Thread();
 	void Start();
 	virtual void Run() = 0;
 };

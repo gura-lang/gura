@@ -916,10 +916,13 @@ static DWORD WINAPI ThreadProc(LPVOID lpParameter)
 	return 0;
 }
 
+Thread::Thread() : _threadId(0)
+{
+}
+
 void Thread::Start()
 {
-	DWORD threadId;
-	::CreateThread(NULL, 0, ThreadProc, this, 0, &threadId);
+	::CreateThread(NULL, 0, ThreadProc, this, 0, &_threadId);
 }
 
 //-----------------------------------------------------------------------------
@@ -1377,10 +1380,13 @@ static void *start_routine(void *arg)
 	return 0;
 }
 
+Thread::Thread()
+{
+}
+
 void Thread::Start()
 {
-	pthread_t pt;
-	::pthread_create(&pt, NULL, &start_routine, this);
+	::pthread_create(&_pt, NULL, &start_routine, this);
 }
 
 //-----------------------------------------------------------------------------
