@@ -1418,7 +1418,7 @@ Event::Event()
 
 Event::~Event()
 {
-	::pthred_mutex_destroy(&_mutex);
+	::pthread_mutex_destroy(&_mutex);
 }
 
 void Event::Wait()
