@@ -916,13 +916,18 @@ static DWORD WINAPI ThreadProc(LPVOID lpParameter)
 	return 0;
 }
 
-Thread::Thread() : _threadId(0)
+Thread::Thread() : _hThread(NULL), _threadId(0)
 {
 }
 
 void Thread::Start()
 {
-	::CreateThread(NULL, 0, ThreadProc, this, 0, &_threadId);
+	_hThread = ::CreateThread(NULL, 0, ThreadProc, this, 0, &_threadId);
+}
+
+void Thread::Wait()
+{
+	::WaitForSingleObject(_hThread, INFINITE);
 }
 
 //-----------------------------------------------------------------------------
@@ -1387,6 +1392,10 @@ Thread::Thread()
 void Thread::Start()
 {
 	::pthread_create(&_pt, NULL, &start_routine, this);
+}
+
+void Thread::Wait()
+{
 }
 
 //-----------------------------------------------------------------------------
