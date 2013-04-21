@@ -1429,6 +1429,7 @@ Event::Event()
 	pthread_mutexattr_t mutexattr;
 	::pthread_mutexattr_init(&mutexattr);
 	::pthread_mutex_init(&_mutex, &mutexattr);
+	::pthread_mutex_lock(&_mutex);
 }
 
 Event::~Event()
