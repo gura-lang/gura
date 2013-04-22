@@ -199,6 +199,34 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// StreamFIFO
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE StreamFIFO : public Stream {
+private:
+	AutoPtr<Memory> _pMemory;
+	size_t _offsetWrite;
+	size_t _offsetRead;
+	bool _writeDoneFlag;
+	bool _writableFlag;
+	std::auto_ptr<OAL::Semaphore> _pSemaphore;
+	std::auto_ptr<OAL::Event> _pEventWrite;
+	std::auto_ptr<OAL::Event> _pEventRequest;
+public:
+	StreamFIFO(Environment &env, Signal sig, size_t bytesBuff);
+	virtual const char *GetName() const;
+	virtual const char *GetIdentifier() const;
+	virtual bool GetAttribute(Attribute &attr);
+	virtual bool SetAttribute(const Attribute &attr);
+	virtual size_t DoRead(Signal sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal sig);
+	virtual bool DoClose(Signal sig);
+	virtual size_t DoGetSize();
+	void SetWriteDoneFlag();
+};
+
+//-----------------------------------------------------------------------------
 // StreamMemReader
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE StreamMemReader : public Stream {

@@ -803,28 +803,12 @@ size_t StreamDumb::DoGetSize()
 //-----------------------------------------------------------------------------
 // StreamFIFO
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE StreamFIFO : public Stream {
-private:
-	AutoPtr<Memory> _pMemory;
-	std::auto_ptr<OAL::Event> _pEventWrite;
-	std::auto_ptr<OAL::Event> _pEventRequest;
-public:
-	StreamFIFO(Environment &env, Signal sig, size_t bytesBuff);
-	virtual const char *GetName() const;
-	virtual const char *GetIdentifier() const;
-	virtual bool GetAttribute(Attribute &attr);
-	virtual bool SetAttribute(const Attribute &attr);
-	virtual size_t DoRead(Signal sig, void *buff, size_t len);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
-	virtual size_t DoGetSize();
-};
-
 StreamFIFO::StreamFIFO(Environment &env, Signal sig, size_t bytesBuff) :
 		Stream(env, sig, ATTR_Readable | ATTR_Writable),
 		_pMemory(new MemoryHeap(bytesBuff)),
+		_offsetWrite(0), _offsetRead(0),
+		_writeDoneFlag(false), _writableFlag(true),
+		_pSemaphore(new OAL::Semaphore()),
 		_pEventWrite(new OAL::Event()), _pEventRequest(new OAL::Event())
 {
 }
@@ -851,12 +835,54 @@ bool StreamFIFO::SetAttribute(const Attribute &attr)
 
 size_t StreamFIFO::DoRead(Signal sig, void *buff, size_t len)
 {
-	return 0;
+	char *buffp = reinterpret_cast<char *>(buff);
+	_pSemaphore->Wait();
+	for (size_t offset = 0; offset < len; ) {
+		size_t lenSpace = len - offset;
+		if (_offsetWrite <= _offsetRead) {
+			_writableFlag = true;
+			_pSemaphore->Release();
+			_pEventRequest->Notify();
+			_pEventWrite->Wait();
+			_pSemaphore->Wait();
+			_offsetRead = 0;
+		}
+		if (_offsetWrite > _offsetRead) {
+			size_t lenAvailable = _offsetWrite - _offsetRead;
+			size_t lenCopy = ChooseMin(lenSpace, lenAvailable);
+			::memcpy(buffp + offset, _pMemory->GetPointer(_offsetRead), lenCopy);
+			offset += lenCopy;
+			_offsetRead += lenCopy;
+		}
+		if (_writeDoneFlag) {
+			_pSemaphore->Release();
+			return offset;
+		}
+	}
+	_pSemaphore->Release();
+	return len;
 }
 
 size_t StreamFIFO::DoWrite(Signal sig, const void *buff, size_t len)
 {
-	return 0;
+	const char *buffp = reinterpret_cast<const char *>(buff);
+	_pSemaphore->Wait();
+	for (size_t offset = 0; offset < len; ) {
+		if (!_writableFlag) {
+			_pSemaphore->Release();
+			_pEventRequest->Wait();
+			_pSemaphore->Wait();
+		}
+		size_t lenAvailable = len - offset;
+		size_t lenSpace = _pMemory->GetSize();
+		size_t lenCopy = ChooseMin(lenSpace, lenAvailable);
+		::memcpy(_pMemory->GetPointer(), buffp + offset, lenCopy);
+		_writableFlag = false;
+		offset += lenCopy;
+		_offsetWrite = lenCopy;
+	}
+	_pSemaphore->Release();
+	return len;
 }
 
 bool StreamFIFO::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
@@ -877,6 +903,12 @@ bool StreamFIFO::DoClose(Signal sig)
 size_t StreamFIFO::DoGetSize()
 {
 	return 0;
+}
+
+void StreamFIFO::SetWriteDoneFlag()
+{
+	_writeDoneFlag = true;
+	_pEventWrite->Notify();
 }
 
 //-----------------------------------------------------------------------------
