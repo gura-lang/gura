@@ -1,4 +1,4 @@
 #!/usr/bin/env gura
 import(tester)
 
-println(tester.test(3, 4))
+tester.run()

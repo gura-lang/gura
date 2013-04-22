@@ -5,21 +5,38 @@
 
 Gura_BeginModule(tester)
 
+class Thread1 : public OAL::Thread {
+public:
+	virtual void Run();
+};
+
+void Thread1::Run()
+{
+	int i = 0;
+	for ( ; ; i++) {
+		::printf("Notify %d\n", i);
+		OAL::Sleep(1);
+	}
+}
+
 //-----------------------------------------------------------------------------
 // Gura module functions: tester
 //-----------------------------------------------------------------------------
-// tester.test(num1:number, num2:number)
-Gura_DeclareFunction(test)
+// tester.run()
+Gura_DeclareFunction(run)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "num1", VTYPE_number);
-	DeclareArg(env, "num2", VTYPE_number);
-	AddHelp(Gura_Symbol(en), "adds two numbers and returns the result.");
+	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en), "run tester.");
 }
 
-Gura_ImplementFunction(test)
+Gura_ImplementFunction(run)
 {
-	return Value(args.GetNumber(0) + args.GetNumber(1));
+	OAL::Thread *pThread1 = new Thread1();
+	pThread1->Start();
+	for (;;) {
+		OAL::Sleep(3);
+	}
+	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
@@ -28,7 +45,7 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// function assignment
-	Gura_AssignFunction(test);
+	Gura_AssignFunction(run);
 }
 
 Gura_ModuleTerminate()
