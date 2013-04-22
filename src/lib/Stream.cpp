@@ -806,8 +806,8 @@ size_t StreamDumb::DoGetSize()
 StreamFIFO::StreamFIFO(Environment &env, Signal sig, size_t bytesBuff) :
 		Stream(env, sig, ATTR_Readable | ATTR_Writable),
 		_pMemory(new MemoryHeap(bytesBuff)),
-		_offsetWrite(0), _offsetRead(0),
-		_writeDoneFlag(false), _writableFlag(true),
+		_offsetWrite(0), _offsetRead(0), _bytesAvail(0),
+		_writeDoneFlag(false),
 		_pSemaphore(new OAL::Semaphore()),
 		_pEventWrite(new OAL::Event()), _pEventRequest(new OAL::Event())
 {
@@ -838,21 +838,29 @@ size_t StreamFIFO::DoRead(Signal sig, void *buff, size_t len)
 	char *buffp = reinterpret_cast<char *>(buff);
 	_pSemaphore->Wait();
 	for (size_t offset = 0; offset < len; ) {
-		size_t lenSpace = len - offset;
-		if (_offsetWrite <= _offsetRead) {
-			_writableFlag = true;
+		size_t bytesSpace = len - offset;
+		if (_bytesAvail == 0) {
 			_pSemaphore->Release();
 			_pEventRequest->Notify();
 			_pEventWrite->Wait();
 			_pSemaphore->Wait();
-			_offsetRead = 0;
 		}
-		if (_offsetWrite > _offsetRead) {
-			size_t lenAvailable = _offsetWrite - _offsetRead;
-			size_t lenCopy = ChooseMin(lenSpace, lenAvailable);
-			::memcpy(buffp + offset, _pMemory->GetPointer(_offsetRead), lenCopy);
-			offset += lenCopy;
-			_offsetRead += lenCopy;
+		if (_bytesAvail > 0) {
+			size_t bytesCopy = ChooseMin(bytesSpace, _bytesAvail);
+			if (_offsetRead + bytesCopy <= _pMemory->GetSize()) {
+				::memcpy(buffp + offset, _pMemory->GetPointer(_offsetRead), bytesCopy);
+				offset += bytesCopy;
+				_offsetRead += bytesCopy;
+				_bytesAvail -= bytesCopy;
+				if (_offsetRead == _pMemory->GetSize()) _offsetRead = 0;
+			} else {
+				size_t bytesPart = _pMemory->GetSize() - _offsetRead;
+				::memcpy(buffp + offset, _pMemory->GetPointer(_offsetRead), bytesPart);
+				::memcpy(buffp + offset + bytesPart, _pMemory->GetPointer(), bytesCopy - bytesPart);
+				offset += bytesCopy;
+				_offsetRead = bytesCopy - bytesPart;
+				_bytesAvail -= bytesCopy;
+			}
 		}
 		if (_writeDoneFlag) {
 			_pSemaphore->Release();
@@ -865,23 +873,36 @@ size_t StreamFIFO::DoRead(Signal sig, void *buff, size_t len)
 
 size_t StreamFIFO::DoWrite(Signal sig, const void *buff, size_t len)
 {
+	bool notifyFlag = false;
 	const char *buffp = reinterpret_cast<const char *>(buff);
 	_pSemaphore->Wait();
 	for (size_t offset = 0; offset < len; ) {
-		if (!_writableFlag) {
+		size_t bytesRest = len - offset;
+		if (_bytesAvail == _pMemory->GetSize()) {
 			_pSemaphore->Release();
 			_pEventRequest->Wait();
 			_pSemaphore->Wait();
+			notifyFlag = true;
 		}
-		size_t lenAvailable = len - offset;
-		size_t lenSpace = _pMemory->GetSize();
-		size_t lenCopy = ChooseMin(lenSpace, lenAvailable);
-		::memcpy(_pMemory->GetPointer(), buffp + offset, lenCopy);
-		_writableFlag = false;
-		offset += lenCopy;
-		_offsetWrite = lenCopy;
+		size_t bytesSpace = _pMemory->GetSize() - _bytesAvail;
+		size_t bytesCopy = ChooseMin(bytesRest, bytesSpace);
+		if (_offsetWrite + bytesCopy <= _pMemory->GetSize()) {
+			::memcpy(_pMemory->GetPointer(_offsetWrite), buffp + offset, bytesCopy);
+			offset += bytesCopy;
+			_offsetWrite += bytesCopy;
+			_bytesAvail += bytesCopy;
+			if (_offsetRead == _pMemory->GetSize()) _offsetRead = 0;
+		} else {
+			size_t bytesPart = _pMemory->GetSize() - _offsetWrite;
+			::memcpy(_pMemory->GetPointer(_offsetWrite), buffp + offset, bytesPart);
+			::memcpy(_pMemory->GetPointer(), buffp + offset + bytesPart, bytesCopy - bytesPart);
+			offset += bytesCopy;
+			_offsetWrite = bytesCopy - bytesPart;
+			_bytesAvail += bytesCopy;
+		}
 	}
 	_pSemaphore->Release();
+	if (notifyFlag) _pEventWrite->Notify();
 	return len;
 }
 

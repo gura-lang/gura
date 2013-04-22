@@ -206,8 +206,8 @@ private:
 	AutoPtr<Memory> _pMemory;
 	size_t _offsetWrite;
 	size_t _offsetRead;
+	size_t _bytesAvail;
 	bool _writeDoneFlag;
-	bool _writableFlag;
 	std::auto_ptr<OAL::Semaphore> _pSemaphore;
 	std::auto_ptr<OAL::Event> _pEventWrite;
 	std::auto_ptr<OAL::Event> _pEventRequest;
