@@ -15,6 +15,7 @@ public:
 
 void Thread1::Run()
 {
+	::printf("Thread1\n");
 	int i = 0;
 	for ( ; ; i++) {
 		::printf("Notify %d\n", i);
