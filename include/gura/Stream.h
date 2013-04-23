@@ -207,10 +207,12 @@ private:
 	size_t _offsetWrite;
 	size_t _offsetRead;
 	size_t _bytesAvail;
+	bool _readReqFlag;
+	bool _writeReqFlag;
 	bool _writeDoneFlag;
 	std::auto_ptr<OAL::Semaphore> _pSemaphore;
-	std::auto_ptr<OAL::Event> _pEventWrite;
-	std::auto_ptr<OAL::Event> _pEventRequest;
+	std::auto_ptr<OAL::Event> _pEventReadReq;
+	std::auto_ptr<OAL::Event> _pEventWriteReq;
 public:
 	StreamFIFO(Environment &env, Signal sig, size_t bytesBuff);
 	virtual const char *GetName() const;
@@ -224,6 +226,10 @@ public:
 	virtual bool DoClose(Signal sig);
 	virtual size_t DoGetSize();
 	void SetWriteDoneFlag();
+public:
+	size_t GetOffsetWrite() const { return _offsetWrite; }
+	size_t GetOffsetRead() const { return _offsetRead; }
+	size_t GetBytesAvail() const { return _bytesAvail; }
 };
 
 //-----------------------------------------------------------------------------

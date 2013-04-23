@@ -807,9 +807,9 @@ StreamFIFO::StreamFIFO(Environment &env, Signal sig, size_t bytesBuff) :
 		Stream(env, sig, ATTR_Readable | ATTR_Writable),
 		_pMemory(new MemoryHeap(bytesBuff)),
 		_offsetWrite(0), _offsetRead(0), _bytesAvail(0),
-		_writeDoneFlag(false),
+		_readReqFlag(false), _writeReqFlag(false), _writeDoneFlag(false),
 		_pSemaphore(new OAL::Semaphore()),
-		_pEventWrite(new OAL::Event()), _pEventRequest(new OAL::Event())
+		_pEventReadReq(new OAL::Event()), _pEventWriteReq(new OAL::Event())
 {
 }
 
@@ -837,13 +837,17 @@ size_t StreamFIFO::DoRead(Signal sig, void *buff, size_t len)
 {
 	char *buffp = reinterpret_cast<char *>(buff);
 	_pSemaphore->Wait();
-	for (size_t offset = 0; offset < len; ) {
+	size_t offset = 0;
+	while (offset < len) {
 		size_t bytesSpace = len - offset;
 		if (_bytesAvail == 0) {
+			//if (offset > 0) break;
+			_writeReqFlag = true;
 			_pSemaphore->Release();
-			_pEventRequest->Notify();
-			_pEventWrite->Wait();
+			if (_readReqFlag) _pEventReadReq->Notify();
+			_pEventWriteReq->Wait();
 			_pSemaphore->Wait();
+			_writeReqFlag = false;
 		}
 		if (_bytesAvail > 0) {
 			size_t bytesCopy = ChooseMin(bytesSpace, _bytesAvail);
@@ -863,26 +867,29 @@ size_t StreamFIFO::DoRead(Signal sig, void *buff, size_t len)
 			}
 		}
 		if (_writeDoneFlag) {
+			_writeDoneFlag = false;
 			_pSemaphore->Release();
 			return offset;
 		}
 	}
 	_pSemaphore->Release();
-	return len;
+	if (_readReqFlag) _pEventReadReq->Notify();
+	return offset;
 }
 
 size_t StreamFIFO::DoWrite(Signal sig, const void *buff, size_t len)
 {
-	bool notifyFlag = false;
 	const char *buffp = reinterpret_cast<const char *>(buff);
 	_pSemaphore->Wait();
 	for (size_t offset = 0; offset < len; ) {
 		size_t bytesRest = len - offset;
 		if (_bytesAvail == _pMemory->GetSize()) {
+			_readReqFlag = true;
 			_pSemaphore->Release();
-			_pEventRequest->Wait();
+			if (_writeReqFlag) _pEventWriteReq->Notify();
+			_pEventReadReq->Wait();
 			_pSemaphore->Wait();
-			notifyFlag = true;
+			_readReqFlag = false;
 		}
 		size_t bytesSpace = _pMemory->GetSize() - _bytesAvail;
 		size_t bytesCopy = ChooseMin(bytesRest, bytesSpace);
@@ -902,7 +909,7 @@ size_t StreamFIFO::DoWrite(Signal sig, const void *buff, size_t len)
 		}
 	}
 	_pSemaphore->Release();
-	if (notifyFlag) _pEventWrite->Notify();
+	if (_writeReqFlag) _pEventWriteReq->Notify();
 	return len;
 }
 
@@ -929,7 +936,7 @@ size_t StreamFIFO::DoGetSize()
 void StreamFIFO::SetWriteDoneFlag()
 {
 	_writeDoneFlag = true;
-	_pEventWrite->Notify();
+	_pEventWriteReq->Notify();
 }
 
 //-----------------------------------------------------------------------------
