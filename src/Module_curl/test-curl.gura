@@ -2,12 +2,16 @@
 import(curl)
 
 curl.easy_init {|c|
-	//c.SetStreamOut('result.html')
-	//c.setopt(curl.OPT_URL, 'http://example.com/')
-	c.setopt(curl.OPT_URL, 'http://www.google.com/')
+	c.SetStreamOut('result.html')
+	c.setopt(curl.OPT_URL, 'http://example.com/')
+	//c.setopt(curl.OPT_URL, 'https://www.verisign.com/')
+ 	//c.setopt(curl.OPT_URL, 'http://www.google.com/')
 	//c.easy_setopt(curl.OPT_URL,
 	//	'ftp://ftp.example.com/pub/www/utilities/curl/curl-7.9.2.tar.gz')
-	//c.easy_setopt(curl.OPT_VERBOSE, 1)
-	//c.setopt(curl.OPT_FOLLOWLOCATION, 1)
+	//c.setopt(curl.OPT_VERBOSE, 1)
+	c.setopt(curl.OPT_FOLLOWLOCATION, 1)
+	//c.setopt(curl.OPT_CONNECT_ONLY, 1)
 	c.perform()
+	respCode = c.getinfo(curl.INFO_RESPONSE_CODE)
+	println('response_code = ',  respCode)
 }

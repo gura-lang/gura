@@ -577,7 +577,7 @@ Gura_ModuleTerminate()
 Object_easy_handle::~Object_easy_handle()
 {
 	if (_curl != NULL) {
-		::curl_easy_cleanup(_curl);
+		//::curl_easy_cleanup(_curl);
 	}
 }
 
@@ -759,13 +759,13 @@ Gura_ImplementMethod(easy_handle, setopt)
 }
 
 // curl.easy_handle#getinfo(info:number)
-Gura_DeclareMethod(easy_handle, getopt)
+Gura_DeclareMethod(easy_handle, getinfo)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "info", VTYPE_number);
 }
 
-Gura_ImplementMethod(easy_handle, getopt)
+Gura_ImplementMethod(easy_handle, getinfo)
 {
 	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
 	CURLcode code;
@@ -802,10 +802,10 @@ Gura_ImplementMethod(easy_handle, getopt)
 	return Value::Null;
 }
 
-// curl.easy_handle#perform()
+// curl.easy_handle#perform():void
 Gura_DeclareMethod(easy_handle, perform)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Void, FLAG_None);
 }
 
 Gura_ImplementMethod(easy_handle, perform)
@@ -817,7 +817,8 @@ Gura_ImplementMethod(easy_handle, perform)
 	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEDATA, pWriter.get());
 	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEFUNCTION, Writer::OnWriteStub);
 	CURLcode code = ::curl_easy_perform(pThis->GetEntity());
-	return Value(code);
+	if (code != CURLE_OK) SetError_Curl(sig, code);
+	return Value::Null;
 }
 
 // curl.easy_handle#SetStreamOut(stream:stream:w):reduce
@@ -841,6 +842,7 @@ Gura_ImplementUserClass(easy_handle)
 	Gura_AssignMethod(easy_handle, unescape);
 	Gura_AssignMethod(easy_handle, reset);
 	Gura_AssignMethod(easy_handle, setopt);
+	Gura_AssignMethod(easy_handle, getinfo);
 	Gura_AssignMethod(easy_handle, perform);
 	Gura_AssignMethod(easy_handle, recv);
 	Gura_AssignMethod(easy_handle, send);
