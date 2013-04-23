@@ -15,6 +15,12 @@ Gura_AssignValue(OPT_##name, Value(CURLOPT_##name))
 #define Gura_AssignValueCURLFORM(name) \
 Gura_AssignValue(FORM_##name, Value(CURLFORM_##name))
 
+#define Gura_AssignValuePAUSE(name) \
+Gura_AssignValue(PAUSE_##name, Value(CURLPAUSE_##name))
+
+#define Gura_AssignValueVERSION(name) \
+Gura_AssignValue(VERSION_##name, Value(CURL_VERSION_##name))
+
 Gura_BeginModule(curl)
 
 //-----------------------------------------------------------------------------
@@ -531,6 +537,30 @@ Gura_ModuleEntry()
 	Gura_AssignValueCURLFORM(END);
 	Gura_AssignValueCURLFORM(OBSOLETE2);
 	Gura_AssignValueCURLFORM(STREAM);
+	// bitmask of easy_handle#pause
+	Gura_AssignValuePAUSE(RECV);
+	Gura_AssignValuePAUSE(RECV_CONT);
+	Gura_AssignValuePAUSE(SEND);
+	Gura_AssignValuePAUSE(SEND_CONT);
+	Gura_AssignValuePAUSE(ALL);
+	Gura_AssignValuePAUSE(CONT);
+	// version information
+	Gura_AssignValueVERSION(IPV6);
+	Gura_AssignValueVERSION(KERBEROS4);
+	Gura_AssignValueVERSION(SSL);
+	Gura_AssignValueVERSION(LIBZ);
+	Gura_AssignValueVERSION(NTLM);
+	Gura_AssignValueVERSION(GSSNEGOTIATE);
+	Gura_AssignValueVERSION(DEBUG);
+	Gura_AssignValueVERSION(ASYNCHDNS);
+	Gura_AssignValueVERSION(SPNEGO);
+	Gura_AssignValueVERSION(LARGEFILE);
+	Gura_AssignValueVERSION(IDN);
+	Gura_AssignValueVERSION(SSPI);
+	Gura_AssignValueVERSION(CONV);
+	Gura_AssignValueVERSION(CURLDEBUG);
+	Gura_AssignValueVERSION(TLSAUTH_SRP);
+	Gura_AssignValueVERSION(NTLM_WB);
 	// function assignment
 	Gura_AssignFunction(version);
 	Gura_AssignFunction(easy_init);
@@ -634,6 +664,22 @@ Gura_ImplementMethod(easy_handle, reset)
 {
 	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
 	::curl_easy_reset(pThis->GetEntity());
+	return Value::Null;
+}
+
+// curl.easy_handle#pause(bitmask:number):void
+Gura_DeclareMethod(easy_handle, pause)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "bitmask", VTYPE_number);
+}
+
+Gura_ImplementMethod(easy_handle, pause)
+{
+	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
+	int bitmask = args.GetInt(0);
+	CURLcode code = ::curl_easy_pause(pThis->GetEntity(), bitmask);
+	
 	return Value::Null;
 }
 
