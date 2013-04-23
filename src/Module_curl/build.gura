@@ -3,7 +3,7 @@ import(modbuild)
 builder = modbuild.Builder()
 if (sys.build == `msc) {
 	baseDir = path.join(modbuild.guestDir,
-		'curl-7.30.0/builds/libcurl-vc-x86-release-static-ipv6-sspi-spnego-winssl')
+		'curl-7.30.0/builds/libcurl-vc-x86-release-static-zlib-static-ipv6-sspi-spnego-winssl')
 	builder.incDirs.append(path.join(baseDir, 'include'))
 	builder.libs.append(path.join(baseDir, 'lib/libcurl_a.lib'))
 } elsif (sys.build == `gnuc) {
