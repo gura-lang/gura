@@ -40,19 +40,19 @@ public:
 //-----------------------------------------------------------------------------
 // Object_context declaration
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(context);
+Gura_DeclareUserClass(easy_handle);
 
-class Object_context : public Object {
+class Object_easy_handle : public Object {
 private:
 	CURL *_curl;
 	AutoPtr<Stream> _pStreamIn;
 	AutoPtr<Stream> _pStreamOut;
 public:
-	Gura_DeclareObjectAccessor(context)
+	Gura_DeclareObjectAccessor(easy_handle)
 public:
-	inline Object_context(CURL *curl) :
-				Object(Gura_UserClass(context)), _curl(curl) {}
-	virtual ~Object_context();
+	inline Object_easy_handle(CURL *curl) :
+				Object(Gura_UserClass(easy_handle)), _curl(curl) {}
+	virtual ~Object_easy_handle();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,

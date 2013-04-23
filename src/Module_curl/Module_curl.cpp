@@ -76,13 +76,13 @@ Gura_DeclareFunction(easy_init)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), "Initializes cURL and returns a context object.");
+	AddHelp(Gura_Symbol(en), "Initializes cURL and returns a easy_handle object.");
 }
 
 Gura_ImplementFunction(easy_init)
 {
 	CURL *curl = ::curl_easy_init();
-	return ReturnValue(env, sig, args, Value(new Object_context(curl)));
+	return ReturnValue(env, sig, args, Value(new Object_easy_handle(curl)));
 }
 
 // curl.test()
@@ -118,7 +118,7 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// class realization
-	Gura_RealizeUserClass(context, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(easy_handle, env.LookupClass(VTYPE_object));
 	// value assignment
 	// CURLINFO
 	Gura_AssignValueCURLINFO(TEXT);
@@ -519,21 +519,21 @@ Gura_ModuleTerminate()
 }
 
 //-----------------------------------------------------------------------------
-// Object_context implementation
+// Object_easy_handle implementation
 //-----------------------------------------------------------------------------
-Object_context::~Object_context()
+Object_easy_handle::~Object_easy_handle()
 {
 	if (_curl != NULL) {
 		::curl_easy_cleanup(_curl);
 	}
 }
 
-Object *Object_context::Clone() const
+Object *Object_easy_handle::Clone() const
 {
 	return NULL;
 }
 
-bool Object_context::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_easy_handle::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	//symbols.insert(Gura_UserSymbol(surface));
@@ -542,7 +542,7 @@ bool Object_context::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_context::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_easy_handle::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	//evaluatedFlag = true;
@@ -553,10 +553,10 @@ Value Object_context::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-String Object_context::ToString(Signal sig, bool exprFlag)
+String Object_easy_handle::ToString(Signal sig, bool exprFlag)
 {
 	String str;
-	str += "<curl.context:";
+	str += "<curl.easy_handle:";
 	if (_curl == NULL) {
 		str += "invalid";
 	}
@@ -565,20 +565,20 @@ String Object_context::ToString(Signal sig, bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for context
-// context operations
+// Gura interfaces for easy_handle
+// easy_handle operations
 //-----------------------------------------------------------------------------
-// curl.context#easy_setopt(option:number, arg)
-Gura_DeclareMethod(context, easy_setopt)
+// curl.easy_handle#setopt(option:number, arg)
+Gura_DeclareMethod(easy_handle, setopt)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "option", VTYPE_number);
 	DeclareArg(env, "arg", VTYPE_any);
 }
 
-Gura_ImplementMethod(context, easy_setopt)
+Gura_ImplementMethod(easy_handle, setopt)
 {
-	Object_context *pThis = Object_context::GetThisObj(args);
+	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
 	CURLcode rtn;
 	CURLoption option = static_cast<CURLoption>(args.GetInt(0));
 	if (args.IsNumber(1)) {
@@ -600,15 +600,15 @@ Gura_ImplementMethod(context, easy_setopt)
 	return Value(rtn);
 }
 
-// curl.context#easy_perform()
-Gura_DeclareMethod(context, easy_perform)
+// curl.easy_handle#perform()
+Gura_DeclareMethod(easy_handle, perform)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 }
 
-Gura_ImplementMethod(context, easy_perform)
+Gura_ImplementMethod(easy_handle, perform)
 {
-	Object_context *pThis = Object_context::GetThisObj(args);
+	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
 	Stream *pStreamOut = pThis->GetStreamOut();
 	if (pStreamOut == NULL) pStreamOut = env.GetConsole();
 	std::auto_ptr<Writer> pWriter(new Writer(sig, Stream::Reference(pStreamOut)));
@@ -618,26 +618,26 @@ Gura_ImplementMethod(context, easy_perform)
 	return Value(rtn);
 }
 
-// curl.context#SetStreamOut(stream:stream:w):reduce
-Gura_DeclareMethod(context, SetStreamOut)
+// curl.easy_handle#SetStreamOut(stream:stream:w):reduce
+Gura_DeclareMethod(easy_handle, SetStreamOut)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 }
 
-Gura_ImplementMethod(context, SetStreamOut)
+Gura_ImplementMethod(easy_handle, SetStreamOut)
 {
-	Object_context *pThis = Object_context::GetThisObj(args);
+	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
 	pThis->SetStreamOut(Stream::Reference(&Object_stream::GetObject(args, 0)->GetStream()));
 	return args.GetThis();
 }
 
-// implementation of class context
-Gura_ImplementUserClass(context)
+// implementation of class easy_handle
+Gura_ImplementUserClass(easy_handle)
 {
-	Gura_AssignMethod(context, easy_setopt);
-	Gura_AssignMethod(context, easy_perform);
-	Gura_AssignMethod(context, SetStreamOut);
+	Gura_AssignMethod(easy_handle, setopt);
+	Gura_AssignMethod(easy_handle, perform);
+	Gura_AssignMethod(easy_handle, SetStreamOut);
 }
 
 Gura_EndModule(curl, curl)
