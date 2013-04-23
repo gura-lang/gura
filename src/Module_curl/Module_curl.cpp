@@ -18,6 +18,14 @@ Gura_AssignValue(FORM_##name, Value(CURLFORM_##name))
 Gura_BeginModule(curl)
 
 //-----------------------------------------------------------------------------
+// utility functions
+//-----------------------------------------------------------------------------
+void SetError_Curl(Signal sig, CURLcode code)
+{
+	sig.SetError(ERR_RuntimeError, "%s", ::curl_easy_strerror(code));
+}
+
+//-----------------------------------------------------------------------------
 // Writer
 //-----------------------------------------------------------------------------
 Writer::Writer(Signal sig, Stream *pStream) : _sig(sig), _pStream(pStream)
@@ -71,6 +79,20 @@ int fnmatch_callback(void *ptr, const char *pattern, const char *string)
 //-----------------------------------------------------------------------------
 // Gura module functions: curl
 //-----------------------------------------------------------------------------
+// curl.version() {block?}
+Gura_DeclareFunction(version)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), "Returns a string of the libcurl version.");
+}
+
+Gura_ImplementFunction(version)
+{
+	const char *rtn = ::curl_version();
+	return ReturnValue(env, sig, args, Value(env, rtn));
+}
+
 // curl.easy_init() {block?}
 Gura_DeclareFunction(easy_init)
 {
@@ -95,16 +117,16 @@ Gura_DeclareFunction(test)
 Gura_ImplementFunction(test)
 {
 	CURL *curl;
-	CURLcode res;
+	CURLcode code;
 	curl = ::curl_easy_init();
 	if(curl) {
 		::curl_easy_setopt(curl, CURLOPT_URL, "http://example.com");
 		/* example.com is redirected, so we tell libcurl to follow redirection */ 
 		::curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-		res = ::curl_easy_perform(curl);
-		if(res != CURLE_OK) {
+		code = ::curl_easy_perform(curl);
+		if(code != CURLE_OK) {
 			::fprintf(stderr, "curl_easy_perform() failed: %s\n",
-											::curl_easy_strerror(res));
+											::curl_easy_strerror(code));
 		}
 		/* always cleanup */ 
 		::curl_easy_cleanup(curl);
@@ -510,6 +532,7 @@ Gura_ModuleEntry()
 	Gura_AssignValueCURLFORM(OBSOLETE2);
 	Gura_AssignValueCURLFORM(STREAM);
 	// function assignment
+	Gura_AssignFunction(version);
 	Gura_AssignFunction(easy_init);
 	Gura_AssignFunction(test);
 }
@@ -568,10 +591,98 @@ String Object_easy_handle::ToString(Signal sig, bool exprFlag)
 // Gura interfaces for easy_handle
 // easy_handle operations
 //-----------------------------------------------------------------------------
-// curl.easy_handle#setopt(option:number, arg)
-Gura_DeclareMethod(easy_handle, setopt)
+// curl.easy_handle#escape(string:string):void
+Gura_DeclareMethod(easy_handle, escape)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "string", VTYPE_string);
+}
+
+Gura_ImplementMethod(easy_handle, escape)
+{
+	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
+	const String str = args.GetStringSTL(0);
+	const char *rtn = ::curl_easy_escape(pThis->GetEntity(),
+								str.c_str(), static_cast<int>(str.size()));
+	return Value(env, rtn);
+}
+
+// curl.easy_handle#unescape(string:string):void
+Gura_DeclareMethod(easy_handle, unescape)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "string", VTYPE_string);
+}
+
+Gura_ImplementMethod(easy_handle, unescape)
+{
+	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
+	const String str = args.GetStringSTL(0);
+	int outlength = 0;
+	const char *rtn = ::curl_easy_unescape(pThis->GetEntity(),
+					str.c_str(), static_cast<int>(str.size()), &outlength);
+	return Value(env, rtn, outlength);
+}
+
+// curl.easy_handle#reset():void
+Gura_DeclareMethod(easy_handle, reset)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(easy_handle, reset)
+{
+	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
+	::curl_easy_reset(pThis->GetEntity());
+	return Value::Null;
+}
+
+// curl.easy_handle#recv(buflen:number)
+Gura_DeclareMethod(easy_handle, recv)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "buflen", VTYPE_number);
+}
+
+Gura_ImplementMethod(easy_handle, recv)
+{
+	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
+	size_t buflen = args.GetSizeT(0);
+	if (buflen == 0) return Value::Null;
+	AutoPtr<Memory> pMemory(new MemoryHeap(buflen));
+	size_t n = 0;
+	CURLcode code = ::curl_easy_recv(pThis->GetEntity(), pMemory->GetPointer(), buflen, &n);
+	if (code != CURLE_OK) {
+		SetError_Curl(sig, code);
+		return Value::Null;
+	}
+	return new Object_binary(env, pMemory->GetPointer(), n);
+}
+
+// curl.easy_handle#send(buffer:binary)
+Gura_DeclareMethod(easy_handle, send)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "buffer", VTYPE_binary);
+}
+
+Gura_ImplementMethod(easy_handle, send)
+{
+	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
+	const Binary &buffer = args.GetBinary(0);
+	size_t n = 0;
+	CURLcode code = ::curl_easy_send(pThis->GetEntity(), buffer.data(), buffer.size(), &n);
+	if (code != CURLE_OK) {
+		SetError_Curl(sig, code);
+		return Value::Null;
+	}
+	return Value(n);
+}
+
+// curl.easy_handle#setopt(option:number, arg):void
+Gura_DeclareMethod(easy_handle, setopt)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "option", VTYPE_number);
 	DeclareArg(env, "arg", VTYPE_any);
 }
@@ -579,25 +690,70 @@ Gura_DeclareMethod(easy_handle, setopt)
 Gura_ImplementMethod(easy_handle, setopt)
 {
 	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
-	CURLcode rtn;
+	CURLcode code;
 	CURLoption option = static_cast<CURLoption>(args.GetInt(0));
 	if (args.IsNumber(1)) {
 		if (!(option < CURLOPTTYPE_OBJECTPOINT || CURLOPTTYPE_OFF_T <= option)) {
 			sig.SetError(ERR_TypeError, "number cannot be specified for the option");
 			return Value::Null;
 		}
-		rtn = ::curl_easy_setopt(pThis->GetEntity(), option, args.GetInt(1));
+		code = ::curl_easy_setopt(pThis->GetEntity(), option, args.GetInt(1));
 	} else if (args.IsString(1)) {
 		if (!(CURLOPTTYPE_OBJECTPOINT <= option && option < CURLOPTTYPE_FUNCTIONPOINT)) {
 			sig.SetError(ERR_TypeError, "string cannot be specified for the option");
 			return Value::Null;
 		}
-		rtn = ::curl_easy_setopt(pThis->GetEntity(), option, args.GetString(1));
+		code = ::curl_easy_setopt(pThis->GetEntity(), option, args.GetString(1));
 	} else {
 		Declaration::SetError_InvalidArgument(sig);
 		return Value::Null;
 	}
-	return Value(rtn);
+	if (code != CURLE_OK) SetError_Curl(sig, code);
+	return Value::Null;
+}
+
+// curl.easy_handle#getinfo(info:number)
+Gura_DeclareMethod(easy_handle, getopt)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "info", VTYPE_number);
+}
+
+Gura_ImplementMethod(easy_handle, getopt)
+{
+	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
+	CURLcode code;
+	CURLINFO info = static_cast<CURLINFO>(args.GetInt(0));
+	int infoType = args.GetInt(0) & CURLINFO_TYPEMASK;
+	if (infoType == CURLINFO_STRING) {
+		const char *rtn = NULL;
+		code = ::curl_easy_getinfo(pThis->GetEntity(), info, &rtn);
+		if (code != CURLE_OK) {
+			SetError_Curl(sig, code);
+			return Value::Null;
+		}
+		return Value(env, rtn);
+	} else if (infoType == CURLINFO_LONG) {
+		long rtn = 0;
+		code = ::curl_easy_getinfo(pThis->GetEntity(), info, &rtn);
+		if (code != CURLE_OK) {
+			SetError_Curl(sig, code);
+			return Value::Null;
+		}
+		return Value(rtn);
+	} else if (infoType == CURLINFO_DOUBLE) {
+		double rtn = 0;
+		code = ::curl_easy_getinfo(pThis->GetEntity(), info, &rtn);
+		if (code != CURLE_OK) {
+			SetError_Curl(sig, code);
+			return Value::Null;
+		}
+		return Value(rtn);
+	} else if (infoType == CURLINFO_SLIST) {
+		// not implemented yet
+	}
+	sig.SetError(ERR_ValueError, "invalid value for info");
+	return Value::Null;
 }
 
 // curl.easy_handle#perform()
@@ -614,8 +770,8 @@ Gura_ImplementMethod(easy_handle, perform)
 	std::auto_ptr<Writer> pWriter(new Writer(sig, Stream::Reference(pStreamOut)));
 	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEDATA, pWriter.get());
 	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEFUNCTION, Writer::OnWriteStub);
-	CURLcode rtn = ::curl_easy_perform(pThis->GetEntity());
-	return Value(rtn);
+	CURLcode code = ::curl_easy_perform(pThis->GetEntity());
+	return Value(code);
 }
 
 // curl.easy_handle#SetStreamOut(stream:stream:w):reduce
@@ -635,8 +791,13 @@ Gura_ImplementMethod(easy_handle, SetStreamOut)
 // implementation of class easy_handle
 Gura_ImplementUserClass(easy_handle)
 {
+	Gura_AssignMethod(easy_handle, escape);
+	Gura_AssignMethod(easy_handle, unescape);
+	Gura_AssignMethod(easy_handle, reset);
 	Gura_AssignMethod(easy_handle, setopt);
 	Gura_AssignMethod(easy_handle, perform);
+	Gura_AssignMethod(easy_handle, recv);
+	Gura_AssignMethod(easy_handle, send);
 	Gura_AssignMethod(easy_handle, SetStreamOut);
 }
 
