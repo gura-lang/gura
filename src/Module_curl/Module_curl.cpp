@@ -38,7 +38,9 @@ Writer::Writer(Signal sig, Stream *pStream) : _sig(sig), _pStream(pStream)
 {
 }
 
-size_t Writer::OnWrite(char *buffer, size_t size, size_t nitems) {
+size_t Writer::OnWrite(char *buffer, size_t size, size_t nitems)
+{
+	//::printf("OnWrite(%d)\n", nitems);
 	return _pStream->Write(_sig, buffer, size * nitems);
 }
 
@@ -125,7 +127,7 @@ Gura_ImplementFunction(test)
 	CURL *curl;
 	CURLcode code;
 	curl = ::curl_easy_init();
-	if(curl) {
+	if (curl != NULL) {
 		::curl_easy_setopt(curl, CURLOPT_URL, "http://example.com");
 		/* example.com is redirected, so we tell libcurl to follow redirection */ 
 		::curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
@@ -565,10 +567,76 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(version);
 	Gura_AssignFunction(easy_init);
 	Gura_AssignFunction(test);
+	// registration of directory factory
+	DirectoryFactory::Register(new DirectoryFactory_cURL());
 }
 
 Gura_ModuleTerminate()
 {
+}
+
+//-----------------------------------------------------------------------------
+// Directory_cURL implementation
+//-----------------------------------------------------------------------------
+Directory_cURL::Directory_cURL(Directory *pParent, const char *name, Type type) :
+							Directory(pParent, name, type, '/')
+{
+}
+
+Directory_cURL::~Directory_cURL()
+{
+}
+
+Directory *Directory_cURL::DoNext(Environment &env, Signal sig)
+{
+	sig.SetError(ERR_SystemError, "");
+	return NULL;
+}
+
+Stream *Directory_cURL::DoOpenStream(Environment &env, Signal sig, unsigned long attr)
+{
+	AutoPtr<StreamFIFO> pStream(new StreamFIFO(env, sig, 65536));
+	Thread *pThread = new Thread(sig, GetName(),
+				dynamic_cast<StreamFIFO *>(Stream::Reference(pStream.get())));
+	pThread->Start();
+	return pStream.release();
+}
+
+void Directory_cURL::Thread::Run()
+{
+	CURL *curl = ::curl_easy_init();
+	if (curl == NULL) return;
+	::curl_easy_setopt(curl, CURLOPT_URL, _name.c_str());
+	::curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+	std::auto_ptr<Writer> pWriter(new Writer(_sig, Stream::Reference(_pStreamFIFO.get())));
+	::curl_easy_setopt(curl, CURLOPT_WRITEDATA, pWriter.get());
+	::curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Writer::OnWriteStub);
+	CURLcode code = ::curl_easy_perform(curl);
+	if(code != CURLE_OK) SetError_Curl(_sig, code);
+	::curl_easy_cleanup(curl);
+	_pStreamFIFO->SetWriteDoneFlag();
+}
+
+//-----------------------------------------------------------------------------
+// DirectoryFactory_cURL implementation
+//-----------------------------------------------------------------------------
+bool DirectoryFactory_cURL::IsResponsible(Environment &env, Signal sig,
+						const Directory *pParent, const char *pathName)
+{
+	return pParent == NULL &&
+		(StartsWith(pathName, "http:", 0, false) ||
+		 StartsWith(pathName, "https:", 0, false));
+}
+
+Directory *DirectoryFactory_cURL::DoOpenDirectory(Environment &env, Signal sig,
+	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
+{
+	const char *uri = *pPathName;
+	Directory::Type type = Directory::TYPE_Item;
+	AutoPtr<Directory> pDirectory(
+				new Directory_cURL(Directory::Reference(pParent), uri, type));
+	*pPathName = uri + ::strlen(uri);
+	return pDirectory.release();
 }
 
 //-----------------------------------------------------------------------------

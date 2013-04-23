@@ -38,6 +38,41 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Directory_cURL declaration
+//-----------------------------------------------------------------------------
+class Directory_cURL : public Directory {
+public:
+	class Thread : public OAL::Thread {
+	private:
+		Signal _sig;
+		String _name;
+		AutoPtr<StreamFIFO> _pStreamFIFO;
+	public:
+		inline Thread(Signal sig, const String &name, StreamFIFO *pStreamFIFO) :
+						_sig(sig), _name(name), _pStreamFIFO(pStreamFIFO) {}
+		virtual void Run();
+	};
+private:
+	String _name;
+public:
+	Directory_cURL(Directory *pParent, const char *name, Type type);
+	virtual ~Directory_cURL();
+	virtual Directory *DoNext(Environment &env, Signal sig);
+	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr);
+};
+
+//-----------------------------------------------------------------------------
+// DirectoryFactory_cURL declaration
+//-----------------------------------------------------------------------------
+class DirectoryFactory_cURL : public DirectoryFactory {
+public:
+	virtual bool IsResponsible(Environment &env, Signal sig,
+					const Directory *pParent, const char *pathName);
+	virtual Directory *DoOpenDirectory(Environment &env, Signal sig,
+		Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode);
+};
+
+//-----------------------------------------------------------------------------
 // Object_context declaration
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(easy_handle);
