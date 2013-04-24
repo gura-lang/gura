@@ -32,6 +32,70 @@ void SetError_Curl(Signal sig, CURLcode code)
 }
 
 //-----------------------------------------------------------------------------
+// Fileinfo
+//-----------------------------------------------------------------------------
+Fileinfo::Fileinfo(const struct curl_fileinfo *finfo) :
+			_filename(finfo->filename),
+			_filetype(finfo->filetype),
+			_time(finfo->time),
+			_perm(finfo->perm),
+			_uid(finfo->uid),
+			_gid(finfo->gid),
+			_size(finfo->size),
+			_hardlinks(finfo->hardlinks)
+{
+}
+
+//-----------------------------------------------------------------------------
+// FileinfoOwner
+//-----------------------------------------------------------------------------
+FileinfoOwner::~FileinfoOwner()
+{
+	Clear();
+}
+
+void FileinfoOwner::Clear()
+{
+	foreach (FileinfoOwner, ppFileinfo, *this) {
+		Fileinfo *pFileinfo = *ppFileinfo;
+		delete pFileinfo;
+	}
+	clear();
+}
+
+//-----------------------------------------------------------------------------
+// Browser
+//-----------------------------------------------------------------------------
+Browser::Browser(Signal sig, FileinfoOwner &fileinfoOwner) :
+									_sig(sig), _fileinfoOwner(fileinfoOwner)
+{
+}
+
+long Browser::OnChunkBgn(struct curl_fileinfo *finfo, int remains)
+{
+	_fileinfoOwner.push_back(new Fileinfo(finfo));
+	return CURL_CHUNK_BGN_FUNC_SKIP;
+}
+
+long Browser::OnChunkEnd()
+{
+	return CURL_CHUNK_END_FUNC_OK;
+}
+
+long Browser::OnChunkBgnStub(struct curl_fileinfo *finfo,
+								struct callback_data *data, int remains)
+{
+	Browser *pBrowser = reinterpret_cast<Browser *>(data);
+	return pBrowser->OnChunkBgn(finfo, remains);
+}
+
+long Browser::OnChunkEndStub(struct callback_data *data)
+{
+	Browser *pBrowser = reinterpret_cast<Browser *>(data);
+	return pBrowser->OnChunkEnd();
+}
+
+//-----------------------------------------------------------------------------
 // Writer
 //-----------------------------------------------------------------------------
 Writer::Writer(Signal sig, Stream *pStream) : _sig(sig), _pStream(pStream)
@@ -124,21 +188,32 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	CURL *curl;
 	CURLcode code;
-	curl = ::curl_easy_init();
-	if (curl != NULL) {
-		::curl_easy_setopt(curl, CURLOPT_URL, "http://example.com");
-		/* example.com is redirected, so we tell libcurl to follow redirection */ 
-		::curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-		code = ::curl_easy_perform(curl);
-		if(code != CURLE_OK) {
-			::fprintf(stderr, "curl_easy_perform() failed: %s\n",
-											::curl_easy_strerror(code));
+	CURL *curl = ::curl_easy_init();
+	if (curl == NULL) return Value::Null;
+	::curl_easy_setopt(curl, CURLOPT_URL, "ftp://ftp.debian.org/debian/*");
+	::curl_easy_setopt(curl, CURLOPT_WILDCARDMATCH, 1L);
+	std::auto_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
+	std::auto_ptr<Browser> pBrowser(new Browser(sig, *pFileinfoOwner));
+	::curl_easy_setopt(curl, CURLOPT_CHUNK_DATA, pBrowser.get());
+	::curl_easy_setopt(curl, CURLOPT_CHUNK_BGN_FUNCTION, Browser::OnChunkBgnStub);
+	::curl_easy_setopt(curl, CURLOPT_CHUNK_END_FUNCTION, Browser::OnChunkEndStub);
+	code = ::curl_easy_perform(curl);
+	if(code == CURLE_OK) {
+		foreach (FileinfoOwner, ppFileinfo, *pFileinfoOwner) {
+			Fileinfo *pFileinfo = *ppFileinfo;
+			curlfiletype filetype = pFileinfo->GetFiletype();
+			::printf("%-40s %10luB %s\n", pFileinfo->GetFilename(),
+				static_cast<unsigned long>(pFileinfo->GetSize()),
+				(filetype == CURLFILETYPE_DIRECTORY)? "DIR" :
+				(filetype == CURLFILETYPE_FILE)? "FILE" : "OTHER");
 		}
-		/* always cleanup */ 
-		::curl_easy_cleanup(curl);
+	} else {
+		::fprintf(stderr, "curl_easy_perform() failed: %s\n",
+										::curl_easy_strerror(code));
 	}
+	::curl_easy_cleanup(curl);
+	::curl_global_cleanup();
 	return Value::Null;
 }
 
@@ -589,8 +664,17 @@ Directory_cURL::~Directory_cURL()
 
 Directory *Directory_cURL::DoNext(Environment &env, Signal sig)
 {
-	sig.SetError(ERR_SystemError, "");
-	return NULL;
+	if (_pFileinfoOwner.get() == NULL) {
+		_pFileinfoOwner.reset(DoBrowse(sig));
+		if (sig.IsSignalled()) return NULL;
+		_ppFileinfo = _pFileinfoOwner->begin();
+	}
+	if (_ppFileinfo == _pFileinfoOwner->end()) return NULL;
+	Fileinfo *pFileinfo = *_ppFileinfo++;
+	Type type = (pFileinfo->GetFiletype() == CURLFILETYPE_DIRECTORY)?
+												TYPE_Container : TYPE_Item;
+	return new Directory_cURL(Directory::Reference(this),
+										pFileinfo->GetFilename(), type);
 }
 
 Stream *Directory_cURL::DoOpenStream(Environment &env, Signal sig, unsigned long attr)
@@ -601,6 +685,43 @@ Stream *Directory_cURL::DoOpenStream(Environment &env, Signal sig, unsigned long
 				dynamic_cast<StreamFIFO *>(Stream::Reference(pStream.get())));
 	pThread->Start();
 	return pStream.release();
+}
+
+FileinfoOwner *Directory_cURL::DoBrowse(Signal sig)
+{
+	std::auto_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
+	CURL *curl = ::curl_easy_init();
+	if (curl == NULL) return NULL;
+	::curl_easy_setopt(curl, CURLOPT_URL, "ftp://ftp.debian.org/debian/*");
+	::curl_easy_setopt(curl, CURLOPT_WILDCARDMATCH, 1L);
+	std::auto_ptr<Browser> pBrowser(new Browser(sig, *pFileinfoOwner));
+	::curl_easy_setopt(curl, CURLOPT_CHUNK_DATA, pBrowser.get());
+	::curl_easy_setopt(curl, CURLOPT_CHUNK_BGN_FUNCTION, Browser::OnChunkBgnStub);
+	::curl_easy_setopt(curl, CURLOPT_CHUNK_END_FUNCTION, Browser::OnChunkEndStub);
+	CURLcode code = ::curl_easy_perform(curl);
+	if(code != CURLE_OK) {
+		SetError_Curl(sig, code);
+		return NULL;
+	}
+#if 0
+	if(code == CURLE_OK) {
+		foreach (FileinfoOwner, ppFileinfo, *pFileinfoOwner) {
+			Fileinfo *pFileinfo = *ppFileinfo;
+			curlfiletype filetype = pFileinfo->GetFiletype();
+			::printf("%-40s %10luB %s\n", pFileinfo->GetFilename(),
+				static_cast<unsigned long>(pFileinfo->GetSize()),
+				(filetype == CURLFILETYPE_DIRECTORY)? "DIR" :
+				(filetype == CURLFILETYPE_FILE)? "FILE" : "OTHER");
+		}
+	} else {
+		::fprintf(stderr, "curl_easy_perform() failed: %s\n",
+										::curl_easy_strerror(code));
+		return NULL;
+	}
+#endif
+	::curl_easy_cleanup(curl);
+	::curl_global_cleanup();
+	return pFileinfoOwner.release();
 }
 
 void Directory_cURL::Thread::Run()
@@ -637,6 +758,7 @@ Directory *DirectoryFactory_cURL::DoOpenDirectory(Environment &env, Signal sig,
 {
 	const char *uri = *pPathName;
 	Directory::Type type = Directory::TYPE_Item;
+	//Directory::Type type = Directory::TYPE_Container;
 	AutoPtr<Directory> pDirectory(
 				new Directory_cURL(Directory::Reference(pParent), uri, type));
 	*pPathName = uri + ::strlen(uri);

@@ -10,6 +10,69 @@
 Gura_BeginModule(curl)
 
 //-----------------------------------------------------------------------------
+// FileinfoList
+//-----------------------------------------------------------------------------
+class Fileinfo {
+private:
+	String _filename;
+	curlfiletype _filetype;
+	time_t _time;
+	unsigned int _perm;
+	int _uid;
+	int _gid;
+	curl_off_t _size;
+	long int _hardlinks;
+	//String time;
+	//String perm;
+	//String user;
+	//String group;
+	//String target; /* pointer to the target filename of a symlink */
+public:
+	Fileinfo(const struct curl_fileinfo *finfo);
+	inline const char *GetFilename() const { return _filename.c_str(); }
+	inline curlfiletype GetFiletype() const { return _filetype; }
+	inline time_t GetTime() const { return _time; }
+	inline unsigned int GetPerm() const { return _perm; }
+	inline int GetUid() const { return _uid; }
+	inline int GetGid() const { return _gid; }
+	inline curl_off_t GetSize() const { return _size; }
+	inline long int GetHardlinks() const { return _hardlinks; }
+private:
+	inline Fileinfo(const Fileinfo &fileInfo) {}
+};
+
+//-----------------------------------------------------------------------------
+// FileinfoList
+//-----------------------------------------------------------------------------
+class FileinfoList : public std::vector<Fileinfo *> {
+};
+
+//-----------------------------------------------------------------------------
+// FileinfoOwner
+//-----------------------------------------------------------------------------
+class FileinfoOwner : public FileinfoList {
+public:
+	~FileinfoOwner();
+	void Clear();
+};
+
+//-----------------------------------------------------------------------------
+// Browser
+//-----------------------------------------------------------------------------
+class Browser {
+private:
+	Signal _sig;
+	FileinfoOwner &_fileinfoOwner;
+public:
+	Browser(Signal sig, FileinfoOwner &fileinfoOwner);
+	long OnChunkBgn(struct curl_fileinfo *finfo, int remains);
+	long OnChunkEnd();
+	static long OnChunkBgnStub(struct curl_fileinfo *finfo,
+								struct callback_data *data, int remains);
+	static long OnChunkEndStub(struct callback_data *data);
+};
+
+//-----------------------------------------------------------------------------
 // Writer
 //-----------------------------------------------------------------------------
 class Writer {
@@ -54,11 +117,14 @@ public:
 	};
 private:
 	String _name;
+	std::auto_ptr<FileinfoOwner> _pFileinfoOwner;
+	FileinfoOwner::iterator _ppFileinfo;
 public:
 	Directory_cURL(Directory *pParent, const char *name, Type type);
 	virtual ~Directory_cURL();
 	virtual Directory *DoNext(Environment &env, Signal sig);
 	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr);
+	FileinfoOwner *DoBrowse(Signal sig);
 };
 
 //-----------------------------------------------------------------------------
