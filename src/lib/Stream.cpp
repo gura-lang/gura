@@ -837,6 +837,10 @@ size_t StreamFIFO::DoRead(Signal sig, void *buff, size_t len)
 {
 	char *buffp = reinterpret_cast<char *>(buff);
 	_pSemaphore->Wait();
+	if (_writeDoneFlag && _bytesAvail == 0) {
+		_pSemaphore->Release();
+		return 0;
+	}
 	size_t offset = 0;
 	while (offset < len) {
 		size_t bytesSpace = len - offset;
@@ -867,7 +871,6 @@ size_t StreamFIFO::DoRead(Signal sig, void *buff, size_t len)
 			}
 		}
 		if (_writeDoneFlag) {
-			_writeDoneFlag = false;
 			_pSemaphore->Release();
 			return offset;
 		}

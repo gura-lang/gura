@@ -596,6 +596,7 @@ Directory *Directory_cURL::DoNext(Environment &env, Signal sig)
 Stream *Directory_cURL::DoOpenStream(Environment &env, Signal sig, unsigned long attr)
 {
 	AutoPtr<StreamFIFO> pStream(new StreamFIFO(env, sig, 65536));
+	// pThread will automatically be deleted after the thread is done.
 	Thread *pThread = new Thread(sig, GetName(),
 				dynamic_cast<StreamFIFO *>(Stream::Reference(pStream.get())));
 	pThread->Start();
@@ -612,8 +613,8 @@ void Directory_cURL::Thread::Run()
 	::curl_easy_setopt(curl, CURLOPT_WRITEDATA, pWriter.get());
 	::curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Writer::OnWriteStub);
 	CURLcode code = ::curl_easy_perform(curl);
-	if(code != CURLE_OK) SetError_Curl(_sig, code);
-	::curl_easy_cleanup(curl);
+	if (code != CURLE_OK) SetError_Curl(_sig, code);
+	//::curl_easy_cleanup(curl);
 	_pStreamFIFO->SetWriteDoneFlag();
 }
 
@@ -623,9 +624,12 @@ void Directory_cURL::Thread::Run()
 bool DirectoryFactory_cURL::IsResponsible(Environment &env, Signal sig,
 						const Directory *pParent, const char *pathName)
 {
-	return pParent == NULL &&
-		(StartsWith(pathName, "http:", 0, false) ||
-		 StartsWith(pathName, "https:", 0, false));
+	return pParent == NULL && (
+			StartsWith(pathName, "http:", 0, false) ||
+			StartsWith(pathName, "https:", 0, false) ||
+			StartsWith(pathName, "ftp:", 0, false) ||
+			StartsWith(pathName, "ftps:", 0, false) ||
+			StartsWith(pathName, "sftp:", 0, false));
 }
 
 Directory *DirectoryFactory_cURL::DoOpenDirectory(Environment &env, Signal sig,

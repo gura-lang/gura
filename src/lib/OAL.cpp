@@ -912,7 +912,9 @@ void *DynamicLibrary::GetEntry(Signal sig, const char *name)
 //-----------------------------------------------------------------------------
 static DWORD WINAPI ThreadProc(LPVOID lpParameter)
 {
-	reinterpret_cast<Thread *>(lpParameter)->Run();
+	Thread *pThread = reinterpret_cast<Thread *>(lpParameter);
+	pThread->Run();
+	delete pThread;
 	return 0;
 }
 
@@ -1380,8 +1382,10 @@ void *DynamicLibrary::GetEntry(Signal sig, const char *name)
 //-----------------------------------------------------------------------------
 static void *start_routine(void *arg)
 {
+	Thread *pThread = reinterpret_cast<Thread *>(arg);
 	::pthread_detach(::pthread_self());
-	reinterpret_cast<Thread *>(arg)->Run();
+	pThread->Run();
+	delete pThread;
 	return 0;
 }
 

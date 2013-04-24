@@ -1,6 +1,14 @@
 #!/usr/bin/env gura
 import(curl)
 
+scope {
+	copy('http://example.com/', 'copy-http.html')
+	println('copy-http.html was created')
+	copy('https://www.verisign.com/', 'copy-https.html')
+	println('copy-https.html was created')
+	copy('ftp://ftp.debian.org/debian/README.html', 'copy-ftp.html')
+	println('copy-ftp.html was created')
+}
 curl.easy_init {|c|
 	c.SetStreamOut('result.html')
 	c.setopt(curl.OPT_URL, 'ftp://ftp.debian.org/debian/README.html')
