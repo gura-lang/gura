@@ -577,13 +577,33 @@ Gura_ImplementMethod(complex, arg)
 	return Value(angle);
 }
 
+// complex#roundoff(threshold:number => 1e-10)
+Gura_DeclareMethodPrimitive(complex, roundoff)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
+											new Expr_Value(RoundOffThreshold));
+}
+
+Gura_ImplementMethod(complex, roundoff)
+{
+	Complex num = args.GetThis().GetComplex();
+	double numThreshold = args.GetDouble(0);
+	double numReal = num.real(), numImag = num.imag();
+	if (numReal < numThreshold) numReal = 0;
+	if (numImag < numThreshold) numImag = 0;
+	if (numImag == 0) return Value(numReal);
+	return Value(Complex(numReal, numImag));
+}
+
 Class_complex::Class_complex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_complex)
 {
-	Gura_AssignMethod(complex, real);	// primitive method
-	Gura_AssignMethod(complex, imag);	// primitive method
-	Gura_AssignMethod(complex, norm);	// primitive method
-	Gura_AssignMethod(complex, abs);	// primitive method
-	Gura_AssignMethod(complex, arg);	// primitive method
+	Gura_AssignMethod(complex, real);		// primitive method
+	Gura_AssignMethod(complex, imag);		// primitive method
+	Gura_AssignMethod(complex, norm);		// primitive method
+	Gura_AssignMethod(complex, abs);		// primitive method
+	Gura_AssignMethod(complex, arg);		// primitive method
+	Gura_AssignMethod(complex, roundoff);	// primitive method
 }
 
 Value Class_complex::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
