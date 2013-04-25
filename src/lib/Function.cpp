@@ -827,25 +827,25 @@ void Function::SetError_InvalidValue(Signal sig, const Value &value) const
 void Function::SetError_InvalidValue(Signal sig, const Value &value1, const Value &value2) const
 {
 	sig.SetError(ERR_TypeError, "can't evaluate %s(%s, %s)",
-				GetName(), value1.ToString(sig).c_str(), value2.GetTypeName());
+				GetName(), value1.ToString(sig).c_str(), value2.GetValueTypeName());
 }
 
 void Function::SetError_InvalidValType(Signal sig, const Value &value) const
 {
 	sig.SetError(ERR_TypeError, "can't evaluate %s(%s)",
-				GetName(), value.GetTypeName());
+				GetName(), value.GetValueTypeName());
 }
 
 void Function::SetError_InvalidValType(Signal sig, const Value &value1, const Value &value2) const
 {
 	sig.SetError(ERR_TypeError, "can't evaluate %s(%s, %s)",
-				GetName(), value1.GetTypeName(), value2.GetTypeName());
+				GetName(), value1.GetValueTypeName(), value2.GetValueTypeName());
 }
 
 void Function::SetError_InvalidValTypeM(Signal sig, const Value &value1, const Value &value2) const
 {
 	sig.SetError(ERR_TypeError, "can't evaluate (%s %s %s)",
-				value1.GetTypeName(), GetMathSymbol(), value2.GetTypeName());
+				value1.GetValueTypeName(), GetMathSymbol(), value2.GetValueTypeName());
 }
 
 void Function::SetError_InvalidFunctionExpression(Signal sig) const

@@ -196,11 +196,6 @@ private:
 	inline void operator=(const ValueTypePool &valTypeInfoPool) {}
 };
 
-inline const Symbol *GetValueTypeSymbol(ValueType valType)
-{
-	return ValueTypePool::GetInstance()->Lookup(valType)->GetSymbol();
-}
-
 //-----------------------------------------------------------------------------
 // ValueVisitor
 //-----------------------------------------------------------------------------
@@ -345,8 +340,13 @@ public:
 	inline void SetSuperSkipCount(int cntSuperSkip) {
 		_valFlags = (_valFlags & 0x00ff) | (static_cast<unsigned short>(cntSuperSkip & 0xff) << 8);
 	}
-	const char *GetTypeName() const;
-	inline ValueType GetType() const { return _valType; }
+	inline ValueType GetValueType() const { return _valType; }
+	inline ValueTypeInfo *GetValueTypeInfo() const {
+		return ValueTypePool::GetInstance()->Lookup(_valType);
+	}
+	inline const char *GetValueTypeName() const {
+		return ValueTypePool::GetInstance()->Lookup(_valType)->GetSymbol()->GetName();
+	}
 	inline bool IsType(ValueType valType) const { return _valType == valType;	}
 	inline bool IsObject() const			{ return _valType >= VTYPE_object && !GetTinyBuffFlag(); }
 	inline bool IsPrimitive() const			{ return _valType <= VTYPE_fraction;}

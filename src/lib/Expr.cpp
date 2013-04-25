@@ -795,6 +795,13 @@ Value Expr_Symbol::Exec(Environment &env, Signal sig) const
 
 Value Expr_Symbol::Exec(Environment &env, Signal sig, const Value &valueThis) const
 {
+	if (valueThis.IsPrimitive()) {
+		bool evaluatedFlag = false;
+		Class *pClass = valueThis.GetValueTypeInfo()->GetClass();
+		Value rtn = pClass->GetPropPrimitive(env, sig,
+						valueThis, GetSymbol(), GetAttrs(), evaluatedFlag);
+		if (evaluatedFlag) return rtn;
+	}
 	EnvRefMode envRefMode =
 			env.IsModule()? ENVREF_Module :
 			!(env.IsClass() || env.IsObject())? ENVREF_Escalate :
@@ -1783,7 +1790,7 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 	ICallable *pCallable = NULL;
 	Fundamental *pFund = NULL;
 	if (valueThis.IsPrimitive() || valueThis.GetTinyBuffFlag()) {
-		pFund = env.LookupClass(valueThis.GetType());
+		pFund = env.LookupClass(valueThis.GetValueType());
 	} else {
 		pFund = valueThis.ExtractFundamental(sig);
 		if (sig.IsSignalled()) {
@@ -2609,7 +2616,7 @@ Value Expr_Member::Exec(Environment &env, Signal sig) const
 	}
 	Fundamental *pFund = NULL;
 	if (valueThis.IsPrimitive() || valueThis.GetTinyBuffFlag()) {
-		pFund = env.LookupClass(valueThis.GetType());
+		pFund = env.LookupClass(valueThis.GetValueType());
 	} else {
 		pFund = valueThis.ExtractFundamental(sig);
 		if (sig.IsSignalled()) {

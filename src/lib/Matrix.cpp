@@ -699,7 +699,7 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
 	ValueList &valListResult = pMatRtn->GetList();
 	ValueType valType1 = CheckValueType(*pMat);
-	ValueType valType2 = value.GetType();
+	ValueType valType2 = value.GetValueType();
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
 		Number num = value.GetNumber();
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
@@ -808,7 +808,7 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 	size_t nFold = pMat->GetFold();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
 	ValueList &valListResult = pMatRtn->GetList();
-	ValueType valType1 = value.GetType();
+	ValueType valType1 = value.GetValueType();
 	ValueType valType2 = CheckValueType(*pMat);
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
 		Number num = value.GetNumber();
@@ -851,7 +851,7 @@ Value Matrix::OperatorDivide(Environment &env, Signal sig,
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
 	ValueList &valList = pMatRtn->GetList();
 	ValueType valType1 = CheckValueType(*pMat);
-	ValueType valType2 = value.GetType();
+	ValueType valType2 = value.GetValueType();
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
 		Number num = value.GetNumber();
 		if (num == 0) {

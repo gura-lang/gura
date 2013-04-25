@@ -24,7 +24,7 @@ Gura_ImplementMethod(Object, istype)
 		sig.SetError(ERR_ValueError, "invalid type name");
 		return Value::Null;
 	}
-	ValueType valType = args.GetThis().GetType();
+	ValueType valType = args.GetThis().GetValueType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
 	if (valType == VTYPE_number && valTypeCmp == VTYPE_complex) return Value(true);
 	return Value(valType == valTypeCmp);
@@ -233,6 +233,12 @@ bool Class::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escal
 		}
 	}
 	return DoDirProp(env, sig, symbols);
+}
+
+Value Class::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
+				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
+{
+	return Value::Null;
 }
 
 bool Class::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
@@ -580,6 +586,12 @@ Class_complex::Class_complex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_co
 	Gura_AssignMethod(complex, arg);	// primitive method
 }
 
+Value Class_complex::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
+				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
+{
+	return Value::Null;
+}
+
 bool Class_complex::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsNumber()) {		// cast number to complex
@@ -657,6 +669,12 @@ Class_fraction::Class_fraction(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 	Gura_AssignMethod(fraction, numerator);		// primitive method
 	Gura_AssignMethod(fraction, denominator);	// primitive method
 	Gura_AssignMethod(fraction, reduce);		// primitive method
+}
+
+Value Class_fraction::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
+				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
+{
+	return Value::Null;
 }
 
 bool Class_fraction::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

@@ -1352,15 +1352,15 @@ Gura_Function(istype_)::Gura_Function(istype_)(
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
-	char buff[128];
+	char buff[1024];
 	::sprintf(buff, "Check if the type of the specified value is %s.",
-									GetValueTypeSymbol(_valType)->GetName());
+		ValueTypePool::GetInstance()->Lookup(_valType)->GetSymbol()->GetName());
 	AddHelp(Gura_Symbol(en), buff);
 }
 
 Gura_ImplementFunction(istype_)
 {
-	ValueType valType = args.GetValue(0).GetType();
+	ValueType valType = args.GetValue(0).GetValueType();
 	ValueType valTypeCmp = _valType;
 	if ((valType == VTYPE_number || valType == VTYPE_fraction) &&
 								valTypeCmp == VTYPE_complex) return Value(true);
@@ -1392,7 +1392,7 @@ Gura_ImplementFunction(istype)
 								symbolList.Join(".").c_str());
 		return Value::Null;
 	}
-	ValueType valType = args.GetValue(0).GetType();
+	ValueType valType = args.GetValue(0).GetValueType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
 	if ((valType == VTYPE_number || valType == VTYPE_fraction) &&
 								valTypeCmp == VTYPE_complex) return Value(true);
@@ -1473,12 +1473,12 @@ Gura_ImplementFunction(typename_)
 	if (pExpr->IsSymbol() || pExpr->IsMember()) {
 		Value value = pExpr->Exec(env, sig);
 		if (sig.IsSignalled() && !sig.IsError()) return Value::Null;
-		typeName = sig.IsError()? "undefined" : value.GetTypeName();
+		typeName = sig.IsError()? "undefined" : value.GetValueTypeName();
 		sig.ClearSignal();
 	} else {
 		Value value = pExpr->Exec(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		typeName = value.GetTypeName();
+		typeName = value.GetValueTypeName();
 	}
 	return Value(env, typeName);
 }

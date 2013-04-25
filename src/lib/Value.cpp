@@ -431,11 +431,6 @@ Value &Value::operator=(const Value &value)
 	return *this;
 }
 
-const char *Value::GetTypeName() const
-{
-	return GetValueTypeSymbol(GetType())->GetName();
-}
-
 bool Value::MustBe(Signal &sig, bool flag, const char *expected) const
 {
 	if (flag) return true;
@@ -465,7 +460,7 @@ Fundamental *Value::ExtractFundamental(Signal sig)
 		return pFund;
 	}
 	sig.SetError(ERR_ValueError,
-		"%s can not be specified as l-value of member", GetTypeName());
+		"%s can not be specified as l-value of member", GetValueTypeName());
 	return NULL;
 }
 
@@ -619,7 +614,8 @@ Iterator *Value::CreateIterator(Signal sig) const
 	if (IsObject()) {
 		return _u.pObj->CreateIterator(sig);
 	}
-	sig.SetError(ERR_ValueError, "value of %s cannot generate iterator", GetTypeName());
+	sig.SetError(ERR_ValueError, "value of %s cannot generate iterator",
+														GetValueTypeName());
 	return NULL;
 }
 
@@ -721,9 +717,9 @@ Number Value::ToNumber(bool allowPartFlag, bool &successFlag) const
 int Value::Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag)
 {
 	int rtn = -1;
-	if (value1.GetType() != value2.GetType()) {
-		rtn = static_cast<int>(value1.GetType()) -
-								static_cast<int>(value2.GetType());
+	if (value1.GetValueType() != value2.GetValueType()) {
+		rtn = static_cast<int>(value1.GetValueType()) -
+								static_cast<int>(value2.GetValueType());
 	} else if (value1.IsNumber()) {
 		rtn = (value1.GetNumber() == value2.GetNumber())? 0 :
 				(value1.GetNumber() < value2.GetNumber())? -1 : +1;
@@ -904,9 +900,8 @@ Value Value::CreateAsList(Environment &env, const Value &v1, const Value &v2,
 
 bool Value::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value)
 {
-	const ValueTypeInfo *pValueTypeInfo =
-							ValueTypePool::GetInstance()->Lookup(value.GetType());
-	unsigned long valType = static_cast<unsigned long>(value.GetType());
+	const ValueTypeInfo *pValueTypeInfo = value.GetValueTypeInfo();
+	unsigned long valType = static_cast<unsigned long>(value.GetValueType());
 	if (!stream.SerializePackedULong(sig, valType)) return false;
 	return pValueTypeInfo->GetClass()->Serialize(env, sig, stream, value);
 }

@@ -128,6 +128,8 @@ public:
 	inline Function *GetConstructor() { return _pConstructor.get(); }
 	inline const Function *GetConstructor() const { return _pConstructor.get(); }
 	bool DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag);
+	virtual Value GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
+			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl);
 	virtual String ToString(Signal sig, bool exprFlag);
@@ -187,6 +189,8 @@ public:
 class GURA_DLLDECLARE Class_complex : public Class {
 public:
 	Class_complex(Environment *pEnvOuter);
+	virtual Value GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
+			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
@@ -198,6 +202,8 @@ public:
 class GURA_DLLDECLARE Class_fraction : public Class {
 public:
 	Class_fraction(Environment *pEnvOuter);
+	virtual Value GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
+			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
