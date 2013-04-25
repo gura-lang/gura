@@ -4,12 +4,11 @@ sys.echo(false)
 
 scope {
 	x = fraction(3, 4)
-	printf('%d, %d\n', x.numerator, x.denominator)
+	printf('%d, %d\n', x.numerator(), x.denominator())
 }
 scope {
-	x = [3 + 4j, 2 + 3j]
-	printf('%d, %d, %f, %f, %f\n', x:*real, x:*imag, x:*abs, x:*arg, x:*arg:deg)
-	sys.exit()
+	x = [3 + 4j, 2 + 3j, 1 + 1j, 1 + math.sqrt(3) * 1j]
+	printf('%d, %d, %f, %f, %f\n', x:*real(), x:*imag(), x:*abs(), x:*arg(), x:*arg():deg)
 }
 scope {
 	[a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z] = 100..
