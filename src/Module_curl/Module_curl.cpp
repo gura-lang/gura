@@ -692,7 +692,8 @@ FileinfoOwner *Directory_cURL::DoBrowse(Signal sig)
 	std::auto_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
 	CURL *curl = ::curl_easy_init();
 	if (curl == NULL) return NULL;
-	::curl_easy_setopt(curl, CURLOPT_URL, "ftp://ftp.debian.org/debian/*");
+	String url = OAL::JoinPathName('/', GetName(), "*");
+	::curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 	::curl_easy_setopt(curl, CURLOPT_WILDCARDMATCH, 1L);
 	std::auto_ptr<Browser> pBrowser(new Browser(sig, *pFileinfoOwner));
 	::curl_easy_setopt(curl, CURLOPT_CHUNK_DATA, pBrowser.get());
@@ -703,22 +704,6 @@ FileinfoOwner *Directory_cURL::DoBrowse(Signal sig)
 		SetError_Curl(sig, code);
 		return NULL;
 	}
-#if 0
-	if(code == CURLE_OK) {
-		foreach (FileinfoOwner, ppFileinfo, *pFileinfoOwner) {
-			Fileinfo *pFileinfo = *ppFileinfo;
-			curlfiletype filetype = pFileinfo->GetFiletype();
-			::printf("%-40s %10luB %s\n", pFileinfo->GetFilename(),
-				static_cast<unsigned long>(pFileinfo->GetSize()),
-				(filetype == CURLFILETYPE_DIRECTORY)? "DIR" :
-				(filetype == CURLFILETYPE_FILE)? "FILE" : "OTHER");
-		}
-	} else {
-		::fprintf(stderr, "curl_easy_perform() failed: %s\n",
-										::curl_easy_strerror(code));
-		return NULL;
-	}
-#endif
 	::curl_easy_cleanup(curl);
 	::curl_global_cleanup();
 	return pFileinfoOwner.release();
