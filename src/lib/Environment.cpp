@@ -47,7 +47,7 @@ const char *GetEnvTypeName(EnvType envType)
 //-----------------------------------------------------------------------------
 // IntegratedModule
 //-----------------------------------------------------------------------------
-bool IntegratedModule::IsMatch(const SymbolList &symbolOfModule) const
+bool IntegratedModule::DoesMatch(const SymbolList &symbolOfModule) const
 {
 	return symbolOfModule.size() == 1 &&
 			::strcmp(symbolOfModule.back()->GetName(), _name.c_str()) == 0;
@@ -623,7 +623,7 @@ Module *Environment::ImportIntegratedModule(Signal sig, const SymbolList &symbol
 	IntegratedModule *pIntegratedModule = NULL;
 	if (_pIntegratedModuleOwner != NULL) {
 		foreach (IntegratedModuleOwner, ppIntegratedModule, *_pIntegratedModuleOwner) {
-			if ((*ppIntegratedModule)->IsMatch(symbolOfModule)) {
+			if ((*ppIntegratedModule)->DoesMatch(symbolOfModule)) {
 				pIntegratedModule = *ppIntegratedModule;
 				break;
 			}
@@ -770,7 +770,7 @@ Module *Environment::ImportSeparatedModule_Binary(Signal sig, Environment *pEnvO
 
 bool Environment::IsBinaryModule(const char *pathName)
 {
-	return ::strcasecmp(Directory::SeekExtName(pathName), ".gurd") == 0;
+	return ::strcasecmp(PathManager::SeekExtName(pathName), ".gurd") == 0;
 }
 
 bool Environment::AddModuleSearchPath(Signal sig, const StringList &strList)

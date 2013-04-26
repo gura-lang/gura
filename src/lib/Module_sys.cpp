@@ -79,7 +79,7 @@ Gura_ModuleTerminate()
 
 bool IsCompositeFile(const char *pathName)
 {
-	const char *extName = Directory::SeekExtName(pathName);
+	const char *extName = PathManager::SeekExtName(pathName);
 	return ::strcasecmp(extName, ".gurc") == 0 ||
 			::strcasecmp(extName, ".gurcw") == 0;
 }
@@ -96,7 +96,7 @@ static bool ExpandWildCard(Environment &env, Signal sig,
 #endif
 	bool fileFlag = true;
 	bool dirFlag = true;
-	AutoPtr<Directory::Iterator_Glob> pIterator(new Directory::Iterator_Glob(
+	AutoPtr<PathManager::Iterator_Glob> pIterator(new PathManager::Iterator_Glob(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag));
 	if (!pIterator->Init(env, sig, pattern)) return false;
 	Value value;
@@ -152,7 +152,7 @@ bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[])
 			str = OAL::MakeAbsPathName(OAL::FileSeparator, argv[1]);
 			if (!IsCompositeFile(argv[1])) {
 				String dirName;
-				Directory::SplitFileName(str.c_str(), &dirName, NULL);
+				PathManager::SplitFileName(str.c_str(), &dirName, NULL);
 				str = dirName;
 			}
 		}

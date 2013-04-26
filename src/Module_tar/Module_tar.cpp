@@ -352,7 +352,7 @@ Gura_ImplementMethod(writer, add)
 			sig.SetError(ERR_ValueError, "stream doesn't have an identifier");
 			return Value::Null;
 		}
-		Directory::SplitFileName(identifier, NULL, &fileName);
+		PathManager::SplitFileName(identifier, NULL, &fileName);
 	}
 	if (!pThis->Add(args.GetStream(0), fileName.c_str())) return Value::Null;
 	return args.GetThis();

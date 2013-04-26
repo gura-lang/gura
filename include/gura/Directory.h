@@ -10,21 +10,20 @@ namespace Gura {
 
 class Environment;
 class Directory;
-class PathManager;
 class Object;
 class Stream;
 
 typedef std::deque<Directory *> DirectoryDeque;
 
 //-----------------------------------------------------------------------------
-// Directory
+// PathManager
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Directory {
+class GURA_DLLDECLARE PathManager {
 public:
-	enum Type {
-		TYPE_None, TYPE_Item, TYPE_Container,
-		TYPE_BoundaryContainer, TYPE_RootContainer,
+	enum NotFoundMode {
+		NF_Signal, NF_NoSignal, NF_Wouldbe,
 	};
+	typedef std::vector<PathManager *> List;
 public:
 	class GURA_DLLDECLARE Iterator_Walk : public Iterator {
 	public:
@@ -74,6 +73,56 @@ public:
 	};
 protected:
 	int _cntRef;
+private:
+	static List *_pList;
+public:
+	Gura_DeclareReferenceAccessor(PathManager);
+public:
+	inline PathManager() : _cntRef(1) {}
+	virtual bool IsResponsible(Environment &env, Signal sig,
+								const Directory *pParent, const char *pathName) = 0;
+public:
+	inline static bool IsWildCardChar(char ch) {
+		return ch == '*' || ch == '?' || ch == '[' || ch == ']';
+	}
+	static void SplitFileName(const char *pathName, String *pDirName, String *pFileName);
+	static void SplitBottom(const char *pathName, String *pTop, String *pBottom);
+	static const char *SeekExtName(const char *pathName);
+	static bool HasWildCard(const char *pathName);
+	static String GetExecutable();
+	static const String &GetBaseDir();
+	static bool DoesMatchName(const char *pattern,
+							const char *fileName, bool ignoreCaseFlag);
+	static bool DoesMatchNameSub(const char *pattern,
+							const char *fileName, bool ignoreCaseFlag);
+public:
+	static void Register(PathManager *pPathManager);
+	static Directory *OpenDirectory(Environment &env, Signal sig,
+							const char *pathName, NotFoundMode notFoundMode);
+	static Directory *OpenDirectory(Environment &env, Signal sig,
+				Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
+	static Stream *OpenStream(Environment &env, Signal sig,
+							const char *pathName, unsigned long attr);
+	static PathManager *FindResponsible(Environment &env, Signal sig,
+				const Directory *pParent, const char *pathName);
+	static bool IsExist(Environment &env, Signal sig, const char *pathName);
+	static bool IsContainer(Environment &env, Signal sig, const char *pathName);
+	virtual Directory *DoOpenDirectory(Environment &env, Signal sig,
+				Directory *pParent, const char **pPathName,
+				NotFoundMode notFoundMode) = 0;
+};
+
+//-----------------------------------------------------------------------------
+// Directory
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Directory {
+public:
+	enum Type {
+		TYPE_None, TYPE_Item, TYPE_Container,
+		TYPE_BoundaryContainer, TYPE_RootContainer,
+	};
+protected:
+	int _cntRef;
 	Directory *_pParent;
 	String _name;
 	Type _type;
@@ -98,68 +147,18 @@ public:
 		return _type == TYPE_Container ||
 			_type == TYPE_BoundaryContainer || _type == TYPE_RootContainer;
 	}
-	inline bool IsMatchName(const char *pattern, bool ignoreCaseFlag) const {
-		return IsMatchName(pattern, GetName(), ignoreCaseFlag);
+	inline bool DoesMatchName(const char *pattern, bool ignoreCaseFlag) const {
+		return PathManager::DoesMatchName(pattern, GetName(), ignoreCaseFlag);
 	}
 	Stream *OpenStream(Environment &env, Signal sig, unsigned long attr);
 	Directory *Next(Environment &env, Signal sig);
 	inline Object *GetStatObj(Signal sig) { return DoGetStatObj(sig); }
 	String MakePathName(bool addSepFlag, const char *pathNameTrail = NULL) const;
 	int CountDepth() const;
-public:
-	inline static bool IsWildCardChar(char ch) {
-		return ch == '*' || ch == '?' || ch == '[' || ch == ']';
-	}
-	static void SplitFileName(const char *pathName, String *pDirName, String *pFileName);
-	static void SplitBottom(const char *pathName, String *pTop, String *pBottom);
-	static const char *SeekExtName(const char *pathName);
-	static bool HasWildCard(const char *pathName);
-	static String GetExecutable();
-	static const String &GetBaseDir();
-	static bool IsMatchName(const char *pattern,
-							const char *fileName, bool ignoreCaseFlag);
-	static bool IsMatchNameSub(const char *pattern,
-							const char *fileName, bool ignoreCaseFlag);
 protected:
 	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr) = 0;
 	virtual Directory *DoNext(Environment &env, Signal sig) = 0;
 	virtual Object *DoGetStatObj(Signal sig);
-};
-
-//-----------------------------------------------------------------------------
-// PathManager
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE PathManager {
-public:
-	enum NotFoundMode {
-		NF_Signal, NF_NoSignal, NF_Wouldbe,
-	};
-	typedef std::vector<PathManager *> List;
-protected:
-	int _cntRef;
-private:
-	static List *_pList;
-public:
-	Gura_DeclareReferenceAccessor(PathManager);
-public:
-	inline PathManager() : _cntRef(1) {}
-	virtual bool IsResponsible(Environment &env, Signal sig,
-								const Directory *pParent, const char *pathName) = 0;
-public:
-	static void Register(PathManager *pPathManager);
-	static Directory *OpenDirectory(Environment &env, Signal sig,
-							const char *pathName, NotFoundMode notFoundMode);
-	static Directory *OpenDirectory(Environment &env, Signal sig,
-				Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
-	static Stream *OpenStream(Environment &env, Signal sig,
-							const char *pathName, unsigned long attr);
-	static PathManager *FindResponsible(Environment &env, Signal sig,
-				const Directory *pParent, const char *pathName);
-	static bool IsExist(Environment &env, Signal sig, const char *pathName);
-	static bool IsContainer(Environment &env, Signal sig, const char *pathName);
-	virtual Directory *DoOpenDirectory(Environment &env, Signal sig,
-				Directory *pParent, const char **pPathName,
-				NotFoundMode notFoundMode) = 0;
 };
 
 namespace DirBuilder {

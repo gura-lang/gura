@@ -75,7 +75,18 @@ Object *Directory::DoGetStatObj(Signal sig)
 	return NULL;
 }
 
-void Directory::SplitFileName(const char *pathName, String *pDirName, String *pFileName)
+//-----------------------------------------------------------------------------
+// PathManager
+//-----------------------------------------------------------------------------
+PathManager::List *PathManager::_pList = NULL;
+
+void PathManager::Register(PathManager *pPathManager)
+{
+	if (_pList == NULL) _pList = new List();
+	_pList->push_back(pPathManager);
+}
+
+void PathManager::SplitFileName(const char *pathName, String *pDirName, String *pFileName)
 {
 	const char *p = pathName + ::strlen(pathName);
 	for ( ; p > pathName; p--) {
@@ -85,7 +96,7 @@ void Directory::SplitFileName(const char *pathName, String *pDirName, String *pF
 	if (pFileName != NULL) *pFileName = String(p);
 }
 
-void Directory::SplitBottom(const char *pathName, String *pTop, String *pBottom)
+void PathManager::SplitBottom(const char *pathName, String *pTop, String *pBottom)
 {
 	const char *p = pathName + ::strlen(pathName);
 	if (p > pathName && IsFileSeparator(*(p - 1))) p--;
@@ -97,7 +108,7 @@ void Directory::SplitBottom(const char *pathName, String *pTop, String *pBottom)
 	if (pBottom != NULL) *pBottom = String(p, pEnd);
 }
 
-const char *Directory::SeekExtName(const char *pathName)
+const char *PathManager::SeekExtName(const char *pathName)
 {
 	const char *pBtm = pathName + ::strlen(pathName);
 	for (const char *p = pBtm; p >= pathName; p--) {
@@ -109,7 +120,7 @@ const char *Directory::SeekExtName(const char *pathName)
 	return pBtm;
 }
 
-bool Directory::HasWildCard(const char *pathName)
+bool PathManager::HasWildCard(const char *pathName)
 {
 	for (const char *p = pathName; *p != '\0'; p++) {
 		if (IsWildCardChar(*p)) return true;
@@ -117,23 +128,23 @@ bool Directory::HasWildCard(const char *pathName)
 	return false;
 }
 
-bool Directory::IsMatchName(const char *pattern, const char *fileName, bool ignoreCaseFlag)
+bool PathManager::DoesMatchName(const char *pattern, const char *fileName, bool ignoreCaseFlag)
 {
 	if (*pattern == '!') {
-		return !IsMatchNameSub(pattern + 1, fileName, ignoreCaseFlag);
+		return !DoesMatchNameSub(pattern + 1, fileName, ignoreCaseFlag);
 	}
-	return IsMatchNameSub(pattern, fileName, ignoreCaseFlag);
+	return DoesMatchNameSub(pattern, fileName, ignoreCaseFlag);
 }
 	
-bool Directory::IsMatchNameSub(const char *pattern, const char *fileName, bool ignoreCaseFlag)
+bool PathManager::DoesMatchNameSub(const char *pattern, const char *fileName, bool ignoreCaseFlag)
 {
 	if (*pattern == '\0') {
 		return *fileName == '\0';
 	} else if (*pattern == '*') {
-		return IsMatchNameSub(pattern + 1, fileName, ignoreCaseFlag) ||
-			*fileName != '\0' && IsMatchNameSub(pattern, fileName + 1, ignoreCaseFlag);
+		return DoesMatchNameSub(pattern + 1, fileName, ignoreCaseFlag) ||
+			*fileName != '\0' && DoesMatchNameSub(pattern, fileName + 1, ignoreCaseFlag);
 	} else if (*pattern == '?') {
-		return *fileName != '\0' && IsMatchNameSub(pattern + 1, fileName + 1, ignoreCaseFlag);
+		return *fileName != '\0' && DoesMatchNameSub(pattern + 1, fileName + 1, ignoreCaseFlag);
 	} else if (*pattern == '[') {
 		bool negFlag = false;
 		pattern++;
@@ -149,22 +160,11 @@ bool Directory::IsMatchNameSub(const char *pattern, const char *fileName, bool i
 			}
 		}
 		if (*pattern == ']') pattern++;
-		return IsMatchNameSub(pattern, fileName + 1, ignoreCaseFlag);
+		return DoesMatchNameSub(pattern, fileName + 1, ignoreCaseFlag);
 	} else {
 		return CompareChar(*pattern, *fileName, ignoreCaseFlag) == 0 &&
-						IsMatchNameSub(pattern + 1, fileName + 1, ignoreCaseFlag);
+						DoesMatchNameSub(pattern + 1, fileName + 1, ignoreCaseFlag);
 	}
-}
-
-//-----------------------------------------------------------------------------
-// PathManager
-//-----------------------------------------------------------------------------
-PathManager::List *PathManager::_pList = NULL;
-
-void PathManager::Register(PathManager *pPathManager)
-{
-	if (_pList == NULL) _pList = new List();
-	_pList->push_back(pPathManager);
 }
 
 Directory *PathManager::OpenDirectory(Environment &env, Signal sig,
@@ -240,9 +240,9 @@ bool PathManager::IsContainer(Environment &env, Signal sig, const char *pathName
 }
 
 //-----------------------------------------------------------------------------
-// Directory::Iterator_Walk
+// PathManager::Iterator_Walk
 //-----------------------------------------------------------------------------
-Directory::Iterator_Walk::Iterator_Walk(bool addSepFlag, bool statFlag,
+PathManager::Iterator_Walk::Iterator_Walk(bool addSepFlag, bool statFlag,
 				bool ignoreCaseFlag, bool fileFlag, bool dirFlag,
 				Directory *pDirectory, int depthMax, const StringList &patterns) :
 	Iterator(false),
@@ -254,19 +254,19 @@ Directory::Iterator_Walk::Iterator_Walk(bool addSepFlag, bool statFlag,
 	_directoryQue.push_back(pDirectory);
 }
 
-Directory::Iterator_Walk::~Iterator_Walk()
+PathManager::Iterator_Walk::~Iterator_Walk()
 {
 	foreach (DirectoryDeque, ppDirectory, _directoryQue) {
 		Directory::Delete(*ppDirectory);
 	}
 }
 
-Iterator *Directory::Iterator_Walk::GetSource()
+Iterator *PathManager::Iterator_Walk::GetSource()
 {
 	return NULL;
 }
 
-bool Directory::Iterator_Walk::DoNext(Environment &env, Signal sig, Value &value)
+bool PathManager::Iterator_Walk::DoNext(Environment &env, Signal sig, Value &value)
 {
 	for (;;) {
 		Directory *pDirectoryChild = NULL;
@@ -291,7 +291,7 @@ bool Directory::Iterator_Walk::DoNext(Environment &env, Signal sig, Value &value
 		if (typeMatchFlag) {
 			bool matchFlag = false;
 			foreach_const (StringList, pPattern, _patterns) {
-				if (IsMatchName(pPattern->c_str(),
+				if (DoesMatchName(pPattern->c_str(),
 									pDirectoryChild->GetName(), _ignoreCaseFlag)) {
 					matchFlag = true;
 					break;
@@ -314,7 +314,7 @@ bool Directory::Iterator_Walk::DoNext(Environment &env, Signal sig, Value &value
 	return true;
 }
 
-String Directory::Iterator_Walk::ToString(Signal sig) const
+String PathManager::Iterator_Walk::ToString(Signal sig) const
 {
 	String str;
 	str = "<iterator:path.walk";
@@ -323,14 +323,14 @@ String Directory::Iterator_Walk::ToString(Signal sig) const
 	return str;
 }
 
-void Directory::Iterator_Walk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+void PathManager::Iterator_Walk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 
 //-----------------------------------------------------------------------------
-// Directory::Iterator_Glob
+// PathManager::Iterator_Glob
 //-----------------------------------------------------------------------------
-Directory::Iterator_Glob::Iterator_Glob(bool addSepFlag, bool statFlag,
+PathManager::Iterator_Glob::Iterator_Glob(bool addSepFlag, bool statFlag,
 							bool ignoreCaseFlag, bool fileFlag, bool dirFlag) :
 	Iterator(false),
 	_addSepFlag(addSepFlag), _statFlag(statFlag), _ignoreCaseFlag(ignoreCaseFlag),
@@ -338,7 +338,7 @@ Directory::Iterator_Glob::Iterator_Glob(bool addSepFlag, bool statFlag,
 {
 }
 
-bool Directory::Iterator_Glob::Init(Environment &env, Signal sig, const char *pattern)
+bool PathManager::Iterator_Glob::Init(Environment &env, Signal sig, const char *pattern)
 {
 	String pathName, field;
 	const char *patternTop = pattern;
@@ -351,7 +351,7 @@ bool Directory::Iterator_Glob::Init(Environment &env, Signal sig, const char *pa
 			patternTop++;
 			pathName += ch;
 			field.clear();
-		} else if (Directory::IsWildCardChar(ch)) {
+		} else if (IsWildCardChar(ch)) {
 			break;
 		} else {
 			field += ch;
@@ -375,19 +375,19 @@ bool Directory::Iterator_Glob::Init(Environment &env, Signal sig, const char *pa
 	return true;
 }
 
-Directory::Iterator_Glob::~Iterator_Glob()
+PathManager::Iterator_Glob::~Iterator_Glob()
 {
 	foreach (DirectoryDeque, ppDirectory, _directoryQue) {
 		Directory::Delete(*ppDirectory);
 	}
 }
 
-Iterator *Directory::Iterator_Glob::GetSource()
+Iterator *PathManager::Iterator_Glob::GetSource()
 {
 	return NULL;
 }
 
-bool Directory::Iterator_Glob::DoNext(Environment &env, Signal sig, Value &value)
+bool PathManager::Iterator_Glob::DoNext(Environment &env, Signal sig, Value &value)
 {
 	Directory *pDirectoryChild = NULL;
 	for (;;) {
@@ -410,7 +410,7 @@ bool Directory::Iterator_Glob::DoNext(Environment &env, Signal sig, Value &value
 			}
 		}
 		if (sig.IsSignalled()) return false;
-		if (IsMatchName(_patternSegs[_depth].c_str(),
+		if (DoesMatchName(_patternSegs[_depth].c_str(),
 								pDirectoryChild->GetName(), _ignoreCaseFlag)) {
 			bool typeMatchFlag =
 					(pDirectoryChild->IsContainer() && _dirFlag) ||
@@ -438,12 +438,12 @@ found:
 	return true;
 }
 
-String Directory::Iterator_Glob::ToString(Signal sig) const
+String PathManager::Iterator_Glob::ToString(Signal sig) const
 {
 	return String("<iterator:path.glob>");
 }
 
-void Directory::Iterator_Glob::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+void PathManager::Iterator_Glob::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 

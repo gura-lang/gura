@@ -66,11 +66,11 @@ Value Object_Stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		return Value(env, _fileStat.GetPathName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(dirname))) {
 		String dirName;
-		Directory::SplitFileName(_fileStat.GetPathName(), &dirName, NULL);
+		PathManager::SplitFileName(_fileStat.GetPathName(), &dirName, NULL);
 		return Value(env, dirName.c_str());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(filename))) {
 		String fileName;
-		Directory::SplitFileName(_fileStat.GetPathName(), NULL, &fileName);
+		PathManager::SplitFileName(_fileStat.GetPathName(), NULL, &fileName);
 		return Value(env, fileName.c_str());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
 		return Value(static_cast<Number>(_fileStat.GetSize()));
@@ -173,7 +173,7 @@ bool Stream_File::Open(Signal sig, const char *fileName, unsigned long attr)
 					NULL, dwCreationDisposition, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (_hFile == INVALID_HANDLE_VALUE) {
 		String fileNameBase;
-		Directory::SplitFileName(fileName, NULL, &fileNameBase);
+		PathManager::SplitFileName(fileName, NULL, &fileNameBase);
 		sig.SetError(ERR_IOError, "can't open file '%s'", fileNameBase.c_str());
 		return false;
 	}

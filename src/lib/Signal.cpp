@@ -145,7 +145,7 @@ String Signal::GetErrString(bool lineInfoFlag) const
 		if (pathName != NULL) {
 			str += " ";
 			String fileName;
-			Directory::SplitFileName(pathName, NULL, &fileName);
+			PathManager::SplitFileName(pathName, NULL, &fileName);
 			str += fileName;
 		}
 		do {
@@ -219,7 +219,7 @@ void Signal::PutTraceInfo(String &str, const Expr *pExpr)
 	const char *pathName = pExpr->GetPathName();
 	if (pathName != NULL) {
 		String fileName;
-		Directory::SplitFileName(pathName, NULL, &fileName);
+		PathManager::SplitFileName(pathName, NULL, &fileName);
 		str += fileName;
 	}
 	char buff[64];

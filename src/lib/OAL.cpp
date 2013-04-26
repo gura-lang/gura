@@ -864,7 +864,7 @@ bool DirLister::Next(const char *pattern, String &pathName, bool *pDirFlag)
 		}
 		fileName = FromNativeString(findData.cFileName);
 		if (fileName != "." && fileName != ".." &&
-			(pattern == NULL || Directory::IsMatchName(pattern, fileName.c_str(), true))) break;
+			(pattern == NULL || PathManager::DoesMatchName(pattern, fileName.c_str(), true))) break;
 	}
 	pathName = JoinPathName(FileSeparator, _dirName.c_str(), fileName.c_str());
 	*pDirFlag = (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)? true : false;
@@ -1342,7 +1342,7 @@ bool DirLister::Next(const char *pattern, String &pathName, bool *pDirFlag)
 		if (direntp == NULL) return false;
 		fileName = FromNativeString(direntp->d_name);
 		if (fileName != "." && fileName != ".." &&
-			(pattern == NULL || Directory::IsMatchName(pattern, fileName.c_str(), false))) break;
+			(pattern == NULL || PathManager::DoesMatchName(pattern, fileName.c_str(), false))) break;
 	}
 	pathName = JoinPathName(FileSeparator, _dirName.c_str(), fileName.c_str());
 	*pDirFlag = (direntp->d_type == DT_DIR);

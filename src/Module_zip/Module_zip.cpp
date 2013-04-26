@@ -388,7 +388,7 @@ Gura_ImplementMethod(writer, add)
 			sig.SetError(ERR_ValueError, "stream doesn't have an identifier");
 			return Value::Null;
 		}
-		Directory::SplitFileName(identifier, NULL, &fileName);
+		PathManager::SplitFileName(identifier, NULL, &fileName);
 	}
 	unsigned short compressionMethod = args.IsSymbol(2)?
 						SymbolToCompressionMethod(args.GetSymbol(2)) :

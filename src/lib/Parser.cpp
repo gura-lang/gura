@@ -869,8 +869,8 @@ Expr *Parser::ParseStream(Environment &env, Signal sig, const char *pathName, co
 	do {
 		bool zippedFlag = false;
 		std::string fileName;
-		Directory::SplitFileName(pathName, NULL, &fileName);
-		const char *extName = Directory::SeekExtName(fileName.c_str());
+		PathManager::SplitFileName(pathName, NULL, &fileName);
+		const char *extName = PathManager::SeekExtName(fileName.c_str());
 		std::string baseName = std::string(fileName.c_str(), extName);
 		if (::strcasecmp(extName, ".gurc") == 0) {
 			pathNameMod = OAL::JoinPathName(pathName, baseName.c_str());
@@ -2066,7 +2066,7 @@ void Parser::SetError(Signal sig, ErrorType errType, const char *format, ...)
 	String textPre(" at ");
 	if (!_sourceName.empty()) {
 		String fileName;
-		Directory::SplitFileName(_sourceName.c_str(), NULL, &fileName);
+		PathManager::SplitFileName(_sourceName.c_str(), NULL, &fileName);
 		textPre += fileName;
 	}
 	do {

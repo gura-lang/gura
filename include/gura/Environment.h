@@ -160,7 +160,7 @@ public:
 	inline void ModuleTerminate(Module *pModule) {
 		(*_moduleTerminate)(pModule);
 	}
-	bool IsMatch(const SymbolList &symbolOfModule) const;
+	bool DoesMatch(const SymbolList &symbolOfModule) const;
 };
 
 //-----------------------------------------------------------------------------
