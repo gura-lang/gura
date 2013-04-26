@@ -655,9 +655,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// DirectoryFactory_Http declaration
+// PathManager_Http declaration
 //-----------------------------------------------------------------------------
-class DirectoryFactory_Http : public DirectoryFactory {
+class PathManager_Http : public PathManager {
 public:
 	virtual bool IsResponsible(Environment &env, Signal sig,
 					const Directory *pParent, const char *pathName);

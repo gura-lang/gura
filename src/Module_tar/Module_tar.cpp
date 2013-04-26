@@ -672,9 +672,9 @@ Directory *Record_TAR::DoGenerateDirectory(Directory *pParent, Directory::Type t
 }
 
 //-----------------------------------------------------------------------------
-// DirectoryFactory_TAR implementation
+// PathManager_TAR implementation
 //-----------------------------------------------------------------------------
-bool DirectoryFactory_TAR::IsResponsible(Environment &env, Signal sig,
+bool PathManager_TAR::IsResponsible(Environment &env, Signal sig,
 						const Directory *pParent, const char *pathName)
 {
 	return pParent != NULL && !pParent->IsContainer() &&
@@ -682,7 +682,7 @@ bool DirectoryFactory_TAR::IsResponsible(Environment &env, Signal sig,
 										IsGZippedTar(pParent->GetName()));
 }
 
-Directory *DirectoryFactory_TAR::DoOpenDirectory(Environment &env, Signal sig,
+Directory *PathManager_TAR::DoOpenDirectory(Environment &env, Signal sig,
 	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
 {
 	AutoPtr<Stream> pStream(pParent->OpenStream(env, sig, Stream::ATTR_Readable));
@@ -835,7 +835,7 @@ const char XGLTYPE			= 'g';		// Global extended header
 	Gura_AssignFunction(reader);
 	Gura_AssignFunction(writer);
 	// registration of directory factory
-	DirectoryFactory::Register(new DirectoryFactory_TAR());
+	PathManager::Register(new PathManager_TAR());
 }
 
 Gura_ModuleTerminate()

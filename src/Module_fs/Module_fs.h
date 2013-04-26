@@ -101,9 +101,9 @@ protected:
 };
 
 //-----------------------------------------------------------------------------
-// DirectoryFactory_FileSys declaration
+// PathManager_FileSys declaration
 //-----------------------------------------------------------------------------
-class DirectoryFactory_FileSys : public DirectoryFactory {
+class PathManager_FileSys : public PathManager {
 public:
 	virtual bool IsResponsible(Environment &env, Signal sig,
 					const Directory *pParent, const char *pathName);

@@ -229,9 +229,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// DirectoryFactory_TAR declaration
+// PathManager_TAR declaration
 //-----------------------------------------------------------------------------
-class DirectoryFactory_TAR : public DirectoryFactory {
+class PathManager_TAR : public PathManager {
 public:
 	virtual bool IsResponsible(Environment &env, Signal sig,
 					const Directory *pParent, const char *pathName);

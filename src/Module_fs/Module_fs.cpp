@@ -599,9 +599,9 @@ Stream *Directory_FileSys::DoOpenStream(Environment &env, Signal sig, unsigned l
 }
 
 //-----------------------------------------------------------------------------
-// DirectoryFactory_FileSys implementation
+// PathManager_FileSys implementation
 //-----------------------------------------------------------------------------
-bool DirectoryFactory_FileSys::IsResponsible(Environment &env, Signal sig,
+bool PathManager_FileSys::IsResponsible(Environment &env, Signal sig,
 								const Directory *pParent, const char *pathName)
 {
 	if (pParent != NULL) return false;
@@ -609,7 +609,7 @@ bool DirectoryFactory_FileSys::IsResponsible(Environment &env, Signal sig,
 	return true;
 }
 
-Directory *DirectoryFactory_FileSys::DoOpenDirectory(Environment &env, Signal sig,
+Directory *PathManager_FileSys::DoOpenDirectory(Environment &env, Signal sig,
 	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
 {
 	Directory *pDirectory = NULL;
@@ -830,7 +830,7 @@ Gura_ModuleEntry()
 	// class realization
 	Gura_RealizeUserClassEx(Stat, "stat", env.LookupClass(VTYPE_object));
 	// symbol realization
-	DirectoryFactory::Register(new DirectoryFactory_FileSys());
+	PathManager::Register(new PathManager_FileSys());
 	// assign symbols in sys module
 	Module *pModuleSys = env.GetModule_sys();
 	do {

@@ -643,7 +643,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(easy_init);
 	Gura_AssignFunction(test);
 	// registration of directory factory
-	DirectoryFactory::Register(new DirectoryFactory_cURL());
+	PathManager::Register(new PathManager_cURL());
 }
 
 Gura_ModuleTerminate()
@@ -725,9 +725,9 @@ void Directory_cURL::Thread::Run()
 }
 
 //-----------------------------------------------------------------------------
-// DirectoryFactory_cURL implementation
+// PathManager_cURL implementation
 //-----------------------------------------------------------------------------
-bool DirectoryFactory_cURL::IsResponsible(Environment &env, Signal sig,
+bool PathManager_cURL::IsResponsible(Environment &env, Signal sig,
 						const Directory *pParent, const char *pathName)
 {
 	return pParent == NULL && (
@@ -738,7 +738,7 @@ bool DirectoryFactory_cURL::IsResponsible(Environment &env, Signal sig,
 			StartsWith(pathName, "sftp:", 0, false));
 }
 
-Directory *DirectoryFactory_cURL::DoOpenDirectory(Environment &env, Signal sig,
+Directory *PathManager_cURL::DoOpenDirectory(Environment &env, Signal sig,
 	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
 {
 	const char *uri = *pPathName;

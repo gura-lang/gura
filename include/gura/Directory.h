@@ -10,7 +10,7 @@ namespace Gura {
 
 class Environment;
 class Directory;
-class DirectoryFactory;
+class PathManager;
 class Object;
 class Stream;
 
@@ -136,26 +136,26 @@ protected:
 };
 
 //-----------------------------------------------------------------------------
-// DirectoryFactory
+// PathManager
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE DirectoryFactory {
+class GURA_DLLDECLARE PathManager {
 public:
-	typedef std::vector<DirectoryFactory *> List;
+	typedef std::vector<PathManager *> List;
 protected:
 	int _cntRef;
 private:
 	static List *_pList;
 public:
-	Gura_DeclareReferenceAccessor(DirectoryFactory);
+	Gura_DeclareReferenceAccessor(PathManager);
 public:
-	inline DirectoryFactory() : _cntRef(1) {}
+	inline PathManager() : _cntRef(1) {}
 	virtual bool IsResponsible(Environment &env, Signal sig,
 								const Directory *pParent, const char *pathName) = 0;
 public:
-	static void Register(DirectoryFactory *pDirectoryFactory);
+	static void Register(PathManager *pPathManager);
 	static Directory *OpenDirectory(Environment &env, Signal sig,
 				Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode);
-	static DirectoryFactory *FindResponsible(Environment &env, Signal sig,
+	static PathManager *FindResponsible(Environment &env, Signal sig,
 				const Directory *pParent, const char *pathName);
 	virtual Directory *DoOpenDirectory(Environment &env, Signal sig,
 				Directory *pParent, const char **pPathName,

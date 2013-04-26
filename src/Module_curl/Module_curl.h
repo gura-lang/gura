@@ -128,9 +128,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// DirectoryFactory_cURL declaration
+// PathManager_cURL declaration
 //-----------------------------------------------------------------------------
-class DirectoryFactory_cURL : public DirectoryFactory {
+class PathManager_cURL : public PathManager {
 public:
 	virtual bool IsResponsible(Environment &env, Signal sig,
 					const Directory *pParent, const char *pathName);

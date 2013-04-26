@@ -848,9 +848,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// DirectoryFactory_ZIP declaration
+// PathManager_ZIP declaration
 //-----------------------------------------------------------------------------
-class DirectoryFactory_ZIP : public DirectoryFactory {
+class PathManager_ZIP : public PathManager {
 public:
 	virtual bool IsResponsible(Environment &env, Signal sig,
 					const Directory *pParent, const char *pathName);

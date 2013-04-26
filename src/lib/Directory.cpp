@@ -173,7 +173,7 @@ bool Directory::IsContainer(Environment &env, Signal sig, const char *pathName)
 Directory *Directory::OpenDirectory(Environment &env, Signal sig,
 							const char *pathName, NotFoundMode notFoundMode)
 {
-	return DirectoryFactory::OpenDirectory(env, sig, NULL, &pathName, notFoundMode);
+	return PathManager::OpenDirectory(env, sig, NULL, &pathName, notFoundMode);
 }
 
 Stream *Directory::OpenStream(Environment &env, Signal sig,
@@ -195,44 +195,44 @@ Stream *Directory::OpenStream(Environment &env, Signal sig,
 }
 
 //-----------------------------------------------------------------------------
-// DirectoryFactory
+// PathManager
 //-----------------------------------------------------------------------------
-DirectoryFactory::List *DirectoryFactory::_pList = NULL;
+PathManager::List *PathManager::_pList = NULL;
 
-void DirectoryFactory::Register(DirectoryFactory *pDirectoryFactory)
+void PathManager::Register(PathManager *pPathManager)
 {
 	if (_pList == NULL) _pList = new List();
-	_pList->push_back(pDirectoryFactory);
+	_pList->push_back(pPathManager);
 }
 
-Directory *DirectoryFactory::OpenDirectory(Environment &env, Signal sig,
+Directory *PathManager::OpenDirectory(Environment &env, Signal sig,
 		Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
 {
 	Directory *pDirectory = pParent;
 	do {
-		DirectoryFactory *pDirectoryFactory =
+		PathManager *pPathManager =
 						FindResponsible(env, sig, pDirectory, *pPathName);
 		if (sig.IsSignalled()) return NULL;
-		if (pDirectoryFactory == NULL) {
+		if (pPathManager == NULL) {
 			sig.SetError(ERR_ValueError, "unsupported directory name");
 			return NULL;
 		}
-		pDirectory = pDirectoryFactory->DoOpenDirectory(env, sig,
+		pDirectory = pPathManager->DoOpenDirectory(env, sig,
 									pDirectory, pPathName, notFoundMode);
 		if (sig.IsSignalled() || pDirectory == NULL) return NULL;
 	} while (**pPathName != '\0');
 	return pDirectory;
 }
 
-DirectoryFactory *DirectoryFactory::FindResponsible(Environment &env, Signal sig,
+PathManager *PathManager::FindResponsible(Environment &env, Signal sig,
 								const Directory *pParent, const char *pathName)
 {
 	if (_pList == NULL) return NULL;
 	// The last-registered factory is searched first.
-	foreach_reverse (List, ppDirectoryFactory, *_pList) {
-		DirectoryFactory *pDirectoryFactory = *ppDirectoryFactory;
-		if (pDirectoryFactory->IsResponsible(env, sig, pParent, pathName)) {
-			return pDirectoryFactory;
+	foreach_reverse (List, ppPathManager, *_pList) {
+		PathManager *pPathManager = *ppPathManager;
+		if (pPathManager->IsResponsible(env, sig, pParent, pathName)) {
+			return pPathManager;
 		}
 		if (sig.IsSignalled()) break;
 	}

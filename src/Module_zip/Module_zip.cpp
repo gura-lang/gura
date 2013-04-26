@@ -563,7 +563,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(writer);
 	Gura_AssignFunction(test);
 	// registration of stream/directory factory
-	DirectoryFactory::Register(new DirectoryFactory_ZIP());
+	PathManager::Register(new PathManager_ZIP());
 }
 
 Gura_ModuleTerminate()
@@ -912,9 +912,9 @@ Object *Directory_ZIP::DoGetStatObj(Signal sig)
 }
 
 //-----------------------------------------------------------------------------
-// DirectoryFactory_ZIP implementation
+// PathManager_ZIP implementation
 //-----------------------------------------------------------------------------
-bool DirectoryFactory_ZIP::IsResponsible(Environment &env, Signal sig,
+bool PathManager_ZIP::IsResponsible(Environment &env, Signal sig,
 						const Directory *pParent, const char *pathName)
 {
 	return pParent != NULL && !pParent->IsContainer() &&
@@ -923,7 +923,7 @@ bool DirectoryFactory_ZIP::IsResponsible(Environment &env, Signal sig,
 			 EndsWith(pParent->GetName(), ".gurcw", true));
 }
 
-Directory *DirectoryFactory_ZIP::DoOpenDirectory(Environment &env, Signal sig,
+Directory *PathManager_ZIP::DoOpenDirectory(Environment &env, Signal sig,
 	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
 {
 	AutoPtr<Stream> pStreamSrc(pParent->OpenStream(env, sig, Stream::ATTR_Readable));

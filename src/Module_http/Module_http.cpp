@@ -2729,9 +2729,9 @@ Stream *Directory_Http::DoOpenStream(Environment &env, Signal sig, unsigned long
 }
 
 //-----------------------------------------------------------------------------
-// DirectoryFactory_Http implementation
+// PathManager_Http implementation
 //-----------------------------------------------------------------------------
-bool DirectoryFactory_Http::IsResponsible(Environment &env, Signal sig,
+bool PathManager_Http::IsResponsible(Environment &env, Signal sig,
 						const Directory *pParent, const char *pathName)
 {
 	return pParent == NULL &&
@@ -2739,7 +2739,7 @@ bool DirectoryFactory_Http::IsResponsible(Environment &env, Signal sig,
 		 StartsWith(pathName, "https:", 0, false));
 }
 
-Directory *DirectoryFactory_Http::DoOpenDirectory(Environment &env, Signal sig,
+Directory *PathManager_Http::DoOpenDirectory(Environment &env, Signal sig,
 	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
 {
 	const char *uri = *pPathName;
@@ -2833,7 +2833,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(server);
 	Gura_AssignFunction(client);
 	// registration of directory factory
-	DirectoryFactory::Register(new DirectoryFactory_Http());
+	PathManager::Register(new PathManager_Http());
 }
 
 Gura_ModuleTerminate()
