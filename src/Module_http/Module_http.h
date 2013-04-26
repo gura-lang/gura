@@ -662,7 +662,7 @@ public:
 	virtual bool IsResponsible(Environment &env, Signal sig,
 					const Directory *pParent, const char *pathName);
 	virtual Directory *DoOpenDirectory(Environment &env, Signal sig,
-		Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode);
+		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
 };
 
 }}

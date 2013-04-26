@@ -807,7 +807,7 @@ Class_image::Class_image(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_image)
 bool Class_image::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsString()) {
-		AutoPtr<Stream> pStream(Directory::OpenStream(env, sig,
+		AutoPtr<Stream> pStream(PathManager::OpenStream(env, sig,
 								value.GetString(), Stream::ATTR_Readable));
 		if (sig.IsSignalled()) return false;
 		AutoPtr<Image> pImage(new Image(Image::FORMAT_RGBA));

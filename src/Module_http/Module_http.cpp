@@ -2740,7 +2740,7 @@ bool PathManager_Http::IsResponsible(Environment &env, Signal sig,
 }
 
 Directory *PathManager_Http::DoOpenDirectory(Environment &env, Signal sig,
-	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
+		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	const char *uri = *pPathName;
 	String scheme = ExtractURIScheme(sig, uri, NULL);

@@ -47,7 +47,7 @@ bool IsMatchedName(const char *name1, const char *name2);
 
 unsigned long SeekCentralDirectory(Signal sig, Stream *pStream);
 Directory *CreateDirectory(Environment &env, Signal sig, Stream *pStreamSrc,
-	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode);
+	Directory *pParent, const char **pPathName, PathManager::NotFoundMode notFoundMode);
 Stream *CreateStream(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader *pHdr);
 
 bool SkipStream(Signal sig, Stream &stream, size_t bytes);
@@ -855,7 +855,7 @@ public:
 	virtual bool IsResponsible(Environment &env, Signal sig,
 					const Directory *pParent, const char *pathName);
 	virtual Directory *DoOpenDirectory(Environment &env, Signal sig,
-		Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode);
+		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
 };
 
 //-----------------------------------------------------------------------------

@@ -739,7 +739,7 @@ bool PathManager_cURL::IsResponsible(Environment &env, Signal sig,
 }
 
 Directory *PathManager_cURL::DoOpenDirectory(Environment &env, Signal sig,
-	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
+		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	const char *uri = *pPathName;
 	Directory::Type type = Directory::TYPE_Item;

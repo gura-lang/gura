@@ -885,7 +885,7 @@ Expr *Parser::ParseStream(Environment &env, Signal sig, const char *pathName, co
 		}
 		if (zippedFlag && !env.ImportModules(sig, "zip", false, false)) return NULL;
 	} while (0);
-	AutoPtr<Stream> pStream(Directory::OpenStream(env, sig,
+	AutoPtr<Stream> pStream(PathManager::OpenStream(env, sig,
 									pathNameMod.c_str(), Stream::ATTR_Readable));
 	if (sig.IsSignalled()) return NULL;
 	return ParseStream(env, sig, *pStream);

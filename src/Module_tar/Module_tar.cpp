@@ -683,7 +683,7 @@ bool PathManager_TAR::IsResponsible(Environment &env, Signal sig,
 }
 
 Directory *PathManager_TAR::DoOpenDirectory(Environment &env, Signal sig,
-	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
+		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	AutoPtr<Stream> pStream(pParent->OpenStream(env, sig, Stream::ATTR_Readable));
 	if (sig.IsSignalled()) return NULL;

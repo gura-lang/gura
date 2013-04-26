@@ -610,7 +610,7 @@ bool PathManager_FileSys::IsResponsible(Environment &env, Signal sig,
 }
 
 Directory *PathManager_FileSys::DoOpenDirectory(Environment &env, Signal sig,
-	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
+		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	Directory *pDirectory = NULL;
 	String field;
@@ -636,10 +636,10 @@ Directory *PathManager_FileSys::DoOpenDirectory(Environment &env, Signal sig,
 					type = Directory_FileSys::IsDir(sig, pathAccum.c_str())?
 								Directory::TYPE_Container : Directory::TYPE_Item;
 					if (sig.IsSignalled()) return NULL;
-				} else if (notFoundMode == Directory::NF_Wouldbe) {
+				} else if (notFoundMode == NF_Wouldbe) {
 					type = IsFileSeparator(ch)?
 								Directory::TYPE_Container : Directory::TYPE_Item;
-				} else if (notFoundMode == Directory::NF_Signal) {
+				} else if (notFoundMode == NF_Signal) {
 					sig.SetError(ERR_IOError, "path not exist '%s'", pathAccum.c_str());
 					return NULL;
 				} else {

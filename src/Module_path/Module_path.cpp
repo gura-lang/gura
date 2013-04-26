@@ -36,7 +36,7 @@ Gura_DeclareFunction(exists)
 
 Gura_ImplementFunction(exists)
 {
-	bool existFlag = Directory::IsExist(env, sig, args.GetString(0));
+	bool existFlag = PathManager::IsExist(env, sig, args.GetString(0));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(existFlag);
 }
@@ -72,8 +72,8 @@ Gura_ImplementFunction(dir)
 	if (args.IsDirectory(0)) {
 		pDirectory.reset(Directory::Reference(args.GetDirectory(0)));
 	} else {
-		pDirectory.reset(Directory::OpenDirectory(env, sig,
-											"", Directory::NF_Signal));
+		pDirectory.reset(PathManager::OpenDirectory(env, sig,
+											"", PathManager::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Null;
 	}
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
@@ -114,8 +114,8 @@ Gura_ImplementFunction(walk)
 	if (args.IsDirectory(0)) {
 		pDirectory.reset(Directory::Reference(args.GetDirectory(0)));
 	} else {
-		pDirectory.reset(Directory::OpenDirectory(env, sig,
-											"", Directory::NF_Signal));
+		pDirectory.reset(PathManager::OpenDirectory(env, sig,
+											"", PathManager::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Null;
 	}
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(

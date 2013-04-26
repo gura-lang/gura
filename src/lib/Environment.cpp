@@ -695,7 +695,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 			pathNameBase += '.';
 			foreach_const (StringList, pExtName, extNameList) {
 				pathName = pathNameBase + *pExtName;
-				if (Directory::IsExist(env, sig, pathName.c_str())) return true;
+				if (PathManager::IsExist(env, sig, pathName.c_str())) return true;
 				if (sig.IsSignalled()) return false;
 			}
 		} while (0);
@@ -703,12 +703,12 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 			String pathNameBase = pValue->GetString();
 			pathNameBase += OAL::FileSeparator;
 			pathNameBase += baseName;
-			if (Directory::IsContainer(env, sig, pathNameBase.c_str())) {
+			if (PathManager::IsContainer(env, sig, pathNameBase.c_str())) {
 				pathNameBase += OAL::FileSeparator;
 				pathNameBase += "__init__.";
 				foreach_const (StringList, pExtName, extNameList) {
 					pathName = pathNameBase + *pExtName;
-					if (Directory::IsExist(env, sig, pathName.c_str())) return true;
+					if (PathManager::IsExist(env, sig, pathName.c_str())) return true;
 					if (sig.IsSignalled()) return false;
 				}
 			}
@@ -724,7 +724,7 @@ Module *Environment::ImportSeparatedModule_Script(Signal sig, Environment *pEnvO
 						const char *pathName, const SymbolList &symbolOfModule)
 {
 	Environment &env = *this;
-	AutoPtr<Stream> pStream(Directory::OpenStream(env, sig,
+	AutoPtr<Stream> pStream(PathManager::OpenStream(env, sig,
 										pathName, Stream::ATTR_Readable));
 	if (sig.IsError()) return NULL;
 	Expr *pExpr = Parser().ParseStream(*pEnvOuter, sig, *pStream);

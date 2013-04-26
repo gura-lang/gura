@@ -25,9 +25,6 @@ public:
 		TYPE_None, TYPE_Item, TYPE_Container,
 		TYPE_BoundaryContainer, TYPE_RootContainer,
 	};
-	enum NotFoundMode {
-		NF_Signal, NF_NoSignal, NF_Wouldbe,
-	};
 public:
 	class GURA_DLLDECLARE Iterator_Walk : public Iterator {
 	public:
@@ -123,12 +120,6 @@ public:
 							const char *fileName, bool ignoreCaseFlag);
 	static bool IsMatchNameSub(const char *pattern,
 							const char *fileName, bool ignoreCaseFlag);
-	static bool IsExist(Environment &env, Signal sig, const char *pathName);
-	static bool IsContainer(Environment &env, Signal sig, const char *pathName);
-	static Directory *OpenDirectory(Environment &env, Signal sig,
-							const char *pathName, NotFoundMode notFoundMode);
-	static Stream *OpenStream(Environment &env, Signal sig,
-							const char *pathName, unsigned long attr);
 protected:
 	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr) = 0;
 	virtual Directory *DoNext(Environment &env, Signal sig) = 0;
@@ -140,6 +131,9 @@ protected:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE PathManager {
 public:
+	enum NotFoundMode {
+		NF_Signal, NF_NoSignal, NF_Wouldbe,
+	};
 	typedef std::vector<PathManager *> List;
 protected:
 	int _cntRef;
@@ -154,12 +148,18 @@ public:
 public:
 	static void Register(PathManager *pPathManager);
 	static Directory *OpenDirectory(Environment &env, Signal sig,
-				Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode);
+							const char *pathName, NotFoundMode notFoundMode);
+	static Directory *OpenDirectory(Environment &env, Signal sig,
+				Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
+	static Stream *OpenStream(Environment &env, Signal sig,
+							const char *pathName, unsigned long attr);
 	static PathManager *FindResponsible(Environment &env, Signal sig,
 				const Directory *pParent, const char *pathName);
+	static bool IsExist(Environment &env, Signal sig, const char *pathName);
+	static bool IsContainer(Environment &env, Signal sig, const char *pathName);
 	virtual Directory *DoOpenDirectory(Environment &env, Signal sig,
 				Directory *pParent, const char **pPathName,
-				Directory::NotFoundMode notFoundMode) = 0;
+				NotFoundMode notFoundMode) = 0;
 };
 
 namespace DirBuilder {
@@ -232,7 +232,7 @@ public:
 	inline Record *GetRoot() { return _pRecordRoot; }
 	Record *AddRecord(const char *pathName);
 	Directory *GenerateDirectory(Signal sig, Directory *pParent,
-				const char **pPathName, Directory::NotFoundMode notFoundMode);
+				const char **pPathName, PathManager::NotFoundMode notFoundMode);
 };
 
 }

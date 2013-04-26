@@ -924,7 +924,7 @@ bool PathManager_ZIP::IsResponsible(Environment &env, Signal sig,
 }
 
 Directory *PathManager_ZIP::DoOpenDirectory(Environment &env, Signal sig,
-	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
+		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	AutoPtr<Stream> pStreamSrc(pParent->OpenStream(env, sig, Stream::ATTR_Readable));
 	if (sig.IsSignalled()) return NULL;
@@ -1058,7 +1058,7 @@ unsigned long SeekCentralDirectory(Signal sig, Stream *pStream)
 }
 
 Directory *CreateDirectory(Environment &env, Signal sig, Stream *pStreamSrc,
-	Directory *pParent, const char **pPathName, Directory::NotFoundMode notFoundMode)
+	Directory *pParent, const char **pPathName, PathManager::NotFoundMode notFoundMode)
 {
 	if (!pStreamSrc->IsBwdSeekable()) {
 		Stream *pStreamPrefetch = Stream::Prefetch(env, sig, pStreamSrc, true);

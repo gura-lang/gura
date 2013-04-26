@@ -45,8 +45,8 @@ Class_directory::Class_directory(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 bool Class_directory::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsString()) {
-		AutoPtr<Directory> pDirectory(Directory::OpenDirectory(env, sig,
-									value.GetString(), Directory::NF_Signal));
+		AutoPtr<Directory> pDirectory(PathManager::OpenDirectory(env, sig,
+									value.GetString(), PathManager::NF_Signal));
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_directory(env, pDirectory.release()));
 		return true;
