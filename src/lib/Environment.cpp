@@ -155,7 +155,7 @@ void Environment::AddLackingFrame(const FrameList &frameListSrc)
 {
 	foreach_const (FrameList, ppFrame, frameListSrc) {
 		Frame *pFrame = *ppFrame;
-		if (!_frameOwner.IsExist(pFrame)) {
+		if (!_frameOwner.DoesExist(pFrame)) {
 			_frameOwner.push_back(Frame::Reference(pFrame));
 		}
 	}
@@ -695,7 +695,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 			pathNameBase += '.';
 			foreach_const (StringList, pExtName, extNameList) {
 				pathName = pathNameBase + *pExtName;
-				if (PathManager::IsExist(env, sig, pathName.c_str())) return true;
+				if (PathManager::DoesExist(env, sig, pathName.c_str())) return true;
 				if (sig.IsSignalled()) return false;
 			}
 		} while (0);
@@ -708,7 +708,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 				pathNameBase += "__init__.";
 				foreach_const (StringList, pExtName, extNameList) {
 					pathName = pathNameBase + *pExtName;
-					if (PathManager::IsExist(env, sig, pathName.c_str())) return true;
+					if (PathManager::DoesExist(env, sig, pathName.c_str())) return true;
 					if (sig.IsSignalled()) return false;
 				}
 			}

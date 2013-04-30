@@ -261,7 +261,7 @@ public:
 	};
 	class GURA_DLLDECLARE FrameList : public std::list<Frame *> {
 	public:
-		inline bool IsExist(Frame *pFrame) const {
+		inline bool DoesExist(Frame *pFrame) const {
 			return std::find(begin(), end(), pFrame) != end();
 		}
 		void DbgPrint() const;

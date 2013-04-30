@@ -485,7 +485,7 @@ bool Remove(const char *pathName)
 	return ::DeleteFile(ToNativeString(pathName).c_str())? true : false;
 }
 
-bool IsExist(const char *pathName)
+bool DoesExist(const char *pathName)
 {
 	WIN32_FILE_ATTRIBUTE_DATA attrData;
 	return ::GetFileAttributesEx(ToNativeString(pathName).c_str(),
@@ -1091,7 +1091,7 @@ bool Remove(const char *pathName)
 	return ::unlink(ToNativeString(pathName).c_str()) == 0;
 }
 
-bool IsExist(const char *pathName)
+bool DoesExist(const char *pathName)
 {
 	struct stat stat;
 	return ::stat(ToNativeString(pathName).c_str(), &stat) == 0;

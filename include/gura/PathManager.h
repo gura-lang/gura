@@ -101,7 +101,7 @@ public:
 							const char *pathName, unsigned long attr);
 	static PathManager *FindResponsible(Environment &env, Signal sig,
 				const Directory *pParent, const char *pathName);
-	static bool IsExist(Environment &env, Signal sig, const char *pathName);
+	static bool DoesExist(Environment &env, Signal sig, const char *pathName);
 	static bool IsContainer(Environment &env, Signal sig, const char *pathName);
 	virtual Directory *DoOpenDirectory(Environment &env, Signal sig,
 				Directory *pParent, const char **pPathName,

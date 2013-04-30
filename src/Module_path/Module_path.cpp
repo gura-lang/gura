@@ -36,7 +36,7 @@ Gura_DeclareFunction(exists)
 
 Gura_ImplementFunction(exists)
 {
-	bool existFlag = PathManager::IsExist(env, sig, args.GetString(0));
+	bool existFlag = PathManager::DoesExist(env, sig, args.GetString(0));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(existFlag);
 }

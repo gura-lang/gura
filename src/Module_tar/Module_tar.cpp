@@ -626,7 +626,7 @@ Stream *Directory_TAR::DoOpenStream(Environment &env, Signal sig, unsigned long 
 		sig.SetError(ERR_IOError, "failed to open a stream");
 		return NULL;
 	}
-	AutoPtr<Stream> pStreamSrc(pDirectory->OpenStream(env, sig, attr));
+	AutoPtr<Stream> pStreamSrc(pDirectory->DoOpenStream(env, sig, attr));
 	if (IsGZippedTar(pDirectory->GetName())) {
 		ZLib::GZHeader hdr;
 		if (!hdr.Read(sig, *pStreamSrc)) return NULL;
@@ -685,7 +685,7 @@ bool PathManager_TAR::IsResponsible(Environment &env, Signal sig,
 Directory *PathManager_TAR::DoOpenDirectory(Environment &env, Signal sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
-	AutoPtr<Stream> pStream(pParent->OpenStream(env, sig, Stream::ATTR_Readable));
+	AutoPtr<Stream> pStream(pParent->DoOpenStream(env, sig, Stream::ATTR_Readable));
 	if (sig.IsSignalled()) return NULL;
 	pStream.reset(DecorateReaderStream(env, sig,
 					pStream.release(), pParent->GetName(), COMPRESS_Auto));

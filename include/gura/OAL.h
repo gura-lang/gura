@@ -52,7 +52,7 @@ GURA_DLLDECLARE String GetEnv(const char *name);
 GURA_DLLDECLARE void PutEnv(const char *name, const char *value);
 GURA_DLLDECLARE bool Rename(const char *src, const char *dst);
 GURA_DLLDECLARE bool Remove(const char *pathName);
-GURA_DLLDECLARE bool IsExist(const char *pathName);
+GURA_DLLDECLARE bool DoesExist(const char *pathName);
 GURA_DLLDECLARE bool IsDir(const char *pathName, bool *pExistFlag = NULL);
 GURA_DLLDECLARE bool MakeDir(const char *pathName);
 GURA_DLLDECLARE bool MakeDirTree(const char *pathName);

@@ -20,11 +20,6 @@ Directory::~Directory()
 {
 }
 
-Stream *Directory::OpenStream(Environment &env, Signal sig, unsigned long attr)
-{
-	return DoOpenStream(env, sig, attr);
-}
-
 Directory *Directory::Next(Environment &env, Signal sig)
 {
 	if (!IsContainer()) {

@@ -47,13 +47,12 @@ public:
 	inline bool DoesMatchName(const char *pattern, bool ignoreCaseFlag) const {
 		return PathManager::DoesMatchName(pattern, GetName(), ignoreCaseFlag);
 	}
-	Stream *OpenStream(Environment &env, Signal sig, unsigned long attr);
 	Directory *Next(Environment &env, Signal sig);
 	inline Object *GetStatObj(Signal sig) { return DoGetStatObj(sig); }
 	String MakePathName(bool addSepFlag, const char *pathNameTrail = NULL) const;
 	int CountDepth() const;
-protected:
 	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr) = 0;
+protected:
 	virtual Directory *DoNext(Environment &env, Signal sig) = 0;
 	virtual Object *DoGetStatObj(Signal sig);
 };

@@ -134,14 +134,14 @@ Stream *PathManager::OpenStream(Environment &env, Signal sig,
 									NF_Wouldbe : NF_Signal;
 	AutoPtr<Directory> pDirectory(OpenDirectory(env, sig, pathName, notFoundMode));
 	if (sig.IsSignalled()) return NULL;
-	return pDirectory->OpenStream(env, sig, attr);
+	return pDirectory->DoOpenStream(env, sig, attr);
 }
 
 PathManager *PathManager::FindResponsible(Environment &env, Signal sig,
 								const Directory *pParent, const char *pathName)
 {
 	if (_pList == NULL) return NULL;
-	// The last-registered factory is searched first.
+	// The last-registered PathManager is searched first.
 	foreach_reverse (List, ppPathManager, *_pList) {
 		PathManager *pPathManager = *ppPathManager;
 		if (pPathManager->IsResponsible(env, sig, pParent, pathName)) {
@@ -152,7 +152,7 @@ PathManager *PathManager::FindResponsible(Environment &env, Signal sig,
 	return NULL;
 }
 
-bool PathManager::IsExist(Environment &env, Signal sig, const char *pathName)
+bool PathManager::DoesExist(Environment &env, Signal sig, const char *pathName)
 {
 	if (*pathName == '\0') return false;
 	AutoPtr<Directory> pDirectory(OpenDirectory(env, sig, pathName, NF_NoSignal));

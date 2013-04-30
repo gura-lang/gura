@@ -896,7 +896,7 @@ Stream *Directory_ZIP::DoOpenStream(Environment &env, Signal sig, unsigned long 
 											pDirectory = pDirectory->GetParent()) {
 		if (pDirectory->IsBoundaryContainer()) {
 			pStreamSrc.reset(pDirectory->GetParent()->
-							OpenStream(env, sig, Stream::ATTR_Readable));
+							DoOpenStream(env, sig, Stream::ATTR_Readable));
 			if (sig.IsSignalled()) return NULL;
 			break;
 		}
@@ -926,7 +926,7 @@ bool PathManager_ZIP::IsResponsible(Environment &env, Signal sig,
 Directory *PathManager_ZIP::DoOpenDirectory(Environment &env, Signal sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
-	AutoPtr<Stream> pStreamSrc(pParent->OpenStream(env, sig, Stream::ATTR_Readable));
+	AutoPtr<Stream> pStreamSrc(pParent->DoOpenStream(env, sig, Stream::ATTR_Readable));
 	if (sig.IsSignalled()) return NULL;
 	return CreateDirectory(env, sig,
 					pStreamSrc.get(), pParent, pPathName, notFoundMode);
