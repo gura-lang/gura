@@ -368,7 +368,7 @@ bool Stream_File::Open(Signal sig, const char *fileName, unsigned long attr)
 	_fp = ::fopen(OAL::ToNativeString(_fileName.c_str()).c_str(), modeMod);
 	if (_fp == NULL) {
 		String fileNameBase;
-		Directory::SplitFileName(fileName, NULL, &fileNameBase);
+		PathManager::SplitFileName(fileName, NULL, &fileNameBase);
 		sig.SetError(ERR_IOError, "can't open file '%s'", fileNameBase.c_str());
 		return false;
 	}
