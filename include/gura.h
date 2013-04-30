@@ -27,6 +27,7 @@
 #include "gura/String.h"
 #include "gura/PackedNumber.h"
 #include "gura/Algorithm.h"
+#include "gura/PathManager.h"
 #include "gura/Directory.h"
 #include "gura/Parser.h"
 #include "gura/TemplateEngine.h"

@@ -182,6 +182,7 @@
     <ClCompile Include="..\Module_codecs_japanese\Conv_Japanese.cpp" />
     <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="Declaration.cpp" />
+    <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Directory.cpp" />
     <ClCompile Include="DllMain.cpp" />
     <ClCompile Include="Environment.cpp" />
@@ -266,6 +267,7 @@
     <ClInclude Include="..\..\include\gura\Common.h" />
     <ClInclude Include="..\..\include\gura\DateTime.h" />
     <ClInclude Include="..\..\include\gura\Declaration.h" />
+    <ClInclude Include="..\..\include\gura\PathManager.h" />
     <ClInclude Include="..\..\include\gura\Directory.h" />
     <ClInclude Include="..\..\include\gura\Environment.h" />
     <ClInclude Include="..\..\include\gura\Expr.h" />

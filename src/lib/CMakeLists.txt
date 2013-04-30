@@ -22,6 +22,7 @@ Operator.cpp
 Option.cpp
 Palette.cpp
 Parser.cpp
+PathManager.cpp
 TemplateEngine.cpp
 Signal.cpp
 Stream.cpp

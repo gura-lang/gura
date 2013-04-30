@@ -88,6 +88,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/CustomClass.h
   ${GURA_INCLUDE_DIR}/gura/DateTime.h
   ${GURA_INCLUDE_DIR}/gura/Declaration.h
+  ${GURA_INCLUDE_DIR}/gura/PathManager.h
   ${GURA_INCLUDE_DIR}/gura/Directory.h
   ${GURA_INCLUDE_DIR}/gura/Environment.h
   ${GURA_INCLUDE_DIR}/gura/Expr.h
