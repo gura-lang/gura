@@ -981,37 +981,24 @@ Gura_ImplementMethod(easy_handle, getinfo)
 	return Value::Null;
 }
 
-// curl.easy_handle#perform():void
+// curl.easy_handle#perform(stream?:stream:w):void
 Gura_DeclareMethod(easy_handle, perform)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 }
 
 Gura_ImplementMethod(easy_handle, perform)
 {
 	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
-	Stream *pStreamOut = pThis->GetStreamOut();
-	if (pStreamOut == NULL) pStreamOut = env.GetConsole();
+	Stream *pStreamOut = args.IsStream(0)?
+			&Object_stream::GetObject(args, 0)->GetStream() : env.GetConsole();
 	std::auto_ptr<Writer> pWriter(new Writer(sig, Stream::Reference(pStreamOut)));
 	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEDATA, pWriter.get());
 	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEFUNCTION, Writer::OnWriteStub);
 	CURLcode code = ::curl_easy_perform(pThis->GetEntity());
 	if (code != CURLE_OK) SetError_Curl(sig, code);
 	return Value::Null;
-}
-
-// curl.easy_handle#SetStreamOut(stream:stream:w):reduce
-Gura_DeclareMethod(easy_handle, SetStreamOut)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
-}
-
-Gura_ImplementMethod(easy_handle, SetStreamOut)
-{
-	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
-	pThis->SetStreamOut(Stream::Reference(&Object_stream::GetObject(args, 0)->GetStream()));
-	return args.GetThis();
 }
 
 // implementation of class easy_handle
@@ -1025,7 +1012,6 @@ Gura_ImplementUserClass(easy_handle)
 	Gura_AssignMethod(easy_handle, perform);
 	Gura_AssignMethod(easy_handle, recv);
 	Gura_AssignMethod(easy_handle, send);
-	Gura_AssignMethod(easy_handle, SetStreamOut);
 }
 
 Gura_EndModule(curl, curl)

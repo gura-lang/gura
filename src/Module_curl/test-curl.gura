@@ -1,6 +1,7 @@
 #!/usr/bin/env gura
 import(curl)
 
+/*
 scope {
 	copy('http://example.com/', 'copy-http.html')
 	println('copy-http.html was created')
@@ -9,16 +10,16 @@ scope {
 	copy('ftp://ftp.debian.org/debian/README.html', 'copy-ftp.html')
 	println('copy-ftp.html was created')
 }
+*/
 curl.easy_init {|c|
-	c.SetStreamOut('result.html')
-	c.setopt(curl.OPT_URL, 'ftp://ftp.debian.org/debian/README.html')
+	//c.setopt(curl.OPT_URL, 'ftp://ftp.debian.org/debian/README.html')
 	//c.setopt(curl.OPT_URL, 'http://example.com/')
-	//c.setopt(curl.OPT_URL, 'https://www.verisign.com/')
+	c.setopt(curl.OPT_URL, 'https://www.verisign.com/')
  	//c.setopt(curl.OPT_URL, 'http://www.google.com/')
 	//c.setopt(curl.OPT_VERBOSE, 1)
 	c.setopt(curl.OPT_FOLLOWLOCATION, 1)
 	//c.setopt(curl.OPT_CONNECT_ONLY, 1)
-	c.perform()
+	c.perform('result.html')
 	respCode = c.getinfo(curl.INFO_RESPONSE_CODE)
 	println('response_code = ',  respCode)
 }

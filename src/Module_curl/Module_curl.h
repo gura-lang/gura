@@ -146,8 +146,6 @@ Gura_DeclareUserClass(easy_handle);
 class Object_easy_handle : public Object {
 private:
 	CURL *_curl;
-	AutoPtr<Stream> _pStreamIn;
-	AutoPtr<Stream> _pStreamOut;
 public:
 	Gura_DeclareObjectAccessor(easy_handle)
 public:
@@ -160,10 +158,6 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline CURL *GetEntity() { return _curl; }
-	inline Stream *GetStreamIn() { return _pStreamIn.get(); }
-	inline Stream *GetStreamOut() { return _pStreamOut.get(); }
-	inline void SetStreamIn(Stream *pStreamIn) { _pStreamIn.reset(pStreamIn); }
-	inline void SetStreamOut(Stream *pStreamOut) { _pStreamOut.reset(pStreamOut); }
 };
 
 }}
