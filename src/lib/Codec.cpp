@@ -39,7 +39,7 @@ Codec *Codec::CreateCodec(Signal sig, const char *encoding, bool delcrFlag, bool
 	CodecFactory *pFactory = CodecFactory::Lookup(encoding);
 	if (pFactory == NULL) {
 		sig.SetError(ERR_CodecError, "unsupported encoding %s", encoding);
-		return false;
+		return NULL;
 	}
 	return pFactory->CreateCodec(delcrFlag, addcrFlag);
 }
