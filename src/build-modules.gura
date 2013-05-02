@@ -76,7 +76,10 @@ debFiles = []
 rpmFiles = []
 for (dirName in dirNames) {
 	if (dirName in dirNamesExcept) {
-		printf('[%s] .. skipped\n', dirName)
+		printf('[%s]', dirName)
+		conio.setcolor(`bright_red) {
+			printf('...skipped\n')
+		}
 		continue
 	}
 	printf('[%s]\n', dirName)
