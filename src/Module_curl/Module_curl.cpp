@@ -742,11 +742,12 @@ Directory *PathManager_cURL::DoOpenDirectory(Environment &env, Signal sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	const char *uri = *pPathName;
-	Directory::Type type = Directory::TYPE_Item;
-	//Directory::Type type = Directory::TYPE_Container;
+	size_t len = ::strlen(uri);
+	Directory::Type type = (len > 0 && IsFileSeparator(uri[len - 1]))?
+						Directory::TYPE_Container : Directory::TYPE_Item;
 	AutoPtr<Directory> pDirectory(
 				new Directory_cURL(Directory::Reference(pParent), uri, type));
-	*pPathName = uri + ::strlen(uri);
+	*pPathName = uri + len;
 	return pDirectory.release();
 }
 

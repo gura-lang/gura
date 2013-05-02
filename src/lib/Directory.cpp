@@ -37,13 +37,19 @@ String Directory::MakePathName(bool addSepFlag, const char *pathNameTrail) const
 		// a "boundary container" directory may have an empty name
 		if (*pDirectory->GetName() != '\0' || pDirectory->IsRootContainer()) {
 			String str(pDirectory->GetName());
-			str += pDirectory->GetSeparator();
+			size_t len = str.size();
+			if (len == 0 || !IsFileSeparator(str[len - 1])) {
+				str += pDirectory->GetSeparator();
+			}
 			str += pathName;
 			pathName = str;
 		}
 	}
 	if (pathNameTrail != NULL) {
-		pathName += GetSeparator();
+		size_t len = pathName.size();
+		if (len == 0 || !IsFileSeparator(pathName[len - 1])) {
+			pathName += GetSeparator();
+		}
 		for (const char *p = pathNameTrail; *p != '\0'; p++) {
 			char ch = IsFileSeparator(*p)? GetSeparator() : *p;
 			pathName += ch;
