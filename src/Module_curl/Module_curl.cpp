@@ -692,7 +692,7 @@ FileinfoOwner *Directory_cURL::DoBrowse(Signal sig)
 	std::auto_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
 	CURL *curl = ::curl_easy_init();
 	if (curl == NULL) return NULL;
-	String url = OAL::JoinPathName('/', GetName(), "*");
+	String url = OAL::JoinPathName('/', MakePathName(false, NULL).c_str(), "*");
 	::curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 	::curl_easy_setopt(curl, CURLOPT_WILDCARDMATCH, 1L);
 	std::auto_ptr<Browser> pBrowser(new Browser(sig, *pFileinfoOwner));
@@ -702,6 +702,8 @@ FileinfoOwner *Directory_cURL::DoBrowse(Signal sig)
 	CURLcode code = ::curl_easy_perform(curl);
 	if(code != CURLE_OK) {
 		SetError_Curl(sig, code);
+		::curl_easy_cleanup(curl);
+		::curl_global_cleanup();
 		return NULL;
 	}
 	::curl_easy_cleanup(curl);
