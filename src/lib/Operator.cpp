@@ -8,6 +8,229 @@ static Expr *OptimizeConst(Environment &env, Signal sig,
 						const Function *func, Expr *pExprLeft, Expr *pExprRight);
 
 //-----------------------------------------------------------------------------
+// UnaryOperator
+//-----------------------------------------------------------------------------
+class UnaryOperator {
+protected:
+	OpType _opType;
+	ValueType _valType;
+public:
+	inline UnaryOperator(OpType opType, ValueType valType) :
+								_opType(opType), _valType(valType) {}
+	inline OpType GetOpType() const { return _opType; }
+	inline ValueType GetValueType() const { return _valType; }
+	inline static unsigned long CalcValueTypeKey(ValueType valType) {
+		return static_cast<unsigned long>(valType);
+	}
+	inline unsigned long CalcValueTypeKey() const {
+		return CalcValueTypeKey(_valType);
+	}
+	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const = 0;
+};
+
+//-----------------------------------------------------------------------------
+// BinaryOperator
+//-----------------------------------------------------------------------------
+class BinaryOperator {
+protected:
+	OpType _opType;
+	ValueType _valTypeLeft;
+	ValueType _valTypeRight;
+public:
+	inline BinaryOperator(OpType opType, ValueType valTypeLeft, ValueType valTypeRight) :
+			_opType(opType), _valTypeLeft(valTypeLeft), _valTypeRight(valTypeRight) {}
+	inline OpType GetOpType() const { return _opType; }
+	inline ValueType GetValueTypeLeft() const { return _valTypeLeft; }
+	inline ValueType GetValueTypeRight() const { return _valTypeRight; }
+	inline static unsigned long CalcValueTypeKey(ValueType valTypeLeft, ValueType valTypeRight) {
+		return (static_cast<unsigned long>(valTypeLeft) << 16) +
+							static_cast<unsigned long>(valTypeRight);
+	}
+	inline unsigned long CalcValueTypeKey() const {
+		return CalcValueTypeKey(_valTypeLeft, _valTypeRight);
+	}
+	virtual Value DoEval(Environment &env, Signal sig,
+					const Value &valueLeft, const Value &valueRight) const = 0;
+};
+
+//-----------------------------------------------------------------------------
+// UnaryOperatorMap
+//-----------------------------------------------------------------------------
+class UnaryOperatorMap {
+public:
+	typedef std::map<unsigned long, UnaryOperator *> Map;
+private:
+	Map _maps[OPTYPE_max];
+public:
+	inline UnaryOperatorMap() {}
+	void Register(UnaryOperator *pUnaryOperator);
+	const UnaryOperator *Lookup(OpType opType, ValueType valType) const;
+};
+
+//-----------------------------------------------------------------------------
+// BinaryOperatorMap
+//-----------------------------------------------------------------------------
+class BinaryOperatorMap {
+public:
+	typedef std::map<unsigned long, BinaryOperator *> Map;
+private:
+	Map _maps[OPTYPE_max];
+public:
+	inline BinaryOperatorMap() {}
+	void Register(BinaryOperator *pBinaryOperator);
+	const BinaryOperator *Lookup(OpType opType, ValueType valTypeLeft, ValueType valTypeRight) const;
+};
+
+//-----------------------------------------------------------------------------
+// UnaryOperatorMap
+//-----------------------------------------------------------------------------
+void UnaryOperatorMap::Register(UnaryOperator *pUnaryOperator)
+{
+	Map &map = _maps[pUnaryOperator->GetOpType()];
+	map[pUnaryOperator->CalcValueTypeKey()] = pUnaryOperator;
+}
+
+const UnaryOperator *UnaryOperatorMap::Lookup(OpType opType, ValueType valType) const 
+{
+	const Map &map = _maps[opType];
+	Map::const_iterator iter = map.find(UnaryOperator::CalcValueTypeKey(valType));
+	return (iter == map.end())? NULL : iter->second;
+}
+
+//-----------------------------------------------------------------------------
+// BinaryOperatorMap
+//-----------------------------------------------------------------------------
+void BinaryOperatorMap::Register(BinaryOperator *pBinaryOperator)
+{
+	Map &map = _maps[pBinaryOperator->GetOpType()];
+	map[pBinaryOperator->CalcValueTypeKey()] = pBinaryOperator;
+}
+
+const BinaryOperator *BinaryOperatorMap::Lookup(OpType opType, ValueType valTypeLeft, ValueType valTypeRight) const
+{
+	const Map &map = _maps[opType];
+	Map::const_iterator iter = map.find(BinaryOperator::CalcValueTypeKey(valTypeLeft, valTypeRight));
+	return (iter == map.end())? NULL : iter->second;
+}
+
+#define Gura_ImplementUnaryOperator(op, type) \
+class UnaryOperator_##op##_##type : public UnaryOperator { \
+public: \
+	inline UnaryOperator_##op##_##type() : \
+				UnaryOperator(OPTYPE_##op, VTYPE_##type) {} \
+	inline static UnaryOperator_##op##_##type *Create() { \
+		return new UnaryOperator_##op##_##type(); \
+	} \
+	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const; \
+}; \
+Value UnaryOperator_##op##_##type::DoEval(Environment &env, Signal sig, const Value &value) const
+
+#define Gura_ImplementBinaryOperator(op, typeL, typeR) \
+class BinaryOperator_##op##_##typeL##_##typeR : public BinaryOperator { \
+public: \
+	inline BinaryOperator_##op##_##typeL##_##typeR() : \
+				BinaryOperator(OPTYPE_##op, VTYPE_##typeL, VTYPE_##typeR) {} \
+	inline static BinaryOperator_##op##_##typeL##_##typeR *Create() { \
+		return new BinaryOperator_##op##_##typeL##_##typeR(); \
+	} \
+	virtual Value DoEval(Environment &env, Signal sig, \
+				const Value &valueLeft, const Value &valueRight) const; \
+}; \
+Value BinaryOperator_##op##_##typeL##_##typeR##::DoEval(Environment &env, Signal sig, \
+					const Value &valueLeft, const Value &valueRight) const
+
+#define Gura_RegisterUnaryOperator(op, type) \
+env.RegisterUnaryOperator(new UnaryOperator_##op##_##type())
+
+#define Gura_RegisterBinaryOperator(op, typeL, typeR) \
+env.RegisterBinaryOperator(new BinaryOperator_##op##_##typeL##_##typeR())
+
+Gura_ImplementUnaryOperator(Pos, number)
+{
+	return value;
+}
+
+Gura_ImplementBinaryOperator(Plus, number, number)
+{
+	return Value(valueLeft.GetNumber() + valueRight.GetNumber());
+}
+
+Gura_ImplementBinaryOperator(Plus, complex, complex)
+{
+	return Value(valueLeft.GetComplex() + valueRight.GetComplex());
+}
+
+Gura_ImplementBinaryOperator(Plus, number, complex)
+{
+	return Value(valueLeft.GetNumber() + valueRight.GetComplex());
+}
+
+Gura_ImplementBinaryOperator(Plus, complex, number)
+{
+	return Value(valueLeft.GetComplex() + valueRight.GetNumber());
+}
+
+Gura_ImplementBinaryOperator(Plus, matrix, matrix)
+{
+	return Matrix::OperatorPlusMinus(env, sig, OPTYPE_Plus,
+		Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
+}
+
+#if 0
+	} else if (valueLeft.IsDateTime() && valueRight.IsTimeDelta()) {
+		DateTime dateTime = valueLeft.GetDateTime();
+		dateTime.Plus(valueRight.GetTimeDelta());
+		return Value(env, dateTime);
+	} else if (valueLeft.IsTimeDelta() && valueRight.IsDateTime()) {
+		DateTime dateTime = valueRight.GetDateTime();
+		dateTime.Plus(valueLeft.GetTimeDelta());
+		return Value(env, dateTime);
+	} else if (valueLeft.IsTimeDelta() && valueRight.IsTimeDelta()) {
+		TimeDelta td1 = valueLeft.GetTimeDelta();
+		TimeDelta td2 = valueRight.GetTimeDelta();
+		return Value(env, TimeDelta(
+				td1.GetDays() + td2.GetDays(),
+				td1.GetSecsRaw() + td2.GetSecsRaw(),
+				td1.GetUSecs() + td2.GetUSecs()));
+	} else if (valueLeft.IsString() && valueRight.IsString()) {
+		String str(valueLeft.GetString());
+		str += valueRight.GetString();
+		result = Value(env, str.c_str());
+		return result;
+	} else if (valueLeft.IsBinary() && valueRight.IsBinary()) {
+		Binary buff(valueLeft.GetBinary());
+		buff += valueRight.GetBinary();
+		result = Value(new Object_binary(env, buff, true));
+		return result;
+	} else if (valueLeft.IsBinary() && valueRight.IsString()) {
+		Binary buff(valueLeft.GetBinary());
+		buff += valueRight.GetString();
+		result = Value(new Object_binary(env, buff, true));
+		return result;
+	} else if (valueLeft.IsString() && valueRight.IsBinary()) {
+		Binary buff;
+		buff += valueLeft.GetString();
+		buff += valueRight.GetBinary();
+		result = Value(new Object_binary(env, buff, true));
+		return result;
+	} else if (valueLeft.IsBinaryPtr() && valueRight.IsNumber()) {
+		Object_binaryptr *pObj =
+			dynamic_cast<Object_binaryptr *>(Object_binaryptr::GetObject(valueLeft)->Clone());
+		pObj->UnpackForward(sig,
+							static_cast<int>(valueRight.GetNumber()), true);
+		if (sig.IsSignalled()) return Value::Null;
+		Value result;
+		result.InitAsObject(pObj);
+		return result;
+#endif
+
+void sub(Environment &env)
+{
+	//Gura_RegisterUnaryOperator(Pos, number);
+	//Gura_RegisterBinaryOperator(Plus, number, number);
+}
+
+//-----------------------------------------------------------------------------
 // Operator assignment
 //-----------------------------------------------------------------------------
 void AssignOperators(Environment &env)
