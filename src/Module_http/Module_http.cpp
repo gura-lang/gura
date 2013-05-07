@@ -2833,7 +2833,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(server);
 	Gura_AssignFunction(client);
 	// registration of directory factory
-	PathManager::Register(new PathManager_Http());
+	PathManager::Register(env, new PathManager_Http());
 }
 
 Gura_ModuleTerminate()

@@ -835,7 +835,7 @@ const char XGLTYPE			= 'g';		// Global extended header
 	Gura_AssignFunction(reader);
 	Gura_AssignFunction(writer);
 	// registration of directory factory
-	PathManager::Register(new PathManager_TAR());
+	PathManager::Register(env, new PathManager_TAR());
 }
 
 Gura_ModuleTerminate()

@@ -830,7 +830,7 @@ Gura_ModuleEntry()
 	// class realization
 	Gura_RealizeUserClassEx(Stat, "stat", env.LookupClass(VTYPE_object));
 	// symbol realization
-	PathManager::Register(new PathManager_FileSys());
+	PathManager::Register(env, new PathManager_FileSys());
 	// assign symbols in sys module
 	Module *pModuleSys = env.GetModule_sys();
 	do {

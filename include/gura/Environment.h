@@ -68,6 +68,7 @@ class Class_semaphore;
 class Class_Struct;
 
 class Module;
+class PathManager;
 
 class ICallable;
 class CustomFunction;
@@ -181,6 +182,15 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// PathManagerOwner
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE PathManagerOwner : public std::vector<PathManager *> {
+public:
+	~PathManagerOwner();
+	void Clear();
+};
+
+//-----------------------------------------------------------------------------
 // Environment
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Environment {
@@ -190,6 +200,7 @@ public:
 		IntegratedModuleMap _integratedModuleMap;
 		SeparatedModuleMap	_separatedModuleMap;
 		StringList			_workingDirList;
+		PathManagerOwner	_pathManagerOwner;
 	public:
 		SymbolPool			*_pSymbolPool;
 		ValueTypePool		*_pValueTypePool;
@@ -210,7 +221,9 @@ public:
 		Module *LookupSeparatedModule(const char *pathName) const;
 		void RegisterSeparatedModule(const char *pathName, Module *pModule);
 		void UnregisterSeparatedModule(const char *pathName);
-		Stream *GetConsoleDumb() { return _pConsoleDumb.get(); }
+		inline PathManagerOwner &GetPathManagerOwner() { return _pathManagerOwner; }
+		inline const PathManagerOwner &GetPathManagerOwner() const { return _pathManagerOwner; }
+		inline Stream *GetConsoleDumb() { return _pConsoleDumb.get(); }
 	};
 	class GURA_DLLDECLARE Frame {
 	private:

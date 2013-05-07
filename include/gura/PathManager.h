@@ -69,8 +69,6 @@ public:
 	};
 protected:
 	int _cntRef;
-private:
-	static List *_pList;
 public:
 	Gura_DeclareReferenceAccessor(PathManager);
 public:
@@ -92,7 +90,7 @@ public:
 	static bool DoesMatchNameSub(const char *pattern,
 							const char *fileName, bool ignoreCaseFlag);
 public:
-	static void Register(PathManager *pPathManager);
+	static void Register(Environment &env, PathManager *pPathManager);
 	static Directory *OpenDirectory(Environment &env, Signal sig,
 							const char *pathName, NotFoundMode notFoundMode);
 	static Directory *OpenDirectory(Environment &env, Signal sig,

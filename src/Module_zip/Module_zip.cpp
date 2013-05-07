@@ -563,7 +563,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(writer);
 	Gura_AssignFunction(test);
 	// registration of stream/directory factory
-	PathManager::Register(new PathManager_ZIP());
+	PathManager::Register(env, new PathManager_ZIP());
 }
 
 Gura_ModuleTerminate()

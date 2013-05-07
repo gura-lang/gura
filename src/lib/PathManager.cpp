@@ -5,12 +5,10 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // PathManager
 //-----------------------------------------------------------------------------
-PathManager::List *PathManager::_pList = NULL;
-
-void PathManager::Register(PathManager *pPathManager)
+void PathManager::Register(Environment &env, PathManager *pPathManager)
 {
-	if (_pList == NULL) _pList = new List();
-	_pList->push_back(pPathManager);
+	PathManagerOwner &pathManagerOwner = env.GetGlobal()->GetPathManagerOwner();
+	pathManagerOwner.push_back(pPathManager);
 }
 
 void PathManager::SplitFileName(const char *pathName, String *pDirName, String *pFileName)
@@ -140,9 +138,9 @@ Stream *PathManager::OpenStream(Environment &env, Signal sig,
 PathManager *PathManager::FindResponsible(Environment &env, Signal sig,
 								const Directory *pParent, const char *pathName)
 {
-	if (_pList == NULL) return NULL;
+	PathManagerOwner &pathManagerOwner = env.GetGlobal()->GetPathManagerOwner();
 	// The last-registered PathManager is searched first.
-	foreach_reverse (List, ppPathManager, *_pList) {
+	foreach_reverse (PathManagerOwner, ppPathManager, pathManagerOwner) {
 		PathManager *pPathManager = *ppPathManager;
 		if (pPathManager->IsResponsible(env, sig, pParent, pathName)) {
 			return pPathManager;

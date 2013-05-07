@@ -63,6 +63,20 @@ IntegratedModuleOwner::~IntegratedModuleOwner()
 	}
 }
 
+//-----------------------------------------------------------------------------
+// PathManagerOwner
+//-----------------------------------------------------------------------------
+PathManagerOwner::~PathManagerOwner()
+{
+	Clear();
+}
+
+void PathManagerOwner::Clear()
+{
+	foreach (PathManagerOwner, ppPathManager, *this) {
+		delete *ppPathManager;
+	}
+}
 
 //-----------------------------------------------------------------------------
 // ModuleIntegrator
