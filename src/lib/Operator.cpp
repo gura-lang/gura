@@ -55,6 +55,16 @@ Gura_ImplementUnaryOperator(Pos, number)
 	return value;
 }
 
+Gura_ImplementUnaryOperator(Pos, complex)
+{
+	return value;
+}
+
+Gura_ImplementUnaryOperator(Pos, matrix)
+{
+	return value;
+}
+
 //-----------------------------------------------------------------------------
 // BinaryOperator(Plus, *, *)
 //-----------------------------------------------------------------------------
@@ -165,6 +175,8 @@ void AssignBasicOperators(Environment &env)
 {
 	// UnaryOperator(Pos, *)
 	Gura_AssignUnaryOperator(Pos, number);
+	Gura_AssignUnaryOperator(Pos, complex);
+	Gura_AssignUnaryOperator(Pos, matrix);
 	// BinaryOperator(Plus, *, *)
 	Gura_AssignBinaryOperator(Plus, number, number);
 	Gura_AssignBinaryOperator(Plus, complex, complex);

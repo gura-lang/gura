@@ -66,15 +66,11 @@ Func_Pos::Func_Pos(Environment &env) :
 Value Func_Pos::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &value = args.GetValue(0);
-	if (value.IsNumber()) {
-		return value;
-	} else if (value.IsComplex()) {
-		return value;
-	} else if (value.IsMatrix()) {
-		return value;
-	} else {
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Pos, value.GetValueType());
+	if (pOperator == NULL) {
 		return EvalOverrideUnary(env, sig, this, args);
 	}
+	return pOperator->DoEval(env, sig, value);
 }
 
 Expr *Func_Pos::DiffUnary(Environment &env, Signal sig,
