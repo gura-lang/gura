@@ -1259,20 +1259,10 @@ Value Func_Or::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
-	Value result;
-	if (valueLeft.IsNumber() && valueRight.IsNumber()) {
-		unsigned long num = valueLeft.GetULong() | valueRight.GetULong();
-		result.SetNumber(num);
-		return result;
-	} else if (valueLeft.IsBoolean() && valueRight.IsBoolean()) {
-		return valueLeft.GetBoolean() || valueRight.GetBoolean();
-	} else if (valueLeft.IsInvalid()) {
-		return valueRight;	// nil | any -> any
-	} else if (valueRight.IsInvalid()) {
-		return valueLeft;	// any | nil -> any
-	} else {
-		return EvalOverrideBinary(env, sig, this, args);
-	}
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Or,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1291,21 +1281,10 @@ Value Func_And::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
-	Value result;
-	if (valueLeft.IsNumber() && valueRight.IsNumber()) {
-		unsigned long num = static_cast<unsigned long>(valueLeft.GetNumber()) &
-							static_cast<unsigned long>(valueRight.GetNumber());
-		result.SetNumber(num);
-		return result;
-	} else if (valueLeft.IsBoolean() && valueRight.IsBoolean()) {
-		return valueLeft.GetBoolean() && valueRight.GetBoolean();
-	} else if (valueLeft.IsInvalid()) {
-		return Value::Null;	// nil & any -> nil
-	} else if (valueRight.IsInvalid()) {
-		return Value::Null;	// any & nil -> nil
-	} else {
-		return EvalOverrideBinary(env, sig, this, args);
-	}
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_And,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1324,19 +1303,10 @@ Value Func_Xor::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
-	Value result;
-	if (valueLeft.IsNumber() && valueRight.IsNumber()) {
-		unsigned long num = static_cast<unsigned long>(valueLeft.GetNumber()) ^
-							static_cast<unsigned long>(valueRight.GetNumber());
-		result.SetNumber(num);
-		return result;
-	} else if (valueLeft.IsBoolean() && valueRight.IsBoolean()) {
-		bool flagLeft = valueLeft.GetBoolean();
-		bool flagRight = valueRight.GetBoolean();
-		return (flagLeft && !flagRight) || (!flagLeft && flagRight);
-	} else {
-		return EvalOverrideBinary(env, sig, this, args);
-	}
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Xor,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1355,15 +1325,10 @@ Value Func_ShiftL::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
-	Value result;
-	if (valueLeft.IsNumber() && valueRight.IsNumber()) {
-		unsigned long num = static_cast<unsigned long>(valueLeft.GetNumber()) <<
-							static_cast<unsigned long>(valueRight.GetNumber());
-		result.SetNumber(num);
-		return result;
-	} else {
-		return EvalOverrideBinary(env, sig, this, args);
-	}
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_ShiftL,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1382,15 +1347,10 @@ Value Func_ShiftR::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
-	Value result;
-	if (valueLeft.IsNumber() && valueRight.IsNumber()) {
-		unsigned long num = static_cast<unsigned long>(valueLeft.GetNumber()) >>
-							static_cast<unsigned long>(valueRight.GetNumber());
-		result.SetNumber(num);
-		return result;
-	} else {
-		return EvalOverrideBinary(env, sig, this, args);
-	}
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_ShiftR,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1461,15 +1421,10 @@ Value Func_Sequence::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
-	Value result;
-	if (valueLeft.IsNumber() && valueRight.IsNumber()) {
-		Number numBegin = valueLeft.GetNumber();
-		Number numEnd = valueRight.GetNumber();
-		Number numStep = (numEnd >= numBegin)? +1 : -1;
-		return Value(env, new Iterator_Sequence(numBegin, numEnd, numStep));
-	} else {
-		return EvalOverrideBinary(env, sig, this, args);
-	}
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Sequence,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1486,13 +1441,9 @@ Func_SequenceInf::Func_SequenceInf(Environment &env) :
 Value Func_SequenceInf::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &value = args.GetValue(0);
-	Value result;
-	if (value.IsNumber()) {
-		Number numBegin = value.GetNumber();
-		return Value(env, new Iterator_SequenceInf(numBegin));
-	} else {
-		return EvalOverrideBinary(env, sig, this, args);
-	}
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_SequenceInf, value.GetValueType());
+	if (pOperator == NULL) return EvalOverrideUnary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, value);
 }
 
 //-----------------------------------------------------------------------------

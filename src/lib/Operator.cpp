@@ -622,43 +622,106 @@ Gura_ImplementBinaryOperator(ContainCheck, any, any)
 	}
 }
 
-#if 0
 //-----------------------------------------------------------------------------
 // BinaryOperator(Or, *, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Or, number, number)
+{
+	return Value(valueLeft.GetULong() | valueRight.GetULong());
+}
+
+Gura_ImplementBinaryOperator(Or, boolean, boolean)
+{
+	return Value(valueLeft.GetBoolean() || valueRight.GetBoolean());
+}
+
+Gura_ImplementBinaryOperator(Or, nil, any)
+{
+	return valueRight;	// nil | any -> any
+}
+
+Gura_ImplementBinaryOperator(Or, any, nil)
+{
+	return valueLeft;	// any | nil -> any
+}
 
 //-----------------------------------------------------------------------------
 // BinaryOperator(And, *, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(And, number, number)
+{
+	return Value(static_cast<unsigned long>(valueLeft.GetNumber()) &
+						static_cast<unsigned long>(valueRight.GetNumber()));
+}
+
+Gura_ImplementBinaryOperator(And, boolean, boolean)
+{
+	return Value(valueLeft.GetBoolean() && valueRight.GetBoolean());
+}
+
+Gura_ImplementBinaryOperator(And, nil, any)
+{
+	return Value::Null;	// nil & any -> nil
+}
+
+Gura_ImplementBinaryOperator(And, any, nil)
+{
+	return Value::Null;	// any & nil -> nil
+}
 
 //-----------------------------------------------------------------------------
 // BinaryOperator(Xor, *, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Xor, number, number)
+{
+	return Value(static_cast<unsigned long>(valueLeft.GetNumber()) ^
+						static_cast<unsigned long>(valueRight.GetNumber()));
+}
+
+Gura_ImplementBinaryOperator(Xor, boolean, boolean)
+{
+	bool flagLeft = valueLeft.GetBoolean();
+	bool flagRight = valueRight.GetBoolean();
+	return Value((flagLeft && !flagRight) || (!flagLeft && flagRight));
+}
 
 //-----------------------------------------------------------------------------
 // BinaryOperator(ShiftL, *, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(ShiftL, number, number)
+{
+	return Value(static_cast<unsigned long>(valueLeft.GetNumber()) <<
+							static_cast<unsigned long>(valueRight.GetNumber()));
+}
 
 //-----------------------------------------------------------------------------
 // BinaryOperator(ShiftR, *, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(ShiftR, number, number)
+{
+	return Value(static_cast<unsigned long>(valueLeft.GetNumber()) >>
+							static_cast<unsigned long>(valueRight.GetNumber()));
+}
 
 //-----------------------------------------------------------------------------
 // BinaryOperator(Sequence, *, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Sequence, number, number)
+{
+	Number numBegin = valueLeft.GetNumber();
+	Number numEnd = valueRight.GetNumber();
+	Number numStep = (numEnd >= numBegin)? +1 : -1;
+	return Value(env, new Iterator_Sequence(numBegin, numEnd, numStep));
+}
 
 //-----------------------------------------------------------------------------
 // UnaryOperator(SequenceInf, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(SequenceInf, number)
 {
-#endif
+	Number numBegin = value.GetNumber();
+	return Value(env, new Iterator_SequenceInf(numBegin));
+}
 
 void AssignBasicOperators(Environment &env)
 {
@@ -732,6 +795,20 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(LessEq, any, any);
 	Gura_AssignBinaryOperator(Compare, any, any);
 	Gura_AssignBinaryOperator(ContainCheck, any, any);
+	Gura_AssignBinaryOperator(Or, number, number);
+	Gura_AssignBinaryOperator(Or, boolean, boolean);
+	Gura_AssignBinaryOperator(Or, nil, any);
+	Gura_AssignBinaryOperator(Or, any, nil);
+	Gura_AssignBinaryOperator(And, number, number);
+	Gura_AssignBinaryOperator(And, boolean, boolean);
+	Gura_AssignBinaryOperator(And, nil, any);
+	Gura_AssignBinaryOperator(And, any, nil);
+	Gura_AssignBinaryOperator(Xor, number, number);
+	Gura_AssignBinaryOperator(Xor, boolean, boolean);
+	Gura_AssignBinaryOperator(ShiftL, number, number);
+	Gura_AssignBinaryOperator(ShiftR, number, number);
+	Gura_AssignBinaryOperator(Sequence, number, number);
+	Gura_AssignUnaryOperator(SequenceInf, number);
 }
 
 void SetError_DivideByZero(Signal sig)
