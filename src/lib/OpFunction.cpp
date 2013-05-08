@@ -1045,15 +1045,17 @@ Func_Equal::Func_Equal(Environment &env) :
 
 Value Func_Equal::DoEval(Environment &env, Signal sig, Args &args) const
 {
-	Value result;
 	do {
 		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
+		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
-	int cmp = Value::Compare(args.GetValue(0), args.GetValue(1));
-	result.SetBoolean(cmp == 0);
-	return result;
+	const Value &valueLeft = args.GetValue(0);
+	const Value &valueRight = args.GetValue(1);
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Equal,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1070,15 +1072,17 @@ Func_NotEqual::Func_NotEqual(Environment &env) :
 
 Value Func_NotEqual::DoEval(Environment &env, Signal sig, Args &args) const
 {
-	Value result;
 	do {
 		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
+		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
-	int cmp = Value::Compare(args.GetValue(0), args.GetValue(1));
-	result.SetBoolean(cmp != 0);
-	return result;
+	const Value &valueLeft = args.GetValue(0);
+	const Value &valueRight = args.GetValue(1);
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_NotEqual,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1095,15 +1099,17 @@ Func_Greater::Func_Greater(Environment &env) :
 
 Value Func_Greater::DoEval(Environment &env, Signal sig, Args &args) const
 {
-	Value result;
 	do {
 		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
+		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
-	int cmp = Value::Compare(args.GetValue(0), args.GetValue(1));
-	result.SetBoolean(cmp > 0);
-	return result;
+	const Value &valueLeft = args.GetValue(0);
+	const Value &valueRight = args.GetValue(1);
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Greater,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1120,15 +1126,17 @@ Func_Less::Func_Less(Environment &env) :
 
 Value Func_Less::DoEval(Environment &env, Signal sig, Args &args) const
 {
-	Value result;
 	do {
 		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
+		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
-	int cmp = Value::Compare(args.GetValue(0), args.GetValue(1));
-	result.SetBoolean(cmp < 0);
-	return result;
+	const Value &valueLeft = args.GetValue(0);
+	const Value &valueRight = args.GetValue(1);
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Less,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1145,15 +1153,17 @@ Func_GreaterEq::Func_GreaterEq(Environment &env) :
 
 Value Func_GreaterEq::DoEval(Environment &env, Signal sig, Args &args) const
 {
-	Value result;
 	do {
 		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
+		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
-	int cmp = Value::Compare(args.GetValue(0), args.GetValue(1));
-	result.SetBoolean(cmp >= 0);
-	return result;
+	const Value &valueLeft = args.GetValue(0);
+	const Value &valueRight = args.GetValue(1);
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_GreaterEq,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1170,15 +1180,17 @@ Func_LessEq::Func_LessEq(Environment &env) :
 
 Value Func_LessEq::DoEval(Environment &env, Signal sig, Args &args) const
 {
-	Value result;
 	do {
 		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
+		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
-	int cmp = Value::Compare(args.GetValue(0), args.GetValue(1));
-	result.SetBoolean(cmp <= 0);
-	return result;
+	const Value &valueLeft = args.GetValue(0);
+	const Value &valueRight = args.GetValue(1);
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_LessEq,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1200,8 +1212,12 @@ Value Func_Compare::DoEval(Environment &env, Signal sig, Args &args) const
 		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
-	int cmp = Value::Compare(args.GetValue(0), args.GetValue(1));
-	return Value(static_cast<Number>(cmp));
+	const Value &valueLeft = args.GetValue(0);
+	const Value &valueRight = args.GetValue(1);
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Compare,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------

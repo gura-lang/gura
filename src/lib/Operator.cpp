@@ -48,6 +48,8 @@ const Operator *Operator::Lookup(Environment &env, OpType opType, ValueType valT
 	iter = map.find(CalcKey(valTypeLeft, VTYPE_any));
 	if (iter != map.end()) return iter->second;
 	iter = map.find(CalcKey(VTYPE_any, valTypeRight));
+	if (iter != map.end()) return iter->second;
+	iter = map.find(CalcKey(VTYPE_any, VTYPE_any));
 	return (iter == map.end())? NULL : iter->second;
 }
 
@@ -510,42 +512,63 @@ Gura_ImplementBinaryOperator(Power, complex, number)
 	return Value(std::pow(valueLeft.GetComplex(), valueRight.GetNumber()));
 }
 
-#if 0
 //-----------------------------------------------------------------------------
 // BinaryOperator(Equal, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Equal, number, number)
+Gura_ImplementBinaryOperator(Equal, any, any)
+{
+	return Value(Value::Compare(valueLeft, valueRight) == 0);
+}
 
 //-----------------------------------------------------------------------------
 // BinaryOperator(NotEqual, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(NotEqual, number, number)
+Gura_ImplementBinaryOperator(NotEqual, any, any)
+{
+	return Value(Value::Compare(valueLeft, valueRight) != 0);
+}
 
 //-----------------------------------------------------------------------------
 // BinaryOperator(Greater, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Greater, number, number)
+Gura_ImplementBinaryOperator(Greater, any, any)
+{
+	return Value(Value::Compare(valueLeft, valueRight) > 0);
+}
 
 //-----------------------------------------------------------------------------
 // BinaryOperator(Less, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Less, number, number)
+Gura_ImplementBinaryOperator(Less, any, any)
+{
+	return Value(Value::Compare(valueLeft, valueRight) < 0);
+}
 
 //-----------------------------------------------------------------------------
 // BinaryOperator(GreaterEq, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(GreaterEq, number, number)
+Gura_ImplementBinaryOperator(GreaterEq, any, any)
+{
+	return Value(Value::Compare(valueLeft, valueRight) >= 0);
+}
 
 //-----------------------------------------------------------------------------
 // BinaryOperator(LessEq, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(LessEq, number, number)
+Gura_ImplementBinaryOperator(LessEq, any, any)
+{
+	return Value(Value::Compare(valueLeft, valueRight) <= 0);
+}
 
 //-----------------------------------------------------------------------------
 // BinaryOperator(Compare, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Compare, number, number)
+Gura_ImplementBinaryOperator(Compare, any, any)
+{
+	return Value(Value::Compare(valueLeft, valueRight));
+}
 
+#if 0
 //-----------------------------------------------------------------------------
 // BinaryOperator(ContainCheck, *, *)
 //-----------------------------------------------------------------------------
@@ -652,6 +675,13 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Power, complex, complex);
 	Gura_AssignBinaryOperator(Power, number, complex);
 	Gura_AssignBinaryOperator(Power, complex, number);
+	Gura_AssignBinaryOperator(Equal, any, any);
+	Gura_AssignBinaryOperator(NotEqual, any, any);
+	Gura_AssignBinaryOperator(Greater, any, any);
+	Gura_AssignBinaryOperator(Less, any, any);
+	Gura_AssignBinaryOperator(GreaterEq, any, any);
+	Gura_AssignBinaryOperator(LessEq, any, any);
+	Gura_AssignBinaryOperator(Compare, any, any);
 }
 
 void SetError_DivideByZero(Signal sig)
