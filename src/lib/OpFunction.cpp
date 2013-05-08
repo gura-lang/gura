@@ -111,21 +111,11 @@ Func_Neg::Func_Neg(Environment &env) :
 Value Func_Neg::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &value = args.GetValue(0);
-	Value result;
-	if (value.IsNumber()) {
-		result.SetNumber(-value.GetNumber());
-		return result;
-	} else if (value.IsComplex()) {
-		result.SetComplex(-value.GetComplex());
-		return result;
-	} else if (value.IsMatrix()) {
-		return Matrix::OperatorNeg(env, sig, Object_matrix::GetObject(value)->GetMatrix());
-	} else if (value.IsTimeDelta()) {
-		TimeDelta td = value.GetTimeDelta();
-		return Value(env, TimeDelta(-td.GetDays(), -td.GetSecsRaw(), -td.GetUSecs()));
-	} else {
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Neg, value.GetValueType());
+	if (pOperator == NULL) {
 		return EvalOverrideUnary(env, sig, this, args);
 	}
+	return pOperator->DoEval(env, sig, value);
 }
 
 Expr *Func_Neg::DiffUnary(Environment &env, Signal sig,

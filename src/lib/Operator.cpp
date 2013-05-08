@@ -65,6 +65,35 @@ Gura_ImplementUnaryOperator(Pos, matrix)
 	return value;
 }
 
+Gura_ImplementUnaryOperator(Pos, timedelta)
+{
+	return value;
+}
+
+//-----------------------------------------------------------------------------
+// UnaryOperator(Neg, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Neg, number)
+{
+	return Value(-value.GetNumber());
+}
+
+Gura_ImplementUnaryOperator(Neg, complex)
+{
+	return Value(-value.GetComplex());
+}
+
+Gura_ImplementUnaryOperator(Neg, matrix)
+{
+	return Matrix::OperatorNeg(env, sig, Object_matrix::GetObject(value)->GetMatrix());
+}
+
+Gura_ImplementUnaryOperator(Neg, timedelta)
+{
+	TimeDelta td = value.GetTimeDelta();
+	return Value(env, TimeDelta(-td.GetDays(), -td.GetSecsRaw(), -td.GetUSecs()));
+}
+
 //-----------------------------------------------------------------------------
 // BinaryOperator(Plus, *, *)
 //-----------------------------------------------------------------------------
@@ -177,6 +206,12 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignUnaryOperator(Pos, number);
 	Gura_AssignUnaryOperator(Pos, complex);
 	Gura_AssignUnaryOperator(Pos, matrix);
+	Gura_AssignUnaryOperator(Pos, timedelta);
+	// UnaryOperator(Neg, *)
+	Gura_AssignUnaryOperator(Neg, number);
+	Gura_AssignUnaryOperator(Neg, complex);
+	Gura_AssignUnaryOperator(Neg, matrix);
+	Gura_AssignUnaryOperator(Neg, timedelta);
 	// BinaryOperator(Plus, *, *)
 	Gura_AssignBinaryOperator(Plus, number, number);
 	Gura_AssignBinaryOperator(Plus, complex, complex);
