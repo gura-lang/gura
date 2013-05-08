@@ -309,12 +309,126 @@ Gura_ImplementBinaryOperator(Minus, binaryptr, binaryptr)
 	return Value(static_cast<Number>(offset1 - offset2));
 }
 
-#if 0
 //-----------------------------------------------------------------------------
 // BinaryOperator(Multiply, *, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Multiply, number, number)
+{
+	return Value(valueLeft.GetNumber() * valueRight.GetNumber());
+}
 
+Gura_ImplementBinaryOperator(Multiply, complex, complex)
+{
+	return Value(valueLeft.GetComplex() * valueRight.GetComplex());
+}
+
+Gura_ImplementBinaryOperator(Multiply, number, complex)
+{
+	return Value(valueLeft.GetNumber() * valueRight.GetComplex());
+}
+
+Gura_ImplementBinaryOperator(Multiply, complex, number)
+{
+	return Value(valueLeft.GetComplex() * valueRight.GetNumber());
+}
+
+Gura_ImplementBinaryOperator(Multiply, matrix, matrix)
+{
+	return Matrix::OperatorMultiply(env, sig,
+			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
+}
+
+Gura_ImplementBinaryOperator(Multiply, list, matrix)
+{
+	return Matrix::OperatorMultiply(env, sig,
+			valueLeft.GetList(), Object_matrix::GetObject(valueRight)->GetMatrix());
+}
+
+Gura_ImplementBinaryOperator(Multiply, any, matrix)
+{
+	return Matrix::OperatorMultiply(env, sig,
+			valueLeft, Object_matrix::GetObject(valueRight)->GetMatrix());
+}
+
+Gura_ImplementBinaryOperator(Multiply, matrix, list)
+{
+	return Matrix::OperatorMultiply(env, sig,
+			Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight.GetList());
+}
+
+Gura_ImplementBinaryOperator(Multiply, matrix, any)
+{
+	return Matrix::OperatorMultiply(env, sig,
+			Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
+}
+
+Gura_ImplementBinaryOperator(Multiply, timedelta, number)
+{
+	const TimeDelta &td = valueLeft.GetTimeDelta();
+	long num = valueRight.GetLong();
+	return Value(env,
+		TimeDelta(td.GetDays() * num, td.GetSecsRaw() * num, td.GetUSecs() * num));
+}
+
+Gura_ImplementBinaryOperator(Multiply, number, timedelta)
+{
+	const TimeDelta &td = valueRight.GetTimeDelta();
+	long num = valueLeft.GetLong();
+	return Value(env,
+		TimeDelta(td.GetDays() * num, td.GetSecsRaw() * num, td.GetUSecs() * num));
+}
+
+Gura_ImplementBinaryOperator(Multiply, function, any)
+{
+	const Object_function *pObj = Object_function::GetObject(valueLeft);
+	if (pObj->GetFunction()->IsUnary()) {
+		ValueList valListArg(valueRight);
+		Value result = pObj->Eval(env, sig, valListArg);
+		if (sig.IsSignalled()) return Value::Null;
+		return result;
+	} else {
+		sig.SetError(ERR_TypeError, "unary function is expected for multiplier-form applier");
+		return Value::Null;
+	}
+}
+
+Gura_ImplementBinaryOperator(Multiply, string, number)
+{
+	String str;
+	for (int cnt = static_cast<int>(valueRight.GetNumber()); cnt > 0; cnt--) {
+		str += valueLeft.GetString();
+	}
+	return Value(env, str);
+}
+
+Gura_ImplementBinaryOperator(Multiply, number, string)
+{
+	String str;
+	for (int cnt = static_cast<int>(valueLeft.GetNumber()); cnt > 0; cnt--) {
+		str += valueRight.GetString();
+	}
+	return Value(env, str);
+}
+
+Gura_ImplementBinaryOperator(Multiply, binary, number)
+{
+	Binary buff;
+	for (int cnt = static_cast<int>(valueRight.GetNumber()); cnt > 0; cnt--) {
+		buff += valueLeft.GetBinary();
+	}
+	return Value(new Object_binary(env, buff, true));
+}
+
+Gura_ImplementBinaryOperator(Multiply, number, binary)
+{
+	Binary buff;
+	for (int cnt = static_cast<int>(valueLeft.GetNumber()); cnt > 0; cnt--) {
+		buff += valueRight.GetBinary();
+	}
+	return Value(new Object_binary(env, buff, true));
+}
+
+#if 0
 //-----------------------------------------------------------------------------
 // BinaryOperator(Divide, *, *)
 //-----------------------------------------------------------------------------
@@ -445,6 +559,22 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Minus, color, color);
 	Gura_AssignBinaryOperator(Minus, binaryptr, number);
 	Gura_AssignBinaryOperator(Minus, binaryptr, binaryptr);
+	Gura_AssignBinaryOperator(Multiply, number, number);
+	Gura_AssignBinaryOperator(Multiply, complex, complex);
+	Gura_AssignBinaryOperator(Multiply, number, complex);
+	Gura_AssignBinaryOperator(Multiply, complex, number);
+	Gura_AssignBinaryOperator(Multiply, matrix, matrix);
+	Gura_AssignBinaryOperator(Multiply, list, matrix);
+	Gura_AssignBinaryOperator(Multiply, any, matrix);
+	Gura_AssignBinaryOperator(Multiply, matrix, list);
+	Gura_AssignBinaryOperator(Multiply, matrix, any);
+	Gura_AssignBinaryOperator(Multiply, timedelta, number);
+	Gura_AssignBinaryOperator(Multiply, number, timedelta);
+	Gura_AssignBinaryOperator(Multiply, function, any);
+	Gura_AssignBinaryOperator(Multiply, string, number);
+	Gura_AssignBinaryOperator(Multiply, number, string);
+	Gura_AssignBinaryOperator(Multiply, binary, number);
+	Gura_AssignBinaryOperator(Multiply, number, binary);
 }
 
 }

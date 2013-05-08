@@ -533,90 +533,10 @@ Value Func_Multiply::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
-	Value result;
-	if (valueLeft.IsNumber() && valueRight.IsNumber()) {
-		result.SetNumber(valueLeft.GetNumber() * valueRight.GetNumber());
-		return result;
-	} else if (valueLeft.IsComplex() && valueRight.IsComplex()) {
-		result.SetComplex(valueLeft.GetComplex() * valueRight.GetComplex());
-		return result;
-	} else if (valueLeft.IsNumber() && valueRight.IsComplex()) {
-		result.SetComplex(valueLeft.GetNumber() * valueRight.GetComplex());
-		return result;
-	} else if (valueLeft.IsComplex() && valueRight.IsNumber()) {
-		result.SetComplex(valueLeft.GetComplex() * valueRight.GetNumber());
-		return result;
-	} else if (valueLeft.IsMatrix() && valueRight.IsMatrix()) {
-		return Matrix::OperatorMultiply(env, sig,
-			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
-	} else if (valueRight.IsMatrix()) {
-		if (valueLeft.IsList()) {
-			return Matrix::OperatorMultiply(env, sig,
-					valueLeft.GetList(), Object_matrix::GetObject(valueRight)->GetMatrix());
-		} else {
-			return Matrix::OperatorMultiply(env, sig,
-					valueLeft, Object_matrix::GetObject(valueRight)->GetMatrix());
-		}
-	} else if (valueLeft.IsMatrix()) {
-		if (valueRight.IsList()) {
-			return Matrix::OperatorMultiply(env, sig,
-					Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight.GetList());
-		} else {
-			return Matrix::OperatorMultiply(env, sig,
-					Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
-		}
-	} else if (valueLeft.IsTimeDelta() && valueRight.IsNumber()) {
-		const TimeDelta &td = valueLeft.GetTimeDelta();
-		long num = valueRight.GetLong();
-		return Value(env,
-			TimeDelta(td.GetDays() * num, td.GetSecsRaw() * num, td.GetUSecs() * num));
-	} else if (valueLeft.IsNumber() && valueRight.IsTimeDelta()) {
-		const TimeDelta &td = valueRight.GetTimeDelta();
-		long num = valueLeft.GetLong();
-		return Value(env,
-			TimeDelta(td.GetDays() * num, td.GetSecsRaw() * num, td.GetUSecs() * num));
-	} else if (valueLeft.IsFunction()) {
-		const Object_function *pObj = Object_function::GetObject(valueLeft);
-		if (pObj->GetFunction()->IsUnary()) {
-			ValueList valListArg(valueRight);
-			result = pObj->Eval(env, sig, valListArg);
-			if (sig.IsSignalled()) return Value::Null;
-		} else {
-			sig.SetError(ERR_TypeError, "unary function is expected for multiplier-form applier");
-			return Value::Null;
-		}
-		return result;
-	} else if (valueLeft.IsString() && valueRight.IsNumber()) {
-		String str;
-		for (int cnt = static_cast<int>(valueRight.GetNumber()); cnt > 0; cnt--) {
-			str += valueLeft.GetString();
-		}
-		result = Value(env, str.c_str());
-		return result;
-	} else if (valueLeft.IsNumber() && valueRight.IsString()) {
-		String str;
-		for (int cnt = static_cast<int>(valueLeft.GetNumber()); cnt > 0; cnt--) {
-			str += valueRight.GetString();
-		}
-		result = Value(env, str.c_str());
-		return result;
-	} else if (valueLeft.IsBinary() && valueRight.IsNumber()) {
-		Binary buff;
-		for (int cnt = static_cast<int>(valueRight.GetNumber()); cnt > 0; cnt--) {
-			buff += valueLeft.GetBinary();
-		}
-		result = Value(new Object_binary(env, buff, true));
-		return result;
-	} else if (valueLeft.IsNumber() && valueRight.IsBinary()) {
-		Binary buff;
-		for (int cnt = static_cast<int>(valueLeft.GetNumber()); cnt > 0; cnt--) {
-			buff += valueRight.GetBinary();
-		}
-		result = Value(new Object_binary(env, buff, true));
-		return result;
-	} else {
-		return EvalOverrideBinary(env, sig, this, args);
-	}
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Multiply,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 Expr *Func_Multiply::DiffBinary(Environment &env, Signal sig,
