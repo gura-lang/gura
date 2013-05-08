@@ -2,6 +2,8 @@
 
 namespace Gura {
 
+static void SetError_DivideByZero(Signal sig);
+
 //-----------------------------------------------------------------------------
 // Operator
 //-----------------------------------------------------------------------------
@@ -428,12 +430,56 @@ Gura_ImplementBinaryOperator(Multiply, number, binary)
 	return Value(new Object_binary(env, buff, true));
 }
 
-#if 0
 //-----------------------------------------------------------------------------
 // BinaryOperator(Divide, *, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Divide, number, number)
+{
+	Number numRight = valueRight.GetNumber();
+	if (numRight == 0) {
+		SetError_DivideByZero(sig);
+		return Value::Null;
+	}
+	return Value(valueLeft.GetNumber() / numRight);
+}
 
+Gura_ImplementBinaryOperator(Divide, complex, complex)
+{
+	Complex numRight = valueRight.GetComplex();
+	if (numRight == Complex(0.)) {
+		SetError_DivideByZero(sig);
+		return Value::Null;
+	}
+	return Value(valueLeft.GetComplex() / valueRight.GetComplex());
+}
+
+Gura_ImplementBinaryOperator(Divide, number, complex)
+{
+	Complex numRight = valueRight.GetComplex();
+	if (numRight == Complex(0.)) {
+		SetError_DivideByZero(sig);
+		return Value::Null;
+	}
+	return Value(valueLeft.GetNumber() / numRight);
+}
+
+Gura_ImplementBinaryOperator(Divide, complex, number)
+{
+	Number numRight = valueRight.GetNumber();
+	if (numRight == 0) {
+		SetError_DivideByZero(sig);
+		return Value::Null;
+	}
+	return Value(valueLeft.GetComplex() / numRight);
+}
+
+Gura_ImplementBinaryOperator(Divide, matrix, any)
+{
+	return Matrix::OperatorDivide(env, sig,
+					Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
+}
+
+#if 0
 //-----------------------------------------------------------------------------
 // BinaryOperator(Modulo, *, *)
 //-----------------------------------------------------------------------------
@@ -575,6 +621,16 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Multiply, number, string);
 	Gura_AssignBinaryOperator(Multiply, binary, number);
 	Gura_AssignBinaryOperator(Multiply, number, binary);
+	Gura_AssignBinaryOperator(Divide, number, number);
+	Gura_AssignBinaryOperator(Divide, complex, complex);
+	Gura_AssignBinaryOperator(Divide, number, complex);
+	Gura_AssignBinaryOperator(Divide, complex, number);
+	Gura_AssignBinaryOperator(Divide, matrix, any);
+}
+
+void SetError_DivideByZero(Signal sig)
+{
+	sig.SetError(ERR_ZeroDivisionError, "divide by zero");
 }
 
 }

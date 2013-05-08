@@ -702,45 +702,10 @@ Value Func_Divide::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
-	Value result;
-	if (valueLeft.IsNumber() && valueRight.IsNumber()) {
-		Number numRight = valueRight.GetNumber();
-		if (numRight == 0) {
-			SetError_DivideByZero(sig);
-			return Value::Null;
-		}
-		result.SetNumber(valueLeft.GetNumber() / numRight);
-		return result;
-	} else if (valueLeft.IsComplex() && valueRight.IsComplex()) {
-		Complex numRight = valueRight.GetComplex();
-		if (numRight == Complex(0.)) {
-			SetError_DivideByZero(sig);
-			return Value::Null;
-		}
-		result.SetComplex(valueLeft.GetComplex() / valueRight.GetComplex());
-		return result;
-	} else if (valueLeft.IsNumber() && valueRight.IsComplex()) {
-		Complex numRight = valueRight.GetComplex();
-		if (numRight == Complex(0.)) {
-			SetError_DivideByZero(sig);
-			return Value::Null;
-		}
-		result.SetComplex(valueLeft.GetNumber() / numRight);
-		return result;
-	} else if (valueLeft.IsComplex() && valueRight.IsNumber()) {
-		Number numRight = valueRight.GetNumber();
-		if (numRight == 0) {
-			SetError_DivideByZero(sig);
-			return Value::Null;
-		}
-		result.SetComplex(valueLeft.GetComplex() / numRight);
-		return result;
-	} else if (valueLeft.IsMatrix() && !valueRight.IsMatrix()) {
-		return Matrix::OperatorDivide(env, sig,
-						Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
-	} else {
-		return EvalOverrideBinary(env, sig, this, args);
-	}
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Divide,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 Expr *Func_Divide::OptimizeBinary(Environment &env, Signal sig,
