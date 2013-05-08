@@ -927,13 +927,10 @@ Value Func_Modulo::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
-	Value result;
-	if (valueLeft.IsNumber() && valueRight.IsNumber()) {
-		result.SetNumber(::fmod(valueLeft.GetNumber(), valueRight.GetNumber()));
-		return result;
-	} else {
-		return EvalOverrideBinary(env, sig, this, args);
-	}
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Modulo,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -954,22 +951,10 @@ Value Func_Power::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
-	Value result;
-	if (valueLeft.IsNumber() && valueRight.IsNumber()) {
-		result.SetNumber(::pow(valueLeft.GetNumber(), valueRight.GetNumber()));
-		return result;
-	} else if (valueLeft.IsComplex() && valueRight.IsComplex()) {
-		result.SetComplex(std::pow(valueLeft.GetComplex(), valueRight.GetComplex()));
-		return result;
-	} else if (valueLeft.IsNumber() && valueRight.IsComplex()) {
-		result.SetComplex(std::pow(valueLeft.GetNumber(), valueRight.GetComplex()));
-		return result;
-	} else if (valueLeft.IsComplex() && valueRight.IsNumber()) {
-		result.SetComplex(std::pow(valueLeft.GetComplex(), valueRight.GetNumber()));
-		return result;
-	} else {
-		return EvalOverrideBinary(env, sig, this, args);
-	}
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Power,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 Expr *Func_Power::DiffBinary(Environment &env, Signal sig,

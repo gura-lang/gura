@@ -479,17 +479,38 @@ Gura_ImplementBinaryOperator(Divide, matrix, any)
 					Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
 }
 
-#if 0
 //-----------------------------------------------------------------------------
 // BinaryOperator(Modulo, *, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Modulo, number, number)
+{
+	return Value(::fmod(valueLeft.GetNumber(), valueRight.GetNumber()));
+}
 
 //-----------------------------------------------------------------------------
 // BinaryOperator(Power, *, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Power, number, number)
+{
+	return Value(::pow(valueLeft.GetNumber(), valueRight.GetNumber()));
+}
 
+Gura_ImplementBinaryOperator(Power, complex, complex)
+{
+	return Value(std::pow(valueLeft.GetComplex(), valueRight.GetComplex()));
+}
+
+Gura_ImplementBinaryOperator(Power, number, complex)
+{
+	return Value(std::pow(valueLeft.GetNumber(), valueRight.GetComplex()));
+}
+
+Gura_ImplementBinaryOperator(Power, complex, number)
+{
+	return Value(std::pow(valueLeft.GetComplex(), valueRight.GetNumber()));
+}
+
+#if 0
 //-----------------------------------------------------------------------------
 // BinaryOperator(Equal, *, *)
 //-----------------------------------------------------------------------------
@@ -626,6 +647,11 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Divide, number, complex);
 	Gura_AssignBinaryOperator(Divide, complex, number);
 	Gura_AssignBinaryOperator(Divide, matrix, any);
+	Gura_AssignBinaryOperator(Modulo, number, number);
+	Gura_AssignBinaryOperator(Power, number, number);
+	Gura_AssignBinaryOperator(Power, complex, complex);
+	Gura_AssignBinaryOperator(Power, number, complex);
+	Gura_AssignBinaryOperator(Power, complex, number);
 }
 
 void SetError_DivideByZero(Signal sig)
