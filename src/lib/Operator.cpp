@@ -5,53 +5,6 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Operator
 //-----------------------------------------------------------------------------
-class Operator {
-protected:
-	OpType _opType;
-	ValueType _valTypeLeft;
-	ValueType _valTypeRight;
-public:
-	inline Operator(OpType opType, ValueType valType) :
-			_opType(opType), _valTypeLeft(valType), _valTypeRight(VTYPE_nil) {}
-	inline Operator(OpType opType, ValueType valTypeLeft, ValueType valTypeRight) :
-			_opType(opType), _valTypeLeft(valTypeLeft), _valTypeRight(valTypeRight) {}
-	inline OpType GetOpType() const { return _opType; }
-	inline ValueType GetValueType() const { return _valTypeLeft; }
-	inline ValueType GetValueTypeLeft() const { return _valTypeLeft; }
-	inline ValueType GetValueTypeRight() const { return _valTypeRight; }
-	inline static unsigned long CalcValueTypeKey(ValueType valType) {
-		return static_cast<unsigned long>(valType);
-	}
-	inline static unsigned long CalcValueTypeKey(ValueType valTypeLeft, ValueType valTypeRight) {
-		return (static_cast<unsigned long>(valTypeRight) << 16) +
-							static_cast<unsigned long>(valTypeLeft);
-	}
-	inline unsigned long CalcValueTypeKey() const {
-		return CalcValueTypeKey(_valTypeLeft, _valTypeRight);
-	}
-	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const;
-	virtual Value DoEval(Environment &env, Signal sig,
-					const Value &valueLeft, const Value &valueRight) const;
-};
-
-//-----------------------------------------------------------------------------
-// OperatorMap
-//-----------------------------------------------------------------------------
-class OperatorMap {
-public:
-	typedef std::map<unsigned long, Operator *> Map;
-private:
-	Map _maps[OPTYPE_max];
-public:
-	inline OperatorMap() {}
-	void Register(Operator *pOperator);
-	const Operator *Lookup(OpType opType, ValueType valType) const;
-	const Operator *Lookup(OpType opType, ValueType valTypeLeft, ValueType valTypeRight) const;
-};
-
-//-----------------------------------------------------------------------------
-// Operator
-//-----------------------------------------------------------------------------
 Value Operator::DoEval(Environment &env, Signal sig, const Value &value) const
 {
 	return Value::Null;
@@ -63,59 +16,32 @@ Value Operator::DoEval(Environment &env, Signal sig,
 	return Value::Null;
 }
 
-//-----------------------------------------------------------------------------
-// OperatorMap
-//-----------------------------------------------------------------------------
-void OperatorMap::Register(Operator *pOperator)
+void Operator::Assign(Environment &env, Operator *pOperator)
 {
-	Map &map = _maps[pOperator->GetOpType()];
-	map[pOperator->CalcValueTypeKey()] = pOperator;
+	OperatorMap &map = env.GetGlobal()->GetOperatorMap(pOperator->GetOpType());
+	Key key = pOperator->CalcKey();
+	OperatorMap::iterator iter = map.find(key);
+	if (iter == map.end()) {
+		map[key] = pOperator;
+	} else {
+		delete iter->second;
+		iter->second = pOperator;
+	}
 }
 
-const Operator *OperatorMap::Lookup(OpType opType, ValueType valType) const
+const Operator *Operator::Lookup(Environment &env, OpType opType, ValueType valType)
 {
-	const Map &map = _maps[opType];
-	Map::const_iterator iter = map.find(Operator::CalcValueTypeKey(valType));
+	OperatorMap &map = env.GetGlobal()->GetOperatorMap(opType);
+	OperatorMap::const_iterator iter = map.find(CalcKey(valType));
 	return (iter == map.end())? NULL : iter->second;
 }
 
-const Operator *OperatorMap::Lookup(OpType opType, ValueType valTypeLeft, ValueType valTypeRight) const
+const Operator *Operator::Lookup(Environment &env, OpType opType, ValueType valTypeLeft, ValueType valTypeRight)
 {
-	const Map &map = _maps[opType];
-	Map::const_iterator iter = map.find(Operator::CalcValueTypeKey(valTypeLeft, valTypeRight));
+	OperatorMap &map = env.GetGlobal()->GetOperatorMap(opType);
+	OperatorMap::const_iterator iter = map.find(CalcKey(valTypeLeft, valTypeRight));
 	return (iter == map.end())? NULL : iter->second;
 }
-
-#define Gura_ImplementUnaryOperator(op, type) \
-class Operator_##op##_##type : public Operator { \
-public: \
-	inline Operator_##op##_##type() : Operator(OPTYPE_##op, VTYPE_##type) {} \
-	inline static Operator_##op##_##type *Create() { \
-		return new Operator_##op##_##type(); \
-	} \
-	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const; \
-}; \
-Value Operator_##op##_##type::DoEval(Environment &env, Signal sig, const Value &value) const
-
-#define Gura_ImplementBinaryOperator(op, typeL, typeR) \
-class Operator_##op##_##typeL##_##typeR : public Operator { \
-public: \
-	inline Operator_##op##_##typeL##_##typeR() : \
-					Operator(OPTYPE_##op, VTYPE_##typeL, VTYPE_##typeR) {} \
-	inline static Operator_##op##_##typeL##_##typeR *Create() { \
-		return new Operator_##op##_##typeL##_##typeR(); \
-	} \
-	virtual Value DoEval(Environment &env, Signal sig, \
-				const Value &valueLeft, const Value &valueRight) const; \
-}; \
-Value Operator_##op##_##typeL##_##typeR##::DoEval(Environment &env, Signal sig, \
-					const Value &valueLeft, const Value &valueRight) const
-
-#define Gura_RegisterUnaryOperator(op, type) \
-env.RegisterOperator(new Operator_##op##_##type())
-
-#define Gura_RegisterBinaryOperator(op, typeL, typeR) \
-env.RegisterOperator(new Operator_##op##_##typeL##_##typeR())
 
 Gura_ImplementUnaryOperator(Pos, number)
 {
@@ -196,10 +122,10 @@ Gura_ImplementBinaryOperator(Plus, matrix, matrix)
 		return result;
 #endif
 
-void sub(Environment &env)
+void AssignBasicOperators(Environment &env)
 {
-	//Gura_RegisterUnaryOperator(Pos, number);
-	//Gura_RegisterBinaryOperator(Plus, number, number);
+	Gura_AssignUnaryOperator(Pos, number);
+	Gura_AssignBinaryOperator(Plus, number, number);
 }
 
 }

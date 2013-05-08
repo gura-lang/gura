@@ -1097,8 +1097,9 @@ bool EnvironmentRoot::Initialize(Signal sig, int argc, const char *argv[])
 	RandomGenerator::Initialize(1234);	// initialize random generator SFMT
 	ValueTypePool::Initialize(env);
 	GetGlobal()->Prepare(env, sig);
-	AssignErrorTypes(env);	// Signal.cpp
-	AssignOperators(env);	// Operators.cpp
+	AssignErrorTypes(env);		// Signal.cpp
+	AssignBasicOperators(env);	// Operators.cpp
+	AssignOpFunctions(env);		// OpFunctions.cpp
 	do {
 		ValueTypePool::OnModuleEntry(env, sig);
 	} while (0);

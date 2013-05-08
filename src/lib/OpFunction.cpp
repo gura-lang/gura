@@ -10,7 +10,7 @@ static Expr *OptimizeConst(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // Operator assignment
 //-----------------------------------------------------------------------------
-void AssignOperators(Environment &env)
+void AssignOpFunctions(Environment &env)
 {
 	Environment::Global *pGlobal = env.GetGlobal();
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Pos]			= new Func_Pos(env)));

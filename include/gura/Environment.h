@@ -94,38 +94,6 @@ enum EnvRefMode {
 	ENVREF_Restricted,
 };
 
-enum OpType {
-	OPTYPE_None,
-	OPTYPE_Pos,
-	OPTYPE_Neg,
-	OPTYPE_Invert,
-	OPTYPE_Not,
-	OPTYPE_Plus,
-	OPTYPE_Minus,
-	OPTYPE_Multiply,
-	OPTYPE_Divide,
-	OPTYPE_Modulo,
-	OPTYPE_Power,
-	OPTYPE_Equal,
-	OPTYPE_NotEqual,
-	OPTYPE_Greater,
-	OPTYPE_Less,
-	OPTYPE_GreaterEq,
-	OPTYPE_LessEq,
-	OPTYPE_Compare,
-	OPTYPE_ContainCheck,
-	OPTYPE_Or,
-	OPTYPE_And,
-	OPTYPE_Xor,
-	OPTYPE_ShiftL,
-	OPTYPE_ShiftR,
-	OPTYPE_OrOr,
-	OPTYPE_AndAnd,
-	OPTYPE_Sequence,
-	OPTYPE_SequenceInf,
-	OPTYPE_max,
-};
-
 GURA_DLLDECLARE const char *GetEnvTypeName(EnvType envType);
 
 //-----------------------------------------------------------------------------
@@ -203,6 +171,7 @@ public:
 		SeparatedModuleMap	_separatedModuleMap;
 		StringList			_workingDirList;
 		PathManagerOwner	_pathManagerOwner;
+		OperatorMap			_operatorMapTbl[OPTYPE_max];
 	public:
 		SymbolPool			*_pSymbolPool;
 		ValueTypePool		*_pValueTypePool;
@@ -225,6 +194,8 @@ public:
 		void UnregisterSeparatedModule(const char *pathName);
 		inline PathManagerOwner &GetPathManagerOwner() { return _pathManagerOwner; }
 		inline const PathManagerOwner &GetPathManagerOwner() const { return _pathManagerOwner; }
+		inline OperatorMap &GetOperatorMap(OpType opType) { return _operatorMapTbl[opType]; }
+		inline const OperatorMap &GetOperatorMap(OpType opType) const { return _operatorMapTbl[opType]; }
 		inline Stream *GetConsoleDumb() { return _pConsoleDumb.get(); }
 	};
 	class GURA_DLLDECLARE Frame {

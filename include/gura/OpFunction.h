@@ -6,7 +6,7 @@
 
 namespace Gura {
 
-void AssignOperators(Environment &env);
+void AssignOpFunctions(Environment &env);
 
 //-----------------------------------------------------------------------------
 // basic operations
