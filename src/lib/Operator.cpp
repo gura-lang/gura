@@ -220,12 +220,96 @@ Gura_ImplementBinaryOperator(Plus, any, string)
 	return Value(env, str.c_str());
 }
 
-#if 0
 //-----------------------------------------------------------------------------
 // BinaryOperator(Minus, *, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Minus, number, number)
+{
+	return Value(valueLeft.GetNumber() - valueRight.GetNumber());
+}
 
+Gura_ImplementBinaryOperator(Minus, complex, complex)
+{
+	return Value(valueLeft.GetComplex() - valueRight.GetComplex());
+}
+
+Gura_ImplementBinaryOperator(Minus, number, complex)
+{
+	return Value(valueLeft.GetNumber() - valueRight.GetComplex());
+}
+
+Gura_ImplementBinaryOperator(Minus, complex, number)
+{
+	return Value(valueLeft.GetComplex() - valueRight.GetNumber());
+}
+
+Gura_ImplementBinaryOperator(Minus, matrix, matrix)
+{
+	return Matrix::OperatorPlusMinus(env, sig, OPTYPE_Minus,
+			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
+}
+
+Gura_ImplementBinaryOperator(Minus, datetime, timedelta)
+{
+	DateTime dateTime = valueLeft.GetDateTime();
+	dateTime.Minus(valueRight.GetTimeDelta());
+	return Value(env, dateTime);
+}
+
+Gura_ImplementBinaryOperator(Minus, datetime, datetime)
+{
+	const DateTime &dt1 = valueLeft.GetDateTime();
+	const DateTime &dt2 = valueRight.GetDateTime();
+	if ((dt1.HasTZOffset() && !dt2.HasTZOffset()) ||
+								(!dt1.HasTZOffset() && dt2.HasTZOffset())) {
+		sig.SetError(ERR_ValueError, "failed to calculate datetime difference");
+		return Value::Null;
+	}
+	return Value(env, dt1.Minus(dt2));
+}
+
+Gura_ImplementBinaryOperator(Minus, timedelta, timedelta)
+{
+	TimeDelta td1 = valueLeft.GetTimeDelta();
+	TimeDelta td2 = valueRight.GetTimeDelta();
+	return Value(env, TimeDelta(
+			td1.GetDays() - td2.GetDays(),
+			td1.GetSecsRaw() - td2.GetSecsRaw(),
+			td1.GetUSecs() - td2.GetUSecs()));
+}
+
+Gura_ImplementBinaryOperator(Minus, color, color)
+{
+	const Color &color1 = Object_color::GetObject(valueLeft)->GetColor();
+	const Color &color2 = Object_color::GetObject(valueRight)->GetColor();
+	return Value(::sqrt(static_cast<double>(color1.CalcDist(color2))));
+}
+
+Gura_ImplementBinaryOperator(Minus, binaryptr, number)
+{
+	AutoPtr<Object_binaryptr> pObj(dynamic_cast<Object_binaryptr *>(
+						Object_binaryptr::GetObject(valueLeft)->Clone()));
+	pObj->UnpackForward(sig,
+						-static_cast<int>(valueRight.GetNumber()), true);
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(pObj.release());
+}
+
+Gura_ImplementBinaryOperator(Minus, binaryptr, binaryptr)
+{
+	const Object_binaryptr *pObj1 = Object_binaryptr::GetObject(valueLeft);
+	const Object_binaryptr *pObj2 = Object_binaryptr::GetObject(valueRight);
+	if (&pObj1->GetBinary() != &pObj2->GetBinary()) {
+		sig.SetError(ERR_ValueError,
+			"cannot calculate difference between pointers of different binaries");
+		return Value::Null;
+	}
+	int offset1 = static_cast<int>(pObj1->GetOffset());
+	int offset2 = static_cast<int>(pObj2->GetOffset());
+	return Value(static_cast<Number>(offset1 - offset2));
+}
+
+#if 0
 //-----------------------------------------------------------------------------
 // BinaryOperator(Multiply, *, *)
 //-----------------------------------------------------------------------------
@@ -325,21 +409,16 @@ Gura_ImplementUnaryOperator(SequenceInf, number)
 
 void AssignBasicOperators(Environment &env)
 {
-	// UnaryOperator(Pos, *)
 	Gura_AssignUnaryOperator(Pos, number);
 	Gura_AssignUnaryOperator(Pos, complex);
 	Gura_AssignUnaryOperator(Pos, matrix);
 	Gura_AssignUnaryOperator(Pos, timedelta);
-	// UnaryOperator(Neg, *)
 	Gura_AssignUnaryOperator(Neg, number);
 	Gura_AssignUnaryOperator(Neg, complex);
 	Gura_AssignUnaryOperator(Neg, matrix);
 	Gura_AssignUnaryOperator(Neg, timedelta);
-	// UnaryOperator(Invert, *)
 	Gura_AssignUnaryOperator(Invert, number);
-	// UnaryOperator(Not, *)
 	Gura_AssignUnaryOperator(Not, any);
-	// BinaryOperator(Plus, *, *)
 	Gura_AssignBinaryOperator(Plus, number, number);
 	Gura_AssignBinaryOperator(Plus, complex, complex);
 	Gura_AssignBinaryOperator(Plus, number, complex);
@@ -355,6 +434,17 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Plus, binaryptr, number);
 	Gura_AssignBinaryOperator(Plus, string, any);
 	Gura_AssignBinaryOperator(Plus, any, string);
+	Gura_AssignBinaryOperator(Minus, number, number);
+	Gura_AssignBinaryOperator(Minus, complex, complex);
+	Gura_AssignBinaryOperator(Minus, number, complex);
+	Gura_AssignBinaryOperator(Minus, complex, number);
+	Gura_AssignBinaryOperator(Minus, matrix, matrix);
+	Gura_AssignBinaryOperator(Minus, datetime, timedelta);
+	Gura_AssignBinaryOperator(Minus, datetime, datetime);
+	Gura_AssignBinaryOperator(Minus, timedelta, timedelta);
+	Gura_AssignBinaryOperator(Minus, color, color);
+	Gura_AssignBinaryOperator(Minus, binaryptr, number);
+	Gura_AssignBinaryOperator(Minus, binaryptr, binaryptr);
 }
 
 }

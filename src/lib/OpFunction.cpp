@@ -341,69 +341,10 @@ Value Func_Minus::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
-	Value result;
-	if (valueLeft.IsNumber() && valueRight.IsNumber()) {
-		result.SetNumber(valueLeft.GetNumber() - valueRight.GetNumber());
-		return result;
-	} else if (valueLeft.IsComplex() && valueRight.IsComplex()) {
-		result.SetComplex(valueLeft.GetComplex() - valueRight.GetComplex());
-		return result;
-	} else if (valueLeft.IsNumber() && valueRight.IsComplex()) {
-		result.SetComplex(valueLeft.GetNumber() - valueRight.GetComplex());
-		return result;
-	} else if (valueLeft.IsComplex() && valueRight.IsNumber()) {
-		result.SetComplex(valueLeft.GetComplex() - valueRight.GetNumber());
-		return result;
-	} else if (valueLeft.IsMatrix() && valueRight.IsMatrix()) {
-		return Matrix::OperatorPlusMinus(env, sig, OPTYPE_Minus,
-			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
-	} else if (valueLeft.IsDateTime() && valueRight.IsTimeDelta()) {
-		DateTime dateTime = valueLeft.GetDateTime();
-		dateTime.Minus(valueRight.GetTimeDelta());
-		return Value(env, dateTime);
-	} else if (valueLeft.IsDateTime() && valueRight.IsDateTime()) {
-		const DateTime &dt1 = valueLeft.GetDateTime();
-		const DateTime &dt2 = valueRight.GetDateTime();
-		if ((dt1.HasTZOffset() && !dt2.HasTZOffset()) ||
-									(!dt1.HasTZOffset() && dt2.HasTZOffset())) {
-			sig.SetError(ERR_ValueError, "failed to calculate datetime difference");
-			return Value::Null;
-		}
-		return Value(env, dt1.Minus(dt2));
-	} else if (valueLeft.IsTimeDelta() && valueRight.IsTimeDelta()) {
-		TimeDelta td1 = valueLeft.GetTimeDelta();
-		TimeDelta td2 = valueRight.GetTimeDelta();
-		return Value(env, TimeDelta(
-				td1.GetDays() - td2.GetDays(),
-				td1.GetSecsRaw() - td2.GetSecsRaw(),
-				td1.GetUSecs() - td2.GetUSecs()));
-	} else if (valueLeft.IsColor() && valueRight.IsColor()) {
-		const Color &color1 = Object_color::GetObject(valueLeft)->GetColor();
-		const Color &color2 = Object_color::GetObject(valueRight)->GetColor();
-		return Value(::sqrt(static_cast<double>(color1.CalcDist(color2))));
-	} else if (valueLeft.IsBinaryPtr() && valueRight.IsNumber()) {
-		Object_binaryptr *pObj =
-			dynamic_cast<Object_binaryptr *>(Object_binaryptr::GetObject(valueLeft)->Clone());
-		pObj->UnpackForward(sig,
-							-static_cast<int>(valueRight.GetNumber()), true);
-		if (sig.IsSignalled()) return Value::Null;
-		Value result;
-		result.InitAsObject(pObj);
-		return result;
-	} else if (valueLeft.IsBinaryPtr() && valueRight.IsBinaryPtr()) {
-		const Object_binaryptr *pObj1 = Object_binaryptr::GetObject(valueLeft);
-		const Object_binaryptr *pObj2 = Object_binaryptr::GetObject(valueRight);
-		if (&pObj1->GetBinary() != &pObj2->GetBinary()) {
-			sig.SetError(ERR_ValueError,
-				"cannot calculate difference between pointers of different binaries");
-			return Value::Null;
-		}
-		int offset1 = static_cast<int>(pObj1->GetOffset());
-		int offset2 = static_cast<int>(pObj2->GetOffset());
-		return Value(static_cast<Number>(offset1 - offset2));
-	} else {
-		return EvalOverrideBinary(env, sig, this, args);
-	}
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Minus,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 Expr *Func_Minus::DiffBinary(Environment &env, Signal sig,
