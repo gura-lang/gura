@@ -1235,58 +1235,12 @@ Func_ContainCheck::Func_ContainCheck(Environment &env) :
 
 Value Func_ContainCheck::DoEval(Environment &env, Signal sig, Args &args) const
 {
-	Value result;
-	if (args.IsList(0) || args.IsIterator(0)) {
-		ValueList &valList = result.InitAsList(env);
-		AutoPtr<Iterator> pIterator(args.GetValue(0).CreateIterator(sig));
-		if (pIterator.IsNull()) return Value::Null;
-		if (args.IsList(1)) {
-			const ValueList &valListToFind = args.GetList(1);
-			Value value;
-			while (pIterator->Next(env, sig, value)) {
-				valList.push_back(valListToFind.IsContain(value));
-			}
-			if (sig.IsSignalled()) {
-				return Value::Null;
-			}
-		} else if (args.IsIterator(1)) {
-			Value value;
-			while (pIterator->Next(env, sig, value)) {
-				AutoPtr<Iterator> pIteratorToFind(args.GetValue(1).CreateIterator(sig));
-				if (pIteratorToFind.IsNull()) break;
-				bool foundFlag = pIteratorToFind->IsContain(env, sig, value);
-				if (sig.IsSignalled()) break;
-				valList.push_back(foundFlag);
-			}
-			if (sig.IsSignalled()) {
-				return Value::Null;
-			}
-		} else {
-			const Value &valueToCompare = args.GetValue(1);
-			Value value;
-			while (pIterator->Next(env, sig, value)) {
-				valList.push_back(Value::Compare(value, valueToCompare) == 0);
-			}
-			if (sig.IsSignalled()) {
-				return Value::Null;
-			}
-		}
-	} else {
-		const Value &value = args.GetValue(0);
-		if (args.IsList(1)) {
-			result.SetBoolean(args.GetList(1).IsContain(value));
-		} else if (args.IsIterator(1)) {
-			AutoPtr<Iterator> pIteratorToFind(args.GetValue(1).CreateIterator(sig));
-			if (pIteratorToFind.IsNull()) return Value::Null;
-			bool foundFlag = pIteratorToFind->IsContain(env, sig, value);
-			if (sig.IsSignalled()) return Value::Null;
-			result.SetBoolean(foundFlag);
-		} else {
-			int cmp = Value::Compare(value, args.GetValue(1));
-			result.SetBoolean(cmp == 0);
-		}
-	}
-	return result;
+	const Value &valueLeft = args.GetValue(0);
+	const Value &valueRight = args.GetValue(1);
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_ContainCheck,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------

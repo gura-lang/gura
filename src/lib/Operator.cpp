@@ -568,12 +568,61 @@ Gura_ImplementBinaryOperator(Compare, any, any)
 	return Value(Value::Compare(valueLeft, valueRight));
 }
 
-#if 0
 //-----------------------------------------------------------------------------
 // BinaryOperator(ContainCheck, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(ContainCheck, number, number)
+Gura_ImplementBinaryOperator(ContainCheck, any, any)
+{
+	if (valueLeft.IsList() || valueLeft.IsIterator()) {
+		Value result;
+		ValueList &valList = result.InitAsList(env);
+		AutoPtr<Iterator> pIterator(valueLeft.CreateIterator(sig));
+		if (pIterator.IsNull()) return Value::Null;
+		if (valueRight.IsList()) {
+			const ValueList &valListToFind = valueRight.GetList();
+			Value value;
+			while (pIterator->Next(env, sig, value)) {
+				valList.push_back(valListToFind.IsContain(value));
+			}
+			if (sig.IsSignalled()) {
+				return Value::Null;
+			}
+		} else if (valueRight.IsIterator()) {
+			Value value;
+			while (pIterator->Next(env, sig, value)) {
+				AutoPtr<Iterator> pIteratorToFind(valueRight.CreateIterator(sig));
+				if (pIteratorToFind.IsNull()) break;
+				bool foundFlag = pIteratorToFind->IsContain(env, sig, value);
+				if (sig.IsSignalled()) break;
+				valList.push_back(foundFlag);
+			}
+			if (sig.IsSignalled()) {
+				return Value::Null;
+			}
+		} else {
+			Value value;
+			while (pIterator->Next(env, sig, value)) {
+				valList.push_back(Value::Compare(value, valueRight) == 0);
+			}
+			if (sig.IsSignalled()) {
+				return Value::Null;
+			}
+		}
+		return result;
+	} else if (valueRight.IsList()) {
+		return Value(valueRight.GetList().IsContain(valueLeft));
+	} else if (valueRight.IsIterator()) {
+		AutoPtr<Iterator> pIteratorToFind(valueRight.CreateIterator(sig));
+		if (pIteratorToFind.IsNull()) return Value::Null;
+		bool foundFlag = pIteratorToFind->IsContain(env, sig, valueLeft);
+		if (sig.IsSignalled()) return Value::Null;
+		return Value(foundFlag);
+	} else {
+		return Value(Value::Compare(valueLeft, valueRight) == 0);
+	}
+}
 
+#if 0
 //-----------------------------------------------------------------------------
 // BinaryOperator(Or, *, *)
 //-----------------------------------------------------------------------------
@@ -682,6 +731,7 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(GreaterEq, any, any);
 	Gura_AssignBinaryOperator(LessEq, any, any);
 	Gura_AssignBinaryOperator(Compare, any, any);
+	Gura_AssignBinaryOperator(ContainCheck, any, any);
 }
 
 void SetError_DivideByZero(Signal sig)
