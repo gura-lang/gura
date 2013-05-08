@@ -33,6 +33,8 @@ const Operator *Operator::Lookup(Environment &env, OpType opType, ValueType valT
 {
 	OperatorMap &map = env.GetGlobal()->GetOperatorMap(opType);
 	OperatorMap::const_iterator iter = map.find(CalcKey(valType));
+	if (iter != map.end()) return iter->second;
+	iter = map.find(CalcKey(VTYPE_any));
 	return (iter == map.end())? NULL : iter->second;
 }
 
@@ -92,6 +94,24 @@ Gura_ImplementUnaryOperator(Neg, timedelta)
 {
 	TimeDelta td = value.GetTimeDelta();
 	return Value(env, TimeDelta(-td.GetDays(), -td.GetSecsRaw(), -td.GetUSecs()));
+}
+
+//-----------------------------------------------------------------------------
+// UnaryOperator(Invert, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Invert, number)
+{
+	unsigned long num = ~static_cast<unsigned long>(value.GetNumber());
+	return Value(static_cast<Number>(num));
+}
+
+//-----------------------------------------------------------------------------
+// UnaryOperator(Not, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(Not, any)
+{
+	bool rtn = !value.GetBoolean();
+	return Value(rtn);
 }
 
 //-----------------------------------------------------------------------------
@@ -200,6 +220,109 @@ Gura_ImplementBinaryOperator(Plus, any, string)
 	return Value(env, str.c_str());
 }
 
+#if 0
+//-----------------------------------------------------------------------------
+// BinaryOperator(Minus, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Minus, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(Multiply, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Multiply, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(Divide, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Divide, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(Modulo, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Modulo, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(Power, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Power, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(Equal, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Equal, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(NotEqual, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(NotEqual, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(Greater, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Greater, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(Less, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Less, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(GreaterEq, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(GreaterEq, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(LessEq, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(LessEq, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(Compare, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Compare, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(ContainCheck, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(ContainCheck, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(Or, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Or, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(And, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(And, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(Xor, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Xor, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(ShiftL, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(ShiftL, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(ShiftR, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(ShiftR, number, number)
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(Sequence, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Sequence, number, number)
+
+//-----------------------------------------------------------------------------
+// UnaryOperator(SequenceInf, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(SequenceInf, number)
+{
+#endif
+
 void AssignBasicOperators(Environment &env)
 {
 	// UnaryOperator(Pos, *)
@@ -212,6 +335,10 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignUnaryOperator(Neg, complex);
 	Gura_AssignUnaryOperator(Neg, matrix);
 	Gura_AssignUnaryOperator(Neg, timedelta);
+	// UnaryOperator(Invert, *)
+	Gura_AssignUnaryOperator(Invert, number);
+	// UnaryOperator(Not, *)
+	Gura_AssignUnaryOperator(Not, any);
 	// BinaryOperator(Plus, *, *)
 	Gura_AssignBinaryOperator(Plus, number, number);
 	Gura_AssignBinaryOperator(Plus, complex, complex);

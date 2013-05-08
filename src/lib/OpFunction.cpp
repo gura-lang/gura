@@ -67,9 +67,7 @@ Value Func_Pos::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &value = args.GetValue(0);
 	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Pos, value.GetValueType());
-	if (pOperator == NULL) {
-		return EvalOverrideUnary(env, sig, this, args);
-	}
+	if (pOperator == NULL) return EvalOverrideUnary(env, sig, this, args);
 	return pOperator->DoEval(env, sig, value);
 }
 
@@ -112,9 +110,7 @@ Value Func_Neg::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &value = args.GetValue(0);
 	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Neg, value.GetValueType());
-	if (pOperator == NULL) {
-		return EvalOverrideUnary(env, sig, this, args);
-	}
+	if (pOperator == NULL) return EvalOverrideUnary(env, sig, this, args);
 	return pOperator->DoEval(env, sig, value);
 }
 
@@ -164,14 +160,9 @@ Func_Invert::Func_Invert(Environment &env) :
 Value Func_Invert::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &value = args.GetValue(0);
-	Value result;
-	if (value.IsNumber()) {
-		unsigned long num = ~static_cast<unsigned long>(value.GetNumber());
-		result.SetNumber(static_cast<Number>(num));
-		return result;
-	} else {
-		return EvalOverrideUnary(env, sig, this, args);
-	}
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Invert, value.GetValueType());
+	if (pOperator == NULL) return EvalOverrideUnary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -187,14 +178,15 @@ Func_Not::Func_Not(Environment &env) :
 
 Value Func_Not::DoEval(Environment &env, Signal sig, Args &args) const
 {
-	Value result;
 	do {
 		bool evaluatedFlag = false;
-		result = EvalOverrideUnary(env, sig, this, args, evaluatedFlag);
+		Value result = EvalOverrideUnary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
-	result.SetBoolean(!args.GetBoolean(0));
-	return result;
+	const Value &value = args.GetValue(0);
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Not, value.GetValueType());
+	if (pOperator == NULL) return EvalOverrideUnary(env, sig, this, args);
+	return pOperator->DoEval(env, sig, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -217,9 +209,7 @@ Value Func_Plus::DoEval(Environment &env, Signal sig, Args &args) const
 	const Value &valueRight = args.GetValue(1);
 	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Plus,
 						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) {
-		return EvalOverrideBinary(env, sig, this, args);
-	}
+	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
 	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
