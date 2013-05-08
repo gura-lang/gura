@@ -296,7 +296,6 @@ public:
 	void SetError_InvalidValue(Signal sig, const Value &value1, const Value &value2) const;
 	void SetError_InvalidValType(Signal sig, const Value &value) const;
 	void SetError_InvalidValType(Signal sig, const Value &value1, const Value &value2) const;
-	void SetError_InvalidValTypeM(Signal sig, const Value &value1, const Value &value2) const;
 	void SetError_InvalidFunctionExpression(Signal sig) const;
 	void SetError_MathDiffError(Signal sig) const;
 	void SetError_MathOptimizeError(Signal sig) const;
@@ -309,8 +308,6 @@ public:
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 protected:
-	Value EvalOverrideUnary(Environment &env, Signal sig, Args &args, bool &evaluatedFlag) const;
-	Value EvalOverrideBinary(Environment &env, Signal sig, Args &args, bool &evaluatedFlag) const;
 	Value ReturnIterator(Environment &env, Signal sig,
 					Args &args, Iterator *pIterator) const;
 	Value ReturnValue(Environment &env, Signal sig,

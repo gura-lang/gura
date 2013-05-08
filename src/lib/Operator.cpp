@@ -40,14 +40,24 @@ const Operator *Operator::Lookup(Environment &env, OpType opType, ValueType valT
 {
 	OperatorMap &map = env.GetGlobal()->GetOperatorMap(opType);
 	OperatorMap::const_iterator iter = map.find(CalcKey(valTypeLeft, valTypeRight));
+	if (iter != map.end()) return iter->second;
+	iter = map.find(CalcKey(valTypeLeft, VTYPE_any));
+	if (iter != map.end()) return iter->second;
+	iter = map.find(CalcKey(VTYPE_any, valTypeRight));
 	return (iter == map.end())? NULL : iter->second;
 }
 
+//-----------------------------------------------------------------------------
+// UnaryOperator(Pos, *)
+//-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Pos, number)
 {
 	return value;
 }
 
+//-----------------------------------------------------------------------------
+// BinaryOperator(Plus, *, *)
+//-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Plus, number, number)
 {
 	return Value(valueLeft.GetNumber() + valueRight.GetNumber());
@@ -74,58 +84,103 @@ Gura_ImplementBinaryOperator(Plus, matrix, matrix)
 		Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
-#if 0
-	} else if (valueLeft.IsDateTime() && valueRight.IsTimeDelta()) {
-		DateTime dateTime = valueLeft.GetDateTime();
-		dateTime.Plus(valueRight.GetTimeDelta());
-		return Value(env, dateTime);
-	} else if (valueLeft.IsTimeDelta() && valueRight.IsDateTime()) {
-		DateTime dateTime = valueRight.GetDateTime();
-		dateTime.Plus(valueLeft.GetTimeDelta());
-		return Value(env, dateTime);
-	} else if (valueLeft.IsTimeDelta() && valueRight.IsTimeDelta()) {
-		TimeDelta td1 = valueLeft.GetTimeDelta();
-		TimeDelta td2 = valueRight.GetTimeDelta();
-		return Value(env, TimeDelta(
-				td1.GetDays() + td2.GetDays(),
-				td1.GetSecsRaw() + td2.GetSecsRaw(),
-				td1.GetUSecs() + td2.GetUSecs()));
-	} else if (valueLeft.IsString() && valueRight.IsString()) {
-		String str(valueLeft.GetString());
-		str += valueRight.GetString();
-		result = Value(env, str.c_str());
-		return result;
-	} else if (valueLeft.IsBinary() && valueRight.IsBinary()) {
-		Binary buff(valueLeft.GetBinary());
-		buff += valueRight.GetBinary();
-		result = Value(new Object_binary(env, buff, true));
-		return result;
-	} else if (valueLeft.IsBinary() && valueRight.IsString()) {
-		Binary buff(valueLeft.GetBinary());
-		buff += valueRight.GetString();
-		result = Value(new Object_binary(env, buff, true));
-		return result;
-	} else if (valueLeft.IsString() && valueRight.IsBinary()) {
-		Binary buff;
-		buff += valueLeft.GetString();
-		buff += valueRight.GetBinary();
-		result = Value(new Object_binary(env, buff, true));
-		return result;
-	} else if (valueLeft.IsBinaryPtr() && valueRight.IsNumber()) {
-		Object_binaryptr *pObj =
-			dynamic_cast<Object_binaryptr *>(Object_binaryptr::GetObject(valueLeft)->Clone());
-		pObj->UnpackForward(sig,
-							static_cast<int>(valueRight.GetNumber()), true);
-		if (sig.IsSignalled()) return Value::Null;
-		Value result;
-		result.InitAsObject(pObj);
-		return result;
-#endif
+Gura_ImplementBinaryOperator(Plus, datetime, timedelta)
+{
+	DateTime dateTime = valueLeft.GetDateTime();
+	dateTime.Plus(valueRight.GetTimeDelta());
+	return Value(env, dateTime);
+}
+
+Gura_ImplementBinaryOperator(Plus, timedelta, datetime)
+{
+	DateTime dateTime = valueRight.GetDateTime();
+	dateTime.Plus(valueLeft.GetTimeDelta());
+	return Value(env, dateTime);
+}
+
+Gura_ImplementBinaryOperator(Plus, timedelta, timedelta)
+{
+	TimeDelta td1 = valueLeft.GetTimeDelta();
+	TimeDelta td2 = valueRight.GetTimeDelta();
+	return Value(env, TimeDelta(
+			td1.GetDays() + td2.GetDays(),
+			td1.GetSecsRaw() + td2.GetSecsRaw(),
+			td1.GetUSecs() + td2.GetUSecs()));
+}
+
+Gura_ImplementBinaryOperator(Plus, string, string)
+{
+	String str(valueLeft.GetString());
+	str += valueRight.GetString();
+	return Value(env, str.c_str());
+}
+
+Gura_ImplementBinaryOperator(Plus, binary, binary)
+{
+	Binary buff(valueLeft.GetBinary());
+	buff += valueRight.GetBinary();
+	return Value(new Object_binary(env, buff, true));
+}
+
+Gura_ImplementBinaryOperator(Plus, binary, string)
+{
+	Binary buff(valueLeft.GetBinary());
+	buff += valueRight.GetString();
+	return Value(new Object_binary(env, buff, true));
+}
+
+Gura_ImplementBinaryOperator(Plus, string, binary)
+{
+	Binary buff;
+	buff += valueLeft.GetString();
+	buff += valueRight.GetBinary();
+	return Value(new Object_binary(env, buff, true));
+}
+
+Gura_ImplementBinaryOperator(Plus, binaryptr, number)
+{
+	Object_binaryptr *pObj = dynamic_cast<Object_binaryptr *>(
+						Object_binaryptr::GetObject(valueLeft)->Clone());
+	pObj->UnpackForward(sig,
+						static_cast<int>(valueRight.GetNumber()), true);
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(pObj);
+}
+
+Gura_ImplementBinaryOperator(Plus, string, any)
+{
+	String str(valueLeft.GetString());
+	str += valueRight.ToString(sig);
+	return Value(env, str.c_str());
+}
+
+Gura_ImplementBinaryOperator(Plus, any, string)
+{
+	String str(valueLeft.ToString(sig));
+	str += valueRight.GetString();
+	return Value(env, str.c_str());
+}
 
 void AssignBasicOperators(Environment &env)
 {
+	// UnaryOperator(Pos, *)
 	Gura_AssignUnaryOperator(Pos, number);
+	// BinaryOperator(Plus, *, *)
 	Gura_AssignBinaryOperator(Plus, number, number);
+	Gura_AssignBinaryOperator(Plus, complex, complex);
+	Gura_AssignBinaryOperator(Plus, number, complex);
+	Gura_AssignBinaryOperator(Plus, complex, number);
+	Gura_AssignBinaryOperator(Plus, matrix, matrix);
+	Gura_AssignBinaryOperator(Plus, datetime, timedelta);
+	Gura_AssignBinaryOperator(Plus, timedelta, datetime);
+	Gura_AssignBinaryOperator(Plus, timedelta, timedelta);
+	Gura_AssignBinaryOperator(Plus, string, string);
+	Gura_AssignBinaryOperator(Plus, binary, binary);
+	Gura_AssignBinaryOperator(Plus, binary, string);
+	Gura_AssignBinaryOperator(Plus, string, binary);
+	Gura_AssignBinaryOperator(Plus, binaryptr, number);
+	Gura_AssignBinaryOperator(Plus, string, any);
+	Gura_AssignBinaryOperator(Plus, any, string);
 }
 
 }

@@ -2,6 +2,10 @@
 
 namespace Gura {
 
+static Value EvalOverrideUnary(Environment &env, Signal sig, const Function *pFunc, Args &args, bool &evaluatedFlag);
+static Value EvalOverrideUnary(Environment &env, Signal sig, const Function *pFunc, Args &args);
+static Value EvalOverrideBinary(Environment &env, Signal sig, const Function *pFunc, Args &args, bool &evaluatedFlag);
+static Value EvalOverrideBinary(Environment &env, Signal sig, const Function *pFunc, Args &args);
 static Expr *OptimizeConst(Environment &env, Signal sig,
 						const Function *func, Expr *pExprChild);
 static Expr *OptimizeConst(Environment &env, Signal sig,
@@ -69,12 +73,8 @@ Value Func_Pos::DoEval(Environment &env, Signal sig, Args &args) const
 	} else if (value.IsMatrix()) {
 		return value;
 	} else {
-		bool evaluatedFlag = false;
-		Value result = EvalOverrideUnary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideUnary(env, sig, this, args);
 	}
-	SetError_InvalidValType(sig, value);
-	return Value::Null;
 }
 
 Expr *Func_Pos::DiffUnary(Environment &env, Signal sig,
@@ -128,12 +128,8 @@ Value Func_Neg::DoEval(Environment &env, Signal sig, Args &args) const
 		TimeDelta td = value.GetTimeDelta();
 		return Value(env, TimeDelta(-td.GetDays(), -td.GetSecsRaw(), -td.GetUSecs()));
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideUnary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideUnary(env, sig, this, args);
 	}
-	SetError_InvalidValType(sig, value);
-	return result;
 }
 
 Expr *Func_Neg::DiffUnary(Environment &env, Signal sig,
@@ -188,12 +184,8 @@ Value Func_Invert::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetNumber(static_cast<Number>(num));
 		return result;
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideUnary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideUnary(env, sig, this, args);
 	}
-	SetError_InvalidValType(sig, value);
-	return result;
 }
 
 //-----------------------------------------------------------------------------
@@ -212,7 +204,7 @@ Value Func_Not::DoEval(Environment &env, Signal sig, Args &args) const
 	Value result;
 	do {
 		bool evaluatedFlag = false;
-		result = EvalOverrideUnary(env, sig, args, evaluatedFlag);
+		result = EvalOverrideUnary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
 	result.SetBoolean(!args.GetBoolean(0));
@@ -235,6 +227,15 @@ Func_Plus::Func_Plus(Environment &env) :
 
 Value Func_Plus::DoEval(Environment &env, Signal sig, Args &args) const
 {
+	const Value &valueLeft = args.GetValue(0);
+	const Value &valueRight = args.GetValue(1);
+	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Plus,
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) {
+		return EvalOverrideBinary(env, sig, this, args);
+	}
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
+#if 0
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
 	Value result;
@@ -309,12 +310,9 @@ Value Func_Plus::DoEval(Environment &env, Signal sig, Args &args) const
 		result = Value(env, str.c_str());
 		return result;
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideBinary(env, sig, this, args);
 	}
-	SetError_InvalidValTypeM(sig, valueLeft, valueRight);
-	return Value::Null;
+#endif
 }
 
 Expr *Func_Plus::DiffBinary(Environment &env, Signal sig,
@@ -506,12 +504,8 @@ Value Func_Minus::DoEval(Environment &env, Signal sig, Args &args) const
 		int offset2 = static_cast<int>(pObj2->GetOffset());
 		return Value(static_cast<Number>(offset1 - offset2));
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideBinary(env, sig, this, args);
 	}
-	SetError_InvalidValTypeM(sig, valueLeft, valueRight);
-	return result;
 }
 
 Expr *Func_Minus::DiffBinary(Environment &env, Signal sig,
@@ -782,12 +776,8 @@ Value Func_Multiply::DoEval(Environment &env, Signal sig, Args &args) const
 		result = Value(new Object_binary(env, buff, true));
 		return result;
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideBinary(env, sig, this, args);
 	}
-	SetError_InvalidValTypeM(sig, valueLeft, valueRight);
-	return result;
 }
 
 Expr *Func_Multiply::DiffBinary(Environment &env, Signal sig,
@@ -990,12 +980,8 @@ Value Func_Divide::DoEval(Environment &env, Signal sig, Args &args) const
 		return Matrix::OperatorDivide(env, sig,
 						Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideBinary(env, sig, this, args);
 	}
-	SetError_InvalidValTypeM(sig, valueLeft, valueRight);
-	return result;
 }
 
 Expr *Func_Divide::OptimizeBinary(Environment &env, Signal sig,
@@ -1222,12 +1208,8 @@ Value Func_Modulo::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetNumber(::fmod(valueLeft.GetNumber(), valueRight.GetNumber()));
 		return result;
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideBinary(env, sig, this, args);
 	}
-	SetError_InvalidValType(sig, valueLeft, valueRight);
-	return result;
 }
 
 //-----------------------------------------------------------------------------
@@ -1262,12 +1244,8 @@ Value Func_Power::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetComplex(std::pow(valueLeft.GetComplex(), valueRight.GetNumber()));
 		return result;
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideBinary(env, sig, this, args);
 	}
-	SetError_InvalidValTypeM(sig, valueLeft, valueRight);
-	return result;
 }
 
 Expr *Func_Power::DiffBinary(Environment &env, Signal sig,
@@ -1361,7 +1339,7 @@ Value Func_Equal::DoEval(Environment &env, Signal sig, Args &args) const
 	Value result;
 	do {
 		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
+		result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
 	int cmp = Value::Compare(args.GetValue(0), args.GetValue(1));
@@ -1386,7 +1364,7 @@ Value Func_NotEqual::DoEval(Environment &env, Signal sig, Args &args) const
 	Value result;
 	do {
 		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
+		result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
 	int cmp = Value::Compare(args.GetValue(0), args.GetValue(1));
@@ -1411,7 +1389,7 @@ Value Func_Greater::DoEval(Environment &env, Signal sig, Args &args) const
 	Value result;
 	do {
 		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
+		result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
 	int cmp = Value::Compare(args.GetValue(0), args.GetValue(1));
@@ -1436,7 +1414,7 @@ Value Func_Less::DoEval(Environment &env, Signal sig, Args &args) const
 	Value result;
 	do {
 		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
+		result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
 	int cmp = Value::Compare(args.GetValue(0), args.GetValue(1));
@@ -1461,7 +1439,7 @@ Value Func_GreaterEq::DoEval(Environment &env, Signal sig, Args &args) const
 	Value result;
 	do {
 		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
+		result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
 	int cmp = Value::Compare(args.GetValue(0), args.GetValue(1));
@@ -1486,7 +1464,7 @@ Value Func_LessEq::DoEval(Environment &env, Signal sig, Args &args) const
 	Value result;
 	do {
 		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
+		result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
 	int cmp = Value::Compare(args.GetValue(0), args.GetValue(1));
@@ -1510,7 +1488,7 @@ Value Func_Compare::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	do {
 		bool evaluatedFlag = false;
-		Value result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
+		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
 		if (evaluatedFlag) return result;
 	} while (0);
 	int cmp = Value::Compare(args.GetValue(0), args.GetValue(1));
@@ -1614,12 +1592,8 @@ Value Func_Or::DoEval(Environment &env, Signal sig, Args &args) const
 	} else if (valueRight.IsInvalid()) {
 		return valueLeft;	// any | nil -> any
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideBinary(env, sig, this, args);
 	}
-	SetError_InvalidValTypeM(sig, valueLeft, valueRight);
-	return result;
 }
 
 //-----------------------------------------------------------------------------
@@ -1651,12 +1625,8 @@ Value Func_And::DoEval(Environment &env, Signal sig, Args &args) const
 	} else if (valueRight.IsInvalid()) {
 		return Value::Null;	// any & nil -> nil
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideBinary(env, sig, this, args);
 	}
-	SetError_InvalidValTypeM(sig, valueLeft, valueRight);
-	return result;
 }
 
 //-----------------------------------------------------------------------------
@@ -1686,12 +1656,8 @@ Value Func_Xor::DoEval(Environment &env, Signal sig, Args &args) const
 		bool flagRight = valueRight.GetBoolean();
 		return (flagLeft && !flagRight) || (!flagLeft && flagRight);
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideBinary(env, sig, this, args);
 	}
-	SetError_InvalidValTypeM(sig, valueLeft, valueRight);
-	return result;
 }
 
 //-----------------------------------------------------------------------------
@@ -1717,12 +1683,8 @@ Value Func_ShiftL::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetNumber(num);
 		return result;
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideBinary(env, sig, this, args);
 	}
-	SetError_InvalidValTypeM(sig, valueLeft, valueRight);
-	return result;
 }
 
 //-----------------------------------------------------------------------------
@@ -1748,12 +1710,8 @@ Value Func_ShiftR::DoEval(Environment &env, Signal sig, Args &args) const
 		result.SetNumber(num);
 		return result;
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideBinary(env, sig, this, args);
 	}
-	SetError_InvalidValTypeM(sig, valueLeft, valueRight);
-	return result;
 }
 
 //-----------------------------------------------------------------------------
@@ -1831,12 +1789,8 @@ Value Func_Sequence::DoEval(Environment &env, Signal sig, Args &args) const
 		Number numStep = (numEnd >= numBegin)? +1 : -1;
 		return Value(env, new Iterator_Sequence(numBegin, numEnd, numStep));
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideBinary(env, sig, this, args);
 	}
-	SetError_InvalidValTypeM(sig, valueLeft, valueRight);
-	return result;
 }
 
 //-----------------------------------------------------------------------------
@@ -1858,17 +1812,83 @@ Value Func_SequenceInf::DoEval(Environment &env, Signal sig, Args &args) const
 		Number numBegin = value.GetNumber();
 		return Value(env, new Iterator_SequenceInf(numBegin));
 	} else {
-		bool evaluatedFlag = false;
-		result = EvalOverrideBinary(env, sig, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
+		return EvalOverrideBinary(env, sig, this, args);
 	}
-	SetError_InvalidValType(sig, value);
-	return result;
 }
 
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
+Value EvalOverrideUnary(Environment &env, Signal sig, const Function *pFunc, Args &args, bool &evaluatedFlag)
+{
+	const Value &value = args.GetValue(0);
+	Object *pObj = NULL;
+	if (value.IsObject()) {
+		Value valueObj = value;
+		pObj = valueObj.GetObject();
+	} else {
+		evaluatedFlag = false;
+		return Value::Null;
+	}
+	return pObj->EvalMethod(env, sig, pFunc->GetSymbol(), args.GetArgs(), evaluatedFlag);
+}
+
+Value EvalOverrideUnary(Environment &env, Signal sig, const Function *pFunc, Args &args)
+{
+	const Value &value = args.GetValue(0);
+	Object *pObj = NULL;
+	if (value.IsObject()) {
+		Value valueObj = value;
+		pObj = valueObj.GetObject();
+		bool evaluatedFlag = false;
+		Value result = pObj->EvalMethod(env, sig, pFunc->GetSymbol(), args.GetArgs(), evaluatedFlag);
+		if (evaluatedFlag) return result;
+	}
+	sig.SetError(ERR_TypeError, "can't evaluate (%s %s)",
+					pFunc->GetMathSymbol(), value.GetValueTypeName());
+	return Value::Null;
+}
+
+Value EvalOverrideBinary(Environment &env, Signal sig, const Function *pFunc, Args &args, bool &evaluatedFlag)
+{
+	const Value &valueLeft = args.GetValue(0);
+	const Value &valueRight = args.GetValue(1);
+	Object *pObj = NULL;
+	if (valueLeft.IsObject()) {
+		Value valueObj = valueLeft;
+		pObj = valueObj.GetObject();
+	} else if (valueRight.IsObject()) {
+		Value valueObj = valueRight;
+		pObj = valueObj.GetObject();
+	} else {
+		evaluatedFlag = false;
+		return Value::Null;
+	}
+	return pObj->EvalMethod(env, sig, pFunc->GetSymbol(), args.GetArgs(), evaluatedFlag);
+}
+
+Value EvalOverrideBinary(Environment &env, Signal sig, const Function *pFunc, Args &args)
+{
+	const Value &valueLeft = args.GetValue(0);
+	const Value &valueRight = args.GetValue(1);
+	Object *pObj = NULL;
+	if (valueLeft.IsObject()) {
+		Value valueObj = valueLeft;
+		pObj = valueObj.GetObject();
+	} else if (valueRight.IsObject()) {
+		Value valueObj = valueRight;
+		pObj = valueObj.GetObject();
+	}
+	if (pObj != NULL) {
+		bool evaluatedFlag = false;
+		Value result = pObj->EvalMethod(env, sig, pFunc->GetSymbol(), args.GetArgs(), evaluatedFlag);
+		if (evaluatedFlag) return result;
+	}
+	sig.SetError(ERR_TypeError, "can't evaluate (%s %s %s)",
+		valueLeft.GetValueTypeName(), pFunc->GetMathSymbol(), valueRight.GetValueTypeName());
+	return Value::Null;
+}
+
 Expr *OptimizeConst(Environment &env, Signal sig,
 									const Function *pFunc, Expr *pExprChild)
 {

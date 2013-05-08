@@ -475,40 +475,6 @@ Value Function::EvalMapRecursive(Environment &env, Signal sig,
 	return result;
 }
 
-Value Function::EvalOverrideUnary(Environment &env, Signal sig, Args &args, bool &evaluatedFlag) const
-{
-	const Value &value = args.GetValue(0);
-	Object *pObj = NULL;
-	if (value.IsObject()) {
-		Value valueObj = value;
-		pObj = valueObj.GetObject();
-	} else {
-		evaluatedFlag = false;
-		return Value::Null;
-	}
-	evaluatedFlag = true;
-	return pObj->EvalMethod(env, sig, GetSymbol(), args.GetArgs(), evaluatedFlag);
-}
-
-Value Function::EvalOverrideBinary(Environment &env, Signal sig, Args &args, bool &evaluatedFlag) const
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	Object *pObj = NULL;
-	if (valueLeft.IsObject()) {
-		Value valueObj = valueLeft;
-		pObj = valueObj.GetObject();
-	} else if (valueRight.IsObject()) {
-		Value valueObj = valueRight;
-		pObj = valueObj.GetObject();
-	} else {
-		evaluatedFlag = false;
-		return Value::Null;
-	}
-	evaluatedFlag = true;
-	return pObj->EvalMethod(env, sig, GetSymbol(), args.GetArgs(), evaluatedFlag);
-}
-
 Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &args) const
 {
 	EnvType envType = (_funcType == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
@@ -840,12 +806,6 @@ void Function::SetError_InvalidValType(Signal sig, const Value &value1, const Va
 {
 	sig.SetError(ERR_TypeError, "can't evaluate %s(%s, %s)",
 				GetName(), value1.GetValueTypeName(), value2.GetValueTypeName());
-}
-
-void Function::SetError_InvalidValTypeM(Signal sig, const Value &value1, const Value &value2) const
-{
-	sig.SetError(ERR_TypeError, "can't evaluate (%s %s %s)",
-				value1.GetValueTypeName(), GetMathSymbol(), value2.GetValueTypeName());
 }
 
 void Function::SetError_InvalidFunctionExpression(Signal sig) const
