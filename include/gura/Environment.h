@@ -3,6 +3,7 @@
 
 #include "Value.h"
 #include "String.h"
+#include "Operator.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -170,6 +171,7 @@ public:
 class GURA_DLLDECLARE IntegratedModuleOwner : public std::vector<IntegratedModule *> {
 public:
 	~IntegratedModuleOwner();
+	void Clear();
 };
 
 //-----------------------------------------------------------------------------

@@ -58,9 +58,15 @@ bool IntegratedModule::DoesMatch(const SymbolList &symbolOfModule) const
 //-----------------------------------------------------------------------------
 IntegratedModuleOwner::~IntegratedModuleOwner()
 {
+	Clear();
+}
+
+void IntegratedModuleOwner::Clear()
+{
 	foreach (IntegratedModuleOwner, ppIntegratedModule, *this) {
 		delete *ppIntegratedModule;
 	}
+	clear();
 }
 
 //-----------------------------------------------------------------------------
@@ -76,6 +82,7 @@ void PathManagerOwner::Clear()
 	foreach (PathManagerOwner, ppPathManager, *this) {
 		delete *ppPathManager;
 	}
+	clear();
 }
 
 //-----------------------------------------------------------------------------
