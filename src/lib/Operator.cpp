@@ -86,15 +86,26 @@ const Operator *Operator::Lookup(Environment &env, OpType opType, ValueType valT
 
 void Operator::SetError_InvalidValueType(Signal &sig, const Value &value) const
 {
+	SetError_InvalidValueType(sig, GetOpType(), value);
+}
+
+void Operator::SetError_InvalidValueType(Signal &sig, OpType opType, const Value &value)
+{
 	sig.SetError(ERR_TypeError, "can't evaluate (%s %s)",
-							GetMathSymbol(), value.GetValueTypeName());
+							GetMathSymbol(opType), value.GetValueTypeName());
 }
 
 void Operator::SetError_InvalidValueType(Signal &sig,
 						const Value &valueLeft, const Value &valueRight) const
 {
+	SetError_InvalidValueType(sig, GetOpType(), valueLeft, valueRight);
+}
+
+void Operator::SetError_InvalidValueType(Signal &sig, OpType opType,
+						const Value &valueLeft, const Value &valueRight)
+{
 	sig.SetError(ERR_TypeError, "can't evaluate (%s %s %s)",
-		valueLeft.GetValueTypeName(), GetMathSymbol(), valueRight.GetValueTypeName());
+		valueLeft.GetValueTypeName(), GetMathSymbol(opType), valueRight.GetValueTypeName());
 }
 
 //-----------------------------------------------------------------------------

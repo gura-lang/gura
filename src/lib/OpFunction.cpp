@@ -2,10 +2,6 @@
 
 namespace Gura {
 
-static Value EvalOverrideUnary(Environment &env, Signal sig, const Function *pFunc, Args &args, bool &evaluatedFlag);
-static Value EvalOverrideUnary(Environment &env, Signal sig, const Function *pFunc, Args &args);
-static Value EvalOverrideBinary(Environment &env, Signal sig, const Function *pFunc, Args &args, bool &evaluatedFlag);
-static Value EvalOverrideBinary(Environment &env, Signal sig, const Function *pFunc, Args &args);
 static Expr *OptimizeConst(Environment &env, Signal sig,
 						const Function *func, Expr *pExprChild);
 static Expr *OptimizeConst(Environment &env, Signal sig,
@@ -47,28 +43,55 @@ void AssignOpFunctions(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// basic operator
+// FuncUnaryOperation
 //-----------------------------------------------------------------------------
+FuncUnaryOperation::FuncUnaryOperation(Environment &env, const Symbol *pSymbol) :
+						Function(env, pSymbol, FUNCTYPE_Function, FLAG_None)
+{
+}
+
+Value FuncUnaryOperation::DoEval(Environment &env, Signal sig, Args &args) const
+{
+	const Value &value = args.GetValue(0);
+	const Operator *pOperator = Operator::Lookup(env, GetOpType(), value.GetValueType());
+	if (pOperator == NULL) {
+		Operator::SetError_InvalidValueType(sig, GetOpType(), value);
+		return Value::Null;
+	}
+	return pOperator->DoEval(env, sig, value);
+}
+
+//-----------------------------------------------------------------------------
+// FuncBinaryOperation
+//-----------------------------------------------------------------------------
+FuncBinaryOperation::FuncBinaryOperation(Environment &env, const Symbol *pSymbol) :
+						Function(env, pSymbol, FUNCTYPE_Function, FLAG_None)
+{
+}
+
+Value FuncBinaryOperation::DoEval(Environment &env, Signal sig, Args &args) const
+{
+	const Value &valueLeft = args.GetValue(0);
+	const Value &valueRight = args.GetValue(1);
+	const Operator *pOperator = Operator::Lookup(env, GetOpType(),
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperator == NULL) {
+		Operator::SetError_InvalidValueType(sig, GetOpType(), valueLeft, valueRight);
+		return Value::Null;
+	}
+	return pOperator->DoEval(env, sig, valueLeft, valueRight);
+}
 
 //-----------------------------------------------------------------------------
 // +n
 //-----------------------------------------------------------------------------
 bool Func_Pos::IsPos() const { return true; }
 
-Func_Pos::Func_Pos(Environment &env) :
-			Function(env, Symbol::Add("__pos__"), FUNCTYPE_Function, FLAG_None)
+Func_Pos::Func_Pos(Environment &env) : FuncUnaryOperation(env, Symbol::Add("__pos__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Plus, OPTYPE_Plus);	// revise this later
+	SetOperatorInfo(Parser::ETYPE_Plus, OPTYPE_Pos);	// revise this later
 	DeclareArg(env, "n", VTYPE_any);
-}
-
-Value Func_Pos::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &value = args.GetValue(0);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Pos, value.GetValueType());
-	if (pOperator == NULL) return EvalOverrideUnary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, value);
 }
 
 Expr *Func_Pos::DiffUnary(Environment &env, Signal sig,
@@ -98,20 +121,11 @@ Expr *Func_Pos::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
 //-----------------------------------------------------------------------------
 bool Func_Neg::IsNeg() const { return true; }
 
-Func_Neg::Func_Neg(Environment &env) :
-			Function(env, Symbol::Add("__neg__"), FUNCTYPE_Function, FLAG_None)
+Func_Neg::Func_Neg(Environment &env) : FuncUnaryOperation(env, Symbol::Add("__neg__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Minus, OPTYPE_Minus);	// revise this later
+	SetOperatorInfo(Parser::ETYPE_Minus, OPTYPE_Neg);	// revise this later
 	DeclareArg(env, "n", VTYPE_any);
-}
-
-Value Func_Neg::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &value = args.GetValue(0);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Neg, value.GetValueType());
-	if (pOperator == NULL) return EvalOverrideUnary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, value);
 }
 
 Expr *Func_Neg::DiffUnary(Environment &env, Signal sig,
@@ -149,44 +163,21 @@ Expr *Func_Neg::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
 //-----------------------------------------------------------------------------
 // ~x
 //-----------------------------------------------------------------------------
-Func_Invert::Func_Invert(Environment &env) :
-			Function(env, Symbol::Add("__invert__"), FUNCTYPE_Function, FLAG_None)
+Func_Invert::Func_Invert(Environment &env) : FuncUnaryOperation(env, Symbol::Add("__invert__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Invert, OPTYPE_Invert);
 	DeclareArg(env, "n", VTYPE_any);
 }
 
-Value Func_Invert::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &value = args.GetValue(0);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Invert, value.GetValueType());
-	if (pOperator == NULL) return EvalOverrideUnary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, value);
-}
-
 //-----------------------------------------------------------------------------
 // !n
 //-----------------------------------------------------------------------------
-Func_Not::Func_Not(Environment &env) :
-			Function(env, Symbol::Add("__not__"), FUNCTYPE_Function, FLAG_None)
+Func_Not::Func_Not(Environment &env) : FuncUnaryOperation(env, Symbol::Add("__not__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Not, OPTYPE_Not);
 	DeclareArg(env, "flag", VTYPE_any);
-}
-
-Value Func_Not::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	do {
-		bool evaluatedFlag = false;
-		Value result = EvalOverrideUnary(env, sig, this, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
-	} while (0);
-	const Value &value = args.GetValue(0);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Not, value.GetValueType());
-	if (pOperator == NULL) return EvalOverrideUnary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -194,23 +185,12 @@ Value Func_Not::DoEval(Environment &env, Signal sig, Args &args) const
 //-----------------------------------------------------------------------------
 bool Func_Plus::IsPlus() const { return true; }
 
-Func_Plus::Func_Plus(Environment &env) :
-			Function(env, Symbol::Add("__add__"), FUNCTYPE_Function, FLAG_None)
+Func_Plus::Func_Plus(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__add__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Plus, OPTYPE_Plus);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
-}
-
-Value Func_Plus::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Plus,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 Expr *Func_Plus::DiffBinary(Environment &env, Signal sig,
@@ -328,23 +308,12 @@ Expr *Func_Plus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Ex
 //-----------------------------------------------------------------------------
 bool Func_Minus::IsMinus() const { return true; }
 
-Func_Minus::Func_Minus(Environment &env) :
-			Function(env, Symbol::Add("__sub__"), FUNCTYPE_Function, FLAG_None)
+Func_Minus::Func_Minus(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__sub__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Minus, OPTYPE_Minus);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
-}
-
-Value Func_Minus::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Minus,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 Expr *Func_Minus::DiffBinary(Environment &env, Signal sig,
@@ -463,8 +432,7 @@ Expr *Func_Minus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 //-----------------------------------------------------------------------------
 bool Func_Multiply::IsMultiply() const { return true; }
 
-Func_Multiply::Func_Multiply(Environment &env) :
-			Function(env, Symbol::Add("__mul__"), FUNCTYPE_Function, FLAG_None)
+Func_Multiply::Func_Multiply(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__mul__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Multiply, OPTYPE_Multiply);
@@ -527,16 +495,6 @@ Value Func_Multiply::EvalExpr(Environment &env, Signal sig, Args &args) const
 	} else {
 		return Eval(env, sig, argsSub);
 	}
-}
-
-Value Func_Multiply::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Multiply,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 Expr *Func_Multiply::DiffBinary(Environment &env, Signal sig,
@@ -689,23 +647,12 @@ Expr *Func_Multiply::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft
 //-----------------------------------------------------------------------------
 bool Func_Divide::IsDivide() const { return true; }
 
-Func_Divide::Func_Divide(Environment &env) :
-			Function(env, Symbol::Add("__div__"), FUNCTYPE_Function, FLAG_None)
+Func_Divide::Func_Divide(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__div__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Divide, OPTYPE_Divide);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
-}
-
-Value Func_Divide::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Divide,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 Expr *Func_Divide::OptimizeBinary(Environment &env, Signal sig,
@@ -847,8 +794,7 @@ Expr *Func_Divide::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 //-----------------------------------------------------------------------------
 bool Func_Modulo::IsModulo() const { return true; }
 
-Func_Modulo::Func_Modulo(Environment &env) :
-			Function(env, Symbol::Add("mod"), FUNCTYPE_Function, FLAG_None)
+Func_Modulo::Func_Modulo(Environment &env) : FuncBinaryOperation(env, Symbol::Add("mod"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Modulo, OPTYPE_Modulo);
@@ -923,38 +869,17 @@ Value Func_Modulo::EvalExpr(Environment &env, Signal sig, Args &args) const
 	}
 }
 
-Value Func_Modulo::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Modulo,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // n ** m
 //-----------------------------------------------------------------------------
 bool Func_Power::IsPower() const { return true; }
 
-Func_Power::Func_Power(Environment &env) :
-			Function(env, Symbol::Add("__pow__"), FUNCTYPE_Function, FLAG_None)
+Func_Power::Func_Power(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__pow__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Power, OPTYPE_Power);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
-}
-
-Value Func_Power::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Power,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 Expr *Func_Power::DiffBinary(Environment &env, Signal sig,
@@ -1034,8 +959,7 @@ Expr *Func_Power::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 //-----------------------------------------------------------------------------
 // n == m
 //-----------------------------------------------------------------------------
-Func_Equal::Func_Equal(Environment &env) :
-			Function(env, Symbol::Add("__eq__"), FUNCTYPE_Function, FLAG_None)
+Func_Equal::Func_Equal(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__eq__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Equal, OPTYPE_Equal);
@@ -1043,26 +967,10 @@ Func_Equal::Func_Equal(Environment &env) :
 	DeclareArg(env, "m", VTYPE_any);
 }
 
-Value Func_Equal::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	do {
-		bool evaluatedFlag = false;
-		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
-	} while (0);
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Equal,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // n != m
 //-----------------------------------------------------------------------------
-Func_NotEqual::Func_NotEqual(Environment &env) :
-			Function(env, Symbol::Add("__ne__"), FUNCTYPE_Function, FLAG_None)
+Func_NotEqual::Func_NotEqual(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__ne__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_NotEqual, OPTYPE_NotEqual);
@@ -1070,26 +978,10 @@ Func_NotEqual::Func_NotEqual(Environment &env) :
 	DeclareArg(env, "m", VTYPE_any);
 }
 
-Value Func_NotEqual::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	do {
-		bool evaluatedFlag = false;
-		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
-	} while (0);
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_NotEqual,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // n > m
 //-----------------------------------------------------------------------------
-Func_Greater::Func_Greater(Environment &env) :
-			Function(env, Symbol::Add("__gt__"), FUNCTYPE_Function, FLAG_None)
+Func_Greater::Func_Greater(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__gt__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Greater, OPTYPE_Greater);
@@ -1097,26 +989,10 @@ Func_Greater::Func_Greater(Environment &env) :
 	DeclareArg(env, "m", VTYPE_any);
 }
 
-Value Func_Greater::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	do {
-		bool evaluatedFlag = false;
-		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
-	} while (0);
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Greater,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // n < m
 //-----------------------------------------------------------------------------
-Func_Less::Func_Less(Environment &env) :
-			Function(env, Symbol::Add("__lt__"), FUNCTYPE_Function, FLAG_None)
+Func_Less::Func_Less(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__lt__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Less, OPTYPE_Less);
@@ -1124,26 +1000,10 @@ Func_Less::Func_Less(Environment &env) :
 	DeclareArg(env, "m", VTYPE_any);
 }
 
-Value Func_Less::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	do {
-		bool evaluatedFlag = false;
-		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
-	} while (0);
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Less,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // n >= m
 //-----------------------------------------------------------------------------
-Func_GreaterEq::Func_GreaterEq(Environment &env) :
-			Function(env, Symbol::Add("__ge__"), FUNCTYPE_Function, FLAG_None)
+Func_GreaterEq::Func_GreaterEq(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__ge__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_GreaterEq, OPTYPE_GreaterEq);
@@ -1151,26 +1011,10 @@ Func_GreaterEq::Func_GreaterEq(Environment &env) :
 	DeclareArg(env, "m", VTYPE_any);
 }
 
-Value Func_GreaterEq::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	do {
-		bool evaluatedFlag = false;
-		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
-	} while (0);
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_GreaterEq,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // n <= m
 //-----------------------------------------------------------------------------
-Func_LessEq::Func_LessEq(Environment &env) :
-			Function(env, Symbol::Add("__le__"), FUNCTYPE_Function, FLAG_None)
+Func_LessEq::Func_LessEq(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__le__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_LessEq, OPTYPE_LessEq);
@@ -1178,26 +1022,10 @@ Func_LessEq::Func_LessEq(Environment &env) :
 	DeclareArg(env, "m", VTYPE_any);
 }
 
-Value Func_LessEq::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	do {
-		bool evaluatedFlag = false;
-		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
-	} while (0);
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_LessEq,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // n <=> m
 //-----------------------------------------------------------------------------
-Func_Compare::Func_Compare(Environment &env) :
-			Function(env, Symbol::Add("__cmp__"), FUNCTYPE_Function, FLAG_None)
+Func_Compare::Func_Compare(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__cmp__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Compare, OPTYPE_Compare);
@@ -1205,49 +1033,22 @@ Func_Compare::Func_Compare(Environment &env) :
 	DeclareArg(env, "m", VTYPE_any);
 }
 
-Value Func_Compare::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	do {
-		bool evaluatedFlag = false;
-		Value result = EvalOverrideBinary(env, sig, this, args, evaluatedFlag);
-		if (evaluatedFlag) return result;
-	} while (0);
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Compare,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // n in m
 //-----------------------------------------------------------------------------
 bool Func_ContainCheck::IsContainCheck() const { return true; }
 
-Func_ContainCheck::Func_ContainCheck(Environment &env) :
-			Function(env, Symbol::Add("in"), FUNCTYPE_Function, FLAG_None)
+Func_ContainCheck::Func_ContainCheck(Environment &env) : FuncBinaryOperation(env, Symbol::Add("in"))
 {
 	SetOperatorInfo(Parser::ETYPE_ContainCheck, OPTYPE_ContainCheck);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
 }
 
-Value Func_ContainCheck::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_ContainCheck,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // n | m
 //-----------------------------------------------------------------------------
-Func_Or::Func_Or(Environment &env) :
-			Function(env, Symbol::Add("__or__"), FUNCTYPE_Function, FLAG_None)
+Func_Or::Func_Or(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__or__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Or, OPTYPE_Or);
@@ -1255,21 +1056,10 @@ Func_Or::Func_Or(Environment &env) :
 	DeclareArg(env, "m", VTYPE_any);
 }
 
-Value Func_Or::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Or,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // n & m
 //-----------------------------------------------------------------------------
-Func_And::Func_And(Environment &env) :
-			Function(env, Symbol::Add("__and__"), FUNCTYPE_Function, FLAG_None)
+Func_And::Func_And(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__and__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_And, OPTYPE_And);
@@ -1277,21 +1067,10 @@ Func_And::Func_And(Environment &env) :
 	DeclareArg(env, "m", VTYPE_any);
 }
 
-Value Func_And::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_And,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // n ^ m
 //-----------------------------------------------------------------------------
-Func_Xor::Func_Xor(Environment &env) :
-			Function(env, Symbol::Add("__xor__"), FUNCTYPE_Function, FLAG_None)
+Func_Xor::Func_Xor(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__xor__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Xor, OPTYPE_Xor);
@@ -1299,21 +1078,10 @@ Func_Xor::Func_Xor(Environment &env) :
 	DeclareArg(env, "m", VTYPE_any);
 }
 
-Value Func_Xor::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Xor,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // n << m
 //-----------------------------------------------------------------------------
-Func_ShiftL::Func_ShiftL(Environment &env) :
-			Function(env, Symbol::Add("__shl__"), FUNCTYPE_Function, FLAG_None)
+Func_ShiftL::Func_ShiftL(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__shl__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_ShiftL, OPTYPE_ShiftL);
@@ -1321,36 +1089,15 @@ Func_ShiftL::Func_ShiftL(Environment &env) :
 	DeclareArg(env, "m", VTYPE_any);
 }
 
-Value Func_ShiftL::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_ShiftL,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // n >> m
 //-----------------------------------------------------------------------------
-Func_ShiftR::Func_ShiftR(Environment &env) :
-			Function(env, Symbol::Add("__shr__"), FUNCTYPE_Function, FLAG_None)
+Func_ShiftR::Func_ShiftR(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__shr__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_ShiftR, OPTYPE_ShiftR);
 	DeclareArg(env, "n", VTYPE_any);
 	DeclareArg(env, "m", VTYPE_any);
-}
-
-Value Func_ShiftR::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_ShiftR,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -1408,8 +1155,7 @@ Value Func_AndAnd::DoEval(Environment &env, Signal sig, Args &args) const
 //-----------------------------------------------------------------------------
 bool Func_Sequence::IsSequence() const { return true; }
 
-Func_Sequence::Func_Sequence(Environment &env) :
-			Function(env, Symbol::Add("__seq__"), FUNCTYPE_Function, FLAG_None)
+Func_Sequence::Func_Sequence(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__seq__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Sequence, OPTYPE_Sequence);
@@ -1417,108 +1163,19 @@ Func_Sequence::Func_Sequence(Environment &env) :
 	DeclareArg(env, "m", VTYPE_any);
 }
 
-Value Func_Sequence::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_Sequence,
-						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) return EvalOverrideBinary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
-}
-
 //-----------------------------------------------------------------------------
 // n ..
 //-----------------------------------------------------------------------------
-Func_SequenceInf::Func_SequenceInf(Environment &env) :
-			Function(env, Symbol::Add("__seqinf__"), FUNCTYPE_Function, FLAG_None)
+Func_SequenceInf::Func_SequenceInf(Environment &env) : FuncUnaryOperation(env, Symbol::Add("__seqinf__"))
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetOperatorInfo(Parser::ETYPE_Sequence, OPTYPE_SequenceInf);
 	DeclareArg(env, "n", VTYPE_any);
 }
 
-Value Func_SequenceInf::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	const Value &value = args.GetValue(0);
-	const Operator *pOperator = Operator::Lookup(env, OPTYPE_SequenceInf, value.GetValueType());
-	if (pOperator == NULL) return EvalOverrideUnary(env, sig, this, args);
-	return pOperator->DoEval(env, sig, value);
-}
-
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-Value EvalOverrideUnary(Environment &env, Signal sig, const Function *pFunc, Args &args, bool &evaluatedFlag)
-{
-	const Value &value = args.GetValue(0);
-	Object *pObj = NULL;
-	if (value.IsObject()) {
-		Value valueObj = value;
-		pObj = valueObj.GetObject();
-	} else {
-		evaluatedFlag = false;
-		return Value::Null;
-	}
-	return pObj->EvalMethod(env, sig, pFunc->GetSymbol(), args.GetArgs(), evaluatedFlag);
-}
-
-Value EvalOverrideUnary(Environment &env, Signal sig, const Function *pFunc, Args &args)
-{
-	const Value &value = args.GetValue(0);
-	Object *pObj = NULL;
-	if (value.IsObject()) {
-		Value valueObj = value;
-		pObj = valueObj.GetObject();
-		bool evaluatedFlag = false;
-		Value result = pObj->EvalMethod(env, sig, pFunc->GetSymbol(), args.GetArgs(), evaluatedFlag);
-		if (evaluatedFlag) return result;
-	}
-	sig.SetError(ERR_TypeError, "can't evaluate (%s %s)",
-					pFunc->GetMathSymbol(), value.GetValueTypeName());
-	return Value::Null;
-}
-
-Value EvalOverrideBinary(Environment &env, Signal sig, const Function *pFunc, Args &args, bool &evaluatedFlag)
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	Object *pObj = NULL;
-	if (valueLeft.IsObject()) {
-		Value valueObj = valueLeft;
-		pObj = valueObj.GetObject();
-	} else if (valueRight.IsObject()) {
-		Value valueObj = valueRight;
-		pObj = valueObj.GetObject();
-	} else {
-		evaluatedFlag = false;
-		return Value::Null;
-	}
-	return pObj->EvalMethod(env, sig, pFunc->GetSymbol(), args.GetArgs(), evaluatedFlag);
-}
-
-Value EvalOverrideBinary(Environment &env, Signal sig, const Function *pFunc, Args &args)
-{
-	const Value &valueLeft = args.GetValue(0);
-	const Value &valueRight = args.GetValue(1);
-	Object *pObj = NULL;
-	if (valueLeft.IsObject()) {
-		Value valueObj = valueLeft;
-		pObj = valueObj.GetObject();
-	} else if (valueRight.IsObject()) {
-		Value valueObj = valueRight;
-		pObj = valueObj.GetObject();
-	}
-	if (pObj != NULL) {
-		bool evaluatedFlag = false;
-		Value result = pObj->EvalMethod(env, sig, pFunc->GetSymbol(), args.GetArgs(), evaluatedFlag);
-		if (evaluatedFlag) return result;
-	}
-	sig.SetError(ERR_TypeError, "can't evaluate (%s %s %s)",
-		valueLeft.GetValueTypeName(), pFunc->GetMathSymbol(), valueRight.GetValueTypeName());
-	return Value::Null;
-}
-
 Expr *OptimizeConst(Environment &env, Signal sig,
 									const Function *pFunc, Expr *pExprChild)
 {

@@ -1,29 +1,3 @@
-__pos__
-__neg__
-__invert__
-__not__
-__add__
-__sub__
-__mul__
-__div__
-__eq__
-__ne__
-__ge__
-__le__
-__cmp__
-__or__
-__and__
-__xor__
-__shl__
-__shr__
-__seq__
-__seqinf__
-__getitem__ 3
-__getitemx__
-__setitem__ 3 2
-__setitemx__ 2
-__getprop__ b
-__setprop__ b 2
 hello world
 hello world
 2nd line
@@ -57,27 +31,6 @@ a=1, b=2, c=3
 a=1, b=2, c=[3, 4, 5]
 a=1, b=2, c=[3, 4, 5]
 a=1, b=2, c=[]
-name = apple, cnt = 0
-__add__(Fruit, number)
-__sub__(Fruit, number)
-__mul__(Fruit, number)
-__div__(Fruit, number)
-__pow__(Fruit, number)
-__add__(number, Fruit)
-__sub__(number, Fruit)
-__mul__(number, Fruit)
-__div__(number, Fruit)
-__pow__(number, Fruit)
-__eq__(Fruit, number)
-__ne__(Fruit, number)
-__lt__(Fruit, number)
-__gt__(Fruit, number)
-__le__(Fruit, number)
-__ge__(Fruit, number)
-__cmp__(Fruit, number)
-__or__(Fruit, number)
-__and__(Fruit, number)
-__seq__(Fruit, number)
 false & false .. false
 false & true .. false
 true & false .. false

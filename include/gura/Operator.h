@@ -108,6 +108,9 @@ public:
 					const Value &valueLeft, const Value &valueRight) const;
 	void SetError_InvalidValueType(Signal &sig, const Value &value) const;
 	void SetError_InvalidValueType(Signal &sig, const Value &valueLeft, const Value &valueRight) const;
+	static void SetError_InvalidValueType(Signal &sig, OpType opType, const Value &value);
+	static void SetError_InvalidValueType(Signal &sig, OpType opType,
+					const Value &valueLeft, const Value &valueRight);
 	static void Assign(Environment &env, Operator *pOperator);
 	static const Operator *Lookup(Environment &env, OpType opType, ValueType valType);
 	static const Operator *Lookup(Environment &env, OpType opType, ValueType valTypeLeft, ValueType valTypeRight);
