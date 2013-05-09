@@ -13,7 +13,8 @@ void AssignOpFunctions(Environment &env);
 //-----------------------------------------------------------------------------
 class FuncUnaryOperation : public Function {
 public:
-	FuncUnaryOperation(Environment &env, const Symbol *pSymbol);
+	FuncUnaryOperation(Environment &env, const Symbol *pSymbol,
+		Parser::ElemType elemType, OpType opType, unsigned long flags = FLAG_Map);
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
 };
 
@@ -22,7 +23,8 @@ public:
 //-----------------------------------------------------------------------------
 class FuncBinaryOperation : public Function {
 public:
-	FuncBinaryOperation(Environment &env, const Symbol *pSymbol);
+	FuncBinaryOperation(Environment &env, const Symbol *pSymbol,
+		Parser::ElemType elemType, OpType opType, unsigned long flags = FLAG_Map);
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
 };
 

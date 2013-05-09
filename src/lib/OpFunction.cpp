@@ -45,9 +45,13 @@ void AssignOpFunctions(Environment &env)
 //-----------------------------------------------------------------------------
 // FuncUnaryOperation
 //-----------------------------------------------------------------------------
-FuncUnaryOperation::FuncUnaryOperation(Environment &env, const Symbol *pSymbol) :
-						Function(env, pSymbol, FUNCTYPE_Function, FLAG_None)
+FuncUnaryOperation::FuncUnaryOperation(Environment &env, const Symbol *pSymbol,
+				Parser::ElemType elemType, OpType opType, unsigned long flags) :
+		Function(env, pSymbol, FUNCTYPE_Function, FLAG_None)
 {
+	SetOperatorInfo(elemType, opType);
+	SetMode(RSLTMODE_Normal, flags);
+	DeclareArg(env, "n", VTYPE_any);
 }
 
 Value FuncUnaryOperation::DoEval(Environment &env, Signal sig, Args &args) const
@@ -64,9 +68,14 @@ Value FuncUnaryOperation::DoEval(Environment &env, Signal sig, Args &args) const
 //-----------------------------------------------------------------------------
 // FuncBinaryOperation
 //-----------------------------------------------------------------------------
-FuncBinaryOperation::FuncBinaryOperation(Environment &env, const Symbol *pSymbol) :
-						Function(env, pSymbol, FUNCTYPE_Function, FLAG_None)
+FuncBinaryOperation::FuncBinaryOperation(Environment &env, const Symbol *pSymbol,
+				Parser::ElemType elemType, OpType opType, unsigned long flags) :
+		Function(env, pSymbol, FUNCTYPE_Function, FLAG_None)
 {
+	SetOperatorInfo(elemType, opType);
+	SetMode(RSLTMODE_Normal, flags);
+	DeclareArg(env, "n", VTYPE_any);
+	DeclareArg(env, "m", VTYPE_any);
 }
 
 Value FuncBinaryOperation::DoEval(Environment &env, Signal sig, Args &args) const
@@ -87,11 +96,9 @@ Value FuncBinaryOperation::DoEval(Environment &env, Signal sig, Args &args) cons
 //-----------------------------------------------------------------------------
 bool Func_Pos::IsPos() const { return true; }
 
-Func_Pos::Func_Pos(Environment &env) : FuncUnaryOperation(env, Symbol::Add("__pos__"))
+Func_Pos::Func_Pos(Environment &env) : FuncUnaryOperation(env,
+				Symbol::Add("__pos__"), Parser::ETYPE_Plus, OPTYPE_Pos)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Plus, OPTYPE_Pos);	// revise this later
-	DeclareArg(env, "n", VTYPE_any);
 }
 
 Expr *Func_Pos::DiffUnary(Environment &env, Signal sig,
@@ -121,11 +128,9 @@ Expr *Func_Pos::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
 //-----------------------------------------------------------------------------
 bool Func_Neg::IsNeg() const { return true; }
 
-Func_Neg::Func_Neg(Environment &env) : FuncUnaryOperation(env, Symbol::Add("__neg__"))
+Func_Neg::Func_Neg(Environment &env) : FuncUnaryOperation(env,
+				Symbol::Add("__neg__"), Parser::ETYPE_Minus, OPTYPE_Neg)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Minus, OPTYPE_Neg);	// revise this later
-	DeclareArg(env, "n", VTYPE_any);
 }
 
 Expr *Func_Neg::DiffUnary(Environment &env, Signal sig,
@@ -163,21 +168,17 @@ Expr *Func_Neg::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
 //-----------------------------------------------------------------------------
 // ~x
 //-----------------------------------------------------------------------------
-Func_Invert::Func_Invert(Environment &env) : FuncUnaryOperation(env, Symbol::Add("__invert__"))
+Func_Invert::Func_Invert(Environment &env) : FuncUnaryOperation(env,
+				Symbol::Add("__invert__"), Parser::ETYPE_Invert, OPTYPE_Invert)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Invert, OPTYPE_Invert);
-	DeclareArg(env, "n", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
 // !n
 //-----------------------------------------------------------------------------
-Func_Not::Func_Not(Environment &env) : FuncUnaryOperation(env, Symbol::Add("__not__"))
+Func_Not::Func_Not(Environment &env) : FuncUnaryOperation(env,
+				Symbol::Add("__not__"), Parser::ETYPE_Not, OPTYPE_Not)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Not, OPTYPE_Not);
-	DeclareArg(env, "flag", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
@@ -185,12 +186,9 @@ Func_Not::Func_Not(Environment &env) : FuncUnaryOperation(env, Symbol::Add("__no
 //-----------------------------------------------------------------------------
 bool Func_Plus::IsPlus() const { return true; }
 
-Func_Plus::Func_Plus(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__add__"))
+Func_Plus::Func_Plus(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__add__"), Parser::ETYPE_Plus, OPTYPE_Plus)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Plus, OPTYPE_Plus);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 Expr *Func_Plus::DiffBinary(Environment &env, Signal sig,
@@ -308,12 +306,9 @@ Expr *Func_Plus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Ex
 //-----------------------------------------------------------------------------
 bool Func_Minus::IsMinus() const { return true; }
 
-Func_Minus::Func_Minus(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__sub__"))
+Func_Minus::Func_Minus(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__sub__"), Parser::ETYPE_Minus, OPTYPE_Minus)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Minus, OPTYPE_Minus);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 Expr *Func_Minus::DiffBinary(Environment &env, Signal sig,
@@ -432,12 +427,9 @@ Expr *Func_Minus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 //-----------------------------------------------------------------------------
 bool Func_Multiply::IsMultiply() const { return true; }
 
-Func_Multiply::Func_Multiply(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__mul__"))
+Func_Multiply::Func_Multiply(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__mul__"), Parser::ETYPE_Multiply, OPTYPE_Multiply)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Multiply, OPTYPE_Multiply);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 Value Func_Multiply::EvalExpr(Environment &env, Signal sig, Args &args) const
@@ -647,12 +639,9 @@ Expr *Func_Multiply::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft
 //-----------------------------------------------------------------------------
 bool Func_Divide::IsDivide() const { return true; }
 
-Func_Divide::Func_Divide(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__div__"))
+Func_Divide::Func_Divide(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__div__"), Parser::ETYPE_Divide, OPTYPE_Divide)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Divide, OPTYPE_Divide);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 Expr *Func_Divide::OptimizeBinary(Environment &env, Signal sig,
@@ -794,12 +783,9 @@ Expr *Func_Divide::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 //-----------------------------------------------------------------------------
 bool Func_Modulo::IsModulo() const { return true; }
 
-Func_Modulo::Func_Modulo(Environment &env) : FuncBinaryOperation(env, Symbol::Add("mod"))
+Func_Modulo::Func_Modulo(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("mod"), Parser::ETYPE_Modulo, OPTYPE_Modulo)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Modulo, OPTYPE_Modulo);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 Value Func_Modulo::EvalExpr(Environment &env, Signal sig, Args &args) const
@@ -874,12 +860,9 @@ Value Func_Modulo::EvalExpr(Environment &env, Signal sig, Args &args) const
 //-----------------------------------------------------------------------------
 bool Func_Power::IsPower() const { return true; }
 
-Func_Power::Func_Power(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__pow__"))
+Func_Power::Func_Power(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__pow__"), Parser::ETYPE_Power, OPTYPE_Power)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Power, OPTYPE_Power);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 Expr *Func_Power::DiffBinary(Environment &env, Signal sig,
@@ -959,78 +942,57 @@ Expr *Func_Power::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 //-----------------------------------------------------------------------------
 // n == m
 //-----------------------------------------------------------------------------
-Func_Equal::Func_Equal(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__eq__"))
+Func_Equal::Func_Equal(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__eq__"), Parser::ETYPE_Equal, OPTYPE_Equal)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Equal, OPTYPE_Equal);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
 // n != m
 //-----------------------------------------------------------------------------
-Func_NotEqual::Func_NotEqual(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__ne__"))
+Func_NotEqual::Func_NotEqual(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__ne__"), Parser::ETYPE_NotEqual, OPTYPE_NotEqual)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_NotEqual, OPTYPE_NotEqual);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
 // n > m
 //-----------------------------------------------------------------------------
-Func_Greater::Func_Greater(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__gt__"))
+Func_Greater::Func_Greater(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__gt__"), Parser::ETYPE_Greater, OPTYPE_Greater)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Greater, OPTYPE_Greater);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
 // n < m
 //-----------------------------------------------------------------------------
-Func_Less::Func_Less(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__lt__"))
+Func_Less::Func_Less(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__lt__"), Parser::ETYPE_Less, OPTYPE_Less)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Less, OPTYPE_Less);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
 // n >= m
 //-----------------------------------------------------------------------------
-Func_GreaterEq::Func_GreaterEq(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__ge__"))
+Func_GreaterEq::Func_GreaterEq(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__ge__"), Parser::ETYPE_GreaterEq, OPTYPE_GreaterEq)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_GreaterEq, OPTYPE_GreaterEq);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
 // n <= m
 //-----------------------------------------------------------------------------
-Func_LessEq::Func_LessEq(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__le__"))
+Func_LessEq::Func_LessEq(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__le__"), Parser::ETYPE_LessEq, OPTYPE_LessEq)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_LessEq, OPTYPE_LessEq);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
 // n <=> m
 //-----------------------------------------------------------------------------
-Func_Compare::Func_Compare(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__cmp__"))
+Func_Compare::Func_Compare(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__cmp__"), Parser::ETYPE_Compare, OPTYPE_Compare)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Compare, OPTYPE_Compare);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
@@ -1038,66 +1000,49 @@ Func_Compare::Func_Compare(Environment &env) : FuncBinaryOperation(env, Symbol::
 //-----------------------------------------------------------------------------
 bool Func_ContainCheck::IsContainCheck() const { return true; }
 
-Func_ContainCheck::Func_ContainCheck(Environment &env) : FuncBinaryOperation(env, Symbol::Add("in"))
+Func_ContainCheck::Func_ContainCheck(Environment &env) : FuncBinaryOperation(env,
+	Symbol::Add("in"), Parser::ETYPE_ContainCheck, OPTYPE_ContainCheck, FLAG_None)
 {
-	SetOperatorInfo(Parser::ETYPE_ContainCheck, OPTYPE_ContainCheck);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
 // n | m
 //-----------------------------------------------------------------------------
-Func_Or::Func_Or(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__or__"))
+Func_Or::Func_Or(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__or__"), Parser::ETYPE_Or, OPTYPE_Or)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Or, OPTYPE_Or);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
 // n & m
 //-----------------------------------------------------------------------------
-Func_And::Func_And(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__and__"))
+Func_And::Func_And(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__and__"), Parser::ETYPE_And, OPTYPE_And)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_And, OPTYPE_And);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
 // n ^ m
 //-----------------------------------------------------------------------------
-Func_Xor::Func_Xor(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__xor__"))
+Func_Xor::Func_Xor(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__xor__"), Parser::ETYPE_Xor, OPTYPE_Xor)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Xor, OPTYPE_Xor);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
 // n << m
 //-----------------------------------------------------------------------------
-Func_ShiftL::Func_ShiftL(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__shl__"))
+Func_ShiftL::Func_ShiftL(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__shl__"), Parser::ETYPE_ShiftL, OPTYPE_ShiftL)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_ShiftL, OPTYPE_ShiftL);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
 // n >> m
 //-----------------------------------------------------------------------------
-Func_ShiftR::Func_ShiftR(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__shr__"))
+Func_ShiftR::Func_ShiftR(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__shr__"), Parser::ETYPE_ShiftR, OPTYPE_ShiftR)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_ShiftR, OPTYPE_ShiftR);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
@@ -1155,22 +1100,17 @@ Value Func_AndAnd::DoEval(Environment &env, Signal sig, Args &args) const
 //-----------------------------------------------------------------------------
 bool Func_Sequence::IsSequence() const { return true; }
 
-Func_Sequence::Func_Sequence(Environment &env) : FuncBinaryOperation(env, Symbol::Add("__seq__"))
+Func_Sequence::Func_Sequence(Environment &env) : FuncBinaryOperation(env,
+				Symbol::Add("__seq__"), Parser::ETYPE_Sequence, OPTYPE_Sequence)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Sequence, OPTYPE_Sequence);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
 // n ..
 //-----------------------------------------------------------------------------
-Func_SequenceInf::Func_SequenceInf(Environment &env) : FuncUnaryOperation(env, Symbol::Add("__seqinf__"))
+Func_SequenceInf::Func_SequenceInf(Environment &env) : FuncUnaryOperation(env,
+				Symbol::Add("__seqinf__"), Parser::ETYPE_Sequence, OPTYPE_SequenceInf)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_Sequence, OPTYPE_SequenceInf);
-	DeclareArg(env, "n", VTYPE_any);
 }
 
 //-----------------------------------------------------------------------------
