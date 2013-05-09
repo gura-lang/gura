@@ -73,7 +73,7 @@ void AssignBasicOperators(Environment &env);
 //-----------------------------------------------------------------------------
 // Operator
 //-----------------------------------------------------------------------------
-class Operator {
+class GURA_DLLDECLARE Operator {
 public:
 	typedef unsigned long Key;
 protected:

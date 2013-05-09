@@ -312,35 +312,17 @@ Gura_ImplementMethod(wx_Brush, SetStyle)
 	return Value::Null;
 }
 
-Gura_DeclareMethod(wx_Brush, __eq__)
+Gura_ImplementBinaryOperator(Equal, wx_Brush, wx_Brush)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Brush, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Brush, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Brush, __eq__)
-{
-	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
-	wxBrush *item1 = Object_wx_Brush::GetObject(args, 0)->GetEntity();
-	wxBrush *item2 = Object_wx_Brush::GetObject(args, 1)->GetEntity();
+	wxBrush *item1 = Object_wx_Brush::GetObject(valueLeft)->GetEntity();
+	wxBrush *item2 = Object_wx_Brush::GetObject(valueRight)->GetEntity();
 	return *item1 == *item2;
 }
 
-Gura_DeclareMethod(wx_Brush, __ne__)
+Gura_ImplementBinaryOperator(NotEqual, wx_Brush, wx_Brush)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Brush, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Brush, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Brush, __ne__)
-{
-	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
-	wxBrush *item1 = Object_wx_Brush::GetObject(args, 0)->GetEntity();
-	wxBrush *item2 = Object_wx_Brush::GetObject(args, 1)->GetEntity();
+	wxBrush *item1 = Object_wx_Brush::GetObject(valueLeft)->GetEntity();
+	wxBrush *item2 = Object_wx_Brush::GetObject(valueRight)->GetEntity();
 	return *item1 != *item2;
 }
 
@@ -376,6 +358,8 @@ void Object_wx_Brush::OnModuleEntry(Environment &env, Signal sig)
 	Gura_AssignFunction(Brush_1);
 	Gura_AssignFunction(Brush_2);
 	Gura_AssignFunction(Brush_3);
+	Gura_AssignBinaryOperator(Equal, wx_Brush, wx_Brush);		// ==
+	Gura_AssignBinaryOperator(NotEqual, wx_Brush, wx_Brush);	// !=
 }
 
 //----------------------------------------------------------------------------
@@ -394,8 +378,6 @@ Gura_ImplementUserInheritableClass(wx_Brush)
 	Gura_AssignMethod(wx_Brush, SetColour_2);
 	Gura_AssignMethod(wx_Brush, SetStipple);
 	Gura_AssignMethod(wx_Brush, SetStyle);
-	Gura_AssignMethod(wx_Brush, __eq__);
-	Gura_AssignMethod(wx_Brush, __ne__);
 }
 
 Gura_ImplementDescendantCreator(wx_Brush)
