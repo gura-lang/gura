@@ -636,35 +636,19 @@ Gura_ImplementMethod(wx_Font, SetWeight)
 	return Value::Null;
 }
 
-Gura_DeclareMethod(wx_Font, __eq__)
+// operator ==
+Gura_ImplementBinaryOperator(Equal, wx_Font, wx_Font)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Font, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Font, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Font, __eq__)
-{
-	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	wxFont *item1 = Object_wx_Font::GetObject(args, 0)->GetEntity();
-	wxFont *item2 = Object_wx_Font::GetObject(args, 1)->GetEntity();
+	wxFont *item1 = Object_wx_Font::GetObject(valueLeft)->GetEntity();
+	wxFont *item2 = Object_wx_Font::GetObject(valueRight)->GetEntity();
 	return *item1 == *item2;
 }
 
-Gura_DeclareMethod(wx_Font, __ne__)
+// operator !=
+Gura_ImplementBinaryOperator(NotEqual, wx_Font, wx_Font)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Font, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Font, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Font, __ne__)
-{
-	Object_wx_Font *pThis = Object_wx_Font::GetThisObj(args);
-	wxFont *item1 = Object_wx_Font::GetObject(args, 0)->GetEntity();
-	wxFont *item2 = Object_wx_Font::GetObject(args, 1)->GetEntity();
+	wxFont *item1 = Object_wx_Font::GetObject(valueLeft)->GetEntity();
+	wxFont *item2 = Object_wx_Font::GetObject(valueRight)->GetEntity();
 	return *item1 != *item2;
 }
 
@@ -701,6 +685,8 @@ void Object_wx_Font::OnModuleEntry(Environment &env, Signal sig)
 	Gura_AssignFunction(FontEmpty);
 	Gura_AssignFunction(Font);
 	Gura_AssignFunction(FontEx);
+	Gura_AssignBinaryOperator(NotEqual, wx_Font, wx_Font);
+	Gura_AssignBinaryOperator(NotEqual, wx_Font, wx_Font);
 }
 
 //----------------------------------------------------------------------------
@@ -739,8 +725,6 @@ Gura_ImplementUserInheritableClass(wx_Font)
 	Gura_AssignMethod(wx_Font, SetStyle);
 	Gura_AssignMethod(wx_Font, SetUnderlined);
 	Gura_AssignMethod(wx_Font, SetWeight);
-	Gura_AssignMethod(wx_Font, __eq__);
-	Gura_AssignMethod(wx_Font, __ne__);
 }
 
 Gura_ImplementDescendantCreator(wx_Font)

@@ -80,6 +80,8 @@ protected:
 	OpType _opType;
 	ValueType _valTypeLeft;
 	ValueType _valTypeRight;
+private:
+	static const char *_mathSymbolTbl[];
 public:
 	inline Operator(OpType opType, ValueType valType) :
 			_opType(opType), _valTypeLeft(valType), _valTypeRight(VTYPE_nil) {}
@@ -99,9 +101,13 @@ public:
 	inline Key CalcKey() const {
 		return CalcKey(_valTypeLeft, _valTypeRight);
 	}
+	inline const char *GetMathSymbol() const { return GetMathSymbol(_opType); }
+	inline static const char *GetMathSymbol(OpType opType) { return _mathSymbolTbl[opType]; }
 	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const;
 	virtual Value DoEval(Environment &env, Signal sig,
 					const Value &valueLeft, const Value &valueRight) const;
+	void SetError_InvalidValueType(Signal &sig, const Value &value) const;
+	void SetError_InvalidValueType(Signal &sig, const Value &valueLeft, const Value &valueRight) const;
 	static void Assign(Environment &env, Operator *pOperator);
 	static const Operator *Lookup(Environment &env, OpType opType, ValueType valType);
 	static const Operator *Lookup(Environment &env, OpType opType, ValueType valTypeLeft, ValueType valTypeRight);

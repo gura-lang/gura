@@ -227,42 +227,26 @@ Gura_ImplementMethod(wx_Object, UnShare)
 	return Value::Null;
 }
 
-Gura_DeclareMethod(wx_Object, __eq__)
+// operator ==
+Gura_ImplementBinaryOperator(Equal, wx_Object, any)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Object, OCCUR_Once, FLAG_Nil);
-	DeclareArg(env, "item2", VTYPE_wx_Object, OCCUR_Once, FLAG_Nil);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Object, __eq__)
-{
-	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
-	if (args.IsValid(0) && args.IsValid(1)) {
-		wxObject *item1 = Object_wx_Object::GetObject(args, 0)->GetEntity();
-		wxObject *item2 = Object_wx_Object::GetObject(args, 1)->GetEntity();
+	if (valueRight.IsInstanceOf(VTYPE_wx_Object)) {
+		wxObject *item1 = Object_wx_Object::GetObject(valueLeft)->GetEntity();
+		wxObject *item2 = Object_wx_Object::GetObject(valueRight)->GetEntity();
 		return item1 == item2;
 	}
-	return args.IsInvalid(0) && args.IsInvalid(1);
+	return valueLeft.IsInvalid() && valueRight.IsInvalid();
 }
 
-Gura_DeclareMethod(wx_Object, __ne__)
+// operator !=
+Gura_ImplementBinaryOperator(NotEqual, wx_Object, any)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Object, OCCUR_Once, FLAG_Nil);
-	DeclareArg(env, "item2", VTYPE_wx_Object, OCCUR_Once, FLAG_Nil);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Object, __ne__)
-{
-	Object_wx_Object *pThis = Object_wx_Object::GetThisObj(args);
-	if (args.IsValid(0) && args.IsValid(1)) {
-		wxObject *item1 = Object_wx_Object::GetObject(args, 0)->GetEntity();
-		wxObject *item2 = Object_wx_Object::GetObject(args, 1)->GetEntity();
+	if (valueRight.IsInstanceOf(VTYPE_wx_Object)) {
+		wxObject *item1 = Object_wx_Object::GetObject(valueLeft)->GetEntity();
+		wxObject *item2 = Object_wx_Object::GetObject(valueRight)->GetEntity();
 		return item1 != item2;
 	}
-	return !(args.IsInvalid(0) && args.IsInvalid(1));
+	return !(valueLeft.IsInvalid() && valueRight.IsInvalid());
 }
 
 //----------------------------------------------------------------------------
@@ -298,6 +282,8 @@ void Object_wx_Object::OnModuleEntry(Environment &env, Signal sig)
 	Gura_AssignFunction(ObjectEmpty);
 	Gura_AssignFunction(Object);
 	Gura_AssignFunction(ObjectEmpty_1);
+	Gura_AssignBinaryOperator(Equal, wx_Object, any);
+	Gura_AssignBinaryOperator(NotEqual, wx_Object, any);
 }
 
 //----------------------------------------------------------------------------
@@ -314,8 +300,6 @@ Gura_ImplementUserInheritableClass(wx_Object)
 	Gura_AssignMethod(wx_Object, SetRefData);
 	Gura_AssignMethod(wx_Object, UnRef);
 	Gura_AssignMethod(wx_Object, UnShare);
-	Gura_AssignMethod(wx_Object, __eq__);
-	Gura_AssignMethod(wx_Object, __ne__);
 }
 
 Gura_ImplementDescendantCreator(wx_Object)

@@ -87,85 +87,53 @@ Gura_ImplementFunction(Point)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
-Gura_DeclareMethod(wx_Point, __eq__)
+// operator ==
+Gura_ImplementBinaryOperator(Equal, wx_Point, wx_Point)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Point, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Point, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Point, __eq__)
-{
-	Object_wx_Point *pThis = Object_wx_Point::GetThisObj(args);
-	wxPoint *item1 = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	wxPoint *item2 = Object_wx_Point::GetObject(args, 1)->GetEntity();
+	wxPoint *item1 = Object_wx_Point::GetObject(valueLeft)->GetEntity();
+	wxPoint *item2 = Object_wx_Point::GetObject(valueRight)->GetEntity();
 	return *item1 == *item2;
 }
 
-Gura_DeclareMethod(wx_Point, __ne__)
+// operator !=
+Gura_ImplementBinaryOperator(NotEqual, wx_Point, wx_Point)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Point, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Point, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Point, __ne__)
-{
-	Object_wx_Point *pThis = Object_wx_Point::GetThisObj(args);
-	wxPoint *item1 = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	wxPoint *item2 = Object_wx_Point::GetObject(args, 1)->GetEntity();
+	wxPoint *item1 = Object_wx_Point::GetObject(valueLeft)->GetEntity();
+	wxPoint *item2 = Object_wx_Point::GetObject(valueRight)->GetEntity();
 	return *item1 != *item2;
 }
 
-Gura_DeclareMethod(wx_Point, __add__)
+// operator +
+Gura_ImplementBinaryOperator(Plus, wx_Point, any)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Point, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_any, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Point, __add__)
-{
-	Object_wx_Point *pThis = Object_wx_Point::GetThisObj(args);
-	wxPoint *item1 = Object_wx_Point::GetObject(args, 0)->GetEntity();
+	wxPoint *item1 = Object_wx_Point::GetObject(valueLeft)->GetEntity();
 	wxPoint rtn;
-	if (args.IsInstanceOf(1, VTYPE_wx_Point)) {
-		wxPoint *item2 = Object_wx_Point::GetObject(args, 1)->GetEntity();
+	if (valueRight.IsInstanceOf(VTYPE_wx_Point)) {
+		wxPoint *item2 = Object_wx_Point::GetObject(valueRight)->GetEntity();
 		rtn = *item1 + *item2;
-	} else if (args.IsInstanceOf(1, VTYPE_wx_Size)) {
-		wxSize *item2 = Object_wx_Size::GetObject(args, 1)->GetEntity();
+	} else if (valueRight.IsInstanceOf(VTYPE_wx_Size)) {
+		wxSize *item2 = Object_wx_Size::GetObject(valueRight)->GetEntity();
 		rtn = *item1 + *item2;
 	} else {
-		SetError_ArgumentTypeByIndex(sig, args, 1);
+		SetError_InvalidValueType(sig, valueLeft, valueRight);
 		return Value::Null;
 	}
 	return Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue));
 }
 
-Gura_DeclareMethod(wx_Point, __sub__)
+// operator -
+Gura_ImplementBinaryOperator(Minus, wx_Point, any)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Point, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_any, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Point, __sub__)
-{
-	Object_wx_Point *pThis = Object_wx_Point::GetThisObj(args);
-	wxPoint *item1 = Object_wx_Point::GetObject(args, 0)->GetEntity();
+	wxPoint *item1 = Object_wx_Point::GetObject(valueLeft)->GetEntity();
 	wxPoint rtn;
-	if (args.IsInstanceOf(1, VTYPE_wx_Point)) {
-		wxPoint *item2 = Object_wx_Point::GetObject(args, 1)->GetEntity();
+	if (valueRight.IsInstanceOf(VTYPE_wx_Point)) {
+		wxPoint *item2 = Object_wx_Point::GetObject(valueRight)->GetEntity();
 		rtn = *item1 - *item2;
-	} else if (args.IsInstanceOf(1, VTYPE_wx_Size)) {
-		wxSize *item2 = Object_wx_Size::GetObject(args, 1)->GetEntity();
+	} else if (valueRight.IsInstanceOf(VTYPE_wx_Size)) {
+		wxSize *item2 = Object_wx_Size::GetObject(valueRight)->GetEntity();
 		rtn = *item1 - *item2;
 	} else {
-		SetError_ArgumentTypeByIndex(sig, args, 1);
+		SetError_InvalidValueType(sig, valueLeft, valueRight);
 		return Value::Null;
 	}
 	return Value(new Object_wx_Point(new wxPoint(rtn), NULL, OwnerTrue));
@@ -229,7 +197,7 @@ String Object_wx_Point::ToString(Signal sig, bool exprFlag)
 		rtn += "invalid>";
 	} else {
 		char buff[64];
-		::sprintf(buff, "%p>", GetEntity());
+		::sprintf(buff, "%d,%d>", GetEntity()->x, GetEntity()->y);
 		rtn += buff;
 	}
 	return rtn;
@@ -239,6 +207,10 @@ void Object_wx_Point::OnModuleEntry(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PointEmpty);
 	Gura_AssignFunction(Point);
+	Gura_AssignBinaryOperator(Equal, wx_Point, wx_Point);
+	Gura_AssignBinaryOperator(NotEqual, wx_Point, wx_Point);
+	Gura_AssignBinaryOperator(Plus, wx_Point, any);
+	Gura_AssignBinaryOperator(Minus, wx_Point, any);
 }
 
 //----------------------------------------------------------------------------
@@ -246,10 +218,6 @@ void Object_wx_Point::OnModuleEntry(Environment &env, Signal sig)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Point)
 {
-	Gura_AssignMethod(wx_Point, __eq__);
-	Gura_AssignMethod(wx_Point, __ne__);
-	Gura_AssignMethod(wx_Point, __add__);
-	Gura_AssignMethod(wx_Point, __sub__);
 }
 
 Gura_ImplementDescendantCreator(wx_Point)

@@ -312,6 +312,7 @@ Gura_ImplementMethod(wx_Brush, SetStyle)
 	return Value::Null;
 }
 
+// operator ==
 Gura_ImplementBinaryOperator(Equal, wx_Brush, wx_Brush)
 {
 	wxBrush *item1 = Object_wx_Brush::GetObject(valueLeft)->GetEntity();
@@ -319,6 +320,7 @@ Gura_ImplementBinaryOperator(Equal, wx_Brush, wx_Brush)
 	return *item1 == *item2;
 }
 
+// operator !=
 Gura_ImplementBinaryOperator(NotEqual, wx_Brush, wx_Brush)
 {
 	wxBrush *item1 = Object_wx_Brush::GetObject(valueLeft)->GetEntity();

@@ -143,50 +143,27 @@ Gura_ImplementMethod(wx_GBPosition, SetRow)
 	return Value::Null;
 }
 
-Gura_DeclareMethod(wx_GBPosition, __eq__)
+// operator ==
+Gura_ImplementBinaryOperator(Equal, wx_GBPosition, wx_GBPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_GBPosition, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_GBPosition, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_GBPosition, __eq__)
-{
-	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
-	wxGBPosition *item1 = Object_wx_GBPosition::GetObject(args, 0)->GetEntity();
-	wxGBPosition *item2 = Object_wx_GBPosition::GetObject(args, 1)->GetEntity();
+	wxGBPosition *item1 = Object_wx_GBPosition::GetObject(valueLeft)->GetEntity();
+	wxGBPosition *item2 = Object_wx_GBPosition::GetObject(valueRight)->GetEntity();
 	return *item1 == *item2;
 }
 
-Gura_DeclareMethod(wx_GBPosition, __ne__)
+// operator !=
+Gura_ImplementBinaryOperator(NotEqual, wx_GBPosition, wx_GBPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_GBPosition, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_GBPosition, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_GBPosition, __ne__)
-{
-	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
-	wxGBPosition *item1 = Object_wx_GBPosition::GetObject(args, 0)->GetEntity();
-	wxGBPosition *item2 = Object_wx_GBPosition::GetObject(args, 1)->GetEntity();
+	wxGBPosition *item1 = Object_wx_GBPosition::GetObject(valueLeft)->GetEntity();
+	wxGBPosition *item2 = Object_wx_GBPosition::GetObject(valueRight)->GetEntity();
 	return *item1 != *item2;
 }
 
 #if 0
-Gura_DeclareMethod(wx_GBPosition, __not__)
+// operator !
+Gura_ImplementUnaryOperator(Not, wx_GBPosition)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item", VTYPE_wx_GBPosition, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_GBPosition, __not__)
-{
-	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetThisObj(args);
-	wxGBPosition *item = Object_wx_GBPosition::GetObject(args, 0)->GetEntity();
+	wxGBPosition *item = Object_wx_GBPosition::GetObject(value)->GetEntity();
 	return Value(!*item);
 }
 #endif
@@ -223,6 +200,9 @@ void Object_wx_GBPosition::OnModuleEntry(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GBPositionEmpty);
 	Gura_AssignFunction(GBPosition);
+	Gura_AssignBinaryOperator(Equal, wx_GBPosition, wx_GBPosition);
+	Gura_AssignBinaryOperator(NotEqual, wx_GBPosition, wx_GBPosition);
+	//Gura_AssignUnaryOperator(Not, wx_GBPosition);
 }
 
 //----------------------------------------------------------------------------
@@ -234,9 +214,6 @@ Gura_ImplementUserInheritableClass(wx_GBPosition)
 	Gura_AssignMethod(wx_GBPosition, GetRow);
 	Gura_AssignMethod(wx_GBPosition, SetCol);
 	Gura_AssignMethod(wx_GBPosition, SetRow);
-	Gura_AssignMethod(wx_GBPosition, __eq__);
-	Gura_AssignMethod(wx_GBPosition, __ne__);
-	//Gura_AssignMethod(wx_GBPosition, __not__);
 }
 
 Gura_ImplementDescendantCreator(wx_GBPosition)

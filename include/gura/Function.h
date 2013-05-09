@@ -186,7 +186,6 @@ protected:
 		bool quoteFlag;	// don't create function object from block
 		const Symbol *pSymbol;
 	} _blockInfo;
-	static const char *_mathSymbolTbl[];
 public:
 	Gura_DeclareReferenceAccessor(Function);
 public:
@@ -209,7 +208,7 @@ public:
 	inline const char *GetName() const { return _pSymbol->GetName(); }
 	inline Parser::ElemType GetElemType() const { return _elemType; }
 	inline OpType GetOpType() const { return _opType; }
-	inline const char *GetMathSymbol() const { return _mathSymbolTbl[_opType]; }
+	inline const char *GetMathSymbol() const { return Operator::GetMathSymbol(_opType); }
 	inline Environment &GetEnvScope() { return _envScope; }
 	inline Environment &GetEnvScope() const {
 		return const_cast<Function *>(this)->_envScope;

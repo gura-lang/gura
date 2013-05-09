@@ -269,35 +269,19 @@ Gura_ImplementMethod(wx_Colour, SetFromName)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
-Gura_DeclareMethod(wx_Colour, __eq__)
+// operator ==
+Gura_ImplementBinaryOperator(Equal, wx_Colour, wx_Colour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Colour, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Colour, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Colour, __eq__)
-{
-	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
-	wxColour *item1 = Object_wx_Colour::GetObject(args, 0)->GetEntity();
-	wxColour *item2 = Object_wx_Colour::GetObject(args, 1)->GetEntity();
+	wxColour *item1 = Object_wx_Colour::GetObject(valueLeft)->GetEntity();
+	wxColour *item2 = Object_wx_Colour::GetObject(valueRight)->GetEntity();
 	return *item1 == *item2;
 }
 
-Gura_DeclareMethod(wx_Colour, __ne__)
+// operator !=
+Gura_ImplementBinaryOperator(NotEqual, wx_Colour, wx_Colour)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Colour, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Colour, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Colour, __ne__)
-{
-	Object_wx_Colour *pThis = Object_wx_Colour::GetThisObj(args);
-	wxColour *item1 = Object_wx_Colour::GetObject(args, 0)->GetEntity();
-	wxColour *item2 = Object_wx_Colour::GetObject(args, 1)->GetEntity();
+	wxColour *item1 = Object_wx_Colour::GetObject(valueLeft)->GetEntity();
+	wxColour *item2 = Object_wx_Colour::GetObject(valueRight)->GetEntity();
 	return *item1 != *item2;
 }
 
@@ -331,6 +315,8 @@ void Object_wx_Colour::OnModuleEntry(Environment &env, Signal sig)
 	Gura_AssignFunction(ColourEmpty);
 	Gura_AssignFunction(Colour);
 	Gura_AssignFunction(NamedColour);
+	Gura_AssignBinaryOperator(Equal, wx_Colour, wx_Colour);
+	Gura_AssignBinaryOperator(NotEqual, wx_Colour, wx_Colour);
 }
 
 //----------------------------------------------------------------------------
@@ -349,8 +335,6 @@ Gura_ImplementUserInheritableClassWithCast(wx_Colour)
 	Gura_AssignMethod(wx_Colour, Set);
 	Gura_AssignMethod(wx_Colour, SetRGB);
 	Gura_AssignMethod(wx_Colour, SetFromName);
-	Gura_AssignMethod(wx_Colour, __eq__);
-	Gura_AssignMethod(wx_Colour, __ne__);
 }
 
 Gura_ImplementCastFrom(wx_Colour)

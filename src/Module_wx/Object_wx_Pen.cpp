@@ -445,35 +445,19 @@ Gura_ImplementMethod(wx_Pen, SetWidth)
 	return Value::Null;
 }
 
-Gura_DeclareMethod(wx_Pen, __eq__)
+// operator ==
+Gura_ImplementBinaryOperator(Equal, wx_Pen, wx_Pen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Pen, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Pen, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Pen, __eq__)
-{
-	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
-	wxPen *item1 = Object_wx_Pen::GetObject(args, 0)->GetEntity();
-	wxPen *item2 = Object_wx_Pen::GetObject(args, 1)->GetEntity();
+	wxPen *item1 = Object_wx_Pen::GetObject(valueLeft)->GetEntity();
+	wxPen *item2 = Object_wx_Pen::GetObject(valueRight)->GetEntity();
 	return *item1 == *item2;
 }
 
-Gura_DeclareMethod(wx_Pen, __ne__)
+// operator !=
+Gura_ImplementBinaryOperator(NotEqual, wx_Pen, wx_Pen)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Pen, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Pen, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Pen, __ne__)
-{
-	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
-	wxPen *item1 = Object_wx_Pen::GetObject(args, 0)->GetEntity();
-	wxPen *item2 = Object_wx_Pen::GetObject(args, 1)->GetEntity();
+	wxPen *item1 = Object_wx_Pen::GetObject(valueLeft)->GetEntity();
+	wxPen *item2 = Object_wx_Pen::GetObject(valueRight)->GetEntity();
 	return *item1 != *item2;
 }
 
@@ -509,6 +493,8 @@ void Object_wx_Pen::OnModuleEntry(Environment &env, Signal sig)
 	Gura_AssignFunction(Pen_1);
 	Gura_AssignFunction(Pen_2);
 	Gura_AssignFunction(Pen_3);
+	Gura_AssignBinaryOperator(Equal, wx_Pen, wx_Pen);
+	Gura_AssignBinaryOperator(NotEqual, wx_Pen, wx_Pen);
 }
 
 //----------------------------------------------------------------------------
@@ -534,8 +520,6 @@ Gura_ImplementUserInheritableClass(wx_Pen)
 	Gura_AssignMethod(wx_Pen, SetStipple);
 	Gura_AssignMethod(wx_Pen, SetStyle);
 	Gura_AssignMethod(wx_Pen, SetWidth);
-	Gura_AssignMethod(wx_Pen, __eq__);
-	Gura_AssignMethod(wx_Pen, __ne__);
 }
 
 Gura_ImplementDescendantCreator(wx_Pen)

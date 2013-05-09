@@ -7,6 +7,37 @@ static void SetError_DivideByZero(Signal sig);
 //-----------------------------------------------------------------------------
 // Operator
 //-----------------------------------------------------------------------------
+const char *Operator::_mathSymbolTbl[] = {
+	"",		// OPTYPE_None
+	"+",	// OPTYPE_Pos
+	"-",	// OPTYPE_Neg
+	"~",	// OPTYPE_Invert
+	"!",	// OPTYPE_Not
+	"+",	// OPTYPE_Plus
+	"-",	// OPTYPE_Minus
+	"*",	// OPTYPE_Multiply
+	"/",	// OPTYPE_Divide
+	"%",	// OPTYPE_Modulo
+	"**",	// OPTYPE_Power
+	"==",	// OPTYPE_Equal
+	"!=",	// OPTYPE_NotEqual
+	">",	// OPTYPE_Greater
+	"<",	// OPTYPE_Less
+	">=",	// OPTYPE_GreaterEq
+	"<=",	// OPTYPE_LessEq
+	"<=>",	// OPTYPE_Compare
+	"in",	// OPTYPE_ContainCheck
+	"|",	// OPTYPE_Or
+	"&",	// OPTYPE_And
+	"^",	// OPTYPE_Xor
+	"<<",	// OPTYPE_ShiftL
+	">>",	// OPTYPE_ShiftR
+	"||",	// OPTYPE_OrOr
+	"&&",	// OPTYPE_AndAnd
+	"..",	// OPTYPE_Sequence
+	"..",	// OPTYPE_SequenceInf
+};
+
 Value Operator::DoEval(Environment &env, Signal sig, const Value &value) const
 {
 	return Value::Null;
@@ -51,6 +82,19 @@ const Operator *Operator::Lookup(Environment &env, OpType opType, ValueType valT
 	if (iter != map.end()) return iter->second;
 	iter = map.find(CalcKey(VTYPE_any, VTYPE_any));
 	return (iter == map.end())? NULL : iter->second;
+}
+
+void Operator::SetError_InvalidValueType(Signal &sig, const Value &value) const
+{
+	sig.SetError(ERR_TypeError, "can't evaluate (%s %s)",
+							GetMathSymbol(), value.GetValueTypeName());
+}
+
+void Operator::SetError_InvalidValueType(Signal &sig,
+						const Value &valueLeft, const Value &valueRight) const
+{
+	sig.SetError(ERR_TypeError, "can't evaluate (%s %s %s)",
+		valueLeft.GetValueTypeName(), GetMathSymbol(), valueRight.GetValueTypeName());
 }
 
 //-----------------------------------------------------------------------------
