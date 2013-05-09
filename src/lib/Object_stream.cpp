@@ -713,30 +713,22 @@ Gura_ImplementMethod(stream, prefetch)
 }
 #endif
 
-// stream#__shl__(stream:stream, value)
-Gura_DeclareMethod(stream, __shl__)
+// operator <<
+Gura_ImplementBinaryOperator(ShiftL, stream, any)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once);
-	DeclareArg(env, "value", VTYPE_any, OCCUR_Once);
-}
-
-Gura_ImplementMethod(stream, __shl__)
-{
-	Stream &stream = args.GetStream(0);
+	Stream &stream = valueLeft.GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Null;
-	if (args.IsBinary(1)) {
-		const Binary &binary = args.GetBinary(1);
+	if (valueRight.IsBinary()) {
+		const Binary &binary = valueRight.GetBinary();
 		stream.Write(sig, binary.c_str(), binary.size());
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
-		const Value &value = args.GetValue(1);
-		String str(value.ToString(sig, false));
+		String str(valueRight.ToString(sig, false));
 		if (sig.IsSignalled()) return Value::Null;
 		stream.Print(sig, str.c_str());
 		if (sig.IsSignalled()) return Value::Null;
 	}
-	return args.GetValue(0);
+	return valueLeft;
 }
 
 //-----------------------------------------------------------------------------
@@ -769,7 +761,6 @@ Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stre
 	Gura_AssignMethod(stream, serialize);
 	Gura_AssignMethod(stream, deserialize);
 	//Gura_AssignMethod(stream, prefetch);
-	Gura_AssignMethod(stream, __shl__);
 }
 
 bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
@@ -808,6 +799,7 @@ void Class_stream::OnModuleEntry(Environment &env, Signal sig)
 	Gura_AssignFunction(copy);
 	Gura_AssignFunction(template_);
 	Gura_AssignFunction(readlines);
+	Gura_AssignBinaryOperator(ShiftL, stream, any);
 }
 
 //-----------------------------------------------------------------------------
