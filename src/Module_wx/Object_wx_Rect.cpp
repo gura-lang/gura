@@ -783,35 +783,19 @@ Gura_ImplementMethod(wx_Rect, Union_1)
 	return ReturnValue(env, sig, args, Value(new Object_wx_Rect(new wxRect(rtn), NULL, OwnerTrue)));
 }
 
-Gura_DeclareMethod(wx_Rect, __eq__)
+// operator ==
+Gura_ImplementBinaryOperator(Equal, wx_Rect, wx_Rect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Rect, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Rect, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Rect, __eq__)
-{
-	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
-	wxRect *item1 = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	wxRect *item2 = Object_wx_Rect::GetObject(args, 1)->GetEntity();
+	wxRect *item1 = Object_wx_Rect::GetObject(valueLeft)->GetEntity();
+	wxRect *item2 = Object_wx_Rect::GetObject(valueRight)->GetEntity();
 	return *item1 == *item2;
 }
 
-Gura_DeclareMethod(wx_Rect, __ne__)
+// operator !=
+Gura_ImplementBinaryOperator(NotEqual, wx_Rect, wx_Rect)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Rect, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Rect, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Rect, __ne__)
-{
-	Object_wx_Rect *pThis = Object_wx_Rect::GetThisObj(args);
-	wxRect *item1 = Object_wx_Rect::GetObject(args, 0)->GetEntity();
-	wxRect *item2 = Object_wx_Rect::GetObject(args, 1)->GetEntity();
+	wxRect *item1 = Object_wx_Rect::GetObject(valueLeft)->GetEntity();
+	wxRect *item2 = Object_wx_Rect::GetObject(valueRight)->GetEntity();
 	return *item1 != *item2;
 }
 
@@ -900,6 +884,8 @@ void Object_wx_Rect::OnModuleEntry(Environment &env, Signal sig)
 	Gura_AssignFunction(Rect_1);
 	Gura_AssignFunction(Rect_2);
 	Gura_AssignFunction(Rect_3);
+	Gura_AssignBinaryOperator(Equal, wx_Rect, wx_Rect);
+	Gura_AssignBinaryOperator(NotEqual, wx_Rect, wx_Rect);
 }
 
 //----------------------------------------------------------------------------
@@ -947,8 +933,6 @@ Gura_ImplementUserInheritableClass(wx_Rect)
 	Gura_AssignMethod(wx_Rect, SetY);
 	Gura_AssignMethod(wx_Rect, Union);
 	Gura_AssignMethod(wx_Rect, Union_1);
-	Gura_AssignMethod(wx_Rect, __eq__);
-	Gura_AssignMethod(wx_Rect, __ne__);
 }
 
 Gura_ImplementDescendantCreator(wx_Rect)

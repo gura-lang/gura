@@ -72,49 +72,26 @@ Gura_ImplementMethod(wx_TreeItemId, IsOk)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
-Gura_DeclareMethod(wx_TreeItemId, __eq__)
+// operator ==
+Gura_ImplementBinaryOperator(Equal, wx_TreeItemId, wx_TreeItemId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_TreeItemId, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_TreeItemId, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_TreeItemId, __eq__)
-{
-	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetThisObj(args);
-	wxTreeItemId *item1 = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
-	wxTreeItemId *item2 = Object_wx_TreeItemId::GetObject(args, 1)->GetEntity();
+	wxTreeItemId *item1 = Object_wx_TreeItemId::GetObject(valueLeft)->GetEntity();
+	wxTreeItemId *item2 = Object_wx_TreeItemId::GetObject(valueRight)->GetEntity();
 	return *item1 == *item2;
 }
 
-Gura_DeclareMethod(wx_TreeItemId, __ne__)
+// operator !=
+Gura_ImplementBinaryOperator(NotEqual, wx_TreeItemId, wx_TreeItemId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_TreeItemId, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_TreeItemId, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_TreeItemId, __ne__)
-{
-	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetThisObj(args);
-	wxTreeItemId *item1 = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
-	wxTreeItemId *item2 = Object_wx_TreeItemId::GetObject(args, 1)->GetEntity();
+	wxTreeItemId *item1 = Object_wx_TreeItemId::GetObject(valueLeft)->GetEntity();
+	wxTreeItemId *item2 = Object_wx_TreeItemId::GetObject(valueRight)->GetEntity();
 	return *item1 != *item2;
 }
 
-Gura_DeclareMethod(wx_TreeItemId, __not__)
+// operator !
+Gura_ImplementUnaryOperator(Not, wx_TreeItemId)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item", VTYPE_wx_TreeItemId, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_TreeItemId, __not__)
-{
-	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetThisObj(args);
-	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
+	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(value)->GetEntity();
 	return Value(!*item);
 }
 
@@ -149,6 +126,9 @@ String Object_wx_TreeItemId::ToString(Signal sig, bool exprFlag)
 void Object_wx_TreeItemId::OnModuleEntry(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(TreeItemId);
+	Gura_AssignBinaryOperator(Equal, wx_TreeItemId, wx_TreeItemId);
+	Gura_AssignBinaryOperator(NotEqual, wx_TreeItemId, wx_TreeItemId);
+	Gura_AssignUnaryOperator(Not, wx_TreeItemId);
 }
 
 //----------------------------------------------------------------------------
@@ -157,9 +137,6 @@ void Object_wx_TreeItemId::OnModuleEntry(Environment &env, Signal sig)
 Gura_ImplementUserInheritableClass(wx_TreeItemId)
 {
 	Gura_AssignMethod(wx_TreeItemId, IsOk);
-	Gura_AssignMethod(wx_TreeItemId, __eq__);
-	Gura_AssignMethod(wx_TreeItemId, __ne__);
-	Gura_AssignMethod(wx_TreeItemId, __not__);
 }
 
 Gura_ImplementDescendantCreator(wx_TreeItemId)

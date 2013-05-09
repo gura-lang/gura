@@ -331,102 +331,54 @@ Gura_ImplementMethod(wx_Size, SetWidth)
 	return Value::Null;
 }
 
-Gura_DeclareMethod(wx_Size, __eq__)
+// operator ==
+Gura_ImplementBinaryOperator(Equal, wx_Size, wx_Size)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Size, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Size, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Size, __eq__)
-{
-	Object_wx_Size *pThis = Object_wx_Size::GetThisObj(args);
-	wxSize *item1 = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	wxSize *item2 = Object_wx_Size::GetObject(args, 1)->GetEntity();
+	wxSize *item1 = Object_wx_Size::GetObject(valueLeft)->GetEntity();
+	wxSize *item2 = Object_wx_Size::GetObject(valueRight)->GetEntity();
 	return *item1 == *item2;
 }
 
-Gura_DeclareMethod(wx_Size, __ne__)
+// operator !=
+Gura_ImplementBinaryOperator(NotEqual, wx_Size, wx_Size)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Size, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Size, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Size, __ne__)
-{
-	Object_wx_Size *pThis = Object_wx_Size::GetThisObj(args);
-	wxSize *item1 = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	wxSize *item2 = Object_wx_Size::GetObject(args, 1)->GetEntity();
+	wxSize *item1 = Object_wx_Size::GetObject(valueLeft)->GetEntity();
+	wxSize *item2 = Object_wx_Size::GetObject(valueRight)->GetEntity();
 	return *item1 != *item2;
 }
 
-Gura_DeclareMethod(wx_Size, __add__)
+// operator +
+Gura_ImplementBinaryOperator(Plus, wx_Size, wx_Size)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Size, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_wx_Size, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Size, __add__)
-{
-	Object_wx_Size *pThis = Object_wx_Size::GetThisObj(args);
-	wxSize *item1 = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	wxSize *item2 = Object_wx_Size::GetObject(args, 1)->GetEntity();
+	wxSize *item1 = Object_wx_Size::GetObject(valueLeft)->GetEntity();
+	wxSize *item2 = Object_wx_Size::GetObject(valueRight)->GetEntity();
 	wxSize rtn = *item1 + *item2;
 	return Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue));
 }
 
-Gura_DeclareMethod(wx_Size, __sub__)
+// operator -
+Gura_ImplementBinaryOperator(Minus, wx_Size, wx_Size)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item1", VTYPE_wx_Size, OCCUR_Once);
-	DeclareArg(env, "item2", VTYPE_any, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Size, __sub__)
-{
-	Object_wx_Size *pThis = Object_wx_Size::GetThisObj(args);
-	wxSize *item1 = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	wxSize *item2 = Object_wx_Size::GetObject(args, 1)->GetEntity();
+	wxSize *item1 = Object_wx_Size::GetObject(valueLeft)->GetEntity();
+	wxSize *item2 = Object_wx_Size::GetObject(valueRight)->GetEntity();
 	wxSize rtn = *item1 - *item2;
 	return Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue));
 }
 
-Gura_DeclareMethod(wx_Size, __mul__)
+// operator *
+Gura_ImplementBinaryOperator(Multiply, wx_Size, number)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item", VTYPE_wx_Size, OCCUR_Once);
-	DeclareArg(env, "factor", VTYPE_number, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Size, __mul__)
-{
-	Object_wx_Size *pThis = Object_wx_Size::GetThisObj(args);
-	wxSize *item = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	int factor = args.GetInt(1);
+	wxSize *item = Object_wx_Size::GetObject(valueLeft)->GetEntity();
+	int factor = valueRight.GetInt();
 	wxSize rtn = *item * factor;
 	return Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue));
 }
 
-Gura_DeclareMethod(wx_Size, __div__)
+// operator /
+Gura_ImplementBinaryOperator(Divide, wx_Size, number)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "item", VTYPE_wx_Size, OCCUR_Once);
-	DeclareArg(env, "factor", VTYPE_number, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(wx_Size, __div__)
-{
-	Object_wx_Size *pThis = Object_wx_Size::GetThisObj(args);
-	wxSize *item = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	int factor = args.GetInt(1);
+	wxSize *item = Object_wx_Size::GetObject(valueLeft)->GetEntity();
+	int factor = valueRight.GetInt();
 	wxSize rtn = *item / factor;
 	return Value(new Object_wx_Size(new wxSize(rtn), NULL, OwnerTrue));
 }
@@ -489,7 +441,7 @@ String Object_wx_Size::ToString(Signal sig, bool exprFlag)
 		rtn += "invalid>";
 	} else {
 		char buff[64];
-		::sprintf(buff, "%p>", GetEntity());
+		::sprintf(buff, "%d,%d>", GetEntity()->x, GetEntity()->y);
 		rtn += buff;
 	}
 	return rtn;
@@ -499,6 +451,12 @@ void Object_wx_Size::OnModuleEntry(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SizeEmpty);
 	Gura_AssignFunction(Size);
+	Gura_AssignBinaryOperator(Equal, wx_Size, wx_Size);
+	Gura_AssignBinaryOperator(NotEqual, wx_Size, wx_Size);
+	Gura_AssignBinaryOperator(Plus, wx_Size, wx_Size);
+	Gura_AssignBinaryOperator(Minus, wx_Size, wx_Size);
+	Gura_AssignBinaryOperator(Multiply, wx_Size, number);
+	Gura_AssignBinaryOperator(Divide, wx_Size, number);
 }
 
 //----------------------------------------------------------------------------
@@ -522,12 +480,6 @@ Gura_ImplementUserInheritableClass(wx_Size)
 	Gura_AssignMethod(wx_Size, SetDefaults);
 	Gura_AssignMethod(wx_Size, SetHeight);
 	Gura_AssignMethod(wx_Size, SetWidth);
-	Gura_AssignMethod(wx_Size, __eq__);
-	Gura_AssignMethod(wx_Size, __ne__);
-	Gura_AssignMethod(wx_Size, __add__);
-	Gura_AssignMethod(wx_Size, __sub__);
-	Gura_AssignMethod(wx_Size, __mul__);
-	Gura_AssignMethod(wx_Size, __div__);
 }
 
 Gura_ImplementDescendantCreator(wx_Size)
