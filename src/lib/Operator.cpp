@@ -9,10 +9,13 @@ static void SetError_DivideByZero(Signal sig);
 //-----------------------------------------------------------------------------
 const char *Operator::_mathSymbolTbl[] = {
 	"",		// OPTYPE_None
+	// unary operators
 	"+",	// OPTYPE_Pos
 	"-",	// OPTYPE_Neg
 	"~",	// OPTYPE_Invert
 	"!",	// OPTYPE_Not
+	"..",	// OPTYPE_SequenceInf
+	// binary operators
 	"+",	// OPTYPE_Plus
 	"-",	// OPTYPE_Minus
 	"*",	// OPTYPE_Multiply
@@ -35,7 +38,6 @@ const char *Operator::_mathSymbolTbl[] = {
 	"||",	// OPTYPE_OrOr
 	"&&",	// OPTYPE_AndAnd
 	"..",	// OPTYPE_Sequence
-	"..",	// OPTYPE_SequenceInf
 };
 
 void Operator::Assign(Environment &env, OperatorEntry *pOperatorEntry)
@@ -95,6 +97,22 @@ Value Operator::EvalBinary(Environment &env, Signal sig, OpType opType, const Va
 		return Value::Null;
 	}
 	return pOperatorEntry->DoEval(env, sig, valueLeft, valueRight);
+}
+
+OpType Operator::LookupUnaryOpType(const char *str)
+{
+	for (size_t i = OPTYPE_unary; i < OPTYPE_binary; i++) {
+		if (::strcmp(_mathSymbolTbl[i], str) == 0) return static_cast<OpType>(i);
+	}
+	return OPTYPE_None;
+}
+
+OpType Operator::LookupBinaryOpType(const char *str)
+{
+	for (size_t i = OPTYPE_binary; i < OPTYPE_max; i++) {
+		if (::strcmp(_mathSymbolTbl[i], str) == 0) return static_cast<OpType>(i);
+	}
+	return OPTYPE_None;
 }
 
 void Operator::SetError_InvalidValueType(Signal &sig, OpType opType, const Value &value)
@@ -198,6 +216,15 @@ Gura_ImplementUnaryOperator(Not, any)
 {
 	bool rtn = !value.GetBoolean();
 	return Value(rtn);
+}
+
+//-----------------------------------------------------------------------------
+// UnaryOperator(SequenceInf, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperator(SequenceInf, number)
+{
+	Number numBegin = value.GetNumber();
+	return Value(env, new Iterator_SequenceInf(numBegin));
 }
 
 //-----------------------------------------------------------------------------
@@ -794,15 +821,6 @@ Gura_ImplementBinaryOperator(Sequence, number, number)
 	Number numEnd = valueRight.GetNumber();
 	Number numStep = (numEnd >= numBegin)? +1 : -1;
 	return Value(env, new Iterator_Sequence(numBegin, numEnd, numStep));
-}
-
-//-----------------------------------------------------------------------------
-// UnaryOperator(SequenceInf, *)
-//-----------------------------------------------------------------------------
-Gura_ImplementUnaryOperator(SequenceInf, number)
-{
-	Number numBegin = value.GetNumber();
-	return Value(env, new Iterator_SequenceInf(numBegin));
 }
 
 void AssignBasicOperators(Environment &env)

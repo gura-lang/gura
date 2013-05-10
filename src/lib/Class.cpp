@@ -5,29 +5,37 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class
 //-----------------------------------------------------------------------------
-// object#istype(type:expr):map
+// object#istype(type+:expr):map
 Gura_DeclareMethodPrimitive(Object, istype)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "type", VTYPE_expr);
+	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 }
 
 Gura_ImplementMethod(Object, istype)
 {
-	SymbolList symbolList;
-	if (!args.GetExpr(0)->GetChainedSymbolList(symbolList)) {
-		sig.SetError(ERR_TypeError, "invalid type name");
-		return Value::Null;
-	}
-	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(symbolList);
-	if (pValueTypeInfo == NULL) {
-		sig.SetError(ERR_ValueError, "invalid type name");
-		return Value::Null;
-	}
+	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
+	if (pValueTypeInfo == NULL) return Value::Null;
 	ValueType valType = args.GetThis().GetValueType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
-	if (valType == VTYPE_number && valTypeCmp == VTYPE_complex) return Value(true);
+	if ((valType == VTYPE_number || valType == VTYPE_fraction) &&
+								valTypeCmp == VTYPE_complex) return Value(true);
+	if (valType == VTYPE_fraction && valTypeCmp == VTYPE_number) return Value(true);
 	return Value(valType == valTypeCmp);
+}
+
+// object#isinstance(type+:expr):map
+Gura_DeclareMethodPrimitive(Object, isinstance)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
+}
+
+Gura_ImplementMethod(Object, isinstance)
+{
+	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
+	if (pValueTypeInfo == NULL) return Value::Null;
+	return args.GetThis().IsInstanceOf(pValueTypeInfo->GetValueType());
 }
 
 // num = object#tonumber():[strict,raise,zero,nil]
@@ -264,6 +272,7 @@ String Class::ToString(Signal sig, bool exprFlag)
 void Class::Prepare()
 {
 	Gura_AssignMethod(Object, istype);		// primitive method
+	Gura_AssignMethod(Object, isinstance);	// primitive method
 	Gura_AssignMethod(Object, tonumber);	// primitive method
 	Gura_AssignMethod(Object, tostring);	// primitive method
 	Gura_AssignMethod(Object, setprop_X);

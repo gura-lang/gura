@@ -55,16 +55,27 @@ Gura_ImplementFunction(assign)
 	const Function *pFuncBlock =
 					args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
-	OpType opType = OPTYPE_Plus;
+	const Symbol *pSymbolOp = args.GetSymbol(0);
 	CustomOperatorEntry *pOperatorEntry;
 	if (args.IsValid(2)) {
-		
+		OpType opType = Operator::LookupBinaryOpType(pSymbolOp->GetName());
+		if (opType == OPTYPE_None) {
+			sig.SetError(ERR_ValueError,
+				"invalid symbol for binary operator '%s'", pSymbolOp->GetName());
+			return Value::Null;
+		}
 		ValueType valTypeL = VTYPE_nil;
 		ValueType valTypeR = VTYPE_nil;
 		
 		pOperatorEntry = new CustomOperatorEntry(opType,
 						valTypeL, valTypeR, Function::Reference(pFuncBlock));
 	} else {
+		OpType opType = Operator::LookupUnaryOpType(pSymbolOp->GetName());
+		if (opType == OPTYPE_None) {
+			sig.SetError(ERR_ValueError,
+				"invalid symbol for unary operator '%s'", pSymbolOp->GetName());
+			return Value::Null;
+		}
 		
 		ValueType valType = VTYPE_nil;
 		

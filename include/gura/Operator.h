@@ -36,13 +36,19 @@ Operator::Assign(env, new OperatorEntry_##op##_##typeL##_##typeR())
 
 namespace Gura {
 
+// the order of Operator::_mathSymbolTbl depends on OpType numbers.
 enum OpType {
 	OPTYPE_None,
-	OPTYPE_Pos,
+	// unary operators
+	OPTYPE_unary,
+	OPTYPE_Pos		= OPTYPE_unary,
 	OPTYPE_Neg,
 	OPTYPE_Invert,
 	OPTYPE_Not,
-	OPTYPE_Plus,
+	OPTYPE_SequenceInf,
+	// binary operators
+	OPTYPE_binary,
+	OPTYPE_Plus		= OPTYPE_binary,
 	OPTYPE_Minus,
 	OPTYPE_Multiply,
 	OPTYPE_Divide,
@@ -64,7 +70,6 @@ enum OpType {
 	OPTYPE_OrOr,
 	OPTYPE_AndAnd,
 	OPTYPE_Sequence,
-	OPTYPE_SequenceInf,
 	OPTYPE_max,
 };
 
@@ -99,6 +104,8 @@ public:
 	static void Assign(Environment &env, OperatorEntry *pOperatorEntry);
 	const OperatorEntry *Lookup(ValueType valType) const;
 	const OperatorEntry *Lookup(ValueType valTypeLeft, ValueType valTypeRight) const;
+	static OpType LookupUnaryOpType(const char *str);
+	static OpType LookupBinaryOpType(const char *str);
 	static Value EvalUnary(Environment &env, Signal sig, OpType opType, const Value &value);
 	static Value EvalBinary(Environment &env, Signal sig, OpType opType,
 					const Value &valueLeft, const Value &valueRight);

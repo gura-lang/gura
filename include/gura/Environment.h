@@ -310,6 +310,8 @@ public:
 	void AssignValueType(const ValueTypeInfo *pValueTypeInfo);
 	const ValueTypeInfo *LookupValueType(const SymbolList &symbolList) const;
 	const ValueTypeInfo *LookupValueType(const Symbol *pSymbol) const;
+	const ValueTypeInfo *LookupValueType(Signal sig, const ValueList &valList);
+	const ValueTypeInfo *LookupValueType(Signal sig, const Expr *pExpr);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,

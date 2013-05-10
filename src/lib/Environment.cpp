@@ -401,6 +401,46 @@ const ValueTypeInfo *Environment::LookupValueType(const Symbol *pSymbol) const
 	return NULL;
 }
 
+const ValueTypeInfo *Environment::LookupValueType(Signal sig, const ValueList &valList)
+{
+	SymbolList symbolList;
+	foreach_const_reverse (ValueList, pValue, valList) {
+		if (!pValue->IsExpr()) {
+			sig.SetError(ERR_TypeError, "expr must be specified");
+			return NULL;
+		}
+		if (!pValue->GetExpr()->GetChainedSymbolList(symbolList)) {
+			sig.SetError(ERR_TypeError, "invalid element for type name: '%s'",
+									pValue->GetExpr()->ToString().c_str());
+			return NULL;
+		}
+	}
+	const ValueTypeInfo *pValueTypeInfo = LookupValueType(symbolList);
+	if (pValueTypeInfo == NULL) {
+		sig.SetError(ERR_ValueError, "can't find type name: '%s'",
+								symbolList.Join(".").c_str());
+		return NULL;
+	}
+	return pValueTypeInfo;
+}
+
+const ValueTypeInfo *Environment::LookupValueType(Signal sig, const Expr *pExpr)
+{
+	SymbolList symbolList;
+	if (!pExpr->GetChainedSymbolList(symbolList)) {
+		sig.SetError(ERR_TypeError, "invalid element for type name: '%s'",
+												pExpr->ToString().c_str());
+		return NULL;
+	}
+	const ValueTypeInfo *pValueTypeInfo = LookupValueType(symbolList);
+	if (pValueTypeInfo == NULL) {
+		sig.SetError(ERR_ValueError, "can't find type name: '%s'",
+								symbolList.Join(".").c_str());
+		return NULL;
+	}
+	return pValueTypeInfo;
+}
+
 Value Environment::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
