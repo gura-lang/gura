@@ -17,6 +17,9 @@ Gura_BeginModule(basement)
 "  :iter  returns an iterator that executes the block\n" \
 "  :xiter returns an iterator that executes the block, skipping nil\n"
 
+const ValueTypeInfo *LookupValueTypeByListOfExpr(Environment &env,
+										Signal sig, const ValueList &valList);
+
 //-----------------------------------------------------------------------------
 // Gura module functions: basement
 //-----------------------------------------------------------------------------
@@ -1378,20 +1381,9 @@ Gura_DeclareFunction(istype)
 
 Gura_ImplementFunction(istype)
 {
-	SymbolList symbolList;
-	foreach_const_reverse (ValueList, pValue, args.GetList(1)) {
-		if (!pValue->GetExpr()->GetChainedSymbolList(symbolList)) {
-			sig.SetError(ERR_TypeError, "invalid type name %s",
-									pValue->GetExpr()->ToString().c_str());
-			return Value::Null;
-		}
-	}
-	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(symbolList);
-	if (pValueTypeInfo == NULL) {
-		sig.SetError(ERR_ValueError, "invalid type name %s",
-								symbolList.Join(".").c_str());
-		return Value::Null;
-	}
+	const ValueTypeInfo *pValueTypeInfo =
+				LookupValueTypeByListOfExpr(env, sig, args.GetList(1));
+	if (pValueTypeInfo == NULL) return Value::Null;
 	ValueType valType = args.GetValue(0).GetValueType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
 	if ((valType == VTYPE_number || valType == VTYPE_fraction) &&
@@ -1410,20 +1402,9 @@ Gura_DeclareFunction(isinstance)
 
 Gura_ImplementFunction(isinstance)
 {
-	SymbolList symbolList;
-	foreach_const_reverse (ValueList, pValue, args.GetList(1)) {
-		if (!pValue->GetExpr()->GetChainedSymbolList(symbolList)) {
-			sig.SetError(ERR_TypeError, "invalid type name %s",
-									pValue->GetExpr()->ToString().c_str());
-			return Value::Null;
-		}
-	}
-	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(symbolList);
-	if (pValueTypeInfo == NULL) {
-		sig.SetError(ERR_ValueError, "invalid type name %s",
-								symbolList.Join(".").c_str());
-		return Value::Null;
-	}
+	const ValueTypeInfo *pValueTypeInfo =
+				LookupValueTypeByListOfExpr(env, sig, args.GetList(1));
+	if (pValueTypeInfo == NULL) return Value::Null;
 	return args.GetValue(0).IsInstanceOf(pValueTypeInfo->GetValueType());
 }
 
@@ -1437,20 +1418,9 @@ Gura_DeclareFunction(classref)
 
 Gura_ImplementFunction(classref)
 {
-	SymbolList symbolList;
-	foreach_const_reverse (ValueList, pValue, args.GetList(0)) {
-		if (!pValue->GetExpr()->GetChainedSymbolList(symbolList)) {
-			sig.SetError(ERR_TypeError, "invalid type name %s",
-									pValue->GetExpr()->ToString().c_str());
-			return Value::Null;
-		}
-	}
-	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(symbolList);
-	if (pValueTypeInfo == NULL) {
-		sig.SetError(ERR_ValueError, "invalid type name %s",
-								symbolList.Join(".").c_str());
-		return Value::Null;
-	}
+	const ValueTypeInfo *pValueTypeInfo =
+				LookupValueTypeByListOfExpr(env, sig, args.GetList(0));
+	if (pValueTypeInfo == NULL) return Value::Null;
 	if (pValueTypeInfo->GetClass() == NULL) {
 		sig.SetError(ERR_ValueError, "not a class type");
 		return Value::Null;
@@ -1681,6 +1651,26 @@ Gura_ModuleEntry()
 
 Gura_ModuleTerminate()
 {
+}
+
+const ValueTypeInfo *LookupValueTypeByListOfExpr(Environment &env,
+										Signal sig, const ValueList &valList)
+{
+	SymbolList symbolList;
+	foreach_const_reverse (ValueList, pValue, valList) {
+		if (!pValue->GetExpr()->GetChainedSymbolList(symbolList)) {
+			sig.SetError(ERR_TypeError, "invalid type name %s",
+									pValue->GetExpr()->ToString().c_str());
+			return NULL;
+		}
+	}
+	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(symbolList);
+	if (pValueTypeInfo == NULL) {
+		sig.SetError(ERR_ValueError, "invalid type name %s",
+								symbolList.Join(".").c_str());
+		return NULL;
+	}
+	return pValueTypeInfo;
 }
 
 Gura_EndModule(basement, basement)
