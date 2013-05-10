@@ -206,6 +206,7 @@
     <ClCompile Include="..\Module_os\Module_os.cpp" />
     <ClCompile Include="..\Module_path\Module_path.cpp" />
     <ClCompile Include="Module_sys.cpp" />
+    <ClCompile Include="Module_operator.cpp" />
     <ClCompile Include="..\Module_time\Module_time.cpp" />
     <ClCompile Include="..\Module_conio\Module_conio.cpp" />
     <ClCompile Include="OAL.cpp" />
