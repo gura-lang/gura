@@ -38,43 +38,35 @@ const char *Operator::_mathSymbolTbl[] = {
 	"..",	// OPTYPE_SequenceInf
 };
 
-Value Operator::DoEval(Environment &env, Signal sig, const Value &value) const
+void Operator::Assign(Environment &env, OperatorEntry *pOperatorEntry)
 {
-	return Value::Null;
-}
-
-Value Operator::DoEval(Environment &env, Signal sig,
-				const Value &valueLeft, const Value &valueRight) const
-{
-	return Value::Null;
-}
-
-void Operator::Assign(Environment &env, Operator *pOperator)
-{
-	OperatorMap &map = env.GetGlobal()->GetOperatorMap(pOperator->GetOpType());
-	Key key = pOperator->CalcKey();
-	OperatorMap::iterator iter = map.find(key);
+	Operator *pOperator = env.GetGlobal()->GetOperator(pOperatorEntry->GetOpType());
+	Operator::Map &map = pOperator->GetMap();
+	Key key = pOperatorEntry->CalcKey();
+	Operator::Map::iterator iter = map.find(key);
 	if (iter == map.end()) {
-		map[key] = pOperator;
+		map[key] = pOperatorEntry;
 	} else {
 		delete iter->second;
-		iter->second = pOperator;
+		iter->second = pOperatorEntry;
 	}
 }
 
-const Operator *Operator::Lookup(Environment &env, OpType opType, ValueType valType)
+const OperatorEntry *Operator::Lookup(Environment &env, OpType opType, ValueType valType)
 {
-	OperatorMap &map = env.GetGlobal()->GetOperatorMap(opType);
-	OperatorMap::const_iterator iter = map.find(CalcKey(valType));
+	Operator *pOperator = env.GetGlobal()->GetOperator(opType);
+	Operator::Map &map = pOperator->GetMap();
+	Operator;;Map::iterator iter = map.find(CalcKey(valType));
 	if (iter != map.end()) return iter->second;
 	iter = map.find(CalcKey(VTYPE_any));
 	return (iter == map.end())? NULL : iter->second;
 }
 
-const Operator *Operator::Lookup(Environment &env, OpType opType, ValueType valTypeLeft, ValueType valTypeRight)
+const OperatorEntry *Operator::Lookup(Environment &env, OpType opType, ValueType valTypeLeft, ValueType valTypeRight)
 {
-	OperatorMap &map = env.GetGlobal()->GetOperatorMap(opType);
-	OperatorMap::const_iterator iter = map.find(CalcKey(valTypeLeft, valTypeRight));
+	Operator *pOperator = env.GetGlobal()->GetOperator(opType);
+	Operator::Map &map = pOperator->GetMap();
+	Operator::Map::iterator iter = map.find(CalcKey(valTypeLeft, valTypeRight));
 	if (iter != map.end()) return iter->second;
 	iter = map.find(CalcKey(valTypeLeft, VTYPE_any));
 	if (iter != map.end()) return iter->second;
@@ -84,21 +76,10 @@ const Operator *Operator::Lookup(Environment &env, OpType opType, ValueType valT
 	return (iter == map.end())? NULL : iter->second;
 }
 
-void Operator::SetError_InvalidValueType(Signal &sig, const Value &value) const
-{
-	SetError_InvalidValueType(sig, GetOpType(), value);
-}
-
 void Operator::SetError_InvalidValueType(Signal &sig, OpType opType, const Value &value)
 {
 	sig.SetError(ERR_TypeError, "can't evaluate (%s %s)",
 							GetMathSymbol(opType), value.GetValueTypeName());
-}
-
-void Operator::SetError_InvalidValueType(Signal &sig,
-						const Value &valueLeft, const Value &valueRight) const
-{
-	SetError_InvalidValueType(sig, GetOpType(), valueLeft, valueRight);
 }
 
 void Operator::SetError_InvalidValueType(Signal &sig, OpType opType,
@@ -106,6 +87,31 @@ void Operator::SetError_InvalidValueType(Signal &sig, OpType opType,
 {
 	sig.SetError(ERR_TypeError, "can't evaluate (%s %s %s)",
 		valueLeft.GetValueTypeName(), GetMathSymbol(opType), valueRight.GetValueTypeName());
+}
+
+//-----------------------------------------------------------------------------
+// OperatorEntry
+//-----------------------------------------------------------------------------
+Value OperatorEntry::DoEval(Environment &env, Signal sig, const Value &value) const
+{
+	return Value::Null;
+}
+
+Value OperatorEntry::DoEval(Environment &env, Signal sig,
+				const Value &valueLeft, const Value &valueRight) const
+{
+	return Value::Null;
+}
+
+void OperatorEntry::SetError_InvalidValueType(Signal &sig, const Value &value) const
+{
+	Operator::SetError_InvalidValueType(sig, GetOpType(), value);
+}
+
+void OperatorEntry::SetError_InvalidValueType(Signal &sig,
+						const Value &valueLeft, const Value &valueRight) const
+{
+	Operator::SetError_InvalidValueType(sig, GetOpType(), valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------

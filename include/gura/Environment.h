@@ -171,7 +171,7 @@ public:
 		SeparatedModuleMap	_separatedModuleMap;
 		StringList			_workingDirList;
 		PathManagerOwner	_pathManagerOwner;
-		OperatorMap			_operatorMapTbl[OPTYPE_max];
+		Operator			_operatorTbl[OPTYPE_max];
 	public:
 		SymbolPool			*_pSymbolPool;
 		ValueTypePool		*_pValueTypePool;
@@ -194,8 +194,8 @@ public:
 		void UnregisterSeparatedModule(const char *pathName);
 		inline PathManagerOwner &GetPathManagerOwner() { return _pathManagerOwner; }
 		inline const PathManagerOwner &GetPathManagerOwner() const { return _pathManagerOwner; }
-		inline OperatorMap &GetOperatorMap(OpType opType) { return _operatorMapTbl[opType]; }
-		inline const OperatorMap &GetOperatorMap(OpType opType) const { return _operatorMapTbl[opType]; }
+		inline Operator *GetOperator(OpType opType) { return &_operatorTbl[opType]; }
+		inline const Operator *GetOperator(OpType opType) const { return &_operatorTbl[opType]; }
 		inline Stream *GetConsoleDumb() { return _pConsoleDumb.get(); }
 	};
 	class GURA_DLLDECLARE Frame {

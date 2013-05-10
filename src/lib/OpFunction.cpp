@@ -57,12 +57,12 @@ FuncUnaryOperation::FuncUnaryOperation(Environment &env, const Symbol *pSymbol,
 Value FuncUnaryOperation::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &value = args.GetValue(0);
-	const Operator *pOperator = Operator::Lookup(env, GetOpType(), value.GetValueType());
-	if (pOperator == NULL) {
+	const OperatorEntry *pOperatorEntry = Operator::Lookup(env, GetOpType(), value.GetValueType());
+	if (pOperatorEntry == NULL) {
 		Operator::SetError_InvalidValueType(sig, GetOpType(), value);
 		return Value::Null;
 	}
-	return pOperator->DoEval(env, sig, value);
+	return pOperatorEntry->DoEval(env, sig, value);
 }
 
 //-----------------------------------------------------------------------------
@@ -82,13 +82,13 @@ Value FuncBinaryOperation::DoEval(Environment &env, Signal sig, Args &args) cons
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = Operator::Lookup(env, GetOpType(),
+	const OperatorEntry *pOperatorEntry = Operator::Lookup(env, GetOpType(),
 						valueLeft.GetValueType(), valueRight.GetValueType());
-	if (pOperator == NULL) {
+	if (pOperatorEntry == NULL) {
 		Operator::SetError_InvalidValueType(sig, GetOpType(), valueLeft, valueRight);
 		return Value::Null;
 	}
-	return pOperator->DoEval(env, sig, valueLeft, valueRight);
+	return pOperatorEntry->DoEval(env, sig, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
