@@ -136,8 +136,8 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				_stat = STAT_DoubleChars;
 			} else if (_quoteFlag) {
 				_quoteFlag = false;
+				FeedElement(env, sig, Element(ETYPE_Quote, GetLineNo()));
 				_token.clear();
-				_token.push_back('`');
 				_token.push_back(ch);
 				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
 				if (sig.IsSignalled()) _stat = STAT_Error;
@@ -235,7 +235,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 					_stat = STAT_TripleChars;
 				} else if (_quoteFlag) {
 					_quoteFlag = false;
-					_token.insert(0, "`");
+					FeedElement(env, sig, Element(ETYPE_Quote, GetLineNo()));
 					pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
 					if (sig.IsSignalled()) _stat = STAT_Error;
 				} else {
@@ -285,7 +285,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			}
 			if (_quoteFlag) {
 				_quoteFlag = false;
-				_token.insert(0, "`");
+				FeedElement(env, sig, Element(ETYPE_Quote, GetLineNo()));
 				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			} else {
@@ -1285,7 +1285,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 		return true;
 	} else if (elem2.IsType(ETYPE_Expr)) {
 		if (elem1.IsType(ETYPE_Quote)) {
-			DBGPARSER(::printf("Reduce: Expr -> ''' Expr\n"));
+			DBGPARSER(::printf("Reduce: Expr -> '`' Expr\n"));
 			pExpr = new Expr_Quote(elem2.GetExpr());
 		} else if (elem1.IsType(ETYPE_Force)) {
 			DBGPARSER(::printf("Reduce: Expr -> '!!' Expr\n"));
