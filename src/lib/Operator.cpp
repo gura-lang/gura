@@ -41,9 +41,9 @@ const char *Operator::_mathSymbolTbl[] = {
 void Operator::Assign(Environment &env, OperatorEntry *pOperatorEntry)
 {
 	Operator *pOperator = env.GetGlobal()->GetOperator(pOperatorEntry->GetOpType());
-	Operator::Map &map = pOperator->GetMap();
+	Map &map = pOperator->GetMap();
 	Key key = pOperatorEntry->CalcKey();
-	Operator::Map::iterator iter = map.find(key);
+	Map::iterator iter = map.find(key);
 	if (iter == map.end()) {
 		map[key] = pOperatorEntry;
 	} else {
@@ -52,28 +52,49 @@ void Operator::Assign(Environment &env, OperatorEntry *pOperatorEntry)
 	}
 }
 
-const OperatorEntry *Operator::Lookup(Environment &env, OpType opType, ValueType valType)
+const OperatorEntry *Operator::Lookup(ValueType valType) const
 {
-	Operator *pOperator = env.GetGlobal()->GetOperator(opType);
-	Operator::Map &map = pOperator->GetMap();
-	Operator;;Map::iterator iter = map.find(CalcKey(valType));
-	if (iter != map.end()) return iter->second;
-	iter = map.find(CalcKey(VTYPE_any));
-	return (iter == map.end())? NULL : iter->second;
+	Map::const_iterator iter = _map.find(CalcKey(valType));
+	if (iter != _map.end()) return iter->second;
+	iter = _map.find(CalcKey(VTYPE_any));
+	if (iter != _map.end()) return iter->second;
+	return NULL;
 }
 
-const OperatorEntry *Operator::Lookup(Environment &env, OpType opType, ValueType valTypeLeft, ValueType valTypeRight)
+const OperatorEntry *Operator::Lookup(ValueType valTypeLeft, ValueType valTypeRight) const
+{
+	Map::const_iterator iter = _map.find(CalcKey(valTypeLeft, valTypeRight));
+	if (iter != _map.end()) return iter->second;
+	iter = _map.find(CalcKey(valTypeLeft, VTYPE_any));
+	if (iter != _map.end()) return iter->second;
+	iter = _map.find(CalcKey(VTYPE_any, valTypeRight));
+	if (iter != _map.end()) return iter->second;
+	iter = _map.find(CalcKey(VTYPE_any, VTYPE_any));
+	if (iter != _map.end()) return iter->second;
+	return NULL;
+}
+
+Value Operator::EvalUnary(Environment &env, Signal sig, OpType opType, const Value &value)
 {
 	Operator *pOperator = env.GetGlobal()->GetOperator(opType);
-	Operator::Map &map = pOperator->GetMap();
-	Operator::Map::iterator iter = map.find(CalcKey(valTypeLeft, valTypeRight));
-	if (iter != map.end()) return iter->second;
-	iter = map.find(CalcKey(valTypeLeft, VTYPE_any));
-	if (iter != map.end()) return iter->second;
-	iter = map.find(CalcKey(VTYPE_any, valTypeRight));
-	if (iter != map.end()) return iter->second;
-	iter = map.find(CalcKey(VTYPE_any, VTYPE_any));
-	return (iter == map.end())? NULL : iter->second;
+	const OperatorEntry *pOperatorEntry = pOperator->Lookup(value.GetValueType());
+	if (pOperatorEntry == NULL) {
+		SetError_InvalidValueType(sig, opType, value);
+		return Value::Null;
+	}
+	return pOperatorEntry->DoEval(env, sig, value);
+}
+
+Value Operator::EvalBinary(Environment &env, Signal sig, OpType opType, const Value &valueLeft, const Value &valueRight)
+{
+	Operator *pOperator = env.GetGlobal()->GetOperator(opType);
+	const OperatorEntry *pOperatorEntry = pOperator->Lookup(
+						valueLeft.GetValueType(), valueRight.GetValueType());
+	if (pOperatorEntry == NULL) {
+		SetError_InvalidValueType(sig, opType, valueLeft, valueRight);
+		return Value::Null;
+	}
+	return pOperatorEntry->DoEval(env, sig, valueLeft, valueRight);
 }
 
 void Operator::SetError_InvalidValueType(Signal &sig, OpType opType, const Value &value)

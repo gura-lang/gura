@@ -78,7 +78,7 @@ class OperatorEntry;
 class GURA_DLLDECLARE Operator {
 public:
 	typedef unsigned long Key;
-	typedef std::map<Operator::Key, OperatorEntry *> Map;
+	typedef std::map<Key, OperatorEntry *> Map;
 private:
 	Map _map;
 	static const char *_mathSymbolTbl[];
@@ -97,8 +97,11 @@ public:
 	static void SetError_InvalidValueType(Signal &sig, OpType opType,
 					const Value &valueLeft, const Value &valueRight);
 	static void Assign(Environment &env, OperatorEntry *pOperatorEntry);
-	static const OperatorEntry *Lookup(Environment &env, OpType opType, ValueType valType);
-	static const OperatorEntry *Lookup(Environment &env, OpType opType, ValueType valTypeLeft, ValueType valTypeRight);
+	const OperatorEntry *Lookup(ValueType valType) const;
+	const OperatorEntry *Lookup(ValueType valTypeLeft, ValueType valTypeRight) const;
+	static Value EvalUnary(Environment &env, Signal sig, OpType opType, const Value &value);
+	static Value EvalBinary(Environment &env, Signal sig, OpType opType,
+					const Value &valueLeft, const Value &valueRight);
 };
 
 //-----------------------------------------------------------------------------
