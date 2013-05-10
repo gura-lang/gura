@@ -25,7 +25,7 @@ public: \
 	virtual Value DoEval(Environment &env, Signal sig, \
 				const Value &valueLeft, const Value &valueRight) const; \
 }; \
-Value OperatorEntry_##op##_##typeL##_##typeR##::DoEval(Environment &env, Signal sig, \
+Value OperatorEntry_##op##_##typeL##_##typeR::DoEval(Environment &env, Signal sig, \
 					const Value &valueLeft, const Value &valueRight) const
 
 #define Gura_AssignUnaryOperator(op, type) \
