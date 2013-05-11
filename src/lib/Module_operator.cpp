@@ -56,31 +56,34 @@ Gura_ImplementFunction(assign)
 					args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
 	const Symbol *pSymbolOp = args.GetSymbol(0);
-	CustomOperatorEntry *pOperatorEntry;
+	CustomOperatorEntry *pOperatorEntry = NULL;
 	if (args.IsValid(2)) {
+		// assign binary operator
 		OpType opType = Operator::LookupBinaryOpType(pSymbolOp->GetName());
 		if (opType == OPTYPE_None) {
 			sig.SetError(ERR_ValueError,
-				"invalid symbol for binary operator '%s'", pSymbolOp->GetName());
+				"invalid symbol for binary operator: '%s'", pSymbolOp->GetName());
 			return Value::Null;
 		}
-		ValueType valTypeL = VTYPE_nil;
-		ValueType valTypeR = VTYPE_nil;
-		
+		const ValueTypeInfo *pValueTypeInfoL = env.LookupValueType(sig, args.GetExpr(1));
+		if (pValueTypeInfoL == NULL) return Value::Null;
+		const ValueTypeInfo *pValueTypeInfoR = env.LookupValueType(sig, args.GetExpr(2));
+		if (pValueTypeInfoR == NULL) return Value::Null;
 		pOperatorEntry = new CustomOperatorEntry(opType,
-						valTypeL, valTypeR, Function::Reference(pFuncBlock));
+				pValueTypeInfoL->GetValueType(), pValueTypeInfoR->GetValueType(), 
+				Function::Reference(pFuncBlock));
 	} else {
+		// assign unary operator
 		OpType opType = Operator::LookupUnaryOpType(pSymbolOp->GetName());
 		if (opType == OPTYPE_None) {
 			sig.SetError(ERR_ValueError,
-				"invalid symbol for unary operator '%s'", pSymbolOp->GetName());
+				"invalid symbol for unary operator: '%s'", pSymbolOp->GetName());
 			return Value::Null;
 		}
-		
-		ValueType valType = VTYPE_nil;
-		
+		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetExpr(1));
+		if (pValueTypeInfo == NULL) return Value::Null;
 		pOperatorEntry = new CustomOperatorEntry(opType,
-								valType, Function::Reference(pFuncBlock));
+				pValueTypeInfo->GetValueType(), Function::Reference(pFuncBlock));
 	}
 	Operator::Assign(env, pOperatorEntry);
 	return Value::Null;
