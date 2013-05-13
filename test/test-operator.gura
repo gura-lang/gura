@@ -1,31 +1,8 @@
 #!/usr/bin/env gura
 import(testutil) {*}
 
-/*
 scope {
 	A = class {
-		__pos__(a) = println('__pos__')							// +a
-		__neg__(a) = println('__neg__')							// -a
-		__invert__(a) = println('__invert__')					// ~a
-		__not__(a) = println('__not__')							// !a
-		__add__(a1, a2) = println('__add__')					// a1 + a2
-		__sub__(a1, a2) = println('__sub__')					// a1 - a2
-		__mul__(a1, a2) = println('__mul__')					// a1 * a2
-		__div__(a1, a2) = println('__div__')					// a1 / a2
-		__eq__(a1, a2) = println('__eq__')						// a1 == a2
-		__ne__(a1, a2) = println('__ne__')						// a1 != a2
-		__ge__(a1, a2) = println('__ge__')						// a1 >= a2
-		__le__(a1, a2) = println('__le__')						// a1 <= a2
-		__cmp__(a1, a2) = println('__cmp__')					// a1 <=> a2
-		__or__(a1, a2) = println('__or__')						// a1 | a2
-		__and__(a1, a2) = println('__and__')					// a1 & a2
-		__xor__(a1, a2) = println('__xor__')					// a1 ^ a2
-		__shl__(a1, a2) = println('__shl__')					// a1 << a2
-		__shr__(a1, a2) = println('__shr__')					// a1 >> a2
-		//__oror__(a1, a2) = println('__oror__')
-		//__andand__(a1, a2) = println('__andand__')
-		__seq__(a1, a2) = println('__seq__')					// a1 .. a2
-		__seqinf__(a1) = println('__seqinf__')					// a1..
 		__getitem__(i) = println('__getitem__ ', i)				// a[i]
 		__getitemx__() = println('__getitemx__')				// a[]
 		__setitem__(i, v) = println('__setitem__ ', i, ' ', v)	// a[i] = v
@@ -36,28 +13,60 @@ scope {
 			a = 3
 		}
 	}
+	operator.assign(`+, `A) {|v| printf('+%s\n', typename(v)):nomap }
+	operator.assign(`-, `A) {|v| printf('-%s\n', typename(v)):nomap }
+	operator.assign(`~, `A) {|v| printf('~%s\n', typename(v)):nomap }
+	operator.assign(`!, `A) {|v| printf('!%s\n', typename(v)):nomap }
+	//operator.assign(`.., `A) {|v| printf('%s..\n', typename(v)):nomap }
+	operator.assign(`+, `A, `A) {|v1, v2| printf('%s + %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`-, `A, `A) {|v1, v2| printf('%s - %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`*, `A, `A) {|v1, v2| printf('%s * %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`/, `A, `A) {|v1, v2| printf('%s / %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`%, `A, `A) {|v1, v2| printf('%s %% %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`**, `A, `A) {|v1, v2| printf('%s ** %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`==, `A, `A) {|v1, v2| printf('%s == %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`!=, `A, `A) {|v1, v2| printf('%s != %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`>, `A, `A) {|v1, v2| printf('%s > %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`<, `A, `A) {|v1, v2| printf('%s < %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`>=, `A, `A) {|v1, v2| printf('%s >= %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`<=, `A, `A) {|v1, v2| printf('%s <= %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`<=>, `A, `A) {|v1, v2| printf('%s <=> %s\n', typename(v1), typename(v2)):nomap }
+	//operator.assign(`in, `A, `A) {|v1, v2| printf('%s in %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`|, `A, `A) {|v1, v2| printf('%s | %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`&, `A, `A) {|v1, v2| printf('%s & %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`^, `A, `A) {|v1, v2| printf('%s ^ %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`<<, `A, `A) {|v1, v2| printf('%s << %s\n', typename(v1), typename(v2)):nomap }
+	operator.assign(`>>, `A, `A) {|v1, v2| printf('%s >> %s\n', typename(v1), typename(v2)):nomap }
+	//operator.assign(`||, `A, `A) {|v1, v2| printf('%s || %s\n', typename(v1), typename(v2)):nomap }
+	//operator.assign(`&&, `A, `A) {|v1, v2| printf('%s && %s\n', typename(v1), typename(v2)):nomap }
+	//operator.assign(`.., `A, `A) {|v1, v2| printf('%s .. %s\n', typename(v1), typename(v2)):nomap }
 	a1 = A()
 	a2 = A()
 	+a1
 	-a1
 	~a1
 	!a1
+	//a1..
 	a1 + a2
 	a1 - a2
 	a1 * a2
 	a1 / a2
+	a1 % a2
+	a1 ** a2
 	a1 == a2
 	a1 != a2
+	a1 > a2
+	a1 < a2
 	a1 >= a2
 	a1 <= a2
 	a1 <=> a2
+	a1 in a2
 	a1 | a2
 	a1 & a2
 	a1 ^ a2
 	a1 << a2
 	a1 >> a2
-	a1 .. a2
-	a1..
+	//a1 .. a2
 	a1[3]
 	a1[]
 	a1[3] = 2
@@ -66,7 +75,6 @@ scope {
 	a1.b
 	a1.b = 2
 }
-*/
 scope {
 	sys.stdout << 'hello world\n'
 	sys.stdout << 'hello world\n' << '2nd line\n' << '3rd line\n'
@@ -122,42 +130,57 @@ function {
 	println(f(`x))
 	println(f(`(t + 2)))
 }
-/*
 scope {
 	Fruit = class {
 		__init__(name:string) = { this.cnt = 0, this.name = name }
 		__str__() = format('name = %s, cnt = %d', this.name, this.cnt)
-		__neg__(v) = { format('__neg__(%s)', typename(v)):nomap }
-		__invert__(v) = { format('__invert__(%s)', typename(v)):nomap }
-		__not__(v) = { format('__not__(%s)', typename(v)):nomap }
-		__add__(v1, v2) = { format('__add__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__sub__(v1, v2) = { format('__sub__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__mul__(v1, v2) = { format('__mul__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__div__(v1, v2) = { format('__div__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__pow__(v1, v2) = { format('__pow__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__eq__(v1, v2) = { format('__eq__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__ne__(v1, v2) = { format('__ne__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__lt__(v1, v2) = { format('__lt__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__gt__(v1, v2) = { format('__gt__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__le__(v1, v2) = { format('__le__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__ge__(v1, v2) = { format('__ge__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__cmp__(v1, v2) = { format('__cmp__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__or__(v1, v2) = { format('__or__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__and__(v1, v2) = { format('__and__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__xor__(v1, v2) = { format('__xor__(%s, %s)', typename(v1), typename(v2)):nomap }
-		__seq__(v1, v2) = { format('__seq__(%s, %s)', typename(v1), typename(v2)):nomap }
 	}
+	operator.assign(`+, `Fruit) {|v| format('+%s', typename(v)):nomap }
+	operator.assign(`-, `Fruit) {|v| format('-%s', typename(v)):nomap }
+	operator.assign(`~, `Fruit) {|v| format('~%s', typename(v)):nomap }
+	operator.assign(`!, `Fruit) {|v| format('!%s', typename(v)):nomap }
+	//operator.assign(`.., `Fruit) {|v| format('%s..', typename(v)):nomap }
+	operator.assign(`+, `Fruit, `any) {|v1, v2| format('%s + %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`-, `Fruit, `any) {|v1, v2| format('%s - %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`*, `Fruit, `any) {|v1, v2| format('%s * %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`/, `Fruit, `any) {|v1, v2| format('%s / %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`%, `Fruit, `any) {|v1, v2| format('%s %% %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`**, `Fruit, `any) {|v1, v2| format('%s ** %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`+, `any, `Fruit) {|v1, v2| format('%s + %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`-, `any, `Fruit) {|v1, v2| format('%s - %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`*, `any, `Fruit) {|v1, v2| format('%s * %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`/, `any, `Fruit) {|v1, v2| format('%s / %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`%, `any, `Fruit) {|v1, v2| format('%s %% %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`**, `any, `Fruit) {|v1, v2| format('%s ** %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`==, `Fruit, `any) {|v1, v2| format('%s == %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`!=, `Fruit, `any) {|v1, v2| format('%s != %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`>, `Fruit, `any) {|v1, v2| format('%s > %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`<, `Fruit, `any) {|v1, v2| format('%s < %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`>=, `Fruit, `any) {|v1, v2| format('%s >= %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`<=, `Fruit, `any) {|v1, v2| format('%s <= %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`<=>, `Fruit, `any) {|v1, v2| format('%s <=> %s', typename(v1), typename(v2)):nomap }
+	//operator.assign(`in, `Fruit, `any) {|v1, v2| format('%s in %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`|, `Fruit, `any) {|v1, v2| format('%s | %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`&, `Fruit, `any) {|v1, v2| format('%s & %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`^, `Fruit, `any) {|v1, v2| format('%s ^ %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`<<, `Fruit, `any) {|v1, v2| format('%s << %s', typename(v1), typename(v2)):nomap }
+	operator.assign(`>>, `Fruit, `any) {|v1, v2| format('%s >> %s', typename(v1), typename(v2)):nomap }
+	//operator.assign(`||, `Fruit, `any) {|v1, v2| format('%s || %s', typename(v1), typename(v2)):nomap }
+	//operator.assign(`&&, `Fruit, `any) {|v1, v2| format('%s && %s', typename(v1), typename(v2)):nomap }
+	//operator.assign(`.., `Fruit, `any) {|v1, v2| format('%s .. %s', typename(v1), typename(v2)):nomap }
 	fruit = Fruit('apple')
 	println(fruit)
 	println(fruit + 3)
 	println(fruit - 3)
 	println(fruit * 3)
 	println(fruit / 3)
+	println(fruit % 3)
 	println(fruit ** 3)
 	println(3 + fruit)
 	println(3 - fruit)
 	println(3 * fruit)
 	println(3 / fruit)
+	println(3 % fruit)
 	println(3 ** fruit)
 	println(fruit == 1)
 	println(fruit != 1)
@@ -168,9 +191,8 @@ scope {
 	println(fruit <=> 1)
 	println(fruit | 1)
 	println(fruit & 1)
-	println(fruit .. 1)
+	//println(fruit .. 1)
 }
-*/
 scope {
 	tester(`(false & false))
 	tester(`(false & true))
