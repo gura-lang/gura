@@ -637,7 +637,7 @@ Gura_ImplementMethod(wx_Font, SetWeight)
 }
 
 // operator ==
-Gura_ImplementBinaryOperator(Equal, wx_Font, wx_Font)
+Gura_ImplementBinaryOperator(Eq, wx_Font, wx_Font)
 {
 	wxFont *item1 = Object_wx_Font::GetObject(valueLeft)->GetEntity();
 	wxFont *item2 = Object_wx_Font::GetObject(valueRight)->GetEntity();
@@ -645,7 +645,7 @@ Gura_ImplementBinaryOperator(Equal, wx_Font, wx_Font)
 }
 
 // operator !=
-Gura_ImplementBinaryOperator(NotEqual, wx_Font, wx_Font)
+Gura_ImplementBinaryOperator(Ne, wx_Font, wx_Font)
 {
 	wxFont *item1 = Object_wx_Font::GetObject(valueLeft)->GetEntity();
 	wxFont *item2 = Object_wx_Font::GetObject(valueRight)->GetEntity();
@@ -685,8 +685,8 @@ void Object_wx_Font::OnModuleEntry(Environment &env, Signal sig)
 	Gura_AssignFunction(FontEmpty);
 	Gura_AssignFunction(Font);
 	Gura_AssignFunction(FontEx);
-	Gura_AssignBinaryOperator(NotEqual, wx_Font, wx_Font);
-	Gura_AssignBinaryOperator(NotEqual, wx_Font, wx_Font);
+	Gura_AssignBinaryOperator(Ne, wx_Font, wx_Font);
+	Gura_AssignBinaryOperator(Ne, wx_Font, wx_Font);
 }
 
 //----------------------------------------------------------------------------

@@ -12,32 +12,32 @@ const char *Operator::_mathSymbolTbl[] = {
 	// unary operators
 	"+",	// OPTYPE_Pos
 	"-",	// OPTYPE_Neg
-	"~",	// OPTYPE_Invert
+	"~",	// OPTYPE_Inv
 	"!",	// OPTYPE_Not
-	"..",	// OPTYPE_SequenceInf
+	"..",	// OPTYPE_SeqInf
 	// binary operators
-	"+",	// OPTYPE_Plus
-	"-",	// OPTYPE_Minus
-	"*",	// OPTYPE_Multiply
-	"/",	// OPTYPE_Divide
-	"%",	// OPTYPE_Modulo
-	"**",	// OPTYPE_Power
-	"==",	// OPTYPE_Equal
-	"!=",	// OPTYPE_NotEqual
-	">",	// OPTYPE_Greater
-	"<",	// OPTYPE_Less
-	">=",	// OPTYPE_GreaterEq
-	"<=",	// OPTYPE_LessEq
-	"<=>",	// OPTYPE_Compare
-	"in",	// OPTYPE_ContainCheck
+	"+",	// OPTYPE_Add
+	"-",	// OPTYPE_Sub
+	"*",	// OPTYPE_Mul
+	"/",	// OPTYPE_Div
+	"%",	// OPTYPE_Mod
+	"**",	// OPTYPE_Pow
+	"==",	// OPTYPE_Eq
+	"!=",	// OPTYPE_Ne
+	">",	// OPTYPE_Gt
+	"<",	// OPTYPE_Lt
+	">=",	// OPTYPE_Ge
+	"<=",	// OPTYPE_Le
+	"<=>",	// OPTYPE_Cmp
+	"in",	// OPTYPE_Contains
 	"|",	// OPTYPE_Or
 	"&",	// OPTYPE_And
 	"^",	// OPTYPE_Xor
-	"<<",	// OPTYPE_ShiftL
-	">>",	// OPTYPE_ShiftR
+	"<<",	// OPTYPE_Shl
+	">>",	// OPTYPE_Shr
 	"||",	// OPTYPE_OrOr
 	"&&",	// OPTYPE_AndAnd
-	"..",	// OPTYPE_Sequence
+	"..",	// OPTYPE_Seq
 };
 
 void Operator::Assign(Environment &env, OperatorEntry *pOperatorEntry)
@@ -203,7 +203,7 @@ Gura_ImplementUnaryOperator(Neg, timedelta)
 //-----------------------------------------------------------------------------
 // UnaryOperator(Invert, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementUnaryOperator(Invert, number)
+Gura_ImplementUnaryOperator(Inv, number)
 {
 	unsigned long num = ~static_cast<unsigned long>(value.GetNumber());
 	return Value(static_cast<Number>(num));
@@ -221,56 +221,56 @@ Gura_ImplementUnaryOperator(Not, any)
 //-----------------------------------------------------------------------------
 // UnaryOperator(SequenceInf, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementUnaryOperator(SequenceInf, number)
+Gura_ImplementUnaryOperator(SeqInf, number)
 {
 	Number numBegin = value.GetNumber();
 	return Value(env, new Iterator_SequenceInf(numBegin));
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Plus, *, *)
+// BinaryOperator(Add, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Plus, number, number)
+Gura_ImplementBinaryOperator(Add, number, number)
 {
 	return Value(valueLeft.GetNumber() + valueRight.GetNumber());
 }
 
-Gura_ImplementBinaryOperator(Plus, complex, complex)
+Gura_ImplementBinaryOperator(Add, complex, complex)
 {
 	return Value(valueLeft.GetComplex() + valueRight.GetComplex());
 }
 
-Gura_ImplementBinaryOperator(Plus, number, complex)
+Gura_ImplementBinaryOperator(Add, number, complex)
 {
 	return Value(valueLeft.GetNumber() + valueRight.GetComplex());
 }
 
-Gura_ImplementBinaryOperator(Plus, complex, number)
+Gura_ImplementBinaryOperator(Add, complex, number)
 {
 	return Value(valueLeft.GetComplex() + valueRight.GetNumber());
 }
 
-Gura_ImplementBinaryOperator(Plus, matrix, matrix)
+Gura_ImplementBinaryOperator(Add, matrix, matrix)
 {
-	return Matrix::OperatorPlusMinus(env, sig, OPTYPE_Plus,
+	return Matrix::OperatorPlusMinus(env, sig, OPTYPE_Add,
 		Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
-Gura_ImplementBinaryOperator(Plus, datetime, timedelta)
+Gura_ImplementBinaryOperator(Add, datetime, timedelta)
 {
 	DateTime dateTime = valueLeft.GetDateTime();
 	dateTime.Plus(valueRight.GetTimeDelta());
 	return Value(env, dateTime);
 }
 
-Gura_ImplementBinaryOperator(Plus, timedelta, datetime)
+Gura_ImplementBinaryOperator(Add, timedelta, datetime)
 {
 	DateTime dateTime = valueRight.GetDateTime();
 	dateTime.Plus(valueLeft.GetTimeDelta());
 	return Value(env, dateTime);
 }
 
-Gura_ImplementBinaryOperator(Plus, timedelta, timedelta)
+Gura_ImplementBinaryOperator(Add, timedelta, timedelta)
 {
 	TimeDelta td1 = valueLeft.GetTimeDelta();
 	TimeDelta td2 = valueRight.GetTimeDelta();
@@ -280,28 +280,28 @@ Gura_ImplementBinaryOperator(Plus, timedelta, timedelta)
 			td1.GetUSecs() + td2.GetUSecs()));
 }
 
-Gura_ImplementBinaryOperator(Plus, string, string)
+Gura_ImplementBinaryOperator(Add, string, string)
 {
 	String str(valueLeft.GetString());
 	str += valueRight.GetString();
 	return Value(env, str.c_str());
 }
 
-Gura_ImplementBinaryOperator(Plus, binary, binary)
+Gura_ImplementBinaryOperator(Add, binary, binary)
 {
 	Binary buff(valueLeft.GetBinary());
 	buff += valueRight.GetBinary();
 	return Value(new Object_binary(env, buff, true));
 }
 
-Gura_ImplementBinaryOperator(Plus, binary, string)
+Gura_ImplementBinaryOperator(Add, binary, string)
 {
 	Binary buff(valueLeft.GetBinary());
 	buff += valueRight.GetString();
 	return Value(new Object_binary(env, buff, true));
 }
 
-Gura_ImplementBinaryOperator(Plus, string, binary)
+Gura_ImplementBinaryOperator(Add, string, binary)
 {
 	Binary buff;
 	buff += valueLeft.GetString();
@@ -309,7 +309,7 @@ Gura_ImplementBinaryOperator(Plus, string, binary)
 	return Value(new Object_binary(env, buff, true));
 }
 
-Gura_ImplementBinaryOperator(Plus, binaryptr, number)
+Gura_ImplementBinaryOperator(Add, binaryptr, number)
 {
 	Object_binaryptr *pObj = dynamic_cast<Object_binaryptr *>(
 						Object_binaryptr::GetObject(valueLeft)->Clone());
@@ -319,14 +319,14 @@ Gura_ImplementBinaryOperator(Plus, binaryptr, number)
 	return Value(pObj);
 }
 
-Gura_ImplementBinaryOperator(Plus, string, any)
+Gura_ImplementBinaryOperator(Add, string, any)
 {
 	String str(valueLeft.GetString());
 	str += valueRight.ToString(sig);
 	return Value(env, str.c_str());
 }
 
-Gura_ImplementBinaryOperator(Plus, any, string)
+Gura_ImplementBinaryOperator(Add, any, string)
 {
 	String str(valueLeft.ToString(sig));
 	str += valueRight.GetString();
@@ -334,42 +334,42 @@ Gura_ImplementBinaryOperator(Plus, any, string)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Minus, *, *)
+// BinaryOperator(Sub, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Minus, number, number)
+Gura_ImplementBinaryOperator(Sub, number, number)
 {
 	return Value(valueLeft.GetNumber() - valueRight.GetNumber());
 }
 
-Gura_ImplementBinaryOperator(Minus, complex, complex)
+Gura_ImplementBinaryOperator(Sub, complex, complex)
 {
 	return Value(valueLeft.GetComplex() - valueRight.GetComplex());
 }
 
-Gura_ImplementBinaryOperator(Minus, number, complex)
+Gura_ImplementBinaryOperator(Sub, number, complex)
 {
 	return Value(valueLeft.GetNumber() - valueRight.GetComplex());
 }
 
-Gura_ImplementBinaryOperator(Minus, complex, number)
+Gura_ImplementBinaryOperator(Sub, complex, number)
 {
 	return Value(valueLeft.GetComplex() - valueRight.GetNumber());
 }
 
-Gura_ImplementBinaryOperator(Minus, matrix, matrix)
+Gura_ImplementBinaryOperator(Sub, matrix, matrix)
 {
-	return Matrix::OperatorPlusMinus(env, sig, OPTYPE_Minus,
+	return Matrix::OperatorPlusMinus(env, sig, OPTYPE_Sub,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
-Gura_ImplementBinaryOperator(Minus, datetime, timedelta)
+Gura_ImplementBinaryOperator(Sub, datetime, timedelta)
 {
 	DateTime dateTime = valueLeft.GetDateTime();
 	dateTime.Minus(valueRight.GetTimeDelta());
 	return Value(env, dateTime);
 }
 
-Gura_ImplementBinaryOperator(Minus, datetime, datetime)
+Gura_ImplementBinaryOperator(Sub, datetime, datetime)
 {
 	const DateTime &dt1 = valueLeft.GetDateTime();
 	const DateTime &dt2 = valueRight.GetDateTime();
@@ -381,7 +381,7 @@ Gura_ImplementBinaryOperator(Minus, datetime, datetime)
 	return Value(env, dt1.Minus(dt2));
 }
 
-Gura_ImplementBinaryOperator(Minus, timedelta, timedelta)
+Gura_ImplementBinaryOperator(Sub, timedelta, timedelta)
 {
 	TimeDelta td1 = valueLeft.GetTimeDelta();
 	TimeDelta td2 = valueRight.GetTimeDelta();
@@ -391,14 +391,14 @@ Gura_ImplementBinaryOperator(Minus, timedelta, timedelta)
 			td1.GetUSecs() - td2.GetUSecs()));
 }
 
-Gura_ImplementBinaryOperator(Minus, color, color)
+Gura_ImplementBinaryOperator(Sub, color, color)
 {
 	const Color &color1 = Object_color::GetObject(valueLeft)->GetColor();
 	const Color &color2 = Object_color::GetObject(valueRight)->GetColor();
 	return Value(::sqrt(static_cast<double>(color1.CalcDist(color2))));
 }
 
-Gura_ImplementBinaryOperator(Minus, binaryptr, number)
+Gura_ImplementBinaryOperator(Sub, binaryptr, number)
 {
 	AutoPtr<Object_binaryptr> pObj(dynamic_cast<Object_binaryptr *>(
 						Object_binaryptr::GetObject(valueLeft)->Clone()));
@@ -408,7 +408,7 @@ Gura_ImplementBinaryOperator(Minus, binaryptr, number)
 	return Value(pObj.release());
 }
 
-Gura_ImplementBinaryOperator(Minus, binaryptr, binaryptr)
+Gura_ImplementBinaryOperator(Sub, binaryptr, binaryptr)
 {
 	const Object_binaryptr *pObj1 = Object_binaryptr::GetObject(valueLeft);
 	const Object_binaryptr *pObj2 = Object_binaryptr::GetObject(valueRight);
@@ -423,59 +423,59 @@ Gura_ImplementBinaryOperator(Minus, binaryptr, binaryptr)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Multiply, *, *)
+// BinaryOperator(Mul, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Multiply, number, number)
+Gura_ImplementBinaryOperator(Mul, number, number)
 {
 	return Value(valueLeft.GetNumber() * valueRight.GetNumber());
 }
 
-Gura_ImplementBinaryOperator(Multiply, complex, complex)
+Gura_ImplementBinaryOperator(Mul, complex, complex)
 {
 	return Value(valueLeft.GetComplex() * valueRight.GetComplex());
 }
 
-Gura_ImplementBinaryOperator(Multiply, number, complex)
+Gura_ImplementBinaryOperator(Mul, number, complex)
 {
 	return Value(valueLeft.GetNumber() * valueRight.GetComplex());
 }
 
-Gura_ImplementBinaryOperator(Multiply, complex, number)
+Gura_ImplementBinaryOperator(Mul, complex, number)
 {
 	return Value(valueLeft.GetComplex() * valueRight.GetNumber());
 }
 
-Gura_ImplementBinaryOperator(Multiply, matrix, matrix)
+Gura_ImplementBinaryOperator(Mul, matrix, matrix)
 {
 	return Matrix::OperatorMultiply(env, sig,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
-Gura_ImplementBinaryOperator(Multiply, list, matrix)
+Gura_ImplementBinaryOperator(Mul, list, matrix)
 {
 	return Matrix::OperatorMultiply(env, sig,
 			valueLeft.GetList(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
-Gura_ImplementBinaryOperator(Multiply, any, matrix)
+Gura_ImplementBinaryOperator(Mul, any, matrix)
 {
 	return Matrix::OperatorMultiply(env, sig,
 			valueLeft, Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
-Gura_ImplementBinaryOperator(Multiply, matrix, list)
+Gura_ImplementBinaryOperator(Mul, matrix, list)
 {
 	return Matrix::OperatorMultiply(env, sig,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight.GetList());
 }
 
-Gura_ImplementBinaryOperator(Multiply, matrix, any)
+Gura_ImplementBinaryOperator(Mul, matrix, any)
 {
 	return Matrix::OperatorMultiply(env, sig,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
 }
 
-Gura_ImplementBinaryOperator(Multiply, timedelta, number)
+Gura_ImplementBinaryOperator(Mul, timedelta, number)
 {
 	const TimeDelta &td = valueLeft.GetTimeDelta();
 	long num = valueRight.GetLong();
@@ -483,7 +483,7 @@ Gura_ImplementBinaryOperator(Multiply, timedelta, number)
 		TimeDelta(td.GetDays() * num, td.GetSecsRaw() * num, td.GetUSecs() * num));
 }
 
-Gura_ImplementBinaryOperator(Multiply, number, timedelta)
+Gura_ImplementBinaryOperator(Mul, number, timedelta)
 {
 	const TimeDelta &td = valueRight.GetTimeDelta();
 	long num = valueLeft.GetLong();
@@ -491,7 +491,7 @@ Gura_ImplementBinaryOperator(Multiply, number, timedelta)
 		TimeDelta(td.GetDays() * num, td.GetSecsRaw() * num, td.GetUSecs() * num));
 }
 
-Gura_ImplementBinaryOperator(Multiply, function, any)
+Gura_ImplementBinaryOperator(Mul, function, any)
 {
 	const Object_function *pObj = Object_function::GetObject(valueLeft);
 	if (pObj->GetFunction()->IsUnary()) {
@@ -505,7 +505,7 @@ Gura_ImplementBinaryOperator(Multiply, function, any)
 	}
 }
 
-Gura_ImplementBinaryOperator(Multiply, string, number)
+Gura_ImplementBinaryOperator(Mul, string, number)
 {
 	String str;
 	for (int cnt = static_cast<int>(valueRight.GetNumber()); cnt > 0; cnt--) {
@@ -514,7 +514,7 @@ Gura_ImplementBinaryOperator(Multiply, string, number)
 	return Value(env, str);
 }
 
-Gura_ImplementBinaryOperator(Multiply, number, string)
+Gura_ImplementBinaryOperator(Mul, number, string)
 {
 	String str;
 	for (int cnt = static_cast<int>(valueLeft.GetNumber()); cnt > 0; cnt--) {
@@ -523,7 +523,7 @@ Gura_ImplementBinaryOperator(Multiply, number, string)
 	return Value(env, str);
 }
 
-Gura_ImplementBinaryOperator(Multiply, binary, number)
+Gura_ImplementBinaryOperator(Mul, binary, number)
 {
 	Binary buff;
 	for (int cnt = static_cast<int>(valueRight.GetNumber()); cnt > 0; cnt--) {
@@ -532,7 +532,7 @@ Gura_ImplementBinaryOperator(Multiply, binary, number)
 	return Value(new Object_binary(env, buff, true));
 }
 
-Gura_ImplementBinaryOperator(Multiply, number, binary)
+Gura_ImplementBinaryOperator(Mul, number, binary)
 {
 	Binary buff;
 	for (int cnt = static_cast<int>(valueLeft.GetNumber()); cnt > 0; cnt--) {
@@ -542,9 +542,9 @@ Gura_ImplementBinaryOperator(Multiply, number, binary)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Divide, *, *)
+// BinaryOperator(Div, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Divide, number, number)
+Gura_ImplementBinaryOperator(Div, number, number)
 {
 	Number numRight = valueRight.GetNumber();
 	if (numRight == 0) {
@@ -554,7 +554,7 @@ Gura_ImplementBinaryOperator(Divide, number, number)
 	return Value(valueLeft.GetNumber() / numRight);
 }
 
-Gura_ImplementBinaryOperator(Divide, complex, complex)
+Gura_ImplementBinaryOperator(Div, complex, complex)
 {
 	Complex numRight = valueRight.GetComplex();
 	if (numRight == Complex(0.)) {
@@ -564,7 +564,7 @@ Gura_ImplementBinaryOperator(Divide, complex, complex)
 	return Value(valueLeft.GetComplex() / valueRight.GetComplex());
 }
 
-Gura_ImplementBinaryOperator(Divide, number, complex)
+Gura_ImplementBinaryOperator(Div, number, complex)
 {
 	Complex numRight = valueRight.GetComplex();
 	if (numRight == Complex(0.)) {
@@ -574,7 +574,7 @@ Gura_ImplementBinaryOperator(Divide, number, complex)
 	return Value(valueLeft.GetNumber() / numRight);
 }
 
-Gura_ImplementBinaryOperator(Divide, complex, number)
+Gura_ImplementBinaryOperator(Div, complex, number)
 {
 	Number numRight = valueRight.GetNumber();
 	if (numRight == 0) {
@@ -584,103 +584,103 @@ Gura_ImplementBinaryOperator(Divide, complex, number)
 	return Value(valueLeft.GetComplex() / numRight);
 }
 
-Gura_ImplementBinaryOperator(Divide, matrix, any)
+Gura_ImplementBinaryOperator(Div, matrix, any)
 {
 	return Matrix::OperatorDivide(env, sig,
 					Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Modulo, *, *)
+// BinaryOperator(Mod, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Modulo, number, number)
+Gura_ImplementBinaryOperator(Mod, number, number)
 {
 	return Value(::fmod(valueLeft.GetNumber(), valueRight.GetNumber()));
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Power, *, *)
+// BinaryOperator(Pow, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Power, number, number)
+Gura_ImplementBinaryOperator(Pow, number, number)
 {
 	return Value(::pow(valueLeft.GetNumber(), valueRight.GetNumber()));
 }
 
-Gura_ImplementBinaryOperator(Power, complex, complex)
+Gura_ImplementBinaryOperator(Pow, complex, complex)
 {
 	return Value(std::pow(valueLeft.GetComplex(), valueRight.GetComplex()));
 }
 
-Gura_ImplementBinaryOperator(Power, number, complex)
+Gura_ImplementBinaryOperator(Pow, number, complex)
 {
 	return Value(std::pow(valueLeft.GetNumber(), valueRight.GetComplex()));
 }
 
-Gura_ImplementBinaryOperator(Power, complex, number)
+Gura_ImplementBinaryOperator(Pow, complex, number)
 {
 	return Value(std::pow(valueLeft.GetComplex(), valueRight.GetNumber()));
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Equal, *, *)
+// BinaryOperator(Eq, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Equal, any, any)
+Gura_ImplementBinaryOperator(Eq, any, any)
 {
 	return Value(Value::Compare(valueLeft, valueRight) == 0);
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(NotEqual, *, *)
+// BinaryOperator(Ne, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(NotEqual, any, any)
+Gura_ImplementBinaryOperator(Ne, any, any)
 {
 	return Value(Value::Compare(valueLeft, valueRight) != 0);
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Greater, *, *)
+// BinaryOperator(Gt, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Greater, any, any)
+Gura_ImplementBinaryOperator(Gt, any, any)
 {
 	return Value(Value::Compare(valueLeft, valueRight) > 0);
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Less, *, *)
+// BinaryOperator(Lt, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Less, any, any)
+Gura_ImplementBinaryOperator(Lt, any, any)
 {
 	return Value(Value::Compare(valueLeft, valueRight) < 0);
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(GreaterEq, *, *)
+// BinaryOperator(Ge, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(GreaterEq, any, any)
+Gura_ImplementBinaryOperator(Ge, any, any)
 {
 	return Value(Value::Compare(valueLeft, valueRight) >= 0);
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(LessEq, *, *)
+// BinaryOperator(Le, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(LessEq, any, any)
+Gura_ImplementBinaryOperator(Le, any, any)
 {
 	return Value(Value::Compare(valueLeft, valueRight) <= 0);
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Compare, *, *)
+// BinaryOperator(Cmp, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Compare, any, any)
+Gura_ImplementBinaryOperator(Cmp, any, any)
 {
 	return Value(Value::Compare(valueLeft, valueRight));
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(ContainCheck, *, *)
+// BinaryOperator(Contains, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(ContainCheck, any, any)
+Gura_ImplementBinaryOperator(Contains, any, any)
 {
 	if (valueLeft.IsList() || valueLeft.IsIterator()) {
 		Value result;
@@ -795,27 +795,27 @@ Gura_ImplementBinaryOperator(Xor, boolean, boolean)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(ShiftL, *, *)
+// BinaryOperator(Shl, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(ShiftL, number, number)
+Gura_ImplementBinaryOperator(Shl, number, number)
 {
 	return Value(static_cast<unsigned long>(valueLeft.GetNumber()) <<
 							static_cast<unsigned long>(valueRight.GetNumber()));
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(ShiftR, *, *)
+// BinaryOperator(Shr, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(ShiftR, number, number)
+Gura_ImplementBinaryOperator(Shr, number, number)
 {
 	return Value(static_cast<unsigned long>(valueLeft.GetNumber()) >>
 							static_cast<unsigned long>(valueRight.GetNumber()));
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Sequence, *, *)
+// BinaryOperator(Seq, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Sequence, number, number)
+Gura_ImplementBinaryOperator(Seq, number, number)
 {
 	Number numBegin = valueLeft.GetNumber();
 	Number numEnd = valueRight.GetNumber();
@@ -833,68 +833,68 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignUnaryOperator(Neg, complex);
 	Gura_AssignUnaryOperator(Neg, matrix);
 	Gura_AssignUnaryOperator(Neg, timedelta);
-	Gura_AssignUnaryOperator(Invert, number);
+	Gura_AssignUnaryOperator(Inv, number);
 	Gura_AssignUnaryOperator(Not, any);
-	Gura_AssignBinaryOperator(Plus, number, number);
-	Gura_AssignBinaryOperator(Plus, complex, complex);
-	Gura_AssignBinaryOperator(Plus, number, complex);
-	Gura_AssignBinaryOperator(Plus, complex, number);
-	Gura_AssignBinaryOperator(Plus, matrix, matrix);
-	Gura_AssignBinaryOperator(Plus, datetime, timedelta);
-	Gura_AssignBinaryOperator(Plus, timedelta, datetime);
-	Gura_AssignBinaryOperator(Plus, timedelta, timedelta);
-	Gura_AssignBinaryOperator(Plus, string, string);
-	Gura_AssignBinaryOperator(Plus, binary, binary);
-	Gura_AssignBinaryOperator(Plus, binary, string);
-	Gura_AssignBinaryOperator(Plus, string, binary);
-	Gura_AssignBinaryOperator(Plus, binaryptr, number);
-	Gura_AssignBinaryOperator(Plus, string, any);
-	Gura_AssignBinaryOperator(Plus, any, string);
-	Gura_AssignBinaryOperator(Minus, number, number);
-	Gura_AssignBinaryOperator(Minus, complex, complex);
-	Gura_AssignBinaryOperator(Minus, number, complex);
-	Gura_AssignBinaryOperator(Minus, complex, number);
-	Gura_AssignBinaryOperator(Minus, matrix, matrix);
-	Gura_AssignBinaryOperator(Minus, datetime, timedelta);
-	Gura_AssignBinaryOperator(Minus, datetime, datetime);
-	Gura_AssignBinaryOperator(Minus, timedelta, timedelta);
-	Gura_AssignBinaryOperator(Minus, color, color);
-	Gura_AssignBinaryOperator(Minus, binaryptr, number);
-	Gura_AssignBinaryOperator(Minus, binaryptr, binaryptr);
-	Gura_AssignBinaryOperator(Multiply, number, number);
-	Gura_AssignBinaryOperator(Multiply, complex, complex);
-	Gura_AssignBinaryOperator(Multiply, number, complex);
-	Gura_AssignBinaryOperator(Multiply, complex, number);
-	Gura_AssignBinaryOperator(Multiply, matrix, matrix);
-	Gura_AssignBinaryOperator(Multiply, list, matrix);
-	Gura_AssignBinaryOperator(Multiply, any, matrix);
-	Gura_AssignBinaryOperator(Multiply, matrix, list);
-	Gura_AssignBinaryOperator(Multiply, matrix, any);
-	Gura_AssignBinaryOperator(Multiply, timedelta, number);
-	Gura_AssignBinaryOperator(Multiply, number, timedelta);
-	Gura_AssignBinaryOperator(Multiply, function, any);
-	Gura_AssignBinaryOperator(Multiply, string, number);
-	Gura_AssignBinaryOperator(Multiply, number, string);
-	Gura_AssignBinaryOperator(Multiply, binary, number);
-	Gura_AssignBinaryOperator(Multiply, number, binary);
-	Gura_AssignBinaryOperator(Divide, number, number);
-	Gura_AssignBinaryOperator(Divide, complex, complex);
-	Gura_AssignBinaryOperator(Divide, number, complex);
-	Gura_AssignBinaryOperator(Divide, complex, number);
-	Gura_AssignBinaryOperator(Divide, matrix, any);
-	Gura_AssignBinaryOperator(Modulo, number, number);
-	Gura_AssignBinaryOperator(Power, number, number);
-	Gura_AssignBinaryOperator(Power, complex, complex);
-	Gura_AssignBinaryOperator(Power, number, complex);
-	Gura_AssignBinaryOperator(Power, complex, number);
-	Gura_AssignBinaryOperator(Equal, any, any);
-	Gura_AssignBinaryOperator(NotEqual, any, any);
-	Gura_AssignBinaryOperator(Greater, any, any);
-	Gura_AssignBinaryOperator(Less, any, any);
-	Gura_AssignBinaryOperator(GreaterEq, any, any);
-	Gura_AssignBinaryOperator(LessEq, any, any);
-	Gura_AssignBinaryOperator(Compare, any, any);
-	Gura_AssignBinaryOperator(ContainCheck, any, any);
+	Gura_AssignBinaryOperator(Add, number, number);
+	Gura_AssignBinaryOperator(Add, complex, complex);
+	Gura_AssignBinaryOperator(Add, number, complex);
+	Gura_AssignBinaryOperator(Add, complex, number);
+	Gura_AssignBinaryOperator(Add, matrix, matrix);
+	Gura_AssignBinaryOperator(Add, datetime, timedelta);
+	Gura_AssignBinaryOperator(Add, timedelta, datetime);
+	Gura_AssignBinaryOperator(Add, timedelta, timedelta);
+	Gura_AssignBinaryOperator(Add, string, string);
+	Gura_AssignBinaryOperator(Add, binary, binary);
+	Gura_AssignBinaryOperator(Add, binary, string);
+	Gura_AssignBinaryOperator(Add, string, binary);
+	Gura_AssignBinaryOperator(Add, binaryptr, number);
+	Gura_AssignBinaryOperator(Add, string, any);
+	Gura_AssignBinaryOperator(Add, any, string);
+	Gura_AssignBinaryOperator(Sub, number, number);
+	Gura_AssignBinaryOperator(Sub, complex, complex);
+	Gura_AssignBinaryOperator(Sub, number, complex);
+	Gura_AssignBinaryOperator(Sub, complex, number);
+	Gura_AssignBinaryOperator(Sub, matrix, matrix);
+	Gura_AssignBinaryOperator(Sub, datetime, timedelta);
+	Gura_AssignBinaryOperator(Sub, datetime, datetime);
+	Gura_AssignBinaryOperator(Sub, timedelta, timedelta);
+	Gura_AssignBinaryOperator(Sub, color, color);
+	Gura_AssignBinaryOperator(Sub, binaryptr, number);
+	Gura_AssignBinaryOperator(Sub, binaryptr, binaryptr);
+	Gura_AssignBinaryOperator(Mul, number, number);
+	Gura_AssignBinaryOperator(Mul, complex, complex);
+	Gura_AssignBinaryOperator(Mul, number, complex);
+	Gura_AssignBinaryOperator(Mul, complex, number);
+	Gura_AssignBinaryOperator(Mul, matrix, matrix);
+	Gura_AssignBinaryOperator(Mul, list, matrix);
+	Gura_AssignBinaryOperator(Mul, any, matrix);
+	Gura_AssignBinaryOperator(Mul, matrix, list);
+	Gura_AssignBinaryOperator(Mul, matrix, any);
+	Gura_AssignBinaryOperator(Mul, timedelta, number);
+	Gura_AssignBinaryOperator(Mul, number, timedelta);
+	Gura_AssignBinaryOperator(Mul, function, any);
+	Gura_AssignBinaryOperator(Mul, string, number);
+	Gura_AssignBinaryOperator(Mul, number, string);
+	Gura_AssignBinaryOperator(Mul, binary, number);
+	Gura_AssignBinaryOperator(Mul, number, binary);
+	Gura_AssignBinaryOperator(Div, number, number);
+	Gura_AssignBinaryOperator(Div, complex, complex);
+	Gura_AssignBinaryOperator(Div, number, complex);
+	Gura_AssignBinaryOperator(Div, complex, number);
+	Gura_AssignBinaryOperator(Div, matrix, any);
+	Gura_AssignBinaryOperator(Mod, number, number);
+	Gura_AssignBinaryOperator(Pow, number, number);
+	Gura_AssignBinaryOperator(Pow, complex, complex);
+	Gura_AssignBinaryOperator(Pow, number, complex);
+	Gura_AssignBinaryOperator(Pow, complex, number);
+	Gura_AssignBinaryOperator(Eq, any, any);
+	Gura_AssignBinaryOperator(Ne, any, any);
+	Gura_AssignBinaryOperator(Gt, any, any);
+	Gura_AssignBinaryOperator(Lt, any, any);
+	Gura_AssignBinaryOperator(Ge, any, any);
+	Gura_AssignBinaryOperator(Le, any, any);
+	Gura_AssignBinaryOperator(Cmp, any, any);
+	Gura_AssignBinaryOperator(Contains, any, any);
 	Gura_AssignBinaryOperator(Or, number, number);
 	Gura_AssignBinaryOperator(Or, boolean, boolean);
 	Gura_AssignBinaryOperator(Or, nil, any);
@@ -905,10 +905,10 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(And, any, nil);
 	Gura_AssignBinaryOperator(Xor, number, number);
 	Gura_AssignBinaryOperator(Xor, boolean, boolean);
-	Gura_AssignBinaryOperator(ShiftL, number, number);
-	Gura_AssignBinaryOperator(ShiftR, number, number);
-	Gura_AssignBinaryOperator(Sequence, number, number);
-	Gura_AssignUnaryOperator(SequenceInf, number);
+	Gura_AssignBinaryOperator(Shl, number, number);
+	Gura_AssignBinaryOperator(Shr, number, number);
+	Gura_AssignBinaryOperator(Seq, number, number);
+	Gura_AssignUnaryOperator(SeqInf, number);
 }
 
 void SetError_DivideByZero(Signal sig)

@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_TreeItemId, IsOk)
 }
 
 // operator ==
-Gura_ImplementBinaryOperator(Equal, wx_TreeItemId, wx_TreeItemId)
+Gura_ImplementBinaryOperator(Eq, wx_TreeItemId, wx_TreeItemId)
 {
 	wxTreeItemId *item1 = Object_wx_TreeItemId::GetObject(valueLeft)->GetEntity();
 	wxTreeItemId *item2 = Object_wx_TreeItemId::GetObject(valueRight)->GetEntity();
@@ -81,7 +81,7 @@ Gura_ImplementBinaryOperator(Equal, wx_TreeItemId, wx_TreeItemId)
 }
 
 // operator !=
-Gura_ImplementBinaryOperator(NotEqual, wx_TreeItemId, wx_TreeItemId)
+Gura_ImplementBinaryOperator(Ne, wx_TreeItemId, wx_TreeItemId)
 {
 	wxTreeItemId *item1 = Object_wx_TreeItemId::GetObject(valueLeft)->GetEntity();
 	wxTreeItemId *item2 = Object_wx_TreeItemId::GetObject(valueRight)->GetEntity();
@@ -126,8 +126,8 @@ String Object_wx_TreeItemId::ToString(Signal sig, bool exprFlag)
 void Object_wx_TreeItemId::OnModuleEntry(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(TreeItemId);
-	Gura_AssignBinaryOperator(Equal, wx_TreeItemId, wx_TreeItemId);
-	Gura_AssignBinaryOperator(NotEqual, wx_TreeItemId, wx_TreeItemId);
+	Gura_AssignBinaryOperator(Eq, wx_TreeItemId, wx_TreeItemId);
+	Gura_AssignBinaryOperator(Ne, wx_TreeItemId, wx_TreeItemId);
 	Gura_AssignUnaryOperator(Not, wx_TreeItemId);
 }
 

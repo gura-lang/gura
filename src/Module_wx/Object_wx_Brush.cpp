@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_Brush, SetStyle)
 }
 
 // operator ==
-Gura_ImplementBinaryOperator(Equal, wx_Brush, wx_Brush)
+Gura_ImplementBinaryOperator(Eq, wx_Brush, wx_Brush)
 {
 	wxBrush *item1 = Object_wx_Brush::GetObject(valueLeft)->GetEntity();
 	wxBrush *item2 = Object_wx_Brush::GetObject(valueRight)->GetEntity();
@@ -321,7 +321,7 @@ Gura_ImplementBinaryOperator(Equal, wx_Brush, wx_Brush)
 }
 
 // operator !=
-Gura_ImplementBinaryOperator(NotEqual, wx_Brush, wx_Brush)
+Gura_ImplementBinaryOperator(Ne, wx_Brush, wx_Brush)
 {
 	wxBrush *item1 = Object_wx_Brush::GetObject(valueLeft)->GetEntity();
 	wxBrush *item2 = Object_wx_Brush::GetObject(valueRight)->GetEntity();
@@ -360,8 +360,8 @@ void Object_wx_Brush::OnModuleEntry(Environment &env, Signal sig)
 	Gura_AssignFunction(Brush_1);
 	Gura_AssignFunction(Brush_2);
 	Gura_AssignFunction(Brush_3);
-	Gura_AssignBinaryOperator(Equal, wx_Brush, wx_Brush);		// ==
-	Gura_AssignBinaryOperator(NotEqual, wx_Brush, wx_Brush);	// !=
+	Gura_AssignBinaryOperator(Eq, wx_Brush, wx_Brush);		// ==
+	Gura_AssignBinaryOperator(Ne, wx_Brush, wx_Brush);	// !=
 }
 
 //----------------------------------------------------------------------------

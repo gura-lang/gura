@@ -15,31 +15,31 @@ void AssignOpFunctions(Environment &env)
 	Environment::Global *pGlobal = env.GetGlobal();
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Pos]			= new Func_Pos(env)));
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Neg]			= new Func_Neg(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Invert]		= new Func_Invert(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Inv]			= new Func_Invert(env)));
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Not]			= new Func_Not(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Plus]		= new Func_Plus(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Minus]		= new Func_Minus(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Multiply]	= new Func_Multiply(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Divide]		= new Func_Divide(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Modulo]		= new Func_Modulo(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Power]		= new Func_Power(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Equal]		= new Func_Equal(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_NotEqual]	= new Func_NotEqual(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Greater]		= new Func_Greater(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Less]		= new Func_Less(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_GreaterEq]	= new Func_GreaterEq(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_LessEq]		= new Func_LessEq(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Compare]		= new Func_Compare(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_ContainCheck] = new Func_ContainCheck(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Add]			= new Func_Plus(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Sub]			= new Func_Minus(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Mul]			= new Func_Multiply(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Div]			= new Func_Divide(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Mod]			= new Func_Modulo(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Pow]			= new Func_Power(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Eq]			= new Func_Equal(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Ne]			= new Func_NotEqual(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Gt]			= new Func_Greater(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Lt]			= new Func_Less(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Ge]			= new Func_GreaterEq(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Le]			= new Func_LessEq(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Cmp]			= new Func_Compare(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Contains]	= new Func_ContainCheck(env)));
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Or]			= new Func_Or(env)));
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_And]			= new Func_And(env)));
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Xor]			= new Func_Xor(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_ShiftL]		= new Func_ShiftL(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_ShiftR]		= new Func_ShiftR(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Shl]			= new Func_ShiftL(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Shr]			= new Func_ShiftR(env)));
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_OrOr]		= new Func_OrOr(env)));
 	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_AndAnd]		= new Func_AndAnd(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Sequence]	= new Func_Sequence(env)));
-	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_SequenceInf] = new Func_SequenceInf(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_Seq]			= new Func_Sequence(env)));
+	env.AssignFunction(Function::Reference(pGlobal->_pOpFuncTbl[OPTYPE_SeqInf]		= new Func_SequenceInf(env)));
 }
 
 //-----------------------------------------------------------------------------
@@ -158,7 +158,7 @@ Expr *Func_Neg::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
 // ~x
 //-----------------------------------------------------------------------------
 Func_Invert::Func_Invert(Environment &env) : FuncUnaryOperator(env,
-				Symbol::Add("__invert__"), Parser::ETYPE_Invert, OPTYPE_Invert)
+				Symbol::Add("__invert__"), Parser::ETYPE_Invert, OPTYPE_Inv)
 {
 }
 
@@ -176,7 +176,7 @@ Func_Not::Func_Not(Environment &env) : FuncUnaryOperator(env,
 bool Func_Plus::IsPlus() const { return true; }
 
 Func_Plus::Func_Plus(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__add__"), Parser::ETYPE_Plus, OPTYPE_Plus)
+				Symbol::Add("__add__"), Parser::ETYPE_Plus, OPTYPE_Add)
 {
 }
 
@@ -208,7 +208,7 @@ Expr *Func_Plus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Ex
 		return NULL;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Plus), pExprLeft, pExprRight);
+		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Add), pExprLeft, pExprRight);
 	} else if (pExprLeft->IsConstNumber(0)) {
 		// 0 + m = m
 		Expr::Delete(pExprLeft);
@@ -287,7 +287,7 @@ Expr *Func_Plus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Ex
 			}
 		}
 	}
-	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Plus), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Add), pExprLeft, pExprRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -296,7 +296,7 @@ Expr *Func_Plus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Ex
 bool Func_Minus::IsMinus() const { return true; }
 
 Func_Minus::Func_Minus(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__sub__"), Parser::ETYPE_Minus, OPTYPE_Minus)
+				Symbol::Add("__sub__"), Parser::ETYPE_Minus, OPTYPE_Sub)
 {
 }
 
@@ -328,7 +328,7 @@ Expr *Func_Minus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 		return NULL;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Minus), pExprLeft, pExprRight);
+		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Sub), pExprLeft, pExprRight);
 	} else if (pExprLeft->IsConstNumber(0)) {
 		// 0 - m = -m
 		Expr::Delete(pExprLeft);
@@ -408,7 +408,7 @@ Expr *Func_Minus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 			}
 		}
 	}
-	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Minus), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Sub), pExprLeft, pExprRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -417,7 +417,7 @@ Expr *Func_Minus::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 bool Func_Multiply::IsMultiply() const { return true; }
 
 Func_Multiply::Func_Multiply(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__mul__"), Parser::ETYPE_Multiply, OPTYPE_Multiply)
+				Symbol::Add("__mul__"), Parser::ETYPE_Multiply, OPTYPE_Mul)
 {
 }
 
@@ -508,7 +508,7 @@ Expr *Func_Multiply::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft
 		return NULL;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Multiply), pExprLeft, pExprRight);
+		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Mul), pExprLeft, pExprRight);
 	} else if (pExprLeft->IsConstNumber(0)) {
 		// n * 0 = 0
 		Expr::Delete(pExprRight);
@@ -620,7 +620,7 @@ Expr *Func_Multiply::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft
 			}
 		}
 	}
-	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Multiply), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Mul), pExprLeft, pExprRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -629,7 +629,7 @@ Expr *Func_Multiply::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft
 bool Func_Divide::IsDivide() const { return true; }
 
 Func_Divide::Func_Divide(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__div__"), Parser::ETYPE_Divide, OPTYPE_Divide)
+				Symbol::Add("__div__"), Parser::ETYPE_Divide, OPTYPE_Div)
 {
 }
 
@@ -764,7 +764,7 @@ Expr *Func_Divide::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 			}
 		}
 	}
-	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Divide), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Div), pExprLeft, pExprRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -773,7 +773,7 @@ Expr *Func_Divide::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 bool Func_Modulo::IsModulo() const { return true; }
 
 Func_Modulo::Func_Modulo(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("mod"), Parser::ETYPE_Modulo, OPTYPE_Modulo)
+				Symbol::Add("mod"), Parser::ETYPE_Modulo, OPTYPE_Mod)
 {
 }
 
@@ -850,7 +850,7 @@ Value Func_Modulo::EvalExpr(Environment &env, Signal sig, Args &args) const
 bool Func_Power::IsPower() const { return true; }
 
 Func_Power::Func_Power(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__pow__"), Parser::ETYPE_Power, OPTYPE_Power)
+				Symbol::Add("__pow__"), Parser::ETYPE_Power, OPTYPE_Pow)
 {
 }
 
@@ -892,7 +892,7 @@ Expr *Func_Power::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 		return NULL;
 	}
 	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Power), pExprLeft, pExprRight);
+		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Pow), pExprLeft, pExprRight);
 	} else if (pExprLeft->IsConstNumber(0)) {
 		// 0 ** m = 0
 		Expr::Delete(pExprRight);
@@ -925,14 +925,14 @@ Expr *Func_Power::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, E
 	//	Expr::Delete(pExprRight);
 	//	return Gura_Module(math)::CreateFuncExpr("sqrt", pExprLeft);
 	}
-	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Power), pExprLeft, pExprRight);
+	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Pow), pExprLeft, pExprRight);
 }
 
 //-----------------------------------------------------------------------------
 // n == m
 //-----------------------------------------------------------------------------
 Func_Equal::Func_Equal(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__eq__"), Parser::ETYPE_Equal, OPTYPE_Equal)
+				Symbol::Add("__eq__"), Parser::ETYPE_Equal, OPTYPE_Eq)
 {
 }
 
@@ -940,7 +940,7 @@ Func_Equal::Func_Equal(Environment &env) : FuncBinaryOperator(env,
 // n != m
 //-----------------------------------------------------------------------------
 Func_NotEqual::Func_NotEqual(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__ne__"), Parser::ETYPE_NotEqual, OPTYPE_NotEqual)
+				Symbol::Add("__ne__"), Parser::ETYPE_NotEqual, OPTYPE_Ne)
 {
 }
 
@@ -948,7 +948,7 @@ Func_NotEqual::Func_NotEqual(Environment &env) : FuncBinaryOperator(env,
 // n > m
 //-----------------------------------------------------------------------------
 Func_Greater::Func_Greater(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__gt__"), Parser::ETYPE_Greater, OPTYPE_Greater)
+				Symbol::Add("__gt__"), Parser::ETYPE_Greater, OPTYPE_Gt)
 {
 }
 
@@ -956,7 +956,7 @@ Func_Greater::Func_Greater(Environment &env) : FuncBinaryOperator(env,
 // n < m
 //-----------------------------------------------------------------------------
 Func_Less::Func_Less(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__lt__"), Parser::ETYPE_Less, OPTYPE_Less)
+				Symbol::Add("__lt__"), Parser::ETYPE_Less, OPTYPE_Lt)
 {
 }
 
@@ -964,7 +964,7 @@ Func_Less::Func_Less(Environment &env) : FuncBinaryOperator(env,
 // n >= m
 //-----------------------------------------------------------------------------
 Func_GreaterEq::Func_GreaterEq(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__ge__"), Parser::ETYPE_GreaterEq, OPTYPE_GreaterEq)
+				Symbol::Add("__ge__"), Parser::ETYPE_GreaterEq, OPTYPE_Ge)
 {
 }
 
@@ -972,7 +972,7 @@ Func_GreaterEq::Func_GreaterEq(Environment &env) : FuncBinaryOperator(env,
 // n <= m
 //-----------------------------------------------------------------------------
 Func_LessEq::Func_LessEq(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__le__"), Parser::ETYPE_LessEq, OPTYPE_LessEq)
+				Symbol::Add("__le__"), Parser::ETYPE_LessEq, OPTYPE_Le)
 {
 }
 
@@ -980,7 +980,7 @@ Func_LessEq::Func_LessEq(Environment &env) : FuncBinaryOperator(env,
 // n <=> m
 //-----------------------------------------------------------------------------
 Func_Compare::Func_Compare(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__cmp__"), Parser::ETYPE_Compare, OPTYPE_Compare)
+				Symbol::Add("__cmp__"), Parser::ETYPE_Compare, OPTYPE_Cmp)
 {
 }
 
@@ -990,7 +990,7 @@ Func_Compare::Func_Compare(Environment &env) : FuncBinaryOperator(env,
 bool Func_ContainCheck::IsContainCheck() const { return true; }
 
 Func_ContainCheck::Func_ContainCheck(Environment &env) : FuncBinaryOperator(env,
-	Symbol::Add("in"), Parser::ETYPE_ContainCheck, OPTYPE_ContainCheck, FLAG_None)
+	Symbol::Add("in"), Parser::ETYPE_ContainCheck, OPTYPE_Contains, FLAG_None)
 {
 }
 
@@ -1022,7 +1022,7 @@ Func_Xor::Func_Xor(Environment &env) : FuncBinaryOperator(env,
 // n << m
 //-----------------------------------------------------------------------------
 Func_ShiftL::Func_ShiftL(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__shl__"), Parser::ETYPE_ShiftL, OPTYPE_ShiftL)
+				Symbol::Add("__shl__"), Parser::ETYPE_ShiftL, OPTYPE_Shl)
 {
 }
 
@@ -1030,7 +1030,7 @@ Func_ShiftL::Func_ShiftL(Environment &env) : FuncBinaryOperator(env,
 // n >> m
 //-----------------------------------------------------------------------------
 Func_ShiftR::Func_ShiftR(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__shr__"), Parser::ETYPE_ShiftR, OPTYPE_ShiftR)
+				Symbol::Add("__shr__"), Parser::ETYPE_ShiftR, OPTYPE_Shr)
 {
 }
 
@@ -1090,7 +1090,7 @@ Value Func_AndAnd::DoEval(Environment &env, Signal sig, Args &args) const
 bool Func_Sequence::IsSequence() const { return true; }
 
 Func_Sequence::Func_Sequence(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("__seq__"), Parser::ETYPE_Sequence, OPTYPE_Sequence)
+				Symbol::Add("__seq__"), Parser::ETYPE_Sequence, OPTYPE_Seq)
 {
 }
 
@@ -1098,7 +1098,7 @@ Func_Sequence::Func_Sequence(Environment &env) : FuncBinaryOperator(env,
 // n ..
 //-----------------------------------------------------------------------------
 Func_SequenceInf::Func_SequenceInf(Environment &env) : FuncUnaryOperator(env,
-				Symbol::Add("__seqinf__"), Parser::ETYPE_Sequence, OPTYPE_SequenceInf)
+				Symbol::Add("__seqinf__"), Parser::ETYPE_Sequence, OPTYPE_SeqInf)
 {
 }
 

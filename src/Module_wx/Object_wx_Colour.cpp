@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_Colour, SetFromName)
 }
 
 // operator ==
-Gura_ImplementBinaryOperator(Equal, wx_Colour, wx_Colour)
+Gura_ImplementBinaryOperator(Eq, wx_Colour, wx_Colour)
 {
 	wxColour *item1 = Object_wx_Colour::GetObject(valueLeft)->GetEntity();
 	wxColour *item2 = Object_wx_Colour::GetObject(valueRight)->GetEntity();
@@ -278,7 +278,7 @@ Gura_ImplementBinaryOperator(Equal, wx_Colour, wx_Colour)
 }
 
 // operator !=
-Gura_ImplementBinaryOperator(NotEqual, wx_Colour, wx_Colour)
+Gura_ImplementBinaryOperator(Ne, wx_Colour, wx_Colour)
 {
 	wxColour *item1 = Object_wx_Colour::GetObject(valueLeft)->GetEntity();
 	wxColour *item2 = Object_wx_Colour::GetObject(valueRight)->GetEntity();
@@ -315,8 +315,8 @@ void Object_wx_Colour::OnModuleEntry(Environment &env, Signal sig)
 	Gura_AssignFunction(ColourEmpty);
 	Gura_AssignFunction(Colour);
 	Gura_AssignFunction(NamedColour);
-	Gura_AssignBinaryOperator(Equal, wx_Colour, wx_Colour);
-	Gura_AssignBinaryOperator(NotEqual, wx_Colour, wx_Colour);
+	Gura_AssignBinaryOperator(Eq, wx_Colour, wx_Colour);
+	Gura_AssignBinaryOperator(Ne, wx_Colour, wx_Colour);
 }
 
 //----------------------------------------------------------------------------

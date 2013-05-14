@@ -518,7 +518,7 @@ Value Matrix::OperatorPlusMinus(Environment &env, Signal sig, OpType opType,
 			ValueList::const_iterator pValueElem1 = pMat1->GetPointer(iRow, 0);
 			ValueList::const_iterator pValueElem2 = pMat2->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem1++, pValueElem2++) {
-				Number num = (opType == OPTYPE_Plus)?
+				Number num = (opType == OPTYPE_Add)?
 						pValueElem1->GetNumber() + pValueElem2->GetNumber() :
 						pValueElem1->GetNumber() - pValueElem2->GetNumber();
 				valList.push_back(Value(num));
@@ -530,7 +530,7 @@ Value Matrix::OperatorPlusMinus(Environment &env, Signal sig, OpType opType,
 			ValueList::const_iterator pValueElem1 = pMat1->GetPointer(iRow, 0);
 			ValueList::const_iterator pValueElem2 = pMat2->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem1++, pValueElem2++) {
-				Complex num = (opType == OPTYPE_Plus)?
+				Complex num = (opType == OPTYPE_Add)?
 						pValueElem1->GetComplex() + pValueElem2->GetComplex() :
 						pValueElem1->GetComplex() - pValueElem2->GetComplex();
 				valList.push_back(Value(num));
@@ -598,8 +598,8 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 			}
 		}
 	} else {
-		const Function *pFuncMultiply = env.GetOpFunc(OPTYPE_Multiply);
-		const Function *pFuncPlus = env.GetOpFunc(OPTYPE_Plus);
+		const Function *pFuncMul = env.GetOpFunc(OPTYPE_Mul);
+		const Function *pFuncAdd = env.GetOpFunc(OPTYPE_Add);
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			for (size_t iCol = 0; iCol < nCols; iCol++) {
 				ValueList::const_iterator pValueElem1 = pMat1->GetPointer(iRow, 0);
@@ -612,13 +612,13 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 					do {
 						ValueList valListArg(*pValueElem1, *(pValueElem2 + offset));
 						Args args(valListArg);
-						valueElem = pFuncMultiply->Eval(env, sig, args);
+						valueElem = pFuncMul->Eval(env, sig, args);
 						if (sig.IsSignalled()) return Value::Null;
 					} while (0);
 					do {
 						ValueList valListArg(valueAccum, valueElem);
 						Args args(valListArg);
-						valueAccum = pFuncPlus->Eval(env, sig, args);
+						valueAccum = pFuncAdd->Eval(env, sig, args);
 						if (sig.IsSignalled()) return Value::Null;
 					} while (0);
 				}
@@ -664,8 +664,8 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 			valListResult.push_back(Value(numAccum));
 		}
 	} else {
-		const Function *pFuncMultiply = env.GetOpFunc(OPTYPE_Multiply);
-		const Function *pFuncPlus = env.GetOpFunc(OPTYPE_Plus);
+		const Function *pFuncMul = env.GetOpFunc(OPTYPE_Mul);
+		const Function *pFuncAdd = env.GetOpFunc(OPTYPE_Add);
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			Value valueAccum(0);
@@ -674,13 +674,13 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 				do {
 					ValueList valListArg(*pValueElem, *pValue);
 					Args args(valListArg);
-					valueElem = pFuncMultiply->Eval(env, sig, args);
+					valueElem = pFuncMul->Eval(env, sig, args);
 					if (sig.IsSignalled()) return Value::Null;
 				} while (0);
 				do {
 					ValueList valListArg(valueAccum, valueElem);
 					Args args(valListArg);
-					valueAccum = pFuncPlus->Eval(env, sig, args);
+					valueAccum = pFuncAdd->Eval(env, sig, args);
 					if (sig.IsSignalled()) return Value::Null;
 				} while (0);
 				pValueElem++;
@@ -718,7 +718,7 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 			}
 		}
 	} else {
-		const Function *pFunc = env.GetOpFunc(OPTYPE_Multiply);
+		const Function *pFunc = env.GetOpFunc(OPTYPE_Mul);
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
@@ -772,8 +772,8 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 			valListResult.push_back(Value(numAccum));
 		}
 	} else {
-		const Function *pFuncMultiply = env.GetOpFunc(OPTYPE_Multiply);
-		const Function *pFuncPlus = env.GetOpFunc(OPTYPE_Plus);
+		const Function *pFuncMul = env.GetOpFunc(OPTYPE_Mul);
+		const Function *pFuncAdd = env.GetOpFunc(OPTYPE_Add);
 		for (size_t iCol = 0; iCol < nCols; iCol++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(0, iCol);
 			Value valueAccum(0);
@@ -783,13 +783,13 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 				do {
 					ValueList valListArg(*(pValueElem + offset), *pValue);
 					Args args(valListArg);
-					valueElem = pFuncMultiply->Eval(env, sig, args);
+					valueElem = pFuncMul->Eval(env, sig, args);
 					if (sig.IsSignalled()) return Value::Null;
 				} while (0);
 				do {
 					ValueList valListArg(valueAccum, valueElem);
 					Args args(valListArg);
-					valueAccum = pFuncPlus->Eval(env, sig, args);
+					valueAccum = pFuncAdd->Eval(env, sig, args);
 					if (sig.IsSignalled()) return Value::Null;
 				} while (0);
 				offset += nFold;
@@ -828,7 +828,7 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 			}
 		}
 	} else {
-		const Function *pFunc = env.GetOpFunc(OPTYPE_Multiply);
+		const Function *pFunc = env.GetOpFunc(OPTYPE_Mul);
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
@@ -878,7 +878,7 @@ Value Matrix::OperatorDivide(Environment &env, Signal sig,
 			}
 		}
 	} else {
-		const Function *pFunc = env.GetOpFunc(OPTYPE_Divide);
+		const Function *pFunc = env.GetOpFunc(OPTYPE_Div);
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {

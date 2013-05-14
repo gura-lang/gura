@@ -88,7 +88,7 @@ Gura_ImplementFunction(Point)
 }
 
 // operator ==
-Gura_ImplementBinaryOperator(Equal, wx_Point, wx_Point)
+Gura_ImplementBinaryOperator(Eq, wx_Point, wx_Point)
 {
 	wxPoint *item1 = Object_wx_Point::GetObject(valueLeft)->GetEntity();
 	wxPoint *item2 = Object_wx_Point::GetObject(valueRight)->GetEntity();
@@ -96,7 +96,7 @@ Gura_ImplementBinaryOperator(Equal, wx_Point, wx_Point)
 }
 
 // operator !=
-Gura_ImplementBinaryOperator(NotEqual, wx_Point, wx_Point)
+Gura_ImplementBinaryOperator(Ne, wx_Point, wx_Point)
 {
 	wxPoint *item1 = Object_wx_Point::GetObject(valueLeft)->GetEntity();
 	wxPoint *item2 = Object_wx_Point::GetObject(valueRight)->GetEntity();
@@ -104,7 +104,7 @@ Gura_ImplementBinaryOperator(NotEqual, wx_Point, wx_Point)
 }
 
 // operator +
-Gura_ImplementBinaryOperator(Plus, wx_Point, any)
+Gura_ImplementBinaryOperator(Add, wx_Point, any)
 {
 	wxPoint *item1 = Object_wx_Point::GetObject(valueLeft)->GetEntity();
 	wxPoint rtn;
@@ -122,7 +122,7 @@ Gura_ImplementBinaryOperator(Plus, wx_Point, any)
 }
 
 // operator -
-Gura_ImplementBinaryOperator(Minus, wx_Point, any)
+Gura_ImplementBinaryOperator(Sub, wx_Point, any)
 {
 	wxPoint *item1 = Object_wx_Point::GetObject(valueLeft)->GetEntity();
 	wxPoint rtn;
@@ -207,10 +207,10 @@ void Object_wx_Point::OnModuleEntry(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PointEmpty);
 	Gura_AssignFunction(Point);
-	Gura_AssignBinaryOperator(Equal, wx_Point, wx_Point);
-	Gura_AssignBinaryOperator(NotEqual, wx_Point, wx_Point);
-	Gura_AssignBinaryOperator(Plus, wx_Point, any);
-	Gura_AssignBinaryOperator(Minus, wx_Point, any);
+	Gura_AssignBinaryOperator(Eq, wx_Point, wx_Point);
+	Gura_AssignBinaryOperator(Ne, wx_Point, wx_Point);
+	Gura_AssignBinaryOperator(Add, wx_Point, any);
+	Gura_AssignBinaryOperator(Sub, wx_Point, any);
 }
 
 //----------------------------------------------------------------------------

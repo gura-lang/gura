@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_Size, SetWidth)
 }
 
 // operator ==
-Gura_ImplementBinaryOperator(Equal, wx_Size, wx_Size)
+Gura_ImplementBinaryOperator(Eq, wx_Size, wx_Size)
 {
 	wxSize *item1 = Object_wx_Size::GetObject(valueLeft)->GetEntity();
 	wxSize *item2 = Object_wx_Size::GetObject(valueRight)->GetEntity();
@@ -340,7 +340,7 @@ Gura_ImplementBinaryOperator(Equal, wx_Size, wx_Size)
 }
 
 // operator !=
-Gura_ImplementBinaryOperator(NotEqual, wx_Size, wx_Size)
+Gura_ImplementBinaryOperator(Ne, wx_Size, wx_Size)
 {
 	wxSize *item1 = Object_wx_Size::GetObject(valueLeft)->GetEntity();
 	wxSize *item2 = Object_wx_Size::GetObject(valueRight)->GetEntity();
@@ -348,7 +348,7 @@ Gura_ImplementBinaryOperator(NotEqual, wx_Size, wx_Size)
 }
 
 // operator +
-Gura_ImplementBinaryOperator(Plus, wx_Size, wx_Size)
+Gura_ImplementBinaryOperator(Add, wx_Size, wx_Size)
 {
 	wxSize *item1 = Object_wx_Size::GetObject(valueLeft)->GetEntity();
 	wxSize *item2 = Object_wx_Size::GetObject(valueRight)->GetEntity();
@@ -357,7 +357,7 @@ Gura_ImplementBinaryOperator(Plus, wx_Size, wx_Size)
 }
 
 // operator -
-Gura_ImplementBinaryOperator(Minus, wx_Size, wx_Size)
+Gura_ImplementBinaryOperator(Sub, wx_Size, wx_Size)
 {
 	wxSize *item1 = Object_wx_Size::GetObject(valueLeft)->GetEntity();
 	wxSize *item2 = Object_wx_Size::GetObject(valueRight)->GetEntity();
@@ -366,7 +366,7 @@ Gura_ImplementBinaryOperator(Minus, wx_Size, wx_Size)
 }
 
 // operator *
-Gura_ImplementBinaryOperator(Multiply, wx_Size, number)
+Gura_ImplementBinaryOperator(Mul, wx_Size, number)
 {
 	wxSize *item = Object_wx_Size::GetObject(valueLeft)->GetEntity();
 	int factor = valueRight.GetInt();
@@ -375,7 +375,7 @@ Gura_ImplementBinaryOperator(Multiply, wx_Size, number)
 }
 
 // operator /
-Gura_ImplementBinaryOperator(Divide, wx_Size, number)
+Gura_ImplementBinaryOperator(Div, wx_Size, number)
 {
 	wxSize *item = Object_wx_Size::GetObject(valueLeft)->GetEntity();
 	int factor = valueRight.GetInt();
@@ -451,12 +451,12 @@ void Object_wx_Size::OnModuleEntry(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SizeEmpty);
 	Gura_AssignFunction(Size);
-	Gura_AssignBinaryOperator(Equal, wx_Size, wx_Size);
-	Gura_AssignBinaryOperator(NotEqual, wx_Size, wx_Size);
-	Gura_AssignBinaryOperator(Plus, wx_Size, wx_Size);
-	Gura_AssignBinaryOperator(Minus, wx_Size, wx_Size);
-	Gura_AssignBinaryOperator(Multiply, wx_Size, number);
-	Gura_AssignBinaryOperator(Divide, wx_Size, number);
+	Gura_AssignBinaryOperator(Eq, wx_Size, wx_Size);
+	Gura_AssignBinaryOperator(Ne, wx_Size, wx_Size);
+	Gura_AssignBinaryOperator(Add, wx_Size, wx_Size);
+	Gura_AssignBinaryOperator(Sub, wx_Size, wx_Size);
+	Gura_AssignBinaryOperator(Mul, wx_Size, number);
+	Gura_AssignBinaryOperator(Div, wx_Size, number);
 }
 
 //----------------------------------------------------------------------------

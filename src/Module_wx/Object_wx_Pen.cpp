@@ -446,7 +446,7 @@ Gura_ImplementMethod(wx_Pen, SetWidth)
 }
 
 // operator ==
-Gura_ImplementBinaryOperator(Equal, wx_Pen, wx_Pen)
+Gura_ImplementBinaryOperator(Eq, wx_Pen, wx_Pen)
 {
 	wxPen *item1 = Object_wx_Pen::GetObject(valueLeft)->GetEntity();
 	wxPen *item2 = Object_wx_Pen::GetObject(valueRight)->GetEntity();
@@ -454,7 +454,7 @@ Gura_ImplementBinaryOperator(Equal, wx_Pen, wx_Pen)
 }
 
 // operator !=
-Gura_ImplementBinaryOperator(NotEqual, wx_Pen, wx_Pen)
+Gura_ImplementBinaryOperator(Ne, wx_Pen, wx_Pen)
 {
 	wxPen *item1 = Object_wx_Pen::GetObject(valueLeft)->GetEntity();
 	wxPen *item2 = Object_wx_Pen::GetObject(valueRight)->GetEntity();
@@ -493,8 +493,8 @@ void Object_wx_Pen::OnModuleEntry(Environment &env, Signal sig)
 	Gura_AssignFunction(Pen_1);
 	Gura_AssignFunction(Pen_2);
 	Gura_AssignFunction(Pen_3);
-	Gura_AssignBinaryOperator(Equal, wx_Pen, wx_Pen);
-	Gura_AssignBinaryOperator(NotEqual, wx_Pen, wx_Pen);
+	Gura_AssignBinaryOperator(Eq, wx_Pen, wx_Pen);
+	Gura_AssignBinaryOperator(Ne, wx_Pen, wx_Pen);
 }
 
 //----------------------------------------------------------------------------

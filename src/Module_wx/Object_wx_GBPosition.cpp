@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_GBPosition, SetRow)
 }
 
 // operator ==
-Gura_ImplementBinaryOperator(Equal, wx_GBPosition, wx_GBPosition)
+Gura_ImplementBinaryOperator(Eq, wx_GBPosition, wx_GBPosition)
 {
 	wxGBPosition *item1 = Object_wx_GBPosition::GetObject(valueLeft)->GetEntity();
 	wxGBPosition *item2 = Object_wx_GBPosition::GetObject(valueRight)->GetEntity();
@@ -152,7 +152,7 @@ Gura_ImplementBinaryOperator(Equal, wx_GBPosition, wx_GBPosition)
 }
 
 // operator !=
-Gura_ImplementBinaryOperator(NotEqual, wx_GBPosition, wx_GBPosition)
+Gura_ImplementBinaryOperator(Ne, wx_GBPosition, wx_GBPosition)
 {
 	wxGBPosition *item1 = Object_wx_GBPosition::GetObject(valueLeft)->GetEntity();
 	wxGBPosition *item2 = Object_wx_GBPosition::GetObject(valueRight)->GetEntity();
@@ -200,8 +200,8 @@ void Object_wx_GBPosition::OnModuleEntry(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GBPositionEmpty);
 	Gura_AssignFunction(GBPosition);
-	Gura_AssignBinaryOperator(Equal, wx_GBPosition, wx_GBPosition);
-	Gura_AssignBinaryOperator(NotEqual, wx_GBPosition, wx_GBPosition);
+	Gura_AssignBinaryOperator(Eq, wx_GBPosition, wx_GBPosition);
+	Gura_AssignBinaryOperator(Ne, wx_GBPosition, wx_GBPosition);
 	//Gura_AssignUnaryOperator(Not, wx_GBPosition);
 }
 

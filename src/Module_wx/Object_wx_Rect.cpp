@@ -784,7 +784,7 @@ Gura_ImplementMethod(wx_Rect, Union_1)
 }
 
 // operator ==
-Gura_ImplementBinaryOperator(Equal, wx_Rect, wx_Rect)
+Gura_ImplementBinaryOperator(Eq, wx_Rect, wx_Rect)
 {
 	wxRect *item1 = Object_wx_Rect::GetObject(valueLeft)->GetEntity();
 	wxRect *item2 = Object_wx_Rect::GetObject(valueRight)->GetEntity();
@@ -792,7 +792,7 @@ Gura_ImplementBinaryOperator(Equal, wx_Rect, wx_Rect)
 }
 
 // operator !=
-Gura_ImplementBinaryOperator(NotEqual, wx_Rect, wx_Rect)
+Gura_ImplementBinaryOperator(Ne, wx_Rect, wx_Rect)
 {
 	wxRect *item1 = Object_wx_Rect::GetObject(valueLeft)->GetEntity();
 	wxRect *item2 = Object_wx_Rect::GetObject(valueRight)->GetEntity();
@@ -884,8 +884,8 @@ void Object_wx_Rect::OnModuleEntry(Environment &env, Signal sig)
 	Gura_AssignFunction(Rect_1);
 	Gura_AssignFunction(Rect_2);
 	Gura_AssignFunction(Rect_3);
-	Gura_AssignBinaryOperator(Equal, wx_Rect, wx_Rect);
-	Gura_AssignBinaryOperator(NotEqual, wx_Rect, wx_Rect);
+	Gura_AssignBinaryOperator(Eq, wx_Rect, wx_Rect);
+	Gura_AssignBinaryOperator(Ne, wx_Rect, wx_Rect);
 }
 
 //----------------------------------------------------------------------------

@@ -714,7 +714,7 @@ Gura_ImplementMethod(stream, prefetch)
 #endif
 
 // operator <<
-Gura_ImplementBinaryOperator(ShiftL, stream, any)
+Gura_ImplementBinaryOperator(Shl, stream, any)
 {
 	Stream &stream = valueLeft.GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Null;
@@ -799,7 +799,7 @@ void Class_stream::OnModuleEntry(Environment &env, Signal sig)
 	Gura_AssignFunction(copy);
 	Gura_AssignFunction(template_);
 	Gura_AssignFunction(readlines);
-	Gura_AssignBinaryOperator(ShiftL, stream, any);
+	Gura_AssignBinaryOperator(Shl, stream, any);
 }
 
 //-----------------------------------------------------------------------------

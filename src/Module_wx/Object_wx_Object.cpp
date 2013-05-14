@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_Object, UnShare)
 }
 
 // operator ==
-Gura_ImplementBinaryOperator(Equal, wx_Object, any)
+Gura_ImplementBinaryOperator(Eq, wx_Object, any)
 {
 	if (valueRight.IsInstanceOf(VTYPE_wx_Object)) {
 		wxObject *item1 = Object_wx_Object::GetObject(valueLeft)->GetEntity();
@@ -239,7 +239,7 @@ Gura_ImplementBinaryOperator(Equal, wx_Object, any)
 }
 
 // operator !=
-Gura_ImplementBinaryOperator(NotEqual, wx_Object, any)
+Gura_ImplementBinaryOperator(Ne, wx_Object, any)
 {
 	if (valueRight.IsInstanceOf(VTYPE_wx_Object)) {
 		wxObject *item1 = Object_wx_Object::GetObject(valueLeft)->GetEntity();
@@ -282,8 +282,8 @@ void Object_wx_Object::OnModuleEntry(Environment &env, Signal sig)
 	Gura_AssignFunction(ObjectEmpty);
 	Gura_AssignFunction(Object);
 	Gura_AssignFunction(ObjectEmpty_1);
-	Gura_AssignBinaryOperator(Equal, wx_Object, any);
-	Gura_AssignBinaryOperator(NotEqual, wx_Object, any);
+	Gura_AssignBinaryOperator(Eq, wx_Object, any);
+	Gura_AssignBinaryOperator(Ne, wx_Object, any);
 }
 
 //----------------------------------------------------------------------------
