@@ -256,22 +256,22 @@ bool Expr::IsOperatorNeg() const
 			dynamic_cast<const Expr_UnaryOp *>(this)->GetFunction().IsNeg();
 }
 
-bool Expr::IsOperatorMultiply() const
+bool Expr::IsOperatorMul() const
 {
 	return IsBinaryOp() &&
-		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().IsMultiply();
+		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().IsMul();
 }
 
-bool Expr::IsOperatorPower() const
+bool Expr::IsOperatorPow() const
 {
 	return IsBinaryOp() &&
-		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().IsPower();
+		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().IsPow();
 }
 
-bool Expr::IsOperatorSequence() const
+bool Expr::IsOperatorSeq() const
 {
 	return IsBinaryOp() &&
-		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().IsSequence();
+		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().IsSeq();
 }
 
 bool Expr::IsUnary() const			{ return false; }
@@ -1922,7 +1922,7 @@ Expr *Expr_Caller::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol)
 		Expr::Delete(pExprArgDiff);
 		return pExprFuncDiff;
 	}
-	return Func_Multiply::OptimizedExpr(env, sig, pExprFuncDiff, pExprArgDiff);
+	return Func_Mul::OptimizedExpr(env, sig, pExprFuncDiff, pExprArgDiff);
 }
 
 Expr *Expr_Caller::MathOptimize(Environment &env, Signal sig) const

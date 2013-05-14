@@ -121,7 +121,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				{ '|',	ETYPE_DoubleChars,	},
 				{ '&',	ETYPE_DoubleChars,	},
 				{ '^',	ETYPE_DoubleChars,	},
-				{ '~',	ETYPE_Invert,		},
+				{ '~',	ETYPE_Inv,			},
 				{ ',',	ETYPE_Comma,		},
 				{ ';',	ETYPE_Semicolon,	},
 				{ ')',	ETYPE_RParenthesis,	},
@@ -161,37 +161,37 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				ElemType elemType;
 			} tblCand[5];
 		} tbl[] = {
-			{ '+', ETYPE_Plus, {
-						{ '=', ETYPE_AssignPlus		},
+			{ '+', ETYPE_Add, {
+						{ '=', ETYPE_AssignAdd		},
 						{ '\0', ETYPE_Unknown		}, } },
-			{ '-', ETYPE_Minus, {
-						{ '=', ETYPE_AssignMinus	},
+			{ '-', ETYPE_Sub, {
+						{ '=', ETYPE_AssignSub		},
 						{ '\0', ETYPE_Unknown		}, } },
-			{ '*', ETYPE_Multiply, {
-						{ '=', ETYPE_AssignMultiply	},
+			{ '*', ETYPE_Mul, {
+						{ '=', ETYPE_AssignMul		},
 						{ '*', ETYPE_TripleChars	},
 						{ '\0', ETYPE_Unknown		}, } },
-			{ '/', ETYPE_Divide, {
-						{ '=', ETYPE_AssignDivide	},
+			{ '/', ETYPE_Div, {
+						{ '=', ETYPE_AssignDiv		},
 						{ '\0', ETYPE_Unknown		}, } },
-			{ '%', ETYPE_Modulo, {
-						{ '=', ETYPE_AssignModulo	},
-						{ '%', ETYPE_ModuloModulo	},
+			{ '%', ETYPE_Mod, {
+						{ '=', ETYPE_AssignMod		},
+						{ '%', ETYPE_ModMod		},
 						{ '\0', ETYPE_Unknown		}, } },
 			{ '=', ETYPE_Assign, {
-						{ '=', ETYPE_Equal 			},
+						{ '=', ETYPE_Eq 			},
 						{ '>', ETYPE_DictAssign		},
 						{ '\0', ETYPE_Unknown		}, } },
-			{ '<', ETYPE_Less, {
+			{ '<', ETYPE_Lt, {
 						{ '=', ETYPE_TripleChars	},
 						{ '<', ETYPE_TripleChars	},
 						{ '\0', ETYPE_Unknown		}, } },
-			{ '>', ETYPE_Greater, {
-						{ '=', ETYPE_GreaterEq		},
+			{ '>', ETYPE_Gt, {
+						{ '=', ETYPE_Ge				},
 						{ '>', ETYPE_TripleChars	},
 						{ '\0', ETYPE_Unknown		}, } },
 			{ '!', ETYPE_Not, {
-						{ '=', ETYPE_NotEqual		},
+						{ '=', ETYPE_Ne				},
 						{ '!', ETYPE_Force			},
 						{ '\0', ETYPE_Unknown		}, } },
 			{ '|', ETYPE_Or, {
@@ -258,17 +258,17 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				ElemType elemType;
 			} tblCand[5];
 		} tbl[] = {
-			{ "**", ETYPE_Power, {
-						{ '=', ETYPE_AssignPower	},
+			{ "**", ETYPE_Pow, {
+						{ '=', ETYPE_AssignPow		},
 						{ '\0', ETYPE_Unknown		}, } },
-			{ "<=", ETYPE_LessEq, {
-						{ '>', ETYPE_Compare		},
+			{ "<=", ETYPE_Le, {
+						{ '>', ETYPE_Cmp			},
 						{ '\0', ETYPE_Unknown		}, } },
-			{ "<<", ETYPE_ShiftL, {
-						{ '=', ETYPE_AssignShiftL	},
+			{ "<<", ETYPE_Shl, {
+						{ '=', ETYPE_AssignShl		},
 						{ '\0', ETYPE_Unknown		}, } },
-			{ ">>", ETYPE_ShiftR, {
-						{ '=', ETYPE_AssignShiftR	},
+			{ ">>", ETYPE_Shr, {
+						{ '=', ETYPE_AssignShr		},
 						{ '\0', ETYPE_Unknown		}, } },
 		};
 		_stat = STAT_Start;
@@ -408,7 +408,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				_token.push_back(ch);
 				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
 			} else {
-				pExpr = FeedElement(env, sig, Element(ETYPE_Sequence, GetLineNo()));
+				pExpr = FeedElement(env, sig, Element(ETYPE_Seq, GetLineNo()));
 			}
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else if (IsDigit(ch)) {
@@ -430,7 +430,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				_token.resize(pos);
 				pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
 				if (!sig.IsSignalled()) {
-					pExpr = FeedElement(env, sig, Element(ETYPE_Sequence, GetLineNo()));
+					pExpr = FeedElement(env, sig, Element(ETYPE_Seq, GetLineNo()));
 				}
 				_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 			} else if (pos == String::npos) {
@@ -509,7 +509,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stat = STAT_StringFirst;
 		} else {
 			if (_token == "in" && !_elemStack.back().IsType(ETYPE_Quote)) {
-				pExpr = FeedElement(env, sig, Element(ETYPE_ContainCheck, GetLineNo()));
+				pExpr = FeedElement(env, sig, Element(ETYPE_Contains, GetLineNo()));
 			} else {
 				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
 			}
@@ -933,44 +933,44 @@ void Parser::EvalConsoleChar(Environment &env, Signal sig,
 const Parser::ElemTypeInfo Parser::_elemTypeInfoTbl[] = {
 	{ ETYPE_Begin,				 1, "Begin",			"[Bgn]"		},	// B
 	{ ETYPE_Assign,				 2, "Assign",			"="			},	// =
-	{ ETYPE_AssignPlus,			 2, "AssignPlus",		"+="		},
-	{ ETYPE_AssignMinus,		 2, "AssignMinus",		"-="		},
-	{ ETYPE_AssignMultiply,		 2, "AssignMultiply",	"*="		},
-	{ ETYPE_AssignDivide,		 2, "AssignDivide",		"/="		},
-	{ ETYPE_AssignModulo,		 2, "AssignModulo",		"%="		},
-	{ ETYPE_AssignPower,		 2, "AssignPower",		"**="		},
+	{ ETYPE_AssignAdd,			 2, "AssignAdd",		"+="		},
+	{ ETYPE_AssignSub,			 2, "AssignSub",		"-="		},
+	{ ETYPE_AssignMul,			 2, "AssignMul",		"*="		},
+	{ ETYPE_AssignDiv,			 2, "AssignDiv",		"/="		},
+	{ ETYPE_AssignMod,			 2, "AssignMod",		"%="		},
+	{ ETYPE_AssignPow,			 2, "AssignPow",		"**="		},
 	{ ETYPE_AssignOr,			 2, "AssignOr",			"|="		},
 	{ ETYPE_AssignAnd,			 2, "AssignAnd",		"&="		},
 	{ ETYPE_AssignXor,			 2, "AssignXor",		"^="		},
-	{ ETYPE_AssignShiftL,		 2, "AssignShiftL",		"<<="		},
-	{ ETYPE_AssignShiftR,		 2, "AssignShiftR",		">>="		},
+	{ ETYPE_AssignShl,			 2, "AssignShl",		"<<="		},
+	{ ETYPE_AssignShr,			 2, "AssignShr",		">>="		},
 	{ ETYPE_DictAssign,			 2, "DictAssign",		"=>"		},
 	{ ETYPE_OrOr,				 3, "OrOr",				"||"		},	// ||
 	{ ETYPE_AndAnd,				 4, "AndAnd",			"&&"		},	// &&
 	{ ETYPE_Not,				 5, "Not",				"!"			},	// !
-	{ ETYPE_ContainCheck,		 6, "ContainCheck",		"in"		},	// in
-	{ ETYPE_Less,				 7, "Less",				"<"			},	// <
-	{ ETYPE_Greater,			 7, "Greater",			">"			},
-	{ ETYPE_LessEq,	 			 7, "LessEq",			"<="		},
-	{ ETYPE_GreaterEq,			 7, "GreaterEq",		">="		},
-	{ ETYPE_Compare,			 7, "Compare",			"<=>"		},
-	{ ETYPE_Equal,				 7, "Equal",			"=="		},
-	{ ETYPE_NotEqual,			 7, "NotEqual",			"!="		},
-	{ ETYPE_Sequence,			 8, "Sequence",			".."		},	// ..
+	{ ETYPE_Contains,			 6, "Contains",			"in"		},	// in
+	{ ETYPE_Lt,					 7, "Lt",				"<"			},	// <
+	{ ETYPE_Gt,					 7, "Gt",				">"			},
+	{ ETYPE_Le,	 				 7, "Le",				"<="		},
+	{ ETYPE_Ge,					 7, "Ge",				">="		},
+	{ ETYPE_Cmp,				 7, "Cmp",				"<=>"		},
+	{ ETYPE_Eq,					 7, "Eq",				"=="		},
+	{ ETYPE_Ne,					 7, "Ne",				"!="		},
+	{ ETYPE_Seq,			 	 8, "Seq",				".."		},	// ..
 	{ ETYPE_Or,					 9, "Or",				"|"			},	// |
 	{ ETYPE_Xor,				10, "Xor",				"^"			},	// ^
 	{ ETYPE_And,				11, "And",				"&"			},	// &
-	{ ETYPE_ShiftL,				12, "ShiftL",			"<<"		},	// <<
-	{ ETYPE_ShiftR,				12, "ShiftR",			">>"		},
-	{ ETYPE_Plus,				13, "Plus",				"+"			},	// +
-	{ ETYPE_Minus,				13, "Minus",			"-"			},
-	{ ETYPE_Multiply,			14, "Multiply",			"*"			},	// *
-	{ ETYPE_Divide,				14, "Divide",			"/"			},
-	{ ETYPE_Modulo,				14, "Modulo",			"%"			},
-	{ ETYPE_ModuloModulo,		14, "ModuloModulo",		"%%"		},
+	{ ETYPE_Shl,				12, "Shl"	,			"<<"		},	// <<
+	{ ETYPE_Shr,				12, "Shr",				">>"		},
+	{ ETYPE_Add,				13, "Plus",				"+"			},	// +
+	{ ETYPE_Sub,				13, "Sub",				"-"			},
+	{ ETYPE_Mul,				14, "Mul",				"*"			},	// *
+	{ ETYPE_Div,				14, "Div",				"/"			},
+	{ ETYPE_Mod,				14, "Mod",				"%"			},
+	{ ETYPE_ModMod,				14, "ModMod"	,		"%%"		},
 	{ ETYPE_Question,			14, "Question",			"?"			},
-	{ ETYPE_Invert,				15, "Invert",			"~"			},	// ~
-	{ ETYPE_Power,				16, "Power",			"**"		},	// **
+	{ ETYPE_Inv,				15, "Inv",				"~"			},	// ~
+	{ ETYPE_Pow,				16, "Pow",				"**"		},	// **
 	{ ETYPE_Quote,				17, "Quote",			"`"			},	// `
 	{ ETYPE_Force,				17, "Force",			"!!"		},
 	{ ETYPE_Colon,				18, "Colon",			":"			},	// :
@@ -1142,7 +1142,7 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 		DBGPARSER(::printf("Reduce: Expr -> Symbol\n"));
 		const Symbol *pSymbol = Symbol::Add(elem1.GetString());
 		pExpr = new Expr_Symbol(pSymbol);
-	} else if (elem1.IsType(ETYPE_Multiply)) {
+	} else if (elem1.IsType(ETYPE_Mul)) {
 		DBGPARSER(::printf("Reduce: Expr -> '*'\n"));
 		pExpr = new Expr_Symbol(Gura_Symbol(Char_Multiply));
 	} else if (elem1.IsType(ETYPE_Question)) {
@@ -1271,19 +1271,19 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 		} else if (elem1.IsType(ETYPE_Force)) {
 			DBGPARSER(::printf("Reduce: Expr -> '!!' Expr\n"));
 			pExpr = new Expr_Force(elem2.GetExpr());
-		} else if (elem1.IsType(ETYPE_Plus)) {
+		} else if (elem1.IsType(ETYPE_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> '+' Expr\n"));
 			pExpr = new Expr_UnaryOp(env.GetOpFunc(OPTYPE_Pos), elem2.GetExpr(), false);
-		} else if (elem1.IsType(ETYPE_Minus)) {
+		} else if (elem1.IsType(ETYPE_Sub)) {
 			DBGPARSER(::printf("Reduce: Expr -> '-' Expr\n"));
 			pExpr = new Expr_UnaryOp(env.GetOpFunc(OPTYPE_Neg), elem2.GetExpr(), false);
-		} else if (elem1.IsType(ETYPE_Invert)) {
+		} else if (elem1.IsType(ETYPE_Inv)) {
 			DBGPARSER(::printf("Reduce: Expr -> '~' Expr\n"));
 			pExpr = new Expr_UnaryOp(env.GetOpFunc(OPTYPE_Inv), elem2.GetExpr(), false);
 		} else if (elem1.IsType(ETYPE_Not)) {
 			DBGPARSER(::printf("Reduce: Expr -> '!' Expr\n"));
 			pExpr = new Expr_UnaryOp(env.GetOpFunc(OPTYPE_Not), elem2.GetExpr(), false);
-		} else if (elem1.IsType(ETYPE_Modulo)) {
+		} else if (elem1.IsType(ETYPE_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> '%' Expr\n"));
 			if (elem2.GetExpr()->IsBlock()) {
 				Expr *pExprCar = new Expr_Symbol(Gura_Symbol(Char_Modulo));
@@ -1295,7 +1295,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
 			}
-		} else if (elem1.IsType(ETYPE_ModuloModulo)) {
+		} else if (elem1.IsType(ETYPE_ModMod)) {
 			DBGPARSER(::printf("Reduce: Expr -> '%%' Expr\n"));
 			if (elem2.GetExpr()->IsBlock()) {
 				Expr *pExprCar = new Expr_Symbol(Gura_Symbol(Char_ModuloModulo));
@@ -1321,7 +1321,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
 			}
-		} else if (elem1.IsType(ETYPE_Multiply)) {
+		} else if (elem1.IsType(ETYPE_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> '*' Expr\n"));
 			pExpr = new Expr_Prefix(elem2.GetExpr(), Gura_Symbol(Char_Multiply));
 		} else {
@@ -1329,19 +1329,19 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_Expr)) {
-		if (elem2.IsType(ETYPE_Plus)) {
+		if (elem2.IsType(ETYPE_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '+'\n"));
 			pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Plus));
-		} else if (elem2.IsType(ETYPE_Multiply)) {
+		} else if (elem2.IsType(ETYPE_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '*'\n"));
 			pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Multiply));
 		} else if (elem2.IsType(ETYPE_Question)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '?'\n"));
 			pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Question));
-		} else if (elem2.IsType(ETYPE_Modulo)) {
+		} else if (elem2.IsType(ETYPE_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '%'\n"));
 			pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Modulo));
-		} else if (elem2.IsType(ETYPE_Sequence)) {
+		} else if (elem2.IsType(ETYPE_Seq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ..\n"));
 			pExpr = new Expr_UnaryOp(env.GetOpFunc(OPTYPE_SeqInf), elem1.GetExpr(), true);
 		} else {
@@ -1553,67 +1553,67 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 	} else if (elem1.IsType(ETYPE_Expr) && elem3.IsType(ETYPE_Expr)) {
 		Expr *pExprLeft = elem1.GetExpr();
 		Expr *pExprRight = elem3.GetExpr();
-		if (elem2.IsType(ETYPE_Plus)) {
+		if (elem2.IsType(ETYPE_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr + Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Add), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Minus)) {
+		} else if (elem2.IsType(ETYPE_Sub)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr - Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Sub), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Multiply)) {
+		} else if (elem2.IsType(ETYPE_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr * Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Mul), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Divide)) {
+		} else if (elem2.IsType(ETYPE_Div)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr / Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Div), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Modulo)) {
+		} else if (elem2.IsType(ETYPE_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr % Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Mod), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Power)) {
+		} else if (elem2.IsType(ETYPE_Pow)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ** Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Pow), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Equal)) {
+		} else if (elem2.IsType(ETYPE_Eq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr == Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Eq), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_NotEqual)) {
+		} else if (elem2.IsType(ETYPE_Ne)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr != Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Ne), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Less)) {
+		} else if (elem2.IsType(ETYPE_Lt)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr < Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Lt), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Greater)) {
+		} else if (elem2.IsType(ETYPE_Gt)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr > Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Gt), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_LessEq)) {
+		} else if (elem2.IsType(ETYPE_Le)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr <= Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Le), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_GreaterEq)) {
+		} else if (elem2.IsType(ETYPE_Ge)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr >= Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Ge), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Compare)) {
+		} else if (elem2.IsType(ETYPE_Cmp)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr <=> Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Cmp), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_ContainCheck)) {
+		} else if (elem2.IsType(ETYPE_Contains)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr in Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Contains), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Assign)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr = Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, NULL);
-		} else if (elem2.IsType(ETYPE_AssignPlus)) {
+		} else if (elem2.IsType(ETYPE_AssignAdd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr += Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Add));
-		} else if (elem2.IsType(ETYPE_AssignMinus)) {
+		} else if (elem2.IsType(ETYPE_AssignSub)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr -= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Sub));
-		} else if (elem2.IsType(ETYPE_AssignMultiply)) {
+		} else if (elem2.IsType(ETYPE_AssignMul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr *= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Mul));
-		} else if (elem2.IsType(ETYPE_AssignDivide)) {
+		} else if (elem2.IsType(ETYPE_AssignDiv)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr /= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Div));
-		} else if (elem2.IsType(ETYPE_AssignModulo)) {
+		} else if (elem2.IsType(ETYPE_AssignMod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr %= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Mod));
-		} else if (elem2.IsType(ETYPE_AssignPower)) {
+		} else if (elem2.IsType(ETYPE_AssignPow)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr **= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Pow));
 		} else if (elem2.IsType(ETYPE_AssignOr)) {
@@ -1625,10 +1625,10 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 		} else if (elem2.IsType(ETYPE_AssignXor)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ^= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Xor));
-		} else if (elem2.IsType(ETYPE_AssignShiftL)) {
+		} else if (elem2.IsType(ETYPE_AssignShl)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr <<= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Shl));
-		} else if (elem2.IsType(ETYPE_AssignShiftR)) {
+		} else if (elem2.IsType(ETYPE_AssignShr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr >>= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Shr));
 		} else if (elem2.IsType(ETYPE_DictAssign)) {
@@ -1751,13 +1751,13 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 		} else if (elem2.IsType(ETYPE_Xor)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ^ Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Xor), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_ShiftL)) {
+		} else if (elem2.IsType(ETYPE_Shl)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr << Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Shl), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_ShiftR)) {
+		} else if (elem2.IsType(ETYPE_Shr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr >> Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Shr), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Sequence)) {
+		} else if (elem2.IsType(ETYPE_Seq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr .. Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Seq), pExprLeft, pExprRight);
 		} else {

@@ -51,9 +51,9 @@ public:
 	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild);
 };
 
-class Func_Invert : public FuncUnaryOperator {
+class Func_Inv : public FuncUnaryOperator {
 public:
-	Func_Invert(Environment &env);
+	Func_Inv(Environment &env);
 };
 
 class Func_Not : public FuncUnaryOperator {
@@ -61,10 +61,10 @@ public:
 	Func_Not(Environment &env);
 };
 
-class Func_Plus : public FuncBinaryOperator {
+class Func_Add : public FuncBinaryOperator {
 public:
-	Func_Plus(Environment &env);
-	virtual bool IsPlus() const;
+	Func_Add(Environment &env);
+	virtual bool IsAdd() const;
 	virtual Expr *DiffBinary(Environment &env, Signal sig,
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
@@ -72,10 +72,10 @@ public:
 	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
-class Func_Minus : public FuncBinaryOperator {
+class Func_Sub : public FuncBinaryOperator {
 public:
-	Func_Minus(Environment &env);
-	virtual bool IsMinus() const;
+	Func_Sub(Environment &env);
+	virtual bool IsSub() const;
 	virtual Expr *DiffBinary(Environment &env, Signal sig,
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
@@ -83,11 +83,11 @@ public:
 	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
-class Func_Multiply : public FuncBinaryOperator {
+class Func_Mul : public FuncBinaryOperator {
 public:
-	Func_Multiply(Environment &env);
+	Func_Mul(Environment &env);
 	virtual Value EvalExpr(Environment &env, Signal sig, Args &args) const;
-	virtual bool IsMultiply() const;
+	virtual bool IsMul() const;
 	virtual Expr *DiffBinary(Environment &env, Signal sig,
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
@@ -95,10 +95,10 @@ public:
 	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
-class Func_Divide : public FuncBinaryOperator {
+class Func_Div : public FuncBinaryOperator {
 public:
-	Func_Divide(Environment &env);
-	virtual bool IsDivide() const;
+	Func_Div(Environment &env);
+	virtual bool IsDiv() const;
 	virtual Expr *DiffBinary(Environment &env, Signal sig,
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
@@ -106,17 +106,17 @@ public:
 	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
-class Func_Modulo : public FuncBinaryOperator {
+class Func_Mod : public FuncBinaryOperator {
 public:
-	Func_Modulo(Environment &env);
+	Func_Mod(Environment &env);
 	virtual Value EvalExpr(Environment &env, Signal sig, Args &args) const;
-	virtual bool IsModulo() const;
+	virtual bool IsMod() const;
 };
 
-class Func_Power : public FuncBinaryOperator {
+class Func_Pow : public FuncBinaryOperator {
 public:
-	Func_Power(Environment &env);
-	virtual bool IsPower() const;
+	Func_Pow(Environment &env);
+	virtual bool IsPow() const;
 	virtual Expr *DiffBinary(Environment &env, Signal sig,
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
@@ -124,45 +124,45 @@ public:
 	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
-class Func_Equal : public FuncBinaryOperator {
+class Func_Eq : public FuncBinaryOperator {
 public:
-	Func_Equal(Environment &env);
+	Func_Eq(Environment &env);
 };
 
-class Func_NotEqual : public FuncBinaryOperator {
+class Func_Ne : public FuncBinaryOperator {
 public:
-	Func_NotEqual(Environment &env);
+	Func_Ne(Environment &env);
 };
 
-class Func_Greater : public FuncBinaryOperator {
+class Func_Gt : public FuncBinaryOperator {
 public:
-	Func_Greater(Environment &env);
+	Func_Gt(Environment &env);
 };
 
-class Func_Less : public FuncBinaryOperator {
+class Func_Lt : public FuncBinaryOperator {
 public:
-	Func_Less(Environment &env);
+	Func_Lt(Environment &env);
 };
 
-class Func_GreaterEq : public FuncBinaryOperator {
+class Func_Ge : public FuncBinaryOperator {
 public:
-	Func_GreaterEq(Environment &env);
+	Func_Ge(Environment &env);
 };
 
-class Func_LessEq : public FuncBinaryOperator {
+class Func_Le : public FuncBinaryOperator {
 public:
-	Func_LessEq(Environment &env);
+	Func_Le(Environment &env);
 };
 
-class Func_Compare : public FuncBinaryOperator {
+class Func_Cmp : public FuncBinaryOperator {
 public:
-	Func_Compare(Environment &env);
+	Func_Cmp(Environment &env);
 };
 
-class Func_ContainCheck : public FuncBinaryOperator {
+class Func_Contains : public FuncBinaryOperator {
 public:
-	Func_ContainCheck(Environment &env);
-	virtual bool IsContainCheck() const;
+	Func_Contains(Environment &env);
+	virtual bool IsContains() const;
 };
 
 class Func_Or : public FuncBinaryOperator {
@@ -180,14 +180,14 @@ public:
 	Func_Xor(Environment &env);
 };
 
-class Func_ShiftL : public FuncBinaryOperator {
+class Func_Shl : public FuncBinaryOperator {
 public:
-	Func_ShiftL(Environment &env);
+	Func_Shl(Environment &env);
 };
 
-class Func_ShiftR : public FuncBinaryOperator {
+class Func_Shr : public FuncBinaryOperator {
 public:
-	Func_ShiftR(Environment &env);
+	Func_Shr(Environment &env);
 };
 
 class Func_OrOr : public Function {
@@ -202,15 +202,15 @@ public:
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
 };
 
-class Func_Sequence : public FuncBinaryOperator {
+class Func_Seq : public FuncBinaryOperator {
 public:
-	Func_Sequence(Environment &env);
-	virtual bool IsSequence() const;
+	Func_Seq(Environment &env);
+	virtual bool IsSeq() const;
 };
 
-class Func_SequenceInf : public FuncUnaryOperator {
+class Func_SeqInf : public FuncUnaryOperator {
 public:
-	Func_SequenceInf(Environment &env);
+	Func_SeqInf(Environment &env);
 };
 
 }

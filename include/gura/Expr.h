@@ -169,9 +169,9 @@ public:
 	bool IsConstEvenNumber() const;
 	bool IsConstNegNumber() const;
 	bool IsOperatorNeg() const;
-	bool IsOperatorMultiply() const;
-	bool IsOperatorPower() const;
-	bool IsOperatorSequence() const;
+	bool IsOperatorMul() const;
+	bool IsOperatorPow() const;
+	bool IsOperatorSeq() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const = 0;
 	virtual bool DoDeserialize(Environment &env, Signal sig, Stream &stream) = 0;
