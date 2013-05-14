@@ -31,7 +31,7 @@ public:
 	enum Stat {
 		STAT_Start,
 		STAT_DoubleChars, STAT_TripleChars, STAT_Escape,
-		STAT_Quote, STAT_Colon,
+		STAT_Colon,
 		STAT_Error, STAT_ErrorRecovery,
 		STAT_AfterLBrace,
 		STAT_NumberPre, STAT_NumberHex, STAT_NumberOct,
@@ -213,7 +213,6 @@ private:
 	MagicCommentParser _magicCommentParser;
 	bool _appearShebangFlag;
 	bool _blockParamFlag;
-	bool _quoteFlag;
 	int _cntLine;
 	int _commentNestLevel;
 	String _sourceName;

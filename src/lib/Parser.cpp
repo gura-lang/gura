@@ -8,7 +8,7 @@ namespace Gura {
 // Parser
 //-----------------------------------------------------------------------------
 Parser::Parser() : _stat(STAT_Start),
-		_appearShebangFlag(false), _blockParamFlag(false), _quoteFlag(false),
+		_appearShebangFlag(false), _blockParamFlag(false),
 		_cntLine(0), _commentNestLevel(0)
 {
 	InitStack();
@@ -87,13 +87,19 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		} else if (ch == '{') {
 			pExpr = FeedElement(env, sig, Element(ETYPE_LBrace, GetLineNo()));
 			_stat = sig.IsSignalled()? STAT_Error : STAT_AfterLBrace;
+		} else if (ch == '(') {
+			pExpr = FeedElement(env, sig, Element(ETYPE_LParenthesis, GetLineNo()));
+			if (sig.IsSignalled()) _stat = STAT_Error;
+		} else if (ch == '[') {
+			pExpr = FeedElement(env, sig, Element(ETYPE_LBracket, GetLineNo()));
+			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '|' && _blockParamFlag && CheckBlockParamEnd()) {
 			_blockParamFlag = false;
 			pExpr = FeedElement(env, sig, Element(ETYPE_RBlockParam, GetLineNo()));
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '`') {
 			pExpr = FeedElement(env, sig, Element(ETYPE_Quote, GetLineNo()));
-			_stat = sig.IsSignalled()? STAT_Error : STAT_Quote;
+			_stat = STAT_Start;
 		} else if (ch == ':') {
 			_stat = STAT_Colon;
 		} else {
@@ -118,10 +124,8 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				{ '~',	ETYPE_Invert,		},
 				{ ',',	ETYPE_Comma,		},
 				{ ';',	ETYPE_Semicolon,	},
-				{ '(',	ETYPE_LParenthesis,	},
 				{ ')',	ETYPE_RParenthesis,	},
 				{ '}',	ETYPE_RBrace,		},
-				{ '[',	ETYPE_LBracket,		},
 				{ ']',	ETYPE_RBracket,		},
 				{ '\0',	ETYPE_EOF,			},
 			};
@@ -135,8 +139,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				_token.clear();
 				_token.push_back(ch);
 				_stat = STAT_DoubleChars;
-			} else if (_quoteFlag) {
-				_quoteFlag = false;
+			} else if (_elemStack.back().IsType(ETYPE_Quote)) {
 				_token.clear();
 				_token.push_back(ch);
 				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
@@ -233,8 +236,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				}
 				if (elemType == ETYPE_TripleChars) {
 					_stat = STAT_TripleChars;
-				} else if (_quoteFlag) {
-					_quoteFlag = false;
+				} else if (_elemStack.back().IsType(ETYPE_Quote)) {
 					pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
 					if (sig.IsSignalled()) _stat = STAT_Error;
 				} else {
@@ -282,8 +284,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				continueFlag = false;
 				break;
 			}
-			if (_quoteFlag) {
-				_quoteFlag = false;
+			if (_elemStack.back().IsType(ETYPE_Quote)) {
 				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			} else {
@@ -307,24 +308,6 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			SetError(sig, ERR_SyntaxError, "invalid escape character");
 			_stat = STAT_Error;
 		}
-		break;
-	}
-	case STAT_Quote: {
-		// the following characters must be contained in the table in STAT_Start
-		static const char chTbl[] = {
-			'+', '-', '*', '/',
-			'%', '=', '<', '>',
-			'!', '|', '&', '^',
-			'~',
-		};
-		for (int i = 0; i < ArraySizeOf(chTbl); i++) {
-			if (chTbl[i] == ch) {
-				_quoteFlag = true;
-				break;
-			}
-		}
-		continueFlag = true;
-		_stat = STAT_Start;
 		break;
 	}
 	case STAT_Colon: {
@@ -421,7 +404,12 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 	}
 	case STAT_NumberAfterDot: {
 		if (ch == '.') {
-			pExpr = FeedElement(env, sig, Element(ETYPE_Sequence, GetLineNo()));
+			if (_elemStack.back().IsType(ETYPE_Quote)) {
+				_token.push_back(ch);
+				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
+			} else {
+				pExpr = FeedElement(env, sig, Element(ETYPE_Sequence, GetLineNo()));
+			}
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else if (IsDigit(ch)) {
 			_token.push_back(ch);
@@ -520,7 +508,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_token.clear();
 			_stat = STAT_StringFirst;
 		} else {
-			if (_token == "in") {
+			if (_token == "in" && !_elemStack.back().IsType(ETYPE_Quote)) {
 				pExpr = FeedElement(env, sig, Element(ETYPE_ContainCheck, GetLineNo()));
 			} else {
 				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
