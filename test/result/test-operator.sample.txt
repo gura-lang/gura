@@ -2,6 +2,7 @@
 -A
 ~A
 !A
+A..
 A + A
 A - A
 A * A
@@ -15,11 +16,13 @@ A < A
 A >= A
 A <= A
 A <=> A
+A in A
 A | A
 A & A
 A ^ A
 A << A
 A >> A
+A .. A
 __getitem__ 3
 __getitemx__
 __setitem__ 3 2
@@ -81,6 +84,7 @@ Fruit >= number
 Fruit <=> number
 Fruit | number
 Fruit & number
+Fruit .. number
 false & false .. false
 false & true .. false
 true & false .. false
