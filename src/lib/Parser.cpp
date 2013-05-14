@@ -92,7 +92,8 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			pExpr = FeedElement(env, sig, Element(ETYPE_RBlockParam, GetLineNo()));
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '`') {
-			_stat = STAT_Quote;
+			pExpr = FeedElement(env, sig, Element(ETYPE_Quote, GetLineNo()));
+			_stat = sig.IsSignalled()? STAT_Error : STAT_Quote;
 		} else if (ch == ':') {
 			_stat = STAT_Colon;
 		} else {
@@ -136,7 +137,6 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				_stat = STAT_DoubleChars;
 			} else if (_quoteFlag) {
 				_quoteFlag = false;
-				FeedElement(env, sig, Element(ETYPE_Quote, GetLineNo()));
 				_token.clear();
 				_token.push_back(ch);
 				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
@@ -235,7 +235,6 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 					_stat = STAT_TripleChars;
 				} else if (_quoteFlag) {
 					_quoteFlag = false;
-					FeedElement(env, sig, Element(ETYPE_Quote, GetLineNo()));
 					pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
 					if (sig.IsSignalled()) _stat = STAT_Error;
 				} else {
@@ -285,7 +284,6 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			}
 			if (_quoteFlag) {
 				_quoteFlag = false;
-				FeedElement(env, sig, Element(ETYPE_Quote, GetLineNo()));
 				pExpr = FeedElement(env, sig, Element(ETYPE_Symbol, GetLineNo(), _token));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			} else {
@@ -319,19 +317,14 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			'!', '|', '&', '^',
 			'~',
 		};
-		int i = 0;
-		for (i = 0; i < ArraySizeOf(chTbl); i++) {
-			if (chTbl[i] == ch) break;
+		for (int i = 0; i < ArraySizeOf(chTbl); i++) {
+			if (chTbl[i] == ch) {
+				_quoteFlag = true;
+				break;
+			}
 		}
-		if (i < ArraySizeOf(chTbl)) {
-			_quoteFlag = true;
-			continueFlag = true;
-			_stat = STAT_Start;
-		} else {
-			pExpr = FeedElement(env, sig, Element(ETYPE_Quote, GetLineNo()));
-			continueFlag = true;
-			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
-		}
+		continueFlag = true;
+		_stat = STAT_Start;
 		break;
 	}
 	case STAT_Colon: {
