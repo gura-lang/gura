@@ -41,12 +41,13 @@ void AssignOpFunctions(Environment &env)
 // FuncUnaryOperator
 //-----------------------------------------------------------------------------
 FuncUnaryOperator::FuncUnaryOperator(Environment &env, const Symbol *pSymbol,
-				Parser::ElemType elemType, OpType opType, unsigned long flags) :
+				Parser::ElemType elemType, OpType opType,
+				unsigned long flags, ValueType valType) :
 		Function(env, pSymbol, FUNCTYPE_Function, FLAG_None)
 {
 	SetOperatorInfo(elemType, opType);
 	SetMode(RSLTMODE_Normal, flags);
-	DeclareArg(env, "n", VTYPE_any);
+	DeclareArg(env, "n", valType);
 }
 
 Value FuncUnaryOperator::DoEval(Environment &env, Signal sig, Args &args) const
@@ -55,17 +56,31 @@ Value FuncUnaryOperator::DoEval(Environment &env, Signal sig, Args &args) const
 	return Operator::EvalUnary(env, sig, GetOpType(), value);
 }
 
+Expr *FuncUnaryOperator::DiffUnary(Environment &env, Signal sig,
+							const Expr *pExprArg, const Symbol *pSymbol) const
+{
+	Operator *pOperator = env.GetGlobal()->GetOperator(GetOpType());
+	return pOperator->DiffUnary(env, sig, pExprArg, pSymbol);
+}
+
+Expr *FuncUnaryOperator::OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const
+{
+	Operator *pOperator = env.GetGlobal()->GetOperator(GetOpType());
+	return pOperator->OptimizeUnary(env, sig, pExprOpt);
+}
+
 //-----------------------------------------------------------------------------
 // FuncBinaryOperator
 //-----------------------------------------------------------------------------
 FuncBinaryOperator::FuncBinaryOperator(Environment &env, const Symbol *pSymbol,
-				Parser::ElemType elemType, OpType opType, unsigned long flags) :
+				Parser::ElemType elemType, OpType opType,
+				unsigned long flags, ValueType valType) :
 		Function(env, pSymbol, FUNCTYPE_Function, FLAG_None)
 {
 	SetOperatorInfo(elemType, opType);
 	SetMode(RSLTMODE_Normal, flags);
-	DeclareArg(env, "n", VTYPE_any);
-	DeclareArg(env, "m", VTYPE_any);
+	DeclareArg(env, "n", valType);
+	DeclareArg(env, "m", valType);
 }
 
 Value FuncBinaryOperator::DoEval(Environment &env, Signal sig, Args &args) const
@@ -73,6 +88,20 @@ Value FuncBinaryOperator::DoEval(Environment &env, Signal sig, Args &args) const
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
 	return Operator::EvalBinary(env, sig, GetOpType(), valueLeft, valueRight);
+}
+
+Expr *FuncBinaryOperator::DiffBinary(Environment &env, Signal sig,
+		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
+{
+	Operator *pOperator = env.GetGlobal()->GetOperator(GetOpType());
+	return pOperator->DiffBinary(env, sig, pExprArg1, pExprArg2, pSymbol);
+}
+
+Expr *FuncBinaryOperator::OptimizeBinary(Environment &env, Signal sig,
+									Expr *pExprOpt1, Expr *pExprOpt2) const
+{
+	Operator *pOperator = env.GetGlobal()->GetOperator(GetOpType());
+	return pOperator->OptimizeBinary(env, sig, pExprOpt1, pExprOpt2);
 }
 
 //-----------------------------------------------------------------------------
@@ -85,19 +114,6 @@ Func_Pos::Func_Pos(Environment &env) : FuncUnaryOperator(env,
 {
 }
 
-Expr *Func_Pos::DiffUnary(Environment &env, Signal sig,
-							const Expr *pExprArg, const Symbol *pSymbol) const
-{
-	Expr *pExprDiff = pExprArg->MathDiff(env, sig, pSymbol);
-	if (sig.IsSignalled()) return NULL;
-	return Operator_Pos::OptimizedExpr(env, sig, pExprDiff);
-}
-
-Expr *Func_Pos::OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const
-{
-	return Operator_Pos::OptimizedExpr(env, sig, pExprOpt);
-}
-
 //-----------------------------------------------------------------------------
 // -n
 //-----------------------------------------------------------------------------
@@ -106,19 +122,6 @@ bool Func_Neg::IsNeg() const { return true; }
 Func_Neg::Func_Neg(Environment &env) : FuncUnaryOperator(env,
 				Symbol::Add("__neg__"), Parser::ETYPE_Sub, OPTYPE_Neg)
 {
-}
-
-Expr *Func_Neg::DiffUnary(Environment &env, Signal sig,
-							const Expr *pExprArg, const Symbol *pSymbol) const
-{
-	Expr *pExprWork = pExprArg->MathDiff(env, sig, pSymbol);
-	if (sig.IsSignalled()) return NULL;
-	return Operator_Neg::OptimizedExpr(env, sig, pExprWork);
-}
-
-Expr *Func_Neg::OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const
-{
-	return Operator_Neg::OptimizedExpr(env, sig, pExprOpt);
 }
 
 //-----------------------------------------------------------------------------
@@ -138,6 +141,14 @@ Func_Not::Func_Not(Environment &env) : FuncUnaryOperator(env,
 }
 
 //-----------------------------------------------------------------------------
+// n ..
+//-----------------------------------------------------------------------------
+Func_SeqInf::Func_SeqInf(Environment &env) : FuncUnaryOperator(env,
+				Symbol::Add("__seqinf__"), Parser::ETYPE_Seq, OPTYPE_SeqInf)
+{
+}
+
+//-----------------------------------------------------------------------------
 // n + m
 //-----------------------------------------------------------------------------
 bool Func_Add::IsAdd() const { return true; }
@@ -145,26 +156,6 @@ bool Func_Add::IsAdd() const { return true; }
 Func_Add::Func_Add(Environment &env) : FuncBinaryOperator(env,
 				Symbol::Add("__add__"), Parser::ETYPE_Add, OPTYPE_Add)
 {
-}
-
-Expr *Func_Add::DiffBinary(Environment &env, Signal sig,
-		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
-{
-	Expr *pExprDiff1 = pExprArg1->MathDiff(env, sig, pSymbol);
-	if (sig.IsSignalled()) return NULL;
-	Expr *pExprDiff2 = pExprArg2->MathDiff(env, sig, pSymbol);
-	if (sig.IsSignalled()) {
-		Expr::Delete(pExprDiff1);
-		return NULL;
-	}
-	// (f(x) + g(x))' = f'(x) + g'(x)
-	return Operator_Add::OptimizedExpr(env, sig, pExprDiff1, pExprDiff2);
-}
-
-Expr *Func_Add::OptimizeBinary(Environment &env, Signal sig,
-									Expr *pExprOpt1, Expr *pExprOpt2) const
-{
-	return Operator_Add::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
 }
 
 //-----------------------------------------------------------------------------
@@ -175,26 +166,6 @@ bool Func_Sub::IsSub() const { return true; }
 Func_Sub::Func_Sub(Environment &env) : FuncBinaryOperator(env,
 				Symbol::Add("__sub__"), Parser::ETYPE_Sub, OPTYPE_Sub)
 {
-}
-
-Expr *Func_Sub::DiffBinary(Environment &env, Signal sig,
-		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
-{
-	Expr *pExprDiff1 = pExprArg1->MathDiff(env, sig, pSymbol);
-	if (sig.IsSignalled()) return NULL;
-	Expr *pExprDiff2 = pExprArg2->MathDiff(env, sig, pSymbol);
-	if (sig.IsSignalled()) {
-		Expr::Delete(pExprDiff1);
-		return NULL;
-	}
-	// (f(x) - g(x))' = f'(x) - g'(x)
-	return Operator_Sub::OptimizedExpr(env, sig, pExprDiff1, pExprDiff2);
-}
-
-Expr *Func_Sub::OptimizeBinary(Environment &env, Signal sig,
-									Expr *pExprOpt1, Expr *pExprOpt2) const
-{
-	return Operator_Sub::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
 }
 
 //-----------------------------------------------------------------------------
@@ -264,28 +235,6 @@ Value Func_Mul::EvalExpr(Environment &env, Signal sig, Args &args) const
 	}
 }
 
-Expr *Func_Mul::DiffBinary(Environment &env, Signal sig,
-		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
-{
-	Expr *pExprDiff1 = pExprArg1->MathDiff(env, sig, pSymbol);
-	if (sig.IsSignalled()) return NULL;
-	Expr *pExprDiff2 = pExprArg2->MathDiff(env, sig, pSymbol);
-	if (sig.IsSignalled()) {
-		Expr::Delete(pExprDiff1);
-		return NULL;
-	}
-	// (f(x)g(x))' = f'(x)g(x) + f(x)g'(x)
-	return Operator_Add::OptimizedExpr(env, sig,
-		Operator_Mul::OptimizedExpr(env, sig, pExprDiff1, Expr::Reference(pExprArg2)),
-		Operator_Mul::OptimizedExpr(env, sig, Expr::Reference(pExprArg1), pExprDiff2));
-}
-
-Expr *Func_Mul::OptimizeBinary(Environment &env, Signal sig,
-									Expr *pExprOpt1, Expr *pExprOpt2) const
-{
-	return Operator_Mul::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
-}
-
 //-----------------------------------------------------------------------------
 // n / m
 //-----------------------------------------------------------------------------
@@ -296,32 +245,8 @@ Func_Div::Func_Div(Environment &env) : FuncBinaryOperator(env,
 {
 }
 
-Expr *Func_Div::OptimizeBinary(Environment &env, Signal sig,
-									Expr *pExprOpt1, Expr *pExprOpt2) const
-{
-	return Operator_Div::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
-}
-
-Expr *Func_Div::DiffBinary(Environment &env, Signal sig,
-		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
-{
-	Expr *pExprDiff1 = pExprArg1->MathDiff(env, sig, pSymbol);
-	if (sig.IsSignalled()) return NULL;
-	Expr *pExprDiff2 = pExprArg2->MathDiff(env, sig, pSymbol);
-	if (sig.IsSignalled()) {
-		Expr::Delete(pExprDiff1);
-		return NULL;
-	}
-	// (f(x) / g(x))' = (f'(x)g(x) - f(x)g'(x)) / {g(x)}^2
-	return Operator_Div::OptimizedExpr(env, sig,
-		Operator_Sub::OptimizedExpr(env, sig,
-			Operator_Mul::OptimizedExpr(env, sig, pExprDiff1, Expr::Reference(pExprArg2)),
-			Operator_Mul::OptimizedExpr(env, sig, Expr::Reference(pExprArg1), pExprDiff2)),
-		Operator_Pow::OptimizedExpr(env, sig, Expr::Reference(pExprArg2), new Expr_Value(2)));
-}
-
 //-----------------------------------------------------------------------------
-// mod(n, m):map
+// n % m
 //-----------------------------------------------------------------------------
 bool Func_Mod::IsMod() const { return true; }
 
@@ -405,36 +330,6 @@ bool Func_Pow::IsPow() const { return true; }
 Func_Pow::Func_Pow(Environment &env) : FuncBinaryOperator(env,
 				Symbol::Add("__pow__"), Parser::ETYPE_Pow, OPTYPE_Pow)
 {
-}
-
-Expr *Func_Pow::DiffBinary(Environment &env, Signal sig,
-		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
-{
-	Expr *pExprDiff1 = pExprArg1->MathDiff(env, sig, pSymbol);
-	if (sig.IsSignalled()) return NULL;
-	Expr *pExprDiff2 = pExprArg2->MathDiff(env, sig, pSymbol);
-	if (sig.IsSignalled()) {
-		Expr::Delete(pExprDiff1);
-		return NULL;
-	}
-	// (f(x) ** g(x))' = f'(x)g(x)(f(x) ** (g(x) - 1)) + g'(x)log(f(x))(f(x) ** g(x))
-	return Operator_Add::OptimizedExpr(env, sig,
-		Operator_Mul::OptimizedExpr(env, sig,
-			Operator_Mul::OptimizedExpr(env, sig, pExprDiff1, Expr::Reference(pExprArg2)),
-			Operator_Pow::OptimizedExpr(env, sig,
-				Expr::Reference(pExprArg1),
-				Operator_Sub::OptimizedExpr(env, sig, Expr::Reference(pExprArg2), new Expr_Value(1)))),
-		Operator_Mul::OptimizedExpr(env, sig,
-			Operator_Mul::OptimizedExpr(env, sig,
-				pExprDiff2,
-				Gura_Module(math)::CreateFuncExpr("log", Expr::Reference(pExprArg1))),
-			Operator_Pow::OptimizedExpr(env, sig, Expr::Reference(pExprArg1), Expr::Reference(pExprArg2))));
-}
-
-Expr *Func_Pow::OptimizeBinary(Environment &env, Signal sig,
-									Expr *pExprOpt1, Expr *pExprOpt2) const
-{
-	return Operator_Pow::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
 }
 
 //-----------------------------------------------------------------------------
@@ -548,24 +443,9 @@ Func_Shr::Func_Shr(Environment &env) : FuncBinaryOperator(env,
 // this function takes quoted values as its arguments to implement
 // a short-circuit evaluation.
 //-----------------------------------------------------------------------------
-Func_OrOr::Func_OrOr(Environment &env) :
-			Function(env, Symbol::Add("__oror__"), FUNCTYPE_Function, FLAG_None)
+Func_OrOr::Func_OrOr(Environment &env) : FuncBinaryOperator(env,
+				Symbol::Add("__oror__"), Parser::ETYPE_OrOr, OPTYPE_OrOr, FLAG_None, VTYPE_quote)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_OrOr, OPTYPE_OrOr);
-	DeclareArg(env, "n", VTYPE_quote);
-	DeclareArg(env, "m", VTYPE_quote);
-}
-
-Value Func_OrOr::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	Value result;
-	result = args.GetExpr(0)->Exec(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	if (result.GetBoolean()) return result;
-	result = args.GetExpr(1)->Exec(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	return result;
 }
 
 //-----------------------------------------------------------------------------
@@ -573,24 +453,9 @@ Value Func_OrOr::DoEval(Environment &env, Signal sig, Args &args) const
 // this function takes quoted values as its arguments to implement
 // a short-circuit evaluation.
 //-----------------------------------------------------------------------------
-Func_AndAnd::Func_AndAnd(Environment &env) :
-			Function(env, Symbol::Add("__andand__"), FUNCTYPE_Function, FLAG_None)
+Func_AndAnd::Func_AndAnd(Environment &env) : FuncBinaryOperator(env,
+				Symbol::Add("__andand__"), Parser::ETYPE_AndAnd, OPTYPE_AndAnd, FLAG_None, VTYPE_quote)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetOperatorInfo(Parser::ETYPE_AndAnd, OPTYPE_AndAnd);
-	DeclareArg(env, "n", VTYPE_quote);
-	DeclareArg(env, "m", VTYPE_quote);
-}
-
-Value Func_AndAnd::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	Value result;
-	result = args.GetExpr(0)->Exec(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	if (!result.GetBoolean()) return result;
-	result = args.GetExpr(1)->Exec(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	return result;
 }
 
 //-----------------------------------------------------------------------------
@@ -600,14 +465,6 @@ bool Func_Seq::IsSeq() const { return true; }
 
 Func_Seq::Func_Seq(Environment &env) : FuncBinaryOperator(env,
 				Symbol::Add("__seq__"), Parser::ETYPE_Seq, OPTYPE_Seq)
-{
-}
-
-//-----------------------------------------------------------------------------
-// n ..
-//-----------------------------------------------------------------------------
-Func_SeqInf::Func_SeqInf(Environment &env) : FuncUnaryOperator(env,
-				Symbol::Add("__seqinf__"), Parser::ETYPE_Seq, OPTYPE_SeqInf)
 {
 }
 

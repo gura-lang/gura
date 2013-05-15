@@ -3,6 +3,8 @@
 namespace Gura {
 
 static void SetError_DivideByZero(Signal sig);
+static void SetError_MathDiffError(Signal sig);
+static void SetError_MathOptimizeError(Signal sig);
 static Expr *OptimizeConst(Environment &env, Signal sig,
 						const Function *func, Expr *pExprChild);
 static Expr *OptimizeConst(Environment &env, Signal sig,
@@ -80,6 +82,33 @@ const OperatorEntry *Operator::Lookup(ValueType valTypeLeft, ValueType valTypeRi
 	return NULL;
 }
 
+Expr *Operator::DiffUnary(Environment &env, Signal sig,
+							const Expr *pExprArg, const Symbol *pSymbol) const
+{
+	SetError_MathDiffError(sig);
+	return NULL;
+}
+
+Expr *Operator::DiffBinary(Environment &env, Signal sig,
+		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
+{
+	SetError_MathDiffError(sig);
+	return NULL;
+}
+
+Expr *Operator::OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const
+{
+	SetError_MathOptimizeError(sig);
+	return NULL;
+}
+
+Expr *Operator::OptimizeBinary(Environment &env, Signal sig,
+										Expr *pExprOpt1, Expr *pExprOpt2) const
+{
+	SetError_MathOptimizeError(sig);
+	return NULL;
+}
+
 Value Operator::EvalUnary(Environment &env, Signal sig, OpType opType, const Value &value)
 {
 	Operator *pOperator = env.GetGlobal()->GetOperator(opType);
@@ -132,6 +161,9 @@ void Operator::SetError_InvalidValueType(Signal &sig, OpType opType,
 		valueLeft.GetValueTypeName(), GetMathSymbol(opType), valueRight.GetValueTypeName());
 }
 
+//-----------------------------------------------------------------------------
+// Operator_Pos
+//-----------------------------------------------------------------------------
 Expr *Operator_Pos::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
 {
 	if (sig.IsSignalled()) {
@@ -139,6 +171,35 @@ Expr *Operator_Pos::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild
 		return NULL;
 	}
 	return pExprChild;
+}
+
+Expr *Operator_Pos::DiffUnary(Environment &env, Signal sig,
+							const Expr *pExprArg, const Symbol *pSymbol) const
+{
+	Expr *pExprDiff = pExprArg->MathDiff(env, sig, pSymbol);
+	if (sig.IsSignalled()) return NULL;
+	return Operator_Pos::OptimizedExpr(env, sig, pExprDiff);
+}
+
+Expr *Operator_Pos::OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const
+{
+	return Operator_Pos::OptimizedExpr(env, sig, pExprOpt);
+}
+
+//-----------------------------------------------------------------------------
+// Operator_Neg
+//-----------------------------------------------------------------------------
+Expr *Operator_Neg::DiffUnary(Environment &env, Signal sig,
+							const Expr *pExprArg, const Symbol *pSymbol) const
+{
+	Expr *pExprWork = pExprArg->MathDiff(env, sig, pSymbol);
+	if (sig.IsSignalled()) return NULL;
+	return Operator_Neg::OptimizedExpr(env, sig, pExprWork);
+}
+
+Expr *Operator_Neg::OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const
+{
+	return Operator_Neg::OptimizedExpr(env, sig, pExprOpt);
 }
 
 Expr *Operator_Neg::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
@@ -158,6 +219,41 @@ Expr *Operator_Neg::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild
 	} else {
 		return new Expr_UnaryOp(env.GetOpFunc(OPTYPE_Neg), pExprChild, false);
 	}
+}
+
+//-----------------------------------------------------------------------------
+// Operator_Inv
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Not
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_SeqInf
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Add
+//-----------------------------------------------------------------------------
+Expr *Operator_Add::DiffBinary(Environment &env, Signal sig,
+		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
+{
+	Expr *pExprDiff1 = pExprArg1->MathDiff(env, sig, pSymbol);
+	if (sig.IsSignalled()) return NULL;
+	Expr *pExprDiff2 = pExprArg2->MathDiff(env, sig, pSymbol);
+	if (sig.IsSignalled()) {
+		Expr::Delete(pExprDiff1);
+		return NULL;
+	}
+	// (f(x) + g(x))' = f'(x) + g'(x)
+	return Operator_Add::OptimizedExpr(env, sig, pExprDiff1, pExprDiff2);
+}
+
+Expr *Operator_Add::OptimizeBinary(Environment &env, Signal sig,
+									Expr *pExprOpt1, Expr *pExprOpt2) const
+{
+	return Operator_Add::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
 }
 
 Expr *Operator_Add::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
@@ -250,6 +346,29 @@ Expr *Operator_Add::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft,
 	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Add), pExprLeft, pExprRight);
 }
 
+//-----------------------------------------------------------------------------
+// Operator_Sub
+//-----------------------------------------------------------------------------
+Expr *Operator_Sub::DiffBinary(Environment &env, Signal sig,
+		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
+{
+	Expr *pExprDiff1 = pExprArg1->MathDiff(env, sig, pSymbol);
+	if (sig.IsSignalled()) return NULL;
+	Expr *pExprDiff2 = pExprArg2->MathDiff(env, sig, pSymbol);
+	if (sig.IsSignalled()) {
+		Expr::Delete(pExprDiff1);
+		return NULL;
+	}
+	// (f(x) - g(x))' = f'(x) - g'(x)
+	return Operator_Sub::OptimizedExpr(env, sig, pExprDiff1, pExprDiff2);
+}
+
+Expr *Operator_Sub::OptimizeBinary(Environment &env, Signal sig,
+									Expr *pExprOpt1, Expr *pExprOpt2) const
+{
+	return Operator_Sub::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
+}
+
 Expr *Operator_Sub::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
 {
 	if (sig.IsSignalled()) {
@@ -339,6 +458,31 @@ Expr *Operator_Sub::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft,
 		}
 	}
 	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Sub), pExprLeft, pExprRight);
+}
+
+//-----------------------------------------------------------------------------
+// Operator_Mul
+//-----------------------------------------------------------------------------
+Expr *Operator_Mul::DiffBinary(Environment &env, Signal sig,
+		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
+{
+	Expr *pExprDiff1 = pExprArg1->MathDiff(env, sig, pSymbol);
+	if (sig.IsSignalled()) return NULL;
+	Expr *pExprDiff2 = pExprArg2->MathDiff(env, sig, pSymbol);
+	if (sig.IsSignalled()) {
+		Expr::Delete(pExprDiff1);
+		return NULL;
+	}
+	// (f(x)g(x))' = f'(x)g(x) + f(x)g'(x)
+	return Operator_Add::OptimizedExpr(env, sig,
+		Operator_Mul::OptimizedExpr(env, sig, pExprDiff1, Expr::Reference(pExprArg2)),
+		Operator_Mul::OptimizedExpr(env, sig, Expr::Reference(pExprArg1), pExprDiff2));
+}
+
+Expr *Operator_Mul::OptimizeBinary(Environment &env, Signal sig,
+									Expr *pExprOpt1, Expr *pExprOpt2) const
+{
+	return Operator_Mul::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
 }
 
 Expr *Operator_Mul::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
@@ -464,6 +608,33 @@ Expr *Operator_Mul::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft,
 	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Mul), pExprLeft, pExprRight);
 }
 
+//-----------------------------------------------------------------------------
+// Operator_Div
+//-----------------------------------------------------------------------------
+Expr *Operator_Div::DiffBinary(Environment &env, Signal sig,
+		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
+{
+	Expr *pExprDiff1 = pExprArg1->MathDiff(env, sig, pSymbol);
+	if (sig.IsSignalled()) return NULL;
+	Expr *pExprDiff2 = pExprArg2->MathDiff(env, sig, pSymbol);
+	if (sig.IsSignalled()) {
+		Expr::Delete(pExprDiff1);
+		return NULL;
+	}
+	// (f(x) / g(x))' = (f'(x)g(x) - f(x)g'(x)) / {g(x)}^2
+	return Operator_Div::OptimizedExpr(env, sig,
+		Operator_Sub::OptimizedExpr(env, sig,
+			Operator_Mul::OptimizedExpr(env, sig, pExprDiff1, Expr::Reference(pExprArg2)),
+			Operator_Mul::OptimizedExpr(env, sig, Expr::Reference(pExprArg1), pExprDiff2)),
+		Operator_Pow::OptimizedExpr(env, sig, Expr::Reference(pExprArg2), new Expr_Value(2)));
+}
+
+Expr *Operator_Div::OptimizeBinary(Environment &env, Signal sig,
+									Expr *pExprOpt1, Expr *pExprOpt2) const
+{
+	return Operator_Div::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
+}
+
 Expr *Operator_Div::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
 {
 	if (sig.IsSignalled()) {
@@ -574,6 +745,43 @@ Expr *Operator_Div::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft,
 	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Div), pExprLeft, pExprRight);
 }
 
+//-----------------------------------------------------------------------------
+// Operator_Mod
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Pow
+//-----------------------------------------------------------------------------
+Expr *Operator_Pow::DiffBinary(Environment &env, Signal sig,
+		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
+{
+	Expr *pExprDiff1 = pExprArg1->MathDiff(env, sig, pSymbol);
+	if (sig.IsSignalled()) return NULL;
+	Expr *pExprDiff2 = pExprArg2->MathDiff(env, sig, pSymbol);
+	if (sig.IsSignalled()) {
+		Expr::Delete(pExprDiff1);
+		return NULL;
+	}
+	// (f(x) ** g(x))' = f'(x)g(x)(f(x) ** (g(x) - 1)) + g'(x)log(f(x))(f(x) ** g(x))
+	return Operator_Add::OptimizedExpr(env, sig,
+		Operator_Mul::OptimizedExpr(env, sig,
+			Operator_Mul::OptimizedExpr(env, sig, pExprDiff1, Expr::Reference(pExprArg2)),
+			Operator_Pow::OptimizedExpr(env, sig,
+				Expr::Reference(pExprArg1),
+				Operator_Sub::OptimizedExpr(env, sig, Expr::Reference(pExprArg2), new Expr_Value(1)))),
+		Operator_Mul::OptimizedExpr(env, sig,
+			Operator_Mul::OptimizedExpr(env, sig,
+				pExprDiff2,
+				Gura_Module(math)::CreateFuncExpr("log", Expr::Reference(pExprArg1))),
+			Operator_Pow::OptimizedExpr(env, sig, Expr::Reference(pExprArg1), Expr::Reference(pExprArg2))));
+}
+
+Expr *Operator_Pow::OptimizeBinary(Environment &env, Signal sig,
+									Expr *pExprOpt1, Expr *pExprOpt2) const
+{
+	return Operator_Pow::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
+}
+
 Expr *Operator_Pow::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
 {
 	if (sig.IsSignalled()) {
@@ -618,6 +826,69 @@ Expr *Operator_Pow::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft,
 	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Pow), pExprLeft, pExprRight);
 }
 
+//-----------------------------------------------------------------------------
+// Operator_Eq
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Ne
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Gt
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Lt
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Ge
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Le
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Cmp
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Contains
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Or
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_And
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Xor
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Shl
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Shr
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_OrOr
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_AndAnd
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Seq
+//-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // OperatorEntry
@@ -1304,6 +1575,34 @@ Gura_ImplementBinaryOperator(Shr, number, number)
 }
 
 //-----------------------------------------------------------------------------
+// BinaryOperator(OrOr, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(OrOr, expr, expr)
+{
+	Value result;
+	result = valueLeft.GetExpr()->Exec(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	if (result.GetBoolean()) return result;
+	result = valueRight.GetExpr()->Exec(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	return result;
+}
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(AndAnd, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(AndAnd, expr, expr)
+{
+	Value result;
+	result = valueLeft.GetExpr()->Exec(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	if (!result.GetBoolean()) return result;
+	result = valueRight.GetExpr()->Exec(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	return result;
+}
+
+//-----------------------------------------------------------------------------
 // BinaryOperator(Seq, *, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Seq, number, number)
@@ -1353,6 +1652,7 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignUnaryOperator(Neg, timedelta);
 	Gura_AssignUnaryOperator(Inv, number);
 	Gura_AssignUnaryOperator(Not, any);
+	Gura_AssignUnaryOperator(SeqInf, number);
 	Gura_AssignBinaryOperator(Add, number, number);
 	Gura_AssignBinaryOperator(Add, complex, complex);
 	Gura_AssignBinaryOperator(Add, number, complex);
@@ -1425,8 +1725,9 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Xor, boolean, boolean);
 	Gura_AssignBinaryOperator(Shl, number, number);
 	Gura_AssignBinaryOperator(Shr, number, number);
+	Gura_AssignBinaryOperator(OrOr, expr, expr);
+	Gura_AssignBinaryOperator(AndAnd, expr, expr);
 	Gura_AssignBinaryOperator(Seq, number, number);
-	Gura_AssignUnaryOperator(SeqInf, number);
 }
 
 //-----------------------------------------------------------------------------
@@ -1435,6 +1736,16 @@ void AssignBasicOperators(Environment &env)
 void SetError_DivideByZero(Signal sig)
 {
 	sig.SetError(ERR_ZeroDivisionError, "divide by zero");
+}
+
+void SetError_MathDiffError(Signal sig)
+{
+	sig.SetError(ERR_ValueError, "failed to generate a differential function");
+}
+
+void SetError_MathOptimizeError(Signal sig)
+{
+	sig.SetError(ERR_ValueError, "mathematical optimization is not supported");
 }
 
 Expr *OptimizeConst(Environment &env, Signal sig,
