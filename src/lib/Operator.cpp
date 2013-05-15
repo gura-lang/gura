@@ -953,7 +953,7 @@ Gura_ImplementUnaryOperator(Neg, complex)
 
 Gura_ImplementUnaryOperator(Neg, matrix)
 {
-	return Matrix::OperatorNeg(env, sig, Object_matrix::GetObject(value)->GetMatrix());
+	return Matrix::Neg(env, sig, Object_matrix::GetObject(value)->GetMatrix());
 }
 
 Gura_ImplementUnaryOperator(Neg, timedelta)
@@ -1014,7 +1014,7 @@ Gura_ImplementBinaryOperator(Add, complex, number)
 
 Gura_ImplementBinaryOperator(Add, matrix, matrix)
 {
-	return Matrix::OperatorPlusMinus(env, sig, OPTYPE_Add,
+	return Matrix::AddSub(env, sig, OPTYPE_Add,
 		Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
@@ -1120,7 +1120,7 @@ Gura_ImplementBinaryOperator(Sub, complex, number)
 
 Gura_ImplementBinaryOperator(Sub, matrix, matrix)
 {
-	return Matrix::OperatorPlusMinus(env, sig, OPTYPE_Sub,
+	return Matrix::AddSub(env, sig, OPTYPE_Sub,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
@@ -1209,31 +1209,31 @@ Gura_ImplementBinaryOperator(Mul, complex, number)
 
 Gura_ImplementBinaryOperator(Mul, matrix, matrix)
 {
-	return Matrix::OperatorMultiply(env, sig,
+	return Matrix::Mul(env, sig,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
 Gura_ImplementBinaryOperator(Mul, list, matrix)
 {
-	return Matrix::OperatorMultiply(env, sig,
+	return Matrix::Mul(env, sig,
 			valueLeft.GetList(), Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
 Gura_ImplementBinaryOperator(Mul, any, matrix)
 {
-	return Matrix::OperatorMultiply(env, sig,
+	return Matrix::Mul(env, sig,
 			valueLeft, Object_matrix::GetObject(valueRight)->GetMatrix());
 }
 
 Gura_ImplementBinaryOperator(Mul, matrix, list)
 {
-	return Matrix::OperatorMultiply(env, sig,
+	return Matrix::Mul(env, sig,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight.GetList());
 }
 
 Gura_ImplementBinaryOperator(Mul, matrix, any)
 {
-	return Matrix::OperatorMultiply(env, sig,
+	return Matrix::Mul(env, sig,
 			Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
 }
 
@@ -1348,7 +1348,7 @@ Gura_ImplementBinaryOperator(Div, complex, number)
 
 Gura_ImplementBinaryOperator(Div, matrix, any)
 {
-	return Matrix::OperatorDivide(env, sig,
+	return Matrix::Div(env, sig,
 					Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
 }
 
@@ -1575,7 +1575,7 @@ Gura_ImplementBinaryOperator(Shr, number, number)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(OrOr, *, *)
+// BinaryOperator(OrOr, expr, expr)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(OrOr, expr, expr)
 {
@@ -1589,7 +1589,7 @@ Gura_ImplementBinaryOperator(OrOr, expr, expr)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(AndAnd, *, *)
+// BinaryOperator(AndAnd, expr, expr)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(AndAnd, expr, expr)
 {

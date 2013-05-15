@@ -412,7 +412,7 @@ bool DeclarationOwner::Declare(Environment &env, Signal sig, const ExprList &exp
 			const Expr_Suffix *pExprSuffix =
 									dynamic_cast<const Expr_Suffix *>(pExpr);
 			const Symbol *pSymbol = pExprSuffix->GetSymbol();
-			if (pSymbol->IsIdentical(Gura_Symbol(Char_Modulo))) {
+			if (pSymbol->IsIdentical(Gura_Symbol(Char_Mod))) {
 				const Expr *pExprChild = pExprSuffix->GetChild();
 				if (!pExprChild->IsSymbol()) {
 					sig.SetError(ERR_SyntaxError,
@@ -465,7 +465,7 @@ bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 				if (sig.IsSignalled()) return false;
 				valDict[valueKey] = value;
 			}
-		} else if (!quoteFlag && IsSuffixed(pExprArg, Gura_Symbol(Char_Modulo))) {
+		} else if (!quoteFlag && IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
 			pExprArg = dynamic_cast<const Expr_Suffix *>(pExprArg)->GetChild();
 			Value value = pExprArg->Exec(env, sig);
 			if (sig.IsSignalled()) return false;
@@ -618,7 +618,7 @@ String DeclarationOwner::ToString() const
 	if (_pSymbolDict != NULL) {
 		if (!empty()) str += ", ";
 		str += _pSymbolDict->GetName();
-		str += Gura_Symbol(Char_Modulo)->GetName();
+		str += Gura_Symbol(Char_Mod)->GetName();
 	}
 	return str;
 }

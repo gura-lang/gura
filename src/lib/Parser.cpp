@@ -962,7 +962,7 @@ const Parser::ElemTypeInfo Parser::_elemTypeInfoTbl[] = {
 	{ ETYPE_And,				11, "And",				"&"			},	// &
 	{ ETYPE_Shl,				12, "Shl"	,			"<<"		},	// <<
 	{ ETYPE_Shr,				12, "Shr",				">>"		},
-	{ ETYPE_Add,				13, "Plus",				"+"			},	// +
+	{ ETYPE_Add,				13, "Add",				"+"			},	// +
 	{ ETYPE_Sub,				13, "Sub",				"-"			},
 	{ ETYPE_Mul,				14, "Mul",				"*"			},	// *
 	{ ETYPE_Div,				14, "Div",				"/"			},
@@ -1144,7 +1144,7 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 		pExpr = new Expr_Symbol(pSymbol);
 	} else if (elem1.IsType(ETYPE_Mul)) {
 		DBGPARSER(::printf("Reduce: Expr -> '*'\n"));
-		pExpr = new Expr_Symbol(Gura_Symbol(Char_Multiply));
+		pExpr = new Expr_Symbol(Gura_Symbol(Char_Mul));
 	} else if (elem1.IsType(ETYPE_Question)) {
 		DBGPARSER(::printf("Reduce: Expr -> '?'\n"));
 		pExpr = new Expr_Symbol(Gura_Symbol(Char_Question));
@@ -1286,7 +1286,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 		} else if (elem1.IsType(ETYPE_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> '%' Expr\n"));
 			if (elem2.GetExpr()->IsBlock()) {
-				Expr *pExprCar = new Expr_Symbol(Gura_Symbol(Char_Modulo));
+				Expr *pExprCar = new Expr_Symbol(Gura_Symbol(Char_Mod));
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
 				Expr_Caller *pExprCaller =
 								new Expr_Caller(pExprCar, NULL, pExprBlock);
@@ -1298,7 +1298,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 		} else if (elem1.IsType(ETYPE_ModMod)) {
 			DBGPARSER(::printf("Reduce: Expr -> '%%' Expr\n"));
 			if (elem2.GetExpr()->IsBlock()) {
-				Expr *pExprCar = new Expr_Symbol(Gura_Symbol(Char_ModuloModulo));
+				Expr *pExprCar = new Expr_Symbol(Gura_Symbol(Char_ModMod));
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
 				Expr_Caller *pExprCaller =
 								new Expr_Caller(pExprCar, NULL, pExprBlock);
@@ -1323,7 +1323,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 			}
 		} else if (elem1.IsType(ETYPE_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> '*' Expr\n"));
-			pExpr = new Expr_Prefix(elem2.GetExpr(), Gura_Symbol(Char_Multiply));
+			pExpr = new Expr_Prefix(elem2.GetExpr(), Gura_Symbol(Char_Mul));
 		} else {
 			SetError_InvalidElement(sig, __LINE__);
 			return false;
@@ -1331,16 +1331,16 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 	} else if (elem1.IsType(ETYPE_Expr)) {
 		if (elem2.IsType(ETYPE_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '+'\n"));
-			pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Plus));
+			pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Add));
 		} else if (elem2.IsType(ETYPE_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '*'\n"));
-			pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Multiply));
+			pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Mul));
 		} else if (elem2.IsType(ETYPE_Question)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '?'\n"));
 			pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Question));
 		} else if (elem2.IsType(ETYPE_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '%'\n"));
-			pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Modulo));
+			pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Mod));
 		} else if (elem2.IsType(ETYPE_Seq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ..\n"));
 			pExpr = new Expr_UnaryOp(env.GetOpFunc(OPTYPE_SeqInf), elem1.GetExpr(), true);

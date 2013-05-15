@@ -80,7 +80,7 @@ bool Expr::ExecInArg(Environment &env, Signal sig,
 		nElems = 1;
 	} else if (IsSuffix()) {
 		const Expr_Suffix *pExprSuffix = dynamic_cast<const Expr_Suffix *>(this);
-		if (!pExprSuffix->GetSymbol()->IsIdentical(Gura_Symbol(Char_Multiply))) {
+		if (!pExprSuffix->GetSymbol()->IsIdentical(Gura_Symbol(Char_Mul))) {
 			SetError(sig, ERR_SyntaxError, "invalid argument");
 			return false;
 		}
@@ -2369,8 +2369,8 @@ Value Expr_Suffix::Exec(Environment &env, Signal sig) const
 OccurPattern Expr_Suffix::GetOccurPattern() const
 {
 	return
-		(_pSymbol->IsIdentical(Gura_Symbol(Char_Multiply)))?	OCCUR_ZeroOrMore :
-		(_pSymbol->IsIdentical(Gura_Symbol(Char_Plus)))?		OCCUR_OnceOrMore :
+		(_pSymbol->IsIdentical(Gura_Symbol(Char_Mul)))?			OCCUR_ZeroOrMore :
+		(_pSymbol->IsIdentical(Gura_Symbol(Char_Add)))?			OCCUR_OnceOrMore :
 		(_pSymbol->IsIdentical(Gura_Symbol(Char_Question)))?	OCCUR_ZeroOrOnce :
 		OCCUR_Invalid;
 }

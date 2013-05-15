@@ -466,7 +466,7 @@ bool Matrix::GetElemIndex(Environment &env, Signal sig,
 	return true;
 }
 
-Value Matrix::OperatorNeg(Environment &env, Signal sig, const Matrix *pMat)
+Value Matrix::Neg(Environment &env, Signal sig, const Matrix *pMat)
 {
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
@@ -501,7 +501,7 @@ Value Matrix::OperatorNeg(Environment &env, Signal sig, const Matrix *pMat)
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
-Value Matrix::OperatorPlusMinus(Environment &env, Signal sig, OpType opType,
+Value Matrix::AddSub(Environment &env, Signal sig, OpType opType,
 				const Matrix *pMat1, const Matrix *pMat2)
 {
 	size_t nRows = pMat1->GetRows(), nCols = pMat1->GetCols();
@@ -552,7 +552,7 @@ Value Matrix::OperatorPlusMinus(Environment &env, Signal sig, OpType opType,
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
-Value Matrix::OperatorMultiply(Environment &env, Signal sig,
+Value Matrix::Mul(Environment &env, Signal sig,
 				const Matrix *pMat1, const Matrix *pMat2)
 {
 	size_t nRows = pMat1->GetRows(), nCols = pMat2->GetCols();
@@ -629,7 +629,7 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
-Value Matrix::OperatorMultiply(Environment &env, Signal sig,
+Value Matrix::Mul(Environment &env, Signal sig,
 							const Matrix *pMat, const ValueList &valList)
 {
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
@@ -692,7 +692,7 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 	return result;
 }
 
-Value Matrix::OperatorMultiply(Environment &env, Signal sig,
+Value Matrix::Mul(Environment &env, Signal sig,
 							const Matrix *pMat, const Value &value)
 {
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
@@ -734,7 +734,7 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
-Value Matrix::OperatorMultiply(Environment &env, Signal sig,
+Value Matrix::Mul(Environment &env, Signal sig,
 							const ValueList &valList, const Matrix *pMat)
 {
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
@@ -801,7 +801,7 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 	return result;
 }
 
-Value Matrix::OperatorMultiply(Environment &env, Signal sig,
+Value Matrix::Mul(Environment &env, Signal sig,
 							const Value &value, const Matrix *pMat)
 {
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
@@ -844,7 +844,7 @@ Value Matrix::OperatorMultiply(Environment &env, Signal sig,
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
-Value Matrix::OperatorDivide(Environment &env, Signal sig,
+Value Matrix::Div(Environment &env, Signal sig,
 							const Matrix *pMat, const Value &value)
 {
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();

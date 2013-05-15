@@ -120,13 +120,13 @@ void SymbolPool::Initialize()
 
 void SymbolPool::_Initialize()
 {
-	Gura_RealizeSymbolAlias(Str_Empty,			"");
-	Gura_RealizeSymbolAlias(Char_Plus,			"+");
-	Gura_RealizeSymbolAlias(Char_Multiply,		"*");
-	Gura_RealizeSymbolAlias(Char_Question,		"?");
-	Gura_RealizeSymbolAlias(Char_Modulo,		"%");
-	Gura_RealizeSymbolAlias(Char_ModuloModulo,	"%%");
-	Gura_RealizeSymbolAlias(Char_And,			"&");
+	Gura_RealizeSymbolAlias(Str_Empty,		"");
+	Gura_RealizeSymbolAlias(Char_Add,		"+");
+	Gura_RealizeSymbolAlias(Char_Mul,		"*");
+	Gura_RealizeSymbolAlias(Char_Question,	"?");
+	Gura_RealizeSymbolAlias(Char_Mod,		"%");
+	Gura_RealizeSymbolAlias(Char_ModMod,	"%%");
+	Gura_RealizeSymbolAlias(Char_And,		"&");
 	Gura_RealizeSymbol(boolean);
 	Gura_RealizeSymbol(number);
 	Gura_RealizeSymbol(string);
@@ -436,8 +436,8 @@ const Symbol *GetOccurPatternSymbol(OccurPattern occurPattern)
 {
 	return
 		(occurPattern == OCCUR_ZeroOrOnce)? Gura_Symbol(Char_Question) :
-		(occurPattern == OCCUR_ZeroOrMore)? Gura_Symbol(Char_Multiply) :
-		(occurPattern == OCCUR_OnceOrMore)? Gura_Symbol(Char_Plus) :
+		(occurPattern == OCCUR_ZeroOrMore)? Gura_Symbol(Char_Mul) :
+		(occurPattern == OCCUR_OnceOrMore)? Gura_Symbol(Char_Add) :
 		Gura_Symbol(Str_Empty);
 }
 

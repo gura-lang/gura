@@ -570,7 +570,7 @@ bool Environment::ImportModule(Signal sig, const Expr *pExpr,
 	if (pExpr->IsPrefix()) {
 		const Expr_Prefix *pExprEx = dynamic_cast<const Expr_Prefix *>(pExpr);
 		const Symbol *pSymbol = pExprEx->GetSymbol();
-		if (!pSymbol->IsIdentical(Gura_Symbol(Char_Multiply))) {
+		if (!pSymbol->IsIdentical(Gura_Symbol(Char_Mul))) {
 			sig.SetError(ERR_ImportError, "wrong format for module name");
 		}
 		assignModuleNameFlag = false;
@@ -640,7 +640,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 				return false;
 			}
 		}
-	} else if (pSymbolsToMixIn->IsSet(Gura_Symbol(Char_Multiply))) {
+	} else if (pSymbolsToMixIn->IsSet(Gura_Symbol(Char_Mul))) {
 		// import(hoge) {*}
 		//GetFrameOwner().DbgPrint();
 		foreach_const (ValueMap, iter, pModule->GetTopFrame()->GetValueMap()) {

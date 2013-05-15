@@ -130,20 +130,20 @@ public:
 	Value RoundOff(Environment &env, Signal sig, Number threshold);
 	Value Transpose(Environment &env, Signal sig);
 	Value Invert(Environment &env, Signal sig);
-	static Value OperatorNeg(Environment &env, Signal sig, const Matrix *pMat);
-	static Value OperatorPlusMinus(Environment &env, Signal sig, OpType opType,
+	static Value Neg(Environment &env, Signal sig, const Matrix *pMat);
+	static Value AddSub(Environment &env, Signal sig, OpType opType,
 				const Matrix *pMat1, const Matrix *pMat2);
-	static Value OperatorMultiply(Environment &env, Signal sig,
+	static Value Mul(Environment &env, Signal sig,
 				const Matrix *pMat1, const Matrix *pMat2);
-	static Value OperatorMultiply(Environment &env, Signal sig,
+	static Value Mul(Environment &env, Signal sig,
 				const Matrix *pMat, const ValueList &valList);
-	static Value OperatorMultiply(Environment &env, Signal sig,
+	static Value Mul(Environment &env, Signal sig,
 				const Matrix *pMat, const Value &value);
-	static Value OperatorMultiply(Environment &env, Signal sig,
+	static Value Mul(Environment &env, Signal sig,
 				const ValueList &valList, const Matrix *pMat);
-	static Value OperatorMultiply(Environment &env, Signal sig,
+	static Value Mul(Environment &env, Signal sig,
 				const Value &value, const Matrix *pMat);
-	static Value OperatorDivide(Environment &env, Signal sig,
+	static Value Div(Environment &env, Signal sig,
 				const Matrix *pMat, const Value &value);
 	static void SetError_MatrixSizeMismatch(Signal sig);
 	static void SetError_IndexOutOfRange(Signal sig);
