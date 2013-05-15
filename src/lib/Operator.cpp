@@ -825,6 +825,33 @@ Gura_ImplementBinaryOperator(Seq, number, number)
 
 void AssignBasicOperators(Environment &env)
 {
+	env.GetGlobal()->SetOperator(OPTYPE_Pos, new Operator_Pos());
+	env.GetGlobal()->SetOperator(OPTYPE_Neg, new Operator_Neg());
+	env.GetGlobal()->SetOperator(OPTYPE_Inv, new Operator_Inv());
+	env.GetGlobal()->SetOperator(OPTYPE_Not, new Operator_Not());
+	env.GetGlobal()->SetOperator(OPTYPE_SeqInf, new Operator_SeqInf());
+	env.GetGlobal()->SetOperator(OPTYPE_Add, new Operator_Add());
+	env.GetGlobal()->SetOperator(OPTYPE_Sub, new Operator_Sub());
+	env.GetGlobal()->SetOperator(OPTYPE_Mul, new Operator_Mul());
+	env.GetGlobal()->SetOperator(OPTYPE_Div, new Operator_Div());
+	env.GetGlobal()->SetOperator(OPTYPE_Mod, new Operator_Mod());
+	env.GetGlobal()->SetOperator(OPTYPE_Pow, new Operator_Pow());
+	env.GetGlobal()->SetOperator(OPTYPE_Eq, new Operator_Eq());
+	env.GetGlobal()->SetOperator(OPTYPE_Ne, new Operator_Ne());
+	env.GetGlobal()->SetOperator(OPTYPE_Gt, new Operator_Gt());
+	env.GetGlobal()->SetOperator(OPTYPE_Lt, new Operator_Lt());
+	env.GetGlobal()->SetOperator(OPTYPE_Ge, new Operator_Ge());
+	env.GetGlobal()->SetOperator(OPTYPE_Le, new Operator_Le());
+	env.GetGlobal()->SetOperator(OPTYPE_Cmp, new Operator_Cmp());
+	env.GetGlobal()->SetOperator(OPTYPE_Contains, new Operator_Contains());
+	env.GetGlobal()->SetOperator(OPTYPE_Or, new Operator_Or());
+	env.GetGlobal()->SetOperator(OPTYPE_And, new Operator_And());
+	env.GetGlobal()->SetOperator(OPTYPE_Xor, new Operator_Xor());
+	env.GetGlobal()->SetOperator(OPTYPE_Shl, new Operator_Shl());
+	env.GetGlobal()->SetOperator(OPTYPE_Shr, new Operator_Shr());
+	env.GetGlobal()->SetOperator(OPTYPE_OrOr, new Operator_OrOr());
+	env.GetGlobal()->SetOperator(OPTYPE_AndAnd, new Operator_AndAnd());
+	env.GetGlobal()->SetOperator(OPTYPE_Seq, new Operator_Seq());
 	Gura_AssignUnaryOperator(Pos, number);
 	Gura_AssignUnaryOperator(Pos, complex);
 	Gura_AssignUnaryOperator(Pos, matrix);

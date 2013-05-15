@@ -85,9 +85,11 @@ public:
 	typedef unsigned long Key;
 	typedef std::map<Key, OperatorEntry *> Map;
 private:
+	OpType _opType;
 	Map _map;
 	static const char *_mathSymbolTbl[];
 public:
+	inline Operator(OpType opType) : _opType(opType) {}
 	inline Map &GetMap() { return _map; }
 	inline const Map &GetMap() const { return _map; }
 	inline static const char *GetMathSymbol(OpType opType) { return _mathSymbolTbl[opType]; }
@@ -109,6 +111,141 @@ public:
 	static Value EvalUnary(Environment &env, Signal sig, OpType opType, const Value &value);
 	static Value EvalBinary(Environment &env, Signal sig, OpType opType,
 					const Value &valueLeft, const Value &valueRight);
+};
+
+class GURA_DLLDECLARE Operator_Pos : public Operator {
+public:
+	inline Operator_Pos() : Operator(OPTYPE_Pos) {}
+};
+
+class GURA_DLLDECLARE Operator_Neg : public Operator {
+public:
+	inline Operator_Neg() : Operator(OPTYPE_Neg) {}
+};
+
+class GURA_DLLDECLARE Operator_Inv : public Operator {
+public:
+	inline Operator_Inv() : Operator(OPTYPE_Inv) {}
+};
+
+class GURA_DLLDECLARE Operator_Not : public Operator {
+public:
+	inline Operator_Not() : Operator(OPTYPE_Not) {}
+};
+
+class GURA_DLLDECLARE Operator_SeqInf : public Operator {
+public:
+	inline Operator_SeqInf() : Operator(OPTYPE_SeqInf) {}
+};
+
+class GURA_DLLDECLARE Operator_Add : public Operator {
+public:
+	inline Operator_Add() : Operator(OPTYPE_Add) {}
+};
+
+class GURA_DLLDECLARE Operator_Sub : public Operator {
+public:
+	inline Operator_Sub() : Operator(OPTYPE_Sub) {}
+};
+
+class GURA_DLLDECLARE Operator_Mul : public Operator {
+public:
+	inline Operator_Mul() : Operator(OPTYPE_Mul) {}
+};
+
+class GURA_DLLDECLARE Operator_Div : public Operator {
+public:
+	inline Operator_Div() : Operator(OPTYPE_Div) {}
+};
+
+class GURA_DLLDECLARE Operator_Mod : public Operator {
+public:
+	inline Operator_Mod() : Operator(OPTYPE_Mod) {}
+};
+
+class GURA_DLLDECLARE Operator_Pow : public Operator {
+public:
+	inline Operator_Pow() : Operator(OPTYPE_Pow) {}
+};
+
+class GURA_DLLDECLARE Operator_Eq : public Operator {
+public:
+	inline Operator_Eq() : Operator(OPTYPE_Eq) {}
+};
+
+class GURA_DLLDECLARE Operator_Ne : public Operator {
+public:
+	inline Operator_Ne() : Operator(OPTYPE_Ne) {}
+};
+
+class GURA_DLLDECLARE Operator_Gt : public Operator {
+public:
+	inline Operator_Gt() : Operator(OPTYPE_Gt) {}
+};
+
+class GURA_DLLDECLARE Operator_Lt : public Operator {
+public:
+	inline Operator_Lt() : Operator(OPTYPE_Lt) {}
+};
+
+class GURA_DLLDECLARE Operator_Ge : public Operator {
+public:
+	inline Operator_Ge() : Operator(OPTYPE_Ge) {}
+};
+
+class GURA_DLLDECLARE Operator_Le : public Operator {
+public:
+	inline Operator_Le() : Operator(OPTYPE_Le) {}
+};
+
+class GURA_DLLDECLARE Operator_Cmp : public Operator {
+public:
+	inline Operator_Cmp() : Operator(OPTYPE_Cmp) {}
+};
+
+class GURA_DLLDECLARE Operator_Contains : public Operator {
+public:
+	inline Operator_Contains() : Operator(OPTYPE_Contains) {}
+};
+
+class GURA_DLLDECLARE Operator_Or : public Operator {
+public:
+	inline Operator_Or() : Operator(OPTYPE_Or) {}
+};
+
+class GURA_DLLDECLARE Operator_And : public Operator {
+public:
+	inline Operator_And() : Operator(OPTYPE_And) {}
+};
+
+class GURA_DLLDECLARE Operator_Xor : public Operator {
+public:
+	inline Operator_Xor() : Operator(OPTYPE_Xor) {}
+};
+
+class GURA_DLLDECLARE Operator_Shl : public Operator {
+public:
+	inline Operator_Shl() : Operator(OPTYPE_Shl) {}
+};
+
+class GURA_DLLDECLARE Operator_Shr : public Operator {
+public:
+	inline Operator_Shr() : Operator(OPTYPE_Shr) {}
+};
+
+class GURA_DLLDECLARE Operator_OrOr : public Operator {
+public:
+	inline Operator_OrOr() : Operator(OPTYPE_OrOr) {}
+};
+
+class GURA_DLLDECLARE Operator_AndAnd : public Operator {
+public:
+	inline Operator_AndAnd() : Operator(OPTYPE_AndAnd) {}
+};
+
+class GURA_DLLDECLARE Operator_Seq : public Operator {
+public:
+	inline Operator_Seq() : Operator(OPTYPE_Seq) {}
 };
 
 //-----------------------------------------------------------------------------
