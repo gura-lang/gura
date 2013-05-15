@@ -253,25 +253,25 @@ bool Expr::IsConstNegNumber() const
 bool Expr::IsOperatorNeg() const
 {
 	return IsUnaryOp() &&
-			dynamic_cast<const Expr_UnaryOp *>(this)->GetFunction().IsNeg();
+			dynamic_cast<const Expr_UnaryOp *>(this)->GetFunction().GetOpType() == OPTYPE_Neg;
 }
 
 bool Expr::IsOperatorMul() const
 {
 	return IsBinaryOp() &&
-		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().IsMul();
+		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().GetOpType() == OPTYPE_Mul;
 }
 
 bool Expr::IsOperatorPow() const
 {
 	return IsBinaryOp() &&
-		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().IsPow();
+		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().GetOpType() == OPTYPE_Pow;
 }
 
 bool Expr::IsOperatorSeq() const
 {
 	return IsBinaryOp() &&
-		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().IsSeq();
+		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().GetOpType() == OPTYPE_Seq;
 }
 
 bool Expr::IsUnary() const			{ return false; }

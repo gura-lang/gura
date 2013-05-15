@@ -43,13 +43,11 @@ public:
 class Func_Pos : public FuncUnaryOperator {
 public:
 	Func_Pos(Environment &env);
-	virtual bool IsPos() const;
 };
 
 class Func_Neg : public FuncUnaryOperator {
 public:
 	Func_Neg(Environment &env);
-	virtual bool IsNeg() const;
 };
 
 class Func_Inv : public FuncUnaryOperator {
@@ -70,39 +68,33 @@ public:
 class Func_Add : public FuncBinaryOperator {
 public:
 	Func_Add(Environment &env);
-	virtual bool IsAdd() const;
 };
 
 class Func_Sub : public FuncBinaryOperator {
 public:
 	Func_Sub(Environment &env);
-	virtual bool IsSub() const;
 };
 
 class Func_Mul : public FuncBinaryOperator {
 public:
 	Func_Mul(Environment &env);
 	virtual Value EvalExpr(Environment &env, Signal sig, Args &args) const;
-	virtual bool IsMul() const;
 };
 
 class Func_Div : public FuncBinaryOperator {
 public:
 	Func_Div(Environment &env);
-	virtual bool IsDiv() const;
 };
 
 class Func_Mod : public FuncBinaryOperator {
 public:
 	Func_Mod(Environment &env);
 	virtual Value EvalExpr(Environment &env, Signal sig, Args &args) const;
-	virtual bool IsMod() const;
 };
 
 class Func_Pow : public FuncBinaryOperator {
 public:
 	Func_Pow(Environment &env);
-	virtual bool IsPow() const;
 };
 
 class Func_Eq : public FuncBinaryOperator {
@@ -143,7 +135,6 @@ public:
 class Func_Contains : public FuncBinaryOperator {
 public:
 	Func_Contains(Environment &env);
-	virtual bool IsContains() const;
 };
 
 class Func_Or : public FuncBinaryOperator {
@@ -184,7 +175,6 @@ public:
 class Func_Seq : public FuncBinaryOperator {
 public:
 	Func_Seq(Environment &env);
-	virtual bool IsSeq() const;
 };
 
 }

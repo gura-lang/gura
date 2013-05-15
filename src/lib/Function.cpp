@@ -95,16 +95,6 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 // Function
 //-----------------------------------------------------------------------------
 bool Function::IsCustom() const			{ return false; }
-bool Function::IsPos() const			{ return false; }
-bool Function::IsNeg() const			{ return false; }
-bool Function::IsAdd() const			{ return false; }
-bool Function::IsSub() const			{ return false; }
-bool Function::IsMul() const			{ return false; }
-bool Function::IsDiv() const			{ return false; }
-bool Function::IsMod() const			{ return false; }
-bool Function::IsPow() const			{ return false; }
-bool Function::IsContains() const		{ return false; }
-bool Function::IsSeq() const			{ return false; }
 bool Function::IsConstructorOfStruct() const{ return false; }
 
 Function::Function(const Function &func) : _cntRef(1),

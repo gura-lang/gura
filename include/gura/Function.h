@@ -214,16 +214,6 @@ public:
 		return const_cast<Function *>(this)->_envScope;
 	}
 	virtual bool IsCustom() const;
-	virtual bool IsPos() const;
-	virtual bool IsNeg() const;
-	virtual bool IsAdd() const;
-	virtual bool IsSub() const;
-	virtual bool IsMul() const;
-	virtual bool IsDiv() const;
-	virtual bool IsMod() const;
-	virtual bool IsPow() const;
-	virtual bool IsContains() const;
-	virtual bool IsSeq() const;
 	virtual bool IsConstructorOfStruct() const;
 	virtual Value EvalExpr(Environment &env, Signal sig, Args &args) const;
 	Value Eval(Environment &env, Signal sig, Args &args) const;

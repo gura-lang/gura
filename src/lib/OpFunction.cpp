@@ -107,8 +107,6 @@ Expr *FuncBinaryOperator::OptimizeBinary(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // +n
 //-----------------------------------------------------------------------------
-bool Func_Pos::IsPos() const { return true; }
-
 Func_Pos::Func_Pos(Environment &env) : FuncUnaryOperator(env,
 				Symbol::Add("__pos__"), Parser::ETYPE_Add, OPTYPE_Pos)
 {
@@ -117,8 +115,6 @@ Func_Pos::Func_Pos(Environment &env) : FuncUnaryOperator(env,
 //-----------------------------------------------------------------------------
 // -n
 //-----------------------------------------------------------------------------
-bool Func_Neg::IsNeg() const { return true; }
-
 Func_Neg::Func_Neg(Environment &env) : FuncUnaryOperator(env,
 				Symbol::Add("__neg__"), Parser::ETYPE_Sub, OPTYPE_Neg)
 {
@@ -151,8 +147,6 @@ Func_SeqInf::Func_SeqInf(Environment &env) : FuncUnaryOperator(env,
 //-----------------------------------------------------------------------------
 // n + m
 //-----------------------------------------------------------------------------
-bool Func_Add::IsAdd() const { return true; }
-
 Func_Add::Func_Add(Environment &env) : FuncBinaryOperator(env,
 				Symbol::Add("__add__"), Parser::ETYPE_Add, OPTYPE_Add)
 {
@@ -161,8 +155,6 @@ Func_Add::Func_Add(Environment &env) : FuncBinaryOperator(env,
 //-----------------------------------------------------------------------------
 // n - m
 //-----------------------------------------------------------------------------
-bool Func_Sub::IsSub() const { return true; }
-
 Func_Sub::Func_Sub(Environment &env) : FuncBinaryOperator(env,
 				Symbol::Add("__sub__"), Parser::ETYPE_Sub, OPTYPE_Sub)
 {
@@ -171,8 +163,6 @@ Func_Sub::Func_Sub(Environment &env) : FuncBinaryOperator(env,
 //-----------------------------------------------------------------------------
 // n * m
 //-----------------------------------------------------------------------------
-bool Func_Mul::IsMul() const { return true; }
-
 Func_Mul::Func_Mul(Environment &env) : FuncBinaryOperator(env,
 				Symbol::Add("__mul__"), Parser::ETYPE_Mul, OPTYPE_Mul)
 {
@@ -238,8 +228,6 @@ Value Func_Mul::EvalExpr(Environment &env, Signal sig, Args &args) const
 //-----------------------------------------------------------------------------
 // n / m
 //-----------------------------------------------------------------------------
-bool Func_Div::IsDiv() const { return true; }
-
 Func_Div::Func_Div(Environment &env) : FuncBinaryOperator(env,
 				Symbol::Add("__div__"), Parser::ETYPE_Div, OPTYPE_Div)
 {
@@ -248,10 +236,8 @@ Func_Div::Func_Div(Environment &env) : FuncBinaryOperator(env,
 //-----------------------------------------------------------------------------
 // n % m
 //-----------------------------------------------------------------------------
-bool Func_Mod::IsMod() const { return true; }
-
 Func_Mod::Func_Mod(Environment &env) : FuncBinaryOperator(env,
-				Symbol::Add("mod"), Parser::ETYPE_Mod, OPTYPE_Mod)
+				Symbol::Add("__mod__"), Parser::ETYPE_Mod, OPTYPE_Mod)
 {
 }
 
@@ -325,8 +311,6 @@ Value Func_Mod::EvalExpr(Environment &env, Signal sig, Args &args) const
 //-----------------------------------------------------------------------------
 // n ** m
 //-----------------------------------------------------------------------------
-bool Func_Pow::IsPow() const { return true; }
-
 Func_Pow::Func_Pow(Environment &env) : FuncBinaryOperator(env,
 				Symbol::Add("__pow__"), Parser::ETYPE_Pow, OPTYPE_Pow)
 {
@@ -391,8 +375,6 @@ Func_Cmp::Func_Cmp(Environment &env) : FuncBinaryOperator(env,
 //-----------------------------------------------------------------------------
 // n in m
 //-----------------------------------------------------------------------------
-bool Func_Contains::IsContains() const { return true; }
-
 Func_Contains::Func_Contains(Environment &env) : FuncBinaryOperator(env,
 	Symbol::Add("in"), Parser::ETYPE_Contains, OPTYPE_Contains, FLAG_None)
 {
@@ -461,8 +443,6 @@ Func_AndAnd::Func_AndAnd(Environment &env) : FuncBinaryOperator(env,
 //-----------------------------------------------------------------------------
 // n .. m
 //-----------------------------------------------------------------------------
-bool Func_Seq::IsSeq() const { return true; }
-
 Func_Seq::Func_Seq(Environment &env) : FuncBinaryOperator(env,
 				Symbol::Add("__seq__"), Parser::ETYPE_Seq, OPTYPE_Seq)
 {
