@@ -38,7 +38,6 @@ public:
 	virtual Expr *DiffUnary(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const;
-	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild);
 };
 
 class Func_Neg : public FuncUnaryOperator {
@@ -48,7 +47,6 @@ public:
 	virtual Expr *DiffUnary(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const;
-	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild);
 };
 
 class Func_Inv : public FuncUnaryOperator {
@@ -69,7 +67,6 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 class Func_Sub : public FuncBinaryOperator {
@@ -80,7 +77,6 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 class Func_Mul : public FuncBinaryOperator {
@@ -92,7 +88,6 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 class Func_Div : public FuncBinaryOperator {
@@ -103,7 +98,6 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 class Func_Mod : public FuncBinaryOperator {
@@ -121,7 +115,6 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 class Func_Eq : public FuncBinaryOperator {

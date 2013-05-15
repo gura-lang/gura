@@ -2,11 +2,6 @@
 
 namespace Gura {
 
-static Expr *OptimizeConst(Environment &env, Signal sig,
-						const Function *func, Expr *pExprChild);
-static Expr *OptimizeConst(Environment &env, Signal sig,
-						const Function *func, Expr *pExprLeft, Expr *pExprRight);
-
 //-----------------------------------------------------------------------------
 // Operator assignment
 //-----------------------------------------------------------------------------
@@ -95,21 +90,12 @@ Expr *Func_Pos::DiffUnary(Environment &env, Signal sig,
 {
 	Expr *pExprDiff = pExprArg->MathDiff(env, sig, pSymbol);
 	if (sig.IsSignalled()) return NULL;
-	return Func_Pos::OptimizedExpr(env, sig, pExprDiff);
+	return Operator_Pos::OptimizedExpr(env, sig, pExprDiff);
 }
 
 Expr *Func_Pos::OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const
 {
-	return Func_Pos::OptimizedExpr(env, sig, pExprOpt);
-}
-
-Expr *Func_Pos::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
-{
-	if (sig.IsSignalled()) {
-		Expr::Delete(pExprChild);
-		return NULL;
-	}
-	return pExprChild;
+	return Operator_Pos::OptimizedExpr(env, sig, pExprOpt);
 }
 
 //-----------------------------------------------------------------------------
@@ -127,31 +113,12 @@ Expr *Func_Neg::DiffUnary(Environment &env, Signal sig,
 {
 	Expr *pExprWork = pExprArg->MathDiff(env, sig, pSymbol);
 	if (sig.IsSignalled()) return NULL;
-	return Func_Neg::OptimizedExpr(env, sig, pExprWork);
+	return Operator_Neg::OptimizedExpr(env, sig, pExprWork);
 }
 
 Expr *Func_Neg::OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const
 {
-	return Func_Neg::OptimizedExpr(env, sig, pExprOpt);
-}
-
-Expr *Func_Neg::OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild)
-{
-	if (sig.IsSignalled()) {
-		Expr::Delete(pExprChild);
-		return NULL;
-	}
-	if (pExprChild->IsValue()) {
-		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Neg), pExprChild);
-	} else if (pExprChild->IsOperatorNeg()) {
-		// -(-n) = n
-		Expr *pExpr =
-			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprChild)->GetChild());
-		Expr::Delete(pExprChild);
-		return pExpr;
-	} else {
-		return new Expr_UnaryOp(env.GetOpFunc(OPTYPE_Neg), pExprChild, false);
-	}
+	return Operator_Neg::OptimizedExpr(env, sig, pExprOpt);
 }
 
 //-----------------------------------------------------------------------------
@@ -191,103 +158,13 @@ Expr *Func_Add::DiffBinary(Environment &env, Signal sig,
 		return NULL;
 	}
 	// (f(x) + g(x))' = f'(x) + g'(x)
-	return Func_Add::OptimizedExpr(env, sig, pExprDiff1, pExprDiff2);
+	return Operator_Add::OptimizedExpr(env, sig, pExprDiff1, pExprDiff2);
 }
 
 Expr *Func_Add::OptimizeBinary(Environment &env, Signal sig,
 									Expr *pExprOpt1, Expr *pExprOpt2) const
 {
-	return Func_Add::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
-}
-
-Expr *Func_Add::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
-{
-	if (sig.IsSignalled()) {
-		Expr::Delete(pExprLeft);
-		Expr::Delete(pExprRight);
-		return NULL;
-	}
-	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Add), pExprLeft, pExprRight);
-	} else if (pExprLeft->IsConstNumber(0)) {
-		// 0 + m = m
-		Expr::Delete(pExprLeft);
-		return pExprRight;
-	} else if (pExprRight->IsConstNumber(0)) {
-		// n + 0 = n
-		Expr::Delete(pExprRight);
-		return pExprLeft;
-	} else if (pExprRight->IsOperatorNeg()) {
-		// n + (-m) = n - m
-		Expr *pExpr =
-			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild());
-		Expr::Delete(pExprRight);
-		return Func_Sub::OptimizedExpr(env, sig, pExprLeft, pExpr);
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsSymbol()) {
-		// n + n = n * 2
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-			Expr::Delete(pExprRight);
-			return Func_Mul::OptimizedExpr(env, sig, pExprLeft, new Expr_Value(2));
-		}
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsOperatorMul()) {
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
-		const Expr_BinaryOp *pExprBinOpR =
-							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-				// n + n * m = n * (1 + m)
-				Expr *pExprMulR = Expr::Reference(pExprBinOpR->GetRight());
-				Expr::Delete(pExprRight);
-				return Func_Mul::OptimizedExpr(env, sig, pExprLeft,
-					Func_Add::OptimizedExpr(env, sig, new Expr_Value(1), pExprMulR));
-			}
-		}
-	} else if (pExprLeft->IsOperatorMul() && pExprRight->IsSymbol()) {
-		const Expr_BinaryOp *pExprBinOpL =
-							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-				// n * m + n = n * (m + 1)
-				Expr *pExprMulL = Expr::Reference(pExprBinOpL->GetRight());
-				Expr::Delete(pExprLeft);
-				return Func_Mul::OptimizedExpr(env, sig, pExprRight,
-					Func_Add::OptimizedExpr(env, sig, pExprMulL, new Expr_Value(1)));
-			}
-		}
-	} else if (pExprLeft->IsOperatorMul() && pExprRight->IsOperatorMul()) {
-		const Expr_BinaryOp *pExprBinOpL =
-							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
-		const Expr_BinaryOp *pExprBinOpR =
-							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol() && pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			const Expr_Symbol *pExprSymbolR =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-				// n * m + n * p = n * (m + p)
-				Expr *pExprBase = Expr::Reference(pExprBinOpL->GetLeft());
-				Expr *pExprMulL = Expr::Reference(pExprBinOpL->GetRight());
-				Expr *pExprMulR = Expr::Reference(pExprBinOpR->GetRight());
-				Expr::Delete(pExprLeft);
-				Expr::Delete(pExprRight);
-				return Func_Mul::OptimizedExpr(env, sig, pExprBase,
-					Func_Add::OptimizedExpr(env, sig, pExprMulL, pExprMulR));
-			}
-		}
-	}
-	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Add), pExprLeft, pExprRight);
+	return Operator_Add::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
 }
 
 //-----------------------------------------------------------------------------
@@ -311,104 +188,13 @@ Expr *Func_Sub::DiffBinary(Environment &env, Signal sig,
 		return NULL;
 	}
 	// (f(x) - g(x))' = f'(x) - g'(x)
-	return Func_Sub::OptimizedExpr(env, sig, pExprDiff1, pExprDiff2);
+	return Operator_Sub::OptimizedExpr(env, sig, pExprDiff1, pExprDiff2);
 }
 
 Expr *Func_Sub::OptimizeBinary(Environment &env, Signal sig,
 									Expr *pExprOpt1, Expr *pExprOpt2) const
 {
-	return Func_Sub::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
-}
-
-Expr *Func_Sub::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
-{
-	if (sig.IsSignalled()) {
-		Expr::Delete(pExprLeft);
-		Expr::Delete(pExprRight);
-		return NULL;
-	}
-	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Sub), pExprLeft, pExprRight);
-	} else if (pExprLeft->IsConstNumber(0)) {
-		// 0 - m = -m
-		Expr::Delete(pExprLeft);
-		return Func_Neg::OptimizedExpr(env, sig, pExprRight);
-	} else if (pExprRight->IsConstNumber(0)) {
-		// n - 0 = n
-		Expr::Delete(pExprRight);
-		return pExprLeft;
-	} else if (pExprRight->IsOperatorNeg()) {
-		// n - (-m) = n + m
-		Expr *pExpr =
-			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild());
-		Expr::Delete(pExprRight);
-		return Func_Add::OptimizedExpr(env, sig, pExprLeft, pExpr);
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsSymbol()) {
-		// n - n = 0
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-			Expr::Delete(pExprLeft);
-			Expr::Delete(pExprRight);
-			return new Expr_Value(0);
-		}
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsOperatorMul()) {
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
-		const Expr_BinaryOp *pExprBinOpR =
-							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-				// n - n * m = n * (1 - m)
-				Expr *pExprMulR = Expr::Reference(pExprBinOpR->GetRight());
-				Expr::Delete(pExprRight);
-				return Func_Mul::OptimizedExpr(env, sig, pExprLeft,
-					Func_Sub::OptimizedExpr(env, sig, new Expr_Value(1), pExprMulR));
-			}
-		}
-	} else if (pExprLeft->IsOperatorMul() && pExprRight->IsSymbol()) {
-		const Expr_BinaryOp *pExprBinOpL =
-							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-				// n * m - n = n * (m - 1)
-				Expr *pExprMulL = Expr::Reference(pExprBinOpL->GetRight());
-				Expr::Delete(pExprLeft);
-				return Func_Mul::OptimizedExpr(env, sig, pExprRight,
-					Func_Sub::OptimizedExpr(env, sig, pExprMulL, new Expr_Value(1)));
-			}
-		}
-	} else if (pExprLeft->IsOperatorMul() && pExprRight->IsOperatorMul()) {
-		const Expr_BinaryOp *pExprBinOpL =
-							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
-		const Expr_BinaryOp *pExprBinOpR =
-							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol() && pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			const Expr_Symbol *pExprSymbolR =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-				// n * m - n * p = n * (m - p)
-				Expr *pExprBase = Expr::Reference(pExprBinOpL->GetLeft());
-				Expr *pExprMulL = Expr::Reference(pExprBinOpL->GetRight());
-				Expr *pExprMulR = Expr::Reference(pExprBinOpR->GetRight());
-				Expr::Delete(pExprLeft);
-				Expr::Delete(pExprRight);
-				return Func_Mul::OptimizedExpr(env, sig, pExprBase,
-					Func_Sub::OptimizedExpr(env, sig, pExprMulL, pExprMulR));
-			}
-		}
-	}
-	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Sub), pExprLeft, pExprRight);
+	return Operator_Sub::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
 }
 
 //-----------------------------------------------------------------------------
@@ -489,138 +275,15 @@ Expr *Func_Mul::DiffBinary(Environment &env, Signal sig,
 		return NULL;
 	}
 	// (f(x)g(x))' = f'(x)g(x) + f(x)g'(x)
-	return Func_Add::OptimizedExpr(env, sig,
-		Func_Mul::OptimizedExpr(env, sig, pExprDiff1, Expr::Reference(pExprArg2)),
-		Func_Mul::OptimizedExpr(env, sig, Expr::Reference(pExprArg1), pExprDiff2));
+	return Operator_Add::OptimizedExpr(env, sig,
+		Operator_Mul::OptimizedExpr(env, sig, pExprDiff1, Expr::Reference(pExprArg2)),
+		Operator_Mul::OptimizedExpr(env, sig, Expr::Reference(pExprArg1), pExprDiff2));
 }
 
 Expr *Func_Mul::OptimizeBinary(Environment &env, Signal sig,
 									Expr *pExprOpt1, Expr *pExprOpt2) const
 {
-	return Func_Mul::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
-}
-
-Expr *Func_Mul::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
-{
-	if (sig.IsSignalled()) {
-		Expr::Delete(pExprLeft);
-		Expr::Delete(pExprRight);
-		return NULL;
-	}
-	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Mul), pExprLeft, pExprRight);
-	} else if (pExprLeft->IsConstNumber(0)) {
-		// n * 0 = 0
-		Expr::Delete(pExprRight);
-		return pExprLeft;
-	} else if (pExprRight->IsConstNumber(0)) {
-		// 0 * m = 0
-		Expr::Delete(pExprLeft);
-		return pExprRight;
-	} else if (pExprLeft->IsConstNumber(1)) {
-		// 1 * m = m
-		Expr::Delete(pExprLeft);
-		return pExprRight;
-	} else if (pExprRight->IsConstNumber(1)) {
-		// n * 1 = n
-		Expr::Delete(pExprRight);
-		return pExprLeft;
-	} else if (pExprLeft->IsConstNumber(-1)) {
-		// -1 * m = -m
-		Expr::Delete(pExprLeft);
-		return Func_Neg::OptimizedExpr(env, sig, pExprRight);
-	} else if (pExprRight->IsConstNumber(-1)) {
-		// n * (-1) = -n
-		Expr::Delete(pExprRight);
-		return Func_Neg::OptimizedExpr(env, sig, pExprLeft);
-	} else if (pExprLeft->IsOperatorNeg() && pExprRight->IsOperatorNeg()) {
-		// (-n) * (-m) = n * m
-		Expr *pExpr1 =
-			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild());
-		Expr *pExpr2 =
-			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild());
-		Expr::Delete(pExprLeft);
-		Expr::Delete(pExprRight);
-		return Func_Mul::OptimizedExpr(env, sig, pExpr1, pExpr2);
-	} else if (pExprLeft->IsOperatorNeg()) {
-		// (-n) * m = -(n * m)
-		Expr *pExpr =
-			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild());
-		Expr::Delete(pExprLeft);
-		return Func_Neg::OptimizedExpr(env, sig,
-			Func_Mul::OptimizedExpr(env, sig, pExpr, pExprRight));
-	} else if (pExprRight->IsOperatorNeg()) {
-		// n * (-m) = -(n * m)
-		Expr *pExpr =
-			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild());
-		Expr::Delete(pExprRight);
-		return Func_Neg::OptimizedExpr(env, sig,
-			Func_Mul::OptimizedExpr(env, sig, pExprLeft, pExpr));
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsSymbol()) {
-		// n * n = n ** 2
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-			Expr::Delete(pExprRight);
-			return Func_Pow::OptimizedExpr(env, sig, pExprLeft, new Expr_Value(2));
-		}
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsOperatorPow()) {
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
-		const Expr_BinaryOp *pExprBinOpR =
-							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-				// n * n ** m = n ** (m + 1)
-				Expr *pExprPowR = Expr::Reference(pExprBinOpR->GetRight());
-				Expr::Delete(pExprRight);
-				return Func_Pow::OptimizedExpr(env, sig, pExprLeft,
-					Func_Add::OptimizedExpr(env, sig, pExprPowR, new Expr_Value(1)));
-			}
-		}
-	} else if (pExprLeft->IsOperatorPow() && pExprRight->IsSymbol()) {
-		const Expr_BinaryOp *pExprBinOpL =
-							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-				// n ** m * n = n ** (m + 1)
-				Expr *pExprPowL = Expr::Reference(pExprBinOpL->GetRight());
-				Expr::Delete(pExprLeft);
-				return Func_Pow::OptimizedExpr(env, sig, pExprRight,
-					Func_Add::OptimizedExpr(env, sig, pExprPowL, new Expr_Value(1)));
-			}
-		}
-	} else if (pExprLeft->IsOperatorPow() && pExprRight->IsOperatorPow()) {
-		const Expr_BinaryOp *pExprBinOpL =
-							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
-		const Expr_BinaryOp *pExprBinOpR =
-							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol() && pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			const Expr_Symbol *pExprSymbolR =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-				// n ** m * n ** p = n ** (m + p)
-				Expr *pExprBase = Expr::Reference(pExprBinOpL->GetLeft());
-				Expr *pExprPowL = Expr::Reference(pExprBinOpL->GetRight());
-				Expr *pExprPowR = Expr::Reference(pExprBinOpR->GetRight());
-				Expr::Delete(pExprLeft);
-				Expr::Delete(pExprRight);
-				return Func_Pow::OptimizedExpr(env, sig, pExprBase,
-					Func_Add::OptimizedExpr(env, sig, pExprPowL, pExprPowR));
-			}
-		}
-	}
-	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Mul), pExprLeft, pExprRight);
+	return Operator_Mul::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
 }
 
 //-----------------------------------------------------------------------------
@@ -636,7 +299,7 @@ Func_Div::Func_Div(Environment &env) : FuncBinaryOperator(env,
 Expr *Func_Div::OptimizeBinary(Environment &env, Signal sig,
 									Expr *pExprOpt1, Expr *pExprOpt2) const
 {
-	return Func_Div::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
+	return Operator_Div::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
 }
 
 Expr *Func_Div::DiffBinary(Environment &env, Signal sig,
@@ -650,121 +313,11 @@ Expr *Func_Div::DiffBinary(Environment &env, Signal sig,
 		return NULL;
 	}
 	// (f(x) / g(x))' = (f'(x)g(x) - f(x)g'(x)) / {g(x)}^2
-	return Func_Div::OptimizedExpr(env, sig,
-		Func_Sub::OptimizedExpr(env, sig,
-			Func_Mul::OptimizedExpr(env, sig, pExprDiff1, Expr::Reference(pExprArg2)),
-			Func_Mul::OptimizedExpr(env, sig, Expr::Reference(pExprArg1), pExprDiff2)),
-		Func_Pow::OptimizedExpr(env, sig, Expr::Reference(pExprArg2), new Expr_Value(2)));
-}
-
-Expr *Func_Div::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
-{
-	if (sig.IsSignalled()) {
-		Expr::Delete(pExprLeft);
-		Expr::Delete(pExprRight);
-		return NULL;
-	}
-	if (pExprLeft->IsConstNumber(0)) {
-		// 0 / m = 0
-		Expr::Delete(pExprRight);
-		return pExprLeft;
-	} else if (pExprRight->IsConstNumber(1)) {
-		// n / 1 = n
-		Expr::Delete(pExprRight);
-		return pExprLeft;
-	} else if (pExprRight->IsConstNumber(-1)) {
-		// n / (-1) = -n
-		Expr::Delete(pExprRight);
-		return Func_Neg::OptimizedExpr(env, sig, pExprLeft);
-	} else if (pExprLeft->IsOperatorNeg() && pExprRight->IsOperatorNeg()) {
-		// (-n) / (-m) = n / m
-		Expr *pExpr1 =
-			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild());
-		Expr *pExpr2 =
-			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild());
-		Expr::Delete(pExprLeft);
-		Expr::Delete(pExprRight);
-		return Func_Div::OptimizedExpr(env, sig, pExpr1, pExpr2);
-	} else if (pExprLeft->IsOperatorNeg()) {
-		// (-n) / m = -(n / m)
-		Expr *pExpr =
-			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild());
-		Expr::Delete(pExprLeft);
-		return Func_Neg::OptimizedExpr(env, sig,
-			Func_Div::OptimizedExpr(env, sig, pExpr, pExprRight));
-	} else if (pExprRight->IsOperatorNeg()) {
-		// n / (-m) = -(n / m)
-		Expr *pExpr =
-			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild());
-		Expr::Delete(pExprRight);
-		return Func_Neg::OptimizedExpr(env, sig,
-			Func_Div::OptimizedExpr(env, sig, pExprLeft, pExpr));
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsSymbol()) {
-		// n / n = 1
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-			Expr::Delete(pExprLeft);
-			Expr::Delete(pExprRight);
-			return new Expr_Value(1);
-		}
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsOperatorPow()) {
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
-		const Expr_BinaryOp *pExprBinOpR =
-							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-				// n / n ** m = n ** (1 - m)
-				Expr *pExprPowR = Expr::Reference(pExprBinOpR->GetRight());
-				Expr::Delete(pExprRight);
-				return Func_Pow::OptimizedExpr(env, sig, pExprLeft,
-					Func_Sub::OptimizedExpr(env, sig, new Expr_Value(1), pExprPowR));
-			}
-		}
-	} else if (pExprLeft->IsOperatorPow() && pExprRight->IsSymbol()) {
-		const Expr_BinaryOp *pExprBinOpL =
-							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-				// n ** m / n = n ** (m - 1)
-				Expr *pExprPowL = Expr::Reference(pExprBinOpL->GetRight());
-				Expr::Delete(pExprLeft);
-				return Func_Pow::OptimizedExpr(env, sig, pExprRight,
-					Func_Sub::OptimizedExpr(env, sig, pExprPowL, new Expr_Value(1)));
-			}
-		}
-	} else if (pExprLeft->IsOperatorPow() && pExprRight->IsOperatorPow()) {
-		const Expr_BinaryOp *pExprBinOpL =
-							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
-		const Expr_BinaryOp *pExprBinOpR =
-							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol() && pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			const Expr_Symbol *pExprSymbolR =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
-				// n ** m / n ** p = n ** (m - p)
-				Expr *pExprBase = Expr::Reference(pExprBinOpL->GetLeft());
-				Expr *pExprPowL = Expr::Reference(pExprBinOpL->GetRight());
-				Expr *pExprPowR = Expr::Reference(pExprBinOpR->GetRight());
-				Expr::Delete(pExprLeft);
-				Expr::Delete(pExprRight);
-				return Func_Pow::OptimizedExpr(env, sig, pExprBase,
-					Func_Sub::OptimizedExpr(env, sig, pExprPowL, pExprPowR));
-			}
-		}
-	}
-	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Div), pExprLeft, pExprRight);
+	return Operator_Div::OptimizedExpr(env, sig,
+		Operator_Sub::OptimizedExpr(env, sig,
+			Operator_Mul::OptimizedExpr(env, sig, pExprDiff1, Expr::Reference(pExprArg2)),
+			Operator_Mul::OptimizedExpr(env, sig, Expr::Reference(pExprArg1), pExprDiff2)),
+		Operator_Pow::OptimizedExpr(env, sig, Expr::Reference(pExprArg2), new Expr_Value(2)));
 }
 
 //-----------------------------------------------------------------------------
@@ -865,67 +418,23 @@ Expr *Func_Pow::DiffBinary(Environment &env, Signal sig,
 		return NULL;
 	}
 	// (f(x) ** g(x))' = f'(x)g(x)(f(x) ** (g(x) - 1)) + g'(x)log(f(x))(f(x) ** g(x))
-	return Func_Add::OptimizedExpr(env, sig,
-		Func_Mul::OptimizedExpr(env, sig,
-			Func_Mul::OptimizedExpr(env, sig, pExprDiff1, Expr::Reference(pExprArg2)),
-			Func_Pow::OptimizedExpr(env, sig,
+	return Operator_Add::OptimizedExpr(env, sig,
+		Operator_Mul::OptimizedExpr(env, sig,
+			Operator_Mul::OptimizedExpr(env, sig, pExprDiff1, Expr::Reference(pExprArg2)),
+			Operator_Pow::OptimizedExpr(env, sig,
 				Expr::Reference(pExprArg1),
-				Func_Sub::OptimizedExpr(env, sig, Expr::Reference(pExprArg2), new Expr_Value(1)))),
-		Func_Mul::OptimizedExpr(env, sig,
-			Func_Mul::OptimizedExpr(env, sig,
+				Operator_Sub::OptimizedExpr(env, sig, Expr::Reference(pExprArg2), new Expr_Value(1)))),
+		Operator_Mul::OptimizedExpr(env, sig,
+			Operator_Mul::OptimizedExpr(env, sig,
 				pExprDiff2,
 				Gura_Module(math)::CreateFuncExpr("log", Expr::Reference(pExprArg1))),
-			Func_Pow::OptimizedExpr(env, sig, Expr::Reference(pExprArg1), Expr::Reference(pExprArg2))));
+			Operator_Pow::OptimizedExpr(env, sig, Expr::Reference(pExprArg1), Expr::Reference(pExprArg2))));
 }
 
 Expr *Func_Pow::OptimizeBinary(Environment &env, Signal sig,
 									Expr *pExprOpt1, Expr *pExprOpt2) const
 {
-	return Func_Pow::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
-}
-
-Expr *Func_Pow::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight)
-{
-	if (sig.IsSignalled()) {
-		Expr::Delete(pExprLeft);
-		Expr::Delete(pExprRight);
-		return NULL;
-	}
-	if (pExprLeft->IsValue() && pExprRight->IsValue()) {
-		return OptimizeConst(env, sig, env.GetOpFunc(OPTYPE_Pow), pExprLeft, pExprRight);
-	} else if (pExprLeft->IsConstNumber(0)) {
-		// 0 ** m = 0
-		Expr::Delete(pExprRight);
-		return pExprLeft;
-	} else if (pExprLeft->IsConstNumber(1)) {
-		// 1 ** m = 1
-		Expr::Delete(pExprRight);
-		return pExprLeft;
-	} else if (pExprRight->IsConstNumber(0)) {
-		// n ** 0 = 1
-		Expr::Delete(pExprLeft);
-		Expr::Delete(pExprRight);
-		return new Expr_Value(1);
-	} else if (pExprRight->IsConstNumber(1)) {
-		// n ** 1 = n
-		Expr::Delete(pExprRight);
-		return pExprLeft;
-	} else if (pExprRight->IsConstNumber(-1)) {
-		// n ** (-1) = 1 / n
-		Expr::Delete(pExprRight);
-		return Func_Div::OptimizedExpr(env, sig, new Expr_Value(1), pExprLeft);
-	} else if (pExprLeft->IsOperatorNeg() && pExprRight->IsConstEvenNumber()) {
-		// (-n) ** (2m) = n ** (2m)
-		Expr *pExpr =
-			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild());
-		Expr::Delete(pExprLeft);
-		return Func_Pow::OptimizedExpr(env, sig, pExpr, pExprRight);
-	//} else if (pExprRight->IsConstNumber(0.5)) {
-	//	// n ** 0.5 = math.sqrt(n)
-	//	Expr::Delete(pExprRight);
-	//	return Gura_Module(math)::CreateFuncExpr("sqrt", pExprLeft);
-	}
-	return new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Pow), pExprLeft, pExprRight);
+	return Operator_Pow::OptimizedExpr(env, sig, pExprOpt1, pExprOpt2);
 }
 
 //-----------------------------------------------------------------------------
@@ -1100,34 +609,6 @@ Func_Seq::Func_Seq(Environment &env) : FuncBinaryOperator(env,
 Func_SeqInf::Func_SeqInf(Environment &env) : FuncUnaryOperator(env,
 				Symbol::Add("__seqinf__"), Parser::ETYPE_Seq, OPTYPE_SeqInf)
 {
-}
-
-//-----------------------------------------------------------------------------
-// utilities
-//-----------------------------------------------------------------------------
-Expr *OptimizeConst(Environment &env, Signal sig,
-									const Function *pFunc, Expr *pExprChild)
-{
-	ValueList valListArg(dynamic_cast<Expr_Value *>(pExprChild)->GetValue());
-	Expr::Delete(pExprChild);
-	Args args(valListArg);
-	Value value = pFunc->Eval(env, sig, args);
-	if (sig.IsSignalled()) return NULL;
-	return new Expr_Value(value);
-}
-
-Expr *OptimizeConst(Environment &env, Signal sig,
-					const Function *pFunc, Expr *pExprLeft, Expr *pExprRight)
-{
-	ValueList valListArg(
-		dynamic_cast<Expr_Value *>(pExprLeft)->GetValue(),
-		dynamic_cast<Expr_Value *>(pExprRight)->GetValue());
-	Expr::Delete(pExprLeft);
-	Expr::Delete(pExprRight);
-	Args args(valListArg);
-	Value value = pFunc->Eval(env, sig, args);
-	if (sig.IsSignalled()) return NULL;
-	return new Expr_Value(value);
 }
 
 }

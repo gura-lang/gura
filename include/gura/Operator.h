@@ -116,11 +116,13 @@ public:
 class GURA_DLLDECLARE Operator_Pos : public Operator {
 public:
 	inline Operator_Pos() : Operator(OPTYPE_Pos) {}
+	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild);
 };
 
 class GURA_DLLDECLARE Operator_Neg : public Operator {
 public:
 	inline Operator_Neg() : Operator(OPTYPE_Neg) {}
+	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild);
 };
 
 class GURA_DLLDECLARE Operator_Inv : public Operator {
@@ -141,21 +143,25 @@ public:
 class GURA_DLLDECLARE Operator_Add : public Operator {
 public:
 	inline Operator_Add() : Operator(OPTYPE_Add) {}
+	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 class GURA_DLLDECLARE Operator_Sub : public Operator {
 public:
 	inline Operator_Sub() : Operator(OPTYPE_Sub) {}
+	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 class GURA_DLLDECLARE Operator_Mul : public Operator {
 public:
 	inline Operator_Mul() : Operator(OPTYPE_Mul) {}
+	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 class GURA_DLLDECLARE Operator_Div : public Operator {
 public:
 	inline Operator_Div() : Operator(OPTYPE_Div) {}
+	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 class GURA_DLLDECLARE Operator_Mod : public Operator {
@@ -166,6 +172,7 @@ public:
 class GURA_DLLDECLARE Operator_Pow : public Operator {
 public:
 	inline Operator_Pow() : Operator(OPTYPE_Pow) {}
+	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 class GURA_DLLDECLARE Operator_Eq : public Operator {
