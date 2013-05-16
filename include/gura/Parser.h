@@ -129,6 +129,7 @@ public:
 		int index;
 		const char *name;
 		const char *symbol;
+		OpType opType;
 	};
 	typedef std::map<ElemType, int> ElemTypeToIndexMap;
 	struct StringInfo {
@@ -246,7 +247,9 @@ public:
 		return _elemTypeToIndexMap[elemType];
 	}
 	static const ElemTypeInfo *LookupElemTypeInfo(ElemType elemType);
+	static const ElemTypeInfo *LookupElemTypeInfoByOpType(OpType opType);
 	static Precedence LookupPrec(ElemType elemTypeLeft, ElemType elemTypeRight);
+	static int CompareOpTypePrec(OpType opType1, OpType opType2);
 private:
 	bool CheckBlockParamEnd() const;
 	static ElemType ElemTypeForString(const StringInfo &stringInfo);

@@ -931,73 +931,73 @@ void Parser::EvalConsoleChar(Environment &env, Signal sig,
 }
 
 const Parser::ElemTypeInfo Parser::_elemTypeInfoTbl[] = {
-	{ ETYPE_Begin,				 1, "Begin",			"[Bgn]"		},	// B
-	{ ETYPE_Assign,				 2, "Assign",			"="			},	// =
-	{ ETYPE_AssignAdd,			 2, "AssignAdd",		"+="		},
-	{ ETYPE_AssignSub,			 2, "AssignSub",		"-="		},
-	{ ETYPE_AssignMul,			 2, "AssignMul",		"*="		},
-	{ ETYPE_AssignDiv,			 2, "AssignDiv",		"/="		},
-	{ ETYPE_AssignMod,			 2, "AssignMod",		"%="		},
-	{ ETYPE_AssignPow,			 2, "AssignPow",		"**="		},
-	{ ETYPE_AssignOr,			 2, "AssignOr",			"|="		},
-	{ ETYPE_AssignAnd,			 2, "AssignAnd",		"&="		},
-	{ ETYPE_AssignXor,			 2, "AssignXor",		"^="		},
-	{ ETYPE_AssignShl,			 2, "AssignShl",		"<<="		},
-	{ ETYPE_AssignShr,			 2, "AssignShr",		">>="		},
-	{ ETYPE_DictAssign,			 2, "DictAssign",		"=>"		},
-	{ ETYPE_OrOr,				 3, "OrOr",				"||"		},	// ||
-	{ ETYPE_AndAnd,				 4, "AndAnd",			"&&"		},	// &&
-	{ ETYPE_Not,				 5, "Not",				"!"			},	// !
-	{ ETYPE_Contains,			 6, "Contains",			"in"		},	// in
-	{ ETYPE_Lt,					 7, "Lt",				"<"			},	// <
-	{ ETYPE_Gt,					 7, "Gt",				">"			},
-	{ ETYPE_Le,	 				 7, "Le",				"<="		},
-	{ ETYPE_Ge,					 7, "Ge",				">="		},
-	{ ETYPE_Cmp,				 7, "Cmp",				"<=>"		},
-	{ ETYPE_Eq,					 7, "Eq",				"=="		},
-	{ ETYPE_Ne,					 7, "Ne",				"!="		},
-	{ ETYPE_Seq,			 	 8, "Seq",				".."		},	// ..
-	{ ETYPE_Or,					 9, "Or",				"|"			},	// |
-	{ ETYPE_Xor,				10, "Xor",				"^"			},	// ^
-	{ ETYPE_And,				11, "And",				"&"			},	// &
-	{ ETYPE_Shl,				12, "Shl"	,			"<<"		},	// <<
-	{ ETYPE_Shr,				12, "Shr",				">>"		},
-	{ ETYPE_Add,				13, "Add",				"+"			},	// +
-	{ ETYPE_Sub,				13, "Sub",				"-"			},
-	{ ETYPE_Mul,				14, "Mul",				"*"			},	// *
-	{ ETYPE_Div,				14, "Div",				"/"			},
-	{ ETYPE_Mod,				14, "Mod",				"%"			},
-	{ ETYPE_ModMod,				14, "ModMod"	,		"%%"		},
-	{ ETYPE_Question,			14, "Question",			"?"			},
-	{ ETYPE_Inv,				15, "Inv",				"~"			},	// ~
-	{ ETYPE_Pow,				16, "Pow",				"**"		},	// **
-	{ ETYPE_Quote,				17, "Quote",			"`"			},	// `
-	{ ETYPE_Force,				17, "Force",			"!!"		},
-	{ ETYPE_Colon,				18, "Colon",			":"			},	// :
-	{ ETYPE_ColonAfterSuffix,	19, "ColonAfterSuffix",	":"			},	// *:
-	{ ETYPE_Dot,				20, "Dot",				"."			},	// .
-	{ ETYPE_ColonColon,			20, "ColonColon",		"::"		},
-	{ ETYPE_ColonAsterisk,		20, "ColonAsterisk",	":*"		},
-	{ ETYPE_ColonAnd,			20, "ColonAnd",			":&"		},
-	{ ETYPE_LParenthesis,		21, "LParenthesis",		"("			},	// (
-	{ ETYPE_RParenthesis,		22, "RParenthesis",		")"			},	// )
-	{ ETYPE_LBrace,				21, "LBrace",			"{"			},
-	{ ETYPE_RBrace,				22, "RBrace",			"}"			},
-	{ ETYPE_LBlockParam,		21, "LBlockParam",		"|"			},
-	{ ETYPE_RBlockParam,		22, "RBlockParam",		"|"			},
-	{ ETYPE_LBracket,			23, "LBracket",			"["			},	// [
-	{ ETYPE_RBracket,			24, "RBracket",			"]"			},	// ]
-	{ ETYPE_Comma,				25, "Comma",			","			},	// ,
-	{ ETYPE_Semicolon,			25, "Semicolon",		";"			},
-	{ ETYPE_EOL,				26, "EOL",				"[EOL]"		},	// \n
-	{ ETYPE_Number,				27, "Number",			"[Num]"		},	// V
-	{ ETYPE_ImagNumber,			27, "ImagNumber",		"[iNm]"		},
-	{ ETYPE_String,				27, "String",			"[Str]"		},
-	{ ETYPE_Binary,				27, "Binary",			"[Bin]"		},
-	{ ETYPE_Symbol,				28, "Symbol",			"[Sym]"		},	// S
-	{ ETYPE_EOF,				29, "EOF",				"[EOF]"		},	// E
-	{ ETYPE_Expr,				-1, "Expr",				"[Exp]"		},
-	{ ETYPE_Unknown,			-1, "Unknown",			"[unk]"		},
+	{ ETYPE_Begin,				 1, "Begin",			"[Bgn]",	OPTYPE_None		},	// B
+	{ ETYPE_Assign,				 2, "Assign",			"=",		OPTYPE_None		},	// =
+	{ ETYPE_AssignAdd,			 2, "AssignAdd",		"+=",		OPTYPE_None		},
+	{ ETYPE_AssignSub,			 2, "AssignSub",		"-=",		OPTYPE_None		},
+	{ ETYPE_AssignMul,			 2, "AssignMul",		"*=",		OPTYPE_None		},
+	{ ETYPE_AssignDiv,			 2, "AssignDiv",		"/=",		OPTYPE_None		},
+	{ ETYPE_AssignMod,			 2, "AssignMod",		"%=",		OPTYPE_None		},
+	{ ETYPE_AssignPow,			 2, "AssignPow",		"**=",		OPTYPE_None		},
+	{ ETYPE_AssignOr,			 2, "AssignOr",			"|=",		OPTYPE_None		},
+	{ ETYPE_AssignAnd,			 2, "AssignAnd",		"&=",		OPTYPE_None		},
+	{ ETYPE_AssignXor,			 2, "AssignXor",		"^=",		OPTYPE_None		},
+	{ ETYPE_AssignShl,			 2, "AssignShl",		"<<=",		OPTYPE_None		},
+	{ ETYPE_AssignShr,			 2, "AssignShr",		">>=",		OPTYPE_None		},
+	{ ETYPE_DictAssign,			 2, "DictAssign",		"=>",		OPTYPE_None		},
+	{ ETYPE_OrOr,				 3, "OrOr",				"||",		OPTYPE_OrOr		},	// ||
+	{ ETYPE_AndAnd,				 4, "AndAnd",			"&&",		OPTYPE_AndAnd	},	// &&
+	{ ETYPE_Not,				 5, "Not",				"!",		OPTYPE_Not		},	// !
+	{ ETYPE_Contains,			 6, "Contains",			"in",		OPTYPE_Contains	},	// in
+	{ ETYPE_Lt,					 7, "Lt",				"<",		OPTYPE_Lt		},	// <
+	{ ETYPE_Gt,					 7, "Gt",				">",		OPTYPE_Gt		},
+	{ ETYPE_Le,	 				 7, "Le",				"<=",		OPTYPE_Le		},
+	{ ETYPE_Ge,					 7, "Ge",				">=",		OPTYPE_Ge		},
+	{ ETYPE_Cmp,				 7, "Cmp",				"<=>",		OPTYPE_Cmp		},
+	{ ETYPE_Eq,					 7, "Eq",				"==",		OPTYPE_Eq		},
+	{ ETYPE_Ne,					 7, "Ne",				"!=",		OPTYPE_Ne		},
+	{ ETYPE_Seq,			 	 8, "Seq",				"..",		OPTYPE_Seq		},	// ..
+	{ ETYPE_Or,					 9, "Or",				"|",		OPTYPE_Or		},	// |
+	{ ETYPE_Xor,				10, "Xor",				"^",		OPTYPE_Xor		},	// ^
+	{ ETYPE_And,				11, "And",				"&",		OPTYPE_And		},	// &
+	{ ETYPE_Shl,				12, "Shl",				"<<",		OPTYPE_Shl		},	// <<
+	{ ETYPE_Shr,				12, "Shr",				">>",		OPTYPE_Shr		},
+	{ ETYPE_Add,				13, "Add",				"+",		OPTYPE_Add		},	// +
+	{ ETYPE_Sub,				13, "Sub",				"-",		OPTYPE_Sub		},
+	{ ETYPE_Mul,				14, "Mul",				"*",		OPTYPE_Mul		},	// *
+	{ ETYPE_Div,				14, "Div",				"/",		OPTYPE_Div		},
+	{ ETYPE_Mod,				14, "Mod",				"%",		OPTYPE_Mod		},
+	{ ETYPE_ModMod,				14, "ModMod",			"%%",		OPTYPE_None		},
+	{ ETYPE_Question,			14, "Question",			"?",		OPTYPE_None		},
+	{ ETYPE_Inv,				15, "Inv",				"~",		OPTYPE_Inv		},	// ~
+	{ ETYPE_Pow,				16, "Pow",				"**",		OPTYPE_Pow		},	// **
+	{ ETYPE_Quote,				17, "Quote",			"`",		OPTYPE_None		},	// `
+	{ ETYPE_Force,				17, "Force",			"!!",		OPTYPE_None		},
+	{ ETYPE_Colon,				18, "Colon",			":",		OPTYPE_None		},	// :
+	{ ETYPE_ColonAfterSuffix,	19, "ColonAfterSuffix",	":",		OPTYPE_None		},	// *:
+	{ ETYPE_Dot,				20, "Dot",				".",		OPTYPE_None		},	// .
+	{ ETYPE_ColonColon,			20, "ColonColon",		"::",		OPTYPE_None		},
+	{ ETYPE_ColonAsterisk,		20, "ColonAsterisk",	":*",		OPTYPE_None		},
+	{ ETYPE_ColonAnd,			20, "ColonAnd",			":&",		OPTYPE_None		},
+	{ ETYPE_LParenthesis,		21, "LParenthesis",		"(",		OPTYPE_None		},	// (
+	{ ETYPE_RParenthesis,		22, "RParenthesis",		")",		OPTYPE_None		},	// )
+	{ ETYPE_LBrace,				21, "LBrace",			"{",		OPTYPE_None		},
+	{ ETYPE_RBrace,				22, "RBrace",			"}",		OPTYPE_None		},
+	{ ETYPE_LBlockParam,		21, "LBlockParam",		"|",		OPTYPE_None		},
+	{ ETYPE_RBlockParam,		22, "RBlockParam",		"|",		OPTYPE_None		},
+	{ ETYPE_LBracket,			23, "LBracket",			"[",		OPTYPE_None		},	// [
+	{ ETYPE_RBracket,			24, "RBracket",			"]",		OPTYPE_None		},	// ]
+	{ ETYPE_Comma,				25, "Comma",			",",		OPTYPE_None		},	// ,
+	{ ETYPE_Semicolon,			25, "Semicolon",		";",		OPTYPE_None		},
+	{ ETYPE_EOL,				26, "EOL",				"[EOL]",	OPTYPE_None		},	// \n
+	{ ETYPE_Number,				27, "Number",			"[Num]",	OPTYPE_None		},	// V
+	{ ETYPE_ImagNumber,			27, "ImagNumber",		"[iNm]",	OPTYPE_None		},
+	{ ETYPE_String,				27, "String",			"[Str]",	OPTYPE_None		},
+	{ ETYPE_Binary,				27, "Binary",			"[Bin]",	OPTYPE_None		},
+	{ ETYPE_Symbol,				28, "Symbol",			"[Sym]",	OPTYPE_None		},	// S
+	{ ETYPE_EOF,				29, "EOF",				"[EOF]",	OPTYPE_None		},	// E
+	{ ETYPE_Expr,				-1, "Expr",				"[Exp]",	OPTYPE_None		},
+	{ ETYPE_Unknown,			-1, "Unknown",			"[unk]",	OPTYPE_None		},
 };
 
 Parser::Precedence Parser::LookupPrec(ElemType elemTypeLeft, ElemType elemTypeRight)
@@ -1006,6 +1006,14 @@ Parser::Precedence Parser::LookupPrec(ElemType elemTypeLeft, ElemType elemTypeRi
 	const ElemTypeInfo *pInfoRight = LookupElemTypeInfo(elemTypeRight);
 	if (pInfoLeft == NULL || pInfoRight == NULL) return PREC_Error;
 	return _LookupPrec(pInfoLeft->index, pInfoRight->index);
+}
+
+int Parser::CompareOpTypePrec(OpType opType1, OpType opType2)
+{
+	const ElemTypeInfo *pInfo1 = LookupElemTypeInfoByOpType(opType1);
+	const ElemTypeInfo *pInfo2 = LookupElemTypeInfoByOpType(opType2);
+	if (pInfo1 == NULL || pInfo2 == NULL) return 0;
+	return pInfo1->index - pInfo2->index;
 }
 
 Parser::Precedence Parser::_LookupPrec(int indexLeft, int indexRight)
@@ -2077,6 +2085,15 @@ const Parser::ElemTypeInfo *Parser::LookupElemTypeInfo(ElemType elemType)
 	for (const ElemTypeInfo *p = _elemTypeInfoTbl;
 										p->elemType != ETYPE_Unknown; p++) {
 		if (p->elemType == elemType) return p;
+	}
+	return NULL;
+}
+
+const Parser::ElemTypeInfo *Parser::LookupElemTypeInfoByOpType(OpType opType)
+{
+	for (const ElemTypeInfo *p = _elemTypeInfoTbl;
+										p->elemType != ETYPE_Unknown; p++) {
+		if (p->opType == opType) return p;
 	}
 	return NULL;
 }
