@@ -173,7 +173,6 @@ protected:
 	Class *_pClassToConstruct;
 	Environment _envScope;
 	DeclarationOwner _declOwner;
-	Parser::ElemType _elemType;
 	OpType _opType;
 	FunctionType _funcType;
 	ResultMode _resultMode;
@@ -193,9 +192,6 @@ public:
 	Function(Environment &envScope, const Symbol *pSymbol,
 								FunctionType funcType, unsigned long flags);
 	virtual ~Function();
-	inline void SetOperatorInfo(Parser::ElemType elemType, OpType opType) {
-		_elemType = elemType; _opType = opType;
-	}
 	inline Class *GetClassToConstruct() const { return _pClassToConstruct; }
 	inline bool IsSymbolFunc() const { return GetSymbolFuncFlag(); }
 	inline bool IsAnonymous() const { return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_)); }
@@ -206,7 +202,7 @@ public:
 	inline bool GetBlockQuoteFlag() const { return _blockInfo.quoteFlag; }
 	inline const Symbol *GetSymbolForBlock() const { return _blockInfo.pSymbol; }
 	inline const char *GetName() const { return _pSymbol->GetName(); }
-	inline Parser::ElemType GetElemType() const { return _elemType; }
+	inline void SetOpType(OpType opType) { _opType = opType; }
 	inline OpType GetOpType() const { return _opType; }
 	inline const char *GetMathSymbol() const { return Operator::GetMathSymbol(_opType); }
 	inline Environment &GetEnvScope() { return _envScope; }

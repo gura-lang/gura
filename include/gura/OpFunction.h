@@ -14,8 +14,7 @@ void AssignOpFunctions(Environment &env);
 class FuncUnaryOperator : public Function {
 public:
 	FuncUnaryOperator(Environment &env, const Symbol *pSymbol,
-			Parser::ElemType elemType, OpType opType,
-			unsigned long flags = FLAG_Map, ValueType valType = VTYPE_any);
+		OpType opType, unsigned long flags = FLAG_Map, ValueType valType = VTYPE_any);
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
 	virtual Expr *DiffUnary(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
@@ -28,8 +27,7 @@ public:
 class FuncBinaryOperator : public Function {
 public:
 	FuncBinaryOperator(Environment &env, const Symbol *pSymbol,
-			Parser::ElemType elemType, OpType opType,
-			unsigned long flags = FLAG_Map, ValueType valType = VTYPE_any);
+		OpType opType, unsigned long flags = FLAG_Map, ValueType valType = VTYPE_any);
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
 	virtual Expr *DiffBinary(Environment &env, Signal sig,
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;

@@ -94,13 +94,13 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 //-----------------------------------------------------------------------------
 // Function
 //-----------------------------------------------------------------------------
-bool Function::IsCustom() const			{ return false; }
-bool Function::IsConstructorOfStruct() const{ return false; }
+bool Function::IsCustom() const { return false; }
+bool Function::IsConstructorOfStruct() const { return false; }
 
 Function::Function(const Function &func) : _cntRef(1),
 	_pSymbol(func._pSymbol), _pClassToConstruct(func._pClassToConstruct),
 	_envScope(func._envScope), _declOwner(func._declOwner),
-	_elemType(func._elemType), _opType(OPTYPE_None),
+	_opType(OPTYPE_None),
 	_funcType(func._funcType),
 	_resultMode(func._resultMode), _flags(func._flags),
 	_attrsOpt(func._attrsOpt), _blockInfo(func._blockInfo)
@@ -111,7 +111,6 @@ Function::Function(Environment &envScope, const Symbol *pSymbol,
 								FunctionType funcType, unsigned long flags) :
 	_cntRef(1),
 	_pSymbol(pSymbol), _pClassToConstruct(NULL), _envScope(envScope), _funcType(funcType),
-	_elemType(Parser::ETYPE_Unknown),
 	_resultMode(RSLTMODE_Normal), _flags(flags)
 {
 	_blockInfo.occurPattern = OCCUR_Zero;
