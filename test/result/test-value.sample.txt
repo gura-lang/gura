@@ -60,7 +60,7 @@ math.abs(3 + 2j) .. 3.60555
 math.sqrt(math.real(3 + 2j) * math.real(3 + 2j) + math.imag(3 + 2j) * math.imag(3 + 2j)) .. 3.60555
 math.norm(3 + 2j) .. 13
 math.sqrt(math.norm(3 + 2j)) .. 3.60555
-(math.arg(3 + 2j) * 180) / math.pi .. 33.6901
+math.arg(3 + 2j) * 180 / math.pi .. 33.6901
 0 in [2, 3, 4] .. false
 2 in [2, 3, 4] .. true
 4 in [2, 3, 4] .. true

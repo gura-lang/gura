@@ -218,15 +218,9 @@ const Expr *Expr::Unquote() const
 bool Expr::NeedParenthesis(const Function &funcOuter,
 									const Function &func, bool rightFlag)
 {
-	Parser::Precedence prec = Parser::LookupPrec(
-									funcOuter.GetElemType(), func.GetElemType());
-	if (prec == Parser::PREC_EQ || funcOuter.GetElemType() == func.GetElemType()) {
-		return rightFlag;
-	} else if (prec == Parser::PREC_GT) {
-		return true;
-	} else {
-		return false;
-	}
+	int rtn = Parser::CompareOpTypePrec(funcOuter.GetOpType(), func.GetOpType());
+	if (rtn == 0) return rightFlag;
+	return rtn > 0;
 }
 
 bool Expr::IsConstNumber(Number num) const
