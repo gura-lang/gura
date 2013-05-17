@@ -60,7 +60,6 @@ Object_uri.cpp
 Module.cpp
 Module_basement.cpp
 Module_sys.cpp
-Module_operator.cpp
 ../Module_codecs_basic/Module_codecs_basic.cpp
 ../Module_codecs_iso8859/Module_codecs_iso8859.cpp
 ../Module_codecs_japanese/Module_codecs_japanese.cpp

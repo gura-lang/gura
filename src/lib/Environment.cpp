@@ -8,7 +8,6 @@ Gura_IncludeModule(basement)
 Gura_IncludeModuleBegin(sys)
 bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[]);
 Gura_IncludeModuleEnd()
-Gura_IncludeModule(operator)
 Gura_IncludeModule(codecs_basic)
 Gura_IncludeModule(codecs_iso8859)
 Gura_IncludeModule(codecs_japanese)
@@ -1152,10 +1151,6 @@ bool EnvironmentRoot::Initialize(Signal sig, int argc, const char *argv[])
 		Module *pModule = Gura_Module(sys)::Import(env, sig);
 		if (sig.IsSignalled()) return false;
 		GetGlobal()->_pModule_sys = pModule;
-	} while (0);
-	do { // import(operator)
-		Module *pModule = Gura_Module(operator)::Import(env, sig);
-		if (sig.IsSignalled()) return false;
 	} while (0);
 	do {
 		Module *pModule = new Module(&env, Symbol::Add("codecs"),
