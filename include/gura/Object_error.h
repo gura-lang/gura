@@ -2,7 +2,6 @@
 #define __GURA_OBJECT_ERROR_H__
 
 #include "Object.h"
-#include "Environment.h"
 
 namespace Gura {
 

@@ -89,6 +89,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_error;
 GURA_DLLDECLARE extern ValueType VTYPE_uri;
 GURA_DLLDECLARE extern ValueType VTYPE_semaphore;
 GURA_DLLDECLARE extern ValueType VTYPE_Struct;
+GURA_DLLDECLARE extern ValueType VTYPE_operator;
 GURA_DLLDECLARE extern ValueType VTYPE_image;
 GURA_DLLDECLARE extern ValueType VTYPE_color;
 GURA_DLLDECLARE extern ValueType VTYPE_palette;
@@ -168,6 +169,7 @@ public:
 	Gura_DeclareVTYPE(uri);
 	Gura_DeclareVTYPE(semaphore);
 	Gura_DeclareVTYPE(Struct);
+	Gura_DeclareVTYPE(operator);
 	Gura_DeclareVTYPE(image);
 	Gura_DeclareVTYPE(color);
 	Gura_DeclareVTYPE(palette);
@@ -380,6 +382,7 @@ public:
 	inline bool IsURI() const				{ return IsType(VTYPE_uri);			}
 	inline bool IsSemaphore() const			{ return IsType(VTYPE_semaphore);	}
 	inline bool IsStruct() const			{ return IsType(VTYPE_Struct);		}
+	inline bool IsOperator() const			{ return IsType(VTYPE_operator);	}
 	inline bool IsImage() const				{ return IsType(VTYPE_image);		}
 	inline bool IsColor() const				{ return IsType(VTYPE_color);		}
 	inline bool IsPalette() const			{ return IsType(VTYPE_palette);		}
@@ -419,6 +422,7 @@ public:
 	inline bool MustBeURI(Signal &sig) const		{ return MustBe(sig, IsURI(), 		"uri");			}
 	inline bool MustBeSemaphore(Signal &sig) const	{ return MustBe(sig, IsSemaphore(), "semaphore");	}
 	inline bool MustBeStruct(Signal &sig) const		{ return MustBe(sig, IsStruct(), 	"struct");		}
+	inline bool MustBeOperator(Signal &sig) const	{ return MustBe(sig, IsOperator(), 	"operator");	}
 	inline bool MustBeImage(Signal &sig) const		{ return MustBe(sig, IsImage(), 	"image");		}
 	inline bool MustBeColor(Signal &sig) const		{ return MustBe(sig, IsColor(), 	"color");		}
 	inline bool MustBePalette(Signal &sig) const	{ return MustBe(sig, IsPalette(), 	"palette");		}

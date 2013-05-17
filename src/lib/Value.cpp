@@ -38,6 +38,7 @@ ValueType VTYPE_environment		= static_cast<ValueType>(0);
 ValueType VTYPE_error			= static_cast<ValueType>(0);
 ValueType VTYPE_uri				= static_cast<ValueType>(0);
 ValueType VTYPE_semaphore		= static_cast<ValueType>(0);
+ValueType VTYPE_operator		= static_cast<ValueType>(0);
 ValueType VTYPE_image			= static_cast<ValueType>(0);
 ValueType VTYPE_color			= static_cast<ValueType>(0);
 ValueType VTYPE_palette			= static_cast<ValueType>(0);
@@ -138,6 +139,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(error);
 	Gura_RealizeVTYPE(uri);
 	Gura_RealizeVTYPE(semaphore);
+	Gura_RealizeVTYPE(operator);
 	Gura_RealizeVTYPE(image);
 	Gura_RealizeVTYPE(color);
 	Gura_RealizeVTYPE(palette);
@@ -183,6 +185,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(error	)->SetClass(new Class_error(pClass));
 	Gura_VTYPEInfo(uri		)->SetClass(new Class_uri(pClass));
 	Gura_VTYPEInfo(semaphore)->SetClass(new Class_semaphore(pClass));
+	Gura_VTYPEInfo(operator	)->SetClass(new Class_operator(pClass));
 	Gura_VTYPEInfo(image	)->SetClass(new Class_image(pClass));
 	Gura_VTYPEInfo(color	)->SetClass(new Class_color(pClass));
 	Gura_VTYPEInfo(palette	)->SetClass(new Class_palette(pClass));
@@ -216,6 +219,7 @@ void ValueTypePool::OnModuleEntry(Environment &env, Signal sig)
 	Class_error::OnModuleEntry(env, sig);
 	Class_uri::OnModuleEntry(env, sig);
 	Class_semaphore::OnModuleEntry(env, sig);
+	Class_operator::OnModuleEntry(env, sig);
 	Class_image::OnModuleEntry(env, sig);
 	Class_color::OnModuleEntry(env, sig);
 	Class_palette::OnModuleEntry(env, sig);

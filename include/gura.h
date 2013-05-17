@@ -59,6 +59,7 @@
 #include "gura/Object_error.h"
 #include "gura/Object_uri.h"
 #include "gura/Object_semaphore.h"
+#include "gura/Object_operator.h"
 #include "gura/Object_image.h"
 #include "gura/Object_color.h"
 #include "gura/Object_palette.h"

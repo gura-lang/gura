@@ -221,6 +221,7 @@
     <ClCompile Include="Object_error.cpp" />
     <ClCompile Include="Object_expr.cpp" />
     <ClCompile Include="Object_function.cpp" />
+    <ClCompile Include="Object_operator.cpp" />
     <ClCompile Include="Object_image.cpp" />
     <ClCompile Include="Object_iterator.cpp" />
     <ClCompile Include="Object_list.cpp" />
@@ -293,6 +294,7 @@
     <ClInclude Include="..\..\include\gura\Object_error.h" />
     <ClInclude Include="..\..\include\gura\Object_expr.h" />
     <ClInclude Include="..\..\include\gura\Object_function.h" />
+    <ClInclude Include="..\..\include\gura\Object_operator.h" />
     <ClInclude Include="..\..\include\gura\Object_image.h" />
     <ClInclude Include="..\..\include\gura\Object_iterator.h" />
     <ClInclude Include="..\..\include\gura\Object_list.h" />
