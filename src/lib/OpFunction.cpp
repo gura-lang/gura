@@ -52,7 +52,8 @@ FuncUnaryOperator::FuncUnaryOperator(Environment &env, const Symbol *pSymbol,
 Value FuncUnaryOperator::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &value = args.GetValue(0);
-	return Operator::EvalUnary(env, sig, GetOpType(), value);
+	const Operator *pOperator = env.GetGlobal()->GetOperator(GetOpType());
+	return pOperator->EvalUnary(env, sig, value);
 }
 
 Expr *FuncUnaryOperator::DiffUnary(Environment &env, Signal sig,
@@ -85,7 +86,8 @@ Value FuncBinaryOperator::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
-	return Operator::EvalBinary(env, sig, GetOpType(), valueLeft, valueRight);
+	const Operator *pOperator = env.GetGlobal()->GetOperator(GetOpType());
+	return pOperator->EvalBinary(env, sig, valueLeft, valueRight);
 }
 
 Expr *FuncBinaryOperator::DiffBinary(Environment &env, Signal sig,

@@ -109,24 +109,22 @@ Expr *Operator::OptimizeBinary(Environment &env, Signal sig,
 	return NULL;
 }
 
-Value Operator::EvalUnary(Environment &env, Signal sig, OpType opType, const Value &value)
+Value Operator::EvalUnary(Environment &env, Signal sig, const Value &value) const
 {
-	Operator *pOperator = env.GetGlobal()->GetOperator(opType);
-	const OperatorEntry *pOperatorEntry = pOperator->Lookup(value.GetValueType());
+	const OperatorEntry *pOperatorEntry = Lookup(value.GetValueType());
 	if (pOperatorEntry == NULL) {
-		SetError_InvalidValueType(sig, opType, value);
+		SetError_InvalidValueType(sig, GetOpType(), value);
 		return Value::Null;
 	}
 	return pOperatorEntry->DoEval(env, sig, value);
 }
 
-Value Operator::EvalBinary(Environment &env, Signal sig, OpType opType, const Value &valueLeft, const Value &valueRight)
+Value Operator::EvalBinary(Environment &env, Signal sig, const Value &valueLeft, const Value &valueRight) const
 {
-	Operator *pOperator = env.GetGlobal()->GetOperator(opType);
-	const OperatorEntry *pOperatorEntry = pOperator->Lookup(
-						valueLeft.GetValueType(), valueRight.GetValueType());
+	const OperatorEntry *pOperatorEntry =
+					Lookup(valueLeft.GetValueType(), valueRight.GetValueType());
 	if (pOperatorEntry == NULL) {
-		SetError_InvalidValueType(sig, opType, valueLeft, valueRight);
+		SetError_InvalidValueType(sig, GetOpType(), valueLeft, valueRight);
 		return Value::Null;
 	}
 	return pOperatorEntry->DoEval(env, sig, valueLeft, valueRight);

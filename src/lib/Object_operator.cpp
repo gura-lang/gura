@@ -66,19 +66,42 @@ String Object_operator::ToString(Signal sig, bool exprFlag)
 bool Object_operator::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	//symbols.insert(Gura_Symbol(red));
+	symbols.insert(Gura_Symbol(symbol));
 	return true;
 }
 
 Value Object_operator::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
+		return Value(Symbol::Add(GetMathSymbol()));
+	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
 Value Object_operator::DoCall(Environment &env, Signal sig, Args &args)
 {
+	size_t nArgs = args.CountArgs();
+	if (nArgs == 1) {
+		if (_opTypeUnary == OPTYPE_None) {
+			sig.SetError(ERR_ArgumentError,
+					"operator '%s' is not a unary one", GetMathSymbol());
+			return Value::Null;
+		}
+		const Operator *pOperator = GetGlobal()->GetOperator(_opTypeUnary);
+		return pOperator->EvalUnary(env, sig, args.GetValue(0));
+	} else if (nArgs == 2) {
+		if (_opTypeBinary == OPTYPE_None) {
+			sig.SetError(ERR_ArgumentError,
+					"operator '%s' is not a binary one", GetMathSymbol());
+			return Value::Null;
+		}
+		const Operator *pOperator = GetGlobal()->GetOperator(_opTypeBinary);
+		return pOperator->EvalBinary(env, sig, args.GetValue(0), args.GetValue(1));
+	}
+	sig.SetError(ERR_ArgumentError, "operator must take one or two arguments");
 	return Value::Null;
 }
 

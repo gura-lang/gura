@@ -90,6 +90,7 @@ private:
 	static const char *_mathSymbolTbl[];
 public:
 	inline Operator(OpType opType) : _opType(opType) {}
+	inline OpType GetOpType() const { return _opType; }
 	inline Map &GetMap() { return _map; }
 	inline const Map &GetMap() const { return _map; }
 	inline const char *GetMathSymbol() const { return _mathSymbolTbl[_opType]; }
@@ -116,9 +117,9 @@ public:
 									Expr *pExprOpt1, Expr *pExprOpt2) const;
 	static OpType LookupUnaryOpType(const char *str);
 	static OpType LookupBinaryOpType(const char *str);
-	static Value EvalUnary(Environment &env, Signal sig, OpType opType, const Value &value);
-	static Value EvalBinary(Environment &env, Signal sig, OpType opType,
-					const Value &valueLeft, const Value &valueRight);
+	Value EvalUnary(Environment &env, Signal sig, const Value &value) const;
+	Value EvalBinary(Environment &env, Signal sig,
+					const Value &valueLeft, const Value &valueRight) const;
 };
 
 //-----------------------------------------------------------------------------
