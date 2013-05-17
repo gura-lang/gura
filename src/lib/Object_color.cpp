@@ -807,22 +807,19 @@ bool Object_color::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 Value Object_color::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(red))) {
-		evaluatedFlag = true;
 		return Value(_color.GetRed());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(green))) {
-		evaluatedFlag = true;
 		return Value(_color.GetGreen());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(blue))) {
-		evaluatedFlag = true;
 		return Value(_color.GetBlue());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(alpha))) {
-		evaluatedFlag = true;
 		return Value(_color.GetAlpha());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(gray))) {
-		evaluatedFlag = true;
 		return Value(_color.GetGray());
 	}
+	evaluatedFlag = false;
 	return Value::Null;
 }
 

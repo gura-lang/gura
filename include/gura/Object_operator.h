@@ -30,6 +30,10 @@ public:
 	Object_operator(const Object_operator &obj);
 	virtual ~Object_operator();
 	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoCall(Environment &env, Signal sig, Args &args);
 	virtual String ToString(Signal sig, bool exprFlag);
 	const char *GetMathSymbol() const;
 	inline OpType GetUnaryOpType() const { return _opTypeUnary; }
