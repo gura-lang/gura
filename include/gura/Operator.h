@@ -92,6 +92,7 @@ public:
 	inline Operator(OpType opType) : _opType(opType) {}
 	inline Map &GetMap() { return _map; }
 	inline const Map &GetMap() const { return _map; }
+	inline const char *GetMathSymbol() const { return _mathSymbolTbl[_opType]; }
 	inline static const char *GetMathSymbol(OpType opType) { return _mathSymbolTbl[opType]; }
 	inline static Key CalcKey(ValueType valType) {
 		return static_cast<Key>(valType);

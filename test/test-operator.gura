@@ -13,33 +13,33 @@ scope {
 			a = 3
 		}
 	}
-	operator.assign(`+, `A) {|v| printf('+%s\n', typename(v)):nomap }
-	operator.assign(`-, `A) {|v| printf('-%s\n', typename(v)):nomap }
-	operator.assign(`~, `A) {|v| printf('~%s\n', typename(v)):nomap }
-	operator.assign(`!, `A) {|v| printf('!%s\n', typename(v)):nomap }
-	operator.assign(`.., `A) {|v| printf('%s..\n', typename(v)):nomap }
-	operator.assign(`+, `A, `A) {|v1, v2| printf('%s + %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`-, `A, `A) {|v1, v2| printf('%s - %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`*, `A, `A) {|v1, v2| printf('%s * %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`/, `A, `A) {|v1, v2| printf('%s / %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`%, `A, `A) {|v1, v2| printf('%s %% %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`**, `A, `A) {|v1, v2| printf('%s ** %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`==, `A, `A) {|v1, v2| printf('%s == %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`!=, `A, `A) {|v1, v2| printf('%s != %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`>, `A, `A) {|v1, v2| printf('%s > %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`<, `A, `A) {|v1, v2| printf('%s < %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`>=, `A, `A) {|v1, v2| printf('%s >= %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`<=, `A, `A) {|v1, v2| printf('%s <= %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`<=>, `A, `A) {|v1, v2| printf('%s <=> %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`in, `A, `A) {|v1, v2| printf('%s in %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`|, `A, `A) {|v1, v2| printf('%s | %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`&, `A, `A) {|v1, v2| printf('%s & %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`^, `A, `A) {|v1, v2| printf('%s ^ %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`<<, `A, `A) {|v1, v2| printf('%s << %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`>>, `A, `A) {|v1, v2| printf('%s >> %s\n', typename(v1), typename(v2)):nomap }
-	//operator.assign(`||, `A, `A) {|v1, v2| printf('%s || %s\n', typename(v1), typename(v2)):nomap }
-	//operator.assign(`&&, `A, `A) {|v1, v2| printf('%s && %s\n', typename(v1), typename(v2)):nomap }
-	operator.assign(`.., `A, `A) {|v1, v2| printf('%s .. %s\n', typename(v1), typename(v2)):nomap }
+	operator(`+).assign(`A) {|v| printf('+%s\n', typename(v)):nomap }
+	operator(`-).assign(`A) {|v| printf('-%s\n', typename(v)):nomap }
+	operator(`~).assign(`A) {|v| printf('~%s\n', typename(v)):nomap }
+	operator(`!).assign(`A) {|v| printf('!%s\n', typename(v)):nomap }
+	operator(`..).assign(`A) {|v| printf('%s..\n', typename(v)):nomap }
+	operator(`+).assign(`A, `A) {|v1, v2| printf('%s + %s\n', typename(v1), typename(v2)):nomap }
+	operator(`-).assign(`A, `A) {|v1, v2| printf('%s - %s\n', typename(v1), typename(v2)):nomap }
+	operator(`*).assign(`A, `A) {|v1, v2| printf('%s * %s\n', typename(v1), typename(v2)):nomap }
+	operator(`/).assign(`A, `A) {|v1, v2| printf('%s / %s\n', typename(v1), typename(v2)):nomap }
+	operator(`%).assign(`A, `A) {|v1, v2| printf('%s %% %s\n', typename(v1), typename(v2)):nomap }
+	operator(`**).assign(`A, `A) {|v1, v2| printf('%s ** %s\n', typename(v1), typename(v2)):nomap }
+	operator(`==).assign(`A, `A) {|v1, v2| printf('%s == %s\n', typename(v1), typename(v2)):nomap }
+	operator(`!=).assign(`A, `A) {|v1, v2| printf('%s != %s\n', typename(v1), typename(v2)):nomap }
+	operator(`>).assign(`A, `A) {|v1, v2| printf('%s > %s\n', typename(v1), typename(v2)):nomap }
+	operator(`<).assign(`A, `A) {|v1, v2| printf('%s < %s\n', typename(v1), typename(v2)):nomap }
+	operator(`>=).assign(`A, `A) {|v1, v2| printf('%s >= %s\n', typename(v1), typename(v2)):nomap }
+	operator(`<=).assign(`A, `A) {|v1, v2| printf('%s <= %s\n', typename(v1), typename(v2)):nomap }
+	operator(`<=>).assign(`A, `A) {|v1, v2| printf('%s <=> %s\n', typename(v1), typename(v2)):nomap }
+	operator(`in).assign(`A, `A) {|v1, v2| printf('%s in %s\n', typename(v1), typename(v2)):nomap }
+	operator(`|).assign(`A, `A) {|v1, v2| printf('%s | %s\n', typename(v1), typename(v2)):nomap }
+	operator(`&).assign(`A, `A) {|v1, v2| printf('%s & %s\n', typename(v1), typename(v2)):nomap }
+	operator(`^).assign(`A, `A) {|v1, v2| printf('%s ^ %s\n', typename(v1), typename(v2)):nomap }
+	operator(`<<).assign(`A, `A) {|v1, v2| printf('%s << %s\n', typename(v1), typename(v2)):nomap }
+	operator(`>>).assign(`A, `A) {|v1, v2| printf('%s >> %s\n', typename(v1), typename(v2)):nomap }
+	//operator(`||).assign(`A, `A) {|v1, v2| printf('%s || %s\n', typename(v1), typename(v2)):nomap }
+	//operator(`&&).assign(`A, `A) {|v1, v2| printf('%s && %s\n', typename(v1), typename(v2)):nomap }
+	operator(`..).assign(`A, `A) {|v1, v2| printf('%s .. %s\n', typename(v1), typename(v2)):nomap }
 	a1 = A()
 	a2 = A()
 	+a1
@@ -135,39 +135,39 @@ scope {
 		__init__(name:string) = { this.cnt = 0, this.name = name }
 		__str__() = format('name = %s, cnt = %d', this.name, this.cnt)
 	}
-	operator.assign(`+, `Fruit) {|v| format('+%s', typename(v)):nomap }
-	operator.assign(`-, `Fruit) {|v| format('-%s', typename(v)):nomap }
-	operator.assign(`~, `Fruit) {|v| format('~%s', typename(v)):nomap }
-	operator.assign(`!, `Fruit) {|v| format('!%s', typename(v)):nomap }
-	operator.assign(`.., `Fruit) {|v| format('%s..', typename(v)):nomap }
-	operator.assign(`+, `Fruit, `any) {|v1, v2| format('%s + %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`-, `Fruit, `any) {|v1, v2| format('%s - %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`*, `Fruit, `any) {|v1, v2| format('%s * %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`/, `Fruit, `any) {|v1, v2| format('%s / %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`%, `Fruit, `any) {|v1, v2| format('%s %% %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`**, `Fruit, `any) {|v1, v2| format('%s ** %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`+, `any, `Fruit) {|v1, v2| format('%s + %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`-, `any, `Fruit) {|v1, v2| format('%s - %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`*, `any, `Fruit) {|v1, v2| format('%s * %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`/, `any, `Fruit) {|v1, v2| format('%s / %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`%, `any, `Fruit) {|v1, v2| format('%s %% %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`**, `any, `Fruit) {|v1, v2| format('%s ** %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`==, `Fruit, `any) {|v1, v2| format('%s == %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`!=, `Fruit, `any) {|v1, v2| format('%s != %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`>, `Fruit, `any) {|v1, v2| format('%s > %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`<, `Fruit, `any) {|v1, v2| format('%s < %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`>=, `Fruit, `any) {|v1, v2| format('%s >= %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`<=, `Fruit, `any) {|v1, v2| format('%s <= %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`<=>, `Fruit, `any) {|v1, v2| format('%s <=> %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`in, `Fruit, `any) {|v1, v2| format('%s in %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`|, `Fruit, `any) {|v1, v2| format('%s | %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`&, `Fruit, `any) {|v1, v2| format('%s & %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`^, `Fruit, `any) {|v1, v2| format('%s ^ %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`<<, `Fruit, `any) {|v1, v2| format('%s << %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`>>, `Fruit, `any) {|v1, v2| format('%s >> %s', typename(v1), typename(v2)):nomap }
-	//operator.assign(`||, `Fruit, `any) {|v1, v2| format('%s || %s', typename(v1), typename(v2)):nomap }
-	//operator.assign(`&&, `Fruit, `any) {|v1, v2| format('%s && %s', typename(v1), typename(v2)):nomap }
-	operator.assign(`.., `Fruit, `any) {|v1, v2| format('%s .. %s', typename(v1), typename(v2)):nomap }
+	operator(`+).assign(`Fruit) {|v| format('+%s', typename(v)):nomap }
+	operator(`-).assign(`Fruit) {|v| format('-%s', typename(v)):nomap }
+	operator(`~).assign(`Fruit) {|v| format('~%s', typename(v)):nomap }
+	operator(`!).assign(`Fruit) {|v| format('!%s', typename(v)):nomap }
+	operator(`..).assign(`Fruit) {|v| format('%s..', typename(v)):nomap }
+	operator(`+).assign(`Fruit, `any) {|v1, v2| format('%s + %s', typename(v1), typename(v2)):nomap }
+	operator(`-).assign(`Fruit, `any) {|v1, v2| format('%s - %s', typename(v1), typename(v2)):nomap }
+	operator(`*).assign(`Fruit, `any) {|v1, v2| format('%s * %s', typename(v1), typename(v2)):nomap }
+	operator(`/).assign(`Fruit, `any) {|v1, v2| format('%s / %s', typename(v1), typename(v2)):nomap }
+	operator(`%).assign(`Fruit, `any) {|v1, v2| format('%s %% %s', typename(v1), typename(v2)):nomap }
+	operator(`**).assign(`Fruit, `any) {|v1, v2| format('%s ** %s', typename(v1), typename(v2)):nomap }
+	operator(`+).assign(`any, `Fruit) {|v1, v2| format('%s + %s', typename(v1), typename(v2)):nomap }
+	operator(`-).assign(`any, `Fruit) {|v1, v2| format('%s - %s', typename(v1), typename(v2)):nomap }
+	operator(`*).assign(`any, `Fruit) {|v1, v2| format('%s * %s', typename(v1), typename(v2)):nomap }
+	operator(`/).assign(`any, `Fruit) {|v1, v2| format('%s / %s', typename(v1), typename(v2)):nomap }
+	operator(`%).assign(`any, `Fruit) {|v1, v2| format('%s %% %s', typename(v1), typename(v2)):nomap }
+	operator(`**).assign(`any, `Fruit) {|v1, v2| format('%s ** %s', typename(v1), typename(v2)):nomap }
+	operator(`==).assign(`Fruit, `any) {|v1, v2| format('%s == %s', typename(v1), typename(v2)):nomap }
+	operator(`!=).assign(`Fruit, `any) {|v1, v2| format('%s != %s', typename(v1), typename(v2)):nomap }
+	operator(`>).assign(`Fruit, `any) {|v1, v2| format('%s > %s', typename(v1), typename(v2)):nomap }
+	operator(`<).assign(`Fruit, `any) {|v1, v2| format('%s < %s', typename(v1), typename(v2)):nomap }
+	operator(`>=).assign(`Fruit, `any) {|v1, v2| format('%s >= %s', typename(v1), typename(v2)):nomap }
+	operator(`<=).assign(`Fruit, `any) {|v1, v2| format('%s <= %s', typename(v1), typename(v2)):nomap }
+	operator(`<=>).assign(`Fruit, `any) {|v1, v2| format('%s <=> %s', typename(v1), typename(v2)):nomap }
+	operator(`in).assign(`Fruit, `any) {|v1, v2| format('%s in %s', typename(v1), typename(v2)):nomap }
+	operator(`|).assign(`Fruit, `any) {|v1, v2| format('%s | %s', typename(v1), typename(v2)):nomap }
+	operator(`&).assign(`Fruit, `any) {|v1, v2| format('%s & %s', typename(v1), typename(v2)):nomap }
+	operator(`^).assign(`Fruit, `any) {|v1, v2| format('%s ^ %s', typename(v1), typename(v2)):nomap }
+	operator(`<<).assign(`Fruit, `any) {|v1, v2| format('%s << %s', typename(v1), typename(v2)):nomap }
+	operator(`>>).assign(`Fruit, `any) {|v1, v2| format('%s >> %s', typename(v1), typename(v2)):nomap }
+	//operator(`||).assign(`Fruit, `any) {|v1, v2| format('%s || %s', typename(v1), typename(v2)):nomap }
+	//operator(`&&).assign(`Fruit, `any) {|v1, v2| format('%s && %s', typename(v1), typename(v2)):nomap }
+	operator(`..).assign(`Fruit, `any) {|v1, v2| format('%s .. %s', typename(v1), typename(v2)):nomap }
 	fruit = Fruit('apple')
 	println(fruit)
 	println(fruit + 3)

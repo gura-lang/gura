@@ -41,7 +41,7 @@ Value CustomOperatorEntry::DoEval(Environment &env, Signal sig,
 // Object_operator
 //-----------------------------------------------------------------------------
 Object_operator::Object_operator(const Object_operator &obj) :
-										Object(obj), _opType(obj._opType)
+	Object(obj), _opTypeUnary(obj._opTypeUnary), _opTypeBinary(obj._opTypeBinary)
 {
 }
 
@@ -58,8 +58,16 @@ String Object_operator::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
 	rtn += "<operator:";
+	rtn += GetMathSymbol();
 	rtn += ">";
 	return rtn;
+}
+
+const char *Object_operator::GetMathSymbol() const
+{
+	const Operator *pOperator = GetGlobal()->GetOperator(
+			(_opTypeUnary != OPTYPE_None)? _opTypeUnary : _opTypeBinary);
+	return pOperator->GetMathSymbol();
 }
 
 //-----------------------------------------------------------------------------
@@ -79,57 +87,57 @@ Gura_DeclareFunctionAlias(operator_, "operator")
 Gura_ImplementFunction(operator_)
 {
 	const Symbol *pSymbolOp = args.GetSymbol(0);
-	OpType opType = Operator::LookupBinaryOpType(pSymbolOp->GetName());
-	if (opType == OPTYPE_None) {
+	OpType opTypeUnary = Operator::LookupUnaryOpType(pSymbolOp->GetName());
+	OpType opTypeBinary = Operator::LookupBinaryOpType(pSymbolOp->GetName());
+	if (opTypeUnary == OPTYPE_None && opTypeBinary == OPTYPE_None) {
 		sig.SetError(ERR_ValueError,
-			"invalid symbol for binary operator: '%s'", pSymbolOp->GetName());
+			"invalid symbol for operator: '%s'", pSymbolOp->GetName());
 		return Value::Null;
 	}
-	Object_operator *pObj = new Object_operator(env, opType);
+	Object_operator *pObj = new Object_operator(env, opTypeUnary, opTypeBinary);
 	return ReturnValue(env, sig, args, Value(pObj));
 }
 
-// operator.assign(op:symbol, type_l:expr, type_r?:expr):map:void {block}
-Gura_DeclareClassMethod(operator, assign)
+// operator#assign(type_l:expr, type_r?:expr):map:void {block}
+Gura_DeclareMethod(operator, assign)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "op", VTYPE_symbol);
 	DeclareArg(env, "type_l", VTYPE_expr);
 	DeclareArg(env, "type_r", VTYPE_expr, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_Once);
 }
 
-Gura_ImplementClassMethod(operator, assign)
+Gura_ImplementMethod(operator, assign)
 {
+	Object_operator *pThis = Object_operator::GetThisObj(args);
 	const Function *pFuncBlock =
 					args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
-	const Symbol *pSymbolOp = args.GetSymbol(0);
 	CustomOperatorEntry *pOperatorEntry = NULL;
-	if (args.IsValid(2)) {
+	if (args.IsValid(1)) {
 		// assign binary operator
-		OpType opType = Operator::LookupBinaryOpType(pSymbolOp->GetName());
+		OpType opType = pThis->GetBinaryOpType();
 		if (opType == OPTYPE_None) {
 			sig.SetError(ERR_ValueError,
-				"invalid symbol for binary operator: '%s'", pSymbolOp->GetName());
+				"operator '%s' is not a binary one", pThis->GetMathSymbol());
 			return Value::Null;
 		}
-		const ValueTypeInfo *pValueTypeInfoL = env.LookupValueType(sig, args.GetExpr(1));
+		const ValueTypeInfo *pValueTypeInfoL = env.LookupValueType(sig, args.GetExpr(0));
 		if (pValueTypeInfoL == NULL) return Value::Null;
-		const ValueTypeInfo *pValueTypeInfoR = env.LookupValueType(sig, args.GetExpr(2));
+		const ValueTypeInfo *pValueTypeInfoR = env.LookupValueType(sig, args.GetExpr(1));
 		if (pValueTypeInfoR == NULL) return Value::Null;
 		pOperatorEntry = new CustomOperatorEntry(opType,
 				pValueTypeInfoL->GetValueType(), pValueTypeInfoR->GetValueType(), 
 				Function::Reference(pFuncBlock));
 	} else {
 		// assign unary operator
-		OpType opType = Operator::LookupUnaryOpType(pSymbolOp->GetName());
+		OpType opType = pThis->GetUnaryOpType();
 		if (opType == OPTYPE_None) {
 			sig.SetError(ERR_ValueError,
-				"invalid symbol for unary operator: '%s'", pSymbolOp->GetName());
+				"operator '%s' is not a unary one", pThis->GetMathSymbol());
 			return Value::Null;
 		}
-		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetExpr(1));
+		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetExpr(0));
 		if (pValueTypeInfo == NULL) return Value::Null;
 		pOperatorEntry = new CustomOperatorEntry(opType,
 				pValueTypeInfo->GetValueType(), Function::Reference(pFuncBlock));
