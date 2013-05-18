@@ -7,45 +7,10 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// CustomOperatorEntry
-//-----------------------------------------------------------------------------
-class CustomOperatorEntry : public OperatorEntry {
-private:
-	AutoPtr<Function> _pFunc;
-public:
-	inline CustomOperatorEntry(OpType opType, ValueType valType, Function *pFunc) :
-					OperatorEntry(opType, valType), _pFunc(pFunc) {}
-	inline CustomOperatorEntry(OpType opType, ValueType valTypeL, ValueType valTypeR, Function *pFunc) :
-					OperatorEntry(opType, valTypeL, valTypeR), _pFunc(pFunc) {}
-	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const;
-	virtual Value DoEval(Environment &env, Signal sig,
-				const Value &valueLeft, const Value &valueRight) const;
-};
-
-Value CustomOperatorEntry::DoEval(Environment &env, Signal sig, const Value &value) const
-{
-	ValueList valListArg(value);
-	Args args(valListArg);
-	return _pFunc->Eval(env, sig, args);
-}
-
-Value CustomOperatorEntry::DoEval(Environment &env, Signal sig,
-					const Value &valueLeft, const Value &valueRight) const
-{
-	ValueList valListArg(valueLeft, valueRight);
-	Args args(valListArg);
-	return _pFunc->Eval(env, sig, args);
-}
-
-//-----------------------------------------------------------------------------
 // Object_operator
 //-----------------------------------------------------------------------------
 Object_operator::Object_operator(const Object_operator &obj) :
 	Object(obj), _opTypeUnary(obj._opTypeUnary), _opTypeBinary(obj._opTypeBinary)
-{
-}
-
-Object_operator::~Object_operator()
 {
 }
 
@@ -205,6 +170,24 @@ Object *Class_operator::CreateDescendant(Environment &env, Signal sig, Class *pC
 void Class_operator::OnModuleEntry(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(operator_);
+}
+
+//-----------------------------------------------------------------------------
+// CustomOperatorEntry
+//-----------------------------------------------------------------------------
+Value CustomOperatorEntry::DoEval(Environment &env, Signal sig, const Value &value) const
+{
+	ValueList valListArg(value);
+	Args args(valListArg);
+	return _pFunc->Eval(env, sig, args);
+}
+
+Value CustomOperatorEntry::DoEval(Environment &env, Signal sig,
+					const Value &valueLeft, const Value &valueRight) const
+{
+	ValueList valListArg(valueLeft, valueRight);
+	Args args(valListArg);
+	return _pFunc->Eval(env, sig, args);
 }
 
 }
