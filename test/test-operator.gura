@@ -2,6 +2,14 @@
 import(testutil) {*}
 
 scope {
+	[`+, `-, `~, `!, `..].each {|op|
+		printf('%s %s\n', op, operator(op).entries(`unary)):nomap
+	}
+	[`+, `-, `*, `/, `%, `**, `==, `!=, `>, `<, `>=, `<=, `<=>, `in, `|, `&, `^, `<<, `>>, `||, `&&, `..].each {|op|
+		printf('%s %s\n', op, operator(op).entries(`binary)):nomap
+	}
+}
+scope {
 	A = class {
 		__getitem__(i) = println('__getitem__ ', i)				// a[i]
 		__getitemx__() = println('__getitemx__')				// a[]
