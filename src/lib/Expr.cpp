@@ -857,7 +857,7 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 		CustomClass *pClass = dynamic_cast<CustomClass *>(value.GetClass());
 		if (pClass->IsAnonymous()) {
 			ValueTypeInfo *pValueTypeInfo =
-								ValueTypePool::GetInstance()->Add(GetSymbol());
+							ValueTypePool::GetInstance()->Add(GetSymbol());
 			pValueTypeInfo->SetClass(Class::Reference(pClass));
 			env.AssignValueType(pValueTypeInfo);
 			Function *pFunc = pClass->PrepareConstructor(env, sig);
@@ -873,7 +873,7 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 		Class *pClassToConstruct = pFunc->GetClassToConstruct();
 		if (pClassToConstruct != NULL && pClassToConstruct->IsAnonymous()) {
 			ValueTypeInfo *pValueTypeInfo =
-								ValueTypePool::GetInstance()->Add(GetSymbol());
+							ValueTypePool::GetInstance()->Add(GetSymbol());
 			pValueTypeInfo->SetClass(pClassToConstruct);
 			env.AssignValueType(pValueTypeInfo);
 		}

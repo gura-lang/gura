@@ -1354,7 +1354,7 @@ Gura_Function(istype_)::Gura_Function(istype_)(
 	DeclareArg(env, "value", VTYPE_any);
 	char buff[1024];
 	::sprintf(buff, "Check if the type of the specified value is %s.",
-		ValueTypePool::GetInstance()->Lookup(_valType)->GetSymbol()->GetName());
+		ValueTypePool::GetInstance()->Lookup(_valType)->MakeFullName().c_str());
 	AddHelp(Gura_Symbol(en), buff);
 }
 
@@ -1433,16 +1433,20 @@ Gura_DeclareFunctionAlias(typename_, "typename")
 Gura_ImplementFunction(typename_)
 {
 	const Expr *pExpr = args.GetExpr(0);
-	const char *typeName = "unknown";
+	String typeName = "unknown";
 	if (pExpr->IsSymbol() || pExpr->IsMember()) {
 		Value value = pExpr->Exec(env, sig);
 		if (sig.IsSignalled() && !sig.IsError()) return Value::Null;
-		typeName = sig.IsError()? "undefined" : value.GetValueTypeName();
+		if (sig.IsError()) {
+			typeName = "undefined";
+		} else {
+			typeName = value.MakeValueTypeName();
+		}
 		sig.ClearSignal();
 	} else {
 		Value value = pExpr->Exec(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		typeName = value.GetValueTypeName();
+		typeName = value.MakeValueTypeName();
 	}
 	return Value(env, typeName);
 }

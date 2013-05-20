@@ -160,12 +160,46 @@ Gura_ImplementMethod(operator, assign)
 	return Value::Null;
 }
 
+// operator#dir()
+Gura_DeclareMethod(operator, dir)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(operator, dir)
+{
+	Object_operator *pThis = Object_operator::GetThisObj(args);
+	do {
+		OpType opType = pThis->GetUnaryOpType();
+		const Operator *pOperator = env.GetGlobal()->GetOperator(opType);
+		const Operator::Map &map = pOperator->GetMap();
+		foreach_const (Operator::Map, iter, map) {
+			Operator::Key key = iter->first;
+			ValueType valType = Operator::ExtractValueType(key);
+			
+		}
+	} while (0);
+	do {
+		OpType opType = pThis->GetBinaryOpType();
+		const Operator *pOperator = env.GetGlobal()->GetOperator(opType);
+		const Operator::Map &map = pOperator->GetMap();
+		foreach_const (Operator::Map, iter, map) {
+			Operator::Key key = iter->first;
+			ValueType valTypeLeft = Operator::ExtractValueTypeLeft(key);
+			ValueType valTypeRight = Operator::ExtractValueTypeRight(key);
+			
+		}
+	} while (0);
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // Classs implementation
 //-----------------------------------------------------------------------------
 Class_operator::Class_operator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_operator)
 {
 	Gura_AssignMethod(operator, assign);
+	Gura_AssignMethod(operator, dir);
 }
 
 Object *Class_operator::CreateDescendant(Environment &env, Signal sig, Class *pClass)

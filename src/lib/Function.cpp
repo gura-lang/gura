@@ -751,19 +751,19 @@ void Function::SetError_InvalidValue(Signal sig, const Value &value) const
 void Function::SetError_InvalidValue(Signal sig, const Value &value1, const Value &value2) const
 {
 	sig.SetError(ERR_TypeError, "can't evaluate %s(%s, %s)",
-				GetName(), value1.ToString(sig).c_str(), value2.GetValueTypeName());
+				GetName(), value1.ToString(sig).c_str(), value2.MakeValueTypeName().c_str());
 }
 
 void Function::SetError_InvalidValType(Signal sig, const Value &value) const
 {
 	sig.SetError(ERR_TypeError, "can't evaluate %s(%s)",
-				GetName(), value.GetValueTypeName());
+				GetName(), value.MakeValueTypeName().c_str());
 }
 
 void Function::SetError_InvalidValType(Signal sig, const Value &value1, const Value &value2) const
 {
 	sig.SetError(ERR_TypeError, "can't evaluate %s(%s, %s)",
-				GetName(), value1.GetValueTypeName(), value2.GetValueTypeName());
+				GetName(), value1.MakeValueTypeName().c_str(), value2.MakeValueTypeName().c_str());
 }
 
 void Function::SetError_InvalidFunctionExpression(Signal sig) const

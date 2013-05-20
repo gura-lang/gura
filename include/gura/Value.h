@@ -105,22 +105,26 @@ private:
 	ValueType _valType;
 	const Symbol *_pSymbol;
 	Class *_pClass;
+	const Module *_pModule;
 public:
 	inline ValueTypeInfo(ValueType valType, const Symbol *pSymbol, Class *pClass) :
-					_valType(valType), _pSymbol(pSymbol), _pClass(pClass) {}
+			_valType(valType), _pSymbol(pSymbol), _pClass(pClass), _pModule(NULL) {}
 	~ValueTypeInfo();
 	inline static void Delete(ValueTypeInfo *pValTypeInfo) { delete pValTypeInfo; }
+	inline void SetModule(const Module *pModule) { _pModule = pModule; }
+	inline const Module *GetModule() const { return _pModule; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline ValueType GetValueType() const { return _valType; }
 	inline Class *GetClass() const { return _pClass; }
 	void SetClass(Class *pClass);
+	String MakeFullName() const;
 };
 
 //-----------------------------------------------------------------------------
 // ValueTypeMap
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ValueTypeMap : public std::map<const Symbol *,
-						const ValueTypeInfo *, Symbol::KeyCompare_UniqNumber> {
+							ValueTypeInfo *, Symbol::KeyCompare_UniqNumber> {
 public:
 	static const ValueTypeMap Null;
 };
@@ -346,8 +350,8 @@ public:
 	inline ValueTypeInfo *GetValueTypeInfo() const {
 		return ValueTypePool::GetInstance()->Lookup(_valType);
 	}
-	inline const char *GetValueTypeName() const {
-		return ValueTypePool::GetInstance()->Lookup(_valType)->GetSymbol()->GetName();
+	inline String MakeValueTypeName() const {
+		return ValueTypePool::GetInstance()->Lookup(_valType)->MakeFullName();
 	}
 	inline bool IsType(ValueType valType) const { return _valType == valType;	}
 	inline bool IsObject() const			{ return _valType >= VTYPE_object && !GetTinyBuffFlag(); }

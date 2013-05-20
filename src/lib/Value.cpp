@@ -80,6 +80,11 @@ void ValueTypeInfo::SetClass(Class *pClass)
 	pClass->SetValueType(_valType);
 }
 
+String ValueTypeInfo::MakeFullName() const
+{
+	return _pSymbol->GetName();
+}
+
 //-----------------------------------------------------------------------------
 // ValueTypeMap
 //-----------------------------------------------------------------------------
@@ -464,7 +469,7 @@ Fundamental *Value::ExtractFundamental(Signal sig)
 		return pFund;
 	}
 	sig.SetError(ERR_ValueError,
-		"%s can not be specified as l-value of member", GetValueTypeName());
+		"%s can not be specified as l-value of member", MakeValueTypeName().c_str());
 	return NULL;
 }
 
@@ -619,7 +624,7 @@ Iterator *Value::CreateIterator(Signal sig) const
 		return _u.pObj->CreateIterator(sig);
 	}
 	sig.SetError(ERR_ValueError, "value of %s cannot generate iterator",
-														GetValueTypeName());
+											MakeValueTypeName().c_str());
 	return NULL;
 }
 

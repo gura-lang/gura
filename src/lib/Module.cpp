@@ -41,6 +41,12 @@ String Module::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
+void Module::AssignValueType(ValueTypeInfo *pValueTypeInfo)
+{
+	pValueTypeInfo->SetModule(this);
+	Environment::AssignValueType(pValueTypeInfo);
+}
+
 bool Module::DirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	foreach_const (ValueMap, iter, GetTopFrame()->GetValueMap()) {

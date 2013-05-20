@@ -241,7 +241,7 @@ public:
 		void AssignValue(const Symbol *pSymbol, const Value &value, unsigned long extra);
 		void RemoveValue(const Symbol *pSymbol);
 		ValueEx *LookupValue(const Symbol *pSymbol);
-		void AssignValueType(const ValueTypeInfo *pValueTypeInfo);
+		void AssignValueType(ValueTypeInfo *pValueTypeInfo);
 		const ValueTypeInfo *LookupValueType(const Symbol *pSymbol) const;
 		SymbolSet &PrepareSymbolsPublic();
 		void DbgPrint() const;
@@ -308,7 +308,7 @@ public:
 	}
 	Function *LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
 	CustomFunction *LookupCustomFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
-	void AssignValueType(const ValueTypeInfo *pValueTypeInfo);
+	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
 	const ValueTypeInfo *LookupValueType(const SymbolList &symbolList) const;
 	const ValueTypeInfo *LookupValueType(const Symbol *pSymbol) const;
 	const ValueTypeInfo *LookupValueType(Signal sig, const ValueList &valList);

@@ -102,6 +102,15 @@ public:
 		return static_cast<Key>((static_cast<unsigned long>(valTypeRight) << 16) +
 							static_cast<unsigned long>(valTypeLeft));
 	}
+	inline static ValueType ExtractValueType(Key key) {
+		return static_cast<ValueType>(static_cast<unsigned long>(key) & 0xffff);
+	}
+	inline static ValueType ExtractValueTypeLeft(Key key) {
+		return static_cast<ValueType>(static_cast<unsigned long>(key) & 0xffff);
+	}
+	inline static ValueType ExtractValueTypeRight(Key key) {
+		return static_cast<ValueType>((static_cast<unsigned long>(key) >> 16) & 0xffff);
+	}
 	static void SetError_InvalidValueType(Signal &sig, OpType opType, const Value &value);
 	static void SetError_InvalidValueType(Signal &sig, OpType opType,
 					const Value &valueLeft, const Value &valueRight);

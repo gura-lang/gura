@@ -123,6 +123,7 @@ public:
 	bool DirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	void DirValueType(SymbolSet &symbols) const;
 	virtual bool IsModule() const;
+	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
 	virtual Module *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 };

@@ -361,7 +361,7 @@ CustomFunction *Environment::LookupCustomFunction(const Symbol *pSymbol, EnvRefM
 						dynamic_cast<CustomFunction *>(pFunc) : NULL;
 }
 
-void Environment::AssignValueType(const ValueTypeInfo *pValueTypeInfo)
+void Environment::AssignValueType(ValueTypeInfo *pValueTypeInfo)
 {
 	GetTopFrame()->AssignValueType(pValueTypeInfo);
 }
@@ -671,7 +671,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
 	}
 	if (mixinTypeFlag) {
 		foreach_const (ValueTypeMap, iter, pModule->GetTopFrame()->GetValueTypeMap()) {
-			const ValueTypeInfo *pValueTypeInfo = iter->second;
+			ValueTypeInfo *pValueTypeInfo = iter->second;
 			AssignValueType(pValueTypeInfo);
 		}
 	}
@@ -1031,7 +1031,7 @@ ValueEx *Environment::Frame::LookupValue(const Symbol *pSymbol)
 	return (iter == _pValueMap->end())? NULL : &iter->second;
 }
 
-void Environment::Frame::AssignValueType(const ValueTypeInfo *pValueTypeInfo)
+void Environment::Frame::AssignValueType(ValueTypeInfo *pValueTypeInfo)
 {
 	if (_pValueTypeMap.get() == NULL) _pValueTypeMap.reset(new ValueTypeMap());
 	(*_pValueTypeMap)[pValueTypeInfo->GetSymbol()] = pValueTypeInfo;

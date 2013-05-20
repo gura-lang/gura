@@ -149,14 +149,14 @@ OpType Operator::LookupBinaryOpType(const char *str)
 void Operator::SetError_InvalidValueType(Signal &sig, OpType opType, const Value &value)
 {
 	sig.SetError(ERR_TypeError, "can't evaluate (%s %s)",
-							GetMathSymbol(opType), value.GetValueTypeName());
+					GetMathSymbol(opType), value.MakeValueTypeName().c_str());
 }
 
 void Operator::SetError_InvalidValueType(Signal &sig, OpType opType,
 						const Value &valueLeft, const Value &valueRight)
 {
 	sig.SetError(ERR_TypeError, "can't evaluate (%s %s %s)",
-		valueLeft.GetValueTypeName(), GetMathSymbol(opType), valueRight.GetValueTypeName());
+		valueLeft.MakeValueTypeName().c_str(), GetMathSymbol(opType), valueRight.MakeValueTypeName().c_str());
 }
 
 //-----------------------------------------------------------------------------

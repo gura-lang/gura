@@ -33,6 +33,7 @@ Declaration::Declaration(const Symbol *pSymbol, ValueType valType,
 
 Declaration::~Declaration()
 {
+	// virtual destructor
 }
 
 Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr)
@@ -185,7 +186,7 @@ done:
 void Declaration::SetError_ArgumentType(Signal sig, const Value &value) const
 {
 	sig.SetError(ERR_TypeError, "variable '%s' cannot take %s value in '%s'",
-				GetSymbol()->GetName(), value.GetValueTypeName(), ToString().c_str());
+				GetSymbol()->GetName(), value.MakeValueTypeName().c_str(), ToString().c_str());
 }
 
 void Declaration::SetError_ArgumentMustBeList(Signal sig, const Value &value) const
@@ -206,7 +207,7 @@ String Declaration::ToString() const
 	if (_valType != VTYPE_nil && _valType != VTYPE_undefined &&
 					_valType != VTYPE_any && _valType != VTYPE_quote) {
 		str += ":";
-		str += ValueTypePool::GetInstance()->Lookup(_valType)->GetSymbol()->GetName();
+		str += ValueTypePool::GetInstance()->Lookup(_valType)->MakeFullName();
 	}
 	if (GetNoMapFlag()) {
 		str += ":";
