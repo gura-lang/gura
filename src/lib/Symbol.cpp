@@ -155,6 +155,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbolAlias(except_,		"except");
 	Gura_RealizeSymbol(text);
 	Gura_RealizeSymbol(binary);
+	Gura_RealizeSymbol(unary);
 	Gura_RealizeSymbol(message);
 	Gura_RealizeSymbol(value);
 	Gura_RealizeSymbol(__init__);

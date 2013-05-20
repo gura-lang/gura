@@ -82,7 +82,21 @@ void ValueTypeInfo::SetClass(Class *pClass)
 
 String ValueTypeInfo::MakeFullName() const
 {
-	return _pSymbol->GetName();
+	String rtn;
+	if (_pModule != NULL) {
+		rtn += _pModule->GetName();
+		rtn += ".";
+	}
+	rtn += _pSymbol->GetName();
+	return rtn;
+}
+
+Expr *ValueTypeInfo::MakeExpr() const
+{
+	if (_pModule == NULL) {
+		return new Expr_Symbol(_pSymbol);
+	}
+	return new Expr_Member(_pModule->MakeExpr(), new Expr_Symbol(_pSymbol));
 }
 
 //-----------------------------------------------------------------------------

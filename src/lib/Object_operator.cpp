@@ -160,37 +160,55 @@ Gura_ImplementMethod(operator, assign)
 	return Value::Null;
 }
 
-// operator#dir()
-Gura_DeclareMethod(operator, dir)
+// operator#entries(type?:symbol)
+Gura_DeclareMethod(operator, entries)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "type", VTYPE_symbol, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(operator, dir)
+Gura_ImplementMethod(operator, entries)
 {
 	Object_operator *pThis = Object_operator::GetThisObj(args);
-	do {
-		OpType opType = pThis->GetUnaryOpType();
-		const Operator *pOperator = env.GetGlobal()->GetOperator(opType);
-		const Operator::Map &map = pOperator->GetMap();
-		foreach_const (Operator::Map, iter, map) {
-			Operator::Key key = iter->first;
-			ValueType valType = Operator::ExtractValueType(key);
-			
-		}
-	} while (0);
-	do {
+	Value rtn;
+	ValueList &valList = rtn.InitAsList(env);
+	if (args.IsInvalid(0) || args.GetSymbol(0)->IsIdentical(Gura_Symbol(binary))) {
 		OpType opType = pThis->GetBinaryOpType();
+		if (opType == OPTYPE_None) {
+			sig.SetError(ERR_ValueError,
+				"operator '%s' is not a binary one", pThis->GetMathSymbol());
+			return Value::Null;
+		}
 		const Operator *pOperator = env.GetGlobal()->GetOperator(opType);
 		const Operator::Map &map = pOperator->GetMap();
 		foreach_const (Operator::Map, iter, map) {
 			Operator::Key key = iter->first;
 			ValueType valTypeLeft = Operator::ExtractValueTypeLeft(key);
 			ValueType valTypeRight = Operator::ExtractValueTypeRight(key);
-			
+			Expr *pExprLeft = ValueTypePool::GetInstance()->Lookup(valTypeLeft)->MakeExpr();
+			Expr *pExprRight = ValueTypePool::GetInstance()->Lookup(valTypeRight)->MakeExpr();
+			valList.push_back(Value::CreateAsList(env, Value(env, pExprLeft), Value(env, pExprRight)));
 		}
-	} while (0);
-	return Value::Null;
+	} else if (args.GetSymbol(0)->IsIdentical(Gura_Symbol(unary))) {
+		OpType opType = pThis->GetUnaryOpType();
+		if (opType == OPTYPE_None) {
+			sig.SetError(ERR_ValueError,
+				"operator '%s' is not a unary one", pThis->GetMathSymbol());
+			return Value::Null;
+		}
+		const Operator *pOperator = env.GetGlobal()->GetOperator(opType);
+		const Operator::Map &map = pOperator->GetMap();
+		foreach_const (Operator::Map, iter, map) {
+			Operator::Key key = iter->first;
+			ValueType valType = Operator::ExtractValueType(key);
+			Expr *pExpr = ValueTypePool::GetInstance()->Lookup(valType)->MakeExpr();
+			valList.push_back(Value(env, pExpr));
+		}
+	} else {
+		sig.SetError(ERR_ValueError, "invalid symbol: %s", args.GetSymbol(0)->GetName());
+		return Value::Null;
+	}
+	return rtn;
 }
 
 //-----------------------------------------------------------------------------
@@ -199,7 +217,7 @@ Gura_ImplementMethod(operator, dir)
 Class_operator::Class_operator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_operator)
 {
 	Gura_AssignMethod(operator, assign);
-	Gura_AssignMethod(operator, dir);
+	Gura_AssignMethod(operator, entries);
 }
 
 Object *Class_operator::CreateDescendant(Environment &env, Signal sig, Class *pClass)

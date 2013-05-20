@@ -47,6 +47,11 @@ void Module::AssignValueType(ValueTypeInfo *pValueTypeInfo)
 	Environment::AssignValueType(pValueTypeInfo);
 }
 
+Expr *Module::MakeExpr() const
+{
+	return new Expr_Symbol(_pSymbol);
+}
+
 bool Module::DirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	foreach_const (ValueMap, iter, GetTopFrame()->GetValueMap()) {

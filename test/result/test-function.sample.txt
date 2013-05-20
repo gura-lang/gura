@@ -89,8 +89,8 @@ f(1 .. 10) .. [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 f(1 .. 10) .. ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 f(1 .. 10) .. [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 100
-expected error occurs: TypeError: variable 'm' cannot take number value in 'm:match'
-expected error occurs: TypeError: variable 'm' cannot take string value in 'm:match'
+expected error occurs: TypeError: variable 'm' cannot take number value in 'm:re.match'
+expected error occurs: TypeError: variable 'm' cannot take string value in 'm:re.match'
 f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) .. a=1 b=2 c=3 d=4 e=5 f=6 g=7 h=8 i=9 j=10 %{}
 f(1, 2, 3, [4 .. 10]*) .. a=1 b=2 c=3 d=4 e=5 f=6 g=7 h=8 i=9 j=10 %{}
 f(1, 2, 3, [4 .. 6]*, 7, 8, 9, 10) .. a=1 b=2 c=3 d=4 e=5 f=6 g=7 h=8 i=9 j=10 %{}

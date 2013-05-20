@@ -118,6 +118,7 @@ public:
 	inline Class *GetClass() const { return _pClass; }
 	void SetClass(Class *pClass);
 	String MakeFullName() const;
+	Expr *MakeExpr() const;
 };
 
 //-----------------------------------------------------------------------------
