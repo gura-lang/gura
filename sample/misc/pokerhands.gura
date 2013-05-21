@@ -1,0 +1,78 @@
+#!/usr/bin/env gura
+
+Card = struct(suit:symbol, rank:number) {
+	suits:public = [`spade, `heart, `diamond, `club]
+	ranks:public = [1..13]
+	suitMarks:public = %{
+		`spade => '$', `heart => '@', `diamond => '#', `club => '*'
+	}
+	rankMarks:public = %{
+		1 => 'A', 2 => '2', 3 => '3', 4 => '4', 5 => '5', 6 => '6', 7 => '7',
+		8 => '8', 9 => '9', 10 => '10', 11 => 'J', 12 => 'Q', 13 => 'K'
+	}
+	__str__() = format('%s%-2s', suitMarks[this.suit], rankMarks[this.rank])
+}
+Deck = class {
+	__init__() = {
+		this.cards:public = cross(suit in Card.suits, rank in Card.ranks):list {
+			Card(suit, rank)
+		}
+	}
+}
+list.equals() = (this == this[0]).and()
+CheckPokerHand(cards[]:Card) = {
+	cards = cards.sort(`ascend, cards::rank):list
+	flushFlag = cards::suit.equals()
+	pokerHand = if ((cards::rank == [1, 10, 11, 12, 13]).and()) {
+		cond(flushFlag, `RoyalStraightFlush, `Straight)
+	} elsif ([cards::rank - (0..)].equals()) {
+		cond(flushFlag, `StraightFlush, `Straight)
+	} elsif (cards[0..3]::rank.equals()) {
+		`FourOfKind
+	} elsif (cards[1..4]::rank.equals()) {
+		`FourOfKind
+	} elsif (cards[0, 1, 2]::rank.equals() && cards[3, 4]::rank.equals()) {
+		`FullHouse
+	} elsif (cards[0, 1]::rank.equals() && cards[2, 3, 4]::rank.equals()) {
+		`FullHouse
+	} elsif (cards[0, 1, 2]::rank.equals()) {
+		`ThreeOfKind
+	} elsif (cards[1, 2, 3]::rank.equals()) {
+		`ThreeOfKind
+	} elsif (cards[2, 3, 4]::rank.equals()) {
+		`ThreeOfKind
+	} elsif (flushFlag) {
+		`Flush
+	} else {
+		pairFlag1 = cards[0, 1]::rank.equals()
+		pairFlag2 = cards[1, 2]::rank.equals()
+		pairFlag3 = cards[2, 3]::rank.equals()
+		pairFlag4 = cards[3, 4]::rank.equals()
+		if (pairFlag1 && pairFlag3) {
+			`TwoPair
+		} elsif (pairFlag1 && pairFlag4) {
+			`TwoPair
+		} elsif (pairFlag2 && pairFlag4) {
+			`TwoPair
+		} elsif (pairFlag1 || pairFlag2 || pairFlag3 || pairFlag4) {
+			`OnePair
+		} else {
+			`none
+		}
+	}
+	[pokerHand, cards]
+}
+deck = Deck()
+/*
+deck.cards.combination(5) {|cards|
+	[pokerHand, cards] = CheckPokerHand(cards)
+	println(cards.join(' '), ' .. ', pokerHand)
+}
+*/
+randseed(time.clock())
+repeat(1000) {
+	cards = deck.cards.shuffle().head(5)
+	cards = cards.sort(`ascend, cards::rank)
+	[pokerHand, cards] = CheckPokerHand(cards)
+	println(cards.join(' '), ' .. ', pokerHand)
+}
