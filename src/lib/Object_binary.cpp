@@ -267,8 +267,8 @@ Gura_DeclareMethod(binary, pointer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "offset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	AddHelp(Gura_Symbol(en), 
-	"Returns a binaryptr instance that has an initial offset specified\n"
+	AddHelp(Gura_Symbol(en),
+	"Returns a pointer instance that has an initial offset specified\n"
 	"by the argument.");
 }
 
@@ -277,7 +277,7 @@ Gura_ImplementMethod(binary, pointer)
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	Object_binary *pObjBinary = Object_binary::Reference(pThis);
 	size_t offset = args.GetSizeT(0);
-	return Value(new Object_binaryptr(env, pObjBinary, offset));
+	return Value(new Object_pointer(env, pObjBinary, offset));
 }
 
 // binary.pack(format:string, value*):map
@@ -548,157 +548,6 @@ Object *Class_binary::CreateDescendant(Environment &env, Signal sig, Class *pCla
 void Class_binary::OnModuleEntry(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(binary);
-}
-
-//-----------------------------------------------------------------------------
-// Object_binaryptr
-//-----------------------------------------------------------------------------
-Object_binaryptr::~Object_binaryptr()
-{
-}
-
-Object *Object_binaryptr::Clone() const
-{
-	return new Object_binaryptr(*this);
-}
-
-String Object_binaryptr::ToString(Signal sig, bool exprFlag)
-{
-	char buff[64];
-	::sprintf(buff, "<binaryptr:%d>", static_cast<int>(_offset));
-	return String(buff);
-}
-
-bool Object_binaryptr::UnpackForward(Signal sig, int distance, bool exceedErrorFlag)
-{
-	return _pObjBinary->GetBinary().UnpackForward(sig, _offset, distance, exceedErrorFlag);
-}
-
-Value Object_binaryptr::Unpack(Signal sig,
-					bool forwardFlag, const char *format, bool exceedErrorFlag)
-{
-	Environment &env = *this;
-	size_t offset = _offset;
-	Value value = _pObjBinary->GetBinary().Unpack(env, sig, offset, format, exceedErrorFlag);
-	if (forwardFlag) _offset = offset;
-	return value;
-}
-
-bool Object_binaryptr::Pack(Signal sig,
-					bool forwardFlag, const char *format, const ValueList &valList)
-{
-	Environment &env = *this;
-	size_t offset = _offset;
-	if (!_pObjBinary->GetBinary().Pack(env, sig, offset, format, valList)) return false;
-	if (forwardFlag) _offset = offset;
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// Gura interfaces for Object_binaryptr
-//-----------------------------------------------------------------------------
-// binaryptr#reset()
-Gura_DeclareMethod(binaryptr, reset)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(binaryptr, reset)
-{
-	Object_binaryptr *pThis = Object_binaryptr::GetThisObj(args);
-	pThis->Reset();
-	return Value::Null;
-}
-
-// binaryptr#pack(format:string, value+):reduce:[stay]
-Gura_DeclareMethod(binaryptr, pack)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "value", VTYPE_any, OCCUR_OnceOrMore);
-	DeclareAttr(Gura_Symbol(stay));
-}
-
-Gura_ImplementMethod(binaryptr, pack)
-{
-	Object_binaryptr *pThis = Object_binaryptr::GetThisObj(args);
-	if (!pThis->IsWritable()) {
-		sig.SetError(ERR_ValueError, "not a writable binary");
-		return Value::Null;
-	}
-	bool forwardFlag = !args.IsSet(Gura_Symbol(stay));
-	pThis->Pack(sig, forwardFlag, args.GetString(0), args.GetList(1));
-	return args.GetThis();
-}
-
-// binaryptr#unpack(format:string):[stay]
-Gura_DeclareMethod(binaryptr, unpack)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "format", VTYPE_string);
-	DeclareAttr(Gura_Symbol(stay));
-}
-
-Gura_ImplementMethod(binaryptr, unpack)
-{
-	Object_binaryptr *pThis = Object_binaryptr::GetThisObj(args);
-	bool forwardFlag = !args.IsSet(Gura_Symbol(stay));
-	return pThis->Unpack(sig, forwardFlag, args.GetString(0), false);
-}
-
-// binaryptr#unpacks(format:string, cnt?:number)
-Gura_DeclareMethod(binaryptr, unpacks)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "cnt", VTYPE_number, OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(binaryptr, unpacks)
-{
-	Object_binaryptr *pThis = Object_binaryptr::GetThisObj(args);
-	Object_binary *pObj = Object_binary::Reference(pThis->GetBinaryObj());
-	const char *format = args.GetString(0);
-	int cntMax = args.IsNumber(1)? args.GetInt(1) : -1;
-	Iterator *pIterator =
-		new Object_binary::IteratorUnpack(pObj, format, pThis->GetOffset(), cntMax);
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
-// binaryptr#forward(distance:number):reduce
-Gura_DeclareMethod(binaryptr, forward)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "distance", VTYPE_number);
-}
-
-Gura_ImplementMethod(binaryptr, forward)
-{
-	Object_binaryptr *pThis = Object_binaryptr::GetThisObj(args);
-	bool exeedErrorFlag = true;
-	pThis->UnpackForward(sig, args.GetInt(0), exeedErrorFlag);
-	return args.GetThis();
-}
-
-//-----------------------------------------------------------------------------
-// Classs implementation
-//-----------------------------------------------------------------------------
-Class_binaryptr::Class_binaryptr(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_binaryptr)
-{
-	Gura_AssignMethod(binaryptr, reset);
-	Gura_AssignMethod(binaryptr, pack);
-	Gura_AssignMethod(binaryptr, unpack);
-	Gura_AssignMethod(binaryptr, unpacks);
-	Gura_AssignMethod(binaryptr, forward);
-}
-
-Object *Class_binaryptr::CreateDescendant(Environment &env, Signal sig, Class *pClass)
-{
-	return NULL;
-}
-
-void Class_binaryptr::OnModuleEntry(Environment &env, Signal sig)
-{
 }
 
 //-----------------------------------------------------------------------------

@@ -78,47 +78,6 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class_binaryptr / Object_binaryptr
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_binaryptr : public Class {
-public:
-	Class_binaryptr(Environment *pEnvOuter);
-	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	static void OnModuleEntry(Environment &env, Signal sig);
-};
-
-class GURA_DLLDECLARE Object_binaryptr : public Object {
-public:
-	Gura_DeclareObjectAccessor(binaryptr)
-private:
-	AutoPtr<Object_binary> _pObjBinary;
-	size_t _offset;
-public:
-	inline Object_binaryptr(Class *pClass, Object_binary *pObjBinary, size_t offset) :
-		Object(pClass), _pObjBinary(pObjBinary), _offset(offset) {}
-	inline Object_binaryptr(Environment &env, Object_binary *pObjBinary, size_t offset) :
-		Object(env.LookupClass(VTYPE_binaryptr)), _pObjBinary(pObjBinary), _offset(offset) {}
-	inline Object_binaryptr(const Object_binaryptr &obj) :
-		Object(obj), _pObjBinary(dynamic_cast<Object_binary *>(Object::Reference(obj.GetBinaryObj()))),
-		_offset(obj._offset) {}
-	virtual ~Object_binaryptr();
-	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
-	inline Object_binary *GetBinaryObj() { return _pObjBinary.get(); }
-	inline const Object_binary *GetBinaryObj() const { return _pObjBinary.get(); }
-	inline Binary &GetBinary() { return _pObjBinary->GetBinary(); }
-	inline const Binary &GetBinary() const { return _pObjBinary->GetBinary(); }
-	inline bool IsWritable() const { return _pObjBinary->IsWritable(); }
-	inline size_t GetOffset() const { return _offset; }
-	inline void Reset() { _offset = 0; }
-	bool Pack(Signal sig, bool forwardFlag,
-							const char *format, const ValueList &valList);
-	Value Unpack(Signal sig, bool forwardFlag,
-							const char *format, bool exeedErrorFlag);
-	bool UnpackForward(Signal sig, int distance, bool exceedErrorFlag);
-};
-
-//-----------------------------------------------------------------------------
 // Stream_Binary
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Stream_Binary : public Stream {

@@ -24,7 +24,7 @@ ValueType VTYPE_object			= static_cast<ValueType>(0);
 ValueType VTYPE_function		= static_cast<ValueType>(0);
 ValueType VTYPE_string			= static_cast<ValueType>(0);
 ValueType VTYPE_binary			= static_cast<ValueType>(0);
-ValueType VTYPE_binaryptr		= static_cast<ValueType>(0);
+ValueType VTYPE_pointer			= static_cast<ValueType>(0);
 ValueType VTYPE_list			= static_cast<ValueType>(0);
 ValueType VTYPE_matrix			= static_cast<ValueType>(0);
 ValueType VTYPE_dict			= static_cast<ValueType>(0);
@@ -144,7 +144,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(function);
 	Gura_RealizeVTYPE(string);
 	Gura_RealizeVTYPE(binary);
-	Gura_RealizeVTYPE(binaryptr);
+	Gura_RealizeVTYPE(pointer);
 	Gura_RealizeVTYPE(list);
 	Gura_RealizeVTYPE(matrix);
 	Gura_RealizeVTYPE(dict);
@@ -190,7 +190,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Class_binary *pClass_binary = new Class_binary(pClass);
 	Gura_VTYPEInfo(binary	)->SetClass(pClass_binary);
 	pClass_binary->Prepare();
-	Gura_VTYPEInfo(binaryptr)->SetClass(new Class_binaryptr(pClass));
+	Gura_VTYPEInfo(pointer	)->SetClass(new Class_pointer(pClass));
 	Gura_VTYPEInfo(list		)->SetClass(new Class_list(pClass));
 	Gura_VTYPEInfo(matrix	)->SetClass(new Class_matrix(pClass));
 	Gura_VTYPEInfo(dict		)->SetClass(new Class_dict(pClass));
@@ -224,7 +224,7 @@ void ValueTypePool::OnModuleEntry(Environment &env, Signal sig)
 	Class_function::OnModuleEntry(env, sig);
 	Class_string::OnModuleEntry(env, sig);
 	Class_binary::OnModuleEntry(env, sig);
-	Class_binaryptr::OnModuleEntry(env, sig);
+	Class_pointer::OnModuleEntry(env, sig);
 	Class_list::OnModuleEntry(env, sig);
 	Class_matrix::OnModuleEntry(env, sig);
 	Class_dict::OnModuleEntry(env, sig);

@@ -46,6 +46,7 @@
 #include "gura/Object_function.h"
 #include "gura/Object_string.h"
 #include "gura/Object_binary.h"
+#include "gura/Object_pointer.h"
 #include "gura/Object_list.h"
 #include "gura/Object_matrix.h"
 #include "gura/Object_dict.h"

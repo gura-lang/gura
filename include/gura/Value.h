@@ -74,7 +74,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_object;
 GURA_DLLDECLARE extern ValueType VTYPE_function;
 GURA_DLLDECLARE extern ValueType VTYPE_string;
 GURA_DLLDECLARE extern ValueType VTYPE_binary;
-GURA_DLLDECLARE extern ValueType VTYPE_binaryptr;
+GURA_DLLDECLARE extern ValueType VTYPE_pointer;
 GURA_DLLDECLARE extern ValueType VTYPE_list;
 GURA_DLLDECLARE extern ValueType VTYPE_matrix;
 GURA_DLLDECLARE extern ValueType VTYPE_dict;
@@ -159,7 +159,7 @@ public:
 	Gura_DeclareVTYPE(function);
 	Gura_DeclareVTYPE(string);
 	Gura_DeclareVTYPE(binary);
-	Gura_DeclareVTYPE(binaryptr);
+	Gura_DeclareVTYPE(pointer);
 	Gura_DeclareVTYPE(list);
 	Gura_DeclareVTYPE(matrix);
 	Gura_DeclareVTYPE(dict);
@@ -372,7 +372,7 @@ public:
 	inline bool IsFunction() const			{ return IsType(VTYPE_function);	}
 	inline bool IsString() const			{ return IsType(VTYPE_string);		}
 	inline bool IsBinary() const			{ return IsType(VTYPE_binary);		}
-	inline bool IsBinaryPtr() const			{ return IsType(VTYPE_binaryptr);	}
+	inline bool IsPointer() const			{ return IsType(VTYPE_pointer);		}
 	inline bool IsList() const				{ return IsType(VTYPE_list);		}
 	inline bool IsMatrix() const			{ return IsType(VTYPE_matrix);		}
 	inline bool IsDict() const				{ return IsType(VTYPE_dict);		}
@@ -412,7 +412,7 @@ public:
 	inline bool MustBeFunction(Signal &sig) const	{ return MustBe(sig, IsFunction(), 	"function");	}
 	inline bool MustBeString(Signal &sig) const		{ return MustBe(sig, IsString(), 	"string");		}
 	inline bool MustBeBinary(Signal &sig) const		{ return MustBe(sig, IsBinary(), 	"binary");		}
-	inline bool MustBeBinaryPtr(Signal &sig) const	{ return MustBe(sig, IsBinaryPtr(), "binaryptr");	}
+	inline bool MustBePointer(Signal &sig) const	{ return MustBe(sig, IsPointer(), 	"pointer");	}
 	inline bool MustBeList(Signal &sig) const		{ return MustBe(sig, IsList(), 		"list");		}
 	inline bool MustBeMatrix(Signal &sig) const		{ return MustBe(sig, IsMatrix(), 	"matrix");		}
 	inline bool MustBeDict(Signal &sig) const		{ return MustBe(sig, IsDict(), 		"dict");		}

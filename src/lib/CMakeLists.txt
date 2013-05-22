@@ -37,6 +37,7 @@ Object.cpp
 Object_args.cpp
 Object_audio.cpp
 Object_binary.cpp
+Object_pointer.cpp
 Object_codec.cpp
 Object_color.cpp
 Object_datetime.cpp

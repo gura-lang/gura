@@ -1069,10 +1069,10 @@ Gura_ImplementBinaryOperator(Add, string, binary)
 	return Value(new Object_binary(env, buff, true));
 }
 
-Gura_ImplementBinaryOperator(Add, binaryptr, number)
+Gura_ImplementBinaryOperator(Add, pointer, number)
 {
-	Object_binaryptr *pObj = dynamic_cast<Object_binaryptr *>(
-						Object_binaryptr::GetObject(valueLeft)->Clone());
+	Object_pointer *pObj = dynamic_cast<Object_pointer *>(
+						Object_pointer::GetObject(valueLeft)->Clone());
 	pObj->UnpackForward(sig,
 						static_cast<int>(valueRight.GetNumber()), true);
 	if (sig.IsSignalled()) return Value::Null;
@@ -1158,20 +1158,20 @@ Gura_ImplementBinaryOperator(Sub, color, color)
 	return Value(::sqrt(static_cast<double>(color1.CalcDist(color2))));
 }
 
-Gura_ImplementBinaryOperator(Sub, binaryptr, number)
+Gura_ImplementBinaryOperator(Sub, pointer, number)
 {
-	AutoPtr<Object_binaryptr> pObj(dynamic_cast<Object_binaryptr *>(
-						Object_binaryptr::GetObject(valueLeft)->Clone()));
+	AutoPtr<Object_pointer> pObj(dynamic_cast<Object_pointer *>(
+						Object_pointer::GetObject(valueLeft)->Clone()));
 	pObj->UnpackForward(sig,
 						-static_cast<int>(valueRight.GetNumber()), true);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(pObj.release());
 }
 
-Gura_ImplementBinaryOperator(Sub, binaryptr, binaryptr)
+Gura_ImplementBinaryOperator(Sub, pointer, pointer)
 {
-	const Object_binaryptr *pObj1 = Object_binaryptr::GetObject(valueLeft);
-	const Object_binaryptr *pObj2 = Object_binaryptr::GetObject(valueRight);
+	const Object_pointer *pObj1 = Object_pointer::GetObject(valueLeft);
+	const Object_pointer *pObj2 = Object_pointer::GetObject(valueRight);
 	if (&pObj1->GetBinary() != &pObj2->GetBinary()) {
 		sig.SetError(ERR_ValueError,
 			"cannot calculate difference between pointers of different binaries");
@@ -1663,7 +1663,7 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Add, binary, binary);
 	Gura_AssignBinaryOperator(Add, binary, string);
 	Gura_AssignBinaryOperator(Add, string, binary);
-	Gura_AssignBinaryOperator(Add, binaryptr, number);
+	Gura_AssignBinaryOperator(Add, pointer, number);
 	Gura_AssignBinaryOperator(Add, string, any);
 	Gura_AssignBinaryOperator(Add, any, string);
 	Gura_AssignBinaryOperator(Sub, number, number);
@@ -1675,8 +1675,8 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Sub, datetime, datetime);
 	Gura_AssignBinaryOperator(Sub, timedelta, timedelta);
 	Gura_AssignBinaryOperator(Sub, color, color);
-	Gura_AssignBinaryOperator(Sub, binaryptr, number);
-	Gura_AssignBinaryOperator(Sub, binaryptr, binaryptr);
+	Gura_AssignBinaryOperator(Sub, pointer, number);
+	Gura_AssignBinaryOperator(Sub, pointer, pointer);
 	Gura_AssignBinaryOperator(Mul, number, number);
 	Gura_AssignBinaryOperator(Mul, complex, complex);
 	Gura_AssignBinaryOperator(Mul, number, complex);

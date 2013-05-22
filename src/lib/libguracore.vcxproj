@@ -212,6 +212,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Object_audio.cpp" />
     <ClCompile Include="Object_binary.cpp" />
+    <ClCompile Include="Object_pointer.cpp" />
     <ClCompile Include="Object_codec.cpp" />
     <ClCompile Include="Object_color.cpp" />
     <ClCompile Include="Object_datetime.cpp" />
@@ -284,6 +285,7 @@
     <ClInclude Include="..\..\include\gura\Object_args.h" />
     <ClInclude Include="..\..\include\gura\Object_audio.h" />
     <ClInclude Include="..\..\include\gura\Object_binary.h" />
+    <ClInclude Include="..\..\include\gura\Object_pointer.h" />
     <ClInclude Include="..\..\include\gura\Object_codec.h" />
     <ClInclude Include="..\..\include\gura\Object_color.h" />
     <ClInclude Include="..\..\include\gura\Object_Custom.h" />

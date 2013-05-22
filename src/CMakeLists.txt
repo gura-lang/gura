@@ -108,6 +108,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Object_args.h
   ${GURA_INCLUDE_DIR}/gura/Object_audio.h
   ${GURA_INCLUDE_DIR}/gura/Object_binary.h
+  ${GURA_INCLUDE_DIR}/gura/Object_pointer.h
   ${GURA_INCLUDE_DIR}/gura/Object_codec.h
   ${GURA_INCLUDE_DIR}/gura/Object_color.h
   ${GURA_INCLUDE_DIR}/gura/Object_datetime.h
