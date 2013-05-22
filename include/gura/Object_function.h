@@ -12,7 +12,7 @@ namespace Gura {
 class GURA_DLLDECLARE Class_function : public Class {
 public:
 	Class_function(Environment *pEnvOuter);
-	virtual void Prepare();
+	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;

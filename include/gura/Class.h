@@ -23,7 +23,7 @@ public: \
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl); \
 	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl); \
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass); \
-	virtual void Prepare(); \
+	virtual void Prepare(Environment &env); \
 public: \
 	static ValueTypeInfo *_pValueTypeInfo; \
 }; \
@@ -35,25 +35,25 @@ ValueType VTYPE_##name = static_cast<ValueType>(0); \
 bool Class_##name::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl) { return false; } \
 bool Class_##name::CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl) { return false; } \
 Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pClass) { return Class::CreateDescendant(env, sig, pClass); } \
-void Class_##name::Prepare()
+void Class_##name::Prepare(Environment &env)
 
 #define Gura_ImplementUserClassWithCast(name) \
 ValueTypeInfo *Class_##name::_pValueTypeInfo = NULL; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
 Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pClass) { return Class::CreateDescendant(env, sig, pClass); } \
-void Class_##name::Prepare()
+void Class_##name::Prepare(Environment &env)
 
 #define Gura_ImplementUserInheritableClass(name) \
 ValueTypeInfo *Class_##name::_pValueTypeInfo = NULL; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
 bool Class_##name::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl) { return false; } \
 bool Class_##name::CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl) { return false; } \
-void Class_##name::Prepare()
+void Class_##name::Prepare(Environment &env)
 
 #define Gura_ImplementUserInheritableClassWithCast(name) \
 ValueTypeInfo *Class_##name::_pValueTypeInfo = NULL; \
 ValueType VTYPE_##name = static_cast<ValueType>(0); \
-void Class_##name::Prepare()
+void Class_##name::Prepare(Environment &env)
 
 #define Gura_ImplementCastFrom(name) \
 bool Class_##name::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
@@ -71,7 +71,7 @@ Object *Class_##name::CreateDescendant(Environment &env, Signal sig, Class *pCla
 	Class_##name *pClass = new Class_##name(pClassBase, \
 						Class_##name::_pValueTypeInfo->GetValueType()); \
 	Class_##name::_pValueTypeInfo->SetClass(pClass); \
-	pClass->Prepare(); \
+	pClass->Prepare(env); \
 } while (0)
 
 #define Gura_RealizeUserClassExWithoutPrepare(name, str, pClassBase) do { \
@@ -112,7 +112,7 @@ public:
 	virtual bool IsClass() const;
 	virtual bool IsCustom() const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	virtual void Prepare();
+	virtual void Prepare(Environment &env);
 	inline bool IsAnonymous() const {
 		return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_));
 	}

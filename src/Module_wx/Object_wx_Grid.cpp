@@ -3488,7 +3488,6 @@ void Object_wx_Grid::DoAssignConstructor(Environment &env, Signal sig)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Grid)
 {
-	Environment &env = *this;
 	Gura_AssignMethod(wx_Grid, AppendCols);
 	Gura_AssignMethod(wx_Grid, AppendRows);
 	Gura_AssignMethod(wx_Grid, AutoSize);
@@ -3695,9 +3694,9 @@ Gura_ImplementUserInheritableClass(wx_Grid)
 	Gura_AssignMethod(wx_Grid, XToEdgeOfCol);
 	Gura_AssignMethod(wx_Grid, YToEdgeOfRow);
 	Gura_AssignMethod(wx_Grid, YToRow);
-	Gura_AssignValue(wxGridSelectCells, wxGrid::wxGridSelectCells);
-	Gura_AssignValue(wxGridSelectRows, wxGrid::wxGridSelectRows);
-	Gura_AssignValue(wxGridSelectColumns, wxGrid::wxGridSelectColumns);
+	Gura_AssignClassValue(wxGridSelectCells, wxGrid::wxGridSelectCells);
+	Gura_AssignClassValue(wxGridSelectRows, wxGrid::wxGridSelectRows);
+	Gura_AssignClassValue(wxGridSelectColumns, wxGrid::wxGridSelectColumns);
 }
 
 Gura_ImplementDescendantCreator(wx_Grid)

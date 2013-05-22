@@ -269,7 +269,7 @@ String Class::ToString(Signal sig, bool exprFlag)
 }
 
 // assignment
-void Class::Prepare()
+void Class::Prepare(Environment &env)
 {
 	Gura_AssignMethod(Object, istype);		// primitive method
 	Gura_AssignMethod(Object, isinstance);	// primitive method

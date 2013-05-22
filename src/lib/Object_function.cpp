@@ -304,7 +304,7 @@ Class_function::Class_function(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 	// Prepare() funtion below.
 }
 
-void Class_function::Prepare()
+void Class_function::Prepare(Environment &env)
 {
 	Gura_AssignMethod(function, addhelp);
 	Gura_AssignMethod(function, gethelp);

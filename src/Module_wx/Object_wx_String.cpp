@@ -2006,7 +2006,6 @@ void Object_wx_String::DoAssignConstructor(Environment &env, Signal sig)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClassWithCast(wx_String)
 {
-	Environment &env = *this;
 	Gura_AssignMethod(wx_String, Alloc);
 	Gura_AssignMethod(wx_String, Append);
 	Gura_AssignMethod(wx_String, Append_1);
@@ -2096,8 +2095,8 @@ Gura_ImplementUserInheritableClassWithCast(wx_String)
 	Gura_AssignMethod(wx_String, wc_str);
 	Gura_AssignMethod(wx_String, wc_str_1);
 	Gura_AssignMethod(wx_String, wchar_str);
-	Gura_AssignValue(exact, wxString::exact);
-	Gura_AssignValue(ignoreCase, wxString::ignoreCase);
+	Gura_AssignClassValue(exact, wxString::exact);
+	Gura_AssignClassValue(ignoreCase, wxString::ignoreCase);
 }
 
 Gura_ImplementDescendantCreator(wx_String)

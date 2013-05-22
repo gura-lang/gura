@@ -429,12 +429,11 @@ void Object_wx_File::DoAssignConstructor(Environment &env, Signal sig)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_File)
 {
-	Environment &env = *this;
-	Gura_AssignValue(read, wxFile::read);
-	Gura_AssignValue(write, wxFile::write);
-	Gura_AssignValue(read_write, wxFile::read_write);
-	Gura_AssignValue(write_append, wxFile::write_append);
-	Gura_AssignValue(write_excl, wxFile::write_excl);
+	Gura_AssignClassValue(read, wxFile::read);
+	Gura_AssignClassValue(write, wxFile::write);
+	Gura_AssignClassValue(read_write, wxFile::read_write);
+	Gura_AssignClassValue(write_append, wxFile::write_append);
+	Gura_AssignClassValue(write_excl, wxFile::write_excl);
 	Gura_AssignMethod(wx_File, Access);
 	Gura_AssignMethod(wx_File, Attach);
 	Gura_AssignMethod(wx_File, Close);

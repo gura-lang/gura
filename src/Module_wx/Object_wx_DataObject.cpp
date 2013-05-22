@@ -241,9 +241,8 @@ void Object_wx_DataObject::DoAssignConstructor(Environment &env, Signal sig)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataObject)
 {
-	Environment &env = *this;
-	Gura_AssignValue(Get, wxDataObject::Get);
-	Gura_AssignValue(Set, wxDataObject::Set);
+	Gura_AssignClassValue(Get, wxDataObject::Get);
+	Gura_AssignClassValue(Set, wxDataObject::Set);
 	Gura_AssignMethod(wx_DataObject, GetAllFormats);
 	Gura_AssignMethod(wx_DataObject, GetDataHere);
 	Gura_AssignMethod(wx_DataObject, GetDataSize);
