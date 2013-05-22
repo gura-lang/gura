@@ -136,19 +136,15 @@ String Object_wx_TextDataObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextDataObject::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(GetTextLength);
-	Gura_RealizeUserSymbol(GetText);
-	Gura_RealizeUserSymbol(SetText);
-	Gura_AssignFunction(TextDataObject);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTextDataObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextDataObject)
 {
+	Gura_RealizeUserSymbol(GetTextLength);
+	Gura_RealizeUserSymbol(GetText);
+	Gura_RealizeUserSymbol(SetText);
+	Gura_AssignFunction(TextDataObject);
 	Gura_AssignMethod(wx_TextDataObject, GetTextLength);
 	Gura_AssignMethod(wx_TextDataObject, GetText);
 	Gura_AssignMethod(wx_TextDataObject, SetText);

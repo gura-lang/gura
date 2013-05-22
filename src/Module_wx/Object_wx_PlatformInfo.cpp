@@ -654,17 +654,13 @@ String Object_wx_PlatformInfo::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PlatformInfo::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PlatformInfoEmpty);
-	Gura_AssignFunction(PlatformInfo);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPlatformInfo
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PlatformInfo)
 {
+	Gura_AssignFunction(PlatformInfoEmpty);
+	Gura_AssignFunction(PlatformInfo);
 	Gura_AssignMethod(wx_PlatformInfo, CheckOSVersion);
 	Gura_AssignMethod(wx_PlatformInfo, CheckToolkitVersion);
 	Gura_AssignMethod(wx_PlatformInfo, Get);

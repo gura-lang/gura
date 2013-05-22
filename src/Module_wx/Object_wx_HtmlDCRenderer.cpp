@@ -209,16 +209,12 @@ String Object_wx_HtmlDCRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlDCRenderer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HtmlDCRendererEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlDCRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlDCRenderer)
 {
+	Gura_AssignFunction(HtmlDCRendererEmpty);
 	Gura_AssignMethod(wx_HtmlDCRenderer, SetDC);
 	Gura_AssignMethod(wx_HtmlDCRenderer, SetFonts);
 	Gura_AssignMethod(wx_HtmlDCRenderer, SetSize);

@@ -31,16 +31,12 @@ String Object_wx_Coord::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Coord::DoAssignConstructor(Environment &env, Signal sig)
-{
-	
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCoord
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Coord)
 {
+	
 	
 }
 

@@ -264,7 +264,10 @@ String Object_wx_PopupTransientWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PopupTransientWindow::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxPopupTransientWindow
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_PopupTransientWindow)
 {
 	Gura_RealizeUserSymbol(Popup);
 	Gura_RealizeUserSymbol(Dismiss);
@@ -273,13 +276,6 @@ void Object_wx_PopupTransientWindow::DoAssignConstructor(Environment &env, Signa
 	Gura_RealizeUserSymbol(Show);
 	Gura_RealizeUserSymbol(OnDismiss);
 	Gura_AssignFunction(PopupTransientWindow);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxPopupTransientWindow
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_PopupTransientWindow)
-{
 	Gura_AssignMethod(wx_PopupTransientWindow, Popup);
 	Gura_AssignMethod(wx_PopupTransientWindow, Dismiss);
 	Gura_AssignMethod(wx_PopupTransientWindow, CanDismiss);

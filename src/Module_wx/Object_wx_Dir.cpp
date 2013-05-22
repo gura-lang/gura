@@ -346,17 +346,13 @@ String Object_wx_Dir::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Dir::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DirEmpty);
-	Gura_AssignFunction(Dir);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDir
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Dir)
 {
+	Gura_AssignFunction(DirEmpty);
+	Gura_AssignFunction(Dir);
 	Gura_AssignMethod(wx_Dir, Exists);
 	Gura_AssignMethod(wx_Dir, GetAllFiles);
 	Gura_AssignMethod(wx_Dir, FindFirst);

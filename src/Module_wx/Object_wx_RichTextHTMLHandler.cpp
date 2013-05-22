@@ -263,16 +263,12 @@ String Object_wx_RichTextHTMLHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextHTMLHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextHTMLHandler);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextHTMLHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextHTMLHandler)
 {
+	Gura_AssignFunction(RichTextHTMLHandler);
 	Gura_AssignMethod(wx_RichTextHTMLHandler, ClearTemporaryImageLocations);
 	Gura_AssignMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages);
 	Gura_AssignMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages_1);

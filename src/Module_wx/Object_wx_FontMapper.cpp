@@ -369,16 +369,12 @@ String Object_wx_FontMapper::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FontMapper::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FontMapper);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFontMapper
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontMapper)
 {
+	Gura_AssignFunction(FontMapper);
 	Gura_AssignMethod(wx_FontMapper, CharsetToEncoding);
 	Gura_AssignMethod(wx_FontMapper, Get);
 	Gura_AssignMethod(wx_FontMapper, GetAllEncodingNames);

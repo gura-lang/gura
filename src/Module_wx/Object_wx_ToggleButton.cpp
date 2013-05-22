@@ -191,17 +191,13 @@ String Object_wx_ToggleButton::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ToggleButton::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ToggleButtonEmpty);
-	Gura_AssignFunction(ToggleButton);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxToggleButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ToggleButton)
 {
+	Gura_AssignFunction(ToggleButtonEmpty);
+	Gura_AssignFunction(ToggleButton);
 	Gura_AssignMethod(wx_ToggleButton, Create);
 	Gura_AssignMethod(wx_ToggleButton, GetValue);
 	Gura_AssignMethod(wx_ToggleButton, SetValue);

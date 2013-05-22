@@ -147,17 +147,13 @@ String Object_wx_SingleInstanceChecker::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SingleInstanceChecker::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SingleInstanceCheckerEmpty);
-	Gura_AssignFunction(SingleInstanceChecker);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSingleInstanceChecker
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SingleInstanceChecker)
 {
+	Gura_AssignFunction(SingleInstanceCheckerEmpty);
+	Gura_AssignFunction(SingleInstanceChecker);
 	Gura_AssignMethod(wx_SingleInstanceChecker, Create);
 	Gura_AssignMethod(wx_SingleInstanceChecker, IsAnotherRunning);
 }

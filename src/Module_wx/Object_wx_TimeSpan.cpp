@@ -732,17 +732,13 @@ String Object_wx_TimeSpan::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TimeSpan::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TimeSpanEmpty);
-	Gura_AssignFunction(TimeSpan);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTimeSpan
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TimeSpan)
 {
+	Gura_AssignFunction(TimeSpanEmpty);
+	Gura_AssignFunction(TimeSpan);
 	Gura_AssignMethod(wx_TimeSpan, Abs);
 	Gura_AssignMethod(wx_TimeSpan, Add);
 	Gura_AssignMethod(wx_TimeSpan, Add_1);

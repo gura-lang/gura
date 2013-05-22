@@ -89,10 +89,6 @@ String Object_wx_CalendarEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CalendarEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCalendarEvent
 //----------------------------------------------------------------------------

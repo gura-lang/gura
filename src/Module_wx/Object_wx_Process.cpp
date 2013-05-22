@@ -322,17 +322,13 @@ String Object_wx_Process::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Process::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Process);
-	Gura_AssignFunction(Process_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxProcess
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Process)
 {
+	Gura_AssignFunction(Process);
+	Gura_AssignFunction(Process_1);
 	Gura_AssignMethod(wx_Process, CloseOutput);
 	Gura_AssignMethod(wx_Process, Detach);
 	Gura_AssignMethod(wx_Process, GetErrorStream);

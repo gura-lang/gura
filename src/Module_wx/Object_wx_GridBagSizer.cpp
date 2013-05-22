@@ -479,16 +479,12 @@ String Object_wx_GridBagSizer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridBagSizer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridBagSizer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridBagSizer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridBagSizer)
 {
+	Gura_AssignFunction(GridBagSizer);
 	Gura_AssignMethod(wx_GridBagSizer, Add);
 	Gura_AssignMethod(wx_GridBagSizer, AddSpacer);
 	Gura_AssignMethod(wx_GridBagSizer, AddItem);

@@ -232,16 +232,12 @@ String Object_wx_DatePickerCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DatePickerCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DatePickerCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDatePickerCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DatePickerCtrl)
 {
+	Gura_AssignFunction(DatePickerCtrl);
 	Gura_AssignMethod(wx_DatePickerCtrl, Create);
 	Gura_AssignMethod(wx_DatePickerCtrl, GetRange);
 	Gura_AssignMethod(wx_DatePickerCtrl, GetValue);

@@ -275,20 +275,16 @@ String Object_wx_FileSystemHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileSystemHandler::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxFileSystemHandler
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_FileSystemHandler)
 {
 	Gura_RealizeUserSymbol(CanOpen);
 	Gura_RealizeUserSymbol(FindFirst);
 	Gura_RealizeUserSymbol(FindNext);
 	Gura_RealizeUserSymbol(OpenFile);
 	Gura_AssignFunction(FileSystemHandlerEmpty);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxFileSystemHandler
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_FileSystemHandler)
-{
 	Gura_AssignMethod(wx_FileSystemHandler, CanOpen);
 	Gura_AssignMethod(wx_FileSystemHandler, GetAnchor);
 	Gura_AssignMethod(wx_FileSystemHandler, GetLeftLocation);

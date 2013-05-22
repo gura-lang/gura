@@ -234,7 +234,10 @@ String Object_wx_RichTextFormattingDialogFactory::ToString(Signal sig, bool expr
 	return rtn;
 }
 
-void Object_wx_RichTextFormattingDialogFactory::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxRichTextFormattingDialogFactory
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_RichTextFormattingDialogFactory)
 {
 	Gura_RealizeUserSymbol(CreateButtons);
 	Gura_RealizeUserSymbol(CreatePage);
@@ -245,13 +248,6 @@ void Object_wx_RichTextFormattingDialogFactory::DoAssignConstructor(Environment 
 	Gura_RealizeUserSymbol(SetSheetStyle);
 	Gura_RealizeUserSymbol(ShowHelp);
 	Gura_AssignFunction(RichTextFormattingDialogFactoryEmpty);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxRichTextFormattingDialogFactory
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_RichTextFormattingDialogFactory)
-{
 	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, CreateButtons);
 	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, CreatePage);
 	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, CreatePages);

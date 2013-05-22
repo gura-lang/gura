@@ -129,16 +129,12 @@ String Object_wx_NotifyEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_NotifyEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(NotifyEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxNotifyEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NotifyEvent)
 {
+	Gura_AssignFunction(NotifyEvent);
 	Gura_AssignMethod(wx_NotifyEvent, Allow);
 	Gura_AssignMethod(wx_NotifyEvent, IsAllowed);
 	Gura_AssignMethod(wx_NotifyEvent, Veto);

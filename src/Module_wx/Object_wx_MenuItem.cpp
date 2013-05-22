@@ -698,16 +698,12 @@ String Object_wx_MenuItem::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MenuItem::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MenuItem);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMenuItem
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MenuItem)
 {
+	Gura_AssignFunction(MenuItem);
 	Gura_AssignMethod(wx_MenuItem, Check);
 	Gura_AssignMethod(wx_MenuItem, Enable);
 	Gura_AssignMethod(wx_MenuItem, GetAccel);

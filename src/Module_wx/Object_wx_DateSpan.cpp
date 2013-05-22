@@ -468,16 +468,12 @@ String Object_wx_DateSpan::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DateSpan::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DateSpan);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDateSpan
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DateSpan)
 {
+	Gura_AssignFunction(DateSpan);
 	Gura_AssignMethod(wx_DateSpan, Add);
 	Gura_AssignMethod(wx_DateSpan, Add_1);
 	Gura_AssignMethod(wx_DateSpan, Day);

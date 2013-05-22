@@ -118,17 +118,13 @@ String Object_wx_DDEServer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DDEServer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(OnAcceptConnection);
-	Gura_AssignFunction(DDEServerEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDDEServer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DDEServer)
 {
+	Gura_RealizeUserSymbol(OnAcceptConnection);
+	Gura_AssignFunction(DDEServerEmpty);
 	Gura_AssignMethod(wx_DDEServer, Create);
 	Gura_AssignMethod(wx_DDEServer, OnAcceptConnection);
 }

@@ -86,16 +86,12 @@ String Object_wx_MouseCaptureLostEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MouseCaptureLostEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MouseCaptureLostEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMouseCaptureLostEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MouseCaptureLostEvent)
 {
+	Gura_AssignFunction(MouseCaptureLostEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_MouseCaptureLostEvent)

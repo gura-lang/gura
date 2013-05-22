@@ -275,16 +275,12 @@ String Object_wx_HashTable::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HashTable::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HashTable);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHashTable
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HashTable)
 {
+	Gura_AssignFunction(HashTable);
 	Gura_AssignMethod(wx_HashTable, BeginFind);
 	Gura_AssignMethod(wx_HashTable, Clear);
 	Gura_AssignMethod(wx_HashTable, Delete);

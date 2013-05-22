@@ -61,10 +61,6 @@ String Object_wx_HtmlWinTagHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlWinTagHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlWinTagHandler
 //----------------------------------------------------------------------------

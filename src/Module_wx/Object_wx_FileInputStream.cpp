@@ -101,16 +101,12 @@ String Object_wx_FileInputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileInputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FileInputStream);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFileInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileInputStream)
 {
+	Gura_AssignFunction(FileInputStream);
 	Gura_AssignMethod(wx_FileInputStream, IsOk);
 	Gura_AssignMethodEx(wx_FileInputStream, IsOk, "Ok");
 }

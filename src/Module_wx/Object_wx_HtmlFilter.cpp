@@ -121,16 +121,12 @@ String Object_wx_HtmlFilter::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlFilter::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HtmlFilterEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlFilter
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlFilter)
 {
+	Gura_AssignFunction(HtmlFilterEmpty);
 	Gura_AssignMethod(wx_HtmlFilter, CanRead);
 	Gura_AssignMethod(wx_HtmlFilter, ReadFile);
 }

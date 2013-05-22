@@ -174,16 +174,12 @@ String Object_wx_SingleChoiceDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SingleChoiceDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SingleChoiceDialog);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSingleChoiceDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SingleChoiceDialog)
 {
+	Gura_AssignFunction(SingleChoiceDialog);
 	Gura_AssignMethod(wx_SingleChoiceDialog, GetSelection);
 	Gura_AssignMethod(wx_SingleChoiceDialog, GetSelectionClientData);
 	Gura_AssignMethod(wx_SingleChoiceDialog, GetStringSelection);

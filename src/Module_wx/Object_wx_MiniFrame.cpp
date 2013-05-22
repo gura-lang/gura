@@ -158,17 +158,13 @@ String Object_wx_MiniFrame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MiniFrame::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MiniFrameEmpty);
-	Gura_AssignFunction(MiniFrame);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMiniFrame
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MiniFrame)
 {
+	Gura_AssignFunction(MiniFrameEmpty);
+	Gura_AssignFunction(MiniFrame);
 	Gura_AssignMethod(wx_MiniFrame, Create);
 }
 

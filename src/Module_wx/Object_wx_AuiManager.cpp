@@ -522,16 +522,12 @@ String Object_wx_AuiManager::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AuiManager::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(AuiManager);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxAuiManager
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiManager)
 {
+	Gura_AssignFunction(AuiManager);
 	Gura_AssignMethod(wx_AuiManager, AddPane);
 	Gura_AssignMethod(wx_AuiManager, AddPane_1);
 	Gura_AssignMethod(wx_AuiManager, AddPane_2);

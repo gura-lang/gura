@@ -228,7 +228,10 @@ String Object_wx_SearchCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SearchCtrl::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxSearchCtrl
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_SearchCtrl)
 {
 	Gura_RealizeUserSymbol(SetMenu);
 	Gura_RealizeUserSymbol(GetMenu);
@@ -239,13 +242,6 @@ void Object_wx_SearchCtrl::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignWxStringValue(SearchCtrlNameStr);
 	Gura_AssignFunction(SearchCtrlEmpty);
 	Gura_AssignFunction(SearchCtrl);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxSearchCtrl
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_SearchCtrl)
-{
 	Gura_AssignMethod(wx_SearchCtrl, SetMenu);
 	Gura_AssignMethod(wx_SearchCtrl, GetMenu);
 	Gura_AssignMethod(wx_SearchCtrl, ShowSearchButton);

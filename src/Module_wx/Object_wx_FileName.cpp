@@ -2164,7 +2164,10 @@ String Object_wx_FileName::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileName::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxFileName
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_FileName)
 {
 	Gura_AssignFunction(FileNameEmpty);
 	Gura_AssignFunction(FileName);
@@ -2172,13 +2175,6 @@ void Object_wx_FileName::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignFunction(FileName_2);
 	Gura_AssignFunction(FileName_3);
 	Gura_AssignFunction(FileName_4);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxFileName
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_FileName)
-{
 	Gura_AssignMethod(wx_FileName, AppendDir);
 	Gura_AssignMethod(wx_FileName, Assign);
 	Gura_AssignMethod(wx_FileName, Assign_1);

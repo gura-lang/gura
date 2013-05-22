@@ -187,17 +187,13 @@ String Object_wx_MultiChoiceDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MultiChoiceDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MultiChoiceDialog);
-	Gura_AssignFunction(MultiChoiceDialog_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMultiChoiceDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MultiChoiceDialog)
 {
+	Gura_AssignFunction(MultiChoiceDialog);
+	Gura_AssignFunction(MultiChoiceDialog_1);
 	Gura_AssignMethod(wx_MultiChoiceDialog, GetSelections);
 	Gura_AssignMethod(wx_MultiChoiceDialog, SetSelections);
 	Gura_AssignMethod(wx_MultiChoiceDialog, ShowModal);

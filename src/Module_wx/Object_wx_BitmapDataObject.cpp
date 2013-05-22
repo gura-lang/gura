@@ -120,18 +120,14 @@ String Object_wx_BitmapDataObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BitmapDataObject::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(GetBitmap);
-	Gura_RealizeUserSymbol(SetBitmap);
-	Gura_AssignFunction(BitmapDataObject);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxBitmapDataObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapDataObject)
 {
+	Gura_RealizeUserSymbol(GetBitmap);
+	Gura_RealizeUserSymbol(SetBitmap);
+	Gura_AssignFunction(BitmapDataObject);
 	Gura_AssignMethod(wx_BitmapDataObject, GetBitmap);
 	Gura_AssignMethod(wx_BitmapDataObject, SetBitmap);
 }

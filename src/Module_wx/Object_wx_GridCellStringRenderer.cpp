@@ -134,16 +134,12 @@ String Object_wx_GridCellStringRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellStringRenderer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridCellStringRenderer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridCellStringRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellStringRenderer)
 {
+	Gura_AssignFunction(GridCellStringRenderer);
 	Gura_AssignMethod(wx_GridCellStringRenderer, Draw);
 }
 

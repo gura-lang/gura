@@ -223,7 +223,10 @@ String Object_wx_HelpProvider::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HelpProvider::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxHelpProvider
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_HelpProvider)
 {
 	Gura_RealizeUserSymbol(AddHelp);
 	Gura_RealizeUserSymbol(AddHelp_1);
@@ -232,13 +235,6 @@ void Object_wx_HelpProvider::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(ShowHelpAtPoint);
 	Gura_RealizeUserSymbol(ShowHelp);
 	Gura_AssignFunction(HelpProvider);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxHelpProvider
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_HelpProvider)
-{
 	Gura_AssignMethod(wx_HelpProvider, AddHelp);
 	Gura_AssignMethod(wx_HelpProvider, AddHelp_1);
 	Gura_AssignMethod(wx_HelpProvider, Get);

@@ -486,7 +486,10 @@ String Object_wx_Pen::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Pen::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxPen
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Pen)
 {
 	Gura_AssignFunction(PenEmpty);
 	Gura_AssignFunction(Pen);
@@ -495,13 +498,6 @@ void Object_wx_Pen::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignFunction(Pen_3);
 	Gura_AssignBinaryOperator(Eq, wx_Pen, wx_Pen);
 	Gura_AssignBinaryOperator(Ne, wx_Pen, wx_Pen);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxPen
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Pen)
-{
 	Gura_AssignMethod(wx_Pen, GetCap);
 	Gura_AssignMethod(wx_Pen, GetColour);
 	Gura_AssignMethod(wx_Pen, GetDashes);

@@ -379,17 +379,13 @@ String Object_wx_SashWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SashWindow::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SashWindowEmpty);
-	Gura_AssignFunction(SashWindow);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSashWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SashWindow)
 {
+	Gura_AssignFunction(SashWindowEmpty);
+	Gura_AssignFunction(SashWindow);
 	Gura_AssignMethod(wx_SashWindow, GetSashVisible);
 	Gura_AssignMethod(wx_SashWindow, GetMaximumSizeX);
 	Gura_AssignMethod(wx_SashWindow, GetMaximumSizeY);

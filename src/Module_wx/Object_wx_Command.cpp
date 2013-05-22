@@ -151,16 +151,12 @@ String Object_wx_Command::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Command::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Command);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCommand
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Command)
 {
+	Gura_AssignFunction(Command);
 	Gura_AssignMethod(wx_Command, CanUndo);
 	Gura_AssignMethod(wx_Command, Do);
 	Gura_AssignMethod(wx_Command, GetName);

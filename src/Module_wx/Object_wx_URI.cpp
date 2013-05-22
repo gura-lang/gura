@@ -472,18 +472,14 @@ String Object_wx_URI::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_URI::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(URIEmpty);
-	Gura_AssignFunction(URI);
-	Gura_AssignFunction(URI_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxURI
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_URI)
 {
+	Gura_AssignFunction(URIEmpty);
+	Gura_AssignFunction(URI);
+	Gura_AssignFunction(URI_1);
 	Gura_AssignMethod(wx_URI, BuildURI);
 	Gura_AssignMethod(wx_URI, BuildUnescapedURI);
 	Gura_AssignMethod(wx_URI, Create);

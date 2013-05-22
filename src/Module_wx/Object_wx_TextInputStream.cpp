@@ -283,16 +283,12 @@ String Object_wx_TextInputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextInputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TextInputStream);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTextInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextInputStream)
 {
+	Gura_AssignFunction(TextInputStream);
 	Gura_AssignMethod(wx_TextInputStream, Read8);
 	Gura_AssignMethod(wx_TextInputStream, Read8S);
 	Gura_AssignMethod(wx_TextInputStream, Read16);

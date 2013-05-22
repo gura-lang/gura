@@ -111,16 +111,12 @@ String Object_wx_MessageDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MessageDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MessageDialog);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMessageDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageDialog)
 {
+	Gura_AssignFunction(MessageDialog);
 	Gura_AssignMethod(wx_MessageDialog, ShowModal);
 }
 

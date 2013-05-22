@@ -417,7 +417,10 @@ String Object_wx_HelpController::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HelpController::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxHelpController
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_HelpController)
 {
 	Gura_RealizeUserSymbol(Initialize);
 	Gura_RealizeUserSymbol(Initialize_1);
@@ -437,13 +440,6 @@ void Object_wx_HelpController::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(SetViewer);
 	Gura_RealizeUserSymbol(Quit);
 	Gura_AssignFunction(HelpController);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxHelpController
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_HelpController)
-{
 	Gura_AssignMethod(wx_HelpController, Initialize);
 	Gura_AssignMethod(wx_HelpController, Initialize_1);
 	Gura_AssignMethod(wx_HelpController, DisplayBlock);

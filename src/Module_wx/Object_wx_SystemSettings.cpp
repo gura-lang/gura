@@ -147,16 +147,12 @@ String Object_wx_SystemSettings::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SystemSettings::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SystemSettings);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSystemSettings
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SystemSettings)
 {
+	Gura_AssignFunction(SystemSettings);
 	Gura_AssignMethod(wx_SystemSettings, GetColour);
 	Gura_AssignMethod(wx_SystemSettings, GetFont);
 	Gura_AssignMethod(wx_SystemSettings, GetMetric);

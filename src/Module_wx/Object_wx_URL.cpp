@@ -191,16 +191,12 @@ String Object_wx_URL::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_URL::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(URL);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxURL
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_URL)
 {
+	Gura_AssignFunction(URL);
 	Gura_AssignMethod(wx_URL, GetProtocol);
 	Gura_AssignMethod(wx_URL, GetError);
 	Gura_AssignMethod(wx_URL, GetInputStream);

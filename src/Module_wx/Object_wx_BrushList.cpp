@@ -102,16 +102,12 @@ String Object_wx_BrushList::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BrushList::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(BrushListEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxBrushList
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BrushList)
 {
+	Gura_AssignFunction(BrushListEmpty);
 	Gura_AssignMethod(wx_BrushList, FindOrCreateBrush);
 }
 

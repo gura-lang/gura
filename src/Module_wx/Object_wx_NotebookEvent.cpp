@@ -153,16 +153,12 @@ String Object_wx_NotebookEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_NotebookEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(NotebookEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxNotebookEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NotebookEvent)
 {
+	Gura_AssignFunction(NotebookEvent);
 	Gura_AssignMethod(wx_NotebookEvent, GetOldSelection);
 	Gura_AssignMethod(wx_NotebookEvent, GetSelection);
 	Gura_AssignMethod(wx_NotebookEvent, SetOldSelection);

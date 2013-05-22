@@ -475,7 +475,10 @@ String Object_wx_Icon::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Icon::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxIcon
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Icon)
 {
 	Gura_AssignFunction(EmptyIcon);
 	Gura_AssignFunction(Icon);
@@ -485,13 +488,6 @@ void Object_wx_Icon::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignFunction(Icon_3);
 	Gura_AssignFunction(Icon_5);
 	Gura_AssignFunction(Icon_7);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxIcon
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Icon)
-{
 	Gura_AssignMethod(wx_Icon, CopyFromBitmap);
 	Gura_AssignMethod(wx_Icon, GetDepth);
 	Gura_AssignMethod(wx_Icon, GetHeight);

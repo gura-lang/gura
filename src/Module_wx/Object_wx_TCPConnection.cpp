@@ -458,7 +458,10 @@ String Object_wx_TCPConnection::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TCPConnection::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxTCPConnection
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_TCPConnection)
 {
 	Gura_RealizeUserSymbol(OnAdvise);
 	Gura_RealizeUserSymbol(OnDisconnect);
@@ -469,13 +472,6 @@ void Object_wx_TCPConnection::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(OnStopAdvise);
 	Gura_AssignFunction(TCPConnectionEmpty);
 	Gura_AssignFunction(TCPConnection);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxTCPConnection
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_TCPConnection)
-{
 	Gura_AssignMethod(wx_TCPConnection, Advise);
 	Gura_AssignMethod(wx_TCPConnection, Execute);
 	Gura_AssignMethod(wx_TCPConnection, Disconnect);

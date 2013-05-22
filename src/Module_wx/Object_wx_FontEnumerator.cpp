@@ -269,20 +269,16 @@ String Object_wx_FontEnumerator::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FontEnumerator::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxFontEnumerator
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_FontEnumerator)
 {
 	Gura_RealizeUserSymbol(EnumerateFacenames);
 	Gura_RealizeUserSymbol(EnumerateEncodings);
 	Gura_RealizeUserSymbol(OnFacename);
 	Gura_RealizeUserSymbol(OnFontEncoding);
 	Gura_AssignFunction(FontEnumerator);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxFontEnumerator
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_FontEnumerator)
-{
 	Gura_AssignMethod(wx_FontEnumerator, EnumerateFacenames);
 	Gura_AssignMethod(wx_FontEnumerator, EnumerateEncodings);
 	Gura_AssignMethod(wx_FontEnumerator, GetEncodings);

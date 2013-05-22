@@ -185,7 +185,10 @@ String Object_wx_LanguageInfo::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LanguageInfo::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxLanguageInfo
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_LanguageInfo)
 {
 	Gura_RealizeUserSymbol(Language);
 	Gura_RealizeUserSymbol(CanonicalName);
@@ -193,13 +196,6 @@ void Object_wx_LanguageInfo::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(WinSublang);
 	Gura_RealizeUserSymbol(Description);
 	Gura_AssignFunction(LanguageInfo);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxLanguageInfo
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_LanguageInfo)
-{
 }
 
 Gura_ImplementDescendantCreator(wx_LanguageInfo)

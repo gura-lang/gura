@@ -81,10 +81,6 @@ void Object_wx_EventFactory::Connect(Environment &env, Signal sig,
 	Object::Delete(pObjFunc);
 }
 
-void Object_wx_EventFactory::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxEventFactory
 //----------------------------------------------------------------------------

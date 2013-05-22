@@ -83,16 +83,12 @@ String Object_wx_LogStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LogStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(LogStream);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxLogStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogStream)
 {
+	Gura_AssignFunction(LogStream);
 }
 
 Gura_ImplementDescendantCreator(wx_LogStream)

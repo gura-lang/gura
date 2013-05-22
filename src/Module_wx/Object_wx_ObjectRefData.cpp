@@ -123,17 +123,13 @@ String Object_wx_ObjectRefData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ObjectRefData::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ObjectRefDataEmpty);
-	Gura_AssignFunction(ObjectRefDataEmpty_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxObjectRefData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ObjectRefData)
 {
+	Gura_AssignFunction(ObjectRefDataEmpty);
+	Gura_AssignFunction(ObjectRefDataEmpty_1);
 	Gura_AssignMethod(wx_ObjectRefData, GetRefCount);
 }
 

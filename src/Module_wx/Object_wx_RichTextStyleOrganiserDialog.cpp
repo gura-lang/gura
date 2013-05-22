@@ -343,17 +343,13 @@ String Object_wx_RichTextStyleOrganiserDialog::ToString(Signal sig, bool exprFla
 	return rtn;
 }
 
-void Object_wx_RichTextStyleOrganiserDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextStyleOrganiserDialog);
-	Gura_AssignFunction(RichTextStyleOrganiserDialogEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextStyleOrganiserDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleOrganiserDialog)
 {
+	Gura_AssignFunction(RichTextStyleOrganiserDialog);
+	Gura_AssignFunction(RichTextStyleOrganiserDialogEmpty);
 	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, ApplyStyle);
 	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, Create);
 	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, GetFlags);

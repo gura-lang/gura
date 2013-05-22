@@ -247,16 +247,12 @@ String Object_wx_VariantData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_VariantData::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(VariantDataEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxVariantData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VariantData)
 {
+	Gura_AssignFunction(VariantDataEmpty);
 	Gura_AssignMethod(wx_VariantData, DecRef);
 	Gura_AssignMethod(wx_VariantData, Eq);
 	Gura_AssignMethod(wx_VariantData, GetType);

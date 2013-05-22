@@ -651,16 +651,12 @@ String Object_wx_Joystick::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Joystick::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Joystick);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxJoystick
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Joystick)
 {
+	Gura_AssignFunction(Joystick);
 	Gura_AssignMethod(wx_Joystick, GetButtonState);
 	Gura_AssignMethod(wx_Joystick, GetManufacturerId);
 	Gura_AssignMethod(wx_Joystick, GetMovementThreshold);

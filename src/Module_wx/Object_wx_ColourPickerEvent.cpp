@@ -118,16 +118,12 @@ String Object_wx_ColourPickerEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ColourPickerEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ColourPickerEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxColourPickerEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ColourPickerEvent)
 {
+	Gura_AssignFunction(ColourPickerEvent);
 	Gura_AssignMethod(wx_ColourPickerEvent, GetColour);
 	Gura_AssignMethod(wx_ColourPickerEvent, SetColour);
 }

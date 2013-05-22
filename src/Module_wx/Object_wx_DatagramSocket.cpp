@@ -144,16 +144,12 @@ String Object_wx_DatagramSocket::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DatagramSocket::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DatagramSocket);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDatagramSocket
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DatagramSocket)
 {
+	Gura_AssignFunction(DatagramSocket);
 	Gura_AssignMethod(wx_DatagramSocket, ReceiveFrom);
 	Gura_AssignMethod(wx_DatagramSocket, SendTo);
 }

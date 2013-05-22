@@ -115,16 +115,12 @@ String Object_wx_HelpControllerHelpProvider::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HelpControllerHelpProvider::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HelpControllerHelpProvider);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHelpControllerHelpProvider
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HelpControllerHelpProvider)
 {
+	Gura_AssignFunction(HelpControllerHelpProvider);
 	Gura_AssignMethod(wx_HelpControllerHelpProvider, SetHelpController);
 	Gura_AssignMethod(wx_HelpControllerHelpProvider, GetHelpController);
 }

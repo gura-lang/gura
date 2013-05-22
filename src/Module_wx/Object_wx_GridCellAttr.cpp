@@ -478,17 +478,13 @@ String Object_wx_GridCellAttr::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellAttr::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridCellAttrEmpty);
-	Gura_AssignFunction(GridCellAttr);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridCellAttr
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellAttr)
 {
+	Gura_AssignFunction(GridCellAttrEmpty);
+	Gura_AssignFunction(GridCellAttr);
 	Gura_AssignMethod(wx_GridCellAttr, Clone);
 	Gura_AssignMethod(wx_GridCellAttr, IncRef);
 	Gura_AssignMethod(wx_GridCellAttr, DecRef);

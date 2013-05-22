@@ -370,16 +370,12 @@ String Object_wx_AutomationObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AutomationObject::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(AutomationObject);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxAutomationObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AutomationObject)
 {
+	Gura_AssignFunction(AutomationObject);
 	Gura_AssignMethod(wx_AutomationObject, CallMethod);
 	Gura_AssignMethod(wx_AutomationObject, CallMethod_1);
 	Gura_AssignMethod(wx_AutomationObject, CreateInstance);

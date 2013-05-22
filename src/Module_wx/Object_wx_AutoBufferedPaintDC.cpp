@@ -85,16 +85,12 @@ String Object_wx_AutoBufferedPaintDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AutoBufferedPaintDC::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(AutoBufferedPaintDC);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxAutoBufferedPaintDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AutoBufferedPaintDC)
 {
+	Gura_AssignFunction(AutoBufferedPaintDC);
 }
 
 Gura_ImplementDescendantCreator(wx_AutoBufferedPaintDC)

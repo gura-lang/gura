@@ -340,17 +340,13 @@ String Object_wx_DataInputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataInputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DataInputStream);
-	Gura_AssignFunction(DataInputStream_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataInputStream)
 {
+	Gura_AssignFunction(DataInputStream);
+	Gura_AssignFunction(DataInputStream_1);
 	Gura_AssignMethod(wx_DataInputStream, BigEndianOrdered);
 	Gura_AssignMethod(wx_DataInputStream, Read8);
 	Gura_AssignMethod(wx_DataInputStream, Read8_1);

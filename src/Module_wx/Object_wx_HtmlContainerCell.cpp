@@ -336,16 +336,12 @@ String Object_wx_HtmlContainerCell::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlContainerCell::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HtmlContainerCell);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlContainerCell
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlContainerCell)
 {
+	Gura_AssignFunction(HtmlContainerCell);
 	Gura_AssignMethod(wx_HtmlContainerCell, GetAlignHor);
 	Gura_AssignMethod(wx_HtmlContainerCell, GetAlignVer);
 	Gura_AssignMethod(wx_HtmlContainerCell, GetBackgroundColour);

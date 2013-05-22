@@ -145,16 +145,12 @@ String Object_wx_StackWalker::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StackWalker::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(StackWalkerEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxStackWalker
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StackWalker)
 {
+	Gura_AssignFunction(StackWalkerEmpty);
 	Gura_AssignMethod(wx_StackWalker, OnStackFrame);
 	Gura_AssignMethod(wx_StackWalker, Walk);
 	Gura_AssignMethod(wx_StackWalker, WalkFromException);

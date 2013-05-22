@@ -114,16 +114,12 @@ String Object_wx_FontList::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FontList::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FontListEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFontList
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontList)
 {
+	Gura_AssignFunction(FontListEmpty);
 	Gura_AssignMethod(wx_FontList, FindOrCreateFont);
 }
 

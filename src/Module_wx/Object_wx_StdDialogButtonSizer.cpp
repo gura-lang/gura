@@ -156,16 +156,12 @@ String Object_wx_StdDialogButtonSizer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StdDialogButtonSizer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(StdDialogButtonSizer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxStdDialogButtonSizer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StdDialogButtonSizer)
 {
+	Gura_AssignFunction(StdDialogButtonSizer);
 	Gura_AssignMethod(wx_StdDialogButtonSizer, AddButton);
 	Gura_AssignMethod(wx_StdDialogButtonSizer, Realize);
 	Gura_AssignMethod(wx_StdDialogButtonSizer, SetAffirmativeButton);

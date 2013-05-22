@@ -84,16 +84,12 @@ String Object_wx_LogStderr::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LogStderr::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(LogStderr);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxLogStderr
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogStderr)
 {
+	Gura_AssignFunction(LogStderr);
 }
 
 Gura_ImplementDescendantCreator(wx_LogStderr)

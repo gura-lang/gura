@@ -219,17 +219,13 @@ String Object_wx_StringTokenizer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StringTokenizer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(StringTokenizerEmpty);
-	Gura_AssignFunction(StringTokenizer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxStringTokenizer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringTokenizer)
 {
+	Gura_AssignFunction(StringTokenizerEmpty);
+	Gura_AssignFunction(StringTokenizer);
 	Gura_AssignMethod(wx_StringTokenizer, CountTokens);
 	Gura_AssignMethod(wx_StringTokenizer, HasMoreTokens);
 	Gura_AssignMethod(wx_StringTokenizer, GetLastDelimiter);

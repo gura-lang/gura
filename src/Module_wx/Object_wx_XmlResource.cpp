@@ -564,17 +564,13 @@ String Object_wx_XmlResource::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_XmlResource::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(XmlResource);
-	Gura_AssignFunction(XmlResource_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxXmlResource
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlResource)
 {
+	Gura_AssignFunction(XmlResource);
+	Gura_AssignFunction(XmlResource_1);
 	Gura_AssignMethod(wx_XmlResource, AddHandler);
 	Gura_AssignMethod(wx_XmlResource, AttachUnknownControl);
 	Gura_AssignMethod(wx_XmlResource, ClearHandlers);

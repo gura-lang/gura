@@ -146,16 +146,12 @@ String Object_wx_SocketClient::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SocketClient::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SocketClient);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSocketClient
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketClient)
 {
+	Gura_AssignFunction(SocketClient);
 	Gura_AssignMethod(wx_SocketClient, Connect);
 	Gura_AssignMethod(wx_SocketClient, Connect_1);
 	Gura_AssignMethod(wx_SocketClient, WaitOnConnect);

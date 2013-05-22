@@ -120,16 +120,12 @@ String Object_wx_FileDirPickerEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileDirPickerEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FileDirPickerEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFileDirPickerEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileDirPickerEvent)
 {
+	Gura_AssignFunction(FileDirPickerEvent);
 	Gura_AssignMethod(wx_FileDirPickerEvent, GetPath);
 	Gura_AssignMethod(wx_FileDirPickerEvent, SetPath);
 }

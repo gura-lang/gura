@@ -210,16 +210,12 @@ String Object_wx_CollapsiblePane::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CollapsiblePane::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(CollapsiblePane);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCollapsiblePane
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CollapsiblePane)
 {
+	Gura_AssignFunction(CollapsiblePane);
 	Gura_AssignMethod(wx_CollapsiblePane, Create);
 	Gura_AssignMethod(wx_CollapsiblePane, IsCollapsed);
 	Gura_AssignMethod(wx_CollapsiblePane, IsExpanded);

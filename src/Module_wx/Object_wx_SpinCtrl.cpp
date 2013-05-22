@@ -284,18 +284,14 @@ String Object_wx_SpinCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SpinCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	//Gura_AssignWxStringValue(SpinCtrlNameStr);
-	Gura_AssignFunction(SpinCtrlEmpty);
-	Gura_AssignFunction(SpinCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSpinCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SpinCtrl)
 {
+	//Gura_AssignWxStringValue(SpinCtrlNameStr);
+	Gura_AssignFunction(SpinCtrlEmpty);
+	Gura_AssignFunction(SpinCtrl);
 	Gura_AssignMethod(wx_SpinCtrl, Create);
 	Gura_AssignMethod(wx_SpinCtrl, SetValue);
 	Gura_AssignMethod(wx_SpinCtrl, SetValue_1);

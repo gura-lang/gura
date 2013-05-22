@@ -529,19 +529,15 @@ String Object_wx_StreamBuffer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StreamBuffer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(StreamBuffer);
-	Gura_AssignFunction(StreamBuffer_1);
-	Gura_AssignFunction(StreamBuffer_2);
-	Gura_AssignFunction(StreamBufferEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxStreamBuffer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StreamBuffer)
 {
+	Gura_AssignFunction(StreamBuffer);
+	Gura_AssignFunction(StreamBuffer_1);
+	Gura_AssignFunction(StreamBuffer_2);
+	Gura_AssignFunction(StreamBufferEmpty);
 	Gura_AssignMethod(wx_StreamBuffer, Read);
 	Gura_AssignMethod(wx_StreamBuffer, Read_1);
 	Gura_AssignMethod(wx_StreamBuffer, Write);

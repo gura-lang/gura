@@ -103,16 +103,12 @@ String Object_wx_GLContext::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GLContext::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GLContext);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGLContext
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLContext)
 {
+	Gura_AssignFunction(GLContext);
 	Gura_AssignMethod(wx_GLContext, SetCurrent);
 }
 

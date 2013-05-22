@@ -126,16 +126,12 @@ String Object_wx_BoxSizer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BoxSizer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(BoxSizer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxBoxSizer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BoxSizer)
 {
+	Gura_AssignFunction(BoxSizer);
 	Gura_AssignMethod(wx_BoxSizer, RecalcSizes);
 	Gura_AssignMethod(wx_BoxSizer, CalcMin);
 	Gura_AssignMethod(wx_BoxSizer, GetOrientation);

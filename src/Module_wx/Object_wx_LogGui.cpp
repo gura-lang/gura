@@ -83,16 +83,12 @@ String Object_wx_LogGui::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LogGui::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(LogGuiEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxLogGui
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogGui)
 {
+	Gura_AssignFunction(LogGuiEmpty);
 }
 
 Gura_ImplementDescendantCreator(wx_LogGui)

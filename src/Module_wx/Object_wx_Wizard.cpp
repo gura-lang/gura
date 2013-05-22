@@ -327,20 +327,16 @@ String Object_wx_Wizard::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Wizard::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxWizard
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Wizard)
 {
 	Gura_RealizeUserSymbol(GetPageAreaSizer);
 	Gura_RealizeUserSymbol(HasNextPage);
 	Gura_RealizeUserSymbol(HasPrevPage);
 	Gura_AssignFunction(WizardEmpty);
 	Gura_AssignFunction(Wizard);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxWizard
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Wizard)
-{
 	Gura_AssignMethod(wx_Wizard, Create);
 	Gura_AssignMethod(wx_Wizard, FitToPage);
 	Gura_AssignMethod(wx_Wizard, GetBitmap);

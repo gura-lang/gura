@@ -263,16 +263,12 @@ String Object_wx_ImageHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ImageHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ImageHandlerEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxImageHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ImageHandler)
 {
+	Gura_AssignFunction(ImageHandlerEmpty);
 	Gura_AssignMethod(wx_ImageHandler, GetName);
 	Gura_AssignMethod(wx_ImageHandler, GetExtension);
 	Gura_AssignMethod(wx_ImageHandler, GetImageCount);

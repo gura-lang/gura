@@ -443,19 +443,15 @@ String Object_wx_Log::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Log::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(DoLog);
-	Gura_RealizeUserSymbol(DoLogString);
-	Gura_RealizeUserSymbol(Flush);
-	Gura_AssignFunction(Log);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxLog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Log)
 {
+	Gura_RealizeUserSymbol(DoLog);
+	Gura_RealizeUserSymbol(DoLogString);
+	Gura_RealizeUserSymbol(Flush);
+	Gura_AssignFunction(Log);
 	Gura_AssignMethod(wx_Log, AddTraceMask);
 	Gura_AssignMethod(wx_Log, ClearTraceMasks);
 	Gura_AssignMethod(wx_Log, GetTraceMasks);

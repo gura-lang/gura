@@ -275,17 +275,13 @@ String Object_wx_RichTextStyleListCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextStyleListCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextStyleListCtrl);
-	Gura_AssignFunction(RichTextStyleListCtrlEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextStyleListCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleListCtrl)
 {
+	Gura_AssignFunction(RichTextStyleListCtrl);
+	Gura_AssignFunction(RichTextStyleListCtrlEmpty);
 	Gura_AssignMethod(wx_RichTextStyleListCtrl, Create);
 	Gura_AssignMethod(wx_RichTextStyleListCtrl, GetRichTextCtrl);
 	Gura_AssignMethod(wx_RichTextStyleListCtrl, GetStyleChoice);

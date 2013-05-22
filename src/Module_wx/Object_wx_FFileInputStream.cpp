@@ -172,18 +172,14 @@ String Object_wx_FFileInputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FFileInputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FFileInputStream);
-	Gura_AssignFunction(FFileInputStream_1);
-	Gura_AssignFunction(FFileInputStream_2);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFFileInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FFileInputStream)
 {
+	Gura_AssignFunction(FFileInputStream);
+	Gura_AssignFunction(FFileInputStream_1);
+	Gura_AssignFunction(FFileInputStream_2);
 	Gura_AssignMethod(wx_FFileInputStream, IsOk);
 }
 

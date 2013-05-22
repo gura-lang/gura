@@ -1003,7 +1003,10 @@ String Object_wx_TextCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextCtrl::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxTextCtrl
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_TextCtrl)
 {
 	Gura_RealizeUserSymbol(CanCopy);
 	Gura_RealizeUserSymbol(CanCut);
@@ -1033,13 +1036,6 @@ void Object_wx_TextCtrl::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignWxStringValue(TextCtrlNameStr);
 	Gura_AssignFunction(TextCtrlEmpty);
 	Gura_AssignFunction(TextCtrl);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxTextCtrl
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_TextCtrl)
-{
 	Gura_AssignMethod(wx_TextCtrl, AppendText);
 	Gura_AssignMethod(wx_TextCtrl, CanCopy);
 	Gura_AssignMethod(wx_TextCtrl, CanCut);

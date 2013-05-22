@@ -356,17 +356,13 @@ String Object_wx_ImageList::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ImageList::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ImageListEmpty);
-	Gura_AssignFunction(ImageList);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxImageList
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ImageList)
 {
+	Gura_AssignFunction(ImageListEmpty);
+	Gura_AssignFunction(ImageList);
 	Gura_AssignMethod(wx_ImageList, Add);
 	Gura_AssignMethod(wx_ImageList, AddWithColourMask);
 	Gura_AssignMethod(wx_ImageList, AddIcon);

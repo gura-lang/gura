@@ -216,16 +216,12 @@ String Object_wx_GridSizer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridSizer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridSizer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridSizer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridSizer)
 {
+	Gura_AssignFunction(GridSizer);
 	Gura_AssignMethod(wx_GridSizer, GetCols);
 	Gura_AssignMethod(wx_GridSizer, GetHGap);
 	Gura_AssignMethod(wx_GridSizer, GetRows);

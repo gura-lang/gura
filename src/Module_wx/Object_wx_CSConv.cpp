@@ -176,17 +176,13 @@ String Object_wx_CSConv::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CSConv::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(CSConv);
-	Gura_AssignFunction(CSConv_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCSConv
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CSConv)
 {
+	Gura_AssignFunction(CSConv);
+	Gura_AssignFunction(CSConv_1);
 	Gura_AssignMethod(wx_CSConv, IsOk);
 	Gura_AssignMethod(wx_CSConv, MB2WC);
 	Gura_AssignMethod(wx_CSConv, WC2MB);

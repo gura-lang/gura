@@ -297,16 +297,12 @@ String Object_wx_HtmlEasyPrinting::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlEasyPrinting::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HtmlEasyPrinting);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlEasyPrinting
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlEasyPrinting)
 {
+	Gura_AssignFunction(HtmlEasyPrinting);
 	Gura_AssignMethod(wx_HtmlEasyPrinting, GetParentWindow);
 	Gura_AssignMethod(wx_HtmlEasyPrinting, GetPrintData);
 	Gura_AssignMethod(wx_HtmlEasyPrinting, GetPageSetupData);

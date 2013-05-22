@@ -245,16 +245,12 @@ String Object_wx_ClassInfo::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ClassInfo::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ClassInfo);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxClassInfo
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClassInfo)
 {
+	Gura_AssignFunction(ClassInfo);
 	Gura_AssignMethod(wx_ClassInfo, CreateObject);
 	Gura_AssignMethod(wx_ClassInfo, FindClass);
 	Gura_AssignMethod(wx_ClassInfo, GetBaseClassName1);

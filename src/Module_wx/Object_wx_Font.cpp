@@ -680,20 +680,16 @@ String Object_wx_Font::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Font::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxFont
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Font)
 {
 	Gura_AssignFunction(FontEmpty);
 	Gura_AssignFunction(Font);
 	Gura_AssignFunction(FontEx);
 	Gura_AssignBinaryOperator(Ne, wx_Font, wx_Font);
 	Gura_AssignBinaryOperator(Ne, wx_Font, wx_Font);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxFont
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Font)
-{
 	Gura_AssignMethod(wx_Font, IsFixedWidth);
 	Gura_AssignMethod(wx_Font, GetDefaultEncoding);
 	Gura_AssignMethod(wx_Font, GetEncoding);

@@ -313,18 +313,14 @@ String Object_wx_ScrollBar::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ScrollBar::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(SetScrollbar);
-	Gura_AssignFunction(ScrollBarEmpty);
-	Gura_AssignFunction(ScrollBar);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxScrollBar
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScrollBar)
 {
+	Gura_RealizeUserSymbol(SetScrollbar);
+	Gura_AssignFunction(ScrollBarEmpty);
+	Gura_AssignFunction(ScrollBar);
 	Gura_AssignMethod(wx_ScrollBar, Create);
 	Gura_AssignMethod(wx_ScrollBar, GetRange);
 	Gura_AssignMethod(wx_ScrollBar, GetPageSize);

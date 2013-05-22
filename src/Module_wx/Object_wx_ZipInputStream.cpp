@@ -215,18 +215,14 @@ String Object_wx_ZipInputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ZipInputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ZipInputStream);
-	Gura_AssignFunction(ZipInputStream_1);
-	Gura_AssignFunction(ZipInputStream_2);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxZipInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZipInputStream)
 {
+	Gura_AssignFunction(ZipInputStream);
+	Gura_AssignFunction(ZipInputStream_1);
+	Gura_AssignFunction(ZipInputStream_2);
 	Gura_AssignMethod(wx_ZipInputStream, CloseEntry);
 	Gura_AssignMethod(wx_ZipInputStream, GetComment);
 	Gura_AssignMethod(wx_ZipInputStream, GetNextEntry);

@@ -138,17 +138,13 @@ String Object_wx_MemoryDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MemoryDC::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MemoryDCEmpty);
-	Gura_AssignFunction(MemoryDC);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMemoryDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryDC)
 {
+	Gura_AssignFunction(MemoryDCEmpty);
+	Gura_AssignFunction(MemoryDC);
 	Gura_AssignMethod(wx_MemoryDC, SelectObject);
 	Gura_AssignMethod(wx_MemoryDC, SelectObjectAsSource);
 }

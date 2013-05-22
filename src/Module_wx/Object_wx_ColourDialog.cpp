@@ -137,16 +137,12 @@ String Object_wx_ColourDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ColourDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ColourDialog);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxColourDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ColourDialog)
 {
+	Gura_AssignFunction(ColourDialog);
 	Gura_AssignMethod(wx_ColourDialog, Create);
 	Gura_AssignMethod(wx_ColourDialog, GetColourData);
 	Gura_AssignMethod(wx_ColourDialog, ShowModal);

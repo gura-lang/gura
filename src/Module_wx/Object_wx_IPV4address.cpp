@@ -178,10 +178,6 @@ String Object_wx_IPV4address::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_IPV4address::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxIPV4address
 //----------------------------------------------------------------------------

@@ -419,18 +419,14 @@ String Object_wx_HtmlHelpWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlHelpWindow::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(AddToolbarButtons);
-	Gura_AssignFunction(HtmlHelpWindow);
-	Gura_AssignFunction(HtmlHelpWindow_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlHelpWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlHelpWindow)
 {
+	Gura_RealizeUserSymbol(AddToolbarButtons);
+	Gura_AssignFunction(HtmlHelpWindow);
+	Gura_AssignFunction(HtmlHelpWindow_1);
 	Gura_AssignMethod(wx_HtmlHelpWindow, Create);
 	Gura_AssignMethod(wx_HtmlHelpWindow, CreateContents);
 	Gura_AssignMethod(wx_HtmlHelpWindow, CreateIndex);

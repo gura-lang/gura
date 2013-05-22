@@ -116,16 +116,12 @@ String Object_wx_BufferedOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BufferedOutputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(BufferedOutputStream);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxBufferedOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BufferedOutputStream)
 {
+	Gura_AssignFunction(BufferedOutputStream);
 	Gura_AssignMethod(wx_BufferedOutputStream, SeekO);
 	Gura_AssignMethod(wx_BufferedOutputStream, Sync);
 }

@@ -85,16 +85,12 @@ String Object_wx_ClientDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ClientDC::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ClientDC);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxClientDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClientDC)
 {
+	Gura_AssignFunction(ClientDC);
 }
 
 Gura_ImplementDescendantCreator(wx_ClientDC)

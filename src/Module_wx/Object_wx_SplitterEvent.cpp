@@ -160,16 +160,12 @@ String Object_wx_SplitterEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SplitterEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SplitterEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSplitterEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SplitterEvent)
 {
+	Gura_AssignFunction(SplitterEvent);
 	Gura_AssignMethod(wx_SplitterEvent, GetSashPosition);
 	Gura_AssignMethod(wx_SplitterEvent, GetX);
 	Gura_AssignMethod(wx_SplitterEvent, GetY);

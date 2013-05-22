@@ -182,16 +182,12 @@ String Object_wx_Quantize::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Quantize::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(QuantizeEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxQuantize
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Quantize)
 {
+	Gura_AssignFunction(QuantizeEmpty);
 	Gura_AssignMethod(wx_Quantize, Quantize);
 	Gura_AssignMethod(wx_Quantize, Quantize_1);
 	Gura_AssignMethod(wx_Quantize, DoQuantize);

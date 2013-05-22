@@ -160,16 +160,12 @@ String Object_wx_SetCursorEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SetCursorEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SetCursorEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSetCursorEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SetCursorEvent)
 {
+	Gura_AssignFunction(SetCursorEvent);
 	Gura_AssignMethod(wx_SetCursorEvent, GetCursor);
 	Gura_AssignMethod(wx_SetCursorEvent, GetX);
 	Gura_AssignMethod(wx_SetCursorEvent, GetY);

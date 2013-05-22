@@ -648,7 +648,10 @@ String Object_wx_DataViewCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewCtrl::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxDataViewCtrl
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_DataViewCtrl)
 {
 	Gura_RealizeUserSymbol(AppendColumn);
 	Gura_RealizeUserSymbol(AssociateModel);
@@ -666,13 +669,6 @@ void Object_wx_DataViewCtrl::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(Unselect);
 	Gura_AssignFunction(DataViewCtrlEmpty);
 	Gura_AssignFunction(DataViewCtrl);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxDataViewCtrl
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_DataViewCtrl)
-{
 	Gura_AssignMethod(wx_DataViewCtrl, AppendColumn);
 	Gura_AssignMethod(wx_DataViewCtrl, AppendBitmapColumn);
 	Gura_AssignMethod(wx_DataViewCtrl, AppendBitmapColumn_1);

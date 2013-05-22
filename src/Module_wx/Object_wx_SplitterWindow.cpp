@@ -489,20 +489,16 @@ String Object_wx_SplitterWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SplitterWindow::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxSplitterWindow
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_SplitterWindow)
 {
 	Gura_RealizeUserSymbol(OnDoubleClickSash);
 	Gura_RealizeUserSymbol(OnUnsplit);
 	Gura_RealizeUserSymbol(OnSashPositionChange);
 	Gura_AssignFunction(SplitterWindowEmpty);
 	Gura_AssignFunction(SplitterWindow);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxSplitterWindow
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_SplitterWindow)
-{
 	Gura_AssignMethod(wx_SplitterWindow, Create);
 	Gura_AssignMethod(wx_SplitterWindow, GetMinimumPaneSize);
 	Gura_AssignMethod(wx_SplitterWindow, GetSashGravity);

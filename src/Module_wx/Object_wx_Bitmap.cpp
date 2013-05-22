@@ -773,7 +773,10 @@ String Object_wx_Bitmap::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Bitmap::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxBitmap
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClassWithCast(wx_Bitmap)
 {
 	Gura_RealizeUserSymbol(Create);
 	Gura_RealizeUserSymbol(Create_1);
@@ -786,13 +789,6 @@ void Object_wx_Bitmap::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignFunction(BitmapFromFile);
 	Gura_AssignFunction(BitmapFromIcon);
 	Gura_AssignFunction(BitmapFromImage);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxBitmap
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClassWithCast(wx_Bitmap)
-{
 	Gura_AssignMethod(wx_Bitmap, AddHandler);
 	Gura_AssignMethod(wx_Bitmap, CleanUpHandlers);
 	Gura_AssignMethod(wx_Bitmap, ConvertToImage);

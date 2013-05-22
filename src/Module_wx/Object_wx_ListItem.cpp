@@ -474,16 +474,12 @@ String Object_wx_ListItem::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ListItem::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ListItem);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxListItem
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ListItem)
 {
+	Gura_AssignFunction(ListItem);
 	Gura_AssignMethod(wx_ListItem, Clear);
 	Gura_AssignMethod(wx_ListItem, GetAlign);
 	Gura_AssignMethod(wx_ListItem, GetBackgroundColour);

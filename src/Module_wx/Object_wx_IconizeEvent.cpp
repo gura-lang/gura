@@ -103,16 +103,12 @@ String Object_wx_IconizeEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_IconizeEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(IconizeEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxIconizeEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IconizeEvent)
 {
+	Gura_AssignFunction(IconizeEvent);
 	Gura_AssignMethod(wx_IconizeEvent, Iconized);
 }
 

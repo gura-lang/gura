@@ -142,17 +142,13 @@ String Object_wx_PostScriptDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PostScriptDC::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PostScriptDC);
-	Gura_AssignFunction(PostScriptDC_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPostScriptDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PostScriptDC)
 {
+	Gura_AssignFunction(PostScriptDC);
+	Gura_AssignFunction(PostScriptDC_1);
 	Gura_AssignMethod(wx_PostScriptDC, SetResolution);
 	Gura_AssignMethod(wx_PostScriptDC, GetResolution);
 }

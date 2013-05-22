@@ -62,10 +62,6 @@ String Object_wx_ListbookEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ListbookEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxListbookEvent
 //----------------------------------------------------------------------------

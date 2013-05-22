@@ -333,18 +333,14 @@ String Object_wx_HtmlHelpController::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlHelpController::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(CreateHelpDialog);
-	Gura_RealizeUserSymbol(CreateHelpFrame);
-	Gura_AssignFunction(HtmlHelpController);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlHelpController
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlHelpController)
 {
+	Gura_RealizeUserSymbol(CreateHelpDialog);
+	Gura_RealizeUserSymbol(CreateHelpFrame);
+	Gura_AssignFunction(HtmlHelpController);
 	Gura_AssignMethod(wx_HtmlHelpController, AddBook);
 	Gura_AssignMethod(wx_HtmlHelpController, AddBook_1);
 	Gura_AssignMethod(wx_HtmlHelpController, CreateHelpDialog);

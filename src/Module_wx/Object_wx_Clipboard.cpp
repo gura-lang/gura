@@ -231,16 +231,12 @@ String Object_wx_Clipboard::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Clipboard::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Clipboard);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxClipboard
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Clipboard)
 {
+	Gura_AssignFunction(Clipboard);
 	Gura_AssignMethod(wx_Clipboard, AddData);
 	Gura_AssignMethod(wx_Clipboard, Clear);
 	Gura_AssignMethod(wx_Clipboard, Close);

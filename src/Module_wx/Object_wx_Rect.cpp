@@ -877,7 +877,10 @@ String Object_wx_Rect::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Rect::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxRect
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Rect)
 {
 	Gura_AssignFunction(RectEmpty);
 	Gura_AssignFunction(Rect);
@@ -886,13 +889,6 @@ void Object_wx_Rect::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignFunction(Rect_3);
 	Gura_AssignBinaryOperator(Eq, wx_Rect, wx_Rect);
 	Gura_AssignBinaryOperator(Ne, wx_Rect, wx_Rect);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxRect
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Rect)
-{
 	Gura_AssignMethod(wx_Rect, CentreIn);
 	Gura_AssignMethod(wx_Rect, CenterIn);
 	Gura_AssignMethod(wx_Rect, ContainsXY);

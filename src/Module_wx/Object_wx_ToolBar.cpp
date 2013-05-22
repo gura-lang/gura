@@ -959,17 +959,13 @@ String Object_wx_ToolBar::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ToolBar::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ToolBarEmpty);
-	Gura_AssignFunction(ToolBar);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxToolBar
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ToolBar)
 {
+	Gura_AssignFunction(ToolBarEmpty);
+	Gura_AssignFunction(ToolBar);
 	Gura_AssignMethod(wx_ToolBar, AddControl);
 	Gura_AssignMethod(wx_ToolBar, AddSeparator);
 	Gura_AssignMethod(wx_ToolBar, AddTool);

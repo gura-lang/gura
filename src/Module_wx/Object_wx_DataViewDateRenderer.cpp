@@ -89,16 +89,12 @@ String Object_wx_DataViewDateRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewDateRenderer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DataViewDateRenderer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewDateRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewDateRenderer)
 {
+	Gura_AssignFunction(DataViewDateRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewDateRenderer)

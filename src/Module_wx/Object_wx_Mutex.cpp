@@ -131,16 +131,12 @@ String Object_wx_Mutex::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Mutex::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Mutex);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMutex
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Mutex)
 {
+	Gura_AssignFunction(Mutex);
 	Gura_AssignMethod(wx_Mutex, Lock);
 	Gura_AssignMethod(wx_Mutex, TryLock);
 	Gura_AssignMethod(wx_Mutex, Unlock);

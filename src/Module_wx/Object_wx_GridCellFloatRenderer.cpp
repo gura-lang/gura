@@ -162,16 +162,12 @@ String Object_wx_GridCellFloatRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellFloatRenderer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridCellFloatRenderer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridCellFloatRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellFloatRenderer)
 {
+	Gura_AssignFunction(GridCellFloatRenderer);
 	Gura_AssignMethod(wx_GridCellFloatRenderer, GetPrecision);
 	Gura_AssignMethod(wx_GridCellFloatRenderer, GetWidth);
 	Gura_AssignMethod(wx_GridCellFloatRenderer, SetParameters);

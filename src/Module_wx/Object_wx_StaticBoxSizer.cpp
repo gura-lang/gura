@@ -131,17 +131,13 @@ String Object_wx_StaticBoxSizer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StaticBoxSizer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(StaticBoxSizer);
-	Gura_AssignFunction(StaticBoxSizerAuto);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxStaticBoxSizer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StaticBoxSizer)
 {
+	Gura_AssignFunction(StaticBoxSizer);
+	Gura_AssignFunction(StaticBoxSizerAuto);
 	Gura_AssignMethod(wx_StaticBoxSizer, GetStaticBox);
 }
 

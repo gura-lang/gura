@@ -448,17 +448,13 @@ String Object_wx_Slider::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Slider::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SliderEmpty);
-	Gura_AssignFunction(Slider);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSlider
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Slider)
 {
+	Gura_AssignFunction(SliderEmpty);
+	Gura_AssignFunction(Slider);
 	Gura_AssignMethod(wx_Slider, ClearSel);
 	Gura_AssignMethod(wx_Slider, ClearTicks);
 	Gura_AssignMethod(wx_Slider, Create);

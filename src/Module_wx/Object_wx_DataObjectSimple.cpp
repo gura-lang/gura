@@ -182,19 +182,15 @@ String Object_wx_DataObjectSimple::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataObjectSimple::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(GetDataSize);
-	Gura_RealizeUserSymbol(GetDataHere);
-	Gura_RealizeUserSymbol(SetData);
-	Gura_AssignFunction(DataObjectSimple);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataObjectSimple
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataObjectSimple)
 {
+	Gura_RealizeUserSymbol(GetDataSize);
+	Gura_RealizeUserSymbol(GetDataHere);
+	Gura_RealizeUserSymbol(SetData);
+	Gura_AssignFunction(DataObjectSimple);
 	Gura_AssignMethod(wx_DataObjectSimple, GetFormat);
 	Gura_AssignMethod(wx_DataObjectSimple, SetFormat);
 	Gura_AssignMethod(wx_DataObjectSimple, GetDataSize);

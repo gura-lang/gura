@@ -324,18 +324,14 @@ String Object_wx_PropertySheetDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PropertySheetDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(AddBookCtrl);
-	Gura_RealizeUserSymbol(CreateBookCtrl);
-	Gura_AssignFunction(PropertySheetDialog);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPropertySheetDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropertySheetDialog)
 {
+	Gura_RealizeUserSymbol(AddBookCtrl);
+	Gura_RealizeUserSymbol(CreateBookCtrl);
+	Gura_AssignFunction(PropertySheetDialog);
 	Gura_AssignMethod(wx_PropertySheetDialog, AddBookCtrl);
 	Gura_AssignMethod(wx_PropertySheetDialog, Create);
 	Gura_AssignMethod(wx_PropertySheetDialog, CreateBookCtrl);

@@ -86,16 +86,12 @@ String Object_wx_PaintEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PaintEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PaintEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPaintEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PaintEvent)
 {
+	Gura_AssignFunction(PaintEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_PaintEvent)

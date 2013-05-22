@@ -115,16 +115,12 @@ String Object_wx_URLDataObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_URLDataObject::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(URLDataObject);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxURLDataObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_URLDataObject)
 {
+	Gura_AssignFunction(URLDataObject);
 	Gura_AssignMethod(wx_URLDataObject, GetURL);
 	Gura_AssignMethod(wx_URLDataObject, SetURL);
 }

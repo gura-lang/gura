@@ -571,17 +571,13 @@ String Object_wx_AuiNotebook::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AuiNotebook::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(AuiNotebookEmpty);
-	Gura_AssignFunction(AuiNotebook);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxAuiNotebook
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiNotebook)
 {
+	Gura_AssignFunction(AuiNotebookEmpty);
+	Gura_AssignFunction(AuiNotebook);
 	Gura_AssignMethod(wx_AuiNotebook, AddPage);
 	Gura_AssignMethod(wx_AuiNotebook, AdvanceSelection);
 	Gura_AssignMethod(wx_AuiNotebook, Create);

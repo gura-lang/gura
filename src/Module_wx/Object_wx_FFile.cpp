@@ -484,18 +484,14 @@ String Object_wx_FFile::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FFile::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FFileEmpty);
-	Gura_AssignFunction(FFile);
-	Gura_AssignFunction(FFile_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFFile
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FFile)
 {
+	Gura_AssignFunction(FFileEmpty);
+	Gura_AssignFunction(FFile);
+	Gura_AssignFunction(FFile_1);
 	Gura_AssignMethod(wx_FFile, Attach);
 	Gura_AssignMethod(wx_FFile, Close);
 	Gura_AssignMethod(wx_FFile, Detach);

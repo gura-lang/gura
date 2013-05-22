@@ -182,16 +182,12 @@ String Object_wx_FilePickerCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FilePickerCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FilePickerCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFilePickerCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FilePickerCtrl)
 {
+	Gura_AssignFunction(FilePickerCtrl);
 	Gura_AssignMethod(wx_FilePickerCtrl, Create);
 	Gura_AssignMethod(wx_FilePickerCtrl, GetPath);
 	Gura_AssignMethod(wx_FilePickerCtrl, SetPath);

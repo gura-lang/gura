@@ -427,17 +427,13 @@ String Object_wx_RichTextFormattingDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextFormattingDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextFormattingDialog);
-	Gura_AssignFunction(RichTextFormattingDialogEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextFormattingDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextFormattingDialog)
 {
+	Gura_AssignFunction(RichTextFormattingDialog);
+	Gura_AssignFunction(RichTextFormattingDialogEmpty);
 	Gura_AssignMethod(wx_RichTextFormattingDialog, ApplyStyle);
 	Gura_AssignMethod(wx_RichTextFormattingDialog, Create);
 	Gura_AssignMethod(wx_RichTextFormattingDialog, GetAttributes);

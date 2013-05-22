@@ -144,16 +144,12 @@ String Object_wx_DropFilesEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DropFilesEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DropFilesEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDropFilesEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DropFilesEvent)
 {
+	Gura_AssignFunction(DropFilesEvent);
 	Gura_AssignMethod(wx_DropFilesEvent, GetFiles);
 	Gura_AssignMethod(wx_DropFilesEvent, GetNumberOfFiles);
 	Gura_AssignMethod(wx_DropFilesEvent, GetPosition);

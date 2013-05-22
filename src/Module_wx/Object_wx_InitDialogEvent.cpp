@@ -86,16 +86,12 @@ String Object_wx_InitDialogEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_InitDialogEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(InitDialogEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxInitDialogEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_InitDialogEvent)
 {
+	Gura_AssignFunction(InitDialogEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_InitDialogEvent)

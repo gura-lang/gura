@@ -89,16 +89,12 @@ String Object_wx_FileStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FileStream);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFileStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileStream)
 {
+	Gura_AssignFunction(FileStream);
 }
 
 Gura_ImplementDescendantCreator(wx_FileStream)

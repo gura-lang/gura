@@ -84,16 +84,12 @@ String Object_wx_WindowDisabler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_WindowDisabler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(WindowDisabler);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxWindowDisabler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowDisabler)
 {
+	Gura_AssignFunction(WindowDisabler);
 }
 
 Gura_ImplementDescendantCreator(wx_WindowDisabler)

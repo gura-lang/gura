@@ -447,17 +447,13 @@ String Object_wx_MediaCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MediaCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MediaCtrlEmpty);
-	Gura_AssignFunction(MediaCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMediaCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MediaCtrl)
 {
+	Gura_AssignFunction(MediaCtrlEmpty);
+	Gura_AssignFunction(MediaCtrl);
 	Gura_AssignMethod(wx_MediaCtrl, Create);
 	Gura_AssignMethod(wx_MediaCtrl, GetBestSize);
 	Gura_AssignMethod(wx_MediaCtrl, GetPlaybackRate);

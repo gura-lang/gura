@@ -217,17 +217,13 @@ String Object_wx_Timer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Timer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TimerEmpty);
-	Gura_AssignFunction(Timer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTimer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Timer)
 {
+	Gura_AssignFunction(TimerEmpty);
+	Gura_AssignFunction(Timer);
 	Gura_AssignMethod(wx_Timer, GetInterval);
 	Gura_AssignMethod(wx_Timer, IsOneShot);
 	Gura_AssignMethod(wx_Timer, IsRunning);

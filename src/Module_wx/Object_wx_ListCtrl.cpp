@@ -1463,7 +1463,10 @@ String Object_wx_ListCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ListCtrl::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxListCtrl
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_ListCtrl)
 {
 	Gura_RealizeUserSymbol(OnGetItemAttr);
 	Gura_RealizeUserSymbol(OnGetItemImage);
@@ -1472,13 +1475,6 @@ void Object_wx_ListCtrl::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignWxStringValue(ListCtrlNameStr);
 	Gura_AssignFunction(ListCtrlEmpty);
 	Gura_AssignFunction(ListCtrl);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxListCtrl
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_ListCtrl)
-{
 	Gura_AssignMethod(wx_ListCtrl, Arrange);
 	Gura_AssignMethod(wx_ListCtrl, AssignImageList);
 	Gura_AssignMethod(wx_ListCtrl, ClearAll);

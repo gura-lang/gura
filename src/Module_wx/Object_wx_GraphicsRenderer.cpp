@@ -285,10 +285,6 @@ String Object_wx_GraphicsRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GraphicsRenderer::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGraphicsRenderer
 //----------------------------------------------------------------------------

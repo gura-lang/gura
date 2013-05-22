@@ -162,10 +162,6 @@ String Object_wx_Protocol::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Protocol::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxProtocol
 //----------------------------------------------------------------------------

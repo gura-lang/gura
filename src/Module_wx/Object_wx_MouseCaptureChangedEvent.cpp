@@ -103,16 +103,12 @@ String Object_wx_MouseCaptureChangedEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MouseCaptureChangedEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MouseCaptureChangedEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMouseCaptureChangedEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MouseCaptureChangedEvent)
 {
+	Gura_AssignFunction(MouseCaptureChangedEvent);
 	Gura_AssignMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow);
 }
 

@@ -319,16 +319,12 @@ String Object_wx_SizerFlags::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SizerFlags::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SizerFlags);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSizerFlags
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SizerFlags)
 {
+	Gura_AssignFunction(SizerFlags);
 	Gura_AssignMethod(wx_SizerFlags, Align);
 	Gura_AssignMethod(wx_SizerFlags, Border);
 	Gura_AssignMethod(wx_SizerFlags, Center);

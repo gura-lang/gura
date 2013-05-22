@@ -102,16 +102,12 @@ String Object_wx_SizeEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SizeEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SizeEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSizeEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SizeEvent)
 {
+	Gura_AssignFunction(SizeEvent);
 	Gura_AssignMethod(wx_SizeEvent, GetSize);
 }
 

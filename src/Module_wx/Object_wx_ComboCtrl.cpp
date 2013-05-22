@@ -880,19 +880,15 @@ String Object_wx_ComboCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ComboCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(AnimateShow);
-	Gura_RealizeUserSymbol(DoShowPopup);
-	Gura_AssignFunction(ComboCtrlEmpty);
-	Gura_AssignFunction(ComboCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxComboCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ComboCtrl)
 {
+	Gura_RealizeUserSymbol(AnimateShow);
+	Gura_RealizeUserSymbol(DoShowPopup);
+	Gura_AssignFunction(ComboCtrlEmpty);
+	Gura_AssignFunction(ComboCtrl);
 	Gura_AssignMethod(wx_ComboCtrl, AnimateShow);
 	Gura_AssignMethod(wx_ComboCtrl, Create);
 	Gura_AssignMethod(wx_ComboCtrl, Copy);

@@ -90,16 +90,12 @@ String Object_wx_StringBuffer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StringBuffer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(StringBuffer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxStringBuffer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringBuffer)
 {
+	Gura_AssignFunction(StringBuffer);
 }
 
 Gura_ImplementDescendantCreator(wx_StringBuffer)

@@ -120,16 +120,12 @@ String Object_wx_ScrollWinEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ScrollWinEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ScrollWinEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxScrollWinEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScrollWinEvent)
 {
+	Gura_AssignFunction(ScrollWinEvent);
 	Gura_AssignMethod(wx_ScrollWinEvent, GetOrientation);
 	Gura_AssignMethod(wx_ScrollWinEvent, GetPosition);
 }

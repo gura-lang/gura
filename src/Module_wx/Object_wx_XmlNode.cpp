@@ -577,18 +577,14 @@ String Object_wx_XmlNode::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_XmlNode::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(XmlNode);
-	Gura_AssignFunction(XmlNode_1);
-	Gura_AssignFunction(XmlNode_2);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxXmlNode
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlNode)
 {
+	Gura_AssignFunction(XmlNode);
+	Gura_AssignFunction(XmlNode_1);
+	Gura_AssignFunction(XmlNode_2);
 	Gura_AssignMethod(wx_XmlNode, AddChild);
 	Gura_AssignMethod(wx_XmlNode, AddProperty);
 	Gura_AssignMethod(wx_XmlNode, AddProperty_1);

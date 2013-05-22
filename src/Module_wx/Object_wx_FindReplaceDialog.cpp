@@ -154,17 +154,13 @@ String Object_wx_FindReplaceDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FindReplaceDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FindReplaceDialogEmpty);
-	Gura_AssignFunction(FindReplaceDialog);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFindReplaceDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FindReplaceDialog)
 {
+	Gura_AssignFunction(FindReplaceDialogEmpty);
+	Gura_AssignFunction(FindReplaceDialog);
 	Gura_AssignMethod(wx_FindReplaceDialog, Create);
 	Gura_AssignMethod(wx_FindReplaceDialog, GetData);
 }

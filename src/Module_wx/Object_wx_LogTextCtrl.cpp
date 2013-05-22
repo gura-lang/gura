@@ -85,16 +85,12 @@ String Object_wx_LogTextCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LogTextCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(LogTextCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxLogTextCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogTextCtrl)
 {
+	Gura_AssignFunction(LogTextCtrl);
 }
 
 Gura_ImplementDescendantCreator(wx_LogTextCtrl)

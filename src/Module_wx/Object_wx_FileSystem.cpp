@@ -247,16 +247,12 @@ String Object_wx_FileSystem::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileSystem::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FileSystem);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFileSystem
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileSystem)
 {
+	Gura_AssignFunction(FileSystem);
 	Gura_AssignMethod(wx_FileSystem, AddHandler);
 	Gura_AssignMethod(wx_FileSystem, HasHandlerForPath);
 	Gura_AssignMethod(wx_FileSystem, ChangePathTo);

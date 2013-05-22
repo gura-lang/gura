@@ -270,17 +270,13 @@ String Object_wx_TarOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TarOutputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TarOutputStream);
-	Gura_AssignFunction(TarOutputStream_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTarOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TarOutputStream)
 {
+	Gura_AssignFunction(TarOutputStream);
+	Gura_AssignFunction(TarOutputStream_1);
 	Gura_AssignMethod(wx_TarOutputStream, Close);
 	Gura_AssignMethod(wx_TarOutputStream, CloseEntry);
 	Gura_AssignMethod(wx_TarOutputStream, CopyArchiveMetaData);

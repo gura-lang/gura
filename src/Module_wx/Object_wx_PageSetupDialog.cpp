@@ -134,16 +134,12 @@ String Object_wx_PageSetupDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PageSetupDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PageSetupDialog);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPageSetupDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PageSetupDialog)
 {
+	Gura_AssignFunction(PageSetupDialog);
 	Gura_AssignMethod(wx_PageSetupDialog, GetPageSetupData);
 	Gura_AssignMethod(wx_PageSetupDialog, IsOk);
 	Gura_AssignMethod(wx_PageSetupDialog, ShowModal);

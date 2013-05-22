@@ -458,7 +458,10 @@ String Object_wx_DDEConnection::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DDEConnection::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxDDEConnection
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_DDEConnection)
 {
 	Gura_RealizeUserSymbol(OnAdvise);
 	Gura_RealizeUserSymbol(OnDisconnect);
@@ -469,13 +472,6 @@ void Object_wx_DDEConnection::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(OnStopAdvise);
 	Gura_AssignFunction(DDEConnectionEmpty);
 	Gura_AssignFunction(DDEConnection);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxDDEConnection
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_DDEConnection)
-{
 	Gura_AssignMethod(wx_DDEConnection, Advise);
 	Gura_AssignMethod(wx_DDEConnection, Execute);
 	Gura_AssignMethod(wx_DDEConnection, Disconnect);

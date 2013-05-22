@@ -104,16 +104,12 @@ String Object_wx_ZlibOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ZlibOutputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ZlibOutputStream);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxZlibOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZlibOutputStream)
 {
+	Gura_AssignFunction(ZlibOutputStream);
 	Gura_AssignMethod(wx_ZlibOutputStream, CanHandleGZip);
 }
 

@@ -374,16 +374,12 @@ String Object_wx_AuiTabArt::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AuiTabArt::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(AuiTabArtEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxAuiTabArt
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiTabArt)
 {
+	Gura_AssignFunction(AuiTabArtEmpty);
 	Gura_AssignMethod(wx_AuiTabArt, Clone);
 	Gura_AssignMethod(wx_AuiTabArt, DrawBackground);
 	Gura_AssignMethod(wx_AuiTabArt, DrawButton);

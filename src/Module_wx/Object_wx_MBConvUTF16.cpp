@@ -112,10 +112,6 @@ String Object_wx_MBConvUTF16::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MBConvUTF16::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMBConvUTF16
 //----------------------------------------------------------------------------

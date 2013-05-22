@@ -86,16 +86,12 @@ String Object_wx_WindowDestroyEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_WindowDestroyEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(WindowDestroyEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxWindowDestroyEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowDestroyEvent)
 {
+	Gura_AssignFunction(WindowDestroyEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_WindowDestroyEvent)

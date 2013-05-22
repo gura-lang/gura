@@ -184,16 +184,12 @@ String Object_wx_CloseEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CloseEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(CloseEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCloseEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CloseEvent)
 {
+	Gura_AssignFunction(CloseEvent);
 	Gura_AssignMethod(wx_CloseEvent, CanVeto);
 	Gura_AssignMethod(wx_CloseEvent, GetLoggingOff);
 	Gura_AssignMethod(wx_CloseEvent, SetCanVeto);

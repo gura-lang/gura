@@ -200,16 +200,12 @@ String Object_wx_HtmlHelpData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlHelpData::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HtmlHelpDataEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlHelpData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlHelpData)
 {
+	Gura_AssignFunction(HtmlHelpDataEmpty);
 	Gura_AssignMethod(wx_HtmlHelpData, AddBook);
 	Gura_AssignMethod(wx_HtmlHelpData, FindPageById);
 	Gura_AssignMethod(wx_HtmlHelpData, FindPageByName);

@@ -122,16 +122,12 @@ String Object_wx_FileConfig::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileConfig::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FileConfig);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFileConfig
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileConfig)
 {
+	Gura_AssignFunction(FileConfig);
 	Gura_AssignMethod(wx_FileConfig, Save);
 	Gura_AssignMethod(wx_FileConfig, SetUmask);
 }

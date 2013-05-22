@@ -89,16 +89,12 @@ String Object_wx_BusyCursor::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BusyCursor::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(BusyCursor_);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxBusyCursor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BusyCursor)
 {
+	Gura_AssignFunction(BusyCursor_);
 }
 
 Gura_ImplementDescendantCreator(wx_BusyCursor)

@@ -1991,7 +1991,10 @@ String Object_wx_String::ToString(Signal sig, bool exprFlag)
 	return String(GetEntity()->ToUTF8());
 }
 
-void Object_wx_String::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxString
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClassWithCast(wx_String)
 {
 	Gura_AssignFunction(String);
 	Gura_AssignFunction(String_1);
@@ -1999,13 +2002,6 @@ void Object_wx_String::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignFunction(String_3);
 	Gura_AssignFunction(String_4);
 	Gura_AssignFunction(String_5);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxString
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClassWithCast(wx_String)
-{
 	Gura_AssignMethod(wx_String, Alloc);
 	Gura_AssignMethod(wx_String, Append);
 	Gura_AssignMethod(wx_String, Append_1);

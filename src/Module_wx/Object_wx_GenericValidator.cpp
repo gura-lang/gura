@@ -258,7 +258,10 @@ String Object_wx_GenericValidator::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GenericValidator::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxGenericValidator
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_GenericValidator)
 {
 	Gura_RealizeUserSymbol(Clone);
 	Gura_RealizeUserSymbol(TransferFromWindow);
@@ -268,13 +271,6 @@ void Object_wx_GenericValidator::DoAssignConstructor(Environment &env, Signal si
 	Gura_AssignFunction(GenericValidator_2);
 	Gura_AssignFunction(GenericValidator_3);
 	Gura_AssignFunction(GenericValidator_4);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxGenericValidator
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_GenericValidator)
-{
 	Gura_AssignMethod(wx_GenericValidator, Clone);
 	Gura_AssignMethod(wx_GenericValidator, TransferFromWindow);
 	Gura_AssignMethod(wx_GenericValidator, TransferToWindow);

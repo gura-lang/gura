@@ -143,16 +143,12 @@ String Object_wx_TextEntryDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextEntryDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TextEntryDialog);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTextEntryDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextEntryDialog)
 {
+	Gura_AssignFunction(TextEntryDialog);
 	Gura_AssignMethod(wx_TextEntryDialog, GetValue);
 	Gura_AssignMethod(wx_TextEntryDialog, SetValue);
 	Gura_AssignMethod(wx_TextEntryDialog, ShowModal);

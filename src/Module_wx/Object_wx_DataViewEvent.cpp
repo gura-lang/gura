@@ -302,17 +302,13 @@ String Object_wx_DataViewEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DataViewEvent);
-	Gura_AssignFunction(DataViewEvent_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewEvent)
 {
+	Gura_AssignFunction(DataViewEvent);
+	Gura_AssignFunction(DataViewEvent_1);
 	Gura_AssignMethod(wx_DataViewEvent, Clone);
 	Gura_AssignMethod(wx_DataViewEvent, GetColumn);
 	Gura_AssignMethod(wx_DataViewEvent, GetDataViewColumn);

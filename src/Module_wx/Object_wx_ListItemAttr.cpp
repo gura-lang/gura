@@ -244,17 +244,13 @@ String Object_wx_ListItemAttr::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ListItemAttr::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ListItemAttrEmpty);
-	Gura_AssignFunction(ListItemAttr);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxListItemAttr
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ListItemAttr)
 {
+	Gura_AssignFunction(ListItemAttrEmpty);
+	Gura_AssignFunction(ListItemAttr);
 	Gura_AssignMethod(wx_ListItemAttr, GetBackgroundColour);
 	Gura_AssignMethod(wx_ListItemAttr, GetFont);
 	Gura_AssignMethod(wx_ListItemAttr, GetTextColour);

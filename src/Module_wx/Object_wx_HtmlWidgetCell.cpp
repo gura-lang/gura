@@ -88,16 +88,12 @@ String Object_wx_HtmlWidgetCell::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlWidgetCell::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HtmlWidgetCell);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlWidgetCell
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWidgetCell)
 {
+	Gura_AssignFunction(HtmlWidgetCell);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlWidgetCell)

@@ -464,18 +464,14 @@ String Object_wx_EvtHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_EvtHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(ProcessEvent);
-	Gura_RealizeUserSymbol(SearchEventTable);
-	Gura_AssignFunction(EvtHandler);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxEvtHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EvtHandler)
 {
+	Gura_RealizeUserSymbol(ProcessEvent);
+	Gura_RealizeUserSymbol(SearchEventTable);
+	Gura_AssignFunction(EvtHandler);
 	Gura_AssignMethod(wx_EvtHandler, AddPendingEvent);
 	Gura_AssignMethod(wx_EvtHandler, Bind);
 	Gura_AssignMethod(wx_EvtHandler, Connect);

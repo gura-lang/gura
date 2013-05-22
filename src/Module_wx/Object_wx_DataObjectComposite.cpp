@@ -121,16 +121,12 @@ String Object_wx_DataObjectComposite::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataObjectComposite::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DataObjectCompositeEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataObjectComposite
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataObjectComposite)
 {
+	Gura_AssignFunction(DataObjectCompositeEmpty);
 	Gura_AssignMethod(wx_DataObjectComposite, Add);
 	Gura_AssignMethod(wx_DataObjectComposite, GetReceivedFormat);
 }

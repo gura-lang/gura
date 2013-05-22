@@ -156,17 +156,13 @@ String Object_wx_StaticBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StaticBox::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(StaticBoxEmpty);
-	Gura_AssignFunction(StaticBox);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxStaticBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StaticBox)
 {
+	Gura_AssignFunction(StaticBoxEmpty);
+	Gura_AssignFunction(StaticBox);
 	Gura_AssignMethod(wx_StaticBox, Create);
 }
 

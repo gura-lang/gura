@@ -956,7 +956,10 @@ String Object_wx_GridTableBase::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridTableBase::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxGridTableBase
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_GridTableBase)
 {
 	Gura_RealizeUserSymbol(GetNumberRows);
 	Gura_RealizeUserSymbol(GetNumberCols);
@@ -975,13 +978,6 @@ void Object_wx_GridTableBase::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(GetRowLabelValue);
 	Gura_RealizeUserSymbol(GetColLabelValue);
 	Gura_AssignFunction(GridTableBase);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxGridTableBase
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_GridTableBase)
-{
 	Gura_AssignMethod(wx_GridTableBase, GetTypeName);
 	Gura_AssignMethod(wx_GridTableBase, CanGetValueAs);
 	Gura_AssignMethod(wx_GridTableBase, CanSetValueAs);

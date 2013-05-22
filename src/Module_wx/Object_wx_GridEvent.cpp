@@ -251,17 +251,13 @@ String Object_wx_GridEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridEventEmpty);
-	Gura_AssignFunction(GridEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridEvent)
 {
+	Gura_AssignFunction(GridEventEmpty);
+	Gura_AssignFunction(GridEvent);
 	Gura_AssignMethod(wx_GridEvent, AltDown);
 	Gura_AssignMethod(wx_GridEvent, ControlDown);
 	Gura_AssignMethod(wx_GridEvent, GetCol);

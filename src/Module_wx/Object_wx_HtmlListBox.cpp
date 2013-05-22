@@ -316,19 +316,15 @@ String Object_wx_HtmlListBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlListBox::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(OnLinkClicked);
-	Gura_AssignWxStringValue(HtmlListBoxNameStr);
-	Gura_AssignFunction(HtmlListBox);
-	Gura_AssignFunction(HtmlListBoxEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlListBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlListBox)
 {
+	Gura_RealizeUserSymbol(OnLinkClicked);
+	Gura_AssignWxStringValue(HtmlListBoxNameStr);
+	Gura_AssignFunction(HtmlListBox);
+	Gura_AssignFunction(HtmlListBoxEmpty);
 	Gura_AssignMethod(wx_HtmlListBox, Create);
 	Gura_AssignMethod(wx_HtmlListBox, GetFileSystem);
 	Gura_AssignMethod(wx_HtmlListBox, GetFileSystem_1);

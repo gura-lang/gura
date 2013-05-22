@@ -206,19 +206,15 @@ String Object_wx_LogWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LogWindow::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(OnFrameCreate);
-	Gura_RealizeUserSymbol(OnFrameClose);
-	Gura_RealizeUserSymbol(OnFrameDelete);
-	Gura_AssignFunction(LogWindow);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxLogWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogWindow)
 {
+	Gura_RealizeUserSymbol(OnFrameCreate);
+	Gura_RealizeUserSymbol(OnFrameClose);
+	Gura_RealizeUserSymbol(OnFrameDelete);
+	Gura_AssignFunction(LogWindow);
 	Gura_AssignMethod(wx_LogWindow, Show);
 	Gura_AssignMethod(wx_LogWindow, GetFrame);
 	Gura_AssignMethod(wx_LogWindow, OnFrameCreate);

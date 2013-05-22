@@ -141,10 +141,6 @@ String Object_wx_DllLoader::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DllLoader::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDllLoader
 //----------------------------------------------------------------------------

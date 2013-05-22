@@ -248,18 +248,14 @@ String Object_wx_Animation::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Animation::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(AnimationEmpty);
-	Gura_AssignFunction(Animation);
-	Gura_AssignFunction(Animation_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxAnimation
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Animation)
 {
+	Gura_AssignFunction(AnimationEmpty);
+	Gura_AssignFunction(Animation);
+	Gura_AssignFunction(Animation_1);
 	Gura_AssignMethod(wx_Animation, GetDelay);
 	Gura_AssignMethod(wx_Animation, GetFrameCount);
 	Gura_AssignMethod(wx_Animation, GetFrame);

@@ -3836,7 +3836,10 @@ String Object_wx_Window::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Window::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxWindow
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Window)
 {
 	Gura_RealizeUserSymbol(AddChild);
 	Gura_RealizeUserSymbol(CaptureMouse);
@@ -3932,13 +3935,6 @@ void Object_wx_Window::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(WindowToClientSize);
 	Gura_AssignFunction(WindowEmpty);
 	Gura_AssignFunction(Window);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxWindow
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Window)
-{
 	Gura_AssignMethod(wx_Window, AddChild);
 	Gura_AssignMethod(wx_Window, CacheBestSize);
 	Gura_AssignMethod(wx_Window, CaptureMouse);

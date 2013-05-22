@@ -635,16 +635,12 @@ String Object_wx_MouseEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MouseEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MouseEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMouseEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MouseEvent)
 {
+	Gura_AssignFunction(MouseEvent);
 	Gura_AssignMethod(wx_MouseEvent, AltDown);
 	Gura_AssignMethod(wx_MouseEvent, Button);
 	Gura_AssignMethod(wx_MouseEvent, ButtonDClick);

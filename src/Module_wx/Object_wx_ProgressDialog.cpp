@@ -152,18 +152,14 @@ String Object_wx_ProgressDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ProgressDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(Update);
-	Gura_RealizeUserSymbol(Pulse);
-	Gura_AssignFunction(ProgressDialog);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxProgressDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ProgressDialog)
 {
+	Gura_RealizeUserSymbol(Update);
+	Gura_RealizeUserSymbol(Pulse);
+	Gura_AssignFunction(ProgressDialog);
 	Gura_AssignMethod(wx_ProgressDialog, Resume);
 	Gura_AssignMethod(wx_ProgressDialog, Update);
 	Gura_AssignMethod(wx_ProgressDialog, Pulse);

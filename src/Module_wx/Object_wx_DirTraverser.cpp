@@ -118,18 +118,14 @@ String Object_wx_DirTraverser::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DirTraverser::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(OnDir);
-	Gura_RealizeUserSymbol(OnFile);
-	Gura_RealizeUserSymbol(OnOpenError);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDirTraverser
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DirTraverser)
 {
+	Gura_RealizeUserSymbol(OnDir);
+	Gura_RealizeUserSymbol(OnFile);
+	Gura_RealizeUserSymbol(OnOpenError);
 	Gura_AssignMethod(wx_DirTraverser, OnDir);
 	Gura_AssignMethod(wx_DirTraverser, OnFile);
 	Gura_AssignMethod(wx_DirTraverser, OnOpenError);

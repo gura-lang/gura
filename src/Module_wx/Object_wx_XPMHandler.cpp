@@ -84,16 +84,12 @@ String Object_wx_XPMHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_XPMHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(XPMHandler);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxXPMHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XPMHandler)
 {
+	Gura_AssignFunction(XPMHandler);
 }
 
 Gura_ImplementDescendantCreator(wx_XPMHandler)

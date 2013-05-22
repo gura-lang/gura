@@ -118,16 +118,12 @@ String Object_wx_HyperlinkEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HyperlinkEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HyperlinkEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHyperlinkEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HyperlinkEvent)
 {
+	Gura_AssignFunction(HyperlinkEvent);
 	Gura_AssignMethod(wx_HyperlinkEvent, GetURL);
 	Gura_AssignMethod(wx_HyperlinkEvent, SetURL);
 }

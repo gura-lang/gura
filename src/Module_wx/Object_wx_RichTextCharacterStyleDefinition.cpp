@@ -86,16 +86,12 @@ String Object_wx_RichTextCharacterStyleDefinition::ToString(Signal sig, bool exp
 	return rtn;
 }
 
-void Object_wx_RichTextCharacterStyleDefinition::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextCharacterStyleDefinition);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextCharacterStyleDefinition
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextCharacterStyleDefinition)
 {
+	Gura_AssignFunction(RichTextCharacterStyleDefinition);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextCharacterStyleDefinition)

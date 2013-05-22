@@ -513,17 +513,13 @@ String Object_wx_TextAttr::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextAttr::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TextAttr);
-	Gura_AssignFunction(TextAttr_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTextAttr
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttr)
 {
+	Gura_AssignFunction(TextAttr);
+	Gura_AssignFunction(TextAttr_1);
 	Gura_AssignMethod(wx_TextAttr, GetAlignment);
 	Gura_AssignMethod(wx_TextAttr, GetBackgroundColour);
 	Gura_AssignMethod(wx_TextAttr, GetFont);

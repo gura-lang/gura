@@ -88,16 +88,12 @@ String Object_wx_HtmlColourCell::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlColourCell::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HtmlColourCell);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlColourCell
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlColourCell)
 {
+	Gura_AssignFunction(HtmlColourCell);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlColourCell)

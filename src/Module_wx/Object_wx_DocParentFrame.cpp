@@ -189,17 +189,13 @@ String Object_wx_DocParentFrame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DocParentFrame::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DocParentFrameEmpty);
-	Gura_AssignFunction(DocParentFrame);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDocParentFrame
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocParentFrame)
 {
+	Gura_AssignFunction(DocParentFrameEmpty);
+	Gura_AssignFunction(DocParentFrame);
 	Gura_AssignMethod(wx_DocParentFrame, Create);
 	Gura_AssignMethod(wx_DocParentFrame, GetDocumentManager);
 	Gura_AssignMethod(wx_DocParentFrame, OnCloseWindow);

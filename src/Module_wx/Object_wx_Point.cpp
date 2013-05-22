@@ -203,7 +203,10 @@ String Object_wx_Point::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Point::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxPoint
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Point)
 {
 	Gura_AssignFunction(PointEmpty);
 	Gura_AssignFunction(Point);
@@ -211,13 +214,6 @@ void Object_wx_Point::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignBinaryOperator(Ne, wx_Point, wx_Point);
 	Gura_AssignBinaryOperator(Add, wx_Point, any);
 	Gura_AssignBinaryOperator(Sub, wx_Point, any);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxPoint
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Point)
-{
 }
 
 Gura_ImplementDescendantCreator(wx_Point)

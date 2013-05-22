@@ -696,17 +696,13 @@ String Object_wx_Array::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Array::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ArrayEmpty);
-	Gura_AssignFunction(Array);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxArray
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Array)
 {
+	Gura_AssignFunction(ArrayEmpty);
+	Gura_AssignFunction(Array);
 	Gura_AssignMethod(wx_Array, WX_DEFINE_ARRAY);
 	Gura_AssignMethod(wx_Array, WX_DEFINE_EXPORTED_ARRAY);
 	Gura_AssignMethod(wx_Array, WX_DEFINE_USER_EXPORTED_ARRAY);

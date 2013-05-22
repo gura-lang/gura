@@ -61,10 +61,6 @@ String Object_wx_GraphicsFont::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GraphicsFont::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGraphicsFont
 //----------------------------------------------------------------------------

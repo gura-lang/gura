@@ -83,16 +83,12 @@ String Object_wx_ScopedTiedPtr::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ScopedTiedPtr::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ScopedTiedPtr);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxScopedTiedPtr
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScopedTiedPtr)
 {
+	Gura_AssignFunction(ScopedTiedPtr);
 }
 
 Gura_ImplementDescendantCreator(wx_ScopedTiedPtr)

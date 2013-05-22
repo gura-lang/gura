@@ -210,18 +210,14 @@ String Object_wx_Choice::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Choice::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignWxStringValue(ChoiceNameStr);
-	Gura_AssignFunction(ChoiceEmpty);
-	Gura_AssignFunction(Choice);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxChoice
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Choice)
 {
+	Gura_AssignWxStringValue(ChoiceNameStr);
+	Gura_AssignFunction(ChoiceEmpty);
+	Gura_AssignFunction(Choice);
 	Gura_AssignMethod(wx_Choice, Create);
 	Gura_AssignMethod(wx_Choice, GetColumns);
 	Gura_AssignMethod(wx_Choice, GetCurrentSelection);

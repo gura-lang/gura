@@ -220,18 +220,14 @@ String Object_wx_Button::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Button::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignWxStringValue(ButtonNameStr);
-	Gura_AssignFunction(ButtonEmpty);
-	Gura_AssignFunction(Button);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Button)
 {
+	Gura_AssignWxStringValue(ButtonNameStr);
+	Gura_AssignFunction(ButtonEmpty);
+	Gura_AssignFunction(Button);
 	Gura_AssignMethod(wx_Button, Create);
 	Gura_AssignMethod(wx_Button, GetLabel);
 	Gura_AssignMethod(wx_Button, GetDefaultSize);

@@ -476,7 +476,10 @@ String Object_wx_HtmlCell::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlCell::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxHtmlCell
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_HtmlCell)
 {
 	Gura_RealizeUserSymbol(AdjustPagebreak);
 	Gura_RealizeUserSymbol(Draw);
@@ -488,13 +491,6 @@ void Object_wx_HtmlCell::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(Layout);
 	Gura_RealizeUserSymbol(ProcessMouseClick);
 	Gura_AssignFunction(HtmlCellEmpty);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxHtmlCell
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_HtmlCell)
-{
 	Gura_AssignMethod(wx_HtmlCell, AdjustPagebreak);
 	Gura_AssignMethod(wx_HtmlCell, Draw);
 	Gura_AssignMethod(wx_HtmlCell, DrawInvisible);

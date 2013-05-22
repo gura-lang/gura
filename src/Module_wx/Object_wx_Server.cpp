@@ -118,17 +118,13 @@ String Object_wx_Server::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Server::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(OnAcceptConnection);
-	Gura_AssignFunction(ServerEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxServer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Server)
 {
+	Gura_RealizeUserSymbol(OnAcceptConnection);
+	Gura_AssignFunction(ServerEmpty);
 	Gura_AssignMethod(wx_Server, Create);
 	Gura_AssignMethod(wx_Server, OnAcceptConnection);
 }

@@ -374,7 +374,10 @@ String Object_wx_MDIParentFrame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MDIParentFrame::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxMDIParentFrame
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_MDIParentFrame)
 {
 	Gura_RealizeUserSymbol(GetClientSize);
 	Gura_RealizeUserSymbol(GetToolBar);
@@ -382,13 +385,6 @@ void Object_wx_MDIParentFrame::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(SetToolBar);
 	Gura_AssignFunction(MDIParentFrameEmpty);
 	Gura_AssignFunction(MDIParentFrame);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxMDIParentFrame
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_MDIParentFrame)
-{
 	Gura_AssignMethod(wx_MDIParentFrame, ActivateNext);
 	Gura_AssignMethod(wx_MDIParentFrame, ActivatePrevious);
 	Gura_AssignMethod(wx_MDIParentFrame, ArrangeIcons);

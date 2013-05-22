@@ -158,16 +158,12 @@ String Object_wx_Condition::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Condition::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Condition);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCondition
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Condition)
 {
+	Gura_AssignFunction(Condition);
 	Gura_AssignMethod(wx_Condition, Broadcast);
 	Gura_AssignMethod(wx_Condition, IsOk);
 	Gura_AssignMethod(wx_Condition, Signal);

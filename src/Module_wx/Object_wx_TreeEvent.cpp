@@ -203,16 +203,12 @@ String Object_wx_TreeEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TreeEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TreeEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTreeEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeEvent)
 {
+	Gura_AssignFunction(TreeEvent);
 	Gura_AssignMethod(wx_TreeEvent, GetKeyCode);
 	Gura_AssignMethod(wx_TreeEvent, GetItem);
 	Gura_AssignMethod(wx_TreeEvent, GetKeyEvent);

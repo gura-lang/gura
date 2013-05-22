@@ -180,17 +180,13 @@ String Object_wx_AcceleratorEntry::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AcceleratorEntry::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(AcceleratorEntryEmpty);
-	Gura_AssignFunction(AcceleratorEntry);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxAcceleratorEntry
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AcceleratorEntry)
 {
+	Gura_AssignFunction(AcceleratorEntryEmpty);
+	Gura_AssignFunction(AcceleratorEntry);
 	Gura_AssignMethod(wx_AcceleratorEntry, GetCommand);
 	Gura_AssignMethod(wx_AcceleratorEntry, GetFlags);
 	Gura_AssignMethod(wx_AcceleratorEntry, GetKeyCode);

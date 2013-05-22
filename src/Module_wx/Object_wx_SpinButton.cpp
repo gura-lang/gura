@@ -226,18 +226,14 @@ String Object_wx_SpinButton::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SpinButton::DoAssignConstructor(Environment &env, Signal sig)
-{
-	//Gura_AssignWxStringValue(SpinButtonNameStr);
-	Gura_AssignFunction(SpinButtonEmpty);
-	Gura_AssignFunction(SpinButton);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSpinButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SpinButton)
 {
+	//Gura_AssignWxStringValue(SpinButtonNameStr);
+	Gura_AssignFunction(SpinButtonEmpty);
+	Gura_AssignFunction(SpinButton);
 	Gura_AssignMethod(wx_SpinButton, Create);
 	Gura_AssignMethod(wx_SpinButton, GetMax);
 	Gura_AssignMethod(wx_SpinButton, GetMin);

@@ -287,16 +287,12 @@ String Object_wx_CommandEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CommandEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(CommandEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCommandEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CommandEvent)
 {
+	Gura_AssignFunction(CommandEvent);
 	Gura_AssignMethod(wx_CommandEvent, Checked);
 	Gura_AssignMethod(wx_CommandEvent, GetClientObject);
 	Gura_AssignMethod(wx_CommandEvent, GetExtraLong);

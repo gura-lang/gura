@@ -157,16 +157,12 @@ String Object_wx_PreviewControlBar::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PreviewControlBar::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PreviewControlBar);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPreviewControlBar
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreviewControlBar)
 {
+	Gura_AssignFunction(PreviewControlBar);
 	Gura_AssignMethod(wx_PreviewControlBar, CreateButtons);
 	Gura_AssignMethod(wx_PreviewControlBar, GetPrintPreview);
 	Gura_AssignMethod(wx_PreviewControlBar, GetZoomControl);

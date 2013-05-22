@@ -84,16 +84,12 @@ String Object_wx_GIFHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GIFHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GIFHandler);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGIFHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GIFHandler)
 {
+	Gura_AssignFunction(GIFHandler);
 }
 
 Gura_ImplementDescendantCreator(wx_GIFHandler)

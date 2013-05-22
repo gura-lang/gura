@@ -666,17 +666,13 @@ String Object_wx_Variant::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Variant::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(VariantEmpty);
-	Gura_AssignFunction(Variant);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxVariant
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Variant)
 {
+	Gura_AssignFunction(VariantEmpty);
+	Gura_AssignFunction(Variant);
 	Gura_AssignMethod(wx_Variant, Append);
 	Gura_AssignMethod(wx_Variant, Clear);
 	Gura_AssignMethod(wx_Variant, ClearList);

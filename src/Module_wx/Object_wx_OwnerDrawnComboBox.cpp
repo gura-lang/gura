@@ -289,17 +289,13 @@ String Object_wx_OwnerDrawnComboBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_OwnerDrawnComboBox::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(OwnerDrawnComboBoxEmpty);
-	Gura_AssignFunction(OwnerDrawnComboBox);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxOwnerDrawnComboBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_OwnerDrawnComboBox)
 {
+	Gura_AssignFunction(OwnerDrawnComboBoxEmpty);
+	Gura_AssignFunction(OwnerDrawnComboBox);
 	Gura_AssignMethod(wx_OwnerDrawnComboBox, Create);
 	Gura_AssignMethod(wx_OwnerDrawnComboBox, GetWidestItem);
 	Gura_AssignMethod(wx_OwnerDrawnComboBox, GetWidestItemWidth);

@@ -531,17 +531,13 @@ String Object_wx_MenuBar::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MenuBar::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MenuBar);
-	Gura_AssignFunction(MenuBar_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMenuBar
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MenuBar)
 {
+	Gura_AssignFunction(MenuBar);
+	Gura_AssignFunction(MenuBar_1);
 	Gura_AssignMethod(wx_MenuBar, Append);
 	Gura_AssignMethod(wx_MenuBar, Check);
 	Gura_AssignMethod(wx_MenuBar, Enable);

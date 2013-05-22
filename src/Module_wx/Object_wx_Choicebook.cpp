@@ -100,16 +100,12 @@ String Object_wx_Choicebook::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Choicebook::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Choicebook);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxChoicebook
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Choicebook)
 {
+	Gura_AssignFunction(Choicebook);
 }
 
 Gura_ImplementDescendantCreator(wx_Choicebook)

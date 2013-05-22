@@ -193,16 +193,12 @@ String Object_wx_DocChildFrame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DocChildFrame::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DocChildFrame);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDocChildFrame
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocChildFrame)
 {
+	Gura_AssignFunction(DocChildFrame);
 	Gura_AssignMethod(wx_DocChildFrame, GetDocument);
 	Gura_AssignMethod(wx_DocChildFrame, GetView);
 	Gura_AssignMethod(wx_DocChildFrame, OnActivate);

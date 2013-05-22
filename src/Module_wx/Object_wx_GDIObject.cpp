@@ -83,16 +83,12 @@ String Object_wx_GDIObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GDIObject::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GDIObjectEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGDIObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GDIObject)
 {
+	Gura_AssignFunction(GDIObjectEmpty);
 }
 
 Gura_ImplementDescendantCreator(wx_GDIObject)

@@ -142,18 +142,14 @@ String Object_wx_Module::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Module::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(OnExit);
-	Gura_RealizeUserSymbol(OnInit);
-	Gura_AssignFunction(ModuleEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxModule
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Module)
 {
+	Gura_RealizeUserSymbol(OnExit);
+	Gura_RealizeUserSymbol(OnInit);
+	Gura_AssignFunction(ModuleEmpty);
 	Gura_AssignMethod(wx_Module, AddDependency);
 	Gura_AssignMethod(wx_Module, OnExit);
 	Gura_AssignMethod(wx_Module, OnInit);

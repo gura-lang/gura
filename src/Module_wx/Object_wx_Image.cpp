@@ -1800,7 +1800,10 @@ String Object_wx_Image::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Image::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxImage
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClassWithCast(wx_Image)
 {
 	Gura_AssignFunction(ImageEmpty);
 	Gura_AssignFunction(Image);
@@ -1812,13 +1815,6 @@ void Object_wx_Image::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignFunction(Image_6);
 	Gura_AssignFunction(Image_7);
 	Gura_AssignFunction(Image_8);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxImage
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClassWithCast(wx_Image)
-{
 	Gura_AssignMethod(wx_Image, AddHandler);
 	Gura_AssignMethod(wx_Image, CanRead);
 	Gura_AssignMethod(wx_Image, Blur);

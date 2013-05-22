@@ -395,18 +395,14 @@ String Object_wx_CalendarDateAttr::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CalendarDateAttr::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(CalendarDateAttrEmpty);
-	Gura_AssignFunction(CalendarDateAttr);
-	Gura_AssignFunction(CalendarDateAttr_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCalendarDateAttr
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CalendarDateAttr)
 {
+	Gura_AssignFunction(CalendarDateAttrEmpty);
+	Gura_AssignFunction(CalendarDateAttr);
+	Gura_AssignFunction(CalendarDateAttr_1);
 	Gura_AssignMethod(wx_CalendarDateAttr, SetTextColour);
 	Gura_AssignMethod(wx_CalendarDateAttr, SetBackgroundColour);
 	Gura_AssignMethod(wx_CalendarDateAttr, SetBorderColour);

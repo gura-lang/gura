@@ -115,16 +115,12 @@ String Object_wx_RichTextParagraphStyleDefinition::ToString(Signal sig, bool exp
 	return rtn;
 }
 
-void Object_wx_RichTextParagraphStyleDefinition::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextParagraphStyleDefinition);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextParagraphStyleDefinition
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextParagraphStyleDefinition)
 {
+	Gura_AssignFunction(RichTextParagraphStyleDefinition);
 	Gura_AssignMethod(wx_RichTextParagraphStyleDefinition, GetNextStyle);
 	Gura_AssignMethod(wx_RichTextParagraphStyleDefinition, SetNextStyle);
 }

@@ -123,16 +123,12 @@ String Object_wx_ScrollEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ScrollEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ScrollEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxScrollEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScrollEvent)
 {
+	Gura_AssignFunction(ScrollEvent);
 	Gura_AssignMethod(wx_ScrollEvent, GetOrientation);
 	Gura_AssignMethod(wx_ScrollEvent, GetPosition);
 }

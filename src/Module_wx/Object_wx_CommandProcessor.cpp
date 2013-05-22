@@ -373,7 +373,10 @@ String Object_wx_CommandProcessor::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CommandProcessor::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxCommandProcessor
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_CommandProcessor)
 {
 	Gura_RealizeUserSymbol(CanUndo);
 	Gura_RealizeUserSymbol(ClearCommands);
@@ -384,13 +387,6 @@ void Object_wx_CommandProcessor::DoAssignConstructor(Environment &env, Signal si
 	Gura_RealizeUserSymbol(Submit);
 	Gura_RealizeUserSymbol(Undo);
 	Gura_AssignFunction(CommandProcessor);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxCommandProcessor
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_CommandProcessor)
-{
 	Gura_AssignMethod(wx_CommandProcessor, CanUndo);
 	Gura_AssignMethod(wx_CommandProcessor, ClearCommands);
 	Gura_AssignMethod(wx_CommandProcessor, Redo);

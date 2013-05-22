@@ -259,19 +259,15 @@ String Object_wx_DropSource::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DropSource::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(DoDragDrop);
-	Gura_RealizeUserSymbol(GiveFeedback);
-	Gura_AssignFunction(DropSource);
-	Gura_AssignFunction(DropSource_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDropSource
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DropSource)
 {
+	Gura_RealizeUserSymbol(DoDragDrop);
+	Gura_RealizeUserSymbol(GiveFeedback);
+	Gura_AssignFunction(DropSource);
+	Gura_AssignFunction(DropSource_1);
 	Gura_AssignMethod(wx_DropSource, SetData);
 	Gura_AssignMethod(wx_DropSource, DoDragDrop);
 	Gura_AssignMethod(wx_DropSource, GetDataObject);

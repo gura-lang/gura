@@ -217,17 +217,13 @@ String Object_wx_GridSizeEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridSizeEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridSizeEventEmpty);
-	Gura_AssignFunction(GridSizeEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridSizeEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridSizeEvent)
 {
+	Gura_AssignFunction(GridSizeEventEmpty);
+	Gura_AssignFunction(GridSizeEvent);
 	Gura_AssignMethod(wx_GridSizeEvent, AltDown);
 	Gura_AssignMethod(wx_GridSizeEvent, ControlDown);
 	Gura_AssignMethod(wx_GridSizeEvent, GetPosition);

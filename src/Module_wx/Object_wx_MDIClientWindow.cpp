@@ -130,17 +130,13 @@ String Object_wx_MDIClientWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MDIClientWindow::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MDIClientWindowEmpty);
-	Gura_AssignFunction(MDIClientWindow);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMDIClientWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MDIClientWindow)
 {
+	Gura_AssignFunction(MDIClientWindowEmpty);
+	Gura_AssignFunction(MDIClientWindow);
 	Gura_AssignMethod(wx_MDIClientWindow, CreateClient);
 }
 

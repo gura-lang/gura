@@ -171,17 +171,13 @@ String Object_wx_GBSpan::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GBSpan::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GBSpanEmpty);
-	Gura_AssignFunction(GBSpan);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGBSpan
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GBSpan)
 {
+	Gura_AssignFunction(GBSpanEmpty);
+	Gura_AssignFunction(GBSpan);
 	Gura_AssignMethod(wx_GBSpan, GetColspan);
 	Gura_AssignMethod(wx_GBSpan, GetRowspan);
 	Gura_AssignMethod(wx_GBSpan, SetColspan);

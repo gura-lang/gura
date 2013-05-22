@@ -163,16 +163,12 @@ String Object_wx_SplashScreen::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SplashScreen::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SplashScreen);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSplashScreen
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SplashScreen)
 {
+	Gura_AssignFunction(SplashScreen);
 	Gura_AssignMethod(wx_SplashScreen, OnCloseWindow);
 	Gura_AssignMethod(wx_SplashScreen, GetSplashStyle);
 	Gura_AssignMethod(wx_SplashScreen, GetSplashWindow);

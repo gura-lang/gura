@@ -206,20 +206,16 @@ String Object_wx_Validator::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Validator::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxValidator
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Validator)
 {
 	Gura_RealizeUserSymbol(Clone);
 	Gura_RealizeUserSymbol(TransferToWindow);
 	Gura_RealizeUserSymbol(TransferToWindow_1);
 	Gura_RealizeUserSymbol(Validate);
 	Gura_AssignFunction(Validator);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxValidator
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Validator)
-{
 	Gura_AssignMethod(wx_Validator, Clone);
 	Gura_AssignMethod(wx_Validator, GetWindow);
 	Gura_AssignMethod(wx_Validator, IsSilent);

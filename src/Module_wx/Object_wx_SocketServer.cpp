@@ -144,16 +144,12 @@ String Object_wx_SocketServer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SocketServer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SocketServer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSocketServer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketServer)
 {
+	Gura_AssignFunction(SocketServer);
 	Gura_AssignMethod(wx_SocketServer, Accept);
 	Gura_AssignMethod(wx_SocketServer, AcceptWith);
 	Gura_AssignMethod(wx_SocketServer, WaitForAccept);

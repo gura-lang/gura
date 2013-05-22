@@ -118,17 +118,13 @@ String Object_wx_TCPServer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TCPServer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(OnAcceptConnection);
-	Gura_AssignFunction(TCPServerEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTCPServer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TCPServer)
 {
+	Gura_RealizeUserSymbol(OnAcceptConnection);
+	Gura_AssignFunction(TCPServerEmpty);
 	Gura_AssignMethod(wx_TCPServer, Create);
 	Gura_AssignMethod(wx_TCPServer, OnAcceptConnection);
 }

@@ -340,17 +340,13 @@ String Object_wx_RegEx::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RegEx::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RegExEmpty);
-	Gura_AssignFunction(RegEx);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRegEx
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RegEx)
 {
+	Gura_AssignFunction(RegExEmpty);
+	Gura_AssignFunction(RegEx);
 	Gura_AssignMethod(wx_RegEx, Compile);
 	Gura_AssignMethod(wx_RegEx, IsValid);
 	Gura_AssignMethod(wx_RegEx, GetMatch);

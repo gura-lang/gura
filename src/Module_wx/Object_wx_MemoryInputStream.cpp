@@ -132,17 +132,13 @@ String Object_wx_MemoryInputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MemoryInputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MemoryInputStream);
-	Gura_AssignFunction(MemoryInputStream_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMemoryInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryInputStream)
 {
+	Gura_AssignFunction(MemoryInputStream);
+	Gura_AssignFunction(MemoryInputStream_1);
 	Gura_AssignMethod(wx_MemoryInputStream, GetInputStreamBuffer);
 }
 

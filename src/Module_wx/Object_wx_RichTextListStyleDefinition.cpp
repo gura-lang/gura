@@ -230,16 +230,12 @@ String Object_wx_RichTextListStyleDefinition::ToString(Signal sig, bool exprFlag
 	return rtn;
 }
 
-void Object_wx_RichTextListStyleDefinition::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextListStyleDefinition);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextListStyleDefinition
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextListStyleDefinition)
 {
+	Gura_AssignFunction(RichTextListStyleDefinition);
 	Gura_AssignMethod(wx_RichTextListStyleDefinition, CombineWithParagraphStyle);
 	Gura_AssignMethod(wx_RichTextListStyleDefinition, FindLevelForIndent);
 	Gura_AssignMethod(wx_RichTextListStyleDefinition, GetCombinedStyle);

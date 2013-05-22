@@ -248,16 +248,12 @@ String Object_wx_DataViewListModelNotifier::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewListModelNotifier::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DataViewListModelNotifierEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewListModelNotifier
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewListModelNotifier)
 {
+	Gura_AssignFunction(DataViewListModelNotifierEmpty);
 	Gura_AssignMethod(wx_DataViewListModelNotifier, Cleared);
 	Gura_AssignMethod(wx_DataViewListModelNotifier, GetOwner);
 	Gura_AssignMethod(wx_DataViewListModelNotifier, RowAppended);

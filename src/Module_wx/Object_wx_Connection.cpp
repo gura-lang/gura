@@ -458,7 +458,10 @@ String Object_wx_Connection::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Connection::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxConnection
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Connection)
 {
 	Gura_RealizeUserSymbol(OnAdvise);
 	Gura_RealizeUserSymbol(OnDisconnect);
@@ -469,13 +472,6 @@ void Object_wx_Connection::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(OnStopAdvise);
 	Gura_AssignFunction(ConnectionEmpty);
 	Gura_AssignFunction(Connection);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxConnection
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Connection)
-{
 	Gura_AssignMethod(wx_Connection, Advise);
 	Gura_AssignMethod(wx_Connection, Execute);
 	Gura_AssignMethod(wx_Connection, Disconnect);

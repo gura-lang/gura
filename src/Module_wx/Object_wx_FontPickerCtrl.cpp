@@ -199,16 +199,12 @@ String Object_wx_FontPickerCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FontPickerCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FontPickerCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFontPickerCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontPickerCtrl)
 {
+	Gura_AssignFunction(FontPickerCtrl);
 	Gura_AssignMethod(wx_FontPickerCtrl, Create);
 	Gura_AssignMethod(wx_FontPickerCtrl, GetSelectedFont);
 	Gura_AssignMethod(wx_FontPickerCtrl, SetSelectedFont);

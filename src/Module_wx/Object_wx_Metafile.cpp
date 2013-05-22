@@ -136,16 +136,12 @@ String Object_wx_Metafile::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Metafile::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Metafile);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMetafile
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Metafile)
 {
+	Gura_AssignFunction(Metafile);
 	Gura_AssignMethod(wx_Metafile, Ok);
 	Gura_AssignMethod(wx_Metafile, Play);
 	Gura_AssignMethod(wx_Metafile, SetClipboard);

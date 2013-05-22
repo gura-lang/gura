@@ -238,18 +238,14 @@ String Object_wx_TextOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextOutputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(WriteDouble);
-	Gura_RealizeUserSymbol(WriteString);
-	Gura_AssignFunction(TextOutputStream);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTextOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextOutputStream)
 {
+	Gura_RealizeUserSymbol(WriteDouble);
+	Gura_RealizeUserSymbol(WriteString);
+	Gura_AssignFunction(TextOutputStream);
 	Gura_AssignMethod(wx_TextOutputStream, GetMode);
 	Gura_AssignMethod(wx_TextOutputStream, PutChar);
 	Gura_AssignMethod(wx_TextOutputStream, SetMode_);

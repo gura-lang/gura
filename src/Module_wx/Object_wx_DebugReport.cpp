@@ -453,16 +453,12 @@ String Object_wx_DebugReport::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DebugReport::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DebugReportEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDebugReport
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugReport)
 {
+	Gura_AssignFunction(DebugReportEmpty);
 	Gura_AssignMethod(wx_DebugReport, AddAll);
 	Gura_AssignMethod(wx_DebugReport, AddContext);
 	Gura_AssignMethod(wx_DebugReport, AddCurrentContext);

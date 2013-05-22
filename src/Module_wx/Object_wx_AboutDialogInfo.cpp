@@ -329,16 +329,12 @@ String Object_wx_AboutDialogInfo::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AboutDialogInfo::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(AboutDialogInfo);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxAboutDialogInfo
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AboutDialogInfo)
 {
+	Gura_AssignFunction(AboutDialogInfo);
 	Gura_AssignMethod(wx_AboutDialogInfo, AddArtist);
 	Gura_AssignMethod(wx_AboutDialogInfo, AddDeveloper);
 	Gura_AssignMethod(wx_AboutDialogInfo, AddDocWriter);

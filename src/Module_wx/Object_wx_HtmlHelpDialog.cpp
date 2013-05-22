@@ -294,18 +294,14 @@ String Object_wx_HtmlHelpDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlHelpDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(AddToolbarButtons);
-	Gura_AssignFunction(HtmlHelpDialog);
-	Gura_AssignFunction(HtmlHelpDialog_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlHelpDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlHelpDialog)
 {
+	Gura_RealizeUserSymbol(AddToolbarButtons);
+	Gura_AssignFunction(HtmlHelpDialog);
+	Gura_AssignFunction(HtmlHelpDialog_1);
 	Gura_AssignMethod(wx_HtmlHelpDialog, AddToolbarButtons);
 	Gura_AssignMethod(wx_HtmlHelpDialog, Create);
 	Gura_AssignMethod(wx_HtmlHelpDialog, GetController);

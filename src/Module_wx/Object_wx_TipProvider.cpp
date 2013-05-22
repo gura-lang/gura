@@ -147,17 +147,13 @@ String Object_wx_TipProvider::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TipProvider::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(PreProcessTip);
-	Gura_AssignFunction(TipProvider);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTipProvider
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TipProvider)
 {
+	Gura_RealizeUserSymbol(PreProcessTip);
+	Gura_AssignFunction(TipProvider);
 	Gura_AssignMethod(wx_TipProvider, GetTip);
 	Gura_AssignMethod(wx_TipProvider, PreProcessTip);
 	Gura_AssignMethod(wx_TipProvider, GetCurrentTip);

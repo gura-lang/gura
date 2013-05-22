@@ -150,18 +150,14 @@ String Object_wx_DCClipper::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DCClipper::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DCClipper);
-	Gura_AssignFunction(DCClipper_1);
-	Gura_AssignFunction(DCClipper_2);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDCClipper
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DCClipper)
 {
+	Gura_AssignFunction(DCClipper);
+	Gura_AssignFunction(DCClipper_1);
+	Gura_AssignFunction(DCClipper_2);
 }
 
 Gura_ImplementDescendantCreator(wx_DCClipper)

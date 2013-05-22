@@ -126,17 +126,13 @@ String Object_wx_ContextHelpButton::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ContextHelpButton::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ContextHelpButtonEmpty);
-	Gura_AssignFunction(ContextHelpButton);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxContextHelpButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ContextHelpButton)
 {
+	Gura_AssignFunction(ContextHelpButtonEmpty);
+	Gura_AssignFunction(ContextHelpButton);
 }
 
 Gura_ImplementDescendantCreator(wx_ContextHelpButton)

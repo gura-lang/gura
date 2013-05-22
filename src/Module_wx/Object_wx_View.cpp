@@ -372,7 +372,10 @@ String Object_wx_View::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_View::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxView
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_View)
 {
 	Gura_RealizeUserSymbol(Activate);
 	Gura_RealizeUserSymbol(Close);
@@ -385,13 +388,6 @@ void Object_wx_View::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(OnDraw);
 	Gura_RealizeUserSymbol(OnUpdate);
 	Gura_AssignFunction(ViewEmpty);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxView
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_View)
-{
 	Gura_AssignMethod(wx_View, Activate);
 	Gura_AssignMethod(wx_View, Close);
 	Gura_AssignMethod(wx_View, GetDocument);

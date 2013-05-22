@@ -133,16 +133,12 @@ String Object_wx_DDEClient::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DDEClient::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DDEClientEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDDEClient
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DDEClient)
 {
+	Gura_AssignFunction(DDEClientEmpty);
 	Gura_AssignMethod(wx_DDEClient, MakeConnection);
 	Gura_AssignMethod(wx_DDEClient, OnMakeConnection);
 	Gura_AssignMethod(wx_DDEClient, ValidHost);

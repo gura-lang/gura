@@ -312,18 +312,14 @@ String Object_wx_GBSizerItem::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GBSizerItem::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GBSizerItem);
-	Gura_AssignFunction(GBSizerItem_1);
-	Gura_AssignFunction(GBSizerItem_2);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGBSizerItem
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GBSizerItem)
 {
+	Gura_AssignFunction(GBSizerItem);
+	Gura_AssignFunction(GBSizerItem_1);
+	Gura_AssignFunction(GBSizerItem_2);
 	Gura_AssignMethod(wx_GBSizerItem, GetEndPos);
 	Gura_AssignMethod(wx_GBSizerItem, GetPos);
 	Gura_AssignMethod(wx_GBSizerItem, GetPos_1);

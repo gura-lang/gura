@@ -83,16 +83,12 @@ String Object_wx_GridCellAutoWrapStringEditor::ToString(Signal sig, bool exprFla
 	return rtn;
 }
 
-void Object_wx_GridCellAutoWrapStringEditor::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridCellAutoWrapStringEditor);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridCellAutoWrapStringEditor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellAutoWrapStringEditor)
 {
+	Gura_AssignFunction(GridCellAutoWrapStringEditor);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellAutoWrapStringEditor)

@@ -284,17 +284,13 @@ String Object_wx_HashMap::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HashMap::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HashMap);
-	Gura_AssignFunction(HashMap_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHashMap
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HashMap)
 {
+	Gura_AssignFunction(HashMap);
+	Gura_AssignFunction(HashMap_1);
 	Gura_AssignMethod(wx_HashMap, begin);
 	Gura_AssignMethod(wx_HashMap, begin_1);
 	Gura_AssignMethod(wx_HashMap, clear);

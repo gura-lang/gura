@@ -320,7 +320,10 @@ String Object_wx_StatusBar::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StatusBar::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxStatusBar
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_StatusBar)
 {
 	Gura_RealizeUserSymbol(GetFieldRect);
 	Gura_RealizeUserSymbol(GetStatusText);
@@ -330,13 +333,6 @@ void Object_wx_StatusBar::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(SetStatusStyles);
 	Gura_AssignFunction(StatusBarEmpty);
 	Gura_AssignFunction(StatusBar);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxStatusBar
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_StatusBar)
-{
 	Gura_AssignMethod(wx_StatusBar, Create);
 	Gura_AssignMethod(wx_StatusBar, GetFieldRect);
 	Gura_AssignMethod(wx_StatusBar, GetFieldsCount);

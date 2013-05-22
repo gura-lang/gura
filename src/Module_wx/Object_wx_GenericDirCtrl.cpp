@@ -434,17 +434,13 @@ String Object_wx_GenericDirCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GenericDirCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GenericDirCtrlEmpty);
-	Gura_AssignFunction(GenericDirCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGenericDirCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GenericDirCtrl)
 {
+	Gura_AssignFunction(GenericDirCtrlEmpty);
+	Gura_AssignFunction(GenericDirCtrl);
 	Gura_AssignMethod(wx_GenericDirCtrl, Create);
 	Gura_AssignMethod(wx_GenericDirCtrl, Init);
 	Gura_AssignMethod(wx_GenericDirCtrl, CollapseTree);

@@ -1818,17 +1818,13 @@ String Object_wx_DC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DC::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(ComputeScaleAndOrigin);
-	Gura_RealizeUserSymbol(DrawLabel);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DC)
 {
+	Gura_RealizeUserSymbol(ComputeScaleAndOrigin);
+	Gura_RealizeUserSymbol(DrawLabel);
 	Gura_AssignMethod(wx_DC, Blit);
 	Gura_AssignMethod(wx_DC, CacheEnabled);
 	Gura_AssignMethod(wx_DC, CalcBoundingBox);

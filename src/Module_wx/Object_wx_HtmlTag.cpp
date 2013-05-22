@@ -288,16 +288,12 @@ String Object_wx_HtmlTag::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlTag::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HtmlTag);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlTag
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlTag)
 {
+	Gura_AssignFunction(HtmlTag);
 	Gura_AssignMethod(wx_HtmlTag, GetAllParams);
 	Gura_AssignMethod(wx_HtmlTag, GetBeginPos);
 	Gura_AssignMethod(wx_HtmlTag, GetEndPos1);

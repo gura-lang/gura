@@ -145,16 +145,12 @@ String Object_wx_FindDialogEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FindDialogEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FindDialogEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFindDialogEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FindDialogEvent)
 {
+	Gura_AssignFunction(FindDialogEvent);
 	Gura_AssignMethod(wx_FindDialogEvent, GetFlags);
 	Gura_AssignMethod(wx_FindDialogEvent, GetFindString);
 	Gura_AssignMethod(wx_FindDialogEvent, GetReplaceString);

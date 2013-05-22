@@ -616,17 +616,13 @@ String Object_wx_TextFile::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextFile::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TextFileEmpty);
-	Gura_AssignFunction(TextFile);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTextFile
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextFile)
 {
+	Gura_AssignFunction(TextFileEmpty);
+	Gura_AssignFunction(TextFile);
 	Gura_AssignMethod(wx_TextFile, AddLine);
 	Gura_AssignMethod(wx_TextFile, Close);
 	Gura_AssignMethod(wx_TextFile, Create);

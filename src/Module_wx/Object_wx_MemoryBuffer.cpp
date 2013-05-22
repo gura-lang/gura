@@ -282,17 +282,13 @@ String Object_wx_MemoryBuffer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MemoryBuffer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MemoryBuffer);
-	Gura_AssignFunction(MemoryBuffer_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMemoryBuffer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryBuffer)
 {
+	Gura_AssignFunction(MemoryBuffer);
+	Gura_AssignFunction(MemoryBuffer_1);
 	Gura_AssignMethod(wx_MemoryBuffer, GetData);
 	Gura_AssignMethod(wx_MemoryBuffer, GetBufSize);
 	Gura_AssignMethod(wx_MemoryBuffer, GetDataLen);

@@ -367,7 +367,10 @@ String Object_wx_HtmlParser::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlParser::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxHtmlParser
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_HtmlParser)
 {
 	Gura_RealizeUserSymbol(AddTagHandler);
 	Gura_RealizeUserSymbol(AddWord);
@@ -376,13 +379,6 @@ void Object_wx_HtmlParser::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(InitParser);
 	Gura_RealizeUserSymbol(OpenURL);
 	Gura_AssignFunction(HtmlParserEmpty);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxHtmlParser
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_HtmlParser)
-{
 	Gura_AssignMethod(wx_HtmlParser, AddTag);
 	Gura_AssignMethod(wx_HtmlParser, AddTagHandler);
 	Gura_AssignMethod(wx_HtmlParser, AddWord);

@@ -176,16 +176,12 @@ String Object_wx_DirPickerCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DirPickerCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DirPickerCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDirPickerCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DirPickerCtrl)
 {
+	Gura_AssignFunction(DirPickerCtrl);
 	Gura_AssignMethod(wx_DirPickerCtrl, Create);
 	Gura_AssignMethod(wx_DirPickerCtrl, GetPath);
 	Gura_AssignMethod(wx_DirPickerCtrl, SetPath);

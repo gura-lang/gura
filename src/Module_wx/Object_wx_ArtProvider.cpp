@@ -203,16 +203,12 @@ String Object_wx_ArtProvider::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ArtProvider::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ArtProvider);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxArtProvider
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArtProvider)
 {
+	Gura_AssignFunction(ArtProvider);
 	Gura_AssignMethod(wx_ArtProvider, Delete);
 	Gura_AssignMethod(wx_ArtProvider, GetBitmap);
 	Gura_AssignMethod(wx_ArtProvider, GetIcon);

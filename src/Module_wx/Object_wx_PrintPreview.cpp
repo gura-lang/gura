@@ -327,16 +327,12 @@ String Object_wx_PrintPreview::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PrintPreview::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PrintPreview);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPrintPreview
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrintPreview)
 {
+	Gura_AssignFunction(PrintPreview);
 	Gura_AssignMethod(wx_PrintPreview, GetCanvas);
 	Gura_AssignMethod(wx_PrintPreview, GetCurrentPage);
 	Gura_AssignMethod(wx_PrintPreview, GetFrame);

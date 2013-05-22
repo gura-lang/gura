@@ -406,7 +406,10 @@ String Object_wx_DataViewCustomRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewCustomRenderer::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxDataViewCustomRenderer
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_DataViewCustomRenderer)
 {
 	Gura_RealizeUserSymbol(GetMode);
 	Gura_RealizeUserSymbol(GetOwner);
@@ -423,13 +426,6 @@ void Object_wx_DataViewCustomRenderer::DoAssignConstructor(Environment &env, Sig
 	Gura_RealizeUserSymbol(RightClick);
 	Gura_RealizeUserSymbol(StartDrag);
 	Gura_AssignFunction(DataViewCustomRenderer);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxDataViewCustomRenderer
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_DataViewCustomRenderer)
-{
 	Gura_AssignMethod(wx_DataViewCustomRenderer, Activate);
 	Gura_AssignMethod(wx_DataViewCustomRenderer, GetDC);
 	Gura_AssignMethod(wx_DataViewCustomRenderer, LeftClick);

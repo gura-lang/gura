@@ -518,7 +518,10 @@ String Object_wx_RadioBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RadioBox::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxRadioBox
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_RadioBox)
 {
 	Gura_RealizeUserSymbol(Enable);
 	Gura_RealizeUserSymbol(EnableItem);
@@ -527,13 +530,6 @@ void Object_wx_RadioBox::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignWxStringValue(RadioBoxNameStr);
 	Gura_AssignFunction(RadioBoxEmpty);
 	Gura_AssignFunction(RadioBox);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxRadioBox
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_RadioBox)
-{
 	Gura_AssignMethod(wx_RadioBox, Create);
 	Gura_AssignMethod(wx_RadioBox, Enable);
 	Gura_AssignMethod(wx_RadioBox, EnableItem);

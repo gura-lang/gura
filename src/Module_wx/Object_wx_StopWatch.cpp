@@ -142,16 +142,12 @@ String Object_wx_StopWatch::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StopWatch::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(StopWatch);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxStopWatch
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StopWatch)
 {
+	Gura_AssignFunction(StopWatch);
 	Gura_AssignMethod(wx_StopWatch, Pause);
 	Gura_AssignMethod(wx_StopWatch, Resume);
 	Gura_AssignMethod(wx_StopWatch, Start);

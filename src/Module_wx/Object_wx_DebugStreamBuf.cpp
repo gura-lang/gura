@@ -64,10 +64,6 @@ String Object_wx_DebugStreamBuf::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DebugStreamBuf::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDebugStreamBuf
 //----------------------------------------------------------------------------

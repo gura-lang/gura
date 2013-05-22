@@ -497,7 +497,10 @@ String Object_wx_Accessible::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Accessible::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxAccessible
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Accessible)
 {
 	Gura_RealizeUserSymbol(DoDefaultAction);
 	Gura_RealizeUserSymbol(GetChild);
@@ -519,13 +522,6 @@ void Object_wx_Accessible::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(NotifyEvent);
 	Gura_RealizeUserSymbol(Select);
 	Gura_AssignFunction(Accessible);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxAccessible
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Accessible)
-{
 	Gura_AssignMethod(wx_Accessible, DoDefaultAction);
 	Gura_AssignMethod(wx_Accessible, GetChild);
 	Gura_AssignMethod(wx_Accessible, GetChildCount);

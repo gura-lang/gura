@@ -174,16 +174,12 @@ String Object_wx_ColourData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ColourData::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ColourData);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxColourData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ColourData)
 {
+	Gura_AssignFunction(ColourData);
 	Gura_AssignMethod(wx_ColourData, GetChooseFull);
 	Gura_AssignMethod(wx_ColourData, GetColour);
 	Gura_AssignMethod(wx_ColourData, GetCustomColour);

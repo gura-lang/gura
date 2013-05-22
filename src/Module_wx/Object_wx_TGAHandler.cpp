@@ -84,16 +84,12 @@ String Object_wx_TGAHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TGAHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TGAHandler);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTGAHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TGAHandler)
 {
+	Gura_AssignFunction(TGAHandler);
 }
 
 Gura_ImplementDescendantCreator(wx_TGAHandler)

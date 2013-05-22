@@ -118,17 +118,13 @@ String Object_wx_BufferedPaintDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BufferedPaintDC::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(BufferedPaintDC);
-	Gura_AssignFunction(BufferedPaintDC_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxBufferedPaintDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BufferedPaintDC)
 {
+	Gura_AssignFunction(BufferedPaintDC);
+	Gura_AssignFunction(BufferedPaintDC_1);
 }
 
 Gura_ImplementDescendantCreator(wx_BufferedPaintDC)

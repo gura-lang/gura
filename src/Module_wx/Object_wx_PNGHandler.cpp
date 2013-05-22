@@ -84,16 +84,12 @@ String Object_wx_PNGHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PNGHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PNGHandler);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPNGHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PNGHandler)
 {
+	Gura_AssignFunction(PNGHandler);
 }
 
 Gura_ImplementDescendantCreator(wx_PNGHandler)

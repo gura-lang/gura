@@ -298,16 +298,12 @@ String Object_wx_FileHistory::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileHistory::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FileHistory);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFileHistory
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileHistory)
 {
+	Gura_AssignFunction(FileHistory);
 	Gura_AssignMethod(wx_FileHistory, AddFileToHistory);
 	Gura_AssignMethod(wx_FileHistory, AddFilesToMenu);
 	Gura_AssignMethod(wx_FileHistory, AddFilesToMenu_1);

@@ -227,16 +227,12 @@ String Object_wx_OutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_OutputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(OutputStreamEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_OutputStream)
 {
+	Gura_AssignFunction(OutputStreamEmpty);
 	Gura_AssignMethod(wx_OutputStream, Close);
 	Gura_AssignMethod(wx_OutputStream, LastWrite);
 	Gura_AssignMethod(wx_OutputStream, PutC);

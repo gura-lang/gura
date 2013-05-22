@@ -108,16 +108,12 @@ String Object_wx_DebugReportPreview::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DebugReportPreview::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DebugReportPreviewEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDebugReportPreview
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugReportPreview)
 {
+	Gura_AssignFunction(DebugReportPreviewEmpty);
 	Gura_AssignMethod(wx_DebugReportPreview, Show);
 }
 

@@ -153,16 +153,12 @@ String Object_wx_ClientDataContainer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ClientDataContainer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ClientDataContainerEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxClientDataContainer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClientDataContainer)
 {
+	Gura_AssignFunction(ClientDataContainerEmpty);
 	Gura_AssignMethod(wx_ClientDataContainer, GetClientData);
 	Gura_AssignMethod(wx_ClientDataContainer, GetClientObject);
 	Gura_AssignMethod(wx_ClientDataContainer, SetClientData);

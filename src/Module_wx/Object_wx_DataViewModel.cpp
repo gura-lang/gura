@@ -89,16 +89,12 @@ String Object_wx_DataViewModel::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewModel::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DataViewModelEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewModel
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewModel)
 {
+	Gura_AssignFunction(DataViewModelEmpty);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewModel)

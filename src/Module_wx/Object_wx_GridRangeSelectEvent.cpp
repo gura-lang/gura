@@ -285,17 +285,13 @@ String Object_wx_GridRangeSelectEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridRangeSelectEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridRangeSelectEventEmpty);
-	Gura_AssignFunction(GridRangeSelectEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridRangeSelectEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridRangeSelectEvent)
 {
+	Gura_AssignFunction(GridRangeSelectEventEmpty);
+	Gura_AssignFunction(GridRangeSelectEvent);
 	Gura_AssignMethod(wx_GridRangeSelectEvent, AltDown);
 	Gura_AssignMethod(wx_GridRangeSelectEvent, ControlDown);
 	Gura_AssignMethod(wx_GridRangeSelectEvent, GetBottomRightCoords);

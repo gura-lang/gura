@@ -133,16 +133,12 @@ String Object_wx_MemoryOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MemoryOutputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MemoryOutputStream);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMemoryOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryOutputStream)
 {
+	Gura_AssignFunction(MemoryOutputStream);
 	Gura_AssignMethod(wx_MemoryOutputStream, CopyTo);
 	Gura_AssignMethod(wx_MemoryOutputStream, GetOutputStreamBuffer);
 }

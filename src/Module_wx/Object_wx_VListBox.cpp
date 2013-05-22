@@ -581,18 +581,14 @@ String Object_wx_VListBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_VListBox::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignWxStringValue(VListBoxNameStr);
-	Gura_AssignFunction(VListBox);
-	Gura_AssignFunction(VListBoxEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxVListBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VListBox)
 {
+	Gura_AssignWxStringValue(VListBoxNameStr);
+	Gura_AssignFunction(VListBox);
+	Gura_AssignFunction(VListBoxEmpty);
 	Gura_AssignMethod(wx_VListBox, Clear);
 	Gura_AssignMethod(wx_VListBox, Create);
 	Gura_AssignMethod(wx_VListBox, DeselectAll);

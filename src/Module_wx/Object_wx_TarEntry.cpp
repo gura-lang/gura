@@ -517,17 +517,13 @@ String Object_wx_TarEntry::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TarEntry::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TarEntry);
-	Gura_AssignFunction(TarEntry_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTarEntry
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TarEntry)
 {
+	Gura_AssignFunction(TarEntry);
+	Gura_AssignFunction(TarEntry_1);
 	Gura_AssignMethod(wx_TarEntry, GetAccessTime);
 	Gura_AssignMethod(wx_TarEntry, SetAccessTime);
 	Gura_AssignMethod(wx_TarEntry, GetCreateTime);

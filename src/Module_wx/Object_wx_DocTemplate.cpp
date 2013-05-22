@@ -381,16 +381,12 @@ String Object_wx_DocTemplate::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DocTemplate::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DocTemplate);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDocTemplate
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocTemplate)
 {
+	Gura_AssignFunction(DocTemplate);
 	Gura_AssignMethod(wx_DocTemplate, CreateDocument);
 	Gura_AssignMethod(wx_DocTemplate, CreateView);
 	Gura_AssignMethod(wx_DocTemplate, GetDefaultExtension);

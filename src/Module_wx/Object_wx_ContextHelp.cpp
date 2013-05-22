@@ -120,16 +120,12 @@ String Object_wx_ContextHelp::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ContextHelp::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ContextHelp);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxContextHelp
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ContextHelp)
 {
+	Gura_AssignFunction(ContextHelp);
 	Gura_AssignMethod(wx_ContextHelp, BeginContextHelp);
 	Gura_AssignMethod(wx_ContextHelp, EndContextHelp);
 }

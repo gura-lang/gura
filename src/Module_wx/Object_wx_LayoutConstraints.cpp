@@ -83,16 +83,12 @@ String Object_wx_LayoutConstraints::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LayoutConstraints::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(LayoutConstraintsEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxLayoutConstraints
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LayoutConstraints)
 {
+	Gura_AssignFunction(LayoutConstraintsEmpty);
 }
 
 Gura_ImplementDescendantCreator(wx_LayoutConstraints)

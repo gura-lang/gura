@@ -112,16 +112,12 @@ String Object_wx_TempFileOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TempFileOutputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TempFileOutputStream);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTempFileOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TempFileOutputStream)
 {
+	Gura_AssignFunction(TempFileOutputStream);
 	Gura_AssignMethod(wx_TempFileOutputStream, Commit);
 	Gura_AssignMethod(wx_TempFileOutputStream, Discard);
 }

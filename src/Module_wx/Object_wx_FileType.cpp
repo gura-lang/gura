@@ -271,16 +271,12 @@ String Object_wx_FileType::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileType::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FileTypeEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFileType
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileType)
 {
+	Gura_AssignFunction(FileTypeEmpty);
 	Gura_AssignMethod(wx_FileType, GetMimeType);
 	Gura_AssignMethod(wx_FileType, GetMimeType_1);
 	Gura_AssignMethod(wx_FileType, GetExtensions);

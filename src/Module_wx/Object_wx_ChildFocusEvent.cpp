@@ -86,16 +86,12 @@ String Object_wx_ChildFocusEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ChildFocusEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ChildFocusEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxChildFocusEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ChildFocusEvent)
 {
+	Gura_AssignFunction(ChildFocusEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_ChildFocusEvent)

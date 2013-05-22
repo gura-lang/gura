@@ -476,18 +476,14 @@ String Object_wx_Thread::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Thread::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(Entry);
-	Gura_RealizeUserSymbol(TestDestroy);
-	Gura_AssignFunction(Thread);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxThread
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Thread)
 {
+	Gura_RealizeUserSymbol(Entry);
+	Gura_RealizeUserSymbol(TestDestroy);
+	Gura_AssignFunction(Thread);
 	Gura_AssignMethod(wx_Thread, Create);
 	Gura_AssignMethod(wx_Thread, Delete);
 	Gura_AssignMethod(wx_Thread, Entry);

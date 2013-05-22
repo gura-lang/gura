@@ -287,7 +287,10 @@ String Object_wx_DataViewRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewRenderer::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxDataViewRenderer
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_DataViewRenderer)
 {
 	Gura_RealizeUserSymbol(GetMode);
 	Gura_RealizeUserSymbol(GetOwner);
@@ -297,13 +300,6 @@ void Object_wx_DataViewRenderer::DoAssignConstructor(Environment &env, Signal si
 	Gura_RealizeUserSymbol(SetValue);
 	Gura_RealizeUserSymbol(Validate);
 	Gura_AssignFunction(DataViewRenderer);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxDataViewRenderer
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_DataViewRenderer)
-{
 	Gura_AssignMethod(wx_DataViewRenderer, GetMode);
 	Gura_AssignMethod(wx_DataViewRenderer, GetOwner);
 	Gura_AssignMethod(wx_DataViewRenderer, GetValue);

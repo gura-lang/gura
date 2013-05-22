@@ -250,7 +250,10 @@ String Object_wx_AppTraits::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AppTraits::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxAppTraits
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_AppTraits)
 {
 	Gura_RealizeUserSymbol(CreateFontMapper);
 	Gura_RealizeUserSymbol(CreateLogTarget);
@@ -261,13 +264,6 @@ void Object_wx_AppTraits::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(GetToolkitVersion);
 	Gura_RealizeUserSymbol(HasStderr);
 	Gura_RealizeUserSymbol(ShowAssertDialog);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxAppTraits
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_AppTraits)
-{
 	Gura_AssignMethod(wx_AppTraits, CreateFontMapper);
 	Gura_AssignMethod(wx_AppTraits, CreateLogTarget);
 	Gura_AssignMethod(wx_AppTraits, CreateMessageOutput);

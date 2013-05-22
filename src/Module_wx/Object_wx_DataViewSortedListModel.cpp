@@ -127,16 +127,12 @@ String Object_wx_DataViewSortedListModel::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewSortedListModel::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DataViewSortedListModel);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewSortedListModel
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewSortedListModel)
 {
+	Gura_AssignFunction(DataViewSortedListModel);
 	Gura_AssignMethod(wx_DataViewSortedListModel, GetAscending);
 	Gura_AssignMethod(wx_DataViewSortedListModel, Resort);
 	Gura_AssignMethod(wx_DataViewSortedListModel, SetAscending);

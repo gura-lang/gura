@@ -278,16 +278,12 @@ String Object_wx_DataViewColumn::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewColumn::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DataViewColumn);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewColumn
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewColumn)
 {
+	Gura_AssignFunction(DataViewColumn);
 	Gura_AssignMethod(wx_DataViewColumn, GetBitmap);
 	Gura_AssignMethod(wx_DataViewColumn, GetModelColumn);
 	Gura_AssignMethod(wx_DataViewColumn, GetOwner);

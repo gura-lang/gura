@@ -141,16 +141,12 @@ String Object_wx_WizardPageSimple::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_WizardPageSimple::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(WizardPageSimple);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxWizardPageSimple
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WizardPageSimple)
 {
+	Gura_AssignFunction(WizardPageSimple);
 	Gura_AssignMethod(wx_WizardPageSimple, SetPrev);
 	Gura_AssignMethod(wx_WizardPageSimple, SetNext);
 	Gura_AssignMethod(wx_WizardPageSimple, Chain);

@@ -665,20 +665,16 @@ String Object_wx_SizerItem::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SizerItem::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxSizerItem
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_SizerItem)
 {
 	Gura_AssignFunction(SizerItem);
 	Gura_AssignFunction(SizerItem_1);
 	Gura_AssignFunction(SizerItem_2);
 	Gura_AssignFunction(SizerItem_3);
 	Gura_AssignFunction(SizerItem_4);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxSizerItem
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_SizerItem)
-{
 	Gura_AssignMethod(wx_SizerItem, CalcMin);
 	Gura_AssignMethod(wx_SizerItem, DeleteWindows);
 	Gura_AssignMethod(wx_SizerItem, DetachSizer);

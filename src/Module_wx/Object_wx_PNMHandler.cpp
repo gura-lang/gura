@@ -84,16 +84,12 @@ String Object_wx_PNMHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PNMHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PNMHandler);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPNMHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PNMHandler)
 {
+	Gura_AssignFunction(PNMHandler);
 }
 
 Gura_ImplementDescendantCreator(wx_PNMHandler)

@@ -116,16 +116,12 @@ String Object_wx_GridCellBoolEditor::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellBoolEditor::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridCellBoolEditor);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridCellBoolEditor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellBoolEditor)
 {
+	Gura_AssignFunction(GridCellBoolEditor);
 	Gura_AssignMethod(wx_GridCellBoolEditor, IsTrueValue);
 	Gura_AssignMethod(wx_GridCellBoolEditor, UseStringValues);
 }

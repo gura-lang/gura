@@ -262,16 +262,12 @@ String Object_wx_IndividualLayoutConstraint::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_IndividualLayoutConstraint::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(IndividualLayoutConstraintEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxIndividualLayoutConstraint
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IndividualLayoutConstraint)
 {
+	Gura_AssignFunction(IndividualLayoutConstraintEmpty);
 	Gura_AssignMethod(wx_IndividualLayoutConstraint, Above);
 	Gura_AssignMethod(wx_IndividualLayoutConstraint, Absolute);
 	Gura_AssignMethod(wx_IndividualLayoutConstraint, AsIs);

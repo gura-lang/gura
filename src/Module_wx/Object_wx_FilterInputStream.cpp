@@ -122,17 +122,13 @@ String Object_wx_FilterInputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FilterInputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FilterInputStream);
-	Gura_AssignFunction(FilterInputStream_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFilterInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FilterInputStream)
 {
+	Gura_AssignFunction(FilterInputStream);
+	Gura_AssignFunction(FilterInputStream_1);
 }
 
 Gura_ImplementDescendantCreator(wx_FilterInputStream)

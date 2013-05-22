@@ -89,10 +89,6 @@ String Object_wx_DateEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DateEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDateEvent
 //----------------------------------------------------------------------------

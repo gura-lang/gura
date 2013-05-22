@@ -180,17 +180,13 @@ String Object_wx_TaskBarIcon::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TaskBarIcon::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(CreatePopupMenu);
-	Gura_AssignFunction(TaskBarIconEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTaskBarIcon
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarIcon)
 {
+	Gura_RealizeUserSymbol(CreatePopupMenu);
+	Gura_AssignFunction(TaskBarIconEmpty);
 	Gura_AssignMethod(wx_TaskBarIcon, CreatePopupMenu);
 	Gura_AssignMethod(wx_TaskBarIcon, IsIconInstalled);
 	Gura_AssignMethod(wx_TaskBarIcon, IsOk);

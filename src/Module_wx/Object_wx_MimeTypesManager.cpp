@@ -186,16 +186,12 @@ String Object_wx_MimeTypesManager::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MimeTypesManager::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MimeTypesManagerEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMimeTypesManager
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MimeTypesManager)
 {
+	Gura_AssignFunction(MimeTypesManagerEmpty);
 	Gura_AssignMethod(wx_MimeTypesManager, AddFallbacks);
 	Gura_AssignMethod(wx_MimeTypesManager, GetFileTypeFromExtension);
 	Gura_AssignMethod(wx_MimeTypesManager, GetFileTypeFromMimeType);

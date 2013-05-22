@@ -121,16 +121,12 @@ String Object_wx_ContextMenuEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ContextMenuEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ContextMenuEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxContextMenuEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ContextMenuEvent)
 {
+	Gura_AssignFunction(ContextMenuEvent);
 	Gura_AssignMethod(wx_ContextMenuEvent, GetPosition);
 	Gura_AssignMethod(wx_ContextMenuEvent, SetPosition);
 }

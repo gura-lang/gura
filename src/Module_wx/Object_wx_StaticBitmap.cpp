@@ -229,19 +229,15 @@ String Object_wx_StaticBitmap::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StaticBitmap::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(SetBitmap);
-	Gura_RealizeUserSymbol(SetIcon);
-	Gura_AssignFunction(StaticBitmapEmpty);
-	Gura_AssignFunction(StaticBitmap);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxStaticBitmap
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StaticBitmap)
 {
+	Gura_RealizeUserSymbol(SetBitmap);
+	Gura_RealizeUserSymbol(SetIcon);
+	Gura_AssignFunction(StaticBitmapEmpty);
+	Gura_AssignFunction(StaticBitmap);
 	Gura_AssignMethod(wx_StaticBitmap, Create);
 	Gura_AssignMethod(wx_StaticBitmap, GetBitmap);
 	Gura_AssignMethod(wx_StaticBitmap, GetIcon);

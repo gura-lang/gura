@@ -740,7 +740,10 @@ String Object_wx_CmdLineParser::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CmdLineParser::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxCmdLineParser
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_CmdLineParser)
 {
 	Gura_AssignFunction(CmdLineParserEmpty);
 	Gura_AssignFunction(CmdLineParser);
@@ -749,13 +752,6 @@ void Object_wx_CmdLineParser::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignFunction(CmdLineParser_3);
 	Gura_AssignFunction(CmdLineParser_4);
 	Gura_AssignFunction(CmdLineParser_5);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxCmdLineParser
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_CmdLineParser)
-{
 	Gura_AssignMethod(wx_CmdLineParser, ConvertStringToArgs);
 	Gura_AssignMethod(wx_CmdLineParser, SetCmdLine);
 	Gura_AssignMethod(wx_CmdLineParser, SetCmdLine_1);

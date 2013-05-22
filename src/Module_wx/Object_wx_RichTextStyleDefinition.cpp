@@ -238,16 +238,12 @@ String Object_wx_RichTextStyleDefinition::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextStyleDefinition::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextStyleDefinition);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextStyleDefinition
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleDefinition)
 {
+	Gura_AssignFunction(RichTextStyleDefinition);
 	Gura_AssignMethod(wx_RichTextStyleDefinition, GetBaseStyle);
 	Gura_AssignMethod(wx_RichTextStyleDefinition, GetDescription);
 	Gura_AssignMethod(wx_RichTextStyleDefinition, GetName);

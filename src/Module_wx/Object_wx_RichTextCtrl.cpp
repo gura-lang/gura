@@ -3568,17 +3568,13 @@ String Object_wx_RichTextCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextCtrlEmpty);
-	Gura_AssignFunction(RichTextCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextCtrl)
 {
+	Gura_AssignFunction(RichTextCtrlEmpty);
+	Gura_AssignFunction(RichTextCtrl);
 	Gura_AssignMethod(wx_RichTextCtrl, AddImage);
 	Gura_AssignMethod(wx_RichTextCtrl, AddParagraph);
 	Gura_AssignMethod(wx_RichTextCtrl, AppendText);

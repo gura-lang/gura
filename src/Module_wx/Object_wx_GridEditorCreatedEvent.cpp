@@ -247,17 +247,13 @@ String Object_wx_GridEditorCreatedEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridEditorCreatedEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridEditorCreatedEventEmpty);
-	Gura_AssignFunction(GridEditorCreatedEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridEditorCreatedEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridEditorCreatedEvent)
 {
+	Gura_AssignFunction(GridEditorCreatedEventEmpty);
+	Gura_AssignFunction(GridEditorCreatedEvent);
 	Gura_AssignMethod(wx_GridEditorCreatedEvent, GetCol);
 	Gura_AssignMethod(wx_GridEditorCreatedEvent, GetControl);
 	Gura_AssignMethod(wx_GridEditorCreatedEvent, GetRow);

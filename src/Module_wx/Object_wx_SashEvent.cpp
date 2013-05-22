@@ -131,16 +131,12 @@ String Object_wx_SashEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SashEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SashEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSashEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SashEvent)
 {
+	Gura_AssignFunction(SashEvent);
 	Gura_AssignMethod(wx_SashEvent, GetEdge);
 	Gura_AssignMethod(wx_SashEvent, GetDragRect);
 	Gura_AssignMethod(wx_SashEvent, GetDragStatus);

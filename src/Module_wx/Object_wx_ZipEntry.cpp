@@ -546,17 +546,13 @@ String Object_wx_ZipEntry::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ZipEntry::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ZipEntry);
-	Gura_AssignFunction(ZipEntry_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxZipEntry
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZipEntry)
 {
+	Gura_AssignFunction(ZipEntry);
+	Gura_AssignFunction(ZipEntry_1);
 	Gura_AssignMethod(wx_ZipEntry, Clone);
 	Gura_AssignMethod(wx_ZipEntry, GetComment);
 	Gura_AssignMethod(wx_ZipEntry, SetComment);

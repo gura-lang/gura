@@ -280,18 +280,14 @@ String Object_wx_GLCanvas::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GLCanvas::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GLCanvas);
-	//Gura_AssignFunction(GLCanvas_1);
-	//Gura_AssignFunction(GLCanvas_2);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGLCanvas
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLCanvas)
 {
+	Gura_AssignFunction(GLCanvas);
+	//Gura_AssignFunction(GLCanvas_1);
+	//Gura_AssignFunction(GLCanvas_2);
 	Gura_AssignMethod(wx_GLCanvas, GetContext);
 	Gura_AssignMethod(wx_GLCanvas, SetCurrent);
 	Gura_AssignMethod(wx_GLCanvas, SetColour);

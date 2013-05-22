@@ -302,16 +302,12 @@ String Object_wx_Display::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Display::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Display);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDisplay
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Display)
 {
+	Gura_AssignFunction(Display);
 	Gura_AssignMethod(wx_Display, ChangeMode);
 	Gura_AssignMethod(wx_Display, GetClientArea);
 	Gura_AssignMethod(wx_Display, GetCount);

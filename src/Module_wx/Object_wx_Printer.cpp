@@ -216,16 +216,12 @@ String Object_wx_Printer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Printer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Printer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPrinter
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Printer)
 {
+	Gura_AssignFunction(Printer);
 	Gura_AssignMethod(wx_Printer, CreateAbortWindow);
 	Gura_AssignMethod(wx_Printer, GetAbort);
 	Gura_AssignMethod(wx_Printer, GetLastError);

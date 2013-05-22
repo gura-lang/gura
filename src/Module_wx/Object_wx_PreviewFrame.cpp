@@ -155,16 +155,12 @@ String Object_wx_PreviewFrame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PreviewFrame::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PreviewFrame);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPreviewFrame
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreviewFrame)
 {
+	Gura_AssignFunction(PreviewFrame);
 	Gura_AssignMethod(wx_PreviewFrame, CreateControlBar);
 	Gura_AssignMethod(wx_PreviewFrame, CreateCanvas);
 	Gura_AssignMethod(wx_PreviewFrame, Initialize);

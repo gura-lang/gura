@@ -271,16 +271,12 @@ String Object_wx_ListEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ListEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ListEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxListEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ListEvent)
 {
+	Gura_AssignFunction(ListEvent);
 	Gura_AssignMethod(wx_ListEvent, GetCacheFrom);
 	Gura_AssignMethod(wx_ListEvent, GetCacheTo);
 	Gura_AssignMethod(wx_ListEvent, GetKeyCode);

@@ -134,16 +134,12 @@ String Object_wx_MenuEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MenuEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MenuEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMenuEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MenuEvent)
 {
+	Gura_AssignFunction(MenuEvent);
 	Gura_AssignMethod(wx_MenuEvent, GetMenu);
 	Gura_AssignMethod(wx_MenuEvent, GetMenuId);
 	Gura_AssignMethod(wx_MenuEvent, IsPopup);

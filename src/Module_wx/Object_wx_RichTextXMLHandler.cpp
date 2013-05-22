@@ -342,16 +342,12 @@ String Object_wx_RichTextXMLHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextXMLHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextXMLHandler);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextXMLHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextXMLHandler)
 {
+	Gura_AssignFunction(RichTextXMLHandler);
 	Gura_AssignMethod(wx_RichTextXMLHandler, CanLoad);
 	Gura_AssignMethod(wx_RichTextXMLHandler, CanSave);
 	Gura_AssignMethod(wx_RichTextXMLHandler, CreateStyle);

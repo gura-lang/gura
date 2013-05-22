@@ -339,16 +339,12 @@ String Object_wx_UpdateUIEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_UpdateUIEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(UpdateUIEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxUpdateUIEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_UpdateUIEvent)
 {
+	Gura_AssignFunction(UpdateUIEvent);
 	Gura_AssignMethod(wx_UpdateUIEvent, CanUpdate);
 	Gura_AssignMethod(wx_UpdateUIEvent, Check);
 	Gura_AssignMethod(wx_UpdateUIEvent, Enable);

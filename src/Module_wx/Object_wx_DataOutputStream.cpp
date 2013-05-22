@@ -354,17 +354,13 @@ String Object_wx_DataOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataOutputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DataOutputStream);
-	Gura_AssignFunction(DataOutputStream_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataOutputStream)
 {
+	Gura_AssignFunction(DataOutputStream);
+	Gura_AssignFunction(DataOutputStream_1);
 	Gura_AssignMethod(wx_DataOutputStream, BigEndianOrdered);
 	Gura_AssignMethod(wx_DataOutputStream, Write8);
 	Gura_AssignMethod(wx_DataOutputStream, Write8_1);

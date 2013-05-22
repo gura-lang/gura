@@ -259,17 +259,13 @@ String Object_wx_StreamBase::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StreamBase::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(IsOk);
-	Gura_AssignFunction(StreamBaseEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxStreamBase
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StreamBase)
 {
+	Gura_RealizeUserSymbol(IsOk);
+	Gura_AssignFunction(StreamBaseEmpty);
 	Gura_AssignMethod(wx_StreamBase, GetLength);
 	Gura_AssignMethod(wx_StreamBase, GetLastError);
 	Gura_AssignMethod(wx_StreamBase, GetSize);

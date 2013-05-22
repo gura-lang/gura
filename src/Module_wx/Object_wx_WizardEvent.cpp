@@ -120,16 +120,12 @@ String Object_wx_WizardEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_WizardEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(WizardEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxWizardEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WizardEvent)
 {
+	Gura_AssignFunction(WizardEvent);
 	Gura_AssignMethod(wx_WizardEvent, GetDirection);
 	Gura_AssignMethod(wx_WizardEvent, GetPage);
 }

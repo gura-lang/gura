@@ -747,16 +747,12 @@ String Object_wx_XmlResourceHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_XmlResourceHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(XmlResourceHandlerEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxXmlResourceHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlResourceHandler)
 {
+	Gura_AssignFunction(XmlResourceHandlerEmpty);
 	Gura_AssignMethod(wx_XmlResourceHandler, AddStyle);
 	Gura_AssignMethod(wx_XmlResourceHandler, AddWindowStyles);
 	Gura_AssignMethod(wx_XmlResourceHandler, CanHandle);

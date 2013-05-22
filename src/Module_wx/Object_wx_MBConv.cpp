@@ -413,20 +413,16 @@ String Object_wx_MBConv::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MBConv::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxMBConv
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_MBConv)
 {
 	Gura_RealizeUserSymbol(MB2WC);
 	Gura_RealizeUserSymbol(WC2MB);
 	Gura_RealizeUserSymbol(FromWChar);
 	Gura_RealizeUserSymbol(ToWChar);
 	//Gura_AssignFunction(MBConvEmpty);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxMBConv
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_MBConv)
-{
 #if 0
 	Gura_AssignMethod(wx_MBConv, MB2WC);
 	Gura_AssignMethod(wx_MBConv, WC2MB);

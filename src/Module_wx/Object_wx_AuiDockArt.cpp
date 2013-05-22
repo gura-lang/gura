@@ -385,7 +385,10 @@ String Object_wx_AuiDockArt::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AuiDockArt::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxAuiDockArt
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_AuiDockArt)
 {
 	Gura_RealizeUserSymbol(DrawBackground);
 	Gura_RealizeUserSymbol(DrawBorder);
@@ -402,13 +405,6 @@ void Object_wx_AuiDockArt::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(SetFont);
 	Gura_RealizeUserSymbol(SetMetric);
 	Gura_AssignFunction(AuiDockArtEmpty);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxAuiDockArt
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_AuiDockArt)
-{
 	Gura_AssignMethod(wx_AuiDockArt, DrawBackground);
 	Gura_AssignMethod(wx_AuiDockArt, DrawBorder);
 	Gura_AssignMethod(wx_AuiDockArt, DrawCaption);

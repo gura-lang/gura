@@ -149,18 +149,14 @@ String Object_wx_FileOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileOutputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FileOutputStream);
-	Gura_AssignFunction(FileOutputStream_1);
-	Gura_AssignFunction(FileOutputStream_2);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFileOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileOutputStream)
 {
+	Gura_AssignFunction(FileOutputStream);
+	Gura_AssignFunction(FileOutputStream_1);
+	Gura_AssignFunction(FileOutputStream_2);
 	Gura_AssignMethod(wx_FileOutputStream, IsOk);
 }
 

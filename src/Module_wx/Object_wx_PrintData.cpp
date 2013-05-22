@@ -383,17 +383,13 @@ String Object_wx_PrintData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PrintData::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PrintDataEmpty);
-	Gura_AssignFunction(PrintData);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPrintData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrintData)
 {
+	Gura_AssignFunction(PrintDataEmpty);
+	Gura_AssignFunction(PrintData);
 	Gura_AssignMethod(wx_PrintData, GetCollate);
 	Gura_AssignMethod(wx_PrintData, GetBin);
 	Gura_AssignMethod(wx_PrintData, GetColour);

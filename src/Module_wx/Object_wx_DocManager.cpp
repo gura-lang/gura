@@ -728,16 +728,12 @@ String Object_wx_DocManager::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DocManager::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DocManager);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDocManager
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocManager)
 {
+	Gura_AssignFunction(DocManager);
 	Gura_AssignMethod(wx_DocManager, ActivateView);
 	Gura_AssignMethod(wx_DocManager, AddDocument);
 	Gura_AssignMethod(wx_DocManager, AddFileToHistory);

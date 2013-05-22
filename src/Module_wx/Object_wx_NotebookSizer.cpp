@@ -99,16 +99,12 @@ String Object_wx_NotebookSizer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_NotebookSizer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(NotebookSizer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxNotebookSizer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NotebookSizer)
 {
+	Gura_AssignFunction(NotebookSizer);
 	Gura_AssignMethod(wx_NotebookSizer, GetNotebook);
 }
 

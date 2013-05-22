@@ -316,16 +316,12 @@ String Object_wx_EncodingConverter::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_EncodingConverter::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(EncodingConverterEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxEncodingConverter
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EncodingConverter)
 {
+	Gura_AssignFunction(EncodingConverterEmpty);
 	Gura_AssignMethod(wx_EncodingConverter, Init);
 	Gura_AssignMethod(wx_EncodingConverter, CanConvert);
 	Gura_AssignMethod(wx_EncodingConverter, Convert);

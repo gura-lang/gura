@@ -102,16 +102,12 @@ String Object_wx_SockAddress::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SockAddress::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SockAddressEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSockAddress
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SockAddress)
 {
+	Gura_AssignFunction(SockAddressEmpty);
 	Gura_AssignMethod(wx_SockAddress, Clear);
 }
 

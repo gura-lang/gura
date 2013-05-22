@@ -112,16 +112,12 @@ String Object_wx_CriticalSection::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CriticalSection::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(CriticalSectionEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCriticalSection
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CriticalSection)
 {
+	Gura_AssignFunction(CriticalSectionEmpty);
 	Gura_AssignMethod(wx_CriticalSection, Enter);
 	Gura_AssignMethod(wx_CriticalSection, Leave);
 }

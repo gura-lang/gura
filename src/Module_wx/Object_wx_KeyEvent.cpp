@@ -308,16 +308,12 @@ String Object_wx_KeyEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_KeyEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(KeyEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxKeyEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_KeyEvent)
 {
+	Gura_AssignFunction(KeyEvent);
 	Gura_AssignMethod(wx_KeyEvent, AltDown);
 	Gura_AssignMethod(wx_KeyEvent, CmdDown);
 	Gura_AssignMethod(wx_KeyEvent, ControlDown);

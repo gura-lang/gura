@@ -494,17 +494,13 @@ String Object_wx_Treebook::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Treebook::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TreebookEmpty);
-	Gura_AssignFunction(Treebook);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTreebook
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Treebook)
 {
+	Gura_AssignFunction(TreebookEmpty);
+	Gura_AssignFunction(Treebook);
 	Gura_AssignMethod(wx_Treebook, AddPage);
 	Gura_AssignMethod(wx_Treebook, AddSubPage);
 	Gura_AssignMethod(wx_Treebook, AssignImageList);

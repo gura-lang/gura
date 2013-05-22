@@ -258,17 +258,13 @@ String Object_wx_TempFile::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TempFile::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TempFileEmpty);
-	Gura_AssignFunction(TempFile);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTempFile
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TempFile)
 {
+	Gura_AssignFunction(TempFileEmpty);
+	Gura_AssignFunction(TempFile);
 	Gura_AssignMethod(wx_TempFile, Open);
 	Gura_AssignMethod(wx_TempFile, IsOpened);
 	Gura_AssignMethod(wx_TempFile, Length);

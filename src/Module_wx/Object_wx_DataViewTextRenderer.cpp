@@ -89,16 +89,12 @@ String Object_wx_DataViewTextRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewTextRenderer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DataViewTextRenderer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewTextRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewTextRenderer)
 {
+	Gura_AssignFunction(DataViewTextRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewTextRenderer)

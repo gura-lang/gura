@@ -168,16 +168,12 @@ String Object_wx_RichTextStyleComboCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextStyleComboCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextStyleComboCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextStyleComboCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleComboCtrl)
 {
+	Gura_AssignFunction(RichTextStyleComboCtrl);
 	Gura_AssignMethod(wx_RichTextStyleComboCtrl, GetRichTextCtrl);
 	Gura_AssignMethod(wx_RichTextStyleComboCtrl, GetStyleSheet);
 	Gura_AssignMethod(wx_RichTextStyleComboCtrl, SetRichTextCtrl);

@@ -140,17 +140,13 @@ String Object_wx_ThreadHelper::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ThreadHelper::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(Entry);
-	Gura_AssignFunction(ThreadHelperEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxThreadHelper
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ThreadHelper)
 {
+	Gura_RealizeUserSymbol(Entry);
+	Gura_AssignFunction(ThreadHelperEmpty);
 	Gura_AssignMethod(wx_ThreadHelper, Create);
 	Gura_AssignMethod(wx_ThreadHelper, Entry);
 	Gura_AssignMethod(wx_ThreadHelper, GetThread);

@@ -200,7 +200,10 @@ String Object_wx_CustomDataObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CustomDataObject::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxCustomDataObject
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_CustomDataObject)
 {
 	Gura_RealizeUserSymbol(Alloc);
 	Gura_RealizeUserSymbol(Free);
@@ -209,13 +212,6 @@ void Object_wx_CustomDataObject::DoAssignConstructor(Environment &env, Signal si
 	Gura_RealizeUserSymbol(SetData);
 	Gura_RealizeUserSymbol(TakeData);
 	Gura_AssignFunction(CustomDataObject);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxCustomDataObject
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_CustomDataObject)
-{
 	Gura_AssignMethod(wx_CustomDataObject, Alloc);
 	Gura_AssignMethod(wx_CustomDataObject, Free);
 	Gura_AssignMethod(wx_CustomDataObject, GetSize);

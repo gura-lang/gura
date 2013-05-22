@@ -287,7 +287,10 @@ String Object_wx_TextValidator::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextValidator::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxTextValidator
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_TextValidator)
 {
 	Gura_RealizeUserSymbol(Clone);
 	Gura_RealizeUserSymbol(TransferFromWindow);
@@ -295,13 +298,6 @@ void Object_wx_TextValidator::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(Validate);
 	Gura_AssignFunction(TextValidator);
 	Gura_AssignFunction(TextValidator_1);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxTextValidator
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_TextValidator)
-{
 	Gura_AssignMethod(wx_TextValidator, Clone);
 	Gura_AssignMethod(wx_TextValidator, GetExcludes);
 	Gura_AssignMethod(wx_TextValidator, GetIncludes);

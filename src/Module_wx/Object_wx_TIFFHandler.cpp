@@ -84,16 +84,12 @@ String Object_wx_TIFFHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TIFFHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TIFFHandler);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTIFFHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TIFFHandler)
 {
+	Gura_AssignFunction(TIFFHandler);
 }
 
 Gura_ImplementDescendantCreator(wx_TIFFHandler)

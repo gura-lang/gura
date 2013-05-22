@@ -64,10 +64,6 @@ String Object_wx_ClientBase::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ClientBase::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxClientBase
 //----------------------------------------------------------------------------

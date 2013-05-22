@@ -131,16 +131,12 @@ String Object_wx_SocketEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SocketEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SocketEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSocketEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketEvent)
 {
+	Gura_AssignFunction(SocketEvent);
 	Gura_AssignMethod(wx_SocketEvent, GetClientData);
 	Gura_AssignMethod(wx_SocketEvent, GetSocket);
 	Gura_AssignMethod(wx_SocketEvent, GetSocketEvent);

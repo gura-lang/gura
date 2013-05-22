@@ -130,16 +130,12 @@ String Object_wx_ScreenDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ScreenDC::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ScreenDCEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxScreenDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScreenDC)
 {
+	Gura_AssignFunction(ScreenDCEmpty);
 	Gura_AssignMethod(wx_ScreenDC, StartDrawingOnTop);
 	Gura_AssignMethod(wx_ScreenDC, StartDrawingOnTop_1);
 	Gura_AssignMethod(wx_ScreenDC, EndDrawingOnTop);

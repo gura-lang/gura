@@ -684,19 +684,15 @@ String Object_wx_HtmlWinParser::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlWinParser::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(CreateCurrentFont);
-	Gura_RealizeUserSymbol(SetDC);
-	Gura_AssignFunction(HtmlWinParserEmpty);
-	Gura_AssignFunction(HtmlWinParser);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlWinParser
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWinParser)
 {
+	Gura_RealizeUserSymbol(CreateCurrentFont);
+	Gura_RealizeUserSymbol(SetDC);
+	Gura_AssignFunction(HtmlWinParserEmpty);
+	Gura_AssignFunction(HtmlWinParser);
 	Gura_AssignMethod(wx_HtmlWinParser, AddModule);
 	Gura_AssignMethod(wx_HtmlWinParser, CloseContainer);
 	Gura_AssignMethod(wx_HtmlWinParser, CreateCurrentFont);

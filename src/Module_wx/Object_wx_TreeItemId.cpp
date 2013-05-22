@@ -123,19 +123,15 @@ String Object_wx_TreeItemId::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TreeItemId::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TreeItemId);
-	Gura_AssignBinaryOperator(Eq, wx_TreeItemId, wx_TreeItemId);
-	Gura_AssignBinaryOperator(Ne, wx_TreeItemId, wx_TreeItemId);
-	Gura_AssignUnaryOperator(Not, wx_TreeItemId);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTreeItemId
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeItemId)
 {
+	Gura_AssignFunction(TreeItemId);
+	Gura_AssignBinaryOperator(Eq, wx_TreeItemId, wx_TreeItemId);
+	Gura_AssignBinaryOperator(Ne, wx_TreeItemId, wx_TreeItemId);
+	Gura_AssignUnaryOperator(Not, wx_TreeItemId);
 	Gura_AssignMethod(wx_TreeItemId, IsOk);
 }
 

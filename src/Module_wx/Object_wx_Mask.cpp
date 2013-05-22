@@ -214,19 +214,15 @@ String Object_wx_Mask::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Mask::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MaskEmpty);
-	Gura_AssignFunction(Mask);
-	Gura_AssignFunction(Mask_1);
-	Gura_AssignFunction(Mask_2);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMask
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Mask)
 {
+	Gura_AssignFunction(MaskEmpty);
+	Gura_AssignFunction(Mask);
+	Gura_AssignFunction(Mask_1);
+	Gura_AssignFunction(Mask_2);
 	Gura_AssignMethod(wx_Mask, Create);
 	Gura_AssignMethod(wx_Mask, Create_1);
 	Gura_AssignMethod(wx_Mask, Create_2);

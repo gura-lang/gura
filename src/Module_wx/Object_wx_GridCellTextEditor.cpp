@@ -98,16 +98,12 @@ String Object_wx_GridCellTextEditor::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellTextEditor::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridCellTextEditor);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridCellTextEditor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellTextEditor)
 {
+	Gura_AssignFunction(GridCellTextEditor);
 	Gura_AssignMethod(wx_GridCellTextEditor, SetParameters);
 }
 

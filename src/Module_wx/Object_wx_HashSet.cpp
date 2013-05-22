@@ -284,17 +284,13 @@ String Object_wx_HashSet::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HashSet::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HashSet);
-	Gura_AssignFunction(HashSet_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHashSet
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HashSet)
 {
+	Gura_AssignFunction(HashSet);
+	Gura_AssignFunction(HashSet_1);
 	Gura_AssignMethod(wx_HashSet, begin);
 	Gura_AssignMethod(wx_HashSet, begin_1);
 	Gura_AssignMethod(wx_HashSet, clear);

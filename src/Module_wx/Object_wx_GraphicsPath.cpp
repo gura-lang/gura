@@ -521,10 +521,6 @@ String Object_wx_GraphicsPath::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GraphicsPath::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGraphicsPath
 //----------------------------------------------------------------------------

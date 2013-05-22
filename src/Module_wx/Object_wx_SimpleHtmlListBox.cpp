@@ -242,16 +242,12 @@ String Object_wx_SimpleHtmlListBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SimpleHtmlListBox::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SimpleHtmlListBoxEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSimpleHtmlListBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SimpleHtmlListBox)
 {
+	Gura_AssignFunction(SimpleHtmlListBoxEmpty);
 	Gura_AssignMethod(wx_SimpleHtmlListBox, wxHtmlListBox);
 	Gura_AssignMethod(wx_SimpleHtmlListBox, wxHtmlListBox_1);
 	Gura_AssignMethod(wx_SimpleHtmlListBox, Create);

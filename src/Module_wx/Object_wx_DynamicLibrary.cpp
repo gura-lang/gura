@@ -353,17 +353,13 @@ String Object_wx_DynamicLibrary::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DynamicLibrary::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DynamicLibraryEmpty);
-	Gura_AssignFunction(DynamicLibrary);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDynamicLibrary
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DynamicLibrary)
 {
+	Gura_AssignFunction(DynamicLibraryEmpty);
+	Gura_AssignFunction(DynamicLibrary);
 	Gura_AssignMethod(wx_DynamicLibrary, CanonicalizeName);
 	Gura_AssignMethod(wx_DynamicLibrary, CanonicalizePluginName);
 	Gura_AssignMethod(wx_DynamicLibrary, Detach);

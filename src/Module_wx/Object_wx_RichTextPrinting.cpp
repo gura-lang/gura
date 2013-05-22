@@ -467,16 +467,12 @@ String Object_wx_RichTextPrinting::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextPrinting::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextPrinting);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextPrinting
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextPrinting)
 {
+	Gura_AssignFunction(RichTextPrinting);
 	Gura_AssignMethod(wx_RichTextPrinting, GetFooterText);
 	Gura_AssignMethod(wx_RichTextPrinting, GetHeaderFooterData);
 	Gura_AssignMethod(wx_RichTextPrinting, GetHeaderText);

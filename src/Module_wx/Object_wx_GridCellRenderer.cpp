@@ -142,11 +142,6 @@ String Object_wx_GridCellRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellRenderer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(Draw);
-}
-
 void Object_wx_GridCellRenderer::EvalMethod_Draw(Signal sig, bool &evaluatedFlag,
 			wxGrid &grid, wxGridCellAttr &attr, wxDC &dc,
 			const wxRect &rect, int row, int col, bool isSelected)
@@ -172,6 +167,7 @@ void Object_wx_GridCellRenderer::EvalMethod_Draw(Signal sig, bool &evaluatedFlag
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellRenderer)
 {
+	Gura_RealizeUserSymbol(Draw);
 	Gura_AssignMethod(wx_GridCellRenderer, Draw);
 	Gura_AssignMethod(wx_GridCellRenderer, GetBestSize);
 	Gura_AssignMethod(wx_GridCellRenderer, Clone);

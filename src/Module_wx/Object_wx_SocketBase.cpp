@@ -753,16 +753,12 @@ String Object_wx_SocketBase::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SocketBase::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SocketBaseEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSocketBase
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketBase)
 {
+	Gura_AssignFunction(SocketBaseEmpty);
 	Gura_AssignMethod(wx_SocketBase, Close);
 	Gura_AssignMethod(wx_SocketBase, Destroy);
 	Gura_AssignMethod(wx_SocketBase, Discard);

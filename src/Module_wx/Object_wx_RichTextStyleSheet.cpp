@@ -451,16 +451,12 @@ String Object_wx_RichTextStyleSheet::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextStyleSheet::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextStyleSheet);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextStyleSheet
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleSheet)
 {
+	Gura_AssignFunction(RichTextStyleSheet);
 	Gura_AssignMethod(wx_RichTextStyleSheet, AddCharacterStyle);
 	Gura_AssignMethod(wx_RichTextStyleSheet, AddListStyle);
 	Gura_AssignMethod(wx_RichTextStyleSheet, AddParagraphStyle);

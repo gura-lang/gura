@@ -177,16 +177,12 @@ String Object_wx_MemoryFSHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MemoryFSHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MemoryFSHandler);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMemoryFSHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryFSHandler)
 {
+	Gura_AssignFunction(MemoryFSHandler);
 	Gura_AssignMethod(wx_MemoryFSHandler, AddFile);
 	Gura_AssignMethod(wx_MemoryFSHandler, AddFile_1);
 	Gura_AssignMethod(wx_MemoryFSHandler, AddFileWithMimeType);

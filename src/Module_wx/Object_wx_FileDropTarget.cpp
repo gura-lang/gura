@@ -142,18 +142,14 @@ String Object_wx_FileDropTarget::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileDropTarget::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(OnDrop);
-	Gura_RealizeUserSymbol(OnDropFiles);
-	Gura_AssignFunction(FileDropTargetEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFileDropTarget
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileDropTarget)
 {
+	Gura_RealizeUserSymbol(OnDrop);
+	Gura_RealizeUserSymbol(OnDropFiles);
+	Gura_AssignFunction(FileDropTargetEmpty);
 	Gura_AssignMethod(wx_FileDropTarget, OnDrop);
 	Gura_AssignMethod(wx_FileDropTarget, OnDropFiles);
 }

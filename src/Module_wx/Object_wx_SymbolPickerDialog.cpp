@@ -339,17 +339,13 @@ String Object_wx_SymbolPickerDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SymbolPickerDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SymbolPickerDialog);
-	Gura_AssignFunction(SymbolPickerDialogEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSymbolPickerDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SymbolPickerDialog)
 {
+	Gura_AssignFunction(SymbolPickerDialog);
+	Gura_AssignFunction(SymbolPickerDialogEmpty);
 	Gura_AssignMethod(wx_SymbolPickerDialog, Create);
 	Gura_AssignMethod(wx_SymbolPickerDialog, GetFontName);
 	Gura_AssignMethod(wx_SymbolPickerDialog, GetFromUnicode);

@@ -436,16 +436,12 @@ String Object_wx_RichTextFileHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextFileHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextFileHandler);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextFileHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextFileHandler)
 {
+	Gura_AssignFunction(RichTextFileHandler);
 	Gura_AssignMethod(wx_RichTextFileHandler, CanHandle);
 	Gura_AssignMethod(wx_RichTextFileHandler, CanLoad);
 	Gura_AssignMethod(wx_RichTextFileHandler, CanSave);

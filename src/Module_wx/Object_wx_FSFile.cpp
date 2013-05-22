@@ -182,16 +182,12 @@ String Object_wx_FSFile::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FSFile::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FSFile);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFSFile
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FSFile)
 {
+	Gura_AssignFunction(FSFile);
 	Gura_AssignMethod(wx_FSFile, DetachStream);
 	Gura_AssignMethod(wx_FSFile, GetAnchor);
 	Gura_AssignMethod(wx_FSFile, GetLocation);

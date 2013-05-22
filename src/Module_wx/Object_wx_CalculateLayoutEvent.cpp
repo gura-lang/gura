@@ -144,16 +144,12 @@ String Object_wx_CalculateLayoutEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CalculateLayoutEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(CalculateLayoutEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCalculateLayoutEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CalculateLayoutEvent)
 {
+	Gura_AssignFunction(CalculateLayoutEvent);
 	Gura_AssignMethod(wx_CalculateLayoutEvent, GetFlags);
 	Gura_AssignMethod(wx_CalculateLayoutEvent, GetRect);
 	Gura_AssignMethod(wx_CalculateLayoutEvent, SetFlags);

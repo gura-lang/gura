@@ -225,7 +225,10 @@ String Object_wx_DataObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataObject::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxDataObject
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_DataObject)
 {
 	Gura_RealizeUserSymbol(GetAllFormats);
 	Gura_RealizeUserSymbol(GetDataHere);
@@ -234,13 +237,6 @@ void Object_wx_DataObject::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(GetPreferredFormat);
 	Gura_RealizeUserSymbol(SetData);
 	Gura_AssignFunction(DataObject);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxDataObject
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_DataObject)
-{
 	Gura_AssignClassValue(Get, wxDataObject::Get);
 	Gura_AssignClassValue(Set, wxDataObject::Set);
 	Gura_AssignMethod(wx_DataObject, GetAllFormats);

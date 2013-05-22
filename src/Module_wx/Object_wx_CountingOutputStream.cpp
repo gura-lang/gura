@@ -97,16 +97,12 @@ String Object_wx_CountingOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CountingOutputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(CountingOutputStreamEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCountingOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CountingOutputStream)
 {
+	Gura_AssignFunction(CountingOutputStreamEmpty);
 	Gura_AssignMethod(wx_CountingOutputStream, GetSize);
 }
 

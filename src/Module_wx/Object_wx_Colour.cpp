@@ -310,20 +310,16 @@ String Object_wx_Colour::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Colour::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxColour
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClassWithCast(wx_Colour)
 {
 	Gura_AssignFunction(ColourEmpty);
 	Gura_AssignFunction(Colour);
 	Gura_AssignFunction(NamedColour);
 	Gura_AssignBinaryOperator(Eq, wx_Colour, wx_Colour);
 	Gura_AssignBinaryOperator(Ne, wx_Colour, wx_Colour);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxColour
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClassWithCast(wx_Colour)
-{
 	Gura_AssignMethod(wx_Colour, Alpha);
 	Gura_AssignMethod(wx_Colour, Blue);
 	Gura_AssignMethod(wx_Colour, GetAsString);

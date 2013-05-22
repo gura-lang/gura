@@ -274,16 +274,12 @@ String Object_wx_FontData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FontData::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FontData);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFontData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontData)
 {
+	Gura_AssignFunction(FontData);
 	Gura_AssignMethod(wx_FontData, EnableEffects);
 	Gura_AssignMethod(wx_FontData, GetAllowSymbols);
 	Gura_AssignMethod(wx_FontData, GetColour);

@@ -436,16 +436,12 @@ String Object_wx_FTP::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FTP::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FTPEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFTP
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FTP)
 {
+	Gura_AssignFunction(FTPEmpty);
 	Gura_AssignMethod(wx_FTP, Abort);
 	Gura_AssignMethod(wx_FTP, CheckCommand);
 	Gura_AssignMethod(wx_FTP, SendCommand);

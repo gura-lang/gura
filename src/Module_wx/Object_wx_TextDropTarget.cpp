@@ -142,18 +142,14 @@ String Object_wx_TextDropTarget::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextDropTarget::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(OnDrop);
-	Gura_RealizeUserSymbol(OnDropText);
-	Gura_AssignFunction(TextDropTargetEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTextDropTarget
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextDropTarget)
 {
+	Gura_RealizeUserSymbol(OnDrop);
+	Gura_RealizeUserSymbol(OnDropText);
+	Gura_AssignFunction(TextDropTargetEmpty);
 	Gura_AssignMethod(wx_TextDropTarget, OnDrop);
 	Gura_AssignMethod(wx_TextDropTarget, OnDropText);
 }

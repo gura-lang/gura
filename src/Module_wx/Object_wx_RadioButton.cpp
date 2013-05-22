@@ -191,18 +191,14 @@ String Object_wx_RadioButton::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RadioButton::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignWxStringValue(RadioButtonNameStr);
-	Gura_AssignFunction(RadioButtonEmpty);
-	Gura_AssignFunction(RadioButton);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRadioButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RadioButton)
 {
+	Gura_AssignWxStringValue(RadioButtonNameStr);
+	Gura_AssignFunction(RadioButtonEmpty);
+	Gura_AssignFunction(RadioButton);
 	Gura_AssignMethod(wx_RadioButton, Create);
 	Gura_AssignMethod(wx_RadioButton, GetValue);
 	Gura_AssignMethod(wx_RadioButton, SetValue);

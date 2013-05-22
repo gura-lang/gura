@@ -196,20 +196,16 @@ String Object_wx_GBPosition::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GBPosition::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxGBPosition
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_GBPosition)
 {
 	Gura_AssignFunction(GBPositionEmpty);
 	Gura_AssignFunction(GBPosition);
 	Gura_AssignBinaryOperator(Eq, wx_GBPosition, wx_GBPosition);
 	Gura_AssignBinaryOperator(Ne, wx_GBPosition, wx_GBPosition);
 	//Gura_AssignUnaryOperator(Not, wx_GBPosition);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxGBPosition
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_GBPosition)
-{
 	Gura_AssignMethod(wx_GBPosition, GetCol);
 	Gura_AssignMethod(wx_GBPosition, GetRow);
 	Gura_AssignMethod(wx_GBPosition, SetCol);

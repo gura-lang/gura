@@ -181,16 +181,12 @@ String Object_wx_SystemOptions::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SystemOptions::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SystemOptions);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSystemOptions
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SystemOptions)
 {
+	Gura_AssignFunction(SystemOptions);
 	Gura_AssignMethod(wx_SystemOptions, GetOption);
 	Gura_AssignMethod(wx_SystemOptions, GetOptionInt);
 	Gura_AssignMethod(wx_SystemOptions, HasOption);

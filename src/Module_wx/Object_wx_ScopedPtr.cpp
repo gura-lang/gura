@@ -128,10 +128,6 @@ String Object_wx_ScopedPtr::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ScopedPtr::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxScopedPtr
 //----------------------------------------------------------------------------

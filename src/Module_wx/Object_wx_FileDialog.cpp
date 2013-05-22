@@ -328,16 +328,12 @@ String Object_wx_FileDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FileDialog);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFileDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileDialog)
 {
+	Gura_AssignFunction(FileDialog);
 	Gura_AssignMethod(wx_FileDialog, GetDirectory);
 	Gura_AssignMethod(wx_FileDialog, GetFilename);
 	Gura_AssignMethod(wx_FileDialog, GetFilenames);

@@ -1908,17 +1908,13 @@ String Object_wx_RichTextBuffer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextBuffer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextBuffer);
-	Gura_AssignFunction(RichTextBufferEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextBuffer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextBuffer)
 {
+	Gura_AssignFunction(RichTextBuffer);
+	Gura_AssignFunction(RichTextBufferEmpty);
 	Gura_AssignMethod(wx_RichTextBuffer, AddEventHandler);
 	Gura_AssignMethod(wx_RichTextBuffer, AddHandler);
 	Gura_AssignMethod(wx_RichTextBuffer, AddParagraph);

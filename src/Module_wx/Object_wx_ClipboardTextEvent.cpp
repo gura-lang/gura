@@ -89,16 +89,12 @@ String Object_wx_ClipboardTextEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ClipboardTextEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ClipboardTextEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxClipboardTextEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClipboardTextEvent)
 {
+	Gura_AssignFunction(ClipboardTextEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_ClipboardTextEvent)

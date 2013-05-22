@@ -249,18 +249,14 @@ String Object_wx_Palette::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Palette::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PaletteEmpty);
-	Gura_AssignFunction(Palette);
-	Gura_AssignFunction(Palette_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPalette
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Palette)
 {
+	Gura_AssignFunction(PaletteEmpty);
+	Gura_AssignFunction(Palette);
+	Gura_AssignFunction(Palette_1);
 	Gura_AssignMethod(wx_Palette, Create);
 	Gura_AssignMethod(wx_Palette, GetColoursCount);
 	Gura_AssignMethod(wx_Palette, GetPixel);

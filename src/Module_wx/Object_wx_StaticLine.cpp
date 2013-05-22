@@ -182,17 +182,13 @@ String Object_wx_StaticLine::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StaticLine::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(StaticLineEmpty);
-	Gura_AssignFunction(StaticLine);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxStaticLine
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StaticLine)
 {
+	Gura_AssignFunction(StaticLineEmpty);
+	Gura_AssignFunction(StaticLine);
 	Gura_AssignMethod(wx_StaticLine, Create);
 	Gura_AssignMethod(wx_StaticLine, IsVertical);
 	Gura_AssignMethod(wx_StaticLine, GetDefaultSize);

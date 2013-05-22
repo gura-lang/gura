@@ -353,7 +353,10 @@ String Object_wx_Brush::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Brush::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxBrush
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Brush)
 {
 	Gura_AssignFunction(BrushEmpty);
 	Gura_AssignFunction(Brush);
@@ -362,13 +365,6 @@ void Object_wx_Brush::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignFunction(Brush_3);
 	Gura_AssignBinaryOperator(Eq, wx_Brush, wx_Brush);		// ==
 	Gura_AssignBinaryOperator(Ne, wx_Brush, wx_Brush);	// !=
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxBrush
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Brush)
-{
 	Gura_AssignMethod(wx_Brush, GetColour);
 	Gura_AssignMethod(wx_Brush, GetStipple);
 	Gura_AssignMethod(wx_Brush, GetStyle);

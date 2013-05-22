@@ -317,10 +317,6 @@ String Object_wx_ArchiveClassFactory::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ArchiveClassFactory::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxArchiveClassFactory
 //----------------------------------------------------------------------------

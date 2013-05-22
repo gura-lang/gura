@@ -568,19 +568,15 @@ String Object_wx_Notebook::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Notebook::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignWxStringValue(NotebookNameStr);
-	Gura_AssignFunction(NotebookEmpty);
-	Gura_AssignFunction(Notebook);
-	Gura_AssignFunctionEx(Notebook, "BookCtrl");
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxNotebook
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Notebook)
 {
+	Gura_AssignWxStringValue(NotebookNameStr);
+	Gura_AssignFunction(NotebookEmpty);
+	Gura_AssignFunction(Notebook);
+	Gura_AssignFunctionEx(Notebook, "BookCtrl");
 	Gura_AssignMethod(wx_Notebook, AddPage);
 	Gura_AssignMethod(wx_Notebook, AdvanceSelection);
 	Gura_AssignMethod(wx_Notebook, AssignImageList);

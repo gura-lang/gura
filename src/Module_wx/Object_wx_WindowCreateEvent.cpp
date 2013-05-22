@@ -86,16 +86,12 @@ String Object_wx_WindowCreateEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_WindowCreateEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(WindowCreateEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxWindowCreateEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowCreateEvent)
 {
+	Gura_AssignFunction(WindowCreateEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_WindowCreateEvent)

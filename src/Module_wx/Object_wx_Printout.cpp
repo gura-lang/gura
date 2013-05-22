@@ -548,16 +548,12 @@ String Object_wx_Printout::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Printout::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Printout);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPrintout
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Printout)
 {
+	Gura_AssignFunction(Printout);
 	Gura_AssignMethod(wx_Printout, GetDC);
 	Gura_AssignMethod(wx_Printout, GetPageInfo);
 	Gura_AssignMethod(wx_Printout, GetPageSizeMM);

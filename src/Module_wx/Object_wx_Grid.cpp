@@ -3477,17 +3477,13 @@ String Object_wx_Grid::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Grid::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridEmpty);
-	Gura_AssignFunction(Grid);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGrid
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Grid)
 {
+	Gura_AssignFunction(GridEmpty);
+	Gura_AssignFunction(Grid);
 	Gura_AssignMethod(wx_Grid, AppendCols);
 	Gura_AssignMethod(wx_Grid, AppendRows);
 	Gura_AssignMethod(wx_Grid, AutoSize);

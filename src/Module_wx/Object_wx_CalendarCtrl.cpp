@@ -463,18 +463,14 @@ String Object_wx_CalendarCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CalendarCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignWxStringValue(CalendarNameStr);
-	Gura_AssignFunction(CalendarCtrlEmpty);
-	Gura_AssignFunction(CalendarCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCalendarCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CalendarCtrl)
 {
+	Gura_AssignWxStringValue(CalendarNameStr);
+	Gura_AssignFunction(CalendarCtrlEmpty);
+	Gura_AssignFunction(CalendarCtrl);
 	Gura_AssignMethod(wx_CalendarCtrl, Create);
 	Gura_AssignMethod(wx_CalendarCtrl, SetDate);
 	Gura_AssignMethod(wx_CalendarCtrl, GetDate);

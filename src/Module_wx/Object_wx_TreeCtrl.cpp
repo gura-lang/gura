@@ -1544,19 +1544,15 @@ String Object_wx_TreeCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TreeCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(OnCompareItems);
-	Gura_AssignWxStringValue(TreeCtrlNameStr);
-	Gura_AssignFunction(TreeCtrlEmpty);
-	Gura_AssignFunction(TreeCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTreeCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeCtrl)
 {
+	Gura_RealizeUserSymbol(OnCompareItems);
+	Gura_AssignWxStringValue(TreeCtrlNameStr);
+	Gura_AssignFunction(TreeCtrlEmpty);
+	Gura_AssignFunction(TreeCtrl);
 	Gura_AssignMethod(wx_TreeCtrl, AddRoot);
 	Gura_AssignMethod(wx_TreeCtrl, AppendItem);
 	Gura_AssignMethod(wx_TreeCtrl, AssignImageList);

@@ -851,7 +851,10 @@ String Object_wx_App::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_App::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxApp
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_App)
 {
 	_pEnv = &env;
 	Gura_RealizeUserSymbol(CreateLogTarget);
@@ -868,13 +871,6 @@ void Object_wx_App::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(Pending);
 	Gura_RealizeUserSymbol(HandleEvent);
 	Gura_AssignFunction(App);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxApp
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_App)
-{
 	Gura_AssignMethod(wx_App, CreateLogTarget);
 	Gura_AssignMethod(wx_App, CreateTraits);
 	Gura_AssignMethod(wx_App, Dispatch);

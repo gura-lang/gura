@@ -446,7 +446,10 @@ String Object_wx_DragImage::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DragImage::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxDragImage
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_DragImage)
 {
 	Gura_RealizeUserSymbol(DoDrawImage);
 	Gura_RealizeUserSymbol(GetImageRect);
@@ -457,13 +460,6 @@ void Object_wx_DragImage::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignFunction(DragImage_3);
 	Gura_AssignFunction(DragImage_4);
 	Gura_AssignFunction(DragImage_5);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxDragImage
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_DragImage)
-{
 	Gura_AssignMethod(wx_DragImage, BeginDrag);
 	Gura_AssignMethod(wx_DragImage, BeginDrag_1);
 	Gura_AssignMethod(wx_DragImage, DoDrawImage);

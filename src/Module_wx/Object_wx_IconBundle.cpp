@@ -228,19 +228,15 @@ String Object_wx_IconBundle::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_IconBundle::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(IconBundleEmpty);
-	Gura_AssignFunction(IconBundle);
-	Gura_AssignFunction(IconBundle_1);
-	Gura_AssignFunction(IconBundle_2);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxIconBundle
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IconBundle)
 {
+	Gura_AssignFunction(IconBundleEmpty);
+	Gura_AssignFunction(IconBundle);
+	Gura_AssignFunction(IconBundle_1);
+	Gura_AssignFunction(IconBundle_2);
 	Gura_AssignMethod(wx_IconBundle, AddIcon);
 	Gura_AssignMethod(wx_IconBundle, AddIcon_1);
 	Gura_AssignMethod(wx_IconBundle, GetIcon);

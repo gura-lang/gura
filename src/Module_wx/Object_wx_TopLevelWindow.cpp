@@ -646,7 +646,10 @@ String Object_wx_TopLevelWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TopLevelWindow::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxTopLevelWindow
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_TopLevelWindow)
 {
 	Gura_RealizeUserSymbol(CanSetTransparent);
 	Gura_RealizeUserSymbol(HandleSettingChange);
@@ -655,13 +658,6 @@ void Object_wx_TopLevelWindow::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(SetTitle);
 	Gura_RealizeUserSymbol(SetTransparent);
 	Gura_RealizeUserSymbol(ShouldPreventAppExit);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxTopLevelWindow
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_TopLevelWindow)
-{
 	Gura_AssignMethod(wx_TopLevelWindow, CanSetTransparent);
 	Gura_AssignMethod(wx_TopLevelWindow, CentreOnScreen);
 	Gura_AssignMethod(wx_TopLevelWindow, EnableCloseButton);

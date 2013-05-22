@@ -84,16 +84,12 @@ String Object_wx_HtmlTagsModule::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlTagsModule::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(FillHandlersTable);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlTagsModule
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlTagsModule)
 {
+	Gura_RealizeUserSymbol(FillHandlersTable);
 	Gura_AssignMethod(wx_HtmlTagsModule, FillHandlersTable);
 }
 

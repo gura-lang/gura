@@ -265,7 +265,10 @@ String Object_wx_DropTarget::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DropTarget::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxDropTarget
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_DropTarget)
 {
 	Gura_RealizeUserSymbol(GetData);
 	Gura_RealizeUserSymbol(OnData);
@@ -274,13 +277,6 @@ void Object_wx_DropTarget::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(OnDragOver);
 	Gura_RealizeUserSymbol(OnLeave);
 	Gura_AssignFunction(DropTarget);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxDropTarget
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_DropTarget)
-{
 	Gura_AssignMethod(wx_DropTarget, GetData);
 	Gura_AssignMethod(wx_DropTarget, OnData);
 	Gura_AssignMethod(wx_DropTarget, OnDrop);

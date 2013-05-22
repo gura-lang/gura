@@ -154,16 +154,12 @@ String Object_wx_HelpEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HelpEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HelpEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHelpEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HelpEvent)
 {
+	Gura_AssignFunction(HelpEvent);
 	Gura_AssignMethod(wx_HelpEvent, GetOrigin);
 	Gura_AssignMethod(wx_HelpEvent, GetPosition);
 	Gura_AssignMethod(wx_HelpEvent, SetOrigin);

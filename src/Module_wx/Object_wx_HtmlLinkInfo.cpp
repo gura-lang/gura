@@ -167,17 +167,13 @@ String Object_wx_HtmlLinkInfo::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlLinkInfo::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HtmlLinkInfoEmpty);
-	Gura_AssignFunction(HtmlLinkInfo);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlLinkInfo
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlLinkInfo)
 {
+	Gura_AssignFunction(HtmlLinkInfoEmpty);
+	Gura_AssignFunction(HtmlLinkInfo);
 	Gura_AssignMethod(wx_HtmlLinkInfo, GetEvent);
 	Gura_AssignMethod(wx_HtmlLinkInfo, GetHtmlCell);
 	Gura_AssignMethod(wx_HtmlLinkInfo, GetHref);

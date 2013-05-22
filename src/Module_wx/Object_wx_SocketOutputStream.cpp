@@ -85,16 +85,12 @@ String Object_wx_SocketOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SocketOutputStream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SocketOutputStream);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSocketOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketOutputStream)
 {
+	Gura_AssignFunction(SocketOutputStream);
 }
 
 Gura_ImplementDescendantCreator(wx_SocketOutputStream)

@@ -130,16 +130,12 @@ String Object_wx_PrintDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PrintDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PrintDialog);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPrintDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrintDialog)
 {
+	Gura_AssignFunction(PrintDialog);
 	Gura_AssignMethod(wx_PrintDialog, GetPrintDialogData);
 	Gura_AssignMethod(wx_PrintDialog, GetPrintDC);
 	Gura_AssignMethod(wx_PrintDialog, ShowModal);

@@ -168,19 +168,15 @@ String Object_wx_HtmlTagHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlTagHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(GetSupportedTags);
-	Gura_RealizeUserSymbol(HandleTag);
-	Gura_RealizeUserSymbol(SetParser);
-	Gura_AssignFunction(HtmlTagHandlerEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlTagHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlTagHandler)
 {
+	Gura_RealizeUserSymbol(GetSupportedTags);
+	Gura_RealizeUserSymbol(HandleTag);
+	Gura_RealizeUserSymbol(SetParser);
+	Gura_AssignFunction(HtmlTagHandlerEmpty);
 	Gura_AssignMethod(wx_HtmlTagHandler, GetSupportedTags);
 	Gura_AssignMethod(wx_HtmlTagHandler, HandleTag);
 	Gura_AssignMethod(wx_HtmlTagHandler, ParseInner);

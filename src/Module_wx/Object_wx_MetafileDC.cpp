@@ -100,16 +100,12 @@ String Object_wx_MetafileDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MetafileDC::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MetafileDC);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMetafileDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MetafileDC)
 {
+	Gura_AssignFunction(MetafileDC);
 	Gura_AssignMethod(wx_MetafileDC, Close);
 }
 

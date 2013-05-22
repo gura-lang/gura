@@ -255,17 +255,13 @@ String Object_wx_SashLayoutWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SashLayoutWindow::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SashLayoutWindowEmpty);
-	Gura_AssignFunction(SashLayoutWindow);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSashLayoutWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SashLayoutWindow)
 {
+	Gura_AssignFunction(SashLayoutWindowEmpty);
+	Gura_AssignFunction(SashLayoutWindow);
 	Gura_AssignMethod(wx_SashLayoutWindow, Create);
 	Gura_AssignMethod(wx_SashLayoutWindow, GetAlignment);
 	Gura_AssignMethod(wx_SashLayoutWindow, GetOrientation);

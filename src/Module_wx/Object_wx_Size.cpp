@@ -447,7 +447,10 @@ String Object_wx_Size::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Size::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxSize
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Size)
 {
 	Gura_AssignFunction(SizeEmpty);
 	Gura_AssignFunction(Size);
@@ -457,13 +460,6 @@ void Object_wx_Size::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignBinaryOperator(Sub, wx_Size, wx_Size);
 	Gura_AssignBinaryOperator(Mul, wx_Size, number);
 	Gura_AssignBinaryOperator(Div, wx_Size, number);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxSize
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Size)
-{
 	Gura_AssignMethod(wx_Size, DecBy);
 	Gura_AssignMethod(wx_Size, DecBy_1);
 	Gura_AssignMethod(wx_Size, DecBy_2);

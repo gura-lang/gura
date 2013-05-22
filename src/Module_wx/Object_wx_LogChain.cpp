@@ -156,16 +156,12 @@ String Object_wx_LogChain::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LogChain::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(LogChain);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxLogChain
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogChain)
 {
+	Gura_AssignFunction(LogChain);
 	Gura_AssignMethod(wx_LogChain, DetachOldLog);
 	Gura_AssignMethod(wx_LogChain, GetOldLog);
 	Gura_AssignMethod(wx_LogChain, IsPassingMessages);

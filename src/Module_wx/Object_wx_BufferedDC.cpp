@@ -183,18 +183,14 @@ String Object_wx_BufferedDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BufferedDC::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(BufferedDCEmpty);
-	Gura_AssignFunction(BufferedDC);
-	Gura_AssignFunction(BufferedDC_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxBufferedDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BufferedDC)
 {
+	Gura_AssignFunction(BufferedDCEmpty);
+	Gura_AssignFunction(BufferedDC);
+	Gura_AssignFunction(BufferedDC_1);
 	Gura_AssignMethod(wx_BufferedDC, Init);
 	Gura_AssignMethod(wx_BufferedDC, Init_1);
 }

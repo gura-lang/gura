@@ -202,17 +202,13 @@ String Object_wx_PathList::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PathList::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PathListEmpty);
-	Gura_AssignFunction(PathList);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPathList
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PathList)
 {
+	Gura_AssignFunction(PathListEmpty);
+	Gura_AssignFunction(PathList);
 	Gura_AssignMethod(wx_PathList, AddEnvList);
 	Gura_AssignMethod(wx_PathList, Add);
 	Gura_AssignMethod(wx_PathList, Add_1);

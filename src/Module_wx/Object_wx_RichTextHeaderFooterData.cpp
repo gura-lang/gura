@@ -404,17 +404,13 @@ String Object_wx_RichTextHeaderFooterData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextHeaderFooterData::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextHeaderFooterDataEmpty);
-	Gura_AssignFunction(RichTextHeaderFooterData);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextHeaderFooterData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextHeaderFooterData)
 {
+	Gura_AssignFunction(RichTextHeaderFooterDataEmpty);
+	Gura_AssignFunction(RichTextHeaderFooterData);
 	Gura_AssignMethod(wx_RichTextHeaderFooterData, Clear);
 	Gura_AssignMethod(wx_RichTextHeaderFooterData, Copy);
 	Gura_AssignMethod(wx_RichTextHeaderFooterData, GetFont);

@@ -100,16 +100,12 @@ String Object_wx_PasswordEntryDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PasswordEntryDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PasswordEntryDialog);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPasswordEntryDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PasswordEntryDialog)
 {
+	Gura_AssignFunction(PasswordEntryDialog);
 }
 
 Gura_ImplementDescendantCreator(wx_PasswordEntryDialog)

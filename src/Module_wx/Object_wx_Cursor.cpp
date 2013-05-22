@@ -245,20 +245,16 @@ String Object_wx_Cursor::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Cursor::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxCursor
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Cursor)
 {
 	Gura_AssignFunction(CursorEmpty);
 	Gura_AssignFunction(Cursor);
 	Gura_AssignFunction(NamedCursor);
 	Gura_AssignFunction(StockCursor);
 	Gura_AssignFunction(Cursor_3);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxCursor
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Cursor)
-{
 	Gura_AssignMethod(wx_Cursor, IsOk);
 }
 

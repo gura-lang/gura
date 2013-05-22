@@ -115,17 +115,13 @@ String Object_wx_FileDataObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileDataObject::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(AddFile);
-	Gura_AssignFunction(FileDataObjectEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFileDataObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileDataObject)
 {
+	Gura_RealizeUserSymbol(AddFile);
+	Gura_AssignFunction(FileDataObjectEmpty);
 	Gura_AssignMethod(wx_FileDataObject, AddFile);
 	Gura_AssignMethod(wx_FileDataObject, GetFilenames);
 }

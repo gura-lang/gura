@@ -102,16 +102,12 @@ String Object_wx_MutexLocker::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MutexLocker::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MutexLocker);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMutexLocker
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MutexLocker)
 {
+	Gura_AssignFunction(MutexLocker);
 	Gura_AssignMethod(wx_MutexLocker, IsOk);
 }
 

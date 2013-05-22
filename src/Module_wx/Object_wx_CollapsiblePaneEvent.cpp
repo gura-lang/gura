@@ -118,16 +118,12 @@ String Object_wx_CollapsiblePaneEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CollapsiblePaneEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(CollapsiblePaneEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCollapsiblePaneEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CollapsiblePaneEvent)
 {
+	Gura_AssignFunction(CollapsiblePaneEvent);
 	Gura_AssignMethod(wx_CollapsiblePaneEvent, GetCollapsed);
 	Gura_AssignMethod(wx_CollapsiblePaneEvent, SetCollapsed);
 }

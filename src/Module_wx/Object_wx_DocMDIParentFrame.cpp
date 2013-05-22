@@ -175,17 +175,13 @@ String Object_wx_DocMDIParentFrame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DocMDIParentFrame::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DocMDIParentFrameEmpty);
-	Gura_AssignFunction(DocMDIParentFrame);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDocMDIParentFrame
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocMDIParentFrame)
 {
+	Gura_AssignFunction(DocMDIParentFrameEmpty);
+	Gura_AssignFunction(DocMDIParentFrame);
 	Gura_AssignMethod(wx_DocMDIParentFrame, Create);
 	Gura_AssignMethod(wx_DocMDIParentFrame, OnCloseWindow);
 }

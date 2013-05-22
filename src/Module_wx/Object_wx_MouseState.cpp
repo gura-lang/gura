@@ -346,10 +346,6 @@ String Object_wx_MouseState::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MouseState::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMouseState
 //----------------------------------------------------------------------------

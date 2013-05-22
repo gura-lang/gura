@@ -464,20 +464,16 @@ String Object_wx_VScrolledWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_VScrolledWindow::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxVScrolledWindow
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_VScrolledWindow)
 {
 	Gura_RealizeUserSymbol(EstimateTotalHeight);
 	Gura_RealizeUserSymbol(OnGetLineHeight);
 	Gura_RealizeUserSymbol(OnGetLinesHint);
 	Gura_AssignFunction(VScrolledWindow);
 	Gura_AssignFunction(VScrolledWindowEmpty);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxVScrolledWindow
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_VScrolledWindow)
-{
 	Gura_AssignMethod(wx_VScrolledWindow, Create);
 	Gura_AssignMethod(wx_VScrolledWindow, EstimateTotalHeight);
 	Gura_AssignMethod(wx_VScrolledWindow, GetFirstVisibleLine);

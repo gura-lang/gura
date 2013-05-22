@@ -411,18 +411,14 @@ String Object_wx_ScrolledWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ScrolledWindow::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(OnDraw);
-	Gura_AssignFunction(ScrolledWindowEmpty);
-	Gura_AssignFunction(ScrolledWindow);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxScrolledWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScrolledWindow)
 {
+	Gura_RealizeUserSymbol(OnDraw);
+	Gura_AssignFunction(ScrolledWindowEmpty);
+	Gura_AssignFunction(ScrolledWindow);
 	Gura_AssignMethod(wx_ScrolledWindow, CalcScrolledPosition);
 	Gura_AssignMethod(wx_ScrolledWindow, CalcUnscrolledPosition);
 	Gura_AssignMethod(wx_ScrolledWindow, Create);

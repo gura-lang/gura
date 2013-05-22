@@ -89,16 +89,12 @@ String Object_wx_DataViewToggleRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewToggleRenderer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DataViewToggleRenderer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewToggleRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewToggleRenderer)
 {
+	Gura_AssignFunction(DataViewToggleRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewToggleRenderer)

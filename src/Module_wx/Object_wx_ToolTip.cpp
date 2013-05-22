@@ -156,16 +156,12 @@ String Object_wx_ToolTip::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ToolTip::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ToolTip);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxToolTip
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ToolTip)
 {
+	Gura_AssignFunction(ToolTip);
 	Gura_AssignMethod(wx_ToolTip, Enable);
 	Gura_AssignMethod(wx_ToolTip, SetDelay);
 	Gura_AssignMethod(wx_ToolTip, SetTip);

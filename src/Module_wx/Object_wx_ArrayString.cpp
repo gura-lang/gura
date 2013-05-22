@@ -411,19 +411,15 @@ String Object_wx_ArrayString::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ArrayString::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ArrayStringEmpty);
-	Gura_AssignFunction(ArrayString);
-	Gura_AssignFunction(ArrayString_1);
-	Gura_AssignFunction(ArrayString_2);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxArrayString
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArrayString)
 {
+	Gura_AssignFunction(ArrayStringEmpty);
+	Gura_AssignFunction(ArrayString);
+	Gura_AssignFunction(ArrayString_1);
+	Gura_AssignFunction(ArrayString_2);
 	Gura_AssignMethod(wx_ArrayString, Add);
 	Gura_AssignMethod(wx_ArrayString, Alloc);
 	Gura_AssignMethod(wx_ArrayString, Clear);

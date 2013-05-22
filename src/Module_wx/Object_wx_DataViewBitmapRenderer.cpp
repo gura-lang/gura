@@ -89,16 +89,12 @@ String Object_wx_DataViewBitmapRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewBitmapRenderer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DataViewBitmapRenderer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewBitmapRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewBitmapRenderer)
 {
+	Gura_AssignFunction(DataViewBitmapRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewBitmapRenderer)

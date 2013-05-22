@@ -85,16 +85,12 @@ String Object_wx_PaintDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PaintDC::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PaintDC);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPaintDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PaintDC)
 {
+	Gura_AssignFunction(PaintDC);
 }
 
 Gura_ImplementDescendantCreator(wx_PaintDC)

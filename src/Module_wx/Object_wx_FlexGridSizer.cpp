@@ -224,16 +224,12 @@ String Object_wx_FlexGridSizer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FlexGridSizer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FlexGridSizer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFlexGridSizer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FlexGridSizer)
 {
+	Gura_AssignFunction(FlexGridSizer);
 	Gura_AssignMethod(wx_FlexGridSizer, AddGrowableCol);
 	Gura_AssignMethod(wx_FlexGridSizer, AddGrowableRow);
 	Gura_AssignMethod(wx_FlexGridSizer, GetFlexibleDirection);

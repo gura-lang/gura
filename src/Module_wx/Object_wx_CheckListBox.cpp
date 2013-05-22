@@ -167,18 +167,14 @@ String Object_wx_CheckListBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CheckListBox::DoAssignConstructor(Environment &env, Signal sig)
-{
-	//Gura_AssignWxStringValue(CheckListBoxNameStr);
-	Gura_AssignFunction(CheckListBoxEmpty);
-	Gura_AssignFunction(CheckListBox);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCheckListBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CheckListBox)
 {
+	//Gura_AssignWxStringValue(CheckListBoxNameStr);
+	Gura_AssignFunction(CheckListBoxEmpty);
+	Gura_AssignFunction(CheckListBox);
 	Gura_AssignMethod(wx_CheckListBox, Check);
 	Gura_AssignMethod(wx_CheckListBox, IsChecked);
 }

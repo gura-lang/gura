@@ -104,16 +104,12 @@ String Object_wx_GridCellFloatEditor::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellFloatEditor::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridCellFloatEditor);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridCellFloatEditor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellFloatEditor)
 {
+	Gura_AssignFunction(GridCellFloatEditor);
 	Gura_AssignMethod(wx_GridCellFloatEditor, SetParameters);
 }
 

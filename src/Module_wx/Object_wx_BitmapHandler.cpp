@@ -255,17 +255,13 @@ String Object_wx_BitmapHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BitmapHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(Create);
-	Gura_AssignFunction(BitmapHandlerEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxBitmapHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapHandler)
 {
+	Gura_RealizeUserSymbol(Create);
+	Gura_AssignFunction(BitmapHandlerEmpty);
 	Gura_AssignMethod(wx_BitmapHandler, Create);
 	Gura_AssignMethod(wx_BitmapHandler, GetName);
 	Gura_AssignMethod(wx_BitmapHandler, GetExtension);

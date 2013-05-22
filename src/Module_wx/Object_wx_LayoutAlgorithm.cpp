@@ -140,16 +140,12 @@ String Object_wx_LayoutAlgorithm::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LayoutAlgorithm::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(LayoutAlgorithm);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxLayoutAlgorithm
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LayoutAlgorithm)
 {
+	Gura_AssignFunction(LayoutAlgorithm);
 	Gura_AssignMethod(wx_LayoutAlgorithm, LayoutFrame);
 	Gura_AssignMethod(wx_LayoutAlgorithm, LayoutMDIFrame);
 	Gura_AssignMethod(wx_LayoutAlgorithm, LayoutWindow);

@@ -300,17 +300,13 @@ String Object_wx_ListBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ListBox::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ListBoxEmpty);
-	Gura_AssignFunction(ListBox);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxListBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ListBox)
 {
+	Gura_AssignFunction(ListBoxEmpty);
+	Gura_AssignFunction(ListBox);
 	Gura_AssignMethod(wx_ListBox, Create);
 	Gura_AssignMethod(wx_ListBox, Deselect);
 	Gura_AssignMethod(wx_ListBox, GetSelections);

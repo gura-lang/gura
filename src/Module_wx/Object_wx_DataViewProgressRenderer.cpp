@@ -92,16 +92,12 @@ String Object_wx_DataViewProgressRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewProgressRenderer::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DataViewProgressRenderer);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewProgressRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewProgressRenderer)
 {
+	Gura_AssignFunction(DataViewProgressRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewProgressRenderer)

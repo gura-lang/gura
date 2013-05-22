@@ -84,16 +84,12 @@ String Object_wx_BMPHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BMPHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(BMPHandler);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxBMPHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BMPHandler)
 {
+	Gura_AssignFunction(BMPHandler);
 }
 
 Gura_ImplementDescendantCreator(wx_BMPHandler)

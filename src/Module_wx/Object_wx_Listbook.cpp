@@ -100,16 +100,12 @@ String Object_wx_Listbook::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Listbook::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Listbook);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxListbook
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Listbook)
 {
+	Gura_AssignFunction(Listbook);
 }
 
 Gura_ImplementDescendantCreator(wx_Listbook)

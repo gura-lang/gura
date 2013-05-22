@@ -376,17 +376,13 @@ String Object_wx_BitmapButton::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BitmapButton::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(BitmapButtonEmpty);
-	Gura_AssignFunction(BitmapButton);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxBitmapButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapButton)
 {
+	Gura_AssignFunction(BitmapButtonEmpty);
+	Gura_AssignFunction(BitmapButton);
 	Gura_AssignMethod(wx_BitmapButton, Create);
 	Gura_AssignMethod(wx_BitmapButton, GetBitmapDisabled);
 	Gura_AssignMethod(wx_BitmapButton, GetBitmapDisabled_1);

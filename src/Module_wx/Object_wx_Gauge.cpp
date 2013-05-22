@@ -305,18 +305,14 @@ String Object_wx_Gauge::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Gauge::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignWxStringValue(GaugeNameStr);
-	Gura_AssignFunction(GaugeEmpty);
-	Gura_AssignFunction(Gauge);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGauge
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Gauge)
 {
+	Gura_AssignWxStringValue(GaugeNameStr);
+	Gura_AssignFunction(GaugeEmpty);
+	Gura_AssignFunction(Gauge);
 	Gura_AssignMethod(wx_Gauge, Create);
 	Gura_AssignMethod(wx_Gauge, GetBezelFace);
 	Gura_AssignMethod(wx_Gauge, GetRange);

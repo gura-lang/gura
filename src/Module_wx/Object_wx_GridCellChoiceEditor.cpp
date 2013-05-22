@@ -104,16 +104,12 @@ String Object_wx_GridCellChoiceEditor::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellChoiceEditor::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridCellChoiceEditor);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridCellChoiceEditor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellChoiceEditor)
 {
+	Gura_AssignFunction(GridCellChoiceEditor);
 	Gura_AssignMethod(wx_GridCellChoiceEditor, SetParameters);
 }
 

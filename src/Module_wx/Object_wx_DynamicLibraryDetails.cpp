@@ -129,10 +129,6 @@ String Object_wx_DynamicLibraryDetails::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DynamicLibraryDetails::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDynamicLibraryDetails
 //----------------------------------------------------------------------------

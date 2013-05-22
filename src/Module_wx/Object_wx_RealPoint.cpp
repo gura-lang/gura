@@ -113,17 +113,13 @@ String Object_wx_RealPoint::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RealPoint::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RealPointEmpty);
-	Gura_AssignFunction(RealPoint);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRealPoint
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RealPoint)
 {
+	Gura_AssignFunction(RealPointEmpty);
+	Gura_AssignFunction(RealPoint);
 }
 
 Gura_ImplementDescendantCreator(wx_RealPoint)

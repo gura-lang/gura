@@ -345,17 +345,13 @@ String Object_wx_BitmapComboBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BitmapComboBox::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(BitmapComboBoxEmpty);
-	Gura_AssignFunction(BitmapComboBox);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxBitmapComboBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapComboBox)
 {
+	Gura_AssignFunction(BitmapComboBoxEmpty);
+	Gura_AssignFunction(BitmapComboBox);
 	Gura_AssignMethod(wx_BitmapComboBox, Create);
 	Gura_AssignMethod(wx_BitmapComboBox, Append);
 	Gura_AssignMethod(wx_BitmapComboBox, Append_1);

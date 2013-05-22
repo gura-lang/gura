@@ -137,16 +137,12 @@ String Object_wx_TipWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TipWindow::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TipWindow);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTipWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TipWindow)
 {
+	Gura_AssignFunction(TipWindow);
 	Gura_AssignMethod(wx_TipWindow, SetTipWindowPtr);
 	Gura_AssignMethod(wx_TipWindow, SetBoundingRect);
 }

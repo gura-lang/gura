@@ -332,18 +332,14 @@ String Object_wx_RichTextRange::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextRange::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextRange);
-	Gura_AssignFunction(RichTextRange_1);
-	Gura_AssignFunction(RichTextRangeEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextRange
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextRange)
 {
+	Gura_AssignFunction(RichTextRange);
+	Gura_AssignFunction(RichTextRange_1);
+	Gura_AssignFunction(RichTextRangeEmpty);
 	Gura_AssignMethod(wx_RichTextRange, Contains);
 	Gura_AssignMethod(wx_RichTextRange, GetEnd);
 	Gura_AssignMethod(wx_RichTextRange, GetLength);

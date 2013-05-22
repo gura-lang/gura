@@ -315,17 +315,13 @@ String Object_wx_Event::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Event::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(Clone);
-	Gura_AssignFunction(Event);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Event)
 {
+	Gura_RealizeUserSymbol(Clone);
+	Gura_AssignFunction(Event);
 	Gura_AssignMethod(wx_Event, Clone);
 	Gura_AssignMethod(wx_Event, GetEventObject);
 	Gura_AssignMethod(wx_Event, GetEventType);

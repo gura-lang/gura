@@ -62,10 +62,6 @@ String Object_wx_ToolbookEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ToolbookEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxToolbookEvent
 //----------------------------------------------------------------------------

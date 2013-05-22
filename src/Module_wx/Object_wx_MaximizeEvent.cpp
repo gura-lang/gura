@@ -86,16 +86,12 @@ String Object_wx_MaximizeEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MaximizeEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MaximizeEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMaximizeEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MaximizeEvent)
 {
+	Gura_AssignFunction(MaximizeEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_MaximizeEvent)

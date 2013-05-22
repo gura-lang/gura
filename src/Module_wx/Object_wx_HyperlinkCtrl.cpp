@@ -283,16 +283,12 @@ String Object_wx_HyperlinkCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HyperlinkCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HyperlinkCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHyperlinkCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HyperlinkCtrl)
 {
+	Gura_AssignFunction(HyperlinkCtrl);
 	Gura_AssignMethod(wx_HyperlinkCtrl, Create);
 	Gura_AssignMethod(wx_HyperlinkCtrl, GetHoverColour);
 	Gura_AssignMethod(wx_HyperlinkCtrl, SetHoverColour);

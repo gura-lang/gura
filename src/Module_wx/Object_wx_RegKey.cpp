@@ -588,18 +588,14 @@ String Object_wx_RegKey::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RegKey::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RegKeyEmpty);
-	Gura_AssignFunction(RegKey);
-	Gura_AssignFunction(RegKey_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRegKey
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RegKey)
 {
+	Gura_AssignFunction(RegKeyEmpty);
+	Gura_AssignFunction(RegKey);
+	Gura_AssignFunction(RegKey_1);
 	Gura_AssignMethod(wx_RegKey, Close);
 	Gura_AssignMethod(wx_RegKey, Create);
 	Gura_AssignMethod(wx_RegKey, DeleteSelf);

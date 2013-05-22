@@ -786,16 +786,12 @@ String Object_wx_TextAttrEx::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextAttrEx::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TextAttrEx);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTextAttrEx
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttrEx)
 {
+	Gura_AssignFunction(TextAttrEx);
 	Gura_AssignMethod(wx_TextAttrEx, GetBulletFont);
 	Gura_AssignMethod(wx_TextAttrEx, GetBulletName);
 	Gura_AssignMethod(wx_TextAttrEx, GetBulletNumber);

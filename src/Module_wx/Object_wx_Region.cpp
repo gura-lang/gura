@@ -709,7 +709,10 @@ String Object_wx_Region::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Region::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxRegion
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Region)
 {
 	Gura_AssignFunction(RegionEmpty);
 	Gura_AssignFunction(Region);
@@ -719,13 +722,6 @@ void Object_wx_Region::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_AssignFunction(Region_4);
 	Gura_AssignFunction(Region_5);
 	Gura_AssignFunction(Region_6);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxRegion
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Region)
-{
 	Gura_AssignMethod(wx_Region, Clear);
 	Gura_AssignMethod(wx_Region, Contains);
 	Gura_AssignMethod(wx_Region, ContainsPoint);

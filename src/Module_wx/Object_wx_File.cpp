@@ -419,16 +419,12 @@ String Object_wx_File::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_File::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(File);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFile
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_File)
 {
+	Gura_AssignFunction(File);
 	Gura_AssignClassValue(read, wxFile::read);
 	Gura_AssignClassValue(write, wxFile::write);
 	Gura_AssignClassValue(read_write, wxFile::read_write);

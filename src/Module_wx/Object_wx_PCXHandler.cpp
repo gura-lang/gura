@@ -84,16 +84,12 @@ String Object_wx_PCXHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PCXHandler::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PCXHandler);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPCXHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PCXHandler)
 {
+	Gura_AssignFunction(PCXHandler);
 }
 
 Gura_ImplementDescendantCreator(wx_PCXHandler)

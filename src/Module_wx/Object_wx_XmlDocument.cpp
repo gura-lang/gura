@@ -418,19 +418,15 @@ String Object_wx_XmlDocument::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_XmlDocument::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(XmlDocumentEmpty);
-	Gura_AssignFunction(XmlDocument);
-	Gura_AssignFunction(XmlDocument_1);
-	Gura_AssignFunction(XmlDocument_2);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxXmlDocument
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlDocument)
 {
+	Gura_AssignFunction(XmlDocumentEmpty);
+	Gura_AssignFunction(XmlDocument);
+	Gura_AssignFunction(XmlDocument_1);
+	Gura_AssignFunction(XmlDocument_2);
 	Gura_AssignMethod(wx_XmlDocument, DetachRoot);
 	Gura_AssignMethod(wx_XmlDocument, GetEncoding);
 	Gura_AssignMethod(wx_XmlDocument, GetFileEncoding);

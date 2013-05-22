@@ -108,16 +108,12 @@ String Object_wx_RecursionGuard::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RecursionGuard::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RecursionGuard);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRecursionGuard
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RecursionGuard)
 {
+	Gura_AssignFunction(RecursionGuard);
 	Gura_AssignMethod(wx_RecursionGuard, IsInside);
 }
 

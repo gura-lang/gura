@@ -169,17 +169,13 @@ String Object_wx_FontDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FontDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FontDialogEmpty);
-	Gura_AssignFunction(FontDialog);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFontDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontDialog)
 {
+	Gura_AssignFunction(FontDialogEmpty);
+	Gura_AssignFunction(FontDialog);
 	Gura_AssignMethod(wx_FontDialog, Create);
 	Gura_AssignMethod(wx_FontDialog, GetFontData);
 	Gura_AssignMethod(wx_FontDialog, ShowModal);

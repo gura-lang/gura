@@ -252,17 +252,13 @@ String Object_wx_RegionIterator::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RegionIterator::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RegionIteratorEmpty);
-	Gura_AssignFunction(RegionIterator);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRegionIterator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RegionIterator)
 {
+	Gura_AssignFunction(RegionIteratorEmpty);
+	Gura_AssignFunction(RegionIterator);
 	Gura_AssignMethod(wx_RegionIterator, GetX);
 	Gura_AssignMethod(wx_RegionIterator, GetY);
 	Gura_AssignMethod(wx_RegionIterator, GetW);

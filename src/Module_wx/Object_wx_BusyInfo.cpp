@@ -86,16 +86,12 @@ String Object_wx_BusyInfo::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BusyInfo::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(BusyInfo);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxBusyInfo
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BusyInfo)
 {
+	Gura_AssignFunction(BusyInfo);
 }
 
 Gura_ImplementDescendantCreator(wx_BusyInfo)

@@ -545,17 +545,13 @@ String Object_wx_Locale::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Locale::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Locale);
-	//Gura_AssignFunction(Locale_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxLocale
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Locale)
 {
+	Gura_AssignFunction(Locale);
+	//Gura_AssignFunction(Locale_1);
 	Gura_AssignMethod(wx_Locale, AddCatalog);
 	Gura_AssignMethod(wx_Locale, AddCatalogLookupPathPrefix);
 	Gura_AssignMethod(wx_Locale, AddLanguage);

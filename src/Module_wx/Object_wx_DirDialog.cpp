@@ -176,16 +176,12 @@ String Object_wx_DirDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DirDialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DirDialog);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDirDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DirDialog)
 {
+	Gura_AssignFunction(DirDialog);
 	Gura_AssignMethod(wx_DirDialog, GetPath);
 	Gura_AssignMethod(wx_DirDialog, GetMessage);
 	Gura_AssignMethod(wx_DirDialog, SetMessage);

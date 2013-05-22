@@ -226,16 +226,12 @@ String Object_wx_HtmlPrintout::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlPrintout::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HtmlPrintout);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlPrintout
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlPrintout)
 {
+	Gura_AssignFunction(HtmlPrintout);
 	Gura_AssignMethod(wx_HtmlPrintout, AddFilter);
 	Gura_AssignMethod(wx_HtmlPrintout, SetFonts);
 	Gura_AssignMethod(wx_HtmlPrintout, SetFooter);

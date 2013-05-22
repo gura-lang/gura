@@ -1460,18 +1460,14 @@ String Object_wx_RichTextAttr::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextAttr::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextAttr);
-	Gura_AssignFunction(RichTextAttr_2);
-	Gura_AssignFunction(RichTextAttr_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextAttr
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextAttr)
 {
+	Gura_AssignFunction(RichTextAttr);
+	Gura_AssignFunction(RichTextAttr_2);
+	Gura_AssignFunction(RichTextAttr_1);
 	Gura_AssignMethod(wx_RichTextAttr, Apply);
 	Gura_AssignMethod(wx_RichTextAttr, Combine);
 	Gura_AssignMethod(wx_RichTextAttr, CreateFont);

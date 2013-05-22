@@ -102,16 +102,12 @@ String Object_wx_MoveEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MoveEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MoveEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMoveEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MoveEvent)
 {
+	Gura_AssignFunction(MoveEvent);
 	Gura_AssignMethod(wx_MoveEvent, GetPosition);
 }
 

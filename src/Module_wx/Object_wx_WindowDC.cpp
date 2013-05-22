@@ -85,16 +85,12 @@ String Object_wx_WindowDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_WindowDC::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(WindowDC);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxWindowDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowDC)
 {
+	Gura_AssignFunction(WindowDC);
 }
 
 Gura_ImplementDescendantCreator(wx_WindowDC)

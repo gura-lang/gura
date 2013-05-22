@@ -834,16 +834,12 @@ String Object_wx_ConfigBase::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ConfigBase::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ConfigBase);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxConfigBase
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ConfigBase)
 {
+	Gura_AssignFunction(ConfigBase);
 	Gura_AssignMethod(wx_ConfigBase, Create);
 	Gura_AssignMethod(wx_ConfigBase, DontCreateOnDemand);
 	Gura_AssignMethod(wx_ConfigBase, DeleteAll);

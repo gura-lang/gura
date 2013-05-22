@@ -114,16 +114,12 @@ String Object_wx_DebugReportUpload::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DebugReportUpload::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DebugReportUpload);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDebugReportUpload
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugReportUpload)
 {
+	Gura_AssignFunction(DebugReportUpload);
 	Gura_AssignMethod(wx_DebugReportUpload, OnServerReply);
 }
 

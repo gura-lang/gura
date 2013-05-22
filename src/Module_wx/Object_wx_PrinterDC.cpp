@@ -134,17 +134,13 @@ String Object_wx_PrinterDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PrinterDC::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PrinterDC);
-	Gura_AssignFunction(PrinterDC_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPrinterDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrinterDC)
 {
+	Gura_AssignFunction(PrinterDC);
+	Gura_AssignFunction(PrinterDC_1);
 	Gura_AssignMethod(wx_PrinterDC, GetPaperRect);
 }
 

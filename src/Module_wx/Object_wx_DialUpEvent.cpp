@@ -115,16 +115,12 @@ String Object_wx_DialUpEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DialUpEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DialUpEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDialUpEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DialUpEvent)
 {
+	Gura_AssignFunction(DialUpEvent);
 	Gura_AssignMethod(wx_DialUpEvent, IsConnectedEvent);
 	Gura_AssignMethod(wx_DialUpEvent, IsOwnEvent);
 }

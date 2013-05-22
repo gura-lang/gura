@@ -88,16 +88,12 @@ String Object_wx_CriticalSectionLocker::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CriticalSectionLocker::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(CriticalSectionLocker);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCriticalSectionLocker
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CriticalSectionLocker)
 {
+	Gura_AssignFunction(CriticalSectionLocker);
 }
 
 Gura_ImplementDescendantCreator(wx_CriticalSectionLocker)

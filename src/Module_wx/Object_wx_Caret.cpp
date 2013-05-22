@@ -416,18 +416,14 @@ String Object_wx_Caret::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Caret::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(CaretEmpty);
-	Gura_AssignFunction(Caret);
-	Gura_AssignFunction(Caret_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxCaret
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Caret)
 {
+	Gura_AssignFunction(CaretEmpty);
+	Gura_AssignFunction(Caret);
+	Gura_AssignFunction(Caret_1);
 	Gura_AssignMethod(wx_Caret, Create);
 	Gura_AssignMethod(wx_Caret, Create_1);
 	Gura_AssignMethod(wx_Caret, GetBlinkTime);

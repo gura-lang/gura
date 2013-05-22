@@ -139,16 +139,12 @@ String Object_wx_WizardPage::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_WizardPage::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(WizardPage);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxWizardPage
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WizardPage)
 {
+	Gura_AssignFunction(WizardPage);
 	Gura_AssignMethod(wx_WizardPage, GetPrev);
 	Gura_AssignMethod(wx_WizardPage, GetNext);
 	Gura_AssignMethod(wx_WizardPage, GetBitmap);

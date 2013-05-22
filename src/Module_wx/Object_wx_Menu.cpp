@@ -840,17 +840,13 @@ String Object_wx_Menu::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Menu::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Menu);
-	Gura_AssignFunction(Menu_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMenu
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Menu)
 {
+	Gura_AssignFunction(Menu);
+	Gura_AssignFunction(Menu_1);
 	Gura_AssignMethod(wx_Menu, Append);
 	Gura_AssignMethod(wx_Menu, AppendMenu_);
 	Gura_AssignMethod(wx_Menu, AppendItem);

@@ -286,10 +286,6 @@ String Object_wx_DialUpManager::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DialUpManager::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDialUpManager
 //----------------------------------------------------------------------------

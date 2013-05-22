@@ -353,16 +353,12 @@ String Object_wx_RichTextStyleListBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextStyleListBox::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextStyleListBox);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextStyleListBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleListBox)
 {
+	Gura_AssignFunction(RichTextStyleListBox);
 	Gura_AssignMethod(wx_RichTextStyleListBox, ApplyStyle);
 	Gura_AssignMethod(wx_RichTextStyleListBox, ConvertTenthsMMToPixels);
 	Gura_AssignMethod(wx_RichTextStyleListBox, CreateHTML);

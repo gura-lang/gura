@@ -267,10 +267,6 @@ String Object_wx_FilterClassFactory::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FilterClassFactory::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFilterClassFactory
 //----------------------------------------------------------------------------

@@ -211,7 +211,10 @@ String Object_wx_IPaddress::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_IPaddress::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxIPaddress
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_IPaddress)
 {
 	Gura_RealizeUserSymbol(Hostname);
 	Gura_RealizeUserSymbol(Hostname_1);
@@ -222,13 +225,6 @@ void Object_wx_IPaddress::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(AnyAddress);
 	Gura_RealizeUserSymbol(LocalHost);
 	Gura_RealizeUserSymbol(IsLocalHost);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxIPaddress
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_IPaddress)
-{
 	Gura_AssignMethod(wx_IPaddress, Hostname);
 	Gura_AssignMethod(wx_IPaddress, Hostname_1);
 	Gura_AssignMethod(wx_IPaddress, IPAddress);

@@ -150,16 +150,12 @@ String Object_wx_Semaphore::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Semaphore::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(Semaphore);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSemaphore
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Semaphore)
 {
+	Gura_AssignFunction(Semaphore);
 	Gura_AssignMethod(wx_Semaphore, Post);
 	Gura_AssignMethod(wx_Semaphore, TryWait);
 	Gura_AssignMethod(wx_Semaphore, Wait);

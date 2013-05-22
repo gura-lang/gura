@@ -194,17 +194,13 @@ String Object_wx_DataFormat::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataFormat::DoAssignConstructor(Environment &env, Signal sig)
-{
-	//Gura_AssignFunction(DataFormat);
-	//Gura_AssignFunction(DataFormat_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataFormat
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataFormat)
 {
+	//Gura_AssignFunction(DataFormat);
+	//Gura_AssignFunction(DataFormat_1);
 	Gura_AssignMethod(wx_DataFormat, GetId);
 	Gura_AssignMethod(wx_DataFormat, GetType);
 	Gura_AssignMethod(wx_DataFormat, SetId);

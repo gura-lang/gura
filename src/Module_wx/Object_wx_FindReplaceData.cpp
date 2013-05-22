@@ -173,16 +173,12 @@ String Object_wx_FindReplaceData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FindReplaceData::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(FindReplaceData);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxFindReplaceData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FindReplaceData)
 {
+	Gura_AssignFunction(FindReplaceData);
 	Gura_AssignMethod(wx_FindReplaceData, GetFindString);
 	Gura_AssignMethod(wx_FindReplaceData, GetReplaceString);
 	Gura_AssignMethod(wx_FindReplaceData, GetFlags);

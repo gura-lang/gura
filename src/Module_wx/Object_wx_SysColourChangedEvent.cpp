@@ -83,16 +83,12 @@ String Object_wx_SysColourChangedEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SysColourChangedEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SysColourChangedEventEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSysColourChangedEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SysColourChangedEvent)
 {
+	Gura_AssignFunction(SysColourChangedEventEmpty);
 }
 
 Gura_ImplementDescendantCreator(wx_SysColourChangedEvent)

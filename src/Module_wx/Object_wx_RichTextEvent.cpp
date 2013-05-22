@@ -302,17 +302,13 @@ String Object_wx_RichTextEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextEvent);
-	Gura_AssignFunction(RichTextEvent_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextEvent)
 {
+	Gura_AssignFunction(RichTextEvent);
+	Gura_AssignFunction(RichTextEvent_1);
 	Gura_AssignMethod(wx_RichTextEvent, Clone);
 	Gura_AssignMethod(wx_RichTextEvent, GetCharacter);
 	Gura_AssignMethod(wx_RichTextEvent, GetFlags);

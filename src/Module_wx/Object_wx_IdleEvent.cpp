@@ -155,16 +155,12 @@ String Object_wx_IdleEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_IdleEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(IdleEventEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxIdleEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IdleEvent)
 {
+	Gura_AssignFunction(IdleEventEmpty);
 	Gura_AssignMethod(wx_IdleEvent, CanSend);
 	Gura_AssignMethod(wx_IdleEvent, GetMode);
 	Gura_AssignMethod(wx_IdleEvent, RequestMore);

@@ -140,16 +140,12 @@ String Object_wx_GridCellNumberEditor::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellNumberEditor::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(GridCellNumberEditor);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxGridCellNumberEditor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellNumberEditor)
 {
+	Gura_AssignFunction(GridCellNumberEditor);
 	Gura_AssignMethod(wx_GridCellNumberEditor, GetString);
 	Gura_AssignMethod(wx_GridCellNumberEditor, HasRange);
 	Gura_AssignMethod(wx_GridCellNumberEditor, SetParameters);

@@ -778,19 +778,15 @@ String Object_wx_ComboBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ComboBox::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(GetLastPosition);
-	Gura_AssignWxStringValue(ComboBoxNameStr);
-	Gura_AssignFunction(ComboBoxEmpty);
-	Gura_AssignFunction(ComboBox);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxComboBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ComboBox)
 {
+	Gura_RealizeUserSymbol(GetLastPosition);
+	Gura_AssignWxStringValue(ComboBoxNameStr);
+	Gura_AssignFunction(ComboBoxEmpty);
+	Gura_AssignFunction(ComboBox);
 	Gura_AssignMethod(wx_ComboBox, Create);
 	Gura_AssignMethod(wx_ComboBox, CanCopy);
 	Gura_AssignMethod(wx_ComboBox, CanCut);

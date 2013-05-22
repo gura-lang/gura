@@ -203,17 +203,13 @@ String Object_wx_XmlProperty::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_XmlProperty::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(XmlPropertyEmpty);
-	Gura_AssignFunction(XmlProperty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxXmlProperty
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlProperty)
 {
+	Gura_AssignFunction(XmlPropertyEmpty);
+	Gura_AssignFunction(XmlProperty);
 	Gura_AssignMethod(wx_XmlProperty, GetName);
 	Gura_AssignMethod(wx_XmlProperty, GetNext);
 	Gura_AssignMethod(wx_XmlProperty, GetValue);

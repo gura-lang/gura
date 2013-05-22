@@ -208,17 +208,13 @@ String Object_wx_Sound::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Sound::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SoundEmpty);
-	Gura_AssignFunction(Sound);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSound
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Sound)
 {
+	Gura_AssignFunction(SoundEmpty);
+	Gura_AssignFunction(Sound);
 	Gura_AssignMethod(wx_Sound, Create);
 	Gura_AssignMethod(wx_Sound, IsOk);
 	Gura_AssignMethod(wx_Sound, IsPlaying);

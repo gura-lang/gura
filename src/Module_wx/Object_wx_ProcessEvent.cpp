@@ -120,16 +120,12 @@ String Object_wx_ProcessEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ProcessEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ProcessEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxProcessEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ProcessEvent)
 {
+	Gura_AssignFunction(ProcessEvent);
 	Gura_AssignMethod(wx_ProcessEvent, GetPid);
 	Gura_AssignMethod(wx_ProcessEvent, GetExitCode);
 }

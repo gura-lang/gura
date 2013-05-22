@@ -502,18 +502,14 @@ String Object_wx_Dialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Dialog::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(DoOK);
-	Gura_AssignFunction(DialogEmpty);
-	Gura_AssignFunction(Dialog);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Dialog)
 {
+	Gura_RealizeUserSymbol(DoOK);
+	Gura_AssignFunction(DialogEmpty);
+	Gura_AssignFunction(Dialog);
 	Gura_AssignMethod(wx_Dialog, Centre);
 	Gura_AssignMethod(wx_Dialog, Create);
 	Gura_AssignMethod(wx_Dialog, CreateButtonSizer);

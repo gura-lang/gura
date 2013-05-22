@@ -503,18 +503,14 @@ String Object_wx_PrintDialogData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PrintDialogData::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PrintDialogDataEmpty);
-	Gura_AssignFunction(PrintDialogData);
-	Gura_AssignFunction(PrintDialogData_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPrintDialogData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrintDialogData)
 {
+	Gura_AssignFunction(PrintDialogDataEmpty);
+	Gura_AssignFunction(PrintDialogData);
+	Gura_AssignFunction(PrintDialogData_1);
 	Gura_AssignMethod(wx_PrintDialogData, EnableHelp);
 	Gura_AssignMethod(wx_PrintDialogData, EnablePageNumbers);
 	Gura_AssignMethod(wx_PrintDialogData, EnablePrintToFile);

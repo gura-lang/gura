@@ -298,18 +298,14 @@ String Object_wx_LongLong::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LongLong::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(LongLongEmpty);
-	Gura_AssignFunction(LongLong);
-	Gura_AssignFunction(LongLong_1);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxLongLong
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LongLong)
 {
+	Gura_AssignFunction(LongLongEmpty);
+	Gura_AssignFunction(LongLong);
+	Gura_AssignFunction(LongLong_1);
 	Gura_AssignMethod(wx_LongLong, Abs);
 	Gura_AssignMethod(wx_LongLong, Abs_1);
 	Gura_AssignMethod(wx_LongLong, Assign);

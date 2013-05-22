@@ -87,16 +87,12 @@ String Object_wx_MirrorDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MirrorDC::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MirrorDC);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMirrorDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MirrorDC)
 {
+	Gura_AssignFunction(MirrorDC);
 }
 
 Gura_ImplementDescendantCreator(wx_MirrorDC)

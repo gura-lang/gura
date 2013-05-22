@@ -556,7 +556,10 @@ String Object_wx_Frame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Frame::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxFrame
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Frame)
 {
 	Gura_RealizeUserSymbol(CreateStatusBar);
 	Gura_RealizeUserSymbol(CreateToolBar);
@@ -566,13 +569,6 @@ void Object_wx_Frame::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(SetStatusWidths);
 	Gura_AssignFunction(FrameEmpty);
 	Gura_AssignFunction(Frame);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxFrame
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Frame)
-{
 	Gura_AssignMethod(wx_Frame, Centre);
 	Gura_AssignMethod(wx_Frame, Create);
 	Gura_AssignMethod(wx_Frame, CreateStatusBar);

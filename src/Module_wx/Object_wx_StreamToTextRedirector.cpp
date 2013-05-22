@@ -91,16 +91,12 @@ String Object_wx_StreamToTextRedirector::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StreamToTextRedirector::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(StreamToTextRedirector);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxStreamToTextRedirector
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StreamToTextRedirector)
 {
+	Gura_AssignFunction(StreamToTextRedirector);
 }
 
 Gura_ImplementDescendantCreator(wx_StreamToTextRedirector)

@@ -118,16 +118,12 @@ String Object_wx_SpinEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SpinEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(SpinEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxSpinEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SpinEvent)
 {
+	Gura_AssignFunction(SpinEvent);
 	Gura_AssignMethod(wx_SpinEvent, GetPosition);
 	Gura_AssignMethod(wx_SpinEvent, SetPosition);
 }

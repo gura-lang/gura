@@ -123,16 +123,12 @@ String Object_wx_TreebookEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TreebookEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TreebookEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTreebookEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreebookEvent)
 {
+	Gura_AssignFunction(TreebookEvent);
 	Gura_AssignMethod(wx_TreebookEvent, GetOldSelection);
 	Gura_AssignMethod(wx_TreebookEvent, GetSelection);
 }

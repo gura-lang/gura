@@ -105,16 +105,12 @@ String Object_wx_StringBufferLength::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StringBufferLength::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(StringBufferLength);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxStringBufferLength
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringBufferLength)
 {
+	Gura_AssignFunction(StringBufferLength);
 	Gura_AssignMethod(wx_StringBufferLength, SetLength);
 }
 

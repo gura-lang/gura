@@ -130,16 +130,12 @@ String Object_wx_TreeItemData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TreeItemData::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(TreeItemData);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxTreeItemData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeItemData)
 {
+	Gura_AssignFunction(TreeItemData);
 	Gura_AssignMethod(wx_TreeItemData, GetId);
 	Gura_AssignMethod(wx_TreeItemData, SetId);
 	Gura_AssignMethod(wx_TreeItemData, GetData);

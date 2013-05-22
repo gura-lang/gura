@@ -152,18 +152,14 @@ String Object_wx_AcceleratorTable::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AcceleratorTable::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(AcceleratorTableEmpty);
-	Gura_AssignFunction(AcceleratorTable);
-	//Gura_AssignFunction(AcceleratorTable_2);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxAcceleratorTable
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AcceleratorTable)
 {
+	Gura_AssignFunction(AcceleratorTableEmpty);
+	Gura_AssignFunction(AcceleratorTable);
+	//Gura_AssignFunction(AcceleratorTable_2);
 	Gura_AssignMethod(wx_AcceleratorTable, IsOk);
 }
 

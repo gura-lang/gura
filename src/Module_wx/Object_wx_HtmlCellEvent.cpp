@@ -161,16 +161,12 @@ String Object_wx_HtmlCellEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlCellEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(HtmlCellEvent);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlCellEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlCellEvent)
 {
+	Gura_AssignFunction(HtmlCellEvent);
 	Gura_AssignMethod(wx_HtmlCellEvent, GetCell);
 	Gura_AssignMethod(wx_HtmlCellEvent, GetPoint);
 	Gura_AssignMethod(wx_HtmlCellEvent, SetLinkClicked);

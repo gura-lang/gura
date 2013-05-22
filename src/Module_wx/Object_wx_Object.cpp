@@ -277,20 +277,16 @@ String Object_wx_Object::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Object::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxObject
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Object)
 {
 	Gura_AssignFunction(ObjectEmpty);
 	Gura_AssignFunction(Object);
 	Gura_AssignFunction(ObjectEmpty_1);
 	Gura_AssignBinaryOperator(Eq, wx_Object, any);
 	Gura_AssignBinaryOperator(Ne, wx_Object, any);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxObject
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Object)
-{
 	Gura_AssignMethod(wx_Object, Dump);
 	Gura_AssignMethod(wx_Object, GetClassInfo);
 	Gura_AssignMethod(wx_Object, GetRefData);

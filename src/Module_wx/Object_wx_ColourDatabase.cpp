@@ -152,16 +152,12 @@ String Object_wx_ColourDatabase::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ColourDatabase::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ColourDatabaseEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxColourDatabase
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ColourDatabase)
 {
+	Gura_AssignFunction(ColourDatabaseEmpty);
 	Gura_AssignMethod(wx_ColourDatabase, AddColour);
 	Gura_AssignMethod(wx_ColourDatabase, AddColour_1);
 	Gura_AssignMethod(wx_ColourDatabase, Find);

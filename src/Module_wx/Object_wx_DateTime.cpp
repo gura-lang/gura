@@ -2227,16 +2227,12 @@ String Object_wx_DateTime::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DateTime::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(DateTime);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDateTime
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DateTime)
 {
+	Gura_AssignFunction(DateTime);
 	Gura_AssignMethod(wx_DateTime, ConvertYearToBC);
 	Gura_AssignMethod(wx_DateTime, GetAmPmStrings);
 	Gura_AssignMethod(wx_DateTime, GetBeginDST);

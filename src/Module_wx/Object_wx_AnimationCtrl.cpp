@@ -251,16 +251,12 @@ String Object_wx_AnimationCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AnimationCtrl::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(AnimationCtrl);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxAnimationCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AnimationCtrl)
 {
+	Gura_AssignFunction(AnimationCtrl);
 	Gura_AssignMethod(wx_AnimationCtrl, Create);
 	Gura_AssignMethod(wx_AnimationCtrl, GetAnimation);
 	Gura_AssignMethod(wx_AnimationCtrl, GetInactiveBitmap);

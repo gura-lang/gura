@@ -204,17 +204,13 @@ String Object_wx_MDIChildFrame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MDIChildFrame::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(MDIChildFrameEmpty);
-	Gura_AssignFunction(MDIChildFrame);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxMDIChildFrame
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MDIChildFrame)
 {
+	Gura_AssignFunction(MDIChildFrameEmpty);
+	Gura_AssignFunction(MDIChildFrame);
 	Gura_AssignMethod(wx_MDIChildFrame, Activate);
 	Gura_AssignMethod(wx_MDIChildFrame, Create);
 	Gura_AssignMethod(wx_MDIChildFrame, Maximize);

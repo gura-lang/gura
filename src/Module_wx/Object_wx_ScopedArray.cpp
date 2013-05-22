@@ -126,16 +126,12 @@ String Object_wx_ScopedArray::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ScopedArray::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ScopedArray);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxScopedArray
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScopedArray)
 {
+	Gura_AssignFunction(ScopedArray);
 	Gura_AssignMethod(wx_ScopedArray, reset);
 	Gura_AssignMethod(wx_ScopedArray, get);
 	Gura_AssignMethod(wx_ScopedArray, swap);

@@ -203,19 +203,15 @@ String Object_wx_StaticText::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StaticText::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_RealizeUserSymbol(SetLabel);
-	Gura_AssignWxStringValue(StaticTextNameStr);
-	Gura_AssignFunction(StaticTextEmpty);
-	Gura_AssignFunction(StaticText);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxStaticText
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StaticText)
 {
+	Gura_RealizeUserSymbol(SetLabel);
+	Gura_AssignWxStringValue(StaticTextNameStr);
+	Gura_AssignFunction(StaticTextEmpty);
+	Gura_AssignFunction(StaticText);
 	Gura_AssignMethod(wx_StaticText, Create);
 	Gura_AssignMethod(wx_StaticText, GetLabel);
 	Gura_AssignMethod(wx_StaticText, SetLabel);

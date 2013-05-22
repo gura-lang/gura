@@ -126,16 +126,12 @@ String Object_wx_PenList::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PenList::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(PenListEmpty);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxPenList
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PenList)
 {
+	Gura_AssignFunction(PenListEmpty);
 	Gura_AssignMethod(wx_PenList, FindOrCreatePen);
 	Gura_AssignMethod(wx_PenList, FindOrCreatePen_1);
 }

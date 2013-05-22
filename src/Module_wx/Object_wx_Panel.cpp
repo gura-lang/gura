@@ -213,20 +213,16 @@ String Object_wx_Panel::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Panel::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxPanel
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_Panel)
 {
 	Gura_RealizeUserSymbol(SetFocus);
 	Gura_RealizeUserSymbol(SetFocusIgnoringChildren);
 	Gura_AssignWxStringValue(PanelNameStr);
 	Gura_AssignFunction(PanelEmpty);
 	Gura_AssignFunction(Panel);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxPanel
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_Panel)
-{
 	Gura_AssignMethod(wx_Panel, Create);
 	Gura_AssignMethod(wx_Panel, InitDialog);
 	Gura_AssignMethod(wx_Panel, OnSysColourChanged);

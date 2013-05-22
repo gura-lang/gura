@@ -738,7 +738,10 @@ String Object_wx_HtmlWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlWindow::DoAssignConstructor(Environment &env, Signal sig)
+//----------------------------------------------------------------------------
+// Class implementation for wxHtmlWindow
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_HtmlWindow)
 {
 	Gura_RealizeUserSymbol(LoadFile);
 	Gura_RealizeUserSymbol(LoadPage);
@@ -751,13 +754,6 @@ void Object_wx_HtmlWindow::DoAssignConstructor(Environment &env, Signal sig)
 	Gura_RealizeUserSymbol(WriteCustomization);
 	Gura_AssignFunction(HtmlWindowEmpty);
 	Gura_AssignFunction(HtmlWindow);
-}
-
-//----------------------------------------------------------------------------
-// Class implementation for wxHtmlWindow
-//----------------------------------------------------------------------------
-Gura_ImplementUserInheritableClass(wx_HtmlWindow)
-{
 	Gura_AssignMethod(wx_HtmlWindow, AddFilter);
 	Gura_AssignMethod(wx_HtmlWindow, AppendToPage);
 	Gura_AssignMethod(wx_HtmlWindow, GetInternalRepresentation);

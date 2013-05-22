@@ -62,10 +62,6 @@ String Object_wx_ChoicebookEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ChoicebookEvent::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxChoicebookEvent
 //----------------------------------------------------------------------------

@@ -131,16 +131,12 @@ String Object_wx_ClientData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ClientData::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(ClientData);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxClientData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClientData)
 {
+	Gura_AssignFunction(ClientData);
 	Gura_AssignMethod(wx_ClientData, GetData);
 	Gura_AssignMethod(wx_ClientData, SetData);
 }

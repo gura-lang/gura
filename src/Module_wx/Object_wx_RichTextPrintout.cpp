@@ -262,16 +262,12 @@ String Object_wx_RichTextPrintout::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextPrintout::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(RichTextPrintout);
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextPrintout
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextPrintout)
 {
+	Gura_AssignFunction(RichTextPrintout);
 	Gura_AssignMethod(wx_RichTextPrintout, CalculateScaling);
 	Gura_AssignMethod(wx_RichTextPrintout, GetHeaderFooterData);
 	Gura_AssignMethod(wx_RichTextPrintout, GetPageInfo);
