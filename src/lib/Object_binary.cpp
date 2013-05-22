@@ -545,7 +545,7 @@ Object *Class_binary::CreateDescendant(Environment &env, Signal sig, Class *pCla
 	return new Object_binary((pClass == NULL)? this : pClass);
 }
 
-void Class_binary::OnModuleEntry(Environment &env, Signal sig)
+void Class_binary::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(binary);
 }

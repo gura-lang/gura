@@ -521,7 +521,7 @@ String Object_wx_GraphicsPath::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GraphicsPath::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GraphicsPath::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

@@ -274,7 +274,7 @@ String Object_wx_FontData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FontData::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FontData::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FontData);
 }

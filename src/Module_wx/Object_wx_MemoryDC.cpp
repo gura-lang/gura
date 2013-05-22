@@ -138,7 +138,7 @@ String Object_wx_MemoryDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MemoryDC::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MemoryDC::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MemoryDCEmpty);
 	Gura_AssignFunction(MemoryDC);

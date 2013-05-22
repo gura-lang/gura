@@ -339,7 +339,7 @@ String Object_wx_UpdateUIEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_UpdateUIEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_UpdateUIEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(UpdateUIEvent);
 }

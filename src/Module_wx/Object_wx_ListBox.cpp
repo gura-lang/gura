@@ -300,7 +300,7 @@ String Object_wx_ListBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ListBox::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ListBox::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ListBoxEmpty);
 	Gura_AssignFunction(ListBox);

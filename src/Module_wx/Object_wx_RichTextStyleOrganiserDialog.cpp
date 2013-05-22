@@ -343,7 +343,7 @@ String Object_wx_RichTextStyleOrganiserDialog::ToString(Signal sig, bool exprFla
 	return rtn;
 }
 
-void Object_wx_RichTextStyleOrganiserDialog::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextStyleOrganiserDialog::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextStyleOrganiserDialog);
 	Gura_AssignFunction(RichTextStyleOrganiserDialogEmpty);

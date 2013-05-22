@@ -262,7 +262,7 @@ String Object_wx_CheckBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CheckBox::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_CheckBox::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignWxStringValue(CheckBoxNameStr);
 	Gura_AssignFunction(CheckBoxEmpty);

@@ -385,7 +385,7 @@ String Object_wx_AuiDockArt::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AuiDockArt::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_AuiDockArt::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(DrawBackground);
 	Gura_RealizeUserSymbol(DrawBorder);

@@ -305,7 +305,7 @@ Object *Class_datetime::CreateDescendant(Environment &env, Signal sig, Class *pC
 	return NULL;
 }
 
-void Class_datetime::OnModuleEntry(Environment &env, Signal sig)
+void Class_datetime::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

@@ -199,7 +199,7 @@ String Object_wx_DocMDIChildFrame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DocMDIChildFrame::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DocMDIChildFrame::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DocMDIChildFrame);
 }

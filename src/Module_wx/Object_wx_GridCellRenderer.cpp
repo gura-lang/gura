@@ -142,7 +142,7 @@ String Object_wx_GridCellRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellRenderer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridCellRenderer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(Draw);
 }

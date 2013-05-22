@@ -698,7 +698,7 @@ String Object_wx_MenuItem::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MenuItem::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MenuItem::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MenuItem);
 }

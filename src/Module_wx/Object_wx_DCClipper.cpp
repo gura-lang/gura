@@ -150,7 +150,7 @@ String Object_wx_DCClipper::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DCClipper::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DCClipper::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DCClipper);
 	Gura_AssignFunction(DCClipper_1);

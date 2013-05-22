@@ -113,7 +113,7 @@ String Object_wx_RealPoint::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RealPoint::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RealPoint::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RealPointEmpty);
 	Gura_AssignFunction(RealPoint);

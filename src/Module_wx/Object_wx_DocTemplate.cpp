@@ -381,7 +381,7 @@ String Object_wx_DocTemplate::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DocTemplate::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DocTemplate::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DocTemplate);
 }

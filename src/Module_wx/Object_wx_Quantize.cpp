@@ -182,7 +182,7 @@ String Object_wx_Quantize::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Quantize::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Quantize::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(QuantizeEmpty);
 }

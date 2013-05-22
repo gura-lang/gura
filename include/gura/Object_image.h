@@ -13,7 +13,7 @@ class GURA_DLLDECLARE Class_image : public Class {
 public:
 	Class_image(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
-	static void OnModuleEntry(Environment &env, Signal sig);
+	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 //-----------------------------------------------------------------------------

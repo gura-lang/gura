@@ -486,7 +486,7 @@ String Object_wx_Pen::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Pen::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Pen::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PenEmpty);
 	Gura_AssignFunction(Pen);

@@ -332,7 +332,7 @@ String Object_wx_RichTextRange::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextRange::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextRange::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextRange);
 	Gura_AssignFunction(RichTextRange_1);

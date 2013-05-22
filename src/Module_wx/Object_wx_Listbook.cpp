@@ -100,7 +100,7 @@ String Object_wx_Listbook::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Listbook::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Listbook::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(Listbook);
 }

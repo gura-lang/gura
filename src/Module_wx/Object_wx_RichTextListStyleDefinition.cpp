@@ -230,7 +230,7 @@ String Object_wx_RichTextListStyleDefinition::ToString(Signal sig, bool exprFlag
 	return rtn;
 }
 
-void Object_wx_RichTextListStyleDefinition::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextListStyleDefinition::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextListStyleDefinition);
 }

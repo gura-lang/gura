@@ -147,7 +147,7 @@ String Object_wx_TipProvider::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TipProvider::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TipProvider::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(PreProcessTip);
 	Gura_AssignFunction(TipProvider);

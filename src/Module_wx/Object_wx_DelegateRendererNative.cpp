@@ -127,7 +127,7 @@ String Object_wx_DelegateRendererNative::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DelegateRendererNative::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DelegateRendererNative::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DelegateRendererNativeEmpty);
 	Gura_AssignFunction(DelegateRendererNative);

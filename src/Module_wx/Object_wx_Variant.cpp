@@ -666,7 +666,7 @@ String Object_wx_Variant::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Variant::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Variant::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(VariantEmpty);
 	Gura_AssignFunction(Variant);

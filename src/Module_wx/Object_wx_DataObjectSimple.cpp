@@ -182,7 +182,7 @@ String Object_wx_DataObjectSimple::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataObjectSimple::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DataObjectSimple::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(GetDataSize);
 	Gura_RealizeUserSymbol(GetDataHere);

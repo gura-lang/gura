@@ -142,7 +142,7 @@ String Object_wx_TextDropTarget::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextDropTarget::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TextDropTarget::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(OnDrop);
 	Gura_RealizeUserSymbol(OnDropText);

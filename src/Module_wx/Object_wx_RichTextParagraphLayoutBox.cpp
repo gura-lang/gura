@@ -64,7 +64,7 @@ String Object_wx_RichTextParagraphLayoutBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextParagraphLayoutBox::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextParagraphLayoutBox::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

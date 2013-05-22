@@ -149,7 +149,7 @@ Object *Class_pointer::CreateDescendant(Environment &env, Signal sig, Class *pCl
 	return NULL;
 }
 
-void Class_pointer::OnModuleEntry(Environment &env, Signal sig)
+void Class_pointer::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

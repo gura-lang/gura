@@ -178,7 +178,7 @@ String Object_wx_IPV4address::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_IPV4address::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_IPV4address::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

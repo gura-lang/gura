@@ -464,7 +464,7 @@ String Object_wx_EvtHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_EvtHandler::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_EvtHandler::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(ProcessEvent);
 	Gura_RealizeUserSymbol(SearchEventTable);

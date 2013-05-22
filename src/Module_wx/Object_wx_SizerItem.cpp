@@ -665,7 +665,7 @@ String Object_wx_SizerItem::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SizerItem::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SizerItem::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SizerItem);
 	Gura_AssignFunction(SizerItem_1);

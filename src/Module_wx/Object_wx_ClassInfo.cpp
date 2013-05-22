@@ -245,7 +245,7 @@ String Object_wx_ClassInfo::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ClassInfo::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ClassInfo::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ClassInfo);
 }

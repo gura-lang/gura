@@ -133,7 +133,7 @@ String Object_wx_Client::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Client::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Client::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ClientEmpty);
 }

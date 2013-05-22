@@ -270,7 +270,7 @@ String Object_wx_TarOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TarOutputStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TarOutputStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(TarOutputStream);
 	Gura_AssignFunction(TarOutputStream_1);

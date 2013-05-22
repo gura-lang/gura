@@ -277,7 +277,7 @@ String Object_wx_Object::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Object::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Object::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ObjectEmpty);
 	Gura_AssignFunction(Object);

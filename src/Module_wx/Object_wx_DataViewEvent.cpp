@@ -302,7 +302,7 @@ String Object_wx_DataViewEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DataViewEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DataViewEvent);
 	Gura_AssignFunction(DataViewEvent_1);

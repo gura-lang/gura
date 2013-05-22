@@ -2164,7 +2164,7 @@ String Object_wx_FileName::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileName::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FileName::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FileNameEmpty);
 	Gura_AssignFunction(FileName);

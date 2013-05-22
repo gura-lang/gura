@@ -61,7 +61,7 @@ String Object_wx_GraphicsBrush::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GraphicsBrush::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GraphicsBrush::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

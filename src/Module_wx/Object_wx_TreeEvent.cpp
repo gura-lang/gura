@@ -203,7 +203,7 @@ String Object_wx_TreeEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TreeEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TreeEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(TreeEvent);
 }

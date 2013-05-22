@@ -86,7 +86,7 @@ String Object_wx_MouseCaptureLostEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MouseCaptureLostEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MouseCaptureLostEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MouseCaptureLostEvent);
 }

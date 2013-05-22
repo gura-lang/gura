@@ -115,7 +115,7 @@ String Object_wx_RichTextParagraphStyleDefinition::ToString(Signal sig, bool exp
 	return rtn;
 }
 
-void Object_wx_RichTextParagraphStyleDefinition::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextParagraphStyleDefinition::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextParagraphStyleDefinition);
 }

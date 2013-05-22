@@ -134,7 +134,7 @@ String Object_wx_GridCellBoolRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellBoolRenderer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridCellBoolRenderer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GridCellBoolRenderer);
 }

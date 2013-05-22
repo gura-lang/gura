@@ -959,7 +959,7 @@ String Object_wx_ToolBar::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ToolBar::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ToolBar::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ToolBarEmpty);
 	Gura_AssignFunction(ToolBar);

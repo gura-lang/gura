@@ -219,7 +219,7 @@ String Object_wx_StringTokenizer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StringTokenizer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_StringTokenizer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(StringTokenizerEmpty);
 	Gura_AssignFunction(StringTokenizer);

@@ -411,7 +411,7 @@ String Object_wx_ScrolledWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ScrolledWindow::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ScrolledWindow::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(OnDraw);
 	Gura_AssignFunction(ScrolledWindowEmpty);

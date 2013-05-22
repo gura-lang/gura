@@ -64,7 +64,7 @@ String Object_wx_GridCellWorker::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellWorker::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridCellWorker::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

@@ -258,7 +258,7 @@ String Object_wx_TempFile::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TempFile::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TempFile::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(TempFileEmpty);
 	Gura_AssignFunction(TempFile);

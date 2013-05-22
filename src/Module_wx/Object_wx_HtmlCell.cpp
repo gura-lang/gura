@@ -476,7 +476,7 @@ String Object_wx_HtmlCell::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlCell::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlCell::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(AdjustPagebreak);
 	Gura_RealizeUserSymbol(Draw);

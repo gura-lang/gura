@@ -223,7 +223,7 @@ String Object_wx_HelpProvider::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HelpProvider::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HelpProvider::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(AddHelp);
 	Gura_RealizeUserSymbol(AddHelp_1);

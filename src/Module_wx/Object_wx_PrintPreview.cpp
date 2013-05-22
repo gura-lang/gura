@@ -327,7 +327,7 @@ String Object_wx_PrintPreview::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PrintPreview::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PrintPreview::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PrintPreview);
 }

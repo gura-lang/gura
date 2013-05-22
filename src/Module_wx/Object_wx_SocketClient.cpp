@@ -146,7 +146,7 @@ String Object_wx_SocketClient::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SocketClient::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SocketClient::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SocketClient);
 }

@@ -142,7 +142,7 @@ String Object_wx_PostScriptDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PostScriptDC::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PostScriptDC::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PostScriptDC);
 	Gura_AssignFunction(PostScriptDC_1);

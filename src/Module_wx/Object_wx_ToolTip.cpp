@@ -156,7 +156,7 @@ String Object_wx_ToolTip::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ToolTip::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ToolTip::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ToolTip);
 }

@@ -161,7 +161,7 @@ String Object_wx_HtmlCellEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlCellEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlCellEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(HtmlCellEvent);
 }

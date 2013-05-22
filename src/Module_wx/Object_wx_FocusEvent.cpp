@@ -102,7 +102,7 @@ String Object_wx_FocusEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FocusEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FocusEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FocusEvent);
 }

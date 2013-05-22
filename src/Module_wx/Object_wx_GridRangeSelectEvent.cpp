@@ -285,7 +285,7 @@ String Object_wx_GridRangeSelectEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridRangeSelectEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridRangeSelectEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GridRangeSelectEventEmpty);
 	Gura_AssignFunction(GridRangeSelectEvent);

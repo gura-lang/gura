@@ -294,7 +294,7 @@ String Object_wx_HtmlHelpDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlHelpDialog::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlHelpDialog::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(AddToolbarButtons);
 	Gura_AssignFunction(HtmlHelpDialog);

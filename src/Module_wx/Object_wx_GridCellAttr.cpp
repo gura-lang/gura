@@ -478,7 +478,7 @@ String Object_wx_GridCellAttr::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellAttr::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridCellAttr::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GridCellAttrEmpty);
 	Gura_AssignFunction(GridCellAttr);

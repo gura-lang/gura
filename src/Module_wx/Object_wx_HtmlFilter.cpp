@@ -121,7 +121,7 @@ String Object_wx_HtmlFilter::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlFilter::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlFilter::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(HtmlFilterEmpty);
 }

@@ -64,7 +64,7 @@ String Object_wx_GridCellCoords::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellCoords::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridCellCoords::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

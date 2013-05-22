@@ -131,7 +131,7 @@ String Object_wx_SashEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SashEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SashEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SashEvent);
 }

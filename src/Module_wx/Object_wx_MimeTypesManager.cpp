@@ -186,7 +186,7 @@ String Object_wx_MimeTypesManager::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MimeTypesManager::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MimeTypesManager::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MimeTypesManagerEmpty);
 }

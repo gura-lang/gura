@@ -1463,7 +1463,7 @@ String Object_wx_ListCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ListCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ListCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(OnGetItemAttr);
 	Gura_RealizeUserSymbol(OnGetItemImage);

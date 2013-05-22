@@ -379,7 +379,7 @@ String Object_wx_SashWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SashWindow::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SashWindow::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SashWindowEmpty);
 	Gura_AssignFunction(SashWindow);

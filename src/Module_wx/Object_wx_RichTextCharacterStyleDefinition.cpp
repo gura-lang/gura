@@ -86,7 +86,7 @@ String Object_wx_RichTextCharacterStyleDefinition::ToString(Signal sig, bool exp
 	return rtn;
 }
 
-void Object_wx_RichTextCharacterStyleDefinition::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextCharacterStyleDefinition::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextCharacterStyleDefinition);
 }

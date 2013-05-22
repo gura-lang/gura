@@ -213,7 +213,7 @@ String Object_wx_Panel::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Panel::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Panel::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(SetFocus);
 	Gura_RealizeUserSymbol(SetFocusIgnoringChildren);

@@ -115,7 +115,7 @@ String Object_wx_FileDataObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileDataObject::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FileDataObject::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(AddFile);
 	Gura_AssignFunction(FileDataObjectEmpty);

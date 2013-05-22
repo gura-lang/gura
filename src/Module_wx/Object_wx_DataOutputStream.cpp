@@ -354,7 +354,7 @@ String Object_wx_DataOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataOutputStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DataOutputStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DataOutputStream);
 	Gura_AssignFunction(DataOutputStream_1);

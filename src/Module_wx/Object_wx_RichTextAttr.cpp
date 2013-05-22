@@ -1460,7 +1460,7 @@ String Object_wx_RichTextAttr::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextAttr::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextAttr::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextAttr);
 	Gura_AssignFunction(RichTextAttr_2);

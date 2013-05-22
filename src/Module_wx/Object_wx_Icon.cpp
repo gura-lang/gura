@@ -475,7 +475,7 @@ String Object_wx_Icon::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Icon::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Icon::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(EmptyIcon);
 	Gura_AssignFunction(Icon);

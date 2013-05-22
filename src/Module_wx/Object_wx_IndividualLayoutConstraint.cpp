@@ -262,7 +262,7 @@ String Object_wx_IndividualLayoutConstraint::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_IndividualLayoutConstraint::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_IndividualLayoutConstraint::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(IndividualLayoutConstraintEmpty);
 }

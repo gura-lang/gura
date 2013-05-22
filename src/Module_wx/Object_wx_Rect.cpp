@@ -877,7 +877,7 @@ String Object_wx_Rect::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Rect::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Rect::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RectEmpty);
 	Gura_AssignFunction(Rect);

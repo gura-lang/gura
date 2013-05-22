@@ -112,7 +112,7 @@ String Object_wx_CriticalSection::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CriticalSection::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_CriticalSection::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(CriticalSectionEmpty);
 }

@@ -89,7 +89,7 @@ String Object_wx_CalendarEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CalendarEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_CalendarEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

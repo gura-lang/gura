@@ -329,7 +329,7 @@ Object *Class_audio::CreateDescendant(Environment &env, Signal sig, Class *pClas
 	return NULL;
 }
 
-void Class_audio::OnModuleEntry(Environment &env, Signal sig)
+void Class_audio::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(audio);
 }

@@ -176,7 +176,7 @@ String Object_wx_DirDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DirDialog::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DirDialog::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DirDialog);
 }

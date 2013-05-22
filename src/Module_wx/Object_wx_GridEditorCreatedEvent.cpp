@@ -247,7 +247,7 @@ String Object_wx_GridEditorCreatedEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridEditorCreatedEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridEditorCreatedEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GridEditorCreatedEventEmpty);
 	Gura_AssignFunction(GridEditorCreatedEvent);

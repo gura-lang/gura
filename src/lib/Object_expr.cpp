@@ -412,7 +412,7 @@ Object *Class_expr::CreateDescendant(Environment &env, Signal sig, Class *pClass
 	return NULL;
 }
 
-void Class_expr::OnModuleEntry(Environment &env, Signal sig)
+void Class_expr::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

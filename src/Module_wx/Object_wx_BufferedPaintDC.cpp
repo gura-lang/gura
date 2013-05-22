@@ -118,7 +118,7 @@ String Object_wx_BufferedPaintDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BufferedPaintDC::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_BufferedPaintDC::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(BufferedPaintDC);
 	Gura_AssignFunction(BufferedPaintDC_1);

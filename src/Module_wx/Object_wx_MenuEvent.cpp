@@ -134,7 +134,7 @@ String Object_wx_MenuEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MenuEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MenuEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MenuEvent);
 }

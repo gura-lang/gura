@@ -203,7 +203,7 @@ String Object_wx_Point::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Point::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Point::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PointEmpty);
 	Gura_AssignFunction(Point);

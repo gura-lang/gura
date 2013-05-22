@@ -61,7 +61,7 @@ String Object_wx_ZipClassFactory::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ZipClassFactory::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ZipClassFactory::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

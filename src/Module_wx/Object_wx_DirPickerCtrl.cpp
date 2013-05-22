@@ -176,7 +176,7 @@ String Object_wx_DirPickerCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DirPickerCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DirPickerCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DirPickerCtrl);
 }

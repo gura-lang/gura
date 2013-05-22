@@ -134,7 +134,7 @@ String Object_wx_PrinterDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PrinterDC::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PrinterDC::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PrinterDC);
 	Gura_AssignFunction(PrinterDC_1);

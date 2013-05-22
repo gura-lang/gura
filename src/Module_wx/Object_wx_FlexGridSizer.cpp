@@ -224,7 +224,7 @@ String Object_wx_FlexGridSizer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FlexGridSizer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FlexGridSizer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FlexGridSizer);
 }

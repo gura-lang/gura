@@ -316,7 +316,7 @@ String Object_wx_EncodingConverter::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_EncodingConverter::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_EncodingConverter::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(EncodingConverterEmpty);
 }

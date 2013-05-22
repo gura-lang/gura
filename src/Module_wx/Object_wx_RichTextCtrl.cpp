@@ -3568,7 +3568,7 @@ String Object_wx_RichTextCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextCtrlEmpty);
 	Gura_AssignFunction(RichTextCtrl);

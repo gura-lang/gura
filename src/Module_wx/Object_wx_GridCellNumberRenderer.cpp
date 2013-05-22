@@ -83,7 +83,7 @@ String Object_wx_GridCellNumberRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellNumberRenderer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridCellNumberRenderer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GridCellNumberRenderer);
 }

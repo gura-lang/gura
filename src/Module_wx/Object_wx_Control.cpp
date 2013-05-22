@@ -133,7 +133,7 @@ String Object_wx_Control::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Control::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Control::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

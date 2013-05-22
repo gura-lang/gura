@@ -458,7 +458,7 @@ String Object_wx_TCPConnection::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TCPConnection::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TCPConnection::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(OnAdvise);
 	Gura_RealizeUserSymbol(OnDisconnect);

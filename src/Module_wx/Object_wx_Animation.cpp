@@ -248,7 +248,7 @@ String Object_wx_Animation::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Animation::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Animation::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(AnimationEmpty);
 	Gura_AssignFunction(Animation);

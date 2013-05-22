@@ -140,7 +140,7 @@ String Object_wx_ThreadHelper::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ThreadHelper::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ThreadHelper::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(Entry);
 	Gura_AssignFunction(ThreadHelperEmpty);

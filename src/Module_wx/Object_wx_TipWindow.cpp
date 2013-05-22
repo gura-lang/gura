@@ -137,7 +137,7 @@ String Object_wx_TipWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TipWindow::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TipWindow::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(TipWindow);
 }

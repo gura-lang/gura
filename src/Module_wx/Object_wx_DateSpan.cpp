@@ -468,7 +468,7 @@ String Object_wx_DateSpan::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DateSpan::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DateSpan::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DateSpan);
 }

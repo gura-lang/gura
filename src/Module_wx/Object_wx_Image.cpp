@@ -1800,7 +1800,7 @@ String Object_wx_Image::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Image::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Image::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ImageEmpty);
 	Gura_AssignFunction(Image);

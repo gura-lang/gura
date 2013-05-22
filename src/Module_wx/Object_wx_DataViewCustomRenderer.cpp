@@ -406,7 +406,7 @@ String Object_wx_DataViewCustomRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewCustomRenderer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DataViewCustomRenderer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(GetMode);
 	Gura_RealizeUserSymbol(GetOwner);

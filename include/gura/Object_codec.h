@@ -14,7 +14,7 @@ public:
 	Class_codec(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	static void OnModuleEntry(Environment &env, Signal sig);
+	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 //-----------------------------------------------------------------------------

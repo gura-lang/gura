@@ -114,7 +114,7 @@ String Object_wx_FontList::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FontList::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FontList::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FontListEmpty);
 }

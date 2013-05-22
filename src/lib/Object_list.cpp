@@ -1986,7 +1986,7 @@ Object *Class_list::CreateDescendant(Environment &env, Signal sig, Class *pClass
 	return (pClass == NULL)? new Object_list(env) : new Object_list(pClass);
 }
 
-void Class_list::OnModuleEntry(Environment &env, Signal sig)
+void Class_list::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(list);
 	Gura_AssignFunction(xlist);

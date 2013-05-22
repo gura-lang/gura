@@ -100,7 +100,7 @@ String Object_wx_MetafileDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MetafileDC::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MetafileDC::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MetafileDC);
 }

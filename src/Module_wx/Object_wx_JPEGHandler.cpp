@@ -84,7 +84,7 @@ String Object_wx_JPEGHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_JPEGHandler::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_JPEGHandler::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(JPEGHandler);
 }

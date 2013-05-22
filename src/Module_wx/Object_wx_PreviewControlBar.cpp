@@ -157,7 +157,7 @@ String Object_wx_PreviewControlBar::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PreviewControlBar::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PreviewControlBar::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PreviewControlBar);
 }

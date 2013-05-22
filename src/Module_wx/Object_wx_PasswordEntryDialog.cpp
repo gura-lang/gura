@@ -100,7 +100,7 @@ String Object_wx_PasswordEntryDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PasswordEntryDialog::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PasswordEntryDialog::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PasswordEntryDialog);
 }

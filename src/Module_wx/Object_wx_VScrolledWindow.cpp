@@ -464,7 +464,7 @@ String Object_wx_VScrolledWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_VScrolledWindow::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_VScrolledWindow::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(EstimateTotalHeight);
 	Gura_RealizeUserSymbol(OnGetLineHeight);

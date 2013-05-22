@@ -199,7 +199,7 @@ String Object_wx_FontPickerCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FontPickerCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FontPickerCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FontPickerCtrl);
 }

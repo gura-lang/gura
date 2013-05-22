@@ -90,7 +90,7 @@ String Object_wx_StringBuffer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StringBuffer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_StringBuffer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(StringBuffer);
 }

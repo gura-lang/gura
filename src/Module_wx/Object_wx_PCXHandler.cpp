@@ -84,7 +84,7 @@ String Object_wx_PCXHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PCXHandler::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PCXHandler::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PCXHandler);
 }

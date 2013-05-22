@@ -85,7 +85,7 @@ String Object_wx_StringInputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StringInputStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_StringInputStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(StringInputStream);
 }

@@ -83,7 +83,7 @@ String Object_wx_GDIObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GDIObject::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GDIObject::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GDIObjectEmpty);
 }

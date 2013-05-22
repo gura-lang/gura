@@ -446,7 +446,7 @@ String Object_wx_DragImage::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DragImage::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DragImage::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(DoDrawImage);
 	Gura_RealizeUserSymbol(GetImageRect);

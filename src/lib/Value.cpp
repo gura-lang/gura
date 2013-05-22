@@ -214,38 +214,38 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(Struct	)->SetClass(new StructClass(pClass));
 }
 
-void ValueTypePool::OnModuleEntry(Environment &env, Signal sig)
+void ValueTypePool::DoAssignConstructor(Environment &env, Signal sig)
 {
-	//Class_symbol::OnModuleEntry(env, sig);
-	//Class_boolean::OnModuleEntry(env, sig);
-	//Class_number::OnModuleEntry(env, sig);
-	//Class_complex::OnModuleEntry(env, sig);
-	//Class_fractioin::OnModuleEntry(env, sig);
-	Class_function::OnModuleEntry(env, sig);
-	Class_string::OnModuleEntry(env, sig);
-	Class_binary::OnModuleEntry(env, sig);
-	Class_pointer::OnModuleEntry(env, sig);
-	Class_list::OnModuleEntry(env, sig);
-	Class_matrix::OnModuleEntry(env, sig);
-	Class_dict::OnModuleEntry(env, sig);
-	Class_stream::OnModuleEntry(env, sig);
-	Class_directory::OnModuleEntry(env, sig);
-	Class_datetime::OnModuleEntry(env, sig);
-	Class_timedelta::OnModuleEntry(env, sig);
-	Class_iterator::OnModuleEntry(env, sig);
-	Class_expr::OnModuleEntry(env, sig);
-	Class_environment::OnModuleEntry(env, sig);
-	Class_error::OnModuleEntry(env, sig);
-	Class_uri::OnModuleEntry(env, sig);
-	Class_semaphore::OnModuleEntry(env, sig);
-	Class_operator::OnModuleEntry(env, sig);
-	Class_image::OnModuleEntry(env, sig);
-	Class_color::OnModuleEntry(env, sig);
-	Class_palette::OnModuleEntry(env, sig);
-	Class_audio::OnModuleEntry(env, sig);
-	Class_codec::OnModuleEntry(env, sig);
-	Class_args::OnModuleEntry(env, sig);
-	StructClass::OnModuleEntry(env, sig);
+	//Class_symbol::DoAssignConstructor(env, sig);
+	//Class_boolean::DoAssignConstructor(env, sig);
+	//Class_number::DoAssignConstructor(env, sig);
+	//Class_complex::DoAssignConstructor(env, sig);
+	//Class_fractioin::DoAssignConstructor(env, sig);
+	Class_function::DoAssignConstructor(env, sig);
+	Class_string::DoAssignConstructor(env, sig);
+	Class_binary::DoAssignConstructor(env, sig);
+	Class_pointer::DoAssignConstructor(env, sig);
+	Class_list::DoAssignConstructor(env, sig);
+	Class_matrix::DoAssignConstructor(env, sig);
+	Class_dict::DoAssignConstructor(env, sig);
+	Class_stream::DoAssignConstructor(env, sig);
+	Class_directory::DoAssignConstructor(env, sig);
+	Class_datetime::DoAssignConstructor(env, sig);
+	Class_timedelta::DoAssignConstructor(env, sig);
+	Class_iterator::DoAssignConstructor(env, sig);
+	Class_expr::DoAssignConstructor(env, sig);
+	Class_environment::DoAssignConstructor(env, sig);
+	Class_error::DoAssignConstructor(env, sig);
+	Class_uri::DoAssignConstructor(env, sig);
+	Class_semaphore::DoAssignConstructor(env, sig);
+	Class_operator::DoAssignConstructor(env, sig);
+	Class_image::DoAssignConstructor(env, sig);
+	Class_color::DoAssignConstructor(env, sig);
+	Class_palette::DoAssignConstructor(env, sig);
+	Class_audio::DoAssignConstructor(env, sig);
+	Class_codec::DoAssignConstructor(env, sig);
+	Class_args::DoAssignConstructor(env, sig);
+	StructClass::DoAssignConstructor(env, sig);
 }
 
 ValueTypeInfo *ValueTypePool::Add(const Symbol *pSymbol)

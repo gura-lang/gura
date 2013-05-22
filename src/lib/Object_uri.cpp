@@ -279,7 +279,7 @@ Object *Class_uri::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 	return NULL;
 }
 
-void Class_uri::OnModuleEntry(Environment &env, Signal sig)
+void Class_uri::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(uri);
 }

@@ -214,7 +214,7 @@ String Object_wx_Mask::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Mask::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Mask::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MaskEmpty);
 	Gura_AssignFunction(Mask);

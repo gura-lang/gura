@@ -880,7 +880,7 @@ String Object_wx_ComboCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ComboCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ComboCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(AnimateShow);
 	Gura_RealizeUserSymbol(DoShowPopup);

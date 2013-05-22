@@ -180,7 +180,7 @@ String Object_wx_AcceleratorEntry::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AcceleratorEntry::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_AcceleratorEntry::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(AcceleratorEntryEmpty);
 	Gura_AssignFunction(AcceleratorEntry);

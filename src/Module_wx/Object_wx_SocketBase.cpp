@@ -753,7 +753,7 @@ String Object_wx_SocketBase::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SocketBase::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SocketBase::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SocketBaseEmpty);
 }

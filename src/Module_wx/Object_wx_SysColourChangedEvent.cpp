@@ -83,7 +83,7 @@ String Object_wx_SysColourChangedEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SysColourChangedEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SysColourChangedEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SysColourChangedEventEmpty);
 }

@@ -446,7 +446,7 @@ String Object_wx_BookCtrlBase::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BookCtrlBase::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_BookCtrlBase::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

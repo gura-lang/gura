@@ -545,7 +545,7 @@ String Object_wx_Locale::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Locale::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Locale::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(Locale);
 	//Gura_AssignFunction(Locale_1);

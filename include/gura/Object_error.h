@@ -12,7 +12,7 @@ class GURA_DLLDECLARE Class_error : public Class {
 public:
 	Class_error(Environment *pEnvOuter);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	static void OnModuleEntry(Environment &env, Signal sig);
+	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 class GURA_DLLDECLARE Object_error : public Object {

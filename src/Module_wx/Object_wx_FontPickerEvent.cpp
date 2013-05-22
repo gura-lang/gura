@@ -118,7 +118,7 @@ String Object_wx_FontPickerEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FontPickerEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FontPickerEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FontPickerEvent);
 }

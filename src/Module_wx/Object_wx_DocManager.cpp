@@ -728,7 +728,7 @@ String Object_wx_DocManager::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DocManager::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DocManager::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DocManager);
 }

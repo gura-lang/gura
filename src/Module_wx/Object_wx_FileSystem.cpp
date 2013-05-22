@@ -247,7 +247,7 @@ String Object_wx_FileSystem::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileSystem::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FileSystem::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FileSystem);
 }

@@ -250,7 +250,7 @@ String Object_wx_AppTraits::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AppTraits::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_AppTraits::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(CreateFontMapper);
 	Gura_RealizeUserSymbol(CreateLogTarget);

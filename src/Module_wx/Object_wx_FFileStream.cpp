@@ -89,7 +89,7 @@ String Object_wx_FFileStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FFileStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FFileStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FFileStream);
 }

@@ -738,7 +738,7 @@ String Object_wx_HtmlWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlWindow::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlWindow::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(LoadFile);
 	Gura_RealizeUserSymbol(LoadPage);

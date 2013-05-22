@@ -139,7 +139,7 @@ String Object_wx_WizardPage::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_WizardPage::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_WizardPage::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(WizardPage);
 }

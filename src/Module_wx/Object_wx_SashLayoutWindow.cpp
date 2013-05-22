@@ -255,7 +255,7 @@ String Object_wx_SashLayoutWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SashLayoutWindow::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SashLayoutWindow::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SashLayoutWindowEmpty);
 	Gura_AssignFunction(SashLayoutWindow);

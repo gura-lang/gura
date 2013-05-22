@@ -174,7 +174,7 @@ String Object_wx_ColourData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ColourData::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ColourData::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ColourData);
 }

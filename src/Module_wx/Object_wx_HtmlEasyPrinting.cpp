@@ -297,7 +297,7 @@ String Object_wx_HtmlEasyPrinting::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlEasyPrinting::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlEasyPrinting::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(HtmlEasyPrinting);
 }

@@ -448,7 +448,7 @@ String Object_wx_Slider::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Slider::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Slider::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SliderEmpty);
 	Gura_AssignFunction(Slider);

@@ -52,7 +52,7 @@ public:
 		wxEvtHandler *pEvtHandler, int id, int lastId,
 		wxObjectEventFunction function, Object_function *pObjFunc, wxEvtHandler *eventSink);
 public:
-	static void OnModuleEntry(Environment &env, Signal sig);
+	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 template<typename T_WX, typename T_Gura>

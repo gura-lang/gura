@@ -1544,7 +1544,7 @@ String Object_wx_TreeCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TreeCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TreeCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(OnCompareItems);
 	Gura_AssignWxStringValue(TreeCtrlNameStr);

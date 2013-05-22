@@ -64,7 +64,7 @@ String Object_wx_RichTextRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextRenderer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextRenderer::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

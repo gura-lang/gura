@@ -111,7 +111,7 @@ String Object_wx_MessageDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MessageDialog::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MessageDialog::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MessageDialog);
 }

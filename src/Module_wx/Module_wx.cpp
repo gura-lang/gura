@@ -26,7 +26,7 @@ Gura_RealizeUserClassExWithoutPrepare(wx_##className, #className, Gura_UserClass
 Gura_UserClass(wx_##className)->Prepare()
 
 #define InitializeClass(className) \
-Object_wx_##className::OnModuleEntry(env, sig)
+Object_wx_##className::DoAssignConstructor(env, sig)
 
 Gura_BeginModule(wx)
 

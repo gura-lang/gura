@@ -778,7 +778,7 @@ String Object_wx_ComboBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ComboBox::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ComboBox::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(GetLastPosition);
 	Gura_AssignWxStringValue(ComboBoxNameStr);

@@ -64,7 +64,7 @@ String Object_wx_HtmlWindowInterface::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlWindowInterface::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlWindowInterface::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

@@ -121,7 +121,7 @@ String Object_wx_BookCtrlBaseEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BookCtrlBaseEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_BookCtrlBaseEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

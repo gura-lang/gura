@@ -476,7 +476,7 @@ String Object_wx_Thread::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Thread::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Thread::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(Entry);
 	Gura_RealizeUserSymbol(TestDestroy);

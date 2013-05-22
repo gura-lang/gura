@@ -169,7 +169,7 @@ String Object_wx_FontDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FontDialog::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FontDialog::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FontDialogEmpty);
 	Gura_AssignFunction(FontDialog);

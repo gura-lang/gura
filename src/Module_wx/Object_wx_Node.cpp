@@ -136,7 +136,7 @@ String Object_wx_Node::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Node::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Node::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

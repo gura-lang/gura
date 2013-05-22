@@ -142,7 +142,7 @@ String Object_wx_Module::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Module::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Module::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(OnExit);
 	Gura_RealizeUserSymbol(OnInit);

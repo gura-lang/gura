@@ -136,7 +136,7 @@ String Object_wx_TextDataObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextDataObject::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TextDataObject::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(GetTextLength);
 	Gura_RealizeUserSymbol(GetText);

@@ -324,7 +324,7 @@ String Object_wx_PropertySheetDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PropertySheetDialog::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PropertySheetDialog::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(AddBookCtrl);
 	Gura_RealizeUserSymbol(CreateBookCtrl);

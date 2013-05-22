@@ -489,7 +489,7 @@ String Object_wx_SplitterWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SplitterWindow::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SplitterWindow::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(OnDoubleClickSash);
 	Gura_RealizeUserSymbol(OnUnsplit);

@@ -513,7 +513,7 @@ String Object_wx_TextAttr::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextAttr::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TextAttr::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(TextAttr);
 	Gura_AssignFunction(TextAttr_1);

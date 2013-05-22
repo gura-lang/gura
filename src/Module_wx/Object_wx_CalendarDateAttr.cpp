@@ -395,7 +395,7 @@ String Object_wx_CalendarDateAttr::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CalendarDateAttr::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_CalendarDateAttr::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(CalendarDateAttrEmpty);
 	Gura_AssignFunction(CalendarDateAttr);

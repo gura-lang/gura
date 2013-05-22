@@ -295,7 +295,7 @@ String Object_wx_StandardPaths::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StandardPaths::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_StandardPaths::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

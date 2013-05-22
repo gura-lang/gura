@@ -49,7 +49,7 @@ Object *Class_error::CreateDescendant(Environment &env, Signal sig, Class *pClas
 	return NULL;
 }
 
-void Class_error::OnModuleEntry(Environment &env, Signal sig)
+void Class_error::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

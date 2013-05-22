@@ -167,7 +167,7 @@ String Object_wx_CheckListBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CheckListBox::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_CheckListBox::DoAssignConstructor(Environment &env, Signal sig)
 {
 	//Gura_AssignWxStringValue(CheckListBoxNameStr);
 	Gura_AssignFunction(CheckListBoxEmpty);

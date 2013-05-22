@@ -518,7 +518,7 @@ String Object_wx_RadioBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RadioBox::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RadioBox::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(Enable);
 	Gura_RealizeUserSymbol(EnableItem);

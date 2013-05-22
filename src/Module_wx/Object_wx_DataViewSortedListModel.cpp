@@ -127,7 +127,7 @@ String Object_wx_DataViewSortedListModel::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewSortedListModel::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DataViewSortedListModel::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DataViewSortedListModel);
 }

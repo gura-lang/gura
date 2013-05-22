@@ -103,7 +103,7 @@ String Object_wx_EraseEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_EraseEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_EraseEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(EraseEvent);
 }

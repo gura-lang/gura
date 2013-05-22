@@ -112,7 +112,7 @@ String Object_wx_TempFileOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TempFileOutputStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TempFileOutputStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(TempFileOutputStream);
 }

@@ -447,7 +447,7 @@ String Object_wx_Size::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Size::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Size::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SizeEmpty);
 	Gura_AssignFunction(Size);

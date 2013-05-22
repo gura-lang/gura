@@ -226,7 +226,7 @@ String Object_wx_SpinButton::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SpinButton::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SpinButton::DoAssignConstructor(Environment &env, Signal sig)
 {
 	//Gura_AssignWxStringValue(SpinButtonNameStr);
 	Gura_AssignFunction(SpinButtonEmpty);

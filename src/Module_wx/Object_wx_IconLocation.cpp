@@ -77,7 +77,7 @@ String Object_wx_IconLocation::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_IconLocation::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_IconLocation::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

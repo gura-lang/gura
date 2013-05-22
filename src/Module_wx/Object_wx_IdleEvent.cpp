@@ -155,7 +155,7 @@ String Object_wx_IdleEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_IdleEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_IdleEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(IdleEventEmpty);
 }

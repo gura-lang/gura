@@ -152,7 +152,7 @@ String Object_wx_ProgressDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ProgressDialog::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ProgressDialog::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(Update);
 	Gura_RealizeUserSymbol(Pulse);

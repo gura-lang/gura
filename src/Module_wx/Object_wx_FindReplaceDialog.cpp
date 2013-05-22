@@ -154,7 +154,7 @@ String Object_wx_FindReplaceDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FindReplaceDialog::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FindReplaceDialog::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FindReplaceDialogEmpty);
 	Gura_AssignFunction(FindReplaceDialog);

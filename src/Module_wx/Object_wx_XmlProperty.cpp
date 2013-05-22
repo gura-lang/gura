@@ -203,7 +203,7 @@ String Object_wx_XmlProperty::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_XmlProperty::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_XmlProperty::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(XmlPropertyEmpty);
 	Gura_AssignFunction(XmlProperty);

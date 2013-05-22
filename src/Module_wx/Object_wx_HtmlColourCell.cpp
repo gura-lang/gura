@@ -88,7 +88,7 @@ String Object_wx_HtmlColourCell::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlColourCell::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlColourCell::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(HtmlColourCell);
 }

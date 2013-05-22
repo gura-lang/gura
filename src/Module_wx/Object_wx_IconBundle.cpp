@@ -228,7 +228,7 @@ String Object_wx_IconBundle::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_IconBundle::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_IconBundle::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(IconBundleEmpty);
 	Gura_AssignFunction(IconBundle);

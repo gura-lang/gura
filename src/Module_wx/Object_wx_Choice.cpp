@@ -210,7 +210,7 @@ String Object_wx_Choice::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Choice::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Choice::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignWxStringValue(ChoiceNameStr);
 	Gura_AssignFunction(ChoiceEmpty);

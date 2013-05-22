@@ -1908,7 +1908,7 @@ String Object_wx_RichTextBuffer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextBuffer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextBuffer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextBuffer);
 	Gura_AssignFunction(RichTextBufferEmpty);

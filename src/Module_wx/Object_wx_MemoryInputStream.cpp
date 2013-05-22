@@ -132,7 +132,7 @@ String Object_wx_MemoryInputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MemoryInputStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MemoryInputStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MemoryInputStream);
 	Gura_AssignFunction(MemoryInputStream_1);

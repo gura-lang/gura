@@ -144,7 +144,7 @@ String Object_wx_CalculateLayoutEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CalculateLayoutEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_CalculateLayoutEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(CalculateLayoutEvent);
 }

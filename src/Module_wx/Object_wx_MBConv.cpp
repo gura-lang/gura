@@ -413,7 +413,7 @@ String Object_wx_MBConv::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MBConv::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MBConv::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(MB2WC);
 	Gura_RealizeUserSymbol(WC2MB);

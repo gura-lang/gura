@@ -86,7 +86,7 @@ String Object_wx_PaintEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PaintEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PaintEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PaintEvent);
 }

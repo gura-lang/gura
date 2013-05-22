@@ -546,7 +546,7 @@ String Object_wx_ZipEntry::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ZipEntry::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ZipEntry::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ZipEntry);
 	Gura_AssignFunction(ZipEntry_1);

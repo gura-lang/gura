@@ -123,7 +123,7 @@ String Object_wx_TreeItemId::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TreeItemId::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TreeItemId::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(TreeItemId);
 	Gura_AssignBinaryOperator(Eq, wx_TreeItemId, wx_TreeItemId);

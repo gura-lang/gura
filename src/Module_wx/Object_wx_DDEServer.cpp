@@ -118,7 +118,7 @@ String Object_wx_DDEServer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DDEServer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DDEServer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(OnAcceptConnection);
 	Gura_AssignFunction(DDEServerEmpty);

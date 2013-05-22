@@ -118,7 +118,7 @@ String Object_wx_SpinEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SpinEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SpinEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SpinEvent);
 }

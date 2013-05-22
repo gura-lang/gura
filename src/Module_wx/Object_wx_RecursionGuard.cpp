@@ -108,7 +108,7 @@ String Object_wx_RecursionGuard::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RecursionGuard::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RecursionGuard::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RecursionGuard);
 }

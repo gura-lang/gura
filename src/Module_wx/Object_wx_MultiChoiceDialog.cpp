@@ -187,7 +187,7 @@ String Object_wx_MultiChoiceDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MultiChoiceDialog::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MultiChoiceDialog::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MultiChoiceDialog);
 	Gura_AssignFunction(MultiChoiceDialog_1);

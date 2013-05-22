@@ -200,7 +200,7 @@ String Object_wx_CustomDataObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CustomDataObject::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_CustomDataObject::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(Alloc);
 	Gura_RealizeUserSymbol(Free);

@@ -236,7 +236,7 @@ Object *Class_palette::CreateDescendant(Environment &env, Signal sig, Class *pCl
 	return NULL;
 }
 
-void Class_palette::OnModuleEntry(Environment &env, Signal sig)
+void Class_palette::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(palette);
 }

@@ -234,7 +234,7 @@ String Object_wx_RichTextFormattingDialogFactory::ToString(Signal sig, bool expr
 	return rtn;
 }
 
-void Object_wx_RichTextFormattingDialogFactory::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextFormattingDialogFactory::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(CreateButtons);
 	Gura_RealizeUserSymbol(CreatePage);

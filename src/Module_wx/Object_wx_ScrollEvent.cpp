@@ -123,7 +123,7 @@ String Object_wx_ScrollEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ScrollEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ScrollEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ScrollEvent);
 }

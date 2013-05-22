@@ -162,7 +162,7 @@ String Object_wx_GridCellFloatRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellFloatRenderer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridCellFloatRenderer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GridCellFloatRenderer);
 }

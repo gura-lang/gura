@@ -64,7 +64,7 @@ String Object_wx_ServerBase::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ServerBase::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ServerBase::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

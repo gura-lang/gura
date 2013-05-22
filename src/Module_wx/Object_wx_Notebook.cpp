@@ -568,7 +568,7 @@ String Object_wx_Notebook::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Notebook::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Notebook::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignWxStringValue(NotebookNameStr);
 	Gura_AssignFunction(NotebookEmpty);

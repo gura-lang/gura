@@ -82,7 +82,7 @@ String Object_wx_SimpleHelpProvider::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SimpleHelpProvider::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SimpleHelpProvider::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SimpleHelpProvider);
 }

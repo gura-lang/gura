@@ -64,7 +64,7 @@ String Object_wx_HtmlEntitiesParser::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlEntitiesParser::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlEntitiesParser::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

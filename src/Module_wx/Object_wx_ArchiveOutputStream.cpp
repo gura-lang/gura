@@ -64,7 +64,7 @@ String Object_wx_ArchiveOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ArchiveOutputStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ArchiveOutputStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

@@ -64,7 +64,7 @@ String Object_wx_ArtClient::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ArtClient::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ArtClient::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

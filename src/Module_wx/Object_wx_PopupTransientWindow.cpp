@@ -264,7 +264,7 @@ String Object_wx_PopupTransientWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PopupTransientWindow::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PopupTransientWindow::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(Popup);
 	Gura_RealizeUserSymbol(Dismiss);

@@ -31,7 +31,7 @@ String Object_wx_Coord::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Coord::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Coord::DoAssignConstructor(Environment &env, Signal sig)
 {
 	
 }

@@ -206,7 +206,7 @@ String Object_wx_Validator::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Validator::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Validator::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(Clone);
 	Gura_RealizeUserSymbol(TransferToWindow);

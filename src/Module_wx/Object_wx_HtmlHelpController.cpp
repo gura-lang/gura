@@ -333,7 +333,7 @@ String Object_wx_HtmlHelpController::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlHelpController::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlHelpController::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(CreateHelpDialog);
 	Gura_RealizeUserSymbol(CreateHelpFrame);

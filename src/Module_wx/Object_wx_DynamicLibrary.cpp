@@ -353,7 +353,7 @@ String Object_wx_DynamicLibrary::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DynamicLibrary::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DynamicLibrary::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DynamicLibraryEmpty);
 	Gura_AssignFunction(DynamicLibrary);

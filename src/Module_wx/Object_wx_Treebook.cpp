@@ -494,7 +494,7 @@ String Object_wx_Treebook::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Treebook::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Treebook::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(TreebookEmpty);
 	Gura_AssignFunction(Treebook);

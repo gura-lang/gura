@@ -280,7 +280,7 @@ String Object_wx_GLCanvas::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GLCanvas::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GLCanvas::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GLCanvas);
 	//Gura_AssignFunction(GLCanvas_1);

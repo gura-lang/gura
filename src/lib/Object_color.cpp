@@ -1055,7 +1055,7 @@ Object *Class_color::CreateDescendant(Environment &env, Signal sig, Class *pClas
 	return NULL;
 }
 
-void Class_color::OnModuleEntry(Environment &env, Signal sig)
+void Class_color::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Class *pClass = env.LookupClass(VTYPE_color);
 	Gura_AssignFunction(color);

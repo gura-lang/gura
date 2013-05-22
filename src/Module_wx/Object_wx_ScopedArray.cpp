@@ -126,7 +126,7 @@ String Object_wx_ScopedArray::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ScopedArray::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ScopedArray::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ScopedArray);
 }

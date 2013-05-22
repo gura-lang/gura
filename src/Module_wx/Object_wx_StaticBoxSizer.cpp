@@ -131,7 +131,7 @@ String Object_wx_StaticBoxSizer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StaticBoxSizer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_StaticBoxSizer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(StaticBoxSizer);
 	Gura_AssignFunction(StaticBoxSizerAuto);

@@ -13,7 +13,7 @@ class GURA_DLLDECLARE Class_args : public Class {
 public:
 	Class_args(Environment *pEnvOuter);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	static void OnModuleEntry(Environment &env, Signal sig);
+	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 //-----------------------------------------------------------------------------

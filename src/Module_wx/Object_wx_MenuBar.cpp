@@ -531,7 +531,7 @@ String Object_wx_MenuBar::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MenuBar::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MenuBar::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MenuBar);
 	Gura_AssignFunction(MenuBar_1);

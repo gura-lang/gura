@@ -553,7 +553,7 @@ String Object_wx_PageSetupDialogData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PageSetupDialogData::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PageSetupDialogData::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PageSetupDialogDataEmpty);
 	Gura_AssignFunction(PageSetupDialogData);

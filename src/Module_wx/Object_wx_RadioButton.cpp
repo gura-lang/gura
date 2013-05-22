@@ -191,7 +191,7 @@ String Object_wx_RadioButton::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RadioButton::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RadioButton::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignWxStringValue(RadioButtonNameStr);
 	Gura_AssignFunction(RadioButtonEmpty);

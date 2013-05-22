@@ -65,7 +65,7 @@ Object *Class_args::CreateDescendant(Environment &env, Signal sig, Class *pClass
 	return NULL;
 }
 
-void Class_args::OnModuleEntry(Environment &env, Signal sig)
+void Class_args::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

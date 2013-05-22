@@ -225,7 +225,7 @@ String Object_wx_DataObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataObject::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DataObject::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(GetAllFormats);
 	Gura_RealizeUserSymbol(GetDataHere);

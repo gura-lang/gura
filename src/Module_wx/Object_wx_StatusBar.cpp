@@ -320,7 +320,7 @@ String Object_wx_StatusBar::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StatusBar::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_StatusBar::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(GetFieldRect);
 	Gura_RealizeUserSymbol(GetStatusText);

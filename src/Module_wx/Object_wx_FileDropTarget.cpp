@@ -142,7 +142,7 @@ String Object_wx_FileDropTarget::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileDropTarget::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FileDropTarget::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(OnDrop);
 	Gura_RealizeUserSymbol(OnDropFiles);

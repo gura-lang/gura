@@ -31,7 +31,7 @@ public:
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline wxCoord *GetEntity() { return _pEntity; }
 public:
-	static void OnModuleEntry(Environment &env, Signal sig);
+	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

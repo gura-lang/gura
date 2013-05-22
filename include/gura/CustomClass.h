@@ -18,7 +18,7 @@ public:
 	virtual bool IsCustom() const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	Function *PrepareConstructor(Environment &env, Signal sig);
-	static void OnModuleEntry(Environment &env, Signal sig);
+	static void DoAssignConstructor(Environment &env, Signal sig);
 	inline Signal &GetSignal() { return _sig; }
 	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;

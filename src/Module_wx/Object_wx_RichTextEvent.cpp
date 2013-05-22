@@ -302,7 +302,7 @@ String Object_wx_RichTextEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextEvent);
 	Gura_AssignFunction(RichTextEvent_1);

@@ -106,7 +106,7 @@ String Object_wx_ActivateEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ActivateEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ActivateEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ActivateEvent);
 }

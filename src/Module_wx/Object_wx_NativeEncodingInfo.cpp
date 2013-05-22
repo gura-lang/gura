@@ -64,7 +64,7 @@ String Object_wx_NativeEncodingInfo::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_NativeEncodingInfo::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_NativeEncodingInfo::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

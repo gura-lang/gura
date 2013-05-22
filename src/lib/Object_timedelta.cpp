@@ -91,7 +91,7 @@ Object *Class_timedelta::CreateDescendant(Environment &env, Signal sig, Class *p
 	return NULL;
 }
 
-void Class_timedelta::OnModuleEntry(Environment &env, Signal sig)
+void Class_timedelta::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

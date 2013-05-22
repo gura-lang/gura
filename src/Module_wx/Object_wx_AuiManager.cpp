@@ -522,7 +522,7 @@ String Object_wx_AuiManager::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AuiManager::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_AuiManager::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(AuiManager);
 }

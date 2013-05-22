@@ -245,7 +245,7 @@ String Object_wx_Cursor::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Cursor::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Cursor::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(CursorEmpty);
 	Gura_AssignFunction(Cursor);

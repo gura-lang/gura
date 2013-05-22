@@ -474,7 +474,7 @@ String Object_wx_ListItem::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ListItem::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ListItem::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ListItem);
 }

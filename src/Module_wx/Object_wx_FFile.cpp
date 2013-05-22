@@ -484,7 +484,7 @@ String Object_wx_FFile::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FFile::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FFile::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FFileEmpty);
 	Gura_AssignFunction(FFile);

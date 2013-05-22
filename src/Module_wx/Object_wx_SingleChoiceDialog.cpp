@@ -174,7 +174,7 @@ String Object_wx_SingleChoiceDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SingleChoiceDialog::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SingleChoiceDialog::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SingleChoiceDialog);
 }

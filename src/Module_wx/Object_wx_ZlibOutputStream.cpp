@@ -104,7 +104,7 @@ String Object_wx_ZlibOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ZlibOutputStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ZlibOutputStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ZlibOutputStream);
 }

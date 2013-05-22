@@ -86,7 +86,7 @@ String Object_wx_InitDialogEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_InitDialogEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_InitDialogEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(InitDialogEvent);
 }

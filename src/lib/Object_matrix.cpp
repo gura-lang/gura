@@ -712,7 +712,7 @@ Object *Class_matrix::CreateDescendant(Environment &env, Signal sig, Class *pCla
 	return NULL;
 }
 
-void Class_matrix::OnModuleEntry(Environment &env, Signal sig)
+void Class_matrix::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(matrix);
 	Gura_AssignFunctionEx(MatrixInit, "@@");

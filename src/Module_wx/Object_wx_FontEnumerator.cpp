@@ -269,7 +269,7 @@ String Object_wx_FontEnumerator::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FontEnumerator::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FontEnumerator::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(EnumerateFacenames);
 	Gura_RealizeUserSymbol(EnumerateEncodings);

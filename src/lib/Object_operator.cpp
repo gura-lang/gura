@@ -226,7 +226,7 @@ Object *Class_operator::CreateDescendant(Environment &env, Signal sig, Class *pC
 	return NULL;
 }
 
-void Class_operator::OnModuleEntry(Environment &env, Signal sig)
+void Class_operator::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(operator_);
 }

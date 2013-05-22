@@ -556,7 +556,7 @@ String Object_wx_Frame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Frame::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Frame::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(CreateStatusBar);
 	Gura_RealizeUserSymbol(CreateToolBar);

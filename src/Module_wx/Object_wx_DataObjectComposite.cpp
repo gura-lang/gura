@@ -121,7 +121,7 @@ String Object_wx_DataObjectComposite::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataObjectComposite::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DataObjectComposite::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DataObjectCompositeEmpty);
 }

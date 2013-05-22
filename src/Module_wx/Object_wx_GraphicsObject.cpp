@@ -88,7 +88,7 @@ String Object_wx_GraphicsObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GraphicsObject::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GraphicsObject::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

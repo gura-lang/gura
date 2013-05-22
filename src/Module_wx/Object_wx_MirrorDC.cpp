@@ -87,7 +87,7 @@ String Object_wx_MirrorDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MirrorDC::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MirrorDC::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MirrorDC);
 }

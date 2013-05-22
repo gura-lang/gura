@@ -64,7 +64,7 @@ String Object_wx_HelpControllerBase::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HelpControllerBase::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HelpControllerBase::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

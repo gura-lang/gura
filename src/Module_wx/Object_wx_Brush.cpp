@@ -353,7 +353,7 @@ String Object_wx_Brush::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Brush::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Brush::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(BrushEmpty);
 	Gura_AssignFunction(Brush);

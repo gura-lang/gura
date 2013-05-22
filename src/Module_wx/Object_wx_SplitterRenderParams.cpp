@@ -64,7 +64,7 @@ String Object_wx_SplitterRenderParams::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SplitterRenderParams::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SplitterRenderParams::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

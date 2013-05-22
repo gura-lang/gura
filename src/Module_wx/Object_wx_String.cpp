@@ -1991,7 +1991,7 @@ String Object_wx_String::ToString(Signal sig, bool exprFlag)
 	return String(GetEntity()->ToUTF8());
 }
 
-void Object_wx_String::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_String::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(String);
 	Gura_AssignFunction(String_1);

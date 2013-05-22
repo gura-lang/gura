@@ -172,7 +172,7 @@ String Object_wx_FFileInputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FFileInputStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FFileInputStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FFileInputStream);
 	Gura_AssignFunction(FFileInputStream_1);

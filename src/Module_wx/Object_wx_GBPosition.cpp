@@ -196,7 +196,7 @@ String Object_wx_GBPosition::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GBPosition::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GBPosition::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GBPositionEmpty);
 	Gura_AssignFunction(GBPosition);

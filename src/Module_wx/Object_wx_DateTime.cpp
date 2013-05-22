@@ -2227,7 +2227,7 @@ String Object_wx_DateTime::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DateTime::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DateTime::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DateTime);
 }

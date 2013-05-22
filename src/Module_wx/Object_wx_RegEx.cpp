@@ -340,7 +340,7 @@ String Object_wx_RegEx::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RegEx::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RegEx::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RegExEmpty);
 	Gura_AssignFunction(RegEx);

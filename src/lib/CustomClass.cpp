@@ -84,7 +84,7 @@ Function *CustomClass::PrepareConstructor(Environment &env, Signal sig)
 	return pFunc.release();
 }
 
-void CustomClass::OnModuleEntry(Environment &env, Signal sig)
+void CustomClass::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

@@ -956,7 +956,7 @@ String Object_wx_GridTableBase::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridTableBase::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridTableBase::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(GetNumberRows);
 	Gura_RealizeUserSymbol(GetNumberCols);

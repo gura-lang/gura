@@ -178,7 +178,7 @@ Object *Class_codec::CreateDescendant(Environment &env, Signal sig, Class *pClas
 	return NULL;
 }
 
-void Class_codec::OnModuleEntry(Environment &env, Signal sig)
+void Class_codec::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(codec);
 }

@@ -837,7 +837,7 @@ String Object_wx_GraphicsContext::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GraphicsContext::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GraphicsContext::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

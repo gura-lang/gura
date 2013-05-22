@@ -443,7 +443,7 @@ String Object_wx_Log::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Log::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Log::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(DoLog);
 	Gura_RealizeUserSymbol(DoLogString);

@@ -168,7 +168,7 @@ String Object_wx_HtmlTagHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlTagHandler::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlTagHandler::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(GetSupportedTags);
 	Gura_RealizeUserSymbol(HandleTag);

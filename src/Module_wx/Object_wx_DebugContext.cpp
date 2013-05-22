@@ -310,7 +310,7 @@ String Object_wx_DebugContext::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DebugContext::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DebugContext::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

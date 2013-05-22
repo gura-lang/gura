@@ -411,7 +411,7 @@ String Object_wx_ArrayString::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ArrayString::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ArrayString::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ArrayStringEmpty);
 	Gura_AssignFunction(ArrayString);

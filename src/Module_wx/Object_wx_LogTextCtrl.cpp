@@ -85,7 +85,7 @@ String Object_wx_LogTextCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LogTextCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_LogTextCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(LogTextCtrl);
 }

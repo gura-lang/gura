@@ -275,7 +275,7 @@ String Object_wx_RichTextStyleListCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextStyleListCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextStyleListCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextStyleListCtrl);
 	Gura_AssignFunction(RichTextStyleListCtrlEmpty);

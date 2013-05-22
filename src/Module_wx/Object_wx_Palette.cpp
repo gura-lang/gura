@@ -249,7 +249,7 @@ String Object_wx_Palette::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Palette::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Palette::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PaletteEmpty);
 	Gura_AssignFunction(Palette);

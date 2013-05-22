@@ -101,7 +101,7 @@ String Object_wx_FileInputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileInputStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FileInputStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FileInputStream);
 }

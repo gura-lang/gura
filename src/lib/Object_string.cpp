@@ -940,7 +940,7 @@ Object *Class_string::CreateDescendant(Environment &env, Signal sig, Class *pCla
 	return new Object_string((pClass == NULL)? this : pClass);
 }
 
-void Class_string::OnModuleEntry(Environment &env, Signal sig)
+void Class_string::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

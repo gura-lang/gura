@@ -64,7 +64,7 @@ String Object_wx_HtmlTagsCache::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlTagsCache::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlTagsCache::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

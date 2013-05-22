@@ -59,7 +59,7 @@ Object *Class_directory::CreateDescendant(Environment &env, Signal sig, Class *p
 	return NULL;
 }
 
-void Class_directory::OnModuleEntry(Environment &env, Signal sig)
+void Class_directory::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

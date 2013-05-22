@@ -367,7 +367,7 @@ String Object_wx_HtmlParser::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlParser::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlParser::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(AddTagHandler);
 	Gura_RealizeUserSymbol(AddWord);

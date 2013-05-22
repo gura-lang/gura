@@ -283,7 +283,7 @@ String Object_wx_HyperlinkCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HyperlinkCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HyperlinkCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(HyperlinkCtrl);
 }

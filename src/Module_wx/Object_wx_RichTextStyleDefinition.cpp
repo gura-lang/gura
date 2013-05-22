@@ -238,7 +238,7 @@ String Object_wx_RichTextStyleDefinition::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextStyleDefinition::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextStyleDefinition::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextStyleDefinition);
 }

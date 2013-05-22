@@ -646,7 +646,7 @@ String Object_wx_TopLevelWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TopLevelWindow::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TopLevelWindow::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(CanSetTransparent);
 	Gura_RealizeUserSymbol(HandleSettingChange);

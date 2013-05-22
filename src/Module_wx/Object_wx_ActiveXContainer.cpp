@@ -91,7 +91,7 @@ String Object_wx_ActiveXContainer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ActiveXContainer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ActiveXContainer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ActiveXContainer);
 }

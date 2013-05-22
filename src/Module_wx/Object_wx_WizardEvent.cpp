@@ -120,7 +120,7 @@ String Object_wx_WizardEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_WizardEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_WizardEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(WizardEvent);
 }

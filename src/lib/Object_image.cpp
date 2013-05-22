@@ -821,7 +821,7 @@ bool Class_image::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 	return false;
 }
 
-void Class_image::OnModuleEntry(Environment &env, Signal sig)
+void Class_image::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(image);
 }

@@ -284,7 +284,7 @@ String Object_wx_HashSet::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HashSet::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HashSet::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(HashSet);
 	Gura_AssignFunction(HashSet_1);

@@ -130,7 +130,7 @@ String Object_wx_MDIClientWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MDIClientWindow::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MDIClientWindow::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MDIClientWindowEmpty);
 	Gura_AssignFunction(MDIClientWindow);

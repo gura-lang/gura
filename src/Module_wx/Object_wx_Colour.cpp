@@ -310,7 +310,7 @@ String Object_wx_Colour::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Colour::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Colour::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ColourEmpty);
 	Gura_AssignFunction(Colour);

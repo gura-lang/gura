@@ -216,7 +216,7 @@ String Object_wx_StackFrame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StackFrame::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_StackFrame::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

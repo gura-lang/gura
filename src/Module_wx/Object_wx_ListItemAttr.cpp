@@ -244,7 +244,7 @@ String Object_wx_ListItemAttr::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ListItemAttr::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ListItemAttr::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ListItemAttrEmpty);
 	Gura_AssignFunction(ListItemAttr);

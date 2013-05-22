@@ -131,7 +131,7 @@ String Object_wx_Mutex::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Mutex::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Mutex::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(Mutex);
 }

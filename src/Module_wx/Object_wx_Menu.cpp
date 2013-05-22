@@ -840,7 +840,7 @@ String Object_wx_Menu::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Menu::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Menu::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(Menu);
 	Gura_AssignFunction(Menu_1);

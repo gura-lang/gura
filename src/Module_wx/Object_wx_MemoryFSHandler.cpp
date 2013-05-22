@@ -177,7 +177,7 @@ String Object_wx_MemoryFSHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MemoryFSHandler::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MemoryFSHandler::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MemoryFSHandler);
 }

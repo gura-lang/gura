@@ -158,7 +158,7 @@ String Object_wx_MiniFrame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MiniFrame::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MiniFrame::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MiniFrameEmpty);
 	Gura_AssignFunction(MiniFrame);

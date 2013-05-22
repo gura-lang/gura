@@ -271,7 +271,7 @@ String Object_wx_ListEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ListEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ListEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ListEvent);
 }

@@ -194,7 +194,7 @@ String Object_wx_DataFormat::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataFormat::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DataFormat::DoAssignConstructor(Environment &env, Signal sig)
 {
 	//Gura_AssignFunction(DataFormat);
 	//Gura_AssignFunction(DataFormat_1);

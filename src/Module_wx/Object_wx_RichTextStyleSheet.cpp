@@ -451,7 +451,7 @@ String Object_wx_RichTextStyleSheet::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextStyleSheet::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextStyleSheet::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextStyleSheet);
 }

@@ -123,7 +123,7 @@ String Object_wx_ObjectRefData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ObjectRefData::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ObjectRefData::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ObjectRefDataEmpty);
 	Gura_AssignFunction(ObjectRefDataEmpty_1);

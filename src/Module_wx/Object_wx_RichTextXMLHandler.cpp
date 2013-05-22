@@ -342,7 +342,7 @@ String Object_wx_RichTextXMLHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextXMLHandler::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextXMLHandler::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextXMLHandler);
 }

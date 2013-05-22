@@ -275,7 +275,7 @@ String Object_wx_HashTable::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HashTable::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HashTable::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(HashTable);
 }

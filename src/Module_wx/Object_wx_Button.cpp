@@ -220,7 +220,7 @@ String Object_wx_Button::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Button::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Button::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignWxStringValue(ButtonNameStr);
 	Gura_AssignFunction(ButtonEmpty);

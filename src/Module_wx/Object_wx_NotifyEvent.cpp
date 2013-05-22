@@ -129,7 +129,7 @@ String Object_wx_NotifyEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_NotifyEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_NotifyEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(NotifyEvent);
 }

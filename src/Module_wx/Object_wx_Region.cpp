@@ -709,7 +709,7 @@ String Object_wx_Region::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Region::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Region::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RegionEmpty);
 	Gura_AssignFunction(Region);

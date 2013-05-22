@@ -228,7 +228,7 @@ String Object_wx_SearchCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SearchCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SearchCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(SetMenu);
 	Gura_RealizeUserSymbol(GetMenu);

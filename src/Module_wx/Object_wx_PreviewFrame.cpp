@@ -155,7 +155,7 @@ String Object_wx_PreviewFrame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PreviewFrame::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PreviewFrame::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PreviewFrame);
 }

@@ -215,7 +215,7 @@ String Object_wx_ZipInputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ZipInputStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ZipInputStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ZipInputStream);
 	Gura_AssignFunction(ZipInputStream_1);

@@ -126,7 +126,7 @@ String Object_wx_PenList::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PenList::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PenList::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PenListEmpty);
 }

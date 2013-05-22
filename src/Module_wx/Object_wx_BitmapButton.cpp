@@ -376,7 +376,7 @@ String Object_wx_BitmapButton::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BitmapButton::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_BitmapButton::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(BitmapButtonEmpty);
 	Gura_AssignFunction(BitmapButton);

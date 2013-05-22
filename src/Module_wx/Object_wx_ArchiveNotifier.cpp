@@ -64,7 +64,7 @@ String Object_wx_ArchiveNotifier::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ArchiveNotifier::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ArchiveNotifier::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

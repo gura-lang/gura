@@ -229,7 +229,7 @@ String Object_wx_StaticBitmap::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StaticBitmap::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_StaticBitmap::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(SetBitmap);
 	Gura_RealizeUserSymbol(SetIcon);

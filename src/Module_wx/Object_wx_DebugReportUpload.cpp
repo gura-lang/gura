@@ -114,7 +114,7 @@ String Object_wx_DebugReportUpload::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DebugReportUpload::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DebugReportUpload::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DebugReportUpload);
 }

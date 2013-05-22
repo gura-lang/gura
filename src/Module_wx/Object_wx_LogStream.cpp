@@ -83,7 +83,7 @@ String Object_wx_LogStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LogStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_LogStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(LogStream);
 }

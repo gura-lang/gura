@@ -502,7 +502,7 @@ String Object_wx_Dialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Dialog::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Dialog::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(DoOK);
 	Gura_AssignFunction(DialogEmpty);

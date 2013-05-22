@@ -130,7 +130,7 @@ String Object_wx_TreeItemData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TreeItemData::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TreeItemData::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(TreeItemData);
 }

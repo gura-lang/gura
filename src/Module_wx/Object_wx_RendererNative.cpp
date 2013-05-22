@@ -479,7 +479,7 @@ String Object_wx_RendererNative::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RendererNative::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RendererNative::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

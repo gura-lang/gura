@@ -465,7 +465,7 @@ String Object_wx_DataViewListModel::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewListModel::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DataViewListModel::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(GetColType);
 	Gura_RealizeUserSymbol(GetNumberOfCols);

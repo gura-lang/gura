@@ -427,7 +427,7 @@ String Object_wx_RichTextFormattingDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextFormattingDialog::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextFormattingDialog::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextFormattingDialog);
 	Gura_AssignFunction(RichTextFormattingDialogEmpty);

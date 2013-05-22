@@ -265,7 +265,7 @@ String Object_wx_DropTarget::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DropTarget::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DropTarget::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(GetData);
 	Gura_RealizeUserSymbol(OnData);

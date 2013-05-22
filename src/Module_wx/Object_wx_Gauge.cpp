@@ -305,7 +305,7 @@ String Object_wx_Gauge::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Gauge::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Gauge::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignWxStringValue(GaugeNameStr);
 	Gura_AssignFunction(GaugeEmpty);

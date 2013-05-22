@@ -200,7 +200,7 @@ String Object_wx_HtmlHelpData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlHelpData::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlHelpData::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(HtmlHelpDataEmpty);
 }

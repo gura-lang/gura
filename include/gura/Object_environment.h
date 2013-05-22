@@ -13,7 +13,7 @@ class GURA_DLLDECLARE Class_environment : public Class {
 public:
 	Class_environment(Environment *pEnvOuter);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	static void OnModuleEntry(Environment &env, Signal sig);
+	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 class GURA_DLLDECLARE Object_environment : public Object {

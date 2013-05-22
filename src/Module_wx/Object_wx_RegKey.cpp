@@ -588,7 +588,7 @@ String Object_wx_RegKey::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RegKey::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RegKey::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RegKeyEmpty);
 	Gura_AssignFunction(RegKey);

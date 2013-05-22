@@ -216,7 +216,7 @@ String Object_wx_GridSizer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridSizer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridSizer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GridSizer);
 }

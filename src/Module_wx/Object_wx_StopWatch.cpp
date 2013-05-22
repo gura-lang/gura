@@ -142,7 +142,7 @@ String Object_wx_StopWatch::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StopWatch::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_StopWatch::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(StopWatch);
 }

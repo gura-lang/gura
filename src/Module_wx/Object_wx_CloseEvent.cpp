@@ -184,7 +184,7 @@ String Object_wx_CloseEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CloseEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_CloseEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(CloseEvent);
 }

@@ -1196,7 +1196,7 @@ Object *Class_iterator::CreateDescendant(Environment &env, Signal sig, Class *pC
 	return NULL;
 }
 
-void Class_iterator::OnModuleEntry(Environment &env, Signal sig)
+void Class_iterator::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(iterator);
 	Gura_AssignFunction(range);

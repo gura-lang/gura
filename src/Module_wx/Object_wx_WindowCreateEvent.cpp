@@ -86,7 +86,7 @@ String Object_wx_WindowCreateEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_WindowCreateEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_WindowCreateEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(WindowCreateEvent);
 }

@@ -792,7 +792,7 @@ Object *Class_stream::CreateDescendant(Environment &env, Signal sig, Class *pCla
 	return NULL;
 }
 
-void Class_stream::OnModuleEntry(Environment &env, Signal sig)
+void Class_stream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunctionEx(stream, "open");
 	Gura_AssignFunction(stream);

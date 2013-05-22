@@ -1818,7 +1818,7 @@ String Object_wx_DC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DC::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DC::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(ComputeScaleAndOrigin);
 	Gura_RealizeUserSymbol(DrawLabel);

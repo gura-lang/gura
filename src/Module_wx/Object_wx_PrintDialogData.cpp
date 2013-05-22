@@ -503,7 +503,7 @@ String Object_wx_PrintDialogData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PrintDialogData::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PrintDialogData::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(PrintDialogDataEmpty);
 	Gura_AssignFunction(PrintDialogData);

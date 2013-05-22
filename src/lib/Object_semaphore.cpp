@@ -117,7 +117,7 @@ Object *Class_semaphore::CreateDescendant(Environment &env, Signal sig, Class *p
 	return NULL;
 }
 
-void Class_semaphore::OnModuleEntry(Environment &env, Signal sig)
+void Class_semaphore::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(semaphore);
 }

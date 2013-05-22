@@ -204,7 +204,7 @@ String Object_wx_MDIChildFrame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MDIChildFrame::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MDIChildFrame::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MDIChildFrameEmpty);
 	Gura_AssignFunction(MDIChildFrame);

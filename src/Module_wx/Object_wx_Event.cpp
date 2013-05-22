@@ -315,7 +315,7 @@ String Object_wx_Event::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Event::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Event::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(Clone);
 	Gura_AssignFunction(Event);

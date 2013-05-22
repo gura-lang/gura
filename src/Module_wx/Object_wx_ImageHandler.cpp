@@ -263,7 +263,7 @@ String Object_wx_ImageHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ImageHandler::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ImageHandler::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ImageHandlerEmpty);
 }

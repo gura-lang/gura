@@ -96,7 +96,7 @@ String Object_wx_HtmlModalHelp::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlModalHelp::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlModalHelp::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(HtmlModalHelp);
 }

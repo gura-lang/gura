@@ -176,7 +176,7 @@ String Object_wx_CSConv::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CSConv::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_CSConv::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(CSConv);
 	Gura_AssignFunction(CSConv_1);

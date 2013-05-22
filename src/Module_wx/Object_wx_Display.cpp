@@ -302,7 +302,7 @@ String Object_wx_Display::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Display::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Display::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(Display);
 }

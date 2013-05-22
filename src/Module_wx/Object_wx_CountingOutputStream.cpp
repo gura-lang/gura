@@ -97,7 +97,7 @@ String Object_wx_CountingOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CountingOutputStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_CountingOutputStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(CountingOutputStreamEmpty);
 }

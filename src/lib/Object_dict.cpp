@@ -532,7 +532,7 @@ Object *Class_dict::CreateDescendant(Environment &env, Signal sig, Class *pClass
 	return new Object_dict((pClass == NULL)? this : pClass, true);
 }
 
-void Class_dict::OnModuleEntry(Environment &env, Signal sig)
+void Class_dict::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(dict);
 	Gura_AssignFunctionEx(dict, "%");

@@ -97,7 +97,7 @@ String Object_wx_HtmlLinkEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlLinkEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlLinkEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

@@ -140,7 +140,7 @@ String Object_wx_LayoutAlgorithm::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LayoutAlgorithm::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_LayoutAlgorithm::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(LayoutAlgorithm);
 }

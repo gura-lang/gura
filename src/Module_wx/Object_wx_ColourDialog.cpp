@@ -137,7 +137,7 @@ String Object_wx_ColourDialog::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ColourDialog::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ColourDialog::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ColourDialog);
 }

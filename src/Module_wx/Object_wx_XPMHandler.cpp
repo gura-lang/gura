@@ -84,7 +84,7 @@ String Object_wx_XPMHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_XPMHandler::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_XPMHandler::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(XPMHandler);
 }

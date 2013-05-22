@@ -115,7 +115,7 @@ String Object_wx_URLDataObject::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_URLDataObject::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_URLDataObject::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(URLDataObject);
 }

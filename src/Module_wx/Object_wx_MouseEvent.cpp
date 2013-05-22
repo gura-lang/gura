@@ -635,7 +635,7 @@ String Object_wx_MouseEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MouseEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MouseEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MouseEvent);
 }

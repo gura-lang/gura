@@ -64,7 +64,7 @@ String Object_wx_RichTextImageBlock::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextImageBlock::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextImageBlock::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

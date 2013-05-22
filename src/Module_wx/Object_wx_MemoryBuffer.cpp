@@ -282,7 +282,7 @@ String Object_wx_MemoryBuffer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MemoryBuffer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MemoryBuffer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MemoryBuffer);
 	Gura_AssignFunction(MemoryBuffer_1);

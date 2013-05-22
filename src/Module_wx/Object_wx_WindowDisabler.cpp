@@ -84,7 +84,7 @@ String Object_wx_WindowDisabler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_WindowDisabler::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_WindowDisabler::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(WindowDisabler);
 }

@@ -167,7 +167,7 @@ String Object_wx_HtmlLinkInfo::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlLinkInfo::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlLinkInfo::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(HtmlLinkInfoEmpty);
 	Gura_AssignFunction(HtmlLinkInfo);

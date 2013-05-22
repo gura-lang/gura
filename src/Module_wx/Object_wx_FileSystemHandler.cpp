@@ -275,7 +275,7 @@ String Object_wx_FileSystemHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileSystemHandler::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FileSystemHandler::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(CanOpen);
 	Gura_RealizeUserSymbol(FindFirst);

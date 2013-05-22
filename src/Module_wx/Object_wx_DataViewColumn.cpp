@@ -278,7 +278,7 @@ String Object_wx_DataViewColumn::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewColumn::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DataViewColumn::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DataViewColumn);
 }

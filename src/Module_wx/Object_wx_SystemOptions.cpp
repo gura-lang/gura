@@ -181,7 +181,7 @@ String Object_wx_SystemOptions::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SystemOptions::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SystemOptions::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SystemOptions);
 }

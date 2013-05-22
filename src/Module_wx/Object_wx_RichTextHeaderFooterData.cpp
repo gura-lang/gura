@@ -404,7 +404,7 @@ String Object_wx_RichTextHeaderFooterData::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextHeaderFooterData::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextHeaderFooterData::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextHeaderFooterDataEmpty);
 	Gura_AssignFunction(RichTextHeaderFooterData);

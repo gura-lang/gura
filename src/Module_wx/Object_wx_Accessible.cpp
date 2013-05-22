@@ -497,7 +497,7 @@ String Object_wx_Accessible::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Accessible::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Accessible::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(DoDefaultAction);
 	Gura_RealizeUserSymbol(GetChild);

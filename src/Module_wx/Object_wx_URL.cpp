@@ -191,7 +191,7 @@ String Object_wx_URL::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_URL::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_URL::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(URL);
 }

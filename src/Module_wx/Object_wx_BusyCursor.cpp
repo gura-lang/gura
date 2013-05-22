@@ -89,7 +89,7 @@ String Object_wx_BusyCursor::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BusyCursor::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_BusyCursor::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(BusyCursor_);
 }

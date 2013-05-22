@@ -463,7 +463,7 @@ String Object_wx_CalendarCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CalendarCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_CalendarCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignWxStringValue(CalendarNameStr);
 	Gura_AssignFunction(CalendarCtrlEmpty);

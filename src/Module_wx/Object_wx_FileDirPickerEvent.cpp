@@ -120,7 +120,7 @@ String Object_wx_FileDirPickerEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileDirPickerEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FileDirPickerEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FileDirPickerEvent);
 }

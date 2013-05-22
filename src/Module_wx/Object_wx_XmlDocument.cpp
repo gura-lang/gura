@@ -418,7 +418,7 @@ String Object_wx_XmlDocument::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_XmlDocument::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_XmlDocument::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(XmlDocumentEmpty);
 	Gura_AssignFunction(XmlDocument);

@@ -1003,7 +1003,7 @@ String Object_wx_TextCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TextCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(CanCopy);
 	Gura_RealizeUserSymbol(CanCut);

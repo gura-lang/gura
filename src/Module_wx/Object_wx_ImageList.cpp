@@ -356,7 +356,7 @@ String Object_wx_ImageList::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ImageList::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ImageList::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ImageListEmpty);
 	Gura_AssignFunction(ImageList);

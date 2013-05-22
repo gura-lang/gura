@@ -571,7 +571,7 @@ String Object_wx_AuiNotebook::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AuiNotebook::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_AuiNotebook::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(AuiNotebookEmpty);
 	Gura_AssignFunction(AuiNotebook);

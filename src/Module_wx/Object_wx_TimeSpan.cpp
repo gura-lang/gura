@@ -732,7 +732,7 @@ String Object_wx_TimeSpan::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TimeSpan::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TimeSpan::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(TimeSpanEmpty);
 	Gura_AssignFunction(TimeSpan);

@@ -103,7 +103,7 @@ String Object_wx_MouseCaptureChangedEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MouseCaptureChangedEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MouseCaptureChangedEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MouseCaptureChangedEvent);
 }

@@ -104,7 +104,7 @@ String Object_wx_GridCellChoiceEditor::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellChoiceEditor::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridCellChoiceEditor::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GridCellChoiceEditor);
 }

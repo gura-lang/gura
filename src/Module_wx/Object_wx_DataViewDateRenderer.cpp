@@ -89,7 +89,7 @@ String Object_wx_DataViewDateRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewDateRenderer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DataViewDateRenderer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DataViewDateRenderer);
 }

@@ -434,7 +434,7 @@ String Object_wx_GenericDirCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GenericDirCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GenericDirCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GenericDirCtrlEmpty);
 	Gura_AssignFunction(GenericDirCtrl);

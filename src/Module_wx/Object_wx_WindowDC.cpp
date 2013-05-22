@@ -85,7 +85,7 @@ String Object_wx_WindowDC::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_WindowDC::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_WindowDC::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(WindowDC);
 }

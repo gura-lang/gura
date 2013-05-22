@@ -147,7 +147,7 @@ String Object_wx_SingleInstanceChecker::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SingleInstanceChecker::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SingleInstanceChecker::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SingleInstanceCheckerEmpty);
 	Gura_AssignFunction(SingleInstanceChecker);

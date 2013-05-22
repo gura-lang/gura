@@ -209,7 +209,7 @@ String Object_wx_HtmlDCRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlDCRenderer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlDCRenderer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(HtmlDCRendererEmpty);
 }

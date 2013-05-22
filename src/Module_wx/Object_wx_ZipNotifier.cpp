@@ -78,7 +78,7 @@ String Object_wx_ZipNotifier::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ZipNotifier::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ZipNotifier::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

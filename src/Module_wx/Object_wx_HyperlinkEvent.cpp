@@ -118,7 +118,7 @@ String Object_wx_HyperlinkEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HyperlinkEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HyperlinkEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(HyperlinkEvent);
 }

@@ -86,7 +86,7 @@ String Object_wx_MaximizeEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MaximizeEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MaximizeEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(MaximizeEvent);
 }

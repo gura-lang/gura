@@ -122,7 +122,7 @@ String Object_wx_FilterInputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FilterInputStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FilterInputStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FilterInputStream);
 	Gura_AssignFunction(FilterInputStream_1);

@@ -210,7 +210,7 @@ String Object_wx_CollapsiblePane::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CollapsiblePane::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_CollapsiblePane::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(CollapsiblePane);
 }

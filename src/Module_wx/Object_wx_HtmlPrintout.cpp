@@ -226,7 +226,7 @@ String Object_wx_HtmlPrintout::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlPrintout::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlPrintout::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(HtmlPrintout);
 }

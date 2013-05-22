@@ -64,7 +64,7 @@ String Object_wx_FileTypeInfo::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FileTypeInfo::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FileTypeInfo::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

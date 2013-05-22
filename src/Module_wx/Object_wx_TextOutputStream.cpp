@@ -238,7 +238,7 @@ String Object_wx_TextOutputStream::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextOutputStream::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TextOutputStream::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(WriteDouble);
 	Gura_RealizeUserSymbol(WriteString);

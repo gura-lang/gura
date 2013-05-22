@@ -581,7 +581,7 @@ String Object_wx_VListBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_VListBox::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_VListBox::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignWxStringValue(VListBoxNameStr);
 	Gura_AssignFunction(VListBox);

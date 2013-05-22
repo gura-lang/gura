@@ -577,7 +577,7 @@ String Object_wx_XmlNode::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_XmlNode::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_XmlNode::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(XmlNode);
 	Gura_AssignFunction(XmlNode_1);

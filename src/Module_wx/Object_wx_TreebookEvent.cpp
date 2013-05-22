@@ -123,7 +123,7 @@ String Object_wx_TreebookEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TreebookEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TreebookEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(TreebookEvent);
 }

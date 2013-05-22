@@ -83,7 +83,7 @@ String Object_wx_GridCellAutoWrapStringRenderer::ToString(Signal sig, bool exprF
 	return rtn;
 }
 
-void Object_wx_GridCellAutoWrapStringRenderer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridCellAutoWrapStringRenderer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GridCellAutoWrapStringRenderer);
 }

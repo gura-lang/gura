@@ -316,7 +316,7 @@ String Object_wx_HtmlListBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlListBox::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlListBox::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(OnLinkClicked);
 	Gura_AssignWxStringValue(HtmlListBoxNameStr);

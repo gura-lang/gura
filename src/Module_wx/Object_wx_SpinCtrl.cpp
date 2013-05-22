@@ -284,7 +284,7 @@ String Object_wx_SpinCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SpinCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SpinCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	//Gura_AssignWxStringValue(SpinCtrlNameStr);
 	Gura_AssignFunction(SpinCtrlEmpty);

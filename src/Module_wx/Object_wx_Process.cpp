@@ -322,7 +322,7 @@ String Object_wx_Process::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Process::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Process::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(Process);
 	Gura_AssignFunction(Process_1);

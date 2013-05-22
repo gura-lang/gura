@@ -339,7 +339,7 @@ Object *Class_function::CreateDescendant(Environment &env, Signal sig, Class *pC
 	return NULL;
 }
 
-void Class_function::OnModuleEntry(Environment &env, Signal sig)
+void Class_function::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(function);
 	Gura_AssignFunctionEx(function, "&");

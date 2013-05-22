@@ -651,7 +651,7 @@ String Object_wx_Joystick::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Joystick::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Joystick::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(Joystick);
 }

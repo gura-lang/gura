@@ -319,7 +319,7 @@ String Object_wx_SizerFlags::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_SizerFlags::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_SizerFlags::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(SizerFlags);
 }

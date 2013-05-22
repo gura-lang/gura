@@ -182,7 +182,7 @@ String Object_wx_FilePickerCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FilePickerCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FilePickerCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FilePickerCtrl);
 }

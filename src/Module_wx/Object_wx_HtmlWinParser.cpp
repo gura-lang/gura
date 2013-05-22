@@ -684,7 +684,7 @@ String Object_wx_HtmlWinParser::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlWinParser::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlWinParser::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(CreateCurrentFont);
 	Gura_RealizeUserSymbol(SetDC);

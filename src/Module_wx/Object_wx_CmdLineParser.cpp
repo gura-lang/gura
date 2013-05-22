@@ -740,7 +740,7 @@ String Object_wx_CmdLineParser::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CmdLineParser::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_CmdLineParser::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(CmdLineParserEmpty);
 	Gura_AssignFunction(CmdLineParser);

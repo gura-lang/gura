@@ -259,7 +259,7 @@ String Object_wx_StreamBase::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StreamBase::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_StreamBase::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(IsOk);
 	Gura_AssignFunction(StreamBaseEmpty);

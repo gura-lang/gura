@@ -64,7 +64,7 @@ String Object_wx_NativeFontInfo::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_NativeFontInfo::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_NativeFontInfo::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

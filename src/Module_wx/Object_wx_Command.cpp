@@ -151,7 +151,7 @@ String Object_wx_Command::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Command::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Command::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(Command);
 }

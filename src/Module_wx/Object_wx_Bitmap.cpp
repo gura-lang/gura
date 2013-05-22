@@ -773,7 +773,7 @@ String Object_wx_Bitmap::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Bitmap::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Bitmap::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(Create);
 	Gura_RealizeUserSymbol(Create_1);

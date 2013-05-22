@@ -3477,7 +3477,7 @@ String Object_wx_Grid::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Grid::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Grid::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GridEmpty);
 	Gura_AssignFunction(Grid);

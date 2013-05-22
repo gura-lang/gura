@@ -373,7 +373,7 @@ String Object_wx_CommandProcessor::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_CommandProcessor::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_CommandProcessor::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(CanUndo);
 	Gura_RealizeUserSymbol(ClearCommands);

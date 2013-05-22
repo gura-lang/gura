@@ -171,7 +171,7 @@ String Object_wx_GBSpan::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GBSpan::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GBSpan::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GBSpanEmpty);
 	Gura_AssignFunction(GBSpan);

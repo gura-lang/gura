@@ -185,7 +185,7 @@ String Object_wx_ColourPickerCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ColourPickerCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ColourPickerCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ColourPickerCtrl);
 }

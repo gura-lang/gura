@@ -960,7 +960,7 @@ String Object_wx_Sizer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Sizer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Sizer::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

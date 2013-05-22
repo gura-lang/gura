@@ -140,7 +140,7 @@ String Object_wx_GridCellNumberEditor::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridCellNumberEditor::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridCellNumberEditor::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GridCellNumberEditor);
 }

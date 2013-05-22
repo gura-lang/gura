@@ -182,7 +182,7 @@ String Object_wx_StaticLine::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StaticLine::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_StaticLine::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(StaticLineEmpty);
 	Gura_AssignFunction(StaticLine);

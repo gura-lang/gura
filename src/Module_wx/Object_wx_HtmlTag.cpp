@@ -288,7 +288,7 @@ String Object_wx_HtmlTag::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_HtmlTag::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_HtmlTag::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(HtmlTag);
 }

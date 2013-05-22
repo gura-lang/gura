@@ -203,7 +203,7 @@ String Object_wx_StaticText::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StaticText::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_StaticText::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(SetLabel);
 	Gura_AssignWxStringValue(StaticTextNameStr);

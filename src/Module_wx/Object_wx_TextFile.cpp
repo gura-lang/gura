@@ -616,7 +616,7 @@ String Object_wx_TextFile::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TextFile::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TextFile::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(TextFileEmpty);
 	Gura_AssignFunction(TextFile);

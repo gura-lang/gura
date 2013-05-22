@@ -529,7 +529,7 @@ String Object_wx_StreamBuffer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_StreamBuffer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_StreamBuffer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(StreamBuffer);
 	Gura_AssignFunction(StreamBuffer_1);

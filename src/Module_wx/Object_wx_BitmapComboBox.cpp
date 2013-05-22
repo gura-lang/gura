@@ -345,7 +345,7 @@ String Object_wx_BitmapComboBox::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_BitmapComboBox::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_BitmapComboBox::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(BitmapComboBoxEmpty);
 	Gura_AssignFunction(BitmapComboBox);

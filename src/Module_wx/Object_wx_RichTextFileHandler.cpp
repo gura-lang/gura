@@ -436,7 +436,7 @@ String Object_wx_RichTextFileHandler::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_RichTextFileHandler::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_RichTextFileHandler::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(RichTextFileHandler);
 }

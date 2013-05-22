@@ -235,7 +235,7 @@ String Object_wx_PickerBase::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PickerBase::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PickerBase::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

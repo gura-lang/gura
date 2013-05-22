@@ -193,7 +193,7 @@ String Object_wx_DocChildFrame::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DocChildFrame::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DocChildFrame::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DocChildFrame);
 }

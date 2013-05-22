@@ -696,7 +696,7 @@ String Object_wx_Array::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Array::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Array::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ArrayEmpty);
 	Gura_AssignFunction(Array);

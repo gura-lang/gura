@@ -346,7 +346,7 @@ String Object_wx_Dir::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_Dir::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_Dir::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(DirEmpty);
 	Gura_AssignFunction(Dir);

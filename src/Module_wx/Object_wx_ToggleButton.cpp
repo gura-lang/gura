@@ -191,7 +191,7 @@ String Object_wx_ToggleButton::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ToggleButton::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ToggleButton::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(ToggleButtonEmpty);
 	Gura_AssignFunction(ToggleButton);

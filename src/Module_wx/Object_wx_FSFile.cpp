@@ -182,7 +182,7 @@ String Object_wx_FSFile::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FSFile::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FSFile::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FSFile);
 }

@@ -73,7 +73,7 @@ String Object_wx_PowerEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_PowerEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_PowerEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

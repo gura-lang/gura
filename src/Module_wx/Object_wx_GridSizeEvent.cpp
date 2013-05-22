@@ -217,7 +217,7 @@ String Object_wx_GridSizeEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_GridSizeEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_GridSizeEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(GridSizeEventEmpty);
 	Gura_AssignFunction(GridSizeEvent);

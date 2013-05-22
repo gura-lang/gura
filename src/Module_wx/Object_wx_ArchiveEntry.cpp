@@ -297,7 +297,7 @@ String Object_wx_ArchiveEntry::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_ArchiveEntry::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_ArchiveEntry::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

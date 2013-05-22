@@ -112,7 +112,7 @@ String Object_wx_MBConvUTF32::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MBConvUTF32::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MBConvUTF32::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

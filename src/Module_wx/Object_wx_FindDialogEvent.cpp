@@ -145,7 +145,7 @@ String Object_wx_FindDialogEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_FindDialogEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_FindDialogEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(FindDialogEvent);
 }

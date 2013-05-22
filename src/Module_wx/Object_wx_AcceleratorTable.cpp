@@ -152,7 +152,7 @@ String Object_wx_AcceleratorTable::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_AcceleratorTable::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_AcceleratorTable::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(AcceleratorTableEmpty);
 	Gura_AssignFunction(AcceleratorTable);

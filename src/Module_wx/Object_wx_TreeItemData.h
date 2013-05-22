@@ -78,7 +78,7 @@ public:
 		return true;
 	}
 public:
-	static void OnModuleEntry(Environment &env, Signal sig);
+	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

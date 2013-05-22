@@ -180,7 +180,7 @@ String Object_wx_TaskBarIcon::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_TaskBarIcon::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_TaskBarIcon::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(CreatePopupMenu);
 	Gura_AssignFunction(TaskBarIconEmpty);

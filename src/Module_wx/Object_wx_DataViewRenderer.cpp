@@ -287,7 +287,7 @@ String Object_wx_DataViewRenderer::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewRenderer::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DataViewRenderer::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(GetMode);
 	Gura_RealizeUserSymbol(GetOwner);

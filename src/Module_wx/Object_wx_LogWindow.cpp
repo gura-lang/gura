@@ -206,7 +206,7 @@ String Object_wx_LogWindow::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LogWindow::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_LogWindow::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(OnFrameCreate);
 	Gura_RealizeUserSymbol(OnFrameClose);

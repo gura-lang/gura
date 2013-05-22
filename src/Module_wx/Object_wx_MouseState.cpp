@@ -346,7 +346,7 @@ String Object_wx_MouseState::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_MouseState::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_MouseState::DoAssignConstructor(Environment &env, Signal sig)
 {
 }
 

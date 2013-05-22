@@ -648,7 +648,7 @@ String Object_wx_DataViewCtrl::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_DataViewCtrl::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_DataViewCtrl::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_RealizeUserSymbol(AppendColumn);
 	Gura_RealizeUserSymbol(AssociateModel);

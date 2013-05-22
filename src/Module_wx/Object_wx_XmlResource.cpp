@@ -564,7 +564,7 @@ String Object_wx_XmlResource::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_XmlResource::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_XmlResource::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(XmlResource);
 	Gura_AssignFunction(XmlResource_1);

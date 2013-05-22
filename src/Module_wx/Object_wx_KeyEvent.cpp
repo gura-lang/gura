@@ -308,7 +308,7 @@ String Object_wx_KeyEvent::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_KeyEvent::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_KeyEvent::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(KeyEvent);
 }

@@ -83,7 +83,7 @@ String Object_wx_LayoutConstraints::ToString(Signal sig, bool exprFlag)
 	return rtn;
 }
 
-void Object_wx_LayoutConstraints::OnModuleEntry(Environment &env, Signal sig)
+void Object_wx_LayoutConstraints::DoAssignConstructor(Environment &env, Signal sig)
 {
 	Gura_AssignFunction(LayoutConstraintsEmpty);
 }
