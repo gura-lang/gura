@@ -57,8 +57,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxRect");
 		return true;
 	}
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

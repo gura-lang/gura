@@ -39,8 +39,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxMBConvUTF16");
 		return true;
 	}
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

@@ -30,8 +30,6 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline wxCoord *GetEntity() { return _pEntity; }
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

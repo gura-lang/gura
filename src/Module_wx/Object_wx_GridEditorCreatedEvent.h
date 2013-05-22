@@ -39,8 +39,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxGridEditorCreatedEvent");
 		return true;
 	}
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

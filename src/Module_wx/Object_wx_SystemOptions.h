@@ -39,8 +39,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxSystemOptions");
 		return true;
 	}
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

@@ -43,8 +43,6 @@ public:
 	void EvalMethod_Draw(Signal sig, bool &evaluatedFlag,
 					wxGrid &grid, wxGridCellAttr &attr, wxDC &dc,
 					const wxRect &rect, int row, int col, bool isSelected);
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

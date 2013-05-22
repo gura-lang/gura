@@ -57,8 +57,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxLanguageInfo");
 		return true;
 	}
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

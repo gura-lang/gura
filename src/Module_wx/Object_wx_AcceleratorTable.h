@@ -39,8 +39,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxAcceleratorTable");
 		return true;
 	}
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

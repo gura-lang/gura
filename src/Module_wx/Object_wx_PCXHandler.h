@@ -38,8 +38,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxPCXHandler");
 		return true;
 	}
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

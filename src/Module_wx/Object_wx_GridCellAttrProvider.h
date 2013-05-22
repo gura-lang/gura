@@ -52,8 +52,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxGridCellAttrProvider");
 		return true;
 	}
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

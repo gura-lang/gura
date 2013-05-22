@@ -38,8 +38,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxJPEGHandler");
 		return true;
 	}
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

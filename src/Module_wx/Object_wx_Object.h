@@ -52,8 +52,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxObject");
 		return true;
 	}
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 class wx_Object: public wxObject, public GuraObjectObserver {

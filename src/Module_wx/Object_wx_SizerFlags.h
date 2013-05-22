@@ -52,8 +52,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxSizerFlags");
 		return true;
 	}
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

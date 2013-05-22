@@ -52,8 +52,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxHtmlEntitiesParser");
 		return true;
 	}
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

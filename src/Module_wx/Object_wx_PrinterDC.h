@@ -39,8 +39,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxPrinterDC");
 		return true;
 	}
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}

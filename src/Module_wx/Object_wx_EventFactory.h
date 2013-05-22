@@ -51,8 +51,6 @@ public:
 	void Connect(Environment &env, Signal sig,
 		wxEvtHandler *pEvtHandler, int id, int lastId,
 		wxObjectEventFunction function, Object_function *pObjFunc, wxEvtHandler *eventSink);
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 template<typename T_WX, typename T_Gura>

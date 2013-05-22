@@ -39,8 +39,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxDataViewSortedListModel");
 		return true;
 	}
-public:
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 }}
