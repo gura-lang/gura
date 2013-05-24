@@ -23,25 +23,41 @@ list.equals() = (this == this[0]).and()
 CheckPokerHand(cards[]:Card) = {
 	cards = cards.sort(`ascend, cards::rank):list
 	flushFlag = cards::suit.equals()
+	cardsNone = []
 	pokerHand = if ((cards::rank == [1, 10, 11, 12, 13]).and()) {
+		cardsHand = cards[1, 2, 3, 4, 0]
 		cond(flushFlag, `RoyalStraightFlush, `Straight)
 	} elsif ([cards::rank - (0..)].equals()) {
+		cardsHand = cards
 		cond(flushFlag, `StraightFlush, `Straight)
 	} elsif (cards[0..3]::rank.equals()) {
+		cardsHand = cards.get([0..3])
+		cardsNone = cards.get([4])
 		`FourOfKind
 	} elsif (cards[1..4]::rank.equals()) {
+		cardsHand = cards.get([1..4])
+		cardsNone = cards.get([0])
 		`FourOfKind
 	} elsif (cards[0, 1, 2]::rank.equals() && cards[3, 4]::rank.equals()) {
+		cardsHand = cards
 		`FullHouse
 	} elsif (cards[0, 1]::rank.equals() && cards[2, 3, 4]::rank.equals()) {
+		cardsHand = cards[2, 3, 4, 0, 1]
 		`FullHouse
 	} elsif (cards[0, 1, 2]::rank.equals()) {
+		cardsHand = cards.get([0, 1, 2])
+		cardsNone = cards.get([3, 4])
 		`ThreeOfKind
 	} elsif (cards[1, 2, 3]::rank.equals()) {
+		cardsHand = cards.get([1, 2, 3])
+		cardsNone = cards.get([0, 4])
 		`ThreeOfKind
 	} elsif (cards[2, 3, 4]::rank.equals()) {
+		cardsHand = cards.get([2, 3, 4])
+		cardsNone = cards.get([0, 1])
 		`ThreeOfKind
 	} elsif (flushFlag) {
+		cardsHand = cards
 		`Flush
 	} else {
 		pairFlag1 = cards[0, 1]::rank.equals()
@@ -49,18 +65,40 @@ CheckPokerHand(cards[]:Card) = {
 		pairFlag3 = cards[2, 3]::rank.equals()
 		pairFlag4 = cards[3, 4]::rank.equals()
 		if (pairFlag1 && pairFlag3) {
+			cardsHand = cards.get([0, 1, 2, 3])
+			cardsNone = cards.get([4])
 			`TwoPair
 		} elsif (pairFlag1 && pairFlag4) {
+			cardsHand = cards.get([0, 1, 3, 4])
+			cardsNone = cards.get([2])
 			`TwoPair
 		} elsif (pairFlag2 && pairFlag4) {
+			cardsHand = cards.get([1, 2, 3, 4])
+			cardsNone = cards.get([0])
 			`TwoPair
-		} elsif (pairFlag1 || pairFlag2 || pairFlag3 || pairFlag4) {
+		} elsif (pairFlag1) {
+			cardsHand = cards.get([0, 1])
+			cardsNone = cards.get([2, 3, 4])
+			`OnePair
+		} elsif (pairFlag2) {
+			cardsHand = cards.get([1, 2])
+			cardsNone = cards.get([0, 3, 4])
+			`OnePair
+		} elsif (pairFlag3) {
+			cardsHand = cards.get([2, 3])
+			cardsNone = cards.get([0, 1, 4])
+			`OnePair
+		} elsif (pairFlag4) {
+			cardsHand = cards.get([3, 4])
+			cardsNone = cards.get([0, 1, 2])
 			`OnePair
 		} else {
+			cardsHand = []
+			cardsNone = cards
 			`none
 		}
 	}
-	[pokerHand, cards]
+	[pokerHand, cardsHand, cardsNone]
 }
 deck = Deck()
 /*
@@ -70,9 +108,9 @@ deck.cards.combination(5) {|cards|
 }
 */
 randseed(time.clock())
-repeat(1000) {
+repeat {
 	cards = deck.cards.shuffle().head(5)
 	cards = cards.sort(`ascend, cards::rank)
-	[pokerHand, cards] = CheckPokerHand(cards)
-	println(cards.join(' '), ' .. ', pokerHand)
+	[pokerHand, cardsHand, cardsNone] = CheckPokerHand(cards)
+	printf('%-20s|%-20s .. %s\n', cardsHand.join(' '), cardsNone.join(' '), pokerHand)
 }
