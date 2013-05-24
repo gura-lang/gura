@@ -210,9 +210,6 @@ Class::Class(Environment *pEnvOuter, ValueType valType) :
 			Class::Reference(dynamic_cast<Class *>(pEnvOuter)) : NULL),
 	_pConstructor(NULL), _pSymbol(Gura_Symbol(_anonymous_)), _valType(valType) 
 {
-	// don't assign functions here, because the function objects themselves
-	// shall be constructed in Class_function that is to be created after
-	// this class!!!!!! instead, they must be assigned in Prepare() funtion below.
 }
 
 Class::~Class()
@@ -332,6 +329,10 @@ Class_nil::Class_nil(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_nil)
 {
 }
 
+void Class_nil::Prepare(Environment &env)
+{
+}
+
 bool Class_nil::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	return false;
@@ -355,6 +356,10 @@ Class_undefined::Class_undefined(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 {
 }
 
+void Class_undefined::Prepare(Environment &env)
+{
+}
+
 bool Class_undefined::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	return false;
@@ -375,6 +380,10 @@ bool Class_undefined::Deserialize(Environment &env, Signal sig, Stream &stream, 
 // Class_symbol
 //-----------------------------------------------------------------------------
 Class_symbol::Class_symbol(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_symbol)
+{
+}
+
+void Class_symbol::Prepare(Environment &env)
 {
 }
 
@@ -404,6 +413,10 @@ bool Class_symbol::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 // Class_boolean
 //-----------------------------------------------------------------------------
 Class_boolean::Class_boolean(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_boolean)
+{
+}
+
+void Class_boolean::Prepare(Environment &env)
 {
 }
 
@@ -508,6 +521,10 @@ Gura_ImplementMethod(number, roundoff)
 }
 
 Class_number::Class_number(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_number)
+{
+}
+
+void Class_number::Prepare(Environment &env)
 {
 	Gura_AssignMethod(number, real);		// primitive method
 	Gura_AssignMethod(number, imag);		// primitive method
@@ -630,6 +647,10 @@ Gura_ImplementMethod(complex, roundoff)
 
 Class_complex::Class_complex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_complex)
 {
+}
+
+void Class_complex::Prepare(Environment &env)
+{
 	Gura_AssignMethod(complex, real);		// primitive method
 	Gura_AssignMethod(complex, imag);		// primitive method
 	Gura_AssignMethod(complex, norm);		// primitive method
@@ -680,6 +701,28 @@ bool Class_complex::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 //-----------------------------------------------------------------------------
 // Class_fraction
 //-----------------------------------------------------------------------------
+// fraction(numerator:number, denominator?:number):map {block?}
+Gura_DeclareFunction(fraction)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "numerator", VTYPE_number);
+	DeclareArg(env, "denominator", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(env.LookupClass(VTYPE_fraction));
+	AddHelp(Gura_Symbol(en), "Creates a fraction value.");
+}
+
+Gura_ImplementFunction(fraction)
+{
+	int numerator = args.GetInt(0);
+	int denominator = args.IsNumber(1)? args.GetInt(1) : 1;
+	if (denominator == 0) {
+		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(Fraction(numerator, denominator)));
+}
+
 // fraction#numerator()
 Gura_DeclareMethodPrimitive(fraction, numerator)
 {
@@ -718,6 +761,11 @@ Gura_ImplementMethod(fraction, reduce)
 
 Class_fraction::Class_fraction(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_fraction)
 {
+}
+
+void Class_fraction::Prepare(Environment &env)
+{
+	Gura_AssignFunction(fraction);
 	Gura_AssignMethod(fraction, numerator);		// primitive method
 	Gura_AssignMethod(fraction, denominator);	// primitive method
 	Gura_AssignMethod(fraction, reduce);		// primitive method
@@ -765,6 +813,10 @@ Class_quote::Class_quote(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_quote)
 {
 }
 
+void Class_quote::Prepare(Environment &env)
+{
+}
+
 bool Class_quote::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	return false;
@@ -785,6 +837,10 @@ bool Class_quote::Deserialize(Environment &env, Signal sig, Stream &stream, Valu
 // Class_any
 //-----------------------------------------------------------------------------
 Class_any::Class_any(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_any)
+{
+}
+
+void Class_any::Prepare(Environment &env)
 {
 }
 

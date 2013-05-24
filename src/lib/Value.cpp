@@ -216,11 +216,16 @@ void ValueTypePool::_Initialize(Environment &env)
 
 void ValueTypePool::DoAssignConstructor(Environment &env, Signal sig)
 {
-	//Class_symbol::DoAssignConstructor(env, sig);
-	//Class_boolean::DoAssignConstructor(env, sig);
-	//Class_number::DoAssignConstructor(env, sig);
-	//Class_complex::DoAssignConstructor(env, sig);
-	//Class_fractioin::DoAssignConstructor(env, sig);
+	env.LookupClass(VTYPE_nil)->Prepare(env);
+	env.LookupClass(VTYPE_undefined)->Prepare(env);
+	env.LookupClass(VTYPE_symbol)->Prepare(env);
+	env.LookupClass(VTYPE_boolean)->Prepare(env);
+	env.LookupClass(VTYPE_number)->Prepare(env);
+	env.LookupClass(VTYPE_complex)->Prepare(env);
+	env.LookupClass(VTYPE_fraction)->Prepare(env);
+	env.LookupClass(VTYPE_quote)->Prepare(env);
+	env.LookupClass(VTYPE_any)->Prepare(env);
+
 	Class_function::DoAssignConstructor(env, sig);
 	Class_string::DoAssignConstructor(env, sig);
 	Class_binary::DoAssignConstructor(env, sig);

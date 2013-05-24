@@ -882,28 +882,6 @@ Gura_ImplementFunction(dim)
 	return result;
 }
 
-// fraction(numerator:number, denominator?:number):map {block?}
-Gura_DeclareFunction(fraction)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "numerator", VTYPE_number);
-	DeclareArg(env, "denominator", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(env.LookupClass(VTYPE_fraction));
-	AddHelp(Gura_Symbol(en), "Creates a fraction value.");
-}
-
-Gura_ImplementFunction(fraction)
-{
-	int numerator = args.GetInt(0);
-	int denominator = args.IsNumber(1)? args.GetInt(1) : 1;
-	if (denominator == 0) {
-		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
-		return Value::Null;
-	}
-	return ReturnValue(env, sig, args, Value(Fraction(numerator, denominator)));
-}
-
 // min(values+):map
 Gura_DeclareFunction(min)
 {
@@ -1587,7 +1565,6 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(return_);
 	Gura_AssignFunction(raise);
 	Gura_AssignFunction(dim);
-	Gura_AssignFunction(fraction);
 	Gura_AssignFunction(min);
 	Gura_AssignFunction(max);
 	Gura_AssignFunction(choose);

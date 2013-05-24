@@ -145,6 +145,7 @@ public:
 class GURA_DLLDECLARE Class_nil : public Class {
 public:
 	Class_nil(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
@@ -156,6 +157,7 @@ public:
 class GURA_DLLDECLARE Class_undefined : public Class {
 public:
 	Class_undefined(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
@@ -167,6 +169,7 @@ public:
 class GURA_DLLDECLARE Class_symbol : public Class {
 public:
 	Class_symbol(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
@@ -178,6 +181,7 @@ public:
 class GURA_DLLDECLARE Class_boolean : public Class {
 public:
 	Class_boolean(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
@@ -189,6 +193,7 @@ public:
 class GURA_DLLDECLARE Class_number : public Class {
 public:
 	Class_number(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
@@ -200,6 +205,7 @@ public:
 class GURA_DLLDECLARE Class_complex : public Class {
 public:
 	Class_complex(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual Value GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
 			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -213,6 +219,7 @@ public:
 class GURA_DLLDECLARE Class_fraction : public Class {
 public:
 	Class_fraction(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual Value GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
 			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
@@ -226,6 +233,7 @@ public:
 class GURA_DLLDECLARE Class_quote : public Class {
 public:
 	Class_quote(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
@@ -237,6 +245,7 @@ public:
 class GURA_DLLDECLARE Class_any : public Class {
 public:
 	Class_any(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
