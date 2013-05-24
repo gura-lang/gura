@@ -84,10 +84,6 @@ Function *CustomClass::PrepareConstructor(Environment &env, Signal sig)
 	return pFunc.release();
 }
 
-void CustomClass::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 bool CustomClass::Serialize(Signal sig, Stream &stream, const Value &value) const
 {
 	return false;

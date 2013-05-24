@@ -1886,6 +1886,15 @@ Gura_ImplementMethod(list, fold)
 //-----------------------------------------------------------------------------
 Class_list::Class_list(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_list)
 {
+}
+
+void Class_list::Prepare(Environment &env)
+{
+	Gura_AssignFunction(list);
+	Gura_AssignFunction(xlist);
+	Gura_AssignFunctionEx(set_xset, "set");
+	Gura_AssignFunctionEx(set_xset, "xset");
+	Gura_AssignFunctionEx(ListInit, "@");
 	Gura_AssignMethod(list, clear);
 	Gura_AssignMethod(list, isempty);
 	Gura_AssignMethod(list, shuffle);
@@ -1984,15 +1993,6 @@ bool Class_list::Deserialize(Environment &env, Signal sig, Stream &stream, Value
 Object *Class_list::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	return (pClass == NULL)? new Object_list(env) : new Object_list(pClass);
-}
-
-void Class_list::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(list);
-	Gura_AssignFunction(xlist);
-	Gura_AssignFunctionEx(set_xset, "set");
-	Gura_AssignFunctionEx(set_xset, "xset");
-	Gura_AssignFunctionEx(ListInit, "@");
 }
 
 }

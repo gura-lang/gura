@@ -43,14 +43,14 @@ Class_error::Class_error(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_error)
 {
 }
 
+void Class_error::Prepare(Environment &env)
+{
+}
+
 Object *Class_error::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_error::DoAssignConstructor(Environment &env, Signal sig)
-{
 }
 
 }

@@ -42,6 +42,10 @@ Class_directory::Class_directory(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 {
 }
 
+void Class_directory::Prepare(Environment &env)
+{
+}
+
 bool Class_directory::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsString()) {
@@ -57,10 +61,6 @@ bool Class_directory::CastFrom(Environment &env, Signal sig, Value &value, const
 Object *Class_directory::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	return NULL;
-}
-
-void Class_directory::DoAssignConstructor(Environment &env, Signal sig)
-{
 }
 
 }

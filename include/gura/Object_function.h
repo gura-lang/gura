@@ -17,7 +17,6 @@ public:
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 class GURA_DLLDECLARE Object_function : public Object {

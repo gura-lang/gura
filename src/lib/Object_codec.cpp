@@ -161,6 +161,11 @@ Class_codec::Class_codec(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_codec)
 	} while (0);
 }
 
+void Class_codec::Prepare(Environment &env)
+{
+	Gura_AssignFunction(codec);
+}
+
 bool Class_codec::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsString()) {
@@ -176,11 +181,6 @@ Object *Class_codec::CreateDescendant(Environment &env, Signal sig, Class *pClas
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_codec::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(codec);
 }
 
 }

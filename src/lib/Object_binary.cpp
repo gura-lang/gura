@@ -504,6 +504,7 @@ Class_binary::Class_binary(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_bina
 
 void Class_binary::Prepare(Environment &env)
 {
+	Gura_AssignFunction(binary);
 	Gura_AssignMethod(binary, len);
 	Gura_AssignMethod(binary, each);
 	Gura_AssignMethod(binary, pointer);
@@ -543,11 +544,6 @@ bool Class_binary::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 Object *Class_binary::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	return new Object_binary((pClass == NULL)? this : pClass);
-}
-
-void Class_binary::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(binary);
 }
 
 //-----------------------------------------------------------------------------

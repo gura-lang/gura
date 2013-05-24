@@ -216,6 +216,11 @@ Gura_ImplementMethod(operator, entries)
 //-----------------------------------------------------------------------------
 Class_operator::Class_operator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_operator)
 {
+}
+
+void Class_operator::Prepare(Environment &env)
+{
+	Gura_AssignFunction(operator_);
 	Gura_AssignMethod(operator, assign);
 	Gura_AssignMethod(operator, entries);
 }
@@ -224,11 +229,6 @@ Object *Class_operator::CreateDescendant(Environment &env, Signal sig, Class *pC
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_operator::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(operator_);
 }
 
 //-----------------------------------------------------------------------------

@@ -1141,7 +1141,7 @@ bool EnvironmentRoot::Initialize(Signal sig, int argc, const char *argv[])
 	AssignBasicOperators(env);	// Operators.cpp
 	AssignOpFunctions(env);		// OpFunctions.cpp
 	do {
-		ValueTypePool::DoAssignConstructor(env, sig);
+		ValueTypePool::DoPrepareClass(env);
 	} while (0);
 	do { // import(basement) { * }
 		Gura_Module(basement)::MixIn(env, sig);

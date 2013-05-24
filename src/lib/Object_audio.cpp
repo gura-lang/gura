@@ -314,6 +314,11 @@ Gura_ImplementMethod(audio, fillrange)
 //-----------------------------------------------------------------------------
 Class_audio::Class_audio(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_audio)
 {
+}
+
+void Class_audio::Prepare(Environment &env)
+{
+	Gura_AssignFunction(audio);
 	Gura_AssignMethod(audio, sinewave);
 	Gura_AssignMethod(audio, put);
 	Gura_AssignMethod(audio, get);
@@ -327,11 +332,6 @@ Object *Class_audio::CreateDescendant(Environment &env, Signal sig, Class *pClas
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_audio::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(audio);
 }
 
 //-----------------------------------------------------------------------------

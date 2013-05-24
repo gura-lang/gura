@@ -347,6 +347,10 @@ ImplementTypeChecker(iscaller,		IsCaller)
 //-----------------------------------------------------------------------------
 Class_expr::Class_expr(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_expr)
 {
+}
+
+void Class_expr::Prepare(Environment &env)
+{
 	Gura_AssignMethod(expr, child);
 	Gura_AssignMethod(expr, left);
 	Gura_AssignMethod(expr, right);
@@ -410,10 +414,6 @@ Object *Class_expr::CreateDescendant(Environment &env, Signal sig, Class *pClass
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_expr::DoAssignConstructor(Environment &env, Signal sig)
-{
 }
 
 }

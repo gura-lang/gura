@@ -778,6 +778,11 @@ Gura_ImplementMethod(image, each)
 //-----------------------------------------------------------------------------
 Class_image::Class_image(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_image)
 {
+}
+
+void Class_image::Prepare(Environment &env)
+{
+	Gura_AssignFunction(image);
 	Gura_AssignMethod(image, size);
 	Gura_AssignMethod(image, allocbuff);
 	Gura_AssignMethod(image, putpixel);
@@ -819,11 +824,6 @@ bool Class_image::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 		return true;
 	}
 	return false;
-}
-
-void Class_image::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(image);
 }
 
 }

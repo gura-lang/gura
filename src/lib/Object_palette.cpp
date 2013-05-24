@@ -213,6 +213,11 @@ Gura_ImplementMethod(palette, shrink)
 //-----------------------------------------------------------------------------
 Class_palette::Class_palette(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_palette)
 {
+}
+
+void Class_palette::Prepare(Environment &env)
+{
+	Gura_AssignFunction(palette);
 	Gura_AssignMethod(palette, each);
 	Gura_AssignMethod(palette, nearest);
 	Gura_AssignMethod(palette, updateby);
@@ -234,11 +239,6 @@ Object *Class_palette::CreateDescendant(Environment &env, Signal sig, Class *pCl
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_palette::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(palette);
 }
 
 }

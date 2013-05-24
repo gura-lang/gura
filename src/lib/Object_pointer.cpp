@@ -137,6 +137,10 @@ Gura_ImplementMethod(pointer, forward)
 //-----------------------------------------------------------------------------
 Class_pointer::Class_pointer(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_pointer)
 {
+}
+
+void Class_pointer::Prepare(Environment &env)
+{
 	Gura_AssignMethod(pointer, reset);
 	Gura_AssignMethod(pointer, pack);
 	Gura_AssignMethod(pointer, unpack);
@@ -147,10 +151,6 @@ Class_pointer::Class_pointer(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_po
 Object *Class_pointer::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	return NULL;
-}
-
-void Class_pointer::DoAssignConstructor(Environment &env, Signal sig)
-{
 }
 
 }

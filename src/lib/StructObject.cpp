@@ -114,8 +114,4 @@ Object *StructClass::CreateDescendant(Environment &env, Signal sig, Class *pClas
 	return new StructObject((pClass == NULL)? this : pClass);
 }
 
-void StructClass::DoAssignConstructor(Environment &env, Signal sig)
-{
-}
-
 }

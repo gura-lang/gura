@@ -137,6 +137,10 @@ Gura_ImplementMethod(environment, lookup)
 //-----------------------------------------------------------------------------
 Class_environment::Class_environment(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_environment)
 {
+}
+
+void Class_environment::Prepare(Environment &env)
+{
 	Gura_AssignMethod(environment, getprop_X);
 	Gura_AssignMethod(environment, setprop_X);
 	Gura_AssignMethod(environment, eval);
@@ -147,10 +151,6 @@ Object *Class_environment::CreateDescendant(Environment &env, Signal sig, Class 
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_environment::DoAssignConstructor(Environment &env, Signal sig)
-{
 }
 
 }

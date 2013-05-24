@@ -172,7 +172,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	// Class_function must be initialized at 2nd
 	Class_function *pClass_function = new Class_function(pClass);
 	Gura_VTYPEInfo(function	)->SetClass(pClass_function);
-	pClass_function->Prepare(env);	// methods of Function can only be initialized here
+	//pClass_function->Prepare(env);	// methods of Function can only be initialized here
 	pClass->Prepare(env);			// methods of Object can only be initialized here
 	// classes for primitive types
 	Gura_VTYPEInfo(nil		)->SetClass(new Class_nil(pClass));
@@ -189,7 +189,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(string	)->SetClass(new Class_string(pClass));
 	Class_binary *pClass_binary = new Class_binary(pClass);
 	Gura_VTYPEInfo(binary	)->SetClass(pClass_binary);
-	pClass_binary->Prepare(env);
+	//pClass_binary->Prepare(env);
 	Gura_VTYPEInfo(pointer	)->SetClass(new Class_pointer(pClass));
 	Gura_VTYPEInfo(list		)->SetClass(new Class_list(pClass));
 	Gura_VTYPEInfo(matrix	)->SetClass(new Class_matrix(pClass));
@@ -214,7 +214,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(Struct	)->SetClass(new StructClass(pClass));
 }
 
-void ValueTypePool::DoAssignConstructor(Environment &env, Signal sig)
+void ValueTypePool::DoPrepareClass(Environment &env)
 {
 	env.LookupClass(VTYPE_nil)->Prepare(env);
 	env.LookupClass(VTYPE_undefined)->Prepare(env);
@@ -225,32 +225,30 @@ void ValueTypePool::DoAssignConstructor(Environment &env, Signal sig)
 	env.LookupClass(VTYPE_fraction)->Prepare(env);
 	env.LookupClass(VTYPE_quote)->Prepare(env);
 	env.LookupClass(VTYPE_any)->Prepare(env);
-
-	Class_function::DoAssignConstructor(env, sig);
-	Class_string::DoAssignConstructor(env, sig);
-	Class_binary::DoAssignConstructor(env, sig);
-	Class_pointer::DoAssignConstructor(env, sig);
-	Class_list::DoAssignConstructor(env, sig);
-	Class_matrix::DoAssignConstructor(env, sig);
-	Class_dict::DoAssignConstructor(env, sig);
-	Class_stream::DoAssignConstructor(env, sig);
-	Class_directory::DoAssignConstructor(env, sig);
-	Class_datetime::DoAssignConstructor(env, sig);
-	Class_timedelta::DoAssignConstructor(env, sig);
-	Class_iterator::DoAssignConstructor(env, sig);
-	Class_expr::DoAssignConstructor(env, sig);
-	Class_environment::DoAssignConstructor(env, sig);
-	Class_error::DoAssignConstructor(env, sig);
-	Class_uri::DoAssignConstructor(env, sig);
-	Class_semaphore::DoAssignConstructor(env, sig);
-	Class_operator::DoAssignConstructor(env, sig);
-	Class_image::DoAssignConstructor(env, sig);
-	Class_color::DoAssignConstructor(env, sig);
-	Class_palette::DoAssignConstructor(env, sig);
-	Class_audio::DoAssignConstructor(env, sig);
-	Class_codec::DoAssignConstructor(env, sig);
-	Class_args::DoAssignConstructor(env, sig);
-	StructClass::DoAssignConstructor(env, sig);
+	env.LookupClass(VTYPE_function)->Prepare(env);
+	env.LookupClass(VTYPE_string)->Prepare(env);
+	env.LookupClass(VTYPE_binary)->Prepare(env);
+	env.LookupClass(VTYPE_pointer)->Prepare(env);
+	env.LookupClass(VTYPE_list)->Prepare(env);
+	env.LookupClass(VTYPE_matrix)->Prepare(env);
+	env.LookupClass(VTYPE_dict)->Prepare(env);
+	env.LookupClass(VTYPE_stream)->Prepare(env);
+	env.LookupClass(VTYPE_directory)->Prepare(env);
+	env.LookupClass(VTYPE_datetime)->Prepare(env);
+	env.LookupClass(VTYPE_timedelta)->Prepare(env);
+	env.LookupClass(VTYPE_iterator)->Prepare(env);
+	env.LookupClass(VTYPE_expr)->Prepare(env);
+	env.LookupClass(VTYPE_environment)->Prepare(env);
+	env.LookupClass(VTYPE_error)->Prepare(env);
+	env.LookupClass(VTYPE_uri)->Prepare(env);
+	env.LookupClass(VTYPE_semaphore)->Prepare(env);
+	env.LookupClass(VTYPE_operator)->Prepare(env);
+	env.LookupClass(VTYPE_image)->Prepare(env);
+	env.LookupClass(VTYPE_color)->Prepare(env);
+	env.LookupClass(VTYPE_palette)->Prepare(env);
+	env.LookupClass(VTYPE_audio)->Prepare(env);
+	env.LookupClass(VTYPE_codec)->Prepare(env);
+	env.LookupClass(VTYPE_args)->Prepare(env);
 }
 
 ValueTypeInfo *ValueTypePool::Add(const Symbol *pSymbol)

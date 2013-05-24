@@ -1025,6 +1025,27 @@ Class_color::Class_color(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_color)
 	} while (0);
 }
 
+void Class_color::Prepare(Environment &env)
+{
+	Gura_AssignFunction(color);
+	Gura_AssignClassValue(Black,	Value(new Object_color(env, Color::Black)));
+	Gura_AssignClassValue(Maroon,	Value(new Object_color(env, Color::Maroon)));
+	Gura_AssignClassValue(Green,	Value(new Object_color(env, Color::Green)));
+	Gura_AssignClassValue(Olive,	Value(new Object_color(env, Color::Olive)));
+	Gura_AssignClassValue(Navy,		Value(new Object_color(env, Color::Navy)));
+	Gura_AssignClassValue(Purple,	Value(new Object_color(env, Color::Purple)));
+	Gura_AssignClassValue(Teal,		Value(new Object_color(env, Color::Teal)));
+	Gura_AssignClassValue(Gray,		Value(new Object_color(env, Color::Gray)));
+	Gura_AssignClassValue(Silver,	Value(new Object_color(env, Color::Silver)));
+	Gura_AssignClassValue(Red,		Value(new Object_color(env, Color::Red)));
+	Gura_AssignClassValue(Lime,		Value(new Object_color(env, Color::Lime)));
+	Gura_AssignClassValue(Yellow,	Value(new Object_color(env, Color::Yellow)));
+	Gura_AssignClassValue(Blue,		Value(new Object_color(env, Color::Blue)));
+	Gura_AssignClassValue(Fuchsia,	Value(new Object_color(env, Color::Fuchsia)));
+	Gura_AssignClassValue(Aqua,		Value(new Object_color(env, Color::Aqua)));
+	Gura_AssignClassValue(White,	Value(new Object_color(env, Color::White)));
+}
+
 bool Class_color::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsSymbol()) {
@@ -1053,31 +1074,6 @@ Object *Class_color::CreateDescendant(Environment &env, Signal sig, Class *pClas
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_color::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Class *pClass = env.LookupClass(VTYPE_color);
-	Gura_AssignFunction(color);
-	do {
-		Environment &env = *pClass;
-		Gura_AssignValue(Black,		Value(new Object_color(env, Color::Black)));
-		Gura_AssignValue(Maroon,	Value(new Object_color(env, Color::Maroon)));
-		Gura_AssignValue(Green,		Value(new Object_color(env, Color::Green)));
-		Gura_AssignValue(Olive,		Value(new Object_color(env, Color::Olive)));
-		Gura_AssignValue(Navy,		Value(new Object_color(env, Color::Navy)));
-		Gura_AssignValue(Purple,	Value(new Object_color(env, Color::Purple)));
-		Gura_AssignValue(Teal,		Value(new Object_color(env, Color::Teal)));
-		Gura_AssignValue(Gray,		Value(new Object_color(env, Color::Gray)));
-		Gura_AssignValue(Silver,	Value(new Object_color(env, Color::Silver)));
-		Gura_AssignValue(Red,		Value(new Object_color(env, Color::Red)));
-		Gura_AssignValue(Lime,		Value(new Object_color(env, Color::Lime)));
-		Gura_AssignValue(Yellow,	Value(new Object_color(env, Color::Yellow)));
-		Gura_AssignValue(Blue,		Value(new Object_color(env, Color::Blue)));
-		Gura_AssignValue(Fuchsia,	Value(new Object_color(env, Color::Fuchsia)));
-		Gura_AssignValue(Aqua,		Value(new Object_color(env, Color::Aqua)));
-		Gura_AssignValue(White,		Value(new Object_color(env, Color::White)));
-	} while (0);
 }
 
 }

@@ -299,13 +299,12 @@ Gura_ImplementMethod(function, diff)
 //-----------------------------------------------------------------------------
 Class_function::Class_function(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_function)
 {
-	// don't assign functions here, because the function objects themselves
-	// shall be constructed here!!!!!!! instead, they must be assigned in
-	// Prepare() funtion below.
 }
 
 void Class_function::Prepare(Environment &env)
 {
+	Gura_AssignFunction(function);
+	Gura_AssignFunctionEx(function, "&");
 	Gura_AssignMethod(function, addhelp);
 	Gura_AssignMethod(function, gethelp);
 	Gura_AssignMethod(function, diff);
@@ -337,12 +336,6 @@ Object *Class_function::CreateDescendant(Environment &env, Signal sig, Class *pC
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_function::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(function);
-	Gura_AssignFunctionEx(function, "&");
 }
 
 }

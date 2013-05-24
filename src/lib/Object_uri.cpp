@@ -262,6 +262,11 @@ Class_uri::Class_uri(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_uri)
 {
 }
 
+void Class_uri::Prepare(Environment &env)
+{
+	Gura_AssignFunction(uri);
+}
+
 bool Class_uri::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsString()) {
@@ -277,11 +282,6 @@ Object *Class_uri::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_uri::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(uri);
 }
 
 }

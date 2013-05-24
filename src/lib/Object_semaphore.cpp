@@ -106,6 +106,11 @@ Gura_ImplementMethod(semaphore, session)
 //-----------------------------------------------------------------------------
 Class_semaphore::Class_semaphore(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_semaphore)
 {
+}
+
+void Class_semaphore::Prepare(Environment &env)
+{
+	Gura_AssignFunction(semaphore);
 	Gura_AssignMethod(semaphore, wait);
 	Gura_AssignMethod(semaphore, release);
 	Gura_AssignMethod(semaphore, session);
@@ -115,11 +120,6 @@ Object *Class_semaphore::CreateDescendant(Environment &env, Signal sig, Class *p
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_semaphore::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(semaphore);
 }
 
 }

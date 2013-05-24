@@ -12,8 +12,8 @@ namespace Gura {
 class GURA_DLLDECLARE Class_datetime : public Class {
 public:
 	Class_datetime(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 class GURA_DLLDECLARE Object_datetime : public Object {

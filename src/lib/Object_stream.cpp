@@ -736,6 +736,16 @@ Gura_ImplementBinaryOperator(Shl, stream, any)
 //-----------------------------------------------------------------------------
 Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stream)
 {
+}
+
+void Class_stream::Prepare(Environment &env)
+{
+	Gura_AssignFunctionEx(stream, "open");
+	Gura_AssignFunction(stream);
+	Gura_AssignFunction(copy);
+	Gura_AssignFunction(template_);
+	Gura_AssignFunction(readlines);
+	Gura_AssignBinaryOperator(Shl, stream, any);
 	Gura_AssignMethod(stream, close);
 	Gura_AssignMethod(stream, read);
 	Gura_AssignMethod(stream, peek);
@@ -790,16 +800,6 @@ bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const De
 Object *Class_stream::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	return NULL;
-}
-
-void Class_stream::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunctionEx(stream, "open");
-	Gura_AssignFunction(stream);
-	Gura_AssignFunction(copy);
-	Gura_AssignFunction(template_);
-	Gura_AssignFunction(readlines);
-	Gura_AssignBinaryOperator(Shl, stream, any);
 }
 
 //-----------------------------------------------------------------------------

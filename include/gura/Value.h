@@ -192,10 +192,10 @@ public:
 	static ValueTypePool *GetInstance();
 	inline ValueTypeList &GetList() { return _valueTypeList; }
 	inline const ValueTypeList &GetList() const { return _valueTypeList; }
+	static void DoPrepareClass(Environment &env);
 	ValueTypeInfo *Add(const Symbol *pSymbol);
 	ValueTypeInfo *Lookup(ValueType valType);
 	ValueTypeInfo *LookupWithCheck(ValueType valType);
-	static void DoAssignConstructor(Environment &env, Signal sig);
 private:
 	void _Initialize(Environment &env);
 private:

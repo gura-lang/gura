@@ -12,9 +12,9 @@ namespace Gura {
 class GURA_DLLDECLARE Class_directory : public Class {
 public:
 	Class_directory(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 //-----------------------------------------------------------------------------

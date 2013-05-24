@@ -882,6 +882,10 @@ Gura_ImplementMethod(string, template_)
 //-----------------------------------------------------------------------------
 Class_string::Class_string(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_string)
 {
+}
+
+void Class_string::Prepare(Environment &env)
+{
 	Gura_AssignMethod(string, len);
 	Gura_AssignMethod(string, isempty);
 	Gura_AssignMethod(string, capitalize);
@@ -938,10 +942,6 @@ bool Class_string::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 Object *Class_string::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	return new Object_string((pClass == NULL)? this : pClass);
-}
-
-void Class_string::DoAssignConstructor(Environment &env, Signal sig)
-{
 }
 
 //-----------------------------------------------------------------------------

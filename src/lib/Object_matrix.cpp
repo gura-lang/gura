@@ -643,6 +643,12 @@ Gura_ImplementMethod(matrix, invert)
 //-----------------------------------------------------------------------------
 Class_matrix::Class_matrix(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_matrix)
 {
+}
+
+void Class_matrix::Prepare(Environment &env)
+{
+	Gura_AssignFunction(matrix);
+	Gura_AssignFunctionEx(MatrixInit, "@@");
 	Gura_AssignMethod(matrix, identity);
 	Gura_AssignMethod(matrix, rotation);
 	Gura_AssignMethod(matrix, rotation_x);
@@ -710,12 +716,6 @@ bool Class_matrix::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 Object *Class_matrix::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	return NULL;
-}
-
-void Class_matrix::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(matrix);
-	Gura_AssignFunctionEx(MatrixInit, "@@");
 }
 
 }

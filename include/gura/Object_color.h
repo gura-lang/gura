@@ -13,9 +13,9 @@ typedef std::map<const Symbol *, Color>	ColorMap;
 class GURA_DLLDECLARE Class_color : public Class {
 public:
 	Class_color(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 //-----------------------------------------------------------------------------

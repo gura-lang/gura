@@ -497,6 +497,12 @@ Gura_ImplementMethod(dict, erase)
 //-----------------------------------------------------------------------------
 Class_dict::Class_dict(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_dict)
 {
+}
+
+void Class_dict::Prepare(Environment &env)
+{
+	Gura_AssignFunction(dict);
+	Gura_AssignFunctionEx(dict, "%");
 	Gura_AssignMethod(dict, len);
 	Gura_AssignMethod(dict, get);
 	Gura_AssignMethod(dict, gets);
@@ -530,12 +536,6 @@ bool Class_dict::Deserialize(Environment &env, Signal sig, Stream &stream, Value
 Object *Class_dict::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	return new Object_dict((pClass == NULL)? this : pClass, true);
-}
-
-void Class_dict::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(dict);
-	Gura_AssignFunctionEx(dict, "%");
 }
 
 }

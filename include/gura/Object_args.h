@@ -12,8 +12,8 @@ namespace Gura {
 class GURA_DLLDECLARE Class_args : public Class {
 public:
 	Class_args(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 //-----------------------------------------------------------------------------

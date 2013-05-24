@@ -85,14 +85,14 @@ Class_timedelta::Class_timedelta(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 {
 }
 
+void Class_timedelta::Prepare(Environment &env)
+{
+}
+
 Object *Class_timedelta::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_timedelta::DoAssignConstructor(Environment &env, Signal sig)
-{
 }
 
 }

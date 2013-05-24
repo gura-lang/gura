@@ -13,7 +13,6 @@ public:
 	StructClass(Environment *pEnvOuter);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 class GURA_DLLDECLARE StructObject : public Object {

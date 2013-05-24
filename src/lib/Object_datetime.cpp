@@ -292,6 +292,10 @@ Gura_ImplementMethod(datetime, isleap)
 //-----------------------------------------------------------------------------
 Class_datetime::Class_datetime(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_datetime)
 {
+}
+
+void Class_datetime::Prepare(Environment &env)
+{
 	Gura_AssignMethod(datetime, format);
 	Gura_AssignMethod(datetime, settzoff);
 	Gura_AssignMethod(datetime, clrtzoff);
@@ -303,10 +307,6 @@ Object *Class_datetime::CreateDescendant(Environment &env, Signal sig, Class *pC
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_datetime::DoAssignConstructor(Environment &env, Signal sig)
-{
 }
 
 }

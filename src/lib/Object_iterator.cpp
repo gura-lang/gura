@@ -1130,6 +1130,16 @@ Gura_ImplementMethod(iterator, fold)
 //-----------------------------------------------------------------------------
 Class_iterator::Class_iterator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_iterator)
 {
+}
+
+void Class_iterator::Prepare(Environment &env)
+{
+	Gura_AssignFunction(iterator);
+	Gura_AssignFunction(range);
+	Gura_AssignFunction(interval);
+	Gura_AssignFunction(zipv);
+	Gura_AssignFunction(fill);
+	Gura_AssignFunction(rands);
 	Gura_AssignMethod(iterator, isinfinite);
 	Gura_AssignMethod(iterator, next);
 	Gura_AssignMethod(iterator, print);
@@ -1194,16 +1204,6 @@ Object *Class_iterator::CreateDescendant(Environment &env, Signal sig, Class *pC
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_iterator::DoAssignConstructor(Environment &env, Signal sig)
-{
-	Gura_AssignFunction(iterator);
-	Gura_AssignFunction(range);
-	Gura_AssignFunction(interval);
-	Gura_AssignFunction(zipv);
-	Gura_AssignFunction(fill);
-	Gura_AssignFunction(rands);
 }
 
 }

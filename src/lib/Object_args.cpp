@@ -59,14 +59,14 @@ Class_args::Class_args(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_args)
 	Gura_AssignMethod(args, isset);
 }
 
+void Class_args::Prepare(Environment &env)
+{
+}
+
 Object *Class_args::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-void Class_args::DoAssignConstructor(Environment &env, Signal sig)
-{
 }
 
 }

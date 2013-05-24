@@ -11,9 +11,9 @@ namespace Gura {
 class GURA_DLLDECLARE Class_iterator : public Class {
 public:
 	Class_iterator(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 class GURA_DLLDECLARE Object_iterator : public Object {

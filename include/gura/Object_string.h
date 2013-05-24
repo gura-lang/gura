@@ -11,11 +11,11 @@ namespace Gura {
 class GURA_DLLDECLARE Class_string : public Class {
 public:
 	Class_string(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-	static void DoAssignConstructor(Environment &env, Signal sig);
 };
 
 class GURA_DLLDECLARE Object_string : public Object {
