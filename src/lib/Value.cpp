@@ -176,15 +176,15 @@ void ValueTypePool::_Initialize(Environment &env)
 	pClass->Prepare(env);			// methods of Object can only be initialized here
 	// classes for primitive types
 	Gura_VTYPEInfo(nil		)->SetClass(new Class_nil(pClass));
-	Gura_VTYPEInfo(undefined)->SetClass(new Class(pClass, VTYPE_undefined));
+	Gura_VTYPEInfo(undefined)->SetClass(new Class_undefined(pClass));
 	Gura_VTYPEInfo(symbol	)->SetClass(new Class_symbol(pClass));
 	Gura_VTYPEInfo(boolean	)->SetClass(new Class_boolean(pClass));
 	Gura_VTYPEInfo(number	)->SetClass(new Class_number(pClass));
 	Gura_VTYPEInfo(complex	)->SetClass(new Class_complex(pClass));
 	Gura_VTYPEInfo(fraction	)->SetClass(new Class_fraction(pClass));
 	// for declaration
-	Gura_VTYPEInfo(quote	)->SetClass(new Class(pClass, VTYPE_quote));
-	Gura_VTYPEInfo(any		)->SetClass(new Class(pClass, VTYPE_any));
+	Gura_VTYPEInfo(quote	)->SetClass(new Class_quote(pClass));
+	Gura_VTYPEInfo(any		)->SetClass(new Class_any(pClass));
 	// other built-in object classes
 	Gura_VTYPEInfo(string	)->SetClass(new Class_string(pClass));
 	Class_binary *pClass_binary = new Class_binary(pClass);

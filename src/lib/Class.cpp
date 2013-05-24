@@ -349,6 +349,29 @@ bool Class_nil::Deserialize(Environment &env, Signal sig, Stream &stream, Value 
 }
 
 //-----------------------------------------------------------------------------
+// Class_undefined
+//-----------------------------------------------------------------------------
+Class_undefined::Class_undefined(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_undefined)
+{
+}
+
+bool Class_undefined::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+{
+	return false;
+}
+
+bool Class_undefined::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+{
+	return true;
+}
+
+bool Class_undefined::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+{
+	value = Value::Null;
+	return true;
+}
+
+//-----------------------------------------------------------------------------
 // Class_symbol
 //-----------------------------------------------------------------------------
 Class_symbol::Class_symbol(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_symbol)
@@ -732,6 +755,52 @@ bool Class_fraction::Deserialize(Environment &env, Signal sig, Stream &stream, V
 		return false;
 	}
 	value = Value(Fraction(static_cast<int>(numerator), static_cast<int>(denominator)));
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Class_quote
+//-----------------------------------------------------------------------------
+Class_quote::Class_quote(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_quote)
+{
+}
+
+bool Class_quote::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+{
+	return false;
+}
+
+bool Class_quote::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+{
+	return true;
+}
+
+bool Class_quote::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+{
+	value = Value::Null;
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Class_any
+//-----------------------------------------------------------------------------
+Class_any::Class_any(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_any)
+{
+}
+
+bool Class_any::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+{
+	return false;
+}
+
+bool Class_any::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+{
+	return true;
+}
+
+bool Class_any::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+{
+	value = Value::Null;
 	return true;
 }
 
