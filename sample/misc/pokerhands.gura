@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 
-Card = struct(suit:symbol, rank:number) {
+Card = struct(suit:symbol, rank:number):map {
 	suits:public = [`spade, `heart, `diamond, `club]
 	ranks:public = [1..13]
 	suitMarks:public = %{
@@ -13,8 +13,11 @@ Card = struct(suit:symbol, rank:number) {
 	__str__() = format('%s%-2s', suitMarks[this.suit], rankMarks[this.rank])
 }
 Deck = class {
+	public {
+		cards
+	}
 	__init__() = {
-		this.cards:public = cross(suit in Card.suits, rank in Card.ranks):list {
+		this.cards = cross(suit in Card.suits, rank in Card.ranks):list {
 			Card(suit, rank)
 		}
 	}
@@ -100,13 +103,11 @@ CheckPokerHand(cards[]:Card) = {
 	}
 	[pokerHand, cardsHand, cardsNone]
 }
-deck = Deck()
-/*
-deck.cards.combination(5) {|cards|
-	[pokerHand, cards] = CheckPokerHand(cards)
-	println(cards.join(' '), ' .. ', pokerHand)
+PrintPokerHand(cards[]:Card) = {
+	[pokerHand, cardsHand, cardsNone] = CheckPokerHand(cards)
+	printf('%-20s|%-20s .. %s\n', cardsHand.join(' '), cardsNone.join(' '), pokerHand)
 }
-*/
+deck = Deck()
 randseed(time.clock())
 repeat {
 	cards = deck.cards.shuffle().head(5)
@@ -114,3 +115,11 @@ repeat {
 	[pokerHand, cardsHand, cardsNone] = CheckPokerHand(cards)
 	printf('%-20s|%-20s .. %s\n', cardsHand.join(' '), cardsNone.join(' '), pokerHand)
 }
+/*
+cross (suit in Card.suits, n in 1..9) {
+	PrintPokerHand(Card(suit, range(n, n + 5)))
+}
+for (suit in Card.suits) {
+	PrintPokerHand(Card(suit, [10, 11, 12, 13, 1]))
+}
+*/
