@@ -166,14 +166,8 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(codec);
 	Gura_RealizeVTYPE(args);
 	Gura_RealizeVTYPEEx(Struct,		"struct");
-	// Class must be initialized at 1st
 	Class *pClass = new Class(&env, VTYPE_object);
 	Gura_VTYPEInfo(object	)->SetClass(pClass);
-	// Class_function must be initialized at 2nd
-	Class_function *pClass_function = new Class_function(pClass);
-	Gura_VTYPEInfo(function	)->SetClass(pClass_function);
-	//pClass_function->Prepare(env);	// methods of Function can only be initialized here
-	pClass->Prepare(env);			// methods of Object can only be initialized here
 	// classes for primitive types
 	Gura_VTYPEInfo(nil		)->SetClass(new Class_nil(pClass));
 	Gura_VTYPEInfo(undefined)->SetClass(new Class_undefined(pClass));
@@ -186,10 +180,9 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(quote	)->SetClass(new Class_quote(pClass));
 	Gura_VTYPEInfo(any		)->SetClass(new Class_any(pClass));
 	// other built-in object classes
+	Gura_VTYPEInfo(function	)->SetClass(new Class_function(pClass));
 	Gura_VTYPEInfo(string	)->SetClass(new Class_string(pClass));
-	Class_binary *pClass_binary = new Class_binary(pClass);
-	Gura_VTYPEInfo(binary	)->SetClass(pClass_binary);
-	//pClass_binary->Prepare(env);
+	Gura_VTYPEInfo(binary	)->SetClass(new Class_binary(pClass));
 	Gura_VTYPEInfo(pointer	)->SetClass(new Class_pointer(pClass));
 	Gura_VTYPEInfo(list		)->SetClass(new Class_list(pClass));
 	Gura_VTYPEInfo(matrix	)->SetClass(new Class_matrix(pClass));
@@ -212,6 +205,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(codec	)->SetClass(new Class_codec(pClass));
 	Gura_VTYPEInfo(args		)->SetClass(new Class_args(pClass));
 	Gura_VTYPEInfo(Struct	)->SetClass(new StructClass(pClass));
+	pClass->Prepare(env);			// methods of Object can only be initialized here
 }
 
 void ValueTypePool::DoPrepareClass(Environment &env)
