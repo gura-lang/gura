@@ -44,9 +44,15 @@ int MainW(int argc, const char *argv[])
 		{ "quiet",			'q', false	},
 		{ "version",		'v', false	},
 	};
+	Signal sig;
+	EnvironmentRoot env;
 	Option opt(optInfoTbl, ArraySizeOf(optInfoTbl));
 	String strErr;
 	bool rtn = opt.Parse(argc, argv, strErr);
+	if (!env.Initialize(sig, argc, argv)) {
+		env.GetConsoleErr()->PrintSignal(sig, sig);
+		return 1;
+	}
 	if (!rtn) {
 		UsageWindow().Show();
 		return 1;
@@ -61,12 +67,6 @@ int MainW(int argc, const char *argv[])
 	}
 	if (opt.IsSet("directory")) {
 		OAL::ChangeCurDir(opt.GetString("directory", ""));
-	}
-	Signal sig;
-	EnvironmentRoot env;
-	if (!env.Initialize(sig, argc, argv)) {
-		env.GetConsoleErr()->PrintSignal(sig, sig);
-		return 1;
 	}
 	bool interactiveFlag = true;
 	if (opt.IsSet("import-dir")) {

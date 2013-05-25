@@ -18,7 +18,6 @@ void ReadEvalPrintLoop(Environment &env, Signal sig);
 //-----------------------------------------------------------------------------
 int Main(int argc, const char *argv[])
 {
-	Signal sig;
 	static const Option::Info optInfoTbl[] = {
 		{ "help",			'h', false	},
 		{ "interactive",	't', false	},
@@ -33,9 +32,15 @@ int Main(int argc, const char *argv[])
 		{ "version",		'v', false	},
 		{ "llvm",			'o', true	},
 	};
+	Signal sig;
+	EnvironmentRoot env;
 	Option opt(optInfoTbl, ArraySizeOf(optInfoTbl));
 	String strErr;
 	bool rtn = opt.Parse(argc, argv, strErr);
+	if (!env.Initialize(sig, argc, argv)) {
+		env.GetConsoleErr()->PrintSignal(sig, sig);
+		return 1;
+	}
 	if (!rtn) {
 		::fprintf(stderr, "%s\n", strErr.c_str());
 		return 1;
@@ -57,11 +62,6 @@ int Main(int argc, const char *argv[])
 			::fprintf(stderr, (i == 1)? "%s" : " %s", argv[i]);
 		}
 		::fprintf(stderr, "\n");
-	}
-	EnvironmentRoot env;
-	if (!env.Initialize(sig, argc, argv)) {
-		env.GetConsoleErr()->PrintSignal(sig, sig);
-		return 1;
 	}
 	bool interactiveFlag = true;
 	if (opt.IsSet("import-dir")) {
