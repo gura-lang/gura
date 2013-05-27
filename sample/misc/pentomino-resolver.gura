@@ -5,6 +5,9 @@ scope {
 		__str__() = format('(%d,%d)', this.x, this.y)
 	}
 	Piece = class {
+		public {
+			id, patterns
+		}
 		__init__(id:number, patterns[]) = {
 			this.id = id
 			this.patterns = for (pattern in patterns):list { Coord * pattern }
@@ -38,7 +41,7 @@ scope {
 			}
 		}
 		nextEmpty(iCell:number) = {
-			(!this.cells.offset(iCell)).find() + iCell
+			(!this.cells.offset(iCell)).find():index + iCell
 		}
 		print():void = {
 			str = '+' + '--+' * 8
@@ -47,12 +50,13 @@ scope {
 				cells = this.getCell(0..7, y)
 				bordersX = (cells != this.getCell(1..8, y))
 				bordersY = (cells != this.getCell(0..7, y + 1))
-				str = '|' + cond(bordersX,
-							cond(cells, '  |', '..|'),
-							cond(cells, '   ', '...')).join()
+				str = '|' + conds(bordersX,
+								cond(cells, '  |', '..|'),
+								cond(cells, '   ', '...')).join()
 				println(str)
-				str = '+' + cond(bordersY, '--+',
-							cond(cells, '  +', '..+')).join()
+				str = '+' + conds(bordersY,
+								'--+',
+								cond(cells, '  +', '..+')).join()
 				println(str)
 			}
 		}
