@@ -253,7 +253,6 @@ gatherFiles() = {
 			'sample/resource/*.png'
 			'sample/resource/*.ttf'
 			'sample/resource/*.zip'
-			'sample/scribble/*.gura'
 			'sample/sdl/sdl-*.guraw'
 			'sample/tk/tk-*.guraw'
 			'sample/mswin/mswin-*.gura'
