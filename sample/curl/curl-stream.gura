@@ -1,0 +1,14 @@
+#!/usr/bin/env gura
+import(re)
+import(curl)
+
+urls = [
+	'http://example.com/'
+	'https://www.verisign.com/'
+	'ftp://ftp.debian.org/debian/README.html'
+]
+urls.each {|url|
+	fileName = url.sub('/$', '.html').sub(r'(://|/+)', '-')
+	copy(url, fileName)
+	println('created: ', fileName)
+}
