@@ -238,6 +238,7 @@ gatherFiles() = {
 			'sample/cairo/cairo-*.gura'
 			'sample/cairo/cairo-*.guraw'
 			'sample/canvas/canvas-*.gura'
+			'sample/curl/curl-*.gura'
 			'sample/freetype/freetype-*.gura'
 			'sample/http/http-*.gura'
 			'sample/http/proxy_setting.sample.gura'
