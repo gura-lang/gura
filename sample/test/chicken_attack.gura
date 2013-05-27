@@ -10,7 +10,7 @@ sdl.Init(sdl.INIT_EVERYTHING)
 screen = sdl.SetVideoMode(wdScreen, htScreen, 16, sdl.SWSURFACE)
 wdImage = 200
 imageBg = image(I('Winter.jpg'), `rgb).resize(wdScreen, htScreen)
-imagesL = gif.new(I('chicken-anim.gif'), `rgba).images::resize(wdImage)
+imagesL = gif.content(I('chicken-anim.gif'), `rgba).images::resize(wdImage)
 imagesR = imagesL::flip(`horz)
 imgBullet = imagesR.first().resize(64)
 imgBoyBody = image('boy_body.bmp')
@@ -40,7 +40,7 @@ Bullet = class {
 		yOffset = this.squIter.next()
 		!yOffset && return(false)
 		y = this.y - squTbl[0] + yOffset
-		screen.PutSurface(imgBullet, this.x, y)
+		sdl.BlitSurface(imgBullet, nil, screen, sdl.Rect(this.x, y, 0, 0))
 		this.x += 12
 		true
 	}
@@ -58,7 +58,7 @@ Chicken = class {
 	}
 	doAction() = {
 		image = this.imageIter.next()
-		screen.PutSurface(image, this.x, this.y - image.height)
+		sdl.BlitSurface(image, nil, screen, sdl.Rect(this.x, this.y - image.height, 0, 0))
 		this.x += this.xDir
 		if (this.x + wdImage > wdScreen) {
 			this.xDir = -xStep
@@ -84,13 +84,9 @@ yBoy = 400
 xdirBoy = 0
 //font = sdl.OpenFont(path.join(os.getenv('SystemRoot'), 'Fonts', 'arial.ttf'), 32)
 sdl.AddTimer(50) {
-	screen.PutSurface(imageBg, 0, 0)
+	sdl.BlitSurface(imageBg, nil, screen, nil)
 	text = 'Chickens: %d' % chickens.len()
-	//font.RenderText_Blended(text, color(`white)) {|surface|
-	//	screen.PutSurface(surface, 10, 10)
-	//}
-	
-	screen.PutSurface(imgBoyBody, xBoy, yBoy)
+	sdl.BlitSurface(imgBoyBody, nil, screen, sdl.Rect(xBoy, yBoy, 0, 0))
 	if (handsIter) {
 		hand = handsIter.next()
 		if (!hand) {
@@ -98,9 +94,9 @@ sdl.AddTimer(50) {
 			hand = hands.first()
 		}
 	} else {
-		screen.PutSurface(imgBullet, xBoy - 48, yBoy - 16)
+		sdl.BlitSurface(imgBullet, nil, screen, sdl.Rect(xBoy - 48, yBoy - 16, 0, 0))
 	}
-	screen.PutSurface(hand.image, xBoy + hand.xOffset, yBoy + hand.yOffset)
+	sdl.BlitSurface(hand.image, nil, screen, sdl.Rect(xBoy + hand.xOffset, yBoy + hand.yOffset, 0, 0))
  	xBoy += xdirBoy
 	
 	chickens::doAction()
