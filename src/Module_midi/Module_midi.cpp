@@ -2,46 +2,8 @@
 // Gura midi module
 //-----------------------------------------------------------------------------
 #include "Module_midi.h"
-#include "MIDIHandle.h"
 
 Gura_BeginModule(midi)
-
-//-----------------------------------------------------------------------------
-// Class declaration for midi.smf
-//-----------------------------------------------------------------------------
-Gura_DeclareUserClass(smf);
-
-class Object_smf : public Object {
-public:
-	Gura_DeclareObjectAccessor(smf)
-public:
-	inline Object_smf(Environment &env) : Object(Gura_UserClass(smf)) {}
-	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
-};
-
-//-----------------------------------------------------------------------------
-// Class declaration for midi.device
-//-----------------------------------------------------------------------------
-Gura_DeclareUserClass(device);
-
-class Object_device : public Object {
-public:
-	Gura_DeclareObjectAccessor(device)
-private:
-	MIDIHandle _handle;
-public:
-	inline Object_device(Environment &env) : Object(Gura_UserClass(device)) {}
-	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
-	inline MIDIHandle &GetHandle() { return _handle; }
-};
 
 //-----------------------------------------------------------------------------
 // Object_smf
@@ -74,7 +36,7 @@ Value Object_smf::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 String Object_smf::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
-	rtn += "<smf:";
+	rtn += "<midi.smf:";
 	rtn += ">";
 	return rtn;
 }
@@ -87,6 +49,53 @@ String Object_smf::ToString(Signal sig, bool exprFlag)
 // Class implementation for midi.smf
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(smf)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Object_devinfo
+//-----------------------------------------------------------------------------
+Object *Object_devinfo::Clone() const
+{
+	return NULL;
+}
+
+bool Object_devinfo::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	//symbols.insert(Gura_Symbol(string));
+	return true;
+}
+
+Value Object_devinfo::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+#if 0
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
+		return Value(env, _str);
+	}
+#endif
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_devinfo::ToString(Signal sig, bool exprFlag)
+{
+	String rtn;
+	rtn += "<midi.devinfo:";
+	rtn += ">";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for midi.devinfo
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Class implementation for midi.devinfo
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(devinfo)
 {
 }
 
@@ -121,7 +130,7 @@ Value Object_device::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 String Object_device::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
-	rtn += "<device:";
+	rtn += "<midi.device:";
 	rtn += ">";
 	return rtn;
 }
@@ -214,6 +223,7 @@ Gura_ModuleEntry()
 {
 	// class realization
 	Gura_RealizeUserClass(smf, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(devinfo, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(device, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(device);
