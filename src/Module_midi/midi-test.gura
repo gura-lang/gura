@@ -4,8 +4,13 @@ import(midi)
 midi.device {|dev|
 	println(dev)
 	dev.rawwrite(64, 100)
-	repeat(5) {|i|
-		dev.rawwrite(0x90, 60 + i, 100)
-		time.sleep(.5)
+	repeat(20) {|i|
+		dev.rawwrite(0x90, 60 + i, 0x40)
+		dev.rawwrite(0x90, 60 + i + 1, 0x40)
+		dev.rawwrite(0x90, 60 + i + 2, 0x40)
+		time.sleep(.2)
+		//dev.rawwrite(0x90, 60 + i, 0x00)
+		//dev.rawwrite(0x90, 60 + i + 1, 0x00)
+		//dev.rawwrite(0x90, 60 + i + 2, 0x00)
 	}
 }
