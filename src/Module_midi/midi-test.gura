@@ -1,4 +1,11 @@
 #!/usr/bin/env gura
 import(midi)
 
-println(midi.test(3, 4))
+midi.device {|dev|
+	println(dev)
+	dev.rawwrite(64, 100)
+	repeat(5) {|i|
+		dev.rawwrite(0x90, 60 + i, 100)
+		time.sleep(.5)
+	}
+}
