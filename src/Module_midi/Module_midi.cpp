@@ -7,6 +7,23 @@
 Gura_BeginModule(midi)
 
 //-----------------------------------------------------------------------------
+// Class declaration for midi.smf
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(smf);
+
+class Object_smf : public Object {
+public:
+	Gura_DeclareObjectAccessor(smf)
+public:
+	inline Object_smf(Environment &env) : Object(Gura_UserClass(smf)) {}
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
+};
+
+//-----------------------------------------------------------------------------
 // Class declaration for midi.device
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(device);
@@ -25,6 +42,53 @@ public:
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline MIDIHandle &GetHandle() { return _handle; }
 };
+
+//-----------------------------------------------------------------------------
+// Object_smf
+//-----------------------------------------------------------------------------
+Object *Object_smf::Clone() const
+{
+	return NULL;
+}
+
+bool Object_smf::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	//symbols.insert(Gura_Symbol(string));
+	return true;
+}
+
+Value Object_smf::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+#if 0
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
+		return Value(env, _str);
+	}
+#endif
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_smf::ToString(Signal sig, bool exprFlag)
+{
+	String rtn;
+	rtn += "<smf:";
+	rtn += ">";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for midi.smf
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Class implementation for midi.smf
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(smf)
+{
+}
 
 //-----------------------------------------------------------------------------
 // Object_device
@@ -149,6 +213,7 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// class realization
+	Gura_RealizeUserClass(smf, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(device, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(device);
