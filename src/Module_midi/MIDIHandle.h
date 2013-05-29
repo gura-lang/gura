@@ -1,6 +1,9 @@
 #ifndef __MIDIHANDLE_H__
 #define __MIDIHANDLE_H__
 
+//-----------------------------------------------------------------------------
+// MIDIHandle
+//-----------------------------------------------------------------------------
 class MIDIHandle {
 private:
 	HMIDIOUT _hMIDI;
@@ -47,6 +50,7 @@ public:
 					(static_cast<DWORD>(msg3) << 16) +
 					(static_cast<DWORD>(msg4) << 24));
 	}
+	void MMLPlay(const char *mml);
 };
 
 #endif

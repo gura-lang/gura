@@ -138,7 +138,7 @@ String Object_device::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for midi.device
 //-----------------------------------------------------------------------------
-// midi.device#rawwrite(msg+:number):map
+// midi.device#rawwrite(msg+:number):map:void
 Gura_DeclareMethod(device, rawwrite)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -167,12 +167,27 @@ Gura_ImplementMethod(device, rawwrite)
 	return Value::Null;
 }
 
+// midi.device#mmlplay(mml:string):map;void
+Gura_DeclareMethod(device, mmlplay)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "mml", VTYPE_string);
+}
+
+Gura_ImplementMethod(device, mmlplay)
+{
+	Object_device *pThis = Object_device::GetThisObj(args);
+	pThis->GetHandle().MMLPlay(args.GetString(0));
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // Class implementation for midi.device
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(device)
 {
 	Gura_AssignMethod(device, rawwrite);
+	Gura_AssignMethod(device, mmlplay);
 }
 
 //-----------------------------------------------------------------------------
