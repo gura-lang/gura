@@ -1,10 +1,11 @@
 #ifndef __MIDIHANDLE_H__
 #define __MIDIHANDLE_H__
+#include "MmlParser.h"
 
 //-----------------------------------------------------------------------------
 // MIDIHandle
 //-----------------------------------------------------------------------------
-class MIDIHandle {
+class MIDIHandle : public MmlParser::Handler {
 private:
 	HMIDIOUT _hMIDI;
 public:
@@ -50,7 +51,13 @@ public:
 					(static_cast<DWORD>(msg3) << 16) +
 					(static_cast<DWORD>(msg4) << 24));
 	}
-	void MMLPlay(const char *mml);
+	void MmlPlay(const char *mml);
+	// virtual functions of MmlParser::Handler
+	virtual void MmlNote(MmlParser &parser, unsigned char note, int length);
+	virtual void MmlRest(MmlParser &parser, int length);
+	virtual void MmlVolume(MmlParser &parser, int volume);
+	virtual void MmlTone(MmlParser &parser, int tone);
+	virtual void MmlTempo(MmlParser &parser, int tempo);
 };
 
 #endif
