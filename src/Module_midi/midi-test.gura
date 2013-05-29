@@ -2,14 +2,19 @@
 import(midi)
 
 midi.device {|dev|
+	dev.rawwrite(0xc0, 0)
+	dev.mmlplay('aab2 aab2 ab>c<b ab8a8f2')
+	dev.mmlplay('ecef ee8c8<b2 >ab>c<b ab8a8f2')
+	dev.mmlplay('ecef ee8c8<b2 >aab2 aab2 r1')
+}
+/*
+midi.device {|dev|
 	println(dev)
 	//dev.mmlplay('@10')
 	repeat(128) {|i|
 		dev.rawwrite(0xc0, i)
 		dev.mmlplay('aab2 aab2 ab>c<b ab8a8f2')
 	}
-	//dev.mmlplay('ecef ee8c8<b2 >ab>c<b ab8a8f2')
-	//dev.mmlplay('ecef ee8c8<b2 >aab2 aab2 r1')
 	/*
 	dev.rawwrite(0x40, 100)
 	repeat(128) {|i|
@@ -26,3 +31,4 @@ midi.device {|dev|
 	}
 	*/
 }
+*/
