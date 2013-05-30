@@ -125,8 +125,8 @@ public:
 	bool GetChainedSymbolList(SymbolList &symbolList) const;
 	void SetError(Signal sig, ErrorType errType, const char *format, ...) const;
 	void SetError_NotAssignableSymbol(Signal sig, const Symbol *pSymbol) const;
-	static bool NeedParenthesis(const Function &funcOuter,
-										const Function &func, bool rightFlag);
+	static bool NeedParenthesis(const Operator *pOperatorOuter,
+										const Operator *pOperator, bool rightFlag);
 	virtual Expr *Clone() const = 0;
 	virtual const char *GetPathName() const;
 	
@@ -670,16 +670,16 @@ private:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_UnaryOp : public Expr_Unary {
 protected:
-	const Function *_pFunc;
+	const Operator *_pOperator;
 	bool _suffixSymbolFlag;
 public:
-	inline Expr_UnaryOp(const Function *pFunc, Expr *pExprChild, bool suffixSymbolFlag) :
+	inline Expr_UnaryOp(const Operator *pOperator, Expr *pExprChild, bool suffixSymbolFlag) :
 					Expr_Unary(EXPRTYPE_UnaryOp, pExprChild),
-					_pFunc(pFunc), _suffixSymbolFlag(suffixSymbolFlag) {}
+					_pOperator(pOperator), _suffixSymbolFlag(suffixSymbolFlag) {}
 	inline Expr_UnaryOp(const Expr_UnaryOp &expr) :
 					Expr_Unary(expr),
-					_pFunc(expr._pFunc), _suffixSymbolFlag(expr._suffixSymbolFlag) {}
-	inline const Function &GetFunction() const { return *_pFunc; }
+					_pOperator(expr._pOperator), _suffixSymbolFlag(expr._suffixSymbolFlag) {}
+	inline const Operator *GetOperator() const { return _pOperator; }
 	inline static Expr_UnaryOp *Reference(const Expr_UnaryOp *pExpr) {
 		return dynamic_cast<Expr_UnaryOp *>(Expr::Reference(pExpr));
 	}
@@ -700,13 +700,13 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_BinaryOp : public Expr_Binary {
 protected:
-	const Function *_pFunc;
+	const Operator *_pOperator;
 public:
-	inline Expr_BinaryOp(const Function *pFunc, Expr *pExprLeft, Expr *pExprRight) :
-					Expr_Binary(EXPRTYPE_BinaryOp, pExprLeft, pExprRight), _pFunc(pFunc) {}
+	inline Expr_BinaryOp(const Operator *pOperator, Expr *pExprLeft, Expr *pExprRight) :
+					Expr_Binary(EXPRTYPE_BinaryOp, pExprLeft, pExprRight), _pOperator(pOperator) {}
 	inline Expr_BinaryOp(const Expr_BinaryOp &expr) :
-					Expr_Binary(expr), _pFunc(expr._pFunc) {}
-	inline const Function &GetFunction() const { return *_pFunc; }
+					Expr_Binary(expr), _pOperator(expr._pOperator) {}
+	inline const Operator *GetOperator() const { return _pOperator; }
 	inline static Expr_BinaryOp *Reference(const Expr_BinaryOp *pExpr) {
 		return dynamic_cast<Expr_BinaryOp *>(Expr::Reference(pExpr));
 	}
@@ -819,12 +819,12 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Assign : public Expr_Binary {
 private:
-	const Function *_pFuncToApply;
+	const Operator *_pOperatorToApply;
 public:
-	inline Expr_Assign(Expr *pExprLeft, Expr *pExprRight, const Function *pFuncToApply) :
-				Expr_Binary(EXPRTYPE_Assign, pExprLeft, pExprRight), _pFuncToApply(pFuncToApply) {}
+	inline Expr_Assign(Expr *pExprLeft, Expr *pExprRight, const Operator *pOperatorToApply) :
+				Expr_Binary(EXPRTYPE_Assign, pExprLeft, pExprRight), _pOperatorToApply(pOperatorToApply) {}
 	inline Expr_Assign(const Expr_Assign &expr) :
-				Expr_Binary(expr), _pFuncToApply(expr._pFuncToApply) {}
+				Expr_Binary(expr), _pOperatorToApply(expr._pOperatorToApply) {}
 	inline static Expr_Assign *Reference(const Expr_Assign *pExpr) {
 		return dynamic_cast<Expr_Assign *>(Expr::Reference(pExpr));
 	}

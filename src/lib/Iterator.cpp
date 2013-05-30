@@ -635,7 +635,7 @@ bool Iterator::PrepareRepeaterIterators(Environment &env, Signal sig,
 		const Expr *pExpr = pValue->GetExpr();
 		Value value;
 		if (!(pExpr->IsBinaryOp() && dynamic_cast<const Expr_BinaryOp *>(pExpr)->
-										GetFunction().GetOpType() == OPTYPE_Contains)) {
+										GetOperator()->GetOpType() == OPTYPE_Contains)) {
 			sig.SetError(ERR_TypeError, "iteratable must be specified as arguments");
 			return false;
 		}

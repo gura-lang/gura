@@ -215,10 +215,10 @@ const Expr *Expr::Unquote() const
 	return this;
 }
 
-bool Expr::NeedParenthesis(const Function &funcOuter,
-									const Function &func, bool rightFlag)
+bool Expr::NeedParenthesis(const Operator *pOperatorOuter,
+									const Operator *pOperator, bool rightFlag)
 {
-	int rtn = Parser::CompareOpTypePrec(funcOuter.GetOpType(), func.GetOpType());
+	int rtn = Parser::CompareOpTypePrec(pOperatorOuter->GetOpType(), pOperator->GetOpType());
 	if (rtn == 0) return rightFlag;
 	return rtn > 0;
 }
@@ -247,25 +247,25 @@ bool Expr::IsConstNegNumber() const
 bool Expr::IsOperatorNeg() const
 {
 	return IsUnaryOp() &&
-			dynamic_cast<const Expr_UnaryOp *>(this)->GetFunction().GetOpType() == OPTYPE_Neg;
+			dynamic_cast<const Expr_UnaryOp *>(this)->GetOperator()->GetOpType() == OPTYPE_Neg;
 }
 
 bool Expr::IsOperatorMul() const
 {
 	return IsBinaryOp() &&
-		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().GetOpType() == OPTYPE_Mul;
+		dynamic_cast<const Expr_BinaryOp *>(this)->GetOperator()->GetOpType() == OPTYPE_Mul;
 }
 
 bool Expr::IsOperatorPow() const
 {
 	return IsBinaryOp() &&
-		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().GetOpType() == OPTYPE_Pow;
+		dynamic_cast<const Expr_BinaryOp *>(this)->GetOperator()->GetOpType() == OPTYPE_Pow;
 }
 
 bool Expr::IsOperatorSeq() const
 {
 	return IsBinaryOp() &&
-		dynamic_cast<const Expr_BinaryOp *>(this)->GetFunction().GetOpType() == OPTYPE_Seq;
+		dynamic_cast<const Expr_BinaryOp *>(this)->GetOperator()->GetOpType() == OPTYPE_Seq;
 }
 
 bool Expr::IsUnary() const			{ return false; }
@@ -2016,8 +2016,30 @@ Expr *Expr_UnaryOp::Clone() const
 
 Value Expr_UnaryOp::Exec(Environment &env, Signal sig) const
 {
-	Args args(GetExprOwner());
-	Value result = _pFunc->EvalExpr(env, sig, args);
+	Value value = GetExprOwner()[0]->Exec(env, sig);
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(this);
+		return Value::Null;
+	}
+	Value result;
+	if (value.IsListOrIterator()) {
+		AutoPtr<Iterator> pIterator(new Iterator_UnaryOperatorMap(env, sig,
+														_pOperator, value));
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(this);
+			return Value::Null;
+		}
+		if (value.IsIterator()) {
+			result = Value(env, pIterator.release());
+		} else {
+			ValueList &valList = result.InitAsList(env);
+			Value value;
+			while (pIterator->Next(env, sig, value)) valList.push_back(value);
+			//result = pIterator->ToList(env, sig, true, false);
+		}
+	} else {
+		result = _pOperator->EvalUnary(env, sig, value);
+	}
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
@@ -2027,7 +2049,7 @@ Value Expr_UnaryOp::Exec(Environment &env, Signal sig) const
 
 Expr *Expr_UnaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
 {
-	return _pFunc->DiffUnary(env, sig, GetChild(), pSymbol);
+	return _pOperator->DiffUnary(env, sig, GetChild(), pSymbol);
 }
 
 Expr *Expr_UnaryOp::MathOptimize(Environment &env, Signal sig) const
@@ -2037,7 +2059,7 @@ Expr *Expr_UnaryOp::MathOptimize(Environment &env, Signal sig) const
 		sig.AddExprCause(this);
 		return NULL;
 	}
-	return _pFunc->OptimizeUnary(env, sig, pExprOpt);
+	return _pOperator->OptimizeUnary(env, sig, pExprOpt);
 }
 
 bool Expr_UnaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
@@ -2049,7 +2071,7 @@ bool Expr_UnaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_UnaryOp::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
 	if (!Expr_Unary::DoSerialize(env, sig, stream)) return false;
-	unsigned char opType = static_cast<unsigned char>(_pFunc->GetOpType());
+	unsigned char opType = static_cast<unsigned char>(_pOperator->GetOpType());
 	if (!stream.SerializeUChar(sig, opType)) return false;
 	return true;
 }
@@ -2059,13 +2081,12 @@ bool Expr_UnaryOp::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 	if (!Expr_Unary::DoDeserialize(env, sig, stream)) return false;
 	unsigned char opTypeRaw = 0x00;
 	if (!stream.DeserializeUChar(sig, opTypeRaw)) return false;
-	OpType opType = static_cast<OpType>(opTypeRaw);
-	const Function *pFunc = env.GetOpFuncWithCheck(opType);
-	if (pFunc == NULL) {
+	if (opTypeRaw >= OPTYPE_max) {
 		sig.SetError(ERR_IOError, "invalid binary operator in the stream");
 		return false;
 	}
-	_pFunc = pFunc;
+	OpType opType = static_cast<OpType>(opTypeRaw);
+	_pOperator = env.GetOperator(opType);
 	return true;
 }
 
@@ -2078,9 +2099,9 @@ String Expr_UnaryOp::ToString() const
 	}
 	String str;
 	if (needParenthesisFlag) str += "(";
-	if (!_suffixSymbolFlag) str += _pFunc->GetMathSymbol();
+	if (!_suffixSymbolFlag) str += _pOperator->GetMathSymbol();
 	str += GetChild()->ToString();
-	if (_suffixSymbolFlag) str += _pFunc->GetMathSymbol();
+	if (_suffixSymbolFlag) str += _pOperator->GetMathSymbol();
 	if (needParenthesisFlag) str += ")";
 	return str;
 }
@@ -2101,8 +2122,136 @@ Expr *Expr_BinaryOp::Clone() const
 
 Value Expr_BinaryOp::Exec(Environment &env, Signal sig) const
 {
-	Args args(GetExprOwner());
-	Value result = _pFunc->EvalExpr(env, sig, args);
+	OpType opType = _pOperator->GetOpType();
+	Value result;
+	if (opType == OPTYPE_OrOr || opType == OPTYPE_AndAnd) {
+		return _pOperator->EvalBinary(env, sig,
+					Value(env, Expr::Reference(GetExprOwner()[0])),
+					Value(env, Expr::Reference(GetExprOwner()[1])));
+	}
+	Value valueLeft = GetExprOwner()[0]->Exec(env, sig);
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(this);
+		return Value::Null;
+	}
+	Value valueRight = GetExprOwner()[1]->Exec(env, sig);
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(this);
+		return Value::Null;
+	}
+	if (opType == OPTYPE_Mul) {
+		if (valueLeft.IsFunction()) {
+			const Function *pFunc = valueLeft.GetFunction();
+			if (pFunc->IsUnary()) {
+				// nothing to do
+			} else if (valueRight.IsList()) {
+				const ValueList &valList = valueRight.GetList();
+				if (valList.IsFlat()) {
+					ValueList valListComp = valList;
+					if (!pFunc->GetDeclOwner().Compensate(env, sig, valListComp)) {
+						return Value::Null;
+					}
+					const Function *pFuncLeader = NULL;
+					Args argsSub(valListComp, Value::Null, NULL, false, &pFuncLeader);
+					return pFunc->Eval(env, sig, argsSub);
+				}
+				AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
+				if (sig.IsSignalled()) return Value::Null;
+				AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(env,
+							Function::Reference(pFunc),
+							Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
+				ValueList valListArg(valueLeft, valueRight);
+				Args argsSub(valListArg);
+				return pIteratorFuncBinder->Eval(env, sig, argsSub);
+			} else if (valueRight.IsIterator()) {
+				AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
+				if (sig.IsSignalled()) return Value::Null;
+				AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(env,
+							Function::Reference(pFunc),
+							Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
+				if (pFunc->IsRsltNormal() ||
+							pFunc->IsRsltIterator() || pFunc->IsRsltXIterator()) {
+					return Value(env, pIteratorFuncBinder.release());
+				} else {
+					ValueList valListArg(valueLeft, valueRight);
+					Args argsSub(valListArg);
+					return pIteratorFuncBinder->Eval(env, sig, argsSub);
+				}
+			}
+		} else if (valueLeft.IsMatrix() && valueRight.IsList() ||
+				   valueLeft.IsList() && valueRight.IsMatrix()) {
+			return _pOperator->EvalBinary(env, sig, valueLeft, valueRight);
+		}
+	} else if (opType == OPTYPE_Mod) {
+		if (valueLeft.IsFunction()) {
+			const Function *pFunc = valueLeft.GetFunction();
+			Value result;
+			if (!valueRight.IsList()) {
+				ValueList valListArg(valueRight);
+				Args argsSub(valListArg);
+				result = pFunc->Eval(env, sig, argsSub);
+			} else if (pFunc->GetMapFlag() == Function::MAP_Off ||
+					!pFunc->GetDeclOwner().ShouldImplicitMap(valueRight.GetList())) {
+				Args argsSub(valueRight.GetList());
+				result = pFunc->Eval(env, sig, argsSub);
+			} else if (pFunc->IsUnary()) {
+				ValueList valListArg(valueRight);
+				Args argsSub(valListArg);
+				result = pFunc->EvalMap(env, sig, argsSub);
+			} else {
+				Args argsSub(valueRight.GetList());
+				result = pFunc->EvalMap(env, sig, argsSub);
+			}
+			return result;
+		} else if (valueLeft.IsString()) {
+			const char *format = valueLeft.GetString();
+			if (!valueRight.IsList()) {
+				String str = Formatter::Format(sig, format, ValueList(valueRight));
+				if (sig.IsSignalled()) return Value::Null;
+				return Value(env, str.c_str());
+			} else {
+				const ValueList &valList = valueRight.GetList();
+				if (valList.IsFlat() && !valList.IsContainIterator()) {
+					String str = Formatter::Format(sig, format, valList);
+					if (sig.IsSignalled()) return Value::Null;
+					return Value(env, str.c_str());
+				} else {
+					IteratorOwner iterOwner;
+					foreach_const (ValueList, pValue, valList) {
+						AutoPtr<Iterator> pIterator;
+						if (pValue->IsList() || pValue->IsIterator()) {
+							pIterator.reset(pValue->CreateIterator(sig));
+							if (pIterator.IsNull()) return Value::Null;
+						} else {
+							pIterator.reset(new Iterator_Constant(*pValue));
+						}
+						iterOwner.push_back(pIterator.release());
+					}
+					return Formatter::Format(env, sig, format, iterOwner);
+				}
+			}
+		}
+	} else if (opType == OPTYPE_Contains) {
+		return _pOperator->EvalBinary(env, sig, valueLeft, valueRight);
+	}
+	if (valueLeft.IsListOrIterator() || valueRight.IsListOrIterator()) {
+		AutoPtr<Iterator> pIterator(new Iterator_BinaryOperatorMap(env, sig,
+										_pOperator, valueLeft, valueRight));
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(this);
+			return Value::Null;
+		}
+		if (valueLeft.IsIterator() || valueRight.IsIterator()) {
+			result = Value(env, pIterator.release());
+		} else {
+			ValueList &valList = result.InitAsList(env);
+			Value value;
+			while (pIterator->Next(env, sig, value)) valList.push_back(value);
+			//result = pIterator->ToList(env, sig, true, false);
+		}
+	} else {
+		result = _pOperator->EvalBinary(env, sig, valueLeft, valueRight);
+	}
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
@@ -2112,7 +2261,7 @@ Value Expr_BinaryOp::Exec(Environment &env, Signal sig) const
 
 Expr *Expr_BinaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
 {
-	return _pFunc->DiffBinary(env, sig, GetLeft(), GetRight(), pSymbol);
+	return _pOperator->DiffBinary(env, sig, GetLeft(), GetRight(), pSymbol);
 }
 
 Expr *Expr_BinaryOp::MathOptimize(Environment &env, Signal sig) const
@@ -2127,7 +2276,7 @@ Expr *Expr_BinaryOp::MathOptimize(Environment &env, Signal sig) const
 		sig.AddExprCause(this);
 		return NULL;
 	}
-	return _pFunc->OptimizeBinary(env, sig, pExprOpt1.release(), pExprOpt2.release());
+	return _pOperator->OptimizeBinary(env, sig, pExprOpt1.release(), pExprOpt2.release());
 }
 
 bool Expr_BinaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
@@ -2139,7 +2288,7 @@ bool Expr_BinaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_BinaryOp::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
 	if (!Expr_Binary::DoSerialize(env, sig, stream)) return false;
-	unsigned char opType = static_cast<unsigned char>(_pFunc->GetOpType());
+	unsigned char opType = static_cast<unsigned char>(_pOperator->GetOpType());
 	if (!stream.SerializeUChar(sig, opType)) return false;
 	return true;
 }
@@ -2149,13 +2298,12 @@ bool Expr_BinaryOp::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
 	unsigned char opTypeRaw = 0x00;
 	if (!stream.DeserializeUChar(sig, opTypeRaw)) return false;
-	OpType opType = static_cast<OpType>(opTypeRaw);
-	const Function *pFunc = env.GetOpFuncWithCheck(opType);
-	if (pFunc == NULL) {
+	if (opTypeRaw >= OPTYPE_max) {
 		sig.SetError(ERR_IOError, "invalid binary operator in the stream");
 		return false;
 	}
-	_pFunc = pFunc;
+	OpType opType = static_cast<OpType>(opTypeRaw);
+	_pOperator = env.GetOperator(opType);
 	return true;
 }
 
@@ -2167,13 +2315,13 @@ String Expr_BinaryOp::ToString() const
 	} else if (GetParent()->IsUnaryOp()) {
 		const Expr_UnaryOp *pExprOuter =
 								dynamic_cast<const Expr_UnaryOp *>(GetParent());
-		needParenthesisFlag = NeedParenthesis(pExprOuter->GetFunction(),
-							GetFunction(), false);
+		needParenthesisFlag = NeedParenthesis(pExprOuter->GetOperator(),
+							GetOperator(), false);
 	} else if (GetParent()->IsBinaryOp()) {
 		const Expr_BinaryOp *pExprOuter =
 								dynamic_cast<const Expr_BinaryOp *>(GetParent());
-		needParenthesisFlag = NeedParenthesis(pExprOuter->GetFunction(),
-							GetFunction(), pExprOuter->GetRight() == this);
+		needParenthesisFlag = NeedParenthesis(pExprOuter->GetOperator(),
+							GetOperator(), pExprOuter->GetRight() == this);
 	} else if (GetParent()->IsMember()) {
 		needParenthesisFlag = true;
 	}
@@ -2181,7 +2329,7 @@ String Expr_BinaryOp::ToString() const
 	if (needParenthesisFlag) str += "(";
 	str += GetLeft()->ToString();
 	str += " ";
-	str += _pFunc->GetMathSymbol();
+	str += _pOperator->GetMathSymbol();
 	str += " ";
 	str += GetRight()->ToString();
 	if (needParenthesisFlag) str += ")";
@@ -2423,7 +2571,7 @@ Value Expr_Assign::Exec(Environment &env, Signal sig,
 	const Expr *pExpr = GetLeft();
 	bool funcAssignFlag = false;
 	if (pExpr->IsCaller()) {
-		if (_pFuncToApply != NULL) {
+		if (_pOperatorToApply != NULL) {
 			SetError(sig, ERR_SyntaxError, "invalid operation");
 			return Value::Null;
 		}
@@ -2443,17 +2591,13 @@ Value Expr_Assign::Exec(Environment &env, Signal sig,
 			sig.AddExprCause(this);
 			return Value::Null;
 		}
-		if (_pFuncToApply != NULL) {
+		if (_pOperatorToApply != NULL) {
 			Value valueLeft = pExpr->Exec(env, sig);
 			if (sig.IsSignalled()) {
 				sig.AddExprCause(this);
 				return Value::Null;
 			}
-			ValueList valListArg(valueLeft, value);
-			Args args(valListArg);
-			value = _pFuncToApply->GetDeclOwner().ShouldImplicitMap(valListArg)?
-							_pFuncToApply->EvalMap(env, sig, args) :
-							_pFuncToApply->Eval(env, sig, args);
+			value = _pOperatorToApply->EvalBinary(env, sig, valueLeft, value);
 			if (sig.IsSignalled()) {
 				sig.AddExprCause(this);
 				return Value::Null;
@@ -2472,7 +2616,7 @@ bool Expr_Assign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Assign::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
 	if (!Expr_Binary::DoSerialize(env, sig, stream)) return false;
-	OpType opType = (_pFuncToApply == NULL)? OPTYPE_None : _pFuncToApply->GetOpType();
+	OpType opType = (_pOperatorToApply == NULL)? OPTYPE_None : _pOperatorToApply->GetOpType();
 	unsigned char opTypeRaw = static_cast<unsigned char>(opType);
 	if (!stream.SerializeUChar(sig, opTypeRaw)) return false;
 	return true;
@@ -2483,16 +2627,13 @@ bool Expr_Assign::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
 	unsigned char opTypeRaw = 0x00;
 	if (!stream.DeserializeUChar(sig, opTypeRaw)) return false;
-	OpType opType = static_cast<OpType>(opTypeRaw);
-	const Function *pFuncToApply = NULL;
-	if (opType != OPTYPE_None) {
-		pFuncToApply = env.GetOpFuncWithCheck(opType);
-		if (pFuncToApply == NULL) {
-			sig.SetError(ERR_IOError, "invalid binary operator in the stream");
-			return false;
-		}
+	if (opTypeRaw >= OPTYPE_max) {
+		sig.SetError(ERR_IOError, "invalid binary operator in the stream");
+		return false;
 	}
-	_pFuncToApply = pFuncToApply;
+	OpType opType = static_cast<OpType>(opTypeRaw);
+	_pOperatorToApply = (opType == OPTYPE_None)?
+							NULL : env.GetOperator(opType);
 	return true;
 }
 
@@ -2501,7 +2642,7 @@ String Expr_Assign::ToString() const
 	String str;
 	str += GetLeft()->ToString();
 	str += " ";
-	if (_pFuncToApply != NULL) str += _pFuncToApply->GetMathSymbol();
+	if (_pOperatorToApply != NULL) str += _pOperatorToApply->GetMathSymbol();
 	str += "= ";
 	str += GetRight()->ToString();
 	return str;

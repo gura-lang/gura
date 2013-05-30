@@ -58,7 +58,7 @@ Value Object_operator::DoCall(Environment &env, Signal sig, Args &args)
 		}
 		Value value = exprList[0]->Exec(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		const Operator *pOperator = GetGlobal()->GetOperator(_opTypeUnary);
+		const Operator *pOperator = GetOperator(_opTypeUnary);
 		return pOperator->EvalUnary(env, sig, value);
 	} else if (nArgs == 2) {
 		if (_opTypeBinary == OPTYPE_None) {
@@ -70,7 +70,7 @@ Value Object_operator::DoCall(Environment &env, Signal sig, Args &args)
 		if (sig.IsSignalled()) return Value::Null;
 		Value valueRight = exprList[1]->Exec(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		const Operator *pOperator = GetGlobal()->GetOperator(_opTypeBinary);
+		const Operator *pOperator = GetOperator(_opTypeBinary);
 		return pOperator->EvalBinary(env, sig, valueLeft, valueRight);
 	}
 	sig.SetError(ERR_ArgumentError, "operator must take one or two arguments");
@@ -79,7 +79,7 @@ Value Object_operator::DoCall(Environment &env, Signal sig, Args &args)
 
 const char *Object_operator::GetMathSymbol() const
 {
-	const Operator *pOperator = GetGlobal()->GetOperator(
+	const Operator *pOperator = GetOperator(
 			(_opTypeUnary != OPTYPE_None)? _opTypeUnary : _opTypeBinary);
 	return pOperator->GetMathSymbol();
 }
@@ -179,7 +179,7 @@ Gura_ImplementMethod(operator, entries)
 				"operator '%s' is not a binary one", pThis->GetMathSymbol());
 			return Value::Null;
 		}
-		const Operator *pOperator = env.GetGlobal()->GetOperator(opType);
+		const Operator *pOperator = env.GetOperator(opType);
 		const Operator::Map &map = pOperator->GetMap();
 		foreach_const (Operator::Map, iter, map) {
 			Operator::Key key = iter->first;
@@ -196,7 +196,7 @@ Gura_ImplementMethod(operator, entries)
 				"operator '%s' is not a unary one", pThis->GetMathSymbol());
 			return Value::Null;
 		}
-		const Operator *pOperator = env.GetGlobal()->GetOperator(opType);
+		const Operator *pOperator = env.GetOperator(opType);
 		const Operator::Map &map = pOperator->GetMap();
 		foreach_const (Operator::Map, iter, map) {
 			Operator::Key key = iter->first;

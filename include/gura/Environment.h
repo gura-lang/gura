@@ -283,6 +283,9 @@ public:
 	inline const Function *GetOpFuncWithCheck(OpType opType) {
 		return (opType < OPTYPE_max)? GetGlobal()->_pOpFuncTbl[opType] : NULL;
 	}
+	inline Operator *GetOperator(OpType opType) { return GetGlobal()->GetOperator(opType);	}
+	inline const Operator *GetOperator(OpType opType) const { return GetGlobal()->GetOperator(opType);	}
+	inline void SetOperator(OpType opType, Operator *pOperator) { GetGlobal()->SetOperator(opType, pOperator); }
 	inline Module *GetModule_sys()				{ return GetGlobal()->_pModule_sys;			}
 	inline void SetEchoFlag(bool echoFlag)		{ GetGlobal()->_echoFlag = echoFlag;		}
 	inline bool GetEchoFlag() const				{ return GetGlobal()->_echoFlag;			}

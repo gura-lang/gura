@@ -52,20 +52,20 @@ FuncUnaryOperator::FuncUnaryOperator(Environment &env, const Symbol *pSymbol,
 Value FuncUnaryOperator::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &value = args.GetValue(0);
-	const Operator *pOperator = env.GetGlobal()->GetOperator(GetOpType());
+	const Operator *pOperator = env.GetOperator(GetOpType());
 	return pOperator->EvalUnary(env, sig, value);
 }
 
 Expr *FuncUnaryOperator::DiffUnary(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const
 {
-	Operator *pOperator = env.GetGlobal()->GetOperator(GetOpType());
+	Operator *pOperator = env.GetOperator(GetOpType());
 	return pOperator->DiffUnary(env, sig, pExprArg, pSymbol);
 }
 
 Expr *FuncUnaryOperator::OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const
 {
-	Operator *pOperator = env.GetGlobal()->GetOperator(GetOpType());
+	Operator *pOperator = env.GetOperator(GetOpType());
 	return pOperator->OptimizeUnary(env, sig, pExprOpt);
 }
 
@@ -86,21 +86,21 @@ Value FuncBinaryOperator::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	const Value &valueLeft = args.GetValue(0);
 	const Value &valueRight = args.GetValue(1);
-	const Operator *pOperator = env.GetGlobal()->GetOperator(GetOpType());
+	const Operator *pOperator = env.GetOperator(GetOpType());
 	return pOperator->EvalBinary(env, sig, valueLeft, valueRight);
 }
 
 Expr *FuncBinaryOperator::DiffBinary(Environment &env, Signal sig,
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
 {
-	Operator *pOperator = env.GetGlobal()->GetOperator(GetOpType());
+	Operator *pOperator = env.GetOperator(GetOpType());
 	return pOperator->DiffBinary(env, sig, pExprArg1, pExprArg2, pSymbol);
 }
 
 Expr *FuncBinaryOperator::OptimizeBinary(Environment &env, Signal sig,
 									Expr *pExprOpt1, Expr *pExprOpt2) const
 {
-	Operator *pOperator = env.GetGlobal()->GetOperator(GetOpType());
+	Operator *pOperator = env.GetOperator(GetOpType());
 	return pOperator->OptimizeBinary(env, sig, pExprOpt1, pExprOpt2);
 }
 

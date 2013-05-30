@@ -595,8 +595,8 @@ scope {
 	t[0, 2, range(9, t.len())]
 	u * 3
 	mat = [[range(1, 6)], [range(6, 11)], [range(11, 16)], [range(16, 21)]]
-	mat + mat + mat
-	mat * 3
+	//mat + mat + mat
+	//mat * 3
 	t = mat[0]
 	t = mat[1]
 	t = mat[2]

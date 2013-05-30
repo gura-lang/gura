@@ -1281,16 +1281,16 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 			pExpr = new Expr_Force(elem2.GetExpr());
 		} else if (elem1.IsType(ETYPE_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> '+' Expr\n"));
-			pExpr = new Expr_UnaryOp(env.GetOpFunc(OPTYPE_Pos), elem2.GetExpr(), false);
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Pos), elem2.GetExpr(), false);
 		} else if (elem1.IsType(ETYPE_Sub)) {
 			DBGPARSER(::printf("Reduce: Expr -> '-' Expr\n"));
-			pExpr = new Expr_UnaryOp(env.GetOpFunc(OPTYPE_Neg), elem2.GetExpr(), false);
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Neg), elem2.GetExpr(), false);
 		} else if (elem1.IsType(ETYPE_Inv)) {
 			DBGPARSER(::printf("Reduce: Expr -> '~' Expr\n"));
-			pExpr = new Expr_UnaryOp(env.GetOpFunc(OPTYPE_Inv), elem2.GetExpr(), false);
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Inv), elem2.GetExpr(), false);
 		} else if (elem1.IsType(ETYPE_Not)) {
 			DBGPARSER(::printf("Reduce: Expr -> '!' Expr\n"));
-			pExpr = new Expr_UnaryOp(env.GetOpFunc(OPTYPE_Not), elem2.GetExpr(), false);
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Not), elem2.GetExpr(), false);
 		} else if (elem1.IsType(ETYPE_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> '%' Expr\n"));
 			if (elem2.GetExpr()->IsBlock()) {
@@ -1351,7 +1351,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 			pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Mod));
 		} else if (elem2.IsType(ETYPE_Seq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ..\n"));
-			pExpr = new Expr_UnaryOp(env.GetOpFunc(OPTYPE_SeqInf), elem1.GetExpr(), true);
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_SeqInf), elem1.GetExpr(), true);
 		} else {
 			SetError_InvalidElement(sig, __LINE__);
 			return false;
@@ -1563,82 +1563,82 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 		Expr *pExprRight = elem3.GetExpr();
 		if (elem2.IsType(ETYPE_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr + Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Add), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Add), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Sub)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr - Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Sub), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Sub), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr * Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Mul), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mul), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Div)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr / Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Div), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr % Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Mod), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mod), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Pow)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ** Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Pow), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Eq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr == Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Eq), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Eq), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Ne)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr != Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Ne), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Ne), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Lt)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr < Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Lt), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Lt), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Gt)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr > Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Gt), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Gt), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Le)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr <= Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Le), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Le), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Ge)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr >= Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Ge), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Ge), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Cmp)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr <=> Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Cmp), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Cmp), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Contains)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr in Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Contains), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Contains), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Assign)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr = Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, NULL);
 		} else if (elem2.IsType(ETYPE_AssignAdd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr += Expr\n"));
-			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Add));
+			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Add));
 		} else if (elem2.IsType(ETYPE_AssignSub)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr -= Expr\n"));
-			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Sub));
+			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Sub));
 		} else if (elem2.IsType(ETYPE_AssignMul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr *= Expr\n"));
-			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Mul));
+			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Mul));
 		} else if (elem2.IsType(ETYPE_AssignDiv)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr /= Expr\n"));
-			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Div));
+			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Div));
 		} else if (elem2.IsType(ETYPE_AssignMod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr %= Expr\n"));
-			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Mod));
+			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Mod));
 		} else if (elem2.IsType(ETYPE_AssignPow)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr **= Expr\n"));
-			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Pow));
+			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Pow));
 		} else if (elem2.IsType(ETYPE_AssignOr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr |= Expr\n"));
-			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Or));
+			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Or));
 		} else if (elem2.IsType(ETYPE_AssignAnd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr &= Expr\n"));
-			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_And));
+			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_And));
 		} else if (elem2.IsType(ETYPE_AssignXor)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ^= Expr\n"));
-			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Xor));
+			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Xor));
 		} else if (elem2.IsType(ETYPE_AssignShl)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr <<= Expr\n"));
-			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Shl));
+			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Shl));
 		} else if (elem2.IsType(ETYPE_AssignShr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr >>= Expr\n"));
-			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOpFunc(OPTYPE_Shr));
+			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Shr));
 		} else if (elem2.IsType(ETYPE_DictAssign)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr => Expr\n"));
 			pExpr = new Expr_DictAssign(pExprLeft, pExprRight);
@@ -1746,28 +1746,28 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 			pExpr = new Expr_Member(pExprLeft, pExprRight, Expr_Member::MODE_MapAlong);
 		} else if (elem2.IsType(ETYPE_OrOr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr || Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_OrOr), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_OrOr), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_AndAnd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr && Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_AndAnd), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_AndAnd), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Or)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr | Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Or), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Or), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_And)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr & Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_And), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_And), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Xor)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ^ Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Xor), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Xor), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Shl)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr << Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Shl), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Shl), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Shr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr >> Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Shr), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Shr), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Seq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr .. Expr\n"));
-			pExpr = new Expr_BinaryOp(env.GetOpFunc(OPTYPE_Seq), pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Seq), pExprLeft, pExprRight);
 		} else {
 			SetError_InvalidElement(sig, __LINE__);
 			return false;
