@@ -1228,6 +1228,116 @@ void Iterator_ImplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 }
 
 //-----------------------------------------------------------------------------
+// Iterator_UnaryOperatorMap
+//-----------------------------------------------------------------------------
+Iterator_UnaryOperatorMap::Iterator_UnaryOperatorMap(Environment &env, Signal sig,
+								const Operator *pOperator, const Value &value) :
+	Iterator(false), _env(env), _sig(sig), _pOperator(pOperator)
+{
+	if (value.IsListOrIterator()) {
+		_pIterator.reset(value.CreateIterator(sig));
+		if (_pIterator.IsNull()) return;
+	} else {
+		_pIterator.reset(new Iterator_Constant(value));
+	}
+	SetInfiniteFlag(_pIterator->IsInfinite());
+}
+
+Iterator_UnaryOperatorMap::~Iterator_UnaryOperatorMap()
+{
+	if (IsVirgin()) Consume(_env, _sig);
+}
+
+Iterator *Iterator_UnaryOperatorMap::GetSource()
+{
+	return NULL;
+}
+
+bool Iterator_UnaryOperatorMap::DoNext(Environment &env, Signal sig, Value &value)
+{
+	Value valueArg;
+	if (!_pIterator->Next(env, sig, valueArg)) return false;
+	value = _pOperator->EvalUnary(_env, sig, valueArg);
+	if (sig.IsSignalled()) return false;
+	return true;
+}
+
+String Iterator_UnaryOperatorMap::ToString(Signal sig) const
+{
+	String str;
+	str += "<iterator:unary_operator_map:";
+	str += ">";
+	return str;
+}
+
+void Iterator_UnaryOperatorMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+	if (_cntRef == 1) {
+		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		_pIterator->GatherFollower(pFrame, envSet);
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Iterator_BinaryOperatorMap
+//-----------------------------------------------------------------------------
+Iterator_BinaryOperatorMap::Iterator_BinaryOperatorMap(Environment &env, Signal sig,
+		const Operator *pOperator, const Value &valueLeft, const Value &valueRight) :
+	Iterator(false), _env(env), _sig(sig), _pOperator(pOperator)
+{
+	if (valueLeft.IsListOrIterator()) {
+		_pIteratorLeft.reset(valueLeft.CreateIterator(sig));
+		if (_pIteratorLeft.IsNull()) return;
+	} else {
+		_pIteratorLeft.reset(new Iterator_Constant(valueLeft));
+	}
+	if (valueRight.IsListOrIterator()) {
+		_pIteratorRight.reset(valueRight.CreateIterator(sig));
+		if (_pIteratorRight.IsNull()) return;
+	} else {
+		_pIteratorRight.reset(new Iterator_Constant(valueRight));
+	}
+	SetInfiniteFlag(_pIteratorLeft->IsInfinite() && _pIteratorRight->IsInfinite());
+}
+
+Iterator_BinaryOperatorMap::~Iterator_BinaryOperatorMap()
+{
+	if (IsVirgin()) Consume(_env, _sig);
+}
+
+Iterator *Iterator_BinaryOperatorMap::GetSource()
+{
+	return NULL;
+}
+
+bool Iterator_BinaryOperatorMap::DoNext(Environment &env, Signal sig, Value &value)
+{
+	Value valueLeft, valueRight;
+	if (!_pIteratorLeft->Next(env, sig, valueLeft) ||
+			!_pIteratorRight->Next(env, sig, valueRight)) return false;
+	value = _pOperator->EvalBinary(_env, sig, valueLeft, valueRight);
+	if (sig.IsSignalled()) return false;
+	return true;
+}
+
+String Iterator_BinaryOperatorMap::ToString(Signal sig) const
+{
+	String str;
+	str += "<iterator:binary_operator_map:";
+	str += ">";
+	return str;
+}
+
+void Iterator_BinaryOperatorMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+	if (_cntRef == 1) {
+		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		_pIteratorLeft->GatherFollower(pFrame, envSet);
+		_pIteratorRight->GatherFollower(pFrame, envSet);
+	}
+}
+
+//-----------------------------------------------------------------------------
 // Iterator_MemberMap
 //-----------------------------------------------------------------------------
 Iterator_MemberMap::~Iterator_MemberMap()

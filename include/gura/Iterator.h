@@ -413,6 +413,45 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Iterator_UnaryOperatorMap
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Iterator_UnaryOperatorMap : public Iterator {
+private:
+	Environment _env;
+	Signal _sig;
+	const Operator *_pOperator;
+	AutoPtr<Iterator> _pIterator;
+public:
+	Iterator_UnaryOperatorMap(Environment &env, Signal sig,
+						const Operator *pOperator, const Value &value);
+	virtual ~Iterator_UnaryOperatorMap();
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString(Signal sig) const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
+//-----------------------------------------------------------------------------
+// Iterator_BinaryOperatorMap
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Iterator_BinaryOperatorMap : public Iterator {
+private:
+	Environment _env;
+	Signal _sig;
+	const Operator *_pOperator;
+	AutoPtr<Iterator> _pIteratorLeft;
+	AutoPtr<Iterator> _pIteratorRight;
+public:
+	Iterator_BinaryOperatorMap(Environment &env, Signal sig,
+		const Operator *pOperator, const Value &valueLeft, const Value &valueRight);
+	virtual ~Iterator_BinaryOperatorMap();
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString(Signal sig) const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
+//-----------------------------------------------------------------------------
 // Iterator_MemberMap
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_MemberMap : public Iterator {
