@@ -4,7 +4,7 @@
 // MmlParser
 // see http://ja.wikipedia.org/wiki/Music_Macro_Language for MML syntax
 //-----------------------------------------------------------------------------
-MmlParser::MmlParser(Handler *pHandler) : _pHandler(pHandler)
+MmlParser::MmlParser()
 {
 	Reset();
 }
@@ -14,9 +14,6 @@ void MmlParser::Reset()
 	_stat			= STAT_Begin;
 	_octave			= 4;				// 1-9
 	_lengthDefault	= LENGTH_MAX / 4;	// 1-LENGTH_MAX
-	_volume			= 3;				// 0-16
-	_tone			= 1;				// 
-	_tempo			= 120;				// 
 	_operator		= '\0';
 	_operatorSub	= '\0';
 	_numAccum		= 0;
@@ -129,7 +126,7 @@ bool MmlParser::FeedChar(int ch)
 				// nothing to do
 			}
 			int length = CalcLength(_numAccum, _cntDot, _lengthDefault);
-			_pHandler->MmlNote(*this, note, length);
+			OnMmlNote(note, length);
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_RestLengthPre) {// -------- Rest --------
@@ -153,7 +150,7 @@ bool MmlParser::FeedChar(int ch)
 			}
 		} else if (_stat == STAT_RestFix) {
 			int length = CalcLength(_numAccum, _cntDot, _lengthDefault);
-			_pHandler->MmlRest(*this, length);
+			OnMmlRest(length);
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_OctavePre) {	// -------- Octave --------
@@ -218,8 +215,7 @@ bool MmlParser::FeedChar(int ch)
 				_stat = STAT_VolumeFix;
 			}
 		} else if (_stat == STAT_VolumeFix) {
-			_volume = _numAccum;
-			_pHandler->MmlVolume(*this, _volume);
+			OnMmlVolume(_numAccum);
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_TonePre) {		// ------- Tone --------
@@ -240,8 +236,7 @@ bool MmlParser::FeedChar(int ch)
 				_stat = STAT_ToneFix;
 			}
 		} else if (_stat == STAT_ToneFix) {
-			_tone = _numAccum;
-			_pHandler->MmlTone(*this, _tone);
+			OnMmlTone(_numAccum);
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_TempoPre) {	// -------- Tempo --------
@@ -262,8 +257,7 @@ bool MmlParser::FeedChar(int ch)
 				_stat = STAT_TempoFix;
 			}
 		} else if (_stat == STAT_TempoFix) {
-			_tempo = _numAccum;
-			_pHandler->MmlTempo(*this, _tempo);
+			OnMmlTempo(_numAccum);
 			continueFlag = true;
 			_stat = STAT_Begin;
 		}

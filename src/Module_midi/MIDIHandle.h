@@ -5,15 +5,33 @@
 //-----------------------------------------------------------------------------
 // MIDIHandle
 //-----------------------------------------------------------------------------
-class MIDIHandle : public MmlParser::Handler {
+class MIDIHandle {
+public:
+	enum {
+		NUM_CHANNELS = 16,
+	};
+	class Channel : public MmlParser {
+	private:
+		MIDIHandle *_pHandle;
+		char _channel;
+	public:
+		inline Channel(MIDIHandle *pHandle, char channel) :
+									_pHandle(pHandle), _channel(channel) {}
+		inline char GetChannel() const { return _channel; }
+	protected:
+		// virtual functions of MmlParser
+		virtual void OnMmlNote(unsigned char note, int length);
+		virtual void OnMmlRest(int length);
+		virtual void OnMmlVolume(int volume);
+		virtual void OnMmlTone(int tone);
+		virtual void OnMmlTempo(int tempo);
+	};
 private:
 	HMIDIOUT _hMIDI;
+	Channel *_pChannels[NUM_CHANNELS];
 public:
-	inline MIDIHandle() : _hMIDI(NULL) {}
-	inline ~MIDIHandle() {
-		Reset();
-		Close();
-	}
+	MIDIHandle();
+	~MIDIHandle();
 	static inline int GetNumDevs() {
 		return ::midiOutGetNumDevs();
 	}
@@ -51,13 +69,7 @@ public:
 					(static_cast<DWORD>(msg3) << 16) +
 					(static_cast<DWORD>(msg4) << 24));
 	}
-	void MmlPlay(const char *mml);
-	// virtual functions of MmlParser::Handler
-	virtual void MmlNote(MmlParser &parser, unsigned char note, int length);
-	virtual void MmlRest(MmlParser &parser, int length);
-	virtual void MmlVolume(MmlParser &parser, int volume);
-	virtual void MmlTone(MmlParser &parser, int tone);
-	virtual void MmlTempo(MmlParser &parser, int tempo);
+	void MmlPlay(char channel, const char *mml);
 };
 
 #endif

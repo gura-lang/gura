@@ -1,36 +1,54 @@
 #include <gura.h>
 #include "MIDIHandle.h"
 
-void MIDIHandle::MmlPlay(const char *mml)
+//-----------------------------------------------------------------------------
+// MIDIHandle
+//-----------------------------------------------------------------------------
+MIDIHandle::MIDIHandle() : _hMIDI(NULL)
 {
-	char ch = 0;
-	MmlParser parser(this);
-	parser.Parse(mml);
+	for (char channel = 0; channel < NUM_CHANNELS; channel++) {
+		_pChannels[channel] = new Channel(this, channel);
+	}
 }
 
-void MIDIHandle::MmlNote(MmlParser &parser, unsigned char note, int length)
+MIDIHandle::~MIDIHandle()
 {
-	char ch = 0;
-	RawWrite(0x90 + ch, note, 0x40);
+	for (char channel = 0; channel < NUM_CHANNELS; channel++) {
+		delete _pChannels[channel];
+	}
+	Reset();
+	Close();
+}
+
+void MIDIHandle::MmlPlay(char channel, const char *mml)
+{
+	_pChannels[channel]->Parse(mml);
+}
+
+//-----------------------------------------------------------------------------
+// MIDIHandle::Channel
+//-----------------------------------------------------------------------------
+void MIDIHandle::Channel::OnMmlNote(unsigned char note, int length)
+{
+	_pHandle->RawWrite(0x90 + GetChannel(), note, 0x7f);
 	Gura::OAL::Sleep(.01 * length);
-	RawWrite(0x90 + ch, note, 0x00);
+	_pHandle->RawWrite(0x90 + GetChannel(), note, 0x00);
 }
 
-void MIDIHandle::MmlRest(MmlParser &parser, int length)
+void MIDIHandle::Channel::OnMmlRest(int length)
 {
 	::Sleep(.01 * length);
 }
 
-void MIDIHandle::MmlVolume(MmlParser &parser, int volume)
+void MIDIHandle::Channel::OnMmlVolume(int volume)
 {
 }
 
-void MIDIHandle::MmlTone(MmlParser &parser, int tone)
+void MIDIHandle::Channel::OnMmlTone(int tone)
 {
-	char ch = 0;
-	RawWrite(0xc0 + ch, static_cast<unsigned char>(tone));
+	_pHandle->RawWrite(0xc0 + GetChannel(), static_cast<unsigned char>(tone));
 }
 
-void MIDIHandle::MmlTempo(MmlParser &parser, int tempo)
+void MIDIHandle::Channel::OnMmlTempo(int tempo)
 {
 }

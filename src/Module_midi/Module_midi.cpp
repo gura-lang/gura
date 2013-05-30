@@ -177,7 +177,8 @@ Gura_DeclareMethod(device, mmlplay)
 Gura_ImplementMethod(device, mmlplay)
 {
 	Object_device *pThis = Object_device::GetThisObj(args);
-	pThis->GetHandle().MmlPlay(args.GetString(0));
+	char channel = 0;
+	pThis->GetHandle().MmlPlay(channel, args.GetString(0));
 	return Value::Null;
 }
 
