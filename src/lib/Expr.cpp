@@ -2021,25 +2021,7 @@ Value Expr_UnaryOp::Exec(Environment &env, Signal sig) const
 		sig.AddExprCause(this);
 		return Value::Null;
 	}
-	Value result;
-	if (value.IsListOrIterator()) {
-		AutoPtr<Iterator> pIterator(new Iterator_UnaryOperatorMap(env, sig,
-														_pOperator, value));
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(this);
-			return Value::Null;
-		}
-		if (value.IsIterator()) {
-			result = Value(env, pIterator.release());
-		} else {
-			ValueList &valList = result.InitAsList(env);
-			Value value;
-			while (pIterator->Next(env, sig, value)) valList.push_back(value);
-			//result = pIterator->ToList(env, sig, true, false);
-		}
-	} else {
-		result = _pOperator->EvalUnary(env, sig, value);
-	}
+	Value result = _pOperator->EvalMapUnary(env, sig, value);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
@@ -2123,7 +2105,6 @@ Expr *Expr_BinaryOp::Clone() const
 Value Expr_BinaryOp::Exec(Environment &env, Signal sig) const
 {
 	OpType opType = _pOperator->GetOpType();
-	Value result;
 	if (opType == OPTYPE_OrOr || opType == OPTYPE_AndAnd) {
 		return _pOperator->EvalBinary(env, sig,
 					Value(env, Expr::Reference(GetExprOwner()[0])),
@@ -2139,124 +2120,7 @@ Value Expr_BinaryOp::Exec(Environment &env, Signal sig) const
 		sig.AddExprCause(this);
 		return Value::Null;
 	}
-	if (opType == OPTYPE_Mul) {
-		if (valueLeft.IsFunction()) {
-			const Function *pFunc = valueLeft.GetFunction();
-			if (pFunc->IsUnary()) {
-				// nothing to do
-			} else if (valueRight.IsList()) {
-				const ValueList &valList = valueRight.GetList();
-				if (valList.IsFlat()) {
-					ValueList valListComp = valList;
-					if (!pFunc->GetDeclOwner().Compensate(env, sig, valListComp)) {
-						return Value::Null;
-					}
-					const Function *pFuncLeader = NULL;
-					Args argsSub(valListComp, Value::Null, NULL, false, &pFuncLeader);
-					return pFunc->Eval(env, sig, argsSub);
-				}
-				AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
-				if (sig.IsSignalled()) return Value::Null;
-				AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(env,
-							Function::Reference(pFunc),
-							Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
-				ValueList valListArg(valueLeft, valueRight);
-				Args argsSub(valListArg);
-				return pIteratorFuncBinder->Eval(env, sig, argsSub);
-			} else if (valueRight.IsIterator()) {
-				AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
-				if (sig.IsSignalled()) return Value::Null;
-				AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(env,
-							Function::Reference(pFunc),
-							Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
-				if (pFunc->IsRsltNormal() ||
-							pFunc->IsRsltIterator() || pFunc->IsRsltXIterator()) {
-					return Value(env, pIteratorFuncBinder.release());
-				} else {
-					ValueList valListArg(valueLeft, valueRight);
-					Args argsSub(valListArg);
-					return pIteratorFuncBinder->Eval(env, sig, argsSub);
-				}
-			}
-		} else if (valueLeft.IsMatrix() && valueRight.IsList() ||
-				   valueLeft.IsList() && valueRight.IsMatrix()) {
-			return _pOperator->EvalBinary(env, sig, valueLeft, valueRight);
-		}
-	} else if (opType == OPTYPE_Mod) {
-		if (valueLeft.IsFunction()) {
-			const Function *pFunc = valueLeft.GetFunction();
-			Value result;
-			if (!valueRight.IsList()) {
-				ValueList valListArg(valueRight);
-				Args argsSub(valListArg);
-				result = pFunc->Eval(env, sig, argsSub);
-			} else if (pFunc->GetMapFlag() == Function::MAP_Off ||
-					!pFunc->GetDeclOwner().ShouldImplicitMap(valueRight.GetList())) {
-				Args argsSub(valueRight.GetList());
-				result = pFunc->Eval(env, sig, argsSub);
-			} else if (pFunc->IsUnary()) {
-				ValueList valListArg(valueRight);
-				Args argsSub(valListArg);
-				result = pFunc->EvalMap(env, sig, argsSub);
-			} else {
-				Args argsSub(valueRight.GetList());
-				result = pFunc->EvalMap(env, sig, argsSub);
-			}
-			return result;
-		} else if (valueLeft.IsString()) {
-			const char *format = valueLeft.GetString();
-			if (!valueRight.IsList()) {
-				String str = Formatter::Format(sig, format, ValueList(valueRight));
-				if (sig.IsSignalled()) return Value::Null;
-				return Value(env, str.c_str());
-			} else {
-				const ValueList &valList = valueRight.GetList();
-				if (valList.IsFlat() && !valList.IsContainIterator()) {
-					String str = Formatter::Format(sig, format, valList);
-					if (sig.IsSignalled()) return Value::Null;
-					return Value(env, str.c_str());
-				} else {
-					IteratorOwner iterOwner;
-					foreach_const (ValueList, pValue, valList) {
-						AutoPtr<Iterator> pIterator;
-						if (pValue->IsList() || pValue->IsIterator()) {
-							pIterator.reset(pValue->CreateIterator(sig));
-							if (pIterator.IsNull()) return Value::Null;
-						} else {
-							pIterator.reset(new Iterator_Constant(*pValue));
-						}
-						iterOwner.push_back(pIterator.release());
-					}
-					return Formatter::Format(env, sig, format, iterOwner);
-				}
-			}
-		}
-	} else if (opType == OPTYPE_Contains) {
-		return _pOperator->EvalBinary(env, sig, valueLeft, valueRight);
-	}
-	if (valueLeft.IsListOrIterator() || valueRight.IsListOrIterator()) {
-		AutoPtr<Iterator> pIterator(new Iterator_BinaryOperatorMap(env, sig,
-										_pOperator, valueLeft, valueRight));
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(this);
-			return Value::Null;
-		}
-		if (valueLeft.IsIterator() || valueRight.IsIterator()) {
-			result = Value(env, pIterator.release());
-		} else {
-			ValueList &valList = result.InitAsList(env);
-			Value value;
-			while (pIterator->Next(env, sig, value)) valList.push_back(value);
-			//result = pIterator->ToList(env, sig, true, false);
-		}
-	} else {
-		result = _pOperator->EvalBinary(env, sig, valueLeft, valueRight);
-	}
-	if (sig.IsSignalled()) {
-		sig.AddExprCause(this);
-		return Value::Null;
-	}
-	return result;
+	return _pOperator->EvalMapBinary(env, sig, valueLeft, valueRight);
 }
 
 Expr *Expr_BinaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
@@ -2597,7 +2461,7 @@ Value Expr_Assign::Exec(Environment &env, Signal sig,
 				sig.AddExprCause(this);
 				return Value::Null;
 			}
-			value = _pOperatorToApply->EvalBinary(env, sig, valueLeft, value);
+			value = _pOperatorToApply->EvalMapBinary(env, sig, valueLeft, value);
 			if (sig.IsSignalled()) {
 				sig.AddExprCause(this);
 				return Value::Null;

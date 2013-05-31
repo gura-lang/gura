@@ -129,6 +129,9 @@ public:
 	Value EvalUnary(Environment &env, Signal sig, const Value &value) const;
 	Value EvalBinary(Environment &env, Signal sig,
 					const Value &valueLeft, const Value &valueRight) const;
+	virtual Value EvalMapUnary(Environment &env, Signal sig, const Value &value) const;
+	virtual Value EvalMapBinary(Environment &env, Signal sig,
+					const Value &valueLeft, const Value &valueRight) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -211,6 +214,8 @@ public:
 class GURA_DLLDECLARE Operator_Mul : public Operator {
 public:
 	inline Operator_Mul() : Operator(OPTYPE_Mul) {}
+	virtual Value EvalMapBinary(Environment &env, Signal sig,
+					const Value &valueLeft, const Value &valueRight) const;
 	virtual Expr *DiffBinary(Environment &env, Signal sig,
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
@@ -237,6 +242,8 @@ public:
 class GURA_DLLDECLARE Operator_Mod : public Operator {
 public:
 	inline Operator_Mod() : Operator(OPTYPE_Mod) {}
+	virtual Value EvalMapBinary(Environment &env, Signal sig,
+					const Value &valueLeft, const Value &valueRight) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -314,6 +321,8 @@ public:
 class GURA_DLLDECLARE Operator_Contains : public Operator {
 public:
 	inline Operator_Contains() : Operator(OPTYPE_Contains) {}
+	virtual Value EvalMapBinary(Environment &env, Signal sig,
+					const Value &valueLeft, const Value &valueRight) const;
 };
 
 //-----------------------------------------------------------------------------

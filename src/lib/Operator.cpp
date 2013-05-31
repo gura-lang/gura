@@ -130,6 +130,41 @@ Value Operator::EvalBinary(Environment &env, Signal sig, const Value &valueLeft,
 	return pOperatorEntry->DoEval(env, sig, valueLeft, valueRight);
 }
 
+Value Operator::EvalMapUnary(Environment &env, Signal sig, const Value &value) const
+{
+	if (!value.IsListOrIterator()) {
+		return EvalUnary(env, sig, value);
+	}
+	AutoPtr<Iterator> pIterator(new Iterator_UnaryOperatorMap(
+												env, sig, this, value));
+	if (value.IsIterator()) {
+		return Value(env, pIterator.release());
+	}
+	Value result;
+	ValueList &valList = result.InitAsList(env);
+	Value valueElem;
+	while (pIterator->Next(env, sig, valueElem)) valList.push_back(valueElem);
+	return result;
+}
+
+Value Operator::EvalMapBinary(Environment &env, Signal sig,
+							const Value &valueLeft, const Value &valueRight) const
+{
+	if (!valueLeft.IsListOrIterator() && !valueRight.IsListOrIterator()) {
+		return EvalBinary(env, sig, valueLeft, valueRight);
+	}
+	AutoPtr<Iterator> pIterator(new Iterator_BinaryOperatorMap(env, sig,
+									this, valueLeft, valueRight));
+	if (valueLeft.IsIterator() || valueRight.IsIterator()) {
+		return Value(env, pIterator.release());
+	}
+	Value result;
+	ValueList &valList = result.InitAsList(env);
+	Value valueElem;
+	while (pIterator->Next(env, sig, valueElem)) valList.push_back(valueElem);
+	return result;
+}
+
 OpType Operator::LookupUnaryOpType(const char *str)
 {
 	for (size_t i = OPTYPE_unary; i < OPTYPE_binary; i++) {
@@ -461,6 +496,54 @@ Expr *Operator_Sub::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft,
 //-----------------------------------------------------------------------------
 // Operator_Mul
 //-----------------------------------------------------------------------------
+Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
+							const Value &valueLeft, const Value &valueRight) const
+{
+	if (valueLeft.IsFunction()) {
+		const Function *pFunc = valueLeft.GetFunction();
+		if (pFunc->IsUnary()) {
+			// nothing to do
+		} else if (valueRight.IsList()) {
+			const ValueList &valList = valueRight.GetList();
+			if (valList.IsFlat()) {
+				ValueList valListComp = valList;
+				if (!pFunc->GetDeclOwner().Compensate(env, sig, valListComp)) {
+					return Value::Null;
+				}
+				const Function *pFuncLeader = NULL;
+				Args argsSub(valListComp, Value::Null, NULL, false, &pFuncLeader);
+				return pFunc->Eval(env, sig, argsSub);
+			}
+			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
+			if (sig.IsSignalled()) return Value::Null;
+			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(env,
+						Function::Reference(pFunc),
+						Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
+			ValueList valListArg(valueLeft, valueRight);
+			Args argsSub(valListArg);
+			return pIteratorFuncBinder->Eval(env, sig, argsSub);
+		} else if (valueRight.IsIterator()) {
+			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
+			if (sig.IsSignalled()) return Value::Null;
+			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(env,
+						Function::Reference(pFunc),
+						Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
+			if (pFunc->IsRsltNormal() ||
+						pFunc->IsRsltIterator() || pFunc->IsRsltXIterator()) {
+				return Value(env, pIteratorFuncBinder.release());
+			} else {
+				ValueList valListArg(valueLeft, valueRight);
+				Args argsSub(valListArg);
+				return pIteratorFuncBinder->Eval(env, sig, argsSub);
+			}
+		}
+	} else if (valueLeft.IsMatrix() && valueRight.IsList() ||
+			   valueLeft.IsList() && valueRight.IsMatrix()) {
+		return EvalBinary(env, sig, valueLeft, valueRight);
+	}
+	return Operator::EvalMapBinary(env, sig, valueLeft, valueRight);
+}
+
 Expr *Operator_Mul::DiffBinary(Environment &env, Signal sig,
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
 {
@@ -746,6 +829,59 @@ Expr *Operator_Div::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft,
 //-----------------------------------------------------------------------------
 // Operator_Mod
 //-----------------------------------------------------------------------------
+Value Operator_Mod::EvalMapBinary(Environment &env, Signal sig,
+							const Value &valueLeft, const Value &valueRight) const
+{
+	if (valueLeft.IsFunction()) {
+		const Function *pFunc = valueLeft.GetFunction();
+		Value result;
+		if (!valueRight.IsList()) {
+			ValueList valListArg(valueRight);
+			Args argsSub(valListArg);
+			result = pFunc->Eval(env, sig, argsSub);
+		} else if (pFunc->GetMapFlag() == Function::MAP_Off ||
+				!pFunc->GetDeclOwner().ShouldImplicitMap(valueRight.GetList())) {
+			Args argsSub(valueRight.GetList());
+			result = pFunc->Eval(env, sig, argsSub);
+		} else if (pFunc->IsUnary()) {
+			ValueList valListArg(valueRight);
+			Args argsSub(valListArg);
+			result = pFunc->EvalMap(env, sig, argsSub);
+		} else {
+			Args argsSub(valueRight.GetList());
+			result = pFunc->EvalMap(env, sig, argsSub);
+		}
+		return result;
+	} else if (valueLeft.IsString()) {
+		const char *format = valueLeft.GetString();
+		if (!valueRight.IsList()) {
+			String str = Formatter::Format(sig, format, ValueList(valueRight));
+			if (sig.IsSignalled()) return Value::Null;
+			return Value(env, str.c_str());
+		} else {
+			const ValueList &valList = valueRight.GetList();
+			if (valList.IsFlat() && !valList.IsContainIterator()) {
+				String str = Formatter::Format(sig, format, valList);
+				if (sig.IsSignalled()) return Value::Null;
+				return Value(env, str.c_str());
+			} else {
+				IteratorOwner iterOwner;
+				foreach_const (ValueList, pValue, valList) {
+					AutoPtr<Iterator> pIterator;
+					if (pValue->IsList() || pValue->IsIterator()) {
+						pIterator.reset(pValue->CreateIterator(sig));
+						if (pIterator.IsNull()) return Value::Null;
+					} else {
+						pIterator.reset(new Iterator_Constant(*pValue));
+					}
+					iterOwner.push_back(pIterator.release());
+				}
+				return Formatter::Format(env, sig, format, iterOwner);
+			}
+		}
+	}
+	return Operator::EvalMapBinary(env, sig, valueLeft, valueRight);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Pow
@@ -855,6 +991,11 @@ Expr *Operator_Pow::OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft,
 //-----------------------------------------------------------------------------
 // Operator_Contains
 //-----------------------------------------------------------------------------
+Value Operator_Contains::EvalMapBinary(Environment &env, Signal sig,
+							const Value &valueLeft, const Value &valueRight) const
+{
+	return EvalBinary(env, sig, valueLeft, valueRight);
+}
 
 //-----------------------------------------------------------------------------
 // Operator_Or

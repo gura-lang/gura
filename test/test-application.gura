@@ -36,7 +36,6 @@ scope {
 		wdayAccum = (wdayAccum + time.monthdays(year, 12)) % 7
 	}
 }
-/*
 scope {
 	calOfMonth(year:number, month:number) = {
 		days = [fill(time.weekday(year, month, 1), '  '),
@@ -67,7 +66,6 @@ scope {
 	}
 	calendar(2010, 1..4):map:void
 }
-*/
 function(nRange:number, nTrial:number) {
 	println('-- Histogram of regular distribution --')
 	item = struct(num:number, mark:string):map
