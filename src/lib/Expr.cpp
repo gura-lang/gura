@@ -1840,7 +1840,7 @@ Expr *Expr_Caller::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol)
 		Expr::Delete(pExprArgDiff);
 		return pExprFuncDiff;
 	}
-	return Operator_Mul::OptimizedExpr(env, sig, pExprFuncDiff, pExprArgDiff);
+	return Operator_Mul::OptimizeExpr(env, sig, pExprFuncDiff, pExprArgDiff);
 }
 
 Expr *Expr_Caller::MathOptimize(Environment &env, Signal sig) const

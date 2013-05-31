@@ -36,6 +36,8 @@ Operator::Assign(env, new OperatorEntry_##op##_##typeL##_##typeR())
 
 namespace Gura {
 
+class Expr_Value;
+
 // the order of Operator::_mathSymbolTbl depends on OpType numbers.
 enum OpType {
 	OPTYPE_None,
@@ -111,16 +113,15 @@ public:
 	inline static ValueType ExtractValueTypeRight(Key key) {
 		return static_cast<ValueType>((static_cast<unsigned long>(key) >> 16) & 0xffff);
 	}
-	static void SetError_InvalidValueType(Signal &sig, OpType opType, const Value &value);
-	static void SetError_InvalidValueType(Signal &sig, OpType opType,
-					const Value &valueLeft, const Value &valueRight);
-	static void Assign(Environment &env, OperatorEntry *pOperatorEntry);
 	const OperatorEntry *Lookup(ValueType valType) const;
 	const OperatorEntry *Lookup(ValueType valTypeLeft, ValueType valTypeRight) const;
 	virtual Expr *DiffUnary(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
 	virtual Expr *DiffBinary(Environment &env, Signal sig,
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
+	Expr *OptimizeConst(Environment &env, Signal sig, Expr_Value *pExprChild) const;
+	Expr *OptimizeConst(Environment &env, Signal sig,
+									Expr_Value *pExprLeft, Expr_Value *pExprRight) const;
 	virtual Expr *OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
 									Expr *pExprOpt1, Expr *pExprOpt2) const;
@@ -132,6 +133,13 @@ public:
 	virtual Value EvalMapUnary(Environment &env, Signal sig, const Value &value) const;
 	virtual Value EvalMapBinary(Environment &env, Signal sig,
 					const Value &valueLeft, const Value &valueRight) const;
+	static void SetError_InvalidValueType(Signal &sig, OpType opType, const Value &value);
+	static void SetError_InvalidValueType(Signal &sig, OpType opType,
+					const Value &valueLeft, const Value &valueRight);
+	static void Assign(Environment &env, OperatorEntry *pOperatorEntry);
+	static void SetError_DivideByZero(Signal &sig);
+	static void SetError_MathDiffError(Signal &sig);
+	static void SetError_MathOptimizeError(Signal &sig);
 };
 
 //-----------------------------------------------------------------------------
@@ -143,7 +151,7 @@ public:
 	virtual Expr *DiffUnary(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const;
-	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild);
+	static Expr *OptimizeExpr(Environment &env, Signal sig, Expr *pExprChild);
 };
 
 //-----------------------------------------------------------------------------
@@ -155,7 +163,7 @@ public:
 	virtual Expr *DiffUnary(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const;
-	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprChild);
+	static Expr *OptimizeExpr(Environment &env, Signal sig, Expr *pExprChild);
 };
 
 //-----------------------------------------------------------------------------
@@ -192,7 +200,7 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------
@@ -205,7 +213,7 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------
@@ -220,7 +228,7 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------
@@ -233,7 +241,7 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------
@@ -256,7 +264,7 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *OptimizedExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------
