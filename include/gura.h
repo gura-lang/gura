@@ -35,7 +35,6 @@
 #include "gura/Module.h"
 #include "gura/Formatter.h"
 #include "gura/Operator.h"
-#include "gura/OpFunction.h"
 #include "gura/Iterator.h"
 #include "gura/Expr.h"
 #include "gura/Image.h"

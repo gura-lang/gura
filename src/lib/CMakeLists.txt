@@ -19,7 +19,6 @@ Iterator.cpp
 Matrix.cpp
 Memory.cpp
 Operator.cpp
-OpFunction.cpp
 Option.cpp
 Palette.cpp
 Parser.cpp

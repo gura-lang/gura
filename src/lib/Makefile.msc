@@ -8,7 +8,7 @@ MANIFEST_GURA = ..\..\bin-x86\libguracore-x86.dll.intermediate.manifest
 SRCS = \
 Common.cpp Parser.cpp TemplateEngine.cpp Expr.cpp Value.cpp Iterator.cpp \
 Symbol.cpp String.cpp Memory.cpp Binary.cpp Environment.cpp Signal.cpp Formatter.cpp Option.cpp \
-Function.cpp Operator.cpp OpFunction.cpp Declaration.cpp \
+Function.cpp Operator.cpp Declaration.cpp \
 Algorithm.cpp Codec.cpp \
 PathManager.cpp Directory.cpp Stream.cpp DateTime.cpp Image.cpp Palette.cpp Audio.cpp Matrix.cpp \
 OAL.cpp DllMain.cpp Fundamental.cpp

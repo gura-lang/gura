@@ -901,18 +901,12 @@ bool Environment::IsObject() const { return false; }
 //-----------------------------------------------------------------------------
 Environment::Global::Global() : _echoFlag(false)
 {
-	for (size_t i = 0; i < OPTYPE_max; i++) {
-		_pOpFuncTbl[i] = NULL;
-	}
 }
 
 Environment::Global::~Global()
 {
 	foreach_const (SeparatedModuleMap, iter, _separatedModuleMap) {
 		delete iter->second;
-	}
-	for (size_t i = 0; i < OPTYPE_max; i++) {
-		Function::Delete(_pOpFuncTbl[i]);
 	}
 }
 
@@ -1139,7 +1133,6 @@ bool EnvironmentRoot::Initialize(Signal sig, int argc, const char *argv[])
 	GetGlobal()->Prepare(env, sig);
 	AssignErrorTypes(env);		// Signal.cpp
 	AssignBasicOperators(env);	// Operators.cpp
-	AssignOpFunctions(env);		// OpFunctions.cpp
 	do {
 		ValueTypePool::DoPrepareClass(env);
 	} while (0);

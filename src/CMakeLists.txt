@@ -130,7 +130,6 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Object_timedelta.h
   ${GURA_INCLUDE_DIR}/gura/Object_uri.h
   ${GURA_INCLUDE_DIR}/gura/Operator.h
-  ${GURA_INCLUDE_DIR}/gura/OpFunction.h
   ${GURA_INCLUDE_DIR}/gura/Option.h
   ${GURA_INCLUDE_DIR}/gura/PackedNumber.h
   ${GURA_INCLUDE_DIR}/gura/Parser.h

@@ -176,7 +176,6 @@ public:
 		SymbolPool			*_pSymbolPool;
 		ValueTypePool		*_pValueTypePool;
 		bool				_echoFlag;
-		Function			*_pOpFuncTbl[OPTYPE_max];
 		Module				*_pModule_sys;
 		AutoPtr<Stream>		_pConsoleDumb;
 	public:
@@ -279,10 +278,6 @@ public:
 	inline bool IsType(EnvType envType) const	{ return GetTopFrame()->IsType(envType); }
 	inline Global *GetGlobal()					{ return GetTopFrame()->GetGlobal();			}
 	inline Global *GetGlobal() const			{ return GetTopFrame()->GetGlobal();			}
-	inline const Function *GetOpFunc(OpType opType) { return GetGlobal()->_pOpFuncTbl[opType];	}
-	inline const Function *GetOpFuncWithCheck(OpType opType) {
-		return (opType < OPTYPE_max)? GetGlobal()->_pOpFuncTbl[opType] : NULL;
-	}
 	inline Operator *GetOperator(OpType opType) { return GetGlobal()->GetOperator(opType);	}
 	inline const Operator *GetOperator(OpType opType) const { return GetGlobal()->GetOperator(opType);	}
 	inline void SetOperator(OpType opType, Operator *pOperator) { GetGlobal()->SetOperator(opType, pOperator); }

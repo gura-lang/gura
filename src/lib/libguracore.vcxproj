@@ -237,7 +237,6 @@
     <ClCompile Include="CustomClass.cpp" />
     <ClCompile Include="StructObject.cpp" />
     <ClCompile Include="Operator.cpp" />
-    <ClCompile Include="OpFunction.cpp" />
     <ClCompile Include="Option.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="TemplateEngine.cpp" />
@@ -309,7 +308,6 @@
     <ClInclude Include="..\..\include\gura\Object_timedelta.h" />
     <ClInclude Include="..\..\include\gura\Object_uri.h" />
     <ClInclude Include="..\..\include\gura\Operator.h" />
-    <ClInclude Include="..\..\include\gura\OpFunction.h" />
     <ClInclude Include="..\..\include\gura\Option.h" />
     <ClInclude Include="..\..\include\gura\PackedNumber.h" />
     <ClInclude Include="..\..\include\gura\Parser.h" />
