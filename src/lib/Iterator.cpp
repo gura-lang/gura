@@ -71,8 +71,11 @@ Value Iterator::ToList(Environment &env, Signal sig,
 	ValueList *pValList = NULL;
 	size_t cnt = 0;
 	Value value;
+	if (alwaysListFlag) {
+		pValList = &result.InitAsList(env);
+	}
 	while (Next(env, sig, value)) {
-		if (pValList == NULL && alwaysListFlag && !value.IsUndefined()) {
+		if (pValList == NULL && !value.IsUndefined()) {
 			pValList = &result.InitAsList(env, cnt, Value::Null);
 		}
 		if (value.IsValid()) {
@@ -2287,7 +2290,7 @@ bool Iterator_Fold::DoNext(Environment &env, Signal sig, Value &value)
 							Reference(_pIterator.get()), _cnt, valueNext));
 	if (_listItemFlag) {
 		bool excludeNilFlag = false;
-		value = pIterator->ToList(env, sig, true, excludeNilFlag);
+		value = pIterator->ToList(env, sig, false, excludeNilFlag);
 	} else {
 		value = Value(env, pIterator.release());
 	}

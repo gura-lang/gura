@@ -1695,7 +1695,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig,
 			if (mode == Expr_Member::MODE_MapToIter) {
 				return Value(env, pIteratorMap.release());
 			}
-			Value result = pIteratorMap->ToList(env, sig, true, false);
+			Value result = pIteratorMap->ToList(env, sig, false, false);
 			if (sig.IsSignalled()) return Value::Null;
 			return result;
 		}
@@ -2524,7 +2524,7 @@ Value Expr_Member::DoExec(Environment &env, Signal sig) const
 			if (mode == MODE_MapToIter) {
 				return Value(env, pIteratorMap.release());
 			}
-			Value result = pIteratorMap->ToList(env, sig, true, false);
+			Value result = pIteratorMap->ToList(env, sig, false, false);
 			if (sig.IsSignalled()) return Value::Null;
 			return result;
 		}

@@ -140,11 +140,7 @@ Value Operator::EvalMapUnary(Environment &env, Signal sig, const Value &value) c
 	if (value.IsIterator()) {
 		return Value(env, pIterator.release());
 	}
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	Value valueElem;
-	while (pIterator->Next(env, sig, valueElem)) valList.push_back(valueElem);
-	return result;
+	return pIterator->ToList(env, sig, true, false);
 }
 
 Value Operator::EvalMapBinary(Environment &env, Signal sig,
@@ -158,11 +154,7 @@ Value Operator::EvalMapBinary(Environment &env, Signal sig,
 	if (valueLeft.IsIterator() || valueRight.IsIterator()) {
 		return Value(env, pIterator.release());
 	}
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	Value valueElem;
-	while (pIterator->Next(env, sig, valueElem)) valList.push_back(valueElem);
-	return result;
+	return pIterator->ToList(env, sig, true, false);
 }
 
 OpType Operator::LookupUnaryOpType(const char *str)
