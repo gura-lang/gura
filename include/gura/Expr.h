@@ -131,7 +131,24 @@ public:
 	virtual const char *GetPathName() const;
 	
 	virtual ICallable *LookupCallable(Environment &env, Signal sig) const;
-	virtual Value Exec(Environment &env, Signal sig) const = 0;
+	inline Value Exec(Environment &env, Signal sig) const {
+		Value result = DoExec(env, sig);
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(this);
+			return Value::Null;
+		}
+		return result;
+	}
+	inline Value Assign(Environment &env, Signal sig, Value &value,
+					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const {
+		Value result = DoAssign(env, sig, value, pSymbolsAssignable, escalateFlag);
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(this);
+			return Value::Null;
+		}
+		return result;
+	}
+	virtual Value DoExec(Environment &env, Signal sig) const = 0;
 	bool ExecInArg(Environment &env, Signal sig,
 					ValueList &valListArg, size_t &nElems, bool quoteFlag) const;
 	virtual void Accept(ExprVisitor &visitor) const = 0;
@@ -321,7 +338,7 @@ public:
 	virtual ~Expr_Value();
 	virtual bool IsValue() const;
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual void Accept(ExprVisitor &visitor) const;
@@ -347,7 +364,7 @@ public:
 	virtual ~Expr_String();
 	virtual bool IsString() const;
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const;
@@ -375,7 +392,7 @@ public:
 	virtual ~Expr_TemplateString();
 	virtual bool IsTemplateString() const;
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const;
@@ -403,7 +420,7 @@ public:
 	virtual bool IsSymbol() const;
 	virtual Expr *Clone() const;
 	virtual ICallable *LookupCallable(Environment &env, Signal sig) const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	Value Exec(Environment &env, Signal sig, const Value &valueThis) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
@@ -441,7 +458,7 @@ public:
 	virtual bool IsRoot() const;
 	virtual Expr *Clone() const;
 	virtual const char *GetPathName() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Environment &env, Signal sig, Stream &stream);
@@ -461,7 +478,7 @@ public:
 	virtual ~Expr_BlockParam();
 	virtual bool IsBlockParam() const;
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Environment &env, Signal sig, Stream &stream);
@@ -483,7 +500,7 @@ public:
 	virtual ~Expr_Block();
 	virtual bool IsBlock() const;
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -512,7 +529,7 @@ public:
 	virtual ~Expr_Lister();
 	virtual bool IsLister() const;
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -551,7 +568,7 @@ public:
 	virtual ~Expr_TemplateScript();
 	virtual bool IsTemplateScript() const;
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const;
 	virtual bool DoDeserialize(Environment &env, Signal sig, Stream &stream);
@@ -598,7 +615,7 @@ public:
 	virtual ~Expr_Indexer();
 	virtual bool IsIndexer() const;
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor) const;
@@ -628,7 +645,7 @@ public:
 	virtual bool IsCaller() const;
 	virtual Expr *Clone() const;
 	virtual ICallable *LookupCallable(Environment &env, Signal sig) const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor) const;
@@ -685,7 +702,7 @@ public:
 	}
 	virtual ~Expr_UnaryOp();
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual bool IsUnaryOp() const;
@@ -712,7 +729,7 @@ public:
 	}
 	virtual ~Expr_BinaryOp();
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual bool IsBinaryOp() const;
@@ -734,7 +751,7 @@ public:
 	}
 	virtual ~Expr_Quote();
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual const Expr *Unquote() const;
 	virtual bool IsQuote() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -755,7 +772,7 @@ public:
 	}
 	virtual ~Expr_Force();
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool IsForce() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool DoSerialize(Environment &env, Signal sig, Stream &stream) const;
@@ -779,7 +796,7 @@ public:
 	}
 	virtual ~Expr_Prefix();
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool IsPrefix() const;
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -804,7 +821,7 @@ public:
 	}
 	virtual ~Expr_Suffix();
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool IsSuffix() const;
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	OccurPattern GetOccurPattern() const;
@@ -829,7 +846,7 @@ public:
 		return dynamic_cast<Expr_Assign *>(Expr::Reference(pExpr));
 	}
 	virtual ~Expr_Assign();
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	Value Exec(Environment &env, Signal sig,
 				Environment &envDst, const SymbolSet *pSymbolsAssignable) const;
 	virtual Expr *Clone() const;
@@ -852,7 +869,7 @@ public:
 		return dynamic_cast<Expr_DictAssign *>(Expr::Reference(pExpr));
 	}
 	virtual ~Expr_DictAssign();
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Expr *Clone() const;
 	virtual bool IsDictAssign() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -886,7 +903,7 @@ public:
 	}
 	virtual ~Expr_Member();
 	virtual Expr *Clone() const;
-	virtual Value Exec(Environment &env, Signal sig) const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool IsMember() const;

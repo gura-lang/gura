@@ -169,6 +169,7 @@ String Signal::GetErrTrace() const
 	str += "Traceback:\n";
 	foreach_const (ExprOwner, ppExpr, exprCauseOwner) {
 		const Expr *pExpr = *ppExpr;
+		if (pExpr->IsRoot()) break;
 		if (pExprInner == NULL) {
 			pExprPrev = pExpr;
 		} else if (pExpr->IsAtSameLine(pExprInner)) {

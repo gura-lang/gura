@@ -360,7 +360,7 @@ Gura_ImplementFunction(public_)
 			}
 			const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExprAssign->GetLeft());
 			symbolsPublic.Insert(pExprSymbol->GetSymbol());
-			pExprAssign->Exec(env, sig);
+			pExpr->Exec(env, sig);
 			if (sig.IsSignalled()) return Value::Null;
 		} else {
 			sig.SetError(ERR_ValueError, "invalid element for public");
