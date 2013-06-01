@@ -1,6 +1,8 @@
 #include <gura.h>
 #include "Port.h"
 
+Gura_BeginModule(midi)
+
 //-----------------------------------------------------------------------------
 // Port
 //-----------------------------------------------------------------------------
@@ -23,6 +25,12 @@ Port::~Port()
 void Port::MmlPlay(char channel, const char *mml)
 {
 	_pChannels[channel]->Parse(mml);
+}
+
+bool Port::SMFPlay(Signal sig, Stream &stream)
+{
+	SMFReaderEx smfReader(this);
+	return smfReader.Read(sig, stream);
 }
 
 //-----------------------------------------------------------------------------
@@ -52,3 +60,24 @@ void Port::Channel::OnMmlTone(int tone)
 void Port::Channel::OnMmlTempo(int tempo)
 {
 }
+
+//-----------------------------------------------------------------------------
+// Port::SMFReaderEx
+//-----------------------------------------------------------------------------
+void Port::SMFReaderEx::OnMIDIEvent(unsigned long deltaTime, unsigned char data[], size_t length)
+{
+	::printf("%08x MIDIEvent %02x\n", deltaTime, data[0]);
+}
+
+void Port::SMFReaderEx::OnSysExEvent(unsigned long deltaTime)
+{
+	::printf("%08x SysExEvent\n", deltaTime);
+}
+
+void Port::SMFReaderEx::OnMetaEvent(unsigned long deltaTime, unsigned char eventType, unsigned char data[], size_t length)
+{
+	::printf("%08x MetaEvent %02x\n", deltaTime, eventType);
+}
+
+
+}}

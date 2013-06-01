@@ -222,63 +222,8 @@ Gura_DeclareFunction(test)
 	DeclareArg(env, "stream", VTYPE_stream);
 }
 
-enum MIDIEvent {
-	MIDIEVT_None,
-	MIDIEVT_NoteOff,
-	MIDIEVT_NoteOn,
-	MIDIEVT_PolyphonicKeyPressure,
-	MIDIEVT_ControlChange,
-	MIDIEVT_ProgramChange,
-	MIDIEVT_ChannelPressure,
-	MIDIEVT_PitchBendChange,
-};
-
-enum MetaEvent {
-	METAEVT_None,
-	METAEVT_SequenceNumber,
-	METAEVT_TextEvent,
-	METAEVT_CopyrightNotice,
-	METAEVT_SequenceOrTrackName,
-	METAEVT_InstrumentName,
-	METAEVT_LyricText,
-	METAEVT_MarkerText,
-	METAEVT_CuePoint,
-	METAEVT_MIDIChannelPrefixAssignment,
-	METAEVT_EndOfTrack,
-	METAEVT_TempoSetting,
-	METAEVT_SMPTEOffset,
-	METAEVT_TimeSignature,
-	METAEVT_KeySignature,
-	METAEVT_SequencerSpecificEvent,
-};
-
-class SMFReaderEx : public SMFReader {
-public:
-	virtual void OnMIDIEvent(unsigned long deltaTime, unsigned char data[], size_t length);
-	virtual void OnSysExEvent(unsigned long deltaTime);
-	virtual void OnMetaEvent(unsigned long deltaTime, unsigned char eventType, unsigned char data[], size_t length);
-};
-
-void SMFReaderEx::OnMIDIEvent(unsigned long deltaTime, unsigned char data[], size_t length)
-{
-	::printf("%08x MIDIEvent %02x\n", deltaTime, data[0]);
-}
-
-void SMFReaderEx::OnSysExEvent(unsigned long deltaTime)
-{
-	::printf("%08x SysExEvent\n", deltaTime);
-}
-
-void SMFReaderEx::OnMetaEvent(unsigned long deltaTime, unsigned char eventType, unsigned char data[], size_t length)
-{
-	::printf("%08x MetaEvent %02x\n", deltaTime, eventType);
-}
-
-
 Gura_ImplementFunction(test)
 {
-	SMFReaderEx smfReader;
-	smfReader.Read(sig, args.GetStream(0));
 	return Value::Null;
 }
 

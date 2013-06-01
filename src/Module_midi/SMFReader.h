@@ -6,6 +6,34 @@ Gura_BeginModule(midi)
 
 class SMFReader {
 public:
+	enum MIDIEvent {
+		MIDIEVT_None,
+		MIDIEVT_NoteOff,
+		MIDIEVT_NoteOn,
+		MIDIEVT_PolyphonicKeyPressure,
+		MIDIEVT_ControlChange,
+		MIDIEVT_ProgramChange,
+		MIDIEVT_ChannelPressure,
+		MIDIEVT_PitchBendChange,
+	};
+	enum MetaEvent {
+		METAEVT_None,
+		METAEVT_SequenceNumber,
+		METAEVT_TextEvent,
+		METAEVT_CopyrightNotice,
+		METAEVT_SequenceOrTrackName,
+		METAEVT_InstrumentName,
+		METAEVT_LyricText,
+		METAEVT_MarkerText,
+		METAEVT_CuePoint,
+		METAEVT_MIDIChannelPrefixAssignment,
+		METAEVT_EndOfTrack,
+		METAEVT_TempoSetting,
+		METAEVT_SMPTEOffset,
+		METAEVT_TimeSignature,
+		METAEVT_KeySignature,
+		METAEVT_SequencerSpecificEvent,
+	};
 	struct HeaderChunkTop {
 		enum { Size = 8 };
 		char MThd[4];

@@ -3,6 +3,8 @@
 #include "MmlParser.h"
 #include "SMFReader.h"
 
+Gura_BeginModule(midi)
+
 //-----------------------------------------------------------------------------
 // Port
 //-----------------------------------------------------------------------------
@@ -26,6 +28,16 @@ public:
 		virtual void OnMmlVolume(int volume);
 		virtual void OnMmlTone(int tone);
 		virtual void OnMmlTempo(int tempo);
+	};
+	class SMFReaderEx : public SMFReader {
+	private:
+		Port *_pPort;
+	public:
+		inline SMFReaderEx(Port *pPort) : _pPort(pPort) {}
+		// virtual functions of SMFReader
+		virtual void OnMIDIEvent(unsigned long deltaTime, unsigned char data[], size_t length);
+		virtual void OnSysExEvent(unsigned long deltaTime);
+		virtual void OnMetaEvent(unsigned long deltaTime, unsigned char eventType, unsigned char data[], size_t length);
 	};
 private:
 	HMIDIOUT _hMIDI;
@@ -71,6 +83,9 @@ public:
 					(static_cast<DWORD>(msg4) << 24));
 	}
 	void MmlPlay(char channel, const char *mml);
+	bool SMFPlay(Signal sig, Stream &stream);
 };
+
+}}
 
 #endif
