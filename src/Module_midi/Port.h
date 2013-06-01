@@ -13,6 +13,40 @@ public:
 	enum {
 		NUM_CHANNELS = 16,
 	};
+	class Event {
+	protected:
+		unsigned long _timeStamp;
+	public:
+		inline Event(unsigned long timeStamp) : _timeStamp(timeStamp) {}
+		inline unsigned long GetTimeStamp() const { return _timeStamp; }
+		virtual bool Exec(Signal sig, Port *pPort) = 0;
+	};
+	class EventList : public std::vector<Event *> {
+	public:
+		class Comparator_TimeStamp {
+		public:
+			inline bool operator()(const Event *pEvent1, const Event *pEvent2) const {
+				return pEvent1->GetTimeStamp() < pEvent2->GetTimeStamp();
+			}
+		};
+	public:
+		void Sort();
+		bool Exec(Signal sig, Port *pPort);
+	};
+	class EventOwner : public EventList {
+	public:
+		~EventOwner();
+		void Clear();
+	};
+	class MIDIEvent : public Event {
+	private:
+		unsigned char _msg1, _msg2, _msg3;
+	public:
+		inline MIDIEvent(unsigned long timeStamp,
+					unsigned char msg1, unsigned char msg2, unsigned char msg3) :
+			Event(timeStamp), _msg1(msg1), _msg2(msg2), _msg3(msg3) {}
+		virtual bool Exec(Signal sig, Port *pPort);
+	};
 	class Channel : public MmlParser {
 	private:
 		Port *_pPort;
@@ -31,9 +65,10 @@ public:
 	};
 	class SMFReaderEx : public SMFReader {
 	private:
-		Port *_pPort;
+		EventOwner _eventOwner;
 	public:
-		inline SMFReaderEx(Port *pPort) : _pPort(pPort) {}
+		inline SMFReaderEx() {}
+		inline EventOwner &GetEventOwner() { return _eventOwner; }
 		// virtual functions of SMFReader
 		virtual void OnMIDIEvent(unsigned long deltaTime, unsigned char msg1,unsigned char msg2);
 		virtual void OnMIDIEvent(unsigned long deltaTime, unsigned char msg1,unsigned char msg2, unsigned char msg3);

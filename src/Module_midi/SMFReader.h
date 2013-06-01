@@ -6,6 +6,10 @@ Gura_BeginModule(midi)
 
 class SMFReader {
 public:
+	enum {
+		NUM_CHANNELS = 16,
+	};
+#if 0
 	enum MIDIEvent {
 		MIDIEVT_None,
 		MIDIEVT_NoteOff,
@@ -34,6 +38,7 @@ public:
 		METAEVT_KeySignature,
 		METAEVT_SequencerSpecificEvent,
 	};
+#endif
 	struct HeaderChunkTop {
 		enum { Size = 8 };
 		char MThd[4];
@@ -49,8 +54,11 @@ public:
 		char MTrk[4];
 		Gura_PackedULong_BE(length);
 	};
+private:
+	unsigned long _timeStampTbl[NUM_CHANNELS];
 public:
-	inline SMFReader() {}
+	SMFReader();
+	void ResetTimeStamp();
 	bool Read(Signal sig, Stream &stream);
 	virtual void OnMIDIEvent(unsigned long deltaTime, unsigned char msg1, unsigned char msg2) = 0;
 	virtual void OnMIDIEvent(unsigned long deltaTime, unsigned char msg1, unsigned char msg2, unsigned char msg3) = 0;
