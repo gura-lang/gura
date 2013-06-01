@@ -139,10 +139,4 @@ void Port::SMFReaderEx::OnSysExEvent(unsigned long timeStamp)
 	::printf("%08x SysExEvent\n", timeStamp);
 }
 
-void Port::SMFReaderEx::OnMetaEvent(unsigned long timeStamp, unsigned char eventType, unsigned char data[], size_t length)
-{
-	::printf("%08x MetaEvent %02x\n", timeStamp, eventType);
-}
-
-
 }}

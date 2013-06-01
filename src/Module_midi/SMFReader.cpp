@@ -167,7 +167,7 @@ bool SMFReader::Read(Signal sig, Stream &stream)
 							// nothing to do
 						} else if (length == 0) {
 							_timeStampMeta += deltaTime;
-							OnMetaEvent(_timeStampMeta, eventType, buff, 0);
+							NotifyMetaEvent(_timeStampMeta, eventType, buff, 0);
 							stat = STAT_EventStart;
 						} else {
 							idxBuff = 0;
@@ -178,7 +178,7 @@ bool SMFReader::Read(Signal sig, Stream &stream)
 						idxBuff++;
 						if (idxBuff == length) {
 							_timeStampMeta += deltaTime;
-							OnMetaEvent(_timeStampMeta, eventType, buff, ChooseMin(
+							NotifyMetaEvent(_timeStampMeta, eventType, buff, ChooseMin(
 									static_cast<size_t>(length), sizeof(buff)));
 							stat = STAT_EventStart;
 						}
@@ -188,6 +188,11 @@ bool SMFReader::Read(Signal sig, Stream &stream)
 		}
 	}
 	return true;
+}
+
+void SMFReader::NotifyMetaEvent(unsigned long timeStamp, unsigned char eventType, unsigned char data[], size_t length)
+{
+	::printf("%08x MetaEvent %02x\n", timeStamp, eventType);
 }
 
 }}
