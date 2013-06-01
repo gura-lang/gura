@@ -5,6 +5,24 @@
 
 Gura_BeginModule(midi)
 
+struct HeaderChunkTop {
+	enum { Size = 8 };
+	char MThd[4];
+	Gura_PackedULong_BE(header_length);
+};
+
+struct HeaderChunk {
+	Gura_PackedUShort_BE(format);
+	Gura_PackedUShort_BE(num_track_chunks);
+	Gura_PackedUShort_BE(division);
+};
+
+struct TrackChunkTop {
+	enum { Size = 8 };
+	char MTrk[4];
+	Gura_PackedULong_BE(length);
+};
+
 //-----------------------------------------------------------------------------
 // Object_smf
 //-----------------------------------------------------------------------------
@@ -215,20 +233,75 @@ Gura_ImplementFunction(port)
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
-// midi.test(num1:number, num2:number)
+// midi.test(stream:stream)
 Gura_DeclareFunction(test)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "num1", VTYPE_number);
-	DeclareArg(env, "num2", VTYPE_number);
-	AddHelp(Gura_Symbol(en), "adds two numbers and returns the result.");
+	DeclareArg(env, "stream", VTYPE_stream);
+}
+
+bool ReadSMF(Environment &env, Signal sig, Stream &stream)
+{
+	AutoPtr<Memory> pMemory(new MemoryHeap(1024));
+	unsigned short format = 0;
+	unsigned short num_track_chunks = 0;
+	unsigned short division = 0;
+	do {
+		HeaderChunkTop headerChunkTop;
+		if (stream.Read(sig, &headerChunkTop, HeaderChunkTop::Size) != HeaderChunkTop::Size) {
+			sig.SetError(ERR_FormatError, "invalid SMF format");
+			return false;
+		}
+		if (::strcmp(headerChunkTop.MThd, "MThd") != 0) {
+			sig.SetError(ERR_FormatError, "invalid SMF format");
+			return false;
+		}
+		size_t header_length = Gura_UnpackULong(headerChunkTop.header_length);
+		HeaderChunk &headerChunk = *reinterpret_cast<HeaderChunk *>(pMemory->GetPointer());
+		if (header_length > pMemory->GetSize()) {
+			sig.SetError(ERR_FormatError, "invalid SMF format");
+			return false;
+		}
+		if (stream.Read(sig, pMemory->GetPointer(), header_length) != header_length) {
+			sig.SetError(ERR_FormatError, "invalid SMF format");
+			return false;
+		}
+		format = Gura_UnpackUShort(headerChunk.format);
+		num_track_chunks = Gura_UnpackUShort(headerChunk.num_track_chunks);
+		division = Gura_UnpackUShort(headerChunk.division);
+	} while (0);
+	::printf("%d %d %d\n", format, num_track_chunks, division);
+	for (unsigned short i = 0; i < num_track_chunks; i++) {
+		TrackChunkTop trackChunkTop;
+		if (stream.Read(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
+			sig.SetError(ERR_FormatError, "invalid SMF format");
+			return false;
+		}
+		if (::strcmp(trackChunkTop.MTrk, "MTrk") != 0) {
+			sig.SetError(ERR_FormatError, "invalid SMF format");
+			return false;
+		}
+		size_t length = Gura_UnpackULong(trackChunkTop.length);
+		for (size_t lengthRest = length; lengthRest > 0; ) {
+			size_t lengthRead = ChooseMin(lengthRest, pMemory->GetSize());
+			if (stream.Read(sig, pMemory->GetPointer(), lengthRead) != lengthRead) {
+				sig.SetError(ERR_FormatError, "invalid SMF format");
+				return false;
+			}
+			lengthRest -= lengthRead;
+			unsigned char *p = reinterpret_cast<unsigned char *>(pMemory->GetPointer());
+			for ( ; lengthRead > 0; p++, lengthRead--) {
+				unsigned char ch = *p;
+				::printf("%02x\n", ch);
+			}
+		}
+	}
+	return true;
 }
 
 Gura_ImplementFunction(test)
 {
-	::printf("%d\n", ::midiOutGetNumDevs());
-	::printf("%d\n", ::midiInGetNumDevs());
-	
+	ReadSMF(env, sig, args.GetStream(0));
 	return Value::Null;
 }
 
