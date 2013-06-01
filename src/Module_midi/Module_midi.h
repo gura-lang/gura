@@ -4,7 +4,7 @@
 #ifndef __MODULE_MIDI_H__
 #define __MODULE_MIDI_H__
 #include <gura.h>
-#include "MIDIHandle.h"
+#include "Port.h"
 
 Gura_BeginModule(midi)
 
@@ -43,23 +43,23 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class declaration for midi.device
+// Class declaration for midi.port
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(device);
+Gura_DeclareUserClass(port);
 
-class Object_device : public Object {
+class Object_port : public Object {
 public:
-	Gura_DeclareObjectAccessor(device)
+	Gura_DeclareObjectAccessor(port)
 private:
-	MIDIHandle _handle;
+	Port _port;
 public:
-	inline Object_device(Environment &env) : Object(Gura_UserClass(device)) {}
+	inline Object_port(Environment &env) : Object(Gura_UserClass(port)) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline MIDIHandle &GetHandle() { return _handle; }
+	inline Port &GetPort() { return _port; }
 };
 
 }}

@@ -1,17 +1,17 @@
 #include <gura.h>
-#include "MIDIHandle.h"
+#include "Port.h"
 
 //-----------------------------------------------------------------------------
-// MIDIHandle
+// Port
 //-----------------------------------------------------------------------------
-MIDIHandle::MIDIHandle() : _hMIDI(NULL)
+Port::Port() : _hMIDI(NULL)
 {
 	for (char channel = 0; channel < NUM_CHANNELS; channel++) {
 		_pChannels[channel] = new Channel(this, channel);
 	}
 }
 
-MIDIHandle::~MIDIHandle()
+Port::~Port()
 {
 	for (char channel = 0; channel < NUM_CHANNELS; channel++) {
 		delete _pChannels[channel];
@@ -20,35 +20,35 @@ MIDIHandle::~MIDIHandle()
 	Close();
 }
 
-void MIDIHandle::MmlPlay(char channel, const char *mml)
+void Port::MmlPlay(char channel, const char *mml)
 {
 	_pChannels[channel]->Parse(mml);
 }
 
 //-----------------------------------------------------------------------------
-// MIDIHandle::Channel
+// Port::Channel
 //-----------------------------------------------------------------------------
-void MIDIHandle::Channel::OnMmlNote(unsigned char note, int length)
+void Port::Channel::OnMmlNote(unsigned char note, int length)
 {
-	_pHandle->RawWrite(0x90 + GetChannel(), note, 0x7f);
+	_pPort->RawWrite(0x90 + GetChannel(), note, 0x7f);
 	Gura::OAL::Sleep(.01 * length);
-	_pHandle->RawWrite(0x90 + GetChannel(), note, 0x00);
+	_pPort->RawWrite(0x90 + GetChannel(), note, 0x00);
 }
 
-void MIDIHandle::Channel::OnMmlRest(int length)
+void Port::Channel::OnMmlRest(int length)
 {
 	::Sleep(.01 * length);
 }
 
-void MIDIHandle::Channel::OnMmlVolume(int volume)
+void Port::Channel::OnMmlVolume(int volume)
 {
 }
 
-void MIDIHandle::Channel::OnMmlTone(int tone)
+void Port::Channel::OnMmlTone(int tone)
 {
-	_pHandle->RawWrite(0xc0 + GetChannel(), static_cast<unsigned char>(tone));
+	_pPort->RawWrite(0xc0 + GetChannel(), static_cast<unsigned char>(tone));
 }
 
-void MIDIHandle::Channel::OnMmlTempo(int tempo)
+void Port::Channel::OnMmlTempo(int tempo)
 {
 }

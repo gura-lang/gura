@@ -1,22 +1,22 @@
-#ifndef __MIDIHANDLE_H__
-#define __MIDIHANDLE_H__
+#ifndef __PORT_H__
+#define __PORT_H__
 #include "MmlParser.h"
 
 //-----------------------------------------------------------------------------
-// MIDIHandle
+// Port
 //-----------------------------------------------------------------------------
-class MIDIHandle {
+class Port {
 public:
 	enum {
 		NUM_CHANNELS = 16,
 	};
 	class Channel : public MmlParser {
 	private:
-		MIDIHandle *_pHandle;
+		Port *_pPort;
 		char _channel;
 	public:
-		inline Channel(MIDIHandle *pHandle, char channel) :
-									_pHandle(pHandle), _channel(channel) {}
+		inline Channel(Port *pPort, char channel) :
+									_pPort(pPort), _channel(channel) {}
 		inline char GetChannel() const { return _channel; }
 	protected:
 		// virtual functions of MmlParser
@@ -30,8 +30,8 @@ private:
 	HMIDIOUT _hMIDI;
 	Channel *_pChannels[NUM_CHANNELS];
 public:
-	MIDIHandle();
-	~MIDIHandle();
+	Port();
+	~Port();
 	static inline int GetNumDevs() {
 		return ::midiOutGetNumDevs();
 	}

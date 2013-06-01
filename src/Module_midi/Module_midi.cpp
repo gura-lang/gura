@@ -100,21 +100,21 @@ Gura_ImplementUserClass(devinfo)
 }
 
 //-----------------------------------------------------------------------------
-// Object_device
+// Object_port
 //-----------------------------------------------------------------------------
-Object *Object_device::Clone() const
+Object *Object_port::Clone() const
 {
 	return NULL;
 }
 
-bool Object_device::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_port::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	//symbols.insert(Gura_Symbol(string));
 	return true;
 }
 
-Value Object_device::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_port::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 #if 0
@@ -127,38 +127,38 @@ Value Object_device::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 	return Value::Null;
 }
 
-String Object_device::ToString(Signal sig, bool exprFlag)
+String Object_port::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
-	rtn += "<midi.device:";
+	rtn += "<midi.port:";
 	rtn += ">";
 	return rtn;
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for midi.device
+// Gura interfaces for midi.port
 //-----------------------------------------------------------------------------
-// midi.device#rawwrite(msg+:number):map:void
-Gura_DeclareMethod(device, rawwrite)
+// midi.port#rawwrite(msg+:number):map:void
+Gura_DeclareMethod(port, rawwrite)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "msg", VTYPE_number, OCCUR_OnceOrMore);
 }
 
-Gura_ImplementMethod(device, rawwrite)
+Gura_ImplementMethod(port, rawwrite)
 {
-	Object_device *pThis = Object_device::GetThisObj(args);
+	Object_port *pThis = Object_port::GetThisObj(args);
 	const ValueList &valList = args.GetList(0);
 	size_t nArgs = valList.size();
 	if (nArgs == 1) {
-		pThis->GetHandle().RawWrite(valList[0].GetUChar());
+		pThis->GetPort().RawWrite(valList[0].GetUChar());
 	} else if (nArgs == 2) {
-		pThis->GetHandle().RawWrite(valList[0].GetUChar(), valList[1].GetUChar());
+		pThis->GetPort().RawWrite(valList[0].GetUChar(), valList[1].GetUChar());
 	} else if (nArgs == 3) {
-		pThis->GetHandle().RawWrite(valList[0].GetUChar(), valList[1].GetUChar(),
+		pThis->GetPort().RawWrite(valList[0].GetUChar(), valList[1].GetUChar(),
 														valList[2].GetUChar());
 	} else if (nArgs == 4) {
-		pThis->GetHandle().RawWrite(valList[0].GetUChar(), valList[1].GetUChar(),
+		pThis->GetPort().RawWrite(valList[0].GetUChar(), valList[1].GetUChar(),
 							valList[2].GetUChar(), valList[3].GetUChar());
 	} else {
 		sig.SetError(ERR_ArgumentError, "too many arguments");
@@ -167,49 +167,49 @@ Gura_ImplementMethod(device, rawwrite)
 	return Value::Null;
 }
 
-// midi.device#mmlplay(mml:string):map;void
-Gura_DeclareMethod(device, mmlplay)
+// midi.port#mmlplay(mml:string):map;void
+Gura_DeclareMethod(port, mmlplay)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mml", VTYPE_string);
 }
 
-Gura_ImplementMethod(device, mmlplay)
+Gura_ImplementMethod(port, mmlplay)
 {
-	Object_device *pThis = Object_device::GetThisObj(args);
+	Object_port *pThis = Object_port::GetThisObj(args);
 	char channel = 0;
-	pThis->GetHandle().MmlPlay(channel, args.GetString(0));
+	pThis->GetPort().MmlPlay(channel, args.GetString(0));
 	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
-// Class implementation for midi.device
+// Class implementation for midi.port
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(device)
+Gura_ImplementUserClass(port)
 {
-	Gura_AssignMethod(device, rawwrite);
-	Gura_AssignMethod(device, mmlplay);
+	Gura_AssignMethod(port, rawwrite);
+	Gura_AssignMethod(port, mmlplay);
 }
 
 //-----------------------------------------------------------------------------
 // Gura module functions: midi
 //-----------------------------------------------------------------------------
-// midi.device(id?:number) {block?}
-Gura_DeclareFunction(device)
+// midi.port(id?:number) {block?}
+Gura_DeclareFunction(port)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(Gura_UserClass(device));
-	AddHelp(Gura_Symbol(en), "open a MIDI device and returns a handle to it.");
+	SetClassToConstruct(Gura_UserClass(port));
+	AddHelp(Gura_Symbol(en), "open a MIDI port and returns a handle to it.");
 }
 
-Gura_ImplementFunction(device)
+Gura_ImplementFunction(port)
 {
 	int id = args.IsNumber(0)? args.GetInt(0) : 0;
-	AutoPtr<Object_device> pObj(new Object_device(env));
-	if (!pObj->GetHandle().Open(id)) {
-		sig.SetError(ERR_IOError, "can't open MIDI device #%d", id);
+	AutoPtr<Object_port> pObj(new Object_port(env));
+	if (!pObj->GetPort().Open(id)) {
+		sig.SetError(ERR_IOError, "can't open MIDI port #%d", id);
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(pObj.release()));
@@ -240,9 +240,9 @@ Gura_ModuleEntry()
 	// class realization
 	Gura_RealizeUserClass(smf, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(devinfo, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(device, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(port, env.LookupClass(VTYPE_object));
 	// function assignment
-	Gura_AssignFunction(device);
+	Gura_AssignFunction(port);
 	Gura_AssignFunction(test);
 }
 
