@@ -167,7 +167,7 @@ Gura_ImplementMethod(port, rawwrite)
 	return Value::Null;
 }
 
-// midi.port#mmlplay(mml:string):map;void
+// midi.port#mmlplay(mml:string):map:void
 Gura_DeclareMethod(port, mmlplay)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -182,6 +182,20 @@ Gura_ImplementMethod(port, mmlplay)
 	return Value::Null;
 }
 
+// midi.port#play(smf:stream):map:void
+Gura_DeclareMethod(port, play)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "smf", VTYPE_stream);
+}
+
+Gura_ImplementMethod(port, play)
+{
+	Object_port *pThis = Object_port::GetThisObj(args);
+	pThis->GetPort().Play(sig, args.GetStream(0));
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // Class implementation for midi.port
 //-----------------------------------------------------------------------------
@@ -189,6 +203,7 @@ Gura_ImplementUserClass(port)
 {
 	Gura_AssignMethod(port, rawwrite);
 	Gura_AssignMethod(port, mmlplay);
+	Gura_AssignMethod(port, play);
 }
 
 //-----------------------------------------------------------------------------

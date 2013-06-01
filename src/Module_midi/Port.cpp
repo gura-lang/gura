@@ -27,7 +27,7 @@ void Port::MmlPlay(char channel, const char *mml)
 	_pChannels[channel]->Parse(mml);
 }
 
-bool Port::SMFPlay(Signal sig, Stream &stream)
+bool Port::Play(Signal sig, Stream &stream)
 {
 	SMFReaderEx smfReader(this);
 	return smfReader.Read(sig, stream);
@@ -39,13 +39,13 @@ bool Port::SMFPlay(Signal sig, Stream &stream)
 void Port::Channel::OnMmlNote(unsigned char note, int length)
 {
 	_pPort->RawWrite(0x90 + GetChannel(), note, 0x7f);
-	Gura::OAL::Sleep(.01 * length);
+	OAL::Sleep(.01 * length);
 	_pPort->RawWrite(0x90 + GetChannel(), note, 0x00);
 }
 
 void Port::Channel::OnMmlRest(int length)
 {
-	::Sleep(.01 * length);
+	OAL::Sleep(.01 * length);
 }
 
 void Port::Channel::OnMmlVolume(int volume)
@@ -64,9 +64,22 @@ void Port::Channel::OnMmlTempo(int tempo)
 //-----------------------------------------------------------------------------
 // Port::SMFReaderEx
 //-----------------------------------------------------------------------------
-void Port::SMFReaderEx::OnMIDIEvent(unsigned long deltaTime, unsigned char data[], size_t length)
+void Port::SMFReaderEx::OnMIDIEvent(unsigned long deltaTime, unsigned char msg1, unsigned char msg2)
 {
-	::printf("%08x MIDIEvent %02x\n", deltaTime, data[0]);
+	::printf("%08x MIDIEvent %02x\n", deltaTime, msg1);
+	if ((msg1 & 0x0f) == 0x02) {
+		if (deltaTime > 0) OAL::Sleep(.005 * deltaTime);
+		_pPort->RawWrite(msg1, msg2);
+	}
+}
+
+void Port::SMFReaderEx::OnMIDIEvent(unsigned long deltaTime, unsigned char msg1, unsigned char msg2, unsigned char msg3)
+{
+	::printf("%08x MIDIEvent %02x\n", deltaTime, msg1);
+	if ((msg1 & 0x0f) == 0x02) {
+		if (deltaTime > 0) OAL::Sleep(.005 * deltaTime);
+		_pPort->RawWrite(msg1, msg2, msg3);
+	}
 }
 
 void Port::SMFReaderEx::OnSysExEvent(unsigned long deltaTime)

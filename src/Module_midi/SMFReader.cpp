@@ -110,7 +110,11 @@ bool SMFReader::Read(Signal sig, Stream &stream)
 				} else if (stat == STAT_MIDIEvent) {
 					data[idxData++] = ch;
 					if (idxData == length) {
-						OnMIDIEvent(deltaTime, data, length);
+						if (length == 2) {
+							OnMIDIEvent(deltaTime, data[0], data[1]);
+						} else if (length == 3) {
+							OnMIDIEvent(deltaTime, data[0], data[1], data[2]);
+						}
 						stat = STAT_EventStart;
 					}
 				} else if (stat == STAT_SysExEventF0) {

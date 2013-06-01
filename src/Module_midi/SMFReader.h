@@ -52,7 +52,8 @@ public:
 public:
 	inline SMFReader() {}
 	bool Read(Signal sig, Stream &stream);
-	virtual void OnMIDIEvent(unsigned long deltaTime, unsigned char data[], size_t length) = 0;
+	virtual void OnMIDIEvent(unsigned long deltaTime, unsigned char msg1, unsigned char msg2) = 0;
+	virtual void OnMIDIEvent(unsigned long deltaTime, unsigned char msg1, unsigned char msg2, unsigned char msg3) = 0;
 	virtual void OnSysExEvent(unsigned long deltaTime) = 0;
 	virtual void OnMetaEvent(unsigned long deltaTime, unsigned char eventType, unsigned char data[], size_t length) = 0;
 };
