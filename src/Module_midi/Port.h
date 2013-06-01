@@ -70,10 +70,10 @@ public:
 		inline SMFReaderEx() {}
 		inline EventOwner &GetEventOwner() { return _eventOwner; }
 		// virtual functions of SMFReader
-		virtual void OnMIDIEvent(unsigned long deltaTime, unsigned char msg1,unsigned char msg2);
-		virtual void OnMIDIEvent(unsigned long deltaTime, unsigned char msg1,unsigned char msg2, unsigned char msg3);
-		virtual void OnSysExEvent(unsigned long deltaTime);
-		virtual void OnMetaEvent(unsigned long deltaTime, unsigned char eventType, unsigned char data[], size_t length);
+		virtual void OnMIDIEvent(unsigned long timeStamp, unsigned char msg1,unsigned char msg2);
+		virtual void OnMIDIEvent(unsigned long timeStamp, unsigned char msg1,unsigned char msg2, unsigned char msg3);
+		virtual void OnSysExEvent(unsigned long timeStamp);
+		virtual void OnMetaEvent(unsigned long timeStamp, unsigned char eventType, unsigned char data[], size_t length);
 	};
 private:
 	HMIDIOUT _hMIDI;

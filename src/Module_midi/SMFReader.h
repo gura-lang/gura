@@ -56,6 +56,8 @@ public:
 	};
 private:
 	unsigned long _timeStampTbl[NUM_CHANNELS];
+	unsigned long _timeStampSysEx;
+	unsigned long _timeStampMeta;
 public:
 	SMFReader();
 	void ResetTimeStamp();

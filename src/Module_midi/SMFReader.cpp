@@ -15,6 +15,8 @@ void SMFReader::ResetTimeStamp()
 	for (size_t i = 0; i < NUM_CHANNELS; i++) {
 		_timeStampTbl[i] = 0;
 	}
+	_timeStampSysEx = 0;
+	_timeStampMeta = 0;
 }
 
 bool SMFReader::Read(Signal sig, Stream &stream)
@@ -146,12 +148,14 @@ bool SMFReader::Read(Signal sig, Stream &stream)
 						}
 					} else if (stat == STAT_SysExEventF0) {
 						if (data == 0xf7) {
-							OnSysExEvent(deltaTime);
+							_timeStampSysEx += deltaTime;
+							OnSysExEvent(_timeStampSysEx);
 							stat = STAT_EventStart;
 						}
 					} else if (stat == STAT_SysExEventF7) {
 						if (data == 0xf7) {
-							OnSysExEvent(deltaTime);
+							_timeStampSysEx += deltaTime;
+							OnSysExEvent(_timeStampSysEx);
 							stat = STAT_EventStart;
 						}
 					} else if (stat == STAT_MetaEvent_Type) {
@@ -162,7 +166,8 @@ bool SMFReader::Read(Signal sig, Stream &stream)
 						if ((data & 0x80) != 0) {
 							// nothing to do
 						} else if (length == 0) {
-							OnMetaEvent(deltaTime, eventType, buff, 0);
+							_timeStampMeta += deltaTime;
+							OnMetaEvent(_timeStampMeta, eventType, buff, 0);
 							stat = STAT_EventStart;
 						} else {
 							idxBuff = 0;
@@ -172,7 +177,8 @@ bool SMFReader::Read(Signal sig, Stream &stream)
 						if (idxBuff < sizeof(buff)) buff[idxBuff] = data;
 						idxBuff++;
 						if (idxBuff == length) {
-							OnMetaEvent(deltaTime, eventType, buff, ChooseMin(
+							_timeStampMeta += deltaTime;
+							OnMetaEvent(_timeStampMeta, eventType, buff, ChooseMin(
 									static_cast<size_t>(length), sizeof(buff)));
 							stat = STAT_EventStart;
 						}

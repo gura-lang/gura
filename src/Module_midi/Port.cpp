@@ -134,14 +134,14 @@ void Port::SMFReaderEx::OnMIDIEvent(unsigned long timeStamp, unsigned char msg1,
 	_eventOwner.push_back(new MIDIEvent(timeStamp, msg1, msg2, msg3));
 }
 
-void Port::SMFReaderEx::OnSysExEvent(unsigned long deltaTime)
+void Port::SMFReaderEx::OnSysExEvent(unsigned long timeStamp)
 {
-	::printf("%08x SysExEvent\n", deltaTime);
+	::printf("%08x SysExEvent\n", timeStamp);
 }
 
-void Port::SMFReaderEx::OnMetaEvent(unsigned long deltaTime, unsigned char eventType, unsigned char data[], size_t length)
+void Port::SMFReaderEx::OnMetaEvent(unsigned long timeStamp, unsigned char eventType, unsigned char data[], size_t length)
 {
-	::printf("%08x MetaEvent %02x\n", deltaTime, eventType);
+	::printf("%08x MetaEvent %02x\n", timeStamp, eventType);
 }
 
 
