@@ -26,15 +26,15 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class declaration for midi.devinfo
+// Class declaration for midi.portinfo
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(devinfo);
+Gura_DeclareUserClass(portinfo);
 
-class Object_devinfo : public Object {
+class Object_portinfo : public Object {
 public:
-	Gura_DeclareObjectAccessor(devinfo)
+	Gura_DeclareObjectAccessor(portinfo)
 public:
-	inline Object_devinfo(Environment &env) : Object(Gura_UserClass(devinfo)) {}
+	inline Object_portinfo(Environment &env) : Object(Gura_UserClass(portinfo)) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,

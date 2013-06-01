@@ -53,21 +53,21 @@ Gura_ImplementUserClass(smf)
 }
 
 //-----------------------------------------------------------------------------
-// Object_devinfo
+// Object_portinfo
 //-----------------------------------------------------------------------------
-Object *Object_devinfo::Clone() const
+Object *Object_portinfo::Clone() const
 {
 	return NULL;
 }
 
-bool Object_devinfo::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_portinfo::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	//symbols.insert(Gura_Symbol(string));
 	return true;
 }
 
-Value Object_devinfo::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_portinfo::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 #if 0
@@ -80,22 +80,22 @@ Value Object_devinfo::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-String Object_devinfo::ToString(Signal sig, bool exprFlag)
+String Object_portinfo::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
-	rtn += "<midi.devinfo:";
+	rtn += "<midi.portinfo:";
 	rtn += ">";
 	return rtn;
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for midi.devinfo
+// Gura interfaces for midi.portinfo
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// Class implementation for midi.devinfo
+// Class implementation for midi.portinfo
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(devinfo)
+Gura_ImplementUserClass(portinfo)
 {
 }
 
@@ -239,7 +239,7 @@ Gura_ModuleEntry()
 {
 	// class realization
 	Gura_RealizeUserClass(smf, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(devinfo, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(portinfo, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(port, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(port);
