@@ -72,7 +72,7 @@ bool SMFReader::Read(Signal sig, Stream &stream)
 			return false;
 		}
 		unsigned char eventType = 0x00;
-		unsigned char buff[256];
+		unsigned char buff[512];
 		Stat stat = STAT_EventStart;
 		unsigned long deltaTime = 0x00000000;
 		unsigned long length = 0x00000000;
@@ -167,32 +167,114 @@ bool SMFReader::Read(Signal sig, Stream &stream)
 							// nothing to do
 						} else if (length == 0) {
 							_timeStampMeta += deltaTime;
-							NotifyMetaEvent(_timeStampMeta, eventType, buff, 0);
+							if (!NotifyMetaEvent(sig, _timeStampMeta, eventType, buff, 0)) {
+								return false;
+							}
 							stat = STAT_EventStart;
 						} else {
 							idxBuff = 0;
 							stat = STAT_MetaEvent_Data;
 						}
 					} else if (stat == STAT_MetaEvent_Data) {
-						if (idxBuff < sizeof(buff)) buff[idxBuff] = data;
+						if (idxBuff < sizeof(buff) - 1) {
+							buff[idxBuff] = data;
+							buff[idxBuff + 1] = 0x00;
+						}
 						idxBuff++;
 						if (idxBuff == length) {
 							_timeStampMeta += deltaTime;
-							NotifyMetaEvent(_timeStampMeta, eventType, buff, ChooseMin(
-									static_cast<size_t>(length), sizeof(buff)));
+							if (!NotifyMetaEvent(sig, _timeStampMeta, eventType, buff,
+									ChooseMin(static_cast<size_t>(length), sizeof(buff)))) {
+								return false;
+							}
 							stat = STAT_EventStart;
 						}
 					}
-				} while (continueFlag) ;
+				} while (continueFlag);
 			}
 		}
 	}
 	return true;
 }
 
-void SMFReader::NotifyMetaEvent(unsigned long timeStamp, unsigned char eventType, unsigned char data[], size_t length)
+void SMFReader::OnMetaEvent_SequenceNumber(unsigned long timeStamp)
 {
-	::printf("%08x MetaEvent %02x\n", timeStamp, eventType);
+	::printf("SequenceNumber\n");
+}
+
+void SMFReader::OnMetaEvent_Text(unsigned long timeStamp, const char *text)
+{
+	::printf("Text: %s\n", text);
+}
+
+void SMFReader::OnMetaEvent_CopyrightNotice(unsigned long timeStamp, const char *text)
+{
+	::printf("CopyrightNotice: %s\n", text);
+}
+
+void SMFReader::OnMetaEvent_SequenceTrackName(unsigned long timeStamp, const char *text)
+{
+	::printf("SequenceTrackName: %s\n", text);
+}
+
+void SMFReader::OnMetaEvent_InstrumentName(unsigned long timeStamp, const char *text)
+{
+	::printf("InstrumentName: %s\n", text);
+}
+
+void SMFReader::OnMetaEvent_Lylic(unsigned long timeStamp, const char *text)
+{
+	::printf("Lylic: %s\n", text);
+}
+
+void SMFReader::OnMetaEvent_EndOfTrack(unsigned long timeStamp)
+{
+	::printf("EndOfTrack\n");
+}
+
+void SMFReader::OnMetaEvent_SetTempo(unsigned long timeStamp)
+{
+	::printf("SetTempo\n");
+}
+
+void SMFReader::OnMetaEvent_TimeSignature(unsigned long timeStamp)
+{
+	::printf("TimeSignature\n");
+}
+
+void SMFReader::OnMetaEvent_KeySignature(unsigned long timeStamp)
+{
+	::printf("KeySignature\n");
+}
+
+bool SMFReader::NotifyMetaEvent(Signal sig, unsigned long timeStamp,
+				unsigned char eventType, unsigned char data[], size_t length)
+{
+	if (eventType == 0x00) {
+		OnMetaEvent_SequenceNumber(timeStamp);
+	} else if (eventType == 0x01) {
+		OnMetaEvent_Text(timeStamp, reinterpret_cast<char *>(data));
+	} else if (eventType == 0x02) {
+		OnMetaEvent_CopyrightNotice(timeStamp, reinterpret_cast<char *>(data));
+	} else if (eventType == 0x03) {
+		OnMetaEvent_SequenceTrackName(timeStamp, reinterpret_cast<char *>(data));
+	} else if (eventType == 0x04) {
+		OnMetaEvent_InstrumentName(timeStamp, reinterpret_cast<char *>(data));
+	} else if (eventType == 0x05) {
+		OnMetaEvent_Lylic(timeStamp, reinterpret_cast<char *>(data));
+	} else if (eventType == 0x2f) {
+		OnMetaEvent_EndOfTrack(timeStamp);
+	} else if (eventType == 0x51) {
+		OnMetaEvent_SetTempo(timeStamp);
+	} else if (eventType == 0x58) {
+		OnMetaEvent_TimeSignature(timeStamp);
+	} else if (eventType == 0x59) {
+		OnMetaEvent_KeySignature(timeStamp);
+	} else {
+		// unknown meta event
+		::printf("%08x MetaEvent %02x\n", timeStamp, eventType);
+	}
+	return true;
 }
 
 }}

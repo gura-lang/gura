@@ -62,11 +62,22 @@ public:
 	SMFReader();
 	void ResetTimeStamp();
 	bool Read(Signal sig, Stream &stream);
-	virtual void OnMIDIEvent(unsigned long deltaTime, unsigned char msg1, unsigned char msg2) = 0;
-	virtual void OnMIDIEvent(unsigned long deltaTime, unsigned char msg1, unsigned char msg2, unsigned char msg3) = 0;
-	virtual void OnSysExEvent(unsigned long deltaTime) = 0;
+	virtual void OnMIDIEvent(unsigned long timeStamp, unsigned char msg1, unsigned char msg2) = 0;
+	virtual void OnMIDIEvent(unsigned long timeStamp, unsigned char msg1, unsigned char msg2, unsigned char msg3) = 0;
+	virtual void OnSysExEvent(unsigned long timeStamp) = 0;
+	virtual void OnMetaEvent_SequenceNumber(unsigned long timeStamp);
+	virtual void OnMetaEvent_Text(unsigned long timeStamp, const char *text);
+	virtual void OnMetaEvent_CopyrightNotice(unsigned long timeStamp, const char *text);
+	virtual void OnMetaEvent_SequenceTrackName(unsigned long timeStamp, const char *text);
+	virtual void OnMetaEvent_InstrumentName(unsigned long timeStamp, const char *text);
+	virtual void OnMetaEvent_Lylic(unsigned long timeStamp, const char *text);
+	virtual void OnMetaEvent_EndOfTrack(unsigned long timeStamp);
+	virtual void OnMetaEvent_SetTempo(unsigned long timeStamp);
+	virtual void OnMetaEvent_TimeSignature(unsigned long timeStamp);
+	virtual void OnMetaEvent_KeySignature(unsigned long timeStamp);
 private:
-	void NotifyMetaEvent(unsigned long deltaTime, unsigned char eventType, unsigned char data[], size_t length);
+	bool NotifyMetaEvent(Signal sig, unsigned long deltaTime,
+			unsigned char eventType, unsigned char data[], size_t length);
 };
 
 }}
