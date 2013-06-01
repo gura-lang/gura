@@ -240,6 +240,51 @@ Gura_DeclareFunction(test)
 	DeclareArg(env, "stream", VTYPE_stream);
 }
 
+enum MIDIEvent {
+	MIDIEVT_None,
+	MIDIEVT_NoteOff,
+	MIDIEVT_NoteOn,
+	MIDIEVT_PolyphonicKeyPressure,
+	MIDIEVT_ControlChange,
+	MIDIEVT_ProgramChange,
+	MIDIEVT_ChannelPressure,
+	MIDIEVT_PitchBendChange,
+};
+
+enum MetaEvent {
+	METAEVT_None,
+	METAEVT_SequenceNumber,
+	METAEVT_TextEvent,
+	METAEVT_CopyrightNotice,
+	METAEVT_SequenceOrTrackName,
+	METAEVT_InstrumentName,
+	METAEVT_LyricText,
+	METAEVT_MarkerText,
+	METAEVT_CuePoint,
+	METAEVT_MIDIChannelPrefixAssignment,
+	METAEVT_EndOfTrack,
+	METAEVT_TempoSetting,
+	METAEVT_SMPTEOffset,
+	METAEVT_TimeSignature,
+	METAEVT_KeySignature,
+	METAEVT_SequencerSpecificEvent,
+};
+
+void OnMIDIEvent(unsigned long deltaTime, unsigned char data[], size_t length)
+{
+	::printf("%08x MIDIEvent %02x\n", deltaTime, data[0]);
+}
+
+void OnSysExEvent(unsigned long deltaTime)
+{
+	::printf("%08x SysExEvent\n", deltaTime);
+}
+
+void OnMetaEvent(unsigned long deltaTime, unsigned char eventType, unsigned char data[], size_t length)
+{
+	::printf("%08x MetaEvent %02x\n", deltaTime, eventType);
+}
+
 bool ReadSMF(Environment &env, Signal sig, Stream &stream)
 {
 	AutoPtr<Memory> pMemory(new MemoryHeap(1024));
@@ -270,6 +315,17 @@ bool ReadSMF(Environment &env, Signal sig, Stream &stream)
 		num_track_chunks = Gura_UnpackUShort(headerChunk.num_track_chunks);
 		division = Gura_UnpackUShort(headerChunk.division);
 	} while (0);
+	enum Stat {
+		STAT_EventStart,
+		STAT_DeltaTime,
+		STAT_EventId,
+		STAT_MIDIEvent,
+		STAT_SysExEventF0,
+		STAT_SysExEventF7,
+		STAT_MetaEvent_Type,
+		STAT_MetaEvent_Length,
+		STAT_MetaEvent_Data,
+	};
 	::printf("%d %d %d\n", format, num_track_chunks, division);
 	for (unsigned short i = 0; i < num_track_chunks; i++) {
 		TrackChunkTop trackChunkTop;
@@ -281,8 +337,14 @@ bool ReadSMF(Environment &env, Signal sig, Stream &stream)
 			sig.SetError(ERR_FormatError, "invalid SMF format");
 			return false;
 		}
-		size_t length = Gura_UnpackULong(trackChunkTop.length);
-		for (size_t lengthRest = length; lengthRest > 0; ) {
+		unsigned char eventType = 0x00;
+		unsigned char data[256];
+		Stat stat = STAT_EventStart;
+		unsigned long deltaTime = 0x00000000;
+		unsigned long length = 0x00000000;
+		unsigned long idxData = 0;
+		size_t lengthRest = Gura_UnpackULong(trackChunkTop.length);
+		while  (lengthRest > 0) {
 			size_t lengthRead = ChooseMin(lengthRest, pMemory->GetSize());
 			if (stream.Read(sig, pMemory->GetPointer(), lengthRead) != lengthRead) {
 				sig.SetError(ERR_FormatError, "invalid SMF format");
@@ -292,7 +354,78 @@ bool ReadSMF(Environment &env, Signal sig, Stream &stream)
 			unsigned char *p = reinterpret_cast<unsigned char *>(pMemory->GetPointer());
 			for ( ; lengthRead > 0; p++, lengthRead--) {
 				unsigned char ch = *p;
-				::printf("%02x\n", ch);
+				if (stat == STAT_EventStart) {
+					deltaTime = 0x00000000;
+					length = 0x00000000;
+					stat = STAT_DeltaTime;
+				}
+				if (stat == STAT_DeltaTime) {
+					deltaTime = (deltaTime << 7) + (ch & 0x7f);
+					if ((ch & 0x80) == 0) {
+						stat = STAT_EventId;
+					}
+				} else if (stat == STAT_EventId) {
+					unsigned char chUpper = ch & 0xf0;
+					if (chUpper == 0x80 || chUpper == 0x90 || chUpper == 0xa0
+										|| chUpper == 0xb0 || chUpper == 0xe0) {
+						idxData = 0;
+						length = 3;
+						data[idxData++] = ch;
+						stat = STAT_MIDIEvent;
+					} else if (chUpper == 0xc0 || chUpper == 0xd0) {
+						idxData = 0;
+						length = 2;
+						data[idxData++] = ch;
+						stat = STAT_MIDIEvent;
+					} else if (ch == 0xf0) {
+						stat = STAT_SysExEventF0;
+					} else if (ch == 0xf7) {
+						stat = STAT_SysExEventF7;
+					} else if (ch == 0xff) {
+						stat = STAT_MetaEvent_Type;
+					} else {
+						sig.SetError(ERR_FormatError, "unknown SMF event id %02x", ch);
+						return false;
+					}
+				} else if (stat == STAT_MIDIEvent) {
+					data[idxData++] = ch;
+					if (idxData == length) {
+						OnMIDIEvent(deltaTime, data, length);
+						stat = STAT_EventStart;
+					}
+				} else if (stat == STAT_SysExEventF0) {
+					if (ch == 0xf7) {
+						OnSysExEvent(deltaTime);
+						stat = STAT_EventStart;
+					}
+				} else if (stat == STAT_SysExEventF7) {
+					if (ch == 0xf7) {
+						OnSysExEvent(deltaTime);
+						stat = STAT_EventStart;
+					}
+				} else if (stat == STAT_MetaEvent_Type) {
+					eventType = ch;
+					stat = STAT_MetaEvent_Length;
+				} else if (stat == STAT_MetaEvent_Length) {
+					length = (length << 7) + (ch & 0x7f);
+					if ((ch & 0x80) != 0) {
+						// nothing to do
+					} else if (length == 0) {
+						OnMetaEvent(deltaTime, eventType, data, 0);
+						stat = STAT_EventStart;
+					} else {
+						idxData = 0;
+						stat = STAT_MetaEvent_Data;
+					}
+				} else if (stat == STAT_MetaEvent_Data) {
+					if (idxData < sizeof(data)) data[idxData] = ch;
+					idxData++;
+					if (idxData == length) {
+						OnMetaEvent(deltaTime, eventType, data, ChooseMin(
+								static_cast<size_t>(length), sizeof(data)));
+						stat = STAT_EventStart;
+					}
+				}
 			}
 		}
 	}
