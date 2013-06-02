@@ -1,4 +1,5 @@
 #include "SMFReader.h"
+#include "Port.h"
 
 Gura_BeginModule(midi)
 
@@ -137,25 +138,27 @@ bool SMFReader::Read(Signal sig, Stream &stream)
 					} else if (stat == STAT_MIDIEvent) {
 						buff[idxBuff++] = data;
 						if (idxBuff == length) {
-							int channel = buff[0] & 0x0f;
-							_timeStampTbl[channel] += deltaTime;
+							unsigned long &timeStamp = _timeStampTbl[buff[0] & 0x0f];
+							timeStamp += deltaTime;
 							if (length == 2) {
-								OnMIDIEvent(_timeStampTbl[channel], buff[0], buff[1]);
+								_eventOwner.push_back(new MIDIEvent(timeStamp,
+													buff[0], buff[1], 0x00));
 							} else if (length == 3) {
-								OnMIDIEvent(_timeStampTbl[channel], buff[0], buff[1], buff[2]);
+								_eventOwner.push_back(new MIDIEvent(timeStamp,
+													buff[0], buff[1], buff[2]));
 							}
 							stat = STAT_EventStart;
 						}
 					} else if (stat == STAT_SysExEventF0) {
 						if (data == 0xf7) {
 							_timeStampSysEx += deltaTime;
-							OnSysExEvent(_timeStampSysEx);
+							//OnSysExEvent(_timeStampSysEx);
 							stat = STAT_EventStart;
 						}
 					} else if (stat == STAT_SysExEventF7) {
 						if (data == 0xf7) {
 							_timeStampSysEx += deltaTime;
-							OnSysExEvent(_timeStampSysEx);
+							//OnSysExEvent(_timeStampSysEx);
 							stat = STAT_EventStart;
 						}
 					} else if (stat == STAT_MetaEvent_Type) {
@@ -197,6 +200,7 @@ bool SMFReader::Read(Signal sig, Stream &stream)
 	return true;
 }
 
+#if 0
 void SMFReader::OnMetaEvent_SequenceNumber(unsigned long timeStamp)
 {
 	::printf("SequenceNumber\n");
@@ -246,10 +250,12 @@ void SMFReader::OnMetaEvent_KeySignature(unsigned long timeStamp)
 {
 	::printf("KeySignature\n");
 }
+#endif
 
 bool SMFReader::NotifyMetaEvent(Signal sig, unsigned long timeStamp,
 				unsigned char eventType, unsigned char data[], size_t length)
 {
+#if 0
 	if (eventType == 0x00) {
 		OnMetaEvent_SequenceNumber(timeStamp);
 	} else if (eventType == 0x01) {
@@ -274,6 +280,62 @@ bool SMFReader::NotifyMetaEvent(Signal sig, unsigned long timeStamp,
 		// unknown meta event
 		::printf("%08x MetaEvent %02x\n", timeStamp, eventType);
 	}
+#endif
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMFReader::Event
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// EventList
+//-----------------------------------------------------------------------------
+void SMFReader::EventList::Sort()
+{
+	std::stable_sort(begin(), end(), Comparator_TimeStamp());
+}
+
+bool SMFReader::EventList::Exec(Signal sig, Port *pPort)
+{
+	Event *pEventPrev = NULL;
+	foreach (EventList, ppEvent, *this) {
+		Event *pEvent = *ppEvent;
+		if (pEventPrev != NULL &&
+					pEventPrev->GetTimeStamp() < pEvent->GetTimeStamp()) {
+			unsigned long deltaTime =
+					pEvent->GetTimeStamp() - pEventPrev->GetTimeStamp();
+			OAL::Sleep(.005 * deltaTime);
+		}
+		if (!pEvent->Exec(sig, pPort)) return false;
+		pEventPrev = pEvent;
+	}
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMFReader::EventOwner
+//-----------------------------------------------------------------------------
+SMFReader::EventOwner::~EventOwner()
+{
+	Clear();
+}
+
+void SMFReader::EventOwner::Clear()
+{
+	foreach (EventOwner, ppEvent, *this) {
+		Event *pEvent = *ppEvent;
+		delete pEvent;
+	}
+	clear();
+}
+
+//-----------------------------------------------------------------------------
+// SMFReader::MIDIEvent
+//-----------------------------------------------------------------------------
+bool SMFReader::MIDIEvent::Exec(Signal sig, Port *pPort)
+{
+	pPort->RawWrite(_msg1, _msg2, _msg3);
 	return true;
 }
 
