@@ -200,58 +200,6 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 	return true;
 }
 
-#if 0
-void SMF::OnMetaEvent_SequenceNumber(unsigned long timeStamp)
-{
-	::printf("SequenceNumber\n");
-}
-
-void SMF::OnMetaEvent_Text(unsigned long timeStamp, const char *text)
-{
-	::printf("Text: %s\n", text);
-}
-
-void SMF::OnMetaEvent_CopyrightNotice(unsigned long timeStamp, const char *text)
-{
-	::printf("CopyrightNotice: %s\n", text);
-}
-
-void SMF::OnMetaEvent_SequenceTrackName(unsigned long timeStamp, const char *text)
-{
-	::printf("SequenceTrackName: %s\n", text);
-}
-
-void SMF::OnMetaEvent_InstrumentName(unsigned long timeStamp, const char *text)
-{
-	::printf("InstrumentName: %s\n", text);
-}
-
-void SMF::OnMetaEvent_Lylic(unsigned long timeStamp, const char *text)
-{
-	::printf("Lylic: %s\n", text);
-}
-
-void SMF::OnMetaEvent_EndOfTrack(unsigned long timeStamp)
-{
-	::printf("EndOfTrack\n");
-}
-
-void SMF::OnMetaEvent_SetTempo(unsigned long timeStamp)
-{
-	::printf("SetTempo\n");
-}
-
-void SMF::OnMetaEvent_TimeSignature(unsigned long timeStamp)
-{
-	::printf("TimeSignature\n");
-}
-
-void SMF::OnMetaEvent_KeySignature(unsigned long timeStamp)
-{
-	::printf("KeySignature\n");
-}
-#endif
-
 bool SMF::NotifyMetaEvent(Signal sig, unsigned long timeStamp,
 				unsigned char eventType, unsigned char data[], size_t length)
 {
