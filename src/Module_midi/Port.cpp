@@ -30,9 +30,9 @@ void Port::MmlPlay(char channel, const char *mml)
 
 bool Port::Play(Signal sig, Stream &stream)
 {
-	SMFReader smfReader;
-	SMFReader::EventOwner eventOwner;
-	if (!smfReader.Read(sig, stream, eventOwner)) return false;
+	SMF smf;
+	SMF::EventOwner eventOwner;
+	if (!smf.Read(sig, stream, eventOwner)) return false;
 	eventOwner.Sort();
 	return eventOwner.Play(sig, this);
 }

@@ -1,17 +1,17 @@
-#include "SMFReader.h"
+#include "SMF.h"
 #include "Port.h"
 
 Gura_BeginModule(midi)
 
 //-----------------------------------------------------------------------------
-// SMFReader
+// SMF
 //-----------------------------------------------------------------------------
-SMFReader::SMFReader()
+SMF::SMF()
 {
 	ResetTimeStamp();
 }
 
-void SMFReader::ResetTimeStamp()
+void SMF::ResetTimeStamp()
 {
 	for (size_t i = 0; i < NUM_CHANNELS; i++) {
 		_timeStampTbl[i] = 0;
@@ -20,7 +20,7 @@ void SMFReader::ResetTimeStamp()
 	_timeStampMeta = 0;
 }
 
-bool SMFReader::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
+bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 {
 	enum Stat {
 		STAT_EventStart,
@@ -201,58 +201,58 @@ bool SMFReader::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 }
 
 #if 0
-void SMFReader::OnMetaEvent_SequenceNumber(unsigned long timeStamp)
+void SMF::OnMetaEvent_SequenceNumber(unsigned long timeStamp)
 {
 	::printf("SequenceNumber\n");
 }
 
-void SMFReader::OnMetaEvent_Text(unsigned long timeStamp, const char *text)
+void SMF::OnMetaEvent_Text(unsigned long timeStamp, const char *text)
 {
 	::printf("Text: %s\n", text);
 }
 
-void SMFReader::OnMetaEvent_CopyrightNotice(unsigned long timeStamp, const char *text)
+void SMF::OnMetaEvent_CopyrightNotice(unsigned long timeStamp, const char *text)
 {
 	::printf("CopyrightNotice: %s\n", text);
 }
 
-void SMFReader::OnMetaEvent_SequenceTrackName(unsigned long timeStamp, const char *text)
+void SMF::OnMetaEvent_SequenceTrackName(unsigned long timeStamp, const char *text)
 {
 	::printf("SequenceTrackName: %s\n", text);
 }
 
-void SMFReader::OnMetaEvent_InstrumentName(unsigned long timeStamp, const char *text)
+void SMF::OnMetaEvent_InstrumentName(unsigned long timeStamp, const char *text)
 {
 	::printf("InstrumentName: %s\n", text);
 }
 
-void SMFReader::OnMetaEvent_Lylic(unsigned long timeStamp, const char *text)
+void SMF::OnMetaEvent_Lylic(unsigned long timeStamp, const char *text)
 {
 	::printf("Lylic: %s\n", text);
 }
 
-void SMFReader::OnMetaEvent_EndOfTrack(unsigned long timeStamp)
+void SMF::OnMetaEvent_EndOfTrack(unsigned long timeStamp)
 {
 	::printf("EndOfTrack\n");
 }
 
-void SMFReader::OnMetaEvent_SetTempo(unsigned long timeStamp)
+void SMF::OnMetaEvent_SetTempo(unsigned long timeStamp)
 {
 	::printf("SetTempo\n");
 }
 
-void SMFReader::OnMetaEvent_TimeSignature(unsigned long timeStamp)
+void SMF::OnMetaEvent_TimeSignature(unsigned long timeStamp)
 {
 	::printf("TimeSignature\n");
 }
 
-void SMFReader::OnMetaEvent_KeySignature(unsigned long timeStamp)
+void SMF::OnMetaEvent_KeySignature(unsigned long timeStamp)
 {
 	::printf("KeySignature\n");
 }
 #endif
 
-bool SMFReader::NotifyMetaEvent(Signal sig, unsigned long timeStamp,
+bool SMF::NotifyMetaEvent(Signal sig, unsigned long timeStamp,
 				unsigned char eventType, unsigned char data[], size_t length)
 {
 #if 0
@@ -285,18 +285,18 @@ bool SMFReader::NotifyMetaEvent(Signal sig, unsigned long timeStamp,
 }
 
 //-----------------------------------------------------------------------------
-// SMFReader::Event
+// SMF::Event
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // EventList
 //-----------------------------------------------------------------------------
-void SMFReader::EventList::Sort()
+void SMF::EventList::Sort()
 {
 	std::stable_sort(begin(), end(), Comparator_TimeStamp());
 }
 
-bool SMFReader::EventList::Play(Signal sig, Port *pPort)
+bool SMF::EventList::Play(Signal sig, Port *pPort)
 {
 	Event *pEventPrev = NULL;
 	foreach (EventList, ppEvent, *this) {
@@ -314,14 +314,14 @@ bool SMFReader::EventList::Play(Signal sig, Port *pPort)
 }
 
 //-----------------------------------------------------------------------------
-// SMFReader::EventOwner
+// SMF::EventOwner
 //-----------------------------------------------------------------------------
-SMFReader::EventOwner::~EventOwner()
+SMF::EventOwner::~EventOwner()
 {
 	Clear();
 }
 
-void SMFReader::EventOwner::Clear()
+void SMF::EventOwner::Clear()
 {
 	foreach (EventOwner, ppEvent, *this) {
 		Event *pEvent = *ppEvent;
@@ -331,9 +331,9 @@ void SMFReader::EventOwner::Clear()
 }
 
 //-----------------------------------------------------------------------------
-// SMFReader::MIDIEvent
+// SMF::MIDIEvent
 //-----------------------------------------------------------------------------
-bool SMFReader::MIDIEvent::Play(Signal sig, Port *pPort)
+bool SMF::MIDIEvent::Play(Signal sig, Port *pPort)
 {
 	pPort->RawWrite(_msg1, _msg2, _msg3);
 	return true;

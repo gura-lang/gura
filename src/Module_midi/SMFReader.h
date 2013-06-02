@@ -1,12 +1,12 @@
-#ifndef __SMFREADER_H__
-#define __SMFREADER_H__
+#ifndef __SMF_H__
+#define __SMF_H__
 #include <gura.h>
 
 Gura_BeginModule(midi)
 
 class Port;
 
-class SMFReader {
+class SMF {
 public:
 	enum {
 		NUM_CHANNELS = 16,
@@ -95,7 +95,7 @@ private:
 	unsigned long _timeStampSysEx;
 	unsigned long _timeStampMeta;
 public:
-	SMFReader();
+	SMF();
 	void ResetTimeStamp();
 	bool Read(Signal sig, Stream &stream, EventOwner &eventOwner);
 private:
