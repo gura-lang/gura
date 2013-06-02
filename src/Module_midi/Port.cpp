@@ -1,8 +1,8 @@
 #include <gura.h>
 #include "Port.h"
+#include "SMF.h"
 
 Gura_BeginModule(midi)
-
 
 //-----------------------------------------------------------------------------
 // Port
