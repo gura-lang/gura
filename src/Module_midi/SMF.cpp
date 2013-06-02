@@ -179,10 +179,7 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 							stat = STAT_MetaEvent_Data;
 						}
 					} else if (stat == STAT_MetaEvent_Data) {
-						if (idxBuff < sizeof(buff) - 1) {
-							buff[idxBuff] = data;
-							buff[idxBuff + 1] = 0x00;
-						}
+						if (idxBuff < sizeof(buff)) buff[idxBuff] = data;
 						idxBuff++;
 						if (idxBuff == length) {
 							_timeStampMeta += deltaTime;
@@ -204,30 +201,20 @@ bool SMF::NotifyMetaEvent(Signal sig, unsigned long timeStamp,
 				unsigned char eventType, unsigned char data[], size_t length)
 {
 #if 0
-	if (eventType == 0x00) {
-		OnMetaEvent_SequenceNumber(timeStamp);
-	} else if (eventType == 0x01) {
-		OnMetaEvent_Text(timeStamp, reinterpret_cast<char *>(data));
-	} else if (eventType == 0x02) {
-		OnMetaEvent_CopyrightNotice(timeStamp, reinterpret_cast<char *>(data));
-	} else if (eventType == 0x03) {
-		OnMetaEvent_SequenceTrackName(timeStamp, reinterpret_cast<char *>(data));
-	} else if (eventType == 0x04) {
-		OnMetaEvent_InstrumentName(timeStamp, reinterpret_cast<char *>(data));
-	} else if (eventType == 0x05) {
-		OnMetaEvent_Lylic(timeStamp, reinterpret_cast<char *>(data));
-	} else if (eventType == 0x2f) {
-		OnMetaEvent_EndOfTrack(timeStamp);
-	} else if (eventType == 0x51) {
-		OnMetaEvent_SetTempo(timeStamp);
-	} else if (eventType == 0x58) {
-		OnMetaEvent_TimeSignature(timeStamp);
-	} else if (eventType == 0x59) {
-		OnMetaEvent_KeySignature(timeStamp);
-	} else {
-		// unknown meta event
-		::printf("%08x MetaEvent %02x\n", timeStamp, eventType);
-	}
+	Event *pEvent = 
+		(eventType == 0x00)? MetaEvent_SequenceNumber::Create(sig, timeStamp, data, length) :
+		(eventType == 0x01)? MetaEvent_TextEvent::Create(sig, timeStamp, data, length) :
+		(eventType == 0x02)? MetaEvent_CopyrightNotice::Create(sig, timeStamp, data, length) :
+		(eventType == 0x03)? MetaEvent_SequenceOrTrackName::Create(sig, timeStamp, data, length) :
+		(eventType == 0x04)? MetaEvent_InstrumentName::Create(sig, timeStamp, data, length) :
+		(eventType == 0x05)? MetaEvent_LyricText::Create(sig, timeStamp, data, length) :
+		(eventType == 0x2f)? MetaEvent_EndOfTrack::Create(sig, timeStamp, data, length) :
+		(eventType == 0x51)? MetaEvent_TempoSetting::Create(sig, timeStamp, data, length) :
+		(eventType == 0x58)? MetaEvent_TimeSignature::Create(sig, timeStamp, data, length) :
+		(eventType == 0x59)? MetaEvent_KeySignature::Create(sig, timeStamp, data, length) :
+		MetaEvent_Unknown::Create(sig, timeStamp, eventType, data, length);
+	if (pEvent == NULL) return false;
+	eventOwner.push_back(pEvent);
 #endif
 	return true;
 }
@@ -284,6 +271,217 @@ void SMF::EventOwner::Clear()
 bool SMF::MIDIEvent::Play(Signal sig, Port *pPort)
 {
 	pPort->RawWrite(_msg1, _msg2, _msg3);
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_Unknown
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_Unknown::Create(Signal sig, unsigned long timeStamp, unsigned char eventType, unsigned char data[], size_t length)
+{
+	
+	return NULL;
+}
+
+bool SMF::MetaEvent_Unknown::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_SequenceNumber
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_SequenceNumber::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	return NULL;
+}
+
+bool SMF::MetaEvent_SequenceNumber::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_TextEvent
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_TextEvent::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	MetaEvent_TextEvent *pEvent = new MetaEvent_TextEvent(timeStamp);
+	pEvent->_text = String(reinterpret_cast<const char *>(data), length);
+	return NULL;
+}
+
+bool SMF::MetaEvent_TextEvent::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_CopyrightNotice
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_CopyrightNotice::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	return NULL;
+}
+
+bool SMF::MetaEvent_CopyrightNotice::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_SequenceOrTrackName
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_SequenceOrTrackName::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	return NULL;
+}
+
+bool SMF::MetaEvent_SequenceOrTrackName::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_InstrumentName
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_InstrumentName::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	return NULL;
+}
+
+bool SMF::MetaEvent_InstrumentName::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_LyricText
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_LyricText::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	return NULL;
+}
+
+bool SMF::MetaEvent_LyricText::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_MarkerText
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_MarkerText::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	return NULL;
+}
+
+bool SMF::MetaEvent_MarkerText::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_CuePoint
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_CuePoint::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	return NULL;
+}
+
+bool SMF::MetaEvent_CuePoint::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_MIDIChannelPrefixAssignment
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_MIDIChannelPrefixAssignment::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	return NULL;
+}
+
+bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_EndOfTrack
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_EndOfTrack::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	return NULL;
+}
+
+bool SMF::MetaEvent_EndOfTrack::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_TempoSetting
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_TempoSetting::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	return NULL;
+}
+
+bool SMF::MetaEvent_TempoSetting::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_SMPTEOffset
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_SMPTEOffset::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	return NULL;
+}
+
+bool SMF::MetaEvent_SMPTEOffset::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_TimeSignature
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_TimeSignature::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	return NULL;
+}
+
+bool SMF::MetaEvent_TimeSignature::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_KeySignature
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_KeySignature::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	return NULL;
+}
+
+bool SMF::MetaEvent_KeySignature::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent_SequencerSpecificEvent
+//-----------------------------------------------------------------------------
+SMF::Event *SMF::MetaEvent_SequencerSpecificEvent::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+{
+	return NULL;
+}
+
+bool SMF::MetaEvent_SequencerSpecificEvent::Play(Signal sig, Port *pPort)
+{
 	return true;
 }
 

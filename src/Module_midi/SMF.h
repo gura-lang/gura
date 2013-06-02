@@ -24,21 +24,6 @@ public:
 	};
 	enum MetaEvent {
 		METAEVT_None,
-		METAEVT_SequenceNumber,
-		METAEVT_TextEvent,
-		METAEVT_CopyrightNotice,
-		METAEVT_SequenceOrTrackName,
-		METAEVT_InstrumentName,
-		METAEVT_LyricText,
-		METAEVT_MarkerText,
-		METAEVT_CuePoint,
-		METAEVT_MIDIChannelPrefixAssignment,
-		METAEVT_EndOfTrack,
-		METAEVT_TempoSetting,
-		METAEVT_SMPTEOffset,
-		METAEVT_TimeSignature,
-		METAEVT_KeySignature,
-		METAEVT_SequencerSpecificEvent,
 	};
 #endif
 	struct HeaderChunkTop {
@@ -88,6 +73,114 @@ public:
 		inline MIDIEvent(unsigned long timeStamp,
 					unsigned char msg1, unsigned char msg2, unsigned char msg3) :
 			Event(timeStamp), _msg1(msg1), _msg2(msg2), _msg3(msg3) {}
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_Unknown : public Event {
+	public:
+		inline MetaEvent_Unknown(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char eventType, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_SequenceNumber : public Event {
+	public:
+		inline MetaEvent_SequenceNumber(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_TextEvent : public Event {
+	private:
+		String _text;
+	public:
+		inline MetaEvent_TextEvent(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_CopyrightNotice : public Event {
+	private:
+		String _text;
+	public:
+		inline MetaEvent_CopyrightNotice(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_SequenceOrTrackName : public Event {
+	private:
+		String _text;
+	public:
+		inline MetaEvent_SequenceOrTrackName(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_InstrumentName : public Event {
+	private:
+		String _text;
+	public:
+		inline MetaEvent_InstrumentName(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_LyricText : public Event {
+	private:
+		String _text;
+	public:
+		inline MetaEvent_LyricText(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_MarkerText : public Event {
+	private:
+		String _text;
+	public:
+		inline MetaEvent_MarkerText(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_CuePoint : public Event {
+	public:
+		inline MetaEvent_CuePoint(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_MIDIChannelPrefixAssignment : public Event {
+	public:
+		inline MetaEvent_MIDIChannelPrefixAssignment(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_EndOfTrack : public Event {
+	public:
+ 		inline MetaEvent_EndOfTrack(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_TempoSetting : public Event {
+	public:
+		inline MetaEvent_TempoSetting(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_SMPTEOffset : public Event {
+	public:
+		inline MetaEvent_SMPTEOffset(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_TimeSignature : public Event {
+	public:
+		inline MetaEvent_TimeSignature(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_KeySignature : public Event {
+	public:
+		inline MetaEvent_KeySignature(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MetaEvent_SequencerSpecificEvent : public Event {
+	public:
+		inline MetaEvent_SequencerSpecificEvent(unsigned long timeStamp) : Event(timeStamp) {}
+		static Event *Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length);
 		virtual bool Play(Signal sig, Port *pPort);
 	};
 private:
