@@ -33,7 +33,7 @@ bool Port::Play(Signal sig, Stream &stream)
 	SMFReader smfReader;
 	if (!smfReader.Read(sig, stream)) return false;
 	smfReader.GetEventOwner().Sort();
-	return smfReader.GetEventOwner().Exec(sig, this);
+	return smfReader.GetEventOwner().Play(sig, this);
 }
 
 //-----------------------------------------------------------------------------

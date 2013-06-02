@@ -62,7 +62,7 @@ public:
 	public:
 		inline Event(unsigned long timeStamp) : _timeStamp(timeStamp) {}
 		inline unsigned long GetTimeStamp() const { return _timeStamp; }
-		virtual bool Exec(Signal sig, Port *pPort) = 0;
+		virtual bool Play(Signal sig, Port *pPort) = 0;
 	};
 	class EventList : public std::vector<Event *> {
 	public:
@@ -74,7 +74,7 @@ public:
 		};
 	public:
 		void Sort();
-		bool Exec(Signal sig, Port *pPort);
+		bool Play(Signal sig, Port *pPort);
 	};
 	class EventOwner : public EventList {
 	public:
@@ -88,7 +88,7 @@ public:
 		inline MIDIEvent(unsigned long timeStamp,
 					unsigned char msg1, unsigned char msg2, unsigned char msg3) :
 			Event(timeStamp), _msg1(msg1), _msg2(msg2), _msg3(msg3) {}
-		virtual bool Exec(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort);
 	};
 private:
 	unsigned long _timeStampTbl[NUM_CHANNELS];

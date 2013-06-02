@@ -296,7 +296,7 @@ void SMFReader::EventList::Sort()
 	std::stable_sort(begin(), end(), Comparator_TimeStamp());
 }
 
-bool SMFReader::EventList::Exec(Signal sig, Port *pPort)
+bool SMFReader::EventList::Play(Signal sig, Port *pPort)
 {
 	Event *pEventPrev = NULL;
 	foreach (EventList, ppEvent, *this) {
@@ -307,7 +307,7 @@ bool SMFReader::EventList::Exec(Signal sig, Port *pPort)
 					pEvent->GetTimeStamp() - pEventPrev->GetTimeStamp();
 			OAL::Sleep(.005 * deltaTime);
 		}
-		if (!pEvent->Exec(sig, pPort)) return false;
+		if (!pEvent->Play(sig, pPort)) return false;
 		pEventPrev = pEvent;
 	}
 	return true;
@@ -333,7 +333,7 @@ void SMFReader::EventOwner::Clear()
 //-----------------------------------------------------------------------------
 // SMFReader::MIDIEvent
 //-----------------------------------------------------------------------------
-bool SMFReader::MIDIEvent::Exec(Signal sig, Port *pPort)
+bool SMFReader::MIDIEvent::Play(Signal sig, Port *pPort)
 {
 	pPort->RawWrite(_msg1, _msg2, _msg3);
 	return true;
