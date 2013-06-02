@@ -94,12 +94,10 @@ private:
 	unsigned long _timeStampTbl[NUM_CHANNELS];
 	unsigned long _timeStampSysEx;
 	unsigned long _timeStampMeta;
-	EventOwner _eventOwner;
 public:
 	SMFReader();
-	inline EventOwner &GetEventOwner() { return _eventOwner; }
 	void ResetTimeStamp();
-	bool Read(Signal sig, Stream &stream);
+	bool Read(Signal sig, Stream &stream, EventOwner &eventOwner);
 private:
 	bool NotifyMetaEvent(Signal sig, unsigned long deltaTime,
 			unsigned char eventType, unsigned char data[], size_t length);

@@ -20,7 +20,7 @@ void SMFReader::ResetTimeStamp()
 	_timeStampMeta = 0;
 }
 
-bool SMFReader::Read(Signal sig, Stream &stream)
+bool SMFReader::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 {
 	enum Stat {
 		STAT_EventStart,
@@ -141,10 +141,10 @@ bool SMFReader::Read(Signal sig, Stream &stream)
 							unsigned long &timeStamp = _timeStampTbl[buff[0] & 0x0f];
 							timeStamp += deltaTime;
 							if (length == 2) {
-								_eventOwner.push_back(new MIDIEvent(timeStamp,
+								eventOwner.push_back(new MIDIEvent(timeStamp,
 													buff[0], buff[1], 0x00));
 							} else if (length == 3) {
-								_eventOwner.push_back(new MIDIEvent(timeStamp,
+								eventOwner.push_back(new MIDIEvent(timeStamp,
 													buff[0], buff[1], buff[2]));
 							}
 							stat = STAT_EventStart;
