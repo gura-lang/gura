@@ -76,6 +76,11 @@ public:
 public:
 	inline MIDIEvent_NoteOff(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
+	inline MIDIEvent_NoteOff(unsigned long timeStamp, unsigned char channel,
+							unsigned char note, unsigned char velocity) :
+									MIDIEvent(timeStamp, Status, channel, 2) {
+		_params[0] = note, _params[1] = velocity;
+	}
 	virtual bool Play(Signal sig, Port *pPort);
 };
 
@@ -88,6 +93,11 @@ public:
 public:
 	inline MIDIEvent_NoteOn(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
+	inline MIDIEvent_NoteOn(unsigned long timeStamp, unsigned char channel,
+							unsigned char note, unsigned char velocity) :
+									MIDIEvent(timeStamp, Status, channel, 2) {
+		_params[0] = note, _params[1] = velocity;
+	}
 	virtual bool Play(Signal sig, Port *pPort);
 };
 
@@ -124,6 +134,10 @@ public:
 public:
 	inline MIDIEvent_ProgramChange(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 1) {}
+	inline MIDIEvent_ProgramChange(unsigned long timeStamp, unsigned char channel, unsigned char program) :
+									MIDIEvent(timeStamp, Status, channel, 1) {
+		_params[0] = program;
+	}
 	virtual bool Play(Signal sig, Port *pPort);
 };
 

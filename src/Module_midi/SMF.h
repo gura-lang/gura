@@ -10,9 +10,7 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 class SMF {
 public:
-	enum {
-		NUM_CHANNELS = 16,
-	};
+	enum { NUM_CHANNELS = 16 };
 	struct HeaderChunkTop {
 		enum { Size = 8 };
 		char MThd[4];

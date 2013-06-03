@@ -1,5 +1,7 @@
 #include "MmlParser.h"
 
+Gura_BeginModule(midi)
+
 //-----------------------------------------------------------------------------
 // MmlParser
 // see http://ja.wikipedia.org/wiki/Music_Macro_Language for MML syntax
@@ -17,21 +19,25 @@ void MmlParser::Reset()
 	_operator		= '\0';
 	_operatorSub	= '\0';
 	_numAccum		= 0;
+	for (size_t i = 0; i < NUM_CHANNELS; i++) {
+		_timeStampTbl[i] = 0;
+	}
 }
 
-bool MmlParser::Parse(const char *mml)
+bool MmlParser::Parse(Signal sig, EventOwner &eventOwner, unsigned char channel, const char *mml)
 {
 	for (const char *p = mml; ; p++) {
 		char ch = *p;
-		if (!FeedChar(ch)) return false;
+		if (!FeedChar(sig, eventOwner, channel, ch)) return false;
 		if (ch == '\0') break;
 	}
 	return true;
 }
 
-bool MmlParser::FeedChar(int ch)
+bool MmlParser::FeedChar(Signal sig, EventOwner &eventOwner, unsigned char channel, int ch)
 {
 	bool continueFlag;
+	unsigned long &timeStamp = _timeStampTbl[channel];
 	if ('a' <= ch && ch <= 'z') ch = ch - 'a' + 'A';
 	do {
 		continueFlag = false;
@@ -114,6 +120,7 @@ bool MmlParser::FeedChar(int ch)
 				_stat = STAT_NoteFix;
 			}
 		} else if (_stat == STAT_NoteFix) {
+			unsigned char velocity = 0x7f;
 			static const unsigned char noteTbl[] = {
 				9, 11, 0, 2, 4, 5, 7,
 			};
@@ -126,7 +133,9 @@ bool MmlParser::FeedChar(int ch)
 				// nothing to do
 			}
 			int length = CalcLength(_numAccum, _cntDot, _lengthDefault);
-			OnMmlNote(note, length);
+			eventOwner.push_back(new MIDIEvent_NoteOn(timeStamp, channel, note, velocity));
+			timeStamp += length;
+			eventOwner.push_back(new MIDIEvent_NoteOn(timeStamp, channel, note, 0));
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_RestLengthPre) {// -------- Rest --------
@@ -150,7 +159,7 @@ bool MmlParser::FeedChar(int ch)
 			}
 		} else if (_stat == STAT_RestFix) {
 			int length = CalcLength(_numAccum, _cntDot, _lengthDefault);
-			OnMmlRest(length);
+			timeStamp += length;
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_OctavePre) {	// -------- Octave --------
@@ -215,7 +224,7 @@ bool MmlParser::FeedChar(int ch)
 				_stat = STAT_VolumeFix;
 			}
 		} else if (_stat == STAT_VolumeFix) {
-			OnMmlVolume(_numAccum);
+			//OnMmlVolume(_numAccum);
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_TonePre) {		// ------- Tone --------
@@ -236,7 +245,8 @@ bool MmlParser::FeedChar(int ch)
 				_stat = STAT_ToneFix;
 			}
 		} else if (_stat == STAT_ToneFix) {
-			OnMmlTone(_numAccum);
+			eventOwner.push_back(new MIDIEvent_ProgramChange(timeStamp, channel,
+										static_cast<unsigned char>(_numAccum)));
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_TempoPre) {	// -------- Tempo --------
@@ -257,7 +267,7 @@ bool MmlParser::FeedChar(int ch)
 				_stat = STAT_TempoFix;
 			}
 		} else if (_stat == STAT_TempoFix) {
-			OnMmlTempo(_numAccum);
+			//OnMmlTempo(_numAccum);
 			continueFlag = true;
 			_stat = STAT_Begin;
 		}
@@ -276,29 +286,4 @@ int MmlParser::CalcLength(int numDisp, int cntDot, int lengthDefault)
 	return length;
 }
 
-#if 0
-void Player::Channel::OnMmlNote(unsigned char note, int length)
-{
-	_pPort->RawWrite(0x90 + GetChannel(), note, 0x7f);
-	OAL::Sleep(.01 * length);
-	_pPort->RawWrite(0x90 + GetChannel(), note, 0x00);
-}
-
-void Player::Channel::OnMmlRest(int length)
-{
-	OAL::Sleep(.01 * length);
-}
-
-void Player::Channel::OnMmlVolume(int volume)
-{
-}
-
-void Player::Channel::OnMmlTone(int tone)
-{
-	_pPort->RawWrite(0xc0 + GetChannel(), static_cast<unsigned char>(tone));
-}
-
-void Player::Channel::OnMmlTempo(int tempo)
-{
-}
-#endif
+}}

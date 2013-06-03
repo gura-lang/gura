@@ -6,6 +6,7 @@
 #include <gura.h>
 #include "Port.h"
 #include "SMF.h"
+#include "MmlParser.h"
 
 Gura_BeginModule(midi)
 

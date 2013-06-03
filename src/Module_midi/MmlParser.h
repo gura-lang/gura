@@ -1,8 +1,13 @@
 #ifndef __MMLPARSER_H__
 #define __MMLPARSER_H__
+#include <gura.h>
+#include "Event.h"
+
+Gura_BeginModule(midi)
 
 class MmlParser {
 public:
+	enum { NUM_CHANNELS = 16 };
 	enum { LENGTH_MAX = 256 };
 private:
 	enum Stat {
@@ -23,21 +28,20 @@ private:
 	int _operatorSub;
 	int _numAccum;
 	int _cntDot;
+	unsigned long _timeStampTbl[NUM_CHANNELS];
 public:
 	MmlParser();
 	void Reset();
-	bool Parse(const char *mml);
-	bool FeedChar(int ch);
+	bool Parse(Signal sig, EventOwner &eventOwner, unsigned char channel, const char *mml);
+private:
+	bool FeedChar(Signal sig, EventOwner &eventOwner, unsigned char channel, int ch);
 private:
 	inline static bool IsEOD(int ch) { return ch == '\0' || ch < 0; }
 	inline static bool IsWhite(int ch) { return ch == ' ' || ch == '\t'; }
 	inline static bool IsDigit(int ch) { return '0' <= ch && ch <= '9'; }
-	virtual void OnMmlNote(unsigned char note, int length) = 0;
-	virtual void OnMmlRest(int length) = 0;
-	virtual void OnMmlVolume(int volume) = 0;
-	virtual void OnMmlTone(int tone) = 0;
-	virtual void OnMmlTempo(int tempo) = 0;
 	static int CalcLength(int numDisp, int cntDot, int lengthDefault);
 };
+
+}}
 
 #endif
