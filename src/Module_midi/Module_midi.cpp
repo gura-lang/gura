@@ -62,9 +62,26 @@ Gura_ImplementMethod(mml, parse)
 //-----------------------------------------------------------------------------
 // Class implementation for midi.mml
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(mml)
+Gura_ImplementUserClassWithCast(mml)
 {
 	Gura_AssignMethod(mml, parse);
+}
+
+Gura_ImplementCastFrom(mml)
+{
+	if (value.IsString()) {
+		unsigned char channel = 0;
+		AutoPtr<Object_mml> pObj(new Object_mml(env));
+		if (!pObj->GetMML().Parse(sig, channel, value.GetString())) return false;
+		value = Value(pObj.release());
+		return true;
+	}
+	return false;
+}
+
+Gura_ImplementCastTo(mml)
+{
+	return false;
 }
 
 //-----------------------------------------------------------------------------
