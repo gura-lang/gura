@@ -4,9 +4,11 @@ import(midi)
 //mml = midi.mml()
 //mml.parse(0, '', '', '')
 
+mml = midi.mml()
+mml.parse(0, 'aab2 aab2 ab>c<b ab8a8f2')
+mml.parse(0, 'ecef ee8c8<b2 >ab>c<b ab8a8f2')
+mml.parse(0, 'ecef ee8c8<b2 >aab2 aab2 r1')
 midi.port {|port|
 	port.rawwrite(0xc0, 0)
-	port.mmlplay('aab2 aab2 ab>c<b ab8a8f2')
-	port.mmlplay('ecef ee8c8<b2 >ab>c<b ab8a8f2')
-	port.mmlplay('ecef ee8c8<b2 >aab2 aab2 r1')
+	port.mmlplay(mml)
 }

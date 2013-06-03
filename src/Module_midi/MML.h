@@ -29,12 +29,15 @@ private:
 	int _numAccum;
 	int _cntDot;
 	unsigned long _timeStampTbl[NUM_CHANNELS];
+	EventOwner _eventOwner;
 public:
 	MML();
+	inline EventOwner &GetEventOwner() { return _eventOwner; }
+	inline const EventOwner &GetEventOwner() const { return _eventOwner; }
 	void Reset();
-	bool Parse(Signal sig, EventOwner &eventOwner, unsigned char channel, const char *str);
+	bool Parse(Signal sig, unsigned char channel, const char *str);
 private:
-	bool FeedChar(Signal sig, EventOwner &eventOwner, unsigned char channel, int ch);
+	bool FeedChar(Signal sig, unsigned char channel, int ch);
 private:
 	inline static bool IsEOD(int ch) { return ch == '\0' || ch < 0; }
 	inline static bool IsWhite(int ch) { return ch == ' ' || ch == '\t'; }

@@ -6,21 +6,21 @@
 Gura_BeginModule(midi)
 
 //-----------------------------------------------------------------------------
-// Object_smf
+// Object_mml
 //-----------------------------------------------------------------------------
-Object *Object_smf::Clone() const
+Object *Object_mml::Clone() const
 {
 	return NULL;
 }
 
-bool Object_smf::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_mml::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	//symbols.insert(Gura_Symbol(string));
 	return true;
 }
 
-Value Object_smf::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_mml::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 #if 0
@@ -33,23 +33,38 @@ Value Object_smf::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-String Object_smf::ToString(Signal sig, bool exprFlag)
+String Object_mml::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
-	rtn += "<midi.smf:";
+	rtn += "<midi.mml:";
 	rtn += ">";
 	return rtn;
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for midi.smf
+// Gura interfaces for midi.mml
 //-----------------------------------------------------------------------------
+// midi.mml#parse(channel:number, text:string):map:void
+Gura_DeclareMethod(mml, parse)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "text", VTYPE_string);
+}
+
+Gura_ImplementMethod(mml, parse)
+{
+	Object_mml *pThis = Object_mml::GetThisObj(args);
+	if (!pThis->GetMML().Parse(sig, args.GetChar(0), args.GetString(1))) return Value::Null;
+	return Value::Null;
+}
 
 //-----------------------------------------------------------------------------
-// Class implementation for midi.smf
+// Class implementation for midi.mml
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(smf)
+Gura_ImplementUserClass(mml)
 {
+	Gura_AssignMethod(mml, parse);
 }
 
 //-----------------------------------------------------------------------------
@@ -167,24 +182,31 @@ Gura_ImplementMethod(port, rawwrite)
 	return Value::Null;
 }
 
-// midi.port#mmlplay(mml:string):map:void
+// midi.port#mmlplay(mml:midi.mml):map:void
 Gura_DeclareMethod(port, mmlplay)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "mml", VTYPE_string);
+	DeclareArg(env, "mml", VTYPE_mml);
 }
 
 Gura_ImplementMethod(port, mmlplay)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
+	Object_mml *pObjMML = Object_mml::GetObject(args, 0);
+#if 0
 	char channel = 0;
-	MmlParser mml;
+	MML mml;
 	EventOwner eventOwner;
 	if (!mml.Parse(sig, eventOwner, channel, args.GetString(0))) return Value::Null;
-	eventOwner.Sort();
+#endif
 	unsigned short division = 80;
 	double deltaTimeUnit = .6 / division;
-	eventOwner.Play(sig, &pThis->GetPort(), deltaTimeUnit);
+	EventOwner &eventOwner = pObjMML->GetMML().GetEventOwner();
+	EventList eventList;
+	eventList.reserve(eventOwner.size());
+	foreach (EventOwner, ppEvent, eventOwner) eventList.push_back(*ppEvent);
+	eventList.Sort();
+	eventList.Play(sig, &pThis->GetPort(), deltaTimeUnit);
 	return Value::Null;
 }
 
@@ -222,6 +244,21 @@ Gura_ImplementUserClass(port)
 //-----------------------------------------------------------------------------
 // Gura module functions: midi
 //-----------------------------------------------------------------------------
+// midi.mml() {block?}
+Gura_DeclareFunction(mml)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(mml));
+	AddHelp(Gura_Symbol(en), "create an instance that parses MML string and stores its data.");
+}
+
+Gura_ImplementFunction(mml)
+{
+	AutoPtr<Object_mml> pObj(new Object_mml(env));
+	return ReturnValue(env, sig, args, Value(pObj.release()));
+}
+
 // midi.port(id?:number) {block?}
 Gura_DeclareFunction(port)
 {
@@ -261,10 +298,11 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// class realization
-	Gura_RealizeUserClass(smf, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(mml, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(portinfo, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(port, env.LookupClass(VTYPE_object));
 	// function assignment
+	Gura_AssignFunction(mml);
 	Gura_AssignFunction(port);
 	Gura_AssignFunction(test);
 }

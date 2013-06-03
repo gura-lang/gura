@@ -56,38 +56,6 @@ public:
 	}
 };
 
-#if 0
-class Player {
-public:
-	enum {
-		NUM_CHANNELS = 16,
-	};
-	class Channel : public MmlParser {
-	private:
-		Port *_pPort;
-		char _channel;
-	public:
-		inline Channel(Port *pPort, char channel) :
-									_pPort(pPort), _channel(channel) {}
-		inline char GetChannel() const { return _channel; }
-	protected:
-		// virtual functions of MmlParser
-		virtual void OnMmlNote(unsigned char note, int length);
-		virtual void OnMmlRest(int length);
-		virtual void OnMmlVolume(int volume);
-		virtual void OnMmlTone(int tone);
-		virtual void OnMmlTempo(int tempo);
-	};
-private:
-	Channel *_pChannels[NUM_CHANNELS];
-public:
-	Player();
-	~Player();
-	void MmlPlay(char channel, const char *mml);
-	bool Play(Signal sig, Port *pPort, Stream &stream);
-};
-#endif
-
 }}
 
 #endif

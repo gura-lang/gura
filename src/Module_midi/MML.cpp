@@ -22,19 +22,20 @@ void MML::Reset()
 	for (size_t i = 0; i < NUM_CHANNELS; i++) {
 		_timeStampTbl[i] = 0;
 	}
+	_eventOwner.Clear();
 }
 
-bool MML::Parse(Signal sig, EventOwner &eventOwner, unsigned char channel, const char *str)
+bool MML::Parse(Signal sig, unsigned char channel, const char *str)
 {
 	for (const char *p = str; ; p++) {
 		char ch = *p;
-		if (!FeedChar(sig, eventOwner, channel, ch)) return false;
+		if (!FeedChar(sig, channel, ch)) return false;
 		if (ch == '\0') break;
 	}
 	return true;
 }
 
-bool MML::FeedChar(Signal sig, EventOwner &eventOwner, unsigned char channel, int ch)
+bool MML::FeedChar(Signal sig, unsigned char channel, int ch)
 {
 	bool continueFlag;
 	unsigned long &timeStamp = _timeStampTbl[channel];
@@ -133,9 +134,9 @@ bool MML::FeedChar(Signal sig, EventOwner &eventOwner, unsigned char channel, in
 				// nothing to do
 			}
 			int length = CalcLength(_numAccum, _cntDot, _lengthDefault);
-			eventOwner.push_back(new MIDIEvent_NoteOn(timeStamp, channel, note, velocity));
+			_eventOwner.push_back(new MIDIEvent_NoteOn(timeStamp, channel, note, velocity));
 			timeStamp += length;
-			eventOwner.push_back(new MIDIEvent_NoteOn(timeStamp, channel, note, 0));
+			_eventOwner.push_back(new MIDIEvent_NoteOn(timeStamp, channel, note, 0));
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_RestLengthPre) {// -------- Rest --------
@@ -245,7 +246,7 @@ bool MML::FeedChar(Signal sig, EventOwner &eventOwner, unsigned char channel, in
 				_stat = STAT_ToneFix;
 			}
 		} else if (_stat == STAT_ToneFix) {
-			eventOwner.push_back(new MIDIEvent_ProgramChange(timeStamp, channel,
+			_eventOwner.push_back(new MIDIEvent_ProgramChange(timeStamp, channel,
 										static_cast<unsigned char>(_numAccum)));
 			continueFlag = true;
 			_stat = STAT_Begin;

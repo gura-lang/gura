@@ -15,10 +15,10 @@ void EventList::Sort()
 	std::stable_sort(begin(), end(), Comparator_TimeStamp());
 }
 
-bool EventList::Play(Signal sig, Port *pPort, double deltaTimeUnit)
+bool EventList::Play(Signal sig, Port *pPort, double deltaTimeUnit) const
 {
 	Event *pEventPrev = NULL;
-	foreach (EventList, ppEvent, *this) {
+	foreach_const (EventList, ppEvent, *this) {
 		Event *pEvent = *ppEvent;
 		if (pEventPrev != NULL &&
 					pEventPrev->GetTimeStamp() < pEvent->GetTimeStamp()) {

@@ -31,7 +31,7 @@ public:
 	};
 public:
 	void Sort();
-	bool Play(Signal sig, Port *pPort, double deltaTimeUnit);
+	bool Play(Signal sig, Port *pPort, double deltaTimeUnit) const;
 };
 
 //-----------------------------------------------------------------------------

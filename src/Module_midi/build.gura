@@ -2,4 +2,4 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.build('midi', ['Module_midi.cpp', 'Port.cpp', 'Event.cpp', 'MmlParser.cpp', 'SMF.cpp'])
+builder.build('midi', ['Module_midi.cpp', 'Port.cpp', 'Event.cpp', 'MML.cpp', 'SMF.cpp'])

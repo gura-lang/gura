@@ -6,20 +6,23 @@
 #include <gura.h>
 #include "Port.h"
 #include "SMF.h"
-#include "MmlParser.h"
+#include "MML.h"
 
 Gura_BeginModule(midi)
 
 //-----------------------------------------------------------------------------
-// Class declaration for midi.smf
+// Class declaration for midi.mml
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(smf);
+Gura_DeclareUserClass(mml);
 
-class Object_smf : public Object {
+class Object_mml : public Object {
+private:
+	MML _mml;
 public:
-	Gura_DeclareObjectAccessor(smf)
+	Gura_DeclareObjectAccessor(mml)
 public:
-	inline Object_smf(Environment &env) : Object(Gura_UserClass(smf)) {}
+	inline Object_mml(Environment &env) : Object(Gura_UserClass(mml)) {}
+	inline MML &GetMML() { return _mml; }
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
