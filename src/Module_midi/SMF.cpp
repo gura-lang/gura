@@ -159,13 +159,13 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 					} else if (stat == STAT_SysExEventF0) {
 						if (data == 0xf7) {
 							_timeStampSysEx += deltaTime;
-							if (!eventOwner.AddSysExEvent(sig, _timeStampSysEx, buff, 0)) return false;
+							eventOwner.push_back(new SysExEvent(_timeStampSysEx, buff, 0));
 							stat = STAT_EventStart;
 						}
 					} else if (stat == STAT_SysExEventF7) {
 						if (data == 0xf7) {
 							_timeStampSysEx += deltaTime;
-							if (!eventOwner.AddSysExEvent(sig, _timeStampSysEx, buff, 0)) return false;
+							eventOwner.push_back(new SysExEvent(_timeStampSysEx, buff, 0));
 							stat = STAT_EventStart;
 						}
 					} else if (stat == STAT_MetaEvent_Type) {
@@ -177,7 +177,8 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 							// nothing to do
 						} else if (length == 0) {
 							_timeStampMeta += deltaTime;
-							if (!eventOwner.AddMetaEvent(sig, _timeStampMeta, eventType, buff, 0)) {
+							if (!MetaEvent::Add(sig, eventOwner,
+										_timeStampMeta, eventType, buff, 0)) {
 								return false;
 							}
 							stat = STAT_EventStart;
@@ -190,8 +191,8 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 						idxBuff++;
 						if (idxBuff == length) {
 							_timeStampMeta += deltaTime;
-							if (!eventOwner.AddMetaEvent(sig, _timeStampMeta, eventType, buff,
-									ChooseMin(static_cast<size_t>(length), sizeof(buff)))) {
+							if (!MetaEvent::Add(sig, eventOwner, _timeStampMeta, eventType,
+									buff, ChooseMin(static_cast<size_t>(length), sizeof(buff)))) {
 								return false;
 							}
 							stat = STAT_EventStart;
@@ -205,60 +206,18 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 }
 
 //-----------------------------------------------------------------------------
-// SMF::Event
+// SMF::SysExEvent
 //-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// EventList
-//-----------------------------------------------------------------------------
-void SMF::EventList::Sort()
+bool SMF::SysExEvent::Play(Signal sig, Port *pPort)
 {
-	std::stable_sort(begin(), end(), Comparator_TimeStamp());
-}
-
-bool SMF::EventList::Play(Signal sig, Port *pPort, double deltaTimeUnit)
-{
-	Event *pEventPrev = NULL;
-	foreach (EventList, ppEvent, *this) {
-		Event *pEvent = *ppEvent;
-		if (pEventPrev != NULL &&
-					pEventPrev->GetTimeStamp() < pEvent->GetTimeStamp()) {
-			unsigned long deltaTime =
-					pEvent->GetTimeStamp() - pEventPrev->GetTimeStamp();
-			OAL::Sleep(deltaTimeUnit * deltaTime);
-		}
-		if (!pEvent->Play(sig, pPort)) return false;
-		pEventPrev = pEvent;
-	}
 	return true;
 }
 
 //-----------------------------------------------------------------------------
-// SMF::EventOwner
+// SMF::MetaEvent
 //-----------------------------------------------------------------------------
-SMF::EventOwner::~EventOwner()
-{
-	Clear();
-}
-
-void SMF::EventOwner::Clear()
-{
-	foreach (EventOwner, ppEvent, *this) {
-		Event *pEvent = *ppEvent;
-		delete pEvent;
-	}
-	clear();
-}
-
-bool SMF::EventOwner::AddSysExEvent(Signal sig, unsigned long timeStamp,
-									const unsigned char buff[], size_t length)
-{
-	push_back(new SysExEvent(timeStamp, buff, length));
-	return true;
-}
-
-bool SMF::EventOwner::AddMetaEvent(Signal sig, unsigned long timeStamp,
-				unsigned char eventType, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent::Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
+			unsigned char eventType, const unsigned char buff[], size_t length)
 {
 	MetaEvent *pEvent = NULL;
 	if (eventType == MetaEvent_SequenceNumber::EventType) {
@@ -295,91 +254,13 @@ bool SMF::EventOwner::AddMetaEvent(Signal sig, unsigned long timeStamp,
 		pEvent = new MetaEvent_Unknown(timeStamp, eventType);
 	}
 	if (pEvent->Prepare(sig, buff, length)) {
-		push_back(pEvent);
+		eventOwner.push_back(pEvent);
 		return true;
 	}
 	delete pEvent;
 	return false;
 }
 
-//-----------------------------------------------------------------------------
-// SMF::MIDIEvent
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// SMF::MIDIEvent_NoteOff
-//-----------------------------------------------------------------------------
-bool SMF::MIDIEvent_NoteOff::Play(Signal sig, Port *pPort)
-{
-	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// SMF::MIDIEvent_NoteOn
-//-----------------------------------------------------------------------------
-bool SMF::MIDIEvent_NoteOn::Play(Signal sig, Port *pPort)
-{
-	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// SMF::MIDIEvent_PolyphonicKeyPressure
-//-----------------------------------------------------------------------------
-bool SMF::MIDIEvent_PolyphonicKeyPressure::Play(Signal sig, Port *pPort)
-{
-	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// SMF::MIDIEvent_ControlChange
-//-----------------------------------------------------------------------------
-bool SMF::MIDIEvent_ControlChange::Play(Signal sig, Port *pPort)
-{
-	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// SMF::MIDIEvent_ProgramChange
-//-----------------------------------------------------------------------------
-bool SMF::MIDIEvent_ProgramChange::Play(Signal sig, Port *pPort)
-{
-	pPort->RawWrite(_status | _channel, _params[0]);
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// SMF::MIDIEvent_ChannelPressure
-//-----------------------------------------------------------------------------
-bool SMF::MIDIEvent_ChannelPressure::Play(Signal sig, Port *pPort)
-{
-	pPort->RawWrite(_status | _channel, _params[0]);
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// SMF::MIDIEvent_PitchBendChange
-//-----------------------------------------------------------------------------
-bool SMF::MIDIEvent_PitchBendChange::Play(Signal sig, Port *pPort)
-{
-	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// SMF::SysExEvent
-//-----------------------------------------------------------------------------
-bool SMF::SysExEvent::Play(Signal sig, Port *pPort)
-{
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// SMF::MetaEvent
-//-----------------------------------------------------------------------------
 void SMF::MetaEvent::SetError_TooShortMetaEvent(Signal sig)
 {
 	sig.SetError(ERR_FormatError, "too short meta event");

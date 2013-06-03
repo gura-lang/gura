@@ -195,7 +195,7 @@ Gura_ImplementMethod(port, play)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
 	SMF smf;
-	SMF::EventOwner eventOwner;
+	EventOwner eventOwner;
 	if (!smf.Read(sig, args.GetStream(0), eventOwner)) return false;
 	eventOwner.Sort();
 	//::printf("format:%d num_track_chunks:%d division:%d\n",
