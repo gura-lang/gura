@@ -11,21 +11,6 @@ public:
 	enum {
 		NUM_CHANNELS = 16,
 	};
-#if 0
-	enum MIDIEvent {
-		MIDIEVT_None,
-		MIDIEVT_NoteOff,
-		MIDIEVT_NoteOn,
-		MIDIEVT_PolyphonicKeyPressure,
-		MIDIEVT_ControlChange,
-		MIDIEVT_ProgramChange,
-		MIDIEVT_ChannelPressure,
-		MIDIEVT_PitchBendChange,
-	};
-	enum MetaEvent {
-		METAEVT_None,
-	};
-#endif
 	struct HeaderChunkTop {
 		enum { Size = 8 };
 		char MThd[4];
@@ -65,20 +50,83 @@ public:
 	public:
 		~EventOwner();
 		void Clear();
-		bool AddMIDIEvent(Signal sig, unsigned long timeStamp,
-									const unsigned char buff[], size_t length);
 		bool AddSysExEvent(Signal sig, unsigned long timeStamp,
 									const unsigned char buff[], size_t length);
 		bool AddMetaEvent(Signal sig, unsigned long timeStamp,
 				unsigned char eventType, const unsigned char buff[], size_t length);
 	};
 	class MIDIEvent : public Event {
-	private:
-		unsigned char _msg1, _msg2, _msg3;
+	protected:
+		unsigned char _status;
+		unsigned char _channel;
+		size_t _nParams;
+		unsigned char _params[2];
 	public:
-		inline MIDIEvent(unsigned long timeStamp,
-					unsigned char msg1, unsigned char msg2, unsigned char msg3) :
-			Event(timeStamp), _msg1(msg1), _msg2(msg2), _msg3(msg3) {}
+		inline MIDIEvent(unsigned long timeStamp, unsigned char status, unsigned char channel, size_t nParams) :
+				Event(timeStamp), _status(status), _channel(channel), _nParams(nParams) {}
+		inline unsigned char GetStatus() const { return _status; }
+		inline unsigned char GetChannel() const { return _channel; }
+		inline void SetParam1st(unsigned char param) { _params[0] = param; }
+		inline void SetParam2nd(unsigned char param) { _params[1] = param; }
+		inline size_t CountParams() const { return _nParams; }
+		static bool CheckStatus(unsigned char status) {
+			return 0x80 <= status && status < 0xf0;
+		}
+	};
+	class MIDIEvent_NoteOff : public MIDIEvent {
+	public:
+		enum { Status = 0x80 };
+	public:
+		inline MIDIEvent_NoteOff(unsigned long timeStamp, unsigned char channel) :
+										MIDIEvent(timeStamp, Status, channel, 2) {}
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MIDIEvent_NoteOn : public MIDIEvent {
+	public:
+		enum { Status = 0x90 };
+	public:
+		inline MIDIEvent_NoteOn(unsigned long timeStamp, unsigned char channel) :
+										MIDIEvent(timeStamp, Status, channel, 2) {}
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MIDIEvent_PolyphonicKeyPressure : public MIDIEvent {
+	public:
+		enum { Status = 0xa0 };
+	public:
+		inline MIDIEvent_PolyphonicKeyPressure(unsigned long timeStamp, unsigned char channel) :
+										MIDIEvent(timeStamp, Status, channel, 2) {}
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MIDIEvent_ControlChange : public MIDIEvent {
+	public:
+		enum { Status = 0xb0 };
+	public:
+		inline MIDIEvent_ControlChange(unsigned long timeStamp, unsigned char channel) :
+										MIDIEvent(timeStamp, Status, channel, 2) {}
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MIDIEvent_ProgramChange : public MIDIEvent {
+	public:
+		enum { Status = 0xc0 };
+	public:
+		inline MIDIEvent_ProgramChange(unsigned long timeStamp, unsigned char channel) :
+										MIDIEvent(timeStamp, Status, channel, 1) {}
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MIDIEvent_ChannelPressure : public MIDIEvent {
+	public:
+		enum { Status = 0xd0 };
+	public:
+		inline MIDIEvent_ChannelPressure(unsigned long timeStamp, unsigned char channel) :
+										MIDIEvent(timeStamp, Status, channel, 1) {}
+		virtual bool Play(Signal sig, Port *pPort);
+	};
+	class MIDIEvent_PitchBendChange : public MIDIEvent {
+	public:
+		enum { Status = 0xe0 };
+	public:
+		inline MIDIEvent_PitchBendChange(unsigned long timeStamp, unsigned char channel) :
+										MIDIEvent(timeStamp, Status, channel, 2) {}
 		virtual bool Play(Signal sig, Port *pPort);
 	};
 	class SysExEvent : public Event {

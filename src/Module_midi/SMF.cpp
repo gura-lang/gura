@@ -26,7 +26,8 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 		STAT_EventStart,
 		STAT_DeltaTime,
 		STAT_Status,
-		STAT_MIDIEvent,
+		STAT_MIDIEvent_Param1st,
+		STAT_MIDIEvent_Param2nd,
 		STAT_SysExEventF0,
 		STAT_SysExEventF7,
 		STAT_MetaEvent_Type,
@@ -72,6 +73,7 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 			sig.SetError(ERR_FormatError, "invalid SMF format");
 			return false;
 		}
+		std::auto_ptr<MIDIEvent> pMIDIEvent;
 		unsigned char eventType = 0x00;
 		unsigned char buff[512];
 		Stat stat = STAT_EventStart;
@@ -112,19 +114,30 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 							status = statusPrev;
 						}
 						statusPrev = status;
-						unsigned char statusUpper = status & 0xf0;
-						if (statusUpper == 0x80 || statusUpper == 0x90 ||
-								statusUpper == 0xa0 || statusUpper == 0xb0 ||
-								statusUpper == 0xe0) {
-							idxBuff = 0;
-							length = 3;
-							buff[idxBuff++] = status;
-							stat = STAT_MIDIEvent;
-						} else if (statusUpper == 0xc0 || statusUpper == 0xd0) {
-							idxBuff = 0;
-							length = 2;
-							buff[idxBuff++] = status;
-							stat = STAT_MIDIEvent;
+						if (MIDIEvent::CheckStatus(status)) {
+							unsigned char statusUpper = status & 0xf0;
+							unsigned char channel = status & 0x0f;
+							unsigned long &timeStamp = _timeStampTbl[channel];
+							timeStamp += deltaTime;
+							if (statusUpper == MIDIEvent_NoteOff::Status) {
+								pMIDIEvent.reset(new MIDIEvent_NoteOff(timeStamp, channel));
+							} else if (statusUpper == MIDIEvent_NoteOn::Status) {
+								pMIDIEvent.reset(new MIDIEvent_NoteOn(timeStamp, channel));
+							} else if (statusUpper == MIDIEvent_PolyphonicKeyPressure::Status) {
+								pMIDIEvent.reset(new MIDIEvent_PolyphonicKeyPressure(timeStamp, channel));
+							} else if (statusUpper == MIDIEvent_ControlChange::Status) {
+								pMIDIEvent.reset(new MIDIEvent_ControlChange(timeStamp, channel));
+							} else if (statusUpper == MIDIEvent_ProgramChange::Status) {
+								pMIDIEvent.reset(new MIDIEvent_ProgramChange(timeStamp, channel));
+							} else if (statusUpper == MIDIEvent_ChannelPressure::Status) {
+								pMIDIEvent.reset(new MIDIEvent_ChannelPressure(timeStamp, channel));
+							} else if (statusUpper == MIDIEvent_PitchBendChange::Status) {
+								pMIDIEvent.reset(new MIDIEvent_PitchBendChange(timeStamp, channel));
+							} else {
+								// this must not happen
+								return false;
+							}
+							stat = STAT_MIDIEvent_Param1st;
 						} else if (status == 0xf0) {
 							stat = STAT_SysExEventF0;
 						} else if (status == 0xf7) {
@@ -135,14 +148,18 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 							sig.SetError(ERR_FormatError, "unknown SMF status %02x", status);
 							return false;
 						}
-					} else if (stat == STAT_MIDIEvent) {
-						buff[idxBuff++] = data;
-						if (idxBuff == length) {
-							unsigned long &timeStamp = _timeStampTbl[buff[0] & 0x0f];
-							timeStamp += deltaTime;
-							if (!eventOwner.AddMIDIEvent(sig, timeStamp, buff, length)) return false;
+					} else if (stat == STAT_MIDIEvent_Param1st) {
+						pMIDIEvent->SetParam1st(data);
+						if (pMIDIEvent->CountParams() == 1) {
+							eventOwner.push_back(pMIDIEvent.release());
 							stat = STAT_EventStart;
+						} else {
+							stat = STAT_MIDIEvent_Param2nd;
 						}
+					} else if (stat == STAT_MIDIEvent_Param2nd) {
+						pMIDIEvent->SetParam2nd(data);
+						eventOwner.push_back(pMIDIEvent.release());
+						stat = STAT_EventStart;
 					} else if (stat == STAT_SysExEventF0) {
 						if (data == 0xf7) {
 							_timeStampSysEx += deltaTime;
@@ -237,17 +254,6 @@ void SMF::EventOwner::Clear()
 	clear();
 }
 
-bool SMF::EventOwner::AddMIDIEvent(Signal sig, unsigned long timeStamp,
-									const unsigned char buff[], size_t length)
-{
-	if (length == 2) {
-		push_back(new MIDIEvent(timeStamp, buff[0], buff[1], 0x00));
-	} else if (length == 3) {
-		push_back(new MIDIEvent(timeStamp, buff[0], buff[1], buff[2]));
-	}
-	return true;
-}
-
 bool SMF::EventOwner::AddSysExEvent(Signal sig, unsigned long timeStamp,
 									const unsigned char buff[], size_t length)
 {
@@ -303,9 +309,67 @@ bool SMF::EventOwner::AddMetaEvent(Signal sig, unsigned long timeStamp,
 //-----------------------------------------------------------------------------
 // SMF::MIDIEvent
 //-----------------------------------------------------------------------------
-bool SMF::MIDIEvent::Play(Signal sig, Port *pPort)
+
+//-----------------------------------------------------------------------------
+// SMF::MIDIEvent_NoteOff
+//-----------------------------------------------------------------------------
+bool SMF::MIDIEvent_NoteOff::Play(Signal sig, Port *pPort)
 {
-	pPort->RawWrite(_msg1, _msg2, _msg3);
+	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MIDIEvent_NoteOn
+//-----------------------------------------------------------------------------
+bool SMF::MIDIEvent_NoteOn::Play(Signal sig, Port *pPort)
+{
+	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MIDIEvent_PolyphonicKeyPressure
+//-----------------------------------------------------------------------------
+bool SMF::MIDIEvent_PolyphonicKeyPressure::Play(Signal sig, Port *pPort)
+{
+	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MIDIEvent_ControlChange
+//-----------------------------------------------------------------------------
+bool SMF::MIDIEvent_ControlChange::Play(Signal sig, Port *pPort)
+{
+	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MIDIEvent_ProgramChange
+//-----------------------------------------------------------------------------
+bool SMF::MIDIEvent_ProgramChange::Play(Signal sig, Port *pPort)
+{
+	pPort->RawWrite(_status | _channel, _params[0]);
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MIDIEvent_ChannelPressure
+//-----------------------------------------------------------------------------
+bool SMF::MIDIEvent_ChannelPressure::Play(Signal sig, Port *pPort)
+{
+	pPort->RawWrite(_status | _channel, _params[0]);
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MIDIEvent_PitchBendChange
+//-----------------------------------------------------------------------------
+bool SMF::MIDIEvent_PitchBendChange::Play(Signal sig, Port *pPort)
+{
+	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
 	return true;
 }
 
