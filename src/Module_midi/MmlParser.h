@@ -1,11 +1,11 @@
-#ifndef __MMLPARSER_H__
-#define __MMLPARSER_H__
+#ifndef __MML_H__
+#define __MML_H__
 #include <gura.h>
 #include "Event.h"
 
 Gura_BeginModule(midi)
 
-class MmlParser {
+class MML {
 public:
 	enum { NUM_CHANNELS = 16 };
 	enum { LENGTH_MAX = 256 };
@@ -30,9 +30,9 @@ private:
 	int _cntDot;
 	unsigned long _timeStampTbl[NUM_CHANNELS];
 public:
-	MmlParser();
+	MML();
 	void Reset();
-	bool Parse(Signal sig, EventOwner &eventOwner, unsigned char channel, const char *mml);
+	bool Parse(Signal sig, EventOwner &eventOwner, unsigned char channel, const char *str);
 private:
 	bool FeedChar(Signal sig, EventOwner &eventOwner, unsigned char channel, int ch);
 private:

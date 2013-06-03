@@ -1,17 +1,17 @@
-#include "MmlParser.h"
+#include "MML.h"
 
 Gura_BeginModule(midi)
 
 //-----------------------------------------------------------------------------
-// MmlParser
+// MML
 // see http://ja.wikipedia.org/wiki/Music_Macro_Language for MML syntax
 //-----------------------------------------------------------------------------
-MmlParser::MmlParser()
+MML::MML()
 {
 	Reset();
 }
 
-void MmlParser::Reset()
+void MML::Reset()
 {
 	_stat			= STAT_Begin;
 	_octave			= 4;				// 1-9
@@ -24,9 +24,9 @@ void MmlParser::Reset()
 	}
 }
 
-bool MmlParser::Parse(Signal sig, EventOwner &eventOwner, unsigned char channel, const char *mml)
+bool MML::Parse(Signal sig, EventOwner &eventOwner, unsigned char channel, const char *str)
 {
-	for (const char *p = mml; ; p++) {
+	for (const char *p = str; ; p++) {
 		char ch = *p;
 		if (!FeedChar(sig, eventOwner, channel, ch)) return false;
 		if (ch == '\0') break;
@@ -34,7 +34,7 @@ bool MmlParser::Parse(Signal sig, EventOwner &eventOwner, unsigned char channel,
 	return true;
 }
 
-bool MmlParser::FeedChar(Signal sig, EventOwner &eventOwner, unsigned char channel, int ch)
+bool MML::FeedChar(Signal sig, EventOwner &eventOwner, unsigned char channel, int ch)
 {
 	bool continueFlag;
 	unsigned long &timeStamp = _timeStampTbl[channel];
@@ -275,7 +275,7 @@ bool MmlParser::FeedChar(Signal sig, EventOwner &eventOwner, unsigned char chann
 	return true;
 }
 
-int MmlParser::CalcLength(int numDisp, int cntDot, int lengthDefault)
+int MML::CalcLength(int numDisp, int cntDot, int lengthDefault)
 {
 	if (numDisp <= 0) return lengthDefault;
 	int length = LENGTH_MAX / numDisp;
