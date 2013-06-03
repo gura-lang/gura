@@ -1,0 +1,7 @@
+import(midi)
+
+midi.port {|port|
+	//port.play('samples/yuyake.mid')
+	//port.play('samples/Caccini_avemaria.mid')
+	port.play('samples/midi035.mid')
+}
