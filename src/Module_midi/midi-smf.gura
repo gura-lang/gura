@@ -1,3 +1,4 @@
+#!/usr/bin/env gura
 import(midi)
 
 midi.port {|port|

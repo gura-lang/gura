@@ -7,28 +7,3 @@ midi.port {|port|
 	port.mmlplay('ecef ee8c8<b2 >ab>c<b ab8a8f2')
 	port.mmlplay('ecef ee8c8<b2 >aab2 aab2 r1')
 }
-/*
-midi.port {|port|
-	println(port)
-	//port.mmlplay('@10')
-	repeat(128) {|i|
-		port.rawwrite(0xc0, i)
-		port.mmlplay('aab2 aab2 ab>c<b ab8a8f2')
-	}
-	/*
-	port.rawwrite(0x40, 100)
-	repeat(128) {|i|
-		port.rawwrite(0xc0, i)
-		repeat(5) {|i|
-			port.rawwrite(0x90, 60 + i, 0x40)
-			//port.rawwrite(0x90, 60 + i + 1, 0x40)
-			//port.rawwrite(0x90, 60 + i + 2, 0x40)
-			time.sleep(.2)
-			port.rawwrite(0x90, 60 + i, 0x00)
-			//port.rawwrite(0x90, 60 + i + 1, 0x00)
-			//port.rawwrite(0x90, 60 + i + 2, 0x00)
-		}
-	}
-	*/
-}
-*/
