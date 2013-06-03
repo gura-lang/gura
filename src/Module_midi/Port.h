@@ -1,6 +1,6 @@
 #ifndef __PORT_H__
 #define __PORT_H__
-#include "MmlParser.h"
+#include <gura.h>
 
 Gura_BeginModule(midi)
 
