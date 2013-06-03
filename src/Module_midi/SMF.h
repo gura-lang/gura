@@ -44,7 +44,7 @@ public:
 		};
 	public:
 		void Sort();
-		bool Play(Signal sig, Port *pPort);
+		bool Play(Signal sig, Port *pPort, double deltaTimeUnit);
 	};
 	class EventOwner : public EventList {
 	public:
@@ -322,11 +322,17 @@ public:
 		virtual bool Play(Signal sig, Port *pPort);
 	};
 private:
+	unsigned short _format;
+	unsigned short _numTrackChunks;
+	unsigned short _division;
 	unsigned long _timeStampTbl[NUM_CHANNELS];
 	unsigned long _timeStampSysEx;
 	unsigned long _timeStampMeta;
 public:
 	SMF();
+	inline unsigned short GetFormat() const { return _format; }
+	inline unsigned short GetNumTrackChunks() const { return _numTrackChunks; }
+	inline unsigned short GetDivision() const { return _division; }
 	void ResetTimeStamp();
 	bool Read(Signal sig, Stream &stream, EventOwner &eventOwner);
 };

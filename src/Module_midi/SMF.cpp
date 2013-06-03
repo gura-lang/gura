@@ -6,7 +6,7 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 // SMF
 //-----------------------------------------------------------------------------
-SMF::SMF()
+SMF::SMF() : _format(0), _numTrackChunks(0), _division(0)
 {
 	ResetTimeStamp();
 }
@@ -35,9 +35,6 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 		STAT_MetaEvent_Data,
 	};
 	AutoPtr<Memory> pMemory(new MemoryHeap(1024));
-	unsigned short format = 0;
-	unsigned short num_track_chunks = 0;
-	unsigned short division = 0;
 	do {
 		HeaderChunkTop headerChunkTop;
 		if (stream.Read(sig, &headerChunkTop, HeaderChunkTop::Size) != HeaderChunkTop::Size) {
@@ -58,12 +55,11 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 			sig.SetError(ERR_FormatError, "invalid SMF format");
 			return false;
 		}
-		format = Gura_UnpackUShort(headerChunk.format);
-		num_track_chunks = Gura_UnpackUShort(headerChunk.num_track_chunks);
-		division = Gura_UnpackUShort(headerChunk.division);
+		_format = Gura_UnpackUShort(headerChunk.format);
+		_numTrackChunks = Gura_UnpackUShort(headerChunk.num_track_chunks);
+		_division = Gura_UnpackUShort(headerChunk.division);
 	} while (0);
-	::printf("format:%d num_track_chunks:%d division:%d\n", format, num_track_chunks, division);
-	for (unsigned short i = 0; i < num_track_chunks; i++) {
+	for (unsigned short i = 0; i < _numTrackChunks; i++) {
 		TrackChunkTop trackChunkTop;
 		if (stream.Read(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
 			sig.SetError(ERR_FormatError, "invalid SMF format");
@@ -220,7 +216,7 @@ void SMF::EventList::Sort()
 	std::stable_sort(begin(), end(), Comparator_TimeStamp());
 }
 
-bool SMF::EventList::Play(Signal sig, Port *pPort)
+bool SMF::EventList::Play(Signal sig, Port *pPort, double deltaTimeUnit)
 {
 	Event *pEventPrev = NULL;
 	foreach (EventList, ppEvent, *this) {
@@ -229,7 +225,7 @@ bool SMF::EventList::Play(Signal sig, Port *pPort)
 					pEventPrev->GetTimeStamp() < pEvent->GetTimeStamp()) {
 			unsigned long deltaTime =
 					pEvent->GetTimeStamp() - pEventPrev->GetTimeStamp();
-			OAL::Sleep(.005 * deltaTime);
+			OAL::Sleep(deltaTimeUnit * deltaTime);
 		}
 		if (!pEvent->Play(sig, pPort)) return false;
 		pEventPrev = pEvent;
@@ -394,7 +390,9 @@ void SMF::MetaEvent::SetError_TooShortMetaEvent(Signal sig)
 //-----------------------------------------------------------------------------
 bool SMF::MetaEvent_Unknown::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
-	_binary = Binary(reinterpret_cast<const char *>(buff), length);
+	if (length > 0) {
+		_binary = Binary(reinterpret_cast<const char *>(buff), length);
+	}
 	return true;
 }
 
@@ -428,7 +426,9 @@ bool SMF::MetaEvent_SequenceNumber::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 bool SMF::MetaEvent_TextEvent::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
-	_text = String(reinterpret_cast<const char *>(buff), length);
+	if (length > 0) {
+		_text = String(reinterpret_cast<const char *>(buff), length);
+	}
 	return true;
 }
 
@@ -442,7 +442,9 @@ bool SMF::MetaEvent_TextEvent::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 bool SMF::MetaEvent_CopyrightNotice::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
-	_text = String(reinterpret_cast<const char *>(buff), length);
+	if (length > 0) {
+		_text = String(reinterpret_cast<const char *>(buff), length);
+	}
 	return true;
 }
 
@@ -456,7 +458,9 @@ bool SMF::MetaEvent_CopyrightNotice::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 bool SMF::MetaEvent_SequenceOrTrackName::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
-	_text = String(reinterpret_cast<const char *>(buff), length);
+	if (length > 0) {
+		_text = String(reinterpret_cast<const char *>(buff), length);
+	}
 	return true;
 }
 
@@ -470,7 +474,9 @@ bool SMF::MetaEvent_SequenceOrTrackName::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 bool SMF::MetaEvent_InstrumentName::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
-	_text = String(reinterpret_cast<const char *>(buff), length);
+	if (length > 0) {
+		_text = String(reinterpret_cast<const char *>(buff), length);
+	}
 	return true;
 }
 
@@ -484,7 +490,9 @@ bool SMF::MetaEvent_InstrumentName::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 bool SMF::MetaEvent_LyricText::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
-	_text = String(reinterpret_cast<const char *>(buff), length);
+	if (length > 0) {
+		_text = String(reinterpret_cast<const char *>(buff), length);
+	}
 	return true;
 }
 
@@ -498,7 +506,9 @@ bool SMF::MetaEvent_LyricText::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 bool SMF::MetaEvent_MarkerText::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
-	_text = String(reinterpret_cast<const char *>(buff), length);
+	if (length > 0) {
+		_text = String(reinterpret_cast<const char *>(buff), length);
+	}
 	return true;
 }
 
@@ -512,7 +522,9 @@ bool SMF::MetaEvent_MarkerText::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 bool SMF::MetaEvent_CuePoint::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
-	_text = String(reinterpret_cast<const char *>(buff), length);
+	if (length > 0) {
+		_text = String(reinterpret_cast<const char *>(buff), length);
+	}
 	return true;
 }
 
@@ -641,6 +653,9 @@ bool SMF::MetaEvent_KeySignature::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 bool SMF::MetaEvent_SequencerSpecificEvent::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	if (length > 0) {
+		_binary = Binary(reinterpret_cast<const char *>(buff), length);
+	}
 	return true;
 }
 

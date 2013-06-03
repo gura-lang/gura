@@ -34,7 +34,10 @@ bool Port::Play(Signal sig, Stream &stream)
 	SMF::EventOwner eventOwner;
 	if (!smf.Read(sig, stream, eventOwner)) return false;
 	eventOwner.Sort();
-	return eventOwner.Play(sig, this);
+	//::printf("format:%d num_track_chunks:%d division:%d\n",
+	//				smf.GetFormat(), smf.GetNumTrackChunks(), smf.GetDivision());
+	double deltaTimeUnit = .6 / smf.GetDivision();
+	return eventOwner.Play(sig, this, deltaTimeUnit);
 }
 
 //-----------------------------------------------------------------------------
