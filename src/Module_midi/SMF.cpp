@@ -140,25 +140,19 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 						if (idxBuff == length) {
 							unsigned long &timeStamp = _timeStampTbl[buff[0] & 0x0f];
 							timeStamp += deltaTime;
-							if (length == 2) {
-								eventOwner.push_back(new MIDIEvent(timeStamp,
-													buff[0], buff[1], 0x00));
-							} else if (length == 3) {
-								eventOwner.push_back(new MIDIEvent(timeStamp,
-													buff[0], buff[1], buff[2]));
-							}
+							if (!eventOwner.AddMIDIEvent(sig, timeStamp, buff, length)) return false;
 							stat = STAT_EventStart;
 						}
 					} else if (stat == STAT_SysExEventF0) {
 						if (data == 0xf7) {
 							_timeStampSysEx += deltaTime;
-							//OnSysExEvent(_timeStampSysEx);
+							if (!eventOwner.AddSysExEvent(sig, _timeStampSysEx, buff, 0)) return false;
 							stat = STAT_EventStart;
 						}
 					} else if (stat == STAT_SysExEventF7) {
 						if (data == 0xf7) {
 							_timeStampSysEx += deltaTime;
-							//OnSysExEvent(_timeStampSysEx);
+							if (!eventOwner.AddSysExEvent(sig, _timeStampSysEx, buff, 0)) return false;
 							stat = STAT_EventStart;
 						}
 					} else if (stat == STAT_MetaEvent_Type) {
@@ -243,8 +237,26 @@ void SMF::EventOwner::Clear()
 	clear();
 }
 
+bool SMF::EventOwner::AddMIDIEvent(Signal sig, unsigned long timeStamp,
+									const unsigned char buff[], size_t length)
+{
+	if (length == 2) {
+		push_back(new MIDIEvent(timeStamp, buff[0], buff[1], 0x00));
+	} else if (length == 3) {
+		push_back(new MIDIEvent(timeStamp, buff[0], buff[1], buff[2]));
+	}
+	return true;
+}
+
+bool SMF::EventOwner::AddSysExEvent(Signal sig, unsigned long timeStamp,
+									const unsigned char buff[], size_t length)
+{
+	push_back(new SysExEvent(timeStamp, buff, length));
+	return true;
+}
+
 bool SMF::EventOwner::AddMetaEvent(Signal sig, unsigned long timeStamp,
-				unsigned char eventType, unsigned char data[], size_t length)
+				unsigned char eventType, const unsigned char buff[], size_t length)
 {
 	MetaEvent *pEvent = NULL;
 	if (eventType == MetaEvent_SequenceNumber::EventType) {
@@ -280,7 +292,7 @@ bool SMF::EventOwner::AddMetaEvent(Signal sig, unsigned long timeStamp,
 	} else {
 		pEvent = new MetaEvent_Unknown(timeStamp, eventType);
 	}
-	if (pEvent->Prepare(sig, data, length)) {
+	if (pEvent->Prepare(sig, buff, length)) {
 		push_back(pEvent);
 		return true;
 	}
@@ -298,10 +310,27 @@ bool SMF::MIDIEvent::Play(Signal sig, Port *pPort)
 }
 
 //-----------------------------------------------------------------------------
+// SMF::SysExEvent
+//-----------------------------------------------------------------------------
+bool SMF::SysExEvent::Play(Signal sig, Port *pPort)
+{
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// SMF::MetaEvent
+//-----------------------------------------------------------------------------
+void SMF::MetaEvent::SetError_TooShortMetaEvent(Signal sig)
+{
+	sig.SetError(ERR_FormatError, "too short meta event");
+}
+
+//-----------------------------------------------------------------------------
 // SMF::MetaEvent_Unknown
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_Unknown::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_Unknown::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	_binary = Binary(reinterpret_cast<const char *>(buff), length);
 	return true;
 }
 
@@ -313,8 +342,15 @@ bool SMF::MetaEvent_Unknown::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SequenceNumber
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_SequenceNumber::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_SequenceNumber::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	if (length < 2) {
+		SetError_TooShortMetaEvent(sig);
+		return false;
+	}
+	_number =
+		(static_cast<unsigned short>(buff[0]) << 8) +
+		(static_cast<unsigned short>(buff[1]) << 0);
 	return true;
 }
 
@@ -326,8 +362,9 @@ bool SMF::MetaEvent_SequenceNumber::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_TextEvent
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_TextEvent::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_TextEvent::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	_text = String(reinterpret_cast<const char *>(buff), length);
 	return true;
 }
 
@@ -339,8 +376,9 @@ bool SMF::MetaEvent_TextEvent::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_CopyrightNotice
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_CopyrightNotice::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_CopyrightNotice::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	_text = String(reinterpret_cast<const char *>(buff), length);
 	return true;
 }
 
@@ -352,8 +390,9 @@ bool SMF::MetaEvent_CopyrightNotice::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SequenceOrTrackName
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_SequenceOrTrackName::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_SequenceOrTrackName::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	_text = String(reinterpret_cast<const char *>(buff), length);
 	return true;
 }
 
@@ -365,8 +404,9 @@ bool SMF::MetaEvent_SequenceOrTrackName::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_InstrumentName
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_InstrumentName::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_InstrumentName::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	_text = String(reinterpret_cast<const char *>(buff), length);
 	return true;
 }
 
@@ -378,8 +418,9 @@ bool SMF::MetaEvent_InstrumentName::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_LyricText
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_LyricText::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_LyricText::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	_text = String(reinterpret_cast<const char *>(buff), length);
 	return true;
 }
 
@@ -391,8 +432,9 @@ bool SMF::MetaEvent_LyricText::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_MarkerText
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_MarkerText::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_MarkerText::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	_text = String(reinterpret_cast<const char *>(buff), length);
 	return true;
 }
 
@@ -404,8 +446,9 @@ bool SMF::MetaEvent_MarkerText::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_CuePoint
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_CuePoint::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_CuePoint::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	_text = String(reinterpret_cast<const char *>(buff), length);
 	return true;
 }
 
@@ -417,8 +460,13 @@ bool SMF::MetaEvent_CuePoint::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_MIDIChannelPrefixAssignment
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	if (length < 1) {
+		SetError_TooShortMetaEvent(sig);
+		return false;
+	}
+	_channel = buff[0];
 	return true;
 }
 
@@ -430,8 +478,9 @@ bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_EndOfTrack
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_EndOfTrack::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_EndOfTrack::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	// no buff
 	return true;
 }
 
@@ -443,8 +492,16 @@ bool SMF::MetaEvent_EndOfTrack::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_TempoSetting
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_TempoSetting::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_TempoSetting::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	if (length < 2) {
+		SetError_TooShortMetaEvent(sig);
+		return false;
+	}
+	_mpqn =
+		static_cast<unsigned long>(buff[0] << 16) +
+		static_cast<unsigned long>(buff[1] << 8) +
+		static_cast<unsigned long>(buff[2] << 0);
 	return true;
 }
 
@@ -456,8 +513,17 @@ bool SMF::MetaEvent_TempoSetting::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SMPTEOffset
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_SMPTEOffset::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_SMPTEOffset::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	if (length < 5) {
+		SetError_TooShortMetaEvent(sig);
+		return false;
+	}
+	_hour = buff[0];
+	_minute = buff[1];
+	_second = buff[2];
+	_frame = buff[3];
+	_subFrame = buff[4];
 	return true;
 }
 
@@ -469,8 +535,16 @@ bool SMF::MetaEvent_SMPTEOffset::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_TimeSignature
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_TimeSignature::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_TimeSignature::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	if (length < 4) {
+		SetError_TooShortMetaEvent(sig);
+		return false;
+	}
+	_numerator = buff[0];
+	_denominator = buff[1];
+	_metronome = buff[2];
+	_cnt32nd = buff[3];
 	return true;
 }
 
@@ -482,8 +556,14 @@ bool SMF::MetaEvent_TimeSignature::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_KeySignature
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_KeySignature::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_KeySignature::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
+	if (length < 2) {
+		SetError_TooShortMetaEvent(sig);
+		return false;
+	}
+	_key = buff[0];
+	_scale = buff[1];
 	return true;
 }
 
@@ -495,7 +575,7 @@ bool SMF::MetaEvent_KeySignature::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SequencerSpecificEvent
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_SequencerSpecificEvent::Prepare(Signal sig, unsigned char data[], size_t length)
+bool SMF::MetaEvent_SequencerSpecificEvent::Prepare(Signal sig, const unsigned char buff[], size_t length)
 {
 	return true;
 }
