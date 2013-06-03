@@ -275,3 +275,30 @@ int MmlParser::CalcLength(int numDisp, int cntDot, int lengthDefault)
 	}
 	return length;
 }
+
+#if 0
+void Player::Channel::OnMmlNote(unsigned char note, int length)
+{
+	_pPort->RawWrite(0x90 + GetChannel(), note, 0x7f);
+	OAL::Sleep(.01 * length);
+	_pPort->RawWrite(0x90 + GetChannel(), note, 0x00);
+}
+
+void Player::Channel::OnMmlRest(int length)
+{
+	OAL::Sleep(.01 * length);
+}
+
+void Player::Channel::OnMmlVolume(int volume)
+{
+}
+
+void Player::Channel::OnMmlTone(int tone)
+{
+	_pPort->RawWrite(0xc0 + GetChannel(), static_cast<unsigned char>(tone));
+}
+
+void Player::Channel::OnMmlTempo(int tempo)
+{
+}
+#endif

@@ -5,6 +5,7 @@
 #define __MODULE_MIDI_H__
 #include <gura.h>
 #include "Port.h"
+#include "SMF.h"
 
 Gura_BeginModule(midi)
 

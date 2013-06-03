@@ -176,9 +176,11 @@ Gura_DeclareMethod(port, mmlplay)
 
 Gura_ImplementMethod(port, mmlplay)
 {
+#if 0
 	Object_port *pThis = Object_port::GetThisObj(args);
 	char channel = 0;
 	pThis->GetPort().MmlPlay(channel, args.GetString(0));
+#endif
 	return Value::Null;
 }
 
@@ -192,7 +194,14 @@ Gura_DeclareMethod(port, play)
 Gura_ImplementMethod(port, play)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
-	pThis->GetPort().Play(sig, args.GetStream(0));
+	SMF smf;
+	SMF::EventOwner eventOwner;
+	if (!smf.Read(sig, args.GetStream(0), eventOwner)) return false;
+	eventOwner.Sort();
+	//::printf("format:%d num_track_chunks:%d division:%d\n",
+	//				smf.GetFormat(), smf.GetNumTrackChunks(), smf.GetDivision());
+	double deltaTimeUnit = .6 / smf.GetDivision();
+	eventOwner.Play(sig, &pThis->GetPort(), deltaTimeUnit);
 	return Value::Null;
 }
 
