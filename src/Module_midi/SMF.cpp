@@ -61,7 +61,7 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 		num_track_chunks = Gura_UnpackUShort(headerChunk.num_track_chunks);
 		division = Gura_UnpackUShort(headerChunk.division);
 	} while (0);
-	::printf("%d %d %d\n", format, num_track_chunks, division);
+	::printf("format:%d num_track_chunks:%d division:%d\n", format, num_track_chunks, division);
 	for (unsigned short i = 0; i < num_track_chunks; i++) {
 		TrackChunkTop trackChunkTop;
 		if (stream.Read(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
@@ -170,7 +170,7 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 							// nothing to do
 						} else if (length == 0) {
 							_timeStampMeta += deltaTime;
-							if (!NotifyMetaEvent(sig, _timeStampMeta, eventType, buff, 0)) {
+							if (!eventOwner.AddMetaEvent(sig, _timeStampMeta, eventType, buff, 0)) {
 								return false;
 							}
 							stat = STAT_EventStart;
@@ -183,7 +183,7 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 						idxBuff++;
 						if (idxBuff == length) {
 							_timeStampMeta += deltaTime;
-							if (!NotifyMetaEvent(sig, _timeStampMeta, eventType, buff,
+							if (!eventOwner.AddMetaEvent(sig, _timeStampMeta, eventType, buff,
 									ChooseMin(static_cast<size_t>(length), sizeof(buff)))) {
 								return false;
 							}
@@ -194,28 +194,6 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 			}
 		}
 	}
-	return true;
-}
-
-bool SMF::NotifyMetaEvent(Signal sig, unsigned long timeStamp,
-				unsigned char eventType, unsigned char data[], size_t length)
-{
-#if 0
-	Event *pEvent = 
-		(eventType == 0x00)? MetaEvent_SequenceNumber::Create(sig, timeStamp, data, length) :
-		(eventType == 0x01)? MetaEvent_TextEvent::Create(sig, timeStamp, data, length) :
-		(eventType == 0x02)? MetaEvent_CopyrightNotice::Create(sig, timeStamp, data, length) :
-		(eventType == 0x03)? MetaEvent_SequenceOrTrackName::Create(sig, timeStamp, data, length) :
-		(eventType == 0x04)? MetaEvent_InstrumentName::Create(sig, timeStamp, data, length) :
-		(eventType == 0x05)? MetaEvent_LyricText::Create(sig, timeStamp, data, length) :
-		(eventType == 0x2f)? MetaEvent_EndOfTrack::Create(sig, timeStamp, data, length) :
-		(eventType == 0x51)? MetaEvent_TempoSetting::Create(sig, timeStamp, data, length) :
-		(eventType == 0x58)? MetaEvent_TimeSignature::Create(sig, timeStamp, data, length) :
-		(eventType == 0x59)? MetaEvent_KeySignature::Create(sig, timeStamp, data, length) :
-		MetaEvent_Unknown::Create(sig, timeStamp, eventType, data, length);
-	if (pEvent == NULL) return false;
-	eventOwner.push_back(pEvent);
-#endif
 	return true;
 }
 
@@ -265,6 +243,51 @@ void SMF::EventOwner::Clear()
 	clear();
 }
 
+bool SMF::EventOwner::AddMetaEvent(Signal sig, unsigned long timeStamp,
+				unsigned char eventType, unsigned char data[], size_t length)
+{
+	MetaEvent *pEvent = NULL;
+	if (eventType == MetaEvent_SequenceNumber::EventType) {
+		pEvent = new MetaEvent_SequenceNumber(timeStamp);
+	} else if (eventType == MetaEvent_TextEvent::EventType) {
+		pEvent = new MetaEvent_TextEvent(timeStamp);
+	} else if (eventType == MetaEvent_CopyrightNotice::EventType) {
+		pEvent = new MetaEvent_CopyrightNotice(timeStamp);
+	} else if (eventType == MetaEvent_SequenceOrTrackName::EventType) {
+		pEvent = new MetaEvent_SequenceOrTrackName(timeStamp);
+	} else if (eventType == MetaEvent_InstrumentName::EventType) {
+		pEvent = new MetaEvent_InstrumentName(timeStamp);
+	} else if (eventType == MetaEvent_LyricText::EventType) {
+		pEvent = new MetaEvent_LyricText(timeStamp);
+	} else if (eventType == MetaEvent_MarkerText::EventType) {
+		pEvent = new MetaEvent_MarkerText(timeStamp);
+	} else if (eventType == MetaEvent_CuePoint::EventType) {
+		pEvent = new MetaEvent_CuePoint(timeStamp);
+	} else if (eventType == MetaEvent_MIDIChannelPrefixAssignment::EventType) {
+		pEvent = new MetaEvent_MIDIChannelPrefixAssignment(timeStamp);
+	} else if (eventType == MetaEvent_EndOfTrack::EventType) {
+		pEvent = new MetaEvent_EndOfTrack(timeStamp);
+	} else if (eventType == MetaEvent_TempoSetting::EventType) {
+		pEvent = new MetaEvent_TempoSetting(timeStamp);
+	} else if (eventType == MetaEvent_SMPTEOffset::EventType) {
+		pEvent = new MetaEvent_SMPTEOffset(timeStamp);
+	} else if (eventType == MetaEvent_TimeSignature::EventType) {
+		pEvent = new MetaEvent_TimeSignature(timeStamp);
+	} else if (eventType == MetaEvent_KeySignature::EventType) {
+		pEvent = new MetaEvent_KeySignature(timeStamp);
+	} else if (eventType == MetaEvent_SequencerSpecificEvent::EventType) {
+		pEvent = new MetaEvent_SequencerSpecificEvent(timeStamp);
+	} else {
+		pEvent = new MetaEvent_Unknown(timeStamp, eventType);
+	}
+	if (pEvent->Prepare(sig, data, length)) {
+		push_back(pEvent);
+		return true;
+	}
+	delete pEvent;
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // SMF::MIDIEvent
 //-----------------------------------------------------------------------------
@@ -277,10 +300,9 @@ bool SMF::MIDIEvent::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_Unknown
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_Unknown::Create(Signal sig, unsigned long timeStamp, unsigned char eventType, unsigned char data[], size_t length)
+bool SMF::MetaEvent_Unknown::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_Unknown::Play(Signal sig, Port *pPort)
@@ -291,9 +313,9 @@ bool SMF::MetaEvent_Unknown::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SequenceNumber
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_SequenceNumber::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_SequenceNumber::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_SequenceNumber::Play(Signal sig, Port *pPort)
@@ -304,11 +326,9 @@ bool SMF::MetaEvent_SequenceNumber::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_TextEvent
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_TextEvent::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_TextEvent::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	MetaEvent_TextEvent *pEvent = new MetaEvent_TextEvent(timeStamp);
-	pEvent->_text = String(reinterpret_cast<const char *>(data), length);
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_TextEvent::Play(Signal sig, Port *pPort)
@@ -319,9 +339,9 @@ bool SMF::MetaEvent_TextEvent::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_CopyrightNotice
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_CopyrightNotice::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_CopyrightNotice::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_CopyrightNotice::Play(Signal sig, Port *pPort)
@@ -332,9 +352,9 @@ bool SMF::MetaEvent_CopyrightNotice::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SequenceOrTrackName
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_SequenceOrTrackName::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_SequenceOrTrackName::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_SequenceOrTrackName::Play(Signal sig, Port *pPort)
@@ -345,9 +365,9 @@ bool SMF::MetaEvent_SequenceOrTrackName::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_InstrumentName
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_InstrumentName::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_InstrumentName::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_InstrumentName::Play(Signal sig, Port *pPort)
@@ -358,9 +378,9 @@ bool SMF::MetaEvent_InstrumentName::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_LyricText
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_LyricText::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_LyricText::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_LyricText::Play(Signal sig, Port *pPort)
@@ -371,9 +391,9 @@ bool SMF::MetaEvent_LyricText::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_MarkerText
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_MarkerText::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_MarkerText::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_MarkerText::Play(Signal sig, Port *pPort)
@@ -384,9 +404,9 @@ bool SMF::MetaEvent_MarkerText::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_CuePoint
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_CuePoint::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_CuePoint::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_CuePoint::Play(Signal sig, Port *pPort)
@@ -397,9 +417,9 @@ bool SMF::MetaEvent_CuePoint::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_MIDIChannelPrefixAssignment
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_MIDIChannelPrefixAssignment::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Play(Signal sig, Port *pPort)
@@ -410,9 +430,9 @@ bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_EndOfTrack
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_EndOfTrack::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_EndOfTrack::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_EndOfTrack::Play(Signal sig, Port *pPort)
@@ -423,9 +443,9 @@ bool SMF::MetaEvent_EndOfTrack::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_TempoSetting
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_TempoSetting::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_TempoSetting::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_TempoSetting::Play(Signal sig, Port *pPort)
@@ -436,9 +456,9 @@ bool SMF::MetaEvent_TempoSetting::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SMPTEOffset
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_SMPTEOffset::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_SMPTEOffset::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_SMPTEOffset::Play(Signal sig, Port *pPort)
@@ -449,9 +469,9 @@ bool SMF::MetaEvent_SMPTEOffset::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_TimeSignature
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_TimeSignature::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_TimeSignature::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_TimeSignature::Play(Signal sig, Port *pPort)
@@ -462,9 +482,9 @@ bool SMF::MetaEvent_TimeSignature::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_KeySignature
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_KeySignature::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_KeySignature::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_KeySignature::Play(Signal sig, Port *pPort)
@@ -475,9 +495,9 @@ bool SMF::MetaEvent_KeySignature::Play(Signal sig, Port *pPort)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SequencerSpecificEvent
 //-----------------------------------------------------------------------------
-SMF::Event *SMF::MetaEvent_SequencerSpecificEvent::Create(Signal sig, unsigned long timeStamp, unsigned char data[], size_t length)
+bool SMF::MetaEvent_SequencerSpecificEvent::Prepare(Signal sig, unsigned char data[], size_t length)
 {
-	return NULL;
+	return true;
 }
 
 bool SMF::MetaEvent_SequencerSpecificEvent::Play(Signal sig, Port *pPort)
