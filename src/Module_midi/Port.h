@@ -7,6 +7,8 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 // Port
 //-----------------------------------------------------------------------------
+#if defined(GURA_ON_MSWIN)
+
 class Port {
 public:
 private:
@@ -55,6 +57,60 @@ public:
 					(static_cast<DWORD>(msg4) << 24));
 	}
 };
+
+#elif defined(GURA_ON_LINUX)
+
+class Port {
+public:
+private:
+	int _fd;
+public:
+	inline Port() : _fd(-1) {}
+	inline ~Port() {
+		Reset();
+		Close();
+	}
+	static inline int GetNumDevs() {
+		return 0;
+	}
+	inline bool Open(int id) {
+		if (_fd >= 0) Close();
+		char devName[128];
+		::sprintf(devName, "/dev/midi%d", id);
+		_fd = ::open(devName, O_WRONLY);
+		return _fd >= 0;
+	}
+	inline void Close() {
+		if (_fd >= 0) ::close(fd);
+		_fd = -1;
+	}
+	inline void Reset() {
+		//if (_fd >= 0) ::ctrl();
+	}
+	inline void RawWrite(unsigned char msg1) {
+		unsigned char buff[1] = { msg1 };
+		::write(_fd, buff, sizeof(buff));
+	}
+	inline void RawWrite(unsigned char msg1, unsigned char msg2) {
+		unsigned char buff[2] = { msg1, msg2 };
+		::write(_fd, buff, sizeof(buff));
+	}
+	inline void RawWrite(unsigned char msg1, unsigned char msg2, unsigned char msg3) {
+		unsigned char buff[3] = { msg1, msg2, msg3 };
+		::write(_fd, buff, sizeof(buff));
+	}
+	inline void RawWrite(unsigned char msg1, unsigned char msg2, unsigned char msg3,
+					unsigned char msg4) {
+		unsigned char buff[4] = { msg1, msg2, msg3, msg4 };
+		::write(_fd, buff, sizeof(buff));
+	}
+};
+
+#else
+
+#error unknown platform
+
+#endif
 
 }}
 
