@@ -20,6 +20,9 @@ public:
 	public:
 		TimeStampManager();
 		unsigned long UpdateDelta(unsigned char status, unsigned long timeDelta);
+		unsigned long UpdateTimeStamp(unsigned char channel, unsigned long timeStamp);
+		unsigned long UpdateTimeStampSysEx(unsigned long timeStamp);
+		unsigned long UpdateTimeStampMeta(unsigned long timeStamp);
 	};
 public:
 	Gura_DeclareReferenceAccessor(Event);
@@ -36,6 +39,7 @@ public:
 	virtual bool IsMIDIEvent() const;
 	virtual bool IsSysExEvent() const;
 	virtual bool IsMetaEvent() const;
+	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const = 0;
 	virtual bool Play(Signal sig, Port *pPort) const = 0;
 	virtual bool Write(Signal sig, Stream &stream) const = 0;
 	virtual String ToString() const = 0;
@@ -95,6 +99,7 @@ public:
 		return 0x80 <= status && status < 0xf0;
 	}
 	virtual bool IsMIDIEvent() const;
+	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const;
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream) const;
 };
@@ -222,6 +227,7 @@ public:
 	inline SysExEvent(unsigned long timeStamp, const Binary &binary) :
 									Event(timeStamp), _binary(binary) {}
 	virtual bool IsSysExEvent() const;
+	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const;
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream) const;
 	virtual String ToString() const;
@@ -241,6 +247,7 @@ public:
 	inline unsigned char GetEventType() const { return _eventType; }
 	virtual bool Prepare(Signal sig, const Binary &binary) = 0;
 	virtual bool IsMetaEvent() const;
+	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const;
 	static bool Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
 			unsigned char eventType, const Binary &binary);
 	static void SetError_TooShortMetaEvent(Signal sig);

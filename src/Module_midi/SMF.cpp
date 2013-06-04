@@ -208,6 +208,7 @@ bool SMF::Write(Signal sig, Stream &stream)
 			return false;
 		}
 	} while (0);
+	Event::TimeStampManager timeStampManager;
 	foreach_const (TrackOwner, ppTrack, GetTrackOwner()) {
 		const Track *pTrack = *ppTrack;
 		TrackChunkTop trackChunkTop;
@@ -219,6 +220,8 @@ bool SMF::Write(Signal sig, Stream &stream)
 		}
 		foreach_const (EventOwner, ppEvent, pTrack->GetEventOwner()) {
 			Event *pEvent = *ppEvent;
+			unsigned long timeDelta = pEvent->UpdateTimeStamp(timeStampManager);
+			
 			
 			if (!pEvent->Write(sig, stream)) return false;
 		}

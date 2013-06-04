@@ -44,6 +44,27 @@ unsigned long Event::TimeStampManager::UpdateDelta(
 	return 0;
 }
 
+unsigned long Event::TimeStampManager::UpdateTimeStamp(unsigned char channel, unsigned long timeStamp)
+{
+	unsigned long timeStampPrev = _timeStampTbl[channel];
+	_timeStampTbl[channel] = timeStamp;
+	return (timeStamp >= timeStampPrev)? timeStamp - timeStampPrev : 0;
+}
+
+unsigned long Event::TimeStampManager::UpdateTimeStampSysEx(unsigned long timeStamp)
+{
+	unsigned long timeStampPrev = _timeStampSysEx;
+	_timeStampSysEx = timeStamp;
+	return (timeStamp >= timeStampPrev)? timeStamp - timeStampPrev : 0;
+}
+
+unsigned long Event::TimeStampManager::UpdateTimeStampMeta(unsigned long timeStamp)
+{
+	unsigned long timeStampPrev = _timeStampMeta;
+	_timeStampMeta = timeStamp;
+	return (timeStamp >= timeStampPrev)? timeStamp - timeStampPrev : 0;
+}
+
 //-----------------------------------------------------------------------------
 // EventList
 //-----------------------------------------------------------------------------
@@ -91,6 +112,11 @@ void EventOwner::Clear()
 // MIDIEvent
 //-----------------------------------------------------------------------------
 bool MIDIEvent::IsMIDIEvent() const { return true; }
+
+unsigned long MIDIEvent::UpdateTimeStamp(TimeStampManager &timeStampManager) const
+{
+	return timeStampManager.UpdateTimeStamp(GetChannel(), GetTimeStamp());
+}
 
 bool MIDIEvent::Play(Signal sig, Port *pPort) const
 {
@@ -217,6 +243,11 @@ Event *MIDIEvent_PitchBendChange::Clone() const
 //-----------------------------------------------------------------------------
 bool SysExEvent::IsSysExEvent() const { return true; }
 
+unsigned long SysExEvent::UpdateTimeStamp(TimeStampManager &timeStampManager) const
+{
+	return timeStampManager.UpdateTimeStampSysEx(GetTimeStamp());
+}
+
 bool SysExEvent::Play(Signal sig, Port *pPort) const
 {
 	return true;
@@ -243,6 +274,11 @@ Event *SysExEvent::Clone() const
 // MetaEvent
 //-----------------------------------------------------------------------------
 bool MetaEvent::IsMetaEvent() const { return true; }
+
+unsigned long MetaEvent::UpdateTimeStamp(TimeStampManager &timeStampManager) const
+{
+	return timeStampManager.UpdateTimeStampMeta(GetTimeStamp());
+}
 
 bool MetaEvent::Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
 							unsigned char eventType, const Binary &binary)
