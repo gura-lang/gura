@@ -9,12 +9,6 @@ Gura_BeginModule(midi)
 // Track
 //-----------------------------------------------------------------------------
 class Track {
-public:
-	struct ChunkTop {
-		enum { Size = 8 };
-		char MTrk[4];
-		Gura_PackedULong_BE(length);
-	};
 private:
 	int _cntRef;
 	EventOwner _eventOwner;

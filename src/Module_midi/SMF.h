@@ -17,9 +17,15 @@ public:
 		Gura_PackedULong_BE(header_length);
 	};
 	struct HeaderChunk {
+		enum { Size = 6 };
 		Gura_PackedUShort_BE(format);
 		Gura_PackedUShort_BE(num_track_chunks);
 		Gura_PackedUShort_BE(division);
+	};
+	struct TrackChunkTop {
+		enum { Size = 8 };
+		char MTrk[4];
+		Gura_PackedULong_BE(length);
 	};
 	class SysExEvent : public Event {
 	private:

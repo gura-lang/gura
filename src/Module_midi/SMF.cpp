@@ -60,8 +60,8 @@ bool SMF::Read(Signal sig, Stream &stream)
 	} while (0);
 	_trackOwner.Clear();
 	for (unsigned short i = 0; i < _numTrackChunks; i++) {
-		Track::ChunkTop trackChunkTop;
-		if (stream.Read(sig, &trackChunkTop, Track::ChunkTop::Size) != Track::ChunkTop::Size) {
+		TrackChunkTop trackChunkTop;
+		if (stream.Read(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
 			sig.SetError(ERR_FormatError, "invalid SMF format");
 			return false;
 		}
@@ -201,14 +201,40 @@ bool SMF::Read(Signal sig, Stream &stream)
 
 bool SMF::Write(Signal sig, Stream &stream)
 {
-	HeaderChunkTop headerChunkTop;
-	
-	if (stream.Write(sig, &headerChunkTop, HeaderChunkTop::Size) != HeaderChunkTop::Size) {
-		sig.SetError(ERR_FormatError, "failed to write SMF");
-		return false;
+	do {
+		HeaderChunkTop headerChunkTop;
+		::memcpy(headerChunkTop.MThd, "MThd", sizeof(headerChunkTop.MThd));
+		Gura_PackULong(headerChunkTop.header_length, HeaderChunk::Size);
+		if (stream.Write(sig, &headerChunkTop, HeaderChunkTop::Size) != HeaderChunkTop::Size) {
+			sig.SetError(ERR_FormatError, "failed to write SMF");
+			return false;
+		}
+	} while (0);
+	do {
+		HeaderChunk headerChunk;
+		Gura_PackUShort(headerChunk.format, GetFormat());
+		Gura_PackUShort(headerChunk.num_track_chunks, GetNumTrackChunks());
+		Gura_PackUShort(headerChunk.division, GetDivision());
+		if (stream.Write(sig, &headerChunk, HeaderChunk::Size) != HeaderChunk::Size) {
+			sig.SetError(ERR_FormatError, "failed to write SMF");
+			return false;
+		}
+	} while (0);
+	foreach_const (TrackOwner, ppTrack, GetTrackOwner()) {
+		const Track *pTrack = *ppTrack;
+		TrackChunkTop trackChunkTop;
+		::memcpy(trackChunkTop.MTrk, "MTrk", sizeof(trackChunkTop.MTrk));
+		Gura_PackULong(trackChunkTop.length, 0);
+		if (stream.Write(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
+			sig.SetError(ERR_FormatError, "failed to write SMF");
+			return false;
+		}
+		foreach_const (EventOwner, ppEvent, pTrack->GetEventOwner()) {
+			Event *pEvent = *ppEvent;
+			
+			
+		}
 	}
-	
-	if (!GetTrackOwner().Write(sig, stream)) return false;
 	return true;
 }
 
