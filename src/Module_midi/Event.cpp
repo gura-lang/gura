@@ -52,7 +52,7 @@ void EventOwner::Clear()
 //-----------------------------------------------------------------------------
 // MIDIEvent
 //-----------------------------------------------------------------------------
-bool MIDIEvent::Play(Signal sig, Port *pPort)
+bool MIDIEvent::Play(Signal sig, Port *pPort) const
 {
 	if (_nParams == 1) {
 		pPort->RawWrite(_status | _channel, _params[0]);
@@ -62,9 +62,21 @@ bool MIDIEvent::Play(Signal sig, Port *pPort)
 	return true;
 }
 
+bool MIDIEvent::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // MIDIEvent_NoteOff
 //-----------------------------------------------------------------------------
+String MIDIEvent_NoteOff::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
+}
+
 Event *MIDIEvent_NoteOff::Clone() const
 {
 	return new MIDIEvent_NoteOff(*this);
@@ -73,6 +85,13 @@ Event *MIDIEvent_NoteOff::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_NoteOn
 //-----------------------------------------------------------------------------
+String MIDIEvent_NoteOn::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
+}
+
 Event *MIDIEvent_NoteOn::Clone() const
 {
 	return new MIDIEvent_NoteOn(*this);
@@ -81,6 +100,13 @@ Event *MIDIEvent_NoteOn::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_PolyphonicKeyPressure
 //-----------------------------------------------------------------------------
+String MIDIEvent_PolyphonicKeyPressure::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
+}
+
 Event *MIDIEvent_PolyphonicKeyPressure::Clone() const
 {
 	return new MIDIEvent_PolyphonicKeyPressure(*this);
@@ -89,6 +115,13 @@ Event *MIDIEvent_PolyphonicKeyPressure::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_ControlChange
 //-----------------------------------------------------------------------------
+String MIDIEvent_ControlChange::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
+}
+
 Event *MIDIEvent_ControlChange::Clone() const
 {
 	return new MIDIEvent_ControlChange(*this);
@@ -97,6 +130,13 @@ Event *MIDIEvent_ControlChange::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_ProgramChange
 //-----------------------------------------------------------------------------
+String MIDIEvent_ProgramChange::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
+}
+
 Event *MIDIEvent_ProgramChange::Clone() const
 {
 	return new MIDIEvent_ProgramChange(*this);
@@ -105,6 +145,13 @@ Event *MIDIEvent_ProgramChange::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_ChannelPressure
 //-----------------------------------------------------------------------------
+String MIDIEvent_ChannelPressure::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
+}
+
 Event *MIDIEvent_ChannelPressure::Clone() const
 {
 	return new MIDIEvent_ChannelPressure(*this);
@@ -113,6 +160,13 @@ Event *MIDIEvent_ChannelPressure::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_PitchBendChange
 //-----------------------------------------------------------------------------
+String MIDIEvent_PitchBendChange::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
+}
+
 Event *MIDIEvent_PitchBendChange::Clone() const
 {
 	return new MIDIEvent_PitchBendChange(*this);

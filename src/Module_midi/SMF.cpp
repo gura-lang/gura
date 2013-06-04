@@ -208,9 +208,21 @@ bool SMF::Read(Signal sig, Stream &stream, EventOwner &eventOwner)
 //-----------------------------------------------------------------------------
 // SMF::SysExEvent
 //-----------------------------------------------------------------------------
-bool SMF::SysExEvent::Play(Signal sig, Port *pPort)
+bool SMF::SysExEvent::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::SysExEvent::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::SysExEvent::ToString() const
+{
+	char str[128];
+	::sprintf(str, "SysExEvent");
+	return String(str);
 }
 
 Event *SMF::SysExEvent::Clone() const
@@ -282,9 +294,21 @@ bool SMF::MetaEvent_Unknown::Prepare(Signal sig, const unsigned char buff[], siz
 	return true;
 }
 
-bool SMF::MetaEvent_Unknown::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_Unknown::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_Unknown::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_Unknown::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_Unknown::Clone() const
@@ -307,9 +331,21 @@ bool SMF::MetaEvent_SequenceNumber::Prepare(Signal sig, const unsigned char buff
 	return true;
 }
 
-bool SMF::MetaEvent_SequenceNumber::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_SequenceNumber::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_SequenceNumber::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_SequenceNumber::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_SequenceNumber::Clone() const
@@ -328,9 +364,21 @@ bool SMF::MetaEvent_TextEvent::Prepare(Signal sig, const unsigned char buff[], s
 	return true;
 }
 
-bool SMF::MetaEvent_TextEvent::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_TextEvent::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_TextEvent::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_TextEvent::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_TextEvent::Clone() const
@@ -349,9 +397,21 @@ bool SMF::MetaEvent_CopyrightNotice::Prepare(Signal sig, const unsigned char buf
 	return true;
 }
 
-bool SMF::MetaEvent_CopyrightNotice::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_CopyrightNotice::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_CopyrightNotice::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_CopyrightNotice::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_CopyrightNotice::Clone() const
@@ -370,9 +430,21 @@ bool SMF::MetaEvent_SequenceOrTrackName::Prepare(Signal sig, const unsigned char
 	return true;
 }
 
-bool SMF::MetaEvent_SequenceOrTrackName::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_SequenceOrTrackName::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_SequenceOrTrackName::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_SequenceOrTrackName::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_SequenceOrTrackName::Clone() const
@@ -391,9 +463,21 @@ bool SMF::MetaEvent_InstrumentName::Prepare(Signal sig, const unsigned char buff
 	return true;
 }
 
-bool SMF::MetaEvent_InstrumentName::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_InstrumentName::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_InstrumentName::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_InstrumentName::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_InstrumentName::Clone() const
@@ -412,9 +496,21 @@ bool SMF::MetaEvent_LyricText::Prepare(Signal sig, const unsigned char buff[], s
 	return true;
 }
 
-bool SMF::MetaEvent_LyricText::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_LyricText::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_LyricText::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_LyricText::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_LyricText::Clone() const
@@ -433,9 +529,21 @@ bool SMF::MetaEvent_MarkerText::Prepare(Signal sig, const unsigned char buff[], 
 	return true;
 }
 
-bool SMF::MetaEvent_MarkerText::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_MarkerText::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_MarkerText::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_MarkerText::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_MarkerText::Clone() const
@@ -454,9 +562,21 @@ bool SMF::MetaEvent_CuePoint::Prepare(Signal sig, const unsigned char buff[], si
 	return true;
 }
 
-bool SMF::MetaEvent_CuePoint::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_CuePoint::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_CuePoint::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_CuePoint::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_CuePoint::Clone() const
@@ -477,9 +597,21 @@ bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Prepare(Signal sig, const unsig
 	return true;
 }
 
-bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_MIDIChannelPrefixAssignment::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_MIDIChannelPrefixAssignment::Clone() const
@@ -496,9 +628,21 @@ bool SMF::MetaEvent_EndOfTrack::Prepare(Signal sig, const unsigned char buff[], 
 	return true;
 }
 
-bool SMF::MetaEvent_EndOfTrack::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_EndOfTrack::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_EndOfTrack::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_EndOfTrack::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_EndOfTrack::Clone() const
@@ -522,9 +666,21 @@ bool SMF::MetaEvent_TempoSetting::Prepare(Signal sig, const unsigned char buff[]
 	return true;
 }
 
-bool SMF::MetaEvent_TempoSetting::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_TempoSetting::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_TempoSetting::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_TempoSetting::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_TempoSetting::Clone() const
@@ -549,9 +705,21 @@ bool SMF::MetaEvent_SMPTEOffset::Prepare(Signal sig, const unsigned char buff[],
 	return true;
 }
 
-bool SMF::MetaEvent_SMPTEOffset::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_SMPTEOffset::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_SMPTEOffset::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_SMPTEOffset::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_SMPTEOffset::Clone() const
@@ -575,9 +743,21 @@ bool SMF::MetaEvent_TimeSignature::Prepare(Signal sig, const unsigned char buff[
 	return true;
 }
 
-bool SMF::MetaEvent_TimeSignature::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_TimeSignature::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_TimeSignature::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_TimeSignature::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_TimeSignature::Clone() const
@@ -599,9 +779,21 @@ bool SMF::MetaEvent_KeySignature::Prepare(Signal sig, const unsigned char buff[]
 	return true;
 }
 
-bool SMF::MetaEvent_KeySignature::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_KeySignature::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_KeySignature::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_KeySignature::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_KeySignature::Clone() const
@@ -620,9 +812,21 @@ bool SMF::MetaEvent_SequencerSpecificEvent::Prepare(Signal sig, const unsigned c
 	return true;
 }
 
-bool SMF::MetaEvent_SequencerSpecificEvent::Play(Signal sig, Port *pPort)
+bool SMF::MetaEvent_SequencerSpecificEvent::Play(Signal sig, Port *pPort) const
 {
 	return true;
+}
+
+bool SMF::MetaEvent_SequencerSpecificEvent::Serialize(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SMF::MetaEvent_SequencerSpecificEvent::ToString() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 Event *SMF::MetaEvent_SequencerSpecificEvent::Clone() const

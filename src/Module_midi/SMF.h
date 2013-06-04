@@ -33,7 +33,9 @@ public:
 		inline SysExEvent(const SysExEvent &event) : Event(event), _binary(event._binary) {}
 		inline SysExEvent(unsigned long timeStamp, const unsigned char buff[], size_t length) :
 				Event(timeStamp), _binary(reinterpret_cast<const char *>(buff), length) {}
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent : public Event {
@@ -57,7 +59,9 @@ public:
 		inline MetaEvent_Unknown(unsigned long timeStamp, unsigned char eventType) :
 											MetaEvent(timeStamp, eventType) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_SequenceNumber : public MetaEvent {
@@ -71,7 +75,9 @@ public:
 		inline MetaEvent_SequenceNumber(unsigned long timeStamp) :
 									MetaEvent(timeStamp, EventType), _number(0) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_TextEvent : public MetaEvent {
@@ -85,7 +91,9 @@ public:
 		inline MetaEvent_TextEvent(unsigned long timeStamp) :
 											MetaEvent(timeStamp, EventType) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_CopyrightNotice : public MetaEvent {
@@ -99,7 +107,9 @@ public:
 		inline MetaEvent_CopyrightNotice(unsigned long timeStamp) :
 											MetaEvent(timeStamp, EventType) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_SequenceOrTrackName : public MetaEvent {
@@ -113,7 +123,9 @@ public:
 		inline MetaEvent_SequenceOrTrackName(unsigned long timeStamp) :
 											MetaEvent(timeStamp, EventType) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_InstrumentName : public MetaEvent {
@@ -127,7 +139,9 @@ public:
 		inline MetaEvent_InstrumentName(unsigned long timeStamp) :
 											MetaEvent(timeStamp, EventType) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_LyricText : public MetaEvent {
@@ -141,7 +155,9 @@ public:
 		inline MetaEvent_LyricText(unsigned long timeStamp) :
 											MetaEvent(timeStamp, EventType) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_MarkerText : public MetaEvent {
@@ -155,7 +171,9 @@ public:
 		inline MetaEvent_MarkerText(unsigned long timeStamp) :
 											MetaEvent(timeStamp, EventType) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_CuePoint : public MetaEvent {
@@ -169,7 +187,9 @@ public:
 		inline MetaEvent_CuePoint(unsigned long timeStamp) :
 											MetaEvent(timeStamp, EventType) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_MIDIChannelPrefixAssignment : public MetaEvent {
@@ -183,7 +203,9 @@ public:
 		inline MetaEvent_MIDIChannelPrefixAssignment(unsigned long timeStamp) :
 									MetaEvent(timeStamp, EventType), _channel(0) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_EndOfTrack : public MetaEvent {
@@ -194,7 +216,9 @@ public:
  		inline MetaEvent_EndOfTrack(unsigned long timeStamp) :
 											MetaEvent(timeStamp, EventType) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_TempoSetting : public MetaEvent {
@@ -208,7 +232,9 @@ public:
 		inline MetaEvent_TempoSetting(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType), _mpqn(0) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_SMPTEOffset : public MetaEvent {
@@ -224,7 +250,9 @@ public:
 				MetaEvent(timeStamp, EventType), _hour(0), _minute(0), _second(0),
 				_frame(0), _subFrame(0) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_TimeSignature : public MetaEvent {
@@ -241,7 +269,9 @@ public:
 				MetaEvent(timeStamp, EventType), _numerator(0), _denominator(0),
 				_metronome(0), _cnt32nd(0) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_KeySignature : public MetaEvent {
@@ -255,7 +285,9 @@ public:
 		inline MetaEvent_KeySignature(unsigned long timeStamp) :
 						MetaEvent(timeStamp, EventType), _key(0), _scale(0) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 	class MetaEvent_SequencerSpecificEvent : public MetaEvent {
@@ -269,7 +301,9 @@ public:
 		inline MetaEvent_SequencerSpecificEvent(unsigned long timeStamp) :
 											MetaEvent(timeStamp, EventType) {}
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length);
-		virtual bool Play(Signal sig, Port *pPort);
+		virtual bool Play(Signal sig, Port *pPort) const;
+		virtual bool Serialize(Signal sig, Stream &stream) const;
+		virtual String ToString() const;
 		virtual Event *Clone() const;
 	};
 private:

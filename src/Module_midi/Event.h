@@ -16,7 +16,9 @@ public:
 	inline Event(const Event &event) : _timeStamp(event._timeStamp) {}
 	inline Event(unsigned long timeStamp) : _timeStamp(timeStamp) {}
 	inline unsigned long GetTimeStamp() const { return _timeStamp; }
-	virtual bool Play(Signal sig, Port *pPort) = 0;
+	virtual bool Play(Signal sig, Port *pPort) const = 0;
+	virtual bool Serialize(Signal sig, Stream &stream) const = 0;
+	virtual String ToString() const = 0;
 	virtual Event *Clone() const = 0;
 };
 
@@ -71,7 +73,8 @@ public:
 	static bool CheckStatus(unsigned char status) {
 		return 0x80 <= status && status < 0xf0;
 	}
-	virtual bool Play(Signal sig, Port *pPort);
+	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Serialize(Signal sig, Stream &stream) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -89,6 +92,7 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 2) {
 		_params[0] = note, _params[1] = velocity;
 	}
+	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -107,6 +111,7 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 2) {
 		_params[0] = note, _params[1] = velocity;
 	}
+	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -120,6 +125,7 @@ public:
 	inline MIDIEvent_PolyphonicKeyPressure(const MIDIEvent_PolyphonicKeyPressure &event) : MIDIEvent(event) {}
 	inline MIDIEvent_PolyphonicKeyPressure(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
+	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -133,6 +139,7 @@ public:
 	inline MIDIEvent_ControlChange(const MIDIEvent_ControlChange &event) : MIDIEvent(event) {}
 	inline MIDIEvent_ControlChange(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
+	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -150,6 +157,7 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 1) {
 		_params[0] = program;
 	}
+	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -163,6 +171,7 @@ public:
 	inline MIDIEvent_ChannelPressure(const MIDIEvent_ChannelPressure &event) : MIDIEvent(event) {}
 	inline MIDIEvent_ChannelPressure(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 1) {}
+	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -176,6 +185,7 @@ public:
 	inline MIDIEvent_PitchBendChange(const MIDIEvent_PitchBendChange &event) : MIDIEvent(event) {}
 	inline MIDIEvent_PitchBendChange(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
+	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
