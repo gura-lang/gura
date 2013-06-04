@@ -28,8 +28,7 @@ bool SMF::Read(Signal sig, Stream &stream)
 		STAT_Status,
 		STAT_MIDIEvent_Param1st,
 		STAT_MIDIEvent_Param2nd,
-		STAT_SysExEventF0,
-		STAT_SysExEventF7,
+		STAT_SysExEvent,
 		STAT_MetaEvent_Type,
 		STAT_MetaEvent_Length,
 		STAT_MetaEvent_Data,
@@ -61,8 +60,8 @@ bool SMF::Read(Signal sig, Stream &stream)
 	} while (0);
 	_trackOwner.Clear();
 	for (unsigned short i = 0; i < _numTrackChunks; i++) {
-		TrackChunkTop trackChunkTop;
-		if (stream.Read(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
+		Track::ChunkTop trackChunkTop;
+		if (stream.Read(sig, &trackChunkTop, Track::ChunkTop::Size) != Track::ChunkTop::Size) {
 			sig.SetError(ERR_FormatError, "invalid SMF format");
 			return false;
 		}
@@ -74,11 +73,10 @@ bool SMF::Read(Signal sig, Stream &stream)
 		EventOwner &eventOwner = _trackOwner.back()->GetEventOwner();
 		std::auto_ptr<MIDIEvent> pMIDIEvent;
 		unsigned char eventType = 0x00;
-		unsigned char buff[512];
+		Binary binary;
 		Stat stat = STAT_EventStart;
 		unsigned long deltaTime = 0x00000000;
 		unsigned long length = 0x00000000;
-		unsigned long idxBuff = 0;
 		unsigned char statusPrev = 0x00;
 		size_t lengthRest = Gura_UnpackULong(trackChunkTop.length);
 		while  (lengthRest > 0) {
@@ -99,6 +97,7 @@ bool SMF::Read(Signal sig, Stream &stream)
 						deltaTime = 0x00000000;
 						length = 0x00000000;
 						stat = STAT_DeltaTime;
+						binary.clear();
 					}
 					if (stat == STAT_DeltaTime) {
 						deltaTime = (deltaTime << 7) + (data & 0x7f);
@@ -137,10 +136,9 @@ bool SMF::Read(Signal sig, Stream &stream)
 								return false;
 							}
 							stat = STAT_MIDIEvent_Param1st;
-						} else if (status == 0xf0) {
-							stat = STAT_SysExEventF0;
-						} else if (status == 0xf7) {
-							stat = STAT_SysExEventF7;
+						} else if (status == 0xf0 || status == 0xf7) {
+							binary.push_back(data);
+							stat = STAT_SysExEvent;
 						} else if (status == 0xff) {
 							stat = STAT_MetaEvent_Type;
 						} else {
@@ -159,16 +157,11 @@ bool SMF::Read(Signal sig, Stream &stream)
 						pMIDIEvent->SetParam2nd(data);
 						eventOwner.push_back(pMIDIEvent.release());
 						stat = STAT_EventStart;
-					} else if (stat == STAT_SysExEventF0) {
+					} else if (stat == STAT_SysExEvent) {
+						binary.push_back(data);
 						if (data == 0xf7) {
 							_timeStampSysEx += deltaTime;
-							eventOwner.push_back(new SysExEvent(_timeStampSysEx, buff, 0));
-							stat = STAT_EventStart;
-						}
-					} else if (stat == STAT_SysExEventF7) {
-						if (data == 0xf7) {
-							_timeStampSysEx += deltaTime;
-							eventOwner.push_back(new SysExEvent(_timeStampSysEx, buff, 0));
+							eventOwner.push_back(new SysExEvent(_timeStampSysEx, binary));
 							stat = STAT_EventStart;
 						}
 					} else if (stat == STAT_MetaEvent_Type) {
@@ -181,21 +174,19 @@ bool SMF::Read(Signal sig, Stream &stream)
 						} else if (length == 0) {
 							_timeStampMeta += deltaTime;
 							if (!MetaEvent::Add(sig, eventOwner,
-										_timeStampMeta, eventType, buff, 0)) {
+											_timeStampMeta, eventType, binary)) {
 								return false;
 							}
 							stat = STAT_EventStart;
 						} else {
-							idxBuff = 0;
 							stat = STAT_MetaEvent_Data;
 						}
 					} else if (stat == STAT_MetaEvent_Data) {
-						if (idxBuff < sizeof(buff)) buff[idxBuff] = data;
-						idxBuff++;
-						if (idxBuff == length) {
+						binary.push_back(data);
+						if (binary.size() == length) {
 							_timeStampMeta += deltaTime;
-							if (!MetaEvent::Add(sig, eventOwner, _timeStampMeta, eventType,
-									buff, ChooseMin(static_cast<size_t>(length), sizeof(buff)))) {
+							if (!MetaEvent::Add(sig, eventOwner,
+											_timeStampMeta, eventType, binary)) {
 								return false;
 							}
 							stat = STAT_EventStart;
@@ -210,6 +201,14 @@ bool SMF::Read(Signal sig, Stream &stream)
 
 bool SMF::Write(Signal sig, Stream &stream)
 {
+	HeaderChunkTop headerChunkTop;
+	
+	if (stream.Write(sig, &headerChunkTop, HeaderChunkTop::Size) != HeaderChunkTop::Size) {
+		sig.SetError(ERR_FormatError, "failed to write SMF");
+		return false;
+	}
+	
+	if (!GetTrackOwner().Write(sig, stream)) return false;
 	return true;
 }
 
@@ -244,7 +243,7 @@ bool SMF::SysExEvent::Serialize(Signal sig, Stream &stream) const
 String SMF::SysExEvent::ToString() const
 {
 	char str[128];
-	::sprintf(str, "SysExEvent");
+	::sprintf(str, "SysExEvent %dbytes", _binary.size());
 	return String(str);
 }
 
@@ -257,7 +256,7 @@ Event *SMF::SysExEvent::Clone() const
 // SMF::MetaEvent
 //-----------------------------------------------------------------------------
 bool SMF::MetaEvent::Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
-			unsigned char eventType, const unsigned char buff[], size_t length)
+							unsigned char eventType, const Binary &binary)
 {
 	MetaEvent *pEvent = NULL;
 	if (eventType == MetaEvent_SequenceNumber::EventType) {
@@ -293,7 +292,7 @@ bool SMF::MetaEvent::Add(Signal sig, EventOwner &eventOwner, unsigned long timeS
 	} else {
 		pEvent = new MetaEvent_Unknown(timeStamp, eventType);
 	}
-	if (pEvent->Prepare(sig, buff, length)) {
+	if (pEvent->Prepare(sig, binary)) {
 		eventOwner.push_back(pEvent);
 		return true;
 	}
@@ -309,11 +308,9 @@ void SMF::MetaEvent::SetError_TooShortMetaEvent(Signal sig)
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_Unknown
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_Unknown::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_Unknown::Prepare(Signal sig, const Binary &binary)
 {
-	if (length > 0) {
-		_binary = Binary(reinterpret_cast<const char *>(buff), length);
-	}
+	_binary = binary;
 	return true;
 }
 
@@ -342,15 +339,15 @@ Event *SMF::MetaEvent_Unknown::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SequenceNumber
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_SequenceNumber::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_SequenceNumber::Prepare(Signal sig, const Binary &binary)
 {
-	if (length < 2) {
+	if (binary.size() < 2) {
 		SetError_TooShortMetaEvent(sig);
 		return false;
 	}
 	_number =
-		(static_cast<unsigned short>(buff[0]) << 8) +
-		(static_cast<unsigned short>(buff[1]) << 0);
+		(static_cast<unsigned short>(binary[0]) << 8) +
+		(static_cast<unsigned short>(binary[1]) << 0);
 	return true;
 }
 
@@ -379,11 +376,9 @@ Event *SMF::MetaEvent_SequenceNumber::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_TextEvent
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_TextEvent::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_TextEvent::Prepare(Signal sig, const Binary &binary)
 {
-	if (length > 0) {
-		_text = String(reinterpret_cast<const char *>(buff), length);
-	}
+	_text = String(binary);
 	return true;
 }
 
@@ -412,11 +407,9 @@ Event *SMF::MetaEvent_TextEvent::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_CopyrightNotice
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_CopyrightNotice::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_CopyrightNotice::Prepare(Signal sig, const Binary &binary)
 {
-	if (length > 0) {
-		_text = String(reinterpret_cast<const char *>(buff), length);
-	}
+	_text = String(binary);
 	return true;
 }
 
@@ -445,11 +438,9 @@ Event *SMF::MetaEvent_CopyrightNotice::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SequenceOrTrackName
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_SequenceOrTrackName::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_SequenceOrTrackName::Prepare(Signal sig, const Binary &binary)
 {
-	if (length > 0) {
-		_text = String(reinterpret_cast<const char *>(buff), length);
-	}
+	_text = String(binary);
 	return true;
 }
 
@@ -478,11 +469,9 @@ Event *SMF::MetaEvent_SequenceOrTrackName::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_InstrumentName
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_InstrumentName::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_InstrumentName::Prepare(Signal sig, const Binary &binary)
 {
-	if (length > 0) {
-		_text = String(reinterpret_cast<const char *>(buff), length);
-	}
+	_text = String(binary);
 	return true;
 }
 
@@ -511,11 +500,9 @@ Event *SMF::MetaEvent_InstrumentName::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_LyricText
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_LyricText::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_LyricText::Prepare(Signal sig, const Binary &binary)
 {
-	if (length > 0) {
-		_text = String(reinterpret_cast<const char *>(buff), length);
-	}
+	_text = String(binary);
 	return true;
 }
 
@@ -544,11 +531,9 @@ Event *SMF::MetaEvent_LyricText::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_MarkerText
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_MarkerText::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_MarkerText::Prepare(Signal sig, const Binary &binary)
 {
-	if (length > 0) {
-		_text = String(reinterpret_cast<const char *>(buff), length);
-	}
+	_text = String(binary);
 	return true;
 }
 
@@ -577,11 +562,9 @@ Event *SMF::MetaEvent_MarkerText::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_CuePoint
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_CuePoint::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_CuePoint::Prepare(Signal sig, const Binary &binary)
 {
-	if (length > 0) {
-		_text = String(reinterpret_cast<const char *>(buff), length);
-	}
+	_text = String(binary);
 	return true;
 }
 
@@ -610,13 +593,13 @@ Event *SMF::MetaEvent_CuePoint::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_MIDIChannelPrefixAssignment
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Prepare(Signal sig, const Binary &binary)
 {
-	if (length < 1) {
+	if (binary.size() < 1) {
 		SetError_TooShortMetaEvent(sig);
 		return false;
 	}
-	_channel = buff[0];
+	_channel = binary[0];
 	return true;
 }
 
@@ -645,7 +628,7 @@ Event *SMF::MetaEvent_MIDIChannelPrefixAssignment::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_EndOfTrack
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_EndOfTrack::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_EndOfTrack::Prepare(Signal sig, const Binary &binary)
 {
 	// no buff
 	return true;
@@ -676,16 +659,16 @@ Event *SMF::MetaEvent_EndOfTrack::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_TempoSetting
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_TempoSetting::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_TempoSetting::Prepare(Signal sig, const Binary &binary)
 {
-	if (length < 2) {
+	if (binary.size() < 2) {
 		SetError_TooShortMetaEvent(sig);
 		return false;
 	}
 	_mpqn =
-		static_cast<unsigned long>(buff[0] << 16) +
-		static_cast<unsigned long>(buff[1] << 8) +
-		static_cast<unsigned long>(buff[2] << 0);
+		(static_cast<unsigned long>(binary[0]) << 16) +
+		(static_cast<unsigned long>(binary[1]) << 8) +
+		(static_cast<unsigned long>(binary[2]) << 0);
 	return true;
 }
 
@@ -714,17 +697,17 @@ Event *SMF::MetaEvent_TempoSetting::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SMPTEOffset
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_SMPTEOffset::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_SMPTEOffset::Prepare(Signal sig, const Binary &binary)
 {
-	if (length < 5) {
+	if (binary.size() < 5) {
 		SetError_TooShortMetaEvent(sig);
 		return false;
 	}
-	_hour = buff[0];
-	_minute = buff[1];
-	_second = buff[2];
-	_frame = buff[3];
-	_subFrame = buff[4];
+	_hour = binary[0];
+	_minute = binary[1];
+	_second = binary[2];
+	_frame = binary[3];
+	_subFrame = binary[4];
 	return true;
 }
 
@@ -754,16 +737,16 @@ Event *SMF::MetaEvent_SMPTEOffset::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_TimeSignature
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_TimeSignature::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_TimeSignature::Prepare(Signal sig, const Binary &binary)
 {
-	if (length < 4) {
+	if (binary.size() < 4) {
 		SetError_TooShortMetaEvent(sig);
 		return false;
 	}
-	_numerator = buff[0];
-	_denominator = buff[1];
-	_metronome = buff[2];
-	_cnt32nd = buff[3];
+	_numerator = binary[0];
+	_denominator = binary[1];
+	_metronome = binary[2];
+	_cnt32nd = binary[3];
 	return true;
 }
 
@@ -793,14 +776,14 @@ Event *SMF::MetaEvent_TimeSignature::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_KeySignature
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_KeySignature::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_KeySignature::Prepare(Signal sig, const Binary &binary)
 {
-	if (length < 2) {
+	if (binary.size() < 2) {
 		SetError_TooShortMetaEvent(sig);
 		return false;
 	}
-	_key = buff[0];
-	_scale = buff[1];
+	_key = binary[0];
+	_scale = binary[1];
 	return true;
 }
 
@@ -829,11 +812,9 @@ Event *SMF::MetaEvent_KeySignature::Clone() const
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SequencerSpecificEvent
 //-----------------------------------------------------------------------------
-bool SMF::MetaEvent_SequencerSpecificEvent::Prepare(Signal sig, const unsigned char buff[], size_t length)
+bool SMF::MetaEvent_SequencerSpecificEvent::Prepare(Signal sig, const Binary &binary)
 {
-	if (length > 0) {
-		_binary = Binary(reinterpret_cast<const char *>(buff), length);
-	}
+	_binary = binary;
 	return true;
 }
 

@@ -336,10 +336,11 @@ Gura_ImplementUserClass(port)
 //-----------------------------------------------------------------------------
 // Gura module functions: midi
 //-----------------------------------------------------------------------------
-// midi.smf() {block?}
+// midi.smf(stream?:stream) {block?}
 Gura_DeclareFunction(smf)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(smf));
 	AddHelp(Gura_Symbol(en), "create an instance that contains SMF information.");
@@ -348,6 +349,9 @@ Gura_DeclareFunction(smf)
 Gura_ImplementFunction(smf)
 {
 	AutoPtr<Object_smf> pObj(new Object_smf(env));
+	if (args.IsStream(0)) {
+		if (!pObj->GetSMF().Read(sig, args.GetStream(0))) return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 

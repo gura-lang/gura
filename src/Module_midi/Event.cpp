@@ -37,6 +37,15 @@ bool EventList::Play(Signal sig, Port *pPort, double deltaTimeUnit) const
 	return true;
 }
 
+bool EventList::Write(Signal sig, Stream &stream) const
+{
+	foreach_const (EventList, ppEvent, *this) {
+		Event *pEvent = *ppEvent;
+		
+	}
+	return true;
+}
+
 //-----------------------------------------------------------------------------
 // EventOwner
 //-----------------------------------------------------------------------------
