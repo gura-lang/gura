@@ -67,7 +67,7 @@ bool MIDIEvent::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MIDIEvent::Serialize(Signal sig, Stream &stream) const
+bool MIDIEvent::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }

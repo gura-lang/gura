@@ -232,7 +232,7 @@ bool SMF::Write(Signal sig, Stream &stream)
 		foreach_const (EventOwner, ppEvent, pTrack->GetEventOwner()) {
 			Event *pEvent = *ppEvent;
 			
-			
+			if (!pEvent->Write(sig, stream)) return false;
 		}
 	}
 	return true;
@@ -261,7 +261,7 @@ bool SMF::SysExEvent::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::SysExEvent::Serialize(Signal sig, Stream &stream) const
+bool SMF::SysExEvent::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -345,7 +345,7 @@ bool SMF::MetaEvent_Unknown::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_Unknown::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_Unknown::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -382,7 +382,7 @@ bool SMF::MetaEvent_SequenceNumber::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_SequenceNumber::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_SequenceNumber::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -413,7 +413,7 @@ bool SMF::MetaEvent_TextEvent::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_TextEvent::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_TextEvent::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -444,7 +444,7 @@ bool SMF::MetaEvent_CopyrightNotice::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_CopyrightNotice::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_CopyrightNotice::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -475,7 +475,7 @@ bool SMF::MetaEvent_SequenceOrTrackName::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_SequenceOrTrackName::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_SequenceOrTrackName::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -506,7 +506,7 @@ bool SMF::MetaEvent_InstrumentName::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_InstrumentName::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_InstrumentName::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -537,7 +537,7 @@ bool SMF::MetaEvent_LyricText::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_LyricText::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_LyricText::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -568,7 +568,7 @@ bool SMF::MetaEvent_MarkerText::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_MarkerText::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_MarkerText::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -599,7 +599,7 @@ bool SMF::MetaEvent_CuePoint::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_CuePoint::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_CuePoint::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -634,7 +634,7 @@ bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Play(Signal sig, Port *pPort) c
 	return true;
 }
 
-bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -665,7 +665,7 @@ bool SMF::MetaEvent_EndOfTrack::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_EndOfTrack::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_EndOfTrack::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -703,7 +703,7 @@ bool SMF::MetaEvent_TempoSetting::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_TempoSetting::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_TempoSetting::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -742,7 +742,7 @@ bool SMF::MetaEvent_SMPTEOffset::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_SMPTEOffset::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_SMPTEOffset::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -781,7 +781,7 @@ bool SMF::MetaEvent_TimeSignature::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_TimeSignature::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_TimeSignature::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -818,7 +818,7 @@ bool SMF::MetaEvent_KeySignature::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_KeySignature::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_KeySignature::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }
@@ -849,7 +849,7 @@ bool SMF::MetaEvent_SequencerSpecificEvent::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SMF::MetaEvent_SequencerSpecificEvent::Serialize(Signal sig, Stream &stream) const
+bool SMF::MetaEvent_SequencerSpecificEvent::Write(Signal sig, Stream &stream) const
 {
 	return false;
 }

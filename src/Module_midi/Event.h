@@ -23,7 +23,7 @@ protected:
 public:
 	inline unsigned long GetTimeStamp() const { return _timeStamp; }
 	virtual bool Play(Signal sig, Port *pPort) const = 0;
-	virtual bool Serialize(Signal sig, Stream &stream) const = 0;
+	virtual bool Write(Signal sig, Stream &stream) const = 0;
 	virtual String ToString() const = 0;
 	virtual Event *Clone() const = 0;
 };
@@ -81,7 +81,7 @@ public:
 		return 0x80 <= status && status < 0xf0;
 	}
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Serialize(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream) const;
 };
 
 //-----------------------------------------------------------------------------
