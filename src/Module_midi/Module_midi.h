@@ -11,6 +11,26 @@
 Gura_BeginModule(midi)
 
 //-----------------------------------------------------------------------------
+// Class declaration for midi.smf
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(smf);
+
+class Object_smf : public Object {
+private:
+	SMF _smf;
+public:
+	Gura_DeclareObjectAccessor(smf)
+public:
+	inline Object_smf(Environment &env) : Object(Gura_UserClass(smf)) {}
+	inline SMF &GetSMF() { return _smf; }
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
+};
+
+//-----------------------------------------------------------------------------
 // Class declaration for midi.mml
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(mml);

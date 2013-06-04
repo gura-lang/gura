@@ -6,6 +6,100 @@
 Gura_BeginModule(midi)
 
 //-----------------------------------------------------------------------------
+// Object_smf
+//-----------------------------------------------------------------------------
+Object *Object_smf::Clone() const
+{
+	return NULL;
+}
+
+bool Object_smf::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	//symbols.insert(Gura_Symbol(string));
+	return true;
+}
+
+Value Object_smf::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+#if 0
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
+		return Value(env, _str);
+	}
+#endif
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_smf::ToString(Signal sig, bool exprFlag)
+{
+	String rtn;
+	rtn += "<midi.smf:";
+	rtn += ">";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for midi.smf
+//-----------------------------------------------------------------------------
+// midi.smf#read(stream:stream:r):map:void
+Gura_DeclareMethod(smf, read)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+}
+
+Gura_ImplementMethod(smf, read)
+{
+	Object_smf *pThis = Object_smf::GetThisObj(args);
+	if (!pThis->GetSMF().Read(sig, args.GetStream(0))) return Value::Null;
+	return Value::Null;
+}
+
+// midi.smf#write(stream:stream:w):map:void
+Gura_DeclareMethod(smf, write)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+}
+
+Gura_ImplementMethod(smf, write)
+{
+	Object_smf *pThis = Object_smf::GetThisObj(args);
+	if (!pThis->GetSMF().Write(sig, args.GetStream(0))) return Value::Null;
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
+// Class implementation for midi.smf
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClassWithCast(smf)
+{
+	Gura_AssignMethod(smf, read);
+}
+
+Gura_ImplementCastFrom(smf)
+{
+	if (value.IsString()) {
+		AutoPtr<Stream> pStream(PathManager::OpenStream(env, sig,
+								value.GetString(), Stream::ATTR_Readable));
+		if (sig.IsSignalled()) return false;
+		AutoPtr<Object_smf> pObj(new Object_smf(env));
+		if (!pObj->GetSMF().Read(sig, *pStream)) return false;
+		value = Value(pObj.release());
+		return true;
+	}
+	return false;
+}
+
+Gura_ImplementCastTo(smf)
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
 // Object_mml
 //-----------------------------------------------------------------------------
 Object *Object_mml::Clone() const
@@ -199,6 +293,21 @@ Gura_ImplementMethod(port, rawwrite)
 	return Value::Null;
 }
 
+// midi.port#play(smf:midi.smf):map:void
+Gura_DeclareMethod(port, play)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "smf", VTYPE_smf);
+}
+
+Gura_ImplementMethod(port, play)
+{
+	Object_port *pThis = Object_port::GetThisObj(args);
+	SMF &smf = Object_smf::GetObject(args, 0)->GetSMF();
+	smf.Play(sig, pThis->GetPort());
+	return Value::Null;
+}
+
 // midi.port#mmlplay(mml:midi.mml):map:void
 Gura_DeclareMethod(port, mmlplay)
 {
@@ -209,23 +318,8 @@ Gura_DeclareMethod(port, mmlplay)
 Gura_ImplementMethod(port, mmlplay)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
-	Object_mml *pObjMML = Object_mml::GetObject(args, 0);
-	return pObjMML->GetMML().Play(sig, pThis->GetPort());
-}
-
-// midi.port#play(smf:stream):map:void
-Gura_DeclareMethod(port, play)
-{
-	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "smf", VTYPE_stream);
-}
-
-Gura_ImplementMethod(port, play)
-{
-	Object_port *pThis = Object_port::GetThisObj(args);
-	SMF smf;
-	if (!smf.Read(sig, args.GetStream(0))) return Value::Null;
-	smf.Play(sig, pThis->GetPort());
+	MML &mml = Object_mml::GetObject(args, 0)->GetMML();
+	mml.Play(sig, pThis->GetPort());
 	return Value::Null;
 }
 
@@ -235,13 +329,28 @@ Gura_ImplementMethod(port, play)
 Gura_ImplementUserClass(port)
 {
 	Gura_AssignMethod(port, rawwrite);
-	Gura_AssignMethod(port, mmlplay);
 	Gura_AssignMethod(port, play);
+	Gura_AssignMethod(port, mmlplay);
 }
 
 //-----------------------------------------------------------------------------
 // Gura module functions: midi
 //-----------------------------------------------------------------------------
+// midi.smf() {block?}
+Gura_DeclareFunction(smf)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(smf));
+	AddHelp(Gura_Symbol(en), "create an instance that contains SMF information.");
+}
+
+Gura_ImplementFunction(smf)
+{
+	AutoPtr<Object_smf> pObj(new Object_smf(env));
+	return ReturnValue(env, sig, args, Value(pObj.release()));
+}
+
 // midi.mml() {block?}
 Gura_DeclareFunction(mml)
 {
@@ -296,10 +405,12 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// class realization
+	Gura_RealizeUserClass(smf, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(mml, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(portinfo, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(port, env.LookupClass(VTYPE_object));
 	// function assignment
+	Gura_AssignFunction(smf);
 	Gura_AssignFunction(mml);
 	Gura_AssignFunction(port);
 	Gura_AssignFunction(test);

@@ -324,6 +324,7 @@ public:
 	inline const TrackOwner &GetTrackOwner() const { return _trackOwner; }
 	void ResetTimeStamp();
 	bool Read(Signal sig, Stream &stream);
+	bool Write(Signal sig, Stream &stream);
 	bool Play(Signal sig, Port *pPort) const;
 };
 

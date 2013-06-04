@@ -208,6 +208,11 @@ bool SMF::Read(Signal sig, Stream &stream)
 	return true;
 }
 
+bool SMF::Write(Signal sig, Stream &stream)
+{
+	return true;
+}
+
 bool SMF::Play(Signal sig, Port *pPort) const
 {
 	EventOwner eventOwner;
