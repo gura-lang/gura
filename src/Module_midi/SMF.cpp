@@ -8,16 +8,6 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 SMF::SMF() : _format(0), _numTrackChunks(0), _division(0)
 {
-	ResetTimeStamp();
-}
-
-void SMF::ResetTimeStamp()
-{
-	for (size_t i = 0; i < NUM_CHANNELS; i++) {
-		_timeStampTbl[i] = 0;
-	}
-	_timeStampSysEx = 0;
-	_timeStampMeta = 0;
 }
 
 bool SMF::Read(Signal sig, Stream &stream)
@@ -33,6 +23,7 @@ bool SMF::Read(Signal sig, Stream &stream)
 		STAT_MetaEvent_Length,
 		STAT_MetaEvent_Data,
 	};
+	Event::TimeStampManager timeStampManager;
 	AutoPtr<Memory> pMemory(new MemoryHeap(1024));
 	do {
 		HeaderChunkTop headerChunkTop;
@@ -76,6 +67,7 @@ bool SMF::Read(Signal sig, Stream &stream)
 		Binary binary;
 		Stat stat = STAT_EventStart;
 		unsigned long deltaTime = 0x00000000;
+		unsigned long timeStamp = 0x00000000;
 		unsigned long length = 0x00000000;
 		unsigned char statusPrev = 0x00;
 		size_t lengthRest = Gura_UnpackULong(trackChunkTop.length);
@@ -111,12 +103,11 @@ bool SMF::Read(Signal sig, Stream &stream)
 							continueFlag = true;
 							status = statusPrev;
 						}
+						timeStamp = timeStampManager.UpdateDelta(status, deltaTime);
 						statusPrev = status;
 						if (MIDIEvent::CheckStatus(status)) {
 							unsigned char statusUpper = status & 0xf0;
 							unsigned char channel = status & 0x0f;
-							unsigned long &timeStamp = _timeStampTbl[channel];
-							timeStamp += deltaTime;
 							if (statusUpper == MIDIEvent_NoteOff::Status) {
 								pMIDIEvent.reset(new MIDIEvent_NoteOff(timeStamp, channel));
 							} else if (statusUpper == MIDIEvent_NoteOn::Status) {
@@ -160,8 +151,7 @@ bool SMF::Read(Signal sig, Stream &stream)
 					} else if (stat == STAT_SysExEvent) {
 						binary.push_back(data);
 						if (data == 0xf7) {
-							_timeStampSysEx += deltaTime;
-							eventOwner.push_back(new SysExEvent(_timeStampSysEx, binary));
+							eventOwner.push_back(new SysExEvent(timeStamp, binary));
 							stat = STAT_EventStart;
 						}
 					} else if (stat == STAT_MetaEvent_Type) {
@@ -172,9 +162,8 @@ bool SMF::Read(Signal sig, Stream &stream)
 						if ((data & 0x80) != 0) {
 							// nothing to do
 						} else if (length == 0) {
-							_timeStampMeta += deltaTime;
 							if (!MetaEvent::Add(sig, eventOwner,
-											_timeStampMeta, eventType, binary)) {
+											timeStamp, eventType, binary)) {
 								return false;
 							}
 							stat = STAT_EventStart;
@@ -184,9 +173,8 @@ bool SMF::Read(Signal sig, Stream &stream)
 					} else if (stat == STAT_MetaEvent_Data) {
 						binary.push_back(data);
 						if (binary.size() == length) {
-							_timeStampMeta += deltaTime;
 							if (!MetaEvent::Add(sig, eventOwner,
-											_timeStampMeta, eventType, binary)) {
+											timeStamp, eventType, binary)) {
 								return false;
 							}
 							stat = STAT_EventStart;

@@ -6,9 +6,42 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 // Event
 //-----------------------------------------------------------------------------
+bool Event::IsMIDIEvent() const { return false; }
+bool Event::IsSysExEvent() const { return false; }
+bool Event::IsMetaEvent() const { return false; }
+
 Event::~Event()
 {
 	// virtual destructor
+}
+
+//-----------------------------------------------------------------------------
+// Event::TimeStampManager
+//-----------------------------------------------------------------------------
+Event::TimeStampManager::TimeStampManager()
+{
+	for (size_t i = 0; i < NUM_CHANNELS; i++) {
+		_timeStampTbl[i] = 0;
+	}
+	_timeStampSysEx = 0;
+	_timeStampMeta = 0;
+}
+
+unsigned long Event::TimeStampManager::UpdateDelta(
+							unsigned char status, unsigned long timeDelta)
+{
+	if (0x80 <= status && status < 0xf0) {
+		unsigned long &timeStamp = _timeStampTbl[status & 0x0f];
+		timeStamp += timeDelta;
+		return timeStamp;
+	} else if (status == 0xf0 || status == 0xf7) {
+		_timeStampSysEx += timeDelta;
+		return _timeStampSysEx;
+	} else if (status == 0xff) {
+		_timeStampMeta += timeDelta;
+		return _timeStampMeta;
+	}
+	return 0;
 }
 
 //-----------------------------------------------------------------------------
@@ -57,6 +90,8 @@ void EventOwner::Clear()
 //-----------------------------------------------------------------------------
 // MIDIEvent
 //-----------------------------------------------------------------------------
+bool MIDIEvent::IsMIDIEvent() const { return true; }
+
 bool MIDIEvent::Play(Signal sig, Port *pPort) const
 {
 	if (_nParams == 1) {
@@ -180,6 +215,8 @@ Event *MIDIEvent_PitchBendChange::Clone() const
 //-----------------------------------------------------------------------------
 // SysExEvent
 //-----------------------------------------------------------------------------
+bool SysExEvent::IsSysExEvent() const { return true; }
+
 bool SysExEvent::Play(Signal sig, Port *pPort) const
 {
 	return true;
@@ -205,6 +242,8 @@ Event *SysExEvent::Clone() const
 //-----------------------------------------------------------------------------
 // MetaEvent
 //-----------------------------------------------------------------------------
+bool MetaEvent::IsMetaEvent() const { return true; }
+
 bool MetaEvent::Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
 							unsigned char eventType, const Binary &binary)
 {

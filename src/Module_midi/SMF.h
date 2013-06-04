@@ -10,7 +10,6 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 class SMF {
 public:
-	enum { NUM_CHANNELS = 16 };
 	struct HeaderChunkTop {
 		enum { Size = 8 };
 		char MThd[4];
@@ -31,9 +30,6 @@ private:
 	unsigned short _format;
 	unsigned short _numTrackChunks;
 	unsigned short _division;
-	unsigned long _timeStampTbl[NUM_CHANNELS];
-	unsigned long _timeStampSysEx;
-	unsigned long _timeStampMeta;
 	TrackOwner _trackOwner;
 public:
 	SMF();

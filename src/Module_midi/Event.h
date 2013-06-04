@@ -11,6 +11,17 @@ class Port;
 //-----------------------------------------------------------------------------
 class Event {
 public:
+	enum { NUM_CHANNELS = 16 };
+	class TimeStampManager {
+	private:
+		unsigned long _timeStampTbl[NUM_CHANNELS];
+		unsigned long _timeStampSysEx;
+		unsigned long _timeStampMeta;
+	public:
+		TimeStampManager();
+		unsigned long UpdateDelta(unsigned char status, unsigned long timeDelta);
+	};
+public:
 	Gura_DeclareReferenceAccessor(Event);
 protected:
 	int _cntRef;
@@ -22,6 +33,9 @@ protected:
 	virtual ~Event();
 public:
 	inline unsigned long GetTimeStamp() const { return _timeStamp; }
+	virtual bool IsMIDIEvent() const;
+	virtual bool IsSysExEvent() const;
+	virtual bool IsMetaEvent() const;
 	virtual bool Play(Signal sig, Port *pPort) const = 0;
 	virtual bool Write(Signal sig, Stream &stream) const = 0;
 	virtual String ToString() const = 0;
@@ -80,6 +94,7 @@ public:
 	static bool CheckStatus(unsigned char status) {
 		return 0x80 <= status && status < 0xf0;
 	}
+	virtual bool IsMIDIEvent() const;
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream) const;
 };
@@ -206,6 +221,7 @@ public:
 	inline SysExEvent(const SysExEvent &event) : Event(event), _binary(event._binary) {}
 	inline SysExEvent(unsigned long timeStamp, const Binary &binary) :
 									Event(timeStamp), _binary(binary) {}
+	virtual bool IsSysExEvent() const;
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream) const;
 	virtual String ToString() const;
@@ -224,6 +240,7 @@ public:
 								Event(timeStamp), _eventType(eventType) {}
 	inline unsigned char GetEventType() const { return _eventType; }
 	virtual bool Prepare(Signal sig, const Binary &binary) = 0;
+	virtual bool IsMetaEvent() const;
 	static bool Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
 			unsigned char eventType, const Binary &binary);
 	static void SetError_TooShortMetaEvent(Signal sig);
