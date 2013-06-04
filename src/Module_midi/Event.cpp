@@ -177,4 +177,617 @@ Event *MIDIEvent_PitchBendChange::Clone() const
 	return new MIDIEvent_PitchBendChange(*this);
 }
 
+//-----------------------------------------------------------------------------
+// SysExEvent
+//-----------------------------------------------------------------------------
+bool SysExEvent::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool SysExEvent::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String SysExEvent::ToString() const
+{
+	char str[128];
+	::sprintf(str, "SysExEvent %dbytes", _binary.size());
+	return String(str);
+}
+
+Event *SysExEvent::Clone() const
+{
+	return new SysExEvent(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent
+//-----------------------------------------------------------------------------
+bool MetaEvent::Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
+							unsigned char eventType, const Binary &binary)
+{
+	MetaEvent *pEvent = NULL;
+	if (eventType == MetaEvent_SequenceNumber::EventType) {
+		pEvent = new MetaEvent_SequenceNumber(timeStamp);
+	} else if (eventType == MetaEvent_TextEvent::EventType) {
+		pEvent = new MetaEvent_TextEvent(timeStamp);
+	} else if (eventType == MetaEvent_CopyrightNotice::EventType) {
+		pEvent = new MetaEvent_CopyrightNotice(timeStamp);
+	} else if (eventType == MetaEvent_SequenceOrTrackName::EventType) {
+		pEvent = new MetaEvent_SequenceOrTrackName(timeStamp);
+	} else if (eventType == MetaEvent_InstrumentName::EventType) {
+		pEvent = new MetaEvent_InstrumentName(timeStamp);
+	} else if (eventType == MetaEvent_LyricText::EventType) {
+		pEvent = new MetaEvent_LyricText(timeStamp);
+	} else if (eventType == MetaEvent_MarkerText::EventType) {
+		pEvent = new MetaEvent_MarkerText(timeStamp);
+	} else if (eventType == MetaEvent_CuePoint::EventType) {
+		pEvent = new MetaEvent_CuePoint(timeStamp);
+	} else if (eventType == MetaEvent_MIDIChannelPrefixAssignment::EventType) {
+		pEvent = new MetaEvent_MIDIChannelPrefixAssignment(timeStamp);
+	} else if (eventType == MetaEvent_EndOfTrack::EventType) {
+		pEvent = new MetaEvent_EndOfTrack(timeStamp);
+	} else if (eventType == MetaEvent_TempoSetting::EventType) {
+		pEvent = new MetaEvent_TempoSetting(timeStamp);
+	} else if (eventType == MetaEvent_SMPTEOffset::EventType) {
+		pEvent = new MetaEvent_SMPTEOffset(timeStamp);
+	} else if (eventType == MetaEvent_TimeSignature::EventType) {
+		pEvent = new MetaEvent_TimeSignature(timeStamp);
+	} else if (eventType == MetaEvent_KeySignature::EventType) {
+		pEvent = new MetaEvent_KeySignature(timeStamp);
+	} else if (eventType == MetaEvent_SequencerSpecificEvent::EventType) {
+		pEvent = new MetaEvent_SequencerSpecificEvent(timeStamp);
+	} else {
+		pEvent = new MetaEvent_Unknown(timeStamp, eventType);
+	}
+	if (pEvent->Prepare(sig, binary)) {
+		eventOwner.push_back(pEvent);
+		return true;
+	}
+	delete pEvent;
+	return false;
+}
+
+void MetaEvent::SetError_TooShortMetaEvent(Signal sig)
+{
+	sig.SetError(ERR_FormatError, "too short meta event");
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_Unknown
+//-----------------------------------------------------------------------------
+bool MetaEvent_Unknown::Prepare(Signal sig, const Binary &binary)
+{
+	_binary = binary;
+	return true;
+}
+
+bool MetaEvent_Unknown::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_Unknown::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_Unknown::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent(%02x)", GetEventType());
+	return String(str);
+}
+
+Event *MetaEvent_Unknown::Clone() const
+{
+	return new MetaEvent_Unknown(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_SequenceNumber
+//-----------------------------------------------------------------------------
+bool MetaEvent_SequenceNumber::Prepare(Signal sig, const Binary &binary)
+{
+	if (binary.size() < 2) {
+		SetError_TooShortMetaEvent(sig);
+		return false;
+	}
+	_number =
+		(static_cast<unsigned short>(binary[0]) << 8) +
+		(static_cast<unsigned short>(binary[1]) << 0);
+	return true;
+}
+
+bool MetaEvent_SequenceNumber::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_SequenceNumber::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_SequenceNumber::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-SequenceNumber number:%d", _number);
+	return String(str);
+}
+
+Event *MetaEvent_SequenceNumber::Clone() const
+{
+	return new MetaEvent_SequenceNumber(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_TextEvent
+//-----------------------------------------------------------------------------
+bool MetaEvent_TextEvent::Prepare(Signal sig, const Binary &binary)
+{
+	_text = String(binary);
+	return true;
+}
+
+bool MetaEvent_TextEvent::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_TextEvent::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_TextEvent::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-TextEvent text:'%s'", _text.c_str());
+	return String(str);
+}
+
+Event *MetaEvent_TextEvent::Clone() const
+{
+	return new MetaEvent_TextEvent(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_CopyrightNotice
+//-----------------------------------------------------------------------------
+bool MetaEvent_CopyrightNotice::Prepare(Signal sig, const Binary &binary)
+{
+	_text = String(binary);
+	return true;
+}
+
+bool MetaEvent_CopyrightNotice::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_CopyrightNotice::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_CopyrightNotice::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-CopyrightNotice text:'%s'", _text.c_str());
+	return String(str);
+}
+
+Event *MetaEvent_CopyrightNotice::Clone() const
+{
+	return new MetaEvent_CopyrightNotice(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_SequenceOrTrackName
+//-----------------------------------------------------------------------------
+bool MetaEvent_SequenceOrTrackName::Prepare(Signal sig, const Binary &binary)
+{
+	_text = String(binary);
+	return true;
+}
+
+bool MetaEvent_SequenceOrTrackName::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_SequenceOrTrackName::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_SequenceOrTrackName::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-SequenceOrTrackName text:'%s'", _text.c_str());
+	return String(str);
+}
+
+Event *MetaEvent_SequenceOrTrackName::Clone() const
+{
+	return new MetaEvent_SequenceOrTrackName(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_InstrumentName
+//-----------------------------------------------------------------------------
+bool MetaEvent_InstrumentName::Prepare(Signal sig, const Binary &binary)
+{
+	_text = String(binary);
+	return true;
+}
+
+bool MetaEvent_InstrumentName::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_InstrumentName::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_InstrumentName::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-InstrumentName text:'%s'", _text.c_str());
+	return String(str);
+}
+
+Event *MetaEvent_InstrumentName::Clone() const
+{
+	return new MetaEvent_InstrumentName(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_LyricText
+//-----------------------------------------------------------------------------
+bool MetaEvent_LyricText::Prepare(Signal sig, const Binary &binary)
+{
+	_text = String(binary);
+	return true;
+}
+
+bool MetaEvent_LyricText::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_LyricText::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_LyricText::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-LyricText text:'%s'", _text.c_str());
+	return String(str);
+}
+
+Event *MetaEvent_LyricText::Clone() const
+{
+	return new MetaEvent_LyricText(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_MarkerText
+//-----------------------------------------------------------------------------
+bool MetaEvent_MarkerText::Prepare(Signal sig, const Binary &binary)
+{
+	_text = String(binary);
+	return true;
+}
+
+bool MetaEvent_MarkerText::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_MarkerText::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_MarkerText::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-MarkerText text:'%s'", _text.c_str());
+	return String(str);
+}
+
+Event *MetaEvent_MarkerText::Clone() const
+{
+	return new MetaEvent_MarkerText(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_CuePoint
+//-----------------------------------------------------------------------------
+bool MetaEvent_CuePoint::Prepare(Signal sig, const Binary &binary)
+{
+	_text = String(binary);
+	return true;
+}
+
+bool MetaEvent_CuePoint::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_CuePoint::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_CuePoint::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-CuePoint text:'%s'", _text.c_str());
+	return String(str);
+}
+
+Event *MetaEvent_CuePoint::Clone() const
+{
+	return new MetaEvent_CuePoint(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_MIDIChannelPrefixAssignment
+//-----------------------------------------------------------------------------
+bool MetaEvent_MIDIChannelPrefixAssignment::Prepare(Signal sig, const Binary &binary)
+{
+	if (binary.size() < 1) {
+		SetError_TooShortMetaEvent(sig);
+		return false;
+	}
+	_channel = binary[0];
+	return true;
+}
+
+bool MetaEvent_MIDIChannelPrefixAssignment::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_MIDIChannelPrefixAssignment::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_MIDIChannelPrefixAssignment::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-MIDIChannelPrefixAssignment channel:%d", _channel);
+	return String(str);
+}
+
+Event *MetaEvent_MIDIChannelPrefixAssignment::Clone() const
+{
+	return new MetaEvent_MIDIChannelPrefixAssignment(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_EndOfTrack
+//-----------------------------------------------------------------------------
+bool MetaEvent_EndOfTrack::Prepare(Signal sig, const Binary &binary)
+{
+	// no buff
+	return true;
+}
+
+bool MetaEvent_EndOfTrack::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_EndOfTrack::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_EndOfTrack::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-EndOfTrack");
+	return String(str);
+}
+
+Event *MetaEvent_EndOfTrack::Clone() const
+{
+	return new MetaEvent_EndOfTrack(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_TempoSetting
+//-----------------------------------------------------------------------------
+bool MetaEvent_TempoSetting::Prepare(Signal sig, const Binary &binary)
+{
+	if (binary.size() < 2) {
+		SetError_TooShortMetaEvent(sig);
+		return false;
+	}
+	_mpqn =
+		(static_cast<unsigned long>(binary[0]) << 16) +
+		(static_cast<unsigned long>(binary[1]) << 8) +
+		(static_cast<unsigned long>(binary[2]) << 0);
+	return true;
+}
+
+bool MetaEvent_TempoSetting::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_TempoSetting::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_TempoSetting::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-TempoSetting mpqn:%d", _mpqn);
+	return String(str);
+}
+
+Event *MetaEvent_TempoSetting::Clone() const
+{
+	return new MetaEvent_TempoSetting(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_SMPTEOffset
+//-----------------------------------------------------------------------------
+bool MetaEvent_SMPTEOffset::Prepare(Signal sig, const Binary &binary)
+{
+	if (binary.size() < 5) {
+		SetError_TooShortMetaEvent(sig);
+		return false;
+	}
+	_hour = binary[0];
+	_minute = binary[1];
+	_second = binary[2];
+	_frame = binary[3];
+	_subFrame = binary[4];
+	return true;
+}
+
+bool MetaEvent_SMPTEOffset::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_SMPTEOffset::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_SMPTEOffset::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-SMPTEOffset hour:%d minute:%d second:%d frame:%d subFrame:%d",
+						_hour, _minute, _second, _frame, _subFrame);
+	return String(str);
+}
+
+Event *MetaEvent_SMPTEOffset::Clone() const
+{
+	return new MetaEvent_SMPTEOffset(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_TimeSignature
+//-----------------------------------------------------------------------------
+bool MetaEvent_TimeSignature::Prepare(Signal sig, const Binary &binary)
+{
+	if (binary.size() < 4) {
+		SetError_TooShortMetaEvent(sig);
+		return false;
+	}
+	_numerator = binary[0];
+	_denominator = binary[1];
+	_metronome = binary[2];
+	_cnt32nd = binary[3];
+	return true;
+}
+
+bool MetaEvent_TimeSignature::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_TimeSignature::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_TimeSignature::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-TimeSignature numerator:%d denominator:%d metronome:%d cnt32nd:%d",
+							_numerator, _denominator, _metronome, _cnt32nd);
+	return String(str);
+}
+
+Event *MetaEvent_TimeSignature::Clone() const
+{
+	return new MetaEvent_TimeSignature(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_KeySignature
+//-----------------------------------------------------------------------------
+bool MetaEvent_KeySignature::Prepare(Signal sig, const Binary &binary)
+{
+	if (binary.size() < 2) {
+		SetError_TooShortMetaEvent(sig);
+		return false;
+	}
+	_key = binary[0];
+	_scale = binary[1];
+	return true;
+}
+
+bool MetaEvent_KeySignature::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_KeySignature::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_KeySignature::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-KeySignature key:%d scale:%d", _key, _scale);
+	return String(str);
+}
+
+Event *MetaEvent_KeySignature::Clone() const
+{
+	return new MetaEvent_KeySignature(*this);
+}
+
+//-----------------------------------------------------------------------------
+// MetaEvent_SequencerSpecificEvent
+//-----------------------------------------------------------------------------
+bool MetaEvent_SequencerSpecificEvent::Prepare(Signal sig, const Binary &binary)
+{
+	_binary = binary;
+	return true;
+}
+
+bool MetaEvent_SequencerSpecificEvent::Play(Signal sig, Port *pPort) const
+{
+	return true;
+}
+
+bool MetaEvent_SequencerSpecificEvent::Write(Signal sig, Stream &stream) const
+{
+	return false;
+}
+
+String MetaEvent_SequencerSpecificEvent::ToString() const
+{
+	char str[128];
+	::sprintf(str, "MetaEvent-SequencerSpecificEvent");
+	return String(str);
+}
+
+Event *MetaEvent_SequencerSpecificEvent::Clone() const
+{
+	return new MetaEvent_SequencerSpecificEvent(*this);
+}
+
 }}
