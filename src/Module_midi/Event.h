@@ -10,11 +10,17 @@ class Port;
 // Event
 //-----------------------------------------------------------------------------
 class Event {
+public:
+	Gura_DeclareReferenceAccessor(Event);
 protected:
+	int _cntRef;
 	unsigned long _timeStamp;
 public:
-	inline Event(const Event &event) : _timeStamp(event._timeStamp) {}
-	inline Event(unsigned long timeStamp) : _timeStamp(timeStamp) {}
+	inline Event(const Event &event) : _cntRef(1), _timeStamp(event._timeStamp) {}
+	inline Event(unsigned long timeStamp) : _cntRef(1), _timeStamp(timeStamp) {}
+protected:
+	virtual ~Event();
+public:
 	inline unsigned long GetTimeStamp() const { return _timeStamp; }
 	virtual bool Play(Signal sig, Port *pPort) const = 0;
 	virtual bool Serialize(Signal sig, Stream &stream) const = 0;

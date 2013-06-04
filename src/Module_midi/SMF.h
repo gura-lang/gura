@@ -1,7 +1,7 @@
 #ifndef __SMF_H__
 #define __SMF_H__
 #include <gura.h>
-#include "Event.h"
+#include "Track.h"
 
 Gura_BeginModule(midi)
 

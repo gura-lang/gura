@@ -6,6 +6,10 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 // Event
 //-----------------------------------------------------------------------------
+Event::~Event()
+{
+	// virtual destructor
+}
 
 //-----------------------------------------------------------------------------
 // EventList
@@ -45,7 +49,7 @@ void EventOwner::Clear()
 {
 	foreach (EventOwner, ppEvent, *this) {
 		Event *pEvent = *ppEvent;
-		delete pEvent;
+		Event::Delete(pEvent);
 	}
 	clear();
 }
