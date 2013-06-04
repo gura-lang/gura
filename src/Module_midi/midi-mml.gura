@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
 import(midi)
 
-midi.port().mmlplay('cdefgab>c')
-sys.exit()
+//midi.port().mmlplay('cdefgab>c')
+//sys.exit()
 //mml = midi.mml()
 //mml.parse(0, 'aab2 aab2 ab>c<b ab8a8f2')
 //mml.parse(0, 'ecef ee8c8<b2 >ab>c<b ab8a8f2')

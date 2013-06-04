@@ -314,13 +314,17 @@ private:
 	unsigned long _timeStampTbl[NUM_CHANNELS];
 	unsigned long _timeStampSysEx;
 	unsigned long _timeStampMeta;
+	TrackOwner _trackOwner;
 public:
 	SMF();
 	inline unsigned short GetFormat() const { return _format; }
 	inline unsigned short GetNumTrackChunks() const { return _numTrackChunks; }
 	inline unsigned short GetDivision() const { return _division; }
+	inline TrackOwner &GetTrackOwner() { return _trackOwner; }
+	inline const TrackOwner &GetTrackOwner() const { return _trackOwner; }
 	void ResetTimeStamp();
-	bool Read(Signal sig, Stream &stream, EventOwner &eventOwner);
+	bool Read(Signal sig, Stream &stream);
+	bool Play(Signal sig, Port *pPort) const;
 };
 
 }}

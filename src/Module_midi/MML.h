@@ -28,6 +28,7 @@ private:
 	int _operatorSub;
 	int _numAccum;
 	int _cntDot;
+	unsigned short _division;
 	unsigned long _timeStampTbl[NUM_CHANNELS];
 	EventOwner _eventOwner;
 public:
@@ -36,6 +37,7 @@ public:
 	inline const EventOwner &GetEventOwner() const { return _eventOwner; }
 	void Reset();
 	bool Parse(Signal sig, unsigned char channel, const char *str);
+	bool Play(Signal sig, Port *pPort) const;
 private:
 	bool FeedChar(Signal sig, unsigned char channel, int ch);
 private:

@@ -19,6 +19,7 @@ void MML::Reset()
 	_operator		= '\0';
 	_operatorSub	= '\0';
 	_numAccum		= 0;
+	_division		= 120;
 	for (size_t i = 0; i < NUM_CHANNELS; i++) {
 		_timeStampTbl[i] = 0;
 	}
@@ -33,6 +34,18 @@ bool MML::Parse(Signal sig, unsigned char channel, const char *str)
 		if (ch == '\0') break;
 	}
 	return true;
+}
+
+bool MML::Play(Signal sig, Port *pPort) const
+{
+	EventOwner eventOwner;
+	double deltaTimeUnit = .6 / _division;
+	foreach_const (EventOwner, ppEvent, GetEventOwner()) {
+		const Event *pEvent = *ppEvent;
+		eventOwner.push_back(Event::Reference(pEvent));
+	}
+	eventOwner.Sort();
+	return eventOwner.Play(sig, pPort, deltaTimeUnit);
 }
 
 bool MML::FeedChar(Signal sig, unsigned char channel, int ch)

@@ -183,14 +183,14 @@ Gura_ImplementMethod(port, rawwrite)
 	const ValueList &valList = args.GetList(0);
 	size_t nArgs = valList.size();
 	if (nArgs == 1) {
-		pThis->GetPort().RawWrite(valList[0].GetUChar());
+		pThis->GetPort()->RawWrite(valList[0].GetUChar());
 	} else if (nArgs == 2) {
-		pThis->GetPort().RawWrite(valList[0].GetUChar(), valList[1].GetUChar());
+		pThis->GetPort()->RawWrite(valList[0].GetUChar(), valList[1].GetUChar());
 	} else if (nArgs == 3) {
-		pThis->GetPort().RawWrite(valList[0].GetUChar(), valList[1].GetUChar(),
+		pThis->GetPort()->RawWrite(valList[0].GetUChar(), valList[1].GetUChar(),
 														valList[2].GetUChar());
 	} else if (nArgs == 4) {
-		pThis->GetPort().RawWrite(valList[0].GetUChar(), valList[1].GetUChar(),
+		pThis->GetPort()->RawWrite(valList[0].GetUChar(), valList[1].GetUChar(),
 							valList[2].GetUChar(), valList[3].GetUChar());
 	} else {
 		sig.SetError(ERR_ArgumentError, "too many arguments");
@@ -210,21 +210,7 @@ Gura_ImplementMethod(port, mmlplay)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
 	Object_mml *pObjMML = Object_mml::GetObject(args, 0);
-#if 0
-	char channel = 0;
-	MML mml;
-	EventOwner eventOwner;
-	if (!mml.Parse(sig, eventOwner, channel, args.GetString(0))) return Value::Null;
-#endif
-	unsigned short division = 80;
-	double deltaTimeUnit = .6 / division;
-	EventOwner &eventOwner = pObjMML->GetMML().GetEventOwner();
-	EventList eventList;
-	eventList.reserve(eventOwner.size());
-	foreach (EventOwner, ppEvent, eventOwner) eventList.push_back(*ppEvent);
-	eventList.Sort();
-	eventList.Play(sig, &pThis->GetPort(), deltaTimeUnit);
-	return Value::Null;
+	return pObjMML->GetMML().Play(sig, pThis->GetPort());
 }
 
 // midi.port#play(smf:stream):map:void
@@ -238,13 +224,8 @@ Gura_ImplementMethod(port, play)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
 	SMF smf;
-	EventOwner eventOwner;
-	if (!smf.Read(sig, args.GetStream(0), eventOwner)) return Value::Null;
-	eventOwner.Sort();
-	//::printf("format:%d num_track_chunks:%d division:%d\n",
-	//				smf.GetFormat(), smf.GetNumTrackChunks(), smf.GetDivision());
-	double deltaTimeUnit = .6 / smf.GetDivision();
-	eventOwner.Play(sig, &pThis->GetPort(), deltaTimeUnit);
+	if (!smf.Read(sig, args.GetStream(0))) return Value::Null;
+	smf.Play(sig, pThis->GetPort());
 	return Value::Null;
 }
 
@@ -290,7 +271,7 @@ Gura_ImplementFunction(port)
 {
 	int id = args.IsNumber(0)? args.GetInt(0) : 0;
 	AutoPtr<Object_port> pObj(new Object_port(env));
-	if (!pObj->GetPort().Open(id)) {
+	if (!pObj->GetPort()->Open(id)) {
 		sig.SetError(ERR_IOError, "can't open MIDI port #%d", id);
 		return Value::Null;
 	}

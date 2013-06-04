@@ -64,7 +64,7 @@ public:
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline Port &GetPort() { return _port; }
+	inline Port *GetPort() { return &_port; }
 };
 
 }}
