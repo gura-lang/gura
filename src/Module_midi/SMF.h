@@ -45,6 +45,7 @@ public:
 		inline MetaEvent(const MetaEvent &event) : Event(event), _eventType(event._eventType) {}
 		inline MetaEvent(unsigned long timeStamp, unsigned char eventType) :
 									Event(timeStamp), _eventType(eventType) {}
+		inline unsigned char GetEventType() const { return _eventType; }
 		virtual bool Prepare(Signal sig, const unsigned char buff[], size_t length) = 0;
 		static bool Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
 				unsigned char eventType, const unsigned char buff[], size_t length);

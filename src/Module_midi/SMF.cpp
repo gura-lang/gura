@@ -307,7 +307,7 @@ bool SMF::MetaEvent_Unknown::Serialize(Signal sig, Stream &stream) const
 String SMF::MetaEvent_Unknown::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent(%02x)", GetEventType());
 	return String(str);
 }
 
@@ -344,7 +344,7 @@ bool SMF::MetaEvent_SequenceNumber::Serialize(Signal sig, Stream &stream) const
 String SMF::MetaEvent_SequenceNumber::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-SequenceNumber number:%d", _number);
 	return String(str);
 }
 
@@ -377,7 +377,7 @@ bool SMF::MetaEvent_TextEvent::Serialize(Signal sig, Stream &stream) const
 String SMF::MetaEvent_TextEvent::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-TextEvent text:'%s'", _text.c_str());
 	return String(str);
 }
 
@@ -410,7 +410,7 @@ bool SMF::MetaEvent_CopyrightNotice::Serialize(Signal sig, Stream &stream) const
 String SMF::MetaEvent_CopyrightNotice::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-CopyrightNotice text:'%s'", _text.c_str());
 	return String(str);
 }
 
@@ -443,7 +443,7 @@ bool SMF::MetaEvent_SequenceOrTrackName::Serialize(Signal sig, Stream &stream) c
 String SMF::MetaEvent_SequenceOrTrackName::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-SequenceOrTrackName text:'%s'", _text.c_str());
 	return String(str);
 }
 
@@ -476,7 +476,7 @@ bool SMF::MetaEvent_InstrumentName::Serialize(Signal sig, Stream &stream) const
 String SMF::MetaEvent_InstrumentName::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-InstrumentName text:'%s'", _text.c_str());
 	return String(str);
 }
 
@@ -509,7 +509,7 @@ bool SMF::MetaEvent_LyricText::Serialize(Signal sig, Stream &stream) const
 String SMF::MetaEvent_LyricText::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-LyricText text:'%s'", _text.c_str());
 	return String(str);
 }
 
@@ -542,7 +542,7 @@ bool SMF::MetaEvent_MarkerText::Serialize(Signal sig, Stream &stream) const
 String SMF::MetaEvent_MarkerText::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-MarkerText text:'%s'", _text.c_str());
 	return String(str);
 }
 
@@ -575,7 +575,7 @@ bool SMF::MetaEvent_CuePoint::Serialize(Signal sig, Stream &stream) const
 String SMF::MetaEvent_CuePoint::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-CuePoint text:'%s'", _text.c_str());
 	return String(str);
 }
 
@@ -610,7 +610,7 @@ bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Serialize(Signal sig, Stream &s
 String SMF::MetaEvent_MIDIChannelPrefixAssignment::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-MIDIChannelPrefixAssignment channel:%d", _channel);
 	return String(str);
 }
 
@@ -641,7 +641,7 @@ bool SMF::MetaEvent_EndOfTrack::Serialize(Signal sig, Stream &stream) const
 String SMF::MetaEvent_EndOfTrack::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-EndOfTrack");
 	return String(str);
 }
 
@@ -679,7 +679,7 @@ bool SMF::MetaEvent_TempoSetting::Serialize(Signal sig, Stream &stream) const
 String SMF::MetaEvent_TempoSetting::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-TempoSetting mpqn:%d", _mpqn);
 	return String(str);
 }
 
@@ -718,7 +718,8 @@ bool SMF::MetaEvent_SMPTEOffset::Serialize(Signal sig, Stream &stream) const
 String SMF::MetaEvent_SMPTEOffset::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-SMPTEOffset hour:%d minute:%d second:%d frame:%d subFrame:%d",
+						_hour, _minute, _second, _frame, _subFrame);
 	return String(str);
 }
 
@@ -756,7 +757,8 @@ bool SMF::MetaEvent_TimeSignature::Serialize(Signal sig, Stream &stream) const
 String SMF::MetaEvent_TimeSignature::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-TimeSignature numerator:%d denominator:%d metronome:%d cnt32nd:%d",
+							_numerator, _denominator, _metronome, _cnt32nd);
 	return String(str);
 }
 
@@ -792,7 +794,7 @@ bool SMF::MetaEvent_KeySignature::Serialize(Signal sig, Stream &stream) const
 String SMF::MetaEvent_KeySignature::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-KeySignature key:%d scale:%d", _key, _scale);
 	return String(str);
 }
 
@@ -825,7 +827,7 @@ bool SMF::MetaEvent_SequencerSpecificEvent::Serialize(Signal sig, Stream &stream
 String SMF::MetaEvent_SequencerSpecificEvent::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "MetaEvent-SequencerSpecificEvent");
 	return String(str);
 }
 

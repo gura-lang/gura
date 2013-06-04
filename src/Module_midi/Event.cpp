@@ -26,6 +26,7 @@ bool EventList::Play(Signal sig, Port *pPort, double deltaTimeUnit) const
 					pEvent->GetTimeStamp() - pEventPrev->GetTimeStamp();
 			OAL::Sleep(deltaTimeUnit * deltaTime);
 		}
+		::printf("%08x %s\n", pEvent->GetTimeStamp(), pEvent->ToString().c_str());
 		if (!pEvent->Play(sig, pPort)) return false;
 		pEventPrev = pEvent;
 	}
@@ -73,7 +74,7 @@ bool MIDIEvent::Serialize(Signal sig, Stream &stream) const
 String MIDIEvent_NoteOff::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "NoteOff channel:%d note:%d velocity:%d", GetChannel(), _params[0], _params[1]);
 	return String(str);
 }
 
@@ -88,7 +89,7 @@ Event *MIDIEvent_NoteOff::Clone() const
 String MIDIEvent_NoteOn::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "NoteOn channel:%d note:%d velocity:%d", GetChannel(), _params[0], _params[1]);
 	return String(str);
 }
 
@@ -103,7 +104,7 @@ Event *MIDIEvent_NoteOn::Clone() const
 String MIDIEvent_PolyphonicKeyPressure::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "PolyphonicKeyPressure channel:%d", GetChannel());
 	return String(str);
 }
 
@@ -118,7 +119,7 @@ Event *MIDIEvent_PolyphonicKeyPressure::Clone() const
 String MIDIEvent_ControlChange::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "ControlChange channel:%d", GetChannel());
 	return String(str);
 }
 
@@ -133,7 +134,7 @@ Event *MIDIEvent_ControlChange::Clone() const
 String MIDIEvent_ProgramChange::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "ProgramChange channel:%d", GetChannel());
 	return String(str);
 }
 
@@ -148,7 +149,7 @@ Event *MIDIEvent_ProgramChange::Clone() const
 String MIDIEvent_ChannelPressure::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "ChannelPressure channel:%d", GetChannel());
 	return String(str);
 }
 
@@ -163,7 +164,7 @@ Event *MIDIEvent_ChannelPressure::Clone() const
 String MIDIEvent_PitchBendChange::ToString() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "PitchBendChange channel:%d", GetChannel());
 	return String(str);
 }
 
