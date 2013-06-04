@@ -52,68 +52,70 @@ void EventOwner::Clear()
 //-----------------------------------------------------------------------------
 // MIDIEvent
 //-----------------------------------------------------------------------------
+bool MIDIEvent::Play(Signal sig, Port *pPort)
+{
+	if (_nParams == 1) {
+		pPort->RawWrite(_status | _channel, _params[0]);
+	} else {
+		pPort->RawWrite(_status | _channel, _params[0], _params[1]);
+	}
+	return true;
+}
 
 //-----------------------------------------------------------------------------
 // MIDIEvent_NoteOff
 //-----------------------------------------------------------------------------
-bool MIDIEvent_NoteOff::Play(Signal sig, Port *pPort)
+Event *MIDIEvent_NoteOff::Clone() const
 {
-	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
-	return true;
+	return new MIDIEvent_NoteOff(*this);
 }
 
 //-----------------------------------------------------------------------------
 // MIDIEvent_NoteOn
 //-----------------------------------------------------------------------------
-bool MIDIEvent_NoteOn::Play(Signal sig, Port *pPort)
+Event *MIDIEvent_NoteOn::Clone() const
 {
-	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
-	return true;
+	return new MIDIEvent_NoteOn(*this);
 }
 
 //-----------------------------------------------------------------------------
 // MIDIEvent_PolyphonicKeyPressure
 //-----------------------------------------------------------------------------
-bool MIDIEvent_PolyphonicKeyPressure::Play(Signal sig, Port *pPort)
+Event *MIDIEvent_PolyphonicKeyPressure::Clone() const
 {
-	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
-	return true;
+	return new MIDIEvent_PolyphonicKeyPressure(*this);
 }
 
 //-----------------------------------------------------------------------------
 // MIDIEvent_ControlChange
 //-----------------------------------------------------------------------------
-bool MIDIEvent_ControlChange::Play(Signal sig, Port *pPort)
+Event *MIDIEvent_ControlChange::Clone() const
 {
-	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
-	return true;
+	return new MIDIEvent_ControlChange(*this);
 }
 
 //-----------------------------------------------------------------------------
 // MIDIEvent_ProgramChange
 //-----------------------------------------------------------------------------
-bool MIDIEvent_ProgramChange::Play(Signal sig, Port *pPort)
+Event *MIDIEvent_ProgramChange::Clone() const
 {
-	pPort->RawWrite(_status | _channel, _params[0]);
-	return true;
+	return new MIDIEvent_ProgramChange(*this);
 }
 
 //-----------------------------------------------------------------------------
 // MIDIEvent_ChannelPressure
 //-----------------------------------------------------------------------------
-bool MIDIEvent_ChannelPressure::Play(Signal sig, Port *pPort)
+Event *MIDIEvent_ChannelPressure::Clone() const
 {
-	pPort->RawWrite(_status | _channel, _params[0]);
-	return true;
+	return new MIDIEvent_ChannelPressure(*this);
 }
 
 //-----------------------------------------------------------------------------
 // MIDIEvent_PitchBendChange
 //-----------------------------------------------------------------------------
-bool MIDIEvent_PitchBendChange::Play(Signal sig, Port *pPort)
+Event *MIDIEvent_PitchBendChange::Clone() const
 {
-	pPort->RawWrite(_status | _channel, _params[0], _params[1]);
-	return true;
+	return new MIDIEvent_PitchBendChange(*this);
 }
 
 }}

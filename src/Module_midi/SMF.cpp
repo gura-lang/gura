@@ -213,6 +213,11 @@ bool SMF::SysExEvent::Play(Signal sig, Port *pPort)
 	return true;
 }
 
+Event *SMF::SysExEvent::Clone() const
+{
+	return new SysExEvent(*this);
+}
+
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent
 //-----------------------------------------------------------------------------
@@ -282,6 +287,11 @@ bool SMF::MetaEvent_Unknown::Play(Signal sig, Port *pPort)
 	return true;
 }
 
+Event *SMF::MetaEvent_Unknown::Clone() const
+{
+	return new MetaEvent_Unknown(*this);
+}
+
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SequenceNumber
 //-----------------------------------------------------------------------------
@@ -302,6 +312,11 @@ bool SMF::MetaEvent_SequenceNumber::Play(Signal sig, Port *pPort)
 	return true;
 }
 
+Event *SMF::MetaEvent_SequenceNumber::Clone() const
+{
+	return new MetaEvent_SequenceNumber(*this);
+}
+
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_TextEvent
 //-----------------------------------------------------------------------------
@@ -316,6 +331,11 @@ bool SMF::MetaEvent_TextEvent::Prepare(Signal sig, const unsigned char buff[], s
 bool SMF::MetaEvent_TextEvent::Play(Signal sig, Port *pPort)
 {
 	return true;
+}
+
+Event *SMF::MetaEvent_TextEvent::Clone() const
+{
+	return new MetaEvent_TextEvent(*this);
 }
 
 //-----------------------------------------------------------------------------
@@ -334,6 +354,11 @@ bool SMF::MetaEvent_CopyrightNotice::Play(Signal sig, Port *pPort)
 	return true;
 }
 
+Event *SMF::MetaEvent_CopyrightNotice::Clone() const
+{
+	return new MetaEvent_CopyrightNotice(*this);
+}
+
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SequenceOrTrackName
 //-----------------------------------------------------------------------------
@@ -348,6 +373,11 @@ bool SMF::MetaEvent_SequenceOrTrackName::Prepare(Signal sig, const unsigned char
 bool SMF::MetaEvent_SequenceOrTrackName::Play(Signal sig, Port *pPort)
 {
 	return true;
+}
+
+Event *SMF::MetaEvent_SequenceOrTrackName::Clone() const
+{
+	return new MetaEvent_SequenceOrTrackName(*this);
 }
 
 //-----------------------------------------------------------------------------
@@ -366,6 +396,11 @@ bool SMF::MetaEvent_InstrumentName::Play(Signal sig, Port *pPort)
 	return true;
 }
 
+Event *SMF::MetaEvent_InstrumentName::Clone() const
+{
+	return new MetaEvent_InstrumentName(*this);
+}
+
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_LyricText
 //-----------------------------------------------------------------------------
@@ -380,6 +415,11 @@ bool SMF::MetaEvent_LyricText::Prepare(Signal sig, const unsigned char buff[], s
 bool SMF::MetaEvent_LyricText::Play(Signal sig, Port *pPort)
 {
 	return true;
+}
+
+Event *SMF::MetaEvent_LyricText::Clone() const
+{
+	return new MetaEvent_LyricText(*this);
 }
 
 //-----------------------------------------------------------------------------
@@ -398,6 +438,11 @@ bool SMF::MetaEvent_MarkerText::Play(Signal sig, Port *pPort)
 	return true;
 }
 
+Event *SMF::MetaEvent_MarkerText::Clone() const
+{
+	return new MetaEvent_MarkerText(*this);
+}
+
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_CuePoint
 //-----------------------------------------------------------------------------
@@ -412,6 +457,11 @@ bool SMF::MetaEvent_CuePoint::Prepare(Signal sig, const unsigned char buff[], si
 bool SMF::MetaEvent_CuePoint::Play(Signal sig, Port *pPort)
 {
 	return true;
+}
+
+Event *SMF::MetaEvent_CuePoint::Clone() const
+{
+	return new MetaEvent_CuePoint(*this);
 }
 
 //-----------------------------------------------------------------------------
@@ -432,6 +482,11 @@ bool SMF::MetaEvent_MIDIChannelPrefixAssignment::Play(Signal sig, Port *pPort)
 	return true;
 }
 
+Event *SMF::MetaEvent_MIDIChannelPrefixAssignment::Clone() const
+{
+	return new MetaEvent_MIDIChannelPrefixAssignment(*this);
+}
+
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_EndOfTrack
 //-----------------------------------------------------------------------------
@@ -444,6 +499,11 @@ bool SMF::MetaEvent_EndOfTrack::Prepare(Signal sig, const unsigned char buff[], 
 bool SMF::MetaEvent_EndOfTrack::Play(Signal sig, Port *pPort)
 {
 	return true;
+}
+
+Event *SMF::MetaEvent_EndOfTrack::Clone() const
+{
+	return new MetaEvent_EndOfTrack(*this);
 }
 
 //-----------------------------------------------------------------------------
@@ -465,6 +525,11 @@ bool SMF::MetaEvent_TempoSetting::Prepare(Signal sig, const unsigned char buff[]
 bool SMF::MetaEvent_TempoSetting::Play(Signal sig, Port *pPort)
 {
 	return true;
+}
+
+Event *SMF::MetaEvent_TempoSetting::Clone() const
+{
+	return new MetaEvent_TempoSetting(*this);
 }
 
 //-----------------------------------------------------------------------------
@@ -489,6 +554,11 @@ bool SMF::MetaEvent_SMPTEOffset::Play(Signal sig, Port *pPort)
 	return true;
 }
 
+Event *SMF::MetaEvent_SMPTEOffset::Clone() const
+{
+	return new MetaEvent_SMPTEOffset(*this);
+}
+
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_TimeSignature
 //-----------------------------------------------------------------------------
@@ -510,6 +580,11 @@ bool SMF::MetaEvent_TimeSignature::Play(Signal sig, Port *pPort)
 	return true;
 }
 
+Event *SMF::MetaEvent_TimeSignature::Clone() const
+{
+	return new MetaEvent_TimeSignature(*this);
+}
+
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_KeySignature
 //-----------------------------------------------------------------------------
@@ -529,6 +604,11 @@ bool SMF::MetaEvent_KeySignature::Play(Signal sig, Port *pPort)
 	return true;
 }
 
+Event *SMF::MetaEvent_KeySignature::Clone() const
+{
+	return new MetaEvent_KeySignature(*this);
+}
+
 //-----------------------------------------------------------------------------
 // SMF::MetaEvent_SequencerSpecificEvent
 //-----------------------------------------------------------------------------
@@ -543,6 +623,11 @@ bool SMF::MetaEvent_SequencerSpecificEvent::Prepare(Signal sig, const unsigned c
 bool SMF::MetaEvent_SequencerSpecificEvent::Play(Signal sig, Port *pPort)
 {
 	return true;
+}
+
+Event *SMF::MetaEvent_SequencerSpecificEvent::Clone() const
+{
+	return new MetaEvent_SequencerSpecificEvent(*this);
 }
 
 }}
