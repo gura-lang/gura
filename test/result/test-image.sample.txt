@@ -54,6 +54,7 @@ rotate 240            93x110 ba827a85fad6591724a7741dbdcea660
 rotate 270            52x 97 1489559c319d1c3fcc6b8766b2f2751a
 rotate 300            93x110 0e7f247eca23acd79238303cc19c3cac
 rotate 330           110x 93 1e2611222ea534bbd21a2ab303ac7c69
+image written in script binary: d8e123ea43ac83a77e489f9da0256951
 chicken256.bmp to BMP: 3224bf2c42fdb023ff99e30ba5b08544
 chicken16.bmp to BMP: 8712312fbe16655082a66fced12c525a
 Winter.jpg to BMP: 48a79ea74da499f00aa9a212024c49be

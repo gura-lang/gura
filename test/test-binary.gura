@@ -22,6 +22,10 @@ unpack(buff:binary, formatUnpack:string, formatPrint:string) = {
 }
 
 scope {
+	x = b'hoge' b'\x00first' b'\x00second' b'\x00third'
+	x.dump()
+}
+scope {
 	buff = binary()
 	buff.writer().write(b'0123456789012345678901234567890123456789')
 	buff.writer().write(b'0123456789012345678901234567890123456789')
