@@ -811,15 +811,12 @@ void Class_image::Prepare(Environment &env)
 
 bool Class_image::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsString()) {
-		AutoPtr<Stream> pStream(PathManager::OpenStream(env, sig,
-								value.GetString(), Stream::ATTR_Readable));
-		if (sig.IsSignalled()) return false;
+	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
+	if (value.IsStream()) {
 		AutoPtr<Image> pImage(new Image(Image::FORMAT_RGBA));
-		pImage->Read(env, sig, *pStream, NULL);
-		if (sig.IsSignalled()) {
-			return false;
-		}
+		pImage->Read(env, sig, value.GetStream(), NULL);
+		value = Value::Null; // delete stream instance
+		if (sig.IsSignalled()) return false;
 		value = Value(new Object_image(env, pImage.release()));
 		return true;
 	}

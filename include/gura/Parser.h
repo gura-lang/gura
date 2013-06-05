@@ -194,10 +194,11 @@ public:
 		}
 		inline Expr *GetExpr() const { return _pExpr; }
 		inline void SetExpr(Expr *pExpr) { _pExpr = pExpr; }
+		inline const String &GetStringSTL() const { return _str; }
 		inline const char *GetString() const { return _str.c_str(); }
 		inline size_t GetStringSize() const { return _str.size(); }
 		inline int GetNum() const { return _num; }
-		inline void AddString(const char *str) { _str.append(str); }
+		inline void AddString(const String &str) { _str.append(str); }
 		Number GetNumber() const;
 		const char *GetTypeSymbol() const;
 	};

@@ -1080,9 +1080,9 @@ Expr *Parser::FeedElement(Environment &env, Signal sig, const Element &elem)
 		} else if (prec == PREC_LT || prec == PREC_EQ) {
 			Element &elemLast = _elemStack.back();
 			if (elemLast.IsType(ETYPE_String) && elem.IsType(ETYPE_String)) {
-				elemLast.AddString(elem.GetString());
+				elemLast.AddString(elem.GetStringSTL());
 			} else if (elemLast.IsType(ETYPE_Binary) && elem.IsType(ETYPE_Binary)) {
-				elemLast.AddString(elem.GetString());
+				elemLast.AddString(elem.GetStringSTL());
 			} else {
 				_elemStack.push_back(elem);
 			}
