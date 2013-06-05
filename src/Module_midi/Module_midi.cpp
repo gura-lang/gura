@@ -82,12 +82,12 @@ Gura_ImplementUserClassWithCast(smf)
 
 Gura_ImplementCastFrom(smf)
 {
-	if (value.IsString()) {
-		AutoPtr<Stream> pStream(PathManager::OpenStream(env, sig,
-								value.GetString(), Stream::ATTR_Readable));
-		if (sig.IsSignalled()) return false;
+	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
+	if (value.IsStream()) {
 		AutoPtr<Object_smf> pObj(new Object_smf(env));
-		if (!pObj->GetSMF().Read(sig, *pStream)) return false;
+		pObj->GetSMF().Read(sig, value.GetStream());
+		value = Value::Null;
+		if (sig.IsSignalled()) return false;
 		value = Value(pObj.release());
 		return true;
 	}
