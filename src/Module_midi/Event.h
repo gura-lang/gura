@@ -44,6 +44,7 @@ public:
 	virtual bool Write(Signal sig, Stream &stream) const = 0;
 	virtual String ToString() const = 0;
 	virtual Event *Clone() const = 0;
+	static bool WriteVariableFormat(Signal sig, Stream &stream, unsigned long num);
 };
 
 //-----------------------------------------------------------------------------

@@ -3,4 +3,5 @@ import(midi)
 
 midi.smf('samples/yuyake.mid') {|smf|
 	println(smf)
+	smf.write('a.mid')
 }

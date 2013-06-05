@@ -10,7 +10,7 @@ SMF::SMF() : _format(0), _numTrackChunks(0), _division(0)
 {
 }
 
-bool SMF::Read(Signal sig, Stream &stream)
+bool SMF::Read(Environment &env, Signal sig, Stream &stream)
 {
 	enum Stat {
 		STAT_EventStart,
@@ -187,14 +187,13 @@ bool SMF::Read(Signal sig, Stream &stream)
 	return true;
 }
 
-bool SMF::Write(Signal sig, Stream &stream)
+bool SMF::Write(Environment &env, Signal sig, Stream &stream)
 {
 	do {
 		HeaderChunkTop headerChunkTop;
 		::memcpy(headerChunkTop.MThd, "MThd", sizeof(headerChunkTop.MThd));
 		Gura_PackULong(headerChunkTop.header_length, HeaderChunk::Size);
 		if (stream.Write(sig, &headerChunkTop, HeaderChunkTop::Size) != HeaderChunkTop::Size) {
-			sig.SetError(ERR_FormatError, "failed to write SMF");
 			return false;
 		}
 	} while (0);
@@ -204,26 +203,28 @@ bool SMF::Write(Signal sig, Stream &stream)
 		Gura_PackUShort(headerChunk.num_track_chunks, GetNumTrackChunks());
 		Gura_PackUShort(headerChunk.division, GetDivision());
 		if (stream.Write(sig, &headerChunk, HeaderChunk::Size) != HeaderChunk::Size) {
-			sig.SetError(ERR_FormatError, "failed to write SMF");
 			return false;
 		}
 	} while (0);
 	Event::TimeStampManager timeStampManager;
 	foreach_const (TrackOwner, ppTrack, GetTrackOwner()) {
 		const Track *pTrack = *ppTrack;
-		TrackChunkTop trackChunkTop;
-		::memcpy(trackChunkTop.MTrk, "MTrk", sizeof(trackChunkTop.MTrk));
-		Gura_PackULong(trackChunkTop.length, 0);
-		if (stream.Write(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
-			sig.SetError(ERR_FormatError, "failed to write SMF");
-			return false;
-		}
+		AutoPtr<StreamMemory> pStreamMemory(new StreamMemory(env, sig));
 		foreach_const (EventOwner, ppEvent, pTrack->GetEventOwner()) {
 			Event *pEvent = *ppEvent;
 			unsigned long timeDelta = pEvent->UpdateTimeStamp(timeStampManager);
-			
-			
-			if (!pEvent->Write(sig, stream)) return false;
+			if (!Event::WriteVariableFormat(sig, *pStreamMemory, timeDelta)) return false;
+			if (!pEvent->Write(sig, *pStreamMemory)) return false;
+		}
+		const Binary &binary = pStreamMemory->GetBinary();
+		TrackChunkTop trackChunkTop;
+		::memcpy(trackChunkTop.MTrk, "MTrk", sizeof(trackChunkTop.MTrk));
+		Gura_PackULong(trackChunkTop.length, static_cast<unsigned long>(binary.size()));
+		if (stream.Write(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
+			return false;
+		}
+		if (stream.Write(sig, binary.data(), binary.size()) != binary.size()) {
+			return false;
 		}
 	}
 	return true;
@@ -243,5 +244,6 @@ bool SMF::Play(Signal sig, Port *pPort) const
 	eventOwner.Sort();
 	return eventOwner.Play(sig, pPort, deltaTimeUnit);
 }
+
 
 }}

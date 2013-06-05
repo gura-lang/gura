@@ -978,7 +978,7 @@ size_t StreamMemory::DoRead(Signal sig, void *buff, size_t len)
 size_t StreamMemory::DoWrite(Signal sig, const void *buff, size_t len)
 {
 	_pBinary->append(reinterpret_cast<const char *>(buff), len);
-	return 0;
+	return len;
 }
 
 bool StreamMemory::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)

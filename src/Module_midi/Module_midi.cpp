@@ -37,6 +37,12 @@ String Object_smf::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.smf:";
+	do {
+		char buff[128];
+		::sprintf(buff, "format=%d:tracks=%d:division=%d",
+			_smf.GetFormat(), _smf.GetNumTrackChunks(), _smf.GetDivision());
+		rtn += buff;
+	} while (0);
 	rtn += ">";
 	return rtn;
 }
@@ -54,7 +60,7 @@ Gura_DeclareMethod(smf, read)
 Gura_ImplementMethod(smf, read)
 {
 	Object_smf *pThis = Object_smf::GetThisObj(args);
-	if (!pThis->GetSMF().Read(sig, args.GetStream(0))) return Value::Null;
+	if (!pThis->GetSMF().Read(env, sig, args.GetStream(0))) return Value::Null;
 	return Value::Null;
 }
 
@@ -68,7 +74,7 @@ Gura_DeclareMethod(smf, write)
 Gura_ImplementMethod(smf, write)
 {
 	Object_smf *pThis = Object_smf::GetThisObj(args);
-	if (!pThis->GetSMF().Write(sig, args.GetStream(0))) return Value::Null;
+	if (!pThis->GetSMF().Write(env, sig, args.GetStream(0))) return Value::Null;
 	return Value::Null;
 }
 
@@ -78,6 +84,7 @@ Gura_ImplementMethod(smf, write)
 Gura_ImplementUserClassWithCast(smf)
 {
 	Gura_AssignMethod(smf, read);
+	Gura_AssignMethod(smf, write);
 }
 
 Gura_ImplementCastFrom(smf)
@@ -85,7 +92,7 @@ Gura_ImplementCastFrom(smf)
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
 	if (value.IsStream()) {
 		AutoPtr<Object_smf> pObj(new Object_smf(env));
-		pObj->GetSMF().Read(sig, value.GetStream());
+		pObj->GetSMF().Read(env, sig, value.GetStream());
 		value = Value::Null; // delete stream instance
 		if (sig.IsSignalled()) return false;
 		value = Value(pObj.release());
@@ -350,7 +357,7 @@ Gura_ImplementFunction(smf)
 {
 	AutoPtr<Object_smf> pObj(new Object_smf(env));
 	if (args.IsStream(0)) {
-		if (!pObj->GetSMF().Read(sig, args.GetStream(0))) return Value::Null;
+		if (!pObj->GetSMF().Read(env, sig, args.GetStream(0))) return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
