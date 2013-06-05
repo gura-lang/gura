@@ -233,6 +233,27 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// StreamMemory
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE StreamMemory : public Stream {
+private:
+	std::auto_ptr<Binary> _pBinary;
+public:
+	StreamMemory(Environment &env, Signal sig);
+	virtual const char *GetName() const;
+	virtual const char *GetIdentifier() const;
+	virtual bool GetAttribute(Attribute &attr);
+	virtual bool SetAttribute(const Attribute &attr);
+	virtual size_t DoRead(Signal sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal sig);
+	virtual bool DoClose(Signal sig);
+	virtual size_t DoGetSize();
+	inline const Binary &GetBinary() const { return *_pBinary; }
+};
+
+//-----------------------------------------------------------------------------
 // StreamMemReader
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE StreamMemReader : public Stream {

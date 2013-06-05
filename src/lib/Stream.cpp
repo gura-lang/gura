@@ -943,6 +943,65 @@ void StreamFIFO::SetWriteDoneFlag()
 }
 
 //-----------------------------------------------------------------------------
+// StreamMemory
+//-----------------------------------------------------------------------------
+StreamMemory::StreamMemory(Environment &env, Signal sig) :
+					Stream(env, sig, ATTR_Writable), _pBinary(new Binary())
+{
+}
+
+const char *StreamMemory::GetName() const
+{
+	return "Memory";
+}
+
+const char *StreamMemory::GetIdentifier() const
+{
+	return NULL;
+}
+
+bool StreamMemory::GetAttribute(Attribute &attr)
+{
+	return false;
+}
+
+bool StreamMemory::SetAttribute(const Attribute &attr)
+{
+	return false;
+}
+
+size_t StreamMemory::DoRead(Signal sig, void *buff, size_t len)
+{
+	return 0;
+}
+
+size_t StreamMemory::DoWrite(Signal sig, const void *buff, size_t len)
+{
+	_pBinary->append(reinterpret_cast<const char *>(buff), len);
+	return 0;
+}
+
+bool StreamMemory::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+{
+	return false;
+}
+
+bool StreamMemory::DoFlush(Signal sig)
+{
+	return true;
+}
+
+bool StreamMemory::DoClose(Signal sig)
+{
+	return true;
+}
+
+size_t StreamMemory::DoGetSize()
+{
+	return _pBinary->size();
+}
+
+//-----------------------------------------------------------------------------
 // StreamMemReader
 //-----------------------------------------------------------------------------
 StreamMemReader::StreamMemReader(Environment &env, Signal sig, const void *buff, size_t bytes) :
