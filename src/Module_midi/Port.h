@@ -33,22 +33,22 @@ public:
 	inline void Reset() {
 		if (_hMIDI != NULL) ::midiOutReset(_hMIDI);
 	}
-	inline void RawWrite(unsigned char msg1) {
+	inline void Send(unsigned char msg1) {
 		::midiOutShortMsg(_hMIDI,
 					(static_cast<DWORD>(msg1) << 0));
 	}
-	inline void RawWrite(unsigned char msg1, unsigned char msg2) {
+	inline void Send(unsigned char msg1, unsigned char msg2) {
 		::midiOutShortMsg(_hMIDI,
 					(static_cast<DWORD>(msg1) << 0) +
 					(static_cast<DWORD>(msg2) << 8));
 	}
-	inline void RawWrite(unsigned char msg1, unsigned char msg2, unsigned char msg3) {
+	inline void Send(unsigned char msg1, unsigned char msg2, unsigned char msg3) {
 		::midiOutShortMsg(_hMIDI,
 					(static_cast<DWORD>(msg1) << 0) +
 					(static_cast<DWORD>(msg2) << 8) +
 					(static_cast<DWORD>(msg3) << 16));
 	}
-	inline void RawWrite(unsigned char msg1, unsigned char msg2, unsigned char msg3,
+	inline void Send(unsigned char msg1, unsigned char msg2, unsigned char msg3,
 					unsigned char msg4) {
 		::midiOutShortMsg(_hMIDI,
 					(static_cast<DWORD>(msg1) << 0) +
@@ -87,19 +87,19 @@ public:
 	inline void Reset() {
 		//if (_fd >= 0) ::ctrl();
 	}
-	inline void RawWrite(unsigned char msg1) {
+	inline void Send(unsigned char msg1) {
 		unsigned char buff[1] = { msg1 };
 		::write(_fd, buff, sizeof(buff));
 	}
-	inline void RawWrite(unsigned char msg1, unsigned char msg2) {
+	inline void Send(unsigned char msg1, unsigned char msg2) {
 		unsigned char buff[2] = { msg1, msg2 };
 		::write(_fd, buff, sizeof(buff));
 	}
-	inline void RawWrite(unsigned char msg1, unsigned char msg2, unsigned char msg3) {
+	inline void Send(unsigned char msg1, unsigned char msg2, unsigned char msg3) {
 		unsigned char buff[3] = { msg1, msg2, msg3 };
 		::write(_fd, buff, sizeof(buff));
 	}
-	inline void RawWrite(unsigned char msg1, unsigned char msg2, unsigned char msg3,
+	inline void Send(unsigned char msg1, unsigned char msg2, unsigned char msg3,
 					unsigned char msg4) {
 		unsigned char buff[4] = { msg1, msg2, msg3, msg4 };
 		::write(_fd, buff, sizeof(buff));

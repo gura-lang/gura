@@ -121,9 +121,9 @@ unsigned long MIDIEvent::UpdateTimeStamp(TimeStampManager &timeStampManager) con
 bool MIDIEvent::Play(Signal sig, Port *pPort) const
 {
 	if (_nParams == 1) {
-		pPort->RawWrite(_status | _channel, _params[0]);
+		pPort->Send(_status | _channel, _params[0]);
 	} else {
-		pPort->RawWrite(_status | _channel, _params[0], _params[1]);
+		pPort->Send(_status | _channel, _params[0], _params[1]);
 	}
 	return true;
 }

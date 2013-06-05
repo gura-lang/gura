@@ -3,18 +3,18 @@ import(midi)
 
 midi.port {|port|
 	println(port)
-	port.rawwrite(0x40, 100)
+	port.send(0x40, 100)
 	repeat(128) {|i|
 		printf('Program #%d\n', i)
-		port.rawwrite(0xc0, i)
+		port.send(0xc0, i)
 		repeat(5) {|i|
-			port.rawwrite(0x90, 60 + i, 0x40)
-			//port.rawwrite(0x90, 60 + i + 1, 0x40)
-			//port.rawwrite(0x90, 60 + i + 2, 0x40)
+			port.send(0x90, 60 + i, 0x40)
+			//port.send(0x90, 60 + i + 1, 0x40)
+			//port.send(0x90, 60 + i + 2, 0x40)
 			time.sleep(.2)
-			port.rawwrite(0x90, 60 + i, 0x00)
-			//port.rawwrite(0x90, 60 + i + 1, 0x00)
-			//port.rawwrite(0x90, 60 + i + 2, 0x00)
+			port.send(0x90, 60 + i, 0x00)
+			//port.send(0x90, 60 + i + 1, 0x00)
+			//port.send(0x90, 60 + i + 2, 0x00)
 		}
 	}
 }

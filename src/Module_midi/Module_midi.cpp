@@ -264,27 +264,27 @@ String Object_port::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for midi.port
 //-----------------------------------------------------------------------------
-// midi.port#rawwrite(msg+:number):map:void
-Gura_DeclareMethod(port, rawwrite)
+// midi.port#send(msg+:number):map:void
+Gura_DeclareMethod(port, send)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "msg", VTYPE_number, OCCUR_OnceOrMore);
 }
 
-Gura_ImplementMethod(port, rawwrite)
+Gura_ImplementMethod(port, send)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
 	const ValueList &valList = args.GetList(0);
 	size_t nArgs = valList.size();
 	if (nArgs == 1) {
-		pThis->GetPort()->RawWrite(valList[0].GetUChar());
+		pThis->GetPort()->Send(valList[0].GetUChar());
 	} else if (nArgs == 2) {
-		pThis->GetPort()->RawWrite(valList[0].GetUChar(), valList[1].GetUChar());
+		pThis->GetPort()->Send(valList[0].GetUChar(), valList[1].GetUChar());
 	} else if (nArgs == 3) {
-		pThis->GetPort()->RawWrite(valList[0].GetUChar(), valList[1].GetUChar(),
+		pThis->GetPort()->Send(valList[0].GetUChar(), valList[1].GetUChar(),
 														valList[2].GetUChar());
 	} else if (nArgs == 4) {
-		pThis->GetPort()->RawWrite(valList[0].GetUChar(), valList[1].GetUChar(),
+		pThis->GetPort()->Send(valList[0].GetUChar(), valList[1].GetUChar(),
 							valList[2].GetUChar(), valList[3].GetUChar());
 	} else {
 		sig.SetError(ERR_ArgumentError, "too many arguments");
@@ -328,7 +328,7 @@ Gura_ImplementMethod(port, mmlplay)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(port)
 {
-	Gura_AssignMethod(port, rawwrite);
+	Gura_AssignMethod(port, send);
 	Gura_AssignMethod(port, play);
 	Gura_AssignMethod(port, mmlplay);
 }
