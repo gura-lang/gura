@@ -86,7 +86,7 @@ Gura_ImplementCastFrom(smf)
 	if (value.IsStream()) {
 		AutoPtr<Object_smf> pObj(new Object_smf(env));
 		pObj->GetSMF().Read(sig, value.GetStream());
-		value = Value::Null;
+		value = Value::Null; // delete stream instance
 		if (sig.IsSignalled()) return false;
 		value = Value(pObj.release());
 		return true;
