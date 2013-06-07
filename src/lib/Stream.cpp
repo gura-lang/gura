@@ -1001,6 +1001,11 @@ size_t StreamMemory::DoGetSize()
 	return _pBinary->size();
 }
 
+const char *StreamMemory::GetPointer() const
+{
+	return _pBinary->data();
+}
+
 //-----------------------------------------------------------------------------
 // StreamMemReader
 //-----------------------------------------------------------------------------

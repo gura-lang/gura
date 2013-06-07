@@ -250,7 +250,7 @@ public:
 	virtual bool DoFlush(Signal sig);
 	virtual bool DoClose(Signal sig);
 	virtual size_t DoGetSize();
-	inline const Binary &GetBinary() const { return *_pBinary; }
+	const char *GetPointer() const;
 };
 
 //-----------------------------------------------------------------------------
