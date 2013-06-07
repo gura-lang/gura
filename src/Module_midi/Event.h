@@ -221,6 +221,8 @@ public:
 // SysExEvent
 //-----------------------------------------------------------------------------
 class SysExEvent : public Event {
+public:
+	enum { StatusF0 = 0xf0, StatusF7 = 0xf7 };
 private:
 	Binary _binary;
 public:
@@ -239,6 +241,8 @@ public:
 // MetaEvent
 //-----------------------------------------------------------------------------
 class MetaEvent : public Event {
+public:
+	enum { Status = 0xff };
 protected:
 	unsigned char _eventType;
 public:
@@ -249,6 +253,7 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary) = 0;
 	virtual bool IsMetaEvent() const;
 	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const;
+	virtual bool Write(Signal sig, Stream &stream) const;
 	static bool Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
 			unsigned char eventType, const Binary &binary);
 	static void SetError_TooShortMetaEvent(Signal sig);

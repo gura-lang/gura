@@ -127,10 +127,11 @@ bool SMF::Read(Environment &env, Signal sig, Stream &stream)
 								return false;
 							}
 							stat = STAT_MIDIEvent_Param1st;
-						} else if (status == 0xf0 || status == 0xf7) {
+						} else if (status == SysExEvent::StatusF0 ||
+											status == SysExEvent::StatusF7) {
 							binary.push_back(data);
 							stat = STAT_SysExEvent;
-						} else if (status == 0xff) {
+						} else if (status == MetaEvent::Status) {
 							stat = STAT_MetaEvent_Type;
 						} else {
 							sig.SetError(ERR_FormatError, "unknown SMF status %02x", status);
@@ -216,14 +217,14 @@ bool SMF::Write(Environment &env, Signal sig, Stream &stream)
 			if (!Event::WriteVariableFormat(sig, *pStreamMemory, timeDelta)) return false;
 			if (!pEvent->Write(sig, *pStreamMemory)) return false;
 		}
-		const Binary &binary = pStreamMemory->GetBinary();
 		TrackChunkTop trackChunkTop;
 		::memcpy(trackChunkTop.MTrk, "MTrk", sizeof(trackChunkTop.MTrk));
-		Gura_PackULong(trackChunkTop.length, static_cast<unsigned long>(binary.size()));
+		Gura_PackULong(trackChunkTop.length, static_cast<unsigned long>(pStreamMemory->GetSize()));
 		if (stream.Write(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
 			return false;
 		}
-		if (stream.Write(sig, binary.data(), binary.size()) != binary.size()) {
+		if (stream.Write(sig, pStreamMemory->GetPointer(),
+					pStreamMemory->GetSize()) != pStreamMemory->GetSize()) {
 			return false;
 		}
 	}
