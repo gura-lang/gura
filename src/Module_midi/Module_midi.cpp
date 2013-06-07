@@ -6,6 +6,120 @@
 Gura_BeginModule(midi)
 
 //-----------------------------------------------------------------------------
+// Object_event
+//-----------------------------------------------------------------------------
+Object *Object_event::Clone() const
+{
+	return NULL;
+}
+
+bool Object_event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(events));
+	return true;
+}
+
+Value Object_event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(events))) {
+		Value value;
+		ValueList &valList = value.InitAsList(env);
+#if 0
+		const eventOwner &trackOwner = _smf.GetTrackOwner();
+		valList.reserve(trackOwner.size());
+		foreach_const (TrackOwner, ppTrack, trackOwner) {
+			const Track *pTrack = *ppTrack;
+			valList.push_back(Value(new Object_track(Track::Reference(pTrack)));
+		}
+#endif
+		return value;
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_event::ToString(Signal sig, bool exprFlag)
+{
+	String rtn;
+	rtn += "<midi.event:";
+	do {
+		char buff[32];
+		::sprintf(buff, "%08x:", _pEvent->GetTimeStamp());
+		rtn += buff;
+	} while (0);
+	rtn += _pEvent->ToString();
+	rtn += ">";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for midi.event
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Class implementation for midi.event
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(event)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Object_track
+//-----------------------------------------------------------------------------
+Object *Object_track::Clone() const
+{
+	return NULL;
+}
+
+bool Object_track::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(events));
+	return true;
+}
+
+Value Object_track::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(events))) {
+		Value value;
+		ValueList &valList = value.InitAsList(env);
+		const EventOwner &eventOwner = _pTrack->GetEventOwner();
+		valList.reserve(eventOwner.size());
+		foreach_const (EventOwner, ppEvent, eventOwner) {
+			const Event *pEvent = *ppEvent;
+			valList.push_back(Value(new Object_event(env, Event::Reference(pEvent))));
+		}
+		return value;
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_track::ToString(Signal sig, bool exprFlag)
+{
+	String rtn;
+	rtn += "<midi.track";
+	rtn += ">";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for midi.track
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Class implementation for midi.track
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(track)
+{
+}
+
+//-----------------------------------------------------------------------------
 // Object_smf
 //-----------------------------------------------------------------------------
 Object *Object_smf::Clone() const
@@ -16,19 +130,25 @@ Object *Object_smf::Clone() const
 bool Object_smf::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	//symbols.insert(Gura_Symbol(string));
+	symbols.insert(Gura_UserSymbol(tracks));
 	return true;
 }
 
 Value Object_smf::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-#if 0
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
-		return Value(env, _str);
+	if (pSymbol->IsIdentical(Gura_UserSymbol(tracks))) {
+		Value value;
+		ValueList &valList = value.InitAsList(env);
+		const TrackOwner &trackOwner = _smf.GetTrackOwner();
+		valList.reserve(trackOwner.size());
+		foreach_const (TrackOwner, ppTrack, trackOwner) {
+			const Track *pTrack = *ppTrack;
+			valList.push_back(Value(new Object_track(env, Track::Reference(pTrack))));
+		}
+		return value;
 	}
-#endif
 	evaluatedFlag = false;
 	return Value::Null;
 }
@@ -415,7 +535,12 @@ Gura_ImplementFunction(test)
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
+	// symbol realization
+	Gura_RealizeUserSymbol(tracks);
+	Gura_RealizeUserSymbol(events);
 	// class realization
+	Gura_RealizeUserClass(event, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(track, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(smf, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(mml, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(portinfo, env.LookupClass(VTYPE_object));

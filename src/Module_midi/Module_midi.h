@@ -10,6 +10,49 @@
 
 Gura_BeginModule(midi)
 
+Gura_DeclareUserSymbol(tracks);
+Gura_DeclareUserSymbol(events);
+
+//-----------------------------------------------------------------------------
+// Class declaration for midi.event
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(event);
+
+class Object_event : public Object {
+private:
+	AutoPtr<Event> _pEvent;
+public:
+	Gura_DeclareObjectAccessor(event)
+public:
+	inline Object_event(Environment &env, Event *pEvent) : Object(Gura_UserClass(event)), _pEvent(pEvent) {}
+	inline Event *GetEvent() { return _pEvent.get(); }
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
+};
+
+//-----------------------------------------------------------------------------
+// Class declaration for midi.track
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(track);
+
+class Object_track : public Object {
+private:
+	AutoPtr<Track> _pTrack;
+public:
+	Gura_DeclareObjectAccessor(track)
+public:
+	inline Object_track(Environment &env, Track *pTrack) : Object(Gura_UserClass(track)), _pTrack(pTrack) {}
+	inline Track *GetTrack() { return _pTrack.get(); }
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
+};
+
 //-----------------------------------------------------------------------------
 // Class declaration for midi.smf
 //-----------------------------------------------------------------------------
