@@ -18,17 +18,17 @@ Event::~Event()
 bool Event::WriteVariableFormat(Signal sig, Stream &stream, unsigned long num)
 {
 	unsigned char buff[32];
+	unsigned char *p = buff + sizeof(buff);
 	size_t bytes = 0;
 	while (bytes < sizeof(buff)) {
 		unsigned char data = static_cast<unsigned char>(num & 0x7f);
+		if (bytes > 0) data |= 0x80;
 		num >>= 7;
-		if (num == 0) {
-			buff[bytes++] = data;
-			break;
-		}
-		buff[bytes++] = data | 0x80;
+		p--, bytes++;
+		*p = data;
+		if (num == 0) break;
 	}
-	return stream.Write(sig, buff, bytes) == bytes;
+	return stream.Write(sig, p, bytes) == bytes;
 }
 
 //-----------------------------------------------------------------------------
