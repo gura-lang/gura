@@ -181,10 +181,10 @@ Value Object_smf::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 String Object_smf::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
-	rtn += "<midi.smf:";
+	rtn += "<midi.smf";
 	do {
 		char buff[128];
-		::sprintf(buff, "format=%d:tracks=%d:division=%d",
+		::sprintf(buff, ":format=%d:tracks=%d:division=%d",
 			_smf.GetFormat(), _smf.GetTrackOwner().size(), _smf.GetDivision());
 		rtn += buff;
 	} while (0);
