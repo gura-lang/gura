@@ -68,8 +68,15 @@ public:
 // EventOwner
 //-----------------------------------------------------------------------------
 class EventOwner : public EventList {
+private:
+	int _cntRef;
 public:
+	Gura_DeclareReferenceAccessor(EventOwner);
+public:
+	inline EventOwner() : _cntRef(1) {}
+protected:
 	~EventOwner();
+public:
 	void Clear();
 	bool AddMetaEvent(Signal sig, unsigned long timeStamp,
 			unsigned char eventType, const unsigned char buff[], size_t length);

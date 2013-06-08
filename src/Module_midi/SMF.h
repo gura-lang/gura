@@ -30,14 +30,14 @@ private:
 	unsigned short _format;
 	unsigned short _numTrackChunks;
 	unsigned short _division;
-	TrackOwner _trackOwner;
+	AutoPtr<TrackOwner> _pTrackOwner;
 public:
 	SMF();
 	inline unsigned short GetFormat() const { return _format; }
 	inline unsigned short GetNumTrackChunks() const { return _numTrackChunks; }
 	inline unsigned short GetDivision() const { return _division; }
-	inline TrackOwner &GetTrackOwner() { return _trackOwner; }
-	inline const TrackOwner &GetTrackOwner() const { return _trackOwner; }
+	inline TrackOwner &GetTrackOwner() { return *_pTrackOwner; }
+	inline const TrackOwner &GetTrackOwner() const { return *_pTrackOwner; }
 	void ResetTimeStamp();
 	bool Read(Environment &env, Signal sig, Stream &stream);
 	bool Write(Environment &env, Signal sig, Stream &stream);

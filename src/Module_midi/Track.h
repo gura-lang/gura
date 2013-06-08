@@ -11,13 +11,13 @@ Gura_BeginModule(midi)
 class Track {
 private:
 	int _cntRef;
-	EventOwner _eventOwner;
+	AutoPtr<EventOwner> _pEventOwner;
 public:
 	Gura_DeclareReferenceAccessor(Track);
 public:
-	inline Track() : _cntRef(1) {}
-	inline EventOwner &GetEventOwner() { return _eventOwner; }
-	inline const EventOwner &GetEventOwner() const { return _eventOwner; }
+	Track();
+	inline EventOwner &GetEventOwner() { return *_pEventOwner; }
+	inline const EventOwner &GetEventOwner() const { return *_pEventOwner; }
 	bool Write(Signal sig, Stream &stream) const;
 };
 
@@ -33,8 +33,15 @@ public:
 // TrackOwner
 //-----------------------------------------------------------------------------
 class TrackOwner : public TrackList {
+private:
+	int _cntRef;
 public:
+	Gura_DeclareReferenceAccessor(TrackOwner);
+public:
+	inline TrackOwner() : _cntRef(1) {}
+protected:
 	~TrackOwner();
+public:
 	void Clear();
 };
 

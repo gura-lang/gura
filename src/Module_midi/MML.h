@@ -30,11 +30,11 @@ private:
 	int _cntDot;
 	unsigned short _division;
 	unsigned long _timeStampTbl[NUM_CHANNELS];
-	EventOwner _eventOwner;
+	AutoPtr<EventOwner> _pEventOwner;
 public:
 	MML();
-	inline EventOwner &GetEventOwner() { return _eventOwner; }
-	inline const EventOwner &GetEventOwner() const { return _eventOwner; }
+	inline EventOwner &GetEventOwner() { return *_pEventOwner; }
+	inline const EventOwner &GetEventOwner() const { return *_pEventOwner; }
 	void Reset();
 	bool Parse(Signal sig, unsigned char channel, const char *str);
 	bool Play(Signal sig, Port *pPort) const;

@@ -6,7 +6,7 @@ Gura_BeginModule(midi)
 // MML
 // see http://ja.wikipedia.org/wiki/Music_Macro_Language for MML syntax
 //-----------------------------------------------------------------------------
-MML::MML()
+MML::MML() : _pEventOwner(new EventOwner())
 {
 	Reset();
 }
@@ -23,7 +23,7 @@ void MML::Reset()
 	for (size_t i = 0; i < NUM_CHANNELS; i++) {
 		_timeStampTbl[i] = 0;
 	}
-	_eventOwner.Clear();
+	GetEventOwner().Clear();
 }
 
 bool MML::Parse(Signal sig, unsigned char channel, const char *str)
@@ -38,14 +38,14 @@ bool MML::Parse(Signal sig, unsigned char channel, const char *str)
 
 bool MML::Play(Signal sig, Port *pPort) const
 {
-	EventOwner eventOwner;
+	AutoPtr<EventOwner> pEventOwner(new EventOwner());
 	double deltaTimeUnit = .6 / _division;
 	foreach_const (EventOwner, ppEvent, GetEventOwner()) {
 		const Event *pEvent = *ppEvent;
-		eventOwner.push_back(Event::Reference(pEvent));
+		pEventOwner->push_back(Event::Reference(pEvent));
 	}
-	eventOwner.Sort();
-	return eventOwner.Play(sig, pPort, deltaTimeUnit);
+	pEventOwner->Sort();
+	return pEventOwner->Play(sig, pPort, deltaTimeUnit);
 }
 
 bool MML::FeedChar(Signal sig, unsigned char channel, int ch)
@@ -147,9 +147,9 @@ bool MML::FeedChar(Signal sig, unsigned char channel, int ch)
 				// nothing to do
 			}
 			int length = CalcLength(_numAccum, _cntDot, _lengthDefault);
-			_eventOwner.push_back(new MIDIEvent_NoteOn(timeStamp, channel, note, velocity));
+			GetEventOwner().push_back(new MIDIEvent_NoteOn(timeStamp, channel, note, velocity));
 			timeStamp += length;
-			_eventOwner.push_back(new MIDIEvent_NoteOn(timeStamp, channel, note, 0));
+			GetEventOwner().push_back(new MIDIEvent_NoteOn(timeStamp, channel, note, 0));
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_RestLengthPre) {// -------- Rest --------
@@ -259,7 +259,7 @@ bool MML::FeedChar(Signal sig, unsigned char channel, int ch)
 				_stat = STAT_ToneFix;
 			}
 		} else if (_stat == STAT_ToneFix) {
-			_eventOwner.push_back(new MIDIEvent_ProgramChange(timeStamp, channel,
+			GetEventOwner().push_back(new MIDIEvent_ProgramChange(timeStamp, channel,
 										static_cast<unsigned char>(_numAccum)));
 			continueFlag = true;
 			_stat = STAT_Begin;

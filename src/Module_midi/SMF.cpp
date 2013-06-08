@@ -6,7 +6,7 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 // SMF
 //-----------------------------------------------------------------------------
-SMF::SMF() : _format(0), _numTrackChunks(0), _division(0)
+SMF::SMF() : _format(0), _numTrackChunks(0), _division(0), _pTrackOwner(new TrackOwner())
 {
 }
 
@@ -49,7 +49,7 @@ bool SMF::Read(Environment &env, Signal sig, Stream &stream)
 		_numTrackChunks = Gura_UnpackUShort(headerChunk.num_track_chunks);
 		_division = Gura_UnpackUShort(headerChunk.division);
 	} while (0);
-	_trackOwner.Clear();
+	GetTrackOwner().Clear();
 	for (unsigned short i = 0; i < _numTrackChunks; i++) {
 		TrackChunkTop trackChunkTop;
 		if (stream.Read(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
@@ -60,8 +60,8 @@ bool SMF::Read(Environment &env, Signal sig, Stream &stream)
 			sig.SetError(ERR_FormatError, "invalid SMF format");
 			return false;
 		}
-		_trackOwner.push_back(new Track());
-		EventOwner &eventOwner = _trackOwner.back()->GetEventOwner();
+		GetTrackOwner().push_back(new Track());
+		EventOwner &eventOwner = GetTrackOwner().back()->GetEventOwner();
 		std::auto_ptr<MIDIEvent> pMIDIEvent;
 		unsigned char eventType = 0x00;
 		Binary binary;
@@ -239,17 +239,17 @@ bool SMF::Write(Environment &env, Signal sig, Stream &stream)
 
 bool SMF::Play(Signal sig, Port *pPort) const
 {
-	EventOwner eventOwner;
+	AutoPtr<EventOwner> pEventOwner(new EventOwner());
 	double deltaTimeUnit = .6 / GetDivision();
 	foreach_const (TrackOwner, ppTrack, GetTrackOwner()) {
 		const Track *pTrack = *ppTrack;
 		foreach_const (EventOwner, ppEvent, pTrack->GetEventOwner()) {
 			const Event *pEvent = *ppEvent;
-			eventOwner.push_back(Event::Reference(pEvent));
+			pEventOwner->push_back(Event::Reference(pEvent));
 		}
 	}
-	eventOwner.Sort();
-	return eventOwner.Play(sig, pPort, deltaTimeUnit);
+	pEventOwner->Sort();
+	return pEventOwner->Play(sig, pPort, deltaTimeUnit);
 }
 
 

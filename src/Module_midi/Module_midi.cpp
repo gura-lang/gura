@@ -5,6 +5,48 @@
 
 Gura_BeginModule(midi)
 
+#if 0
+//-----------------------------------------------------------------------------
+// Iterator_tracks
+//-----------------------------------------------------------------------------
+Iterator_tracks::Iterator_tracks(Iterator *pIteratorSrc, Object_pattern *pObjPattern) :
+		Iterator(false),
+{
+}
+
+Iterator *Iterator_tracks::GetSource()
+{
+	return NULL;
+}
+
+bool Iterator_tracks::DoNext(Environment &env, Signal sig, Value &value)
+{
+	const int pos = 0, posEnd = -1;
+	while (_pIteratorSrc->Next(env, sig, value)) {
+		String str = value.ToString(sig, false);
+		if (sig.IsSignalled()) return false;
+		value = DoMatch(env, sig,
+					_pObjPattern->GetRegEx(), str.c_str(), pos, posEnd);
+		if (sig.IsSignalled()) return false;
+		if (value.IsValid()) return true;
+	}
+	return false;
+}
+
+String Iterator_tracks::ToString(Signal sig) const
+{
+	String rtn;
+	rtn += "<iterator:midi.tracks";
+	rtn += ">";
+	return rtn;
+}
+
+void IteratorGrep::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+#endif
+
 //-----------------------------------------------------------------------------
 // Object_event
 //-----------------------------------------------------------------------------
@@ -16,27 +58,12 @@ Object *Object_event::Clone() const
 bool Object_event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(events));
 	return true;
 }
 
 Value Object_event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(events))) {
-		Value value;
-		ValueList &valList = value.InitAsList(env);
-#if 0
-		const eventOwner &trackOwner = _smf.GetTrackOwner();
-		valList.reserve(trackOwner.size());
-		foreach_const (TrackOwner, ppTrack, trackOwner) {
-			const Track *pTrack = *ppTrack;
-			valList.push_back(Value(new Object_track(Track::Reference(pTrack)));
-		}
-#endif
-		return value;
-	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
