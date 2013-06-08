@@ -5,48 +5,6 @@
 
 Gura_BeginModule(midi)
 
-#if 0
-//-----------------------------------------------------------------------------
-// Iterator_tracks
-//-----------------------------------------------------------------------------
-Iterator_tracks::Iterator_tracks(Iterator *pIteratorSrc, Object_pattern *pObjPattern) :
-		Iterator(false),
-{
-}
-
-Iterator *Iterator_tracks::GetSource()
-{
-	return NULL;
-}
-
-bool Iterator_tracks::DoNext(Environment &env, Signal sig, Value &value)
-{
-	const int pos = 0, posEnd = -1;
-	while (_pIteratorSrc->Next(env, sig, value)) {
-		String str = value.ToString(sig, false);
-		if (sig.IsSignalled()) return false;
-		value = DoMatch(env, sig,
-					_pObjPattern->GetRegEx(), str.c_str(), pos, posEnd);
-		if (sig.IsSignalled()) return false;
-		if (value.IsValid()) return true;
-	}
-	return false;
-}
-
-String Iterator_tracks::ToString(Signal sig) const
-{
-	String rtn;
-	rtn += "<iterator:midi.tracks";
-	rtn += ">";
-	return rtn;
-}
-
-void IteratorGrep::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
-}
-
-#endif
-
 //-----------------------------------------------------------------------------
 // Object_event
 //-----------------------------------------------------------------------------
@@ -113,15 +71,9 @@ Value Object_track::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(events))) {
-		Value value;
-		ValueList &valList = value.InitAsList(env);
-		const EventOwner &eventOwner = _pTrack->GetEventOwner();
-		valList.reserve(eventOwner.size());
-		foreach_const (EventOwner, ppEvent, eventOwner) {
-			const Event *pEvent = *ppEvent;
-			valList.push_back(Value(new Object_event(env, Event::Reference(pEvent))));
-		}
-		return value;
+		Iterator *pIterator =
+				new Iterator_event(EventOwner::Reference(&_pTrack->GetEventOwner()));
+		return Value(env, pIterator);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -131,6 +83,11 @@ String Object_track::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.track";
+	do {
+		char buff[64];
+		::sprintf(buff, ":%devents", _pTrack->GetEventOwner().size());
+		rtn += buff;
+	} while (0);
 	rtn += ">";
 	return rtn;
 }
@@ -166,15 +123,9 @@ Value Object_smf::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(tracks))) {
-		Value value;
-		ValueList &valList = value.InitAsList(env);
-		const TrackOwner &trackOwner = _smf.GetTrackOwner();
-		valList.reserve(trackOwner.size());
-		foreach_const (TrackOwner, ppTrack, trackOwner) {
-			const Track *pTrack = *ppTrack;
-			valList.push_back(Value(new Object_track(env, Track::Reference(pTrack))));
-		}
-		return value;
+		Iterator *pIterator =
+				new Iterator_track(TrackOwner::Reference(&_smf.GetTrackOwner()));
+		return Value(env, pIterator);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -485,6 +436,76 @@ Gura_ImplementUserClass(port)
 	Gura_AssignMethod(port, send);
 	Gura_AssignMethod(port, play);
 	Gura_AssignMethod(port, mmlplay);
+}
+
+//-----------------------------------------------------------------------------
+// Iterator_track
+//-----------------------------------------------------------------------------
+Iterator_track::Iterator_track(TrackOwner *pTrackOwner) :
+						Iterator(false), _idx(0), _pTrackOwner(pTrackOwner)
+{
+}
+
+Iterator *Iterator_track::GetSource()
+{
+	return NULL;
+}
+
+bool Iterator_track::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_idx < _pTrackOwner->size()) {
+		Track *pTrack = (*_pTrackOwner)[_idx++];
+		value = Value(new Object_track(env, Track::Reference(pTrack)));
+		return true;
+	}
+	return false;
+}
+
+String Iterator_track::ToString(Signal sig) const
+{
+	String rtn;
+	rtn += "<iterator:midi.track";
+	rtn += ">";
+	return rtn;
+}
+
+void Iterator_track::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Iterator_event
+//-----------------------------------------------------------------------------
+Iterator_event::Iterator_event(EventOwner *pEventOwner) :
+						Iterator(false), _idx(0), _pEventOwner(pEventOwner)
+{
+}
+
+Iterator *Iterator_event::GetSource()
+{
+	return NULL;
+}
+
+bool Iterator_event::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_idx < _pEventOwner->size()) {
+		Event *pEvent = (*_pEventOwner)[_idx++];
+		value = Value(new Object_event(env, Event::Reference(pEvent)));
+		return true;
+	}
+	return false;
+}
+
+String Iterator_event::ToString(Signal sig) const
+{
+	String rtn;
+	rtn += "<iterator:midi.event";
+	rtn += ">";
+	return rtn;
+}
+
+void Iterator_event::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
 }
 
 //-----------------------------------------------------------------------------

@@ -130,6 +130,36 @@ public:
 	inline Port *GetPort() { return &_port; }
 };
 
+//-----------------------------------------------------------------------------
+// Iterator_track
+//-----------------------------------------------------------------------------
+class Iterator_track : public Iterator {
+private:
+	size_t _idx;
+	AutoPtr<TrackOwner> _pTrackOwner;
+public:
+	Iterator_track(TrackOwner *pTrackOwner);
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString(Signal sig) const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
+//-----------------------------------------------------------------------------
+// Iterator_event
+//-----------------------------------------------------------------------------
+class Iterator_event : public Iterator {
+private:
+	size_t _idx;
+	AutoPtr<EventOwner> _pEventOwner;
+public:
+	Iterator_event(EventOwner *pEventOwner);
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString(Signal sig) const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
 }}
 
 #endif
