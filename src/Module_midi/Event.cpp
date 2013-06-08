@@ -144,11 +144,14 @@ bool MIDIEvent::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MIDIEvent::Write(Signal sig, Stream &stream) const
+bool MIDIEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
 	size_t bytes = 0;
 	unsigned char buff[8];
-	buff[bytes++] = _status | _channel;
+	if (!IsEnabledRunningStatus() || pEventPrev == NULL || !pEventPrev->IsMIDIEvent() ||
+			dynamic_cast<const MIDIEvent *>(pEventPrev)->GetStatusByte() != GetStatusByte()) {
+		buff[bytes++] = GetStatusByte();
+	}
 	for (int i = 0; i < _nParams; i++) {
 		buff[bytes++] = _params[i];
 	}
@@ -275,7 +278,7 @@ bool SysExEvent::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool SysExEvent::Write(Signal sig, Stream &stream) const
+bool SysExEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
 	return stream.Write(sig, _binary.data(), _binary.size()) == _binary.size();
 }
@@ -347,7 +350,7 @@ bool MetaEvent::Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
 	return false;
 }
 
-bool MetaEvent::Write(Signal sig, Stream &stream) const
+bool MetaEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
 	const size_t bytes = 2;
 	unsigned char buff[bytes];
@@ -375,9 +378,9 @@ bool MetaEvent_Unknown::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_Unknown::Write(Signal sig, Stream &stream) const
+bool MetaEvent_Unknown::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(_binary.size()))) return false;
 	return stream.Write(sig, _binary.data(), _binary.size()) == _binary.size();
 }
@@ -414,9 +417,9 @@ bool MetaEvent_SequenceNumber::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_SequenceNumber::Write(Signal sig, Stream &stream) const
+bool MetaEvent_SequenceNumber::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	const size_t bytes = 2;
 	unsigned char buff[bytes];
 	buff[0] = static_cast<unsigned char>(_number >> 8);
@@ -451,9 +454,9 @@ bool MetaEvent_TextEvent::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_TextEvent::Write(Signal sig, Stream &stream) const
+bool MetaEvent_TextEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(_text.size()))) return false;
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
@@ -484,9 +487,9 @@ bool MetaEvent_CopyrightNotice::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_CopyrightNotice::Write(Signal sig, Stream &stream) const
+bool MetaEvent_CopyrightNotice::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(_text.size()))) return false;
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
@@ -517,9 +520,9 @@ bool MetaEvent_SequenceOrTrackName::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_SequenceOrTrackName::Write(Signal sig, Stream &stream) const
+bool MetaEvent_SequenceOrTrackName::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(_text.size()))) return false;
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
@@ -550,9 +553,9 @@ bool MetaEvent_InstrumentName::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_InstrumentName::Write(Signal sig, Stream &stream) const
+bool MetaEvent_InstrumentName::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(_text.size()))) return false;
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
@@ -583,9 +586,9 @@ bool MetaEvent_LyricText::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_LyricText::Write(Signal sig, Stream &stream) const
+bool MetaEvent_LyricText::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(_text.size()))) return false;
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
@@ -616,9 +619,9 @@ bool MetaEvent_MarkerText::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_MarkerText::Write(Signal sig, Stream &stream) const
+bool MetaEvent_MarkerText::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(_text.size()))) return false;
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
@@ -649,9 +652,9 @@ bool MetaEvent_CuePoint::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_CuePoint::Write(Signal sig, Stream &stream) const
+bool MetaEvent_CuePoint::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(_text.size()))) return false;
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
@@ -686,9 +689,9 @@ bool MetaEvent_MIDIChannelPrefixAssignment::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_MIDIChannelPrefixAssignment::Write(Signal sig, Stream &stream) const
+bool MetaEvent_MIDIChannelPrefixAssignment::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	const size_t bytes = 1;
 	unsigned char buff[bytes];
 	buff[0] = _channel;
@@ -722,9 +725,9 @@ bool MetaEvent_EndOfTrack::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_EndOfTrack::Write(Signal sig, Stream &stream) const
+bool MetaEvent_EndOfTrack::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, 0)) return false;
 	return true;
 }
@@ -762,9 +765,9 @@ bool MetaEvent_TempoSetting::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_TempoSetting::Write(Signal sig, Stream &stream) const
+bool MetaEvent_TempoSetting::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	const size_t bytes = 3;
 	unsigned char buff[bytes];
 	buff[0] = static_cast<unsigned char>(_mpqn >> 16);
@@ -808,9 +811,9 @@ bool MetaEvent_SMPTEOffset::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_SMPTEOffset::Write(Signal sig, Stream &stream) const
+bool MetaEvent_SMPTEOffset::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	const size_t bytes = 5;
 	unsigned char buff[bytes];
 	buff[0] = _hour;
@@ -856,9 +859,9 @@ bool MetaEvent_TimeSignature::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_TimeSignature::Write(Signal sig, Stream &stream) const
+bool MetaEvent_TimeSignature::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	const size_t bytes = 4;
 	unsigned char buff[bytes];
 	buff[0] = _numerator;
@@ -901,9 +904,9 @@ bool MetaEvent_KeySignature::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_KeySignature::Write(Signal sig, Stream &stream) const
+bool MetaEvent_KeySignature::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	const size_t bytes = 2;
 	unsigned char buff[bytes];
 	buff[0] = _key;
@@ -938,9 +941,9 @@ bool MetaEvent_SequencerSpecificEvent::Play(Signal sig, Port *pPort) const
 	return true;
 }
 
-bool MetaEvent_SequencerSpecificEvent::Write(Signal sig, Stream &stream) const
+bool MetaEvent_SequencerSpecificEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	if (!MetaEvent::Write(sig, stream)) return false;
+	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(_binary.size()))) return false;
 	return stream.Write(sig, _binary.data(), _binary.size()) == _binary.size();
 }

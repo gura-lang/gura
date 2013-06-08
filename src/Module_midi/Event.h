@@ -41,7 +41,7 @@ public:
 	virtual bool IsMetaEvent() const;
 	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const = 0;
 	virtual bool Play(Signal sig, Port *pPort) const = 0;
-	virtual bool Write(Signal sig, Stream &stream) const = 0;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const = 0;
 	virtual String ToString() const = 0;
 	virtual Event *Clone() const = 0;
 	static bool WriteVariableFormat(Signal sig, Stream &stream, unsigned long num);
@@ -80,19 +80,27 @@ public:
 //-----------------------------------------------------------------------------
 class MIDIEvent : public Event {
 protected:
+	bool _enableRunningStatus;
 	unsigned char _status;
 	unsigned char _channel;
 	size_t _nParams;
 	unsigned char _params[2];
 public:
 	inline MIDIEvent(const MIDIEvent &event) : Event(event),
+			_enableRunningStatus(event._enableRunningStatus),
 			_status(event._status), _channel(event._channel), _nParams(event._nParams) {
 		::memcpy(_params, event._params, sizeof(_params));
 	}
 	inline MIDIEvent(unsigned long timeStamp, unsigned char status, unsigned char channel, size_t nParams) :
-			Event(timeStamp), _status(status), _channel(channel), _nParams(nParams) {}
+			Event(timeStamp), _enableRunningStatus(true),
+			_status(status), _channel(channel), _nParams(nParams) {}
+	inline void EnableRunningStaus(bool enableRunningStatus) {
+		_enableRunningStatus = enableRunningStatus;
+	}
+	inline bool IsEnabledRunningStatus() const { return _enableRunningStatus; }
 	inline unsigned char GetStatus() const { return _status; }
 	inline unsigned char GetChannel() const { return _channel; }
+	inline unsigned char GetStatusByte() const { return _status | _channel; }
 	inline void SetParam1st(unsigned char param) { _params[0] = param; }
 	inline void SetParam2nd(unsigned char param) { _params[1] = param; }
 	inline size_t CountParams() const { return _nParams; }
@@ -102,7 +110,7 @@ public:
 	virtual bool IsMIDIEvent() const;
 	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const;
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -232,7 +240,7 @@ public:
 	virtual bool IsSysExEvent() const;
 	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const;
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -253,7 +261,7 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary) = 0;
 	virtual bool IsMetaEvent() const;
 	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	static bool Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
 			unsigned char eventType, const Binary &binary);
 	static void SetError_TooShortMetaEvent(Signal sig);
@@ -272,7 +280,7 @@ public:
 										MetaEvent(timeStamp, eventType) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -292,7 +300,7 @@ public:
 								MetaEvent(timeStamp, EventType), _number(0) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -312,7 +320,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -332,7 +340,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -352,7 +360,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -372,7 +380,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -392,7 +400,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -412,7 +420,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -432,7 +440,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -452,7 +460,7 @@ public:
 								MetaEvent(timeStamp, EventType), _channel(0) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -469,7 +477,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -489,7 +497,7 @@ public:
 									MetaEvent(timeStamp, EventType), _mpqn(0) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -511,7 +519,7 @@ public:
 			_frame(0), _subFrame(0) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -534,7 +542,7 @@ public:
 			_metronome(0), _cnt32nd(0) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -554,7 +562,7 @@ public:
 					MetaEvent(timeStamp, EventType), _key(0), _scale(0) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -574,7 +582,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
-	virtual bool Write(Signal sig, Stream &stream) const;
+	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };

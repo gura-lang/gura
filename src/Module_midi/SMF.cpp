@@ -97,11 +97,14 @@ bool SMF::Read(Environment &env, Signal sig, Stream &stream)
 							stat = STAT_Status;
 						}
 					} else if (stat == STAT_Status) {
+						bool enableRunningStatus = true;
 						unsigned char status = data;
 						if ((status & 0x80) == 0) {
 							// running status
 							continueFlag = true;
 							status = statusPrev;
+						} else if (status == statusPrev) {
+							enableRunningStatus = false;
 						}
 						timeStamp = timeStampManager.UpdateDelta(status, deltaTime);
 						statusPrev = status;
@@ -126,6 +129,7 @@ bool SMF::Read(Environment &env, Signal sig, Stream &stream)
 								// this must not happen
 								return false;
 							}
+							pMIDIEvent->EnableRunningStaus(enableRunningStatus);
 							stat = STAT_MIDIEvent_Param1st;
 						} else if (status == SysExEvent::StatusF0 ||
 											status == SysExEvent::StatusF7) {
@@ -211,11 +215,13 @@ bool SMF::Write(Environment &env, Signal sig, Stream &stream)
 	foreach_const (TrackOwner, ppTrack, GetTrackOwner()) {
 		const Track *pTrack = *ppTrack;
 		AutoPtr<StreamMemory> pStreamMemory(new StreamMemory(env, sig));
+		const Event *pEventPrev = NULL;
 		foreach_const (EventOwner, ppEvent, pTrack->GetEventOwner()) {
 			Event *pEvent = *ppEvent;
 			unsigned long timeDelta = pEvent->UpdateTimeStamp(timeStampManager);
 			if (!Event::WriteVariableFormat(sig, *pStreamMemory, timeDelta)) return false;
-			if (!pEvent->Write(sig, *pStreamMemory)) return false;
+			if (!pEvent->Write(sig, *pStreamMemory, pEventPrev)) return false;
+			pEventPrev = pEvent;
 		}
 		TrackChunkTop trackChunkTop;
 		::memcpy(trackChunkTop.MTrk, "MTrk", sizeof(trackChunkTop.MTrk));
