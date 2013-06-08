@@ -95,12 +95,30 @@ String Object_track::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for midi.track
 //-----------------------------------------------------------------------------
+// midi.track#addmml(mml:midi.mml):map:void
+Gura_DeclareMethod(track, addmml)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "mml", VTYPE_mml);
+}
+
+Gura_ImplementMethod(track, addmml)
+{
+	Object_track *pThis = Object_track::GetThisObj(args);
+	MML &mml = Object_mml::GetObject(args, 0)->GetMML();
+	foreach (EventOwner, ppEvent, mml.GetEventOwner()) {
+		Event *pEvent = *ppEvent;
+		pThis->GetTrack()->GetEventOwner().push_back(Event::Reference(pEvent));
+	}
+	return Value::Null;
+}
 
 //-----------------------------------------------------------------------------
 // Class implementation for midi.track
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(track)
 {
+	Gura_AssignMethod(track, addmml);
 }
 
 //-----------------------------------------------------------------------------
@@ -114,7 +132,9 @@ Object *Object_smf::Clone() const
 bool Object_smf::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(format));
 	symbols.insert(Gura_UserSymbol(tracks));
+	symbols.insert(Gura_UserSymbol(division));
 	return true;
 }
 
@@ -122,10 +142,37 @@ Value Object_smf::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(tracks))) {
+	if (pSymbol->IsIdentical(Gura_UserSymbol(format))) {
+		return Value(_smf.GetFormat());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(tracks))) {
 		Iterator *pIterator =
 				new Iterator_track(TrackOwner::Reference(&_smf.GetTrackOwner()));
 		return Value(env, pIterator);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
+		return Value(_smf.GetDivision());
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+Value Object_smf::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+						const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(format))) {
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		unsigned short format = value.GetUShort();
+		if (format > 2) {
+			sig.SetError(ERR_ValueError, "wrong number for format");
+			return Value::Null;
+		}
+		_smf.SetFormat(format);
+		return value;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		unsigned short division = value.GetUShort();
+		_smf.SetDivision(division);
+		return value;
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -138,7 +185,7 @@ String Object_smf::ToString(Signal sig, bool exprFlag)
 	do {
 		char buff[128];
 		::sprintf(buff, "format=%d:tracks=%d:division=%d",
-			_smf.GetFormat(), _smf.GetNumTrackChunks(), _smf.GetDivision());
+			_smf.GetFormat(), _smf.GetTrackOwner().size(), _smf.GetDivision());
 		rtn += buff;
 	} while (0);
 	rtn += ">";
@@ -191,6 +238,45 @@ Gura_ImplementMethod(smf, play)
 	return Value::Null;
 }
 
+// midi.smf#track(index:number):map {block?}
+Gura_DeclareMethod(smf, track)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(smf, track)
+{
+	Object_smf *pThis = Object_smf::GetThisObj(args);
+	size_t index = args.GetSizeT(0);
+	TrackOwner &trackOwner = pThis->GetSMF().GetTrackOwner();
+	if (index >= trackOwner.size()) {
+		sig.SetError(ERR_IndexError, "index is out of range");
+		return Value::Null;
+	}
+	Track *pTrack = trackOwner[index];
+	return ReturnValue(env, sig, args,
+				Value(new Object_track(env, Track::Reference(pTrack))));
+}
+
+// midi.smf#addtrack():map {block?}
+Gura_DeclareMethod(smf, addtrack)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(smf, addtrack)
+{
+	Object_smf *pThis = Object_smf::GetThisObj(args);
+	TrackOwner &trackOwner = pThis->GetSMF().GetTrackOwner();
+	Track *pTrack = new Track();
+	trackOwner.push_back(pTrack);
+	return ReturnValue(env, sig, args,
+				Value(new Object_track(env, Track::Reference(pTrack))));
+}
+
 //-----------------------------------------------------------------------------
 // Class implementation for midi.smf
 //-----------------------------------------------------------------------------
@@ -199,6 +285,8 @@ Gura_ImplementUserClassWithCast(smf)
 	Gura_AssignMethod(smf, read);
 	Gura_AssignMethod(smf, write);
 	Gura_AssignMethod(smf, play);
+	Gura_AssignMethod(smf, track);
+	Gura_AssignMethod(smf, addtrack);
 }
 
 Gura_ImplementCastFrom(smf)
@@ -576,8 +664,11 @@ Gura_DeclareFunction(smf)
 Gura_ImplementFunction(smf)
 {
 	AutoPtr<Object_smf> pObj(new Object_smf(env));
+	SMF &smf = pObj->GetSMF();
 	if (args.IsStream(0)) {
-		if (!pObj->GetSMF().Read(env, sig, args.GetStream(0))) return Value::Null;
+		if (!smf.Read(env, sig, args.GetStream(0))) return Value::Null;
+	} else {
+		smf.SetDivision(140);
 	}
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
@@ -636,6 +727,8 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// symbol realization
+	Gura_RealizeUserSymbol(format);
+	Gura_RealizeUserSymbol(division);
 	Gura_RealizeUserSymbol(tracks);
 	Gura_RealizeUserSymbol(events);
 	// class realization

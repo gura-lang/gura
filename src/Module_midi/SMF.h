@@ -28,13 +28,13 @@ public:
 	};
 private:
 	unsigned short _format;
-	unsigned short _numTrackChunks;
 	unsigned short _division;
 	AutoPtr<TrackOwner> _pTrackOwner;
 public:
 	SMF();
+	inline void SetFormat(unsigned short format) { _format = format; }
+	inline void SetDivision(unsigned short division) { _division = division; }
 	inline unsigned short GetFormat() const { return _format; }
-	inline unsigned short GetNumTrackChunks() const { return _numTrackChunks; }
 	inline unsigned short GetDivision() const { return _division; }
 	inline TrackOwner &GetTrackOwner() { return *_pTrackOwner; }
 	inline const TrackOwner &GetTrackOwner() const { return *_pTrackOwner; }

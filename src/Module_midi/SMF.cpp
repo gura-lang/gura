@@ -6,7 +6,7 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 // SMF
 //-----------------------------------------------------------------------------
-SMF::SMF() : _format(0), _numTrackChunks(0), _division(0), _pTrackOwner(new TrackOwner())
+SMF::SMF() : _format(0), _division(0), _pTrackOwner(new TrackOwner())
 {
 }
 
@@ -25,6 +25,7 @@ bool SMF::Read(Environment &env, Signal sig, Stream &stream)
 	};
 	Event::TimeStampManager timeStampManager;
 	AutoPtr<Memory> pMemory(new MemoryHeap(1024));
+	size_t numTrackChunks = 0;
 	do {
 		HeaderChunkTop headerChunkTop;
 		if (stream.Read(sig, &headerChunkTop, HeaderChunkTop::Size) != HeaderChunkTop::Size) {
@@ -46,11 +47,11 @@ bool SMF::Read(Environment &env, Signal sig, Stream &stream)
 			return false;
 		}
 		_format = Gura_UnpackUShort(headerChunk.format);
-		_numTrackChunks = Gura_UnpackUShort(headerChunk.num_track_chunks);
+		numTrackChunks = Gura_UnpackUShort(headerChunk.num_track_chunks);
 		_division = Gura_UnpackUShort(headerChunk.division);
 	} while (0);
 	GetTrackOwner().Clear();
-	for (unsigned short i = 0; i < _numTrackChunks; i++) {
+	for (size_t i = 0; i < numTrackChunks; i++) {
 		TrackChunkTop trackChunkTop;
 		if (stream.Read(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
 			sig.SetError(ERR_FormatError, "invalid SMF format");
@@ -205,7 +206,8 @@ bool SMF::Write(Environment &env, Signal sig, Stream &stream)
 	do {
 		HeaderChunk headerChunk;
 		Gura_PackUShort(headerChunk.format, GetFormat());
-		Gura_PackUShort(headerChunk.num_track_chunks, GetNumTrackChunks());
+		Gura_PackUShort(headerChunk.num_track_chunks,
+						static_cast<unsigned short>(GetTrackOwner().size()));
 		Gura_PackUShort(headerChunk.division, GetDivision());
 		if (stream.Write(sig, &headerChunk, HeaderChunk::Size) != HeaderChunk::Size) {
 			return false;

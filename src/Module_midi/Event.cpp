@@ -100,7 +100,6 @@ bool EventList::Play(Signal sig, Port *pPort, double deltaTimeUnit) const
 					pEvent->GetTimeStamp() - pEventPrev->GetTimeStamp();
 			OAL::Sleep(deltaTimeUnit * deltaTime);
 		}
-		::printf("%08x %s\n", pEvent->GetTimeStamp(), pEvent->ToString().c_str());
 		if (!pEvent->Play(sig, pPort)) return false;
 		pEventPrev = pEvent;
 	}
