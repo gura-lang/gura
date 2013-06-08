@@ -176,6 +176,21 @@ Gura_ImplementMethod(smf, write)
 	return Value::Null;
 }
 
+// midi.smf#play(port:midi.port):void
+Gura_DeclareMethod(smf, play)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "port", VTYPE_port);
+}
+
+Gura_ImplementMethod(smf, play)
+{
+	SMF &smf = Object_smf::GetThisObj(args)->GetSMF();
+	Port *pPort = Object_port::GetObject(args, 0)->GetPort();
+	smf.Play(sig, pPort);
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // Class implementation for midi.smf
 //-----------------------------------------------------------------------------
@@ -183,6 +198,7 @@ Gura_ImplementUserClassWithCast(smf)
 {
 	Gura_AssignMethod(smf, read);
 	Gura_AssignMethod(smf, write);
+	Gura_AssignMethod(smf, play);
 }
 
 Gura_ImplementCastFrom(smf)
@@ -258,12 +274,28 @@ Gura_ImplementMethod(mml, parse)
 	return Value::Null;
 }
 
+// midi.mml#play(port:midi.port):void
+Gura_DeclareMethod(mml, play)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "port", VTYPE_port);
+}
+
+Gura_ImplementMethod(mml, play)
+{
+	MML &mml = Object_mml::GetThisObj(args)->GetMML();
+	Port *pPort = Object_port::GetObject(args, 0)->GetPort();
+	mml.Play(sig, pPort);
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // Class implementation for midi.mml
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(mml)
 {
 	Gura_AssignMethod(mml, parse);
+	Gura_AssignMethod(mml, play);
 }
 
 Gura_ImplementCastFrom(mml)
@@ -431,11 +463,31 @@ Gura_ImplementMethod(port, mmlplay)
 //-----------------------------------------------------------------------------
 // Class implementation for midi.port
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(port)
+Gura_ImplementUserClassWithCast(port)
 {
 	Gura_AssignMethod(port, send);
 	Gura_AssignMethod(port, play);
 	Gura_AssignMethod(port, mmlplay);
+}
+
+Gura_ImplementCastFrom(port)
+{
+	if (value.IsNumber()) {
+		int id = value.GetInt();
+		AutoPtr<Object_port> pObj(new Object_port(env));
+		if (!pObj->GetPort()->Open(id)) {
+			sig.SetError(ERR_IOError, "can't open MIDI port #%d", id);
+			return false;
+		}
+		value = Value(pObj.release());
+		return true;
+	}
+	return false;
+}
+
+Gura_ImplementCastTo(port)
+{
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -587,12 +639,18 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(tracks);
 	Gura_RealizeUserSymbol(events);
 	// class realization
-	Gura_RealizeUserClass(event, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(track, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(smf, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(mml, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(portinfo, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(port, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(event, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(track, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(smf, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(mml, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(portinfo, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(port, env.LookupClass(VTYPE_object));
+	Gura_UserClass(event)->Prepare(env);
+	Gura_UserClass(track)->Prepare(env);
+	Gura_UserClass(smf)->Prepare(env);
+	Gura_UserClass(mml)->Prepare(env);
+	Gura_UserClass(portinfo)->Prepare(env);
+	Gura_UserClass(port)->Prepare(env);
 	// function assignment
 	Gura_AssignFunction(smf);
 	Gura_AssignFunction(mml);
