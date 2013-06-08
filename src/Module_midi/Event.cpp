@@ -128,6 +128,11 @@ void EventOwner::Clear()
 //-----------------------------------------------------------------------------
 bool MIDIEvent::IsMIDIEvent() const { return true; }
 
+unsigned char MIDIEvent::GetStatusCode() const
+{
+	return _status | _channel;
+}
+
 unsigned long MIDIEvent::UpdateTimeStamp(TimeStampManager &timeStampManager) const
 {
 	return timeStampManager.UpdateTimeStamp(GetChannel(), GetTimeStamp());
@@ -160,6 +165,11 @@ bool MIDIEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 //-----------------------------------------------------------------------------
 // MIDIEvent_NoteOff
 //-----------------------------------------------------------------------------
+const char *MIDIEvent_NoteOff::GetName() const
+{
+	return "NoteOff";
+}
+
 String MIDIEvent_NoteOff::ToString() const
 {
 	char str[128];
@@ -175,6 +185,11 @@ Event *MIDIEvent_NoteOff::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_NoteOn
 //-----------------------------------------------------------------------------
+const char *MIDIEvent_NoteOn::GetName() const
+{
+	return "NoteOn";
+}
+
 String MIDIEvent_NoteOn::ToString() const
 {
 	char str[128];
@@ -190,6 +205,11 @@ Event *MIDIEvent_NoteOn::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_PolyphonicKeyPressure
 //-----------------------------------------------------------------------------
+const char *MIDIEvent_PolyphonicKeyPressure::GetName() const
+{
+	return "PolyphonicKeyPressure";
+}
+
 String MIDIEvent_PolyphonicKeyPressure::ToString() const
 {
 	char str[128];
@@ -205,6 +225,11 @@ Event *MIDIEvent_PolyphonicKeyPressure::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_ControlChange
 //-----------------------------------------------------------------------------
+const char *MIDIEvent_ControlChange::GetName() const
+{
+	return "ControlChange";
+}
+
 String MIDIEvent_ControlChange::ToString() const
 {
 	char str[128];
@@ -220,6 +245,11 @@ Event *MIDIEvent_ControlChange::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_ProgramChange
 //-----------------------------------------------------------------------------
+const char *MIDIEvent_ProgramChange::GetName() const
+{
+	return "ProgramChange";
+}
+
 String MIDIEvent_ProgramChange::ToString() const
 {
 	char str[128];
@@ -235,6 +265,11 @@ Event *MIDIEvent_ProgramChange::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_ChannelPressure
 //-----------------------------------------------------------------------------
+const char *MIDIEvent_ChannelPressure::GetName() const
+{
+	return "ChannelPressure";
+}
+
 String MIDIEvent_ChannelPressure::ToString() const
 {
 	char str[128];
@@ -250,6 +285,11 @@ Event *MIDIEvent_ChannelPressure::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_PitchBendChange
 //-----------------------------------------------------------------------------
+const char *MIDIEvent_PitchBendChange::GetName() const
+{
+	return "PitchBendChange";
+}
+
 String MIDIEvent_PitchBendChange::ToString() const
 {
 	char str[128];
@@ -266,6 +306,16 @@ Event *MIDIEvent_PitchBendChange::Clone() const
 // SysExEvent
 //-----------------------------------------------------------------------------
 bool SysExEvent::IsSysExEvent() const { return true; }
+
+unsigned char SysExEvent::GetStatusCode() const
+{
+	return static_cast<unsigned char>(_binary[0]);
+}
+
+const char *SysExEvent::GetName() const
+{
+	return "SysExEvent";
+}
 
 unsigned long SysExEvent::UpdateTimeStamp(TimeStampManager &timeStampManager) const
 {
@@ -298,6 +348,11 @@ Event *SysExEvent::Clone() const
 // MetaEvent
 //-----------------------------------------------------------------------------
 bool MetaEvent::IsMetaEvent() const { return true; }
+
+unsigned char MetaEvent::GetStatusCode() const
+{
+	return Status;
+}
 
 unsigned long MetaEvent::UpdateTimeStamp(TimeStampManager &timeStampManager) const
 {
@@ -384,6 +439,11 @@ bool MetaEvent_Unknown::Write(Signal sig, Stream &stream, const Event *pEventPre
 	return stream.Write(sig, _binary.data(), _binary.size()) == _binary.size();
 }
 
+const char *MetaEvent_Unknown::GetName() const
+{
+	return "Unknown";
+}
+
 String MetaEvent_Unknown::ToString() const
 {
 	char str[128];
@@ -427,6 +487,11 @@ bool MetaEvent_SequenceNumber::Write(Signal sig, Stream &stream, const Event *pE
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
+const char *MetaEvent_SequenceNumber::GetName() const
+{
+	return "SequenceNumber";
+}
+
 String MetaEvent_SequenceNumber::ToString() const
 {
 	char str[128];
@@ -458,6 +523,11 @@ bool MetaEvent_TextEvent::Write(Signal sig, Stream &stream, const Event *pEventP
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(_text.size()))) return false;
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
+}
+
+const char *MetaEvent_TextEvent::GetName() const
+{
+	return "TextEvent";
 }
 
 String MetaEvent_TextEvent::ToString() const
@@ -493,6 +563,11 @@ bool MetaEvent_CopyrightNotice::Write(Signal sig, Stream &stream, const Event *p
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
+const char *MetaEvent_CopyrightNotice::GetName() const
+{
+	return "CopyrightNotice";
+}
+
 String MetaEvent_CopyrightNotice::ToString() const
 {
 	char str[128];
@@ -524,6 +599,11 @@ bool MetaEvent_SequenceOrTrackName::Write(Signal sig, Stream &stream, const Even
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(_text.size()))) return false;
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
+}
+
+const char *MetaEvent_SequenceOrTrackName::GetName() const
+{
+	return "SequenceOrTrackName";
 }
 
 String MetaEvent_SequenceOrTrackName::ToString() const
@@ -559,6 +639,11 @@ bool MetaEvent_InstrumentName::Write(Signal sig, Stream &stream, const Event *pE
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
+const char *MetaEvent_InstrumentName::GetName() const
+{
+	return "InstrumentName";
+}
+
 String MetaEvent_InstrumentName::ToString() const
 {
 	char str[128];
@@ -590,6 +675,11 @@ bool MetaEvent_LyricText::Write(Signal sig, Stream &stream, const Event *pEventP
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(_text.size()))) return false;
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
+}
+
+const char *MetaEvent_LyricText::GetName() const
+{
+	return "LyricText";
 }
 
 String MetaEvent_LyricText::ToString() const
@@ -625,6 +715,11 @@ bool MetaEvent_MarkerText::Write(Signal sig, Stream &stream, const Event *pEvent
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
+const char *MetaEvent_MarkerText::GetName() const
+{
+	return "MarkerText";
+}
+
 String MetaEvent_MarkerText::ToString() const
 {
 	char str[128];
@@ -656,6 +751,11 @@ bool MetaEvent_CuePoint::Write(Signal sig, Stream &stream, const Event *pEventPr
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(_text.size()))) return false;
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
+}
+
+const char *MetaEvent_CuePoint::GetName() const
+{
+	return "CuePoint";
 }
 
 String MetaEvent_CuePoint::ToString() const
@@ -698,6 +798,11 @@ bool MetaEvent_MIDIChannelPrefixAssignment::Write(Signal sig, Stream &stream, co
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
+const char *MetaEvent_MIDIChannelPrefixAssignment::GetName() const
+{
+	return "MIDICHannelPrefixAssignment";
+}
+
 String MetaEvent_MIDIChannelPrefixAssignment::ToString() const
 {
 	char str[128];
@@ -729,6 +834,11 @@ bool MetaEvent_EndOfTrack::Write(Signal sig, Stream &stream, const Event *pEvent
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, 0)) return false;
 	return true;
+}
+
+const char *MetaEvent_EndOfTrack::GetName() const
+{
+	return "EndOfTrack";
 }
 
 String MetaEvent_EndOfTrack::ToString() const
@@ -774,6 +884,11 @@ bool MetaEvent_TempoSetting::Write(Signal sig, Stream &stream, const Event *pEve
 	buff[2] = static_cast<unsigned char>(_mpqn >> 0);
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(bytes))) return false;
 	return stream.Write(sig, buff, bytes) == bytes;
+}
+
+const char *MetaEvent_TempoSetting::GetName() const
+{
+	return "TempoSetting";
 }
 
 String MetaEvent_TempoSetting::ToString() const
@@ -824,6 +939,11 @@ bool MetaEvent_SMPTEOffset::Write(Signal sig, Stream &stream, const Event *pEven
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
+const char *MetaEvent_SMPTEOffset::GetName() const
+{
+	return "SMPTEOffset";
+}
+
 String MetaEvent_SMPTEOffset::ToString() const
 {
 	char str[128];
@@ -871,6 +991,11 @@ bool MetaEvent_TimeSignature::Write(Signal sig, Stream &stream, const Event *pEv
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
+const char *MetaEvent_TimeSignature::GetName() const
+{
+	return "TimeSignature";
+}
+
 String MetaEvent_TimeSignature::ToString() const
 {
 	char str[128];
@@ -914,6 +1039,11 @@ bool MetaEvent_KeySignature::Write(Signal sig, Stream &stream, const Event *pEve
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
+const char *MetaEvent_KeySignature::GetName() const
+{
+	return "KeySignature";
+}
+
 String MetaEvent_KeySignature::ToString() const
 {
 	char str[128];
@@ -945,6 +1075,11 @@ bool MetaEvent_SequencerSpecificEvent::Write(Signal sig, Stream &stream, const E
 	if (!MetaEvent::Write(sig, stream, pEventPrev)) return false;
 	if (!WriteVariableFormat(sig, stream, static_cast<unsigned long>(_binary.size()))) return false;
 	return stream.Write(sig, _binary.data(), _binary.size()) == _binary.size();
+}
+
+const char *MetaEvent_SequencerSpecificEvent::GetName() const
+{
+	return "SequencerSpecificEvent";
 }
 
 String MetaEvent_SequencerSpecificEvent::ToString() const

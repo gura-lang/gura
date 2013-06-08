@@ -16,12 +16,23 @@ Object *Object_event::Clone() const
 bool Object_event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(timestamp));
+	symbols.insert(Gura_UserSymbol(status));
+	symbols.insert(Gura_UserSymbol(name));
 	return true;
 }
 
 Value Object_event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+		return Value(_pEvent->GetTimeStamp());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(status))) {
+		return Value(_pEvent->GetStatusCode());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
+		return Value(env, _pEvent->GetName());
+	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
@@ -727,6 +738,9 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// symbol realization
+	Gura_RealizeUserSymbol(timestamp);
+	Gura_RealizeUserSymbol(status);
+	Gura_RealizeUserSymbol(name);
 	Gura_RealizeUserSymbol(format);
 	Gura_RealizeUserSymbol(division);
 	Gura_RealizeUserSymbol(tracks);

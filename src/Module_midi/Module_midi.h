@@ -10,6 +10,9 @@
 
 Gura_BeginModule(midi)
 
+Gura_DeclareUserSymbol(timestamp);
+Gura_DeclareUserSymbol(status);
+Gura_DeclareUserSymbol(name);
 Gura_DeclareUserSymbol(format);
 Gura_DeclareUserSymbol(division);
 Gura_DeclareUserSymbol(tracks);
