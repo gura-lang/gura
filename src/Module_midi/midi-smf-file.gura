@@ -1,11 +1,12 @@
 #!/usr/bin/env gura
 import(midi)
 
-//midi.smf('samples/yuyake.mid') {|smf|
-midi.smf('a.mid') {|smf|
+midi.smf('samples/yuyake.mid') {|smf|
+//midi.smf('a.mid') {|smf|
 	println(smf)
 	smf.tracks.each {|track|
 		println(track)
-		println(track.events:*name)
+		//println(track.events:*name)
+		println(track.events)
 	}
 }

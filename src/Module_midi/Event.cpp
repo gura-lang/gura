@@ -32,56 +32,6 @@ bool Event::WriteVariableFormat(Signal sig, Stream &stream, unsigned long num)
 }
 
 //-----------------------------------------------------------------------------
-// Event::TimeStampManager
-//-----------------------------------------------------------------------------
-Event::TimeStampManager::TimeStampManager()
-{
-	for (size_t i = 0; i < NUM_CHANNELS; i++) {
-		_timeStampTbl[i] = 0;
-	}
-	_timeStampSysEx = 0;
-	_timeStampMeta = 0;
-}
-
-unsigned long Event::TimeStampManager::UpdateDelta(
-							unsigned char status, unsigned long timeDelta)
-{
-	if (0x80 <= status && status < 0xf0) {
-		unsigned long &timeStamp = _timeStampTbl[status & 0x0f];
-		timeStamp += timeDelta;
-		return timeStamp;
-	} else if (status == 0xf0 || status == 0xf7) {
-		_timeStampSysEx += timeDelta;
-		return _timeStampSysEx;
-	} else if (status == 0xff) {
-		_timeStampMeta += timeDelta;
-		return _timeStampMeta;
-	}
-	return 0;
-}
-
-unsigned long Event::TimeStampManager::UpdateTimeStamp(unsigned char channel, unsigned long timeStamp)
-{
-	unsigned long timeStampPrev = _timeStampTbl[channel];
-	_timeStampTbl[channel] = timeStamp;
-	return (timeStamp >= timeStampPrev)? timeStamp - timeStampPrev : 0;
-}
-
-unsigned long Event::TimeStampManager::UpdateTimeStampSysEx(unsigned long timeStamp)
-{
-	unsigned long timeStampPrev = _timeStampSysEx;
-	_timeStampSysEx = timeStamp;
-	return (timeStamp >= timeStampPrev)? timeStamp - timeStampPrev : 0;
-}
-
-unsigned long Event::TimeStampManager::UpdateTimeStampMeta(unsigned long timeStamp)
-{
-	unsigned long timeStampPrev = _timeStampMeta;
-	_timeStampMeta = timeStamp;
-	return (timeStamp >= timeStampPrev)? timeStamp - timeStampPrev : 0;
-}
-
-//-----------------------------------------------------------------------------
 // EventList
 //-----------------------------------------------------------------------------
 void EventList::Sort()
@@ -131,11 +81,6 @@ bool MIDIEvent::IsMIDIEvent() const { return true; }
 unsigned char MIDIEvent::GetStatusCode() const
 {
 	return _status | _channel;
-}
-
-unsigned long MIDIEvent::UpdateTimeStamp(TimeStampManager &timeStampManager) const
-{
-	return timeStampManager.UpdateTimeStamp(GetChannel(), GetTimeStamp());
 }
 
 bool MIDIEvent::Play(Signal sig, Port *pPort) const
@@ -374,11 +319,6 @@ String SysExEvent::GetArgsName() const
 	return String(str);
 }
 
-unsigned long SysExEvent::UpdateTimeStamp(TimeStampManager &timeStampManager) const
-{
-	return timeStampManager.UpdateTimeStampSysEx(GetTimeStamp());
-}
-
 bool SysExEvent::Play(Signal sig, Port *pPort) const
 {
 	return true;
@@ -409,11 +349,6 @@ bool MetaEvent::IsMetaEvent() const { return true; }
 unsigned char MetaEvent::GetStatusCode() const
 {
 	return Status;
-}
-
-unsigned long MetaEvent::UpdateTimeStamp(TimeStampManager &timeStampManager) const
-{
-	return timeStampManager.UpdateTimeStampMeta(GetTimeStamp());
 }
 
 bool MetaEvent::Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,

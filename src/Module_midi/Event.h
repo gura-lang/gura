@@ -12,18 +12,6 @@ class Port;
 class Event {
 public:
 	enum { NUM_CHANNELS = 16 };
-	class TimeStampManager {
-	private:
-		unsigned long _timeStampTbl[NUM_CHANNELS];
-		unsigned long _timeStampSysEx;
-		unsigned long _timeStampMeta;
-	public:
-		TimeStampManager();
-		unsigned long UpdateDelta(unsigned char status, unsigned long timeDelta);
-		unsigned long UpdateTimeStamp(unsigned char channel, unsigned long timeStamp);
-		unsigned long UpdateTimeStampSysEx(unsigned long timeStamp);
-		unsigned long UpdateTimeStampMeta(unsigned long timeStamp);
-	};
 public:
 	Gura_DeclareReferenceAccessor(Event);
 protected:
@@ -42,7 +30,6 @@ public:
 	virtual unsigned char GetStatusCode() const = 0;
 	virtual String GetName() const = 0;
 	virtual String GetArgsName() const = 0;
-	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const = 0;
 	virtual bool Play(Signal sig, Port *pPort) const = 0;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const = 0;
 	virtual String ToString() const = 0;
@@ -119,7 +106,6 @@ public:
 	}
 	virtual bool IsMIDIEvent() const;
 	virtual unsigned char GetStatusCode() const;
-	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const;
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 };
@@ -266,7 +252,6 @@ public:
 	virtual unsigned char GetStatusCode() const;
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
-	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const;
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual String ToString() const;
@@ -289,7 +274,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary) = 0;
 	virtual bool IsMetaEvent() const;
 	virtual unsigned char GetStatusCode() const;
-	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	static bool Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
 			unsigned char eventType, const Binary &binary);

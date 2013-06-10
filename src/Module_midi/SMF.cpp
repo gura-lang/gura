@@ -23,7 +23,6 @@ bool SMF::Read(Environment &env, Signal sig, Stream &stream)
 		STAT_MetaEvent_Length,
 		STAT_MetaEvent_Data,
 	};
-	Event::TimeStampManager timeStampManager;
 	AutoPtr<Memory> pMemory(new MemoryHeap(1024));
 	size_t numTrackChunks = 0;
 	do {
@@ -107,7 +106,7 @@ bool SMF::Read(Environment &env, Signal sig, Stream &stream)
 						} else if (status == statusPrev) {
 							enableRunningStatus = false;
 						}
-						timeStamp = timeStampManager.UpdateDelta(status, deltaTime);
+						timeStamp += deltaTime;
 						statusPrev = status;
 						if (MIDIEvent::CheckStatus(status)) {
 							unsigned char statusUpper = status & 0xf0;
@@ -213,14 +212,15 @@ bool SMF::Write(Environment &env, Signal sig, Stream &stream)
 			return false;
 		}
 	} while (0);
-	Event::TimeStampManager timeStampManager;
 	foreach_const (TrackOwner, ppTrack, GetTrackOwner()) {
 		const Track *pTrack = *ppTrack;
 		AutoPtr<StreamMemory> pStreamMemory(new StreamMemory(env, sig));
 		const Event *pEventPrev = NULL;
+		unsigned long timeStamp = 0x00000000;
 		foreach_const (EventOwner, ppEvent, pTrack->GetEventOwner()) {
 			Event *pEvent = *ppEvent;
-			unsigned long timeDelta = pEvent->UpdateTimeStamp(timeStampManager);
+			unsigned long timeDelta = pEvent->GetTimeStamp() - timeStamp;
+			timeStamp = pEvent->GetTimeStamp();
 			if (!Event::WriteVariableFormat(sig, *pStreamMemory, timeDelta)) return false;
 			if (!pEvent->Write(sig, *pStreamMemory, pEventPrev)) return false;
 			pEventPrev = pEvent;
