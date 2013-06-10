@@ -40,7 +40,8 @@ public:
 	virtual bool IsSysExEvent() const;
 	virtual bool IsMetaEvent() const;
 	virtual unsigned char GetStatusCode() const = 0;
-	virtual const char *GetName() const = 0;
+	virtual String GetName() const = 0;
+	virtual String GetArgsName() const = 0;
 	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const = 0;
 	virtual bool Play(Signal sig, Port *pPort) const = 0;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const = 0;
@@ -138,7 +139,8 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 2) {
 		_params[0] = note, _params[1] = velocity;
 	}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -158,7 +160,8 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 2) {
 		_params[0] = note, _params[1] = velocity;
 	}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -173,7 +176,8 @@ public:
 	inline MIDIEvent_PolyphonicKeyPressure(const MIDIEvent_PolyphonicKeyPressure &event) : MIDIEvent(event) {}
 	inline MIDIEvent_PolyphonicKeyPressure(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -188,7 +192,8 @@ public:
 	inline MIDIEvent_ControlChange(const MIDIEvent_ControlChange &event) : MIDIEvent(event) {}
 	inline MIDIEvent_ControlChange(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -207,7 +212,8 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 1) {
 		_params[0] = program;
 	}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -222,7 +228,8 @@ public:
 	inline MIDIEvent_ChannelPressure(const MIDIEvent_ChannelPressure &event) : MIDIEvent(event) {}
 	inline MIDIEvent_ChannelPressure(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 1) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -237,7 +244,8 @@ public:
 	inline MIDIEvent_PitchBendChange(const MIDIEvent_PitchBendChange &event) : MIDIEvent(event) {}
 	inline MIDIEvent_PitchBendChange(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
@@ -256,7 +264,8 @@ public:
 									Event(timeStamp), _binary(binary) {}
 	virtual bool IsSysExEvent() const;
 	virtual unsigned char GetStatusCode() const;
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual unsigned long UpdateTimeStamp(TimeStampManager &timeStampManager) const;
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -298,7 +307,8 @@ public:
 										_binary(event._binary) {}
 	inline MetaEvent_Unknown(unsigned long timeStamp, unsigned char eventType) :
 										MetaEvent(timeStamp, eventType) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -319,7 +329,8 @@ public:
 										_number(event._number) {}
 	inline MetaEvent_SequenceNumber(unsigned long timeStamp) :
 								MetaEvent(timeStamp, EventType), _number(0) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -340,7 +351,8 @@ public:
 										_text(event._text) {}
 	inline MetaEvent_TextEvent(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -361,7 +373,8 @@ public:
 										_text(event._text) {}
 	inline MetaEvent_CopyrightNotice(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -382,7 +395,8 @@ public:
 										_text(event._text) {}
 	inline MetaEvent_SequenceOrTrackName(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -403,7 +417,8 @@ public:
 										_text(event._text) {}
 	inline MetaEvent_InstrumentName(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -424,7 +439,8 @@ public:
 										_text(event._text) {}
 	inline MetaEvent_LyricText(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -445,7 +461,8 @@ public:
 										_text(event._text) {}
 	inline MetaEvent_MarkerText(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -466,7 +483,8 @@ public:
 										_text(event._text) {}
 	inline MetaEvent_CuePoint(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -487,7 +505,8 @@ public:
 										_channel(event._channel) {}
 	inline MetaEvent_MIDIChannelPrefixAssignment(unsigned long timeStamp) :
 								MetaEvent(timeStamp, EventType), _channel(0) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -505,7 +524,8 @@ public:
 	inline MetaEvent_EndOfTrack(const MetaEvent_EndOfTrack &event) : MetaEvent(event) {}
  		inline MetaEvent_EndOfTrack(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -526,7 +546,8 @@ public:
 										_mpqn(event._mpqn) {}
 	inline MetaEvent_TempoSetting(unsigned long timeStamp) :
 									MetaEvent(timeStamp, EventType), _mpqn(0) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -549,7 +570,8 @@ public:
 	inline MetaEvent_SMPTEOffset(unsigned long timeStamp) :
 			MetaEvent(timeStamp, EventType), _hour(0), _minute(0), _second(0),
 			_frame(0), _subFrame(0) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -573,7 +595,8 @@ public:
 	inline MetaEvent_TimeSignature(unsigned long timeStamp) :
 			MetaEvent(timeStamp, EventType), _numerator(0), _denominator(0),
 			_metronome(0), _cnt32nd(0) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -594,7 +617,8 @@ public:
 							_key(event._key), _scale(event._scale) {}
 	inline MetaEvent_KeySignature(unsigned long timeStamp) :
 					MetaEvent(timeStamp, EventType), _key(0), _scale(0) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -615,7 +639,8 @@ public:
 										_binary(event._binary) {}
 	inline MetaEvent_SequencerSpecificEvent(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	virtual const char *GetName() const;
+	virtual String GetName() const;
+	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;

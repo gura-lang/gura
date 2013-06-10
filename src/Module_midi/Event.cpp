@@ -165,9 +165,17 @@ bool MIDIEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 //-----------------------------------------------------------------------------
 // MIDIEvent_NoteOff
 //-----------------------------------------------------------------------------
-const char *MIDIEvent_NoteOff::GetName() const
+String MIDIEvent_NoteOff::GetName() const
 {
 	return "NoteOff";
+}
+
+String MIDIEvent_NoteOff::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "channel:%d note:%d velocity:%d",
+								GetChannel(), _params[0], _params[1]);
+	return String(str);
 }
 
 String MIDIEvent_NoteOff::ToString() const
@@ -185,9 +193,16 @@ Event *MIDIEvent_NoteOff::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_NoteOn
 //-----------------------------------------------------------------------------
-const char *MIDIEvent_NoteOn::GetName() const
+String MIDIEvent_NoteOn::GetName() const
 {
 	return "NoteOn";
+}
+
+String MIDIEvent_NoteOn::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "channel:%d note:%d velocity:%d", GetChannel(), _params[0], _params[1]);
+	return String(str);
 }
 
 String MIDIEvent_NoteOn::ToString() const
@@ -205,9 +220,16 @@ Event *MIDIEvent_NoteOn::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_PolyphonicKeyPressure
 //-----------------------------------------------------------------------------
-const char *MIDIEvent_PolyphonicKeyPressure::GetName() const
+String MIDIEvent_PolyphonicKeyPressure::GetName() const
 {
 	return "PolyphonicKeyPressure";
+}
+
+String MIDIEvent_PolyphonicKeyPressure::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "channel:%d", GetChannel());
+	return String(str);
 }
 
 String MIDIEvent_PolyphonicKeyPressure::ToString() const
@@ -225,9 +247,16 @@ Event *MIDIEvent_PolyphonicKeyPressure::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_ControlChange
 //-----------------------------------------------------------------------------
-const char *MIDIEvent_ControlChange::GetName() const
+String MIDIEvent_ControlChange::GetName() const
 {
 	return "ControlChange";
+}
+
+String MIDIEvent_ControlChange::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "channel:%d", GetChannel());
+	return String(str);
 }
 
 String MIDIEvent_ControlChange::ToString() const
@@ -245,9 +274,16 @@ Event *MIDIEvent_ControlChange::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_ProgramChange
 //-----------------------------------------------------------------------------
-const char *MIDIEvent_ProgramChange::GetName() const
+String MIDIEvent_ProgramChange::GetName() const
 {
 	return "ProgramChange";
+}
+
+String MIDIEvent_ProgramChange::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "channel:%d", GetChannel());
+	return String(str);
 }
 
 String MIDIEvent_ProgramChange::ToString() const
@@ -265,9 +301,16 @@ Event *MIDIEvent_ProgramChange::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_ChannelPressure
 //-----------------------------------------------------------------------------
-const char *MIDIEvent_ChannelPressure::GetName() const
+String MIDIEvent_ChannelPressure::GetName() const
 {
 	return "ChannelPressure";
+}
+
+String MIDIEvent_ChannelPressure::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "channel:%d", GetChannel());
+	return String(str);
 }
 
 String MIDIEvent_ChannelPressure::ToString() const
@@ -285,9 +328,16 @@ Event *MIDIEvent_ChannelPressure::Clone() const
 //-----------------------------------------------------------------------------
 // MIDIEvent_PitchBendChange
 //-----------------------------------------------------------------------------
-const char *MIDIEvent_PitchBendChange::GetName() const
+String MIDIEvent_PitchBendChange::GetName() const
 {
 	return "PitchBendChange";
+}
+
+String MIDIEvent_PitchBendChange::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "channel:%d", GetChannel());
+	return String(str);
 }
 
 String MIDIEvent_PitchBendChange::ToString() const
@@ -312,9 +362,16 @@ unsigned char SysExEvent::GetStatusCode() const
 	return static_cast<unsigned char>(_binary[0]);
 }
 
-const char *SysExEvent::GetName() const
+String SysExEvent::GetName() const
 {
 	return "SysExEvent";
+}
+
+String SysExEvent::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "%dbytes", _binary.size());
+	return String(str);
 }
 
 unsigned long SysExEvent::UpdateTimeStamp(TimeStampManager &timeStampManager) const
@@ -439,9 +496,18 @@ bool MetaEvent_Unknown::Write(Signal sig, Stream &stream, const Event *pEventPre
 	return stream.Write(sig, _binary.data(), _binary.size()) == _binary.size();
 }
 
-const char *MetaEvent_Unknown::GetName() const
+String MetaEvent_Unknown::GetName() const
 {
-	return "Unknown";
+	char str[128];
+	::sprintf(str, "Unknown(%02x)", GetEventType());
+	return String(str);
+}
+
+String MetaEvent_Unknown::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 String MetaEvent_Unknown::ToString() const
@@ -487,9 +553,16 @@ bool MetaEvent_SequenceNumber::Write(Signal sig, Stream &stream, const Event *pE
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-const char *MetaEvent_SequenceNumber::GetName() const
+String MetaEvent_SequenceNumber::GetName() const
 {
 	return "SequenceNumber";
+}
+
+String MetaEvent_SequenceNumber::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "number:%d", _number);
+	return String(str);
 }
 
 String MetaEvent_SequenceNumber::ToString() const
@@ -525,9 +598,16 @@ bool MetaEvent_TextEvent::Write(Signal sig, Stream &stream, const Event *pEventP
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
-const char *MetaEvent_TextEvent::GetName() const
+String MetaEvent_TextEvent::GetName() const
 {
 	return "TextEvent";
+}
+
+String MetaEvent_TextEvent::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "text:%s", MakeQuotedString(_text.c_str()).c_str());
+	return String(str);
 }
 
 String MetaEvent_TextEvent::ToString() const
@@ -563,9 +643,16 @@ bool MetaEvent_CopyrightNotice::Write(Signal sig, Stream &stream, const Event *p
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
-const char *MetaEvent_CopyrightNotice::GetName() const
+String MetaEvent_CopyrightNotice::GetName() const
 {
 	return "CopyrightNotice";
+}
+
+String MetaEvent_CopyrightNotice::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "text:%s", MakeQuotedString(_text.c_str()).c_str());
+	return String(str);
 }
 
 String MetaEvent_CopyrightNotice::ToString() const
@@ -601,9 +688,16 @@ bool MetaEvent_SequenceOrTrackName::Write(Signal sig, Stream &stream, const Even
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
-const char *MetaEvent_SequenceOrTrackName::GetName() const
+String MetaEvent_SequenceOrTrackName::GetName() const
 {
 	return "SequenceOrTrackName";
+}
+
+String MetaEvent_SequenceOrTrackName::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "text:%s", MakeQuotedString(_text.c_str()).c_str());
+	return String(str);
 }
 
 String MetaEvent_SequenceOrTrackName::ToString() const
@@ -639,9 +733,16 @@ bool MetaEvent_InstrumentName::Write(Signal sig, Stream &stream, const Event *pE
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
-const char *MetaEvent_InstrumentName::GetName() const
+String MetaEvent_InstrumentName::GetName() const
 {
 	return "InstrumentName";
+}
+
+String MetaEvent_InstrumentName::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "text:%s", MakeQuotedString(_text.c_str()).c_str());
+	return String(str);
 }
 
 String MetaEvent_InstrumentName::ToString() const
@@ -677,9 +778,16 @@ bool MetaEvent_LyricText::Write(Signal sig, Stream &stream, const Event *pEventP
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
-const char *MetaEvent_LyricText::GetName() const
+String MetaEvent_LyricText::GetName() const
 {
 	return "LyricText";
+}
+
+String MetaEvent_LyricText::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "text:%s", MakeQuotedString(_text.c_str()).c_str());
+	return String(str);
 }
 
 String MetaEvent_LyricText::ToString() const
@@ -715,9 +823,16 @@ bool MetaEvent_MarkerText::Write(Signal sig, Stream &stream, const Event *pEvent
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
-const char *MetaEvent_MarkerText::GetName() const
+String MetaEvent_MarkerText::GetName() const
 {
 	return "MarkerText";
+}
+
+String MetaEvent_MarkerText::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "text:%s", MakeQuotedString(_text.c_str()).c_str());
+	return String(str);
 }
 
 String MetaEvent_MarkerText::ToString() const
@@ -753,9 +868,16 @@ bool MetaEvent_CuePoint::Write(Signal sig, Stream &stream, const Event *pEventPr
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
-const char *MetaEvent_CuePoint::GetName() const
+String MetaEvent_CuePoint::GetName() const
 {
 	return "CuePoint";
+}
+
+String MetaEvent_CuePoint::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "text:%s", MakeQuotedString(_text.c_str()).c_str());
+	return String(str);
 }
 
 String MetaEvent_CuePoint::ToString() const
@@ -798,9 +920,16 @@ bool MetaEvent_MIDIChannelPrefixAssignment::Write(Signal sig, Stream &stream, co
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-const char *MetaEvent_MIDIChannelPrefixAssignment::GetName() const
+String MetaEvent_MIDIChannelPrefixAssignment::GetName() const
 {
 	return "MIDICHannelPrefixAssignment";
+}
+
+String MetaEvent_MIDIChannelPrefixAssignment::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "channel:%d", _channel);
+	return String(str);
 }
 
 String MetaEvent_MIDIChannelPrefixAssignment::ToString() const
@@ -836,9 +965,16 @@ bool MetaEvent_EndOfTrack::Write(Signal sig, Stream &stream, const Event *pEvent
 	return true;
 }
 
-const char *MetaEvent_EndOfTrack::GetName() const
+String MetaEvent_EndOfTrack::GetName() const
 {
 	return "EndOfTrack";
+}
+
+String MetaEvent_EndOfTrack::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "");
+	return String(str);
 }
 
 String MetaEvent_EndOfTrack::ToString() const
@@ -886,9 +1022,16 @@ bool MetaEvent_TempoSetting::Write(Signal sig, Stream &stream, const Event *pEve
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-const char *MetaEvent_TempoSetting::GetName() const
+String MetaEvent_TempoSetting::GetName() const
 {
 	return "TempoSetting";
+}
+
+String MetaEvent_TempoSetting::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "mpqn:%d", _mpqn);
+	return String(str);
 }
 
 String MetaEvent_TempoSetting::ToString() const
@@ -939,9 +1082,17 @@ bool MetaEvent_SMPTEOffset::Write(Signal sig, Stream &stream, const Event *pEven
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-const char *MetaEvent_SMPTEOffset::GetName() const
+String MetaEvent_SMPTEOffset::GetName() const
 {
 	return "SMPTEOffset";
+}
+
+String MetaEvent_SMPTEOffset::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "hour:%d minute:%d second:%d frame:%d subFrame:%d",
+						_hour, _minute, _second, _frame, _subFrame);
+	return String(str);
 }
 
 String MetaEvent_SMPTEOffset::ToString() const
@@ -991,9 +1142,17 @@ bool MetaEvent_TimeSignature::Write(Signal sig, Stream &stream, const Event *pEv
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-const char *MetaEvent_TimeSignature::GetName() const
+String MetaEvent_TimeSignature::GetName() const
 {
 	return "TimeSignature";
+}
+
+String MetaEvent_TimeSignature::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "numerator:%d denominator:%d metronome:%d cnt32nd:%d",
+							_numerator, _denominator, _metronome, _cnt32nd);
+	return String(str);
 }
 
 String MetaEvent_TimeSignature::ToString() const
@@ -1039,9 +1198,16 @@ bool MetaEvent_KeySignature::Write(Signal sig, Stream &stream, const Event *pEve
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-const char *MetaEvent_KeySignature::GetName() const
+String MetaEvent_KeySignature::GetName() const
 {
 	return "KeySignature";
+}
+
+String MetaEvent_KeySignature::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "key:%d scale:%d", _key, _scale);
+	return String(str);
 }
 
 String MetaEvent_KeySignature::ToString() const
@@ -1077,9 +1243,16 @@ bool MetaEvent_SequencerSpecificEvent::Write(Signal sig, Stream &stream, const E
 	return stream.Write(sig, _binary.data(), _binary.size()) == _binary.size();
 }
 
-const char *MetaEvent_SequencerSpecificEvent::GetName() const
+String MetaEvent_SequencerSpecificEvent::GetName() const
 {
 	return "SequencerSpecificEvent";
+}
+
+String MetaEvent_SequencerSpecificEvent::GetArgsName() const
+{
+	char str[128];
+	::sprintf(str, "%dbytes", _binary.size());
+	return String(str);
 }
 
 String MetaEvent_SequencerSpecificEvent::ToString() const

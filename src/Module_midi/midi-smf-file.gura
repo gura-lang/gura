@@ -6,6 +6,6 @@ midi.smf('a.mid') {|smf|
 	println(smf)
 	smf.tracks.each {|track|
 		println(track)
-		println(track.events)
+		println(track.events:*name)
 	}
 }
