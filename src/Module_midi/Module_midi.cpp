@@ -19,6 +19,7 @@ bool Object_event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(timestamp));
 	symbols.insert(Gura_UserSymbol(status));
 	symbols.insert(Gura_UserSymbol(name));
+	symbols.insert(Gura_UserSymbol(args));
 	return true;
 }
 
@@ -32,6 +33,8 @@ Value Object_event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		return Value(_pEvent->GetStatusCode());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
 		return Value(env, _pEvent->GetName());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(args))) {
+		return Value(env, _pEvent->GetArgsName());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -46,7 +49,12 @@ String Object_event::ToString(Signal sig, bool exprFlag)
 		::sprintf(buff, "%08x:", _pEvent->GetTimeStamp());
 		rtn += buff;
 	} while (0);
-	rtn += _pEvent->ToString();
+	rtn += _pEvent->GetName();
+	String argsName = _pEvent->GetArgsName();
+	if (!argsName.empty()) {
+		rtn += " ";
+		rtn += argsName;
+	}
 	rtn += ">";
 	return rtn;
 }
@@ -741,6 +749,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(timestamp);
 	Gura_RealizeUserSymbol(status);
 	Gura_RealizeUserSymbol(name);
+	Gura_RealizeUserSymbol(args);
 	Gura_RealizeUserSymbol(format);
 	Gura_RealizeUserSymbol(division);
 	Gura_RealizeUserSymbol(tracks);

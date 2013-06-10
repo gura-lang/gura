@@ -6,7 +6,9 @@ midi.smf('samples/yuyake.mid') {|smf|
 	println(smf)
 	smf.tracks.each {|track|
 		println(track)
-		//println(track.events:*name)
-		println(track.events)
+		printf('%08x %-*s %s\n', track.events:*timestamp,
+				track.events:*name:*len().max(), track.events:*name,
+				track.events:*args)
+		//println(track.events)
 	}
 }

@@ -123,13 +123,6 @@ String MIDIEvent_NoteOff::GetArgsName() const
 	return String(str);
 }
 
-String MIDIEvent_NoteOff::ToString() const
-{
-	char str[128];
-	::sprintf(str, "NoteOff channel:%d note:%d velocity:%d", GetChannel(), _params[0], _params[1]);
-	return String(str);
-}
-
 Event *MIDIEvent_NoteOff::Clone() const
 {
 	return new MIDIEvent_NoteOff(*this);
@@ -147,13 +140,6 @@ String MIDIEvent_NoteOn::GetArgsName() const
 {
 	char str[128];
 	::sprintf(str, "channel:%d note:%d velocity:%d", GetChannel(), _params[0], _params[1]);
-	return String(str);
-}
-
-String MIDIEvent_NoteOn::ToString() const
-{
-	char str[128];
-	::sprintf(str, "NoteOn channel:%d note:%d velocity:%d", GetChannel(), _params[0], _params[1]);
 	return String(str);
 }
 
@@ -177,13 +163,6 @@ String MIDIEvent_PolyphonicKeyPressure::GetArgsName() const
 	return String(str);
 }
 
-String MIDIEvent_PolyphonicKeyPressure::ToString() const
-{
-	char str[128];
-	::sprintf(str, "PolyphonicKeyPressure channel:%d", GetChannel());
-	return String(str);
-}
-
 Event *MIDIEvent_PolyphonicKeyPressure::Clone() const
 {
 	return new MIDIEvent_PolyphonicKeyPressure(*this);
@@ -201,13 +180,6 @@ String MIDIEvent_ControlChange::GetArgsName() const
 {
 	char str[128];
 	::sprintf(str, "channel:%d", GetChannel());
-	return String(str);
-}
-
-String MIDIEvent_ControlChange::ToString() const
-{
-	char str[128];
-	::sprintf(str, "ControlChange channel:%d", GetChannel());
 	return String(str);
 }
 
@@ -231,13 +203,6 @@ String MIDIEvent_ProgramChange::GetArgsName() const
 	return String(str);
 }
 
-String MIDIEvent_ProgramChange::ToString() const
-{
-	char str[128];
-	::sprintf(str, "ProgramChange channel:%d", GetChannel());
-	return String(str);
-}
-
 Event *MIDIEvent_ProgramChange::Clone() const
 {
 	return new MIDIEvent_ProgramChange(*this);
@@ -258,13 +223,6 @@ String MIDIEvent_ChannelPressure::GetArgsName() const
 	return String(str);
 }
 
-String MIDIEvent_ChannelPressure::ToString() const
-{
-	char str[128];
-	::sprintf(str, "ChannelPressure channel:%d", GetChannel());
-	return String(str);
-}
-
 Event *MIDIEvent_ChannelPressure::Clone() const
 {
 	return new MIDIEvent_ChannelPressure(*this);
@@ -282,13 +240,6 @@ String MIDIEvent_PitchBendChange::GetArgsName() const
 {
 	char str[128];
 	::sprintf(str, "channel:%d", GetChannel());
-	return String(str);
-}
-
-String MIDIEvent_PitchBendChange::ToString() const
-{
-	char str[128];
-	::sprintf(str, "PitchBendChange channel:%d", GetChannel());
 	return String(str);
 }
 
@@ -327,13 +278,6 @@ bool SysExEvent::Play(Signal sig, Port *pPort) const
 bool SysExEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
 	return stream.Write(sig, _binary.data(), _binary.size()) == _binary.size();
-}
-
-String SysExEvent::ToString() const
-{
-	char str[128];
-	::sprintf(str, "SysExEvent %dbytes", _binary.size());
-	return String(str);
 }
 
 Event *SysExEvent::Clone() const
@@ -434,7 +378,7 @@ bool MetaEvent_Unknown::Write(Signal sig, Stream &stream, const Event *pEventPre
 String MetaEvent_Unknown::GetName() const
 {
 	char str[128];
-	::sprintf(str, "Unknown(%02x)", GetEventType());
+	::sprintf(str, "MetaEvent(%02x)", GetEventType());
 	return String(str);
 }
 
@@ -442,13 +386,6 @@ String MetaEvent_Unknown::GetArgsName() const
 {
 	char str[128];
 	::sprintf(str, "");
-	return String(str);
-}
-
-String MetaEvent_Unknown::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent(%02x)", GetEventType());
 	return String(str);
 }
 
@@ -500,13 +437,6 @@ String MetaEvent_SequenceNumber::GetArgsName() const
 	return String(str);
 }
 
-String MetaEvent_SequenceNumber::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-SequenceNumber number:%d", _number);
-	return String(str);
-}
-
 Event *MetaEvent_SequenceNumber::Clone() const
 {
 	return new MetaEvent_SequenceNumber(*this);
@@ -542,13 +472,6 @@ String MetaEvent_TextEvent::GetArgsName() const
 {
 	char str[128];
 	::sprintf(str, "text:%s", MakeQuotedString(_text.c_str()).c_str());
-	return String(str);
-}
-
-String MetaEvent_TextEvent::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-TextEvent text:'%s'", _text.c_str());
 	return String(str);
 }
 
@@ -590,13 +513,6 @@ String MetaEvent_CopyrightNotice::GetArgsName() const
 	return String(str);
 }
 
-String MetaEvent_CopyrightNotice::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-CopyrightNotice text:'%s'", _text.c_str());
-	return String(str);
-}
-
 Event *MetaEvent_CopyrightNotice::Clone() const
 {
 	return new MetaEvent_CopyrightNotice(*this);
@@ -632,13 +548,6 @@ String MetaEvent_SequenceOrTrackName::GetArgsName() const
 {
 	char str[128];
 	::sprintf(str, "text:%s", MakeQuotedString(_text.c_str()).c_str());
-	return String(str);
-}
-
-String MetaEvent_SequenceOrTrackName::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-SequenceOrTrackName text:'%s'", _text.c_str());
 	return String(str);
 }
 
@@ -680,13 +589,6 @@ String MetaEvent_InstrumentName::GetArgsName() const
 	return String(str);
 }
 
-String MetaEvent_InstrumentName::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-InstrumentName text:'%s'", _text.c_str());
-	return String(str);
-}
-
 Event *MetaEvent_InstrumentName::Clone() const
 {
 	return new MetaEvent_InstrumentName(*this);
@@ -722,13 +624,6 @@ String MetaEvent_LyricText::GetArgsName() const
 {
 	char str[128];
 	::sprintf(str, "text:%s", MakeQuotedString(_text.c_str()).c_str());
-	return String(str);
-}
-
-String MetaEvent_LyricText::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-LyricText text:'%s'", _text.c_str());
 	return String(str);
 }
 
@@ -770,13 +665,6 @@ String MetaEvent_MarkerText::GetArgsName() const
 	return String(str);
 }
 
-String MetaEvent_MarkerText::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-MarkerText text:'%s'", _text.c_str());
-	return String(str);
-}
-
 Event *MetaEvent_MarkerText::Clone() const
 {
 	return new MetaEvent_MarkerText(*this);
@@ -812,13 +700,6 @@ String MetaEvent_CuePoint::GetArgsName() const
 {
 	char str[128];
 	::sprintf(str, "text:%s", MakeQuotedString(_text.c_str()).c_str());
-	return String(str);
-}
-
-String MetaEvent_CuePoint::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-CuePoint text:'%s'", _text.c_str());
 	return String(str);
 }
 
@@ -867,13 +748,6 @@ String MetaEvent_MIDIChannelPrefixAssignment::GetArgsName() const
 	return String(str);
 }
 
-String MetaEvent_MIDIChannelPrefixAssignment::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-MIDIChannelPrefixAssignment channel:%d", _channel);
-	return String(str);
-}
-
 Event *MetaEvent_MIDIChannelPrefixAssignment::Clone() const
 {
 	return new MetaEvent_MIDIChannelPrefixAssignment(*this);
@@ -909,13 +783,6 @@ String MetaEvent_EndOfTrack::GetArgsName() const
 {
 	char str[128];
 	::sprintf(str, "");
-	return String(str);
-}
-
-String MetaEvent_EndOfTrack::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-EndOfTrack");
 	return String(str);
 }
 
@@ -966,13 +833,6 @@ String MetaEvent_TempoSetting::GetArgsName() const
 {
 	char str[128];
 	::sprintf(str, "mpqn:%d", _mpqn);
-	return String(str);
-}
-
-String MetaEvent_TempoSetting::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-TempoSetting mpqn:%d", _mpqn);
 	return String(str);
 }
 
@@ -1030,14 +890,6 @@ String MetaEvent_SMPTEOffset::GetArgsName() const
 	return String(str);
 }
 
-String MetaEvent_SMPTEOffset::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-SMPTEOffset hour:%d minute:%d second:%d frame:%d subFrame:%d",
-						_hour, _minute, _second, _frame, _subFrame);
-	return String(str);
-}
-
 Event *MetaEvent_SMPTEOffset::Clone() const
 {
 	return new MetaEvent_SMPTEOffset(*this);
@@ -1090,14 +942,6 @@ String MetaEvent_TimeSignature::GetArgsName() const
 	return String(str);
 }
 
-String MetaEvent_TimeSignature::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-TimeSignature numerator:%d denominator:%d metronome:%d cnt32nd:%d",
-							_numerator, _denominator, _metronome, _cnt32nd);
-	return String(str);
-}
-
 Event *MetaEvent_TimeSignature::Clone() const
 {
 	return new MetaEvent_TimeSignature(*this);
@@ -1145,13 +989,6 @@ String MetaEvent_KeySignature::GetArgsName() const
 	return String(str);
 }
 
-String MetaEvent_KeySignature::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-KeySignature key:%d scale:%d", _key, _scale);
-	return String(str);
-}
-
 Event *MetaEvent_KeySignature::Clone() const
 {
 	return new MetaEvent_KeySignature(*this);
@@ -1187,13 +1024,6 @@ String MetaEvent_SequencerSpecificEvent::GetArgsName() const
 {
 	char str[128];
 	::sprintf(str, "%dbytes", _binary.size());
-	return String(str);
-}
-
-String MetaEvent_SequencerSpecificEvent::ToString() const
-{
-	char str[128];
-	::sprintf(str, "MetaEvent-SequencerSpecificEvent");
 	return String(str);
 }
 

@@ -32,7 +32,6 @@ public:
 	virtual String GetArgsName() const = 0;
 	virtual bool Play(Signal sig, Port *pPort) const = 0;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const = 0;
-	virtual String ToString() const = 0;
 	virtual Event *Clone() const = 0;
 	static bool WriteVariableFormat(Signal sig, Stream &stream, unsigned long num);
 };
@@ -127,7 +126,6 @@ public:
 	}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -148,7 +146,6 @@ public:
 	}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -164,7 +161,6 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 2) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -180,7 +176,6 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 2) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -200,7 +195,6 @@ public:
 	}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -216,7 +210,6 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 1) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -232,7 +225,6 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 2) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -254,7 +246,6 @@ public:
 	virtual String GetArgsName() const;
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -296,7 +287,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -318,7 +308,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -340,7 +329,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -362,7 +350,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -384,7 +371,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -406,7 +392,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -428,7 +413,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -450,7 +434,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -472,7 +455,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -494,7 +476,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -513,7 +494,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -535,7 +515,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -559,7 +538,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -584,7 +562,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -606,7 +583,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
@@ -628,7 +604,6 @@ public:
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Port *pPort) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	virtual String ToString() const;
 	virtual Event *Clone() const;
 };
 
