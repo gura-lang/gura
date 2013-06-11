@@ -1088,6 +1088,11 @@ bool ValueList::Deserialize(Environment &env, Signal sig, Stream &stream)
 //-----------------------------------------------------------------------------
 // ValueDict
 //-----------------------------------------------------------------------------
+void ValueDict::Store(Environment &env, const String &strIndex, const String &strValue)
+{
+	insert(ValueDict::value_type(Value(env, strIndex), Value(env, strValue)));
+}
+
 bool ValueDict::Store(Signal sig, const ValueList &valList, StoreMode storeMode)
 {
 	enum { FIELD_Key, FIELD_Value } field = FIELD_Key;
