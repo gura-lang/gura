@@ -676,6 +676,7 @@ public:
 	inline ValueDict() : std::map<Value, Value, Value::KeyCompare>() {}
 	inline ValueDict(const Value::KeyCompare &comp) :
 							std::map<Value, Value, Value::KeyCompare>(comp) {}
+	void Store(Environment &env, const String &strIndex, const String &strValue);
 	bool Store(Signal sig, const ValueList &valList, StoreMode storeMode);
 	bool Store(Signal sig, const ValueDict &valDict, StoreMode storeMode);
 	bool Store(Signal sig, const Value &valueIdx, const Value &value, StoreMode storeMode);
