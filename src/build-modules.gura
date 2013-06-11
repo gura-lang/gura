@@ -64,6 +64,7 @@ dirInfos = @(DirInfo) {
 	['Module_curl',			[`mswin, `linux]]
 	['Module_wx',			[`mswin, `linux]]
 	['Module_guri',			[`mswin, `linux]]
+	['Module_midi',			[`mswin, `linux]]
 	['Module_uuid',			[`mswin]]
 	['Module_canvas',		[`mswin]]
 	['Module_mswin',		[`mswin]]

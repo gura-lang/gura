@@ -46,6 +46,10 @@ bool SMF::Read(Environment &env, Signal sig, Stream &stream)
 			return false;
 		}
 		_format = Gura_UnpackUShort(headerChunk.format);
+		if (_format != 0 && _format != 1) {
+			sig.SetError(ERR_FormatError, "supported format is 0 or 1");
+			return false;
+		}
 		numTrackChunks = Gura_UnpackUShort(headerChunk.num_track_chunks);
 		_division = Gura_UnpackUShort(headerChunk.division);
 	} while (0);

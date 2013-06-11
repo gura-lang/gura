@@ -1,0 +1,8 @@
+#!/usr/bin/env gura
+import(midi)
+
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: midi-smf-play file')
+	sys.exit(1)
+}
+midi.port().play(sys.argv[1])

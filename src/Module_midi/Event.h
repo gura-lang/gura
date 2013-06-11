@@ -508,7 +508,7 @@ class MetaEvent_TempoSetting : public MetaEvent {
 public:
 	enum { EventType = 0x51 };
 private:
-	unsigned long _mpqn;
+	unsigned long _mpqn;	// usec / quarter-note
 public:
 	inline MetaEvent_TempoSetting(const MetaEvent_TempoSetting &event) : MetaEvent(event),
 										_mpqn(event._mpqn) {}

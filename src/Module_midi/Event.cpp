@@ -809,6 +809,7 @@ bool MetaEvent_TempoSetting::Prepare(Signal sig, const Binary &binary)
 
 bool MetaEvent_TempoSetting::Play(Signal sig, Port *pPort) const
 {
+	
 	return true;
 }
 
