@@ -2,6 +2,13 @@
 #define __PORT_H__
 #include <gura.h>
 
+#if defined(GURA_ON_MSWIN)
+#elif defined(GURA_ON_LINUX)
+#include <alsa/asoundlib.h>
+#else
+#error unknown platform
+#endif
+
 Gura_BeginModule(midi)
 
 //-----------------------------------------------------------------------------
@@ -63,9 +70,9 @@ public:
 class Port {
 public:
 private:
-	int _fd;
+	snd_rawmidi_t *_out_rmidi;
 public:
-	inline Port() : _fd(-1) {}
+	inline Port() : _out_rmidi(NULL) {}
 	inline ~Port() {
 		Reset();
 		Close();
@@ -74,35 +81,33 @@ public:
 		return 0;
 	}
 	inline bool Open(int id) {
-		if (_fd >= 0) Close();
-		char devName[128];
-		::sprintf(devName, "/dev/midi%d", id);
-		_fd = ::open(devName, O_WRONLY);
-		return _fd >= 0;
+		if (_out_rmidi != NULL) Close();
+		char name[128];
+		::sprintf(name, "hw:%d,%d,%d", 0, id, 0);
+		return ::snd_rawmidi_open(NULL, &_out_rmidi, name, 0) >= 0;
 	}
 	inline void Close() {
-		if (_fd >= 0) ::close(fd);
-		_fd = -1;
+		if (_out_rmidi != NULL) ::snd_rawmidi_close(_out_rmidi);
+		_out_rmidi = NULL;
 	}
 	inline void Reset() {
-		//if (_fd >= 0) ::ctrl();
 	}
 	inline void Send(unsigned char msg1) {
 		unsigned char buff[1] = { msg1 };
-		::write(_fd, buff, sizeof(buff));
+		::snd_rawmidi_write(_out_rmidi, buff, sizeof(buff));
 	}
 	inline void Send(unsigned char msg1, unsigned char msg2) {
 		unsigned char buff[2] = { msg1, msg2 };
-		::write(_fd, buff, sizeof(buff));
+		::snd_rawmidi_write(_out_rmidi, buff, sizeof(buff));
 	}
 	inline void Send(unsigned char msg1, unsigned char msg2, unsigned char msg3) {
 		unsigned char buff[3] = { msg1, msg2, msg3 };
-		::write(_fd, buff, sizeof(buff));
+		::snd_rawmidi_write(_out_rmidi, buff, sizeof(buff));
 	}
 	inline void Send(unsigned char msg1, unsigned char msg2, unsigned char msg3,
 					unsigned char msg4) {
 		unsigned char buff[4] = { msg1, msg2, msg3, msg4 };
-		::write(_fd, buff, sizeof(buff));
+		::snd_rawmidi_write(_out_rmidi, buff, sizeof(buff));
 	}
 };
 
