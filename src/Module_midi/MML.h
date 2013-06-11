@@ -35,6 +35,8 @@ public:
 	MML();
 	inline EventOwner &GetEventOwner() { return *_pEventOwner; }
 	inline const EventOwner &GetEventOwner() const { return *_pEventOwner; }
+	inline void SetDivision(unsigned short division) { _division = division; }
+	inline unsigned short GetDivision() const { return _division; }
 	void Reset();
 	bool Parse(Signal sig, unsigned char channel, const char *str);
 	bool Play(Signal sig, Port *pPort) const;

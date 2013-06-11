@@ -1,0 +1,17 @@
+#!/usr/bin/env gura
+import(midi)
+
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: midi-smf-print file')
+	sys.exit(1)
+}
+midi.smf(sys.argv[1]) {|smf|
+	println(smf)
+	smf.tracks.each {|track, idx|
+		printf('Track #%d\n', idx)
+		printf('%08x %-*s %s\n', track.events:*timestamp,
+				track.events:*name:*len().max(), track.events:*name,
+				track.events:*args)
+		//println(track.events)
+	}
+}

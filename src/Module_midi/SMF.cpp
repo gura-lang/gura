@@ -253,7 +253,6 @@ bool SMF::Write(Environment &env, Signal sig, Stream &stream)
 bool SMF::Play(Signal sig, Port *pPort) const
 {
 	AutoPtr<EventOwner> pEventOwner(new EventOwner());
-	double deltaTimeUnit = .6 / GetDivision();
 	foreach_const (TrackOwner, ppTrack, GetTrackOwner()) {
 		const Track *pTrack = *ppTrack;
 		foreach_const (EventOwner, ppEvent, pTrack->GetEventOwner()) {
@@ -262,7 +261,7 @@ bool SMF::Play(Signal sig, Port *pPort) const
 		}
 	}
 	pEventOwner->Sort();
-	return pEventOwner->Play(sig, pPort, deltaTimeUnit);
+	return pEventOwner->Play(sig, pPort, GetDivision(), 1000000);
 }
 
 

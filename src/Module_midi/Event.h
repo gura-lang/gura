@@ -49,7 +49,7 @@ public:
 	};
 public:
 	void Sort();
-	bool Play(Signal sig, Port *pPort, double deltaTimeUnit) const;
+	bool Play(Signal sig, Port *pPort, unsigned short division, unsigned long mpqn) const;
 	bool Write(Signal sig, Stream &stream) const;
 };
 
@@ -514,6 +514,11 @@ public:
 										_mpqn(event._mpqn) {}
 	inline MetaEvent_TempoSetting(unsigned long timeStamp) :
 									MetaEvent(timeStamp, EventType), _mpqn(0) {}
+	inline static bool CheckEvent(const Event *pEvent) {
+		return pEvent != NULL && pEvent->IsMetaEvent() &&
+			dynamic_cast<const MetaEvent *>(pEvent)->GetEventType() == EventType;
+	}
+	inline unsigned long GetMPQN() const { return _mpqn; }
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);

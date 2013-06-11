@@ -39,13 +39,12 @@ bool MML::Parse(Signal sig, unsigned char channel, const char *str)
 bool MML::Play(Signal sig, Port *pPort) const
 {
 	AutoPtr<EventOwner> pEventOwner(new EventOwner());
-	double deltaTimeUnit = .6 / _division;
 	foreach_const (EventOwner, ppEvent, GetEventOwner()) {
 		const Event *pEvent = *ppEvent;
 		pEventOwner->push_back(Event::Reference(pEvent));
 	}
 	pEventOwner->Sort();
-	return pEventOwner->Play(sig, pPort, deltaTimeUnit);
+	return pEventOwner->Play(sig, pPort, GetDivision(), 1000000);
 }
 
 bool MML::FeedChar(Signal sig, unsigned char channel, int ch)

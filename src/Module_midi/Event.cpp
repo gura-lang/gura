@@ -39,7 +39,7 @@ void EventList::Sort()
 	std::stable_sort(begin(), end(), Comparator_TimeStamp());
 }
 
-bool EventList::Play(Signal sig, Port *pPort, double deltaTimeUnit) const
+bool EventList::Play(Signal sig, Port *pPort, unsigned short division, unsigned long mpqn) const
 {
 	Event *pEventPrev = NULL;
 	foreach_const (EventList, ppEvent, *this) {
@@ -48,9 +48,12 @@ bool EventList::Play(Signal sig, Port *pPort, double deltaTimeUnit) const
 					pEventPrev->GetTimeStamp() < pEvent->GetTimeStamp()) {
 			unsigned long deltaTime =
 					pEvent->GetTimeStamp() - pEventPrev->GetTimeStamp();
-			OAL::Sleep(deltaTimeUnit * deltaTime);
+			OAL::Sleep(static_cast<double>(mpqn) * deltaTime / division / 1000000);
 		}
 		if (!pEvent->Play(sig, pPort)) return false;
+		if (MetaEvent_TempoSetting::CheckEvent(pEvent)) {
+			mpqn = dynamic_cast<MetaEvent_TempoSetting *>(pEvent)->GetMPQN();
+		}
 		pEventPrev = pEvent;
 	}
 	return true;
