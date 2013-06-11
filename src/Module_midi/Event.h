@@ -487,8 +487,12 @@ public:
 	enum { EventType = 0x2f };
 public:
 	inline MetaEvent_EndOfTrack(const MetaEvent_EndOfTrack &event) : MetaEvent(event) {}
- 		inline MetaEvent_EndOfTrack(unsigned long timeStamp) :
+	inline MetaEvent_EndOfTrack(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
+	inline static bool CheckEvent(const Event *pEvent) {
+		return pEvent != NULL && pEvent->IsMetaEvent() &&
+			dynamic_cast<const MetaEvent *>(pEvent)->GetEventType() == EventType;
+	}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);

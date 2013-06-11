@@ -225,6 +225,13 @@ bool SMF::Write(Environment &env, Signal sig, Stream &stream)
 			if (!pEvent->Write(sig, *pStreamMemory, pEventPrev)) return false;
 			pEventPrev = pEvent;
 		}
+		if (!MetaEvent_EndOfTrack::CheckEvent(pEventPrev)) {
+			unsigned long timeDelta = 100;
+			timeStamp += timeDelta;
+			AutoPtr<Event> pEvent(new MetaEvent_EndOfTrack(timeStamp));
+			if (!Event::WriteVariableFormat(sig, *pStreamMemory, timeDelta)) return false;
+			if (!pEvent->Write(sig, *pStreamMemory, pEventPrev)) return false;
+		}
 		TrackChunkTop trackChunkTop;
 		::memcpy(trackChunkTop.MTrk, "MTrk", sizeof(trackChunkTop.MTrk));
 		Gura_PackULong(trackChunkTop.length, static_cast<unsigned long>(pStreamMemory->GetSize()));
