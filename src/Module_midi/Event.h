@@ -11,8 +11,6 @@ class Port;
 //-----------------------------------------------------------------------------
 class Event {
 public:
-	enum { NUM_CHANNELS = 16 };
-public:
 	Gura_DeclareReferenceAccessor(Event);
 protected:
 	int _cntRef;

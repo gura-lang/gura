@@ -7,7 +7,6 @@ Gura_BeginModule(midi)
 
 class MML {
 public:
-	enum { NUM_CHANNELS = 16 };
 	enum { LENGTH_MAX = 256 };
 private:
 	enum Stat {
@@ -28,8 +27,9 @@ private:
 	int _operatorSub;
 	int _numAccum;
 	int _cntDot;
+	unsigned long _timeStamp;
 	unsigned short _division;
-	unsigned long _timeStampTbl[NUM_CHANNELS];
+	unsigned long _mpqn;
 	AutoPtr<EventOwner> _pEventOwner;
 public:
 	MML();
@@ -37,6 +37,8 @@ public:
 	inline const EventOwner &GetEventOwner() const { return *_pEventOwner; }
 	inline void SetDivision(unsigned short division) { _division = division; }
 	inline unsigned short GetDivision() const { return _division; }
+	inline void SetMPQN(unsigned long mpqn) { _mpqn = mpqn; }
+	inline unsigned long GetMPQN() const { return _mpqn; }
 	void Reset();
 	bool Parse(Signal sig, unsigned char channel, const char *str);
 	bool Play(Signal sig, Port *pPort) const;

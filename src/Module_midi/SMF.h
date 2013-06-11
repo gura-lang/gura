@@ -29,13 +29,16 @@ public:
 private:
 	unsigned short _format;
 	unsigned short _division;
+	unsigned long _mpqn;
 	AutoPtr<TrackOwner> _pTrackOwner;
 public:
 	SMF();
 	inline void SetFormat(unsigned short format) { _format = format; }
-	inline void SetDivision(unsigned short division) { _division = division; }
 	inline unsigned short GetFormat() const { return _format; }
+	inline void SetDivision(unsigned short division) { _division = division; }
 	inline unsigned short GetDivision() const { return _division; }
+	inline void SetMPQN(unsigned long mpqn) { _mpqn = mpqn; }
+	inline unsigned long GetMPQN() const { return _mpqn; }
 	inline TrackOwner &GetTrackOwner() { return *_pTrackOwner; }
 	inline const TrackOwner &GetTrackOwner() const { return *_pTrackOwner; }
 	void ResetTimeStamp();

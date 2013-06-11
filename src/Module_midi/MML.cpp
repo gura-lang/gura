@@ -19,10 +19,9 @@ void MML::Reset()
 	_operator		= '\0';
 	_operatorSub	= '\0';
 	_numAccum		= 0;
+	_timeStamp		= 0;
 	_division		= 120;
-	for (size_t i = 0; i < NUM_CHANNELS; i++) {
-		_timeStampTbl[i] = 0;
-	}
+	_mpqn			= 750000;
 	GetEventOwner().Clear();
 }
 
@@ -50,7 +49,6 @@ bool MML::Play(Signal sig, Port *pPort) const
 bool MML::FeedChar(Signal sig, unsigned char channel, int ch)
 {
 	bool continueFlag;
-	unsigned long &timeStamp = _timeStampTbl[channel];
 	if ('a' <= ch && ch <= 'z') ch = ch - 'a' + 'A';
 	do {
 		continueFlag = false;
@@ -146,9 +144,9 @@ bool MML::FeedChar(Signal sig, unsigned char channel, int ch)
 				// nothing to do
 			}
 			int length = CalcLength(_numAccum, _cntDot, _lengthDefault);
-			GetEventOwner().push_back(new MIDIEvent_NoteOn(timeStamp, channel, note, velocity));
-			timeStamp += length;
-			GetEventOwner().push_back(new MIDIEvent_NoteOn(timeStamp, channel, note, 0));
+			GetEventOwner().push_back(new MIDIEvent_NoteOn(_timeStamp, channel, note, velocity));
+			_timeStamp += length;
+			GetEventOwner().push_back(new MIDIEvent_NoteOn(_timeStamp, channel, note, 0));
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_RestLengthPre) {// -------- Rest --------
@@ -172,7 +170,7 @@ bool MML::FeedChar(Signal sig, unsigned char channel, int ch)
 			}
 		} else if (_stat == STAT_RestFix) {
 			int length = CalcLength(_numAccum, _cntDot, _lengthDefault);
-			timeStamp += length;
+			_timeStamp += length;
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_OctavePre) {	// -------- Octave --------
@@ -258,7 +256,7 @@ bool MML::FeedChar(Signal sig, unsigned char channel, int ch)
 				_stat = STAT_ToneFix;
 			}
 		} else if (_stat == STAT_ToneFix) {
-			GetEventOwner().push_back(new MIDIEvent_ProgramChange(timeStamp, channel,
+			GetEventOwner().push_back(new MIDIEvent_ProgramChange(_timeStamp, channel,
 										static_cast<unsigned char>(_numAccum)));
 			continueFlag = true;
 			_stat = STAT_Begin;

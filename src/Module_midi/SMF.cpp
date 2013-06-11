@@ -6,7 +6,7 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 // SMF
 //-----------------------------------------------------------------------------
-SMF::SMF() : _format(0), _division(0), _pTrackOwner(new TrackOwner())
+SMF::SMF() : _format(0), _division(120), _mpqn(750000), _pTrackOwner(new TrackOwner())
 {
 }
 
@@ -261,7 +261,7 @@ bool SMF::Play(Signal sig, Port *pPort) const
 		}
 	}
 	pEventOwner->Sort();
-	return pEventOwner->Play(sig, pPort, GetDivision(), 1000000);
+	return pEventOwner->Play(sig, pPort, GetDivision(), GetMPQN());
 }
 
 
