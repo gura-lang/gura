@@ -1,9 +1,9 @@
 #!/usr/bin/env gura
 import(midi)
 
-midi.smf {|smf|
-	smf.addtrack {|track|
+midi.content {|content|
+	content.addtrack {|track|
 		track.addmml('cdefg')
 	}
-	smf.write('b.mid')
+	content.write('b.mid')
 }

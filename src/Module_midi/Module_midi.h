@@ -82,26 +82,6 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class declaration for midi.mml
-//-----------------------------------------------------------------------------
-Gura_DeclareUserClass(mml);
-
-class Object_mml : public Object {
-private:
-	MML _mml;
-public:
-	Gura_DeclareObjectAccessor(mml)
-public:
-	inline Object_mml(Environment &env) : Object(Gura_UserClass(mml)) {}
-	inline MML &GetMML() { return _mml; }
-	virtual Object *Clone() const;
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
-};
-
-//-----------------------------------------------------------------------------
 // Class declaration for midi.portinfo
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(portinfo);

@@ -5,6 +5,8 @@
 
 Gura_BeginModule(midi)
 
+class Track;
+
 class MML {
 public:
 	enum { LENGTH_MAX = 256 };
@@ -20,6 +22,7 @@ private:
 		STAT_TempoPre, STAT_Tempo, STAT_TempoFix,
 	};
 private:
+	Track *_pTrack;
 	Stat _stat;
 	int _octave;
 	int _lengthDefault;
@@ -28,22 +31,14 @@ private:
 	int _numAccum;
 	int _cntDot;
 	unsigned long _timeStamp;
-	unsigned short _division;
-	unsigned long _mpqn;
-	AutoPtr<EventOwner> _pEventOwner;
+	unsigned char _channel;
+	static unsigned char _channelNext;
 public:
-	MML();
-	inline EventOwner &GetEventOwner() { return *_pEventOwner; }
-	inline const EventOwner &GetEventOwner() const { return *_pEventOwner; }
-	inline void SetDivision(unsigned short division) { _division = division; }
-	inline unsigned short GetDivision() const { return _division; }
-	inline void SetMPQN(unsigned long mpqn) { _mpqn = mpqn; }
-	inline unsigned long GetMPQN() const { return _mpqn; }
+	MML(Track *pTrack);
 	void Reset();
-	bool Parse(Signal sig, unsigned char channel, const char *str);
-	bool Play(Signal sig, Port *pPort) const;
+	bool Parse(Signal sig, const char *str);
 private:
-	bool FeedChar(Signal sig, unsigned char channel, int ch);
+	bool FeedChar(Signal sig, int ch);
 private:
 	inline static bool IsEOD(int ch) { return ch == '\0' || ch < 0; }
 	inline static bool IsWhite(int ch) { return ch == ' ' || ch == '\t'; }

@@ -114,18 +114,17 @@ String Object_track::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for midi.track
 //-----------------------------------------------------------------------------
-// midi.track#addmml(mml:midi.mml):map:void
-Gura_DeclareMethod(track, addmml)
+// midi.track#parse(text:string):map:void
+Gura_DeclareMethod(track, parse)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "mml", VTYPE_mml);
+	DeclareArg(env, "text", VTYPE_string);
 }
 
-Gura_ImplementMethod(track, addmml)
+Gura_ImplementMethod(track, parse)
 {
 	Object_track *pThis = Object_track::GetThisObj(args);
-	MML &mml = Object_mml::GetObject(args, 0)->GetMML();
-	pThis->GetTrack()->GetEventOwner().AddEvents(mml.GetEventOwner());
+	pThis->GetTrack()->ParseMML(sig, args.GetString(0));
 	return Value::Null;
 }
 
@@ -134,7 +133,7 @@ Gura_ImplementMethod(track, addmml)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(track)
 {
-	Gura_AssignMethod(track, addmml);
+	Gura_AssignMethod(track, parse);
 }
 
 //-----------------------------------------------------------------------------
@@ -325,101 +324,6 @@ Gura_ImplementCastTo(content)
 }
 
 //-----------------------------------------------------------------------------
-// Object_mml
-//-----------------------------------------------------------------------------
-Object *Object_mml::Clone() const
-{
-	return NULL;
-}
-
-bool Object_mml::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	//symbols.insert(Gura_Symbol(string));
-	return true;
-}
-
-Value Object_mml::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-#if 0
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
-		return Value(env, _str);
-	}
-#endif
-	evaluatedFlag = false;
-	return Value::Null;
-}
-
-String Object_mml::ToString(Signal sig, bool exprFlag)
-{
-	String rtn;
-	rtn += "<midi.mml:";
-	rtn += ">";
-	return rtn;
-}
-
-//-----------------------------------------------------------------------------
-// Gura interfaces for midi.mml
-//-----------------------------------------------------------------------------
-// midi.mml#parse(channel:number, text:string):map:void
-Gura_DeclareMethod(mml, parse)
-{
-	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "channel", VTYPE_number);
-	DeclareArg(env, "text", VTYPE_string);
-}
-
-Gura_ImplementMethod(mml, parse)
-{
-	Object_mml *pThis = Object_mml::GetThisObj(args);
-	if (!pThis->GetMML().Parse(sig, args.GetChar(0), args.GetString(1))) return Value::Null;
-	return Value::Null;
-}
-
-// midi.mml#play(port:midi.port):void
-Gura_DeclareMethod(mml, play)
-{
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "port", VTYPE_port);
-}
-
-Gura_ImplementMethod(mml, play)
-{
-	MML &mml = Object_mml::GetThisObj(args)->GetMML();
-	Port *pPort = Object_port::GetObject(args, 0)->GetPort();
-	mml.Play(sig, pPort);
-	return Value::Null;
-}
-
-//-----------------------------------------------------------------------------
-// Class implementation for midi.mml
-//-----------------------------------------------------------------------------
-Gura_ImplementUserClassWithCast(mml)
-{
-	Gura_AssignMethod(mml, parse);
-	Gura_AssignMethod(mml, play);
-}
-
-Gura_ImplementCastFrom(mml)
-{
-	if (value.IsString()) {
-		unsigned char channel = 0;
-		AutoPtr<Object_mml> pObj(new Object_mml(env));
-		if (!pObj->GetMML().Parse(sig, channel, value.GetString())) return false;
-		value = Value(pObj.release());
-		return true;
-	}
-	return false;
-}
-
-Gura_ImplementCastTo(mml)
-{
-	return false;
-}
-
-//-----------------------------------------------------------------------------
 // Object_portinfo
 //-----------------------------------------------------------------------------
 Object *Object_portinfo::Clone() const
@@ -549,21 +453,6 @@ Gura_ImplementMethod(port, play)
 	return Value::Null;
 }
 
-// midi.port#mmlplay(mml:midi.mml):map:void
-Gura_DeclareMethod(port, mmlplay)
-{
-	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "mml", VTYPE_mml);
-}
-
-Gura_ImplementMethod(port, mmlplay)
-{
-	Object_port *pThis = Object_port::GetThisObj(args);
-	MML &mml = Object_mml::GetObject(args, 0)->GetMML();
-	mml.Play(sig, pThis->GetPort());
-	return Value::Null;
-}
-
 //-----------------------------------------------------------------------------
 // Class implementation for midi.port
 //-----------------------------------------------------------------------------
@@ -571,7 +460,6 @@ Gura_ImplementUserClassWithCast(port)
 {
 	Gura_AssignMethod(port, send);
 	Gura_AssignMethod(port, play);
-	Gura_AssignMethod(port, mmlplay);
 }
 
 Gura_ImplementCastFrom(port)
@@ -689,21 +577,6 @@ Gura_ImplementFunction(content)
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
-// midi.mml() {block?}
-Gura_DeclareFunction(mml)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(Gura_UserClass(mml));
-	AddHelp(Gura_Symbol(en), "create an instance that parses MML string and stores its data.");
-}
-
-Gura_ImplementFunction(mml)
-{
-	AutoPtr<Object_mml> pObj(new Object_mml(env));
-	return ReturnValue(env, sig, args, Value(pObj.release()));
-}
-
 // midi.port(id?:number) {block?}
 Gura_DeclareFunction(port)
 {
@@ -755,18 +628,15 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClassWithoutPrepare(event, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(track, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(content, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(mml, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(portinfo, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(port, env.LookupClass(VTYPE_object));
 	Gura_UserClass(event)->Prepare(env);
 	Gura_UserClass(track)->Prepare(env);
 	Gura_UserClass(content)->Prepare(env);
-	Gura_UserClass(mml)->Prepare(env);
 	Gura_UserClass(portinfo)->Prepare(env);
 	Gura_UserClass(port)->Prepare(env);
 	// function assignment
 	Gura_AssignFunction(content);
-	Gura_AssignFunction(mml);
 	Gura_AssignFunction(port);
 	Gura_AssignFunction(test);
 }

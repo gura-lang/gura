@@ -1,4 +1,5 @@
 #include "MML.h"
+#include "Track.h"
 
 Gura_BeginModule(midi)
 
@@ -6,8 +7,12 @@ Gura_BeginModule(midi)
 // MML
 // see http://ja.wikipedia.org/wiki/Music_Macro_Language for MML syntax
 //-----------------------------------------------------------------------------
-MML::MML() : _pEventOwner(new EventOwner())
+unsigned char MML::_channelNext = 0;
+
+MML::MML(Track *pTrack) : _pTrack(pTrack)
 {
+	_channel = _channelNext;
+	if (_channelNext < 15) _channelNext++;
 	Reset();
 }
 
@@ -19,33 +24,27 @@ void MML::Reset()
 	_operator		= '\0';
 	_operatorSub	= '\0';
 	_numAccum		= 0;
-	_timeStamp		= 0;
-	_division		= 120;
-	_mpqn			= 750000;
-	GetEventOwner().Clear();
+	_cntDot			= 0;
+	_timeStamp 		= 0;
 }
 
-bool MML::Parse(Signal sig, unsigned char channel, const char *str)
+bool MML::Parse(Signal sig, const char *str)
 {
+	EventOwner &eventOwner = _pTrack->GetEventOwner();
+	if (!eventOwner.empty() && _timeStamp < eventOwner.back()->GetTimeStamp()) {
+		_timeStamp = eventOwner.back()->GetTimeStamp();
+	}
 	for (const char *p = str; ; p++) {
 		char ch = *p;
-		if (!FeedChar(sig, channel, ch)) return false;
+		if (!FeedChar(sig, ch)) return false;
 		if (ch == '\0') break;
 	}
 	return true;
 }
 
-bool MML::Play(Signal sig, Port *pPort) const
+bool MML::FeedChar(Signal sig, int ch)
 {
-	AutoPtr<EventOwner> pEventOwner(new EventOwner());
-	pEventOwner->AddEvents(GetEventOwner());
-	pEventOwner->Sort();
-	Event::Player player(Port::Reference(pPort), GetDivision(), GetMPQN());
-	return player.Play(sig, *pEventOwner);
-}
-
-bool MML::FeedChar(Signal sig, unsigned char channel, int ch)
-{
+	EventOwner &eventOwner = _pTrack->GetEventOwner();
 	bool continueFlag;
 	if ('a' <= ch && ch <= 'z') ch = ch - 'a' + 'A';
 	do {
@@ -142,9 +141,9 @@ bool MML::FeedChar(Signal sig, unsigned char channel, int ch)
 				// nothing to do
 			}
 			int length = CalcLength(_numAccum, _cntDot, _lengthDefault);
-			GetEventOwner().push_back(new MIDIEvent_NoteOn(_timeStamp, channel, note, velocity));
+			eventOwner.push_back(new MIDIEvent_NoteOn(_timeStamp, _channel, note, velocity));
 			_timeStamp += length;
-			GetEventOwner().push_back(new MIDIEvent_NoteOn(_timeStamp, channel, note, 0));
+			eventOwner.push_back(new MIDIEvent_NoteOn(_timeStamp, _channel, note, 0));
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_RestLengthPre) {// -------- Rest --------
@@ -254,7 +253,7 @@ bool MML::FeedChar(Signal sig, unsigned char channel, int ch)
 				_stat = STAT_ToneFix;
 			}
 		} else if (_stat == STAT_ToneFix) {
-			GetEventOwner().push_back(new MIDIEvent_ProgramChange(_timeStamp, channel,
+			eventOwner.push_back(new MIDIEvent_ProgramChange(_timeStamp, _channel,
 										static_cast<unsigned char>(_numAccum)));
 			continueFlag = true;
 			_stat = STAT_Begin;
