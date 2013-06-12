@@ -1,10 +1,10 @@
 #ifndef __EVENT_H__
 #define __EVENT_H__
 #include <gura.h>
+#include "Port.h"
 
 Gura_BeginModule(midi)
 
-class Port;
 class EventList;
 
 //-----------------------------------------------------------------------------
@@ -14,13 +14,13 @@ class Event {
 public:
 	class Player {
 	public:
-		Port *_pPort;
+		AutoPtr<Port> _pPort;
 		unsigned short _division;
 		unsigned long _mpqn;
 	public:
 		Player(Port *pPort, unsigned short division, unsigned long mpqn);
 		bool Play(Signal sig, const EventList &eventList);
-		inline Port *GetPort() { return _pPort; }
+		inline Port *GetPort() { return _pPort.get(); }
 		inline void SetMPQN(unsigned long mpqn) { _mpqn = mpqn; }
 	};
 public:
@@ -77,8 +77,7 @@ protected:
 	~EventOwner();
 public:
 	void Clear();
-	bool AddMetaEvent(Signal sig, unsigned long timeStamp,
-			unsigned char eventType, const unsigned char buff[], size_t length);
+	void AddEvents(const EventList &eventList);
 };
 
 //-----------------------------------------------------------------------------

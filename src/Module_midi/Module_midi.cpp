@@ -125,10 +125,7 @@ Gura_ImplementMethod(track, addmml)
 {
 	Object_track *pThis = Object_track::GetThisObj(args);
 	MML &mml = Object_mml::GetObject(args, 0)->GetMML();
-	foreach (EventOwner, ppEvent, mml.GetEventOwner()) {
-		Event *pEvent = *ppEvent;
-		pThis->GetTrack()->GetEventOwner().push_back(Event::Reference(pEvent));
-	}
+	pThis->GetTrack()->GetEventOwner().AddEvents(mml.GetEventOwner());
 	return Value::Null;
 }
 

@@ -38,12 +38,9 @@ bool MML::Parse(Signal sig, unsigned char channel, const char *str)
 bool MML::Play(Signal sig, Port *pPort) const
 {
 	AutoPtr<EventOwner> pEventOwner(new EventOwner());
-	foreach_const (EventOwner, ppEvent, GetEventOwner()) {
-		const Event *pEvent = *ppEvent;
-		pEventOwner->push_back(Event::Reference(pEvent));
-	}
+	pEventOwner->AddEvents(GetEventOwner());
 	pEventOwner->Sort();
-	Event::Player player(pPort, GetDivision(), GetMPQN());
+	Event::Player player(Port::Reference(pPort), GetDivision(), GetMPQN());
 	return player.Play(sig, *pEventOwner);
 }
 

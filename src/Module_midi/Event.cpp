@@ -81,6 +81,14 @@ void EventOwner::Clear()
 	clear();
 }
 
+void EventOwner::AddEvents(const EventList &eventList)
+{
+	foreach_const (EventList, ppEvent, eventList) {
+		Event *pEvent = *ppEvent;
+		push_back(Event::Reference(pEvent));
+	}
+}
+
 //-----------------------------------------------------------------------------
 // MIDIEvent
 //-----------------------------------------------------------------------------

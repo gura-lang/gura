@@ -255,13 +255,10 @@ bool SMF::Play(Signal sig, Port *pPort) const
 	AutoPtr<EventOwner> pEventOwner(new EventOwner());
 	foreach_const (TrackOwner, ppTrack, GetTrackOwner()) {
 		const Track *pTrack = *ppTrack;
-		foreach_const (EventOwner, ppEvent, pTrack->GetEventOwner()) {
-			const Event *pEvent = *ppEvent;
-			pEventOwner->push_back(Event::Reference(pEvent));
-		}
+		pEventOwner->AddEvents(pTrack->GetEventOwner());
 	}
 	pEventOwner->Sort();
-	Event::Player player(pPort, GetDivision(), 1000000);
+	Event::Player player(Port::Reference(pPort), GetDivision(), 1000000);
 	return player.Play(sig, *pEventOwner);
 }
 

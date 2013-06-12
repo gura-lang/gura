@@ -19,13 +19,18 @@ Gura_BeginModule(midi)
 class Port {
 public:
 private:
+	int _cntRef;
 	HMIDIOUT _hMIDI;
 public:
-	inline Port() : _hMIDI(NULL) {}
+	Gura_DeclareReferenceAccessor(Port);
+public:
+	inline Port() : _cntRef(1), _hMIDI(NULL) {}
+protected:
 	inline ~Port() {
 		Reset();
 		Close();
 	}
+public:
 	static inline int GetNumDevs() {
 		return ::midiOutGetNumDevs();
 	}
@@ -70,13 +75,18 @@ public:
 class Port {
 public:
 private:
+	int _cntRef;
 	snd_rawmidi_t *_out_rmidi;
 public:
-	inline Port() : _out_rmidi(NULL) {}
+	Gura_DeclareReferenceAccessor(Port);
+public:
+	inline Port() : _cntRef(1), _out_rmidi(NULL) {}
+protected:
 	inline ~Port() {
 		Reset();
 		Close();
 	}
+public:
 	static inline int GetNumDevs() {
 		return 0;
 	}

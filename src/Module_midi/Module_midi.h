@@ -127,15 +127,15 @@ class Object_port : public Object {
 public:
 	Gura_DeclareObjectAccessor(port)
 private:
-	Port _port;
+	AutoPtr<Port> _pPort;
 public:
-	inline Object_port(Environment &env) : Object(Gura_UserClass(port)) {}
+	inline Object_port(Environment &env) : Object(Gura_UserClass(port)), _pPort(new Port()) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline Port *GetPort() { return &_port; }
+	inline Port *GetPort() { return _pPort.get(); }
 };
 
 //-----------------------------------------------------------------------------
