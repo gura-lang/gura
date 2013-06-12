@@ -1,16 +1,16 @@
-#include "SMF.h"
+#include "Content.h"
 #include "Port.h"
 
 Gura_BeginModule(midi)
 
 //-----------------------------------------------------------------------------
-// SMF
+// Content
 //-----------------------------------------------------------------------------
-SMF::SMF() : _format(0), _division(120), _mpqn(750000), _pTrackOwner(new TrackOwner())
+Content::Content() : _format(0), _division(120), _mpqn(750000), _pTrackOwner(new TrackOwner())
 {
 }
 
-bool SMF::Read(Environment &env, Signal sig, Stream &stream)
+bool Content::Read(Environment &env, Signal sig, Stream &stream)
 {
 	enum Stat {
 		STAT_EventStart,
@@ -196,7 +196,7 @@ bool SMF::Read(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool SMF::Write(Environment &env, Signal sig, Stream &stream)
+bool Content::Write(Environment &env, Signal sig, Stream &stream)
 {
 	do {
 		HeaderChunkTop headerChunkTop;
@@ -250,7 +250,7 @@ bool SMF::Write(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool SMF::Play(Signal sig, Port *pPort) const
+bool Content::Play(Signal sig, Port *pPort) const
 {
 	AutoPtr<EventOwner> pEventOwner(new EventOwner());
 	foreach_const (TrackOwner, ppTrack, GetTrackOwner()) {

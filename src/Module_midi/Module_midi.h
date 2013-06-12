@@ -5,7 +5,7 @@
 #define __MODULE_MIDI_H__
 #include <gura.h>
 #include "Port.h"
-#include "SMF.h"
+#include "Content.h"
 #include "MML.h"
 
 Gura_BeginModule(midi)
@@ -60,18 +60,18 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class declaration for midi.smf
+// Class declaration for midi.content
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(smf);
+Gura_DeclareUserClass(content);
 
-class Object_smf : public Object {
+class Object_content : public Object {
 private:
-	SMF _smf;
+	Content _content;
 public:
-	Gura_DeclareObjectAccessor(smf)
+	Gura_DeclareObjectAccessor(content)
 public:
-	inline Object_smf(Environment &env) : Object(Gura_UserClass(smf)) {}
-	inline SMF &GetSMF() { return _smf; }
+	inline Object_content(Environment &env) : Object(Gura_UserClass(content)) {}
+	inline Content &GetContent() { return _content; }
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,

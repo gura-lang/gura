@@ -1,5 +1,5 @@
-#include "SMF.h"
-#include "Port.h"
+#include "Event.h"
+#include "Content.h"
 
 Gura_BeginModule(midi)
 

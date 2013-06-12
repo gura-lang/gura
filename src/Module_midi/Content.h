@@ -1,14 +1,14 @@
-#ifndef __SMF_H__
-#define __SMF_H__
+#ifndef __CONTENT_H__
+#define __CONTENT_H__
 #include <gura.h>
 #include "Track.h"
 
 Gura_BeginModule(midi)
 
 //-----------------------------------------------------------------------------
-// SMF
+// Content
 //-----------------------------------------------------------------------------
-class SMF {
+class Content {
 public:
 	struct HeaderChunkTop {
 		enum { Size = 8 };
@@ -32,7 +32,7 @@ private:
 	unsigned long _mpqn;
 	AutoPtr<TrackOwner> _pTrackOwner;
 public:
-	SMF();
+	Content();
 	inline void SetFormat(unsigned short format) { _format = format; }
 	inline unsigned short GetFormat() const { return _format; }
 	inline void SetDivision(unsigned short division) { _division = division; }

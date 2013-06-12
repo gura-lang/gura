@@ -138,14 +138,14 @@ Gura_ImplementUserClass(track)
 }
 
 //-----------------------------------------------------------------------------
-// Object_smf
+// Object_content
 //-----------------------------------------------------------------------------
-Object *Object_smf::Clone() const
+Object *Object_content::Clone() const
 {
 	return NULL;
 }
 
-bool Object_smf::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_content::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(format));
@@ -154,24 +154,24 @@ bool Object_smf::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_smf::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_content::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(format))) {
-		return Value(_smf.GetFormat());
+		return Value(_content.GetFormat());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(tracks))) {
 		Iterator *pIterator =
-				new Iterator_track(TrackOwner::Reference(&_smf.GetTrackOwner()));
+				new Iterator_track(TrackOwner::Reference(&_content.GetTrackOwner()));
 		return Value(env, pIterator);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
-		return Value(_smf.GetDivision());
+		return Value(_content.GetDivision());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-Value Object_smf::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_content::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -182,26 +182,26 @@ Value Object_smf::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 			sig.SetError(ERR_ValueError, "wrong number for format");
 			return Value::Null;
 		}
-		_smf.SetFormat(format);
+		_content.SetFormat(format);
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
 		if (!value.MustBeNumber(sig)) return Value::Null;
 		unsigned short division = value.GetUShort();
-		_smf.SetDivision(division);
+		_content.SetDivision(division);
 		return value;
 	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-String Object_smf::ToString(Signal sig, bool exprFlag)
+String Object_content::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
-	rtn += "<midi.smf";
+	rtn += "<midi.content";
 	do {
 		char buff[128];
 		::sprintf(buff, ":format=%d:tracks=%d:division=%d",
-			_smf.GetFormat(), _smf.GetTrackOwner().size(), _smf.GetDivision());
+			_content.GetFormat(), _content.GetTrackOwner().size(), _content.GetDivision());
 		rtn += buff;
 	} while (0);
 	rtn += ">";
@@ -209,64 +209,64 @@ String Object_smf::ToString(Signal sig, bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for midi.smf
+// Gura interfaces for midi.content
 //-----------------------------------------------------------------------------
-// midi.smf#read(stream:stream:r):map:void
-Gura_DeclareMethod(smf, read)
+// midi.content#read(stream:stream:r):map:void
+Gura_DeclareMethod(content, read)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 }
 
-Gura_ImplementMethod(smf, read)
+Gura_ImplementMethod(content, read)
 {
-	Object_smf *pThis = Object_smf::GetThisObj(args);
-	if (!pThis->GetSMF().Read(env, sig, args.GetStream(0))) return Value::Null;
+	Object_content *pThis = Object_content::GetThisObj(args);
+	if (!pThis->GetContent().Read(env, sig, args.GetStream(0))) return Value::Null;
 	return Value::Null;
 }
 
-// midi.smf#write(stream:stream:w):map:void
-Gura_DeclareMethod(smf, write)
+// midi.content#write(stream:stream:w):map:void
+Gura_DeclareMethod(content, write)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 }
 
-Gura_ImplementMethod(smf, write)
+Gura_ImplementMethod(content, write)
 {
-	Object_smf *pThis = Object_smf::GetThisObj(args);
-	if (!pThis->GetSMF().Write(env, sig, args.GetStream(0))) return Value::Null;
+	Object_content *pThis = Object_content::GetThisObj(args);
+	if (!pThis->GetContent().Write(env, sig, args.GetStream(0))) return Value::Null;
 	return Value::Null;
 }
 
-// midi.smf#play(port:midi.port):void
-Gura_DeclareMethod(smf, play)
+// midi.content#play(port:midi.port):void
+Gura_DeclareMethod(content, play)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "port", VTYPE_port);
 }
 
-Gura_ImplementMethod(smf, play)
+Gura_ImplementMethod(content, play)
 {
-	SMF &smf = Object_smf::GetThisObj(args)->GetSMF();
+	Content &content = Object_content::GetThisObj(args)->GetContent();
 	Port *pPort = Object_port::GetObject(args, 0)->GetPort();
-	smf.Play(sig, pPort);
+	content.Play(sig, pPort);
 	return Value::Null;
 }
 
-// midi.smf#track(index:number):map {block?}
-Gura_DeclareMethod(smf, track)
+// midi.content#track(index:number):map {block?}
+Gura_DeclareMethod(content, track)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(smf, track)
+Gura_ImplementMethod(content, track)
 {
-	Object_smf *pThis = Object_smf::GetThisObj(args);
+	Object_content *pThis = Object_content::GetThisObj(args);
 	size_t index = args.GetSizeT(0);
-	TrackOwner &trackOwner = pThis->GetSMF().GetTrackOwner();
+	TrackOwner &trackOwner = pThis->GetContent().GetTrackOwner();
 	if (index >= trackOwner.size()) {
 		sig.SetError(ERR_IndexError, "index is out of range");
 		return Value::Null;
@@ -276,17 +276,17 @@ Gura_ImplementMethod(smf, track)
 				Value(new Object_track(env, Track::Reference(pTrack))));
 }
 
-// midi.smf#addtrack():map {block?}
-Gura_DeclareMethod(smf, addtrack)
+// midi.content#addtrack():map {block?}
+Gura_DeclareMethod(content, addtrack)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(smf, addtrack)
+Gura_ImplementMethod(content, addtrack)
 {
-	Object_smf *pThis = Object_smf::GetThisObj(args);
-	TrackOwner &trackOwner = pThis->GetSMF().GetTrackOwner();
+	Object_content *pThis = Object_content::GetThisObj(args);
+	TrackOwner &trackOwner = pThis->GetContent().GetTrackOwner();
 	Track *pTrack = new Track();
 	trackOwner.push_back(pTrack);
 	return ReturnValue(env, sig, args,
@@ -294,23 +294,23 @@ Gura_ImplementMethod(smf, addtrack)
 }
 
 //-----------------------------------------------------------------------------
-// Class implementation for midi.smf
+// Class implementation for midi.content
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClassWithCast(smf)
+Gura_ImplementUserClassWithCast(content)
 {
-	Gura_AssignMethod(smf, read);
-	Gura_AssignMethod(smf, write);
-	Gura_AssignMethod(smf, play);
-	Gura_AssignMethod(smf, track);
-	Gura_AssignMethod(smf, addtrack);
+	Gura_AssignMethod(content, read);
+	Gura_AssignMethod(content, write);
+	Gura_AssignMethod(content, play);
+	Gura_AssignMethod(content, track);
+	Gura_AssignMethod(content, addtrack);
 }
 
-Gura_ImplementCastFrom(smf)
+Gura_ImplementCastFrom(content)
 {
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
 	if (value.IsStream()) {
-		AutoPtr<Object_smf> pObj(new Object_smf(env));
-		pObj->GetSMF().Read(env, sig, value.GetStream());
+		AutoPtr<Object_content> pObj(new Object_content(env));
+		pObj->GetContent().Read(env, sig, value.GetStream());
 		value = Value::Null; // delete stream instance
 		if (sig.IsSignalled()) return false;
 		value = Value(pObj.release());
@@ -319,7 +319,7 @@ Gura_ImplementCastFrom(smf)
 	return false;
 }
 
-Gura_ImplementCastTo(smf)
+Gura_ImplementCastTo(content)
 {
 	return false;
 }
@@ -534,18 +534,18 @@ Gura_ImplementMethod(port, send)
 	return Value::Null;
 }
 
-// midi.port#play(smf:midi.smf):map:void
+// midi.port#play(content:midi.content):map:void
 Gura_DeclareMethod(port, play)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "smf", VTYPE_smf);
+	DeclareArg(env, "content", VTYPE_content);
 }
 
 Gura_ImplementMethod(port, play)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
-	SMF &smf = Object_smf::GetObject(args, 0)->GetSMF();
-	smf.Play(sig, pThis->GetPort());
+	Content &content = Object_content::GetObject(args, 0)->GetContent();
+	content.Play(sig, pThis->GetPort());
 	return Value::Null;
 }
 
@@ -667,24 +667,24 @@ void Iterator_event::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 //-----------------------------------------------------------------------------
 // Gura module functions: midi
 //-----------------------------------------------------------------------------
-// midi.smf(stream?:stream) {block?}
-Gura_DeclareFunction(smf)
+// midi.content(stream?:stream) {block?}
+Gura_DeclareFunction(content)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(Gura_UserClass(smf));
+	SetClassToConstruct(Gura_UserClass(content));
 	AddHelp(Gura_Symbol(en), "create an instance that contains SMF information.");
 }
 
-Gura_ImplementFunction(smf)
+Gura_ImplementFunction(content)
 {
-	AutoPtr<Object_smf> pObj(new Object_smf(env));
-	SMF &smf = pObj->GetSMF();
+	AutoPtr<Object_content> pObj(new Object_content(env));
+	Content &content = pObj->GetContent();
 	if (args.IsStream(0)) {
-		if (!smf.Read(env, sig, args.GetStream(0))) return Value::Null;
+		if (!content.Read(env, sig, args.GetStream(0))) return Value::Null;
 	} else {
-		smf.SetDivision(140);
+		content.SetDivision(140);
 	}
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
@@ -754,18 +754,18 @@ Gura_ModuleEntry()
 	// class realization
 	Gura_RealizeUserClassWithoutPrepare(event, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(track, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(smf, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(content, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(mml, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(portinfo, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(port, env.LookupClass(VTYPE_object));
 	Gura_UserClass(event)->Prepare(env);
 	Gura_UserClass(track)->Prepare(env);
-	Gura_UserClass(smf)->Prepare(env);
+	Gura_UserClass(content)->Prepare(env);
 	Gura_UserClass(mml)->Prepare(env);
 	Gura_UserClass(portinfo)->Prepare(env);
 	Gura_UserClass(port)->Prepare(env);
 	// function assignment
-	Gura_AssignFunction(smf);
+	Gura_AssignFunction(content);
 	Gura_AssignFunction(mml);
 	Gura_AssignFunction(port);
 	Gura_AssignFunction(test);
