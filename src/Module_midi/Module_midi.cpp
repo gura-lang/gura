@@ -286,7 +286,8 @@ Gura_ImplementMethod(content, addtrack)
 {
 	Object_content *pThis = Object_content::GetThisObj(args);
 	TrackOwner &trackOwner = pThis->GetContent().GetTrackOwner();
-	Track *pTrack = new Track();
+	Track *pTrack = new Track(MML::ChannelMapper::Reference(
+									pThis->GetContent().GetChannelMapper()));
 	trackOwner.push_back(pTrack);
 	return ReturnValue(env, sig, args,
 				Value(new Object_track(env, Track::Reference(pTrack))));

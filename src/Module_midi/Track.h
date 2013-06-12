@@ -12,16 +12,18 @@ Gura_BeginModule(midi)
 class Track {
 private:
 	int _cntRef;
+	AutoPtr<MML::ChannelMapper> _pChannelMapper;
 	AutoPtr<EventOwner> _pEventOwner;
 	std::auto_ptr<MML> _pMML; // maybe NULL
 public:
 	Gura_DeclareReferenceAccessor(Track);
 public:
-	Track();
+	Track(MML::ChannelMapper *pChannelMapper);
 	inline EventOwner &GetEventOwner() { return *_pEventOwner; }
 	inline const EventOwner &GetEventOwner() const { return *_pEventOwner; }
 	bool Write(Signal sig, Stream &stream) const;
 	bool ParseMML(Signal sig, const char *str);
+	const MML *GetMML() const { return _pMML.get(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -46,6 +48,7 @@ protected:
 	~TrackOwner();
 public:
 	void Clear();
+	unsigned char GetChannelNext();
 };
 
 }}

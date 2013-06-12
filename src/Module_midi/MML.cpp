@@ -7,12 +7,8 @@ Gura_BeginModule(midi)
 // MML
 // see http://ja.wikipedia.org/wiki/Music_Macro_Language for MML syntax
 //-----------------------------------------------------------------------------
-unsigned char MML::_channelNext = 0;
-
-MML::MML(Track *pTrack) : _pTrack(pTrack)
+MML::MML(Track *pTrack, unsigned char channel) : _pTrack(pTrack), _channel(channel)
 {
-	_channel = _channelNext;
-	if (_channelNext < 15) _channelNext++;
 	Reset();
 }
 

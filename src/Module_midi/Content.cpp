@@ -6,7 +6,8 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 // Content
 //-----------------------------------------------------------------------------
-Content::Content() : _format(0), _division(120), _mpqn(750000), _pTrackOwner(new TrackOwner())
+Content::Content() : _format(0), _division(120), _mpqn(750000),
+		_pTrackOwner(new TrackOwner()), _pChannelMapper(new MML::ChannelMapper())
 {
 }
 
@@ -64,7 +65,8 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 			sig.SetError(ERR_FormatError, "invalid SMF format");
 			return false;
 		}
-		GetTrackOwner().push_back(new Track());
+		GetTrackOwner().push_back(new Track(
+					MML::ChannelMapper::Reference(GetChannelMapper())));
 		EventOwner &eventOwner = GetTrackOwner().back()->GetEventOwner();
 		std::auto_ptr<MIDIEvent> pMIDIEvent;
 		unsigned char eventType = 0x00;

@@ -31,6 +31,7 @@ private:
 	unsigned short _division;
 	unsigned long _mpqn;
 	AutoPtr<TrackOwner> _pTrackOwner;
+	AutoPtr<MML::ChannelMapper> _pChannelMapper;
 public:
 	Content();
 	inline void SetFormat(unsigned short format) { _format = format; }
@@ -41,6 +42,7 @@ public:
 	inline unsigned long GetMPQN() const { return _mpqn; }
 	inline TrackOwner &GetTrackOwner() { return *_pTrackOwner; }
 	inline const TrackOwner &GetTrackOwner() const { return *_pTrackOwner; }
+	MML::ChannelMapper *GetChannelMapper() { return _pChannelMapper.get(); }
 	void ResetTimeStamp();
 	bool Read(Environment &env, Signal sig, Stream &stream);
 	bool Write(Environment &env, Signal sig, Stream &stream);

@@ -10,6 +10,24 @@ class Track;
 class MML {
 public:
 	enum { LENGTH_MAX = 256 };
+public:
+	class ChannelMapper {
+	private:
+		int _cntRef;
+		unsigned char _channelNext;
+	public:
+		Gura_DeclareReferenceAccessor(ChannelMapper);
+	public:
+		inline ChannelMapper() : _cntRef(1), _channelNext(0) {}
+	private:
+		inline ~ChannelMapper() {}
+	public:
+		inline unsigned char GetChannelNext() {
+			unsigned char rtn = _channelNext;
+			if (_channelNext < 15) _channelNext++;
+			return rtn;
+		}
+	};
 private:
 	enum Stat {
 		STAT_Begin,
@@ -23,6 +41,7 @@ private:
 	};
 private:
 	Track *_pTrack;
+	unsigned char _channel;
 	Stat _stat;
 	int _octave;
 	int _lengthDefault;
@@ -31,10 +50,8 @@ private:
 	int _numAccum;
 	int _cntDot;
 	unsigned long _timeStamp;
-	unsigned char _channel;
-	static unsigned char _channelNext;
 public:
-	MML(Track *pTrack);
+	MML(Track *pTrack, unsigned char channel);
 	void Reset();
 	bool Parse(Signal sig, const char *str);
 private:

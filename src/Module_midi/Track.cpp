@@ -5,14 +5,15 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 // Track
 //-----------------------------------------------------------------------------
-Track::Track() : _cntRef(1), _pEventOwner(new EventOwner())
+Track::Track(MML::ChannelMapper *pChannelMapper) : _cntRef(1),
+		_pChannelMapper(pChannelMapper), _pEventOwner(new EventOwner())
 {
 }
 
 bool Track::ParseMML(Signal sig, const char *str)
 {
 	if (_pMML.get() == NULL) {
-		_pMML.reset(new MML(this));
+		_pMML.reset(new MML(this, _pChannelMapper->GetChannelNext()));
 	}
 	return _pMML->Parse(sig, str);
 }
