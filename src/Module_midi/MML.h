@@ -60,7 +60,7 @@ private:
 	inline static bool IsEOD(int ch) { return ch == '\0' || ch < 0; }
 	inline static bool IsWhite(int ch) { return ch == ' ' || ch == '\t'; }
 	inline static bool IsDigit(int ch) { return '0' <= ch && ch <= '9'; }
-	static int CalcLength(int numDisp, int cntDot, int lengthDefault);
+	int CalcLength(int numDisp, int cntDot) const;
 };
 
 }}

@@ -136,7 +136,7 @@ bool MML::FeedChar(Signal sig, int ch)
 			} else {
 				// nothing to do
 			}
-			int length = CalcLength(_numAccum, _cntDot, _lengthDefault);
+			int length = CalcLength(_numAccum, _cntDot);
 			eventOwner.push_back(new MIDIEvent_NoteOn(_timeStamp, _channel, note, velocity));
 			_timeStamp += length;
 			eventOwner.push_back(new MIDIEvent_NoteOn(_timeStamp, _channel, note, 0));
@@ -162,7 +162,7 @@ bool MML::FeedChar(Signal sig, int ch)
 				_stat = STAT_RestFix;
 			}
 		} else if (_stat == STAT_RestFix) {
-			int length = CalcLength(_numAccum, _cntDot, _lengthDefault);
+			int length = CalcLength(_numAccum, _cntDot);
 			_timeStamp += length;
 			continueFlag = true;
 			_stat = STAT_Begin;
@@ -207,7 +207,7 @@ bool MML::FeedChar(Signal sig, int ch)
 				_stat = STAT_LengthFix;
 			}
 		} else if (_stat == STAT_LengthFix) {
-			_lengthDefault = CalcLength(_numAccum, _cntDot, _lengthDefault);
+			_lengthDefault = CalcLength(_numAccum, _cntDot);
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_VolumePre) {	// -------- Volume --------
@@ -279,9 +279,9 @@ bool MML::FeedChar(Signal sig, int ch)
 	return true;
 }
 
-int MML::CalcLength(int numDisp, int cntDot, int lengthDefault)
+int MML::CalcLength(int numDisp, int cntDot) const
 {
-	if (numDisp <= 0) return lengthDefault;
+	if (numDisp <= 0) return _lengthDefault;
 	int length = LENGTH_MAX / numDisp;
 	for (int lengthDiv = length / 2; lengthDiv > 0 && cntDot > 0;
 											lengthDiv /= 2, cntDot--) {
