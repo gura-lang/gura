@@ -261,7 +261,8 @@ bool SMF::Play(Signal sig, Port *pPort) const
 		}
 	}
 	pEventOwner->Sort();
-	return pEventOwner->Play(sig, pPort, GetDivision(), GetMPQN());
+	Event::Player player(pPort, GetDivision(), 1000000);
+	return player.Play(sig, *pEventOwner);
 }
 
 

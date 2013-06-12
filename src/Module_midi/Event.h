@@ -5,11 +5,24 @@
 Gura_BeginModule(midi)
 
 class Port;
+class EventList;
 
 //-----------------------------------------------------------------------------
 // Event
 //-----------------------------------------------------------------------------
 class Event {
+public:
+	class Player {
+	public:
+		Port *_pPort;
+		unsigned short _division;
+		unsigned long _mpqn;
+	public:
+		Player(Port *pPort, unsigned short division, unsigned long mpqn);
+		bool Play(Signal sig, const EventList &eventList);
+		inline Port *GetPort() { return _pPort; }
+		inline void SetMPQN(unsigned long mpqn) { _mpqn = mpqn; }
+	};
 public:
 	Gura_DeclareReferenceAccessor(Event);
 protected:
@@ -28,7 +41,7 @@ public:
 	virtual unsigned char GetStatusCode() const = 0;
 	virtual String GetName() const = 0;
 	virtual String GetArgsName() const = 0;
-	virtual bool Play(Signal sig, Port *pPort) const = 0;
+	virtual bool Play(Signal sig, Player *pPlayer) const = 0;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const = 0;
 	virtual Event *Clone() const = 0;
 	static bool WriteVariableFormat(Signal sig, Stream &stream, unsigned long num);
@@ -47,7 +60,6 @@ public:
 	};
 public:
 	void Sort();
-	bool Play(Signal sig, Port *pPort, unsigned short division, unsigned long mpqn) const;
 	bool Write(Signal sig, Stream &stream) const;
 };
 
@@ -103,7 +115,7 @@ public:
 	}
 	virtual bool IsMIDIEvent() const;
 	virtual unsigned char GetStatusCode() const;
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 };
 
@@ -242,7 +254,7 @@ public:
 	virtual unsigned char GetStatusCode() const;
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -283,7 +295,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -304,7 +316,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -325,7 +337,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -346,7 +358,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -367,7 +379,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -388,7 +400,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -409,7 +421,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -430,7 +442,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -451,7 +463,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -472,7 +484,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -494,7 +506,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -512,15 +524,10 @@ public:
 										_mpqn(event._mpqn) {}
 	inline MetaEvent_TempoSetting(unsigned long timeStamp) :
 									MetaEvent(timeStamp, EventType), _mpqn(0) {}
-	inline static bool CheckEvent(const Event *pEvent) {
-		return pEvent != NULL && pEvent->IsMetaEvent() &&
-			dynamic_cast<const MetaEvent *>(pEvent)->GetEventType() == EventType;
-	}
-	inline unsigned long GetMPQN() const { return _mpqn; }
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -543,7 +550,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -567,7 +574,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -588,7 +595,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };
@@ -609,7 +616,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
-	virtual bool Play(Signal sig, Port *pPort) const;
+	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual Event *Clone() const;
 };

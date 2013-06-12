@@ -43,7 +43,8 @@ bool MML::Play(Signal sig, Port *pPort) const
 		pEventOwner->push_back(Event::Reference(pEvent));
 	}
 	pEventOwner->Sort();
-	return pEventOwner->Play(sig, pPort, GetDivision(), 1000000);
+	Event::Player player(pPort, GetDivision(), GetMPQN());
+	return player.Play(sig, *pEventOwner);
 }
 
 bool MML::FeedChar(Signal sig, unsigned char channel, int ch)

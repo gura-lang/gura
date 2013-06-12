@@ -32,31 +32,36 @@ bool Event::WriteVariableFormat(Signal sig, Stream &stream, unsigned long num)
 }
 
 //-----------------------------------------------------------------------------
-// EventList
+// Event::Player
 //-----------------------------------------------------------------------------
-void EventList::Sort()
+Event::Player::Player(Port *pPort, unsigned short division, unsigned long mpqn) :
+							_pPort(pPort), _division(division), _mpqn(1000000)
 {
-	std::stable_sort(begin(), end(), Comparator_TimeStamp());
 }
 
-bool EventList::Play(Signal sig, Port *pPort, unsigned short division, unsigned long mpqn) const
+bool Event::Player::Play(Signal sig, const EventList &eventList)
 {
 	Event *pEventPrev = NULL;
-	foreach_const (EventList, ppEvent, *this) {
+	foreach_const (EventList, ppEvent, eventList) {
 		Event *pEvent = *ppEvent;
 		if (pEventPrev != NULL &&
 					pEventPrev->GetTimeStamp() < pEvent->GetTimeStamp()) {
 			unsigned long deltaTime =
 					pEvent->GetTimeStamp() - pEventPrev->GetTimeStamp();
-			OAL::Sleep(static_cast<double>(mpqn) * deltaTime / division / 1000000);
+			OAL::Sleep(static_cast<double>(_mpqn) * deltaTime / _division / 1000000);
 		}
-		if (!pEvent->Play(sig, pPort)) return false;
-		if (MetaEvent_TempoSetting::CheckEvent(pEvent)) {
-			mpqn = dynamic_cast<MetaEvent_TempoSetting *>(pEvent)->GetMPQN();
-		}
+		if (!pEvent->Play(sig, this)) return false;
 		pEventPrev = pEvent;
 	}
 	return true;
+}
+
+//-----------------------------------------------------------------------------
+// EventList
+//-----------------------------------------------------------------------------
+void EventList::Sort()
+{
+	std::stable_sort(begin(), end(), Comparator_TimeStamp());
 }
 
 //-----------------------------------------------------------------------------
@@ -86,12 +91,12 @@ unsigned char MIDIEvent::GetStatusCode() const
 	return _status | _channel;
 }
 
-bool MIDIEvent::Play(Signal sig, Port *pPort) const
+bool MIDIEvent::Play(Signal sig, Player *pPlayer) const
 {
 	if (_nParams == 1) {
-		pPort->Send(_status | _channel, _params[0]);
+		pPlayer->GetPort()->Send(_status | _channel, _params[0]);
 	} else {
-		pPort->Send(_status | _channel, _params[0], _params[1]);
+		pPlayer->GetPort()->Send(_status | _channel, _params[0], _params[1]);
 	}
 	return true;
 }
@@ -273,7 +278,7 @@ String SysExEvent::GetArgsName() const
 	return String(str);
 }
 
-bool SysExEvent::Play(Signal sig, Port *pPort) const
+bool SysExEvent::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -366,7 +371,7 @@ bool MetaEvent_Unknown::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_Unknown::Play(Signal sig, Port *pPort) const
+bool MetaEvent_Unknown::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -412,7 +417,7 @@ bool MetaEvent_SequenceNumber::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_SequenceNumber::Play(Signal sig, Port *pPort) const
+bool MetaEvent_SequenceNumber::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -454,7 +459,7 @@ bool MetaEvent_TextEvent::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_TextEvent::Play(Signal sig, Port *pPort) const
+bool MetaEvent_TextEvent::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -492,7 +497,7 @@ bool MetaEvent_CopyrightNotice::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_CopyrightNotice::Play(Signal sig, Port *pPort) const
+bool MetaEvent_CopyrightNotice::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -530,7 +535,7 @@ bool MetaEvent_SequenceOrTrackName::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_SequenceOrTrackName::Play(Signal sig, Port *pPort) const
+bool MetaEvent_SequenceOrTrackName::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -568,7 +573,7 @@ bool MetaEvent_InstrumentName::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_InstrumentName::Play(Signal sig, Port *pPort) const
+bool MetaEvent_InstrumentName::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -606,7 +611,7 @@ bool MetaEvent_LyricText::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_LyricText::Play(Signal sig, Port *pPort) const
+bool MetaEvent_LyricText::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -644,7 +649,7 @@ bool MetaEvent_MarkerText::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_MarkerText::Play(Signal sig, Port *pPort) const
+bool MetaEvent_MarkerText::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -682,7 +687,7 @@ bool MetaEvent_CuePoint::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_CuePoint::Play(Signal sig, Port *pPort) const
+bool MetaEvent_CuePoint::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -724,7 +729,7 @@ bool MetaEvent_MIDIChannelPrefixAssignment::Prepare(Signal sig, const Binary &bi
 	return true;
 }
 
-bool MetaEvent_MIDIChannelPrefixAssignment::Play(Signal sig, Port *pPort) const
+bool MetaEvent_MIDIChannelPrefixAssignment::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -765,7 +770,7 @@ bool MetaEvent_EndOfTrack::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_EndOfTrack::Play(Signal sig, Port *pPort) const
+bool MetaEvent_EndOfTrack::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -810,9 +815,9 @@ bool MetaEvent_TempoSetting::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_TempoSetting::Play(Signal sig, Port *pPort) const
+bool MetaEvent_TempoSetting::Play(Signal sig, Player *pPlayer) const
 {
-	
+	pPlayer->SetMPQN(_mpqn);
 	return true;
 }
 
@@ -862,7 +867,7 @@ bool MetaEvent_SMPTEOffset::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_SMPTEOffset::Play(Signal sig, Port *pPort) const
+bool MetaEvent_SMPTEOffset::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -915,7 +920,7 @@ bool MetaEvent_TimeSignature::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_TimeSignature::Play(Signal sig, Port *pPort) const
+bool MetaEvent_TimeSignature::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -965,7 +970,7 @@ bool MetaEvent_KeySignature::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_KeySignature::Play(Signal sig, Port *pPort) const
+bool MetaEvent_KeySignature::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
@@ -1007,7 +1012,7 @@ bool MetaEvent_SequencerSpecificEvent::Prepare(Signal sig, const Binary &binary)
 	return true;
 }
 
-bool MetaEvent_SequencerSpecificEvent::Play(Signal sig, Port *pPort) const
+bool MetaEvent_SequencerSpecificEvent::Play(Signal sig, Player *pPlayer) const
 {
 	return true;
 }
