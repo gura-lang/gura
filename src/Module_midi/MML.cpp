@@ -59,11 +59,11 @@ bool MML::FeedChar(Signal sig, int ch)
 	EventOwner &eventOwner = _pTrack->GetEventOwner();
 	bool continueFlag;
 	if ('a' <= ch && ch <= 'z') ch = ch - 'a' + 'A';
-	StateMachine *pStateMachine = _stateMachineStack.back();
 	do {
 		continueFlag = false;
-		Stat stat = pStateMachine->GetStat();
-		if (stat == STAT_Begin) {
+		StateMachine *pStateMachine = _stateMachineStack.back();
+		switch (pStateMachine->GetStat()) {
+		case STAT_Begin: {
 			if (IsEOD(ch)) {
 				// nothing to do
 			} else if (ch == 'C') {
@@ -114,7 +114,9 @@ bool MML::FeedChar(Signal sig, int ch)
 				sig.SetError(ERR_FormatError, "invalid character for MML");
 				return false;
 			}
-		} else if (stat == STAT_Note) {		// -------- Note --------
+			break;
+		}
+		case STAT_Note: {		// -------- Note --------
 			if (ch == '#' || ch == '+' || ch == '-') {
 				_operatorSub = ch;
 				pStateMachine->SetStat(STAT_NoteLengthPre);
@@ -127,7 +129,9 @@ bool MML::FeedChar(Signal sig, int ch)
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_NoteFix);
 			}
-		} else if (stat == STAT_NoteLengthPre) {
+			break;
+		}
+		case STAT_NoteLengthPre: {
 			if (IsDigit(ch)) {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_NoteLength);
@@ -137,7 +141,9 @@ bool MML::FeedChar(Signal sig, int ch)
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_NoteFix);
 			}
-		} else if (stat == STAT_NoteLength) {
+			break;
+		}
+		case STAT_NoteLength: {
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else if (ch == '.') {
@@ -146,7 +152,9 @@ bool MML::FeedChar(Signal sig, int ch)
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_NoteFix);
 			}
-		} else if (stat == STAT_NoteFix) {
+			break;
+		}
+		case STAT_NoteFix: {
 			static const unsigned char noteTbl[] = {
 				9, 11, 0, 2, 4, 5, 7,
 			};
@@ -167,7 +175,9 @@ bool MML::FeedChar(Signal sig, int ch)
 			
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
-		} else if (stat == STAT_ChannelMaybe) {
+			break;
+		}
+		case STAT_ChannelMaybe: {
 			if (ch == 'H') {
 				_numAccum = 0;
 			} else {
@@ -178,7 +188,9 @@ bool MML::FeedChar(Signal sig, int ch)
 				pStateMachine->SetStat(STAT_Note);
 				continueFlag = true;
 			}
-		} else if (stat == STAT_ChannelPre) {	// -------- Channel --------
+			break;
+		}
+		case STAT_ChannelPre: {	// -------- Channel --------
 			if (IsDigit(ch)) {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_Channel);
@@ -188,14 +200,18 @@ bool MML::FeedChar(Signal sig, int ch)
 				sig.SetError(ERR_FormatError, "channel number must be specified");
 				return false;
 			}
-		} else if (stat == STAT_Channel) {
+			break;
+		}
+		case STAT_Channel: {
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_ChannelFix);
 			}
-		} else if (stat == STAT_ChannelFix) {
+			break;
+		}
+		case STAT_ChannelFix: {
 			if (_numAccum > 15) {
 				sig.SetError(ERR_FormatError, "channel number must be less than 16");
 				return false;
@@ -203,7 +219,9 @@ bool MML::FeedChar(Signal sig, int ch)
 			_channel = static_cast<unsigned char>(_numAccum);
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
-		} else if (stat == STAT_RestLengthPre) {// -------- Rest --------
+			break;
+		}
+		case STAT_RestLengthPre: {// -------- Rest --------
 			if (IsDigit(ch)) {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_RestLength);
@@ -213,7 +231,9 @@ bool MML::FeedChar(Signal sig, int ch)
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_RestFix);
 			}
-		} else if (stat == STAT_RestLength) {
+			break;
+		}
+		case STAT_RestLength: {
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else if (ch == '.') {
@@ -222,12 +242,16 @@ bool MML::FeedChar(Signal sig, int ch)
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_RestFix);
 			}
-		} else if (stat == STAT_RestFix) {
+			break;
+		}
+		case STAT_RestFix: {
 			int length = CalcLength(_numAccum, _cntDot);
 			_timeStamp += length;
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
-		} else if (stat == STAT_OctavePre) {	// -------- Octave --------
+			break;
+		}
+		case STAT_OctavePre: {	// -------- Octave --------
 			if (IsDigit(ch)) {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_Octave);
@@ -237,14 +261,18 @@ bool MML::FeedChar(Signal sig, int ch)
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_OctaveFix);
 			}
-		} else if (stat == STAT_Octave) {
+			break;
+		}
+		case STAT_Octave: {
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_OctaveFix);
 			}
-		} else if (stat == STAT_OctaveFix) {
+			break;
+		}
+		case STAT_OctaveFix: {
 			if (_numAccum > MAX_OCTAVE) {
 				sig.SetError(ERR_FormatError,
 							"octave number must be less than %d", MAX_OCTAVE + 1);
@@ -253,7 +281,9 @@ bool MML::FeedChar(Signal sig, int ch)
 			_octave = _numAccum;
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
-		} else if (stat == STAT_LengthPre) {	// -------- Length --------
+			break;
+		}
+		case STAT_LengthPre: {	// -------- Length --------
 			if (IsDigit(ch)) {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_Length);
@@ -263,7 +293,9 @@ bool MML::FeedChar(Signal sig, int ch)
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_LengthFix);
 			}
-		} else if (stat == STAT_Length) {
+			break;
+		}
+		case STAT_Length: {
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else if (ch == '.') {
@@ -272,11 +304,15 @@ bool MML::FeedChar(Signal sig, int ch)
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_LengthFix);
 			}
-		} else if (stat == STAT_LengthFix) {
+			break;
+		}
+		case STAT_LengthFix: {
 			_lengthDefault = CalcLength(_numAccum, _cntDot);
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
-		} else if (stat == STAT_VelocityPre) {	// -------- Velocity --------
+			break;
+		}
+		case STAT_VelocityPre: {	// -------- Velocity --------
 			if (IsDigit(ch)) {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_Velocity);
@@ -286,14 +322,18 @@ bool MML::FeedChar(Signal sig, int ch)
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_VelocityFix);
 			}
-		} else if (stat == STAT_Velocity) {
+			break;
+		}
+		case STAT_Velocity: {
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_VelocityFix);
 			}
-		} else if (stat == STAT_VelocityFix) {
+			break;
+		}
+		case STAT_VelocityFix: {
 			if (_numAccum > MAX_VELOCITY) {
 				sig.SetError(ERR_FormatError,
 							"velocity number must be less than %d", MAX_VELOCITY + 1);
@@ -302,7 +342,9 @@ bool MML::FeedChar(Signal sig, int ch)
 			_velocity = static_cast<unsigned char>(_numAccum);
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
-		} else if (stat == STAT_ProgramPre) {		// ------- Program --------
+			break;
+		}
+		case STAT_ProgramPre: {		// ------- Program --------
 			if (IsDigit(ch)) {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_Program);
@@ -312,14 +354,18 @@ bool MML::FeedChar(Signal sig, int ch)
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_ProgramFix);
 			}
-		} else if (stat == STAT_Program) {
+			break;
+		}
+		case STAT_Program: {
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_ProgramFix);
 			}
-		} else if (stat == STAT_ProgramFix) {
+			break;
+		}
+		case STAT_ProgramFix: {
 			if (_numAccum > MAX_PROGRAM) {
 				sig.SetError(ERR_FormatError,
 							"program number must be less than %d", MAX_PROGRAM + 1);
@@ -330,7 +376,9 @@ bool MML::FeedChar(Signal sig, int ch)
 									_timeStamp, _channel, program));
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
-		} else if (stat == STAT_TempoPre) {	// -------- Tempo --------
+			break;
+		}
+		case STAT_TempoPre: {	// -------- Tempo --------
 			if (IsDigit(ch)) {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_Tempo);
@@ -340,18 +388,24 @@ bool MML::FeedChar(Signal sig, int ch)
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_TempoFix);
 			}
-		} else if (stat == STAT_Tempo) {
+			break;
+		}
+		case STAT_Tempo: {
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_TempoFix);
 			}
-		} else if (stat == STAT_TempoFix) {
+			break;
+		}
+		case STAT_TempoFix: {
 			unsigned long mpqn = static_cast<unsigned long>(60000000 / _numAccum);
 			eventOwner.push_back(new MetaEvent_TempoSetting(_timeStamp, mpqn));
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
+			break;
+		}
 		}
 	} while (continueFlag);
 	return true;
