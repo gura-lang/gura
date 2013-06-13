@@ -216,10 +216,10 @@ bool MML::FeedChar(Signal sig, int ch)
 				// nothing to do
 			}
 			int length = CalcLength(_numAccum, _cntDot);
-			eventOwner.push_back(new MIDIEvent_NoteOn(
+			eventOwner.AddEvent(new MIDIEvent_NoteOn(
 							_timeStamp, _channel, note, _velocity));
 			_timeStamp += length;
-			eventOwner.push_back(new MIDIEvent_NoteOn(
+			eventOwner.AddEvent(new MIDIEvent_NoteOn(
 							_timeStamp, _channel, note, 0));
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_NotePost);
@@ -431,7 +431,7 @@ bool MML::FeedChar(Signal sig, int ch)
 				return false;
 			}
 			unsigned char program = static_cast<unsigned char>(_numAccum);
-			eventOwner.push_back(new MIDIEvent_ProgramChange(
+			eventOwner.AddEvent(new MIDIEvent_ProgramChange(
 									_timeStamp, _channel, program));
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
@@ -460,7 +460,7 @@ bool MML::FeedChar(Signal sig, int ch)
 		}
 		case STAT_TempoFix: {
 			unsigned long mpqn = static_cast<unsigned long>(60000000 / _numAccum);
-			eventOwner.push_back(new MetaEvent_TempoSetting(_timeStamp, mpqn));
+			eventOwner.AddEvent(new MetaEvent_TempoSetting(_timeStamp, mpqn));
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
