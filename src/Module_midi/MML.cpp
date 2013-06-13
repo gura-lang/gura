@@ -16,11 +16,12 @@ void MML::Reset()
 {
 	_stat			= STAT_Begin;
 	_octave			= 4;				// 1-9
-	_lengthDefault	= LENGTH_MAX / 4;	// 1-LENGTH_MAX
+	_lengthDefault	= MAX_LENGTH / 4;	// 1-MAX_LENGTH
 	_operator		= '\0';
 	_operatorSub	= '\0';
 	_numAccum		= 0;
 	_cntDot			= 0;
+	_velocity		= 100;
 	_timeStamp 		= 0;
 }
 
@@ -48,6 +49,8 @@ bool MML::FeedChar(Signal sig, int ch)
 		if (_stat == STAT_Begin) {
 			if (IsEOD(ch)) {
 				// nothing to do
+			} else if (ch == 'C') {
+				_stat = STAT_ChannelMaybe;
 			} else if ('A' <= ch && ch <= 'G') {
 				_operator = ch;
 				_operatorSub = '\0';
@@ -67,7 +70,7 @@ bool MML::FeedChar(Signal sig, int ch)
 				_stat = STAT_OctavePre;
 			} else if (ch == '>') {
 				_operator = ch;
-				if (_octave < 255) _octave++;
+				if (_octave < MAX_OCTAVE - 1) _octave++;
 			} else if (ch == '<') {
 				_operator = ch;
 				if (_octave > 0) _octave--;
@@ -79,17 +82,20 @@ bool MML::FeedChar(Signal sig, int ch)
 			} else if (ch == 'V') {
 				_operator = ch;
 				_numAccum = 0;
-				_stat = STAT_VolumePre;
+				_stat = STAT_VelocityPre;
 			} else if (ch == '@') {
 				_operator = ch;
 				_numAccum = 0;
-				_stat = STAT_TonePre;
+				_stat = STAT_ProgramPre;
 			} else if (ch == 'T') {
 				_operator = ch;
 				_numAccum = 0;
 				_stat = STAT_TempoPre;
-			} else {
+			} else if (IsWhite(ch)) {
 				// nothing to do
+			} else {
+				sig.SetError(ERR_FormatError, "invalid character for MML");
+				return false;
 			}
 		} else if (_stat == STAT_Note) {		// -------- Note --------
 			if (ch == '#' || ch == '+' || ch == '-') {
@@ -124,7 +130,6 @@ bool MML::FeedChar(Signal sig, int ch)
 				_stat = STAT_NoteFix;
 			}
 		} else if (_stat == STAT_NoteFix) {
-			unsigned char velocity = 0x7f;
 			static const unsigned char noteTbl[] = {
 				9, 11, 0, 2, 4, 5, 7,
 			};
@@ -137,9 +142,48 @@ bool MML::FeedChar(Signal sig, int ch)
 				// nothing to do
 			}
 			int length = CalcLength(_numAccum, _cntDot);
-			eventOwner.push_back(new MIDIEvent_NoteOn(_timeStamp, _channel, note, velocity));
+			eventOwner.push_back(new MIDIEvent_NoteOn(
+							_timeStamp, _channel, note, _velocity));
 			_timeStamp += length;
-			eventOwner.push_back(new MIDIEvent_NoteOn(_timeStamp, _channel, note, 0));
+			eventOwner.push_back(new MIDIEvent_NoteOn(
+							_timeStamp, _channel, note, 0));
+			
+			continueFlag = true;
+			_stat = STAT_Begin;
+		} else if (_stat == STAT_ChannelMaybe) {
+			if (ch == 'H') {
+				_numAccum = 0;
+			} else {
+				_operator = 'C';
+				_operatorSub = '\0';
+				_numAccum = 0;
+				_cntDot = 0;
+				_stat = STAT_Note;
+				continueFlag = true;
+			}
+		} else if (_stat == STAT_ChannelPre) {	// -------- Channel --------
+			if (IsDigit(ch)) {
+				continueFlag = true;
+				_stat = STAT_Channel;
+			} else if (IsWhite(ch)) {
+				// nothing to do
+			} else {
+				sig.SetError(ERR_FormatError, "channel number must be specified");
+				return false;
+			}
+		} else if (_stat == STAT_Channel) {
+			if (IsDigit(ch)) {
+				_numAccum = _numAccum * 10 + (ch - '0');
+			} else {
+				continueFlag = true;
+				_stat = STAT_ChannelFix;
+			}
+		} else if (_stat == STAT_ChannelFix) {
+			if (_numAccum > 15) {
+				sig.SetError(ERR_FormatError, "channel number must be less than 16");
+				return false;
+			}
+			_channel = static_cast<unsigned char>(_numAccum);
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_RestLengthPre) {// -------- Rest --------
@@ -184,6 +228,11 @@ bool MML::FeedChar(Signal sig, int ch)
 				_stat = STAT_OctaveFix;
 			}
 		} else if (_stat == STAT_OctaveFix) {
+			if (_numAccum > MAX_OCTAVE) {
+				sig.SetError(ERR_FormatError,
+							"octave number must be less than %d", MAX_OCTAVE + 1);
+				return false;
+			}
 			_octave = _numAccum;
 			continueFlag = true;
 			_stat = STAT_Begin;
@@ -210,47 +259,58 @@ bool MML::FeedChar(Signal sig, int ch)
 			_lengthDefault = CalcLength(_numAccum, _cntDot);
 			continueFlag = true;
 			_stat = STAT_Begin;
-		} else if (_stat == STAT_VolumePre) {	// -------- Volume --------
+		} else if (_stat == STAT_VelocityPre) {	// -------- Velocity --------
 			if (IsDigit(ch)) {
 				continueFlag = true;
-				_stat = STAT_Volume;
+				_stat = STAT_Velocity;
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
 				continueFlag = true;
-				_stat = STAT_VolumeFix;
+				_stat = STAT_VelocityFix;
 			}
-		} else if (_stat == STAT_Volume) {
+		} else if (_stat == STAT_Velocity) {
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else {
 				continueFlag = true;
-				_stat = STAT_VolumeFix;
+				_stat = STAT_VelocityFix;
 			}
-		} else if (_stat == STAT_VolumeFix) {
-			//OnMmlVolume(_numAccum);
+		} else if (_stat == STAT_VelocityFix) {
+			if (_numAccum > MAX_VELOCITY) {
+				sig.SetError(ERR_FormatError,
+							"velocity number must be less than %d", MAX_VELOCITY + 1);
+				return false;
+			}
+			_velocity = static_cast<unsigned char>(_numAccum);
 			continueFlag = true;
 			_stat = STAT_Begin;
-		} else if (_stat == STAT_TonePre) {		// ------- Tone --------
+		} else if (_stat == STAT_ProgramPre) {		// ------- Program --------
 			if (IsDigit(ch)) {
 				continueFlag = true;
-				_stat = STAT_Tone;
+				_stat = STAT_Program;
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
 				continueFlag = true;
-				_stat = STAT_ToneFix;
+				_stat = STAT_ProgramFix;
 			}
-		} else if (_stat == STAT_Tone) {
+		} else if (_stat == STAT_Program) {
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else {
 				continueFlag = true;
-				_stat = STAT_ToneFix;
+				_stat = STAT_ProgramFix;
 			}
-		} else if (_stat == STAT_ToneFix) {
-			eventOwner.push_back(new MIDIEvent_ProgramChange(_timeStamp, _channel,
-										static_cast<unsigned char>(_numAccum)));
+		} else if (_stat == STAT_ProgramFix) {
+			if (_numAccum > MAX_PROGRAM) {
+				sig.SetError(ERR_FormatError,
+							"program number must be less than %d", MAX_PROGRAM + 1);
+				return false;
+			}
+			unsigned char program = static_cast<unsigned char>(_numAccum);
+			eventOwner.push_back(new MIDIEvent_ProgramChange(
+									_timeStamp, _channel, program));
 			continueFlag = true;
 			_stat = STAT_Begin;
 		} else if (_stat == STAT_TempoPre) {	// -------- Tempo --------
@@ -271,7 +331,8 @@ bool MML::FeedChar(Signal sig, int ch)
 				_stat = STAT_TempoFix;
 			}
 		} else if (_stat == STAT_TempoFix) {
-			//OnMmlTempo(_numAccum);
+			unsigned long mpqn = static_cast<unsigned long>(60000000 / _numAccum);
+			eventOwner.push_back(new MetaEvent_TempoSetting(_timeStamp, mpqn));
 			continueFlag = true;
 			_stat = STAT_Begin;
 		}
@@ -282,7 +343,7 @@ bool MML::FeedChar(Signal sig, int ch)
 int MML::CalcLength(int numDisp, int cntDot) const
 {
 	if (numDisp <= 0) return _lengthDefault;
-	int length = LENGTH_MAX / numDisp;
+	int length = MAX_LENGTH / numDisp;
 	for (int lengthDiv = length / 2; lengthDiv > 0 && cntDot > 0;
 											lengthDiv /= 2, cntDot--) {
 		length += lengthDiv;

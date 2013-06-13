@@ -6,7 +6,7 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 // Content
 //-----------------------------------------------------------------------------
-Content::Content() : _format(0), _division(120), _mpqn(750000),
+Content::Content() : _format(0), _division(120), _mpqn(60000000 / 120),
 		_pTrackOwner(new TrackOwner()), _pChannelMapper(new MML::ChannelMapper())
 {
 }

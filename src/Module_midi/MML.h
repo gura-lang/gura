@@ -9,7 +9,12 @@ class Track;
 
 class MML {
 public:
-	enum { LENGTH_MAX = 256 };
+	enum {
+		MAX_LENGTH		= 256,
+		MAX_OCTAVE		= 9,
+		MAX_VELOCITY	= 127,
+		MAX_PROGRAM		= 127,
+	};
 public:
 	class ChannelMapper {
 	private:
@@ -31,12 +36,14 @@ public:
 private:
 	enum Stat {
 		STAT_Begin,
+		STAT_Repeat,
 		STAT_Note, STAT_NoteLengthPre, STAT_NoteLength, STAT_NoteFix,
+		STAT_ChannelMaybe, STAT_ChannelPre, STAT_Channel, STAT_ChannelFix,
 		STAT_RestLengthPre, STAT_RestLength, STAT_RestFix,
 		STAT_OctavePre, STAT_Octave, STAT_OctaveFix,
 		STAT_LengthPre, STAT_Length, STAT_LengthFix,
-		STAT_VolumePre, STAT_Volume, STAT_VolumeFix,
-		STAT_TonePre, STAT_Tone, STAT_ToneFix,
+		STAT_VelocityPre, STAT_Velocity, STAT_VelocityFix,
+		STAT_ProgramPre, STAT_Program, STAT_ProgramFix,
 		STAT_TempoPre, STAT_Tempo, STAT_TempoFix,
 	};
 private:
@@ -49,6 +56,7 @@ private:
 	int _operatorSub;
 	int _numAccum;
 	int _cntDot;
+	unsigned char _velocity;
 	unsigned long _timeStamp;
 public:
 	MML(Track *pTrack, unsigned char channel);

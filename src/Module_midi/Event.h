@@ -521,8 +521,8 @@ private:
 public:
 	inline MetaEvent_TempoSetting(const MetaEvent_TempoSetting &event) : MetaEvent(event),
 										_mpqn(event._mpqn) {}
-	inline MetaEvent_TempoSetting(unsigned long timeStamp) :
-									MetaEvent(timeStamp, EventType), _mpqn(0) {}
+	inline MetaEvent_TempoSetting(unsigned long timeStamp, unsigned long mpqn = 0) :
+									MetaEvent(timeStamp, EventType), _mpqn(mpqn) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
