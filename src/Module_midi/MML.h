@@ -36,7 +36,7 @@ public:
 private:
 	enum Stat {
 		STAT_Begin,
-		STAT_Repeat,
+		STAT_Repeat, STAT_RepeatNumPre, STAT_RepeatNum, STAT_RepeatNumFix,
 		STAT_Note, STAT_NoteLengthPre, STAT_NoteLength, STAT_NoteFix,
 		STAT_ChannelMaybe, STAT_ChannelPre, STAT_Channel, STAT_ChannelFix,
 		STAT_RestLengthPre, STAT_RestLength, STAT_RestFix,
@@ -49,15 +49,15 @@ private:
 	class StateMachine {
 	private:
 		Stat _stat;
+		int _blockLevel;
+		String _strBlock;
 	public:
-		inline StateMachine() : _stat(STAT_Begin) {}
+		inline StateMachine() : _stat(STAT_Begin), _blockLevel(0) {}
 		inline Stat GetStat() const { return _stat; }
 		inline void SetStat(Stat stat) { _stat = stat; }
-	};
-	class StateMachineStack : public std::vector<StateMachine *> {
-	public:
-		~StateMachineStack();
-		void Clear();
+		inline void IncBlockLevel() { _blockLevel++; }
+		inline int DecBlockLevel() { --_blockLevel; return _blockLevel; }
+		inline String &GetStrBlock() { return _strBlock; }
 	};
 private:
 	Track *_pTrack;
@@ -70,13 +70,12 @@ private:
 	int _cntDot;
 	unsigned char _velocity;
 	unsigned long _timeStamp;
-	StateMachineStack _stateMachineStack;
 public:
 	MML(Track *pTrack, unsigned char channel);
 	void Reset();
 	bool Parse(Signal sig, const char *str);
 private:
-	bool FeedChar(Signal sig, int ch);
+	bool FeedChar(Signal sig, int ch, StateMachine &stateMachine);
 private:
 	inline static bool IsEOD(int ch) { return ch == '\0' || ch < 0; }
 	inline static bool IsWhite(int ch) { return ch == ' ' || ch == '\t'; }
