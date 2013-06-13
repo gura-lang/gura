@@ -174,7 +174,7 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 							// nothing to do
 						} else if (length == 0) {
 							if (!MetaEvent::Add(sig, eventOwner,
-											timeStamp, eventType, binary)) {
+												timeStamp, eventType, binary)) {
 								return false;
 							}
 							stat = STAT_EventStart;
@@ -185,7 +185,7 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 						binary.push_back(data);
 						if (binary.size() == length) {
 							if (!MetaEvent::Add(sig, eventOwner,
-											timeStamp, eventType, binary)) {
+												timeStamp, eventType, binary)) {
 								return false;
 							}
 							stat = STAT_EventStart;
@@ -223,7 +223,10 @@ bool Content::Write(Environment &env, Signal sig, Stream &stream)
 		AutoPtr<StreamMemory> pStreamMemory(new StreamMemory(env, sig));
 		const Event *pEventPrev = NULL;
 		unsigned long timeStamp = 0x00000000;
-		foreach_const (EventOwner, ppEvent, pTrack->GetEventOwner()) {
+		AutoPtr<EventOwner> pEventOwner(new EventOwner());
+		pEventOwner->AddEvents(pTrack->GetEventOwner());
+		pEventOwner->Sort();
+		foreach_const (EventOwner, ppEvent, *pEventOwner) {
 			Event *pEvent = *ppEvent;
 			unsigned long timeDelta = pEvent->GetTimeStamp() - timeStamp;
 			timeStamp = pEvent->GetTimeStamp();
