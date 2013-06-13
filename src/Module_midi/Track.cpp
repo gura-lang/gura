@@ -15,7 +15,7 @@ bool Track::ParseMML(Signal sig, const char *str)
 	if (_pMML.get() == NULL) {
 		_pMML.reset(new MML(this, _pChannelMapper->GetChannelNext()));
 	}
-	return _pMML->Parse(sig, str);
+	return _pMML->ParseString(sig, str);
 }
 
 //-----------------------------------------------------------------------------

@@ -80,7 +80,7 @@ public:
 	MML(Track *pTrack, unsigned char channel);
 	void Reset();
 	void UpdateTimeStamp();
-	bool Parse(Signal sig, const char *str);
+	bool ParseString(Signal sig, const char *str);
 private:
 	bool FeedChar(Signal sig, int ch);
 private:

@@ -33,7 +33,7 @@ void MML::UpdateTimeStamp()
 	}
 }
 
-bool MML::Parse(Signal sig, const char *str)
+bool MML::ParseString(Signal sig, const char *str)
 {
 	UpdateTimeStamp();
 	for (const char *p = str; ; p++) {
@@ -159,7 +159,7 @@ bool MML::FeedChar(Signal sig, int ch)
 			int cnt = static_cast<int>(_numAccum);
 			while (cnt-- > 0) {
 				_stateMachineStack.push_back(new StateMachine());
-				if (!Parse(sig, pStateMachine->GetStrBlock().c_str())) return false;
+				if (!ParseString(sig, pStateMachine->GetStrBlock().c_str())) return false;
 			}
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
