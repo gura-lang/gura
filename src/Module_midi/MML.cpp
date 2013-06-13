@@ -222,7 +222,18 @@ bool MML::FeedChar(Signal sig, int ch)
 			eventOwner.push_back(new MIDIEvent_NoteOn(
 							_timeStamp, _channel, note, 0));
 			continueFlag = true;
-			pStateMachine->SetStat(STAT_Begin);
+			pStateMachine->SetStat(STAT_NotePost);
+			break;
+		}
+		case STAT_NotePost: {
+			if (ch == ':') {
+				pStateMachine->SetStat(STAT_Begin);
+			} else if (IsWhite(ch)) {
+				// nothing to do
+			} else {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_Begin);
+			}
 			break;
 		}
 		case STAT_ChannelMaybe: {

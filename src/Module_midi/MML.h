@@ -37,7 +37,7 @@ private:
 	enum Stat {
 		STAT_Begin,
 		STAT_Repeat, STAT_RepeatNumPre, STAT_RepeatNum, STAT_RepeatNumFix,
-		STAT_Note, STAT_NoteLengthPre, STAT_NoteLength, STAT_NoteFix,
+		STAT_Note, STAT_NoteLengthPre, STAT_NoteLength, STAT_NoteFix, STAT_NotePost,
 		STAT_ChannelMaybe, STAT_ChannelPre, STAT_Channel, STAT_ChannelFix,
 		STAT_RestLengthPre, STAT_RestLength, STAT_RestFix,
 		STAT_OctavePre, STAT_Octave, STAT_OctaveFix,
