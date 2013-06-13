@@ -59,6 +59,11 @@ private:
 		inline int DecBlockLevel() { --_blockLevel; return _blockLevel; }
 		inline String &GetStrBlock() { return _strBlock; }
 	};
+	class StateMachineStack : public std::vector<StateMachine *> {
+	public:
+		~StateMachineStack();
+		void Clear();
+	};
 private:
 	Track *_pTrack;
 	unsigned char _channel;
@@ -70,12 +75,14 @@ private:
 	int _cntDot;
 	unsigned char _velocity;
 	unsigned long _timeStamp;
+	StateMachineStack _stateMachineStack;
 public:
 	MML(Track *pTrack, unsigned char channel);
 	void Reset();
+	void UpdateTimeStamp();
 	bool Parse(Signal sig, const char *str);
 private:
-	bool FeedChar(Signal sig, int ch, StateMachine &stateMachine);
+	bool FeedChar(Signal sig, int ch);
 private:
 	inline static bool IsEOD(int ch) { return ch == '\0' || ch < 0; }
 	inline static bool IsWhite(int ch) { return ch == ' ' || ch == '\t'; }
