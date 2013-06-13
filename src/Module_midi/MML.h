@@ -46,10 +46,22 @@ private:
 		STAT_ProgramPre, STAT_Program, STAT_ProgramFix,
 		STAT_TempoPre, STAT_Tempo, STAT_TempoFix,
 	};
+	class StateMachine {
+	private:
+		Stat _stat;
+	public:
+		inline StateMachine() : _stat(STAT_Begin) {}
+		inline Stat GetStat() const { return _stat; }
+		inline void SetStat(Stat stat) { _stat = stat; }
+	};
+	class StateMachineStack : public std::vector<StateMachine *> {
+	public:
+		~StateMachineStack();
+		void Clear();
+	};
 private:
 	Track *_pTrack;
 	unsigned char _channel;
-	Stat _stat;
 	int _octave;
 	int _lengthDefault;
 	int _operator;
@@ -58,6 +70,7 @@ private:
 	int _cntDot;
 	unsigned char _velocity;
 	unsigned long _timeStamp;
+	StateMachineStack _stateMachineStack;
 public:
 	MML(Track *pTrack, unsigned char channel);
 	void Reset();
