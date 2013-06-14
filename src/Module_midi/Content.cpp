@@ -234,6 +234,7 @@ bool Content::Write(Environment &env, Signal sig, Stream &stream)
 			if (!pEvent->Write(sig, *pStreamMemory, pEventPrev)) return false;
 			pEventPrev = pEvent;
 		}
+#if 0
 		if (!MetaEvent_EndOfTrack::CheckEvent(pEventPrev)) {
 			unsigned long timeDelta = 100;
 			timeStamp += timeDelta;
@@ -241,6 +242,7 @@ bool Content::Write(Environment &env, Signal sig, Stream &stream)
 			if (!Event::WriteVariableFormat(sig, *pStreamMemory, timeDelta)) return false;
 			if (!pEvent->Write(sig, *pStreamMemory, pEventPrev)) return false;
 		}
+#endif
 		TrackChunkTop trackChunkTop;
 		::memcpy(trackChunkTop.MTrk, "MTrk", sizeof(trackChunkTop.MTrk));
 		Gura_PackULong(trackChunkTop.length, static_cast<unsigned long>(pStreamMemory->GetSize()));
