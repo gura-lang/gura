@@ -275,10 +275,10 @@ Gura_ImplementMethod(content, track)
 				Value(new Object_track(env, Track::Reference(pTrack))));
 }
 
-// midi.content#addtrack(text?:string):map {block?}
+// midi.content#addtrack() {block?}
 Gura_DeclareMethod(content, addtrack)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -290,11 +290,38 @@ Gura_ImplementMethod(content, addtrack)
 	AutoPtr<Track> pTrack(new Track(MML::ChannelMapper::Reference(
 									pThis->GetContent().GetChannelMapper())));
 	trackOwner.push_back(pTrack.get());
-	if (args.IsString(0) && !pTrack->ParseMML(sig, args.GetString(0))) {
-		return Value::Null;
-	}
 	return ReturnValue(env, sig, args,
 			Value(new Object_track(env, Track::Reference(pTrack.release()))));
+}
+
+// midi.content#mml(text+:string):void
+Gura_DeclareMethod(content, mml)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "text", VTYPE_string, OCCUR_OnceOrMore);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(content, mml)
+{
+	Object_content *pThis = Object_content::GetThisObj(args);
+	TrackOwner &trackOwner = pThis->GetContent().GetTrackOwner();
+	const ValueList &valList = args.GetList(0);
+	if (trackOwner.size() < valList.size()) {
+		size_t num = valList.size() - trackOwner.size();
+		while (num-- > 0) {
+			Track *pTrack = new Track(MML::ChannelMapper::Reference(
+									pThis->GetContent().GetChannelMapper()));
+			trackOwner.push_back(pTrack);
+		}
+	}
+	TrackOwner::iterator ppTrack = trackOwner.begin();
+	ValueList::const_iterator pValue = valList.begin();
+	for ( ; ppTrack != trackOwner.end(); ppTrack++, pValue++) {
+		Track *pTrack = *ppTrack;
+		if (!pTrack->ParseMML(sig, pValue->GetString())) return Value::Null;
+	}
+	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
@@ -307,6 +334,7 @@ Gura_ImplementUserClassWithCast(content)
 	Gura_AssignMethod(content, play);
 	Gura_AssignMethod(content, track);
 	Gura_AssignMethod(content, addtrack);
+	Gura_AssignMethod(content, mml);
 }
 
 Gura_ImplementCastFrom(content)
