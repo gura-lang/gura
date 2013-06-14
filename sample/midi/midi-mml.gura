@@ -21,6 +21,6 @@ mml = [
 //mml = 't140 ch1 l8o4v80 bag f+4ec2'
 
 midi.content {|content|
-	content.addtrack(mml)
+	content.mml(mml*)
 	content.play(0)
 }
