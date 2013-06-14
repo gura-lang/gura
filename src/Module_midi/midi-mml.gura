@@ -1,15 +1,13 @@
 #!/usr/bin/env gura
 import(midi)
 
+//mml = 'L1 c:e:g:~c _b:d:f:b c:e:g:~c'
+mml = '[aab2]2 ab~cb ab8a8f2 ecef ee8c8_b2 ab~cb ab8a8f2 ecef ee8c8_b2 aab2 aab2 r1'
+//mml = 'c4d4e4r4 c4d4e4r4 g4e4d4c4 d4e4d4r4'
+//mml = '@50 L8 cder cder gedc dedr'
+//mml = 't140 ch1 l8o4v80 bag f+4ec2'
+
 midi.content {|content|
-	content.addtrack {|track|
-		content.addtrack {|track| track.parse('L1 c:e:g:~c _b:d:f:b c:e:g:~c')}
-		//track.parse('[aab2]2 ab~cb ab8a8f2')
-		//track.parse('ecef ee8c8_b2 ab~cb ab8a8f2')
-		//track.parse('ecef ee8c8_b2 aab2 aab2 r1')
-		//track.parse('c4d4e4r4 c4d4e4r4 g4e4d4c4 d4e4d4r4')
-		//track.parse('@50 L8 cder cder gedc dedr')
-		//track.parse('t140 ch1 l8o4v80 bag f+4ec2')
-	}
+	content.addtrack {|track| track.parse(mml)}
 	content.play(0)
 }
