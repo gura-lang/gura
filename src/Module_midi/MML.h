@@ -68,13 +68,16 @@ private:
 	Track *_pTrack;
 	unsigned char _channel;
 	int _octave;
+	int _octaveOffset;
 	int _lengthDefault;
 	int _operator;
 	int _operatorSub;
 	int _numAccum;
 	int _cntDot;
+	bool _colonFlag;
 	unsigned char _velocity;
-	unsigned long _timeStamp;
+	unsigned long _timeStampHead;
+	unsigned long _timeStampTail;
 	StateMachineStack _stateMachineStack;
 public:
 	MML(Track *pTrack, unsigned char channel);

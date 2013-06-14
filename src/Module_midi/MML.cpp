@@ -15,21 +15,24 @@ MML::MML(Track *pTrack, unsigned char channel) : _pTrack(pTrack), _channel(chann
 void MML::Reset()
 {
 	_octave			= 4;				// 1-9
+	_octaveOffset	= 0;
 	_lengthDefault	= MAX_LENGTH / 4;	// 1-MAX_LENGTH
 	_operator		= '\0';
 	_operatorSub	= '\0';
 	_numAccum		= 0;
 	_cntDot			= 0;
+	_colonFlag		= false;
 	_velocity		= 100;
-	_timeStamp 		= 0;
+	_timeStampHead 	= 0;
+	_timeStampTail	= 0;
 	_stateMachineStack.Clear();
 }
 
 void MML::UpdateTimeStamp()
 {
 	EventOwner &eventOwner = _pTrack->GetEventOwner();
-	if (!eventOwner.empty() && _timeStamp < eventOwner.back()->GetTimeStamp()) {
-		_timeStamp = eventOwner.back()->GetTimeStamp();
+	if (!eventOwner.empty() && _timeStampHead < eventOwner.back()->GetTimeStamp()) {
+		_timeStampHead = _timeStampTail = eventOwner.back()->GetTimeStamp();
 	}
 }
 
@@ -62,6 +65,8 @@ bool MML::FeedChar(Signal sig, int ch)
 					delete pStateMachine;
 					_stateMachineStack.pop_back();
 				}
+			} else if (ch == ':') {
+				_colonFlag = true;
 			} else if (ch == '[') {
 				pStateMachine->GetStrBlock().clear();
 				pStateMachine->IncBlockLevel();
@@ -91,6 +96,10 @@ bool MML::FeedChar(Signal sig, int ch)
 			} else if (ch == '<') {
 				_operator = ch;
 				if (_octave > 0) _octave--;
+			} else if (ch == '~') {
+				_octaveOffset++;
+			} else if (ch == '_') {
+				_octaveOffset--;
 			} else if (ch == 'L') {
 				_operator = ch;
 				_numAccum = 0;
@@ -207,7 +216,13 @@ bool MML::FeedChar(Signal sig, int ch)
 			static const unsigned char noteTbl[] = {
 				9, 11, 0, 2, 4, 5, 7,
 			};
-			unsigned char note = noteTbl[_operator - 'A'] + _octave * 12;
+			int octave = _octave + _octaveOffset;
+			_octaveOffset = 0;
+			if (octave < 0 || octave > MAX_OCTAVE) {
+				sig.SetError(ERR_FormatError, "octave is out of range");
+				return false;
+			}
+			unsigned char note = noteTbl[_operator - 'A'] + octave * 12;
 			if (_operatorSub == '#' || _operatorSub == '+') {
 				if (note < 127) note++;
 			} else if (_operatorSub == '-') {
@@ -215,25 +230,17 @@ bool MML::FeedChar(Signal sig, int ch)
 			} else {
 				// nothing to do
 			}
+			if (!_colonFlag) _timeStampHead = _timeStampTail;
+			_colonFlag = false;
 			int length = CalcLength(_numAccum, _cntDot);
 			eventOwner.AddEvent(new MIDIEvent_NoteOn(
-							_timeStamp, _channel, note, _velocity));
-			_timeStamp += length;
+							_timeStampHead, _channel, note, _velocity));
+			unsigned long timeStampTail = _timeStampHead + length;
 			eventOwner.AddEvent(new MIDIEvent_NoteOn(
-							_timeStamp, _channel, note, 0));
+							timeStampTail, _channel, note, 0));
+			if (_timeStampTail < timeStampTail) _timeStampTail = timeStampTail;
 			continueFlag = true;
-			pStateMachine->SetStat(STAT_NotePost);
-			break;
-		}
-		case STAT_NotePost: {
-			if (ch == ':') {
-				pStateMachine->SetStat(STAT_Begin);
-			} else if (IsWhite(ch)) {
-				// nothing to do
-			} else {
-				continueFlag = true;
-				pStateMachine->SetStat(STAT_Begin);
-			}
+			pStateMachine->SetStat(STAT_Begin);
 			break;
 		}
 		case STAT_ChannelMaybe: {
@@ -304,8 +311,11 @@ bool MML::FeedChar(Signal sig, int ch)
 			break;
 		}
 		case STAT_RestFix: {
+			if (!_colonFlag) _timeStampHead = _timeStampTail;
+			_colonFlag = false;
 			int length = CalcLength(_numAccum, _cntDot);
-			_timeStamp += length;
+			unsigned long timeStampTail = _timeStampHead + length;
+			if (_timeStampTail < timeStampTail) _timeStampTail = timeStampTail;
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
@@ -432,7 +442,7 @@ bool MML::FeedChar(Signal sig, int ch)
 			}
 			unsigned char program = static_cast<unsigned char>(_numAccum);
 			eventOwner.AddEvent(new MIDIEvent_ProgramChange(
-									_timeStamp, _channel, program));
+									_timeStampHead, _channel, program));
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
@@ -460,7 +470,7 @@ bool MML::FeedChar(Signal sig, int ch)
 		}
 		case STAT_TempoFix: {
 			unsigned long mpqn = static_cast<unsigned long>(60000000 / _numAccum);
-			eventOwner.AddEvent(new MetaEvent_TempoSetting(_timeStamp, mpqn));
+			eventOwner.AddEvent(new MetaEvent_TempoSetting(_timeStampHead, mpqn));
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
