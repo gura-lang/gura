@@ -47,6 +47,7 @@ public:
 	bool Read(Environment &env, Signal sig, Stream &stream);
 	bool Write(Environment &env, Signal sig, Stream &stream);
 	bool Play(Signal sig, Port *pPort) const;
+	bool ParseMML(Signal sig, const ValueList &valList);
 };
 
 }}

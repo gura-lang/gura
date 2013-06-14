@@ -269,5 +269,25 @@ bool Content::Play(Signal sig, Port *pPort) const
 	return player.Play(sig, *pEventOwner);
 }
 
+bool Content::ParseMML(Signal sig, const ValueList &valList)
+{
+	TrackOwner &trackOwner = GetTrackOwner();
+	if (trackOwner.size() < valList.size()) {
+		size_t num = valList.size() - trackOwner.size();
+		while (num-- > 0) {
+			Track *pTrack = new Track(
+					MML::ChannelMapper::Reference(GetChannelMapper()));
+			trackOwner.push_back(pTrack);
+		}
+	}
+	TrackOwner::iterator ppTrack = trackOwner.begin();
+	ValueList::const_iterator pValue = valList.begin();
+	for ( ; ppTrack != trackOwner.end(); ppTrack++, pValue++) {
+		Track *pTrack = *ppTrack;
+		if (!pValue->IsString()) return false; // this must not happen
+		if (!pTrack->ParseMML(sig, pValue->GetString())) return false;
+	}
+	return true;
+}
 
 }}

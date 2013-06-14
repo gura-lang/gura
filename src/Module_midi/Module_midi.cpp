@@ -299,28 +299,12 @@ Gura_DeclareMethod(content, mml)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_OnceOrMore);
-	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(content, mml)
 {
 	Object_content *pThis = Object_content::GetThisObj(args);
-	TrackOwner &trackOwner = pThis->GetContent().GetTrackOwner();
-	const ValueList &valList = args.GetList(0);
-	if (trackOwner.size() < valList.size()) {
-		size_t num = valList.size() - trackOwner.size();
-		while (num-- > 0) {
-			Track *pTrack = new Track(MML::ChannelMapper::Reference(
-									pThis->GetContent().GetChannelMapper()));
-			trackOwner.push_back(pTrack);
-		}
-	}
-	TrackOwner::iterator ppTrack = trackOwner.begin();
-	ValueList::const_iterator pValue = valList.begin();
-	for ( ; ppTrack != trackOwner.end(); ppTrack++, pValue++) {
-		Track *pTrack = *ppTrack;
-		if (!pTrack->ParseMML(sig, pValue->GetString())) return Value::Null;
-	}
+	pThis->GetContent().ParseMML(sig, args.GetList(0));
 	return Value::Null;
 }
 
@@ -486,6 +470,22 @@ Gura_ImplementMethod(port, play)
 	return Value::Null;
 }
 
+// midi.port#mml(text+:string):void
+Gura_DeclareMethod(port, mml)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "text", VTYPE_string, OCCUR_OnceOrMore);
+}
+
+Gura_ImplementMethod(port, mml)
+{
+	Object_port *pThis = Object_port::GetThisObj(args);
+	Content content;
+	content.ParseMML(sig, args.GetList(0));
+	content.Play(sig, pThis->GetPort());
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // Class implementation for midi.port
 //-----------------------------------------------------------------------------
@@ -493,6 +493,7 @@ Gura_ImplementUserClassWithCast(port)
 {
 	Gura_AssignMethod(port, send);
 	Gura_AssignMethod(port, play);
+	Gura_AssignMethod(port, mml);
 }
 
 Gura_ImplementCastFrom(port)
