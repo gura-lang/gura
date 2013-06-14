@@ -275,10 +275,11 @@ Gura_ImplementMethod(content, track)
 				Value(new Object_track(env, Track::Reference(pTrack))));
 }
 
-// midi.content#addtrack():map {block?}
+// midi.content#addtrack(text?:string):map {block?}
 Gura_DeclareMethod(content, addtrack)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "text", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -286,11 +287,14 @@ Gura_ImplementMethod(content, addtrack)
 {
 	Object_content *pThis = Object_content::GetThisObj(args);
 	TrackOwner &trackOwner = pThis->GetContent().GetTrackOwner();
-	Track *pTrack = new Track(MML::ChannelMapper::Reference(
-									pThis->GetContent().GetChannelMapper()));
-	trackOwner.push_back(pTrack);
+	AutoPtr<Track> pTrack(new Track(MML::ChannelMapper::Reference(
+									pThis->GetContent().GetChannelMapper())));
+	trackOwner.push_back(pTrack.get());
+	if (args.IsString(0) && !pTrack->ParseMML(sig, args.GetString(0))) {
+		return Value::Null;
+	}
 	return ReturnValue(env, sig, args,
-				Value(new Object_track(env, Track::Reference(pTrack))));
+			Value(new Object_track(env, Track::Reference(pTrack.release()))));
 }
 
 //-----------------------------------------------------------------------------
