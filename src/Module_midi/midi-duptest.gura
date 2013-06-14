@@ -1,0 +1,17 @@
+#!/usr/bin/env gura
+import(midi)
+
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: midi-duptest file')
+	sys.exit(1)
+}
+fileName = sys.argv[1]
+if (sys.argv.len() < 3) {
+	buff = open(fileName).read()
+	buffDup = binary()
+	midi.content(sys.argv[1]).write(buffDup)
+	printf('%s %s\n', fileName, cond(buff == buffDup, 'OK', '*NG*'))
+} else {
+	fileNameDup = sys.argv[2]
+	midi.content(sys.argv[1]).write(fileNameDup)
+}
