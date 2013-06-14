@@ -605,8 +605,6 @@ Gura_ImplementFunction(content)
 	Content &content = pObj->GetContent();
 	if (args.IsStream(0)) {
 		if (!content.Read(env, sig, args.GetStream(0))) return Value::Null;
-	} else {
-		content.SetDivision(140);
 	}
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }

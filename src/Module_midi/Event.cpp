@@ -35,7 +35,7 @@ bool Event::WriteVariableFormat(Signal sig, Stream &stream, unsigned long num)
 // Event::Player
 //-----------------------------------------------------------------------------
 Event::Player::Player(Port *pPort, unsigned short division, unsigned long mpqn) :
-							_pPort(pPort), _division(division), _mpqn(1000000)
+							_pPort(pPort), _division(division), _mpqn(mpqn)
 {
 }
 
@@ -48,7 +48,9 @@ bool Event::Player::Play(Signal sig, const EventList &eventList)
 					pEventPrev->GetTimeStamp() < pEvent->GetTimeStamp()) {
 			unsigned long deltaTime =
 					pEvent->GetTimeStamp() - pEventPrev->GetTimeStamp();
-			OAL::Sleep(static_cast<double>(_mpqn) * deltaTime / _division / 1000000);
+			double delayTime = static_cast<double>(_mpqn) *
+										deltaTime / _division / 1000000;
+			OAL::Sleep(delayTime);
 		}
 		if (!pEvent->Play(sig, this)) return false;
 		pEventPrev = pEvent;
