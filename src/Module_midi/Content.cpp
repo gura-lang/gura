@@ -263,7 +263,7 @@ bool Content::Play(Signal sig, Port *pPort) const
 		pEventOwner->AddEvents(pTrack->GetEventOwner());
 	}
 	pEventOwner->Sort();
-	Event::Player player(Port::Reference(pPort), GetDivision(), 1000000);
+	Event::Player player(Port::Reference(pPort), GetDivision(), GetMPQN());
 	return player.Play(sig, *pEventOwner);
 }
 

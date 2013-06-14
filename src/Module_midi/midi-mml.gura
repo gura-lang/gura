@@ -2,12 +2,25 @@
 import(midi)
 
 //mml = 'L1 c:e:g:~c _b:d:f:b c:e:g:~c'
-mml = '[aab2]2 ab~cb ab8a8f2 ecef ee8c8_b2 ab~cb ab8a8f2 ecef ee8c8_b2 aab2 aab2 r1'
+mml = \
+'v100t72 aab2 aab2 ab~cb ab8a8f2 ecef' \
+'ee8c8_b2 ab~cb ab8a8f2 ecef ee8c8_b2' \
+'aab2 aab2 ref2 b8a8fe2'
+mml1 = \
+'v80 l8 r2r~e~cb r2r~e~cb rererere rererbaferr4r2' \
+'r2r~e~f~e rererere rererbaf err4r2 r2r~e~f~e' \
+'r2r~e~cb r2r~e~cb r4refege f4a4b2'
+mml2 = \
+'l2 _ae _ae _aa f_b _ae' \
+'_ae _aa f_b _ae _ae' \
+'_ae _ae f_a _be'
 //mml = 'c4d4e4r4 c4d4e4r4 g4e4d4c4 d4e4d4r4'
 //mml = '@50 L8 cder cder gedc dedr'
 //mml = 't140 ch1 l8o4v80 bag f+4ec2'
 
 midi.content {|content|
 	content.addtrack {|track| track.parse(mml)}
+	content.addtrack {|track| track.parse(mml1)}
+	content.addtrack {|track| track.parse(mml2)}
 	content.play(0)
 }
