@@ -16,7 +16,7 @@ void MML::Reset()
 {
 	_octave			= 4;				// 1-9
 	_octaveOffset	= 0;
-	_lengthDefault	= MAX_LENGTH / 4;	// 1-MAX_LENGTH
+	_lengthDefault	= 4;
 	_operator		= '\0';
 	_operatorSub	= '\0';
 	_numAccum		= 0;
@@ -232,10 +232,10 @@ bool MML::FeedChar(Signal sig, int ch)
 			}
 			if (!_colonFlag) _timeStampHead = _timeStampTail;
 			_colonFlag = false;
-			int length = CalcLength(_numAccum, _cntDot);
+			int deltaTime = CalcDeltaTime(_numAccum, _cntDot);
 			eventOwner.AddEvent(new MIDIEvent_NoteOn(
 							_timeStampHead, _channel, note, _velocity));
-			unsigned long timeStampTail = _timeStampHead + length;
+			unsigned long timeStampTail = _timeStampHead + deltaTime;
 			eventOwner.AddEvent(new MIDIEvent_NoteOn(
 							timeStampTail, _channel, note, 0));
 			if (_timeStampTail < timeStampTail) _timeStampTail = timeStampTail;
@@ -313,8 +313,8 @@ bool MML::FeedChar(Signal sig, int ch)
 		case STAT_RestFix: {
 			if (!_colonFlag) _timeStampHead = _timeStampTail;
 			_colonFlag = false;
-			int length = CalcLength(_numAccum, _cntDot);
-			unsigned long timeStampTail = _timeStampHead + length;
+			int deltaTime = CalcDeltaTime(_numAccum, _cntDot);
+			unsigned long timeStampTail = _timeStampHead + deltaTime;
 			if (_timeStampTail < timeStampTail) _timeStampTail = timeStampTail;
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
@@ -376,7 +376,7 @@ bool MML::FeedChar(Signal sig, int ch)
 			break;
 		}
 		case STAT_LengthFix: {
-			_lengthDefault = CalcLength(_numAccum, _cntDot);
+			_lengthDefault = static_cast<int>(_numAccum);
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
@@ -480,15 +480,15 @@ bool MML::FeedChar(Signal sig, int ch)
 	return true;
 }
 
-int MML::CalcLength(int numDisp, int cntDot) const
+int MML::CalcDeltaTime(int length, int cntDot) const
 {
-	if (numDisp <= 0) return _lengthDefault;
-	int length = MAX_LENGTH / numDisp;
-	for (int lengthDiv = length / 2; lengthDiv > 0 && cntDot > 0;
-											lengthDiv /= 2, cntDot--) {
-		length += lengthDiv;
+	if (length <= 0) length = _lengthDefault;
+	int deltaTime = _pTrack->GetProperty()->GetDivision() * 4 / length;
+	for (int deltaTimeDiv = deltaTime / 2; deltaTimeDiv > 0 && cntDot > 0;
+											deltaTimeDiv /= 2, cntDot--) {
+		deltaTime += deltaTimeDiv;
 	}
-	return length;
+	return deltaTime;
 }
 
 //-----------------------------------------------------------------------------

@@ -10,28 +10,9 @@ class Track;
 class MML {
 public:
 	enum {
-		MAX_LENGTH		= 256,
 		MAX_OCTAVE		= 9,
 		MAX_VELOCITY	= 127,
 		MAX_PROGRAM		= 127,
-	};
-public:
-	class ChannelMapper {
-	private:
-		int _cntRef;
-		unsigned char _channelNext;
-	public:
-		Gura_DeclareReferenceAccessor(ChannelMapper);
-	public:
-		inline ChannelMapper() : _cntRef(1), _channelNext(0) {}
-	private:
-		inline ~ChannelMapper() {}
-	public:
-		inline unsigned char GetChannelNext() {
-			unsigned char rtn = _channelNext;
-			if (_channelNext < 15) _channelNext++;
-			return rtn;
-		}
 	};
 private:
 	enum Stat {
@@ -90,7 +71,7 @@ private:
 	inline static bool IsEOD(int ch) { return ch == '\0' || ch < 0; }
 	inline static bool IsWhite(int ch) { return ch == ' ' || ch == '\t'; }
 	inline static bool IsDigit(int ch) { return '0' <= ch && ch <= '9'; }
-	int CalcLength(int numDisp, int cntDot) const;
+	int CalcDeltaTime(int length, int cntDot) const;
 };
 
 }}

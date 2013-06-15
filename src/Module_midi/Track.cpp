@@ -1,19 +1,20 @@
 #include "Track.h"
+#include "Content.h"
 
 Gura_BeginModule(midi)
 
 //-----------------------------------------------------------------------------
 // Track
 //-----------------------------------------------------------------------------
-Track::Track(MML::ChannelMapper *pChannelMapper) : _cntRef(1),
-		_pChannelMapper(pChannelMapper), _pEventOwner(new EventOwner())
+Track::Track(Property *pProperty) : _cntRef(1),
+				_pProperty(pProperty), _pEventOwner(new EventOwner())
 {
 }
 
 bool Track::ParseMML(Signal sig, const char *str)
 {
 	if (_pMML.get() == NULL) {
-		_pMML.reset(new MML(this, _pChannelMapper->GetChannelNext()));
+		_pMML.reset(new MML(this, _pProperty->GetChannelNext()));
 	}
 	return _pMML->ParseString(sig, str);
 }

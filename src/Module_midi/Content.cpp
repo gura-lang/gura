@@ -6,8 +6,8 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 // Content
 //-----------------------------------------------------------------------------
-Content::Content() : _format(0), _division(120), _mpqn(60000000 / 120),
-		_pTrackOwner(new TrackOwner()), _pChannelMapper(new MML::ChannelMapper())
+Content::Content() : _format(0),
+			_pTrackOwner(new TrackOwner()), _pProperty(new Property())
 {
 }
 
@@ -52,7 +52,7 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 			return false;
 		}
 		numTrackChunks = Gura_UnpackUShort(headerChunk.num_track_chunks);
-		_division = Gura_UnpackUShort(headerChunk.division);
+		_pProperty->SetDivision(Gura_UnpackUShort(headerChunk.division));
 	} while (0);
 	GetTrackOwner().Clear();
 	for (size_t i = 0; i < numTrackChunks; i++) {
@@ -65,8 +65,7 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 			sig.SetError(ERR_FormatError, "invalid SMF format");
 			return false;
 		}
-		GetTrackOwner().push_back(new Track(
-					MML::ChannelMapper::Reference(GetChannelMapper())));
+		GetTrackOwner().push_back(new Track(Property::Reference(GetProperty())));
 		EventOwner &eventOwner = GetTrackOwner().back()->GetEventOwner();
 		std::auto_ptr<MIDIEvent> pMIDIEvent;
 		unsigned char eventType = 0x00;
@@ -213,7 +212,7 @@ bool Content::Write(Environment &env, Signal sig, Stream &stream)
 		Gura_PackUShort(headerChunk.format, GetFormat());
 		Gura_PackUShort(headerChunk.num_track_chunks,
 						static_cast<unsigned short>(GetTrackOwner().size()));
-		Gura_PackUShort(headerChunk.division, GetDivision());
+		Gura_PackUShort(headerChunk.division, _pProperty->GetDivision());
 		if (stream.Write(sig, &headerChunk, HeaderChunk::Size) != HeaderChunk::Size) {
 			return false;
 		}
@@ -265,7 +264,8 @@ bool Content::Play(Signal sig, Port *pPort) const
 		pEventOwner->AddEvents(pTrack->GetEventOwner());
 	}
 	pEventOwner->Sort();
-	Event::Player player(Port::Reference(pPort), GetDivision(), GetMPQN());
+	Event::Player player(Port::Reference(pPort),
+				_pProperty->GetDivision(), _pProperty->GetMPQN());
 	return player.Play(sig, *pEventOwner);
 }
 
@@ -275,8 +275,7 @@ bool Content::ParseMML(Signal sig, const ValueList &valList)
 	if (trackOwner.size() < valList.size()) {
 		size_t num = valList.size() - trackOwner.size();
 		while (num-- > 0) {
-			Track *pTrack = new Track(
-					MML::ChannelMapper::Reference(GetChannelMapper()));
+			Track *pTrack = new Track(Property::Reference(GetProperty()));
 			trackOwner.push_back(pTrack);
 		}
 	}
