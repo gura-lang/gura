@@ -160,14 +160,14 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// MIDIEvent_PolyphonicKeyPressure
+// MIDIEvent_PolyPressure
 //-----------------------------------------------------------------------------
-class MIDIEvent_PolyphonicKeyPressure : public MIDIEvent {
+class MIDIEvent_PolyPressure : public MIDIEvent {
 public:
 	enum { Status = 0xa0 };
 public:
-	inline MIDIEvent_PolyphonicKeyPressure(const MIDIEvent_PolyphonicKeyPressure &event) : MIDIEvent(event) {}
-	inline MIDIEvent_PolyphonicKeyPressure(unsigned long timeStamp, unsigned char channel) :
+	inline MIDIEvent_PolyPressure(const MIDIEvent_PolyPressure &event) : MIDIEvent(event) {}
+	inline MIDIEvent_PolyPressure(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
@@ -224,14 +224,14 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// MIDIEvent_PitchBendChange
+// MIDIEvent_PitchBend
 //-----------------------------------------------------------------------------
-class MIDIEvent_PitchBendChange : public MIDIEvent {
+class MIDIEvent_PitchBend : public MIDIEvent {
 public:
 	enum { Status = 0xe0 };
 public:
-	inline MIDIEvent_PitchBendChange(const MIDIEvent_PitchBendChange &event) : MIDIEvent(event) {}
-	inline MIDIEvent_PitchBendChange(unsigned long timeStamp, unsigned char channel) :
+	inline MIDIEvent_PitchBend(const MIDIEvent_PitchBend &event) : MIDIEvent(event) {}
+	inline MIDIEvent_PitchBend(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;

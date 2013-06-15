@@ -186,23 +186,23 @@ Event *MIDIEvent_NoteOn::Clone() const
 }
 
 //-----------------------------------------------------------------------------
-// MIDIEvent_PolyphonicKeyPressure
+// MIDIEvent_PolyPressure
 //-----------------------------------------------------------------------------
-String MIDIEvent_PolyphonicKeyPressure::GetName() const
+String MIDIEvent_PolyPressure::GetName() const
 {
-	return "PolyphonicKeyPressure";
+	return "PolyPressure";
 }
 
-String MIDIEvent_PolyphonicKeyPressure::GetArgsName() const
+String MIDIEvent_PolyPressure::GetArgsName() const
 {
 	char str[128];
 	::sprintf(str, "channel:%d", GetChannel());
 	return String(str);
 }
 
-Event *MIDIEvent_PolyphonicKeyPressure::Clone() const
+Event *MIDIEvent_PolyPressure::Clone() const
 {
-	return new MIDIEvent_PolyphonicKeyPressure(*this);
+	return new MIDIEvent_PolyPressure(*this);
 }
 
 //-----------------------------------------------------------------------------
@@ -266,23 +266,23 @@ Event *MIDIEvent_ChannelPressure::Clone() const
 }
 
 //-----------------------------------------------------------------------------
-// MIDIEvent_PitchBendChange
+// MIDIEvent_PitchBend
 //-----------------------------------------------------------------------------
-String MIDIEvent_PitchBendChange::GetName() const
+String MIDIEvent_PitchBend::GetName() const
 {
-	return "PitchBendChange";
+	return "PitchBend";
 }
 
-String MIDIEvent_PitchBendChange::GetArgsName() const
+String MIDIEvent_PitchBend::GetArgsName() const
 {
 	char str[128];
 	::sprintf(str, "channel:%d", GetChannel());
 	return String(str);
 }
 
-Event *MIDIEvent_PitchBendChange::Clone() const
+Event *MIDIEvent_PitchBend::Clone() const
 {
-	return new MIDIEvent_PitchBendChange(*this);
+	return new MIDIEvent_PitchBend(*this);
 }
 
 //-----------------------------------------------------------------------------

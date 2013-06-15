@@ -120,16 +120,16 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 								pMIDIEvent.reset(new MIDIEvent_NoteOff(timeStamp, channel));
 							} else if (statusUpper == MIDIEvent_NoteOn::Status) {
 								pMIDIEvent.reset(new MIDIEvent_NoteOn(timeStamp, channel));
-							} else if (statusUpper == MIDIEvent_PolyphonicKeyPressure::Status) {
-								pMIDIEvent.reset(new MIDIEvent_PolyphonicKeyPressure(timeStamp, channel));
+							} else if (statusUpper == MIDIEvent_PolyPressure::Status) {
+								pMIDIEvent.reset(new MIDIEvent_PolyPressure(timeStamp, channel));
 							} else if (statusUpper == MIDIEvent_ControlChange::Status) {
 								pMIDIEvent.reset(new MIDIEvent_ControlChange(timeStamp, channel));
 							} else if (statusUpper == MIDIEvent_ProgramChange::Status) {
 								pMIDIEvent.reset(new MIDIEvent_ProgramChange(timeStamp, channel));
 							} else if (statusUpper == MIDIEvent_ChannelPressure::Status) {
 								pMIDIEvent.reset(new MIDIEvent_ChannelPressure(timeStamp, channel));
-							} else if (statusUpper == MIDIEvent_PitchBendChange::Status) {
-								pMIDIEvent.reset(new MIDIEvent_PitchBendChange(timeStamp, channel));
+							} else if (statusUpper == MIDIEvent_PitchBend::Status) {
+								pMIDIEvent.reset(new MIDIEvent_PitchBend(timeStamp, channel));
 							} else {
 								// this must not happen
 								return false;
