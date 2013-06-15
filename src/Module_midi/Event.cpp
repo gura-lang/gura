@@ -83,25 +83,6 @@ void EventOwner::Clear()
 	clear();
 }
 
-void EventOwner::AddEvent(Event *pEvent)
-{
-#if 0
-	foreach_reverse (EventOwner, ppEventAt, *this) {
-		Event *pEventAt = *ppEventAt;
-		if (pEventAt->GetTimeStamp() <= pEvent->GetTimeStamp()) {
-			if (ppEventAt == rbegin()) {
-				push_back(pEvent);
-			} else {
-				insert(ppEventAt - 1, pEvent);
-			}
-			return;
-		}
-	}
-	insert(begin(), pEvent);
-#endif
-	push_back(pEvent);
-}
-
 void EventOwner::AddEvents(const EventList &eventList)
 {
 	foreach_const (EventList, ppEvent, eventList) {

@@ -77,7 +77,6 @@ protected:
 	~EventOwner();
 public:
 	void Clear();
-	void AddEvent(Event *pEvent);
 	void AddEvents(const EventList &eventList);
 };
 
