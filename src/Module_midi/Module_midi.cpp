@@ -114,14 +114,14 @@ String Object_track::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for midi.track
 //-----------------------------------------------------------------------------
-// midi.track#parse(text:string):map:void
-Gura_DeclareMethod(track, parse)
+// midi.track#mml(text:string):map:void
+Gura_DeclareMethod(track, mml)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 }
 
-Gura_ImplementMethod(track, parse)
+Gura_ImplementMethod(track, mml)
 {
 	Object_track *pThis = Object_track::GetThisObj(args);
 	pThis->GetTrack()->ParseMML(sig, args.GetString(0));
@@ -133,7 +133,7 @@ Gura_ImplementMethod(track, parse)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(track)
 {
-	Gura_AssignMethod(track, parse);
+	Gura_AssignMethod(track, mml);
 }
 
 //-----------------------------------------------------------------------------
@@ -427,10 +427,10 @@ String Object_port::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for midi.port
 //-----------------------------------------------------------------------------
-// midi.port#send(msg+:number):map:void
+// midi.port#send(msg+:number):map:reduce
 Gura_DeclareMethod(port, send)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "msg", VTYPE_number, OCCUR_OnceOrMore);
 }
 
@@ -453,13 +453,13 @@ Gura_ImplementMethod(port, send)
 		sig.SetError(ERR_ArgumentError, "too many arguments");
 		return Value::Null;
 	}
-	return Value::Null;
+	return args.GetThis();
 }
 
-// midi.port#play(content:midi.content):map:void
+// midi.port#play(content:midi.content):map:reduce
 Gura_DeclareMethod(port, play)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "content", VTYPE_content);
 }
 
@@ -468,13 +468,13 @@ Gura_ImplementMethod(port, play)
 	Object_port *pThis = Object_port::GetThisObj(args);
 	Content &content = Object_content::GetObject(args, 0)->GetContent();
 	content.Play(sig, pThis->GetPort());
-	return Value::Null;
+	return args.GetThis();
 }
 
-// midi.port#mml(text+:string):void
+// midi.port#mml(text+:string):reduce
 Gura_DeclareMethod(port, mml)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_OnceOrMore);
 }
 
@@ -484,7 +484,136 @@ Gura_ImplementMethod(port, mml)
 	Content content;
 	content.ParseMML(sig, args.GetList(0));
 	content.Play(sig, pThis->GetPort());
-	return Value::Null;
+	return args.GetThis();
+}
+
+// midi.port#note_off(channel:number, note:number, velocity:number):map:reduce
+Gura_DeclareMethod(port, note_off)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "note", VTYPE_number);
+	DeclareArg(env, "velocity", VTYPE_number);
+}
+
+Gura_ImplementMethod(port, note_off)
+{
+	Port *pPort = Object_port::GetThisObj(args)->GetPort();
+	unsigned char channel = args.GetUChar(0) & 0x0f;
+	unsigned char note = args.GetUChar(1);
+	unsigned char velocity = args.GetUChar(2);
+	pPort->Send(MIDIEvent_NoteOff::Status | channel, note, velocity);
+	return args.GetThis();
+}
+
+// midi.port#note_on(channel:number, note:number, velocity:number):map:reduce
+Gura_DeclareMethod(port, note_on)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "note", VTYPE_number);
+	DeclareArg(env, "velocity", VTYPE_number);
+}
+
+Gura_ImplementMethod(port, note_on)
+{
+	Port *pPort = Object_port::GetThisObj(args)->GetPort();
+	unsigned char channel = args.GetUChar(0) & 0x0f;
+	unsigned char note = args.GetUChar(1);
+	unsigned char velocity = args.GetUChar(2);
+	pPort->Send(MIDIEvent_NoteOn::Status | channel, note, velocity);
+	return args.GetThis();
+}
+
+// midi.port#poly_pressure(channel:number, note:number, value:number):map:reduce
+Gura_DeclareMethod(port, poly_pressure)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "note", VTYPE_number);
+	DeclareArg(env, "value", VTYPE_number);
+}
+
+Gura_ImplementMethod(port, poly_pressure)
+{
+	Port *pPort = Object_port::GetThisObj(args)->GetPort();
+	unsigned char channel = args.GetUChar(0) & 0x0f;
+	unsigned char note = args.GetUChar(1);
+	unsigned char value = args.GetUChar(2);
+	pPort->Send(MIDIEvent_PolyPressure::Status | channel, note, value);
+	return args.GetThis();
+}
+
+// midi.port#control_change(channel:number, controller:number, value:number):map:reduce
+Gura_DeclareMethod(port, control_change)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "controller", VTYPE_number);
+	DeclareArg(env, "value", VTYPE_number);
+}
+
+Gura_ImplementMethod(port, control_change)
+{
+	Port *pPort = Object_port::GetThisObj(args)->GetPort();
+	unsigned char channel = args.GetUChar(0) & 0x0f;
+	unsigned char controller = args.GetUChar(1);
+	unsigned char value = args.GetUChar(2);
+	pPort->Send(MIDIEvent_ControlChange::Status | channel, controller, value);
+	return args.GetThis();
+}
+
+// midi.port#program_change(channel:number, program:number):map:reduce
+Gura_DeclareMethod(port, program_change)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "program", VTYPE_number);
+}
+
+Gura_ImplementMethod(port, program_change)
+{
+	Port *pPort = Object_port::GetThisObj(args)->GetPort();
+	unsigned char channel = args.GetUChar(0) & 0x0f;
+	unsigned char program = args.GetUChar(1);
+	pPort->Send(MIDIEvent_ProgramChange::Status | channel, program);
+	return args.GetThis();
+}
+
+// midi.port#channel_pressure(channel:number, pressure:number):map:reduce
+Gura_DeclareMethod(port, channel_pressure)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "pressure", VTYPE_number);
+}
+
+Gura_ImplementMethod(port, channel_pressure)
+{
+	Port *pPort = Object_port::GetThisObj(args)->GetPort();
+	unsigned char channel = args.GetUChar(0) & 0x0f;
+	unsigned char pressure = args.GetUChar(1);
+	pPort->Send(MIDIEvent_ChannelPressure::Status | channel, pressure);
+	return args.GetThis();
+}
+
+// midi.port#pitch_bend(channel:number, value:number):map:reduce
+Gura_DeclareMethod(port, pitch_bend)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "value", VTYPE_number);
+}
+
+Gura_ImplementMethod(port, pitch_bend)
+{
+	Port *pPort = Object_port::GetThisObj(args)->GetPort();
+	unsigned char channel = args.GetUChar(0) & 0x0f;
+	unsigned short value = args.GetUShort(1);
+	pPort->Send(MIDIEvent_PitchBend::Status | channel,
+			static_cast<unsigned char>((value >> 0) & 0x7f),
+			static_cast<unsigned char>((value >> 7) & 0x7f));
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -495,6 +624,13 @@ Gura_ImplementUserClassWithCast(port)
 	Gura_AssignMethod(port, send);
 	Gura_AssignMethod(port, play);
 	Gura_AssignMethod(port, mml);
+	Gura_AssignMethod(port, note_off);
+	Gura_AssignMethod(port, note_on);
+	Gura_AssignMethod(port, poly_pressure);
+	Gura_AssignMethod(port, control_change);
+	Gura_AssignMethod(port, program_change);
+	Gura_AssignMethod(port, channel_pressure);
+	Gura_AssignMethod(port, pitch_bend);
 }
 
 Gura_ImplementCastFrom(port)
