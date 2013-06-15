@@ -149,7 +149,7 @@ bool Object_content::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(format));
 	symbols.insert(Gura_UserSymbol(tracks));
-	//symbols.insert(Gura_UserSymbol(division));
+	symbols.insert(Gura_UserSymbol(division));
 	return true;
 }
 
@@ -163,8 +163,8 @@ Value Object_content::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 		Iterator *pIterator =
 				new Iterator_track(TrackOwner::Reference(&_content.GetTrackOwner()));
 		return Value(env, pIterator);
-	//} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
-	//	return Value(_content.GetDivision());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
+		return Value(_content.GetProperty()->GetDivision());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -183,11 +183,11 @@ Value Object_content::DoSetProp(Environment &env, Signal sig, const Symbol *pSym
 		}
 		_content.SetFormat(format);
 		return value;
-	//} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
-	//	if (!value.MustBeNumber(sig)) return Value::Null;
-	//	unsigned short division = value.GetUShort();
-	//	_content.SetDivision(division);
-	//	return value;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		unsigned short division = value.GetUShort();
+		_content.GetProperty()->SetDivision(division);
+		return value;
 	}
 	evaluatedFlag = false;
 	return Value::Null;
