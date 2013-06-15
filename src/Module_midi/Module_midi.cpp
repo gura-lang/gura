@@ -210,10 +210,10 @@ String Object_content::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for midi.content
 //-----------------------------------------------------------------------------
-// midi.content#read(stream:stream:r):map:void
+// midi.content#read(stream:stream:r):map:reduce
 Gura_DeclareMethod(content, read)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 }
 
@@ -221,13 +221,13 @@ Gura_ImplementMethod(content, read)
 {
 	Object_content *pThis = Object_content::GetThisObj(args);
 	if (!pThis->GetContent().Read(env, sig, args.GetStream(0))) return Value::Null;
-	return Value::Null;
+	return args.GetThis();
 }
 
-// midi.content#write(stream:stream:w):map:void
+// midi.content#write(stream:stream:w):map:reduce
 Gura_DeclareMethod(content, write)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 }
 
@@ -235,13 +235,13 @@ Gura_ImplementMethod(content, write)
 {
 	Object_content *pThis = Object_content::GetThisObj(args);
 	if (!pThis->GetContent().Write(env, sig, args.GetStream(0))) return Value::Null;
-	return Value::Null;
+	return args.GetThis();
 }
 
-// midi.content#play(port:midi.port):void
+// midi.content#play(port:midi.port):reduce
 Gura_DeclareMethod(content, play)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "port", VTYPE_port);
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(content, play)
 	Content &content = Object_content::GetThisObj(args)->GetContent();
 	Port *pPort = Object_port::GetObject(args, 0)->GetPort();
 	content.Play(sig, pPort);
-	return Value::Null;
+	return args.GetThis();
 }
 
 // midi.content#track(index:number):map {block?}
@@ -294,10 +294,10 @@ Gura_ImplementMethod(content, addtrack)
 			Value(new Object_track(env, Track::Reference(pTrack.release()))));
 }
 
-// midi.content#mml(text+:string):void
+// midi.content#mml(text+:string):reduce
 Gura_DeclareMethod(content, mml)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_OnceOrMore);
 }
 
@@ -305,7 +305,7 @@ Gura_ImplementMethod(content, mml)
 {
 	Object_content *pThis = Object_content::GetThisObj(args);
 	pThis->GetContent().ParseMML(sig, args.GetList(0));
-	return Value::Null;
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------
