@@ -19,6 +19,11 @@ bool Track::ParseMML(Signal sig, const char *str)
 	return _pMML->ParseString(sig, str);
 }
 
+void Track::AddEvent(Event *pEvent)
+{
+	_pEventOwner->push_back(pEvent);
+}
+
 //-----------------------------------------------------------------------------
 // TrackList
 //-----------------------------------------------------------------------------

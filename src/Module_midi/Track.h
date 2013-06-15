@@ -49,10 +49,11 @@ public:
 	Track(Property *pProperty);
 	inline EventOwner &GetEventOwner() { return *_pEventOwner; }
 	inline const EventOwner &GetEventOwner() const { return *_pEventOwner; }
+	inline Property *GetProperty() { return _pProperty.get(); }
+	inline const MML *GetMML() const { return _pMML.get(); }
 	bool Write(Signal sig, Stream &stream) const;
 	bool ParseMML(Signal sig, const char *str);
-	Property *GetProperty() { return _pProperty.get(); }
-	const MML *GetMML() const { return _pMML.get(); }
+	void AddEvent(Event *pEvent);
 };
 
 //-----------------------------------------------------------------------------

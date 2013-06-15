@@ -144,6 +144,7 @@ Gura_ImplementMethod(track, note_off)
 	unsigned char note = args.GetUChar(1);
 	unsigned char velocity = args.GetUChar(2);
 	AutoPtr<Event> pEvent(new MIDIEvent_NoteOff(0, channel, note, velocity));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -163,6 +164,7 @@ Gura_ImplementMethod(track, note_on)
 	unsigned char note = args.GetUChar(1);
 	unsigned char velocity = args.GetUChar(2);
 	AutoPtr<Event> pEvent(new MIDIEvent_NoteOn(0, channel, note, velocity));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -182,6 +184,7 @@ Gura_ImplementMethod(track, poly_pressure)
 	unsigned char note = args.GetUChar(1);
 	unsigned char value = args.GetUChar(2);
 	AutoPtr<Event> pEvent(new MIDIEvent_PolyPressure(0, channel, note, value));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -201,6 +204,7 @@ Gura_ImplementMethod(track, control_change)
 	unsigned char controller = args.GetUChar(1);
 	unsigned char value = args.GetUChar(2);
 	AutoPtr<Event> pEvent(new MIDIEvent_ControlChange(0, channel, controller, value));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -218,6 +222,7 @@ Gura_ImplementMethod(track, program_change)
 	unsigned char channel = args.GetUChar(0) & 0x0f;
 	unsigned char program = args.GetUChar(1);
 	AutoPtr<Event> pEvent(new MIDIEvent_ProgramChange(0, channel, program));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -235,6 +240,7 @@ Gura_ImplementMethod(track, channel_pressure)
 	unsigned char channel = args.GetUChar(0) & 0x0f;
 	unsigned char pressure = args.GetUChar(1);
 	AutoPtr<Event> pEvent(new MIDIEvent_ChannelPressure(0, channel, pressure));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -252,6 +258,7 @@ Gura_ImplementMethod(track, pitch_bend)
 	unsigned char channel = args.GetUChar(0) & 0x0f;
 	unsigned short value = args.GetUShort(1);
 	AutoPtr<Event> pEvent(new MIDIEvent_PitchBend(0, channel, value));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -266,6 +273,7 @@ Gura_ImplementMethod(track, sequence_number)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	AutoPtr<Event> pEvent(new MetaEvent_SequenceNumber(0, args.GetUShort(0)));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -280,6 +288,7 @@ Gura_ImplementMethod(track, text_event)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	AutoPtr<Event> pEvent(new MetaEvent_TextEvent(0, args.GetStringSTL(0)));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -294,6 +303,7 @@ Gura_ImplementMethod(track, copyright_notice)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	AutoPtr<Event> pEvent(new MetaEvent_CopyrightNotice(0, args.GetStringSTL(0)));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -308,6 +318,7 @@ Gura_ImplementMethod(track, sequence_or_track_name)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	AutoPtr<Event> pEvent(new MetaEvent_SequenceOrTrackName(0, args.GetStringSTL(0)));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -322,6 +333,7 @@ Gura_ImplementMethod(track, instrument_name)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	AutoPtr<Event> pEvent(new MetaEvent_InstrumentName(0, args.GetStringSTL(0)));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -336,6 +348,7 @@ Gura_ImplementMethod(track, lyric_text)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	AutoPtr<Event> pEvent(new MetaEvent_LyricText(0, args.GetStringSTL(0)));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -350,6 +363,7 @@ Gura_ImplementMethod(track, marker_text)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	AutoPtr<Event> pEvent(new MetaEvent_MarkerText(0, args.GetStringSTL(0)));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -364,6 +378,7 @@ Gura_ImplementMethod(track, cue_point)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	AutoPtr<Event> pEvent(new MetaEvent_CuePoint(0, args.GetStringSTL(0)));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -379,6 +394,7 @@ Gura_ImplementMethod(track, midi_channel_prefix_assignment)
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	unsigned char channel = args.GetUChar(0);
 	AutoPtr<Event> pEvent(new MetaEvent_MIDIChannelPrefixAssignment(0, channel));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -392,6 +408,7 @@ Gura_ImplementMethod(track, end_of_track)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	AutoPtr<Event> pEvent(new MetaEvent_EndOfTrack(0));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -407,6 +424,7 @@ Gura_ImplementMethod(track, tempo_setting)
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	unsigned long mpqn = args.GetULong(0);
 	AutoPtr<Event> pEvent(new MetaEvent_TempoSetting(0, mpqn));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -430,6 +448,7 @@ Gura_ImplementMethod(track, smpte_offset)
 	unsigned char frame = args.GetUChar(3);
 	unsigned char subFrame = args.GetUChar(4);
 	AutoPtr<Event> pEvent(new MetaEvent_SMPTEOffset(0, hour, minute, second, frame, subFrame));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -451,6 +470,7 @@ Gura_ImplementMethod(track, time_signature)
 	unsigned char metronome = args.GetUChar(2);
 	unsigned char cnt32nd = args.GetUChar(3);
 	AutoPtr<Event> pEvent(new MetaEvent_TimeSignature(0, numerator, denominator, metronome, cnt32nd));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -468,21 +488,23 @@ Gura_ImplementMethod(track, key_signature)
 	unsigned char key = args.GetUChar(0);
 	unsigned char scale = args.GetUChar(1);
 	AutoPtr<Event> pEvent(new MetaEvent_KeySignature(0, key, scale));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
-// midi.track#sequence_specific_event(binary:binary):map:reduce
-Gura_DeclareMethod(track, sequence_specific_event)
+// midi.track#sequencer_specific_event(binary:binary):map:reduce
+Gura_DeclareMethod(track, sequencer_specific_event)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "binary", VTYPE_binary);
 }
 
-Gura_ImplementMethod(track, sequence_specific_event)
+Gura_ImplementMethod(track, sequencer_specific_event)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	const Binary &binary = args.GetBinary(0);
 	AutoPtr<Event> pEvent(new MetaEvent_SequencerSpecificEvent(0, binary));
+	pTrack->AddEvent(pEvent.release());
 	return args.GetThis();
 }
 
@@ -499,6 +521,21 @@ Gura_ImplementUserClass(track)
 	Gura_AssignMethod(track, program_change);
 	Gura_AssignMethod(track, channel_pressure);
 	Gura_AssignMethod(track, pitch_bend);
+	Gura_AssignMethod(track, sequence_number);
+	Gura_AssignMethod(track, text_event);
+	Gura_AssignMethod(track, copyright_notice);
+	Gura_AssignMethod(track, sequence_or_track_name);
+	Gura_AssignMethod(track, instrument_name);
+	Gura_AssignMethod(track, lyric_text);
+	Gura_AssignMethod(track, marker_text);
+	Gura_AssignMethod(track, cue_point);
+	Gura_AssignMethod(track, midi_channel_prefix_assignment);
+	Gura_AssignMethod(track, end_of_track);
+	Gura_AssignMethod(track, tempo_setting);
+	Gura_AssignMethod(track, smpte_offset);
+	Gura_AssignMethod(track, time_signature);
+	Gura_AssignMethod(track, key_signature);
+	Gura_AssignMethod(track, sequencer_specific_event);
 }
 
 //-----------------------------------------------------------------------------
