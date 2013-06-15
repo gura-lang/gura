@@ -30,7 +30,7 @@ void MML::Reset()
 
 void MML::UpdateTimeStamp()
 {
-	EventOwner &eventOwner = _pTrack->GetEventOwner();
+	const EventOwner &eventOwner = _pTrack->GetEventOwner();
 	if (!eventOwner.empty() && _timeStampHead < eventOwner.back()->GetTimeStamp()) {
 		_timeStampHead = _timeStampTail = eventOwner.back()->GetTimeStamp();
 	}
