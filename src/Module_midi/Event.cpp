@@ -156,7 +156,7 @@ String MIDIEvent_NoteOff::GetArgsName() const
 {
 	char str[128];
 	::sprintf(str, "channel:%d note:%d velocity:%d",
-								GetChannel(), _params[0], _params[1]);
+								GetChannel(), GetNote(), GetVelocity());
 	return String(str);
 }
 
@@ -176,7 +176,8 @@ String MIDIEvent_NoteOn::GetName() const
 String MIDIEvent_NoteOn::GetArgsName() const
 {
 	char str[128];
-	::sprintf(str, "channel:%d note:%d velocity:%d", GetChannel(), _params[0], _params[1]);
+	::sprintf(str, "channel:%d note:%d velocity:%d",
+								GetChannel(), GetNote(), GetVelocity());
 	return String(str);
 }
 
@@ -196,7 +197,8 @@ String MIDIEvent_PolyPressure::GetName() const
 String MIDIEvent_PolyPressure::GetArgsName() const
 {
 	char str[128];
-	::sprintf(str, "channel:%d", GetChannel());
+	::sprintf(str, "channel:%d note:%d value:%d",
+								GetChannel(), GetNote(), GetValue());
 	return String(str);
 }
 
@@ -216,7 +218,8 @@ String MIDIEvent_ControlChange::GetName() const
 String MIDIEvent_ControlChange::GetArgsName() const
 {
 	char str[128];
-	::sprintf(str, "channel:%d", GetChannel());
+	::sprintf(str, "channel:%d controller:%d value:%d",
+								GetChannel(), GetController(), GetValue());
 	return String(str);
 }
 
@@ -236,7 +239,7 @@ String MIDIEvent_ProgramChange::GetName() const
 String MIDIEvent_ProgramChange::GetArgsName() const
 {
 	char str[128];
-	::sprintf(str, "channel:%d", GetChannel());
+	::sprintf(str, "channel:%d program:%d", GetChannel(), GetProgram());
 	return String(str);
 }
 
@@ -256,7 +259,7 @@ String MIDIEvent_ChannelPressure::GetName() const
 String MIDIEvent_ChannelPressure::GetArgsName() const
 {
 	char str[128];
-	::sprintf(str, "channel:%d", GetChannel());
+	::sprintf(str, "channel:%d pressure:%d", GetChannel(), GetPressure());
 	return String(str);
 }
 
@@ -276,7 +279,7 @@ String MIDIEvent_PitchBend::GetName() const
 String MIDIEvent_PitchBend::GetArgsName() const
 {
 	char str[128];
-	::sprintf(str, "channel:%d", GetChannel());
+	::sprintf(str, "channel:%d value:%d", GetChannel(), GetValue());
 	return String(str);
 }
 
