@@ -137,6 +137,8 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
+	inline unsigned char GetNote() const { return _params[0]; }
+	inline unsigned char GetVelocity() const { return _params[1]; }
 };
 
 //-----------------------------------------------------------------------------
@@ -157,6 +159,8 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
+	inline unsigned char GetNote() const { return _params[0]; }
+	inline unsigned char GetVelocity() const { return _params[1]; }
 };
 
 //-----------------------------------------------------------------------------
@@ -169,9 +173,16 @@ public:
 	inline MIDIEvent_PolyPressure(const MIDIEvent_PolyPressure &event) : MIDIEvent(event) {}
 	inline MIDIEvent_PolyPressure(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
+	inline MIDIEvent_PolyPressure(unsigned long timeStamp, unsigned char channel,
+							unsigned char note, unsigned char value) :
+									MIDIEvent(timeStamp, Status, channel, 2) {
+		_params[0] = note, _params[1] = value;
+	}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
+	inline unsigned char GetNote() const { return _params[0]; }
+	inline unsigned char GetValue() const { return _params[1]; }
 };
 
 //-----------------------------------------------------------------------------
@@ -184,9 +195,16 @@ public:
 	inline MIDIEvent_ControlChange(const MIDIEvent_ControlChange &event) : MIDIEvent(event) {}
 	inline MIDIEvent_ControlChange(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
+	inline MIDIEvent_ControlChange(unsigned long timeStamp, unsigned char channel,
+							unsigned char controller, unsigned char value) :
+									MIDIEvent(timeStamp, Status, channel, 2) {
+		_params[0] = controller, _params[1] = value;
+	}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
+	inline unsigned char GetController() const { return _params[0]; }
+	inline unsigned char GetValue() const { return _params[1]; }
 };
 
 //-----------------------------------------------------------------------------
@@ -206,6 +224,7 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
+	inline unsigned char GetProgram() const { return _params[0]; }
 };
 
 //-----------------------------------------------------------------------------
@@ -218,9 +237,14 @@ public:
 	inline MIDIEvent_ChannelPressure(const MIDIEvent_ChannelPressure &event) : MIDIEvent(event) {}
 	inline MIDIEvent_ChannelPressure(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 1) {}
+	inline MIDIEvent_ChannelPressure(unsigned long timeStamp, unsigned char channel, unsigned char pressure) :
+									MIDIEvent(timeStamp, Status, channel, 1) {
+		_params[0] = pressure;
+	}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
+	inline unsigned char GetPressure() const { return _params[0]; }
 };
 
 //-----------------------------------------------------------------------------
@@ -233,9 +257,18 @@ public:
 	inline MIDIEvent_PitchBend(const MIDIEvent_PitchBend &event) : MIDIEvent(event) {}
 	inline MIDIEvent_PitchBend(unsigned long timeStamp, unsigned char channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
+	inline MIDIEvent_PitchBend(unsigned long timeStamp, unsigned char channel, unsigned short value) :
+									MIDIEvent(timeStamp, Status, channel, 2) {
+		_params[0] = static_cast<unsigned char>((value >> 0) & 0x7f);
+		_params[1] = static_cast<unsigned char>((value >> 7) & 0x7f);
+	}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
+	inline unsigned short GetValue() const {
+		return (static_cast<unsigned short>(_params[0]) << 0) +
+				(static_cast<unsigned short>(_params[1]) << 7);
+	}
 };
 
 //-----------------------------------------------------------------------------
