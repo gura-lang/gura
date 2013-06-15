@@ -114,18 +114,376 @@ String Object_track::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for midi.track
 //-----------------------------------------------------------------------------
-// midi.track#mml(text:string):map:void
+// midi.track#mml(text:string):map:reduce
 Gura_DeclareMethod(track, mml)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 }
 
 Gura_ImplementMethod(track, mml)
 {
-	Object_track *pThis = Object_track::GetThisObj(args);
-	pThis->GetTrack()->ParseMML(sig, args.GetString(0));
-	return Value::Null;
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	pTrack->ParseMML(sig, args.GetString(0));
+	return args.GetThis();
+}
+
+// midi.track#note_off(channel:number, note:number, velocity:number):map:reduce
+Gura_DeclareMethod(track, note_off)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "note", VTYPE_number);
+	DeclareArg(env, "velocity", VTYPE_number);
+}
+
+Gura_ImplementMethod(track, note_off)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned char channel = args.GetUChar(0) & 0x0f;
+	unsigned char note = args.GetUChar(1);
+	unsigned char velocity = args.GetUChar(2);
+	AutoPtr<Event> pEvent(new MIDIEvent_NoteOff(0, channel, note, velocity));
+	return args.GetThis();
+}
+
+// midi.track#note_on(channel:number, note:number, velocity:number):map:reduce
+Gura_DeclareMethod(track, note_on)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "note", VTYPE_number);
+	DeclareArg(env, "velocity", VTYPE_number);
+}
+
+Gura_ImplementMethod(track, note_on)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned char channel = args.GetUChar(0) & 0x0f;
+	unsigned char note = args.GetUChar(1);
+	unsigned char velocity = args.GetUChar(2);
+	AutoPtr<Event> pEvent(new MIDIEvent_NoteOn(0, channel, note, velocity));
+	return args.GetThis();
+}
+
+// midi.track#poly_pressure(channel:number, note:number, value:number):map:reduce
+Gura_DeclareMethod(track, poly_pressure)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "note", VTYPE_number);
+	DeclareArg(env, "value", VTYPE_number);
+}
+
+Gura_ImplementMethod(track, poly_pressure)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned char channel = args.GetUChar(0) & 0x0f;
+	unsigned char note = args.GetUChar(1);
+	unsigned char value = args.GetUChar(2);
+	AutoPtr<Event> pEvent(new MIDIEvent_PolyPressure(0, channel, note, value));
+	return args.GetThis();
+}
+
+// midi.track#control_change(channel:number, controller:number, value:number):map:reduce
+Gura_DeclareMethod(track, control_change)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "controller", VTYPE_number);
+	DeclareArg(env, "value", VTYPE_number);
+}
+
+Gura_ImplementMethod(track, control_change)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned char channel = args.GetUChar(0) & 0x0f;
+	unsigned char controller = args.GetUChar(1);
+	unsigned char value = args.GetUChar(2);
+	AutoPtr<Event> pEvent(new MIDIEvent_ControlChange(0, channel, controller, value));
+	return args.GetThis();
+}
+
+// midi.track#program_change(channel:number, program:number):map:reduce
+Gura_DeclareMethod(track, program_change)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "program", VTYPE_number);
+}
+
+Gura_ImplementMethod(track, program_change)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned char channel = args.GetUChar(0) & 0x0f;
+	unsigned char program = args.GetUChar(1);
+	AutoPtr<Event> pEvent(new MIDIEvent_ProgramChange(0, channel, program));
+	return args.GetThis();
+}
+
+// midi.track#channel_pressure(channel:number, pressure:number):map:reduce
+Gura_DeclareMethod(track, channel_pressure)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "pressure", VTYPE_number);
+}
+
+Gura_ImplementMethod(track, channel_pressure)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned char channel = args.GetUChar(0) & 0x0f;
+	unsigned char pressure = args.GetUChar(1);
+	AutoPtr<Event> pEvent(new MIDIEvent_ChannelPressure(0, channel, pressure));
+	return args.GetThis();
+}
+
+// midi.track#pitch_bend(channel:number, value:number):map:reduce
+Gura_DeclareMethod(track, pitch_bend)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "value", VTYPE_number);
+}
+
+Gura_ImplementMethod(track, pitch_bend)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned char channel = args.GetUChar(0) & 0x0f;
+	unsigned short value = args.GetUShort(1);
+	AutoPtr<Event> pEvent(new MIDIEvent_PitchBend(0, channel, value));
+	return args.GetThis();
+}
+
+// midi.track#sequence_number(number:number):map:reduce
+Gura_DeclareMethod(track, sequence_number)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "number", VTYPE_number);
+}
+
+Gura_ImplementMethod(track, sequence_number)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	AutoPtr<Event> pEvent(new MetaEvent_SequenceNumber(0, args.GetUShort(0)));
+	return args.GetThis();
+}
+
+// midi.track#text_event(text:string):map:reduce
+Gura_DeclareMethod(track, text_event)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "text", VTYPE_string);
+}
+
+Gura_ImplementMethod(track, text_event)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	AutoPtr<Event> pEvent(new MetaEvent_TextEvent(0, args.GetStringSTL(0)));
+	return args.GetThis();
+}
+
+// midi.track#copyright_notice(text:string):map:reduce
+Gura_DeclareMethod(track, copyright_notice)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "text", VTYPE_string);
+}
+
+Gura_ImplementMethod(track, copyright_notice)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	AutoPtr<Event> pEvent(new MetaEvent_CopyrightNotice(0, args.GetStringSTL(0)));
+	return args.GetThis();
+}
+
+// midi.track#sequence_or_track_name(text:string):map:reduce
+Gura_DeclareMethod(track, sequence_or_track_name)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "text", VTYPE_string);
+}
+
+Gura_ImplementMethod(track, sequence_or_track_name)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	AutoPtr<Event> pEvent(new MetaEvent_SequenceOrTrackName(0, args.GetStringSTL(0)));
+	return args.GetThis();
+}
+
+// midi.track#instrument_name(text:string):map:reduce
+Gura_DeclareMethod(track, instrument_name)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "text", VTYPE_string);
+}
+
+Gura_ImplementMethod(track, instrument_name)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	AutoPtr<Event> pEvent(new MetaEvent_InstrumentName(0, args.GetStringSTL(0)));
+	return args.GetThis();
+}
+
+// midi.track#lyric_text(text:string):map:reduce
+Gura_DeclareMethod(track, lyric_text)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "text", VTYPE_string);
+}
+
+Gura_ImplementMethod(track, lyric_text)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	AutoPtr<Event> pEvent(new MetaEvent_LyricText(0, args.GetStringSTL(0)));
+	return args.GetThis();
+}
+
+// midi.track#marker_text(text:string):map:reduce
+Gura_DeclareMethod(track, marker_text)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "text", VTYPE_string);
+}
+
+Gura_ImplementMethod(track, marker_text)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	AutoPtr<Event> pEvent(new MetaEvent_MarkerText(0, args.GetStringSTL(0)));
+	return args.GetThis();
+}
+
+// midi.track#cue_point(text:string):map:reduce
+Gura_DeclareMethod(track, cue_point)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "text", VTYPE_string);
+}
+
+Gura_ImplementMethod(track, cue_point)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	AutoPtr<Event> pEvent(new MetaEvent_CuePoint(0, args.GetStringSTL(0)));
+	return args.GetThis();
+}
+
+// midi.track#midi_channel_prefix_assignment(channel:number):map:reduce
+Gura_DeclareMethod(track, midi_channel_prefix_assignment)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+}
+
+Gura_ImplementMethod(track, midi_channel_prefix_assignment)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned char channel = args.GetUChar(0);
+	AutoPtr<Event> pEvent(new MetaEvent_MIDIChannelPrefixAssignment(0, channel));
+	return args.GetThis();
+}
+
+// midi.track#end_of_track():map:reduce
+Gura_DeclareMethod(track, end_of_track)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+}
+
+Gura_ImplementMethod(track, end_of_track)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	AutoPtr<Event> pEvent(new MetaEvent_EndOfTrack(0));
+	return args.GetThis();
+}
+
+// midi.track#tempo_setting(mpqn:number):map:reduce
+Gura_DeclareMethod(track, tempo_setting)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "mpqn", VTYPE_number);
+}
+
+Gura_ImplementMethod(track, tempo_setting)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned long mpqn = args.GetULong(0);
+	AutoPtr<Event> pEvent(new MetaEvent_TempoSetting(0, mpqn));
+	return args.GetThis();
+}
+
+// midi.track#smpte_offset(hour:number, minute:number, second:number, frame:number, subFrame:number):map:reduce
+Gura_DeclareMethod(track, smpte_offset)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "hour", VTYPE_number);
+	DeclareArg(env, "minute", VTYPE_number);
+	DeclareArg(env, "second", VTYPE_number);
+	DeclareArg(env, "frame", VTYPE_number);
+	DeclareArg(env, "subFrame", VTYPE_number);
+}
+
+Gura_ImplementMethod(track, smpte_offset)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned char hour = args.GetUChar(0);
+	unsigned char minute = args.GetUChar(1);
+	unsigned char second = args.GetUChar(2);
+	unsigned char frame = args.GetUChar(3);
+	unsigned char subFrame = args.GetUChar(4);
+	AutoPtr<Event> pEvent(new MetaEvent_SMPTEOffset(0, hour, minute, second, frame, subFrame));
+	return args.GetThis();
+}
+
+// midi.track#time_signature(numerator:number, denominator:number, metronome:number, cnt32nd:number):map:reduce
+Gura_DeclareMethod(track, time_signature)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "numerator", VTYPE_number);
+	DeclareArg(env, "denominator", VTYPE_number);
+	DeclareArg(env, "metronome", VTYPE_number);
+	DeclareArg(env, "cnt32nd", VTYPE_number);
+}
+
+Gura_ImplementMethod(track, time_signature)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned char numerator = args.GetUChar(0);
+	unsigned char denominator = args.GetUChar(1);
+	unsigned char metronome = args.GetUChar(2);
+	unsigned char cnt32nd = args.GetUChar(3);
+	AutoPtr<Event> pEvent(new MetaEvent_TimeSignature(0, numerator, denominator, metronome, cnt32nd));
+	return args.GetThis();
+}
+
+// midi.track#key_signature(key:number, scale:number):map:reduce
+Gura_DeclareMethod(track, key_signature)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "key", VTYPE_number);
+	DeclareArg(env, "scale", VTYPE_number);
+}
+
+Gura_ImplementMethod(track, key_signature)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned char key = args.GetUChar(0);
+	unsigned char scale = args.GetUChar(1);
+	AutoPtr<Event> pEvent(new MetaEvent_KeySignature(0, key, scale));
+	return args.GetThis();
+}
+
+// midi.track#sequence_specific_event(binary:binary):map:reduce
+Gura_DeclareMethod(track, sequence_specific_event)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "binary", VTYPE_binary);
+}
+
+Gura_ImplementMethod(track, sequence_specific_event)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	const Binary &binary = args.GetBinary(0);
+	AutoPtr<Event> pEvent(new MetaEvent_SequencerSpecificEvent(0, binary));
+	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------
@@ -134,6 +492,13 @@ Gura_ImplementMethod(track, mml)
 Gura_ImplementUserClass(track)
 {
 	Gura_AssignMethod(track, mml);
+	Gura_AssignMethod(track, note_off);
+	Gura_AssignMethod(track, note_on);
+	Gura_AssignMethod(track, poly_pressure);
+	Gura_AssignMethod(track, control_change);
+	Gura_AssignMethod(track, program_change);
+	Gura_AssignMethod(track, channel_pressure);
+	Gura_AssignMethod(track, pitch_bend);
 }
 
 //-----------------------------------------------------------------------------
@@ -267,32 +632,17 @@ Gura_ImplementMethod(content, track)
 	Object_content *pThis = Object_content::GetThisObj(args);
 	size_t index = args.GetSizeT(0);
 	TrackOwner &trackOwner = pThis->GetContent().GetTrackOwner();
-	if (index >= trackOwner.size()) {
-		sig.SetError(ERR_IndexError, "index is out of range");
+	if (trackOwner.size() <= index) {
+		size_t n = index - trackOwner.size();
+		while (n-- > 0) {
+			trackOwner.push_back(new Track(Property::Reference(
+									pThis->GetContent().GetProperty())));
+		}
 		return Value::Null;
 	}
 	Track *pTrack = trackOwner[index];
 	return ReturnValue(env, sig, args,
 				Value(new Object_track(env, Track::Reference(pTrack))));
-}
-
-// midi.content#addtrack() {block?}
-Gura_DeclareMethod(content, addtrack)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "text", VTYPE_string, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(content, addtrack)
-{
-	Object_content *pThis = Object_content::GetThisObj(args);
-	TrackOwner &trackOwner = pThis->GetContent().GetTrackOwner();
-	AutoPtr<Track> pTrack(new Track(Property::Reference(
-									pThis->GetContent().GetProperty())));
-	trackOwner.push_back(pTrack.get());
-	return ReturnValue(env, sig, args,
-			Value(new Object_track(env, Track::Reference(pTrack.release()))));
 }
 
 // midi.content#mml(text+:string):reduce
@@ -318,7 +668,6 @@ Gura_ImplementUserClassWithCast(content)
 	Gura_AssignMethod(content, write);
 	Gura_AssignMethod(content, play);
 	Gura_AssignMethod(content, track);
-	Gura_AssignMethod(content, addtrack);
 	Gura_AssignMethod(content, mml);
 }
 

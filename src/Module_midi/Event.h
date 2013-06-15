@@ -325,6 +325,8 @@ public:
 										_binary(event._binary) {}
 	inline MetaEvent_Unknown(unsigned long timeStamp, unsigned char eventType) :
 										MetaEvent(timeStamp, eventType) {}
+	inline MetaEvent_Unknown(unsigned long timeStamp, unsigned char eventType, const Binary &binary) :
+										MetaEvent(timeStamp, eventType), _binary(binary) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
@@ -346,6 +348,8 @@ public:
 										_number(event._number) {}
 	inline MetaEvent_SequenceNumber(unsigned long timeStamp) :
 								MetaEvent(timeStamp, EventType), _number(0) {}
+	inline MetaEvent_SequenceNumber(unsigned long timeStamp, unsigned short number) :
+								MetaEvent(timeStamp, EventType), _number(number) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
@@ -367,6 +371,8 @@ public:
 										_text(event._text) {}
 	inline MetaEvent_TextEvent(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
+	inline MetaEvent_TextEvent(unsigned long timeStamp, const String &text) :
+										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
@@ -388,6 +394,8 @@ public:
 										_text(event._text) {}
 	inline MetaEvent_CopyrightNotice(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
+	inline MetaEvent_CopyrightNotice(unsigned long timeStamp, const String &text) :
+										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
@@ -409,6 +417,8 @@ public:
 										_text(event._text) {}
 	inline MetaEvent_SequenceOrTrackName(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
+	inline MetaEvent_SequenceOrTrackName(unsigned long timeStamp, const String &text) :
+										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
@@ -430,6 +440,8 @@ public:
 										_text(event._text) {}
 	inline MetaEvent_InstrumentName(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
+	inline MetaEvent_InstrumentName(unsigned long timeStamp, const String &text) :
+										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
@@ -451,6 +463,8 @@ public:
 										_text(event._text) {}
 	inline MetaEvent_LyricText(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
+	inline MetaEvent_LyricText(unsigned long timeStamp, const String &text) :
+										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
@@ -472,6 +486,8 @@ public:
 										_text(event._text) {}
 	inline MetaEvent_MarkerText(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
+	inline MetaEvent_MarkerText(unsigned long timeStamp, const String &text) :
+										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
@@ -493,6 +509,8 @@ public:
 										_text(event._text) {}
 	inline MetaEvent_CuePoint(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
+	inline MetaEvent_CuePoint(unsigned long timeStamp, const String &text) :
+										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
@@ -514,6 +532,8 @@ public:
 										_channel(event._channel) {}
 	inline MetaEvent_MIDIChannelPrefixAssignment(unsigned long timeStamp) :
 								MetaEvent(timeStamp, EventType), _channel(0) {}
+	inline MetaEvent_MIDIChannelPrefixAssignment(unsigned long timeStamp, unsigned char channel) :
+								MetaEvent(timeStamp, EventType), _channel(channel) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
@@ -555,7 +575,9 @@ private:
 public:
 	inline MetaEvent_TempoSetting(const MetaEvent_TempoSetting &event) : MetaEvent(event),
 										_mpqn(event._mpqn) {}
-	inline MetaEvent_TempoSetting(unsigned long timeStamp, unsigned long mpqn = 0) :
+	inline MetaEvent_TempoSetting(unsigned long timeStamp) :
+									MetaEvent(timeStamp, EventType), _mpqn(0) {}
+	inline MetaEvent_TempoSetting(unsigned long timeStamp, unsigned long mpqn) :
 									MetaEvent(timeStamp, EventType), _mpqn(mpqn) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
@@ -580,6 +602,10 @@ public:
 	inline MetaEvent_SMPTEOffset(unsigned long timeStamp) :
 			MetaEvent(timeStamp, EventType), _hour(0), _minute(0), _second(0),
 			_frame(0), _subFrame(0) {}
+	inline MetaEvent_SMPTEOffset(unsigned long timeStamp, unsigned char hour, unsigned char minute,
+						unsigned char second, unsigned char frame, unsigned char subFrame) :
+			MetaEvent(timeStamp, EventType), _hour(hour), _minute(minute), _second(second),
+			_frame(frame), _subFrame(subFrame) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
@@ -604,6 +630,10 @@ public:
 	inline MetaEvent_TimeSignature(unsigned long timeStamp) :
 			MetaEvent(timeStamp, EventType), _numerator(0), _denominator(0),
 			_metronome(0), _cnt32nd(0) {}
+	inline MetaEvent_TimeSignature(unsigned long timeStamp, unsigned char numerator,
+				unsigned char denominator, unsigned char metronome, unsigned char cnt32nd) :
+			MetaEvent(timeStamp, EventType), _numerator(numerator), _denominator(denominator),
+			_metronome(metronome), _cnt32nd(cnt32nd) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
@@ -625,6 +655,8 @@ public:
 							_key(event._key), _scale(event._scale) {}
 	inline MetaEvent_KeySignature(unsigned long timeStamp) :
 					MetaEvent(timeStamp, EventType), _key(0), _scale(0) {}
+	inline MetaEvent_KeySignature(unsigned long timeStamp, unsigned char key, unsigned char scale) :
+					MetaEvent(timeStamp, EventType), _key(key), _scale(scale) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
@@ -646,6 +678,8 @@ public:
 										_binary(event._binary) {}
 	inline MetaEvent_SequencerSpecificEvent(unsigned long timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
+	inline MetaEvent_SequencerSpecificEvent(unsigned long timeStamp, const Binary &binary) :
+										MetaEvent(timeStamp, EventType), _binary(binary) {}
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
