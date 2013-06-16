@@ -47,7 +47,6 @@ public:
 	Gura_DeclareReferenceAccessor(Track);
 public:
 	Track(Property *pProperty);
-	inline EventOwner &GetEventOwner() { return *_pEventOwner; }
 	inline const EventOwner &GetEventOwner() const { return *_pEventOwner; }
 	inline Property *GetProperty() { return _pProperty.get(); }
 	inline const MML *GetMML() const { return _pMML.get(); }

@@ -65,8 +65,8 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 			sig.SetError(ERR_FormatError, "invalid SMF format");
 			return false;
 		}
-		GetTrackOwner().push_back(new Track(Property::Reference(GetProperty())));
-		EventOwner &eventOwner = GetTrackOwner().back()->GetEventOwner();
+		Track *pTrack = new Track(Property::Reference(GetProperty()));
+		GetTrackOwner().push_back(pTrack);
 		std::auto_ptr<MIDIEvent> pMIDIEvent;
 		unsigned char eventType = 0x00;
 		Binary binary;
@@ -149,19 +149,19 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 					} else if (stat == STAT_MIDIEvent_Param1st) {
 						pMIDIEvent->SetParam1st(data);
 						if (pMIDIEvent->CountParams() == 1) {
-							eventOwner.push_back(pMIDIEvent.release());
+							pTrack->AddEvent(pMIDIEvent.release());
 							stat = STAT_EventStart;
 						} else {
 							stat = STAT_MIDIEvent_Param2nd;
 						}
 					} else if (stat == STAT_MIDIEvent_Param2nd) {
 						pMIDIEvent->SetParam2nd(data);
-						eventOwner.push_back(pMIDIEvent.release());
+						pTrack->AddEvent(pMIDIEvent.release());
 						stat = STAT_EventStart;
 					} else if (stat == STAT_SysExEvent) {
 						binary.push_back(data);
 						if (data == 0xf7) {
-							eventOwner.push_back(new SysExEvent(timeStamp, binary));
+							pTrack->AddEvent(new SysExEvent(timeStamp, binary));
 							stat = STAT_EventStart;
 						}
 					} else if (stat == STAT_MetaEvent_Type) {
@@ -172,7 +172,7 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 						if ((data & 0x80) != 0) {
 							// nothing to do
 						} else if (length == 0) {
-							if (!MetaEvent::Add(sig, eventOwner,
+							if (!MetaEvent::Add(sig, pTrack,
 												timeStamp, eventType, binary)) {
 								return false;
 							}
@@ -183,7 +183,7 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 					} else if (stat == STAT_MetaEvent_Data) {
 						binary.push_back(data);
 						if (binary.size() == length) {
-							if (!MetaEvent::Add(sig, eventOwner,
+							if (!MetaEvent::Add(sig, pTrack,
 												timeStamp, eventType, binary)) {
 								return false;
 							}

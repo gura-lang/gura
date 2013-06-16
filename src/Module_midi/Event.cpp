@@ -316,7 +316,7 @@ unsigned char MetaEvent::GetStatusCode() const
 	return Status;
 }
 
-bool MetaEvent::Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
+bool MetaEvent::Add(Signal sig, Track *pTrack, unsigned long timeStamp,
 							unsigned char eventType, const Binary &binary)
 {
 	MetaEvent *pEvent = NULL;
@@ -354,7 +354,7 @@ bool MetaEvent::Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
 		pEvent = new MetaEvent_Unknown(timeStamp, eventType);
 	}
 	if (pEvent->Prepare(sig, binary)) {
-		eventOwner.push_back(pEvent);
+		pTrack->AddEvent(pEvent);
 		return true;
 	}
 	delete pEvent;

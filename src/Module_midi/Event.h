@@ -5,6 +5,7 @@
 
 Gura_BeginModule(midi)
 
+class Track;
 class EventList;
 
 //-----------------------------------------------------------------------------
@@ -308,7 +309,7 @@ public:
 	virtual bool IsMetaEvent() const;
 	virtual unsigned char GetStatusCode() const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	static bool Add(Signal sig, EventOwner &eventOwner, unsigned long timeStamp,
+	static bool Add(Signal sig, Track *pTrack, unsigned long timeStamp,
 			unsigned char eventType, const Binary &binary);
 	static void SetError_TooShortMetaEvent(Signal sig);
 };
