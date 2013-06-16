@@ -114,6 +114,21 @@ String Object_track::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for midi.track
 //-----------------------------------------------------------------------------
+// midi.track#seek(offset:number, origin?:symbol):reduce
+Gura_DeclareMethod(track, seek)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "offset", VTYPE_number);
+	DeclareArg(env, "origin", VTYPE_symbol, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(track, seek)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	if (!pTrack->Seek(sig, args.GetLong(0))) return Value::Null;
+	return args.GetThis();
+}
+
 // midi.track#mml(text:string):map:reduce
 Gura_DeclareMethod(track, mml)
 {
@@ -513,6 +528,7 @@ Gura_ImplementMethod(track, sequencer_specific_event)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(track)
 {
+	Gura_AssignMethod(track, seek);
 	Gura_AssignMethod(track, mml);
 	Gura_AssignMethod(track, note_off);
 	Gura_AssignMethod(track, note_on);

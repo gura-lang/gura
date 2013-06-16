@@ -42,6 +42,7 @@ private:
 	int _cntRef;
 	AutoPtr<Property> _pProperty;
 	AutoPtr<EventOwner> _pEventOwner;
+	EventOwner::iterator _ppEventAt;
 	std::auto_ptr<MML> _pMML; // maybe NULL
 public:
 	Gura_DeclareReferenceAccessor(Track);
@@ -53,6 +54,7 @@ public:
 	bool Write(Signal sig, Stream &stream) const;
 	bool ParseMML(Signal sig, const char *str);
 	void AddEvent(Event *pEvent);
+	bool Seek(Signal sig, long offset);
 };
 
 //-----------------------------------------------------------------------------

@@ -9,6 +9,7 @@ Gura_BeginModule(midi)
 Track::Track(Property *pProperty) : _cntRef(1),
 				_pProperty(pProperty), _pEventOwner(new EventOwner())
 {
+	_ppEventAt = _pEventOwner->end();
 }
 
 bool Track::ParseMML(Signal sig, const char *str)
@@ -21,7 +22,13 @@ bool Track::ParseMML(Signal sig, const char *str)
 
 void Track::AddEvent(Event *pEvent)
 {
-	_pEventOwner->push_back(pEvent);
+	_ppEventAt = _pEventOwner->insert(_ppEventAt, pEvent);
+	_ppEventAt++;
+}
+
+bool Track::Seek(Signal sig, long offset)
+{
+	return true;
 }
 
 //-----------------------------------------------------------------------------
