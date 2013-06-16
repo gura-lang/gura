@@ -230,6 +230,8 @@ public:
 	Gura_DeclareSymbol(both);
 	Gura_DeclareSymbol(left);
 	Gura_DeclareSymbol(right);
+	Gura_DeclareSymbol(begin);
+	Gura_DeclareSymbol(end);
 	Gura_DeclareSymbol(cur);
 	Gura_DeclareSymbol(prev);
 	Gura_DeclareSymbol(next);

@@ -243,6 +243,8 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(both);
 	Gura_RealizeSymbol(left);
 	Gura_RealizeSymbol(right);
+	Gura_RealizeSymbol(begin);
+	Gura_RealizeSymbol(end);
 	Gura_RealizeSymbol(cur);
 	Gura_RealizeSymbol(prev);
 	Gura_RealizeSymbol(next);
