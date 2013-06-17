@@ -36,6 +36,7 @@ protected:
 	virtual ~Event();
 public:
 	inline unsigned long GetTimeStamp() const { return _timeStamp; }
+	inline void SetTimeStamp(unsigned long timeStamp) { _timeStamp = timeStamp; }
 	virtual bool IsMIDIEvent() const;
 	virtual bool IsSysExEvent() const;
 	virtual bool IsMetaEvent() const;

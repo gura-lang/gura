@@ -53,8 +53,12 @@ public:
 	inline const MML *GetMML() const { return _pMML.get(); }
 	bool Write(Signal sig, Stream &stream) const;
 	bool ParseMML(Signal sig, const char *str);
+	unsigned long GetCurTimeStamp() const;
+	void AdjustFollowingTimeStamp(unsigned long deltaTime);
 	void AddEvent(Event *pEvent);
-	bool Seek(Signal sig, long offset);
+	void AddEvent(Event *pEvent, unsigned long deltaTime);
+	bool SeekSet(Signal sig, long offset);
+	bool SeekCur(Signal sig, long offset);
 };
 
 //-----------------------------------------------------------------------------

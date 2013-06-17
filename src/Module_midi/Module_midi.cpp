@@ -125,7 +125,14 @@ Gura_DeclareMethod(track, seek)
 Gura_ImplementMethod(track, seek)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
-	if (!pTrack->Seek(sig, args.GetLong(0))) return Value::Null;
+	if (args.GetSymbol(1)->IsIdentical(Gura_Symbol(set))) {
+		if (!pTrack->SeekSet(sig, args.GetLong(0))) return Value::Null;
+	} else if (args.GetSymbol(1)->IsIdentical(Gura_Symbol(cur))) {
+		if (!pTrack->SeekCur(sig, args.GetLong(0))) return Value::Null;
+	} else {
+		sig.SetError(ERR_ArgumentError, "invalid symbol");
+		return Value::Null;
+	}
 	return args.GetThis();
 }
 
@@ -143,13 +150,14 @@ Gura_ImplementMethod(track, mml)
 	return args.GetThis();
 }
 
-// midi.track#note_off(channel:number, note:number, velocity:number):map:reduce
+// midi.track#note_off(channel:number, note:number, velocity:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, note_off)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "note", VTYPE_number);
 	DeclareArg(env, "velocity", VTYPE_number);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, note_off)
@@ -158,18 +166,20 @@ Gura_ImplementMethod(track, note_off)
 	unsigned char channel = args.GetUChar(0) & 0x0f;
 	unsigned char note = args.GetUChar(1);
 	unsigned char velocity = args.GetUChar(2);
+	unsigned long deltaTime = args.IsNumber(3)? args.GetULong(3) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_NoteOff(0, channel, note, velocity));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#note_on(channel:number, note:number, velocity:number):map:reduce
+// midi.track#note_on(channel:number, note:number, velocity:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, note_on)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "note", VTYPE_number);
 	DeclareArg(env, "velocity", VTYPE_number);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, note_on)
@@ -178,18 +188,20 @@ Gura_ImplementMethod(track, note_on)
 	unsigned char channel = args.GetUChar(0) & 0x0f;
 	unsigned char note = args.GetUChar(1);
 	unsigned char velocity = args.GetUChar(2);
+	unsigned long deltaTime = args.IsNumber(3)? args.GetULong(3) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_NoteOn(0, channel, note, velocity));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#poly_pressure(channel:number, note:number, value:number):map:reduce
+// midi.track#poly_pressure(channel:number, note:number, value:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, poly_pressure)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "note", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, poly_pressure)
@@ -198,18 +210,20 @@ Gura_ImplementMethod(track, poly_pressure)
 	unsigned char channel = args.GetUChar(0) & 0x0f;
 	unsigned char note = args.GetUChar(1);
 	unsigned char value = args.GetUChar(2);
+	unsigned long deltaTime = args.IsNumber(3)? args.GetULong(3) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_PolyPressure(0, channel, note, value));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#control_change(channel:number, controller:number, value:number):map:reduce
+// midi.track#control_change(channel:number, controller:number, value:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, control_change)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "controller", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, control_change)
@@ -218,17 +232,19 @@ Gura_ImplementMethod(track, control_change)
 	unsigned char channel = args.GetUChar(0) & 0x0f;
 	unsigned char controller = args.GetUChar(1);
 	unsigned char value = args.GetUChar(2);
+	unsigned long deltaTime = args.IsNumber(3)? args.GetULong(3) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_ControlChange(0, channel, controller, value));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#program_change(channel:number, program:number):map:reduce
+// midi.track#program_change(channel:number, program:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, program_change)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "program", VTYPE_number);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, program_change)
@@ -236,17 +252,19 @@ Gura_ImplementMethod(track, program_change)
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	unsigned char channel = args.GetUChar(0) & 0x0f;
 	unsigned char program = args.GetUChar(1);
+	unsigned long deltaTime = args.IsNumber(2)? args.GetULong(2) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_ProgramChange(0, channel, program));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#channel_pressure(channel:number, pressure:number):map:reduce
+// midi.track#channel_pressure(channel:number, pressure:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, channel_pressure)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "pressure", VTYPE_number);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, channel_pressure)
@@ -254,17 +272,19 @@ Gura_ImplementMethod(track, channel_pressure)
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	unsigned char channel = args.GetUChar(0) & 0x0f;
 	unsigned char pressure = args.GetUChar(1);
+	unsigned long deltaTime = args.IsNumber(2)? args.GetULong(2) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_ChannelPressure(0, channel, pressure));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#pitch_bend(channel:number, value:number):map:reduce
+// midi.track#pitch_bend(channel:number, value:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, pitch_bend)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, pitch_bend)
@@ -272,178 +292,201 @@ Gura_ImplementMethod(track, pitch_bend)
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	unsigned char channel = args.GetUChar(0) & 0x0f;
 	unsigned short value = args.GetUShort(1);
+	unsigned long deltaTime = args.IsNumber(2)? args.GetULong(2) : 0;
 	AutoPtr<Event> pEvent(new MIDIEvent_PitchBend(0, channel, value));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#sequence_number(number:number):map:reduce
+// midi.track#sequence_number(number:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, sequence_number)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "number", VTYPE_number);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, sequence_number)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned long deltaTime = args.IsNumber(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_SequenceNumber(0, args.GetUShort(0)));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#text_event(text:string):map:reduce
+// midi.track#text_event(text:string, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, text_event)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, text_event)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned long deltaTime = args.IsNumber(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_TextEvent(0, args.GetStringSTL(0)));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#copyright_notice(text:string):map:reduce
+// midi.track#copyright_notice(text:string, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, copyright_notice)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, copyright_notice)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned long deltaTime = args.IsNumber(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_CopyrightNotice(0, args.GetStringSTL(0)));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#sequence_or_track_name(text:string):map:reduce
+// midi.track#sequence_or_track_name(text:string, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, sequence_or_track_name)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, sequence_or_track_name)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned long deltaTime = args.IsNumber(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_SequenceOrTrackName(0, args.GetStringSTL(0)));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#instrument_name(text:string):map:reduce
+// midi.track#instrument_name(text:string, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, instrument_name)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, instrument_name)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned long deltaTime = args.IsNumber(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_InstrumentName(0, args.GetStringSTL(0)));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#lyric_text(text:string):map:reduce
+// midi.track#lyric_text(text:string, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, lyric_text)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, lyric_text)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned long deltaTime = args.IsNumber(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_LyricText(0, args.GetStringSTL(0)));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#marker_text(text:string):map:reduce
+// midi.track#marker_text(text:string, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, marker_text)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, marker_text)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned long deltaTime = args.IsNumber(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_MarkerText(0, args.GetStringSTL(0)));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#cue_point(text:string):map:reduce
+// midi.track#cue_point(text:string, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, cue_point)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, cue_point)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned long deltaTime = args.IsNumber(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_CuePoint(0, args.GetStringSTL(0)));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#midi_channel_prefix_assignment(channel:number):map:reduce
+// midi.track#midi_channel_prefix_assignment(channel:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, midi_channel_prefix_assignment)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, midi_channel_prefix_assignment)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	unsigned char channel = args.GetUChar(0);
+	unsigned long deltaTime = args.IsNumber(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_MIDIChannelPrefixAssignment(0, channel));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#end_of_track():map:reduce
+// midi.track#end_of_track(deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, end_of_track)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, end_of_track)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	unsigned long deltaTime = args.IsNumber(0)? args.GetULong(0) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_EndOfTrack(0));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#tempo_setting(mpqn:number):map:reduce
+// midi.track#tempo_setting(mpqn:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, tempo_setting)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "mpqn", VTYPE_number);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, tempo_setting)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	unsigned long mpqn = args.GetULong(0);
+	unsigned long deltaTime = args.IsNumber(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_TempoSetting(0, mpqn));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#smpte_offset(hour:number, minute:number, second:number, frame:number, subFrame:number):map:reduce
+// midi.track#smpte_offset(hour:number, minute:number, second:number, frame:number, subFrame:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, smpte_offset)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
@@ -452,6 +495,7 @@ Gura_DeclareMethod(track, smpte_offset)
 	DeclareArg(env, "second", VTYPE_number);
 	DeclareArg(env, "frame", VTYPE_number);
 	DeclareArg(env, "subFrame", VTYPE_number);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, smpte_offset)
@@ -462,12 +506,13 @@ Gura_ImplementMethod(track, smpte_offset)
 	unsigned char second = args.GetUChar(2);
 	unsigned char frame = args.GetUChar(3);
 	unsigned char subFrame = args.GetUChar(4);
+	unsigned long deltaTime = args.IsNumber(5)? args.GetULong(5) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_SMPTEOffset(0, hour, minute, second, frame, subFrame));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#time_signature(numerator:number, denominator:number, metronome:number, cnt32nd:number):map:reduce
+// midi.track#time_signature(numerator:number, denominator:number, metronome:number, cnt32nd:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, time_signature)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
@@ -475,6 +520,7 @@ Gura_DeclareMethod(track, time_signature)
 	DeclareArg(env, "denominator", VTYPE_number);
 	DeclareArg(env, "metronome", VTYPE_number);
 	DeclareArg(env, "cnt32nd", VTYPE_number);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, time_signature)
@@ -484,17 +530,19 @@ Gura_ImplementMethod(track, time_signature)
 	unsigned char denominator = args.GetUChar(1);
 	unsigned char metronome = args.GetUChar(2);
 	unsigned char cnt32nd = args.GetUChar(3);
+	unsigned long deltaTime = args.IsNumber(4)? args.GetULong(4) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_TimeSignature(0, numerator, denominator, metronome, cnt32nd));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#key_signature(key:number, scale:number):map:reduce
+// midi.track#key_signature(key:number, scale:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, key_signature)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_number);
 	DeclareArg(env, "scale", VTYPE_number);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, key_signature)
@@ -502,24 +550,27 @@ Gura_ImplementMethod(track, key_signature)
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	unsigned char key = args.GetUChar(0);
 	unsigned char scale = args.GetUChar(1);
+	unsigned long deltaTime = args.IsNumber(2)? args.GetULong(2) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_KeySignature(0, key, scale));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 
-// midi.track#sequencer_specific_event(binary:binary):map:reduce
+// midi.track#sequencer_specific_event(binary:binary, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, sequencer_specific_event)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "binary", VTYPE_binary);
+	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, sequencer_specific_event)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
 	const Binary &binary = args.GetBinary(0);
+	unsigned long deltaTime = args.IsNumber(1)? args.GetULong(1) : 0;
 	AutoPtr<Event> pEvent(new MetaEvent_SequencerSpecificEvent(0, binary));
-	pTrack->AddEvent(pEvent.release());
+	pTrack->AddEvent(pEvent.release(), deltaTime);
 	return args.GetThis();
 }
 

@@ -30,20 +30,23 @@ void MML::Reset()
 
 void MML::UpdateTimeStamp()
 {
-	const EventOwner &eventOwner = _pTrack->GetEventOwner();
-	if (!eventOwner.empty() && _timeStampHead < eventOwner.back()->GetTimeStamp()) {
-		_timeStampHead = _timeStampTail = eventOwner.back()->GetTimeStamp();
+	unsigned long timeStamp = _pTrack->GetCurTimeStamp();
+	if (_timeStampHead < timeStamp) {
+		_timeStampHead = _timeStampTail = timeStamp;
 	}
 }
 
 bool MML::ParseString(Signal sig, const char *str)
 {
 	UpdateTimeStamp();
+	unsigned long timeStampBegin = _timeStampHead;
 	for (const char *p = str; ; p++) {
 		char ch = *p;
 		if (!FeedChar(sig, ch)) return false;
 		if (ch == '\0') break;
 	}
+	unsigned long deltaTime = _timeStampTail - timeStampBegin;
+	_pTrack->AdjustFollowingTimeStamp(deltaTime);
 	return true;
 }
 
