@@ -1,3 +1,4 @@
+#include "Module_midi.h"
 #include "Event.h"
 #include "Content.h"
 
@@ -13,6 +14,17 @@ bool Event::IsMetaEvent() const { return false; }
 Event::~Event()
 {
 	// virtual destructor
+}
+
+bool Event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	return true;
+}
+
+Value Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
 }
 
 bool Event::WriteVariableFormat(Signal sig, Stream &stream, unsigned long num)
@@ -125,6 +137,23 @@ bool MIDIEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
+bool MIDIEvent::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(channel));
+	return true;
+}
+
+Value MIDIEvent::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(channel))) {
+		return Value(GetChannel());
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MIDIEvent_NoteOff
 //-----------------------------------------------------------------------------
@@ -146,6 +175,27 @@ Event *MIDIEvent_NoteOff::Clone() const
 	return new MIDIEvent_NoteOff(*this);
 }
 
+bool MIDIEvent_NoteOff::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(note));
+	symbols.insert(Gura_UserSymbol(velocity));
+	return true;
+}
+
+Value MIDIEvent_NoteOff::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(note))) {
+		return Value(GetNote());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(velocity))) {
+		return Value(GetVelocity());
+	}
+	evaluatedFlag = false;
+	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+}
+
 //-----------------------------------------------------------------------------
 // MIDIEvent_NoteOn
 //-----------------------------------------------------------------------------
@@ -165,6 +215,27 @@ String MIDIEvent_NoteOn::GetArgsName() const
 Event *MIDIEvent_NoteOn::Clone() const
 {
 	return new MIDIEvent_NoteOn(*this);
+}
+
+bool MIDIEvent_NoteOn::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(note));
+	symbols.insert(Gura_UserSymbol(velocity));
+	return true;
+}
+
+Value MIDIEvent_NoteOn::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(note))) {
+		return Value(GetNote());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(velocity))) {
+		return Value(GetVelocity());
+	}
+	evaluatedFlag = false;
+	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------

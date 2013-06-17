@@ -18,6 +18,28 @@ Gura_DeclareUserSymbol(format);
 Gura_DeclareUserSymbol(division);
 Gura_DeclareUserSymbol(tracks);
 Gura_DeclareUserSymbol(events);
+Gura_DeclareUserSymbol(channel);
+Gura_DeclareUserSymbol(note);
+Gura_DeclareUserSymbol(velocity);
+Gura_DeclareUserSymbol(value);
+Gura_DeclareUserSymbol(controller);
+Gura_DeclareUserSymbol(program);
+Gura_DeclareUserSymbol(pressure);
+Gura_DeclareUserSymbol(binary);
+Gura_DeclareUserSymbol(number);
+Gura_DeclareUserSymbol(text);
+Gura_DeclareUserSymbol(mpqn);
+Gura_DeclareUserSymbol(hour);
+Gura_DeclareUserSymbol(minute);
+Gura_DeclareUserSymbol(second);
+Gura_DeclareUserSymbol(frame);
+Gura_DeclareUserSymbol(subFrame);
+Gura_DeclareUserSymbol(numerator);
+Gura_DeclareUserSymbol(denominator);
+Gura_DeclareUserSymbol(metronome);
+Gura_DeclareUserSymbol(cnt32nd);
+Gura_DeclareUserSymbol(key);
+Gura_DeclareUserSymbol(scale);
 
 //-----------------------------------------------------------------------------
 // Class declaration for midi.event

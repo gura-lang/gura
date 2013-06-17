@@ -20,7 +20,7 @@ bool Object_event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(status));
 	symbols.insert(Gura_UserSymbol(name));
 	symbols.insert(Gura_UserSymbol(args));
-	return true;
+	return DoDirProp(env, sig, symbols);
 }
 
 Value Object_event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -37,7 +37,7 @@ Value Object_event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		return Value(env, _pEvent->GetArgsName());
 	}
 	evaluatedFlag = false;
-	return Value::Null;
+	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_event::ToString(Signal sig, bool exprFlag)
@@ -1246,6 +1246,28 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(division);
 	Gura_RealizeUserSymbol(tracks);
 	Gura_RealizeUserSymbol(events);
+	Gura_RealizeUserSymbol(channel);
+	Gura_RealizeUserSymbol(note);
+	Gura_RealizeUserSymbol(velocity);
+	Gura_RealizeUserSymbol(value);
+	Gura_RealizeUserSymbol(controller);
+	Gura_RealizeUserSymbol(program);
+	Gura_RealizeUserSymbol(pressure);
+	Gura_RealizeUserSymbol(binary);
+	Gura_RealizeUserSymbol(number);
+	Gura_RealizeUserSymbol(text);
+	Gura_RealizeUserSymbol(mpqn);
+	Gura_RealizeUserSymbol(hour);
+	Gura_RealizeUserSymbol(minute);
+	Gura_RealizeUserSymbol(second);
+	Gura_RealizeUserSymbol(frame);
+	Gura_RealizeUserSymbol(subFrame);
+	Gura_RealizeUserSymbol(numerator);
+	Gura_RealizeUserSymbol(denominator);
+	Gura_RealizeUserSymbol(metronome);
+	Gura_RealizeUserSymbol(cnt32nd);
+	Gura_RealizeUserSymbol(key);
+	Gura_RealizeUserSymbol(scale);
 	// class realization
 	Gura_RealizeUserClassWithoutPrepare(event, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(track, env.LookupClass(VTYPE_object));

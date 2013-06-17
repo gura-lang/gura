@@ -46,6 +46,9 @@ public:
 	virtual bool Play(Signal sig, Player *pPlayer) const = 0;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const = 0;
 	virtual Event *Clone() const = 0;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 	static bool WriteVariableFormat(Signal sig, Stream &stream, unsigned long num);
 };
 
@@ -118,6 +121,9 @@ public:
 	virtual unsigned char GetStatusCode() const;
 	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
 //-----------------------------------------------------------------------------
@@ -138,6 +144,9 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline unsigned char GetNote() const { return _params[0]; }
 	inline unsigned char GetVelocity() const { return _params[1]; }
 };
@@ -160,6 +169,9 @@ public:
 	virtual String GetName() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline unsigned char GetNote() const { return _params[0]; }
 	inline unsigned char GetVelocity() const { return _params[1]; }
 };
