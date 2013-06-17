@@ -47,6 +47,7 @@ static const ErrorTypeInfo _errorTypeInfoTbl[] = {
 	{ ERR_DeclarationError,		"DeclarationError"		},
 	{ ERR_SystemError,			"SystemError"			},
 	{ ERR_IOError,				"IOError"				},
+	{ ERR_OutOfRangeError,		"OutOfRange"			},
 	{ ERR_IndexError,			"IndexError"			},
 	{ ERR_KeyError,				"KeyError"				},
 	{ ERR_ImportError,			"ImportError"			},

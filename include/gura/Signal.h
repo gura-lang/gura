@@ -23,6 +23,7 @@ enum ErrorType {
 	ERR_DeclarationError,
 	ERR_SystemError,
 	ERR_IOError,
+	ERR_OutOfRangeError,
 	ERR_IndexError,
 	ERR_KeyError,
 	ERR_ImportError,
