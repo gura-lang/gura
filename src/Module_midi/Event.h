@@ -155,6 +155,8 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline unsigned char GetNote() const { return _params[0]; }
 	inline unsigned char GetVelocity() const { return _params[1]; }
+	inline void SetNote(unsigned char note) { _params[0] = note; }
+	inline void SetVelocity(unsigned char velocity) { _params[1] = velocity; }
 };
 
 //-----------------------------------------------------------------------------
@@ -182,6 +184,8 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline unsigned char GetNote() const { return _params[0]; }
 	inline unsigned char GetVelocity() const { return _params[1]; }
+	inline void SetNote(unsigned char note) { _params[0] = note; }
+	inline void SetVelocity(unsigned char velocity) { _params[1] = velocity; }
 };
 
 //-----------------------------------------------------------------------------
@@ -209,6 +213,8 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline unsigned char GetNote() const { return _params[0]; }
 	inline unsigned char GetValue() const { return _params[1]; }
+	inline void SetNote(unsigned char note) { _params[0] = note; }
+	inline void SetValue(unsigned char value) { _params[1] = value; }
 };
 
 //-----------------------------------------------------------------------------
@@ -236,6 +242,8 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline unsigned char GetController() const { return _params[0]; }
 	inline unsigned char GetValue() const { return _params[1]; }
+	inline void SetController(unsigned char controller) { _params[0] = controller; }
+	inline void SetValue(unsigned char value) { _params[1] = value; }
 };
 
 //-----------------------------------------------------------------------------
@@ -261,6 +269,7 @@ public:
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline unsigned char GetProgram() const { return _params[0]; }
+	inline void SetProgram(unsigned char program) { _params[0] = program; }
 };
 
 //-----------------------------------------------------------------------------
@@ -286,6 +295,7 @@ public:
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	inline unsigned char GetPressure() const { return _params[0]; }
+	inline void SetPressure(unsigned char pressure) { _params[0] = pressure; }
 };
 
 //-----------------------------------------------------------------------------
@@ -314,6 +324,10 @@ public:
 	inline unsigned short GetValue() const {
 		return (static_cast<unsigned short>(_params[0]) << 0) +
 				(static_cast<unsigned short>(_params[1]) << 7);
+	}
+	inline void SetValue(unsigned short value) {
+		_params[0] = static_cast<unsigned char>((value >> 0) & 0x7f);
+		_params[1] = static_cast<unsigned char>((value >> 7) & 0x7f);
 	}
 };
 
