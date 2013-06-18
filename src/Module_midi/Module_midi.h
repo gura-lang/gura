@@ -170,10 +170,26 @@ public:
 //-----------------------------------------------------------------------------
 class Iterator_track : public Iterator {
 private:
-	size_t _idx;
+	size_t _idxTrack;
 	AutoPtr<TrackOwner> _pTrackOwner;
 public:
 	Iterator_track(TrackOwner *pTrackOwner);
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString(Signal sig) const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
+//-----------------------------------------------------------------------------
+// Iterator_eventAll
+//-----------------------------------------------------------------------------
+class Iterator_eventAll : public Iterator {
+private:
+	size_t _idxTrack;
+	size_t _idxEvent;
+	AutoPtr<TrackOwner> _pTrackOwner;
+public:
+	Iterator_eventAll(TrackOwner *pTrackOwner);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
@@ -185,7 +201,7 @@ public:
 //-----------------------------------------------------------------------------
 class Iterator_event : public Iterator {
 private:
-	size_t _idx;
+	size_t _idxEvent;
 	AutoPtr<EventOwner> _pEventOwner;
 public:
 	Iterator_event(EventOwner *pEventOwner);
