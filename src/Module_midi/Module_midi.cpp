@@ -1279,8 +1279,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(program_change);
 	Gura_RealizeUserSymbol(channel_pressure);
 	Gura_RealizeUserSymbol(pitch_bend);
-	Gura_DeclareUserSymbol(sys_ex_event);
-	Gura_DeclareUserSymbol(unknown);
+	Gura_RealizeUserSymbol(sys_ex_event);
+	Gura_RealizeUserSymbol(unknown);
 	Gura_RealizeUserSymbol(sequence_number);
 	Gura_RealizeUserSymbol(text_event);
 	Gura_RealizeUserSymbol(copyright_notice);
