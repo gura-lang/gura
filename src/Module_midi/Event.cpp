@@ -27,6 +27,12 @@ Value Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
+Value Event::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
 bool Event::WriteVariableFormat(Signal sig, Stream &stream, unsigned long num)
 {
 	unsigned char buff[32];
@@ -154,6 +160,12 @@ Value MIDIEvent::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
+Value MIDIEvent::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MIDIEvent_NoteOff
 //-----------------------------------------------------------------------------
@@ -194,6 +206,12 @@ Value MIDIEvent_NoteOff::DoGetProp(Environment &env, Signal sig, const Symbol *p
 	}
 	evaluatedFlag = false;
 	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+}
+
+Value MIDIEvent_NoteOff::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return MIDIEvent::DoSetProp(env, sig, pSymbol, value, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -238,6 +256,12 @@ Value MIDIEvent_NoteOn::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
+Value MIDIEvent_NoteOn::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return MIDIEvent::DoSetProp(env, sig, pSymbol, value, attrs, evaluatedFlag);
+}
+
 //-----------------------------------------------------------------------------
 // MIDIEvent_PolyPressure
 //-----------------------------------------------------------------------------
@@ -278,6 +302,12 @@ Value MIDIEvent_PolyPressure::DoGetProp(Environment &env, Signal sig, const Symb
 	}
 	evaluatedFlag = false;
 	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+}
+
+Value MIDIEvent_PolyPressure::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return MIDIEvent::DoSetProp(env, sig, pSymbol, value, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -322,6 +352,12 @@ Value MIDIEvent_ControlChange::DoGetProp(Environment &env, Signal sig, const Sym
 	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
+Value MIDIEvent_ControlChange::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return MIDIEvent::DoSetProp(env, sig, pSymbol, value, attrs, evaluatedFlag);
+}
+
 //-----------------------------------------------------------------------------
 // MIDIEvent_ProgramChange
 //-----------------------------------------------------------------------------
@@ -358,6 +394,12 @@ Value MIDIEvent_ProgramChange::DoGetProp(Environment &env, Signal sig, const Sym
 	}
 	evaluatedFlag = false;
 	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+}
+
+Value MIDIEvent_ProgramChange::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return MIDIEvent::DoSetProp(env, sig, pSymbol, value, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -398,6 +440,12 @@ Value MIDIEvent_ChannelPressure::DoGetProp(Environment &env, Signal sig, const S
 	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
+Value MIDIEvent_ChannelPressure::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return MIDIEvent::DoSetProp(env, sig, pSymbol, value, attrs, evaluatedFlag);
+}
+
 //-----------------------------------------------------------------------------
 // MIDIEvent_PitchBend
 //-----------------------------------------------------------------------------
@@ -434,6 +482,12 @@ Value MIDIEvent_PitchBend::DoGetProp(Environment &env, Signal sig, const Symbol 
 	}
 	evaluatedFlag = false;
 	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+}
+
+Value MIDIEvent_PitchBend::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return MIDIEvent::DoSetProp(env, sig, pSymbol, value, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -487,6 +541,12 @@ Value SysExEvent::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 		return Value(env, _binary);
 	}
 	evaluatedFlag = false;
+	return Value::Null;
+}
+
+Value SysExEvent::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
 	return Value::Null;
 }
 
@@ -614,6 +674,12 @@ Value MetaEvent_Unknown::DoGetProp(Environment &env, Signal sig, const Symbol *p
 	return Value::Null;
 }
 
+Value MetaEvent_Unknown::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_SequenceNumber
 //-----------------------------------------------------------------------------
@@ -679,6 +745,12 @@ Value MetaEvent_SequenceNumber::DoGetProp(Environment &env, Signal sig, const Sy
 	return Value::Null;
 }
 
+Value MetaEvent_SequenceNumber::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_TextEvent
 //-----------------------------------------------------------------------------
@@ -731,6 +803,12 @@ Value MetaEvent_TextEvent::DoGetProp(Environment &env, Signal sig, const Symbol 
 		return Value(env, _text);
 	}
 	evaluatedFlag = false;
+	return Value::Null;
+}
+
+Value MetaEvent_TextEvent::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
 	return Value::Null;
 }
 
@@ -789,6 +867,12 @@ Value MetaEvent_CopyrightNotice::DoGetProp(Environment &env, Signal sig, const S
 	return Value::Null;
 }
 
+Value MetaEvent_CopyrightNotice::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_SequenceOrTrackName
 //-----------------------------------------------------------------------------
@@ -841,6 +925,12 @@ Value MetaEvent_SequenceOrTrackName::DoGetProp(Environment &env, Signal sig, con
 		return Value(env, _text);
 	}
 	evaluatedFlag = false;
+	return Value::Null;
+}
+
+Value MetaEvent_SequenceOrTrackName::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
 	return Value::Null;
 }
 
@@ -899,6 +989,12 @@ Value MetaEvent_InstrumentName::DoGetProp(Environment &env, Signal sig, const Sy
 	return Value::Null;
 }
 
+Value MetaEvent_InstrumentName::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_LyricText
 //-----------------------------------------------------------------------------
@@ -951,6 +1047,12 @@ Value MetaEvent_LyricText::DoGetProp(Environment &env, Signal sig, const Symbol 
 		return Value(env, _text);
 	}
 	evaluatedFlag = false;
+	return Value::Null;
+}
+
+Value MetaEvent_LyricText::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
 	return Value::Null;
 }
 
@@ -1009,6 +1111,12 @@ Value MetaEvent_MarkerText::DoGetProp(Environment &env, Signal sig, const Symbol
 	return Value::Null;
 }
 
+Value MetaEvent_MarkerText::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_CuePoint
 //-----------------------------------------------------------------------------
@@ -1061,6 +1169,12 @@ Value MetaEvent_CuePoint::DoGetProp(Environment &env, Signal sig, const Symbol *
 		return Value(env, _text);
 	}
 	evaluatedFlag = false;
+	return Value::Null;
+}
+
+Value MetaEvent_CuePoint::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
 	return Value::Null;
 }
 
@@ -1126,6 +1240,12 @@ Value MetaEvent_MIDIChannelPrefixAssignment::DoGetProp(Environment &env, Signal 
 	return Value::Null;
 }
 
+Value MetaEvent_MIDIChannelPrefixAssignment::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_EndOfTrack
 //-----------------------------------------------------------------------------
@@ -1171,6 +1291,12 @@ bool MetaEvent_EndOfTrack::DoDirProp(Environment &env, Signal sig, SymbolSet &sy
 
 Value MetaEvent_EndOfTrack::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
+Value MetaEvent_EndOfTrack::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return Value::Null;
 }
@@ -1240,6 +1366,12 @@ Value MetaEvent_TempoSetting::DoGetProp(Environment &env, Signal sig, const Symb
 		return Value(_mpqn);
 	}
 	evaluatedFlag = false;
+	return Value::Null;
+}
+
+Value MetaEvent_TempoSetting::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
 	return Value::Null;
 }
 
@@ -1326,6 +1458,12 @@ Value MetaEvent_SMPTEOffset::DoGetProp(Environment &env, Signal sig, const Symbo
 	return Value::Null;
 }
 
+Value MetaEvent_SMPTEOffset::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_TimeSignature
 //-----------------------------------------------------------------------------
@@ -1404,6 +1542,12 @@ Value MetaEvent_TimeSignature::DoGetProp(Environment &env, Signal sig, const Sym
 	return Value::Null;
 }
 
+Value MetaEvent_TimeSignature::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_KeySignature
 //-----------------------------------------------------------------------------
@@ -1471,6 +1615,12 @@ Value MetaEvent_KeySignature::DoGetProp(Environment &env, Signal sig, const Symb
 	return Value::Null;
 }
 
+Value MetaEvent_KeySignature::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_SequencerSpecificEvent
 //-----------------------------------------------------------------------------
@@ -1523,6 +1673,12 @@ Value MetaEvent_SequencerSpecificEvent::DoGetProp(Environment &env, Signal sig, 
 		return Value(env, _binary);
 	}
 	evaluatedFlag = false;
+	return Value::Null;
+}
+
+Value MetaEvent_SequencerSpecificEvent::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
 	return Value::Null;
 }
 

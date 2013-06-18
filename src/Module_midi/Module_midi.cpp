@@ -43,6 +43,12 @@ Value Object_event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	return _pEvent->DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
+Value Object_event::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+						const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
 String Object_event::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
