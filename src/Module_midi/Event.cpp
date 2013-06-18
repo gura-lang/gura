@@ -157,9 +157,9 @@ Value MIDIEvent::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 //-----------------------------------------------------------------------------
 // MIDIEvent_NoteOff
 //-----------------------------------------------------------------------------
-String MIDIEvent_NoteOff::GetName() const
+const Symbol *MIDIEvent_NoteOff::GetSymbol() const
 {
-	return "NoteOff";
+	return Gura_UserSymbol(note_off);
 }
 
 String MIDIEvent_NoteOff::GetArgsName() const
@@ -199,9 +199,9 @@ Value MIDIEvent_NoteOff::DoGetProp(Environment &env, Signal sig, const Symbol *p
 //-----------------------------------------------------------------------------
 // MIDIEvent_NoteOn
 //-----------------------------------------------------------------------------
-String MIDIEvent_NoteOn::GetName() const
+const Symbol *MIDIEvent_NoteOn::GetSymbol() const
 {
-	return "NoteOn";
+	return Gura_UserSymbol(note_on);
 }
 
 String MIDIEvent_NoteOn::GetArgsName() const
@@ -241,9 +241,9 @@ Value MIDIEvent_NoteOn::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 //-----------------------------------------------------------------------------
 // MIDIEvent_PolyPressure
 //-----------------------------------------------------------------------------
-String MIDIEvent_PolyPressure::GetName() const
+const Symbol *MIDIEvent_PolyPressure::GetSymbol() const
 {
-	return "PolyPressure";
+	return Gura_UserSymbol(poly_pressure);
 }
 
 String MIDIEvent_PolyPressure::GetArgsName() const
@@ -283,9 +283,9 @@ Value MIDIEvent_PolyPressure::DoGetProp(Environment &env, Signal sig, const Symb
 //-----------------------------------------------------------------------------
 // MIDIEvent_ControlChange
 //-----------------------------------------------------------------------------
-String MIDIEvent_ControlChange::GetName() const
+const Symbol *MIDIEvent_ControlChange::GetSymbol() const
 {
-	return "ControlChange";
+	return Gura_UserSymbol(control_change);
 }
 
 String MIDIEvent_ControlChange::GetArgsName() const
@@ -325,9 +325,9 @@ Value MIDIEvent_ControlChange::DoGetProp(Environment &env, Signal sig, const Sym
 //-----------------------------------------------------------------------------
 // MIDIEvent_ProgramChange
 //-----------------------------------------------------------------------------
-String MIDIEvent_ProgramChange::GetName() const
+const Symbol *MIDIEvent_ProgramChange::GetSymbol() const
 {
-	return "ProgramChange";
+	return Gura_UserSymbol(program_change);
 }
 
 String MIDIEvent_ProgramChange::GetArgsName() const
@@ -363,9 +363,9 @@ Value MIDIEvent_ProgramChange::DoGetProp(Environment &env, Signal sig, const Sym
 //-----------------------------------------------------------------------------
 // MIDIEvent_ChannelPressure
 //-----------------------------------------------------------------------------
-String MIDIEvent_ChannelPressure::GetName() const
+const Symbol *MIDIEvent_ChannelPressure::GetSymbol() const
 {
-	return "ChannelPressure";
+	return Gura_UserSymbol(channel_pressure);
 }
 
 String MIDIEvent_ChannelPressure::GetArgsName() const
@@ -401,9 +401,9 @@ Value MIDIEvent_ChannelPressure::DoGetProp(Environment &env, Signal sig, const S
 //-----------------------------------------------------------------------------
 // MIDIEvent_PitchBend
 //-----------------------------------------------------------------------------
-String MIDIEvent_PitchBend::GetName() const
+const Symbol *MIDIEvent_PitchBend::GetSymbol() const
 {
-	return "PitchBend";
+	return Gura_UserSymbol(pitch_bend);
 }
 
 String MIDIEvent_PitchBend::GetArgsName() const
@@ -446,9 +446,9 @@ unsigned char SysExEvent::GetStatusCode() const
 	return static_cast<unsigned char>(_binary[0]);
 }
 
-String SysExEvent::GetName() const
+const Symbol *SysExEvent::GetSymbol() const
 {
-	return "SysExEvent";
+	return Gura_UserSymbol(sys_ex_event);
 }
 
 String SysExEvent::GetArgsName() const
@@ -580,11 +580,9 @@ bool MetaEvent_Unknown::Write(Signal sig, Stream &stream, const Event *pEventPre
 	return stream.Write(sig, _binary.data(), _binary.size()) == _binary.size();
 }
 
-String MetaEvent_Unknown::GetName() const
+const Symbol *MetaEvent_Unknown::GetSymbol() const
 {
-	char str[128];
-	::sprintf(str, "MetaEvent(%02x)", GetEventType());
-	return String(str);
+	return Gura_UserSymbol(unknown);
 }
 
 String MetaEvent_Unknown::GetArgsName() const
@@ -647,9 +645,9 @@ bool MetaEvent_SequenceNumber::Write(Signal sig, Stream &stream, const Event *pE
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-String MetaEvent_SequenceNumber::GetName() const
+const Symbol *MetaEvent_SequenceNumber::GetSymbol() const
 {
-	return "SequenceNumber";
+	return Gura_UserSymbol(sequence_number);
 }
 
 String MetaEvent_SequenceNumber::GetArgsName() const
@@ -702,9 +700,9 @@ bool MetaEvent_TextEvent::Write(Signal sig, Stream &stream, const Event *pEventP
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
-String MetaEvent_TextEvent::GetName() const
+const Symbol *MetaEvent_TextEvent::GetSymbol() const
 {
-	return "TextEvent";
+	return Gura_UserSymbol(text_event);
 }
 
 String MetaEvent_TextEvent::GetArgsName() const
@@ -757,9 +755,9 @@ bool MetaEvent_CopyrightNotice::Write(Signal sig, Stream &stream, const Event *p
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
-String MetaEvent_CopyrightNotice::GetName() const
+const Symbol *MetaEvent_CopyrightNotice::GetSymbol() const
 {
-	return "CopyrightNotice";
+	return Gura_UserSymbol(copyright_notice);
 }
 
 String MetaEvent_CopyrightNotice::GetArgsName() const
@@ -812,9 +810,9 @@ bool MetaEvent_SequenceOrTrackName::Write(Signal sig, Stream &stream, const Even
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
-String MetaEvent_SequenceOrTrackName::GetName() const
+const Symbol *MetaEvent_SequenceOrTrackName::GetSymbol() const
 {
-	return "SequenceOrTrackName";
+	return Gura_UserSymbol(sequence_or_track_name);
 }
 
 String MetaEvent_SequenceOrTrackName::GetArgsName() const
@@ -867,9 +865,9 @@ bool MetaEvent_InstrumentName::Write(Signal sig, Stream &stream, const Event *pE
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
-String MetaEvent_InstrumentName::GetName() const
+const Symbol *MetaEvent_InstrumentName::GetSymbol() const
 {
-	return "InstrumentName";
+	return Gura_UserSymbol(instrument_name);
 }
 
 String MetaEvent_InstrumentName::GetArgsName() const
@@ -922,9 +920,9 @@ bool MetaEvent_LyricText::Write(Signal sig, Stream &stream, const Event *pEventP
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
-String MetaEvent_LyricText::GetName() const
+const Symbol *MetaEvent_LyricText::GetSymbol() const
 {
-	return "LyricText";
+	return Gura_UserSymbol(lyric_text);
 }
 
 String MetaEvent_LyricText::GetArgsName() const
@@ -977,9 +975,9 @@ bool MetaEvent_MarkerText::Write(Signal sig, Stream &stream, const Event *pEvent
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
-String MetaEvent_MarkerText::GetName() const
+const Symbol *MetaEvent_MarkerText::GetSymbol() const
 {
-	return "MarkerText";
+	return Gura_UserSymbol(marker_text);
 }
 
 String MetaEvent_MarkerText::GetArgsName() const
@@ -1032,9 +1030,9 @@ bool MetaEvent_CuePoint::Write(Signal sig, Stream &stream, const Event *pEventPr
 	return stream.Write(sig, _text.data(), _text.size()) == _text.size();
 }
 
-String MetaEvent_CuePoint::GetName() const
+const Symbol *MetaEvent_CuePoint::GetSymbol() const
 {
-	return "CuePoint";
+	return Gura_UserSymbol(cue_point);
 }
 
 String MetaEvent_CuePoint::GetArgsName() const
@@ -1094,9 +1092,9 @@ bool MetaEvent_MIDIChannelPrefixAssignment::Write(Signal sig, Stream &stream, co
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-String MetaEvent_MIDIChannelPrefixAssignment::GetName() const
+const Symbol *MetaEvent_MIDIChannelPrefixAssignment::GetSymbol() const
 {
-	return "MIDICHannelPrefixAssignment";
+	return Gura_UserSymbol(midi_channel_prefix_assignment);
 }
 
 String MetaEvent_MIDIChannelPrefixAssignment::GetArgsName() const
@@ -1149,9 +1147,9 @@ bool MetaEvent_EndOfTrack::Write(Signal sig, Stream &stream, const Event *pEvent
 	return true;
 }
 
-String MetaEvent_EndOfTrack::GetName() const
+const Symbol *MetaEvent_EndOfTrack::GetSymbol() const
 {
-	return "EndOfTrack";
+	return Gura_UserSymbol(end_of_track);
 }
 
 String MetaEvent_EndOfTrack::GetArgsName() const
@@ -1211,9 +1209,9 @@ bool MetaEvent_TempoSetting::Write(Signal sig, Stream &stream, const Event *pEve
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-String MetaEvent_TempoSetting::GetName() const
+const Symbol *MetaEvent_TempoSetting::GetSymbol() const
 {
-	return "TempoSetting";
+	return Gura_UserSymbol(tempo_setting);
 }
 
 String MetaEvent_TempoSetting::GetArgsName() const
@@ -1281,9 +1279,9 @@ bool MetaEvent_SMPTEOffset::Write(Signal sig, Stream &stream, const Event *pEven
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-String MetaEvent_SMPTEOffset::GetName() const
+const Symbol *MetaEvent_SMPTEOffset::GetSymbol() const
 {
-	return "SMPTEOffset";
+	return Gura_UserSymbol(smpte_offset);
 }
 
 String MetaEvent_SMPTEOffset::GetArgsName() const
@@ -1362,9 +1360,9 @@ bool MetaEvent_TimeSignature::Write(Signal sig, Stream &stream, const Event *pEv
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-String MetaEvent_TimeSignature::GetName() const
+const Symbol *MetaEvent_TimeSignature::GetSymbol() const
 {
-	return "TimeSignature";
+	return Gura_UserSymbol(time_signature);
 }
 
 String MetaEvent_TimeSignature::GetArgsName() const
@@ -1436,9 +1434,9 @@ bool MetaEvent_KeySignature::Write(Signal sig, Stream &stream, const Event *pEve
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
-String MetaEvent_KeySignature::GetName() const
+const Symbol *MetaEvent_KeySignature::GetSymbol() const
 {
-	return "KeySignature";
+	return Gura_UserSymbol(key_signature);
 }
 
 String MetaEvent_KeySignature::GetArgsName() const
@@ -1494,9 +1492,9 @@ bool MetaEvent_SequencerSpecificEvent::Write(Signal sig, Stream &stream, const E
 	return stream.Write(sig, _binary.data(), _binary.size()) == _binary.size();
 }
 
-String MetaEvent_SequencerSpecificEvent::GetName() const
+const Symbol *MetaEvent_SequencerSpecificEvent::GetSymbol() const
 {
-	return "SequencerSpecificEvent";
+	return Gura_UserSymbol(sequencer_specific_event);
 }
 
 String MetaEvent_SequencerSpecificEvent::GetArgsName() const

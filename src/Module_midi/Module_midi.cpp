@@ -19,6 +19,7 @@ bool Object_event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(timestamp));
 	symbols.insert(Gura_UserSymbol(status));
 	symbols.insert(Gura_UserSymbol(name));
+	symbols.insert(Gura_UserSymbol(symbol));
 	symbols.insert(Gura_UserSymbol(args));
 	return DoDirProp(env, sig, symbols);
 }
@@ -32,12 +33,14 @@ Value Object_event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(status))) {
 		return Value(_pEvent->GetStatusCode());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(env, _pEvent->GetName());
+		return Value(env, _pEvent->GetSymbol()->GetName());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(symbol))) {
+		return Value(_pEvent->GetSymbol());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(args))) {
 		return Value(env, _pEvent->GetArgsName());
 	}
 	evaluatedFlag = false;
-	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return _pEvent->DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_event::ToString(Signal sig, bool exprFlag)
@@ -49,7 +52,7 @@ String Object_event::ToString(Signal sig, bool exprFlag)
 		::sprintf(buff, "%08x:", _pEvent->GetTimeStamp());
 		rtn += buff;
 	} while (0);
-	rtn += _pEvent->GetName();
+	rtn += _pEvent->GetSymbol()->GetName();
 	String argsName = _pEvent->GetArgsName();
 	if (!argsName.empty()) {
 		rtn += " ";
@@ -1241,6 +1244,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(timestamp);
 	Gura_RealizeUserSymbol(status);
 	Gura_RealizeUserSymbol(name);
+	Gura_RealizeUserSymbol(symbol);
 	Gura_RealizeUserSymbol(args);
 	Gura_RealizeUserSymbol(format);
 	Gura_RealizeUserSymbol(division);
@@ -1268,6 +1272,30 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(cnt32nd);
 	Gura_RealizeUserSymbol(key);
 	Gura_RealizeUserSymbol(scale);
+	Gura_RealizeUserSymbol(note_off);
+	Gura_RealizeUserSymbol(note_on);
+	Gura_RealizeUserSymbol(poly_pressure);
+	Gura_RealizeUserSymbol(control_change);
+	Gura_RealizeUserSymbol(program_change);
+	Gura_RealizeUserSymbol(channel_pressure);
+	Gura_RealizeUserSymbol(pitch_bend);
+	Gura_DeclareUserSymbol(sys_ex_event);
+	Gura_DeclareUserSymbol(unknown);
+	Gura_RealizeUserSymbol(sequence_number);
+	Gura_RealizeUserSymbol(text_event);
+	Gura_RealizeUserSymbol(copyright_notice);
+	Gura_RealizeUserSymbol(sequence_or_track_name);
+	Gura_RealizeUserSymbol(instrument_name);
+	Gura_RealizeUserSymbol(lyric_text);
+	Gura_RealizeUserSymbol(marker_text);
+	Gura_RealizeUserSymbol(cue_point);
+	Gura_RealizeUserSymbol(midi_channel_prefix_assignment);
+	Gura_RealizeUserSymbol(end_of_track);
+	Gura_RealizeUserSymbol(tempo_setting);
+	Gura_RealizeUserSymbol(smpte_offset);
+	Gura_RealizeUserSymbol(time_signature);
+	Gura_RealizeUserSymbol(key_signature);
+	Gura_RealizeUserSymbol(sequencer_specific_event);
 	// class realization
 	Gura_RealizeUserClassWithoutPrepare(event, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(track, env.LookupClass(VTYPE_object));

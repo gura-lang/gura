@@ -41,7 +41,7 @@ public:
 	virtual bool IsSysExEvent() const;
 	virtual bool IsMetaEvent() const;
 	virtual unsigned char GetStatusCode() const = 0;
-	virtual String GetName() const = 0;
+	virtual const Symbol *GetSymbol() const = 0;
 	virtual String GetArgsName() const = 0;
 	virtual bool Play(Signal sig, Player *pPlayer) const = 0;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const = 0;
@@ -141,7 +141,7 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 2) {
 		_params[0] = note, _params[1] = velocity;
 	}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
@@ -166,7 +166,7 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 2) {
 		_params[0] = note, _params[1] = velocity;
 	}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
@@ -191,7 +191,7 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 2) {
 		_params[0] = note, _params[1] = value;
 	}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
@@ -216,7 +216,7 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 2) {
 		_params[0] = controller, _params[1] = value;
 	}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
@@ -240,7 +240,7 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 1) {
 		_params[0] = program;
 	}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
@@ -263,7 +263,7 @@ public:
 									MIDIEvent(timeStamp, Status, channel, 1) {
 		_params[0] = pressure;
 	}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
@@ -287,7 +287,7 @@ public:
 		_params[0] = static_cast<unsigned char>((value >> 0) & 0x7f);
 		_params[1] = static_cast<unsigned char>((value >> 7) & 0x7f);
 	}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual Event *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
@@ -313,7 +313,7 @@ public:
 									Event(timeStamp), _binary(binary) {}
 	virtual bool IsSysExEvent() const;
 	virtual unsigned char GetStatusCode() const;
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
@@ -358,7 +358,7 @@ public:
 										MetaEvent(timeStamp, eventType) {}
 	inline MetaEvent_Unknown(unsigned long timeStamp, unsigned char eventType, const Binary &binary) :
 										MetaEvent(timeStamp, eventType), _binary(binary) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -384,7 +384,7 @@ public:
 								MetaEvent(timeStamp, EventType), _number(0) {}
 	inline MetaEvent_SequenceNumber(unsigned long timeStamp, unsigned short number) :
 								MetaEvent(timeStamp, EventType), _number(number) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -410,7 +410,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	inline MetaEvent_TextEvent(unsigned long timeStamp, const String &text) :
 										MetaEvent(timeStamp, EventType), _text(text) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -436,7 +436,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	inline MetaEvent_CopyrightNotice(unsigned long timeStamp, const String &text) :
 										MetaEvent(timeStamp, EventType), _text(text) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -462,7 +462,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	inline MetaEvent_SequenceOrTrackName(unsigned long timeStamp, const String &text) :
 										MetaEvent(timeStamp, EventType), _text(text) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -488,7 +488,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	inline MetaEvent_InstrumentName(unsigned long timeStamp, const String &text) :
 										MetaEvent(timeStamp, EventType), _text(text) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -514,7 +514,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	inline MetaEvent_LyricText(unsigned long timeStamp, const String &text) :
 										MetaEvent(timeStamp, EventType), _text(text) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -540,7 +540,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	inline MetaEvent_MarkerText(unsigned long timeStamp, const String &text) :
 										MetaEvent(timeStamp, EventType), _text(text) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -566,7 +566,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	inline MetaEvent_CuePoint(unsigned long timeStamp, const String &text) :
 										MetaEvent(timeStamp, EventType), _text(text) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -592,7 +592,7 @@ public:
 								MetaEvent(timeStamp, EventType), _channel(0) {}
 	inline MetaEvent_MIDIChannelPrefixAssignment(unsigned long timeStamp, unsigned char channel) :
 								MetaEvent(timeStamp, EventType), _channel(channel) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -617,7 +617,7 @@ public:
 		return pEvent != NULL && pEvent->IsMetaEvent() &&
 			dynamic_cast<const MetaEvent *>(pEvent)->GetEventType() == EventType;
 	}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -643,7 +643,7 @@ public:
 									MetaEvent(timeStamp, EventType), _mpqn(0) {}
 	inline MetaEvent_TempoSetting(unsigned long timeStamp, unsigned long mpqn) :
 									MetaEvent(timeStamp, EventType), _mpqn(mpqn) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -673,7 +673,7 @@ public:
 						unsigned char second, unsigned char frame, unsigned char subFrame) :
 			MetaEvent(timeStamp, EventType), _hour(hour), _minute(minute), _second(second),
 			_frame(frame), _subFrame(subFrame) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -704,7 +704,7 @@ public:
 				unsigned char denominator, unsigned char metronome, unsigned char cnt32nd) :
 			MetaEvent(timeStamp, EventType), _numerator(numerator), _denominator(denominator),
 			_metronome(metronome), _cnt32nd(cnt32nd) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -730,7 +730,7 @@ public:
 					MetaEvent(timeStamp, EventType), _key(0), _scale(0) {}
 	inline MetaEvent_KeySignature(unsigned long timeStamp, unsigned char key, unsigned char scale) :
 					MetaEvent(timeStamp, EventType), _key(key), _scale(scale) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -756,7 +756,7 @@ public:
 										MetaEvent(timeStamp, EventType) {}
 	inline MetaEvent_SequencerSpecificEvent(unsigned long timeStamp, const Binary &binary) :
 										MetaEvent(timeStamp, EventType), _binary(binary) {}
-	virtual String GetName() const;
+	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Prepare(Signal sig, const Binary &binary);
 	virtual bool Play(Signal sig, Player *pPlayer) const;

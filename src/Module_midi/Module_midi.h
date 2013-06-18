@@ -13,6 +13,7 @@ Gura_BeginModule(midi)
 Gura_DeclareUserSymbol(timestamp);
 Gura_DeclareUserSymbol(status);
 Gura_DeclareUserSymbol(name);
+Gura_DeclareUserSymbol(symbol);
 Gura_DeclareUserSymbol(args);
 Gura_DeclareUserSymbol(format);
 Gura_DeclareUserSymbol(division);
@@ -40,6 +41,30 @@ Gura_DeclareUserSymbol(metronome);
 Gura_DeclareUserSymbol(cnt32nd);
 Gura_DeclareUserSymbol(key);
 Gura_DeclareUserSymbol(scale);
+Gura_DeclareUserSymbol(note_off);
+Gura_DeclareUserSymbol(note_on);
+Gura_DeclareUserSymbol(poly_pressure);
+Gura_DeclareUserSymbol(control_change);
+Gura_DeclareUserSymbol(program_change);
+Gura_DeclareUserSymbol(channel_pressure);
+Gura_DeclareUserSymbol(pitch_bend);
+Gura_DeclareUserSymbol(sys_ex_event);
+Gura_DeclareUserSymbol(unknown);
+Gura_DeclareUserSymbol(sequence_number);
+Gura_DeclareUserSymbol(text_event);
+Gura_DeclareUserSymbol(copyright_notice);
+Gura_DeclareUserSymbol(sequence_or_track_name);
+Gura_DeclareUserSymbol(instrument_name);
+Gura_DeclareUserSymbol(lyric_text);
+Gura_DeclareUserSymbol(marker_text);
+Gura_DeclareUserSymbol(cue_point);
+Gura_DeclareUserSymbol(midi_channel_prefix_assignment);
+Gura_DeclareUserSymbol(end_of_track);
+Gura_DeclareUserSymbol(tempo_setting);
+Gura_DeclareUserSymbol(smpte_offset);
+Gura_DeclareUserSymbol(time_signature);
+Gura_DeclareUserSymbol(key_signature);
+Gura_DeclareUserSymbol(sequencer_specific_event);
 
 //-----------------------------------------------------------------------------
 // Class declaration for midi.event
