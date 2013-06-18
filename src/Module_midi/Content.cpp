@@ -209,14 +209,24 @@ bool Content::Write(Environment &env, Signal sig, Stream &stream)
 	} while (0);
 	do {
 		HeaderChunk headerChunk;
-		Gura_PackUShort(headerChunk.format, GetFormat());
-		Gura_PackUShort(headerChunk.num_track_chunks,
-						static_cast<unsigned short>(GetTrackOwner().size()));
+		unsigned short format = (GetTrackOwner().size() <= 1)? 0 : 1;
+		Gura_PackUShort(headerChunk.format, format);
+		Gura_PackUShort(headerChunk.num_track_chunks, GetTrackOwner().empty()? 1 :
+							static_cast<unsigned short>(GetTrackOwner().size()));
 		Gura_PackUShort(headerChunk.division, _pProperty->GetDivision());
 		if (stream.Write(sig, &headerChunk, HeaderChunk::Size) != HeaderChunk::Size) {
 			return false;
 		}
 	} while (0);
+	if (GetTrackOwner().empty()) {
+		TrackChunkTop trackChunkTop;
+		::memcpy(trackChunkTop.MTrk, "MTrk", sizeof(trackChunkTop.MTrk));
+		Gura_PackULong(trackChunkTop.length, 0);
+		if (stream.Write(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
+			return false;
+		}
+		return true;
+	}
 	foreach_const (TrackOwner, ppTrack, GetTrackOwner()) {
 		const Track *pTrack = *ppTrack;
 		AutoPtr<StreamMemory> pStreamMemory(new StreamMemory(env, sig));
@@ -233,15 +243,13 @@ bool Content::Write(Environment &env, Signal sig, Stream &stream)
 			if (!pEvent->Write(sig, *pStreamMemory, pEventPrev)) return false;
 			pEventPrev = pEvent;
 		}
-#if 0
 		if (!MetaEvent_EndOfTrack::CheckEvent(pEventPrev)) {
-			unsigned long timeDelta = 100;
+			unsigned long timeDelta = 0;
 			timeStamp += timeDelta;
 			AutoPtr<Event> pEvent(new MetaEvent_EndOfTrack(timeStamp));
 			if (!Event::WriteVariableFormat(sig, *pStreamMemory, timeDelta)) return false;
 			if (!pEvent->Write(sig, *pStreamMemory, pEventPrev)) return false;
 		}
-#endif
 		TrackChunkTop trackChunkTop;
 		::memcpy(trackChunkTop.MTrk, "MTrk", sizeof(trackChunkTop.MTrk));
 		Gura_PackULong(trackChunkTop.length, static_cast<unsigned long>(pStreamMemory->GetSize()));

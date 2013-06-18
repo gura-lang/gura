@@ -145,7 +145,9 @@ Gura_DeclareMethod(track, seek)
 Gura_ImplementMethod(track, seek)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
-	if (args.GetSymbol(1)->IsIdentical(Gura_Symbol(set))) {
+	if (!args.IsSymbol(1)) {
+		if (!pTrack->SeekSet(sig, args.GetLong(0))) return Value::Null;
+	} else if (args.GetSymbol(1)->IsIdentical(Gura_Symbol(set))) {
 		if (!pTrack->SeekSet(sig, args.GetLong(0))) return Value::Null;
 	} else if (args.GetSymbol(1)->IsIdentical(Gura_Symbol(cur))) {
 		if (!pTrack->SeekCur(sig, args.GetLong(0))) return Value::Null;
