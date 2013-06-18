@@ -10,6 +10,10 @@
 
 Gura_BeginModule(midi)
 
+Gura_DeclareUserSymbol(type);
+Gura_DeclareUserSymbol(midi);
+Gura_DeclareUserSymbol(sysex);
+Gura_DeclareUserSymbol(meta);
 Gura_DeclareUserSymbol(timestamp);
 Gura_DeclareUserSymbol(status);
 Gura_DeclareUserSymbol(name);

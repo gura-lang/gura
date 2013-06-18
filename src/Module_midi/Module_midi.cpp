@@ -16,6 +16,7 @@ Object *Object_event::Clone() const
 bool Object_event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(type));
 	symbols.insert(Gura_UserSymbol(timestamp));
 	symbols.insert(Gura_UserSymbol(status));
 	symbols.insert(Gura_UserSymbol(name));
@@ -28,7 +29,17 @@ Value Object_event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
+		if (_pEvent->IsMIDIEvent()) {
+			return Value(Gura_UserSymbol(midi));
+		} else if (_pEvent->IsSysExEvent()) {
+			return Value(Gura_UserSymbol(sysex));
+		} else if (_pEvent->IsMetaEvent()) {
+			return Value(Gura_UserSymbol(meta));
+		} else {
+			return Value::Null; // this must not happen
+		}
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
 		return Value(_pEvent->GetTimeStamp());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(status))) {
 		return Value(_pEvent->GetStatusCode());
@@ -1290,6 +1301,10 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// symbol realization
+	Gura_RealizeUserSymbol(type);
+	Gura_RealizeUserSymbol(midi);
+	Gura_RealizeUserSymbol(sysex);
+	Gura_RealizeUserSymbol(meta);
 	Gura_RealizeUserSymbol(timestamp);
 	Gura_RealizeUserSymbol(status);
 	Gura_RealizeUserSymbol(name);
