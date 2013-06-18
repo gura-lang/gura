@@ -259,6 +259,27 @@ Event *MIDIEvent_PolyPressure::Clone() const
 	return new MIDIEvent_PolyPressure(*this);
 }
 
+bool MIDIEvent_PolyPressure::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(note));
+	symbols.insert(Gura_UserSymbol(value));
+	return true;
+}
+
+Value MIDIEvent_PolyPressure::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(note))) {
+		return Value(GetNote());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
+		return Value(GetValue());
+	}
+	evaluatedFlag = false;
+	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+}
+
 //-----------------------------------------------------------------------------
 // MIDIEvent_ControlChange
 //-----------------------------------------------------------------------------
@@ -278,6 +299,27 @@ String MIDIEvent_ControlChange::GetArgsName() const
 Event *MIDIEvent_ControlChange::Clone() const
 {
 	return new MIDIEvent_ControlChange(*this);
+}
+
+bool MIDIEvent_ControlChange::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(controller));
+	symbols.insert(Gura_UserSymbol(value));
+	return true;
+}
+
+Value MIDIEvent_ControlChange::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(controller))) {
+		return Value(GetController());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
+		return Value(GetValue());
+	}
+	evaluatedFlag = false;
+	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -300,6 +342,24 @@ Event *MIDIEvent_ProgramChange::Clone() const
 	return new MIDIEvent_ProgramChange(*this);
 }
 
+bool MIDIEvent_ProgramChange::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(program));
+	return true;
+}
+
+Value MIDIEvent_ProgramChange::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(program))) {
+		return Value(GetProgram());
+	}
+	evaluatedFlag = false;
+	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+}
+
 //-----------------------------------------------------------------------------
 // MIDIEvent_ChannelPressure
 //-----------------------------------------------------------------------------
@@ -320,6 +380,24 @@ Event *MIDIEvent_ChannelPressure::Clone() const
 	return new MIDIEvent_ChannelPressure(*this);
 }
 
+bool MIDIEvent_ChannelPressure::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(pressure));
+	return true;
+}
+
+Value MIDIEvent_ChannelPressure::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(pressure))) {
+		return Value(GetPressure());
+	}
+	evaluatedFlag = false;
+	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+}
+
 //-----------------------------------------------------------------------------
 // MIDIEvent_PitchBend
 //-----------------------------------------------------------------------------
@@ -338,6 +416,24 @@ String MIDIEvent_PitchBend::GetArgsName() const
 Event *MIDIEvent_PitchBend::Clone() const
 {
 	return new MIDIEvent_PitchBend(*this);
+}
+
+bool MIDIEvent_PitchBend::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!MIDIEvent::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(value));
+	return true;
+}
+
+Value MIDIEvent_PitchBend::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
+		return Value(GetValue());
+	}
+	evaluatedFlag = false;
+	return MIDIEvent::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -375,6 +471,23 @@ bool SysExEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) cons
 Event *SysExEvent::Clone() const
 {
 	return new SysExEvent(*this);
+}
+
+bool SysExEvent::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(binary));
+	return true;
+}
+
+Value SysExEvent::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(binary))) {
+		return Value(env, _binary);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
@@ -486,6 +599,23 @@ Event *MetaEvent_Unknown::Clone() const
 	return new MetaEvent_Unknown(*this);
 }
 
+bool MetaEvent_Unknown::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(binary));
+	return true;
+}
+
+Value MetaEvent_Unknown::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(binary))) {
+		return Value(env, _binary);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_SequenceNumber
 //-----------------------------------------------------------------------------
@@ -534,6 +664,23 @@ Event *MetaEvent_SequenceNumber::Clone() const
 	return new MetaEvent_SequenceNumber(*this);
 }
 
+bool MetaEvent_SequenceNumber::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(number));
+	return true;
+}
+
+Value MetaEvent_SequenceNumber::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(number))) {
+		return Value(_number);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_TextEvent
 //-----------------------------------------------------------------------------
@@ -570,6 +717,23 @@ String MetaEvent_TextEvent::GetArgsName() const
 Event *MetaEvent_TextEvent::Clone() const
 {
 	return new MetaEvent_TextEvent(*this);
+}
+
+bool MetaEvent_TextEvent::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(text));
+	return true;
+}
+
+Value MetaEvent_TextEvent::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
+		return Value(env, _text);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
@@ -610,6 +774,23 @@ Event *MetaEvent_CopyrightNotice::Clone() const
 	return new MetaEvent_CopyrightNotice(*this);
 }
 
+bool MetaEvent_CopyrightNotice::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(text));
+	return true;
+}
+
+Value MetaEvent_CopyrightNotice::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
+		return Value(env, _text);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_SequenceOrTrackName
 //-----------------------------------------------------------------------------
@@ -646,6 +827,23 @@ String MetaEvent_SequenceOrTrackName::GetArgsName() const
 Event *MetaEvent_SequenceOrTrackName::Clone() const
 {
 	return new MetaEvent_SequenceOrTrackName(*this);
+}
+
+bool MetaEvent_SequenceOrTrackName::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(text));
+	return true;
+}
+
+Value MetaEvent_SequenceOrTrackName::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
+		return Value(env, _text);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
@@ -686,6 +884,23 @@ Event *MetaEvent_InstrumentName::Clone() const
 	return new MetaEvent_InstrumentName(*this);
 }
 
+bool MetaEvent_InstrumentName::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(text));
+	return true;
+}
+
+Value MetaEvent_InstrumentName::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
+		return Value(env, _text);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_LyricText
 //-----------------------------------------------------------------------------
@@ -722,6 +937,23 @@ String MetaEvent_LyricText::GetArgsName() const
 Event *MetaEvent_LyricText::Clone() const
 {
 	return new MetaEvent_LyricText(*this);
+}
+
+bool MetaEvent_LyricText::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(text));
+	return true;
+}
+
+Value MetaEvent_LyricText::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
+		return Value(env, _text);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
@@ -762,6 +994,23 @@ Event *MetaEvent_MarkerText::Clone() const
 	return new MetaEvent_MarkerText(*this);
 }
 
+bool MetaEvent_MarkerText::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(text));
+	return true;
+}
+
+Value MetaEvent_MarkerText::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
+		return Value(env, _text);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_CuePoint
 //-----------------------------------------------------------------------------
@@ -798,6 +1047,23 @@ String MetaEvent_CuePoint::GetArgsName() const
 Event *MetaEvent_CuePoint::Clone() const
 {
 	return new MetaEvent_CuePoint(*this);
+}
+
+bool MetaEvent_CuePoint::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(text));
+	return true;
+}
+
+Value MetaEvent_CuePoint::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
+		return Value(env, _text);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
@@ -845,6 +1111,23 @@ Event *MetaEvent_MIDIChannelPrefixAssignment::Clone() const
 	return new MetaEvent_MIDIChannelPrefixAssignment(*this);
 }
 
+bool MetaEvent_MIDIChannelPrefixAssignment::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(channel));
+	return true;
+}
+
+Value MetaEvent_MIDIChannelPrefixAssignment::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(channel))) {
+		return Value(_channel);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_EndOfTrack
 //-----------------------------------------------------------------------------
@@ -881,6 +1164,17 @@ String MetaEvent_EndOfTrack::GetArgsName() const
 Event *MetaEvent_EndOfTrack::Clone() const
 {
 	return new MetaEvent_EndOfTrack(*this);
+}
+
+bool MetaEvent_EndOfTrack::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	return true;
+}
+
+Value MetaEvent_EndOfTrack::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
@@ -932,6 +1226,23 @@ String MetaEvent_TempoSetting::GetArgsName() const
 Event *MetaEvent_TempoSetting::Clone() const
 {
 	return new MetaEvent_TempoSetting(*this);
+}
+
+bool MetaEvent_TempoSetting::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(mpqn));
+	return true;
+}
+
+Value MetaEvent_TempoSetting::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(mpqn))) {
+		return Value(_mpqn);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
@@ -988,6 +1299,35 @@ Event *MetaEvent_SMPTEOffset::Clone() const
 	return new MetaEvent_SMPTEOffset(*this);
 }
 
+bool MetaEvent_SMPTEOffset::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(hour));
+	symbols.insert(Gura_UserSymbol(minute));
+	symbols.insert(Gura_UserSymbol(second));
+	symbols.insert(Gura_UserSymbol(frame));
+	symbols.insert(Gura_UserSymbol(subFrame));
+	return true;
+}
+
+Value MetaEvent_SMPTEOffset::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(hour))) {
+		return Value(_hour);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(minute))) {
+		return Value(_minute);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(second))) {
+		return Value(_second);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(frame))) {
+		return Value(_frame);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(subFrame))) {
+		return Value(_subFrame);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_TimeSignature
 //-----------------------------------------------------------------------------
@@ -1040,6 +1380,32 @@ Event *MetaEvent_TimeSignature::Clone() const
 	return new MetaEvent_TimeSignature(*this);
 }
 
+bool MetaEvent_TimeSignature::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(numerator));
+	symbols.insert(Gura_UserSymbol(denominator));
+	symbols.insert(Gura_UserSymbol(metronome));
+	symbols.insert(Gura_UserSymbol(cnt32nd));
+	return true;
+}
+
+Value MetaEvent_TimeSignature::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(numerator))) {
+		return Value(_numerator);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(denominator))) {
+		return Value(_denominator);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(metronome))) {
+		return Value(_metronome);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(cnt32nd))) {
+		return Value(_cnt32nd);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_KeySignature
 //-----------------------------------------------------------------------------
@@ -1087,6 +1453,26 @@ Event *MetaEvent_KeySignature::Clone() const
 	return new MetaEvent_KeySignature(*this);
 }
 
+bool MetaEvent_KeySignature::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(key));
+	symbols.insert(Gura_UserSymbol(scale));
+	return true;
+}
+
+Value MetaEvent_KeySignature::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(key))) {
+		return Value(_key);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(scale))) {
+		return Value(_scale);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // MetaEvent_SequencerSpecificEvent
 //-----------------------------------------------------------------------------
@@ -1123,6 +1509,23 @@ String MetaEvent_SequencerSpecificEvent::GetArgsName() const
 Event *MetaEvent_SequencerSpecificEvent::Clone() const
 {
 	return new MetaEvent_SequencerSpecificEvent(*this);
+}
+
+bool MetaEvent_SequencerSpecificEvent::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(binary));
+	return true;
+}
+
+Value MetaEvent_SequencerSpecificEvent::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(binary))) {
+		return Value(env, _binary);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
 }
 
 }}
