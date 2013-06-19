@@ -1,3 +1,4 @@
+#include "Module_midi.h"
 #include "MML.h"
 #include "Track.h"
 
@@ -57,6 +58,7 @@ bool MML::FeedChar(Signal sig, int ch)
 	}
 	StateMachine *pStateMachine = _stateMachineStack.back();
 	bool continueFlag;
+	int chRaw = ch;
 	if ('a' <= ch && ch <= 'z') ch = ch - 'a' + 'A';
 	do {
 		continueFlag = false;
@@ -421,6 +423,9 @@ bool MML::FeedChar(Signal sig, int ch)
 				pStateMachine->SetStat(STAT_Program);
 			} else if (IsWhite(ch)) {
 				// nothing to do
+			} else if (ch == '{') {
+				_token.clear();
+				pStateMachine->SetStat(STAT_ProgramName);
 			} else {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_ProgramFix);
@@ -433,6 +438,20 @@ bool MML::FeedChar(Signal sig, int ch)
 			} else {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_ProgramFix);
+			}
+			break;
+		}
+		case STAT_ProgramName: {
+			if (ch == '}') {
+				int program = NameToProgram(Strip(_token.c_str()).c_str());
+				if (program < 0) {
+					sig.SetError(ERR_FormatError, "unknown program %s", _token.c_str());
+					return false;
+				}
+				_numAccum = static_cast<unsigned long>(program);
+				pStateMachine->SetStat(STAT_ProgramFix);
+			} else {
+				_token.push_back(chRaw);
 			}
 			break;
 		}

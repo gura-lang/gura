@@ -24,7 +24,7 @@ private:
 		STAT_OctavePre, STAT_Octave, STAT_OctaveFix,
 		STAT_LengthPre, STAT_Length, STAT_LengthFix,
 		STAT_VelocityPre, STAT_Velocity, STAT_VelocityFix,
-		STAT_ProgramPre, STAT_Program, STAT_ProgramFix,
+		STAT_ProgramPre, STAT_Program, STAT_ProgramName, STAT_ProgramFix,
 		STAT_TempoPre, STAT_Tempo, STAT_TempoFix,
 	};
 	class StateMachine {
@@ -59,6 +59,7 @@ private:
 	unsigned char _velocity;
 	unsigned long _timeStampHead;
 	unsigned long _timeStampTail;
+	String _token;
 	StateMachineStack _stateMachineStack;
 public:
 	MML(Track *pTrack, unsigned char channel);
