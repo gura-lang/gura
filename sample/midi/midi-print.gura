@@ -7,11 +7,13 @@ if (sys.argv.len() < 2) {
 }
 midi.content(sys.argv[1]) {|content|
 	println(content)
+	//println(content.events)
+	//println(content.events.filter(content.events:*type == `meta))
 	content.tracks.each {|track, idx|
 		printf('Track #%d\n', idx)
+		//println(track.events.filter(track.events:*symbol == `control_change))
 		printf('%08x %-*s %s\n', track.events:*timestamp,
 				track.events:*name:*len().max(), track.events:*name,
 				track.events:*args)
-		//println(track.events)
 	}
 }
