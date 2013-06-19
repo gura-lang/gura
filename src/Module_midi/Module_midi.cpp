@@ -1586,10 +1586,11 @@ Gura_ModuleEntry()
 	do {
 		Value value;
 		ValueList &valList = value.InitAsList(env);
-		valList.reserve(ArraySizeOf(g_controllerInfos));
+		valList.reserve(128);
+		for (size_t i = 0; i < 128; i++) valList.push_back(Value::Null);
 		for (size_t i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
 			const ControllerInfo &controllerInfo = g_controllerInfos[i];
-			valList.push_back(Value(env, controllerInfo.name));
+			valList[controllerInfo.controller] = Value(env, controllerInfo.name);
 		}
 		Gura_AssignValue(controllers, value);
 	} while (0);
