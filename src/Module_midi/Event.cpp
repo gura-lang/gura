@@ -354,8 +354,10 @@ const Symbol *MIDIEvent_ControlChange::GetSymbol() const
 String MIDIEvent_ControlChange::GetArgsName() const
 {
 	char str[128];
-	::sprintf(str, "channel:%d controller:%d value:%d",
-								GetChannel(), GetController(), GetValue());
+	const char *name = ControllerToName(GetController());
+	::sprintf(str, "channel:%d controller:%s(%d) value:%d",
+					GetChannel(), (name == NULL)? "unknown" : name,
+					GetController(), GetValue());
 	return String(str);
 }
 
@@ -413,7 +415,9 @@ const Symbol *MIDIEvent_ProgramChange::GetSymbol() const
 String MIDIEvent_ProgramChange::GetArgsName() const
 {
 	char str[128];
-	::sprintf(str, "channel:%d program:%d", GetChannel(), GetProgram());
+	const char *name = ProgramToName(GetProgram());
+	::sprintf(str, "channel:%d program:%s(%d)", GetChannel(),
+					(name == NULL)? "unknown" : name, GetProgram());
 	return String(str);
 }
 

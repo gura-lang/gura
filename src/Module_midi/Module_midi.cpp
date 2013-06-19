@@ -1383,6 +1383,255 @@ Gura_ModuleTerminate()
 {
 }
 
+//-----------------------------------------------------------------------------
+// utility functions
+//-----------------------------------------------------------------------------
+struct ControllerInfo {
+	const char *name;
+	int controller;
+};
+
+const ControllerInfo g_controllerInfos[] = {
+	{ "bank_select_coarse",					0 },
+	{ "modulation_wheel_coarse",			1 },
+	{ "breath_controller_coarse",			2 },
+	{ "foot_pedal_coarse",					4 },
+	{ "portamento_time_coarse",				5 },
+	{ "data_entry_coarse",					6 },
+	{ "volume_coarse",						7 },
+	{ "balance_coarse",						8 },
+	{ "pan_position_coarse",				10 },
+	{ "expression_coarse",					11 },
+	{ "effect_control_1_coarse",			12 },
+	{ "effect_control_2_coarse",			13 },
+	{ "general_purpose_slider_1",			16 },
+	{ "general_purpose_slider_2",			17 },
+	{ "general_purpose_slider_3",			18 },
+	{ "general_purpose_slider_4",			19 },
+	{ "bank_select_fine",					32 },
+	{ "modulation_wheel_fine",				33 },
+	{ "breath_controller_fine",				34 },
+	{ "foot_pedal_fine",					36 },
+	{ "portamento_time_fine",				37 },
+	{ "data_entry_fine",					38 },
+	{ "volume_fine",						39 },
+	{ "balance_fine",						40 },
+	{ "pan_position_fine",					42 },
+	{ "expression_fine",					43 },
+	{ "effect_control_1_fine",				44 },
+	{ "effect_control_2_fine",				45 },
+	{ "hold_pedal",							64 },
+	{ "portamento",							65 },
+	{ "sustenuto_pedal",					66 },
+	{ "soft_pedal",							67 },
+	{ "legato_pedal",						68 },
+	{ "hold_2_pedal",						69 },
+	{ "sound_variation",					70 },
+	{ "sound_timbre",						71 },
+	{ "sound_release_time",					72 },
+	{ "sound_attack_time",					73 },
+	{ "sound_brightness",					74 },
+	{ "sound_control_6",					75 },
+	{ "sound_control_7",					76 },
+	{ "sound_control_8",					77 },
+	{ "sound_control_9",					78 },
+	{ "sound_control_10",					79 },
+	{ "general_purpose_button_1",			80 },
+	{ "general_purpose_button_2",			81 },
+	{ "general_purpose_button_3",			82 },
+	{ "general_purpose_button_4",			83 },
+	{ "effects_level",						91 },
+	{ "tremulo_level",						92 },
+	{ "chorus_level",						93 },
+	{ "celeste_level",						94 },
+	{ "phaser_level",						95 },
+	{ "data_button_increment",				96 },
+	{ "data_button_decrement",				97 },
+	{ "non_registered_parameter_fine",		98 },
+	{ "non_registered_parameter_coarse",	99 },
+	{ "registered_parameter_fine",			100 },
+	{ "registered_parameter_coarse",		101 },
+	{ "all_sound_off",						120 },
+	{ "all_controllers_off",				121 },
+	{ "local_keyboard",						122 },
+	{ "all_notes_off",						123 },
+	{ "omni_mode_off",						124 },
+	{ "omni_mode_on",						125 },
+	{ "mono_operation",						126 },
+	{ "poly_operation",						127 },
+};
+
+int NameToController(const char *name)
+{
+	for (size_t i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
+		const ControllerInfo controllerInfo = g_controllerInfos[i];
+		if (::strcasecmp(controllerInfo.name, name) == 0) {
+			return controllerInfo.controller;
+		}
+	}
+	return -1;
+}
+
+const char *ControllerToName(int controller)
+{
+	for (size_t i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
+		const ControllerInfo controllerInfo = g_controllerInfos[i];
+		if (controllerInfo.controller == controller) {
+			return controllerInfo.name;
+		}
+	}
+	return NULL;
+}
+
+const char *g_programNames[] = {
+	"acoustic_grand_piano",		// 0
+	"bright_acoustic_piano",	// 1
+	"electric_grand_piano",		// 2
+	"honky_tonk_piano",			// 3
+	"electric_piano1",			// 4
+	"electric_piano2",			// 5
+	"harpsichord",				// 6
+	"clavi",					// 7
+	"celesta",					// 8
+	"glockenspiel",				// 9
+	"music_box",				// 10
+	"vibraphone",				// 11
+	"marimba",					// 12
+	"xylophone",				// 13
+	"tublar_bells",				// 14
+	"dulcimer",					// 15
+	"drawbar_organ",			// 16
+	"percussive_organ",			// 17
+	"rock_organ",				// 18
+	"church_organ",				// 19
+	"reed_organ",				// 20
+	"accordion",				// 21
+	"hamonica",					// 22
+	"tango_accordion",			// 23
+	"acoustic_guitar_nylon",	// 24
+	"acoustic_guitar_steel",	// 25
+	"electric_guitar_jazz",		// 26
+	"electric_guitar_clean",	// 27
+	"electric_guitar_muted",	// 28
+	"overdriven_guitar",		// 29
+	"distortion_guitar",		// 30
+	"guitar_harmonics",			// 31
+	"acoustic_bass",			// 32
+	"electric_bass_finger",		// 33
+	"electric_bass_pick",		// 34
+	"fretless_bass",			// 35
+	"slap_bass1",				// 36
+	"slap_bass2",				// 37
+	"synth_bass1",				// 38
+	"synth_bass2",				// 39
+	"violin",					// 40
+	"viola",					// 41
+	"cello",					// 42
+	"contrabass",				// 43
+	"tremolo_strings",			// 44
+	"pizzicato_strings",		// 45
+	"orchestral_harp",			// 46
+	"timpani",					// 47
+	"string_ensemble1",			// 48
+	"string_ensemble2",			// 49
+	"synth_string1",			// 50
+	"synth_string2",			// 51
+	"choir_aahs",				// 52
+	"voice_oohs",				// 53
+	"synth_voice",				// 54
+	"orchestra_hit",			// 55
+	"trumpet",					// 56
+	"trombone",					// 57
+	"tuba",						// 58
+	"muted_trumpet",			// 59
+	"french_horn",				// 60
+	"brass_section",			// 61
+	"synth_brass1",				// 62
+	"synth_brass2",				// 63
+	"soprano_sax",				// 64
+	"alto_sax",					// 65
+	"tenor_sax",				// 66
+	"baritone_sax",				// 67
+	"oboe",						// 68
+	"english_horn",				// 69
+	"bassoon",					// 70
+	"clarinet",					// 71
+	"piccolo",					// 72
+	"flute",					// 73
+	"recorder",					// 74
+	"pan_flute",				// 75
+	"blow_bottle",				// 76
+	"shakuhachi",				// 77
+	"whistle",					// 78
+	"ocarina",					// 79
+	"lead1_square",				// 80
+	"lead2_sawtooth",			// 81
+	"lead3_calliope",			// 82
+	"lead4_chiff",				// 83
+	"lead5_chanrang",			// 84
+	"lead6_voice",				// 85
+	"lead7_fifths",				// 86
+	"lead8_bass",				// 87
+	"pad1_new_age",				// 88
+	"pad2_warm",				// 89
+	"pad3_polysynth",			// 90
+	"pad4_choir",				// 91
+	"pad5_bowed",				// 92
+	"pad6_metalic",				// 93
+	"pad7_halo",				// 94
+	"pad8_sweep",				// 95
+	"fx1_rain",					// 96
+	"fx2_soundtrack",			// 97
+	"fx3_crystal",				// 98
+	"fx4_atmosphere",			// 99
+	"fx5_brightness",			// 100
+	"fx6_goblins",				// 101
+	"fx7_echoes",				// 102
+	"fx8_sci_fi",				// 103
+	"sitar",					// 104
+	"banjo",					// 105
+	"shamisen",					// 106
+	"koto",						// 107
+	"kalimba",					// 108
+	"bag_pipe",					// 109
+	"fiddle",					// 110
+	"shanai",					// 111
+	"tinkle_bell",				// 112
+	"agogo",					// 113
+	"steel_drums",				// 114
+	"woodblock",				// 115
+	"taiko_drum",				// 116
+	"melodic_tom",				// 117
+	"synth_drum",				// 118
+	"reverse_cymbal",			// 119
+	"guitar_flet_noise",		// 120
+	"breath_noise",				// 121
+	"seashore",					// 122
+	"bird_tweet",				// 123
+	"telephone_ring",			// 124
+	"helicopter",				// 125
+	"applause",					// 126
+	"gunshot",					// 127
+};
+
+int NameToProgram(const char *name)
+{
+	for (int i = 0; i < ArraySizeOf(g_programNames); i++) {
+		if (::strcasecmp(g_programNames[i], name) == 0) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+const char *ProgramToName(int program)
+{
+	if (0 <= program && program < ArraySizeOf(g_programNames)) {
+		return g_programNames[program];
+	}
+	return NULL;
+}
+
 Gura_EndModule(midi, midi)
 
 Gura_RegisterModule(midi)

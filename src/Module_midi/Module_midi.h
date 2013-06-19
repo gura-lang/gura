@@ -217,6 +217,14 @@ public:
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
+//-----------------------------------------------------------------------------
+// utility functions
+//-----------------------------------------------------------------------------
+int NameToController(const char *name);
+const char *ControllerToName(int controller);
+int NameToProgram(const char *name);
+const char *ProgramToName(int program);
+
 }}
 
 #endif
