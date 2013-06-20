@@ -243,7 +243,8 @@ bool Content::Write(Environment &env, Signal sig, Stream &stream)
 			if (!pEvent->Write(sig, *pStreamMemory, pEventPrev)) return false;
 			pEventPrev = pEvent;
 		}
-		if (!MetaEvent_EndOfTrack::CheckEvent(pEventPrev)) {
+		if (pTrack->GetMML() != NULL &&
+							!MetaEvent_EndOfTrack::CheckEvent(pEventPrev)) {
 			unsigned long timeDelta = 0;
 			timeStamp += timeDelta;
 			AutoPtr<Event> pEvent(new MetaEvent_EndOfTrack(timeStamp));

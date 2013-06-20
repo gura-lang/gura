@@ -1,0 +1,29 @@
+#!/usr/bin/env gura
+import(midi)
+import(argopt)
+
+argopt.Parser {|p|
+	p.addParam('output', 'o', 'output duplicated MIDI file', 'OUTPUT')
+	try {
+		[cfg, argv] = p.parse(sys.argv)
+	} except {|e|
+		println(e.text)
+		sys.exit(1)
+	}
+}
+if (argv.len() < 1) {
+	sys.stderr.println('usage: midi-duptest [-o OUTPUT] file ..')
+	sys.exit(1)
+}
+fileNames = path.glob(argv):list
+fileNames.each {|fileName|
+	buff = open(fileName).read()
+	buffDup = binary()
+	midi.content(fileName).write(buffDup)
+	if (cfg['output']) {
+		fileNameDup = cfg['output']
+		open(fileNameDup, 'w').write(buffDup)
+		printf('%s was created\n', fileNameDup)
+	}
+	printf('%s %s\n', fileName, cond(buff == buffDup, 'OK', '*NG*'))
+}
