@@ -28,13 +28,20 @@ public:
 	Gura_DeclareReferenceAccessor(Event);
 protected:
 	int _cntRef;
+	bool _enableRunningStatus;
 	unsigned long _timeStamp;
 public:
-	inline Event(const Event &event) : _cntRef(1), _timeStamp(event._timeStamp) {}
-	inline Event(unsigned long timeStamp) : _cntRef(1), _timeStamp(timeStamp) {}
+	inline Event(const Event &event) : _cntRef(1),
+		_enableRunningStatus(event._enableRunningStatus), _timeStamp(event._timeStamp) {}
+	inline Event(bool enableRunningStatus, unsigned long timeStamp) : _cntRef(1),
+		_enableRunningStatus(enableRunningStatus), _timeStamp(timeStamp) {}
 protected:
 	virtual ~Event();
 public:
+	inline void EnableRunningStatus(bool enableRunningStatus) {
+		_enableRunningStatus = enableRunningStatus;
+	}
+	inline bool IsEnabledRunningStatus() const { return _enableRunningStatus; }
 	inline unsigned long GetTimeStamp() const { return _timeStamp; }
 	inline void SetTimeStamp(unsigned long timeStamp) { _timeStamp = timeStamp; }
 	virtual bool IsMIDIEvent() const;
@@ -92,24 +99,18 @@ public:
 //-----------------------------------------------------------------------------
 class MIDIEvent : public Event {
 protected:
-	bool _enableRunningStatus;
 	unsigned char _status;
 	unsigned char _channel;
 	size_t _nParams;
 	unsigned char _params[2];
 public:
 	inline MIDIEvent(const MIDIEvent &event) : Event(event),
-			_enableRunningStatus(event._enableRunningStatus),
 			_status(event._status), _channel(event._channel), _nParams(event._nParams) {
 		::memcpy(_params, event._params, sizeof(_params));
 	}
 	inline MIDIEvent(unsigned long timeStamp, unsigned char status, unsigned char channel, size_t nParams) :
-			Event(timeStamp), _enableRunningStatus(true),
+			Event(true, timeStamp),
 			_status(status), _channel(channel), _nParams(nParams) {}
-	inline void EnableRunningStaus(bool enableRunningStatus) {
-		_enableRunningStatus = enableRunningStatus;
-	}
-	inline bool IsEnabledRunningStatus() const { return _enableRunningStatus; }
 	inline unsigned char GetStatus() const { return _status; }
 	inline unsigned char GetChannel() const { return _channel; }
 	inline unsigned char GetStatusByte() const { return _status | _channel; }
@@ -342,7 +343,7 @@ private:
 public:
 	inline SysExEvent(const SysExEvent &event) : Event(event), _binary(event._binary) {}
 	inline SysExEvent(unsigned long timeStamp, const Binary &binary) :
-									Event(timeStamp), _binary(binary) {}
+								Event(false, timeStamp), _binary(binary) {}
 	virtual bool IsSysExEvent() const;
 	virtual unsigned char GetStatusCode() const;
 	virtual const Symbol *GetSymbol() const;
@@ -368,14 +369,14 @@ protected:
 public:
 	inline MetaEvent(const MetaEvent &event) : Event(event), _eventType(event._eventType) {}
 	inline MetaEvent(unsigned long timeStamp, unsigned char eventType) :
-								Event(timeStamp), _eventType(eventType) {}
+								Event(false, timeStamp), _eventType(eventType) {}
 	inline unsigned char GetEventType() const { return _eventType; }
 	virtual bool Prepare(Signal sig, const Binary &binary) = 0;
 	virtual bool IsMetaEvent() const;
 	virtual unsigned char GetStatusCode() const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
-	static bool Add(Signal sig, Track *pTrack, unsigned long timeStamp,
-			unsigned char eventType, const Binary &binary);
+	static bool Add(Signal sig, Track *pTrack, bool enableRunningStatus,
+			unsigned long timeStamp, unsigned char eventType, const Binary &binary);
 	static void SetError_TooShortMetaEvent(Signal sig);
 };
 

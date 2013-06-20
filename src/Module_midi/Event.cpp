@@ -636,8 +636,8 @@ unsigned char MetaEvent::GetStatusCode() const
 	return Status;
 }
 
-bool MetaEvent::Add(Signal sig, Track *pTrack, unsigned long timeStamp,
-							unsigned char eventType, const Binary &binary)
+bool MetaEvent::Add(Signal sig, Track *pTrack, bool enableRunningStatus,
+		unsigned long timeStamp, unsigned char eventType, const Binary &binary)
 {
 	MetaEvent *pEvent = NULL;
 	if (eventType == MetaEvent_SequenceNumber::EventType) {
@@ -673,6 +673,7 @@ bool MetaEvent::Add(Signal sig, Track *pTrack, unsigned long timeStamp,
 	} else {
 		pEvent = new MetaEvent_Unknown(timeStamp, eventType);
 	}
+	pEvent->EnableRunningStatus(enableRunningStatus);
 	if (pEvent->Prepare(sig, binary)) {
 		pTrack->AddEvent(pEvent);
 		return true;
@@ -683,10 +684,12 @@ bool MetaEvent::Add(Signal sig, Track *pTrack, unsigned long timeStamp,
 
 bool MetaEvent::Write(Signal sig, Stream &stream, const Event *pEventPrev) const
 {
-	const size_t bytes = 2;
-	unsigned char buff[bytes];
-	buff[0] = Status;
-	buff[1] = _eventType;
+	size_t bytes = 0;
+	unsigned char buff[2];
+	if (!IsEnabledRunningStatus() || pEventPrev == NULL || !pEventPrev->IsMetaEvent()) {
+		buff[bytes++] = Status;
+	}
+	buff[bytes++] = _eventType;
 	return stream.Write(sig, buff, bytes) == bytes;
 }
 
@@ -724,7 +727,7 @@ const Symbol *MetaEvent_Unknown::GetSymbol() const
 String MetaEvent_Unknown::GetArgsName() const
 {
 	char str[128];
-	::sprintf(str, "");
+	::sprintf(str, "%dbytes", _binary.size());
 	return String(str);
 }
 

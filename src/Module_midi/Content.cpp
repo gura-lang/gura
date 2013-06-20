@@ -75,6 +75,7 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 		unsigned long timeStamp = 0x00000000;
 		unsigned long length = 0x00000000;
 		unsigned char statusPrev = 0x00;
+		bool enableRunningStatus = false;
 		size_t lengthRest = Gura_UnpackULong(trackChunkTop.length);
 		while  (lengthRest > 0) {
 			size_t lengthRead = ChooseMin(lengthRest, pMemory->GetSize());
@@ -86,7 +87,7 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 			unsigned char *p = reinterpret_cast<unsigned char *>(pMemory->GetPointer());
 			for ( ; lengthRead > 0; p++, lengthRead--) {
 				unsigned char data = *p;
-				//::printf("%02x\n", data);
+				//::printf("%02x", data);
 				bool continueFlag = false;
 				do {
 					continueFlag = false;
@@ -95,6 +96,7 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 						length = 0x00000000;
 						stat = STAT_DeltaTime;
 						binary.clear();
+						//::printf("\n");
 					}
 					if (stat == STAT_DeltaTime) {
 						deltaTime = (deltaTime << 7) + (data & 0x7f);
@@ -102,7 +104,7 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 							stat = STAT_Status;
 						}
 					} else if (stat == STAT_Status) {
-						bool enableRunningStatus = true;
+						enableRunningStatus = true;
 						unsigned char status = data;
 						if ((status & 0x80) == 0) {
 							// running status
@@ -134,7 +136,7 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 								// this must not happen
 								return false;
 							}
-							pMIDIEvent->EnableRunningStaus(enableRunningStatus);
+							pMIDIEvent->EnableRunningStatus(enableRunningStatus);
 							stat = STAT_MIDIEvent_Param1st;
 						} else if (status == SysExEvent::StatusF0 ||
 											status == SysExEvent::StatusF7) {
@@ -161,7 +163,9 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 					} else if (stat == STAT_SysExEvent) {
 						binary.push_back(data);
 						if (data == 0xf7) {
-							pTrack->AddEvent(new SysExEvent(timeStamp, binary));
+							SysExEvent *pEvent = new SysExEvent(timeStamp, binary);
+							pEvent->EnableRunningStatus(enableRunningStatus);
+							pTrack->AddEvent(pEvent);
 							stat = STAT_EventStart;
 						}
 					} else if (stat == STAT_MetaEvent_Type) {
@@ -172,7 +176,7 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 						if ((data & 0x80) != 0) {
 							// nothing to do
 						} else if (length == 0) {
-							if (!MetaEvent::Add(sig, pTrack,
+							if (!MetaEvent::Add(sig, pTrack, enableRunningStatus,
 												timeStamp, eventType, binary)) {
 								return false;
 							}
@@ -183,7 +187,7 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 					} else if (stat == STAT_MetaEvent_Data) {
 						binary.push_back(data);
 						if (binary.size() == length) {
-							if (!MetaEvent::Add(sig, pTrack,
+							if (!MetaEvent::Add(sig, pTrack, enableRunningStatus,
 												timeStamp, eventType, binary)) {
 								return false;
 							}
