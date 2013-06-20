@@ -8,79 +8,135 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 // information table
 //-----------------------------------------------------------------------------
-struct ControllerInfo {
-	const char *name;
-	int controller;
-};
-
-const ControllerInfo g_controllerInfos[] = {
-	{ "bank_select_coarse",					0 },
-	{ "modulation_wheel_coarse",			1 },
-	{ "breath_controller_coarse",			2 },
-	{ "foot_pedal_coarse",					4 },
-	{ "portamento_time_coarse",				5 },
-	{ "data_entry_coarse",					6 },
-	{ "volume_coarse",						7 },
-	{ "balance_coarse",						8 },
-	{ "pan_position_coarse",				10 },
-	{ "expression_coarse",					11 },
-	{ "effect_control_1_coarse",			12 },
-	{ "effect_control_2_coarse",			13 },
-	{ "general_purpose_slider_1",			16 },
-	{ "general_purpose_slider_2",			17 },
-	{ "general_purpose_slider_3",			18 },
-	{ "general_purpose_slider_4",			19 },
-	{ "bank_select_fine",					32 },
-	{ "modulation_wheel_fine",				33 },
-	{ "breath_controller_fine",				34 },
-	{ "foot_pedal_fine",					36 },
-	{ "portamento_time_fine",				37 },
-	{ "data_entry_fine",					38 },
-	{ "volume_fine",						39 },
-	{ "balance_fine",						40 },
-	{ "pan_position_fine",					42 },
-	{ "expression_fine",					43 },
-	{ "effect_control_1_fine",				44 },
-	{ "effect_control_2_fine",				45 },
-	{ "hold_pedal",							64 },
-	{ "portamento",							65 },
-	{ "sustenuto_pedal",					66 },
-	{ "soft_pedal",							67 },
-	{ "legato_pedal",						68 },
-	{ "hold_2_pedal",						69 },
-	{ "sound_variation",					70 },
-	{ "sound_timbre",						71 },
-	{ "sound_release_time",					72 },
-	{ "sound_attack_time",					73 },
-	{ "sound_brightness",					74 },
-	{ "sound_control_6",					75 },
-	{ "sound_control_7",					76 },
-	{ "sound_control_8",					77 },
-	{ "sound_control_9",					78 },
-	{ "sound_control_10",					79 },
-	{ "general_purpose_button_1",			80 },
-	{ "general_purpose_button_2",			81 },
-	{ "general_purpose_button_3",			82 },
-	{ "general_purpose_button_4",			83 },
-	{ "effects_level",						91 },
-	{ "tremulo_level",						92 },
-	{ "chorus_level",						93 },
-	{ "celeste_level",						94 },
-	{ "phaser_level",						95 },
-	{ "data_button_increment",				96 },
-	{ "data_button_decrement",				97 },
-	{ "non_registered_parameter_fine",		98 },
-	{ "non_registered_parameter_coarse",	99 },
-	{ "registered_parameter_fine",			100 },
-	{ "registered_parameter_coarse",		101 },
-	{ "all_sound_off",						120 },
-	{ "all_controllers_off",				121 },
-	{ "local_keyboard",						122 },
-	{ "all_notes_off",						123 },
-	{ "omni_mode_off",						124 },
-	{ "omni_mode_on",						125 },
-	{ "mono_operation",						126 },
-	{ "poly_operation",						127 },
+const char *g_controllerNames[] = {
+	"bank_select_coarse",				// 0
+	"modulation_wheel_coarse",			// 1
+	"breath_controller_coarse",			// 2
+	NULL,								// 3
+	"foot_pedal_coarse",				// 4
+	"portamento_time_coarse",			// 5
+	"data_entry_coarse",				// 6
+	"volume_coarse",					// 7
+	"balance_coarse",					// 8
+	NULL,								// 9
+	"pan_position_coarse",				// 10
+	"expression_coarse",				// 11
+	"effect_control_1_coarse",			// 12
+	"effect_control_2_coarse",			// 13
+	NULL,								// 14
+	NULL,								// 15
+	"general_purpose_slider_1",			// 16
+	"general_purpose_slider_2",			// 17
+	"general_purpose_slider_3",			// 18
+	"general_purpose_slider_4",			// 19
+	NULL,								// 20
+	NULL,								// 21
+	NULL,								// 22
+	NULL,								// 23
+	NULL,								// 24
+	NULL,								// 25
+	NULL,								// 26
+	NULL,								// 27
+	NULL,								// 28
+	NULL,								// 29
+	NULL,								// 30
+	NULL,								// 31
+	"bank_select_fine",					// 32
+	"modulation_wheel_fine",			// 33
+	"breath_controller_fine",			// 34
+	NULL,								// 35
+	"foot_pedal_fine",					// 36
+	"portamento_time_fine",				// 37
+	"data_entry_fine",					// 38
+	"volume_fine",						// 39
+	"balance_fine",						// 40
+	NULL,								// 41
+	"pan_position_fine",				// 42
+	"expression_fine",					// 43
+	"effect_control_1_fine",			// 44
+	"effect_control_2_fine",			// 45
+	NULL,								// 46
+	NULL,								// 47
+	NULL,								// 48
+	NULL,								// 49
+	NULL,								// 50
+	NULL,								// 51
+	NULL,								// 52
+	NULL,								// 53
+	NULL,								// 54
+	NULL,								// 55
+	NULL,								// 56
+	NULL,								// 57
+	NULL,								// 58
+	NULL,								// 59
+	NULL,								// 60
+	NULL,								// 61
+	NULL,								// 62
+	NULL,								// 63
+	"hold_pedal",						// 64
+	"portamento",						// 65
+	"sustenuto_pedal",					// 66
+	"soft_pedal",						// 67
+	"legato_pedal",						// 68
+	"hold_2_pedal",						// 69
+	"sound_variation",					// 70
+	"sound_timbre",						// 71
+	"sound_release_time",				// 72
+	"sound_attack_time",				// 73
+	"sound_brightness",					// 74
+	"sound_control_6",					// 75
+	"sound_control_7",					// 76
+	"sound_control_8",					// 77
+	"sound_control_9",					// 78
+	"sound_control_10",					// 79
+	"general_purpose_button_1",			// 80
+	"general_purpose_button_2",			// 81
+	"general_purpose_button_3",			// 82
+	"general_purpose_button_4",			// 83
+	NULL,								// 84
+	NULL,								// 85
+	NULL,								// 86
+	NULL,								// 87
+	NULL,								// 88
+	NULL,								// 89
+	NULL,								// 90
+	"effects_level",					// 91
+	"tremulo_level",					// 92
+	"chorus_level",						// 93
+	"celeste_level",					// 94
+	"phaser_level",						// 95
+	"data_button_increment",			// 96
+	"data_button_decrement",			// 97
+	"non_registered_parameter_fine",	// 98
+	"non_registered_parameter_coarse",	// 99
+	"registered_parameter_fine",		// 100
+	"registered_parameter_coarse",		// 101
+	NULL,								// 102
+	NULL,								// 103
+	NULL,								// 104
+	NULL,								// 105
+	NULL,								// 106
+	NULL,								// 107
+	NULL,								// 108
+	NULL,								// 109
+	NULL,								// 110
+	NULL,								// 111
+	NULL,								// 112
+	NULL,								// 113
+	NULL,								// 114
+	NULL,								// 115
+	NULL,								// 116
+	NULL,								// 117
+	NULL,								// 118
+	NULL,								// 119
+	"all_sound_off",					// 120
+	"all_controllers_off",				// 121
+	"local_keyboard",					// 122
+	"all_notes_off",					// 123
+	"omni_mode_off",					// 124
+	"omni_mode_on",						// 125
+	"mono_operation",					// 126
+	"poly_operation",					// 127
 };
 
 const char *g_programNames[] = {
@@ -971,13 +1027,12 @@ Gura_ImplementMethod(content, track)
 	Object_content *pThis = Object_content::GetThisObj(args);
 	size_t index = args.GetSizeT(0);
 	TrackOwner &trackOwner = pThis->GetContent().GetTrackOwner();
-	if (trackOwner.size() <= index) {
-		size_t n = index - trackOwner.size();
+	if (index >= trackOwner.size()) {
+		size_t n = index - trackOwner.size() + 1;
 		while (n-- > 0) {
 			trackOwner.push_back(new Track(Property::Reference(
 									pThis->GetContent().GetProperty())));
 		}
-		return Value::Null;
 	}
 	Track *pTrack = trackOwner[index];
 	return ReturnValue(env, sig, args,
@@ -1586,11 +1641,13 @@ Gura_ModuleEntry()
 	do {
 		Value value;
 		ValueList &valList = value.InitAsList(env);
-		valList.reserve(128);
-		for (size_t i = 0; i < 128; i++) valList.push_back(Value::Null);
-		for (size_t i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
-			const ControllerInfo &controllerInfo = g_controllerInfos[i];
-			valList[controllerInfo.controller] = Value(env, controllerInfo.name);
+		valList.reserve(ArraySizeOf(g_controllerNames));
+		for (size_t i = 0; i < ArraySizeOf(g_controllerNames); i++) {
+			if (g_controllerNames[i] == NULL) {
+				valList.push_back(Value::Null);
+			} else {
+				valList.push_back(Value(env, g_controllerNames[i]));
+			}
 		}
 		Gura_AssignValue(controllers, value);
 	} while (0);
@@ -1618,10 +1675,9 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 int NameToController(const char *name)
 {
-	for (size_t i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
-		const ControllerInfo controllerInfo = g_controllerInfos[i];
-		if (::strcasecmp(controllerInfo.name, name) == 0) {
-			return controllerInfo.controller;
+	for (int i = 0; i < ArraySizeOf(g_controllerNames); i++) {
+		if (::strcasecmp(g_controllerNames[i], name) == 0) {
+			return i;
 		}
 	}
 	return -1;
@@ -1629,11 +1685,8 @@ int NameToController(const char *name)
 
 const char *ControllerToName(int controller)
 {
-	for (size_t i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
-		const ControllerInfo controllerInfo = g_controllerInfos[i];
-		if (controllerInfo.controller == controller) {
-			return controllerInfo.name;
-		}
+	if (0 <= controller && controller < ArraySizeOf(g_controllerNames)) {
+		return g_controllerNames[controller];
 	}
 	return NULL;
 }
