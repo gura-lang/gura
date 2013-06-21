@@ -24,4 +24,5 @@ midi.content {|content|
 		track.text_event('sakura')
 	}
 	content.write('sakura.mid')
+	println('sakura.mid was created')
 }
