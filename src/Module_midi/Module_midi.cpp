@@ -19,20 +19,20 @@ struct ProgramInfo {
 };
 
 static ControllerInfo g_controllerInfos[] = {
-	{ "bank_select_coarse",				NULL }, // 0
-	{ "modulation_wheel_coarse",		NULL }, // 1
-	{ "breath_controller_coarse",		NULL }, // 2
+	{ "bank_select",					NULL }, // 0
+	{ "modulation_wheel",				NULL }, // 1
+	{ "breath_controller",				NULL }, // 2
 	{ NULL,								NULL }, // 3
-	{ "foot_pedal_coarse",				NULL }, // 4
-	{ "portamento_time_coarse",			NULL }, // 5
-	{ "data_entry_coarse",				NULL }, // 6
-	{ "volume_coarse",					NULL }, // 7
-	{ "balance_coarse",					NULL }, // 8
+	{ "foot_pedal",						NULL }, // 4
+	{ "portamento_time",				NULL }, // 5
+	{ "data_entry",						NULL }, // 6
+	{ "volume",							NULL }, // 7
+	{ "balance",						NULL }, // 8
 	{ NULL,								NULL }, // 9
-	{ "pan_position_coarse",			NULL }, // 10
-	{ "expression_coarse",				NULL }, // 11
-	{ "effect_control_1_coarse",		NULL }, // 12
-	{ "effect_control_2_coarse",		NULL }, // 13
+	{ "pan_position",					NULL }, // 10
+	{ "expression",						NULL }, // 11
+	{ "effect_control_1",				NULL }, // 12
+	{ "effect_control_2",				NULL }, // 13
 	{ NULL,								NULL }, // 14
 	{ NULL,								NULL }, // 15
 	{ "general_purpose_slider_1",		NULL }, // 16
@@ -118,9 +118,9 @@ static ControllerInfo g_controllerInfos[] = {
 	{ "data_button_increment",			NULL }, // 96
 	{ "data_button_decrement",			NULL }, // 97
 	{ "non_registered_parameter_fine",	NULL }, // 98
-	{ "non_registered_parameter_coarse",NULL }, // 99
+	{ "non_registered_parameter",		NULL }, // 99
 	{ "registered_parameter_fine",		NULL }, // 100
-	{ "registered_parameter_coarse",	NULL }, // 101
+	{ "registered_parameter",			NULL }, // 101
 	{ NULL,								NULL }, // 102
 	{ NULL,								NULL }, // 103
 	{ NULL,								NULL }, // 104
@@ -541,12 +541,12 @@ Gura_ImplementMethod(track, poly_pressure)
 	return args.GetThis();
 }
 
-// midi.track#control_change(channel:number, controller:number, value:number, deltaTime?:number):map:reduce
+// midi.track#control_change(channel:number, controller, value:number, deltaTime?:number):map:reduce
 Gura_DeclareMethod(track, control_change)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
-	DeclareArg(env, "controller", VTYPE_number);
+	DeclareArg(env, "controller", VTYPE_any);
 	DeclareArg(env, "value", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 }
@@ -1758,7 +1758,8 @@ int NameToController(const char *name)
 int SymbolToController(const Symbol *pSymbol)
 {
 	for (int i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
-		if (g_controllerInfos[i].pSymbol->IsIdentical(pSymbol)) {
+		if (g_controllerInfos[i].pSymbol != NULL &&
+					g_controllerInfos[i].pSymbol->IsIdentical(pSymbol)) {
 			return i;
 		}
 	}
@@ -1784,7 +1785,8 @@ const Symbol *ControllerToSymbol(int controller)
 int SymbolToProgram(const Symbol *pSymbol)
 {
 	for (int i = 0; i < ArraySizeOf(g_programInfos); i++) {
-		if (g_programInfos[i].pSymbol->IsIdentical(pSymbol)) {
+		if (g_programInfos[i].pSymbol != NULL &&
+					g_programInfos[i].pSymbol->IsIdentical(pSymbol)) {
 			return i;
 		}
 	}
