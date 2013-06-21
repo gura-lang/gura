@@ -389,7 +389,8 @@ String Object_track::ToString(Signal sig, bool exprFlag)
 	rtn += "<midi.track";
 	do {
 		char buff[64];
-		::sprintf(buff, ":%devents", _pTrack->GetEventOwner().size());
+		::sprintf(buff, ":%devents:seek%d",
+					_pTrack->GetEventOwner().size(), _pTrack->Tell());
 		rtn += buff;
 	} while (0);
 	rtn += ">";
@@ -420,6 +421,33 @@ Gura_ImplementMethod(track, seek)
 		sig.SetError(ERR_ArgumentError, "invalid symbol");
 		return Value::Null;
 	}
+	return args.GetThis();
+}
+
+// midi.track#tell()
+Gura_DeclareMethod(track, tell)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(track, tell)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	return Value(pTrack->Tell());
+}
+
+// midi.track#erase(n?:number):reduce
+Gura_DeclareMethod(track, erase)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(track, erase)
+{
+	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
+	size_t cnt = args.IsNumber(0)? args.GetSizeT(0) : 1;
+	if (!pTrack->Erase(sig, cnt)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -867,6 +895,8 @@ Gura_ImplementMethod(track, sequencer_specific_event)
 Gura_ImplementUserClass(track)
 {
 	Gura_AssignMethod(track, seek);
+	Gura_AssignMethod(track, tell);
+	Gura_AssignMethod(track, erase);
 	Gura_AssignMethod(track, mml);
 	Gura_AssignMethod(track, note_off);
 	Gura_AssignMethod(track, note_on);

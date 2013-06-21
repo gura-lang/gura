@@ -1,0 +1,19 @@
+#!/usr/bin/env gura
+import(midi)
+
+scope {
+	 midi.content {|c|
+		c.track(0) {|t|
+			t.note_on(0, 0..32, 1, 2)
+			printf('seek point: %d\n', t.tell())
+			printf('%2d %s\n', 0.., t.events)
+			t.seek(4)
+			t.erase(12)
+			printf('seek point: %d\n', t.tell())
+			printf('%2d %s\n', 0.., t.events)
+			t.note_on(0, 0..8, 1, 2)
+			printf('seek point: %d\n', t.tell())
+			printf('%2d %s\n', 0.., t.events)
+		}
+	}
+}

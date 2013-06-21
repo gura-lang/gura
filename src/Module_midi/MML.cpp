@@ -31,7 +31,7 @@ void MML::Reset()
 
 void MML::UpdateTimeStamp()
 {
-	unsigned long timeStamp = _pTrack->GetCurTimeStamp();
+	unsigned long timeStamp = _pTrack->GetPrevTimeStamp();
 	if (_timeStampHead < timeStamp) {
 		_timeStampHead = _timeStampTail = timeStamp;
 	}

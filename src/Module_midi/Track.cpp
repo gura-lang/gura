@@ -26,6 +26,7 @@ void Track::AddEvent(Event *pEvent)
 	_ppEventAt++;
 }
 
+#if 0
 unsigned long Track::GetCurTimeStamp() const
 {
 	unsigned long timeStamp = 0;
@@ -38,8 +39,24 @@ unsigned long Track::GetCurTimeStamp() const
 	}
 	return timeStamp;
 }
+#endif
 
-void Track::AdjustFollowingTimeStamp(unsigned long deltaTime)
+unsigned long Track::GetPrevTimeStamp() const
+{
+	unsigned long timeStamp = 0;
+	if (_pEventOwner->empty()) {
+		// nothing to do
+	} else if (_ppEventAt == _pEventOwner->begin()) {
+		// nothing to do
+	} else if (_ppEventAt == _pEventOwner->end()) {
+		timeStamp = _pEventOwner->back()->GetTimeStamp();
+	} else  {
+		timeStamp = (*(_ppEventAt - 1))->GetTimeStamp();
+	}
+	return timeStamp;
+}
+
+void Track::AdjustFollowingTimeStamp(long deltaTime)
 {
 	if (deltaTime == 0) return;
 	for (EventOwner::iterator ppEventEach = _ppEventAt;
@@ -51,7 +68,7 @@ void Track::AdjustFollowingTimeStamp(unsigned long deltaTime)
 
 void Track::AddEvent(Event *pEvent, unsigned long deltaTime)
 {
-	pEvent->SetTimeStamp(GetCurTimeStamp() + deltaTime);
+	pEvent->SetTimeStamp(GetPrevTimeStamp() + deltaTime);
 	_ppEventAt = _pEventOwner->insert(_ppEventAt, pEvent);
 	_ppEventAt++;
 	AdjustFollowingTimeStamp(deltaTime);
@@ -69,14 +86,43 @@ bool Track::SeekSet(Signal sig, long offset)
 
 bool Track::SeekCur(Signal sig, long offset)
 {
-	long idx = (_ppEventAt == _pEventOwner->end())?
-				_pEventOwner->size() : _ppEventAt - _pEventOwner->begin();
+	long idx = static_cast<long>(Tell());
 	idx += offset;
 	if (idx < 0 || idx > _pEventOwner->size()) {
 		sig.SetError(ERR_OutOfRangeError, "offst is out of range");
 		return false;
 	}
 	_ppEventAt = _pEventOwner->begin() + offset;
+	return true;
+}
+
+size_t Track::Tell() const
+{
+	return (_ppEventAt == _pEventOwner->end())?
+				_pEventOwner->size() : _ppEventAt - _pEventOwner->begin();
+}
+
+bool Track::Erase(Signal sig, size_t cnt)
+{
+	if (cnt == 0) return true;
+	size_t offset = Tell();
+	if (offset + cnt > _pEventOwner->size()) {
+		sig.SetError(ERR_OutOfRangeError, "offst is out of range");
+		return false;
+	}
+	EventOwner::iterator ppEvent = _pEventOwner->begin() + offset;
+	unsigned long timeStampBegin = (*ppEvent)->GetTimeStamp();
+	for (size_t i = 0; i < cnt; i++) {
+		Event *pEvent = *ppEvent;
+		Event::Delete(pEvent);
+		ppEvent = _pEventOwner->erase(ppEvent);
+	}
+	_ppEventAt = ppEvent;
+	if (ppEvent != _pEventOwner->end()) {
+		unsigned long timeStampTail = (*ppEvent)->GetTimeStamp();
+		long deltaTime = timeStampTail - timeStampBegin;
+		AdjustFollowingTimeStamp(-deltaTime);
+	}
 	return true;
 }
 
