@@ -221,8 +221,11 @@ public:
 // utility functions
 //-----------------------------------------------------------------------------
 int NameToController(const char *name);
+int SymbolToController(const Symbol *pSymbol);
 const char *ControllerToName(int controller);
+const Symbol *ControllerToSymbol(int controller);
 int NameToProgram(const char *name);
+int SymbolToProgram(const Symbol *pSymbol);
 const char *ProgramToName(int program);
 
 }}

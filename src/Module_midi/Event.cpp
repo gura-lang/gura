@@ -379,7 +379,16 @@ Value MIDIEvent_ControlChange::DoGetProp(Environment &env, Signal sig, const Sym
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(controller))) {
-		return Value(GetController());
+		if (attrs.IsSet(Gura_Symbol(symbol))) {
+			const Symbol *pSymbolRtn = ControllerToSymbol(GetController());
+			if (pSymbolRtn == NULL) {
+				return Value::Null;
+			} else {
+				return Value(pSymbolRtn);
+			}
+		} else {
+			return Value(GetController());
+		}
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
 		return Value(GetValue());
 	}
