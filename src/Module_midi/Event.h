@@ -20,7 +20,7 @@ public:
 		unsigned long _mpqn;
 	public:
 		Player(Port *pPort, unsigned short division, unsigned long mpqn);
-		bool Play(Signal sig, const EventList &eventList);
+		bool Play(Signal sig, const EventList &eventList, double speed);
 		inline Port *GetPort() { return _pPort.get(); }
 		inline void SetMPQN(unsigned long mpqn) { _mpqn = mpqn; }
 	};

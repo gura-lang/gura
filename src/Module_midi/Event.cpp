@@ -57,8 +57,12 @@ Event::Player::Player(Port *pPort, unsigned short division, unsigned long mpqn) 
 {
 }
 
-bool Event::Player::Play(Signal sig, const EventList &eventList)
+bool Event::Player::Play(Signal sig, const EventList &eventList, double speed)
 {
+	if (speed <= 0) {
+		sig.SetError(ERR_ValueError, "speed must be a positive number");
+		return false;
+	}
 	Event *pEventPrev = NULL;
 	foreach_const (EventList, ppEvent, eventList) {
 		Event *pEvent = *ppEvent;
@@ -67,7 +71,7 @@ bool Event::Player::Play(Signal sig, const EventList &eventList)
 			unsigned long deltaTime =
 					pEvent->GetTimeStamp() - pEventPrev->GetTimeStamp();
 			double delayTime = static_cast<double>(_mpqn) *
-										deltaTime / _division / 1000000;
+									deltaTime / _division / 1000000 / speed;
 			OAL::Sleep(delayTime);
 		}
 		if (!pEvent->Play(sig, this)) return false;

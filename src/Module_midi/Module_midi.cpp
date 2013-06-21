@@ -1067,18 +1067,20 @@ Gura_ImplementMethod(content, write)
 	return args.GetThis();
 }
 
-// midi.content#play(port:midi.port):reduce
+// midi.content#play(port:midi.port, speed?:number):reduce
 Gura_DeclareMethod(content, play)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "port", VTYPE_port);
+	DeclareArg(env, "speed", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(content, play)
 {
 	Content &content = Object_content::GetThisObj(args)->GetContent();
 	Port *pPort = Object_port::GetObject(args, 0)->GetPort();
-	content.Play(sig, pPort);
+	double speed = args.GetDouble(1);
+	content.Play(sig, pPort, speed);
 	return args.GetThis();
 }
 
@@ -1267,18 +1269,20 @@ Gura_ImplementMethod(port, send)
 	return args.GetThis();
 }
 
-// midi.port#play(content:midi.content):map:reduce
+// midi.port#play(content:midi.content, speed?:number):map:reduce
 Gura_DeclareMethod(port, play)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "content", VTYPE_content);
+	DeclareArg(env, "speed", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(port, play)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
 	Content &content = Object_content::GetObject(args, 0)->GetContent();
-	content.Play(sig, pThis->GetPort());
+	double speed = args.IsNumber(1)? args.GetDouble(1) : 1;
+	content.Play(sig, pThis->GetPort(), speed);
 	return args.GetThis();
 }
 
@@ -1294,7 +1298,8 @@ Gura_ImplementMethod(port, mml)
 	Object_port *pThis = Object_port::GetThisObj(args);
 	Content content;
 	content.ParseMML(sig, args.GetList(0));
-	content.Play(sig, pThis->GetPort());
+	double speed = 1;
+	content.Play(sig, pThis->GetPort(), speed);
 	return args.GetThis();
 }
 
