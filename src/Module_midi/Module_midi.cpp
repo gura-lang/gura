@@ -567,7 +567,7 @@ Gura_ImplementMethod(track, control_change)
 		}
 		controller = static_cast<unsigned char>(n);
 	} else {
-		sig.SetError(ERR_TypeError, "program must be specified by number or symbol");
+		sig.SetError(ERR_TypeError, "controller must be specified by number or symbol");
 		return Value::Null;
 	}
 	unsigned char value = args.GetUChar(2);

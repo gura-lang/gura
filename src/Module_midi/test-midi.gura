@@ -4,6 +4,21 @@ import(midi)
 scope {
 	 midi.content {|c|
 		c.track(0) {|t|
+			t.note_off(0, 0, 0, 0)
+			t.note_on(0, 0, 0, 0)
+			t.poly_pressure(0, 0, 0, 0)
+			t.control_change(0, midi.controllers.skipnil(), 0, 0)
+			t.program_change(0, midi.programs.skipnil(), 0)
+			t.channel_pressure(0, 0, 0)
+			t.pitch_bend(0, 0, 0)
+			printf('%s\n', t.events)
+		}
+	}
+}
+scope {
+	// erase test
+	 midi.content {|c|
+		c.track(0) {|t|
 			t.note_on(0, 0..32, 1, 2)
 			printf('seek point: %d\n', t.tell())
 			printf('%2d %s\n', 0.., t.events)
