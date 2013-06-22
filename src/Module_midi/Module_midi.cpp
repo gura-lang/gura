@@ -15,6 +15,7 @@ struct ControllerInfo {
 
 struct ProgramInfo {
 	const char *name;
+	const char *dispName;
 	const Symbol *pSymbol;
 };
 
@@ -150,134 +151,150 @@ static ControllerInfo g_controllerInfos[] = {
 };
 
 static ProgramInfo g_programInfos[] = {
-	{ "acoustic_grand_piano",			NULL }, // 0
-	{ "bright_acoustic_piano",			NULL }, // 1
-	{ "electric_grand_piano",			NULL }, // 2
-	{ "honky_tonk_piano",				NULL }, // 3
-	{ "electric_piano1",				NULL }, // 4
-	{ "electric_piano2",				NULL }, // 5
-	{ "harpsichord",					NULL }, // 6
-	{ "clavi",							NULL }, // 7
-	{ "celesta",						NULL }, // 8
-	{ "glockenspiel",					NULL }, // 9
-	{ "music_box",						NULL }, // 10
-	{ "vibraphone",						NULL }, // 11
-	{ "marimba",						NULL }, // 12
-	{ "xylophone",						NULL }, // 13
-	{ "tublar_bells",					NULL }, // 14
-	{ "dulcimer",						NULL }, // 15
-	{ "drawbar_organ",					NULL }, // 16
-	{ "percussive_organ",				NULL }, // 17
-	{ "rock_organ",						NULL }, // 18
-	{ "church_organ",					NULL }, // 19
-	{ "reed_organ",						NULL }, // 20
-	{ "accordion",						NULL }, // 21
-	{ "hamonica",						NULL }, // 22
-	{ "tango_accordion",				NULL }, // 23
-	{ "acoustic_guitar_nylon",			NULL }, // 24
-	{ "acoustic_guitar_steel",			NULL }, // 25
-	{ "electric_guitar_jazz",			NULL }, // 26
-	{ "electric_guitar_clean",			NULL }, // 27
-	{ "electric_guitar_muted",			NULL }, // 28
-	{ "overdriven_guitar",				NULL }, // 29
-	{ "distortion_guitar",				NULL }, // 30
-	{ "guitar_harmonics",				NULL }, // 31
-	{ "acoustic_bass",					NULL }, // 32
-	{ "electric_bass_finger",			NULL }, // 33
-	{ "electric_bass_pick",				NULL }, // 34
-	{ "fretless_bass",					NULL }, // 35
-	{ "slap_bass1",						NULL }, // 36
-	{ "slap_bass2",						NULL }, // 37
-	{ "synth_bass1",					NULL }, // 38
-	{ "synth_bass2",					NULL }, // 39
-	{ "violin",							NULL }, // 40
-	{ "viola",							NULL }, // 41
-	{ "cello",							NULL }, // 42
-	{ "contrabass",						NULL }, // 43
-	{ "tremolo_strings",				NULL }, // 44
-	{ "pizzicato_strings",				NULL }, // 45
-	{ "orchestral_harp",				NULL }, // 46
-	{ "timpani",						NULL }, // 47
-	{ "string_ensemble1",				NULL }, // 48
-	{ "string_ensemble2",				NULL }, // 49
-	{ "synth_string1",					NULL }, // 50
-	{ "synth_string2",					NULL }, // 51
-	{ "choir_aahs",						NULL }, // 52
-	{ "voice_oohs",						NULL }, // 53
-	{ "synth_voice",					NULL }, // 54
-	{ "orchestra_hit",					NULL }, // 55
-	{ "trumpet",						NULL }, // 56
-	{ "trombone",						NULL }, // 57
-	{ "tuba",							NULL }, // 58
-	{ "muted_trumpet",					NULL }, // 59
-	{ "french_horn",					NULL }, // 60
-	{ "brass_section",					NULL }, // 61
-	{ "synth_brass1",					NULL }, // 62
-	{ "synth_brass2",					NULL }, // 63
-	{ "soprano_sax",					NULL }, // 64
-	{ "alto_sax",						NULL }, // 65
-	{ "tenor_sax",						NULL }, // 66
-	{ "baritone_sax",					NULL }, // 67
-	{ "oboe",							NULL }, // 68
-	{ "english_horn",					NULL }, // 69
-	{ "bassoon",						NULL }, // 70
-	{ "clarinet",						NULL }, // 71
-	{ "piccolo",						NULL }, // 72
-	{ "flute",							NULL }, // 73
-	{ "recorder",						NULL }, // 74
-	{ "pan_flute",						NULL }, // 75
-	{ "blow_bottle",					NULL }, // 76
-	{ "shakuhachi",						NULL }, // 77
-	{ "whistle",						NULL }, // 78
-	{ "ocarina",						NULL }, // 79
-	{ "lead1_square",					NULL }, // 80
-	{ "lead2_sawtooth",					NULL }, // 81
-	{ "lead3_calliope",					NULL }, // 82
-	{ "lead4_chiff",					NULL }, // 83
-	{ "lead5_chanrang",					NULL }, // 84
-	{ "lead6_voice",					NULL }, // 85
-	{ "lead7_fifths",					NULL }, // 86
-	{ "lead8_bass",						NULL }, // 87
-	{ "pad1_new_age",					NULL }, // 88
-	{ "pad2_warm",						NULL }, // 89
-	{ "pad3_polysynth",					NULL }, // 90
-	{ "pad4_choir",						NULL }, // 91
-	{ "pad5_bowed",						NULL }, // 92
-	{ "pad6_metalic",					NULL }, // 93
-	{ "pad7_halo",						NULL }, // 94
-	{ "pad8_sweep",						NULL }, // 95
-	{ "fx1_rain",						NULL }, // 96
-	{ "fx2_soundtrack",					NULL }, // 97
-	{ "fx3_crystal",					NULL }, // 98
-	{ "fx4_atmosphere",					NULL }, // 99
-	{ "fx5_brightness",					NULL }, // 100
-	{ "fx6_goblins",					NULL }, // 101
-	{ "fx7_echoes",						NULL }, // 102
-	{ "fx8_sci_fi",						NULL }, // 103
-	{ "sitar",							NULL }, // 104
-	{ "banjo",							NULL }, // 105
-	{ "shamisen",						NULL }, // 106
-	{ "koto",							NULL }, // 107
-	{ "kalimba",						NULL }, // 108
-	{ "bag_pipe",						NULL }, // 109
-	{ "fiddle",							NULL }, // 110
-	{ "shanai",							NULL }, // 111
-	{ "tinkle_bell",					NULL }, // 112
-	{ "agogo",							NULL }, // 113
-	{ "steel_drums",					NULL }, // 114
-	{ "woodblock",						NULL }, // 115
-	{ "taiko_drum",						NULL }, // 116
-	{ "melodic_tom",					NULL }, // 117
-	{ "synth_drum",						NULL }, // 118
-	{ "reverse_cymbal",					NULL }, // 119
-	{ "guitar_flet_noise",				NULL }, // 120
-	{ "breath_noise",					NULL }, // 121
-	{ "seashore",						NULL }, // 122
-	{ "bird_tweet",						NULL }, // 123
-	{ "telephone_ring",					NULL }, // 124
-	{ "helicopter",						NULL }, // 125
-	{ "applause",						NULL }, // 126
-	{ "gunshot",						NULL },	// 127
+	// Piano
+	{ "acoustic_piano",				"Acoustic Piano",			NULL }, // 0
+	{ "bright_piano",				"Bright Piano",				NULL }, // 1
+	{ "electric_grand_piano",		"Electric Grand Piano",		NULL }, // 2
+	{ "honky_tonk_piano",			"Honky-tonk Piano",			NULL }, // 3
+	{ "electric_piano",				"Electric Piano",			NULL }, // 4
+	{ "electric_piano_2",			"Electric Piano 2",			NULL }, // 5
+	{ "harpsichord",				"Harpsichord",				NULL }, // 6
+	{ "clavi",						"Clavi",					NULL }, // 7
+	// Chromatic Percussion
+	{ "celesta",					"Celesta",					NULL }, // 8
+	{ "glockenspiel",				"Glockenspiel",				NULL }, // 9
+	{ "musical_box",				"Musical box",				NULL }, // 10
+	{ "vibraphone",					"Vibraphone",				NULL }, // 11
+	{ "marimba",					"Marimba",					NULL }, // 12
+	{ "xylophone",					"Xylophone",				NULL }, // 13
+	{ "tubular_bell",				"Tubular Bell",				NULL }, // 14
+	{ "dulcimer",					"Dulcimer",					NULL }, // 15
+	// Organ
+	{ "drawbar_organ",				"Drawbar Organ",			NULL }, // 16
+	{ "percussive_organ",			"Percussive Organ",			NULL }, // 17
+	{ "rock_organ",					"Rock Organ",				NULL }, // 18
+	{ "church_organ",				"Church organ",				NULL }, // 19
+	{ "reed_organ",					"Reed organ",				NULL }, // 20
+	{ "accordion",					"Accordion",				NULL }, // 21
+	{ "harmonica",					"Harmonica",				NULL }, // 22
+	{ "tango_accordion",			"Tango Accordion",			NULL }, // 23
+	// Guitar
+	{ "acoustic_guitar_nylon",		"Acoustic Guitar (nylon)",	NULL }, // 24
+	{ "acoustic_guitar_steel",		"Acoustic Guitar (steel)",	NULL }, // 25
+	{ "electric_guitar_jazz",		"Electric Guitar (jazz)",	NULL }, // 26
+	{ "electric_guitar_clean",		"Electric Guitar (clean)",	NULL }, // 27
+	{ "electric_guitar_muted",		"Electric Guitar (muted)",	NULL }, // 28
+	{ "overdriven_guitar",			"Overdriven Guitar",		NULL }, // 29
+	{ "distortion_guitar",			"Distortion Guitar",		NULL }, // 30
+	{ "guitar_harmonics",			"Guitar harmonics",			NULL }, // 31
+	// Bass
+	{ "acoustic_bass",				"Acoustic Bass",			NULL }, // 32
+	{ "electric_bass_finger",		"Electric Bass (finger)",	NULL }, // 33
+	{ "electric_bass_pick",			"Electric Bass (pick)",		NULL }, // 34
+	{ "fretless_bass",				"Fretless Bass",			NULL }, // 35
+	{ "slap_bass_1",				"Slap Bass 1",				NULL }, // 36
+	{ "slap_bass_2",				"Slap Bass 2",				NULL }, // 37
+	{ "synth_bass_1",				"Synth Bass 1",				NULL }, // 38
+	{ "synth_bass_2",				"Synth Bass 2",				NULL }, // 39
+	// Strings
+	{ "violin",						"Violin",					NULL }, // 40
+	{ "viola",						"Viola",					NULL }, // 41
+	{ "cello",						"Cello",					NULL }, // 42
+	{ "double_bass",				"Double bass",				NULL }, // 43
+	{ "tremolo_strings",			"Tremolo Strings",			NULL }, // 44
+	{ "pizzicato_strings",			"Pizzicato Strings",		NULL }, // 45
+	{ "orchestral_harp",			"Orchestral Harp",			NULL }, // 46
+	{ "timpani",					"Timpani",					NULL }, // 47
+	// Ensemble
+	{ "string_ensemble_1",			"String Ensemble 1",		NULL }, // 48
+	{ "string_ensemble_2",			"String Ensemble 2",		NULL }, // 49
+	{ "synth_strings_1",			"Synth Strings 1",			NULL }, // 50
+	{ "synth_strings_2",			"Synth Strings 2",			NULL }, // 51
+	{ "voice_aahs",					"Voice Aahs",				NULL }, // 52
+	{ "voice_oohs",					"Voice Oohs",				NULL }, // 53
+	{ "synth_voice",				"Synth Voice",				NULL }, // 54
+	{ "orchestra_hit",				"Orchestra Hit",			NULL }, // 55
+	// Brass
+	{ "trumpet",					"Trumpet",					NULL }, // 56
+	{ "trombone",					"Trombone",					NULL }, // 57
+	{ "tuba",						"Tuba",						NULL }, // 58
+	{ "muted_trumpet",				"Muted Trumpet",			NULL }, // 59
+	{ "french_horn",				"French horn",				NULL }, // 60
+	{ "brass_section",				"Brass Section",			NULL }, // 61
+	{ "synth_brass_1",				"Synth Brass 1",			NULL }, // 62
+	{ "synth_brass_2",				"Synth Brass 2",			NULL }, // 63
+	// Reed
+	{ "soprano_sax",				"Soprano Sax",				NULL }, // 64
+	{ "alto_sax",					"Alto Sax",					NULL }, // 65
+	{ "tenor_sax",					"Tenor Sax",				NULL }, // 66
+	{ "baritone_sax",				"Baritone Sax",				NULL }, // 67
+	{ "oboe",						"Oboe",						NULL }, // 68
+	{ "english_horn",				"English Horn",				NULL }, // 69
+	{ "bassoon",					"Bassoon",					NULL }, // 70
+	{ "clarinet",					"Clarinet",					NULL }, // 71
+	// Pipe
+	{ "piccolo",					"Piccolo",					NULL }, // 72
+	{ "flute",						"Flute",					NULL }, // 73
+	{ "recorder",					"Recorder",					NULL }, // 74
+	{ "pan_flute",					"Pan Flute",				NULL }, // 75
+	{ "blown_bottle",				"Blown Bottle",				NULL }, // 76
+	{ "shakuhachi",					"Shakuhachi",				NULL }, // 77
+	{ "whistle",					"Whistle",					NULL }, // 78
+	{ "ocarina",					"Ocarina",					NULL }, // 79
+	// Synth Lead
+	{ "lead_1_square",				"Lead 1 (square)",			NULL }, // 80
+	{ "lead_2_sawtooth",			"Lead 2 (sawtooth)",		NULL }, // 81
+	{ "lead_3_calliope",			"Lead 3 (calliope)",		NULL }, // 82
+	{ "lead_4_chiff",				"Lead 4 (chiff)",			NULL }, // 83
+	{ "lead_5_charang",				"Lead 5 (charang)",			NULL }, // 84
+	{ "lead_6_voice",				"Lead 6 (voice)",			NULL }, // 85
+	{ "lead_7_fifths",				"Lead 7 (fifths)",			NULL }, // 86
+	{ "lead_8_bass_+_lead",			"Lead 8 (bass + lead)",		NULL }, // 87
+	// Synth Pad
+	{ "pad_1_fantasia",				"Pad 1 (Fantasia)",			NULL }, // 88
+	{ "pad_2_warm",					"Pad 2 (warm)",				NULL }, // 89
+	{ "pad_3_polysynth",			"Pad 3 (polysynth)",		NULL }, // 90
+	{ "pad_4_choir",				"Pad 4 (choir)",			NULL }, // 91
+	{ "pad_5_bowed",				"Pad 5 (bowed)",			NULL }, // 92
+	{ "pad_6_metallic",				"Pad 6 (metallic)",			NULL }, // 93
+	{ "pad_7_halo",					"Pad 7 (halo)",				NULL }, // 94
+	{ "pad_8_sweep",				"Pad 8 (sweep)",			NULL }, // 95
+	// Synth Effects
+	{ "fx_1_rain",					"FX 1 (rain)",				NULL }, // 96
+	{ "fx_2_soundtrack",			"FX 2 (soundtrack)",		NULL }, // 97
+	{ "fx_3_crystal",				"FX 3 (crystal)",			NULL }, // 98
+	{ "fx_4_atmosphere",			"FX 4 (atmosphere)",		NULL }, // 99
+	{ "fx_5_brightness",			"FX 5 (brightness)",		NULL }, // 100
+	{ "fx_6_goblins",				"FX 6 (goblins)",			NULL }, // 101
+	{ "fx_7_echoes",				"FX 7 (echoes)",			NULL }, // 102
+	{ "fx_8_sci_fi",				"FX 8 (sci-fi)",			NULL }, // 103
+	// Ethnic
+	{ "sitar",						"Sitar",					NULL }, // 104
+	{ "banjo",						"Banjo",					NULL }, // 105
+	{ "shamisen",					"Shamisen",					NULL }, // 106
+	{ "koto",						"Koto",						NULL }, // 107
+	{ "kalimba",					"Kalimba",					NULL }, // 108
+	{ "bagpipe",					"Bagpipe",					NULL }, // 109
+	{ "fiddle",						"Fiddle",					NULL }, // 110
+	{ "shanai",						"Shanai",					NULL }, // 111
+	// Percussive
+	{ "tinkle_bell",				"Tinkle Bell",				NULL }, // 112
+	{ "agogo",						"Agogo",					NULL }, // 113
+	{ "steel_drums",				"Steel Drums",				NULL }, // 114
+	{ "woodblock",					"Woodblock",				NULL }, // 115
+	{ "taiko_drum",					"Taiko Drum",				NULL }, // 116
+	{ "melodic_tom",				"Melodic Tom",				NULL }, // 117
+	{ "synth_drum",					"Synth Drum",				NULL }, // 118
+	{ "reverse_cymbal",				"Reverse Cymbal",			NULL }, // 119
+	// Sound effects
+	{ "guitar_fret_noise",			"Guitar Fret Noise",		NULL }, // 120
+	{ "breath_noise",				"Breath Noise",				NULL }, // 121
+	{ "seashore",					"Seashore",					NULL }, // 122
+	{ "bird_tweet",					"Bird Tweet",				NULL }, // 123
+	{ "telephone_ring",				"Telephone Ring",			NULL }, // 124
+	{ "helicopter",					"Helicopter",				NULL }, // 125
+	{ "applause",					"Applause",					NULL }, // 126
+	{ "gunshot",					"Gunshot",					NULL }, // 127
 };
 
 //-----------------------------------------------------------------------------
