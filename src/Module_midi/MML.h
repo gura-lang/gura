@@ -17,7 +17,8 @@ public:
 private:
 	enum Stat {
 		STAT_Begin,
-		STAT_Repeat, STAT_RepeatNumPre, STAT_RepeatNum, STAT_RepeatNumFix,
+		STAT_RepeatBlock1st, STAT_RepeatBlock2nd,
+		STAT_RepeatNumPre, STAT_RepeatNum, STAT_RepeatNumFix,
 		STAT_Note, STAT_NoteLengthPre, STAT_NoteLength, STAT_NoteFix, STAT_NotePost,
 		STAT_ChannelMaybe, STAT_ChannelPre, STAT_Channel, STAT_ChannelFix,
 		STAT_RestLengthPre, STAT_RestLength, STAT_RestFix,
@@ -31,14 +32,17 @@ private:
 	private:
 		Stat _stat;
 		int _blockLevel;
-		String _strBlock;
+		String _strBlock1st;
+		String _strBlock2nd;
 	public:
 		inline StateMachine() : _stat(STAT_Begin), _blockLevel(0) {}
 		inline Stat GetStat() const { return _stat; }
 		inline void SetStat(Stat stat) { _stat = stat; }
+		inline int GetBlockLevel() const { return _blockLevel; }
 		inline void IncBlockLevel() { _blockLevel++; }
 		inline int DecBlockLevel() { --_blockLevel; return _blockLevel; }
-		inline String &GetStrBlock() { return _strBlock; }
+		inline String &GetStrBlock1st() { return _strBlock1st; }
+		inline String &GetStrBlock2nd() { return _strBlock2nd; }
 	};
 	class StateMachineStack : public std::vector<StateMachine *> {
 	public:

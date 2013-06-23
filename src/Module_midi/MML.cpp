@@ -72,9 +72,10 @@ bool MML::FeedChar(Signal sig, int ch)
 			} else if (ch == ':') {
 				_colonFlag = true;
 			} else if (ch == '[') {
-				pStateMachine->GetStrBlock().clear();
+				pStateMachine->GetStrBlock1st().clear();
+				pStateMachine->GetStrBlock2nd().clear();
 				pStateMachine->IncBlockLevel();
-				pStateMachine->SetStat(STAT_Repeat);
+				pStateMachine->SetStat(STAT_RepeatBlock1st);
 			} else if (ch == 'C') {
 				pStateMachine->SetStat(STAT_ChannelMaybe);
 			} else if ('A' <= ch && ch <= 'G') {
@@ -124,26 +125,59 @@ bool MML::FeedChar(Signal sig, int ch)
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
-				sig.SetError(ERR_FormatError, "invalid character for MML");
+				sig.SetError(ERR_FormatError, "invalid character for MML: %c", ch);
 				return false;
 			}
 			break;
 		}
-		case STAT_Repeat: {
+		case STAT_RepeatBlock1st: {
 			if (ch == '[') {
-				pStateMachine->GetStrBlock().push_back(ch);
+				pStateMachine->GetStrBlock1st().push_back(chRaw);
 				pStateMachine->IncBlockLevel();
+			} else if (ch == '/') {
+				if (pStateMachine->GetBlockLevel() == 1) {
+					pStateMachine->SetStat(STAT_RepeatBlock2nd);
+				} else {
+					pStateMachine->GetStrBlock1st().push_back(chRaw);
+				}
 			} else if (ch == ']') {
 				if (pStateMachine->DecBlockLevel() == 0) {
 					_numAccum = 0;
 					pStateMachine->SetStat(STAT_RepeatNumPre);
 				} else {
-					pStateMachine->GetStrBlock().push_back(ch);
+					pStateMachine->GetStrBlock1st().push_back(chRaw);
 				}
 			} else if (IsEOD(ch)) {
-				// nothing to do
+				sig.SetError(ERR_FormatError, "unmatched block brackets");
+				return false;
 			} else {
-				pStateMachine->GetStrBlock().push_back(ch);
+				pStateMachine->GetStrBlock1st().push_back(chRaw);
+			}
+			break;
+		}
+		case STAT_RepeatBlock2nd: {
+			if (ch == '[') {
+				pStateMachine->GetStrBlock2nd().push_back(chRaw);
+				pStateMachine->IncBlockLevel();
+			} else if (ch == '/') {
+				if (pStateMachine->GetBlockLevel() == 1) {
+					sig.SetError(ERR_FormatError, "slash can only appear once in a repeat block");
+					return false;
+				} else {
+					pStateMachine->GetStrBlock2nd().push_back(chRaw);
+				}
+			} else if (ch == ']') {
+				if (pStateMachine->DecBlockLevel() == 0) {
+					_numAccum = 0;
+					pStateMachine->SetStat(STAT_RepeatNumPre);
+				} else {
+					pStateMachine->GetStrBlock2nd().push_back(chRaw);
+				}
+			} else if (IsEOD(ch)) {
+				sig.SetError(ERR_FormatError, "unmatched block brackets");
+				return false;
+			} else {
+				pStateMachine->GetStrBlock2nd().push_back(chRaw);
 			}
 			break;
 		}
@@ -169,10 +203,17 @@ bool MML::FeedChar(Signal sig, int ch)
 			break;
 		}
 		case STAT_RepeatNumFix: {
-			int cnt = static_cast<int>(_numAccum);
-			while (cnt-- > 0) {
+			for (int cnt = static_cast<int>(_numAccum); cnt > 0; cnt--) {
 				_stateMachineStack.push_back(new StateMachine());
-				if (!ParseString(sig, pStateMachine->GetStrBlock().c_str())) return false;
+				if (!ParseString(sig, pStateMachine->GetStrBlock1st().c_str())) {
+					return false;
+				}
+				if (cnt > 1) {
+					_stateMachineStack.push_back(new StateMachine());
+					if (!ParseString(sig, pStateMachine->GetStrBlock2nd().c_str())) {
+						return false;
+					}
+				}
 			}
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
