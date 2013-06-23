@@ -377,8 +377,8 @@ void Object_Context::DrawGrayOnImage(Image *pImage, int x, int y,
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_Context
 //-----------------------------------------------------------------------------
-// freetype.Context.New(stream:stream, face_index:number => 0):map {block?}
-Gura_DeclareClassMethod(Context, New)
+// freetype.Context(stream:stream, face_index:number => 0):map {block?}
+Gura_DeclareFunction(Context)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream);
@@ -388,7 +388,7 @@ Gura_DeclareClassMethod(Context, New)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementClassMethod(Context, New)
+Gura_ImplementFunction(Context)
 {
 	AutoPtr<Stream> pStream(Stream::Reference(&args.GetStream(0)));
 	int index = args.GetInt(1);
@@ -580,7 +580,7 @@ Gura_ImplementMethod(Context, calcbbox)
 // implementation of class Context
 Gura_ImplementUserClass(Context)
 {
-	Gura_AssignMethod(Context, New);
+	Gura_AssignFunction(Context);
 	Gura_AssignMethod(Context, setcolor);
 	Gura_AssignMethod(Context, setalpha);
 	Gura_AssignMethod(Context, setstrength);

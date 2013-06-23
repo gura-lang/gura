@@ -2,6 +2,7 @@
 import(modbuild)
 srcs = [
 'Module_freetype.cpp'
+'Object_Context.cpp'
 'Object_BDF_Property.cpp'
 'Object_BBox.cpp'
 'Object_Vector.cpp'
@@ -12,7 +13,6 @@ srcs = [
 'Object_Outline.cpp'
 'Object_Raster.cpp'
 'Object_Span.cpp'
-'Object_Face.cpp'
 'Object_Stroker.cpp'
 'Object_FTC_CMapCache.cpp'
 'Object_FTC_ImageCache.cpp'

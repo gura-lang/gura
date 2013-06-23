@@ -64,11 +64,11 @@ FT_ULong Handler::ReadStub(FT_Stream streamFT,
 // Gura interfaces for Object_image
 // These methods are available after importing freetype module.
 //-----------------------------------------------------------------------------
-// image#drawtext(face:freetype.Face, x:number, y:number, str:string):map:reduce
+// image#drawtext(face:freetype.Context, x:number, y:number, str:string):map:reduce
 Gura_DeclareMethod(image, drawtext)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
-	DeclareArg(env, "face", VTYPE_Face);
+	DeclareArg(env, "context", VTYPE_Context);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "str", VTYPE_string);
@@ -78,11 +78,11 @@ Gura_DeclareMethod(image, drawtext)
 Gura_ImplementMethod(image, drawtext)
 {
 	Object_image *pObjImage = Object_image::GetThisObj(args);
-	Object_Face *pObjFace = Object_Face::GetObject(args, 0);
+	Object_Context *pObjContext = Object_Context::GetObject(args, 0);
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	String str = args.GetStringSTL(3);
-	if (pObjFace->DrawOnImage(sig, pObjImage->GetImage(), x, y, str)) return Value::Null;
+	if (pObjContext->DrawOnImage(sig, pObjImage->GetImage(), x, y, str)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementFunction(test)
 {
 	//Handler handler(sig, args.GetStream(0));
 	//FT_Face face;
-	//handler.OpenFace(sig, 0, &face);
+	//handler.OpenContext(sig, 0, &face);
 	//printf("%s\n", face->family_name);
 #if 0
 	FT_Face face;
@@ -520,6 +520,7 @@ Gura_ModuleEntry()
 	Gura_AssignRawValue(TT_PLATFORM_CUSTOM);
 	Gura_AssignRawValue(TT_PLATFORM_ADOBE);
 	// class realization
+	Gura_RealizeUserClass(Context, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(BDF_Property, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(BBox, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Vector, env.LookupClass(VTYPE_object));
@@ -530,7 +531,6 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(Outline, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Raster, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Span, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(Face, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Stroker, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(FTC_CMapCache, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(FTC_ImageCache, env.LookupClass(VTYPE_object));
@@ -540,8 +540,6 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(FTC_SBit, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(FTC_SBitCache, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(FTC_Scaler, env.LookupClass(VTYPE_object));
-	// class assignment
-	Gura_AssignValue(Face, Value(Gura_UserClass(Face)));
 	// method assignment to image type
 	Gura_AssignMethodTo(VTYPE_image, image, drawtext);
 	// function assignment
