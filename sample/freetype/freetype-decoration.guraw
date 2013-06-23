@@ -5,14 +5,15 @@ import(freetype)
 
 scope {
 	img = image(`rgb, 700, 480, `white)
-	face = freetype.Face.New(freetype.sysfontpath('msgothic.ttc'), 1).setheight(32).setcolor(`black)
+	ctx = freetype.Context(freetype.sysfontpath('msgothic.ttc'), 1)
+	ctx.setheight(32).setcolor(`black)
 	repeat (10) {|i|
-		face.setstrength(0).setslant(0)
-		img.drawtext(face, 10, face.height:pixel * (i + 1), '%.1f' % (i * .1))
-		face.setstrength(0).setslant(i * .1)
-		img.drawtext(face, 60, face.height:pixel * (i + 1), 'あいうえお Hello world')
-		face.setstrength(i * .1).setslant(0)
-		img.drawtext(face, 380, face.height:pixel * (i + 1), 'あいうえお Hello world')
+		ctx.setstrength(0).setslant(0)
+		img.drawtext(ctx, 10, ctx.height:pixel * (i + 1), '%.1f' % (i * .1))
+		ctx.setstrength(0).setslant(i * .1)
+		img.drawtext(ctx, 60, ctx.height:pixel * (i + 1), 'あいうえお Hello world')
+		ctx.setstrength(i * .1).setslant(0)
+		img.drawtext(ctx, 380, ctx.height:pixel * (i + 1), 'あいうえお Hello world')
 	}
 	img.show()
 }

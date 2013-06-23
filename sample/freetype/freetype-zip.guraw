@@ -7,10 +7,12 @@ I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 
 img = image(`rgb, 160, 120, `black)
 
-face = freetype.Face.New(I('zippedfont.zip/Kaufmann_Bold_BT.ttf')).setheight(32).setcolor(`white)
-img.drawtext(face, 0, face.height:pixel, 'Hello world')
-
-face = freetype.Face.New(I('Kaufmann_Bold_BT.ttf')).setheight(32).setcolor(`white)
-img.drawtext(face, 0, face.height:pixel * 2, 'Hello world')
-
+freetype.Context(I('zippedfont.zip/Kaufmann_Bold_BT.ttf')) {|ctx|
+	ctx.setheight(32).setcolor(`white)
+	img.drawtext(ctx, 0, ctx.height:pixel, 'Hello world')
+}
+freetype.Context(I('Kaufmann_Bold_BT.ttf')) {|ctx|
+	ctx.setheight(32).setcolor(`white)
+	img.drawtext(ctx, 0, ctx.height:pixel * 2, 'Hello world')
+}
 img.show()

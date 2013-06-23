@@ -4,5 +4,5 @@ import(freetype)
 
 pathnames = path.dir(freetype.sysfontpath(), '*.ttc', '*.ttf'):icase
 filenames = path.filename(pathnames)
-fts = freetype.Face.New(pathnames)
-printf('%-*s %s\n', filenames:*len().max(), filenames, fts:*family_name)
+ctxs = freetype.Context(pathnames)
+printf('%-*s %s\n', filenames:*len().max(), filenames, ctxs:*family_name)
