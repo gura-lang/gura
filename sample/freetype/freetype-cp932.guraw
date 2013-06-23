@@ -7,9 +7,11 @@ F(filename:string) = path.join(sys.datadir, 'test', filename)
 
 scope {
 	lines = (open(F('chars-cp932.txt'), 'r', 'cp932').readlines():chop):list
-	face = freetype.Face.New(freetype.sysfontpath('msgothic.ttc'), 0).setheight(40).setcolor(`white)
-	img = image(`rgb, face.height:pixel * 32, lines.len() * face.height:pixel, `black)
-	img.drawtext(face, 0, (1..) * face.height:pixel, lines)
+	freetype.Context(freetype.sysfontpath('msgothic.ttc'), 0) {|ctx|
+		ctx.setheight(40).setcolor(`white)
+		img = image(`rgb, ctx.height:pixel * 32, lines.len() * ctx.height:pixel, `black)
+		img.drawtext(ctx, 0, (1..) * ctx.height:pixel, lines)
+	}
 	img.write('freetype-cp932.png')
 	println('freetype-cp932.png was created')
 	img.show()
