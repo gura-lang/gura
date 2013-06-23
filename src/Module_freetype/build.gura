@@ -5,6 +5,7 @@ srcs = [
 'Object_Context.cpp'
 'Object_BDF_Property.cpp'
 'Object_BBox.cpp'
+'Object_Face.cpp'
 'Object_Vector.cpp'
 'Object_Matrix.cpp'
 'Object_Bitmap.cpp'

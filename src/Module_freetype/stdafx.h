@@ -5,6 +5,7 @@
 #include "Object_Context.h"
 #include "Object_BDF_Property.h"
 #include "Object_BBox.h"
+#include "Object_Face.h"
 #include "Object_Vector.h"
 #include "Object_Matrix.h"
 #include "Object_Bitmap.h"

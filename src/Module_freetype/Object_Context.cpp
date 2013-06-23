@@ -7,7 +7,6 @@ Gura_BeginModule(freetype)
 //-----------------------------------------------------------------------------
 Object_Context::~Object_Context()
 {
-	delete _pHandler;
 	::FT_Done_Face(_face);
 }
 
@@ -19,100 +18,12 @@ Object *Object_Context::Clone() const
 bool Object_Context::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(num_faces));
-	symbols.insert(Gura_UserSymbol(face_index));
-	symbols.insert(Gura_UserSymbol(family_name));
-	symbols.insert(Gura_UserSymbol(style_name));
-	symbols.insert(Gura_UserSymbol(bbox));
-	symbols.insert(Gura_UserSymbol(ascender));
-	symbols.insert(Gura_UserSymbol(descender));
-	symbols.insert(Gura_UserSymbol(height));
 	return true;
 }
 
 Value Object_Context::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	evaluatedFlag = true;
-	double y_ppem = _face->size->metrics.y_ppem;// pixels/EM
-	double units_per_EM = _face->units_per_EM;	// fontUnits/EM (typically 2048 or 1000)
-	if (pSymbol->IsIdentical(Gura_UserSymbol(num_faces))) {
-		return Value(_face->num_faces);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_index))) {
-		return Value(_face->face_index);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(face_flags))) {
-		return Value(_face->face_flags);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(style_flags))) {
-		return Value(_face->style_flags);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_glyphs))) {
-		return Value(_face->num_glyphs);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(family_name))) {
-		if (_face->family_name == NULL) return Value::Null;
-		return Value(env, _face->family_name);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(style_name))) {
-		if (_face->style_name == NULL) return Value::Null;
-		return Value(env, _face->style_name);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_fixed_sizes))) {
-		return Value(_face->num_fixed_sizes);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(available_sizes))) {
-		//_face->num_fixed_sizes
-		//_face->available_sizes
-		return Value::Null;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_charmaps))) {
-		return Value::Null;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(charmaps))) {
-		return Value::Null;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(generic))) {
-		return Value::Null;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(bbox))) {
-		return Value::CreateAsList(env,
-				Value(_face->bbox.xMin), Value(_face->bbox.yMin),
-				Value(_face->bbox.xMax), Value(_face->bbox.yMax)); // font_units
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(units_per_EM))) {
-		return Value(_face->units_per_EM);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ascender))) {
-		if (attrs.IsSet(Gura_UserSymbol(pixel))) {
-			return Value(_face->ascender * y_ppem / units_per_EM);
-		}
-		return Value(_face->ascender); // font_units
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(descender))) {
-		if (attrs.IsSet(Gura_UserSymbol(pixel))) {
-			return Value(_face->descender * y_ppem / units_per_EM);
-		}
-		return Value(_face->descender); // font_units
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
-		if (attrs.IsSet(Gura_UserSymbol(pixel))) {
-			return Value(_face->height * y_ppem / units_per_EM);
-		}
-		return Value(_face->height); // font_units
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(max_advance_width))) {
-		if (attrs.IsSet(Gura_UserSymbol(pixel))) {
-			return Value(_face->max_advance_width * y_ppem / units_per_EM);
-		}
-		return Value(_face->max_advance_width); // font_units
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(max_advance_height))) {
-		if (attrs.IsSet(Gura_UserSymbol(pixel))) {
-			return Value(_face->max_advance_height * y_ppem / units_per_EM);
-		}
-		return Value(_face->max_advance_height); // font_units
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(underline_position))) {
-		if (attrs.IsSet(Gura_UserSymbol(pixel))) {
-			return Value(_face->underline_position * y_ppem / units_per_EM);
-		}
-		return Value(_face->underline_position); // font_units
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(underline_thickness))) {
-		if (attrs.IsSet(Gura_UserSymbol(pixel))) {
-			return Value(_face->underline_thickness * y_ppem / units_per_EM);
-		}
-		return Value(_face->underline_thickness); // font_units
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(glyph))) {
-		return Value::Null;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
-		return Value::Null;
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(charmap))) {
-		return Value::Null;
-	}
-	evaluatedFlag = false;
 	return Value::Null;
 }
 
@@ -137,8 +48,8 @@ String Object_Context::ToString(Signal sig, bool exprFlag)
 
 bool Object_Context::Initialize(Signal sig, Stream *pStream, int index)
 {
-	_pHandler = new Handler(sig, Stream::Reference(pStream));
-	return _pHandler->OpenFace(sig, index, &_face);
+	std::auto_ptr<Handler> pHandler(new Handler(sig, Stream::Reference(pStream)));
+	return pHandler->OpenFace(sig, index, &_face);
 }
 
 bool Object_Context::SetPixelSizes(Signal sig, size_t width, size_t height)

@@ -12,7 +12,6 @@ class Object_Context : public Object {
 public:
 	Gura_DeclareObjectAccessor(Context)
 private:
-	Handler *_pHandler;
 	FT_Face _face;
 	Color _color;
 	unsigned char _alpha;
@@ -25,7 +24,7 @@ private:
 	} _deco;
 public:
 	inline Object_Context() : Object(Gura_UserClass(Context)),
-								_pHandler(NULL), _face(NULL), _alpha(255) {
+											_face(NULL), _alpha(255) {
 		ClearDeco();
 	}
 	virtual ~Object_Context();
