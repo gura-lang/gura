@@ -1096,7 +1096,7 @@ Gura_ImplementMethod(content, play)
 {
 	Content &content = Object_content::GetThisObj(args)->GetContent();
 	Port *pPort = Object_port::GetObject(args, 0)->GetPort();
-	double speed = args.GetDouble(1);
+	double speed = args.IsNumber(1)? args.GetDouble(1) : 1;
 	content.Play(sig, pPort, speed);
 	return args.GetThis();
 }
