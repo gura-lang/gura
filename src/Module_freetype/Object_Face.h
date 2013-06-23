@@ -1,16 +1,16 @@
-#ifndef __FREETYPE_OBJECT_FACE_H__
-#define __FREETYPE_OBJECT_FACE_H__
+#ifndef __FREETYPE_OBJECT_CONTEXT_H__
+#define __FREETYPE_OBJECT_CONTEXT_H__
 
 Gura_BeginModule(freetype)
 
 //-----------------------------------------------------------------------------
-// Object_Face declaration
+// Object_Context declaration
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(Face);
+Gura_DeclareUserClass(Context);
 
-class Object_Face : public Object {
+class Object_Context : public Object {
 public:
-	Gura_DeclareObjectAccessor(Face)
+	Gura_DeclareObjectAccessor(Context)
 private:
 	Handler *_pHandler;
 	FT_Face _face;
@@ -24,11 +24,11 @@ private:
 		} rotate;
 	} _deco;
 public:
-	inline Object_Face() : Object(Gura_UserClass(Face)),
+	inline Object_Context() : Object(Gura_UserClass(Context)),
 								_pHandler(NULL), _face(NULL), _alpha(255) {
 		ClearDeco();
 	}
-	virtual ~Object_Face();
+	virtual ~Object_Context();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,

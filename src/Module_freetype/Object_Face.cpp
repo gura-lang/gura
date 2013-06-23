@@ -3,20 +3,20 @@
 Gura_BeginModule(freetype)
 
 //-----------------------------------------------------------------------------
-// Object_Face implementation
+// Object_Context implementation
 //-----------------------------------------------------------------------------
-Object_Face::~Object_Face()
+Object_Context::~Object_Context()
 {
 	delete _pHandler;
 	::FT_Done_Face(_face);
 }
 
-Object *Object_Face::Clone() const
+Object *Object_Context::Clone() const
 {
-	return NULL; //new Object_Face(*this);
+	return NULL; //new Object_Context(*this);
 }
 
-bool Object_Face::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_Context::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(num_faces));
@@ -30,7 +30,7 @@ bool Object_Face::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_Face::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_Context::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -116,10 +116,10 @@ Value Object_Face::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-String Object_Face::ToString(Signal sig, bool exprFlag)
+String Object_Context::ToString(Signal sig, bool exprFlag)
 {
 	String str;
-	str = "<freetype.Face";
+	str = "<freetype.Context";
 	str += ":";
 	str += _face->family_name;
 	if (_face->style_name != NULL) {
@@ -135,13 +135,13 @@ String Object_Face::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
-bool Object_Face::Initialize(Signal sig, Stream *pStream, int index)
+bool Object_Context::Initialize(Signal sig, Stream *pStream, int index)
 {
 	_pHandler = new Handler(sig, Stream::Reference(pStream));
 	return _pHandler->OpenFace(sig, index, &_face);
 }
 
-bool Object_Face::SetPixelSizes(Signal sig, size_t width, size_t height)
+bool Object_Context::SetPixelSizes(Signal sig, size_t width, size_t height)
 {
 	FT_Error err = ::FT_Set_Pixel_Sizes(_face,
 				static_cast<FT_UInt>(width), static_cast<FT_UInt>(height));
@@ -152,7 +152,7 @@ bool Object_Face::SetPixelSizes(Signal sig, size_t width, size_t height)
 	return true;
 }
 
-bool Object_Face::CalcSize(Signal sig, const String &str, size_t &width, size_t &height)
+bool Object_Context::CalcSize(Signal sig, const String &str, size_t &width, size_t &height)
 {
 	int x = 0, y = 0;
 	String::const_iterator p = str.begin();
@@ -179,7 +179,7 @@ bool Object_Face::CalcSize(Signal sig, const String &str, size_t &width, size_t 
 	return true;
 }
 
-bool Object_Face::DrawOnImage(Signal sig,
+bool Object_Context::DrawOnImage(Signal sig,
 						Image *pImage, int x, int y, const String &str)
 {
 	unsigned long redFg = _color.GetRed();
@@ -217,7 +217,7 @@ bool Object_Face::DrawOnImage(Signal sig,
 	return true;
 }
 
-FT_GlyphSlot Object_Face::LoadChar(unsigned long codeUTF32)
+FT_GlyphSlot Object_Context::LoadChar(unsigned long codeUTF32)
 {
 	bool transformFlag = false;
 	FT_Matrix matrix;	// 16.16 fixed float
@@ -291,7 +291,7 @@ FT_GlyphSlot Object_Face::LoadChar(unsigned long codeUTF32)
 	return glyphSlot;
 }
 
-void Object_Face::DrawMonoOnImage(Image *pImage, int x, int y,
+void Object_Context::DrawMonoOnImage(Image *pImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset)
 {
@@ -329,7 +329,7 @@ void Object_Face::DrawMonoOnImage(Image *pImage, int x, int y,
 	}
 }
 
-void Object_Face::DrawGrayOnImage(Image *pImage, int x, int y,
+void Object_Context::DrawGrayOnImage(Image *pImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset)
 {
@@ -375,20 +375,20 @@ void Object_Face::DrawGrayOnImage(Image *pImage, int x, int y,
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_Face
+// Gura interfaces for Object_Context
 //-----------------------------------------------------------------------------
-// freetype.Face.New(stream:stream, face_index:number => 0):map {block?}
-Gura_DeclareClassMethod(Face, New)
+// freetype.Context.New(stream:stream, face_index:number => 0):map {block?}
+Gura_DeclareClassMethod(Context, New)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareArg(env, "face_index", VTYPE_number,
 						OCCUR_Once, FLAG_None, new Expr_Value(0));
-	//SetClassToConstruct(Gura_UserClass(Face));
+	//SetClassToConstruct(Gura_UserClass(Context));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementClassMethod(Face, New)
+Gura_ImplementClassMethod(Context, New)
 {
 	AutoPtr<Stream> pStream(Stream::Reference(&args.GetStream(0)));
 	int index = args.GetInt(1);
@@ -396,126 +396,126 @@ Gura_ImplementClassMethod(Face, New)
 		pStream.reset(Stream::Prefetch(env, sig, pStream.release(), true));
 		if (sig.IsSignalled()) return Value::Null;
 	}
-	AutoPtr<Object_Face> pObjFace(new Object_Face());
-	pObjFace->Initialize(sig, pStream.release(), index);
+	AutoPtr<Object_Context> pObjContext(new Object_Context());
+	pObjContext->Initialize(sig, pStream.release(), index);
 	if (sig.IsSignalled()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(pObjFace.release()));
+	return ReturnValue(env, sig, args, Value(pObjContext.release()));
 }
 
-// freetype.Face#setcolor(color:color)
-Gura_DeclareMethod(Face, setcolor)
+// freetype.Context#setcolor(color:color)
+Gura_DeclareMethod(Context, setcolor)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_color);
 }
 
-Gura_ImplementMethod(Face, setcolor)
+Gura_ImplementMethod(Context, setcolor)
 {
-	Object_Face *pThis = Object_Face::GetThisObj(args);
+	Object_Context *pThis = Object_Context::GetThisObj(args);
 	pThis->SetColor(Object_color::GetObject(args, 0)->GetColor());
 	return args.GetThis();
 }
 
-// freetype.Face#setalpha(alpha:number)
-Gura_DeclareMethod(Face, setalpha)
+// freetype.Context#setalpha(alpha:number)
+Gura_DeclareMethod(Context, setalpha)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "alpha", VTYPE_number);
 }
 
-Gura_ImplementMethod(Face, setalpha)
+Gura_ImplementMethod(Context, setalpha)
 {
-	Object_Face *pThis = Object_Face::GetThisObj(args);
+	Object_Context *pThis = Object_Context::GetThisObj(args);
 	pThis->SetAlpha(args.GetUChar(0));
 	return args.GetThis();
 }
 
-// freetype.Face#setstrength(strength:number)
-Gura_DeclareMethod(Face, setstrength)
+// freetype.Context#setstrength(strength:number)
+Gura_DeclareMethod(Context, setstrength)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "strength", VTYPE_number);
 }
 
-Gura_ImplementMethod(Face, setstrength)
+Gura_ImplementMethod(Context, setstrength)
 {
-	Object_Face *pThis = Object_Face::GetThisObj(args);
+	Object_Context *pThis = Object_Context::GetThisObj(args);
 	pThis->SetStrength(args.GetDouble(0));
 	return args.GetThis();
 }
 
-// freetype.Face#setslant(slant:number)
-Gura_DeclareMethod(Face, setslant)
+// freetype.Context#setslant(slant:number)
+Gura_DeclareMethod(Context, setslant)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "slant", VTYPE_number);
 }
 
-Gura_ImplementMethod(Face, setslant)
+Gura_ImplementMethod(Context, setslant)
 {
-	Object_Face *pThis = Object_Face::GetThisObj(args);
+	Object_Context *pThis = Object_Context::GetThisObj(args);
 	pThis->SetSlant(args.GetDouble(0));
 	return args.GetThis();
 }
 
-// freetype.Face#setrotate(degree:number)
-Gura_DeclareMethod(Face, setrotate)
+// freetype.Context#setrotate(degree:number)
+Gura_DeclareMethod(Context, setrotate)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "degree", VTYPE_number);
 }
 
-Gura_ImplementMethod(Face, setrotate)
+Gura_ImplementMethod(Context, setrotate)
 {
-	Object_Face *pThis = Object_Face::GetThisObj(args);
+	Object_Context *pThis = Object_Context::GetThisObj(args);
 	pThis->SetRotate(args.GetDouble(0));
 	return args.GetThis();
 }
 
-// freetype.Face#setsize(width:number, height:number)
-Gura_DeclareMethod(Face, setsize)
+// freetype.Context#setsize(width:number, height:number)
+Gura_DeclareMethod(Context, setsize)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "width", VTYPE_number);
 	DeclareArg(env, "height", VTYPE_number);
 }
 
-Gura_ImplementMethod(Face, setsize)
+Gura_ImplementMethod(Context, setsize)
 {
-	Object_Face *pThis = Object_Face::GetThisObj(args);
+	Object_Context *pThis = Object_Context::GetThisObj(args);
 	if (!pThis->SetPixelSizes(sig, args.GetSizeT(0), args.GetSizeT(1))) return Value::Null;
 	return args.GetThis();
 }
 
-// freetype.Face#setheight(height:number)
-Gura_DeclareMethod(Face, setheight)
+// freetype.Context#setheight(height:number)
+Gura_DeclareMethod(Context, setheight)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "height", VTYPE_number);
 }
 
-Gura_ImplementMethod(Face, setheight)
+Gura_ImplementMethod(Context, setheight)
 {
-	Object_Face *pThis = Object_Face::GetThisObj(args);
+	Object_Context *pThis = Object_Context::GetThisObj(args);
 	if (!pThis->SetPixelSizes(sig, 0, args.GetSizeT(0))) return Value::Null;
 	return args.GetThis();
 }
 
-// freetype.Face#cleardeco()
-Gura_DeclareMethod(Face, cleardeco)
+// freetype.Context#cleardeco()
+Gura_DeclareMethod(Context, cleardeco)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 }
 
-Gura_ImplementMethod(Face, cleardeco)
+Gura_ImplementMethod(Context, cleardeco)
 {
-	Object_Face *pThis = Object_Face::GetThisObj(args);
+	Object_Context *pThis = Object_Context::GetThisObj(args);
 	pThis->ClearDeco();
 	return args.GetThis();
 }
 
-// freetype.Face#drawtext(image:image, x:number, y:number, str:string):map:reduce
-Gura_DeclareMethod(Face, drawtext)
+// freetype.Context#drawtext(image:image, x:number, y:number, str:string):map:reduce
+Gura_DeclareMethod(Context, drawtext)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "image", VTYPE_image);
@@ -525,37 +525,37 @@ Gura_DeclareMethod(Face, drawtext)
 	AddHelp(Gura_Symbol(en), "Draws a text on the image.");
 }
 
-Gura_ImplementMethod(Face, drawtext)
+Gura_ImplementMethod(Context, drawtext)
 {
-	Object_Face *pObjFace = Object_Face::GetThisObj(args);
+	Object_Context *pObjContext = Object_Context::GetThisObj(args);
 	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	String str = args.GetStringSTL(3);
-	if (pObjFace->DrawOnImage(sig, pImage, x, y, str)) return Value::Null;
+	if (pObjContext->DrawOnImage(sig, pImage, x, y, str)) return Value::Null;
 	return args.GetThis();
 }
 
-// freetype.Face#calcsize(str:string):map
-Gura_DeclareMethod(Face, calcsize)
+// freetype.Context#calcsize(str:string):map
+Gura_DeclareMethod(Context, calcsize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 }
 
-Gura_ImplementMethod(Face, calcsize)
+Gura_ImplementMethod(Context, calcsize)
 {
-	Object_Face *pObjFace = Object_Face::GetThisObj(args);
+	Object_Context *pObjContext = Object_Context::GetThisObj(args);
 	String str = args.GetStringSTL(0);
 	size_t width, height;
-	if (!pObjFace->CalcSize(sig, str, width, height)) return Value::Null;
+	if (!pObjContext->CalcSize(sig, str, width, height)) return Value::Null;
 	return Value::CreateAsList(env, 
 			Value(static_cast<unsigned int>(width)),
 			Value(static_cast<unsigned int>(height)));
 }
 
-// freetype.Face#calcbbox(x:number, y:number, str:string):map
-Gura_DeclareMethod(Face, calcbbox)
+// freetype.Context#calcbbox(x:number, y:number, str:string):map
+Gura_DeclareMethod(Context, calcbbox)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
@@ -564,34 +564,34 @@ Gura_DeclareMethod(Face, calcbbox)
 }
 
 // ******************* still buggy
-Gura_ImplementMethod(Face, calcbbox)
+Gura_ImplementMethod(Context, calcbbox)
 {
-	Object_Face *pObjFace = Object_Face::GetThisObj(args);
+	Object_Context *pObjContext = Object_Context::GetThisObj(args);
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	String str = args.GetStringSTL(2);
 	size_t width, height;
-	if (!pObjFace->CalcSize(sig, str, width, height)) return Value::Null;
+	if (!pObjContext->CalcSize(sig, str, width, height)) return Value::Null;
 	return Value::CreateAsList(env,
-			Value(x), Value(y - pObjFace->GetFace()->ascender / 4),
+			Value(x), Value(y - pObjContext->GetFace()->ascender / 4),
 			Value(width), Value(height));
 }
 
-// implementation of class Face
-Gura_ImplementUserClass(Face)
+// implementation of class Context
+Gura_ImplementUserClass(Context)
 {
-	Gura_AssignMethod(Face, New);
-	Gura_AssignMethod(Face, setcolor);
-	Gura_AssignMethod(Face, setalpha);
-	Gura_AssignMethod(Face, setstrength);
-	Gura_AssignMethod(Face, setslant);
-	Gura_AssignMethod(Face, setrotate);
-	Gura_AssignMethod(Face, setsize);
-	Gura_AssignMethod(Face, setheight);
-	Gura_AssignMethod(Face, cleardeco);
-	Gura_AssignMethod(Face, drawtext);
-	Gura_AssignMethod(Face, calcsize);
-	Gura_AssignMethod(Face, calcbbox);
+	Gura_AssignMethod(Context, New);
+	Gura_AssignMethod(Context, setcolor);
+	Gura_AssignMethod(Context, setalpha);
+	Gura_AssignMethod(Context, setstrength);
+	Gura_AssignMethod(Context, setslant);
+	Gura_AssignMethod(Context, setrotate);
+	Gura_AssignMethod(Context, setsize);
+	Gura_AssignMethod(Context, setheight);
+	Gura_AssignMethod(Context, cleardeco);
+	Gura_AssignMethod(Context, drawtext);
+	Gura_AssignMethod(Context, calcsize);
+	Gura_AssignMethod(Context, calcbbox);
 }
 
 }}
