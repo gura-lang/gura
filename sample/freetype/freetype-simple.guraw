@@ -2,21 +2,21 @@
 import(tk)
 import(freetype)
 
-ctx = freetype.Context(freetype.sysfontpath('arial.ttf')).setheight(32)
+font = freetype.font(freetype.sysfontpath('arial.ttf')).setheight(32)
 img = image(`rgb, 640, 320, `white)
 
-img.drawtext(ctx, 10, ctx.height:pixel, 'normal')
+img.drawtext(font, 10, font.height:pixel, 'normal')
 
-ctx.cleardeco().setslant(.3)
-img.drawtext(ctx, 10, ctx.height:pixel * 2, 'slant')
+font.cleardeco().setslant(.3)
+img.drawtext(font, 10, font.height:pixel * 2, 'slant')
 
-ctx.cleardeco().setstrength(1)
-img.drawtext(ctx, 10, ctx.height:pixel * 3, 'strength')
+font.cleardeco().setstrength(1)
+img.drawtext(font, 10, font.height:pixel * 3, 'strength')
 
-ctx.cleardeco().setslant(.3).setstrength(1)
-img.drawtext(ctx, 10, ctx.height:pixel * 4, 'slant + strength')
+font.cleardeco().setslant(.3).setstrength(1)
+img.drawtext(font, 10, font.height:pixel * 4, 'slant + strength')
 
-ctx.cleardeco().setrotate(20)
-img.drawtext(ctx, 10, ctx.height:pixel * 6, 'rotate')
+font.cleardeco().setrotate(20)
+img.drawtext(font, 10, font.height:pixel * 6, 'rotate')
 
 img.show()

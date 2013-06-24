@@ -29,7 +29,8 @@ Value Object_font::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 String Object_font::ToString(Signal sig, bool exprFlag)
 {
 	String str;
-	str = "<freetype.font";
+	str = "<freetype.font:";
+	str += _pObjFace->ToString(sig, false);
 	str += ">";
 	return str;
 }

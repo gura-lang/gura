@@ -7,12 +7,12 @@ I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 
 img = image(`rgb, 160, 120, `black)
 
-freetype.Context(I('zippedfont.zip/Kaufmann_Bold_BT.ttf')) {|ctx|
-	ctx.setheight(32).setcolor(`white)
-	img.drawtext(ctx, 0, ctx.height:pixel, 'Hello world')
+freetype.font(I('zippedfont.zip/Kaufmann_Bold_BT.ttf')) {|font|
+	font.setheight(32).setcolor(`white)
+	img.drawtext(font, 0, font.height:pixel, 'Hello world')
 }
-freetype.Context(I('Kaufmann_Bold_BT.ttf')) {|ctx|
-	ctx.setheight(32).setcolor(`white)
-	img.drawtext(ctx, 0, ctx.height:pixel * 2, 'Hello world')
+freetype.font(I('Kaufmann_Bold_BT.ttf')) {|font|
+	font.setheight(32).setcolor(`white)
+	img.drawtext(font, 0, font.height:pixel * 2, 'Hello world')
 }
 img.show()
