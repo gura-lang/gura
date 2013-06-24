@@ -48,7 +48,7 @@ bool Object_font::SetPixelSizes(Signal sig, size_t width, size_t height)
 
 bool Object_font::CalcSize(Signal sig, const String &str, size_t &width, size_t &height)
 {
-	int x = 0, y = 0;
+	int xShifted = 0, yShifted = 0;
 	String::const_iterator p = str.begin();
 	int xMin = 0, xMax = 0, yMin = 0, yMax = 0;
 	do {
@@ -58,16 +58,16 @@ bool Object_font::CalcSize(Signal sig, const String &str, size_t &width, size_t 
 		FT_GlyphSlot glyphSlot = LoadChar(codeUTF32);
 		if (glyphSlot == NULL) continue;
 		FT_Bitmap &bitmap = glyphSlot->bitmap;
-		int xLeft = x + glyphSlot->bitmap_left;
-		int yTop = y - glyphSlot->bitmap_top;
+		int xLeft = (xShifted >> 6) + glyphSlot->bitmap_left;
+		int yTop = (yShifted >> 6)  - glyphSlot->bitmap_top;
 		int xRight = xLeft + bitmap.width;
 		int yBottom = yTop + bitmap.rows;
 		if (xMin > xLeft) xMin = xLeft;
 		if (xMax < xRight) xMax = xRight;
 		if (yMin > yTop) yMin = yTop;
 		if (yMax < yBottom) yMax = yBottom;
-		x += glyphSlot->advance.x >> 6;	// 26.6 fixed float
-		y += glyphSlot->advance.y >> 6;	// 26.6 fixed float
+		xShifted += glyphSlot->advance.x;	// 26.6 fixed float
+		yShifted += glyphSlot->advance.y;	// 26.6 fixed float
 	} while (p != str.end());
 	width = xMax - xMin, height = yMax - yMin;
 	return true;
@@ -80,6 +80,7 @@ bool Object_font::DrawOnImage(Signal sig,
 	unsigned long greenFg = _color.GetGreen();
 	unsigned long blueFg = _color.GetBlue();
 	String::const_iterator p = str.begin();
+	int xShifted = x << 6, yShifted = y << 6;
 	do {
 		unsigned long codeUTF32;
 		p = Gura::NextUTF32(str, p, codeUTF32);
@@ -88,8 +89,8 @@ bool Object_font::DrawOnImage(Signal sig,
 		if (glyphSlot == NULL) continue;
 		if (glyphSlot->format == FT_GLYPH_FORMAT_BITMAP) {
 			FT_Bitmap &bitmap = glyphSlot->bitmap;
-			int xOrg = x + glyphSlot->bitmap_left;
-			int yOrg = y - glyphSlot->bitmap_top;
+			int xOrg = (xShifted >> 6) + glyphSlot->bitmap_left;
+			int yOrg = (yShifted >> 6) - glyphSlot->bitmap_top;
 			int xAdj = xOrg, yAdj = yOrg;
 			int width = bitmap.width;
 			int height = bitmap.rows;
@@ -105,8 +106,8 @@ bool Object_font::DrawOnImage(Signal sig,
 							width, height, bitmap.pitch, xAdj - xOrg, yAdj - yOrg);
 			}
 		}
-		x += glyphSlot->advance.x >> 6;	// 26.6 fixed float
-		y += glyphSlot->advance.y >> 6;	// 26.6 fixed float
+		xShifted += glyphSlot->advance.x;	// 26.6 fixed float
+		yShifted += glyphSlot->advance.y;	// 26.6 fixed float
 	} while (p != str.end());
 	return true;
 }

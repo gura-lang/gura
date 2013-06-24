@@ -20,10 +20,7 @@ String Object_GlyphSlot::ToString(Signal sig, bool exprFlag)
 bool Object_GlyphSlot::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-#if 0
-	symbols.insert(Gura_Symbol(x));
-	symbols.insert(Gura_Symbol(y));
-#endif
+	symbols.insert(Gura_UserSymbol(bitmap));
 	return true;
 }
 
@@ -31,13 +28,11 @@ Value Object_GlyphSlot::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-#if 0
-	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		return Value(_vector.x);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		return Value(_vector.y);
+	if (pSymbol->IsIdentical(Gura_UserSymbol(bitmap))) {
+		AutoPtr<Object_Bitmap> pObj(new Object_Bitmap(
+								Object::Reference(this), &_glyphSlot->bitmap));
+		return Value(pObj.release());
 	}
-#endif
 	evaluatedFlag = false;
 	return Value::Null;
 }

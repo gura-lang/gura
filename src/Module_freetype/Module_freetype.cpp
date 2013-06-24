@@ -13,8 +13,6 @@ Gura_BeginModule(freetype)
 
 FT_Library g_lib;
 
-static String GetSysFontPathName();
-
 //-----------------------------------------------------------------------------
 // Handler
 //-----------------------------------------------------------------------------
@@ -38,8 +36,8 @@ bool Handler::OpenFace(Signal sig, int index, FT_Face *aface)
 	ftargs.flags = FT_OPEN_STREAM;
 	ftargs.stream = _pStreamRec;
 	FT_Error err = ::FT_Open_Face(g_lib, &ftargs, index, aface);
-	if (err) {
-		sig.SetError(ERR_IOError, "font open error");
+	if (err != 0) {
+		SetError_Freetype(sig, err);
 		return false;
 	}
 	return true;
@@ -225,6 +223,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(glyph);
 	Gura_RealizeUserSymbol(size);
 	Gura_RealizeUserSymbol(charmap);
+	Gura_RealizeUserSymbol(bitmap);
 	// value declarations
 	// BDF_PropertyType (BDF_PROPERTY_TYPE_XXX)
 	Gura_AssignRawValue(BDF_PROPERTY_TYPE_NONE);
@@ -549,6 +548,9 @@ Gura_ModuleTerminate()
 	::FT_Done_FreeType(g_lib);
 }
 
+//-----------------------------------------------------------------------------
+// utility functions
+//-----------------------------------------------------------------------------
 #if defined(GURA_ON_MSWIN)
 String GetSysFontPathName()
 {
@@ -565,6 +567,10 @@ String GetSysFontPathName()
 }
 #endif
 
+void SetError_Freetype(Signal sig, FT_Error err)
+{
+	sig.SetError(ERR_RuntimeError, "freetype error");
+}
 
 Gura_EndModule(freetype, freetype)
 

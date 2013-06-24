@@ -12,12 +12,11 @@ class Object_Bitmap : public Object {
 public:
 	Gura_DeclareObjectAccessor(Bitmap)
 private:
-	FT_Bitmap _bitmap;
+	AutoPtr<Object> _pObjHolder;
+	FT_Bitmap *_pBitmap;
 public:
-	inline Object_Bitmap(const FT_Bitmap &bitmap) :
-			Object(Gura_UserClass(Bitmap)), _bitmap(bitmap) {}
-	inline Object_Bitmap(const Object_Bitmap &obj) :
-			Object(obj), _bitmap(obj._bitmap) {}
+	inline Object_Bitmap(Object *pObjHolder, FT_Bitmap *pBitmap) :
+			Object(Gura_UserClass(Bitmap)), _pObjHolder(pObjHolder), _pBitmap(pBitmap) {}
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
@@ -25,8 +24,8 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	inline FT_Bitmap &GetEntity() { return _bitmap; }
-	inline const FT_Bitmap &GetEntity() const { return _bitmap; }
+	inline FT_Bitmap *GetEntity() { return _pBitmap; }
+	inline const FT_Bitmap *GetEntity() const { return _pBitmap; }
 };
 
 }}

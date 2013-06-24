@@ -12,12 +12,11 @@ class Object_GlyphSlot : public Object {
 public:
 	Gura_DeclareObjectAccessor(GlyphSlot)
 private:
+	AutoPtr<Object> _pObjHolder;
 	FT_GlyphSlot _glyphSlot;
 public:
-	inline Object_GlyphSlot(const FT_GlyphSlot &glyphSlot) :
-			Object(Gura_UserClass(GlyphSlot)), _glyphSlot(glyphSlot) {}
-	inline Object_GlyphSlot(const Object_GlyphSlot &obj) :
-			Object(obj), _glyphSlot(obj._glyphSlot) {}
+	inline Object_GlyphSlot(Object *pObjHolder, FT_GlyphSlot glyphSlot) :
+			Object(Gura_UserClass(GlyphSlot)), _pObjHolder(pObjHolder), _glyphSlot(glyphSlot) {}
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);

@@ -68,6 +68,7 @@ Gura_DeclareUserSymbol(underline_thickness);
 Gura_DeclareUserSymbol(glyph);
 Gura_DeclareUserSymbol(size);
 Gura_DeclareUserSymbol(charmap);
+Gura_DeclareUserSymbol(bitmap);
 
 //-----------------------------------------------------------------------------
 // Handler
@@ -87,6 +88,12 @@ private:
 	static FT_ULong ReadStub(FT_Stream streamFT,
 				FT_ULong pos, FT_Byte *buffer, FT_ULong count);
 };
+
+//-----------------------------------------------------------------------------
+// utility functions
+//-----------------------------------------------------------------------------
+String GetSysFontPathName();
+void SetError_Freetype(Signal sig, FT_Error err);
 
 }}
 
