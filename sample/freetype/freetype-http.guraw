@@ -2,7 +2,7 @@
 # encoding: shift_jis
 import(tk)
 import(freetype)
-import(http)
+import(curl)
 
 path.exists('proxy_setting.gura') && import(proxy_setting)
 
@@ -10,7 +10,7 @@ I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 fontName = 'http://github.com/ypsitau/gura/blob/master/sample/resource/Kaufmann_Bold_BT.ttf?raw=true'
 scope {
 	img = image(`rgb, 640, 480, `white)
-	ctx = freetype.Context(fontName, 0).setheight(64).setcolor(`black)
+	ctx = freetype.Context(fontName).setheight(64).setcolor(`black)
 	img.drawtext(ctx, 0, (1..4) * ctx.height:pixel, 'What this font looks like')
 	img.show()
 }

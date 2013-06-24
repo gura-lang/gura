@@ -6,7 +6,7 @@ import(freetype)
 scope {
 	[wdImage, htImage] = [640, 640]
 	img = image(`rgb, wdImage, htImage, `white)
-	ctx = freetype.Context(freetype.sysfontpath('msgothic.ttc'), 1)
+	ctx = freetype.Context(freetype.Face(freetype.sysfontpath('msgothic.ttc'), 1))
 	ctx.setheight(32).setcolor(`black)
 	ctx.setslant(.3)
 	interval(0, 360, 16):open_r {|degree|

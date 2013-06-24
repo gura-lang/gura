@@ -5,7 +5,7 @@ import(freetype)
 
 scope {
 	img = image(`rgb, 700, 480, `white)
-	ctx = freetype.Context(freetype.sysfontpath('msgothic.ttc'), 1)
+	ctx = freetype.Context(freetype.Face(freetype.sysfontpath('msgothic.ttc'), 1))
 	ctx.setheight(32).setcolor(`black)
 	repeat (10) {|i|
 		ctx.setstrength(0).setslant(0)
