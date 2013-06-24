@@ -2,7 +2,6 @@
 #define __STDAFX_H__
 
 #include "Module_freetype.h"
-#include "Object_Context.h"
 #include "Object_BDF_Property.h"
 #include "Object_BBox.h"
 #include "Object_Face.h"
@@ -23,5 +22,6 @@
 #include "Object_FTC_SBit.h"
 #include "Object_FTC_SBitCache.h"
 #include "Object_FTC_Scaler.h"
+#include "Object_Context.h"
 
 #endif

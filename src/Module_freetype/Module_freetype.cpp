@@ -520,7 +520,6 @@ Gura_ModuleEntry()
 	Gura_AssignRawValue(TT_PLATFORM_CUSTOM);
 	Gura_AssignRawValue(TT_PLATFORM_ADOBE);
 	// class realization
-	Gura_RealizeUserClass(Context, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(BDF_Property, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(BBox, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(Face, env.LookupClass(VTYPE_object));
@@ -541,6 +540,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(FTC_SBit, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(FTC_SBitCache, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(FTC_Scaler, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(Context, env.LookupClass(VTYPE_object));
 	// method assignment to image type
 	Gura_AssignMethodTo(VTYPE_image, image, drawtext);
 	// function assignment

@@ -7,7 +7,6 @@ Gura_BeginModule(freetype)
 //-----------------------------------------------------------------------------
 Object_Context::~Object_Context()
 {
-	::FT_Done_Face(_face);
 }
 
 Object *Object_Context::Clone() const
@@ -18,43 +17,26 @@ Object *Object_Context::Clone() const
 bool Object_Context::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	return true;
+	return _pObjFace->DoDirProp(env, sig, symbols);
 }
 
 Value Object_Context::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return Value::Null;
+	return _pObjFace->DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_Context::ToString(Signal sig, bool exprFlag)
 {
 	String str;
 	str = "<freetype.Context";
-	str += ":";
-	str += _face->family_name;
-	if (_face->style_name != NULL) {
-		str += ":";
-		str += _face->style_name;
-	}
-	str += ":#";
-	str += NumberToString(_face->face_index);
-	str += ":";
-	str += NumberToString(_face->num_faces);
-	str += "faces";
 	str += ">";
 	return str;
 }
 
-bool Object_Context::Initialize(Signal sig, Stream *pStream, int index)
-{
-	std::auto_ptr<Handler> pHandler(new Handler(sig, Stream::Reference(pStream)));
-	return pHandler->OpenFace(sig, index, &_face);
-}
-
 bool Object_Context::SetPixelSizes(Signal sig, size_t width, size_t height)
 {
-	FT_Error err = ::FT_Set_Pixel_Sizes(_face,
+	FT_Error err = ::FT_Set_Pixel_Sizes(GetFace(),
 				static_cast<FT_UInt>(width), static_cast<FT_UInt>(height));
 	if (err) {
 		sig.SetError(ERR_IOError, "error occurs in FT_Set_Pixel_Sizes()");
@@ -154,10 +136,10 @@ FT_GlyphSlot Object_Context::LoadChar(unsigned long codeUTF32)
 		::FT_Matrix_Multiply(&matRot, &matrix);
 	}
 	// FT_Load_Char calls FT_Get_Char_Index and FT_Load_Glypy internally.
-	FT_Error err = ::FT_Load_Char(_face, codeUTF32,
+	FT_Error err = ::FT_Load_Char(GetFace(), codeUTF32,
 					FT_LOAD_DEFAULT | (transformFlag? FT_LOAD_NO_BITMAP : 0));
 	if (err) return NULL;
-	FT_GlyphSlot glyphSlot = _face->glyph;
+	FT_GlyphSlot glyphSlot = GetFace()->glyph;
 	if (_deco.strength == 0.) {
 		// nothing to do
 	} else if (glyphSlot->format == FT_GLYPH_FORMAT_NONE) {
@@ -288,28 +270,20 @@ void Object_Context::DrawGrayOnImage(Image *pImage, int x, int y,
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_Context
 //-----------------------------------------------------------------------------
-// freetype.Context(stream:stream, face_index:number => 0):map {block?}
+// freetype.Context(face:freetype.Face):map {block?}
 Gura_DeclareFunction(Context)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "stream", VTYPE_stream);
-	DeclareArg(env, "face_index", VTYPE_number,
-						OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "face", VTYPE_Face);
 	//SetClassToConstruct(Gura_UserClass(Context));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(Context)
 {
-	AutoPtr<Stream> pStream(Stream::Reference(&args.GetStream(0)));
-	int index = args.GetInt(1);
-	if (!pStream->IsBwdSeekable()) {
-		pStream.reset(Stream::Prefetch(env, sig, pStream.release(), true));
-		if (sig.IsSignalled()) return Value::Null;
-	}
-	AutoPtr<Object_Context> pObjContext(new Object_Context());
-	pObjContext->Initialize(sig, pStream.release(), index);
-	if (sig.IsSignalled()) return Value::Null;
+	Object_Face *pObjFace = Object_Face::GetObject(args, 0);
+	AutoPtr<Object_Context> pObjContext(
+					new Object_Context(Object_Face::Reference(pObjFace)));
 	return ReturnValue(env, sig, args, Value(pObjContext.release()));
 }
 

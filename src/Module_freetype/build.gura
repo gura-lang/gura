@@ -2,7 +2,6 @@
 import(modbuild)
 srcs = [
 'Module_freetype.cpp'
-'Object_Context.cpp'
 'Object_BDF_Property.cpp'
 'Object_BBox.cpp'
 'Object_Face.cpp'
@@ -23,6 +22,7 @@ srcs = [
 'Object_FTC_SBit.cpp'
 'Object_FTC_SBitCache.cpp'
 'Object_FTC_Scaler.cpp'
+'Object_Context.cpp'
 ]
 builder = modbuild.Builder()
 if (sys.build == `msc) {

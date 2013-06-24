@@ -12,7 +12,7 @@ class Object_Context : public Object {
 public:
 	Gura_DeclareObjectAccessor(Context)
 private:
-	FT_Face _face;
+	AutoPtr<Object_Face> _pObjFace;
 	Color _color;
 	unsigned char _alpha;
 	struct {
@@ -23,8 +23,8 @@ private:
 		} rotate;
 	} _deco;
 public:
-	inline Object_Context() : Object(Gura_UserClass(Context)),
-											_face(NULL), _alpha(255) {
+	inline Object_Context(Object_Face *pObjFace) : Object(Gura_UserClass(Context)),
+										_pObjFace(pObjFace), _alpha(255) {
 		ClearDeco();
 	}
 	virtual ~Object_Context();
@@ -37,13 +37,12 @@ public:
 	inline void SetAlpha(unsigned char alpha) { _alpha = alpha; }
 	inline const Color &GetColor() const { return _color; }
 	inline unsigned char GetAlpha() const { return _alpha; }
-	inline FT_Face &GetFace() { return _face; }
+	inline FT_Face &GetFace() { return _pObjFace->GetEntity(); }
 	inline void ClearDeco() {
 		_deco.strength = 0;
 		_deco.slant = 0;
 		_deco.rotate.cosNum = 1., _deco.rotate.sinNum = 0;
 	}
-	bool Initialize(Signal sig, Stream *pSstream, int index);
 	bool SetPixelSizes(Signal sig, size_t width, size_t height);
 	bool CalcSize(Signal sig, const String &str, size_t &width, size_t &height);
 	bool DrawOnImage(Signal sig, Image *pImage, int x, int y, const String &str);
