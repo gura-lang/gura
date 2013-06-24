@@ -236,6 +236,7 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 	const unsigned char *pLine = buffer + xOffset + yOffset * pitch;
 	const unsigned char *pPixel = pLine;
 	bool alphaFlag = (pImage->GetFormat() == Image::FORMAT_RGBA);
+	//bool alphaFlag = false;
 	for (;;) {
 		if (alphaFlag) {
 			pScanner->StorePixel(
