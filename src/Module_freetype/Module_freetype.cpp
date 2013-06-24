@@ -64,11 +64,11 @@ FT_ULong Handler::ReadStub(FT_Stream streamFT,
 // Gura interfaces for Object_image
 // These methods are available after importing freetype module.
 //-----------------------------------------------------------------------------
-// image#drawtext(face:freetype.Context, x:number, y:number, str:string):map:reduce
+// image#drawtext(font:freetype.font, x:number, y:number, str:string):map:reduce
 Gura_DeclareMethod(image, drawtext)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
-	DeclareArg(env, "context", VTYPE_Context);
+	DeclareArg(env, "font", VTYPE_font);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "str", VTYPE_string);
@@ -78,11 +78,11 @@ Gura_DeclareMethod(image, drawtext)
 Gura_ImplementMethod(image, drawtext)
 {
 	Object_image *pObjImage = Object_image::GetThisObj(args);
-	Object_Context *pObjContext = Object_Context::GetObject(args, 0);
+	Object_font *pObjFont = Object_font::GetObject(args, 0);
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	String str = args.GetStringSTL(3);
-	if (pObjContext->DrawOnImage(sig, pObjImage->GetImage(), x, y, str)) return Value::Null;
+	if (pObjFont->DrawOnImage(sig, pObjImage->GetImage(), x, y, str)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -98,10 +98,6 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	//Handler handler(sig, args.GetStream(0));
-	//FT_Face face;
-	//handler.OpenContext(sig, 0, &face);
-	//printf("%s\n", face->family_name);
 #if 0
 	FT_Face face;
 	FT_Error err = ::FT_New_Face(g_lib, "arial.ttf", 0, &face);
@@ -540,7 +536,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(FTC_SBit, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(FTC_SBitCache, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(FTC_Scaler, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClass(Context, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(font, env.LookupClass(VTYPE_object));
 	// method assignment to image type
 	Gura_AssignMethodTo(VTYPE_image, image, drawtext);
 	// function assignment

@@ -1,16 +1,16 @@
-#ifndef __FREETYPE_OBJECT_CONTEXT_H__
-#define __FREETYPE_OBJECT_CONTEXT_H__
+#ifndef __FREETYPE_OBJECT_FONT_H__
+#define __FREETYPE_OBJECT_FONT_H__
 
 Gura_BeginModule(freetype)
 
 //-----------------------------------------------------------------------------
-// Object_Context declaration
+// Object_font declaration
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(Context);
+Gura_DeclareUserClass(font);
 
-class Object_Context : public Object {
+class Object_font : public Object {
 public:
-	Gura_DeclareObjectAccessor(Context)
+	Gura_DeclareObjectAccessor(font)
 private:
 	AutoPtr<Object_Face> _pObjFace;
 	Color _color;
@@ -23,11 +23,11 @@ private:
 		} rotate;
 	} _deco;
 public:
-	inline Object_Context(Object_Face *pObjFace) : Object(Gura_UserClass(Context)),
+	inline Object_font(Object_Face *pObjFace) : Object(Gura_UserClass(font)),
 										_pObjFace(pObjFace), _alpha(255) {
 		ClearDeco();
 	}
-	virtual ~Object_Context();
+	virtual ~Object_font();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,

@@ -3,38 +3,38 @@
 Gura_BeginModule(freetype)
 
 //-----------------------------------------------------------------------------
-// Object_Context implementation
+// Object_font implementation
 //-----------------------------------------------------------------------------
-Object_Context::~Object_Context()
+Object_font::~Object_font()
 {
 }
 
-Object *Object_Context::Clone() const
+Object *Object_font::Clone() const
 {
-	return NULL; //new Object_Context(*this);
+	return NULL; //new Object_font(*this);
 }
 
-bool Object_Context::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_font::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	return _pObjFace->DoDirProp(env, sig, symbols);
 }
 
-Value Object_Context::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_font::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	return _pObjFace->DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-String Object_Context::ToString(Signal sig, bool exprFlag)
+String Object_font::ToString(Signal sig, bool exprFlag)
 {
 	String str;
-	str = "<freetype.Context";
+	str = "<freetype.font";
 	str += ">";
 	return str;
 }
 
-bool Object_Context::SetPixelSizes(Signal sig, size_t width, size_t height)
+bool Object_font::SetPixelSizes(Signal sig, size_t width, size_t height)
 {
 	FT_Error err = ::FT_Set_Pixel_Sizes(GetFace(),
 				static_cast<FT_UInt>(width), static_cast<FT_UInt>(height));
@@ -45,7 +45,7 @@ bool Object_Context::SetPixelSizes(Signal sig, size_t width, size_t height)
 	return true;
 }
 
-bool Object_Context::CalcSize(Signal sig, const String &str, size_t &width, size_t &height)
+bool Object_font::CalcSize(Signal sig, const String &str, size_t &width, size_t &height)
 {
 	int x = 0, y = 0;
 	String::const_iterator p = str.begin();
@@ -72,7 +72,7 @@ bool Object_Context::CalcSize(Signal sig, const String &str, size_t &width, size
 	return true;
 }
 
-bool Object_Context::DrawOnImage(Signal sig,
+bool Object_font::DrawOnImage(Signal sig,
 						Image *pImage, int x, int y, const String &str)
 {
 	unsigned long redFg = _color.GetRed();
@@ -110,7 +110,7 @@ bool Object_Context::DrawOnImage(Signal sig,
 	return true;
 }
 
-FT_GlyphSlot Object_Context::LoadChar(unsigned long codeUTF32)
+FT_GlyphSlot Object_font::LoadChar(unsigned long codeUTF32)
 {
 	bool transformFlag = false;
 	FT_Matrix matrix;	// 16.16 fixed float
@@ -184,7 +184,7 @@ FT_GlyphSlot Object_Context::LoadChar(unsigned long codeUTF32)
 	return glyphSlot;
 }
 
-void Object_Context::DrawMonoOnImage(Image *pImage, int x, int y,
+void Object_font::DrawMonoOnImage(Image *pImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset)
 {
@@ -222,7 +222,7 @@ void Object_Context::DrawMonoOnImage(Image *pImage, int x, int y,
 	}
 }
 
-void Object_Context::DrawGrayOnImage(Image *pImage, int x, int y,
+void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset)
 {
@@ -268,139 +268,139 @@ void Object_Context::DrawGrayOnImage(Image *pImage, int x, int y,
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_Context
+// Gura interfaces for Object_font
 //-----------------------------------------------------------------------------
-// freetype.Context(face:freetype.Face):map {block?}
-Gura_DeclareFunction(Context)
+// freetype.font(face:freetype.Face):map {block?}
+Gura_DeclareFunction(font)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_Face);
-	//SetClassToConstruct(Gura_UserClass(Context));
+	//SetClassToConstruct(Gura_UserClass(font));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(Context)
+Gura_ImplementFunction(font)
 {
 	Object_Face *pObjFace = Object_Face::GetObject(args, 0);
-	AutoPtr<Object_Context> pObjContext(
-					new Object_Context(Object_Face::Reference(pObjFace)));
-	return ReturnValue(env, sig, args, Value(pObjContext.release()));
+	AutoPtr<Object_font> pObjFont(
+					new Object_font(Object_Face::Reference(pObjFace)));
+	return ReturnValue(env, sig, args, Value(pObjFont.release()));
 }
 
-// freetype.Context#setcolor(color:color)
-Gura_DeclareMethod(Context, setcolor)
+// freetype.font#setcolor(color:color)
+Gura_DeclareMethod(font, setcolor)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_color);
 }
 
-Gura_ImplementMethod(Context, setcolor)
+Gura_ImplementMethod(font, setcolor)
 {
-	Object_Context *pThis = Object_Context::GetThisObj(args);
+	Object_font *pThis = Object_font::GetThisObj(args);
 	pThis->SetColor(Object_color::GetObject(args, 0)->GetColor());
 	return args.GetThis();
 }
 
-// freetype.Context#setalpha(alpha:number)
-Gura_DeclareMethod(Context, setalpha)
+// freetype.font#setalpha(alpha:number)
+Gura_DeclareMethod(font, setalpha)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "alpha", VTYPE_number);
 }
 
-Gura_ImplementMethod(Context, setalpha)
+Gura_ImplementMethod(font, setalpha)
 {
-	Object_Context *pThis = Object_Context::GetThisObj(args);
+	Object_font *pThis = Object_font::GetThisObj(args);
 	pThis->SetAlpha(args.GetUChar(0));
 	return args.GetThis();
 }
 
-// freetype.Context#setstrength(strength:number)
-Gura_DeclareMethod(Context, setstrength)
+// freetype.font#setstrength(strength:number)
+Gura_DeclareMethod(font, setstrength)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "strength", VTYPE_number);
 }
 
-Gura_ImplementMethod(Context, setstrength)
+Gura_ImplementMethod(font, setstrength)
 {
-	Object_Context *pThis = Object_Context::GetThisObj(args);
+	Object_font *pThis = Object_font::GetThisObj(args);
 	pThis->SetStrength(args.GetDouble(0));
 	return args.GetThis();
 }
 
-// freetype.Context#setslant(slant:number)
-Gura_DeclareMethod(Context, setslant)
+// freetype.font#setslant(slant:number)
+Gura_DeclareMethod(font, setslant)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "slant", VTYPE_number);
 }
 
-Gura_ImplementMethod(Context, setslant)
+Gura_ImplementMethod(font, setslant)
 {
-	Object_Context *pThis = Object_Context::GetThisObj(args);
+	Object_font *pThis = Object_font::GetThisObj(args);
 	pThis->SetSlant(args.GetDouble(0));
 	return args.GetThis();
 }
 
-// freetype.Context#setrotate(degree:number)
-Gura_DeclareMethod(Context, setrotate)
+// freetype.font#setrotate(degree:number)
+Gura_DeclareMethod(font, setrotate)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "degree", VTYPE_number);
 }
 
-Gura_ImplementMethod(Context, setrotate)
+Gura_ImplementMethod(font, setrotate)
 {
-	Object_Context *pThis = Object_Context::GetThisObj(args);
+	Object_font *pThis = Object_font::GetThisObj(args);
 	pThis->SetRotate(args.GetDouble(0));
 	return args.GetThis();
 }
 
-// freetype.Context#setsize(width:number, height:number)
-Gura_DeclareMethod(Context, setsize)
+// freetype.font#setsize(width:number, height:number)
+Gura_DeclareMethod(font, setsize)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "width", VTYPE_number);
 	DeclareArg(env, "height", VTYPE_number);
 }
 
-Gura_ImplementMethod(Context, setsize)
+Gura_ImplementMethod(font, setsize)
 {
-	Object_Context *pThis = Object_Context::GetThisObj(args);
+	Object_font *pThis = Object_font::GetThisObj(args);
 	if (!pThis->SetPixelSizes(sig, args.GetSizeT(0), args.GetSizeT(1))) return Value::Null;
 	return args.GetThis();
 }
 
-// freetype.Context#setheight(height:number)
-Gura_DeclareMethod(Context, setheight)
+// freetype.font#setheight(height:number)
+Gura_DeclareMethod(font, setheight)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "height", VTYPE_number);
 }
 
-Gura_ImplementMethod(Context, setheight)
+Gura_ImplementMethod(font, setheight)
 {
-	Object_Context *pThis = Object_Context::GetThisObj(args);
+	Object_font *pThis = Object_font::GetThisObj(args);
 	if (!pThis->SetPixelSizes(sig, 0, args.GetSizeT(0))) return Value::Null;
 	return args.GetThis();
 }
 
-// freetype.Context#cleardeco()
-Gura_DeclareMethod(Context, cleardeco)
+// freetype.font#cleardeco()
+Gura_DeclareMethod(font, cleardeco)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 }
 
-Gura_ImplementMethod(Context, cleardeco)
+Gura_ImplementMethod(font, cleardeco)
 {
-	Object_Context *pThis = Object_Context::GetThisObj(args);
+	Object_font *pThis = Object_font::GetThisObj(args);
 	pThis->ClearDeco();
 	return args.GetThis();
 }
 
-// freetype.Context#drawtext(image:image, x:number, y:number, str:string):map:reduce
-Gura_DeclareMethod(Context, drawtext)
+// freetype.font#drawtext(image:image, x:number, y:number, str:string):map:reduce
+Gura_DeclareMethod(font, drawtext)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "image", VTYPE_image);
@@ -410,37 +410,37 @@ Gura_DeclareMethod(Context, drawtext)
 	AddHelp(Gura_Symbol(en), "Draws a text on the image.");
 }
 
-Gura_ImplementMethod(Context, drawtext)
+Gura_ImplementMethod(font, drawtext)
 {
-	Object_Context *pObjContext = Object_Context::GetThisObj(args);
+	Object_font *pThis = Object_font::GetThisObj(args);
 	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	String str = args.GetStringSTL(3);
-	if (pObjContext->DrawOnImage(sig, pImage, x, y, str)) return Value::Null;
+	if (pThis->DrawOnImage(sig, pImage, x, y, str)) return Value::Null;
 	return args.GetThis();
 }
 
-// freetype.Context#calcsize(str:string):map
-Gura_DeclareMethod(Context, calcsize)
+// freetype.font#calcsize(str:string):map
+Gura_DeclareMethod(font, calcsize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 }
 
-Gura_ImplementMethod(Context, calcsize)
+Gura_ImplementMethod(font, calcsize)
 {
-	Object_Context *pObjContext = Object_Context::GetThisObj(args);
+	Object_font *pThis = Object_font::GetThisObj(args);
 	String str = args.GetStringSTL(0);
 	size_t width, height;
-	if (!pObjContext->CalcSize(sig, str, width, height)) return Value::Null;
+	if (!pThis->CalcSize(sig, str, width, height)) return Value::Null;
 	return Value::CreateAsList(env, 
 			Value(static_cast<unsigned int>(width)),
 			Value(static_cast<unsigned int>(height)));
 }
 
-// freetype.Context#calcbbox(x:number, y:number, str:string):map
-Gura_DeclareMethod(Context, calcbbox)
+// freetype.font#calcbbox(x:number, y:number, str:string):map
+Gura_DeclareMethod(font, calcbbox)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
@@ -449,34 +449,34 @@ Gura_DeclareMethod(Context, calcbbox)
 }
 
 // ******************* still buggy
-Gura_ImplementMethod(Context, calcbbox)
+Gura_ImplementMethod(font, calcbbox)
 {
-	Object_Context *pObjContext = Object_Context::GetThisObj(args);
+	Object_font *pThis = Object_font::GetThisObj(args);
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	String str = args.GetStringSTL(2);
 	size_t width, height;
-	if (!pObjContext->CalcSize(sig, str, width, height)) return Value::Null;
+	if (!pThis->CalcSize(sig, str, width, height)) return Value::Null;
 	return Value::CreateAsList(env,
-			Value(x), Value(y - pObjContext->GetFace()->ascender / 4),
+			Value(x), Value(y - pThis->GetFace()->ascender / 4),
 			Value(width), Value(height));
 }
 
-// implementation of class Context
-Gura_ImplementUserClass(Context)
+// implementation of class font
+Gura_ImplementUserClass(font)
 {
-	Gura_AssignFunction(Context);
-	Gura_AssignMethod(Context, setcolor);
-	Gura_AssignMethod(Context, setalpha);
-	Gura_AssignMethod(Context, setstrength);
-	Gura_AssignMethod(Context, setslant);
-	Gura_AssignMethod(Context, setrotate);
-	Gura_AssignMethod(Context, setsize);
-	Gura_AssignMethod(Context, setheight);
-	Gura_AssignMethod(Context, cleardeco);
-	Gura_AssignMethod(Context, drawtext);
-	Gura_AssignMethod(Context, calcsize);
-	Gura_AssignMethod(Context, calcbbox);
+	Gura_AssignFunction(font);
+	Gura_AssignMethod(font, setcolor);
+	Gura_AssignMethod(font, setalpha);
+	Gura_AssignMethod(font, setstrength);
+	Gura_AssignMethod(font, setslant);
+	Gura_AssignMethod(font, setrotate);
+	Gura_AssignMethod(font, setsize);
+	Gura_AssignMethod(font, setheight);
+	Gura_AssignMethod(font, cleardeco);
+	Gura_AssignMethod(font, drawtext);
+	Gura_AssignMethod(font, calcsize);
+	Gura_AssignMethod(font, calcbbox);
 }
 
 }}

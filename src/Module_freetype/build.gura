@@ -22,7 +22,7 @@ srcs = [
 'Object_FTC_SBit.cpp'
 'Object_FTC_SBitCache.cpp'
 'Object_FTC_Scaler.cpp'
-'Object_Context.cpp'
+'Object_font.cpp'
 ]
 builder = modbuild.Builder()
 if (sys.build == `msc) {
