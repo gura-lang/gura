@@ -262,11 +262,13 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 			}
 		} else {
 			if (alphaFlag) {
-				pScanner->StorePixel(
+				if (pScanner->GetAlpha() < *pPixel) {
+					pScanner->StorePixel(
 						static_cast<unsigned char>(redFg),
 						static_cast<unsigned char>(greenFg),
 						static_cast<unsigned char>(blueFg),
 						*pPixel);
+				}
 			} else {
 				pScanner->StorePixel(
 						static_cast<unsigned char>(redFg),
@@ -310,7 +312,7 @@ Gura_DeclareMethod(font, setcolor)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_color);
-	DeclareArg(env, "blending", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "blending", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(font, setcolor)

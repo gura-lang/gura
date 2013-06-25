@@ -14,7 +14,7 @@ imageText = image(`rgba, wdScreen, htScreen)
 imagesL = gif.content(I('chicken-anim.gif'), `rgba).images::resize(wdImage)
 imagesR = imagesL::flip(`horz)
 xStep = wdImage / 10
-font = freetype.font(I('Kaufmann_Bold_BT.ttf')).setheight(32).setcolor(`white, true)
+font = freetype.font(I('Kaufmann_Bold_BT.ttf')).setheight(32).setcolor(`white, false)
 
 Chicken = class {
 	__init__(x:number, y:number, dir:symbol) = {
