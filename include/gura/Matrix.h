@@ -147,7 +147,7 @@ public:
 				const Matrix *pMat, const Value &value);
 	static void SetError_MatrixSizeMismatch(Signal sig);
 	static void SetError_IndexOutOfRange(Signal sig);
-private:
+public:
 	static ValueType CheckValueType(const ValueList &valList);
 	static ValueType CheckValueType(const Matrix &mat);
 	static bool GetElemIndex(Environment &env, Signal sig,
