@@ -12,12 +12,11 @@ class Object_Outline : public Object {
 public:
 	Gura_DeclareObjectAccessor(Outline)
 private:
-	FT_Outline _outline;
+	AutoPtr<Object> _pObjHolder;
+	FT_Outline *_outline;
 public:
-	inline Object_Outline(const FT_Outline &outline) :
-			Object(Gura_UserClass(Outline)), _outline(outline) {}
-	inline Object_Outline(const Object_Outline &obj) :
-			Object(obj), _outline(obj._outline) {}
+	inline Object_Outline(Object *pObjHolder, FT_Outline *outline) :
+			Object(Gura_UserClass(Outline)), _pObjHolder(pObjHolder), _outline(outline) {}
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
@@ -25,8 +24,8 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	inline FT_Outline &GetEntity() { return _outline; }
-	inline const FT_Outline &GetEntity() const { return _outline; }
+	inline FT_Outline *GetEntity() { return _outline; }
+	inline const FT_Outline *GetEntity() const { return _outline; }
 };
 
 }}

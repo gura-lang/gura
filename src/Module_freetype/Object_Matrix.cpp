@@ -73,8 +73,39 @@ Value Object_Matrix::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 //-----------------------------------------------------------------------------
 // Class implementation for freetype.Matrix
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(Matrix)
+Gura_ImplementUserClassWithCast(Matrix)
 {
+}
+
+Gura_ImplementCastFrom(Matrix)
+{
+	if (value.IsMatrix()) {
+		Gura::Matrix *pMat = Gura::Object_matrix::GetObject(value)->GetMatrix();
+		if (pMat->GetRows() < 2 || pMat->GetCols() < 2) {
+			sig.SetError(ERR_ValueError, "matrix must be larger than or equal to 2x2");
+			return false;
+		}
+		if (Gura::Matrix::CheckValueType(*pMat) != VTYPE_number) {
+			sig.SetError(ERR_ValueError, "matrix must compose of number elements");
+			return false;
+		}
+		
+		FT_Matrix matrix;
+		// 16.16 fixed float format
+		matrix.xx = static_cast<FT_Fixed>(pMat->GetElement(0, 0).GetDouble() * (1 << 16));
+		matrix.xy = static_cast<FT_Fixed>(pMat->GetElement(0, 1).GetDouble() * (1 << 16));
+		matrix.yx = static_cast<FT_Fixed>(pMat->GetElement(1, 0).GetDouble() * (1 << 16));
+		matrix.yy = static_cast<FT_Fixed>(pMat->GetElement(1, 1).GetDouble() * (1 << 16));
+		AutoPtr<Object_Matrix> pObjRtn(new Object_Matrix(matrix));
+		value = Value(pObjRtn.release());
+		return true;
+	}
+	return false;
+}
+
+Gura_ImplementCastTo(Matrix)
+{
+	return false;
 }
 
 }}

@@ -59,8 +59,28 @@ Value Object_GlyphSlot::DoSetProp(Environment &env, Signal sig, const Symbol *pS
 //-----------------------------------------------------------------------------
 // Class implementation for freetype.GlyphSlot
 //-----------------------------------------------------------------------------
+// freetype.GlyphSlot#Render(render_mode:number):reduce
+Gura_DeclareMethod(GlyphSlot, Render)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "render_mode", VTYPE_number);
+}
+
+Gura_ImplementMethod(GlyphSlot, Render)
+{
+	FT_GlyphSlot glyphSlot = Object_GlyphSlot::GetThisObj(args)->GetEntity();
+	FT_Render_Mode render_mode = static_cast<FT_Render_Mode>(args.GetInt(0));
+	FT_Error err = ::FT_Render_Glyph(glyphSlot, render_mode);
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return args.GetThis();
+}
+
 Gura_ImplementUserClass(GlyphSlot)
 {
+	Gura_AssignMethod(GlyphSlot, Render);
 }
 
 }}

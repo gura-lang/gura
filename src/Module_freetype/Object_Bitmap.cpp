@@ -64,8 +64,29 @@ Value Object_Bitmap::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 //-----------------------------------------------------------------------------
 // Class implementation for freetype.Bitmap
 //-----------------------------------------------------------------------------
+// freetype.Bitmap#Embolden(xStrength:number, yStrength:number):reduce
+Gura_DeclareMethod(Bitmap, Embolden)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "strength", VTYPE_number);
+}
+
+Gura_ImplementMethod(Bitmap, Embolden)
+{
+	FT_Bitmap *bitmap = Object_Bitmap::GetThisObj(args)->GetEntity();
+	FT_Pos xStrength = static_cast<FT_Pos>(args.GetDouble(0) * (1 << 6)); // 26.6
+	FT_Pos yStrength = static_cast<FT_Pos>(args.GetDouble(0) * (1 << 6)); // 26.6
+	FT_Error err = ::FT_Bitmap_Embolden(g_lib, bitmap, xStrength, yStrength);
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return args.GetThis();
+}
+
 Gura_ImplementUserClass(Bitmap)
 {
+	Gura_AssignMethod(Bitmap, Embolden);
 }
 
 }}
