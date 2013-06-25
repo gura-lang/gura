@@ -5,8 +5,10 @@ Gura_BeginModule(freetype)
 //-----------------------------------------------------------------------------
 // Object_font implementation
 //-----------------------------------------------------------------------------
-Object_font::~Object_font()
+Object_font::Object_font(Object_Face *pObjFace) :
+			Object(Gura_UserClass(font)), _pObjFace(pObjFace), _blendingFlag(true)
 {
+	ClearDeco();
 }
 
 Object *Object_font::Clone() const
@@ -204,7 +206,7 @@ void Object_font::DrawMonoOnImage(Image *pImage, int x, int y,
 		if (!(*pPixel & mask)) {
 			// nothing to do
 		} else if (alphaFlag) {
-			pScanner->StorePixel(red, green, blue, _alpha);
+			pScanner->StorePixel(red, green, blue, 255);
 		} else {
 			pScanner->StorePixel(red, green, blue);
 		}
@@ -236,15 +238,8 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 	const unsigned char *pLine = buffer + xOffset + yOffset * pitch;
 	const unsigned char *pPixel = pLine;
 	bool alphaFlag = (pImage->GetFormat() == Image::FORMAT_RGBA);
-	//bool alphaFlag = false;
 	for (;;) {
-		if (alphaFlag) {
-			pScanner->StorePixel(
-					static_cast<unsigned char>(redFg),
-					static_cast<unsigned char>(greenFg),
-					static_cast<unsigned char>(blueFg),
-					*pPixel);
-		} else {
+		if (_blendingFlag) {
 			unsigned long ratioFg = *pPixel;
 			unsigned long ratioBg = 255 - ratioFg;
 			unsigned long redBg = pScanner->GetRed();
@@ -254,10 +249,30 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 			unsigned long green = greenFg * ratioFg + greenBg * ratioBg;
 			unsigned long blue = blueFg * ratioFg + blueBg * ratioBg;
 			red /= 255, green /= 255, blue /= 255;
-			pScanner->StorePixel(
-					static_cast<unsigned char>(red),
-					static_cast<unsigned char>(green),
-					static_cast<unsigned char>(blue));
+			if (alphaFlag) {
+				pScanner->StorePixel(
+						static_cast<unsigned char>(red),
+						static_cast<unsigned char>(green),
+						static_cast<unsigned char>(blue), 255);
+			} else {
+				pScanner->StorePixel(
+						static_cast<unsigned char>(red),
+						static_cast<unsigned char>(green),
+						static_cast<unsigned char>(blue));
+			}
+		} else {
+			if (alphaFlag) {
+				pScanner->StorePixel(
+						static_cast<unsigned char>(redFg),
+						static_cast<unsigned char>(greenFg),
+						static_cast<unsigned char>(blueFg),
+						*pPixel);
+			} else {
+				pScanner->StorePixel(
+						static_cast<unsigned char>(redFg),
+						static_cast<unsigned char>(greenFg),
+						static_cast<unsigned char>(blueFg));
+			}
 		}
 		if (pScanner->NextPixel()) {
 			pPixel++;
@@ -290,31 +305,19 @@ Gura_ImplementFunction(font)
 	return ReturnValue(env, sig, args, Value(pObjFont.release()));
 }
 
-// freetype.font#setcolor(color:color)
+// freetype.font#setcolor(color:color, blending?:boolean)
 Gura_DeclareMethod(font, setcolor)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_color);
+	DeclareArg(env, "blending", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(font, setcolor)
 {
 	Object_font *pThis = Object_font::GetThisObj(args);
-	pThis->SetColor(Object_color::GetObject(args, 0)->GetColor());
-	return args.GetThis();
-}
-
-// freetype.font#setalpha(alpha:number)
-Gura_DeclareMethod(font, setalpha)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "alpha", VTYPE_number);
-}
-
-Gura_ImplementMethod(font, setalpha)
-{
-	Object_font *pThis = Object_font::GetThisObj(args);
-	pThis->SetAlpha(args.GetUChar(0));
+	pThis->SetColor(Object_color::GetObject(args, 0)->GetColor(),
+									args.IsBoolean(1)? args.GetBoolean(1) : true);
 	return args.GetThis();
 }
 
@@ -470,7 +473,6 @@ Gura_ImplementUserClass(font)
 {
 	Gura_AssignFunction(font);
 	Gura_AssignMethod(font, setcolor);
-	Gura_AssignMethod(font, setalpha);
 	Gura_AssignMethod(font, setstrength);
 	Gura_AssignMethod(font, setslant);
 	Gura_AssignMethod(font, setrotate);

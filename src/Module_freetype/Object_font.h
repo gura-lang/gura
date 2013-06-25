@@ -14,7 +14,7 @@ public:
 private:
 	AutoPtr<Object_Face> _pObjFace;
 	Color _color;
-	unsigned char _alpha;
+	bool _blendingFlag;
 	struct {
 		double strength;
 		double slant;
@@ -23,20 +23,17 @@ private:
 		} rotate;
 	} _deco;
 public:
-	inline Object_font(Object_Face *pObjFace) : Object(Gura_UserClass(font)),
-										_pObjFace(pObjFace), _alpha(255) {
-		ClearDeco();
-	}
-	virtual ~Object_font();
+	Object_font(Object_Face *pObjFace);
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline void SetColor(const Color &color) { _color = color; }
-	inline void SetAlpha(unsigned char alpha) { _alpha = alpha; }
+	inline void SetColor(const Color &color, bool blendingFlag) {
+		_color = color, _blendingFlag = blendingFlag;
+	}
 	inline const Color &GetColor() const { return _color; }
-	inline unsigned char GetAlpha() const { return _alpha; }
+	inline int GetBlendingFlag() const { return _blendingFlag; }
 	inline FT_Face &GetFace() { return _pObjFace->GetEntity(); }
 	inline void ClearDeco() {
 		_deco.strength = 0;

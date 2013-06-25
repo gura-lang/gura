@@ -14,7 +14,7 @@ imageText = image(`rgba, wdScreen, htScreen)
 imagesL = gif.content(I('chicken-anim.gif'), `rgba).images::resize(wdImage)
 imagesR = imagesL::flip(`horz)
 xStep = wdImage / 10
-fontFace = freetype.Face.New(I('Kaufmann_Bold_BT.ttf')).setheight(32).setcolor(`white)
+font = freetype.font(I('Kaufmann_Bold_BT.ttf')).setheight(32).setcolor(`white, true)
 
 Chicken = class {
 	__init__(x:number, y:number, dir:symbol) = {
@@ -49,7 +49,7 @@ chickens = repeat(3):list {
 sdl.AddTimer(100) {
 	sdl.BlitSurface(imageBg, nil, screen, nil)
 	imageText.clear()
-	imageText.drawtext(fontFace, 10, 50, 'Chickens: %d' % chickens.len())
+	imageText.drawtext(font, 10, 50, 'Chickens: %d' % chickens.len())
 	sdl.BlitSurface(imageText, nil, screen, nil)
 	chickens::doAction()
 	screen.UpdateRect()
