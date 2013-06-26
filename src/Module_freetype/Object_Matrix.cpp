@@ -13,8 +13,11 @@ Object *Object_Matrix::Clone() const
 String Object_Matrix::ToString(Signal sig, bool exprFlag)
 {
 	char buff[80];
-	::sprintf(buff, "<freetype.Matrix:xx=%d,xy=%d,yx=%d,yy=%d>",
-					_matrix.xx, _matrix.xy, _matrix.yx, _matrix.yy);
+	::sprintf(buff, "<freetype.Matrix:xx=%f,xy=%f,yx=%f,yy=%f>",
+					static_cast<double>(_matrix.xx) / (1 << 16),
+					static_cast<double>(_matrix.xy) / (1 << 16),
+					static_cast<double>(_matrix.yx) / (1 << 16),
+					static_cast<double>(_matrix.yy) / (1 << 16));
 	return String(buff);
 }
 
@@ -33,13 +36,13 @@ Value Object_Matrix::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(xx))) {
-		return Value(_matrix.xx);
+		return Value(static_cast<double>(_matrix.xx) / (1 << 16));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(xy))) {
-		return Value(_matrix.xy);
+		return Value(static_cast<double>(_matrix.xy) / (1 << 16));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yx))) {
-		return Value(_matrix.yx);
+		return Value(static_cast<double>(_matrix.yx) / (1 << 16));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yy))) {
-		return Value(_matrix.yy);
+		return Value(static_cast<double>(_matrix.yy) / (1 << 16));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -51,32 +54,67 @@ Value Object_Matrix::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(xx))) {
 		if (!value.MustBeNumber(sig)) return Value::Null;
-		_matrix.xx = static_cast<FT_Pos>(value.GetLong());
-		return Value(_matrix.xx);
+		_matrix.xx = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
+		return Value(static_cast<double>(_matrix.xx) / (1 << 16));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(xy))) {
 		if (!value.MustBeNumber(sig)) return Value::Null;
-		_matrix.xy = static_cast<FT_Pos>(value.GetLong());
-		return Value(_matrix.xy);
+		_matrix.xy = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
+		return Value(static_cast<double>(_matrix.xy) / (1 << 16));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yx))) {
 		if (!value.MustBeNumber(sig)) return Value::Null;
-		_matrix.yx = static_cast<FT_Pos>(value.GetLong());
-		return Value(_matrix.yx);
+		_matrix.yx = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
+		return Value(static_cast<double>(_matrix.yx) / (1 << 16));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yy))) {
 		if (!value.MustBeNumber(sig)) return Value::Null;
-		_matrix.yy = static_cast<FT_Pos>(value.GetLong());
-		return Value(_matrix.yy);
+		_matrix.yy = static_cast<FT_Pos>(value.GetDouble() * (1 << 16));
+		return Value(static_cast<double>(_matrix.yy) / (1 << 16));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
+bool Object_Matrix::ConvertFrom(Signal sig, const Gura::Matrix *pMat)
+{
+	if (pMat->GetRows() < 2 || pMat->GetCols() < 2) {
+		sig.SetError(ERR_ValueError, "matrix must be larger than or equal to 2x2");
+		return false;
+	}
+	if (Gura::Matrix::CheckValueType(*pMat) != VTYPE_number) {
+		sig.SetError(ERR_ValueError, "matrix must compose of number elements");
+		return false;
+	}
+	// 16.16 fixed float format
+	_matrix.xx = static_cast<FT_Fixed>(pMat->GetElement(0, 0).GetDouble() * (1 << 16));
+	_matrix.xy = static_cast<FT_Fixed>(pMat->GetElement(0, 1).GetDouble() * (1 << 16));
+	_matrix.yx = static_cast<FT_Fixed>(pMat->GetElement(1, 0).GetDouble() * (1 << 16));
+	_matrix.yy = static_cast<FT_Fixed>(pMat->GetElement(1, 1).GetDouble() * (1 << 16));
+	return true;
+}
+
 //-----------------------------------------------------------------------------
 // Class implementation for freetype.Matrix
 //-----------------------------------------------------------------------------
-// freetype.Matrix#Multiply(matrix:matrix):reduce
+// freetype.Matrix(matrix:matrix):map {block?}
+Gura_DeclareFunction(Matrix)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "matrix", VTYPE_matrix);
+	SetClassToConstruct(Gura_UserClass(Matrix));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(Matrix)
+{
+	const Gura::Matrix *pMat = Object_matrix::GetObject(args, 0)->GetMatrix();
+	AutoPtr<Object_Matrix> pObjRtn(new Object_Matrix());
+	if (!pObjRtn->ConvertFrom(sig, pMat)) return false;
+	return ReturnValue(env, sig, args, Value(pObjRtn.release()));
+}
+
+// freetype.Matrix#Multiply(matrix:freetype.Matrix):reduce
 Gura_DeclareMethod(Matrix, Multiply)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_Matrix);
 }
 
@@ -88,30 +126,36 @@ Gura_ImplementMethod(Matrix, Multiply)
 	return args.GetThis();
 }
 
+// freetype.Matrix#Invert():reduce
+Gura_DeclareMethod(Matrix, Invert)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+}
+
+Gura_ImplementMethod(Matrix, Invert)
+{
+	FT_Matrix *matrixThis = Object_Matrix::GetThisObj(args)->GetEntity();
+	FT_Error err = ::FT_Matrix_Invert(matrixThis);
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return args.GetThis();
+}
+
 Gura_ImplementUserClassWithCast(Matrix)
 {
+	Gura_AssignFunction(Matrix);
+	Gura_AssignMethod(Matrix, Multiply);
+	Gura_AssignMethod(Matrix, Invert);
 }
 
 Gura_ImplementCastFrom(Matrix)
 {
 	if (value.IsMatrix()) {
 		Gura::Matrix *pMat = Gura::Object_matrix::GetObject(value)->GetMatrix();
-		if (pMat->GetRows() < 2 || pMat->GetCols() < 2) {
-			sig.SetError(ERR_ValueError, "matrix must be larger than or equal to 2x2");
-			return false;
-		}
-		if (Gura::Matrix::CheckValueType(*pMat) != VTYPE_number) {
-			sig.SetError(ERR_ValueError, "matrix must compose of number elements");
-			return false;
-		}
-		
-		FT_Matrix matrix;
-		// 16.16 fixed float format
-		matrix.xx = static_cast<FT_Fixed>(pMat->GetElement(0, 0).GetDouble() * (1 << 16));
-		matrix.xy = static_cast<FT_Fixed>(pMat->GetElement(0, 1).GetDouble() * (1 << 16));
-		matrix.yx = static_cast<FT_Fixed>(pMat->GetElement(1, 0).GetDouble() * (1 << 16));
-		matrix.yy = static_cast<FT_Fixed>(pMat->GetElement(1, 1).GetDouble() * (1 << 16));
-		AutoPtr<Object_Matrix> pObjRtn(new Object_Matrix(matrix));
+		AutoPtr<Object_Matrix> pObjRtn(new Object_Matrix());
+		if (!pObjRtn->ConvertFrom(sig, pMat)) return false;
 		value = Value(pObjRtn.release());
 		return true;
 	}

@@ -313,7 +313,7 @@ Gura_ImplementFunction(font)
 	return ReturnValue(env, sig, args, Value(pObjFont.release()));
 }
 
-// freetype.font#setcolor(color:color, blending?:boolean)
+// freetype.font#setcolor(color:color, blending?:boolean):reduce
 Gura_DeclareMethod(font, setcolor)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
@@ -329,7 +329,7 @@ Gura_ImplementMethod(font, setcolor)
 	return args.GetThis();
 }
 
-// freetype.font#setstrength(strength:number)
+// freetype.font#setstrength(strength:number):reduce
 Gura_DeclareMethod(font, setstrength)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
@@ -343,7 +343,7 @@ Gura_ImplementMethod(font, setstrength)
 	return args.GetThis();
 }
 
-// freetype.font#setslant(slant:number)
+// freetype.font#setslant(slant:number):reduce
 Gura_DeclareMethod(font, setslant)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
@@ -357,7 +357,7 @@ Gura_ImplementMethod(font, setslant)
 	return args.GetThis();
 }
 
-// freetype.font#setrotate(degree:number)
+// freetype.font#setrotate(degree:number):reduce
 Gura_DeclareMethod(font, setrotate)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
@@ -371,7 +371,7 @@ Gura_ImplementMethod(font, setrotate)
 	return args.GetThis();
 }
 
-// freetype.font#setsize(width:number, height:number)
+// freetype.font#setsize(width:number, height:number):reduce
 Gura_DeclareMethod(font, setsize)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
@@ -386,7 +386,7 @@ Gura_ImplementMethod(font, setsize)
 	return args.GetThis();
 }
 
-// freetype.font#setheight(height:number)
+// freetype.font#setheight(height:number):reduce
 Gura_DeclareMethod(font, setheight)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);

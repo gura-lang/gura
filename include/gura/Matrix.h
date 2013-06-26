@@ -115,7 +115,7 @@ public:
 	inline ValueList::const_iterator GetPointer(size_t iRow, size_t iCol) const {
 		return GetList().begin() + _iColOff + iCol + (_iRowOff + iRow) * _nFold;
 	}
-	inline const Value &GetElement(size_t iRow, size_t iCol) {
+	inline const Value &GetElement(size_t iRow, size_t iCol) const {
 		return *GetPointer(iRow, iCol);
 	}
 	inline void SetElement(size_t iRow, size_t iCol, const Value &value) {

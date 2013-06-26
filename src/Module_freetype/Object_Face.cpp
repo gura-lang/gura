@@ -209,7 +209,7 @@ Gura_ImplementMethod(Face, CheckTrueTypePatents)
 // freetype.Face#Load_Char(char_code:number, load_flags:number):reduce
 Gura_DeclareMethod(Face, Load_Char)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "char_code", VTYPE_number);
 	DeclareArg(env, "load_flags", VTYPE_number);
 }
@@ -230,7 +230,7 @@ Gura_ImplementMethod(Face, Load_Char)
 // freetype.Face#Set_Pixel_Sizes(pixel_width:number, pixel_height:number):reduce
 Gura_DeclareMethod(Face, Set_Pixel_Sizes)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "pixel_width", VTYPE_number);
 	DeclareArg(env, "pixel_height", VTYPE_number);
 }

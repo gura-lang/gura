@@ -14,6 +14,9 @@ public:
 private:
 	FT_Matrix _matrix;
 public:
+	inline Object_Matrix() : Object(Gura_UserClass(Matrix)) {
+		_matrix.xx = _matrix.xy = _matrix.yx = _matrix.yy = 0;
+	}
 	inline Object_Matrix(const FT_Matrix &matrix) :
 			Object(Gura_UserClass(Matrix)), _matrix(matrix) {}
 	inline Object_Matrix(const Object_Matrix &obj) :
@@ -27,6 +30,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	inline FT_Matrix *GetEntity() { return &_matrix; }
 	inline const FT_Matrix *GetEntity() const { return &_matrix; }
+	bool ConvertFrom(Signal sig, const Gura::Matrix *pMat);
 };
 
 }}
