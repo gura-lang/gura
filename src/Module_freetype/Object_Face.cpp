@@ -227,6 +227,27 @@ Gura_ImplementMethod(Face, Load_Char)
 	return args.GetThis();
 }
 
+// freetype.Face#Set_Pixel_Sizes(pixel_width:number, pixel_height:number):reduce
+Gura_DeclareMethod(Face, Set_Pixel_Sizes)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "pixel_width", VTYPE_number);
+	DeclareArg(env, "pixel_height", VTYPE_number);
+}
+
+Gura_ImplementMethod(Face, Set_Pixel_Sizes)
+{
+	FT_Face face = Object_Face::GetThisObj(args)->GetEntity();
+	FT_UInt pixel_width = static_cast<FT_UInt>(args.GetULong(0));
+	FT_UInt pixel_height = static_cast<FT_UInt>(args.GetULong(1));
+	FT_Error err = ::FT_Set_Pixel_Sizes(face, pixel_width, pixel_height);
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return args.GetThis();
+}
+
 //-----------------------------------------------------------------------------
 // Class implementation for freetype.Face
 //-----------------------------------------------------------------------------
@@ -235,6 +256,7 @@ Gura_ImplementUserClassWithCast(Face)
 	Gura_AssignFunction(Face);
 	Gura_AssignMethod(Face, CheckTrueTypePatents);
 	Gura_AssignMethod(Face, Load_Char);
+	Gura_AssignMethod(Face, Set_Pixel_Sizes);
 }
 
 Gura_ImplementCastFrom(Face)

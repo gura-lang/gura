@@ -25,8 +25,8 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	inline FT_Matrix &GetEntity() { return _matrix; }
-	inline const FT_Matrix &GetEntity() const { return _matrix; }
+	inline FT_Matrix *GetEntity() { return &_matrix; }
+	inline const FT_Matrix *GetEntity() const { return &_matrix; }
 };
 
 }}

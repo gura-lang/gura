@@ -93,8 +93,8 @@ Gura_DeclareMethod(Outline, Transform)
 Gura_ImplementMethod(Outline, Transform)
 {
 	FT_Outline *outline = Object_Outline::GetThisObj(args)->GetEntity();
-	FT_Matrix &matrix = Object_Matrix::GetObject(args, 0)->GetEntity();
-	::FT_Outline_Transform(outline, &matrix);	// void function
+	FT_Matrix *matrix = Object_Matrix::GetObject(args, 0)->GetEntity();
+	::FT_Outline_Transform(outline, matrix);	// void function
 	return args.GetThis();
 }
 

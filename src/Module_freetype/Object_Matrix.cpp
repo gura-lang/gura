@@ -73,6 +73,21 @@ Value Object_Matrix::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 //-----------------------------------------------------------------------------
 // Class implementation for freetype.Matrix
 //-----------------------------------------------------------------------------
+// freetype.Matrix#Multiply(matrix:matrix):reduce
+Gura_DeclareMethod(Matrix, Multiply)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "matrix", VTYPE_Matrix);
+}
+
+Gura_ImplementMethod(Matrix, Multiply)
+{
+	FT_Matrix *matrixThis = Object_Matrix::GetThisObj(args)->GetEntity();
+	FT_Matrix *matrix = Object_Matrix::GetObject(args, 0)->GetEntity();
+	::FT_Matrix_Multiply(matrix, matrixThis);	// void function
+	return args.GetThis();
+}
+
 Gura_ImplementUserClassWithCast(Matrix)
 {
 }
