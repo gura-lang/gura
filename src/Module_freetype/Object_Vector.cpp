@@ -58,8 +58,44 @@ Value Object_Vector::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 //-----------------------------------------------------------------------------
 // Class implementation for freetype.Vector
 //-----------------------------------------------------------------------------
+// freetype.Vector(x:number, y:number):map {block?}
+Gura_DeclareFunction(Vector)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_number);
+	DeclareArg(env, "y", VTYPE_number);
+	SetClassToConstruct(Gura_UserClass(Vector));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(Vector)
+{
+	FT_Vector vector;
+	vector.x = static_cast<FT_Pos>(args.GetInt(0));
+	vector.y = static_cast<FT_Pos>(args.GetInt(1));
+	AutoPtr<Object_Vector> pObjRtn(new Object_Vector(vector));
+	return ReturnValue(env, sig, args, Value(pObjRtn.release()));
+}
+
+// freetype.Vector#Transform(matrix:freetype.Matrix):reduce
+Gura_DeclareMethod(Vector, Transform)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "matrix", VTYPE_Matrix);
+}
+
+Gura_ImplementMethod(Vector, Transform)
+{
+	FT_Vector *vec = Object_Vector::GetThisObj(args)->GetEntity();
+	FT_Matrix *matrix = Object_Matrix::GetObject(args, 0)->GetEntity();
+	::FT_Vector_Transform(vec, matrix);	// void function
+	return args.GetThis();
+}
+
 Gura_ImplementUserClass(Vector)
 {
+	Gura_AssignFunction(Vector);
+	Gura_AssignMethod(Vector, Transform);
 }
 
 }}
