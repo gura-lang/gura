@@ -51,7 +51,7 @@ public:
 		_deco.rotate.sinNum = ::sin(rad);
 	}
 private:
-	FT_GlyphSlot LoadChar(unsigned long codeUTF32);
+	FT_Error LoadChar(unsigned long codeUTF32);
 	void DrawMonoOnImage(Image *pImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset);

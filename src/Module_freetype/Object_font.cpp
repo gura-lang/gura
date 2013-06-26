@@ -63,8 +63,8 @@ bool Object_font::CalcSize(Signal sig, const String &str, size_t &width, size_t 
 		unsigned long codeUTF32;
 		p = Gura::NextUTF32(str, p, codeUTF32);
 		if (codeUTF32 == 0x00000000) break;
-		FT_GlyphSlot glyphSlot = LoadChar(codeUTF32);
-		if (glyphSlot == NULL) continue;
+		if (LoadChar(codeUTF32) != 0) continue;
+		FT_GlyphSlot glyphSlot = GetFace()->glyph;
 		FT_Bitmap &bitmap = glyphSlot->bitmap;
 		int xLeft = (xShifted >> 6) + glyphSlot->bitmap_left;
 		int yTop = (yShifted >> 6)  - glyphSlot->bitmap_top;
@@ -93,8 +93,8 @@ bool Object_font::DrawOnImage(Signal sig,
 		unsigned long codeUTF32;
 		p = Gura::NextUTF32(str, p, codeUTF32);
 		if (codeUTF32 == 0x00000000) break;
-		FT_GlyphSlot glyphSlot = LoadChar(codeUTF32);
-		if (glyphSlot == NULL) continue;
+		if (LoadChar(codeUTF32) != 0) continue;
+		FT_GlyphSlot glyphSlot = GetFace()->glyph;
 		if (glyphSlot->format == FT_GLYPH_FORMAT_BITMAP) {
 			FT_Bitmap &bitmap = glyphSlot->bitmap;
 			int xOrg = (xShifted >> 6) + glyphSlot->bitmap_left;
@@ -120,13 +120,13 @@ bool Object_font::DrawOnImage(Signal sig,
 	return true;
 }
 
-FT_GlyphSlot Object_font::LoadChar(unsigned long codeUTF32)
+FT_Error Object_font::LoadChar(unsigned long codeUTF32)
 {
 	bool transformFlag = false;
 	FT_Matrix matrix;	// 16.16 fixed float
 	matrix.xx = 1 << 16;
-	matrix.xy = 0;
-	matrix.yx = 0;
+	matrix.xy = 0 << 16;
+	matrix.yx = 0 << 16;
 	matrix.yy = 1 << 16;
 	// slanting the font
 	if (_deco.slant != 0.) {
@@ -148,7 +148,7 @@ FT_GlyphSlot Object_font::LoadChar(unsigned long codeUTF32)
 	// FT_Load_Char calls FT_Get_Char_Index and FT_Load_Glypy internally.
 	FT_Error err = ::FT_Load_Char(GetFace(), codeUTF32,
 					FT_LOAD_DEFAULT | (transformFlag? FT_LOAD_NO_BITMAP : 0));
-	if (err) return NULL;
+	if (err != 0) return err;
 	FT_GlyphSlot glyphSlot = GetFace()->glyph;
 	if (_deco.strength == 0.) {
 		// nothing to do
@@ -160,11 +160,11 @@ FT_GlyphSlot Object_font::LoadChar(unsigned long codeUTF32)
 		FT_Pos xStrength = static_cast<FT_Pos>(_deco.strength * (1 << 6)); // 26.6 fixed float
 		FT_Pos yStrength = 0;
 		err = ::FT_Bitmap_Embolden(g_lib, &glyphSlot->bitmap, xStrength, yStrength);
-		if (err) return NULL;
+		if (err != 0) return err;
 	} else if (glyphSlot->format == FT_GLYPH_FORMAT_OUTLINE) {
 		FT_Pos strength = static_cast<FT_Pos>(_deco.strength * (1 << 6)); // 26.6 fixed float
 		err = ::FT_Outline_Embolden(&glyphSlot->outline, strength);
-		if (err) return NULL;
+		if (err != 0) return err;
 	} else if (glyphSlot->format == FT_GLYPH_FORMAT_PLOTTER) {
 		// nothing to do
 	}
@@ -180,7 +180,7 @@ FT_GlyphSlot Object_font::LoadChar(unsigned long codeUTF32)
 		}
 		// convert outline to bitmap
 		err = ::FT_Render_Glyph(glyphSlot, FT_RENDER_MODE_NORMAL);
-		if (err) return NULL;
+		if (err != 0) return err;
 		if (_deco.rotate.sinNum != 0.) {
 			double cosNum = _deco.rotate.cosNum;
 			double sinNum = -_deco.rotate.sinNum;
@@ -191,7 +191,7 @@ FT_GlyphSlot Object_font::LoadChar(unsigned long codeUTF32)
 	} else if (glyphSlot->format == FT_GLYPH_FORMAT_PLOTTER) {
 		// nothing to do
 	}
-	return glyphSlot;
+	return 0;
 }
 
 void Object_font::DrawMonoOnImage(Image *pImage, int x, int y,
