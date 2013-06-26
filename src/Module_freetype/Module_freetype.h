@@ -34,6 +34,7 @@ Gura_BeginModule(freetype)
 
 extern FT_Library g_lib;
 
+Gura_DeclareUserSymbol(face);
 Gura_DeclareUserSymbol(pixel);
 Gura_DeclareUserSymbol(xMin);
 Gura_DeclareUserSymbol(yMin);

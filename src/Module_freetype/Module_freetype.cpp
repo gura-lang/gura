@@ -190,6 +190,7 @@ Gura_ModuleEntry()
 {
 	::FT_Init_FreeType(&g_lib);
 	// symbol realization
+	Gura_RealizeUserSymbol(face);
 	Gura_RealizeUserSymbol(pixel);
 	Gura_RealizeUserSymbol(xMin);
 	Gura_RealizeUserSymbol(yMin);

@@ -19,12 +19,18 @@ Object *Object_font::Clone() const
 bool Object_font::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(face));
 	return _pObjFace->DoDirProp(env, sig, symbols);
 }
 
 Value Object_font::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(face))) {
+		return Value(Object_Face::Reference(_pObjFace.get()));
+	}
+	evaluatedFlag = false;
 	return _pObjFace->DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
