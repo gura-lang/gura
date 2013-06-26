@@ -92,7 +92,7 @@ bool Object_Matrix::ConvertFrom(Signal sig, const Gura::Matrix *pMat)
 }
 
 //-----------------------------------------------------------------------------
-// Class implementation for freetype.Matrix
+// Gura interfaces for freetype.Matrix
 //-----------------------------------------------------------------------------
 // freetype.Matrix(matrix:matrix):map {block?}
 Gura_DeclareFunction(Matrix)
@@ -143,6 +143,9 @@ Gura_ImplementMethod(Matrix, Invert)
 	return args.GetThis();
 }
 
+//-----------------------------------------------------------------------------
+// Class implementation for freetype.Matrix
+//-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(Matrix)
 {
 	Gura_AssignFunction(Matrix);

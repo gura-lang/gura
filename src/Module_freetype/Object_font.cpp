@@ -294,7 +294,7 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_font
+// Gura interfaces for freetype.font
 //-----------------------------------------------------------------------------
 // freetype.font(face:freetype.Face):map {block?}
 Gura_DeclareFunction(font)

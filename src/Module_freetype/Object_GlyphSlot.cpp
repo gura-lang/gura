@@ -57,7 +57,7 @@ Value Object_GlyphSlot::DoSetProp(Environment &env, Signal sig, const Symbol *pS
 }
 
 //-----------------------------------------------------------------------------
-// Class implementation for freetype.GlyphSlot
+// Gura interfaces for freetype.GlyphSlot
 //-----------------------------------------------------------------------------
 // freetype.GlyphSlot#Render(render_mode:number):reduce
 Gura_DeclareMethod(GlyphSlot, Render)
@@ -78,6 +78,9 @@ Gura_ImplementMethod(GlyphSlot, Render)
 	return args.GetThis();
 }
 
+//-----------------------------------------------------------------------------
+// Class implementation for freetype.GlyphSlot
+//-----------------------------------------------------------------------------
 Gura_ImplementUserClass(GlyphSlot)
 {
 	Gura_AssignMethod(GlyphSlot, Render);

@@ -59,7 +59,7 @@ FT_ULong Handler::ReadStub(FT_Stream streamFT,
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_image
+// Gura interfaces for image
 // These methods are available after importing freetype module.
 //-----------------------------------------------------------------------------
 // image#drawtext(font:freetype.font, x:number, y:number, str:string):map:reduce

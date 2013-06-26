@@ -173,7 +173,7 @@ bool Object_Face::Initialize(Environment &env, Signal sig, Stream *pStream, int 
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_Face
+// Gura interfaces for freetype.Face
 //-----------------------------------------------------------------------------
 // freetype.Face(stream:stream, face_index:number => 0):map {block?}
 Gura_DeclareFunction(Face)
@@ -206,6 +206,66 @@ Gura_ImplementMethod(Face, CheckTrueTypePatents)
 	return Value(::FT_Face_CheckTrueTypePatents(face));
 }
 
+// freetype.Face#Get_Glyph_Name(glyph_index:number)
+Gura_DeclareMethod(Face, Get_Glyph_Name)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "glyph_index", VTYPE_number);
+}
+
+Gura_ImplementMethod(Face, Get_Glyph_Name)
+{
+	FT_Face face = Object_Face::GetThisObj(args)->GetEntity();
+	FT_UInt glyph_index = static_cast<FT_UInt>(args.GetUInt(0));
+	char buffer[256];
+	FT_Error err = ::FT_Get_Glyph_Name(face, glyph_index, buffer, sizeof(buffer));
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return Value(env, buffer);
+}
+
+// freetype.Face#Get_Postscript_Name()
+Gura_DeclareMethod(Face, Get_Postscript_Name)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(Face, Get_Postscript_Name)
+{
+	FT_Face face = Object_Face::GetThisObj(args)->GetEntity();
+	const char *rtn = ::FT_Get_Postscript_Name(face);
+	if (rtn == NULL) return Value::Null;
+	return Value(env, rtn);
+}
+
+// freetype.Face#Get_Kerning()
+Gura_DeclareMethod(Face, Get_Kerning)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "left_glyph", VTYPE_number);
+	DeclareArg(env, "right_glyph", VTYPE_number);
+	DeclareArg(env, "kern_mode", VTYPE_number);
+}
+
+Gura_ImplementMethod(Face, Get_Kerning)
+{
+	FT_Face face = Object_Face::GetThisObj(args)->GetEntity();
+	FT_UInt left_glyph = static_cast<FT_UInt>(args.GetUInt(0));
+	FT_UInt right_glyph = static_cast<FT_UInt>(args.GetUInt(1));
+	FT_UInt kern_mode = static_cast<FT_UInt>(args.GetUInt(2));
+	FT_Vector akerning;
+	FT_Error err = ::FT_Get_Kerning(face, left_glyph, right_glyph, kern_mode, &akerning);
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return Value::CreateAsList(env,
+				Value(static_cast<double>(akerning.x) / (1 << 6)),
+				Value(static_cast<double>(akerning.x) / (1 << 6)));
+}
+
 // freetype.Face#Load_Char(char_code:number, load_flags:number):reduce
 Gura_DeclareMethod(Face, Load_Char)
 {
@@ -220,6 +280,66 @@ Gura_ImplementMethod(Face, Load_Char)
 	FT_ULong char_code = static_cast<FT_ULong>(args.GetULong(0));
 	FT_Int32 load_flags = static_cast<FT_Int32>(args.GetInt(1));
 	FT_Error err = ::FT_Load_Char(face, char_code, load_flags);
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return args.GetThis();
+}
+
+// freetype.Face#Load_Glyph(glyph_index:number, load_flags:number):reduce
+Gura_DeclareMethod(Face, Load_Glyph)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "glyph_index", VTYPE_number);
+	DeclareArg(env, "load_flags", VTYPE_number);
+}
+
+Gura_ImplementMethod(Face, Load_Glyph)
+{
+	FT_Face face = Object_Face::GetThisObj(args)->GetEntity();
+	FT_UInt glyph_index = static_cast<FT_UInt>(args.GetUInt(0));
+	FT_Int32 load_flags = static_cast<FT_Int32>(args.GetInt(1));
+	FT_Error err = ::FT_Load_Glyph(face, glyph_index, load_flags);
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return args.GetThis();
+}
+
+#if 0
+// freetype.Face#Select_Charmap(encoding:freetype.Encoding):reduce
+Gura_DeclareMethod(Face, Select_Charmap)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "encoding", VTYPE_Encoding);
+}
+
+Gura_ImplementMethod(Face, Select_Charmap)
+{
+	FT_Face face = Object_Face::GetThisObj(args)->GetEntity();
+	FT_Error err = ::FT_Select_Charmap(face, encoding);
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return args.GetThis();
+}
+#endif
+
+// freetype.Face#Set_Charmap(charmap:freetype.CharMap):reduce
+Gura_DeclareMethod(Face, Set_Charmap)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "charmap", VTYPE_CharMap);
+}
+
+Gura_ImplementMethod(Face, Set_Charmap)
+{
+	FT_Face face = Object_Face::GetThisObj(args)->GetEntity();
+	FT_CharMap charmap = Object_CharMap::GetObject(args, 0)->GetEntity();
+	FT_Error err = ::FT_Set_Charmap(face, charmap);
 	if (err != 0) {
 		SetError_Freetype(sig, err);
 		return Value::Null;
@@ -255,7 +375,13 @@ Gura_ImplementUserClassWithCast(Face)
 {
 	Gura_AssignFunction(Face);
 	Gura_AssignMethod(Face, CheckTrueTypePatents);
+	Gura_AssignMethod(Face, Get_Glyph_Name);
+	Gura_AssignMethod(Face, Get_Postscript_Name);
+	Gura_AssignMethod(Face, Get_Kerning);
 	Gura_AssignMethod(Face, Load_Char);
+	Gura_AssignMethod(Face, Load_Glyph);
+	//Gura_AssignMethod(Face, Select_Charmap);
+	Gura_AssignMethod(Face, Set_Charmap);
 	Gura_AssignMethod(Face, Set_Pixel_Sizes);
 }
 

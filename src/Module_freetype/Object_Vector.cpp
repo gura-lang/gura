@@ -56,7 +56,7 @@ Value Object_Vector::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 }
 
 //-----------------------------------------------------------------------------
-// Class implementation for freetype.Vector
+// Gura interfaces for freetype.Vector
 //-----------------------------------------------------------------------------
 // freetype.Vector(x:number, y:number):map {block?}
 Gura_DeclareFunction(Vector)
@@ -106,6 +106,9 @@ Gura_ImplementMethod(Vector, Transform)
 	return args.GetThis();
 }
 
+//-----------------------------------------------------------------------------
+// Class implementation for freetype.Vector
+//-----------------------------------------------------------------------------
 Gura_ImplementUserClass(Vector)
 {
 	Gura_AssignFunction(Vector);

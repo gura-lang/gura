@@ -62,10 +62,27 @@ Value Object_CharMap::DoSetProp(Environment &env, Signal sig, const Symbol *pSym
 }
 
 //-----------------------------------------------------------------------------
+// Gura interfaces for freetype.CharMap
+//-----------------------------------------------------------------------------
+// freetype.CharMap#Get_Index()
+Gura_DeclareMethod(CharMap, Get_Index)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(CharMap, Get_Index)
+{
+	FT_CharMap charmap = Object_CharMap::GetThisObj(args)->GetEntity();
+	FT_Int rtn = ::FT_Get_Charmap_Index(charmap);
+	return Value(rtn);
+}
+
+//-----------------------------------------------------------------------------
 // Class implementation for freetype.CharMap
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(CharMap)
 {
+	Gura_AssignMethod(CharMap, Get_Index);
 }
 
 }}
