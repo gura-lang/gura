@@ -301,7 +301,7 @@ Gura_DeclareFunction(font)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_Face);
-	//SetClassToConstruct(Gura_UserClass(font));
+	SetClassToConstruct(Gura_UserClass(font));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
