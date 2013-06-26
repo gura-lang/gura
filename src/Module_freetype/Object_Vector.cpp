@@ -77,6 +77,20 @@ Gura_ImplementFunction(Vector)
 	return ReturnValue(env, sig, args, Value(pObjRtn.release()));
 }
 
+// freetype.Vector#Length()
+Gura_DeclareMethod(Vector, Length)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(Vector, Length)
+{
+	FT_Vector *vec = Object_Vector::GetThisObj(args)->GetEntity();
+	FT_Fixed rtn = ::FT_Vector_Length(vec);
+	//return Value(static_cast<double>(rtn) / (1 << 16));
+	return Value(rtn);
+}
+
 // freetype.Vector#Transform(matrix:freetype.Matrix):reduce
 Gura_DeclareMethod(Vector, Transform)
 {
@@ -95,6 +109,7 @@ Gura_ImplementMethod(Vector, Transform)
 Gura_ImplementUserClass(Vector)
 {
 	Gura_AssignFunction(Vector);
+	Gura_AssignMethod(Vector, Length);
 	Gura_AssignMethod(Vector, Transform);
 }
 
