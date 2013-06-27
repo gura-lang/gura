@@ -62,7 +62,7 @@ FT_ULong Handler::ReadStub(FT_Stream streamFT,
 // Gura interfaces for image
 // These methods are available after importing freetype module.
 //-----------------------------------------------------------------------------
-// image#drawtext(font:freetype.font, x:number, y:number, str:string):map:reduce
+// image#drawtext(font:freetype.font, x:number, y:number, str:string):map:reduce {block?}
 Gura_DeclareMethod(image, drawtext)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
@@ -70,6 +70,7 @@ Gura_DeclareMethod(image, drawtext)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "str", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), "Draws a text on the image.");
 }
 
@@ -80,7 +81,13 @@ Gura_ImplementMethod(image, drawtext)
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	String str = args.GetStringSTL(3);
-	if (pObjFont->DrawOnImage(sig, pObjImage->GetImage(), x, y, str)) return Value::Null;
+	const Function *pFuncDeco = NULL;
+	if (args.IsBlockSpecified()) {
+		pFuncDeco = args.GetBlockFunc(env, sig, GetSymbolForBlock());
+		if (pFuncDeco == NULL) return Value::Null;
+	}
+	if (pObjFont->DrawOnImage(env, sig, pObjImage->GetImage(),
+								x, y, str, pFuncDeco)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -225,6 +232,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(size);
 	Gura_RealizeUserSymbol(charmap);
 	Gura_RealizeUserSymbol(bitmap);
+	Gura_RealizeUserSymbol(outline);
 	// value declarations
 	// BDF_PropertyType (BDF_PROPERTY_TYPE_XXX)
 	Gura_AssignRawValue(BDF_PROPERTY_TYPE_NONE);

@@ -54,7 +54,8 @@ bool Object_font::SetPixelSizes(Signal sig, size_t width, size_t height)
 	return true;
 }
 
-bool Object_font::CalcSize(Signal sig, const String &str, size_t &width, size_t &height)
+bool Object_font::CalcSize(Environment &env, Signal sig, const String &str,
+					size_t &width, size_t &height, const Function *pFuncDeco)
 {
 	int xShifted = 0, yShifted = 0;
 	String::const_iterator p = str.begin();
@@ -63,7 +64,7 @@ bool Object_font::CalcSize(Signal sig, const String &str, size_t &width, size_t 
 		unsigned long codeUTF32;
 		p = Gura::NextUTF32(str, p, codeUTF32);
 		if (codeUTF32 == 0x00000000) break;
-		if (LoadChar(codeUTF32) != 0) continue;
+		if (LoadAndDecorateChar(env, sig, codeUTF32, pFuncDeco) != 0) continue;
 		FT_GlyphSlot glyphSlot = GetFace()->glyph;
 		FT_Bitmap &bitmap = glyphSlot->bitmap;
 		int xLeft = (xShifted >> 6) + glyphSlot->bitmap_left;
@@ -81,8 +82,8 @@ bool Object_font::CalcSize(Signal sig, const String &str, size_t &width, size_t 
 	return true;
 }
 
-bool Object_font::DrawOnImage(Signal sig,
-						Image *pImage, int x, int y, const String &str)
+bool Object_font::DrawOnImage(Environment &env, Signal sig, Image *pImage,
+				int x, int y, const String &str, const Function *pFuncDeco)
 {
 	unsigned long redFg = _color.GetRed();
 	unsigned long greenFg = _color.GetGreen();
@@ -93,7 +94,7 @@ bool Object_font::DrawOnImage(Signal sig,
 		unsigned long codeUTF32;
 		p = Gura::NextUTF32(str, p, codeUTF32);
 		if (codeUTF32 == 0x00000000) break;
-		if (LoadChar(codeUTF32) != 0) continue;
+		if (LoadAndDecorateChar(env, sig, codeUTF32, pFuncDeco) != 0) continue;
 		FT_GlyphSlot glyphSlot = GetFace()->glyph;
 		if (glyphSlot->format == FT_GLYPH_FORMAT_BITMAP) {
 			FT_Bitmap &bitmap = glyphSlot->bitmap;
@@ -120,9 +121,10 @@ bool Object_font::DrawOnImage(Signal sig,
 	return true;
 }
 
-FT_Error Object_font::LoadChar(unsigned long codeUTF32)
+FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal sig,
+						unsigned long codeUTF32, const Function *pFuncDeco)
 {
-	bool transformFlag = false;
+	bool transformFlag = (pFuncDeco != NULL);
 	FT_Matrix matrix;	// 16.16 fixed float
 	matrix.xx = 1 << 16;
 	matrix.xy = 0 << 16;
@@ -149,6 +151,14 @@ FT_Error Object_font::LoadChar(unsigned long codeUTF32)
 	FT_Error err = ::FT_Load_Char(GetFace(), codeUTF32,
 					FT_LOAD_DEFAULT | (transformFlag? FT_LOAD_NO_BITMAP : 0));
 	if (err != 0) return err;
+	if (pFuncDeco != NULL) {
+		ValueList valListArg;
+		valListArg.reserve(2);
+		valListArg.push_back(Value(Object_Face::Reference(_pObjFace.get())));
+		valListArg.push_back(Value(codeUTF32));
+		Args args(valListArg);
+		pFuncDeco->Eval(env, sig, args);
+	}
 	FT_GlyphSlot glyphSlot = GetFace()->glyph;
 	if (_deco.strength == 0.) {
 		// nothing to do
@@ -184,7 +194,8 @@ FT_Error Object_font::LoadChar(unsigned long codeUTF32)
 		if (_deco.rotate.sinNum != 0.) {
 			double cosNum = _deco.rotate.cosNum;
 			double sinNum = -_deco.rotate.sinNum;
-			FT_Pos x = glyphSlot->advance.x, y = glyphSlot->advance.y;
+			FT_Pos x = glyphSlot->advance.x;
+			FT_Pos y = glyphSlot->advance.y;
 			glyphSlot->advance.x = static_cast<FT_Pos>(cosNum * x - sinNum * y);
 			glyphSlot->advance.y = static_cast<FT_Pos>(sinNum * x + cosNum * y);
 		}
@@ -413,7 +424,7 @@ Gura_ImplementMethod(font, cleardeco)
 	return args.GetThis();
 }
 
-// freetype.font#drawtext(image:image, x:number, y:number, str:string):map:reduce
+// freetype.font#drawtext(image:image, x:number, y:number, str:string):map:reduce {block?}
 Gura_DeclareMethod(font, drawtext)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
@@ -421,6 +432,7 @@ Gura_DeclareMethod(font, drawtext)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "str", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), "Draws a text on the image.");
 }
 
@@ -431,7 +443,12 @@ Gura_ImplementMethod(font, drawtext)
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
 	String str = args.GetStringSTL(3);
-	if (pThis->DrawOnImage(sig, pImage, x, y, str)) return Value::Null;
+	const Function *pFuncDeco = NULL;
+	if (args.IsBlockSpecified()) {
+		pFuncDeco = args.GetBlockFunc(env, sig, GetSymbolForBlock());
+		if (pFuncDeco == NULL) return Value::Null;
+	}
+	if (pThis->DrawOnImage(env, sig, pImage, x, y, str, pFuncDeco)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -444,10 +461,11 @@ Gura_DeclareMethod(font, calcsize)
 
 Gura_ImplementMethod(font, calcsize)
 {
+	const Function *pFuncDeco = NULL;
 	Object_font *pThis = Object_font::GetThisObj(args);
 	String str = args.GetStringSTL(0);
 	size_t width, height;
-	if (!pThis->CalcSize(sig, str, width, height)) return Value::Null;
+	if (!pThis->CalcSize(env, sig, str, width, height, pFuncDeco)) return Value::Null;
 	return Value::CreateAsList(env, 
 			Value(static_cast<unsigned int>(width)),
 			Value(static_cast<unsigned int>(height)));
@@ -465,12 +483,13 @@ Gura_DeclareMethod(font, calcbbox)
 // ******************* still buggy
 Gura_ImplementMethod(font, calcbbox)
 {
+	const Function *pFuncDeco = NULL;
 	Object_font *pThis = Object_font::GetThisObj(args);
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	String str = args.GetStringSTL(2);
 	size_t width, height;
-	if (!pThis->CalcSize(sig, str, width, height)) return Value::Null;
+	if (!pThis->CalcSize(env, sig, str, width, height, pFuncDeco)) return Value::Null;
 	return Value::CreateAsList(env,
 			Value(x), Value(y - pThis->GetFace()->ascender / 4),
 			Value(width), Value(height));

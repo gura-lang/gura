@@ -21,6 +21,7 @@ bool Object_GlyphSlot::DoDirProp(Environment &env, Signal sig, SymbolSet &symbol
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(bitmap));
+	symbols.insert(Gura_UserSymbol(outline));
 	return true;
 }
 
@@ -31,6 +32,10 @@ Value Object_GlyphSlot::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 	if (pSymbol->IsIdentical(Gura_UserSymbol(bitmap))) {
 		AutoPtr<Object_Bitmap> pObj(new Object_Bitmap(
 								Object::Reference(this), &_glyphSlot->bitmap));
+		return Value(pObj.release());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(outline))) {
+		AutoPtr<Object_Outline> pObj(new Object_Outline(
+								Object::Reference(this), &_glyphSlot->outline));
 		return Value(pObj.release());
 	}
 	evaluatedFlag = false;

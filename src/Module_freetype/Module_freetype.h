@@ -70,6 +70,7 @@ Gura_DeclareUserSymbol(glyph);
 Gura_DeclareUserSymbol(size);
 Gura_DeclareUserSymbol(charmap);
 Gura_DeclareUserSymbol(bitmap);
+Gura_DeclareUserSymbol(outline);
 
 //-----------------------------------------------------------------------------
 // Handler

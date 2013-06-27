@@ -41,8 +41,10 @@ public:
 		_deco.rotate.cosNum = 1., _deco.rotate.sinNum = 0;
 	}
 	bool SetPixelSizes(Signal sig, size_t width, size_t height);
-	bool CalcSize(Signal sig, const String &str, size_t &width, size_t &height);
-	bool DrawOnImage(Signal sig, Image *pImage, int x, int y, const String &str);
+	bool CalcSize(Environment &env, Signal sig, const String &str,
+					size_t &width, size_t &height, const Function *pFuncDeco);
+	bool DrawOnImage(Environment &env, Signal sig, Image *pImage, int x, int y,
+					const String &str, const Function *pFuncDeco);
 	inline void SetStrength(double strength) { _deco.strength = strength; }
 	inline void SetSlant(double slant) { _deco.slant = slant; }
 	inline void SetRotate(double degree) {
@@ -51,7 +53,8 @@ public:
 		_deco.rotate.sinNum = ::sin(rad);
 	}
 private:
-	FT_Error LoadChar(unsigned long codeUTF32);
+	FT_Error LoadAndDecorateChar(Environment &env, Signal sig,
+						unsigned long codeUTF32, const Function *pFuncDeco);
 	void DrawMonoOnImage(Image *pImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset);
