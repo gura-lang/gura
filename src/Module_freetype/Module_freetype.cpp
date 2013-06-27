@@ -231,7 +231,11 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(glyph);
 	Gura_RealizeUserSymbol(size);
 	Gura_RealizeUserSymbol(charmap);
+	Gura_RealizeUserSymbol(advance);
+	Gura_RealizeUserSymbol(format);
 	Gura_RealizeUserSymbol(bitmap);
+	Gura_RealizeUserSymbol(bitmap_left);
+	Gura_RealizeUserSymbol(bitmap_top);
 	Gura_RealizeUserSymbol(outline);
 	// value declarations
 	// BDF_PropertyType (BDF_PROPERTY_TYPE_XXX)
@@ -327,6 +331,12 @@ Gura_ModuleEntry()
 	Gura_AssignFTValue(LOAD_MONOCHROME);
 	Gura_AssignFTValue(LOAD_LINEAR_DESIGN);
 	Gura_AssignFTValue(LOAD_NO_AUTOHINT);
+	// FT_GLYPH_FORMAT_XXX
+	Gura_AssignFTValue(GLYPH_FORMAT_NONE);
+	Gura_AssignFTValue(GLYPH_FORMAT_COMPOSITE);
+	Gura_AssignFTValue(GLYPH_FORMAT_BITMAP);
+	Gura_AssignFTValue(GLYPH_FORMAT_OUTLINE);
+	Gura_AssignFTValue(GLYPH_FORMAT_PLOTTER);
 	// FT_OPEN_XXX
 	Gura_AssignFTValue(OPEN_DRIVER);
 	Gura_AssignFTValue(OPEN_MEMORY);

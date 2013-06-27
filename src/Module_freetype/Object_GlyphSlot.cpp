@@ -20,7 +20,11 @@ String Object_GlyphSlot::ToString(Signal sig, bool exprFlag)
 bool Object_GlyphSlot::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(advance));
+	symbols.insert(Gura_UserSymbol(format));
 	symbols.insert(Gura_UserSymbol(bitmap));
+	symbols.insert(Gura_UserSymbol(bitmap_left));
+	symbols.insert(Gura_UserSymbol(bitmap_top));
 	symbols.insert(Gura_UserSymbol(outline));
 	return true;
 }
@@ -29,10 +33,20 @@ Value Object_GlyphSlot::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(bitmap))) {
+	if (pSymbol->IsIdentical(Gura_UserSymbol(advance))) {
+		AutoPtr<Object_Vector> pObj(new Object_Vector(
+								Object::Reference(this), &_glyphSlot->advance));
+		return Value(pObj.release());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(format))) {
+		return Value(_glyphSlot->format);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(bitmap))) {
 		AutoPtr<Object_Bitmap> pObj(new Object_Bitmap(
 								Object::Reference(this), &_glyphSlot->bitmap));
 		return Value(pObj.release());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(bitmap_left))) {
+		return Value(_glyphSlot->bitmap_left);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(bitmap_top))) {
+		return Value(_glyphSlot->bitmap_top);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(outline))) {
 		AutoPtr<Object_Outline> pObj(new Object_Outline(
 								Object::Reference(this), &_glyphSlot->outline));

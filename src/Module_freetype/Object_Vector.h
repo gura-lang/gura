@@ -12,12 +12,12 @@ class Object_Vector : public Object {
 public:
 	Gura_DeclareObjectAccessor(Vector)
 private:
-	FT_Vector _vector;
+	AutoPtr<Object> _pObjHolder;
+	FT_Vector *_pVector;
 public:
-	inline Object_Vector(const FT_Vector &vector) :
-			Object(Gura_UserClass(Vector)), _vector(vector) {}
-	inline Object_Vector(const Object_Vector &obj) :
-			Object(obj), _vector(obj._vector) {}
+	Object_Vector(const FT_Vector &vector);
+	Object_Vector(Object *pObjHolder, FT_Vector *pVector);
+	~Object_Vector();
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
@@ -25,8 +25,8 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	inline FT_Vector *GetEntity() { return &_vector; }
-	inline const FT_Vector *GetEntity() const { return &_vector; }
+	inline FT_Vector *GetEntity() { return _pVector; }
+	inline const FT_Vector *GetEntity() const { return _pVector; }
 };
 
 }}

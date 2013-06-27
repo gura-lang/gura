@@ -5,6 +5,21 @@ Gura_BeginModule(freetype)
 //-----------------------------------------------------------------------------
 // Object_Vector implementation
 //-----------------------------------------------------------------------------
+Object_Vector::Object_Vector(const FT_Vector &vector) :
+			Object(Gura_UserClass(Vector)), _pVector(new FT_Vector(vector))
+{
+}
+
+Object_Vector::Object_Vector(Object *pObjHolder, FT_Vector *pVector) :
+		Object(Gura_UserClass(Vector)), _pObjHolder(pObjHolder), _pVector(pVector)
+{
+}
+
+Object_Vector::~Object_Vector()
+{
+	if (_pObjHolder.get() == NULL) delete _pVector;
+}
+
 Object *Object_Vector::Clone() const
 {
 	return NULL;
@@ -13,7 +28,7 @@ Object *Object_Vector::Clone() const
 String Object_Vector::ToString(Signal sig, bool exprFlag)
 {
 	char buff[80];
-	::sprintf(buff, "<freetype.Vector:x=%d,y=%d>", _vector.x, _vector.y);
+	::sprintf(buff, "<freetype.Vector:x=%d,y=%d>", _pVector->x, _pVector->y);
 	return String(buff);
 }
 
@@ -30,9 +45,9 @@ Value Object_Vector::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		return Value(_vector.x);
+		return Value(_pVector->x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		return Value(_vector.y);
+		return Value(_pVector->y);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -44,12 +59,12 @@ Value Object_Vector::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
 		if (!value.MustBeNumber(sig)) return Value::Null;
-		_vector.x = static_cast<FT_Pos>(value.GetLong());
-		return Value(_vector.x);
+		_pVector->x = static_cast<FT_Pos>(value.GetLong());
+		return Value(_pVector->x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
 		if (!value.MustBeNumber(sig)) return Value::Null;
-		_vector.y = static_cast<FT_Pos>(value.GetLong());
-		return Value(_vector.y);
+		_pVector->y = static_cast<FT_Pos>(value.GetLong());
+		return Value(_pVector->y);
 	}
 	evaluatedFlag = false;
 	return Value::Null;

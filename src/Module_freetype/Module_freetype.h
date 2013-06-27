@@ -69,7 +69,11 @@ Gura_DeclareUserSymbol(underline_thickness);
 Gura_DeclareUserSymbol(glyph);
 Gura_DeclareUserSymbol(size);
 Gura_DeclareUserSymbol(charmap);
+Gura_DeclareUserSymbol(advance);
+Gura_DeclareUserSymbol(format);
 Gura_DeclareUserSymbol(bitmap);
+Gura_DeclareUserSymbol(bitmap_left);
+Gura_DeclareUserSymbol(bitmap_top);
 Gura_DeclareUserSymbol(outline);
 
 //-----------------------------------------------------------------------------
