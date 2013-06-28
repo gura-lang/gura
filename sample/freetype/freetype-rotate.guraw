@@ -7,10 +7,11 @@ scope {
 	[wdImage, htImage] = [640, 640]
 	img = image(`rgb, wdImage, htImage, `white)
 	font = freetype.font(freetype.Face(freetype.sysfontpath('msgothic.ttc'), 1))
-	font.setheight(32).setcolor(`black)
-	font.setslant(.3)
+	font.height = 32
+	font.color = `black
+	font.slant = .3
 	interval(0, 360, 16):open_r {|degree|
-		font.setrotate(degree)
+		font.rotate = degree
 		img.drawtext(font, wdImage / 2, htImage / 2, "あいうえお Hello world")
 	}
 	img.show()

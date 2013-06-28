@@ -10,7 +10,9 @@ I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 fontName = 'http://github.com/ypsitau/gura/blob/master/sample/resource/Kaufmann_Bold_BT.ttf?raw=true'
 scope {
 	img = image(`rgb, 640, 480, `white)
-	font = freetype.font(fontName).setheight(64).setcolor(`black)
-	img.drawtext(font, 0, (1..4) * font.height:pixel, 'What this font looks like')
+	font = freetype.font(fontName)
+	font.height = 64
+	font.color = `black
+	img.drawtext(font, 0, (1..4) * font.height, 'What this font looks like')
 	img.show()
 }

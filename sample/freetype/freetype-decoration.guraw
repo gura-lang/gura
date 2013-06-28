@@ -6,13 +6,17 @@ import(freetype)
 scope {
 	img = image(`rgb, 700, 480, `white)
 	font = freetype.font(freetype.Face(freetype.sysfontpath('msgothic.ttc'), 1))
-	font.setheight(32).setcolor(`black)
+	font.height = 32
+	font.color = `black
 	repeat (10) {|i|
-		font.setstrength(0).setslant(0)
+		font.strength = 0
+		font.slant = 0
 		img.drawtext(font, 10, font.height:pixel * (i + 1), '%.1f' % (i * .1))
-		font.setstrength(0).setslant(i * .1)
+		font.strength = 0
+		font.slant = i * .1
 		img.drawtext(font, 60, font.height:pixel * (i + 1), 'あいうえお Hello world')
-		font.setstrength(i * .1).setslant(0)
+		font.strength = i * .1
+		font.slant = 0
 		img.drawtext(font, 380, font.height:pixel * (i + 1), 'あいうえお Hello world')
 	}
 	img.show()
