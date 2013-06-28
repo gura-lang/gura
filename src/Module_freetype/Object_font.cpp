@@ -152,10 +152,11 @@ FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal sig,
 		::FT_Matrix_Multiply(&matRot, &matrix);
 	}
 	// FT_Load_Char calls FT_Get_Char_Index and FT_Load_Glypy internally.
-	FT_Error err = ::FT_Load_Char(GetFace(), codeUTF32,
+	if (pFuncDeco == NULL) {
+		FT_Error err = ::FT_Load_Char(GetFace(), codeUTF32,
 					FT_LOAD_DEFAULT | (transformFlag? FT_LOAD_NO_BITMAP : 0));
-	if (err != 0) return err;
-	if (pFuncDeco != NULL) {
+		if (err != 0) return err;
+	} else {
 		ValueList valListArg;
 		valListArg.reserve(2);
 		valListArg.push_back(Value(Object_Face::Reference(_pObjFace.get())));
@@ -174,11 +175,11 @@ FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal sig,
 	} else if (glyphSlot->format == FT_GLYPH_FORMAT_BITMAP) {
 		FT_Pos xStrength = static_cast<FT_Pos>(_deco.strength * (1 << 6)); // 26.6 fixed float
 		FT_Pos yStrength = 0;
-		err = ::FT_Bitmap_Embolden(g_lib, &glyphSlot->bitmap, xStrength, yStrength);
+		FT_Error err = ::FT_Bitmap_Embolden(g_lib, &glyphSlot->bitmap, xStrength, yStrength);
 		if (err != 0) return err;
 	} else if (glyphSlot->format == FT_GLYPH_FORMAT_OUTLINE) {
 		FT_Pos strength = static_cast<FT_Pos>(_deco.strength * (1 << 6)); // 26.6 fixed float
-		err = ::FT_Outline_Embolden(&glyphSlot->outline, strength);
+		FT_Error err = ::FT_Outline_Embolden(&glyphSlot->outline, strength);
 		if (err != 0) return err;
 	} else if (glyphSlot->format == FT_GLYPH_FORMAT_PLOTTER) {
 		// nothing to do
@@ -194,7 +195,7 @@ FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal sig,
 			::FT_Outline_Transform(&glyphSlot->outline, &matrix);
 		}
 		// convert outline to bitmap
-		err = ::FT_Render_Glyph(glyphSlot, FT_RENDER_MODE_NORMAL);
+		FT_Error err = ::FT_Render_Glyph(glyphSlot, FT_RENDER_MODE_NORMAL);
 		if (err != 0) return err;
 		if (_deco.rotate.sinNum != 0.) {
 			double cosNum = _deco.rotate.cosNum;
