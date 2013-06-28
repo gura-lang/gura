@@ -223,6 +223,12 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(units_per_EM);
 	Gura_RealizeUserSymbol(ascender);
 	Gura_RealizeUserSymbol(descender);
+	Gura_RealizeUserSymbol(color);
+	Gura_RealizeUserSymbol(blending);
+	Gura_RealizeUserSymbol(strength);
+	Gura_RealizeUserSymbol(slant);
+	Gura_RealizeUserSymbol(rotate);
+	Gura_RealizeUserSymbol(width);
 	Gura_RealizeUserSymbol(height);
 	Gura_RealizeUserSymbol(max_advance_width);
 	Gura_RealizeUserSymbol(max_advance_height);

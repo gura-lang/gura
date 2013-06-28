@@ -40,10 +40,10 @@ public:
 	inline Object_color(Environment &env, unsigned char red, unsigned char green,
 									unsigned char blue, unsigned char alpha) :
 			Object(env.LookupClass(VTYPE_color)), _color(red, green, blue, alpha) {}
-	inline Object_color(Environment &env, const Color &color) :
+	inline Object_color(Environment &env, const Color &color = Color::Black) :
 			Object(env.LookupClass(VTYPE_color)), _color(color) {}
 	inline Object_color(Class *pClass) : Object(pClass) {}
-	inline void SetColor(Color &color) { _color = color; }
+	inline void SetColor(const Color &color) { _color = color; }
 	inline Color &GetColor() { return _color; }
 	inline const Color &GetColor() const { return _color; }
 	inline unsigned char GetRed() const { return _color.GetRed(); }

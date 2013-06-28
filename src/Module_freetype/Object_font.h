@@ -13,45 +13,49 @@ public:
 	Gura_DeclareObjectAccessor(font)
 private:
 	AutoPtr<Object_Face> _pObjFace;
-	Color _color;
+	AutoPtr<Object_color> _pObjColor;
 	bool _blendingFlag;
+	FT_UInt _width, _height;
+	double _strength;
+	double _slant;
 	struct {
-		double strength;
-		double slant;
-		struct {
-			double cosNum, sinNum;
-		} rotate;
-	} _deco;
+		double deg;
+		double cosNum, sinNum;
+	} _rotate;
 public:
-	Object_font(Object_Face *pObjFace);
+	Object_font(Object_Face *pObjFace, Object_color *pObjColor);
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline void SetColor(const Color &color, bool blendingFlag) {
-		_color = color, _blendingFlag = blendingFlag;
-	}
-	inline const Color &GetColor() const { return _color; }
-	inline int GetBlendingFlag() const { return _blendingFlag; }
 	inline FT_Face &GetFace() { return _pObjFace->GetEntity(); }
-	inline void ClearDeco() {
-		_deco.strength = 0;
-		_deco.slant = 0;
-		_deco.rotate.cosNum = 1., _deco.rotate.sinNum = 0;
+	inline void SetColor(const Color &color) { _pObjColor->SetColor(color); }
+	inline const Color &GetColor() const { return _pObjColor->GetColor(); }
+	inline void SetBlendingFlag(bool blendingFlag) { _blendingFlag = blendingFlag; }
+	inline int GetBlendingFlag() const { return _blendingFlag; }
+	inline void SetWidth(FT_UInt width) { _width = width; }
+	inline void SetHeight(FT_UInt height) { _height = height; }
+	inline FT_UInt GetWidth() const { return _width; }
+	inline FT_UInt GetHeight() const { return _height; }
+	inline void SetStrength(double strength) { _strength = strength; }
+	inline double GetStrength() const { return _strength; }
+	inline void SetSlant(double slant) { _slant = slant; }
+	inline double GetSlant() const { return _slant; }
+	inline void SetRotate(double deg) {
+		_rotate.deg = deg;
+		double rad = deg * 3.14159265358979323846 / 180;
+		_rotate.cosNum = ::cos(rad);
+		_rotate.sinNum = ::sin(rad);
 	}
-	bool SetPixelSizes(Signal sig, size_t width, size_t height);
+	inline double GetRotate() const { return _rotate.deg; }
+	void ClearDeco();
 	bool CalcSize(Environment &env, Signal sig, const String &str,
 					size_t &width, size_t &height, const Function *pFuncDeco);
 	bool DrawOnImage(Environment &env, Signal sig, Image *pImage, int x, int y,
 					const String &str, const Function *pFuncDeco);
-	inline void SetStrength(double strength) { _deco.strength = strength; }
-	inline void SetSlant(double slant) { _deco.slant = slant; }
-	inline void SetRotate(double degree) {
-		double rad = degree * 3.14159265358979323846 / 180;
-		_deco.rotate.cosNum = ::cos(rad);
-		_deco.rotate.sinNum = ::sin(rad);
-	}
 private:
 	FT_Error LoadAndDecorateChar(Environment &env, Signal sig,
 				unsigned long codeUTF32, size_t idx, const Function *pFuncDeco);

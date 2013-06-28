@@ -5,8 +5,8 @@ Gura_BeginModule(freetype)
 //-----------------------------------------------------------------------------
 // Object_font implementation
 //-----------------------------------------------------------------------------
-Object_font::Object_font(Object_Face *pObjFace) :
-			Object(Gura_UserClass(font)), _pObjFace(pObjFace), _blendingFlag(true)
+Object_font::Object_font(Object_Face *pObjFace, Object_color *pObjColor) :
+		Object(Gura_UserClass(font)), _pObjFace(pObjFace), _pObjColor(pObjColor)
 {
 	ClearDeco();
 }
@@ -20,7 +20,14 @@ bool Object_font::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(face));
-	return _pObjFace->DoDirProp(env, sig, symbols);
+	symbols.insert(Gura_UserSymbol(color));
+	symbols.insert(Gura_UserSymbol(blending));
+	symbols.insert(Gura_UserSymbol(strength));
+	symbols.insert(Gura_UserSymbol(slant));
+	symbols.insert(Gura_UserSymbol(rotate));
+	symbols.insert(Gura_UserSymbol(width));
+	symbols.insert(Gura_UserSymbol(height));
+	return true;
 }
 
 Value Object_font::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -29,9 +36,60 @@ Value Object_font::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(face))) {
 		return Value(Object_Face::Reference(_pObjFace.get()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(color))) {
+		return Value(Object_color::Reference(_pObjColor.get()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(blending))) {
+		return Value(_blendingFlag);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(strength))) {
+		return Value(_strength);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(slant))) {
+		return Value(_slant);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(rotate))) {
+		return Value(_rotate.deg);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {
+		return Value(_width);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
+		return Value(_height);
 	}
 	evaluatedFlag = false;
-	return _pObjFace->DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	return Value::Null;
+}
+
+Value Object_font::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(color))) {
+		if (!value.MustBeColor(sig)) return Value::Null;
+		_pObjColor->SetColor(Object_color::GetObject(value)->GetColor());
+		return Value(Object_color::Reference(_pObjColor.get()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(blending))) {
+		if (!value.MustBeBoolean(sig)) return Value::Null;
+		SetBlendingFlag(value.GetBoolean());
+		return Value(_blendingFlag);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(strength))) {
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		SetStrength(value.GetDouble());
+		return Value(_strength);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(slant))) {
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		SetSlant(value.GetDouble());
+		return Value(_slant);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(rotate))) {
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		SetRotate(value.GetDouble());
+		return Value(_rotate.deg);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		SetWidth(value.GetDouble());
+		return Value(_width);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		SetHeight(value.GetDouble());
+		return Value(_height);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
 }
 
 String Object_font::ToString(Signal sig, bool exprFlag)
@@ -43,15 +101,15 @@ String Object_font::ToString(Signal sig, bool exprFlag)
 	return str;
 }
 
-bool Object_font::SetPixelSizes(Signal sig, size_t width, size_t height)
+void Object_font::ClearDeco()
 {
-	FT_Error err = ::FT_Set_Pixel_Sizes(GetFace(),
-				static_cast<FT_UInt>(width), static_cast<FT_UInt>(height));
-	if (err) {
-		sig.SetError(ERR_IOError, "error occurs in FT_Set_Pixel_Sizes()");
-		return false;
-	}
-	return true;
+	_pObjColor->SetColor(Color::Black);
+	_blendingFlag = true;
+	_width = 0, _height = 0; // default value is used when _height == 0.
+	_strength = 0.;
+	_slant = 0.;
+	_rotate.deg = 0.;
+	_rotate.cosNum = 1., _rotate.sinNum = 0.;
 }
 
 bool Object_font::CalcSize(Environment &env, Signal sig, const String &str,
@@ -87,9 +145,10 @@ bool Object_font::CalcSize(Environment &env, Signal sig, const String &str,
 bool Object_font::DrawOnImage(Environment &env, Signal sig, Image *pImage,
 				int x, int y, const String &str, const Function *pFuncDeco)
 {
-	unsigned long redFg = _color.GetRed();
-	unsigned long greenFg = _color.GetGreen();
-	unsigned long blueFg = _color.GetBlue();
+	const Color &color = _pObjColor->GetColor();
+	unsigned long redFg = color.GetRed();
+	unsigned long greenFg = color.GetGreen();
+	unsigned long blueFg = color.GetBlue();
 	String::const_iterator p = str.begin();
 	int xShifted = x << 6, yShifted = y << 6;
 	size_t idx = 0;
@@ -135,21 +194,26 @@ FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal sig,
 	matrix.yx = 0 << 16;
 	matrix.yy = 1 << 16;
 	// slanting the font
-	if (_deco.slant != 0.) {
+	if (_slant != 0.) {
 		transformFlag = true;
-		matrix.xy = static_cast<FT_Fixed>(_deco.slant * (1 << 16));
+		matrix.xy = static_cast<FT_Fixed>(_slant * (1 << 16));
 	}
 	// rotating the font
-	if (_deco.rotate.sinNum != 0.) {
+	if (_rotate.deg != 0.) {
 		transformFlag = true;
 		FT_Matrix matRot;
-		int cos16 = static_cast<int>(_deco.rotate.cosNum * (1 << 16));
-		int sin16 = static_cast<int>(_deco.rotate.sinNum * (1 << 16));
+		int cos16 = static_cast<int>(_rotate.cosNum * (1 << 16));
+		int sin16 = static_cast<int>(_rotate.sinNum * (1 << 16));
 		matRot.xx = cos16;
 		matRot.xy = -sin16;
 		matRot.yx = sin16;
 		matRot.yy = cos16;
 		::FT_Matrix_Multiply(&matRot, &matrix);
+	}
+	if (_height != 0) {
+		FT_Error err = ::FT_Set_Pixel_Sizes(GetFace(),
+					static_cast<FT_UInt>(_width), static_cast<FT_UInt>(_height));
+		if (err != 0) return err;
 	}
 	// FT_Load_Char calls FT_Get_Char_Index and FT_Load_Glypy internally.
 	if (pFuncDeco == NULL) {
@@ -159,26 +223,25 @@ FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal sig,
 	} else {
 		ValueList valListArg;
 		valListArg.reserve(2);
-		valListArg.push_back(Value(Object_Face::Reference(_pObjFace.get())));
 		valListArg.push_back(Value(codeUTF32));
 		valListArg.push_back(Value(idx));
 		Args args(valListArg);
 		pFuncDeco->Eval(env, sig, args);
 	}
 	FT_GlyphSlot glyphSlot = GetFace()->glyph;
-	if (_deco.strength == 0.) {
+	if (_strength == 0.) {
 		// nothing to do
 	} else if (glyphSlot->format == FT_GLYPH_FORMAT_NONE) {
 		// nothing to do
 	} else if (glyphSlot->format == FT_GLYPH_FORMAT_COMPOSITE) {
 		// nothing to do
 	} else if (glyphSlot->format == FT_GLYPH_FORMAT_BITMAP) {
-		FT_Pos xStrength = static_cast<FT_Pos>(_deco.strength * (1 << 6)); // 26.6 fixed float
+		FT_Pos xStrength = static_cast<FT_Pos>(_strength * (1 << 6)); // 26.6 fixed float
 		FT_Pos yStrength = 0;
 		FT_Error err = ::FT_Bitmap_Embolden(g_lib, &glyphSlot->bitmap, xStrength, yStrength);
 		if (err != 0) return err;
 	} else if (glyphSlot->format == FT_GLYPH_FORMAT_OUTLINE) {
-		FT_Pos strength = static_cast<FT_Pos>(_deco.strength * (1 << 6)); // 26.6 fixed float
+		FT_Pos strength = static_cast<FT_Pos>(_strength * (1 << 6)); // 26.6 fixed float
 		FT_Error err = ::FT_Outline_Embolden(&glyphSlot->outline, strength);
 		if (err != 0) return err;
 	} else if (glyphSlot->format == FT_GLYPH_FORMAT_PLOTTER) {
@@ -197,9 +260,9 @@ FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal sig,
 		// convert outline to bitmap
 		FT_Error err = ::FT_Render_Glyph(glyphSlot, FT_RENDER_MODE_NORMAL);
 		if (err != 0) return err;
-		if (_deco.rotate.sinNum != 0.) {
-			double cosNum = _deco.rotate.cosNum;
-			double sinNum = -_deco.rotate.sinNum;
+		if (_rotate.deg != 0.) {
+			double cosNum = _rotate.cosNum;
+			double sinNum = -_rotate.sinNum;
 			FT_Pos x = glyphSlot->advance.x;
 			FT_Pos y = glyphSlot->advance.y;
 			glyphSlot->advance.x = static_cast<FT_Pos>(cosNum * x - sinNum * y);
@@ -215,9 +278,10 @@ void Object_font::DrawMonoOnImage(Image *pImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset)
 {
-	unsigned char red = _color.GetRed();
-	unsigned char green = _color.GetGreen();
-	unsigned char blue = _color.GetBlue();
+	const Color &color = _pObjColor->GetColor();
+	unsigned char red = color.GetRed();
+	unsigned char green = color.GetGreen();
+	unsigned char blue = color.GetBlue();
 	std::auto_ptr<Image::Scanner>
 				pScanner(pImage->CreateScanner(x, y, width, height));
 	int bitOffset = xOffset % 8;
@@ -253,9 +317,10 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset)
 {
-	unsigned long redFg = _color.GetRed();
-	unsigned long greenFg = _color.GetGreen();
-	unsigned long blueFg = _color.GetBlue();
+	const Color &color = _pObjColor->GetColor();
+	unsigned long redFg = color.GetRed();
+	unsigned long greenFg = color.GetGreen();
+	unsigned long blueFg = color.GetBlue();
 	std::auto_ptr<Image::Scanner>
 				pScanner(pImage->CreateScanner(x, y, width, height));
 	const unsigned char *pLine = buffer + xOffset + yOffset * pitch;
@@ -326,95 +391,8 @@ Gura_ImplementFunction(font)
 {
 	Object_Face *pObjFace = Object_Face::GetObject(args, 0);
 	AutoPtr<Object_font> pObjFont(
-					new Object_font(Object_Face::Reference(pObjFace)));
+		new Object_font(Object_Face::Reference(pObjFace), new Object_color(env)));
 	return ReturnValue(env, sig, args, Value(pObjFont.release()));
-}
-
-// freetype.font#setcolor(color:color, blending?:boolean):reduce
-Gura_DeclareMethod(font, setcolor)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "color", VTYPE_color);
-	DeclareArg(env, "blending", VTYPE_boolean, OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(font, setcolor)
-{
-	Object_font *pThis = Object_font::GetThisObj(args);
-	pThis->SetColor(Object_color::GetObject(args, 0)->GetColor(),
-									args.IsBoolean(1)? args.GetBoolean(1) : true);
-	return args.GetThis();
-}
-
-// freetype.font#setstrength(strength:number):reduce
-Gura_DeclareMethod(font, setstrength)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "strength", VTYPE_number);
-}
-
-Gura_ImplementMethod(font, setstrength)
-{
-	Object_font *pThis = Object_font::GetThisObj(args);
-	pThis->SetStrength(args.GetDouble(0));
-	return args.GetThis();
-}
-
-// freetype.font#setslant(slant:number):reduce
-Gura_DeclareMethod(font, setslant)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "slant", VTYPE_number);
-}
-
-Gura_ImplementMethod(font, setslant)
-{
-	Object_font *pThis = Object_font::GetThisObj(args);
-	pThis->SetSlant(args.GetDouble(0));
-	return args.GetThis();
-}
-
-// freetype.font#setrotate(degree:number):reduce
-Gura_DeclareMethod(font, setrotate)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "degree", VTYPE_number);
-}
-
-Gura_ImplementMethod(font, setrotate)
-{
-	Object_font *pThis = Object_font::GetThisObj(args);
-	pThis->SetRotate(args.GetDouble(0));
-	return args.GetThis();
-}
-
-// freetype.font#setsize(width:number, height:number):reduce
-Gura_DeclareMethod(font, setsize)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "width", VTYPE_number);
-	DeclareArg(env, "height", VTYPE_number);
-}
-
-Gura_ImplementMethod(font, setsize)
-{
-	Object_font *pThis = Object_font::GetThisObj(args);
-	if (!pThis->SetPixelSizes(sig, args.GetSizeT(0), args.GetSizeT(1))) return Value::Null;
-	return args.GetThis();
-}
-
-// freetype.font#setheight(height:number):reduce
-Gura_DeclareMethod(font, setheight)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "height", VTYPE_number);
-}
-
-Gura_ImplementMethod(font, setheight)
-{
-	Object_font *pThis = Object_font::GetThisObj(args);
-	if (!pThis->SetPixelSizes(sig, 0, args.GetSizeT(0))) return Value::Null;
-	return args.GetThis();
 }
 
 // freetype.font#cleardeco()
@@ -505,12 +483,6 @@ Gura_ImplementMethod(font, calcbbox)
 Gura_ImplementUserClass(font)
 {
 	Gura_AssignFunction(font);
-	Gura_AssignMethod(font, setcolor);
-	Gura_AssignMethod(font, setstrength);
-	Gura_AssignMethod(font, setslant);
-	Gura_AssignMethod(font, setrotate);
-	Gura_AssignMethod(font, setsize);
-	Gura_AssignMethod(font, setheight);
 	Gura_AssignMethod(font, cleardeco);
 	Gura_AssignMethod(font, drawtext);
 	Gura_AssignMethod(font, calcsize);
