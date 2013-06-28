@@ -54,7 +54,7 @@ public:
 	}
 private:
 	FT_Error LoadAndDecorateChar(Environment &env, Signal sig,
-						unsigned long codeUTF32, const Function *pFuncDeco);
+				unsigned long codeUTF32, size_t idx, const Function *pFuncDeco);
 	void DrawMonoOnImage(Image *pImage, int x, int y,
 				unsigned char *buffer, int width, int height, int pitch,
 				int xOffset, int yOffset);

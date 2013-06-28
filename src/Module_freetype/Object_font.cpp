@@ -60,11 +60,12 @@ bool Object_font::CalcSize(Environment &env, Signal sig, const String &str,
 	int xShifted = 0, yShifted = 0;
 	String::const_iterator p = str.begin();
 	int xMin = 0, xMax = 0, yMin = 0, yMax = 0;
+	size_t idx = 0;
 	do {
 		unsigned long codeUTF32;
 		p = Gura::NextUTF32(str, p, codeUTF32);
 		if (codeUTF32 == 0x00000000) break;
-		if (LoadAndDecorateChar(env, sig, codeUTF32, pFuncDeco) != 0) continue;
+		if (LoadAndDecorateChar(env, sig, codeUTF32, idx, pFuncDeco) != 0) continue;
 		FT_GlyphSlot glyphSlot = GetFace()->glyph;
 		FT_Bitmap &bitmap = glyphSlot->bitmap;
 		int xLeft = (xShifted >> 6) + glyphSlot->bitmap_left;
@@ -77,6 +78,7 @@ bool Object_font::CalcSize(Environment &env, Signal sig, const String &str,
 		if (yMax < yBottom) yMax = yBottom;
 		xShifted += glyphSlot->advance.x;	// 26.6 fixed float
 		yShifted += glyphSlot->advance.y;	// 26.6 fixed float
+		idx++;
 	} while (p != str.end());
 	width = xMax - xMin, height = yMax - yMin;
 	return true;
@@ -90,11 +92,12 @@ bool Object_font::DrawOnImage(Environment &env, Signal sig, Image *pImage,
 	unsigned long blueFg = _color.GetBlue();
 	String::const_iterator p = str.begin();
 	int xShifted = x << 6, yShifted = y << 6;
+	size_t idx = 0;
 	do {
 		unsigned long codeUTF32;
 		p = Gura::NextUTF32(str, p, codeUTF32);
 		if (codeUTF32 == 0x00000000) break;
-		if (LoadAndDecorateChar(env, sig, codeUTF32, pFuncDeco) != 0) continue;
+		if (LoadAndDecorateChar(env, sig, codeUTF32, idx, pFuncDeco) != 0) continue;
 		FT_GlyphSlot glyphSlot = GetFace()->glyph;
 		if (glyphSlot->format == FT_GLYPH_FORMAT_BITMAP) {
 			FT_Bitmap &bitmap = glyphSlot->bitmap;
@@ -117,12 +120,13 @@ bool Object_font::DrawOnImage(Environment &env, Signal sig, Image *pImage,
 		}
 		xShifted += glyphSlot->advance.x;	// 26.6 fixed float
 		yShifted += glyphSlot->advance.y;	// 26.6 fixed float
+		idx++;
 	} while (p != str.end());
 	return true;
 }
 
 FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal sig,
-						unsigned long codeUTF32, const Function *pFuncDeco)
+			unsigned long codeUTF32, size_t idx, const Function *pFuncDeco)
 {
 	bool transformFlag = (pFuncDeco != NULL);
 	FT_Matrix matrix;	// 16.16 fixed float
@@ -156,6 +160,7 @@ FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal sig,
 		valListArg.reserve(2);
 		valListArg.push_back(Value(Object_Face::Reference(_pObjFace.get())));
 		valListArg.push_back(Value(codeUTF32));
+		valListArg.push_back(Value(idx));
 		Args args(valListArg);
 		pFuncDeco->Eval(env, sig, args);
 	}
