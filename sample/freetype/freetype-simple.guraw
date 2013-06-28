@@ -2,21 +2,76 @@
 import(tk)
 import(freetype)
 
-font = freetype.font(freetype.sysfontpath('arial.ttf')).setheight(32)
-img = image(`rgb, 640, 320, `white)
-
-img.drawtext(font, 10, font.height:pixel, 'normal')
-
-font.cleardeco().setslant(.3)
-img.drawtext(font, 10, font.height:pixel * 2, 'slant')
-
-font.cleardeco().setstrength(1)
-img.drawtext(font, 10, font.height:pixel * 3, 'strength')
-
-font.cleardeco().setslant(.3).setstrength(1)
-img.drawtext(font, 10, font.height:pixel * 4, 'slant + strength')
-
-font.cleardeco().setrotate(20)
-img.drawtext(font, 10, font.height:pixel * 6, 'rotate')
-
+fileName = freetype.sysfontpath('arial.ttf')
+img = image(`rgb, 640, 480, `white)
+y = 0
+freetype.font(fileName) {|font|
+	font.height = 32
+	y += font.height
+	img.drawtext(font, 10, y, 'normal')
+}
+freetype.font(fileName) {|font|
+	font.height = 32
+	font.slant = .3
+	y += font.height
+	img.drawtext(font, 10, y, 'slant')
+}
+freetype.font(fileName) {|font|
+	font.height = 32
+	font.strength = 1
+	y += font.height
+	img.drawtext(font, 10, y, 'strength')
+}
+freetype.font(fileName) {|font|
+	font.height = 32
+	font.slant = .3
+	font.strength = 1
+	y += font.height
+	img.drawtext(font, 10, y, 'slant + strength')
+}
+freetype.font(fileName) {|font|
+	font.height = 32
+	font.rotate = 20
+	y += font.height * 2
+	img.drawtext(font, 10, y, 'rotate')
+}
+freetype.font(fileName) {|font|
+	font.height = 32
+	font.rotate = 20
+	font.slant = .3
+	y += font.height
+	img.drawtext(font, 10, y, 'rotate + slant')
+}
+freetype.font(fileName) {|font|
+	font.height = 32
+	font.rotate = 20
+	font.slant = .3
+	font.strength = 1
+	y += font.height
+	img.drawtext(font, 10, y, 'rotate + slant + strength')
+}
+freetype.font(fileName) {|font|
+	mat = matrix.rotation(30):deg
+	y += 200
+	img.drawtext(font, 30, y, 'custom') {|code|
+		face = font.face
+		face.Set_Pixel_Sizes(200, 200)
+		face.Load_Char(code, freetype.LOAD_DEFAULT)
+		face.glyph.outline.Transform(mat)
+		face.glyph.advance.Transform(matrix.rotation(-30):deg)
+	}
+}
+freetype.font(fileName) {|font|
+	font.height = 24
+	font.strength = 1
+	y = img.height - 5
+	for (c in [`black, `maroon, `green, `olive, `navy, `purple, `teal, `gray,
+				`silver, `red, `lime, `yellow, `blue, `fuchsia, `aqua, `white]) {
+		text:string = c
+		font.color = color(c)
+		[wdText, htText] = font.calcsize(text)
+		img.drawtext(font, img.width - wdText - 10, y, text)
+		y -= font.height
+	}
+}
 img.show()

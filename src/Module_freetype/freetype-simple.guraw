@@ -68,7 +68,7 @@ freetype.font(fileName) {|font|
 	for (c in [`black, `maroon, `green, `olive, `navy, `purple, `teal, `gray,
 				`silver, `red, `lime, `yellow, `blue, `fuchsia, `aqua, `white]) {
 		text:string = c
-		font.color = color(c)
+		font.color = c
 		[wdText, htText] = font.calcsize(text)
 		img.drawtext(font, img.width - wdText - 10, y, text)
 		y -= font.height

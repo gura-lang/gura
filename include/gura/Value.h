@@ -559,6 +559,7 @@ public:
 	ValueList &InitAsList(Environment &env, size_t n);
 	ValueList &InitAsList(Environment &env, size_t n, const Value &value);
 	ValueDict &InitAsDict(Environment &env, bool ignoreCaseFlag);
+	bool CastType(Environment &env, Signal sig, ValueType valType, Value &valueCasted) const;
 public:
 	static int Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag = false);
 	inline bool operator<(const Value &value) const {

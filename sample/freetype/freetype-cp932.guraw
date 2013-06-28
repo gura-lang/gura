@@ -8,7 +8,8 @@ F(filename:string) = path.join(sys.datadir, 'test', filename)
 scope {
 	lines = (open(F('chars-cp932.txt'), 'r', 'cp932').readlines():chop):list
 	freetype.font(freetype.sysfontpath('msgothic.ttc')) {|font|
-		font.setheight(40).setcolor(`white)
+		font.height = 40
+		font.color = color(`white)
 		img = image(`rgb, font.height:pixel * 32, lines.len() * font.height:pixel, `black)
 		img.drawtext(font, 0, (1..) * font.height:pixel, lines)
 	}

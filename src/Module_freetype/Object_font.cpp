@@ -60,8 +60,12 @@ Value Object_font::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(color))) {
-		if (!value.MustBeColor(sig)) return Value::Null;
-		_pObjColor->SetColor(Object_color::GetObject(value)->GetColor());
+		Value valueCasted;
+		if (!value.CastType(env, sig, VTYPE_color, valueCasted)) {
+			sig.SetError(ERR_ValueError, "value must be color");
+			return Value::Null;
+		}
+		_pObjColor->SetColor(Object_color::GetObject(valueCasted)->GetColor());
 		return Value(Object_color::Reference(_pObjColor.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(blending))) {
 		if (!value.MustBeBoolean(sig)) return Value::Null;

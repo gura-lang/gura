@@ -845,6 +845,14 @@ ValueDict &Value::InitAsDict(Environment &env, bool ignoreCaseFlag)
 	return pObj->GetDict();
 }
 
+bool Value::CastType(Environment &env, Signal sig, ValueType valType, Value &valueCasted) const
+{
+	valueCasted = *this;
+	if (IsType(valType)) return true;
+	Declaration decl(Gura_Symbol(nil), valType);
+	return env.LookupClass(valType)->CastFrom(env, sig, valueCasted, &decl);
+}
+
 Value Value::CreateAsList(Environment &env, const Value &v1)
 {
 	Value rtn;
