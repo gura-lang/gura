@@ -1,12 +1,12 @@
 #!/usr/bin/env gura
 # encoding: utf-8
 import(tk)
-import(freetype)
+import(freetype, ft)
 
 scope {
 	[wdImage, htImage] = [640, 640]
 	img = image(`rgb, wdImage, htImage, `white)
-	font = freetype.font(freetype.Face(freetype.sysfontpath('msgothic.ttc'), 1))
+	font = ft.font(ft.Face(ft.sysfontpath('msgothic.ttc'), 1))
 	font.height = 32
 	font.color = `black
 	font.slant = .3

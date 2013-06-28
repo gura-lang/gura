@@ -2,13 +2,13 @@
 # encoding: utf-8
 import(tk)
 import(jpeg)
-import(freetype)
+import(freetype, ft)
 
 I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 scope {
 	img = image(I('Winter.jpg'))
 	//img = image(`rgb, 640, 480, `gray)
-	font = freetype.font(freetype.Face(freetype.sysfontpath('msgothic.ttc'), 1))
+	font = ft.font(ft.Face(ft.sysfontpath('msgothic.ttc'), 1))
 	font.height = 64
 	font.color = `red
 	img.drawtext(font, (0..10) * 50 - 100, (0 ..10) * 64 - 25, 'あいうえお Hello world')

@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
 import(mswin)
-import(freetype)
+import(freetype, ft)
 
-pathnames = path.dir(freetype.sysfontpath(), '*.ttc', '*.ttf'):icase
+pathnames = path.dir(ft.sysfontpath(), '*.ttc', '*.ttf'):icase
 filenames = path.filename(pathnames)
-fonts = freetype.font(pathnames)
-printf('%-*s %s\n', filenames:*len().max(), filenames, fonts:*family_name)
+fonts = ft.font(pathnames)
+printf('%-*s %s\n', filenames:*len().max(), filenames, fonts:*face:*family_name)

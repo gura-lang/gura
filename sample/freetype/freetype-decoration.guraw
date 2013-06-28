@@ -1,23 +1,23 @@
 #!/usr/bin/env gura
 # encoding: utf-8
 import(tk)
-import(freetype)
+import(freetype, ft)
 
 scope {
 	img = image(`rgb, 700, 480, `white)
-	font = freetype.font(freetype.Face(freetype.sysfontpath('msgothic.ttc'), 1))
+	font = ft.font(ft.Face(ft.sysfontpath('msgothic.ttc'), 1))
 	font.height = 32
 	font.color = `black
 	repeat (10) {|i|
 		font.strength = 0
 		font.slant = 0
-		img.drawtext(font, 10, font.height:pixel * (i + 1), '%.1f' % (i * .1))
+		img.drawtext(font, 10, font.height * (i + 1), '%.1f' % (i * .1))
 		font.strength = 0
 		font.slant = i * .1
-		img.drawtext(font, 60, font.height:pixel * (i + 1), 'あいうえお Hello world')
+		img.drawtext(font, 60, font.height * (i + 1), 'あいうえお Hello world')
 		font.strength = i * .1
 		font.slant = 0
-		img.drawtext(font, 380, font.height:pixel * (i + 1), 'あいうえお Hello world')
+		img.drawtext(font, 380, font.height * (i + 1), 'あいうえお Hello world')
 	}
 	img.show()
 }
