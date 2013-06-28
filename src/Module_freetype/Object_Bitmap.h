@@ -17,6 +17,7 @@ private:
 public:
 	inline Object_Bitmap(Object *pObjHolder, FT_Bitmap *pBitmap) :
 			Object(Gura_UserClass(Bitmap)), _pObjHolder(pObjHolder), _pBitmap(pBitmap) {}
+	~Object_Bitmap();
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);

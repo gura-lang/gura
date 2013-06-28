@@ -5,6 +5,14 @@ Gura_BeginModule(freetype)
 //-----------------------------------------------------------------------------
 // Object_Bitmap implementation
 //-----------------------------------------------------------------------------
+Object_Bitmap::~Object_Bitmap()
+{
+	if (_pObjHolder.get() == NULL) {
+		::FT_Bitmap_Done(g_lib, _pBitmap);
+		delete _pBitmap;
+	}
+}
+
 Object *Object_Bitmap::Clone() const
 {
 	return NULL;
@@ -64,6 +72,22 @@ Value Object_Bitmap::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 //-----------------------------------------------------------------------------
 // Class implementation for freetype.Bitmap
 //-----------------------------------------------------------------------------
+// freetype.Bitmap() {block?}
+Gura_DeclareFunction(Bitmap)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(Bitmap));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(Bitmap)
+{
+	FT_Bitmap *pBitmap = new FT_Bitmap;
+	::FT_Bitmap_New(pBitmap);
+	AutoPtr<Object_Bitmap> pObjRtn(new Object_Bitmap(NULL, pBitmap));
+	return ReturnValue(env, sig, args, Value(pObjRtn.release()));
+}
+
 // freetype.Bitmap#Embolden(xStrength:number, yStrength:number):reduce
 Gura_DeclareMethod(Bitmap, Embolden)
 {

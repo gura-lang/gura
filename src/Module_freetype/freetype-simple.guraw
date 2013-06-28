@@ -1,48 +1,48 @@
 #!/usr/bin/env gura
 import(tk)
-import(freetype)
+import(freetype, ft)
 
-fileName = freetype.sysfontpath('arial.ttf')
+fileName = ft.sysfontpath('arial.ttf')
 img = image(`rgb, 640, 480, `white)
 y = 0
-freetype.font(fileName) {|font|
+ft.font(fileName) {|font|
 	font.height = 32
 	y += font.height
 	img.drawtext(font, 10, y, 'normal')
 }
-freetype.font(fileName) {|font|
+ft.font(fileName) {|font|
 	font.height = 32
 	font.slant = .3
 	y += font.height
 	img.drawtext(font, 10, y, 'slant')
 }
-freetype.font(fileName) {|font|
+ft.font(fileName) {|font|
 	font.height = 32
 	font.strength = 1
 	y += font.height
 	img.drawtext(font, 10, y, 'strength')
 }
-freetype.font(fileName) {|font|
+ft.font(fileName) {|font|
 	font.height = 32
 	font.slant = .3
 	font.strength = 1
 	y += font.height
 	img.drawtext(font, 10, y, 'slant + strength')
 }
-freetype.font(fileName) {|font|
+ft.font(fileName) {|font|
 	font.height = 32
 	font.rotate = 20
 	y += font.height * 2
 	img.drawtext(font, 10, y, 'rotate')
 }
-freetype.font(fileName) {|font|
+ft.font(fileName) {|font|
 	font.height = 32
 	font.rotate = 20
 	font.slant = .3
 	y += font.height
 	img.drawtext(font, 10, y, 'rotate + slant')
 }
-freetype.font(fileName) {|font|
+ft.font(fileName) {|font|
 	font.height = 32
 	font.rotate = 20
 	font.slant = .3
@@ -50,18 +50,18 @@ freetype.font(fileName) {|font|
 	y += font.height
 	img.drawtext(font, 10, y, 'rotate + slant + strength')
 }
-freetype.font(fileName) {|font|
+ft.font(fileName) {|font|
 	mat = matrix.rotation(30):deg
 	y += 200
 	img.drawtext(font, 30, y, 'custom') {|code|
 		face = font.face
 		face.Set_Pixel_Sizes(200, 200)
-		face.Load_Char(code, freetype.LOAD_DEFAULT)
+		face.Load_Char(code, ft.LOAD_DEFAULT)
 		face.glyph.outline.Transform(mat)
 		face.glyph.advance.Transform(matrix.rotation(-30):deg)
 	}
 }
-freetype.font(fileName) {|font|
+ft.font(fileName) {|font|
 	font.height = 24
 	font.strength = 1
 	y = img.height - 5

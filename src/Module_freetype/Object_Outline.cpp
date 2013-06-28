@@ -36,7 +36,7 @@ Value Object_Outline::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 		return Value(_vector.x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
 		return Value(_vector.y);
-	}
+}
 #endif
 	evaluatedFlag = false;
 	return Value::Null;
@@ -64,6 +64,38 @@ Value Object_Outline::DoSetProp(Environment &env, Signal sig, const Symbol *pSym
 //-----------------------------------------------------------------------------
 // Class implementation for freetype.Outline
 //-----------------------------------------------------------------------------
+// freetype.Outline#Translate(xOffset:number, yOffset:number):reduce
+Gura_DeclareMethod(Outline, Translate)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "xOffset", VTYPE_Matrix);
+	DeclareArg(env, "yOffset", VTYPE_Matrix);
+}
+
+Gura_ImplementMethod(Outline, Translate)
+{
+	FT_Outline *outline = Object_Outline::GetThisObj(args)->GetEntity();
+	FT_Pos xOffset = static_cast<FT_Pos>(args.GetInt(0));
+	FT_Pos yOffset = static_cast<FT_Pos>(args.GetInt(1));
+	::FT_Outline_Translate(outline, xOffset, yOffset);	// void function
+	return args.GetThis();
+}
+
+// freetype.Outline#Transform(matrix:freetype.Matrix):reduce
+Gura_DeclareMethod(Outline, Transform)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "matrix", VTYPE_Matrix);
+}
+
+Gura_ImplementMethod(Outline, Transform)
+{
+	FT_Outline *outline = Object_Outline::GetThisObj(args)->GetEntity();
+	FT_Matrix *matrix = Object_Matrix::GetObject(args, 0)->GetEntity();
+	::FT_Outline_Transform(outline, matrix);	// void function
+	return args.GetThis();
+}
+
 // freetype.Outline#Embolden(strength:number):reduce
 Gura_DeclareMethod(Outline, Embolden)
 {
@@ -83,25 +115,47 @@ Gura_ImplementMethod(Outline, Embolden)
 	return args.GetThis();
 }
 
-// freetype.Outline#Transform(matrix:freetype.Matrix):reduce
-Gura_DeclareMethod(Outline, Transform)
+// freetype.Outline#EmboldenXY(xstrength:number, ystrength:number):reduce
+Gura_DeclareMethod(Outline, EmboldenXY)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "matrix", VTYPE_Matrix);
+	DeclareArg(env, "xstrength", VTYPE_number);
+	DeclareArg(env, "ystrength", VTYPE_number);
 }
 
-Gura_ImplementMethod(Outline, Transform)
+Gura_ImplementMethod(Outline, EmboldenXY)
 {
 	FT_Outline *outline = Object_Outline::GetThisObj(args)->GetEntity();
-	FT_Matrix *matrix = Object_Matrix::GetObject(args, 0)->GetEntity();
-	::FT_Outline_Transform(outline, matrix);	// void function
+	FT_Pos xstrength = static_cast<FT_Pos>(args.GetDouble(0) * (1 << 6)); // 26.6
+	FT_Pos ystrength = static_cast<FT_Pos>(args.GetDouble(1) * (1 << 6)); // 26.6
+	FT_Error err = ::FT_Outline_EmboldenXY(outline, xstrength, ystrength);
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return args.GetThis();
+}
+
+// freetype.Outline#Reverse():reduce
+Gura_DeclareMethod(Outline, Reverse)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+}
+
+Gura_ImplementMethod(Outline, Reverse)
+{
+	FT_Outline *outline = Object_Outline::GetThisObj(args)->GetEntity();
+	::FT_Outline_Reverse(outline);	// void function
 	return args.GetThis();
 }
 
 Gura_ImplementUserClass(Outline)
 {
-	Gura_AssignMethod(Outline, Embolden);
+	Gura_AssignMethod(Outline, Translate);
 	Gura_AssignMethod(Outline, Transform);
+	Gura_AssignMethod(Outline, Embolden);
+	Gura_AssignMethod(Outline, EmboldenXY);
+	Gura_AssignMethod(Outline, Reverse);
 }
 
 }}
