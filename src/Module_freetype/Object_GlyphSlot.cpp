@@ -78,6 +78,24 @@ Value Object_GlyphSlot::DoSetProp(Environment &env, Signal sig, const Symbol *pS
 //-----------------------------------------------------------------------------
 // Gura interfaces for freetype.GlyphSlot
 //-----------------------------------------------------------------------------
+// freetype.GlyphSlot#Get_Glyph()
+Gura_DeclareMethod(GlyphSlot, Get_Glyph)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(GlyphSlot, Get_Glyph)
+{
+	FT_GlyphSlot glyphSlot = Object_GlyphSlot::GetThisObj(args)->GetEntity();
+	std::auto_ptr<FT_Glyph> pGlyph(new FT_Glyph);
+	FT_Error err = ::FT_Get_Glyph(glyphSlot, pGlyph.get());
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return Value(new Object_Glyph(NULL, pGlyph.release()));
+}
+
 // freetype.GlyphSlot#Render(render_mode:number):reduce
 Gura_DeclareMethod(GlyphSlot, Render)
 {
@@ -102,6 +120,7 @@ Gura_ImplementMethod(GlyphSlot, Render)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(GlyphSlot)
 {
+	Gura_AssignMethod(GlyphSlot, Get_Glyph);
 	Gura_AssignMethod(GlyphSlot, Render);
 }
 

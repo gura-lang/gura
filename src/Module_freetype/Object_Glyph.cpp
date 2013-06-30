@@ -72,8 +72,27 @@ Value Object_Glyph::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbo
 //-----------------------------------------------------------------------------
 // Class implementation for freetype.Glyph
 //-----------------------------------------------------------------------------
+// freetype.Glyph#Copy()
+Gura_DeclareMethod(Glyph, Copy)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(Glyph, Copy)
+{
+	FT_Glyph *pGlyph = Object_Glyph::GetThisObj(args)->GetEntity();
+	std::auto_ptr<FT_Glyph> pGlyphTgt(new FT_Glyph);
+	FT_Error err = ::FT_Glyph_Copy(*pGlyph, pGlyphTgt.get());
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return Value(new Object_Glyph(NULL, pGlyphTgt.release()));
+}
+
 Gura_ImplementUserClass(Glyph)
 {
+	Gura_AssignMethod(Glyph, Copy);
 }
 
 }}
