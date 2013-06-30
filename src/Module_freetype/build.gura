@@ -9,6 +9,7 @@ srcs = [
 'Object_Matrix.cpp'
 'Object_Bitmap.cpp'
 'Object_CharMap.cpp'
+'Object_Glyph.cpp'
 'Object_GlyphSlot.cpp'
 'Object_Outline.cpp'
 'Object_Raster.cpp'

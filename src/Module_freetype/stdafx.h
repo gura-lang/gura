@@ -9,6 +9,7 @@
 #include "Object_Matrix.h"
 #include "Object_Bitmap.h"
 #include "Object_CharMap.h"
+#include "Object_Glyph.h"
 #include "Object_GlyphSlot.h"
 #include "Object_Outline.h"
 #include "Object_Raster.h"

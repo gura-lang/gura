@@ -547,6 +547,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClassWithoutPrepare(Matrix, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(Bitmap, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(CharMap, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(Glyph, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(GlyphSlot, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(Outline, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(Raster, env.LookupClass(VTYPE_object));
@@ -568,6 +569,7 @@ Gura_ModuleEntry()
 	Gura_UserClass(Matrix)->Prepare(env);
 	Gura_UserClass(Bitmap)->Prepare(env);
 	Gura_UserClass(CharMap)->Prepare(env);
+	Gura_UserClass(Glyph)->Prepare(env);
 	Gura_UserClass(GlyphSlot)->Prepare(env);
 	Gura_UserClass(Outline)->Prepare(env);
 	Gura_UserClass(Raster)->Prepare(env);

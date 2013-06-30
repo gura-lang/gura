@@ -206,6 +206,59 @@ Gura_ImplementMethod(Face, CheckTrueTypePatents)
 	return Value(::FT_Face_CheckTrueTypePatents(face));
 }
 
+// freetype.Face#Get_Advance(glyph_index:number, load_flags:number)
+Gura_DeclareMethod(Face, Get_Advance)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "glyph_index", VTYPE_number);
+	DeclareArg(env, "load_flags", VTYPE_number);
+}
+
+Gura_ImplementMethod(Face, Get_Advance)
+{
+	FT_Face face = Object_Face::GetThisObj(args)->GetEntity();
+	FT_UInt glyph_index = static_cast<FT_UInt>(args.GetUInt(0));
+	FT_Int32 load_flags = static_cast<FT_Int32>(args.GetLong(1));
+	FT_Fixed advance = 0;
+	FT_Error err = ::FT_Get_Advance(face, glyph_index, load_flags, &advance);
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return Value(static_cast<double>(advance) / (1 << 16));
+}
+
+// freetype.Face#Get_Advances(glyph_index_start:number, count:number, load_flags:number)
+Gura_DeclareMethod(Face, Get_Advances)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "glyph_index_start", VTYPE_number);
+	DeclareArg(env, "count", VTYPE_number);
+	DeclareArg(env, "load_flags", VTYPE_number);
+}
+
+Gura_ImplementMethod(Face, Get_Advances)
+{
+	FT_Face face = Object_Face::GetThisObj(args)->GetEntity();
+	FT_UInt glyph_index_start = static_cast<FT_UInt>(args.GetUInt(0));
+	FT_UInt count = static_cast<FT_UInt>(args.GetUInt(1));
+	FT_Int32 load_flags = static_cast<FT_Int32>(args.GetLong(2));
+	FT_Fixed *advances = new FT_Fixed[count];
+	FT_Error err = ::FT_Get_Advances(face, glyph_index_start, count, load_flags, advances);
+	if (err != 0) {
+		delete[] advances;
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	Value rtn;
+	ValueList &valList = rtn.InitAsList(env);
+	valList.reserve(count);
+	for (FT_UInt i = 0; i < count; i++) {
+		valList.push_back(static_cast<double>(advances[i]) / (1 << 16));
+	}
+	return rtn;
+}
+
 // freetype.Face#Get_Glyph_Name(glyph_index:number)
 Gura_DeclareMethod(Face, Get_Glyph_Name)
 {
@@ -375,6 +428,8 @@ Gura_ImplementUserClassWithCast(Face)
 {
 	Gura_AssignFunction(Face);
 	Gura_AssignMethod(Face, CheckTrueTypePatents);
+	Gura_AssignMethod(Face, Get_Advance);
+	Gura_AssignMethod(Face, Get_Advances);
 	Gura_AssignMethod(Face, Get_Glyph_Name);
 	Gura_AssignMethod(Face, Get_Postscript_Name);
 	Gura_AssignMethod(Face, Get_Kerning);

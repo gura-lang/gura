@@ -25,6 +25,7 @@
 #include FT_UNPATENTED_HINTING_H
 #include FT_TRUETYPE_IDS_H
 #include FT_CACHE_H
+#include FT_ADVANCES_H
 
 #if defined(GURA_ON_MSWIN)
 #include <shlobj.h>
