@@ -6,9 +6,9 @@ velocity = 0x40
 notes = [0, 2, 4, 5, 7, 9, 11, 12] + 12 * 4
 midi.port {|port|
 	println(port)
-	midi.programs.each {|name, program|
-		printf('Program: %s(%d)\n', name, program)
-		port.program_change(channel, program)
+	midi.programs.each {|program|
+		printf('Program: [%3d] %s\n', program.id, program.dispname)
+		port.program_change(channel, program.id)
 		notes.each {|note|
 			port.note_on(channel, note, velocity)
 			time.sleep(.2)
