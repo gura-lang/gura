@@ -64,27 +64,50 @@ Value Object_Stroker::DoSetProp(Environment &env, Signal sig, const Symbol *pSym
 //-----------------------------------------------------------------------------
 // Class implementation for freetype.Stroker
 //-----------------------------------------------------------------------------
-// freetype.Stroker.New():map {block?}
-Gura_DeclareClassMethod(Stroker, New)
+// freetype.Stroker():map {block?}
+Gura_DeclareFunction(Stroker)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	//SetClassToConstruct(Gura_UserClass(Face));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementClassMethod(Stroker, New)
+Gura_ImplementFunction(Stroker)
 {
 	AutoPtr<Object_Stroker> pObj(new Object_Stroker());
 	FT_Error err = ::FT_Stroker_New(g_lib, &pObj->GetEntity());
 	if (err != 0) {
-		sig.SetError(ERR_RuntimeError, "freetype error");
+		SetError_Freetype(sig, err);
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
+// freetype.Stroker#BeginSubPath(to:freetype.Vector, open:boolean):reduce
+Gura_DeclareMethod(Stroker, BeginSubPath)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "to", VTYPE_Vector);
+	DeclareArg(env, "open", VTYPE_boolean);
+}
+
+Gura_ImplementMethod(Stroker, BeginSubPath)
+{
+	FT_Stroker stroker = Object_Stroker::GetThisObj(args)->GetEntity();
+	FT_Vector *to = Object_Vector::GetObject(args, 0)->GetEntity();
+	bool open = args.GetBoolean(1);
+	FT_Error err = ::FT_Stroker_BeginSubPath(stroker, to, open);
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return args.GetThis();
+}
+
 Gura_ImplementUserClass(Stroker)
 {
+	Gura_AssignFunction(Stroker);
+	Gura_AssignMethod(Stroker, BeginSubPath);
 }
 
 }}
