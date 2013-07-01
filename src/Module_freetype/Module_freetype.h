@@ -63,7 +63,7 @@ Gura_DeclareUserSymbol(units_per_EM);
 Gura_DeclareUserSymbol(ascender);
 Gura_DeclareUserSymbol(descender);
 Gura_DeclareUserSymbol(color);
-Gura_DeclareUserSymbol(blending);
+Gura_DeclareUserSymbol(alphaset);
 Gura_DeclareUserSymbol(strength);
 Gura_DeclareUserSymbol(slant);
 Gura_DeclareUserSymbol(rotate);

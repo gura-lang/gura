@@ -21,7 +21,7 @@ bool Object_font::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(face));
 	symbols.insert(Gura_UserSymbol(color));
-	symbols.insert(Gura_UserSymbol(blending));
+	symbols.insert(Gura_UserSymbol(alphaset));
 	symbols.insert(Gura_UserSymbol(strength));
 	symbols.insert(Gura_UserSymbol(slant));
 	symbols.insert(Gura_UserSymbol(rotate));
@@ -38,8 +38,8 @@ Value Object_font::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		return Value(Object_Face::Reference(_pObjFace.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(color))) {
 		return Value(Object_color::Reference(_pObjColor.get()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(blending))) {
-		return Value(_blendingFlag);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(alphaset))) {
+		return Value(_alphaSetFlag);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(strength))) {
 		return Value(_strength);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(slant))) {
@@ -67,10 +67,10 @@ Value Object_font::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		}
 		_pObjColor->SetColor(Object_color::GetObject(valueCasted)->GetColor());
 		return Value(Object_color::Reference(_pObjColor.get()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(blending))) {
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(alphaset))) {
 		if (!value.MustBeBoolean(sig)) return Value::Null;
-		SetBlendingFlag(value.GetBoolean());
-		return Value(_blendingFlag);
+		SetAlphaSetFlag(value.GetBoolean());
+		return Value(_alphaSetFlag);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(strength))) {
 		if (!value.MustBeNumber(sig)) return Value::Null;
 		SetStrength(value.GetDouble());
@@ -108,7 +108,7 @@ String Object_font::ToString(Signal sig, bool exprFlag)
 void Object_font::ClearDeco()
 {
 	_pObjColor->SetColor(Color::Black);
-	_blendingFlag = true;
+	_alphaSetFlag = false;
 	_width = 0, _height = 0; // default value is used when _height == 0.
 	_strength = 0.;
 	_slant = 0.;
@@ -331,7 +331,22 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 	const unsigned char *pPixel = pLine;
 	bool alphaFlag = (pImage->GetFormat() == Image::FORMAT_RGBA);
 	for (;;) {
-		if (_blendingFlag) {
+		if (_alphaSetFlag) {
+			if (alphaFlag) {
+				if (pScanner->GetAlpha() < *pPixel) {
+					pScanner->StorePixel(
+						static_cast<unsigned char>(redFg),
+						static_cast<unsigned char>(greenFg),
+						static_cast<unsigned char>(blueFg),
+						*pPixel);
+				}
+			} else {
+				pScanner->StorePixel(
+						static_cast<unsigned char>(redFg),
+						static_cast<unsigned char>(greenFg),
+						static_cast<unsigned char>(blueFg));
+			}
+		} else {
 			unsigned long ratioFg = *pPixel;
 			unsigned long ratioBg = 255 - ratioFg;
 			unsigned long redBg = pScanner->GetRed();
@@ -351,21 +366,6 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 						static_cast<unsigned char>(red),
 						static_cast<unsigned char>(green),
 						static_cast<unsigned char>(blue));
-			}
-		} else {
-			if (alphaFlag) {
-				if (pScanner->GetAlpha() < *pPixel) {
-					pScanner->StorePixel(
-						static_cast<unsigned char>(redFg),
-						static_cast<unsigned char>(greenFg),
-						static_cast<unsigned char>(blueFg),
-						*pPixel);
-				}
-			} else {
-				pScanner->StorePixel(
-						static_cast<unsigned char>(redFg),
-						static_cast<unsigned char>(greenFg),
-						static_cast<unsigned char>(blueFg));
 			}
 		}
 		if (pScanner->NextPixel()) {

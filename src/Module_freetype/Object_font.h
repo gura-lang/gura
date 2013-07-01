@@ -14,7 +14,7 @@ public:
 private:
 	AutoPtr<Object_Face> _pObjFace;
 	AutoPtr<Object_color> _pObjColor;
-	bool _blendingFlag;
+	bool _alphaSetFlag;
 	FT_UInt _width, _height;
 	double _strength;
 	double _slant;
@@ -34,8 +34,8 @@ public:
 	inline FT_Face &GetFace() { return _pObjFace->GetEntity(); }
 	inline void SetColor(const Color &color) { _pObjColor->SetColor(color); }
 	inline const Color &GetColor() const { return _pObjColor->GetColor(); }
-	inline void SetBlendingFlag(bool blendingFlag) { _blendingFlag = blendingFlag; }
-	inline int GetBlendingFlag() const { return _blendingFlag; }
+	inline void SetAlphaSetFlag(bool alphaSetFlag) { _alphaSetFlag = alphaSetFlag; }
+	inline int GetAlphaSetFlag() const { return _alphaSetFlag; }
 	inline void SetWidth(FT_UInt width) { _width = width; }
 	inline void SetHeight(FT_UInt height) { _height = height; }
 	inline FT_UInt GetWidth() const { return _width; }
