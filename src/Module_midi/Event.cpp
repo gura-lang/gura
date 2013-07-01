@@ -358,10 +358,10 @@ const Symbol *MIDIEvent_ControlChange::GetSymbol() const
 String MIDIEvent_ControlChange::GetArgsName() const
 {
 	char str[128];
-	const char *name = ControllerToName(GetController());
+	const ControllerInfo *pControllerInfo = ControllerInfoById(GetController());
 	::sprintf(str, "channel:%d controller:%s(%d) value:%d",
-					GetChannel(), (name == NULL)? "unknown" : name,
-					GetController(), GetValue());
+		GetChannel(), (pControllerInfo == NULL)? "unknown" : pControllerInfo->name,
+		GetController(), GetValue());
 	return String(str);
 }
 
@@ -384,11 +384,11 @@ Value MIDIEvent_ControlChange::DoGetProp(Environment &env, Signal sig, const Sym
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(controller))) {
 		if (attrs.IsSet(Gura_Symbol(symbol))) {
-			const Symbol *pSymbolRtn = ControllerToSymbol(GetController());
-			if (pSymbolRtn == NULL) {
+			const ControllerInfo *pControllerInfo = ControllerInfoById(GetController());
+			if (pControllerInfo == NULL) {
 				return Value::Null;
 			} else {
-				return Value(pSymbolRtn);
+				return Value(pControllerInfo->pSymbol);
 			}
 		} else {
 			return Value(GetController());
@@ -428,9 +428,9 @@ const Symbol *MIDIEvent_ProgramChange::GetSymbol() const
 String MIDIEvent_ProgramChange::GetArgsName() const
 {
 	char str[128];
-	const char *name = ProgramToName(GetProgram());
+	const ProgramInfo *pProgramInfo = ProgramInfoById(GetProgram());
 	::sprintf(str, "channel:%d program:%s(%d)", GetChannel(),
-					(name == NULL)? "unknown" : name, GetProgram());
+		(pProgramInfo == NULL)? "unknown" : pProgramInfo->name, GetProgram());
 	return String(str);
 }
 

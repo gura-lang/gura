@@ -484,7 +484,7 @@ bool MML::FeedChar(Signal sig, int ch)
 		}
 		case STAT_ProgramName: {
 			if (ch == '}') {
-				int program = NameToProgram(Strip(_token.c_str()).c_str());
+				int program = ProgramIdByName(Strip(_token.c_str()).c_str());
 				if (program < 0) {
 					sig.SetError(ERR_FormatError, "unknown program %s", _token.c_str());
 					return false;

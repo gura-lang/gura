@@ -8,17 +8,6 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 // information table
 //-----------------------------------------------------------------------------
-struct ControllerInfo {
-	const char *name;
-	const Symbol *pSymbol;
-};
-
-struct ProgramInfo {
-	const char *name;
-	const char *dispName;
-	const Symbol *pSymbol;
-};
-
 static ControllerInfo g_controllerInfos[] = {
 	{ "bank_select",					NULL }, // 0
 	{ "modulation_wheel",				NULL }, // 1
@@ -249,7 +238,7 @@ static ProgramInfo g_programInfos[] = {
 	{ "lead_5_charang",				"Lead 5 (charang)",			NULL }, // 84
 	{ "lead_6_voice",				"Lead 6 (voice)",			NULL }, // 85
 	{ "lead_7_fifths",				"Lead 7 (fifths)",			NULL }, // 86
-	{ "lead_8_bass_+_lead",			"Lead 8 (bass + lead)",		NULL }, // 87
+	{ "lead_8_bass_lead",			"Lead 8 (bass + lead)",		NULL }, // 87
 	// Synth Pad
 	{ "pad_1_fantasia",				"Pad 1 (Fantasia)",			NULL }, // 88
 	{ "pad_2_warm",					"Pad 2 (warm)",				NULL }, // 89
@@ -576,7 +565,7 @@ Gura_ImplementMethod(track, control_change)
 	if (args.IsNumber(1)) {
 		controller = args.GetUChar(1);
 	} else if (args.IsSymbol(1)) {
-		int n = SymbolToController(args.GetSymbol(1));
+		int n = ControllerIdBySymbol(args.GetSymbol(1));
 		if (n < 0) {
 			sig.SetError(ERR_TypeError, "invalid controller name '%s'",
 											args.GetSymbol(1)->GetName());
@@ -611,7 +600,7 @@ Gura_ImplementMethod(track, program_change)
 	if (args.IsNumber(1)) {
 		program = args.GetUChar(1);
 	} else if (args.IsSymbol(1)) {
-		int n = SymbolToProgram(args.GetSymbol(1));
+		int n = ProgramIdBySymbol(args.GetSymbol(1));
 		if (n < 0) {
 			sig.SetError(ERR_TypeError, "invalid program name '%s'",
 											args.GetSymbol(1)->GetName());
@@ -1767,17 +1756,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
-int NameToController(const char *name)
-{
-	for (int i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
-		if (::strcasecmp(g_controllerInfos[i].name, name) == 0) {
-			return i;
-		}
-	}
-	return -1;
-}
-
-int SymbolToController(const Symbol *pSymbol)
+int ControllerIdBySymbol(const Symbol *pSymbol)
 {
 	for (int i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
 		if (g_controllerInfos[i].pSymbol != NULL &&
@@ -1788,23 +1767,25 @@ int SymbolToController(const Symbol *pSymbol)
 	return -1;
 }
 
-const char *ControllerToName(int controller)
+int ControllerIdByName(const char *name)
+{
+	for (int i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
+		if (::strcasecmp(g_controllerInfos[i].name, name) == 0) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+const ControllerInfo *ControllerInfoById(int controller)
 {
 	if (0 <= controller && controller < ArraySizeOf(g_controllerInfos)) {
-		return g_controllerInfos[controller].name;
+		return &g_controllerInfos[controller];
 	}
 	return NULL;
 }
 
-const Symbol *ControllerToSymbol(int controller)
-{
-	if (0 <= controller && controller < ArraySizeOf(g_controllerInfos)) {
-		return g_controllerInfos[controller].pSymbol;
-	}
-	return NULL;
-}
-
-int SymbolToProgram(const Symbol *pSymbol)
+int ProgramIdBySymbol(const Symbol *pSymbol)
 {
 	for (int i = 0; i < ArraySizeOf(g_programInfos); i++) {
 		if (g_programInfos[i].pSymbol != NULL &&
@@ -1815,7 +1796,7 @@ int SymbolToProgram(const Symbol *pSymbol)
 	return -1;
 }
 
-int NameToProgram(const char *name)
+int ProgramIdByName(const char *name)
 {
 	for (int i = 0; i < ArraySizeOf(g_programInfos); i++) {
 		if (::strcasecmp(g_programInfos[i].name, name) == 0) {
@@ -1825,10 +1806,10 @@ int NameToProgram(const char *name)
 	return -1;
 }
 
-const char *ProgramToName(int program)
+const ProgramInfo *ProgramInfoById(int program)
 {
 	if (0 <= program && program < ArraySizeOf(g_programInfos)) {
-		return g_programInfos[program].name;
+		return &g_programInfos[program];
 	}
 	return NULL;
 }

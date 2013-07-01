@@ -71,6 +71,20 @@ Gura_DeclareUserSymbol(key_signature);
 Gura_DeclareUserSymbol(sequencer_specific_event);
 
 //-----------------------------------------------------------------------------
+// information table
+//-----------------------------------------------------------------------------
+struct ControllerInfo {
+	const char *name;
+	const Symbol *pSymbol;
+};
+
+struct ProgramInfo {
+	const char *name;
+	const char *dispName;
+	const Symbol *pSymbol;
+};
+
+//-----------------------------------------------------------------------------
 // Class declaration for midi.event
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(event);
@@ -220,13 +234,25 @@ public:
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
-int NameToController(const char *name);
-int SymbolToController(const Symbol *pSymbol);
-const char *ControllerToName(int controller);
-const Symbol *ControllerToSymbol(int controller);
-int NameToProgram(const char *name);
-int SymbolToProgram(const Symbol *pSymbol);
-const char *ProgramToName(int program);
+int ControllerIdBySymbol(const Symbol *pSymbol);
+int ControllerIdByName(const char *name);
+const ControllerInfo *ControllerInfoById(int controller);
+inline const ControllerInfo *ControllerInfoBySymbol(const Symbol *pSymbol) {
+	return ControllerInfoById(ControllerIdBySymbol(pSymbol));
+}
+inline const ControllerInfo *ControllerInfoByName(const char *name) {
+	return ControllerInfoById(ControllerIdByName(name));
+}
+
+int ProgramIdBySymbol(const Symbol *pSymbol);
+int ProgramIdByName(const char *name);
+const ProgramInfo *ProgramInfoById(int program);
+inline const ProgramInfo *ProgramInfoBySymbol(const Symbol *pSymbol) {
+	return ProgramInfoById(ProgramIdBySymbol(pSymbol));
+}
+inline const ProgramInfo *ProgramInfoByName(const char *name) {
+	return ProgramInfoById(ProgramIdByName(name));
+}
 
 }}
 
