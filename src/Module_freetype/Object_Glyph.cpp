@@ -90,9 +90,51 @@ Gura_ImplementMethod(Glyph, Copy)
 	return Value(new Object_Glyph(NULL, pGlyphTgt.release()));
 }
 
+// freetype.Glyph#Stroke(stroker:freetype.Stroker):reduce
+Gura_DeclareMethod(Glyph, Stroke)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "stroker", VTYPE_Stroker);
+}
+
+Gura_ImplementMethod(Glyph, Stroke)
+{
+	FT_Glyph *pGlyph = Object_Glyph::GetThisObj(args)->GetEntity();
+	FT_Stroker stroker = Object_Stroker::GetObject(args, 0)->GetEntity();
+	FT_Error err = ::FT_Glyph_Stroke(pGlyph, stroker, false);
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return args.GetThis();
+}
+
+// freetype.Glyph#StrokeBorder(stroker:freetype.Stroker, inside:boolean):reduce
+Gura_DeclareMethod(Glyph, StrokeBorder)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "stroker", VTYPE_Stroker);
+	DeclareArg(env, "inside", VTYPE_boolean);
+}
+
+Gura_ImplementMethod(Glyph, StrokeBorder)
+{
+	FT_Glyph *pGlyph = Object_Glyph::GetThisObj(args)->GetEntity();
+	FT_Stroker stroker = Object_Stroker::GetObject(args, 0)->GetEntity();
+	FT_Bool inside = args.GetBoolean(1);
+	FT_Error err = ::FT_Glyph_StrokeBorder(pGlyph, stroker, inside, false);
+	if (err != 0) {
+		SetError_Freetype(sig, err);
+		return Value::Null;
+	}
+	return args.GetThis();
+}
+
 Gura_ImplementUserClass(Glyph)
 {
 	Gura_AssignMethod(Glyph, Copy);
+	Gura_AssignMethod(Glyph, Stroke);
+	Gura_AssignMethod(Glyph, StrokeBorder);
 }
 
 }}

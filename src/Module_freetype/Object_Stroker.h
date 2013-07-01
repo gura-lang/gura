@@ -15,6 +15,7 @@ private:
 	FT_Stroker _stroker;
 public:
 	inline Object_Stroker() : Object(Gura_UserClass(Stroker)) {}
+	~Object_Stroker();
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);

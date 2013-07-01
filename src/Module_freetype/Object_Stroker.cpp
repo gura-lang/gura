@@ -5,6 +5,11 @@ Gura_BeginModule(freetype)
 //-----------------------------------------------------------------------------
 // Object_Stroker implementation
 //-----------------------------------------------------------------------------
+Object_Stroker::~Object_Stroker()
+{
+	::FT_Stroker_Done(_stroker);
+}
+
 Object *Object_Stroker::Clone() const
 {
 	return NULL;
