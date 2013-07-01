@@ -1476,6 +1476,107 @@ Gura_ImplementCastTo(port)
 }
 
 //-----------------------------------------------------------------------------
+// Object_controller
+//-----------------------------------------------------------------------------
+Object *Object_controller::Clone() const
+{
+	return NULL;
+}
+
+bool Object_controller::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(id));
+	symbols.insert(Gura_UserSymbol(name));
+	return true;
+}
+
+Value Object_controller::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
+		return Value(_controller);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
+		return Value(env, _controllerInfo.name);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_controller::ToString(Signal sig, bool exprFlag)
+{
+	String rtn;
+	rtn += "<midi.controller:";
+	rtn += _controllerInfo.name;
+	rtn += ">";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for midi.controller
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Class implementation for midi.controller
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(controller)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Object_program
+//-----------------------------------------------------------------------------
+Object *Object_program::Clone() const
+{
+	return NULL;
+}
+
+bool Object_program::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(id));
+	symbols.insert(Gura_UserSymbol(name));
+	symbols.insert(Gura_UserSymbol(dispname));
+	return true;
+}
+
+Value Object_program::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
+		return Value(_program);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
+		return Value(env, _programInfo.name);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(dispname))) {
+		return Value(env, _programInfo.dispName);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_program::ToString(Signal sig, bool exprFlag)
+{
+	String rtn;
+	rtn += "<midi.program:";
+	rtn += _programInfo.name;
+	rtn += ">";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for midi.program
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Class implementation for midi.program
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(program)
+{
+}
+
+//-----------------------------------------------------------------------------
 // Iterator_track
 //-----------------------------------------------------------------------------
 Iterator_track::Iterator_track(TrackOwner *pTrackOwner) :
@@ -1652,7 +1753,9 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(meta);
 	Gura_RealizeUserSymbol(timestamp);
 	Gura_RealizeUserSymbol(status);
+	Gura_RealizeUserSymbol(id);
 	Gura_RealizeUserSymbol(name);
+	Gura_RealizeUserSymbol(dispname);
 	Gura_RealizeUserSymbol(symbol);
 	Gura_RealizeUserSymbol(args);
 	Gura_RealizeUserSymbol(format);
@@ -1711,6 +1814,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClassWithoutPrepare(content, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(portinfo, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(port, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(controller, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(program, env.LookupClass(VTYPE_object));
 	Gura_UserClass(event)->Prepare(env);
 	Gura_UserClass(track)->Prepare(env);
 	Gura_UserClass(content)->Prepare(env);
@@ -1722,13 +1827,10 @@ Gura_ModuleEntry()
 		ValueList &valList = value.InitAsList(env);
 		valList.reserve(ArraySizeOf(g_controllerInfos));
 		for (size_t i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
+			unsigned char controller = static_cast<unsigned char>(i);
 			ControllerInfo &controllerInfo = g_controllerInfos[i];
-			if (controllerInfo.name == NULL) {
-				valList.push_back(Value::Null);
-			} else {
-				controllerInfo.pSymbol = Symbol::Add(controllerInfo.name);
-				valList.push_back(Value(controllerInfo.pSymbol));
-			}
+			if (controllerInfo.name == NULL) continue;
+			valList.push_back(Value(new Object_controller(env, controller, controllerInfo)));
 		}
 		Gura_AssignValue(controllers, value);
 	} while (0);
@@ -1737,9 +1839,9 @@ Gura_ModuleEntry()
 		ValueList &valList = value.InitAsList(env);
 		valList.reserve(ArraySizeOf(g_programInfos));
 		for (size_t i = 0; i < ArraySizeOf(g_programInfos); i++) {
+			unsigned char program = static_cast<unsigned char>(i);
 			ProgramInfo &programInfo = g_programInfos[i];
-			programInfo.pSymbol = Symbol::Add(programInfo.name);
-			valList.push_back(Value(programInfo.pSymbol));
+			valList.push_back(Value(new Object_program(env, program, programInfo)));
 		}
 		Gura_AssignValue(programs, value);
 	} while (0);

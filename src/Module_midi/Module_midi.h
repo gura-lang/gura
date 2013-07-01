@@ -16,7 +16,9 @@ Gura_DeclareUserSymbol(sysex);
 Gura_DeclareUserSymbol(meta);
 Gura_DeclareUserSymbol(timestamp);
 Gura_DeclareUserSymbol(status);
+Gura_DeclareUserSymbol(id);
 Gura_DeclareUserSymbol(name);
+Gura_DeclareUserSymbol(dispname);
 Gura_DeclareUserSymbol(symbol);
 Gura_DeclareUserSymbol(args);
 Gura_DeclareUserSymbol(format);
@@ -183,6 +185,52 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline Port *GetPort() { return _pPort.get(); }
+};
+
+//-----------------------------------------------------------------------------
+// Class declaration for midi.controller
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(controller);
+
+class Object_controller : public Object {
+public:
+	Gura_DeclareObjectAccessor(controller)
+private:
+	unsigned char _controller;
+	const ControllerInfo &_controllerInfo;
+public:
+	inline Object_controller(Environment &env, unsigned char controller, const ControllerInfo &controllerInfo) :
+			Object(Gura_UserClass(controller)), _controller(controller), _controllerInfo(controllerInfo) {}
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
+	inline unsigned char GetController() const { return _controller; }
+	inline const ControllerInfo &GetControllerInfo() const { return _controllerInfo; }
+};
+
+//-----------------------------------------------------------------------------
+// Class declaration for midi.program
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(program);
+
+class Object_program : public Object {
+public:
+	Gura_DeclareObjectAccessor(program)
+private:
+	int _program;
+	const ProgramInfo &_programInfo;
+public:
+	inline Object_program(Environment &env, unsigned char program, const ProgramInfo &programInfo) :
+			Object(Gura_UserClass(program)), _program(program), _programInfo(programInfo) {}
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
+	inline unsigned char GetProgram() const { return _program; }
+	inline const ProgramInfo &GetProgramInfo() const { return _programInfo; }
 };
 
 //-----------------------------------------------------------------------------
