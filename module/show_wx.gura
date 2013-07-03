@@ -44,7 +44,7 @@ Panel = class(wx.Panel) {
 
 Frame = class(wx.Frame) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
-							path.filename(sys.argv[0]), size => wx.Size(800, 600)|
+					'Image Viewer', size => wx.Size(App.width, App.height)|
 		wx.Panel(this) {|panel|
 			wx.BoxSizer(wx.VERTICAL) {|vbox|
 				panel.SetSizer(vbox)
@@ -64,7 +64,8 @@ App = class(wx.App) {
 }
 
 // expansion to image class
-classref(`root.image).show() = {
+classref(`root.image).show(width => 640, height => 480) = {
+	[App.width:public, App.height:public] = [width, height]
 	Panel.image = this
 	wx.IMPLEMENT_APP(App)
 }
