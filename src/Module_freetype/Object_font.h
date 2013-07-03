@@ -10,11 +10,15 @@ Gura_DeclareUserClass(font);
 
 class Object_font : public Object {
 public:
+	enum Mode {
+		MODE_Blend, MODE_Alpha,
+	};
+public:
 	Gura_DeclareObjectAccessor(font)
 private:
 	AutoPtr<Object_Face> _pObjFace;
 	AutoPtr<Object_color> _pObjColor;
-	bool _alphaSetFlag;
+	Mode _mode;
 	FT_UInt _width, _height;
 	double _strength;
 	double _slant;
@@ -34,8 +38,8 @@ public:
 	inline FT_Face &GetFace() { return _pObjFace->GetEntity(); }
 	inline void SetColor(const Color &color) { _pObjColor->SetColor(color); }
 	inline const Color &GetColor() const { return _pObjColor->GetColor(); }
-	inline void SetAlphaSetFlag(bool alphaSetFlag) { _alphaSetFlag = alphaSetFlag; }
-	inline int GetAlphaSetFlag() const { return _alphaSetFlag; }
+	inline void SetMode(Mode mode) { _mode = mode; }
+	inline Mode GetMode() const { return _mode; }
 	inline void SetWidth(FT_UInt width) { _width = width; }
 	inline void SetHeight(FT_UInt height) { _height = height; }
 	inline FT_UInt GetWidth() const { return _width; }

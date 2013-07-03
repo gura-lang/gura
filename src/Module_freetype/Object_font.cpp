@@ -21,7 +21,7 @@ bool Object_font::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(face));
 	symbols.insert(Gura_UserSymbol(color));
-	symbols.insert(Gura_UserSymbol(alphaset));
+	symbols.insert(Gura_UserSymbol(mode));
 	symbols.insert(Gura_UserSymbol(strength));
 	symbols.insert(Gura_UserSymbol(slant));
 	symbols.insert(Gura_UserSymbol(rotate));
@@ -38,8 +38,12 @@ Value Object_font::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		return Value(Object_Face::Reference(_pObjFace.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(color))) {
 		return Value(Object_color::Reference(_pObjColor.get()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(alphaset))) {
-		return Value(_alphaSetFlag);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mode))) {
+		const Symbol *pSymbol =
+			(_mode == MODE_Blend)? Gura_UserSymbol(blend) :
+			(_mode == MODE_Alpha)? Gura_UserSymbol(alpha) :
+			Gura_UserSymbol(blend);
+		return Value(pSymbol);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(strength))) {
 		return Value(_strength);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(slant))) {
@@ -67,10 +71,18 @@ Value Object_font::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		}
 		_pObjColor->SetColor(Object_color::GetObject(valueCasted)->GetColor());
 		return Value(Object_color::Reference(_pObjColor.get()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(alphaset))) {
-		if (!value.MustBeBoolean(sig)) return Value::Null;
-		SetAlphaSetFlag(value.GetBoolean());
-		return Value(_alphaSetFlag);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mode))) {
+		if (!value.MustBeSymbol(sig)) return Value::Null;
+		const Symbol *pSymbolVal = value.GetSymbol();
+		if (pSymbolVal->IsIdentical(Gura_UserSymbol(blend))) {
+			_mode = MODE_Blend;
+		} else if (pSymbolVal->IsIdentical(Gura_UserSymbol(alpha))) {
+			_mode = MODE_Alpha;
+		} else {
+			sig.SetError(ERR_ValueError, "symbol must be `blend or `alpha");
+			return Value::Null;
+		}
+		return Value(pSymbolVal);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(strength))) {
 		if (!value.MustBeNumber(sig)) return Value::Null;
 		SetStrength(value.GetDouble());
@@ -108,7 +120,7 @@ String Object_font::ToString(Signal sig, bool exprFlag)
 void Object_font::ClearDeco()
 {
 	_pObjColor->SetColor(Color::Black);
-	_alphaSetFlag = false;
+	_mode = MODE_Blend;
 	_width = 0, _height = 0; // default value is used when _height == 0.
 	_strength = 0.;
 	_slant = 0.;
@@ -331,7 +343,7 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 	const unsigned char *pPixel = pLine;
 	bool alphaFlag = (pImage->GetFormat() == Image::FORMAT_RGBA);
 	for (;;) {
-		if (_alphaSetFlag) {
+		if (_mode == MODE_Alpha) {
 			if (alphaFlag) {
 				if (pScanner->GetAlpha() < *pPixel) {
 					pScanner->StorePixel(
@@ -346,7 +358,7 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 						static_cast<unsigned char>(greenFg),
 						static_cast<unsigned char>(blueFg));
 			}
-		} else {
+		} else { // _mode == MODE_Blend;
 			unsigned long ratioFg = *pPixel;
 			unsigned long ratioBg = 255 - ratioFg;
 			unsigned long redBg = pScanner->GetRed();

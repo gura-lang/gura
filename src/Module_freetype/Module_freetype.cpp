@@ -224,7 +224,9 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(ascender);
 	Gura_RealizeUserSymbol(descender);
 	Gura_RealizeUserSymbol(color);
-	Gura_RealizeUserSymbol(alphaset);
+	Gura_RealizeUserSymbol(mode);
+	Gura_RealizeUserSymbol(blend);
+	Gura_RealizeUserSymbol(alpha);
 	Gura_RealizeUserSymbol(strength);
 	Gura_RealizeUserSymbol(slant);
 	Gura_RealizeUserSymbol(rotate);
