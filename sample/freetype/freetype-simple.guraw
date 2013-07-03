@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(tk)
+import(show_tk)
 import(freetype, ft)
 
 fileName = ft.sysfontpath('arial.ttf')

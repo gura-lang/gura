@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(tk)
+import(show_tk)
 import(freetype)
 import(zip)
 
@@ -8,11 +8,13 @@ I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 img = image(`rgb, 160, 120, `black)
 
 freetype.font(I('zippedfont.zip/Kaufmann_Bold_BT.ttf')) {|font|
-	font.setheight(32).setcolor(`white)
-	img.drawtext(font, 0, font.height:pixel, 'Hello world')
+	font.height = 32
+	font.color = `white
+	img.drawtext(font, 0, font.height, 'Hello world')
 }
 freetype.font(I('Kaufmann_Bold_BT.ttf')) {|font|
-	font.setheight(32).setcolor(`white)
-	img.drawtext(font, 0, font.height:pixel * 2, 'Hello world')
+	font.height = 32
+	font.color = `white
+	img.drawtext(font, 0, font.height * 2, 'Hello world')
 }
 img.show()

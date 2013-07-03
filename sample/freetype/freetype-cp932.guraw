@@ -1,5 +1,5 @@
 # encoding: shift_jis
-import(tk)
+import(show_tk)
 import(png)
 import(freetype, ft)
 

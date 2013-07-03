@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 # encoding: shift_jis
-import(tk)
+import(show_tk)
 import(freetype, ft)
 import(curl)
 

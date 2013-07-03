@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 # encoding: utf-8
-import(tk)
+import(show_tk)
 import(jpeg)
 import(freetype, ft)
 

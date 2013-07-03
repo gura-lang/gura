@@ -741,17 +741,6 @@ classref(`root.image) {|ref|
 		this.writetcl(_interp, imgTk._imagename)
 		imgTk
 	}
-	ref.show() = {
-		mainwindow() {|mw|
-			[wdCanvas, htCanvas] = [640, 480]
-			img = this.thumbnail(wdCanvas, htCanvas).to_tk()
-			mw.Canvas(bg => 'gray', width => wdCanvas, height => htCanvas) {|w|
-				w.pack(fill => 'both', expand => true)
-				w.Image(wdCanvas / 2, htCanvas / 2, image => img, anchor => 'c')
-			}
-		}
-		mainloop()
-	}
 }
 
 //-----------------------------------------------------------------------------
