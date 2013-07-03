@@ -1,0 +1,18 @@
+#!/usr/bin/env gura
+//-----------------------------------------------------------------------------
+// image#show() implementation using tk
+//-----------------------------------------------------------------------------
+import(tk)
+
+// expansion to image class
+classref(`root.image).show() = {
+	tk.mainwindow() {|mw|
+		[wdCanvas, htCanvas] = [640, 480]
+		img = this.thumbnail(wdCanvas, htCanvas).to_tk()
+		mw.Canvas(bg => 'gray', width => wdCanvas, height => htCanvas) {|w|
+			w.pack(fill => 'both', expand => true)
+			w.Image(wdCanvas / 2, htCanvas / 2, image => img, anchor => 'c')
+		}
+	}
+	tk.mainloop()
+}
