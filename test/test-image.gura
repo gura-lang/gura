@@ -7,7 +7,7 @@ import(png)
 import(gif)
 import(xpm)
 import(hash)
-import(freetype)
+import(freetype, ft)
 import(testutil) {*}
 
 tester_image(image:image, comment:string):map:void = {
@@ -31,27 +31,30 @@ tester_image(image:image, comment:string):map:void = {
 if (sys.build != `gnuc) {
 	scope {
 		img = image(`rgb, 32, 32, `black)
-		face = freetype.Face.New(freetype.sysfontpath('msgothic.ttc')).setheight(16).setcolor(`white)
+		font = ft.font(ft.sysfontpath('msgothic.ttc'))
+		font.height = 16, font.color = `white
 		str = '\xe5\x9c\x92' // kanji 'en'
-		img.drawtext(face, -4, 12, str)
-		img.drawtext(face, 24, 12, str)
-		img.drawtext(face, -4, 36, str)
-		img.drawtext(face, 24, 36, str)
+		img.drawtext(font, -4, 12, str)
+		img.drawtext(font, 24, 12, str)
+		img.drawtext(font, -4, 36, str)
+		img.drawtext(font, 24, 36, str)
 		tester_image(img, 'msgothic 16pix')
 	}
 	scope {
 		img = image(`rgb, 32, 32, `black)
-		face = freetype.Face.New(freetype.sysfontpath('arial.ttf')).setheight(16).setcolor(`white)
-		img.drawtext(face, -8, 8, '@')
-		img.drawtext(face, 24, 8, '@')
-		img.drawtext(face, -8, 36, '@')
-		img.drawtext(face, 24, 36, '@')
+		font = ft.font(ft.sysfontpath('arial.ttf'))
+		font.height = 16, font.color = `white
+		img.drawtext(font, -8, 8, '@')
+		img.drawtext(font, 24, 8, '@')
+		img.drawtext(font, -8, 36, '@')
+		img.drawtext(font, 24, 36, '@')
 		tester_image(img, 'arial 16pix')
 	}
 	scope {
 		img = image(`rgb, 320, 320, `black)
-		face = freetype.Face.New(freetype.sysfontpath('arial.ttf')).setheight(320).setcolor(`white)
-		img.drawtext(face, 0, 240, '@')
+		font = ft.font(ft.sysfontpath('arial.ttf'))
+		font.height = 320, font.color = `white
+		img.drawtext(font, 0, 240, '@')
 		tester_image(img, 'arial 320pix')
 	}
 }

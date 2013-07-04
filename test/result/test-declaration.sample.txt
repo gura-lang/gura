@@ -21,6 +21,7 @@ MemoryError:error = <error:MemoryError>
 NameError:error = <error:NameError>
 None:error = <error:None>
 NotImplementedError:error = <error:NotImplementedError>
+OutOfRange:error = <error:OutOfRange>
 ResourceError:error = <error:ResourceError>
 RuntimeError:error = <error:RuntimeError>
 SyntaxError:error = <error:SyntaxError>
