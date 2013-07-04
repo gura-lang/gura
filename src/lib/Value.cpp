@@ -537,6 +537,11 @@ bool Value::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escal
 		return GetModule()->DirProp(env, sig, symbols);
 	} else if (IsClass()) {
 		return GetClass()->DirProp(env, sig, symbols, escalateFlag);
+	} else if (IsFunction()) {
+		Class *pClass = GetFunction()->GetClassToConstruct();
+		if (pClass != NULL) {
+			return pClass->DirProp(env, sig, symbols, escalateFlag);
+		}
 	} else if (IsObject()) {
 		return GetObject()->DirProp(env, sig, symbols);
 	}
