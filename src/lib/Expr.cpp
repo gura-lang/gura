@@ -874,10 +874,8 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 		if (sig.IsSignalled()) return Value::Null;
 	}
 	if (escalateFlag) {
-		//ValueEx *pValue = env.LookupValue(GetSymbol(), ENVREF_Escalate, 0);
 		env.AssignValueFromBlock(GetSymbol(), value, extra);
 	} else {
-		//ValueEx *pValue = env.LookupValue(GetSymbol(), ENVREF_NoEscalate, 0);
 		env.AssignValue(GetSymbol(), value, extra);
 	}
 	return value;
