@@ -2678,7 +2678,7 @@ Value ExprList::ExecInRoot(Environment &env, Signal sig) const
 		} else if (sig.IsSignalled()) {
 			env.GetConsoleErr()->PrintSignal(sig, sig);
 			sig.ClearSignal();
-		} else if (!env.GetEchoFlag()) {
+		} else if (!env.GetGlobal()->GetEchoFlag()) {
 			// nothing to do
 		} else if (result.IsValid()) {
 			// pConsole must be retrieved here.

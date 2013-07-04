@@ -99,9 +99,8 @@ int Main(int argc, const char *argv[])
 		interactiveFlag = false;
 	}
 	const char *encoding = opt.GetString("coding", "utf-8");
-	Expr *pExprRoot = NULL;
 	if (argc >= 2) {
-		pExprRoot = Parser().ParseStream(env, sig, argv[1], encoding);
+		AutoPtr<Expr> pExprRoot(Parser().ParseStream(env, sig, argv[1], encoding));
 		if (sig.IsSignalled()) {
 			env.GetConsoleErr()->PrintSignal(sig, sig);
 			return 1;
@@ -139,10 +138,9 @@ int Main(int argc, const char *argv[])
 	}
 	if (interactiveFlag || opt.IsSet("interactive")) {
 		PrintVersion(stdout);
-		env.SetEchoFlag(true);
+		env.GetGlobal()->SetEchoFlag(true);
 		ReadEvalPrintLoop(env, sig);
 	}
-	Expr::Delete(pExprRoot);
 	return 0;
 }
 

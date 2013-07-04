@@ -832,7 +832,7 @@ Gura_ModuleEntry()
 	// symbol realization
 	PathManager::Register(env, new PathManager_FileSys());
 	// assign symbols in sys module
-	Module *pModuleSys = env.GetModule_sys();
+	Module *pModuleSys = env.GetGlobal()->GetModule_sys();
 	do {
 		Stream_File *pStream = new Stream_File(env, sig);
 		pStream->OpenStdin();

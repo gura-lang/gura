@@ -20,7 +20,7 @@ Gura_DeclareFunction(echo)
 
 Gura_ImplementFunction(echo)
 {
-	env.SetEchoFlag(args.GetBoolean(0));
+	env.GetGlobal()->SetEchoFlag(args.GetBoolean(0));
 	return Value::Null;
 }
 

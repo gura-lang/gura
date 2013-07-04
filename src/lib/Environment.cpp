@@ -728,8 +728,8 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 		SymbolList::const_iterator ppSymbolOfModuleEnd, bool binaryOnlyFlag)
 {
 	Environment &env = *this;
-	const Value *pValDirNameList =
-			GetModule_sys()->LookupValue(Gura_Symbol(path), ENVREF_NoEscalate);
+	const Value *pValDirNameList = GetGlobal()->GetModule_sys()->
+							LookupValue(Gura_Symbol(path), ENVREF_NoEscalate);
 	if (pValDirNameList == NULL) {
 		sig.SetError(ERR_ImportError, "variable path is not specified");
 		return false;
@@ -792,10 +792,10 @@ Module *Environment::ImportSeparatedModule_Script(Signal sig, Environment *pEnvO
 	if (sig.IsSignalled()) return NULL;
 	Module *pModule = new Module(pEnvOuter, symbolOfModule.back(), pathName, pExpr, NULL);
 	GetGlobal()->RegisterSeparatedModule(pathName, pModule);
-	bool echoFlagSaved = pModule->GetEchoFlag();
-	pModule->SetEchoFlag(false);
+	bool echoFlagSaved = pModule->GetGlobal()->GetEchoFlag();
+	pModule->GetGlobal()->SetEchoFlag(false);
 	pExpr->Exec(*pModule, sig);
-	pModule->SetEchoFlag(echoFlagSaved);
+	pModule->GetGlobal()->SetEchoFlag(echoFlagSaved);
 	if (sig.IsSignalled()) {
 		GetGlobal()->UnregisterSeparatedModule(pathName);
 		delete pModule;
@@ -837,8 +837,8 @@ bool Environment::IsBinaryModule(const char *pathName)
 bool Environment::AddModuleSearchPath(Signal sig, const StringList &strList)
 {
 	Environment &env = *this;
-	Value *pValDirNameList =
-			GetModule_sys()->LookupValue(Gura_Symbol(path), ENVREF_NoEscalate);
+	Value *pValDirNameList = GetGlobal()->GetModule_sys()->
+						LookupValue(Gura_Symbol(path), ENVREF_NoEscalate);
 	if (pValDirNameList == NULL) {
 		sig.SetError(ERR_ImportError, "path variable is not specified");
 		return false;
@@ -853,14 +853,15 @@ bool Environment::AddModuleSearchPath(Signal sig, const StringList &strList)
 
 const char *Environment::GetPrompt(bool indentFlag)
 {
-	Value *pValue = GetModule_sys()->LookupValue(
+	Value *pValue = GetGlobal()->GetModule_sys()->LookupValue(
 			indentFlag? Gura_Symbol(ps2) : Gura_Symbol(ps1), ENVREF_NoEscalate);
 	return (pValue == NULL || !pValue->IsString())? "" : pValue->GetString();
 }
 
 Stream *Environment::GetConsole()
 {
-	Value *pValue = GetModule_sys()->LookupValue(Gura_Symbol(stdout), ENVREF_NoEscalate);
+	Value *pValue = GetGlobal()->GetModule_sys()->
+					LookupValue(Gura_Symbol(stdout), ENVREF_NoEscalate);
 	if (pValue == NULL || !pValue->IsInstanceOf(VTYPE_stream)) {
 		return GetConsoleDumb();
 	}
@@ -869,7 +870,8 @@ Stream *Environment::GetConsole()
 
 Stream *Environment::GetConsoleErr()
 {
-	Value *pValue = GetModule_sys()->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate);
+	Value *pValue = GetGlobal()->GetModule_sys()->
+					LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate);
 	if (pValue == NULL || !pValue->IsInstanceOf(VTYPE_stream)) {
 		return GetConsoleDumb();
 	}
@@ -901,6 +903,7 @@ bool Environment::IsObject() const { return false; }
 //-----------------------------------------------------------------------------
 Environment::Global::Global() : _echoFlag(false)
 {
+	_pSymbolPool = SymbolPool::GetInstance();
 }
 
 Environment::Global::~Global()
@@ -1112,7 +1115,6 @@ EnvironmentRoot::EnvironmentRoot()
 	SymbolPool::Initialize();
 	Codec::Initialize();
 	Global *pGlobal = new Global();
-	pGlobal->_pSymbolPool = SymbolPool::GetInstance();
 	_frameOwner.push_back(new Frame(ENVTYPE_root, pGlobal));
 }
 
@@ -1143,7 +1145,7 @@ bool EnvironmentRoot::Initialize(Signal sig, int argc, const char *argv[])
 	do { // import(sys), this module must be imported just after basement
 		Module *pModule = Gura_Module(sys)::Import(env, sig);
 		if (sig.IsSignalled()) return false;
-		GetGlobal()->_pModule_sys = pModule;
+		GetGlobal()->SetModule_sys(pModule);
 	} while (0);
 	do {
 		Module *pModule = new Module(&env, Symbol::Add("codecs"),
@@ -1171,7 +1173,7 @@ bool EnvironmentRoot::Initialize(Signal sig, int argc, const char *argv[])
 	// import(conio)
 	if (Gura_Module(conio)::Import(env, sig) == NULL) return false;
 	// setup values in sys module
-	if (!Gura_Module(sys)::SetupValues(GetModule_sys(), sig, argc, argv)) {
+	if (!Gura_Module(sys)::SetupValues(GetGlobal()->GetModule_sys(), sig, argc, argv)) {
 		return false;
 	}
 	OAL::SetupExecutablePath();

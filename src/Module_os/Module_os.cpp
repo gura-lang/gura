@@ -152,7 +152,7 @@ Gura_ModuleEntry()
 {
 	_pEnvThis = &env;
 	// value assignment
-	Module *pModuleSys = env.GetModule_sys();
+	Module *pModuleSys = env.GetGlobal()->GetModule_sys();
 	do {
 		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate);
 		if (pValue == NULL) pValue = &Value::Null;

@@ -172,7 +172,6 @@ public:
 		StringList			_workingDirList;
 		PathManagerOwner	_pathManagerOwner;
 		Operator			*_operatorTbl[OPTYPE_max];
-	public:
 		SymbolPool			*_pSymbolPool;
 		ValueTypePool		*_pValueTypePool;
 		bool				_echoFlag;
@@ -197,6 +196,10 @@ public:
 		inline Operator *GetOperator(OpType opType) { return _operatorTbl[opType]; }
 		inline const Operator *GetOperator(OpType opType) const { return _operatorTbl[opType]; }
 		inline Stream *GetConsoleDumb() { return _pConsoleDumb.get(); }
+		inline void SetModule_sys(Module *pModule) { _pModule_sys = pModule; }
+		inline Module *GetModule_sys() { return _pModule_sys; }
+		inline void SetEchoFlag(bool echoFlag) { _echoFlag = echoFlag; }
+		inline bool GetEchoFlag() const { return _echoFlag; }
 	};
 	class GURA_DLLDECLARE Frame {
 	private:
@@ -281,9 +284,6 @@ public:
 	inline Operator *GetOperator(OpType opType) { return GetGlobal()->GetOperator(opType);	}
 	inline const Operator *GetOperator(OpType opType) const { return GetGlobal()->GetOperator(opType);	}
 	inline void SetOperator(OpType opType, Operator *pOperator) { GetGlobal()->SetOperator(opType, pOperator); }
-	inline Module *GetModule_sys()				{ return GetGlobal()->_pModule_sys;			}
-	inline void SetEchoFlag(bool echoFlag)		{ GetGlobal()->_echoFlag = echoFlag;		}
-	inline bool GetEchoFlag() const				{ return GetGlobal()->_echoFlag;			}
 	const SymbolSet &GetSymbolsPublic() const;
 	SymbolSet &PrepareSymbolsPublic();
 	void AddRootFrame(const FrameList &frameListSrc);
