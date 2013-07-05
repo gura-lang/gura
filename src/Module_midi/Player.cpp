@@ -55,6 +55,13 @@ bool Player::Play()
 	return true;
 }
 
+Value Player::PlayBackground(Environment &env)
+{
+	Value value(new Object_player(env, Player::Reference(this)));
+	Start();
+	return value;
+}
+
 void Player::Run()
 {
 	Play();

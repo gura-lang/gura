@@ -32,6 +32,7 @@ public:
 	bool SetupContent(Signal sig, const Content *pContent,
 				unsigned short division, unsigned long mpqn, double speed);
 	bool Play();
+	Value PlayBackground(Environment &env);
 public:
 	// virtual function of OAL::Thread
 	virtual void Run();

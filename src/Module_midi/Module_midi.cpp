@@ -1090,10 +1090,7 @@ Gura_ImplementMethod(content, play)
 	bool backgroundFlag = args.IsSet(Gura_UserSymbol(background));
 	AutoPtr<Player> pPlayer(content.GeneratePlayer(sig, pPort, speed));
 	if (sig.IsSignalled()) return Value::Null;
-	if (backgroundFlag) {
-		pPlayer.release()->Start();
-		return Value::Null;
-	}
+	if (backgroundFlag) return pPlayer.release()->PlayBackground(env);
 	pPlayer->Play();
 	return Value::Null;
 }
@@ -1300,10 +1297,7 @@ Gura_ImplementMethod(port, play)
 	bool backgroundFlag = args.IsSet(Gura_UserSymbol(background));
 	AutoPtr<Player> pPlayer(content.GeneratePlayer(sig, pThis->GetPort(), speed));
 	if (sig.IsSignalled()) return Value::Null;
-	if (backgroundFlag) {
-		pPlayer.release()->Start();
-		return Value::Null;
-	}
+	if (backgroundFlag) return pPlayer.release()->PlayBackground(env);
 	pPlayer->Play();
 	return Value::Null;
 }
@@ -1325,10 +1319,7 @@ Gura_ImplementMethod(port, mml)
 	bool backgroundFlag = args.IsSet(Gura_UserSymbol(background));
 	AutoPtr<Player> pPlayer(content.GeneratePlayer(sig, pThis->GetPort(), speed));
 	if (sig.IsSignalled()) return Value::Null;
-	if (backgroundFlag) {
-		pPlayer.release()->Start();
-		return Value::Null;
-	}
+	if (backgroundFlag) return pPlayer.release()->PlayBackground(env);
 	pPlayer->Play();
 	return Value::Null;
 }
