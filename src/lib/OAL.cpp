@@ -922,6 +922,10 @@ Thread::Thread() : _hThread(NULL), _threadId(0)
 {
 }
 
+Thread::~Thread()
+{
+}
+
 void Thread::Start()
 {
 	_hThread = ::CreateThread(NULL, 0, ThreadProc, this, 0, &_threadId);
@@ -1390,6 +1394,10 @@ static void *start_routine(void *arg)
 }
 
 Thread::Thread()
+{
+}
+
+Thread::~Thread()
 {
 }
 

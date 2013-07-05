@@ -193,6 +193,7 @@ private:
 #endif
 public:
 	Thread();
+	virtual ~Thread();
 	void Start();
 	void Wait();
 	virtual void Run() = 0;
