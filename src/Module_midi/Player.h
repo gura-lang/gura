@@ -20,6 +20,8 @@ private:
 	double _speed;
 	AutoPtr<EventOwner> _pEventOwner;
 	EventOwner::iterator _ppEvent;
+	size_t _cntEvents;
+	size_t _idxEventCur;
 public:
 	Gura_DeclareReferenceAccessor(Player);
 public:
@@ -33,6 +35,10 @@ public:
 				unsigned short division, unsigned long mpqn, double speed);
 	bool Play();
 	Value PlayBackground(Environment &env);
+	inline void SetSpeed(double speed) { _speed = speed; }
+	inline double GetSpeed() const { return _speed; }
+	inline size_t CountEvents() const { return _cntEvents; }
+	inline size_t GetProgress() const { return _idxEventCur; }
 public:
 	// virtual function of OAL::Thread
 	virtual void Run();

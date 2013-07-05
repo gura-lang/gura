@@ -1501,14 +1501,23 @@ Object *Object_player::Clone() const
 bool Object_player::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	//symbols.insert(Gura_UserSymbol(id));
-	//symbols.insert(Gura_UserSymbol(name));
+	symbols.insert(Gura_UserSymbol(speed));
+	symbols.insert(Gura_UserSymbol(count));
+	symbols.insert(Gura_UserSymbol(progress));
 	return true;
 }
 
 Value Object_player::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(speed))) {
+		return Value(_pPlayer->GetSpeed());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(count))) {
+		return Value(_pPlayer->CountEvents());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(progress))) {
+		return Value(_pPlayer->GetProgress());
+	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
@@ -1908,6 +1917,9 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(key_signature);
 	Gura_RealizeUserSymbol(sequencer_specific_event);
 	Gura_RealizeUserSymbol(background);
+	Gura_RealizeUserSymbol(speed);
+	Gura_RealizeUserSymbol(count);
+	Gura_RealizeUserSymbol(progress);
 	// class realization
 	Gura_RealizeUserClassWithoutPrepare(event, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(track, env.LookupClass(VTYPE_object));
