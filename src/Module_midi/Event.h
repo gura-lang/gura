@@ -7,23 +7,12 @@ Gura_BeginModule(midi)
 
 class Track;
 class EventList;
+class Player;
 
 //-----------------------------------------------------------------------------
 // Event
 //-----------------------------------------------------------------------------
 class Event {
-public:
-	class Player {
-	public:
-		AutoPtr<Port> _pPort;
-		unsigned short _division;
-		unsigned long _mpqn;
-	public:
-		Player(Port *pPort, unsigned short division, unsigned long mpqn);
-		bool Play(Signal sig, const EventList &eventList, double speed);
-		inline Port *GetPort() { return _pPort.get(); }
-		inline void SetMPQN(unsigned long mpqn) { _mpqn = mpqn; }
-	};
 public:
 	Gura_DeclareReferenceAccessor(Event);
 protected:
@@ -92,6 +81,24 @@ protected:
 public:
 	void Clear();
 	void AddEvents(const EventList &eventList);
+};
+
+//-----------------------------------------------------------------------------
+// Player
+//-----------------------------------------------------------------------------
+class Player {
+private:
+	AutoPtr<Port> _pPort;
+	unsigned short _division;
+	unsigned long _mpqn;
+	AutoPtr<EventOwner> _pEventOwner;
+public:
+	Player(Port *pPort, unsigned short division, unsigned long mpqn);
+	bool Play(Signal sig, double speed);
+	inline Port *GetPort() { return _pPort.get(); }
+	inline void SetMPQN(unsigned long mpqn) { _mpqn = mpqn; }
+	inline EventOwner &GetEventOwner() { return *_pEventOwner; }
+	inline const EventOwner &GetEventOwner() const { return *_pEventOwner; }
 };
 
 //-----------------------------------------------------------------------------

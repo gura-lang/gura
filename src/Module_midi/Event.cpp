@@ -50,37 +50,6 @@ bool Event::WriteVariableFormat(Signal sig, Stream &stream, unsigned long num)
 }
 
 //-----------------------------------------------------------------------------
-// Event::Player
-//-----------------------------------------------------------------------------
-Event::Player::Player(Port *pPort, unsigned short division, unsigned long mpqn) :
-							_pPort(pPort), _division(division), _mpqn(mpqn)
-{
-}
-
-bool Event::Player::Play(Signal sig, const EventList &eventList, double speed)
-{
-	if (speed <= 0) {
-		sig.SetError(ERR_ValueError, "speed must be a positive number");
-		return false;
-	}
-	Event *pEventPrev = NULL;
-	foreach_const (EventList, ppEvent, eventList) {
-		Event *pEvent = *ppEvent;
-		if (pEventPrev != NULL &&
-					pEventPrev->GetTimeStamp() < pEvent->GetTimeStamp()) {
-			unsigned long deltaTime =
-					pEvent->GetTimeStamp() - pEventPrev->GetTimeStamp();
-			double delayTime = static_cast<double>(_mpqn) *
-									deltaTime / _division / 1000000 / speed;
-			OAL::Sleep(delayTime);
-		}
-		if (!pEvent->Play(sig, this)) return false;
-		pEventPrev = pEvent;
-	}
-	return true;
-}
-
-//-----------------------------------------------------------------------------
 // EventList
 //-----------------------------------------------------------------------------
 void EventList::Sort()
@@ -111,6 +80,37 @@ void EventOwner::AddEvents(const EventList &eventList)
 		Event *pEvent = *ppEvent;
 		push_back(Event::Reference(pEvent));
 	}
+}
+
+//-----------------------------------------------------------------------------
+// Player
+//-----------------------------------------------------------------------------
+Player::Player(Port *pPort, unsigned short division, unsigned long mpqn) :
+	_pPort(pPort), _division(division), _mpqn(mpqn), _pEventOwner(new EventOwner())
+{
+}
+
+bool Player::Play(Signal sig, double speed)
+{
+	if (speed <= 0) {
+		sig.SetError(ERR_ValueError, "speed must be a positive number");
+		return false;
+	}
+	Event *pEventPrev = NULL;
+	foreach_const (EventOwner, ppEvent, GetEventOwner()) {
+		Event *pEvent = *ppEvent;
+		if (pEventPrev != NULL &&
+					pEventPrev->GetTimeStamp() < pEvent->GetTimeStamp()) {
+			unsigned long deltaTime =
+					pEvent->GetTimeStamp() - pEventPrev->GetTimeStamp();
+			double delayTime = static_cast<double>(_mpqn) *
+									deltaTime / _division / 1000000 / speed;
+			OAL::Sleep(delayTime);
+		}
+		if (!pEvent->Play(sig, this)) return false;
+		pEventPrev = pEvent;
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------
