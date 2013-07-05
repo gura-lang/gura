@@ -268,18 +268,12 @@ bool Content::Write(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Content::Play(Signal sig, Port *pPort, double speed, bool backgroundFlag) const
+Player *Content::GeneratePlayer(Signal sig, Port *pPort, double speed) const
 {
-	AutoPtr<Player> pPlayer(new Player(sig, Port::Reference(pPort),
-					_pProperty->GetDivision(), _pProperty->GetMPQN()));
-	if (!pPlayer->SetSpeed(sig, speed)) return false;
-	EventOwner &eventOwner = pPlayer->GetEventOwner();
-	foreach_const (TrackOwner, ppTrack, GetTrackOwner()) {
-		const Track *pTrack = *ppTrack;
-		eventOwner.AddEvents(pTrack->GetEventOwner());
-	}
-	eventOwner.Sort();
-	return pPlayer->Play();
+	AutoPtr<Player> pPlayer(new Player(sig, Port::Reference(pPort)));
+	if (!pPlayer->SetupContent(sig, this, _pProperty->GetDivision(),
+									_pProperty->GetMPQN(), speed)) return NULL;
+	return pPlayer.release();
 }
 
 bool Content::ParseMML(Signal sig, const ValueList &valList)

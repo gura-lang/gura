@@ -6,32 +6,40 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 // Player
 //-----------------------------------------------------------------------------
-Player::Player(Signal sig, Port *pPort, unsigned short division, unsigned long mpqn) :
-	_cntRef(1), _sig(sig), _pPort(pPort), _division(division), _mpqn(mpqn),
+Player::Player(Signal sig, Port *pPort) :
+	_cntRef(1), _sig(sig), _pPort(pPort), _division(1), _mpqn(0),
 	_speed(1), _pEventOwner(new EventOwner())
 {
-	_ppEvent = GetEventOwner().end();
+	_ppEvent = _pEventOwner->end();
 }
 
 Player::~Player()
 {
 }
 
-bool Player::SetSpeed(Signal sig, double speed)
+bool Player::SetupContent(Signal sig, const Content *pContent,
+				unsigned short division, unsigned long mpqn, double speed)
 {
 	if (speed <= 0) {
 		sig.SetError(ERR_ValueError, "speed must be a positive number");
 		return false;
 	}
+	_division = division;
+	_mpqn = mpqn;
 	_speed = speed;
+	foreach_const (TrackOwner, ppTrack, pContent->GetTrackOwner()) {
+		const Track *pTrack = *ppTrack;
+		_pEventOwner->AddEvents(pTrack->GetEventOwner());
+	}
+	_pEventOwner->Sort();
+	_ppEvent = _pEventOwner->begin();
 	return true;
 }
 
 bool Player::Play()
 {
 	Event *pEventPrev = NULL;
-	_ppEvent = GetEventOwner().begin();
-	for ( ; _ppEvent != GetEventOwner().end(); _ppEvent++) {
+	for ( ; _ppEvent != _pEventOwner->end(); _ppEvent++) {
 		Event *pEvent = *_ppEvent;
 		if (pEventPrev != NULL &&
 					pEventPrev->GetTimeStamp() < pEvent->GetTimeStamp()) {

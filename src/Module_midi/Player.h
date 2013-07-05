@@ -5,6 +5,8 @@
 
 Gura_BeginModule(midi)
 
+class Content;
+
 //-----------------------------------------------------------------------------
 // Player
 //-----------------------------------------------------------------------------
@@ -21,15 +23,14 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Player);
 public:
-	Player(Signal sig, Port *pPort, unsigned short division, unsigned long mpqn);
+	Player(Signal sig, Port *pPort);
 protected:
 	virtual ~Player();
 public:
 	inline Port *GetPort() { return _pPort.get(); }
 	inline void SetMPQN(unsigned long mpqn) { _mpqn = mpqn; }
-	inline EventOwner &GetEventOwner() { return *_pEventOwner; }
-	inline const EventOwner &GetEventOwner() const { return *_pEventOwner; }
-	bool SetSpeed(Signal sig, double speed);
+	bool SetupContent(Signal sig, const Content *pContent,
+				unsigned short division, unsigned long mpqn, double speed);
 	bool Play();
 public:
 	// virtual function of OAL::Thread

@@ -1073,10 +1073,10 @@ Gura_ImplementMethod(content, write)
 	return args.GetThis();
 }
 
-// midi.content#play(port:midi.port, speed?:number):reduce:[background]
+// midi.content#play(port:midi.port, speed?:number):[background]
 Gura_DeclareMethod(content, play)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "port", VTYPE_port);
 	DeclareArg(env, "speed", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(background));
@@ -1088,8 +1088,14 @@ Gura_ImplementMethod(content, play)
 	Port *pPort = Object_port::GetObject(args, 0)->GetPort();
 	double speed = args.IsNumber(1)? args.GetDouble(1) : 1;
 	bool backgroundFlag = args.IsSet(Gura_UserSymbol(background));
-	content.Play(sig, pPort, speed, backgroundFlag);
-	return args.GetThis();
+	AutoPtr<Player> pPlayer(content.GeneratePlayer(sig, pPort, speed));
+	if (sig.IsSignalled()) return Value::Null;
+	if (backgroundFlag) {
+		pPlayer.release()->Start();
+		return Value::Null;
+	}
+	pPlayer->Play();
+	return Value::Null;
 }
 
 // midi.content#track(index:number):map {block?}
@@ -1277,10 +1283,10 @@ Gura_ImplementMethod(port, send)
 	return args.GetThis();
 }
 
-// midi.port#play(content:midi.content, speed?:number):map:reduce:[background]
+// midi.port#play(content:midi.content, speed?:number):map:[background]
 Gura_DeclareMethod(port, play)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "content", VTYPE_content);
 	DeclareArg(env, "speed", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(background));
@@ -1292,15 +1298,22 @@ Gura_ImplementMethod(port, play)
 	Content &content = Object_content::GetObject(args, 0)->GetContent();
 	double speed = args.IsNumber(1)? args.GetDouble(1) : 1;
 	bool backgroundFlag = args.IsSet(Gura_UserSymbol(background));
-	content.Play(sig, pThis->GetPort(), speed, backgroundFlag);
-	return args.GetThis();
+	AutoPtr<Player> pPlayer(content.GeneratePlayer(sig, pThis->GetPort(), speed));
+	if (sig.IsSignalled()) return Value::Null;
+	if (backgroundFlag) {
+		pPlayer.release()->Start();
+		return Value::Null;
+	}
+	pPlayer->Play();
+	return Value::Null;
 }
 
-// midi.port#mml(text+:string):reduce
+// midi.port#mml(text+:string):[background]
 Gura_DeclareMethod(port, mml)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_OnceOrMore);
+	DeclareAttr(Gura_UserSymbol(background));
 }
 
 Gura_ImplementMethod(port, mml)
@@ -1309,9 +1322,15 @@ Gura_ImplementMethod(port, mml)
 	Content content;
 	content.ParseMML(sig, args.GetList(0));
 	double speed = 1;
-	bool backgroundFlag = false;
-	content.Play(sig, pThis->GetPort(), speed, backgroundFlag);
-	return args.GetThis();
+	bool backgroundFlag = args.IsSet(Gura_UserSymbol(background));
+	AutoPtr<Player> pPlayer(content.GeneratePlayer(sig, pThis->GetPort(), speed));
+	if (sig.IsSignalled()) return Value::Null;
+	if (backgroundFlag) {
+		pPlayer.release()->Start();
+		return Value::Null;
+	}
+	pPlayer->Play();
+	return Value::Null;
 }
 
 // midi.port#note_off(channel:number, note:number, velocity:number):map:reduce
@@ -1478,6 +1497,48 @@ Gura_ImplementCastFrom(port)
 Gura_ImplementCastTo(port)
 {
 	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Object_player
+//-----------------------------------------------------------------------------
+Object *Object_player::Clone() const
+{
+	return NULL;
+}
+
+bool Object_player::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	//symbols.insert(Gura_UserSymbol(id));
+	//symbols.insert(Gura_UserSymbol(name));
+	return true;
+}
+
+Value Object_player::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_player::ToString(Signal sig, bool exprFlag)
+{
+	String rtn;
+	rtn += "<midi.player";
+	rtn += ">";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for midi.player
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Class implementation for midi.player
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(player)
+{
 }
 
 //-----------------------------------------------------------------------------
@@ -1862,6 +1923,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClassWithoutPrepare(content, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(portinfo, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(port, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(player, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(controller, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(program, env.LookupClass(VTYPE_object));
 	Gura_UserClass(event)->Prepare(env);
@@ -1869,6 +1931,7 @@ Gura_ModuleEntry()
 	Gura_UserClass(content)->Prepare(env);
 	Gura_UserClass(portinfo)->Prepare(env);
 	Gura_UserClass(port)->Prepare(env);
+	Gura_UserClass(player)->Prepare(env);
 	// value assignment
 	do {
 		Value value;

@@ -212,6 +212,27 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Class declaration for midi.player
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(player);
+
+class Object_player : public Object {
+public:
+	Gura_DeclareObjectAccessor(player)
+private:
+	AutoPtr<Player> _pPlayer;
+public:
+	inline Object_player(Environment &env, Player *pPlayer) :
+					Object(Gura_UserClass(player)), _pPlayer(pPlayer) {}
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
+	inline Player *GetPlayer() { return _pPlayer.get(); }
+};
+
+//-----------------------------------------------------------------------------
 // Class declaration for midi.controller
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(controller);

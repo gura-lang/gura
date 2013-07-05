@@ -41,7 +41,7 @@ public:
 	void ResetTimeStamp();
 	bool Read(Environment &env, Signal sig, Stream &stream);
 	bool Write(Environment &env, Signal sig, Stream &stream);
-	bool Play(Signal sig, Port *pPort, double speed, bool backgroundFlag) const;
+	Player *GeneratePlayer(Signal sig, Port *pPort, double speed) const;
 	bool ParseMML(Signal sig, const ValueList &valList);
 };
 
