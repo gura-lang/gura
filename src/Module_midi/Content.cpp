@@ -269,7 +269,7 @@ bool Content::Write(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Content::Play(Signal sig, Port *pPort, double speed) const
+bool Content::Play(Signal sig, Port *pPort, double speed, bool backgroundFlag) const
 {
 	AutoPtr<EventOwner> pEventOwner(new EventOwner());
 	foreach_const (TrackOwner, ppTrack, GetTrackOwner()) {

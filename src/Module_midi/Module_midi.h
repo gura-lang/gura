@@ -71,6 +71,7 @@ Gura_DeclareUserSymbol(smpte_offset);
 Gura_DeclareUserSymbol(time_signature);
 Gura_DeclareUserSymbol(key_signature);
 Gura_DeclareUserSymbol(sequencer_specific_event);
+Gura_DeclareUserSymbol(background);
 
 //-----------------------------------------------------------------------------
 // information table
