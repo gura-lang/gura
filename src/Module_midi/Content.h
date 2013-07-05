@@ -2,6 +2,7 @@
 #define __CONTENT_H__
 #include <gura.h>
 #include "Track.h"
+#include "Player.h"
 
 Gura_BeginModule(midi)
 
