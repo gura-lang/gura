@@ -17,7 +17,6 @@ Gura_BeginModule(midi)
 #if defined(GURA_ON_MSWIN)
 
 class Port {
-public:
 private:
 	int _cntRef;
 	HMIDIOUT _hMIDI;

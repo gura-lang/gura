@@ -10,12 +10,18 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 class Player {
 private:
+	int _cntRef;
 	AutoPtr<Port> _pPort;
 	unsigned short _division;
 	unsigned long _mpqn;
 	AutoPtr<EventOwner> _pEventOwner;
 public:
+	Gura_DeclareReferenceAccessor(Player);
+public:
 	Player(Port *pPort, unsigned short division, unsigned long mpqn);
+protected:
+	virtual ~Player();
+public:
 	bool Play(Signal sig, double speed);
 	inline Port *GetPort() { return _pPort.get(); }
 	inline void SetMPQN(unsigned long mpqn) { _mpqn = mpqn; }

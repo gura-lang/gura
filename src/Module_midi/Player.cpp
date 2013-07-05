@@ -7,7 +7,11 @@ Gura_BeginModule(midi)
 // Player
 //-----------------------------------------------------------------------------
 Player::Player(Port *pPort, unsigned short division, unsigned long mpqn) :
-	_pPort(pPort), _division(division), _mpqn(mpqn), _pEventOwner(new EventOwner())
+	_cntRef(1), _pPort(pPort), _division(division), _mpqn(mpqn), _pEventOwner(new EventOwner())
+{
+}
+
+Player::~Player()
 {
 }
 
