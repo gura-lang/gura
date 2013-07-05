@@ -1522,6 +1522,24 @@ Value Object_player::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 	return Value::Null;
 }
 
+Value Object_player::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+						const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(speed))) {
+		if (!value.MustBeNumber(sig)) return Value::Null;
+		double speed = value.GetDouble();
+		if (speed <= 0) {
+			sig.SetError(ERR_ValueError, "nuber of speed must be more than zero");
+			return Value::Null;
+		}
+		_pPlayer->SetSpeed(speed);
+		return value;
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
 String Object_player::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
