@@ -1498,7 +1498,7 @@ Value Object_controller::DoGetProp(Environment &env, Signal sig, const Symbol *p
 	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
 		return Value(_controller);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(env, _controllerInfo.name);
+		return Value(env, GetControllerInfo().name);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -1508,7 +1508,7 @@ String Object_controller::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.controller:";
-	rtn += _controllerInfo.name;
+	rtn += GetControllerInfo().name;
 	rtn += ">";
 	return rtn;
 }
@@ -1548,9 +1548,9 @@ Value Object_program::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
 		return Value(_program);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(env, _programInfo.name);
+		return Value(env, GetProgramInfo().name);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(dispname))) {
-		return Value(env, _programInfo.dispName);
+		return Value(env, GetProgramInfo().dispName);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -1560,7 +1560,7 @@ String Object_program::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.program:";
-	rtn += _programInfo.name;
+	rtn += GetProgramInfo().name;
 	rtn += ">";
 	return rtn;
 }
@@ -1729,6 +1729,48 @@ Gura_ImplementFunction(port)
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
+// midi.controller(symbol:symbol) {block?}
+Gura_DeclareFunction(controller)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(controller));
+	AddHelp(Gura_Symbol(en), "create a MIDI controller instance.");
+}
+
+Gura_ImplementFunction(controller)
+{
+	int controller = ControllerIdBySymbol(args.GetSymbol(0));
+	if (controller < 0) {
+		sig.SetError(ERR_ValueError, "invalid symbol for midi controller");
+		return Value::Null;
+	}
+	AutoPtr<Object_controller> pObj(new Object_controller(env, controller));
+	return ReturnValue(env, sig, args, Value(pObj.release()));
+}
+
+// midi.program(symbol:symbol) {block?}
+Gura_DeclareFunction(program)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(program));
+	AddHelp(Gura_Symbol(en), "create a MIDI program instance.");
+}
+
+Gura_ImplementFunction(program)
+{
+	int program = ProgramIdBySymbol(args.GetSymbol(0));
+	if (program < 0) {
+		sig.SetError(ERR_ValueError, "invalid symbol for midi program");
+		return Value::Null;
+	}
+	AutoPtr<Object_program> pObj(new Object_program(env, program));
+	return ReturnValue(env, sig, args, Value(pObj.release()));
+}
+
 // midi.test(stream:stream)
 Gura_DeclareFunction(test)
 {
@@ -1826,11 +1868,15 @@ Gura_ModuleEntry()
 		Value value;
 		ValueList &valList = value.InitAsList(env);
 		valList.reserve(ArraySizeOf(g_controllerInfos));
+		Class *pClass = Gura_UserClass(controller);
 		for (size_t i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
 			unsigned char controller = static_cast<unsigned char>(i);
 			ControllerInfo &controllerInfo = g_controllerInfos[i];
 			if (controllerInfo.name == NULL) continue;
-			valList.push_back(Value(new Object_controller(env, controller, controllerInfo)));
+			controllerInfo.pSymbol = Symbol::Add(controllerInfo.name);
+			Value value(new Object_controller(env, controller));
+			valList.push_back(value);
+			pClass->AssignValue(controllerInfo.pSymbol, value, EXTRA_Public);
 		}
 		Gura_AssignValue(controllers, value);
 	} while (0);
@@ -1838,16 +1884,22 @@ Gura_ModuleEntry()
 		Value value;
 		ValueList &valList = value.InitAsList(env);
 		valList.reserve(ArraySizeOf(g_programInfos));
+		Class *pClass = Gura_UserClass(program);
 		for (size_t i = 0; i < ArraySizeOf(g_programInfos); i++) {
 			unsigned char program = static_cast<unsigned char>(i);
 			ProgramInfo &programInfo = g_programInfos[i];
-			valList.push_back(Value(new Object_program(env, program, programInfo)));
+			programInfo.pSymbol = Symbol::Add(programInfo.name);
+			Value value(new Object_program(env, program));
+			valList.push_back(value);
+			pClass->AssignValue(programInfo.pSymbol, value, EXTRA_Public);
 		}
 		Gura_AssignValue(programs, value);
 	} while (0);
 	// function assignment
 	Gura_AssignFunction(content);
 	Gura_AssignFunction(port);
+	Gura_AssignFunction(controller);
+	Gura_AssignFunction(program);
 	Gura_AssignFunction(test);
 }
 

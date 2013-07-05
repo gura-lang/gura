@@ -87,6 +87,29 @@ struct ProgramInfo {
 };
 
 //-----------------------------------------------------------------------------
+// utility functions
+//-----------------------------------------------------------------------------
+int ControllerIdBySymbol(const Symbol *pSymbol);
+int ControllerIdByName(const char *name);
+const ControllerInfo *ControllerInfoById(int controller);
+inline const ControllerInfo *ControllerInfoBySymbol(const Symbol *pSymbol) {
+	return ControllerInfoById(ControllerIdBySymbol(pSymbol));
+}
+inline const ControllerInfo *ControllerInfoByName(const char *name) {
+	return ControllerInfoById(ControllerIdByName(name));
+}
+
+int ProgramIdBySymbol(const Symbol *pSymbol);
+int ProgramIdByName(const char *name);
+const ProgramInfo *ProgramInfoById(int program);
+inline const ProgramInfo *ProgramInfoBySymbol(const Symbol *pSymbol) {
+	return ProgramInfoById(ProgramIdBySymbol(pSymbol));
+}
+inline const ProgramInfo *ProgramInfoByName(const char *name) {
+	return ProgramInfoById(ProgramIdByName(name));
+}
+
+//-----------------------------------------------------------------------------
 // Class declaration for midi.event
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(event);
@@ -197,17 +220,16 @@ public:
 	Gura_DeclareObjectAccessor(controller)
 private:
 	unsigned char _controller;
-	const ControllerInfo &_controllerInfo;
 public:
-	inline Object_controller(Environment &env, unsigned char controller, const ControllerInfo &controllerInfo) :
-			Object(Gura_UserClass(controller)), _controller(controller), _controllerInfo(controllerInfo) {}
+	inline Object_controller(Environment &env, unsigned char controller) :
+			Object(Gura_UserClass(controller)), _controller(controller) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline unsigned char GetController() const { return _controller; }
-	inline const ControllerInfo &GetControllerInfo() const { return _controllerInfo; }
+	inline const ControllerInfo &GetControllerInfo() const { return *ControllerInfoById(_controller); }
 };
 
 //-----------------------------------------------------------------------------
@@ -220,17 +242,16 @@ public:
 	Gura_DeclareObjectAccessor(program)
 private:
 	int _program;
-	const ProgramInfo &_programInfo;
 public:
-	inline Object_program(Environment &env, unsigned char program, const ProgramInfo &programInfo) :
-			Object(Gura_UserClass(program)), _program(program), _programInfo(programInfo) {}
+	inline Object_program(Environment &env, unsigned char program) :
+			Object(Gura_UserClass(program)), _program(program) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline unsigned char GetProgram() const { return _program; }
-	inline const ProgramInfo &GetProgramInfo() const { return _programInfo; }
+	inline const ProgramInfo &GetProgramInfo() const { return *ProgramInfoById(_program); }
 };
 
 //-----------------------------------------------------------------------------
@@ -278,29 +299,6 @@ public:
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
-
-//-----------------------------------------------------------------------------
-// utility functions
-//-----------------------------------------------------------------------------
-int ControllerIdBySymbol(const Symbol *pSymbol);
-int ControllerIdByName(const char *name);
-const ControllerInfo *ControllerInfoById(int controller);
-inline const ControllerInfo *ControllerInfoBySymbol(const Symbol *pSymbol) {
-	return ControllerInfoById(ControllerIdBySymbol(pSymbol));
-}
-inline const ControllerInfo *ControllerInfoByName(const char *name) {
-	return ControllerInfoById(ControllerIdByName(name));
-}
-
-int ProgramIdBySymbol(const Symbol *pSymbol);
-int ProgramIdByName(const char *name);
-const ProgramInfo *ProgramInfoById(int program);
-inline const ProgramInfo *ProgramInfoBySymbol(const Symbol *pSymbol) {
-	return ProgramInfoById(ProgramIdBySymbol(pSymbol));
-}
-inline const ProgramInfo *ProgramInfoByName(const char *name) {
-	return ProgramInfoById(ProgramIdByName(name));
-}
 
 }}
 
