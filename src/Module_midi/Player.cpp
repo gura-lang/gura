@@ -58,16 +58,19 @@ bool Player::Play()
 	return true;
 }
 
-Value Player::PlayBackground(Environment &env)
+void Player::PlayBackground()
 {
-	Value value(new Object_player(env, Player::Reference(this)));
-	Start();
-	return value;
+	Thread *pThread = new Thread(Reference(this));
+	pThread->Start();	// pThread will be delete when thread is done
 }
 
-void Player::Run()
+//-----------------------------------------------------------------------------
+// Player::Thread
+//-----------------------------------------------------------------------------
+void Player::Thread::Run()
 {
-	Play();
+	_pPlayer->Play();
 }
+
 
 }}

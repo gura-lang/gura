@@ -72,6 +72,7 @@ Gura_DeclareUserSymbol(time_signature);
 Gura_DeclareUserSymbol(key_signature);
 Gura_DeclareUserSymbol(sequencer_specific_event);
 Gura_DeclareUserSymbol(background);
+Gura_DeclareUserSymbol(player);
 Gura_DeclareUserSymbol(speed);
 Gura_DeclareUserSymbol(count);
 Gura_DeclareUserSymbol(progress);

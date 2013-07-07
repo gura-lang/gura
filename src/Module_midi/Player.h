@@ -10,7 +10,16 @@ class Content;
 //-----------------------------------------------------------------------------
 // Player
 //-----------------------------------------------------------------------------
-class Player : public OAL::Thread {
+class Player {
+public:
+	class Thread : public OAL::Thread {
+	private:
+		AutoPtr<Player> _pPlayer;
+	public:
+		inline Thread(Player *pPlayer) : _pPlayer(pPlayer) {}
+		// virtual function of OAL::Thread
+		virtual void Run();
+	};
 private:
 	int _cntRef;
 	Signal _sig;
@@ -34,14 +43,11 @@ public:
 	bool SetupContent(Signal sig, const Content *pContent,
 				unsigned short division, unsigned long mpqn, double speed);
 	bool Play();
-	Value PlayBackground(Environment &env);
+	void PlayBackground();
 	inline void SetSpeed(double speed) { _speed = speed; }
 	inline double GetSpeed() const { return _speed; }
 	inline size_t CountEvents() const { return _cntEvents; }
 	inline size_t GetProgress() const { return _idxEventCur; }
-public:
-	// virtual function of OAL::Thread
-	virtual void Run();
 };
 
 }}

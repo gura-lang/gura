@@ -5,6 +5,9 @@
 
 Gura_BeginModule(midi)
 
+Value ActivatePlayer(Environment &env, Signal sig, Args &args,
+							Content &content, Port *pPort, double speed);
+
 //-----------------------------------------------------------------------------
 // information table
 //-----------------------------------------------------------------------------
@@ -1073,13 +1076,14 @@ Gura_ImplementMethod(content, write)
 	return args.GetThis();
 }
 
-// midi.content#play(port:midi.port, speed?:number):[background]
+// midi.content#play(port:midi.port, speed?:number):[background,player]
 Gura_DeclareMethod(content, play)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "port", VTYPE_port);
 	DeclareArg(env, "speed", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(background));
+	DeclareAttr(Gura_UserSymbol(player));
 }
 
 Gura_ImplementMethod(content, play)
@@ -1087,12 +1091,7 @@ Gura_ImplementMethod(content, play)
 	Content &content = Object_content::GetThisObj(args)->GetContent();
 	Port *pPort = Object_port::GetObject(args, 0)->GetPort();
 	double speed = args.IsNumber(1)? args.GetDouble(1) : 1;
-	bool backgroundFlag = args.IsSet(Gura_UserSymbol(background));
-	AutoPtr<Player> pPlayer(content.GeneratePlayer(sig, pPort, speed));
-	if (sig.IsSignalled()) return Value::Null;
-	if (backgroundFlag) return pPlayer.release()->PlayBackground(env);
-	pPlayer->Play();
-	return Value::Null;
+	return ActivatePlayer(env, sig, args, content, pPort, speed);
 }
 
 // midi.content#track(index:number):map {block?}
@@ -1280,13 +1279,14 @@ Gura_ImplementMethod(port, send)
 	return args.GetThis();
 }
 
-// midi.port#play(content:midi.content, speed?:number):map:[background]
+// midi.port#play(content:midi.content, speed?:number):map:[background,player]
 Gura_DeclareMethod(port, play)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "content", VTYPE_content);
 	DeclareArg(env, "speed", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(background));
+	DeclareAttr(Gura_UserSymbol(player));
 }
 
 Gura_ImplementMethod(port, play)
@@ -1294,20 +1294,16 @@ Gura_ImplementMethod(port, play)
 	Object_port *pThis = Object_port::GetThisObj(args);
 	Content &content = Object_content::GetObject(args, 0)->GetContent();
 	double speed = args.IsNumber(1)? args.GetDouble(1) : 1;
-	bool backgroundFlag = args.IsSet(Gura_UserSymbol(background));
-	AutoPtr<Player> pPlayer(content.GeneratePlayer(sig, pThis->GetPort(), speed));
-	if (sig.IsSignalled()) return Value::Null;
-	if (backgroundFlag) return pPlayer.release()->PlayBackground(env);
-	pPlayer->Play();
-	return Value::Null;
+	return ActivatePlayer(env, sig, args, content, pThis->GetPort(), speed);
 }
 
-// midi.port#mml(text+:string):[background]
+// midi.port#mml(text+:string):[background,player]
 Gura_DeclareMethod(port, mml)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_UserSymbol(background));
+	DeclareAttr(Gura_UserSymbol(player));
 }
 
 Gura_ImplementMethod(port, mml)
@@ -1316,12 +1312,7 @@ Gura_ImplementMethod(port, mml)
 	Content content;
 	content.ParseMML(sig, args.GetList(0));
 	double speed = 1;
-	bool backgroundFlag = args.IsSet(Gura_UserSymbol(background));
-	AutoPtr<Player> pPlayer(content.GeneratePlayer(sig, pThis->GetPort(), speed));
-	if (sig.IsSignalled()) return Value::Null;
-	if (backgroundFlag) return pPlayer.release()->PlayBackground(env);
-	pPlayer->Play();
-	return Value::Null;
+	return ActivatePlayer(env, sig, args, content, pThis->GetPort(), speed);
 }
 
 // midi.port#note_off(channel:number, note:number, velocity:number):map:reduce
@@ -1935,6 +1926,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(key_signature);
 	Gura_RealizeUserSymbol(sequencer_specific_event);
 	Gura_RealizeUserSymbol(background);
+	Gura_RealizeUserSymbol(player);
 	Gura_RealizeUserSymbol(speed);
 	Gura_RealizeUserSymbol(count);
 	Gura_RealizeUserSymbol(progress);
@@ -2056,6 +2048,24 @@ const ProgramInfo *ProgramInfoById(int program)
 		return &g_programInfos[program];
 	}
 	return NULL;
+}
+
+Value ActivatePlayer(Environment &env, Signal sig, Args &args,
+							Content &content, Port *pPort, double speed)
+{
+	AutoPtr<Player> pPlayer(content.GeneratePlayer(sig, pPort, speed));
+	if (sig.IsSignalled()) return Value::Null;
+	if (args.IsSet(Gura_UserSymbol(background))) {
+		Value value(new Object_player(env, Player::Reference(pPlayer.get())));
+		pPlayer.release()->PlayBackground();
+		return value;
+	}
+	if (args.IsSet(Gura_UserSymbol(player))) {
+		Value value(new Object_player(env, Player::Reference(pPlayer.get())));
+		return value;
+	}
+	pPlayer->Play();
+	return Value::Null;
 }
 
 Gura_EndModule(midi, midi)
