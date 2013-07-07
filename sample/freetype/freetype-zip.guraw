@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(show_tk)
+import(show_wx)
 import(freetype)
 import(zip)
 
