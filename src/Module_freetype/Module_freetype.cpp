@@ -4,10 +4,10 @@
 #include "stdafx.h"
 
 #define Gura_AssignRawValue(name) \
-Gura_AssignValue(name, Value(static_cast<double>(name)))
+Gura_AssignValueEx(#name, Value(static_cast<double>(name)))
 
 #define Gura_AssignFTValue(name) \
-Gura_AssignValue(name, Value(static_cast<double>(FT_##name)))
+Gura_AssignValueEx(#name, Value(static_cast<double>(FT_##name)))
 
 Gura_BeginModule(freetype)
 
