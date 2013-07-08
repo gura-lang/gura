@@ -115,6 +115,7 @@ Gura_ImplementMethod(Outline, Embolden)
 	return args.GetThis();
 }
 
+#if FREETYPE_CHECK_VERSION(2, 4, 11)
 // freetype.Outline#EmboldenXY(xstrength:number, ystrength:number):reduce
 Gura_DeclareMethod(Outline, EmboldenXY)
 {
@@ -135,6 +136,7 @@ Gura_ImplementMethod(Outline, EmboldenXY)
 	}
 	return args.GetThis();
 }
+#endif
 
 // freetype.Outline#Reverse():reduce
 Gura_DeclareMethod(Outline, Reverse)
@@ -154,7 +156,9 @@ Gura_ImplementUserClass(Outline)
 	Gura_AssignMethod(Outline, Translate);
 	Gura_AssignMethod(Outline, Transform);
 	Gura_AssignMethod(Outline, Embolden);
+#if FREETYPE_CHECK_VERSION(2, 4, 11)
 	Gura_AssignMethod(Outline, EmboldenXY);
+#endif
 	Gura_AssignMethod(Outline, Reverse);
 }
 

@@ -27,6 +27,10 @@
 #include FT_CACHE_H
 #include FT_ADVANCES_H
 
+#define FREETYPE_CHECK_VERSION(major, minor, patch) \
+(FREETYPE_MAJOR * 10000 + FREETYPE_MINOR * 100 + FREETYPE_PATCH >= \
+ (major) * 10000 + (minor) * 100 + (patch))
+
 #if defined(GURA_ON_MSWIN)
 #include <shlobj.h>
 #endif
