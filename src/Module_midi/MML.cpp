@@ -226,6 +226,9 @@ bool MML::FeedChar(Signal sig, int ch)
 			} else if (IsDigit(ch)) {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_NoteLength);
+			} else if (ch == '.') {
+				_cntDot = 1;
+				pStateMachine->SetStat(STAT_NoteLengthDot);
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
@@ -238,6 +241,9 @@ bool MML::FeedChar(Signal sig, int ch)
 			if (IsDigit(ch)) {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_NoteLength);
+			} else if (ch == '.') {
+				_cntDot = 1;
+				pStateMachine->SetStat(STAT_NoteLengthDot);
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
@@ -250,6 +256,16 @@ bool MML::FeedChar(Signal sig, int ch)
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else if (ch == '.') {
+				_cntDot = 1;
+				pStateMachine->SetStat(STAT_NoteLengthDot);
+			} else {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_NoteFix);
+			}
+			break;
+		}
+		case STAT_NoteLengthDot: {
+			if (ch == '.') {
 				_cntDot++;
 			} else {
 				continueFlag = true;
@@ -336,6 +352,9 @@ bool MML::FeedChar(Signal sig, int ch)
 			if (IsDigit(ch)) {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_RestLength);
+			} else if (ch == '.') {
+				_cntDot = 1;
+				pStateMachine->SetStat(STAT_RestLengthDot);
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
@@ -348,12 +367,21 @@ bool MML::FeedChar(Signal sig, int ch)
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else if (ch == '.') {
-				_cntDot++;
+				_cntDot = 1;
+				pStateMachine->SetStat(STAT_RestLengthDot);
 			} else {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_RestFix);
 			}
 			break;
+		}
+		case STAT_RestLengthDot: {
+			if (ch == '.') {
+				_cntDot++;
+			} else {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_RestFix);
+			}
 		}
 		case STAT_RestFix: {
 			if (!_colonFlag) _timeStampHead = _timeStampTail;
@@ -401,6 +429,9 @@ bool MML::FeedChar(Signal sig, int ch)
 			if (IsDigit(ch)) {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_Length);
+			} else if (ch == '.') {
+				_cntDot = 1;
+				pStateMachine->SetStat(STAT_LengthDot);
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
@@ -414,11 +445,20 @@ bool MML::FeedChar(Signal sig, int ch)
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else if (ch == '.') {
 				_cntDot++;
+				pStateMachine->SetStat(STAT_LengthDot);
 			} else {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_LengthFix);
 			}
 			break;
+		}
+		case STAT_LengthDot: {
+			if (ch == '.') {
+				_cntDot++;
+			} else {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_LengthFix);
+			}
 		}
 		case STAT_LengthFix: {
 			_lengthDefault = static_cast<int>(_numAccum);
