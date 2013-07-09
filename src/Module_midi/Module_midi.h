@@ -7,6 +7,7 @@
 #include "Port.h"
 #include "Content.h"
 #include "MML.h"
+#include "SoundFont.h"
 
 Gura_BeginModule(midi)
 

@@ -1865,6 +1865,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
+	ReadSF2(env, sig, args.GetStream(0));
 	return Value::Null;
 }
 

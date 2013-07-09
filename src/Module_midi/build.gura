@@ -8,4 +8,5 @@ if (sys.build == `msc) {
 	builder.libs.append('asound')
 }
 builder.build('midi', ['Module_midi.cpp',
-	'Port.cpp', 'Event.cpp', 'Player.cpp', 'Track.cpp', 'MML.cpp', 'Content.cpp'])
+	'Port.cpp', 'Event.cpp', 'Player.cpp', 'Track.cpp',
+	'MML.cpp', 'Content.cpp', 'SoundFont.cpp'])
