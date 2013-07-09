@@ -27,6 +27,8 @@ private:
 	unsigned short _division;
 	unsigned long _mpqn;
 	double _speed;
+	int _iRepeat;
+	int _cntRepeat;
 	AutoPtr<EventOwner> _pEventOwner;
 	EventOwner::iterator _ppEvent;
 	size_t _cntEvents;
@@ -41,13 +43,14 @@ public:
 	inline Port *GetPort() { return _pPort.get(); }
 	inline void SetMPQN(unsigned long mpqn) { _mpqn = mpqn; }
 	bool SetupContent(Signal sig, const Content *pContent,
-				unsigned short division, unsigned long mpqn, double speed);
+		unsigned short division, unsigned long mpqn, double speed, int cntRepeat);
 	bool Play();
 	void PlayBackground();
 	inline void SetSpeed(double speed) { _speed = speed; }
 	inline double GetSpeed() const { return _speed; }
 	inline size_t CountEvents() const { return _cntEvents; }
 	inline size_t GetProgress() const { return _idxEventCur; }
+	inline int GetRepeat() const { return _iRepeat; }
 };
 
 }}

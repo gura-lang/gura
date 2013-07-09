@@ -75,6 +75,7 @@ Gura_DeclareUserSymbol(background);
 Gura_DeclareUserSymbol(player);
 Gura_DeclareUserSymbol(speed);
 Gura_DeclareUserSymbol(count);
+Gura_DeclareUserSymbol(repeat);
 Gura_DeclareUserSymbol(progress);
 
 //-----------------------------------------------------------------------------

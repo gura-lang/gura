@@ -6,7 +6,7 @@
 Gura_BeginModule(midi)
 
 Value ActivatePlayer(Environment &env, Signal sig, Args &args,
-							Content &content, Port *pPort, double speed);
+				Content &content, Port *pPort, double speed, int cntRepeat);
 
 //-----------------------------------------------------------------------------
 // information table
@@ -1076,12 +1076,14 @@ Gura_ImplementMethod(content, write)
 	return args.GetThis();
 }
 
-// midi.content#play(port:midi.port, speed?:number):[background,player]
+// midi.content#play(port:midi.port, speed?:number, repeat:number:nil => 1):[background,player]
 Gura_DeclareMethod(content, play)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "port", VTYPE_port);
 	DeclareArg(env, "speed", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "repeat", VTYPE_number, OCCUR_Once,
+								FLAG_Nil, new Expr_Value(Value(1)));
 	DeclareAttr(Gura_UserSymbol(background));
 	DeclareAttr(Gura_UserSymbol(player));
 }
@@ -1091,7 +1093,8 @@ Gura_ImplementMethod(content, play)
 	Content &content = Object_content::GetThisObj(args)->GetContent();
 	Port *pPort = Object_port::GetObject(args, 0)->GetPort();
 	double speed = args.IsNumber(1)? args.GetDouble(1) : 1;
-	return ActivatePlayer(env, sig, args, content, pPort, speed);
+	int cntRepeat = args.IsNumber(2)? args.GetInt(2) : -1;
+	return ActivatePlayer(env, sig, args, content, pPort, speed, cntRepeat);
 }
 
 // midi.content#track(index:number):map {block?}
@@ -1279,12 +1282,14 @@ Gura_ImplementMethod(port, send)
 	return args.GetThis();
 }
 
-// midi.port#play(content:midi.content, speed?:number):map:[background,player]
+// midi.port#play(content:midi.content, speed?:number, repeat:number:nil => 1):map:[background,player]
 Gura_DeclareMethod(port, play)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "content", VTYPE_content);
 	DeclareArg(env, "speed", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "repeat", VTYPE_number, OCCUR_Once,
+								FLAG_Nil, new Expr_Value(Value(1)));
 	DeclareAttr(Gura_UserSymbol(background));
 	DeclareAttr(Gura_UserSymbol(player));
 }
@@ -1294,7 +1299,8 @@ Gura_ImplementMethod(port, play)
 	Object_port *pThis = Object_port::GetThisObj(args);
 	Content &content = Object_content::GetObject(args, 0)->GetContent();
 	double speed = args.IsNumber(1)? args.GetDouble(1) : 1;
-	return ActivatePlayer(env, sig, args, content, pThis->GetPort(), speed);
+	int cntRepeat = args.IsNumber(2)? args.GetInt(2) : -1;
+	return ActivatePlayer(env, sig, args, content, pThis->GetPort(), speed, cntRepeat);
 }
 
 // midi.port#mml(text+:string):[background,player]
@@ -1312,7 +1318,8 @@ Gura_ImplementMethod(port, mml)
 	Content content;
 	content.ParseMML(sig, args.GetList(0));
 	double speed = 1;
-	return ActivatePlayer(env, sig, args, content, pThis->GetPort(), speed);
+	int cntRepeat = 1;
+	return ActivatePlayer(env, sig, args, content, pThis->GetPort(), speed, cntRepeat);
 }
 
 // midi.port#note_off(channel:number, note:number, velocity:number):map:reduce
@@ -1494,6 +1501,7 @@ bool Object_player::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(speed));
 	symbols.insert(Gura_UserSymbol(count));
+	symbols.insert(Gura_UserSymbol(repeat));
 	symbols.insert(Gura_UserSymbol(progress));
 	return true;
 }
@@ -1506,6 +1514,8 @@ Value Object_player::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 		return Value(_pPlayer->GetSpeed());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(count))) {
 		return Value(_pPlayer->CountEvents());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(repeat))) {
+		return Value(_pPlayer->GetRepeat());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(progress))) {
 		return Value(_pPlayer->GetProgress());
 	}
@@ -1929,6 +1939,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(player);
 	Gura_RealizeUserSymbol(speed);
 	Gura_RealizeUserSymbol(count);
+	Gura_RealizeUserSymbol(repeat);
 	Gura_RealizeUserSymbol(progress);
 	// class realization
 	Gura_RealizeUserClassWithoutPrepare(event, env.LookupClass(VTYPE_object));
@@ -2051,9 +2062,9 @@ const ProgramInfo *ProgramInfoById(int program)
 }
 
 Value ActivatePlayer(Environment &env, Signal sig, Args &args,
-							Content &content, Port *pPort, double speed)
+					Content &content, Port *pPort, double speed, int cntRepeat)
 {
-	AutoPtr<Player> pPlayer(content.GeneratePlayer(sig, pPort, speed));
+	AutoPtr<Player> pPlayer(content.GeneratePlayer(sig, pPort, speed, cntRepeat));
 	if (sig.IsSignalled()) return Value::Null;
 	if (args.IsSet(Gura_UserSymbol(background))) {
 		Value value(new Object_player(env, Player::Reference(pPlayer.get())));

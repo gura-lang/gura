@@ -268,11 +268,11 @@ bool Content::Write(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-Player *Content::GeneratePlayer(Signal sig, Port *pPort, double speed) const
+Player *Content::GeneratePlayer(Signal sig, Port *pPort, double speed, int cntRepeat) const
 {
 	AutoPtr<Player> pPlayer(new Player(sig, Port::Reference(pPort)));
 	if (!pPlayer->SetupContent(sig, this, _pProperty->GetDivision(),
-									_pProperty->GetMPQN(), speed)) return NULL;
+						_pProperty->GetMPQN(), speed, cntRepeat)) return NULL;
 	return pPlayer.release();
 }
 
