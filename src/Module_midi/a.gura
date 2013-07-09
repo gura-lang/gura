@@ -1,21 +1,27 @@
 import(midi)
 
 mml = [
-'t80'
-'l16r2' \
+'t60'
+
+'l16r2@{acoustic_piano}' \
 '[~e~d+ ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c' \
 'a8rcea b8re~cb / a4]2 a8rb~c~d [~e8.g~f~e ~d8.f~e~d' \
 '~c8.e~d~c b8re~er r~e~~err~d+ ~e8r~d+~e~d+ ~e~d+~eb~d~c a8rcea' \
 'b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb / a8rb~c~d]2' \
+'a8re:~cf:~ce:g:~c fa~c4~f.~e32 ~e8d8~b-.a32 ~a~g~f~e~d~c b-8a8b-a32g32a32b-32 c4dd+' \
+'~e8.~e~fa ~c4~d.b32 l32 ~c~gg~ga~gb~g~c~g~d~g ~e~g~~c~b~a~g~f~e~d~g~f~d ~c~gg~ga~gb~g~c~g~d~g' \
+'~e~g~~c~b~a~g~f~e~d~g~f~d ~e~f~e~d+~eb~e~d+~eb~e~d+ l16 ~e8.b~e~d+ ~e8.b~e~d+~e~d+~e~d+~e~d+~e~d+~eb~d~c' \
+'a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb'
 
-
-
-'l16r2<' \
+'l16r2@{acoustic_piano} <' \
 '[r8 r8r8r8 _aearr8 _eeg+rr8 _aearr8 r8r8r8' \
 '_aearr8 _eeg+rr8 / _aear]2 _aearr8 [cg~crr8 _ggbrr8' \
 '_aearr8 _ee~err>e ~err~d+er r~d+~err8 r8r8r8 <_aearr8' \
-'_eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8 / _aearr8]2'
-
+'_eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8 / _aearr8]2' \
+'_aeab-:~ca:~cg:b-:~c fa~ca~ca fb-~db-~db- f~ef:g:b-~ef:g:b-~e fa~ca~ca fa~ca~ca' \
+'ea~ca~d:df g~eg~fg~f >c8e8rf:ge:gd:f:g c8:e8:g8 <f8:a8g8:b8 >c8rf:ge:gd:f:g' \
+'c8e8b8 <f8:a8g8:b8 g+8:b8r8r8 r8r8r8 r8r8r8 r8r8r8 r8r8r8' \
+'_aearr8 _eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8'
 ]
 
 midi.port().mml(mml*)
