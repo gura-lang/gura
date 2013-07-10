@@ -408,7 +408,7 @@ String Object_track::ToString(Signal sig, bool exprFlag)
 	rtn += "<midi.track";
 	do {
 		char buff[64];
-		::sprintf(buff, ":%devents:seek%d",
+		::sprintf(buff, ":%devents:seek%ld",
 					_pTrack->GetEventOwner().size(), _pTrack->Tell());
 		rtn += buff;
 	} while (0);

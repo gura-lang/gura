@@ -86,7 +86,7 @@ bool Track::SeekSet(Signal sig, long offset)
 
 bool Track::SeekCur(Signal sig, long offset)
 {
-	long idx = static_cast<long>(Tell());
+	long idx = Tell();
 	idx += offset;
 	if (idx < 0 || idx > _pEventOwner->size()) {
 		sig.SetError(ERR_OutOfRangeError, "offst is out of range");
@@ -96,10 +96,11 @@ bool Track::SeekCur(Signal sig, long offset)
 	return true;
 }
 
-size_t Track::Tell() const
+long Track::Tell() const
 {
-	return (_ppEventAt == _pEventOwner->end())?
+	size_t n = (_ppEventAt == _pEventOwner->end())?
 				_pEventOwner->size() : _ppEventAt - _pEventOwner->begin();
+	return static_cast<long>(n);
 }
 
 bool Track::Erase(Signal sig, size_t cnt)
