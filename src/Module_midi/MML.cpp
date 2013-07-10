@@ -24,6 +24,7 @@ void MML::Reset()
 	_cntDot				= 0;
 	_commentNestLevel	= 0;
 	_colonFlag			= false;
+	_offsetGroup		= -1;
 	_velocity			= 100;
 	_timeStampHead 		= 0;
 	_timeStampTail		= 0;
@@ -103,9 +104,19 @@ bool MML::FeedChar(Signal sig, int ch)
 				_operator = ch;
 				if (_octave > 0) _octave--;
 			} else if (ch == '(') {
-				// nothing to do
+				if (_offsetGroup >= 0) {
+					sig.SetError(ERR_FormatError, "group cannot be nested");
+					return false;
+				}
+				_offsetGroup = _pTrack->Tell();
 			} else if (ch == ')') {
-				// nothing to do
+				if (_offsetGroup < 0) {
+					sig.SetError(ERR_FormatError, "unmatched grou parenthesis");
+					return false;
+				}
+				_numAccum = 0;
+				_cntDot = 0;
+				pStateMachine->SetStat(STAT_GroupLengthPre);
 			} else if (ch == '~') {
 				_octaveOffset++;
 			} else if (ch == '_') {
@@ -468,6 +479,7 @@ bool MML::FeedChar(Signal sig, int ch)
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_LengthFix);
 			}
+			break;
 		}
 		case STAT_LengthFix: {
 			_lengthDefault = static_cast<int>(_numAccum);
@@ -582,6 +594,62 @@ bool MML::FeedChar(Signal sig, int ch)
 		case STAT_TempoFix: {
 			unsigned long mpqn = static_cast<unsigned long>(60000000 / _numAccum);
 			_pTrack->AddEvent(new MetaEvent_TempoSetting(_timeStampHead, mpqn));
+			continueFlag = true;
+			pStateMachine->SetStat(STAT_Begin);
+			break;
+		}
+		case STAT_GroupLengthPre: {
+			if (IsDigit(ch)) {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_GroupLength);
+			} else if (ch == '.') {
+				_cntDot = 1;
+				pStateMachine->SetStat(STAT_GroupLengthDot);
+			} else if (IsWhite(ch)) {
+				// nothing to do
+			} else {
+				_offsetGroup = -1;
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_Begin);
+			}
+			break;
+		}
+		case STAT_GroupLength: {
+			if (IsDigit(ch)) {
+				_numAccum = _numAccum * 10 + (ch - '0');
+			} else if (ch == '.') {
+				_cntDot++;
+				pStateMachine->SetStat(STAT_GroupLengthDot);
+			} else {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_GroupFix);
+			}
+			break;
+		}
+		case STAT_GroupLengthDot: {
+			if (ch == '.') {
+				_cntDot++;
+			} else {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_GroupFix);
+			}
+			break;
+		}
+		case STAT_GroupFix: {
+			const EventOwner &eventOwner = _pTrack->GetEventOwner();
+			EventOwner::const_iterator ppEvent = eventOwner.begin() + _offsetGroup;
+			unsigned long timeStampHead = (*ppEvent)->GetTimeStamp();
+			int deltaTimeOrg = _timeStampTail - timeStampHead;
+			if (deltaTimeOrg != 0) {
+				int deltaTime = CalcDeltaTime(_numAccum, _cntDot);
+				for ( ; ppEvent != eventOwner.end(); ppEvent++) {
+					Event *pEvent = *ppEvent;
+					pEvent->SetTimeStamp((pEvent->GetTimeStamp() - timeStampHead) *
+										deltaTime / deltaTimeOrg + timeStampHead);
+				}
+				_timeStampTail = timeStampHead + deltaTime;
+			}
+			_offsetGroup = -1;
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;

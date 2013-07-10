@@ -27,6 +27,7 @@ private:
 		STAT_VelocityPre, STAT_Velocity, STAT_VelocityFix,
 		STAT_ProgramPre, STAT_Program, STAT_ProgramName, STAT_ProgramFix,
 		STAT_TempoPre, STAT_Tempo, STAT_TempoFix,
+		STAT_GroupLengthPre, STAT_GroupLength, STAT_GroupLengthDot, STAT_GroupFix,
 	};
 	class StateMachine {
 	private:
@@ -61,6 +62,7 @@ private:
 	int _cntDot;
 	int _commentNestLevel;
 	bool _colonFlag;
+	long _offsetGroup;
 	unsigned char _velocity;
 	unsigned long _timeStampHead;
 	unsigned long _timeStampTail;
