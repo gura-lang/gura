@@ -15,17 +15,18 @@ MML::MML(Track *pTrack, unsigned char channel) : _pTrack(pTrack), _channel(chann
 
 void MML::Reset()
 {
-	_octave			= 4;				// 1-9
-	_octaveOffset	= 0;
-	_lengthDefault	= 4;
-	_operator		= '\0';
-	_operatorSub	= '\0';
-	_numAccum		= 0;
-	_cntDot			= 0;
-	_colonFlag		= false;
-	_velocity		= 100;
-	_timeStampHead 	= 0;
-	_timeStampTail	= 0;
+	_octave				= 4;				// 1-9
+	_octaveOffset		= 0;
+	_lengthDefault		= 4;
+	_operator			= '\0';
+	_operatorSub		= '\0';
+	_numAccum			= 0;
+	_cntDot				= 0;
+	_commentNestLevel	= 0;
+	_colonFlag			= false;
+	_velocity			= 100;
+	_timeStampHead 		= 0;
+	_timeStampTail		= 0;
 	_stateMachineStack.Clear();
 }
 
@@ -101,6 +102,10 @@ bool MML::FeedChar(Signal sig, int ch)
 			} else if (ch == '<') {
 				_operator = ch;
 				if (_octave > 0) _octave--;
+			} else if (ch == '(') {
+				// nothing to do
+			} else if (ch == ')') {
+				// nothing to do
 			} else if (ch == '~') {
 				_octaveOffset++;
 			} else if (ch == '_') {
@@ -128,8 +133,6 @@ bool MML::FeedChar(Signal sig, int ch)
 				// nothing to do
 			} else if (ch == '\n') {
 				// nothing to do
-			} else if (ch == '/') {
-				pStateMachine->SetStat(STAT_Slash);
 			} else {
 				sig.SetError(ERR_FormatError, "invalid character for MML: %c", ch);
 				return false;
@@ -581,41 +584,6 @@ bool MML::FeedChar(Signal sig, int ch)
 			_pTrack->AddEvent(new MetaEvent_TempoSetting(_timeStampHead, mpqn));
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
-			break;
-		}
-		case STAT_Slash: {
-			if (ch == '/') {
-				pStateMachine->SetStat(STAT_LineComment);
-			} else if (ch == '*') {
-				pStateMachine->SetStat(STAT_BlockComment);
-			} else {
-				sig.SetError(ERR_FormatError, "invalid character for MML: %c", ch);
-				return false;
-			}
-			break;
-		}
-		case STAT_LineComment: {
-			if (ch == '\n') {
-				pStateMachine->SetStat(STAT_Begin);
-			} else {
-				// nothing to do
-			}
-			break;
-		}
-		case STAT_BlockComment: {
-			if (ch == '*') {
-				pStateMachine->SetStat(STAT_BlockCommentEnd);
-			} else {
-				// nothing to do
-			}
-			break;
-		}
-		case STAT_BlockCommentEnd: {
-			if (ch == '/') {
-				pStateMachine->SetStat(STAT_Begin);
-			} else {
-				pStateMachine->SetStat(STAT_BlockComment);
-			}
 			break;
 		}
 		}

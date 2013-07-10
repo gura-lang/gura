@@ -4,30 +4,46 @@ mml = [
 't60'
 '''
 l16r2@{acoustic_piano}
-/*  1 */ //[~e~d+ ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c
-/*  2 */ //a8rcea b8re~cb / a4]2 a8rb~c~d [~e8.g~f~e ~d8.f~e~d
-/*  3 */ //~c8.e~d~c b8re~er r~e~~err~d+ ~e8r~d+~e~d+ ~e~d+~eb~d~c a8rcea
-/*  4 */ //b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb / a8rb~c~d]2
-/*  5 */ //a8re:~cf:~ce:g:~c fa~c4~f.~e32 ~e8d8~b-.a32 ~a~g~f~e~d~c b-8a8b-a32g32a32b-32 c4dd+
-/*  6 */ //~e8.~e~fa ~c4~d.b32 l32 ~c~gg~ga~gb~g~c~g~d~g ~e~g~~c~b~a~g~f~e~d~g~f~d ~c~gg~ga~gb~g~c~g~d~g
-/*  7 */ //~e~g~~c~b~a~g~f~e~d~g~f~d ~e~f~e~d+~eb~e~d+~eb~e~d+ l16 ~e8.b~e~d+ ~e8.b~e~d+ ~e~d+~e~d+~e~d+ ~e~d+~eb~d~c
-/*  8 */ //a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb
-/*  9 */ //a8rb~c~d ~e8.g~f~e ~d8.f~e~d ~c8.e~d~c b8re~er r~e~~err~d+
-/* 10 */ ~err~d+~e~d+ ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c
+[~e~d+ ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c
+a8rcea b8re~cb / a4]2 a8rb~c~d [~e8.g~f~e ~d8.f~e~d
+~c8.e~d~c b8re~er r~e~~err~d+ ~e8r~d+~e~d+ ~e~d+~eb~d~c a8rcea
+b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb / a8rb~c~d]2
+a8r(e:~c)(f:~c)(e:g:~c) fa~c4~f.~e32 ~e8d8~b-.a32 ~a~g~f~e~d~c b-8a8b-a32g32a32b-32 c4dd+
+~e8.~e~fa ~c4~d.b32 l32 ~c~gg~ga~gb~g~c~g~d~g ~e~g~~c~b~a~g~f~e~d~g~f~d ~c~gg~ga~gb~g~c~g~d~g
+~e~g~~c~b~a~g~f~e~d~g~f~d ~e~f~e~d+~eb~e~d+~eb~e~d+ l16 ~e8.b~e~d+ ~e8.b~e~d+ ~e~d+~e~d+~e~d+ ~e~d+~eb~d~c
+a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb
+a8rb~c~d ~e8.g~f~e ~d8.f~e~d ~c8.e~d~c b8re~er r~e~~err~d+
+~err~d+~e~d+ ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c
+a8rcea b8re~cb a8r8r8 (e4.:g4.:b-4.:c+4.) (f4:a4:~d4)(~c+:~e)(~d:~f) (g+4:~d4:~f4)(g+8:~d8:~f8)
+(a4.:~c4.:~e4.) (f4:~d4e:~c)(d:b) (c4:f+4:a4)(c8:a8) (c8:a8)(e8:~c8)(d8:b8) (c4.:a4.) (e4.:g4.:b-4.:~c+4.)
+(f8:a8:~d8)(~c+:e)(~d:~f) (~d4:~f4)(~d8:~f8) (~d4.:~f4.) (g4:~e+4)(f:~d)(e+:~c)
+    (d4:f4:b-4)(d8:f8:a8) (d4:f4:g+4)(d8:f8:g+8) (c4:e4:a4)r
+(e8:b8)r8r8 _acea~c~e~d~cb a~c~e~a~~c~~e~~d~~c~~b a~c~e~a~~c~~e~~d~~c~b
+    ~b-~a~g+~g~~f+~~f~~e~~d+~~d
+~~c+~~c~b~b-~a~g+~g~f+~f ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+
 '''
 '''
 l16r2@{acoustic_piano} <
-/*  1 */ //[r8 r8r8r8 _aearr8 _eeg+rr8 _aearr8 r8r8r8
-/*  2 */ //_aearr8 _eeg+rr8 / _aear]2 _aearr8 [cg~crr8 _ggbrr8
-/*  3 */ //_aearr8 _ee~err>e ~err~d+er r~d+~err8 r8r8r8 <_aearr8
-/*  4 */ //_eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8 / _aearr8]2
-/*  5 */ //_aeab-:~ca:~cg:b-:~c fa~ca~ca fb-~db-~db- f~ef:g:b-~ef:g:b-~e fa~ca~ca fa~ca~ca
-/*  6 */ //ea~ca~d:df g~eg~fg~f >c8e8rf:ge:gd:f:g c8:e8:g8 <f8:a8g8:b8 >c8rf:ge:gd:f:g
-/*  7 */ //c8:e8:g8<f8:a8g8:b8 g+8:b8r8r8 r8r8r8 r8r8r8 r8r8r8 r8r8r8
-/*  8 */ //_aearr8 _eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8
-/*  9 */ //_aearr8 cg~crr8 _ggbrr8 _aearr8 _ee~err>e ~err~d+~er
->
-/* 10 */ r~d+~err8 r8r8r8< _aearr8 _eeg+rr8 _aearr8 r8r8r8
+[r8 r8r8r8 _aearr8 _eeg+rr8 _aearr8 r8r8r8
+_aearr8 _eeg+rr8 / _aear]2 _aearr8 [cg~crr8 _ggbrr8
+_aearr8 _ee~err>e ~err~d+er r~d+~err8 r8r8r8 <_aearr8
+_eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8 / _aearr8]2
+_aea(b-:~c)(a:~c)(g:b-:~c) fa~ca~ca fb-~db-~db- f~e(f:g:b-)~e(f:g:b-)~e fa~ca~ca fa~ca~ca
+ea~ca(~d:d)f g~eg~fg~f >c8e8r(f:g)(e:g)(d:f:g) (c8:e8:g8) <(f8:a8)(g8:b8) >c8r(f:g)(e:g)(d:f:g)
+(c8:e8:g8)<(f8:a8)(g8:b8) (g+8:b8)r8r8 r8r8r8 r8r8r8 r8r8r8 r8r8r8
+_aearr8 _eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8
+_aearr8 cg~crr8 _ggbrr8 _aearr8 _ee~err>e ~err~d+~er
+r~d+~err8 r8r8r8< _aearr8 _eeg+rr8 _aearr8 r8r8r8
+_aearr8 _eeg+ rr8 _a_a_a_a_a_a _a_a_a_a_a_a _a_a_a_a_a_a _a_a_a_a_a_a
+_a_a_a_a_a_a (_d:_a)(_d:_a)(_d:_a)(_d:_a)(_d:_a)(_d:_a)
+    (_d+:_a)(_d+:_a)(_d+:_a)(_d+:_a)(_d+:_a)(_d+:_a)
+    (_e:_a)(_e:_a)(_e:_a)(_e:_a)(_e:_g+)(_e:_g+)
+    (__a:_a)_a_a_a_a_a _a_a_a_a_a_a
+_a_a_a_a_a_a _a_a_a_a_a_a _b-_b-_b-_b-_b-_b- _b-_b-_b-_b-_b-_b-
+    _b-_b-_b-_b-_b-_b- _b_b_b_b_b_b c4r
+(e8:g+8)r8r8 __a8r8(a8:~c8:~e8) (a8:~c8:~e8)r8(a8:~c8:~e8)
+    (a8:~c8:~e8)r8(a8:~c8:~e8) (a8:~c8:~e8)r8r8
+r8r8r8 r8r8r8 _aearr8 _eeg+rr8 _aearr8
 '''
 ]
 
