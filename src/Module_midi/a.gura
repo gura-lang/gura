@@ -14,13 +14,13 @@ a8r(e:~c)(f:~c)(e:g:~c) fa~c4~f.~e32 ~e8d8~b-.a32 ~a~g~f~e~d~c b-8a8b-a32g32a32b
 a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb
 a8rb~c~d ~e8.g~f~e ~d8.f~e~d ~c8.e~d~c b8re~er r~e~~err~d+
 ~err~d+~e~d+ ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c
-a8rcea b8re~cb a8r8r8 (e4.:g4.:b-4.:c+4.) (f4:a4:~d4)(~c+:~e)(~d:~f) (g+4:~d4:~f4)(g+8:~d8:~f8)
-(a4.:~c4.:~e4.) (f4:~d4e:~c)(d:b) (c4:f+4:a4)(c8:a8) (c8:a8)(e8:~c8)(d8:b8) (c4.:a4.) (e4.:g4.:b-4.:~c+4.)
+a8rcea b8re~cb a8r8r8 (e:g:b-:c+)4. (f4:a4:~d4)(~c+:~e)(~d:~f) (g+4:~d4:~f4)(g+8:~d8:~f8)
+(a4.:~c4.:~e4.) (f4:~d4)(e:~c)(d:b) (c4:f+4:a4)(c8:a8) (c8:a8)(e8:~c8)(d8:b8) (c4.:a4.) (e4.:g4.:b-4.:~c+4.)
 (f8:a8:~d8)(~c+:e)(~d:~f) (~d4:~f4)(~d8:~f8) (~d4.:~f4.) (g4:~e+4)(f:~d)(e+:~c)
     (d4:f4:b-4)(d8:f8:a8) (d4:f4:g+4)(d8:f8:g+8) (c4:e4:a4)r
-(e8:b8)r8r8 _acea~c~e~d~cb a~c~e~a~~c~~e~~d~~c~~b a~c~e~a~~c~~e~~d~~c~b
-    ~b-~a~g+~g~~f+~~f~~e~~d+~~d
-~~c+~~c~b~b-~a~g+~g~f+~f ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+
+(e8:b8)r8r8 (_ace)8(a~c~e)8(~d~cb)8 (a~c~e)8(~a~~c~~e)8(~~d~~c~~b)8
+    (a~c~e)8(~a~~c~~e)8(~~d~~c~b)8 (~b-~a~g+)8(~g~~f+~~f)8(~~e~~d+~~d)8
+(~~c+~~c~b)8(~b-~a~g+)8(~g~f+~f)8 ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+
 '''
 '''
 l16r2@{acoustic_piano} <
