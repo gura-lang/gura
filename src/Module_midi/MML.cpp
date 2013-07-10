@@ -124,6 +124,12 @@ bool MML::FeedChar(Signal sig, int ch)
 				pStateMachine->SetStat(STAT_TempoPre);
 			} else if (IsWhite(ch)) {
 				// nothing to do
+			} else if (ch == '\r') {
+				// nothing to do
+			} else if (ch == '\n') {
+				// nothing to do
+			} else if (ch == '/') {
+				pStateMachine->SetStat(STAT_Slash);
 			} else {
 				sig.SetError(ERR_FormatError, "invalid character for MML: %c", ch);
 				return false;
@@ -575,6 +581,41 @@ bool MML::FeedChar(Signal sig, int ch)
 			_pTrack->AddEvent(new MetaEvent_TempoSetting(_timeStampHead, mpqn));
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
+			break;
+		}
+		case STAT_Slash: {
+			if (ch == '/') {
+				pStateMachine->SetStat(STAT_LineComment);
+			} else if (ch == '*') {
+				pStateMachine->SetStat(STAT_BlockComment);
+			} else {
+				sig.SetError(ERR_FormatError, "invalid character for MML: %c", ch);
+				return false;
+			}
+			break;
+		}
+		case STAT_LineComment: {
+			if (ch == '\n') {
+				pStateMachine->SetStat(STAT_Begin);
+			} else {
+				// nothing to do
+			}
+			break;
+		}
+		case STAT_BlockComment: {
+			if (ch == '*') {
+				pStateMachine->SetStat(STAT_BlockCommentEnd);
+			} else {
+				// nothing to do
+			}
+			break;
+		}
+		case STAT_BlockCommentEnd: {
+			if (ch == '/') {
+				pStateMachine->SetStat(STAT_Begin);
+			} else {
+				pStateMachine->SetStat(STAT_BlockComment);
+			}
 			break;
 		}
 		}

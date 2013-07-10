@@ -27,6 +27,7 @@ private:
 		STAT_VelocityPre, STAT_Velocity, STAT_VelocityFix,
 		STAT_ProgramPre, STAT_Program, STAT_ProgramName, STAT_ProgramFix,
 		STAT_TempoPre, STAT_Tempo, STAT_TempoFix,
+		STAT_Slash, STAT_LineComment, STAT_BlockComment, STAT_BlockCommentEnd,
 	};
 	class StateMachine {
 	private:
