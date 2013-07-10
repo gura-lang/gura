@@ -14,11 +14,11 @@ a8r(e:~c)(f:~c)(e:g:~c) fa~c4~f.~e32 ~e8d8~b-.a32 ~a~g~f~e~d~c b-8a8b-a32g32a32b
 a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb
 a8rb~c~d ~e8.g~f~e ~d8.f~e~d ~c8.e~d~c b8re~er r~e~~err~d+
 ~err~d+~e~d+ ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c
-a8rcea b8re~cb a8r8r8 (e:g:b-:c+)4. (f4:a4:~d4)(~c+:~e)(~d:~f) (g+4:~d4:~f4)(g+8:~d8:~f8)
-(a4.:~c4.:~e4.) (f4:~d4)(e:~c)(d:b) (c4:f+4:a4)(c8:a8) (c8:a8)(e8:~c8)(d8:b8) (c4.:a4.) (e4.:g4.:b-4.:~c+4.)
-(f8:a8:~d8)(~c+:e)(~d:~f) (~d4:~f4)(~d8:~f8) (~d4.:~f4.) (g4:~e+4)(f:~d)(e+:~c)
-    (d4:f4:b-4)(d8:f8:a8) (d4:f4:g+4)(d8:f8:g+8) (c4:e4:a4)r
-(e8:b8)r8r8 (_ace)8(a~c~e)8(~d~cb)8 (a~c~e)8(~a~~c~~e)8(~~d~~c~~b)8
+a8rcea b8re~cb a8r8r8 (e:g:b-:c+)4. (f:a:~d)4(~c+:~e)(~d:~f) (g+:~d:~f)4(g+:~d:~f)8
+(a:~c:~e)4. (f:~d)4(e:~c)(d:b) (c:f+:a)4(c:a)8 (c:a)8(e:~c)8(d:b)8 (c:a)4. (e:g:b-:~c+)4.
+(f:a:~d)8(~c+:e)(~d:~f) (~d:~f)4(~d:~f)8 (~d:~f)4. (g:~e+)4(f:~d)(e+:~c)
+    (d:f:b-)4(d:f:a)8 (d:f:g+)4(d:f:g+)8 (c:e:a)4r
+(e:b)8r8r8 (_ace)8(a~c~e)8(~d~cb)8 (a~c~e)8(~a~~c~~e)8(~~d~~c~~b)8
     (a~c~e)8(~a~~c~~e)8(~~d~~c~b)8 (~b-~a~g+)8(~g~~f+~~f)8(~~e~~d+~~d)8
 (~~c+~~c~b)8(~b-~a~g+)8(~g~f+~f)8 ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+
 '''
@@ -29,8 +29,8 @@ _aearr8 _eeg+rr8 / _aear]2 _aearr8 [cg~crr8 _ggbrr8
 _aearr8 _ee~err>e ~err~d+er r~d+~err8 r8r8r8 <_aearr8
 _eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8 / _aearr8]2
 _aea(b-:~c)(a:~c)(g:b-:~c) fa~ca~ca fb-~db-~db- f~e(f:g:b-)~e(f:g:b-)~e fa~ca~ca fa~ca~ca
-ea~ca(~d:d)f g~eg~fg~f >c8e8r(f:g)(e:g)(d:f:g) (c8:e8:g8) <(f8:a8)(g8:b8) >c8r(f:g)(e:g)(d:f:g)
-(c8:e8:g8)<(f8:a8)(g8:b8) (g+8:b8)r8r8 r8r8r8 r8r8r8 r8r8r8 r8r8r8
+ea~ca(~d:d)f g~eg~fg~f >c8e8r(f:g)(e:g)(d:f:g) (c:e:g)8 <(f:a)8(g:b)8 >c8r(f:g)(e:g)(d:f:g)
+(c:e:g)8<(f:a)8(g:b)8 (g+:b)8r8r8 r8r8r8 r8r8r8 r8r8r8 r8r8r8
 _aearr8 _eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8
 _aearr8 cg~crr8 _ggbrr8 _aearr8 _ee~err>e ~err~d+~er
 r~d+~err8 r8r8r8< _aearr8 _eeg+rr8 _aearr8 r8r8r8
@@ -41,8 +41,8 @@ _a_a_a_a_a_a (_d:_a)(_d:_a)(_d:_a)(_d:_a)(_d:_a)(_d:_a)
     (__a:_a)_a_a_a_a_a _a_a_a_a_a_a
 _a_a_a_a_a_a _a_a_a_a_a_a _b-_b-_b-_b-_b-_b- _b-_b-_b-_b-_b-_b-
     _b-_b-_b-_b-_b-_b- _b_b_b_b_b_b c4r
-(e8:g+8)r8r8 __a8r8(a8:~c8:~e8) (a8:~c8:~e8)r8(a8:~c8:~e8)
-    (a8:~c8:~e8)r8(a8:~c8:~e8) (a8:~c8:~e8)r8r8
+(e:g+)8r8r8 __a8r8(a:~c:~e)8 (a:~c:~e)8r8(a:~c:~e)8
+    (a:~c:~e)8r8(a:~c:~e)8 (a:~c:~e)8r8r8
 r8r8r8 r8r8r8 _aearr8 _eeg+rr8 _aearr8
 '''
 ]
