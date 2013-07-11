@@ -175,6 +175,7 @@ bool MML::FeedChar(Signal sig, int ch)
 		}
 		case STAT_RepeatBlock1stSlash: {
 			if (ch == '*') {
+				pStateMachine->IncCommentLevel();
 				pStateMachine->SetStatToReturn(STAT_RepeatBlock1st);
 				pStateMachine->SetStat(STAT_BlockComment);
 			} else {
@@ -210,6 +211,7 @@ bool MML::FeedChar(Signal sig, int ch)
 		}
 		case STAT_RepeatBlock2ndSlash: {
 			if (ch == '*') {
+				pStateMachine->IncCommentLevel();
 				pStateMachine->SetStatToReturn(STAT_RepeatBlock2nd);
 				pStateMachine->SetStat(STAT_BlockComment);
 			} else {
@@ -681,6 +683,7 @@ bool MML::FeedChar(Signal sig, int ch)
 				pStateMachine->SetStatToReturn(STAT_Begin);
 				pStateMachine->SetStat(STAT_LineComment);
 			} else if (ch == '*') {
+				pStateMachine->IncCommentLevel();
 				pStateMachine->SetStatToReturn(STAT_Begin);
 				pStateMachine->SetStat(STAT_BlockComment);
 			} else {
@@ -698,7 +701,9 @@ bool MML::FeedChar(Signal sig, int ch)
 			break;
 		}
 		case STAT_BlockComment: {
-			if (ch == '*') {
+			if (ch == '/') {
+				pStateMachine->SetStat(STAT_BlockCommentSlash);
+			} else if (ch == '*') {
 				pStateMachine->SetStat(STAT_BlockCommentEnd);
 			} else if (IsEOD(ch)) {
 				sig.SetError(ERR_FormatError, "block comment is not terminated correctly");
@@ -708,9 +713,22 @@ bool MML::FeedChar(Signal sig, int ch)
 			}
 			break;
 		}
+		case STAT_BlockCommentSlash: {
+			if (ch == '*') {
+				pStateMachine->IncCommentLevel();
+			} else {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_BlockComment);
+			}
+			break;
+		}
 		case STAT_BlockCommentEnd: {
 			if (ch == '/') {
-				pStateMachine->SetStat(pStateMachine->GetStatToReturn());
+				if (pStateMachine->DecCommentLevel() > 0) {
+					pStateMachine->SetStat(STAT_BlockComment);
+				} else {
+					pStateMachine->SetStat(pStateMachine->GetStatToReturn());
+				}
 			} else {
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_BlockComment);

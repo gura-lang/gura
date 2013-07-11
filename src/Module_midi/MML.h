@@ -29,17 +29,20 @@ private:
 		STAT_ProgramPre, STAT_Program, STAT_ProgramName, STAT_ProgramFix,
 		STAT_TempoPre, STAT_Tempo, STAT_TempoFix,
 		STAT_GroupLengthPre, STAT_GroupLength, STAT_GroupLengthDot, STAT_GroupFix,
-		STAT_Slash, STAT_LineComment, STAT_BlockComment, STAT_BlockCommentEnd,
+		STAT_Slash, STAT_LineComment,
+		STAT_BlockComment, STAT_BlockCommentSlash, STAT_BlockCommentEnd,
 	};
 	class StateMachine {
 	private:
 		Stat _stat;
 		Stat _statToReturn;
 		int _blockLevel;
+		int _commentLevel;
 		String _strBlock1st;
 		String _strBlock2nd;
 	public:
-		inline StateMachine() : _stat(STAT_Begin), _statToReturn(STAT_Begin), _blockLevel(0) {}
+		inline StateMachine() : _stat(STAT_Begin), _statToReturn(STAT_Begin),
+											_blockLevel(0), _commentLevel(0) {}
 		inline Stat GetStat() const { return _stat; }
 		inline void SetStat(Stat stat) { _stat = stat; }
 		inline Stat GetStatToReturn() const { return _statToReturn; }
@@ -47,6 +50,8 @@ private:
 		inline int GetBlockLevel() const { return _blockLevel; }
 		inline void IncBlockLevel() { _blockLevel++; }
 		inline int DecBlockLevel() { --_blockLevel; return _blockLevel; }
+		inline void IncCommentLevel() { _commentLevel++; }
+		inline int DecCommentLevel() { --_commentLevel; return _commentLevel; }
 		inline String &GetStrBlock1st() { return _strBlock1st; }
 		inline String &GetStrBlock2nd() { return _strBlock2nd; }
 	};

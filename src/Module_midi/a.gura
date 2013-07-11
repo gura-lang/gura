@@ -5,6 +5,7 @@ mml = [
 '''
 l16r2@{acoustic_piano}
 // main part
+/*
 /*  1 */ [~e~d+ ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c
 /*  2 */ a8rcea b8re~cb / a4]2 a8rb~c~d [~e8.g~f~e ~d8.f~e~d
 /*  3 */ ~c8.e~d~c b8re~er r~e~~err~d+ ~e8r~d+~e~d+ ~e~d+~eb~d~c a8rcea
@@ -21,10 +22,13 @@ l16r2@{acoustic_piano}
          (d:f:b-)4(d:f:a)8 (d:f:g+)4(d:f:g+)8 (c:e:a)4r
 /* 14 */ (e:b)8r8r8 (_ace)8(a~c~e)8(~d~cb)8 (a~c~e)8(~a~~c~~e)8(~~d~~c~~b)8
          (a~c~e)8(~a~~c~~e)8(~~d~~c~b)8 (~b-~a~g+)8(~g~~f+~~f)8(~~e~~d+~~d)8
+*/
 /* 15 */ (~~c+~~c~b)8(~b-~a~g+)8(~g~f+~f)8 ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+
+/* 16 */ ~e~d+~eb~d~c a8rcea b8re~cb a8rb~c~d ~e8.g~f~e ~d8.fed
 '''
 '''
 l16r2@{acoustic_piano} <
+/*
 /*  1 */ [r8 r8r8r8 _aearr8 _eeg+rr8 _aearr8 r8r8r8
 /*  2 */ _aearr8 _eeg+rr8 / _aear]2 _aearr8 [cg~crr8 _ggbrr8
 /*  3 */ _aearr8 _ee~err>e ~err~d+er r~d+~err8 r8r8r8 <_aearr8
@@ -44,7 +48,9 @@ l16r2@{acoustic_piano} <
          _b-_b-_b-_b-_b-_b- _b_b_b_b_b_b c4r
 /* 14 */ (e:g+)8r8r8 __a8r8(a:~c:~e)8 (a:~c:~e)8r8(a:~c:~e)8
          (a:~c:~e)8r8(a:~c:~e)8 (a:~c:~e)8r8r8
+*/
 /* 15 */ r8r8r8 r8r8r8 _aearr8 _eeg+rr8 _aearr8
+/* 16 */ r8r8r8 _aearr8 _eeg+rr8 _aearr8 cg~crr8 _ggbrr8
 '''
 ]
 
