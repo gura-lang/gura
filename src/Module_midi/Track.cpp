@@ -26,21 +26,6 @@ void Track::AddEvent(Event *pEvent)
 	_ppEventAt++;
 }
 
-#if 0
-unsigned long Track::GetCurTimeStamp() const
-{
-	unsigned long timeStamp = 0;
-	if (_pEventOwner->empty()) {
-		// nothing to do
-	} else if (_ppEventAt == _pEventOwner->end()) {
-		timeStamp = _pEventOwner->back()->GetTimeStamp();
-	} else  {
-		timeStamp = (*_ppEventAt)->GetTimeStamp();
-	}
-	return timeStamp;
-}
-#endif
-
 unsigned long Track::GetPrevTimeStamp() const
 {
 	unsigned long timeStamp = 0;
