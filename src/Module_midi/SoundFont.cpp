@@ -39,13 +39,18 @@ public:
 	void Print() const;
 };
 
-struct iver_rec {
+struct sfVersionTag {	// iver-rec
 	enum { Size = 4 };
 	Gura_PackedUShort_LE(wMajor);
 	Gura_PackedUShort_LE(wMinor);
+	inline void Print() const {
+		::printf("wMajor=%d wMinor=%d\n",
+					Gura_UnpackUShort(wMajor),
+					Gura_UnpackUShort(wMinor));
+	}
 };
 
-struct phdr_rec {
+struct sfPresetHeader {	// phdr-rec
 	enum { Size = 38 };
 	char achPresetName[20];
 	Gura_PackedUShort_LE(wPreset);
@@ -54,12 +59,132 @@ struct phdr_rec {
 	Gura_PackedULong_LE(dwLibrary);
 	Gura_PackedULong_LE(dwGenre);
 	Gura_PackedULong_LE(dwMorphology);
+	inline void Print() const {
+		::printf("achPresetName=\"%s\" wPreset=%d wBank=%d wPresetBagNdx=%d dwLibrary=%d dwGenre=%d dwMorphology=%d\n",
+					achPresetName,
+					Gura_UnpackUShort(wPreset),
+					Gura_UnpackUShort(wBank),
+					Gura_UnpackUShort(wPresetBagNdx),
+					Gura_UnpackULong(dwLibrary),
+					Gura_UnpackULong(dwGenre),
+					Gura_UnpackULong(dwMorphology));
+	}
 };
 
-struct pbag_rec {
+struct sfPresetBag {	// pbag-rec
 	enum { Size = 4 };
 	Gura_PackedUShort_LE(wGenNdx);
 	Gura_PackedUShort_LE(wModNdx);
+	inline void Print() const {
+		::printf("wGenNdx=%d wModNdx=%d\n",
+					Gura_UnpackUShort(wGenNdx),
+					Gura_UnpackUShort(wModNdx));
+	}
+};
+
+struct sfMod {			// pmod-rec
+	enum { Size = 10 };
+	Gura_PackedUShort_LE(sfModSrcOper);
+	Gura_PackedUShort_LE(sfModDestOper);
+	Gura_PackedUShort_LE(modAmount);
+	Gura_PackedUShort_LE(sfModAmtSrcOper);
+	Gura_PackedUShort_LE(sfModTransOper);
+	inline void Print() const {
+		::printf("sfModSrcOper=%d sfModDestOper=%d modAmount=0x%04x sfModAmtSrcOper=%d sfModTransOper=%d\n",
+					Gura_UnpackUShort(sfModSrcOper),
+					Gura_UnpackUShort(sfModDestOper),
+					Gura_UnpackUShort(modAmount),
+					Gura_UnpackUShort(sfModAmtSrcOper),
+					Gura_UnpackUShort(sfModTransOper));
+	}
+};
+
+struct sfGen {			// pgen-rec
+	enum { Size = 4 };
+	Gura_PackedUShort_LE(sfGenOper);
+	Gura_PackedUShort_LE(genAmount);
+	inline void Print() const {
+		::printf("sfGenOper=%d genAmount=0x%04x\n",
+					Gura_UnpackUShort(sfGenOper),
+					Gura_UnpackUShort(genAmount));
+	}
+};
+
+struct sfInst {			// inst-rec
+	enum { Size = 22 };
+	char achInstName[20];
+	Gura_PackedUShort_LE(wInstBagNdx);
+	inline void Print() const {
+		::printf("achInstName=\"%s\" wInstBagNdx=%d\n",
+					achInstName,
+					Gura_UnpackUShort(wInstBagNdx));
+	}
+};
+
+struct sfInstBag {		// ibag-rec
+	enum { Size = 4 };
+	Gura_PackedUShort_LE(wInstGenNdx);
+	Gura_PackedUShort_LE(wInstModNdx);
+	inline void Print() const {
+		::printf("wInstGenNdx=%d wInstModNdx=%d\n",
+					Gura_UnpackUShort(wInstGenNdx),
+					Gura_UnpackUShort(wInstModNdx));
+	}
+};
+
+struct sfInstMod {		// imod-rec
+	enum { Size = 10 };
+	Gura_PackedUShort_LE(sfModSrcOper);
+	Gura_PackedUShort_LE(sfModDestOper);
+	Gura_PackedUShort_LE(modAmount);
+	Gura_PackedUShort_LE(sfModAmtSrcOper);
+	Gura_PackedUShort_LE(sfModTransOper);
+	inline void Print() const {
+		::printf("sfModSrcOper=%d sfModDestOper=%d modAmount=0x%04x sfModAmtSrcOper=%d sfModTransOper=%d\n",
+					Gura_UnpackUShort(sfModSrcOper),
+					Gura_UnpackUShort(sfModDestOper),
+					Gura_UnpackUShort(modAmount),
+					Gura_UnpackUShort(sfModAmtSrcOper),
+					Gura_UnpackUShort(sfModTransOper));
+	}
+};
+
+struct sfInstGen {		// igen-rec
+	enum { Size = 4 };
+	Gura_PackedUShort_LE(sfGenOper);
+	Gura_PackedUShort_LE(genAmount);
+	inline void Print() const {
+		::printf("sfGenOper=%d genAmount=0x%04x\n",
+					Gura_UnpackUShort(sfGenOper),
+					Gura_UnpackUShort(genAmount));
+	}
+};
+
+struct sfSample {		// shdr-rec
+	enum { Size = 46 };
+	char achSampleName[20];
+	Gura_PackedULong_LE(dwStart);
+	Gura_PackedULong_LE(dwEnd);
+	Gura_PackedULong_LE(dwStartloop);
+	Gura_PackedULong_LE(dwEndloop);
+	Gura_PackedULong_LE(dwSampleRate);
+	unsigned char byOriginalKey;
+	char chCorrection;
+	Gura_PackedUShort_LE(wSampleLink);
+	Gura_PackedUShort_LE(sfSampleType);
+	inline void Print() const {
+		::printf("achSampleName=\"%s\" dwStart=%d dwEnd=%d dwStartloop=%d dwEndloop=%d dwSampleRate=%d byOriginalKey=%d chCorrection=%d wSampleLink=%d sfSampleType=%d\n",
+					achSampleName,
+					Gura_UnpackULong(dwStart),
+					Gura_UnpackULong(dwEnd),
+					Gura_UnpackULong(dwStartloop),
+					Gura_UnpackULong(dwEndloop),
+					Gura_UnpackULong(dwSampleRate),
+					byOriginalKey,
+					chCorrection,
+					Gura_UnpackUShort(wSampleLink),
+					Gura_UnpackUShort(sfSampleType));
+	}
 };
 
 void ChunkHdr::Print() const
@@ -73,6 +198,37 @@ void ChunkHdr::Print() const
 			static_cast<unsigned char>(ckID >> 24), ckSize);
 }
 
+bool ReadStruct(Environment &env, Signal sig, Stream &stream,
+						void *data, size_t ckSizeExpect, size_t ckSizeActual)
+{
+	if (ckSizeExpect > ckSizeActual) {
+		sig.SetError(ERR_FormatError, "unexpected size of chunk");
+		return false;
+	}
+	size_t bytesRead = stream.Read(sig, data, ckSizeExpect);
+	if (bytesRead != ckSizeExpect) {
+		sig.SetError(ERR_FormatError, "invalid SF2 format");
+		return false;
+	}
+	return true;
+}
+
+bool ReadString(Environment &env, Signal sig, Stream &stream,
+						char *str, size_t ckSizeMax, size_t ckSizeActual)
+{
+	size_t ckSizeAlign = (ckSizeActual + 1) / 2 * 2;
+	if (ckSizeMax < ckSizeAlign) {
+		sig.SetError(ERR_FormatError, "string data is too long");
+		return false;
+	}
+	size_t bytesRead = stream.Read(sig, str, ckSizeAlign);
+	if (bytesRead != ckSizeAlign) {
+		sig.SetError(ERR_FormatError, "invalid SF2 format");
+		return false;
+	}
+	return true;
+}
+
 bool ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_t bytes)
 {
 	size_t bytesRest = (bytes + 1) / 2 * 2;
@@ -82,20 +238,21 @@ bool ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_t bytes)
 		size_t bytesRead = stream.Read(sig, &chunkHdr,
 						ChooseMin(bytesRest, static_cast<size_t>(ChunkHdr::Size)));
 		if (bytesRead != ChunkHdr::Size) {
-			sig.SetError(ERR_FormatError, "invalid SF2 format 1");
+			sig.SetError(ERR_FormatError, "invalid SF2 format");
 			return false;
 		}
 		bytesRest -= bytesRead;
 		unsigned long ckID = Gura_UnpackULong(chunkHdr.ckID);
 		unsigned long ckSize = Gura_UnpackULong(chunkHdr.ckSize);
 		unsigned long ckSizeAlign = (ckSize + 1) / 2 * 2;
+		if (ckID != CKID_LIST) chunkHdr.Print();
 		switch (ckID) {
 		case CKID_LIST: {
 			char listHdr[4];
 			size_t bytesRead = stream.Read(sig, listHdr,
 								ChooseMin(bytesRest, static_cast<size_t>(4)));
 			if (bytesRead != 4) {
-				sig.SetError(ERR_FormatError, "invalid SF2 format 2");
+				sig.SetError(ERR_FormatError, "invalid SF2 format");
 				return false;
 			}
 			::printf("LIST('%c%c%c%c') %dbytes\n",
@@ -104,114 +261,163 @@ bool ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_t bytes)
 			if (!ReadSubChunk(env, sig, stream, static_cast<size_t>(ckSize))) return false;
 			break;
 		}
-		case CKID_ifil: {
-			chunkHdr.Print();
+		// 5 The INFO-list Chunk
+		case CKID_ifil: {	// 5.1
+			sfVersionTag data;
+			if (!ReadStruct(env, sig, stream, &data, data.Size, ckSize)) return false;
+			data.Print();
+			break;
+		}
+		case CKID_isng: {	// 5.2
+			char str[256];
+			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			::printf("\"%s\"\n", str);
+			break;
+		}
+		case CKID_INAM: {	// 5.3
+			char str[256];
+			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			::printf("\"%s\"\n", str);
+			break;
+		}
+		case CKID_irom: {	// 5.4
+			char str[256];
+			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			::printf("\"%s\"\n", str);
+			break;
+		}
+		case CKID_iver: {	// 5.5
+			sfVersionTag data;
+			if (!ReadStruct(env, sig, stream, &data, data.Size, ckSize)) return false;
+			data.Print();
+			break;
+		}
+		case CKID_ICRD: {	// 5.6
+			char str[256];
+			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			::printf("\"%s\"\n", str);
+			break;
+		}
+		case CKID_IENG: {	// 5.7
+			char str[256];
+			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			::printf("\"%s\"\n", str);
+			break;
+		}
+		case CKID_IPRD: {	// 5.8
+			char str[256];
+			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			::printf("\"%s\"\n", str);
+			break;
+		}
+		case CKID_ICOP: {	// 5.9
+			char str[256];
+			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			::printf("\"%s\"\n", str);
+			break;
+		}
+		case CKID_ICMT: {	// 5.10
+			char str[65536];
+			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			::printf("\"%s\"\n", str);
+			break;
+		}
+		case CKID_ISFT: {	// 5.11
+			char str[256];
+			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			::printf("\"%s\"\n", str);
+			break;
+		}
+		// 6 The sdta-list Chunk
+		case CKID_smpl: {	// 6.1 Sample Data Format in the smpl Sub-Chunk
+			// 16-bits, signed, little endian words
 			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
 			break;
 		}
-		case CKID_isng: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
+		// 7 The pdta-list Chunk
+		case CKID_phdr: {	// 7.2
+			sfPresetHeader data;
+			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
+				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
+				data.Print();
+				ckSizeRest -= data.Size;
+			}
 			break;
 		}
-		case CKID_INAM: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
+		case CKID_pbag: {	// 7.3
+			sfPresetBag data;
+			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
+				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
+				data.Print();
+				ckSizeRest -= data.Size;
+			}
 			break;
 		}
-		case CKID_irom: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
+		case CKID_pmod: {	// 7.4
+			sfMod data;
+			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
+				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
+				data.Print();
+				ckSizeRest -= data.Size;
+			}
 			break;
 		}
-		case CKID_iver: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
+		case CKID_pgen: {	// 7.5
+			sfGen data;
+			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
+				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
+				data.Print();
+				ckSizeRest -= data.Size;
+			}
 			break;
 		}
-		case CKID_ICRD: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
+		case CKID_inst: {	// 7.6
+			sfInst data;
+			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
+				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
+				data.Print();
+				ckSizeRest -= data.Size;
+			}
 			break;
 		}
-		case CKID_IENG: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
+		case CKID_ibag: {	// 7.7
+			sfInstBag data;
+			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
+				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
+				data.Print();
+				ckSizeRest -= data.Size;
+			}
 			break;
 		}
-		case CKID_IPRD: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
+		case CKID_imod: {	// 7.8
+			sfMod data;
+			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
+				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
+				data.Print();
+				ckSizeRest -= data.Size;
+			}
 			break;
 		}
-		case CKID_ICOP: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
+		case CKID_igen: {	// 7.9
+			sfInstGen data;
+			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
+				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
+				//data.Print();
+				ckSizeRest -= data.Size;
+			}
 			break;
 		}
-		case CKID_ICMT: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
-			break;
-		}
-		case CKID_ISFT: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
-			break;
-		}
-		case CKID_smpl: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
-			break;
-		}
-		case CKID_phdr: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
-			break;
-		}
-		case CKID_pbag: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
-			break;
-		}
-		case CKID_pmod: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
-			break;
-		}
-		case CKID_pgen: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
-			break;
-		}
-		case CKID_inst: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
-			break;
-		}
-		case CKID_ibag: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
-			break;
-		}
-		case CKID_imod: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
-			break;
-		}
-		case CKID_igen: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
-			break;
-		}
-		case CKID_shdr: {
-			chunkHdr.Print();
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
+		case CKID_shdr: {	// 7.10
+			sfSample data;
+			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
+				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
+				data.Print();
+				ckSizeRest -= data.Size;
+			}
 			break;
 		}
 		default: {
 			::printf("****\n");
-			chunkHdr.Print();
 			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
 			break;
 		}
