@@ -39,152 +39,182 @@ public:
 	void Print() const;
 };
 
-struct sfVersionTag {	// iver-rec
-	enum { Size = 4 };
-	Gura_PackedUShort_LE(wMajor);
-	Gura_PackedUShort_LE(wMinor);
-	inline void Print() const {
-		::printf("wMajor=%d wMinor=%d\n",
-					Gura_UnpackUShort(wMajor),
-					Gura_UnpackUShort(wMinor));
-	}
+class sfVersionTag {	// iver-rec
+public:
+	struct RawData {
+		enum { Size = 4 };
+		Gura_PackedUShort_LE(wMajor);
+		Gura_PackedUShort_LE(wMinor);
+		inline void Print() const {
+			::printf("wMajor=%d wMinor=%d\n",
+						Gura_UnpackUShort(wMajor),
+						Gura_UnpackUShort(wMinor));
+		}
+	};
 };
 
-struct sfPresetHeader {	// phdr-rec
-	enum { Size = 38 };
-	char achPresetName[20];
-	Gura_PackedUShort_LE(wPreset);
-	Gura_PackedUShort_LE(wBank);
-	Gura_PackedUShort_LE(wPresetBagNdx);
-	Gura_PackedULong_LE(dwLibrary);
-	Gura_PackedULong_LE(dwGenre);
-	Gura_PackedULong_LE(dwMorphology);
-	inline void Print() const {
-		::printf("achPresetName=\"%s\" wPreset=%d wBank=%d wPresetBagNdx=%d dwLibrary=%d dwGenre=%d dwMorphology=%d\n",
-					achPresetName,
-					Gura_UnpackUShort(wPreset),
-					Gura_UnpackUShort(wBank),
-					Gura_UnpackUShort(wPresetBagNdx),
-					Gura_UnpackULong(dwLibrary),
-					Gura_UnpackULong(dwGenre),
-					Gura_UnpackULong(dwMorphology));
-	}
+class sfPresetHeader {	// phdr-rec
+public:
+	struct RawData {
+		enum { Size = 38 };
+		char achPresetName[20];
+		Gura_PackedUShort_LE(wPreset);
+		Gura_PackedUShort_LE(wBank);
+		Gura_PackedUShort_LE(wPresetBagNdx);
+		Gura_PackedULong_LE(dwLibrary);
+		Gura_PackedULong_LE(dwGenre);
+		Gura_PackedULong_LE(dwMorphology);
+		inline void Print() const {
+			::printf("achPresetName=\"%s\" wPreset=%d wBank=%d wPresetBagNdx=%d dwLibrary=%d dwGenre=%d dwMorphology=%d\n",
+						achPresetName,
+						Gura_UnpackUShort(wPreset),
+						Gura_UnpackUShort(wBank),
+						Gura_UnpackUShort(wPresetBagNdx),
+						Gura_UnpackULong(dwLibrary),
+						Gura_UnpackULong(dwGenre),
+						Gura_UnpackULong(dwMorphology));
+		}
+	};
 };
 
-struct sfPresetBag {	// pbag-rec
-	enum { Size = 4 };
-	Gura_PackedUShort_LE(wGenNdx);
-	Gura_PackedUShort_LE(wModNdx);
-	inline void Print() const {
-		::printf("wGenNdx=%d wModNdx=%d\n",
-					Gura_UnpackUShort(wGenNdx),
-					Gura_UnpackUShort(wModNdx));
-	}
+class sfPresetBag {	// pbag-rec
+public:
+	struct RawData {
+		enum { Size = 4 };
+		Gura_PackedUShort_LE(wGenNdx);
+		Gura_PackedUShort_LE(wModNdx);
+		inline void Print() const {
+			::printf("wGenNdx=%d wModNdx=%d\n",
+						Gura_UnpackUShort(wGenNdx),
+						Gura_UnpackUShort(wModNdx));
+		}
+	};
 };
 
-struct sfMod {			// pmod-rec
-	enum { Size = 10 };
-	Gura_PackedUShort_LE(sfModSrcOper);
-	Gura_PackedUShort_LE(sfModDestOper);
-	Gura_PackedUShort_LE(modAmount);
-	Gura_PackedUShort_LE(sfModAmtSrcOper);
-	Gura_PackedUShort_LE(sfModTransOper);
-	inline void Print() const {
-		::printf("sfModSrcOper=%d sfModDestOper=%d modAmount=0x%04x sfModAmtSrcOper=%d sfModTransOper=%d\n",
-					Gura_UnpackUShort(sfModSrcOper),
-					Gura_UnpackUShort(sfModDestOper),
-					Gura_UnpackUShort(modAmount),
-					Gura_UnpackUShort(sfModAmtSrcOper),
-					Gura_UnpackUShort(sfModTransOper));
-	}
+class sfMod {			// pmod-rec
+public:
+	struct RawData {
+		enum { Size = 10 };
+		Gura_PackedUShort_LE(sfModSrcOper);
+		Gura_PackedUShort_LE(sfModDestOper);
+		Gura_PackedUShort_LE(modAmount);
+		Gura_PackedUShort_LE(sfModAmtSrcOper);
+		Gura_PackedUShort_LE(sfModTransOper);
+		inline void Print() const {
+			::printf("sfModSrcOper=%d sfModDestOper=%d modAmount=0x%04x sfModAmtSrcOper=%d sfModTransOper=%d\n",
+						Gura_UnpackUShort(sfModSrcOper),
+						Gura_UnpackUShort(sfModDestOper),
+						Gura_UnpackUShort(modAmount),
+						Gura_UnpackUShort(sfModAmtSrcOper),
+						Gura_UnpackUShort(sfModTransOper));
+		}
+	};
 };
 
-struct sfGen {			// pgen-rec
-	enum { Size = 4 };
-	Gura_PackedUShort_LE(sfGenOper);
-	Gura_PackedUShort_LE(genAmount);
-	inline void Print() const {
-		::printf("sfGenOper=%d genAmount=0x%04x\n",
-					Gura_UnpackUShort(sfGenOper),
-					Gura_UnpackUShort(genAmount));
-	}
+class sfGen {			// pgen-rec
+public:
+	struct RawData {
+		enum { Size = 4 };
+		Gura_PackedUShort_LE(sfGenOper);
+		Gura_PackedUShort_LE(genAmount);
+		inline void Print() const {
+			::printf("sfGenOper=%d genAmount=0x%04x\n",
+						Gura_UnpackUShort(sfGenOper),
+						Gura_UnpackUShort(genAmount));
+		}
+	};
 };
 
-struct sfInst {			// inst-rec
-	enum { Size = 22 };
-	char achInstName[20];
-	Gura_PackedUShort_LE(wInstBagNdx);
-	inline void Print() const {
-		::printf("achInstName=\"%s\" wInstBagNdx=%d\n",
-					achInstName,
-					Gura_UnpackUShort(wInstBagNdx));
-	}
+class sfInst {			// inst-rec
+public:
+	struct RawData {
+		enum { Size = 22 };
+		char achInstName[20];
+		Gura_PackedUShort_LE(wInstBagNdx);
+		inline void Print() const {
+			::printf("achInstName=\"%s\" wInstBagNdx=%d\n",
+						achInstName,
+						Gura_UnpackUShort(wInstBagNdx));
+		}
+	};
 };
 
-struct sfInstBag {		// ibag-rec
-	enum { Size = 4 };
-	Gura_PackedUShort_LE(wInstGenNdx);
-	Gura_PackedUShort_LE(wInstModNdx);
-	inline void Print() const {
-		::printf("wInstGenNdx=%d wInstModNdx=%d\n",
-					Gura_UnpackUShort(wInstGenNdx),
-					Gura_UnpackUShort(wInstModNdx));
-	}
+class sfInstBag {		// ibag-rec
+public:
+	struct RawData {
+		enum { Size = 4 };
+		Gura_PackedUShort_LE(wInstGenNdx);
+		Gura_PackedUShort_LE(wInstModNdx);
+		inline void Print() const {
+			::printf("wInstGenNdx=%d wInstModNdx=%d\n",
+						Gura_UnpackUShort(wInstGenNdx),
+						Gura_UnpackUShort(wInstModNdx));
+		}
+	};
 };
 
-struct sfInstMod {		// imod-rec
-	enum { Size = 10 };
-	Gura_PackedUShort_LE(sfModSrcOper);
-	Gura_PackedUShort_LE(sfModDestOper);
-	Gura_PackedUShort_LE(modAmount);
-	Gura_PackedUShort_LE(sfModAmtSrcOper);
-	Gura_PackedUShort_LE(sfModTransOper);
-	inline void Print() const {
-		::printf("sfModSrcOper=%d sfModDestOper=%d modAmount=0x%04x sfModAmtSrcOper=%d sfModTransOper=%d\n",
-					Gura_UnpackUShort(sfModSrcOper),
-					Gura_UnpackUShort(sfModDestOper),
-					Gura_UnpackUShort(modAmount),
-					Gura_UnpackUShort(sfModAmtSrcOper),
-					Gura_UnpackUShort(sfModTransOper));
-	}
+class sfInstMod {		// imod-rec
+public:
+	struct RawData {
+		enum { Size = 10 };
+		Gura_PackedUShort_LE(sfModSrcOper);
+		Gura_PackedUShort_LE(sfModDestOper);
+		Gura_PackedUShort_LE(modAmount);
+		Gura_PackedUShort_LE(sfModAmtSrcOper);
+		Gura_PackedUShort_LE(sfModTransOper);
+		inline void Print() const {
+			::printf("sfModSrcOper=%d sfModDestOper=%d modAmount=0x%04x sfModAmtSrcOper=%d sfModTransOper=%d\n",
+						Gura_UnpackUShort(sfModSrcOper),
+						Gura_UnpackUShort(sfModDestOper),
+						Gura_UnpackUShort(modAmount),
+						Gura_UnpackUShort(sfModAmtSrcOper),
+						Gura_UnpackUShort(sfModTransOper));
+		}
+	};
 };
 
-struct sfInstGen {		// igen-rec
-	enum { Size = 4 };
-	Gura_PackedUShort_LE(sfGenOper);
-	Gura_PackedUShort_LE(genAmount);
-	inline void Print() const {
-		::printf("sfGenOper=%d genAmount=0x%04x\n",
-					Gura_UnpackUShort(sfGenOper),
-					Gura_UnpackUShort(genAmount));
-	}
+class sfInstGen {		// igen-rec
+public:
+	struct RawData {
+		enum { Size = 4 };
+		Gura_PackedUShort_LE(sfGenOper);
+		Gura_PackedUShort_LE(genAmount);
+		inline void Print() const {
+			::printf("sfGenOper=%d genAmount=0x%04x\n",
+						Gura_UnpackUShort(sfGenOper),
+						Gura_UnpackUShort(genAmount));
+		}
+	};
 };
 
-struct sfSample {		// shdr-rec
-	enum { Size = 46 };
-	char achSampleName[20];
-	Gura_PackedULong_LE(dwStart);
-	Gura_PackedULong_LE(dwEnd);
-	Gura_PackedULong_LE(dwStartloop);
-	Gura_PackedULong_LE(dwEndloop);
-	Gura_PackedULong_LE(dwSampleRate);
-	unsigned char byOriginalKey;
-	char chCorrection;
-	Gura_PackedUShort_LE(wSampleLink);
-	Gura_PackedUShort_LE(sfSampleType);
-	inline void Print() const {
-		::printf("achSampleName=\"%s\" dwStart=%d dwEnd=%d dwStartloop=%d dwEndloop=%d dwSampleRate=%d byOriginalKey=%d chCorrection=%d wSampleLink=%d sfSampleType=%d\n",
-					achSampleName,
-					Gura_UnpackULong(dwStart),
-					Gura_UnpackULong(dwEnd),
-					Gura_UnpackULong(dwStartloop),
-					Gura_UnpackULong(dwEndloop),
-					Gura_UnpackULong(dwSampleRate),
-					byOriginalKey,
-					chCorrection,
-					Gura_UnpackUShort(wSampleLink),
-					Gura_UnpackUShort(sfSampleType));
-	}
+class sfSample {		// shdr-rec
+public:
+	struct RawData {
+		enum { Size = 46 };
+		char achSampleName[20];
+		Gura_PackedULong_LE(dwStart);
+		Gura_PackedULong_LE(dwEnd);
+		Gura_PackedULong_LE(dwStartloop);
+		Gura_PackedULong_LE(dwEndloop);
+		Gura_PackedULong_LE(dwSampleRate);
+		unsigned char byOriginalKey;
+		char chCorrection;
+		Gura_PackedUShort_LE(wSampleLink);
+		Gura_PackedUShort_LE(sfSampleType);
+		inline void Print() const {
+			::printf("achSampleName=\"%s\" dwStart=%d dwEnd=%d dwStartloop=%d dwEndloop=%d dwSampleRate=%d byOriginalKey=%d chCorrection=%d wSampleLink=%d sfSampleType=%d\n",
+						achSampleName,
+						Gura_UnpackULong(dwStart),
+						Gura_UnpackULong(dwEnd),
+						Gura_UnpackULong(dwStartloop),
+						Gura_UnpackULong(dwEndloop),
+						Gura_UnpackULong(dwSampleRate),
+						byOriginalKey,
+						chCorrection,
+						Gura_UnpackUShort(wSampleLink),
+						Gura_UnpackUShort(sfSampleType));
+		}
+	};
 };
 
 void ChunkHdr::Print() const
@@ -199,13 +229,13 @@ void ChunkHdr::Print() const
 }
 
 bool ReadStruct(Environment &env, Signal sig, Stream &stream,
-						void *data, size_t ckSizeExpect, size_t ckSizeActual)
+						void *rawData, size_t ckSizeExpect, size_t ckSizeActual)
 {
 	if (ckSizeExpect > ckSizeActual) {
 		sig.SetError(ERR_FormatError, "unexpected size of chunk");
 		return false;
 	}
-	size_t bytesRead = stream.Read(sig, data, ckSizeExpect);
+	size_t bytesRead = stream.Read(sig, rawData, ckSizeExpect);
 	if (bytesRead != ckSizeExpect) {
 		sig.SetError(ERR_FormatError, "invalid SF2 format");
 		return false;
@@ -263,9 +293,9 @@ bool ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_t bytes)
 		}
 		// 5 The INFO-list Chunk
 		case CKID_ifil: {	// 5.1
-			sfVersionTag data;
-			if (!ReadStruct(env, sig, stream, &data, data.Size, ckSize)) return false;
-			data.Print();
+			sfVersionTag::RawData rawData;
+			if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSize)) return false;
+			rawData.Print();
 			break;
 		}
 		case CKID_isng: {	// 5.2
@@ -287,9 +317,9 @@ bool ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_t bytes)
 			break;
 		}
 		case CKID_iver: {	// 5.5
-			sfVersionTag data;
-			if (!ReadStruct(env, sig, stream, &data, data.Size, ckSize)) return false;
-			data.Print();
+			sfVersionTag::RawData rawData;
+			if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSize)) return false;
+			rawData.Print();
 			break;
 		}
 		case CKID_ICRD: {	// 5.6
@@ -336,83 +366,83 @@ bool ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_t bytes)
 		}
 		// 7 The pdta-list Chunk
 		case CKID_phdr: {	// 7.2
-			sfPresetHeader data;
+			sfPresetHeader::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
-				data.Print();
-				ckSizeRest -= data.Size;
+				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				rawData.Print();
+				ckSizeRest -= rawData.Size;
 			}
 			break;
 		}
 		case CKID_pbag: {	// 7.3
-			sfPresetBag data;
+			sfPresetBag::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
-				data.Print();
-				ckSizeRest -= data.Size;
+				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				rawData.Print();
+				ckSizeRest -= rawData.Size;
 			}
 			break;
 		}
 		case CKID_pmod: {	// 7.4
-			sfMod data;
+			sfMod::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
-				data.Print();
-				ckSizeRest -= data.Size;
+				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				rawData.Print();
+				ckSizeRest -= rawData.Size;
 			}
 			break;
 		}
 		case CKID_pgen: {	// 7.5
-			sfGen data;
+			sfGen::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
-				data.Print();
-				ckSizeRest -= data.Size;
+				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				rawData.Print();
+				ckSizeRest -= rawData.Size;
 			}
 			break;
 		}
 		case CKID_inst: {	// 7.6
-			sfInst data;
+			sfInst::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
-				data.Print();
-				ckSizeRest -= data.Size;
+				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				rawData.Print();
+				ckSizeRest -= rawData.Size;
 			}
 			break;
 		}
 		case CKID_ibag: {	// 7.7
-			sfInstBag data;
+			sfInstBag::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
-				data.Print();
-				ckSizeRest -= data.Size;
+				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				rawData.Print();
+				ckSizeRest -= rawData.Size;
 			}
 			break;
 		}
 		case CKID_imod: {	// 7.8
-			sfMod data;
+			sfMod::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
-				data.Print();
-				ckSizeRest -= data.Size;
+				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				rawData.Print();
+				ckSizeRest -= rawData.Size;
 			}
 			break;
 		}
 		case CKID_igen: {	// 7.9
-			sfInstGen data;
+			sfInstGen::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
-				//data.Print();
-				ckSizeRest -= data.Size;
+				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				//rawData.Print();
+				ckSizeRest -= rawData.Size;
 			}
 			break;
 		}
 		case CKID_shdr: {	// 7.10
-			sfSample data;
+			sfSample::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &data, data.Size, ckSizeRest)) return false;
-				data.Print();
-				ckSizeRest -= data.Size;
+				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				rawData.Print();
+				ckSizeRest -= rawData.Size;
 			}
 			break;
 		}
