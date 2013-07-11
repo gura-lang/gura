@@ -1,56 +1,58 @@
 import(midi)
 
+// Fur Elise (Clavierstuck in A Minor - WoO 59)
 mml = [
 't60'
 '''
 l16r2@{acoustic_piano}
-// main part
-/*
+// melody part
 /*  1 */ [~e~d+ ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c
-/*  2 */ a8rcea b8re~cb / a4]2 a8rb~c~d [~e8.g~f~e ~d8.f~e~d
-/*  3 */ ~c8.e~d~c b8re~er r~e~~err~d+ ~e8r~d+~e~d+ ~e~d+~eb~d~c a8rcea
-/*  4 */ b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb / a8rb~c~d]2
-/*  5 */ a8r(e:~c)(f:~c)(e:g:~c) fa~c4~f.~e32 ~e8d8~b-.a32 ~a~g~f~e~d~c b-8a8b-a32g32a32b-32 c4dd+
-/*  6 */ ~e8.~e~fa ~c4~d.b32 l32 ~c~gg~ga~gb~g~c~g~d~g ~e~g~~c~b~a~g~f~e~d~g~f~d ~c~gg~ga~gb~g~c~g~d~g
-/*  7 */ ~e~g~~c~b~a~g~f~e~d~g~f~d ~e~f~e~d+~eb~e~d+~eb~e~d+ l16 ~e8.b~e~d+ ~e8.b~e~d+ ~e~d+~e~d+~e~d+ ~e~d+~eb~d~c
-/*  8 */ a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb
-/*  9 */ a8rb~c~d ~e8.g~f~e ~d8.f~e~d ~c8.e~d~c b8re~er r~e~~err~d+
-/* 10 */ ~err~d+~e~d+ ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c
-/* 11 */ a8rcea b8re~cb a8r8r8 (e:g:b-:c+)4. (f:a:~d)4(~c+:~e)(~d:~f) (g+:~d:~f)4(g+:~d:~f)8
-/* 12 */ (a:~c:~e)4. (f:~d)4(e:~c)(d:b) (c:f+:a)4(c:a)8 (c:a)8(e:~c)8(d:b)8 (c:a)4. (e:g:b-:~c+)4.
-/* 13 */ (f:a:~d)8(~c+:e)(~d:~f) (~d:~f)4(~d:~f)8 (~d:~f)4. (g:~e+)4(f:~d)(e+:~c)
+/*  6 */ a8rcea b8re~cb / a4]2 a8rb~c~d [~e8.g~f~e ~d8.f~e~d
+/* 11 */ ~c8.e~d~c b8re~er r~e~~err~d+ ~e8r~d+~e~d+ ~e~d+~eb~d~c a8rcea
+/* 17 */ b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb / a8rb~c~d]2
+/* 23 */ a8r(e:~c)(f:~c)(e:g:~c) fa~c4~f.~e32 ~e8d8~b-.a32 ~a~g~f~e~d~c b-8a8b-a32g32a32b-32 c4dd+
+/* 29 */ ~e8.~e~fa ~c4~d.b32 l32 ~c~gg~ga~gb~g~c~g~d~g ~e~g~~c~b~a~g~f~e~d~g~f~d ~c~gg~ga~gb~g~c~g~d~g
+/* 34 */ ~e~g~~c~b~a~g~f~e~d~g~f~d ~e~f~e~d+~eb~e~d+~eb~e~d+ l16 ~e8.b~e~d+ ~e8.b~e~d+ ~e~d+~e~d+~e~d+ ~e~d+~eb~d~c
+/* 40 */ a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb
+/* 46 */ a8rb~c~d ~e8.g~f~e ~d8.f~e~d ~c8.e~d~c b8re~er r~e~~err~d+
+/* 52 */ ~err~d+~e~d+ ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c
+/* 58 */ a8rcea b8re~cb a8r8r8 (e:g:b-:c+)4. (f:a:~d)4(~c+:~e)(~d:~f) (g+:~d:~f)4(g+:~d:~f)8
+/* 64 */ (a:~c:~e)4. (f:~d)4(e:~c)(d:b) (c:f+:a)4(c:a)8 (c:a)8(e:~c)8(d:b)8 (c:a)4. (e:g:b-:~c+)4.
+/* 70 */ (f:a:~d)8(~c+:e)(~d:~f) (~d:~f)4(~d:~f)8 (~d:~f)4. (g:~e+)4(f:~d)(e+:~c)
          (d:f:b-)4(d:f:a)8 (d:f:g+)4(d:f:g+)8 (c:e:a)4r
-/* 14 */ (e:b)8r8r8 (_ace)8(a~c~e)8(~d~cb)8 (a~c~e)8(~a~~c~~e)8(~~d~~c~~b)8
+/* 77 */ (e:b)8r8r8 (_ace)8(a~c~e)8(~d~cb)8 (a~c~e)8(~a~~c~~e)8(~~d~~c~~b)8
          (a~c~e)8(~a~~c~~e)8(~~d~~c~b)8 (~b-~a~g+)8(~g~~f+~~f)8(~~e~~d+~~d)8
-*/
-/* 15 */ (~~c+~~c~b)8(~b-~a~g+)8(~g~f+~f)8 ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+
-/* 16 */ ~e~d+~eb~d~c a8rcea b8re~cb a8rb~c~d ~e8.g~f~e ~d8.fed
+/* 82 */ (~~c+~~c~b)8(~b-~a~g+)8(~g~f+~f)8 ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+
+/* 87 */ ~e~d+~eb~d~c a8rcea b8re~cb a8rb~c~d ~e8.g~f~e ~d8.f~e~d
+/* 93 */ ~c8.e~d~c b8re~er r~e~~err~d+ ~err~d+~e~d ~e~d+~eb~d~c a8rcea
+/* 99 */ b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb a8r
 '''
 '''
+// sub melody part
 l16r2@{acoustic_piano} <
-/*
 /*  1 */ [r8 r8r8r8 _aearr8 _eeg+rr8 _aearr8 r8r8r8
-/*  2 */ _aearr8 _eeg+rr8 / _aear]2 _aearr8 [cg~crr8 _ggbrr8
-/*  3 */ _aearr8 _ee~err>e ~err~d+er r~d+~err8 r8r8r8 <_aearr8
-/*  4 */ _eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8 / _aearr8]2
-/*  5 */ _aea(b-:~c)(a:~c)(g:b-:~c) fa~ca~ca fb-~db-~db- f~e(f:g:b-)~e(f:g:b-)~e fa~ca~ca fa~ca~ca
-/*  6 */ ea~ca(~d:d)f g~eg~fg~f >c8e8r(f:g)(e:g)(d:f:g) (c:e:g)8 <(f:a)8(g:b)8 >c8r(f:g)(e:g)(d:f:g)
-/*  7 */ (c:e:g)8<(f:a)8(g:b)8 (g+:b)8r8r8 r8r8r8 r8r8r8 r8r8r8 r8r8r8
-/*  8 */ _aearr8 _eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8
-/*  9 */ _aearr8 cg~crr8 _ggbrr8 _aearr8 _ee~err>e ~err~d+~er
-/* 10 */ r~d+~err8 r8r8r8< _aearr8 _eeg+rr8 _aearr8 r8r8r8
-/* 11 */ _aearr8 _eeg+ rr8 _a_a_a_a_a_a _a_a_a_a_a_a _a_a_a_a_a_a _a_a_a_a_a_a
-/* 12 */ _a_a_a_a_a_a (_d:_a)(_d:_a)(_d:_a)(_d:_a)(_d:_a)(_d:_a)
+/*  6 */ _aearr8 _eeg+rr8 / _aear]2 _aearr8 [cg~crr8 _ggbrr8
+/* 11 */ _aearr8 _ee~err>e ~err~d+er r~d+~err8 r8r8r8 <_aearr8
+/* 17 */ _eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8 / _aearr8]2
+/* 23 */ _aea(b-:~c)(a:~c)(g:b-:~c) fa~ca~ca fb-~db-~db- f~e(f:g:b-)~e(f:g:b-)~e fa~ca~ca fa~ca~ca
+/* 29 */ ea~ca(~d:d)f g~eg~fg~f >c8e8r(f:g)(e:g)(d:f:g) (c:e:g)8 <(f:a)8(g:b)8 >c8r(f:g)(e:g)(d:f:g)
+/* 34 */ (c:e:g)8<(f:a)8(g:b)8 (g+:b)8r8r8 r8r8r8 r8r8r8 r8r8r8 r8r8r8
+/* 40 */ _aearr8 _eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8
+/* 46 */ _aearr8 cg~crr8 _ggbrr8 _aearr8 _ee~err>e ~err~d+~er
+/* 52 */ r~d+~err8 r8r8r8< _aearr8 _eeg+rr8 _aearr8 r8r8r8
+/* 58 */ _aearr8 _eeg+ rr8 _a_a_a_a_a_a _a_a_a_a_a_a _a_a_a_a_a_a _a_a_a_a_a_a
+/* 64 */ _a_a_a_a_a_a (_d:_a)(_d:_a)(_d:_a)(_d:_a)(_d:_a)(_d:_a)
          (_d+:_a)(_d+:_a)(_d+:_a)(_d+:_a)(_d+:_a)(_d+:_a)
          (_e:_a)(_e:_a)(_e:_a)(_e:_a)(_e:_g+)(_e:_g+)
          (__a:_a)_a_a_a_a_a _a_a_a_a_a_a
-/* 13 */ _a_a_a_a_a_a _a_a_a_a_a_a _b-_b-_b-_b-_b-_b- _b-_b-_b-_b-_b-_b-
+/* 70 */ _a_a_a_a_a_a _a_a_a_a_a_a _b-_b-_b-_b-_b-_b- _b-_b-_b-_b-_b-_b-
          _b-_b-_b-_b-_b-_b- _b_b_b_b_b_b c4r
-/* 14 */ (e:g+)8r8r8 __a8r8(a:~c:~e)8 (a:~c:~e)8r8(a:~c:~e)8
+/* 77 */ (e:g+)8r8r8 __a8r8(a:~c:~e)8 (a:~c:~e)8r8(a:~c:~e)8
          (a:~c:~e)8r8(a:~c:~e)8 (a:~c:~e)8r8r8
-*/
-/* 15 */ r8r8r8 r8r8r8 _aearr8 _eeg+rr8 _aearr8
-/* 16 */ r8r8r8 _aearr8 _eeg+rr8 _aearr8 cg~crr8 _ggbrr8
+/* 82 */ r8r8r8 r8r8r8 _aearr8 _eeg+rr8 _aearr8
+/* 87 */ r8r8r8 _aearr8 _eeg+rr8 _aearr8 cg~crr8 _ggbrr8
+/* 93 */ _aearr8 _ee~err>e ~err~d+er r~d+~err8 r8r8r8< _aearr8
+/* 99 */ _eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8 (__a:_a)8r
 '''
 ]
 
