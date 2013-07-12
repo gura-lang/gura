@@ -1865,8 +1865,9 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	SoundFont sf2;
-	sf2.Read(env, sig, args.GetStream(0));
+	SoundFont sf;
+	sf.Read(env, sig, args.GetStream(0));
+	sf.Print();
 	return Value::Null;
 }
 

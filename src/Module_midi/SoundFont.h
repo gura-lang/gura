@@ -4,6 +4,20 @@
 
 Gura_BeginModule(midi)
 
+template<typename T_Elem>
+class ListTemplate : public std::vector<T_Elem *> {
+public:
+	T_Elem *Get(size_t idx) {
+		return (idx < size())? (*this)[idx] : NULL;
+	}
+	void Print() const {
+		foreach_const (ListTemplate, ppElem, *this) {
+			const T_Elem *pElem = *ppElem;
+			pElem->Print();
+		}
+	}
+};
+
 template<typename T_Elem, typename T_List>
 class OwnerTemplate : public T_List {
 public:
@@ -51,6 +65,84 @@ public:
 		CKID_shdr = FOURCC('s', 'h', 'd', 'r'),
 	};
 public:
+	enum SFSampleLink {
+		monoSample		= 1,
+		rightSample		= 2,
+		leftSample		= 4,
+		linkedSample	= 8,
+		RomMonoSample	= 0x8001,
+		RomRightSample	= 0x8002,
+		RomLeftSample	= 0x8004,
+		RomLinkedSample	= 0x8008,
+	};
+	enum SFGenerator {
+		startAddrsOffset			= 0,
+		endAddrsOffset				= 1,
+		startloopAddrsOffset		= 2,
+		endloopAddrsOffset			= 3,
+		startAddrsCoarseOffset		= 4,
+		modLfoToPitch				= 5,
+		vibLfoToPitch				= 6,
+		modEnvToPitch				= 7,
+		initialFilterFc				= 8,
+		initiflFilterQ				= 9,
+		modLfoToFilterFc			= 10,
+		modEnvToFilterFc			= 11,
+		endAddrsCoarseOffset		= 12,
+		modLfoToVolume				= 13,
+		//unnsed1					= 14,
+		chorusEffectsSend			= 15,
+		reverbEffectsSend			= 16,
+		pan							= 17,
+		//unused2					= 18,
+		//unused3					= 19,
+		//unused4					= 20,
+		delayModLFO					= 21,
+		freqModLFO					= 22,
+		delayVibLFO					= 23,
+		freqVibLFO					= 24,
+		delayModEnv					= 25,
+		attackModEnv				= 26,
+		holdModEnv					= 27,
+		delayModENv					= 28,
+		sustainModEnv				= 29,
+		releaseModEnv				= 30,
+		keynumToModEnvHold			= 31,
+		keynumToModEnvDecay			= 32,
+		delayVolEnv					= 33,
+		attackVolEnv				= 34,
+		holdVolEnv					= 35,
+		decayVolENv					= 36,
+		sustainVolEnv				= 37,
+		releaseVolEnv				= 38,
+		keynumToVolEnvHold			= 39,
+		keynumToVolEnvDecay			= 40,
+		instrument					= 41,
+		//reserved1					= 42,
+		keyRange					= 43,
+		velRange					= 44,
+		startloopAddrsCoarseOffset	= 45,
+		keynum						= 46,
+		velocity					= 47,
+		initialAttenuation			= 48,
+		//reserved2					= 49,
+		endloopAddrsCoarseOffset	= 50,
+		coarseTune					= 51,
+		fineTune					= 52,
+		sampleID					= 53,
+		sampleModes					= 54,
+		//reserved3					= 55,
+		scaleTuning					= 56,
+		exclusiveClass				= 57,
+		overridingRootKey			= 58,
+		//unused5					= 59,
+		endOper						= 60,
+	};
+	typedef unsigned short SFModulator;
+	enum SFTransform {
+		Linear						= 0,
+	};
+public:
 	struct ChunkHdr {
 	public:
 		enum { Size = 8 };
@@ -67,6 +159,16 @@ public:
 					static_cast<unsigned char>(ckID >> 24), ckSize);
 		}
 	};
+	class sfVersionTag;
+	class sfPresetHeader;
+	class sfPresetBag;
+	class sfMod;
+	class sfGen;
+	class sfInst;
+	class sfInstBag;
+	class sfInstMod;
+	class sfInstGen;
+	class sfSample;
 	// 5.1 The ifil Sub-chunk
 	// 5.5 The iver Sub-chunk
 	class sfVersionTag {
@@ -92,7 +194,7 @@ public:
 				_wMinor);
 			}
 	};
-	typedef std::vector<sfVersionTag *> sfVersionTagList;
+	typedef ListTemplate<sfVersionTag> sfVersionTagList;
 	typedef OwnerTemplate<sfVersionTag, sfVersionTagList> sfVersionTagOwner;
 	// 7.2 The PHDR Sub-chunk
 	class sfPresetHeader {
@@ -144,8 +246,9 @@ public:
 				_dwGenre,
 				_dwMorphology);
 		}
+		sfPresetBag *GetPresetBag(SoundFont &soundFont) const;
 	};
-	typedef std::vector<sfPresetHeader *> sfPresetHeaderList;
+	typedef ListTemplate<sfPresetHeader> sfPresetHeaderList;
 	typedef OwnerTemplate<sfPresetHeader, sfPresetHeaderList> sfPresetHeaderOwner;
 	// 7.3 The PBAG Sub-chunk
 	class sfPresetBag {
@@ -170,8 +273,10 @@ public:
 				_wGenNdx,
 				_wModNdx);
 		}
+		sfGen *GetGen(SoundFont &soundFont) const;
+		sfMod *GetMod(SoundFont &soundFont) const;
 	};
-	typedef std::vector<sfPresetBag *> sfPresetBagList;
+	typedef ListTemplate<sfPresetBag> sfPresetBagList;
 	typedef OwnerTemplate<sfPresetBag, sfPresetBagList> sfPresetBagOwner;
 	// 7.4 The PMOD Sub-chunk
 	class sfMod {
@@ -185,34 +290,34 @@ public:
 			Gura_PackedUShort_LE(sfModTransOper);
 		};
 	private:
-		unsigned short _sfModSrcOper;
-		unsigned short _sfModDestOper;
-		unsigned short _modAmount;
-		unsigned short _sfModAmtSrcOper;
-		unsigned short _sfModTransOper;
+		SFModulator _sfModSrcOper;
+		SFGenerator _sfModDestOper;
+		short _modAmount;
+		SFModulator _sfModAmtSrcOper;
+		SFTransform _sfModTransOper;
 	public:
 		inline sfMod() :
-				_sfModSrcOper(0),
-				_sfModDestOper(0),
+				_sfModSrcOper(static_cast<SFModulator>(0)),
+				_sfModDestOper(static_cast<SFGenerator>(0)),
 				_modAmount(0),
-				_sfModAmtSrcOper(0),
-				_sfModTransOper(0) {}
+				_sfModAmtSrcOper(static_cast<SFModulator>(0)),
+				_sfModTransOper(static_cast<SFTransform>(0)) {}
 		inline sfMod(const RawData &rawData) :
-				_sfModSrcOper(Gura_UnpackUShort(rawData.sfModSrcOper)),
-				_sfModDestOper(Gura_UnpackUShort(rawData.sfModDestOper)),
-				_modAmount(Gura_UnpackUShort(rawData.modAmount)),
-				_sfModAmtSrcOper(Gura_UnpackUShort(rawData.sfModAmtSrcOper)),
-				_sfModTransOper(Gura_UnpackUShort(rawData.sfModTransOper)) {}
+				_sfModSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModSrcOper))),
+				_sfModDestOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfModDestOper))),
+				_modAmount(static_cast<short>(Gura_UnpackUShort(rawData.modAmount))),
+				_sfModAmtSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModAmtSrcOper))),
+				_sfModTransOper(static_cast<SFTransform>(Gura_UnpackUShort(rawData.sfModTransOper))) {}
 		inline void Print() const {
-			::printf("sfModSrcOper=%d sfModDestOper=%d modAmount=0x%04x sfModAmtSrcOper=%d sfModTransOper=%d\n",
+			::printf("sfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
 				_sfModSrcOper,
-				_sfModDestOper,
+				GeneratorToName(_sfModDestOper), _sfModDestOper,
 				_modAmount,
 				_sfModAmtSrcOper,
 				_sfModTransOper);
 		}
 	};
-	typedef std::vector<sfMod *> sfModList;
+	typedef ListTemplate<sfMod> sfModList;
 	typedef OwnerTemplate<sfMod, sfModList> sfModOwner;
 	// 7.5 The PGEN Sub-chunk
 	class sfGen {
@@ -223,22 +328,22 @@ public:
 			Gura_PackedUShort_LE(genAmount);
 		};
 	private:
-		unsigned short _sfGenOper;
+		SFGenerator _sfGenOper;
 		unsigned short _genAmount;
 	public:
 		inline sfGen() :
-				_sfGenOper(0),
+				_sfGenOper(static_cast<SFGenerator>(0)),
 				_genAmount(0) {}
 		inline sfGen(const RawData &rawData) :
-				_sfGenOper(Gura_UnpackUShort(rawData.sfGenOper)),
+				_sfGenOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfGenOper))),
 				_genAmount(Gura_UnpackUShort(rawData.genAmount)) {}
 		inline void Print() const {
-			::printf("sfGenOper=%d genAmount=0x%04x\n",
-				_sfGenOper,
+			::printf("sfGenOper=%s(%d) genAmount=0x%04x\n",
+				GeneratorToName(_sfGenOper), _sfGenOper,
 				_genAmount);
 		}
 	};
-	typedef std::vector<sfGen *> sfGenList;
+	typedef ListTemplate<sfGen> sfGenList;
 	typedef OwnerTemplate<sfGen, sfGenList> sfGenOwner;
 	// 7.6 The INST Sub-chunk
 	class sfInst {
@@ -266,7 +371,7 @@ public:
 				_wInstBagNdx);
 		}
 	};
-	typedef std::vector<sfInst *> sfInstList;
+	typedef ListTemplate<sfInst> sfInstList;
 	typedef OwnerTemplate<sfInst, sfInstList> sfInstOwner;
 	// 7.7 The IBAG Sub-chunk
 	class sfInstBag {
@@ -292,7 +397,7 @@ public:
 				_wInstModNdx);
 		}
 	};
-	typedef std::vector<sfInstBag *> sfInstBagList;
+	typedef ListTemplate<sfInstBag> sfInstBagList;
 	typedef OwnerTemplate<sfInstBag, sfInstBagList> sfInstBagOwner;
 	// 7.8 The IMOD Sub-chunk
 	class sfInstMod {
@@ -306,34 +411,34 @@ public:
 			Gura_PackedUShort_LE(sfModTransOper);
 		};
 	private:
-		unsigned short _sfModSrcOper;
-		unsigned short _sfModDestOper;
-		unsigned short _modAmount;
-		unsigned short _sfModAmtSrcOper;
-		unsigned short _sfModTransOper;
+		SFModulator _sfModSrcOper;
+		SFGenerator _sfModDestOper;
+		short _modAmount;
+		SFModulator _sfModAmtSrcOper;
+		SFTransform _sfModTransOper;
 	public:
 		inline sfInstMod() :
-				_sfModSrcOper(0),
-				_sfModDestOper(0),
+				_sfModSrcOper(static_cast<SFModulator>(0)),
+				_sfModDestOper(static_cast<SFGenerator>(0)),
 				_modAmount(0),
-				_sfModAmtSrcOper(0),
-				_sfModTransOper(0) {}
+				_sfModAmtSrcOper(static_cast<SFModulator>(0)),
+				_sfModTransOper(static_cast<SFTransform>(0)) {}
 		inline sfInstMod(const RawData &rawData) :
-				_sfModSrcOper(Gura_UnpackUShort(rawData.sfModSrcOper)),
-				_sfModDestOper(Gura_UnpackUShort(rawData.sfModDestOper)),
-				_modAmount(Gura_UnpackUShort(rawData.modAmount)),
-				_sfModAmtSrcOper(Gura_UnpackUShort(rawData.sfModAmtSrcOper)),
-				_sfModTransOper(Gura_UnpackUShort(rawData.sfModTransOper)) {}
+				_sfModSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModSrcOper))),
+				_sfModDestOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfModDestOper))),
+				_modAmount(static_cast<short>(Gura_UnpackUShort(rawData.modAmount))),
+				_sfModAmtSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModAmtSrcOper))),
+				_sfModTransOper(static_cast<SFTransform>(Gura_UnpackUShort(rawData.sfModTransOper))) {}
 		inline void Print() const {
-			::printf("sfModSrcOper=%d sfModDestOper=%d modAmount=0x%04x sfModAmtSrcOper=%d sfModTransOper=%d\n",
+			::printf("sfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
 				_sfModSrcOper,
-				_sfModDestOper,
+				GeneratorToName(_sfModDestOper), _sfModDestOper,
 				_modAmount,
 				_sfModAmtSrcOper,
 				_sfModTransOper);
 		}
 	};
-	typedef std::vector<sfInstMod *> sfInstModList;
+	typedef ListTemplate<sfInstMod> sfInstModList;
 	typedef OwnerTemplate<sfInstMod, sfInstModList> sfInstModOwner;
 	// 7.9 The IGEN Sub-chunk
 	class sfInstGen {
@@ -344,22 +449,22 @@ public:
 			Gura_PackedUShort_LE(genAmount);
 		};
 	private:
-		unsigned short _sfGenOper;
+		SFGenerator _sfGenOper;
 		unsigned short _genAmount;
 	public:
 		inline sfInstGen() :
-				_sfGenOper(0),
+				_sfGenOper(static_cast<SFGenerator>(0)),
 				_genAmount(0) {}
 		inline sfInstGen(const RawData &rawData) :
-				_sfGenOper(Gura_UnpackUShort(rawData.sfGenOper)),
+				_sfGenOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfGenOper))),
 				_genAmount(Gura_UnpackUShort(rawData.genAmount)) {}
 		inline void Print() const {
-			::printf("sfGenOper=%d genAmount=0x%04x\n",
-				_sfGenOper,
+			::printf("sfGenOper=%s(%d) genAmount=0x%04x\n",
+				GeneratorToName(_sfGenOper), _sfGenOper,
 				_genAmount);
 		}
 	};
-	typedef std::vector<sfInstGen *> sfInstGenList;
+	typedef ListTemplate<sfInstGen> sfInstGenList;
 	typedef OwnerTemplate<sfInstGen, sfInstGenList> sfInstGenOwner;
 	// 7.10 The SHDR Sub-chunk
 	class sfSample {
@@ -387,7 +492,7 @@ public:
 		unsigned char _byOriginalKey;
 		char _chCorrection;
 		unsigned short _wSampleLink;
-		unsigned short _sfSampleType;
+		SFSampleLink _sfSampleType;
 	public:
 		inline sfSample() :
 				_dwStart(0),
@@ -398,7 +503,9 @@ public:
 				_byOriginalKey(0),
 				_chCorrection(0),
 				_wSampleLink(0),
-				_sfSampleType(0) {}
+				_sfSampleType(static_cast<SFSampleLink>(0)) {
+			::memset(_achSampleName, 0x00, sizeof(_achSampleName));
+		}
 		inline sfSample(const RawData &rawData) :
 				_dwStart(Gura_UnpackULong(rawData.dwStart)),
 				_dwEnd(Gura_UnpackULong(rawData.dwEnd)),
@@ -408,9 +515,11 @@ public:
 				_byOriginalKey(rawData.byOriginalKey),
 				_chCorrection(rawData.chCorrection),
 				_wSampleLink(Gura_UnpackUShort(rawData.wSampleLink)),
-				_sfSampleType(Gura_UnpackUShort(rawData.sfSampleType)) {}
+				_sfSampleType(static_cast<SFSampleLink>(Gura_UnpackUShort(rawData.sfSampleType))) {
+			::memcpy(_achSampleName, rawData.achSampleName, sizeof(_achSampleName));
+		}
 		inline void Print() const {
-			::printf("achSampleName=\"%s\" dwStart=%d dwEnd=%d dwStartloop=%d dwEndloop=%d dwSampleRate=%d byOriginalKey=%d chCorrection=%d wSampleLink=%d sfSampleType=%d\n",
+			::printf("achSampleName=\"%s\" dwStart=%d dwEnd=%d dwStartloop=%d dwEndloop=%d dwSampleRate=%d byOriginalKey=%d chCorrection=%d wSampleLink=0x%04x sfSampleType=%d\n",
 				_achSampleName,
 				_dwStart,
 				_dwEnd,
@@ -423,7 +532,7 @@ public:
 				_sfSampleType);
 		}
 	};
-	typedef std::vector<sfSample *> sfSampleList;
+	typedef ListTemplate<sfSample> sfSampleList;
 	typedef OwnerTemplate<sfSample, sfSampleList> sfSampleOwner;
 public:
 	struct INFO_t {
@@ -453,8 +562,14 @@ public:
 private:
 	INFO_t _INFO;
 	pdta_t _pdta;
+	static const char *_generatorNames[];
 public:
 	bool Read(Environment &env, Signal sig, Stream &stream);
+	void Print() const;
+	inline INFO_t &GetINFO() { return _INFO; }
+	inline pdta_t &GetPdta() { return _pdta; }
+public:
+	static const char *GeneratorToName(SFGenerator generator);
 private:
 	bool ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_t bytes);
 	static bool ReadStruct(Environment &env, Signal sig, Stream &stream,
