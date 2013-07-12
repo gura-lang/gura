@@ -1865,7 +1865,8 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	ReadSF2(env, sig, args.GetStream(0));
+	SoundFont sf2;
+	sf2.Read(env, sig, args.GetStream(0));
 	return Value::Null;
 }
 
