@@ -90,29 +90,38 @@ GURA_DLLDECLARE extern const Number Math_PI;
 GURA_DLLDECLARE extern const Number Math_E;
 GURA_DLLDECLARE extern const Number RoundOffThreshold;
 
-typedef std::vector<char> CharList;
-typedef std::vector<short> ShortList;
-typedef std::vector<int> IntList;
-typedef std::vector<long> LongList;
-typedef std::vector<float> FloatList;
-typedef std::vector<double> DoubleList;
-typedef std::vector<unsigned char> UCharList;
-typedef std::vector<unsigned short> UShortList;
-typedef std::vector<unsigned int> UIntList;
-typedef std::vector<unsigned long> ULongList;
-typedef std::vector<Number> NumberList;
+typedef char			Char;		// signed 8bit
+typedef short			Short;		// signed 16bit
+typedef long			Long;		// signed 32bit
+typedef int64			Int64;		// signed 64bit
+typedef unsigned char	UChar;		// unsigned 8bit
+typedef unsigned short	UShort;		// unsigned 16bit
+typedef unsigned long	ULong;		// unsigned 32bit
+typedef uint64			UInt64;		// unsigned 64bit
 
-typedef std::deque<char> CharDeque;
-typedef std::deque<short> ShortDeque;
-typedef std::deque<int> IntDeque;
-typedef std::deque<long> LongDeque;
-typedef std::deque<float> FloatDeque;
-typedef std::deque<double> DoubleDeque;
-typedef std::deque<unsigned char> UCharDeque;
-typedef std::deque<unsigned short> UShortDeque;
-typedef std::deque<unsigned int> UIntDeque;
-typedef std::deque<unsigned long> ULongDeque;
-typedef std::deque<Number> NumberDeque;
+typedef std::vector<char>			CharList;
+typedef std::vector<short>			ShortList;
+typedef std::vector<int>			IntList;
+typedef std::vector<long>			LongList;
+typedef std::vector<float>			FloatList;
+typedef std::vector<double>			DoubleList;
+typedef std::vector<unsigned char>	UCharList;
+typedef std::vector<unsigned short> UShortList;
+typedef std::vector<unsigned int>	UIntList;
+typedef std::vector<unsigned long>	ULongList;
+typedef std::vector<Number>			NumberList;
+
+typedef std::deque<char>			CharDeque;
+typedef std::deque<short>			ShortDeque;
+typedef std::deque<int>				IntDeque;
+typedef std::deque<long>			LongDeque;
+typedef std::deque<float>			FloatDeque;
+typedef std::deque<double>			DoubleDeque;
+typedef std::deque<unsigned char>	UCharDeque;
+typedef std::deque<unsigned short>	UShortDeque;
+typedef std::deque<unsigned int>	UIntDeque;
+typedef std::deque<unsigned long>	ULongDeque;
+typedef std::deque<Number>			NumberDeque;
 
 //-----------------------------------------------------------------------------
 // OccurPattern
