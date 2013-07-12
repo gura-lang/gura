@@ -39,7 +39,7 @@ public:
 	void Print() const;
 };
 
-class sfVersionTag {	// iver-rec
+class sfVersionTag {	// 5.1 The ifil Sub-chunk, 5.5 The iver Sub-chunk
 public:
 	struct RawData {
 		enum { Size = 4 };
@@ -51,9 +51,17 @@ public:
 						Gura_UnpackUShort(wMinor));
 		}
 	};
+private:
+	unsigned short _wMajor;
+	unsigned short _wMinor;
+public:
+	inline sfVersionTag(const RawData &rawData) :
+			_wMajor(Gura_UnpackUShort(rawData.wMajor)),
+			_wMinor(Gura_UnpackUShort(rawData.wMinor)) {
+	}
 };
 
-class sfPresetHeader {	// phdr-rec
+class sfPresetHeader {	// 7.2 The PHDR Sub-chunk
 public:
 	struct RawData {
 		enum { Size = 38 };
@@ -75,9 +83,27 @@ public:
 						Gura_UnpackULong(dwMorphology));
 		}
 	};
+private:
+	char _achPresetName[20];
+	unsigned short _wPreset;
+	unsigned short _wBank;
+	unsigned short _wPresetBagNdx;
+	unsigned long _dwLibrary;
+	unsigned long _dwGenre;
+	unsigned long _dwMorphology;
+public:
+	inline sfPresetHeader(const RawData &rawData) :
+			_wPreset(Gura_UnpackUShort(rawData.wPreset)),
+			_wBank(Gura_UnpackUShort(rawData.wBank)),
+			_wPresetBagNdx(Gura_UnpackUShort(rawData.wPresetBagNdx)),
+			_dwLibrary(Gura_UnpackULong(rawData.dwLibrary)),
+			_dwGenre(Gura_UnpackULong(rawData.dwGenre)),
+			_dwMorphology(Gura_UnpackULong(rawData.dwMorphology)) {
+		::memcpy(_achPresetName, rawData.achPresetName, sizeof(_achPresetName));
+	}
 };
 
-class sfPresetBag {	// pbag-rec
+class sfPresetBag {	// 7.3 The PBAG Sub-chunk
 public:
 	struct RawData {
 		enum { Size = 4 };
@@ -89,9 +115,17 @@ public:
 						Gura_UnpackUShort(wModNdx));
 		}
 	};
+private:
+	unsigned short _wGenNdx;
+	unsigned short _wModNdx;
+public:
+	inline sfPresetBag(const RawData &rawData) :
+			_wGenNdx(Gura_UnpackUShort(rawData.wGenNdx)),
+			_wModNdx(Gura_UnpackUShort(rawData.wModNdx)) {
+	}
 };
 
-class sfMod {			// pmod-rec
+class sfMod {		// 7.4 The PMOD Sub-chunk
 public:
 	struct RawData {
 		enum { Size = 10 };
@@ -109,9 +143,23 @@ public:
 						Gura_UnpackUShort(sfModTransOper));
 		}
 	};
+private:
+	unsigned short _sfModSrcOper;
+	unsigned short _sfModDestOper;
+	unsigned short _modAmount;
+	unsigned short _sfModAmtSrcOper;
+	unsigned short _sfModTransOper;
+public:
+	inline sfMod(const RawData &rawData) :
+			_sfModSrcOper(Gura_UnpackUShort(rawData.sfModSrcOper)),
+			_sfModDestOper(Gura_UnpackUShort(rawData.sfModDestOper)),
+			_modAmount(Gura_UnpackUShort(rawData.modAmount)),
+			_sfModAmtSrcOper(Gura_UnpackUShort(rawData.sfModAmtSrcOper)),
+			_sfModTransOper(Gura_UnpackUShort(rawData.sfModTransOper)) {
+	}
 };
 
-class sfGen {			// pgen-rec
+class sfGen {		// 7.5 The PGEN Sub-chunk
 public:
 	struct RawData {
 		enum { Size = 4 };
@@ -123,9 +171,17 @@ public:
 						Gura_UnpackUShort(genAmount));
 		}
 	};
+private:
+	unsigned short _sfGenOper;
+	unsigned short _genAmount;
+public:
+	inline sfGen(const RawData &rawData) :
+			_sfGenOper(Gura_UnpackUShort(rawData.sfGenOper)),
+			_genAmount(Gura_UnpackUShort(rawData.genAmount)) {
+	}
 };
 
-class sfInst {			// inst-rec
+class sfInst {			// 7.6 The INST Sub-chunk
 public:
 	struct RawData {
 		enum { Size = 22 };
@@ -137,9 +193,17 @@ public:
 						Gura_UnpackUShort(wInstBagNdx));
 		}
 	};
+private:
+	char _achInstName[20];
+	unsigned short _wInstBagNdx;
+public:
+	inline sfInst(const RawData &rawData) :
+			_wInstBagNdx(Gura_UnpackUShort(rawData.wInstBagNdx)) {
+		::memcpy(_achInstName, rawData.achInstName, sizeof(_achInstName));
+	}
 };
 
-class sfInstBag {		// ibag-rec
+class sfInstBag {		// 7.7 The IBAG Sub-chunk
 public:
 	struct RawData {
 		enum { Size = 4 };
@@ -151,9 +215,17 @@ public:
 						Gura_UnpackUShort(wInstModNdx));
 		}
 	};
+private:
+	unsigned short _wInstGenNdx;
+	unsigned short _wInstModNdx;
+public:
+	inline sfInstBag(const RawData &rawData) :
+			_wInstGenNdx(Gura_UnpackUShort(rawData.wInstGenNdx)),
+			_wInstModNdx(Gura_UnpackUShort(rawData.wInstModNdx)) {
+	}
 };
 
-class sfInstMod {		// imod-rec
+class sfInstMod {		// 7.8 The IMOD Sub-chunk
 public:
 	struct RawData {
 		enum { Size = 10 };
@@ -171,9 +243,23 @@ public:
 						Gura_UnpackUShort(sfModTransOper));
 		}
 	};
+private:
+	unsigned short _sfModSrcOper;
+	unsigned short _sfModDestOper;
+	unsigned short _modAmount;
+	unsigned short _sfModAmtSrcOper;
+	unsigned short _sfModTransOper;
+public:
+	inline sfInstMod(const RawData &rawData) :
+			_sfModSrcOper(Gura_UnpackUShort(rawData.sfModSrcOper)),
+			_sfModDestOper(Gura_UnpackUShort(rawData.sfModDestOper)),
+			_modAmount(Gura_UnpackUShort(rawData.modAmount)),
+			_sfModAmtSrcOper(Gura_UnpackUShort(rawData.sfModAmtSrcOper)),
+			_sfModTransOper(Gura_UnpackUShort(rawData.sfModTransOper)) {
+	}
 };
 
-class sfInstGen {		// igen-rec
+class sfInstGen {		// 7.9 The IGEN Sub-chunk
 public:
 	struct RawData {
 		enum { Size = 4 };
@@ -185,9 +271,17 @@ public:
 						Gura_UnpackUShort(genAmount));
 		}
 	};
+private:
+	unsigned short _sfGenOper;
+	unsigned short _genAmount;
+public:
+	inline sfInstGen(const RawData &rawData) :
+			_sfGenOper(Gura_UnpackUShort(rawData.sfGenOper)),
+			_genAmount(Gura_UnpackUShort(rawData.genAmount)) {
+	}
 };
 
-class sfSample {		// shdr-rec
+class sfSample {		// 7.10 The SHDR Sub-chunk
 public:
 	struct RawData {
 		enum { Size = 46 };
@@ -215,6 +309,29 @@ public:
 						Gura_UnpackUShort(sfSampleType));
 		}
 	};
+private:
+	char _achSampleName[20];
+	unsigned long _dwStart;
+	unsigned long _dwEnd;
+	unsigned long _dwStartloop;
+	unsigned long _dwEndloop;
+	unsigned long _dwSampleRate;
+	unsigned char _byOriginalKey;
+	char _chCorrection;
+	unsigned short _wSampleLink;
+	unsigned short _sfSampleType;
+public:
+	inline sfSample(const RawData &rawData) :
+			_dwStart(Gura_UnpackULong(rawData.dwStart)),
+			_dwEnd(Gura_UnpackULong(rawData.dwEnd)),
+			_dwStartloop(Gura_UnpackULong(rawData.dwStartloop)),
+			_dwEndloop(Gura_UnpackULong(rawData.dwEndloop)),
+			_dwSampleRate(Gura_UnpackULong(rawData.dwSampleRate)),
+			_byOriginalKey(rawData.byOriginalKey),
+			_chCorrection(rawData.chCorrection),
+			_wSampleLink(Gura_UnpackUShort(rawData.wSampleLink)),
+			_sfSampleType(Gura_UnpackUShort(rawData.sfSampleType)) {
+	}
 };
 
 void ChunkHdr::Print() const
