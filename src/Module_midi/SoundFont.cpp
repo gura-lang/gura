@@ -70,77 +70,66 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 		case CKID_ifil: {	// 5.1
 			sfVersionTag::RawData rawData;
 			if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSize)) return false;
-			rawData.Print();
 			_INFO.p_ifil.reset(new sfVersionTag(rawData));
 			break;
 		}
 		case CKID_isng: {	// 5.2
 			char str[256];
 			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
-			::printf("\"%s\"\n", str);
 			_INFO.p_isng.reset(new String(str));
 			break;
 		}
 		case CKID_INAM: {	// 5.3
 			char str[256];
 			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
-			::printf("\"%s\"\n", str);
 			_INFO.p_INAM.reset(new String(str));
 			break;
 		}
 		case CKID_irom: {	// 5.4
 			char str[256];
 			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
-			::printf("\"%s\"\n", str);
 			_INFO.p_irom.reset(new String(str));
 			break;
 		}
 		case CKID_iver: {	// 5.5
 			sfVersionTag::RawData rawData;
 			if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSize)) return false;
-			rawData.Print();
 			_INFO.p_iver.reset(new sfVersionTag(rawData));
 			break;
 		}
 		case CKID_ICRD: {	// 5.6
 			char str[256];
 			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
-			::printf("\"%s\"\n", str);
 			_INFO.p_ICRD.reset(new String(str));
 			break;
 		}
 		case CKID_IENG: {	// 5.7
 			char str[256];
 			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
-			::printf("\"%s\"\n", str);
 			_INFO.p_IENG.reset(new String(str));
 			break;
 		}
 		case CKID_IPRD: {	// 5.8
 			char str[256];
 			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
-			::printf("\"%s\"\n", str);
 			_INFO.p_IPRD.reset(new String(str));
 			break;
 		}
 		case CKID_ICOP: {	// 5.9
 			char str[256];
 			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
-			::printf("\"%s\"\n", str);
 			_INFO.p_ICOP.reset(new String(str));
 			break;
 		}
 		case CKID_ICMT: {	// 5.10
 			char str[65536];
 			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
-			::printf("\"%s\"\n", str);
 			_INFO.p_ICMT.reset(new String(str));
 			break;
 		}
 		case CKID_ISFT: {	// 5.11
 			char str[256];
 			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
-			::printf("\"%s\"\n", str);
 			_INFO.p_ISFT.reset(new String(str));
 			break;
 		}
@@ -155,7 +144,6 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 			sfPresetHeader::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
 				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
-				rawData.Print();
 				_pdta.phdrs.push_back(new sfPresetHeader(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -165,7 +153,6 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 			sfPresetBag::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
 				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
-				rawData.Print();
 				_pdta.pbags.push_back(new sfPresetBag(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -175,7 +162,6 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 			sfMod::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
 				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
-				rawData.Print();
 				_pdta.pmods.push_back(new sfMod(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -185,7 +171,6 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 			sfGen::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
 				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
-				rawData.Print();
 				_pdta.pgens.push_back(new sfGen(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -195,7 +180,6 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 			sfInst::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
 				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
-				rawData.Print();
 				_pdta.insts.push_back(new sfInst(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -205,7 +189,6 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 			sfInstBag::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
 				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
-				rawData.Print();
 				_pdta.ibags.push_back(new sfInstBag(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -215,7 +198,6 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 			sfMod::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
 				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
-				rawData.Print();
 				_pdta.imods.push_back(new sfMod(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -225,7 +207,6 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 			sfInstGen::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
 				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
-				//rawData.Print();
 				_pdta.igens.push_back(new sfInstGen(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -235,7 +216,6 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 			sfSample::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
 				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
-				rawData.Print();
 				_pdta.shdrs.push_back(new sfSample(rawData));
 				ckSizeRest -= rawData.Size;
 			}

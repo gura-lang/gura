@@ -75,11 +75,6 @@ public:
 			enum { Size = 4 };
 			Gura_PackedUShort_LE(wMajor);
 			Gura_PackedUShort_LE(wMinor);
-			inline void Print() const {
-				::printf("wMajor=%d wMinor=%d\n",
-							Gura_UnpackUShort(wMajor),
-							Gura_UnpackUShort(wMinor));
-			}
 		};
 	private:
 		unsigned short _wMajor;
@@ -91,6 +86,11 @@ public:
 		inline sfVersionTag(const RawData &rawData) :
 				_wMajor(Gura_UnpackUShort(rawData.wMajor)),
 				_wMinor(Gura_UnpackUShort(rawData.wMinor)) {}
+		inline void Print() const {
+			::printf("wMajor=%d wMinor=%d\n",
+				_wMajor,
+				_wMinor);
+			}
 	};
 	typedef std::vector<sfVersionTag *> sfVersionTagList;
 	typedef OwnerTemplate<sfVersionTag, sfVersionTagList> sfVersionTagOwner;
@@ -106,16 +106,6 @@ public:
 			Gura_PackedULong_LE(dwLibrary);
 			Gura_PackedULong_LE(dwGenre);
 			Gura_PackedULong_LE(dwMorphology);
-			inline void Print() const {
-				::printf("achPresetName=\"%s\" wPreset=%d wBank=%d wPresetBagNdx=%d dwLibrary=%d dwGenre=%d dwMorphology=%d\n",
-							achPresetName,
-							Gura_UnpackUShort(wPreset),
-							Gura_UnpackUShort(wBank),
-							Gura_UnpackUShort(wPresetBagNdx),
-							Gura_UnpackULong(dwLibrary),
-							Gura_UnpackULong(dwGenre),
-							Gura_UnpackULong(dwMorphology));
-			}
 		};
 	private:
 		char _achPresetName[20];
@@ -144,6 +134,16 @@ public:
 				_dwMorphology(Gura_UnpackULong(rawData.dwMorphology)) {
 			::memcpy(_achPresetName, rawData.achPresetName, sizeof(_achPresetName));
 		}
+		inline void Print() const {
+			::printf("achPresetName=\"%s\" wPreset=%d wBank=%d wPresetBagNdx=%d dwLibrary=%d dwGenre=%d dwMorphology=%d\n",
+				_achPresetName,
+				_wPreset,
+				_wBank,
+				_wPresetBagNdx,
+				_dwLibrary,
+				_dwGenre,
+				_dwMorphology);
+		}
 	};
 	typedef std::vector<sfPresetHeader *> sfPresetHeaderList;
 	typedef OwnerTemplate<sfPresetHeader, sfPresetHeaderList> sfPresetHeaderOwner;
@@ -154,11 +154,6 @@ public:
 			enum { Size = 4 };
 			Gura_PackedUShort_LE(wGenNdx);
 			Gura_PackedUShort_LE(wModNdx);
-			inline void Print() const {
-				::printf("wGenNdx=%d wModNdx=%d\n",
-							Gura_UnpackUShort(wGenNdx),
-							Gura_UnpackUShort(wModNdx));
-			}
 		};
 	private:
 		unsigned short _wGenNdx;
@@ -170,6 +165,11 @@ public:
 		inline sfPresetBag(const RawData &rawData) :
 				_wGenNdx(Gura_UnpackUShort(rawData.wGenNdx)),
 				_wModNdx(Gura_UnpackUShort(rawData.wModNdx)) {}
+		inline void Print() const {
+			::printf("wGenNdx=%d wModNdx=%d\n",
+				_wGenNdx,
+				_wModNdx);
+		}
 	};
 	typedef std::vector<sfPresetBag *> sfPresetBagList;
 	typedef OwnerTemplate<sfPresetBag, sfPresetBagList> sfPresetBagOwner;
@@ -183,14 +183,6 @@ public:
 			Gura_PackedUShort_LE(modAmount);
 			Gura_PackedUShort_LE(sfModAmtSrcOper);
 			Gura_PackedUShort_LE(sfModTransOper);
-			inline void Print() const {
-				::printf("sfModSrcOper=%d sfModDestOper=%d modAmount=0x%04x sfModAmtSrcOper=%d sfModTransOper=%d\n",
-							Gura_UnpackUShort(sfModSrcOper),
-							Gura_UnpackUShort(sfModDestOper),
-							Gura_UnpackUShort(modAmount),
-							Gura_UnpackUShort(sfModAmtSrcOper),
-							Gura_UnpackUShort(sfModTransOper));
-			}
 		};
 	private:
 		unsigned short _sfModSrcOper;
@@ -211,6 +203,14 @@ public:
 				_modAmount(Gura_UnpackUShort(rawData.modAmount)),
 				_sfModAmtSrcOper(Gura_UnpackUShort(rawData.sfModAmtSrcOper)),
 				_sfModTransOper(Gura_UnpackUShort(rawData.sfModTransOper)) {}
+		inline void Print() const {
+			::printf("sfModSrcOper=%d sfModDestOper=%d modAmount=0x%04x sfModAmtSrcOper=%d sfModTransOper=%d\n",
+				_sfModSrcOper,
+				_sfModDestOper,
+				_modAmount,
+				_sfModAmtSrcOper,
+				_sfModTransOper);
+		}
 	};
 	typedef std::vector<sfMod *> sfModList;
 	typedef OwnerTemplate<sfMod, sfModList> sfModOwner;
@@ -221,11 +221,6 @@ public:
 			enum { Size = 4 };
 			Gura_PackedUShort_LE(sfGenOper);
 			Gura_PackedUShort_LE(genAmount);
-			inline void Print() const {
-				::printf("sfGenOper=%d genAmount=0x%04x\n",
-							Gura_UnpackUShort(sfGenOper),
-							Gura_UnpackUShort(genAmount));
-			}
 		};
 	private:
 		unsigned short _sfGenOper;
@@ -237,6 +232,11 @@ public:
 		inline sfGen(const RawData &rawData) :
 				_sfGenOper(Gura_UnpackUShort(rawData.sfGenOper)),
 				_genAmount(Gura_UnpackUShort(rawData.genAmount)) {}
+		inline void Print() const {
+			::printf("sfGenOper=%d genAmount=0x%04x\n",
+				_sfGenOper,
+				_genAmount);
+		}
 	};
 	typedef std::vector<sfGen *> sfGenList;
 	typedef OwnerTemplate<sfGen, sfGenList> sfGenOwner;
@@ -247,11 +247,6 @@ public:
 			enum { Size = 22 };
 			char achInstName[20];
 			Gura_PackedUShort_LE(wInstBagNdx);
-			inline void Print() const {
-				::printf("achInstName=\"%s\" wInstBagNdx=%d\n",
-							achInstName,
-							Gura_UnpackUShort(wInstBagNdx));
-			}
 		};
 	private:
 		char _achInstName[20];
@@ -265,6 +260,11 @@ public:
 				_wInstBagNdx(Gura_UnpackUShort(rawData.wInstBagNdx)) {
 			::memcpy(_achInstName, rawData.achInstName, sizeof(_achInstName));
 		}
+		inline void Print() const {
+			::printf("achInstName=\"%s\" wInstBagNdx=%d\n",
+				_achInstName,
+				_wInstBagNdx);
+		}
 	};
 	typedef std::vector<sfInst *> sfInstList;
 	typedef OwnerTemplate<sfInst, sfInstList> sfInstOwner;
@@ -275,11 +275,6 @@ public:
 			enum { Size = 4 };
 			Gura_PackedUShort_LE(wInstGenNdx);
 			Gura_PackedUShort_LE(wInstModNdx);
-			inline void Print() const {
-				::printf("wInstGenNdx=%d wInstModNdx=%d\n",
-							Gura_UnpackUShort(wInstGenNdx),
-							Gura_UnpackUShort(wInstModNdx));
-			}
 		};
 	private:
 		unsigned short _wInstGenNdx;
@@ -291,6 +286,11 @@ public:
 		inline sfInstBag(const RawData &rawData) :
 				_wInstGenNdx(Gura_UnpackUShort(rawData.wInstGenNdx)),
 				_wInstModNdx(Gura_UnpackUShort(rawData.wInstModNdx)) {}
+		inline void Print() const {
+			::printf("wInstGenNdx=%d wInstModNdx=%d\n",
+				_wInstGenNdx,
+				_wInstModNdx);
+		}
 	};
 	typedef std::vector<sfInstBag *> sfInstBagList;
 	typedef OwnerTemplate<sfInstBag, sfInstBagList> sfInstBagOwner;
@@ -304,14 +304,6 @@ public:
 			Gura_PackedUShort_LE(modAmount);
 			Gura_PackedUShort_LE(sfModAmtSrcOper);
 			Gura_PackedUShort_LE(sfModTransOper);
-			inline void Print() const {
-				::printf("sfModSrcOper=%d sfModDestOper=%d modAmount=0x%04x sfModAmtSrcOper=%d sfModTransOper=%d\n",
-							Gura_UnpackUShort(sfModSrcOper),
-							Gura_UnpackUShort(sfModDestOper),
-							Gura_UnpackUShort(modAmount),
-							Gura_UnpackUShort(sfModAmtSrcOper),
-							Gura_UnpackUShort(sfModTransOper));
-			}
 		};
 	private:
 		unsigned short _sfModSrcOper;
@@ -332,6 +324,14 @@ public:
 				_modAmount(Gura_UnpackUShort(rawData.modAmount)),
 				_sfModAmtSrcOper(Gura_UnpackUShort(rawData.sfModAmtSrcOper)),
 				_sfModTransOper(Gura_UnpackUShort(rawData.sfModTransOper)) {}
+		inline void Print() const {
+			::printf("sfModSrcOper=%d sfModDestOper=%d modAmount=0x%04x sfModAmtSrcOper=%d sfModTransOper=%d\n",
+				_sfModSrcOper,
+				_sfModDestOper,
+				_modAmount,
+				_sfModAmtSrcOper,
+				_sfModTransOper);
+		}
 	};
 	typedef std::vector<sfInstMod *> sfInstModList;
 	typedef OwnerTemplate<sfInstMod, sfInstModList> sfInstModOwner;
@@ -342,11 +342,6 @@ public:
 			enum { Size = 4 };
 			Gura_PackedUShort_LE(sfGenOper);
 			Gura_PackedUShort_LE(genAmount);
-			inline void Print() const {
-				::printf("sfGenOper=%d genAmount=0x%04x\n",
-							Gura_UnpackUShort(sfGenOper),
-							Gura_UnpackUShort(genAmount));
-			}
 		};
 	private:
 		unsigned short _sfGenOper;
@@ -358,6 +353,11 @@ public:
 		inline sfInstGen(const RawData &rawData) :
 				_sfGenOper(Gura_UnpackUShort(rawData.sfGenOper)),
 				_genAmount(Gura_UnpackUShort(rawData.genAmount)) {}
+		inline void Print() const {
+			::printf("sfGenOper=%d genAmount=0x%04x\n",
+				_sfGenOper,
+				_genAmount);
+		}
 	};
 	typedef std::vector<sfInstGen *> sfInstGenList;
 	typedef OwnerTemplate<sfInstGen, sfInstGenList> sfInstGenOwner;
@@ -376,19 +376,6 @@ public:
 			char chCorrection;
 			Gura_PackedUShort_LE(wSampleLink);
 			Gura_PackedUShort_LE(sfSampleType);
-			inline void Print() const {
-				::printf("achSampleName=\"%s\" dwStart=%d dwEnd=%d dwStartloop=%d dwEndloop=%d dwSampleRate=%d byOriginalKey=%d chCorrection=%d wSampleLink=%d sfSampleType=%d\n",
-							achSampleName,
-							Gura_UnpackULong(dwStart),
-							Gura_UnpackULong(dwEnd),
-							Gura_UnpackULong(dwStartloop),
-							Gura_UnpackULong(dwEndloop),
-							Gura_UnpackULong(dwSampleRate),
-							byOriginalKey,
-							chCorrection,
-							Gura_UnpackUShort(wSampleLink),
-							Gura_UnpackUShort(sfSampleType));
-			}
 		};
 	private:
 		char _achSampleName[20];
@@ -422,6 +409,19 @@ public:
 				_chCorrection(rawData.chCorrection),
 				_wSampleLink(Gura_UnpackUShort(rawData.wSampleLink)),
 				_sfSampleType(Gura_UnpackUShort(rawData.sfSampleType)) {}
+		inline void Print() const {
+			::printf("achSampleName=\"%s\" dwStart=%d dwEnd=%d dwStartloop=%d dwEndloop=%d dwSampleRate=%d byOriginalKey=%d chCorrection=%d wSampleLink=%d sfSampleType=%d\n",
+				_achSampleName,
+				_dwStart,
+				_dwEnd,
+				_dwStartloop,
+				_dwEndloop,
+				_dwSampleRate,
+				_byOriginalKey,
+				_chCorrection,
+				_wSampleLink,
+				_sfSampleType);
+		}
 	};
 	typedef std::vector<sfSample *> sfSampleList;
 	typedef OwnerTemplate<sfSample, sfSampleList> sfSampleOwner;
