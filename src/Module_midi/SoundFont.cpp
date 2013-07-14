@@ -375,9 +375,67 @@ bool SoundFont::ReadString(Environment &env, Signal sig, Stream &stream,
 }
 
 //-----------------------------------------------------------------------------
+// SoundFont::sfVersionTag
+// 5.1 The ifil Sub-chunk
+// 5.5 The iver Sub-chunk
+//-----------------------------------------------------------------------------
+SoundFont::sfVersionTag::sfVersionTag() : _cntRef(1),
+		_wMajor(0),
+		_wMinor(0)
+{
+}
+
+SoundFont::sfVersionTag::sfVersionTag(const RawData &rawData) : _cntRef(1),
+		_wMajor(Gura_UnpackUShort(rawData.wMajor)),
+		_wMinor(Gura_UnpackUShort(rawData.wMinor))
+{
+}
+
+void SoundFont::sfVersionTag::Print() const
+{
+	::printf("wMajor=%d wMinor=%d\n",
+		_wMajor,
+		_wMinor);
+	}
+
+//-----------------------------------------------------------------------------
 // SoundFont::sfPresetHeader
 // 7.2 The PHDR Sub-chunk
 //-----------------------------------------------------------------------------
+SoundFont::sfPresetHeader::sfPresetHeader() : _cntRef(1),
+		_wPreset(0),
+		_wBank(0),
+		_wPresetBagNdx(0),
+		_dwLibrary(0),
+		_dwGenre(0),
+		_dwMorphology(0)
+{
+	::memset(_achPresetName, 0x00, sizeof(_achPresetName));
+}
+
+SoundFont::sfPresetHeader::sfPresetHeader(const RawData &rawData) : _cntRef(1),
+		_wPreset(Gura_UnpackUShort(rawData.wPreset)),
+		_wBank(Gura_UnpackUShort(rawData.wBank)),
+		_wPresetBagNdx(Gura_UnpackUShort(rawData.wPresetBagNdx)),
+		_dwLibrary(Gura_UnpackULong(rawData.dwLibrary)),
+		_dwGenre(Gura_UnpackULong(rawData.dwGenre)),
+		_dwMorphology(Gura_UnpackULong(rawData.dwMorphology))
+{
+	::memcpy(_achPresetName, rawData.achPresetName, sizeof(_achPresetName));
+}
+
+void SoundFont::sfPresetHeader::Print() const
+{
+	::printf("achPresetName=\"%s\" wPreset=%d wBank=%d wPresetBagNdx=%d dwLibrary=%d dwGenre=%d dwMorphology=%d\n",
+		_achPresetName,
+		_wPreset,
+		_wBank,
+		_wPresetBagNdx,
+		_dwLibrary,
+		_dwGenre,
+		_dwMorphology);
+}
+
 SoundFont::sfPresetBag *SoundFont::sfPresetHeader::GetPresetBag(SoundFont &soundFont) const
 {
 	return soundFont.GetPdta().pbags.Get(_wPresetBagNdx);
@@ -387,6 +445,25 @@ SoundFont::sfPresetBag *SoundFont::sfPresetHeader::GetPresetBag(SoundFont &sound
 // SoundFont::sfPresetBag
 // 7.3 The PBAG Sub-chunk
 //-----------------------------------------------------------------------------
+SoundFont::sfPresetBag::sfPresetBag() : _cntRef(1),
+		_wGenNdx(0),
+		_wModNdx(0)
+{
+}
+
+SoundFont::sfPresetBag::sfPresetBag(const RawData &rawData) : _cntRef(1),
+		_wGenNdx(Gura_UnpackUShort(rawData.wGenNdx)),
+		_wModNdx(Gura_UnpackUShort(rawData.wModNdx))
+{
+}
+
+void SoundFont::sfPresetBag::Print() const
+{
+	::printf("wGenNdx=%d wModNdx=%d\n",
+		_wGenNdx,
+		_wModNdx);
+}
+
 SoundFont::sfGen *SoundFont::sfPresetBag::GetGen(SoundFont &soundFont) const
 {
 	return soundFont.GetPdta().pgens.Get(_wGenNdx);
@@ -401,35 +478,203 @@ SoundFont::sfMod *SoundFont::sfPresetBag::GetMod(SoundFont &soundFont) const
 // SoundFont::sfMod
 // 7.4 The PMOD Sub-chunk
 //-----------------------------------------------------------------------------
+SoundFont::sfMod::sfMod() : _cntRef(1),
+		_sfModSrcOper(static_cast<SFModulator>(0)),
+		_sfModDestOper(static_cast<SFGenerator>(0)),
+		_modAmount(0),
+		_sfModAmtSrcOper(static_cast<SFModulator>(0)),
+		_sfModTransOper(static_cast<SFTransform>(0))
+{
+}
+
+SoundFont::sfMod::sfMod(const RawData &rawData) : _cntRef(1),
+		_sfModSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModSrcOper))),
+		_sfModDestOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfModDestOper))),
+		_modAmount(static_cast<short>(Gura_UnpackUShort(rawData.modAmount))),
+		_sfModAmtSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModAmtSrcOper))),
+		_sfModTransOper(static_cast<SFTransform>(Gura_UnpackUShort(rawData.sfModTransOper)))
+{
+}
+
+void SoundFont::sfMod::Print() const
+{
+	::printf("sfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
+		_sfModSrcOper,
+		GeneratorToName(_sfModDestOper), _sfModDestOper,
+		_modAmount,
+		_sfModAmtSrcOper,
+		_sfModTransOper);
+}
 
 //-----------------------------------------------------------------------------
 // SoundFont::sfGen
 // 7.5 The PGEN Sub-chunk
 //-----------------------------------------------------------------------------
+SoundFont::sfGen::sfGen() : _cntRef(1),
+		_sfGenOper(static_cast<SFGenerator>(0)),
+		_genAmount(0)
+{
+}
+
+SoundFont::sfGen::sfGen(const RawData &rawData) : _cntRef(1),
+		_sfGenOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfGenOper))),
+		_genAmount(Gura_UnpackUShort(rawData.genAmount))
+{
+}
+
+void SoundFont::sfGen::Print() const
+{
+	::printf("sfGenOper=%s(%d) genAmount=0x%04x\n",
+		GeneratorToName(_sfGenOper), _sfGenOper,
+		_genAmount);
+}
 
 //-----------------------------------------------------------------------------
 // SoundFont::sfInst
 // 7.6 The INST Sub-chunk
 //-----------------------------------------------------------------------------
+SoundFont::sfInst::sfInst() : _cntRef(1),
+		_wInstBagNdx(0)
+{
+	::memset(_achInstName, 0x00, sizeof(_achInstName));
+}
+
+SoundFont::sfInst::sfInst(const RawData &rawData) : _cntRef(1),
+		_wInstBagNdx(Gura_UnpackUShort(rawData.wInstBagNdx))
+{
+	::memcpy(_achInstName, rawData.achInstName, sizeof(_achInstName));
+}
+
+void SoundFont::sfInst::Print() const
+{
+	::printf("achInstName=\"%s\" wInstBagNdx=%d\n",
+		_achInstName,
+		_wInstBagNdx);
+}
 
 //-----------------------------------------------------------------------------
 // SoundFont::sfInstBag
 // 7.7 The IBAG Sub-chunk
 //-----------------------------------------------------------------------------
+SoundFont::sfInstBag::sfInstBag() : _cntRef(1),
+		_wInstGenNdx(0),
+		_wInstModNdx(0)
+{
+}
+
+SoundFont::sfInstBag::sfInstBag(const RawData &rawData) : _cntRef(1),
+		_wInstGenNdx(Gura_UnpackUShort(rawData.wInstGenNdx)),
+		_wInstModNdx(Gura_UnpackUShort(rawData.wInstModNdx))
+{
+}
+
+void SoundFont::sfInstBag::Print() const
+{
+	::printf("wInstGenNdx=%d wInstModNdx=%d\n",
+		_wInstGenNdx,
+		_wInstModNdx);
+}
 
 //-----------------------------------------------------------------------------
 // SoundFont::sfInstMod
 // 7.8 The IMOD Sub-chunk
 //-----------------------------------------------------------------------------
+SoundFont::sfInstMod::sfInstMod() : _cntRef(1),
+		_sfModSrcOper(static_cast<SFModulator>(0)),
+		_sfModDestOper(static_cast<SFGenerator>(0)),
+		_modAmount(0),
+		_sfModAmtSrcOper(static_cast<SFModulator>(0)),
+		_sfModTransOper(static_cast<SFTransform>(0))
+{
+}
+
+SoundFont::sfInstMod::sfInstMod(const RawData &rawData) : _cntRef(1),
+		_sfModSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModSrcOper))),
+		_sfModDestOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfModDestOper))),
+		_modAmount(static_cast<short>(Gura_UnpackUShort(rawData.modAmount))),
+		_sfModAmtSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModAmtSrcOper))),
+		_sfModTransOper(static_cast<SFTransform>(Gura_UnpackUShort(rawData.sfModTransOper)))
+{
+}
+
+void SoundFont::sfInstMod::Print() const
+{
+	::printf("sfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
+		_sfModSrcOper,
+		GeneratorToName(_sfModDestOper), _sfModDestOper,
+		_modAmount,
+		_sfModAmtSrcOper,
+		_sfModTransOper);
+}
 
 //-----------------------------------------------------------------------------
 // SoundFont::sfInstGen
 // 7.9 The IGEN Sub-chunk
 //-----------------------------------------------------------------------------
+SoundFont::sfInstGen::sfInstGen() : _cntRef(1),
+		_sfGenOper(static_cast<SFGenerator>(0)),
+		_genAmount(0)
+{
+}
+
+SoundFont::sfInstGen::sfInstGen(const RawData &rawData) : _cntRef(1),
+		_sfGenOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfGenOper))),
+		_genAmount(Gura_UnpackUShort(rawData.genAmount))
+{
+}
+
+void SoundFont::sfInstGen::Print() const
+{
+	::printf("sfGenOper=%s(%d) genAmount=0x%04x\n",
+		GeneratorToName(_sfGenOper), _sfGenOper,
+		_genAmount);
+}
 
 //-----------------------------------------------------------------------------
 // SoundFont::sfSample
 // 7.10 The SHDR Sub-chunk
 //-----------------------------------------------------------------------------
+SoundFont::sfSample::sfSample() : _cntRef(1),
+		_dwStart(0),
+		_dwEnd(0),
+		_dwStartloop(0),
+		_dwEndloop(0),
+		_dwSampleRate(0),
+		_byOriginalKey(0),
+		_chCorrection(0),
+		_wSampleLink(0),
+		_sfSampleType(static_cast<SFSampleLink>(0))
+{
+	::memset(_achSampleName, 0x00, sizeof(_achSampleName));
+}
+
+SoundFont::sfSample::sfSample(const RawData &rawData) : _cntRef(1),
+		_dwStart(Gura_UnpackULong(rawData.dwStart)),
+		_dwEnd(Gura_UnpackULong(rawData.dwEnd)),
+		_dwStartloop(Gura_UnpackULong(rawData.dwStartloop)),
+		_dwEndloop(Gura_UnpackULong(rawData.dwEndloop)),
+		_dwSampleRate(Gura_UnpackULong(rawData.dwSampleRate)),
+		_byOriginalKey(rawData.byOriginalKey),
+		_chCorrection(rawData.chCorrection),
+		_wSampleLink(Gura_UnpackUShort(rawData.wSampleLink)),
+		_sfSampleType(static_cast<SFSampleLink>(Gura_UnpackUShort(rawData.sfSampleType)))
+{
+	::memcpy(_achSampleName, rawData.achSampleName, sizeof(_achSampleName));
+}
+
+void SoundFont::sfSample::Print() const
+{
+	::printf("achSampleName=\"%s\" dwStart=%d dwEnd=%d dwStartloop=%d dwEndloop=%d dwSampleRate=%d byOriginalKey=%d chCorrection=%d wSampleLink=0x%04x sfSampleType=%d\n",
+		_achSampleName,
+		_dwStart,
+		_dwEnd,
+		_dwStartloop,
+		_dwEndloop,
+		_dwSampleRate,
+		_byOriginalKey,
+		_chCorrection,
+		_wSampleLink,
+		_sfSampleType);
+}
 
 }}

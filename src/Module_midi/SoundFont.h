@@ -185,20 +185,12 @@ public:
 	public:
 		Gura_DeclareReferenceAccessor(sfVersionTag);
 	public:
-		inline sfVersionTag() : _cntRef(1),
-				_wMajor(0),
-				_wMinor(0) {}
-		inline sfVersionTag(const RawData &rawData) : _cntRef(1),
-				_wMajor(Gura_UnpackUShort(rawData.wMajor)),
-				_wMinor(Gura_UnpackUShort(rawData.wMinor)) {}
+		sfVersionTag();
+		sfVersionTag(const RawData &rawData);
 	private:
 		inline ~sfVersionTag() {}
 	public:
-		inline void Print() const {
-			::printf("wMajor=%d wMinor=%d\n",
-				_wMajor,
-				_wMinor);
-			}
+		void Print() const;
 	};
 	typedef ListTemplate<sfVersionTag> sfVersionTagList;
 	typedef OwnerTemplate<sfVersionTag, sfVersionTagList> sfVersionTagOwner;
@@ -227,37 +219,12 @@ public:
 	public:
 		Gura_DeclareReferenceAccessor(sfPresetHeader);
 	public:
-		inline sfPresetHeader() : _cntRef(1),
-				_wPreset(0),
-				_wBank(0),
-				_wPresetBagNdx(0),
-				_dwLibrary(0),
-				_dwGenre(0),
-				_dwMorphology(0) {
-			::memset(_achPresetName, 0x00, sizeof(_achPresetName));
-		}
-		inline sfPresetHeader(const RawData &rawData) : _cntRef(1),
-				_wPreset(Gura_UnpackUShort(rawData.wPreset)),
-				_wBank(Gura_UnpackUShort(rawData.wBank)),
-				_wPresetBagNdx(Gura_UnpackUShort(rawData.wPresetBagNdx)),
-				_dwLibrary(Gura_UnpackULong(rawData.dwLibrary)),
-				_dwGenre(Gura_UnpackULong(rawData.dwGenre)),
-				_dwMorphology(Gura_UnpackULong(rawData.dwMorphology)) {
-			::memcpy(_achPresetName, rawData.achPresetName, sizeof(_achPresetName));
-		}
+		sfPresetHeader();
+		sfPresetHeader(const RawData &rawData);
 	private:
 		inline ~sfPresetHeader() {}
 	public:
-		inline void Print() const {
-			::printf("achPresetName=\"%s\" wPreset=%d wBank=%d wPresetBagNdx=%d dwLibrary=%d dwGenre=%d dwMorphology=%d\n",
-				_achPresetName,
-				_wPreset,
-				_wBank,
-				_wPresetBagNdx,
-				_dwLibrary,
-				_dwGenre,
-				_dwMorphology);
-		}
+		void Print() const;
 		sfPresetBag *GetPresetBag(SoundFont &soundFont) const;
 	};
 	typedef ListTemplate<sfPresetHeader> sfPresetHeaderList;
@@ -277,20 +244,12 @@ public:
 	public:
 		Gura_DeclareReferenceAccessor(sfPresetBag);
 	public:
-		inline sfPresetBag() : _cntRef(1),
-				_wGenNdx(0),
-				_wModNdx(0) {}
-		inline sfPresetBag(const RawData &rawData) : _cntRef(1),
-				_wGenNdx(Gura_UnpackUShort(rawData.wGenNdx)),
-				_wModNdx(Gura_UnpackUShort(rawData.wModNdx)) {}
+		sfPresetBag();
+		sfPresetBag(const RawData &rawData);
 	private:
 		inline ~sfPresetBag() {}
 	public:
-		inline void Print() const {
-			::printf("wGenNdx=%d wModNdx=%d\n",
-				_wGenNdx,
-				_wModNdx);
-		}
+		void Print() const;
 		sfGen *GetGen(SoundFont &soundFont) const;
 		sfMod *GetMod(SoundFont &soundFont) const;
 	};
@@ -317,29 +276,12 @@ public:
 	public:
 		Gura_DeclareReferenceAccessor(sfMod);
 	public:
-		inline sfMod() : _cntRef(1),
-				_sfModSrcOper(static_cast<SFModulator>(0)),
-				_sfModDestOper(static_cast<SFGenerator>(0)),
-				_modAmount(0),
-				_sfModAmtSrcOper(static_cast<SFModulator>(0)),
-				_sfModTransOper(static_cast<SFTransform>(0)) {}
-		inline sfMod(const RawData &rawData) : _cntRef(1),
-				_sfModSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModSrcOper))),
-				_sfModDestOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfModDestOper))),
-				_modAmount(static_cast<short>(Gura_UnpackUShort(rawData.modAmount))),
-				_sfModAmtSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModAmtSrcOper))),
-				_sfModTransOper(static_cast<SFTransform>(Gura_UnpackUShort(rawData.sfModTransOper))) {}
+		sfMod();
+		sfMod(const RawData &rawData);
 	private:
 		inline ~sfMod() {}
 	public:
-		inline void Print() const {
-			::printf("sfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
-				_sfModSrcOper,
-				GeneratorToName(_sfModDestOper), _sfModDestOper,
-				_modAmount,
-				_sfModAmtSrcOper,
-				_sfModTransOper);
-		}
+		void Print() const;
 	};
 	typedef ListTemplate<sfMod> sfModList;
 	typedef OwnerTemplate<sfMod, sfModList> sfModOwner;
@@ -358,20 +300,12 @@ public:
 	public:
 		Gura_DeclareReferenceAccessor(sfGen);
 	public:
-		inline sfGen() : _cntRef(1),
-				_sfGenOper(static_cast<SFGenerator>(0)),
-				_genAmount(0) {}
-		inline sfGen(const RawData &rawData) : _cntRef(1),
-				_sfGenOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfGenOper))),
-				_genAmount(Gura_UnpackUShort(rawData.genAmount)) {}
+		sfGen();
+		sfGen(const RawData &rawData);
 	private:
 		inline ~sfGen() {}
 	public:
-		inline void Print() const {
-			::printf("sfGenOper=%s(%d) genAmount=0x%04x\n",
-				GeneratorToName(_sfGenOper), _sfGenOper,
-				_genAmount);
-		}
+		void Print() const;
 	};
 	typedef ListTemplate<sfGen> sfGenList;
 	typedef OwnerTemplate<sfGen, sfGenList> sfGenOwner;
@@ -390,22 +324,12 @@ public:
 	public:
 		Gura_DeclareReferenceAccessor(sfInst);
 	public:
-		inline sfInst() : _cntRef(1),
-				_wInstBagNdx(0) {
-			::memset(_achInstName, 0x00, sizeof(_achInstName));
-		}
-		inline sfInst(const RawData &rawData) : _cntRef(1),
-				_wInstBagNdx(Gura_UnpackUShort(rawData.wInstBagNdx)) {
-			::memcpy(_achInstName, rawData.achInstName, sizeof(_achInstName));
-		}
+		sfInst();
+		sfInst(const RawData &rawData);
 	private:
 		inline ~sfInst() {}
 	public:
-		inline void Print() const {
-			::printf("achInstName=\"%s\" wInstBagNdx=%d\n",
-				_achInstName,
-				_wInstBagNdx);
-		}
+		void Print() const;
 	};
 	typedef ListTemplate<sfInst> sfInstList;
 	typedef OwnerTemplate<sfInst, sfInstList> sfInstOwner;
@@ -424,20 +348,12 @@ public:
 	public:
 		Gura_DeclareReferenceAccessor(sfInstBag);
 	public:
-		inline sfInstBag() : _cntRef(1),
-				_wInstGenNdx(0),
-				_wInstModNdx(0) {}
-		inline sfInstBag(const RawData &rawData) : _cntRef(1),
-				_wInstGenNdx(Gura_UnpackUShort(rawData.wInstGenNdx)),
-				_wInstModNdx(Gura_UnpackUShort(rawData.wInstModNdx)) {}
+		sfInstBag();
+		sfInstBag(const RawData &rawData);
 	private:
 		inline ~sfInstBag() {}
 	public:
-		inline void Print() const {
-			::printf("wInstGenNdx=%d wInstModNdx=%d\n",
-				_wInstGenNdx,
-				_wInstModNdx);
-		}
+		void Print() const;
 	};
 	typedef ListTemplate<sfInstBag> sfInstBagList;
 	typedef OwnerTemplate<sfInstBag, sfInstBagList> sfInstBagOwner;
@@ -462,29 +378,12 @@ public:
 	public:
 		Gura_DeclareReferenceAccessor(sfInstMod);
 	public:
-		inline sfInstMod() : _cntRef(1),
-				_sfModSrcOper(static_cast<SFModulator>(0)),
-				_sfModDestOper(static_cast<SFGenerator>(0)),
-				_modAmount(0),
-				_sfModAmtSrcOper(static_cast<SFModulator>(0)),
-				_sfModTransOper(static_cast<SFTransform>(0)) {}
-		inline sfInstMod(const RawData &rawData) : _cntRef(1),
-				_sfModSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModSrcOper))),
-				_sfModDestOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfModDestOper))),
-				_modAmount(static_cast<short>(Gura_UnpackUShort(rawData.modAmount))),
-				_sfModAmtSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModAmtSrcOper))),
-				_sfModTransOper(static_cast<SFTransform>(Gura_UnpackUShort(rawData.sfModTransOper))) {}
+		sfInstMod();
+		sfInstMod(const RawData &rawData);
 	private:
 		inline ~sfInstMod() {}
 	public:
-		inline void Print() const {
-			::printf("sfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
-				_sfModSrcOper,
-				GeneratorToName(_sfModDestOper), _sfModDestOper,
-				_modAmount,
-				_sfModAmtSrcOper,
-				_sfModTransOper);
-		}
+		void Print() const;
 	};
 	typedef ListTemplate<sfInstMod> sfInstModList;
 	typedef OwnerTemplate<sfInstMod, sfInstModList> sfInstModOwner;
@@ -503,20 +402,12 @@ public:
 	public:
 		Gura_DeclareReferenceAccessor(sfInstGen);
 	public:
-		inline sfInstGen() : _cntRef(1),
-				_sfGenOper(static_cast<SFGenerator>(0)),
-				_genAmount(0) {}
-		inline sfInstGen(const RawData &rawData) : _cntRef(1),
-				_sfGenOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfGenOper))),
-				_genAmount(Gura_UnpackUShort(rawData.genAmount)) {}
+		sfInstGen();
+		sfInstGen(const RawData &rawData);
 	private:
 		inline ~sfInstGen() {}
 	public:
-		inline void Print() const {
-			::printf("sfGenOper=%s(%d) genAmount=0x%04x\n",
-				GeneratorToName(_sfGenOper), _sfGenOper,
-				_genAmount);
-		}
+		void Print() const;
 	};
 	typedef ListTemplate<sfInstGen> sfInstGenList;
 	typedef OwnerTemplate<sfInstGen, sfInstGenList> sfInstGenOwner;
@@ -551,46 +442,12 @@ public:
 	public:
 		Gura_DeclareReferenceAccessor(sfSample);
 	public:
-		inline sfSample() : _cntRef(1),
-				_dwStart(0),
-				_dwEnd(0),
-				_dwStartloop(0),
-				_dwEndloop(0),
-				_dwSampleRate(0),
-				_byOriginalKey(0),
-				_chCorrection(0),
-				_wSampleLink(0),
-				_sfSampleType(static_cast<SFSampleLink>(0)) {
-			::memset(_achSampleName, 0x00, sizeof(_achSampleName));
-		}
-		inline sfSample(const RawData &rawData) : _cntRef(1),
-				_dwStart(Gura_UnpackULong(rawData.dwStart)),
-				_dwEnd(Gura_UnpackULong(rawData.dwEnd)),
-				_dwStartloop(Gura_UnpackULong(rawData.dwStartloop)),
-				_dwEndloop(Gura_UnpackULong(rawData.dwEndloop)),
-				_dwSampleRate(Gura_UnpackULong(rawData.dwSampleRate)),
-				_byOriginalKey(rawData.byOriginalKey),
-				_chCorrection(rawData.chCorrection),
-				_wSampleLink(Gura_UnpackUShort(rawData.wSampleLink)),
-				_sfSampleType(static_cast<SFSampleLink>(Gura_UnpackUShort(rawData.sfSampleType))) {
-			::memcpy(_achSampleName, rawData.achSampleName, sizeof(_achSampleName));
-		}
+		sfSample();
+		sfSample(const RawData &rawData);
 	private:
 		inline ~sfSample() {}
 	public:
-		inline void Print() const {
-			::printf("achSampleName=\"%s\" dwStart=%d dwEnd=%d dwStartloop=%d dwEndloop=%d dwSampleRate=%d byOriginalKey=%d chCorrection=%d wSampleLink=0x%04x sfSampleType=%d\n",
-				_achSampleName,
-				_dwStart,
-				_dwEnd,
-				_dwStartloop,
-				_dwEndloop,
-				_dwSampleRate,
-				_byOriginalKey,
-				_chCorrection,
-				_wSampleLink,
-				_sfSampleType);
-		}
+		void Print() const;
 	};
 	typedef ListTemplate<sfSample> sfSampleList;
 	typedef OwnerTemplate<sfSample, sfSampleList> sfSampleOwner;
