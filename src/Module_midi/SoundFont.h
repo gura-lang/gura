@@ -160,15 +160,25 @@ public:
 		}
 	};
 	class sfVersionTag;
+	class sfVersionTagOwner;
 	class sfPresetHeader;
+	class sfPresetHeaderOwner;
 	class sfPresetBag;
+	class sfPresetBagOwner;
 	class sfMod;
+	class sfModOwner;
 	class sfGen;
+	class sfGenOwner;
 	class sfInst;
+	class sfInstOwner;
 	class sfInstBag;
+	class sfInstBagOwner;
 	class sfInstMod;
+	class sfInstModOwner;
 	class sfInstGen;
+	class sfInstGenOwner;
 	class sfSample;
+	class sfSampleOwner;
 	// 5.1 The ifil Sub-chunk
 	// 5.5 The iver Sub-chunk
 	class sfVersionTag {
@@ -193,7 +203,8 @@ public:
 		void Print() const;
 	};
 	typedef ListTemplate<sfVersionTag> sfVersionTagList;
-	typedef OwnerTemplate<sfVersionTag, sfVersionTagList> sfVersionTagOwner;
+	class sfVersionTagOwner : public OwnerTemplate<sfVersionTag, sfVersionTagList> {
+	};
 	// 7.2 The PHDR Sub-chunk
 	class sfPresetHeader {
 	public:
@@ -216,6 +227,7 @@ public:
 		unsigned long _dwLibrary;
 		unsigned long _dwGenre;
 		unsigned long _dwMorphology;
+		std::auto_ptr<sfPresetBagOwner> _pPresetBagOwner;
 	public:
 		Gura_DeclareReferenceAccessor(sfPresetHeader);
 	public:
@@ -225,10 +237,11 @@ public:
 		inline ~sfPresetHeader() {}
 	public:
 		void Print() const;
-		sfPresetBag *GetPresetBag(SoundFont &soundFont) const;
+		inline sfPresetBagOwner &GetPresetBagOwner() { return *_pPresetBagOwner; }
 	};
 	typedef ListTemplate<sfPresetHeader> sfPresetHeaderList;
-	typedef OwnerTemplate<sfPresetHeader, sfPresetHeaderList> sfPresetHeaderOwner;
+	class sfPresetHeaderOwner : public OwnerTemplate<sfPresetHeader, sfPresetHeaderList> {
+	};
 	// 7.3 The PBAG Sub-chunk
 	class sfPresetBag {
 	public:
@@ -241,6 +254,8 @@ public:
 		int _cntRef;
 		unsigned short _wGenNdx;
 		unsigned short _wModNdx;
+		std::auto_ptr<sfGenOwner> _pGenOwner;
+		std::auto_ptr<sfModOwner> _pModOwner;
 	public:
 		Gura_DeclareReferenceAccessor(sfPresetBag);
 	public:
@@ -250,11 +265,12 @@ public:
 		inline ~sfPresetBag() {}
 	public:
 		void Print() const;
-		sfGen *GetGen(SoundFont &soundFont) const;
-		sfMod *GetMod(SoundFont &soundFont) const;
+		sfGenOwner &GetGenOwner() { return *_pGenOwner; }
+		sfModOwner &GetModOwner() { return *_pModOwner; }
 	};
 	typedef ListTemplate<sfPresetBag> sfPresetBagList;
-	typedef OwnerTemplate<sfPresetBag, sfPresetBagList> sfPresetBagOwner;
+	class sfPresetBagOwner : public OwnerTemplate<sfPresetBag, sfPresetBagList> {
+	};
 	// 7.4 The PMOD Sub-chunk
 	class sfMod {
 	public:
@@ -284,7 +300,8 @@ public:
 		void Print() const;
 	};
 	typedef ListTemplate<sfMod> sfModList;
-	typedef OwnerTemplate<sfMod, sfModList> sfModOwner;
+	class sfModOwner : public OwnerTemplate<sfMod, sfModList> {
+	};
 	// 7.5 The PGEN Sub-chunk
 	class sfGen {
 	public:
@@ -308,7 +325,8 @@ public:
 		void Print() const;
 	};
 	typedef ListTemplate<sfGen> sfGenList;
-	typedef OwnerTemplate<sfGen, sfGenList> sfGenOwner;
+	class sfGenOwner : public OwnerTemplate<sfGen, sfGenList> {
+	};
 	// 7.6 The INST Sub-chunk
 	class sfInst {
 	public:
@@ -321,6 +339,7 @@ public:
 		int _cntRef;
 		char _achInstName[20];
 		unsigned short _wInstBagNdx;
+		std::auto_ptr<sfInstBagOwner> _pInstBagOwner;
 	public:
 		Gura_DeclareReferenceAccessor(sfInst);
 	public:
@@ -329,10 +348,12 @@ public:
 	private:
 		inline ~sfInst() {}
 	public:
+		inline sfInstBagOwner &GetInstBagOwner() { return *_pInstBagOwner; }
 		void Print() const;
 	};
 	typedef ListTemplate<sfInst> sfInstList;
-	typedef OwnerTemplate<sfInst, sfInstList> sfInstOwner;
+	class sfInstOwner : public OwnerTemplate<sfInst, sfInstList> {
+	};
 	// 7.7 The IBAG Sub-chunk
 	class sfInstBag {
 	public:
@@ -345,6 +366,8 @@ public:
 		int _cntRef;
 		unsigned short _wInstGenNdx;
 		unsigned short _wInstModNdx;
+		std::auto_ptr<sfInstGenOwner> _pInstGenOwner;
+		std::auto_ptr<sfInstModOwner> _pInstModOwner;
 	public:
 		Gura_DeclareReferenceAccessor(sfInstBag);
 	public:
@@ -353,10 +376,13 @@ public:
 	private:
 		inline ~sfInstBag() {}
 	public:
+		inline sfInstGenOwner &GetInstGenOwner() { return *_pInstGenOwner; }
+		inline sfInstModOwner &GetInstModOwner() { return *_pInstModOwner; }
 		void Print() const;
 	};
 	typedef ListTemplate<sfInstBag> sfInstBagList;
-	typedef OwnerTemplate<sfInstBag, sfInstBagList> sfInstBagOwner;
+	class sfInstBagOwner : public OwnerTemplate<sfInstBag, sfInstBagList> {
+	};
 	// 7.8 The IMOD Sub-chunk
 	class sfInstMod {
 	public:
@@ -386,7 +412,8 @@ public:
 		void Print() const;
 	};
 	typedef ListTemplate<sfInstMod> sfInstModList;
-	typedef OwnerTemplate<sfInstMod, sfInstModList> sfInstModOwner;
+	class sfInstModOwner : public OwnerTemplate<sfInstMod, sfInstModList> {
+	};
 	// 7.9 The IGEN Sub-chunk
 	class sfInstGen {
 	public:
@@ -410,7 +437,8 @@ public:
 		void Print() const;
 	};
 	typedef ListTemplate<sfInstGen> sfInstGenList;
-	typedef OwnerTemplate<sfInstGen, sfInstGenList> sfInstGenOwner;
+	class sfInstGenOwner : public OwnerTemplate<sfInstGen, sfInstGenList> {
+	};
 	// 7.10 The SHDR Sub-chunk
 	class sfSample {
 	public:
@@ -450,7 +478,8 @@ public:
 		void Print() const;
 	};
 	typedef ListTemplate<sfSample> sfSampleList;
-	typedef OwnerTemplate<sfSample, sfSampleList> sfSampleOwner;
+	class sfSampleOwner : public OwnerTemplate<sfSample, sfSampleList> {
+	};
 public:
 	struct INFO_t {
 		AutoPtr<sfVersionTag>	p_ifil;	// mandatory

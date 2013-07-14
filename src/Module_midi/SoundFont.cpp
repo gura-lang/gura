@@ -408,7 +408,8 @@ SoundFont::sfPresetHeader::sfPresetHeader() : _cntRef(1),
 		_wPresetBagNdx(0),
 		_dwLibrary(0),
 		_dwGenre(0),
-		_dwMorphology(0)
+		_dwMorphology(0),
+		_pPresetBagOwner(new sfPresetBagOwner())
 {
 	::memset(_achPresetName, 0x00, sizeof(_achPresetName));
 }
@@ -419,7 +420,8 @@ SoundFont::sfPresetHeader::sfPresetHeader(const RawData &rawData) : _cntRef(1),
 		_wPresetBagNdx(Gura_UnpackUShort(rawData.wPresetBagNdx)),
 		_dwLibrary(Gura_UnpackULong(rawData.dwLibrary)),
 		_dwGenre(Gura_UnpackULong(rawData.dwGenre)),
-		_dwMorphology(Gura_UnpackULong(rawData.dwMorphology))
+		_dwMorphology(Gura_UnpackULong(rawData.dwMorphology)),
+		_pPresetBagOwner(new sfPresetBagOwner())
 {
 	::memcpy(_achPresetName, rawData.achPresetName, sizeof(_achPresetName));
 }
@@ -436,24 +438,23 @@ void SoundFont::sfPresetHeader::Print() const
 		_dwMorphology);
 }
 
-SoundFont::sfPresetBag *SoundFont::sfPresetHeader::GetPresetBag(SoundFont &soundFont) const
-{
-	return soundFont.GetPdta().pbags.Get(_wPresetBagNdx);
-}
-
 //-----------------------------------------------------------------------------
 // SoundFont::sfPresetBag
 // 7.3 The PBAG Sub-chunk
 //-----------------------------------------------------------------------------
 SoundFont::sfPresetBag::sfPresetBag() : _cntRef(1),
 		_wGenNdx(0),
-		_wModNdx(0)
+		_wModNdx(0),
+		_pGenOwner(new sfGenOwner()),
+		_pModOwner(new sfModOwner())
 {
 }
 
 SoundFont::sfPresetBag::sfPresetBag(const RawData &rawData) : _cntRef(1),
 		_wGenNdx(Gura_UnpackUShort(rawData.wGenNdx)),
-		_wModNdx(Gura_UnpackUShort(rawData.wModNdx))
+		_wModNdx(Gura_UnpackUShort(rawData.wModNdx)),
+		_pGenOwner(new sfGenOwner()),
+		_pModOwner(new sfModOwner())
 {
 }
 
@@ -462,16 +463,6 @@ void SoundFont::sfPresetBag::Print() const
 	::printf("wGenNdx=%d wModNdx=%d\n",
 		_wGenNdx,
 		_wModNdx);
-}
-
-SoundFont::sfGen *SoundFont::sfPresetBag::GetGen(SoundFont &soundFont) const
-{
-	return soundFont.GetPdta().pgens.Get(_wGenNdx);
-}
-
-SoundFont::sfMod *SoundFont::sfPresetBag::GetMod(SoundFont &soundFont) const
-{
-	return soundFont.GetPdta().pmods.Get(_wModNdx);
 }
 
 //-----------------------------------------------------------------------------
@@ -534,13 +525,15 @@ void SoundFont::sfGen::Print() const
 // 7.6 The INST Sub-chunk
 //-----------------------------------------------------------------------------
 SoundFont::sfInst::sfInst() : _cntRef(1),
-		_wInstBagNdx(0)
+		_wInstBagNdx(0),
+		_pInstBagOwner(new sfInstBagOwner())
 {
 	::memset(_achInstName, 0x00, sizeof(_achInstName));
 }
 
 SoundFont::sfInst::sfInst(const RawData &rawData) : _cntRef(1),
-		_wInstBagNdx(Gura_UnpackUShort(rawData.wInstBagNdx))
+		_wInstBagNdx(Gura_UnpackUShort(rawData.wInstBagNdx)),
+		_pInstBagOwner(new sfInstBagOwner())
 {
 	::memcpy(_achInstName, rawData.achInstName, sizeof(_achInstName));
 }
@@ -558,13 +551,17 @@ void SoundFont::sfInst::Print() const
 //-----------------------------------------------------------------------------
 SoundFont::sfInstBag::sfInstBag() : _cntRef(1),
 		_wInstGenNdx(0),
-		_wInstModNdx(0)
+		_wInstModNdx(0),
+		_pInstGenOwner(new sfInstGenOwner()),
+		_pInstModOwner(new sfInstModOwner())
 {
 }
 
 SoundFont::sfInstBag::sfInstBag(const RawData &rawData) : _cntRef(1),
 		_wInstGenNdx(Gura_UnpackUShort(rawData.wInstGenNdx)),
-		_wInstModNdx(Gura_UnpackUShort(rawData.wInstModNdx))
+		_wInstModNdx(Gura_UnpackUShort(rawData.wInstModNdx)),
+		_pInstGenOwner(new sfInstGenOwner()),
+		_pInstModOwner(new sfInstModOwner())
 {
 }
 
