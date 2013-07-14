@@ -90,13 +90,13 @@ public:
 		GEN_modEnvToFilterFc			= 11,
 		GEN_endAddrsCoarseOffset		= 12,
 		GEN_modLfoToVolume				= 13,
-		//GEN_unnsed1					= 14,
+		GEN_unnsed1						= 14,
 		GEN_chorusEffectsSend			= 15,
 		GEN_reverbEffectsSend			= 16,
 		GEN_pan							= 17,
-		//GEN_unused2					= 18,
-		//GEN_unused3					= 19,
-		//GEN_unused4					= 20,
+		GEN_unused2						= 18,
+		GEN_unused3						= 19,
+		GEN_unused4						= 20,
 		GEN_delayModLFO					= 21,
 		GEN_freqModLFO					= 22,
 		GEN_delayVibLFO					= 23,
@@ -104,7 +104,7 @@ public:
 		GEN_delayModEnv					= 25,
 		GEN_attackModEnv				= 26,
 		GEN_holdModEnv					= 27,
-		GEN_delayModENv					= 28,
+		GEN_decayModEnv					= 28,
 		GEN_sustainModEnv				= 29,
 		GEN_releaseModEnv				= 30,
 		GEN_keynumToModEnvHold			= 31,
@@ -112,31 +112,99 @@ public:
 		GEN_delayVolEnv					= 33,
 		GEN_attackVolEnv				= 34,
 		GEN_holdVolEnv					= 35,
-		GEN_decayVolENv					= 36,
+		GEN_decayVolEnv					= 36,
 		GEN_sustainVolEnv				= 37,
 		GEN_releaseVolEnv				= 38,
 		GEN_keynumToVolEnvHold			= 39,
 		GEN_keynumToVolEnvDecay			= 40,
 		GEN_instrument					= 41,
-		//GEN_reserved1					= 42,
+		GEN_reserved1					= 42,
 		GEN_keyRange					= 43,
 		GEN_velRange					= 44,
 		GEN_startloopAddrsCoarseOffset	= 45,
 		GEN_keynum						= 46,
 		GEN_velocity					= 47,
 		GEN_initialAttenuation			= 48,
-		//GEN_reserved2					= 49,
+		GEN_reserved2					= 49,
 		GEN_endloopAddrsCoarseOffset	= 50,
 		GEN_coarseTune					= 51,
 		GEN_fineTune					= 52,
 		GEN_sampleID					= 53,
 		GEN_sampleModes					= 54,
-		//GEN_reserved3					= 55,
+		GEN_reserved3					= 55,
 		GEN_scaleTuning					= 56,
 		GEN_exclusiveClass				= 57,
 		GEN_overridingRootKey			= 58,
-		//GEN_unused5					= 59,
+		GEN_unused5						= 59,
 		GEN_endOper						= 60,
+	};
+	struct rangesType {
+		unsigned char byLo;
+		unsigned char byHi;
+	};
+	struct Generator {
+		UShort startAddrsOffset;			// 0
+		UShort endAddrsOffset;				// 1
+		UShort startloopAddrsOffset;		// 2
+		UShort endloopAddrsOffset;			// 3
+		UShort startAddrsCoarseOffset;		// 4
+		Short modLfoToPitch;				// 5
+		Short vibLfoToPitch;				// 6
+		Short modEnvToPitch;				// 7
+		Short initialFilterFc;				// 8
+		Short initiflFilterQ;				// 9
+		Short modLfoToFilterFc;				// 10
+		Short modEnvToFilterFc;				// 11
+		UShort endAddrsCoarseOffset;		// 12
+		Short modLfoToVolume;				// 13
+		UShort unnsed1;						// 14
+		UShort chorusEffectsSend;			// 15
+		UShort reverbEffectsSend;			// 16
+		Short pan;							// 17
+		UShort unused2;						// 18
+		UShort unused3;						// 19
+		UShort unused4;						// 20
+		Short delayModLFO;					// 21
+		Short freqModLFO;					// 22
+		Short delayVibLFO;					// 23
+		Short freqVibLFO;					// 24
+		Short delayModEnv;					// 25
+		Short attackModEnv;					// 26
+		Short holdModEnv;					// 27
+		Short decayModEnv;					// 28
+		UShort sustainModEnv;				// 29
+		Short releaseModEnv;				// 30
+		Short keynumToModEnvHold;			// 31
+		Short keynumToModEnvDecay;			// 32
+		Short delayVolEnv;					// 33
+		Short attackVolEnv;					// 34
+		Short holdVolEnv;					// 35
+		Short decayVolEnv;					// 36
+		UShort sustainVolEnv;				// 37
+		Short releaseVolEnv;				// 38
+		Short keynumToVolEnvHold;			// 39
+		Short keynumToVolEnvDecay;			// 40
+		UShort instrument;					// 41
+		UShort reserved1;					// 42
+		rangesType keyRange;				// 43
+		rangesType velRange;				// 44
+		UShort startloopAddrsCoarseOffset;	// 45
+		UShort keynum;						// 46
+		UShort velocity;					// 47
+		UShort initialAttenuation;			// 48
+		UShort reserved2;					// 49
+		UShort endloopAddrsCoarseOffset;	// 50
+		Short coarseTune;					// 51
+		Short fineTune;						// 52
+		UShort sampleID;					// 53
+		UShort sampleModes;					// 54
+		UShort reserved3;					// 55
+		UShort scaleTuning;					// 56
+		UShort exclusiveClass;				// 57
+		UShort overridingRootKey;			// 58
+		UShort unused5;						// 59
+		UShort endOper;						// 60
+		void Reset();
 	};
 	typedef unsigned short SFModulator;
 	enum SFTransform {
@@ -171,6 +239,8 @@ public:
 	class sfInstGenOwner;
 	class sfSample;
 	class sfSampleOwner;
+	struct INFO_t;
+	struct pdta_t;
 	// 5.1 The ifil Sub-chunk
 	// 5.5 The iver Sub-chunk
 	class sfVersionTag {
@@ -229,8 +299,7 @@ public:
 		inline ~sfPresetHeader() {}
 	public:
 		void Print(int indentLevel) const;
-		bool SetupReference(Signal sig, sfPresetHeader *pPresetHeaderNext,
-												const sfPresetBagOwner &pbags);
+		bool SetupReference(Signal sig, sfPresetHeader *pPresetHeaderNext, const pdta_t &pdta);
 		inline sfPresetBagOwner &GetPresetBagOwner() { return *_pPresetBagOwner; }
 		inline const sfPresetBagOwner &GetPresetBagOwner() const { return *_pPresetBagOwner; }
 	};
@@ -251,6 +320,7 @@ public:
 		unsigned short _wModNdx;
 		std::auto_ptr<sfGenOwner> _pGenOwner;
 		std::auto_ptr<sfModOwner> _pModOwner;
+		AutoPtr<sfInst> _pInst; // valid only when instrument generator exists in sfGenOwner
 	public:
 		Gura_DeclareReferenceAccessor(sfPresetBag);
 	public:
@@ -260,12 +330,13 @@ public:
 		inline ~sfPresetBag() {}
 	public:
 		void Print(int indentLevel) const;
-		bool SetupReference(Signal sig, sfPresetBag *pPresetBagNext,
-							const sfModOwner &pmods, const sfGenOwner &pgens);
+		bool SetupReference(Signal sig, sfPresetBag *pPresetBagNext, const pdta_t &pdta);
 		inline sfGenOwner &GetGenOwner() { return *_pGenOwner; }
 		inline sfModOwner &GetModOwner() { return *_pModOwner; }
 		inline const sfGenOwner &GetGenOwner() const { return *_pGenOwner; }
 		inline const sfModOwner &GetModOwner() const { return *_pModOwner; }
+		inline sfInst *GetInst() { return _pInst.get(); }
+		inline const sfInst *GetInst() const { return _pInst.get(); }
 	};
 	typedef ListTemplate<sfPresetBag> sfPresetBagList;
 	class sfPresetBagOwner : public OwnerTemplate<sfPresetBag, sfPresetBagList> {
@@ -322,6 +393,8 @@ public:
 		inline ~sfGen() {}
 	public:
 		void Print(int indentLevel) const;
+		inline SFGenerator GetGenOper() const { return _sfGenOper; }
+		inline unsigned short GetGenAmount() const { return _genAmount; }
 	};
 	typedef ListTemplate<sfGen> sfGenList;
 	class sfGenOwner : public OwnerTemplate<sfGen, sfGenList> {
@@ -350,8 +423,7 @@ public:
 		inline sfInstBagOwner &GetInstBagOwner() { return *_pInstBagOwner; }
 		inline const sfInstBagOwner &GetInstBagOwner() const { return *_pInstBagOwner; }
 		void Print(int indentLevel) const;
-		bool SetupReference(Signal sig, sfInst *pInstNext,
-										const sfInstBagOwner &ibags);
+		bool SetupReference(Signal sig, sfInst *pInstNext, const pdta_t &pdta);
 	};
 	typedef ListTemplate<sfInst> sfInstList;
 	class sfInstOwner : public OwnerTemplate<sfInst, sfInstList> {
@@ -370,6 +442,7 @@ public:
 		unsigned short _wInstModNdx;
 		std::auto_ptr<sfInstGenOwner> _pInstGenOwner;
 		std::auto_ptr<sfInstModOwner> _pInstModOwner;
+		AutoPtr<sfSample> _pSample; // valid only when sampleID generator exists in sfInstGenOwner
 	public:
 		Gura_DeclareReferenceAccessor(sfInstBag);
 	public:
@@ -382,9 +455,10 @@ public:
 		inline sfInstModOwner &GetInstModOwner() { return *_pInstModOwner; }
 		inline const sfInstGenOwner &GetInstGenOwner() const { return *_pInstGenOwner; }
 		inline const sfInstModOwner &GetInstModOwner() const { return *_pInstModOwner; }
+		inline sfSample *GetSample() { return _pSample.get(); }
+		inline const sfSample *GetSample() const { return _pSample.get(); }
 		void Print(int indentLevel) const;
-		bool SetupReference(Signal sig, sfInstBag *pInstBagNext,
-						const sfInstModOwner &imods, const sfInstGenOwner &igens);
+		bool SetupReference(Signal sig, sfInstBag *pInstBagNext, const pdta_t &pdta);
 	};
 	typedef ListTemplate<sfInstBag> sfInstBagList;
 	class sfInstBagOwner : public OwnerTemplate<sfInstBag, sfInstBagList> {
@@ -441,6 +515,8 @@ public:
 		inline ~sfInstGen() {}
 	public:
 		void Print(int indentLevel) const;
+		inline SFGenerator GetGenOper() const { return _sfGenOper; }
+		inline unsigned short GetGenAmount() const { return _genAmount; }
 	};
 	typedef ListTemplate<sfInstGen> sfInstGenList;
 	class sfInstGenOwner : public OwnerTemplate<sfInstGen, sfInstGenList> {

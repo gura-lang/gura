@@ -124,29 +124,33 @@ bool SoundFont::Read(Environment &env, Signal sig, Stream &stream)
 		sig.SetError(ERR_FormatError, "necessary chunk doesn't exist");
 		return false;
 	}
+	// 7.2 The PHDR Sub-chunk
 	foreach (sfPresetHeaderOwner, ppPresetHeader, _pdta.phdrs) {
 		if (ppPresetHeader + 1 == _pdta.phdrs.end()) break;
 		sfPresetHeader *pPresetHeader = *ppPresetHeader;
 		sfPresetHeader *pPresetHeaderNext = *(ppPresetHeader + 1);
-		if (!pPresetHeader->SetupReference(sig, pPresetHeaderNext, _pdta.pbags)) return false;
+		if (!pPresetHeader->SetupReference(sig, pPresetHeaderNext, _pdta)) return false;
 	}
+	// 7.3 The PBAG Sub-chunk
 	foreach (sfPresetBagOwner, ppPresetBag, _pdta.pbags) {
 		if (ppPresetBag + 1 == _pdta.pbags.end()) break;
 		sfPresetBag *pPresetBag = *ppPresetBag;
 		sfPresetBag *pPresetBagNext = *(ppPresetBag + 1);
-		if (!pPresetBag->SetupReference(sig, pPresetBagNext, _pdta.pmods, _pdta.pgens)) return false;
+		if (!pPresetBag->SetupReference(sig, pPresetBagNext, _pdta)) return false;
 	}
+	// 7.6 The INST Sub-chunk
 	foreach (sfInstOwner, ppInst, _pdta.insts) {
 		if (ppInst + 1 == _pdta.insts.end()) break;
 		sfInst *pInst = *ppInst;
 		sfInst *pInstNext = *(ppInst + 1);
-		if (!pInst->SetupReference(sig, pInstNext, _pdta.ibags)) return false;
+		if (!pInst->SetupReference(sig, pInstNext, _pdta)) return false;
 	}
+	// 7.7 The IBAG Sub-chunk
 	foreach (sfInstBagOwner, ppInstBag, _pdta.ibags) {
 		if (ppInstBag + 1 == _pdta.ibags.end()) break;
 		sfInstBag *pInstBag = *ppInstBag;
 		sfInstBag *pInstBagNext = *(ppInstBag + 1);
-		if (!pInstBag->SetupReference(sig, pInstBagNext, _pdta.imods, _pdta.igens)) return false;
+		if (!pInstBag->SetupReference(sig, pInstBagNext, _pdta)) return false;
 	}
 	return true;
 }
@@ -172,10 +176,6 @@ void SoundFont::Print() const
 	if (_INFO.p_ISFT.get() != NULL) ::printf("ISFT \"%s\"\n", _INFO.p_ISFT->c_str());
 	::printf("phdr[%d] : sfPresetHeader\n", _pdta.phdrs.size());
 	_pdta.phdrs.Print(0);
-	::printf("inst[%d] : sfInst\n", _pdta.insts.size());
-	_pdta.insts.Print(0);
-	::printf("sndr[%d] : sfSample\n", _pdta.shdrs.size());
-	_pdta.shdrs.Print(0);
 }
 
 const char *SoundFont::GeneratorToName(SFGenerator generator)
@@ -416,6 +416,76 @@ bool SoundFont::ReadString(Environment &env, Signal sig, Stream &stream,
 }
 
 //-----------------------------------------------------------------------------
+// SoundFont::Generator
+//-----------------------------------------------------------------------------
+void SoundFont::Generator::Reset()
+{
+	startAddrsOffset			= 0;		// 0
+	endAddrsOffset				= 0;		// 1
+	startloopAddrsOffset		= 0;		// 2
+	endloopAddrsOffset			= 0;		// 3
+	startAddrsCoarseOffset		= 0;		// 4
+	modLfoToPitch				= 0;		// 5
+	vibLfoToPitch				= 0;		// 6
+	modEnvToPitch				= 0;		// 7
+	initialFilterFc				= 13500;	// 8
+	initiflFilterQ				= 0;		// 9
+	modLfoToFilterFc			= 0;		// 10
+	modEnvToFilterFc			= 0;		// 11
+	endAddrsCoarseOffset		= 0;		// 12
+	modLfoToVolume				= 0;		// 13
+	unnsed1						= 0;		// 14
+	chorusEffectsSend			= 0;		// 15
+	reverbEffectsSend			= 0;		// 16
+	pan							= 0;		// 17
+	unused2						= 0;		// 18
+	unused3						= 0;		// 19
+	unused4						= 0;		// 20
+	delayModLFO					= -12000;	// 21
+	freqModLFO					= 0;		// 22
+	delayVibLFO					= -12000;	// 23
+	freqVibLFO					= 0;		// 24
+	delayModEnv					= -12000;	// 25
+	attackModEnv				= -12000;	// 26
+	holdModEnv					= -12000;	// 27
+	decayModEnv					= -12000;	// 28
+	sustainModEnv				= 0;		// 29
+	releaseModEnv				= -12000;	// 30
+	keynumToModEnvHold			= 0;		// 31
+	keynumToModEnvDecay			= 0;		// 32
+	delayVolEnv					= -12000;	// 33
+	attackVolEnv				= -12000;	// 34
+	holdVolEnv					= -12000;	// 35
+	decayVolEnv					= -12000;	// 36
+	sustainVolEnv				= 0;		// 37
+	releaseVolEnv				= -12000;	// 38
+	keynumToVolEnvHold			= 0;		// 39
+	keynumToVolEnvDecay			= 0;		// 40
+	instrument					= 0;		// 41
+	reserved1					= 0;		// 42
+	keyRange.byLo				= 0;		// 43
+	keyRange.byHi				= 127;
+	velRange.byLo				= 0;		// 44
+	velRange.byHi				= 127;
+	startloopAddrsCoarseOffset	= 0;		// 45
+	keynum						= -1;		// 46
+	velocity					= -1;		// 47
+	initialAttenuation			= 0;		// 48
+	reserved2					= 0;		// 49
+	endloopAddrsCoarseOffset	= 0;		// 50
+	coarseTune					= 0;		// 51
+	fineTune					= 0;		// 52
+	sampleID					= 0;		// 53
+	sampleModes					= 0;		// 54
+	reserved3					= 0;		// 55
+	scaleTuning					= 100;		// 56
+	exclusiveClass				= 0;		// 57
+	overridingRootKey			= -1;		// 58
+	unused5						= 0;		// 59
+	endOper						= 0;		// 60
+}
+
+//-----------------------------------------------------------------------------
 // SoundFont::ChunkHdr
 //-----------------------------------------------------------------------------
 void SoundFont::ChunkHdr::Print(int indentLevel) const
@@ -497,17 +567,17 @@ void SoundFont::sfPresetHeader::Print(int indentLevel) const
 }
 
 bool SoundFont::sfPresetHeader::SetupReference(Signal sig,
-				sfPresetHeader *pPresetHeaderNext, const sfPresetBagOwner &pbags)
+							sfPresetHeader *pPresetHeaderNext, const pdta_t &pdta)
 {
 	if (_wPresetBagNdx > pPresetHeaderNext->_wPresetBagNdx ||
-			static_cast<size_t>(_wPresetBagNdx) > pbags.size() ||
-			static_cast<size_t>(pPresetHeaderNext->_wPresetBagNdx) > pbags.size()) {
+			static_cast<size_t>(_wPresetBagNdx) > pdta.pbags.size() ||
+			static_cast<size_t>(pPresetHeaderNext->_wPresetBagNdx) > pdta.pbags.size()) {
 		sig.SetError(ERR_FormatError, "invalid wPresetBagNdx value in sfPresetHeader");
 		return false;
 	}
-	sfPresetBagOwner::const_iterator ppPresetBag = pbags.begin() + _wPresetBagNdx;
+	sfPresetBagOwner::const_iterator ppPresetBag = pdta.pbags.begin() + _wPresetBagNdx;
 	sfPresetBagOwner::const_iterator ppPresetBagEnd =
-							pbags.begin() + pPresetHeaderNext->_wPresetBagNdx;
+							pdta.pbags.begin() + pPresetHeaderNext->_wPresetBagNdx;
 	for ( ; ppPresetBag != ppPresetBagEnd; ppPresetBag++) {
 		const sfPresetBag *pPresetBag = *ppPresetBag;
 		GetPresetBagOwner().push_back(sfPresetBag::Reference(pPresetBag));
@@ -543,35 +613,44 @@ void SoundFont::sfPresetBag::Print(int indentLevel) const
 		_wModNdx);
 	GetGenOwner().Print(indentLevel + 1);
 	GetModOwner().Print(indentLevel + 1);
+	if (GetInst() != NULL) GetInst()->Print(indentLevel + 1);
 }
 
-bool SoundFont::sfPresetBag::SetupReference(Signal sig, sfPresetBag *pPresetBagNext,
-							const sfModOwner &pmods, const sfGenOwner &pgens)
+bool SoundFont::sfPresetBag::SetupReference(Signal sig, sfPresetBag *pPresetBagNext, const pdta_t &pdta)
 {
 	if (_wModNdx > pPresetBagNext->_wModNdx ||
-			static_cast<size_t>(_wModNdx) > pmods.size() ||
-			static_cast<size_t>(pPresetBagNext->_wModNdx) > pmods.size()) {
+			static_cast<size_t>(_wModNdx) > pdta.pmods.size() ||
+			static_cast<size_t>(pPresetBagNext->_wModNdx) > pdta.pmods.size()) {
 		sig.SetError(ERR_FormatError, "invalid wModNdx value in sfPresetBag");
 		return false;
 	}
-	sfModOwner::const_iterator ppMod = pmods.begin() + _wModNdx;
+	sfModOwner::const_iterator ppMod = pdta.pmods.begin() + _wModNdx;
 	sfModOwner::const_iterator ppModEnd =
-							pmods.begin() + pPresetBagNext->_wModNdx;
+							pdta.pmods.begin() + pPresetBagNext->_wModNdx;
 	for ( ; ppMod != ppModEnd; ppMod++) {
 		const sfMod *pMod = *ppMod;
 		GetModOwner().push_back(sfMod::Reference(pMod));
 	}
 	if (_wGenNdx > pPresetBagNext->_wGenNdx ||
-			static_cast<size_t>(_wGenNdx) > pgens.size() ||
-			static_cast<size_t>(pPresetBagNext->_wGenNdx) > pgens.size()) {
+			static_cast<size_t>(_wGenNdx) > pdta.pgens.size() ||
+			static_cast<size_t>(pPresetBagNext->_wGenNdx) > pdta.pgens.size()) {
 		sig.SetError(ERR_FormatError, "invalid wGenNdx value in sfPresetBag");
 		return false;
 	}
-	sfGenOwner::const_iterator ppGen = pgens.begin() + _wGenNdx;
+	sfGenOwner::const_iterator ppGen = pdta.pgens.begin() + _wGenNdx;
 	sfGenOwner::const_iterator ppGenEnd =
-							pgens.begin() + pPresetBagNext->_wGenNdx;
+							pdta.pgens.begin() + pPresetBagNext->_wGenNdx;
 	for ( ; ppGen != ppGenEnd; ppGen++) {
 		const sfGen *pGen = *ppGen;
+		if (pGen->GetGenOper() == GEN_instrument) {
+			unsigned short wInstNdx = pGen->GetGenAmount();
+			if (static_cast<size_t>(wInstNdx) >= pdta.insts.size()) {
+				sig.SetError(ERR_FormatError, "invalid index value in sfGen instrument");
+				return false;
+			}
+			const sfInst *pInst = pdta.insts[wInstNdx];
+			_pInst.reset(sfInst::Reference(pInst));
+		}
 		GetGenOwner().push_back(sfGen::Reference(pGen));
 	}
 	return true;
@@ -661,18 +740,17 @@ void SoundFont::sfInst::Print(int indentLevel) const
 	GetInstBagOwner().Print(indentLevel + 1);
 }
 
-bool SoundFont::sfInst::SetupReference(Signal sig, sfInst *pInstNext,
-										const sfInstBagOwner &ibags)
+bool SoundFont::sfInst::SetupReference(Signal sig, sfInst *pInstNext, const pdta_t &pdta)
 {
 	if (_wInstBagNdx > pInstNext->_wInstBagNdx ||
-			static_cast<size_t>(_wInstBagNdx) > ibags.size() ||
-			static_cast<size_t>(pInstNext->_wInstBagNdx) > ibags.size()) {
+			static_cast<size_t>(_wInstBagNdx) > pdta.ibags.size() ||
+			static_cast<size_t>(pInstNext->_wInstBagNdx) > pdta.ibags.size()) {
 		sig.SetError(ERR_FormatError, "invalid wInstBagNdx value in sfInst");
 		return false;
 	}
-	sfInstBagOwner::const_iterator ppInstBag = ibags.begin() + _wInstBagNdx;
+	sfInstBagOwner::const_iterator ppInstBag = pdta.ibags.begin() + _wInstBagNdx;
 	sfInstBagOwner::const_iterator ppInstBagEnd =
-							ibags.begin() + pInstNext->_wInstBagNdx;
+							pdta.ibags.begin() + pInstNext->_wInstBagNdx;
 	for ( ; ppInstBag != ppInstBagEnd; ppInstBag++) {
 		const sfInstBag *pInstBag = *ppInstBag;
 		GetInstBagOwner().push_back(sfInstBag::Reference(pInstBag));
@@ -708,36 +786,45 @@ void SoundFont::sfInstBag::Print(int indentLevel) const
 		_wInstModNdx);
 	GetInstGenOwner().Print(indentLevel + 1);
 	GetInstModOwner().Print(indentLevel + 1);
+	if (GetSample() != NULL) GetSample()->Print(indentLevel + 1);
 }
 
-bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext,
-						const sfInstModOwner &imods, const sfInstGenOwner &igens)
+bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext, const pdta_t &pdta)
 {
 	if (_wInstModNdx > pInstBagNext->_wInstModNdx ||
-			static_cast<size_t>(_wInstModNdx) > imods.size() ||
-			static_cast<size_t>(pInstBagNext->_wInstModNdx) > imods.size()) {
+			static_cast<size_t>(_wInstModNdx) > pdta.imods.size() ||
+			static_cast<size_t>(pInstBagNext->_wInstModNdx) > pdta.imods.size()) {
 		sig.SetError(ERR_FormatError, "invalid wInstModNdx value in sfInstBag");
 		return false;
 	}
-	sfInstModOwner::const_iterator ppInstMod = imods.begin() + _wInstModNdx;
+	sfInstModOwner::const_iterator ppInstMod = pdta.imods.begin() + _wInstModNdx;
 	sfInstModOwner::const_iterator ppInstModEnd =
-							imods.begin() + pInstBagNext->_wInstModNdx;
+							pdta.imods.begin() + pInstBagNext->_wInstModNdx;
 	for ( ; ppInstMod != ppInstModEnd; ppInstMod++) {
 		const sfInstMod *pInstMod = *ppInstMod;
 		GetInstModOwner().push_back(sfInstMod::Reference(pInstMod));
 	}
 	if (_wInstGenNdx > pInstBagNext->_wInstGenNdx ||
-			static_cast<size_t>(_wInstGenNdx) > igens.size() ||
-			static_cast<size_t>(pInstBagNext->_wInstGenNdx) > igens.size()) {
+			static_cast<size_t>(_wInstGenNdx) > pdta.igens.size() ||
+			static_cast<size_t>(pInstBagNext->_wInstGenNdx) > pdta.igens.size()) {
 		sig.SetError(ERR_FormatError, "invalid wInstGenNdx value in sfInstBag");
 		return false;
 	}
-	sfInstGenOwner::const_iterator ppInstGen = igens.begin() + _wInstGenNdx;
+	sfInstGenOwner::const_iterator ppInstGen = pdta.igens.begin() + _wInstGenNdx;
 	sfInstGenOwner::const_iterator ppInstGenEnd =
-							igens.begin() + pInstBagNext->_wInstGenNdx;
+							pdta.igens.begin() + pInstBagNext->_wInstGenNdx;
 	for ( ; ppInstGen != ppInstGenEnd; ppInstGen++) {
 		const sfInstGen *pInstGen = *ppInstGen;
 		GetInstGenOwner().push_back(sfInstGen::Reference(pInstGen));
+		if (pInstGen->GetGenOper() == GEN_sampleID) {
+			unsigned short wSampleNdx = pInstGen->GetGenAmount();
+			if (static_cast<size_t>(wSampleNdx) >= pdta.shdrs.size()) {
+				sig.SetError(ERR_FormatError, "invalid index value in sfInstGen sampleID");
+				return false;
+			}
+			const sfSample *pSample = pdta.shdrs[wSampleNdx];
+			_pSample.reset(sfSample::Reference(pSample));
+		}
 	}
 	return true;
 }
