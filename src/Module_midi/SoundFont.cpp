@@ -69,6 +69,30 @@ const char *SoundFont::_generatorNames[] = {
 	"endOper",						// 60
 };
 
+void SoundFont::Clear()
+{
+	_INFO.p_ifil.reset(NULL);	// mandatory
+	_INFO.p_isng.reset(NULL);	// mandatory
+	_INFO.p_INAM.reset(NULL);	// mandatory
+	_INFO.p_irom.reset(NULL);	// optional
+	_INFO.p_iver.reset(NULL);	// optional
+	_INFO.p_ICRD.reset(NULL);	// optional
+	_INFO.p_IENG.reset(NULL);	// optional
+	_INFO.p_IPRD.reset(NULL);	// optional
+	_INFO.p_ICOP.reset(NULL);	// optional
+	_INFO.p_ICMT.reset(NULL);	// optional
+	_INFO.p_ISFT.reset(NULL);	// optional
+	_pdta.phdrs.Clear();
+	_pdta.pbags.Clear();
+	_pdta.pmods.Clear();
+	_pdta.pgens.Clear();
+	_pdta.insts.Clear();
+	_pdta.ibags.Clear();
+	_pdta.imods.Clear();
+	_pdta.igens.Clear();
+	_pdta.shdrs.Clear();
+}
+
 bool SoundFont::Read(Environment &env, Signal sig, Stream &stream)
 {
 	ChunkHdr chunkHdr;
@@ -79,21 +103,50 @@ bool SoundFont::Read(Environment &env, Signal sig, Stream &stream)
 	}
 	unsigned long ckID = Gura_UnpackULong(chunkHdr.ckID);
 	unsigned long ckSize = Gura_UnpackULong(chunkHdr.ckSize);
-	if (ckID == CKID_RIFF) {
-		char formHdr[4];
-		size_t bytesRead = stream.Read(sig, formHdr, 4);
-		if (bytesRead != 4) {
-			sig.SetError(ERR_FormatError, "invalid SF2 format");
-			return false;
-		}
-		if (::memcmp(formHdr, "sfbk", 4) != 0) {
-			sig.SetError(ERR_FormatError, "invalid SF2 format");
-			return false;
-		}
-		//::printf("RIFF('%c%c%c%c') %dbytes\n",
-		//			formHdr[0], formHdr[1], formHdr[2], formHdr[3], ckSize);
-		ckSize -= 4;
-		if (!ReadSubChunk(env, sig, stream, static_cast<size_t>(ckSize))) return false;
+	if (ckID != CKID_RIFF) {
+		sig.SetError(ERR_FormatError, "can't find RIFF chunk");
+		return false;
+	}
+	char formHdr[4];
+	bytesRead = stream.Read(sig, formHdr, 4);
+	if (bytesRead != 4) {
+		sig.SetError(ERR_FormatError, "invalid SF2 format");
+		return false;
+	}
+	if (::memcmp(formHdr, "sfbk", 4) != 0) {
+		sig.SetError(ERR_FormatError, "invalid SF2 format");
+		return false;
+	}
+	ckSize -= 4;
+	if (!ReadSubChunk(env, sig, stream, static_cast<size_t>(ckSize))) return false;
+	if (_INFO.p_ifil.get() == NULL ||
+				_INFO.p_isng.get() == NULL || _INFO.p_INAM.get() == NULL) {
+		sig.SetError(ERR_FormatError, "necessary chunk doesn't exist");
+		return false;
+	}
+	foreach (sfPresetHeaderOwner, ppPresetHeader, _pdta.phdrs) {
+		if (ppPresetHeader + 1 == _pdta.phdrs.end()) break;
+		sfPresetHeader *pPresetHeader = *ppPresetHeader;
+		sfPresetHeader *pPresetHeaderNext = *(ppPresetHeader + 1);
+		if (!pPresetHeader->SetupReference(sig, pPresetHeaderNext, _pdta.pbags)) return false;
+	}
+	foreach (sfPresetBagOwner, ppPresetBag, _pdta.pbags) {
+		if (ppPresetBag + 1 == _pdta.pbags.end()) break;
+		sfPresetBag *pPresetBag = *ppPresetBag;
+		sfPresetBag *pPresetBagNext = *(ppPresetBag + 1);
+		if (!pPresetBag->SetupReference(sig, pPresetBagNext, _pdta.pmods, _pdta.pgens)) return false;
+	}
+	foreach (sfInstOwner, ppInst, _pdta.insts) {
+		if (ppInst + 1 == _pdta.insts.end()) break;
+		sfInst *pInst = *ppInst;
+		sfInst *pInstNext = *(ppInst + 1);
+		if (!pInst->SetupReference(sig, pInstNext, _pdta.ibags)) return false;
+	}
+	foreach (sfInstBagOwner, ppInstBag, _pdta.ibags) {
+		if (ppInstBag + 1 == _pdta.ibags.end()) break;
+		sfInstBag *pInstBag = *ppInstBag;
+		sfInstBag *pInstBagNext = *(ppInstBag + 1);
+		if (!pInstBag->SetupReference(sig, pInstBagNext, _pdta.imods, _pdta.igens)) return false;
 	}
 	return true;
 }
@@ -303,10 +356,10 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 			break;
 		}
 		case CKID_imod: {	// 7.8
-			sfMod::RawData rawData;
+			sfInstMod::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
 				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
-				_pdta.imods.push_back(new sfMod(rawData));
+				_pdta.imods.push_back(new sfInstMod(rawData));
 				ckSizeRest -= rawData.Size;
 			}
 			break;
@@ -438,6 +491,25 @@ void SoundFont::sfPresetHeader::Print() const
 		_dwMorphology);
 }
 
+bool SoundFont::sfPresetHeader::SetupReference(Signal sig,
+				sfPresetHeader *pPresetHeaderNext, const sfPresetBagOwner &pbags)
+{
+	if (_wPresetBagNdx > pPresetHeaderNext->_wPresetBagNdx ||
+			static_cast<size_t>(_wPresetBagNdx) > pbags.size() ||
+			static_cast<size_t>(pPresetHeaderNext->_wPresetBagNdx) > pbags.size()) {
+		sig.SetError(ERR_FormatError, "invalid wPresetBagNdx value in sfPresetHeader");
+		return false;
+	}
+	sfPresetBagOwner::const_iterator ppPresetBag = pbags.begin() + _wPresetBagNdx;
+	sfPresetBagOwner::const_iterator ppPresetBagEnd =
+							pbags.begin() + pPresetHeaderNext->_wPresetBagNdx;
+	for ( ; ppPresetBag != ppPresetBagEnd; ppPresetBag++) {
+		const sfPresetBag *pPresetBag = *ppPresetBag;
+		GetPresetBagOwner().push_back(sfPresetBag::Reference(pPresetBag));
+	}
+	return true;
+}
+
 //-----------------------------------------------------------------------------
 // SoundFont::sfPresetBag
 // 7.3 The PBAG Sub-chunk
@@ -463,6 +535,38 @@ void SoundFont::sfPresetBag::Print() const
 	::printf("wGenNdx=%d wModNdx=%d\n",
 		_wGenNdx,
 		_wModNdx);
+}
+
+bool SoundFont::sfPresetBag::SetupReference(Signal sig, sfPresetBag *pPresetBagNext,
+							const sfModOwner &pmods, const sfGenOwner &pgens)
+{
+	if (_wModNdx > pPresetBagNext->_wModNdx ||
+			static_cast<size_t>(_wModNdx) > pmods.size() ||
+			static_cast<size_t>(pPresetBagNext->_wModNdx) > pmods.size()) {
+		sig.SetError(ERR_FormatError, "invalid wModNdx value in sfPresetBag");
+		return false;
+	}
+	sfModOwner::const_iterator ppMod = pmods.begin() + _wModNdx;
+	sfModOwner::const_iterator ppModEnd =
+							pmods.begin() + pPresetBagNext->_wModNdx;
+	for ( ; ppMod != ppModEnd; ppMod++) {
+		const sfMod *pMod = *ppMod;
+		GetModOwner().push_back(sfMod::Reference(pMod));
+	}
+	if (_wGenNdx > pPresetBagNext->_wGenNdx ||
+			static_cast<size_t>(_wGenNdx) > pgens.size() ||
+			static_cast<size_t>(pPresetBagNext->_wGenNdx) > pgens.size()) {
+		sig.SetError(ERR_FormatError, "invalid wGenNdx value in sfPresetBag");
+		return false;
+	}
+	sfGenOwner::const_iterator ppGen = pgens.begin() + _wGenNdx;
+	sfGenOwner::const_iterator ppGenEnd =
+							pgens.begin() + pPresetBagNext->_wGenNdx;
+	for ( ; ppGen != ppGenEnd; ppGen++) {
+		const sfGen *pGen = *ppGen;
+		GetGenOwner().push_back(sfGen::Reference(pGen));
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -545,6 +649,25 @@ void SoundFont::sfInst::Print() const
 		_wInstBagNdx);
 }
 
+bool SoundFont::sfInst::SetupReference(Signal sig, sfInst *pInstNext,
+										const sfInstBagOwner &ibags)
+{
+	if (_wInstBagNdx > pInstNext->_wInstBagNdx ||
+			static_cast<size_t>(_wInstBagNdx) > ibags.size() ||
+			static_cast<size_t>(pInstNext->_wInstBagNdx) > ibags.size()) {
+		sig.SetError(ERR_FormatError, "invalid wInstBagNdx value in sfInst");
+		return false;
+	}
+	sfInstBagOwner::const_iterator ppInstBag = ibags.begin() + _wInstBagNdx;
+	sfInstBagOwner::const_iterator ppInstBagEnd =
+							ibags.begin() + pInstNext->_wInstBagNdx;
+	for ( ; ppInstBag != ppInstBagEnd; ppInstBag++) {
+		const sfInstBag *pInstBag = *ppInstBag;
+		GetInstBagOwner().push_back(sfInstBag::Reference(pInstBag));
+	}
+	return true;
+}
+
 //-----------------------------------------------------------------------------
 // SoundFont::sfInstBag
 // 7.7 The IBAG Sub-chunk
@@ -570,6 +693,38 @@ void SoundFont::sfInstBag::Print() const
 	::printf("wInstGenNdx=%d wInstModNdx=%d\n",
 		_wInstGenNdx,
 		_wInstModNdx);
+}
+
+bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext,
+						const sfInstModOwner &imods, const sfInstGenOwner &igens)
+{
+	if (_wInstModNdx > pInstBagNext->_wInstModNdx ||
+			static_cast<size_t>(_wInstModNdx) > imods.size() ||
+			static_cast<size_t>(pInstBagNext->_wInstModNdx) > imods.size()) {
+		sig.SetError(ERR_FormatError, "invalid wInstModNdx value in sfInstBag");
+		return false;
+	}
+	sfInstModOwner::const_iterator ppInstMod = imods.begin() + _wInstModNdx;
+	sfInstModOwner::const_iterator ppInstModEnd =
+							imods.begin() + pInstBagNext->_wInstModNdx;
+	for ( ; ppInstMod != ppInstModEnd; ppInstMod++) {
+		const sfInstMod *pInstMod = *ppInstMod;
+		GetInstModOwner().push_back(sfInstMod::Reference(pInstMod));
+	}
+	if (_wInstGenNdx > pInstBagNext->_wInstGenNdx ||
+			static_cast<size_t>(_wInstGenNdx) > igens.size() ||
+			static_cast<size_t>(pInstBagNext->_wInstGenNdx) > igens.size()) {
+		sig.SetError(ERR_FormatError, "invalid wInstGenNdx value in sfInstBag");
+		return false;
+	}
+	sfInstGenOwner::const_iterator ppInstGen = igens.begin() + _wInstGenNdx;
+	sfInstGenOwner::const_iterator ppInstGenEnd =
+							igens.begin() + pInstBagNext->_wInstGenNdx;
+	for ( ; ppInstGen != ppInstGenEnd; ppInstGen++) {
+		const sfInstGen *pInstGen = *ppInstGen;
+		GetInstGenOwner().push_back(sfInstGen::Reference(pInstGen));
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------

@@ -237,6 +237,8 @@ public:
 		inline ~sfPresetHeader() {}
 	public:
 		void Print() const;
+		bool SetupReference(Signal sig, sfPresetHeader *pPresetHeaderNext,
+												const sfPresetBagOwner &pbags);
 		inline sfPresetBagOwner &GetPresetBagOwner() { return *_pPresetBagOwner; }
 	};
 	typedef ListTemplate<sfPresetHeader> sfPresetHeaderList;
@@ -265,8 +267,10 @@ public:
 		inline ~sfPresetBag() {}
 	public:
 		void Print() const;
-		sfGenOwner &GetGenOwner() { return *_pGenOwner; }
-		sfModOwner &GetModOwner() { return *_pModOwner; }
+		bool SetupReference(Signal sig, sfPresetBag *pPresetBagNext,
+							const sfModOwner &pmods, const sfGenOwner &pgens);
+		inline sfGenOwner &GetGenOwner() { return *_pGenOwner; }
+		inline sfModOwner &GetModOwner() { return *_pModOwner; }
 	};
 	typedef ListTemplate<sfPresetBag> sfPresetBagList;
 	class sfPresetBagOwner : public OwnerTemplate<sfPresetBag, sfPresetBagList> {
@@ -350,6 +354,8 @@ public:
 	public:
 		inline sfInstBagOwner &GetInstBagOwner() { return *_pInstBagOwner; }
 		void Print() const;
+		bool SetupReference(Signal sig, sfInst *pInstNext,
+										const sfInstBagOwner &ibags);
 	};
 	typedef ListTemplate<sfInst> sfInstList;
 	class sfInstOwner : public OwnerTemplate<sfInst, sfInstList> {
@@ -379,6 +385,8 @@ public:
 		inline sfInstGenOwner &GetInstGenOwner() { return *_pInstGenOwner; }
 		inline sfInstModOwner &GetInstModOwner() { return *_pInstModOwner; }
 		void Print() const;
+		bool SetupReference(Signal sig, sfInstBag *pInstBagNext,
+						const sfInstModOwner &imods, const sfInstGenOwner &igens);
 	};
 	typedef ListTemplate<sfInstBag> sfInstBagList;
 	class sfInstBagOwner : public OwnerTemplate<sfInstBag, sfInstBagList> {
@@ -501,7 +509,7 @@ public:
 		sfGenOwner				pgens;
 		sfInstOwner				insts;
 		sfInstBagOwner			ibags;
-		sfModOwner				imods;
+		sfInstModOwner			imods;
 		sfInstGenOwner			igens;
 		sfSampleOwner			shdrs;
 	};
@@ -510,6 +518,7 @@ private:
 	pdta_t _pdta;
 	static const char *_generatorNames[];
 public:
+	void Clear();
 	bool Read(Environment &env, Signal sig, Stream &stream);
 	void Print() const;
 	inline INFO_t &GetINFO() { return _INFO; }
