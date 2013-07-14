@@ -34,7 +34,7 @@ const char *SoundFont::_generatorNames[] = {
 	"delayModEnv",					// 25
 	"attackModEnv",					// 26
 	"holdModEnv",					// 27
-	"delayModENv",					// 28
+	"delayModEnv",					// 28
 	"sustainModEnv",				// 29
 	"releaseModEnv",				// 30
 	"keynumToModEnvHold",			// 31
@@ -42,7 +42,7 @@ const char *SoundFont::_generatorNames[] = {
 	"delayVolEnv",					// 33
 	"attackVolEnv",					// 34
 	"holdVolEnv",					// 35
-	"decayVolENv",					// 36
+	"decayVolEnv",					// 36
 	"sustainVolEnv",				// 37
 	"releaseVolEnv",				// 38
 	"keynumToVolEnvHold",			// 39
@@ -155,14 +155,14 @@ void SoundFont::Print() const
 {
 	if (_INFO.p_ifil.get() != NULL) {
 		::printf("ifil ");
-		_INFO.p_ifil->Print();
+		_INFO.p_ifil->Print(0);
 	}
 	if (_INFO.p_isng.get() != NULL) ::printf("isng \"%s\"\n", _INFO.p_isng->c_str());
 	if (_INFO.p_INAM.get() != NULL) ::printf("INAM \"%s\"\n", _INFO.p_INAM->c_str());
 	if (_INFO.p_irom.get() != NULL) ::printf("irom \"%s\"\n", _INFO.p_irom->c_str());
 	if (_INFO.p_iver.get() != NULL) {
 		::printf("<iver> ");
-		_INFO.p_iver->Print();
+		_INFO.p_iver->Print(0);
 	}
 	if (_INFO.p_ICRD.get() != NULL) ::printf("ICRD \"%s\"\n", _INFO.p_ICRD->c_str());
 	if (_INFO.p_IENG.get() != NULL) ::printf("IENG \"%s\"\n", _INFO.p_IENG->c_str());
@@ -171,28 +171,16 @@ void SoundFont::Print() const
 	if (_INFO.p_ICMT.get() != NULL) ::printf("ICMT \"%s\"\n", _INFO.p_ICMT->c_str());
 	if (_INFO.p_ISFT.get() != NULL) ::printf("ISFT \"%s\"\n", _INFO.p_ISFT->c_str());
 	::printf("phdr[%d] : sfPresetHeader\n", _pdta.phdrs.size());
-	_pdta.phdrs.Print();
-	::printf("pbag[%d] : sfPresetBag\n", _pdta.pbags.size());
-	_pdta.pbags.Print();
-	::printf("pmod[%d] : sfMod\n", _pdta.pmods.size());
-	_pdta.pmods.Print();
-	::printf("pgen[%d] : sfGen\n", _pdta.pgens.size());
-	_pdta.pgens.Print();
+	_pdta.phdrs.Print(0);
 	::printf("inst[%d] : sfInst\n", _pdta.insts.size());
-	_pdta.insts.Print();
-	::printf("ibag[%d] : sfInstBag\n", _pdta.ibags.size());
-	_pdta.ibags.Print();
-	::printf("imod[%d] : sfInstMod\n", _pdta.imods.size());
-	_pdta.imods.Print();
-	::printf("igen[%d] : sfInstGen\n", _pdta.igens.size());
-	_pdta.igens.Print();
+	_pdta.insts.Print(0);
 	::printf("sndr[%d] : sfSample\n", _pdta.shdrs.size());
-	_pdta.shdrs.Print();
+	_pdta.shdrs.Print(0);
 }
 
 const char *SoundFont::GeneratorToName(SFGenerator generator)
 {
-	if (generator <= endOper) return _generatorNames[generator];
+	if (generator <= GEN_endOper) return _generatorNames[generator];
 	return "unknown";
 }
 
@@ -428,6 +416,20 @@ bool SoundFont::ReadString(Environment &env, Signal sig, Stream &stream,
 }
 
 //-----------------------------------------------------------------------------
+// SoundFont::ChunkHdr
+//-----------------------------------------------------------------------------
+void SoundFont::ChunkHdr::Print(int indentLevel) const
+{
+	unsigned long ckID = Gura_UnpackULong(ckID);
+	unsigned long ckSize = Gura_UnpackULong(ckSize);
+	::printf("%*s<%c%c%c%c-ck> %dbytes\n", indentLevel * 2, "",
+			static_cast<unsigned char>(ckID >> 0),
+			static_cast<unsigned char>(ckID >> 8),
+			static_cast<unsigned char>(ckID >> 16),
+			static_cast<unsigned char>(ckID >> 24), ckSize);
+}
+
+//-----------------------------------------------------------------------------
 // SoundFont::sfVersionTag
 // 5.1 The ifil Sub-chunk
 // 5.5 The iver Sub-chunk
@@ -444,9 +446,10 @@ SoundFont::sfVersionTag::sfVersionTag(const RawData &rawData) : _cntRef(1),
 {
 }
 
-void SoundFont::sfVersionTag::Print() const
+void SoundFont::sfVersionTag::Print(int indentLevel) const
 {
-	::printf("wMajor=%d wMinor=%d\n",
+	::printf("%*swMajor=%d wMinor=%d\n",
+		indentLevel * 2, "",
 		_wMajor,
 		_wMinor);
 	}
@@ -479,9 +482,10 @@ SoundFont::sfPresetHeader::sfPresetHeader(const RawData &rawData) : _cntRef(1),
 	::memcpy(_achPresetName, rawData.achPresetName, sizeof(_achPresetName));
 }
 
-void SoundFont::sfPresetHeader::Print() const
+void SoundFont::sfPresetHeader::Print(int indentLevel) const
 {
-	::printf("achPresetName=\"%s\" wPreset=%d wBank=%d wPresetBagNdx=%d dwLibrary=%d dwGenre=%d dwMorphology=%d\n",
+	::printf("%*sachPresetName=\"%s\" wPreset=%d wBank=%d wPresetBagNdx=%d dwLibrary=%d dwGenre=%d dwMorphology=%d\n",
+		indentLevel * 2, "",
 		_achPresetName,
 		_wPreset,
 		_wBank,
@@ -489,6 +493,7 @@ void SoundFont::sfPresetHeader::Print() const
 		_dwLibrary,
 		_dwGenre,
 		_dwMorphology);
+	GetPresetBagOwner().Print(indentLevel + 1);
 }
 
 bool SoundFont::sfPresetHeader::SetupReference(Signal sig,
@@ -530,11 +535,14 @@ SoundFont::sfPresetBag::sfPresetBag(const RawData &rawData) : _cntRef(1),
 {
 }
 
-void SoundFont::sfPresetBag::Print() const
+void SoundFont::sfPresetBag::Print(int indentLevel) const
 {
-	::printf("wGenNdx=%d wModNdx=%d\n",
+	::printf("%*swGenNdx=%d wModNdx=%d\n",
+		indentLevel * 2, "",
 		_wGenNdx,
 		_wModNdx);
+	GetGenOwner().Print(indentLevel + 1);
+	GetModOwner().Print(indentLevel + 1);
 }
 
 bool SoundFont::sfPresetBag::SetupReference(Signal sig, sfPresetBag *pPresetBagNext,
@@ -591,9 +599,10 @@ SoundFont::sfMod::sfMod(const RawData &rawData) : _cntRef(1),
 {
 }
 
-void SoundFont::sfMod::Print() const
+void SoundFont::sfMod::Print(int indentLevel) const
 {
-	::printf("sfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
+	::printf("%*ssfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
+		indentLevel * 2, "",
 		_sfModSrcOper,
 		GeneratorToName(_sfModDestOper), _sfModDestOper,
 		_modAmount,
@@ -617,9 +626,10 @@ SoundFont::sfGen::sfGen(const RawData &rawData) : _cntRef(1),
 {
 }
 
-void SoundFont::sfGen::Print() const
+void SoundFont::sfGen::Print(int indentLevel) const
 {
-	::printf("sfGenOper=%s(%d) genAmount=0x%04x\n",
+	::printf("%*ssfGenOper=%s(%d) genAmount=0x%04x\n",
+		indentLevel * 2, "",
 		GeneratorToName(_sfGenOper), _sfGenOper,
 		_genAmount);
 }
@@ -642,11 +652,13 @@ SoundFont::sfInst::sfInst(const RawData &rawData) : _cntRef(1),
 	::memcpy(_achInstName, rawData.achInstName, sizeof(_achInstName));
 }
 
-void SoundFont::sfInst::Print() const
+void SoundFont::sfInst::Print(int indentLevel) const
 {
-	::printf("achInstName=\"%s\" wInstBagNdx=%d\n",
+	::printf("%*sachInstName=\"%s\" wInstBagNdx=%d\n",
+		indentLevel * 2, "",
 		_achInstName,
 		_wInstBagNdx);
+	GetInstBagOwner().Print(indentLevel + 1);
 }
 
 bool SoundFont::sfInst::SetupReference(Signal sig, sfInst *pInstNext,
@@ -688,11 +700,14 @@ SoundFont::sfInstBag::sfInstBag(const RawData &rawData) : _cntRef(1),
 {
 }
 
-void SoundFont::sfInstBag::Print() const
+void SoundFont::sfInstBag::Print(int indentLevel) const
 {
-	::printf("wInstGenNdx=%d wInstModNdx=%d\n",
+	::printf("%*swInstGenNdx=%d wInstModNdx=%d\n",
+		indentLevel * 2, "",
 		_wInstGenNdx,
 		_wInstModNdx);
+	GetInstGenOwner().Print(indentLevel + 1);
+	GetInstModOwner().Print(indentLevel + 1);
 }
 
 bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext,
@@ -749,9 +764,10 @@ SoundFont::sfInstMod::sfInstMod(const RawData &rawData) : _cntRef(1),
 {
 }
 
-void SoundFont::sfInstMod::Print() const
+void SoundFont::sfInstMod::Print(int indentLevel) const
 {
-	::printf("sfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
+	::printf("%*ssfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
+		indentLevel * 2, "",
 		_sfModSrcOper,
 		GeneratorToName(_sfModDestOper), _sfModDestOper,
 		_modAmount,
@@ -775,9 +791,10 @@ SoundFont::sfInstGen::sfInstGen(const RawData &rawData) : _cntRef(1),
 {
 }
 
-void SoundFont::sfInstGen::Print() const
+void SoundFont::sfInstGen::Print(int indentLevel) const
 {
-	::printf("sfGenOper=%s(%d) genAmount=0x%04x\n",
+	::printf("%*ssfGenOper=%s(%d) genAmount=0x%04x\n",
+		indentLevel * 2, "",
 		GeneratorToName(_sfGenOper), _sfGenOper,
 		_genAmount);
 }
@@ -814,9 +831,10 @@ SoundFont::sfSample::sfSample(const RawData &rawData) : _cntRef(1),
 	::memcpy(_achSampleName, rawData.achSampleName, sizeof(_achSampleName));
 }
 
-void SoundFont::sfSample::Print() const
+void SoundFont::sfSample::Print(int indentLevel) const
 {
-	::printf("achSampleName=\"%s\" dwStart=%d dwEnd=%d dwStartloop=%d dwEndloop=%d dwSampleRate=%d byOriginalKey=%d chCorrection=%d wSampleLink=0x%04x sfSampleType=%d\n",
+	::printf("%*sachSampleName=\"%s\" dwStart=%d dwEnd=%d dwStartloop=%d dwEndloop=%d dwSampleRate=%d byOriginalKey=%d chCorrection=%d wSampleLink=0x%04x sfSampleType=%d\n",
+		indentLevel * 2, "",
 		_achSampleName,
 		_dwStart,
 		_dwEnd,

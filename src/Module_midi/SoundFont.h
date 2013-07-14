@@ -10,10 +10,10 @@ public:
 	T_Elem *Get(size_t idx) {
 		return (idx < size())? (*this)[idx] : NULL;
 	}
-	void Print() const {
+	void Print(int indentLevel) const {
 		foreach_const (ListTemplate, ppElem, *this) {
 			const T_Elem *pElem = *ppElem;
-			pElem->Print();
+			pElem->Print(indentLevel);
 		}
 	}
 };
@@ -66,81 +66,81 @@ public:
 	};
 public:
 	enum SFSampleLink {
-		monoSample		= 1,
-		rightSample		= 2,
-		leftSample		= 4,
-		linkedSample	= 8,
-		RomMonoSample	= 0x8001,
-		RomRightSample	= 0x8002,
-		RomLeftSample	= 0x8004,
-		RomLinkedSample	= 0x8008,
+		SMPL_monoSample					= 1,
+		SMPL_rightSample				= 2,
+		SMPL_leftSample					= 4,
+		SMPL_linkedSample				= 8,
+		SMPL_RomMonoSample				= 0x8001,
+		SMPL_RomRightSample				= 0x8002,
+		SMPL_RomLeftSample				= 0x8004,
+		SMPL_RomLinkedSample			= 0x8008,
 	};
 	enum SFGenerator {
-		startAddrsOffset			= 0,
-		endAddrsOffset				= 1,
-		startloopAddrsOffset		= 2,
-		endloopAddrsOffset			= 3,
-		startAddrsCoarseOffset		= 4,
-		modLfoToPitch				= 5,
-		vibLfoToPitch				= 6,
-		modEnvToPitch				= 7,
-		initialFilterFc				= 8,
-		initiflFilterQ				= 9,
-		modLfoToFilterFc			= 10,
-		modEnvToFilterFc			= 11,
-		endAddrsCoarseOffset		= 12,
-		modLfoToVolume				= 13,
-		//unnsed1					= 14,
-		chorusEffectsSend			= 15,
-		reverbEffectsSend			= 16,
-		pan							= 17,
-		//unused2					= 18,
-		//unused3					= 19,
-		//unused4					= 20,
-		delayModLFO					= 21,
-		freqModLFO					= 22,
-		delayVibLFO					= 23,
-		freqVibLFO					= 24,
-		delayModEnv					= 25,
-		attackModEnv				= 26,
-		holdModEnv					= 27,
-		delayModENv					= 28,
-		sustainModEnv				= 29,
-		releaseModEnv				= 30,
-		keynumToModEnvHold			= 31,
-		keynumToModEnvDecay			= 32,
-		delayVolEnv					= 33,
-		attackVolEnv				= 34,
-		holdVolEnv					= 35,
-		decayVolENv					= 36,
-		sustainVolEnv				= 37,
-		releaseVolEnv				= 38,
-		keynumToVolEnvHold			= 39,
-		keynumToVolEnvDecay			= 40,
-		instrument					= 41,
-		//reserved1					= 42,
-		keyRange					= 43,
-		velRange					= 44,
-		startloopAddrsCoarseOffset	= 45,
-		keynum						= 46,
-		velocity					= 47,
-		initialAttenuation			= 48,
-		//reserved2					= 49,
-		endloopAddrsCoarseOffset	= 50,
-		coarseTune					= 51,
-		fineTune					= 52,
-		sampleID					= 53,
-		sampleModes					= 54,
-		//reserved3					= 55,
-		scaleTuning					= 56,
-		exclusiveClass				= 57,
-		overridingRootKey			= 58,
-		//unused5					= 59,
-		endOper						= 60,
+		GEN_startAddrsOffset			= 0,
+		GEN_endAddrsOffset				= 1,
+		GEN_startloopAddrsOffset		= 2,
+		GEN_endloopAddrsOffset			= 3,
+		GEN_startAddrsCoarseOffset		= 4,
+		GEN_modLfoToPitch				= 5,
+		GEN_vibLfoToPitch				= 6,
+		GEN_modEnvToPitch				= 7,
+		GEN_initialFilterFc				= 8,
+		GEN_initiflFilterQ				= 9,
+		GEN_modLfoToFilterFc			= 10,
+		GEN_modEnvToFilterFc			= 11,
+		GEN_endAddrsCoarseOffset		= 12,
+		GEN_modLfoToVolume				= 13,
+		//GEN_unnsed1					= 14,
+		GEN_chorusEffectsSend			= 15,
+		GEN_reverbEffectsSend			= 16,
+		GEN_pan							= 17,
+		//GEN_unused2					= 18,
+		//GEN_unused3					= 19,
+		//GEN_unused4					= 20,
+		GEN_delayModLFO					= 21,
+		GEN_freqModLFO					= 22,
+		GEN_delayVibLFO					= 23,
+		GEN_freqVibLFO					= 24,
+		GEN_delayModEnv					= 25,
+		GEN_attackModEnv				= 26,
+		GEN_holdModEnv					= 27,
+		GEN_delayModENv					= 28,
+		GEN_sustainModEnv				= 29,
+		GEN_releaseModEnv				= 30,
+		GEN_keynumToModEnvHold			= 31,
+		GEN_keynumToModEnvDecay			= 32,
+		GEN_delayVolEnv					= 33,
+		GEN_attackVolEnv				= 34,
+		GEN_holdVolEnv					= 35,
+		GEN_decayVolENv					= 36,
+		GEN_sustainVolEnv				= 37,
+		GEN_releaseVolEnv				= 38,
+		GEN_keynumToVolEnvHold			= 39,
+		GEN_keynumToVolEnvDecay			= 40,
+		GEN_instrument					= 41,
+		//GEN_reserved1					= 42,
+		GEN_keyRange					= 43,
+		GEN_velRange					= 44,
+		GEN_startloopAddrsCoarseOffset	= 45,
+		GEN_keynum						= 46,
+		GEN_velocity					= 47,
+		GEN_initialAttenuation			= 48,
+		//GEN_reserved2					= 49,
+		GEN_endloopAddrsCoarseOffset	= 50,
+		GEN_coarseTune					= 51,
+		GEN_fineTune					= 52,
+		GEN_sampleID					= 53,
+		GEN_sampleModes					= 54,
+		//GEN_reserved3					= 55,
+		GEN_scaleTuning					= 56,
+		GEN_exclusiveClass				= 57,
+		GEN_overridingRootKey			= 58,
+		//GEN_unused5					= 59,
+		GEN_endOper						= 60,
 	};
 	typedef unsigned short SFModulator;
 	enum SFTransform {
-		Linear						= 0,
+		TRANS_Linear					= 0,
 	};
 public:
 	struct ChunkHdr {
@@ -149,15 +149,7 @@ public:
 		Gura_PackedULong_LE(ckID);
 		Gura_PackedULong_LE(ckSize);
 	public:
-		void Print() const {
-			unsigned long ckID = Gura_UnpackULong(ckID);
-			unsigned long ckSize = Gura_UnpackULong(ckSize);
-			::printf("<%c%c%c%c-ck> %dbytes\n",
-					static_cast<unsigned char>(ckID >> 0),
-					static_cast<unsigned char>(ckID >> 8),
-					static_cast<unsigned char>(ckID >> 16),
-					static_cast<unsigned char>(ckID >> 24), ckSize);
-		}
+		void Print(int indentLevel) const;
 	};
 	class sfVersionTag;
 	class sfVersionTagOwner;
@@ -200,7 +192,7 @@ public:
 	private:
 		inline ~sfVersionTag() {}
 	public:
-		void Print() const;
+		void Print(int indentLevel) const;
 	};
 	typedef ListTemplate<sfVersionTag> sfVersionTagList;
 	class sfVersionTagOwner : public OwnerTemplate<sfVersionTag, sfVersionTagList> {
@@ -236,10 +228,11 @@ public:
 	private:
 		inline ~sfPresetHeader() {}
 	public:
-		void Print() const;
+		void Print(int indentLevel) const;
 		bool SetupReference(Signal sig, sfPresetHeader *pPresetHeaderNext,
 												const sfPresetBagOwner &pbags);
 		inline sfPresetBagOwner &GetPresetBagOwner() { return *_pPresetBagOwner; }
+		inline const sfPresetBagOwner &GetPresetBagOwner() const { return *_pPresetBagOwner; }
 	};
 	typedef ListTemplate<sfPresetHeader> sfPresetHeaderList;
 	class sfPresetHeaderOwner : public OwnerTemplate<sfPresetHeader, sfPresetHeaderList> {
@@ -266,11 +259,13 @@ public:
 	private:
 		inline ~sfPresetBag() {}
 	public:
-		void Print() const;
+		void Print(int indentLevel) const;
 		bool SetupReference(Signal sig, sfPresetBag *pPresetBagNext,
 							const sfModOwner &pmods, const sfGenOwner &pgens);
 		inline sfGenOwner &GetGenOwner() { return *_pGenOwner; }
 		inline sfModOwner &GetModOwner() { return *_pModOwner; }
+		inline const sfGenOwner &GetGenOwner() const { return *_pGenOwner; }
+		inline const sfModOwner &GetModOwner() const { return *_pModOwner; }
 	};
 	typedef ListTemplate<sfPresetBag> sfPresetBagList;
 	class sfPresetBagOwner : public OwnerTemplate<sfPresetBag, sfPresetBagList> {
@@ -301,7 +296,7 @@ public:
 	private:
 		inline ~sfMod() {}
 	public:
-		void Print() const;
+		void Print(int indentLevel) const;
 	};
 	typedef ListTemplate<sfMod> sfModList;
 	class sfModOwner : public OwnerTemplate<sfMod, sfModList> {
@@ -326,7 +321,7 @@ public:
 	private:
 		inline ~sfGen() {}
 	public:
-		void Print() const;
+		void Print(int indentLevel) const;
 	};
 	typedef ListTemplate<sfGen> sfGenList;
 	class sfGenOwner : public OwnerTemplate<sfGen, sfGenList> {
@@ -353,7 +348,8 @@ public:
 		inline ~sfInst() {}
 	public:
 		inline sfInstBagOwner &GetInstBagOwner() { return *_pInstBagOwner; }
-		void Print() const;
+		inline const sfInstBagOwner &GetInstBagOwner() const { return *_pInstBagOwner; }
+		void Print(int indentLevel) const;
 		bool SetupReference(Signal sig, sfInst *pInstNext,
 										const sfInstBagOwner &ibags);
 	};
@@ -384,7 +380,9 @@ public:
 	public:
 		inline sfInstGenOwner &GetInstGenOwner() { return *_pInstGenOwner; }
 		inline sfInstModOwner &GetInstModOwner() { return *_pInstModOwner; }
-		void Print() const;
+		inline const sfInstGenOwner &GetInstGenOwner() const { return *_pInstGenOwner; }
+		inline const sfInstModOwner &GetInstModOwner() const { return *_pInstModOwner; }
+		void Print(int indentLevel) const;
 		bool SetupReference(Signal sig, sfInstBag *pInstBagNext,
 						const sfInstModOwner &imods, const sfInstGenOwner &igens);
 	};
@@ -417,7 +415,7 @@ public:
 	private:
 		inline ~sfInstMod() {}
 	public:
-		void Print() const;
+		void Print(int indentLevel) const;
 	};
 	typedef ListTemplate<sfInstMod> sfInstModList;
 	class sfInstModOwner : public OwnerTemplate<sfInstMod, sfInstModList> {
@@ -442,7 +440,7 @@ public:
 	private:
 		inline ~sfInstGen() {}
 	public:
-		void Print() const;
+		void Print(int indentLevel) const;
 	};
 	typedef ListTemplate<sfInstGen> sfInstGenList;
 	class sfInstGenOwner : public OwnerTemplate<sfInstGen, sfInstGenList> {
@@ -483,7 +481,7 @@ public:
 	private:
 		inline ~sfSample() {}
 	public:
-		void Print() const;
+		void Print(int indentLevel) const;
 	};
 	typedef ListTemplate<sfSample> sfSampleList;
 	class sfSampleOwner : public OwnerTemplate<sfSample, sfSampleList> {
@@ -523,6 +521,8 @@ public:
 	void Print() const;
 	inline INFO_t &GetINFO() { return _INFO; }
 	inline pdta_t &GetPdta() { return _pdta; }
+	inline const INFO_t &GetINFO() const { return _INFO; }
+	inline const pdta_t &GetPdta() const { return _pdta; }
 public:
 	static const char *GeneratorToName(SFGenerator generator);
 private:
