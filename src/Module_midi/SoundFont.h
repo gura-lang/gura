@@ -27,7 +27,7 @@ public:
 	void Clear() {
 		foreach (OwnerTemplate, ppElem, *this) {
 			T_Elem *pElem = *ppElem;
-			delete pElem;
+			T_Elem::Delete(pElem);
 		}
 		clear();
 	}
@@ -179,15 +179,21 @@ public:
 			Gura_PackedUShort_LE(wMinor);
 		};
 	private:
+		int _cntRef;
 		unsigned short _wMajor;
 		unsigned short _wMinor;
 	public:
-		inline sfVersionTag() :
+		Gura_DeclareReferenceAccessor(sfVersionTag);
+	public:
+		inline sfVersionTag() : _cntRef(1),
 				_wMajor(0),
 				_wMinor(0) {}
-		inline sfVersionTag(const RawData &rawData) :
+		inline sfVersionTag(const RawData &rawData) : _cntRef(1),
 				_wMajor(Gura_UnpackUShort(rawData.wMajor)),
 				_wMinor(Gura_UnpackUShort(rawData.wMinor)) {}
+	private:
+		inline ~sfVersionTag() {}
+	public:
 		inline void Print() const {
 			::printf("wMajor=%d wMinor=%d\n",
 				_wMajor,
@@ -210,6 +216,7 @@ public:
 			Gura_PackedULong_LE(dwMorphology);
 		};
 	private:
+		int _cntRef;
 		char _achPresetName[20];
 		unsigned short _wPreset;
 		unsigned short _wBank;
@@ -218,7 +225,9 @@ public:
 		unsigned long _dwGenre;
 		unsigned long _dwMorphology;
 	public:
-		inline sfPresetHeader() :
+		Gura_DeclareReferenceAccessor(sfPresetHeader);
+	public:
+		inline sfPresetHeader() : _cntRef(1),
 				_wPreset(0),
 				_wBank(0),
 				_wPresetBagNdx(0),
@@ -227,7 +236,7 @@ public:
 				_dwMorphology(0) {
 			::memset(_achPresetName, 0x00, sizeof(_achPresetName));
 		}
-		inline sfPresetHeader(const RawData &rawData) :
+		inline sfPresetHeader(const RawData &rawData) : _cntRef(1),
 				_wPreset(Gura_UnpackUShort(rawData.wPreset)),
 				_wBank(Gura_UnpackUShort(rawData.wBank)),
 				_wPresetBagNdx(Gura_UnpackUShort(rawData.wPresetBagNdx)),
@@ -236,6 +245,9 @@ public:
 				_dwMorphology(Gura_UnpackULong(rawData.dwMorphology)) {
 			::memcpy(_achPresetName, rawData.achPresetName, sizeof(_achPresetName));
 		}
+	private:
+		inline ~sfPresetHeader() {}
+	public:
 		inline void Print() const {
 			::printf("achPresetName=\"%s\" wPreset=%d wBank=%d wPresetBagNdx=%d dwLibrary=%d dwGenre=%d dwMorphology=%d\n",
 				_achPresetName,
@@ -259,15 +271,21 @@ public:
 			Gura_PackedUShort_LE(wModNdx);
 		};
 	private:
+		int _cntRef;
 		unsigned short _wGenNdx;
 		unsigned short _wModNdx;
 	public:
-		inline sfPresetBag() :
+		Gura_DeclareReferenceAccessor(sfPresetBag);
+	public:
+		inline sfPresetBag() : _cntRef(1),
 				_wGenNdx(0),
 				_wModNdx(0) {}
-		inline sfPresetBag(const RawData &rawData) :
+		inline sfPresetBag(const RawData &rawData) : _cntRef(1),
 				_wGenNdx(Gura_UnpackUShort(rawData.wGenNdx)),
 				_wModNdx(Gura_UnpackUShort(rawData.wModNdx)) {}
+	private:
+		inline ~sfPresetBag() {}
+	public:
 		inline void Print() const {
 			::printf("wGenNdx=%d wModNdx=%d\n",
 				_wGenNdx,
@@ -290,24 +308,30 @@ public:
 			Gura_PackedUShort_LE(sfModTransOper);
 		};
 	private:
+		int _cntRef;
 		SFModulator _sfModSrcOper;
 		SFGenerator _sfModDestOper;
 		short _modAmount;
 		SFModulator _sfModAmtSrcOper;
 		SFTransform _sfModTransOper;
 	public:
-		inline sfMod() :
+		Gura_DeclareReferenceAccessor(sfMod);
+	public:
+		inline sfMod() : _cntRef(1),
 				_sfModSrcOper(static_cast<SFModulator>(0)),
 				_sfModDestOper(static_cast<SFGenerator>(0)),
 				_modAmount(0),
 				_sfModAmtSrcOper(static_cast<SFModulator>(0)),
 				_sfModTransOper(static_cast<SFTransform>(0)) {}
-		inline sfMod(const RawData &rawData) :
+		inline sfMod(const RawData &rawData) : _cntRef(1),
 				_sfModSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModSrcOper))),
 				_sfModDestOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfModDestOper))),
 				_modAmount(static_cast<short>(Gura_UnpackUShort(rawData.modAmount))),
 				_sfModAmtSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModAmtSrcOper))),
 				_sfModTransOper(static_cast<SFTransform>(Gura_UnpackUShort(rawData.sfModTransOper))) {}
+	private:
+		inline ~sfMod() {}
+	public:
 		inline void Print() const {
 			::printf("sfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
 				_sfModSrcOper,
@@ -328,15 +352,21 @@ public:
 			Gura_PackedUShort_LE(genAmount);
 		};
 	private:
+		int _cntRef;
 		SFGenerator _sfGenOper;
 		unsigned short _genAmount;
 	public:
-		inline sfGen() :
+		Gura_DeclareReferenceAccessor(sfGen);
+	public:
+		inline sfGen() : _cntRef(1),
 				_sfGenOper(static_cast<SFGenerator>(0)),
 				_genAmount(0) {}
-		inline sfGen(const RawData &rawData) :
+		inline sfGen(const RawData &rawData) : _cntRef(1),
 				_sfGenOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfGenOper))),
 				_genAmount(Gura_UnpackUShort(rawData.genAmount)) {}
+	private:
+		inline ~sfGen() {}
+	public:
 		inline void Print() const {
 			::printf("sfGenOper=%s(%d) genAmount=0x%04x\n",
 				GeneratorToName(_sfGenOper), _sfGenOper,
@@ -354,17 +384,23 @@ public:
 			Gura_PackedUShort_LE(wInstBagNdx);
 		};
 	private:
+		int _cntRef;
 		char _achInstName[20];
 		unsigned short _wInstBagNdx;
 	public:
-		inline sfInst() :
+		Gura_DeclareReferenceAccessor(sfInst);
+	public:
+		inline sfInst() : _cntRef(1),
 				_wInstBagNdx(0) {
 			::memset(_achInstName, 0x00, sizeof(_achInstName));
 		}
-		inline sfInst(const RawData &rawData) :
+		inline sfInst(const RawData &rawData) : _cntRef(1),
 				_wInstBagNdx(Gura_UnpackUShort(rawData.wInstBagNdx)) {
 			::memcpy(_achInstName, rawData.achInstName, sizeof(_achInstName));
 		}
+	private:
+		inline ~sfInst() {}
+	public:
 		inline void Print() const {
 			::printf("achInstName=\"%s\" wInstBagNdx=%d\n",
 				_achInstName,
@@ -382,15 +418,21 @@ public:
 			Gura_PackedUShort_LE(wInstModNdx);
 		};
 	private:
+		int _cntRef;
 		unsigned short _wInstGenNdx;
 		unsigned short _wInstModNdx;
 	public:
-		inline sfInstBag() :
+		Gura_DeclareReferenceAccessor(sfInstBag);
+	public:
+		inline sfInstBag() : _cntRef(1),
 				_wInstGenNdx(0),
 				_wInstModNdx(0) {}
-		inline sfInstBag(const RawData &rawData) :
+		inline sfInstBag(const RawData &rawData) : _cntRef(1),
 				_wInstGenNdx(Gura_UnpackUShort(rawData.wInstGenNdx)),
 				_wInstModNdx(Gura_UnpackUShort(rawData.wInstModNdx)) {}
+	private:
+		inline ~sfInstBag() {}
+	public:
 		inline void Print() const {
 			::printf("wInstGenNdx=%d wInstModNdx=%d\n",
 				_wInstGenNdx,
@@ -411,24 +453,30 @@ public:
 			Gura_PackedUShort_LE(sfModTransOper);
 		};
 	private:
+		int _cntRef;
 		SFModulator _sfModSrcOper;
 		SFGenerator _sfModDestOper;
 		short _modAmount;
 		SFModulator _sfModAmtSrcOper;
 		SFTransform _sfModTransOper;
 	public:
-		inline sfInstMod() :
+		Gura_DeclareReferenceAccessor(sfInstMod);
+	public:
+		inline sfInstMod() : _cntRef(1),
 				_sfModSrcOper(static_cast<SFModulator>(0)),
 				_sfModDestOper(static_cast<SFGenerator>(0)),
 				_modAmount(0),
 				_sfModAmtSrcOper(static_cast<SFModulator>(0)),
 				_sfModTransOper(static_cast<SFTransform>(0)) {}
-		inline sfInstMod(const RawData &rawData) :
+		inline sfInstMod(const RawData &rawData) : _cntRef(1),
 				_sfModSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModSrcOper))),
 				_sfModDestOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfModDestOper))),
 				_modAmount(static_cast<short>(Gura_UnpackUShort(rawData.modAmount))),
 				_sfModAmtSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModAmtSrcOper))),
 				_sfModTransOper(static_cast<SFTransform>(Gura_UnpackUShort(rawData.sfModTransOper))) {}
+	private:
+		inline ~sfInstMod() {}
+	public:
 		inline void Print() const {
 			::printf("sfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
 				_sfModSrcOper,
@@ -449,15 +497,21 @@ public:
 			Gura_PackedUShort_LE(genAmount);
 		};
 	private:
+		int _cntRef;
 		SFGenerator _sfGenOper;
 		unsigned short _genAmount;
 	public:
-		inline sfInstGen() :
+		Gura_DeclareReferenceAccessor(sfInstGen);
+	public:
+		inline sfInstGen() : _cntRef(1),
 				_sfGenOper(static_cast<SFGenerator>(0)),
 				_genAmount(0) {}
-		inline sfInstGen(const RawData &rawData) :
+		inline sfInstGen(const RawData &rawData) : _cntRef(1),
 				_sfGenOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfGenOper))),
 				_genAmount(Gura_UnpackUShort(rawData.genAmount)) {}
+	private:
+		inline ~sfInstGen() {}
+	public:
 		inline void Print() const {
 			::printf("sfGenOper=%s(%d) genAmount=0x%04x\n",
 				GeneratorToName(_sfGenOper), _sfGenOper,
@@ -483,6 +537,7 @@ public:
 			Gura_PackedUShort_LE(sfSampleType);
 		};
 	private:
+		int _cntRef;
 		char _achSampleName[20];
 		unsigned long _dwStart;
 		unsigned long _dwEnd;
@@ -494,7 +549,9 @@ public:
 		unsigned short _wSampleLink;
 		SFSampleLink _sfSampleType;
 	public:
-		inline sfSample() :
+		Gura_DeclareReferenceAccessor(sfSample);
+	public:
+		inline sfSample() : _cntRef(1),
 				_dwStart(0),
 				_dwEnd(0),
 				_dwStartloop(0),
@@ -506,7 +563,7 @@ public:
 				_sfSampleType(static_cast<SFSampleLink>(0)) {
 			::memset(_achSampleName, 0x00, sizeof(_achSampleName));
 		}
-		inline sfSample(const RawData &rawData) :
+		inline sfSample(const RawData &rawData) : _cntRef(1),
 				_dwStart(Gura_UnpackULong(rawData.dwStart)),
 				_dwEnd(Gura_UnpackULong(rawData.dwEnd)),
 				_dwStartloop(Gura_UnpackULong(rawData.dwStartloop)),
@@ -518,6 +575,9 @@ public:
 				_sfSampleType(static_cast<SFSampleLink>(Gura_UnpackUShort(rawData.sfSampleType))) {
 			::memcpy(_achSampleName, rawData.achSampleName, sizeof(_achSampleName));
 		}
+	private:
+		inline ~sfSample() {}
+	public:
 		inline void Print() const {
 			::printf("achSampleName=\"%s\" dwStart=%d dwEnd=%d dwStartloop=%d dwEndloop=%d dwSampleRate=%d byOriginalKey=%d chCorrection=%d wSampleLink=0x%04x sfSampleType=%d\n",
 				_achSampleName,
@@ -536,28 +596,28 @@ public:
 	typedef OwnerTemplate<sfSample, sfSampleList> sfSampleOwner;
 public:
 	struct INFO_t {
-		std::auto_ptr<sfVersionTag>	p_ifil;	// mandatory
-		std::auto_ptr<String>		p_isng;	// mandatory
-		std::auto_ptr<String>		p_INAM;	// mandatory
-		std::auto_ptr<String>		p_irom;	// optional
-		std::auto_ptr<sfVersionTag> p_iver;	// optional
-		std::auto_ptr<String>		p_ICRD;	// optional
-		std::auto_ptr<String>		p_IENG;	// optional
-		std::auto_ptr<String>		p_IPRD;	// optional
-		std::auto_ptr<String>		p_ICOP;	// optional
-		std::auto_ptr<String>		p_ICMT;	// optional
-		std::auto_ptr<String>		p_ISFT;	// optional
+		AutoPtr<sfVersionTag>	p_ifil;	// mandatory
+		std::auto_ptr<String>	p_isng;	// mandatory
+		std::auto_ptr<String>	p_INAM;	// mandatory
+		std::auto_ptr<String>	p_irom;	// optional
+		AutoPtr<sfVersionTag> 	p_iver;	// optional
+		std::auto_ptr<String>	p_ICRD;	// optional
+		std::auto_ptr<String>	p_IENG;	// optional
+		std::auto_ptr<String>	p_IPRD;	// optional
+		std::auto_ptr<String>	p_ICOP;	// optional
+		std::auto_ptr<String>	p_ICMT;	// optional
+		std::auto_ptr<String>	p_ISFT;	// optional
 	};
 	struct pdta_t {
-		sfPresetHeaderOwner			phdrs;
-		sfPresetBagOwner			pbags;
-		sfModOwner					pmods;
-		sfGenOwner					pgens;
-		sfInstOwner					insts;
-		sfInstBagOwner				ibags;
-		sfModOwner					imods;
-		sfInstGenOwner				igens;
-		sfSampleOwner				shdrs;
+		sfPresetHeaderOwner		phdrs;
+		sfPresetBagOwner		pbags;
+		sfModOwner				pmods;
+		sfGenOwner				pgens;
+		sfInstOwner				insts;
+		sfInstBagOwner			ibags;
+		sfModOwner				imods;
+		sfInstGenOwner			igens;
+		sfSampleOwner			shdrs;
 	};
 private:
 	INFO_t _INFO;
