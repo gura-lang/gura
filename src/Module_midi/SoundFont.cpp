@@ -69,6 +69,10 @@ const char *SoundFont::_generatorNames[] = {
 	"endOper",						// 60
 };
 
+SoundFont::SoundFont(Stream *pStream) : _pStream(pStream)
+{
+}
+
 void SoundFont::Clear()
 {
 	_INFO.p_ifil.reset(NULL);	// mandatory
@@ -82,6 +86,7 @@ void SoundFont::Clear()
 	_INFO.p_ICOP.reset(NULL);	// optional
 	_INFO.p_ICMT.reset(NULL);	// optional
 	_INFO.p_ISFT.reset(NULL);	// optional
+	_offsetSdta = 0;
 	_pdta.phdrs.Clear();
 	_pdta.pbags.Clear();
 	_pdta.pmods.Clear();
@@ -93,10 +98,10 @@ void SoundFont::Clear()
 	_pdta.shdrs.Clear();
 }
 
-bool SoundFont::Read(Environment &env, Signal sig, Stream &stream)
+bool SoundFont::ReadChunks(Environment &env, Signal sig)
 {
 	ChunkHdr chunkHdr;
-	size_t bytesRead = stream.Read(sig, &chunkHdr, ChunkHdr::Size);
+	size_t bytesRead = _pStream->Read(sig, &chunkHdr, ChunkHdr::Size);
 	if (bytesRead != ChunkHdr::Size) {
 		sig.SetError(ERR_FormatError, "invalid SF2 format");
 		return false;
@@ -108,7 +113,7 @@ bool SoundFont::Read(Environment &env, Signal sig, Stream &stream)
 		return false;
 	}
 	char formHdr[4];
-	bytesRead = stream.Read(sig, formHdr, 4);
+	bytesRead = _pStream->Read(sig, formHdr, 4);
 	if (bytesRead != 4) {
 		sig.SetError(ERR_FormatError, "invalid SF2 format");
 		return false;
@@ -118,10 +123,15 @@ bool SoundFont::Read(Environment &env, Signal sig, Stream &stream)
 		return false;
 	}
 	ckSize -= 4;
-	if (!ReadSubChunk(env, sig, stream, static_cast<size_t>(ckSize))) return false;
+	if (!ReadSubChunk(env, sig, static_cast<size_t>(ckSize))) return false;
 	if (_INFO.p_ifil.get() == NULL ||
 				_INFO.p_isng.get() == NULL || _INFO.p_INAM.get() == NULL) {
 		sig.SetError(ERR_FormatError, "necessary chunk doesn't exist");
+		return false;
+	}
+	// 6 The sdta-list Chunk
+	if (_offsetSdta == 0) {
+		sig.SetError(ERR_FormatError, "sdta-list doesn't exist");
 		return false;
 	}
 	// 7.2 The PHDR Sub-chunk
@@ -184,13 +194,13 @@ const char *SoundFont::GeneratorToName(SFGenerator generator)
 	return "unknown";
 }
 
-bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_t bytes)
+bool SoundFont::ReadSubChunk(Environment &env, Signal sig, size_t bytes)
 {
 	size_t bytesRest = (bytes + 1) / 2 * 2;
 	while (bytesRest > 0) {
 		ChunkHdr chunkHdr;
 		//::printf("bytesRest = %d\n", bytesRest);
-		size_t bytesRead = stream.Read(sig, &chunkHdr,
+		size_t bytesRead = _pStream->Read(sig, &chunkHdr,
 						ChooseMin(bytesRest, static_cast<size_t>(ChunkHdr::Size)));
 		if (bytesRead != ChunkHdr::Size) {
 			sig.SetError(ERR_FormatError, "invalid SF2 format");
@@ -203,7 +213,7 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 		switch (ckID) {
 		case CKID_LIST: {
 			char listHdr[4];
-			size_t bytesRead = stream.Read(sig, listHdr,
+			size_t bytesRead = _pStream->Read(sig, listHdr,
 								ChooseMin(bytesRest, static_cast<size_t>(4)));
 			if (bytesRead != 4) {
 				sig.SetError(ERR_FormatError, "invalid SF2 format");
@@ -212,87 +222,88 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 			//::printf("LIST('%c%c%c%c') %dbytes\n",
 			//			listHdr[0], listHdr[1], listHdr[2], listHdr[3], ckSize);
 			ckSize -= 4;
-			if (!ReadSubChunk(env, sig, stream, static_cast<size_t>(ckSize))) return false;
+			if (!ReadSubChunk(env, sig, static_cast<size_t>(ckSize))) return false;
 			break;
 		}
 		// 5 The INFO-list Chunk
 		case CKID_ifil: {	// 5.1
 			sfVersionTag::RawData rawData;
-			if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSize)) return false;
+			if (!ReadStruct(env, sig, &rawData, rawData.Size, ckSize)) return false;
 			_INFO.p_ifil.reset(new sfVersionTag(rawData));
 			break;
 		}
 		case CKID_isng: {	// 5.2
 			char str[256];
-			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			if (!ReadString(env, sig, str, sizeof(str), ckSize)) return false;
 			_INFO.p_isng.reset(new String(str));
 			break;
 		}
 		case CKID_INAM: {	// 5.3
 			char str[256];
-			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			if (!ReadString(env, sig, str, sizeof(str), ckSize)) return false;
 			_INFO.p_INAM.reset(new String(str));
 			break;
 		}
 		case CKID_irom: {	// 5.4
 			char str[256];
-			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			if (!ReadString(env, sig, str, sizeof(str), ckSize)) return false;
 			_INFO.p_irom.reset(new String(str));
 			break;
 		}
 		case CKID_iver: {	// 5.5
 			sfVersionTag::RawData rawData;
-			if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSize)) return false;
+			if (!ReadStruct(env, sig, &rawData, rawData.Size, ckSize)) return false;
 			_INFO.p_iver.reset(new sfVersionTag(rawData));
 			break;
 		}
 		case CKID_ICRD: {	// 5.6
 			char str[256];
-			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			if (!ReadString(env, sig, str, sizeof(str), ckSize)) return false;
 			_INFO.p_ICRD.reset(new String(str));
 			break;
 		}
 		case CKID_IENG: {	// 5.7
 			char str[256];
-			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			if (!ReadString(env, sig, str, sizeof(str), ckSize)) return false;
 			_INFO.p_IENG.reset(new String(str));
 			break;
 		}
 		case CKID_IPRD: {	// 5.8
 			char str[256];
-			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			if (!ReadString(env, sig, str, sizeof(str), ckSize)) return false;
 			_INFO.p_IPRD.reset(new String(str));
 			break;
 		}
 		case CKID_ICOP: {	// 5.9
 			char str[256];
-			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			if (!ReadString(env, sig, str, sizeof(str), ckSize)) return false;
 			_INFO.p_ICOP.reset(new String(str));
 			break;
 		}
 		case CKID_ICMT: {	// 5.10
 			char str[65536];
-			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			if (!ReadString(env, sig, str, sizeof(str), ckSize)) return false;
 			_INFO.p_ICMT.reset(new String(str));
 			break;
 		}
 		case CKID_ISFT: {	// 5.11
 			char str[256];
-			if (!ReadString(env, sig, stream, str, sizeof(str), ckSize)) return false;
+			if (!ReadString(env, sig, str, sizeof(str), ckSize)) return false;
 			_INFO.p_ISFT.reset(new String(str));
 			break;
 		}
 		// 6 The sdta-list Chunk
 		case CKID_smpl: {	// 6.1 Sample Data Format in the smpl Sub-Chunk
 			// 16-bits, signed, little endian words
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
+			_offsetSdta = _pStream->Tell();
+			_pStream->Seek(sig, ckSizeAlign, Stream::SeekCur);
 			break;
 		}
 		// 7 The pdta-list Chunk
 		case CKID_phdr: {	// 7.2
 			sfPresetHeader::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				if (!ReadStruct(env, sig, &rawData, rawData.Size, ckSizeRest)) return false;
 				_pdta.phdrs.push_back(new sfPresetHeader(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -301,7 +312,7 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 		case CKID_pbag: {	// 7.3
 			sfPresetBag::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				if (!ReadStruct(env, sig, &rawData, rawData.Size, ckSizeRest)) return false;
 				_pdta.pbags.push_back(new sfPresetBag(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -310,7 +321,7 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 		case CKID_pmod: {	// 7.4
 			sfMod::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				if (!ReadStruct(env, sig, &rawData, rawData.Size, ckSizeRest)) return false;
 				_pdta.pmods.push_back(new sfMod(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -319,7 +330,7 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 		case CKID_pgen: {	// 7.5
 			sfGen::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				if (!ReadStruct(env, sig, &rawData, rawData.Size, ckSizeRest)) return false;
 				_pdta.pgens.push_back(new sfGen(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -328,7 +339,7 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 		case CKID_inst: {	// 7.6
 			sfInst::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				if (!ReadStruct(env, sig, &rawData, rawData.Size, ckSizeRest)) return false;
 				_pdta.insts.push_back(new sfInst(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -337,7 +348,7 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 		case CKID_ibag: {	// 7.7
 			sfInstBag::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				if (!ReadStruct(env, sig, &rawData, rawData.Size, ckSizeRest)) return false;
 				_pdta.ibags.push_back(new sfInstBag(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -346,7 +357,7 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 		case CKID_imod: {	// 7.8
 			sfInstMod::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				if (!ReadStruct(env, sig, &rawData, rawData.Size, ckSizeRest)) return false;
 				_pdta.imods.push_back(new sfInstMod(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -355,7 +366,7 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 		case CKID_igen: {	// 7.9
 			sfInstGen::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				if (!ReadStruct(env, sig, &rawData, rawData.Size, ckSizeRest)) return false;
 				_pdta.igens.push_back(new sfInstGen(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -364,7 +375,7 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 		case CKID_shdr: {	// 7.10
 			sfSample::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
-				if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSizeRest)) return false;
+				if (!ReadStruct(env, sig, &rawData, rawData.Size, ckSizeRest)) return false;
 				_pdta.shdrs.push_back(new sfSample(rawData));
 				ckSizeRest -= rawData.Size;
 			}
@@ -372,26 +383,23 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_
 		}
 		default: {
 			::printf("****\n");
-			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
+			_pStream->Seek(sig, ckSizeAlign, Stream::SeekCur);
 			break;
 		}
-		}
-		if (ckID == CKID_LIST) {
-		} else {
 		}
 		bytesRest -= ckSizeAlign;
 	}
 	return true;
 }
 
-bool SoundFont::ReadStruct(Environment &env, Signal sig, Stream &stream,
+bool SoundFont::ReadStruct(Environment &env, Signal sig,
 						void *rawData, size_t ckSizeExpect, size_t ckSizeActual)
 {
 	if (ckSizeExpect > ckSizeActual) {
 		sig.SetError(ERR_FormatError, "unexpected size of chunk");
 		return false;
 	}
-	size_t bytesRead = stream.Read(sig, rawData, ckSizeExpect);
+	size_t bytesRead = _pStream->Read(sig, rawData, ckSizeExpect);
 	if (bytesRead != ckSizeExpect) {
 		sig.SetError(ERR_FormatError, "invalid SF2 format");
 		return false;
@@ -399,7 +407,7 @@ bool SoundFont::ReadStruct(Environment &env, Signal sig, Stream &stream,
 	return true;
 }
 
-bool SoundFont::ReadString(Environment &env, Signal sig, Stream &stream,
+bool SoundFont::ReadString(Environment &env, Signal sig,
 						char *str, size_t ckSizeMax, size_t ckSizeActual)
 {
 	size_t ckSizeAlign = (ckSizeActual + 1) / 2 * 2;
@@ -407,7 +415,7 @@ bool SoundFont::ReadString(Environment &env, Signal sig, Stream &stream,
 		sig.SetError(ERR_FormatError, "string data is too long");
 		return false;
 	}
-	size_t bytesRead = stream.Read(sig, str, ckSizeAlign);
+	size_t bytesRead = _pStream->Read(sig, str, ckSizeAlign);
 	if (bytesRead != ckSizeAlign) {
 		sig.SetError(ERR_FormatError, "invalid SF2 format");
 		return false;
@@ -416,9 +424,9 @@ bool SoundFont::ReadString(Environment &env, Signal sig, Stream &stream,
 }
 
 //-----------------------------------------------------------------------------
-// SoundFont::Generator
+// SoundFont::GeneratorProps
 //-----------------------------------------------------------------------------
-void SoundFont::Generator::Reset()
+void SoundFont::GeneratorProps::Reset()
 {
 	startAddrsOffset			= 0;		// 0
 	endAddrsOffset				= 0;		// 1
@@ -483,6 +491,200 @@ void SoundFont::Generator::Reset()
 	overridingRootKey			= -1;		// 58
 	unused5						= 0;		// 59
 	endOper						= 0;		// 60
+}
+
+bool SoundFont::GeneratorProps::Update(SFGenerator sfGenOper, unsigned short genAmount)
+{
+	switch (sfGenOper) {
+	case GEN_startAddrsOffset:				// 0
+		startAddrsOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_endAddrsOffset:				// 1
+		endAddrsOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_startloopAddrsOffset:			// 2
+		startloopAddrsOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_endloopAddrsOffset:			// 3
+		endloopAddrsOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_startAddrsCoarseOffset:		// 4
+		startAddrsCoarseOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_modLfoToPitch:					// 5
+		modLfoToPitch = static_cast<Short>(genAmount);
+		break;
+	case GEN_vibLfoToPitch:					// 6
+		vibLfoToPitch = static_cast<Short>(genAmount);
+		break;
+	case GEN_modEnvToPitch:					// 7
+		modEnvToPitch = static_cast<Short>(genAmount);
+		break;
+	case GEN_initialFilterFc:				// 8
+		initialFilterFc = static_cast<Short>(genAmount);
+		break;
+	case GEN_initiflFilterQ:				// 9
+		initiflFilterQ = static_cast<Short>(genAmount);
+		break;
+	case GEN_modLfoToFilterFc:				// 10
+		modLfoToFilterFc = static_cast<Short>(genAmount);
+		break;
+	case GEN_modEnvToFilterFc:				// 11
+		modEnvToFilterFc = static_cast<Short>(genAmount);
+		break;
+	case GEN_endAddrsCoarseOffset:			// 12
+		endAddrsCoarseOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_modLfoToVolume:				// 13
+		modLfoToVolume = static_cast<Short>(genAmount);
+		break;
+	case GEN_unnsed1:						// 14
+		unnsed1 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_chorusEffectsSend:				// 15
+		chorusEffectsSend = static_cast<UShort>(genAmount);
+		break;
+	case GEN_reverbEffectsSend:				// 16
+		reverbEffectsSend = static_cast<UShort>(genAmount);
+		break;
+	case GEN_pan:							// 17
+		pan = static_cast<Short>(genAmount);
+		break;
+	case GEN_unused2:						// 18
+		unused2 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_unused3:						// 19
+		unused3 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_unused4:						// 20
+		unused4 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_delayModLFO:					// 21
+		delayModLFO = static_cast<Short>(genAmount);
+		break;
+	case GEN_freqModLFO:					// 22
+		freqModLFO = static_cast<Short>(genAmount);
+		break;
+	case GEN_delayVibLFO:					// 23
+		delayVibLFO = static_cast<Short>(genAmount);
+		break;
+	case GEN_freqVibLFO:					// 24
+		freqVibLFO = static_cast<Short>(genAmount);
+		break;
+	case GEN_delayModEnv:					// 25
+		delayModEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_attackModEnv:					// 26
+		attackModEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_holdModEnv:					// 27
+		holdModEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_decayModEnv:					// 28
+		decayModEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_sustainModEnv:					// 29
+		sustainModEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_releaseModEnv:					// 30
+		releaseModEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_keynumToModEnvHold:			// 31
+		keynumToModEnvHold = static_cast<Short>(genAmount);
+		break;
+	case GEN_keynumToModEnvDecay:			// 32
+		keynumToModEnvDecay = static_cast<Short>(genAmount);
+		break;
+	case GEN_delayVolEnv:					// 33
+		delayVolEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_attackVolEnv:					// 34
+		attackVolEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_holdVolEnv:					// 35
+		holdVolEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_decayVolEnv:					// 36
+		decayVolEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_sustainVolEnv:					// 37
+		sustainVolEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_releaseVolEnv:					// 38
+		releaseVolEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_keynumToVolEnvHold:			// 39
+		keynumToVolEnvHold = static_cast<Short>(genAmount);
+		break;
+	case GEN_keynumToVolEnvDecay:			// 40
+		keynumToVolEnvDecay = static_cast<Short>(genAmount);
+		break;
+	case GEN_instrument:					// 41
+		instrument = static_cast<UShort>(genAmount);
+		break;
+	case GEN_reserved1:						// 42
+		reserved1 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_keyRange:						// 43
+		keyRange.byLo = static_cast<UChar>(genAmount >> 0);
+		keyRange.byHi = static_cast<UChar>(genAmount >> 8);
+		break;
+	case GEN_velRange:						// 44
+		velRange.byLo = static_cast<UChar>(genAmount >> 0);
+		velRange.byHi = static_cast<UChar>(genAmount >> 8);
+		break;
+	case GEN_startloopAddrsCoarseOffset:	// 45
+		startloopAddrsCoarseOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_keynum:						// 46
+		keynum = static_cast<UShort>(genAmount);
+		break;
+	case GEN_velocity:						// 47
+		velocity = static_cast<UShort>(genAmount);
+		break;
+	case GEN_initialAttenuation:			// 48
+		initialAttenuation = static_cast<UShort>(genAmount);
+		break;
+	case GEN_reserved2:						// 49
+		reserved2 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_endloopAddrsCoarseOffset:		// 50
+		endloopAddrsCoarseOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_coarseTune:					// 51
+		coarseTune = static_cast<Short>(genAmount);
+		break;
+	case GEN_fineTune:						// 52
+		fineTune = static_cast<Short>(genAmount);
+		break;
+	case GEN_sampleID:						// 53
+		sampleID = static_cast<UShort>(genAmount);
+		break;
+	case GEN_sampleModes:					// 54
+		sampleModes = static_cast<UShort>(genAmount);
+		break;
+	case GEN_reserved3:						// 55
+		reserved3 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_scaleTuning:					// 56
+		scaleTuning = static_cast<UShort>(genAmount);
+		break;
+	case GEN_exclusiveClass:				// 57
+		exclusiveClass = static_cast<UShort>(genAmount);
+		break;
+	case GEN_overridingRootKey:				// 58
+		overridingRootKey = static_cast<UShort>(genAmount);
+		break;
+	case GEN_unused5:						// 59
+		unused5 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_endOper:						// 60
+		endOper = static_cast<UShort>(genAmount);
+		break;
+	default:
+		break;
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------

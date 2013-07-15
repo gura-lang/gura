@@ -1662,6 +1662,74 @@ Gura_ImplementUserClass(program)
 }
 
 //-----------------------------------------------------------------------------
+// Object_soundfont
+//-----------------------------------------------------------------------------
+Object *Object_soundfont::Clone() const
+{
+	return NULL;
+}
+
+bool Object_soundfont::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+#if 0
+	symbols.insert(Gura_UserSymbol(id));
+	symbols.insert(Gura_UserSymbol(name));
+	symbols.insert(Gura_UserSymbol(dispname));
+#endif
+	return true;
+}
+
+Value Object_soundfont::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+#if 0
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
+		return Value(_soundfont);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
+		return Value(env, GetProgramInfo().name);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(dispname))) {
+		return Value(env, GetProgramInfo().dispName);
+	}
+#endif
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_soundfont::ToString(Signal sig, bool exprFlag)
+{
+	String rtn;
+	rtn += "<midi.soundfont";
+	rtn += ">";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for midi.soundfont
+//-----------------------------------------------------------------------------
+// midi.soundfont#print():void
+Gura_DeclareMethod(soundfont, print)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(soundfont, print)
+{
+	SoundFont &soundFont = Object_soundfont::GetThisObj(args)->GetSoundFont();
+	soundFont.Print();
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
+// Class implementation for midi.soundfont
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(soundfont)
+{
+	Gura_AssignMethod(soundfont, print);
+}
+
+//-----------------------------------------------------------------------------
 // Iterator_track
 //-----------------------------------------------------------------------------
 Iterator_track::Iterator_track(TrackOwner *pTrackOwner) :
@@ -1856,6 +1924,24 @@ Gura_ImplementFunction(program)
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
+// midi.soundfont(stream:stream) {block?}
+Gura_DeclareFunction(soundfont)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(soundfont));
+	AddHelp(Gura_Symbol(en), "create an instance to access data in SoundFont file.");
+}
+
+Gura_ImplementFunction(soundfont)
+{
+	AutoPtr<Object_soundfont> pObj(new Object_soundfont(env,
+									Stream::Reference(&args.GetStream(0))));
+	if (!pObj->GetSoundFont().ReadChunks(env, sig)) return Value::Null;
+	return ReturnValue(env, sig, args, Value(pObj.release()));
+}
+
 // midi.test(stream:stream)
 Gura_DeclareFunction(test)
 {
@@ -1865,8 +1951,9 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	SoundFont sf;
-	sf.Read(env, sig, args.GetStream(0));
+	SoundFont sf(Stream::Reference(&args.GetStream(0)));
+	::printf("check\n");
+	sf.ReadChunks(env, sig);
 	sf.Print();
 	return Value::Null;
 }
@@ -1953,12 +2040,16 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClassWithoutPrepare(player, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(controller, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(program, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(soundfont, env.LookupClass(VTYPE_object));
 	Gura_UserClass(event)->Prepare(env);
 	Gura_UserClass(track)->Prepare(env);
 	Gura_UserClass(content)->Prepare(env);
 	Gura_UserClass(portinfo)->Prepare(env);
 	Gura_UserClass(port)->Prepare(env);
 	Gura_UserClass(player)->Prepare(env);
+	Gura_UserClass(controller)->Prepare(env);
+	Gura_UserClass(program)->Prepare(env);
+	Gura_UserClass(soundfont)->Prepare(env);
 	// value assignment
 	do {
 		Value value;
@@ -1996,6 +2087,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(port);
 	Gura_AssignFunction(controller);
 	Gura_AssignFunction(program);
+	Gura_AssignFunction(soundfont);
 	Gura_AssignFunction(test);
 }
 

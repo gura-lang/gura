@@ -285,6 +285,27 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Class declaration for midi.soundfont
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(soundfont);
+
+class Object_soundfont : public Object {
+public:
+	Gura_DeclareObjectAccessor(soundfont)
+private:
+	SoundFont _soundFont;
+public:
+	inline Object_soundfont(Environment &env, Stream *pStream) :
+					Object(Gura_UserClass(soundfont)), _soundFont(pStream) {}
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
+	inline SoundFont &GetSoundFont() { return _soundFont; }
+};
+
+//-----------------------------------------------------------------------------
 // Iterator_track
 //-----------------------------------------------------------------------------
 class Iterator_track : public Iterator {

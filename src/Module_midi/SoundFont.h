@@ -142,7 +142,7 @@ public:
 		unsigned char byLo;
 		unsigned char byHi;
 	};
-	struct Generator {
+	struct GeneratorProps {
 		UShort startAddrsOffset;			// 0
 		UShort endAddrsOffset;				// 1
 		UShort startloopAddrsOffset;		// 2
@@ -172,7 +172,7 @@ public:
 		Short attackModEnv;					// 26
 		Short holdModEnv;					// 27
 		Short decayModEnv;					// 28
-		UShort sustainModEnv;				// 29
+		Short sustainModEnv;				// 29
 		Short releaseModEnv;				// 30
 		Short keynumToModEnvHold;			// 31
 		Short keynumToModEnvDecay;			// 32
@@ -180,7 +180,7 @@ public:
 		Short attackVolEnv;					// 34
 		Short holdVolEnv;					// 35
 		Short decayVolEnv;					// 36
-		UShort sustainVolEnv;				// 37
+		Short sustainVolEnv;				// 37
 		Short releaseVolEnv;				// 38
 		Short keynumToVolEnvHold;			// 39
 		Short keynumToVolEnvDecay;			// 40
@@ -205,6 +205,7 @@ public:
 		UShort unused5;						// 59
 		UShort endOper;						// 60
 		void Reset();
+		bool Update(SFGenerator sfGenOper, unsigned short genAmount);
 	};
 	typedef unsigned short SFModulator;
 	enum SFTransform {
@@ -588,12 +589,15 @@ public:
 		sfSampleOwner			shdrs;
 	};
 private:
+	AutoPtr<Stream> _pStream;
 	INFO_t _INFO;
+	size_t _offsetSdta;
 	pdta_t _pdta;
 	static const char *_generatorNames[];
 public:
+	SoundFont(Stream *pStream);
 	void Clear();
-	bool Read(Environment &env, Signal sig, Stream &stream);
+	bool ReadChunks(Environment &env, Signal sig);
 	void Print() const;
 	inline INFO_t &GetINFO() { return _INFO; }
 	inline pdta_t &GetPdta() { return _pdta; }
@@ -602,10 +606,10 @@ public:
 public:
 	static const char *GeneratorToName(SFGenerator generator);
 private:
-	bool ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_t bytes);
-	static bool ReadStruct(Environment &env, Signal sig, Stream &stream,
+	bool ReadSubChunk(Environment &env, Signal sig, size_t bytes);
+	bool ReadStruct(Environment &env, Signal sig,
 						void *rawData, size_t ckSizeExpect, size_t ckSizeActual);
-	static bool ReadString(Environment &env, Signal sig, Stream &stream,
+	bool ReadString(Environment &env, Signal sig,
 						char *str, size_t ckSizeMax, size_t ckSizeActual);
 };
 
