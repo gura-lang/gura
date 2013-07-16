@@ -65,24 +65,24 @@ bool AudioStreamer_WAV::IsResponsible(Signal sig, Stream &stream)
 }
 
 bool AudioStreamer_WAV::Read(Environment &env, Signal sig,
-									Object_audio *pObjAudio, Stream &stream)
+									Audio *pAudio, Stream &stream)
 {
 	return AudioStreamer_WAV::ReadStream(sig, pObjAudio, stream);
 }
 
 bool AudioStreamer_WAV::Write(Environment &env, Signal sig,
-									Object_audio *pObjAudio, Stream &stream)
+									Audio *pAudio, Stream &stream)
 {
 	return AudioStreamer_WAV::WriteStream(sig, pObjAudio, stream);
 }
 
-bool AudioStreamer_WAV::ReadStream(Signal sig, Object_audio *pObjAudio, Stream &stream)
+bool AudioStreamer_WAV::ReadStream(Signal sig, Audio *pAudio, Stream &stream)
 {
 	//if (!pObjAudio->CheckEmpty(sig)) return false;
 	return false;
 }
 
-bool AudioStreamer_WAV::WriteStream(Signal sig, Object_audio *pObjAudio, Stream &stream)
+bool AudioStreamer_WAV::WriteStream(Signal sig, Audio *pAudio, Stream &stream)
 {
 	//if (!pObjAudio->CheckValid(sig)) return false;
 	return false;

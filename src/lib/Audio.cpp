@@ -97,4 +97,38 @@ const Symbol *Audio::FormatToSymbol(Format format)
 	}
 }
 
+//-----------------------------------------------------------------------------
+// AudioStreamer
+//-----------------------------------------------------------------------------
+AudioStreamer::List *AudioStreamer::_pList = NULL;
+void AudioStreamer::Register(AudioStreamer *pAudioStreamer)
+{
+	if (_pList == NULL) _pList = new List();
+	_pList->push_back(pAudioStreamer);
+}
+
+AudioStreamer *AudioStreamer::FindResponsible(Signal sig, Stream &stream, const char *audioType)
+{
+	if (_pList == NULL) return NULL;
+	if (audioType != NULL) return FindByAudioType(audioType);
+	foreach (List, ppAudioStreamer, *_pList) {
+		AudioStreamer *pAudioStreamer = *ppAudioStreamer;
+		if (pAudioStreamer->IsResponsible(sig, stream)) return pAudioStreamer;
+		if (sig.IsSignalled()) break;
+	}
+	return NULL;
+}
+
+AudioStreamer *AudioStreamer::FindByAudioType(const char *audioType)
+{
+	if (_pList == NULL) return NULL;
+	foreach (List, ppAudioStreamer, *_pList) {
+		AudioStreamer *pAudioStreamer = *ppAudioStreamer;
+		if (::strcasecmp(pAudioStreamer->GetAudioType(), audioType) == 0) {
+			return pAudioStreamer;
+		}
+	}
+	return NULL;
+}
+
 }
