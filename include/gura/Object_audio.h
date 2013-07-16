@@ -12,7 +12,7 @@ class GURA_DLLDECLARE Class_audio : public Class {
 public:
 	Class_audio(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
+	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 };
 
 //-----------------------------------------------------------------------------

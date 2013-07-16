@@ -265,10 +265,18 @@ void Class_audio::Prepare(Environment &env)
 	Gura_AssignMethod(audio, fillrange);
 }
 
-Object *Class_audio::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+bool Class_audio::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	GURA_ERROREND(env, "this function must not be called");
-	return NULL;
+	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
+	if (value.IsStream()) {
+		AutoPtr<Audio> pAudio(new Audio(Audio::FORMAT_None, 1));
+		pAudio->Read(env, sig, value.GetStream(), NULL);
+		value = Value::Null; // delete stream instance
+		if (sig.IsSignalled()) return false;
+		value = Value(new Object_audio(env, pAudio.release()));
+		return true;
+	}
+	return false;
 }
 
 }
