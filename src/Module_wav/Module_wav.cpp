@@ -20,7 +20,7 @@ Gura_DeclareMethod(audio, wavread)
 Gura_ImplementMethod(audio, wavread)
 {
 	Object_audio *pThis = Object_audio::GetThisObj(args);
-	if (!AudioStreamer_WAV::ReadStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	if (!AudioStreamer_WAV::ReadStream(sig, pThis->GetAudio(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
@@ -35,19 +35,36 @@ Gura_DeclareMethod(audio, wavwrite)
 Gura_ImplementMethod(audio, wavwrite)
 {
 	Object_audio *pThis = Object_audio::GetThisObj(args);
-	if (!AudioStreamer_WAV::WriteStream(sig, pThis, args.GetStream(0))) return Value::Null;
+	if (!AudioStreamer_WAV::WriteStream(sig, pThis->GetAudio(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------
 // Gura module functions: wav
 //-----------------------------------------------------------------------------
+// mav.test(stream:stream)
+Gura_DeclareFunction(test)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream);
+}
+
+Gura_ImplementFunction(test)
+{
+	return Value::Null;
+}
+
+
+//-----------------------------------------------------------------------------
 // Module entry
+//-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
 	Gura_AssignMethodTo(VTYPE_audio, audio, wavread);
 	Gura_AssignMethodTo(VTYPE_audio, audio, wavwrite);
 	AudioStreamer::Register(new AudioStreamer_WAV());
+	// function assignment
+	Gura_AssignFunction(test);
 }
 
 Gura_ModuleTerminate()
@@ -67,13 +84,13 @@ bool AudioStreamer_WAV::IsResponsible(Signal sig, Stream &stream)
 bool AudioStreamer_WAV::Read(Environment &env, Signal sig,
 									Audio *pAudio, Stream &stream)
 {
-	return AudioStreamer_WAV::ReadStream(sig, pObjAudio, stream);
+	return AudioStreamer_WAV::ReadStream(sig, pAudio, stream);
 }
 
 bool AudioStreamer_WAV::Write(Environment &env, Signal sig,
 									Audio *pAudio, Stream &stream)
 {
-	return AudioStreamer_WAV::WriteStream(sig, pObjAudio, stream);
+	return AudioStreamer_WAV::WriteStream(sig, pAudio, stream);
 }
 
 bool AudioStreamer_WAV::ReadStream(Signal sig, Audio *pAudio, Stream &stream)
