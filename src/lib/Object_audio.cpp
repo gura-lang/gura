@@ -9,7 +9,13 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object implementation for audio
 //-----------------------------------------------------------------------------
-Object_audio::~Object_audio()
+Object_audio::Object_audio(Environment &env, Audio *pAudio) :
+			Object(env.LookupClass(VTYPE_audio)), _pAudio(pAudio)
+{
+}
+
+Object_audio::Object_audio(Class *pClass, Audio *pAudio) :
+			Object(pClass), _pAudio(pAudio)
 {
 }
 

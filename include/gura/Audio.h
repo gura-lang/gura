@@ -25,8 +25,7 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Audio);
 public:
-	inline Audio(Format format, size_t nChannels) : _cntRef(1),
-				_format(format), _nChannels(nChannels), _len(0), _buff(NULL) {}
+	Audio(Format format, size_t nChannels);
 private:
 	~Audio();
 public:
@@ -78,6 +77,8 @@ public:
 	}
 	bool AllocBuffer(Signal sig, size_t len);
 	void FreeBuffer();
+	bool Read(Environment &env, Signal sig, Stream &stream, const char *audioType);
+	bool Write(Environment &env, Signal sig, Stream &stream, const char *audioType);
 	bool SetSineWave(Signal sig, size_t iChannel,
 			size_t pitch, int phase, int amplitude, size_t offset, size_t len);
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);

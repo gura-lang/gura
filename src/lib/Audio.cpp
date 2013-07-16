@@ -6,6 +6,11 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Audio
 //-----------------------------------------------------------------------------
+Audio::Audio(Format format, size_t nChannels) : _cntRef(1),
+				_format(format), _nChannels(nChannels), _len(0), _buff(NULL)
+{
+}
+
 Audio::~Audio()
 {
 	FreeBuffer();
@@ -25,6 +30,30 @@ void Audio::FreeBuffer()
 	_pMemory.reset(NULL);
 	_buff = NULL;
 	_len = 0;
+}
+
+bool Audio::Read(Environment &env, Signal sig, Stream &stream, const char *audioType)
+{
+	AudioStreamer *pAudioStreamer = NULL;
+	pAudioStreamer = AudioStreamer::FindResponsible(sig, stream, audioType);
+	if (sig.IsSignalled()) return false;
+	if (pAudioStreamer == NULL) {
+		sig.SetError(ERR_FormatError, "unsupported audio type");
+		return false;
+	}
+	return pAudioStreamer->Read(env, sig, this, stream);
+}
+
+bool Audio::Write(Environment &env, Signal sig, Stream &stream, const char *audioType)
+{
+	AudioStreamer *pAudioStreamer = NULL;
+	pAudioStreamer = AudioStreamer::FindResponsible(sig, stream, audioType);
+	if (sig.IsSignalled()) return false;
+	if (pAudioStreamer == NULL) {
+		sig.SetError(ERR_FormatError, "unsupported audio type");
+		return false;
+	}
+	return pAudioStreamer->Write(env, sig, this, stream);
 }
 
 bool Audio::SetSineWave(Signal sig, size_t iChannel,

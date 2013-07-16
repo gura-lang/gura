@@ -24,13 +24,10 @@ public:
 private:
 	AutoPtr<Audio> _pAudio;
 public:
-	inline Object_audio(Environment &env, Audio *pAudio) :
-				Object(env.LookupClass(VTYPE_audio)), _pAudio(pAudio) {}
-	inline Object_audio(Class *pClass, Audio *pAudio) :
-				Object(pClass), _pAudio(pAudio) {}
+	Object_audio(Environment &env, Audio *pAudio);
+	Object_audio(Class *pClass, Audio *pAudio);
 	inline Audio *GetAudio() { return _pAudio.get(); }
 	inline const Audio *GetAudio() const { return _pAudio.get(); }
-	virtual ~Object_audio();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
