@@ -80,24 +80,44 @@ String Object_audio::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Global functions
 //-----------------------------------------------------------------------------
-// audio(format:symbol, len:number, channels:number => 1) {block?}
+// audio(args+):map {block?}
 Gura_DeclareFunction(audio)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "format", VTYPE_symbol);
-	DeclareArg(env, "len", VTYPE_number);
-	DeclareArg(env, "channels", VTYPE_number,
-							OCCUR_Once, FLAG_None, new Expr_Value(1));
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "args", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(audio)
 {
-	Audio::Format format = Audio::SymbolToFormat(sig, args.GetSymbol(0));
-	if (sig.IsSignalled()) return Value::Null;
-	size_t nChannels = args.GetSizeT(2);
-	AutoPtr<Audio> pAudio(new Audio(format, nChannels));
-	if (!pAudio->AllocBuffer(sig, args.GetSizeT(1))) return Value::Null;
+	ValueList valList = args.GetList(0);
+	AutoPtr<Audio> pAudio;
+	if (valList[0].IsSymbol()) {
+		Audio::Format format = Audio::SymbolToFormat(sig, valList[0].GetSymbol());
+		if (sig.IsSignalled()) return Value::Null;
+		if (valList.size() < 2) {
+			Declaration::SetError_NotEnoughArguments(sig);
+			return Value::Null;
+		}
+		size_t nChannels = 1;
+		if (valList.size() >= 3) nChannels = valList[2].GetSizeT();
+		AutoPtr<Audio> pAudio(new Audio(format, nChannels));
+		if (!pAudio->AllocBuffer(sig, valList[1].GetSizeT())) return Value::Null;
+	} else {
+		Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, NULL).
+									ValidateAndCast(env, sig, valList[0]);
+		if (sig.IsSignalled()) return Value::Null;
+		Stream &stream = valList[0].GetStream();
+		pAudio.reset(new Audio(Audio::FORMAT_None, 1));
+		const char *audioType = NULL;
+		if (valList.size() >= 2) {
+			Declaration(Gura_Symbol(audiotype), VTYPE_string).
+									ValidateAndCast(env, sig, valList[1]);
+			if (sig.IsSignalled()) return Value::Null;
+			audioType = valList[1].GetString();
+		}
+		if (!pAudio->Read(env, sig, stream, audioType)) return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(new Object_audio(env, pAudio.release())));
 }
 

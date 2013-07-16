@@ -274,8 +274,8 @@ public:
 		size_t width, size_t height, size_t xOffset, size_t yOffset, unsigned char alpha);
 	Palette *CreateEmptyPalette(Environment &env, size_t nEntries);
 	void SetPalette(Palette *pPalette);
-	bool Read(Environment &env, Signal sig, Stream &stream, const char *imgType);
-	bool Write(Environment &env, Signal sig, Stream &stream, const char *imgType);
+	bool Read(Environment &env, Signal sig, Stream &stream, const char *imageType);
+	bool Write(Environment &env, Signal sig, Stream &stream, const char *imageType);
 	int CalcDIBBitCount() const;
 	static inline size_t CalcDIBPaletteSize(int biBitCount) {
 		return (biBitCount <= 8)? (1 << biBitCount) * 4 : 0;
@@ -369,18 +369,18 @@ class GURA_DLLDECLARE ImageStreamer {
 public:
 	typedef std::vector<ImageStreamer *> List;
 private:
-	const char *_imgType;
+	const char *_imageType;
 	static List *_pList;
 public:
-	inline ImageStreamer(const char *imgType) : _imgType(imgType) {}
-	inline const char *GetImgType() const { return _imgType; }
+	inline ImageStreamer(const char *imageType) : _imageType(imageType) {}
+	inline const char *GetImageType() const { return _imageType; }
 	virtual bool IsResponsible(Signal sig, Stream &stream) = 0;
 	virtual bool Read(Environment &env, Signal sig, Image *pImage, Stream &stream) = 0;
 	virtual bool Write(Environment &env, Signal sig, Image *pImage, Stream &stream) = 0;
 public:
 	static void Register(ImageStreamer *pImageStreamer);
-	static ImageStreamer *FindResponsible(Signal sig, Stream &stream, const char *imgType);
-	static ImageStreamer *FindByImgType(const char *imgType);
+	static ImageStreamer *FindResponsible(Signal sig, Stream &stream, const char *imageType);
+	static ImageStreamer *FindByImageType(const char *imageType);
 };
 
 }

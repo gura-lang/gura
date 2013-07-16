@@ -105,7 +105,7 @@ Gura_DeclareFunction(image)
 	AddHelp(Gura_Symbol(en), 
 	"Returns an image object with specified characteristics. There are three patterns\n"
 	"to call the function as follows.\n"
-	"- image(stream:stream, format?:symbol, imgtype?:string)\n"
+	"- image(stream:stream, format?:symbol, imagetype?:string)\n"
 	"- image(format:symbol)\n"
 	"- image(format:symbol, width:number, height:number, color?:color)\n"
 	"In the first pattern, it creates an empty image with a specified format.\n"
@@ -118,7 +118,7 @@ Gura_ImplementFunction(image)
 {
 	if (sig.IsSignalled()) return Value::Null;
 	ValueList valList = args.GetList(0);
-	Object_image *pObj = NULL;
+	AutoPtr<Image> pImage;
 	if (valList[0].IsSymbol()) {
 		Declaration(Gura_Symbol(format), VTYPE_symbol).
 									ValidateAndCast(env, sig, valList[0]);
@@ -126,7 +126,7 @@ Gura_ImplementFunction(image)
 		Image::Format format =
 					Image::SymbolToFormat(sig, valList[0].GetSymbol());
 		if (sig.IsSignalled()) return Value::Null;
-		pObj = new Object_image(env, new Image(format));
+		pImage.reset(new Image(format));
 		if (valList.size() >= 2) {
 			Declaration(Gura_Symbol(width), VTYPE_number).
 										ValidateAndCast(env, sig, valList[1]);
@@ -139,15 +139,12 @@ Gura_ImplementFunction(image)
 				if (sig.IsSignalled()) return Value::Null;
 				height = valList[2].GetSizeT();
 			}
-			if (!pObj->GetImage()->AllocBuffer(sig, width, height, 0x00)) {
-				delete pObj;
-				return Value::Null;
-			}
+			if (!pImage->AllocBuffer(sig, width, height, 0x00)) return Value::Null;
 			if (valList.size() >= 4) {
 				Declaration(Gura_Symbol(color), VTYPE_color).
 										ValidateAndCast(env, sig, valList[3]);
 				if (sig.IsSignalled()) return Value::Null;
-				pObj->GetImage()->Fill(Object_color::GetObject(valList[3])->GetColor());
+				pImage->Fill(Object_color::GetObject(valList[3])->GetColor());
 			}
 		}
 	} else {
@@ -163,18 +160,17 @@ Gura_ImplementFunction(image)
 			format = Image::SymbolToFormat(sig, valList[1].GetSymbol());
 			if (sig.IsSignalled()) return Value::Null;
 		}
-		pObj = new Object_image(env, new Image(format));
-		const char *imgType = NULL;
+		pImage.reset(new Image(format));
+		const char *imageType = NULL;
 		if (valList.size() >= 3) {
-			Declaration(Gura_Symbol(imgtype), VTYPE_string).
+			Declaration(Gura_Symbol(imagetype), VTYPE_string).
 									ValidateAndCast(env, sig, valList[2]);
 			if (sig.IsSignalled()) return Value::Null;
-			imgType = valList[2].GetString();
+			imageType = valList[2].GetString();
 		}
-		if (!pObj->GetImage()->Read(env, sig, stream, imgType)) return Value::Null;
+		if (!pImage->Read(env, sig, stream, imageType)) return Value::Null;
 	}
-	Value result(pObj);
-	return ReturnValue(env, sig, args, result);
+	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -709,12 +705,12 @@ Gura_ImplementMethod(image, paste)
 	return args.GetThis();
 }
 
-// image#read(stream:stream:r, imgtype?:string):map:reduce
+// image#read(stream:stream:r, imagetype?:string):map:reduce
 Gura_DeclareMethod(image, read)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	DeclareArg(env, "imgtype", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "imagetype", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), "Reads image data from a stream.");
 }
 
@@ -726,12 +722,12 @@ Gura_ImplementMethod(image, read)
 	return args.GetThis();
 }
 
-// image#write(stream:stream:w, imgtype?:string):map:reduce
+// image#write(stream:stream:w, imagetype?:string):map:reduce
 Gura_DeclareMethod(image, write)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
-	DeclareArg(env, "imgtype", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "imagetype", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), "Writes image data to a stream.");
 }
 

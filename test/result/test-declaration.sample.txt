@@ -30,7 +30,7 @@ TypeError:error = <error:TypeError>
 ValueError:error = <error:ValueError>
 ZeroDivisionError:error = <error:ZeroDivisionError>
 __name__:string = __main__
-audio:function = audio(format:symbol, len:number, channels:number => 1) {block?}
+audio:function = audio(args+):map {block?}
 base64:module = <module:base64:<integrated>>
   __name__:string = base64
   __source__:string = <integrated>

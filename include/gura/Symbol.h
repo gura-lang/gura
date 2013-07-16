@@ -265,7 +265,8 @@ public:
 	Gura_DeclareSymbol(z);
 	Gura_DeclareSymbol(deg);
 	Gura_DeclareSymbol(box);
-	Gura_DeclareSymbol(imgtype);
+	Gura_DeclareSymbol(imagetype);
+	Gura_DeclareSymbol(audiotype);
 	Gura_DeclareSymbol(format);
 	Gura_DeclareSymbol(stream);
 	Gura_DeclareSymbol(color);

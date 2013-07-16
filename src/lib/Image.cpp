@@ -801,10 +801,10 @@ void Image::SetPalette(Palette *pPalette)
 	_pPalette.reset(pPalette);
 }
 
-bool Image::Read(Environment &env, Signal sig, Stream &stream, const char *imgType)
+bool Image::Read(Environment &env, Signal sig, Stream &stream, const char *imageType)
 {
 	ImageStreamer *pImageStreamer = NULL;
-	pImageStreamer = ImageStreamer::FindResponsible(sig, stream, imgType);
+	pImageStreamer = ImageStreamer::FindResponsible(sig, stream, imageType);
 	if (sig.IsSignalled()) return false;
 	if (pImageStreamer == NULL) {
 		sig.SetError(ERR_FormatError, "unsupported image type");
@@ -813,10 +813,10 @@ bool Image::Read(Environment &env, Signal sig, Stream &stream, const char *imgTy
 	return pImageStreamer->Read(env, sig, this, stream);
 }
 
-bool Image::Write(Environment &env, Signal sig, Stream &stream, const char *imgType)
+bool Image::Write(Environment &env, Signal sig, Stream &stream, const char *imageType)
 {
 	ImageStreamer *pImageStreamer = NULL;
-	pImageStreamer = ImageStreamer::FindResponsible(sig, stream, imgType);
+	pImageStreamer = ImageStreamer::FindResponsible(sig, stream, imageType);
 	if (sig.IsSignalled()) return false;
 	if (pImageStreamer == NULL) {
 		sig.SetError(ERR_FormatError, "unsupported image type");
@@ -1337,10 +1337,10 @@ void ImageStreamer::Register(ImageStreamer *pImageStreamer)
 	_pList->push_back(pImageStreamer);
 }
 
-ImageStreamer *ImageStreamer::FindResponsible(Signal sig, Stream &stream, const char *imgType)
+ImageStreamer *ImageStreamer::FindResponsible(Signal sig, Stream &stream, const char *imageType)
 {
 	if (_pList == NULL) return NULL;
-	if (imgType != NULL) return FindByImgType(imgType);
+	if (imageType != NULL) return FindByImageType(imageType);
 	foreach (List, ppImageStreamer, *_pList) {
 		ImageStreamer *pImageStreamer = *ppImageStreamer;
 		if (pImageStreamer->IsResponsible(sig, stream)) return pImageStreamer;
@@ -1349,12 +1349,12 @@ ImageStreamer *ImageStreamer::FindResponsible(Signal sig, Stream &stream, const 
 	return NULL;
 }
 
-ImageStreamer *ImageStreamer::FindByImgType(const char *imgType)
+ImageStreamer *ImageStreamer::FindByImageType(const char *imageType)
 {
 	if (_pList == NULL) return NULL;
 	foreach (List, ppImageStreamer, *_pList) {
 		ImageStreamer *pImageStreamer = *ppImageStreamer;
-		if (::strcasecmp(pImageStreamer->GetImgType(), imgType) == 0) {
+		if (::strcasecmp(pImageStreamer->GetImageType(), imageType) == 0) {
 			return pImageStreamer;
 		}
 	}
