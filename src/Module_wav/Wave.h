@@ -12,6 +12,8 @@ class Wave {
 public:
 	enum {
 		CKID_RIFF = FOURCC('R', 'I', 'F', 'F'),
+		CKID_fmt  = FOURCC('f', 'm', 't', ' '),
+		CKID_data = FOURCC('d', 'a', 't', 'a'),
 	};
 public:
 	struct ChunkHdr {
@@ -22,18 +24,28 @@ public:
 	public:
 		void Print(int indentLevel) const;
 	};
-private:
-	AutoPtr<Stream> _pStream;
+	class WAVEFORMAT {
+	public:
+		struct RawData {
+			enum { Size = 16 };
+			Gura_PackedUShort_LE(wFormatTag);
+			Gura_PackedUShort_LE(nChannels);
+			Gura_PackedULong_LE(nSamplesPerSec);
+			Gura_PackedULong_LE(nAvgBytesPerSec);
+			Gura_PackedUShort_LE(nBlockAlign);
+			Gura_PackedUShort_LE(wBitsPerSample);
+		};
+	};
 public:
-	Wave(Stream *pStream);
+	Wave();
 	void Clear();
-	bool ReadChunks(Environment &env, Signal sig);
+	bool Read(Environment &env, Signal sig, Stream &stream);
 	void Print() const;
 private:
-	bool ReadSubChunk(Environment &env, Signal sig, size_t bytes);
-	bool ReadStruct(Environment &env, Signal sig,
+	bool ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_t bytes);
+	bool ReadStruct(Environment &env, Signal sig, Stream &stream,
 						void *rawData, size_t ckSizeExpect, size_t ckSizeActual);
-	bool ReadString(Environment &env, Signal sig,
+	bool ReadString(Environment &env, Signal sig, Stream &stream,
 						char *str, size_t ckSizeMax, size_t ckSizeActual);
 };
 

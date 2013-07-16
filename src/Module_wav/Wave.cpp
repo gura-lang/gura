@@ -5,7 +5,7 @@ Gura_BeginModule(wav)
 //-----------------------------------------------------------------------------
 // Wave
 //-----------------------------------------------------------------------------
-Wave::Wave(Stream *pStream) : _pStream(pStream)
+Wave::Wave()
 {
 }
 
@@ -13,10 +13,10 @@ void Wave::Clear()
 {
 }
 
-bool Wave::ReadChunks(Environment &env, Signal sig)
+bool Wave::Read(Environment &env, Signal sig, Stream &stream)
 {
 	ChunkHdr chunkHdr;
-	size_t bytesRead = _pStream->Read(sig, &chunkHdr, ChunkHdr::Size);
+	size_t bytesRead = stream.Read(sig, &chunkHdr, ChunkHdr::Size);
 	if (bytesRead != ChunkHdr::Size) {
 		sig.SetError(ERR_FormatError, "invalid WAVE format");
 		return false;
@@ -28,7 +28,7 @@ bool Wave::ReadChunks(Environment &env, Signal sig)
 		return false;
 	}
 	char formHdr[4];
-	bytesRead = _pStream->Read(sig, formHdr, 4);
+	bytesRead = stream.Read(sig, formHdr, 4);
 	if (bytesRead != 4) {
 		sig.SetError(ERR_FormatError, "invalid WAVE format");
 		return false;
@@ -38,7 +38,7 @@ bool Wave::ReadChunks(Environment &env, Signal sig)
 		return false;
 	}
 	ckSize -= 4;
-	if (!ReadSubChunk(env, sig, static_cast<size_t>(ckSize))) return false;
+	if (!ReadSubChunk(env, sig, stream, static_cast<size_t>(ckSize))) return false;
 	return true;
 }
 
@@ -46,13 +46,13 @@ void Wave::Print() const
 {
 }
 
-bool Wave::ReadSubChunk(Environment &env, Signal sig, size_t bytes)
+bool Wave::ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_t bytes)
 {
 	size_t bytesRest = (bytes + 1) / 2 * 2;
 	while (bytesRest > 0) {
 		ChunkHdr chunkHdr;
 		//::printf("bytesRest = %d\n", bytesRest);
-		size_t bytesRead = _pStream->Read(sig, &chunkHdr,
+		size_t bytesRead = stream.Read(sig, &chunkHdr,
 						ChooseMin(bytesRest, static_cast<size_t>(ChunkHdr::Size)));
 		if (bytesRead != ChunkHdr::Size) {
 			sig.SetError(ERR_FormatError, "invalid WAVE format");
@@ -63,9 +63,16 @@ bool Wave::ReadSubChunk(Environment &env, Signal sig, size_t bytes)
 		unsigned long ckSize = Gura_UnpackULong(chunkHdr.ckSize);
 		unsigned long ckSizeAlign = (ckSize + 1) / 2 * 2;
 		switch (ckID) {
+		case CKID_fmt:
+			WAVEFORMAT::RawData rawData;
+			if (!ReadStruct(env, sig, stream, &rawData, rawData.Size, ckSize)) return false;
+			break;
+		case CKID_data:
+			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
+			break;
 		default: {
 			::printf("****\n");
-			_pStream->Seek(sig, ckSizeAlign, Stream::SeekCur);
+			stream.Seek(sig, ckSizeAlign, Stream::SeekCur);
 			break;
 		}
 		}
@@ -74,14 +81,14 @@ bool Wave::ReadSubChunk(Environment &env, Signal sig, size_t bytes)
 	return true;
 }
 
-bool Wave::ReadStruct(Environment &env, Signal sig,
+bool Wave::ReadStruct(Environment &env, Signal sig, Stream &stream,
 						void *rawData, size_t ckSizeExpect, size_t ckSizeActual)
 {
 	if (ckSizeExpect > ckSizeActual) {
 		sig.SetError(ERR_FormatError, "unexpected size of chunk");
 		return false;
 	}
-	size_t bytesRead = _pStream->Read(sig, rawData, ckSizeExpect);
+	size_t bytesRead = stream.Read(sig, rawData, ckSizeExpect);
 	if (bytesRead != ckSizeExpect) {
 		sig.SetError(ERR_FormatError, "invalid WAVE format");
 		return false;
@@ -89,7 +96,7 @@ bool Wave::ReadStruct(Environment &env, Signal sig,
 	return true;
 }
 
-bool Wave::ReadString(Environment &env, Signal sig,
+bool Wave::ReadString(Environment &env, Signal sig, Stream &stream,
 						char *str, size_t ckSizeMax, size_t ckSizeActual)
 {
 	size_t ckSizeAlign = (ckSizeActual + 1) / 2 * 2;
@@ -97,7 +104,7 @@ bool Wave::ReadString(Environment &env, Signal sig,
 		sig.SetError(ERR_FormatError, "string data is too long");
 		return false;
 	}
-	size_t bytesRead = _pStream->Read(sig, str, ckSizeAlign);
+	size_t bytesRead = stream.Read(sig, str, ckSizeAlign);
 	if (bytesRead != ckSizeAlign) {
 		sig.SetError(ERR_FormatError, "invalid WAVE format");
 		return false;

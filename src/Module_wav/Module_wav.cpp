@@ -51,6 +51,8 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
+	std::auto_ptr<Wave> pWave(new Wave());
+	pWave->Read(env, sig, args.GetStream(0));
 	return Value::Null;
 }
 
