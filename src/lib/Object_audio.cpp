@@ -11,98 +11,11 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 Object_audio::~Object_audio()
 {
-	FreeBuffer();
 }
 
 Object *Object_audio::Clone() const
 {
 	return NULL; //new Object_audio(*this);
-}
-
-bool Object_audio::AllocBuffer(Signal sig, size_t len)
-{
-	FreeBuffer();
-	_pMemory.reset(new MemoryHeap(_nChannels * len * GetBytesPerData()));
-	_buff = reinterpret_cast<unsigned char *>(_pMemory->GetPointer());
-	_len = len;
-	return true;
-}
-
-void Object_audio::FreeBuffer()
-{
-	_pMemory.reset(NULL);
-	_buff = NULL;
-	_len = 0;
-}
-
-bool Object_audio::SetSineWave(Signal sig, size_t iChannel,
-			size_t pitch, int phase, int amplitude, size_t offset, size_t len)
-{
-	const double PI2 = Math_PI * 2;
-	int amplitudeMax =
-		(_format == FORMAT_U8 || _format == FORMAT_S8)? 0x7f :
-		(_format == FORMAT_U16LE || _format == FORMAT_S16LE ||
-		 _format == FORMAT_U16BE || _format == FORMAT_S16BE)? 0x7fff : 0;
-	if (iChannel >= _nChannels) {
-		sig.SetError(ERR_ValueError, "channel is out of range");
-		return false;
-	}
-	if (amplitude < 0) {
-		amplitude = amplitudeMax;
-	} else if (amplitude > amplitudeMax) {
-		sig.SetError(ERR_ValueError, "amplitude is out of range");
-		return false;
-	}
-	if (len > _len) len = _len;
-	if (offset >= _len) return true;
-	if (offset + len > _len) len = _len - offset;
-	unsigned char *buffp = _buff + (offset * _nChannels + iChannel) * GetBytesPerData();
-	size_t bytesPerUnit = GetBytesPerData() * _nChannels;
-	for (size_t i = 0; i < len; i++) {
-		int data = static_cast<int>(::sin(PI2 * (i + phase) / pitch) * amplitude);
-		StoreData(buffp, data);
-		buffp += bytesPerUnit;
-	}
-	return true;
-}
-
-Object_audio::Format Object_audio::SymbolToFormat(Signal sig, const Symbol *pSymbol)
-{
-	if (pSymbol->IsIdentical(Gura_Symbol(u8))) {
-		return FORMAT_U8;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(s8))) {
-		return FORMAT_S8;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(u16le))) {
-		return FORMAT_U16LE;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(s16le))) {
-		return FORMAT_S16LE;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(u16be))) {
-		return FORMAT_U16BE;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(s16be))) {
-		return FORMAT_S16BE;
-	} else {
-		sig.SetError(ERR_ValueError, "unsupported audio format '%s'", pSymbol->GetName());
-		return FORMAT_None;
-	}
-}
-
-const Symbol *Object_audio::FormatToSymbol(Format format)
-{
-	if (format == FORMAT_U8) {
-		return Gura_Symbol(u8);
-	} else if (format == FORMAT_S8) {
-		return Gura_Symbol(s8);
-	} else if (format == FORMAT_U16LE) {
-		return Gura_Symbol(u16le);
-	} else if (format == FORMAT_S16LE) {
-		return Gura_Symbol(s16le);
-	} else if (format == FORMAT_U16BE) {
-		return Gura_Symbol(u16be);
-	} else if (format == FORMAT_S16BE) {
-		return Gura_Symbol(s16be);
-	} else {
-		return Gura_Symbol(nil);
-	}
 }
 
 bool Object_audio::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -119,11 +32,11 @@ Value Object_audio::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		return Value(FormatToSymbol(_format));
+		return Value(Audio::FormatToSymbol(_pAudio->GetFormat()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(channels))) {
-		return Value(static_cast<unsigned int>(_nChannels));
+		return Value(static_cast<unsigned int>(_pAudio->GetChannels()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(len))) {
-		return Value(static_cast<unsigned int>(_len));
+		return Value(static_cast<unsigned int>(_pAudio->GetLength()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -139,11 +52,11 @@ String Object_audio::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
 	rtn += "<audio:";
-	rtn += FormatToSymbol(_format)->GetName();
+	rtn += Audio::FormatToSymbol(_pAudio->GetFormat())->GetName();
 	rtn += ":";
-	if (IsValid()) {
+	if (_pAudio->IsValid()) {
 		char buff[32];
-		::sprintf(buff, "%d", static_cast<int>(GetLength()));
+		::sprintf(buff, "%d", static_cast<int>(_pAudio->GetLength()));
 		rtn += buff;
 	} else {
 		rtn += "invalid";
@@ -151,7 +64,7 @@ String Object_audio::ToString(Signal sig, bool exprFlag)
 	rtn += ":";
 	do {
 		char buff[32];
-		::sprintf(buff, "%dch", static_cast<int>(_nChannels));
+		::sprintf(buff, "%dch", static_cast<int>(_pAudio->GetChannels()));
 		rtn += buff;
 	} while (0);
 	rtn += ">";
@@ -174,15 +87,12 @@ Gura_DeclareFunction(audio)
 
 Gura_ImplementFunction(audio)
 {
-	Object_audio::Format format = Object_audio::SymbolToFormat(sig, args.GetSymbol(0));
+	Audio::Format format = Audio::SymbolToFormat(sig, args.GetSymbol(0));
 	if (sig.IsSignalled()) return Value::Null;
 	size_t nChannels = args.GetSizeT(2);
-	Object_audio *pObj = new Object_audio(env, format, nChannels);
-	if (!pObj->AllocBuffer(sig, args.GetSizeT(1))) {
-		delete pObj;
-		return Value::Null;
-	}
-	return ReturnValue(env, sig, args, Value(pObj));
+	AutoPtr<Audio> pAudio(new Audio(format, nChannels));
+	if (!pAudio->AllocBuffer(sig, args.GetSizeT(1))) return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_audio(env, pAudio.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -204,13 +114,14 @@ Gura_DeclareMethod(audio, sinewave)
 Gura_ImplementMethod(audio, sinewave)
 {
 	Object_audio *pThis = Object_audio::GetThisObj(args);
+	Audio *pAudio = pThis->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
 	size_t pitch = args.GetSizeT(1);
 	int phase = args.IsNumber(2)? args.GetInt(2) : 0;
 	int amplitude = args.IsNumber(3)? args.GetInt(3) : -1;
 	size_t offset = args.IsNumber(4)? args.GetSizeT(4) : 0;
 	size_t len = args.IsNumber(5)? args.GetSizeT(5) : InvalidSize;
-	if (!pThis->SetSineWave(sig, iChannel, pitch, phase, amplitude, offset, len)) {
+	if (!pAudio->SetSineWave(sig, iChannel, pitch, phase, amplitude, offset, len)) {
 		return Value::Null;
 	}
 	//for (size_t i = 0; i < pThis->GetLength() * pThis->GetBytesPerData(); i++) {

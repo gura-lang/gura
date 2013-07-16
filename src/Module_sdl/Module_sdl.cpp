@@ -1531,20 +1531,20 @@ void Object_AudioSpec::Callback(Uint8 *stream, int len)
 {
 	if (_pFuncCallback == NULL) return;
 	Environment &env = *this;
-	Object_audio::Format fmt;
+	Audio::Format fmt;
 	if (_pAudioSpec->format == AUDIO_U16SYS) {
-		fmt = IsBigEndian()? Object_audio::FORMAT_U16BE : Object_audio::FORMAT_U16LE;
+		fmt = IsBigEndian()? Audio::FORMAT_U16BE : Audio::FORMAT_U16LE;
 	} else if (_pAudioSpec->format == AUDIO_S16SYS) {
-		fmt = IsBigEndian()? Object_audio::FORMAT_S16BE : Object_audio::FORMAT_S16LE;
+		fmt = IsBigEndian()? Audio::FORMAT_S16BE : Audio::FORMAT_S16LE;
 	} else {
 		fmt =
-			(_pAudioSpec->format == AUDIO_U8)? Object_audio::FORMAT_U8 :
-			(_pAudioSpec->format == AUDIO_S8)? Object_audio::FORMAT_S8 :
-			(_pAudioSpec->format == AUDIO_U16LSB)? Object_audio::FORMAT_U16LE :
-			(_pAudioSpec->format == AUDIO_S16LSB)? Object_audio::FORMAT_S16LE :
-			(_pAudioSpec->format == AUDIO_U16MSB)? Object_audio::FORMAT_U16BE :
-			(_pAudioSpec->format == AUDIO_S16MSB)? Object_audio::FORMAT_S16BE :
-			Object_audio::FORMAT_U8;
+			(_pAudioSpec->format == AUDIO_U8)? Audio::FORMAT_U8 :
+			(_pAudioSpec->format == AUDIO_S8)? Audio::FORMAT_S8 :
+			(_pAudioSpec->format == AUDIO_U16LSB)? Audio::FORMAT_U16LE :
+			(_pAudioSpec->format == AUDIO_S16LSB)? Audio::FORMAT_S16LE :
+			(_pAudioSpec->format == AUDIO_U16MSB)? Audio::FORMAT_U16BE :
+			(_pAudioSpec->format == AUDIO_S16MSB)? Audio::FORMAT_S16BE :
+			Audio::FORMAT_U8;
 	}
 	::SDL_LockAudio();
 #if 0
