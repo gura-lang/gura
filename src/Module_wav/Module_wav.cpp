@@ -42,17 +42,20 @@ Gura_ImplementMethod(audio, wavwrite)
 //-----------------------------------------------------------------------------
 // Gura module functions: wav
 //-----------------------------------------------------------------------------
-// mav.test(stream:stream)
+// mav.test(stream:stream, streamOut:stream:w)
 Gura_DeclareFunction(test)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareArg(env, "streamOut", VTYPE_stream, OCCUR_Once, FLAG_Write);
 }
 
 Gura_ImplementFunction(test)
 {
 	std::auto_ptr<Wave> pWave(new Wave());
-	pWave->Read(env, sig, args.GetStream(0));
+	pWave->Read(sig, args.GetStream(0));
+	pWave->Write(sig, args.GetStream(1));
+	pWave->Print();
 	return Value::Null;
 }
 
@@ -96,12 +99,13 @@ bool AudioStreamer_WAV::Write(Environment &env, Signal sig,
 
 bool AudioStreamer_WAV::ReadStream(Signal sig, Audio *pAudio, Stream &stream)
 {
-	
+	//if (!pObjAudio->CheckEmpty(sig)) return false;
 	return false;
 }
 
 bool AudioStreamer_WAV::WriteStream(Signal sig, Audio *pAudio, Stream &stream)
 {
+	//if (!pObjAudio->CheckValid(sig)) return false;
 	return false;
 }
 

@@ -24,7 +24,7 @@ public:
 	public:
 		void Print(int indentLevel) const;
 	};
-	class WAVEFORMAT {
+	class Format {
 	public:
 		struct RawData {
 			enum { Size = 16 };
@@ -35,17 +35,42 @@ public:
 			Gura_PackedUShort_LE(nBlockAlign);
 			Gura_PackedUShort_LE(wBitsPerSample);
 		};
+	private:
+		int _cntRef;
+		UShort _wFormatTag;
+		UShort _nChannels;
+		ULong _nSamplesPerSec;
+		ULong _nAvgBytesPerSec;
+		UShort _nBlockAlign;
+		UShort _wBitsPerSample;
+	public:
+		Gura_DeclareReferenceAccessor(Format);
+	public:
+		Format();
+		Format(const RawData &rawData);
+	private:
+		inline ~Format() {}
+	public:
+		void Print() const;
+		Audio *ReadAudio(Signal sig, Stream &stream, size_t ckSize) const;
+		bool Write(Signal sig, Stream &stream) const;
 	};
+private:
+	AutoPtr<Format> _pFormat;
+	AutoPtr<Audio> _pAudio;
 public:
 	Wave();
 	void Clear();
-	bool Read(Environment &env, Signal sig, Stream &stream);
+	bool Read(Signal sig, Stream &stream);
+	bool Write(Signal sig, Stream &stream);
 	void Print() const;
+	inline Format *GetFormat() const { return _pFormat.get(); }
+	inline Audio *GetAudio() const { return _pAudio.get(); }
 private:
-	bool ReadSubChunk(Environment &env, Signal sig, Stream &stream, size_t bytes);
-	bool ReadStruct(Environment &env, Signal sig, Stream &stream,
+	bool ReadSubChunk(Signal sig, Stream &stream, size_t bytes);
+	static bool ReadStruct(Signal sig, Stream &stream,
 						void *rawData, size_t ckSizeExpect, size_t ckSizeActual);
-	bool ReadString(Environment &env, Signal sig, Stream &stream,
+	static bool ReadString(Signal sig, Stream &stream,
 						char *str, size_t ckSizeMax, size_t ckSizeActual);
 };
 
