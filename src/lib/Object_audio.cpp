@@ -96,6 +96,8 @@ Gura_DeclareFunction(audio)
 
 Gura_ImplementFunction(audio)
 {
+	size_t nChannels = 1;
+	size_t nSamplesPerSec = 10000;
 	ValueList valList = args.GetList(0);
 	AutoPtr<Audio> pAudio;
 	if (valList[0].IsSymbol()) {
@@ -105,7 +107,6 @@ Gura_ImplementFunction(audio)
 			Declaration::SetError_NotEnoughArguments(sig);
 			return Value::Null;
 		}
-		size_t nChannels = 1;
 		if (valList.size() >= 3) {
 			nChannels = valList[2].GetSizeT();
 			if (nChannels != 1 && nChannels != 2) {
@@ -113,14 +114,21 @@ Gura_ImplementFunction(audio)
 				return Value::Null;
 			}
 		}
-		pAudio.reset(new Audio(format, nChannels));
+		if (valList.size() >= 4) {
+			nSamplesPerSec = valList[3].GetSizeT();
+			if (nSamplesPerSec == 0) {
+				sig.SetError(ERR_ValueError, "samplespersec must be more then zero");
+				return Value::Null;
+			}
+		}
+		pAudio.reset(new Audio(format, nChannels, nSamplesPerSec));
 		if (!pAudio->AllocBuffer(sig, valList[1].GetSizeT())) return Value::Null;
 	} else {
 		Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, NULL).
 									ValidateAndCast(env, sig, valList[0]);
 		if (sig.IsSignalled()) return Value::Null;
 		Stream &stream = valList[0].GetStream();
-		pAudio.reset(new Audio(Audio::FORMAT_None, 1));
+		pAudio.reset(new Audio(Audio::FORMAT_None, nChannels, nSamplesPerSec));
 		const char *audioType = NULL;
 		if (valList.size() >= 2) {
 			Declaration(Gura_Symbol(audiotype), VTYPE_string).
@@ -281,9 +289,11 @@ void Class_audio::Prepare(Environment &env)
 
 bool Class_audio::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
+	size_t nChannels = 1;
+	size_t nSamplesPerSec = 10000;
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
 	if (value.IsStream()) {
-		AutoPtr<Audio> pAudio(new Audio(Audio::FORMAT_None, 1));
+		AutoPtr<Audio> pAudio(new Audio(Audio::FORMAT_None, nChannels, nSamplesPerSec));
 		pAudio->Read(env, sig, value.GetStream(), NULL);
 		value = Value::Null; // delete stream instance
 		if (sig.IsSignalled()) return false;

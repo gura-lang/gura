@@ -6,8 +6,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Audio
 //-----------------------------------------------------------------------------
-Audio::Audio(Format format, size_t nChannels) : _cntRef(1),
-	_format(format), _nChannels(nChannels), _nSamples(0), _nSamplesPerSec(0),
+Audio::Audio(Format format, size_t nChannels, size_t nSamplesPerSec) : _cntRef(1),
+	_format(format), _nChannels(nChannels), _nSamplesPerSec(nSamplesPerSec),
 	_pBufferLast(NULL)
 {
 }
@@ -19,7 +19,8 @@ Audio::~Audio()
 
 UChar *Audio::AllocBuffer(Signal sig, size_t nSamples)
 {
-	Buffer *pBuffer = new Buffer(new MemoryHeap(_nChannels * nSamples * GetBytesPerSample()));
+	Buffer *pBuffer = new Buffer(_format, _nChannels, _nSamplesPerSec);
+	pBuffer->SetMemory(new MemoryHeap(CalcBytes(_format, _nChannels, nSamples)));
 	UChar *rtn = pBuffer->GetPointer();
 	if (_pBufferLast == NULL) {
 		_pBuffer.reset(pBuffer);
@@ -27,7 +28,6 @@ UChar *Audio::AllocBuffer(Signal sig, size_t nSamples)
 		_pBufferLast->SetNext(pBuffer);
 	}
 	_pBufferLast = pBuffer;
-	_nSamples += nSamples;
 	return rtn;
 }
 
@@ -35,7 +35,24 @@ void Audio::FreeBuffer()
 {
 	_pBuffer.reset(NULL);
 	_pBufferLast = NULL;
-	_nSamples = 0;
+}
+
+size_t Audio::GetSamples() const
+{
+	size_t nSamples = 0;
+	for (Buffer *pBuffer = _pBuffer.get(); pBuffer != NULL; pBuffer = pBuffer->GetNext()) {
+		nSamples += pBuffer->GetSamples();
+	}
+	return nSamples;
+}
+
+size_t Audio::GetBytes() const
+{
+	size_t bytes = 0;
+	for (Buffer *pBuffer = _pBuffer.get(); pBuffer != NULL; pBuffer = pBuffer->GetNext()) {
+		bytes += pBuffer->GetBytes();
+	}
+	return bytes;
 }
 
 bool Audio::Read(Environment &env, Signal sig, Stream &stream, const char *audioType)
@@ -137,11 +154,8 @@ const Symbol *Audio::FormatToSymbol(Format format)
 //-----------------------------------------------------------------------------
 // Audio::Buffer
 //-----------------------------------------------------------------------------
-Audio::Buffer::Buffer() : _cntRef(1)
-{
-}
-
-Audio::Buffer::Buffer(Memory *pMemory) : _cntRef(1), _pMemory(pMemory)
+Audio::Buffer::Buffer(Format format, size_t nChannels, size_t nSamplesPerSec) : _cntRef(1),
+		_format(format), _nChannels(nChannels), _nSamplesPerSec(nSamplesPerSec)
 {
 }
 

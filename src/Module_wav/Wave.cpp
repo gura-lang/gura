@@ -44,8 +44,7 @@ bool Wave::Read(Signal sig, Stream &stream)
 
 bool Wave::Write(Signal sig, Stream &stream)
 {
-	size_t bytesData = _pAudio->GetChannels() *
-					_pAudio->GetSamples() * _pAudio->GetBytesPerSample();
+	size_t bytesData = _pAudio->GetBytes();
 	size_t bytesChunk = 4;
 	bytesChunk += ChunkHdr::Size + Format::RawData::Size;
 	bytesChunk += ChunkHdr::Size + bytesData;
@@ -66,7 +65,7 @@ bool Wave::Write(Signal sig, Stream &stream)
 		for (Audio::Buffer *pBuffer = _pAudio->GetBuffer();
 							pBuffer != NULL; pBuffer = pBuffer->GetNext()) {
 			if (stream.Write(sig, pBuffer->GetPointer(),
-						pBuffer->GetSize()) != pBuffer->GetSize()) return false;
+						pBuffer->GetBytes()) != pBuffer->GetBytes()) return false;
 		}
 	} while (0);
 	return true;
@@ -226,7 +225,7 @@ Audio *Wave::Format::ReadAudio(Signal sig, Stream &stream, size_t ckSize) const
 		sig.SetError(ERR_FormatError, "wBitsPerSample must be 8 or 16");
 		return NULL;
 	}
-	AutoPtr<Audio> pAudio(new Audio(format, _nChannels));
+	AutoPtr<Audio> pAudio(new Audio(format, _nChannels, _nSamplesPerSec));
 	UChar *buff = pAudio->AllocBuffer(sig, nSamples);
 	if (buff == NULL) return NULL;
 	if (stream.Read(sig, buff, bytesToRead) == 0) return NULL;
