@@ -19,19 +19,22 @@ public:
 	private:
 		int _cntRef;
 		AutoPtr<Memory> _pMemory;
-		UChar *_pointer;
 		AutoPtr<Buffer> _pNext;
 	public:
 		Gura_DeclareReferenceAccessor(Buffer);
 	public:
 		Buffer();
 		Buffer(Memory *pMemory);
-		Buffer(Memory *pMemory, UChar *pointer);
 	private:
 		inline ~Buffer() {}
 	public:
 		inline Memory *GetMemory() { return _pMemory.get(); }
-		inline UChar *GetPointer() { return _pointer; }
+		inline UChar *GetPointer() {
+			return _pMemory.IsNull()? NULL : reinterpret_cast<UChar *>(_pMemory->GetPointer());
+		}
+		inline size_t GetSize() const {
+			return _pMemory.IsNull()? 0 : _pMemory->GetSize();
+		}
 		inline Buffer *GetNext() { return _pNext.get(); }
 		inline void SetNext(Buffer *pNext) { _pNext.reset(pNext); }
 	};

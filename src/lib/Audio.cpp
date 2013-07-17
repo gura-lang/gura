@@ -137,17 +137,11 @@ const Symbol *Audio::FormatToSymbol(Format format)
 //-----------------------------------------------------------------------------
 // Audio::Buffer
 //-----------------------------------------------------------------------------
-Audio::Buffer::Buffer() : _cntRef(1), _pointer(NULL)
+Audio::Buffer::Buffer() : _cntRef(1)
 {
 }
 
-Audio::Buffer::Buffer(Memory *pMemory) : _cntRef(1),
-	_pMemory(pMemory), _pointer(reinterpret_cast<UChar *>(pMemory->GetPointer()))
-{
-}
-
-Audio::Buffer::Buffer(Memory *pMemory, UChar *pointer) : _cntRef(1),
-						_pMemory(pMemory), _pointer(pointer)
+Audio::Buffer::Buffer(Memory *pMemory) : _cntRef(1), _pMemory(pMemory)
 {
 }
 
