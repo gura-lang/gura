@@ -144,17 +144,14 @@ Gura_ImplementFunction(audio)
 //-----------------------------------------------------------------------------
 // Gura interfaces for audio
 //-----------------------------------------------------------------------------
-// audio#sinewave(channel:number, pitch:number, phase?:number,
-//                amplitude?:number, offset?:number, samples?:number):reduce
+// audio#sinewave(channel:number, pitch:number, samples:number, amplitude?:number):reduce
 Gura_DeclareMethod(audio, sinewave)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "pitch", VTYPE_number);
-	DeclareArg(env, "phase", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "samples", VTYPE_number);
 	DeclareArg(env, "amplitude", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "samples", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(audio, sinewave)
@@ -163,18 +160,11 @@ Gura_ImplementMethod(audio, sinewave)
 	Audio *pAudio = pThis->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
 	size_t pitch = args.GetSizeT(1);
-	int phase = args.IsNumber(2)? args.GetInt(2) : 0;
+	size_t nSamples = args.GetSizeT(2);
 	int amplitude = args.IsNumber(3)? args.GetInt(3) : -1;
-	size_t offset = args.IsNumber(4)? args.GetSizeT(4) : 0;
-	size_t nSamples = args.IsNumber(5)? args.GetSizeT(5) : InvalidSize;
-#if 0
-	if (!pAudio->SetSineWave(sig, iChannel, pitch, phase, amplitude, offset, nSamples)) {
+	if (!pAudio->AddSineWave(sig, iChannel, pitch, nSamples, amplitude)) {
 		return Value::Null;
 	}
-#endif
-	//for (size_t i = 0; i < pThis->GetSamples() * pThis->GetBytesPerData(); i++) {
-	//	::printf(" %02x", pThis->GetBuffer()[i]);
-	//}
 	return args.GetThis();
 }
 

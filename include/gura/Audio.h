@@ -110,14 +110,19 @@ public:
 	size_t GetBytes() const;
 	bool Read(Environment &env, Signal sig, Stream &stream, const char *audioType);
 	bool Write(Environment &env, Signal sig, Stream &stream, const char *audioType);
-	//bool SetSineWave(Signal sig, size_t iChannel,
-	//	size_t pitch, int phase, int amplitude, size_t offset, size_t nSamples);
+	bool AddSineWave(Signal sig, size_t iChannel,
+							size_t pitch, size_t nSamples, int amplitude);
 public:
 	inline static size_t GetBytesPerSample(Format format) {
 		return (format == FORMAT_U8 || format == FORMAT_S8)? 1 : 2;
 	}
 	inline static size_t CalcBytes(Format format, size_t nChannels, size_t nSamples) {
 		return GetBytesPerSample(format) * nChannels * nSamples;
+	}
+	inline static int GetAmplitudeMax(Format format) {
+		return (format == FORMAT_U8 || format == FORMAT_S8)? 0x7f :
+			(format == FORMAT_U16LE || format == FORMAT_S16LE ||
+			 format == FORMAT_U16BE || format == FORMAT_S16BE)? 0x7fff : 0;
 	}
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
 	static const Symbol *FormatToSymbol(Format format);

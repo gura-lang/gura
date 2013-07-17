@@ -21,14 +21,14 @@ UChar *Audio::AllocBuffer(Signal sig, size_t nSamples)
 {
 	Buffer *pBuffer = new Buffer(_format, _nChannels, _nSamplesPerSec);
 	pBuffer->SetMemory(new MemoryHeap(CalcBytes(_format, _nChannels, nSamples)));
-	UChar *rtn = pBuffer->GetPointer();
+	UChar *buff = pBuffer->GetPointer();
 	if (_pBufferLast == NULL) {
 		_pBuffer.reset(pBuffer);
 	} else {
 		_pBufferLast->SetNext(pBuffer);
 	}
 	_pBufferLast = pBuffer;
-	return rtn;
+	return buff;
 }
 
 void Audio::FreeBuffer()
@@ -79,15 +79,11 @@ bool Audio::Write(Environment &env, Signal sig, Stream &stream, const char *audi
 	return pAudioStreamer->Write(env, sig, this, stream);
 }
 
-#if 0
-bool Audio::SetSineWave(Signal sig, size_t iChannel,
-		size_t pitch, int phase, int amplitude, size_t offset, size_t nSamples)
+bool Audio::AddSineWave(Signal sig, size_t iChannel,
+							size_t pitch, size_t nSamples, int amplitude)
 {
 	const double PI2 = Math_PI * 2;
-	int amplitudeMax =
-		(_format == FORMAT_U8 || _format == FORMAT_S8)? 0x7f :
-		(_format == FORMAT_U16LE || _format == FORMAT_S16LE ||
-		 _format == FORMAT_U16BE || _format == FORMAT_S16BE)? 0x7fff : 0;
+	int amplitudeMax = GetAmplitudeMax(_format);
 	if (iChannel >= _nChannels) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
 		return false;
@@ -98,19 +94,16 @@ bool Audio::SetSineWave(Signal sig, size_t iChannel,
 		sig.SetError(ERR_ValueError, "amplitude is out of range");
 		return false;
 	}
-	if (nSamples > _nSamples) nSamples = _nSamples;
-	if (offset >= _nSamples) return true;
-	if (offset + nSamples > _nSamples) nSamples = _nSamples - offset;
-	UChar *buffp = _buff + (offset * _nChannels + iChannel) * GetBytesPerSample();
+	UChar *buff = AllocBuffer(sig, nSamples);
+	UChar *buffp = buff;
 	size_t bytesPerUnit = GetBytesPerSample() * _nChannels;
 	for (size_t i = 0; i < nSamples; i++) {
-		int data = static_cast<int>(::sin(PI2 * (i + phase) / pitch) * amplitude);
+		int data = static_cast<int>(::sin(PI2 * i / pitch) * amplitude);
 		StoreData(buffp, data);
 		buffp += bytesPerUnit;
 	}
 	return true;
 }
-#endif
 
 Audio::Format Audio::SymbolToFormat(Signal sig, const Symbol *pSymbol)
 {
