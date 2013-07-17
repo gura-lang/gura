@@ -159,9 +159,11 @@ Gura_ImplementMethod(audio, sinewave)
 	int amplitude = args.IsNumber(3)? args.GetInt(3) : -1;
 	size_t offset = args.IsNumber(4)? args.GetSizeT(4) : 0;
 	size_t nSamples = args.IsNumber(5)? args.GetSizeT(5) : InvalidSize;
+#if 0
 	if (!pAudio->SetSineWave(sig, iChannel, pitch, phase, amplitude, offset, nSamples)) {
 		return Value::Null;
 	}
+#endif
 	//for (size_t i = 0; i < pThis->GetSamples() * pThis->GetBytesPerData(); i++) {
 	//	::printf(" %02x", pThis->GetBuffer()[i]);
 	//}

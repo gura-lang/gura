@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 Audio::Audio(Format format, size_t nChannels) : _cntRef(1),
 	_format(format), _nChannels(nChannels), _nSamples(0), _nSamplesPerSec(0),
-	_buff(NULL)
+	_pBufferLast(NULL)
 {
 }
 
@@ -17,19 +17,24 @@ Audio::~Audio()
 	FreeBuffer();
 }
 
-bool Audio::AllocBuffer(Signal sig, size_t nSamples)
+UChar *Audio::AllocBuffer(Signal sig, size_t nSamples)
 {
-	FreeBuffer();
-	_pMemory.reset(new MemoryHeap(_nChannels * nSamples * GetBytesPerSample()));
-	_buff = reinterpret_cast<UChar *>(_pMemory->GetPointer());
-	_nSamples = nSamples;
-	return true;
+	Buffer *pBuffer = new Buffer(new MemoryHeap(_nChannels * nSamples * GetBytesPerSample()));
+	UChar *rtn = pBuffer->GetPointer();
+	if (_pBufferLast == NULL) {
+		_pBuffer.reset(pBuffer);
+	} else {
+		_pBufferLast->SetNext(pBuffer);
+	}
+	_pBufferLast = pBuffer;
+	_nSamples += nSamples;
+	return rtn;
 }
 
 void Audio::FreeBuffer()
 {
-	_pMemory.reset(NULL);
-	_buff = NULL;
+	_pBuffer.reset(NULL);
+	_pBufferLast = NULL;
 	_nSamples = 0;
 }
 
@@ -57,6 +62,7 @@ bool Audio::Write(Environment &env, Signal sig, Stream &stream, const char *audi
 	return pAudioStreamer->Write(env, sig, this, stream);
 }
 
+#if 0
 bool Audio::SetSineWave(Signal sig, size_t iChannel,
 		size_t pitch, int phase, int amplitude, size_t offset, size_t nSamples)
 {
@@ -87,6 +93,7 @@ bool Audio::SetSineWave(Signal sig, size_t iChannel,
 	}
 	return true;
 }
+#endif
 
 Audio::Format Audio::SymbolToFormat(Signal sig, const Symbol *pSymbol)
 {
@@ -125,6 +132,23 @@ const Symbol *Audio::FormatToSymbol(Format format)
 	} else {
 		return Gura_Symbol(nil);
 	}
+}
+
+//-----------------------------------------------------------------------------
+// Audio::Buffer
+//-----------------------------------------------------------------------------
+Audio::Buffer::Buffer() : _cntRef(1), _pointer(NULL)
+{
+}
+
+Audio::Buffer::Buffer(Memory *pMemory) : _cntRef(1),
+	_pMemory(pMemory), _pointer(reinterpret_cast<UChar *>(pMemory->GetPointer()))
+{
+}
+
+Audio::Buffer::Buffer(Memory *pMemory, UChar *pointer) : _cntRef(1),
+						_pMemory(pMemory), _pointer(pointer)
+{
 }
 
 //-----------------------------------------------------------------------------

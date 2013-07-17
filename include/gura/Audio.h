@@ -15,14 +15,34 @@ public:
 		FORMAT_U16LE, FORMAT_S16LE,
 		FORMAT_U16BE, FORMAT_S16BE,
 	};
+	class Buffer {
+	private:
+		int _cntRef;
+		AutoPtr<Memory> _pMemory;
+		UChar *_pointer;
+		AutoPtr<Buffer> _pNext;
+	public:
+		Gura_DeclareReferenceAccessor(Buffer);
+	public:
+		Buffer();
+		Buffer(Memory *pMemory);
+		Buffer(Memory *pMemory, UChar *pointer);
+	private:
+		inline ~Buffer() {}
+	public:
+		inline Memory *GetMemory() { return _pMemory.get(); }
+		inline UChar *GetPointer() { return _pointer; }
+		inline Buffer *GetNext() { return _pNext.get(); }
+		inline void SetNext(Buffer *pNext) { _pNext.reset(pNext); }
+	};
 private:
 	int _cntRef;
 	Format _format;
 	size_t _nChannels;
 	size_t _nSamples;
 	size_t _nSamplesPerSec;
-	UChar *_buff;
-	AutoPtr<Memory> _pMemory;
+	Buffer *_pBufferLast;
+	AutoPtr<Buffer> _pBuffer;
 public:
 	Gura_DeclareReferenceAccessor(Audio);
 public:
@@ -30,12 +50,13 @@ public:
 private:
 	~Audio();
 public:
-	inline bool IsValid() const { return _buff != NULL; }
+	inline bool IsValid() const { return !_pBuffer.IsNull(); }
 	inline Format GetFormat() const { return _format; }
 	inline size_t GetChannels() const { return _nChannels; }
 	inline size_t GetSamples() const { return _nSamples; }
+	inline void SetSamplesPerSec(size_t nSamplesPerSec) { _nSamplesPerSec = nSamplesPerSec; }
 	inline size_t GetSamplesPerSec() const { return _nSamplesPerSec; }
-	inline UChar *GetBuffer() { return _buff; }
+	inline Buffer *GetBuffer() { return _pBuffer.get(); }
 	inline size_t GetBytesPerSample() const {
 		return (_format == FORMAT_U8 || _format == FORMAT_S8)? 1 : 2;
 	}
@@ -77,12 +98,12 @@ public:
 			break;
 		}
 	}
-	bool AllocBuffer(Signal sig, size_t nSamples);
+	UChar *AllocBuffer(Signal sig, size_t nSamples);
 	void FreeBuffer();
 	bool Read(Environment &env, Signal sig, Stream &stream, const char *audioType);
 	bool Write(Environment &env, Signal sig, Stream &stream, const char *audioType);
-	bool SetSineWave(Signal sig, size_t iChannel,
-		size_t pitch, int phase, int amplitude, size_t offset, size_t nSamples);
+	//bool SetSineWave(Signal sig, size_t iChannel,
+	//	size_t pitch, int phase, int amplitude, size_t offset, size_t nSamples);
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
 	static const Symbol *FormatToSymbol(Format format);
 };
