@@ -23,7 +23,7 @@ Gura_ImplementClassMethod(ps_surface, create)
 {
 	double width = args.GetDouble(1), height = args.GetDouble(2);
 	Writer_Stream *pWriter = new Writer_Stream(sig, width, height,
-									Stream::Reference(&args.GetStream(0)));
+									args.GetStream(0).Reference());
 	cairo_surface_t *surface = ::cairo_ps_surface_create_for_stream(
 					Writer_Stream::write_func, pWriter, width, height);
 	Object_surface *pObjSurface = new Object_ps_surface(surface, pWriter);

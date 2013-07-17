@@ -482,8 +482,7 @@ Gura_DeclareFunction(reader)
 Gura_ImplementFunction(reader)
 {
 	Stream &streamSrc = args.GetStream(0);
-	AutoPtr<Object_reader> pObjZipR(
-					new Object_reader(sig, Stream::Reference(&streamSrc)));
+	AutoPtr<Object_reader> pObjZipR(new Object_reader(sig, streamSrc.Reference()));
 	if (!pObjZipR->ReadDirectory(env, sig)) return Value::Null;
 	Value result(pObjZipR.release());
 	return ReturnValue(env, sig, args, result);
@@ -508,8 +507,7 @@ Gura_ImplementFunction(writer)
 		sig.SetError(ERR_IOError, "invalid compression method");
 		return Value::Null;
 	}
-	Object_writer *pObjZipW = new Object_writer(sig,
-						Stream::Reference(&streamDst), compressionMethod);
+	Object_writer *pObjZipW = new Object_writer(sig, streamDst.Reference(), compressionMethod);
 	Value result(pObjZipW);
 	return ReturnValue(env, sig, args, result);
 }

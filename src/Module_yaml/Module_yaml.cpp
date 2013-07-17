@@ -18,8 +18,7 @@ Gura_DeclareFunction(read)
 Gura_ImplementFunction(read)
 {
 	Stream &stream = args.GetStream(0);
-	Iterator_FromStream *pIterator =
-				new Iterator_FromStream(sig, Stream::Reference(&stream));
+	Iterator_FromStream *pIterator = new Iterator_FromStream(sig, stream.Reference());
 	if (args.IsRsltMulti()) {
 		return ReturnIterator(env, sig, args, pIterator);
 	}
@@ -90,8 +89,7 @@ Gura_DeclareMethod(stream, yamlread)
 Gura_ImplementMethod(stream, yamlread)
 {
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
-	Iterator_FromStream *pIterator =
-				new Iterator_FromStream(sig, Stream::Reference(&stream));
+	Iterator_FromStream *pIterator = new Iterator_FromStream(sig, stream.Reference());
 	if (args.IsRsltMulti()) {
 		return ReturnIterator(env, sig, args, pIterator);
 	}

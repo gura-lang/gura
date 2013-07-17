@@ -24,7 +24,7 @@ Gura_ImplementClassMethod(svg_surface, create)
 	double width = args.GetDouble(1);
 	double height = args.GetDouble(2);
 	Writer_Stream *pWriter = new Writer_Stream(sig, width, height,
-									Stream::Reference(&args.GetStream(0)));
+									args.GetStream(0).Reference());
 	cairo_surface_t *surface = ::cairo_svg_surface_create_for_stream(
 					Writer_Stream::write_func, pWriter, width, height);
 	Object_surface *pObjSurface = new Object_svg_surface(surface, pWriter);

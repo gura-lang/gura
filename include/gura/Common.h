@@ -74,12 +74,12 @@ inline static T *Reference(const T *p) { \
 	pCasted->_cntRef++; \
 	return pCasted; \
 } \
+inline T *Reference() const { return Reference(this); } \
 inline static void Delete(T *p) { \
 	if (p == NULL) return; \
 	p->_cntRef--; \
 	if (p->_cntRef <= 0) delete p; \
 }
-
 
 //-----------------------------------------------------------------------------
 // Simple type declarations

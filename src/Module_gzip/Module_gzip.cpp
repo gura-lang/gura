@@ -22,7 +22,7 @@ Gura_ImplementFunction(reader)
 	Stream &stream = args.GetStream(0);
 	int windowBits = 31;
 	Object_stream *pObjStream = GenerateDecompressor(env, sig,
-								Stream::Reference(&stream), windowBits);
+										stream.Reference(), windowBits);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjStream));
 }
@@ -42,7 +42,7 @@ Gura_ImplementFunction(writer)
 	int level = args.IsNumber(1)? args.GetInt(1) : Z_DEFAULT_COMPRESSION;
 	int windowBits = 31;
 	Object_stream *pObjStream = GenerateCompressor(env, sig,
-					Stream::Reference(&stream), level, windowBits);
+									stream.Reference(), level, windowBits);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjStream));
 }
@@ -62,7 +62,7 @@ Gura_ImplementMethod(stream, gzipreader)
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	int windowBits = 31;
 	Object_stream *pObjStream = GenerateDecompressor(env, sig,
-								Stream::Reference(&stream), windowBits);
+											stream.Reference(), windowBits);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjStream));
 }
@@ -81,7 +81,7 @@ Gura_ImplementMethod(stream, gzipwriter)
 	int level = args.IsNumber(0)? args.GetInt(0) : Z_DEFAULT_COMPRESSION;
 	int windowBits = 31;
 	Object_stream *pObjStream = GenerateCompressor(env, sig,
-						Stream::Reference(&stream), level, windowBits);
+									stream.Reference(), level, windowBits);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjStream));
 }

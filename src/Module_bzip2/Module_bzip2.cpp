@@ -95,7 +95,7 @@ Gura_ModuleTerminate()
 Object_stream *GenerateDecompressor(Environment &env, Signal sig, Stream &stream)
 {
 	AutoPtr<BZLib::Stream_Decompressor> pStream(
-		new BZLib::Stream_Decompressor(env, sig, Stream::Reference(&stream), InvalidSize));
+		new BZLib::Stream_Decompressor(env, sig, stream.Reference(), InvalidSize));
 	if (!pStream->Initialize(sig, 0, 0)) return NULL;
 	return new Object_stream(env, pStream.release());
 }
@@ -103,7 +103,7 @@ Object_stream *GenerateDecompressor(Environment &env, Signal sig, Stream &stream
 Object_stream *GenerateCompressor(Environment &env, Signal sig, Stream &stream)
 {
 	AutoPtr<BZLib::Stream_Compressor> pStream(
-		new BZLib::Stream_Compressor(env, sig, Stream::Reference(&stream)));
+		new BZLib::Stream_Compressor(env, sig, stream.Reference()));
 	if (!pStream->Initialize(sig, 9, 0, 0)) return NULL;
 	return new Object_stream(env, pStream.release());
 }

@@ -497,7 +497,7 @@ Gura_ImplementMethod(surface, write_to_png)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	std::auto_ptr<Writer_Stream> pWriter(new Writer_Stream(sig, 0, 0,
-									Stream::Reference(&args.GetStream(0))));
+											args.GetStream(0).Reference()));
 	::cairo_surface_write_to_png_stream(surface, Writer_Stream::write_func, pWriter.get());
 	if (IsError(sig, surface)) return Value::Null;
 	return args.GetThis();

@@ -394,8 +394,7 @@ Value Object_track::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(events))) {
-		Iterator *pIterator =
-				new Iterator_event(EventOwner::Reference(&_pTrack->GetEventOwner()));
+		Iterator *pIterator = new Iterator_event(_pTrack->GetEventOwner().Reference());
 		return Value(env, pIterator);
 	}
 	evaluatedFlag = false;
@@ -994,11 +993,11 @@ Value Object_content::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 		return Value(_content.GetFormat());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(tracks))) {
 		Iterator *pIterator =
-				new Iterator_track(TrackOwner::Reference(&_content.GetTrackOwner()));
+				new Iterator_track(_content.GetTrackOwner().Reference());
 		return Value(env, pIterator);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(events))) {
 		Iterator *pIterator =
-				new Iterator_eventAll(TrackOwner::Reference(&_content.GetTrackOwner()));
+				new Iterator_eventAll(_content.GetTrackOwner().Reference());
 		return Value(env, pIterator);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
 		return Value(_content.GetProperty()->GetDivision());
@@ -1936,8 +1935,7 @@ Gura_DeclareFunction(soundfont)
 
 Gura_ImplementFunction(soundfont)
 {
-	AutoPtr<Object_soundfont> pObj(new Object_soundfont(env,
-									Stream::Reference(&args.GetStream(0))));
+	AutoPtr<Object_soundfont> pObj(new Object_soundfont(env, args.GetStream(0).Reference()));
 	if (!pObj->GetSoundFont().ReadChunks(env, sig)) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
@@ -1951,7 +1949,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	SoundFont sf(Stream::Reference(&args.GetStream(0)));
+	SoundFont sf(args.GetStream(0).Reference());
 	::printf("check\n");
 	sf.ReadChunks(env, sig);
 	sf.Print();

@@ -733,7 +733,7 @@ Gura_ImplementFunction(reader)
 		return Value::Null;
 	}
 	AutoPtr<Object_reader> pObj(new Object_reader());
-	if (!pObj->Open(env, sig, Stream::Reference(&streamSrc), compressionType)) {
+	if (!pObj->Open(env, sig, streamSrc.Reference(), compressionType)) {
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(pObj.release()));
@@ -759,7 +759,7 @@ Gura_ImplementFunction(writer)
 		return Value::Null;
 	}
 	AutoPtr<Object_writer> pObj(new Object_writer(sig));
-	if (!pObj->Open(env, Stream::Reference(&streamDst), compressionType)) {
+	if (!pObj->Open(env, streamDst.Reference(), compressionType)) {
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(pObj.release()));
