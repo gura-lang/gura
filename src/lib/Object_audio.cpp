@@ -29,7 +29,9 @@ bool Object_audio::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(format));
 	symbols.insert(Gura_Symbol(channels));
-	symbols.insert(Gura_Symbol(len));
+	symbols.insert(Gura_Symbol(samples));
+	symbols.insert(Gura_Symbol(samplespersec));
+	symbols.insert(Gura_Symbol(bytespersample));
 	return true;
 }
 
@@ -41,8 +43,12 @@ Value Object_audio::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		return Value(Audio::FormatToSymbol(_pAudio->GetFormat()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(channels))) {
 		return Value(static_cast<unsigned int>(_pAudio->GetChannels()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(len))) {
-		return Value(static_cast<unsigned int>(_pAudio->GetLength()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(samples))) {
+		return Value(static_cast<unsigned int>(_pAudio->GetSamples()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(samplespersec))) {
+		return Value(static_cast<unsigned int>(_pAudio->GetSamplesPerSec()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(bytespersample))) {
+		return Value(static_cast<unsigned int>(_pAudio->GetBytesPerSample()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -62,7 +68,7 @@ String Object_audio::ToString(Signal sig, bool exprFlag)
 	rtn += ":";
 	if (_pAudio->IsValid()) {
 		char buff[32];
-		::sprintf(buff, "%d", static_cast<int>(_pAudio->GetLength()));
+		::sprintf(buff, "%d", static_cast<int>(_pAudio->GetSamples()));
 		rtn += buff;
 	} else {
 		rtn += "invalid";
@@ -125,7 +131,7 @@ Gura_ImplementFunction(audio)
 // Gura interfaces for audio
 //-----------------------------------------------------------------------------
 // audio#sinewave(channel:number, pitch:number, phase?:number,
-//                amplitude?:number, offset?:number, len?:number):reduce
+//                amplitude?:number, offset?:number, samples?:number):reduce
 Gura_DeclareMethod(audio, sinewave)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
@@ -134,7 +140,7 @@ Gura_DeclareMethod(audio, sinewave)
 	DeclareArg(env, "phase", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "amplitude", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "samples", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(audio, sinewave)
@@ -146,11 +152,11 @@ Gura_ImplementMethod(audio, sinewave)
 	int phase = args.IsNumber(2)? args.GetInt(2) : 0;
 	int amplitude = args.IsNumber(3)? args.GetInt(3) : -1;
 	size_t offset = args.IsNumber(4)? args.GetSizeT(4) : 0;
-	size_t len = args.IsNumber(5)? args.GetSizeT(5) : InvalidSize;
-	if (!pAudio->SetSineWave(sig, iChannel, pitch, phase, amplitude, offset, len)) {
+	size_t nSamples = args.IsNumber(5)? args.GetSizeT(5) : InvalidSize;
+	if (!pAudio->SetSineWave(sig, iChannel, pitch, phase, amplitude, offset, nSamples)) {
 		return Value::Null;
 	}
-	//for (size_t i = 0; i < pThis->GetLength() * pThis->GetBytesPerData(); i++) {
+	//for (size_t i = 0; i < pThis->GetSamples() * pThis->GetBytesPerData(); i++) {
 	//	::printf(" %02x", pThis->GetBuffer()[i]);
 	//}
 	return args.GetThis();
@@ -185,13 +191,13 @@ Gura_ImplementMethod(audio, get)
 	return Value::Null;
 }
 
-// audio#store(channel:number, offset:number, len:number, src):reduce
+// audio#store(channel:number, offset:number, samples:number, src):reduce
 Gura_DeclareMethod(audio, store)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number);
-	DeclareArg(env, "len", VTYPE_number);
+	DeclareArg(env, "samples", VTYPE_number);
 	DeclareArg(env, "src", VTYPE_any);
 }
 
@@ -201,13 +207,13 @@ Gura_ImplementMethod(audio, store)
 	return args.GetThis();
 }
 
-// audio#extract(channel:number, offset:number, len:number, dst)
+// audio#extract(channel:number, offset:number, samples:number, dst)
 Gura_DeclareMethod(audio, extract)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number);
-	DeclareArg(env, "len", VTYPE_number);
+	DeclareArg(env, "samples", VTYPE_number);
 	DeclareArg(env, "dst", VTYPE_any);
 }
 
@@ -230,13 +236,13 @@ Gura_ImplementMethod(audio, fill)
 	return args.GetThis();
 }
 
-// audio#fillrange(channel:number, offset:number, len:number, data:number):reduce
+// audio#fillrange(channel:number, offset:number, samples:number, data:number):reduce
 Gura_DeclareMethod(audio, fillrange)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number);
-	DeclareArg(env, "len", VTYPE_number);
+	DeclareArg(env, "samples", VTYPE_number);
 	DeclareArg(env, "data", VTYPE_number);
 }
 

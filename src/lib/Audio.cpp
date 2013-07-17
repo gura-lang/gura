@@ -7,7 +7,8 @@ namespace Gura {
 // Audio
 //-----------------------------------------------------------------------------
 Audio::Audio(Format format, size_t nChannels) : _cntRef(1),
-				_format(format), _nChannels(nChannels), _len(0), _buff(NULL)
+	_format(format), _nChannels(nChannels), _nSamples(0), _nSamplesPerSec(0),
+	_buff(NULL)
 {
 }
 
@@ -16,12 +17,12 @@ Audio::~Audio()
 	FreeBuffer();
 }
 
-bool Audio::AllocBuffer(Signal sig, size_t len)
+bool Audio::AllocBuffer(Signal sig, size_t nSamples)
 {
 	FreeBuffer();
-	_pMemory.reset(new MemoryHeap(_nChannels * len * GetBytesPerData()));
+	_pMemory.reset(new MemoryHeap(_nChannels * nSamples * GetBytesPerSample()));
 	_buff = reinterpret_cast<UChar *>(_pMemory->GetPointer());
-	_len = len;
+	_nSamples = nSamples;
 	return true;
 }
 
@@ -29,7 +30,7 @@ void Audio::FreeBuffer()
 {
 	_pMemory.reset(NULL);
 	_buff = NULL;
-	_len = 0;
+	_nSamples = 0;
 }
 
 bool Audio::Read(Environment &env, Signal sig, Stream &stream, const char *audioType)
@@ -57,7 +58,7 @@ bool Audio::Write(Environment &env, Signal sig, Stream &stream, const char *audi
 }
 
 bool Audio::SetSineWave(Signal sig, size_t iChannel,
-			size_t pitch, int phase, int amplitude, size_t offset, size_t len)
+		size_t pitch, int phase, int amplitude, size_t offset, size_t nSamples)
 {
 	const double PI2 = Math_PI * 2;
 	int amplitudeMax =
@@ -74,12 +75,12 @@ bool Audio::SetSineWave(Signal sig, size_t iChannel,
 		sig.SetError(ERR_ValueError, "amplitude is out of range");
 		return false;
 	}
-	if (len > _len) len = _len;
-	if (offset >= _len) return true;
-	if (offset + len > _len) len = _len - offset;
-	UChar *buffp = _buff + (offset * _nChannels + iChannel) * GetBytesPerData();
-	size_t bytesPerUnit = GetBytesPerData() * _nChannels;
-	for (size_t i = 0; i < len; i++) {
+	if (nSamples > _nSamples) nSamples = _nSamples;
+	if (offset >= _nSamples) return true;
+	if (offset + nSamples > _nSamples) nSamples = _nSamples - offset;
+	UChar *buffp = _buff + (offset * _nChannels + iChannel) * GetBytesPerSample();
+	size_t bytesPerUnit = GetBytesPerSample() * _nChannels;
+	for (size_t i = 0; i < nSamples; i++) {
 		int data = static_cast<int>(::sin(PI2 * (i + phase) / pitch) * amplitude);
 		StoreData(buffp, data);
 		buffp += bytesPerUnit;

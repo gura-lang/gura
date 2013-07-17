@@ -19,7 +19,8 @@ private:
 	int _cntRef;
 	Format _format;
 	size_t _nChannels;
-	size_t _len;
+	size_t _nSamples;
+	size_t _nSamplesPerSec;
 	UChar *_buff;
 	AutoPtr<Memory> _pMemory;
 public:
@@ -32,9 +33,10 @@ public:
 	inline bool IsValid() const { return _buff != NULL; }
 	inline Format GetFormat() const { return _format; }
 	inline size_t GetChannels() const { return _nChannels; }
-	inline size_t GetLength() const { return _len; }
+	inline size_t GetSamples() const { return _nSamples; }
+	inline size_t GetSamplesPerSec() const { return _nSamplesPerSec; }
 	inline UChar *GetBuffer() { return _buff; }
-	inline size_t GetBytesPerData() const {
+	inline size_t GetBytesPerSample() const {
 		return (_format == FORMAT_U8 || _format == FORMAT_S8)? 1 : 2;
 	}
 	inline void StoreData(UChar *buffp, int data) {
@@ -75,12 +77,12 @@ public:
 			break;
 		}
 	}
-	bool AllocBuffer(Signal sig, size_t len);
+	bool AllocBuffer(Signal sig, size_t nSamples);
 	void FreeBuffer();
 	bool Read(Environment &env, Signal sig, Stream &stream, const char *audioType);
 	bool Write(Environment &env, Signal sig, Stream &stream, const char *audioType);
 	bool SetSineWave(Signal sig, size_t iChannel,
-			size_t pitch, int phase, int amplitude, size_t offset, size_t len);
+		size_t pitch, int phase, int amplitude, size_t offset, size_t nSamples);
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
 	static const Symbol *FormatToSymbol(Format format);
 };

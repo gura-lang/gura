@@ -328,6 +328,10 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(u64be);
 	Gura_RealizeSymbol(s64be);
 	Gura_RealizeSymbol(channels);
+	Gura_RealizeSymbol(samples);
+	Gura_RealizeSymbol(samplespersec);
+	Gura_RealizeSymbol(bitspersample);
+	Gura_RealizeSymbol(bytespersample);
 	Gura_RealizeSymbol(len);
 	Gura_RealizeSymbol(open);
 	Gura_RealizeSymbol(open_l);

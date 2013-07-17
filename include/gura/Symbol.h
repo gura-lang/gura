@@ -315,6 +315,10 @@ public:
 	Gura_DeclareSymbol(u64be);
 	Gura_DeclareSymbol(s64be);
 	Gura_DeclareSymbol(channels);
+	Gura_DeclareSymbol(samples);
+	Gura_DeclareSymbol(samplespersec);
+	Gura_DeclareSymbol(bitspersample);
+	Gura_DeclareSymbol(bytespersample);
 	Gura_DeclareSymbol(len);
 	Gura_DeclareSymbol(open);
 	Gura_DeclareSymbol(open_l);
