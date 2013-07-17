@@ -106,8 +106,14 @@ Gura_ImplementFunction(audio)
 			return Value::Null;
 		}
 		size_t nChannels = 1;
-		if (valList.size() >= 3) nChannels = valList[2].GetSizeT();
-		AutoPtr<Audio> pAudio(new Audio(format, nChannels));
+		if (valList.size() >= 3) {
+			nChannels = valList[2].GetSizeT();
+			if (nChannels != 1 && nChannels != 2) {
+				sig.SetError(ERR_ValueError, "channels must be one or two");
+				return Value::Null;
+			}
+		}
+		pAudio.reset(new Audio(format, nChannels));
 		if (!pAudio->AllocBuffer(sig, valList[1].GetSizeT())) return Value::Null;
 	} else {
 		Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, NULL).

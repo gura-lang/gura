@@ -96,13 +96,12 @@ bool AudioStreamer_WAV::Write(Environment &env, Signal sig,
 
 bool AudioStreamer_WAV::ReadStream(Signal sig, Audio *pAudio, Stream &stream)
 {
-	//if (!pObjAudio->CheckEmpty(sig)) return false;
+	
 	return false;
 }
 
 bool AudioStreamer_WAV::WriteStream(Signal sig, Audio *pAudio, Stream &stream)
 {
-	//if (!pObjAudio->CheckValid(sig)) return false;
 	return false;
 }
 
