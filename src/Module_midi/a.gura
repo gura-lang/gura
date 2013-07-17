@@ -66,4 +66,5 @@ midi.content {|c|
 	c.mml(mml*)
 	c.write('elise.mid')
 	println('elise.mid was created')
+	//c.play(0)
 }
