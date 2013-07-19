@@ -15,7 +15,7 @@ public:
 		CKID_fmt  = FOURCC('f', 'm', 't', ' '),
 		CKID_data = FOURCC('d', 'a', 't', 'a'),
 	};
-	// values for wFormatTag
+	// Defined wFormatTag
 	enum {
 		FORMAT_G723_ADPCM			= 0x0014, // Antex Electronics Corporation
 		FORMAT_ANTEX_ADPCME			= 0x0033, // Antex Electronics Corporation
