@@ -105,8 +105,10 @@ bool AudioStreamer_WAV::ReadStream(Signal sig, Audio *pAudio, Stream &stream)
 
 bool AudioStreamer_WAV::WriteStream(Signal sig, Audio *pAudio, Stream &stream)
 {
-	//if (!pObjAudio->CheckValid(sig)) return false;
-	return false;
+	std::auto_ptr<Wave> pWave(new Wave());
+	if (!pWave->SetAudio(sig, pAudio)) return false;
+	if (!pWave->Write(sig, stream)) return false;
+	return true;
 }
 
 void AudioStreamer_WAV::SetError_InvalidWAVFormat(Signal sig)

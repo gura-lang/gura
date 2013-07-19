@@ -13,6 +13,51 @@ void Wave::Clear()
 {
 }
 
+bool Wave::SetAudio(Signal sig, const Audio *pAudio)
+{
+	UShort wFormatTag = FORMAT_PCM;
+	UShort nChannels = pAudio->GetChannels();
+	ULong nSamplesPerSec = pAudio->GetSamplesPerSec();
+	ULong nAvgBytesPerSec = 0;
+	UShort nBlockAlign = 4;
+	UShort wBitsPerSample = 0;
+	switch (pAudio->GetFormat()) {
+	case Audio::FORMAT_U8:
+		_pAudio.reset(pAudio->ConvertFormat(Audio::FORMAT_S8));
+		nAvgBytesPerSec = nSamplesPerSec * nChannels;
+		wBitsPerSample = 8;
+		break;
+	case Audio::FORMAT_S8:
+		_pAudio.reset(pAudio->Reference());
+		nAvgBytesPerSec = nSamplesPerSec * nChannels;
+		wBitsPerSample = 8;
+		break;
+	case Audio::FORMAT_U16LE:
+		_pAudio.reset(pAudio->ConvertFormat(Audio::FORMAT_S16LE));
+		nAvgBytesPerSec = nSamplesPerSec * nChannels * 2;
+		wBitsPerSample = 16;
+		break;
+	case Audio::FORMAT_S16LE:
+		_pAudio.reset(pAudio->Reference());
+		nAvgBytesPerSec = nSamplesPerSec * nChannels * 2;
+		wBitsPerSample = 16;
+		break;
+	case Audio::FORMAT_U16BE:
+		_pAudio.reset(pAudio->ConvertFormat(Audio::FORMAT_S16LE));
+		nAvgBytesPerSec = nSamplesPerSec * nChannels * 2;
+		wBitsPerSample = 16;
+		break;
+	case Audio::FORMAT_S16BE:
+		_pAudio.reset(pAudio->ConvertFormat(Audio::FORMAT_S16LE));
+		nAvgBytesPerSec = nSamplesPerSec * nChannels * 2;
+		wBitsPerSample = 16;
+		break;
+	}
+	_pFormat.reset(new Format(wFormatTag, nChannels, nSamplesPerSec,
+							nAvgBytesPerSec, nBlockAlign, wBitsPerSample));
+	return true;
+}
+
 bool Wave::Read(Signal sig, Stream &stream)
 {
 	ChunkHdr chunkHdr;
@@ -62,10 +107,10 @@ bool Wave::Write(Signal sig, Stream &stream)
 		Gura_PackULong(chunkHdr.ckID, CKID_data);
 		Gura_PackULong(chunkHdr.ckSize, static_cast<ULong>(bytesData));
 		if (stream.Write(sig, &chunkHdr, ChunkHdr::Size) != ChunkHdr::Size) return false;
-		for (Audio::Buffer *pBuffer = _pAudio->GetBuffer();
-							pBuffer != NULL; pBuffer = pBuffer->GetNext()) {
-			if (stream.Write(sig, pBuffer->GetPointer(),
-						pBuffer->GetBytes()) != pBuffer->GetBytes()) return false;
+		for (Audio::Chain *pChain = _pAudio->GetChainTop();
+							pChain != NULL; pChain = pChain->GetNext()) {
+			if (stream.Write(sig, pChain->GetPointer(),
+						pChain->GetBytes()) != pChain->GetBytes()) return false;
 		}
 	} while (0);
 	return true;
@@ -177,6 +222,17 @@ Wave::Format::Format(const RawData &rawData) : _cntRef(1),
 {
 }
 
+Wave::Format::Format(UShort wFormatTag, UShort nChannels, ULong nSamplesPerSec,
+		ULong nAvgBytesPerSec, UShort nBlockAlign, UShort wBitsPerSample) : _cntRef(1),
+		_wFormatTag(wFormatTag),
+		_nChannels(nChannels),
+		_nSamplesPerSec(nSamplesPerSec),
+		_nAvgBytesPerSec(nAvgBytesPerSec),
+		_nBlockAlign(nBlockAlign),
+		_wBitsPerSample(wBitsPerSample)
+{
+}
+
 void Wave::Format::Print() const
 {
 	::printf("wFormatTag=%d nChannels=%d nSamplesPerSec=%d nAvgBytesPerSec=%d nBlockAlign=%d wBitsPerSample=%d\n",
@@ -226,9 +282,9 @@ Audio *Wave::Format::ReadAudio(Signal sig, Stream &stream, size_t ckSize) const
 		return NULL;
 	}
 	AutoPtr<Audio> pAudio(new Audio(format, _nChannels, _nSamplesPerSec));
-	UChar *buff = pAudio->AllocBuffer(sig, nSamples);
-	if (buff == NULL) return NULL;
-	if (stream.Read(sig, buff, bytesToRead) == 0) return NULL;
+	Audio::Chain *pChain = pAudio->AllocChain(sig, nSamples);
+	if (pChain == NULL) return NULL;
+	if (stream.Read(sig, pChain->GetPointer(), bytesToRead) == 0) return NULL;
 	if (bytesToRead < ckSize) {
 		if (!stream.Seek(sig, ckSize - bytesToRead, Stream::SeekCur)) return NULL;
 	}

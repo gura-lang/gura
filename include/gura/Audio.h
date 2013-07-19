@@ -58,6 +58,7 @@ public:
 		inline const Chain *GetNext() const { return _pNext.get(); }
 		inline void SetNext(Chain *pNext) { _pNext.reset(pNext); }
 		void FillMute();
+		Chain *ConvertFormat(Format format) const;
 	};
 private:
 	int _cntRef;
@@ -81,44 +82,89 @@ public:
 	inline Chain *GetChainTop() { return _pChainTop.get(); }
 	inline const Chain *GetChainTop() const { return _pChainTop.get(); }
 	inline size_t GetBytesPerSample() const { return GetBytesPerSample(_format); }
-	inline void StoreData(UChar *buffp, int data) {
-		switch (_format) {
+	inline static UChar *PutData(Format format, UChar *buffp, int data) {
+		switch (format) {
 		case FORMAT_U8: {
 			*buffp = static_cast<UChar>((data + 0x80) & 0xff);
-			break;
+			return buffp + 1;
 		}
 		case FORMAT_S8: {
 			*buffp = static_cast<UChar>(static_cast<char>(data & 0xff));
-			break;
+			return buffp + 1;
 		}
 		case FORMAT_U16LE: {
 			UShort num = static_cast<UShort>((data + 0x8000) & 0xffff);
 			*(buffp + 0) = static_cast<UChar>(num >> 0);
 			*(buffp + 1) = static_cast<UChar>(num >> 8);
-			break;
+			return buffp + 2;
 		}
 		case FORMAT_S16LE: {
 			UShort num = static_cast<UShort>(static_cast<Short>(data & 0xffff));
 			*(buffp + 0) = static_cast<UChar>(num >> 0);
 			*(buffp + 1) = static_cast<UChar>(num >> 8);
-			break;
+			return buffp + 2;
 		}
 		case FORMAT_U16BE: {
 			UShort num = static_cast<UShort>((data + 0x8000) & 0xffff);
 			*(buffp + 0) = static_cast<UChar>(num >> 8);
 			*(buffp + 1) = static_cast<UChar>(num >> 0);
-			break;
+			return buffp + 2;
 		}
 		case FORMAT_S16BE: {
 			UShort num = static_cast<UShort>(static_cast<Short>(data & 0xffff));
 			*(buffp + 0) = static_cast<UChar>(num >> 8);
 			*(buffp + 1) = static_cast<UChar>(num >> 0);
-			break;
+			return buffp + 2;
 		}
 		default:
 			break;
 		}
+		return buffp;
 	}
+	inline static const UChar *GetData(Format format, const UChar *buffp, int *pData) {
+		switch (format) {
+		case FORMAT_U8: {
+			*pData = static_cast<int>(*buffp) - 0x80;
+			return buffp + 1;
+		}
+		case FORMAT_S8: {
+			*pData = static_cast<int>(static_cast<char>(*buffp));
+			return buffp + 1;
+		}
+		case FORMAT_U16LE: {
+			UShort num =
+				(static_cast<UShort>(*(buffp + 0)) << 0) +
+				(static_cast<UShort>(*(buffp + 1)) << 8);
+			*pData = static_cast<int>(num) - 0x8000;
+			return buffp + 2;
+		}
+		case FORMAT_S16LE: {
+			UShort num =
+				(static_cast<UShort>(*(buffp + 0)) << 0) +
+				(static_cast<UShort>(*(buffp + 1)) << 8);
+			*pData = static_cast<int>(static_cast<Short>(num));
+			return buffp + 2;
+		}
+		case FORMAT_U16BE: {
+			UShort num =
+				(static_cast<UShort>(*(buffp + 0)) << 8) +
+				(static_cast<UShort>(*(buffp + 1)) << 0);
+			*pData = static_cast<int>(num) - 0x8000;
+			return buffp + 2;
+		}
+		case FORMAT_S16BE: {
+			UShort num =
+				(static_cast<UShort>(*(buffp + 0)) << 8) +
+				(static_cast<UShort>(*(buffp + 1)) << 0);
+			*pData = static_cast<int>(static_cast<Short>(num));
+			return buffp + 2;
+		}
+		default:
+			break;
+		}
+		return buffp;
+	}
+	void AddChain(Chain *pChain);
 	Chain *AllocChain(Signal sig, size_t nSamples);
 	void FreeChain();
 	size_t GetSamples() const;
@@ -127,6 +173,7 @@ public:
 	bool Write(Environment &env, Signal sig, Stream &stream, const char *audioType);
 	bool AddSineWave(Signal sig, size_t iChannel,
 							double freq, size_t nSamples, int amplitude);
+	Audio *ConvertFormat(Format format) const;
 public:
 	inline static size_t GetBytesPerSample(Format format) {
 		return (format == FORMAT_U8 || format == FORMAT_S8)? 1 : 2;

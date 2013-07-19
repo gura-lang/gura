@@ -17,16 +17,21 @@ Audio::~Audio()
 	FreeChain();
 }
 
-Audio::Chain *Audio::AllocChain(Signal sig, size_t nSamples)
+void Audio::AddChain(Chain *pChain)
 {
-	Chain *pChain = new Chain(_format, _nChannels, _nSamplesPerSec);
-	pChain->SetMemory(new MemoryHeap(CalcBytes(_format, _nChannels, nSamples)));
 	if (_pChainLast == NULL) {
 		_pChainTop.reset(pChain);
 	} else {
 		_pChainLast->SetNext(pChain);
 	}
 	_pChainLast = pChain;
+}
+
+Audio::Chain *Audio::AllocChain(Signal sig, size_t nSamples)
+{
+	Chain *pChain = new Chain(_format, _nChannels, _nSamplesPerSec);
+	pChain->SetMemory(new MemoryHeap(CalcBytes(_format, _nChannels, nSamples)));
+	AddChain(pChain);
 	return pChain;
 }
 
@@ -94,14 +99,24 @@ bool Audio::AddSineWave(Signal sig, size_t iChannel,
 	}
 	Chain *pChain = AllocChain(sig, nSamples);
 	UChar *buffp = pChain->GetPointer();
-	size_t bytesPerUnit = GetBytesPerSample() * _nChannels;
+	size_t bytesPerUnit = GetBytesPerSample() * GetChannels();
 	double coef = Math_PI * 2 * freq;
 	for (size_t i = 0; i < nSamples; i++) {
 		int data = static_cast<int>(::sin(coef * i / GetSamplesPerSec()) * amplitude);
-		StoreData(buffp, data);
+		PutData(_format, buffp, data);
 		buffp += bytesPerUnit;
 	}
 	return true;
+}
+
+Audio *Audio::ConvertFormat(Format format) const
+{
+	AutoPtr<Audio> pAudio(new Audio(format, _nChannels, _nSamplesPerSec));
+	for (const Chain *pChain = GetChainTop(); pChain != NULL;
+												pChain = pChain->GetNext()) {
+		pAudio->AddChain(pChain->ConvertFormat(format));
+	}
+	return pAudio.release();
 }
 
 Audio::Format Audio::SymbolToFormat(Signal sig, const Symbol *pSymbol)
@@ -172,6 +187,20 @@ void Audio::Chain::FillMute()
 	} else {
 		// nothing to do
 	}
+}
+
+Audio::Chain *Audio::Chain::ConvertFormat(Format format) const
+{
+	AutoPtr<Chain> pChain(new Chain(format, GetChannels(), GetSamplesPerSec()));
+	pChain->SetMemory(new MemoryHeap(CalcBytes(format, GetChannels(), GetSamples())));
+	const UChar *buffpSrc = GetPointer();
+	UChar *buffpDst = pChain->GetPointer();
+	int data = 0;
+	for (size_t cnt = GetSamples() * GetChannels(); cnt > 0; cnt--) {
+		buffpSrc = GetData(_format, buffpSrc, &data);
+		buffpDst = PutData(format, buffpDst, data);
+	}
+	return pChain.release();
 }
 
 //-----------------------------------------------------------------------------

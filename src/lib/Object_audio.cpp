@@ -151,10 +151,10 @@ Gura_ImplementFunction(audio)
 //-----------------------------------------------------------------------------
 // Gura interfaces for audio
 //-----------------------------------------------------------------------------
-// audio#sinewave(channel:number, freq:number, len:number, amplitude?:number):reduce
+// audio#sinewave(channel:number, freq:number, len:number, amplitude?:number):reduce:map
 Gura_DeclareMethod(audio, sinewave)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "freq", VTYPE_number);
 	DeclareArg(env, "len", VTYPE_number);
@@ -175,10 +175,10 @@ Gura_ImplementMethod(audio, sinewave)
 	return args.GetThis();
 }
 
-// audio#put(channel:number, offset:number, data:number):reduce
+// audio#put(channel:number, offset:number, data:number):reduce:map
 Gura_DeclareMethod(audio, put)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "data", VTYPE_number);
@@ -190,10 +190,10 @@ Gura_ImplementMethod(audio, put)
 	return args.GetThis();
 }
 
-// audio#get(channel:number, offset:number)
+// audio#get(channel:number, offset:number):map
 Gura_DeclareMethod(audio, get)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number);
 }
