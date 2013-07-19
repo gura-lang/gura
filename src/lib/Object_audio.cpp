@@ -66,19 +66,25 @@ String Object_audio::ToString(Signal sig, bool exprFlag)
 	rtn += "<audio:";
 	rtn += Audio::FormatToSymbol(_pAudio->GetFormat())->GetName();
 	rtn += ":";
-	if (_pAudio->IsValid()) {
-		char buff[32];
-		::sprintf(buff, "%d", static_cast<int>(_pAudio->GetSamples()));
-		rtn += buff;
-	} else {
-		rtn += "invalid";
-	}
-	rtn += ":";
 	do {
 		char buff[32];
 		::sprintf(buff, "%dch", static_cast<int>(_pAudio->GetChannels()));
 		rtn += buff;
 	} while (0);
+	rtn += ":";
+	do {
+		char buff[32];
+		::sprintf(buff, "%dHz", static_cast<int>(_pAudio->GetSamplesPerSec()));
+		rtn += buff;
+	} while (0);
+	rtn += ":";
+	if (_pAudio->IsValid()) {
+		char buff[32];
+		::sprintf(buff, "%dsamples", static_cast<int>(_pAudio->GetSamples()));
+		rtn += buff;
+	} else {
+		rtn += "invalid";
+	}
 	rtn += ">";
 	return rtn;
 }
@@ -103,26 +109,27 @@ Gura_ImplementFunction(audio)
 	if (valList[0].IsSymbol()) {
 		Audio::Format format = Audio::SymbolToFormat(sig, valList[0].GetSymbol());
 		if (sig.IsSignalled()) return Value::Null;
-		if (valList.size() < 2) {
-			Declaration::SetError_NotEnoughArguments(sig);
-			return Value::Null;
-		}
-		if (valList.size() >= 3) {
-			nChannels = valList[2].GetSizeT();
+		if (valList.size() >= 2) {
+			Declaration(Gura_Symbol(channels), VTYPE_number).
+									ValidateAndCast(env, sig, valList[1]);
+			if (sig.IsSignalled()) return Value::Null;
+			nChannels = valList[1].GetSizeT();
 			if (nChannels != 1 && nChannels != 2) {
 				sig.SetError(ERR_ValueError, "channels must be one or two");
 				return Value::Null;
 			}
 		}
-		if (valList.size() >= 4) {
-			nSamplesPerSec = valList[3].GetSizeT();
+		if (valList.size() >= 3) {
+			Declaration(Gura_Symbol(samplespersec), VTYPE_number).
+									ValidateAndCast(env, sig, valList[2]);
+			if (sig.IsSignalled()) return Value::Null;
+			nSamplesPerSec = valList[2].GetSizeT();
 			if (nSamplesPerSec == 0) {
 				sig.SetError(ERR_ValueError, "samplespersec must be more then zero");
 				return Value::Null;
 			}
 		}
 		pAudio.reset(new Audio(format, nChannels, nSamplesPerSec));
-		if (!pAudio->AllocBuffer(sig, valList[1].GetSizeT())) return Value::Null;
 	} else {
 		Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, NULL).
 									ValidateAndCast(env, sig, valList[0]);
@@ -144,13 +151,13 @@ Gura_ImplementFunction(audio)
 //-----------------------------------------------------------------------------
 // Gura interfaces for audio
 //-----------------------------------------------------------------------------
-// audio#sinewave(channel:number, pitch:number, samples:number, amplitude?:number):reduce
+// audio#sinewave(channel:number, freq:number, len:number, amplitude?:number):reduce
 Gura_DeclareMethod(audio, sinewave)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "channel", VTYPE_number);
-	DeclareArg(env, "pitch", VTYPE_number);
-	DeclareArg(env, "samples", VTYPE_number);
+	DeclareArg(env, "freq", VTYPE_number);
+	DeclareArg(env, "len", VTYPE_number);
 	DeclareArg(env, "amplitude", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
@@ -159,10 +166,10 @@ Gura_ImplementMethod(audio, sinewave)
 	Object_audio *pThis = Object_audio::GetThisObj(args);
 	Audio *pAudio = pThis->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
-	size_t pitch = args.GetSizeT(1);
-	size_t nSamples = args.GetSizeT(2);
+	double freq = args.GetDouble(1);
+	size_t nSamples = static_cast<size_t>(args.GetDouble(2) * pAudio->GetSamplesPerSec());
 	int amplitude = args.IsNumber(3)? args.GetInt(3) : -1;
-	if (!pAudio->AddSineWave(sig, iChannel, pitch, nSamples, amplitude)) {
+	if (!pAudio->AddSineWave(sig, iChannel, freq, nSamples, amplitude)) {
 		return Value::Null;
 	}
 	return args.GetThis();

@@ -8,40 +8,39 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 Audio::Audio(Format format, size_t nChannels, size_t nSamplesPerSec) : _cntRef(1),
 	_format(format), _nChannels(nChannels), _nSamplesPerSec(nSamplesPerSec),
-	_pBufferLast(NULL)
+	_pChainLast(NULL)
 {
 }
 
 Audio::~Audio()
 {
-	FreeBuffer();
+	FreeChain();
 }
 
-UChar *Audio::AllocBuffer(Signal sig, size_t nSamples)
+Audio::Chain *Audio::AllocChain(Signal sig, size_t nSamples)
 {
-	Buffer *pBuffer = new Buffer(_format, _nChannels, _nSamplesPerSec);
-	pBuffer->SetMemory(new MemoryHeap(CalcBytes(_format, _nChannels, nSamples)));
-	UChar *buff = pBuffer->GetPointer();
-	if (_pBufferLast == NULL) {
-		_pBuffer.reset(pBuffer);
+	Chain *pChain = new Chain(_format, _nChannels, _nSamplesPerSec);
+	pChain->SetMemory(new MemoryHeap(CalcBytes(_format, _nChannels, nSamples)));
+	if (_pChainLast == NULL) {
+		_pChainTop.reset(pChain);
 	} else {
-		_pBufferLast->SetNext(pBuffer);
+		_pChainLast->SetNext(pChain);
 	}
-	_pBufferLast = pBuffer;
-	return buff;
+	_pChainLast = pChain;
+	return pChain;
 }
 
-void Audio::FreeBuffer()
+void Audio::FreeChain()
 {
-	_pBuffer.reset(NULL);
-	_pBufferLast = NULL;
+	_pChainTop.reset(NULL);
+	_pChainLast = NULL;
 }
 
 size_t Audio::GetSamples() const
 {
 	size_t nSamples = 0;
-	for (Buffer *pBuffer = _pBuffer.get(); pBuffer != NULL; pBuffer = pBuffer->GetNext()) {
-		nSamples += pBuffer->GetSamples();
+	for (const Chain *pChain = GetChainTop(); pChain != NULL; pChain = pChain->GetNext()) {
+		nSamples += pChain->GetSamples();
 	}
 	return nSamples;
 }
@@ -49,8 +48,8 @@ size_t Audio::GetSamples() const
 size_t Audio::GetBytes() const
 {
 	size_t bytes = 0;
-	for (Buffer *pBuffer = _pBuffer.get(); pBuffer != NULL; pBuffer = pBuffer->GetNext()) {
-		bytes += pBuffer->GetBytes();
+	for (const Chain *pChain = GetChainTop(); pChain != NULL; pChain = pChain->GetNext()) {
+		bytes += pChain->GetBytes();
 	}
 	return bytes;
 }
@@ -80,25 +79,25 @@ bool Audio::Write(Environment &env, Signal sig, Stream &stream, const char *audi
 }
 
 bool Audio::AddSineWave(Signal sig, size_t iChannel,
-							size_t pitch, size_t nSamples, int amplitude)
+							double freq, size_t nSamples, int amplitude)
 {
-	const double PI2 = Math_PI * 2;
-	int amplitudeMax = GetAmplitudeMax(_format);
 	if (iChannel >= _nChannels) {
 		sig.SetError(ERR_ValueError, "channel is out of range");
 		return false;
 	}
+	int amplitudeMax = GetAmplitudeMax(_format);
 	if (amplitude < 0) {
 		amplitude = amplitudeMax;
 	} else if (amplitude > amplitudeMax) {
 		sig.SetError(ERR_ValueError, "amplitude is out of range");
 		return false;
 	}
-	UChar *buff = AllocBuffer(sig, nSamples);
-	UChar *buffp = buff;
+	Chain *pChain = AllocChain(sig, nSamples);
+	UChar *buffp = pChain->GetPointer();
 	size_t bytesPerUnit = GetBytesPerSample() * _nChannels;
+	double coef = Math_PI * 2 * freq;
 	for (size_t i = 0; i < nSamples; i++) {
-		int data = static_cast<int>(::sin(PI2 * i / pitch) * amplitude);
+		int data = static_cast<int>(::sin(coef * i / GetSamplesPerSec()) * amplitude);
 		StoreData(buffp, data);
 		buffp += bytesPerUnit;
 	}
@@ -145,11 +144,34 @@ const Symbol *Audio::FormatToSymbol(Format format)
 }
 
 //-----------------------------------------------------------------------------
-// Audio::Buffer
+// Audio::Chain
 //-----------------------------------------------------------------------------
-Audio::Buffer::Buffer(Format format, size_t nChannels, size_t nSamplesPerSec) : _cntRef(1),
+Audio::Chain::Chain(Format format, size_t nChannels, size_t nSamplesPerSec) : _cntRef(1),
 		_format(format), _nChannels(nChannels), _nSamplesPerSec(nSamplesPerSec)
 {
+}
+
+void Audio::Chain::FillMute()
+{
+	if (_format == FORMAT_U8) {
+		::memset(_pMemory->GetPointer(), 0x80, _pMemory->GetSize());
+	} else if (_format == FORMAT_S8) {
+		::memset(_pMemory->GetPointer(), 0x00, _pMemory->GetSize());
+	} else if (_format == FORMAT_U16LE) {
+		::memset(_pMemory->GetPointer(), 0x00, _pMemory->GetSize());
+		UChar *p = reinterpret_cast<UChar *>(_pMemory->GetPointer()) + 1;
+		for (size_t cnt = _pMemory->GetSize() / 2; cnt > 0; cnt--, p += 2) *p = 0x80;
+	} else if (_format == FORMAT_S16LE) {
+		::memset(_pMemory->GetPointer(), 0x00, _pMemory->GetSize());
+	} else if (_format == FORMAT_U16BE) {
+		::memset(_pMemory->GetPointer(), 0x00, _pMemory->GetSize());
+		UChar *p = reinterpret_cast<UChar *>(_pMemory->GetPointer());
+		for (size_t cnt = _pMemory->GetSize() / 2; cnt > 0; cnt--, p += 2) *p = 0x80;
+	} else if (_format == FORMAT_S16BE) {
+		::memset(_pMemory->GetPointer(), 0x00, _pMemory->GetSize());
+	} else {
+		// nothing to do
+	}
 }
 
 //-----------------------------------------------------------------------------

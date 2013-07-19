@@ -15,20 +15,28 @@ public:
 		FORMAT_U16LE, FORMAT_S16LE,
 		FORMAT_U16BE, FORMAT_S16BE,
 	};
-	class Buffer {
+	enum {
+		MUTE_U8 = 0x80,
+		MUTE_S8 = 0x00,
+		MUTE_U16LE = 0x8000,
+		MUTE_S16LE = 0x0000,
+		MUTE_U16BE = 0x8000,
+		MUTE_S16BE = 0x0000,
+	};
+	class Chain {
 	private:
 		int _cntRef;
 		Format _format;
 		size_t _nChannels;
 		size_t _nSamplesPerSec;
 		AutoPtr<Memory> _pMemory;
-		AutoPtr<Buffer> _pNext;
+		AutoPtr<Chain> _pNext;
 	public:
-		Gura_DeclareReferenceAccessor(Buffer);
+		Gura_DeclareReferenceAccessor(Chain);
 	public:
-		Buffer(Format format, size_t nChannels, size_t nSamplesPerSec);
+		Chain(Format format, size_t nChannels, size_t nSamplesPerSec);
 	private:
-		inline ~Buffer() {}
+		inline ~Chain() {}
 	public:
 		inline Format GetFormat() const { return _format; }
 		inline size_t GetChannels() const { return _nChannels; }
@@ -37,21 +45,27 @@ public:
 		inline size_t GetBytesPerSample() const { return Audio::GetBytesPerSample(_format); }
 		inline void SetMemory(Memory *pMemory) { _pMemory.reset(pMemory); }
 		inline Memory *GetMemory() { return _pMemory.get(); }
+		inline const Memory *GetMemory() const { return _pMemory.get(); }
 		inline UChar *GetPointer() {
 			return _pMemory.IsNull()? NULL : reinterpret_cast<UChar *>(_pMemory->GetPointer());
 		}
+		inline const UChar *GetPointer() const {
+			return _pMemory.IsNull()? NULL : reinterpret_cast<const UChar *>(_pMemory->GetPointer());
+		}
 		inline size_t GetBytes() const { return _pMemory.IsNull()? 0 : _pMemory->GetSize(); }
 		inline size_t GetSamples() const { return GetBytes() / (GetChannels() * GetBytesPerSample()); }
-		inline Buffer *GetNext() { return _pNext.get(); }
-		inline void SetNext(Buffer *pNext) { _pNext.reset(pNext); }
+		inline Chain *GetNext() { return _pNext.get(); }
+		inline const Chain *GetNext() const { return _pNext.get(); }
+		inline void SetNext(Chain *pNext) { _pNext.reset(pNext); }
+		void FillMute();
 	};
 private:
 	int _cntRef;
 	Format _format;
 	size_t _nChannels;
 	size_t _nSamplesPerSec;
-	Buffer *_pBufferLast;
-	AutoPtr<Buffer> _pBuffer;
+	Chain *_pChainLast;
+	AutoPtr<Chain> _pChainTop;
 public:
 	Gura_DeclareReferenceAccessor(Audio);
 public:
@@ -59,12 +73,13 @@ public:
 private:
 	~Audio();
 public:
-	inline bool IsValid() const { return !_pBuffer.IsNull(); }
+	inline bool IsValid() const { return !_pChainTop.IsNull(); }
 	inline Format GetFormat() const { return _format; }
 	inline size_t GetChannels() const { return _nChannels; }
 	inline void SetSamplesPerSec(size_t nSamplesPerSec) { _nSamplesPerSec = nSamplesPerSec; }
 	inline size_t GetSamplesPerSec() const { return _nSamplesPerSec; }
-	inline Buffer *GetBuffer() { return _pBuffer.get(); }
+	inline Chain *GetChainTop() { return _pChainTop.get(); }
+	inline const Chain *GetChainTop() const { return _pChainTop.get(); }
 	inline size_t GetBytesPerSample() const { return GetBytesPerSample(_format); }
 	inline void StoreData(UChar *buffp, int data) {
 		switch (_format) {
@@ -104,14 +119,14 @@ public:
 			break;
 		}
 	}
-	UChar *AllocBuffer(Signal sig, size_t nSamples);
-	void FreeBuffer();
+	Chain *AllocChain(Signal sig, size_t nSamples);
+	void FreeChain();
 	size_t GetSamples() const;
 	size_t GetBytes() const;
 	bool Read(Environment &env, Signal sig, Stream &stream, const char *audioType);
 	bool Write(Environment &env, Signal sig, Stream &stream, const char *audioType);
 	bool AddSineWave(Signal sig, size_t iChannel,
-							size_t pitch, size_t nSamples, int amplitude);
+							double freq, size_t nSamples, int amplitude);
 public:
 	inline static size_t GetBytesPerSample(Format format) {
 		return (format == FORMAT_U8 || format == FORMAT_S8)? 1 : 2;
