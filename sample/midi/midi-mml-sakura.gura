@@ -1,15 +1,42 @@
 #!/usr/bin/env gura
 import(midi)
 
-mml1 = 'L1 c:e:g:~c _b:d:f:b c:e:g:~c'
-mml2 = 'c4d4e4r4 c4d4e4r4 g4e4d4c4 d4e4d4r4'
-mml3 = '@{synth_string1} L4 cder cder gedc dedr'
-mml4 = 't140 ch1 l8o4v80 bag f+4ec2'
+mml = [
+'t72'
+//-----------------------------------------------------------------------------
+'@{koto} r1 v100 aab2 aab2 ab~cb ab8a8f2 ecef' \
+'ee8c8_b2 ab~cb ab8a8f2 ecef ee8c8_b2' \
+'aab2 aab2 ref2 b8a8fe2'
+//-----------------------------------------------------------------------------
+'@{koto} r1 v80 l8 r2r~e~cb r2r~e~cb rererere rererbaferr4r2' \
+'r2r~e~f~e rererere rererbaf err4r2 r2r~e~f~e' \
+'r2r~e~cb r2r~e~cb r4refege f4a4b2'
+//-----------------------------------------------------------------------------
+'@{koto} r1 l2 _ae _ae _aa f_b _ae' \
+'_ae _aa f_b _ae _ae' \
+'_ae _ae f_a _be'
+]
 
-midi.port().mml(mml2*)
-/*
-midi.sequence {|seq|
+if (sys.argv.len() < 2) {
+	midi.port().mml(mml*)
+} else {
+	fileName = sys.argv[1]
+	seq = midi.sequence()
+	seq.track(0) {|track|
+		// I'm not quite sure if the following parameters are adequate or not.
+		track.sequence_or_track_name('Sakura')
+		track.time_signature(numerator => 4, denominator => 2,
+										metronome => 24, cnt32nd => 8)
+		track.key_signature(key => 0, scale => 0)
+		track.smpte_offset(hour => 0, minute => 0, second => 0, frame => 0, subFrame => 0)
+		track.control_change(0, `all_controllers_off,	0)
+		track.control_change(0, `chorus_level,			60)
+		track.control_change(0, `effects_level,			126)
+		track.control_change(0, `volume,				127)
+		track.control_change(0, `pan_position,			64)
+		track.control_change(0, `hold_pedal,			127)
+	}
 	seq.mml(mml*)
-	seq.play(0, 2)
+	seq.write(fileName)
+	println(fileName + ' was created')
 }
-*/
