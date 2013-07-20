@@ -1,0 +1,15 @@
+#!/usr/bin/env gura
+import(midi)
+
+mml1 = 'L1 c:e:g:~c _b:d:f:b c:e:g:~c'
+mml2 = 'c4d4e4r4 c4d4e4r4 g4e4d4c4 d4e4d4r4'
+mml3 = '@{synth_string1} L4 cder cder gedc dedr'
+mml4 = 't140 ch1 l8o4v80 bag f+4ec2'
+
+midi.port().mml(mml2*)
+/*
+midi.sequence {|seq|
+	seq.mml(mml*)
+	seq.play(0, 2)
+}
+*/
