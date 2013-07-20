@@ -5,7 +5,7 @@
 
 Gura_BeginModule(midi)
 
-class Content;
+class Sequence;
 
 //-----------------------------------------------------------------------------
 // Player
@@ -42,7 +42,7 @@ protected:
 public:
 	inline Port *GetPort() { return _pPort.get(); }
 	inline void SetMPQN(unsigned long mpqn) { _mpqn = mpqn; }
-	bool SetupContent(Signal sig, const Content *pContent,
+	bool SetupSequence(Signal sig, const Sequence *pSequence,
 		unsigned short division, unsigned long mpqn, double speed, int cntRepeat);
 	bool Play();
 	void PlayBackground();

@@ -5,7 +5,7 @@
 #define __MODULE_MIDI_H__
 #include <gura.h>
 #include "Port.h"
-#include "Content.h"
+#include "Sequence.h"
 #include "MML.h"
 #include "SoundFont.h"
 
@@ -159,18 +159,18 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class declaration for midi.content
+// Class declaration for midi.sequence
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(content);
+Gura_DeclareUserClass(sequence);
 
-class Object_content : public Object {
+class Object_sequence : public Object {
 private:
-	Content _content;
+	Sequence _sequence;
 public:
-	Gura_DeclareObjectAccessor(content)
+	Gura_DeclareObjectAccessor(sequence)
 public:
-	inline Object_content(Environment &env) : Object(Gura_UserClass(content)) {}
-	inline Content &GetContent() { return _content; }
+	inline Object_sequence(Environment &env) : Object(Gura_UserClass(sequence)) {}
+	inline Sequence &GetSequence() { return _sequence; }
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,

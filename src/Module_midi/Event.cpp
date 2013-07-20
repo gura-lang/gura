@@ -1,6 +1,6 @@
 #include "Module_midi.h"
 #include "Event.h"
-#include "Content.h"
+#include "Sequence.h"
 
 Gura_BeginModule(midi)
 

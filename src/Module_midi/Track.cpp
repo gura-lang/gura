@@ -1,5 +1,4 @@
-#include "Track.h"
-#include "Content.h"
+#include "Sequence.h"
 
 Gura_BeginModule(midi)
 

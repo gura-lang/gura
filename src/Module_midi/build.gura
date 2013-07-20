@@ -9,4 +9,4 @@ if (sys.build == `msc) {
 }
 builder.build('midi', ['Module_midi.cpp',
 	'Port.cpp', 'Event.cpp', 'Player.cpp', 'Track.cpp',
-	'MML.cpp', 'Content.cpp', 'SoundFont.cpp'])
+	'MML.cpp', 'Sequence.cpp', 'SoundFont.cpp'])

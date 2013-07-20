@@ -6,7 +6,7 @@
 Gura_BeginModule(midi)
 
 Value ActivatePlayer(Environment &env, Signal sig, Args &args,
-				Content &content, Port *pPort, double speed, int cntRepeat);
+				Sequence &sequence, Port *pPort, double speed, int cntRepeat);
 
 //-----------------------------------------------------------------------------
 // information table
@@ -969,14 +969,14 @@ Gura_ImplementUserClass(track)
 }
 
 //-----------------------------------------------------------------------------
-// Object_content
+// Object_sequence
 //-----------------------------------------------------------------------------
-Object *Object_content::Clone() const
+Object *Object_sequence::Clone() const
 {
 	return NULL;
 }
 
-bool Object_content::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+bool Object_sequence::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(format));
@@ -985,28 +985,28 @@ bool Object_content::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_content::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+Value Object_sequence::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(format))) {
-		return Value(_content.GetFormat());
+		return Value(_sequence.GetFormat());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(tracks))) {
 		Iterator *pIterator =
-				new Iterator_track(_content.GetTrackOwner().Reference());
+				new Iterator_track(_sequence.GetTrackOwner().Reference());
 		return Value(env, pIterator);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(events))) {
 		Iterator *pIterator =
-				new Iterator_eventAll(_content.GetTrackOwner().Reference());
+				new Iterator_eventAll(_sequence.GetTrackOwner().Reference());
 		return Value(env, pIterator);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
-		return Value(_content.GetProperty()->GetDivision());
+		return Value(_sequence.GetProperty()->GetDivision());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-Value Object_content::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+Value Object_sequence::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
@@ -1017,27 +1017,27 @@ Value Object_content::DoSetProp(Environment &env, Signal sig, const Symbol *pSym
 			sig.SetError(ERR_ValueError, "wrong number for format");
 			return Value::Null;
 		}
-		_content.SetFormat(format);
+		_sequence.SetFormat(format);
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
 		if (!value.MustBeNumber(sig)) return Value::Null;
 		unsigned short division = value.GetUShort();
-		_content.GetProperty()->SetDivision(division);
+		_sequence.GetProperty()->SetDivision(division);
 		return value;
 	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-String Object_content::ToString(Signal sig, bool exprFlag)
+String Object_sequence::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
-	rtn += "<midi.content";
+	rtn += "<midi.sequence";
 	do {
 		char buff[128];
 		::sprintf(buff, ":format=%d:tracks=%d:division=%d",
-				_content.GetFormat(), _content.GetTrackOwner().size(),
-				_content.GetProperty()->GetDivision());
+				_sequence.GetFormat(), _sequence.GetTrackOwner().size(),
+				_sequence.GetProperty()->GetDivision());
 		rtn += buff;
 	} while (0);
 	rtn += ">";
@@ -1045,38 +1045,38 @@ String Object_content::ToString(Signal sig, bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for midi.content
+// Gura interfaces for midi.sequence
 //-----------------------------------------------------------------------------
-// midi.content#read(stream:stream:r):map:reduce
-Gura_DeclareMethod(content, read)
+// midi.sequence#read(stream:stream:r):map:reduce
+Gura_DeclareMethod(sequence, read)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 }
 
-Gura_ImplementMethod(content, read)
+Gura_ImplementMethod(sequence, read)
 {
-	Object_content *pThis = Object_content::GetThisObj(args);
-	if (!pThis->GetContent().Read(env, sig, args.GetStream(0))) return Value::Null;
+	Object_sequence *pThis = Object_sequence::GetThisObj(args);
+	if (!pThis->GetSequence().Read(env, sig, args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
-// midi.content#write(stream:stream:w):map:reduce
-Gura_DeclareMethod(content, write)
+// midi.sequence#write(stream:stream:w):map:reduce
+Gura_DeclareMethod(sequence, write)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 }
 
-Gura_ImplementMethod(content, write)
+Gura_ImplementMethod(sequence, write)
 {
-	Object_content *pThis = Object_content::GetThisObj(args);
-	if (!pThis->GetContent().Write(env, sig, args.GetStream(0))) return Value::Null;
+	Object_sequence *pThis = Object_sequence::GetThisObj(args);
+	if (!pThis->GetSequence().Write(env, sig, args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
-// midi.content#play(port:midi.port, speed?:number, repeat:number:nil => 1):[background,player]
-Gura_DeclareMethod(content, play)
+// midi.sequence#play(port:midi.port, speed?:number, repeat:number:nil => 1):[background,player]
+Gura_DeclareMethod(sequence, play)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "port", VTYPE_port);
@@ -1087,33 +1087,33 @@ Gura_DeclareMethod(content, play)
 	DeclareAttr(Gura_UserSymbol(player));
 }
 
-Gura_ImplementMethod(content, play)
+Gura_ImplementMethod(sequence, play)
 {
-	Content &content = Object_content::GetThisObj(args)->GetContent();
+	Sequence &sequence = Object_sequence::GetThisObj(args)->GetSequence();
 	Port *pPort = Object_port::GetObject(args, 0)->GetPort();
 	double speed = args.IsNumber(1)? args.GetDouble(1) : 1;
 	int cntRepeat = args.IsNumber(2)? args.GetInt(2) : -1;
-	return ActivatePlayer(env, sig, args, content, pPort, speed, cntRepeat);
+	return ActivatePlayer(env, sig, args, sequence, pPort, speed, cntRepeat);
 }
 
-// midi.content#track(index:number):map {block?}
-Gura_DeclareMethod(content, track)
+// midi.sequence#track(index:number):map {block?}
+Gura_DeclareMethod(sequence, track)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(content, track)
+Gura_ImplementMethod(sequence, track)
 {
-	Object_content *pThis = Object_content::GetThisObj(args);
+	Object_sequence *pThis = Object_sequence::GetThisObj(args);
 	size_t index = args.GetSizeT(0);
-	TrackOwner &trackOwner = pThis->GetContent().GetTrackOwner();
+	TrackOwner &trackOwner = pThis->GetSequence().GetTrackOwner();
 	if (index >= trackOwner.size()) {
 		size_t n = index - trackOwner.size() + 1;
 		while (n-- > 0) {
 			trackOwner.push_back(new Track(Property::Reference(
-									pThis->GetContent().GetProperty())));
+									pThis->GetSequence().GetProperty())));
 		}
 	}
 	Track *pTrack = trackOwner[index];
@@ -1121,38 +1121,38 @@ Gura_ImplementMethod(content, track)
 				Value(new Object_track(env, Track::Reference(pTrack))));
 }
 
-// midi.content#mml(text+:string):reduce
-Gura_DeclareMethod(content, mml)
+// midi.sequence#mml(text+:string):reduce
+Gura_DeclareMethod(sequence, mml)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_OnceOrMore);
 }
 
-Gura_ImplementMethod(content, mml)
+Gura_ImplementMethod(sequence, mml)
 {
-	Object_content *pThis = Object_content::GetThisObj(args);
-	pThis->GetContent().ParseMML(sig, args.GetList(0));
+	Object_sequence *pThis = Object_sequence::GetThisObj(args);
+	pThis->GetSequence().ParseMML(sig, args.GetList(0));
 	return args.GetThis();
 }
 
 //-----------------------------------------------------------------------------
-// Class implementation for midi.content
+// Class implementation for midi.sequence
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClassWithCast(content)
+Gura_ImplementUserClassWithCast(sequence)
 {
-	Gura_AssignMethod(content, read);
-	Gura_AssignMethod(content, write);
-	Gura_AssignMethod(content, play);
-	Gura_AssignMethod(content, track);
-	Gura_AssignMethod(content, mml);
+	Gura_AssignMethod(sequence, read);
+	Gura_AssignMethod(sequence, write);
+	Gura_AssignMethod(sequence, play);
+	Gura_AssignMethod(sequence, track);
+	Gura_AssignMethod(sequence, mml);
 }
 
-Gura_ImplementCastFrom(content)
+Gura_ImplementCastFrom(sequence)
 {
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
 	if (value.IsStream()) {
-		AutoPtr<Object_content> pObj(new Object_content(env));
-		pObj->GetContent().Read(env, sig, value.GetStream());
+		AutoPtr<Object_sequence> pObj(new Object_sequence(env));
+		pObj->GetSequence().Read(env, sig, value.GetStream());
 		value = Value::Null; // delete stream instance
 		if (sig.IsSignalled()) return false;
 		value = Value(pObj.release());
@@ -1161,7 +1161,7 @@ Gura_ImplementCastFrom(content)
 	return false;
 }
 
-Gura_ImplementCastTo(content)
+Gura_ImplementCastTo(sequence)
 {
 	return false;
 }
@@ -1281,11 +1281,11 @@ Gura_ImplementMethod(port, send)
 	return args.GetThis();
 }
 
-// midi.port#play(content:midi.content, speed?:number, repeat:number:nil => 1):map:[background,player]
+// midi.port#play(sequence:midi.sequence, speed?:number, repeat:number:nil => 1):map:[background,player]
 Gura_DeclareMethod(port, play)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "content", VTYPE_content);
+	DeclareArg(env, "sequence", VTYPE_sequence);
 	DeclareArg(env, "speed", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "repeat", VTYPE_number, OCCUR_Once,
 								FLAG_Nil, new Expr_Value(Value(1)));
@@ -1296,10 +1296,10 @@ Gura_DeclareMethod(port, play)
 Gura_ImplementMethod(port, play)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
-	Content &content = Object_content::GetObject(args, 0)->GetContent();
+	Sequence &sequence = Object_sequence::GetObject(args, 0)->GetSequence();
 	double speed = args.IsNumber(1)? args.GetDouble(1) : 1;
 	int cntRepeat = args.IsNumber(2)? args.GetInt(2) : -1;
-	return ActivatePlayer(env, sig, args, content, pThis->GetPort(), speed, cntRepeat);
+	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);
 }
 
 // midi.port#mml(text+:string):[background,player]
@@ -1314,11 +1314,11 @@ Gura_DeclareMethod(port, mml)
 Gura_ImplementMethod(port, mml)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
-	Content content;
-	content.ParseMML(sig, args.GetList(0));
+	Sequence sequence;
+	sequence.ParseMML(sig, args.GetList(0));
 	double speed = 1;
 	int cntRepeat = 1;
-	return ActivatePlayer(env, sig, args, content, pThis->GetPort(), speed, cntRepeat);
+	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);
 }
 
 // midi.port#note_off(channel:number, note:number, velocity:number):map:reduce
@@ -1840,22 +1840,22 @@ void Iterator_event::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 //-----------------------------------------------------------------------------
 // Gura module functions: midi
 //-----------------------------------------------------------------------------
-// midi.content(stream?:stream) {block?}
-Gura_DeclareFunction(content)
+// midi.sequence(stream?:stream) {block?}
+Gura_DeclareFunction(sequence)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(Gura_UserClass(content));
+	SetClassToConstruct(Gura_UserClass(sequence));
 	AddHelp(Gura_Symbol(en), "create an instance that contains SMF information.");
 }
 
-Gura_ImplementFunction(content)
+Gura_ImplementFunction(sequence)
 {
-	AutoPtr<Object_content> pObj(new Object_content(env));
-	Content &content = pObj->GetContent();
+	AutoPtr<Object_sequence> pObj(new Object_sequence(env));
+	Sequence &sequence = pObj->GetSequence();
 	if (args.IsStream(0)) {
-		if (!content.Read(env, sig, args.GetStream(0))) return Value::Null;
+		if (!sequence.Read(env, sig, args.GetStream(0))) return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
@@ -2032,7 +2032,7 @@ Gura_ModuleEntry()
 	// class realization
 	Gura_RealizeUserClassWithoutPrepare(event, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(track, env.LookupClass(VTYPE_object));
-	Gura_RealizeUserClassWithoutPrepare(content, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(sequence, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(portinfo, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(port, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(player, env.LookupClass(VTYPE_object));
@@ -2041,7 +2041,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClassWithoutPrepare(soundfont, env.LookupClass(VTYPE_object));
 	Gura_UserClass(event)->Prepare(env);
 	Gura_UserClass(track)->Prepare(env);
-	Gura_UserClass(content)->Prepare(env);
+	Gura_UserClass(sequence)->Prepare(env);
 	Gura_UserClass(portinfo)->Prepare(env);
 	Gura_UserClass(port)->Prepare(env);
 	Gura_UserClass(player)->Prepare(env);
@@ -2081,7 +2081,7 @@ Gura_ModuleEntry()
 		Gura_AssignValue(programs, value);
 	} while (0);
 	// function assignment
-	Gura_AssignFunction(content);
+	Gura_AssignFunction(sequence);
 	Gura_AssignFunction(port);
 	Gura_AssignFunction(controller);
 	Gura_AssignFunction(program);
@@ -2155,9 +2155,9 @@ const ProgramInfo *ProgramInfoById(int program)
 }
 
 Value ActivatePlayer(Environment &env, Signal sig, Args &args,
-					Content &content, Port *pPort, double speed, int cntRepeat)
+					Sequence &sequence, Port *pPort, double speed, int cntRepeat)
 {
-	AutoPtr<Player> pPlayer(content.GeneratePlayer(sig, pPort, speed, cntRepeat));
+	AutoPtr<Player> pPlayer(sequence.GeneratePlayer(sig, pPort, speed, cntRepeat));
 	if (sig.IsSignalled()) return Value::Null;
 	if (args.IsSet(Gura_UserSymbol(background))) {
 		Value value(new Object_player(env, Player::Reference(pPlayer.get())));

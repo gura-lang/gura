@@ -1,5 +1,5 @@
-#ifndef __CONTENT_H__
-#define __CONTENT_H__
+#ifndef __SEQUENCE_H__
+#define __SEQUENCE_H__
 #include <gura.h>
 #include "Track.h"
 #include "Player.h"
@@ -7,9 +7,9 @@
 Gura_BeginModule(midi)
 
 //-----------------------------------------------------------------------------
-// Content
+// Sequence
 //-----------------------------------------------------------------------------
-class Content {
+class Sequence {
 public:
 	struct HeaderChunkTop {
 		enum { Size = 8 };
@@ -32,7 +32,7 @@ private:
 	AutoPtr<TrackOwner> _pTrackOwner;
 	AutoPtr<Property> _pProperty;
 public:
-	Content();
+	Sequence();
 	inline void SetFormat(unsigned short format) { _format = format; }
 	inline unsigned short GetFormat() const { return _format; }
 	inline TrackOwner &GetTrackOwner() { return *_pTrackOwner; }

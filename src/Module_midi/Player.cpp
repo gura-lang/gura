@@ -18,7 +18,7 @@ Player::~Player()
 {
 }
 
-bool Player::SetupContent(Signal sig, const Content *pContent,
+bool Player::SetupSequence(Signal sig, const Sequence *pSequence,
 				unsigned short division, unsigned long mpqn, double speed,
 				int cntRepeat)
 {
@@ -31,7 +31,7 @@ bool Player::SetupContent(Signal sig, const Content *pContent,
 	_speed = speed;
 	_cntRepeat = cntRepeat;
 	_pEventOwner->Clear();
-	foreach_const (TrackOwner, ppTrack, pContent->GetTrackOwner()) {
+	foreach_const (TrackOwner, ppTrack, pSequence->GetTrackOwner()) {
 		const Track *pTrack = *ppTrack;
 		_pEventOwner->AddEvents(pTrack->GetEventOwner());
 	}

@@ -1,16 +1,16 @@
-#include "Content.h"
+#include "Sequence.h"
 
 Gura_BeginModule(midi)
 
 //-----------------------------------------------------------------------------
-// Content
+// Sequence
 //-----------------------------------------------------------------------------
-Content::Content() : _format(0),
+Sequence::Sequence() : _format(0),
 			_pTrackOwner(new TrackOwner()), _pProperty(new Property())
 {
 }
 
-bool Content::Read(Environment &env, Signal sig, Stream &stream)
+bool Sequence::Read(Environment &env, Signal sig, Stream &stream)
 {
 	enum Stat {
 		STAT_EventStart,
@@ -200,7 +200,7 @@ bool Content::Read(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Content::Write(Environment &env, Signal sig, Stream &stream)
+bool Sequence::Write(Environment &env, Signal sig, Stream &stream)
 {
 	do {
 		HeaderChunkTop headerChunkTop;
@@ -268,15 +268,15 @@ bool Content::Write(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-Player *Content::GeneratePlayer(Signal sig, Port *pPort, double speed, int cntRepeat) const
+Player *Sequence::GeneratePlayer(Signal sig, Port *pPort, double speed, int cntRepeat) const
 {
 	AutoPtr<Player> pPlayer(new Player(sig, Port::Reference(pPort)));
-	if (!pPlayer->SetupContent(sig, this, _pProperty->GetDivision(),
+	if (!pPlayer->SetupSequence(sig, this, _pProperty->GetDivision(),
 						_pProperty->GetMPQN(), speed, cntRepeat)) return NULL;
 	return pPlayer.release();
 }
 
-bool Content::ParseMML(Signal sig, const ValueList &valList)
+bool Sequence::ParseMML(Signal sig, const ValueList &valList)
 {
 	TrackOwner &trackOwner = GetTrackOwner();
 	if (trackOwner.size() < valList.size()) {
