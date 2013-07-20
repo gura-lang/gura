@@ -57,14 +57,14 @@ l16r2@{acoustic_piano} <
 ]
 
 //midi.port().mml(mml*)
-midi.content {|c|
-	c.track(0) {|track|
+midi.sequence {|seq|
+	seq.track(0) {|track|
 		track.sequence_or_track_name('Fur Elise')
 		track.time_signature(numerator => 3, denominator => 3,
 										metronome => 24, cnt32nd => 8)
 	}
-	c.mml(mml*)
-	c.write('elise.mid')
+	seq.mml(mml*)
+	seq.write('elise.mid')
 	println('elise.mid was created')
-	//c.play(0)
+	seq.play(0)
 }

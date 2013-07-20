@@ -19,7 +19,7 @@ fileNames = path.glob(argv):list
 fileNames.each {|fileName|
 	buff = open(fileName).read()
 	buffDup = binary()
-	midi.content(fileName).write(buffDup)
+	midi.sequence(fileName).write(buffDup)
 	if (cfg['output']) {
 		fileNameDup = cfg['output']
 		open(fileNameDup, 'w').write(buffDup)

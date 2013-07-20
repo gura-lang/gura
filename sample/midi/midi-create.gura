@@ -17,8 +17,8 @@ mml = [
 '_ae _ae f_a _be'
 ]
 
-midi.content {|content|
-	content.track(0) {|track|
+midi.sequence {|seq|
+	seq.track(0) {|track|
 		// I'm not quite sure if the following parameters are adequate or not.
 		track.sequence_or_track_name('Sakura')
 		track.time_signature(numerator => 4, denominator => 2,
@@ -32,7 +32,7 @@ midi.content {|content|
 		track.control_change(0, `pan_position,			64)
 		track.control_change(0, `hold_pedal,			127)
 	}
-	content.mml(mml*)
-	content.write('sakura.mid')
+	seq.mml(mml*)
+	seq.write('sakura.mid')
 	println('sakura.mid was created')
 }

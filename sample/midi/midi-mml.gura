@@ -22,8 +22,8 @@ mml5 = 't140 ch1 l8o4v80 bag f+4ec2'
 
 midi.port().mml(mml2*)
 /*
-midi.content {|c|
-	c.mml(mml*)
-	c.play(0, 2)
+midi.sequence {|seq|
+	seq.mml(mml*)
+	seq.play(0, 2)
 }
 */
