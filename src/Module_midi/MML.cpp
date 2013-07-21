@@ -288,7 +288,7 @@ bool MML::FeedChar(Signal sig, int ch)
 				_cntDot = 1;
 				pStateMachine->SetStat(STAT_NoteLengthDot);
 			} else if (ch == ',') {
-				pStateMachine->SetStat(STAT_GatePre);
+				pStateMachine->SetStat(STAT_NoteGatePre);
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
@@ -342,6 +342,7 @@ bool MML::FeedChar(Signal sig, int ch)
 		}
 		case STAT_NoteGatePre: {
 			if (IsDigit(ch)) {
+				_numAccum = 0;
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_NoteGate);
 			} else if (ch == ',') {
@@ -369,6 +370,7 @@ bool MML::FeedChar(Signal sig, int ch)
 		}
 		case STAT_NoteVelocityPre: {
 			if (IsDigit(ch)) {
+				_numAccum = 0;
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_NoteVelocity);
 			} else if (ch == ',') {
@@ -424,8 +426,9 @@ bool MML::FeedChar(Signal sig, int ch)
 			_pTrack->AddEvent(new MIDIEvent_NoteOn(
 							_timeStampHead, _channel, note, _velocity));
 			unsigned long timeStampTail = _timeStampHead + deltaTime;
+			unsigned long timeStampGate = _timeStampHead + deltaTime * _gate / MAX_GATE;
 			_pTrack->AddEvent(new MIDIEvent_NoteOn(
-							timeStampTail, _channel, note, 0));
+							timeStampGate, _channel, note, 0));
 			if (_timeStampTail < timeStampTail) _timeStampTail = timeStampTail;
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
