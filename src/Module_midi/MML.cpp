@@ -29,9 +29,11 @@ void MML::Reset()
 	_cntDot				= 0;
 	_commentNestLevel	= 0;
 	_colonFlag			= false;
+	_joinFlag			= false;
 	_offsetGroup		= -1;
 	_timeStampHead 		= 0;
 	_timeStampTail		= 0;
+	_pMIDIEventLast		= NULL;
 	_stateMachineStack.Clear();
 }
 
@@ -75,8 +77,6 @@ bool MML::FeedChar(Signal sig, int ch)
 					delete pStateMachine;
 					_stateMachineStack.pop_back();
 				}
-			} else if (ch == ':') {
-				_colonFlag = true;
 			} else if (ch == '[') {
 				pStateMachine->GetStrBlock1st().clear();
 				pStateMachine->GetStrBlock2nd().clear();
@@ -99,8 +99,10 @@ bool MML::FeedChar(Signal sig, int ch)
 				_numAccum = 0;
 				_cntDot = 0;
 				pStateMachine->SetStat(STAT_RestLengthPre);
+			} else if (ch == ':') {
+				_colonFlag = true;
 			} else if (ch == '&') {
-				_operator = ch;
+				_joinFlag = true;
 			} else if (ch == 'O') {
 				_operator = ch;
 				_numAccum = 0;
@@ -423,12 +425,26 @@ bool MML::FeedChar(Signal sig, int ch)
 			if (!_colonFlag) _timeStampHead = _timeStampTail;
 			_colonFlag = false;
 			int deltaTime = CalcDeltaTime(_length, _cntDot);
-			_pTrack->AddEvent(new MIDIEvent_NoteOn(
-							_timeStampHead, _channel, note, _velocity));
 			unsigned long timeStampTail = _timeStampHead + deltaTime;
 			unsigned long timeStampGate = _timeStampHead + deltaTime * _gate / MAX_GATE;
-			_pTrack->AddEvent(new MIDIEvent_NoteOn(
-							timeStampGate, _channel, note, 0));
+			bool joinedFlag = false;
+			if (_joinFlag && _pMIDIEventLast != NULL) {
+				if (_pMIDIEventLast->GetNote() == note) {
+					joinedFlag = true;
+					_pMIDIEventLast->SetTimeStamp(timeStampGate);
+				} else {
+					_pMIDIEventLast->SetTimeStamp(_timeStampHead + deltaTime / 2);
+				}
+			}
+			_joinFlag = false;
+			if (!joinedFlag) {
+				_pTrack->AddEvent(new MIDIEvent_NoteOn(
+								_timeStampHead, _channel, note, _velocity));
+				MIDIEvent_NoteOn *pMIDIEvent = new MIDIEvent_NoteOn(
+								timeStampGate, _channel, note, 0);
+				_pTrack->AddEvent(pMIDIEvent);
+				_pMIDIEventLast = pMIDIEvent;
+			}
 			if (_timeStampTail < timeStampTail) _timeStampTail = timeStampTail;
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
@@ -521,6 +537,7 @@ bool MML::FeedChar(Signal sig, int ch)
 		case STAT_RestFix: {
 			if (!_colonFlag) _timeStampHead = _timeStampTail;
 			_colonFlag = false;
+			_joinFlag = false;
 			int deltaTime = CalcDeltaTime(_length, _cntDot);
 			unsigned long timeStampTail = _timeStampHead + deltaTime;
 			if (_timeStampTail < timeStampTail) _timeStampTail = timeStampTail;

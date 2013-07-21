@@ -19,12 +19,6 @@ bool Track::ParseMML(Signal sig, const char *str)
 	return _pMML->ParseString(sig, str);
 }
 
-void Track::AddEvent(Event *pEvent)
-{
-	_ppEventAt = _pEventOwner->insert(_ppEventAt, pEvent);
-	_ppEventAt++;
-}
-
 unsigned long Track::GetPrevTimeStamp() const
 {
 	unsigned long timeStamp = 0;
@@ -48,6 +42,12 @@ void Track::AdjustFollowingTimeStamp(long deltaTime)
 		Event *pEventEach = *ppEventEach;
 		pEventEach->SetTimeStamp(pEventEach->GetTimeStamp() + deltaTime);
 	}
+}
+
+void Track::AddEvent(Event *pEvent)
+{
+	_ppEventAt = _pEventOwner->insert(_ppEventAt, pEvent);
+	_ppEventAt++;
 }
 
 void Track::AddEvent(Event *pEvent, unsigned long deltaTime)

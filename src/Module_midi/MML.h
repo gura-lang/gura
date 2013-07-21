@@ -83,10 +83,12 @@ private:
 	int _cntDot;
 	int _commentNestLevel;
 	bool _colonFlag;
+	bool _joinFlag;
 	long _offsetGroup;
 	unsigned long _timeStampHead;
 	unsigned long _timeStampTail;
 	String _token;
+	MIDIEvent_NoteOn *_pMIDIEventLast;
 	StateMachineStack _stateMachineStack;
 public:
 	MML(Track *pTrack, unsigned char channel);
