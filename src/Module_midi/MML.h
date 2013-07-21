@@ -11,6 +11,7 @@ class MML {
 public:
 	enum {
 		MAX_OCTAVE		= 9,
+		MAX_GATE		= 8,
 		MAX_VELOCITY	= 127,
 		MAX_PROGRAM		= 127,
 	};
@@ -20,10 +21,15 @@ private:
 		STAT_RepeatBlock1st, STAT_RepeatBlock1stSlash,
 		STAT_RepeatBlock2nd, STAT_RepeatBlock2ndSlash,
 		STAT_RepeatNumPre, STAT_RepeatNum, STAT_RepeatNumFix,
-		STAT_Note, STAT_NoteLengthPre, STAT_NoteLength, STAT_NoteLengthDot, STAT_NoteFix, STAT_NotePost,
+		STAT_Note,
+		STAT_NoteLengthPre, STAT_NoteLength, STAT_NoteLengthDot,
+		STAT_NoteGatePre, STAT_NoteGate,
+		STAT_NoteVelocityPre, STAT_NoteVelocity,
+		STAT_NoteFix, STAT_NotePost,
 		STAT_ChannelMaybe, STAT_ChannelPre, STAT_Channel, STAT_ChannelFix,
 		STAT_RestLengthPre, STAT_RestLength, STAT_RestLengthDot, STAT_RestFix,
 		STAT_OctavePre, STAT_Octave, STAT_OctaveFix,
+		STAT_GatePre, STAT_Gate, STAT_GateFix,
 		STAT_LengthPre, STAT_Length, STAT_LengthDot, STAT_LengthFix,
 		STAT_VelocityPre, STAT_Velocity, STAT_VelocityFix,
 		STAT_ProgramPre, STAT_Program, STAT_ProgramName, STAT_ProgramFix,
@@ -66,6 +72,11 @@ private:
 	int _octave;
 	int _octaveOffset;
 	int _lengthDefault;
+	int _length;
+	int _gateDefault;
+	int _gate;
+	unsigned char _velocityDefault;
+	unsigned char _velocity;
 	int _operator;
 	int _operatorSub;
 	int _numAccum;
@@ -73,7 +84,6 @@ private:
 	int _commentNestLevel;
 	bool _colonFlag;
 	long _offsetGroup;
-	unsigned char _velocity;
 	unsigned long _timeStampHead;
 	unsigned long _timeStampTail;
 	String _token;

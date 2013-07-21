@@ -18,6 +18,11 @@ void MML::Reset()
 	_octave				= 4;				// 1-9
 	_octaveOffset		= 0;
 	_lengthDefault		= 4;
+	_length				= _lengthDefault;
+	_gateDefault		= 8;
+	_gate				= _gateDefault;
+	_velocityDefault	= 100;
+	_velocity			= _velocityDefault;
 	_operator			= '\0';
 	_operatorSub		= '\0';
 	_numAccum			= 0;
@@ -25,7 +30,6 @@ void MML::Reset()
 	_commentNestLevel	= 0;
 	_colonFlag			= false;
 	_offsetGroup		= -1;
-	_velocity			= 100;
 	_timeStampHead 		= 0;
 	_timeStampTail		= 0;
 	_stateMachineStack.Clear();
@@ -83,11 +87,15 @@ bool MML::FeedChar(Signal sig, int ch)
 			} else if ('A' <= ch && ch <= 'G') {
 				_operator = ch;
 				_operatorSub = '\0';
+				_length = _lengthDefault;
+				_gate = _gateDefault;
+				_velocity = _velocityDefault;
 				_numAccum = 0;
 				_cntDot = 0;
 				pStateMachine->SetStat(STAT_Note);
 			} else if (ch == 'R') {
 				_operator = ch;
+				_length = _lengthDefault;
 				_numAccum = 0;
 				_cntDot = 0;
 				pStateMachine->SetStat(STAT_RestLengthPre);
@@ -97,6 +105,10 @@ bool MML::FeedChar(Signal sig, int ch)
 				_operator = ch;
 				_numAccum = 0;
 				pStateMachine->SetStat(STAT_OctavePre);
+			} else if (ch == 'Q') {
+				_operator = ch;
+				_numAccum = 0;
+				pStateMachine->SetStat(STAT_GatePre);
 			} else if (ch == '>') {
 				_operator = ch;
 				if (_octave < MAX_OCTAVE - 1) _octave++;
@@ -111,9 +123,10 @@ bool MML::FeedChar(Signal sig, int ch)
 				_offsetGroup = _pTrack->Tell();
 			} else if (ch == ')') {
 				if (_offsetGroup < 0) {
-					sig.SetError(ERR_FormatError, "unmatched grou parenthesis");
+					sig.SetError(ERR_FormatError, "unmatched group parenthesis");
 					return false;
 				}
+				_length = _lengthDefault;
 				_numAccum = 0;
 				_cntDot = 0;
 				pStateMachine->SetStat(STAT_GroupLengthPre);
@@ -123,6 +136,7 @@ bool MML::FeedChar(Signal sig, int ch)
 				_octaveOffset--;
 			} else if (ch == 'L') {
 				_operator = ch;
+				_length = _lengthDefault;
 				_numAccum = 0;
 				_cntDot = 0;
 				pStateMachine->SetStat(STAT_LengthPre);
@@ -273,6 +287,8 @@ bool MML::FeedChar(Signal sig, int ch)
 			} else if (ch == '.') {
 				_cntDot = 1;
 				pStateMachine->SetStat(STAT_NoteLengthDot);
+			} else if (ch == ',') {
+				pStateMachine->SetStat(STAT_GatePre);
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
@@ -288,6 +304,8 @@ bool MML::FeedChar(Signal sig, int ch)
 			} else if (ch == '.') {
 				_cntDot = 1;
 				pStateMachine->SetStat(STAT_NoteLengthDot);
+			} else if (ch == ',') {
+				pStateMachine->SetStat(STAT_NoteGatePre);
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
@@ -300,9 +318,14 @@ bool MML::FeedChar(Signal sig, int ch)
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else if (ch == '.') {
+				_length = _numAccum;
 				_cntDot = 1;
 				pStateMachine->SetStat(STAT_NoteLengthDot);
+			} else if (ch == ',') {
+				_length = _numAccum;
+				pStateMachine->SetStat(STAT_NoteGatePre);
 			} else {
+				_length = _numAccum;
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_NoteFix);
 			}
@@ -312,6 +335,66 @@ bool MML::FeedChar(Signal sig, int ch)
 			if (ch == '.') {
 				_cntDot++;
 			} else {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_NoteFix);
+			}
+			break;
+		}
+		case STAT_NoteGatePre: {
+			if (IsDigit(ch)) {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_NoteGate);
+			} else if (ch == ',') {
+				pStateMachine->SetStat(STAT_NoteVelocityPre);
+			} else if (IsWhite(ch)) {
+				// nothing to do
+			} else {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_NoteFix);
+			}
+			break;
+		}
+		case STAT_NoteGate: {
+			if (IsDigit(ch)) {
+				_numAccum = _numAccum * 10 + (ch - '0');
+			} else if (ch == ',') {
+				_gate = _numAccum;
+				pStateMachine->SetStat(STAT_NoteVelocityPre);
+			} else {
+				_gate = _numAccum;
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_NoteFix);
+			}
+			break;
+		}
+		case STAT_NoteVelocityPre: {
+			if (IsDigit(ch)) {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_NoteVelocity);
+			} else if (ch == ',') {
+				sig.SetError(ERR_FormatError, "too many note parameters");
+				return false;
+			} else if (IsWhite(ch)) {
+				// nothing to do
+			} else {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_NoteFix);
+			}
+			break;
+		}
+		case STAT_NoteVelocity: {
+			if (IsDigit(ch)) {
+				_numAccum = _numAccum * 10 + (ch - '0');
+			} else if (ch == ',') {
+				sig.SetError(ERR_FormatError, "too many note parameters");
+				return false;
+			} else {
+				if (_numAccum > MAX_VELOCITY) {
+					sig.SetError(ERR_FormatError,
+						"velocity number must be less than %d", MAX_VELOCITY + 1);
+					return false;
+				}
+				_velocity = static_cast<unsigned char>(_numAccum);
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_NoteFix);
 			}
@@ -337,7 +420,7 @@ bool MML::FeedChar(Signal sig, int ch)
 			}
 			if (!_colonFlag) _timeStampHead = _timeStampTail;
 			_colonFlag = false;
-			int deltaTime = CalcDeltaTime(_numAccum, _cntDot);
+			int deltaTime = CalcDeltaTime(_length, _cntDot);
 			_pTrack->AddEvent(new MIDIEvent_NoteOn(
 							_timeStampHead, _channel, note, _velocity));
 			unsigned long timeStampTail = _timeStampHead + deltaTime;
@@ -354,6 +437,9 @@ bool MML::FeedChar(Signal sig, int ch)
 			} else {
 				_operator = 'C';
 				_operatorSub = '\0';
+				_length = _lengthDefault;
+				_gate = _gateDefault;
+				_velocity = _velocityDefault;
 				_numAccum = 0;
 				_cntDot = 0;
 				pStateMachine->SetStat(STAT_Note);
@@ -411,9 +497,11 @@ bool MML::FeedChar(Signal sig, int ch)
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else if (ch == '.') {
+				_length = _numAccum;
 				_cntDot = 1;
 				pStateMachine->SetStat(STAT_RestLengthDot);
 			} else {
+				_length = _numAccum;
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_RestFix);
 			}
@@ -430,7 +518,7 @@ bool MML::FeedChar(Signal sig, int ch)
 		case STAT_RestFix: {
 			if (!_colonFlag) _timeStampHead = _timeStampTail;
 			_colonFlag = false;
-			int deltaTime = CalcDeltaTime(_numAccum, _cntDot);
+			int deltaTime = CalcDeltaTime(_length, _cntDot);
 			unsigned long timeStampTail = _timeStampHead + deltaTime;
 			if (_timeStampTail < timeStampTail) _timeStampTail = timeStampTail;
 			continueFlag = true;
@@ -465,6 +553,38 @@ bool MML::FeedChar(Signal sig, int ch)
 				return false;
 			}
 			_octave = _numAccum;
+			continueFlag = true;
+			pStateMachine->SetStat(STAT_Begin);
+			break;
+		}
+		case STAT_GatePre: {	// -------- Gate --------
+			if (IsDigit(ch)) {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_Gate);
+			} else if (IsWhite(ch)) {
+				// nothing to do
+			} else {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_GateFix);
+			}
+			break;
+		}
+		case STAT_Gate: {
+			if (IsDigit(ch)) {
+				_numAccum = _numAccum * 10 + (ch - '0');
+			} else {
+				continueFlag = true;
+				pStateMachine->SetStat(STAT_GateFix);
+			}
+			break;
+		}
+		case STAT_GateFix: {
+			if (_numAccum > MAX_GATE) {
+				sig.SetError(ERR_FormatError,
+							"gate number must be less than %d", MAX_GATE + 1);
+				return false;
+			}
+			_gateDefault = _numAccum;
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
@@ -535,10 +655,10 @@ bool MML::FeedChar(Signal sig, int ch)
 		case STAT_VelocityFix: {
 			if (_numAccum > MAX_VELOCITY) {
 				sig.SetError(ERR_FormatError,
-							"velocity number must be less than %d", MAX_VELOCITY + 1);
+					"velocity number must be less than %d", MAX_VELOCITY + 1);
 				return false;
 			}
-			_velocity = static_cast<unsigned char>(_numAccum);
+			_velocityDefault = static_cast<unsigned char>(_numAccum);
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
@@ -642,9 +762,11 @@ bool MML::FeedChar(Signal sig, int ch)
 			if (IsDigit(ch)) {
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else if (ch == '.') {
+				_length = _numAccum;
 				_cntDot++;
 				pStateMachine->SetStat(STAT_GroupLengthDot);
 			} else {
+				_length = _numAccum;
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_GroupFix);
 			}
@@ -665,7 +787,7 @@ bool MML::FeedChar(Signal sig, int ch)
 			unsigned long timeStampHead = (*ppEvent)->GetTimeStamp();
 			int deltaTimeOrg = _timeStampTail - timeStampHead;
 			if (deltaTimeOrg != 0) {
-				int deltaTime = CalcDeltaTime(_numAccum, _cntDot);
+				int deltaTime = CalcDeltaTime(_length, _cntDot);
 				for ( ; ppEvent != eventOwner.end(); ppEvent++) {
 					Event *pEvent = *ppEvent;
 					pEvent->SetTimeStamp((pEvent->GetTimeStamp() - timeStampHead) *
