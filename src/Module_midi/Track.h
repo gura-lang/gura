@@ -54,7 +54,6 @@ public:
 	inline void RequestEndOfTrack() { _requestEndOfTrackFlag = true; }
 	inline bool IsEndOfTrackRequested() const { return _requestEndOfTrackFlag; }
 	bool Write(Signal sig, Stream &stream) const;
-	bool ParseMML(Signal sig, const char *str);
 	unsigned long GetPrevTimeStamp() const;
 	void AdjustFollowingTimeStamp(long deltaTime);
 	void AddEvent(Event *pEvent);

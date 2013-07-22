@@ -479,7 +479,7 @@ Gura_DeclareMethod(track, mml)
 Gura_ImplementMethod(track, mml)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
-	pTrack->ParseMML(sig, args.GetString(0));
+	if (!MML().ParseString(sig, pTrack, args.GetString(0))) return Value::Null;
 	return args.GetThis();
 }
 

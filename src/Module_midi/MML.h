@@ -93,6 +93,7 @@ public:
 	MML();
 	void Reset();
 	void UpdateTimeStamp(Track *pTrack);
+	bool Parse(Signal sig, Track *pTrack, SimpleStream &stream);
 	bool ParseString(Signal sig, Track *pTrack, const char *str);
 private:
 	bool FeedChar(Signal sig, Track *pTrack, int ch);

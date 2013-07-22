@@ -862,7 +862,7 @@ Gura_ImplementMethod(string, template_)
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	String strSrc = args.GetThis().GetStringSTL();
-	SimpleStream_StringRead streamSrc(strSrc.begin(), strSrc.end());
+	SimpleStream_String streamSrc(strSrc.begin(), strSrc.end());
 	if (args.IsStream(0)) {
 		Stream &streamDst = args.GetStream(0);
 		TemplateEngine(autoIndentFlag, appendLastEOLFlag).

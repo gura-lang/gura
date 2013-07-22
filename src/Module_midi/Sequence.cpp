@@ -291,7 +291,7 @@ bool Sequence::ParseMML(Signal sig, const ValueList &valList)
 	for ( ; ppTrack != trackOwner.end(); ppTrack++, pValue++) {
 		Track *pTrack = *ppTrack;
 		if (!pValue->IsString()) return false; // this must not happen
-		if (!pTrack->ParseMML(sig, pValue->GetString())) return false;
+		if (!MML().ParseString(sig, pTrack, pValue->GetString())) return false;
 	}
 	return true;
 }

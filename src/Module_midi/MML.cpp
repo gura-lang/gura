@@ -45,19 +45,26 @@ void MML::UpdateTimeStamp(Track *pTrack)
 	}
 }
 
-bool MML::ParseString(Signal sig, Track *pTrack, const char *str)
+bool MML::Parse(Signal sig, Track *pTrack, SimpleStream &stream)
 {
 	pTrack->RequestEndOfTrack();
 	UpdateTimeStamp(pTrack);
 	unsigned long timeStampBegin = _timeStampHead;
-	for (const char *p = str; ; p++) {
-		char ch = *p;
+	for (;;) {
+		int chRaw = stream.GetChar(sig);
+		char ch = (chRaw < 0)? '\0' : static_cast<char>(chRaw);
 		if (!FeedChar(sig, pTrack, ch)) return false;
 		if (ch == '\0') break;
 	}
 	unsigned long deltaTime = _timeStampTail - timeStampBegin;
 	pTrack->AdjustFollowingTimeStamp(deltaTime);
 	return true;
+}
+
+bool MML::ParseString(Signal sig, Track *pTrack, const char *str)
+{
+	SimpleStream_CString stream(str);
+	return Parse(sig, pTrack, stream);
 }
 
 bool MML::FeedChar(Signal sig, Track *pTrack, int ch)

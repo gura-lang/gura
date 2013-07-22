@@ -71,17 +71,33 @@ void SimpleStream::Dump(Signal sig, const void *buff, size_t bytes, bool upperFl
 }
 
 //-----------------------------------------------------------------------------
-// SimpleStream_StringRead
+// SimpleStream_CString
 //-----------------------------------------------------------------------------
-int SimpleStream_StringRead::GetChar(Signal sig)
+int SimpleStream_CString::GetChar(Signal sig)
+{
+	if (*_pStr == '\0' || _pStr == _pEnd) return -1;
+	char ch = *_pStr++;
+	return static_cast<unsigned char>(ch);
+}
+
+void SimpleStream_CString::PutChar(Signal sig, char ch)
+{
+	// nothing to do
+}
+
+//-----------------------------------------------------------------------------
+// SimpleStream_String
+//-----------------------------------------------------------------------------
+int SimpleStream_String::GetChar(Signal sig)
 {
 	if (_pStr == _pEnd) return -1;
 	char ch = *_pStr++;
 	return static_cast<unsigned char>(ch);
 }
 
-void SimpleStream_StringRead::PutChar(Signal sig, char ch)
+void SimpleStream_String::PutChar(Signal sig, char ch)
 {
+	// nothing to do
 }
 
 //-----------------------------------------------------------------------------

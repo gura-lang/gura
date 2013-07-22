@@ -12,11 +12,6 @@ Track::Track(Property *pProperty) : _cntRef(1),
 	_ppEventAt = _pEventOwner->end();
 }
 
-bool Track::ParseMML(Signal sig, const char *str)
-{
-	return MML().ParseString(sig, this, str);
-}
-
 unsigned long Track::GetPrevTimeStamp() const
 {
 	unsigned long timeStamp = 0;

@@ -27,14 +27,28 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// SimpleStream_StringRead
+// SimpleStream_CString
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE SimpleStream_StringRead : public SimpleStream {
+class GURA_DLLDECLARE SimpleStream_CString : public SimpleStream {
+private:
+	const char *_pStr;
+	const char *_pEnd;
+public:
+	inline SimpleStream_CString(const char *pStr, const char *pEnd = NULL) :
+													_pStr(pStr), _pEnd(pEnd) {}
+	virtual int GetChar(Signal sig);
+	virtual void PutChar(Signal sig, char ch);
+};
+
+//-----------------------------------------------------------------------------
+// SimpleStream_String
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE SimpleStream_String : public SimpleStream {
 private:
 	String::const_iterator _pStr;
 	String::const_iterator _pEnd;
 public:
-	inline SimpleStream_StringRead(String::const_iterator pStr,
+	inline SimpleStream_String(String::const_iterator pStr,
 				String::const_iterator pEnd) : _pStr(pStr), _pEnd(pEnd) {}
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
