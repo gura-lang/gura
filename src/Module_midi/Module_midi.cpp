@@ -469,11 +469,11 @@ Gura_ImplementMethod(track, erase)
 	return args.GetThis();
 }
 
-// midi.track#mml(text:string):map:reduce
+// midi.track#mml(str:string):map:reduce
 Gura_DeclareMethod(track, mml)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
-	DeclareArg(env, "text", VTYPE_string);
+	DeclareArg(env, "str", VTYPE_string);
 }
 
 Gura_ImplementMethod(track, mml)
@@ -1137,6 +1137,20 @@ Gura_ImplementMethod(sequence, mml)
 	return args.GetThis();
 }
 
+// midi.sequence#mml_file(stream:stream):reduce
+Gura_DeclareMethod(sequence, mml_file)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream);
+}
+
+Gura_ImplementMethod(sequence, mml_file)
+{
+	Object_sequence *pThis = Object_sequence::GetThisObj(args);
+	if (!pThis->GetSequence().ParseStreamMML(sig, args.GetStream(0))) return Value::Null;
+	return args.GetThis();
+}
+
 //-----------------------------------------------------------------------------
 // Class implementation for midi.sequence
 //-----------------------------------------------------------------------------
@@ -1147,6 +1161,7 @@ Gura_ImplementUserClassWithCast(sequence)
 	Gura_AssignMethod(sequence, play);
 	Gura_AssignMethod(sequence, track);
 	Gura_AssignMethod(sequence, mml);
+	Gura_AssignMethod(sequence, mml_file);
 }
 
 Gura_ImplementCastFrom(sequence)
@@ -1323,6 +1338,25 @@ Gura_ImplementMethod(port, mml)
 	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);
 }
 
+// midi.port#mml_file(stream:stream):[background,player]
+Gura_DeclareMethod(port, mml_file)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareAttr(Gura_UserSymbol(background));
+	DeclareAttr(Gura_UserSymbol(player));
+}
+
+Gura_ImplementMethod(port, mml_file)
+{
+	Object_port *pThis = Object_port::GetThisObj(args);
+	Sequence sequence;
+	if (!sequence.ParseStreamMML(sig, args.GetStream(0))) return false;
+	double speed = 1;
+	int cntRepeat = 1;
+	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);
+}
+
 // midi.port#note_off(channel:number, note:number, velocity:number):map:reduce
 Gura_DeclareMethod(port, note_off)
 {
@@ -1460,6 +1494,7 @@ Gura_ImplementUserClassWithCast(port)
 	Gura_AssignMethod(port, send);
 	Gura_AssignMethod(port, play);
 	Gura_AssignMethod(port, mml);
+	Gura_AssignMethod(port, mml_file);
 	Gura_AssignMethod(port, note_off);
 	Gura_AssignMethod(port, note_on);
 	Gura_AssignMethod(port, poly_pressure);
