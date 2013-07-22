@@ -8,7 +8,7 @@ Gura_BeginModule(midi)
 // MML
 // see http://ja.wikipedia.org/wiki/Music_Macro_Language for MML syntax
 //-----------------------------------------------------------------------------
-MML::MML() : _velocityMax(127)
+MML::MML(int velocityMax) : _velocityMax(velocityMax)
 {
 	Reset();
 }
@@ -38,19 +38,44 @@ void MML::Reset()
 	_pMIDIEventLast		= NULL;
 }
 
-void MML::SetVelocityMax(int velocityMax)
-{
-	_velocityMax = velocityMax;
-	_velocityDefault = _velocityMax * 8 / 10;
-	_velocity = _velocityDefault;
-}
-
 void MML::UpdateTimeStamp(Track *pTrack)
 {
 	unsigned long timeStamp = pTrack->GetPrevTimeStamp();
 	if (_timeStampHead < timeStamp) {
 		_timeStampHead = _timeStampTail = timeStamp;
 	}
+}
+
+bool MML::ParseStream(Signal sig, Sequence &sequence, SimpleStream &stream)
+{
+	bool rtn = true;
+	TrackOwner &trackOwner = sequence.GetTrackOwner();
+	for (size_t iTrack = 0; ; iTrack++) {
+		Track *pTrack = NULL;
+		if (iTrack < trackOwner.size()) {
+			pTrack = trackOwner[iTrack];
+		} else {
+			pTrack = new Track(sequence.GetProperty()->Reference());
+			trackOwner.push_back(pTrack);
+		}
+		Result result = ParseStream(sig, pTrack, stream);
+		if (result == RSLT_None) {
+			break;
+		} else if (result == RSLT_Error) {
+			rtn = false;
+			break;
+		} else if (result == RSLT_NewTrack) {
+			// nothing to do
+		}
+		Reset();
+	}
+	return rtn;
+}
+
+bool MML::ParseString(Signal sig, Sequence &sequence, const char *str)
+{
+	SimpleStream_CString stream(str);
+	return ParseStream(sig, sequence, stream);
 }
 
 MML::Result MML::ParseStream(Signal sig, Track *pTrack, SimpleStream &stream)

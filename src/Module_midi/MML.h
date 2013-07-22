@@ -6,6 +6,7 @@
 Gura_BeginModule(midi)
 
 class Track;
+class Sequence;
 
 class MML {
 public:
@@ -94,10 +95,11 @@ private:
 	MIDIEvent_NoteOn *_pMIDIEventLast;
 	StateMachineStack _stateMachineStack;
 public:
-	MML();
+	MML(int velocityMax);
 	void Reset();
-	void SetVelocityMax(int velocityMax);
 	void UpdateTimeStamp(Track *pTrack);
+	bool ParseStream(Signal sig, Sequence &sequence, SimpleStream &stream);
+	bool ParseString(Signal sig, Sequence &sequence, const char *str);
 	Result ParseStream(Signal sig, Track *pTrack, SimpleStream &stream);
 	Result ParseString(Signal sig, Track *pTrack, const char *str);
 private:

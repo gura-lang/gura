@@ -469,17 +469,20 @@ Gura_ImplementMethod(track, erase)
 	return args.GetThis();
 }
 
-// midi.track#mml(str:string):map:reduce
+// midi.track#mml(str:string, max_velocity?:number):map:reduce
 Gura_DeclareMethod(track, mml)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
+	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(track, mml)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
-	if (MML().ParseString(sig, pTrack, args.GetString(0)) == MML::RSLT_Error) {
+	int velocityMax = args.IsNumber(1)? args.GetInt(1) : 127;
+	MML mml(velocityMax);
+	if (mml.ParseString(sig, pTrack, args.GetString(0)) == MML::RSLT_Error) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -1123,31 +1126,37 @@ Gura_ImplementMethod(sequence, track)
 				Value(new Object_track(env, Track::Reference(pTrack))));
 }
 
-// midi.sequence#mml(str:string):reduce
+// midi.sequence#mml(str:string, max_velocity?:number):reduce
 Gura_DeclareMethod(sequence, mml)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string);
+	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(sequence, mml)
 {
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
-	if (!pThis->GetSequence().ParseStringMML(sig, args.GetString(0))) return Value::Null;
+	int velocityMax = args.IsNumber(1)? args.GetInt(1) : 127;
+	MML mml(velocityMax);
+	if (!mml.ParseString(sig, pThis->GetSequence(), args.GetString(0))) return Value::Null;
 	return args.GetThis();
 }
 
-// midi.sequence#mml_file(stream:stream):reduce
+// midi.sequence#mml_file(stream:stream, max_velocity?:number):reduce
 Gura_DeclareMethod(sequence, mml_file)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(sequence, mml_file)
 {
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
-	if (!pThis->GetSequence().ParseStreamMML(sig, args.GetStream(0))) return Value::Null;
+	int velocityMax = args.IsNumber(1)? args.GetInt(1) : 127;
+	MML mml(velocityMax);
+	if (!mml.ParseStream(sig, pThis->GetSequence(), args.GetStream(0))) return Value::Null;
 	return args.GetThis();
 }
 
@@ -1319,11 +1328,12 @@ Gura_ImplementMethod(port, play)
 	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);
 }
 
-// midi.port#mml(str:string):[background,player]
+// midi.port#mml(str:string, max_velocity?:number):[background,player]
 Gura_DeclareMethod(port, mml)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string);
+	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(background));
 	DeclareAttr(Gura_UserSymbol(player));
 }
@@ -1332,17 +1342,20 @@ Gura_ImplementMethod(port, mml)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
 	Sequence sequence;
-	if (!sequence.ParseStringMML(sig, args.GetString(0))) return false;
+	int velocityMax = args.IsNumber(1)? args.GetInt(1) : 127;
+	MML mml(velocityMax);
+	if (!mml.ParseString(sig, sequence, args.GetString(0))) return Value::Null;
 	double speed = 1;
 	int cntRepeat = 1;
 	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);
 }
 
-// midi.port#mml_file(stream:stream):[background,player]
+// midi.port#mml_file(stream:stream, max_velocity?:number):[background,player]
 Gura_DeclareMethod(port, mml_file)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(background));
 	DeclareAttr(Gura_UserSymbol(player));
 }
@@ -1351,7 +1364,9 @@ Gura_ImplementMethod(port, mml_file)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
 	Sequence sequence;
-	if (!sequence.ParseStreamMML(sig, args.GetStream(0))) return false;
+	int velocityMax = args.IsNumber(1)? args.GetInt(1) : 127;
+	MML mml(velocityMax);
+	if (!mml.ParseStream(sig, sequence, args.GetStream(0))) return Value::Null;
 	double speed = 1;
 	int cntRepeat = 1;
 	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);

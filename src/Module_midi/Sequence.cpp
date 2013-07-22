@@ -276,37 +276,4 @@ Player *Sequence::GeneratePlayer(Signal sig, Port *pPort, double speed, int cntR
 	return pPlayer.release();
 }
 
-bool Sequence::ParseStreamMML(Signal sig, SimpleStream &stream)
-{
-	bool rtn = true;
-	MML mml;
-	TrackOwner &trackOwner = GetTrackOwner();
-	for (size_t iTrack = 0; ; iTrack++) {
-		Track *pTrack = NULL;
-		if (iTrack < trackOwner.size()) {
-			pTrack = trackOwner[iTrack];
-		} else {
-			pTrack = new Track(GetProperty()->Reference());
-			trackOwner.push_back(pTrack);
-		}
-		MML::Result result = mml.ParseStream(sig, pTrack, stream);
-		if (result == MML::RSLT_None) {
-			break;
-		} else if (result == MML::RSLT_Error) {
-			rtn = false;
-			break;
-		} else if (result == MML::RSLT_NewTrack) {
-			// nothing to do
-		}
-		mml.Reset();
-	}
-	return rtn;
-}
-
-bool Sequence::ParseStringMML(Signal sig, const char *str)
-{
-	SimpleStream_CString stream(str);
-	return ParseStreamMML(sig, stream);
-}
-
 }}
