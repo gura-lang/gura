@@ -15,13 +15,13 @@ MML::MML(Track *pTrack, unsigned char channel) : _pTrack(pTrack), _channel(chann
 
 void MML::Reset()
 {
-	_octave				= 4;				// 1-9
+	_octave				= 4;					// 1 - 9
 	_octaveOffset		= 0;
-	_lengthDefault		= 4;
+	_lengthDefault		= 4;					// 1 - 128
 	_length				= _lengthDefault;
-	_gateDefault		= 8;
+	_gateDefault		= 8;					// 0 - 8
 	_gate				= _gateDefault;
-	_velocityDefault	= 100;
+	_velocityDefault	= 100;					// 0 - 127
 	_velocity			= _velocityDefault;
 	_operator			= '\0';
 	_operatorSub		= '\0';
