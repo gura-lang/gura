@@ -89,6 +89,8 @@ private:
 	long _offsetGroup;
 	unsigned long _timeStampHead;
 	unsigned long _timeStampTail;
+	char _chOctaveUp;
+	char _chOctaveDown;
 	String _token;
 	MIDIEvent_NoteOn *_pMIDIEventLast;
 	StateMachineStack _stateMachineStack;

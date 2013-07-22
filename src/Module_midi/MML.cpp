@@ -33,6 +33,8 @@ void MML::Reset()
 	_offsetGroup		= -1;
 	_timeStampHead 		= 0;
 	_timeStampTail		= 0;
+	_chOctaveUp			= '<';
+	_chOctaveDown		= '>';
 	_pMIDIEventLast		= NULL;
 }
 
@@ -124,10 +126,10 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				_operator = ch;
 				_numAccum = 0;
 				pStateMachine->SetStat(STAT_GatePre);
-			} else if (ch == '>') {
+			} else if (ch == _chOctaveUp) {
 				_operator = ch;
 				if (_octave < MAX_OCTAVE - 1) _octave++;
-			} else if (ch == '<') {
+			} else if (ch == _chOctaveDown) {
 				_operator = ch;
 				if (_octave > 0) _octave--;
 			} else if (ch == '(') {
