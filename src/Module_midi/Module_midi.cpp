@@ -479,7 +479,9 @@ Gura_DeclareMethod(track, mml)
 Gura_ImplementMethod(track, mml)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
-	if (!MML().ParseString(sig, pTrack, args.GetString(0))) return Value::Null;
+	if (MML().ParseString2(sig, pTrack, args.GetString(0)) == MML::RSLT_Error) {
+		return Value::Null;
+	}
 	return args.GetThis();
 }
 
@@ -1121,17 +1123,17 @@ Gura_ImplementMethod(sequence, track)
 				Value(new Object_track(env, Track::Reference(pTrack))));
 }
 
-// midi.sequence#mml(text+:string):reduce
+// midi.sequence#mml(str:string):reduce
 Gura_DeclareMethod(sequence, mml)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "text", VTYPE_string, OCCUR_OnceOrMore);
+	DeclareArg(env, "str", VTYPE_string);
 }
 
 Gura_ImplementMethod(sequence, mml)
 {
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
-	pThis->GetSequence().ParseMML(sig, args.GetList(0));
+	pThis->GetSequence().ParseMML(sig, args.GetString(0));
 	return args.GetThis();
 }
 
@@ -1302,11 +1304,11 @@ Gura_ImplementMethod(port, play)
 	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);
 }
 
-// midi.port#mml(text+:string):[background,player]
+// midi.port#mml(str:string):[background,player]
 Gura_DeclareMethod(port, mml)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "text", VTYPE_string, OCCUR_OnceOrMore);
+	DeclareArg(env, "str", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(background));
 	DeclareAttr(Gura_UserSymbol(player));
 }
@@ -1315,7 +1317,7 @@ Gura_ImplementMethod(port, mml)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
 	Sequence sequence;
-	sequence.ParseMML(sig, args.GetList(0));
+	sequence.ParseMML(sig, args.GetString(0));
 	double speed = 1;
 	int cntRepeat = 1;
 	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);

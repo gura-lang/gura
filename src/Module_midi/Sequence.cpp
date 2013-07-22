@@ -276,6 +276,40 @@ Player *Sequence::GeneratePlayer(Signal sig, Port *pPort, double speed, int cntR
 	return pPlayer.release();
 }
 
+bool Sequence::ParseMML(Signal sig, SimpleStream &stream)
+{
+	bool rtn = true;
+	MML mml;
+	TrackOwner &trackOwner = GetTrackOwner();
+	for (size_t iTrack = 0; ; iTrack++) {
+		Track *pTrack = NULL;
+		if (iTrack < trackOwner.size()) {
+			pTrack = trackOwner[iTrack];
+		} else {
+			pTrack = new Track(GetProperty()->Reference());
+			trackOwner.push_back(pTrack);
+		}
+		MML::Result result = mml.Parse2(sig, pTrack, stream);
+		if (result == MML::RSLT_None) {
+			break;
+		} else if (result == MML::RSLT_Error) {
+			rtn = false;
+			break;
+		} else if (result == MML::RSLT_NewTrack) {
+			// nothing to do
+		}
+		mml.Reset2();
+	}
+	return rtn;
+}
+
+bool Sequence::ParseMML(Signal sig, const char *str)
+{
+	SimpleStream_CString stream(str);
+	return ParseMML(sig, stream);
+}
+
+#if 0
 bool Sequence::ParseMML(Signal sig, const ValueList &valList)
 {
 	TrackOwner &trackOwner = GetTrackOwner();
@@ -291,9 +325,12 @@ bool Sequence::ParseMML(Signal sig, const ValueList &valList)
 	for ( ; ppTrack != trackOwner.end(); ppTrack++, pValue++) {
 		Track *pTrack = *ppTrack;
 		if (!pValue->IsString()) return false; // this must not happen
-		if (!MML().ParseString(sig, pTrack, pValue->GetString())) return false;
+		if (MML().ParseString2(sig, pTrack, pValue->GetString()) == MML::RSLT_Error) {
+			return false;
+		}
 	}
 	return true;
 }
+#endif
 
 }}

@@ -10,10 +10,10 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 MML::MML() : _channel(-1)
 {
-	Reset();
+	Reset2();
 }
 
-void MML::Reset()
+void MML::Reset2()
 {
 	_octave				= 4;					// 1 - 9
 	_octaveOffset		= 0;
@@ -34,7 +34,6 @@ void MML::Reset()
 	_timeStampHead 		= 0;
 	_timeStampTail		= 0;
 	_pMIDIEventLast		= NULL;
-	_stateMachineStack.Clear();
 }
 
 void MML::UpdateTimeStamp(Track *pTrack)
@@ -45,30 +44,32 @@ void MML::UpdateTimeStamp(Track *pTrack)
 	}
 }
 
-bool MML::Parse(Signal sig, Track *pTrack, SimpleStream &stream)
+MML::Result MML::Parse2(Signal sig, Track *pTrack, SimpleStream &stream)
 {
+	Result result = RSLT_None;
 	pTrack->RequestEndOfTrack();
 	UpdateTimeStamp(pTrack);
 	unsigned long timeStampBegin = _timeStampHead;
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
 		char ch = (chRaw < 0)? '\0' : static_cast<char>(chRaw);
-		if (!FeedChar(sig, pTrack, ch)) return false;
-		if (ch == '\0') break;
+		result = FeedChar(sig, pTrack, ch);
+		if (result != RSLT_None || ch == '\0') break;
 	}
 	unsigned long deltaTime = _timeStampTail - timeStampBegin;
 	pTrack->AdjustFollowingTimeStamp(deltaTime);
-	return true;
+	return result;
 }
 
-bool MML::ParseString(Signal sig, Track *pTrack, const char *str)
+MML::Result MML::ParseString2(Signal sig, Track *pTrack, const char *str)
 {
 	SimpleStream_CString stream(str);
-	return Parse(sig, pTrack, stream);
+	return Parse2(sig, pTrack, stream);
 }
 
-bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
+MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 {
+	Result result = RSLT_None;
 	if (_stateMachineStack.empty()) {
 		_stateMachineStack.push_back(new StateMachine());
 	}
@@ -83,11 +84,12 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		continueFlag = false;
 		switch (pStateMachine->GetStat()) {
 		case STAT_Begin: {
-			if (IsEOD(ch)) {
+			if (IsEOD(ch) || ch == ';') {
 				if (_stateMachineStack.size() > 1) {
 					delete pStateMachine;
 					_stateMachineStack.pop_back();
 				}
+				if (ch == ';') result = RSLT_NewTrack;
 			} else if (ch == '[') {
 				pStateMachine->GetStrBlock1st().clear();
 				pStateMachine->GetStrBlock2nd().clear();
@@ -131,13 +133,13 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			} else if (ch == '(') {
 				if (_offsetGroup >= 0) {
 					sig.SetError(ERR_FormatError, "group cannot be nested");
-					return false;
+					return RSLT_Error;
 				}
 				_offsetGroup = pTrack->Tell();
 			} else if (ch == ')') {
 				if (_offsetGroup < 0) {
 					sig.SetError(ERR_FormatError, "unmatched group parenthesis");
-					return false;
+					return RSLT_Error;
 				}
 				_length = _lengthDefault;
 				_numAccum = 0;
@@ -175,7 +177,7 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				pStateMachine->SetStat(STAT_Slash);
 			} else {
 				sig.SetError(ERR_FormatError, "invalid character for MML: %c", ch);
-				return false;
+				return RSLT_Error;
 			}
 			break;
 		}
@@ -192,9 +194,9 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				} else {
 					pStateMachine->GetStrBlock1st().push_back(chRaw);
 				}
-			} else if (IsEOD(ch)) {
+			} else if (IsEOD(ch) || ch == ';') {
 				sig.SetError(ERR_FormatError, "unmatched block brackets");
-				return false;
+				return RSLT_Error;
 			} else {
 				pStateMachine->GetStrBlock1st().push_back(chRaw);
 			}
@@ -228,9 +230,9 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				} else {
 					pStateMachine->GetStrBlock2nd().push_back(chRaw);
 				}
-			} else if (IsEOD(ch)) {
+			} else if (IsEOD(ch) || ch == ';') {
 				sig.SetError(ERR_FormatError, "unmatched block brackets");
-				return false;
+				return RSLT_Error;
 			} else {
 				pStateMachine->GetStrBlock2nd().push_back(chRaw);
 			}
@@ -244,7 +246,7 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			} else {
 				if (pStateMachine->GetBlockLevel() == 1) {
 					sig.SetError(ERR_FormatError, "slash can only appear once in a repeat block");
-					return false;
+					return RSLT_Error;
 				} else {
 					pStateMachine->GetStrBlock2nd().push_back('/');
 				}
@@ -276,14 +278,14 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		case STAT_RepeatNumFix: {
 			for (int cnt = static_cast<int>(_numAccum); cnt > 0; cnt--) {
 				_stateMachineStack.push_back(new StateMachine());
-				if (!ParseString(sig, pTrack, pStateMachine->GetStrBlock1st().c_str())) {
-					return false;
-				}
+				Result result = ParseString2(sig, pTrack,
+									pStateMachine->GetStrBlock1st().c_str());
+				if (result != RSLT_None) return result;
 				if (cnt > 1) {
 					_stateMachineStack.push_back(new StateMachine());
-					if (!ParseString(sig, pTrack, pStateMachine->GetStrBlock2nd().c_str())) {
-						return false;
-					}
+					Result result = ParseString2(sig, pTrack,
+									pStateMachine->GetStrBlock2nd().c_str());
+					if (result != RSLT_None) return result;
 				}
 			}
 			continueFlag = true;
@@ -388,7 +390,7 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				pStateMachine->SetStat(STAT_NoteVelocity);
 			} else if (ch == ',') {
 				sig.SetError(ERR_FormatError, "too many note parameters");
-				return false;
+				return RSLT_Error;
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
@@ -402,12 +404,12 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				_numAccum = _numAccum * 10 + (ch - '0');
 			} else if (ch == ',') {
 				sig.SetError(ERR_FormatError, "too many note parameters");
-				return false;
+				return RSLT_Error;
 			} else {
 				if (_numAccum > MAX_VELOCITY) {
 					sig.SetError(ERR_FormatError,
 						"velocity number must be less than %d", MAX_VELOCITY + 1);
-					return false;
+					return RSLT_Error;
 				}
 				_velocity = static_cast<unsigned char>(_numAccum);
 				continueFlag = true;
@@ -423,7 +425,7 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			_octaveOffset = 0;
 			if (octave < 0 || octave > MAX_OCTAVE) {
 				sig.SetError(ERR_FormatError, "octave is out of range");
-				return false;
+				return RSLT_Error;
 			}
 			unsigned char note = noteTbl[_operator - 'A'] + octave * 12;
 			if (_operatorSub == '#' || _operatorSub == '+') {
@@ -485,7 +487,7 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				// nothing to do
 			} else {
 				sig.SetError(ERR_FormatError, "channel number must be specified");
-				return false;
+				return RSLT_Error;
 			}
 			break;
 		}
@@ -501,7 +503,7 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		case STAT_ChannelFix: {
 			if (_numAccum > 15) {
 				sig.SetError(ERR_FormatError, "channel number must be less than 16");
-				return false;
+				return RSLT_Error;
 			}
 			_channel = _numAccum;
 			continueFlag = true;
@@ -581,7 +583,7 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (_numAccum > MAX_OCTAVE) {
 				sig.SetError(ERR_FormatError,
 							"octave number must be less than %d", MAX_OCTAVE + 1);
-				return false;
+				return RSLT_Error;
 			}
 			_octave = _numAccum;
 			continueFlag = true;
@@ -613,7 +615,7 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (_numAccum > MAX_GATE) {
 				sig.SetError(ERR_FormatError,
 							"gate number must be less than %d", MAX_GATE + 1);
-				return false;
+				return RSLT_Error;
 			}
 			_gateDefault = _numAccum;
 			continueFlag = true;
@@ -687,7 +689,7 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (_numAccum > MAX_VELOCITY) {
 				sig.SetError(ERR_FormatError,
 					"velocity number must be less than %d", MAX_VELOCITY + 1);
-				return false;
+				return RSLT_Error;
 			}
 			_velocityDefault = static_cast<unsigned char>(_numAccum);
 			continueFlag = true;
@@ -723,7 +725,7 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				int program = ProgramIdByName(Strip(_token.c_str()).c_str());
 				if (program < 0) {
 					sig.SetError(ERR_FormatError, "unknown program %s", _token.c_str());
-					return false;
+					return RSLT_Error;
 				}
 				_numAccum = static_cast<unsigned long>(program);
 				pStateMachine->SetStat(STAT_ProgramFix);
@@ -736,7 +738,7 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (_numAccum > MAX_PROGRAM) {
 				sig.SetError(ERR_FormatError,
 							"program number must be less than %d", MAX_PROGRAM + 1);
-				return false;
+				return RSLT_Error;
 			}
 			unsigned char program = static_cast<unsigned char>(_numAccum);
 			pTrack->AddEvent(new MIDIEvent_ProgramChange(_timeStampHead,
@@ -841,7 +843,7 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				pStateMachine->SetStat(STAT_BlockComment);
 			} else {
 				sig.SetError(ERR_FormatError, "invalid character for MML: %c", ch);
-				return false;
+				return RSLT_Error;
 			}
 			break;
 		}
@@ -860,7 +862,7 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				pStateMachine->SetStat(STAT_BlockCommentEnd);
 			} else if (IsEOD(ch)) {
 				sig.SetError(ERR_FormatError, "block comment is not terminated correctly");
-				return false;
+				return RSLT_Error;
 			} else {
 				// nothing to do
 			}
@@ -890,7 +892,7 @@ bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		}
 		}
 	} while (continueFlag);
-	return true;
+	return result;
 }
 
 int MML::CalcDeltaTime(const Track *pTrack, int length, int cntDot) const

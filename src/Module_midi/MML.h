@@ -15,6 +15,9 @@ public:
 		MAX_VELOCITY	= 127,
 		MAX_PROGRAM		= 127,
 	};
+	enum Result {
+		RSLT_None, RSLT_Error, RSLT_NewTrack,
+	};
 private:
 	enum Stat {
 		STAT_Begin,
@@ -91,12 +94,12 @@ private:
 	StateMachineStack _stateMachineStack;
 public:
 	MML();
-	void Reset();
+	void Reset2();
 	void UpdateTimeStamp(Track *pTrack);
-	bool Parse(Signal sig, Track *pTrack, SimpleStream &stream);
-	bool ParseString(Signal sig, Track *pTrack, const char *str);
+	Result Parse2(Signal sig, Track *pTrack, SimpleStream &stream);
+	Result ParseString2(Signal sig, Track *pTrack, const char *str);
 private:
-	bool FeedChar(Signal sig, Track *pTrack, int ch);
+	Result FeedChar(Signal sig, Track *pTrack, int ch);
 private:
 	inline static bool IsEOD(int ch) { return ch == '\0' || ch < 0; }
 	inline static bool IsWhite(int ch) { return ch == ' ' || ch == '\t'; }
