@@ -276,7 +276,7 @@ Player *Sequence::GeneratePlayer(Signal sig, Port *pPort, double speed, int cntR
 	return pPlayer.release();
 }
 
-bool Sequence::ParseMML(Signal sig, SimpleStream &stream)
+bool Sequence::ParseStreamMML(Signal sig, SimpleStream &stream)
 {
 	bool rtn = true;
 	MML mml;
@@ -289,7 +289,7 @@ bool Sequence::ParseMML(Signal sig, SimpleStream &stream)
 			pTrack = new Track(GetProperty()->Reference());
 			trackOwner.push_back(pTrack);
 		}
-		MML::Result result = mml.Parse2(sig, pTrack, stream);
+		MML::Result result = mml.ParseStream(sig, pTrack, stream);
 		if (result == MML::RSLT_None) {
 			break;
 		} else if (result == MML::RSLT_Error) {
@@ -298,39 +298,15 @@ bool Sequence::ParseMML(Signal sig, SimpleStream &stream)
 		} else if (result == MML::RSLT_NewTrack) {
 			// nothing to do
 		}
-		mml.Reset2();
+		mml.Reset();
 	}
 	return rtn;
 }
 
-bool Sequence::ParseMML(Signal sig, const char *str)
+bool Sequence::ParseStringMML(Signal sig, const char *str)
 {
 	SimpleStream_CString stream(str);
-	return ParseMML(sig, stream);
+	return ParseStreamMML(sig, stream);
 }
-
-#if 0
-bool Sequence::ParseMML(Signal sig, const ValueList &valList)
-{
-	TrackOwner &trackOwner = GetTrackOwner();
-	if (trackOwner.size() < valList.size()) {
-		size_t num = valList.size() - trackOwner.size();
-		while (num-- > 0) {
-			Track *pTrack = new Track(Property::Reference(GetProperty()));
-			trackOwner.push_back(pTrack);
-		}
-	}
-	TrackOwner::iterator ppTrack = trackOwner.begin();
-	ValueList::const_iterator pValue = valList.begin();
-	for ( ; ppTrack != trackOwner.end(); ppTrack++, pValue++) {
-		Track *pTrack = *ppTrack;
-		if (!pValue->IsString()) return false; // this must not happen
-		if (MML().ParseString2(sig, pTrack, pValue->GetString()) == MML::RSLT_Error) {
-			return false;
-		}
-	}
-	return true;
-}
-#endif
 
 }}

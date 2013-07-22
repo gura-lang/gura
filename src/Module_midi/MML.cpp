@@ -10,10 +10,10 @@ Gura_BeginModule(midi)
 //-----------------------------------------------------------------------------
 MML::MML() : _channel(-1)
 {
-	Reset2();
+	Reset();
 }
 
-void MML::Reset2()
+void MML::Reset()
 {
 	_octave				= 4;					// 1 - 9
 	_octaveOffset		= 0;
@@ -44,7 +44,7 @@ void MML::UpdateTimeStamp(Track *pTrack)
 	}
 }
 
-MML::Result MML::Parse2(Signal sig, Track *pTrack, SimpleStream &stream)
+MML::Result MML::ParseStream(Signal sig, Track *pTrack, SimpleStream &stream)
 {
 	Result result = RSLT_None;
 	pTrack->RequestEndOfTrack();
@@ -61,10 +61,10 @@ MML::Result MML::Parse2(Signal sig, Track *pTrack, SimpleStream &stream)
 	return result;
 }
 
-MML::Result MML::ParseString2(Signal sig, Track *pTrack, const char *str)
+MML::Result MML::ParseString(Signal sig, Track *pTrack, const char *str)
 {
 	SimpleStream_CString stream(str);
-	return Parse2(sig, pTrack, stream);
+	return ParseStream(sig, pTrack, stream);
 }
 
 MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
@@ -278,12 +278,12 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		case STAT_RepeatNumFix: {
 			for (int cnt = static_cast<int>(_numAccum); cnt > 0; cnt--) {
 				_stateMachineStack.push_back(new StateMachine());
-				Result result = ParseString2(sig, pTrack,
+				Result result = ParseString(sig, pTrack,
 									pStateMachine->GetStrBlock1st().c_str());
 				if (result != RSLT_None) return result;
 				if (cnt > 1) {
 					_stateMachineStack.push_back(new StateMachine());
-					Result result = ParseString2(sig, pTrack,
+					Result result = ParseString(sig, pTrack,
 									pStateMachine->GetStrBlock2nd().c_str());
 					if (result != RSLT_None) return result;
 				}

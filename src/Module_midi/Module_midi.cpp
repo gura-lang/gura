@@ -479,7 +479,7 @@ Gura_DeclareMethod(track, mml)
 Gura_ImplementMethod(track, mml)
 {
 	Track *pTrack = Object_track::GetThisObj(args)->GetTrack();
-	if (MML().ParseString2(sig, pTrack, args.GetString(0)) == MML::RSLT_Error) {
+	if (MML().ParseString(sig, pTrack, args.GetString(0)) == MML::RSLT_Error) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -1133,7 +1133,7 @@ Gura_DeclareMethod(sequence, mml)
 Gura_ImplementMethod(sequence, mml)
 {
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
-	pThis->GetSequence().ParseMML(sig, args.GetString(0));
+	if (!pThis->GetSequence().ParseStringMML(sig, args.GetString(0))) return Value::Null;
 	return args.GetThis();
 }
 
@@ -1317,7 +1317,7 @@ Gura_ImplementMethod(port, mml)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
 	Sequence sequence;
-	sequence.ParseMML(sig, args.GetString(0));
+	if (!sequence.ParseStringMML(sig, args.GetString(0))) return false;
 	double speed = 1;
 	int cntRepeat = 1;
 	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);
@@ -2027,6 +2027,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(sequencer_specific_event);
 	Gura_RealizeUserSymbol(background);
 	Gura_RealizeUserSymbol(player);
+	Gura_RealizeUserSymbol(stream);
 	Gura_RealizeUserSymbol(speed);
 	Gura_RealizeUserSymbol(count);
 	Gura_RealizeUserSymbol(repeat);

@@ -94,10 +94,10 @@ private:
 	StateMachineStack _stateMachineStack;
 public:
 	MML();
-	void Reset2();
+	void Reset();
 	void UpdateTimeStamp(Track *pTrack);
-	Result Parse2(Signal sig, Track *pTrack, SimpleStream &stream);
-	Result ParseString2(Signal sig, Track *pTrack, const char *str);
+	Result ParseStream(Signal sig, Track *pTrack, SimpleStream &stream);
+	Result ParseString(Signal sig, Track *pTrack, const char *str);
 private:
 	Result FeedChar(Signal sig, Track *pTrack, int ch);
 private:
