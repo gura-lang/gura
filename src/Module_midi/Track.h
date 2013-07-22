@@ -40,6 +40,7 @@ public:
 class Track {
 private:
 	int _cntRef;
+	int _channel;
 	AutoPtr<Property> _pProperty;
 	AutoPtr<EventOwner> _pEventOwner;
 	EventOwner::iterator _ppEventAt;
@@ -53,7 +54,8 @@ public:
 	inline const Property *GetProperty() const { return _pProperty.get(); }
 	inline void RequestEndOfTrack() { _requestEndOfTrackFlag = true; }
 	inline bool IsEndOfTrackRequested() const { return _requestEndOfTrackFlag; }
-	bool Write(Signal sig, Stream &stream) const;
+	inline void SetChannel(int channel) { _channel = channel; }
+	unsigned char GetChannel();
 	unsigned long GetPrevTimeStamp() const;
 	void AdjustFollowingTimeStamp(long deltaTime);
 	void AddEvent(Event *pEvent);

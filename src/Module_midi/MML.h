@@ -70,7 +70,6 @@ private:
 		void Clear();
 	};
 private:
-	int _channel;
 	int _octave;
 	int _octaveOffset;
 	int _lengthDefault;

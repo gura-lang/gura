@@ -8,7 +8,7 @@ Gura_BeginModule(midi)
 // MML
 // see http://ja.wikipedia.org/wiki/Music_Macro_Language for MML syntax
 //-----------------------------------------------------------------------------
-MML::MML() : _channel(-1)
+MML::MML()
 {
 	Reset();
 }
@@ -74,9 +74,6 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 	Result result = RSLT_None;
 	if (_stateMachineStack.empty()) {
 		_stateMachineStack.push_back(new StateMachine());
-	}
-	if (_channel < 0) {
-		_channel = pTrack->GetProperty()->GetChannelNext();
 	}
 	StateMachine *pStateMachine = _stateMachineStack.back();
 	bool continueFlag;
@@ -453,10 +450,11 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			}
 			_joinFlag = false;
 			if (!joinedFlag) {
-				pTrack->AddEvent(new MIDIEvent_NoteOn(_timeStampHead,
-						static_cast<unsigned char>(_channel), note, _velocity));
-				MIDIEvent_NoteOn *pMIDIEvent = new MIDIEvent_NoteOn(timeStampGate,
-						static_cast<unsigned char>(_channel), note, 0);
+				unsigned char channel = pTrack->GetChannel();
+				pTrack->AddEvent(new MIDIEvent_NoteOn(
+								_timeStampHead, channel, note, _velocity));
+				MIDIEvent_NoteOn *pMIDIEvent = new MIDIEvent_NoteOn(
+								timeStampGate, channel, note, 0);
 				pTrack->AddEvent(pMIDIEvent);
 				_pMIDIEventLast = pMIDIEvent;
 			}
@@ -507,7 +505,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				sig.SetError(ERR_FormatError, "channel number must be less than 16");
 				return RSLT_Error;
 			}
-			_channel = _numAccum;
+			pTrack->SetChannel(_numAccum);
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
@@ -742,9 +740,10 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 							"program number must be less than %d", MAX_PROGRAM + 1);
 				return RSLT_Error;
 			}
+			unsigned char channel = pTrack->GetChannel();
 			unsigned char program = static_cast<unsigned char>(_numAccum);
-			pTrack->AddEvent(new MIDIEvent_ProgramChange(_timeStampHead,
-							static_cast<unsigned char>(_channel), program));
+			pTrack->AddEvent(new MIDIEvent_ProgramChange(
+									_timeStampHead, channel, program));
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;

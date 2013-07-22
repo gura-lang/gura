@@ -6,10 +6,16 @@ Gura_BeginModule(midi)
 // Track
 //-----------------------------------------------------------------------------
 Track::Track(Property *pProperty) : _cntRef(1),
-			_pProperty(pProperty), _pEventOwner(new EventOwner()),
-			_requestEndOfTrackFlag(false)
+		_channel(-1), _pProperty(pProperty), _pEventOwner(new EventOwner()),
+		_requestEndOfTrackFlag(false)
 {
 	_ppEventAt = _pEventOwner->end();
+}
+
+unsigned char Track::GetChannel()
+{
+	if (_channel < 0) _channel = GetProperty()->GetChannelNext();
+	return static_cast<unsigned char>(_channel);
 }
 
 unsigned long Track::GetPrevTimeStamp() const
