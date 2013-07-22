@@ -8,7 +8,7 @@ Gura_BeginModule(midi)
 // MML
 // see http://ja.wikipedia.org/wiki/Music_Macro_Language for MML syntax
 //-----------------------------------------------------------------------------
-MML::MML(Track *pTrack, unsigned char channel) : _pTrack(pTrack), _channel(channel)
+MML::MML() : _channel(-1)
 {
 	Reset();
 }
@@ -37,32 +37,36 @@ void MML::Reset()
 	_stateMachineStack.Clear();
 }
 
-void MML::UpdateTimeStamp()
+void MML::UpdateTimeStamp(Track *pTrack)
 {
-	unsigned long timeStamp = _pTrack->GetPrevTimeStamp();
+	unsigned long timeStamp = pTrack->GetPrevTimeStamp();
 	if (_timeStampHead < timeStamp) {
 		_timeStampHead = _timeStampTail = timeStamp;
 	}
 }
 
-bool MML::ParseString(Signal sig, const char *str)
+bool MML::ParseString(Signal sig, Track *pTrack, const char *str)
 {
-	UpdateTimeStamp();
+	pTrack->RequestEndOfTrack();
+	UpdateTimeStamp(pTrack);
 	unsigned long timeStampBegin = _timeStampHead;
 	for (const char *p = str; ; p++) {
 		char ch = *p;
-		if (!FeedChar(sig, ch)) return false;
+		if (!FeedChar(sig, pTrack, ch)) return false;
 		if (ch == '\0') break;
 	}
 	unsigned long deltaTime = _timeStampTail - timeStampBegin;
-	_pTrack->AdjustFollowingTimeStamp(deltaTime);
+	pTrack->AdjustFollowingTimeStamp(deltaTime);
 	return true;
 }
 
-bool MML::FeedChar(Signal sig, int ch)
+bool MML::FeedChar(Signal sig, Track *pTrack, int ch)
 {
 	if (_stateMachineStack.empty()) {
 		_stateMachineStack.push_back(new StateMachine());
+	}
+	if (_channel < 0) {
+		_channel = pTrack->GetProperty()->GetChannelNext();
 	}
 	StateMachine *pStateMachine = _stateMachineStack.back();
 	bool continueFlag;
@@ -122,7 +126,7 @@ bool MML::FeedChar(Signal sig, int ch)
 					sig.SetError(ERR_FormatError, "group cannot be nested");
 					return false;
 				}
-				_offsetGroup = _pTrack->Tell();
+				_offsetGroup = pTrack->Tell();
 			} else if (ch == ')') {
 				if (_offsetGroup < 0) {
 					sig.SetError(ERR_FormatError, "unmatched group parenthesis");
@@ -265,12 +269,12 @@ bool MML::FeedChar(Signal sig, int ch)
 		case STAT_RepeatNumFix: {
 			for (int cnt = static_cast<int>(_numAccum); cnt > 0; cnt--) {
 				_stateMachineStack.push_back(new StateMachine());
-				if (!ParseString(sig, pStateMachine->GetStrBlock1st().c_str())) {
+				if (!ParseString(sig, pTrack, pStateMachine->GetStrBlock1st().c_str())) {
 					return false;
 				}
 				if (cnt > 1) {
 					_stateMachineStack.push_back(new StateMachine());
-					if (!ParseString(sig, pStateMachine->GetStrBlock2nd().c_str())) {
+					if (!ParseString(sig, pTrack, pStateMachine->GetStrBlock2nd().c_str())) {
 						return false;
 					}
 				}
@@ -424,7 +428,7 @@ bool MML::FeedChar(Signal sig, int ch)
 			}
 			if (!_colonFlag) _timeStampHead = _timeStampTail;
 			_colonFlag = false;
-			int deltaTime = CalcDeltaTime(_length, _cntDot);
+			int deltaTime = CalcDeltaTime(pTrack, _length, _cntDot);
 			unsigned long timeStampTail = _timeStampHead + deltaTime;
 			unsigned long timeStampGate = _timeStampHead + deltaTime * _gate / MAX_GATE;
 			bool joinedFlag = false;
@@ -438,11 +442,11 @@ bool MML::FeedChar(Signal sig, int ch)
 			}
 			_joinFlag = false;
 			if (!joinedFlag) {
-				_pTrack->AddEvent(new MIDIEvent_NoteOn(
-								_timeStampHead, _channel, note, _velocity));
-				MIDIEvent_NoteOn *pMIDIEvent = new MIDIEvent_NoteOn(
-								timeStampGate, _channel, note, 0);
-				_pTrack->AddEvent(pMIDIEvent);
+				pTrack->AddEvent(new MIDIEvent_NoteOn(_timeStampHead,
+						static_cast<unsigned char>(_channel), note, _velocity));
+				MIDIEvent_NoteOn *pMIDIEvent = new MIDIEvent_NoteOn(timeStampGate,
+						static_cast<unsigned char>(_channel), note, 0);
+				pTrack->AddEvent(pMIDIEvent);
 				_pMIDIEventLast = pMIDIEvent;
 			}
 			if (_timeStampTail < timeStampTail) _timeStampTail = timeStampTail;
@@ -492,7 +496,7 @@ bool MML::FeedChar(Signal sig, int ch)
 				sig.SetError(ERR_FormatError, "channel number must be less than 16");
 				return false;
 			}
-			_channel = static_cast<unsigned char>(_numAccum);
+			_channel = _numAccum;
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
@@ -538,7 +542,7 @@ bool MML::FeedChar(Signal sig, int ch)
 			if (!_colonFlag) _timeStampHead = _timeStampTail;
 			_colonFlag = false;
 			_joinFlag = false;
-			int deltaTime = CalcDeltaTime(_length, _cntDot);
+			int deltaTime = CalcDeltaTime(pTrack, _length, _cntDot);
 			unsigned long timeStampTail = _timeStampHead + deltaTime;
 			if (_timeStampTail < timeStampTail) _timeStampTail = timeStampTail;
 			continueFlag = true;
@@ -728,8 +732,8 @@ bool MML::FeedChar(Signal sig, int ch)
 				return false;
 			}
 			unsigned char program = static_cast<unsigned char>(_numAccum);
-			_pTrack->AddEvent(new MIDIEvent_ProgramChange(
-									_timeStampHead, _channel, program));
+			pTrack->AddEvent(new MIDIEvent_ProgramChange(_timeStampHead,
+							static_cast<unsigned char>(_channel), program));
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
@@ -757,7 +761,7 @@ bool MML::FeedChar(Signal sig, int ch)
 		}
 		case STAT_TempoFix: {
 			unsigned long mpqn = static_cast<unsigned long>(60000000 / _numAccum);
-			_pTrack->AddEvent(new MetaEvent_TempoSetting(_timeStampHead, mpqn));
+			pTrack->AddEvent(new MetaEvent_TempoSetting(_timeStampHead, mpqn));
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
@@ -802,12 +806,12 @@ bool MML::FeedChar(Signal sig, int ch)
 			break;
 		}
 		case STAT_GroupFix: {
-			const EventOwner &eventOwner = _pTrack->GetEventOwner();
+			const EventOwner &eventOwner = pTrack->GetEventOwner();
 			EventOwner::const_iterator ppEvent = eventOwner.begin() + _offsetGroup;
 			unsigned long timeStampHead = (*ppEvent)->GetTimeStamp();
 			int deltaTimeOrg = _timeStampTail - timeStampHead;
 			if (deltaTimeOrg != 0) {
-				int deltaTime = CalcDeltaTime(_length, _cntDot);
+				int deltaTime = CalcDeltaTime(pTrack, _length, _cntDot);
 				for ( ; ppEvent != eventOwner.end(); ppEvent++) {
 					Event *pEvent = *ppEvent;
 					pEvent->SetTimeStamp((pEvent->GetTimeStamp() - timeStampHead) *
@@ -882,10 +886,10 @@ bool MML::FeedChar(Signal sig, int ch)
 	return true;
 }
 
-int MML::CalcDeltaTime(int length, int cntDot) const
+int MML::CalcDeltaTime(const Track *pTrack, int length, int cntDot) const
 {
 	if (length <= 0) length = _lengthDefault;
-	int deltaTime = _pTrack->GetProperty()->GetDivision() * 4 / length;
+	int deltaTime = pTrack->GetProperty()->GetDivision() * 4 / length;
 	for (int deltaTimeDiv = deltaTime / 2; deltaTimeDiv > 0 && cntDot > 0;
 											deltaTimeDiv /= 2, cntDot--) {
 		deltaTime += deltaTimeDiv;

@@ -43,14 +43,16 @@ private:
 	AutoPtr<Property> _pProperty;
 	AutoPtr<EventOwner> _pEventOwner;
 	EventOwner::iterator _ppEventAt;
-	std::auto_ptr<MML> _pMML; // maybe NULL
+	bool _requestEndOfTrackFlag;
 public:
 	Gura_DeclareReferenceAccessor(Track);
 public:
 	Track(Property *pProperty);
 	inline const EventOwner &GetEventOwner() const { return *_pEventOwner; }
 	inline Property *GetProperty() { return _pProperty.get(); }
-	inline const MML *GetMML() const { return _pMML.get(); }
+	inline const Property *GetProperty() const { return _pProperty.get(); }
+	inline void RequestEndOfTrack() { _requestEndOfTrackFlag = true; }
+	inline bool IsEndOfTrackRequested() const { return _requestEndOfTrackFlag; }
 	bool Write(Signal sig, Stream &stream) const;
 	bool ParseMML(Signal sig, const char *str);
 	unsigned long GetPrevTimeStamp() const;

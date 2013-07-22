@@ -67,8 +67,7 @@ private:
 		void Clear();
 	};
 private:
-	Track *_pTrack;
-	unsigned char _channel;
+	int _channel;
 	int _octave;
 	int _octaveOffset;
 	int _lengthDefault;
@@ -91,17 +90,17 @@ private:
 	MIDIEvent_NoteOn *_pMIDIEventLast;
 	StateMachineStack _stateMachineStack;
 public:
-	MML(Track *pTrack, unsigned char channel);
+	MML();
 	void Reset();
-	void UpdateTimeStamp();
-	bool ParseString(Signal sig, const char *str);
+	void UpdateTimeStamp(Track *pTrack);
+	bool ParseString(Signal sig, Track *pTrack, const char *str);
 private:
-	bool FeedChar(Signal sig, int ch);
+	bool FeedChar(Signal sig, Track *pTrack, int ch);
 private:
 	inline static bool IsEOD(int ch) { return ch == '\0' || ch < 0; }
 	inline static bool IsWhite(int ch) { return ch == ' ' || ch == '\t'; }
 	inline static bool IsDigit(int ch) { return '0' <= ch && ch <= '9'; }
-	int CalcDeltaTime(int length, int cntDot) const;
+	int CalcDeltaTime(const Track *pTrack, int length, int cntDot) const;
 };
 
 }}

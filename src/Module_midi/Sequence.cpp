@@ -246,7 +246,7 @@ bool Sequence::Write(Environment &env, Signal sig, Stream &stream)
 			if (!pEvent->Write(sig, *pStreamMemory, pEventPrev)) return false;
 			pEventPrev = pEvent;
 		}
-		if (pTrack->GetMML() != NULL &&
+		if (pTrack->IsEndOfTrackRequested() &&
 							!MetaEvent_EndOfTrack::CheckEvent(pEventPrev)) {
 			unsigned long timeDelta = 0;
 			timeStamp += timeDelta;

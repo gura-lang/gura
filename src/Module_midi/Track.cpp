@@ -6,17 +6,15 @@ Gura_BeginModule(midi)
 // Track
 //-----------------------------------------------------------------------------
 Track::Track(Property *pProperty) : _cntRef(1),
-				_pProperty(pProperty), _pEventOwner(new EventOwner())
+			_pProperty(pProperty), _pEventOwner(new EventOwner()),
+			_requestEndOfTrackFlag(false)
 {
 	_ppEventAt = _pEventOwner->end();
 }
 
 bool Track::ParseMML(Signal sig, const char *str)
 {
-	if (_pMML.get() == NULL) {
-		_pMML.reset(new MML(this, _pProperty->GetChannelNext()));
-	}
-	return _pMML->ParseString(sig, str);
+	return MML().ParseString(sig, this, str);
 }
 
 unsigned long Track::GetPrevTimeStamp() const
