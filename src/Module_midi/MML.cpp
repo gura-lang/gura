@@ -8,7 +8,7 @@ Gura_BeginModule(midi)
 // MML
 // see http://ja.wikipedia.org/wiki/Music_Macro_Language for MML syntax
 //-----------------------------------------------------------------------------
-MML::MML()
+MML::MML() : _velocityMax(127)
 {
 	Reset();
 }
@@ -21,7 +21,7 @@ void MML::Reset()
 	_length				= _lengthDefault;
 	_gateDefault		= 8;					// 0 - 8
 	_gate				= _gateDefault;
-	_velocityDefault	= 100;					// 0 - 127
+	_velocityDefault	= _velocityMax * 8 / 10;
 	_velocity			= _velocityDefault;
 	_operator			= '\0';
 	_operatorSub		= '\0';
@@ -36,6 +36,13 @@ void MML::Reset()
 	_chOctaveUp			= '<';
 	_chOctaveDown		= '>';
 	_pMIDIEventLast		= NULL;
+}
+
+void MML::SetVelocityMax(int velocityMax)
+{
+	_velocityMax = velocityMax;
+	_velocityDefault = _velocityMax * 8 / 10;
+	_velocity = _velocityDefault;
 }
 
 void MML::UpdateTimeStamp(Track *pTrack)
@@ -405,12 +412,12 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				sig.SetError(ERR_FormatError, "too many note parameters");
 				return RSLT_Error;
 			} else {
-				if (_numAccum > MAX_VELOCITY) {
+				if (_numAccum > _velocityMax) {
 					sig.SetError(ERR_FormatError,
-						"velocity number must be less than %d", MAX_VELOCITY + 1);
+						"velocity number must be less than %d", _velocityMax + 1);
 					return RSLT_Error;
 				}
-				_velocity = static_cast<unsigned char>(_numAccum);
+				_velocity = _numAccum;
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_NoteFix);
 			}
@@ -451,8 +458,10 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			_joinFlag = false;
 			if (!joinedFlag) {
 				unsigned char channel = pTrack->GetChannel();
+				unsigned char velocity = static_cast<unsigned char>(
+												_velocity * 127 / _velocityMax);
 				pTrack->AddEvent(new MIDIEvent_NoteOn(
-								_timeStampHead, channel, note, _velocity));
+								_timeStampHead, channel, note, velocity));
 				MIDIEvent_NoteOn *pMIDIEvent = new MIDIEvent_NoteOn(
 								timeStampGate, channel, note, 0);
 				pTrack->AddEvent(pMIDIEvent);
@@ -686,9 +695,9 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			break;
 		}
 		case STAT_VelocityFix: {
-			if (_numAccum > MAX_VELOCITY) {
+			if (_numAccum > _velocityMax) {
 				sig.SetError(ERR_FormatError,
-					"velocity number must be less than %d", MAX_VELOCITY + 1);
+					"velocity number must be less than %d", _velocityMax + 1);
 				return RSLT_Error;
 			}
 			_velocityDefault = static_cast<unsigned char>(_numAccum);

@@ -12,7 +12,6 @@ public:
 	enum {
 		MAX_OCTAVE		= 9,
 		MAX_GATE		= 8,
-		MAX_VELOCITY	= 127,
 		MAX_PROGRAM		= 127,
 	};
 	enum Result {
@@ -76,8 +75,9 @@ private:
 	int _length;
 	int _gateDefault;
 	int _gate;
-	unsigned char _velocityDefault;
-	unsigned char _velocity;
+	int _velocityMax;
+	int _velocityDefault;
+	int _velocity;
 	int _operator;
 	int _operatorSub;
 	int _numAccum;
@@ -96,6 +96,7 @@ private:
 public:
 	MML();
 	void Reset();
+	void SetVelocityMax(int velocityMax);
 	void UpdateTimeStamp(Track *pTrack);
 	Result ParseStream(Signal sig, Track *pTrack, SimpleStream &stream);
 	Result ParseString(Signal sig, Track *pTrack, const char *str);
