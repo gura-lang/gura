@@ -1143,15 +1143,15 @@ Gura_ImplementMethod(sequence, mml)
 	return args.GetThis();
 }
 
-// midi.sequence#mmlfile(stream:stream, max_velocity?:number):reduce
-Gura_DeclareMethod(sequence, mmlfile)
+// midi.sequence#readmml(stream:stream, max_velocity?:number):reduce
+Gura_DeclareMethod(sequence, readmml)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(sequence, mmlfile)
+Gura_ImplementMethod(sequence, readmml)
 {
 	Object_sequence *pThis = Object_sequence::GetThisObj(args);
 	int velocityMax = args.IsNumber(1)? args.GetInt(1) : 127;
@@ -1170,7 +1170,7 @@ Gura_ImplementUserClassWithCast(sequence)
 	Gura_AssignMethod(sequence, play);
 	Gura_AssignMethod(sequence, track);
 	Gura_AssignMethod(sequence, mml);
-	Gura_AssignMethod(sequence, mmlfile);
+	Gura_AssignMethod(sequence, readmml);
 }
 
 Gura_ImplementCastFrom(sequence)
@@ -1350,8 +1350,8 @@ Gura_ImplementMethod(port, mml)
 	return ActivatePlayer(env, sig, args, sequence, pThis->GetPort(), speed, cntRepeat);
 }
 
-// midi.port#mmlfile(stream:stream, max_velocity?:number):[background,player]
-Gura_DeclareMethod(port, mmlfile)
+// midi.port#readmml(stream:stream, max_velocity?:number):[background,player]
+Gura_DeclareMethod(port, readmml)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
@@ -1360,7 +1360,7 @@ Gura_DeclareMethod(port, mmlfile)
 	DeclareAttr(Gura_UserSymbol(player));
 }
 
-Gura_ImplementMethod(port, mmlfile)
+Gura_ImplementMethod(port, readmml)
 {
 	Object_port *pThis = Object_port::GetThisObj(args);
 	Sequence sequence;
@@ -1509,7 +1509,7 @@ Gura_ImplementUserClassWithCast(port)
 	Gura_AssignMethod(port, send);
 	Gura_AssignMethod(port, play);
 	Gura_AssignMethod(port, mml);
-	Gura_AssignMethod(port, mmlfile);
+	Gura_AssignMethod(port, readmml);
 	Gura_AssignMethod(port, note_off);
 	Gura_AssignMethod(port, note_on);
 	Gura_AssignMethod(port, poly_pressure);

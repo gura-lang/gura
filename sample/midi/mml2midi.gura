@@ -1,0 +1,15 @@
+#!/usr/bin/env gura
+import(midi)
+
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: mml2midi mml-file [midi-file]')
+	sys.exit(1)
+}
+fileNameSrc = sys.argv[1]
+if (sys.argv.len() < 3) {
+	fileNameDst = fileNameSrc + '.mid'
+} else {
+	fileNameDst = sys.argv[2]
+}
+midi.sequence().readmml(fileNameSrc).write(fileNameDst)
+println(fileNameDst, ' was created')
