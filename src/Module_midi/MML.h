@@ -70,6 +70,7 @@ private:
 		void Clear();
 	};
 private:
+	int _pos;
 	int _octave;
 	int _octaveOffset;
 	int _lengthDefault;

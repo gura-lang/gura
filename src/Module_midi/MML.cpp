@@ -8,7 +8,7 @@ Gura_BeginModule(midi)
 // MML
 // see http://ja.wikipedia.org/wiki/Music_Macro_Language for MML syntax
 //-----------------------------------------------------------------------------
-MML::MML(int velocityMax) : _velocityMax(velocityMax)
+MML::MML(int velocityMax) : _pos(0), _velocityMax(velocityMax)
 {
 	Reset();
 }
@@ -217,10 +217,9 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				pStateMachine->GetStrBlock1st().push_back(chRaw);
 				pStateMachine->IncBlockLevel();
 			} else if (ch == '/') {
-					pStateMachine->SetStat(STAT_RepeatBlock1stSlash);
+				pStateMachine->SetStat(STAT_RepeatBlock1stSlash);
 			} else if (ch == ']') {
 				if (pStateMachine->DecBlockLevel() == 0) {
-					_numAccum = 0;
 					pStateMachine->SetStat(STAT_RepeatNumPre);
 				} else {
 					pStateMachine->GetStrBlock1st().push_back(chRaw);
@@ -256,7 +255,6 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				pStateMachine->SetStat(STAT_RepeatBlock2ndSlash);
 			} else if (ch == ']') {
 				if (pStateMachine->DecBlockLevel() == 0) {
-					_numAccum = 0;
 					pStateMachine->SetStat(STAT_RepeatNumPre);
 				} else {
 					pStateMachine->GetStrBlock2nd().push_back(chRaw);
@@ -287,11 +285,13 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		}
 		case STAT_RepeatNumPre: {
 			if (IsDigit(ch)) {
+				_numAccum = 0;
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_RepeatNum);
 			} else if (IsWhite(ch)) {
 				// nothing to do
 			} else {
+				_numAccum = 2;	// default repeat count
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_RepeatNumFix);
 			}
@@ -927,6 +927,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		}
 		}
 	} while (continueFlag);
+	_pos++;
 	return result;
 }
 
