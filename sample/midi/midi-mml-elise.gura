@@ -2,14 +2,15 @@ import(midi)
 
 mml = '''
 // Fur Elise (Clavierstuck in A Minor - WoO 59)
+// conductor track
 t60 ;
 
 l16r2@{acoustic_piano}
-// melody part
+// melody part track
 /*  1 */ [~e~d+ ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c
-/*  6 */ a8rcea b8re~cb / a4]2 a8rb~c~d [~e8.g~f~e ~d8.f~e~d
+/*  6 */ a8rcea b8re~cb | a4] a8rb~c~d [~e8.g~f~e ~d8.f~e~d
 /* 11 */ ~c8.e~d~c b8re~er r~e~~err~d+ ~e8r~d+~e~d+ ~e~d+~eb~d~c a8rcea
-/* 17 */ b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb / a8rb~c~d]2
+/* 17 */ b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb | a8rb~c~d]
 /* 23 */ a8r(e:~c)(f:~c)(e:g:~c) fa~c4~f.~e32 ~e8d8~b-.a32 ~a~g~f~e~d~c b-8a8b-a32g32a32b-32 c4dd+
 /* 29 */ ~e8.~e~fa ~c4~d.b32 l32 ~c~gg~ga~gb~g~c~g~d~g ~e~g~~c~b~a~g~f~e~d~g~f~d ~c~gg~ga~gb~g~c~g~d~g
 /* 34 */ ~e~g~~c~b~a~g~f~e~d~g~f~d ~e~f~e~d+~eb~e~d+~eb~e~d+ l16 ~e8.b~e~d+ ~e8.b~e~d+ ~e~d+~e~d+~e~d+ ~e~d+~eb~d~c
@@ -27,12 +28,12 @@ l16r2@{acoustic_piano}
 /* 93 */ ~c8.e~d~c b8re~er r~e~~err~d+ ~err~d+~e~d ~e~d+~eb~d~c a8rcea
 /* 99 */ b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb a8r ;
 
-// sub melody part
+// sub melody part track
 l16r2@{acoustic_piano} >
 /*  1 */ [r8 r8r8r8 _aearr8 _eeg+rr8 _aearr8 r8r8r8
-/*  6 */ _aearr8 _eeg+rr8 / _aear]2 _aearr8 [cg~crr8 _ggbrr8
+/*  6 */ _aearr8 _eeg+rr8 | _aear] _aearr8 [cg~crr8 _ggbrr8
 /* 11 */ _aearr8 _ee~err<e ~err~d+er r~d+~err8 r8r8r8 >_aearr8
-/* 17 */ _eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8 / _aearr8]2
+/* 17 */ _eeg+rr8 _aearr8 r8r8r8 _aearr8 _eeg+rr8 | _aearr8]
 /* 23 */ _aea(b-:~c)(a:~c)(g:b-:~c) fa~ca~ca fb-~db-~db- f~e(f:g:b-)~e(f:g:b-)~e fa~ca~ca fa~ca~ca
 /* 29 */ ea~ca(~d:d)f g~eg~fg~f <c8e8r(f:g)(e:g)(d:f:g) (c:e:g)8 >(f:a)8(g:b)8 <c8r(f:g)(e:g)(d:f:g)
 /* 34 */ (c:e:g)8>(f:a)8(g:b)8 (g+:b)8r8r8 r8r8r8 r8r8r8 r8r8r8 r8r8r8
