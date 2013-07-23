@@ -205,6 +205,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			} else if (ch == '\n') {
 				// nothing to do
 			} else if (ch == '/') {
+				pStateMachine->SetStatToReturn(STAT_Begin);
 				pStateMachine->SetStat(STAT_Slash);
 			} else {
 				sig.SetError(ERR_FormatError, "invalid character for MML: %c", ch);
@@ -217,7 +218,14 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				pStateMachine->GetStrBlock1st().push_back(chRaw);
 				pStateMachine->IncBlockLevel();
 			} else if (ch == '/') {
-				pStateMachine->SetStat(STAT_RepeatBlock1stSlash);
+				pStateMachine->SetStatToReturn(STAT_RepeatBlock1st);
+				pStateMachine->SetStat(STAT_Slash);
+			} else if (ch == '|') {
+				if (pStateMachine->GetBlockLevel() == 1) {
+					pStateMachine->SetStat(STAT_RepeatBlock2nd);
+				} else {
+					pStateMachine->GetStrBlock1st().push_back(chRaw);
+				}
 			} else if (ch == ']') {
 				if (pStateMachine->DecBlockLevel() == 0) {
 					pStateMachine->SetStat(STAT_RepeatNumPre);
@@ -232,27 +240,20 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			}
 			break;
 		}
-		case STAT_RepeatBlock1stSlash: {
-			if (ch == '*') {
-				pStateMachine->IncCommentLevel();
-				pStateMachine->SetStatToReturn(STAT_RepeatBlock1st);
-				pStateMachine->SetStat(STAT_BlockComment);
-			} else {
-				if (pStateMachine->GetBlockLevel() == 1) {
-					pStateMachine->SetStat(STAT_RepeatBlock2nd);
-				} else {
-					pStateMachine->GetStrBlock1st().push_back('/');
-				}
-				continueFlag = true;
-			}
-			break;
-		}
 		case STAT_RepeatBlock2nd: {
 			if (ch == '[') {
 				pStateMachine->GetStrBlock2nd().push_back(chRaw);
 				pStateMachine->IncBlockLevel();
 			} else if (ch == '/') {
-				pStateMachine->SetStat(STAT_RepeatBlock2ndSlash);
+				pStateMachine->SetStatToReturn(STAT_RepeatBlock2nd);
+				pStateMachine->SetStat(STAT_Slash);
+			} else if (ch == '|') {
+				if (pStateMachine->GetBlockLevel() == 1) {
+					sig.SetError(ERR_FormatError, "second part already exists");
+					return RSLT_Error;
+				} else {
+					pStateMachine->GetStrBlock2nd().push_back(chRaw);
+				}
 			} else if (ch == ']') {
 				if (pStateMachine->DecBlockLevel() == 0) {
 					pStateMachine->SetStat(STAT_RepeatNumPre);
@@ -264,22 +265,6 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				return RSLT_Error;
 			} else {
 				pStateMachine->GetStrBlock2nd().push_back(chRaw);
-			}
-			break;
-		}
-		case STAT_RepeatBlock2ndSlash: {
-			if (ch == '*') {
-				pStateMachine->IncCommentLevel();
-				pStateMachine->SetStatToReturn(STAT_RepeatBlock2nd);
-				pStateMachine->SetStat(STAT_BlockComment);
-			} else {
-				if (pStateMachine->GetBlockLevel() == 1) {
-					sig.SetError(ERR_FormatError, "slash can only appear once in a repeat block");
-					return RSLT_Error;
-				} else {
-					pStateMachine->GetStrBlock2nd().push_back('/');
-				}
-				continueFlag = true;
 			}
 			break;
 		}
@@ -870,14 +855,12 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		}
 		case STAT_Slash: {
 			if (ch == '/') {
-				pStateMachine->SetStatToReturn(STAT_Begin);
 				pStateMachine->SetStat(STAT_LineComment);
 			} else if (ch == '*') {
 				pStateMachine->IncCommentLevel();
-				pStateMachine->SetStatToReturn(STAT_Begin);
 				pStateMachine->SetStat(STAT_BlockComment);
 			} else {
-				sig.SetError(ERR_FormatError, "invalid character for MML: %c", ch);
+				sig.SetError(ERR_FormatError, "invalid character for MML: /");
 				return RSLT_Error;
 			}
 			break;

@@ -21,8 +21,7 @@ public:
 private:
 	enum Stat {
 		STAT_Begin,
-		STAT_RepeatBlock1st, STAT_RepeatBlock1stSlash,
-		STAT_RepeatBlock2nd, STAT_RepeatBlock2ndSlash,
+		STAT_RepeatBlock1st, STAT_RepeatBlock2nd,
 		STAT_RepeatNumPre, STAT_RepeatNum, STAT_RepeatNumFix,
 		STAT_Note,
 		STAT_NoteLengthPre, STAT_NoteLength, STAT_NoteLengthDot,
