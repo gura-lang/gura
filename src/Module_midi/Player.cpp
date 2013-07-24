@@ -19,7 +19,7 @@ Player::~Player()
 }
 
 bool Player::SetupSequence(Signal sig, const Sequence *pSequence,
-				unsigned short division, unsigned long mpqn, double speed,
+				UShort division, ULong mpqn, double speed,
 				int cntRepeat)
 {
 	if (speed <= 0) {
@@ -49,7 +49,7 @@ bool Player::Play()
 			Event *pEvent = *_ppEvent;
 			if (pEventPrev != NULL &&
 						pEventPrev->GetTimeStamp() < pEvent->GetTimeStamp()) {
-				unsigned long deltaTime =
+				ULong deltaTime =
 						pEvent->GetTimeStamp() - pEventPrev->GetTimeStamp();
 				double delayTime = static_cast<double>(_mpqn) *
 										deltaTime / _division / 1000000 / _speed;

@@ -44,23 +44,23 @@ public:
 	inline void Reset() {
 		if (_hMIDI != NULL) ::midiOutReset(_hMIDI);
 	}
-	inline void Send(unsigned char msg1) {
+	inline void Send(UChar msg1) {
 		::midiOutShortMsg(_hMIDI,
 					(static_cast<DWORD>(msg1) << 0));
 	}
-	inline void Send(unsigned char msg1, unsigned char msg2) {
+	inline void Send(UChar msg1, UChar msg2) {
 		::midiOutShortMsg(_hMIDI,
 					(static_cast<DWORD>(msg1) << 0) +
 					(static_cast<DWORD>(msg2) << 8));
 	}
-	inline void Send(unsigned char msg1, unsigned char msg2, unsigned char msg3) {
+	inline void Send(UChar msg1, UChar msg2, UChar msg3) {
 		::midiOutShortMsg(_hMIDI,
 					(static_cast<DWORD>(msg1) << 0) +
 					(static_cast<DWORD>(msg2) << 8) +
 					(static_cast<DWORD>(msg3) << 16));
 	}
-	inline void Send(unsigned char msg1, unsigned char msg2, unsigned char msg3,
-					unsigned char msg4) {
+	inline void Send(UChar msg1, UChar msg2, UChar msg3,
+					UChar msg4) {
 		::midiOutShortMsg(_hMIDI,
 					(static_cast<DWORD>(msg1) << 0) +
 					(static_cast<DWORD>(msg2) << 8) +
@@ -101,21 +101,21 @@ public:
 	}
 	inline void Reset() {
 	}
-	inline void Send(unsigned char msg1) {
-		unsigned char buff[1] = { msg1 };
+	inline void Send(UChar msg1) {
+		UChar buff[1] = { msg1 };
 		::snd_rawmidi_write(_out_rmidi, buff, sizeof(buff));
 	}
-	inline void Send(unsigned char msg1, unsigned char msg2) {
-		unsigned char buff[2] = { msg1, msg2 };
+	inline void Send(UChar msg1, UChar msg2) {
+		UChar buff[2] = { msg1, msg2 };
 		::snd_rawmidi_write(_out_rmidi, buff, sizeof(buff));
 	}
-	inline void Send(unsigned char msg1, unsigned char msg2, unsigned char msg3) {
-		unsigned char buff[3] = { msg1, msg2, msg3 };
+	inline void Send(UChar msg1, UChar msg2, UChar msg3) {
+		UChar buff[3] = { msg1, msg2, msg3 };
 		::snd_rawmidi_write(_out_rmidi, buff, sizeof(buff));
 	}
-	inline void Send(unsigned char msg1, unsigned char msg2, unsigned char msg3,
-					unsigned char msg4) {
-		unsigned char buff[4] = { msg1, msg2, msg3, msg4 };
+	inline void Send(UChar msg1, UChar msg2, UChar msg3,
+					UChar msg4) {
+		UChar buff[4] = { msg1, msg2, msg3, msg4 };
 		::snd_rawmidi_write(_out_rmidi, buff, sizeof(buff));
 	}
 };

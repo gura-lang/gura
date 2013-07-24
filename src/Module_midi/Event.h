@@ -17,11 +17,11 @@ public:
 protected:
 	int _cntRef;
 	bool _enableRunningStatus;
-	unsigned long _timeStamp;
+	ULong _timeStamp;
 public:
 	inline Event(const Event &event) : _cntRef(1),
 		_enableRunningStatus(event._enableRunningStatus), _timeStamp(event._timeStamp) {}
-	inline Event(bool enableRunningStatus, unsigned long timeStamp) : _cntRef(1),
+	inline Event(bool enableRunningStatus, ULong timeStamp) : _cntRef(1),
 		_enableRunningStatus(enableRunningStatus), _timeStamp(timeStamp) {}
 protected:
 	virtual ~Event();
@@ -30,12 +30,12 @@ public:
 		_enableRunningStatus = enableRunningStatus;
 	}
 	inline bool IsEnabledRunningStatus() const { return _enableRunningStatus; }
-	inline unsigned long GetTimeStamp() const { return _timeStamp; }
-	inline void SetTimeStamp(unsigned long timeStamp) { _timeStamp = timeStamp; }
+	inline ULong GetTimeStamp() const { return _timeStamp; }
+	inline void SetTimeStamp(ULong timeStamp) { _timeStamp = timeStamp; }
 	virtual bool IsMIDIEvent() const;
 	virtual bool IsSysExEvent() const;
 	virtual bool IsMetaEvent() const;
-	virtual unsigned char GetStatusCode() const = 0;
+	virtual UChar GetStatusCode() const = 0;
 	virtual const Symbol *GetSymbol() const = 0;
 	virtual String GetArgsName() const = 0;
 	virtual bool Play(Signal sig, Player *pPlayer) const = 0;
@@ -46,7 +46,7 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	static bool WriteVariableFormat(Signal sig, Stream &stream, unsigned long num);
+	static bool WriteVariableFormat(Signal sig, Stream &stream, ULong num);
 };
 
 //-----------------------------------------------------------------------------
@@ -87,29 +87,29 @@ public:
 //-----------------------------------------------------------------------------
 class MIDIEvent : public Event {
 protected:
-	unsigned char _status;
-	unsigned char _channel;
+	UChar _status;
+	UChar _channel;
 	size_t _nParams;
-	unsigned char _params[2];
+	UChar _params[2];
 public:
 	inline MIDIEvent(const MIDIEvent &event) : Event(event),
 			_status(event._status), _channel(event._channel), _nParams(event._nParams) {
 		::memcpy(_params, event._params, sizeof(_params));
 	}
-	inline MIDIEvent(unsigned long timeStamp, unsigned char status, unsigned char channel, size_t nParams) :
+	inline MIDIEvent(ULong timeStamp, UChar status, UChar channel, size_t nParams) :
 			Event(true, timeStamp),
 			_status(status), _channel(channel), _nParams(nParams) {}
-	inline unsigned char GetStatus() const { return _status; }
-	inline unsigned char GetChannel() const { return _channel; }
-	inline unsigned char GetStatusByte() const { return _status | _channel; }
-	inline void SetParam1st(unsigned char param) { _params[0] = param; }
-	inline void SetParam2nd(unsigned char param) { _params[1] = param; }
+	inline UChar GetStatus() const { return _status; }
+	inline UChar GetChannel() const { return _channel; }
+	inline UChar GetStatusByte() const { return _status | _channel; }
+	inline void SetParam1st(UChar param) { _params[0] = param; }
+	inline void SetParam2nd(UChar param) { _params[1] = param; }
 	inline size_t CountParams() const { return _nParams; }
-	static bool CheckStatus(unsigned char status) {
+	static bool CheckStatus(UChar status) {
 		return 0x80 <= status && status < 0xf0;
 	}
 	virtual bool IsMIDIEvent() const;
-	virtual unsigned char GetStatusCode() const;
+	virtual UChar GetStatusCode() const;
 	virtual bool Play(Signal sig, Player *pPlayer) const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
@@ -127,10 +127,10 @@ public:
 	enum { Status = 0x80 };
 public:
 	inline MIDIEvent_NoteOff(const MIDIEvent_NoteOff &event) : MIDIEvent(event) {}
-	inline MIDIEvent_NoteOff(unsigned long timeStamp, unsigned char channel) :
+	inline MIDIEvent_NoteOff(ULong timeStamp, UChar channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
-	inline MIDIEvent_NoteOff(unsigned long timeStamp, unsigned char channel,
-							unsigned char note, unsigned char velocity) :
+	inline MIDIEvent_NoteOff(ULong timeStamp, UChar channel,
+							UChar note, UChar velocity) :
 									MIDIEvent(timeStamp, Status, channel, 2) {
 		_params[0] = note, _params[1] = velocity;
 	}
@@ -142,10 +142,10 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	inline unsigned char GetNote() const { return _params[0]; }
-	inline unsigned char GetVelocity() const { return _params[1]; }
-	inline void SetNote(unsigned char note) { _params[0] = note; }
-	inline void SetVelocity(unsigned char velocity) { _params[1] = velocity; }
+	inline UChar GetNote() const { return _params[0]; }
+	inline UChar GetVelocity() const { return _params[1]; }
+	inline void SetNote(UChar note) { _params[0] = note; }
+	inline void SetVelocity(UChar velocity) { _params[1] = velocity; }
 };
 
 //-----------------------------------------------------------------------------
@@ -156,10 +156,10 @@ public:
 	enum { Status = 0x90 };
 public:
 	inline MIDIEvent_NoteOn(const MIDIEvent_NoteOn &event) : MIDIEvent(event) {}
-	inline MIDIEvent_NoteOn(unsigned long timeStamp, unsigned char channel) :
+	inline MIDIEvent_NoteOn(ULong timeStamp, UChar channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
-	inline MIDIEvent_NoteOn(unsigned long timeStamp, unsigned char channel,
-							unsigned char note, unsigned char velocity) :
+	inline MIDIEvent_NoteOn(ULong timeStamp, UChar channel,
+							UChar note, UChar velocity) :
 									MIDIEvent(timeStamp, Status, channel, 2) {
 		_params[0] = note, _params[1] = velocity;
 	}
@@ -171,10 +171,10 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	inline unsigned char GetNote() const { return _params[0]; }
-	inline unsigned char GetVelocity() const { return _params[1]; }
-	inline void SetNote(unsigned char note) { _params[0] = note; }
-	inline void SetVelocity(unsigned char velocity) { _params[1] = velocity; }
+	inline UChar GetNote() const { return _params[0]; }
+	inline UChar GetVelocity() const { return _params[1]; }
+	inline void SetNote(UChar note) { _params[0] = note; }
+	inline void SetVelocity(UChar velocity) { _params[1] = velocity; }
 };
 
 //-----------------------------------------------------------------------------
@@ -185,10 +185,10 @@ public:
 	enum { Status = 0xa0 };
 public:
 	inline MIDIEvent_PolyPressure(const MIDIEvent_PolyPressure &event) : MIDIEvent(event) {}
-	inline MIDIEvent_PolyPressure(unsigned long timeStamp, unsigned char channel) :
+	inline MIDIEvent_PolyPressure(ULong timeStamp, UChar channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
-	inline MIDIEvent_PolyPressure(unsigned long timeStamp, unsigned char channel,
-							unsigned char note, unsigned char value) :
+	inline MIDIEvent_PolyPressure(ULong timeStamp, UChar channel,
+							UChar note, UChar value) :
 									MIDIEvent(timeStamp, Status, channel, 2) {
 		_params[0] = note, _params[1] = value;
 	}
@@ -200,10 +200,10 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	inline unsigned char GetNote() const { return _params[0]; }
-	inline unsigned char GetValue() const { return _params[1]; }
-	inline void SetNote(unsigned char note) { _params[0] = note; }
-	inline void SetValue(unsigned char value) { _params[1] = value; }
+	inline UChar GetNote() const { return _params[0]; }
+	inline UChar GetValue() const { return _params[1]; }
+	inline void SetNote(UChar note) { _params[0] = note; }
+	inline void SetValue(UChar value) { _params[1] = value; }
 };
 
 //-----------------------------------------------------------------------------
@@ -214,10 +214,10 @@ public:
 	enum { Status = 0xb0 };
 public:
 	inline MIDIEvent_ControlChange(const MIDIEvent_ControlChange &event) : MIDIEvent(event) {}
-	inline MIDIEvent_ControlChange(unsigned long timeStamp, unsigned char channel) :
+	inline MIDIEvent_ControlChange(ULong timeStamp, UChar channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
-	inline MIDIEvent_ControlChange(unsigned long timeStamp, unsigned char channel,
-							unsigned char controller, unsigned char value) :
+	inline MIDIEvent_ControlChange(ULong timeStamp, UChar channel,
+							UChar controller, UChar value) :
 									MIDIEvent(timeStamp, Status, channel, 2) {
 		_params[0] = controller, _params[1] = value;
 	}
@@ -229,10 +229,10 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	inline unsigned char GetController() const { return _params[0]; }
-	inline unsigned char GetValue() const { return _params[1]; }
-	inline void SetController(unsigned char controller) { _params[0] = controller; }
-	inline void SetValue(unsigned char value) { _params[1] = value; }
+	inline UChar GetController() const { return _params[0]; }
+	inline UChar GetValue() const { return _params[1]; }
+	inline void SetController(UChar controller) { _params[0] = controller; }
+	inline void SetValue(UChar value) { _params[1] = value; }
 };
 
 //-----------------------------------------------------------------------------
@@ -243,9 +243,9 @@ public:
 	enum { Status = 0xc0 };
 public:
 	inline MIDIEvent_ProgramChange(const MIDIEvent_ProgramChange &event) : MIDIEvent(event) {}
-	inline MIDIEvent_ProgramChange(unsigned long timeStamp, unsigned char channel) :
+	inline MIDIEvent_ProgramChange(ULong timeStamp, UChar channel) :
 									MIDIEvent(timeStamp, Status, channel, 1) {}
-	inline MIDIEvent_ProgramChange(unsigned long timeStamp, unsigned char channel, unsigned char program) :
+	inline MIDIEvent_ProgramChange(ULong timeStamp, UChar channel, UChar program) :
 									MIDIEvent(timeStamp, Status, channel, 1) {
 		_params[0] = program;
 	}
@@ -257,8 +257,8 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	inline unsigned char GetProgram() const { return _params[0]; }
-	inline void SetProgram(unsigned char program) { _params[0] = program; }
+	inline UChar GetProgram() const { return _params[0]; }
+	inline void SetProgram(UChar program) { _params[0] = program; }
 };
 
 //-----------------------------------------------------------------------------
@@ -269,9 +269,9 @@ public:
 	enum { Status = 0xd0 };
 public:
 	inline MIDIEvent_ChannelPressure(const MIDIEvent_ChannelPressure &event) : MIDIEvent(event) {}
-	inline MIDIEvent_ChannelPressure(unsigned long timeStamp, unsigned char channel) :
+	inline MIDIEvent_ChannelPressure(ULong timeStamp, UChar channel) :
 									MIDIEvent(timeStamp, Status, channel, 1) {}
-	inline MIDIEvent_ChannelPressure(unsigned long timeStamp, unsigned char channel, unsigned char pressure) :
+	inline MIDIEvent_ChannelPressure(ULong timeStamp, UChar channel, UChar pressure) :
 									MIDIEvent(timeStamp, Status, channel, 1) {
 		_params[0] = pressure;
 	}
@@ -283,8 +283,8 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	inline unsigned char GetPressure() const { return _params[0]; }
-	inline void SetPressure(unsigned char pressure) { _params[0] = pressure; }
+	inline UChar GetPressure() const { return _params[0]; }
+	inline void SetPressure(UChar pressure) { _params[0] = pressure; }
 };
 
 //-----------------------------------------------------------------------------
@@ -295,12 +295,12 @@ public:
 	enum { Status = 0xe0 };
 public:
 	inline MIDIEvent_PitchBend(const MIDIEvent_PitchBend &event) : MIDIEvent(event) {}
-	inline MIDIEvent_PitchBend(unsigned long timeStamp, unsigned char channel) :
+	inline MIDIEvent_PitchBend(ULong timeStamp, UChar channel) :
 									MIDIEvent(timeStamp, Status, channel, 2) {}
-	inline MIDIEvent_PitchBend(unsigned long timeStamp, unsigned char channel, unsigned short value) :
+	inline MIDIEvent_PitchBend(ULong timeStamp, UChar channel, UShort value) :
 									MIDIEvent(timeStamp, Status, channel, 2) {
-		_params[0] = static_cast<unsigned char>((value >> 0) & 0x7f);
-		_params[1] = static_cast<unsigned char>((value >> 7) & 0x7f);
+		_params[0] = static_cast<UChar>((value >> 0) & 0x7f);
+		_params[1] = static_cast<UChar>((value >> 7) & 0x7f);
 	}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
@@ -310,13 +310,13 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	inline unsigned short GetValue() const {
-		return (static_cast<unsigned short>(_params[0]) << 0) +
-				(static_cast<unsigned short>(_params[1]) << 7);
+	inline UShort GetValue() const {
+		return (static_cast<UShort>(_params[0]) << 0) +
+				(static_cast<UShort>(_params[1]) << 7);
 	}
-	inline void SetValue(unsigned short value) {
-		_params[0] = static_cast<unsigned char>((value >> 0) & 0x7f);
-		_params[1] = static_cast<unsigned char>((value >> 7) & 0x7f);
+	inline void SetValue(UShort value) {
+		_params[0] = static_cast<UChar>((value >> 0) & 0x7f);
+		_params[1] = static_cast<UChar>((value >> 7) & 0x7f);
 	}
 };
 
@@ -330,10 +330,10 @@ private:
 	Binary _binary;
 public:
 	inline SysExEvent(const SysExEvent &event) : Event(event), _binary(event._binary) {}
-	inline SysExEvent(unsigned long timeStamp, const Binary &binary) :
+	inline SysExEvent(ULong timeStamp, const Binary &binary) :
 								Event(false, timeStamp), _binary(binary) {}
 	virtual bool IsSysExEvent() const;
-	virtual unsigned char GetStatusCode() const;
+	virtual UChar GetStatusCode() const;
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
 	virtual bool Play(Signal sig, Player *pPlayer) const;
@@ -353,18 +353,18 @@ class MetaEvent : public Event {
 public:
 	enum { Status = 0xff };
 protected:
-	unsigned char _eventType;
+	UChar _eventType;
 public:
 	inline MetaEvent(const MetaEvent &event) : Event(event), _eventType(event._eventType) {}
-	inline MetaEvent(unsigned long timeStamp, unsigned char eventType) :
+	inline MetaEvent(ULong timeStamp, UChar eventType) :
 								Event(false, timeStamp), _eventType(eventType) {}
-	inline unsigned char GetEventType() const { return _eventType; }
+	inline UChar GetEventType() const { return _eventType; }
 	virtual bool Prepare(Signal sig, const Binary &binary) = 0;
 	virtual bool IsMetaEvent() const;
-	virtual unsigned char GetStatusCode() const;
+	virtual UChar GetStatusCode() const;
 	virtual bool Write(Signal sig, Stream &stream, const Event *pEventPrev) const;
 	static bool Add(Signal sig, Track *pTrack, bool enableRunningStatus,
-			unsigned long timeStamp, unsigned char eventType, const Binary &binary);
+			ULong timeStamp, UChar eventType, const Binary &binary);
 	static void SetError_TooShortMetaEvent(Signal sig);
 };
 
@@ -377,9 +377,9 @@ private:
 public:
 	inline MetaEvent_Unknown(const MetaEvent_Unknown &event) : MetaEvent(event),
 										_binary(event._binary) {}
-	inline MetaEvent_Unknown(unsigned long timeStamp, unsigned char eventType) :
+	inline MetaEvent_Unknown(ULong timeStamp, UChar eventType) :
 										MetaEvent(timeStamp, eventType) {}
-	inline MetaEvent_Unknown(unsigned long timeStamp, unsigned char eventType, const Binary &binary) :
+	inline MetaEvent_Unknown(ULong timeStamp, UChar eventType, const Binary &binary) :
 										MetaEvent(timeStamp, eventType), _binary(binary) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
@@ -401,13 +401,13 @@ class MetaEvent_SequenceNumber : public MetaEvent {
 public:
 	enum { EventType = 0x00 };
 private:
-	unsigned short _number;
+	UShort _number;
 public:
 	inline MetaEvent_SequenceNumber(const MetaEvent_SequenceNumber &event) : MetaEvent(event),
 										_number(event._number) {}
-	inline MetaEvent_SequenceNumber(unsigned long timeStamp) :
+	inline MetaEvent_SequenceNumber(ULong timeStamp) :
 								MetaEvent(timeStamp, EventType), _number(0) {}
-	inline MetaEvent_SequenceNumber(unsigned long timeStamp, unsigned short number) :
+	inline MetaEvent_SequenceNumber(ULong timeStamp, UShort number) :
 								MetaEvent(timeStamp, EventType), _number(number) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
@@ -433,9 +433,9 @@ private:
 public:
 	inline MetaEvent_TextEvent(const MetaEvent_TextEvent &event) : MetaEvent(event),
 										_text(event._text) {}
-	inline MetaEvent_TextEvent(unsigned long timeStamp) :
+	inline MetaEvent_TextEvent(ULong timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	inline MetaEvent_TextEvent(unsigned long timeStamp, const String &text) :
+	inline MetaEvent_TextEvent(ULong timeStamp, const String &text) :
 										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
@@ -461,9 +461,9 @@ private:
 public:
 	inline MetaEvent_CopyrightNotice(const MetaEvent_CopyrightNotice &event) : MetaEvent(event),
 										_text(event._text) {}
-	inline MetaEvent_CopyrightNotice(unsigned long timeStamp) :
+	inline MetaEvent_CopyrightNotice(ULong timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	inline MetaEvent_CopyrightNotice(unsigned long timeStamp, const String &text) :
+	inline MetaEvent_CopyrightNotice(ULong timeStamp, const String &text) :
 										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
@@ -489,9 +489,9 @@ private:
 public:
 	inline MetaEvent_SequenceOrTrackName(const MetaEvent_SequenceOrTrackName &event) : MetaEvent(event),
 										_text(event._text) {}
-	inline MetaEvent_SequenceOrTrackName(unsigned long timeStamp) :
+	inline MetaEvent_SequenceOrTrackName(ULong timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	inline MetaEvent_SequenceOrTrackName(unsigned long timeStamp, const String &text) :
+	inline MetaEvent_SequenceOrTrackName(ULong timeStamp, const String &text) :
 										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
@@ -517,9 +517,9 @@ private:
 public:
 	inline MetaEvent_InstrumentName(const MetaEvent_InstrumentName &event) : MetaEvent(event),
 										_text(event._text) {}
-	inline MetaEvent_InstrumentName(unsigned long timeStamp) :
+	inline MetaEvent_InstrumentName(ULong timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	inline MetaEvent_InstrumentName(unsigned long timeStamp, const String &text) :
+	inline MetaEvent_InstrumentName(ULong timeStamp, const String &text) :
 										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
@@ -545,9 +545,9 @@ private:
 public:
 	inline MetaEvent_LyricText(const MetaEvent_LyricText &event) : MetaEvent(event),
 										_text(event._text) {}
-	inline MetaEvent_LyricText(unsigned long timeStamp) :
+	inline MetaEvent_LyricText(ULong timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	inline MetaEvent_LyricText(unsigned long timeStamp, const String &text) :
+	inline MetaEvent_LyricText(ULong timeStamp, const String &text) :
 										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
@@ -573,9 +573,9 @@ private:
 public:
 	inline MetaEvent_MarkerText(const MetaEvent_MarkerText &event) : MetaEvent(event),
 										_text(event._text) {}
-	inline MetaEvent_MarkerText(unsigned long timeStamp) :
+	inline MetaEvent_MarkerText(ULong timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	inline MetaEvent_MarkerText(unsigned long timeStamp, const String &text) :
+	inline MetaEvent_MarkerText(ULong timeStamp, const String &text) :
 										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
@@ -601,9 +601,9 @@ private:
 public:
 	inline MetaEvent_CuePoint(const MetaEvent_CuePoint &event) : MetaEvent(event),
 										_text(event._text) {}
-	inline MetaEvent_CuePoint(unsigned long timeStamp) :
+	inline MetaEvent_CuePoint(ULong timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	inline MetaEvent_CuePoint(unsigned long timeStamp, const String &text) :
+	inline MetaEvent_CuePoint(ULong timeStamp, const String &text) :
 										MetaEvent(timeStamp, EventType), _text(text) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
@@ -625,13 +625,13 @@ class MetaEvent_MIDIChannelPrefixAssignment : public MetaEvent {
 public:
 	enum { EventType = 0x20 };
 public:
-	unsigned char _channel;
+	UChar _channel;
 public:
 	inline MetaEvent_MIDIChannelPrefixAssignment(const MetaEvent_MIDIChannelPrefixAssignment &event) : MetaEvent(event),
 										_channel(event._channel) {}
-	inline MetaEvent_MIDIChannelPrefixAssignment(unsigned long timeStamp) :
+	inline MetaEvent_MIDIChannelPrefixAssignment(ULong timeStamp) :
 								MetaEvent(timeStamp, EventType), _channel(0) {}
-	inline MetaEvent_MIDIChannelPrefixAssignment(unsigned long timeStamp, unsigned char channel) :
+	inline MetaEvent_MIDIChannelPrefixAssignment(ULong timeStamp, UChar channel) :
 								MetaEvent(timeStamp, EventType), _channel(channel) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
@@ -654,7 +654,7 @@ public:
 	enum { EventType = 0x2f };
 public:
 	inline MetaEvent_EndOfTrack(const MetaEvent_EndOfTrack &event) : MetaEvent(event) {}
-	inline MetaEvent_EndOfTrack(unsigned long timeStamp) :
+	inline MetaEvent_EndOfTrack(ULong timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
 	inline static bool CheckEvent(const Event *pEvent) {
 		return pEvent != NULL && pEvent->IsMetaEvent() &&
@@ -680,13 +680,13 @@ class MetaEvent_TempoSetting : public MetaEvent {
 public:
 	enum { EventType = 0x51 };
 private:
-	unsigned long _mpqn;	// usec / quarter-note
+	ULong _mpqn;	// usec / quarter-note
 public:
 	inline MetaEvent_TempoSetting(const MetaEvent_TempoSetting &event) : MetaEvent(event),
 										_mpqn(event._mpqn) {}
-	inline MetaEvent_TempoSetting(unsigned long timeStamp) :
+	inline MetaEvent_TempoSetting(ULong timeStamp) :
 									MetaEvent(timeStamp, EventType), _mpqn(0) {}
-	inline MetaEvent_TempoSetting(unsigned long timeStamp, unsigned long mpqn) :
+	inline MetaEvent_TempoSetting(ULong timeStamp, ULong mpqn) :
 									MetaEvent(timeStamp, EventType), _mpqn(mpqn) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
@@ -708,16 +708,16 @@ class MetaEvent_SMPTEOffset : public MetaEvent {
 public:
 	enum { EventType = 0x54 };
 private:
-	unsigned char _hour, _minute, _second, _frame, _subFrame;
+	UChar _hour, _minute, _second, _frame, _subFrame;
 public:
 	inline MetaEvent_SMPTEOffset(const MetaEvent_SMPTEOffset &event) : MetaEvent(event),
 			_hour(event._hour), _minute(event._minute), _second(event._second),
 			_frame(event._frame), _subFrame(event._subFrame) {}
-	inline MetaEvent_SMPTEOffset(unsigned long timeStamp) :
+	inline MetaEvent_SMPTEOffset(ULong timeStamp) :
 			MetaEvent(timeStamp, EventType), _hour(0), _minute(0), _second(0),
 			_frame(0), _subFrame(0) {}
-	inline MetaEvent_SMPTEOffset(unsigned long timeStamp, unsigned char hour, unsigned char minute,
-						unsigned char second, unsigned char frame, unsigned char subFrame) :
+	inline MetaEvent_SMPTEOffset(ULong timeStamp, UChar hour, UChar minute,
+						UChar second, UChar frame, UChar subFrame) :
 			MetaEvent(timeStamp, EventType), _hour(hour), _minute(minute), _second(second),
 			_frame(frame), _subFrame(subFrame) {}
 	virtual const Symbol *GetSymbol() const;
@@ -740,17 +740,17 @@ class MetaEvent_TimeSignature : public MetaEvent {
 public:
 	enum { EventType = 0x58 };
 private:
-	unsigned char _numerator, _denominator;
-	unsigned char _metronome, _cnt32nd;
+	UChar _numerator, _denominator;
+	UChar _metronome, _cnt32nd;
 public:
 	inline MetaEvent_TimeSignature(const MetaEvent_TimeSignature &event) : MetaEvent(event),
 			_numerator(event._numerator), _denominator(event._denominator),
 			_metronome(event._metronome), _cnt32nd(event._cnt32nd) {}
-	inline MetaEvent_TimeSignature(unsigned long timeStamp) :
+	inline MetaEvent_TimeSignature(ULong timeStamp) :
 			MetaEvent(timeStamp, EventType), _numerator(0), _denominator(0),
 			_metronome(0), _cnt32nd(0) {}
-	inline MetaEvent_TimeSignature(unsigned long timeStamp, unsigned char numerator,
-				unsigned char denominator, unsigned char metronome, unsigned char cnt32nd) :
+	inline MetaEvent_TimeSignature(ULong timeStamp, UChar numerator,
+				UChar denominator, UChar metronome, UChar cnt32nd) :
 			MetaEvent(timeStamp, EventType), _numerator(numerator), _denominator(denominator),
 			_metronome(metronome), _cnt32nd(cnt32nd) {}
 	virtual const Symbol *GetSymbol() const;
@@ -773,13 +773,13 @@ class MetaEvent_KeySignature : public MetaEvent {
 public:
 	enum { EventType = 0x59 };
 private:
-	unsigned char _key, _scale;
+	UChar _key, _scale;
 public:
 	inline MetaEvent_KeySignature(const MetaEvent_KeySignature &event) : MetaEvent(event),
 							_key(event._key), _scale(event._scale) {}
-	inline MetaEvent_KeySignature(unsigned long timeStamp) :
+	inline MetaEvent_KeySignature(ULong timeStamp) :
 					MetaEvent(timeStamp, EventType), _key(0), _scale(0) {}
-	inline MetaEvent_KeySignature(unsigned long timeStamp, unsigned char key, unsigned char scale) :
+	inline MetaEvent_KeySignature(ULong timeStamp, UChar key, UChar scale) :
 					MetaEvent(timeStamp, EventType), _key(key), _scale(scale) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;
@@ -805,9 +805,9 @@ private:
 public:
 	inline MetaEvent_SequencerSpecificEvent(const MetaEvent_SequencerSpecificEvent &event) : MetaEvent(event),
 										_binary(event._binary) {}
-	inline MetaEvent_SequencerSpecificEvent(unsigned long timeStamp) :
+	inline MetaEvent_SequencerSpecificEvent(ULong timeStamp) :
 										MetaEvent(timeStamp, EventType) {}
-	inline MetaEvent_SequencerSpecificEvent(unsigned long timeStamp, const Binary &binary) :
+	inline MetaEvent_SequencerSpecificEvent(ULong timeStamp, const Binary &binary) :
 										MetaEvent(timeStamp, EventType), _binary(binary) {}
 	virtual const Symbol *GetSymbol() const;
 	virtual String GetArgsName() const;

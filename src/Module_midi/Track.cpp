@@ -12,15 +12,15 @@ Track::Track(Property *pProperty) : _cntRef(1),
 	_ppEventAt = _pEventOwner->end();
 }
 
-unsigned char Track::GetChannel()
+UChar Track::GetChannel()
 {
 	if (_channel < 0) _channel = GetProperty()->GetChannelNext();
-	return static_cast<unsigned char>(_channel);
+	return static_cast<UChar>(_channel);
 }
 
-unsigned long Track::GetPrevTimeStamp() const
+ULong Track::GetPrevTimeStamp() const
 {
-	unsigned long timeStamp = 0;
+	ULong timeStamp = 0;
 	if (_pEventOwner->empty()) {
 		// nothing to do
 	} else if (_ppEventAt == _pEventOwner->begin()) {
@@ -49,7 +49,7 @@ void Track::AddEvent(Event *pEvent)
 	_ppEventAt++;
 }
 
-void Track::AddEvent(Event *pEvent, unsigned long deltaTime)
+void Track::AddEvent(Event *pEvent, ULong deltaTime)
 {
 	pEvent->SetTimeStamp(GetPrevTimeStamp() + deltaTime);
 	_ppEventAt = _pEventOwner->insert(_ppEventAt, pEvent);
@@ -95,7 +95,7 @@ bool Track::Erase(Signal sig, size_t cnt)
 		return false;
 	}
 	EventOwner::iterator ppEvent = _pEventOwner->begin() + offset;
-	unsigned long timeStampBegin = (*ppEvent)->GetTimeStamp();
+	ULong timeStampBegin = (*ppEvent)->GetTimeStamp();
 	for (size_t i = 0; i < cnt; i++) {
 		Event *pEvent = *ppEvent;
 		Event::Delete(pEvent);
@@ -103,7 +103,7 @@ bool Track::Erase(Signal sig, size_t cnt)
 	}
 	_ppEventAt = ppEvent;
 	if (ppEvent != _pEventOwner->end()) {
-		unsigned long timeStampTail = (*ppEvent)->GetTimeStamp();
+		ULong timeStampTail = (*ppEvent)->GetTimeStamp();
 		long deltaTime = timeStampTail - timeStampBegin;
 		AdjustFollowingTimeStamp(-deltaTime);
 	}

@@ -36,8 +36,8 @@ public:
 };
 
 #define FOURCC(c1, c2, c3, c4) \
-	(static_cast<unsigned long>(c1) << 0) + (static_cast<unsigned long>(c2) << 8) + \
-	(static_cast<unsigned long>(c3) << 16) + (static_cast<unsigned long>(c4) << 24)
+	(static_cast<ULong>(c1) << 0) + (static_cast<ULong>(c2) << 8) + \
+	(static_cast<ULong>(c3) << 16) + (static_cast<ULong>(c4) << 24)
 
 class SoundFont {
 public:
@@ -141,8 +141,8 @@ public:
 		GEN_endOper						= 60,
 	};
 	struct rangesType {
-		unsigned char byLo;
-		unsigned char byHi;
+		UChar byLo;
+		UChar byHi;
 	};
 	struct GeneratorProps {
 		UShort startAddrsOffset;			// 0
@@ -207,9 +207,9 @@ public:
 		UShort unused5;						// 59
 		UShort endOper;						// 60
 		void Reset();
-		bool Update(SFGenerator sfGenOper, unsigned short genAmount);
+		bool Update(SFGenerator sfGenOper, UShort genAmount);
 	};
-	typedef unsigned short SFModulator;
+	typedef UShort SFModulator;
 	enum SFTransform {
 		TRANS_Linear					= 0,
 	};
@@ -255,8 +255,8 @@ public:
 		};
 	private:
 		int _cntRef;
-		unsigned short _wMajor;
-		unsigned short _wMinor;
+		UShort _wMajor;
+		UShort _wMinor;
 	public:
 		Gura_DeclareReferenceAccessor(sfVersionTag);
 	public:
@@ -286,12 +286,12 @@ public:
 	private:
 		int _cntRef;
 		char _achPresetName[20];
-		unsigned short _wPreset;
-		unsigned short _wBank;
-		unsigned short _wPresetBagNdx;
-		unsigned long _dwLibrary;
-		unsigned long _dwGenre;
-		unsigned long _dwMorphology;
+		UShort _wPreset;
+		UShort _wBank;
+		UShort _wPresetBagNdx;
+		ULong _dwLibrary;
+		ULong _dwGenre;
+		ULong _dwMorphology;
 		std::auto_ptr<sfPresetBagOwner> _pPresetBagOwner;
 	public:
 		Gura_DeclareReferenceAccessor(sfPresetHeader);
@@ -319,8 +319,8 @@ public:
 		};
 	private:
 		int _cntRef;
-		unsigned short _wGenNdx;
-		unsigned short _wModNdx;
+		UShort _wGenNdx;
+		UShort _wModNdx;
 		std::auto_ptr<sfGenOwner> _pGenOwner;
 		std::auto_ptr<sfModOwner> _pModOwner;
 		AutoPtr<sfInst> _pInst; // valid only when instrument generator exists in sfGenOwner
@@ -386,7 +386,7 @@ public:
 	private:
 		int _cntRef;
 		SFGenerator _sfGenOper;
-		unsigned short _genAmount;
+		UShort _genAmount;
 	public:
 		Gura_DeclareReferenceAccessor(sfGen);
 	public:
@@ -397,7 +397,7 @@ public:
 	public:
 		void Print(int indentLevel) const;
 		inline SFGenerator GetGenOper() const { return _sfGenOper; }
-		inline unsigned short GetGenAmount() const { return _genAmount; }
+		inline UShort GetGenAmount() const { return _genAmount; }
 	};
 	typedef ListTemplate<sfGen> sfGenList;
 	class sfGenOwner : public OwnerTemplate<sfGen, sfGenList> {
@@ -413,7 +413,7 @@ public:
 	private:
 		int _cntRef;
 		char _achInstName[20];
-		unsigned short _wInstBagNdx;
+		UShort _wInstBagNdx;
 		std::auto_ptr<sfInstBagOwner> _pInstBagOwner;
 	public:
 		Gura_DeclareReferenceAccessor(sfInst);
@@ -441,8 +441,8 @@ public:
 		};
 	private:
 		int _cntRef;
-		unsigned short _wInstGenNdx;
-		unsigned short _wInstModNdx;
+		UShort _wInstGenNdx;
+		UShort _wInstModNdx;
 		std::auto_ptr<sfInstGenOwner> _pInstGenOwner;
 		std::auto_ptr<sfInstModOwner> _pInstModOwner;
 		AutoPtr<sfSample> _pSample; // valid only when sampleID generator exists in sfInstGenOwner
@@ -508,7 +508,7 @@ public:
 	private:
 		int _cntRef;
 		SFGenerator _sfGenOper;
-		unsigned short _genAmount;
+		UShort _genAmount;
 	public:
 		Gura_DeclareReferenceAccessor(sfInstGen);
 	public:
@@ -519,7 +519,7 @@ public:
 	public:
 		void Print(int indentLevel) const;
 		inline SFGenerator GetGenOper() const { return _sfGenOper; }
-		inline unsigned short GetGenAmount() const { return _genAmount; }
+		inline UShort GetGenAmount() const { return _genAmount; }
 	};
 	typedef ListTemplate<sfInstGen> sfInstGenList;
 	class sfInstGenOwner : public OwnerTemplate<sfInstGen, sfInstGenList> {
@@ -535,7 +535,7 @@ public:
 			Gura_PackedULong_LE(dwStartloop);
 			Gura_PackedULong_LE(dwEndloop);
 			Gura_PackedULong_LE(dwSampleRate);
-			unsigned char byOriginalKey;
+			UChar byOriginalKey;
 			char chCorrection;
 			Gura_PackedUShort_LE(wSampleLink);
 			Gura_PackedUShort_LE(sfSampleType);
@@ -543,14 +543,14 @@ public:
 	private:
 		int _cntRef;
 		char _achSampleName[20];
-		unsigned long _dwStart;
-		unsigned long _dwEnd;
-		unsigned long _dwStartloop;
-		unsigned long _dwEndloop;
-		unsigned long _dwSampleRate;
-		unsigned char _byOriginalKey;
+		ULong _dwStart;
+		ULong _dwEnd;
+		ULong _dwStartloop;
+		ULong _dwEndloop;
+		ULong _dwSampleRate;
+		UChar _byOriginalKey;
 		char _chCorrection;
-		unsigned short _wSampleLink;
+		UShort _wSampleLink;
 		SFSampleLink _sfSampleType;
 	public:
 		Gura_DeclareReferenceAccessor(sfSample);

@@ -24,8 +24,8 @@ private:
 	int _cntRef;
 	Signal _sig;
 	AutoPtr<Port> _pPort;
-	unsigned short _division;
-	unsigned long _mpqn;
+	UShort _division;
+	ULong _mpqn;
 	double _speed;
 	int _iRepeat;
 	int _cntRepeat;
@@ -41,9 +41,9 @@ protected:
 	virtual ~Player();
 public:
 	inline Port *GetPort() { return _pPort.get(); }
-	inline void SetMPQN(unsigned long mpqn) { _mpqn = mpqn; }
+	inline void SetMPQN(ULong mpqn) { _mpqn = mpqn; }
 	bool SetupSequence(Signal sig, const Sequence *pSequence,
-		unsigned short division, unsigned long mpqn, double speed, int cntRepeat);
+				UShort division, ULong mpqn, double speed, int cntRepeat);
 	bool Play();
 	void PlayBackground();
 	inline void SetSpeed(double speed) { _speed = speed; }

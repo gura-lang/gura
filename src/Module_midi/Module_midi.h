@@ -250,16 +250,16 @@ class Object_controller : public Object {
 public:
 	Gura_DeclareObjectAccessor(controller)
 private:
-	unsigned char _controller;
+	UChar _controller;
 public:
-	inline Object_controller(Environment &env, unsigned char controller) :
+	inline Object_controller(Environment &env, UChar controller) :
 			Object(Gura_UserClass(controller)), _controller(controller) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline unsigned char GetController() const { return _controller; }
+	inline UChar GetController() const { return _controller; }
 	inline const ControllerInfo &GetControllerInfo() const { return *ControllerInfoById(_controller); }
 };
 
@@ -274,14 +274,14 @@ public:
 private:
 	int _program;
 public:
-	inline Object_program(Environment &env, unsigned char program) :
+	inline Object_program(Environment &env, UChar program) :
 			Object(Gura_UserClass(program)), _program(program) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline unsigned char GetProgram() const { return _program; }
+	inline UChar GetProgram() const { return _program; }
 	inline const ProgramInfo &GetProgramInfo() const { return *ProgramInfoById(_program); }
 };
 

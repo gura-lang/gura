@@ -106,8 +106,8 @@ bool SoundFont::ReadChunks(Environment &env, Signal sig)
 		sig.SetError(ERR_FormatError, "invalid SF2 format");
 		return false;
 	}
-	unsigned long ckID = Gura_UnpackULong(chunkHdr.ckID);
-	unsigned long ckSize = Gura_UnpackULong(chunkHdr.ckSize);
+	ULong ckID = Gura_UnpackULong(chunkHdr.ckID);
+	ULong ckSize = Gura_UnpackULong(chunkHdr.ckSize);
 	if (ckID != CKID_RIFF) {
 		sig.SetError(ERR_FormatError, "can't find RIFF chunk");
 		return false;
@@ -207,9 +207,9 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, size_t bytes)
 			return false;
 		}
 		bytesRest -= bytesRead;
-		unsigned long ckID = Gura_UnpackULong(chunkHdr.ckID);
-		unsigned long ckSize = Gura_UnpackULong(chunkHdr.ckSize);
-		unsigned long ckSizeAlign = (ckSize + 1) / 2 * 2;
+		ULong ckID = Gura_UnpackULong(chunkHdr.ckID);
+		ULong ckSize = Gura_UnpackULong(chunkHdr.ckSize);
+		ULong ckSizeAlign = (ckSize + 1) / 2 * 2;
 		switch (ckID) {
 		case CKID_LIST: {
 			char listHdr[4];
@@ -493,7 +493,7 @@ void SoundFont::GeneratorProps::Reset()
 	endOper						= 0;		// 60
 }
 
-bool SoundFont::GeneratorProps::Update(SFGenerator sfGenOper, unsigned short genAmount)
+bool SoundFont::GeneratorProps::Update(SFGenerator sfGenOper, UShort genAmount)
 {
 	switch (sfGenOper) {
 	case GEN_startAddrsOffset:				// 0
@@ -692,13 +692,13 @@ bool SoundFont::GeneratorProps::Update(SFGenerator sfGenOper, unsigned short gen
 //-----------------------------------------------------------------------------
 void SoundFont::ChunkHdr::Print(int indentLevel) const
 {
-	unsigned long ckID = Gura_UnpackULong(ckID);
-	unsigned long ckSize = Gura_UnpackULong(ckSize);
+	ULong ckID = Gura_UnpackULong(ckID);
+	ULong ckSize = Gura_UnpackULong(ckSize);
 	::printf("%*s<%c%c%c%c-ck> %dbytes\n", indentLevel * 2, "",
-			static_cast<unsigned char>(ckID >> 0),
-			static_cast<unsigned char>(ckID >> 8),
-			static_cast<unsigned char>(ckID >> 16),
-			static_cast<unsigned char>(ckID >> 24), ckSize);
+			static_cast<UChar>(ckID >> 0),
+			static_cast<UChar>(ckID >> 8),
+			static_cast<UChar>(ckID >> 16),
+			static_cast<UChar>(ckID >> 24), ckSize);
 }
 
 //-----------------------------------------------------------------------------
@@ -845,7 +845,7 @@ bool SoundFont::sfPresetBag::SetupReference(Signal sig, sfPresetBag *pPresetBagN
 	for ( ; ppGen != ppGenEnd; ppGen++) {
 		const sfGen *pGen = *ppGen;
 		if (pGen->GetGenOper() == GEN_instrument) {
-			unsigned short wInstNdx = pGen->GetGenAmount();
+			UShort wInstNdx = pGen->GetGenAmount();
 			if (static_cast<size_t>(wInstNdx) >= pdta.insts.size()) {
 				sig.SetError(ERR_FormatError, "invalid index value in sfGen instrument");
 				return false;
@@ -1019,7 +1019,7 @@ bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext, c
 		const sfInstGen *pInstGen = *ppInstGen;
 		GetInstGenOwner().push_back(sfInstGen::Reference(pInstGen));
 		if (pInstGen->GetGenOper() == GEN_sampleID) {
-			unsigned short wSampleNdx = pInstGen->GetGenAmount();
+			UShort wSampleNdx = pInstGen->GetGenAmount();
 			if (static_cast<size_t>(wSampleNdx) >= pdta.shdrs.size()) {
 				sig.SetError(ERR_FormatError, "invalid index value in sfInstGen sampleID");
 				return false;

@@ -12,9 +12,9 @@ Gura_BeginModule(midi)
 class Property {
 private:
 	int _cntRef;
-	unsigned short _division;
-	unsigned long _mpqn;
-	unsigned char _channelNext;
+	UShort _division;
+	ULong _mpqn;
+	UChar _channelNext;
 public:
 	Gura_DeclareReferenceAccessor(Property);
 public:
@@ -23,12 +23,12 @@ public:
 private:
 	inline ~Property() {}
 public:
-	inline void SetDivision(unsigned short division) { _division = division; }
-	inline unsigned short GetDivision() const { return _division; }
-	inline void SetMPQN(unsigned long mpqn) { _mpqn = mpqn; }
-	inline unsigned long GetMPQN() const { return _mpqn; }
-	inline unsigned char GetChannelNext() {
-		unsigned char rtn = _channelNext;
+	inline void SetDivision(UShort division) { _division = division; }
+	inline UShort GetDivision() const { return _division; }
+	inline void SetMPQN(ULong mpqn) { _mpqn = mpqn; }
+	inline ULong GetMPQN() const { return _mpqn; }
+	inline UChar GetChannelNext() {
+		UChar rtn = _channelNext;
 		if (_channelNext < 15) _channelNext++;
 		return rtn;
 	}
@@ -55,11 +55,11 @@ public:
 	inline void RequestEndOfTrack() { _requestEndOfTrackFlag = true; }
 	inline bool IsEndOfTrackRequested() const { return _requestEndOfTrackFlag; }
 	inline void SetChannel(int channel) { _channel = channel; }
-	unsigned char GetChannel();
-	unsigned long GetPrevTimeStamp() const;
+	UChar GetChannel();
+	ULong GetPrevTimeStamp() const;
 	void AdjustFollowingTimeStamp(long deltaTime);
 	void AddEvent(Event *pEvent);
-	void AddEvent(Event *pEvent, unsigned long deltaTime);
+	void AddEvent(Event *pEvent, ULong deltaTime);
 	bool SeekSet(Signal sig, long offset);
 	bool SeekCur(Signal sig, long offset);
 	long Tell() const;
@@ -88,7 +88,7 @@ protected:
 	~TrackOwner();
 public:
 	void Clear();
-	unsigned char GetChannelNext();
+	UChar GetChannelNext();
 };
 
 }}

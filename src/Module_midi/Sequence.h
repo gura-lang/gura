@@ -28,13 +28,13 @@ public:
 		Gura_PackedULong_BE(length);
 	};
 private:
-	unsigned short _format;
+	UShort _format;
 	AutoPtr<TrackOwner> _pTrackOwner;
 	AutoPtr<Property> _pProperty;
 public:
 	Sequence();
-	inline void SetFormat(unsigned short format) { _format = format; }
-	inline unsigned short GetFormat() const { return _format; }
+	inline void SetFormat(UShort format) { _format = format; }
+	inline UShort GetFormat() const { return _format; }
 	inline TrackOwner &GetTrackOwner() { return *_pTrackOwner; }
 	inline const TrackOwner &GetTrackOwner() const { return *_pTrackOwner; }
 	Property *GetProperty() { return _pProperty.get(); }

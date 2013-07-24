@@ -40,7 +40,7 @@ void MML::Reset()
 
 void MML::UpdateTimeStamp(Track *pTrack)
 {
-	unsigned long timeStamp = pTrack->GetPrevTimeStamp();
+	ULong timeStamp = pTrack->GetPrevTimeStamp();
 	if (_timeStampHead < timeStamp) {
 		_timeStampHead = _timeStampTail = timeStamp;
 	}
@@ -83,14 +83,14 @@ MML::Result MML::ParseStream(Signal sig, Track *pTrack, SimpleStream &stream)
 	Result result = RSLT_None;
 	pTrack->RequestEndOfTrack();
 	UpdateTimeStamp(pTrack);
-	unsigned long timeStampBegin = _timeStampHead;
+	ULong timeStampBegin = _timeStampHead;
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
 		char ch = (chRaw < 0)? '\0' : static_cast<char>(chRaw);
 		result = FeedChar(sig, pTrack, ch);
 		if (result != RSLT_None || ch == '\0') break;
 	}
-	unsigned long deltaTime = _timeStampTail - timeStampBegin;
+	ULong deltaTime = _timeStampTail - timeStampBegin;
 	pTrack->AdjustFollowingTimeStamp(deltaTime);
 	return result;
 }
@@ -434,7 +434,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			break;
 		}
 		case STAT_NoteFix: {
-			static const unsigned char noteTbl[] = {
+			static const UChar noteTbl[] = {
 				9, 11, 0, 2, 4, 5, 7,
 			};
 			int octave = _octave + _octaveOffset;
@@ -443,7 +443,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 				sig.SetError(ERR_FormatError, "octave is out of range");
 				return RSLT_Error;
 			}
-			unsigned char note = noteTbl[_operator - 'A'] + octave * 12;
+			UChar note = noteTbl[_operator - 'A'] + octave * 12;
 			if (_operatorSub == '#' || _operatorSub == '+') {
 				if (note < 127) note++;
 			} else if (_operatorSub == '-') {
@@ -454,8 +454,8 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			if (!_colonFlag) _timeStampHead = _timeStampTail;
 			_colonFlag = false;
 			int deltaTime = CalcDeltaTime(pTrack, _length, _cntDot);
-			unsigned long timeStampTail = _timeStampHead + deltaTime;
-			unsigned long timeStampGate = _timeStampHead + deltaTime * _gate / MAX_GATE;
+			ULong timeStampTail = _timeStampHead + deltaTime;
+			ULong timeStampGate = _timeStampHead + deltaTime * _gate / MAX_GATE;
 			bool joinedFlag = false;
 			if (_joinFlag && _pMIDIEventLast != NULL) {
 				if (_pMIDIEventLast->GetNote() == note) {
@@ -467,8 +467,8 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			}
 			_joinFlag = false;
 			if (!joinedFlag) {
-				unsigned char channel = pTrack->GetChannel();
-				unsigned char velocity = static_cast<unsigned char>(
+				UChar channel = pTrack->GetChannel();
+				UChar velocity = static_cast<UChar>(
 												_velocity * 127 / _velocityMax);
 				pTrack->AddEvent(new MIDIEvent_NoteOn(
 								_timeStampHead, channel, note, velocity));
@@ -572,7 +572,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			_colonFlag = false;
 			_joinFlag = false;
 			int deltaTime = CalcDeltaTime(pTrack, _length, _cntDot);
-			unsigned long timeStampTail = _timeStampHead + deltaTime;
+			ULong timeStampTail = _timeStampHead + deltaTime;
 			if (_timeStampTail < timeStampTail) _timeStampTail = timeStampTail;
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
@@ -711,7 +711,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 					"velocity number must be less than %d", _velocityMax + 1);
 				return RSLT_Error;
 			}
-			_velocityDefault = static_cast<unsigned char>(_numAccum);
+			_velocityDefault = static_cast<UChar>(_numAccum);
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
 			break;
@@ -747,7 +747,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 					sig.SetError(ERR_FormatError, "unknown program %s", _token.c_str());
 					return RSLT_Error;
 				}
-				_numAccum = static_cast<unsigned long>(program);
+				_numAccum = static_cast<ULong>(program);
 				pStateMachine->SetStat(STAT_ProgramFix);
 			} else {
 				_token.push_back(chRaw);
@@ -760,8 +760,8 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 							"program number must be less than %d", MAX_PROGRAM + 1);
 				return RSLT_Error;
 			}
-			unsigned char channel = pTrack->GetChannel();
-			unsigned char program = static_cast<unsigned char>(_numAccum);
+			UChar channel = pTrack->GetChannel();
+			UChar program = static_cast<UChar>(_numAccum);
 			pTrack->AddEvent(new MIDIEvent_ProgramChange(
 									_timeStampHead, channel, program));
 			continueFlag = true;
@@ -790,7 +790,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 			break;
 		}
 		case STAT_TempoFix: {
-			unsigned long mpqn = static_cast<unsigned long>(60000000 / _numAccum);
+			ULong mpqn = static_cast<ULong>(60000000 / _numAccum);
 			pTrack->AddEvent(new MetaEvent_TempoSetting(_timeStampHead, mpqn));
 			continueFlag = true;
 			pStateMachine->SetStat(STAT_Begin);
@@ -838,7 +838,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		case STAT_GroupFix: {
 			const EventOwner &eventOwner = pTrack->GetEventOwner();
 			EventOwner::const_iterator ppEvent = eventOwner.begin() + _offsetGroup;
-			unsigned long timeStampHead = (*ppEvent)->GetTimeStamp();
+			ULong timeStampHead = (*ppEvent)->GetTimeStamp();
 			int deltaTimeOrg = _timeStampTail - timeStampHead;
 			if (deltaTimeOrg != 0) {
 				int deltaTime = CalcDeltaTime(pTrack, _length, _cntDot);

@@ -67,13 +67,13 @@ bool Sequence::Read(Environment &env, Signal sig, Stream &stream)
 		Track *pTrack = new Track(Property::Reference(GetProperty()));
 		GetTrackOwner().push_back(pTrack);
 		std::auto_ptr<MIDIEvent> pMIDIEvent;
-		unsigned char eventType = 0x00;
+		UChar eventType = 0x00;
 		Binary binary;
 		Stat stat = STAT_EventStart;
-		unsigned long deltaTime = 0x00000000;
-		unsigned long timeStamp = 0x00000000;
-		unsigned long length = 0x00000000;
-		unsigned char statusPrev = 0x00;
+		ULong deltaTime = 0x00000000;
+		ULong timeStamp = 0x00000000;
+		ULong length = 0x00000000;
+		UChar statusPrev = 0x00;
 		bool enableRunningStatus = false;
 		size_t lengthRest = Gura_UnpackULong(trackChunkTop.length);
 		while  (lengthRest > 0) {
@@ -83,9 +83,9 @@ bool Sequence::Read(Environment &env, Signal sig, Stream &stream)
 				return false;
 			}
 			lengthRest -= lengthRead;
-			unsigned char *p = reinterpret_cast<unsigned char *>(pMemory->GetPointer());
+			UChar *p = reinterpret_cast<UChar *>(pMemory->GetPointer());
 			for ( ; lengthRead > 0; p++, lengthRead--) {
-				unsigned char data = *p;
+				UChar data = *p;
 				//::printf("%02x", data);
 				bool continueFlag = false;
 				do {
@@ -104,7 +104,7 @@ bool Sequence::Read(Environment &env, Signal sig, Stream &stream)
 						}
 					} else if (stat == STAT_Status) {
 						enableRunningStatus = true;
-						unsigned char status = data;
+						UChar status = data;
 						if ((status & 0x80) == 0) {
 							// running status
 							continueFlag = true;
@@ -115,8 +115,8 @@ bool Sequence::Read(Environment &env, Signal sig, Stream &stream)
 						timeStamp += deltaTime;
 						statusPrev = status;
 						if (MIDIEvent::CheckStatus(status)) {
-							unsigned char statusUpper = status & 0xf0;
-							unsigned char channel = status & 0x0f;
+							UChar statusUpper = status & 0xf0;
+							UChar channel = status & 0x0f;
 							if (statusUpper == MIDIEvent_NoteOff::Status) {
 								pMIDIEvent.reset(new MIDIEvent_NoteOff(timeStamp, channel));
 							} else if (statusUpper == MIDIEvent_NoteOn::Status) {
@@ -212,10 +212,10 @@ bool Sequence::Write(Environment &env, Signal sig, Stream &stream)
 	} while (0);
 	do {
 		HeaderChunk headerChunk;
-		unsigned short format = (GetTrackOwner().size() <= 1)? 0 : 1;
+		UShort format = (GetTrackOwner().size() <= 1)? 0 : 1;
 		Gura_PackUShort(headerChunk.format, format);
 		Gura_PackUShort(headerChunk.num_track_chunks, GetTrackOwner().empty()? 1 :
-							static_cast<unsigned short>(GetTrackOwner().size()));
+							static_cast<UShort>(GetTrackOwner().size()));
 		Gura_PackUShort(headerChunk.division, _pProperty->GetDivision());
 		if (stream.Write(sig, &headerChunk, HeaderChunk::Size) != HeaderChunk::Size) {
 			return false;
@@ -234,13 +234,13 @@ bool Sequence::Write(Environment &env, Signal sig, Stream &stream)
 		const Track *pTrack = *ppTrack;
 		AutoPtr<StreamMemory> pStreamMemory(new StreamMemory(env, sig));
 		const Event *pEventPrev = NULL;
-		unsigned long timeStamp = 0x00000000;
+		ULong timeStamp = 0x00000000;
 		AutoPtr<EventOwner> pEventOwner(new EventOwner());
 		pEventOwner->AddEvents(pTrack->GetEventOwner());
 		pEventOwner->Sort();
 		foreach_const (EventOwner, ppEvent, *pEventOwner) {
 			Event *pEvent = *ppEvent;
-			unsigned long timeDelta = pEvent->GetTimeStamp() - timeStamp;
+			ULong timeDelta = pEvent->GetTimeStamp() - timeStamp;
 			timeStamp = pEvent->GetTimeStamp();
 			if (!Event::WriteVariableFormat(sig, *pStreamMemory, timeDelta)) return false;
 			if (!pEvent->Write(sig, *pStreamMemory, pEventPrev)) return false;
@@ -248,7 +248,7 @@ bool Sequence::Write(Environment &env, Signal sig, Stream &stream)
 		}
 		if (pTrack->IsEndOfTrackRequested() &&
 							!MetaEvent_EndOfTrack::CheckEvent(pEventPrev)) {
-			unsigned long timeDelta = 0;
+			ULong timeDelta = 0;
 			timeStamp += timeDelta;
 			AutoPtr<Event> pEvent(new MetaEvent_EndOfTrack(timeStamp));
 			if (!Event::WriteVariableFormat(sig, *pStreamMemory, timeDelta)) return false;
@@ -256,7 +256,7 @@ bool Sequence::Write(Environment &env, Signal sig, Stream &stream)
 		}
 		TrackChunkTop trackChunkTop;
 		::memcpy(trackChunkTop.MTrk, "MTrk", sizeof(trackChunkTop.MTrk));
-		Gura_PackULong(trackChunkTop.length, static_cast<unsigned long>(pStreamMemory->GetSize()));
+		Gura_PackULong(trackChunkTop.length, static_cast<ULong>(pStreamMemory->GetSize()));
 		if (stream.Write(sig, &trackChunkTop, TrackChunkTop::Size) != TrackChunkTop::Size) {
 			return false;
 		}

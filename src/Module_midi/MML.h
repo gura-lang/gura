@@ -87,8 +87,8 @@ private:
 	bool _colonFlag;
 	bool _joinFlag;
 	long _offsetGroup;
-	unsigned long _timeStampHead;
-	unsigned long _timeStampTail;
+	ULong _timeStampHead;
+	ULong _timeStampTail;
 	char _chOctaveUp;
 	char _chOctaveDown;
 	String _token;
