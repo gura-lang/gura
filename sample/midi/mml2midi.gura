@@ -11,5 +11,21 @@ if (sys.argv.len() < 3) {
 } else {
 	fileNameDst = sys.argv[2]
 }
-midi.sequence().readmml(fileNameSrc).write(fileNameDst)
+midi.sequence() {|seq|
+	seq.track(0) {|track|
+		track.sequence_or_track_name('')
+		//track.time_signature(numerator => 3, denominator => 3,
+		//								metronome => 24, cnt32nd => 8)
+		track.key_signature(key => 0, scale => 0)
+		track.smpte_offset(hour => 0, minute => 0, second => 0, frame => 0, subFrame => 0)
+		track.control_change(0, `all_controllers_off,	0)
+		track.control_change(0, `chorus_level,			60)
+		track.control_change(0, `effects_level,			126)
+		track.control_change(0, `volume,				127)
+		track.control_change(0, `pan_position,			64)
+		track.control_change(0, `hold_pedal,			127)
+		track.program_change(0, midi.program.acoustic_piano.id)
+	}
+	seq.readmml(fileNameSrc).write(fileNameDst)
+}
 println(fileNameDst, ' was created')
