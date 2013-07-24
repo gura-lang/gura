@@ -484,7 +484,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		}
 		case STAT_ChannelMaybe: {
 			if (ch == 'H') {
-				_numAccum = 0;
+				pStateMachine->SetStat(STAT_ChannelPre);
 			} else {
 				_operator = 'C';
 				_operatorSub = '\0';
@@ -500,6 +500,7 @@ MML::Result MML::FeedChar(Signal sig, Track *pTrack, int ch)
 		}
 		case STAT_ChannelPre: {	// -------- Channel --------
 			if (IsDigit(ch)) {
+				_numAccum = 0;
 				continueFlag = true;
 				pStateMachine->SetStat(STAT_Channel);
 			} else if (IsWhite(ch)) {
