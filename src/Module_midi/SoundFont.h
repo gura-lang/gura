@@ -8,10 +8,11 @@ template<typename T_Elem>
 class ListTemplate : public std::vector<T_Elem *> {
 public:
 	T_Elem *Get(size_t idx) {
-		return (idx < size())? (*this)[idx] : NULL;
+		return (idx < this->size())? (*this)[idx] : NULL;
 	}
 	void Print(int indentLevel) const {
-		foreach_const (ListTemplate, ppElem, *this) {
+		for (typename ListTemplate::const_iterator ppElem = this->begin();
+										ppElem != this->end(); ppElem++) {
 			const T_Elem *pElem = *ppElem;
 			pElem->Print(indentLevel);
 		}
@@ -25,11 +26,12 @@ public:
 		Clear();
 	}
 	void Clear() {
-		foreach (OwnerTemplate, ppElem, *this) {
+		for (typename OwnerTemplate::iterator ppElem = this->begin();
+			 							ppElem != this->end(); ppElem++) {
 			T_Elem *pElem = *ppElem;
 			T_Elem::Delete(pElem);
 		}
-		clear();
+		this->clear();
 	}
 };
 
