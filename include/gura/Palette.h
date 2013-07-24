@@ -32,12 +32,12 @@ public:
 private:
 	int _cntRef;
 	size_t _nEntries;
-	unsigned char *_buff;
+	UChar *_buff;
 	AutoPtr<Memory> _pMemory;
-	static const unsigned char _rgb_Mono[];
-	static const unsigned char _rgb_Basic[];
-	static const unsigned char _rgb_Win256[];
-	static const unsigned char _rgb_WebSafe[];
+	static const UChar _rgb_Mono[];
+	static const UChar _rgb_Basic[];
+	static const UChar _rgb_Win256[];
+	static const UChar _rgb_WebSafe[];
 public:
 	Gura_DeclareReferenceAccessor(Palette);
 public:
@@ -46,20 +46,20 @@ public:
 private:
 	virtual ~Palette();
 public:
-	inline unsigned char *GetBuff() { return _buff; }
+	inline UChar *GetBuff() { return _buff; }
 	static inline size_t CalcBuffSize(size_t nEntries) { return nEntries * 4; }
 	inline size_t GetBuffSize() const { return CalcBuffSize(_nEntries); }
-	inline unsigned char *GetEntry(size_t idx) { return _buff + idx * 4; }
-	inline const unsigned char *GetEntry(size_t idx) const { return _buff + idx * 4; }
-	inline void SetEntry(size_t idx, unsigned char red,
-			unsigned char green, unsigned char blue, unsigned char alpha = 255) {
-		unsigned char *entry = GetEntry(idx);
+	inline UChar *GetEntry(size_t idx) { return _buff + idx * 4; }
+	inline const UChar *GetEntry(size_t idx) const { return _buff + idx * 4; }
+	inline void SetEntry(size_t idx, UChar red,
+			UChar green, UChar blue, UChar alpha = 255) {
+		UChar *entry = GetEntry(idx);
 		entry[Image::OffsetRed] = red;
 		entry[Image::OffsetGreen] = green;
 		entry[Image::OffsetBlue] = blue;
 		entry[Image::OffsetAlpha] = alpha;
 	}
-	inline void SetEntry(size_t idx, const Color &c, unsigned char alpha = 255) {
+	inline void SetEntry(size_t idx, const Color &c, UChar alpha = 255) {
 		SetEntry(idx, c.GetRed(), c.GetGreen(), c.GetBlue(), alpha);
 	}
 	inline size_t CountEntries() const { return _nEntries; }
@@ -68,13 +68,13 @@ public:
 	bool Prepare(Signal sig, const Symbol *pSymbol);
 	Value GetColorValue(Environment &env, size_t idx);
 	void SetColor(size_t idx, const Color &color);
-	size_t LookupNearest(unsigned char red, unsigned char green, unsigned char blue) const;
+	size_t LookupNearest(UChar red, UChar green, UChar blue) const;
 	bool UpdateByImage(const Image *pImage, ShrinkMode shrinkMode);
 	bool UpdateByImage(Signal sig, const Image *pImage, ShrinkMode shrinkMode);
 	bool UpdateByPalette(const Palette *pPalette, ShrinkMode shrinkMode);
 	bool UpdateByPalette(Signal sig, const Palette *pPalette, ShrinkMode shrinkMode);
 	void Shrink(size_t nEntries, bool alignFlag);
-	inline size_t LookupNearest(const unsigned char *pPixel) const {
+	inline size_t LookupNearest(const UChar *pPixel) const {
 		return LookupNearest(pPixel[Image::OffsetRed], pPixel[Image::OffsetGreen], pPixel[Image::OffsetBlue]);
 	}
 	inline size_t LookupNearest(const Color &color) const {

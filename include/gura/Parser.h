@@ -139,7 +139,7 @@ public:
 		bool skipFirstEOLFlag;	// prefixed by 'R'
 		Stat statRtn;
 		int cntRest;
-		unsigned long accum;
+		ULong accum;
 	};
 	class GURA_DLLDECLARE Element {
 	private:

@@ -47,7 +47,7 @@ public:
 		RESULT_Complete,
 		RESULT_Error,
 	};
-	typedef std::map<unsigned short, unsigned short> Map;
+	typedef std::map<UShort, UShort> Map;
 public:
 	class GURA_DLLDECLARE DecEncBase {
 	protected:
@@ -142,18 +142,18 @@ public:
 	class GURA_DLLDECLARE Decoder : public Codec::Decoder {
 	public:
 		inline Decoder(bool delcrFlag) : Codec::Decoder(delcrFlag) {}
-		Result FeedUTF32(unsigned long codeUTF32, char &chConv);
+		Result FeedUTF32(ULong codeUTF32, char &chConv);
 	};
 	class GURA_DLLDECLARE Encoder : public Codec::Encoder {
 	protected:
 		int _cntChars;
-		unsigned long _codeUTF32;
+		ULong _codeUTF32;
 	public:
 		inline Encoder(bool addcrFlag) :
 				Codec::Encoder(addcrFlag), _cntChars(0), _codeUTF32(0x00000000) {}
-		inline unsigned long GetUTF32() const { return _codeUTF32; }
+		inline ULong GetUTF32() const { return _codeUTF32; }
 		virtual Result FeedChar(char ch, char &chConv);
-		virtual Result FeedUTF32(unsigned long codeUTF32, char &chConv) = 0;
+		virtual Result FeedUTF32(ULong codeUTF32, char &chConv) = 0;
 	};
 };
 

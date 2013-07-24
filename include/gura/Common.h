@@ -90,38 +90,40 @@ GURA_DLLDECLARE extern const Number Math_PI;
 GURA_DLLDECLARE extern const Number Math_E;
 GURA_DLLDECLARE extern const Number RoundOffThreshold;
 
-typedef char			Char;		// signed 8bit
-typedef short			Short;		// signed 16bit
-typedef long			Long;		// signed 32bit
-typedef int64			Int64;		// signed 64bit
-typedef unsigned char	UChar;		// unsigned 8bit
-typedef unsigned short	UShort;		// unsigned 16bit
-typedef unsigned long	ULong;		// unsigned 32bit
-typedef uint64			UInt64;		// unsigned 64bit
+typedef int					Int;		// signed native bits
+typedef char				Char;		// signed 8bit
+typedef short				Short;		// signed 16bit
+typedef long				Long;		// signed 32bit
+typedef int64				Int64;		// signed 64bit
+typedef unsigned int		UInt;		// unsigned native bits
+typedef unsigned char		UChar;		// unsigned 8bit
+typedef unsigned short		UShort;		// unsigned 16bit
+typedef unsigned long		ULong;		// unsigned 32bit
+typedef uint64				UInt64;		// unsigned 64bit
 
-typedef std::vector<char>			CharList;
-typedef std::vector<short>			ShortList;
-typedef std::vector<int>			IntList;
-typedef std::vector<long>			LongList;
-typedef std::vector<float>			FloatList;
-typedef std::vector<double>			DoubleList;
-typedef std::vector<unsigned char>	UCharList;
-typedef std::vector<unsigned short> UShortList;
-typedef std::vector<unsigned int>	UIntList;
-typedef std::vector<unsigned long>	ULongList;
-typedef std::vector<Number>			NumberList;
+typedef std::vector<char>	CharList;
+typedef std::vector<short>	ShortList;
+typedef std::vector<int>	IntList;
+typedef std::vector<long>	LongList;
+typedef std::vector<float>	FloatList;
+typedef std::vector<double>	DoubleList;
+typedef std::vector<UChar>	UCharList;
+typedef std::vector<UShort>	UShortList;
+typedef std::vector<UInt>	UIntList;
+typedef std::vector<ULong>	ULongList;
+typedef std::vector<Number>	NumberList;
 
-typedef std::deque<char>			CharDeque;
-typedef std::deque<short>			ShortDeque;
-typedef std::deque<int>				IntDeque;
-typedef std::deque<long>			LongDeque;
-typedef std::deque<float>			FloatDeque;
-typedef std::deque<double>			DoubleDeque;
-typedef std::deque<unsigned char>	UCharDeque;
-typedef std::deque<unsigned short>	UShortDeque;
-typedef std::deque<unsigned int>	UIntDeque;
-typedef std::deque<unsigned long>	ULongDeque;
-typedef std::deque<Number>			NumberDeque;
+typedef std::deque<char>	CharDeque;
+typedef std::deque<short>	ShortDeque;
+typedef std::deque<int>		IntDeque;
+typedef std::deque<long>	LongDeque;
+typedef std::deque<float>	FloatDeque;
+typedef std::deque<double>	DoubleDeque;
+typedef std::deque<UChar>	UCharDeque;
+typedef std::deque<UShort>	UShortDeque;
+typedef std::deque<UInt>	UIntDeque;
+typedef std::deque<ULong>	ULongDeque;
+typedef std::deque<Number>	NumberDeque;
 
 //-----------------------------------------------------------------------------
 // OccurPattern
@@ -259,7 +261,7 @@ typedef std::deque<Fraction> FractionDeque;
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE RandomGenerator {
 public:
-	static void Initialize(unsigned long seed);
+	static void Initialize(ULong seed);
 	static double Real2();
 	int operator()(int n);
 };
@@ -296,7 +298,7 @@ struct BitmapInfoHeader {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Color {
 private:
-	unsigned char _red, _green, _blue, _alpha;
+	UChar _red, _green, _blue, _alpha;
 public:
 	static const Color Zero;
 	static const Color Black;
@@ -319,49 +321,49 @@ public:
 	inline Color() : _red(0), _green(0), _blue(0), _alpha(0) {}
 	inline Color(const Color &color) : _red(color._red), _green(color._green),
 					_blue(color._blue), _alpha(color._alpha) {}
-	inline Color(unsigned char red, unsigned char green, unsigned char blue) :
+	inline Color(UChar red, UChar green, UChar blue) :
 					_red(red), _green(green), _blue(blue), _alpha(0) {}
-	inline Color(unsigned char red, unsigned char green, unsigned char blue, unsigned alpha) :
+	inline Color(UChar red, UChar green, UChar blue, UChar alpha) :
 					_red(red), _green(green), _blue(blue), _alpha(alpha) {}
-	inline unsigned char GetRed() const { return _red; }
-	inline unsigned char GetGreen() const { return _green; }
-	inline unsigned char GetBlue() const { return _blue; }
-	inline unsigned char GetAlpha() const { return _alpha; }
-	inline void SetRed(unsigned char red) { _red = red; }
-	inline void SetGreen(unsigned char green) { _green = green; }
-	inline void SetBlue(unsigned char blue) { _blue = blue; }
-	inline void SetAlpha(unsigned char alpha) { _alpha = alpha; }
-	inline unsigned char GetGray() const {
+	inline UChar GetRed() const { return _red; }
+	inline UChar GetGreen() const { return _green; }
+	inline UChar GetBlue() const { return _blue; }
+	inline UChar GetAlpha() const { return _alpha; }
+	inline void SetRed(UChar red) { _red = red; }
+	inline void SetGreen(UChar green) { _green = green; }
+	inline void SetBlue(UChar blue) { _blue = blue; }
+	inline void SetAlpha(UChar alpha) { _alpha = alpha; }
+	inline UChar GetGray() const {
 		return CalcGray(GetRed(), GetGreen(), GetBlue());
 	}
-	inline unsigned long GetARGB() const {
+	inline ULong GetARGB() const {
 		return
-			(static_cast<unsigned long>(GetAlpha()) << 24) +
-			(static_cast<unsigned long>(GetRed()) << 16) +
-			(static_cast<unsigned long>(GetGreen()) << 8) +
-			(static_cast<unsigned long>(GetBlue()) << 0);
+			(static_cast<ULong>(GetAlpha()) << 24) +
+			(static_cast<ULong>(GetRed()) << 16) +
+			(static_cast<ULong>(GetGreen()) << 8) +
+			(static_cast<ULong>(GetBlue()) << 0);
 	}
-	inline unsigned long GetABGR() const {
+	inline ULong GetABGR() const {
 		return
-			(static_cast<unsigned long>(GetAlpha()) << 24) +
-			(static_cast<unsigned long>(GetBlue()) << 16) +
-			(static_cast<unsigned long>(GetGreen()) << 8) +
-			(static_cast<unsigned long>(GetRed()) << 0);
+			(static_cast<ULong>(GetAlpha()) << 24) +
+			(static_cast<ULong>(GetBlue()) << 16) +
+			(static_cast<ULong>(GetGreen()) << 8) +
+			(static_cast<ULong>(GetRed()) << 0);
 	}
-	inline unsigned long GetRGB() const {
+	inline ULong GetRGB() const {
 		return
-			(static_cast<unsigned long>(GetRed()) << 16) +
-			(static_cast<unsigned long>(GetGreen()) << 8) +
-			(static_cast<unsigned long>(GetBlue()) << 0);
+			(static_cast<ULong>(GetRed()) << 16) +
+			(static_cast<ULong>(GetGreen()) << 8) +
+			(static_cast<ULong>(GetBlue()) << 0);
 	}
-	inline unsigned long GetBGR() const {
+	inline ULong GetBGR() const {
 		return
-			(static_cast<unsigned long>(GetBlue()) << 16) +
-			(static_cast<unsigned long>(GetGreen()) << 8) +
-			(static_cast<unsigned long>(GetRed()) << 0);
+			(static_cast<ULong>(GetBlue()) << 16) +
+			(static_cast<ULong>(GetGreen()) << 8) +
+			(static_cast<ULong>(GetRed()) << 0);
 	}
 	inline bool operator<(const Color &c) const { return GetRGB() < c.GetRGB(); }
-	inline size_t CalcDist(unsigned char red, unsigned char green, unsigned char blue) const {
+	inline size_t CalcDist(UChar red, UChar green, UChar blue) const {
 		return CalcDist(GetRed(), GetGreen(), GetBlue(), red, green, blue);
 	}
 	inline size_t CalcDist(const Color &c) const {
@@ -373,19 +375,19 @@ public:
 		return String(buff);
 	}
 	static inline size_t CalcDist(
-				unsigned char red1, unsigned char green1, unsigned char blue1,
-				unsigned char red2, unsigned char green2, unsigned char blue2) {
-		long distR = static_cast<long>(red1) - static_cast<long>(red2);
-		long distG = static_cast<long>(green1) - static_cast<long>(green2);
-		long distB = static_cast<long>(blue1) - static_cast<long>(blue2);
+				UChar red1, UChar green1, UChar blue1,
+				UChar red2, UChar green2, UChar blue2) {
+		Long distR = static_cast<Long>(red1) - static_cast<Long>(red2);
+		Long distG = static_cast<Long>(green1) - static_cast<Long>(green2);
+		Long distB = static_cast<Long>(blue1) - static_cast<Long>(blue2);
 		return distR * distR + distG * distG + distB * distB;
 	}
 	// revise this equation to convert a color into gray scale.
-	static inline unsigned char CalcGray(unsigned char red, unsigned char green, unsigned char blue) {
-		return static_cast<unsigned char>(
-			(static_cast<unsigned long>(red) * 299 +
-			 static_cast<unsigned long>(green) * 587 +
-			 static_cast<unsigned long>(blue) * 114) / 1000);
+	static inline UChar CalcGray(UChar red, UChar green, UChar blue) {
+		return static_cast<UChar>(
+			(static_cast<ULong>(red) * 299 +
+			 static_cast<ULong>(green) * 587 +
+			 static_cast<ULong>(blue) * 114) / 1000);
 	}
 };
 

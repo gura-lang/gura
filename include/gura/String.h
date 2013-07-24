@@ -27,7 +27,7 @@ GURA_DLLDECLARE String::const_iterator FindString(String::const_iterator str,
 GURA_DLLDECLARE String PickChar(const String &str, size_t idx);
 GURA_DLLDECLARE String::const_iterator NextChar(const String &str, String::const_iterator p);
 GURA_DLLDECLARE String::const_iterator NextUTF8(const String &str, String::const_iterator p, uint64 &codeUTF8);
-GURA_DLLDECLARE String::const_iterator NextUTF32(const String &str, String::const_iterator p, unsigned long &codeUTF32);
+GURA_DLLDECLARE String::const_iterator NextUTF32(const String &str, String::const_iterator p, ULong &codeUTF32);
 
 GURA_DLLDECLARE String MakeQuotedString(const char *str);
 
@@ -68,7 +68,7 @@ GURA_DLLDECLARE void SplitPathList(const char *str, StringList &strList);
 GURA_DLLDECLARE Value FindString(Environment &env, Signal sig,
 		const char *str, const char *sub, int start, const SymbolSet &attrs);
 
-GURA_DLLDECLARE unsigned short GetCType(char ch);
+GURA_DLLDECLARE UShort GetCType(char ch);
 
 inline size_t CalcCharOffset(const char *str, size_t pos) {
 	return Forward(str, pos) - str;

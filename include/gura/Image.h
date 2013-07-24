@@ -36,37 +36,37 @@ public:
 		size_t blue;
 		size_t alpha;
 		size_t cnt;
-		inline void AddRGB(const unsigned char *pPixel) {
+		inline void AddRGB(const UChar *pPixel) {
 			red   += Image::GetPixelR(pPixel);
 			green += Image::GetPixelG(pPixel);
 			blue  += Image::GetPixelB(pPixel);
 			cnt++;
 		}
-		inline void AddRGBA(const unsigned char *pPixel) {
+		inline void AddRGBA(const UChar *pPixel) {
 			red   += Image::GetPixelR(pPixel);
 			green += Image::GetPixelG(pPixel);
 			blue  += Image::GetPixelB(pPixel);
 			alpha += Image::GetPixelA(pPixel);
 			cnt++;
 		}
-		inline void StoreRGB(unsigned char *pPixel) {
+		inline void StoreRGB(UChar *pPixel) {
 			StorePixel(pPixel,
-				static_cast<unsigned char>(red),
-				static_cast<unsigned char>(green),
-				static_cast<unsigned char>(blue));
+				static_cast<UChar>(red),
+				static_cast<UChar>(green),
+				static_cast<UChar>(blue));
 		}
-		inline void StoreRGBA(unsigned char *pPixel) {
+		inline void StoreRGBA(UChar *pPixel) {
 			StorePixel(pPixel,
-				static_cast<unsigned char>(red),
-				static_cast<unsigned char>(green),
-				static_cast<unsigned char>(blue),
-				static_cast<unsigned char>(alpha));
+				static_cast<UChar>(red),
+				static_cast<UChar>(green),
+				static_cast<UChar>(blue),
+				static_cast<UChar>(alpha));
 		}
 	};
 	class GURA_DLLDECLARE Scanner {
 	private:
 		AutoPtr<Image> _pImage;
-		unsigned char *_pPixel;
+		UChar *_pPixel;
 		size_t _iPixel, _iLine;
 		size_t _nPixels, _nLines;
 		int _pitchPixel;
@@ -75,14 +75,14 @@ public:
 		Scanner(Image *pImage, size_t x, size_t y,
 								size_t width, size_t height, ScanDir scanDir);
 		~Scanner();
-		inline void SetPointer(unsigned char *pPixel) { _pPixel = pPixel; }
+		inline void SetPointer(UChar *pPixel) { _pPixel = pPixel; }
 		inline void ResetIndex() { _iPixel = 0, _iLine = 0; }
 		inline Image *GetImage() { return _pImage.get(); }
-		inline unsigned char *GetPointer() { return _pPixel; }
-		inline unsigned char GetRed() const { return _pPixel[OffsetRed]; }
-		inline unsigned char GetGreen() const { return _pPixel[OffsetGreen]; }
-		inline unsigned char GetBlue() const { return _pPixel[OffsetBlue]; }
-		inline unsigned char GetAlpha() const { return _pPixel[OffsetAlpha]; }
+		inline UChar *GetPointer() { return _pPixel; }
+		inline UChar GetRed() const { return _pPixel[OffsetRed]; }
+		inline UChar GetGreen() const { return _pPixel[OffsetGreen]; }
+		inline UChar GetBlue() const { return _pPixel[OffsetBlue]; }
+		inline UChar GetAlpha() const { return _pPixel[OffsetAlpha]; }
 		inline void FwdPixel() {
 			_iPixel++;
 			_pPixel += _pitchPixel;
@@ -137,13 +137,12 @@ public:
 		inline size_t CountLines() const { return _nLines; }
 		inline size_t GetPixelIdx() const { return _iPixel; }
 		inline size_t GetLineIdx() const { return _iLine; }
-		inline void StorePixel(unsigned char red, unsigned char green, unsigned char blue) {
+		inline void StorePixel(UChar red, UChar green, UChar blue) {
 			_pPixel[OffsetRed] = red;
 			_pPixel[OffsetGreen] = green;
 			_pPixel[OffsetBlue] = blue;
 		}
-		inline void StorePixel(unsigned char red, unsigned char green, unsigned char blue,
-						unsigned char alpha) {
+		inline void StorePixel(UChar red, UChar green, UChar blue, UChar alpha) {
 			_pPixel[OffsetRed] = red;
 			_pPixel[OffsetGreen] = green;
 			_pPixel[OffsetBlue] = blue;
@@ -189,11 +188,11 @@ public:
 	inline Format GetFormat() const { return _format; }
 	inline size_t GetWidth() const { return _width; }
 	inline size_t GetHeight() const { return _height; }
-	inline unsigned char *GetBuffer() {
-		return reinterpret_cast<unsigned char *>(_pMemory->GetPointer());
+	inline UChar *GetBuffer() {
+		return reinterpret_cast<UChar *>(_pMemory->GetPointer());
 	}
-	inline const unsigned char *GetBuffer() const {
-		return reinterpret_cast<const unsigned char *>(_pMemory->GetPointer());
+	inline const UChar *GetBuffer() const {
+		return reinterpret_cast<const UChar *>(_pMemory->GetPointer());
 	}
 	inline bool IsValid() const { return !_pMemory.IsNull(); }
 	inline size_t GetBitsPerPixel() const { return _metrics.bitsPerPixel; }
@@ -202,16 +201,16 @@ public:
 	inline size_t GetBufferSize() const {
 		return GetBytesPerLine() * _height;
 	}
-	inline unsigned char *GetPointer(size_t y) {
+	inline UChar *GetPointer(size_t y) {
 		return GetBuffer() + GetBytesPerLine() * y;
 	}
-	inline unsigned char *GetPointer(size_t x, size_t y) {
+	inline UChar *GetPointer(size_t x, size_t y) {
 		return GetBuffer() + GetBytesPerLine() * y + GetBytesPerPixel() * x;
 	}
-	inline const unsigned char *GetPointer(size_t y) const {
+	inline const UChar *GetPointer(size_t y) const {
 		return GetBuffer() + GetBytesPerLine() * y;
 	}
-	inline const unsigned char *GetPointer(size_t x, size_t y) const {
+	inline const UChar *GetPointer(size_t x, size_t y) const {
 		return GetBuffer() + GetBytesPerLine() * y + GetBytesPerPixel() * x;
 	}
 	inline Scanner *CreateScanner(size_t x, size_t y,
@@ -223,8 +222,8 @@ public:
 	}
 	bool CheckEmpty(Signal sig) const;
 	bool CheckValid(Signal sig) const;
-	bool AllocBuffer(size_t width, size_t height, unsigned char fillValue);
-	bool AllocBuffer(Signal sig, size_t width, size_t height, unsigned char fillValue);
+	bool AllocBuffer(size_t width, size_t height, UChar fillValue);
+	bool AllocBuffer(Signal sig, size_t width, size_t height, UChar fillValue);
 	void FreeBuffer();
 	inline bool CheckCoord(int x, int y) const {
 		return 0 <= x && x < static_cast<int>(_width) &&
@@ -232,8 +231,8 @@ public:
 	}
 	bool CheckCoord(Signal sig, size_t x, size_t y) const;
 	bool AdjustCoord(int &x, int &y, int &width, int &height) const;
-	void PutPixel(unsigned char *buff, const Color &color);
-	void GetPixel(const unsigned char *buff, Color &color);
+	void PutPixel(UChar *buff, const Color &color);
+	void GetPixel(const UChar *buff, Color &color);
 	bool Store(Signal sig, size_t x, size_t y, size_t width, size_t height,
 						const Symbol *pSymbol, const Matrix *pMat);
 	bool Store(Environment &env, Signal sig, size_t x, size_t y, size_t width, size_t height,
@@ -252,13 +251,13 @@ public:
 		FillRect(0, 0, _width, _height, color);
 	}
 	void FillRectAlpha(size_t x, size_t y,
-			size_t width, size_t height, unsigned char alpha);
+			size_t width, size_t height, UChar alpha);
 	void FillRectAlpha(size_t x, size_t y,
-			size_t width, size_t height, unsigned char alpha, const Color &color);
-	inline void FillAlpha(unsigned char alpha) {
+			size_t width, size_t height, UChar alpha, const Color &color);
+	inline void FillAlpha(UChar alpha) {
 		FillRectAlpha(0, 0, _width, _height, alpha);
 	}
-	inline void FillAlpha(unsigned char alpha, const Color &color) {
+	inline void FillAlpha(UChar alpha, const Color &color) {
 		FillRectAlpha(0, 0, _width, _height, alpha, color);
 	}
 	const Palette *GetPalette() const { return _pPalette.get(); }
@@ -271,7 +270,7 @@ public:
 	Image *Crop(Signal sig, size_t x, size_t y, size_t width, size_t height);
 	Image *Resize(Signal sig, size_t width, size_t height);
 	void Paste(size_t x, size_t y, Image *pImage,
-		size_t width, size_t height, size_t xOffset, size_t yOffset, unsigned char alpha);
+		size_t width, size_t height, size_t xOffset, size_t yOffset, UChar alpha);
 	Palette *CreateEmptyPalette(Environment &env, size_t nEntries);
 	void SetPalette(Palette *pPalette);
 	bool Read(Environment &env, Signal sig, Stream &stream, const char *imageType);
@@ -289,60 +288,53 @@ public:
 	size_t SymbolToPixelOffset(Signal sig, const Symbol *pSymbol) const;
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
 	static const Symbol *FormatToSymbol(Format format);
-	static inline unsigned char GetPixelGray(unsigned char *buff) {
+	static inline UChar GetPixelGray(UChar *buff) {
 		return Color::CalcGray(GetPixelR(buff), GetPixelG(buff), GetPixelB(buff));
 	}
-	static inline void StorePixel(unsigned char *buff,
-					unsigned char red, unsigned char green, unsigned char blue) {
+	static inline void StorePixel(UChar *buff, UChar red, UChar green, UChar blue) {
 		*(buff + OffsetRed) = red;
 		*(buff + OffsetGreen) = green;
 		*(buff + OffsetBlue) = blue;
 	}
-	static inline void StorePixel(unsigned char *buff,
-					unsigned char red, unsigned char green, unsigned char blue,
-					unsigned char alpha) {
+	static inline void StorePixel(UChar *buff, UChar red, UChar green, UChar blue, UChar alpha) {
 		*(buff + OffsetRed) = red;
 		*(buff + OffsetGreen) = green;
 		*(buff + OffsetBlue) = blue;
 		*(buff + OffsetAlpha) = alpha;
 	}
-	static inline void StorePixel(unsigned char *pPixelDst,
-								const unsigned char *pPixelSrc, bool alphaFlag) {
+	static inline void StorePixel(UChar *pPixelDst, const UChar *pPixelSrc, bool alphaFlag) {
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		if (alphaFlag) *pPixelDst++ = *pPixelSrc++;
 	}
-	static inline void StorePixelRGB(unsigned char *pPixelDst,
-													const unsigned char *pPixelSrc) {
+	static inline void StorePixelRGB(UChar *pPixelDst, const UChar *pPixelSrc) {
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 	}
-	static inline void StorePixelRGBA(unsigned char *pPixelDst,
-													const unsigned char *pPixelSrc) {
+	static inline void StorePixelRGBA(UChar *pPixelDst, const UChar *pPixelSrc) {
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 	}
-	static inline void StorePixelRGBA(unsigned char *pPixelDst,
-						const unsigned char *pPixelSrc, unsigned char alpha) {
+	static inline void StorePixelRGBA(UChar *pPixelDst, const UChar *pPixelSrc, UChar alpha) {
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = alpha;
 	}
-	static inline unsigned char GetPixelR(const unsigned char *buff) {
+	static inline UChar GetPixelR(const UChar *buff) {
 		return *(buff + OffsetRed);
 	}
-	static inline unsigned char GetPixelG(const unsigned char *buff) {
+	static inline UChar GetPixelG(const UChar *buff) {
 		return *(buff + OffsetGreen);
 	}
-	static inline unsigned char GetPixelB(const unsigned char *buff) {
+	static inline UChar GetPixelB(const UChar *buff) {
 		return *(buff + OffsetBlue);
 	}
-	static inline unsigned char GetPixelA(const unsigned char *buff) {
+	static inline UChar GetPixelA(const UChar *buff) {
 		return *(buff + OffsetAlpha);
 	}
 	static inline void RotateCoord(int &xm, int &ym,

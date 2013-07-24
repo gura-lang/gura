@@ -84,7 +84,7 @@ class OperatorEntry;
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Operator {
 public:
-	typedef unsigned long Key;
+	typedef ULong Key;
 	typedef std::map<Key, OperatorEntry *> Map;
 private:
 	OpType _opType;
@@ -101,17 +101,17 @@ public:
 		return static_cast<Key>(valType);
 	}
 	inline static Key CalcKey(ValueType valTypeLeft, ValueType valTypeRight) {
-		return static_cast<Key>((static_cast<unsigned long>(valTypeRight) << 16) +
-							static_cast<unsigned long>(valTypeLeft));
+		return static_cast<Key>((static_cast<ULong>(valTypeRight) << 16) +
+							static_cast<ULong>(valTypeLeft));
 	}
 	inline static ValueType ExtractValueType(Key key) {
-		return static_cast<ValueType>(static_cast<unsigned long>(key) & 0xffff);
+		return static_cast<ValueType>(static_cast<ULong>(key) & 0xffff);
 	}
 	inline static ValueType ExtractValueTypeLeft(Key key) {
-		return static_cast<ValueType>(static_cast<unsigned long>(key) & 0xffff);
+		return static_cast<ValueType>(static_cast<ULong>(key) & 0xffff);
 	}
 	inline static ValueType ExtractValueTypeRight(Key key) {
-		return static_cast<ValueType>((static_cast<unsigned long>(key) >> 16) & 0xffff);
+		return static_cast<ValueType>((static_cast<ULong>(key) >> 16) & 0xffff);
 	}
 	const OperatorEntry *Lookup(ValueType valType) const;
 	const OperatorEntry *Lookup(ValueType valTypeLeft, ValueType valTypeRight) const;

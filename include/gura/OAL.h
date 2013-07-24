@@ -104,8 +104,8 @@ public:
 	};
 private:
 	String _pathName;
-	unsigned long _attr;
-	unsigned long _bytes;
+	ULong _attr;
+	ULong _bytes;
 	DateTime _atime;
 	DateTime _mtime;
 	DateTime _ctime;
@@ -113,7 +113,7 @@ private:
 	long _gid;
 public:
 	inline FileStat() : _attr(0), _bytes(0), _uid(0), _gid(0) {}
-	inline FileStat(const char *pathName, unsigned long attr, unsigned long bytes,
+	inline FileStat(const char *pathName, ULong attr, ULong bytes,
 				const DateTime &atime, const DateTime &mtime, const DateTime &ctime,
 				long uid, long gid) :
 		_pathName(pathName), _attr(attr), _bytes(bytes),
@@ -131,7 +131,7 @@ public:
 	FileStat(const char *pathName, const struct stat &stat);
 #endif
 	inline const char *GetPathName() const { return _pathName.c_str(); }
-	inline unsigned long GetSize() const { return _bytes; }
+	inline ULong GetSize() const { return _bytes; }
 	inline const DateTime &GetATime() const { return _atime; }
 	inline const DateTime &GetMTime() const { return _mtime; }
 	inline const DateTime &GetCTime() const { return _ctime; }

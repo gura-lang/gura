@@ -51,7 +51,7 @@ public:
 	inline Object *GetStatObj(Signal sig) { return DoGetStatObj(sig); }
 	String MakePathName(bool addSepFlag, const char *pathNameTrail = NULL) const;
 	int CountDepth() const;
-	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr) = 0;
+	virtual Stream *DoOpenStream(Environment &env, Signal sig, ULong attr) = 0;
 protected:
 	virtual Directory *DoNext(Environment &env, Signal sig) = 0;
 	virtual Object *DoGetStatObj(Signal sig);

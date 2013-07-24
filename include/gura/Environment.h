@@ -240,7 +240,7 @@ public:
 		inline bool IsSymbolPublic(const Symbol *pSymbol) const {
 			return _pSymbolsPublic.get() != NULL && _pSymbolsPublic->IsSet(pSymbol);
 		}
-		void AssignValue(const Symbol *pSymbol, const Value &value, unsigned long extra);
+		void AssignValue(const Symbol *pSymbol, const Value &value, ULong extra);
 		void RemoveValue(const Symbol *pSymbol);
 		ValueEx *LookupValue(const Symbol *pSymbol);
 		void AssignValueType(ValueTypeInfo *pValueTypeInfo);
@@ -291,10 +291,10 @@ public:
 	void AddLackingFrame(const FrameList &frameListSrc);
 	void CacheFrame(const Symbol *pSymbol, Frame *pFrame);
 	bool IsSymbolPublic(const Symbol *pSymbol) const;
-	void AssignValue(const Symbol *pSymbol, const Value &value, unsigned long extra);
-	void AssignValueFromBlock(const Symbol *pSymbol, const Value &value, unsigned long extra);
+	void AssignValue(const Symbol *pSymbol, const Value &value, ULong extra);
+	void AssignValueFromBlock(const Symbol *pSymbol, const Value &value, ULong extra);
 	bool ImportValue(const Symbol *pSymbol, const Value &value,
-										unsigned long extra, bool overwriteFlag);
+										ULong extra, bool overwriteFlag);
 	void RemoveValue(const Symbol *pSymbol);
 	Function *AssignFunction(Function *pFunc);
 	ValueEx *LookupValue(const Symbol *pSymbol,

@@ -176,7 +176,7 @@ protected:
 	OpType _opType;
 	FunctionType _funcType;
 	ResultMode _resultMode;
-	unsigned long _flags;
+	ULong _flags;
 	SymbolSet _attrsOpt;
 	HelpMap _helpMap;
 	struct {
@@ -190,7 +190,7 @@ public:
 public:
 	Function(const Function &func);
 	Function(Environment &envScope, const Symbol *pSymbol,
-								FunctionType funcType, unsigned long flags);
+								FunctionType funcType, ULong flags);
 	virtual ~Function();
 	inline Class *GetClassToConstruct() const { return _pClassToConstruct; }
 	inline bool IsSymbolFunc() const { return GetSymbolFuncFlag(); }
@@ -220,7 +220,7 @@ public:
 	virtual bool CheckIfTrailer(const ICallable *pCallable) const;
 	inline FunctionType GetType() const { return _funcType; }
 	inline const char *GetTypeName() const { return GetFuncTypeName(_funcType); }
-	inline void SetMode(ResultMode resultMode, unsigned long flags) {
+	inline void SetMode(ResultMode resultMode, ULong flags) {
 		_resultMode = resultMode, _flags |= flags;
 	}
 	inline bool IsRsltNormal() const { return _resultMode == RSLTMODE_Normal; }
@@ -248,10 +248,10 @@ public:
 			const SymbolSet &attrsAcceptable, Args &args);
 	void CopyDeclare(const Function &func);
 	Declaration *DeclareArg(Environment &env, const Symbol *pSymbol, ValueType valType,
-			OccurPattern occurPattern = OCCUR_Once, unsigned long flags = FLAG_None,
+			OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
 			Expr *pExprDefault = NULL);
 	inline Declaration *DeclareArg(Environment &env, const char *name, ValueType valType,
-			OccurPattern occurPattern = OCCUR_Once, unsigned long flags = FLAG_None,
+			OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
 			Expr *pExprDefault = NULL) {
 		return DeclareArg(env, Symbol::Add(name), valType, occurPattern, flags, pExprDefault);
 	}
@@ -343,7 +343,7 @@ private:
 	const SymbolSet &_attrsOpt;
 	const Expr_Block *_pExprBlock;
 	ResultMode _resultMode;
-	unsigned long _flags;
+	ULong _flags;
 	AutoPtr<Function> _pFuncBlock;
 public:
 	inline Args(const ExprList &exprListArg, const Value &valueThis = Value::Null,
@@ -375,7 +375,7 @@ public:
 		_resultMode(RSLTMODE_Normal), _flags(FLAG_None),
 		_pFuncBlock(NULL) {}
 	inline Args(Args &args, const ValueList &valListArg,
-			const Value &valueWithDict, ResultMode resultMode, unsigned long flags) :
+			const Value &valueWithDict, ResultMode resultMode, ULong flags) :
 		_valueThis(args._valueThis),
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())), _listThisFlag(args._listThisFlag),
 		_valueWithDict(valueWithDict),
@@ -470,16 +470,16 @@ public:
 	inline bool IsInstanceOf(size_t idxArg, ValueType valType) { return GetValue(idxArg).IsInstanceOf(valType); }
 	inline Number GetNumber(size_t idxArg) const		{ return GetValue(idxArg).GetNumber();	}
 	inline int GetInt(size_t idxArg) const				{ return GetValue(idxArg).GetInt();		}
-	inline unsigned int GetUInt(size_t idxArg) const	{ return GetValue(idxArg).GetUInt();	}
+	inline UInt GetUInt(size_t idxArg) const			{ return GetValue(idxArg).GetUInt();	}
 	inline size_t GetSizeT(size_t idxArg) const			{ return GetValue(idxArg).GetSizeT();	}
 	inline char GetChar(size_t idxArg) const			{ return GetValue(idxArg).GetChar();	}
-	inline unsigned char GetUChar(size_t idxArg) const	{ return GetValue(idxArg).GetUChar();	}
+	inline UChar GetUChar(size_t idxArg) const			{ return GetValue(idxArg).GetUChar();	}
 	inline short GetShort(size_t idxArg) const			{ return GetValue(idxArg).GetShort();	}
-	inline unsigned short GetUShort(size_t idxArg) const{ return GetValue(idxArg).GetUShort();	}
+	inline UShort GetUShort(size_t idxArg) const		{ return GetValue(idxArg).GetUShort();	}
 	inline long GetLong(size_t idxArg) const			{ return GetValue(idxArg).GetLong();	}
-	inline unsigned long GetULong(size_t idxArg) const	{ return GetValue(idxArg).GetULong();	}
-	inline int64 GetInt64(size_t idxArg) const			{ return GetValue(idxArg).GetInt64();	}
-	inline uint64 GetUInt64(size_t idxArg) const		{ return GetValue(idxArg).GetUInt64();	}
+	inline ULong GetULong(size_t idxArg) const			{ return GetValue(idxArg).GetULong();	}
+	inline Int64 GetInt64(size_t idxArg) const			{ return GetValue(idxArg).GetInt64();	}
+	inline UInt64 GetUInt64(size_t idxArg) const		{ return GetValue(idxArg).GetUInt64();	}
 	inline float GetFloat(size_t idxArg) const			{ return GetValue(idxArg).GetFloat();	}
 	inline double GetDouble(size_t idxArg) const		{ return GetValue(idxArg).GetDouble();	}
 	inline bool GetBoolean(size_t idxArg) const			{ return GetValue(idxArg).GetBoolean();	}

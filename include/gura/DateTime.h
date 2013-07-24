@@ -104,8 +104,8 @@ public:
 	String GetTZOffsetStr(bool colonFlag) const;
 	void Plus(const TimeDelta &td);
 	void Minus(const TimeDelta &td);
-	void SetUnixTime(unsigned long time);
-	unsigned long GetUnixTime() const;
+	void SetUnixTime(ULong time);
+	ULong GetUnixTime() const;
 	DateTime ToUTC() const;
 	TimeDelta Minus(const DateTime &dt) const;
 	static inline bool IsLeapYear(short year) {

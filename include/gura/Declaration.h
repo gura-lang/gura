@@ -18,13 +18,13 @@ private:
 	const Symbol *_pSymbol;
 	ValueType _valType;
 	OccurPattern _occurPattern;
-	unsigned long _flags;
+	ULong _flags;
 	AutoPtr<Expr> _pExprDefault;
 public:
 	Declaration(const Declaration &decl);
 	Declaration(const Symbol *pSymbol, ValueType valType);
 	Declaration(const Symbol *pSymbol, ValueType valType,
-			OccurPattern occurPattern, unsigned long flags, Expr *pExprDefault);
+			OccurPattern occurPattern, ULong flags, Expr *pExprDefault);
 	~Declaration();
 	static Declaration *Create(Environment &env, Signal sig, const Expr *pExpr);
 	bool ValidateAndCast(Environment &env, Signal sig,
@@ -107,10 +107,10 @@ public:
 	inline void AllowTooManyArgs(bool flag) { _allowTooManyArgsFlag = flag; }
 	inline bool IsAllowTooManyArgs() const { return _allowTooManyArgsFlag; }
 	Declaration *Declare(Environment &env, const Symbol *pSymbol, ValueType valType,
-				OccurPattern occurPattern = OCCUR_Once, unsigned long flags = FLAG_None,
+				OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
 				Expr *pExprDefault = NULL);
 	inline Declaration *Declare(Environment &env, const char *name, ValueType valType,
-				OccurPattern occurPattern = OCCUR_Once, unsigned long flags = FLAG_None,
+				OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
 				Expr *pExprDefault = NULL) {
 		return Declare(env, Symbol::Add(name), valType, occurPattern, flags, pExprDefault);
 	}

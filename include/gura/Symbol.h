@@ -40,7 +40,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Symbol {
 public:
-	typedef unsigned int UniqNumber;
+	typedef UInt UniqNumber;
 	struct KeyCompare_UniqNumber {
 		inline bool operator()(const Symbol *pSymbol1, const Symbol *pSymbol2) const {
 			return pSymbol1->GetUniqNum() < pSymbol2->GetUniqNum();

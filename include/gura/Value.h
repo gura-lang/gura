@@ -52,7 +52,7 @@ enum {
 //-----------------------------------------------------------------------------
 // ValueType
 //-----------------------------------------------------------------------------
-typedef unsigned short ValueType;
+typedef UShort ValueType;
 
 // nil / undefined
 GURA_DLLDECLARE extern ValueType VTYPE_nil;
@@ -230,8 +230,8 @@ public:
 		MaxSuperSkipCount = 255,
 	};
 private:
-	unsigned short _valType;	// 2 bytes
-	unsigned short _valFlags;	// 2 bytes
+	UShort _valType;			// 2 bytes
+	UShort _valFlags;			// 2 bytes
 	union {						// 8 bytes
 		Number num;				// VTYPE_number
 		bool flag;				// VTYPE_boolean
@@ -257,19 +257,19 @@ public:
 	~Value();
 	// VTYPE_nil
 	inline Value() : _valType(VTYPE_nil), _valFlags(VFLAG_Owner) {}
-	inline Value(ValueType valType, unsigned short valFlags) : _valType(valType), _valFlags(valFlags) {}
+	inline Value(ValueType valType, UShort valFlags) : _valType(valType), _valFlags(valFlags) {}
 	// VTYPE_module
-	inline Value(Module *pModule, unsigned short valFlags = VFLAG_Owner) :
+	inline Value(Module *pModule, UShort valFlags = VFLAG_Owner) :
 								_valType(VTYPE_Module), _valFlags(valFlags) {
 		_u.pModule = pModule;
 	}
 	// VTYPE_class
-	inline Value(Class *pClass, unsigned short valFlags = VFLAG_Owner) :
+	inline Value(Class *pClass, UShort valFlags = VFLAG_Owner) :
 								_valType(VTYPE_Class), _valFlags(valFlags) {
 		_u.pClass = pClass;
 	}
 	// VTYPE_object etc
-	Value(Object *pObj, unsigned short valFlags = VFLAG_Owner);
+	Value(Object *pObj, UShort valFlags = VFLAG_Owner);
 	// VTYPE_number
 	inline Value(Number num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = num;
@@ -277,31 +277,31 @@ public:
 	inline Value(int num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(unsigned int num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(UInt num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
 	inline Value(char num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(unsigned char num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(UChar num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
 	inline Value(short num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(unsigned short num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(UShort num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
 	inline Value(long num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(unsigned long num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(ULong num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(int64 num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(Int64 num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(uint64 num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(UInt64 num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
 	// VTYPE_boolean
@@ -337,15 +337,15 @@ public:
 	// VTYPE_timedelta
 	Value(Environment &env, const TimeDelta &timeDelta);
 	Value &operator=(const Value &value);
-	inline unsigned short GetFlags() const { return _valFlags; }
-	inline void SetFlags(unsigned short valFlags) { _valFlags = valFlags; }
-	inline void AddFlags(unsigned short valFlags) { _valFlags |= valFlags; }
+	inline UShort GetFlags() const { return _valFlags; }
+	inline void SetFlags(UShort valFlags) { _valFlags = valFlags; }
+	inline void AddFlags(UShort valFlags) { _valFlags |= valFlags; }
 	inline bool IsOwner() const { return (_valFlags & VFLAG_Owner)? true : false; }
 	inline bool IsPrivileged() const { return (_valFlags & VFLAG_Privileged)? true : false; }
 	inline bool GetTinyBuffFlag() const { return (_valFlags & VFLAG_TinyBuff)? true : false; }
 	inline int GetSuperSkipCount() const { return (_valFlags >> 8) & 0xff; }
 	inline void SetSuperSkipCount(int cntSuperSkip) {
-		_valFlags = (_valFlags & 0x00ff) | (static_cast<unsigned short>(cntSuperSkip & 0xff) << 8);
+		_valFlags = (_valFlags & 0x00ff) | (static_cast<UShort>(cntSuperSkip & 0xff) << 8);
 	}
 	inline ValueType GetValueType() const { return _valType; }
 	inline ValueTypeInfo *GetValueTypeInfo() const {
@@ -470,20 +470,20 @@ public:
 	}
 	// VTYPE_number
 	inline int GetInt() const				{ return static_cast<int>(GetNumber());				}
-	inline unsigned int GetUInt() const		{ return static_cast<unsigned int>(GetNumber());	}
+	inline UInt GetUInt() const				{ return static_cast<UInt>(GetNumber());	}
 	inline size_t GetSizeT() const			{ return static_cast<size_t>(GetNumber());			}
 	inline char GetChar() const				{ return static_cast<char>(GetNumber());			}
-	inline unsigned char GetUChar() const	{ return static_cast<unsigned char>(GetNumber());	}
+	inline UChar GetUChar() const			{ return static_cast<UChar>(GetNumber());	}
 	inline short GetShort() const			{ return static_cast<short>(GetNumber());			}
-	inline unsigned short GetUShort() const	{ return static_cast<unsigned short>(GetNumber());	}
+	inline UShort GetUShort() const			{ return static_cast<UShort>(GetNumber());	}
 	inline long GetLong() const {
 		Number num = GetNumber();
 		return (num < 0x80000000)? static_cast<long>(num) :
-						static_cast<long>(static_cast<unsigned long>(num));
+						static_cast<long>(static_cast<ULong>(num));
 	}
-	inline unsigned long GetULong() const	{ return static_cast<unsigned long>(GetNumber());	}
-	inline int64 GetInt64() const			{ return static_cast<int64>(GetNumber());			}
-	inline uint64 GetUInt64() const			{ return static_cast<uint64>(GetNumber());			}
+	inline ULong GetULong() const			{ return static_cast<ULong>(GetNumber());	}
+	inline Int64 GetInt64() const			{ return static_cast<Int64>(GetNumber());			}
+	inline UInt64 GetUInt64() const			{ return static_cast<UInt64>(GetNumber());			}
 	inline float GetFloat() const			{ return static_cast<float>(GetNumber());			}
 	inline double GetDouble() const			{ return static_cast<double>(GetNumber());			}
 	// VTYPE_complex
@@ -586,14 +586,14 @@ private:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ValueEx : public Value {
 private:
-	unsigned long _extra;
+	ULong _extra;
 public:
-	inline ValueEx(unsigned long extra = 0) : _extra(extra) {}
-	inline ValueEx(const Value &value, unsigned long extra = 0) :
+	inline ValueEx(ULong extra = 0) : _extra(extra) {}
+	inline ValueEx(const Value &value, ULong extra = 0) :
 						Value(value), _extra(extra) {}
 	inline ValueEx(const ValueEx &valueEx) :
 						Value(valueEx), _extra(valueEx._extra) {}
-	inline unsigned long GetExtra() const { return _extra; }
+	inline ULong GetExtra() const { return _extra; }
 	inline ValueEx &operator=(const ValueEx &valueEx) {
 		Value::operator=(valueEx);
 		_extra = valueEx._extra;

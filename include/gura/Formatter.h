@@ -50,13 +50,13 @@ private:
 	}
 	static const char *Conv_d(const Flags &flags, int value,
 							char *buff, size_t size);
-	static const char *Conv_u(const Flags &flags, unsigned int value,
+	static const char *Conv_u(const Flags &flags, UInt value,
 							char *buff, size_t size);
-	static const char *Conv_b(const Flags &flags, unsigned int value,
+	static const char *Conv_b(const Flags &flags, UInt value,
 							char *buff, size_t size);
-	static const char *Conv_o(const Flags &flags, unsigned int value,
+	static const char *Conv_o(const Flags &flags, UInt value,
 							char *buff, size_t size);
-	static const char *Conv_x(const Flags &flags, unsigned int value,
+	static const char *Conv_x(const Flags &flags, UInt value,
 							char *buff, size_t size, bool upperFlag);
 	static const char *Conv_e(const Flags &flags, double value,
 							char *buff, size_t size, bool upperFlag);

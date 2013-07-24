@@ -89,15 +89,15 @@ public:
 		DateTime atime;
 		DateTime mtime;
 		DateTime ctime;
-		unsigned long attr;
-		unsigned long attrMask;
+		ULong attr;
+		ULong attrMask;
 	public:
 		inline Attribute() : attr(0), attrMask(0) {}
 	};
 protected:
 	int _cntRef;
 	Signal _sig;
-	unsigned long _attr;
+	ULong _attr;
 	size_t _offsetCur;
 	AutoPtr<Codec> _pCodec;
 	struct {
@@ -110,7 +110,7 @@ public:
 protected:
 	virtual ~Stream();
 public:
-	Stream(Environment &env, Signal sig, unsigned long attr);
+	Stream(Environment &env, Signal sig, ULong attr);
 	void Close();
 	void SetCodec(Codec *pCodec);
 	void CopyCodec(Stream *pStream);
@@ -133,7 +133,7 @@ public:
 	virtual void DoPutChar(Signal sig, char ch);
 	virtual Object *DoGetStatObj(Signal sig);
 	inline int GetRefCount() const { return _cntRef; }
-	inline unsigned long GetAttr() const { return _attr; }
+	inline ULong GetAttr() const { return _attr; }
 	inline bool IsInfinite() const { return (_attr & ATTR_Infinite)? true : false; }
 	inline bool IsReadable() const { return (_attr & ATTR_Readable)? true : false; }
 	inline bool IsWritable() const { return (_attr & ATTR_Writable)? true : false; }
@@ -166,12 +166,12 @@ public:
 					const Function *pFuncFilter = NULL);
 	bool SerializeBoolean(Signal sig, bool num);
 	bool DeserializeBoolean(Signal sig, bool &num);
-	bool SerializeUChar(Signal sig, unsigned char num);
-	bool DeserializeUChar(Signal sig, unsigned char &num);
-	bool SerializeUShort(Signal sig, unsigned short num);
-	bool DeserializeUShort(Signal sig, unsigned short &num);
-	bool SerializeULong(Signal sig, unsigned long num);
-	bool DeserializeULong(Signal sig, unsigned long &num);
+	bool SerializeUChar(Signal sig, UChar num);
+	bool DeserializeUChar(Signal sig, UChar &num);
+	bool SerializeUShort(Signal sig, UShort num);
+	bool DeserializeUShort(Signal sig, UShort &num);
+	bool SerializeULong(Signal sig, ULong num);
+	bool DeserializeULong(Signal sig, ULong &num);
 	bool SerializeUInt64(Signal sig, uint64 num);
 	bool DeserializeUInt64(Signal sig, uint64 &num);
 	bool SerializeDouble(Signal sig, double num);
@@ -186,12 +186,12 @@ public:
 	bool DeserializeSymbolSet(Signal sig, SymbolSet &symbolSet);
 	bool SerializeSymbolList(Signal sig, const SymbolList &symbolList);
 	bool DeserializeSymbolList(Signal sig, SymbolList &symbolList);
-	bool SerializePackedULong(Signal sig, unsigned long num);
-	bool DeserializePackedULong(Signal sig, unsigned long &num);
+	bool SerializePackedULong(Signal sig, ULong num);
+	bool DeserializePackedULong(Signal sig, ULong &num);
 public:
 	static Stream *Prefetch(Environment &env, Signal sig, Stream *pStreamSrc,
 							bool deleteSrcFlag, size_t bytesUnit = 0x10000);
-	static unsigned long ParseOpenMode(Signal sig, const char *mode);
+	static ULong ParseOpenMode(Signal sig, const char *mode);
 };
 
 //-----------------------------------------------------------------------------
@@ -321,9 +321,9 @@ private:
 	AutoPtr<Stream> _pStreamSrc;
 	int _nChars;
 	int _nInvalid;
-	unsigned long _accum;
+	ULong _accum;
 	size_t _iBuffWork;
-	unsigned char _buffWork[8];
+	UChar _buffWork[8];
 public:
 	Stream_Base64Reader(Environment &env, Signal sig, Stream *pStreamSrc);
 	virtual const char *GetName() const;
@@ -347,7 +347,7 @@ private:
 	int _nCharsPerLine;
 	int _nChars;
 	size_t _iBuffWork;
-	unsigned char _buffWork[8];
+	UChar _buffWork[8];
 	static const char _chars[];
 public:
 	Stream_Base64Writer(Environment &env, Signal sig, Stream *pStreamDst, int nCharsPerLine);
@@ -381,7 +381,7 @@ public:
 	virtual bool DoClose(Signal sig);
 	virtual size_t DoGetSize();
 	inline void Initialize() { _crc32.Initialize(); }
-	inline unsigned long GetCRC32() const { return _crc32.GetResult(); }
+	inline ULong GetCRC32() const { return _crc32.GetResult(); }
 	inline size_t GetBytes() const { return _crc32.GetBytes(); }
 };
 
