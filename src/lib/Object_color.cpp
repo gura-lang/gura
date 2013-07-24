@@ -828,22 +828,22 @@ Value Object_color::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbo
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(red))) {
 		evaluatedFlag = true;
-		unsigned char red = value.GetUChar();
+		UChar red = value.GetUChar();
 		_color.SetRed(red);
 		return Value(red);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(green))) {
 		evaluatedFlag = true;
-		unsigned char green = value.GetUChar();
+		UChar green = value.GetUChar();
 		_color.SetGreen(green);
 		return Value(green);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(blue))) {
 		evaluatedFlag = true;
-		unsigned char blue = value.GetUChar();
+		UChar blue = value.GetUChar();
 		_color.SetBlue(blue);
 		return Value(blue);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(alpha))) {
 		evaluatedFlag = true;
-		unsigned char alpha = value.GetUChar();
+		UChar alpha = value.GetUChar();
 		_color.SetAlpha(alpha);
 		return Value(alpha);
 	}
@@ -868,12 +868,12 @@ String Object_color::GetHTML() const
 }
 
 Object_color *Object_color::CreateNamedColor(Environment &env,
-					Signal sig, const char *name, unsigned char alpha)
+					Signal sig, const char *name, UChar alpha)
 {
 	if (*name == '#') {
 		name++;
 		int nCols = 0;
-		unsigned long num = 0;
+		ULong num = 0;
 		for ( ; *name != '\0'; name++, nCols++) {
 			char ch = *name;
 			if (IsDigit(ch)) {
@@ -887,15 +887,15 @@ Object_color *Object_color::CreateNamedColor(Environment &env,
 				return NULL;
 			}
 		}
-		unsigned char red, green, blue;
+		UChar red, green, blue;
 		if (nCols == 3) {
-			red = static_cast<unsigned char >((num >> 8) & 0xf) * 0x11;
-			green = static_cast<unsigned char >((num >> 4) & 0xf) * 0x11;
-			blue = static_cast<unsigned char >((num >> 0) & 0xf) * 0x11;
+			red = static_cast<UChar>((num >> 8) & 0xf) * 0x11;
+			green = static_cast<UChar>((num >> 4) & 0xf) * 0x11;
+			blue = static_cast<UChar>((num >> 0) & 0xf) * 0x11;
 		} else if (nCols == 6) {
-			red = static_cast<unsigned char >((num >> 16) & 0xff);
-			green = static_cast<unsigned char >((num >> 8) & 0xff);
-			blue = static_cast<unsigned char >((num >> 0) & 0xff);
+			red = static_cast<UChar>((num >> 16) & 0xff);
+			green = static_cast<UChar>((num >> 8) & 0xff);
+			blue = static_cast<UChar>((num >> 0) & 0xff);
 		} else {
 			sig.SetError(ERR_ValueError, "invalid color name");
 			return NULL;
@@ -941,26 +941,26 @@ Gura_ImplementFunction(color)
 {
 	const ValueList &valList = args.GetList(0);
 	if (valList[0].IsString()) {
-		unsigned char alpha = (valList.size() < 2)? 255 : valList[1].GetUChar();
+		UChar alpha = (valList.size() < 2)? 255 : valList[1].GetUChar();
 		Object_color *pObj = Object_color::CreateNamedColor(env,
 					sig, valList[0].GetString(), alpha);
 		if (sig.IsSignalled()) return Value::Null;
 		return ReturnValue(env, sig, args, Value(pObj));
 	} else if (valList[0].IsSymbol()) {
-		unsigned char alpha = (valList.size() < 2)? 255 : valList[1].GetUChar();
+		UChar alpha = (valList.size() < 2)? 255 : valList[1].GetUChar();
 		Object_color *pObj = Object_color::CreateNamedColor(env,
 					sig, valList[0].GetSymbol()->GetName(), alpha);
 		if (sig.IsSignalled()) return Value::Null;
 		return ReturnValue(env, sig, args, Value(pObj));
 	} else if (valList[0].IsNumber()) {
-		unsigned char red = valList[0].GetUChar();
+		UChar red = valList[0].GetUChar();
 		if (valList.size() < 3) {
 			Declaration::SetError_InvalidArgument(sig);
 			return Value::Null;
 		}
-		unsigned char green = valList[1].GetUChar();
-		unsigned char blue = valList[2].GetUChar();
-		unsigned char alpha = (valList.size() < 4)? 255 : valList[3].GetUChar();
+		UChar green = valList[1].GetUChar();
+		UChar blue = valList[2].GetUChar();
+		UChar alpha = (valList.size() < 4)? 255 : valList[3].GetUChar();
 		return ReturnValue(env, sig, args,
 					Value(new Object_color(env, red, green, blue, alpha)));
 	}

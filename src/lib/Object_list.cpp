@@ -1032,7 +1032,7 @@ Gura_ImplementMethod(list, len)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	size_t cnt = pThis->GetList().size();
-	return Value(static_cast<unsigned int>(cnt));
+	return Value(static_cast<UInt>(cnt));
 }
 
 // list#min():[index,last_index,indices]
@@ -1449,7 +1449,7 @@ Gura_ImplementMethod(list, find)
 			pIterator->Find(env, sig, args.GetValue(0), value) :
 			pIterator->FindTrue(env, sig, value);
 	if (idx == InvalidSize) return Value::Null;
-	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<unsigned int>(idx));
+	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<UInt>(idx));
 	return value;
 }
 
@@ -1473,7 +1473,7 @@ Gura_ImplementMethod(list, count)
 	size_t cnt = args.IsValid(0)?
 		pIterator->Count(env, sig, args.GetValue(0)) : pIterator->CountTrue(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(static_cast<unsigned int>(cnt));
+	return Value(static_cast<UInt>(cnt));
 }
 
 // list#sort(directive?, keys[]?):[stable] {block?}

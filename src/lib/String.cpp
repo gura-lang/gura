@@ -7,7 +7,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 const StringList StringList::Null;
 
-static const unsigned short __ctypeTbl[] = {
+static const UShort __ctypeTbl[] = {
 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
 	0x0000, 0x0030, 0x0020, 0x0000, 0x0000, 0x0020, 0x0000, 0x0000,
 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
@@ -42,9 +42,9 @@ static const unsigned short __ctypeTbl[] = {
 	0x0180, 0x0180, 0x01c0, 0x01c0, 0x01c0, 0x0100, 0x0100, 0x0100,
 };
 
-unsigned short GetCType(char ch)
+UShort GetCType(char ch)
 {
-	return __ctypeTbl[static_cast<unsigned char>(ch)];
+	return __ctypeTbl[static_cast<UChar>(ch)];
 }
 
 char GetEscaped(char ch)
@@ -255,7 +255,7 @@ String MakeQuotedString(const char *str)
 			strDst += ch;
 		} else if (ch < 0x20 || ch >= 0x7f) {
 			char tmp[16];
-			::sprintf(tmp, "\\x%02x", static_cast<unsigned char>(ch));
+			::sprintf(tmp, "\\x%02x", static_cast<UChar>(ch));
 			strDst += tmp;
 		} else {
 			strDst += ch;
@@ -273,7 +273,7 @@ void EscapeURI(String &strDst, const char *str)
 			strDst += ch;
 		} else {
 			char buff[8];
-			::sprintf(buff, "%%%02X", static_cast<unsigned char>(ch));
+			::sprintf(buff, "%%%02X", static_cast<UChar>(ch));
 			strDst += buff;
 		}
 	}
@@ -294,7 +294,7 @@ void EscapeURI(String &strDst, const char *str, size_t len)
 			strDst += ch;
 		} else {
 			char buff[8];
-			::sprintf(buff, "%%%02X", static_cast<unsigned char>(ch));
+			::sprintf(buff, "%%%02X", static_cast<UChar>(ch));
 			strDst += buff;
 		}
 	}
@@ -313,7 +313,7 @@ void UnescapeURI(String &strDst, const char *str)
 		STAT_Normal, STAT_Escape,
 	} stat = STAT_Normal;
 	int nNibbles = 0;
-	unsigned char data = 0x00;
+	UChar data = 0x00;
 	for (const char *p = str; *p != '\0'; p++) {
 		char ch = *p;
 		if (stat == STAT_Normal) {
@@ -421,8 +421,8 @@ String NumberToString(Number num)
 					static_cast<Number>(static_cast<int>(num)) == num) {
 		::sprintf(buff, "%d", static_cast<int>(num));
 	} else if (0 <= num && num <= 4294967295. &&
-			static_cast<Number>(static_cast<unsigned int>(num)) == num) {
-		::sprintf(buff, "%u", static_cast<unsigned int>(num));
+			static_cast<Number>(static_cast<UInt>(num)) == num) {
+		::sprintf(buff, "%u", static_cast<UInt>(num));
 	} else {
 		::sprintf(buff, GetNumberFormat(), num);
 	}
@@ -507,13 +507,13 @@ String Lower(const char *str)
 {
 	String rtn;
 	for (const char *p = str; *p != '\0'; ) {
-		unsigned char ch = static_cast<unsigned char>(*p);
+		UChar ch = static_cast<UChar>(*p);
 		if (ch == 0xef) {
 			p++;
-			unsigned char ch = static_cast<unsigned char>(*p);
+			UChar ch = static_cast<UChar>(*p);
 			if (ch == 0xbc) {
 				p++;
-				unsigned char ch = static_cast<unsigned char>(*p);
+				UChar ch = static_cast<UChar>(*p);
 				if (0xa1 <= ch && ch <= 0xba) {
 					// Zenkaku alphabet characters in Japanese code set
 					rtn += '\xef';
@@ -551,13 +551,13 @@ String Upper(const char *str)
 {
 	String rtn;
 	for (const char *p = str; *p != '\0'; ) {
-		unsigned char ch = static_cast<unsigned char>(*p);
+		UChar ch = static_cast<UChar>(*p);
 		if (ch == 0xef) {
 			p++;
-			unsigned char ch = static_cast<unsigned char>(*p);
+			UChar ch = static_cast<UChar>(*p);
 			if (ch == 0xbd) {
 				p++;
-				unsigned char ch = static_cast<unsigned char>(*p);
+				UChar ch = static_cast<UChar>(*p);
 				if (0x81 <= ch && ch <= 0x9a) {
 					// Zenkaku alphabet characters in Japanese code set
 					rtn += '\xef';
@@ -644,7 +644,7 @@ size_t Length(const char *str)
 {
 	size_t len = 0;
 	for ( ; *str != '\0'; len++) {
-		int ch = static_cast<unsigned char>(*str);
+		int ch = static_cast<UChar>(*str);
 		str++;
 		if (IsUTF8First(ch)) {
 			while (IsUTF8Follower(*str)) str++;
@@ -658,7 +658,7 @@ size_t CalcCharPos(const char *str, size_t idx)
 	size_t len = 0;
 	const char *strEnd = str + idx;
 	for ( ; *str != '\0' && str < strEnd; len++) {
-		int ch = static_cast<unsigned char>(*str);
+		int ch = static_cast<UChar>(*str);
 		str++;
 		if (IsUTF8First(ch)) {
 			while (IsUTF8Follower(*str)) str++;
@@ -680,7 +680,7 @@ String PickChar(const String &str, size_t idx)
 String::const_iterator NextChar(const String &str, String::const_iterator p)
 {
 	if (p != str.end()) {
-		int ch = static_cast<unsigned char>(*p);
+		int ch = static_cast<UChar>(*p);
 		p++;
 		if (IsUTF8First(ch)) {
 			while (p != str.end() && IsUTF8Follower(*p)) p++;
@@ -689,16 +689,16 @@ String::const_iterator NextChar(const String &str, String::const_iterator p)
 	return p;
 }
 
-String::const_iterator NextUTF8(const String &str, String::const_iterator p, uint64 &codeUTF8)
+String::const_iterator NextUTF8(const String &str, String::const_iterator p, UInt64 &codeUTF8)
 {
 	codeUTF8 = 0x000000000000;
 	if (p != str.end()) {
-		int ch = static_cast<unsigned char>(*p);
+		int ch = static_cast<UChar>(*p);
 		codeUTF8 = ch;
 		p++;
 		if (IsUTF8First(ch)) {
 			while (p != str.end() && IsUTF8Follower(*p)) {
-				codeUTF8 = (codeUTF8 << 8) | static_cast<unsigned char>(*p);
+				codeUTF8 = (codeUTF8 << 8) | static_cast<UChar>(*p);
 				p++;
 			}
 		}
@@ -706,30 +706,30 @@ String::const_iterator NextUTF8(const String &str, String::const_iterator p, uin
 	return p;
 }
 
-String::const_iterator NextUTF32(const String &str, String::const_iterator p, unsigned long &codeUTF32)
+String::const_iterator NextUTF32(const String &str, String::const_iterator p, ULong &codeUTF32)
 {
 	codeUTF32 = 0x00000000;
 	if (p == str.end()) {
 		// nothing to do
 	} else if ((*p & 0x80) == 0x00) {
-		codeUTF32 = static_cast<unsigned char>(*p);
+		codeUTF32 = static_cast<UChar>(*p);
 		p++;
 	} else {
 		int cntChars = 0;
 		if ((*p & 0xe0) == 0xc0) {
-			codeUTF32 = static_cast<unsigned char>(*p) & 0x1f;
+			codeUTF32 = static_cast<UChar>(*p) & 0x1f;
 			cntChars = 1;
 		} else if ((*p & 0xf0) == 0xe0) {
-			codeUTF32 = static_cast<unsigned char>(*p) & 0x0f;
+			codeUTF32 = static_cast<UChar>(*p) & 0x0f;
 			cntChars = 2;
 		} else if ((*p & 0xf8) == 0xf0) {
-			codeUTF32 = static_cast<unsigned char>(*p) & 0x07;
+			codeUTF32 = static_cast<UChar>(*p) & 0x07;
 			cntChars = 3;
 		} else if ((*p & 0xfc) == 0xf8) {
-			codeUTF32 = static_cast<unsigned char>(*p) & 0x03;
+			codeUTF32 = static_cast<UChar>(*p) & 0x03;
 			cntChars = 4;
 		} else {
-			codeUTF32 = static_cast<unsigned char>(*p) & 0x01;
+			codeUTF32 = static_cast<UChar>(*p) & 0x01;
 			cntChars = 5;
 		}
 		p++;
@@ -743,7 +743,7 @@ String::const_iterator NextUTF32(const String &str, String::const_iterator p, un
 void _Copy(String &rtn, const char *str, size_t len)
 {
 	for ( ; *str != '\0' && len > 0; len--) {
-		int ch = static_cast<unsigned char>(*str);
+		int ch = static_cast<UChar>(*str);
 		rtn += *str;
 		str++;
 		if (IsUTF8First(ch)) {
@@ -758,7 +758,7 @@ void _Copy(String &rtn, const char *str, size_t len)
 const char *Forward(const char *str, size_t len)
 {
 	for ( ; *str != '\0' && len > 0; len--) {
-		int ch = static_cast<unsigned char>(*str);
+		int ch = static_cast<UChar>(*str);
 		str++;
 		if (IsUTF8First(ch)) {
 			while (IsUTF8Follower(*str)) str++;
@@ -771,7 +771,7 @@ String::const_iterator Forward(String::const_iterator str,
 							String::const_iterator strEnd, size_t len)
 {
 	for ( ; str != strEnd && len > 0; len--) {
-		int ch = static_cast<unsigned char>(*str);
+		int ch = static_cast<UChar>(*str);
 		str++;
 		if (IsUTF8First(ch)) {
 			while (IsUTF8Follower(*str)) str++;

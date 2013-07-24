@@ -327,10 +327,10 @@ bool Expr::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr::Serialize(Environment &env, Signal sig, Stream &stream, const Expr *pExpr)
 {
 	if (pExpr == NULL) {
-		unsigned char exprType = static_cast<unsigned char>(EXPRTYPE_None);
+		UChar exprType = static_cast<UChar>(EXPRTYPE_None);
 		return stream.Write(sig, &exprType, 1) == 1;
 	}
-	unsigned char exprType = static_cast<unsigned char>(pExpr->GetType());
+	UChar exprType = static_cast<UChar>(pExpr->GetType());
 	if (stream.Write(sig, &exprType, 1) < 1) return false;
 	return pExpr->DoSerialize(env, sig, stream);
 }
@@ -338,7 +338,7 @@ bool Expr::Serialize(Environment &env, Signal sig, Stream &stream, const Expr *p
 bool Expr::Deserialize(Environment &env, Signal sig, Stream &stream, Expr **ppExpr, bool mustBeValidFlag)
 {
 	*ppExpr = NULL;
-	unsigned char exprType = 0x00;
+	UChar exprType = 0x00;
 	if (stream.Read(sig, &exprType, 1) < 1) return false;
 	AutoPtr<Expr> pExpr;
 	//::printf("exprType = 0x%02x\n", exprType);
@@ -831,7 +831,7 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &value,
 			valTypeCast = pValueTypeInfo->GetValueType();
 		}
 	}
-	unsigned long extra = EXTRA_None;
+	ULong extra = EXTRA_None;
 	if (_attrs.IsSet(Gura_Symbol(public_))) {
 		extra = EXTRA_Public;
 	}
@@ -1969,7 +1969,7 @@ bool Expr_UnaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_UnaryOp::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
 	if (!Expr_Unary::DoSerialize(env, sig, stream)) return false;
-	unsigned char opType = static_cast<unsigned char>(_pOperator->GetOpType());
+	UChar opType = static_cast<UChar>(_pOperator->GetOpType());
 	if (!stream.SerializeUChar(sig, opType)) return false;
 	return true;
 }
@@ -1977,7 +1977,7 @@ bool Expr_UnaryOp::DoSerialize(Environment &env, Signal sig, Stream &stream) con
 bool Expr_UnaryOp::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
 	if (!Expr_Unary::DoDeserialize(env, sig, stream)) return false;
-	unsigned char opTypeRaw = 0x00;
+	UChar opTypeRaw = 0x00;
 	if (!stream.DeserializeUChar(sig, opTypeRaw)) return false;
 	if (opTypeRaw >= OPTYPE_max) {
 		sig.SetError(ERR_IOError, "invalid binary operator in the stream");
@@ -2062,7 +2062,7 @@ bool Expr_BinaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_BinaryOp::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
 	if (!Expr_Binary::DoSerialize(env, sig, stream)) return false;
-	unsigned char opType = static_cast<unsigned char>(_pOperator->GetOpType());
+	UChar opType = static_cast<UChar>(_pOperator->GetOpType());
 	if (!stream.SerializeUChar(sig, opType)) return false;
 	return true;
 }
@@ -2070,7 +2070,7 @@ bool Expr_BinaryOp::DoSerialize(Environment &env, Signal sig, Stream &stream) co
 bool Expr_BinaryOp::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
 	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
-	unsigned char opTypeRaw = 0x00;
+	UChar opTypeRaw = 0x00;
 	if (!stream.DeserializeUChar(sig, opTypeRaw)) return false;
 	if (opTypeRaw >= OPTYPE_max) {
 		sig.SetError(ERR_IOError, "invalid binary operator in the stream");
@@ -2379,7 +2379,7 @@ bool Expr_Assign::DoSerialize(Environment &env, Signal sig, Stream &stream) cons
 {
 	if (!Expr_Binary::DoSerialize(env, sig, stream)) return false;
 	OpType opType = (_pOperatorToApply == NULL)? OPTYPE_None : _pOperatorToApply->GetOpType();
-	unsigned char opTypeRaw = static_cast<unsigned char>(opType);
+	UChar opTypeRaw = static_cast<UChar>(opType);
 	if (!stream.SerializeUChar(sig, opTypeRaw)) return false;
 	return true;
 }
@@ -2387,7 +2387,7 @@ bool Expr_Assign::DoSerialize(Environment &env, Signal sig, Stream &stream) cons
 bool Expr_Assign::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
 	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
-	unsigned char opTypeRaw = 0x00;
+	UChar opTypeRaw = 0x00;
 	if (!stream.DeserializeUChar(sig, opTypeRaw)) return false;
 	if (opTypeRaw >= OPTYPE_max) {
 		sig.SetError(ERR_IOError, "invalid binary operator in the stream");
@@ -2599,7 +2599,7 @@ bool Expr_Member::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Member::DoSerialize(Environment &env, Signal sig, Stream &stream) const
 {
 	if (!Expr_Binary::DoSerialize(env, sig, stream)) return false;
-	unsigned char mode = static_cast<unsigned char>(_mode);
+	UChar mode = static_cast<UChar>(_mode);
 	if (!stream.SerializeUChar(sig, mode)) return false;
 	return true;
 }
@@ -2607,7 +2607,7 @@ bool Expr_Member::DoSerialize(Environment &env, Signal sig, Stream &stream) cons
 bool Expr_Member::DoDeserialize(Environment &env, Signal sig, Stream &stream)
 {
 	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
-	unsigned char mode = 0;
+	UChar mode = 0;
 	if (!stream.DeserializeUChar(sig, mode)) return false;
 	if (mode >= MODE_max) {
 		sig.SetError(ERR_IOError, "invalid mode number");
@@ -2739,7 +2739,7 @@ bool ExprList::GenerateCode(Environment &env, Signal sig, Stream &stream)
 
 bool ExprList::Serialize(Environment &env, Signal sig, Stream &stream) const
 {
-	unsigned long num = static_cast<unsigned long>(size());
+	ULong num = static_cast<ULong>(size());
 	if (!stream.SerializePackedULong(sig, num)) return false;
 	foreach_const (ExprList, ppExpr, *this) {
 		const Expr *pExpr = *ppExpr;
@@ -2802,7 +2802,7 @@ void ExprOwner::Clear()
 
 bool ExprOwner::Deserialize(Environment &env, Signal sig, Stream &stream)
 {
-	unsigned long num = 0;
+	ULong num = 0;
 	if (!stream.DeserializePackedULong(sig, num)) return false;
 	Clear();
 	reserve(num);

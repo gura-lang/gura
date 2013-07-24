@@ -32,7 +32,7 @@ Image *Image::Clone() const
 	return new Image(*this);
 }
 
-bool Image::AllocBuffer(size_t width, size_t height, unsigned char fillValue)
+bool Image::AllocBuffer(size_t width, size_t height, UChar fillValue)
 {
 	if (width == 0 || height == 0) return false;
 	_width = width, _height = height;
@@ -54,7 +54,7 @@ bool Image::AllocBuffer(size_t width, size_t height, unsigned char fillValue)
 }
 
 bool Image::AllocBuffer(Signal sig,
-					size_t width, size_t height, unsigned char fillValue)
+					size_t width, size_t height, UChar fillValue)
 {
 	if (AllocBuffer(width, height, fillValue)) return true;
 	sig.SetError(ERR_MemoryError, "failed to allocate image buffer");
@@ -177,7 +177,7 @@ bool Image::AdjustCoord(int &x, int &y, int &width, int &height) const
 	return true;
 }
 
-void Image::PutPixel(unsigned char *buff, const Color &color)
+void Image::PutPixel(UChar *buff, const Color &color)
 {
 	if (_format == FORMAT_RGB) {
 		*(buff + OffsetRed)		= color.GetRed();
@@ -191,7 +191,7 @@ void Image::PutPixel(unsigned char *buff, const Color &color)
 	}
 }
 
-void Image::GetPixel(const unsigned char *buff, Color &color)
+void Image::GetPixel(const UChar *buff, Color &color)
 {
 	if (_format == FORMAT_RGB) {
 		color = Color(GetPixelR(buff), GetPixelG(buff), GetPixelB(buff), 255);
@@ -209,11 +209,11 @@ bool Image::Store(Signal sig, size_t x, size_t y, size_t width, size_t height,
 	}
 	size_t bytesPerLine = GetBytesPerLine();
 	size_t bytesPerPixel = GetBytesPerPixel();
-	unsigned char *pLine = GetPointer(x, y);
+	UChar *pLine = GetPointer(x, y);
 	size_t offPixel = SymbolToPixelOffset(sig, pSymbol);
 	if (sig.IsSignalled()) return false;
 	for (size_t iLine = 0; iLine < height; iLine++, pLine += bytesPerLine) {
-		unsigned char *pPixel = pLine + offPixel;
+		UChar *pPixel = pLine + offPixel;
 		ValueList::const_iterator pValueElem = pMat->GetPointer(iLine, 0);
 		for (size_t iPixel = 0; iPixel < width;
 							iPixel++, pPixel += bytesPerPixel, pValueElem++) {
@@ -228,11 +228,11 @@ bool Image::Store(Environment &env, Signal sig, size_t x, size_t y, size_t width
 {
 	size_t bytesPerLine = GetBytesPerLine();
 	size_t bytesPerPixel = GetBytesPerPixel();
-	unsigned char *pLine = GetPointer(x, y);
+	UChar *pLine = GetPointer(x, y);
 	size_t offPixel = SymbolToPixelOffset(sig, pSymbol);
 	if (sig.IsSignalled()) return false;
 	for (size_t iLine = 0; iLine < height; iLine++, pLine += bytesPerLine) {
-		unsigned char *pPixel = pLine + offPixel;
+		UChar *pPixel = pLine + offPixel;
 		for (size_t iPixel = 0; iPixel < width; iPixel++, pPixel += bytesPerPixel) {
 			Value value;
 			if (!pIterator->Next(env, sig, value)) return false;
@@ -251,11 +251,11 @@ bool Image::Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
 	}
 	size_t bytesPerLine = GetBytesPerLine();
 	size_t bytesPerPixel = GetBytesPerPixel();
-	const unsigned char *pLine = GetPointer(x, y);
+	const UChar *pLine = GetPointer(x, y);
 	size_t offPixel = SymbolToPixelOffset(sig, pSymbol);
 	if (sig.IsSignalled()) return false;
 	for (size_t iLine = 0; iLine < height; iLine++, pLine += bytesPerLine) {
-		const unsigned char *pPixel = pLine + offPixel;
+		const UChar *pPixel = pLine + offPixel;
 		ValueList::iterator pValueElem = pMat->GetPointer(iLine, 0);
 		for (size_t iPixel = 0; iPixel < width;
 							iPixel++, pPixel += bytesPerPixel, pValueElem++) {
@@ -274,12 +274,12 @@ bool Image::Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
 	}
 	size_t bytesPerLine = GetBytesPerLine();
 	size_t bytesPerPixel = GetBytesPerPixel();
-	const unsigned char *pLine = GetPointer(x, y);
+	const UChar *pLine = GetPointer(x, y);
 	size_t offPixel = SymbolToPixelOffset(sig, pSymbol);
 	if (sig.IsSignalled()) return false;
 	ValueList::iterator pValueElem = valList.begin();
 	for (size_t iLine = 0; iLine < height; iLine++, pLine += bytesPerLine) {
-		const unsigned char *pPixel = pLine + offPixel;
+		const UChar *pPixel = pLine + offPixel;
 		for (size_t iPixel = 0; iPixel < width;
 							iPixel++, pPixel += bytesPerPixel, pValueElem++) {
 			*pValueElem = Value(*pPixel);
@@ -292,12 +292,12 @@ void Image::ReplaceColorRect(size_t x, size_t y, size_t width, size_t height,
 				const Color &colorOrg, const Color &color)
 {
 	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
-	unsigned char buffOrg[8], buff[8];
+	UChar buffOrg[8], buff[8];
 	PutPixel(buffOrg, colorOrg);
 	PutPixel(buff, color);
 	if (_format == FORMAT_RGBA) {
 		do {
-			unsigned char *pPixel = pScanner->GetPointer();
+			UChar *pPixel = pScanner->GetPointer();
 			if (::memcmp(pPixel, buffOrg, 3) == 0) {
 				StorePixelRGB(pScanner->GetPointer(), buff);
 				//StorePixelRGBA(pScanner->GetPointer(), buff);
@@ -305,7 +305,7 @@ void Image::ReplaceColorRect(size_t x, size_t y, size_t width, size_t height,
 		} while (pScanner->Next());
 	} else {
 		do {
-			unsigned char *pPixel = pScanner->GetPointer();
+			UChar *pPixel = pScanner->GetPointer();
 			if (::memcmp(pPixel, buffOrg, 3) == 0) {
 				StorePixelRGB(pScanner->GetPointer(), buff);
 			}
@@ -316,7 +316,7 @@ void Image::ReplaceColorRect(size_t x, size_t y, size_t width, size_t height,
 void Image::FillRect(size_t x, size_t y, size_t width, size_t height,
 												const Color &color)
 {
-	unsigned char buff[8];
+	UChar buff[8];
 	PutPixel(buff, color);
 	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
 	if (_format == FORMAT_RGBA) {
@@ -331,23 +331,23 @@ void Image::FillRect(size_t x, size_t y, size_t width, size_t height,
 }
 
 void Image::FillRectAlpha(size_t x, size_t y,
-					size_t width, size_t height, unsigned char alpha)
+					size_t width, size_t height, UChar alpha)
 {
 	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
 	do {
-		unsigned char *pPixel = pScanner->GetPointer();
+		UChar *pPixel = pScanner->GetPointer();
 		*(pPixel + OffsetAlpha) = alpha;
 	} while (pScanner->Next());
 }
 
 void Image::FillRectAlpha(size_t x, size_t y,
-		size_t width, size_t height, unsigned char alpha, const Color &color)
+		size_t width, size_t height, UChar alpha, const Color &color)
 {
 	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
-	unsigned char buff[8];
+	UChar buff[8];
 	PutPixel(buff, color);
 	do {
-		unsigned char *pPixel = pScanner->GetPointer();
+		UChar *pPixel = pScanner->GetPointer();
 		if (::memcmp(pPixel, buff, 3) == 0) {
 			*(pPixel + OffsetAlpha) = alpha;
 		}
@@ -384,12 +384,12 @@ Image *Image::GrayScale(Signal sig)
 	std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner());
 	if (_format == FORMAT_RGBA) {
 		do {
-			unsigned char gray = GetPixelGray(pScannerSrc->GetPointer());
+			UChar gray = GetPixelGray(pScannerSrc->GetPointer());
 			pScannerDst->StorePixel(gray, gray, gray, pScannerSrc->GetAlpha());
 		} while (pScannerSrc->Next(*pScannerDst));
 	} else {
 		do {
-			unsigned char gray = GetPixelGray(pScannerSrc->GetPointer());
+			UChar gray = GetPixelGray(pScannerSrc->GetPointer());
 			pScannerDst->StorePixel(gray, gray, gray);
 		} while (pScannerSrc->Next(*pScannerDst));
 	}
@@ -444,7 +444,7 @@ Image *Image::Blur(Signal sig, int radius, Number sigma)
 		//
 		do {
 			Number red = 0, green = 0, blue = 0;
-			unsigned char alpha = 255;
+			UChar alpha = 255;
 			Number *p = kernel;
 			pScanner->SetPointer(pScannerSrc->GetPointer());
 			pScanner->ResetIndex();
@@ -455,9 +455,9 @@ Image *Image::Blur(Signal sig, int radius, Number sigma)
 				p++;
 			} while (pScanner->Next());
 			pScannerDst->StorePixel(
-					static_cast<unsigned char>(red),
-					static_cast<unsigned char>(green),
-					static_cast<unsigned char>(blue), alpha);
+					static_cast<UChar>(red),
+					static_cast<UChar>(green),
+					static_cast<UChar>(blue), alpha);
 		} while (pScannerSrc->Next(*pScannerDst));
 	} else {
 		do {
@@ -472,9 +472,9 @@ Image *Image::Blur(Signal sig, int radius, Number sigma)
 				p++;
 			} while (pScanner->Next());
 			pScannerDst->StorePixel(
-					static_cast<unsigned char>(red),
-					static_cast<unsigned char>(green),
-					static_cast<unsigned char>(blue));
+					static_cast<UChar>(red),
+					static_cast<UChar>(green),
+					static_cast<UChar>(blue));
 		} while (pScannerSrc->Next(*pScannerDst));
 	}
 	return pImage.release();
@@ -498,8 +498,8 @@ Image *Image::Flip(Signal sig, bool horzFlag, bool vertFlag)
 			} while (pScannerSrc->Next(*pScannerDst));
 		}
 	} else if (vertFlag) { // !horzFlag
-		const unsigned char *pLineSrc = GetPointer(0);
-		unsigned char *pLineDst = pImage->GetPointer(_height);
+		const UChar *pLineSrc = GetPointer(0);
+		UChar *pLineDst = pImage->GetPointer(_height);
 		size_t bytesPerLine = GetBytesPerLine();
 		for (size_t y = 0; y < _height; y++) {
 			pLineDst -= bytesPerLine;
@@ -570,20 +570,20 @@ Image *Image::Rotate(Signal sig, double angle, const Color &color)
 	} while (0);
 	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
 	if (sig.IsSignalled()) return NULL;
-	unsigned char *pLineDst = pImage->GetPointer(0);
+	UChar *pLineDst = pImage->GetPointer(0);
 	size_t bytesPerLineDst = pImage->GetBytesPerLine();
 	size_t bytesPerPixel = GetBytesPerPixel();
-	unsigned char buffBlank[8];
+	UChar buffBlank[8];
 	PutPixel(buffBlank, color);
 	for (int y = 0; y < height; y++) {
-		unsigned char *pPixelDst = pLineDst;
+		UChar *pPixelDst = pLineDst;
 		for (int x = 0; x < width; x++) {
 			int xm, ym;
 			RotateCoord(xm, ym, x - xCenterNew, y - yCenterNew, cos1024, sin1024);
 			xm += xCenter, ym += yCenter;
 			if (xm >= 0 && xm < static_cast<int>(_width) &&
 								ym >= 0 && ym < static_cast<int>(_height)) {
-				unsigned char *pPixelSrc = GetPointer(xm, ym);
+				UChar *pPixelSrc = GetPointer(xm, ym);
 				StorePixel(pPixelDst, pPixelSrc, _format == FORMAT_RGBA);
 			} else {
 				StorePixel(pPixelDst, buffBlank, _format == FORMAT_RGBA);
@@ -599,8 +599,8 @@ Image *Image::Crop(Signal sig, size_t x, size_t y, size_t width, size_t height)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
 	if (sig.IsSignalled()) return NULL;
-	const unsigned char *pLineSrc = GetPointer(x, y);
-	unsigned char *pLineDst = pImage->GetPointer(0);
+	const UChar *pLineSrc = GetPointer(x, y);
+	UChar *pLineDst = pImage->GetPointer(0);
 	size_t bytesPerLineSrc = GetBytesPerLine();
 	size_t bytesPerLineDst = pImage->GetBytesPerLine();
 	for (size_t y = 0; y < height; y++) {
@@ -615,8 +615,8 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 {
 	AutoPtr<Image> pImage(CreateDerivation(sig, width, height));
 	if (sig.IsSignalled()) return NULL;
-	const unsigned char *pLineSrc = GetPointer(0);
-	unsigned char *pLineDst = pImage->GetPointer(0);
+	const UChar *pLineSrc = GetPointer(0);
+	UChar *pLineDst = pImage->GetPointer(0);
 	size_t bytesPerPixel = GetBytesPerPixel();
 	size_t bytesPerLineSrc = GetBytesPerLine();
 	size_t bytesPerLineDst = pImage->GetBytesPerLine();
@@ -628,8 +628,8 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 	if (_format == FORMAT_RGB) {
 		for (size_t ySrc = 0; ySrc < _height; ySrc++) {
 			if (ySrc < _height) {
-				const unsigned char *pPixelSrc = pLineSrc;
-				unsigned char *pPixelDst = pLineDst;
+				const UChar *pPixelSrc = pLineSrc;
+				UChar *pPixelDst = pLineDst;
 				Accum *pAccum = accums;
 				size_t numerX = 0;
 				for (size_t xSrc = 0; xSrc < _width; xSrc++) {
@@ -672,7 +672,7 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 				}
 				for ( ; numerY > _height; numerY -= _height) {
 					Accum *pAccum = accums;
-					unsigned char *pPixelDst = pLineDst;
+					UChar *pPixelDst = pLineDst;
 					for (size_t xDst = 0; xDst < width;
 									xDst++, pAccum++, pPixelDst += bytesPerPixel) {
 						pAccum->StoreRGB(pPixelDst);
@@ -685,8 +685,8 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 	} else if (_format == FORMAT_RGBA) {
 		for (size_t ySrc = 0; ySrc < _height; ySrc++) {
 			if (ySrc < _height) {
-				const unsigned char *pPixelSrc = pLineSrc;
-				unsigned char *pPixelDst = pLineDst;
+				const UChar *pPixelSrc = pLineSrc;
+				UChar *pPixelDst = pLineDst;
 				Accum *pAccum = accums;
 				size_t numerX = 0;
 				for (size_t xSrc = 0; xSrc < _width; xSrc++) {
@@ -732,7 +732,7 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 				}
 				for ( ; numerY > _height; numerY -= _height) {
 					Accum *pAccum = accums;
-					unsigned char *pPixelDst = pLineDst;
+					UChar *pPixelDst = pLineDst;
 					for (size_t xDst = 0; xDst < width;
 								xDst++, pAccum++, pPixelDst += bytesPerPixel) {
 						pAccum->StoreRGBA(pPixelDst);
@@ -747,10 +747,10 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 }
 
 void Image::Paste(size_t x, size_t y, Image *pImage,
-	size_t width, size_t height, size_t xOffset, size_t yOffset, unsigned char alpha)
+	size_t width, size_t height, size_t xOffset, size_t yOffset, UChar alpha)
 {
-	const unsigned char *pLineSrc = pImage->GetPointer(xOffset, yOffset);
-	unsigned char *pLineDst = GetPointer(x, y);
+	const UChar *pLineSrc = pImage->GetPointer(xOffset, yOffset);
+	UChar *pLineDst = GetPointer(x, y);
 	size_t bytesPerLineSrc = pImage->GetBytesPerLine();
 	size_t bytesPerLineDst = GetBytesPerLine();
 	if (_format == pImage->GetFormat()) {
@@ -762,8 +762,8 @@ void Image::Paste(size_t x, size_t y, Image *pImage,
 		}
 	} else if (_format == FORMAT_RGB && pImage->GetFormat() == FORMAT_RGBA) {
 		for (size_t y = 0; y < height; y++) {
-			const unsigned char *pPixelSrc = pLineSrc;
-			unsigned char *pPixelDst = pLineDst;
+			const UChar *pPixelSrc = pLineSrc;
+			UChar *pPixelDst = pLineDst;
 			for (size_t x = 0; x < width; x++) {
 				*pPixelDst++ = *pPixelSrc++;
 				*pPixelDst++ = *pPixelSrc++;
@@ -775,8 +775,8 @@ void Image::Paste(size_t x, size_t y, Image *pImage,
 		}
 	} else if (_format == FORMAT_RGBA && pImage->GetFormat() == FORMAT_RGB) {
 		for (size_t y = 0; y < height; y++) {
-			const unsigned char *pPixelSrc = pLineSrc;
-			unsigned char *pPixelDst = pLineDst;
+			const UChar *pPixelSrc = pLineSrc;
+			UChar *pPixelDst = pLineDst;
 			for (size_t x = 0; x < width; x++) {
 				*pPixelDst++ = *pPixelSrc++;
 				*pPixelDst++ = *pPixelSrc++;
@@ -870,7 +870,7 @@ bool Image::ReadDIBPalette(Environment &env, Signal sig, Stream &stream, int biB
 	size_t nEntries = 1 << biBitCount;
 	CreateEmptyPalette(env, nEntries);
 	for (size_t idx = 0; idx < nEntries; idx++) {
-		unsigned char buff[4];
+		UChar buff[4];
 		if (stream.Read(sig, buff, 4) < 4) {
 			sig.SetError(ERR_FormatError, "failed to read DIB palette");
 			return false;
@@ -901,9 +901,9 @@ bool Image::WriteDIBPalette(Environment &env, Signal sig, Stream &stream, int bi
 	}
 	size_t idx = 0;
 	size_t idxMax = ChooseMin(nEntries, _pPalette->CountEntries());
-	unsigned char buff[4];
+	UChar buff[4];
 	for ( ; idx < idxMax; idx++) {
-		const unsigned char *pEntry = _pPalette->GetEntry(idx);
+		const UChar *pEntry = _pPalette->GetEntry(idx);
 		buff[0] = GetPixelB(pEntry);
 		buff[1] = GetPixelG(pEntry);
 		buff[2] = GetPixelR(pEntry);
@@ -932,12 +932,12 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 		size_t bytesPerLine = (biWidth + 7) / 8;
 		size_t bytesAlign = (bytesPerLine + 3) / 4 * 4 - bytesPerLine;
 		int bitsRest = 0;
-		unsigned char ch;
+		UChar ch;
 		int iLine = 0, iPixel = 0;
 		int bytesPitch = static_cast<int>(GetBytesPerLine());
 		if (vertRevFlag) bytesPitch = -bytesPitch;
-		unsigned char *pLine = GetPointer(vertRevFlag? biHeight - 1 : 0);
-		unsigned char *pPixel = pLine;
+		UChar *pLine = GetPointer(vertRevFlag? biHeight - 1 : 0);
+		UChar *pPixel = pLine;
 		for (;;) {
 			if (iPixel >= biWidth) {
 				if (++iLine >= biHeight) break;
@@ -950,7 +950,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 				if (stream.Read(sig, &ch, 1) < 1) break;
 				bitsRest = 8;
 			}
-			unsigned char idx = ch >> 7;
+			UChar idx = ch >> 7;
 			ch <<= 1, bitsRest--;
 			StorePixelRGB(pPixel, _pPalette->GetEntry(idx));
 			pPixel += GetBytesPerPixel();
@@ -960,13 +960,13 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 	} else if (biBitCount == 4) {
 		size_t bytesPerLine = (biWidth + 1) / 2;
 		size_t bytesAlign = (bytesPerLine + 3) / 4 * 4 - bytesPerLine;
-		unsigned char ch;
+		UChar ch;
 		std::auto_ptr<Scanner> pScanner(CreateScanner(
 				vertRevFlag? SCAN_LeftBottomHorz : SCAN_LeftTopHorz));
 		if (stream.Read(sig, &ch, 1) < 1) return false;
 		int bitsRest = 8;
 		for (;;) {
-			unsigned char idx = ch >> 4;
+			UChar idx = ch >> 4;
 			ch <<= 4, bitsRest -= 4;
 			StorePixelRGB(pScanner->GetPointer(), _pPalette->GetEntry(idx));
 			if (!pScanner->NextPixel()) {
@@ -983,7 +983,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 		if (sig.IsSignalled()) return false;
 	} else if (biBitCount == 8) {
 		size_t bytesAlign = (biWidth + 3) / 4 * 4 - biWidth;
-		unsigned char ch;
+		UChar ch;
 		std::auto_ptr<Scanner> pScanner(CreateScanner(
 				vertRevFlag? SCAN_LeftBottomHorz : SCAN_LeftTopHorz));
 		if (stream.Read(sig, &ch, 1) < 1) return false;
@@ -999,7 +999,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 		if (sig.IsSignalled()) return false;
 	} else if (biBitCount == 24) {
 		size_t bytesAlign = (3 * biWidth + 3) / 4 * 4 - 3 * biWidth;
-		unsigned char buff[3];
+		UChar buff[3];
 		std::auto_ptr<Scanner> pScanner(CreateScanner(
 				vertRevFlag? SCAN_LeftBottomHorz : SCAN_LeftTopHorz));
 		for (;;) {
@@ -1013,7 +1013,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 		}
 		if (sig.IsSignalled()) return false;
 	} else if (biBitCount == 32) {
-		unsigned char buff[4];
+		UChar buff[4];
 		std::auto_ptr<Scanner> pScanner(CreateScanner(
 				vertRevFlag? SCAN_LeftBottomHorz : SCAN_LeftTopHorz));
 		if (_format == FORMAT_RGBA) {
@@ -1039,12 +1039,12 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 		if (GetFormat() == FORMAT_RGBA) {
 			// read AND bitmap
 			int bitsRest = 0;
-			unsigned char ch;
+			UChar ch;
 			int iLine = 0, iPixel = 0;
 			int bytesPitch = static_cast<int>(GetBytesPerLine());
 			if (vertRevFlag) bytesPitch = -bytesPitch;
-			unsigned char *pLine = GetPointer(vertRevFlag? biHeight - 1 : 0);
-			unsigned char *pPixel = pLine;
+			UChar *pLine = GetPointer(vertRevFlag? biHeight - 1 : 0);
+			UChar *pPixel = pLine;
 			for (;;) {
 				if (iPixel >= biWidth) {
 					if (++iLine >= biHeight) break;
@@ -1057,7 +1057,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 					if (stream.Read(sig, &ch, 1) < 1) break;
 					bitsRest = 8;
 				}
-				unsigned char idx = ch >> 7;
+				UChar idx = ch >> 7;
 				ch <<= 1, bitsRest--;
 				pPixel[OffsetAlpha] = idx? 0 : 255;
 				pPixel += GetBytesPerPixel();
@@ -1082,10 +1082,10 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 		size_t bytesPerLine = (biWidth + 7) / 8;
 		size_t bytesAlign = (bytesPerLine + 3) / 4 * 4 - bytesPerLine;
 		int bitsAccum = 0;
-		unsigned char chAccum = 0x00;
+		UChar chAccum = 0x00;
 		std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 		for (;;) {
-			unsigned char ch = static_cast<unsigned char>(
+			UChar ch = static_cast<UChar>(
 							_pPalette->LookupNearest(pScanner->GetPointer()));
 			chAccum |= ch << ((8 - 1) - bitsAccum);
 			bitsAccum += 1;
@@ -1112,10 +1112,10 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 		size_t bytesPerLine = (biWidth + 1) / 2;
 		size_t bytesAlign = (bytesPerLine + 3) / 4 * 4 - bytesPerLine;
 		int bitsAccum = 0;
-		unsigned char chAccum = 0x00;
+		UChar chAccum = 0x00;
 		std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 		for (;;) {
-			unsigned char ch = static_cast<unsigned char>(
+			UChar ch = static_cast<UChar>(
 							_pPalette->LookupNearest(pScanner->GetPointer()));
 			chAccum |= ch << ((8 - 4) - bitsAccum);
 			bitsAccum += 4;
@@ -1142,7 +1142,7 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 		size_t bytesAlign = (biWidth + 3) / 4 * 4 - biWidth;
 		std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 		for (;;) {
-			unsigned char ch = static_cast<unsigned char>(
+			UChar ch = static_cast<UChar>(
 							_pPalette->LookupNearest(pScanner->GetPointer()));
 			stream.Write(sig, &ch, 1);
 			if (sig.IsSignalled()) return false;
@@ -1154,7 +1154,7 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 		}
 	} else if (biBitCount == 24) {
 		size_t bytesAlign = ((3 * biWidth) + 3) / 4 * 4 - 3 * biWidth;
-		unsigned char buff[3];
+		UChar buff[3];
 		std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 		for (;;) {
 			buff[0] = pScanner->GetBlue();
@@ -1169,7 +1169,7 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 			}
 		}
 	} else if (biBitCount == 32) {
-		unsigned char buff[4];
+		UChar buff[4];
 		std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 		for (;;) {
 			buff[0] = pScanner->GetBlue();
@@ -1191,10 +1191,10 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 		if (GetFormat() == FORMAT_RGBA) {
 			// write AND bitmap
 			int bitsAccum = 0;
-			unsigned char chAccum = 0x00;
+			UChar chAccum = 0x00;
 			std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 			for (;;) {
-				unsigned char ch = (pScanner->GetAlpha() < 128)? 1 : 0;
+				UChar ch = (pScanner->GetAlpha() < 128)? 1 : 0;
 				chAccum |= ch << ((8 - 1) - bitsAccum);
 				bitsAccum += 1;
 				if (bitsAccum >= 8) {
@@ -1308,10 +1308,10 @@ bool Image::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 {
 	Image *pImage = _scanner.GetImage();
 	if (_doneFlag) return false;
-	unsigned char red = _scanner.GetRed();
-	unsigned char green = _scanner.GetGreen();
-	unsigned char blue = _scanner.GetBlue();
-	unsigned char alpha = (pImage->GetFormat() == FORMAT_RGBA)?
+	UChar red = _scanner.GetRed();
+	UChar green = _scanner.GetGreen();
+	UChar blue = _scanner.GetBlue();
+	UChar alpha = (pImage->GetFormat() == FORMAT_RGBA)?
 											_scanner.GetAlpha() : 0xff;
 	value = Value(new Object_color(env, red, green, blue, alpha));
 	_doneFlag = !_scanner.Next();

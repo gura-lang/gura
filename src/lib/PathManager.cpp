@@ -118,7 +118,7 @@ Directory *PathManager::OpenDirectory(Environment &env, Signal sig,
 }
 
 Stream *PathManager::OpenStream(Environment &env, Signal sig,
-								const char *pathName, unsigned long attr)
+								const char *pathName, ULong attr)
 {
 	if (*pathName == '>') {
 		pathName++;
@@ -343,7 +343,7 @@ bool PathManager::Iterator_Glob::DoNext(Environment &env, Signal sig, Value &val
 			if (_depth + 1 < _patternSegs.size()) {
 				if (pDirectoryChild->IsContainer()) {
 					_directoryQue.push_back(Directory::Reference(pDirectoryChild));
-					_depthQue.push_back(static_cast<unsigned int>(_depth + 1));
+					_depthQue.push_back(static_cast<UInt>(_depth + 1));
 				}
 			} else if (typeMatchFlag) {
 				break;

@@ -15,7 +15,7 @@ Palette::Palette(const Palette &palette) : _cntRef(1), _nEntries(palette._nEntri
 {
 	size_t bytes = palette._pMemory->GetSize();
 	_pMemory.reset(new MemoryHeap(bytes));
-	_buff = reinterpret_cast<unsigned char *>(_pMemory->GetPointer());
+	_buff = reinterpret_cast<UChar *>(_pMemory->GetPointer());
 	::memcpy(_buff, palette._buff, bytes);
 }
 
@@ -29,7 +29,7 @@ void Palette::AllocBuff(size_t nEntries)
 	_nEntries = nEntries;
 	if (_nEntries > 0) {
 		_pMemory.reset(new MemoryHeap(GetBuffSize()));
-		_buff = reinterpret_cast<unsigned char *>(_pMemory->GetPointer());
+		_buff = reinterpret_cast<UChar *>(_pMemory->GetPointer());
 		::memset(_buff, 0x00, GetBuffSize());
 		for (size_t idx = 0; idx < nEntries; idx++) {
 			GetEntry(idx)[Image::OffsetAlpha] = 0xff;
@@ -42,7 +42,7 @@ void Palette::ResizeBuff(size_t nEntries, size_t nEntriesToCopy)
 	_nEntries = nEntries;
 	size_t bytesToCopy = CalcBuffSize(nEntriesToCopy);
 	AutoPtr<Memory> pMemory(new MemoryHeap(GetBuffSize()));
-	unsigned char *buff = reinterpret_cast<unsigned char *>(pMemory->GetPointer());
+	UChar *buff = reinterpret_cast<UChar *>(pMemory->GetPointer());
 	::memcpy(buff, _buff, bytesToCopy);
 	::memset(buff + bytesToCopy, 0x00, GetBuffSize() - bytesToCopy);
 	_buff = buff;
@@ -55,7 +55,7 @@ void Palette::ResizeBuff(size_t nEntries, size_t nEntriesToCopy)
 bool Palette::Prepare(Signal sig, const Symbol *pSymbol)
 {
 	size_t nEntries = 0;
-	const unsigned char *rgb = NULL;
+	const UChar *rgb = NULL;
 	if (pSymbol->IsIdentical(Gura_Symbol(mono))) {
 		nEntries = 2, rgb = _rgb_Mono;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(basic))) {
@@ -77,7 +77,7 @@ bool Palette::Prepare(Signal sig, const Symbol *pSymbol)
 
 Value Palette::GetColorValue(Environment &env, size_t idx)
 {
-	const unsigned char *entry = GetEntry(idx);
+	const UChar *entry = GetEntry(idx);
 	return Value(new Object_color(env,
 		entry[Image::OffsetRed], entry[Image::OffsetGreen], entry[Image::OffsetBlue], entry[Image::OffsetAlpha]));
 }
@@ -87,10 +87,10 @@ void Palette::SetColor(size_t idx, const Color &color)
 	SetEntry(idx, color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha());
 }
 
-size_t Palette::LookupNearest(unsigned char red, unsigned char green, unsigned char blue) const
+size_t Palette::LookupNearest(UChar red, UChar green, UChar blue) const
 {
 	size_t idxMin = 0;
-	const unsigned char *entry = _buff;
+	const UChar *entry = _buff;
 	size_t distMin = Color::CalcDist(red, green, blue,
 						entry[Image::OffsetRed], entry[Image::OffsetGreen], entry[Image::OffsetBlue]);
 	if (distMin == 0) return idxMin;
@@ -112,9 +112,9 @@ bool Palette::UpdateByImage(const Image *pImage, ShrinkMode shrinkMode)
 	size_t idxBlank = NextBlankIndex(colorSet);
 	size_t bytesPerPixel = pImage->GetBytesPerPixel();
 	size_t bytesPerLine = pImage->GetBytesPerLine();
-	const unsigned char *pLine = pImage->GetPointer(0);
+	const UChar *pLine = pImage->GetPointer(0);
 	for (size_t y = 0; y < pImage->GetHeight(); y++) {
-		const unsigned char *pPixel = pLine;
+		const UChar *pPixel = pLine;
 		for (size_t x = 0; x < pImage->GetWidth(); x++) {
 			Color color(pPixel[Image::OffsetRed], pPixel[Image::OffsetGreen], pPixel[Image::OffsetBlue]);
 			std::pair<ColorSet::iterator, bool> rtn = colorSet.insert(color);
@@ -147,7 +147,7 @@ bool Palette::UpdateByPalette(const Palette *pPalette, ShrinkMode shrinkMode)
 	ColorSet colorSet;
 	size_t idxBlank = NextBlankIndex(colorSet);
 	for (size_t idx = 0; idx < pPalette->CountEntries(); idx++) {
-		const unsigned char *pEntry = pPalette->GetEntry(idx);
+		const UChar *pEntry = pPalette->GetEntry(idx);
 		Color color(pEntry[Image::OffsetRed], pEntry[Image::OffsetGreen], pEntry[Image::OffsetBlue]);
 		std::pair<ColorSet::iterator, bool> rtn = colorSet.insert(color);
 		if (!rtn.second) {
@@ -191,7 +191,7 @@ size_t Palette::NextBlankIndex(ColorSet &colorSet) const
 {
 	size_t idxMax = 0;
 	for (size_t idx = 0; idx < _nEntries; idx++) {
-		const unsigned char *pEntry = GetEntry(idx);
+		const UChar *pEntry = GetEntry(idx);
 		Color color(pEntry[Image::OffsetRed], pEntry[Image::OffsetGreen], pEntry[Image::OffsetBlue]);
 		std::pair<ColorSet::iterator, bool> rtn = colorSet.insert(color);
 		if (rtn.second) idxMax = idx;
@@ -199,12 +199,12 @@ size_t Palette::NextBlankIndex(ColorSet &colorSet) const
 	return idxMax + 1;
 }
 
-const unsigned char Palette::_rgb_Mono[] = {
+const UChar Palette::_rgb_Mono[] = {
 	0x00, 0x00, 0x00,	// 0: black
 	0xff, 0xff, 0xff,	// 1: white
 };
 
-const unsigned char Palette::_rgb_Basic[] = {
+const UChar Palette::_rgb_Basic[] = {
 	0x00, 0x00, 0x00,	// 0: black
 	0x80, 0x00, 0x00,	// 1: maroon
 	0x00, 0x80, 0x00,	// 2: green
@@ -223,7 +223,7 @@ const unsigned char Palette::_rgb_Basic[] = {
 	0xff, 0xff, 0xff,	// 15: white
 };
 
-const unsigned char Palette::_rgb_Win256[] = {
+const UChar Palette::_rgb_Win256[] = {
 	0x00, 0x00, 0x00,	// 0
 	0x80, 0x00, 0x00,	// 1
 	0x00, 0x80, 0x00,	// 2
@@ -482,7 +482,7 @@ const unsigned char Palette::_rgb_Win256[] = {
 	0xff, 0xff, 0xff,	// 255
 };
 
-const unsigned char Palette::_rgb_WebSafe[] = {
+const UChar Palette::_rgb_WebSafe[] = {
 	0x00, 0x00, 0x00,	// 0
 	0x33, 0x00, 0x00,	// 1
 	0x66, 0x00, 0x00,	// 2

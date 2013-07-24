@@ -119,7 +119,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					stat = STAT_Start;
 				} else if (pValue->IsNumber()) {
 					PutString(flags, Conv_u(flags,
-						static_cast<unsigned int>(pValue->GetNumber()), buff, sizeof(buff)));
+						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
 				} else {
@@ -133,7 +133,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					stat = STAT_Start;
 				} else if (pValue->IsNumber()) {
 					PutString(flags, Conv_b(flags,
-						static_cast<unsigned int>(pValue->GetNumber()), buff, sizeof(buff)));
+						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
 				} else {
@@ -147,7 +147,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					stat = STAT_Start;
 				} else if (pValue->IsNumber()) {
 					PutString(flags, Conv_o(flags,
-						static_cast<unsigned int>(pValue->GetNumber()), buff, sizeof(buff)));
+						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
 				} else {
@@ -161,7 +161,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					stat = STAT_Start;
 				} else if (pValue->IsNumber()) {
 					PutString(flags, Conv_x(flags,
-						static_cast<unsigned int>(pValue->GetNumber()), buff, sizeof(buff),
+						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff),
 						ch == 'X'));
 					pValue++;
 					stat = STAT_Start;
@@ -376,7 +376,7 @@ const char *FormatterBase::Conv_d(const Flags &flags, int value,
 		}
 	} else {
 		int nCols = 0;
-		unsigned int valueNeg = -value;
+		UInt valueNeg = -value;
 		for ( ; valueNeg != 0; valueNeg /= 10, nCols++) {
 			p--;
 			*p = (valueNeg % 10) + '0';
@@ -395,7 +395,7 @@ const char *FormatterBase::Conv_d(const Flags &flags, int value,
 	return p;
 }
 
-const char *FormatterBase::Conv_u(const Flags &flags, unsigned int value,
+const char *FormatterBase::Conv_u(const Flags &flags, UInt value,
 												char *buff, size_t size)
 {
 	char *p = buff + size - 1;
@@ -425,7 +425,7 @@ const char *FormatterBase::Conv_u(const Flags &flags, unsigned int value,
 	return p;
 }
 
-const char *FormatterBase::Conv_b(const Flags &flags, unsigned int value,
+const char *FormatterBase::Conv_b(const Flags &flags, UInt value,
 												char *buff, size_t size)
 {
 	char *p = buff + size - 1;
@@ -460,7 +460,7 @@ const char *FormatterBase::Conv_b(const Flags &flags, unsigned int value,
 	return p;
 }
 
-const char *FormatterBase::Conv_o(const Flags &flags, unsigned int value,
+const char *FormatterBase::Conv_o(const Flags &flags, UInt value,
 												char *buff, size_t size)
 {
 	char *p = buff + size - 1;
@@ -493,7 +493,7 @@ const char *FormatterBase::Conv_o(const Flags &flags, unsigned int value,
 	return p;
 }
 
-const char *FormatterBase::Conv_x(const Flags &flags, unsigned int value,
+const char *FormatterBase::Conv_x(const Flags &flags, UInt value,
 									char *buff, size_t size, bool upperFlag)
 {
 	char *p = buff + size - 1;

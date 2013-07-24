@@ -49,13 +49,13 @@ Value Object_binary::IndexGet(Environment &env, Signal sig, const Value &valueId
 			sig.SetError(ERR_IndexError, "index is out of range");
 			return Value::Null;
 		}
-		return Value(static_cast<unsigned char>(_binary[idx]));
+		return Value(static_cast<UChar>(_binary[idx]));
 	} else {
 		if (-idx > len) {
 			sig.SetError(ERR_IndexError, "index is out of range");
 			return Value::Null;
 		}
-		return Value(static_cast<unsigned char>(_binary[len + idx]));
+		return Value(static_cast<UChar>(_binary[len + idx]));
 	}
 }
 
@@ -85,13 +85,13 @@ void Object_binary::IndexSet(Environment &env, Signal sig, const Value &valueIdx
 			sig.SetError(ERR_IndexError, "index is out of range");
 			return;
 		}
-		_binary[idx] = static_cast<unsigned char>(data);
+		_binary[idx] = static_cast<UChar>(data);
 	} else {
 		if (-idx > len) {
 			sig.SetError(ERR_IndexError, "index is out of range");
 			return;
 		}
-		_binary[len + idx] = static_cast<unsigned char>(data);
+		_binary[len + idx] = static_cast<UChar>(data);
 	}
 }
 
@@ -117,7 +117,7 @@ String Object_binary::ToString(Signal sig, bool exprFlag)
 			} else if (0x20 < ch && ch < 0x7f) {
 				str += ch;
 			} else {
-				::sprintf(buff, "\\x%02x", static_cast<unsigned char>(ch));
+				::sprintf(buff, "\\x%02x", static_cast<UChar>(ch));
 				str += buff;
 			}
 		}
@@ -150,7 +150,7 @@ bool Object_binary::IteratorByte::DoNext(Environment &env, Signal sig, Value &va
 	const Binary &binary = _pObj->GetBinary();
 	if (_offset >= binary.size() || _cnt == 0) return false;
 	if (_cnt > 0) _cnt--;
-	value = Value(static_cast<unsigned char>(binary[_offset]));
+	value = Value(static_cast<UChar>(binary[_offset]));
 	_offset++;
 	return true;
 }
@@ -243,7 +243,7 @@ Gura_DeclareMethod(binary, len)
 Gura_ImplementMethod(binary, len)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
-	return Value(static_cast<unsigned int>(pThis->GetBinary().size()));
+	return Value(static_cast<UInt>(pThis->GetBinary().size()));
 }
 
 // binary#each() {block?}
@@ -355,7 +355,7 @@ Gura_ImplementMethod(binary, hex)
 		(upperFlag? "%02X" : "%02x");
 	const Binary &buff = pThis->GetBinary();
 	foreach_const (Binary, p, buff) {
-		unsigned char ch = static_cast<unsigned char>(*p);
+		UChar ch = static_cast<UChar>(*p);
 		if (sep != NULL && p != buff.begin()) rtn += sep;
 		char buff[32];
 		::sprintf(buff, format, ch);

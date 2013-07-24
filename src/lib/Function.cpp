@@ -108,7 +108,7 @@ Function::Function(const Function &func) : _cntRef(1),
 }
 
 Function::Function(Environment &envScope, const Symbol *pSymbol,
-								FunctionType funcType, unsigned long flags) :
+								FunctionType funcType, ULong flags) :
 	_cntRef(1),
 	_pSymbol(pSymbol), _pClassToConstruct(NULL), _envScope(envScope), _funcType(funcType),
 	_resultMode(RSLTMODE_Normal), _flags(flags)
@@ -249,7 +249,7 @@ void Function::CopyDeclare(const Function &func)
 }
 
 Declaration *Function::DeclareArg(Environment &env, const Symbol *pSymbol, ValueType valType,
-				OccurPattern occurPattern, unsigned long flags, Expr *pExprDefault)
+				OccurPattern occurPattern, ULong flags, Expr *pExprDefault)
 {
 	return _declOwner.Declare(env, pSymbol, valType, occurPattern, flags, pExprDefault);
 }
@@ -296,7 +296,7 @@ Value Function::EvalExpr(Environment &env, Signal sig, Args &args) const
 		}
 	}
 	bool mapFlag = GetMapFlag();
-	unsigned long flags = _flags;
+	ULong flags = _flags;
 	ResultMode resultMode = _resultMode;
 	foreach_const (SymbolSet, ppSymbol, args.GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;

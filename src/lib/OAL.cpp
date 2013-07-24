@@ -825,7 +825,7 @@ FileStat::FileStat(const char *pathName, const WIN32_FIND_DATA &findData) :
 
 FileStat *FileStat::Generate(Signal sig, const char *fileName)
 {
-	unsigned long attr = 0;
+	ULong attr = 0;
 	WIN32_FILE_ATTRIBUTE_DATA attrData;
 	String pathName = OAL::ToNativeString(OAL::MakeAbsPathName(
 								OAL::FileSeparator, fileName).c_str());
@@ -1309,7 +1309,7 @@ FileStat::FileStat(const char *pathName, const struct stat &stat) :
 
 FileStat *FileStat::Generate(Signal sig, const char *fileName)
 {
-	unsigned long attr = 0;
+	ULong attr = 0;
 	struct stat stat;
 	String pathName = OAL::ToNativeString(OAL::MakeAbsPathName(
 								OAL::FileSeparator, fileName).c_str());

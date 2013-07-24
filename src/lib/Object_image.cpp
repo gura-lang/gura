@@ -44,9 +44,9 @@ Value Object_image::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
 		return Value(GetImage()->FormatToSymbol(GetImage()->GetFormat()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(width))) {
-		return Value(static_cast<unsigned int>(GetImage()->GetWidth()));
+		return Value(static_cast<UInt>(GetImage()->GetWidth()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(height))) {
-		return Value(static_cast<unsigned int>(GetImage()->GetHeight()));
+		return Value(static_cast<UInt>(GetImage()->GetHeight()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(palette))) {
 		const Palette *pPalette = GetImage()->GetPalette();
 		if (pPalette == NULL) return Value::Null;
@@ -225,7 +225,7 @@ Gura_ImplementMethod(image, putpixel)
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	int x = args.GetInt(0), y = args.GetInt(1);
 	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Null;
-	unsigned char *p = pThis->GetImage()->GetPointer(x, y);
+	UChar *p = pThis->GetImage()->GetPointer(x, y);
 	pThis->GetImage()->PutPixel(p, Object_color::GetObject(args, 2)->GetColor());
 	return Value::Null;
 }
@@ -244,7 +244,7 @@ Gura_ImplementMethod(image, getpixel)
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	int x = args.GetInt(0), y = args.GetInt(1);
 	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Null;
-	unsigned char *p = pThis->GetImage()->GetPointer(x, y);
+	UChar *p = pThis->GetImage()->GetPointer(x, y);
 	Color color;
 	pThis->GetImage()->GetPixel(p, color);
 	return Value(new Object_color(env, color));
@@ -698,7 +698,7 @@ Gura_ImplementMethod(image, paste)
 	}
 	if (x + width > pThis->GetImage()->GetWidth()) width = pThis->GetImage()->GetWidth() - x;
 	if (y + height > pThis->GetImage()->GetHeight()) height = pThis->GetImage()->GetHeight() - y;
-	unsigned char alpha = args.GetUChar(7);
+	UChar alpha = args.GetUChar(7);
 	pThis->GetImage()->Paste(x, y, pObjImg->GetImage(),
 							width, height, xOffset, yOffset, alpha);
 	if (sig.IsSignalled()) return Value::Null;

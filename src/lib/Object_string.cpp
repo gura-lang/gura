@@ -83,11 +83,11 @@ bool Object_string::IteratorEach::DoNext(Environment &env, Signal sig, Value &va
 {
 	if (_pCur == _str.end()) return false;
 	if (_attr == ATTR_UTF8) {
-		uint64 codeUTF8;
+		UInt64 codeUTF8;
 		_pCur = NextUTF8(_str, _pCur, codeUTF8);
 		value = Value(codeUTF8);
 	} else if (_attr == ATTR_UTF32) {
-		unsigned long codeUTF32;
+		ULong codeUTF32;
 		_pCur = NextUTF32(_str, _pCur, codeUTF32);
 		value = Value(codeUTF32);
 	} else {
@@ -277,7 +277,7 @@ Gura_DeclareMethod(string, len)
 
 Gura_ImplementMethod(string, len)
 {
-	return Value(static_cast<unsigned int>(Length(args.GetThis().GetString())));
+	return Value(static_cast<UInt>(Length(args.GetThis().GetString())));
 }
 
 // string#isempty()

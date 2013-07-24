@@ -106,7 +106,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			offset += 2 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte += 2, pValue++) {
 				if (!CheckNumber(sig, valList, pValue, -32768, 32767)) return false;
-				unsigned short num = pValue->GetShort();
+				UShort num = pValue->GetShort();
 				PackUShort(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -116,7 +116,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			offset += 2 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte += 2, pValue++) {
 				if (!CheckNumber(sig, valList, pValue, 0, 65535)) return false;
-				unsigned short num = pValue->GetUShort();
+				UShort num = pValue->GetUShort();
 				PackUShort(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -126,7 +126,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			offset += 4 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte += 4, pValue++) {
 				if (!CheckNumber(sig, valList, pValue, -2147483648., 2147483647.)) return false;
-				unsigned long num = pValue->GetInt();
+				ULong num = pValue->GetInt();
 				PackULong(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -136,7 +136,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			offset += 4 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte += 4, pValue++) {
 				if (!CheckNumber(sig, valList, pValue, 0, 4294967295.)) return false;
-				unsigned long num = pValue->GetUInt();
+				ULong num = pValue->GetUInt();
 				PackULong(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -146,7 +146,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			offset += 4 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte += 4, pValue++) {
 				if (!CheckNumber(sig, valList, pValue, -2147483648., 2147483647.)) return false;
-				unsigned long num = pValue->GetLong();
+				ULong num = pValue->GetLong();
 				PackULong(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -156,7 +156,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			offset += 4 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte += 4, pValue++) {
 				if (!CheckNumber(sig, valList, pValue, 0, 4294967295.)) return false;
-				unsigned long num = pValue->GetULong();
+				ULong num = pValue->GetULong();
 				PackULong(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -166,7 +166,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			offset += 8 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pValue++) {
 				if (!CheckNumber(sig, valList, pValue)) return false;
-				int64 num = static_cast<int64>(pValue->GetNumber());
+				Int64 num = static_cast<Int64>(pValue->GetNumber());
 				PackUInt64(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -176,7 +176,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			offset += 8 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pValue++) {
 				if (!CheckNumber(sig, valList, pValue)) return false;
-				uint64 num = static_cast<uint64>(pValue->GetNumber());
+				UInt64 num = static_cast<UInt64>(pValue->GetNumber());
 				PackUInt64(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -187,7 +187,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			for (int i = 0; i < nRepeat; i++, pValue++) {
 				if (!CheckNumber(sig, valList, pValue)) return false;
 				float num = static_cast<float>(pValue->GetNumber());
-				unsigned char *buff = reinterpret_cast<unsigned char *>(&num);
+				UChar *buff = reinterpret_cast<UChar *>(&num);
 				for (int j = 0; j < 4; j++, pByte++) *pByte = buff[j];
 			}
 			nRepeat = 1;
@@ -198,7 +198,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			for (int i = 0; i < nRepeat; i++, pValue++) {
 				if (!CheckNumber(sig, valList, pValue)) return false;
 				double num = static_cast<double>(pValue->GetNumber());
-				unsigned char *buff = reinterpret_cast<unsigned char *>(&num);
+				UChar *buff = reinterpret_cast<UChar *>(&num);
 				for (int j = 0; j < 8; j++, pByte++) *pByte = buff[j];
 			}
 			nRepeat = 1;
@@ -323,7 +323,7 @@ Value Binary::Unpack(Environment &env, Signal sig,
 			iterator pByte = begin() + offset;
 			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Null;
 			for (int i = 0; i < nRepeat; i++, pByte++) {
-				unsigned char num = *pByte;
+				UChar num = *pByte;
 				valList.push_back(Value(num));
 			}
 			nRepeat = 1;
@@ -339,7 +339,7 @@ Value Binary::Unpack(Environment &env, Signal sig,
 			iterator pByte = begin() + offset;
 			if (!UnpackForward(sig, offset, 2 * nRepeat, exceedErrorFlag)) return Value::Null;
 			for (int i = 0; i < nRepeat; i++, pByte += 2) {
-				unsigned short num = UnpackUShort(pByte, bigEndianFlag);
+				UShort num = UnpackUShort(pByte, bigEndianFlag);
 				valList.push_back(Value(num));
 			}
 			nRepeat = 1;
@@ -355,7 +355,7 @@ Value Binary::Unpack(Environment &env, Signal sig,
 			iterator pByte = begin() + offset;
 			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Null;
 			for (int i = 0; i < nRepeat; i++, pByte += 4) {
-				unsigned int num = static_cast<unsigned int>(UnpackULong(pByte, bigEndianFlag));
+				UInt num = static_cast<UInt>(UnpackULong(pByte, bigEndianFlag));
 				valList.push_back(Value(num));
 			}
 			nRepeat = 1;
@@ -371,7 +371,7 @@ Value Binary::Unpack(Environment &env, Signal sig,
 			iterator pByte = begin() + offset;
 			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Null;
 			for (int i = 0; i < nRepeat; i++, pByte += 4) {
-				unsigned long num = static_cast<unsigned long>(UnpackULong(pByte, bigEndianFlag));
+				ULong num = static_cast<ULong>(UnpackULong(pByte, bigEndianFlag));
 				valList.push_back(Value(num));
 			}
 			nRepeat = 1;
@@ -379,7 +379,7 @@ Value Binary::Unpack(Environment &env, Signal sig,
 			iterator pByte = begin() + offset;
 			if (!UnpackForward(sig, offset, 8 * nRepeat, exceedErrorFlag)) return Value::Null;
 			for (int i = 0; i < nRepeat; i++, pByte += 8) {
-				int64 num = static_cast<int64>(UnpackUInt64(pByte, bigEndianFlag));
+				Int64 num = static_cast<Int64>(UnpackUInt64(pByte, bigEndianFlag));
 				valList.push_back(Value(static_cast<Number>(num)));
 			}
 			nRepeat = 1;
@@ -387,7 +387,7 @@ Value Binary::Unpack(Environment &env, Signal sig,
 			iterator pByte = begin() + offset;
 			if (!UnpackForward(sig, offset, 8 * nRepeat, exceedErrorFlag)) return Value::Null;
 			for (int i = 0; i < nRepeat; i++, pByte += 8) {
-				uint64 num = static_cast<uint64>(UnpackUInt64(pByte, bigEndianFlag));
+				UInt64 num = static_cast<UInt64>(UnpackUInt64(pByte, bigEndianFlag));
 				valList.push_back(Value(static_cast<Number>(num)));
 			}
 			nRepeat = 1;
@@ -480,10 +480,10 @@ bool Binary::UnpackForward(Signal sig, size_t &offset, int distance, bool exceed
 	return true;
 }
 
-void Binary::PackUShort(iterator pByte, bool bigEndianFlag, unsigned short num)
+void Binary::PackUShort(iterator pByte, bool bigEndianFlag, UShort num)
 {
-	unsigned char byte0 = static_cast<unsigned char>(num >> 8);
-	unsigned char byte1 = static_cast<unsigned char>(num >> 0);
+	UChar byte0 = static_cast<UChar>(num >> 8);
+	UChar byte1 = static_cast<UChar>(num >> 0);
 	if (bigEndianFlag) {
 		*(pByte + 0) = byte0;
 		*(pByte + 1) = byte1;
@@ -493,12 +493,12 @@ void Binary::PackUShort(iterator pByte, bool bigEndianFlag, unsigned short num)
 	}
 }
 
-void Binary::PackULong(iterator pByte, bool bigEndianFlag, unsigned long num)
+void Binary::PackULong(iterator pByte, bool bigEndianFlag, ULong num)
 {
-	unsigned char byte0 = static_cast<unsigned char>(num >> 24);
-	unsigned char byte1 = static_cast<unsigned char>(num >> 16);
-	unsigned char byte2 = static_cast<unsigned char>(num >> 8);
-	unsigned char byte3 = static_cast<unsigned char>(num >> 0);
+	UChar byte0 = static_cast<UChar>(num >> 24);
+	UChar byte1 = static_cast<UChar>(num >> 16);
+	UChar byte2 = static_cast<UChar>(num >> 8);
+	UChar byte3 = static_cast<UChar>(num >> 0);
 	if (bigEndianFlag) {
 		*(pByte + 0) = byte0;
 		*(pByte + 1) = byte1;
@@ -512,16 +512,16 @@ void Binary::PackULong(iterator pByte, bool bigEndianFlag, unsigned long num)
 	}
 }
 
-void Binary::PackUInt64(iterator pByte, bool bigEndianFlag, uint64 num)
+void Binary::PackUInt64(iterator pByte, bool bigEndianFlag, UInt64 num)
 {
-	unsigned char byte0 = static_cast<unsigned char>(num >> 56);
-	unsigned char byte1 = static_cast<unsigned char>(num >> 48);
-	unsigned char byte2 = static_cast<unsigned char>(num >> 40);
-	unsigned char byte3 = static_cast<unsigned char>(num >> 32);
-	unsigned char byte4 = static_cast<unsigned char>(num >> 24);
-	unsigned char byte5 = static_cast<unsigned char>(num >> 16);
-	unsigned char byte6 = static_cast<unsigned char>(num >> 8);
-	unsigned char byte7 = static_cast<unsigned char>(num >> 0);
+	UChar byte0 = static_cast<UChar>(num >> 56);
+	UChar byte1 = static_cast<UChar>(num >> 48);
+	UChar byte2 = static_cast<UChar>(num >> 40);
+	UChar byte3 = static_cast<UChar>(num >> 32);
+	UChar byte4 = static_cast<UChar>(num >> 24);
+	UChar byte5 = static_cast<UChar>(num >> 16);
+	UChar byte6 = static_cast<UChar>(num >> 8);
+	UChar byte7 = static_cast<UChar>(num >> 0);
 	if (bigEndianFlag) {
 		*(pByte + 0) = byte0;
 		*(pByte + 1) = byte1;
@@ -543,63 +543,63 @@ void Binary::PackUInt64(iterator pByte, bool bigEndianFlag, uint64 num)
 	}
 }
 
-unsigned short Binary::UnpackUShort(iterator pByte, bool bigEndianFlag)
+UShort Binary::UnpackUShort(iterator pByte, bool bigEndianFlag)
 {
-	unsigned char byte0 = static_cast<unsigned char>(*(pByte + 0));
-	unsigned char byte1 = static_cast<unsigned char>(*(pByte + 1));
+	UChar byte0 = static_cast<UChar>(*(pByte + 0));
+	UChar byte1 = static_cast<UChar>(*(pByte + 1));
 	if (bigEndianFlag) {
-		return (static_cast<unsigned short>(byte0) << 8) + byte1;
+		return (static_cast<UShort>(byte0) << 8) + byte1;
 	} else {
-		return (static_cast<unsigned short>(byte1) << 8) + byte0;
+		return (static_cast<UShort>(byte1) << 8) + byte0;
 	}
 }
 
-unsigned long Binary::UnpackULong(iterator pByte, bool bigEndianFlag)
+ULong Binary::UnpackULong(iterator pByte, bool bigEndianFlag)
 {
-	unsigned char byte0 = static_cast<unsigned char>(*(pByte + 0));
-	unsigned char byte1 = static_cast<unsigned char>(*(pByte + 1));
-	unsigned char byte2 = static_cast<unsigned char>(*(pByte + 2));
-	unsigned char byte3 = static_cast<unsigned char>(*(pByte + 3));
+	UChar byte0 = static_cast<UChar>(*(pByte + 0));
+	UChar byte1 = static_cast<UChar>(*(pByte + 1));
+	UChar byte2 = static_cast<UChar>(*(pByte + 2));
+	UChar byte3 = static_cast<UChar>(*(pByte + 3));
 	if (bigEndianFlag) {
-		return (static_cast<unsigned long>(byte0) << 24) +
-				(static_cast<unsigned long>(byte1) << 16) +
-				(static_cast<unsigned long>(byte2) << 8) +
+		return (static_cast<ULong>(byte0) << 24) +
+				(static_cast<ULong>(byte1) << 16) +
+				(static_cast<ULong>(byte2) << 8) +
 				byte3;
 	} else {
-		return (static_cast<unsigned long>(byte3) << 24) +
-				(static_cast<unsigned long>(byte2) << 16) +
-				(static_cast<unsigned long>(byte1) << 8) +
+		return (static_cast<ULong>(byte3) << 24) +
+				(static_cast<ULong>(byte2) << 16) +
+				(static_cast<ULong>(byte1) << 8) +
 				byte0;
 	}
 }
 
-uint64 Binary::UnpackUInt64(iterator pByte, bool bigEndianFlag)
+UInt64 Binary::UnpackUInt64(iterator pByte, bool bigEndianFlag)
 {
-	unsigned char byte0 = static_cast<unsigned char>(*(pByte + 0));
-	unsigned char byte1 = static_cast<unsigned char>(*(pByte + 1));
-	unsigned char byte2 = static_cast<unsigned char>(*(pByte + 2));
-	unsigned char byte3 = static_cast<unsigned char>(*(pByte + 3));
-	unsigned char byte4 = static_cast<unsigned char>(*(pByte + 4));
-	unsigned char byte5 = static_cast<unsigned char>(*(pByte + 5));
-	unsigned char byte6 = static_cast<unsigned char>(*(pByte + 6));
-	unsigned char byte7 = static_cast<unsigned char>(*(pByte + 7));
+	UChar byte0 = static_cast<UChar>(*(pByte + 0));
+	UChar byte1 = static_cast<UChar>(*(pByte + 1));
+	UChar byte2 = static_cast<UChar>(*(pByte + 2));
+	UChar byte3 = static_cast<UChar>(*(pByte + 3));
+	UChar byte4 = static_cast<UChar>(*(pByte + 4));
+	UChar byte5 = static_cast<UChar>(*(pByte + 5));
+	UChar byte6 = static_cast<UChar>(*(pByte + 6));
+	UChar byte7 = static_cast<UChar>(*(pByte + 7));
 	if (bigEndianFlag) {
-		return (static_cast<uint64>(byte0) << 56) +
-				(static_cast<uint64>(byte1) << 48) +
-				(static_cast<uint64>(byte2) << 40) +
-				(static_cast<uint64>(byte3) << 32) +
-				(static_cast<uint64>(byte4) << 24) +
-				(static_cast<uint64>(byte5) << 16) +
-				(static_cast<uint64>(byte6) << 8) +
+		return (static_cast<UInt64>(byte0) << 56) +
+				(static_cast<UInt64>(byte1) << 48) +
+				(static_cast<UInt64>(byte2) << 40) +
+				(static_cast<UInt64>(byte3) << 32) +
+				(static_cast<UInt64>(byte4) << 24) +
+				(static_cast<UInt64>(byte5) << 16) +
+				(static_cast<UInt64>(byte6) << 8) +
 				byte7;
 	} else {
-		return (static_cast<uint64>(byte7) << 56) +
-				(static_cast<uint64>(byte6) << 48) +
-				(static_cast<uint64>(byte5) << 40) +
-				(static_cast<uint64>(byte4) << 32) +
-				(static_cast<uint64>(byte3) << 24) +
-				(static_cast<uint64>(byte2) << 16) +
-				(static_cast<uint64>(byte1) << 8) +
+		return (static_cast<UInt64>(byte7) << 56) +
+				(static_cast<UInt64>(byte6) << 48) +
+				(static_cast<UInt64>(byte5) << 40) +
+				(static_cast<UInt64>(byte4) << 32) +
+				(static_cast<UInt64>(byte3) << 24) +
+				(static_cast<UInt64>(byte2) << 16) +
+				(static_cast<UInt64>(byte1) << 8) +
 				byte0;
 	}
 }

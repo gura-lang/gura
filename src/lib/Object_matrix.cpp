@@ -432,7 +432,7 @@ Gura_DeclareMethod(matrix, rowsize)
 Gura_ImplementMethod(matrix, rowsize)
 {
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	return Value(static_cast<unsigned int>(pThis->GetMatrix()->GetRows()));
+	return Value(static_cast<UInt>(pThis->GetMatrix()->GetRows()));
 }
 
 // matrix#colsize()
@@ -445,7 +445,7 @@ Gura_DeclareMethod(matrix, colsize)
 Gura_ImplementMethod(matrix, colsize)
 {
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	return Value(static_cast<unsigned int>(pThis->GetMatrix()->GetCols()));
+	return Value(static_cast<UInt>(pThis->GetMatrix()->GetCols()));
 }
 
 // matrix#issquare()
@@ -677,11 +677,11 @@ bool Class_matrix::Serialize(Environment &env, Signal sig, Stream &stream, const
 	Object_matrix *pObj = Object_matrix::GetObject(value);
 	Matrix *pMat = pObj->GetMatrix();
 	if (!pMat->GetList().Serialize(env, sig, stream)) return false;
-	if (!stream.SerializePackedULong(sig, static_cast<unsigned long>(pMat->GetRowOff()))) return false;
-	if (!stream.SerializePackedULong(sig, static_cast<unsigned long>(pMat->GetColOff()))) return false;
-	if (!stream.SerializePackedULong(sig, static_cast<unsigned long>(pMat->GetRows()))) return false;
-	if (!stream.SerializePackedULong(sig, static_cast<unsigned long>(pMat->GetCols()))) return false;
-	if (!stream.SerializePackedULong(sig, static_cast<unsigned long>(pMat->GetFold()))) return false;
+	if (!stream.SerializePackedULong(sig, static_cast<ULong>(pMat->GetRowOff()))) return false;
+	if (!stream.SerializePackedULong(sig, static_cast<ULong>(pMat->GetColOff()))) return false;
+	if (!stream.SerializePackedULong(sig, static_cast<ULong>(pMat->GetRows()))) return false;
+	if (!stream.SerializePackedULong(sig, static_cast<ULong>(pMat->GetCols()))) return false;
+	if (!stream.SerializePackedULong(sig, static_cast<ULong>(pMat->GetFold()))) return false;
 	if (!stream.SerializeBoolean(sig, pMat->GetIndexForColFlag())) return false;
 	return true;
 }
@@ -690,9 +690,9 @@ bool Class_matrix::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 {
 	AutoPtr<Matrix::Elements> pElements(new Matrix::Elements());
 	if (!pElements->GetList().Deserialize(env, sig, stream)) return false;
-	unsigned long iRowOff = 0, iColOff = 0;
-	unsigned long nRows = 0, nCols = 0;
-	unsigned long nFold = 0;
+	ULong iRowOff = 0, iColOff = 0;
+	ULong nRows = 0, nCols = 0;
+	ULong nFold = 0;
 	bool indexForColFlag = false;
 	if (!stream.DeserializePackedULong(sig, iRowOff)) return false;
 	if (!stream.DeserializePackedULong(sig, iColOff)) return false;
@@ -700,7 +700,7 @@ bool Class_matrix::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 	if (!stream.DeserializePackedULong(sig, nCols)) return false;
 	if (!stream.DeserializePackedULong(sig, nFold)) return false;
 	if (!stream.DeserializeBoolean(sig, indexForColFlag)) return false;
-	unsigned long nElems = static_cast<unsigned long>(pElements->GetList().size());
+	ULong nElems = static_cast<ULong>(pElements->GetList().size());
 	//::printf("%d %d %d %d %d %d\n", nElems, iRowOff, iColOff, nRows, nCols, nFold);
 	if (nFold * nRows > nElems || iColOff + nCols > nFold) {
 		sig.SetError(ERR_ValueError, "invalid parameter for matrix");

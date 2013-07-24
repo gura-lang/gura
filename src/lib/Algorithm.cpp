@@ -32,19 +32,19 @@ int CalcLCM(int a, int b)
 //-----------------------------------------------------------------------------
 void CRC32::Update(const void *buff, size_t bytes)
 {
-	static unsigned long *tbl = NULL;
+	static ULong *tbl = NULL;
 	if (tbl == NULL) {
-		const unsigned long CRC32_POLY = 0xedb88320; // CRC-32-IEEE 802.3
-		tbl = new unsigned long [256];
-		for (unsigned long i = 0; i < 256; i++){
-			unsigned long x = i;
+		const ULong CRC32_POLY = 0xedb88320; // CRC-32-IEEE 802.3
+		tbl = new ULong [256];
+		for (ULong i = 0; i < 256; i++){
+			ULong x = i;
 			for (int j = 0; j < 8; j++) {
 				x = (x & 1)? ((x >> 1) ^ CRC32_POLY) : (x >> 1);
 				tbl[i] = x;
 			}
 		}
 	}
-	const unsigned char *buffp = reinterpret_cast<const unsigned char *>(buff);
+	const UChar *buffp = reinterpret_cast<const UChar *>(buff);
 	for (size_t i = 0; i < bytes; i++, buffp++) {
 		_crc32 = ((_crc32 >> 8) & 0x00ffffff) ^ tbl[(_crc32 ^ *buffp) & 0xff];
 	}

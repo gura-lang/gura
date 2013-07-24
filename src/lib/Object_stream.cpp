@@ -89,7 +89,7 @@ Gura_DeclareFunction(stream)
 
 Gura_ImplementFunction(stream)
 {
-	unsigned long attr = Stream::ATTR_Readable;
+	ULong attr = Stream::ATTR_Readable;
 	if (args.IsValid(1)) {
 		attr = Stream::ParseOpenMode(sig, args.GetString(1));
 		if (sig.IsSignalled()) return Value::Null;
@@ -341,7 +341,7 @@ Gura_DeclareMethod(stream, tell)
 Gura_ImplementMethod(stream, tell)
 {
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
-	return Value(static_cast<unsigned long>(stream.Tell()));
+	return Value(static_cast<ULong>(stream.Tell()));
 }
 
 // stream#flush();void
@@ -776,7 +776,7 @@ void Class_stream::Prepare(Environment &env)
 bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsString()) {
-		unsigned long attr = Stream::ATTR_Readable;
+		ULong attr = Stream::ATTR_Readable;
 		if (pDecl != NULL) {
 			if (pDecl->GetWriteFlag()) attr = Stream::ATTR_Writable;
 			if (pDecl->GetReadFlag()) attr |= Stream::ATTR_Readable;

@@ -1134,7 +1134,7 @@ Gura_ImplementUnaryOperator(Neg, timedelta)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Inv, number)
 {
-	unsigned long num = ~static_cast<unsigned long>(value.GetNumber());
+	ULong num = ~static_cast<ULong>(value.GetNumber());
 	return Value(static_cast<Number>(num));
 }
 
@@ -1688,8 +1688,8 @@ Gura_ImplementBinaryOperator(Or, any, nil)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(And, number, number)
 {
-	return Value(static_cast<unsigned long>(valueLeft.GetNumber()) &
-						static_cast<unsigned long>(valueRight.GetNumber()));
+	return Value(static_cast<ULong>(valueLeft.GetNumber()) &
+						static_cast<ULong>(valueRight.GetNumber()));
 }
 
 Gura_ImplementBinaryOperator(And, boolean, boolean)
@@ -1712,8 +1712,8 @@ Gura_ImplementBinaryOperator(And, any, nil)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Xor, number, number)
 {
-	return Value(static_cast<unsigned long>(valueLeft.GetNumber()) ^
-						static_cast<unsigned long>(valueRight.GetNumber()));
+	return Value(static_cast<ULong>(valueLeft.GetNumber()) ^
+						static_cast<ULong>(valueRight.GetNumber()));
 }
 
 Gura_ImplementBinaryOperator(Xor, boolean, boolean)
@@ -1728,8 +1728,8 @@ Gura_ImplementBinaryOperator(Xor, boolean, boolean)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Shl, number, number)
 {
-	return Value(static_cast<unsigned long>(valueLeft.GetNumber()) <<
-							static_cast<unsigned long>(valueRight.GetNumber()));
+	return Value(static_cast<ULong>(valueLeft.GetNumber()) <<
+							static_cast<ULong>(valueRight.GetNumber()));
 }
 
 //-----------------------------------------------------------------------------
@@ -1737,8 +1737,8 @@ Gura_ImplementBinaryOperator(Shl, number, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Shr, number, number)
 {
-	return Value(static_cast<unsigned long>(valueLeft.GetNumber()) >>
-							static_cast<unsigned long>(valueRight.GetNumber()));
+	return Value(static_cast<ULong>(valueLeft.GetNumber()) >>
+							static_cast<ULong>(valueRight.GetNumber()));
 }
 
 //-----------------------------------------------------------------------------

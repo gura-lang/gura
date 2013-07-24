@@ -218,7 +218,7 @@ Codec::Result Codec_None::Encoder::FeedChar(char ch, char &chConv)
 //-----------------------------------------------------------------------------
 // Codec_UTF
 //-----------------------------------------------------------------------------
-Codec::Result Codec_UTF::Decoder::FeedUTF32(unsigned long codeUTF32, char &chConv)
+Codec::Result Codec_UTF::Decoder::FeedUTF32(ULong codeUTF32, char &chConv)
 {
 	_idxBuff = 0;
 	if ((codeUTF32 & ~0x7f) == 0) {
@@ -249,7 +249,7 @@ Codec::Result Codec_UTF::Encoder::FeedChar(char ch, char &chConv)
 {
 	Codec::Result rtn = Codec::RESULT_None;
 	if ((ch & 0x80) == 0x00) {
-		rtn = FeedUTF32(static_cast<unsigned char>(ch), chConv);
+		rtn = FeedUTF32(static_cast<UChar>(ch), chConv);
 		_cntChars = 0;
 	} else if ((ch & 0xc0) == 0x80) {
 		if (_cntChars == 1) {
@@ -264,19 +264,19 @@ Codec::Result Codec_UTF::Encoder::FeedChar(char ch, char &chConv)
 			_codeUTF32 = 0x00000000;
 		}
 	} else if ((ch & 0xe0) == 0xc0) {
-		_codeUTF32 = static_cast<unsigned char>(ch & 0x1f);
+		_codeUTF32 = static_cast<UChar>(ch & 0x1f);
 		_cntChars = 1;
 	} else if ((ch & 0xf0) == 0xe0) {
-		_codeUTF32 = static_cast<unsigned char>(ch & 0x0f);
+		_codeUTF32 = static_cast<UChar>(ch & 0x0f);
 		_cntChars = 2;
 	} else if ((ch & 0xf8) == 0xf0) {
-		_codeUTF32 = static_cast<unsigned char>(ch & 0x07);
+		_codeUTF32 = static_cast<UChar>(ch & 0x07);
 		_cntChars = 3;
 	} else if ((ch & 0xfc) == 0xf8) {
-		_codeUTF32 = static_cast<unsigned char>(ch & 0x03);
+		_codeUTF32 = static_cast<UChar>(ch & 0x03);
 		_cntChars = 4;
 	} else {
-		_codeUTF32 = static_cast<unsigned char>(ch & 0x01);
+		_codeUTF32 = static_cast<UChar>(ch & 0x01);
 		_cntChars = 5;
 	}
 	return rtn;

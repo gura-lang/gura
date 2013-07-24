@@ -147,7 +147,7 @@ Gura_ImplementMethod(palette, nearest)
 {
 	Object_palette *pThis = Object_palette::GetThisObj(args);
 	size_t idx = pThis->GetPalette()->LookupNearest(Object_color::GetObject(args, 0)->GetColor());
-	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<unsigned int>(idx));
+	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<UInt>(idx));
 	return pThis->GetPalette()->GetColorValue(env, idx);
 }
 

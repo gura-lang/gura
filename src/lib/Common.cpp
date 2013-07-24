@@ -56,7 +56,7 @@ Fraction Fraction::Reduce() const
 //-----------------------------------------------------------------------------
 // RandomGenerator
 //-----------------------------------------------------------------------------
-void RandomGenerator::Initialize(unsigned long seed)
+void RandomGenerator::Initialize(ULong seed)
 {
 	::dsfmt_gv_init_gen_rand(seed);	// initialize random generator dSFMT
 }

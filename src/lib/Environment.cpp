@@ -208,7 +208,7 @@ bool Environment::IsSymbolPublic(const Symbol *pSymbol) const
 #endif
 }
 
-void Environment::AssignValue(const Symbol *pSymbol, const Value &value, unsigned long extra)
+void Environment::AssignValue(const Symbol *pSymbol, const Value &value, ULong extra)
 {
 	if ((extra & EXTRA_Public) == 0 && IsSymbolPublic(pSymbol)) {
 		extra |= EXTRA_Public;
@@ -218,7 +218,7 @@ void Environment::AssignValue(const Symbol *pSymbol, const Value &value, unsigne
 	CacheFrame(pSymbol, pFrame);
 }
 
-void Environment::AssignValueFromBlock(const Symbol *pSymbol, const Value &value, unsigned long extra)
+void Environment::AssignValueFromBlock(const Symbol *pSymbol, const Value &value, ULong extra)
 {
 	if ((extra & EXTRA_Public) == 0 && IsSymbolPublic(pSymbol)) {
 		extra |= EXTRA_Public;
@@ -241,7 +241,7 @@ void Environment::AssignValueFromBlock(const Symbol *pSymbol, const Value &value
 }
 
 bool Environment::ImportValue(const Symbol *pSymbol, const Value &value,
-										unsigned long extra, bool overwriteFlag)
+										ULong extra, bool overwriteFlag)
 {
 	foreach (FrameOwner, ppFrame, _frameOwner) {
 		Frame *pFrame = *ppFrame;
@@ -308,7 +308,7 @@ ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, 
 
 Function *Environment::AssignFunction(Function *pFunc)
 {
-	unsigned long extra = EXTRA_Public;
+	ULong extra = EXTRA_Public;
 	Value value(*this, pFunc, Value::Null);
 	GetTopFrame()->AssignValue(pFunc->GetSymbol(), value, extra);
 	return pFunc;
@@ -516,7 +516,7 @@ Value Environment::GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 
 void Environment::AssignModule(Module *pModule)
 {
-	unsigned long extra = EXTRA_Public;
+	ULong extra = EXTRA_Public;
 	Value value(pModule);
 	foreach (FrameOwner, ppFrame, _frameOwner) {
 		Frame *pFrame = *ppFrame;
@@ -1005,7 +1005,7 @@ void Environment::Frame::Delete(Frame *pFrame)
 }
 
 void Environment::Frame::AssignValue(const Symbol *pSymbol,
-									const Value &value, unsigned long extra)
+									const Value &value, ULong extra)
 {
 	if (_pValueMap.get() == NULL) _pValueMap.reset(new ValueMap());
 	ValueMap::iterator iter = _pValueMap->find(pSymbol);

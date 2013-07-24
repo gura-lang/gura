@@ -1061,11 +1061,11 @@ Gura_DeclareFunction(ord)
 Gura_ImplementFunction(ord)
 {
 	const char *str = args.GetString(0);
-	unsigned long num = static_cast<unsigned char>(*str);
+	ULong num = static_cast<UChar>(*str);
 	if (IsUTF8First(*str)) {
 		str++;
 		for ( ; IsUTF8Follower(*str); str++) {
-			num = (num << 8) | static_cast<unsigned char>(*str);
+			num = (num << 8) | static_cast<UChar>(*str);
 		}
 	}
 	return Value(num);
@@ -1080,13 +1080,13 @@ Gura_DeclareFunction(chr)
 
 Gura_ImplementFunction(chr)
 {
-	unsigned long num = args.GetULong(0);
+	ULong num = args.GetULong(0);
 	int i = 0;
 	char buff[4];
-	buff[i++] = static_cast<unsigned char>(num & 0xff);
+	buff[i++] = static_cast<UChar>(num & 0xff);
 	num >>= 8;
 	for ( ; num != 0; num >>= 8) {
-		buff[i++] = static_cast<unsigned char>(num & 0xff);
+		buff[i++] = static_cast<UChar>(num & 0xff);
 	}
 	String str;
 	for ( ; i > 0; i--) {
@@ -1507,8 +1507,8 @@ Gura_DeclareFunction(rand)
 Gura_ImplementFunction(rand)
 {
 	if (args.IsNumber(0)) {
-		unsigned long num = args.GetULong(0);
-		Number result = static_cast<unsigned long>(RandomGenerator::Real2() * num);
+		ULong num = args.GetULong(0);
+		Number result = static_cast<ULong>(RandomGenerator::Real2() * num);
 		return Value(result);
 	}
 	return ReturnValue(env, sig, args, Value(RandomGenerator::Real2()));

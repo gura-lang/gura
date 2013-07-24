@@ -432,12 +432,12 @@ bool Class_boolean::CastFrom(Environment &env, Signal sig, Value &value, const D
 
 bool Class_boolean::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
-	return stream.SerializeUChar(sig, static_cast<unsigned char>(value.GetBoolean()));
+	return stream.SerializeUChar(sig, static_cast<UChar>(value.GetBoolean()));
 }
 
 bool Class_boolean::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
-	unsigned char num = 0;
+	UChar num = 0;
 	if (!stream.DeserializeUChar(sig, num)) return false;
 	value = Value(num != 0);
 	return true;

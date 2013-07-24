@@ -674,7 +674,7 @@ bool Iterator::Share::Next(int id, Value &value)
 	size_t iElem = _indexList[id] - _indexMin;
 	if (iElem >= _valueDeque.size()) return false;
 	value = _valueDeque[iElem];
-	_indexList[id] = static_cast<unsigned int>(_indexMin + iElem + 1);
+	_indexList[id] = static_cast<UInt>(_indexMin + iElem + 1);
 	size_t indexMinCur = _indexMin;
 	foreach (IndexList, pIndex, _indexList) {
 		if (indexMinCur > *pIndex) indexMinCur = *pIndex;
@@ -689,7 +689,7 @@ bool Iterator::Share::Next(int id, Value &value)
 void Iterator::Share::Store(int id, const Value &value)
 {
 	_valueDeque.push_back(value);
-	_indexList[id] = static_cast<unsigned int>(_indexMin + _valueDeque.size());
+	_indexList[id] = static_cast<UInt>(_indexMin + _valueDeque.size());
 }
 
 //-----------------------------------------------------------------------------

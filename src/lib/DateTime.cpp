@@ -119,7 +119,7 @@ TimeDelta DateTime::Minus(const DateTime &dt) const
 	return TimeDelta(daysDiff, secsDiff, usecsDiff);
 }
 
-void DateTime::SetUnixTime(unsigned long time)
+void DateTime::SetUnixTime(ULong time)
 {
 	*this = DateTime(1970, 1, 1, 0, 0, 0);
 	const int secsPerDay = 3600 * 24;
@@ -127,7 +127,7 @@ void DateTime::SetUnixTime(unsigned long time)
 								static_cast<long>(time % secsPerDay), 0));
 }
 
-unsigned long DateTime::GetUnixTime() const
+ULong DateTime::GetUnixTime() const
 {
 	DateTime dtOrg(1970, 1, 1, 0, 0, 0);
 	TimeDelta td = Minus(dtOrg);

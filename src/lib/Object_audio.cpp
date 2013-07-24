@@ -42,13 +42,13 @@ Value Object_audio::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
 		return Value(Audio::FormatToSymbol(_pAudio->GetFormat()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(channels))) {
-		return Value(static_cast<unsigned int>(_pAudio->GetChannels()));
+		return Value(static_cast<UInt>(_pAudio->GetChannels()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(samples))) {
-		return Value(static_cast<unsigned int>(_pAudio->GetSamples()));
+		return Value(static_cast<UInt>(_pAudio->GetSamples()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(samplespersec))) {
-		return Value(static_cast<unsigned int>(_pAudio->GetSamplesPerSec()));
+		return Value(static_cast<UInt>(_pAudio->GetSamplesPerSec()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(bytespersample))) {
-		return Value(static_cast<unsigned int>(_pAudio->GetBytesPerSample()));
+		return Value(static_cast<UInt>(_pAudio->GetBytesPerSample()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;

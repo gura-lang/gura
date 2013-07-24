@@ -824,7 +824,7 @@ Expr *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
 										stream.GetCodec()->GetEncoding());
 			return NULL;
 		}
-		char ch = (chRaw < 0)? '\0' : static_cast<unsigned char>(chRaw);
+		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
 		Expr *pExpr = ParseChar(env, sig, ch);
 		if (sig.IsSignalled()) {
 			if (!sig.IsDetectEncoding()) return NULL;

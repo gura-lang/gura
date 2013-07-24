@@ -699,7 +699,7 @@ Gura_ImplementMethod(iterator, find)
 			pIterator->Find(env, sig, args.GetValue(0), value) :
 			pIterator->FindTrue(env, sig, value);
 	if (idx == InvalidSize) return Value::Null;
-	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<unsigned int>(idx));
+	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<UInt>(idx));
 	return value;
 }
 
@@ -717,7 +717,7 @@ Gura_ImplementMethod(iterator, count)
 	size_t cnt = args.IsValid(0)?
 		pIterator->Count(env, sig, args.GetValue(0)) : pIterator->CountTrue(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(static_cast<unsigned int>(cnt));
+	return Value(static_cast<UInt>(cnt));
 }
 
 // iterator#sort(directive?, keys[]?):[stable] {block?}

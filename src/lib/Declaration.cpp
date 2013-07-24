@@ -25,7 +25,7 @@ Declaration::Declaration(const Symbol *pSymbol, ValueType valType) :
 }
 
 Declaration::Declaration(const Symbol *pSymbol, ValueType valType,
-		OccurPattern occurPattern, unsigned long flags, Expr *pExprDefault) :
+		OccurPattern occurPattern, ULong flags, Expr *pExprDefault) :
 	_pSymbol(pSymbol), _valType(valType),
 	_occurPattern(occurPattern), _flags(flags), _pExprDefault(pExprDefault)
 {
@@ -38,7 +38,7 @@ Declaration::~Declaration()
 
 Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr)
 {
-	unsigned long flags = 0;
+	ULong flags = 0;
 	OccurPattern occurPattern = OCCUR_Once;
 	ValueType valType = VTYPE_any;
 	Expr *pExprDefault = NULL;
@@ -394,7 +394,7 @@ void DeclarationOwner::operator=(const DeclarationOwner &declOwner)
 }
 
 Declaration *DeclarationOwner::Declare(Environment &env, const Symbol *pSymbol, ValueType valType,
-			OccurPattern occurPattern, unsigned long flags, Expr *pExprDefault)
+			OccurPattern occurPattern, ULong flags, Expr *pExprDefault)
 {
 	Declaration *pDecl =
 			new Declaration(pSymbol, valType, occurPattern, flags, pExprDefault);

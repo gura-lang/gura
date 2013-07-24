@@ -297,7 +297,7 @@ Value::Value(const Value &value) : _valType(value._valType), _valFlags(value._va
 	}
 }
 
-Value::Value(Object *pObj, unsigned short valFlags) :
+Value::Value(Object *pObj, UShort valFlags) :
 						_valType(pObj->GetValueType()), _valFlags(valFlags)
 {
 	_u.pObj = pObj;
@@ -934,14 +934,14 @@ Value Value::CreateAsList(Environment &env, const Value &v1, const Value &v2,
 bool Value::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value)
 {
 	const ValueTypeInfo *pValueTypeInfo = value.GetValueTypeInfo();
-	unsigned long valType = static_cast<unsigned long>(value.GetValueType());
+	ULong valType = static_cast<ULong>(value.GetValueType());
 	if (!stream.SerializePackedULong(sig, valType)) return false;
 	return pValueTypeInfo->GetClass()->Serialize(env, sig, stream, value);
 }
 
 bool Value::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value, bool mustBeValidFlag)
 {
-	unsigned long valType = static_cast<unsigned long>(VTYPE_nil);
+	ULong valType = static_cast<ULong>(VTYPE_nil);
 	if (!stream.DeserializePackedULong(sig, valType)) return false;
 	if (mustBeValidFlag && valType == VTYPE_nil) {
 		sig.SetError(ERR_IOError, "invalid value in the stream");
@@ -1073,7 +1073,7 @@ bool ValueList::ToStringList(Signal sig, StringList &strList) const
 
 bool ValueList::Serialize(Environment &env, Signal sig, Stream &stream) const
 {
-	unsigned long num = static_cast<unsigned long>(size());
+	ULong num = static_cast<ULong>(size());
 	if (!stream.SerializePackedULong(sig, num)) return false;
 	foreach_const (ValueList, pValue, *this) {
 		if (!Value::Serialize(env, sig, stream, *pValue)) return false;
@@ -1083,7 +1083,7 @@ bool ValueList::Serialize(Environment &env, Signal sig, Stream &stream) const
 
 bool ValueList::Deserialize(Environment &env, Signal sig, Stream &stream)
 {
-	unsigned long num = 0;
+	ULong num = 0;
 	if (!stream.DeserializePackedULong(sig, num)) return false;
 	reserve(num);
 	Value value;
@@ -1209,7 +1209,7 @@ bool ValueDict::Store(Signal sig, const Value &valueIdx, const Value &value, Sto
 
 bool ValueDict::Serialize(Environment &env, Signal sig, Stream &stream) const
 {
-	unsigned long num = static_cast<unsigned long>(size());
+	ULong num = static_cast<ULong>(size());
 	if (!stream.SerializePackedULong(sig, num)) return false;
 	foreach_const (ValueDict, iter, *this) {
 		if (!Value::Serialize(env, sig, stream, iter->first)) return false;
@@ -1220,7 +1220,7 @@ bool ValueDict::Serialize(Environment &env, Signal sig, Stream &stream) const
 
 bool ValueDict::Deserialize(Environment &env, Signal sig, Stream &stream)
 {
-	unsigned long num = 0;
+	ULong num = 0;
 	if (!stream.DeserializePackedULong(sig, num)) return false;
 	Value valueIdx, value;
 	while (num-- > 0) {
