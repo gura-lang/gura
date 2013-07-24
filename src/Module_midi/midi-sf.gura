@@ -1,0 +1,5 @@
+import(midi)
+
+midi.soundfont('TimGM6mb.sf2') {|sf|
+	sf.print()
+}

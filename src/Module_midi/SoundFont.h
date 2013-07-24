@@ -140,74 +140,93 @@ public:
 		GEN_unused5						= 59,
 		GEN_endOper						= 60,
 	};
-	struct rangesType {
+	struct RangesType {
 		UChar byLo;
 		UChar byHi;
+		inline RangesType() : byLo(0), byHi(0) {}
+		inline RangesType(UShort genAmount) :
+				byLo(static_cast<UChar>(genAmount >> 0)),
+				byHi(static_cast<UChar>(genAmount >> 8)) {}
+		inline bool IsMatched(UChar value) const {
+			return byLo <= value && value <= byHi;
+		}
 	};
-	struct GeneratorProps {
-		UShort startAddrsOffset;			// 0
-		UShort endAddrsOffset;				// 1
-		UShort startloopAddrsOffset;		// 2
-		UShort endloopAddrsOffset;			// 3
-		UShort startAddrsCoarseOffset;		// 4
-		Short modLfoToPitch;				// 5
-		Short vibLfoToPitch;				// 6
-		Short modEnvToPitch;				// 7
-		Short initialFilterFc;				// 8
-		Short initiflFilterQ;				// 9
-		Short modLfoToFilterFc;				// 10
-		Short modEnvToFilterFc;				// 11
-		UShort endAddrsCoarseOffset;		// 12
-		Short modLfoToVolume;				// 13
-		UShort unnsed1;						// 14
-		UShort chorusEffectsSend;			// 15
-		UShort reverbEffectsSend;			// 16
-		Short pan;							// 17
-		UShort unused2;						// 18
-		UShort unused3;						// 19
-		UShort unused4;						// 20
-		Short delayModLFO;					// 21
-		Short freqModLFO;					// 22
-		Short delayVibLFO;					// 23
-		Short freqVibLFO;					// 24
-		Short delayModEnv;					// 25
-		Short attackModEnv;					// 26
-		Short holdModEnv;					// 27
-		Short decayModEnv;					// 28
-		Short sustainModEnv;				// 29
-		Short releaseModEnv;				// 30
-		Short keynumToModEnvHold;			// 31
-		Short keynumToModEnvDecay;			// 32
-		Short delayVolEnv;					// 33
-		Short attackVolEnv;					// 34
-		Short holdVolEnv;					// 35
-		Short decayVolEnv;					// 36
-		Short sustainVolEnv;				// 37
-		Short releaseVolEnv;				// 38
-		Short keynumToVolEnvHold;			// 39
-		Short keynumToVolEnvDecay;			// 40
-		UShort instrument;					// 41
-		UShort reserved1;					// 42
-		rangesType keyRange;				// 43
-		rangesType velRange;				// 44
-		UShort startloopAddrsCoarseOffset;	// 45
-		UShort keynum;						// 46
-		UShort velocity;					// 47
-		UShort initialAttenuation;			// 48
-		UShort reserved2;					// 49
-		UShort endloopAddrsCoarseOffset;	// 50
-		Short coarseTune;					// 51
-		Short fineTune;						// 52
-		UShort sampleID;					// 53
-		UShort sampleModes;					// 54
-		UShort reserved3;					// 55
-		UShort scaleTuning;					// 56
-		UShort exclusiveClass;				// 57
-		UShort overridingRootKey;			// 58
-		UShort unused5;						// 59
-		UShort endOper;						// 60
-		void Reset();
-		bool Update(SFGenerator sfGenOper, UShort genAmount);
+	class Generator {
+	public:
+		struct Props {
+			UShort startAddrsOffset;			// 0
+			UShort endAddrsOffset;				// 1
+			UShort startloopAddrsOffset;		// 2
+			UShort endloopAddrsOffset;			// 3
+			UShort startAddrsCoarseOffset;		// 4
+			Short modLfoToPitch;				// 5
+			Short vibLfoToPitch;				// 6
+			Short modEnvToPitch;				// 7
+			Short initialFilterFc;				// 8
+			Short initiflFilterQ;				// 9
+			Short modLfoToFilterFc;				// 10
+			Short modEnvToFilterFc;				// 11
+			UShort endAddrsCoarseOffset;		// 12
+			Short modLfoToVolume;				// 13
+			UShort unnsed1;						// 14
+			UShort chorusEffectsSend;			// 15
+			UShort reverbEffectsSend;			// 16
+			Short pan;							// 17
+			UShort unused2;						// 18
+			UShort unused3;						// 19
+			UShort unused4;						// 20
+			Short delayModLFO;					// 21
+			Short freqModLFO;					// 22
+			Short delayVibLFO;					// 23
+			Short freqVibLFO;					// 24
+			Short delayModEnv;					// 25
+			Short attackModEnv;					// 26
+			Short holdModEnv;					// 27
+			Short decayModEnv;					// 28
+			Short sustainModEnv;				// 29
+			Short releaseModEnv;				// 30
+			Short keynumToModEnvHold;			// 31
+			Short keynumToModEnvDecay;			// 32
+			Short delayVolEnv;					// 33
+			Short attackVolEnv;					// 34
+			Short holdVolEnv;					// 35
+			Short decayVolEnv;					// 36
+			Short sustainVolEnv;				// 37
+			Short releaseVolEnv;				// 38
+			Short keynumToVolEnvHold;			// 39
+			Short keynumToVolEnvDecay;			// 40
+			UShort instrument;					// 41
+			UShort reserved1;					// 42
+			RangesType keyRange;				// 43
+			RangesType velRange;				// 44
+			UShort startloopAddrsCoarseOffset;	// 45
+			UShort keynum;						// 46
+			UShort velocity;					// 47
+			UShort initialAttenuation;			// 48
+			UShort reserved2;					// 49
+			UShort endloopAddrsCoarseOffset;	// 50
+			Short coarseTune;					// 51
+			Short fineTune;						// 52
+			UShort sampleID;					// 53
+			UShort sampleModes;					// 54
+			UShort reserved3;					// 55
+			UShort scaleTuning;					// 56
+			UShort exclusiveClass;				// 57
+			UShort overridingRootKey;			// 58
+			UShort unused5;						// 59
+			UShort endOper;						// 60
+			void Reset();
+			bool Update(SFGenerator sfGenOper, UShort genAmount);
+		};
+	private:
+		int _cntRef;
+		Props _props;
+	public:
+		Gura_DeclareReferenceAccessor(Generator);
+	public:
+		Generator();
+		inline Props &GetProps() { return _props; }
+		inline const Props &GetProps() const { return _props; }
 	};
 	typedef UShort SFModulator;
 	enum SFTransform {
@@ -303,6 +322,10 @@ public:
 	public:
 		void Print(int indentLevel) const;
 		bool SetupReference(Signal sig, sfPresetHeader *pPresetHeaderNext, const pdta_t &pdta);
+		Generator *CreateGenerator(UChar key, UCHAR velocity) const;
+		inline bool IsMatched(UShort wPreset, UShort wBank) const {
+			return wPreset == _wPreset && wBank == _wBank;
+		}
 		inline sfPresetBagOwner &GetPresetBagOwner() { return *_pPresetBagOwner; }
 		inline const sfPresetBagOwner &GetPresetBagOwner() const { return *_pPresetBagOwner; }
 	};
@@ -323,7 +346,9 @@ public:
 		UShort _wModNdx;
 		std::auto_ptr<sfGenOwner> _pGenOwner;
 		std::auto_ptr<sfModOwner> _pModOwner;
-		AutoPtr<sfInst> _pInst; // valid only when instrument generator exists in sfGenOwner
+		std::auto_ptr<RangesType> _pKeyRange;	// valid only when keyRange generator exists in sfGenOwner
+		std::auto_ptr<RangesType> _pVelRange;	// valid only when velRange generator exists in sfGenOwner
+		AutoPtr<sfInst> _pInst; 				// valid only when instrument generator exists in sfGenOwner
 	public:
 		Gura_DeclareReferenceAccessor(sfPresetBag);
 	public:
@@ -334,6 +359,11 @@ public:
 	public:
 		void Print(int indentLevel) const;
 		bool SetupReference(Signal sig, sfPresetBag *pPresetBagNext, const pdta_t &pdta);
+		inline bool IsMatched(UChar key, UChar velocity) const {
+			return
+				(_pKeyRange.get() == NULL || _pKeyRange->IsMatched(key)) &&
+				(_pVelRange.get() == NULL || _pVelRange->IsMatched(velocity));
+		}
 		inline sfGenOwner &GetGenOwner() { return *_pGenOwner; }
 		inline sfModOwner &GetModOwner() { return *_pModOwner; }
 		inline const sfGenOwner &GetGenOwner() const { return *_pGenOwner; }
@@ -445,7 +475,9 @@ public:
 		UShort _wInstModNdx;
 		std::auto_ptr<sfInstGenOwner> _pInstGenOwner;
 		std::auto_ptr<sfInstModOwner> _pInstModOwner;
-		AutoPtr<sfSample> _pSample; // valid only when sampleID generator exists in sfInstGenOwner
+		std::auto_ptr<RangesType> _pKeyRange;	// valid only when keyRange generator exists in sfInstGenOwner
+		std::auto_ptr<RangesType> _pVelRange;	// valid only when velRange generator exists in sfInstGenOwner
+		AutoPtr<sfSample> _pSample; 			// valid only when sampleID generator exists in sfInstGenOwner
 	public:
 		Gura_DeclareReferenceAccessor(sfInstBag);
 	public:
@@ -454,12 +486,21 @@ public:
 	private:
 		inline ~sfInstBag() {}
 	public:
+		inline bool IsMatched(UChar key, UChar velocity) const {
+			return
+				(_pKeyRange.get() == NULL || _pKeyRange->IsMatched(key)) &&
+				(_pVelRange.get() == NULL || _pVelRange->IsMatched(velocity));
+		}
 		inline sfInstGenOwner &GetInstGenOwner() { return *_pInstGenOwner; }
 		inline sfInstModOwner &GetInstModOwner() { return *_pInstModOwner; }
 		inline const sfInstGenOwner &GetInstGenOwner() const { return *_pInstGenOwner; }
 		inline const sfInstModOwner &GetInstModOwner() const { return *_pInstModOwner; }
 		inline sfSample *GetSample() { return _pSample.get(); }
 		inline const sfSample *GetSample() const { return _pSample.get(); }
+		inline RangesType *GetKeyRange() { return _pKeyRange.get(); }
+		inline const RangesType *GetKeyRange() const { return _pKeyRange.get(); }
+		inline RangesType *GetVelRange() { return _pVelRange.get(); }
+		inline const RangesType *GetVelRange() const { return _pVelRange.get(); }
 		void Print(int indentLevel) const;
 		bool SetupReference(Signal sig, sfInstBag *pInstBagNext, const pdta_t &pdta);
 	};
@@ -600,13 +641,14 @@ public:
 	SoundFont(Stream *pStream);
 	void Clear();
 	bool ReadChunks(Environment &env, Signal sig);
+	const sfPresetHeader *LookupPresetHeader(UShort wPreset, UShort wBank) const;
 	void Print() const;
 	inline INFO_t &GetINFO() { return _INFO; }
 	inline pdta_t &GetPdta() { return _pdta; }
 	inline const INFO_t &GetINFO() const { return _INFO; }
 	inline const pdta_t &GetPdta() const { return _pdta; }
 public:
-	static const char *GeneratorToName(SFGenerator generator);
+	static const char *SFGeneratorToName(SFGenerator generator);
 private:
 	bool ReadSubChunk(Environment &env, Signal sig, size_t bytes);
 	bool ReadStruct(Environment &env, Signal sig,

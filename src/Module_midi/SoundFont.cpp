@@ -165,6 +165,16 @@ bool SoundFont::ReadChunks(Environment &env, Signal sig)
 	return true;
 }
 
+const SoundFont::sfPresetHeader *SoundFont::LookupPresetHeader(
+										UShort wPreset, UShort wBank) const
+{
+	foreach_const (sfPresetHeaderOwner, ppPresetHeader, _pdta.phdrs) {
+		const sfPresetHeader *pPresetHeader = *ppPresetHeader;
+		if (pPresetHeader->IsMatched(wPreset, wBank)) return pPresetHeader;
+	}
+	return NULL;
+}
+
 void SoundFont::Print() const
 {
 	if (_INFO.p_ifil.get() != NULL) {
@@ -188,7 +198,7 @@ void SoundFont::Print() const
 	_pdta.phdrs.Print(0);
 }
 
-const char *SoundFont::GeneratorToName(SFGenerator generator)
+const char *SoundFont::SFGeneratorToName(SFGenerator generator)
 {
 	if (generator <= GEN_endOper) return _generatorNames[generator];
 	return "unknown";
@@ -424,10 +434,19 @@ bool SoundFont::ReadString(Environment &env, Signal sig,
 }
 
 //-----------------------------------------------------------------------------
-// SoundFont::GeneratorProps
+// SoundFont::Generator
 //-----------------------------------------------------------------------------
-void SoundFont::GeneratorProps::Reset()
+SoundFont::Generator::Generator() : _cntRef(1)
 {
+	_props.Reset();
+}
+
+//-----------------------------------------------------------------------------
+// SoundFont::Generator::Props
+//-----------------------------------------------------------------------------
+void SoundFont::Generator::Props::Reset()
+{
+	// see a table described in "8.1.3 Generator Summary"
 	startAddrsOffset			= 0;		// 0
 	endAddrsOffset				= 0;		// 1
 	startloopAddrsOffset		= 0;		// 2
@@ -493,7 +512,7 @@ void SoundFont::GeneratorProps::Reset()
 	endOper						= 0;		// 60
 }
 
-bool SoundFont::GeneratorProps::Update(SFGenerator sfGenOper, UShort genAmount)
+bool SoundFont::Generator::Props::Update(SFGenerator sfGenOper, UShort genAmount)
 {
 	switch (sfGenOper) {
 	case GEN_startAddrsOffset:				// 0
@@ -787,6 +806,13 @@ bool SoundFont::sfPresetHeader::SetupReference(Signal sig,
 	return true;
 }
 
+SoundFont::Generator *SoundFont::sfPresetHeader::CreateGenerator(UChar key, UChar velocity) const
+{
+	AutoPtr<Generator> pGenerator(new Generator());
+	
+	return pGenerator.release();
+}
+
 //-----------------------------------------------------------------------------
 // SoundFont::sfPresetBag
 // 7.3 The PBAG Sub-chunk
@@ -844,7 +870,17 @@ bool SoundFont::sfPresetBag::SetupReference(Signal sig, sfPresetBag *pPresetBagN
 							pdta.pgens.begin() + pPresetBagNext->_wGenNdx;
 	for ( ; ppGen != ppGenEnd; ppGen++) {
 		const sfGen *pGen = *ppGen;
-		if (pGen->GetGenOper() == GEN_instrument) {
+		GetGenOwner().push_back(sfGen::Reference(pGen));
+		switch (pGen->GetGenOper()) {
+		case GEN_keyRange: {
+			_pKeyRange.reset(new RangesType(pGen->GetGenAmount()));
+			break;
+		}
+		case GEN_velRange: {
+			_pVelRange.reset(new RangesType(pGen->GetGenAmount()));
+			break;
+		}
+		case GEN_instrument: {
 			UShort wInstNdx = pGen->GetGenAmount();
 			if (static_cast<size_t>(wInstNdx) >= pdta.insts.size()) {
 				sig.SetError(ERR_FormatError, "invalid index value in sfGen instrument");
@@ -852,8 +888,13 @@ bool SoundFont::sfPresetBag::SetupReference(Signal sig, sfPresetBag *pPresetBagN
 			}
 			const sfInst *pInst = pdta.insts[wInstNdx];
 			_pInst.reset(sfInst::Reference(pInst));
+			break;
 		}
-		GetGenOwner().push_back(sfGen::Reference(pGen));
+		default: {
+			// nothing to do
+			break;
+		}
+		}
 	}
 	return true;
 }
@@ -885,7 +926,7 @@ void SoundFont::sfMod::Print(int indentLevel) const
 	::printf("%*ssfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
 		indentLevel * 2, "",
 		_sfModSrcOper,
-		GeneratorToName(_sfModDestOper), _sfModDestOper,
+		SFGeneratorToName(_sfModDestOper), _sfModDestOper,
 		_modAmount,
 		_sfModAmtSrcOper,
 		_sfModTransOper);
@@ -911,7 +952,7 @@ void SoundFont::sfGen::Print(int indentLevel) const
 {
 	::printf("%*ssfGenOper=%s(%d) genAmount=0x%04x\n",
 		indentLevel * 2, "",
-		GeneratorToName(_sfGenOper), _sfGenOper,
+		SFGeneratorToName(_sfGenOper), _sfGenOper,
 		_genAmount);
 }
 
@@ -1018,7 +1059,16 @@ bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext, c
 	for ( ; ppInstGen != ppInstGenEnd; ppInstGen++) {
 		const sfInstGen *pInstGen = *ppInstGen;
 		GetInstGenOwner().push_back(sfInstGen::Reference(pInstGen));
-		if (pInstGen->GetGenOper() == GEN_sampleID) {
+		switch (pInstGen->GetGenOper()) {
+		case GEN_keyRange: {
+			_pKeyRange.reset(new RangesType(pInstGen->GetGenAmount()));
+			break;
+		}
+		case GEN_velRange: {
+			_pVelRange.reset(new RangesType(pInstGen->GetGenAmount()));
+			break;
+		}
+		case GEN_sampleID: {
 			UShort wSampleNdx = pInstGen->GetGenAmount();
 			if (static_cast<size_t>(wSampleNdx) >= pdta.shdrs.size()) {
 				sig.SetError(ERR_FormatError, "invalid index value in sfInstGen sampleID");
@@ -1026,6 +1076,12 @@ bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext, c
 			}
 			const sfSample *pSample = pdta.shdrs[wSampleNdx];
 			_pSample.reset(sfSample::Reference(pSample));
+			break;
+		}
+		default: {
+			// nothing to do
+			break;
+		}
 		}
 	}
 	return true;
@@ -1058,7 +1114,7 @@ void SoundFont::sfInstMod::Print(int indentLevel) const
 	::printf("%*ssfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
 		indentLevel * 2, "",
 		_sfModSrcOper,
-		GeneratorToName(_sfModDestOper), _sfModDestOper,
+		SFGeneratorToName(_sfModDestOper), _sfModDestOper,
 		_modAmount,
 		_sfModAmtSrcOper,
 		_sfModTransOper);
@@ -1084,7 +1140,7 @@ void SoundFont::sfInstGen::Print(int indentLevel) const
 {
 	::printf("%*ssfGenOper=%s(%d) genAmount=0x%04x\n",
 		indentLevel * 2, "",
-		GeneratorToName(_sfGenOper), _sfGenOper,
+		SFGeneratorToName(_sfGenOper), _sfGenOper,
 		_genAmount);
 }
 
