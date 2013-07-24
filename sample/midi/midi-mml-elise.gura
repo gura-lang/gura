@@ -6,7 +6,7 @@ mml = '''
 // conductor track
 t60 ;
 
-l16r2@{acoustic_piano}
+ch0 l16r2@{acoustic_piano}
 // melody part track
 /*  1 */ [~e~d+ ~e~d+~eb~d~c a8rcea b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c
 /*  6 */ a8rcea b8re~cb | a4] a8rb~c~d [~e8.g~f~e ~d8.f~e~d
@@ -30,7 +30,7 @@ l16r2@{acoustic_piano}
 /* 99 */ b8reg+b ~c8re~e~d+ ~e~d+~eb~d~c a8rcea b8re~cb a8r ;
 
 // sub melody part track
-l16r2@{acoustic_piano} >
+ch0 l16r2@{acoustic_piano} >
 /*  1 */ [r8 r8r8r8 _aearr8 _eeg+rr8 _aearr8 r8r8r8
 /*  6 */ _aearr8 _eeg+rr8 | _aear] _aearr8 [cg~crr8 _ggbrr8
 /* 11 */ _aearr8 _ee~err<e ~err~d+er r~d+~err8 r8r8r8 >_aearr8
@@ -65,6 +65,14 @@ if (sys.argv.len() < 2) {
 		track.sequence_or_track_name('Fur Elise')
 		track.time_signature(numerator => 3, denominator => 3,
 										metronome => 24, cnt32nd => 8)
+		track.key_signature(key => 0, scale => 0)
+		track.smpte_offset(hour => 0, minute => 0, second => 0, frame => 0, subFrame => 0)
+		track.control_change(0, `all_controllers_off,	0)
+		track.control_change(0, `chorus_level,			60)
+		track.control_change(0, `effects_level,			126)
+		track.control_change(0, `volume,				127)
+		track.control_change(0, `pan_position,			64)
+		track.control_change(0, `hold_pedal,			127)
 	}
 	seq.mml(mml)
 	seq.write(fileName)
