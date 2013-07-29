@@ -165,7 +165,7 @@ public:
 		return buffp;
 	}
 	void AddChain(Chain *pChain);
-	Chain *AllocChain(Signal sig, size_t nSamples);
+	Chain *AllocChain(size_t nSamples);
 	void FreeChain();
 	size_t GetSamples() const;
 	size_t GetBytes() const;

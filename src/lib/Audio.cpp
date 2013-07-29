@@ -27,7 +27,7 @@ void Audio::AddChain(Chain *pChain)
 	_pChainLast = pChain;
 }
 
-Audio::Chain *Audio::AllocChain(Signal sig, size_t nSamples)
+Audio::Chain *Audio::AllocChain(size_t nSamples)
 {
 	Chain *pChain = new Chain(_format, _nChannels, _nSamplesPerSec);
 	pChain->SetMemory(new MemoryHeap(CalcBytes(_format, _nChannels, nSamples)));
@@ -97,7 +97,7 @@ bool Audio::AddSineWave(Signal sig, size_t iChannel,
 		sig.SetError(ERR_ValueError, "amplitude is out of range");
 		return false;
 	}
-	Chain *pChain = AllocChain(sig, nSamples);
+	Chain *pChain = AllocChain(nSamples);
 	UChar *buffp = pChain->GetPointer();
 	size_t bytesPerUnit = GetBytesPerSample() * GetChannels();
 	double coef = Math_PI * 2 * freq;

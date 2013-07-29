@@ -160,7 +160,8 @@ bool SoundFont::ReadChunks(Environment &env, Signal sig)
 		if (ppInstBag + 1 == _pdta.ibags.end()) break;
 		sfInstBag *pInstBag = *ppInstBag;
 		sfInstBag *pInstBagNext = *(ppInstBag + 1);
-		if (!pInstBag->SetupReference(sig, pInstBagNext, _pdta)) return false;
+		if (!pInstBag->SetupReference(sig, pInstBagNext,
+							_pdta, *_pStream, _offsetSdta)) return false;
 	}
 	return true;
 }
@@ -365,19 +366,19 @@ bool SoundFont::ReadSubChunk(Environment &env, Signal sig, size_t bytes)
 			break;
 		}
 		case CKID_imod: {	// 7.8
-			sfInstMod::RawData rawData;
+			sfMod::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
 				if (!ReadStruct(env, sig, &rawData, rawData.Size, ckSizeRest)) return false;
-				_pdta.imods.push_back(new sfInstMod(rawData));
+				_pdta.imods.push_back(new sfMod(rawData));
 				ckSizeRest -= rawData.Size;
 			}
 			break;
 		}
 		case CKID_igen: {	// 7.9
-			sfInstGen::RawData rawData;
+			sfGen::RawData rawData;
 			for (size_t ckSizeRest = ckSize; ckSizeRest > 0; ) {
 				if (!ReadStruct(env, sig, &rawData, rawData.Size, ckSizeRest)) return false;
-				_pdta.igens.push_back(new sfInstGen(rawData));
+				_pdta.igens.push_back(new sfGen(rawData));
 				ckSizeRest -= rawData.Size;
 			}
 			break;
@@ -429,279 +430,6 @@ bool SoundFont::ReadString(Environment &env, Signal sig,
 	if (bytesRead != ckSizeAlign) {
 		sig.SetError(ERR_FormatError, "invalid SF2 format");
 		return false;
-	}
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// SoundFont::Generator
-//-----------------------------------------------------------------------------
-SoundFont::Generator::Generator() : _cntRef(1)
-{
-	_props.Reset();
-}
-
-//-----------------------------------------------------------------------------
-// SoundFont::Generator::Props
-//-----------------------------------------------------------------------------
-void SoundFont::Generator::Props::Reset()
-{
-	// see a table described in "8.1.3 Generator Summary"
-	startAddrsOffset			= 0;		// 0
-	endAddrsOffset				= 0;		// 1
-	startloopAddrsOffset		= 0;		// 2
-	endloopAddrsOffset			= 0;		// 3
-	startAddrsCoarseOffset		= 0;		// 4
-	modLfoToPitch				= 0;		// 5
-	vibLfoToPitch				= 0;		// 6
-	modEnvToPitch				= 0;		// 7
-	initialFilterFc				= 13500;	// 8
-	initiflFilterQ				= 0;		// 9
-	modLfoToFilterFc			= 0;		// 10
-	modEnvToFilterFc			= 0;		// 11
-	endAddrsCoarseOffset		= 0;		// 12
-	modLfoToVolume				= 0;		// 13
-	unnsed1						= 0;		// 14
-	chorusEffectsSend			= 0;		// 15
-	reverbEffectsSend			= 0;		// 16
-	pan							= 0;		// 17
-	unused2						= 0;		// 18
-	unused3						= 0;		// 19
-	unused4						= 0;		// 20
-	delayModLFO					= -12000;	// 21
-	freqModLFO					= 0;		// 22
-	delayVibLFO					= -12000;	// 23
-	freqVibLFO					= 0;		// 24
-	delayModEnv					= -12000;	// 25
-	attackModEnv				= -12000;	// 26
-	holdModEnv					= -12000;	// 27
-	decayModEnv					= -12000;	// 28
-	sustainModEnv				= 0;		// 29
-	releaseModEnv				= -12000;	// 30
-	keynumToModEnvHold			= 0;		// 31
-	keynumToModEnvDecay			= 0;		// 32
-	delayVolEnv					= -12000;	// 33
-	attackVolEnv				= -12000;	// 34
-	holdVolEnv					= -12000;	// 35
-	decayVolEnv					= -12000;	// 36
-	sustainVolEnv				= 0;		// 37
-	releaseVolEnv				= -12000;	// 38
-	keynumToVolEnvHold			= 0;		// 39
-	keynumToVolEnvDecay			= 0;		// 40
-	instrument					= 0;		// 41
-	reserved1					= 0;		// 42
-	keyRange.byLo				= 0;		// 43
-	keyRange.byHi				= 127;
-	velRange.byLo				= 0;		// 44
-	velRange.byHi				= 127;
-	startloopAddrsCoarseOffset	= 0;		// 45
-	keynum						= -1;		// 46
-	velocity					= -1;		// 47
-	initialAttenuation			= 0;		// 48
-	reserved2					= 0;		// 49
-	endloopAddrsCoarseOffset	= 0;		// 50
-	coarseTune					= 0;		// 51
-	fineTune					= 0;		// 52
-	sampleID					= 0;		// 53
-	sampleModes					= 0;		// 54
-	reserved3					= 0;		// 55
-	scaleTuning					= 100;		// 56
-	exclusiveClass				= 0;		// 57
-	overridingRootKey			= -1;		// 58
-	unused5						= 0;		// 59
-	endOper						= 0;		// 60
-}
-
-bool SoundFont::Generator::Props::Update(SFGenerator sfGenOper, UShort genAmount)
-{
-	switch (sfGenOper) {
-	case GEN_startAddrsOffset:				// 0
-		startAddrsOffset = static_cast<UShort>(genAmount);
-		break;
-	case GEN_endAddrsOffset:				// 1
-		endAddrsOffset = static_cast<UShort>(genAmount);
-		break;
-	case GEN_startloopAddrsOffset:			// 2
-		startloopAddrsOffset = static_cast<UShort>(genAmount);
-		break;
-	case GEN_endloopAddrsOffset:			// 3
-		endloopAddrsOffset = static_cast<UShort>(genAmount);
-		break;
-	case GEN_startAddrsCoarseOffset:		// 4
-		startAddrsCoarseOffset = static_cast<UShort>(genAmount);
-		break;
-	case GEN_modLfoToPitch:					// 5
-		modLfoToPitch = static_cast<Short>(genAmount);
-		break;
-	case GEN_vibLfoToPitch:					// 6
-		vibLfoToPitch = static_cast<Short>(genAmount);
-		break;
-	case GEN_modEnvToPitch:					// 7
-		modEnvToPitch = static_cast<Short>(genAmount);
-		break;
-	case GEN_initialFilterFc:				// 8
-		initialFilterFc = static_cast<Short>(genAmount);
-		break;
-	case GEN_initiflFilterQ:				// 9
-		initiflFilterQ = static_cast<Short>(genAmount);
-		break;
-	case GEN_modLfoToFilterFc:				// 10
-		modLfoToFilterFc = static_cast<Short>(genAmount);
-		break;
-	case GEN_modEnvToFilterFc:				// 11
-		modEnvToFilterFc = static_cast<Short>(genAmount);
-		break;
-	case GEN_endAddrsCoarseOffset:			// 12
-		endAddrsCoarseOffset = static_cast<UShort>(genAmount);
-		break;
-	case GEN_modLfoToVolume:				// 13
-		modLfoToVolume = static_cast<Short>(genAmount);
-		break;
-	case GEN_unnsed1:						// 14
-		unnsed1 = static_cast<UShort>(genAmount);
-		break;
-	case GEN_chorusEffectsSend:				// 15
-		chorusEffectsSend = static_cast<UShort>(genAmount);
-		break;
-	case GEN_reverbEffectsSend:				// 16
-		reverbEffectsSend = static_cast<UShort>(genAmount);
-		break;
-	case GEN_pan:							// 17
-		pan = static_cast<Short>(genAmount);
-		break;
-	case GEN_unused2:						// 18
-		unused2 = static_cast<UShort>(genAmount);
-		break;
-	case GEN_unused3:						// 19
-		unused3 = static_cast<UShort>(genAmount);
-		break;
-	case GEN_unused4:						// 20
-		unused4 = static_cast<UShort>(genAmount);
-		break;
-	case GEN_delayModLFO:					// 21
-		delayModLFO = static_cast<Short>(genAmount);
-		break;
-	case GEN_freqModLFO:					// 22
-		freqModLFO = static_cast<Short>(genAmount);
-		break;
-	case GEN_delayVibLFO:					// 23
-		delayVibLFO = static_cast<Short>(genAmount);
-		break;
-	case GEN_freqVibLFO:					// 24
-		freqVibLFO = static_cast<Short>(genAmount);
-		break;
-	case GEN_delayModEnv:					// 25
-		delayModEnv = static_cast<Short>(genAmount);
-		break;
-	case GEN_attackModEnv:					// 26
-		attackModEnv = static_cast<Short>(genAmount);
-		break;
-	case GEN_holdModEnv:					// 27
-		holdModEnv = static_cast<Short>(genAmount);
-		break;
-	case GEN_decayModEnv:					// 28
-		decayModEnv = static_cast<Short>(genAmount);
-		break;
-	case GEN_sustainModEnv:					// 29
-		sustainModEnv = static_cast<Short>(genAmount);
-		break;
-	case GEN_releaseModEnv:					// 30
-		releaseModEnv = static_cast<Short>(genAmount);
-		break;
-	case GEN_keynumToModEnvHold:			// 31
-		keynumToModEnvHold = static_cast<Short>(genAmount);
-		break;
-	case GEN_keynumToModEnvDecay:			// 32
-		keynumToModEnvDecay = static_cast<Short>(genAmount);
-		break;
-	case GEN_delayVolEnv:					// 33
-		delayVolEnv = static_cast<Short>(genAmount);
-		break;
-	case GEN_attackVolEnv:					// 34
-		attackVolEnv = static_cast<Short>(genAmount);
-		break;
-	case GEN_holdVolEnv:					// 35
-		holdVolEnv = static_cast<Short>(genAmount);
-		break;
-	case GEN_decayVolEnv:					// 36
-		decayVolEnv = static_cast<Short>(genAmount);
-		break;
-	case GEN_sustainVolEnv:					// 37
-		sustainVolEnv = static_cast<Short>(genAmount);
-		break;
-	case GEN_releaseVolEnv:					// 38
-		releaseVolEnv = static_cast<Short>(genAmount);
-		break;
-	case GEN_keynumToVolEnvHold:			// 39
-		keynumToVolEnvHold = static_cast<Short>(genAmount);
-		break;
-	case GEN_keynumToVolEnvDecay:			// 40
-		keynumToVolEnvDecay = static_cast<Short>(genAmount);
-		break;
-	case GEN_instrument:					// 41
-		instrument = static_cast<UShort>(genAmount);
-		break;
-	case GEN_reserved1:						// 42
-		reserved1 = static_cast<UShort>(genAmount);
-		break;
-	case GEN_keyRange:						// 43
-		keyRange.byLo = static_cast<UChar>(genAmount >> 0);
-		keyRange.byHi = static_cast<UChar>(genAmount >> 8);
-		break;
-	case GEN_velRange:						// 44
-		velRange.byLo = static_cast<UChar>(genAmount >> 0);
-		velRange.byHi = static_cast<UChar>(genAmount >> 8);
-		break;
-	case GEN_startloopAddrsCoarseOffset:	// 45
-		startloopAddrsCoarseOffset = static_cast<UShort>(genAmount);
-		break;
-	case GEN_keynum:						// 46
-		keynum = static_cast<UShort>(genAmount);
-		break;
-	case GEN_velocity:						// 47
-		velocity = static_cast<UShort>(genAmount);
-		break;
-	case GEN_initialAttenuation:			// 48
-		initialAttenuation = static_cast<UShort>(genAmount);
-		break;
-	case GEN_reserved2:						// 49
-		reserved2 = static_cast<UShort>(genAmount);
-		break;
-	case GEN_endloopAddrsCoarseOffset:		// 50
-		endloopAddrsCoarseOffset = static_cast<UShort>(genAmount);
-		break;
-	case GEN_coarseTune:					// 51
-		coarseTune = static_cast<Short>(genAmount);
-		break;
-	case GEN_fineTune:						// 52
-		fineTune = static_cast<Short>(genAmount);
-		break;
-	case GEN_sampleID:						// 53
-		sampleID = static_cast<UShort>(genAmount);
-		break;
-	case GEN_sampleModes:					// 54
-		sampleModes = static_cast<UShort>(genAmount);
-		break;
-	case GEN_reserved3:						// 55
-		reserved3 = static_cast<UShort>(genAmount);
-		break;
-	case GEN_scaleTuning:					// 56
-		scaleTuning = static_cast<UShort>(genAmount);
-		break;
-	case GEN_exclusiveClass:				// 57
-		exclusiveClass = static_cast<UShort>(genAmount);
-		break;
-	case GEN_overridingRootKey:				// 58
-		overridingRootKey = static_cast<UShort>(genAmount);
-		break;
-	case GEN_unused5:						// 59
-		unused5 = static_cast<UShort>(genAmount);
-		break;
-	case GEN_endOper:						// 60
-		endOper = static_cast<UShort>(genAmount);
-		break;
-	default:
-		break;
 	}
 	return true;
 }
@@ -806,11 +534,37 @@ bool SoundFont::sfPresetHeader::SetupReference(Signal sig,
 	return true;
 }
 
-SoundFont::Generator *SoundFont::sfPresetHeader::CreateGenerator(UChar key, UChar velocity) const
+SoundFont::Synthesizer *SoundFont::sfPresetHeader::CreateSynthesizer(UChar key, UChar velocity) const
 {
-	AutoPtr<Generator> pGenerator(new Generator());
-	
-	return pGenerator.release();
+	AutoPtr<Synthesizer> pSynthesizer(new Synthesizer());
+	foreach_const (sfPresetBagOwner, ppPresetBag, GetPresetBagOwner()) {
+		const sfPresetBag *pPresetBag = *ppPresetBag;
+		if (!pPresetBag->IsMatched(key, velocity)) continue;
+		foreach_const (sfGenOwner, ppGen, pPresetBag->GetGenOwner()) {
+			const sfGen *pGen = *ppGen;
+			pSynthesizer->GetProps().Update(pGen->GetGenOper(), pGen->GetGenAmount());
+		}
+		foreach_const (sfModOwner, ppMod, pPresetBag->GetModOwner()) {
+			const sfMod *pMod = *ppMod;
+			pSynthesizer->GetModOwner().push_back(pMod->Reference());
+		}
+		const sfInst *pInst = pPresetBag->GetInst();
+		if (pInst == NULL) continue;
+		foreach_const (sfInstBagOwner, ppInstBag, pInst->GetInstBagOwner()) {
+			const sfInstBag *pInstBag = *ppInstBag;
+			if (!pInstBag->IsMatched(key, velocity)) continue;
+			foreach_const (sfGenOwner, ppInstGen, pInstBag->GetInstGenOwner()) {
+				const sfGen *pInstGen = *ppInstGen;
+				pSynthesizer->GetProps().Update(
+						pInstGen->GetGenOper(), pInstGen->GetGenAmount());
+			}
+			foreach_const (sfModOwner, ppInstMod, pInstBag->GetInstModOwner()) {
+				const sfMod *pInstMod = *ppInstMod;
+				pSynthesizer->GetModOwner().push_back(pInstMod->Reference());
+			}
+		}
+	}
+	return pSynthesizer.release();
 }
 
 //-----------------------------------------------------------------------------
@@ -1008,16 +762,16 @@ bool SoundFont::sfInst::SetupReference(Signal sig, sfInst *pInstNext, const pdta
 SoundFont::sfInstBag::sfInstBag() : _cntRef(1),
 		_wInstGenNdx(0),
 		_wInstModNdx(0),
-		_pInstGenOwner(new sfInstGenOwner()),
-		_pInstModOwner(new sfInstModOwner())
+		_pInstGenOwner(new sfGenOwner()),
+		_pInstModOwner(new sfModOwner())
 {
 }
 
 SoundFont::sfInstBag::sfInstBag(const RawData &rawData) : _cntRef(1),
 		_wInstGenNdx(Gura_UnpackUShort(rawData.wInstGenNdx)),
 		_wInstModNdx(Gura_UnpackUShort(rawData.wInstModNdx)),
-		_pInstGenOwner(new sfInstGenOwner()),
-		_pInstModOwner(new sfInstModOwner())
+		_pInstGenOwner(new sfGenOwner()),
+		_pInstModOwner(new sfModOwner())
 {
 }
 
@@ -1032,7 +786,8 @@ void SoundFont::sfInstBag::Print(int indentLevel) const
 	if (GetSample() != NULL) GetSample()->Print(indentLevel + 1);
 }
 
-bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext, const pdta_t &pdta)
+bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext,
+						const pdta_t &pdta, Stream &stream, size_t offsetSdta)
 {
 	if (_wInstModNdx > pInstBagNext->_wInstModNdx ||
 			static_cast<size_t>(_wInstModNdx) > pdta.imods.size() ||
@@ -1040,12 +795,12 @@ bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext, c
 		sig.SetError(ERR_FormatError, "invalid wInstModNdx value in sfInstBag");
 		return false;
 	}
-	sfInstModOwner::const_iterator ppInstMod = pdta.imods.begin() + _wInstModNdx;
-	sfInstModOwner::const_iterator ppInstModEnd =
+	sfModOwner::const_iterator ppInstMod = pdta.imods.begin() + _wInstModNdx;
+	sfModOwner::const_iterator ppInstModEnd =
 							pdta.imods.begin() + pInstBagNext->_wInstModNdx;
 	for ( ; ppInstMod != ppInstModEnd; ppInstMod++) {
-		const sfInstMod *pInstMod = *ppInstMod;
-		GetInstModOwner().push_back(sfInstMod::Reference(pInstMod));
+		const sfMod *pInstMod = *ppInstMod;
+		GetInstModOwner().push_back(sfMod::Reference(pInstMod));
 	}
 	if (_wInstGenNdx > pInstBagNext->_wInstGenNdx ||
 			static_cast<size_t>(_wInstGenNdx) > pdta.igens.size() ||
@@ -1053,12 +808,12 @@ bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext, c
 		sig.SetError(ERR_FormatError, "invalid wInstGenNdx value in sfInstBag");
 		return false;
 	}
-	sfInstGenOwner::const_iterator ppInstGen = pdta.igens.begin() + _wInstGenNdx;
-	sfInstGenOwner::const_iterator ppInstGenEnd =
+	sfGenOwner::const_iterator ppInstGen = pdta.igens.begin() + _wInstGenNdx;
+	sfGenOwner::const_iterator ppInstGenEnd =
 							pdta.igens.begin() + pInstBagNext->_wInstGenNdx;
 	for ( ; ppInstGen != ppInstGenEnd; ppInstGen++) {
-		const sfInstGen *pInstGen = *ppInstGen;
-		GetInstGenOwner().push_back(sfInstGen::Reference(pInstGen));
+		const sfGen *pInstGen = *ppInstGen;
+		GetInstGenOwner().push_back(sfGen::Reference(pInstGen));
 		switch (pInstGen->GetGenOper()) {
 		case GEN_keyRange: {
 			_pKeyRange.reset(new RangesType(pInstGen->GetGenAmount()));
@@ -1071,11 +826,14 @@ bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext, c
 		case GEN_sampleID: {
 			UShort wSampleNdx = pInstGen->GetGenAmount();
 			if (static_cast<size_t>(wSampleNdx) >= pdta.shdrs.size()) {
-				sig.SetError(ERR_FormatError, "invalid index value in sfInstGen sampleID");
+				sig.SetError(ERR_FormatError, "invalid index value in sfGen sampleID");
 				return false;
 			}
 			const sfSample *pSample = pdta.shdrs[wSampleNdx];
 			_pSample.reset(sfSample::Reference(pSample));
+			Audio *pAudio = _pSample->CreateAudio(sig, stream, offsetSdta);
+			if (pAudio == NULL) return false;
+			_pAudio.reset(pAudio);
 			break;
 		}
 		default: {
@@ -1091,58 +849,11 @@ bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext, c
 // SoundFont::sfInstMod
 // 7.8 The IMOD Sub-chunk
 //-----------------------------------------------------------------------------
-SoundFont::sfInstMod::sfInstMod() : _cntRef(1),
-		_sfModSrcOper(static_cast<SFModulator>(0)),
-		_sfModDestOper(static_cast<SFGenerator>(0)),
-		_modAmount(0),
-		_sfModAmtSrcOper(static_cast<SFModulator>(0)),
-		_sfModTransOper(static_cast<SFTransform>(0))
-{
-}
-
-SoundFont::sfInstMod::sfInstMod(const RawData &rawData) : _cntRef(1),
-		_sfModSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModSrcOper))),
-		_sfModDestOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfModDestOper))),
-		_modAmount(static_cast<short>(Gura_UnpackUShort(rawData.modAmount))),
-		_sfModAmtSrcOper(static_cast<SFModulator>(Gura_UnpackUShort(rawData.sfModAmtSrcOper))),
-		_sfModTransOper(static_cast<SFTransform>(Gura_UnpackUShort(rawData.sfModTransOper)))
-{
-}
-
-void SoundFont::sfInstMod::Print(int indentLevel) const
-{
-	::printf("%*ssfModSrcOper=0x%04x sfModDestOper=%s(%d) modAmount=0x%04x sfModAmtSrcOper=0x%04x sfModTransOper=%d\n",
-		indentLevel * 2, "",
-		_sfModSrcOper,
-		SFGeneratorToName(_sfModDestOper), _sfModDestOper,
-		_modAmount,
-		_sfModAmtSrcOper,
-		_sfModTransOper);
-}
 
 //-----------------------------------------------------------------------------
 // SoundFont::sfInstGen
 // 7.9 The IGEN Sub-chunk
 //-----------------------------------------------------------------------------
-SoundFont::sfInstGen::sfInstGen() : _cntRef(1),
-		_sfGenOper(static_cast<SFGenerator>(0)),
-		_genAmount(0)
-{
-}
-
-SoundFont::sfInstGen::sfInstGen(const RawData &rawData) : _cntRef(1),
-		_sfGenOper(static_cast<SFGenerator>(Gura_UnpackUShort(rawData.sfGenOper))),
-		_genAmount(Gura_UnpackUShort(rawData.genAmount))
-{
-}
-
-void SoundFont::sfInstGen::Print(int indentLevel) const
-{
-	::printf("%*ssfGenOper=%s(%d) genAmount=0x%04x\n",
-		indentLevel * 2, "",
-		SFGeneratorToName(_sfGenOper), _sfGenOper,
-		_genAmount);
-}
 
 //-----------------------------------------------------------------------------
 // SoundFont::sfSample
@@ -1176,6 +887,27 @@ SoundFont::sfSample::sfSample(const RawData &rawData) : _cntRef(1),
 	::memcpy(_achSampleName, rawData.achSampleName, sizeof(_achSampleName));
 }
 
+Audio *SoundFont::sfSample::CreateAudio(Signal sig,
+									Stream &stream, size_t offsetSdta) const
+{
+	AutoPtr<Audio> pAudio(new Audio(Audio::FORMAT_S16LE, 1, _dwSampleRate));
+	if (_dwStart <= _dwEnd) {
+		sig.SetError(ERR_FormatError, "invalid value in sfSample");
+		return NULL;
+	}
+	if (!stream.Seek(sig, offsetSdta + _dwStart * 2, Stream::SeekSet)) return NULL;
+	size_t nSamples = _dwEnd - _dwStart;
+	Audio::Chain *pChain = pAudio->AllocChain(nSamples);
+	size_t bytesToRead = nSamples * 2;
+	size_t bytesRead = stream.Read(sig, pChain->GetPointer(), bytesToRead);
+	if (sig.IsSignalled()) return NULL;
+	if (bytesRead < bytesToRead) {
+		sig.SetError(ERR_FormatError, "invalid format of SoundFont");
+		return NULL;
+	}
+	return pAudio.release();
+}
+
 void SoundFont::sfSample::Print(int indentLevel) const
 {
 	::printf("%*sachSampleName=\"%s\" dwStart=%d dwEnd=%d dwStartloop=%d dwEndloop=%d dwSampleRate=%d byOriginalKey=%d chCorrection=%d wSampleLink=0x%04x sfSampleType=%d\n",
@@ -1190,6 +922,279 @@ void SoundFont::sfSample::Print(int indentLevel) const
 		_chCorrection,
 		_wSampleLink,
 		_sfSampleType);
+}
+
+//-----------------------------------------------------------------------------
+// SoundFont::Synthesizer
+//-----------------------------------------------------------------------------
+SoundFont::Synthesizer::Synthesizer() : _cntRef(1), _pModOwner(new sfModOwner())
+{
+	_props.Reset();
+}
+
+//-----------------------------------------------------------------------------
+// SoundFont::Synthesizer::Props
+//-----------------------------------------------------------------------------
+void SoundFont::Synthesizer::Props::Reset()
+{
+	// see a table described in "8.1.3 Generator Summary"
+	startAddrsOffset			= 0;		// 0
+	endAddrsOffset				= 0;		// 1
+	startloopAddrsOffset		= 0;		// 2
+	endloopAddrsOffset			= 0;		// 3
+	startAddrsCoarseOffset		= 0;		// 4
+	modLfoToPitch				= 0;		// 5
+	vibLfoToPitch				= 0;		// 6
+	modEnvToPitch				= 0;		// 7
+	initialFilterFc				= 13500;	// 8
+	initiflFilterQ				= 0;		// 9
+	modLfoToFilterFc			= 0;		// 10
+	modEnvToFilterFc			= 0;		// 11
+	endAddrsCoarseOffset		= 0;		// 12
+	modLfoToVolume				= 0;		// 13
+	unnsed1						= 0;		// 14
+	chorusEffectsSend			= 0;		// 15
+	reverbEffectsSend			= 0;		// 16
+	pan							= 0;		// 17
+	unused2						= 0;		// 18
+	unused3						= 0;		// 19
+	unused4						= 0;		// 20
+	delayModLFO					= -12000;	// 21
+	freqModLFO					= 0;		// 22
+	delayVibLFO					= -12000;	// 23
+	freqVibLFO					= 0;		// 24
+	delayModEnv					= -12000;	// 25
+	attackModEnv				= -12000;	// 26
+	holdModEnv					= -12000;	// 27
+	decayModEnv					= -12000;	// 28
+	sustainModEnv				= 0;		// 29
+	releaseModEnv				= -12000;	// 30
+	keynumToModEnvHold			= 0;		// 31
+	keynumToModEnvDecay			= 0;		// 32
+	delayVolEnv					= -12000;	// 33
+	attackVolEnv				= -12000;	// 34
+	holdVolEnv					= -12000;	// 35
+	decayVolEnv					= -12000;	// 36
+	sustainVolEnv				= 0;		// 37
+	releaseVolEnv				= -12000;	// 38
+	keynumToVolEnvHold			= 0;		// 39
+	keynumToVolEnvDecay			= 0;		// 40
+	instrument					= 0;		// 41
+	reserved1					= 0;		// 42
+	keyRange.byLo				= 0;		// 43
+	keyRange.byHi				= 127;
+	velRange.byLo				= 0;		// 44
+	velRange.byHi				= 127;
+	startloopAddrsCoarseOffset	= 0;		// 45
+	keynum						= -1;		// 46
+	velocity					= -1;		// 47
+	initialAttenuation			= 0;		// 48
+	reserved2					= 0;		// 49
+	endloopAddrsCoarseOffset	= 0;		// 50
+	coarseTune					= 0;		// 51
+	fineTune					= 0;		// 52
+	sampleID					= 0;		// 53
+	sampleModes					= 0;		// 54
+	reserved3					= 0;		// 55
+	scaleTuning					= 100;		// 56
+	exclusiveClass				= 0;		// 57
+	overridingRootKey			= -1;		// 58
+	unused5						= 0;		// 59
+	endOper						= 0;		// 60
+}
+
+bool SoundFont::Synthesizer::Props::Update(SFGenerator sfGenOper, UShort genAmount)
+{
+	switch (sfGenOper) {
+	case GEN_startAddrsOffset:				// 0
+		startAddrsOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_endAddrsOffset:				// 1
+		endAddrsOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_startloopAddrsOffset:			// 2
+		startloopAddrsOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_endloopAddrsOffset:			// 3
+		endloopAddrsOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_startAddrsCoarseOffset:		// 4
+		startAddrsCoarseOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_modLfoToPitch:					// 5
+		modLfoToPitch = static_cast<Short>(genAmount);
+		break;
+	case GEN_vibLfoToPitch:					// 6
+		vibLfoToPitch = static_cast<Short>(genAmount);
+		break;
+	case GEN_modEnvToPitch:					// 7
+		modEnvToPitch = static_cast<Short>(genAmount);
+		break;
+	case GEN_initialFilterFc:				// 8
+		initialFilterFc = static_cast<Short>(genAmount);
+		break;
+	case GEN_initiflFilterQ:				// 9
+		initiflFilterQ = static_cast<Short>(genAmount);
+		break;
+	case GEN_modLfoToFilterFc:				// 10
+		modLfoToFilterFc = static_cast<Short>(genAmount);
+		break;
+	case GEN_modEnvToFilterFc:				// 11
+		modEnvToFilterFc = static_cast<Short>(genAmount);
+		break;
+	case GEN_endAddrsCoarseOffset:			// 12
+		endAddrsCoarseOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_modLfoToVolume:				// 13
+		modLfoToVolume = static_cast<Short>(genAmount);
+		break;
+	case GEN_unnsed1:						// 14
+		unnsed1 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_chorusEffectsSend:				// 15
+		chorusEffectsSend = static_cast<UShort>(genAmount);
+		break;
+	case GEN_reverbEffectsSend:				// 16
+		reverbEffectsSend = static_cast<UShort>(genAmount);
+		break;
+	case GEN_pan:							// 17
+		pan = static_cast<Short>(genAmount);
+		break;
+	case GEN_unused2:						// 18
+		unused2 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_unused3:						// 19
+		unused3 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_unused4:						// 20
+		unused4 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_delayModLFO:					// 21
+		delayModLFO = static_cast<Short>(genAmount);
+		break;
+	case GEN_freqModLFO:					// 22
+		freqModLFO = static_cast<Short>(genAmount);
+		break;
+	case GEN_delayVibLFO:					// 23
+		delayVibLFO = static_cast<Short>(genAmount);
+		break;
+	case GEN_freqVibLFO:					// 24
+		freqVibLFO = static_cast<Short>(genAmount);
+		break;
+	case GEN_delayModEnv:					// 25
+		delayModEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_attackModEnv:					// 26
+		attackModEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_holdModEnv:					// 27
+		holdModEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_decayModEnv:					// 28
+		decayModEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_sustainModEnv:					// 29
+		sustainModEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_releaseModEnv:					// 30
+		releaseModEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_keynumToModEnvHold:			// 31
+		keynumToModEnvHold = static_cast<Short>(genAmount);
+		break;
+	case GEN_keynumToModEnvDecay:			// 32
+		keynumToModEnvDecay = static_cast<Short>(genAmount);
+		break;
+	case GEN_delayVolEnv:					// 33
+		delayVolEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_attackVolEnv:					// 34
+		attackVolEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_holdVolEnv:					// 35
+		holdVolEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_decayVolEnv:					// 36
+		decayVolEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_sustainVolEnv:					// 37
+		sustainVolEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_releaseVolEnv:					// 38
+		releaseVolEnv = static_cast<Short>(genAmount);
+		break;
+	case GEN_keynumToVolEnvHold:			// 39
+		keynumToVolEnvHold = static_cast<Short>(genAmount);
+		break;
+	case GEN_keynumToVolEnvDecay:			// 40
+		keynumToVolEnvDecay = static_cast<Short>(genAmount);
+		break;
+	case GEN_instrument:					// 41
+		instrument = static_cast<UShort>(genAmount);
+		break;
+	case GEN_reserved1:						// 42
+		reserved1 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_keyRange:						// 43
+		keyRange.byLo = static_cast<UChar>(genAmount >> 0);
+		keyRange.byHi = static_cast<UChar>(genAmount >> 8);
+		break;
+	case GEN_velRange:						// 44
+		velRange.byLo = static_cast<UChar>(genAmount >> 0);
+		velRange.byHi = static_cast<UChar>(genAmount >> 8);
+		break;
+	case GEN_startloopAddrsCoarseOffset:	// 45
+		startloopAddrsCoarseOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_keynum:						// 46
+		keynum = static_cast<UShort>(genAmount);
+		break;
+	case GEN_velocity:						// 47
+		velocity = static_cast<UShort>(genAmount);
+		break;
+	case GEN_initialAttenuation:			// 48
+		initialAttenuation = static_cast<UShort>(genAmount);
+		break;
+	case GEN_reserved2:						// 49
+		reserved2 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_endloopAddrsCoarseOffset:		// 50
+		endloopAddrsCoarseOffset = static_cast<UShort>(genAmount);
+		break;
+	case GEN_coarseTune:					// 51
+		coarseTune = static_cast<Short>(genAmount);
+		break;
+	case GEN_fineTune:						// 52
+		fineTune = static_cast<Short>(genAmount);
+		break;
+	case GEN_sampleID:						// 53
+		sampleID = static_cast<UShort>(genAmount);
+		break;
+	case GEN_sampleModes:					// 54
+		sampleModes = static_cast<UShort>(genAmount);
+		break;
+	case GEN_reserved3:						// 55
+		reserved3 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_scaleTuning:					// 56
+		scaleTuning = static_cast<UShort>(genAmount);
+		break;
+	case GEN_exclusiveClass:				// 57
+		exclusiveClass = static_cast<UShort>(genAmount);
+		break;
+	case GEN_overridingRootKey:				// 58
+		overridingRootKey = static_cast<UShort>(genAmount);
+		break;
+	case GEN_unused5:						// 59
+		unused5 = static_cast<UShort>(genAmount);
+		break;
+	case GEN_endOper:						// 60
+		endOper = static_cast<UShort>(genAmount);
+		break;
+	default:
+		break;
+	}
+	return true;
 }
 
 }}

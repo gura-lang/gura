@@ -742,8 +742,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 		extNameList.push_back("gura"); // script module shall be searched first
 	}
 	extNameList.push_back("gurd");
-	String baseName = SymbolList::Join(ppSymbolOfModule,
-									ppSymbolOfModuleEnd, OAL::FileSeparator);
+	String baseName = SymbolList::Join(ppSymbolOfModule, ppSymbolOfModuleEnd, '.'); //OAL::FileSeparator
 	foreach_const (ValueList, pValue, pValDirNameList->GetList()) {
 		if (!pValue->IsString()) {
 			sig.SetError(ERR_ImportError, "elements of variable path must be strings");
@@ -760,6 +759,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 				if (sig.IsSignalled()) return false;
 			}
 		} while (0);
+#if 0
 		do {
 			String pathNameBase = pValue->GetString();
 			pathNameBase += OAL::FileSeparator;
@@ -775,6 +775,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 			}
 			if (sig.IsSignalled()) return false;
 		} while (0);
+#endif
 	}
 	sig.SetError(ERR_ImportError, "can't find a module named '%s'",
 		SymbolList::Join(ppSymbolOfModule, ppSymbolOfModuleEnd, '.').c_str());
