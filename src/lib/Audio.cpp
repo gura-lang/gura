@@ -59,6 +59,36 @@ size_t Audio::GetBytes() const
 	return bytes;
 }
 
+bool Audio::PutData(size_t iChannel, size_t offset, int data)
+{
+	size_t bytes = offset * GetChannels() * GetBytesPerSample();
+	Chain *pChain = GetChainTop();
+	for ( ; pChain != NULL; pChain = pChain->GetNext()) {
+		if (bytes < pChain->GetBytes()) {
+			UChar *buffp = pChain->GetPointer() + bytes + iChannel * GetBytesPerSample();
+			PutData(_format, buffp, data);
+			return true;
+		}
+		bytes -= pChain->GetBytes();
+	}
+	return false;
+}
+
+bool Audio::GetData(size_t iChannel, size_t offset, int *pData)
+{
+	size_t bytes = offset * GetChannels() * GetBytesPerSample();
+	const Chain *pChain = GetChainTop();
+	for ( ; pChain != NULL; pChain = pChain->GetNext()) {
+		if (bytes < pChain->GetBytes()) {
+			const UChar *buffp = pChain->GetPointer() + bytes + iChannel * GetBytesPerSample();
+			GetData(_format, buffp, pData);
+			return true;
+		}
+		bytes -= pChain->GetBytes();
+	}
+	return false;
+}
+
 bool Audio::Read(Environment &env, Signal sig, Stream &stream, const char *audioType)
 {
 	AudioStreamer *pAudioStreamer = NULL;
@@ -201,6 +231,45 @@ Audio::Chain *Audio::Chain::ConvertFormat(Format format) const
 		buffpDst = PutData(format, buffpDst, data);
 	}
 	return pChain.release();
+}
+
+//-----------------------------------------------------------------------------
+// Audio::IteratorEach
+//-----------------------------------------------------------------------------
+Audio::IteratorEach::IteratorEach(Audio *pAudio, size_t iChannel) :
+					Iterator(false), _pAudio(pAudio), _iChannel(iChannel),
+					_pChain(NULL), _ptr(NULL), _cntRest(0)
+{
+}
+
+Iterator *Audio::IteratorEach::GetSource()
+{
+	return NULL;
+}
+
+bool Audio::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
+{
+	while (_cntRest == 0) {
+		_pChain.reset(Chain::Reference(_pChain.IsNull()?
+							_pAudio->GetChainTop() : _pChain->GetNext()));
+		if (_pChain.IsNull()) return false;
+		_ptr = _pChain->GetPointer() + _pAudio->GetBytesPerSample() * _iChannel;
+		_cntRest = _pChain->GetSamples();
+	}
+	int data = 0;
+	_ptr = Audio::GetData(_pAudio->GetFormat(), _ptr, &data);
+	_cntRest--;
+	value = Value(data);
+	return true;
+}
+
+String Audio::IteratorEach::ToString(Signal sig) const
+{
+	return String("<iterator:audio:each>");
+}
+
+void Audio::IteratorEach::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
 }
 
 //-----------------------------------------------------------------------------

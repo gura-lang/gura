@@ -163,8 +163,7 @@ Gura_DeclareMethod(audio, sinewave)
 
 Gura_ImplementMethod(audio, sinewave)
 {
-	Object_audio *pThis = Object_audio::GetThisObj(args);
-	Audio *pAudio = pThis->GetAudio();
+	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
 	double freq = args.GetDouble(1);
 	size_t nSamples = static_cast<size_t>(args.GetDouble(2) * pAudio->GetSamplesPerSec());
@@ -186,7 +185,14 @@ Gura_DeclareMethod(audio, put)
 
 Gura_ImplementMethod(audio, put)
 {
-	Object_audio *pThis = Object_audio::GetThisObj(args);
+	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
+	size_t iChannel = args.GetSizeT(0);
+	size_t offset = args.GetSizeT(1);
+	int data = args.GetInt(2);
+	if (!pAudio->PutData(iChannel, offset, data)) {
+		sig.SetError(ERR_IndexError, "offset is out of range");
+		return Value::Null;
+	}
 	return args.GetThis();
 }
 
@@ -200,8 +206,30 @@ Gura_DeclareMethod(audio, get)
 
 Gura_ImplementMethod(audio, get)
 {
-	Object_audio *pThis = Object_audio::GetThisObj(args);
-	return Value::Null;
+	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
+	size_t iChannel = args.GetSizeT(0);
+	size_t offset = args.GetSizeT(1);
+	int data = 0;
+	if (!pAudio->GetData(iChannel, offset, &data)) {
+		sig.SetError(ERR_IndexError, "offset is out of range");
+		return Value::Null;
+	}
+	return Value(data);
+}
+
+// audio#each(channel:number):map
+Gura_DeclareMethod(audio, each)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+}
+
+Gura_ImplementMethod(audio, each)
+{
+	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
+	size_t iChannel = args.GetSizeT(0);
+	AutoPtr<Iterator> pIterator(new Audio::IteratorEach(pAudio->Reference(), iChannel));
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // audio#store(channel:number, offset:number, samples:number, src):reduce
@@ -216,7 +244,7 @@ Gura_DeclareMethod(audio, store)
 
 Gura_ImplementMethod(audio, store)
 {
-	Object_audio *pThis = Object_audio::GetThisObj(args);
+	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
 	return args.GetThis();
 }
 
@@ -232,7 +260,7 @@ Gura_DeclareMethod(audio, extract)
 
 Gura_ImplementMethod(audio, extract)
 {
-	Object_audio *pThis = Object_audio::GetThisObj(args);
+	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
 	return Value::Null;
 }
 
@@ -245,7 +273,7 @@ Gura_DeclareMethod(audio, fill)
 
 Gura_ImplementMethod(audio, fill)
 {
-	Object_audio *pThis = Object_audio::GetThisObj(args);
+	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
 	return args.GetThis();
 }
 
@@ -261,7 +289,7 @@ Gura_DeclareMethod(audio, fillrange)
 
 Gura_ImplementMethod(audio, fillrange)
 {
-	Object_audio *pThis = Object_audio::GetThisObj(args);
+	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
 	return args.GetThis();
 }
 
@@ -278,6 +306,7 @@ void Class_audio::Prepare(Environment &env)
 	Gura_AssignMethod(audio, sinewave);
 	Gura_AssignMethod(audio, put);
 	Gura_AssignMethod(audio, get);
+	Gura_AssignMethod(audio, each);
 	Gura_AssignMethod(audio, store);
 	Gura_AssignMethod(audio, extract);
 	Gura_AssignMethod(audio, fill);

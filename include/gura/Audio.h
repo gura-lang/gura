@@ -60,6 +60,21 @@ public:
 		void FillMute();
 		Chain *ConvertFormat(Format format) const;
 	};
+public:
+	class GURA_DLLDECLARE IteratorEach : public Iterator {
+	private:
+		AutoPtr<Audio> _pAudio;
+		size_t _iChannel;
+		AutoPtr<Chain> _pChain;
+		const UChar *_ptr;
+		size_t _cntRest;
+	public:
+		IteratorEach(Audio *pAudio, size_t iChannel);
+		virtual Iterator *GetSource();
+		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual String ToString(Signal sig) const;
+		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+	};
 private:
 	int _cntRef;
 	Format _format;
@@ -169,6 +184,8 @@ public:
 	void FreeChain();
 	size_t GetSamples() const;
 	size_t GetBytes() const;
+	bool PutData(size_t iChannel, size_t offset, int data);
+	bool GetData(size_t iChannel, size_t offset, int *pData);
 	bool Read(Environment &env, Signal sig, Stream &stream, const char *audioType);
 	bool Write(Environment &env, Signal sig, Stream &stream, const char *audioType);
 	bool AddSineWave(Signal sig, size_t iChannel,
