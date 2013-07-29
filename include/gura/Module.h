@@ -46,23 +46,6 @@ GURA_DLLEXPORT Module *Import(Environment &env, Signal sig) \
 } \
 }}
 
-#define Gura_BeginSubModule(name) \
-namespace SubModuleNS_##name {
-
-#define Gura_EndSubModule(name) \
-}
-
-#define Gura_AssignSubModule(name, nameBase) \
-do { \
-	Module *pModule = new Module(&env, Symbol::Add(#nameBase), "<integrated>", NULL, NULL); \
-	SubModuleNS_##name::MixIn(*pModule, sig); \
-	if (sig.IsSignalled()) { \
-		delete pModule; \
-		return; \
-	} \
-	env.AssignModule(pModule); \
-} while (0)
-
 #if defined(GURA_MODULE_SEPARATED)
 #define Gura_RegisterModule(name) \
 extern "C" GURA_DLLEXPORT \
