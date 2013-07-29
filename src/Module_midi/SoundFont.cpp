@@ -160,8 +160,7 @@ bool SoundFont::ReadChunks(Environment &env, Signal sig)
 		if (ppInstBag + 1 == _pdta.ibags.end()) break;
 		sfInstBag *pInstBag = *ppInstBag;
 		sfInstBag *pInstBagNext = *(ppInstBag + 1);
-		if (!pInstBag->SetupReference(sig, pInstBagNext,
-							_pdta, *_pStream, _offsetSdta)) return false;
+		if (!pInstBag->SetupReference(sig, pInstBagNext, _pdta)) return false;
 	}
 	return true;
 }
@@ -174,6 +173,54 @@ const SoundFont::sfPresetHeader *SoundFont::LookupPresetHeader(
 		if (pPresetHeader->IsMatched(wPreset, wBank)) return pPresetHeader;
 	}
 	return NULL;
+}
+
+SoundFont::Synthesizer *SoundFont::CreateSynthesizer(Signal sig,
+					UShort wPreset, UShort wBank, UChar key, UChar velocity) const
+{
+	const sfPresetHeader *pPresetHeader = LookupPresetHeader(wPreset, wBank);
+	if (pPresetHeader == NULL) {
+		sig.SetError(ERR_IndexError, "can't find specified PresetHeader");
+		return NULL;
+	}
+	AutoPtr<Synthesizer> pSynthesizer(new Synthesizer());
+	foreach_const (sfPresetBagOwner, ppPresetBag, pPresetHeader->GetPresetBagOwner()) {
+		const sfPresetBag *pPresetBag = *ppPresetBag;
+		foreach_const (sfGenOwner, ppGen, pPresetBag->GetGenOwner()) {
+			const sfGen *pGen = *ppGen;
+			pSynthesizer->GetProps().Update(pGen->GetGenOper(), pGen->GetGenAmount());
+		}
+		foreach_const (sfModOwner, ppMod, pPresetBag->GetModOwner()) {
+			const sfMod *pMod = *ppMod;
+			pSynthesizer->GetModOwner().push_back(pMod->Reference());
+		}
+		const sfInst *pInst = pPresetBag->GetInst();
+		if (pInst == NULL) continue;
+		foreach_const (sfInstBagOwner, ppInstBag, pInst->GetInstBagOwner()) {
+			const sfInstBag *pInstBag = *ppInstBag;
+			if (!pInstBag->IsMatched(key, velocity)) continue;
+			foreach_const (sfGenOwner, ppInstGen, pInstBag->GetInstGenOwner()) {
+				const sfGen *pInstGen = *ppInstGen;
+				pSynthesizer->GetProps().Update(
+						pInstGen->GetGenOper(), pInstGen->GetGenAmount());
+			}
+			foreach_const (sfModOwner, ppInstMod, pInstBag->GetInstModOwner()) {
+				const sfMod *pInstMod = *ppInstMod;
+				pSynthesizer->GetModOwner().push_back(pInstMod->Reference());
+			}
+		}
+	}
+	do {
+		UShort wSampleNdx = pSynthesizer->GetProps().sampleID;
+		if (static_cast<size_t>(wSampleNdx) >= _pdta.shdrs.size()) {
+			sig.SetError(ERR_FormatError, "invalid index value in sfGen sampleID");
+			return NULL;
+		}
+		sfSample *pSample = _pdta.shdrs[wSampleNdx];
+		if (!pSample->CreateAudio(sig, *_pStream, _offsetSdta)) return NULL;
+		pSynthesizer->SetSample(sfSample::Reference(pSample));
+	} while (0);
+	return pSynthesizer.release();
 }
 
 void SoundFont::Print() const
@@ -534,39 +581,6 @@ bool SoundFont::sfPresetHeader::SetupReference(Signal sig,
 	return true;
 }
 
-SoundFont::Synthesizer *SoundFont::sfPresetHeader::CreateSynthesizer(UChar key, UChar velocity) const
-{
-	AutoPtr<Synthesizer> pSynthesizer(new Synthesizer());
-	foreach_const (sfPresetBagOwner, ppPresetBag, GetPresetBagOwner()) {
-		const sfPresetBag *pPresetBag = *ppPresetBag;
-		if (!pPresetBag->IsMatched(key, velocity)) continue;
-		foreach_const (sfGenOwner, ppGen, pPresetBag->GetGenOwner()) {
-			const sfGen *pGen = *ppGen;
-			pSynthesizer->GetProps().Update(pGen->GetGenOper(), pGen->GetGenAmount());
-		}
-		foreach_const (sfModOwner, ppMod, pPresetBag->GetModOwner()) {
-			const sfMod *pMod = *ppMod;
-			pSynthesizer->GetModOwner().push_back(pMod->Reference());
-		}
-		const sfInst *pInst = pPresetBag->GetInst();
-		if (pInst == NULL) continue;
-		foreach_const (sfInstBagOwner, ppInstBag, pInst->GetInstBagOwner()) {
-			const sfInstBag *pInstBag = *ppInstBag;
-			if (!pInstBag->IsMatched(key, velocity)) continue;
-			foreach_const (sfGenOwner, ppInstGen, pInstBag->GetInstGenOwner()) {
-				const sfGen *pInstGen = *ppInstGen;
-				pSynthesizer->GetProps().Update(
-						pInstGen->GetGenOper(), pInstGen->GetGenAmount());
-			}
-			foreach_const (sfModOwner, ppInstMod, pInstBag->GetInstModOwner()) {
-				const sfMod *pInstMod = *ppInstMod;
-				pSynthesizer->GetModOwner().push_back(pInstMod->Reference());
-			}
-		}
-	}
-	return pSynthesizer.release();
-}
-
 //-----------------------------------------------------------------------------
 // SoundFont::sfPresetBag
 // 7.3 The PBAG Sub-chunk
@@ -627,11 +641,11 @@ bool SoundFont::sfPresetBag::SetupReference(Signal sig, sfPresetBag *pPresetBagN
 		GetGenOwner().push_back(sfGen::Reference(pGen));
 		switch (pGen->GetGenOper()) {
 		case GEN_keyRange: {
-			_pKeyRange.reset(new RangesType(pGen->GetGenAmount()));
+			// just ignore keyRange in Preset zone
 			break;
 		}
 		case GEN_velRange: {
-			_pVelRange.reset(new RangesType(pGen->GetGenAmount()));
+			// just ignore velRange in Preset zone
 			break;
 		}
 		case GEN_instrument: {
@@ -783,11 +797,10 @@ void SoundFont::sfInstBag::Print(int indentLevel) const
 		_wInstModNdx);
 	GetInstGenOwner().Print(indentLevel + 1);
 	GetInstModOwner().Print(indentLevel + 1);
-	if (GetSample() != NULL) GetSample()->Print(indentLevel + 1);
 }
 
-bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext,
-						const pdta_t &pdta, Stream &stream, size_t offsetSdta)
+bool SoundFont::sfInstBag::SetupReference(Signal sig,
+								sfInstBag *pInstBagNext, const pdta_t &pdta)
 {
 	if (_wInstModNdx > pInstBagNext->_wInstModNdx ||
 			static_cast<size_t>(_wInstModNdx) > pdta.imods.size() ||
@@ -823,19 +836,11 @@ bool SoundFont::sfInstBag::SetupReference(Signal sig, sfInstBag *pInstBagNext,
 			_pVelRange.reset(new RangesType(pInstGen->GetGenAmount()));
 			break;
 		}
+#if 0
 		case GEN_sampleID: {
-			UShort wSampleNdx = pInstGen->GetGenAmount();
-			if (static_cast<size_t>(wSampleNdx) >= pdta.shdrs.size()) {
-				sig.SetError(ERR_FormatError, "invalid index value in sfGen sampleID");
-				return false;
-			}
-			const sfSample *pSample = pdta.shdrs[wSampleNdx];
-			_pSample.reset(sfSample::Reference(pSample));
-			Audio *pAudio = _pSample->CreateAudio(sig, stream, offsetSdta);
-			if (pAudio == NULL) return false;
-			_pAudio.reset(pAudio);
 			break;
 		}
+#endif
 		default: {
 			// nothing to do
 			break;
@@ -887,25 +892,25 @@ SoundFont::sfSample::sfSample(const RawData &rawData) : _cntRef(1),
 	::memcpy(_achSampleName, rawData.achSampleName, sizeof(_achSampleName));
 }
 
-Audio *SoundFont::sfSample::CreateAudio(Signal sig,
-									Stream &stream, size_t offsetSdta) const
+bool SoundFont::sfSample::CreateAudio(Signal sig, Stream &stream, size_t offsetSdta)
 {
-	AutoPtr<Audio> pAudio(new Audio(Audio::FORMAT_S16LE, 1, _dwSampleRate));
-	if (_dwStart <= _dwEnd) {
+	if (!_pAudio.IsNull()) return true;
+	_pAudio.reset(new Audio(Audio::FORMAT_S16LE, 1, _dwSampleRate));
+	if (_dwStart >= _dwEnd) {
 		sig.SetError(ERR_FormatError, "invalid value in sfSample");
-		return NULL;
+		return false;
 	}
 	if (!stream.Seek(sig, offsetSdta + _dwStart * 2, Stream::SeekSet)) return NULL;
 	size_t nSamples = _dwEnd - _dwStart;
-	Audio::Chain *pChain = pAudio->AllocChain(nSamples);
+	Audio::Chain *pChain = _pAudio->AllocChain(nSamples);
 	size_t bytesToRead = nSamples * 2;
 	size_t bytesRead = stream.Read(sig, pChain->GetPointer(), bytesToRead);
 	if (sig.IsSignalled()) return NULL;
 	if (bytesRead < bytesToRead) {
 		sig.SetError(ERR_FormatError, "invalid format of SoundFont");
-		return NULL;
+		return false;
 	}
-	return pAudio.release();
+	return true;
 }
 
 void SoundFont::sfSample::Print(int indentLevel) const

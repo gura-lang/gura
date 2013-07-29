@@ -1759,6 +1759,30 @@ String Object_soundfont::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for midi.soundfont
 //-----------------------------------------------------------------------------
+// midi.soundfont#synthesizer(preset:number, bank:number, key:number, velocity:number):map {block?}
+Gura_DeclareMethod(soundfont, synthesizer)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "preset", VTYPE_number);
+	DeclareArg(env, "bank", VTYPE_number);
+	DeclareArg(env, "key", VTYPE_number);
+	DeclareArg(env, "velocity", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(soundfont, synthesizer)
+{
+	SoundFont &soundFont = Object_soundfont::GetThisObj(args)->GetSoundFont();
+	UShort wPreset = args.GetUShort(0);
+	UShort wBank = args.GetUShort(1);
+	UChar key = args.GetUChar(2);
+	UChar velocity = args.GetUChar(3);
+	SoundFont::Synthesizer *pSynthesizer =
+				soundFont.CreateSynthesizer(sig, wPreset, wBank, key, velocity);
+	if (pSynthesizer == NULL) return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_synthesizer(env, pSynthesizer)));
+}
+
 // midi.soundfont#print():void
 Gura_DeclareMethod(soundfont, print)
 {
@@ -1777,7 +1801,54 @@ Gura_ImplementMethod(soundfont, print)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(soundfont)
 {
+	Gura_AssignMethod(soundfont, synthesizer);
 	Gura_AssignMethod(soundfont, print);
+}
+
+//-----------------------------------------------------------------------------
+// Object_synthesizer
+//-----------------------------------------------------------------------------
+Object *Object_synthesizer::Clone() const
+{
+	return NULL;
+}
+
+bool Object_synthesizer::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(audio));
+	return true;
+}
+
+Value Object_synthesizer::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(audio))) {
+		return Value(new Object_audio(env,
+					_pSynthesizer->GetSample()->GetAudio()->Reference()));
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_synthesizer::ToString(Signal sig, bool exprFlag)
+{
+	String rtn;
+	rtn += "<midi.synthesizer";
+	rtn += ">";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for midi.synthesizer
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Class implementation for midi.synthesizer
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(synthesizer)
+{
 }
 
 //-----------------------------------------------------------------------------
@@ -2082,6 +2153,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(count);
 	Gura_RealizeUserSymbol(repeat);
 	Gura_RealizeUserSymbol(progress);
+	Gura_RealizeUserSymbol(audio);
 	// class realization
 	Gura_RealizeUserClassWithoutPrepare(event, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(track, env.LookupClass(VTYPE_object));
@@ -2092,6 +2164,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClassWithoutPrepare(controller, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(program, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(soundfont, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClassWithoutPrepare(synthesizer, env.LookupClass(VTYPE_object));
 	Gura_UserClass(event)->Prepare(env);
 	Gura_UserClass(track)->Prepare(env);
 	Gura_UserClass(sequence)->Prepare(env);
@@ -2101,6 +2174,7 @@ Gura_ModuleEntry()
 	Gura_UserClass(controller)->Prepare(env);
 	Gura_UserClass(program)->Prepare(env);
 	Gura_UserClass(soundfont)->Prepare(env);
+	Gura_UserClass(synthesizer)->Prepare(env);
 	// value assignment
 	do {
 		Value value;

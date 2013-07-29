@@ -1,5 +1,8 @@
 import(midi)
 
 midi.soundfont('TimGM6mb.sf2') {|sf|
-	sf.print()
+	//sf.print()
+	sf.synthesizer(0, 0, 0, 0) {|syn|
+		println(syn.audio)
+	}
 }

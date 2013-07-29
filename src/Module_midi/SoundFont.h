@@ -262,7 +262,6 @@ public:
 	public:
 		void Print(int indentLevel) const;
 		bool SetupReference(Signal sig, sfPresetHeader *pPresetHeaderNext, const pdta_t &pdta);
-		Synthesizer *CreateSynthesizer(UChar key, UCHAR velocity) const;
 		inline bool IsMatched(UShort wPreset, UShort wBank) const {
 			return wPreset == _wPreset && wBank == _wBank;
 		}
@@ -286,8 +285,6 @@ public:
 		UShort _wModNdx;
 		std::auto_ptr<sfGenOwner> _pGenOwner;
 		std::auto_ptr<sfModOwner> _pModOwner;
-		std::auto_ptr<RangesType> _pKeyRange;	// valid only when keyRange generator exists in sfGenOwner
-		std::auto_ptr<RangesType> _pVelRange;	// valid only when velRange generator exists in sfGenOwner
 		AutoPtr<sfInst> _pInst; 				// valid only when instrument generator exists in sfGenOwner
 	public:
 		Gura_DeclareReferenceAccessor(sfPresetBag);
@@ -299,11 +296,6 @@ public:
 	public:
 		void Print(int indentLevel) const;
 		bool SetupReference(Signal sig, sfPresetBag *pPresetBagNext, const pdta_t &pdta);
-		inline bool IsMatched(UChar key, UChar velocity) const {
-			return
-				(_pKeyRange.get() == NULL || _pKeyRange->IsMatched(key)) &&
-				(_pVelRange.get() == NULL || _pVelRange->IsMatched(velocity));
-		}
 		inline sfGenOwner &GetGenOwner() { return *_pGenOwner; }
 		inline sfModOwner &GetModOwner() { return *_pModOwner; }
 		inline const sfGenOwner &GetGenOwner() const { return *_pGenOwner; }
@@ -417,8 +409,6 @@ public:
 		std::auto_ptr<sfModOwner> _pInstModOwner;
 		std::auto_ptr<RangesType> _pKeyRange;	// valid only when keyRange generator exists in sfGenOwner
 		std::auto_ptr<RangesType> _pVelRange;	// valid only when velRange generator exists in sfGenOwner
-		AutoPtr<sfSample> _pSample; 			// valid only when sampleID generator exists in sfGenOwner
-		AutoPtr<Audio> _pAudio;					// valid only when sampleID generator exists in sfGenOwner
 	public:
 		Gura_DeclareReferenceAccessor(sfInstBag);
 	public:
@@ -436,17 +426,12 @@ public:
 		inline sfModOwner &GetInstModOwner() { return *_pInstModOwner; }
 		inline const sfGenOwner &GetInstGenOwner() const { return *_pInstGenOwner; }
 		inline const sfModOwner &GetInstModOwner() const { return *_pInstModOwner; }
-		inline sfSample *GetSample() { return _pSample.get(); }
-		inline const sfSample *GetSample() const { return _pSample.get(); }
 		inline RangesType *GetKeyRange() { return _pKeyRange.get(); }
 		inline const RangesType *GetKeyRange() const { return _pKeyRange.get(); }
 		inline RangesType *GetVelRange() { return _pVelRange.get(); }
 		inline const RangesType *GetVelRange() const { return _pVelRange.get(); }
-		inline Audio *GetAudio() { return _pAudio.get(); }
-		inline const Audio *GetAudio() const { return _pAudio.get(); }
 		void Print(int indentLevel) const;
-		bool SetupReference(Signal sig, sfInstBag *pInstBagNext,
-						const pdta_t &pdta, Stream &stream, size_t offsetSdta);
+		bool SetupReference(Signal sig, sfInstBag *pInstBagNext, const pdta_t &pdta);
 	};
 	typedef ListTemplate<sfInstBag> sfInstBagList;
 	class sfInstBagOwner : public OwnerTemplate<sfInstBag, sfInstBagList> {
@@ -481,6 +466,7 @@ public:
 		char _chCorrection;
 		UShort _wSampleLink;
 		SFSampleLink _sfSampleType;
+		AutoPtr<Audio> _pAudio;
 	public:
 		Gura_DeclareReferenceAccessor(sfSample);
 	public:
@@ -489,7 +475,8 @@ public:
 	private:
 		inline ~sfSample() {}
 	public:
-		Audio *CreateAudio(Signal sig, Stream &stream, size_t offsetSdta) const;
+		bool CreateAudio(Signal sig, Stream &stream, size_t offsetSdta);
+		inline const Audio *GetAudio() const { return _pAudio.get(); }
 		void Print(int indentLevel) const;
 	};
 	typedef ListTemplate<sfSample> sfSampleList;
@@ -567,6 +554,7 @@ public:
 		int _cntRef;
 		Props _props;
 		std::auto_ptr<sfModOwner> _pModOwner;
+		AutoPtr<sfSample> _pSample;
 	public:
 		Gura_DeclareReferenceAccessor(Synthesizer);
 	public:
@@ -575,6 +563,8 @@ public:
 		inline const Props &GetProps() const { return _props; }
 		inline sfModOwner &GetModOwner() { return *_pModOwner; }
 		inline const sfModOwner &GetModOwner() const { return *_pModOwner; }
+		inline void SetSample(sfSample *pSample) { _pSample.reset(pSample); }
+		inline sfSample *GetSample() const { return _pSample.get(); }
 	};
 public:
 	struct INFO_t {
@@ -612,6 +602,7 @@ public:
 	void Clear();
 	bool ReadChunks(Environment &env, Signal sig);
 	const sfPresetHeader *LookupPresetHeader(UShort wPreset, UShort wBank) const;
+	Synthesizer *CreateSynthesizer(Signal sig, UShort wPreset, UShort wBank, UChar key, UChar velocity) const;
 	void Print() const;
 	inline INFO_t &GetINFO() { return _INFO; }
 	inline pdta_t &GetPdta() { return _pdta; }

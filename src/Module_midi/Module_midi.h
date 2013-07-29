@@ -79,6 +79,7 @@ Gura_DeclareUserSymbol(speed);
 Gura_DeclareUserSymbol(count);
 Gura_DeclareUserSymbol(repeat);
 Gura_DeclareUserSymbol(progress);
+Gura_DeclareUserSymbol(audio);
 
 //-----------------------------------------------------------------------------
 // information table
@@ -304,6 +305,27 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline SoundFont &GetSoundFont() { return _soundFont; }
+};
+
+//-----------------------------------------------------------------------------
+// Class declaration for midi.synthesizer
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(synthesizer);
+
+class Object_synthesizer : public Object {
+public:
+	Gura_DeclareObjectAccessor(synthesizer)
+private:
+	AutoPtr<SoundFont::Synthesizer> _pSynthesizer;
+public:
+	inline Object_synthesizer(Environment &env, SoundFont::Synthesizer *pSynthesizer) :
+					Object(Gura_UserClass(synthesizer)), _pSynthesizer(pSynthesizer) {}
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
+	inline SoundFont::Synthesizer *GetSynthesizer() { return _pSynthesizer.get(); }
 };
 
 //-----------------------------------------------------------------------------
