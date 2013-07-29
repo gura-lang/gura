@@ -65,15 +65,15 @@ Color::Color(Signal sig, const Value &value)
 		const char *str = value.GetString();
 		if (*str == '#') str++;
 		char *strp;
-		unsigned long num = ::strtoul(str, &strp, 16);
+		ULong num = ::strtoul(str, &strp, 16);
 		if (strp - str != 6) {
 			sig.SetError(ERR_ValueError, "invalid format of color string");
 			return;
 		}
 		*this = Color(
-			static_cast<unsigned char>(num >> 16),
-			static_cast<unsigned char>(num >> 8),
-			static_cast<unsigned char>(num >> 0));
+			static_cast<UChar>(num >> 16),
+			static_cast<UChar>(num >> 8),
+			static_cast<UChar>(num >> 0));
 	} else if (value.IsSymbol()) {
 		const Symbol *pSymbol = value.GetSymbol();
 		if (pSymbol->IsIdentical(Gura_UserSymbol(black))) {

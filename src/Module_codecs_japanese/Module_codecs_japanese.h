@@ -25,7 +25,7 @@ class Codec_CP932 : public Codec_UTF {
 public:
 	class Decoder : public Codec_UTF::Decoder {
 	private:
-		unsigned short _codeCP932;
+		UShort _codeCP932;
 	public:
 		inline Decoder(bool delcrFlag) :
 					Codec_UTF::Decoder(delcrFlag), _codeCP932(0x0000) {}
@@ -35,7 +35,7 @@ public:
 	public:
 		inline Encoder(bool addcrFlag) :
 					Codec_UTF::Encoder(addcrFlag) {}
-		virtual Result FeedUTF32(unsigned long codeUTF32, char &chConv);
+		virtual Result FeedUTF32(ULong codeUTF32, char &chConv);
 	};
 };
 
@@ -46,7 +46,7 @@ class Codec_EUCJP : public Codec_UTF {
 public:
 	class Decoder : public Codec_UTF::Decoder {
 	private:
-		unsigned short _codeEUCJP;
+		UShort _codeEUCJP;
 	public:
 		inline Decoder(bool delcrFlag) :
 					Codec_UTF::Decoder(delcrFlag), _codeEUCJP(0x0000) {}
@@ -56,7 +56,7 @@ public:
 	public:
 		inline Encoder(bool addcrFlag) :
 					Codec_UTF::Encoder(addcrFlag) {}
-		virtual Result FeedUTF32(unsigned long codeUTF32, char &chConv);
+		virtual Result FeedUTF32(ULong codeUTF32, char &chConv);
 	};
 };
 
@@ -77,7 +77,7 @@ public:
 	private:
 		Mode _mode;
 		Stat _stat;
-		unsigned short _codeJIS;
+		UShort _codeJIS;
 	public:
 		inline Decoder(bool delcrFlag) :
 				Codec_UTF::Decoder(delcrFlag),
@@ -90,7 +90,7 @@ public:
 	public:
 		inline Encoder(bool addcrFlag) :
 				Codec_UTF::Encoder(addcrFlag), _mode(MODE_ASCII) {}
-		virtual Result FeedUTF32(unsigned long codeUTF32, char &chConv);
+		virtual Result FeedUTF32(ULong codeUTF32, char &chConv);
 	};
 };
 

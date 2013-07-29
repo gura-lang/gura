@@ -74,9 +74,9 @@ Anchor GetAnchor(const SymbolSet &attrs);
 // Color
 //-----------------------------------------------------------------------------
 struct Color {
-	unsigned char _red, _blue, _green;
+	UChar _red, _blue, _green;
 	inline Color() : _red(0), _blue(0), _green(0) {}
-	inline Color(unsigned char red, unsigned char blue, unsigned char green) :
+	inline Color(UChar red, UChar blue, UChar green) :
 									_red(red), _blue(blue), _green(green) {}
 	Color(Signal sig, const Value &value);
 #if defined(GURA_ON_MSWIN)

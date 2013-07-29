@@ -11,31 +11,31 @@ Gura_BeginModule(codecs_iso8859)
 //-----------------------------------------------------------------------------
 Codec::Result Codec_ISO8859::Decoder::FeedChar(char ch, char &chConv)
 {
-	chConv = static_cast<unsigned char>(_codeTbl[static_cast<unsigned char>(ch)]);
+	chConv = static_cast<UChar>(_codeTbl[static_cast<UChar>(ch)]);
 	return (chConv == '\0')? RESULT_Error : RESULT_Complete;
 }
 
-Codec::Result Codec_ISO8859::Encoder::FeedUTF32(unsigned long codeUTF32, char &chConv)
+Codec::Result Codec_ISO8859::Encoder::FeedUTF32(ULong codeUTF32, char &chConv)
 {
 	if (_pMap == NULL) {
 		_pMap = new Map();
 		for (int codeISO = 0; codeISO < 256; codeISO++) {
-			unsigned short codeUTF16 = _codeTbl[codeISO];
+			UShort codeUTF16 = _codeTbl[codeISO];
 			if (_pMap->find(codeUTF16) == _pMap->end()) {
 				(*_pMap)[codeUTF16] = codeISO;
 			}
 		}
 	}
-	Map::iterator iter = _pMap->find(static_cast<unsigned short>(codeUTF32));
+	Map::iterator iter = _pMap->find(static_cast<UShort>(codeUTF32));
 	if (iter == _pMap->end()) return RESULT_Error;
-	chConv = static_cast<unsigned char>(iter->second);
+	chConv = static_cast<UChar>(iter->second);
 	return RESULT_Complete;
 }
 
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_1
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_1[] = {
+static const UShort _codeTbl_ISO8859_1[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -81,7 +81,7 @@ Codec_ISO8859_1::Encoder::Encoder(bool addcrFlag) :
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_2
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_2[] = {
+static const UShort _codeTbl_ISO8859_2[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -127,7 +127,7 @@ Codec_ISO8859_2::Encoder::Encoder(bool addcrFlag) :
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_3
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_3[] = {
+static const UShort _codeTbl_ISO8859_3[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -173,7 +173,7 @@ Codec_ISO8859_3::Encoder::Encoder(bool addcrFlag) :
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_4
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_4[] = {
+static const UShort _codeTbl_ISO8859_4[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -219,7 +219,7 @@ Codec_ISO8859_4::Encoder::Encoder(bool addcrFlag) :
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_5
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_5[] = {
+static const UShort _codeTbl_ISO8859_5[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -265,7 +265,7 @@ Codec_ISO8859_5::Encoder::Encoder(bool addcrFlag) :
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_6
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_6[] = {
+static const UShort _codeTbl_ISO8859_6[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -311,7 +311,7 @@ Codec_ISO8859_6::Encoder::Encoder(bool addcrFlag) :
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_7
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_7[] = {
+static const UShort _codeTbl_ISO8859_7[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -357,7 +357,7 @@ Codec_ISO8859_7::Encoder::Encoder(bool addcrFlag) :
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_8
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_8[] = {
+static const UShort _codeTbl_ISO8859_8[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -403,7 +403,7 @@ Codec_ISO8859_8::Encoder::Encoder(bool addcrFlag) :
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_9
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_9[] = {
+static const UShort _codeTbl_ISO8859_9[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -449,7 +449,7 @@ Codec_ISO8859_9::Encoder::Encoder(bool addcrFlag) :
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_10
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_10[] = {
+static const UShort _codeTbl_ISO8859_10[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -495,7 +495,7 @@ Codec_ISO8859_10::Encoder::Encoder(bool addcrFlag) :
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_11
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_11[] = {
+static const UShort _codeTbl_ISO8859_11[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -541,7 +541,7 @@ Codec_ISO8859_11::Encoder::Encoder(bool addcrFlag) :
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_13
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_13[] = {
+static const UShort _codeTbl_ISO8859_13[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -587,7 +587,7 @@ Codec_ISO8859_13::Encoder::Encoder(bool addcrFlag) :
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_14
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_14[] = {
+static const UShort _codeTbl_ISO8859_14[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -633,7 +633,7 @@ Codec_ISO8859_14::Encoder::Encoder(bool addcrFlag) :
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_15
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_15[] = {
+static const UShort _codeTbl_ISO8859_15[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
@@ -679,7 +679,7 @@ Codec_ISO8859_15::Encoder::Encoder(bool addcrFlag) :
 //-----------------------------------------------------------------------------
 // Codec_ISO8859_16
 //-----------------------------------------------------------------------------
-static const unsigned short _codeTbl_ISO8859_16[] = {
+static const UShort _codeTbl_ISO8859_16[] = {
 	0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007,
 	0x0008, 0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x000e, 0x000f,
 	0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,

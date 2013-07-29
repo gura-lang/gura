@@ -21,7 +21,7 @@ struct MetaHeader {
 	Gura_PackedUShort_LE(mtNoParameters);
 };
 
-unsigned long _ENHMETA_SIGNATURE = 0x464d4520;
+ULong _ENHMETA_SIGNATURE = 0x464d4520;
 
 struct EnhMetaHeader {
 	enum { Size = 88 };
@@ -73,11 +73,11 @@ struct EnhMetaRecord {
 //-----------------------------------------------------------------------------
 class EMR_basement {
 protected:
-	unsigned long _iType;
+	ULong _iType;
 	size_t _dwordsParms;
 	char *_buff;
 public:
-	inline EMR_basement(unsigned long iType, size_t dwordsParms) :
+	inline EMR_basement(ULong iType, size_t dwordsParms) :
 					_iType(iType), _dwordsParms(dwordsParms), _buff(NULL) {
 		size_t bytes = _dwordsParms * 4;
 		if (bytes > 0) {

@@ -11,15 +11,15 @@ Gura_BeginModule(codecs_japanese)
 //-----------------------------------------------------------------------------
 Codec::Result Codec_CP932::Decoder::FeedChar(char ch, char &chConv)
 {
-	unsigned long codeUTF32 = 0x00000000;
+	ULong codeUTF32 = 0x00000000;
 	if (_codeCP932 == 0x0000) {
 		if (IsSJISFirst(ch)) {
-			_codeCP932 = static_cast<unsigned char>(ch);
+			_codeCP932 = static_cast<UChar>(ch);
 			return RESULT_None;
 		}
-		codeUTF32 = CP932ToUTF16(static_cast<unsigned char>(ch));
+		codeUTF32 = CP932ToUTF16(static_cast<UChar>(ch));
 	} else {
-		_codeCP932 = (_codeCP932 << 8) | static_cast<unsigned char>(ch);
+		_codeCP932 = (_codeCP932 << 8) | static_cast<UChar>(ch);
 		codeUTF32 = CP932ToUTF16(_codeCP932);
 		_codeCP932 = 0x0000;
 	}
@@ -27,9 +27,9 @@ Codec::Result Codec_CP932::Decoder::FeedChar(char ch, char &chConv)
 	return FeedUTF32(codeUTF32, chConv);
 }
 
-Codec::Result Codec_CP932::Encoder::FeedUTF32(unsigned long codeUTF32, char &chConv)
+Codec::Result Codec_CP932::Encoder::FeedUTF32(ULong codeUTF32, char &chConv)
 {
-	unsigned short codeCP932 = UTF16ToCP932(static_cast<unsigned short>(codeUTF32));
+	UShort codeCP932 = UTF16ToCP932(static_cast<UShort>(codeUTF32));
 	if (codeCP932 == 0x0000) {
 		chConv = '\0';
 		return RESULT_Error;
@@ -53,16 +53,16 @@ Codec::Result Codec_CP932::Encoder::FeedUTF32(unsigned long codeUTF32, char &chC
 //-----------------------------------------------------------------------------
 Codec::Result Codec_EUCJP::Decoder::FeedChar(char ch, char &chConv)
 {
-	unsigned long codeUTF32 = 0x00000000;
+	ULong codeUTF32 = 0x00000000;
 	if (_codeEUCJP == 0x0000) {
 		if (ch & 0x80) {
-			_codeEUCJP = static_cast<unsigned char>(ch);
+			_codeEUCJP = static_cast<UChar>(ch);
 			return RESULT_None;
 		}
-		codeUTF32 = CP932ToUTF16(static_cast<unsigned char>(ch));
+		codeUTF32 = CP932ToUTF16(static_cast<UChar>(ch));
 	} else {
-		_codeEUCJP = (_codeEUCJP << 8) | static_cast<unsigned char>(ch);
-		unsigned short codeCP932 = EUCJPToCP932(_codeEUCJP);
+		_codeEUCJP = (_codeEUCJP << 8) | static_cast<UChar>(ch);
+		UShort codeCP932 = EUCJPToCP932(_codeEUCJP);
 		codeUTF32 = CP932ToUTF16(codeCP932);
 		_codeEUCJP = 0x0000;
 	}
@@ -70,10 +70,10 @@ Codec::Result Codec_EUCJP::Decoder::FeedChar(char ch, char &chConv)
 	return FeedUTF32(codeUTF32, chConv);
 }
 
-Codec::Result Codec_EUCJP::Encoder::FeedUTF32(unsigned long codeUTF32, char &chConv)
+Codec::Result Codec_EUCJP::Encoder::FeedUTF32(ULong codeUTF32, char &chConv)
 {
-	unsigned short codeCP932 = UTF16ToCP932(static_cast<unsigned short>(codeUTF32));
-	unsigned short codeEUCJP = CP932ToEUCJP(codeCP932);
+	UShort codeCP932 = UTF16ToCP932(static_cast<UShort>(codeUTF32));
+	UShort codeEUCJP = CP932ToEUCJP(codeCP932);
 	if (codeEUCJP == 0x0000) {
 		chConv = '\0';
 		return RESULT_Error;
@@ -169,7 +169,7 @@ Codec::Result Codec_JIS::Decoder::FeedChar(char ch, char &chConv)
 		}
 		return RESULT_None;
 	}
-	unsigned short codeCP932 = 0x0000;
+	UShort codeCP932 = 0x0000;
 	if (_mode == MODE_JISC || _mode == MODE_JISX1983 || _mode == MODE_JISX1990) {
 		if (_codeJIS == 0x0000) {
 			_codeJIS = ch;
@@ -183,20 +183,20 @@ Codec::Result Codec_JIS::Decoder::FeedChar(char ch, char &chConv)
 		codeCP932 = ch;	// incorrect process
 	} else if (_mode == MODE_JISKANA) {
 		if (0x20 < ch && ch < 0x60) {
-			codeCP932 = static_cast<unsigned char>(ch) + 0x80;
+			codeCP932 = static_cast<UChar>(ch) + 0x80;
 		} else {
 			return RESULT_Error;
 		}
 	}
 	if (GetDelcrFlag() && codeCP932 == '\r') return RESULT_None;
-	unsigned long codeUTF32 = CP932ToUTF16(codeCP932);
+	ULong codeUTF32 = CP932ToUTF16(codeCP932);
 	_codeJIS = 0x0000;
 	return FeedUTF32(codeUTF32, chConv);
 }
 
-Codec::Result Codec_JIS::Encoder::FeedUTF32(unsigned long codeUTF32, char &chConv)
+Codec::Result Codec_JIS::Encoder::FeedUTF32(ULong codeUTF32, char &chConv)
 {
-	unsigned short codeCP932 = UTF16ToCP932(static_cast<unsigned short>(codeUTF32));
+	UShort codeCP932 = UTF16ToCP932(static_cast<UShort>(codeUTF32));
 	if (codeCP932 < 0x80) {
 		char ch = static_cast<char>(codeCP932 & 0xff);
 		if (_mode == MODE_ASCII) {
@@ -225,11 +225,11 @@ Codec::Result Codec_JIS::Encoder::FeedUTF32(unsigned long codeUTF32, char &chCon
 			chConv = 0x1b;
 			_mode = MODE_JISKANA;
 		}
-		chConv = static_cast<unsigned char>(codeCP932 - 0x80);
+		chConv = static_cast<UChar>(codeCP932 - 0x80);
 	} else if (codeCP932 < 0x100) {
 		return RESULT_Error;
 	} else {
-		unsigned short codeJIS = CP932ToJIS(codeCP932);
+		UShort codeJIS = CP932ToJIS(codeCP932);
 		if (codeJIS == 0x0000) {
 			chConv = '\0';
 			return RESULT_Error;

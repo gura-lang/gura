@@ -15,20 +15,20 @@ class Codec_ISO8859 : public Codec_UTF {
 public:
 	class Decoder : public Codec_UTF::Decoder {
 	private:
-		const unsigned short *_codeTbl;
+		const UShort *_codeTbl;
 	public:
-		inline Decoder(bool delcrFlag, const unsigned short *codeTbl) :
+		inline Decoder(bool delcrFlag, const UShort *codeTbl) :
 						Codec_UTF::Decoder(delcrFlag), _codeTbl(codeTbl) {}
 		virtual Result FeedChar(char ch, char &chConv);
 	};
 	class Encoder : public Codec_UTF::Encoder {
 	private:
-		const unsigned short *_codeTbl;
+		const UShort *_codeTbl;
 		Map *&_pMap;
 	public:
-		inline Encoder(bool addcrFlag, const unsigned short *codeTbl, Map *&pMap) :
+		inline Encoder(bool addcrFlag, const UShort *codeTbl, Map *&pMap) :
 						Codec_UTF::Encoder(addcrFlag), _codeTbl(codeTbl), _pMap(pMap) {}
-		virtual Result FeedUTF32(unsigned long codeUTF32, char &chConv);
+		virtual Result FeedUTF32(ULong codeUTF32, char &chConv);
 	};
 };
 

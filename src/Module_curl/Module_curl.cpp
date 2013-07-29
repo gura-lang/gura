@@ -204,7 +204,7 @@ Gura_ImplementFunction(test)
 			Fileinfo *pFileinfo = *ppFileinfo;
 			curlfiletype filetype = pFileinfo->GetFiletype();
 			::printf("%-40s %10luB %s\n", pFileinfo->GetFilename(),
-				static_cast<unsigned long>(pFileinfo->GetSize()),
+				static_cast<ULong>(pFileinfo->GetSize()),
 				(filetype == CURLFILETYPE_DIRECTORY)? "DIR" :
 				(filetype == CURLFILETYPE_FILE)? "FILE" : "OTHER");
 		}
@@ -677,7 +677,7 @@ Directory *Directory_cURL::DoNext(Environment &env, Signal sig)
 										pFileinfo->GetFilename(), type);
 }
 
-Stream *Directory_cURL::DoOpenStream(Environment &env, Signal sig, unsigned long attr)
+Stream *Directory_cURL::DoOpenStream(Environment &env, Signal sig, ULong attr)
 {
 	AutoPtr<StreamFIFO> pStream(new StreamFIFO(env, sig, 65536));
 	// pThread will automatically be deleted after the thread is done.

@@ -315,7 +315,7 @@ bool Reader::ReadLine(Environment &env, Signal sig, ValueList &valList)
 char ReaderStream::NextChar(Signal sig)
 {
 	int ch = _pStream->GetChar(sig);
-	return (ch < 0)? '\0' : static_cast<char>(static_cast<unsigned char>(ch));
+	return (ch < 0)? '\0' : static_cast<char>(static_cast<UChar>(ch));
 }
 
 //-----------------------------------------------------------------------------

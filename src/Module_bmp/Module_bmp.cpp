@@ -92,7 +92,7 @@ bool ImageStreamer_BMP::ReadStream(Environment &env, Signal sig, Image *pImage, 
 		sig.SetError(ERR_FormatError, "Not a BMP file");
 		return false;
 	}
-	unsigned long bfOffBits = Gura_UnpackULong(bfh.bfOffBits);
+	ULong bfOffBits = Gura_UnpackULong(bfh.bfOffBits);
 	BitmapInfoHeader bih;
 	if (stream.Read(sig, &bih, BitmapInfoHeader::Size) < BitmapInfoHeader::Size) {
 		sig.SetError(ERR_FormatError, "invalid DIB format");
@@ -100,7 +100,7 @@ bool ImageStreamer_BMP::ReadStream(Environment &env, Signal sig, Image *pImage, 
 	}
 	int biWidth = Gura_UnpackLong(bih.biWidth);
 	int biHeight = Gura_UnpackLong(bih.biHeight);
-	unsigned short biBitCount = Gura_UnpackUShort(bih.biBitCount);
+	UShort biBitCount = Gura_UnpackUShort(bih.biBitCount);
 	if (!pImage->ReadDIBPalette(env, sig, stream, biBitCount)) return false;
 	if (bfOffBits != 0) {
 		stream.Seek(sig, bfOffBits, Stream::SeekSet);
@@ -118,9 +118,9 @@ bool ImageStreamer_BMP::WriteStream(Environment &env, Signal sig, Image *pImage,
 	do {
 		BitmapFileHeader bfh;
 		::memset(&bfh, 0x00, BitmapFileHeader::Size);
-		unsigned long bfOffBits = BitmapFileHeader::Size + BitmapInfoHeader::Size;
-		bfOffBits += static_cast<unsigned long>(Image::CalcDIBPaletteSize(biBitCount));
-		unsigned long bfSize = static_cast<unsigned long>(pImage->GetBufferSize() + bfOffBits);
+		ULong bfOffBits = BitmapFileHeader::Size + BitmapInfoHeader::Size;
+		bfOffBits += static_cast<ULong>(Image::CalcDIBPaletteSize(biBitCount));
+		ULong bfSize = static_cast<ULong>(pImage->GetBufferSize() + bfOffBits);
 		Gura_PackUShort(bfh.bfType,			0x4d42);
 		Gura_PackULong(bfh.bfSize,			bfSize);
 		Gura_PackULong(bfh.bfOffBits,		bfOffBits);

@@ -17,7 +17,7 @@ private:
 	String _filename;
 	curlfiletype _filetype;
 	time_t _time;
-	unsigned int _perm;
+	UInt _perm;
 	int _uid;
 	int _gid;
 	curl_off_t _size;
@@ -32,7 +32,7 @@ public:
 	inline const char *GetFilename() const { return _filename.c_str(); }
 	inline curlfiletype GetFiletype() const { return _filetype; }
 	inline time_t GetTime() const { return _time; }
-	inline unsigned int GetPerm() const { return _perm; }
+	inline UInt GetPerm() const { return _perm; }
 	inline int GetUid() const { return _uid; }
 	inline int GetGid() const { return _gid; }
 	inline curl_off_t GetSize() const { return _size; }
@@ -123,7 +123,7 @@ public:
 	Directory_cURL(Directory *pParent, const char *name, Type type);
 	virtual ~Directory_cURL();
 	virtual Directory *DoNext(Environment &env, Signal sig);
-	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr);
+	virtual Stream *DoOpenStream(Environment &env, Signal sig, ULong attr);
 	FileinfoOwner *DoBrowse(Signal sig);
 };
 
