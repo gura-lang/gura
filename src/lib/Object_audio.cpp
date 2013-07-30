@@ -217,51 +217,38 @@ Gura_ImplementMethod(audio, get)
 	return Value(data);
 }
 
-// audio#each(channel:number):map
+// audio#each(channel:number, offset?:number):map
 Gura_DeclareMethod(audio, each)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(audio, each)
 {
 	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
-	AutoPtr<Iterator> pIterator(new Audio::IteratorEach(pAudio->Reference(), iChannel));
+	size_t offset = args.IsNumber(1)? args.GetSizeT(1) : 0;
+	AutoPtr<Iterator> pIterator(new Audio::IteratorEach(
+								pAudio->Reference(), iChannel, offset));
 	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
-// audio#store(channel:number, offset:number, samples:number, src):reduce
+// audio#store(channel:number, offset:number, data:iterator):reduce
 Gura_DeclareMethod(audio, store)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number);
-	DeclareArg(env, "samples", VTYPE_number);
-	DeclareArg(env, "src", VTYPE_any);
+	DeclareArg(env, "data", VTYPE_iterator);
 }
 
 Gura_ImplementMethod(audio, store)
 {
 	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
+	
 	return args.GetThis();
-}
-
-// audio#extract(channel:number, offset:number, samples:number, dst)
-Gura_DeclareMethod(audio, extract)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "channel", VTYPE_number);
-	DeclareArg(env, "offset", VTYPE_number);
-	DeclareArg(env, "samples", VTYPE_number);
-	DeclareArg(env, "dst", VTYPE_any);
-}
-
-Gura_ImplementMethod(audio, extract)
-{
-	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
-	return Value::Null;
 }
 
 // audio#fill(data:number):reduce
@@ -308,7 +295,6 @@ void Class_audio::Prepare(Environment &env)
 	Gura_AssignMethod(audio, get);
 	Gura_AssignMethod(audio, each);
 	Gura_AssignMethod(audio, store);
-	Gura_AssignMethod(audio, extract);
 	Gura_AssignMethod(audio, fill);
 	Gura_AssignMethod(audio, fillrange);
 }

@@ -65,11 +65,13 @@ public:
 	private:
 		AutoPtr<Audio> _pAudio;
 		size_t _iChannel;
+		size_t _offset;
 		AutoPtr<Chain> _pChain;
-		const UChar *_ptr;
+		const UChar *_buffp;
 		size_t _cntRest;
+		bool _doneFlag;
 	public:
-		IteratorEach(Audio *pAudio, size_t iChannel);
+		IteratorEach(Audio *pAudio, size_t iChannel, size_t offset);
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString(Signal sig) const;

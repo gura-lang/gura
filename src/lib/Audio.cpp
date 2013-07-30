@@ -61,11 +61,12 @@ size_t Audio::GetBytes() const
 
 bool Audio::PutData(size_t iChannel, size_t offset, int data)
 {
-	size_t bytes = offset * GetChannels() * GetBytesPerSample();
-	Chain *pChain = GetChainTop();
-	for ( ; pChain != NULL; pChain = pChain->GetNext()) {
+	size_t bytes = offset * GetBytesPerSample() * GetChannels();
+	for (Chain *pChain = GetChainTop();
+						pChain != NULL; pChain = pChain->GetNext()) {
 		if (bytes < pChain->GetBytes()) {
-			UChar *buffp = pChain->GetPointer() + bytes + iChannel * GetBytesPerSample();
+			UChar *buffp = pChain->GetPointer() +
+								GetBytesPerSample() * iChannel + bytes;
 			PutData(_format, buffp, data);
 			return true;
 		}
@@ -76,11 +77,12 @@ bool Audio::PutData(size_t iChannel, size_t offset, int data)
 
 bool Audio::GetData(size_t iChannel, size_t offset, int *pData)
 {
-	size_t bytes = offset * GetChannels() * GetBytesPerSample();
-	const Chain *pChain = GetChainTop();
-	for ( ; pChain != NULL; pChain = pChain->GetNext()) {
+	size_t bytes = offset * GetBytesPerSample() * GetChannels();
+	for (const Chain *pChain = GetChainTop();
+						pChain != NULL; pChain = pChain->GetNext()) {
 		if (bytes < pChain->GetBytes()) {
-			const UChar *buffp = pChain->GetPointer() + bytes + iChannel * GetBytesPerSample();
+			const UChar *buffp = pChain->GetPointer() +
+								GetBytesPerSample() * iChannel + bytes;
 			GetData(_format, buffp, pData);
 			return true;
 		}
@@ -236,9 +238,9 @@ Audio::Chain *Audio::Chain::ConvertFormat(Format format) const
 //-----------------------------------------------------------------------------
 // Audio::IteratorEach
 //-----------------------------------------------------------------------------
-Audio::IteratorEach::IteratorEach(Audio *pAudio, size_t iChannel) :
-					Iterator(false), _pAudio(pAudio), _iChannel(iChannel),
-					_pChain(NULL), _ptr(NULL), _cntRest(0)
+Audio::IteratorEach::IteratorEach(Audio *pAudio, size_t iChannel, size_t offset) :
+		Iterator(false), _pAudio(pAudio), _iChannel(iChannel), _offset(offset),
+		_pChain(NULL), _buffp(NULL), _cntRest(0), _doneFlag(false)
 {
 }
 
@@ -249,15 +251,33 @@ Iterator *Audio::IteratorEach::GetSource()
 
 bool Audio::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 {
-	while (_cntRest == 0) {
-		_pChain.reset(Chain::Reference(_pChain.IsNull()?
-							_pAudio->GetChainTop() : _pChain->GetNext()));
-		if (_pChain.IsNull()) return false;
-		_ptr = _pChain->GetPointer() + _pAudio->GetBytesPerSample() * _iChannel;
-		_cntRest = _pChain->GetSamples();
+	if (_doneFlag) return false;
+	if (_pChain.IsNull()) {
+		size_t bytes = _offset * _pAudio->GetBytesPerSample() * _pAudio->GetChannels();
+		Chain *pChain = _pAudio->GetChainTop();
+		for ( ; pChain != NULL; pChain = pChain->GetNext()) {
+			if (bytes < pChain->GetBytes()) break;
+			bytes -= pChain->GetBytes();
+		}
+		if (pChain == NULL) {
+			sig.SetError(ERR_IndexError, "offset is out of range");
+			return false;
+		}
+		_buffp = pChain->GetPointer() + _pAudio->GetBytesPerSample() * _iChannel + bytes;
+		_cntRest = bytes / _pAudio->GetChannels() / _pAudio->GetBytesPerSample();
+	} else if (_cntRest == 0) {
+		do {
+			_pChain.reset(Chain::Reference(_pChain->GetNext()));
+			if (_pChain.IsNull()) {
+				_doneFlag = true;
+				return false;
+			}
+			_cntRest = _pChain->GetSamples();
+		} while (_cntRest == 0);
+		_buffp = _pChain->GetPointer() + _pAudio->GetBytesPerSample() * _iChannel;
 	}
 	int data = 0;
-	_ptr = Audio::GetData(_pAudio->GetFormat(), _ptr, &data);
+	_buffp = Audio::GetData(_pAudio->GetFormat(), _buffp, &data);
 	_cntRest--;
 	value = Value(data);
 	return true;
