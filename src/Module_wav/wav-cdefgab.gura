@@ -1,0 +1,7 @@
+#!/usr/bin/env gura
+import(wav)
+
+audio(`s16le, 2, 10000) {|a|
+	a.sinewave(0, [262, 294, 330, 349, 392, 440, 494, 523], .5)
+	a.wavwrite('b.wav')
+}
