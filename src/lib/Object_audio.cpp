@@ -275,35 +275,6 @@ Gura_ImplementMethod(audio, store)
 	return args.GetThis();
 }
 
-// audio#fill(data:number):reduce
-Gura_DeclareMethod(audio, fill)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "data", VTYPE_number);
-}
-
-Gura_ImplementMethod(audio, fill)
-{
-	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
-	return args.GetThis();
-}
-
-// audio#fillrange(channel:number, offset:number, samples:number, data:number):reduce
-Gura_DeclareMethod(audio, fillrange)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "channel", VTYPE_number);
-	DeclareArg(env, "offset", VTYPE_number);
-	DeclareArg(env, "samples", VTYPE_number);
-	DeclareArg(env, "data", VTYPE_number);
-}
-
-Gura_ImplementMethod(audio, fillrange)
-{
-	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
-	return args.GetThis();
-}
-
 //-----------------------------------------------------------------------------
 // Class implementation for audio
 //-----------------------------------------------------------------------------
@@ -319,8 +290,6 @@ void Class_audio::Prepare(Environment &env)
 	Gura_AssignMethod(audio, get);
 	Gura_AssignMethod(audio, each);
 	Gura_AssignMethod(audio, store);
-	Gura_AssignMethod(audio, fill);
-	Gura_AssignMethod(audio, fillrange);
 }
 
 bool Class_audio::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
