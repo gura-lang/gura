@@ -282,7 +282,7 @@ Audio *Wave::Format::ReadAudio(Signal sig, Stream &stream, size_t ckSize) const
 		return NULL;
 	}
 	AutoPtr<Audio> pAudio(new Audio(format, _nChannels, _nSamplesPerSec));
-	Audio::Chain *pChain = pAudio->AllocChain(sig, nSamples);
+	Audio::Chain *pChain = pAudio->AllocChain(nSamples);
 	if (pChain == NULL) return NULL;
 	if (stream.Read(sig, pChain->GetPointer(), bytesToRead) == 0) return NULL;
 	if (bytesToRead < ckSize) {
