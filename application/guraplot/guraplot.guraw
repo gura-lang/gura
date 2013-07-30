@@ -25,6 +25,11 @@ cfg.store():default {
 // Graph
 //-----------------------------------------------------------------------------
 Graph = class {
+	public {
+		xMin, xMax
+		yMin, yMax
+		cntSamples,
+	}
 	__init__() = {
 		this.funcs = []
 		this.plots = []
