@@ -1,0 +1,27 @@
+import(midi)
+
+mml = '''
+// http://subtech.g.hatena.ne.jp/nipotan/20071012/p1
+t100l16 @3 o5
+d8e8f+8g8a8b-8 bbbrbrb4g8 <e4.e-4.e4.r>gab<cd
+e4.e-4f8e2. d4.c+4.d4.r>gab<cc+
+d4.>g4<f8e2. g4.g4.g4.g8ar8g
+f4.f4.f4.f8gr8fe4.>a8b8<f8eee8.>bc4.
+;
+
+t100l16 @3 o5
+r8c+8c8>b8<c8c+8 dddrerf4. g4.f+4.g4.r4.
+g4.f+4b8g2. f4.e4.f4.r4.
+f4.r4b8g2.<e4.d4.c+4.c+4.
+d4.c+4.c4.>b4.g4.f8g8b8 bbb8.fe4.
+;
+
+t100l16 @3 o4
+r1 grg4. <c8>gr<cr>b8grbr <c8>gr<cr>err4
+<c8>gr<cr>b8grr8<c8>gr<cr>ergr<cg d8>grbr<c+8>f+rb-r<d8>grbrbrr4
+<d8>grbrb8grr8<c8>gr<cr>>gr<gr<dg<c8>gr<er>b8gr<dr>b-8gr<c+rc+8r8e8
+r8>ar<frr8>ar<fr r8>ar<fr>b8r8<fr >c8>gr<er>g8g8g8<fff8r>b<c4.
+;
+'''
+
+midi.port().mml(mml)

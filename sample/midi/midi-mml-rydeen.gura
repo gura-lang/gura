@@ -1,0 +1,102 @@
+#!/usr/bin/env gura
+import(midi)
+
+mml = '''
+// http://d.hatena.ne.jp/yappo/20071012/1192130706
+t150 o3 v120 @1
+>b-4a4
+<d4&d8e4&e8f4&f8 d4&d8c4f4 >b-2r8a4g8&g2<
+
+>b-4a4
+<d4&d8e4&e8f4&f8 d4&d8c4f4 >b-1b-2b-4a4
+
+g8f8g4&g8a8<c8d8&d2d8c8>a4 g8f8g4&g8a8<c8d8&d4 d4d4c4
+
+>b-4&b-8g8&g4a4&a8 b-4b-8b2 c2&c8<d8c8>e8&e2b-4a4
+;
+
+t150 o5 v112 @3
+d4e4
+f1&f8 f8g8f8e8e16d16c8>a8 <d1&d2
+
+d4e4
+f1&f8 f8g8f8e8e16d16c8d8 a1&a2 r2
+
+d4d8&d16c16d8f4g8 c8d8c32d32c16>a8<c8d4&d8 d4d8&d16c16d8f4g8 a8g32a32g16f8d8f4d8f8
+
+a2&a8<c8>a8g8 a2d4f4 a2&a8g4a8 g2 r2
+;
+
+
+t150 o5 v24 @3
+r2
+d16d16d16d16 d16<d16>a16d16 d16d16d16d16 d16<d16>a16d16
+d16d16d16d16 d16<d16>a16d16 d16d16d16d16 d16<d16>a16d16
+d16d16d16d16 d16<d16>a16d16 d16d16d16d16 d16<d16>a16d16
+>a16a16a16a16 a16<a16d16>a16b-4a4<
+
+d16d16d16d16 d16<d16>a16d16 d16d16d16d16 d16<d16>a16d16
+d16d16d16d16 d16<d16>a16d16 d16d16d16d16 d16<d16>a16d16
+d16d16d16d16 d16<d16>a16d16 d16d16d16d16 d16<d16>a16d16
+>a16a16a16a16 a16<a16d16>a16b-4a4<
+
+<
+d16<d16>d16<d16 >d16<d16d16>d16 r16d16r16d16 d16<d16>d16d16
+d16<d16>d16<d16 >d16<d16d16>d16 r16d16r16d16 d16<d16>d16d16
+d16<d16>d16<d16 >d16<d16d16>d16 r16d16r16d16 d16<d16>d16d16
+d16<d16>d16<d16 >d16<d16d16>d16 r16d16r16d16 d16<d16>d16d16
+d16<d16>d16<d16 >d16<d16d16>d16 r16d16r16d16 d16<d16>d16d16
+d16<d16>d16<d16 >d16<d16d16>d16 r16d16r16d16 d16<d16>d16d16
+
+c16<c16>c16c16c16<c16c16>c16r16<c16r16>c16c16<c16>c16c16
+c16<c16>c16<c16>c16<c16c16c16 r2
+
+;
+
+t150 o5 v64 @1
+
+d4e4
+f4&f8g4&g8a4&a8 f4&f8e4c4
+e4c8>b-4<c4>b-8&b-4 <d8>b-8<
+
+d4e4
+f4&f8g4&g8a4&a8 f4&f8e4a4
+d2f2 <d2f4e4
+
+r4d2r8f8&f1 r4d2r8f8&f2>f4e8f16e16
+
+d4&d8f8&f4g4&g8 a4&a8d4f4
+g1 a2 f4e4
+
+;
+
+t150 o5 v64 @1
+>a-4<c+4
+d4&d8d4&d8d4&d8 d4&d8>a4a4
+a4r8f4f4f8&f4 r4
+
+b-4<c+4
+d4&d8d4&d8d4&d8 d4&d8>a4<c4
+>a2<d2a2<d4c4
+
+r4>b-2r8<c8&c1 r4>b-2r8<c8&c2r2
+r4r8>b-4&b-8<c4&c8d4&d8>a4<d4
+>b-1 b-2<d4c+4
+
+;
+
+t150 o5 v64 @1
+r4>g4
+a4&a8a4&a8a4&a8 a4&a8r2
+r1 r2 
+
+f4g4
+a4&a8a4&a8a4&a8 a4&a8r2
+r2a2 <f2a4g4
+
+r4f2r8g8&g1 r4f2r8g8&g2 r2
+r1 r1 r1 >b-2b-4g4
+;
+'''
+
+midi.port().mml(mml)
