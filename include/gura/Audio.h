@@ -188,6 +188,8 @@ public:
 	size_t GetBytes() const;
 	bool PutData(size_t iChannel, size_t offset, int data);
 	bool GetData(size_t iChannel, size_t offset, int *pData);
+	bool StoreData(Environment &env, Signal sig,
+						size_t iChannel, size_t offset, Iterator *pIterator);
 	bool Read(Environment &env, Signal sig, Stream &stream, const char *audioType);
 	bool Write(Environment &env, Signal sig, Stream &stream, const char *audioType);
 	bool AddSineWave(Signal sig, size_t iChannel,

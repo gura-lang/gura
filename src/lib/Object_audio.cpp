@@ -165,6 +165,10 @@ Gura_ImplementMethod(audio, sinewave)
 {
 	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
+	if (iChannel >= pAudio->GetChannels()) {
+		sig.SetError(ERR_ValueError, "channel is out of range");
+		return Value::Null;
+	}
 	double freq = args.GetDouble(1);
 	size_t nSamples = static_cast<size_t>(args.GetDouble(2) * pAudio->GetSamplesPerSec());
 	int amplitude = args.IsNumber(3)? args.GetInt(3) : -1;
@@ -187,6 +191,10 @@ Gura_ImplementMethod(audio, put)
 {
 	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
+	if (iChannel >= pAudio->GetChannels()) {
+		sig.SetError(ERR_ValueError, "channel is out of range");
+		return Value::Null;
+	}
 	size_t offset = args.GetSizeT(1);
 	int data = args.GetInt(2);
 	if (!pAudio->PutData(iChannel, offset, data)) {
@@ -208,6 +216,10 @@ Gura_ImplementMethod(audio, get)
 {
 	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
+	if (iChannel >= pAudio->GetChannels()) {
+		sig.SetError(ERR_ValueError, "channel is out of range");
+		return Value::Null;
+	}
 	size_t offset = args.GetSizeT(1);
 	int data = 0;
 	if (!pAudio->GetData(iChannel, offset, &data)) {
@@ -229,6 +241,10 @@ Gura_ImplementMethod(audio, each)
 {
 	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
+	if (iChannel >= pAudio->GetChannels()) {
+		sig.SetError(ERR_ValueError, "channel is out of range");
+		return Value::Null;
+	}
 	size_t offset = args.IsNumber(1)? args.GetSizeT(1) : 0;
 	AutoPtr<Iterator> pIterator(new Audio::IteratorEach(
 								pAudio->Reference(), iChannel, offset));
@@ -247,7 +263,15 @@ Gura_DeclareMethod(audio, store)
 Gura_ImplementMethod(audio, store)
 {
 	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
-	
+	size_t iChannel = args.GetSizeT(0);
+	if (iChannel >= pAudio->GetChannels()) {
+		sig.SetError(ERR_ValueError, "channel is out of range");
+		return Value::Null;
+	}
+	size_t offset = args.GetSizeT(1);
+	Iterator *pIterator = args.GetIterator(2);
+	int data = 0;
+	if (!pAudio->StoreData(env, sig, iChannel, offset, pIterator)) return Value::Null;
 	return args.GetThis();
 }
 

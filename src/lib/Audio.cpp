@@ -91,6 +91,46 @@ bool Audio::GetData(size_t iChannel, size_t offset, int *pData)
 	return false;
 }
 
+bool Audio::StoreData(Environment &env, Signal sig,
+						size_t iChannel, size_t offset, Iterator *pIterator)
+{
+	size_t bytes = offset * GetBytesPerSample() * GetChannels();
+	Chain *pChain = GetChainTop();
+	for ( ; pChain != NULL; pChain = pChain->GetNext()) {
+		if (bytes < pChain->GetBytes()) break;
+		bytes -= pChain->GetBytes();
+	}
+	if (pChain == NULL) {
+		sig.SetError(ERR_IndexError, "offset is out of range");
+		return false;
+	}
+	size_t bytesPerUnit = GetBytesPerSample() * GetChannels();
+	UChar *buffp = pChain->GetPointer() + GetBytesPerSample() * iChannel + bytes;
+	size_t cntRest = (pChain->GetBytes() - bytes) / GetChannels() / GetBytesPerSample();
+	Value value;
+	while (pIterator->Next(env, sig, value)) {
+		if (!value.IsNumber()) {
+			sig.SetError(ERR_ValueError, "store only number values");
+			return false;
+		}
+		if (cntRest == 0) {
+			do {
+				pChain = pChain->GetNext();
+				if (pChain == NULL) {
+					sig.SetError(ERR_IndexError, "no enough space to store data");
+					return false;
+				}
+				cntRest = pChain->GetSamples();
+			} while (cntRest == 0);
+			buffp = pChain->GetPointer() + GetBytesPerSample() * iChannel;
+		}
+		PutData(_format, buffp, value.GetInt());
+		buffp += bytesPerUnit;
+		cntRest--;
+	}
+	return true;
+}
+
 bool Audio::Read(Environment &env, Signal sig, Stream &stream, const char *audioType)
 {
 	AudioStreamer *pAudioStreamer = NULL;
@@ -281,7 +321,8 @@ bool Audio::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 		_buffp = _pChain->GetPointer() + _pAudio->GetBytesPerSample() * _iChannel;
 	}
 	int data = 0;
-	_buffp = Audio::GetData(_pAudio->GetFormat(), _buffp, &data);
+	Audio::GetData(_pAudio->GetFormat(), _buffp, &data);
+	_buffp += _pAudio->GetBytesPerSample() * _pAudio->GetChannels();
 	_cntRest--;
 	value = Value(data);
 	return true;

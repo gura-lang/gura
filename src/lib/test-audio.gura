@@ -1,0 +1,41 @@
+#!/usr/bin/env gura
+
+audio(`u16le, 1, 1000) {|aud|
+	aud.sinewave(0, 12, .02)
+	println(aud)
+	printf('%s\n', aud.each(0).join(','))
+	aud.sinewave(0, 12, .03)
+	println(aud)
+	printf('%s\n', aud.each(0).join(','))
+	aud.sinewave(0, 12, .04)
+	println(aud)
+	printf('%s\n', aud.each(0).join(','))
+	aud.store(0, 0, 0..89)
+	printf('%s\n', aud.each(0).join(','))
+	try {
+		aud.store(0, 0, 0..100)
+	} except {|e|
+		println('expected error occurs: ', e.text)
+	}
+}
+audio(`u16le, 2, 1000) {|aud|
+	aud.sinewave(0, 12, .02)
+	//aud.sinewave(1, 15, .02)
+	println(aud)
+	printf('%s\n', aud.each(0).join(','))
+	aud.sinewave(0, 12, .03)
+	//aud.sinewave(1, 15, .03)
+	println(aud)
+	printf('%s\n', aud.each(0).join(','))
+	aud.sinewave(0, 12, .04)
+	//aud.sinewave(1, 15, .04)
+	println(aud)
+	printf('%s\n', aud.each(0).join(','))
+	aud.store(0, 0, 0..89)
+	printf('%s\n', aud.each(0).join(','))
+	try {
+		aud.store(0, 0, 0..100)
+	} except {|e|
+		println('expected error occurs: ', e.text)
+	}
+}
