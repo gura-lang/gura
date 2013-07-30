@@ -263,17 +263,21 @@ bool Audio::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 			sig.SetError(ERR_IndexError, "offset is out of range");
 			return false;
 		}
+		_pChain.reset(pChain->Reference());
 		_buffp = pChain->GetPointer() + _pAudio->GetBytesPerSample() * _iChannel + bytes;
-		_cntRest = bytes / _pAudio->GetChannels() / _pAudio->GetBytesPerSample();
+		_cntRest = (pChain->GetBytes() - bytes)
+					/ _pAudio->GetChannels() / _pAudio->GetBytesPerSample();
 	} else if (_cntRest == 0) {
+		Chain *pChain = _pChain.get();
 		do {
-			_pChain.reset(Chain::Reference(_pChain->GetNext()));
-			if (_pChain.IsNull()) {
+			pChain = pChain->GetNext();
+			if (pChain == NULL) {
 				_doneFlag = true;
 				return false;
 			}
-			_cntRest = _pChain->GetSamples();
+			_cntRest = pChain->GetSamples();
 		} while (_cntRest == 0);
+		_pChain.reset(pChain->Reference());
 		_buffp = _pChain->GetPointer() + _pAudio->GetBytesPerSample() * _iChannel;
 	}
 	int data = 0;
