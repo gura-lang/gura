@@ -1,0 +1,84 @@
+#!/usr/bin/env gura
+// This Gura script has been ported from the original above by Yutaka SAITO.
+import(wx)
+import(midi)
+
+//-----------------------------------------------------------------------------
+// App
+//-----------------------------------------------------------------------------
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame('Simple')
+		frame.Show()
+		true
+	}
+}
+
+//-----------------------------------------------------------------------------
+// AudioViewer
+//-----------------------------------------------------------------------------
+AudioViewer = class(wx.Panel) {
+	__init__(parent:wx.Window, style:number) = {|parent, style => style|
+		this.bmp = nil
+		this.Bind(wx.EVT_PAINT) {|event|
+			[wdClient, htClient] = this.GetClientSizeWH()
+			[xOffset, yOffset] = [-this.GetScrollPos(wx.HORIZONTAL),
+											-this.GetScrollPos(wx.VERTICAL)]
+			dc = wx.PaintDC(this)
+			this.bmp && dc.DrawBitmap(this.bmp, 0, 0, false)
+			dc = nil
+		}
+		this.Bind(wx.EVT_SIZE) {|event|
+			[wdClient, htClient] = this.GetClientSizeWH()
+			this.bmp = wx.BitmapWH(wdClient, htClient)
+			this.DrawAudio()
+			this.Refresh();
+			event.Skip()
+		}
+	}
+	DrawAudio() = {
+		!this.bmp && return
+		dc = wx.MemoryDC(this.bmp)
+		dc.SetBackground(wx.Brush(wx.WHITE))
+		dc.Clear()
+		dc.SetPen(wx.BLACK_PEN)
+		dc.SetBrush(wx.TRANSPARENT_BRUSH)
+		dc.DrawRectangle(0, 0, 100, 100)
+		midi.soundfont('TimGM6mb.sf2') {|sf|
+			//sf.print()
+			syn = sf.synthesizer(0, 0, 0, 0)
+			xPrev = 0, yPrev = 0
+			syn.audio.each(0) {|data, i|
+				x = i / 30
+				y = data / 1000 + 100
+				dc.DrawLine(xPrev, yPrev, x, y)
+				xPrev = x, yPrev = y
+			}
+		}
+		/*
+		audio(`u16le) {|aud|
+			aud.sinewave(0, 1000, .1)
+			xPrev = 0, yPrev = 0
+			aud.each(0) {|data, x|
+				y = data / 1000 + 100
+				dc.DrawLine(xPrev, yPrev, x, y)
+				xPrev = x, yPrev = y
+			}
+		}
+		*/
+		dc.SelectObject(wx.NullBitmap)	// reflect changes on bitmap
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Frame
+//-----------------------------------------------------------------------------
+Frame = class(wx.Frame) {
+	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
+			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
+		//this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		AudioViewer(this, wx.BORDER_SUNKEN)
+	}
+}
+
+wx.IMPLEMENT_APP(App)
