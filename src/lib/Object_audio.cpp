@@ -229,12 +229,13 @@ Gura_ImplementMethod(audio, get)
 	return Value(data);
 }
 
-// audio#each(channel:number, offset?:number):map
+// audio#each(channel:number, offset?:number):map {block?}
 Gura_DeclareMethod(audio, each)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(audio, each)
