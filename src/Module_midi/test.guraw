@@ -20,6 +20,7 @@ App = class(wx.App) {
 AudioViewer = class(wx.Panel) {
 	__init__(parent:wx.Window, style:number) = {|parent, style => style|
 		this.bmp = nil
+		this.audio = nil
 		this.Bind(wx.EVT_PAINT) {|event|
 			[wdClient, htClient] = this.GetClientSizeWH()
 			[xOffset, yOffset] = [-this.GetScrollPos(wx.HORIZONTAL),
@@ -43,29 +44,28 @@ AudioViewer = class(wx.Panel) {
 		dc.Clear()
 		dc.SetPen(wx.BLACK_PEN)
 		dc.SetBrush(wx.TRANSPARENT_BRUSH)
-		dc.DrawRectangle(0, 0, 100, 100)
-		midi.soundfont('TimGM6mb.sf2') {|sf|
-			//sf.print()
-			syn = sf.synthesizer(0, 0, 0, 0)
-			xPrev = 0, yPrev = 0
-			syn.audio.each(0) {|data, i|
-				x = i / 30
-				y = data / 1000 + 100
-				dc.DrawLine(xPrev, yPrev, x, y)
+		size = dc.GetSize()
+		rcAxis = wx.Rect(0, 0, size.GetWidth(), size.GetHeight())
+		dc.DrawRectangleRect(rcAxis)
+		if (this.audio) {
+			valueMax = 32768
+			xPrev = nil, yPrev = nil
+			xOffset = rcAxis.x
+			yOffset = rcAxis.y + rcAxis.height / 2
+			values = this.audio.each(0).head(10000):list
+			values.each {|value, i|
+				x = i * rcAxis.width / values.len() + xOffset
+				y = (value * rcAxis.height / 2 / valueMax) + yOffset
+				if (!xPrev) {
+					// nothing to do
+				} elsif (xPrev == x) {
+					
+				} else {
+					dc.DrawLine(xPrev, yPrev, x, y)
+				}
 				xPrev = x, yPrev = y
 			}
 		}
-		/*
-		audio(`u16le) {|aud|
-			aud.sinewave(0, 1000, .1)
-			xPrev = 0, yPrev = 0
-			aud.each(0) {|data, x|
-				y = data / 1000 + 100
-				dc.DrawLine(xPrev, yPrev, x, y)
-				xPrev = x, yPrev = y
-			}
-		}
-		*/
 		dc.SelectObject(wx.NullBitmap)	// reflect changes on bitmap
 	}
 }
@@ -77,7 +77,13 @@ Frame = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
 		//this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
-		AudioViewer(this, wx.BORDER_SUNKEN)
+		AudioViewer(this, wx.BORDER_SUNKEN) {|viewer|
+			midi.soundfont('TimGM6mb.sf2') {|sf|
+				//sf.print()
+				syn = sf.synthesizer(0, 0, 0, 0)
+				viewer.audio = syn.audio
+			}
+		}
 	}
 }
 
