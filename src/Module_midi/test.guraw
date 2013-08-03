@@ -19,52 +19,96 @@ App = class(wx.App) {
 //-----------------------------------------------------------------------------
 AudioViewer = class(wx.Panel) {
 	__init__(parent:wx.Window, style:number) = {|parent, style => style|
+		this.mgnLeft = 10, this.mgnRight = 10
+		this.mgnTop = 10, this.mgnBottom = 10
 		this.bmp = nil
 		this.audio = nil
+		this.ptDragStart = nil
+		this.rcAxis = nil
+		this.penAxis = wx.Pen(wx.Colour(128, 128, 128), 1, wx.SOLID)
+		this.penTick = wx.Pen(wx.Colour(128, 128, 128), 1, wx.DOT)
+		this.penWave = wx.Pen(wx.BLACK, 1, wx.SOLID)
+		this.penRubber = wx.Pen(wx.Colour(255, 128, 128))
+		this.offsetWave = 0
+		this.lenWave = 15000
+		this.Bind(wx.EVT_ERASE_BACKGROUND) {|event|
+			// nothing to do
+		}
 		this.Bind(wx.EVT_PAINT) {|event|
 			[wdClient, htClient] = this.GetClientSizeWH()
 			[xOffset, yOffset] = [-this.GetScrollPos(wx.HORIZONTAL),
 											-this.GetScrollPos(wx.VERTICAL)]
 			dc = wx.PaintDC(this)
 			this.bmp && dc.DrawBitmap(this.bmp, 0, 0, false)
+			if (this.ptDragStart) {
+				dc.SetPen(this.penRubber)
+				dc.SetBrush(wx.TRANSPARENT_BRUSH)
+				dc.DrawRectangle(
+						this.ptDragStart.x, this.ptDragStart.y,
+						this.ptDragging.x - this.ptDragStart.x,
+						this.ptDragging.y - this.ptDragStart.y)
+			}
 			dc = nil
 		}
 		this.Bind(wx.EVT_SIZE) {|event|
 			[wdClient, htClient] = this.GetClientSizeWH()
+			this.rcAxis = wx.Rect(this.mgnLeft, this.mgnRight,
+							wdClient - (this.mgnLeft + this.mgnRight),
+							htClient - (this.mgnTop + this.mgnBottom))
 			this.bmp = wx.BitmapWH(wdClient, htClient)
 			this.DrawAudio()
 			this.Refresh();
 			event.Skip()
 		}
+		this.Bind(wx.EVT_LEFT_DOWN) {|event|
+			this.ptDragStart = event.GetPosition()
+			this.ptDragging = this.ptDragStart
+		}
+		this.Bind(wx.EVT_LEFT_UP) {|event|
+			if (this.ptDragStart) {
+				idx1 = int((this.ptDragStart.x - this.rcAxis.x) * \
+								this.values.len() / this.rcAxis.width)
+				idx2 = int((this.ptDragging.x - this.rcAxis.x) * \
+								this.values.len() / this.rcAxis.width)
+				idxMin = min(idx1, idx2)
+				idxMax = max(idx1, idx2)
+				this.offsetWave = idxMin
+				this.lenWave = idxMax - idxMin
+				this.ptDragStart = nil
+				this.DrawAudio()
+				this.Refresh()
+			}
+		}
+		this.Bind(wx.EVT_MOTION) {|event|
+			if (this.ptDragStart) {
+				this.ptDragging = event.GetPosition()
+				this.Refresh()
+			}
+		}
 	}
 	DrawAudio() = {
 		!this.bmp && return
+		yCenter = this.rcAxis.y + this.rcAxis.height / 2
 		dc = wx.MemoryDC(this.bmp)
 		dc.SetBackground(wx.Brush(wx.WHITE))
 		dc.Clear()
-		dc.SetPen(wx.BLACK_PEN)
 		dc.SetBrush(wx.TRANSPARENT_BRUSH)
-		size = dc.GetSize()
-		rcAxis = wx.Rect(0, 0, size.GetWidth(), size.GetHeight())
-		dc.DrawRectangleRect(rcAxis)
+		dc.SetPen(this.penAxis)
+		dc.DrawRectangleRect(this.rcAxis)
+		dc.SetPen(this.penTick)
+		dc.DrawLine(this.rcAxis.GetLeft(), yCenter, this.rcAxis.GetRight(), yCenter)
 		if (this.audio) {
 			valueMax = 32768
-			xPrev = nil, yPrev = nil
-			xOffset = rcAxis.x
-			yOffset = rcAxis.y + rcAxis.height / 2
-			values = this.audio.each(0).head(10000):list
-			values.each {|value, i|
-				x = i * rcAxis.width / values.len() + xOffset
-				y = (value * rcAxis.height / 2 / valueMax) + yOffset
-				if (!xPrev) {
-					// nothing to do
-				} elsif (xPrev == x) {
-					
-				} else {
-					dc.DrawLine(xPrev, yPrev, x, y)
-				}
-				xPrev = x, yPrev = y
+			xOffset = this.rcAxis.x
+			this.values = this.audio.each(0, this.offsetWave).head(this.lenWave):list
+			pts = this.values.each():list {|value, i|
+				x = i * this.rcAxis.width / this.values.len() + xOffset
+				y = (value * this.rcAxis.height / 2 / valueMax) + yCenter
+				wx.Point(x, y)
 			}
+			//this.audio.samplespersec
+			dc.SetPen(this.penWave)
+			dc.DrawLines(pts)
 		}
 		dc.SelectObject(wx.NullBitmap)	// reflect changes on bitmap
 	}
