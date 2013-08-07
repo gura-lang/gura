@@ -33,7 +33,7 @@ AudioViewer = class(wx.Panel) {
 		this.penRubber = wx.Pen(wx.Colour(255, 128, 128))
 		this.offsetWave = 0
 		this.lenWave = 15000
-		this.timerResize = wx.Timer(this, this.TIMERID_Resize)
+		this.timerResize = wx.Timer(this, TIMERID_Resize)
 		this.Bind(wx.EVT_ERASE_BACKGROUND) {|event|
 			// nothing to do
 		}
@@ -63,7 +63,7 @@ AudioViewer = class(wx.Panel) {
 			event.Skip()
 			this.timerResize.Start(100, true)	// one-shot timer
 		}
-		this.Bind(wx.EVT_TIMER, this.TIMERID_Resize) {|event|
+		this.Bind(wx.EVT_TIMER, TIMERID_Resize) {|event|
 			this.img.cairo {|cr| this.DrawAudio(cr)}
 			this.Refresh();
 		}
