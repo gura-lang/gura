@@ -384,6 +384,9 @@ Gura_ModuleEntry()
 	Gura_AssignCairoValue(ANTIALIAS_NONE);
 	Gura_AssignCairoValue(ANTIALIAS_GRAY);
 	Gura_AssignCairoValue(ANTIALIAS_SUBPIXEL);
+	Gura_AssignCairoValue(ANTIALIAS_FAST);
+	Gura_AssignCairoValue(ANTIALIAS_GOOD);
+	Gura_AssignCairoValue(ANTIALIAS_BEST);
 	// cairo_fill_rule_t
 	Gura_AssignCairoValue(FILL_RULE_WINDING);
 	Gura_AssignCairoValue(FILL_RULE_EVEN_ODD);
