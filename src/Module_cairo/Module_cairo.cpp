@@ -324,8 +324,8 @@ Gura_ModuleEntry()
 	// class reference assignment
 	Gura_AssignValue(font_extents,			Value(Gura_UserClass(font_extents)));
 	Gura_AssignValue(text_extents,			Value(Gura_UserClass(text_extents)));
-	Gura_AssignValue(rectangle,				Value(Gura_UserClass(rectangle)));
-	Gura_AssignValue(rectangle_int,			Value(Gura_UserClass(rectangle_int)));
+	//Gura_AssignValue(rectangle,			Value(Gura_UserClass(rectangle)));
+	//Gura_AssignValue(rectangle_int,		Value(Gura_UserClass(rectangle_int)));
 	Gura_AssignValue(font_face,				Value(Gura_UserClass(font_face)));
 	Gura_AssignValue(toy_font_face,			Value(Gura_UserClass(toy_font_face)));
 	Gura_AssignValue(ft_font_face,			Value(Gura_UserClass(ft_font_face)));
