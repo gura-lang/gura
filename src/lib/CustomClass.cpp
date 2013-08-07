@@ -58,7 +58,7 @@ Function *CustomClass::PrepareConstructor(Environment &env, Signal sig)
 	}
 	AutoPtr<ConstructorOfCustomClass> pFunc;
 	if (pFuncInit != NULL) {
-		pFunc.reset(new ConstructorOfCustomClass(env, Gura_Symbol(_anonymous_),
+		pFunc.reset(new ConstructorOfCustomClass(pFuncInit->GetEnvScope(), Gura_Symbol(_anonymous_),
 						Expr::Reference(pFuncInit->GetExprBody()), FUNCTYPE_Function));
 		pFunc->CopyDeclare(*pFuncInit);
 	} else if (!_pClassSuper.IsNull() && _pClassSuper->GetConstructor() != NULL) {

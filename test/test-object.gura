@@ -3,6 +3,15 @@ import(testutil) {*}
 
 sys.echo(false)
 scope {
+	A = class {
+		var = 100
+		__init__() = {
+			println(var)
+		}
+	}
+	a = A()
+}
+scope {
 	T = struct(a, b, c) {
 		Print(t:T):static = {
 			printf('%d, %d, %d\n', t.a, t.b, t.c)
