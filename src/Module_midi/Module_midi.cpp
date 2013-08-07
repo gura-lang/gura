@@ -306,7 +306,7 @@ bool Object_event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(name));
 	symbols.insert(Gura_UserSymbol(symbol));
 	symbols.insert(Gura_UserSymbol(args));
-	return DoDirProp(env, sig, symbols);
+	return true;
 }
 
 Value Object_event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,

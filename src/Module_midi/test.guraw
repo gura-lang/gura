@@ -1,6 +1,7 @@
 #!/usr/bin/env gura
 // This Gura script has been ported from the original above by Yutaka SAITO.
 import(wx)
+import(cairo)
 import(midi)
 
 //-----------------------------------------------------------------------------
@@ -18,10 +19,11 @@ App = class(wx.App) {
 // AudioViewer
 //-----------------------------------------------------------------------------
 AudioViewer = class(wx.Panel) {
+	TIMERID_Resize = 100
 	__init__(parent:wx.Window, style:number) = {|parent, style => style|
 		this.mgnLeft = 10, this.mgnRight = 10
 		this.mgnTop = 10, this.mgnBottom = 10
-		this.bmp = nil
+		this.img = nil
 		this.audio = nil
 		this.ptDragStart = nil
 		this.rcAxis = nil
@@ -31,6 +33,7 @@ AudioViewer = class(wx.Panel) {
 		this.penRubber = wx.Pen(wx.Colour(255, 128, 128))
 		this.offsetWave = 0
 		this.lenWave = 15000
+		this.timerResize = wx.Timer(this, this.TIMERID_Resize)
 		this.Bind(wx.EVT_ERASE_BACKGROUND) {|event|
 			// nothing to do
 		}
@@ -39,7 +42,7 @@ AudioViewer = class(wx.Panel) {
 			[xOffset, yOffset] = [-this.GetScrollPos(wx.HORIZONTAL),
 											-this.GetScrollPos(wx.VERTICAL)]
 			dc = wx.PaintDC(this)
-			this.bmp && dc.DrawBitmap(this.bmp, 0, 0, false)
+			this.img && dc.DrawBitmap(this.img, 0, 0, false)
 			if (this.ptDragStart) {
 				dc.SetPen(this.penRubber)
 				dc.SetBrush(wx.TRANSPARENT_BRUSH)
@@ -55,10 +58,14 @@ AudioViewer = class(wx.Panel) {
 			this.rcAxis = wx.Rect(this.mgnLeft, this.mgnRight,
 							wdClient - (this.mgnLeft + this.mgnRight),
 							htClient - (this.mgnTop + this.mgnBottom))
-			this.bmp = wx.BitmapWH(wdClient, htClient)
-			this.DrawAudio()
+			this.img = image(`rgba, wdClient, htClient, `white)
 			this.Refresh();
 			event.Skip()
+			this.timerResize.Start(100, true)	// one-shot timer
+		}
+		this.Bind(wx.EVT_TIMER, this.TIMERID_Resize) {|event|
+			this.img.cairo {|cr| this.DrawAudio(cr)}
+			this.Refresh();
 		}
 		this.Bind(wx.EVT_LEFT_DOWN) {|event|
 			this.ptDragStart = event.GetPosition()
@@ -75,7 +82,10 @@ AudioViewer = class(wx.Panel) {
 				this.offsetWave = idxMin
 				this.lenWave = idxMax - idxMin
 				this.ptDragStart = nil
-				this.DrawAudio()
+				if (this.img) {
+					this.img.fill(`white)
+					this.img.cairo {|cr| this.DrawAudio(cr)}
+				}
 				this.Refresh()
 			}
 		}
@@ -86,31 +96,33 @@ AudioViewer = class(wx.Panel) {
 			}
 		}
 	}
-	DrawAudio() = {
-		!this.bmp && return
+	DrawAudio(cr:cairo.context) = {
 		yCenter = this.rcAxis.y + this.rcAxis.height / 2
-		dc = wx.MemoryDC(this.bmp)
-		dc.SetBackground(wx.Brush(wx.WHITE))
-		dc.Clear()
-		dc.SetBrush(wx.TRANSPARENT_BRUSH)
-		dc.SetPen(this.penAxis)
-		dc.DrawRectangleRect(this.rcAxis)
-		dc.SetPen(this.penTick)
-		dc.DrawLine(this.rcAxis.GetLeft(), yCenter, this.rcAxis.GetRight(), yCenter)
 		if (this.audio) {
 			valueMax = 32768
 			xOffset = this.rcAxis.x
 			this.values = this.audio.each(0, this.offsetWave).head(this.lenWave):list
+			cr.new_path()
 			pts = this.values.each():list {|value, i|
 				x = i * this.rcAxis.width / this.values.len() + xOffset
 				y = (value * this.rcAxis.height / 2 / valueMax) + yCenter
-				wx.Point(x, y)
+				cr.line_to(x, y)
 			}
+			cr.set_line_cap(cairo.LINE_CAP_ROUND)
+			cr.set_antialias(cairo.ANTIALIAS_GRAY)
+			cr.set_line_width(.5)
+			cr.stroke()
 			//this.audio.samplespersec
-			dc.SetPen(this.penWave)
-			dc.DrawLines(pts)
 		}
-		dc.SelectObject(wx.NullBitmap)	// reflect changes on bitmap
+		cr.new_path()
+		cr.rectangle(this.rcAxis.x, this.rcAxis.y, this.rcAxis.width, this.rcAxis.height)
+		cr.set_line_cap(cairo.LINE_CAP_BUTT)
+		cr.set_antialias(cairo.ANTIALIAS_NONE)
+		cr.set_line_width(1)
+		cr.stroke()
+		cr.move_to(this.rcAxis.GetLeft(), yCenter)
+		cr.line_to(this.rcAxis.GetRight(), yCenter)
+		cr.stroke()
 	}
 }
 
