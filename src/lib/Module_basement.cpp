@@ -26,7 +26,7 @@ Gura_DeclareFunctionAlias(class_, "class")
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "superclass", VTYPE_function, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Returns a function object that constructs an instance with methods and\n"
 	"properties specified in the block. If superclass, which is supposed to\n"
 	"be a constructor function, is specified, the new class shall inherits\n"
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(struct_, "struct")
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(loose));
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Returns a function object that constructs a structure instance that\n"
 	"contains properties specified by args. It can optionally take block\n"
 	"which declares some additional methods for constructed instances.\n"
@@ -120,7 +120,7 @@ Gura_DeclareFunction(module)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Creates a module that contains functions and variables defined in the block\n"
 	"and returns it as a module object. This can be used to realize a namespace.");
 }
@@ -144,7 +144,7 @@ Gura_DeclareFunctionAlias(import_, "import")
 	DeclareAttr(Gura_Symbol(overwrite));
 	DeclareAttr(Gura_Symbol(binary));
 	DeclareAttr(Gura_Symbol(mixin_type));
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Imports a module stored in directories specified by a variable sys.path.\n"
 	"There are three ways of calling this function like follow:\n"
 	"  1. import(foo)\n"
@@ -375,7 +375,7 @@ Gura_DeclareFunctionLeaderAlias(try_, "try")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Leader);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Specify a try block of a statement of try-except-else.\n"
 	"It catches signals that occur in the block and executes a corresponding\n"
 	"except() or else() function that follow after it.");
@@ -403,7 +403,7 @@ Gura_DeclareFunctionLeaderAlias(except_, "except")
 	SetMode(RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Specify an except block of a statement of try-except-else.\n"
 	"It can take multiple numbers of arguments of error objects to handle.\n"
 	"If there's no error objects specified, it handles all the errors that are\n"
@@ -474,7 +474,7 @@ Gura_DeclareFunctionLeaderAlias(if_, "if")
 	SetMode(RSLTMODE_Normal, FLAG_Leader);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Specify an if block of a statement of if-elsif-else.\n"
 	"After evaluating an expr object cond, the block shall be executed\n"
 	"if it has a value of true.");
@@ -504,7 +504,7 @@ Gura_DeclareFunctionLeaderAlias(elsif_, "elsif")
 	SetMode(RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Specify an elsif block of a statement of if-elsif-else.\n"
 	"After evaluating an expr object cond, the block shall be executed\n"
 	"if it has a value of true.");
@@ -533,7 +533,7 @@ Gura_DeclareFunctionAlias(else_, "else")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Specify an else block of a statement of if-elsif-else or try-except-else.\n");
 }
 
@@ -551,7 +551,7 @@ Gura_ImplementFunction(else_)
 Gura_DeclareFunction(end)
 {
 	SetMode(RSLTMODE_Void, FLAG_SymbolFunc | FLAG_Trailer | FLAG_EndMarker);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Specify an end of a sequence. It just works as a marker.\n");
 }
 
@@ -564,7 +564,7 @@ Gura_ImplementFunction(end)
 Gura_DeclareFunctionAlias(switch_, "switch")
 {
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Form a switch block that contains case() and default() function calls.\n"
 	"It calls these functions sequentially and exits the execution\n"
 	"when one of the conditions is evaluated as true.");
@@ -590,7 +590,7 @@ Gura_DeclareFunctionAlias(case_, "case")
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Specify an case block within a switch block.\n"
 	"After evaluating an expr object cond, the block shall be executed\n"
 	"if it has a value of true.");
@@ -616,7 +616,7 @@ Gura_DeclareFunctionAlias(default_, "default")
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Specify a default block within a switch block.\n"
 	"If all the preceding condition of case block are not evaluated as true,\n"
 	"this block shall be executed.\n");
@@ -639,7 +639,7 @@ Gura_DeclareFunction(repeat)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Executes the block for n times. If n is omitted, it repeats the block\n"
 	"execution forever.\n"
 	REPEATER_HELP
@@ -665,7 +665,7 @@ Gura_DeclareFunctionAlias(while_, "while")
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Executes the block while the evaluation result of cond is true.\n"
 	REPEATER_HELP
 	"Block parameter format: |idx:number|");
@@ -688,7 +688,7 @@ Gura_DeclareFunctionAlias(for_, "for")
 {
 	DeclareArg(env, "expr", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Executes the block until any of the exprs of \"var in iteratable\" reach at\n"
 	"their ends. You can specify one or more such exprs as arguments.\n"
 	"Iterators and lists are the most popular iteratables, but even any objects that\n"
@@ -715,7 +715,7 @@ Gura_DeclareFunction(cross)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "expr", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Executes the block until it evaluates all the combinations of results from exprs\n"
 	"\"var in iteratable.\" You can specify one or more such exprs as arguments and\n"
 	"they are counted up from the one on the right side.\n"
@@ -742,7 +742,7 @@ Gura_DeclareFunctionAlias(break_, "break")
 {
 	SetMode(RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Exits from an inside of a loop that is formed with functions repeat(), while()\n"
 	"for() and cross(). If it takes an argument, that value is treated as a result of\n"
 	"the loop function. Otherwise, the result is nil and an argument list\n"
@@ -761,7 +761,7 @@ Gura_DeclareFunctionAlias(continue_, "continue")
 {
 	SetMode(RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"In a loop that is formed with functions repeat(), while(), for() and cross(),\n"
 	"skips the following part of it and gets to the top of its process.\n"
 	"If it takes an argument, that value is treated as a result of the loop function.\n"
@@ -781,7 +781,7 @@ Gura_DeclareFunctionAlias(return_, "return")
 {
 	SetMode(RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Exits from a function skipping the following part of it.\n"
 	"If it takes an argument, that value is treated as a result of the function.\n"
 	"Otherwise, the result is nil and an argument list can be omitted.");
@@ -800,7 +800,7 @@ Gura_DeclareFunction(raise)
 	DeclareArg(env, "error", VTYPE_error);
 	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_String("error"));
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Raises an error signal with a specified error object, a message string and\n"
 	"an additional value.");
 }
@@ -818,7 +818,7 @@ Gura_DeclareFunction(dim)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en),
 	"Creates and returns a multi-dementional list that contains nested lists as\n"
 	"specified by the arguments.\n"
 	"Block parameter format: |i0:number, i1:number, ..|");
