@@ -76,6 +76,9 @@ void Object_context::Destroy()
 Gura_DeclareMethod(context, status)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Checks whether an error has previously occurred for this context."
+	);
 }
 
 Gura_ImplementMethod(context, status)
@@ -90,6 +93,11 @@ Gura_ImplementMethod(context, status)
 Gura_DeclareMethod(context, destroy)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Decreases the reference count on cr by one.\n"
+	"If the result is zero, then cr and all associated resources are freed.\n"
+	"See cairo.context#reference()."
+	);
 }
 
 Gura_ImplementMethod(context, destroy)
@@ -104,6 +112,16 @@ Gura_DeclareMethod(context, save)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	"Makes a copy of the current state of cr and saves it on an internal stack of saved states for cr.\n"
+	"When cairo.context#restore() is called, cr will be restored to the saved state.\n"
+	"Multiple calls to cairo.context#save() and cairo.context#restore() can be nested;\n"
+	"each call to cairo.context#restore() restores the state from the matching paired cairo.context#save().\n"
+	"\n"
+	"It isn't necessary to clear all saved states before a cairo_t is freed.\n"
+	"If the reference count of a cairo_t drops to zero in response to a call to cairo.context#destroy(),\n"
+	"any saved states will be freed along with the cairo_t.\n"
+	);
 }
 
 Gura_ImplementMethod(context, save)
@@ -127,6 +145,10 @@ Gura_ImplementMethod(context, save)
 Gura_DeclareMethod(context, restore)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Restores cr to the state saved by a preceding call to cairo.context#save()\n"
+	"and removes that state from the stack of saved states."
+	);
 }
 
 Gura_ImplementMethod(context, restore)
@@ -143,6 +165,9 @@ Gura_ImplementMethod(context, restore)
 Gura_DeclareMethod(context, get_target)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the target surface for the cairo context as passed to cairo.context constructor.\n"
+	);
 }
 
 Gura_ImplementMethod(context, get_target)
@@ -159,6 +184,29 @@ Gura_ImplementMethod(context, get_target)
 Gura_DeclareMethod(context, push_group)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Temporarily redirects drawing to an intermediate surface known as a group.\n"
+	"The redirection lasts until the group is completed by a call to cairo.context#pop_group() or cairo.context#pop_group_to_source().\n"
+	"These calls provide the result of any drawing to the group as a pattern,\n"
+	"(either as an explicit object, or set as the source pattern).\n"
+	"\n"
+	"This group functionality can be convenient for performing intermediate compositing.\n"
+	"One common use of a group is to render objects as opaque within the group,\n"
+	"(so that they occlude each other), and then blend the result with translucence onto the destination.\n"
+	"\n"
+	"Groups can be nested arbitrarily deep by making balanced calls to cairo.context#push_group()/cairo.context#pop_group().\n"
+	"Each call pushes/pops the new target group onto/from a stack.\n"
+	"\n"
+	"The cairo.context#push_group() function calls cairo_save()\n"
+	"so that any changes to the graphics state will not be visible outside the group,\n"
+	"(the pop_group functions call cairo_restore()).\n"
+	"\n"
+	"By default the intermediate group will have a content type of cairo.CONTENT_COLOR_ALPHA.\n"
+	"Other content types can be chosen for the group by using cairo.context#push_group_with_content() instead.\n"
+	"\n"
+	"As an example, here is how one might fill and stroke a path with translucence,\n"
+	"but without any portion of the fill being visible under the stroke:\n"
+	);
 }
 
 Gura_ImplementMethod(context, push_group)
@@ -176,6 +224,16 @@ Gura_DeclareMethod(context, push_group_with_content)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "content", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Temporarily redirects drawing to an intermediate surface known as a group.\n"
+	"The redirection lasts until the group is completed by a call to cairo.context#pop_group() or cairo.context#pop_group_to_source().\n"
+	"These calls provide the result of any drawing to the group as a pattern,\n"
+	"(either as an explicit object, or set as the source pattern).\n"
+	"\n"
+	"The group will have a content type of content.\n"
+	"The ability to control this content type is the only distinction between this function and cairo.context#push_group()\n"
+	"which you should see for a more detailed description of group rendering.\n"
+	);
 }
 
 Gura_ImplementMethod(context, push_group_with_content)
@@ -194,6 +252,14 @@ Gura_ImplementMethod(context, push_group_with_content)
 Gura_DeclareMethod(context, pop_group)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Terminates the redirection begun by a call to cairo.context#push_group() or cairo.context#push_group_with_content()\n"
+	"and returns a new pattern containing the results of all drawing operations performed to the group.\n"
+	"\n"
+	"The cairo.context#pop_group() function calls cairo_restore(),\n"
+	"(balancing a call to cairo_save() by the push_group function),\n"
+	"so that any changes to the graphics state will not be visible outside the group.\n"
+	);
 }
 
 Gura_ImplementMethod(context, pop_group)
@@ -211,6 +277,14 @@ Gura_ImplementMethod(context, pop_group)
 Gura_DeclareMethod(context, pop_group_to_source)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Terminates the redirection begun by a call to cairo.context#push_group() or cairo.context#push_group_with_content()\n"
+	"and installs the resulting pattern as the source pattern in the given cairo context.\n"
+	"\n"
+	"The cairo.context#pop_group() function calls cairo_restore(),\n"
+	"(balancing a call to cairo_save() by the push_group function),\n"
+	"so that any changes to the graphics state will not be visible outside the group.\n"
+	);
 }
 
 Gura_ImplementMethod(context, pop_group_to_source)
@@ -227,6 +301,12 @@ Gura_ImplementMethod(context, pop_group_to_source)
 Gura_DeclareMethod(context, get_group_target)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the current destination surface for the context.\n"
+	"This is either the original target surface as passed to cairo.context constructor\n"
+	"or the target surface for the current group as started\n"
+	"by the most recent call to cairo.context#push_group() or cairo.context#push_group_with_content().\n"
+	);
 }
 
 Gura_ImplementMethod(context, get_group_target)
@@ -248,6 +328,15 @@ Gura_DeclareMethod(context, set_source_rgb)
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Sets the source pattern within cr to an opaque color.\n"
+	"This opaque color will then be used for any subsequent drawing operation until a new source pattern is set.\n"
+	"\n"
+	"The color components are floating point numbers in the range 0 to 1.\n"
+	"If the values passed in are outside that range, they will be clamped.\n"
+	"\n"
+	"The default source pattern is opaque black, (that is, it is equivalent to cr.set_source_rgb(0.0, 0.0, 0.0)).\n"
+	);
 }
 
 Gura_ImplementMethod(context, set_source_rgb)
@@ -268,6 +357,15 @@ Gura_DeclareMethod(context, set_source_rgba)
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
 	DeclareArg(env, "alpha", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Sets the source pattern within cr to a translucent color.\n"
+	"This color will then be used for any subsequent drawing operation until a new source pattern is set.\n"
+	"\n"
+	"The color and alpha components are floating point numbers in the range 0 to 1.\n"
+	"If the values passed in are outside that range, they will be clamped.\n"
+	"\n"
+	"The default source pattern is opaque black, (that is, it is equivalent to cr.set_source_rgba(0.0, 0.0, 0.0, 1.0)).\n"
+	);
 }
 
 Gura_ImplementMethod(context, set_source_rgba)
@@ -287,6 +385,9 @@ Gura_DeclareMethod(context, set_source_color)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_color);
 	DeclareArg(env, "alpha", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, set_source_color)
@@ -313,6 +414,16 @@ Gura_DeclareMethod(context, set_source)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "source", VTYPE_pattern);
+	AddHelp(Gura_Symbol(en),
+	"Sets the source pattern within cr to source.\n"
+	"This pattern will then be used for any subsequent drawing operation until a new source pattern is set.\n"
+	"\n"
+	"Note: The pattern's transformation matrix will be locked to the user space in effect at the time of cairo.context#set_source().\n"
+	"This means that further modifications of the current transformation matrix will not affect the source pattern. See cairo.pattern#set_matrix().\n"
+	"\n"
+	"The default source pattern is a solid pattern that is opaque black,\n"
+	"(that is, it is equivalent to cr.set_source_rgb(0.0, 0.0, 0.0)).\n"
+	);
 }
 
 Gura_ImplementMethod(context, set_source)
@@ -333,6 +444,19 @@ Gura_DeclareMethod(context, set_source_surface)
 	DeclareArg(env, "surface", VTYPE_surface);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"This is a convenience function for creating a pattern from surface\n"
+	"and setting it as the source in cr with cairo.context#set_source().\n"
+	"\n"
+	"The x and y parameters give the user-space coordinate at which the surface origin should appear.\n"
+	"(The surface origin is its upper-left corner before any transformation has been applied.)\n"
+	"The x and y parameters are negated and then set as translation values in the pattern matrix.\n"
+	"\n"
+	"Other than the initial translation pattern matrix, as described above,\n"
+	"all other pattern attributes, (such as its extend mode), are set to the default values as in cairo.pattern.create_for_surface().\n"
+	"The resulting pattern can be queried with cairo.context#get_source() so that these attributes can be modified if desired,\n"
+	"(eg. to create a repeating pattern with cairo.pattern#set_extend()).\n"
+	);
 }
 
 Gura_ImplementMethod(context, set_source_surface)
@@ -352,6 +476,9 @@ Gura_ImplementMethod(context, set_source_surface)
 Gura_DeclareMethod(context, get_source)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the current source pattern for cr.\n"
+	);
 }
 
 Gura_ImplementMethod(context, get_source)
@@ -371,6 +498,13 @@ Gura_DeclareMethod(context, set_antialias)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "antialias", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Set the antialiasing mode of the rasterizer used for drawing shapes.\n"
+	"This value is a hint, and a particular backend may or may not support a particular value.\n"
+	"At the current time, no backend supports cairo.ANTIALIAS_SUBPIXEL when drawing shapes.\n"
+	"\n"
+	"Note that this option does not affect text rendering, instead see cairo.font_options#set_antialias().\n"
+	);
 }
 
 Gura_ImplementMethod(context, set_antialias)
@@ -389,6 +523,9 @@ Gura_ImplementMethod(context, set_antialias)
 Gura_DeclareMethod(context, get_antialias)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the current shape antialiasing mode, as set by cairo.context#set_antialias().\n"
+	);
 }
 
 Gura_ImplementMethod(context, get_antialias)
@@ -407,6 +544,27 @@ Gura_DeclareMethod(context, set_dash)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "dashes", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "offset", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Sets the dash pattern to be used by cairo.context#stroke().\n"
+	"A dash pattern is specified by dashes, an array of positive values.\n"
+	"Each value provides the length of alternate \"on\" and \"off\" portions of the stroke.\n"
+	"The offset specifies an offset into the pattern at which the stroke begins.\n"
+	"\n"
+	"Each \"on\" segment will have caps applied as if the segment were a separate sub-path.\n"
+	"In particular, it is valid to use an \"on\" length of 0.0 with cairo.LINE_CAP_ROUND or cairo.LINE_CAP_SQUARE\n"
+	"in order to distributed dots or squares along a path.\n"
+	"\n"
+	"Note: The length values are in user-space units as evaluated at the time of stroking.\n"
+	"This is not necessarily the same as the user space at the time of cairo.context#set_dash().\n"
+	"\n"
+	"If length of dashes is 0 dashing is disabled.\n"
+	"\n"
+	"If length of dashes is 1 a symmetric pattern is assumed\n"
+	"with alternating on and off portions of the size specified by the single value in dashes.\n"
+	"\n"
+	"If any value in dashes is negative, or if all values are 0,\n"
+	"then cr will be put into an error state with a status of cairo.STATUS_INVALID_DASH.\n"
+	);
 }
 
 Gura_ImplementMethod(context, set_dash)
@@ -431,6 +589,9 @@ Gura_ImplementMethod(context, set_dash)
 Gura_DeclareMethod(context, get_dash)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the current dash array."
+	);
 }
 
 Gura_ImplementMethod(context, get_dash)
@@ -461,6 +622,14 @@ Gura_DeclareMethod(context, set_fill_rule)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "fill_rule", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Set the current fill rule within the cairo context.\n"
+	"The fill rule is used to determine which regions are inside or outside a complex\n"
+	"(potentially self-intersecting) path. The current fill rule affects both cairo.context#fill() and cairo.context#clip().\n"
+	"See cairo_fill_rule_t for details on the semantics of each available fill rule.\n"
+	"\n"
+	"The default fill rule is cairo.FILL_RULE_WINDING.\n"
+	);
 }
 
 Gura_ImplementMethod(context, set_fill_rule)
@@ -479,6 +648,9 @@ Gura_ImplementMethod(context, set_fill_rule)
 Gura_DeclareMethod(context, get_fill_rule)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the current fill rule, as set by cairo.context#set_fill_rule().\n"
+	);
 }
 
 Gura_ImplementMethod(context, get_fill_rule)
@@ -496,6 +668,15 @@ Gura_DeclareMethod(context, set_line_cap)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "line_cap", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Sets the current line cap style within the cairo context.\n"
+	"See cairo_line_cap_t for details about how the available line cap styles are drawn.\n"
+	"\n"
+	"As with the other stroke parameters, the current line cap style is examined by cairo.context#stroke(), cairo.context#stroke_extents(),\n"
+	"and cairo.context#stroke_to_path(), but does not have any effect during path construction.\n"
+	"\n"
+	"The default line cap style is cairo.LINE_CAP_BUTT.\n"
+	);
 }
 
 Gura_ImplementMethod(context, set_line_cap)
@@ -514,6 +695,9 @@ Gura_ImplementMethod(context, set_line_cap)
 Gura_DeclareMethod(context, get_line_cap)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the current line cap style, as set by cairo.context#set_line_cap()."
+	);
 }
 
 Gura_ImplementMethod(context, get_line_cap)
@@ -531,6 +715,15 @@ Gura_DeclareMethod(context, set_line_join)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "line_join", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Sets the current line join style within the cairo context.\n"
+	"See cairo_line_join_t for details about how the available line join styles are drawn.\n"
+	"\n"
+	"As with the other stroke parameters, the current line join style is examined by cairo.context#stroke(), cairo.context#stroke_extents(),\n"
+	"and cairo.context#stroke_to_path(), but does not have any effect during path construction.\n"
+	"\n"
+	"The default line join style is cairo.LINE_JOIN_MITER.\n"
+	);
 }
 
 Gura_ImplementMethod(context, set_line_join)
@@ -549,6 +742,9 @@ Gura_ImplementMethod(context, set_line_join)
 Gura_DeclareMethod(context, get_line_join)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the current line join style, as set by cairo.context#set_line_join().\n"
+	);
 }
 
 Gura_ImplementMethod(context, get_line_join)
@@ -566,6 +762,23 @@ Gura_DeclareMethod(context, set_line_width)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "width", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Sets the current line width within the cairo context.\n"
+	"The line width value specifies the diameter of a pen that is circular in user space,\n"
+	"(though device-space pen may be an ellipse in general due to scaling/shear/rotation of the CTM).\n"
+	"\n"
+	"Note: When the description above refers to user space and CTM\n"
+	"it refers to the user space and CTM in effect at the time of the stroking operation,\n"
+	"not the user space and CTM in effect at the time of the call to cairo.context#set_line_width().\n"
+	"The simplest usage makes both of these spaces identical.\n"
+	"That is, if there is no change to the CTM between a call to cairo.context#set_line_width() and the stroking operation,\n"
+	"then one can just pass user-space values to cairo.context#set_line_width() and ignore this note.\n"
+	"\n"
+	"As with the other stroke parameters, the current line width is examined by cairo.context#stroke(), cairo.context#stroke_extents(),\n"
+	"and cairo.context#stroke_to_path(), but does not have any effect during path construction.\n"
+	"\n"
+	"The default line width value is 2.0.\n"
+	);
 }
 
 Gura_ImplementMethod(context, set_line_width)
@@ -582,6 +795,11 @@ Gura_ImplementMethod(context, set_line_width)
 Gura_DeclareMethod(context, get_line_width)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"This function returns the current line width value exactly as set by cairo.context#set_line_width().\n"
+	"Note that the value is unchanged even if the CTM has changed between the calls to cairo.context#set_line_width()\n"
+	"and cairo.context#get_line_width().\n"
+	);
 }
 
 Gura_ImplementMethod(context, get_line_width)
@@ -599,6 +817,22 @@ Gura_DeclareMethod(context, set_miter_limit)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "limit", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Sets the current miter limit within the cairo context.\n"
+	"\n"
+	"If the current line join style is set to cairo.LINE_JOIN_MITER\n"
+	"(see cairo_set_line_join()), the miter limit is used to determine whether the lines should be joined with a bevel instead of a miter.\n"
+	"Cairo divides the length of the miter by the line width.\n"
+	"If the result is greater than the miter limit, the style is converted to a bevel.\n"
+	"\n"
+	"As with the other stroke parameters, the current line miter limit is examined by cairo.context#stroke(), cairo.context#stroke_extents(),\n"
+	"and cairo.context#stroke_to_path(), but does not have any effect during path construction.\n"
+	"\n"
+	"The default miter limit value is 10.0, which will convert joins with interior angles less than 11 degrees to bevels instead of miters.\n"
+	"For reference, a miter limit of 2.0 makes the miter cutoff at 60 degrees, and a miter limit of 1.414 makes the cutoff at 90 degrees.\n"
+	"\n"
+	"A miter limit for a desired angle can be computed as: miter limit = 1/sin(angle/2)\n"
+	);
 }
 
 Gura_ImplementMethod(context, set_miter_limit)
@@ -615,6 +849,9 @@ Gura_ImplementMethod(context, set_miter_limit)
 Gura_DeclareMethod(context, get_miter_limit)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the current miter limit, as set by cairo.context#set_miter_limit().\n"
+	);
 }
 
 Gura_ImplementMethod(context, get_miter_limit)
@@ -632,6 +869,9 @@ Gura_DeclareMethod(context, set_operator)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "op", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, set_operator)
@@ -650,6 +890,9 @@ Gura_ImplementMethod(context, set_operator)
 Gura_DeclareMethod(context, get_operator)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, get_operator)
@@ -667,6 +910,9 @@ Gura_DeclareMethod(context, set_tolerance)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "tolerance", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, set_tolerance)
@@ -683,6 +929,9 @@ Gura_ImplementMethod(context, set_tolerance)
 Gura_DeclareMethod(context, get_tolerance)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, get_tolerance)
@@ -699,6 +948,9 @@ Gura_ImplementMethod(context, get_tolerance)
 Gura_DeclareMethod(context, clip)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, clip)
@@ -715,6 +967,9 @@ Gura_ImplementMethod(context, clip)
 Gura_DeclareMethod(context, clip_preserve)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, clip_preserve)
@@ -731,6 +986,9 @@ Gura_ImplementMethod(context, clip_preserve)
 Gura_DeclareMethod(context, clip_extents)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, clip_extents)
@@ -750,6 +1008,9 @@ Gura_DeclareMethod(context, in_clip)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, in_clip)
@@ -766,6 +1027,9 @@ Gura_ImplementMethod(context, in_clip)
 Gura_DeclareMethod(context, reset_clip)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, reset_clip)
@@ -784,6 +1048,9 @@ Gura_ImplementMethod(context, reset_clip)
 Gura_DeclareMethod(context, copy_clip_rectangle_list)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, copy_clip_rectangle_list)
@@ -811,6 +1078,9 @@ Gura_ImplementMethod(context, copy_clip_rectangle_list)
 Gura_DeclareMethod(context, fill)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, fill)
@@ -827,6 +1097,9 @@ Gura_ImplementMethod(context, fill)
 Gura_DeclareMethod(context, fill_preserve)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, fill_preserve)
@@ -843,6 +1116,9 @@ Gura_ImplementMethod(context, fill_preserve)
 Gura_DeclareMethod(context, fill_extents)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, fill_extents)
@@ -862,6 +1138,9 @@ Gura_DeclareMethod(context, in_fill)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, in_fill)
@@ -879,6 +1158,9 @@ Gura_DeclareMethod(context, mask)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "pattern", VTYPE_pattern);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, mask)
@@ -899,6 +1181,9 @@ Gura_DeclareMethod(context, mask_surface)
 	DeclareArg(env, "surface", VTYPE_surface);
 	DeclareArg(env, "surface_x", VTYPE_number);
 	DeclareArg(env, "surface_y", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, mask_surface)
@@ -918,6 +1203,9 @@ Gura_ImplementMethod(context, mask_surface)
 Gura_DeclareMethod(context, paint)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, paint)
@@ -935,6 +1223,9 @@ Gura_DeclareMethod(context, paint_with_alpha)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "alpha", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, paint_with_alpha)
@@ -951,6 +1242,9 @@ Gura_ImplementMethod(context, paint_with_alpha)
 Gura_DeclareMethod(context, stroke)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, stroke)
@@ -967,6 +1261,9 @@ Gura_ImplementMethod(context, stroke)
 Gura_DeclareMethod(context, stroke_preserve)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, stroke_preserve)
@@ -983,6 +1280,9 @@ Gura_ImplementMethod(context, stroke_preserve)
 Gura_DeclareMethod(context, stroke_extents)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, stroke_extents)
@@ -1002,6 +1302,9 @@ Gura_DeclareMethod(context, in_stroke)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, in_stroke)
@@ -1018,6 +1321,9 @@ Gura_ImplementMethod(context, in_stroke)
 Gura_DeclareMethod(context, copy_page)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, copy_page)
@@ -1034,6 +1340,9 @@ Gura_ImplementMethod(context, copy_page)
 Gura_DeclareMethod(context, show_page)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, show_page)
@@ -1058,6 +1367,9 @@ Gura_ImplementMethod(context, show_page)
 Gura_DeclareMethod(context, copy_path)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, copy_path)
@@ -1075,6 +1387,9 @@ Gura_ImplementMethod(context, copy_path)
 Gura_DeclareMethod(context, copy_path_flat)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, copy_path_flat)
@@ -1093,6 +1408,9 @@ Gura_DeclareMethod(context, append_path)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "path", VTYPE_path);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, append_path)
@@ -1110,6 +1428,9 @@ Gura_ImplementMethod(context, append_path)
 Gura_DeclareMethod(context, has_current_point)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, has_current_point)
@@ -1126,6 +1447,9 @@ Gura_ImplementMethod(context, has_current_point)
 Gura_DeclareMethod(context, get_current_point)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, get_current_point)
@@ -1143,6 +1467,9 @@ Gura_ImplementMethod(context, get_current_point)
 Gura_DeclareMethod(context, new_path)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, new_path)
@@ -1159,6 +1486,9 @@ Gura_ImplementMethod(context, new_path)
 Gura_DeclareMethod(context, new_sub_path)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, new_sub_path)
@@ -1175,6 +1505,9 @@ Gura_ImplementMethod(context, new_sub_path)
 Gura_DeclareMethod(context, close_path)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, close_path)
@@ -1197,6 +1530,9 @@ Gura_DeclareMethod(context, arc)
 	DeclareArg(env, "radius", VTYPE_number);
 	DeclareArg(env, "angle1", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "angle2", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, arc)
@@ -1222,6 +1558,9 @@ Gura_DeclareMethod(context, arc_negative)
 	DeclareArg(env, "radius", VTYPE_number);
 	DeclareArg(env, "angle1", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "angle2", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, arc_negative)
@@ -1247,6 +1586,9 @@ Gura_DeclareMethod(context, curve_to)
 	DeclareArg(env, "y2", VTYPE_number);
 	DeclareArg(env, "x3", VTYPE_number);
 	DeclareArg(env, "y3", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, curve_to)
@@ -1268,6 +1610,9 @@ Gura_DeclareMethod(context, line_to)
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, line_to)
@@ -1286,6 +1631,9 @@ Gura_DeclareMethod(context, move_to)
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, move_to)
@@ -1306,6 +1654,9 @@ Gura_DeclareMethod(context, rectangle)
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
 	DeclareArg(env, "height", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, rectangle)
@@ -1325,6 +1676,9 @@ Gura_DeclareMethod(context, glyph_path)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "glyphs", VTYPE_glyph);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, glyph_path)
@@ -1343,6 +1697,9 @@ Gura_DeclareMethod(context, text_path)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, text_path)
@@ -1365,6 +1722,9 @@ Gura_DeclareMethod(context, rel_curve_to)
 	DeclareArg(env, "dy2", VTYPE_number);
 	DeclareArg(env, "dx3", VTYPE_number);
 	DeclareArg(env, "dy3", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, rel_curve_to)
@@ -1386,6 +1746,9 @@ Gura_DeclareMethod(context, rel_line_to)
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "dx", VTYPE_number);
 	DeclareArg(env, "dy", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, rel_line_to)
@@ -1404,6 +1767,9 @@ Gura_DeclareMethod(context, rel_move_to)
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "dx", VTYPE_number);
 	DeclareArg(env, "dy", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, rel_move_to)
@@ -1420,6 +1786,9 @@ Gura_ImplementMethod(context, rel_move_to)
 Gura_DeclareMethod(context, path_extents)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, path_extents)
@@ -1443,6 +1812,9 @@ Gura_DeclareMethod(context, translate)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "tx", VTYPE_number);
 	DeclareArg(env, "ty", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, translate)
@@ -1461,6 +1833,9 @@ Gura_DeclareMethod(context, scale)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "sx", VTYPE_number);
 	DeclareArg(env, "sy", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, scale)
@@ -1478,6 +1853,9 @@ Gura_DeclareMethod(context, rotate)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "angle", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, rotate)
@@ -1495,6 +1873,9 @@ Gura_DeclareMethod(context, transform)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_matrix);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, transform)
@@ -1515,6 +1896,9 @@ Gura_DeclareMethod(context, set_matrix)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_matrix);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, set_matrix)
@@ -1534,6 +1918,9 @@ Gura_ImplementMethod(context, set_matrix)
 Gura_DeclareMethod(context, get_matrix)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, get_matrix)
@@ -1552,6 +1939,9 @@ Gura_ImplementMethod(context, get_matrix)
 Gura_DeclareMethod(context, identity_matrix)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, identity_matrix)
@@ -1570,6 +1960,9 @@ Gura_DeclareMethod(context, user_to_device)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, user_to_device)
@@ -1590,6 +1983,9 @@ Gura_DeclareMethod(context, user_to_device_distance)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dx", VTYPE_number);
 	DeclareArg(env, "dy", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, user_to_device_distance)
@@ -1610,6 +2006,9 @@ Gura_DeclareMethod(context, device_to_user)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, device_to_user)
@@ -1630,6 +2029,9 @@ Gura_DeclareMethod(context, device_to_user_distance)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dx", VTYPE_number);
 	DeclareArg(env, "dy", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, device_to_user_distance)
@@ -1655,6 +2057,9 @@ Gura_DeclareMethod(context, select_font_face)
 	DeclareArg(env, "family", VTYPE_string);
 	DeclareArg(env, "slant", VTYPE_number);
 	DeclareArg(env, "weight", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, select_font_face)
@@ -1677,6 +2082,9 @@ Gura_DeclareMethod(context, set_font_size)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "size", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, set_font_size)
@@ -1694,6 +2102,9 @@ Gura_DeclareMethod(context, set_font_matrix)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_matrix);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, set_font_matrix)
@@ -1713,6 +2124,9 @@ Gura_ImplementMethod(context, set_font_matrix)
 Gura_DeclareMethod(context, get_font_matrix)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, get_font_matrix)
@@ -1732,6 +2146,9 @@ Gura_DeclareMethod(context, set_font_options)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "options", VTYPE_font_options);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, set_font_options)
@@ -1749,6 +2166,9 @@ Gura_ImplementMethod(context, set_font_options)
 Gura_DeclareMethod(context, get_font_options)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, get_font_options)
@@ -1771,6 +2191,9 @@ Gura_DeclareMethod(context, set_font_face)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "font_face", VTYPE_font_face);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, set_font_face)
@@ -1788,6 +2211,9 @@ Gura_ImplementMethod(context, set_font_face)
 Gura_DeclareMethod(context, get_font_face)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, get_font_face)
@@ -1808,6 +2234,9 @@ Gura_DeclareMethod(context, set_scaled_font)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "scaled_font", VTYPE_scaled_font);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, set_scaled_font)
@@ -1825,6 +2254,9 @@ Gura_ImplementMethod(context, set_scaled_font)
 Gura_DeclareMethod(context, get_scaled_font)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, get_scaled_font)
@@ -1845,6 +2277,9 @@ Gura_DeclareMethod(context, show_text)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, show_text)
@@ -1862,6 +2297,9 @@ Gura_DeclareMethod(context, show_glyphs)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "glyphs", VTYPE_glyph);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, show_glyphs)
@@ -1884,6 +2322,9 @@ Gura_DeclareMethod(context, show_text_glyphs)
 	DeclareArg(env, "glyphs", VTYPE_glyph);
 	DeclareArg(env, "clusters", VTYPE_text_cluster);
 	DeclareArg(env, "cluster_flags", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, show_text_glyphs)
@@ -1907,6 +2348,9 @@ Gura_ImplementMethod(context, show_text_glyphs)
 Gura_DeclareMethod(context, font_extents)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, font_extents)
@@ -1926,6 +2370,9 @@ Gura_DeclareMethod(context, text_extents)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, text_extents)
@@ -1945,6 +2392,9 @@ Gura_DeclareMethod(context, glyph_extents)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "glyphs", VTYPE_glyph);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(context, glyph_extents)
