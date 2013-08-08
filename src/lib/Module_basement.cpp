@@ -134,10 +134,10 @@ Gura_ImplementFunction(module)
 	return Value(pModule);
 }
 
-// import(`module, `alias?):[overwrite] {block?}
+// import(`module, `alias?):void:[binary,overwrite,mixin_type] {block?}
 Gura_DeclareFunctionAlias(import_, "import")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "module", VTYPE_quote);
 	DeclareArg(env, "alias", VTYPE_quote, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
