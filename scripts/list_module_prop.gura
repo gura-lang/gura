@@ -18,5 +18,6 @@ dirtype(m).each() {|type, i|
 	println(type)
 	println(strBorder)
 	x = classref(msym, type)
-	println(x.getprop!(dir(x):noesc))
+	props = x.getprop!(dir(x):noesc)
+	println(props.filter(props:*istype(`function)))
 }
