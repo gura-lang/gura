@@ -1,8 +1,22 @@
 #!/usr/bin/env gura
-import(wx)
-dirtype(wx).each() {|type|
-	println()
-	println('**** ', type, ' ****')
-	x = classref(`wx, type)
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: list_module_prop.gura module_name')
+	sys.exit(1)
+}
+msym = tosymbol(sys.argv[1])
+try {
+	format('import(%s)', msym).parse().eval()
+} except {|e|
+	sys.stderr.println(e.text)
+	sys.exit(1)
+}
+m = eval(msym)
+strBorder = '-' * 78
+dirtype(m).each() {|type, i|
+	(i > 0) && println()
+	println(strBorder)
+	println(type)
+	println(strBorder)
+	x = classref(msym, type)
 	println(x.getprop!(dir(x):noesc))
 }
