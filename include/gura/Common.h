@@ -363,18 +363,18 @@ public:
 			(static_cast<ULong>(GetRed()) << 0);
 	}
 	inline bool operator<(const Color &c) const { return GetRGB() < c.GetRGB(); }
-	inline size_t CalcDist(UChar red, UChar green, UChar blue) const {
-		return CalcDist(GetRed(), GetGreen(), GetBlue(), red, green, blue);
+	inline size_t CalcDistSqu(UChar red, UChar green, UChar blue) const {
+		return CalcDistSqu(GetRed(), GetGreen(), GetBlue(), red, green, blue);
 	}
-	inline size_t CalcDist(const Color &c) const {
-		return CalcDist(GetRed(), GetGreen(), GetBlue(), c.GetRed(), c.GetGreen(), c.GetBlue());
+	inline size_t CalcDistSqu(const Color &c) const {
+		return CalcDistSqu(GetRed(), GetGreen(), GetBlue(), c.GetRed(), c.GetGreen(), c.GetBlue());
 	}
 	inline String GetHTML() const {
 		char buff[32];
 		::sprintf(buff, "#%06lx", GetRGB());
 		return String(buff);
 	}
-	static inline size_t CalcDist(
+	static inline size_t CalcDistSqu(
 				UChar red1, UChar green1, UChar blue1,
 				UChar red2, UChar green2, UChar blue2) {
 		Long distR = static_cast<Long>(red1) - static_cast<Long>(red2);

@@ -1324,7 +1324,7 @@ Gura_ImplementBinaryOperator(Sub, color, color)
 {
 	const Color &color1 = Object_color::GetObject(valueLeft)->GetColor();
 	const Color &color2 = Object_color::GetObject(valueRight)->GetColor();
-	return Value(::sqrt(static_cast<double>(color1.CalcDist(color2))));
+	return Value(::sqrt(static_cast<double>(color1.CalcDistSqu(color2))));
 }
 
 Gura_ImplementBinaryOperator(Sub, pointer, number)

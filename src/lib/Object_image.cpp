@@ -318,20 +318,22 @@ Gura_ImplementMethod(image, extract)
 	return Value::Null;
 }
 
-// image#replacecolor(colorOrg:color, color:color):void
+// image#replacecolor(colorOrg:color, color:color, tolerance?:number):void
 Gura_DeclareMethod(image, replacecolor)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "colorOrg", VTYPE_color);
 	DeclareArg(env, "color", VTYPE_color);
+	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(image, replacecolor)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
+	double tolerance = args.IsNumber(2)? args.GetDouble(2) : 0.;
 	pThis->GetImage()->ReplaceColor(Object_color::GetObject(args, 0)->GetColor(),
-							Object_color::GetObject(args, 1)->GetColor());
+					Object_color::GetObject(args, 1)->GetColor(), tolerance);
 	return Value::Null;
 }
 
@@ -386,12 +388,13 @@ Gura_ImplementMethod(image, fillrect)
 	return Value::Null;
 }
 
-// image#setalpha(alpha:number, color?:color):reduce
+// image#setalpha(alpha:number, color?:color, tolerance?:number):reduce
 Gura_DeclareMethod(image, setalpha)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "alpha", VTYPE_number);
 	DeclareArg(env, "color", VTYPE_color, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(image, setalpha)
@@ -403,7 +406,9 @@ Gura_ImplementMethod(image, setalpha)
 		return 0;
 	}
 	if (args.IsValid(1)) {
-		pThis->GetImage()->FillAlpha(args.GetUChar(0), Object_color::GetObject(args, 1)->GetColor());
+		double tolerance = args.IsNumber(2)? args.GetDouble(2) : 0;
+		pThis->GetImage()->FillAlpha(args.GetUChar(0),
+					Object_color::GetObject(args, 1)->GetColor(), tolerance);
 	} else {
 		pThis->GetImage()->FillAlpha(args.GetUChar(0));
 	}

@@ -63,11 +63,11 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	String GetHTML() const;
-	inline size_t CalcDist(UChar red, UChar green, UChar blue) const {
-		return _color.CalcDist(red, green, blue);
+	inline size_t CalcDistSqu(UChar red, UChar green, UChar blue) const {
+		return _color.CalcDistSqu(red, green, blue);
 	}
-	inline size_t CalcDist(const Object_color *pObjColor) const {
-		return _color.CalcDist(pObjColor->GetRed(), pObjColor->GetGreen(), pObjColor->GetBlue());
+	inline size_t CalcDistSqu(const Object_color *pObjColor) const {
+		return _color.CalcDistSqu(pObjColor->GetRed(), pObjColor->GetGreen(), pObjColor->GetBlue());
 	}
 	static Object_color *CreateNamedColor(Environment &env,
 						Signal sig, const char *name, UChar alpha);

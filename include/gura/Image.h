@@ -242,9 +242,9 @@ public:
 	bool Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
 						const Symbol *pSymbol, ValueList &valList);
 	void ReplaceColorRect(size_t x, size_t y, size_t width, size_t height,
-						const Color &colorOrg, const Color &color);
-	inline void ReplaceColor(const Color &colorOrg, Color &color) {
-		ReplaceColorRect(0, 0, _width, _height, colorOrg, color);
+						const Color &colorOrg, const Color &color, double tolerance);
+	inline void ReplaceColor(const Color &colorOrg, Color &color, double tolerance) {
+		ReplaceColorRect(0, 0, _width, _height, colorOrg, color, tolerance);
 	}
 	void FillRect(size_t x, size_t y, size_t width, size_t height, const Color &color);
 	inline void Fill(const Color &color) {
@@ -253,12 +253,12 @@ public:
 	void FillRectAlpha(size_t x, size_t y,
 			size_t width, size_t height, UChar alpha);
 	void FillRectAlpha(size_t x, size_t y,
-			size_t width, size_t height, UChar alpha, const Color &color);
+			size_t width, size_t height, UChar alpha, const Color &color, double tolerance);
 	inline void FillAlpha(UChar alpha) {
 		FillRectAlpha(0, 0, _width, _height, alpha);
 	}
-	inline void FillAlpha(UChar alpha, const Color &color) {
-		FillRectAlpha(0, 0, _width, _height, alpha, color);
+	inline void FillAlpha(UChar alpha, const Color &color, double tolerance) {
+		FillRectAlpha(0, 0, _width, _height, alpha, color, tolerance);
 	}
 	const Palette *GetPalette() const { return _pPalette.get(); }
 	Image *ReduceColor(Signal sig, const Palette *pPalette);

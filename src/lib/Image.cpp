@@ -289,27 +289,50 @@ bool Image::Extract(Signal sig, size_t x, size_t y, size_t width, size_t height,
 }
 
 void Image::ReplaceColorRect(size_t x, size_t y, size_t width, size_t height,
-				const Color &colorOrg, const Color &color)
+				const Color &colorOrg, const Color &color, double tolerance)
 {
 	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
-	UChar buffOrg[8], buff[8];
-	PutPixel(buffOrg, colorOrg);
+	UChar buff[8];
 	PutPixel(buff, color);
-	if (_format == FORMAT_RGBA) {
-		do {
-			UChar *pPixel = pScanner->GetPointer();
-			if (::memcmp(pPixel, buffOrg, 3) == 0) {
-				StorePixelRGB(pScanner->GetPointer(), buff);
-				//StorePixelRGBA(pScanner->GetPointer(), buff);
-			}
-		} while (pScanner->Next());
+	if (tolerance == 0.) {
+		UChar buffOrg[8];
+		PutPixel(buffOrg, colorOrg);
+		if (_format == FORMAT_RGBA) {
+			do {
+				UChar *pPixel = pScanner->GetPointer();
+				if (::memcmp(pPixel, buffOrg, 3) == 0) {
+					StorePixelRGB(pScanner->GetPointer(), buff);
+				}
+			} while (pScanner->Next());
+		} else {
+			do {
+				UChar *pPixel = pScanner->GetPointer();
+				if (::memcmp(pPixel, buffOrg, 3) == 0) {
+					StorePixelRGB(pScanner->GetPointer(), buff);
+				}
+			} while (pScanner->Next());
+		}
 	} else {
-		do {
-			UChar *pPixel = pScanner->GetPointer();
-			if (::memcmp(pPixel, buffOrg, 3) == 0) {
-				StorePixelRGB(pScanner->GetPointer(), buff);
-			}
-		} while (pScanner->Next());
+		double toleranceSqu = tolerance * tolerance;
+		if (_format == FORMAT_RGBA) {
+			do {
+				double dist = Color::CalcDistSqu(
+						pScanner->GetRed(), pScanner->GetGreen(), pScanner->GetBlue(),
+						color.GetRed(), color.GetGreen(), color.GetBlue());
+				if (dist <= toleranceSqu) {
+					StorePixelRGB(pScanner->GetPointer(), buff);
+				}
+			} while (pScanner->Next());
+		} else {
+			do {
+				double dist = Color::CalcDistSqu(
+						pScanner->GetRed(), pScanner->GetGreen(), pScanner->GetBlue(),
+						color.GetRed(), color.GetGreen(), color.GetBlue());
+				if (dist <= toleranceSqu) {
+					StorePixelRGB(pScanner->GetPointer(), buff);
+				}
+			} while (pScanner->Next());
+		}
 	}
 }
 
@@ -341,17 +364,30 @@ void Image::FillRectAlpha(size_t x, size_t y,
 }
 
 void Image::FillRectAlpha(size_t x, size_t y,
-		size_t width, size_t height, UChar alpha, const Color &color)
+	size_t width, size_t height, UChar alpha, const Color &color, double tolerance)
 {
 	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
-	UChar buff[8];
-	PutPixel(buff, color);
-	do {
-		UChar *pPixel = pScanner->GetPointer();
-		if (::memcmp(pPixel, buff, 3) == 0) {
-			*(pPixel + OffsetAlpha) = alpha;
-		}
-	} while (pScanner->Next());
+	if (tolerance == 0.) {
+		UChar buff[8];
+		PutPixel(buff, color);
+		do {
+			UChar *pPixel = pScanner->GetPointer();
+			if (::memcmp(pPixel, buff, 3) == 0) {
+				*(pPixel + OffsetAlpha) = alpha;
+			}
+		} while (pScanner->Next());
+	} else {
+		double toleranceSqu = tolerance * tolerance;
+		do {
+			double dist = Color::CalcDistSqu(
+					pScanner->GetRed(), pScanner->GetGreen(), pScanner->GetBlue(),
+					color.GetRed(), color.GetGreen(), color.GetBlue());
+			if (dist <= toleranceSqu) {
+				UChar *pPixel = pScanner->GetPointer();
+				*(pPixel + OffsetAlpha) = alpha;
+			}
+		} while (pScanner->Next());
+	}
 }
 
 Image *Image::ReduceColor(Signal sig, const Palette *pPalette)
