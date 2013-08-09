@@ -65,6 +65,7 @@ GURA_DLLDECLARE String Join(const ValueList &valList, const char *str);
 GURA_DLLDECLARE String Replace(const char *str, const char *sub, const char *replace,
 									int nMaxReplace, const SymbolSet &attrs);
 GURA_DLLDECLARE void SplitPathList(const char *str, StringList &strList);
+GURA_DLLDECLARE String FormatText(const char *text, const char *lineTop);
 GURA_DLLDECLARE Value FindString(Environment &env, Signal sig,
 		const char *str, const char *sub, int start, const SymbolSet &attrs);
 

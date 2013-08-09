@@ -980,6 +980,152 @@ void SplitPathList(const char *str, StringList &strList)
 	} while (ch != '\0');
 }
 
+String FormatText(const char *text, const char *lineTop)
+{
+	enum Stat {
+		STAT_LineTop, STAT_LineTop_SkipWhite,
+		STAT_Paragraph, STAT_Paragraph_SkipWhite, STAT_Paragraph_LineFeed,
+		STAT_Raw, STAT_Raw_LineFeed,
+		STAT_SkipLineFeed,
+	} stat = STAT_LineTop;
+	const char *rawTop = "  ";
+	String rtn;
+	String strWord;
+	String strLine;
+	const int nCharsLimit = 78;
+	for (const char *p = text; ; p++) {
+		char ch = *p;
+		bool continueFlag = false;
+		do {
+			continueFlag = false;
+			switch (stat) {
+			case STAT_LineTop: {
+				if (ch == ' ' || ch == '\t') {
+					if (strLine.empty()) {
+						// nothing to do
+					} else {
+						rtn += lineTop;
+						rtn += strLine;
+						rtn += '\n';
+						strLine.clear();
+					}
+					stat = STAT_LineTop_SkipWhite;
+				} else {
+					continueFlag = true;
+					stat = STAT_Paragraph;
+				}
+				break;
+			}
+			case STAT_LineTop_SkipWhite: {
+				if (ch == ' ' || ch == '\t') {
+					// nothing to do
+				} else {
+					continueFlag = true;
+					stat = STAT_Raw;
+				}
+				break;
+			}
+			case STAT_Paragraph: {
+				if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0') {
+					if (strLine.empty()) {
+						// nothing to do
+					} else if (strLine.size() + 1 + strWord.size() < nCharsLimit) {
+						strLine += ' ';
+					} else {
+						rtn += lineTop;
+						rtn += strLine;
+						rtn += '\n';
+						strLine.clear();
+					}
+					strLine += strWord;
+					strWord.clear();
+					if (ch == '\n') {
+						stat = STAT_Paragraph_LineFeed;
+					} else if (ch == '\0') {
+						// nothing to do
+					} else {
+						stat = STAT_Paragraph_SkipWhite;
+					}
+				} else {
+					strWord += ch;
+				}
+				break;
+			}
+			case STAT_Paragraph_SkipWhite: {
+				if (ch == ' ' || ch == '\t') {
+					// nothing to do
+				} else if (ch == '\n') {
+					stat = STAT_Paragraph_LineFeed;
+				} else {
+					continueFlag = true;
+					stat = STAT_Paragraph;
+				}
+				break;
+			}
+			case STAT_Paragraph_LineFeed: {
+				if (ch == '\n') {
+					if (strLine.empty()) {
+						// nothing to do
+					} else {
+						rtn += lineTop;
+						rtn += strLine;
+						rtn += '\n';
+						rtn += lineTop;
+						rtn += '\n';
+						strLine.clear();
+					}
+					stat = STAT_SkipLineFeed;
+				} else {
+					continueFlag = true;
+					stat = STAT_LineTop;
+				}
+				break;
+			}
+			case STAT_Raw: {
+				if (ch == '\n' || ch == '\0') {
+					rtn += lineTop;
+					rtn += rawTop;
+					rtn += strLine;
+					rtn += '\n';
+					strLine.clear();
+					stat = STAT_Raw_LineFeed;
+				} else {
+					strLine += ch;
+				}
+				break;
+			}
+			case STAT_Raw_LineFeed: {
+				if (ch == '\n') {
+					rtn += lineTop;
+					rtn += '\n';
+					stat = STAT_SkipLineFeed;
+				} else {
+					continueFlag = true;
+					stat = STAT_LineTop;
+				}
+				break;
+			}
+			case STAT_SkipLineFeed: {
+				if (ch == '\n') {
+					// nothing to do
+				} else {
+					continueFlag = true;
+					stat = STAT_LineTop;
+				}
+				break;
+			}
+			}
+		} while (continueFlag);
+		if (ch == '\0') break;
+	}
+	if (!strLine.empty()) {
+		rtn += lineTop;
+		rtn += strLine;
+		rtn += '\n';
+	}
+	return rtn;
+}
+
 //-----------------------------------------------------------------------------
 // StringList
 //-----------------------------------------------------------------------------

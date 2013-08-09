@@ -147,9 +147,11 @@ Gura_DeclareFunctionAlias(import_, "import")
 	AddHelp(Gura_Symbol(en),
 	"Imports a module stored in directories specified by a variable sys.path.\n"
 	"There are three ways of calling this function like follow:\n"
+	"\n"
 	"  1. import(foo)\n"
 	"  2. import(foo, bar)\n"
 	"  3. import(foo) {symbol1, symbol2, symbol3}\n"
+	"\n"
 	"In the first format, it creates a module object named foo.\n"
 	"In the second, it names the module object as bar instead of foo.\n"
 	"In the third, it doesn't register the module name into the environment,\n"
@@ -158,6 +160,7 @@ Gura_DeclareFunctionAlias(import_, "import")
 	"it will cause an error. Attribute :overwrite will disable such an error\n"
 	"detection and allow overwriting of symbols. You can specify an asterisk\n"
 	"character to include all the registered symbols like follows.\n"
+	"\n"
 	"  import(foo) {*}");
 }
 
@@ -1274,22 +1277,8 @@ Gura_ImplementFunction(help)
 	pConsole->Println(sig, pFuncObj->ToString(sig, true).c_str());
 	if (sig.IsSignalled()) return Value::Null;
 	const char *helpStr = pFuncObj->GetFunction()->GetHelp(pSymbol);
-	if (helpStr != NULL) {
-		const char *lineTop = "  ";
-		bool lineTopFlag = true;
-		for (const char *p = helpStr; *p != '\0'; p++) {
-			char ch = *p;
-			if (lineTopFlag) {
-				pConsole->Print(sig, lineTop);
-				if (sig.IsSignalled()) return Value::Null;
-				lineTopFlag = false;
-			}
-			pConsole->PutChar(sig, ch);
-			if (sig.IsSignalled()) return Value::Null;
-			if (ch == '\n') lineTopFlag = true;
-		}
-		if (!lineTopFlag) pConsole->PutChar(sig, '\n');
-	}
+	if (helpStr == NULL) return Value::Null;
+	pConsole->Print(sig, FormatText(helpStr, "  ").c_str());
 	return Value::Null;
 }
 

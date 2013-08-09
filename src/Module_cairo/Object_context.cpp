@@ -870,7 +870,10 @@ Gura_DeclareMethod(context, set_operator)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "op", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets the compositing operator to be used for all drawing operations.\n"
+	"See cairo_operator_t for details on the semantics of each available compositing operator.\n"
+	"\n"
+	"The default operator is cairo.OPERATOR_OVER.\n"
 	);
 }
 
@@ -891,7 +894,7 @@ Gura_DeclareMethod(context, get_operator)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Gets the current compositing operator for a cairo context.\n"
 	);
 }
 
@@ -911,7 +914,14 @@ Gura_DeclareMethod(context, set_tolerance)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "tolerance", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets the tolerance used when converting paths into trapezoids.\n"
+	"Curved segments of the path will be subdivided until the maximum deviation\n"
+	"between the original path and the polygonal approximation is less than tolerance.\n"
+	"The default value is 0.1. A larger value will give better performance,\n"
+	"a smaller value, better appearance.\n"
+	"(Reducing the value from the default value of 0.1 is unlikely to improve appearance significantly.)\n"
+	"The accuracy of paths within Cairo is limited by the precision of its internal arithmetic,\n"
+	"and the prescribed tolerance is restricted to the smallest representable internal value.\n"
 	);
 }
 
@@ -930,7 +940,7 @@ Gura_DeclareMethod(context, get_tolerance)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Gets the current tolerance value, as set by cairo.context#set_tolerance()."
 	);
 }
 
@@ -949,7 +959,20 @@ Gura_DeclareMethod(context, clip)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Establishes a new clip region by intersecting the current clip region\n"
+	"with the current path as it would be filled by cairo.context#fill()\n"
+	"and according to the current fill rule (see cairo.context#set_fill_rule()).\n"
+	"\n"
+	"After cairo.context#clip(), the current path will be cleared from the cairo context.\n"
+	"\n"
+	"The current clip region affects all drawing operations\n"
+	"by effectively masking out any changes to the surface that are outside the current clip region.\n"
+	"\n"
+	"Calling cairo.context#clip() can only make the clip region smaller, never larger.\n"
+	"But the current clip is part of the graphics state,\n"
+	"so a temporary restriction of the clip region can be achieved by calling cairo.context#clip()\n"
+	"within a cairo.context#save()/cairo.context#restore() pair.\n"
+	"The only other means of increasing the size of the clip region is cairo.context#reset_clip().\n"
 	);
 }
 
@@ -968,7 +991,20 @@ Gura_DeclareMethod(context, clip_preserve)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Establishes a new clip region by intersecting the current clip region\n"
+	"with the current path as it would be filled by cairo.context#fill()\n"
+	"and according to the current fill rule (see cairo.context#set_fill_rule())."
+	"\n"
+	"Unlike cairo.context#clip(), cairo.context#clip_preserve() preserves the path within the cairo context.\n"
+	"\n"
+	"The current clip region affects all drawing operations\n"
+	"by effectively masking out any changes to the surface that are outside the current clip region.\n"
+	"\n"
+	"Calling cairo.context#clip_preserve() can only make the clip region smaller, never larger.\n"
+	"But the current clip is part of the graphics state,\n"
+	"so a temporary restriction of the clip region can be achieved by calling cairo.context#clip_preserve()\n"
+	"within a cairo.context#save()/cairo.context#restore() pair.\n"
+	"The only other means of increasing the size of the clip region is cairo.context#reset_clip().\n"
 	);
 }
 
@@ -987,7 +1023,7 @@ Gura_DeclareMethod(context, clip_extents)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Computes a bounding box in user coordinates covering the area inside the current clip.\n"
 	);
 }
 
@@ -1009,7 +1045,10 @@ Gura_DeclareMethod(context, in_clip)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Tests whether the given point is inside the area that would be visible through the current clip,\n"
+	"i.e. the area that would be filled by a cairo.context#paint() operation.\n"
+	"\n"
+	"See cairo.context#clip(), and cairo.context#clip_preserve().\n"
 	);
 }
 
@@ -1028,7 +1067,15 @@ Gura_DeclareMethod(context, reset_clip)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Reset the current clip region to its original, unrestricted state.\n"
+	"That is, set the clip region to an infinitely large shape containing the target surface.\n"
+	"Equivalently, if infinity is too hard to grasp,\n"
+	"one can imagine the clip region being reset to the exact bounds of the target surface.\n"
+	"\n"
+	"Note that code meant to be reusable should not call cairo_reset_clip()\n"
+	"as it will cause results unexpected by higher-level code which calls cairo.context#clip().\n"
+	"Consider using cairo.context#save() and cairo.context#restore() around cairo.context#clip()\n"
+	"as a more robust means of temporarily restricting the clip region.\n"
 	);
 }
 
@@ -1049,7 +1096,11 @@ Gura_DeclareMethod(context, copy_clip_rectangle_list)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Gets the current clip region as a list of rectangles in user coordinates.\n"
+	"\n"
+	"The status in the list may be cairo.STATUS_CLIP_NOT_REPRESENTABLE\n"
+	"to indicate that the clip region cannot be represented as a list of user-space rectangles.\n"
+	"The status may have other values to indicate other errors.\n"
 	);
 }
 
@@ -1079,7 +1130,10 @@ Gura_DeclareMethod(context, fill)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"A drawing operator that fills the current path according to the current fill rule,\n"
+	"(each sub-path is implicitly closed before being filled).\n"
+	"After cairo.context#fill(), the current path will be cleared from the cairo context.\n"
+	"See cairo.context#set_fill_rule() and cairo.context#fill_preserve().\n"
 	);
 }
 
@@ -1098,7 +1152,11 @@ Gura_DeclareMethod(context, fill_preserve)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"A drawing operator that fills the current path according to the current fill rule,\n"
+	"(each sub-path is implicitly closed before being filled).\n"
+	"Unlike cairo.context#fill(), cairo.context#fill_preserve() preserves the path within the cairo context.\n"
+	"\n"
+	"See cairo.context#set_fill_rule() and cairo.context#fill().\n"
 	);
 }
 
