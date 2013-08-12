@@ -1175,7 +1175,18 @@ Gura_DeclareMethod(context, fill_extents)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Computes a bounding box in user coordinates covering the area that\n"
+	"would be affected, (the \"inked\" area), by a cairo.context#fill() operation given the current path and fill parameters.\n"
+	"If the current path is empty, returns an empty rectangle ((0,0), (0,0)).\n"
+	"Surface dimensions and clipping are not taken into account.\n"
+	"\n"
+	"Contrast with cairo.context#path_extents(), which is similar,\n"
+	"but returns non-zero extents for some paths with no inked area, (such as a simple line segment).\n"
+	"\n"
+	"Note that cairo.context#fill_extents() must necessarily do more work to compute the precise inked areas in light of the fill rule,\n"
+	"so cairo.context#path_extents() may be more desirable for sake of performance if the non-inked path extents are desired.\n"
+	"\n"
+	"See cairo.context#fill(), cairo.context#set_fill_rule() and cairo.context#fill_preserve().\n"
 	);
 }
 
@@ -1197,7 +1208,10 @@ Gura_DeclareMethod(context, in_fill)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Tests whether the given point is inside the area that would be affected by a cairo.context#fill() operation given the current path and filling parameters.\n"
+	"Surface dimensions and clipping are not taken into account.\n"
+	"\n"
+	"See cairo.context#fill(), cairo.context#set_fill_rule() and cairo.context#fill_preserve().\n"
 	);
 }
 
@@ -1217,7 +1231,8 @@ Gura_DeclareMethod(context, mask)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	AddHelp(Gura_Symbol(en),
-	""
+	"A drawing operator that paints the current source using the alpha channel of pattern as a mask.\n"
+	"(Opaque areas of pattern are painted with the source, transparent areas are not painted.)\n"
 	);
 }
 
@@ -1240,7 +1255,8 @@ Gura_DeclareMethod(context, mask_surface)
 	DeclareArg(env, "surface_x", VTYPE_number);
 	DeclareArg(env, "surface_y", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"A drawing operator that paints the current source using the alpha channel of surface as a mask.\n"
+	"(Opaque areas of surface are painted with the source, transparent areas are not painted.)\n"
 	);
 }
 
@@ -1262,7 +1278,7 @@ Gura_DeclareMethod(context, paint)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"A drawing operator that paints the current source everywhere within the current clip region.\n"
 	);
 }
 
@@ -1282,7 +1298,8 @@ Gura_DeclareMethod(context, paint_with_alpha)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "alpha", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"A drawing operator that paints the current source everywhere within the current clip region using a mask of constant alpha value alpha.\n"
+	"The effect is similar to cairo.context#paint(), but the drawing is faded out using the alpha value.\n"
 	);
 }
 
@@ -1301,7 +1318,22 @@ Gura_DeclareMethod(context, stroke)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"A drawing operator that strokes the current path according to the current line width, line join, line cap, and dash settings.\n"
+	"After cairo.context#stroke(), the current path will be cleared from the cairo context.\n"
+	"See cairo.context#set_line_width(), cairo.context#set_line_join(), cairo.context#set_line_cap(), cairo.context#set_dash(), and cairo.context#stroke_preserve().\n"
+	"\n"
+	"Note: Degenerate segments and sub-paths are treated specially and provide a useful result.\n"
+	"These can result in two different situations:\n"
+	"\n"
+	"1. Zero-length \"on\" segments set in cairo.context#set_dash().\n"
+	"If the cap style is cairo.LINE_CAP_ROUND or cairo.LINE_CAP_SQUARE then these segments will be drawn as circular dots or squares respectively.\n"
+	"In the case of cairo.LINE_CAP_SQUARE, the orientation of the squares is determined by the direction of the underlying path.\n"
+	"\n"
+	"2. A sub-path created by cairo.context#move_to() followed by either a cairo.context#close_path() or one or more calls to cairo.context#line_to() to the same coordinate as the cairo.context#move_to().\n"
+	"If the cap style is cairo.LINE_CAP_ROUND then these sub-paths will be drawn as circular dots.\n"
+	"Note that in the case of cairo.LINE_CAP_SQUARE a degenerate sub-path will not be drawn at all, (since the correct orientation is indeterminate).\n"
+	"\n"
+	"In no case will a cap style of cairo.LINE_CAP_BUTT cause anything to be drawn in the case of either degenerate segments or sub-paths.\n"
 	);
 }
 
@@ -1320,7 +1352,10 @@ Gura_DeclareMethod(context, stroke_preserve)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"A drawing operator that strokes the current path according to the current line width, line join, line cap, and dash settings.\n"
+	"Unlike cairo.context#stroke(), cairo.context#stroke_preserve() preserves the path within the cairo context.\n"
+	"\n"
+	"See cairo.context#set_line_width(), cairo.context#set_line_join(), cairo.context#set_line_cap(), cairo.context#set_dash(), and cairo.context#stroke_preserve().\n"
 	);
 }
 
@@ -1339,7 +1374,18 @@ Gura_DeclareMethod(context, stroke_extents)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Computes a bounding box in user coordinates covering the area that would be affected,\n"
+	"(the \"inked\" area), by a cairo.context#stroke() operation given the current path and stroke parameters.\n"
+	"If the current path is empty, returns an empty rectangle ((0,0), (0,0)).\n"
+	"Surface dimensions and clipping are not taken into account.\n"
+	"\n"
+	"Note that if the line width is set to exactly zero, then cairo.context#stroke_extents() will return an empty rectangle.\n"
+	"Contrast with cairo.context#path_extents() which can be used to compute the non-empty bounds as the line width approaches zero.\n"
+	"\n"
+	"Note that cairo.context#stroke_extents() must necessarily do more work to compute the precise inked areas in light of the stroke parameters,\n"
+	"so cairo.context#path_extents() may be more desirable for sake of performance if non-inked path extents are desired.\n"
+	"\n"
+	"See cairo.context#stroke(), cairo.context#set_line_width(), cairo.context#set_line_join(), cairo.context#set_line_cap(), cairo.context#set_dash(), and cairo.context#stroke_preserve().\n"
 	);
 }
 
@@ -1361,7 +1407,9 @@ Gura_DeclareMethod(context, in_stroke)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Tests whether the given point is inside the area that would be affected by a cairo.context#stroke() operation given the current path and stroking parameters.\n"
+	"Surface dimensions and clipping are not taken into account.\n"
+	"See cairo_stroke(), cairo_set_line_width(), cairo_set_line_join(), cairo_set_line_cap(), cairo_set_dash(), and cairo_stroke_preserve().\n"
 	);
 }
 
