@@ -1636,7 +1636,12 @@ Gura_DeclareMethod(context, new_sub_path)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Begin a new sub-path. Note that the existing path is not affected. After this call there will be no current point.\n"
+	"\n"
+	"In many cases, this call is not needed since new sub-paths are frequently started with cairo.context#move_to().\n"
+	"\n"
+	"A call to cairo.context#new_sub_path() is particularly useful when beginning a new sub-path with one of the cairo.context#arc() calls.\n"
+	"This makes things easier as it is no longer necessary to manually compute the arc's initial coordinates for a call to cairo.context#move_to().\n"
 	);
 }
 
@@ -1655,7 +1660,19 @@ Gura_DeclareMethod(context, close_path)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Adds a line segment to the path from the current point to the beginning of the current sub-path,\n"
+	"(the most recent point passed to cairo.context#move_to()), and closes this sub-path.\n"
+	"After this call the current point will be at the joined endpoint of the sub-path.\n"
+	"\n"
+	"The behavior of cairo.context#close_path() is distinct from simply calling cairo.context#line_to() with the equivalent coordinate in the case of stroking.\n"
+	"When a closed sub-path is stroked, there are no caps on the ends of the sub-path.\n"
+	"Instead, there is a line join connecting the final and initial segments of the sub-path.\n"
+	"\n"
+	"If there is no current point before the call to cairo.context#close_path(), this function will have no effect.\n"
+	"\n"
+	"Note: As of cairo version 1.2.4 any call to cairo.context#close_path() will place an explicit MOVE_TO element into the path immediately after the CLOSE_PATH element,\n"
+	"(which can be seen in cairo.context#copy_path() for example).\n"
+	"This can simplify path processing in some cases as it may not be necessary to save the \"last move_to point\" during processing as the MOVE_TO immediately after the CLOSE_PATH will provide that point.\n"
 	);
 }
 
@@ -1680,7 +1697,30 @@ Gura_DeclareMethod(context, arc)
 	DeclareArg(env, "angle1", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "angle2", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Adds a circular arc of the given radius to the current path.\n"
+	"The arc is centered at (xc, yc), begins at angle1 and proceeds in the direction of increasing angles to end at angle2.\n"
+	"If angle2 is less than angle1 it will be progressively increased by 2*M_PI until it is greater than angle1.\n"
+	"\n"
+	"If there is a current point, an initial line segment will be added to the path to connect the current point to the beginning of the arc.\n"
+	"If this initial line is undesired, it can be avoided by calling cairo.context#new_sub_path() before calling cairo.context#arc().\n"
+	"\n"
+	"Angles are measured in radians. An angle of 0.0 is in the direction of the positive X axis (in user space).\n"
+	"An angle of math.pi/2.0 radians (90 degrees) is in the direction of the positive Y axis (in user space).\n"
+	"Angles increase in the direction from the positive X axis toward the positive Y axis.\n"
+	"So with the default transformation matrix, angles increase in a clockwise direction.\n"
+	"\n"
+	"(To convert from degrees to radians, use degrees * (math.pi / 180.).)\n"
+	"\n"
+	"This function gives the arc in the direction of increasing angles; see cairo.context#arc_negative() to get the arc in the direction of decreasing angles.\n"
+	"\n"
+	"The arc is circular in user space. To achieve an elliptical arc, you can scale the current transformation matrix by different amounts in the X and Y directions.\n"
+	"For example, to draw an ellipse in the box given by x, y, width, height:\n"
+	"\n"
+	"  cr.save()\n"
+	"  cr.translate(x + width / 2., y + height / 2.)\n"
+	"  cr.scale(width / 2., height / 2.)\n"
+	"  cr.arc(0., 0., 1., 0., 2 * math.pi)\n"
+	"  cr.restore()\n"
 	);
 }
 
@@ -1708,7 +1748,11 @@ Gura_DeclareMethod(context, arc_negative)
 	DeclareArg(env, "angle1", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "angle2", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Adds a circular arc of the given radius to the current path.\n"
+	"The arc is centered at (xc, yc), begins at angle1 and proceeds in the direction of decreasing angles to end at angle2.\n"
+	"If angle2 is greater than angle1 it will be progressively decreased by 2*math.pi until it is less than angle1.\n"
+	"\n"
+	"See cairo.context#arc() for more details. This function differs only in the direction of the arc between the two angles.\n"
 	);
 }
 
@@ -1736,7 +1780,11 @@ Gura_DeclareMethod(context, curve_to)
 	DeclareArg(env, "x3", VTYPE_number);
 	DeclareArg(env, "y3", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Adds a cubic Bezier spline to the path from the current point to position (x3, y3) in user-space coordinates,\n"
+	"using (x1, y1) and (x2, y2) as the control points.\n"
+	"After this call the current point will be (x3, y3).\n"
+	"\n"
+	"If there is no current point before the call to cairo.context#curve_to() this function will behave as if preceded by a call to cr.move_to(x1, y1).\n"
 	);
 }
 
@@ -1760,7 +1808,10 @@ Gura_DeclareMethod(context, line_to)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Adds a line to the path from the current point to position (x, y) in user-space coordinates.\n"
+	"After this call the current point will be (x, y).\n"
+	"\n"
+	"If there is no current point before the call to cairo.context#line_to() this function will behave as cr.move_to(x, y).\n"
 	);
 }
 
@@ -1781,7 +1832,7 @@ Gura_DeclareMethod(context, move_to)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Begin a new sub-path. After this call the current point will be (x, y).\n"
 	);
 }
 
@@ -1804,7 +1855,15 @@ Gura_DeclareMethod(context, rectangle)
 	DeclareArg(env, "width", VTYPE_number);
 	DeclareArg(env, "height", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Adds a closed sub-path rectangle of the given size to the current path at position (x, y) in user-space coordinates.\n"
+	"\n"
+	"This function is logically equivalent to:\n"
+	"\n"
+	"  cr.move_to(x, y)\n"
+	"  cr.rel_line_to(width, 0)\n"
+	"  cr.rel_line_to(0, height)\n"
+	"  cr.rel_line_to(-width, 0)\n"
+	"  cr.close_path()\n"
 	);
 }
 
@@ -1826,7 +1885,8 @@ Gura_DeclareMethod(context, glyph_path)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "glyphs", VTYPE_glyph);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Adds closed paths for the glyphs to the current path.\n"
+	"The generated path if filled, achieves an effect similar to that of cairo.context#show_glyphs().\n"
 	);
 }
 
@@ -1847,7 +1907,18 @@ Gura_DeclareMethod(context, text_path)
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "text", VTYPE_string);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Adds closed paths for text to the current path.\n"
+	"The generated path if filled, achieves an effect similar to that of cairo.context#show_text().\n"
+	"\n"
+	"Text conversion and positioning is done similar to cairo.context#show_text().\n"
+	"\n"
+	"Like cairo.context#show_text(), After this call the current point is moved to the origin of where the next glyph would be placed in this same progression.\n"
+	"That is, the current point will be at the origin of the final glyph offset by its advance values.\n"
+	"This allows for chaining multiple calls to to cairo.context#text_path() without having to set current point in between.\n"
+	"\n"
+	"Note: The cairo.context#text_path() function call is part of what the cairo designers call the \"toy\" text API.\n"
+	"It is convenient for short demos and simple programs, but it is not expected to be adequate for serious text-using applications.\n"
+	"See cairo.context#glyph_path() for the \"real\" text path API in cairo.\n"
 	);
 }
 
@@ -1872,7 +1943,16 @@ Gura_DeclareMethod(context, rel_curve_to)
 	DeclareArg(env, "dx3", VTYPE_number);
 	DeclareArg(env, "dy3", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Relative-coordinate version of cairo.context#curve_to().\n"
+	"All offsets are relative to the current point.\n"
+	"Adds a cubic Bezier spline to the path from the current point to a point offset from the current point by (dx3, dy3),\n"
+	"using points offset by (dx1, dy1) and (dx2, dy2) as the control points.\n"
+	"After this call the current point will be offset by (dx3, dy3).\n"
+	"\n"
+	"Given a current point of (x, y), cr.rel_curve_to(dx1, dy1, dx2, dy2, dx3, dy3) is logically equivalent to cr.curve_to(x+dx1, y+dy1, x+dx2, y+dy2, x+dx3, y+dy3).\n"
+	"\n"
+	"It is an error to call this function with no current point.\n"
+	"Doing so will cause cr to shutdown with a status of cairo.STATUS_NO_CURRENT_POINT.\n"
 	);
 }
 
@@ -1896,7 +1976,14 @@ Gura_DeclareMethod(context, rel_line_to)
 	DeclareArg(env, "dx", VTYPE_number);
 	DeclareArg(env, "dy", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Relative-coordinate version of cairo.context#line_to().\n"
+	"Adds a line to the path from the current point to a point that is offset from the current point by (dx, dy) in user space.\n"
+	"After this call the current point will be offset by (dx, dy).\n"
+	"\n"
+	"Given a current point of (x, y), cr.rel_line_to(dx, dy) is logically equivalent to cr.line_to(x + dx, y + dy).\n"
+	"\n"
+	"It is an error to call this function with no current point.\n"
+	"Doing so will cause cr to shutdown with a status of cairo.STATUS_NO_CURRENT_POINT.\n"
 	);
 }
 
@@ -1917,7 +2004,12 @@ Gura_DeclareMethod(context, rel_move_to)
 	DeclareArg(env, "dx", VTYPE_number);
 	DeclareArg(env, "dy", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Begin a new sub-path. After this call the current point will offset by (dx, dy).\n"
+	"\n"
+	"Given a current point of (x, y), cr.rel_move_to(dx, dy) is logically equivalent to cr.move_to(x + dx, y + dy).\n"
+	"\n"
+	"It is an error to call this function with no current point.\n"
+	"Doing so will cause cr to shutdown with a status of cairo.STATUS_NO_CURRENT_POINT.\n"
 	);
 }
 
@@ -1936,7 +2028,19 @@ Gura_DeclareMethod(context, path_extents)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Computes a bounding box in user-space coordinates covering the points on the current path.\n"
+	"If the current path is empty, returns an empty rectangle ((0,0), (0,0)).\n"
+	"Stroke parameters, fill rule, surface dimensions and clipping are not taken into account.\n"
+	"\n"
+	"Contrast with cairo.context#fill_extents() and cairo.context#stroke_extents()\n"
+	"which return the extents of only the area that would be \"inked\" by the corresponding drawing operations.\n"
+	"\n"
+	"The result of cairo.context#path_extents() is defined as equivalent to the limit of cairo.context#stroke_extents() with cairo.LINE_CAP_ROUND as the line width approaches 0.0,\n"
+	"(but never reaching the empty-rectangle returned by cairo.context#stroke_extents() for a line width of 0.0).\n"
+	"\n"
+	"Specifically, this means that zero-area sub-paths such as cairo.context#move_to();cairo.context#line_to() segments,\n"
+	"(even degenerate cases where the coordinates to both calls are identical), will be considered as contributing to the extents.\n"
+	"However, a lone cairo.context#move_to() will not contribute to the results of cairo.context#path_extents().\n"
 	);
 }
 
