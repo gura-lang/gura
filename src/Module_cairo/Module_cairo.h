@@ -30,8 +30,6 @@ Gura_DeclareUserSymbol(x_bearing);
 Gura_DeclareUserSymbol(y_advance);
 Gura_DeclareUserSymbol(y_bearing);
 
-extern const double NUM_PI;
-
 //-----------------------------------------------------------------------------
 // Reader declaration
 //-----------------------------------------------------------------------------

@@ -1687,7 +1687,7 @@ Gura_ImplementMethod(context, close_path)
 }
 
 // cairo.context#arc(xc:number, yc:number, radius:number,
-//                   angle1?:number, angle2?:number):map:reduce
+//                   angle1?:number, angle2?:number):map:reduce:[deg]
 Gura_DeclareMethod(context, arc)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
@@ -1696,6 +1696,7 @@ Gura_DeclareMethod(context, arc)
 	DeclareArg(env, "radius", VTYPE_number);
 	DeclareArg(env, "angle1", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "angle2", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(Gura_Symbol(en),
 	"Adds a circular arc of the given radius to the current path.\n"
 	"The arc is centered at (xc, yc), begins at angle1 and proceeds in the direction of increasing angles to end at angle2.\n"
@@ -1729,8 +1730,15 @@ Gura_ImplementMethod(context, arc)
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Null;
-	double angle1 = args.IsNumber(3)? args.GetDouble(3) : 0;
-	double angle2 = args.IsNumber(4)? args.GetDouble(4) : 2 * NUM_PI;
+	double angle1 = 0;
+	double angle2 = 2 * Math_PI;
+	if (args.IsSet(Gura_Symbol(deg))) {
+		if (args.IsNumber(3)) angle1 = DegToRad(args.GetDouble(3));
+		if (args.IsNumber(4)) angle2 = DegToRad(args.GetDouble(4));
+	} else {
+		if (args.IsNumber(3)) angle1 = args.GetDouble(3);
+		if (args.IsNumber(4)) angle2 = args.GetDouble(4);
+	}
 	::cairo_arc(cr, args.GetDouble(0), args.GetDouble(1),
 										args.GetDouble(2), angle1, angle2);
 	if (IsError(sig, cr)) return Value::Null;
@@ -1738,7 +1746,7 @@ Gura_ImplementMethod(context, arc)
 }
 
 // cairo.context#arc_negative(xc:number, yc:number, radius:number,
-//                            angle1?:number, angle2?:number):map:reduce
+//                            angle1?:number, angle2?:number):map:reduce:[deg]
 Gura_DeclareMethod(context, arc_negative)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
@@ -1747,6 +1755,7 @@ Gura_DeclareMethod(context, arc_negative)
 	DeclareArg(env, "radius", VTYPE_number);
 	DeclareArg(env, "angle1", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "angle2", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(Gura_Symbol(en),
 	"Adds a circular arc of the given radius to the current path.\n"
 	"The arc is centered at (xc, yc), begins at angle1 and proceeds in the direction of decreasing angles to end at angle2.\n"
@@ -1761,8 +1770,15 @@ Gura_ImplementMethod(context, arc_negative)
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Null;
-	double angle1 = args.IsNumber(3)? args.GetDouble(3) : 0;
-	double angle2 = args.IsNumber(4)? args.GetDouble(4) : 2 * NUM_PI;
+	double angle1 = 0;
+	double angle2 = 2 * Math_PI;
+	if (args.IsSet(Gura_Symbol(deg))) {
+		if (args.IsNumber(3)) angle1 = DegToRad(args.GetDouble(3));
+		if (args.IsNumber(4)) angle2 = DegToRad(args.GetDouble(4));
+	} else {
+		if (args.IsNumber(3)) angle1 = args.GetDouble(3);
+		if (args.IsNumber(4)) angle2 = args.GetDouble(4);
+	}
 	::cairo_arc_negative(cr, args.GetDouble(0), args.GetDouble(1),
 										args.GetDouble(2), angle1, angle2);
 	if (IsError(sig, cr)) return Value::Null;

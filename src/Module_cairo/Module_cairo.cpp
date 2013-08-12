@@ -12,8 +12,6 @@ Gura_AssignValue(name, Value(env, CAIRO_##name))
 
 Gura_BeginModule(cairo)
 
-const double NUM_PI = 3.14159265358979323846;
-
 //-----------------------------------------------------------------------------
 // Gura interfaces for image
 // These method are available after importing opengl module.
