@@ -1409,7 +1409,7 @@ Gura_DeclareMethod(context, in_stroke)
 	AddHelp(Gura_Symbol(en),
 	"Tests whether the given point is inside the area that would be affected by a cairo.context#stroke() operation given the current path and stroking parameters.\n"
 	"Surface dimensions and clipping are not taken into account.\n"
-	"See cairo_stroke(), cairo_set_line_width(), cairo_set_line_join(), cairo_set_line_cap(), cairo_set_dash(), and cairo_stroke_preserve().\n"
+	"See cairo.context#stroke(), cairo.context#set_line_width(), cairo.context#set_line_join(), cairo.context#set_line_cap(), cairo.context#_set_dash(), and cairo.context#stroke_preserve().\n"
 	);
 }
 
@@ -1428,7 +1428,11 @@ Gura_DeclareMethod(context, copy_page)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Emits the current page for backends that support multiple pages, but doesn't clear it,\n"
+	"so, the contents of the current page will be retained for the next page too.\n"
+	"Use cairo.cairo#show_page() if you want to get an empty page after the emission.\n"
+	"\n"
+	"This is a convenience function that simply calls cairo.context#surface_copy_page() on cr's target.\n"
 	);
 }
 
@@ -1447,7 +1451,10 @@ Gura_DeclareMethod(context, show_page)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Emits and clears the current page for backends that support multiple pages.\n"
+	"Use cairo.context#copy_page() if you don't want to clear the page.\n"
+	"\n"
+	"This is a convenience function that simply calls cairo.context#surface_show_page() on cr's target.\n"
 	);
 }
 
@@ -1474,7 +1481,14 @@ Gura_DeclareMethod(context, copy_path)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Creates a copy of the current path and returns it to the user as a cairo.path.\n"
+	"See cairo_path_data_t for hints on how to iterate over the returned data structure.\n"
+	"\n"
+	"The result will have no data (data==NULL and num_data==0), if either of the following conditions hold:\n"
+	"\n"
+	"1. If there is insufficient memory to copy the path. In this case path->status will be set to cairo.STATUS_NO_MEMORY.\n"
+	"\n"
+	"2. If cr is already in an error state. In this case path->status will contain the same status that would be returned by cairo.context#status().\n"
 	);
 }
 
@@ -1494,7 +1508,18 @@ Gura_DeclareMethod(context, copy_path_flat)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Gets a flattened copy of the current path and returns it to the user as a cairo.path.\n"
+	"See cairo_path_data_t for hints on how to iterate over the returned data structure.\n"
+	"\n"
+	"This function is like cairo.context#copy_path() except that any curves in the path will be approximated with piecewise-linear approximations,\n"
+	"(accurate to within the current tolerance value).\n"
+	"That is, the result is guaranteed to not have any elements of type cairo.PATH_CURVE_TO which will instead be replaced by a series of cairo.PATH_LINE_TO elements.\n"
+	"\n"
+	"The result will have no data (data==NULL and num_data==0), if either of the following conditions hold:\n"
+	"\n"
+	"1. If there is insufficient memory to copy the path. In this case path->status will be set to cairo.STATUS_NO_MEMORY.\n"
+	"\n"
+	"2. If cr is already in an error state. In this case path->status will contain the same status that would be returned by cairo.context#status().\n"
 	);
 }
 
@@ -1515,7 +1540,8 @@ Gura_DeclareMethod(context, append_path)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "path", VTYPE_path);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Append the path onto the current path. The path may be either the return value from one of cairo.context#copy_path() or cairo.context#copy_path_flat() or it may be constructed manually.\n"
+	"See cairo_path_t for details on how the path data structure should be initialized, and note that path->status must be initialized to cairo.STATUS_SUCCESS.\n"
 	);
 }
 
@@ -1535,7 +1561,8 @@ Gura_DeclareMethod(context, has_current_point)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Returns whether a current point is defined on the current path.\n"
+	"See cairo.context#get_current_point() for details on the current point.\n"
 	);
 }
 
@@ -1554,7 +1581,23 @@ Gura_DeclareMethod(context, get_current_point)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Gets the current point of the current path, which is conceptually the final point reached by the path so far.\n"
+	"\n"
+	"The current point is returned in the user-space coordinate system.\n"
+	"If there is no defined current point or if cr is in an error status, x and y will both be set to 0.0.\n"
+	"It is possible to check this in advance with cairo.context#has_current_point().\n"
+	"\n"
+	"Most path construction functions alter the current point.\n"
+	"See the following for details on how they affect the current point:\n"
+	"cairo.context#new_path(), cairo.context#new_sub_path(), cairo.context#append_path(),\n"
+	"cairo.context#close_path(), cairo.context#move_to(), cairo.context#line_to(), cairo.context#curve_to(),\n"
+	"cairo.context#rel_move_to(), cairo.context#rel_line_to(), cairo.context#rel_curve_to(),\n"
+	"cairo.context#arc(), cairo.context#arc_negative(), cairo.context#rectangle(), cairo.context#text_path(),\n"
+	"cairo.context#glyph_path(), cairo.context#stroke_to_path().\n"
+	"\n"
+	"Some functions use and alter the current point but do not otherwise change current path: cairo.context#show_text().\n"
+	"\n"
+	"Some functions unset the current path and as a result, current point: cairo.context#fill(), cairo.context#stroke().\n"
 	);
 }
 
@@ -1574,7 +1617,7 @@ Gura_DeclareMethod(context, new_path)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Clears the current path. After this call there will be no path and no current point.\n"
 	);
 }
 
