@@ -11,14 +11,14 @@ Panel = class(wx.Panel) {
 		wx.ScrolledWindow(this, style => wx.BORDER_SUNKEN | wx.HSCROLL | wx.VSCROLL) {|panel|
 			vbox.Add(panel, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
 			panel.SetScrollRate(10, 10)
-			panel.SetVirtualSizeWH(this.image.width, this.image.height)
+			panel.SetVirtualSizeWH(this.img.width, this.img.height)
 			panel.Bind(wx.EVT_ERASE_BACKGROUND) {} // nothing to do
 			panel.Bind(wx.EVT_PAINT) {|event|
 				try {
 					wx.PaintDC(panel) {|dc|
 						panel.PrepareDC(dc)
 						size = panel.GetClientSize()
-						dc.DrawBitmap(this.imageFrame, 0, 0, false)
+						dc.DrawBitmap(this.imgFrame, 0, 0, false)
 					}
 				} except {|e|
 					println(e)
@@ -26,15 +26,15 @@ Panel = class(wx.Panel) {
 			}
 			panel.Bind(wx.EVT_SIZE) {|event|
 				size = event.GetSize()
-				if (this.image.width < size.GetWidth() || \
-										this.image.height < size.GetHeight()) {
-					wdFrame = max(this.image.width, size.GetWidth())
-					htFrame = max(this.image.height, size.GetHeight())
-					this.imageFrame = image(`rgb, wdFrame, htFrame, `gray)
-					this.imageFrame.paste((wdFrame - this.image.width) / 2,
-									(htFrame - this.image.height) / 2, this.image)
+				if (this.img.width < size.GetWidth() || \
+										this.img.height < size.GetHeight()) {
+					wdFrame = max(this.img.width, size.GetWidth())
+					htFrame = max(this.img.height, size.GetHeight())
+					this.imgFrame = image(`rgb, wdFrame, htFrame, `gray)
+					this.imgFrame.paste((wdFrame - this.img.width) / 2,
+									(htFrame - this.img.height) / 2, this.img)
 				} else {
-					this.imageFrame = this.image
+					this.imgFrame = this.img
 				}
 				this.Refresh()
 			}
@@ -66,6 +66,6 @@ App = class(wx.App) {
 // expansion to image class
 classref(`root.image).show(width => 640, height => 480) = {
 	[App.width:public, App.height:public] = [width, height]
-	Panel.image = this
+	Panel.img = this
 	wx.IMPLEMENT_APP(App)
 }
