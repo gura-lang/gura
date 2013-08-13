@@ -24,6 +24,35 @@ String Object_scaled_font::ToString(Signal sig, bool exprFlag)
 // Gura interfaces for scaled_font
 //-----------------------------------------------------------------------------
 //#cairo_scaled_font_t *cairo_scaled_font_create(cairo_font_face_t *font_face, const cairo_matrix_t *font_matrix, const cairo_matrix_t *ctm, const cairo_font_options_t *options);
+// cairo.scaled_font.create(font_face:cairo.font_face,
+//            font_matrix:matrix, ctm:matrix, options:cairo.font_options) {block?}
+Gura_DeclareClassMethod(scaled_font, create)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "font_face", VTYPE_font_face);
+	DeclareArg(env, "font_matrix", VTYPE_matrix);
+	DeclareArg(env, "ctm", VTYPE_matrix);
+	DeclareArg(env, "options", VTYPE_font_options);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
+}
+
+Gura_ImplementClassMethod(scaled_font, create)
+{
+	cairo_font_face_t *font_face = Object_font_face::GetObject(args, 0)->GetEntity();
+	cairo_matrix_t font_matrix;
+	cairo_matrix_t ctm;
+	if (!MatrixToCairo(sig, font_matrix,
+			Object_matrix::GetObject(args, 1)->GetMatrix())) return Value::Null;
+	if (!MatrixToCairo(sig, ctm,
+			Object_matrix::GetObject(args, 2)->GetMatrix())) return Value::Null;
+	cairo_font_options_t *options = Object_font_options::GetObject(args, 3)->GetEntity();
+	cairo_scaled_font_t *scaled_font = ::cairo_scaled_font_create(
+			::cairo_font_face_reference(font_face), &font_matrix, &ctm, options);
+	return ReturnValue(env, sig, args, Value(new Object_scaled_font(scaled_font)));
+}
 
 //#cairo_scaled_font_t *cairo_scaled_font_reference(cairo_scaled_font_t *scaled_font);
 //#void cairo_scaled_font_destroy(cairo_scaled_font_t *scaled_font);
@@ -67,6 +96,7 @@ String Object_scaled_font::ToString(Signal sig, bool exprFlag)
 // implementation of class font_options
 Gura_ImplementUserClass(scaled_font)
 {
+	Gura_AssignMethod(scaled_font, create);
 }
 
 }}

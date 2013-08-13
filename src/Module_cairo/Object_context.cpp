@@ -2225,7 +2225,8 @@ Gura_DeclareMethod(context, identity_matrix)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Resets the current transformation matrix (CTM) by setting it equal to the identity matrix.\n"
+	"That is, the user-space and device-space axes will be aligned and one user-space unit will transform to one device-space unit.\n"
 	);
 }
 
@@ -2246,7 +2247,7 @@ Gura_DeclareMethod(context, user_to_device)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Transform a coordinate from user space to device space by multiplying the given point by the current transformation matrix (CTM).\n"
 	);
 }
 
@@ -2269,7 +2270,9 @@ Gura_DeclareMethod(context, user_to_device_distance)
 	DeclareArg(env, "dx", VTYPE_number);
 	DeclareArg(env, "dy", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Transform a distance vector from user space to device space.\n"
+	"This function is similar to cairo.context#user_to_device()\n"
+	"except that the translation components of the CTM will be ignored when transforming (dx,dy).\n"
 	);
 }
 
@@ -2292,7 +2295,7 @@ Gura_DeclareMethod(context, device_to_user)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Transform a coordinate from device space to user space by multiplying the given point by the inverse of the current transformation matrix (CTM).\n"
 	);
 }
 
@@ -2315,7 +2318,9 @@ Gura_DeclareMethod(context, device_to_user_distance)
 	DeclareArg(env, "dx", VTYPE_number);
 	DeclareArg(env, "dy", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Transform a distance vector from device space to user space.\n"
+	"This function is similar to cairo.context#device_to_user()\n"
+	"except that the translation components of the inverse CTM will be ignored when transforming (dx,dy).\n"
 	);
 }
 
@@ -2343,7 +2348,32 @@ Gura_DeclareMethod(context, select_font_face)
 	DeclareArg(env, "slant", VTYPE_number);
 	DeclareArg(env, "weight", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Note: The cairo.context#select_font_face() function call is part of what the cairo designers call the \"toy\" text API.\n"
+	"It is convenient for short demos and simple programs, but it is not expected to be adequate for serious text-using applications.\n"
+	"\n"
+	"Selects a family and style of font from a simplified description as a family name, slant and weight.\n"
+	"Cairo provides no operation to list available family names on the system (this is a \"toy\", remember),\n"
+	"but the standard CSS2 generic family names, (\"serif\", \"sans-serif\", \"cursive\", \"fantasy\", \"monospace\"), are likely to work as expected.\n"
+	"\n"
+	"If family starts with the string \"cairo:\", or if no native font backends are compiled in, cairo will use an internal font family.\n"
+	"The internal font family recognizes many modifiers in the family string, most notably, it recognizes the string \"monospace\".\n"
+	"That is, the family name \"cairo:monospace\" will use the monospace version of the internal font family.\n"
+	"\n"
+	"For \"real\" font selection, see the font-backend-specific font_face_create functions for the font backend you are using.\n"
+	"(For example, if you are using the freetype-based cairo-ft font backend, see cairo_ft_font_face_create_for_ft_face() or cairo_ft_font_face_create_for_pattern().)\n"
+	"The resulting font face could then be used with cairo.scaled_font_create() and cairo.context#set_scaled_font().\n"
+	"\n"
+	"Similarly, when using the \"real\" font support, you can call directly into the underlying font system,\n"
+	"(such as fontconfig or freetype), for operations such as listing available fonts, etc.\n"
+	"\n"
+	"It is expected that most applications will need to use a more comprehensive font handling and text layout library,\n"
+	"(for example, pango), in conjunction with cairo.\n"
+	"\n"
+	"If text is drawn without a call to cairo.context#select_font_face(), (nor cairo.context#set_font_face() nor cairo.context#set_scaled_font()),\n"
+	"the default family is platform-specific, but is essentially \"sans-serif\".\n"
+	"Default slant is cairo.FONT_SLANT_NORMAL, and default weight is cairo.FONT_WEIGHT_NORMAL.\n"
+	"\n"
+	"This function is equivalent to a call to cairo.toy_font_face.create() followed by cairo.context#set_font_face().\n"
 	);
 }
 
@@ -2368,7 +2398,10 @@ Gura_DeclareMethod(context, set_font_size)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "size", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets the current font matrix to a scale by a factor of size, replacing any font matrix previously set with cairo.context#set_font_size() or cairo.context#set_font_matrix().\n"
+	"This results in a font size of size user space units. (More precisely, this matrix will result in the font's em-square being a size by size square in user space.)\n"
+	"\n"
+	"If text is drawn without a call to cairo.context#set_font_size(), (nor cairo.context#set_font_matrix() nor cairo.context#set_scaled_font()), the default font size is 10.0.\n"
 	);
 }
 
@@ -2388,7 +2421,9 @@ Gura_DeclareMethod(context, set_font_matrix)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_matrix);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets the current font matrix to matrix.\n"
+	"The font matrix gives a transformation from the design space of the font (in this space, the em-square is 1 unit by 1 unit) to user space.\n"
+	"Normally, a simple scale is used (see cairo_set_font_size()), but a more complex font matrix can be used to shear the font or stretch it unequally along the two axes.\n"
 	);
 }
 
@@ -2410,7 +2445,7 @@ Gura_DeclareMethod(context, get_font_matrix)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Stores the current font matrix into matrix. See cairo.context#set_font_matrix().\n"
 	);
 }
 
@@ -2432,7 +2467,9 @@ Gura_DeclareMethod(context, set_font_options)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "options", VTYPE_font_options);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets a set of custom font rendering options for the cairo_t.\n"
+	"Rendering options are derived by merging these options with the options derived from underlying surface;\n"
+	"if the value in options has a default value (like cairo.ANTIALIAS_DEFAULT), then the value from the surface is used.\n"
 	);
 }
 
@@ -2452,7 +2489,9 @@ Gura_DeclareMethod(context, get_font_options)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Retrieves font rendering options set via cairo.context#set_font_options.\n"
+	"Note that the returned options do not include any options derived from the underlying surface;\n"
+	"they are literally the options passed to cairo.context#set_font_options().\n"
 	);
 }
 
@@ -2477,7 +2516,8 @@ Gura_DeclareMethod(context, set_font_face)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "font_face", VTYPE_font_face);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Replaces the current cairo_font_face_t object in the cairo_t with font_face.\n"
+	"The replaced font face in the cairo_t will be destroyed if there are no other references to it.\n"
 	);
 }
 
@@ -2497,7 +2537,7 @@ Gura_DeclareMethod(context, get_font_face)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Gets the current font face for a cairo_t.\n"
 	);
 }
 
@@ -2520,7 +2560,9 @@ Gura_DeclareMethod(context, set_scaled_font)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "scaled_font", VTYPE_scaled_font);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Replaces the current font face, font matrix, and font options in the cairo_t with those of the cairo_scaled_font_t.\n"
+	"Except for some translation, the current CTM of the cairo_t should be the same as that of the cairo_scaled_font_t,\n"
+	"which can be accessed using cairo.context#scaled_font_get_ctm().\n"
 	);
 }
 
@@ -2540,7 +2582,7 @@ Gura_DeclareMethod(context, get_scaled_font)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Gets the current scaled font for a cairo_t.\n"
 	);
 }
 
@@ -2563,7 +2605,20 @@ Gura_DeclareMethod(context, show_text)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string);
 	AddHelp(Gura_Symbol(en),
-	""
+	"A drawing operator that generates the shape from a string of UTF-8 characters,\n"
+	"rendered according to the current font_face, font_size (font_matrix), and font_options.\n"
+	"\n"
+	"This function first computes a set of glyphs for the string of text.\n"
+	"The first glyph is placed so that its origin is at the current point.\n"
+	"The origin of each subsequent glyph is offset from that of the previous glyph by the advance values of the previous glyph.\n"
+	"\n"
+	"After this call the current point is moved to the origin of where the next glyph would be placed in this same progression.\n"
+	"That is, the current point will be at the origin of the final glyph offset by its advance values.\n"
+	"This allows for easy display of a single logical string with multiple calls to cairo.context#show_text().\n"
+	"\n"
+	"Note: The cairo.context#show_text() function call is part of what the cairo designers call the \"toy\" text API.\n"
+	"It is convenient for short demos and simple programs, but it is not expected to be adequate for serious text-using applications.\n"
+	"See cairo.context#show_glyphs() for the \"real\" text display API in cairo.\n"
 	);
 }
 
@@ -2583,7 +2638,8 @@ Gura_DeclareMethod(context, show_glyphs)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "glyphs", VTYPE_glyph);
 	AddHelp(Gura_Symbol(en),
-	""
+	"A drawing operator that generates the shape from an array of glyphs,\n"
+	"rendered according to the current font face, font size (font matrix), and font options.\n"
 	);
 }
 
@@ -2608,7 +2664,20 @@ Gura_DeclareMethod(context, show_text_glyphs)
 	DeclareArg(env, "clusters", VTYPE_text_cluster);
 	DeclareArg(env, "cluster_flags", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"This operation has rendering effects similar to cairo_show_glyphs() but, if the target surface supports it,\n"
+	"uses the provided text and cluster mapping to embed the text for the glyphs shown in the output.\n"
+	"If the target does not support the extended attributes, this function acts like the basic cairo.context#show_glyphs()\n"
+	"as if it had been passed glyphs and num_glyphs.\n"
+	"\n"
+	"The mapping between utf8 and glyphs is provided by an array of clusters.\n"
+	"Each cluster covers a number of text bytes and glyphs, and neighboring clusters cover neighboring areas of utf8 and glyphs.\n"
+	"The clusters should collectively cover utf8 and glyphs in entirety.\n"
+	"\n"
+	"The first cluster always covers bytes from the beginning of utf8.\n"
+	"If cluster_flags do not have the cairo.TEXT_CLUSTER_FLAG_BACKWARD set, the first cluster also covers the beginning of glyphs,\n"
+	"otherwise it covers the end of the glyphs array and following clusters move backward.\n"
+	"\n"
+	"See cairo.text_cluster for constraints on valid clusters.\n"
 	);
 }
 
@@ -2634,7 +2703,7 @@ Gura_DeclareMethod(context, font_extents)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Gets the font extents for the currently selected font.\n"
 	);
 }
 
@@ -2656,7 +2725,14 @@ Gura_DeclareMethod(context, text_extents)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Gets the extents for a string of text.\n"
+	"The extents describe a user-space rectangle that encloses the \"inked\" portion of the text, (as it would be drawn by cairo.context#show_text()).\n"
+	"Additionally, the x_advance and y_advance values indicate the amount by which the current point would be advanced by cairo.context#show_text().\n"
+	"\n"
+	"Note that whitespace characters do not directly contribute to the size of the rectangle (extents.width and extents.height).\n"
+	"They do contribute indirectly by changing the position of non-whitespace characters.\n"
+	"In particular, trailing whitespace characters are likely to not affect the size of the rectangle,\n"
+	"though they will affect the x_advance and y_advance values.\n"
 	);
 }
 
@@ -2678,7 +2754,11 @@ Gura_DeclareMethod(context, glyph_extents)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "glyphs", VTYPE_glyph);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Gets the extents for an array of glyphs.\n"
+	"The extents describe a user-space rectangle that encloses the \"inked\" portion of the glyphs, (as they would be drawn by cairo.context#show_glyphs()).\n"
+	"Additionally, the x_advance and y_advance values indicate the amount by which the current point would be advanced by cairo.context#show_glyphs().\n"
+	"\n"
+	"Note that whitespace glyphs do not contribute to the size of the rectangle (extents.width and extents.height).\n"
 	);
 }
 

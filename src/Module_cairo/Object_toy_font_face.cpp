@@ -21,6 +21,16 @@ Gura_DeclareClassMethod(toy_font_face, create)
 	DeclareArg(env, "slant", VTYPE_number);
 	DeclareArg(env, "weight", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	"Creates a font face from a triplet of family, slant, and weight.\n"
+	"These font faces are used in implementation of the the cairo_t \"toy\" font API.\n"
+	"\n"
+	"If family is the zero-length string \"\", the platform-specific default family is assumed.\n"
+	"The default family then can be queried using cairo.toy_font_face#get_family().\n"
+	"\n"
+	"The cairo.context#select_font_face() function uses this to create font faces.\n"
+	"See that function for limitations and other details of toy font faces.\n"
+	);
 }
 
 Gura_ImplementClassMethod(toy_font_face, create)
@@ -37,6 +47,9 @@ Gura_ImplementClassMethod(toy_font_face, create)
 Gura_DeclareMethod(toy_font_face, get_family)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the familly name of a toy font.\n"
+	);
 }
 
 Gura_ImplementMethod(toy_font_face, get_family)
@@ -51,6 +64,9 @@ Gura_ImplementMethod(toy_font_face, get_family)
 Gura_DeclareMethod(toy_font_face, get_slant)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the slant a toy font.\n"
+	);
 }
 
 Gura_ImplementMethod(toy_font_face, get_slant)
@@ -65,6 +81,9 @@ Gura_ImplementMethod(toy_font_face, get_slant)
 Gura_DeclareMethod(toy_font_face, get_weight)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the weight a toy font.\n"
+	);
 }
 
 Gura_ImplementMethod(toy_font_face, get_weight)
