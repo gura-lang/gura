@@ -1722,6 +1722,8 @@ Gura_DeclareMethod(context, arc)
 	"  cr.scale(width / 2., height / 2.)\n"
 	"  cr.arc(0., 0., 1., 0., 2 * math.pi)\n"
 	"  cr.restore()\n"
+	"\n"
+	"*Gura:* If attribute :deg is specified, angle1 and angle2 are represented in degrees instead of radians.\n"
 	);
 }
 
@@ -1762,6 +1764,8 @@ Gura_DeclareMethod(context, arc_negative)
 	"If angle2 is greater than angle1 it will be progressively decreased by 2*math.pi until it is less than angle1.\n"
 	"\n"
 	"See cairo.context#arc() for more details. This function differs only in the direction of the arc between the two angles.\n"
+	"\n"
+	"*Gura:* If attribute :deg is specified, angle1 and angle2 are represented in degrees instead of radians.\n"
 	);
 }
 
@@ -2082,7 +2086,9 @@ Gura_DeclareMethod(context, translate)
 	DeclareArg(env, "tx", VTYPE_number);
 	DeclareArg(env, "ty", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Modifies the current transformation matrix (CTM) by translating the user-space origin by (tx, ty).\n"
+	"This offset is interpreted as a user-space coordinate according to the CTM in place before the new call to cairo.context#translate().\n"
+	"In other words, the translation of the user-space origin takes place after any existing transformation.\n"
 	);
 }
 
@@ -2103,7 +2109,8 @@ Gura_DeclareMethod(context, scale)
 	DeclareArg(env, "sx", VTYPE_number);
 	DeclareArg(env, "sy", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Modifies the current transformation matrix (CTM) by scaling the X and Y user-space axes by sx and sy respectively.\n"
+	"The scaling of the axes takes place after any existing transformation of user space.\n"
 	);
 }
 
@@ -2117,13 +2124,18 @@ Gura_ImplementMethod(context, scale)
 	return args.GetThis();
 }
 
-// cairo.context#rotate(angle:number):reduce
+// cairo.context#rotate(angle:number):reduce:[deg]
 Gura_DeclareMethod(context, rotate)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "angle", VTYPE_number);
+	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(Gura_Symbol(en),
-	""
+	"Modifies the current transformation matrix (CTM) by rotating the user-space axes by angle radians.\n"
+	"The rotation of the axes takes places after any existing transformation of user space.\n"
+	"The rotation direction for positive angles is from the positive X axis toward the positive Y axis.\n"
+	"\n"
+	"*Gura:* If attribute :deg is specified, angle is represented in degrees instead of radians.\n"
 	);
 }
 
@@ -2132,7 +2144,9 @@ Gura_ImplementMethod(context, rotate)
 	Object_context *pThis = Object_context::GetThisObj(args);
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Null;
-	::cairo_rotate(cr, args.GetDouble(0));
+	double angle = args.GetDouble(0);
+	if (args.IsSet(Gura_Symbol(deg))) angle = DegToRad(angle);
+	::cairo_rotate(cr, angle);
 	if (IsError(sig, cr)) return Value::Null;
 	return args.GetThis();
 }
@@ -2143,7 +2157,8 @@ Gura_DeclareMethod(context, transform)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_matrix);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Modifies the current transformation matrix (CTM) by applying matrix as an additional transformation.\n"
+	"The new transformation of user space takes place after any existing transformation.\n"
 	);
 }
 
@@ -2166,7 +2181,7 @@ Gura_DeclareMethod(context, set_matrix)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_matrix);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Modifies the current transformation matrix (CTM) by setting it equal to matrix.\n"
 	);
 }
 
@@ -2188,7 +2203,7 @@ Gura_DeclareMethod(context, get_matrix)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Stores the current transformation matrix (CTM) into matrix.\n"
 	);
 }
 
@@ -2200,8 +2215,9 @@ Gura_ImplementMethod(context, get_matrix)
 	cairo_matrix_t matrix;
 	::cairo_get_matrix(cr, &matrix);
 	if (IsError(sig, cr)) return Value::Null;
-	AutoPtr<Matrix> pMat(CairoToMatrix(env, matrix));
-	return Value(new Object_matrix(env, pMat.release()));
+	AutoPtr<Matrix> pMat(CairoToMatrix(matrix));
+	//return Value(new Object_matrix(env, pMat.release()));
+	return Value::Null;
 }
 
 // cairo.context#identity_matrix():reduce
@@ -2406,7 +2422,7 @@ Gura_ImplementMethod(context, get_font_matrix)
 	cairo_matrix_t matrix;
 	::cairo_get_font_matrix(cr, &matrix);
 	if (IsError(sig, cr)) return Value::Null;
-	AutoPtr<Matrix> pMat(CairoToMatrix(env, matrix));
+	AutoPtr<Matrix> pMat(CairoToMatrix(matrix));
 	return Value(new Object_matrix(env, pMat.release()));
 }
 

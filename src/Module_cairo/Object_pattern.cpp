@@ -472,7 +472,7 @@ Gura_ImplementMethod(pattern, get_matrix)
 	cairo_matrix_t matrix;
 	::cairo_pattern_get_matrix(pattern, &matrix);
 	if (IsError(sig, pattern)) return Value::Null;
-	AutoPtr<Matrix> pMat(CairoToMatrix(env, matrix));
+	AutoPtr<Matrix> pMat(CairoToMatrix(matrix));
 	return Value(new Object_matrix(env, pMat.release()));
 }
 

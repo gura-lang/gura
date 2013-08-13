@@ -138,7 +138,7 @@ bool IsError(Signal sig, cairo_font_options_t *options);
 Value RectangleToValue(Environment &env, const cairo_rectangle_t &rectangle);
 bool ValueListToRectangle(Signal sig, cairo_rectangle_t &rectangle, const ValueList &valList);
 bool ValueListToRectangle(Signal sig, cairo_rectangle_int_t &rectangle, const ValueList &valList);
-Matrix *CairoToMatrix(Environment &env, cairo_matrix_t &matrix);
+Matrix *CairoToMatrix(const cairo_matrix_t &matrix);
 bool MatrixToCairo(Signal sig, cairo_matrix_t &matrix, Matrix *pMat);
 Value CreateValueList(Environment &env, double x1, double x2);
 Value CreateValueList(Environment &env, double x1, double x2, double x3);
