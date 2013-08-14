@@ -31,6 +31,11 @@ Gura_DeclareClassMethod(pattern, create_rgb)
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	"Creates a new cairo.pattern corresponding to an opaque color.\n"
+	"The color components are floating point numbers in the range 0 to 1.\n"
+	"If the values passed in are outside that range, they will be clamped.\n"
+	);
 }
 
 Gura_ImplementClassMethod(pattern, create_rgb)
@@ -53,6 +58,11 @@ Gura_DeclareClassMethod(pattern, create_rgba)
 	DeclareArg(env, "blue", VTYPE_number);
 	DeclareArg(env, "alpha", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	"Creates a new cairo,pattern corresponding to a translucent color.\n"
+	"The color components are floating point numbers in the range 0 to 1.\n"
+	"If the values passed in are outside that range, they will be clamped.\n"
+	);
 }
 
 Gura_ImplementClassMethod(pattern, create_rgba)
@@ -73,6 +83,9 @@ Gura_DeclareClassMethod(pattern, create_color)
 	DeclareArg(env, "color", VTYPE_color);
 	DeclareArg(env, "alpha", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementClassMethod(pattern, create_color)
@@ -101,6 +114,9 @@ Gura_DeclareClassMethod(pattern, create_for_surface)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_surface);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	"Create a new cairo.pattern for the given surface.\n"
+	);
 }
 
 Gura_ImplementClassMethod(pattern, create_for_surface)
@@ -123,6 +139,13 @@ Gura_DeclareClassMethod(pattern, create_linear)
 	DeclareArg(env, "x1", VTYPE_number);
 	DeclareArg(env, "y1", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	"Create a new linear gradient cairo.pattern along the line defined by (x0, y0) and (x1, y1).\n"
+	"Before using the gradient pattern, a number of color stops should be defined using cairo.pattern#add_color_stop_rgb() or cairo.pattern#add_color_stop_rgba().\n"
+	"\n"
+	"Note: The coordinates here are in pattern space.\n"
+	"For a new pattern, pattern space is identical to user space, but the relationship between the spaces can be changed with cairo.pattern#set_matrix().\n"
+	);
 }
 
 Gura_ImplementClassMethod(pattern, create_linear)
@@ -147,6 +170,13 @@ Gura_DeclareClassMethod(pattern, create_radial)
 	DeclareArg(env, "cy1", VTYPE_number);
 	DeclareArg(env, "radius1", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	"Creates a new radial gradient cairo_pattern_t between the two circles defined by (cx0, cy0, radius0) and (cx1, cy1, radius1).\n"
+	"Before using the gradient pattern, a number of color stops should be defined using cairo.pattern#add_color_stop_rgb() or cairo.pattern#add_color_stop_rgba().\n"
+	"\n"
+	"Note: The coordinates here are in pattern space.\n"
+	"For a new pattern, pattern space is identical to user space, but the relationship between the spaces can be changed with cairo.pattern#set_matrix().\n"
+	);
 }
 
 Gura_ImplementClassMethod(pattern, create_radial)
@@ -169,6 +199,21 @@ Gura_DeclareMethod(pattern, add_color_stop_rgb)
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Adds an opaque color stop to a gradient pattern.\n"
+	"The offset specifies the location along the gradient's control vector.\n"
+	"For example, a linear gradient's control vector is from (x0,y0) to (x1,y1)\n"
+	"while a radial gradient's control vector is from any point on the start circle to the corresponding point on the end circle.\n"
+	"\n"
+	"The color is specified in the same way as in cairo.context#set_source_rgb().\n"
+	"\n"
+	"If two (or more) stops are specified with identical offset values, they will be sorted according to the order in which the stops are added,\n"
+	"(stops added earlier will compare less than stops added later).\n"
+	"This can be useful for reliably making sharp color transitions instead of the typical blend.\n"
+	"\n"
+	"Note: If the pattern is not a gradient pattern, (eg. a linear or radial pattern),\n"
+	"then the pattern will be put into an error status with a status of cairo.STATUS_PATTERN_TYPE_MISMATCH.\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, add_color_stop_rgb)
@@ -190,6 +235,21 @@ Gura_DeclareMethod(pattern, add_color_stop_rgba)
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
 	DeclareArg(env, "alpha", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Adds a translucent color stop to a gradient pattern.\n"
+	"The offset specifies the location along the gradient's control vector.\n"
+	"For example, a linear gradient's control vector is from (x0,y0) to (x1,y1)\n"
+	"while a radial gradient's control vector is from any point on the start circle to the corresponding point on the end circle.\n"
+	"\n"
+	"The color is specified in the same way as in cairo.context#set_source_rgba().\n"
+	"\n"
+	"If two (or more) stops are specified with identical offset values, they will be sorted according to the order in which the stops are added,\n"
+	"(stops added earlier will compare less than stops added later).\n"
+	"This can be useful for reliably making sharp color transitions instead of the typical blend.\n"
+	"\n"
+	"Note: If the pattern is not a gradient pattern, (eg. a linear or radial pattern),\n"
+	"then the pattern will be put into an error status with a status of cairo.STATUS_PATTERN_TYPE_MISMATCH.\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, add_color_stop_rgba)
@@ -206,6 +266,9 @@ Gura_ImplementMethod(pattern, add_color_stop_rgba)
 Gura_DeclareMethod(pattern, get_color_stop_count)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the number of color stops specified in the given gradient pattern.\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, get_color_stop_count)
@@ -223,6 +286,10 @@ Gura_DeclareMethod(pattern, get_color_stop_rgba)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "index", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Gets the color and offset information at the given index for a gradient pattern.\n"
+	"Values of index are 0 to 1 less than the number returned by cairo.pattern#get_color_stop_count().\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, get_color_stop_rgba)
@@ -240,6 +307,9 @@ Gura_ImplementMethod(pattern, get_color_stop_rgba)
 Gura_DeclareMethod(pattern, get_rgba)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the solid color for a solid color pattern.\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, get_rgba)
@@ -257,6 +327,11 @@ Gura_ImplementMethod(pattern, get_rgba)
 Gura_DeclareMethod(pattern, get_surface)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the surface of a surface pattern.\n"
+	"The reference returned in surface is owned by the pattern;\n"
+	"the caller should call cairo_surface_reference() if the surface is to be retained.\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, get_surface)
@@ -327,6 +402,9 @@ Gura_ImplementMethod(pattern, get_surface)
 Gura_DeclareMethod(pattern, get_linear_points)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the gradient endpoints for a linear gradient.\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, get_linear_points)
@@ -344,6 +422,9 @@ Gura_ImplementMethod(pattern, get_linear_points)
 Gura_DeclareMethod(pattern, get_radial_circles)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the gradient endpoint circles for a radial gradient, each specified as a center coordinate and a radius.\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, get_radial_circles)
@@ -364,6 +445,9 @@ Gura_ImplementMethod(pattern, get_radial_circles)
 Gura_DeclareMethod(pattern, status)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Checks whether an error has previously occurred for this pattern.\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, status)
@@ -379,6 +463,12 @@ Gura_DeclareMethod(pattern, set_extend)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "extend", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Sets the mode to be used for drawing outside the area of a pattern.\n"
+	"See cairo_extend_t for details on the semantics of each extend strategy.\n"
+	"\n"
+	"The default extend mode is cairo.EXTEND_NONE for surface patterns and cairo.EXTEND_PAD for gradient patterns.\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, set_extend)
@@ -396,6 +486,10 @@ Gura_ImplementMethod(pattern, set_extend)
 Gura_DeclareMethod(pattern, get_extend)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the current extend mode for a pattern.\n"
+	"See cairo_extend_t for details on the semantics of each extend strategy.\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, get_extend)
@@ -412,6 +506,16 @@ Gura_DeclareMethod(pattern, set_filter)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "filter", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Sets the filter to be used for resizing when using this pattern. See cairo_filter_t for details on each filter.\n"
+	"\n"
+	"* Note that you might want to control filtering even when you do not have an explicit cairo.pattern object,\n"
+	"(for example when using cairo.context#set_source_surface()).\n"
+	"In these cases, it is convenient to use cairo.context#get_source() to get access to the pattern that cairo creates implicitly. For example:\n"
+	"\n"
+	"  cr.set_source_surface(image, x, y)\n"
+	"  cr.get_source().set_filter(cairo.FILTER_NEAREST)\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, set_filter)
@@ -429,6 +533,9 @@ Gura_ImplementMethod(pattern, set_filter)
 Gura_DeclareMethod(pattern, get_filter)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Gets the current filter for a pattern. See cairo_filter_t for details on each filter.\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, get_filter)
@@ -445,6 +552,24 @@ Gura_DeclareMethod(pattern, set_matrix)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "matrix", VTYPE_matrix);
+	AddHelp(Gura_Symbol(en),
+	"Sets the pattern's transformation matrix to matrix. This matrix is a transformation from user space to pattern space.\n"
+	"\n"
+	"When a pattern is first created it always has the identity matrix for its transformation matrix, which means that pattern space is initially identical to user space.\n"
+	"\n"
+	"Important: Please note that the direction of this transformation matrix is from user space to pattern space.\n"
+	"This means that if you imagine the flow from a pattern to user space (and on to device space),\n"
+	"then coordinates in that flow will be transformed by the inverse of the pattern matrix.\n"
+	"\n"
+	"For example, if you want to make a pattern appear twice as large as it does by default the correct code to use is:\n"
+	"\n"
+	"  cairo_matrix_init_scale (&matrix, 0.5, 0.5);\n"
+	"  cairo_pattern_set_matrix (pattern, &matrix);\n"
+	"\n"
+	"Meanwhile, using values of 2.0 rather than 0.5 in the code above would cause the pattern to appear at half of its default size.\n"
+	"\n"
+	"Also, please note the discussion of the user-space locking semantics of cairo.context#set_source().\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, set_matrix)
@@ -463,6 +588,9 @@ Gura_ImplementMethod(pattern, set_matrix)
 Gura_DeclareMethod(pattern, get_matrix)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Stores the pattern's transformation matrix into matrix.\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, get_matrix)
@@ -480,6 +608,9 @@ Gura_ImplementMethod(pattern, get_matrix)
 Gura_DeclareMethod(pattern, get_type)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"This function returns the type a pattern. See cairo_pattern_type_t for available types.\n"
+	);
 }
 
 Gura_ImplementMethod(pattern, get_type)

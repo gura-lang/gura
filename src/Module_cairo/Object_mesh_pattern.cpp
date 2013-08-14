@@ -18,6 +18,9 @@ Gura_DeclareClassMethod(mesh_pattern, create)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementClassMethod(mesh_pattern, create)
@@ -39,6 +42,9 @@ Gura_ImplementClassMethod(mesh_pattern, create)
 Gura_DeclareMethod(mesh_pattern, begin_patch)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(mesh_pattern, begin_patch)
@@ -59,6 +65,9 @@ Gura_ImplementMethod(mesh_pattern, begin_patch)
 Gura_DeclareMethod(mesh_pattern, end_patch)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(mesh_pattern, end_patch)
@@ -81,6 +90,9 @@ Gura_DeclareMethod(mesh_pattern, move_to)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(mesh_pattern, move_to)
@@ -105,6 +117,9 @@ Gura_DeclareMethod(mesh_pattern, line_to)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(mesh_pattern, line_to)
@@ -133,6 +148,9 @@ Gura_DeclareMethod(mesh_pattern, curve_to)
 	DeclareArg(env, "y2", VTYPE_number);
 	DeclareArg(env, "x3", VTYPE_number);
 	DeclareArg(env, "y3", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(mesh_pattern, curve_to)
@@ -162,6 +180,9 @@ Gura_DeclareMethod(mesh_pattern, set_control_point)
 	DeclareArg(env, "point_num", VTYPE_number);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(mesh_pattern, set_control_point)
@@ -190,6 +211,9 @@ Gura_DeclareMethod(mesh_pattern, set_corner_color_rgb)
 	DeclareArg(env, "red", VTYPE_number);
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(mesh_pattern, set_corner_color_rgb)
@@ -220,6 +244,9 @@ Gura_DeclareMethod(mesh_pattern, set_corner_color_rgba)
 	DeclareArg(env, "green", VTYPE_number);
 	DeclareArg(env, "blue", VTYPE_number);
 	DeclareArg(env, "alpha", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(mesh_pattern, set_corner_color_rgba)
@@ -247,6 +274,9 @@ Gura_ImplementMethod(mesh_pattern, set_corner_color_rgba)
 Gura_DeclareMethod(mesh_pattern, )
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(mesh_pattern, )
