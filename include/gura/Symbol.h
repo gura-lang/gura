@@ -180,8 +180,12 @@ public:
 	Gura_DeclareSymbol(stat);
 	Gura_DeclareSymbol(map);
 	Gura_DeclareSymbol(nomap);
+	Gura_DeclareSymbol(cast);
 	Gura_DeclareSymbol(nocast);
+	Gura_DeclareSymbol(esc);
 	Gura_DeclareSymbol(noesc);
+	Gura_DeclareSymbol(sort);
+	Gura_DeclareSymbol(nosort);
 	Gura_DeclareSymbol(leader);
 	Gura_DeclareSymbol(trailer);
 	Gura_DeclareSymbol(end_marker);

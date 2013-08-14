@@ -1195,11 +1195,13 @@ Gura_DeclareFunction(dir)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "obj", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(noesc));
+	//DeclareAttr(Gura_Symbol(nosort));
 }
 
 Gura_ImplementFunction(dir)
 {
 	bool escalateFlag = !args.IsSet(Gura_Symbol(noesc));
+	bool sortFlag = !args.IsSet(Gura_Symbol(nosort));
 	SymbolList symbolList;
 	if (args.IsValid(0)) {
 		SymbolSet symbols;
@@ -1214,7 +1216,7 @@ Gura_ImplementFunction(dir)
 			symbolList.push_back(pSymbol);
 		}
 	}
-	symbolList.SortByName();
+	if (sortFlag) symbolList.SortByName();
 	Value result;
 	ValueList &valList = result.InitAsList(env);
 	valList.reserve(symbolList.size());
@@ -1231,11 +1233,13 @@ Gura_DeclareFunction(dirtype)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "obj", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(noesc));
+	//DeclareAttr(Gura_Symbol(nosort));
 }
 
 Gura_ImplementFunction(dirtype)
 {
 	bool escalateFlag = !args.IsSet(Gura_Symbol(noesc));
+	bool sortFlag = !args.IsSet(Gura_Symbol(nosort));
 	SymbolList symbolList;
 	if (args.IsValid(0)) {
 		SymbolSet symbols;
@@ -1250,7 +1254,7 @@ Gura_ImplementFunction(dirtype)
 			symbolList.push_back(pSymbol);
 		}
 	}
-	symbolList.SortByName();
+	if (sortFlag) symbolList.SortByName();
 	Value result;
 	ValueList &valList = result.InitAsList(env);
 	valList.reserve(symbolList.size());
