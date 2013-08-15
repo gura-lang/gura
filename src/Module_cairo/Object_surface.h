@@ -15,7 +15,7 @@ public:
 	Gura_DeclareObjectAccessor(surface)
 public:
 	inline Object_surface(cairo_surface_t *surface) :
-				Object(Gura_UserClass(surface)), _surface(surface) {}
+					Object(Gura_UserClass(surface)), _surface(surface) {}
 	virtual ~Object_surface();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);

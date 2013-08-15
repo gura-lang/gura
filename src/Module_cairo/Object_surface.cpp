@@ -362,7 +362,7 @@ Gura_DeclareMethod(surface, get_device_offset)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"This function returns the previous device offset set by cairo.surface#set_device_offset().\n"
 	);
 }
 
@@ -383,7 +383,22 @@ Gura_DeclareMethod(surface, set_fallback_resolution)
 	DeclareArg(env, "x_pixels_per_inch", VTYPE_number);
 	DeclareArg(env, "y_pixels_per_inch", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Set the horizontal and vertical resolution for image fallbacks.\n"
+	"\n"
+	"When certain operations aren't supported natively by a backend, cairo will fallback by rendering operations to an image and then overlaying that image onto the output.\n"
+	"For backends that are natively vector-oriented, this function can be used to set the resolution used for these image fallbacks,\n"
+	"(larger values will result in more detailed images, but also larger file sizes).\n"
+	"\n"
+	"Some examples of natively vector-oriented backends are the ps, pdf, and svg backends.\n"
+	"\n"
+	"For backends that are natively raster-oriented, image fallbacks are still possible,\n"
+	"but they are always performed at the native device resolution.\n"
+	"So this function has no effect on those backends.\n"
+	"\n"
+	"Note: The fallback resolution only takes effect at the time of completing a page (with cairo.context#show_page() or cairo.context#copy_page())\n"
+	"so there is currently no way to have more than one fallback resolution in effect on a single page.\n"
+	"\n"
+	"The default fallback resoultion is 300 pixels per inch in both dimensions.\n"
 	);
 }
 
@@ -401,7 +416,7 @@ Gura_DeclareMethod(surface, get_fallback_resolution)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"This function returns the previous fallback resolution set by cairo.surface#set_fallback_resolution(), or default fallback resolution if never set.\n"
 	);
 }
 
@@ -420,7 +435,7 @@ Gura_DeclareMethod(surface, get_type)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"This function returns the type of the backend used to create a surface. See cairo_surface_type_t for available types.\n"
 	);
 }
 
@@ -438,7 +453,7 @@ Gura_DeclareMethod(surface, get_reference_count)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Returns the current reference count of surface.\n"
 	);
 }
 
@@ -459,7 +474,11 @@ Gura_DeclareMethod(surface, copy_page)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Emits the current page for backends that support multiple pages, but doesn't clear it,\n"
+	"so that the contents of the current page will be retained for the next page.\n"
+	"Use cairo.surface#show_page() if you want to get an empty page after the emission.\n"
+	"\n"
+	"There is a convenience function for this that takes a cairo.context, namely cairo.context#copy_page().\n"
 	);
 }
 
@@ -477,7 +496,10 @@ Gura_DeclareMethod(surface, show_page)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Emits and clears the current page for backends that support multiple pages.\n"
+	"Use cairo.surface#copy_page() if you don't want to clear the page.\n"
+	"\n"
+	"There is a convenience function for this that takes a cairo.context, namely cairo.context#show_page().\n"
 	);
 }
 
@@ -495,7 +517,12 @@ Gura_DeclareMethod(surface, has_show_text_glyphs)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Returns whether the surface supports sophisticated cairo.context#show_text_glyphs() operations.\n"
+	"That is, whether it actually uses the provided text and cluster data to a cairo.context#show_text_glyphs() call.\n"
+	"\n"
+	"Note: Even if this function returns false, a cairo.context#show_text_glyphs() operation targeted at surface will still succeed.\n"
+	"It just will act like a cairo.context#show_glyphs() operation.\n"
+	"Users can use this function to avoid computing UTF-8 text and cluster mapping if the target surface does not use it.\n"
 	);
 }
 
@@ -565,10 +592,11 @@ Gura_ImplementMethod(surface, supports_mime_type)
 	return Value::Null;
 }
 
-// cairo.surface#map_to_image()
+// cairo.surface#map_to_image(extents:cairo.rectangle_int)
 Gura_DeclareMethod(surface, map_to_image)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "extents", VTYPE_rectangle_int);
 	AddHelp(Gura_Symbol(en),
 	""
 	);
@@ -578,6 +606,8 @@ Gura_ImplementMethod(surface, map_to_image)
 {
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
+	cairo_rectangle_int_t &extents = Object_rectangle_int::GetObject(args, 0)->GetEntity();
+	cairo_surface_t *rtn = ::cairo_surface_map_to_image(surface, &extents);
 	
 	sig.SetError(ERR_SystemError, "not implemented yet");
 	
